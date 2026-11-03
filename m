@@ -1,66 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728648;
-	b=pm5eWD7cP6hAAGPGIgPKyNEYven3KezXLNnctFzYvdqIxDiqI+fJcc62SIsFhTZ6wZgi
-	 aQSQrcJJ3g6Otu3+Ks+v+1ZN1PZp+a/s88DzYwqXg8VbwHrcxDOOdEJj6eXFWIbRvW7kl
-	 FfaXtQKAHhPZmdArvpG5QGQprwJJ4/78q5J2eUM7ZoDNPMyzETEmFntgeYQ5ut3Hmh3NE
-	 e9S3zNuqwBBfkR6+b165Dg8Lx+ywO53pNOHL1Quv2Gy7I0TpfqCZUPWpcTD8i+bQO7+MQ
-	 x4jGrD/JUnSfXsTTUJEiqTON7nPuq7e4FqeT43hheiRblLq0Vfxoo/TXsLuv7g2UFMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=huPTPHyj739fiAid2QA4LZrf2KE7+U9NxU9Pc0EOceI=;
-	b=Siu/6OLV9XGR0E0EhQprZcZG0qNlW/gafIwXReI9OkyjCCI53BThZMoQ9xgYTHzTleI+
-	 AObyC8dCN2aE7nN3LwsOQoYaNNWeh0Wm2pTCCO/Qp0ZNGeoGe4ZpHCzhSUTJp0nn9HFT1
-	 cQdNd4gORAJWsTRknC3fg5PVM+IrvT4jp8yTZ0LB+69+bPpzsULF9pOpSBSGoavfRUxWX
-	 q2qgwNgsonohZLJiOS4kx2hk71ZMu0IDI7reczGAC2q4Z/ZizkANPqEAa9hC7kO3+7sBc
-	 i1+3lny4aLPZ0aiAYu/iBmycpd8Na7AoECipU7vQxeIwD5zYScPhwEg07kHY8CUWDTA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=kz7QtwZg;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793728666;
+	b=bGaEM8ORaaC+cWdXMgHI6QjcYbEZRLFjoChfAbETKNXu6Xqr5wnyW1tIUx1oV2SjebsZ
+	 L/Vhpa5nhtNWAQ4TxoIWs46P1qwGmJu9+hyQ8zA5UfVkYtvIg8dGMwF9hC6GR47uA58mv
+	 BZNA1Zupu7Kr3VeViZCkv+clT9cwAzVNa22eveDwjYsBELDsVhxhZ9aZiQlCH6Cx0N1Sk
+	 Mpto5KGasugNXR12Tr+V6T17l28OGSN7VOYTvlSNDqN15H06gPpejPMugYpb+yyIKKypj
+	 R1ec4FnGp7Z0PE2JBN0LZ5Xc8z5pKnE4ZR9/wH96dPdeHqv4338kB1nzfwkJo/P/GvA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728666;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8gprV7xy1a71HLe2DJEJ0Eloi4n12O+LyzqN8PR9KuU=;
+	b=haSXzYDEbkmd9F3RWJC59/Tt19ngSJWmt/yxssH1xCAjsp3iHUN7pvAi/2CrFVDYc9e4
+	 gWw1DBtJ4o5kqNlx5Rl8POR+xSZjcTIsiG4yiv3jJ6NFZ2cjyMtrxiQHwlTaktAfHORAS
+	 hp3cMEHtd26cDUbz7MU/rRxOI4F1bFiHjbW6jZhTjtxM6iMRLwu2/AiRTlOfPrGE0O/yH
+	 REhkpF7vjiOFW+lHv3laPIGcyT808tW0K/vA1I8pKFNEpibz4XLk34mK22RiGmHh0VikP
+	 3mg9yqpUCeco7mQUZzLxgyww+CKYPUebHTLj5uOCAb0/PhA1Cf8RvV6Z3fFZJDTSZxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mNNpBSfW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565B8606A328;
-	Tue,  3 Nov 2026 17:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 565B8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C75606A33D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:57:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85C75606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=kz7QtwZg
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJx9g5s9Gz1XLktx;
-	Tue,  3 Nov 2026 17:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793728641; x=1796320642; bh=huPTPHyj739fiAid2QA4LZrf
-	2KE7+U9NxU9Pc0EOceI=; b=kz7QtwZgvIkdgq1Q/SyonKRrUFzGijm8PvxhVoQB
-	ojEM1Hs/BO+gJVZZ2IIcEckk5bR4Ob5f3yHayTquilHwJcTqSt6Ps9XxQvPAbaSo
-	cbQi4cjx+h03hoKC8KvQg4GGrXTJj160ZT5KnQ9xgNZm2iLeebBYOhwQan1C3Kz5
-	QDKGSCgxB6Cy7tBipZ2ShftwVD86GG/6wF1Z9BOCbNyRV8S3x/M8uaDwiT26R3BF
-	KCydXXOjt3HZVBu2/R8zukAA0nU5nWQqSUGLYXxTWKxswrHWLo6SOrf/IAct/R/6
-	5ZbyntzH1ngmf1f5XYoBRgakL1vK4Iovfq13mDAm53tKkA==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id ozLDpqkHbJhh; Tue,  3 Nov 2026 17:57:21 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJx9X0ml1z1XLkvj;
-	Tue,  3 Nov 2026 17:57:20 +0000 (UTC)
-Message-ID: <444b8e4d-948a-48de-b40e-74246b849842@acm.org>
-Date: Tue, 3 Nov 2026 09:57:19 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mNNpBSfW
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso705e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:57:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793728664; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NYt0rCLbh0UashPX38XX4FKDMIuvUicS4h4HZQP2ETD2hT9DlUwRT5tim7NalbF3QO
+         In1O3BwNqD8HumugqSkj/GQVhQWNqaeBYwDh9s2z5fKMAh65vqDHzvsfHaGv9uCfLGY/
+         fia20RJZNt1LdqhM9d6Ac1uS9fCdAAKS9RsuEGwtQjsNEyK3QOMuNrips4b2qteA9vKD
+         UHh6SkIsSY9Vh4X+BDEYxpbZa+3Mkcjbpn8LJqtkV05EuuSu6TmIkgoZoHsjk3buQttb
+         rNzygXwpDSsfy5y3VPMCshUYX1PUppZZ5qV+C7sqwymsMGBUhSjR7OkoDC5i38l+Jq1f
+         kK1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8gprV7xy1a71HLe2DJEJ0Eloi4n12O+LyzqN8PR9KuU=;
+        fh=gQ9SdS9qY6iQPRD8MH3MSDU5zVySwR2MnqTsSm4aZmE=;
+        b=VA6tJH7EQOK9t4oKazXwZmPr1Z9kHiXOFQdk7mjbW1x0fCFr3gyRSURvzbg2ZoUIqC
+         VMy2M4Lh0BR7Us/nj6NLvzuQ1kulyUKv0R+yC07Opjfa68mNr3yOxy49dn3ptWFvab2T
+         kySlaJ/oYpDp3WhHNjTKgDCmkLaWDzo6XfHFfZRyN0H+fikjCag2kJ+RJGZK06KRziUo
+         UgAck/bXWKc188L2AJBw9YmMSyipiGnvQAzuC6GcFMCFB5QB3XFeKiobtGkUS4ojmsq2
+         oesGXAKica7tHTJAaVpaXhf707NK9BEaO5g5+enmFNbRznACcs8GunVWK6Yf97VKsgBo
+         wcXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793728664; x=1794333464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8gprV7xy1a71HLe2DJEJ0Eloi4n12O+LyzqN8PR9KuU=;
+        b=mNNpBSfW7U3oHqA/ynhmqeNxcf7VD5INJCcvqium3opsSQ6PpJHHG0HuQo6RrCGPRQ
+         eOPXJN/3o/36RWKzCXa+DvnnzN0JteLWM44hbndWrNgNK+8Dq2ekmEEUoiS3qqWHRVBU
+         AFM/SqwmHpALS8gQ108CebFr4blxw6ZjKVgDjh2F5bIvOshH0xMna3G15UGZYtJTpHE5
+         c7eRZYr6+KDC6Te+/Bl1ijRdhQnNTBvF5JrK2tYBOaQELzEVRqyyEu8DRbT4mFfzFnh7
+         IoyCQiGSL/6f/q/Eou0a7spJplQi+5xYxnh26wXm7ZE6QGeZWNE0btafYvSNrmOsadut
+         0hjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793728664; x=1794333464;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8gprV7xy1a71HLe2DJEJ0Eloi4n12O+LyzqN8PR9KuU=;
+        b=QH+KCpARRz/vz2igtk99ea21HjhCEDc8l/vc2wLoqk+DGJebdj06PSJd9j2rR6bqzI
+         V+eZWgFuKky2SjbhHRHivDMwh1WmFb8kt7NAjqad7BbZ8JTYVdwp3H7nNNB9ERus55y9
+         ftNXI4urPrk8eI1Ne/jkV5XXTV2s6JwCZA2Bf4alK0XzMQbaN4v3MZbqhFM4VUQJpp3V
+         iYnj2neSHPJ/e0lJMhjklAdbfIJ+foqAIHyI9ZJa0ruWzQHlN999YiAtI0vDicc3JYC/
+         gNTLBA2jTCimSvEH8o+I3I6ZD6n1oVHi8aBA7RvQuXjgke6HigzHxETLfQ7s6h3+xSRz
+         CD4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwHNJVnVaov8IpIYIjGJ62WKqxBn/l52G2ZIi3POCqwWlBwtg1gn0Wu5KDFxP8lz3YZ3cNW/RLUuFP1A5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SmJdl8Ejw7PIYrvwZHrr0JIuL2WQ+RyD3d5qAuiWc7QKdtsVw
+	mpo7r0/QJqWoZbduKBgPbGo2dr+1lJmFA2KrwTh5DRayM8Zcop+bt0Q/TnvSaOygIBQI4eOXUqj
+	RNJVK7bcXfDCHyyMSeLHAw3MMtqGs8uVd+ewnIWgM
+X-Gm-Gg: AYBFou2/STMJjGn2zoe5YpOyUtoZxOw0JTFUk5GCQd9tGnXmANIxmvnnWKPmDpO7AY0
+	JDf/BH7Xpa3eHCrVDTgfRSlXFMt/n+12m2FPzrPAK+sNjn6nfiNTDpAXEbdfJGDydvBAneK/aeg
+	zDna0oeVnBKGR5MPVmMbkTyk/PH2+cLbtAZm5fkH5UIJ7YQ1bCLOCuPRD/TNlm/b9H1q7MP3c7Z
+	TymsIj+CspzRGjys5WpRs9QWkMQ+FGkvBX/I7HKIdM0ba3SRDJW8lciZVBSfcghMUeWjHyYajxu
+	FFlTH8Ymo0IYKygyN6T1vRYFdFBhZWmD+cut9F8yu9EvhARmNa2w/TEbUhFjpznkOeMLg0Dbmrm
+	AGRYS/nJ6oP739rTgQbB3VwJCk2L9ZNBZbKcRXWjsZDZDHdVdWRLnDvMT2Ln16njFCA+75WuHCq
+	lojQ4fUxP6RD7z1mxjb0wv
+X-Received: by 2002:a7b:ce01:0:b0:4a1:d75a:8b4 with SMTP id
+ 5b1f17b1804b1-4b2e3c650b1mr815155e9.12.1793728663404; Tue, 03 Nov 2026
+ 09:57:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,70 +105,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 10/11] ufs: s32n7: Add NXP S32N79 UFS host controller
- driver
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
- NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Pedro Sousa <pedrom.sousa@synopsys.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
- Asutosh Das <quic_asutoshd@quicinc.com>
-Cc: imx@lists.linux.dev, linux-scsi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
- eballetb@redhat.com, echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
-References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
- <20261103133215.1385823-11-larisa.grigore@oss.nxp.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261103133215.1385823-11-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20261102234813.1069156-1-wvw@google.com> <8f1ccb65-e4a2-450b-944c-9883ff12bc37@sirena.org.uk>
+In-Reply-To: <8f1ccb65-e4a2-450b-944c-9883ff12bc37@sirena.org.uk>
+From: Wei Wang <wvw@google.com>
+Date: Tue, 3 Nov 2026 09:57:31 -0800
+X-Gm-Features: AclHuK8vz5vkqxj17UdSeFCslNabswTrlQCvg-mwh5UYxKg3Wjf31NJ5q0jNNus
+Message-ID: <CAGXk5yr4LqdguVMBeXP=pkraY7rbQWMePWs0Dq4tbGE-dCLe=A@mail.gmail.com>
+Subject: Re: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	wei.vince.wang@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+On Tue, Nov 3, 2026 at 5:56=E2=80=AFAM Mark Brown <broonie@kernel.org> wrot=
+e:
+>
+> On Mon, Nov 02, 2026 at 11:48:13PM +0000, Wei Wang wrote:
+>
+> > On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
+> > the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
+> > context-switches it eagerly in tls_thread_switch(). While a task is
+> > running, the live register is the only copy of its value.
+>
+> Thanks for catching this:
+>
+> Reviewed-by: Mark Brown <broonie@kernel.org>
+>
 
-On 11/3/26 5:32 AM, Larisa Grigore wrote:
-> Add support for the UFS host controller on the NXP S32N79 SoC, built on
-> the Synopsys DesignWare (DWC) UFS architecture, using the UFSHCD DWC an=
-d
-> UFSHCD platform glue.
+Thanks!
 
-The following comments posted on v9 have not yet been addressed:
-* device_get_match_data() is still called in both ufs_s32n7_probe() and
-   ufs_s32n7_init(). Since all S32N7 variants use the same vops callbacks
-   (or vops can be embedded in struct s32n7_soc_data and recovered via
-   container_of(hba->vops, ...)), one lookup suffices.
-* ufs_s32n7_link_startup_post_change() still open-codes a local-only
-   subset of ufshcd_dwc_connection_setup() (setting N_DEVICEID =3D 0
-   without N_DEVICEID_VALID, and skipping peer attributes). The v10
-   commit message states this "follows the Synopsys recommended
-   sequence", but still does not explain why
-   ufshcd_dwc_connection_setup() (used by ufs-amd-versal2.c) cannot be
-   used on S32N79.
+> but I think we're missing some other registers, I made the same mistake
+> for GCS with GCSPR_EL0 and GCSCRE0_EL1 and I'm not seeing where POR_EL0
+> is handled either but possibly it's somewhere I didn't spot.  I can look
+> into those incrementally once this gets applied (or if you do a v2 and
+> roll them in that'd also be great!).
 
-Other issues:
-* Back-to-back writes to SCM_STATUS: ufs_s32n7_link_startup_pre_change()
-performs two consecutive posted writel() calls to ufs->reg_scm +
-SCM_STATUS (SCM_STATUS_PHY_RESET(1) immediately followed by
-SCM_STATUS_PHY_RESET(1) | SCM_STATUS_SRAM_BYPASS(1)) with no readback or
-delay in between. Either the first write is redundant, or if the
-hardware requires observing SRAM_BYPASS =3D 0 while PHY_RESET =3D 1, a
-readback/delay is missing and should be documented.
-* Magic hex constants for shared DWC M-PHY bitfields:
-s32n79_reset_config, s32n79_calib_mphy_disabled,
-s32n79_calib_mphy_enabled, and pwr_change_phy_regs use raw hex values
-(0x8A for CBREFCLKCTRL2 even though ufshcd-dwc.h already defines
-CBREFREFCLK_GATE_OVR_EN, plus 0x4, 0x100, 0xc, 0x8). ufs-amd-versal2.c
-already defines MPHY_FAST_RX_AFE_CAL, MPHY_FW_CALIB_CFG_VAL,
-MPHY_RX_OVRD_EN, and MPHY_RX_OVRD_VAL for these same registers=E2=80=94mo=
-ving
-those bit macros to ufshcd-dwc.h would avoid magic numbers.
-  Thanks,
-
-Bart.
+I think you're right. As far as I can see, these are only switched in
+process.c and nothing touches them
+in the suspend path. Unfortunately the hardware I am testing doesn't
+implement GCS or POE per cpuinfo,
+so I couldn't test changes there. I'd rather keep this one minimal for
+stable and leave those as a follow-up.
