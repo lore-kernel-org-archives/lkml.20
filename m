@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724135;
-	b=GbDBDoqloY1ICMNJTCOM83xptpj3NMtOpFP0VEEpx3q/LGdj8JGwowC3k1CBtTlzdwS5
-	 tQ1KU+GjZIJMG3g3jw929cINoM68swxoFwWBV/5ny8/FKRc0thavrcvtvxfsxXR7jq1H3
-	 AuRQ+SYs2tqTiXalQQo0mXYuP7ozhfkd+14ljJLVKhK16AojU4jioBYvAfoMBEMc/YrPF
-	 MbGIY/wJGxsGGCZMdyYbMFLZlOyTW/ZBCyVa3FV7YcKZpgx/5kesx11UZGe0XwB6L6IYW
-	 /hnKQD6oICnApXEdVaYauhgDsshuldoF4VSSHCTe5+n0ufV5XFkk88H1AIBYpL+mbvg==
+	t=1793724131;
+	b=JvFSAi8yd0XV+txOhr8gAlL2eki5PDn0kjKBV4060d98h9p9E0TLiZsE/FUkv4CZcuPd
+	 m1YpbYY0o1x4H9CuCv0J6y7EV2S4wQ0paiGrsfsTXwXKBuQb+aB3xzAJUyEygEv0Cy4cb
+	 xo2386FAmfnmV0ZWDzyPvdE6KfXfUX6JcY03rqf7y2mwU6QZ7v3KOq4Y8aEs1bALt+pN6
+	 Mogv+Lc/C+MiMX6I4qQnDrMlz4LGAsQtArGl/t2bxMp00+pMcONJppR16MeAlCe6RjHkd
+	 G6RNHEEhU7n7fczQmATQp0hH/D4lzCScxnbaWRDncXY9AuXJ/TbRaOn9tx/UfZ9x35A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724131;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=Zo1rcdI8Q6lPkwe/dLHXa1UqIpAJqN6yvImDWTZdvdI=;
-	b=MYzSctpik2oyWEukK9znvSn0AfK8rF60oqg7bRyESKkcaGbdK9sj0lUQq2XOI4s//oB7
-	 yp/QND4gGJ9uLw5xwLgkBT+qwoQCQ8OmkxW2O12mkgl5j/wOlo/p1tZxtwdFLwpOUnNGV
-	 Kky7Acv7Cu93ZGDuKK+G6vfQ+we9aHmqJ3S2CGrL2SG4JyPVaW9Lw3grQ7syQJ/t0tHLd
-	 ae2voA9wdBuXZnDSRBTti18bpi2E7CX5i1Mhte5KN9l3H9tYL0sXQz0Xv7d5YGqQMbyLG
-	 t7ENedj1LVYHZAG8E/mzS42XtqHc2EAIEsqcM9bAGYnFPZAtWS7qmZ2IwnGfW6owLTQ==
+	bh=zWuqlHAl8EMnuJQa3Ip4uIbks17jqw9fAtZiwgz0frc=;
+	b=SoKNXFgNV2t8lCK2J5jAXl8Ii35M/1zW4SPUgaWdfJAkfiN3nE/YX86puHsZ1TSAceAe
+	 WKkGCJH3QSTBpVyD7jBhXfGsR+xQ4X0ghxqVgsb9EgVuKyYqvWIPbFvDNFfmBEcGeC+DI
+	 b+uRnL8j3Ftmvs4fUJvVjPoBq/Ka6mHbxnu/xtXqgxS4dM/oVWQmFyrkhZx3pU1/7IFg8
+	 MKGvZWCTEIXYDvKQVWrE53pP3pFJ4SfFktPmZ2IF7nBs32sruTMXNgnR3umuJp9o9Gizk
+	 BzUbXJJKp5+5CIBgNt1SDPMoNUjp2vtgaFqgPCfmrXrpxfsWahpDiDeWlvMVa5qRoWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=daylightlinux.ch;
 	spf=none smtp.mailfrom=daylightlinux.ch;
-	arc=none smtp.remote-ip=84.16.66.174
-Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
+	arc=none smtp.remote-ip=83.166.143.175
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F6D60A6F4E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78F6D60A6F4E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E93360A3828
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E93360A3828
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daylightlinux.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=daylightlinux.ch
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJvVl07VMzjW8
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:42:07 +0100 (CET)
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJvVg48mGzDtG
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:42:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daylightlinux.ch;
-	s=20261016; t=1793724126;
-	bh=Zo1rcdI8Q6lPkwe/dLHXa1UqIpAJqN6yvImDWTZdvdI=;
+	s=20261016; t=1793724123;
+	bh=zWuqlHAl8EMnuJQa3Ip4uIbks17jqw9fAtZiwgz0frc=;
 	h=From:To:Cc:Subject:Date:From;
-	b=A1O9FdBCLSgB3uo6e4chIpVswi/oy64ds4GS+8zOSLPi4n6mo6p3leYdQ+L6b5oZT
-	 o45ecXAhYZs3P3jpD/YEKFDUTmLzslpZMMhXGe8w7U1WjuyBDD58GnsU8UpUJg0BOs
-	 7xKF4P0C9v6PGX8qAxyweT9VqgjXqo8zpMotpE0++CJFae/kqZaorOoutMMivWO963
-	 nfGNZqWqw5MwXdULA9GvhP8NOjxnIxZOVheTiqpTJPn0p40l8HGO4iQj8M3BZZlWuP
-	 lTBoP5SvLDAdUCnY8LjOWDPCNIQ0xG1pcyFPPQk8Kr8T8z4Bnc7RBask0lumd6ClbH
-	 mqxuhwW8hWrMA==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJvVk2xcgzqbn;
-	Tue,  3 Nov 2026 17:42:06 +0100 (CET)
+	b=DVscUd7l/Zl/PrN8J0SxWcnSHVAw7YUOXxT7pwULFJSp1E3Duv15kR1H2IAxTXV22
+	 7VwTadnqvPh9vIXu0W6PolaPyH16fQODrOgRlBOomr2JeUMq1MynFtIcPysrhqTbyz
+	 QdeDlFCJPdXemewEP4w3ZDi6l3iRV/EG4eJKzkjKuHI1Npj0Oxo9g45fC3V1+3HVPI
+	 OORG4O6BdfBcb/+GQHR/GMNphB/M3iR4cknf8NdaSeukkP6LzaUYBsm8LEPfHKn3H+
+	 v/A9PzsR/K3KmWivOBeiFKrXOU4ssyXfdWvX70wbXNeRHqr1dsomIMcbf2p1Nvmq+9
+	 omw1VQYEF8qlQ==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJvVf6lyJzvpd;
+	Tue,  3 Nov 2026 17:42:02 +0100 (CET)
 Received: from unknown by raspberrypi with local (Exim 4.96)
 	(envelope-from <info@daylightlinux.ch>)
-	id 1xOHaI-00FDdp-07;
-	Tue, 03 Nov 2026 17:42:06 +0100
+	id 1xOHaE-00FDbV-1g;
+	Tue, 03 Nov 2026 17:42:02 +0100
 From: Hamdy Abou El Anein <info@daylightlinux.ch>
-To: sunjunchao2870@gmail.com
+To: sashal@kernel.org
 Cc: hamdy.aea@protonmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] scripts: macro_checker: match parameter identifier boundaries
-Date: Tue,  3 Nov 2026 17:42:05 +0100
-Message-ID: <20261103164205.129713-1-info@daylightlinux.ch>
+Subject: [PATCH] scripts: git-resolve: ignore non-commit objects
+Date: Tue,  3 Nov 2026 17:42:02 +0100
+Message-ID: <20261103164202.129624-1-info@daylightlinux.ch>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,49 +71,37 @@ X-Infomaniak-Routing: alpha
 
 From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
 
-A substring search treats value as used by other_value. This hides
-unused parameters and can mark the macro as correct in the initial
-scan, suppressing its report in the second scan.
+git rev-parse --disambiguate lists objects of every type. A unique blob
+or tree prefix is therefore returned successfully as a commit ID. Such
+an ID cannot be used as a commit reference or Fixes tag.
 
-Match identifier boundaries around each parameter. Preserve whitespace
-before a continued line so that joining the replacement list does not
-merge an argument with the preceding identifier.
+Filter the candidates by object type before deciding whether the prefix
+is unique or looking up its subject.
 
-Tested an unused value parameter next to other_value, direct use,
-stringification, token pasting and a continued replacement list.
+Tested in a temporary Git repository: a real commit prefix resolves to
+its full ID, while a stored blob prefix is rejected with no output.
 
 AI assistance: ChatGPT/Codex identified the issue and prepared the
 change, commit message and executable regression tests.
 
-Fixes: d1c7848b58c6 ("scripts: add macro_checker script to check unused parameters in macros")
+Fixes: 7ae52a3d7f51 ("scripts: Add git-resolve tool for full SHA-1 resolution")
 Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
 ---
- scripts/macro_checker.py | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ scripts/git-resolve.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/scripts/macro_checker.py b/scripts/macro_checker.py
-index ba550982e98..9a67b16dac9 100755
---- a/scripts/macro_checker.py
-+++ b/scripts/macro_checker.py
-@@ -47,10 +47,11 @@ def check_macro(macro_line, report):
-             if "..." in arg:
-                 return
-         for arg in arguments:
--            if not arg in macro_def and report == False:
-+            used = re.search(r"\b" + re.escape(arg) + r"\b", macro_def)
-+            if not used and report == False:
-                 return
-             # if there is a correct macro with the same name, do not report it.
--            if not arg in macro_def and identifier not in correct_macros:
-+            if not used and identifier not in correct_macros:
-                 print(f"Argument {arg} is not used in function-line macro {identifier}")
-                 return
+diff --git a/scripts/git-resolve.sh b/scripts/git-resolve.sh
+index e9b5940c0f2..0be8838cd13 100755
+--- a/scripts/git-resolve.sh
++++ b/scripts/git-resolve.sh
+@@ -49,7 +49,9 @@ git_resolve_commit() {
  
-@@ -93,7 +94,6 @@ def file_check_macro(file_path, report):
-                 macro = macro_strip(macro.string)
-                 while macro[-1] == '\\':
-                     macro = macro[0:-1]
--                    macro = macro.strip()
-                     macro += f.readline()
-                     macro = macro_strip(macro)
-                 if not args.verbose:
+ 	# Get all possible matching commit IDs
+ 	local matches
+-	readarray -t matches < <(git rev-parse --disambiguate="$commit_id" 2>/dev/null)
++	readarray -t matches < <(git rev-parse --disambiguate="$commit_id" 2>/dev/null |
++		git cat-file --batch-check='%(objectname) %(objecttype)' |
++		awk '$2 == "commit" { print $1 }')
+ 
+ 	# Return immediately if we have exactly one match
+ 	if [ ${#matches[@]} -eq 1 ]; then
