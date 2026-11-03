@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793744874;
-	b=42HUclBbIBt2a+yNDOYYulxGdUrKY/JOW//epfSQ7046uidG6jQYvBjCzENtp4a3uEhk
-	 KiuPr/x/dUKR5EpuOI/6+uVBwB9Q80XkkrJFBWSDZwAy54I1TwScXLR1wZ+W73zX+Io3X
-	 kVWjmSAhszM8ZtGnC3jmaXRZLjEEl1z8/1lurlihqmpG5QcG1hJ5zAHpPV4TeGlpT12se
-	 N+rj0HqHTl6PUV3hmzhiswwjtIiZU1hWZiDCioH9cJB38vdM+16MsRUW0ZWP6NzGfqBIF
-	 qh4XTo6uoAMyELlOVCnd/67QMVzq4iJ6vjwCl+HxdB5BovEaSPnLIPKwVFHv37AgAGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793744874;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793744878;
+	b=C2tg2YpW5tURsr0/t/G2AlX7YwfV+ZwvfP9FecP1JPr+/+hduGo8z8z8ulAOefoJGbE/
+	 D/elIK22327bbq6oPxe/RrTHNRKZOJQMJWfI4SwnP0NHWZOfm5Z4Wl+JjENCdYW8LAtbd
+	 GsDqplbi7iHjIyq8eQakwpbgR79vEbF7JkmDDwMwT9Hq8Ov7Vv7VuKQ7AtFX54VMkXQPJ
+	 8I8hCwhKawK2wFS/Sjw6YRcsb0QAL9p9mtRjy4LbGZLXRb3ZNXDZx9CpHCSPFR6FINysc
+	 GUexYa0GSKYLEOoQNtpcmKM/nwYrV8xWCn69jumpVIwLq5gNq5YSPrxjqYeddeKkkFA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744878;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:X-Google-Original-Date:Subject:In-Reply-To:CC:From:To:Message-ID:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=W46N2zD8d3M/q6sqBtsamnQ8AkzANHljJG6JB3HVn40=;
-	b=SNAisYceLAmQb+VRi2SB+XMSJRPZC++NHgupFfdC2d79JdsP6LkB/SkI9ItokbITftq4
-	 PlrWsNTN1ZlF8ottENiE7M0lp8VXSoHG6FJp4zahyXkkoIaPrpdtaSANp9ey6tCnafVn9
-	 iE62RQR88+TFhIhavw5gKBe1eS5zPE1OP7k0AT9L4e1UAVfiGOCnj/sDKt3qR3U3DPL6S
-	 amYC23QpmwMnihZAXil10Iexj4U7I+K6I6pDxDfS6h68MUQLaKEYf6G9Jh1QMITs04fYb
-	 Ffa3VG3JfGl133VAFZpPB1r4Ga1ghjPP5f/kTrLIQZ1OL8Qyc/I54Zb+OUqqteX8kyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dabbelt.com;
-	spf=pass smtp.mailfrom=dabbelt.com;
-	dkim=pass header.d=dabbelt-com.20260707.gappssmtp.com header.i=@dabbelt-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=L1tizh12;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=U6sOeMDVcAvnCgHIdX2jRiq2c1v5uHZOJD+0XTCDNiI=;
+	b=PwcsJXJpHMHVT6Nx/BRvAf/9seeGmKLOPop4OOOq+kTXIX2AzJy+yc2QITWVG158xlUZ
+	 UFG30fsE4dB/fgWD8Gi9xDLI8fw78NkN2pJIAAy+S81pj8Gz3SFR+1hCjgsZojFVaGs/6
+	 37fsCi2bDcfFwbNA/o2ei7VGxlewFDQGpAOf9qf1A/O7sTlkW/yu/uj5wvyyqn/gP+TwB
+	 YfEgYiAiozq0JHRgpN7VORUaxhe7tDxFF3fw+4SoOCRbW3pbc60l6Fo8EEFO9OkbwB8dA
+	 da3bys4sM+xyFRZEL0g9PaDhRD4MzKGzu2oRZ/MrpJow5zUFsoRFxsGuCc9/0yJYHYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g7pPR470;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650B7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:27:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 650B7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dabbelt.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dabbelt.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D924606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D924606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dabbelt-com.20260707.gappssmtp.com header.i=@dabbelt-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=L1tizh12
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3282db206d3so67538eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:27:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g7pPR470
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5383c97c8cfso38451cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:27:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793744877; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MU/MADS9gL7dsLDyEgPmrMnmYLp3qbLma6INwizzfu3t0uvW5D+QoyhBwsC8My/6xo
+         OfTWYMBkmGoSIy6hE2COlW0t9rufyUAYr7F/uO63cYu65qh7w5PuP82zx2OmlkGa69jm
+         YxJXoNrGwLWzKJOP/VU0Npq/FBrjJ9NcwBFgmtGsEQAeJN4VFW9c0UMzYVwxqLTpyJ1H
+         0BdJp/+ZLjh4QQx3td8ArMyqcxuXnlVk2T3yipcQI7S06nnwAQ8s+rLoiORo1uhq4GkG
+         fiEEPQmZvPHSyuGhjgxRBzfsK7x3zrrxWNAc9qytQNwSnRDB+DLlnRXo0sXo8GYNkicw
+         vUNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=U6sOeMDVcAvnCgHIdX2jRiq2c1v5uHZOJD+0XTCDNiI=;
+        fh=/oFE17bGKkZszq3DsxFcg4XDdSKvYFDIdljD0K4HAVk=;
+        b=gKCKn4q71lnoraQSKpywYgUknDaAtmYvsPq3M1THv9XVZLML17yMlS+npASukUReJh
+         OVPzTS68nU12wkxeMyi1mlKJeLgfu/B6wWofJ27CIZ+34FvoFAAgNWGed0H1YcbUdUj3
+         Olr2LgeG/5erPVkI5cCFyiBAPZsDxcIsih33vv6HG9SInaWjtri8frC1wbURqd7cjE8y
+         6RfMPEJox3mF1/x1oBtYduykFRCsk5cKet4xGMxbsKAZesmJ9fVopc6SYgvRZh+RGrqd
+         WxXFRz+ybGjZHR/59IBW5wUtpscJ10mcut5R0GaO0/hDLUbqnhOszugIeX60kf88HFhW
+         3xwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dabbelt-com.20260707.gappssmtp.com; s=20260707; t=1793744872; x=1794349672; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:to
-         :from:cc:in-reply-to:subject:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=W46N2zD8d3M/q6sqBtsamnQ8AkzANHljJG6JB3HVn40=;
-        b=L1tizh12o/Cy+ZVcrcwk8dChyjQgjBWGHHUIdPKYVIyEwC1ZndB+eTkwBpRbYJULK0
-         2RFcNWVNV5nu5r4UeUlDLeHQqCWFJvb7u0OnFwOzV+ON8GBQB/fPGH4zIfE5Hl2La15c
-         NLZ7R4cZGOvL0ZX9rXDnu2gTQjhA3op+yoqUAKDZwBW0t1hElPbDfCnY0qA/ny+ADZVS
-         Bw6Fg8DQAnuRZ5WU9rfKwL3I+O8fwoTYBk25yaIOkbHN1talCcx94/0VHLH94/XpJGqb
-         THCVfp258BFxkKtlVmfsJWpSgaMRAxWP70u4/h+K+5jS7r9kI4JUhCN+altbCjTFJFzc
-         UtAg==
+        d=google.com; s=20260707; t=1793744877; x=1794349677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U6sOeMDVcAvnCgHIdX2jRiq2c1v5uHZOJD+0XTCDNiI=;
+        b=g7pPR470Cacpaxyq4bouZC5n+xAsKKXcWKRnDviJizeavWvuP+QVqEvi0u8zdOX65A
+         sMQm04l1bjCw2aXHRB3dF/LeGiKgY5LOIUVG4gDEyv0SHS96/pClIJreiJx5ppi6LjrY
+         eijCb/+dkNxT0KFC2NnbfedPtHUI4fmkqUjcSXademL4yPQ3oU1OQRlB9g530/IyP8BU
+         sZxDXi/bqc4ZegEcQmLHjjavdguBpDsC/jJ102zP2NuVZgNjtoFtDeGmzlusXQiyUSKG
+         jngfHDfSVTs0iUeLa8qFUaUOeBQYA0AVTG1Vy0Js0PoVcpZMNcGPShLgMCH9KXSJNY/i
+         CIMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793744872; x=1794349672;
-        h=content-transfer-encoding:content-type:mime-version:message-id:to
-         :from:cc:in-reply-to:subject:date:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=W46N2zD8d3M/q6sqBtsamnQ8AkzANHljJG6JB3HVn40=;
-        b=RYjm0KuvZbxk+XOTo+MeahiFgflFqRbpbCEOxtp4fhjpr7KN2PhmcDrHysLDnJvXJ7
-         bbsRkkAuN92sH4XUPA9ucUP22LIG0dRlGnwRZm1oyvxZ15jIsKoLtLWEXLmCubeQEgRM
-         pYuxnqDbefzoCqoyVFwP1XzAnVq53Cdwgo4s2olNOIKf6+qBvv/jgm28fOc3pg5XDt7g
-         KaETF3/UhVdEUjy5MwrKbZisf93ZKE3rV4lh6BN/iC3f9bfrqtGUxLQ1PqVVjN/GZMNJ
-         8HgiwnnkxTIud9g4AzMbroZBHAyxdn2HOwEvrSvirGAim/JKRp8FFLy0R8EAOvx8KxJb
-         1q3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwb7T5JCJcaVx5VsEPecy8rkDC684z2Fy9XGWi+2sV0zHWg6M9UAPZsal2YTWzUZMvjexCxu5isdABrrio=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97zFB7AWQBzb7OI9Lbslg0wbvHtDJG4rgl7vMrHFS6arWrBngz
-	ec+V3LBByact1FOW44cHn+rLhZA4xQmJib+ctkR3ienLhZ35kab6Se6U5VLDv0cFV9c=
-X-Gm-Gg: AYBFou1Jh9dj//6JDOmYwxxW4FIpp7Nul7qI37ZCG/gTbrqs6ZsHTwdzWhRtx2PAYyH
-	pg2DKsU2edHuU+fPf5sdxbKjDYFEvFQ5Ao4olH6xjOIXYyy37eiZXhsgtX39ov0t0NsqpYRSAlP
-	uy25IzqJDCKtBt3zY9WiX6TrskhVEtTCkjdB5iOmncd7TjPNryLUQGmZmv3WnAf+7t9F9+a8G1+
-	mDpj/JhiBqRlc2nn1CTj7hV+ckW9d/E7bBOiTqC9H2bA3dP4vj5E2EHPC+bZ3fezmaizDulyf4c
-	202m10BdyyalyMpAV2q/iskn85SWoZkUgkovpl5xas7FarxDNWhOIHiLazCbQkyOmyum1uzRkGo
-	1KXkGWdnY7oPTuEhADxFoAaYCwysq4cFx6PZw6CCtDY+bCDQ+4KvmLdKMJVIsPFoVxsaRWIJnEk
-	DkNlebbH2atumYYa3uwEzHvAyoQVfPskGFvQSdnayTjKc8GMhSmvKpyxxQJqiB8/gm0TO1gW5Qx
-	iXSxBSlU76xnGps7qqCBMCEiXMnDA1Od1wlts7NXZ8/dKJrWxROzv447T5j7D5fCouORMOhSwIn
-	Sa55hj78Llj7WMVnkiyMJydwKfDPUuYBtcWD/xNwBJJqVQRNH634ksddB0YDwyLZHRXFId+rnwc
-	zq73x6PGZ/MHoBAc8lPWxZpFP8TvO9W+xWQ==
-X-Received: by 2002:a05:693c:864d:10b0:369:9062:c392 with SMTP id 5a478bee46e88-36a424261c5mr24477930eec.37.1793744872114;
-        Tue, 03 Nov 2026 14:27:52 -0800 (PST)
-Received: from localhost ([2001:5a8:4687:d600:d5a2:4dd4:6c9b:a9a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6d3dsm1211516eec.7.2026.11.03.14.27.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:27:51 -0800 (PST)
-Date: Tue, 03 Nov 2026 14:27:51 -0800 (PST)
-X-Google-Original-Date: Tue, 03 Nov 2026 14:27:49 PST (-0800)
-Subject:     Re: [PATCH v4 0/2] riscv: support CPUs with Zalrsc but not Zaamo
-In-Reply-To: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
-CC: pjw@kernel.org, aou@eecs.berkeley.edu, Alexandre Ghiti <alex@ghiti.fr>,
-  Will Deacon <will@kernel.org>, peterz@infradead.org, Mark Rutland <mark.rutland@arm.com>, gary@garyguo.net,
-  yury.norov@gmail.com, linux@rasmusvillemoes.dk, cfu@wavecomp.com,
-  Linus Torvalds <torvalds@linux-foundation.org>, Olof Johansson <olof@lixom.net>, aleksa.paunovic@htecgroup.com,
-  arikalo@gmail.com, boqun@kernel.org, boqun@kernel.org, linux-riscv@lists.infradead.org,
-  linux-kernel@vger.kernel.org, Vladimir.Kondratiev@mobileye.com, vladimir.kondratiev@mobileye.com
-From: Palmer Dabbelt <palmer@dabbelt.com>
-To: vladimir.kondratiev@mobileye.com
-Message-ID: <mhng-6BAAFBCB-95B3-45AC-9087-C00241996255@Palmers-Mini.rwc.dabbelt.com>
+        d=1e100.net; s=20260707; t=1793744877; x=1794349677;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U6sOeMDVcAvnCgHIdX2jRiq2c1v5uHZOJD+0XTCDNiI=;
+        b=XsThctFIjRc+w9DhK3whRJ9Y8lh5nq05WypzHlwgKZLyu+zuTQc3eKTM3XOnanwDgg
+         DqUXAUQ0kXU/xnz3Mj1ZuY+l1Hacd95N370Nr+fVLMfpc6hyCcZxmNE3W23svP/dPax5
+         UT7emtWMpdtNJQ1FT6AOUiAmossUghqexvEXyGDG+N0K9y7uussNP2x6FWn9jCmYkXvs
+         HyG5eSKqYj+sGayV5Wg/kRsprB1E/fnCMJqaDJNreUH5hY0No3JhKdhBuHmKf/Ulgyv5
+         AF3k16kMeAtHTNtGwWShMsGu3rWZRZfyNUNjD6gm/vCyvsrW5EM/ttqlWwJ1y4AYKg2c
+         BkuA==
+X-Forwarded-Encrypted: i=1; AKwUvBzk6wHQcPxt+dgi3BruUYm1SQasXRs+Q7QuvvT3abK3mOvx7xBHjLfw9AeJwth5x1E94XLJffg2MIV2doA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YeTZLobyEcDU4aAOBxUtxobBFw2Thmud+Aag/o3mQUgNaoM9M
+	V0rSswRJnJVxRuFwnPwKicXsZZVGx8JslVFyo1kDYUUMlBbq6MJglOpifwe7/5DiSiTi6Thm0nZ
+	vA4P9IOLLsu7tuHPx81Y41sxWKbeBC/nhh6NBZZ7CgjuMabg1nHwBxqpNeVU=
+X-Gm-Gg: AYBFou08eccsOGs6CMk9CDDouU/Rlcmg4HrAkDn9qMq0rRecr9SJITwrpIMmiDjkIIR
+	vQrHTxZAIyfvtmXSOw8WaWjzJwCtzPmhuL18t3sbehNAR0wk8XKP96jEzbPsS/F09tYiUNqN0j/
+	JjYLJI2xVyxeB+MeYTIpR3kqoPy+VnAYB9TIx936WT9K8M5kz1e4gzJyI5W6GHgFWYtBSyg9Dpa
+	kdtDVskwfgH5k8UwqzFikrZPBOtoEyW4x25OaaYpwZAmwtAjZfdawo75fp3M6GZ1YJVTN+m681o
+	TaX7q4+tQAoUqO/DfO8Gp1iu01LVkoMszyolYnLwUz9LReHmZWTD5WKdz/x8ON5wWZPXJoAnmj1
+	u6jZDJXSdW6UqOnRl/OhFP+Q7cPTMo9PIrKdWsHG6eUQYA/u/PA4hkEpB6dM6ALJWxk+kuMuD3N
+	a+0pIWlE0e7WQ=
+X-Received: by 2002:a05:622a:2b07:b0:542:fc60:fe23 with SMTP id
+ d75a77b69052e-54b2a80e855mr5349021cf.3.1793744876064; Tue, 03 Nov 2026
+ 14:27:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,127 +104,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (MHng)
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+References: <20261103070407.1211071-1-robertpang@google.com>
+In-Reply-To: <20261103070407.1211071-1-robertpang@google.com>
+From: Robert Pang <robertpang@google.com>
+Date: Tue, 3 Nov 2026 14:27:44 -0800
+X-Gm-Features: AclHuK_ZoXvD-8aoB7BiBr9V6B5ChZ0ecv0eLMPp_diX0MDcPttP-OdgfME7Vps
+Message-ID: <CAJhEC051dpSeqoMR4-w-feaEdR90xW_g9O91RiZ0HJoUM6CofA@mail.gmail.com>
+Subject: Re: [PATCH] bcache: fix available bucket accounting in bucket allocation
+To: colyli@fygo.io, kent.overstreet@linux.dev
+Cc: linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 01 Nov 2026 04:51:38 PST (-0800), vladimir.kondratiev@mobileye.com wrote:
-> RISC-V split the A extension into Zaamo (AMO*.w/AMO*.d) and Zalrsc
-> (LR/SC). Linux has so far required the whole A extension.
+On Mon, Nov 2, 2026 at 11:04=E2=80=AFPM Robert Pang <robertpang@google.com>=
+ wrote:
 >
-> MIPS P8700 [1] implements only Zalrsc. AMO instructions are emulated by a
-> trap into SBI. I measured typical userspace atomics on this CPU: an
-> LR/SC atomic takes about 40 cycles, an AMO atomic about 600. The same
-> ratio applies to kernel refcounts, bitops, xchg and futexes, so the
-> kernel needs to emit LR/SC when Zaamo is not implemented.
-
-In RISC-V land, things that are implemented by M-mode traps are 
-generally considered "implemented" in the context of supervisor mode, 
-just implemented to have low performance.  I don't agree with that 
-decision, but that's really an ISA thing and not something we can do 
-that much about it Linux.
-
-So I think the first thing you need to decide here is how you're going 
-to be treating the atomics: are they really unimplemented, or are they 
-implemented but slow?  Right now this is kind of a mixed bag: you're 
-sort of treated them as unimplemented in the kernel (or at least parts 
-of the kernel), but then implemented in userspace.
-
-If you're going to treat the AMOs as "implemented but slow", then I 
-think it's best to see some actual performance numbers for a real 
-application.  Sure 600 cycles is slow for an atomic, but I was recently 
-playing around with some much larger systems with ~300 cycle AMOs and 
-couldn't get any meaningful benchmarks to show up over there -- those 
-were OOO cores blocked on bus resources, so a completely different 
-problem, but just saying they're 600 cycles so we can't use them isn't 
-really good enough -- particularly when the alternative is 40 cycles, 
-which is also super slow, so it's not like you can be doing all that 
-much with atomics on these cores even with the "fast" sequences.  You're 
-probably also going to need some way to tell userspace about this 
-"implemented but slow" behavior, similar to how we describe misaligned 
-accesses (which is all a bit of a messy retrofit, so maybe don't copy it 
-exactly).
-
-If you're going to treat the AMOs as "unimplemented", then we need some 
-way to deal with userspace.  Right now we have A as part of all the base 
-behaviors we expose to userspace.  We used to have the non-A userspace 
-support, but we decided to drop it when upstreaming the port because it 
-didn't seem useful to anyone.  There was a design sketched out here with 
-a VDSO call for cmpxchg() that looked similar to some of the non-A Arm 
-systems, but as far as I know nobody's implemented that in the kernel or 
-userspace so it'd need to be proved out.
-
-> Mobileye is going to use the "eyeq7h" platform, built on this CPU, for
-> ADAS and autonomous driving. Kernel atomics are on the scheduling,
-> memory-management and driver paths of that product, so the emulated
-> AMO cost is not acceptable there.
-
-Is that announced anywhere?  All I can find is an EyeQ 6 on the website.
-
-Also: are you planning on continuing with these non-A systems?  Those 
-40-cycle atomics are going to burn you at some point, if the plan for 
-the next-generation systems is just to go implement A then maybe it's 
-best to keep this out of tree.  We already have way too much 
-fragmentation in RISC-V land as it is, we don't need any more.
-
-> This series keeps today's default: both extensions on, -march still
-> contains "a", generated code is unchanged. Turning Zaamo off is a
-> NONPORTABLE choice. The resulting kernel matches one -march, which
-> userspace has to use as well, so a runtime alternative would not
-> produce a portable image.
-
-It's really not non-portable, though: the Zalrsc code runs fine on 
-systems that support Zaamo, it just may be a performance issue.  I'm not 
-sure anyone's actually measured that, but I think it's sane to just 
-assume that native AMOs are going to out-performance LR/SC on _some_ 
-systems.  It's still just a performance thing, though...
-
-> Zalrsc stays mandatory. cmpxchg, conditional atomics and futex CAS are
-> already LR/SC sequences; Zaamo cannot replace them. BPF atomic ops
-> still emit AMO and remain unsupported on a Zalrsc-only kernel.
+> In bch_bucket_alloc(), a cache set's avail_nbuckets is decremented whenev=
+er a
+> bucket is allocated, assuming that the bucket becomes unavailable once
+> allocated. However, when a bucket is allocated but the GC mark is unset o=
+r
+> reclaimable, it is available still. This false counter decrement leads to=
+ an
+> inflated in-use measurement, which triggers cache bypasses once CUTOFF_CA=
+CHE_ADD
+> is reached, persisting until the next garbage collection cycle.
 >
-> [1] https://mips.com/products/hardware/p8700/
+> Fix this by ensuring avail_nbuckets is only decremented when the allocate=
+d
+> bucket is already marked and not in the GC_MARK_RECLAIMABLE state.
 >
-> Changes in v4:
-> - Require a compiler that accepts _zalrsc in -march before Zaamo can
->   be disabled. GCC 15.1 introduces that support. Older compilers keep
->   Zaamo enabled and -march keeps "a".
-> - Link to v3: https://patch.msgid.link/20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com
->
-> Changes in v3:
-> - Make Zalrsc mandatory. cmpxchg and the conditional atomics already
->   use LR/SC, so RISCV_ISA_ZALRSC can no longer be turned off.
-> - Check AMO and LR/SC support independently. A kernel that emits both
->   requires "a", or both "zaamo" and "zalrsc".
-> - Put the LR/SC bitop sequence in its own block so two inlined
->   set_bit or clear_bit calls compile.
-> - Remove the LR/SC loop that ran after the hart lottery and accessed
->   address 1. Build the lottery increment with add so RV32 assembles.
-> - Add an exception-table entry for sc as well as lr in the futex
->   LR/SC helper.
->
-> Changes in v2:
-> - Switch from a runtime choice of atomic implementation to a
->   compile-time one, gated by NONPORTABLE.
->
-> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> Signed-off-by: Robert Pang <robertpang@google.com>
 > ---
-> Vladimir Kondratiev (2):
->       riscv: build kernel atomics from LR/SC when Zaamo is disabled
->       riscv: accept the atomic extensions this kernel was built with
+>  drivers/md/bcache/alloc.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
->  arch/riscv/Kconfig               | 32 +++++++++++++++++++++++
->  arch/riscv/Makefile              | 15 ++++++++---
->  arch/riscv/include/asm/atomic.h  | 56 +++++++++++++++++++++++++++++++++++++++-
->  arch/riscv/include/asm/bitops.h  | 51 ++++++++++++++++++++++++++++++++++++
->  arch/riscv/include/asm/cmpxchg.h | 18 +++++++++++++
->  arch/riscv/include/asm/futex.h   | 53 +++++++++++++++++++++++++++++++++++++
->  arch/riscv/kernel/cpu.c          | 28 +++++++++++++++++---
->  arch/riscv/kernel/entry.S        |  9 +++++++
->  arch/riscv/kernel/head.S         | 14 ++++++++++
->  9 files changed, 267 insertions(+), 9 deletions(-)
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20260120-lrsc-only-cc06422f5bb1
+> diff --git a/drivers/md/bcache/alloc.c b/drivers/md/bcache/alloc.c
+> index 3ec240ec685d..2d0cb9b414ac 100644
+> --- a/drivers/md/bcache/alloc.c
+> +++ b/drivers/md/bcache/alloc.c
+> @@ -446,7 +446,8 @@ long bch_bucket_alloc(struct cache *ca, unsigned int =
+reserve, bool wait)
+>                 b->prio =3D INITIAL_PRIO;
+>         }
 >
-> Best regards,
+> -       if (ca->set->avail_nbuckets > 0) {
+> +       if (ca->set->avail_nbuckets > 0 &&
+> +           GC_MARK(b) && GC_MARK(b) !=3D GC_MARK_RECLAIMABLE) {
+>                 ca->set->avail_nbuckets--;
+>                 bch_update_bucket_in_use(ca->set, &ca->set->gc_stats);
+>         }
+> --
+> 2.56.0.398.g882cbad275-goog
+>
+
+Hi all,
+
+Here is some more context on this fix. This issue was observed during
+the investigation of [1]. We believe this is a latent issue exposed by
+longer garbage collection durations following commit 009073806fbc
+("bcache: reduce gc latency by processing less nodes and sleep less
+time") to reduce front IO tail latency during GC.
+
+Best regards,
+Robert Pang
+
+[1] https://lore.kernel.org/linux-bcache/CAJhEC04+1tu_vGVNfc0TicEb9T2wPpFPL=
+qmQRqX0G_k7M3sBwQ@mail.gmail.com/T/#m0be3c1a4a63427ed7b233a3f753a55fcded69d=
+05
