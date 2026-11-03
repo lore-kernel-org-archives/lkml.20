@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749535;
-	b=sI6uJCQljA29Xzi4yKNNKkMXzzXhiK12ngocmYdlL3fAWl8KurM/zQ75ffA/TgGmfsc+
-	 zMWkg0S8WY8kjBuACcGCxIErj96m4B3jOUSij3WH2UNC+ZrbiQd8kENWWDySQv7cS9qui
-	 z3HjzW9vJo0t24HpmXIt2MtaZ95EGVVZCnTvW9ZCOjm0SIeWPPuaqV7c/hTpoFoYZA+xp
-	 7DVFtlH5CAahjZHYEEF5fnluwfsh+H5Y/KimYV0Lo+bhb8nR96CbLtIqku7VB1OspUkCQ
-	 7cNmuaUyt/tWgDx/Tkxajd6Imxy9nLkIf9VykOEV1q/4StIgBG2fsCFCVbwYOuqjT6w==
+	t=1793749538;
+	b=L+VtoTZynfiUDdeG7Zvorur4SJCQmoebXrSDN1tvTsNiCZMELEvZlf2ELsV9LxE5Vjc9
+	 whR30qcHUHWk11yDLr5+OgLFQ45u8WNppTWRrtALv6Thvio5v21JaInM0ULN47+r1wjEF
+	 MOC+h2YOa1lWRIYkxde2KtHJ9a0Cw00xn5wsVtsZAjC5r0diOIUSYhbMtZ72qy6DNu9dx
+	 El74WUbAI1nsmWM8ubZYqUp/mKBsBbfNPVqttWJAKovJ3vMVZyNSWp479X3lrgATuAiIh
+	 9lZzBAJ4FGoyNAppLc+4VaZwSdBXJyMoz766PGXAxFVRkHos8m72yvkJ6uLkzSYUVJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749538;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=uiSMvfVEFpTlBT5Kvy/hd1zt8dCGjHDaYy9RKnMCDKA=;
-	b=06M3XTki5Rorw4yfqnijjPwqaanJkfpKIp4Ph+mmhyNvYZxCEBNcAMS1VAKMSQv2mOa3
-	 EBC91/4PiTNOQhY+iOT6wsqIqW+E13U9oXqXVs7F2LmktCsb7XZQZUZhxemnn5tjkjXnd
-	 W2g6eTr9DwVeeUWmxY2lbWrO+cgIVMA+90+BUVhLaSgaSQZQ6hj4c+zBEdDiFK1yK19vp
-	 XLUtqi9yyWJnM/Qg9oXXE7HrfYCzDA3B6hzNq4VVVKxPG/uTci1d23lXJOu/VXxVAN7xm
-	 tS2Uvs7hzEQDF74EWyvQlxZK9CeIqh0xLEDJokedH+bfTVJDtARXOQRe6ZBxboEh7Fw==
+	bh=f04SE8jtYJAS4lmqfAB8bp6af/1ppJs2us9i398YNlc=;
+	b=jx427Y5FDfxvksYzBRUXGgx5KYahNdeTIfn2AS+0YiZigsrgvLJsGRYunZwI6sBdW+Yb
+	 Tj92xMfqXpArPauyUE1jt6hTfpHzJsDnx85Auh2EzBYK0h4gwcMQkymF/73yCaUO7YQHx
+	 5fMIjAX7uzC0TAEWXYpxkIxnrNpCzbokH0CJTczYUL8g4b5fQhCt4TY2EbbT5pngLp++c
+	 QsRlR9joZc98FCGIRzn6aLOAy66onJ1xScNdqxOFsNcCD906xPWvazcYg3vcj0InY1JdE
+	 xBJdssJtHuxUvT3DCISK6UIJx0mX/D8WDsaIq+aNm93n2VEfI+f7wXMSZQR6xgOEd5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KL5HHC4R;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BncyKMkV;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5E9606A33C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A5E9606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001B5606D809
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:45:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 001B5606D809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KL5HHC4R
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a1e2485fdso142168eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:45:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BncyKMkV
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14373747468so374901c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:45:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749534; x=1794354334; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793749537; x=1794354337; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uiSMvfVEFpTlBT5Kvy/hd1zt8dCGjHDaYy9RKnMCDKA=;
-        b=KL5HHC4R8hZJ9S8NISYsoGZN/v6lsZwjcUOA3nEc6NQWi/+1N3k1nrjKJpw0mURhr7
-         tQhkLndE0LVrN+O2AMBGkk475gSapXblnehKTJxaf9kVaDZIswSwU5gfRWl7HD7q59lj
-         zNKz+5iT724H6LYvdk7dny5pxM4B1CbMAuvlj8NxlJI5n7s8XlhZ6HVqaT+HjXs5/P9f
-         xTsth0Ybdl8LrP97qgIXDgSUhnhuXyA86/kuj8Cu0aPPGMvoV95c+A9I1KYt7dWAlyw7
-         HV4c8hOLlxjNZwBqLvZPKsK/jIUG8mkgkjAmu2xrY32I/VgV8SsT8P1RfhOGE3mLHwXN
-         iU1Q==
+        bh=f04SE8jtYJAS4lmqfAB8bp6af/1ppJs2us9i398YNlc=;
+        b=BncyKMkVdt4jXMWiwPEG1jr85wLTQ6CSysk9cSRw9kXm57myovGWQpf8KpbnRtUIlj
+         KnlNR0iyRprRolXRNXEZ/WdvYeXCBMW8x5JmJ1Nl42QWTUOovYdC3R0phwfuvC4Ah3wt
+         MH+TxF5fnEW8Gci05fC1ZmpqJlHmIdU2aSn3o8THt+ub6Z3EBAggXUT980fYmQ9VbLNm
+         07G9IKBilGedSAAngvHI5HareF/PO37T+s6fQb9eqOvNejEKDZ9ZywDV7BtLJsGUC00l
+         zK4dL/g3amMhNg2vL8IGsJiAcPmlp6NxgcQY5yn6V9Fp+ql8r8E7ZpXHzujOASwPcoX9
+         k9yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749534; x=1794354334;
+        d=1e100.net; s=20260707; t=1793749537; x=1794354337;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uiSMvfVEFpTlBT5Kvy/hd1zt8dCGjHDaYy9RKnMCDKA=;
-        b=YRV9qaweJg1XquCt/+eypnC63TDLXA1xV9nm8vqQudMIDDnmXNmWVEuXR5ehPS0HW4
-         EmUFPEFZLNR4TZNDLtef+oCCB4SqDAOC6iMHIegXIB8ZOnP6wLIkDFXNe1WeNN55xMTW
-         OKltXZMtLHggDonxHJ5syxrN0oJdmZzNqF+A6JgElXuRV/yZKL4mfpgygm9IpLRDDOc7
-         gdUqOWzSVImjDSUcCpTSPxPvAn2oDeQGKPkayZo3aWSGVxPF2EpXnPU4YGU1tYTprc9g
-         1vRC4XA7rxe71klJVn6t5UN3NEVdU8EVLEqKP51n/mXSTre73yEkWjHORUVOnCKLhKf4
-         M8bg==
-X-Gm-Message-State: APuU4Z9sCtHJLAwiDfrcwFpqn1cN+PJvkU6Bf+RPawry+u28ML6URa26
-	BsQdcDx8dSGk9XrAqZ8aEx1EEPXg3ixQ+YS+8bv2H0MX2hsteduWIFqtcVQsN7Tt+o6vRSdt3NG
-	mClf/PhHNVQ==
-X-Received: from dybcu38.prod.google.com ([2002:a05:7300:ad26:b0:36a:13d2:4db1])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:62c4:b0:36c:9d4c:6465
- with SMTP id 5a478bee46e88-36c9fbc7743mr2155007eec.24.1793749533886; Tue, 03
- Nov 2026 15:45:33 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:26 -0800
+        bh=f04SE8jtYJAS4lmqfAB8bp6af/1ppJs2us9i398YNlc=;
+        b=YSnWwbMHdpqaNwW83ZYtJAY5sAKXpC7O3r+0/LTgbM9OH5V31OBkgzvFci5Z5XytDY
+         I+dAo20CfOMlg9EcUViXsWTxd0I7KyE9b4APoQ+uJEhBAxPtenXyxI6HjepWCBfUNsSm
+         gxUxQhQpaLyxvLELdbc/BxSBUYVtWR5W3cKvYEtK+OYpHc3VIjZaQdW4bZsC/d+QXqiW
+         NbIsTbQHHXMhyqGqt8BEpamIT3LeAhBdiIYGcRlQt4S1epAW1f/HcTwqeXj7RTC/VfOD
+         aVrAb6cGW5eGTsSi1HDzdHVZaFJnZgWCdzGzbxYJgustjEtAOdtCyOrrp5hJpzS/CJ3d
+         5Pgg==
+X-Gm-Message-State: APuU4Z/dpj6iSW1J/1dbXaah4SADF/jy69nPpQKewKh6ArJIbCA7PHKv
+	UlqIbdjlnTv6TLp3ULsHDS5E3wR3CCo/VCbPsKP9ZiiIGtIXro2PW4QtppyJTHPsXImyFbLNr7W
+	QeEVtUXAtnQ==
+X-Received: from dlaj3.prod.google.com ([2002:a05:701b:2803:b0:1ab:7a71:e7])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:7f0b:b0:13b:3132:6e99
+ with SMTP id a92af1059eb24-1ac5af2da84mr19796869c88.20.1793749536644; Tue, 03
+ Nov 2026 15:45:36 -0800 (PST)
+Date: Tue,  3 Nov 2026 15:44:27 -0800
 In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,8 +79,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261103234502.1008382-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-11-irogers@google.com>
-Subject: [PATCH v1 10/41] perf header: Support CPUID matching across all architectures
+Message-ID: <20261103234502.1008382-12-irogers@google.com>
+Subject: [PATCH v1 11/41] perf test: Make the CPUID matching test architecture independent
 From: Ian Rogers <irogers@google.com>
 To: linux-perf-users@vger.kernel.org, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -95,366 +95,138 @@ Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-strcmp_cpuid_str() had architecture specific overrides of a __weak
-regular expression matching implementation in arch/x86/util/header.c
-and arch/arm64/util/header.c, so a CPUID could only be compared using
-the rules of the architecture perf was built for. In addition, the
-HEADER_CPUID strings written by get_cpuid() on x86 ("vendor,family,
-model,step" in decimal) and PowerPC ("pvr_ver,pvr_rev" in decimal)
-differ from the get_cpuid_str() formats ("vendor-family-model-stepping"
-in hex and "0x%.8lx") matched against the pmu-events mapfile.csv
-tables. As a result, finding the core events or metrics table for the
-CPUID of a perf_env, such as from a perf.data file recorded on a
-different architecture, failed.
+The arm64 CPUID matching test called strcmp_cpuid_str(), whose arm64
+MIDR comparison was only built for arm64. Now that strcmp_cpuid_str()
+is given the ELF machine of the CPUIDs and all of its comparisons are
+in util/header.c, the test can run on every architecture.
 
-Move the architecture specific comparisons into util/header.c and
-select them using the ELF machine of the CPUIDs: EM_NONE for the test
-and common tables compares exactly, arm64 compares MIDR part, variant
-and revision fields, x86 matches with an optional stepping and other
-architectures match a regular expression. Convert x86 and PowerPC
-HEADER_CPUID strings before matching.
+Move the test from arch/arm64/tests to tests, as a "CPUID matching"
+suite with an "arm64 MIDR" test case.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/arch/arm64/util/header.c |  48 ---------
- tools/perf/arch/x86/util/header.c   |  64 -----------
- tools/perf/util/header.c            | 161 +++++++++++++++++++++++++++-
- 3 files changed, 156 insertions(+), 117 deletions(-)
+ tools/perf/arch/arm64/include/arch-tests.h      |  1 -
+ tools/perf/arch/arm64/tests/Build               |  1 -
+ tools/perf/arch/arm64/tests/arch-tests.c        |  4 ----
+ tools/perf/tests/Build                          |  1 +
+ tools/perf/tests/builtin-test.c                 |  1 +
+ tools/perf/{arch/arm64 => }/tests/cpuid-match.c | 17 +++++++++++++----
+ tools/perf/tests/tests.h                        |  1 +
+ 7 files changed, 16 insertions(+), 10 deletions(-)
+ rename tools/perf/{arch/arm64 => }/tests/cpuid-match.c (75%)
 
-diff --git a/tools/perf/arch/arm64/util/header.c b/tools/perf/arch/arm64/util/header.c
-index ee28add836b5..181836613087 100644
---- a/tools/perf/arch/arm64/util/header.c
-+++ b/tools/perf/arch/arm64/util/header.c
-@@ -1,5 +1,3 @@
--#include <linux/bits.h>
--#include <linux/bitfield.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <perf/cpumap.h>
-@@ -10,8 +8,6 @@
+diff --git a/tools/perf/arch/arm64/include/arch-tests.h b/tools/perf/arch/arm64/include/arch-tests.h
+index 474d7cf5afbd..2b3834a5ddbb 100644
+--- a/tools/perf/arch/arm64/include/arch-tests.h
++++ b/tools/perf/arch/arm64/include/arch-tests.h
+@@ -4,7 +4,6 @@
  
- #define MIDR "/regs/identification/midr_el1"
- #define MIDR_SIZE 19
--#define MIDR_REVISION_MASK      GENMASK(3, 0)
--#define MIDR_VARIANT_MASK	GENMASK(23, 20)
+ struct test_suite;
  
- static int _get_cpuid(char *buf, size_t sz, struct perf_cpu cpu)
- {
-@@ -79,47 +75,3 @@ char *get_cpuid_str(struct perf_cpu cpu)
+-int test__cpuid_match(struct test_suite *test, int subtest);
+ extern struct test_suite *arch_tests[];
  
- 	return buf;
- }
--
--/*
-- * Return 0 if idstr is a higher or equal to version of the same part as
-- * mapcpuid. Therefore, if mapcpuid has 0 for revision and variant then any
-- * version of idstr will match as long as it's the same CPU type.
-- *
-- * Return 1 if the CPU type is different or the version of idstr is lower.
-- */
--int strcmp_cpuid_str(uint16_t e_machine __maybe_unused, const char *mapcpuid, const char *idstr)
--{
--	u64 map_id = strtoull(mapcpuid, NULL, 16);
--	char map_id_variant = FIELD_GET(MIDR_VARIANT_MASK, map_id);
--	char map_id_revision = FIELD_GET(MIDR_REVISION_MASK, map_id);
--	u64 id = strtoull(idstr, NULL, 16);
--	char id_variant = FIELD_GET(MIDR_VARIANT_MASK, id);
--	char id_revision = FIELD_GET(MIDR_REVISION_MASK, id);
--	u64 id_fields = ~(MIDR_VARIANT_MASK | MIDR_REVISION_MASK);
--
--	/* Compare without version first */
--	if ((map_id & id_fields) != (id & id_fields))
--		return 1;
--
--	/*
--	 * ID matches, now compare version.
--	 *
--	 * Arm revisions (like r0p0) are compared here like two digit semver
--	 * values eg. 1.3 < 2.0 < 2.1 < 2.2.
--	 *
--	 *  r = high value = 'Variant' field in MIDR
--	 *  p = low value  = 'Revision' field in MIDR
--	 *
--	 */
--	if (id_variant > map_id_variant)
--		return 0;
--
--	if (id_variant == map_id_variant && id_revision >= map_id_revision)
--		return 0;
--
--	/*
--	 * variant is less than mapfile variant or variants are the same but
--	 * the revision doesn't match. Return no match.
--	 */
--	return 1;
--}
-diff --git a/tools/perf/arch/x86/util/header.c b/tools/perf/arch/x86/util/header.c
-index b65856f3b846..5203e5cd151c 100644
---- a/tools/perf/arch/x86/util/header.c
-+++ b/tools/perf/arch/x86/util/header.c
-@@ -5,7 +5,6 @@
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
--#include <regex.h>
+ #endif
+diff --git a/tools/perf/arch/arm64/tests/Build b/tools/perf/arch/arm64/tests/Build
+index d44c9de92d42..bd15c6bbc1b2 100644
+--- a/tools/perf/arch/arm64/tests/Build
++++ b/tools/perf/arch/arm64/tests/Build
+@@ -2,4 +2,3 @@ perf-test-y += regs_load.o
+ perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
  
- #include "../../../util/debug.h"
- #include "../../../util/header.h"
-@@ -73,66 +72,3 @@ char *get_cpuid_str(struct perf_cpu cpu __maybe_unused)
- 	}
- 	return buf;
- }
--
--/* Full CPUID format for x86 is vendor-family-model-stepping */
--static bool is_full_cpuid(const char *id)
--{
--	const char *tmp = id;
--	int count = 0;
--
--	while ((tmp = strchr(tmp, '-')) != NULL) {
--		count++;
--		tmp++;
--	}
--
--	if (count == 3)
--		return true;
--
--	return false;
--}
--
--int strcmp_cpuid_str(uint16_t e_machine __maybe_unused, const char *mapcpuid, const char *id)
--{
--	regex_t re;
--	regmatch_t pmatch[1];
--	int match;
--	bool full_mapcpuid = is_full_cpuid(mapcpuid);
--	bool full_cpuid = is_full_cpuid(id);
--
--	/*
--	 * Full CPUID format is required to identify a platform.
--	 * Error out if the cpuid string is incomplete.
--	 */
--	if (full_mapcpuid && !full_cpuid) {
--		pr_info("Invalid CPUID %s. Full CPUID is required, "
--			"vendor-family-model-stepping\n", id);
--		return 1;
--	}
--
--	if (regcomp(&re, mapcpuid, REG_EXTENDED) != 0) {
--		/* Warn unable to generate match particular string. */
--		pr_info("Invalid regular expression %s\n", mapcpuid);
--		return 1;
--	}
--
--	match = !regexec(&re, id, 1, pmatch, 0);
--	regfree(&re);
--	if (match) {
--		size_t match_len = (pmatch[0].rm_eo - pmatch[0].rm_so);
--		size_t cpuid_len;
--
--		/* If the full CPUID format isn't required,
--		 * ignoring the stepping.
--		 */
--		if (!full_mapcpuid && full_cpuid)
--			cpuid_len = strrchr(id, '-') - id;
--		else
--			cpuid_len = strlen(id);
--
--		/* Verify the entire string matched. */
--		if (match_len == cpuid_len)
--			return 0;
--	}
--
--	return 1;
--}
-diff --git a/tools/perf/util/header.c b/tools/perf/util/header.c
-index 38525b17f26d..a442f2a904a9 100644
---- a/tools/perf/util/header.c
-+++ b/tools/perf/util/header.c
-@@ -11,7 +11,10 @@
+ perf-test-y += arch-tests.o
+-perf-test-y += cpuid-match.o
+diff --git a/tools/perf/arch/arm64/tests/arch-tests.c b/tools/perf/arch/arm64/tests/arch-tests.c
+index 74932e72c727..ad16b4f8f63e 100644
+--- a/tools/perf/arch/arm64/tests/arch-tests.c
++++ b/tools/perf/arch/arm64/tests/arch-tests.c
+@@ -3,13 +3,9 @@
+ #include "tests/tests.h"
+ #include "arch-tests.h"
  
- #include <byteswap.h>
- #include <dirent.h>
-+#include <elf.h>
-+#include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/bits.h>
+-
+-DEFINE_SUITE("arm64 CPUID matching", cpuid_match);
+-
+ struct test_suite *arch_tests[] = {
+ #ifdef HAVE_DWARF_UNWIND_SUPPORT
+ 	&suite__dwarf_unwind,
+ #endif
+-	&suite__cpuid_match,
+ 	NULL,
+ };
+diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+index 58858f3d2bf9..4a45b6740050 100644
+--- a/tools/perf/tests/Build
++++ b/tools/perf/tests/Build
+@@ -44,6 +44,7 @@ perf-test-y += stat.o
+ perf-test-y += event_update.o
+ perf-test-y += event-times.o
+ perf-test-y += expr.o
++perf-test-y += cpuid-match.o
+ perf-test-y += backward-ring-buffer.o
+ perf-test-y += sdt.o
+ perf-test-y += is_printable_array.o
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index 0b8897fd42ca..67d162ec9ef2 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -177,6 +177,7 @@ static struct test_suite *generic_tests[] = {
+ 	&suite__util,
+ 	&suite__subcmd_help,
+ 	&suite__kallsyms_split,
++	&suite__cpuid_match,
+ 	NULL,
+ };
+ 
+diff --git a/tools/perf/arch/arm64/tests/cpuid-match.c b/tools/perf/tests/cpuid-match.c
+similarity index 75%
+rename from tools/perf/arch/arm64/tests/cpuid-match.c
+rename to tools/perf/tests/cpuid-match.c
+index b073ac33ea9b..e3d4a349f393 100644
+--- a/tools/perf/arch/arm64/tests/cpuid-match.c
++++ b/tools/perf/tests/cpuid-match.c
+@@ -2,12 +2,11 @@
  #include <linux/compiler.h>
- #include <linux/ctype.h>
- #include <linux/kernel.h>
-@@ -960,12 +963,70 @@ char *get_cpuid_allow_env_override(struct perf_cpu cpu)
- 	return cpuid;
- }
+ #include <elf.h>
  
--/* Return zero when the cpuid from the mapfile.csv matches the
-- * cpuid string generated on this platform.
-- * Otherwise return non-zero.
-+#define MIDR_REVISION_MASK	GENMASK(3, 0)
-+#define MIDR_VARIANT_MASK	GENMASK(23, 20)
-+
-+/* Is @id a full x86 vendor-family-model-stepping CPUID, with 3 hyphens? */
-+static bool is_full_x86_cpuid(const char *id)
-+{
-+	const char *tmp = id;
-+	int count = 0;
-+
-+	while ((tmp = strchr(tmp, '-')) != NULL) {
-+		count++;
-+		tmp++;
-+	}
-+
-+	return count == 3;
-+}
-+
-+/*
-+ * Compare arm64 MIDR values. Return 0 if @idstr is the same CPU type as
-+ * @mapcpuid and its version, the Variant[23:20] and Revision[3:0] fields, is
-+ * greater than or equal to that of @mapcpuid. Therefore, if @mapcpuid has 0 for
-+ * the revision and variant then any version of @idstr will match as long as
-+ * it's the same CPU type.
-+ *
-+ * Return 1 if the CPU type is different or the version of @idstr is lower.
-  */
--int __weak strcmp_cpuid_str(uint16_t e_machine __maybe_unused, const char *mapcpuid,
--			    const char *cpuid)
-+static int strcmp_arm64_cpuid_str(const char *mapcpuid, const char *idstr)
-+{
-+	u64 map_id = strtoull(mapcpuid, NULL, 16);
-+	char map_id_variant = FIELD_GET(MIDR_VARIANT_MASK, map_id);
-+	char map_id_revision = FIELD_GET(MIDR_REVISION_MASK, map_id);
-+	u64 id = strtoull(idstr, NULL, 16);
-+	char id_variant = FIELD_GET(MIDR_VARIANT_MASK, id);
-+	char id_revision = FIELD_GET(MIDR_REVISION_MASK, id);
-+	u64 id_fields = ~(MIDR_VARIANT_MASK | MIDR_REVISION_MASK);
-+
-+	/* Compare without version first. */
-+	if ((map_id & id_fields) != (id & id_fields))
-+		return 1;
-+
-+	/*
-+	 * ID matches, now compare version.
-+	 *
-+	 * Arm revisions (like r0p0) are compared here like two digit semver
-+	 * values eg. 1.3 < 2.0 < 2.1 < 2.2.
-+	 *
-+	 *  r = high value = 'Variant' field in MIDR
-+	 *  p = low value  = 'Revision' field in MIDR
-+	 */
-+	if (id_variant > map_id_variant)
-+		return 0;
-+
-+	if (id_variant == map_id_variant && id_revision >= map_id_revision)
-+		return 0;
-+
-+	/*
-+	 * Variant is less than mapfile variant or variants are the same but
-+	 * the revision doesn't match. Return no match.
-+	 */
-+	return 1;
-+}
-+
-+/* Return 0 if all of @cpuid matches the extended regular expression @mapcpuid. */
-+static int strcmp_regex_cpuid_str(const char *mapcpuid, const char *cpuid)
+-#include "arch-tests.h"
+-#include "tests/tests.h"
++#include "tests.h"
+ #include "util/header.h"
+ 
+-int test__cpuid_match(struct test_suite *test __maybe_unused,
+-			     int subtest __maybe_unused)
++static int test__cpuid_match_arm64(struct test_suite *test __maybe_unused,
++				   int subtest __maybe_unused)
  {
- 	regex_t re;
- 	regmatch_t pmatch[1];
-@@ -989,6 +1050,96 @@ int __weak strcmp_cpuid_str(uint16_t e_machine __maybe_unused, const char *mapcp
- 	return 1;
- }
+ 	/* midr with no leading zeros matches */
+ 	if (strcmp_cpuid_str(EM_AARCH64, "0x410fd0c0", "0x00000000410fd0c0"))
+@@ -36,3 +35,13 @@ int test__cpuid_match(struct test_suite *test __maybe_unused,
  
-+/*
-+ * Compare x86 CPUIDs of the form vendor-family-model[-stepping]. A full
-+ * @mapcpuid is stepping specific and requires a full @cpuid, otherwise the
-+ * stepping of a full @cpuid is ignored.
-+ */
-+static int strcmp_x86_cpuid_str(const char *mapcpuid, const char *cpuid)
-+{
-+	unsigned int family, model, step;
-+	char norm_buf[128], buf[128];
-+	char vendor[32], extra;
-+	bool full_mapcpuid, full_cpuid;
+ 	return 0;
+ }
 +
-+	/* x86 get_cpuid() writes "vendor,family,model,step" in decimal. */
-+	if (sscanf(cpuid, "%31[^,],%u,%u,%u%c", vendor, &family, &model, &step, &extra) == 4) {
-+		snprintf(norm_buf, sizeof(norm_buf), "%s-%u-%X-%X", vendor, family, model, step);
-+		cpuid = norm_buf;
-+	}
++static struct test_case tests__cpuid_match[] = {
++	TEST_CASE("arm64 MIDR", cpuid_match_arm64),
++	{ .name = NULL, }
++};
 +
-+	full_mapcpuid = is_full_x86_cpuid(mapcpuid);
-+	full_cpuid = is_full_x86_cpuid(cpuid);
-+
-+	/*
-+	 * Full CPUID format is required to identify a stepping specific
-+	 * platform. Error out if the cpuid string is incomplete.
-+	 */
-+	if (full_mapcpuid && !full_cpuid) {
-+		pr_info("Invalid CPUID %s. Full CPUID is required, vendor-family-model-stepping\n",
-+			cpuid);
-+		return 1;
-+	}
-+
-+	/* If the full CPUID format isn't required, ignore the stepping. */
-+	if (!full_mapcpuid && full_cpuid) {
-+		int len = strrchr(cpuid, '-') - cpuid;
-+
-+		snprintf(buf, sizeof(buf), "%.*s", len, cpuid);
-+		cpuid = buf;
-+	}
-+	return strcmp_regex_cpuid_str(mapcpuid, cpuid);
-+}
-+
-+/* Compare PowerPC PVR CPUIDs, matching @cpuid against the regex @mapcpuid. */
-+static int strcmp_powerpc_cpuid_str(const char *mapcpuid, const char *cpuid)
-+{
-+	unsigned long pvr_ver, pvr_rev;
-+	char norm_buf[32], extra;
-+
-+	/* PowerPC get_cpuid() writes "pvr_ver,pvr_rev" in decimal. */
-+	if (sscanf(cpuid, "%lu,%lu%c", &pvr_ver, &pvr_rev, &extra) == 2) {
-+		unsigned long pvr = ((pvr_ver & 0xffff) << 16) | (pvr_rev & 0xffff);
-+
-+		snprintf(norm_buf, sizeof(norm_buf), "0x%.8lx", pvr);
-+		cpuid = norm_buf;
-+	}
-+	return strcmp_regex_cpuid_str(mapcpuid, cpuid);
-+}
-+
-+/**
-+ * strcmp_cpuid_str - Compare a pmu-events mapfile.csv CPUID with a CPUID.
-+ * @e_machine: The ELF machine of the CPUIDs' architecture.
-+ * @mapcpuid: The CPUID from the mapfile.csv, a regular expression for most
-+ *            architectures.
-+ * @cpuid: The CPUID from get_cpuid_str() or HEADER_CPUID.
-+ *
-+ * The test and common tables use EM_NONE and are compared exactly, arm64
-+ * compares MIDR values and other architectures match @cpuid against the
-+ * regular expression @mapcpuid. HEADER_CPUID values written by get_cpuid() on
-+ * x86 and PowerPC differ from the get_cpuid_str() format of the mapfile.csv
-+ * and are converted before matching.
-+ *
-+ * Return: 0 if the CPUIDs match, otherwise 1.
-+ */
-+int strcmp_cpuid_str(uint16_t e_machine, const char *mapcpuid, const char *cpuid)
-+{
-+	switch (e_machine) {
-+	case EM_NONE:
-+		return strcmp(mapcpuid, cpuid) ? 1 : 0;
-+	case EM_AARCH64:
-+		return strcmp_arm64_cpuid_str(mapcpuid, cpuid);
-+	case EM_386:
-+	case EM_X86_64:
-+		return strcmp_x86_cpuid_str(mapcpuid, cpuid);
-+	case EM_PPC:
-+	case EM_PPC64:
-+		return strcmp_powerpc_cpuid_str(mapcpuid, cpuid);
-+	default:
-+		return strcmp_regex_cpuid_str(mapcpuid, cpuid);
-+	}
-+}
-+
++struct test_suite suite__cpuid_match = {
++	.desc = "CPUID matching",
++	.test_cases = tests__cpuid_match,
++};
+diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+index 20ae3609892b..0d54d1d5acd2 100644
+--- a/tools/perf/tests/tests.h
++++ b/tools/perf/tests/tests.h
+@@ -201,6 +201,7 @@ DECLARE_SUITE(util);
+ DECLARE_SUITE(uncore_event_sorting);
+ DECLARE_SUITE(subcmd_help);
+ DECLARE_SUITE(kallsyms_split);
++DECLARE_SUITE(cpuid_match);
+ 
  /*
-  * default get_cpuid(): nothing gets recorded
-  * actual implementation must be in arch/$(SRCARCH)/util/header.c
+  * PowerPC and S390 do not support creation of instruction breakpoints using the
 -- 
 2.56.0.385.gac671c819a-goog
 
