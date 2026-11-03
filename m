@@ -1,37 +1,37 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743660;
-	b=Ry5LFA1yn1dU7t9XkASlfEqphPKX8kyh15w9VHKDt/jgCJG/E5YdplFd0QhLe+awEXBt
-	 pdpKORLmscdDtd/j/jM4qxDeJXnlgmNTv3bpRXw5p9va9Oea/dgYbRYQzpA7vt/KZIrr3
-	 /dKXekLCGf/eI9+EGmWatSifUz4aLjxte4CO9Kl3JEwEP7aiCb3pUAMiUfUWg+cmmQ188
-	 CIsv3D4OLHztYJeDISTlrsxvOadiZkGW0r5YyQ4UfbnbjvKDRm9L3e1nzAvtnQsK3p6rO
-	 4tI6Tpu/Fcqcp8lUruP1xWCa9bqBGRYEZM4QuHzKj7t6z9GvRPOU+E9+g0KexDMWf9g==
+	t=1793743681;
+	b=FTKPa9KbLUeKpCY/JFjw4iiDf100pmfAfWeSR1tIKxWVTleAygIOeHXtRoOgr345iVqu
+	 XE0hR2eGqbWF2Bbqw02L3DKTWJqdLgAAc1W+0jrc1EuoItZvCt35YAIKYufnfrY7EzHOz
+	 ZAbSZYCgZcI7LoY5w58fOC9AfqpYCKc9mDH6wtWi79TDF9uoO8iZ+AXJRF97JxYk0FUSd
+	 MmMHESOqTIM19nsLJknw68HncPwkandcLm1KKNAMUXxPUR8Yl2aLcAqDjef8pjUJWm3uM
+	 C6GnY3yFQGfMMJ/WFaWDuqGhZGWcIE7WsbmNNnMoqrjrR6RKAMdQV8WMMBoVFhlOIUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743660;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:Message-ID:
-	 User-Agent:MIME-Version:Content-Type:Content-ID;
-	bh=VRZz5fKKW6ooM6/DvuNbWQ+ouWa9aojakmYV2s8rNGQ=;
-	b=Kuk9pxs7biPwcLrD382VPO/iSPcTJH+2J7rI8tY2zC5GXvjy8VaayYO/XsmHdtp3OvCe
-	 S3YCsHeGxhTawppfuBtMqmrZco+vtZnhN+GfAM8umPMIsnkE4Cm3EUSGtzEdMf8UPbr6p
-	 kawvLyGPU4An4kfGUZAovetTYpsSfSnISzilg7lpFWvHRZcE4Hqajm+d7zEbT80aKP+0X
-	 0bPuIfxYcTnL2vtYgnsvxA0HJqcqXsRYII6/G29dUdRwt8BhEddmkAV7t/7rKHnuaptV0
-	 wKXu4AM/YYiQ8KZLAU9Y91sXtCvne0NMDSYmcDMi2YXeJNQ9FQshHRLWD6ciTDgix3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743681;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=LAf3EGIZ3UDRLTIol5vWBA35xQfNrglTSqSi1AKyLio=;
+	b=BhSdGuowvyXK4EbEyaqiVs65KmMqnDDHU0LsKRwzi/Xbq6KU07tr1qGNuZuF0yDOR9Mv
+	 t2E6541Py5P5X+CXNAFTRCD5OsDK/jbU5DgF6z+HbxialWrmfahTGxTVnIjiuarvDbYA0
+	 Z6pv/b4OnvpLIk7529LX382Zwup/Q36YuuJ7wdpbKhomR81HED/cXn+wBOnACVtNQIYtV
+	 IELQzTgHTK4izI8ziHfSdU85RPchJzJXEjnuwYhpL3Gd01TPhjw8G8H8Me3lyj0SVHnTb
+	 yTBI5C4dBrQYwCq5/IAeGFHSQpdOwexD6Qz3cxu07VlGQDwavcho1VQhidYKoflb3Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=orcam.me.uk;
 	spf=none smtp.mailfrom=orcam.me.uk;
 	arc=none smtp.remote-ip=78.133.224.34
 Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF1B5606A329;
-	Tue,  3 Nov 2026 22:07:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF1B5606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AD87606A32E;
+	Tue,  3 Nov 2026 22:08:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AD87606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
 Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id BC57F92009E; Tue,  3 Nov 2026 23:07:36 +0100 (CET)
+	id DDF3792009E; Tue,  3 Nov 2026 23:07:58 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id B5B3992009C;
-	Tue,  3 Nov 2026 22:07:36 +0000 (GMT)
-Date: Tue, 3 Nov 2026 22:07:36 +0000 (GMT)
+	by angie.orcam.me.uk (Postfix) with ESMTP id D707792009C;
+	Tue,  3 Nov 2026 22:07:58 +0000 (GMT)
+Date: Tue, 3 Nov 2026 22:07:58 +0000 (GMT)
 From: "Maciej W. Rozycki" <macro@orcam.me.uk>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
     Jiri Slaby <jirislaby@kernel.org>
@@ -43,9 +43,11 @@ cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
     Johan Hovold <johan@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
     Karl Mehltretter <kmehltretter@gmail.com>, linux-kernel@vger.kernel.org, 
     linux-serial@vger.kernel.org
-Subject: [PATCH v3 0/2] serial: core: Don't clobber the baud rate on hangup
+Subject: [PATCH v3 2/2] serial: core: Don't clobber the baud rate on hangup
  via B0
-Message-ID: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk>
+In-Reply-To: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk>
+Message-ID: <alpine.DEB.2.21.2611032050590.15685@angie.orcam.me.uk>
+References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,119 +58,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="-2058476832-1101985018-1793667572=:15685"
-Content-ID: <alpine.DEB.2.21.2611030100160.15685@angie.orcam.me.uk>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Requesting hangup via the B0 baud rate has this nasty side effect of 
+clobbering the previously set rate for the port unless it happens to be 
+9600bps or the port minimum rate if higher.  Consequently if there's a 
+consumer still active at the other end, then it receives corrupt data 
+from any other producers outputting messages to the port, such as 
+init(8) or the kernel console.
 
----2058476832-1101985018-1793667572=:15685
-Content-Type: text/plain; CHARSET=US-ASCII
-Content-ID: <alpine.DEB.2.21.2611030100161.15685@angie.orcam.me.uk>
+There doesn't appear to be any particular reason for this clobbering 
+other than that we have been doing it since 2.1.131, so take a saner 
+approach and keep track of the most recently set baud rate and then use 
+it whenever hangup has been requested.
 
-Greg,
+There is one issue however with serial8250_console_restore(), possibly 
+called from the NMI context on some platforms, in which case there is a 
+concurrency issue owing to `port->mutex' not being held by the function.  
+Consequently `port->hup_speed' could be written midway through an update 
+being made by a termios call, causing the value saved to clobber the 
+baud rate programmed into hardware with a later B0 rate selection.
 
- This is v3 of the change for device baud rate preservation where the B0 
-rate has been requested for hangup that we discussed at LPC.
+Handle it by renaming uart_get_baud_rate() to uart_get_baud_rate_save() 
+and giving the function an extra `save' parameter to control whether or 
+not to have the baud rate saved in `port->hup_speed' that is returned by 
+the function.  Then use that parameter to suppress saving when called by 
+serial8250_console_restore(), observing that the call is only ever made 
+to restore the baud rate most recently set.  Any concurrent interrupted 
+termios call, once it has been passed control again, will then program 
+hardware consistently with the value it may have written already or will 
+otherwise write to `port->hup_speed'.
 
- Following the observations regarding v2 I have now excluded the 8250 
-console restoration path from rewriting port->hup_speed; this path only 
-takes the most recent baud rate previously set and reinstates it with 
-hardware without changing the setting chosen.  See the individual patches 
-for further details of the changes made.
+In the unlikely case `port->hup_speed' is zero where the B0 rate has 
+been requested as the first one since the system boot for a non-console 
+device, resort to the current default of max(min, 9600).
 
- I have verified it with the system and driver originally affected, that 
-is a Broadcom BCM91250A "SWARM" system and sb1250-duart driver, but now 
-also an MTI Malta system and the 8250 driver, with both showing the same 
-symptoms on real hardware (worth mentioning since Malta is commonly used 
-emulated in QEMU); cf. SIBYTE_SWARM and MIPS_MALTA in arch/mips/Kconfig.  
-I have retained the console output logs previously attached for the bad vs 
-fixed case; output is virtually the same across both systems.
+Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+---
+Changes from v2, 
+<https://lore.kernel.org/r/alpine.DEB.2.21.2610120231550.55767@angie.orcam.me.uk/>:
 
- All that needed to be done to reproduce it was to keep killing getty(8)s 
-repeatedly until init(8) decided something was wrong and chose to put 
-their inittab(5) entries into a snooze, leaving the line(s) at the wrong 
-speed setting.  I have done further experimentation with actual kernel 
-console output by issuing:
+- Add a `save' parameter to uart_get_baud_rate() and rename the function 
+  to uart_get_baud_rate_save().
 
-# echo h >/proc/sysrq-trigger
+- Add a uart_get_baud_rate() static inline wrapper for regular cases in 
+  drivers such as handling termios calls.
 
-once the console port has been hung up and that obviously also produced 
-corrupt output without the fix and correct output with the fix applied.
+- Use the `save' parameter appropriately in serial8250_get_baud_rate() to 
+  handle serial8250_console_restore() calls.
 
- I have no means to verify the serial8250_console_restore() path; the fix 
-is expected to make no functional change there.
+Changes from v1, 
+<https://lore.kernel.org/r/alpine.DEB.2.21.2605242242330.1450@angie.orcam.me.uk/>:
 
- Since the return path from uart_get_baud_rate() has become more complex 
-now than just supplying the baud rate chosen to the caller I went back to 
-the original idea of having this as a small patch series, where 1/2 merely 
-merges the two successful return paths into one.
+- Cache the most recently set actual baud rate in port->hup_speed and use 
+  it whenever the B0 rate has been requested since the old termios may be 
+  NULL or have the B0 rate recorded.
+---
+ drivers/tty/serial/8250/8250_port.c |    9 +++++----
+ drivers/tty/serial/serial_core.c    |   25 ++++++++++++++++---------
+ include/linux/serial_core.h         |   28 +++++++++++++++++++++++++---
+ 3 files changed, 46 insertions(+), 16 deletions(-)
 
- NB this fixes the missing %B0 literal markup as a part of the doc update.  
-I've concluded it's not worth splitting off into a separate patch.  Let me 
-know if you think otherwise.
-
- Previous iterations:
-
-- v2 at: <https://lore.kernel.org/r/alpine.DEB.2.21.2610120150230.55767@angie.orcam.me.uk/>.
-
-- v1 at: <https://lore.kernel.org/r/alpine.DEB.2.21.2605242242330.1450@angie.orcam.me.uk/>.
-
-  Maciej
----2058476832-1101985018-1793667572=:15685
-Content-Type: text/plain; CHARSET=US-ASCII; NAME=swarm-bad.log
-Content-Transfer-Encoding: BASE64
-Content-ID: <alpine.DEB.2.21.2611030059320.15685@angie.orcam.me.uk>
-Content-Description: 
-Content-Disposition: ATTACHMENT; FILENAME=swarm-bad.log
-
-G1tIG1tKDXN3YXJtLm9yY2FtLm1lLnVrIGxvZ2luOiAA/gD+AAAAAAAA/gAA
-8AAA8AD+AADwAADwAP4A/gAA8AAA8AD+AAAAwAD+AP4A/gAA8AD+AADwAAAA
-AAAAAPgAAPAA/gAA8AAA8AD+AAAAwAAA8AD+AAAAAAAAAPgAAPAAAPAAAADA
-AADwAP4AAPAA/gD+AAAAAAAA/gAA8AAA8AAAAMAAAPAAAAAAAAAA+AAA8AAA
-8AAA8AD+AP4A/gAA8AD+AP4AAPAA/gAAAAAAAP4A/gD+AAAAAAAA/gD+AP4A
-/gAA8AD+AP4A/gAA8AD+AP4AAPAA/gD+AP4AAPAA/gAAAAAAAADwAADwAAAA
-wAD+AP4A/gD+AP4A/gD+AP4AAAAAAAAA8AAA8AAA8AAA8AD+AP4AAAAAAAD+
-AP4AAPAA/gAAAMAA/gD+AADwAP4AAPAAAAAAAAAA8AAA8AAAAMAAAPAA/gD+
-AADwAP4A/gD+AADwAP4A/gAAAAAAAP4AAPAAAADAAP4AAADAAP4A/gD+AP4A
-APAA/gAAAMAAAPAA/gAAAAAAAAD4AADwAADwAADwAP4A/gD+AP4AAPAAAPAA
-/gAAAAAAAAD4AADwAP4A/gD+AADwAAAAAAAAAPgAAPAA/gD+AP4A/gD+AADw
-AP4A/gAA8AD+AP4A/gD+AP4A/gAAAMAA/gD+AP4A/gAA8AD+AP4AAPAA/gD+
-AP4AAAAAAAAA8AD+AAAAAAAA/gD+AAAAAAAA/gAA8AAA8AD+AADwAADwAP4A
-/gAA8AAA8AD+AAAAwAD+AP4A/gAA8AD+AADwAAAAAAAAAPgAAPAA/gAA8AAA
-8AD+AAAAwAAA8AD+AAAAAAAAAPAAAPAAAPAAAADAAADwAP4AAPAA/gD+AP4A
-AADAAADwAADwAAAAwAAA8AAAAAAAAADwAADwAADwAADwAP4A/gD+AADwAP4A
-/gAA8AD+AAAAAAAA/gD+AP4AAAAAAAD+AP4A/gD+AADwAP4A/gD+AADwAP4A
-/gAA8AD+AP4A/gAA8AD+AAAAAAAAAPgAAPAAAADAAP4A/gD+AP4A/gD+AP4A
-/gAAAAAAAAD4AADwAADwAADwAP4A/gAAAAAAAP4A/gAA8AD+AAAAwAD+AP4A
-APAA/gAA8AAAAAAAAAD4AADwAAAAwAAA8AD+AP4AAPAA/gD+AP4AAPAA/gD+
-AAAAAAAA/gAA8AAAAMAA/gAAAMAA/gD+AP4A/gAA8AD+AAAAwAAA8AD+AAAA
-AAAAAPAAAPAAAPAAAPAA/gD+AP4A/gAA8AAA8AD+AAAAAAAAAPAAAPAA/gD+
-AP4AAPAAAAAAAAAA+AAA8AD+AP4A/gD+AP4AAPAA/gD+AADwAP4A/gD+AP4A
-/gD+AAAAwAD+AP4A/gD+AADwAP4A/gAA8AD+AP4A/gAAAAAAAADwAP4AAAAA
-AAD+AP4AAAAAAAD+AADwAADwAP4AAPAAAPAA/gD+AADwAADwAP4AAADAAP4A
-/gD+AADwAP4AAPAAAAAAAAAA8AAA8AAA8AD+AP4A/gD+AP4AAAAAAAAA+AAA
-8AD+AP4A/gD+AP4A/gD+AADwAADwAP4A/gD+AADwAP4AAAAAAAAA+AAA8AAA
-AAAAAP4A/gAA8AAA8AD+AP4A/gD+AP4AAADAAP4A/gD+AADwAP4A/gAA8AD+
-AP4AAPAA/gD+AP4AAPAA/gD+AADwAP4AAAAAAAAA+AAA8AAAAMAA/gD+AP4A
-/gAA8AD+AADwAADwAP4AAADAAP4A/gAAAAAAAADwAADwAP4AAPAA/gD+AADw
-AP4A/gAAAAAAAADwAADwAAAAwAD+AP4AAAAAAAD+AP4A/gAA8AD+AP4A/gAA
-8AD+AAAAAAAAAPgAAPAAAPAAAPAA/gD+AP4A/gD+AADwAP4A/gAAAMAA/gD+
-AP4A/gAA8AD+AADwAP4A/gD+AP4AAPAA/gAAAMAA/gD+AP4A/gAAAAAAAADw
-AP4AAAAAABtbSBtbSg1zd2FybS5vcmNhbS5tZS51ayBsb2dpbjogDQo=
-
----2058476832-1101985018-1793667572=:15685
-Content-Type: text/plain; CHARSET=US-ASCII; NAME=swarm-fixed.log
-Content-Transfer-Encoding: BASE64
-Content-ID: <alpine.DEB.2.21.2611030059321.15685@angie.orcam.me.uk>
-Content-Description: 
-Content-Disposition: ATTACHMENT; FILENAME=swarm-fixed.log
-
-G1tIG1tKc3dhcm0ub3JjYW0ubWUudWsgbG9naW46IElOSVQ6IElkICJTMCIg
-cmVzcGF3bmluZyB0b28gZmFzdDogZGlzYWJsZWQgZm9yIDUgbWludXRlcw0K
-SU5JVDogSWQgIlMxIiByZXNwYXduaW5nIHRvbyBmYXN0OiBkaXNhYmxlZCBm
-b3IgNSBtaW51dGVzDQpJTklUOiBubyBtb3JlIHByb2Nlc3NlcyBsZWZ0IGlu
-IHRoaXMgcnVubGV2ZWwNChtbSBtbSnN3YXJtLm9yY2FtLm1lLnVrIGxvZ2lu
-OiANCg==
-
----2058476832-1101985018-1793667572=:15685--
+linux-serial-uart-get-baud-rate-hup.diff
+Index: linux-macro/drivers/tty/serial/8250/8250_port.c
+===================================================================
+--- linux-macro.orig/drivers/tty/serial/8250/8250_port.c
++++ linux-macro/drivers/tty/serial/8250/8250_port.c
+@@ -2626,7 +2626,8 @@ static void serial8250_set_divisor(struc
+ 
+ static unsigned int serial8250_get_baud_rate(struct uart_port *port,
+ 					     struct ktermios *termios,
+-					     const struct ktermios *old)
++					     const struct ktermios *old,
++					     bool save)
+ {
+ 	unsigned int tolerance = port->uartclk / 100;
+ 	unsigned int min;
+@@ -2651,7 +2652,7 @@ static unsigned int serial8250_get_baud_
+ 	 * slower than nominal still match standard baud rates without
+ 	 * causing transmission errors.
+ 	 */
+-	return uart_get_baud_rate(port, termios, old, min, max);
++	return uart_get_baud_rate_save(port, termios, old, min, max, save);
+ }
+ 
+ /*
+@@ -2842,7 +2843,7 @@ serial8250_do_set_termios(struct uart_po
+ 
+ 	serial8250_set_mini(port, termios);
+ 	lcr = serial8250_compute_lcr(up, termios->c_cflag);
+-	baud = serial8250_get_baud_rate(port, termios, old);
++	baud = serial8250_get_baud_rate(port, termios, old, true);
+ 	quot = serial8250_get_divisor(port, baud, &frac);
+ 
+ 	/*
+@@ -3339,7 +3340,7 @@ static void serial8250_console_restore(s
+ 		termios.c_ospeed = port->state->port.tty->termios.c_ospeed;
+ 	}
+ 
+-	baud = serial8250_get_baud_rate(port, &termios, NULL);
++	baud = serial8250_get_baud_rate(port, &termios, NULL, false);
+ 	quot = serial8250_get_divisor(port, baud, &frac);
+ 
+ 	serial8250_set_divisor(port, baud, quot, frac);
+Index: linux-macro/drivers/tty/serial/serial_core.c
+===================================================================
+--- linux-macro.orig/drivers/tty/serial/serial_core.c
++++ linux-macro/drivers/tty/serial/serial_core.c
+@@ -454,29 +454,32 @@ uart_update_timeout(struct uart_port *po
+ EXPORT_SYMBOL(uart_update_timeout);
+ 
+ /**
+- * uart_get_baud_rate - return baud rate for a particular port
++ * uart_get_baud_rate_save - return baud rate for a particular port
+  * @port: uart_port structure describing the port in question.
+  * @termios: desired termios settings
+  * @old: old termios (or %NULL)
+  * @min: minimum acceptable baud rate
+  * @max: maximum acceptable baud rate
++ * @save: whether to save the baud rate chosen
+  *
+  * Decode the termios structure into a numeric baud rate, taking account of the
+- * magic 38400 baud rate (with spd_* flags), and mapping the %B0 rate to 9600
++ * magic 38400 baud rate (with spd_* flags), and mapping the %B0 rate to the
++ * previously saved rate provided by @port, or if this is unset, then 9600
+  * baud or min argument, whichever is greater.
+  *
+  * If the new baud rate is invalid, try the @old termios setting. If it's still
+  * invalid, clip to the nearest chip supported rate.
+  *
+  * The @termios structure is updated to reflect the baud rate we're actually
+- * going to be using. Don't do this for the case where B0 is requested ("hang
+- * up").
++ * going to be using, except where %B0 is requested ("hang up"). Likewise the
++ * @port structure, except where @save is %false.
+  *
+  * Locking: caller dependent
+  */
+ unsigned int
+-uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
+-		   const struct ktermios *old, unsigned int min, unsigned int max)
++uart_get_baud_rate_save(struct uart_port *port,
++			struct ktermios *termios, const struct ktermios *old,
++			unsigned int min, unsigned int max, bool save)
+ {
+ 	unsigned int try;
+ 	unsigned int baud;
+@@ -515,10 +518,14 @@ uart_get_baud_rate(struct uart_port *por
+ 		 * Special case: B0 rate.
+ 		 */
+ 		if (baud == 0)
+-			baud = max(min, 9600);
++			baud = (port->hup_speed ?
++				port->hup_speed : max(min, 9600));
+ 
+-		if (baud >= min && baud <= max)
++		if (baud >= min && baud <= max) {
++			if (save)
++				port->hup_speed = baud;
+ 			return baud;
++		}
+ 
+ 		/*
+ 		 * If the range cannot be met then try again with
+@@ -548,7 +555,7 @@ uart_get_baud_rate(struct uart_port *por
+ 	WARN_ON(1);
+ 	return 0;
+ }
+-EXPORT_SYMBOL(uart_get_baud_rate);
++EXPORT_SYMBOL(uart_get_baud_rate_save);
+ 
+ /**
+  * uart_get_divisor - return uart clock divisor
+Index: linux-macro/include/linux/serial_core.h
+===================================================================
+--- linux-macro.orig/include/linux/serial_core.h
++++ linux-macro/include/linux/serial_core.h
+@@ -573,6 +573,7 @@ struct uart_port {
+ 
+ 	bool			hw_stopped;		/* sw-assisted CTS flow state */
+ 	bool			cons_flow;		/* user specified console flow control */
++	speed_t			hup_speed;		/* speed to use for B0 rate (hang-up) */
+ 	unsigned int		mctrl;			/* current modem ctrl settings */
+ 	unsigned int		frame_time;		/* frame timing in ns */
+ 	unsigned int		type;			/* port type */
+@@ -1036,11 +1037,32 @@ enum UART_TX_FLAGS {
+  */
+ void uart_update_timeout(struct uart_port *port, unsigned int cflag,
+ 			 unsigned int baud);
+-unsigned int uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
+-				const struct ktermios *old, unsigned int min,
+-				unsigned int max);
++unsigned int uart_get_baud_rate_save(struct uart_port *port,
++				     struct ktermios *termios,
++				     const struct ktermios *old,
++				     unsigned int min, unsigned int max,
++				     bool save);
+ unsigned int uart_get_divisor(struct uart_port *port, unsigned int baud);
+ 
++/**
++ * uart_get_baud_rate - return baud rate for a particular port
++ * @port: uart_port structure describing the port in question.
++ * @termios: desired termios settings
++ * @old: old termios (or %NULL)
++ * @min: minimum acceptable baud rate
++ * @max: maximum acceptable baud rate
++ *
++ * See uart_get_baud_rate_save() for more details.
++ */
++static inline unsigned int uart_get_baud_rate(struct uart_port *port,
++					      struct ktermios *termios,
++					      const struct ktermios *old,
++					      unsigned int min,
++					      unsigned int max)
++{
++	return uart_get_baud_rate_save(port, termios, old, min, max, true);
++}
++
+ /*
+  * Calculates FIFO drain time.
+  */
