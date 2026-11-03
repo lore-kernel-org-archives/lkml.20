@@ -1,87 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.116
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793688544;
-	b=pjAuDxOSwP+MDFaCiE65uy+d5MAD3A8+T7DkSBvdlI3avC3ceRRQIjkxQ/2d7cL2i0Uf
-	 XIBsB98cc00vdUkmidSFEcm+yNMDQcRqFKQPPElGZtXR5BN/3ZGjyGF+3ADQnOG++DdGJ
-	 OHoeA5A5Jb7xx2MI+isGcoE6WFFjEOcTPtnSEdXJPCXvS1IWzDh4u9e23pWpnGcnQfpX1
-	 drVC1lepdrgPD0mqgggvOrfnCmFCaSEmdi0ASdt9p1qCxesUDj+go4Po+6o5CJ+aSo9WZ
-	 uyUgOoms1OD7wbFZ2LI/ygEFNdCZEHPGuwPOnNYpzkpgqT2IxltxVFjm/Qmmwjtnr9g==
+	t=1793688634;
+	b=BN/D1nGXhSV+OfqI9Vfu2uiaNOAReHL7Me30+6u205Lc/un8bXXs7BN4TX8v/G2LPdZA
+	 9hDZFP0us03/zOtNJjaWZdAu5krS3gZVloY0MU+thoZkqQyxRGcUUO4gdDSx5zIq9c+1i
+	 qzGflpbZlSWIwsHIbnaYWp3xW1Jl5xHeMXmqCP9+Z9r9ASIZBsjVlQOj4Dq/qCqrC911R
+	 l72vqEWHaAK1eOMXeVuOPB3fMEZSm3Hr/Cd4zlVLswKWHCZYgXJDYvSr2tPGNLCkTXpb/
+	 yQG1NLBrYPMFqH/o2LuSYeEmAwuzsflIApphD2bvFqi4Tti17ZLKGJsH4Ly6krgoNwA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688544;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:Content-Type:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=v9tu482SnNkSpLcF+GPX25sC8op4cRy2dP9m5ipWay8=;
-	b=t+gR4Zrt+9/5GZGIRZVwB5scdgTV+8pA5tNH+VxReI2daFE/zatbIQx0VcnsXjPydOkr
-	 eZbZKs5bfRzgrShmmdm/HOk42f3jGotAmVTuy8moHF8VJb5QY/0kHf3hQceN2G7YG3PVN
-	 HjElrkeNHmRDq8uXLtl7jnlF4ohkSJz7rFoeo0aFQqgydCWbgsMWfCKcZ3NjMRfjkuU5W
-	 4EWHez7B3hq4Wi8KhdUh1hJlWtpwlKJKBDyvm5O4ZnmU9k9HoFnLQy7/Sa1PokxhoHjd0
-	 ZWyK3ZhJxpRhLlEYG4MtngmFIXFneNu1DhVVNJyS3LxaS/5GqDT+g1lIT/flcLMQHmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688634;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	b=p3KsFz+XzSAmLdrJys/9XngWOz9ZnpSldQhKLOLqTGISgH35PJQ7sGyATBtJIvRtzKfL
+	 TBtqCRATgBU1/5n3eRWwhKGwrxwWrVoB9wP+6zF5R+ZR3Drl/C+1rlJ28fgFZfhrCRf1x
+	 ue7Q4kKCsfTzNzAK9mWJW+w3lNt7NKh354SvfwIrQjy6TTBbyWwgQkXl9nLRLgesu2rYA
+	 XVNZob/z+W3HR0CnFPT70X9B+Ar1PaO8rU10PyVqQvINXaEewn0EqgFyDG/xFb5q0A1+L
+	 DISvvaQCkpC2LO5glOYzX4tx3SmzCaWkpIgBIXE6hjcpOzFxWFhN3FOZwsQuoeFQHsg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.116
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2116.outbound.protection.partner.outlook.cn [139.219.146.116])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjWvmr7u;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0FC606A33A;
-	Tue,  3 Nov 2026 06:49:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C0FC606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lZFMwtTme1+GOaEOpZPnxE9KO37toBV41SjdvEbU9zEfPnvAtufJBDwtW4Vdc13xjxDzpe0VEQLXToaUPowA5nXUP4teDPDqebO2+1HbVVfteO+ToPq5FBuRQgPKPZsm7LXyfYXeK/HHrPRGeBfNfdS7UZ9O+5awd5x0Xlw0JVbS1Tc043VFb6J7743nhkSDD9chiicSKyN9pSYGFkPuCtiRRR9BhLfvuXIanTeblZ3xwyRFS/ghVGA9wBtRjswD0vv7QEJFOF3PWsFQGAWVMPF36Mm+wE/5G1ktawRO/GtEQhUcaei7p4k/2lSYj2kkMS8nwe+W90uJFCHcgnwjIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v9tu482SnNkSpLcF+GPX25sC8op4cRy2dP9m5ipWay8=;
- b=VJX1BS9XF1xsqVGCV48aIYdJC6IFjm52b361E5O/JYa/qT6rT2XaU7ryWMZ2pDEM1ZG1BycDUQYuyrO/oX3ZOAF2zzaeOMIsROnSgzW8sslMneucFGv3CV8ckfw7ZznYEqVPT2PhIk4kp9AX3mDBfZE3CZtZqhYSFVrQ51ujeyt9cI9KsNBe9Ec4AGSaTf/QOV+BmTHb5u8RSutK0C2VaUp724DfC3IFRRQzgqZWj61gYKjsIpfYuTScNro6zWzN78eBmFGIUtlWEXNQ9V7h1ha3+dElTsHZX+RNObyisM0+3qfyI/qvFgoBC0uz2X8REjNPnLTUqnVsY9zjWYqURg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:e::7) by ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 06:48:45 +0000
-Received: from ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
- ([fe80::d777:e23a:d111:5fa1]) by
- ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn ([fe80::d777:e23a:d111:5fa1%6])
- with mapi id 15.21.0569.011; Tue, 3 Nov 2026 06:48:45 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Minda Chen <minda.chen@starfivetech.com>
-Subject: [PATCH v2 3/3] usb: dwc3: starfive: Add JHB100 USB device adapter port enable quirk
-Date: Tue,  3 Nov 2026 14:48:36 +0800
-Message-Id: <20261103064836.71059-4-minda.chen@starfivetech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261103064836.71059-1-minda.chen@starfivetech.com>
-References: <20261103064836.71059-1-minda.chen@starfivetech.com>
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0001.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:5::14) To ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:e::7)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BA3606A331;
+	Tue,  3 Nov 2026 06:50:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjWvmr7u
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793688634;
+	b=BOwc2WJCr+DcDyMswovOfjklm+xfrxY6ic/JAjoYYkQxekwW86hNa2oeYIk7wWigO2fL
+	 F8uxMQ7W+QvYDBYjHaZke9ASbLo9mHpX+FMEzM3lGjrK6pmSqhWcWRRYpnjKXdGxxkke/
+	 /24Lu0CVs9ELHmbhTzUdU4vc0lth6QIftLiX7Oz6PvUasOmlth3tcAhQkJxxs7uth18Vp
+	 b9l9jl07ZaNQzLPlOeGbqCTik6l2RMdN4EeOTVKqfS0TKVojkBZETuXdxilFXhtVMmFnJ
+	 aVJMiSpOtc8F2MJAYnwYxFIIDb7UgFs46HRG+eREJ79I7AX3AMFuG+G6+rtmZX3GFFQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793688634;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	b=XXWfe4R6eOgnoYkOWQ9Q8QzRIf+59Bfu3ALtUOKo9jKaxk77Ax88o1tyxLOimyX6gphk
+	 PnCzV0JDwkQfTzRakwNPv6pi+fIA85oBGiHFzmvB0YU2DNRahSF5rzmbQDAG38sPRerel
+	 SXP/AdNYFZYyjx1RAs+CjMpKWxkJDvkyOJqWMUXrIYPZxehww+DgZxJE29ZL2iQ1RZhTT
+	 if8dNxr5egDUd9YKkAT4bU2TITBQ/fvlnP+u3Z0sLOaei027a+jH9ZGUWG/IXywWBIJBv
+	 nWeervIVGKaH1ikO1j5pfxNgX0XmZ/Z6dvllPa8l9PbK2cv9+RFD4RNy8c7CdtWg1Lw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id B14731F00919;
+	Tue,  3 Nov 2026 06:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793688634;
+	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=KjWvmr7uP92FXRO4zGdMOamWGpi2urvBtJwEGPOq0HrqW+ZPCj8aJCLiUNR4Se9xx
+	 /AbxZqx1IAsFt5LZq+6G9L1A71fSvqvPIlc/79XCrBqXy57WotsgMsK08B04VcrOkO
+	 XXgWyZ2UHAdNQQ1ziffKOFmDttCQxI140kUUbcUDBSQEmJ7vfKWMPDY6X6l0xXJYnf
+	 XoC5+DUDl1lL/BKog/v9exDe4A/wPANBxZq0SzxRqnMKHlThG6NM8jMfabBFeslaCL
+	 Xm2CYz8KGm0SetbXY0hi1V9T5rowMHu+8LAUGNw5vOcVDxc+1iALywCKPvwVVaK0I9
+	 h9ENEW/tbo4fA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1DFB2467EE;
+	Tue,  3 Nov 2026 06:50:32 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Tue, 03 Nov 2026 14:50:19 +0800
+Subject: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
+ properties
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,167 +83,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1111:EE_|ZQ0PR01MB0982:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6690e497-c242-432b-1615-08df397681d1
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|1800799024|23010399003|366016|3023799007|6133799003|10067099003|18002099003|261102123227099003|22082099003|261102130727099003|56012099006|261026121527099003|261022105027099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003|38350700014|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	97vEeERGoGRN6JAvxzem0GDY38I7T+qigczI6/+F2PodCQ4hh4xtAj87eqyjdB4/joD5yBZ+uxXGO7RFdyxzjEOEsz7XeR6IasFerNvCZFTmnshiIigJAVR8UV50fLshatYLTcF9M8Mt5XayWFv4CK0j4df5jfx9uyXRasH8m68dIqwKOShuAhwC1x0vVNplJVD7T249rzDwayTU4BQKvWOtDi/tMhJc6zCWfC0s4aTIcHGuamXDHfkk06IwfrJUIsC8JgnyRVy5SHFXSsC9MV8LARzkvivUV8o/K00soFMsCLv47fUWr8L4wWmmZIqNEO1RA8VVm+4J0F+wRVRM7GXDgBWTzKDKSM5vjzOQx47s9s/qunsG7OkIElHTgwc/n8VuQIo3AWBiNbf9a9AQhjZG2HhMU9Co3X7nG4vI3qUvRYnwycmWAAKmcRwdbwnHRy2fSFMIDpWoawenWLVy1N0uy0J17V2H7rsLgS5R6wbBXfIEnQq7zHlmDIQTEO/IVLvXaR7dwcJWPSjeGG/WowMfoZgHvwk4mHk4t6IagsNSMFd/e0fJNClTyMhRGU8W
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(23010399003)(366016)(3023799007)(6133799003)(10067099003)(18002099003)(261102123227099003)(22082099003)(261102130727099003)(56012099006)(261026121527099003)(261022105027099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003)(38350700014)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5Iztjbbm2Zj45DLKHO96nXo3xxmtPLj28s6VV7boYMqm1930MDOUAOO6nvoE?=
- =?us-ascii?Q?vjmlQjhXQyTFu/PyyBvdG8urIzSWs7IoFNZ2dzUwKjsn+qtO3/HwdLHWH7+v?=
- =?us-ascii?Q?05QceJ6RCPYAlbpJboLMgTUm36G22RiyG3p6vE55z/r54XbFNPl4tDZacHM9?=
- =?us-ascii?Q?PviXqfn+RFZKo/XdDOnzEx/Bx0KxaDH6wY3ZWvbAuVCcQnCVjlDQlHnOs/aN?=
- =?us-ascii?Q?CyG7XZCPjhY4Yfb6GQH/aLmBRt8RcF6ye7lUtCV19BbmMnuf+h2Ts6kG2MOD?=
- =?us-ascii?Q?HtzaKQalNGeMYZ+a+I2/OuW+JpGkSJuAoxtw34ETOmVyUshv40jpzd8ZTMAj?=
- =?us-ascii?Q?bNbZN5DCJG1Hkl104IPI2QeDQb0T3e7SqvFJauGsgkrcv4mRKoWqdjXH00L5?=
- =?us-ascii?Q?TVOyOMGIjC+wm90fVrAu5n7a/9v40XhGs+MdDFVZ9nLSBJOdswSq8QlwuAzG?=
- =?us-ascii?Q?vDCwbvakJcPwlHAzbnhmLMUzT7oEfY3gGe9tHmNsTQDFzUC1d1kWx6J7wfYs?=
- =?us-ascii?Q?9Y/k1eEyxiD9EuzwBREN5iYlbOsKbXBBJQ7sTITo/8vX061oXeinknMLRinp?=
- =?us-ascii?Q?ASRTz1xoWdey3yeFBdrnsedoeDHd+TQPDlfji+Za27T6uYgyPGy07RlN1IqV?=
- =?us-ascii?Q?WTFLMXYYBp4wM6lHNRW41c1yMns0gfHu1TvTg8e9aNCUMwh8TzD9b0fQAF8y?=
- =?us-ascii?Q?tlJ9zrcz0AOrm2lt/Bbz3AbdQKfUzzW/caMpcTtHRVjoB33yku68eT1DGAYe?=
- =?us-ascii?Q?gel9WHPFZTLPIKi3edHpI911pe2RBIFeAQCvlyFd6lLhYlnMBP3gGMY6jwMQ?=
- =?us-ascii?Q?lNQxMyNtPNYKSciR/dVtBHmJ+IyGSORa5/IKhkH6Euqn0beD0a0xO5Ef+Krq?=
- =?us-ascii?Q?qaJryRj5KBtu5u2rr/W+U5BR6l6jV9RSNkNKQfjaVKemnYbwrc5+rXdcIYbe?=
- =?us-ascii?Q?Jdu5wKH1R27TJHjhXXmKxV2xciiVZDNl0X6ntbuuOYJa0OUc5c7Q/uDyN80d?=
- =?us-ascii?Q?fxnYlEMjiFZsv+8KdzAGCeucWsr5pIiYH7F734wocjU5BR2U3P8uBpVKgtzq?=
- =?us-ascii?Q?w4Vf66zQJo+3c0gSdWTF3ssULkJ96cKIiBNKTLELlpLukzkqe7RL/9ic76cM?=
- =?us-ascii?Q?7z8LLidJRZkJZjpavEzvKPEhBcRnnooHgOvPuwzr5sLxsvz+o1hwBAsgBbOF?=
- =?us-ascii?Q?8RODEzIYZcx5D8b280Isp8PJ8m2MMxcLE1znsjQqJQfOVczwzcAheC4lFPEe?=
- =?us-ascii?Q?5WQwwiW1C93TYf7gJdQx9Ribom6iaDVB5epmNy7W6/q3ELGDji510oYEldaq?=
- =?us-ascii?Q?paJfBnJrqsdeOwUyvYKkLYnY3JAlB8a1ba46mkoG+7xSibO+xUCZlb48VZIX?=
- =?us-ascii?Q?S15WByiDo5DIJqOKJTP32v92CBooPGFXxIhmuC5EL+IVFi3zKDP5spMeOlII?=
- =?us-ascii?Q?gIUiNw8yh0ErdKBIYGWbtzWMKEiCSvU9Ozs0AF8LNMcGWo6A8gcpCMtf2Ly9?=
- =?us-ascii?Q?0gkTKSZkktyaS+xAh7CCGSkOvXDvwz0FdaqiDmXazUQjLaazNur9AjAZ7lXp?=
- =?us-ascii?Q?zpqtkuku3ykYVZ6FJBs2JBt2iu4vuwGwNdFmPQlgpK1J8/BhkLC7+EmIzqCO?=
- =?us-ascii?Q?8SyeR/6wLRpFO0MCZP1KXP4+xlMOO58B4JVtBaSumx3ECECDglXhoFgFO5yJ?=
- =?us-ascii?Q?0GpgmDehmOjNE3X8VS3OcRF6sj9k/BG9HNf1gsBfZdXI/SJJLxE/+/ikCbrT?=
- =?us-ascii?Q?s8v3CLJgwFjP4BbL7pm32dmOKFfNkdQ=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6690e497-c242-432b-1615-08df397681d1
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:48:45.7771
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yTWUb0XSLEO89u6Kb6Kvx6vu1i1zq+7Y5kgP9Bp+9F3XyaH6gRYwG3StyDK3YOkY69Obx2mAFplu6Fyp9TZJPcoMNnVTocYdZxom0+PHstI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB0982
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-upstream-it6625-alsa-i2s-v1-1-bb91e2879b01@ite.com.tw>
+References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+In-Reply-To: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
+ linux-api@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793688630; l=2381;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=YquEGnkfejE8LQ3h36bXPBE3tLh6TFPGHJoLWRG719M=;
+ b=lLa4lYyu0HCAvAC77t+VFLi8mHRGaDxq0l3ShmMhyDEv9x09C/rJmAzz4NtI+UYwIy0FFRS6Z
+ MWSSGIdCtJACYzF2hCf13F7H0z7i5eJ3X0FqCs3gET+azSqwYf7rqnZ
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+Content-Transfer-Encoding: 7bit
 
-Add an extra iomem field to struct dwc3_gerneric, so as JHB100
-can add PHY adapter setting. Other soc also can use it.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Also Add Starfive JHB100 USB 2.0 device controller generic init
-function to remap PHY adapter io memory region and add adapter
-pre-run/stop function.
+IT6625 and IT6626 decode the HDMI audio stream and output it on an I2S
+interface, driving the bit and frame clocks themselves. The bridge has up
+to eight I2S data pins.
 
-On the JHB100 BMC SoC, each DWC3 device controller is connected to a
-port of the xHCI controller that is exported to the server host over
-PCIe, through a PHY adapter. Setting the adapter USB 2.0 port enable
-bit asserts the connect status in the xHCI PORTSC register, so it must
-only be set once the gadget is ready to be enumerated, otherwise the
-host fails to enumerate the device. And clear the ppt enable bit
-while gadget device stop.
+Add '#sound-dai-cells' so the bridge can be referenced as an audio codec
+DAI, and 'ite,i2s-data-lanes' to describe which data pins are connected
+to the audio receiver, in HDMI channel-pair order. Without the property
+only SD0 is connected.
 
-Add an optional "adapter" register region and toggle the port enable
-bit from the pre_run_stop glue callback.
-
-Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/usb/dwc3/dwc3-generic-plat.c | 48 +++++++++++++++++++++++++++-
- 1 file changed, 47 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 23 +++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07c..ebcd43442fc4 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -22,12 +22,15 @@
- #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
- #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+index 9b621f726249189255692da02049ebcbf1d5b43c..9304a0507903e7eaee44fa565e49c6938e9eb7d8 100644
+--- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -43,6 +43,23 @@ properties:
+   ovdd-supply:
+     description: I/O supply voltage
  
-+#define STARFIVE_JHB100_ADAPTER_PORT_EN		BIT(20)
++  '#sound-dai-cells':
++    const: 0
 +
- struct dwc3_generic {
- 	struct device		*dev;
- 	struct dwc3		dwc;
- 	struct clk_bulk_data	*clks;
- 	int			num_clocks;
- 	struct reset_control	*resets;
-+	void __iomem		*regs;
- };
++  ite,i2s-data-lanes:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 8
++    uniqueItems: true
++    items:
++      enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
++    description:
++      I2S audio data pins (SD0 - SD7) that are connected to the audio
++      receiver, in HDMI channel-pair order. The first entry is the pin
++      carrying HDMI channels 1 and 2, the second the pin carrying channels 3
++      and 4, and so on. The bridge drives the I2S bit and frame clocks. If
++      the property is absent, only SD0 is connected.
++
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+     properties:
+@@ -111,6 +128,7 @@ required:
+   - ovdd-supply
  
- struct dwc3_generic_config {
-@@ -42,6 +45,44 @@ static void dwc3_generic_reset_control_assert(void *data)
- 	reset_control_assert(data);
- }
+ allOf:
++  - $ref: /schemas/sound/dai-common.yaml#
+   - if:
+       properties:
+         compatible:
+@@ -131,7 +149,7 @@ allOf:
+                   required:
+                     - bus-type
  
-+static void dwc3_starfive_jhb100_pre_run_stop(struct dwc3 *dwc3, bool start)
-+{
-+	struct dwc3_generic *data = to_dwc3_generic(dwc3);
-+	u32	val;
-+
-+	val = readl(data->regs);
-+
-+	if (start)
-+		val |= STARFIVE_JHB100_ADAPTER_PORT_EN;
-+	else
-+		val &= ~STARFIVE_JHB100_ADAPTER_PORT_EN;
-+
-+	writel(val, data->regs);
-+}
-+
-+static const struct dwc3_glue_ops starfive_jhb100_glue_ops = {
-+	.pre_run_stop = dwc3_starfive_jhb100_pre_run_stop,
-+};
-+
-+static int starfive_dwc3_jhb100_init(struct dwc3_generic *dwc3g)
-+{
-+	struct platform_device *pdev = to_platform_device(dwc3g->dev);
-+	struct resource *res;
-+
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "adapter");
-+	if (res) {
-+		/* usb device controller with adapter */
-+		dwc3g->regs = devm_ioremap_resource(&pdev->dev, res);
-+		if (IS_ERR(dwc3g->regs))
-+			return dev_err_probe(&pdev->dev, PTR_ERR(dwc3g->regs),
-+					     "failed to get adapter regs\n");
-+
-+		dwc3g->dwc.glue_ops = &starfive_jhb100_glue_ops;
-+	}
-+
-+	return 0;
-+}
-+
- static int dwc3_eic7700_init(struct dwc3_generic *dwc3g)
- {
- 	struct device *dev = dwc3g->dev;
-@@ -231,12 +272,17 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- 	.properties = DWC3_DEFAULT_PROPERTIES,
- };
+-additionalProperties: false
++unevaluatedProperties: false
  
-+static const struct dwc3_generic_config starfive_jhb100_dwc3 =  {
-+	.init = starfive_dwc3_jhb100_init,
-+	.properties = DWC3_DEFAULT_PROPERTIES,
-+};
+ examples:
+   - |
+@@ -153,6 +171,9 @@ examples:
+         vdd33-supply = <&vdd33_reg>;
+         ovdd-supply = <&ovdd_reg>;
+ 
++        #sound-dai-cells = <0>;
++        ite,i2s-data-lanes = <0 1 2 3>;
 +
- static const struct of_device_id dwc3_generic_of_match[] = {
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
- 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
--	{ .compatible = "starfive,jhb100-dwc3", },
-+	{ .compatible = "starfive,jhb100-dwc3", &starfive_jhb100_dwc3},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
+         ports {
+           #address-cells = <1>;
+           #size-cells = <0>;
+
 -- 
-2.17.1
+2.34.1
+
 
