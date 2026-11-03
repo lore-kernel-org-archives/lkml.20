@@ -1,47 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737506;
-	b=I9RuDzBsRB9MWb5Sky6siKrNadfsNLcPFdoECpP5HEaR4G+Ki/dgx8DZq+9B8AKupEMP
-	 e8CagqxUlQREnPTSSR0s5Kf35kkzwljp3Tn/wghkRT+EvxNVinNPaCe0BKbsOEoAX1ASL
-	 /FEVsOXHgDQiBC6QhEwgl8x4GYMTHAGpjM2bpGiHNgy9EMEUziROjHB0C1FnA5lVSCUQx
-	 SuMP1qWNu892Tj5cla2v0FrbMFnsGMvVbtAsc4Wr/dmkKaFrZxwTbe/El2f6rMIufrykF
-	 4mXV3JRJ/txzOMiw7NMvn+J8JYms271etzH4OzLAganmCl4ulUBAD/JicPUiaifdF3Q==
+	t=1793737535;
+	b=ufeNpVGFJHDxfCXlWiTyP41IINAGKdMkfiDuPc89Ddim/EDs4+fjlEeIZqwej9lFYbMo
+	 wmbrslVJyhO/PtUlfeRbNvckAkmHBR19gamje5E0CGtRBgSYDK5IF1YS+De6KnO3DSgES
+	 r19bBrc62C3LvFjSstgBjSPb/3TRQqD3kgbg+LtzhvfqOBqUTYbbWJqK2b4Ri7hkDIkNs
+	 dD9PwgG6YweUYALZTULPvvlkqHHsGbp9Sb7oApHCs8tVUx4m1rrbhbDsQi6BOZWAl7cu3
+	 lJeLFLeuwgErPbkNrFPPgTW2xm5IeGzG63QmDvk2mR5cpXfJxLZenIP8/x8VrpAlEHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737506;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ey3bmLuO/tccwPs6bses4tdGWflrXeb+2JX3HuYScV4=;
-	b=so4uPWZ6PptUph0sHBgfQB0UkTKKYBIS5NL7Yjup1vwhmV74Na6hRxuzhgdj4pTvmaOX
-	 LOWhdxepZbSKMhfrM1aTLlwxaeAfNkwY2Hm3rKdtmsYPII7inLckLNZm5iyd/Tdy3jxoW
-	 UgxdKu/oeAcrB8iOFzprfXwDwJ8u9iREc1LfVgOYKXiDKe6PjO6fyH/mEiM97iF5G2JcV
-	 Kt00Uk5cv7c48QuQ9LjDvBYeIgugwc0thE3oO5l7ASB5SR7SNwxbvbEqXHymmd6mB0OUf
-	 EkG1sdWvEia/tQ92yEeioU5B/L8Brlqsdd24FG+lz2R+g2p2kPTbnTKAIxSa17h+NlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737535;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=hywMFMGWC22FCsnfeYWHg5SybWSfpDHUd/LvoxS7oLY=;
+	b=X5/DT2uRSm6xzSqs/4gyc9h2+xBqY05qgohiLm16lhpBeMv3AcT0MZpl/MyK3/GP+y23
+	 tWm1qY8UJ6UVpudhpRtibSQUylWMqDdhbmHVMwL9Dy8OGm2/VSWcq35VzXo4P7IFhcO0P
+	 eoVqLkWILy8LpkJYAeXh2FWdJZqaBa7FzpKk7q5zIr4WqKF0Hx75DhDUP/+E8MQaQAfwj
+	 uShoECPO88q+Mdg+J3y5JX9fr1N0+9lLGlnmraSeta3WPxGT79usjVyrglIBri6pBSO3z
+	 wE4J2m4w2Z27slDo7tDBwc5YiHlGuTUBXrHfl2Q4ZGEdPiLpOdu4Tf8Xai/zgiP+14A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5ssbrCV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE431606A31B;
-	Tue,  3 Nov 2026 20:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5ssbrCV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21D21F000C1;
-	Tue,  3 Nov 2026 20:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793737505;
-	bh=ey3bmLuO/tccwPs6bses4tdGWflrXeb+2JX3HuYScV4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P5ssbrCVpBBYTmauqrVaBiDJEvktbbY3AHI740ST8cI80wQGavxxiKa+nooMEATRM
-	 eb+x8qWnvDiBDzKQqAEkckVPb55a0wbVtSTOTmgATo95zdHWFr2u/szy1NnV/DILke
-	 qb5+6RmUplemGrSjMO57a7YgiQbSXvbWiKKnasCZ+hOAh+0F22xgwavgwKbLaQCjbe
-	 0cyJq/eeJtzT57YExAprUOdYuuSh9L4bwPwdwJEn18tpJHV9pBKQ9qrKym22HgUq45
-	 Z/DC3+B5fGmmD1trrkD7HTXwDeFYsyAAGwu8OqzO1ZjislP5EOGxe0pEtxfA8eAs9/
-	 LoLsy+ATgqQgQ==
-Message-ID: <f72d88e0-553d-4cc9-af38-9cca183cb814@kernel.org>
-Date: Wed, 4 Nov 2026 05:25:03 +0900
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 756CD606A326;
+	Tue,  3 Nov 2026 20:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 756CD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 38B0092009E; Tue,  3 Nov 2026 21:25:31 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 321B692009B;
+	Tue,  3 Nov 2026 20:25:31 +0000 (GMT)
+Date: Tue, 3 Nov 2026 20:25:31 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    James Hilliard <james.hilliard1@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+    =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Tony Lindgren <tony@atomide.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Richard Genoud <richard.genoud@bootlin.com>, 
+    Nicolas Ferre <nicolas.ferre@microchip.com>, 
+    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+    Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+    Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+    =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+    Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, Timur Tabi <timur@kernel.org>, 
+    Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+    Vignesh Raghavendra <vigneshr@ti.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+    linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v9 2/8] serial: serialize asynchronous write wakeups with
+ the port lock
+In-Reply-To: <auoUlkzXsl9WJG8B@ashevche-desk.local>
+Message-ID: <alpine.DEB.2.21.2611031947260.15685@angie.orcam.me.uk>
+References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com> <20261102-submit-serial-8250-dma-cancel-v1-v9-2-9159caade148@gmail.com> <auoUlkzXsl9WJG8B@ashevche-desk.local>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,67 +71,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ata: libata-scsi: reject data-in commands with a
- data-out buffer
-To: Zhao Gongyi <zhaogongyi@bytedance.com>, Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027090809.94126-1-zhaogongyi@bytedance.com>
- <20261028113903.19569-1-zhaogongyi@bytedance.com>
- <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
- <36648b88-c295-4acb-8b6e-25d742d50946@bytedance.com>
- <2def2444-0b73-4371-9ba2-78af235e64cb@kernel.org>
- <0a4822fe-f283-4cac-8ca3-91f4e8f017e2@bytedance.com>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <0a4822fe-f283-4cac-8ca3-91f4e8f017e2@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 10/30/26 12:19, Zhao Gongyi wrote:
-> On 10/30/26 9:18 AM, Damien Le Moal wrote:
->> Yep, these are the only ones we can catch easily. Other commands we do not look
->> at/know about will keep potentially triggering iommu page faults, but that is
->> fine as that is not a crash. However, ideally, that should lead to the command
->> being failed, which it seems we are unable to do... Did you check if we can
->> propagate the fault into a the request to indicate a failure?
->>
-> 
-> Hi Damien,
-> 
-> I checked the DMA mapping and IOMMU fault paths.
-> 
-> For DMA commands, ata_sg_setup() calls dma_map_sg() using qc->dma_dir,
-> which is derived from the direction supplied with the SG_IO request.
-> Therefore, for a request declared as DMA_TO_DEVICE, the mapping itself
-> succeeds with device-read permissions.
-> 
-> If the device subsequently attempts to write through that mapping, the
-> permission violation is reported asynchronously by the IOMMU. I could
-> not find a generic mechanism that associates such a fault with the
-> corresponding ata_queued_cmd or scsi_cmnd and turns it into a
-> per-command failure.
-> 
-> Some host controllers may also report a host-bus or interface error for
-> the command, but that appears to be controller-specific and cannot be
-> relied upon by libata.
-> 
-> Therefore, for the mismatches that libata can identify, rejecting the
-> command before issuing it still seems necessary. For arbitrary ATAPI or
-> vendor-specific CDBs whose actual direction libata does not know, I do
-> not think the generic IOMMU fault can be reliably propagated to the
-> request.
-> 
-> I will wait for your guidance on the appropriate sense code before
-> posting v3.
+On Tue, 3 Nov 2026, Andy Shevchenko wrote:
 
-Looking at the list of scsi sense code, I think the data phase may be most
-appropriate, but with a qualifier. So why not use: DATA_IN_BUFFER_ERROR (0x4B0A).
+> > +static unsigned long sccnxp_handle_events(struct sccnxp_port *s)
+> >  {
+> 
+> > -	int i;
+> > +	unsigned int i;
+> 
+> This change seems unrelated to the patch. Again, slow down and READ what AI
+> produces before sending, please!
 
-The other one that I like would be SCSI_TO_HOST_SYSTEM_INTERFACE_FAILURE
-(0x5400), but the DATA IN BUFFER ERROR may be clearer.
+ Indeed.  FWIW I've thrown v8 at hardware I look after, that is:
 
--- 
-Damien Le Moal
-Western Digital Research
+ drivers/tty/serial/dz.c            |  9 ++--
+ drivers/tty/serial/sb1250-duart.c  | 25 ++++++----
+ drivers/tty/serial/zs.c            | 94 ++++++++++++++++++++++++++++----------
+ drivers/tty/serial/zs.h            |  3 ++
+
+and that has caused no observable regressions in my simple verification as 
+direct terminal lines, both in the line mode and with ncurses.
+
+ I have no leased-line modem hardware to put this under stress with all 
+the signalling; I could see, and probably should, whether I can set up a 
+SLIP connection with a direct serial link and see how it performs, but 
+it'd take me more time than I can afford right now, especially as I'm 
+locally short of one PSU for the systems in question that is waiting for 
+parts to arrive for repair, and swapping the one working unit between 
+systems is quite involving (ones in the lab won't run SLIP owing to the 
+firmware limitation of the console servers they're wired to).
+
+ But I didn't have a chance to reply before v9 has been posted with more 
+updates, so I'll wait for things to settle before reviewing the changes in 
+detail.
+
+ Please consider this a NAK for the drivers listed above until the final 
+version of the patch has been posted and I've had a chance to verify it.
+
+  Maciej
