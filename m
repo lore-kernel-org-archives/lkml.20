@@ -1,52 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710450;
-	b=wSp3MTd0SDF/lkRIdZD3iv4yGkFeD4TGhPBian6G4CthguQGonMUPjVUM5I5r6DOWc9Y
-	 EtzD0/fN5BeWYzYbi9BUyDGZJDbz33nM7Nmu536PN84E/VTj2uVII1hLtbTLCL+/4a1Ba
-	 1Y8AOwXqZxVXXOKMyXUzHetJLIFcTFq/lCs/lJ94vrzjObGGfP83v3Js9D2zSaLeRC0nH
-	 0PgcQvqOa0gVAHAQC6Ay6/pEVEocNKfIh4mayzukJK5vw0tdhdJnr7+v6g06d3DDWj4T9
-	 tVRUCgsalD1DmrfAHCXIqAeHx41HX+TwdE0qGHOJw7UxYBzkhA8teGv5s5B5cC77iJA==
+	t=1793710457;
+	b=hHZ7DZ62XlAG2vcE+7lEF2UjMCuJYxhHvKuyKx1KVZ+zfc1lNUqBE/EODrbkPBnChAuZ
+	 4dS+zt/tJAsbfFI/LOl2kYvW2zzceEk+Guim5GbXlFkYTlGZang5hHDjijLdfHEQ7P6U/
+	 /OV38zGFtza7h+JV/8+GxNKwlFIaXBzGyDvlhb3SRUC8+ufpMvdzNtYq7TX3Gb7wKevSe
+	 REiC7RZ2MCtLKfLY9H0u+qZjZnMRvDXcmf4WYnFxDOjX5mALiLF5T3bplibOXKKxvatQZ
+	 0Zg6QZ6SGP59hAfIEqJj+114DDyo8S59KM1zM3k5W99e6Vh0i8DCRn5TJmrJkb7laZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710450;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mdo8FWWmR6eNMPC7wFF5bhdu0XNu6s5GBAO2D8FZFso=;
-	b=f7HQxs+NcR9OOMEu/jWFxPycCjIpbLKVF20O6oOZtGV+manoAEpkfZHeD909CJ2XWK6Z
-	 Thpd4529tUDMxciy/uT3KC9DKXNmbW2DVZWKcX/qva96mIJywhfgIilaBhYw5o+eVtJX9
-	 cWE9PzVDE64Yxejf1imbyiJVvKbHAZI0E9a4fEq8vlkNHNWUdMP+69EKYWmirQ38wN0Pu
-	 Cy/kJ0r/tEogjAQoffJ7wxbw/tKH8iU7zSnVvpPxpHg2ydtHh+f5YW13roFUI9+hOUt6T
-	 Plv34yig3qNNPNTjf3noWBR3EuVcWxqsqLaETNb1U0BCM42XvcruA2a8ShSJ1hoQwUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710457;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=T84aiAJqcr9eIc+RMHEdRg8f3K7zIQJ4MBqlwh+rBPc=;
+	b=1cKeOjacCyOG9Tce5+Oohvs/upubk8ETiszWAeSOVoODQGoxRCms+ICyuo7AhFeVJlln
+	 nhsDq0v48OSBE9EmG260kQ8mmnz1EVeAA3qvTCBTICG0ReWR28HCsFeRFjDXoWGEeUXZM
+	 9PQQ7WevTC5eajnZHWc8xEg5Mt5yvJAvLxAsVsv+bTnR5P/E5IZi9rj4kqVCF2bP5CLlL
+	 nobvTZYDO3dWQYtkRJNhcFonlWq8gvKxRsOmcjt+/HDiYYzyhmVPn0KP0vZ9hhnnNVbbD
+	 hyG2S4WNOhgTNJ0l7HdiT/Dykd9XeoaAsREuoxFVVRnaTn0kTxVPxzm+2YsW7i69Zlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H55WwvuE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMsegJ5d;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id CCD01606A324;
-	Tue,  3 Nov 2026 12:54:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8BA606A32F;
+	Tue,  3 Nov 2026 12:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE8BA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H55WwvuE
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D78951F000C1;
-	Tue,  3 Nov 2026 12:54:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793710449;
-	bh=mdo8FWWmR6eNMPC7wFF5bhdu0XNu6s5GBAO2D8FZFso=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H55WwvuEPnOihcvnn8ocXvBNHbmibVyEXXPzNOMKlpJFRTTCHAt8yynbr2U/dzJTa
-	 8So+oOQqaC4WxRNjYRHxMFHcRnzO9BX/7FbEqUvL38SFSRQDb21PPQ9NezoCnXjf1S
-	 AKYjoyg9t8CkyWatoPFeCAKTQFeMgMvJwpruZcg2brgrOvO8WCWaMF/PaeV+QSlhqp
-	 VQvyloVW+clszxzwjfcyTZ5QXBGt6MKg51kBRyVrvvJajHquQQSmUdvpvw7/xAqB4H
-	 Z2ak1/w2IAhPJ0MsKYf1QmYs3Wcu7L0zKHvFtDG4HSBuGRhuyswvFz0Ma12aveC7mF
-	 fIfn32GKb0/Cw==
-Date: Tue, 3 Nov 2026 13:54:06 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Stanislavs Nilovs <valorcool@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, 
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: qca: Disable SoC debug logging for WCN3950
-Message-ID: <ezkgoc765ly6pxioyv5xh3kpwvpcsncdcuh6pyyffwugsgrh52@x7n4h2zgsfjd>
-References: <20261103103414.803861-1-valorcool@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMsegJ5d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793710454; x=1825246454;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IhRkmlNFW8wvqh1/ycRf3KZ3oTStQ6uioF6qvXYIdxs=;
+  b=mMsegJ5dKg6nPnD0khk1DwMuw8ekVkHkKZAm3a9AvqaqWnMn8udLFEdq
+   CW51kiwgk0aMyd9r1rpBJqHaOdQKD5ddqDJhAjOLIA+3+1UrBzjqI+5K0
+   iKfPbmsoaUALpZQaV6EPs2+1mhRDbY6C5Cj+kokYkXsqrWEms5RSBeNvk
+   2f0PGyYWQnzq1Oh4obBpGkrp4IYogNTD75pSyTSVLrOjO0t7wVXpNRxoA
+   iJgt7zubVj0zJd9asR7v4EQ8jeopApDqDw3ngtsxoHVOlBsJ268ATqvNM
+   WIwrUZc0zIobaw+jLsfKAWtEmS1dQ1bvHJsov7ENVnwM73hwoih9E7BUf
+   w==;
+X-CSE-ConnectionGUID: 3LCnV0BxRqG3LKfyLylI7A==
+X-CSE-MsgGUID: v8ont5CzReat21RRZ1HWqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2323234"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2323234"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:54:13 -0800
+X-CSE-ConnectionGUID: bIrfVphKRsiEpMbkrvetPA==
+X-CSE-MsgGUID: 3fvg2CqPSWirao/zO/h4zw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8203943"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 03 Nov 2026 04:54:07 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOE1a-00000000ik4-3PiJ;
+	Tue, 03 Nov 2026 12:54:02 +0000
+Date: Tue, 3 Nov 2026 20:53:34 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matthew Ruffell <matthew.ruffell@canonical.com>,
+	Waiman Long <longman@redhat.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Caron Wills <caron.wills@pulsar.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: Re: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU
+ LRU caches on isolated CPUs
+Message-ID: <202611032053.I3Ud8d11-lkp@intel.com>
+References: <20261103075940.110308-4-matthew.ruffell@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,31 +110,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103103414.803861-1-valorcool@gmail.com>
+In-Reply-To: <20261103075940.110308-4-matthew.ruffell@canonical.com>
 
-On Tue, Nov 03, 2026 at 12:34:14PM +0200, Stanislavs Nilovs wrote:
-> Added WCN3950 module to the switch-case to disable SoC debug packets.
-> 
-> Fixes: 590deccf4c06 ("Bluetooth: hci_qca: Disable SoC debug logging for WCN3991")
-> Signed-off-by: Stanislavs Nilovs <valorcool@gmail.com>
-> ---
->  drivers/bluetooth/btqca.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
-> index 002307000d3c..60735b70d89a 100644
-> --- a/drivers/bluetooth/btqca.c
-> +++ b/drivers/bluetooth/btqca.c
-> @@ -943,6 +943,7 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
->  	switch (soc_type) {
->  	case QCA_QCA2066:
->  	case QCA_QCA6390:
-> +	case QCA_WCN3950:
->  	case QCA_WCN3991:
->  	case QCA_WCN6750:
->  	case QCA_WCN6855:
-> -- 
-> 2.53.0
->
+Hi Matthew,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on akpm-mm/mm-everything]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Ruffell/sched-isolation-Consider-nohz_full-CPUs-isolated-in-cpu_is_isolated-again/20261103-205935
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261103075940.110308-4-matthew.ruffell%40canonical.com
+patch subject: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU LRU caches on isolated CPUs
+config: um-allnoconfig (https://download.01.org/0day-ci/archive/20261103/202611032053.I3Ud8d11-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032053.I3Ud8d11-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611032053.I3Ud8d11-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> mm/folio.c:293:6: error: call to undeclared function 'lru_batching_bypassed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     293 |         if (lru_batching_bypassed())
+         |             ^
+   1 error generated.
+
+
+vim +/lru_batching_bypassed +293 mm/folio.c
+
+   280	
+   281	static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+   282			struct folio *folio, move_fn_t move_fn, bool disable_irq)
+   283	{
+   284		unsigned long flags;
+   285	
+   286		folio_get(folio);
+   287	
+   288		if (disable_irq)
+   289			local_lock_irqsave(&cpu_fbatches.lock_irq, flags);
+   290		else
+   291			local_lock(&cpu_fbatches.lock);
+   292	
+ > 293		if (lru_batching_bypassed())
+   294			folio_move_lru_now(folio, move_fn);
+   295		else if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
+   296				!folio_may_be_lru_cached(folio) || lru_cache_disabled())
+   297			folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
+   298	
+   299		if (disable_irq)
+   300			local_unlock_irqrestore(&cpu_fbatches.lock_irq, flags);
+   301		else
+   302			local_unlock(&cpu_fbatches.lock);
+   303	}
+   304	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
