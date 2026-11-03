@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.10
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.40
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793664190;
-	b=n4a5rf53xu5feTY02BrGhM4l1B4yZvY6tCBxAf/CQ54EdA6BOHTAEVB5Xr+rm356l0EL
-	 nNZTcwSUoclP2AqJc2eUVFbxABWOv0Wwm5qkK9KtYN4vXPXCQIAxX+CRFseIOkO328yxV
-	 cxDJ/gYsnn3kq2Cv7GdHjkpGxLd1w3Dk/+QbUmgeKin93si23ymOp54eDxRGtO9iC/Bo6
-	 qeadAI9YqZ4mH7rd8ESqXzrdYl1L2Fk5HDiCgko9ZIwyq06lGKFQOZMU3hj6YCHyg+IOh
-	 Vrs47gteABGlgsDu8mY6h5c/gubSorsmQrvK4+Tfhdlfh3Kp9l5E+3c23mQG3+qitpw==
+	t=1793664198;
+	b=uNgpMAdnJIJKw4UW/0UQGkPhYxrwpc91oR24ukN+QwTU/Aov608kPwKAEFCJCxJluQSU
+	 5d3ACWtJzjLwfudjtCOUcAzDXqnBJGBXQHZUHW0luDE+BqB6dgh6isfX+k5Qb7R98Ze0k
+	 /RkbScZ7usi3Nkrd4CirP+aJ+neBR8NTZZXE7QMuYO4z1j3kfIuhxQoz17/gx5ahH3z92
+	 UPmlHrjJwod6CBb5HuxgH2fAMuqIsNUqHbQcBq7wCpBUFZ36MppCTyw0W2zOHws3giMo5
+	 Lv7wpeRtR+EiEF7PFWtRHJu2sDLy5VMBZkAeFnTS3RrqYWQhS0XgXTxOpmMB0p23FbQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664198;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
@@ -25,61 +25,60 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TZNnv2tEvxJNhP42dcAGVJKzso9/GK4Txdd6P6d7WiQ=;
-	b=d+P4v5baSwGKfD48N7oNWgXGnkynXGnRvHV2CjF+A/jwDOfI/GtyBh/YFyLYpmauC8qo
-	 l7IyKldzh32ine7sAi2xfem7IiF4TzcM1k0ZvBVHpQ+a9djhWxNSGiyoSb4X6r26VQVm4
-	 G6vH5xxLM8VzqFaU57VI59/BpCZ8T0Afh4tHy25Up2/wcAao4Zfj6ZcJ7Zm+t1WVpOw0G
-	 6ynZ79h8/UTJgr7kQcc5s/tdT1Wq3ov1M28s15h9PAbn33oG9k/JGgjXXMonTASTSpa9i
-	 VsVAh1I1HC+sm+MSUj4b9ErhshiIJvoyjbT0KaZddPRLQCvp2nzVswzWmgsnf+HCdZg==
+	bh=0CXnJ9L57Cufxz3vo3ETwKI7ZvDGuJE0rFM/17MsLlc=;
+	b=J0X+iJxZMK63KX5TBYoX/kQzH1AMqcxiYmneQNFlEe/59E64D/mXk2fcreP+sLBn4gfn
+	 0g0VlcmfJBIO7X/CUzvrhnsNpzDiYL4QojPU30S3jHeuiUKpg2//82g+p86TBi/9dXWuM
+	 R3igtrQWIl/tfzsp2fs27ZcSuzQ0GpBUgUknNsK+bo1JxNN65NkAJd1YGMPNejToCWbkC
+	 s0kjFBpo+yKRztJ/yEUXamQ7s49Rvw04h/2sMKvhi3gLgFH0NuG/xFXSymtoI1VE6DT54
+	 qpnVATHgEOVC7oZWgHBS+qI4sFUacLjHWFrJSuWN5iaKQMahAVDf3xsevJ9dUtzu4uw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YEqOsssA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.10
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012010.outbound.protection.outlook.com [52.101.48.10])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QjTDsW8j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.40
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE19E606A327;
-	Tue,  3 Nov 2026 00:03:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE19E606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6986F606A338;
+	Tue,  3 Nov 2026 00:03:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6986F606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YEqOsssA
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QjTDsW8j
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kg0g3yyVnPEFcVQuYCAOogtFoGKu2e1Tv+3iYAEfKnjdSRWuBvyDGxeT6CJE76X7TQ5Dtk2tJ40XEiHJkWNbH9TFm7DiijIzNLikSzc4r3L4s0aWbMxaMBjfjP7merZ7R4Y5UwdKm2qAtpORH8xe26W9Kt01jWZvrlsStrpovHR/8ytKa/4l5lJ9VHo/ltG+kDXSUwOFGgYHtDiWZfPGOSTb+s3CTyEcR/8z3pcWGoor7fUTnYiaifw2rN7rVoUkkGSTYovPkeXEgnZUkz11ubWExM2eb2WntfJ5t+2n26O8g20HOTKkwKVsQEXd36xX/KM0J4HsAJAreslsTptkFg==
+ b=XFTQP2oFOOHMUnUib3uGYhvRuyUIyR6M2XX2TzYB65knH5gtJEBZAQqyu8FJxSwKbNf3gvXz7mPx8o/RKTZ/fuzCMuG7DvjDi7pD47TKnrMclaUKmdZ0EJdw0rhZ9jugUVPq8IcWMBdQHveLif82NZmkDEQXEJ0cUq0+TunSlDUzjUOOZ79grYn2mfCiaQ0NrTFT89PUXYlEoQ9GD566uDD9JdBJ+ysoib3DcwDoADG4gQTsaPmB+ETMhrTWR+QPPitWk72n12/juUMgcRBdfr8W7eAxhYXceq+YJerfI5EZO5UlEiVaxU3C4kGJa1xMX7JzjEu0ehYJOLXGdHkEkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TZNnv2tEvxJNhP42dcAGVJKzso9/GK4Txdd6P6d7WiQ=;
- b=K3DCphkRN4SuevQn31XAIJHgE1aLTmtNCE7OQzhh8MCfU3jOeYQJNpAS6NETY33i9LIFUpHKkjE8PxLIqFki0Py5o/t0FTEt1jPK/YfGSC2tokfgytXap6LyEkmCxs34jyomLXzwJH/H/ru8n3RaE3Hf+U46K7Bb7HruVCJ3YJIsq+3IudrWMzVHDi1mzGQfoYYcu+UsUBpShtD1/UJxlo+TlNzaLQpMhW5rMAV/Iq6ptGjs//RRw8VPqPncw0o01zUjrVC/Y09yq2iunhpLPzvhnEIm8IH2DD3JaEV7wf6WklJ5Rn+of3ACYbwICfwuLY5B2Y4WwubPshRIGXAJfg==
+ bh=0CXnJ9L57Cufxz3vo3ETwKI7ZvDGuJE0rFM/17MsLlc=;
+ b=pbzm95q2oobuh3k8Tp84r6YN+MacNNodZEee3x2S84t/7qJVwu11I4ed8xq0VF76kBzMyGApxbMSZoROkAZHmuCGaiH1PhOEwv39LhAkzElsIdTGGV2gDhmx7jMAQw1YaF1x9SsAxCZhMuuPi4iLYLY00tcZoeGmzoldq968ym48+JBgQmwaxMBm5vpdQmuDs7961EoiHQM3xaJDy+0YPshXJujpkrtMrfLmd8moBsIHbyzi+GbQxIfUdtomzp5kYuT6SJObIBR7Ka7Eo72vxqXRzpNlwbfNNOLqi/rlGK1t2r5wdiMVYbC7bAr1wE4zy1kDiQIo+o3NyH5NjKikug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TZNnv2tEvxJNhP42dcAGVJKzso9/GK4Txdd6P6d7WiQ=;
- b=YEqOsssAqhTdQC4cFln1dIA3BNDTSZ9koaacou9t4X60IHiPhUlIQ4OdEiXo5tIfgf1gX/c2npArJ7lVPHr2/o1P+dJ59+sTZt3c6t2Y8LYj5Up8jiqOCLSjUjT/ma6thhgPcYVAqDhGfNt7poMlCmoNpg4Ng3UdORpY4wayBbqbjDoqYjTD4WZP1/XubplBekseqD5+IoOUuIK74VKsom+ghKQq50lmNGn1dlOWjqUqjGZ/cn63RXaOXaC0XZ2Xu3QL0k3fBa/qWZkJ+o+S/8SoGb3wPU8eHZI7KLyTYHRSnMJX0wPEGxDjKh26HE7rdLJtxCZzoiKxOYRY+dz02Q==
+ bh=0CXnJ9L57Cufxz3vo3ETwKI7ZvDGuJE0rFM/17MsLlc=;
+ b=QjTDsW8jCfptQQ9306lYfQCajcOqcxIVD8EtTk5+DP8A46xWIvvZeKRgFs+vqKk/MMJM7C02b2AX8qSJ1cqG8CwVkwVdoDeVzE1IkPZ1gr25ivmcpORsYjahdOLF8aR5YV6nBJJroH5zHv3PkSlQDJoauVZX0K6mCMIs1ntVg96bckfHn2hbVBR+nmCdoD3mfcg8NLLTTKHSgST9Fl15CkQGGkpyOnWF/7uO6LByjyjHxnsQWJWs+YWGL9Sl8jjkX7N3R6IJfascEGYpLdzbbtNBD9SH0eXwXMhPUy4ZJNny+YgjMb6Nc+ELUK+GihoCs+gRzIkGazgPizMwemKYIA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
  by DM3PR12MB9415.namprd12.prod.outlook.com (2603:10b6:8:1ac::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 00:03:04 +0000
+ 2026 00:03:13 +0000
 Received: from PH7PR12MB6858.namprd12.prod.outlook.com
  ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
  ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 00:03:04 +0000
+ 00:03:13 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 03 Nov 2026 09:02:51 +0900
-Subject: [PATCH 1/4] gpu: nova-core: gsp: fw: add the r000 bindings for the
- GMC API header
+Date: Tue, 03 Nov 2026 09:02:54 +0900
+Subject: [PATCH 4/4] gpu: nova-core: gsp: cmdq: add the GMC receive path
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-r000_rebase_on_cmdq-rpc-v1-1-189f9ff3bfd2@nvidia.com>
+Message-Id: <20261103-r000_rebase_on_cmdq-rpc-v1-4-189f9ff3bfd2@nvidia.com>
 References: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
 In-Reply-To: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -91,8 +90,8 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: OS7PR01CA0278.jpnprd01.prod.outlook.com
- (2603:1096:604:259::6) To PH7PR12MB6858.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0083.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::11) To PH7PR12MB6858.namprd12.prod.outlook.com
  (2603:10b6:510:1b4::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,261 +104,409 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|DM3PR12MB9415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 779f4460-27ad-4e53-ad7d-08df393dd4fc
+X-MS-Office365-Filtering-Correlation-Id: 2467be2f-439e-40e4-c7a2-08df393ddab4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10070799003|6133799003|10067099003|22082099003|261102123227099003|18002099003|3023799007|261102130727099003|56012099006|11063799006|261022105027099003|261021121427099003|261026121527099003|261022115727099003|261026140227099003|261022075727099003|261022113327099003|261009223027099003|261028144727099003|260925022911599003|260925021311599003|260925021911599003;
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10070799003|6133799003|10067099003|22082099003|261102123227099003|18002099003|3023799007|56012099006|11063799006|5023799004|261022105027099003|261021121427099003|261026121527099003|261026140227099003|261021123027099003|261022075727099003|261009223027099003|261028144727099003|261021135927099003;
 X-Microsoft-Antispam-Message-Info:
-	QyTgsEMLbnoMmSrqdrLl7UkgHB4FxnqcClcgAPXCyl1adpxBo/lK1J1CwT9Sw5W5ZuVB73lhvyNdDss2TTErzijfOulkGZAV0CuRNdyG0n2X3fiH24DbN+SXLrrLGdHicwFJY/9828ZMV2gS0oZBLXRwsojZRqcz1LjmAZJYV5aFDiDxl4gCwh8EHkQYU987W2kxOMS/dt5CjWHlfSvZ/t/xNNj2PTMm8sG9dOwFNEg6MB5pfWDLUcXhq2w7pGvTvH3PafHZlP/XJoemZewl3KicQzO+mEg1LHp+PCVsIw/Ns60JSdAkb0IPSlA9a16A169xrJ2sUsj69VdJ7tNWmcx9LdU4aTRw81lfUi0X6dIXvJl0RqjoYBe3viyjpygtiH80JQWT6ahJIUpbHR5VdPmxyckYy67n5ocKEjUTWhiQYwEFt0C4u0z0I/JTmZMY0i1pHG9d4x0Hg/YV9TXw4oyQxYwmUTUkVesmcECl0COEHD9aesQ042lnByI4ngF+h6Wby+ksDDFDgOi33X3/q8FdeOjFNLe+tAJ+BrYkNzKorxrXZdR0uw3ZKZvzV5741VTm8iK900D9l5Ve2WI9KHADZPE/2ftuwItJlahUWV9KTk+nlaarqk/AlI2p4VTXLZVpFY3MX2WBvQwYGatGoY7VSbnIyDpmAhUkQPiVhLk=
+	HVPEy+D+66L57EKSzoT/hAz6h4E9cJGBGXWM42wfGqC1icEeqkyDOVNTEibSpmPOJIwOtEhJ2ZF6ZiKOKXymhi4EYhKE0+C7297B7N5KAHMKKBiiSmswhZ6hxeqw0z4/xaG4KJJ7ao3FcyQAYD10WsOVoQf1m6HjoSPsnezLh1In54idxdph5YQxE36Gg20S4EVVkhXR4d3KryzOVJ3p8naKJcS0fI/HSCa/CB+s01B/RYFvDelRWd77qD05ArY6behW5Eqcw6eQ335qO5BmnLIK7IqKuY+pMW8UycMMJcnOSth8jHgMKEzswtyJ6epmK84hUKBVR9rkNXEDiEFvBcofcbsCr6YGzdq6UXIt2HR1mwfcVAMKxEMEqh39oCFCWO8dLVsrFso5ISDZBAhVMAvLIFj477yEcM0SCcyCGdqg8ukUIJj/Qdb7hHvBXlG3IjkhGIhNer0KiPiRYnJ0V0UgL2YUmODjEdahO/6aanqXLrCgfV2BvtV+wJrcRZIoVSdtCiOOoIAx2tFsnwW32wSwnGN1lIJ+32QT2pP7PT+lAOnwZKYgTgOXt9oP1CjsN4eBaC7Rv7ix4gehNJ2XHEue1vhO3UHbPwc2ZJZCpV8n5rJ9lsoFJw4pm9QO+zFR1mzFMg74KT3HSqHMGtUr5WCcWHh5h5Iz7BBZ8O2yBKI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10070799003)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(261102130727099003)(56012099006)(11063799006)(261022105027099003)(261021121427099003)(261026121527099003)(261022115727099003)(261026140227099003)(261022075727099003)(261022113327099003)(261009223027099003)(261028144727099003)(260925022911599003)(260925021311599003)(260925021911599003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10070799003)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(56012099006)(11063799006)(5023799004)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022075727099003)(261009223027099003)(261028144727099003)(261021135927099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z3Fla2xtbVMwbGRPR3ZQRWdyc0hxRjQrQUdBZ3laVDlsKzRGOTllQWoxbFlW?=
- =?utf-8?B?QjVHcVJtWnF5M09kalo3NW1JRjJzeTdqTDdBNHdvSU0yajJnL2JoQzdaVFAr?=
- =?utf-8?B?VGh3Sm1ESDVva25oMDZxOTgxV3EyWHpLRFpjdHBUZlJ4RWJ1K2FqeUgyZmFU?=
- =?utf-8?B?TmNjTEJ6OWN6T2w1clR1cGdGQjVsdVJlSDFLUlRzUjc0a2RkYTVObXhLR2tv?=
- =?utf-8?B?YmlyR2tBdFM5SGQ1RHQ5c0NYU3d3WTFId1ljc2FEaGIzQmlMbHMrclluSlpH?=
- =?utf-8?B?S1lCY1VpajViTE5aVCtrVU9HLzlYK0VjaVRVb2VvWm5VT2FrMk12aDZFMFp2?=
- =?utf-8?B?SlNySTM4d0U3c2tMNWo5TkMza1JZYVhNS1ZZeWltS0lzNmFWOXlLZUdrZlFR?=
- =?utf-8?B?cHdGTXNmZ0pBVmx6ODJVbG1WYU1hcExobm0vdXpxOGkvbk5vd2ZCWWZ3bVlJ?=
- =?utf-8?B?N1RwZnB5TWRFV3VrS2xEYkdFbTJ2L1BScXZSQkFkUWtOK0llT1YwU3pkaG8x?=
- =?utf-8?B?cHYyNjdjMkRVVlN0ODY2VkVXRWRwcnlJQVYyV2FLN1l5Z09UV3VvQjJJUll3?=
- =?utf-8?B?b3F6aW5HSmsxMjQxYVFyU3Q1bDZ4L0toaTM2UzFOWldacUxsTnpEYmh2dER3?=
- =?utf-8?B?c29DZjUxZHNiS1FDRVQ3Q0FDdlZJNFdTcDN3ZklaQXN1TmFxeWFiYzdDSnlw?=
- =?utf-8?B?bE9uQkN2QlB3NmJYVE9zS0RKNzdMS1J5Szh0NGU2d3kxemRrcStVeitqSHNi?=
- =?utf-8?B?UkFlSzVWWVJpTHNta2ZDZDdLaHZoWmRyR1M1WXdOS1dlNmRGQmxwZFMzai9a?=
- =?utf-8?B?cWpndTJFL2xaQ25vTjNGM3BBSW1VMVNNNVhxODJpNXBvd0M1VXdxU1Y1WlRt?=
- =?utf-8?B?VWJaU2tKZGY3cVJQdHRROHU2M3NyTDRHeWpkZVFuR1JYTy9OblB3b3JBNUFt?=
- =?utf-8?B?SmZSanp5bWNYQjlEQWtDa0FvSlRQWWFEbXJITlhqVGsrTFVMSkhwZS9FQzgr?=
- =?utf-8?B?UzRETFNPZVYwTmQzZG1tclBNZmNRaFVpb3kzL3R0WXp4Vk5QbysyOVR1VmVY?=
- =?utf-8?B?M0lQa3JJclcwNEd4RXh3Sk5TUmZYQmxXL3FpbXd3cmtIOVRlc25zdG94NEt4?=
- =?utf-8?B?RTN6SG1QaXNhQnpRSll1MXUvbTRZTUZhOTBma1BLeklHWHV1MVFLemFJbFpa?=
- =?utf-8?B?WnpWaTN3ZGU5c0FMa1ZHYU5MUm1iZHFlNzlkK2dJcE5Ya1ppNzh4cHpRTmoz?=
- =?utf-8?B?RGhrVk1DQnZuamJSWGZzUytTQzRZL3lvVlEySGlCbE95eTVha3NnL1VtYVdr?=
- =?utf-8?B?SFpURVFRTW95ZXEvRStPYUxSMnBVWVBiVmVVbktkQkx1SjNDNjZDSzhmU2dZ?=
- =?utf-8?B?NzlnTk43cWMyZGxRTDNIUS9waGM4T1UwYW5CT09wUEFaT0Fsb0RnUUJQQnVT?=
- =?utf-8?B?Y2RLOUl0MFJrMVRaVEJGWHhXek1VS3JjSkE2WDZpY1ltYy9xUjE1UFhzNkN1?=
- =?utf-8?B?Z3R0OUVFYVlNU0ozRkpEcUk0TWs0cjB4eGt4Q1FtZFg5VjdZc2dTaGgraWg4?=
- =?utf-8?B?TzJuTDdneEo2UFMrNGF4czA0NEJZcWh6eXRFUXgxSHpudFNUb3dEYTE0Z1RO?=
- =?utf-8?B?OSs3S0tTTjJ6VUsrZCtVVHlQVVdIQlB5MndMMElSbVZ6aWlJREZrWlJCU1lL?=
- =?utf-8?B?Mk1wZWlDSnFKajRodzhmdW9aVU5QTUxNUFFMaXJBTkdUbDhhTGNZbGtYcFl1?=
- =?utf-8?B?MzlPcHEwdnA3MGlobWNCUHorK2pITG5VVTZPYlhtbnRJMnpmVzdVZ2dZck1B?=
- =?utf-8?B?bVNydFBHRFo2Tnd4WVAzMGZ5bElPNkxRL2xCUGZZSmZOUk90MWNWVld6Zy9F?=
- =?utf-8?B?eExYc1B2VHNkOHFOTitsL1dlRXAxTWNIMlJKekp1N2ZIWUFxUDRoVjNwL1pJ?=
- =?utf-8?B?ejMrYWxvYVgrd0FmUkVRSnYxUXZ0djVmZG1zNzBoRzUva3E2c1VnanozcWVq?=
- =?utf-8?B?TlUvK0ZSN3gxS1dSUUJoeWVuRThmSXB4ZTFicDBYM0dTbkhhUWlQK1lpeVhU?=
- =?utf-8?B?ZTZjd0hJeitoZXRkck4vRStoWVZtSmVWc1RlUVd6Qm9xM0NDSDdqL3M2QU5D?=
- =?utf-8?B?SnlHYlNwYzY4YWtaRFVZOU5GQjh4bEhjbWF3ZWdzNkZnSCtEakZZUEVJV05W?=
- =?utf-8?B?SDBSUlBJcU84eEF4SFc4cVJGOUdoaUExWmRVbm03aUQxaDA2blV6amJvUm5C?=
- =?utf-8?B?UWVWYUNNRlFvWk5ubjBKaE1KR285SVlUbUNpNTBJMXg3TzlEN1VYUmNjdGZH?=
- =?utf-8?B?K1VVSFlUdXFDbGdialJ5YWd0WjlVUEZHNDl0UGs2NzVkT2hrYUlTWk14Z0xk?=
- =?utf-8?Q?WPSDg7ZEA2D3mnmhAZ+CZO5B0yM7gJzk5tY3lUmSXsPLU?=
-X-MS-Exchange-AntiSpam-MessageData-1: aC/ze2yJX00J5A==
+	=?utf-8?B?U0dHVGlqRitzTThqbVZTU2M3N0QrUlNlWjZKcVNMS3ZFTkErQkpKVjZVS0RD?=
+ =?utf-8?B?bVp2MmtNRVpxeUlNQU5FTWdOZFRYZzF4YmtTUmsxR24vZS9LanVmbG4rZkpl?=
+ =?utf-8?B?aVFrS1hSdXRKeUUwZzFTc0FIaE1IUXdyTmExSkhsaG1kajZjbzgxWk9OQ1NK?=
+ =?utf-8?B?bE5oSHR0MnJJamZiVE80a3dMYnZ4dWhwR0Jldm81U2FPV2JDa2tRdlhyeHNy?=
+ =?utf-8?B?Y21HbWNtMzdxZmI1Mk5pTm83TjY3Y0g5YUlmTmdlMU00U3J0ZUtBMmNubHdR?=
+ =?utf-8?B?cis1NmUwUjJZT1lrZWU0cCt2VkMzak04aVR2UDhNSU0raXcyQUlEbXhFL2hw?=
+ =?utf-8?B?VHFoSXYvdWV3Z1dsM1lUd3d1QmpML05xNkdFaTBGRFZERjJTTk9MbXZPWW1j?=
+ =?utf-8?B?SWFTZ2FuMkNyVGQrdUR1ZzRoakhoaG9jdlYzRitqNkxoT2wyTFdPZXNCTzc1?=
+ =?utf-8?B?c1lXUDg4WENIVlJrUHg3M2EzZ0pCRUo0QTZ2aUYzWHBvQ084TysxbTdmM0RF?=
+ =?utf-8?B?RnVMTFJuUDArUmxuZy84OGduYm1ESUF1eElkK25NVk1JLzNCMzlFVCtNYit2?=
+ =?utf-8?B?Q2hhZy80U2xFMmUwb3g5UEc3R3M4NDZiVDhBNDhzcWFPWEdlZWJJS3dhUGU3?=
+ =?utf-8?B?NFd6c3BhYmtvV0NjNVlMVDNYaklOYk1XOHdKUHBqTzlwL2w4Rjl1VjZIQ09i?=
+ =?utf-8?B?b0FCeDV1eUNCSE5iUWpnN2pWeUJER0YxdGcwSnRxWVhySXZFbXpneG1obnF1?=
+ =?utf-8?B?TGhJV1B0TzdMV2JUSmIwUE5DWGV1SnBqaEN6OTkzSmV4MktURnM5YzRZSHBo?=
+ =?utf-8?B?QW1ac0p2WXBHTzVra09aN1hVVVhiSG1tRmduc0ZjMHYvRlRHczQrY3k2bm5l?=
+ =?utf-8?B?QlpDSG5LdEszK2hkNXBFclVLNXAwZVM0b2g1KzU3K3BLeGRkT0JRdjRWVWhX?=
+ =?utf-8?B?eUN6byt4emorZFFqZnZtV2thTkxPc3h3aWlLVVk0Tk4vdjBpY05RcVBlTDMr?=
+ =?utf-8?B?UG5Zd1ovL2c4Q2F6TWU1S2h6b3JhYmdDSFhKekZMdmc3YjJHYVpDRllIUDZR?=
+ =?utf-8?B?V1hUekN5cmVoR0EvSXcvRHpHRGc4WFd0MFNsaldDSGY3cmJweFdtZHlrRVdP?=
+ =?utf-8?B?eDkwU3IzaHBqaTRNQlJBR0NvSVlFaVNsdW02eisyUGZIM3B2NSsyM25vTENh?=
+ =?utf-8?B?K1E2NVFvMjBmcU1UdEFPRzVhVEhMUlVJRDhMSFlkOGtIQ2xHWWwrNFdDU2J6?=
+ =?utf-8?B?azl4YWpWcW1LTlIvWmdCS0pYL2dDTExlY2VUZlBuUUdMNTQxSUhaVWRvR0tl?=
+ =?utf-8?B?OHNxRUtkZWlLUVU0eU1nZkNBb0JpSUJleVBSbnlTMElxdlB1SndMWEhxZ2tz?=
+ =?utf-8?B?TGVHMEhFU0xESW1uOFQ1QlhlaklrTllUQmFheWVlMURmcUJzU2NZL3AyTDJm?=
+ =?utf-8?B?eHVnSlVvYWl3QU1wV3dPT3NQZStYKzNiTm9zZFZGQXZPVHM5bG1CdVQvOGJD?=
+ =?utf-8?B?YWhXWE1IYkpWem50c01JMEZOblBsOGszY0lpQXlHTFFNVHJIQTJxNzdHaU1Q?=
+ =?utf-8?B?cy94eWpScHZVeHBwcm1DSTRJRmd0b0c3dDBpMXQwbGYvOFV4czBXU0pQa0Jx?=
+ =?utf-8?B?dGk0QzhSQnQzSGMydHkyR3M3U0xCNXRUL1pWYUFKQVJqeldBQmRYdVJhNUJz?=
+ =?utf-8?B?KzYxd01samtzcHVxVmFxRzlRUXhiNytYa3FlQ00xZ0V6T2ZsNnYxc0gyN0Mz?=
+ =?utf-8?B?VzFUQTQ3aUNIRVQxcTcxdEd4MWFGWGVudlRLckJkV0g2YUhyQ3J3K0NFaWtx?=
+ =?utf-8?B?WHp2bHRJWjlXRFkwdlBSOHRFYVVQZzZhZ0lBaWVPTUtlRGRZclh0Ymt5a3hP?=
+ =?utf-8?B?d0N5RTVsSG96UElMRTFUWnhuaFBtNmM1SXh2Y3pmdllyQWY5Z1R1dVFGeU91?=
+ =?utf-8?B?Tk9wRnFPeTVrbEdSYlFsbzlIc1dZN3UvbXZjUEpmZ3Bvc2tJNTYzZ3FIcEZB?=
+ =?utf-8?B?UENXUFVXU1VPblgrY0VpY285Z2lWTmVEUzc0aVI4NUoyY3c4T0tYNnl6bmFE?=
+ =?utf-8?B?Tm54YWsvQ1p3Vm0vSFd4TlY0SndXZ2w5ZWJhTjlmVlNwU2VYYUlMZW5FMWVM?=
+ =?utf-8?B?L01IVkNUeVhVVlByRUdES3d5c1RUTzFpWnhXb2ppUGdTNURvdGZscWNVNmRH?=
+ =?utf-8?B?ZWVDclJ6YzkyUzM2SXFhbVhWTzBhdVcvRVNXOFRDZS9TbHZZdTJLc2lQdytq?=
+ =?utf-8?B?MVY4RzVtRGVkMklUWVpxUGZCZmQ1bnplZEpkWjF1VUg4SlNBaWFHWmlOemdk?=
+ =?utf-8?B?LzJnQnpKS2Nla2l3MlhiTHNudE5qNCtJWHdBcFYvMkFlREhjYmlmYnBQamZx?=
+ =?utf-8?Q?ZNlSIZWRnULpNx97IgiRBpFruu0KCJBBrFw0fV3bI+JIH?=
+X-MS-Exchange-AntiSpam-MessageData-1: ojPuIytHpXup/w==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 779f4460-27ad-4e53-ad7d-08df393dd4fc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2467be2f-439e-40e4-c7a2-08df393ddab4
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6858.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 00:03:04.0119
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 00:03:13.6057
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nqtu+kGnaePNzUuFF6jaREFGuza0SNCG4eUWiBUbvNjHHYLZUGiTvTJTKy+mqAw5jbz9FqqMBzrxE1VBFGT15A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: syQrt2eaudWNzqdWOT+dxqiV+0n5y5MJhJsRxPYaFv1Vw9JG0Gjy1o3joPADrQuVgd7RZt8MKS5TiY9FwrMcEg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9415
 
 From: John Hubbard <jhubbard@nvidia.com>
 
-Nova-core boots the r570 GSP firmware, release 570.144. The GSP firmware
-releases from r615 onward share one ABI, and their firmware files carry
-no version number in their names, because each image records its version
-internally. The driver calls that ABI "r000", so that its name does not
-change with each release.
+GSP-RM answers a GMC request with a GMC message whose command word
+carries the response flag and the id of the request, and whose sequence
+number is that of the request. It also raises GMC events, named by a
+command id. During boot, the load-and-execute events arrive while the
+driver is waiting for the GSP_INIT reply, and GSP-RM only answers once
+they have been handled.
 
-Add the first part of the bindings that bindgen generates from the r000
-headers of OpenRM, the open-source NVIDIA kernel driver. The following
-patch builds the GMC API header type on them, and the driver keeps
-compiling against the r570 bindings until the patch that switches
-firmware.
+Add the receive side of the gmc sub-module, mirroring the
+already-existing rpc sub-module.
 
-The headers are those of OpenRM release 615.71.09.
+The transport cannot produce GMC messages yet: the r570 queue element
+header does not carry the type of the message it transports, so the Gmc
+variant of GspParsedMessage is only constructed once the switch to r000
+makes the transport dispatch on the NVDM type. The RPC receive path and
+drain() account for it by logging unclaimed GMC messages.
 
 Assisted-by: LLM
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-[acourbot: split the bindings by the code that needs them, name the
- OpenRM release.]
+Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/fw.rs                  |   1 +
- drivers/gpu/nova-core/gsp/fw/r000_00.rs          |  29 ++++++
- drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs | 110 +++++++++++++++++++++++
- 3 files changed, 140 insertions(+)
+ drivers/gpu/nova-core/gsp/cmdq.rs     |   7 ++
+ drivers/gpu/nova-core/gsp/cmdq/gmc.rs | 230 +++++++++++++++++++++++++++++++++-
+ drivers/gpu/nova-core/gsp/cmdq/rpc.rs |   8 +-
+ drivers/gpu/nova-core/gsp/fw.rs       |   1 -
+ 4 files changed, 243 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 629ab8d35f87..a1fa7a3b4079 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -420,6 +420,12 @@ struct GspMessage<'a> {
+ enum GspParsedMessage<'a> {
+     /// A [RPC message](rpc::RpcMessage).
+     Rpc(rpc::RpcMessage<'a>),
++    /// A [GMC message](gmc::GmcMessage).
++    //
++    // The transport header of the r570 firmware carries no message type, so this variant cannot
++    // be constructed before the switch to r000.
++    #[expect(dead_code)]
++    Gmc(gmc::GmcMessage<'a>),
+ }
+ 
+ impl GspParsedMessage<'_> {
+@@ -427,6 +433,7 @@ impl GspParsedMessage<'_> {
+     fn log(&self, dev: &device::Device) {
+         match self {
+             GspParsedMessage::Rpc(rpc) => rpc.log(dev),
++            GspParsedMessage::Gmc(gmc) => gmc.log(dev),
+         }
+     }
+ }
+diff --git a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
+index b035f30479a8..9adba5cbcd5c 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
+@@ -29,7 +29,9 @@
+ use super::{
+     Cmdq,
+     CmdqInner,
+-    CommandElement, //
++    CommandElement,
++    GspMessage,
++    GspParsedMessage, //
+ };
+ 
+ /// Trait implemented by types representing a GMC command to send to the GSP.
+@@ -150,7 +152,167 @@ fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand<'_>) -> Res
+     }
+ }
+ 
++/// Trait representing GMC messages received from the GSP.
++///
++/// These can be either replies to sent commands that expect a reply, or an event not bound to any
++/// command.
++pub(crate) trait MessageFromGsp: Sized {
++    /// Id of the command this is the reply to.
++    const COMMAND: GmcCommandId;
++
++    /// Error type returned by [`MessageFromGsp::read`].
++    type InitError;
++
++    /// Method reading the reply from the payload of the message and returning it.
++    fn read(
++        payload: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError>;
++}
++
++/// A GMC message ready to be processed from the message queue.
++pub(crate) struct GmcMessage<'a> {
++    // Reference to the GMC API header of the message.
++    header: &'a GmcApiHeader,
++    // Slices to the payload of the message. The second slice is empty unless the message loops
++    // over the message queue.
++    contents: (&'a [u8], &'a [u8]),
++}
++
++impl<'a> GmcMessage<'a> {
++    /// Validate the GMC layer of `element` and returns its GMC API header and its contents trimmed
++    /// down to the GMC payload.
++    ///
++    /// # Errors
++    ///
++    /// - `EIO` if the element is shorter than the GMC API header, or than the payload length
++    ///   advertised by the GMC API header.
++    pub(super) fn parse(dev: &device::Device, element: GspMessage<'a>) -> Result<GmcMessage<'a>> {
++        let GspMessage {
++            contents: (slice_1, slice_2),
++            ..
++        } = element;
++
++        // The GSP message header and the GMC API header together are guaranteed to fit entirely
++        // into a single page, so it's ok to only look at `slice_1` here.
++        let (gmc_header, slice_1) = GmcApiHeader::from_bytes_prefix(slice_1).ok_or(EIO)?;
++        let payload_size = gmc_header.payload_size();
++
++        dev_dbg!(
++            dev,
++            "GSP GMC: receive: seq# {}, command={:?}, length=0x{:x}\n",
++            gmc_header.sequence(),
++            gmc_header.command(),
++            payload_size,
++        );
++
++        // Check that the driver read area is large enough for the message.
++        if slice_1.len() + slice_2.len() < payload_size {
++            return Err(EIO);
++        }
++
++        // Cut the message slices down to the actual length of the message.
++        let (slice_1, slice_2) = if slice_1.len() > payload_size {
++            // PANIC: we checked above that `slice_1` is at least as long as `payload_size`.
++            (slice_1.split_at(payload_size).0, &slice_2[0..0])
++        } else {
++            (
++                slice_1,
++                // PANIC: we checked above that `slice_1.len() + slice_2.len()` is at least as
++                // large as `payload_size`.
++                slice_2.split_at(payload_size - slice_1.len()).0,
++            )
++        };
++
++        Ok(GmcMessage {
++            header: gmc_header,
++            contents: (slice_1, slice_2),
++        })
++    }
++
++    /// Returns the GMC API header of the message.
++    pub(crate) fn header(&self) -> &'a GmcApiHeader {
++        self.header
++    }
++
++    /// Returns the payload of the message.
++    ///
++    /// The second slice is empty unless the message loops over the message queue.
++    pub(crate) fn payload(&self) -> (&'a [u8], &'a [u8]) {
++        self.contents
++    }
++
++    /// Returns the status code of this message if it is the reply to `command` sent with sequence
++    /// number `seq`, `None` otherwise.
++    fn is_reply_to(&self, command: GmcCommandId, seq: u32) -> Option<u32> {
++        if matches!(self.header.command().id(), Ok(id) if id == command)
++            && self.header.sequence() == u64::from(seq)
++        {
++            self.header.status()
++        } else {
++            None
++        }
++    }
++
++    /// Logs an event, meaning a message that no caller was waiting for.
++    ///
++    /// A reply that nobody claimed (e.g. one that arrived after its request timed out) and an
++    /// unknown command id are logged at warning level. Other events are not logged.
++    pub(super) fn log(&self, dev: &device::Device) {
++        let command = self.header.command();
++        let seq = self.header.sequence();
++
++        match command.id() {
++            Ok(id) if command.is_response() => {
++                dev_warn!(dev, "unclaimed GSP GMC reply to {:?} (seq {})\n", id, seq);
++            }
++            // Nothing to do for the remaining known command ids.
++            Ok(_) => {}
++            Err(_) => {
++                dev_warn!(dev, "unknown GSP GMC command {:?} (seq {})\n", command, seq);
++            }
++        }
++    }
++}
++
+ impl Cmdq<'_> {
++    /// Sends `command` to the GSP and waits for the reply.
++    ///
++    /// GMC events that arrive before the reply are passed to `on_event`, and RPC messages are
++    /// logged and consumed. The boot sequence relies on this to handle the load-and-execute
++    /// events that GSP-RM raises before it answers `GSP_INIT`.
++    ///
++    /// The queue is locked for the entire send+receive cycle, including the calls to `on_event`,
++    /// to ensure that no other command can be interleaved. `on_event` must thus not use the queue.
++    ///
++    /// # Errors
++    ///
++    /// - `EMSGSIZE` if the command does not fit in a single command queue element.
++    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply does
++    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, however many events arrive
++    ///   while waiting.
++    /// - `EIO` if the variable payload requested by the command has not been entirely
++    ///   written to by its [`GmcCommand::init_variable_payload`] method, or if the reply carries
++    ///   a status other than `NV_OK`.
++    ///
++    /// Error codes returned by the command and reply initializers, and by `on_event`, are
++    /// propagated as-is.
++    pub(crate) fn send_gmc_command<C>(
++        &self,
++        command: C,
++        on_event: impl Fn(&GmcMessage<'_>) -> Result,
++    ) -> Result<C::Reply>
++    where
++        C: CommandToGsp,
++        C::Reply: MessageFromGsp,
++        Error: From<C::InitError>,
++        Error: From<<C::Reply as MessageFromGsp>::InitError>,
++    {
++        let mut inner = self.inner.lock();
++        let seq = inner.send_gmc_command(command)?;
++
++        inner.await_gmc_reply(seq, on_event)
++    }
++
+     /// Sends `command` to the GSP without waiting for a reply.
+     ///
+     /// # Errors
+@@ -191,4 +353,70 @@ fn send_gmc_command<C>(&mut self, command: C) -> Result<u32>
+     {
+         self.send_command_element(GmcCommandElement(command))
+     }
++
++    /// Receives the reply of type `R` to the command sent with sequence number `seq`, waiting up
++    /// to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
++    ///
++    /// Any GMC event that arrives first is passed to `on_event`, and any RPC message is logged.
++    /// Neither extends the deadline.
++    ///
++    /// # Errors
++    ///
++    /// - `ETIMEDOUT` if the reply does not arrive before the deadline, however many other messages
++    ///   arrive while waiting.
++    /// - `EIO` if a message fails framing or checksum validation, or if the reply carries a status
++    ///   other than `NV_OK`.
++    ///
++    /// Error codes returned by [`MessageFromGsp::read`] and by `on_event` are propagated as-is.
++    fn await_gmc_reply<R: MessageFromGsp>(
++        &mut self,
++        seq: u32,
++        on_event: impl Fn(&GmcMessage<'_>) -> Result,
++    ) -> Result<R>
++    where
++        // This allows all error types, including `Infallible`, to be used for `R::InitError`.
++        Error: From<R::InitError>,
++    {
++        let dev = self.dev;
++
++        self.await_msg_with(|message| {
++            let gmc_message = match message {
++                GspParsedMessage::Gmc(gmc_message) => gmc_message,
++                _ => {
++                    message.log(dev);
++                    return Err(ENOMSG);
++                }
++            };
++
++            match gmc_message.is_reply_to(R::COMMAND, seq) {
++                // Message is not the reply to our command, log it.
++                None => {
++                    on_event(&gmc_message)?;
++                    return Err(ENOMSG);
++                }
++                // Reply has an error status.
++                Some(status @ 1..) => {
++                    dev_err!(
++                        dev,
++                        "GSP GMC: command {:?} failed with status {:#x}\n",
++                        R::COMMAND,
++                        status
++                    );
++
++                    return Err(EIO);
++                }
++                // Reply indicates the command has succeeded.
++                Some(0) => (),
++            }
++
++            let mut sbuffer =
++                SBufferIter::new_reader([gmc_message.contents.0, gmc_message.contents.1]);
++
++            R::read(&mut sbuffer).map_err(|e| e.into()).inspect(|_| {
++                if !sbuffer.is_empty() {
++                    dev_warn!(dev, "GSP GMC reply {:?} has unprocessed data\n", R::COMMAND);
++                }
++            })
++        })
++    }
+ }
+diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
+index 36cba7c28d3e..de3734daa99e 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
+@@ -387,7 +387,13 @@ fn await_rpc_msg<M: MessageFromGsp>(&mut self) -> Result<M>
+         Error: From<M::InitError>,
+     {
+         let f = |message: GspParsedMessage<'_>| {
+-            let GspParsedMessage::Rpc(rpc_message) = message;
++            let rpc_message = match message {
++                GspParsedMessage::Rpc(rpc_message) => rpc_message,
++                _ => {
++                    message.log(self.dev);
++                    return Err(ENOMSG);
++                }
++            };
+             let function = rpc_message.header.function();
+             if matches!(function, Ok(f) if f == M::FUNCTION) {
+                 let (cmd, contents_1) =
 diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index b2ddeb27984f..213ef5bfb258 100644
+index 367c8b5e3443..de61afd60403 100644
 --- a/drivers/gpu/nova-core/gsp/fw.rs
 +++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -2,6 +2,7 @@
- // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
- pub(crate) mod commands;
-+mod r000_00;
- mod r570_144;
- 
- // Alias to avoid repeating the version number with every use.
-diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00.rs b/drivers/gpu/nova-core/gsp/fw/r000_00.rs
-new file mode 100644
-index 000000000000..0c32f4ec1e27
---- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/fw/r000_00.rs
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Bindings generated by `bindgen` from the r000 GSP firmware headers.
-+//!
-+//! Use them only through the parent module, which abstracts or re-exports the symbols that the
-+//! driver needs.
-+
-+#![allow(
-+    dead_code,
-+    clippy::all,
-+    clippy::undocumented_unsafe_blocks,
-+    clippy::ptr_as_ptr,
-+    clippy::ref_as_ptr,
-+    missing_docs,
-+    non_camel_case_types,
-+    non_upper_case_globals,
-+    non_snake_case,
-+    improper_ctypes,
-+    unreachable_pub,
-+    unsafe_op_in_unsafe_fn
-+)]
-+use kernel::ffi;
-+use pin_init::MaybeZeroable;
-+
-+include!("r000_00/bindings.rs");
-+
-+// SAFETY: This type has a size of zero, so its inclusion into another type should not affect their
-+// ability to implement `Zeroable`.
-+unsafe impl<T> kernel::prelude::Zeroable for __IncompleteArrayField<T> {}
-diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-new file mode 100644
-index 000000000000..552299c98169
---- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-@@ -0,0 +1,110 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#[repr(C)]
-+#[derive(Default)]
-+pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
-+impl<T> __IncompleteArrayField<T> {
-+    #[inline]
-+    pub const fn new() -> Self {
-+        __IncompleteArrayField(::core::marker::PhantomData, [])
-+    }
-+    #[inline]
-+    pub fn as_ptr(&self) -> *const T {
-+        self as *const _ as *const T
-+    }
-+    #[inline]
-+    pub fn as_mut_ptr(&mut self) -> *mut T {
-+        self as *mut _ as *mut T
-+    }
-+    #[inline]
-+    pub unsafe fn as_slice(&self, len: usize) -> &[T] {
-+        ::core::slice::from_raw_parts(self.as_ptr(), len)
-+    }
-+    #[inline]
-+    pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
-+        ::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
-+    }
-+}
-+impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
-+    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-+        fmt.write_str("__IncompleteArrayField")
-+    }
-+}
-+pub type __u8 = ffi::c_uchar;
-+pub type __u16 = ffi::c_ushort;
-+pub type __u32 = ffi::c_uint;
-+pub type __u64 = ffi::c_ulonglong;
-+pub type u8_ = __u8;
-+pub type u16_ = __u16;
-+pub type u32_ = __u32;
-+pub type u64_ = __u64;
-+#[repr(C)]
-+#[derive(MaybeZeroable)]
-+pub struct GMCAPI_HEADER {
-+    pub command: u32_,
-+    pub size: u32_,
-+    pub sequence: u64_,
-+    pub __bindgen_anon_1: GMCAPI_HEADER__bindgen_ty_1,
-+    pub reserved: [u32_; 5usize],
-+    pub data: __IncompleteArrayField<u8_>,
-+}
-+#[repr(C)]
-+#[derive(Copy, Clone, MaybeZeroable)]
-+pub union GMCAPI_HEADER__bindgen_ty_1 {
-+    pub request: GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_1,
-+    pub response: GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_2,
-+}
-+#[repr(C)]
-+#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
-+pub struct GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_1 {
-+    pub max_response_size: u32_,
-+}
-+#[repr(C)]
-+#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
-+pub struct GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_2 {
-+    pub status: u32_,
-+}
-+impl Default for GMCAPI_HEADER__bindgen_ty_1 {
-+    fn default() -> Self {
-+        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
-+        unsafe {
-+            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-+            s.assume_init()
-+        }
-+    }
-+}
-+impl Default for GMCAPI_HEADER {
-+    fn default() -> Self {
-+        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
-+        unsafe {
-+            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-+            s.assume_init()
-+        }
-+    }
-+}
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_RESERVED_LAST: GMCAPI_COMMANDS = 65535;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_GSP_INIT: GMCAPI_COMMANDS = 65537;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER: GMCAPI_COMMANDS = 65538;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY: GMCAPI_COMMANDS = 65539;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_GSP_SUSPEND: GMCAPI_COMMANDS = 65540;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_GSP_RESUME_DONE: GMCAPI_COMMANDS = 65541;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_ADD_VGPU_TYPE: GMCAPI_COMMANDS = 131073;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_SUPPORTED_VGPU_TYPES: GMCAPI_COMMANDS = 131074;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_CREATABLE_VGPU_TYPES: GMCAPI_COMMANDS = 131075;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_ASSIGN_VGPU_TYPE: GMCAPI_COMMANDS = 131076;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_DEASSIGN_VGPU_TYPE: GMCAPI_COMMANDS = 131077;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES: GMCAPI_COMMANDS = 131078;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE: GMCAPI_COMMANDS = 131079;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK: GMCAPI_COMMANDS = 131104;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK: GMCAPI_COMMANDS = 131105;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE: GMCAPI_COMMANDS =
-+    131106;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES: GMCAPI_COMMANDS = 131107;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_PLUGIN_TRIGGERED_EVENT: GMCAPI_COMMANDS = 131108;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_SCRUB_GUEST_FB: GMCAPI_COMMANDS = 131109;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_ALLOC_GSP_CEUTILS: GMCAPI_COMMANDS = 131110;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_FREE_GSP_CEUTILS: GMCAPI_COMMANDS = 131111;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_SCHED_CONTROL: GMCAPI_COMMANDS = 196609;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_MMU_FAULT_QUEUED: GMCAPI_COMMANDS = 262145;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_INVALID: GMCAPI_COMMANDS = 4294967295;
-+pub type GMCAPI_COMMANDS = ffi::c_uint;
+@@ -935,7 +935,6 @@ pub(crate) struct GmcCommandWord(u32) {
+ /// In a queue element, it follows the queue element header and precedes the payload of the
+ /// command.
+ #[repr(transparent)]
+-#[expect(dead_code)]
+ pub(crate) struct GmcApiHeader {
+     inner: r000_00::GMCAPI_HEADER,
+ }
 
 -- 
 2.56.0
