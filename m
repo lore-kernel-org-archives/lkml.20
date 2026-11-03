@@ -1,80 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793675838;
-	b=S9mSykSA71dyf7WlC/fTxPxJdAmLuQ23h15bt4697FCe5VXbfidJ0KupFueuPdSkUET+
-	 +Z4Sst+m8BJnLkIORJzUsEhfYTK246V1hFzE1Yjcfk1Uo/ScrcSMSVyPRW3Xp/sWCUa1I
-	 G7/Y/6VlEhUnQ//9EI/Ok2PmdGaZjKQovGB+lIR3JM5ifki4/YnRkzAJxCf+gQua38MKI
-	 b7nlm7bl76hsdAlJf22Nup9bA1m5P1dVxvqu8gjYuelx+Pnp5GxKoGHlXYrM7slsFYRbP
-	 hnjHE3bjhvRRfXg/Z0eXFJvqXBw9iUWcI0r7swBcnlcOdYnYsupzFbtlhsNU795/Rtw==
+	t=1793675876;
+	b=PG4wptiCAqLIQKIBmLg5ajxiRfqdjyAxFvAu88DEO9syv7hDsk+9Om/fMsYNihvuREqJ
+	 DQGhlEekiH3+za6w7pZurVdftxEQuzarijl9HfZM8lihHpPjTKKYWEBwBQ6V1PBRYc/Co
+	 SR2yccuSqrwQ6JEiZOR3L/hdErZWaOwfqQZRR3SyI2XraHCs7Bs0uLf74sZcMu3sFzmn+
+	 5ogkHvoH9ZOrGjsi/gmVx/30R9V4YMpHsu3gNtpMtL3WgnHWUyPs31/xSXA1RJncMp292
+	 fY4qSyTmxcRnNfOHfOPIEBwm89nEXLZKwgl1UGF1GdQ9L2tzistub/Kod2LDoozG2uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675838;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=IAdP2i2NBcS81hl12RJy+QQRkMqywf9aixPAQsnRvxk=;
-	b=EDhtnOwoX9lOoaWy4de3LCsYIQtx7xM47S7foUeJzeoUiK1S0xHUCUAnQW3RkkQYrOQR
-	 +SkSiYEBxMVHu0wcxoNg6CfbPnuhm9WFB6L6LVljj2MRP/R4KW8FF3JLLHgsr91tYCVhP
-	 oUqBX/indiuSbGHpeCxQeCoCrQbRS9n7GW6Q6+C7uFpmOQpOhNWlNcnDdIFr8sJL3sLUz
-	 4aVep8CefSPetXQ7fuSY8iO+K26j3NsWb9qwRhpYmvQ1e7+kgZCzgG720kA04A3WND32k
-	 wx2jYdtb1NDZG0RbWsAx46QgbAxteN8ucFsJnb2XnC9CuF9+Sgvnz0Zzf8Sa5ESCmJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675876;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=Bq8RxOjp221zCtPe1b7ySNgeViySYgXEXgz3pYeX0SQ=;
+	b=z/ZbWGJnp8H0LX5pTg9ory/VIg/QfX7NNTVHL6xgospdzfeMQdTqSgBd65afE8xPoX0g
+	 oXRlz7tz6z980Ow9FKVYL9nDzNaxNextFb/HirIhO6Ibitb5AYXN90tbVG6ci7xCFWvxz
+	 slnooWV4cGODVYLgAh6BvXglSbqSEb2y/JG5AMfx9wCdXLeGMY4qXZgr0MwN0wKtHHmez
+	 w2rsy+TZ9Htby8zhtQtbp4VmpbM9Q+hAu7+jfmO50LkOp1QfAOWvnjox5ThlhdrSUxUnj
+	 NyOVIvEj1quNBNPAmRcSbu8oPFi76A8FYWLV2K8O0QfpLvTrGf9T0Q+IRb2wjB1BcSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Glvr9lJM;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B41606A324;
-	Tue,  3 Nov 2026 03:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9B41606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=RyF6tFSs;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31378606A324;
+	Tue,  3 Nov 2026 03:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31378606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Glvr9lJM
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A33HAXZ02695609, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793675830; bh=IAdP2i2NBcS81hl12RJy+QQRkMqywf9aixPAQsnRvxk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Glvr9lJM/c5dOQXQXWdRugSCNWpEHQNH/fFQXHKmxxDAXVb+H1XZOM6ZzCmcLpn8j
-	 +HcH/xAx4kGIgM8C7c9ICCWmVFcwLR+TfbESnOruMk+m3ZPTRnhKV0FOVI/pslLBak
-	 cG3pbvA2Sgk0FaZkGZSSr+KRQ0U4uCxkZtT7PN/BkykN4Y+SycQc57m7WgcAAzGOEf
-	 wnulcyx1r+j6ZQIogdlCzkobl/QjOMkL5I4RHHo2brQmBPzthRgCPnpmrJkrxLpyzE
-	 86tP0bja661O0sqUkjGikuNlzd14YYiL41xg8SJ6HMACDjIKzQ/v0GAD0uW3hQC8IT
-	 VJ03snc/sfZyg==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A33HAXZ02695609
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:17:10 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:17:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Tue, 3 Nov 2026 11:17:10 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, "kvalo@kernel.org"
-	<kvalo@kernel.org>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 2/2] wifi: rtw88: ps: Trigger firmware recovery when
- failing to leave LPS state
-Thread-Topic: [PATCH v2 2/2] wifi: rtw88: ps: Trigger firmware recovery when
- failing to leave LPS state
-Thread-Index: AQHda0GT5HJUjvdiV06CJvy/NMrA3bcbrQjg
-Date: Tue, 3 Nov 2026 03:17:10 +0000
-Message-ID: <3123351665ae40a4a4328fff35faa548@realtek.com>
-References: <20261103031434.14449-1-skalpesh942@gmail.com>
- <20261103031434.14449-2-skalpesh942@gmail.com>
-In-Reply-To: <20261103031434.14449-2-skalpesh942@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=RyF6tFSs
+Received: from [192.168.166.159] (unknown [67.168.101.66])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8037E20B7166;
+	Mon,  2 Nov 2026 19:17:40 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8037E20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793675861;
+	bh=Bq8RxOjp221zCtPe1b7ySNgeViySYgXEXgz3pYeX0SQ=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=RyF6tFSsYqXm9Tp4+4N/XOnFIwW2lrHGXaHlZIlq4MPN0j0IplShWpzIYBlPy5MeV
+	 oQMB05jEY1RJ1LDQ/KzVf+VSv0kRgouPv9xpRLvjldr4wQyiXc/XmqIP+RzmhWXX8J
+	 onuVe6gt7rrUN7PgRRsxwVrTk6FI+cNaV5ZOY9Ds=
+Message-ID: <dc41f6b6-413f-4340-9579-6853f2d5d565@linux.microsoft.com>
+Date: Mon, 2 Nov 2026 19:17:55 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,20 +53,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arch@vger.kernel.org,
+ easwar.hariharan@linux.microsoft.com, jgg@nvidia.com,
+ jacob.pan@linux.microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
+Subject: Re: [PATCH V3 3/5] mshv: Import data structs around device domains
+ from hyperv headers
+To: Mukesh R <mrathor@linux.microsoft.com>
+References: <20261103025150.3192119-1-mrathor@linux.microsoft.com>
+ <20261103025150.3192119-4-mrathor@linux.microsoft.com>
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <20261103025150.3192119-4-mrathor@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Kalpesh Solanki <skalpesh942@gmail.com> wrote:
-> When rtw_fw_leave_lps_check() fails, the firmware has locked up or
-> failed to exit its low power state. Currently, the driver only logs
-> 'firmware failed to leave lps state' and clears REG_TCR, leaving the
-> hardware in an unresponsive state where subsequent H2C commands fail
-> and TX traffic hangs indefinitely.
->=20
-> Call rtw_fw_recovery() when rtw_fw_leave_lps_check() fails so the driver
-> can automatically reset the hardware and re-sync without requiring manual
-> user intervention.
->=20
-> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+On 11/2/2026 18:51, Mukesh R wrote:
+> Copy/import from Hyper-V public headers, definitions and hypercalls that
+> are related to checking for device domain availibility, and mapping and
+> unmapping of device pages.
+> 
+> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+> Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+> ---
+>  include/hyperv/hvgdk_mini.h |  4 ++++
+>  include/hyperv/hvhdk_mini.h | 15 +++++++++++++++
+>  2 files changed, 19 insertions(+)
+> 
+> diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
+> index 966945f0504f..606b16f43e16 100644
+> --- a/include/hyperv/hvgdk_mini.h
+> +++ b/include/hyperv/hvgdk_mini.h
+> @@ -327,6 +327,8 @@ union hv_hypervisor_version_info {
+>  /* stimer Direct Mode is available */
+>  #define HV_STIMER_DIRECT_MODE_AVAILABLE			BIT(19)
+>  
+> +#define HV_DEVICE_DOMAIN_AVAILABLE			BIT(24)
+> +
+>  /*
+>   * Implementation recommendations. Indicates which behaviors the hypervisor
+>   * recommends the OS implement for optimal performance.
+> @@ -489,6 +491,8 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
+>  #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST	0x00b0
+>  #define HVCALL_CREATE_DEVICE_DOMAIN			0x00b1
+>  #define HVCALL_ATTACH_DEVICE_DOMAIN			0x00b2
+> +#define HVCALL_MAP_DEVICE_GPA_PAGES			0x00b3
+> +#define HVCALL_UNMAP_DEVICE_GPA_PAGES			0x00b4
+>  #define HVCALL_SIGNAL_EVENT_DIRECT			0x00c0
+>  #define HVCALL_POST_MESSAGE_DIRECT			0x00c1
+>  #define HVCALL_DISPATCH_VP				0x00c2
+> diff --git a/include/hyperv/hvhdk_mini.h b/include/hyperv/hvhdk_mini.h
+> index 57b70efe60d4..2bb757e00d86 100644
+> --- a/include/hyperv/hvhdk_mini.h
+> +++ b/include/hyperv/hvhdk_mini.h
+> @@ -549,6 +549,7 @@ union hv_device_id {		/* HV_DEVICE_ID */
+>  } __packed;
+>  
+>  /* Device domain types */
+> +#define HV_DEVICE_DOMAIN_TYPE_S2	0 /* HV_DEVICE_DOMAIN_ID_TYPE_S2 */
+>  #define HV_DEVICE_DOMAIN_TYPE_S1	1 /* HV_DEVICE_DOMAIN_ID_TYPE_S1 */
+>  
+>  /* ID for default domain and NULL domain */
+> @@ -657,6 +658,20 @@ struct hv_output_get_iommu_capabilities {
+>  	u64 pgsize_bitmap;
+>  } __packed;
+>  
+> +struct hv_input_map_device_gpa_pages { /* HV_INPUT_MAP_DEVICE_GPA_PAGES */
+> +struct hv_input_device_domain device_domain;
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Nit: Needs whitespace
 
+> +	union hv_input_vtl target_vtl;
+> +	u8 padding[3];
+> +	u32 map_flags;
+> +	u64 target_device_va_base;
+> +	u64 gpa_page_list[];
+> +} __packed;
+> +
+> +struct hv_input_unmap_device_gpa_pages {  /* HV_INPUT_UNMAP_DEVICE_GPA_PAGES */
+> +	struct hv_input_device_domain device_domain;
+> +	u64 target_device_va_base;
+> +} __packed;
+> +
+>  /* HV_LOGICAL_DEVICE_PROPERTY_CODE */
+>  enum hv_logical_device_property_code {
+>  	HV_LOGICAL_DEVICE_PROPERTY_PVIOMMU = 10,
 
