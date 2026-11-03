@@ -1,105 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680700;
-	b=CSa9dpk+OVFcMUkkYU7uLtxEsXgVwf83ljRk1rj1lC0L81VR6oRUKmzLoKB/c0GTB9Dj
-	 NOCU8GJhsEkZCxbHG7Sm+ig89cpswcfV7g0n3k2kCAB1tbwzAsoQutPZUCFmzYcazSJiw
-	 XVQFUkpd7NIbEx5kigCpgW99Sw869KOWgQ8LMBWqjSvbcvFuwyJKYMvJCx8NYUvrh6WB4
-	 jXjtof6V6pPBITvwtbyXdObeM2yrQTo4XRJ3CbV2sC0p9UsrBUXCL7PoxluBjkCdQ5/N5
-	 66AQp1J+Q6d9zD3+O40vFFOYp8wm+XJZeiFiFrgOveVfq5NMUQt58QFevRW/LqTeu/g==
+	t=1793680841;
+	b=3iPF7DPplepo9B/9XFxau7exvPKT60YqQlB2XpFs57kBcTXXTx1q/3sWC9KtyFUUsS6B
+	 9EkSq3RyY4hhKSNphXT1GskywgU1vy8YXe/LsvOHP7VNLpT7Be8Kn+8pjZ5MOE9FuFoC9
+	 rLZqYJUm1eYAtbm15x3Pw7cVRcsc62/QyN5U71TaPQI/22TnBpl/U729WKEouw4+2v4eM
+	 Aez/YmnIf6qQRgLrPfPnGshQd7L4aghUzNfUVf3tIB87uosZ+hc9e5jemudGoHsC9N7uL
+	 tcpmxvbw0QBHnONrBh45cJ7SsML0sqnGywaHVk43VNMtvkff6TbYT86E7MDytr/zPpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680841;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
-	b=htE7asiZF//PUwGEq8paJ5kxyrJkO3pii4RlGWc9NlgEYaIwsdBAcyAN+9qMqWFDQgqn
-	 RL26AZ0eMlWMBF3pOTR/vPvCZ8BnqL+NdBJ6qMgiNAoF+z5+Z4vBNBlzTq9Z/29rilZfR
-	 Drgv5iGfNxcbht8oafa+OLE9HVBFvrmJG3DLZEdEpnlLTukSsy9onQShbJ++MEwn7Ycj4
-	 0Dd2NLuALc/9Y7nOLsbPJVFCVE9fLWrMwUBSJj1HHlvifqG4fIUNnPDxqGVF/rbiPvVk3
-	 XkX1OQenTtgzx9CKGfTi+mh65UxuJwgKEnMXTTZU9rkoYVW6StoMcpxebqwmue5PRAQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=75PcmoaRkELEZYnSZBhFOQlg0FMdwQhkoGGy8J7+las=;
+	b=sAfvYk0fOmQxlwdDtlEWCIpw1/wjC0rvcHfKXT1UlV0bD7UgEkRC1bfoU+YC4iPOVEHc
+	 5eu7x9DTTzLqVyeZDpZVJdAlbR7zit8S3VkEkTW9L6pNbSk7Mzg0TfmMFsCzbL3mtz4kP
+	 XYGocM+daXg5iT++U4IbsMEKRxf21zIEQHVT5JmwisvNtKswXJE4Q1UpUbVTmuMosAkFs
+	 xH+0t8wv0eVwLrrmXhHBoBVRyNssefigepleZL19Eis2QLHY/kiSZDnVgN6ncVDK2u/k3
+	 yLkEAaK5GPiODrGEjdvPUTCmv+kOZFU0ukUl5Lo3msaKqcnRhGWvNvRtdjbpJ+QZWeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XElVPPXI;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Z8LulxRY;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B04606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B04606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70AE606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:40:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C70AE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XElVPPXI
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd8ca57ef64so123471a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:38:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Z8LulxRY
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so24610055e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:40:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793680699; x=1794285499; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
-        b=XElVPPXIpP6fosW6+7K3jVrmtXYfBRPTpzAlgEI6/7G5HJ+9KEJPQ3UoWAaex8SJ47
-         n5pY1ZRXvWc8XMYoR0maYVkdsXoSj0uwAHnNUnJyH3KKaMRiAFJdNbx6yD/d+aqssFad
-         NSUa4WrlOGyXMenr619P4qq1AQplaGBT6NfEY=
+        d=suse.com; s=google; t=1793680839; x=1794285639; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=75PcmoaRkELEZYnSZBhFOQlg0FMdwQhkoGGy8J7+las=;
+        b=Z8LulxRYwjxQ0AikjHu6lCMhpe7fWgPnRc+8gbdBOqQZgPKav17mTknrIFKgbRszaq
+         6q+1btt92F+xz/pNTdOGCphDyzPuxUBARCKZjd06qPfBiNPFenh+PpTIt6JV2UrDW90h
+         1JA5321kAUn/r9I3kauxqCTmv3FLaSCYUBYdsGn8RqWdr3/2NLx8o0/VXQNW7azMtK1O
+         lU3epGIyF09j/rooAg8f/xM7pjzQDIQoN5HJQDjf91oKUQ5uco9kl+j+g7ZGXdFkZV1N
+         x+iAKKcP3y/C65np1iOe+lwC6pIANoV8MfqZxKI62nAXEvEoHtBQfh4KYRMO6jcmd8RH
+         E3Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680699; x=1794285499;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
-        b=OkffaU6f6Ja05O5qh954A4QZYlkGOkRIL9d9LHlKIMviHKRv/deVhytnyCepzE96Os
-         yoAu+lVvW3SQk/IWMrzwEtUxq3l/gCKkaYBbhYmWzqNGPPxKxp9/OzCH4z8H3sn0eAF7
-         G3OFBk8JhHx6okGLhjARYbuSfuU03bghkFGdofa38oKJ8VOKuRBjfMdWfZkpacU1sYJR
-         Q5ggSlUYxFBTiF0tO6yBasWQGfCjfAcyH1Fr8npaF6V6mAv2VS/bajJKe9NjYqYTw6he
-         OOp4Lajxxp7wkPclY8hCpeEilJHljRvpALFMCUxAXtTfOWJ5cMJQdG6FqG7PhxL4VDiv
-         t8vw==
-X-Forwarded-Encrypted: i=1; AKwUvBzS9pW+gm8EaaBl+UxwtMcDga4BKRRBSLM7T7k0Tk91blHAo0prtykzcjwbxgFQOC86HS5vbWr34NZJJmY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VYHqw2AYZw+HLaxwnSTYUB1KiN0qRzg9kRQ0cy71WkOWDwqtQ
-	2eRttRFQJop/4MiUbawFuM/Nqu16kKh8dMXIMNVeNSTRxFGnSOADPtyeOG8OBR63PQ==
-X-Gm-Gg: AYBFou2okaZaIWSP9+lf8eNrs3l6BeslcAgz/9GE0lZFBVzMVWNq/vgLbbCphfuHrCd
-	pvAhpPSpBn6J1qHDj+tZrnVZBfJCg1PhW/0Eh7diH5GBtMcjOs8QDbZeo8CUIbIcnVhjUfkvVWM
-	TGkPcU4Yj/4J4rD9/lQ/rw2f+pKjXC7KHikBr8dERY3RFPp42cNJu8b9N9i7McxgdofuD+BVU7W
-	0gM/AKNIkUCosng9DQTo/xklbvu4ve8Qc/dLIBfamOxD+7++owYqEPYd8Ia+Cj4uVxDAjcxfEx5
-	gI0ymdtWvWXMzBlj4UcVvpBxVJMtjXErpn78Zdl+CPMeESy8Un+qN329ZNNZeJ3M6Wet3broLz4
-	Bp4ZKML4/qQwHSaonQ5sg9M8RF6R1PjSzv/0OkLEOl3rnYrusFtautFCfeu7/5ASlw2N8ZbB5Zd
-	MFoA2jj0XmMKRlxAKapcfDBaXJTMM0ubi3acionYNRzZxD7evoXmW6G5OguLw5Ui/r2zTynUaFA
-	N8dY/TagoMTtOmPx0/sMKJupZCsHiRL/eds2QwHFMfWx0AmZqoPD4AYnSF2LHTLqiNqJ2ZLja4Y
-	P2SpX68Sp8HQvupk5UbHDxMegQaaAr5qStwsSQPq6KA2fCvaX6LFmNo/XzNtNrb0Dmvqys++boQ
-	2hL61Xy46eulCK9TaoqO5AYWHtUOqd1b3cw==
-X-Received: by 2002:a17:90b:280c:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3ae8972a6d2mr6631601a91.18.1793680698982;
-        Mon, 02 Nov 2026 20:38:18 -0800 (PST)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:dea6:6326:4502:bb8b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c71c253sm2072761a91.16.2026.11.02.20.38.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:38:18 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable+noautosel@kernel.org
-Subject: [PATCH v7 8/8] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
-Date: Tue,  3 Nov 2026 12:37:32 +0800
-Message-ID: <20261103043734.2179858-9-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103043734.2179858-1-wenst@chromium.org>
-References: <20261103043734.2179858-1-wenst@chromium.org>
+        d=1e100.net; s=20260707; t=1793680839; x=1794285639;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=75PcmoaRkELEZYnSZBhFOQlg0FMdwQhkoGGy8J7+las=;
+        b=ed37jFFd5Fq6oyiSnQa40sbfYFDcE4icNC3oQ4vBj8qQEeLV5sREo8dxaNxU3CYvPv
+         +WWBAJPrOeVzrgY9/lt70bt7cmxzRBhVkW7C+VOK0zUleKl0JwgfWfwNVbtDTVvJl6M4
+         /J6sP6de7Hqd4YH1rGsBbqPzn7KgoIuFbK0u77CPPJvlGfH0HTmoaa3ehPrOo4N9UlT7
+         ua8KqVdDCL7Sh5ocNGiOEcrVJsP/mOHk2xeS/Pj9F9+7mtBz5Ht6yJlFChWhKfyvmo/y
+         eiomODbi4RfJcJDfHVEhm2r2+wuHFf/RLZiQ1pOAF2GtS9mBtXZ33Emk2z38b5eK8bN3
+         4pHg==
+X-Forwarded-Encrypted: i=1; AKwUvBziYXtDVPrU1DY8u9vWSdFF79EvyKo/0lFhyJbOqoJlglJM/2vi1t+d3U3VYlKy0hNisgu9QPLHDwgfuMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQrOaiWLV53T7WevNIbCHMqaCE0pIrCkVd6vxcY8XekxgGQ+aV
+	RudtySsAHA8hWt5vFXiGDcUxg2TM4QM7O+WYDSbKTDPpxLhlZKnVrUraPsiWeytyNJkV8PZISPb
+	jm/4Ks4Dslg==
+X-Gm-Gg: AYBFou1m8Jikffp3o5Yvjl3wtAU/qxpT2I/+SfHOqgWjMYsG1BPNM+6RwtDWHNHz1lt
+	Fa1EIDD7VWcs9QwPLhAr/rDf7RVXgaTm1ZJpOptaDqrD3skyU/xNilhapE9htjB1R+03U4aujuW
+	roYL4lw6vxcHjwOkAO7Qv1JYlpXyXek6DZFeaHEFNL4KnyzmclrnRoYrJJKBG7sX0rf1kyQ2quB
+	SD9l3Zhx4UP0yjcs7S7g0tHKwWXe3U0c8PhlZrRpwIim0MRDN/5YN2KTCHH72QYUu4uaMsdCiwA
+	ADVqrIDuwfxPnwb9Vi4ZFVC793XsEfr/fM5BIcoGyWdVzVs/5rz4JRC5nD121U3yltmu55imlw1
+	AtNTOXTdE8eFDolGSNDUNsTXaMpn2tnUY2UzXHtapCuJLCmyexB/MkAyN8XPr14LRPaKy7Yc28z
+	WLDJp05OovF/buzBlrdOWYvuqHJxMzplI7aMiLoxQ40G5fhFXIJ+1b6c2KkZ6ShfcvxRojGmNtt
+	f9DElDLhJbd625xxhUiKtNmHoIIkRzCOVfGl5ZXLsGj9OHK2oPAibecj95lhHe3kJxqt/Ncy6yL
+	UuL0t9HNa6KfjqTBF2sF
+X-Received: by 2002:a05:600c:6099:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4ac180f2ac5mr251204285e9.16.1793680839161;
+        Mon, 02 Nov 2026 20:40:39 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a9e2ed3sm37427610c88.19.2026.11.02.20.40.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 20:40:38 -0800 (PST)
+Message-ID: <9b8d9f77-981e-4bcc-9d30-5c53a2c1d1b2@suse.com>
+Date: Tue, 3 Nov 2026 15:10:30 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,41 +93,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] btrfs: tree-checker: reject extent owner ref without
+ simple quota
+To: Siddharth Mishra <smish149@asu.edu>, David Sterba <dsterba@suse.com>
+Cc: Boris Burkov <boris@bur.io>, Chris Mason <mason@kernel.org>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103034932.1790235-1-smish149@asu.edu>
+ <20261103034932.1790235-3-smish149@asu.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261103034932.1790235-3-smish149@asu.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The Synaptics trackpad, like the Elan trackpad option, is fed from the
-system 3.3V power rail. Add it to the trackpad device node.
 
-Also add the correct post-power-on delay, even though in practice it is
-not required. The Synaptics trackpad requires 100ms after power-on (or
-deasserting the reset, whichever comes later) to fully initialize. The
-power is always on and the reset pin is not routed out, so the
-implementation could try skipping the delay.
 
-Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
-Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-I think this shouldn't be backported, as backporting it without the
-driver enhancements just delays the trackpad probing with no real
-gains.
----
- arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
- 1 file changed, 2 insertions(+)
+在 2026/11/3 14:19, Siddharth Mishra 写道:
+> [BUG]
+> An extent item can contain an owner ref.  The owner ref is correct only
+> when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
+> check_extent_item() gives a WARN_ON() and then accepts the leaf :
+> 
+> 	case BTRFS_EXTENT_OWNER_REF_KEY:
+> 		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
+> 		break;
+> 
+> For all other incorrect inline refs, check_extent_item() returns
+> -EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
+> calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
+> SIMPLE_QUOTA bit.
+> 
+> I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
+> tree.  On a kernel with CONFIG_BTRFS_ASSERT=y, I removed the file of the
+> extent.  At the next commit, btrfs frees the extent and gives :
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-index 68caf4c58cfe..8adbfc307fca 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-@@ -94,6 +94,8 @@ trackpad@2c {
- 		hid-descr-addr = <0x20>;
- 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
- 		wakeup-source;
-+		vdd-supply = <&pp3300_u>;
-+		post-power-on-delay-ms = <100>;
- 		status = "fail-needs-probe";
- 	};
- };
--- 
-2.56.0.385.gac671c819a-goog
+I don't think this should go into BUG section, but CAUSE.
+
+> 
+>    WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
+>    assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
+>    in fs/btrfs/extent-tree.c:354
+>    kernel BUG at fs/btrfs/extent-tree.c:354!
+>    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>    RIP: 0010:btrfs_get_extent_inline_ref_type.cold
+>    (fs/btrfs/extent-tree.c:354)
+>    Call Trace:
+>     lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
+>     lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
+>     __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
+>     __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
+>     btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
+>     btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
+>     ksys_sync (fs/sync.c:104)
+> 
+> Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
+> btrfs continues to use the owner ref.
+> 
+> [CAUSE]
+> For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
+> WARN_ON() and keeps the leaf.  For all other inline ref types, it
+> rejects the leaf.  Two sources can put owner refs without the
+> SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
+> without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
+> enabling simple quotas").
+> 
+> [FIX]
+> Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
+> Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
+> not reached.
+> 
+> syzbot reported the WARN_ON() and the ASSERT() in 2024 without a
+> reproducer.  Both reports were closed for inactivity.  At that time, the
+> WARN_ON() was noted as something that "should be handled in a better
+> way".  I found the cause during the analysis of a fuzzing report.  An AI
+> tool helped.  I tested with a crafted image on btrfs for-next
+> (d6f76ca0a70d).  Without the patch, the kernel gives the WARN_ON(), and
+> the BUG above with CONFIG_BTRFS_ASSERT=y.  With the patch, the
+> tree-checker rejects the leaf ("extent owner ref without simple quota")
+> and the mount fails with -EIO.  There is no WARN_ON() and no BUG.  A
+> clean simple quota filesystem still writes data, frees extents and
+> mounts again without errors.  The fstests group qgroup has no new
+> failure (34 passed, 3 not run here).  The crafted image and the commands
+> are available on request.
+
+Again, remove the last paragraph.
+
+> 
+> Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
+> Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
+> Fixes: d9a620f77e33 ("btrfs: new inline ref storing owning subvol of data extents")
+
+Again, I don't think this really counts as a fixes.
+
+Or all hardening would be considered as a fix, which makes no sense.
+
+> Cc: stable@vger.kernel.org # 6.7+
+> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+> ---
+>   fs/btrfs/tree-checker.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+> index 0d75cb537..5c44bed99 100644
+> --- a/fs/btrfs/tree-checker.c
+> +++ b/fs/btrfs/tree-checker.c
+> @@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
+>   			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
+>   			break;
+>   		case BTRFS_EXTENT_OWNER_REF_KEY:
+> -			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
+> +			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
+> +				extent_err(leaf, slot,
+> +					   "extent owner ref without simple quota");
+> +				return -EUCLEAN;
+> +			}
+>   			break;
+>   		default:
+>   			extent_err(leaf, slot, "unknown inline ref type: %u",
 
