@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696674;
-	b=3Jb7Q9qDt1NTYHRdF5Yril5ERcQXENkcRLbLaVhEh5oorWKGHbOqkDNvCRJy++YAfxaY
-	 Wo2TvrY9a7y1jUoCpAXI94R81u+/koBXp48BnYn9LPjb5IOaE6lG1wM6q7/oxF2TtHLfI
-	 Z0H3macbvb/GDkwIJL6ua+fWhuyToC/2c/LkMLE5Is38BhMBFVtzRqLkGOIwxpOx6HqFq
-	 hsHHBrMpuqYPJsiDv5bNZThzgp+foVsAVJHX2vmD1cLFYXJOYj7DFjVoYvcSvZsAmXlZv
-	 f3NxcflAzvPm5OLs3sZ1XF+dhfLTJ/srWB6HuYTLoJbt0Bnrnwy/yucTNtYsc1OFv4g==
+	t=1793696699;
+	b=Mo4tphn1uOUEnHnOTxdb+vuDpbWeVAWajGon1rd6TLZlwqu1hMy1fJY/hrjXriA7vIX2
+	 /qYURJ0sMAkg2S1A+9a0dvAEZBFiu/vrqT9BrUCQesSOYZYs582IOcrJT1C4+nM3P/2Iw
+	 u85zl5iwyucWpY+MevImgmBc2H5nOPlYchbXyx+vePz21Ryk4HglxcdgLh121YiDnX4Vi
+	 zjF9cdbAeO/FX3w7TCbExnUN0ViPdaXbFm4B7poVCTxDiFETB/RqDBflsQWCWSdDEKT/o
+	 RpRQ+TFgWRe3hS7GUPCU0kRLr/kks+BvjRBL/Zt/BlomPeKxhjszzoxwLXFhhQl/f0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696674;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Uyv+Mc5d9d1gCJCyssw8BshM15Hv025jfZyc5jx49Bo=;
-	b=3WHep3ukpuTfkGXc70aGFV3/5EbOHIR2ZEL6tbqE26WaYJeHzDR4wtQKGzVNURJy6IJr
-	 vFzP42LgnH5nksdpqNq84H2Kwh0KUYCTUVG+gRoVp+lWY1B5F16nnjD+6szueoBE5i8rB
-	 gbkJJn96UQ/htANU0iu4Jmp55XJ5SKqE6jgP+t1WvXf1qJM1KO0GRaoPLuBHnzZ88hoyH
-	 /tOdU8d9vwC1Xn/xVxO5ZQ+lNKUH6OU3MxZ22xEG17S9hkrUwKn6hHpdbbiE6NOXTwuLL
-	 bH5t5qyKcRxNL/S3s9kh7XWwpuB4NY/K3MsPpji/7OVxqifVmR/Ov+9eiNRXU2Ws3Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696699;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Uep79D5kNu//RXYzDoGxNrhrfRbJ7gQ1uroX53oA1Z0=;
+	b=khMf8vKk5dhRjeyzeUnJfXAiQEr0sSoukWEJcPxxsKHRG4WGfspDV6Btxb/kLc2m9dyN
+	 GJ/ewjny/+D9x5v+6qQzn8fP9aHGO5AJoIHN4fzFvM2eRy5nKkICKtgOYsWiwRqP5JNPi
+	 xyZwM/7sgREpIKSDYRZbO0gwRt5qOuWWHApo/ouqgA1t6IFZlsJIKoo+/0ZOPjT9rIqUi
+	 bzuShz+aPv+BY2PaOSfBMtY+r6TEZLieyrukAufYdcyAPflev38XBH+f2dZplFXTGeM3c
+	 t/Zs00kLkbp22BlnY4nbGS9tl+fAmQZq+ZPaeT00HKFOtCKQ/bc+6jrv2r9QjBQmrfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=dRgz4HUv;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJ73DKS4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A965F606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:04:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A965F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74222606A324;
+	Tue,  3 Nov 2026 09:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=dRgz4HUv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Uyv+
-	Mc5d9d1gCJCyssw8BshM15Hv025jfZyc5jx49Bo=; b=dRgz4HUvWa1NktTmMP7G
-	/lyCdZIMnsCBeSR9X7GPgUXYjS44XP1ojzhQbML2eqiAKTIJRvooKNiiKKFrQTxq
-	XxrBMzJHHPTX9kcVsOvpf0ZR1QJwrONIdHGYDDSkMBeM/8jfn7zWxAl3oPZDenLW
-	N3L3/zl8f+wGNpWx7rJclM7cBsSLBmriAGL5/XmT0NpNt1joO+bJ2C1lvUhJu6VO
-	Qb4DIGZSRkMF+fy07btxTN5kl9I0hOh13FMCP7jsSBZkqqXX8vewmwP8+VkxRQ28
-	yG2h/G6XQefREoLck4e/6dHNQRjEEADjI/l2W3QfBQREK2GDfgl40f3LAcw9I7Uq
-	7w==
-Received: (qmail 214200 invoked from network); 3 Nov 2026 10:04:22 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Nov 2026 10:04:22 +0100
-X-UD-Smtp-Session: l3s3148p1@I1NYjFtfbsI+ZpL9
-Date: Tue, 3 Nov 2026 11:04:21 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: peda@lysator.liu.se, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: mux: demux-pinctrl: Release pinctrl handles on
- deactivation
-Message-ID: <aumjke-mSGP8WVl1@shikoro>
-References: <20261103082905.1167633-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJ73DKS4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB4D1F000C1;
+	Tue,  3 Nov 2026 09:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793696699;
+	bh=Uep79D5kNu//RXYzDoGxNrhrfRbJ7gQ1uroX53oA1Z0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bJ73DKS46ek+WdVFC8HFQgWqOccMsMHIYBl2WpUEm3NjUjVZbtKQQnKxFOm5I94R+
+	 XgsOfL/w5rzD8CTDxAP9svSzXstINCm4Yk0/ew4N76DiKXGQ+Mta4s8zZszj8Wbuv/
+	 nAbYSVDSSqqk8pFdPOGYDWiZpm6k2WjEUXWyObHrOGFDvxMDY4TKGPVbpVW8xjxtJl
+	 IK7CY4sEGlPQuQngKhY53e6Tse3++LmaGHOBEs7v6LMC9STowQ9jBkyYBts+PygrdG
+	 Zl9XkUtHQTxU1tBdMLcknVOefjQzMiq1ORqY5z+4agoQtWJ/CgZWsLf9AY7JnPgCt8
+	 U0C4QQwVeJs/A==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xOARs-00000006HFD-2BgC;
+	Tue, 03 Nov 2026 10:04:56 +0100
+Date: Tue, 3 Nov 2026 10:04:56 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Maritu Hone <marehone12@gmail.com>
+Cc: Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+Subject: Re: [PATCH] staging: greybus: uart: fix heap buffer overflow in
+ gb_tty->buffer
+Message-ID: <aumjuGK9yakMjsDd@hovoldconsulting.com>
+References: <20261102195332.19860-1-marehone12@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,56 +63,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8CkNpLJWHo1/LwAO"
-Content-Disposition: inline
-In-Reply-To: <20261103082905.1167633-1-vulab@iscas.ac.cn>
-
---8CkNpLJWHo1/LwAO
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261102195332.19860-1-marehone12@gmail.com>
 
-On Tue, Nov 03, 2026 at 08:29:05AM +0000, Wentao Liang wrote:
-> Each master activation calls devm_pinctrl_get() against the parent I2C
-> controller device. Switching or removing the demux only releases the
-> adapter reference, so the pinctrl reference and its devres entry persist
-> until the parent controller is removed. Repeated switches accumulate
-> these entries. Activation failures after obtaining the handle retain it
-> too.
->=20
-> Use pinctrl_get() and keep the handle with the active channel. Release
-> it when activation fails or the channel is deactivated, before dropping
-> the parent adapter reference and reverting the device-tree changeset.
-> Keep the no-pinctrl case working by storing NULL when get returns
-> -ENODEV.
->=20
-> Fixes: 50a5ba876908 ("i2c: mux: demux-pinctrl: add driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On Mon, Nov 02, 2026 at 10:53:32PM +0300, Maritu Hone wrote:
+> gb_tty->buffer is allocated once in gb_uart_probe() and reused for
+> every outgoing chunk as the backing store for a
+> struct gb_uart_send_data_request:
+> 
+> 	struct gb_uart_send_data_request {
+> 		__le16	size;
+> 		__u8	data[];
+> 	} __packed;
+> 
+> In gb_uart_tx_write_work():
+> 
+> 	request = gb_tty->buffer;
+> 	...
+> 	send_size = gb_tty->buffer_payload_max;
+> 	if (send_size > gb_tty->credits)
+> 		send_size = gb_tty->credits;
+> 	send_size = kfifo_out_peek(&gb_tty->write_fifo,
+> 				   &request->data[0], send_size);
+> 
+> request->data starts 2 bytes (sizeof(request->size)) into
+> gb_tty->buffer, and up to buffer_payload_max bytes are written there
+> whenever enough data is queued and credits allow it. That needs
+> buffer_payload_max + sizeof(struct gb_uart_send_data_request) bytes
+> of backing storage, i.e. max_payload bytes.
+> 
+> gb_tty->buffer is allocated with only buffer_payload_max bytes:
+> 
+> 	gb_tty->buffer_payload_max = max_payload -
+> 			sizeof(struct gb_uart_send_data_request);
+> 	gb_tty->buffer = kzalloc(gb_tty->buffer_payload_max, GFP_KERNEL);
+> 
+> so a full-size write overruns the allocation by exactly
+> sizeof(struct gb_uart_send_data_request) (2) bytes, corrupting
+> whatever follows it on the heap.
+> 
+> Allocate max_payload bytes instead, which is exactly
+> sizeof(struct gb_uart_send_data_request) + buffer_payload_max, so the
+> buffer is large enough for the header and the full data payload it is
+> used to hold.
 
-To get a better picture, how did you test this?
+I think the above is clear enough.
 
+> Fixes: dd1c64ede97f ("greybus: uart: kmalloc for send_data once only")
 
---8CkNpLJWHo1/LwAO
-Content-Type: application/pgp-signature; name=signature.asc
+This should also go to stable:
 
------BEGIN PGP SIGNATURE-----
+Cc: stable@vger.kernel.org
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrpo5EACgkQFA3kzBSg
-Kbad/A//WCwjjBQrxpHVXSeJWb+Xs49uCukN1xzEiEoagUqDhjukYpVsmstAY4lm
-jzOEVsDQo5aN3U0uNOQU/o7RwkXREGj+9ZhjqcG5hHN0XsELI3XZXzNQQdd4Otf3
-fkyZsuebaUAondP8tRBvQpJCqVuVkUU19Cr3be6b6UInimkzrmMxfNJNdQMDZeT9
-83xsGz1ajtlYPBt6y0zJfpoyXlAcFtZ7J0QwnRlXQyr3l+voDSA6p3epj6pNpiFF
-vj/ASfXXGmXNPopIzBEQwL4GG5qQZ7H/+o+w6dbaDfOBac2ZqZHbyVYDj0YeGIhi
-z/3aCV6Vh3BXw7x5+2Zff7OYVRalL/80c153S9T0ZHWqsrOBZZR5zYRUK6afLl7V
-wLI+P5MaOSvHSgriMD2tgXH1yzMTgk/GWF81IOcEptbbfz8sB0aeAjGFd2+lagEL
-4jIFAMgmiqwQSdIrFjGhWj0nMzU0LAx9+Ofjkv2kVsuK+bJpKIMDKonbQbx4BDTn
-f/NJdXnf584+kJnLxVSP4fCH9Z2Dn0KNPlPZd04jLVZmiwkFK46sqUf9QB9AWW8V
-reflwo19HV9xtoakJ+dQkXSESXThAgw7THGAlbFmWXuSF5QkHtaYmV4iXlSRrnwH
-LDK6vkUFsZXsgbePvP7Nsvxt7poFiY6/i/YE76n9wJ3ZVoXth2U=
-=79Zl
------END PGP SIGNATURE-----
+> Signed-off-by: Maritu Hone <marehone12@gmail.com>
+> ---
+>  drivers/staging/greybus/uart.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+> index e1b73db6a17c..7bbac2603726 100644
+> --- a/drivers/staging/greybus/uart.c
+> +++ b/drivers/staging/greybus/uart.c
+> @@ -842,7 +842,15 @@ static int gb_uart_probe(struct gbphy_device *gbphy_dev,
+>  	gb_tty->buffer_payload_max = max_payload -
+>  			sizeof(struct gb_uart_send_data_request);
+>  
+> -	gb_tty->buffer = kzalloc(gb_tty->buffer_payload_max, GFP_KERNEL);
+> +	/*
+> +	 * gb_tty->buffer is reused in gb_uart_tx_write_work() as the
+> +	 * backing store for a struct gb_uart_send_data_request, whose
+> +	 * variable-length data[] field holds up to buffer_payload_max
+> +	 * bytes starting right after the struct's header. The allocation
+> +	 * therefore needs room for the header plus buffer_payload_max
+> +	 * bytes of data, i.e. max_payload bytes, not buffer_payload_max.
+> +	 */
 
---8CkNpLJWHo1/LwAO--
+LLMs like to add comments like this, but please remove it in a v2.
+
+> +	gb_tty->buffer = kzalloc(max_payload, GFP_KERNEL);
+>  	if (!gb_tty->buffer) {
+>  		retval = -ENOMEM;
+>  		goto exit_put_port;
+
+Johan
