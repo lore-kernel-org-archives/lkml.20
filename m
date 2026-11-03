@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793722705;
-	b=IbFCAYOjEefCVOYsQHN4XqgznCNB4Guabr38wZR0rWB0Eap9UycyvM3CWiUcUzRJeDrM
-	 SjUk0cbYfoP7BpOJ+ecNyllcO+Beh18wLP7fPTH6u4Epg34CE4Qlbj40AyR+gQM1WJ2eu
-	 vU6vGAi5VpkDX4F6Yk+zom73Vcpfpu0G2RnZL3dnKrbzGgzFdY23jWoPnZIsPNKWr5tzY
-	 M/T+e9dwBZidNKDE9zHEo60Do7w+RmZD6ToS+5zthrrBjVPsZfELwxqPEFeUtaTibS5x+
-	 Q/lQdkSg3sSZkQNNv0BLuVHg8Ju8Jv80Jowz3nXe1u+5pR/yy11T0DJ54Pk2V01ql+g==
+	t=1793722706;
+	b=cGP3fujxTVf49BrzmN+4mZHE4yzoMavEbuyBfIay1tk9/JnzqTu0+rkiJ9iT8KFywhi/
+	 LE7qKWM3vavZatsuZg7u2MiM50xJ1pG46sirIWwfbejOdgJV0EcKzFCG61sAJKKILtXx/
+	 Cn5J2DD1Q9tlliszqXditEGpfmiwWxRln9WepnYDZcPqHX6N9L4PSHds/JWro+5O4D0H/
+	 XYlSxuA87RQ814IMmwv3BYOSQPiwYsEV8X1SQg7vaLY7Kh/L40fUf/xpeXtpozTbNwg/I
+	 Kk+Rg6MkWmT6m99B3T/3yue4Nw3SsTg/WY3hfXM0ldZZnBbN2OzgqnAV6eOrikLn+Fw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722705;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722706;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=JQXnwC6eS4OMahkG4lFuKg05onPXaXP3nwABDwvIji4=;
-	b=nhzmgQ5lniG7Sh4/7QidvXFKVjKArAHk87v2md5okVR2Iq3F/yRZqaGG/txs3vQZTd3E
-	 AQcGDBnJSVpbNbAklv0SIsXI7DI4v96Ypi5h6pKSE58FvLvgxQNWi9oTUCsPmS+WvaxlP
-	 zuu70ZM+NVj/A5czFRW9QoLNYqZDik37+1aVzot38KiXO9yJVzFTMRM6pJM3ICQJnDYy4
-	 QOaSGCC7dxwLiPGd1+T1at0X7aBd3B6PpEaoevPNqJ1MgWKLdSaAKIWJ2BcxHQr8MM0w/
-	 W0GkgOG7Bxt/p1H/3UyEPk/lvCVG6lU24naHP09Qk4/r4usUa2RvIxRcuyYVvJoBOpg==
+	bh=TIlg5+Jr+rE39YU9MasG/yuhvLUgY4s1vPHwCpCoHYw=;
+	b=t2H+f3R3rlHWiuqlgm6Tu1aU/WfIWsKkuFoeViW3+XB/g4AZNNqz9mRHlibQ+pK63G6J
+	 U7IpOD1tbst2c/+Pc1gMva1KDnI2fDK4D0hw1z7pe7wanpz+440BKlrftGoX0gB877byD
+	 /7mHC8ZaKqgyqNTw7QNNrhlXeu5q0Bmgo0cbl9cgicYFYt/Kgje/QQG4LoMhCBeKkgvHa
+	 sOcqpx9AiycveyJk/Uixy96X0WILjMz9CihTkQjkzvkWenutRDSqJlNnpJvFRzjgi8zMH
+	 Ynop+qlfu6PJGK01D7KuP/uZolw7RiW+hiVb1i6JORnKVCEREgOfH4fhYy/Qh1N+pHA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=myprwqKJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I666OMCZ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F7A606D814
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05115606D819;
+	Tue,  3 Nov 2026 16:18:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=myprwqKJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I666OMCZ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793722705;
-	b=cn0gqbMJlpC1TavIkqSvbB7sCHimMGZzrSAzpkIj1ekHesGRlM9Q04nFxXgcwe+RPBR+
-	 lF59XJZkc3UEABH1Y94/7ewrMPFh/QYVR4AKT5Fh/Y7b74KY+py8Mjt1JbdIoyL2mC5ka
-	 4o1gEp0JSXaEvo+XV5IQOkLUq5uB/pAta1ERxZ0ZSOVvPRaMaWoaEvlQdb4lYyiOBZPew
-	 C9v3svsrVxHyLBl4puGaVAzy62XHP1UccS+N5nR6Lw4xjD8E+TyRPFE0dC3Wx7HXT8AsT
-	 0tacvGzLkT6/fqD0Gm1lORJCuwgIjm9guSwoiUesh9rRsZh2fcsolY5I87mfAyFdm0g==
+	b=sZbthj0I6I9c5Yi52Mwu/N+vrazO8TwK74TZBIb61+UZ8oZtkPfpxCtqBHX/ehWgA3BO
+	 QUei4g/tpJ7tHO2+i6MIrKBVc2/aXoXjY2dXyhtV28W0V09ie0ASHrC8Wr9D0mcQgMt6G
+	 Vvy7s6wKXw4zt8JFwdFKugAHeow2yJdcIkg9R0r8uyn2vRREzk94E3BxnByRMZ3LgMnHT
+	 1lJ+IAaQ/LjRqg1RT0QXP7JyhMS+sucTf4WTykqTUJUaK7Uv6lpJ8/YwyNMLZmbLJ2Yu7
+	 IoASEX9V1B5wi2hOd78Q2uCO2Fmz/mPdjjO/lw3JgLg6OjwpRoE02CjdIMhRjkP4GTw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793722705;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=JQXnwC6eS4OMahkG4lFuKg05onPXaXP3nwABDwvIji4=;
-	b=np/+XLHLJ0+/uhnYad+pt/fdVk9J2xtuOHKnk+cc4vBcFMbFNkIdghs0DanWTVZhf63Z
-	 VBi2O3YALL0Jsjwtaz0tsjj818MpITFysCiC0mRie7J6O4OEW/whP+bzGjO3lJvA6gDeC
-	 1F9Mh5GCnuQ/5afe6nXpaGxUVAmMc/lvmItTklsPlbSR5CCVKnRakH+KeFmp3S+Twr9V/
-	 wYDpr0kNLAJZQerDPAxOTwmh7fbAia8I9H2hAAg4GWDiS/a6HCstJJ7hilzrXWejgwHCf
-	 S+ZvvohGGbDnD4WSXwv8k9pygu6YDNG7VEHB1nKr/V3+zVAZgCaoIvxv/dKtvz0V2fA==
+	bh=TIlg5+Jr+rE39YU9MasG/yuhvLUgY4s1vPHwCpCoHYw=;
+	b=JSFlhq59ychgGHrcfXqcE3kVdS3iVtKRp4PWR7oO6QMyKf5EIUxqgQ6Tb+krhp0iTcWL
+	 Ljqmd54C9KDOJB3SLDV3m6kkrTTNaDfHE7snTaGcHfEtTGA3PK+fyGiQlRh3IzV9UeDEq
+	 1XYJMzn4pudf+J6P0ZbQTnENIWlwWagz4GYvNtWyu0QWVPAgHsW5Lzm8nv/vEb42/cgFA
+	 pVu+sQVXYe62ItxM6kELnn3ltCoyb03Nz9YrHM1hhj3cN6N8Lh6TAEJJZlxDLrk7WUinC
+	 sRtkflGBk82ZZD5yP8oez3kR71aYHejnLTnA+q+CE6w6MH2gEHS++gqmPMkhqTZPQ/A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 093791F00A15;
-	Tue,  3 Nov 2026 16:18:24 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id F1B391F00919;
+	Tue,  3 Nov 2026 16:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793722705;
-	bh=JQXnwC6eS4OMahkG4lFuKg05onPXaXP3nwABDwvIji4=;
+	bh=TIlg5+Jr+rE39YU9MasG/yuhvLUgY4s1vPHwCpCoHYw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=myprwqKJUkzY5GBXHp4lLRW6jJmSN88L7byXcX7kCmoT7JknqS7oxaEk1av5jbYjA
-	 NRntID5mSAeNCf+q62sB9mpwjYn3cWrB5Mb8kytadWx60ph+fY0QWwkE1OKP7BSh4b
-	 FhC4IA0xpzOMvgIefvPODvMiJjdZ8v0bM9wXbMzzUA9PMezT4MpxzbVS0nHyp52OFR
-	 7Axkki+pNkD6iLbLDEvDFxdDL+L+0TTGLGrJDaJmq8lRzRtq4FmqVOuPe/su3nAKmV
-	 W+G89WW9L47dOam0fkUV32Dq1m4tGqVzJAqjnKM4qHPuyZ3Cm1E9A7vGwdDj+iBc1a
-	 WXJj3qlC9d+VQ==
+	b=I666OMCZwN2Zl5HxaGVFOwcRY7UqL9cjjD4lBglUgCN3rjmbzeVfbtjUieDusr5Au
+	 oaHxUonpjkvqh+oX9i4bZaq7Jvde1WbYQP3mKhx/rBkR7KxRsCVi9E6d9wipbPf9ZO
+	 uZ7tMfz3ewZVRyOu6p3csy/v+/mYP/Alton0tAD97DcEZLBWoylrC1VqOh14n4BkXL
+	 k19y9QOqWvrDSxdP+vzQE3bxyZ3UUva97OOWhdohE4DAg8I3sG//r+5pENGK23e+gD
+	 1cKODou14+chmkI2WK0QsCFkUPADFqwgqXR/RS3SxrGVQWTZcraXJIOUi7xkZcIUEQ
+	 qthkP5NIp8ESQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8510546A17;
+	by lkml.kernel.org (Postfix) with ESMTP id 5CA5146A0B;
 	Tue,  3 Nov 2026 16:18:23 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 04 Nov 2026 00:18:17 +0800
-Subject: [PATCH v2 4/4] mm/swap: keep the swap-in pressure window open
- across a batch
+Date: Wed, 04 Nov 2026 00:18:14 +0800
+Subject: [PATCH v2 1/4] mm/zswap: drop the stale zswap entry of a zero
+ folio
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,7 +85,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-swap-fixes-v2-4-204be064be5b@tencent.com>
+Message-Id: <20261104-swap-fixes-v2-1-204be064be5b@tencent.com>
 References: <20261104-swap-fixes-v2-0-204be064be5b@tencent.com>
 In-Reply-To: <20261104-swap-fixes-v2-0-204be064be5b@tencent.com>
 To: linux-mm@kvack.org
@@ -101,13 +101,14 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
  Chuanhua Han <hanchuanhua@oppo.com>, Mani Tofigh <mt4022@columbia.edu>, 
  NeilBrown <neil@brown.name>, Christoph Hellwig <hch@lst.de>, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793722701; l=6777;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793722701; l=2902;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=fSGjBH1fBeJRrxZU6HCQNXNyuo3pc/ORVbu/vvni/eM=;
- b=55yKBwwkhKAzdV8IGn7HpK0NW4JifLakVnRvHacr3WJUwJ5VtjrDcOdX3w+8TtsXvKyfMF0vF
- dSdBt7oTi7RA8h9pLFRz+favTYHexbzETc1L16Yw6N3Iewoy+iVLBfu
+ bh=5JIfvqgJZSkDLS+9X8sNXJzSR9p+F+l9mzgjMoyRQf0=;
+ b=nnIkmk/QGTpjHCzmkNn8ZZTzaxluVqlOIuUU6+PAEz3ckDifiSnny/fyr9FzDbFlimey9SHP+
+ EbB2jPyII0rACVUq8xQ3eS4VRNg/1DDZ3CFhSZzZONMVtqLoOMRKBgI
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -115,197 +116,77 @@ X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
 X-Original-From: Kairui Song <kasong@tencent.com>
 Reply-To: kasong@tencent.com
 
-From: Johannes Weiner <hannes@cmpxchg.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-For asynchronous block devices, swap reads are batched and submitted later
-since commit dda8fb68b590 ("mm/swap: also use struct swap_iocb for block
-I/O"), but the caller submits the batch after the pressure window in
-swap_read_folio() has closed.  Batching is cheap, the submission is the
-part that can block, and that is no longer counted as pressure since then.
+A folio can stay in the swap cache after zswap_store() has stored it,
+when a swapin fault gets a reference on it before reclaim can remove it.
+do_swap_page() maps an exclusive folio writable and, for a read fault,
+keeps it in the swap cache, so it can be modified and swapped out again
+to the same slot. zswap_store() handles this, it replaces the old entry,
+or drops it if the store fails or zswap got disabled, "otherwise,
+writeback could overwrite the new data in the swapfile".
 
-Keep the pressure window open across the batch instead: swap_read_folio()
-opens it on the first folio, and swap_read_submit() closes it after the
-submission, also when the batch ends up with no folio queued.  Each batch
-is then billed for its own read.
+swap_writeout() does not get as far as zswap_store() if the folio is
+zero-filled now. It only sets the zero flag of the slot, and the zswap
+entry with the previous contents stays in the tree and on the LRU:
 
-A single workingset refault marks its whole batch as stalled, which is
-fine here: the batch is submitted as a whole, so its submission holds
-up that refault too.  Before the batching, a blocking submission was billed
-only to the folio that issued it, even when it also delayed the refaults
-queued behind it in the same task, so this might be more accurate rather
-than less.  Synchronous reads are already one folio per batch after the
-previous patch, which keeps their attribution tight.
+  reclaim            fault              zswap shrinker
+  zswap_store(D1)
+                     swap cache hit,
+                     map, write zeroes
+  swap_writeout()
+    zero flag set
+  folio reclaimed
+                                        zswap_writeback_entry()
+                                          swap_cache_alloc_folio()
+                                          decompress D1, uptodate
+                     swap cache hit:
+                     maps D1
 
-The same hole has been there for a swap file on a file system that submits
-through swap_fs_prepare_rw(), since commit 5169b844b7dd ("mm: submit
-multipage reads for SWP_FS_OPS swap-space"), which started batching its
-reads and deferring the submission to the caller, so this covers it there
-as well.
+Swapin looks at the zero flag first, but only when it has to read the
+folio. The folio that zswap writeback leaves in the swap cache is up to
+date as far as anybody can tell, so the process gets its old data back
+instead of the zeroes it has written, until that folio is reclaimed.
 
-Fixes: dda8fb68b590 ("mm/swap: also use struct swap_iocb for block I/O")
-Fixes: 5169b844b7dd ("mm: submit multipage reads for SWP_FS_OPS swap-space")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Link: https://lore.kernel.org/linux-mm/auOz00OGB_8dgniC@cmpxchg.org/
-[kasong@tencent.com: added commit message and slight tweaks]
+Invalidate the zswap entries in the zero-filled case as well. The folio
+is locked and in the swap cache, which keeps zswap writeback away.
+
+Fixes: 0ca0c24e3211 ("mm: store zero pages to be swapped out in a bitmap")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[kasong@tencent.com: fix zswap_invalidate() arguments]
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- include/linux/swap_ops.h | 10 ++++++
- mm/page_io.c             | 79 ++++++++++++++++++++++++++++++------------------
- 2 files changed, 60 insertions(+), 29 deletions(-)
+ mm/page_io.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/swap_ops.h b/include/linux/swap_ops.h
-index 57ac6c703f68..d57b95931cd9 100644
---- a/include/linux/swap_ops.h
-+++ b/include/linux/swap_ops.h
-@@ -17,6 +17,16 @@ struct swap_iocb {
- struct swap_io_ctx {
- 	struct swap_iocb	*sio;
- 	struct swap_info_struct	*sis;
-+
-+	/*
-+	 * Pressure window: opened by swap_read_folio() on the first folio
-+	 * of a batch, closed by swap_read_submit(). Mirrors per-task
-+	 * state, so the task that opened it must be the one to close it.
-+	 */
-+	bool			workingset;
-+	bool			in_delayacct;
-+	bool			in_thrashing;
-+	unsigned long		in_memstall;
- };
- 
- /*
 diff --git a/mm/page_io.c b/mm/page_io.c
-index 83ed0246ebfc..a57cdcf2892d 100644
+index c6824fcd483e..65681eed9c80 100644
 --- a/mm/page_io.c
 +++ b/mm/page_io.c
-@@ -350,13 +350,11 @@ static void swap_add_folio(struct swap_io_ctx *ctx, struct folio *folio, int rw)
- 	struct swap_info_struct *sis = __swap_entry_to_info(folio->swap);
- 	struct swap_iocb *sio = ctx->sio;
- 
--	if (sio && !swap_can_merge(ctx, folio, rw)) {
--		if (rw == WRITE)
--			swap_write_submit(ctx);
--		else
--			swap_read_submit(ctx);
--		sio = ctx->sio;
--	}
-+	/*
-+	 * Callers flush a batch this folio can't join before adding it,
-+	 * see swap_read_folio() and __swap_writeout().
-+	 */
-+	VM_WARN_ON_ONCE(sio && !swap_can_merge(ctx, folio, rw));
- 
- 	if (!sio) {
- 		ctx->sis = sis;
-@@ -399,6 +397,14 @@ void __swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
- 
- 	folio_start_writeback(folio);
- 	folio_unlock(folio);
-+
-+	/*
-+	 * Flush a batch this folio can't join before adding it, as in
-+	 * swap_read_folio(). But the write path opens no pressure window,
-+	 * so there is nothing to order this against.
-+	 */
-+	if (ctx->sio && !swap_can_merge(ctx, folio, WRITE))
-+		swap_write_submit(ctx);
- 	swap_add_folio(ctx, folio, WRITE);
- }
- 
-@@ -470,31 +476,44 @@ void swap_read_folio(struct swap_io_ctx *ctx, struct folio *folio)
- 	struct swap_info_struct *sis = __swap_entry_to_info(folio->swap);
- 	bool synchronous = sis->flags & SWP_SYNCHRONOUS_IO;
- 	bool workingset = folio_test_workingset(folio);
--	unsigned long pflags;
--	bool in_thrashing;
- 
- 	VM_BUG_ON_FOLIO(!folio_test_swapcache(folio) && !synchronous, folio);
- 	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
- 	VM_BUG_ON_FOLIO(folio_test_uptodate(folio), folio);
- 
-+	/*
-+	 * A batch this folio can't join is submitted before the pressure
-+	 * window opens, so that each batch is billed for its own read
-+	 * rather than for the next folio's lookup and decompression.
-+	 */
-+	if (ctx->sio && !swap_can_merge(ctx, folio, READ))
-+		swap_read_submit(ctx);
-+
- 	/*
- 	 * Count submission time as memory stall and delay. When the device
- 	 * is congested, or the submitting cgroup IO-throttled, submission
--	 * can be a significant part of overall IO time.
-+	 * can be a significant part of overall IO time. Reads are batched and
-+	 * submitted later, so both windows stay open on @ctx, and are closed
-+	 * by swap_read_submit() after the submission, also when the batch
-+	 * ends up with no folio queued.
+@@ -224,7 +224,17 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
+ 	 * acquired internally by swap_zeromap_folio_set/clear.
  	 */
--	if (workingset) {
--		delayacct_thrashing_start(&in_thrashing);
--		psi_memstall_enter(&pflags);
-+	if (!ctx->in_delayacct) {
-+		delayacct_swapin_start();
-+		ctx->in_delayacct = true;
-+	}
-+	if (workingset && !ctx->workingset) {
-+		delayacct_thrashing_start(&ctx->in_thrashing);
-+		psi_memstall_enter(&ctx->in_memstall);
-+		ctx->workingset = true;
- 	}
--	delayacct_swapin_start();
- 
- 	if (swap_read_folio_zeromap(folio)) {
- 		folio_unlock(folio);
--		goto finish;
-+		return;
+ 	if (is_folio_zero_filled(folio)) {
++		swp_entry_t entry = folio->swap;
++
+ 		swap_zeromap_folio_set(folio);
++
++		/*
++		 * The folio may have been stored in zswap before and dirtied
++		 * again while it stayed in the swap cache. Drop the old copy,
++		 * or zswap writeback would bring it back into the swap cache.
++		 */
++		zswap_invalidate(swp_type(entry), swp_offset(entry),
++				 folio_nr_pages(folio));
+ 		goto out_unlock;
  	}
  
- 	if (zswap_load(folio) != -ENOENT)
--		goto finish;
-+		return;
- 
- 	/* We have to read from slower devices. Increase zswap protection. */
- 	zswap_folio_swapin(folio);
-@@ -506,13 +525,6 @@ void swap_read_folio(struct swap_io_ctx *ctx, struct folio *folio)
- 	 */
- 	if (synchronous)
- 		swap_read_submit(ctx);
--
--finish:
--	if (workingset) {
--		delayacct_thrashing_end(&in_thrashing);
--		psi_memstall_leave(&pflags);
--	}
--	delayacct_swapin_end();
- }
- 
- static void swap_write_end(struct swap_iocb *sio, bool failed)
-@@ -725,10 +737,19 @@ void swap_write_submit(struct swap_io_ctx *ctx)
- 
- void swap_read_submit(struct swap_io_ctx *ctx)
- {
--	if (!ctx->sio)
--		return;
--	count_vm_events(NRSWPIN, 1);
--	ctx->sis->ops->submit_read(ctx);
--	ctx->sio = NULL;
--	ctx->sis = NULL;
-+	if (ctx->sio) {
-+		count_vm_events(NRSWPIN, 1);
-+		ctx->sis->ops->submit_read(ctx);
-+		ctx->sio = NULL;
-+		ctx->sis = NULL;
-+	}
-+	if (ctx->workingset) {
-+		delayacct_thrashing_end(&ctx->in_thrashing);
-+		psi_memstall_leave(&ctx->in_memstall);
-+		ctx->workingset = false;
-+	}
-+	if (ctx->in_delayacct) {
-+		delayacct_swapin_end();
-+		ctx->in_delayacct = false;
-+	}
- }
 
 -- 
 2.56.0
