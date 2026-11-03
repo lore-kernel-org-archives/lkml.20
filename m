@@ -1,112 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705615;
-	b=kvwOnt35z/2eZ5WFw9W6ZetCR3uE76du/UVcRJRI92/7O/taIre3sh8zqs/G6Ap9CdtZ
-	 nimu4QRyktVU+JULFs0uebDRG2Mx9GjIqtRk8DbEyiYNTkWGg/293KighFK1cZ4mm8TjO
-	 ze+aBzmietbO2KkA6iGwcLXxAZpe9FrhM2e1pwz62GVAfHl/SSpfjhXdICJF+j7vHVJgi
-	 ehGKCDUbUGWOAa6eS8FoGybn29EBgSg8X4z/gFNh2LFRICt/+hYX4uNVLsKVNB3iUo4sZ
-	 SvevdTdIA8tEklyVggGXjaLc0GAeXSDm1K+o1i2NvkFNEpclmEPnkKGuobFdCGk1odw==
+	t=1793705629;
+	b=WmfQkhRoU+Sk/hua4LE5RlAq22shOKk6Pw3tnsuQfZxQCWOdAZ8HUP2ZM0WBHV+LJnAD
+	 cGgcUyGUsCTJdvkFS+Fzw4aQws/VO/pI7TvrEQ8AGx/f2DnTo9Adn3jLVML+HVmPBHKXp
+	 VFSVPsEH8gAjD5ufyBiwfTDwoa3u5U6You0lbAA+km9o63WBp2YLSXDtcDHHx2CAKLGEY
+	 ydQls0hxg8eI6B8exgATRrKO32qkhdPHeQmHRJZWO6jcGlB65Y7VhllYIaM/OGem3grby
+	 QdNyxydegZpcmbFBOSTN10fayaJwjmuWsALGHfCgyosdkx4t3nHfKGY6WefwA9MnXig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705615;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m0qyUESMc56kSUhZkAax4TSYZKgGyd+m6l8qEmY93H0=;
-	b=yMovFheTdcmi6kiVS5GADjPbHYnk7OKfAqWL3tQ17fTPRjTY9PS/4fvdwMlWIXhIB7vD
-	 XQ0Lx1nXEiRMCH/OHpJeCw68gED85R0lPClTmzb3CP+hGNAo+XuUFg4Go4L759J9G1WQJ
-	 952JjEaMsd1kSbBpOpwXrpxlv0TFFCMP06yST8HxRjDR6WgyC06AZYkWtJmQjVoWqUsEm
-	 Tq/8Xp4wE/DFbACdUF94r7r7w30rKRxRc87efEcHfIqfjh5zotb7FlHVkpJvTRodghaHV
-	 nPg2H7bsbvEfrlSICMkzsHuz+ZgLQvRw55zZYZCP7yZ3X+ERYlgp/HtZAV8NQCCFzLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705629;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=noFm1T6FB9ZUqu2KzNm5eL/hajCmZQmHLSSL6wG4xok=;
+	b=mOSxlcdq+aF8dgNGcDckqmWLuDjQo/BnGOW3uV40hM9u68zjumGR37Tc8vez3hAuga8o
+	 ccZsKYre/fPNzpfn5iq7760AkwZj9wSvakIys1fY1i2TzuYePPfVNpjXbRhSdtC5Km1CT
+	 SxbPPnWebdGw+e5ew5HqpYfTbNBKuI5AOfFYlOpENEKTI7jcqUFWEWVW4H/JjtknzmVfB
+	 +3q/Se41FCkH4PAD2HxptzsotC4M2Tu7sN27oDxLZJzuPXLSBnaPXl1ooX/YbPuJv3ucO
+	 H75p60gxAICxvB549RUSGECeYJMyx9W+QCWyQP9ZIVu6Rtl07wIQPQKyKQnYmq20mFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DGX2Qzx8;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qpEPl1Bs;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mopwIIOV;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DF8606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21DF8606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E144B606A326;
+	Tue,  3 Nov 2026 11:33:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E144B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DGX2Qzx8;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qpEPl1Bs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793705614;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m0qyUESMc56kSUhZkAax4TSYZKgGyd+m6l8qEmY93H0=;
-	b=DGX2Qzx8TZPQV0DqKuZTKsJ3Wwz039C4uWPBMwRbb3w1A1GnNTq7uOIaWwJ5qyEoeFRkiK
-	L0QYZ8raD14EBMi7SD9U1mAAA4vUBhdEgaXWZJhj3Y54lfWb10OBtnyEqtNMmJ6bL60f8/
-	nBmdukyvYdGbcAa+dfvOMLUPR9ghtYw=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-711-iza5a_BlMEyZcIXMj81r8A-1; Tue, 03 Nov 2026 06:33:33 -0500
-X-MC-Unique: iza5a_BlMEyZcIXMj81r8A-1
-X-Mimecast-MFC-AGG-ID: iza5a_BlMEyZcIXMj81r8A_1793705612
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48dfa054f26so3274644f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:33:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793705612; x=1794310412; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m0qyUESMc56kSUhZkAax4TSYZKgGyd+m6l8qEmY93H0=;
-        b=qpEPl1BsK3fNos11elN5CdjrFrO1abEuF1unPCUzejiTg4NBDjTPsXPeukXcMhjlIV
-         nZf3ZmbVcJ3hRBydHFBW/PhlSN9AUoyoeYVnJyww21eKW/SnXxtU/bhxafSzACgCOd8P
-         Mdxp3ZFZflhc5OV+NIwhz0IB7HGd0TP6VobdcdwzdfDeZ4DRNDJvbD3iweXqzEnoAZFS
-         A26d7Pu0wUhJVLOMoj5yVIMAIOwKHZ6aeB6KqRYhkaMNVYbqqLTEaz9bYpGp1/rQIqnt
-         tIFDHF4sBwSQpNnCRVT8dW8JemSmpFdRcoWhGI4rYoDK09bSIZK7Nqyh8+T5lc0LVgzw
-         ZsgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793705612; x=1794310412;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m0qyUESMc56kSUhZkAax4TSYZKgGyd+m6l8qEmY93H0=;
-        b=G6W8XQa6MNvWAO959bNUrTznQqnmEWmrGublSEcrkqpISP8Liyw9Wp59I10+/aR1m6
-         VDvK9uiSIOTWgUZLKqN99T9qUKFgf5wX6e1Ya2eLa842YtAL1sjBgzHj+EbgkqweKtaM
-         /hQJuF8RExzRs3o0PHmLKby0JPOFmqk/z47Wkl/wv/fZjZx8GjPwJxelIyVa1ZhpxL8x
-         mlwm8HZA0L9h6RUWdS/EcOZIdKn8dbo0rkB6ScPk6an2ffEJN6kWkywVatNcraZbaNVz
-         OXLMEeiYCuJHf3QohJC8jfEjnVCfvCUaY6PEma/9OM0Fd3Oes/VvchV0VwxoE6Wr35D8
-         hPPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBweNAUWbRpEqlMRYBSHPndc7zCBsFfQoMN16DqnXzhDziPNNAq67Rn3uy96BvYdk55FDOE3cmqlyEwxOn4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TIEUkyM0EAQDrLXeh6UilzhGEH8URczvyYWHyGcFUx77i/LUI
-	bEYSc2VZtJjZzcC5XAZO1uwQEF82L4ihEspsKdnak+w0gqRNhtq84S4kRpVmChoLFbtY/WKXyhl
-	PPuTBNeUMqHLTRUEWS+nGQYrpgEotLZDeVUSvLqL8RbbsXPiBFPfvTP584VsT0xa0kQ==
-X-Gm-Gg: AYBFou3pxvyTO7wgHtXFfXSA26ArocpQd+SuG05M8jTTOEP0ymChBXaw0FSdCtu4fCz
-	cAGUM342FQ34QpIXqcjoP0P6K0fhF+oztMcmnFJYD3QsEVp2vQK84cfKGoCu5ykSVJ/FRo5W4yk
-	lPAfFeBYB6HUPoY1celp5Nhr4fAfnS5bS9b83OMyfEyXVvEjFpbQtFvlXHzyWABc3FN//mNoKIe
-	cQZAqgdR1W/3/Ea9lZpaAKKvKvxKf6FHOfCLaTrWUWC0kkhGrEoHM67q9HarlaKE0CbzcsWYYZc
-	uiegE0TJvn+rg49Gatvx8yuew0aqSxqT1pF1lPZCGJC4b59q3VrfSWXlVm9vCNiNsQVswhX8wIL
-	a4iLOovefXUp1Xcg2KFHq1qqnKsd7jrNoOH90CMzKoA==
-X-Received: by 2002:a05:600c:4e12:b0:4a2:a9:ed87 with SMTP id 5b1f17b1804b1-4ac1765cf2cmr304324175e9.19.1793705611593;
-        Tue, 03 Nov 2026 03:33:31 -0800 (PST)
-X-Received: by 2002:a05:600c:4e12:b0:4a2:a9:ed87 with SMTP id 5b1f17b1804b1-4ac1765cf2cmr304323575e9.19.1793705611091;
-        Tue, 03 Nov 2026 03:33:31 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a93232f0sm51757025e9.10.2026.11.03.03.33.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:33:30 -0800 (PST)
-Date: Tue, 3 Nov 2026 06:33:27 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: amit@kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org, liuc63@xiaopeng.com
-Subject: Re: [PATCH] virtio: console: check the control packet size before
- parsing it
-Message-ID: <20261103062747-mutt-send-email-mst@kernel.org>
-References: <20261103043238-mutt-send-email-mst@kernel.org>
- <20261103111734.472283-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mopwIIOV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793705628; x=1825241628;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=g77E0G2Oqe9GIwfRoorO9Lft9w5btDGcI6TOVx0gmmU=;
+  b=mopwIIOVgQGvDTh+jEF5RVIuqYrdvk3QwETrWrLEcq8YxB2WQyzeMhqu
+   GFsDCwPri5iY9ZIBwCV6RwdmnjNWZGLgJ4x7U60eP99gOykww9ycJnz8v
+   2Snhdkpqqi+qBvduAKmcb2uxhdaSFRvzYT6co7qrvalV3hH55JnIxC1Ky
+   keMMoO14LiPXTar6vjt0taBBYyckMMM9Oq/3uV9F0QLDj1C2aqDCZsMZ5
+   kHnQ/DWvWpitQNQMGPYcXap0rPVSylCm+IaJQ1CSlLZo/WEb6KTzSzypj
+   sVxYlVJ+obWqe9R3UD0j2BDH9mFXhXV9EP9GppVpBVk+0Co9sPRfNqwyo
+   A==;
+X-CSE-ConnectionGUID: +Vi66S7HQK+lMDEcn1omqA==
+X-CSE-MsgGUID: NZ8vePioQEqNdwCACmMBHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2454803"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2454803"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:33:43 -0800
+X-CSE-ConnectionGUID: nGjFPcLfQRKaEur65VhIoQ==
+X-CSE-MsgGUID: 60qfWQg+Tx2oC34QoJoBKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6522746"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:33:41 -0800
+Date: Tue, 3 Nov 2026 13:33:38 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: raffaele.tranfaglia@gmail.com
+Cc: Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] iio: test: iio-test-format: check that nothing is
+ written past the string
+Message-ID: <aunGkq5O9KAYKPmG@ashevche-desk.local>
+References: <20261102-iio-test-format-char-v2-0-926100689e62@gmail.com>
+ <20261102-iio-test-format-char-v2-1-926100689e62@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,29 +86,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103111734.472283-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261102-iio-test-format-char-v2-1-926100689e62@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 03, 2026 at 07:17:34PM +0800, Guanglei Zhu wrote:
-> You are right, the impact statement does not hold up: the reused
-> buffer still contains a previously valid control message,
-
-Not always, the buffers are allocated with GFP_KERNEL on the
-1st pass.
-
-> so a short
-> packet makes the driver parse stale - not attacker-controlled - data,
-
-Who is the attacker here the device? it is absolutely
-controlling all of virtio_console_control.
-
-> and that is not worth carrying an extra check for.  Please drop this
-> patch.
+On Mon, Nov 02, 2026 at 08:33:55AM +0000, Raffaele Tranfaglia via B4 Relay wrote:
 > 
-> Sorry for the noise, and thanks for the review.
+> IIO_TEST_FORMAT_EXPECT_EQ() compares the buffer only up to the first NUL
+> character. It does not notice if iio_format_value() writes past the end
+> of the formatted string, and it cannot check output that contains a NUL.
+> 
+> Poison the buffer before each call. Check the expected bytes, including
+> the NUL terminator, with KUNIT_EXPECT_MEMEQ(), and check that the rest of
+> the page still holds the poison value. Take the expected length from the
+> string literal instead of calling strlen() on the buffer.
 
-I ask that you please think critically not just go back and forth on it
-like an LLM.
+> Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+...
+
+> +#define IIO_TEST_FORMAT_POISON	0x5a
+> +
+> +/*
+> + * Check the formatted string including its NUL terminator, and that nothing
+> + * beyond it was written. _val must be a string literal. The buffer is poisoned
+> + * again afterwards for the next check.
+> + */
+> +#define IIO_TEST_FORMAT_EXPECT_EQ(_test, _buf, _ret, _val) do {		\
+> +		KUNIT_EXPECT_EQ(_test, _ret, (ssize_t)sizeof(_val) - 1);	\
+> +		KUNIT_EXPECT_MEMEQ(_test, _buf, _val, sizeof(_val));		\
+> +		KUNIT_EXPECT_NULL(_test, memchr_inv((_buf) + sizeof(_val),	\
+> +						    IIO_TEST_FORMAT_POISON,	\
+> +						    PAGE_SIZE - sizeof(_val)));	\
+> +		memset(_buf, IIO_TEST_FORMAT_POISON, PAGE_SIZE);		\
+>  	} while (0)
+
+
+Format it as
+
+#define IIO_TEST_FORMAT_EXPECT_EQ(_test, _buf, _ret, _val)		\
+do {									\
+	KUNIT_EXPECT_EQ(_test, _ret, (ssize_t)sizeof(_val) - 1);	\
+	KUNIT_EXPECT_MEMEQ(_test, _buf, _val, sizeof(_val));		\
+	KUNIT_EXPECT_NULL(_test,					\
+			  memchr_inv((_buf) + sizeof(_val),		\
+				     IIO_TEST_FORMAT_POISON,		\
+				     PAGE_SIZE - sizeof(_val)));	\
+	memset(_buf, IIO_TEST_FORMAT_POISON, PAGE_SIZE);		\
+} while (0)
+
+Alternatively
+
+#define IIO_TEST_FORMAT_EXPECT_EQ(_test, _buf, _ret, _val)			  \
+do {										  \
+	size_t _sz = sizeof(_val);						  \
+										  \
+	KUNIT_EXPECT_EQ(_test, _ret, (ssize_t)sz - 1);				  \
+	KUNIT_EXPECT_MEMEQ(_test, _buf, _val, sz);				  \
+	KUNIT_EXPECT_NULL(_test,						  \
+		memchr_inv((_buf) + sz, IIO_TEST_FORMAT_POISON, PAGE_SIZE - sz)); \
+	memset(_buf, IIO_TEST_FORMAT_POISON, PAGE_SIZE);			  \
+} while (0)
 
 -- 
-MST
+With Best Regards,
+Andy Shevchenko
+
 
