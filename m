@@ -1,70 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718930;
-	b=u/mpoWLsbNxxn/WgIYoD/pb7if9XChmyIoWHe0ec380GJa9Jt0MbJ68Wz5d6YbNF7z5q
-	 WdHUOEMVLn3y1T6lNJ1dtNg1HI7tojk/vS6nyPMfEho3+zc0Smizbqm78rK0V2157VBHl
-	 MTDxPCgQxElaoqNdC1dL8RD4uNIbmynaAf/H5LUZp3TuY/sxMsei0qlHFGZ6CYgLOLpmw
-	 md9rG25v166wEezh5Exsae+ns4pS4qWoh+5LWunwJ2Dljntu4K3bsDDBIepzC07qya10H
-	 XEFPIHw9A2eqCB0+IhGahY5zSfw4r0flTCVNcvgyb7MdlrthHwdD/OQj8qH0fxThm7Q==
+	t=1793718928;
+	b=q2niQhlnx+qKat5mmwayfGWSQpygb5gwUM8F6kAy5J7SQRxUdmqORbKM/r4xSQh+nAAi
+	 VqeQD8R//A3haTV5jPOYW3vhTSREwLVnYyio5wEuhDLeB24vkjsOLDZ7emwO15SO43HW4
+	 1w1fUPWfBgePO3HIBhLKqtoOHqEo3jkQ87muLttguE5gw/KjnAmR+D631HBCAnv1brf1d
+	 Hw7hejAn3HwL4Um3S5Z1fdcrZGDs/cx4SU8ZJtwK8xVmCN4DLpE2hrx29ap2cezz39Z+D
+	 0pAt+6dEbGdIcXMwmuQPblj6FAKlJtlwZWM4VLcQjQDj+Zeknz8aBm92JuTrEldGHLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718930;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=BgukwoyCf3zTzFVKabsq2TdYwY6CNscXV5Cmf29RB7Q=;
-	b=3MaJUq+gBUSHQqQvpuv96dNMuCGUr8tL4JTzCkpClX0WItDU1I4zzIiIYmnEUFGo5geY
-	 5JROzpIdZOfvGurQbbpIWk+3WiP1+DGofhucp39U+yQDnMbn88U9//DzG+JE+Mc7OeZNL
-	 QCJLrBFcEPfKG7RGhJnhGipEqnC6L5G8KjT/P+XngcgaPjcO8C2jOtI3pglFo4cKJtyyl
-	 wsk1bOG4P5XCYNt5baRRdcz9iv+P335RS8JesXUtUsMWZ+3QvtF61YwAqQyQjur09/dL6
-	 8TxGbPb/CmX2/EVSDNJNu0s+CUY0tzT2BE55CQfOW8S/0Wll2atLu8gBvqZf0d15NOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718928;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kUEp7xcckn2qvmIvpQkkjMCZNbl4CYX1Cj+7Vm+f2qE=;
+	b=slXm8p4QO6PoNvG34wt9FkFSq7DtNVC4LwQmMiVbRwjauWUDsw/HRaG+0tgE1hO59/dl
+	 Y2yn0IWYNQUMhwRTrtKM2D4PVmg8nWFHw4MmTAsmoCGuZZL3Pf9aR8B1RZ4H7378xWqFb
+	 r6JDuXwnMeeSDu1bxJww6Hd7kTHD94Nbcj0wyc6bN/x0XUlx37huePD6C+EUaqVWF1m/U
+	 rr/GkfFlYuu7dQ9rYbZWSUq4IJujWLl744xnhoq5DSX90N/Ltzsugv9mBM+A4Kmj/g96q
+	 uyv6Gpx95JXkcYXIrSnDH/n9lxlG66JM9RAc//j9kNJ4h0BkM3zlMM91B/yU1+0LN4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kMbUDnGE;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=LlUeWMgI;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="f1P7qGp/";
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D295D606B267
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:15:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D295D606B267
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A47606B24D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:15:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60A47606B24D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kMbUDnGE;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=LlUeWMgI
-Date: Tue, 3 Nov 2026 16:15:25 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793718927;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BgukwoyCf3zTzFVKabsq2TdYwY6CNscXV5Cmf29RB7Q=;
-	b=kMbUDnGEtN+o2K6Sc0FYTQScRac4GHh0gDlIj32H/OaOCzn3rk0buxMZ2uxeTujqb7LB+U
-	avaJIcSmVMDuVZYQQgbpcRkt6Yd2+IhGW88pc+1LT1Vp9M17ZQNt/GdJggUCZYDnztar+4
-	o8+P/5yzJNG/bb4cMwIbocm19heTF8SoE4Ktqr6USc0MbCH/zBIS5leYXblrXNXmzGISSo
-	2FrjiLW4cPvclKZTlPBZj/4cE+M1cGKEwY7xuN8SvKdDwaxW31pRrF+EWcVqbR4CIi5mFi
-	BcfGYyxYSXppaXL3rYB3nlEF6VOFlB1AVUfgR5TWCNB0QhbfZ8jwOKyZ93Dzpg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793718927;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BgukwoyCf3zTzFVKabsq2TdYwY6CNscXV5Cmf29RB7Q=;
-	b=LlUeWMgIeTsvuaFnXpEBn0duGO6yYrS82b6zzdYWJ/4smcxUV0iyQ1Py24GBQMwKDTEMZa
-	y+7QVo3JAjJxpGDw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: mt4022@columbia.edu
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	tz2294@columbia.edu
-Subject: Re: [PATCH] smpboot: Run the thread function only once before parking
-Message-ID: <20261103151525.Mu-hc07d@linutronix.de>
-References: <20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1P7qGp/
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15ea896ddc8so7260949c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:15:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793718927; x=1794323727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kUEp7xcckn2qvmIvpQkkjMCZNbl4CYX1Cj+7Vm+f2qE=;
+        b=f1P7qGp/VPb8FYhFPNCgmeBR7hj4qmf0ik8MEC98Z+QsHEDVHzRoEOecjg5i/WRsg+
+         iod/iVXbNzBiefD/u5De8/a8A6ciX/upi6Zz2HpIUxLK9LSdjmU9R/ayVaf/m1m3rLIW
+         sX4Pd0jbzY41A99ZXdIUeh1T+nEjToosG14vOQNsL4lFOe9VQntTN/C86SW0mi3CtpY3
+         es6ID0o6wRBo6s2uqLIPCFHJ/PIa5098Iso6qPaj+MzkSAGVcwSuBWLU1BEMoUUVeabD
+         JpxgcxrKT3rQf4di09+M6Cl2ih0aucIZuZtG+4VReQwT6f9DlbLEQupSOHhdpgkYLFxb
+         IWlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793718927; x=1794323727;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kUEp7xcckn2qvmIvpQkkjMCZNbl4CYX1Cj+7Vm+f2qE=;
+        b=RbEexhkAM561WtQBb+cs8Cn5YUk4gXaRRCmjn1EhQO/um4aox23kxygW0+wGxbO0bl
+         pZn0u0IuG8JwEDH79bKUubKd3+2YmfFYQxL2/r+KiyMjbLyu23HE/W93/uMc6hlMJEJ/
+         eAmwqoD2il8dZjlU7yi0t2Hf6ZAxYNl0keqRlID0YhwiDaNLi+W8+lDeqhlqzcO6CVUN
+         neZ1TQRXq7Pysq8UXqo1yWtSbzbW4M2M2Hvp2wSB5tZFD1mHFLA6zrOhMDeQqoq03VDR
+         C7ZRD+/LOvYEZLjVHvD4jqR5d+t8Z92LSH5VYjbiPyqU49oBrCB+fxu0jz8LvF2YpU4K
+         PSKQ==
+X-Gm-Message-State: APuU4Z/iNse4sky9l74F0tM9KjnZQCLqqzmZGFyDCf/gmElnBli6PHCL
+	QNTtKvCuOT6P45ZRhEIrR3PZ02BX/3wQXRTRhQRlFcZ74/oHdiyUOHHs
+X-Gm-Gg: AYBFou1DwkDKe3NMufDEn0uXDPgKvbEWf29KKMTNubO6CjvF7E7OJLFGO2eveW8caGY
+	D+rQkhWaRGrVI1VshLmH8tr/Sosh8T0Wd3K3xOEcOt18dPThYrFX+VHVkRV3DrUoLcY8EWdpVdp
+	uvky2aMTbD9lJFmzPW2vSfkFeZblSMtgRpJmv9MUKwSIBcw3DlmmvqJrc+caalR9gsvuU/WzMTx
+	yDcx9J8c0FFXHPv5xgY+J8q4d79VFvangesChB9fiIPqX2pCUvFZxFpuQtKc5TBKeW6jld1gS2U
+	UcSNZKDyMzbUxiuRr2k+ET9L+8ZwHBSXy/lkR++PPkeB/zkKlbBEEHhwhKFhZHlIcQnZO8tOqdM
+	mZuB7AKwjq5xKfioPWzMMhqvcHkcbMVCZ+pq9pExL5lcMTk5QfmVHuRiaSUdGd/PqkMWBM5KFA3
+	d8B9nSXQ5n2MYtrYr8htgvoTTQqQ2jSXi7f/+IKi+d1TInHwaxRG96CKZ8EC77559JWdU2YpnVL
+	EJDEthm/3YHwoocdtsalkxrWytNsi7949/cU2OteArYJMw2WkpIJlAP5wr2bIO/pvgrpbxsXHn/
+	75G8/S2tWMvJmGMNRnjxxnxp4fQ0hhrtiEmMo2ayDvrXEnOmqfw=
+X-Received: by 2002:a05:7023:903:b0:17f:7280:1332 with SMTP id a92af1059eb24-1ac5c92f6e4mr22369389c88.40.1793718927329;
+        Tue, 03 Nov 2026 07:15:27 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm47518860c88.12.2026.11.03.07.15.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 07:15:26 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: o-takashi@sakamocchi.jp
+Cc: linux-kernel@vger.kernel.org,
+	linux1394-devel@lists.sourceforge.net,
+	sreekuttan2156239@gmail.com
+Subject: [PATCH v2 1/2] firewire: Fix out-of-bounds access in CSR iterator
+Date: Tue,  3 Nov 2026 15:14:20 +0000
+Message-ID: <20261103151421.7248-2-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261103151421.7248-1-sreekuttan2156239@gmail.com>
+References: <20261103042408.GB1229640@sakamocchi.jp>
+ <20261103151421.7248-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,112 +98,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu>
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-02 16:51:24 [-0500], Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh <mt4022@columbia.edu>
->=20
-> Since commit 4a3b51aab6e2 ("smpboot: Don't park the thread if work is
-> pending"), smpboot_thread_fn() parks only once thread_should_run() is
-> false.  CPU offline waits for that with no timeout and with
-> cpu_hotplug_lock held for write.
->=20
-> When the outgoing CPU keeps receiving more packets than it can process,
-> ksoftirqd always has NET_RX pending and never parks.  The offline then
-> waits for as long as the packets keep coming and everything that takes
-> cpus_read_lock() waits with it:
->=20
-=E2=80=A6
-> That commit only needs the work queued before the park request to run
-> once on its own CPU.  Softirqs left pending are taken over by the
-> dead-CPU callbacks as before.  So on a park request, run the thread
-> function once if there is work and then park.  With the fix, the
-> offline finishes under the same load.
->=20
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 25s.
+The fw_csr_iterator_next() function reads ci->p before
+checking if it has reached the end.
 
-Is this just the net_rps interface or was this used for a reproducer and
-the issue is different?
+This can cause an out-of-bounds read when the iterator
+has no more entries.
 
-On CPU down path we do first smpboot_park_threads() on the target CPU
-and later takedown_cpu() is invoked which flips the CPU bit in the
-cpu_online mask. This means work can be enqueued while the CPU is going
-down. Something like
+Check the iterator position before reading the entry.
+Move the pointer forward only after reading a valid entry.
 
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -5402,7 +5402,7 @@ static int get_rps_cpu(struct net_device *dev, struct=
- sk_buff *skb,
- 			rflow =3D set_rps_cpu(dev, skb, rflow, next_cpu, hash);
- 		}
-=20
--		if (tcpu < nr_cpu_ids && cpu_online(tcpu)) {
-+		if (tcpu < nr_cpu_ids && cpu_active(tcpu)) {
- 			*rflowp =3D rflow;
- 			cpu =3D tcpu;
- 			goto done;
-@@ -5413,7 +5413,7 @@ static int get_rps_cpu(struct net_device *dev, struct=
- sk_buff *skb,
-=20
- 	if (map) {
- 		tcpu =3D map->cpus[reciprocal_scale(hash, map->len)];
--		if (cpu_online(tcpu)) {
-+		if (cpu_active(tcpu)) {
- 			cpu =3D tcpu;
- 			goto done;
- 		}
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/firewire/core-device.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Would avoid it. On the other hand networking has HP-handler which
-ensures that the queues of the offlined CPU are handled.
-My original issue were queued up irq-work items which were not handled
-due to the park request and couldn't be handled otherwise.
+diff --git a/drivers/firewire/core-device.c b/drivers/firewire/core-device.c
+index a68100d3da0b..36667841ca3c 100644
+--- a/drivers/firewire/core-device.c
++++ b/drivers/firewire/core-device.c
+@@ -40,10 +40,14 @@ EXPORT_SYMBOL(fw_csr_iterator_init);
+ 
+ int fw_csr_iterator_next(struct fw_csr_iterator *ci, int *key, int *value)
+ {
++	if (ci->p >= ci->end)
++		return 0;
++
+ 	*key = *ci->p >> 24;
+ 	*value = *ci->p & 0xffffff;
+ 
+-	return ci->p++ < ci->end;
++	ci->p++;
++	return 1;
+ }
+ EXPORT_SYMBOL(fw_csr_iterator_next);
+ 
+-- 
+2.55.0
 
-The suggested change is okay in principle restores the old behaviour
-where we did not care but run the work at least once.
-
-> Fixes: 4a3b51aab6e2 ("smpboot: Don't park the thread if work is pending")
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/ks=
-oftpark.c
-> ---
->  kernel/smpboot.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/kernel/smpboot.c b/kernel/smpboot.c
-> index 3f60e8c6dd30..a2ddd10a8577 100644
-> --- a/kernel/smpboot.c
-> +++ b/kernel/smpboot.c
-> @@ -119,9 +119,12 @@ static int smpboot_thread_fn(void *data)
->  		}
-> =20
->  		should_run =3D td->status =3D=3D HP_THREAD_ACTIVE && ht->thread_should=
-_run(td->cpu);
-> -		if (kthread_should_park() && !should_run) {
-> +		if (kthread_should_park()) {
->  			__set_current_state(TASK_RUNNING);
->  			preempt_enable();
-> +			/* Run pending work once, new work may keep coming */
-	/*
-	 * Run pending work once to handle queued work prior the parking
-	 * request. Don't try to process everything in case new work
-	 * continues to come and the handler has a hotplug notifier for
-	 * everything that was enqueued later.
-	 */
-
-> +			if (should_run)
-> +				ht->thread_fn(td->cpu);
-
-The thread_fn should only run in HP_THREAD_ACTIVE case.
-
->  			if (ht->park && td->status =3D=3D HP_THREAD_ACTIVE) {
->  				BUG_ON(td->cpu !=3D smp_processor_id());
->  				ht->park(td->cpu);
->=20
-
-Sebastian
