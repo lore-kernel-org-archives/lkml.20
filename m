@@ -1,58 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696961;
-	b=kjMmPwpX4i2r/Jf6B6UD6FgtR/IqE30dt0GTdAgr/JAOTWjO6qikFnnuRmhuHnpE9tIN
-	 IMNlKwy1JEBm7JUcg30UjPm7yL/Ltobp/kKaK94+aF+cDuijdTTmjhsT8wUR0o+ttXo4e
-	 MCeN7MTMmCfZkmV8kZkKIOPcAivKDcgHi2ySCiGb9HFjF354hXvHeyHJiBsogzYar7qGi
-	 dAcQ8YCoW1qNFamfP3Vvkxw8VgcFFO7fuRCq4vaw//VF9m2yBg1QvCrPUgtJ8CB/S1aMP
-	 Z97J2XzkL1YPl0sK3hcMOP9rQe8lvtUahE7EidNKNARf4z87kShWN5HZvLLAZMzdUSA==
+	t=1793696987;
+	b=jOndgfZMPQPFhWLm9VG0yZSFCgQ64pa7sfshbqfwtpnpwaWt0n2C3f/0/3yFn8bS0CGj
+	 XU/cV0huc0h/bFAgUGvpeS9NHBnqUnSZMyhcgfmyWLkkp94IIHv0Zh5+a4e/MCS4ZxlGf
+	 Yj/+b1z7b3G7JZ/Gg4YsHJz8z383Ka7IBWKJv4ZzMbcSsNHz0JKSTLSDdRZyfzkOWqcGT
+	 gCwjZ84T5OnBUNLQnRGBitQwdcSyxbsYdTSw5+yBh664oX2jddUITkadUUlWf0DJDVJGf
+	 3tt/ElPUaWDly5AbLVFi6isxDCCP9J9ASoFxnL/pqYXqpnbHgjUKXDHVua//OY9BcoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696961;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BBTr+Hy0VdRQdkWFNF6C19CVLgiwmF8bx5L98QPeRao=;
-	b=ve4FKvZAipOqaPrnnvaH9PWA7UJUdIPLHmlvrOJTcB/379Yc0oCXMW99MEKUTOcHzTVI
-	 MgjJxsoBWHAvTiqSb/PipyyrM1jci7tMPdIXsVZlZ3krGjFu4xfPmz1EXft5dPSbBDIgh
-	 71DIwO79s9Jv8yrlahl89V8sHuS51YmRJuZ1AAhPqaAB/ZsavXmsq236cwtsRTkpqhYvK
-	 i/0gZPNolQtuxluav9ZMncLLh7m0AABmryL4v6lAdyfxm4UN7MIYPz97i53K4/PT/cI56
-	 waHx8pslX4XFoXS8LT4odsUJLHbN4KM4fRikjJfiJ/0E/VHqUlmTcOjmsL9898sef0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696987;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=0sVsx2ECqjItiIs8s497yPBInJ/alQD9PApMYIDhMMg=;
+	b=XFnFMM0te51GJsPhdYW/9v8cycsjI2UIosEzRj96B2lBd4wvf20gKsiIreA0i0qeQ51O
+	 A/NJbtZXvuMBIs/RFtBda5cScATLqS6HQQ2TeFZUVwuXjgRh6n4jZpww8hgANT5mJswP3
+	 2n91iSMHxEpfSJCuLCXXLE6np82e4q0uv8uiuNoprtg1kqVeZZLkT0TjwZcro2Y39mvLF
+	 Ena+M5U14UJPVWCT3IerRwIxp81Fbkvh3pYOqB2wah3x/iYpmwQgx9prhUQjys0J5L8WC
+	 YHu+wQf2wjwkmrvLehHIc4iDSP4hrFOdj3x9P/i4XfxXBrh2OAhbl0EfjCmSDrz/0nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rd1HG7b8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ew0TMgcb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 163D5606A32D;
-	Tue,  3 Nov 2026 09:09:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C31606A329;
+	Tue,  3 Nov 2026 09:09:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rd1HG7b8
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id ADD0D1F000C1;
-	Tue,  3 Nov 2026 09:09:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ew0TMgcb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452B01F000C1;
+	Tue,  3 Nov 2026 09:09:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793696960;
-	bh=BBTr+Hy0VdRQdkWFNF6C19CVLgiwmF8bx5L98QPeRao=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rd1HG7b8vKZe3wL/ox7VTzKhvRkMIgOpQtaCq81EvltYUAtmuBG5zKgISB7rB6jWN
-	 82ubsJlxEMAeI8hSK/O6entOhlOIlmwyhzbJrRTKO7pWZIXs21NW7xObuC1JuQZD1g
-	 Jh0hwVw9en8yuOAe32im+vxH/EFqLFKbEPMPGAhXeGjH8/VC2CLORlYDbzDGzOXSnv
-	 8GMUPK7nxczSg/LqNlTqFbBDqklCnvsd232VMNtWxFHsjB90mg6Efu4IMfrRQiwmdi
-	 KpzptJyZJvf8WzfkXvJIiOyTKSt3smkg7K2GnlZacL/37cvWrt1eEMPQbn40j9y/E/
-	 suXLPWzbDtEMg==
-Date: Tue, 3 Nov 2026 10:09:17 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
-Subject: Re: [PATCH RFC] arm64: dts: qcom: nord: add ADC-TM thermistor
- channels for Nord PMICs
-Message-ID: <ebhzyg5ypdes5vmh7z4tfe7wngbra7jmilfizhs3rprigfjshq@hefxoxdebp5h>
-References: <20261028150103.520428-1-shengchao.guo@oss.qualcomm.com>
- <6drdycuoo4n4qssp3axrij5xrftvg6w24z4oa5xw6wmtayknk2@mwz62l7bnvhg>
- <aumbOqMXf-uWmGOx@QCOM-aGQu4IUr3Y>
+	s=k20260515; t=1793696985;
+	bh=0sVsx2ECqjItiIs8s497yPBInJ/alQD9PApMYIDhMMg=;
+	h=From:Date:Subject:To:Cc;
+	b=Ew0TMgcbY06/NYC4JZyEWa/Z6ta0YEwvLpIXHVNS9GACMTlTWWHwUTS6MISat20gX
+	 v8JC9UxhGttj9VGDZWO+BwLixl370KGHaVh4dxnyh6pYqLvEOhE5HoGsG4W/MPywsn
+	 K/LHgOz6VhfuqB5qTOGBV/jOyYvhnw7Aq6c5ufPfo9r9Mg8H+qORHNyiqD3JUzZLc7
+	 o/g/tyuFXBQsNa5a7vnAiw0kDHEUFsKE/ZiHjEQR+AwpxdWMOGkTVvYc26cbN5+7fr
+	 8z8B2uQKzKvc29zdIHICb4RlYZncxUQyvUuDPqN2fRY2plN4Fm+Dl7L/PWNNS4CrNs
+	 YHz28al1c291Q==
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 03 Nov 2026 10:09:42 +0100
+Subject: [PATCH] alpha: Use symbol assignment in SYM_END
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,61 +52,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aumbOqMXf-uWmGOx@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBOcwoquEi1ExxywEoUIxLsnL
+ d/i/wKZElOGtSuQ6OHM99WAfQfG6+sgwbYZBjlMiHIUOkSvhbnPyIEEOWtJLTOiMtCamMjx+/+
+ 2vdYP4ES2iF8AAAA=
+X-Change-ID: 20261103-alpha-compile-efdde587115c
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Tue, Nov 03, 2026 at 04:28:42PM +0800, Shawn Guo wrote:
-> On Fri, Oct 30, 2026 at 10:28:21AM +0100, Bartosz Golaszewski wrote:
-> > On Wed, Oct 28, 2026 at 11:01:03PM +0800, Shawn Guo wrote:
-> > > From: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
-> > > 
-> > > PMAU0102 (Kai_MV) and PMM8650AU's Kobra_MM ADC5 Gen3 controllers only
-> > > expose REF_GND/1P25VREF/DIE_TEMP calibration channels; none of their
-> > > AMUX thermistor pins are wired up, so none of the board thermistor
-> > > rails feed the thermal framework.
-> > > 
-> > > Only 3 AMUX pins are actually wired to thermistors on Nord, all on
-> > > Kai and none on Kobra: Kai instance E's AMUX1 (SDRAM3 THERM) and Kai
-> > > instance I's AMUX1/AMUX2 (SDRAM1 THERM, UFS THERM). Kai's other AMUX
-> > > pins are either DO_NOT_USE or wired to voltage-rail monitors, not
-> > > thermistors, so add only these 3 channels.
-> > > 
-> > > Add #thermal-sensor-cells = <1> to the two Kai adc@ nodes that gain
-> > > a channel, the new AMUX1[/AMUX2]_THM channel(s) with qcom,adc-tm,
-> > > and a per-channel thermal-zone for each, following the existing
-> > > Gen3/Gen4 board pattern of a direct thermal-sensors phandle into the
-> > > ADC channel.
-> > > 
-> > > Signed-off-by: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
-> > > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > > ---
-> > 
-> > ...
-> > 
-> > > +
-> > >  		pmau0102_f_thermal: pmau0102-f-thermal {
-> > >  			polling-delay-passive = <100>;
-> > >  			thermal-sensors = <&pmau0102_f_mbg_temp>;
-> > > @@ -501,6 +545,42 @@ trip0 {
-> > >  			};
-> > >  		};
-> > >  
-> > > +		pmau0102_i_sdram1_thermal: pm-i-sdram1-thermal {
-> > 
-> > Existing thermal zone nodes use the "pmau0102" prefix.
-> 
-> Hi Bartosz,
-> 
-> Following up on this: "pmau0102-e-sdram3-thermal" exceeds the
-> thermal-zones.yaml node name limit (11 chars before "-thermal").
-> Since v2 moves these zones into the board DTs per Konrad's comment,
-> I will name them after the measured component, i.e. sdram3-thermal,
-> sdram1-thermal and ufs-thermal, like other boards do. I will drop
-> your Acked-by in v2 as the patch changes quite a bit.
->
+Alpha uses the .set directive to select assembler options, so the
+symbol assignment emitted by the generic SYM_END macro fails to assemble.
+This breaks COMPILE_TEST builds left and right, e.g.:
 
-Sounds good!
+  Error: junk at end of line, first unrecognized character is `,'
+  Error: .size expression for bcm6846_runner_start does not evaluate to a constant
 
-Thanks,
-Bartosz
+Override SYM_END to use an ordinary symbol assignment for the calculated
+size. Preserve the symbol type, size and local size symbol while leaving
+other architectures unchanged.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202611031620.n4ptlpo7-lkp@intel.com/
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+The generic SYM_END uses .set for symbol assignment, but Alpha interprets
+.set as an assembler mode directive. Provide an Alpha override using
+ordinary assignment.
+
+Tested the unchanged Runner wrapper with an Alpha-targeted GNU assembler
+2.46.1: the original header reproduces the reported errors, while the
+fixed header assembles without warnings. Symbol sizes and the embedded
+Runner bytes were checked. A full Alpha allyesconfig build was not run.
+
+This patch was prepared with LLM assistance.
+---
+ arch/alpha/include/asm/linkage.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/alpha/include/asm/linkage.h b/arch/alpha/include/asm/linkage.h
+index aa8661fa60dc..a3f0302c92d0 100644
+--- a/arch/alpha/include/asm/linkage.h
++++ b/arch/alpha/include/asm/linkage.h
+@@ -6,4 +6,12 @@
+ #define SYSCALL_ALIAS(alias, name)					\
+ 	asm ( #alias " = " #name "\n\t.globl " #alias)
+ 
++#ifdef __ASSEMBLY__
++/* Alpha uses .set for assembler options, not symbol assignments. */
++#define SYM_END(name, sym_type)				\
++	.type name sym_type ASM_NL			\
++	.L__sym_size_##name = . - name ASM_NL		\
++	.size name, .L__sym_size_##name
++#endif
++
+ #endif
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-alpha-compile-efdde587115c
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
