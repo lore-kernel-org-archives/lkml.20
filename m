@@ -1,106 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740271;
-	b=TzCoCHMUD3gnSNInl3MqHYHI53Ai65Q7V4OBz5FHKn2jXUzQIHLmu07HE9fbI7mtgL08
-	 iiitLRtlsqiLkU7ZSnjqvRANrgPSJIgdbylWjch+Rncs5HEHQ0S6+7X48J8Fj8TUuwgGh
-	 coUeJApJaeayWqEs7oyZJrFp/mqaYv0LCPUnHN3OXWMtSU1C/m50nYGFo4PzfS0bGJbsD
-	 IhYNzkGjFcJ9ZxuwWMy+BJJ23Ln68JkNSRr6G4S9y9w6yecKF7wXk9j1X6P0g2RXis8RM
-	 twXgnV0oi5235W4ti86nz62uqZbKMMXDV4I77uV5KUxRDzVQ03LlE+GPtCeyhM7z0fQ==
+	t=1793740256;
+	b=1tzV2FcjffMtoDELTILn0pEuCfnzZnKZk5HYEVmAkWsO+kwOqEzeosQFcj2/L5KavYQ9
+	 jIXan9JnE1ejwg8dj/Sjs1yNBD768YYW92MTGK1A7k29Mou0wTQmkVpWYNau9tA6olu0B
+	 3sI37zdlvyGRTWC8wbz2bgStUWCFb+lSGsJrL8ANYeIg5hsuzbd1nxQL9AwZg+U1sJuj3
+	 56UVfB4OD0wy1yPRdPwJaUz1zSVOWVZm9Psb3tJcYQlUI88TYaPrMHJenAo36VsF3nkD+
+	 6WCVez/GXKSqOjf/MlVjQMV8EeuoLzWju1W2pmR12MgSnOWO21W1YExAlXFr+a0AWFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740271;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=Gwb0yhNA8ovJvghC21bfjrqEFSJ/3LvirO9QqnwCwDw=;
-	b=cpkYWLQtl6DQj0lO2kdD24Ye2mQaRpchxJER9hLSxuJgurzaoM4m6AgxszeF9UTXavwu
-	 zRAL3Zb3c/HtASJi8A5oS6S8Z9DfoljPXcc495VY0N9RZn8cV7iz1NBz3HYCzjD9NC0pZ
-	 HKru3ojfvMszzRN7yG0XjAZZ1L9/vy/MfRhOC1VYCLzcHV6ZkIYndkL1FQ7fDKqPsb12Q
-	 nZytc2pAbEbeIYHJ/34LL7VB16Zl4vK2S/F5nsuILcfSvPbRkNjV/GSBjYhf3Nu4k6IkP
-	 psWxdEnnG/0UXFxP8Q6IQWYnMNV2HcSMd9gDkY7OffOcLRPZKHZbZSIAEpT+tyN0DDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740256;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=41vgPbCEbDbBepgZTq8SEpgvXyn7f7xFoxfkeeuQ75Q=;
+	b=YaVmRA9sv1H/vJjTls+WY2xLpOb49X6/cxkxkLD1QAuDS/bsqDtH/A6867QYHcAmQWol
+	 wWBF9ooSYSX5DNwc5uitA+wLzpGiceqT0GWTHy2y3cAT0BSx7hwT5S+4pD9eRBN4zd4QQ
+	 S7wE/MddPqo/KguvZxcwbW8MvK3B+Esp2TdJwJ6PEFBDR+dcp8ngGrUPP5A3BuUwQ2h+F
+	 lMSX55bdeiyhW8/pNIx1/6LlFd4C1Bv3xz5jKdS6Oq3zTSMwt+rta/c7ECBSWh5Sv5VWn
+	 26j3J1WdqJxl1/X0QydEYdzXToE3QrpS2Sl2MQPmFPNbcQyAzMSgT0ISoMDnxjSIhpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UhZ1BGol;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=gFcCmA1c;
+	arc=none smtp.remote-ip=109.224.244.123
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CAB606D80C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:11:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9CAB606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F34A606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F34A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UhZ1BGol
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso614976a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:11:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793740265; x=1794345065; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gwb0yhNA8ovJvghC21bfjrqEFSJ/3LvirO9QqnwCwDw=;
-        b=UhZ1BGolaieZt0ciUt1eNUSO1jnqrZLezwPTtss4f70Tsc5fUSV8VOEhI9jMVcYZO5
-         iJb/lR6lPJIQehJBdRf4dB1F9HIwHEXwOEMmB8hwjYB0Bew1QHtbGXYu1zTRI3gNE/1J
-         dsRudaBjgrqKBYhHsOlTvPuF+UELoPGlrMsEq9vzHBeld+ORdxtbF/Tg8ysHXe7yakJ/
-         Ks2rt8FXRQCx6gVAzFE/fUZBzmTdTbRkztGG9aejbQTx6aCWUGkj6pI+DYsdlcwGunMd
-         mvN/lJ03hbePC95887nHA9wPdslFAkXrrnqBVPsibCSgVNESlLENiTbH/su5cwlaVLP0
-         CA+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793740265; x=1794345065;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gwb0yhNA8ovJvghC21bfjrqEFSJ/3LvirO9QqnwCwDw=;
-        b=q9p1z7J8EJxt08WI6v4RyygcBGl7cXhhHiOz1nr0J1pTNS/M1eKFZ2Jf9Pt6LuSfiB
-         fmzkMOtZrytPIQor46vaXTOZSYKW8xirEo1qH2HSrvay8i7n7ZOAGW7VX3xwjUR1kwGC
-         SsCP2zWtFIJ1nmxwtzZl3DQjPWUFHlT2qzAtnuUFc1a7s4WelbZIzA4idlij/AUVb+TO
-         IdC/DIWtps8h+xVpb1BjFcvyc6A/jsamKbIxWan7C739QlmLNj9d8UVq4Ap05f4Nssl7
-         f3hrdH92CvA8GgPObPoMnbP3oeD6r6UAqpqd63yD7/sQ5nzN6rFqyWojKY77CLnoEBwt
-         xw5g==
-X-Forwarded-Encrypted: i=1; AKwUvBz5kDXp1uxVCr8BORAJ1eiEW3ic2WTHxb5U2vbzrkEXOvkA2OqRVjfLmDQ8qY06ws2Y5u9wrym7ZspxtD4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pM7QDSqQuULNsnkNuCuB+HrIymuHSUWDOFs9NJe8sbEqAGXwW
-	/T/DqgDBZwr4bCwjAqlb6bBKizuDcyDopHQE5H8ucHm95FvR+Noq12wN
-X-Gm-Gg: AYBFou35ycSq5uSoBJ5Vd4/xsagzJ0tWnHZnSRHrTJIqojNIHFd3ZXHxw/RF6nMuXJ+
-	plW+j6WOvvCNI6RjQGWkY+praP06qgIawfaava8/M7lDWvkt8Pj76oDn4is946KHiHLFRy6kjM0
-	5E0VWqVCUEHjVWnJCobTXynclVZA+cv0w1aJYRymSymT5PtARrf+QxmIwjOB2ePxFEtJp5Mxnfa
-	RPp7tHQGYE3NGliBGIDXybHZVRUhw/HzKtngA03x7gzAz8XwpcjycbSzdvSZsAoHpK9dz5EIUkr
-	9P0+6IfRjM3SI6zqWWbF1ZRbrem2r4xBzTwKppOPmRN9vcvg0Gb+2tIzG8fsFPY0n+O6XbGLU4D
-	T8y+dTOg5+FGkGrcHJKeweUj/kp4r4sV/SGZVUxVDIBbVJYec40IsG1C8PWEvYFn+vrrGe48sSH
-	ZMHbJvvBj9Jh/v9XhjjbvLhsZFfwsxmZOMVph8RSxjOWekh+LmjJ7+JNwHHLMc73oXlYwRCIHX2
-	gbmRrLazHyQLH+INCSasiRskJHO+Qc6MmKzKBfT7cNj3KORLdQybDTQOxVtWAgOuEG1x585OB8n
-	/UdPXMvpv2BD2x4vVnHQWE5HV9ReCLlgxKi0WLN5uWFJmzg94HC6OnUY5FZM3n1OunETnj3slmX
-	vR7tmJp8Di7UTmZMtTKgnzwcODhiAtinSzw==
-X-Received: by 2002:a17:90b:5624:b0:3ab:d26b:c2df with SMTP id 98e67ed59e1d1-3ae89758b67mr7781961a91.27.1793740264860;
-        Tue, 03 Nov 2026 13:11:04 -0800 (PST)
-Received: from localhost ([153.61.198.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944ee6easm336849a91.2.2026.11.03.13.11.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 13:11:04 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 21:11:03 +0000
-Message-Id: <DMLVUTB5J1RJ.2QKOUW6UB04ZM@gmail.com>
-Cc: "Johannes Weiner" <hannes@cmpxchg.org>, "Michal Hocko"
- <mhocko@kernel.org>, "Roman Gushchin" <roman.gushchin@linux.dev>, "Shakeel
- Butt" <shakeel.butt@linux.dev>, "Muchun Song" <muchun.song@linux.dev>,
- "Andrew Morton" <akpm@linux-foundation.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Hao Li" <hao.li@linux.dev>, "Christoph Lameter"
- <cl@gentwo.org>, "David Rientjes" <rientjes@google.com>, "Sebastian Andrzej
- Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>,
- "Steven Rostedt" <rostedt@goodmis.org>, <kernel-team@meta.com>,
- <cgroups@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>, "Sashiko"
- <sashiko-bot@kernel.org>
-Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
- memcg_alloc_abort_single()
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Harry Yoo" <harry@kernel.org>
-In-Reply-To: <auo5G__ac1qA9JRs@thinkstation>
-References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org> <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org> <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com> <auo5G__ac1qA9JRs@thinkstation>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=gFcCmA1c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793740254; x=1793999454;
+	bh=41vgPbCEbDbBepgZTq8SEpgvXyn7f7xFoxfkeeuQ75Q=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=gFcCmA1cChvdriRNntaMo4zvAo+LhGs3ih4cGntvSBQ5G9eW3BNxO6XF6Kjq+KgpV
+	 zI5CSwcoWVAw0Cq9yv0LIdsg1k9Tbv6VV2L+qEKK9qqG7qDLBti50lMXdiKUMdYXlA
+	 DAb0/yPJqDPdO0hMFDqfHkVLl9bPDP+hyN0EE0NkBMl6ZFTLzNdi9gEoV3ad7LhRC3
+	 YBOCdI/qEFKJRoiL+VdZ5OmBEsDBl7piYab0kPJNtrrz19350+AcW14+pnrHvNtwaf
+	 4ksyQ0hrUKuNHTmqQ2A/HpC+I3hhsJl9Xxkm/t65dTjDd1pr65Kza1a5K4U1mQAxcZ
+	 sJD2YGYaarc3w==
+Date: Tue, 03 Nov 2026 21:10:47 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>, stable@vger.kernel.org
+Subject: [PATCH v2 03/11] media: intel/ipu6: check pin bounds in ipu6_isys_fw_pin_cfg()
+Message-ID: <20261103211031.1573726-4-valerii.sokolov@pm.me>
+In-Reply-To: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+Feedback-ID: 17117034:user:proton
+X-Pm-Message-ID: 2eaf51f66b4a68faa360c4383238c399f90ab193
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,33 +64,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 12:21 PM Harry Yoo <harry@kernel.org> wrote:
-> While this is technically true, this relies too much on the current
-> implementation details and makes the code hard to follow.
+In ipu6_isys_fw_pin_cfg(), cfg->nof_input_pins and cfg->nof_output_pins
+are incremented without checking them against IPU6_MAX_IPINS and
+IPU6_MAX_OPINS. If more video nodes are attached to a firmware stream
+than the firmware ABI supports, the function writes past the end of
+cfg->input_pins[] and cfg->output_pins[] in the firmware message buffer.
 
-Fair enough. I don't insist.
+Validate cfg->nof_input_pins and cfg->nof_output_pins before
+incrementing them.
 
-> Patch 2 is an independent bugfix as-is already. We should really stop
-> open-coding slab_free_hook(). That ended up missing init_on_free handing.
+Fixes: 3c1dfb5a69cf ("media: intel/ipu6: input system video nodes and buffe=
+r queues")
+Cc: stable@vger.kernel.org
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+---
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Right. No objection to patch 2.
-With patches 2 and 3 the !allow_spin side of memcg_alloc_abort_single()
-is an open coded kfree_nolock():
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pc=
+i/intel/ipu6/ipu6-fw-isys.c
+index 56bb67869b..a36d64bcb9 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -778,10 +778,15 @@ static int ipu6_isys_fw_pin_cfg(struct ipu6_isys_vide=
+o *av,
+ =09=09ipu6_isys_get_isys_format(ipu6_isys_get_format(av), 0);
+ =09struct v4l2_rect v4l2_crop;
+ =09struct ipu6_isys *isys =3D av->isys;
+-=09int input_pins =3D cfg->nof_input_pins++;
++=09int input_pins;
+ =09int output_pins;
+ =09u32 src_stream;
+=20
++=09if (cfg->nof_input_pins >=3D IPU6_MAX_IPINS ||
++=09    cfg->nof_output_pins >=3D IPU6_MAX_OPINS)
++=09=09return -ENOSPC;
++
++=09input_pins =3D cfg->nof_input_pins++;
+ =09src_stream =3D __ipu6_isys_get_src_stream_by_src_pad(state, src_pad->in=
+dex);
+ =09fmt =3D v4l2_subdev_state_get_format(state, src_pad->index, src_stream)=
+;
+ =09v4l2_crop =3D *v4l2_subdev_state_get_crop(state, src_pad->index, src_st=
+ream);
+--=20
+2.56.0
 
-  kfree_nolock()                    memcg_alloc_abort_single(!allow_spin)
-  --------------------------------  -------------------------------------
-  memcg_slab_free_hook()            -
-  alloc_tagging_slab_free_hook()    alloc_tagging_slab_free_hook()
-  slab_free_hook(!allow_spin)       slab_free_hook(!allow_spin)
-  free_to_pcs()                     -
-  defer_free()                      defer_free()
 
-I don't insist on kfree_nolock() there,
-but can we try free_to_pcs() before defer_free() ?
-Like:
-
-	if (likely(allow_spin))
-		__slab_free(s, slab, object, object, 1, _RET_IP_);
-	else if (!can_free_to_pcs(slab) || !free_to_pcs(s, object, false))
-		defer_free(s, object);
