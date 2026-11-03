@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715606;
-	b=4rQNSmVI/fqXMWTS7PCBOrdVDYxCZAKn5AFZhl0kXafTbV+TqKir4If9c/yRe1gYAlXE
-	 m8C+q9Ti1+5VHHECo4uoO6mQi4ukdkE22riJkwqHMPHJMSDfwQiWbVvhsp6MNwltyyIYo
-	 KSj+SCIliqAKogjQym+Hxqx7wCfim/l4n23q2hIoh6gwhLNLzcA5At8SC6wMdk4SxQnOT
-	 cEvi7myGx943t17RSHeFx6wXtSt/bY1RpbrMKB6e5OQ8ywqr9/f70dUevXopmM/6KKSWt
-	 ITa7+gCGJvKTUzEaTW9NBv9+zKILKDbwOShT2ilvzwXEWkxUhRAChrnOLyun3NTzitg==
+	t=1793715641;
+	b=Lte6Ocv/0GFzCEYy1Sx44lb8wAFusq6uUotzUkz+329urcomDgJm1pRftAyvTAveJvLV
+	 jYCC0+pYaiXugd38BaNKpcP4EDsRalhWxlXEdEO70n2pX2imSJdi/2nrttnbyGH7F5Y1t
+	 zjCN8IfPazgN0hsd2EzfrVGAVGf5L6ACJDTXLfhGm1MU5H4rQ+fhGcHe7d+oG0yOlVitj
+	 RSmnJcZXV0EV4UKibI0hDypVbN6Vc9EnMmpZyQbsm27nScxZjNbgNxgSOPRsiqFAEUDAb
+	 pqdO4VFhTyqjJ9I61alUJHJ8WZuT1HZgUroj+32nWPFZVJdTuVnNQc01/BYwbzZAXqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715606;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=2l7sqExqMj4Qy8taKddk/sZMVV6oRyxAHdiPHqn7mIo=;
-	b=uhDtj8CabWnAFYpSGgBVGfj5FrLoY48TuaDm0v5deUvhzPSSp0i2pc815anzrqeFXbLj
-	 34zzuUYOj2z9Pc+w17o6xpG6JZjAvulaEpvbnmW28wbJ5+RWjnMG8OyKu0qbv2l32rYca
-	 Nl8uKIDT6d0m5fWunVbIBMm1Sjs4OD8L4ADC6+fVZOPooI/gkb1uVkEHiBaZ5CppJuzoc
-	 HMAd14jrQ6esvY3VmKvRYqEkyxMcB0snNEDVZOnhjU01Vzfc2Rai9gRl8c9BVmZaGIM4C
-	 e6tn1VHNMXPsk3QNK95hT/z9o2QhwBdBDOk+La4eoUJEv6yrPrIfVIC9UO6r83vGpFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715641;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=HVDWQILRNpxgUD+65/hwXJDdBNPyWO35184YLecShUk=;
+	b=NEvL5BevvoOnROvAV8m2KWnu/vXjxZbFzOaA3tvsguXYYAkvpVFxjNPdB6NKcSbhaVvw
+	 iV9SgYtg2pPMcqeitsMfwFM/0X85TUnEV6CJiHjwspDoQ0R252j8OT14RM0oO7THqbZku
+	 J9u5u0dyOAiFfIb03hMvc4jSxrJwy6b2XzebN/cCo80rl0hEolxJ8aHn9Yr3KA/jevqID
+	 92AU7e8AIzaKCXgdbcJCWKIAKUErXpvXKL3Ql1xTapf9gGNAJbJKiEGjVmxY0S9m6iiA8
+	 IUh0Cj4Mn/6SFzkn8HuTXTP0gf6EgrL9YpVR/Unp+7ZLBJt1IAQ7BwyDVDwG69+IXNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQtGjWn0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=FixmBj2P;
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE50606A333;
-	Tue,  3 Nov 2026 14:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6C1606D81F;
+	Tue,  3 Nov 2026 14:20:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6C1606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQtGjWn0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4241F00A16;
-	Tue,  3 Nov 2026 14:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715606;
-	bh=2l7sqExqMj4Qy8taKddk/sZMVV6oRyxAHdiPHqn7mIo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mQtGjWn0tGARjA6Qoc6usSqPUcT1HcPgH1u6G1prYFE0dIXhCQYw/6F931g8cJxSo
-	 DTAOmD0JMZW/QLCqtP/1SxhsKpobj7LlFUdLY5wGnO4JGcqv4zPpX0lJDCt0wUgeYL
-	 DpvOhBXtIyVNf/8SQNGPaFLo3NlJOX67qm//oSOc9sQl4RgMkRexshhaZAofUi2kR8
-	 0SvruGQLFWnbNtrEQuKCtx+IFmmrUXjRze/7Xs4SZNea6JlpeuZMbh28iVfPYUQ0Wy
-	 mbhDMPIZgNwQ3yHDj5NqmBpUVHF6Xiep1lpERCYMrl7EQ8w64dcCflcE/82zLvsQTP
-	 XLEdYEOBWuP0A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 030F838007CC;
-	Tue,  3 Nov 2026 14:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=FixmBj2P
+Received: by chaosmail.tech (Postfix) id 21A441CA44C;
+	Tue, 03 Nov 2026 14:20:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1793715631;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HVDWQILRNpxgUD+65/hwXJDdBNPyWO35184YLecShUk=;
+	b=FixmBj2PhO7nHV4lSI3HWzaq1cm7z/eWuIhh1XerTDsm2ah21RJ6aWQ/0og/+BcIiR+5hn
+	+738FdKk8Hh/zMLU9riDGYODGQtPcib5iYyT7+LnRyuFPVf6wBomhhRwSUrSi5e1o6I8fl
+	FiOjh5VtlFyHy/PbBxyAyICa4iBxD4Q=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Tue, 03 Nov 2026 15:20:23 +0100
+Subject: [PATCH v8 1/3] dt-bindings: usb: tps6598x: Add sn201202x/ACE3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +57,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] vsock: reject negative tv_usec in
- SO_VM_SOCKETS_CONNECT_TIMEOUT
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179371560480.1166073.16451930000365691837.git-patchwork-notify@kernel.org>
-Date: Tue, 03 Nov 2026 14:20:04 +0000
-References: <20261030064428.73930-1-phind.uet@gmail.com>
-In-Reply-To: <20261030064428.73930-1-phind.uet@gmail.com>
-To: Nguyen Dinh Phi <phind.uet@gmail.com>
-Cc: sgarzare@redhat.com, bobbyeshleman@meta.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- georgezhang@vmware.com, acking@vmware.com, dtor@vmware.com,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-tipd-ace3-v8-1-770f42421753@chaosmail.tech>
+References: <20261103-tipd-ace3-v8-0-770f42421753@chaosmail.tech>
+In-Reply-To: <20261103-tipd-ace3-v8-0-770f42421753@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793715630; l=3481;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=FTIeND6mW8/sH2AzpokvwMXi+ZsnBXSt2Qu+7LruQJM=;
+ b=8b0QYH2RSO6/PLvHLwoyHtbrSVJB1c1DQdJaBjhbG1s0pEAMF1tdexqBlD7DcRMTBYaVpioDS
+ S9KUswg9dZyADSOkQHnbAM82H15s0GLqzmXBszuMRXJ5YkBZL4o9oCJ
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Hello:
+A variant of tps6598x that is attached to a SPMI bus and is found on
+Apple devices starting from the M3 series
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+ Documentation/devicetree/bindings/usb/apple,sn201202x.yaml | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ MAINTAINERS                                                |  1 +
+ 2 files changed, 79 insertions(+)
 
-On Fri, 30 Oct 2026 14:43:50 +0800 you wrote:
-> From: Nguyen Dinh Phi <phind.uet@gmail.com>
-> 
-> The timeval validation checks tv_usec < USEC_PER_SEC but not
-> tv_usec >= 0, so a negative tv_usec makes the timeout computation
-> wrap into a bogus value, later tripping "schedule_timeout: wrong
-> timeout value" instead of being rejected.
-> 
-> [...]
+diff --git a/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+new file mode 100644
+index 000000000000..133a71bbedb7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/apple,sn201202x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments sn201202x Type-C Power Delivery controller
++
++maintainers:
++  - Sasha Finkelstein <k@chaosmail.tech>
++
++description: |
++  Texas Instruments sn201202x Type-C Power Delivery controller
++
++  A variant of tps6598x controller also known as Apple ACE3
++  present on hardware with Apple SoCs starting from the M3.
++
++properties:
++  compatible:
++    enum:
++      - apple,sn201202x
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Primary irq used for tps6598x events
++      - description: Logical register selection completed
++      - description: Standby command completed
++      - description: Wakeup command completed
++
++  interrupt-names:
++    items:
++      - const: irq
++      - const: select
++      - const: sleep
++      - const: wake
++
++  connector:
++    $ref: /schemas/connector/usb-connector.yaml#
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/spmi/spmi.h>
++    spmi {
++        #address-cells = <2>;
++        #size-cells = <0>;
++        usb-pd@c {
++            compatible = "apple,sn201202x";
++            reg = <0xc SPMI_USID>;
++            interrupts = <11 IRQ_TYPE_EDGE_RISING>,
++                         <13 IRQ_TYPE_EDGE_RISING>,
++                         <17 IRQ_TYPE_EDGE_RISING>,
++                         <19 IRQ_TYPE_EDGE_RISING>;
++            interrupt-names = "irq", "select", "sleep", "wake";
++
++            connector {
++                compatible = "usb-c-connector";
++                label = "USB-C";
++
++                port {
++                    typec_ep: endpoint {
++                        remote-endpoint = <&otg_ep>;
++                    };
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..6bf3e8f35095 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2736,6 +2736,7 @@ F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
+ F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
+ F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+ F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
++F:	Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+ F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+ F:	Documentation/hwmon/macsmc-hwmon.rst
+ F:	arch/arm64/boot/dts/apple/
 
-Here is the summary with links:
-  - vsock: reject negative tv_usec in SO_VM_SOCKETS_CONNECT_TIMEOUT
-    https://git.kernel.org/netdev/net/c/c0ef6144b4d6
-
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.56.0
 
