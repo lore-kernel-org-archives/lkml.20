@@ -1,78 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726909;
-	b=LdpORjf2E80niAYaem1oMSgoC3sdBJ7Fm8pAgsWbBhcRsYU55+c9wzv7dHaDPS8yEvnZ
-	 +M0YuCM9Z/haLD3fMF4LHZGERnwFcwprFxLQW7Mlk4uhpR+AkhVZO9ZNlhTEvdiIdKslc
-	 LZnRrZCdFV0Q5ZFACa6TXcNOh8OV/2FJnJiNytWoLlaAtpZPVWTPIfDxvGCnbHdEy6a/d
-	 4N1BuW+Zhg4kZTUBCvn7r7lmPCmZTyT99CZJCVCxJiZXyXEfFxtVF3mFpkCFkDDBERG9v
-	 M+ZWdrlV7FidqXn3GWvMrErqa287o332RCNngP1aq3LIWl3zQK5cHqlPY2kxYxtttNg==
+	t=1793726902;
+	b=dO+2si9fDW5edNOMssQ123Eu4bhKESn208K55EI2zHUIgJIR1cP6ZtxjX0gcK3L7sL3B
+	 UAuK7VgwzCePc1oF89Bf9kjyv9d+hWH4UGh97AeAQelQfWGKfLHVVOoYMu10wlzvyfYgL
+	 +2J6drCT10+3RGXiuptzOWQi9hTySsZc0QcN6aLYnQJg+3ZxAVvnSXDQ6hmHs5M3rp0lR
+	 6tJ90UQX5z5NlNXsY75CP+viT6L6V+eVxTpSO0nPjizrviw3C5dJWRXZrkzIvZ2jKRI+l
+	 hYOcJOM7W6T/P4uVTzLem1KddgZdUDu25c4Y+w5XUGwmlXW6aCOo8ryvRBMVg3qMXrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726902;
 	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:User-Agent;
-	bh=L8Kc1h3qldc7P42YJFGTJxIOgbW2dxJ/Zvhy7dmtYp8=;
-	b=f/iYwuLdyTOcsxpIZ08xje4IhgM+aIfBX6qC0/AOP3KBz8jBGPau1hSYx0b3FgGqpDlk
-	 4HZ2SsrxuvhkCSwNXSYnXr97Iyh9aFBHDZAviHzzMOhRwTRAzGLlUFLEzqyE6EXjjefFW
-	 Ldfeysja2IYGXFMtq77MVZKT/RF9LJSpg4O/djUu4Wa4txnQWu4iCrupeU3fcmECe+whV
-	 Rpeoinr50D59xk6SUHQerrPVUKYgPnwqRXYvnAp44D8aTlAiQUhc7hdwlaTRcmaTrdWG4
-	 7dl+RZEOx1gNeRMQBsTJLXQmbEQmadswBqJpqRr2M7AF2/Hhs9pJzqzJ3DtlFnN7b/Q==
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=AvPtCDS+wgmZZ4Uut5yzp2nAGAYjmT4jNq/nlnchh+c=;
+	b=tgMQ4QK5nirkX351M3iap8mSglvvruJXiS8Idp3MBbOOiBQWQIekht9SscY8cOVPSEzE
+	 5o9Zo7cwuAU80JB/O4A8LTb0tqwKQqDP2Igc8IfekozQnow71YDhXJD+g+Oj8NuJB0n9z
+	 3hFCwReqTzfIaVSKO5whTPi+mnIj97aG2qqIIoc/hObjASgSrh/gGXdn+RdPwfrMpOLxO
+	 EZd1eb+PcxsBsFHNVAPFt1Xo6Tzx7BwuOR1EgOb2tS4+IDnNXchJE0z6DoUp3Qtl6nE6T
+	 kVzZkqZvb5u4Yt9uQslDysEA6fKMvTn2AORFED6W3TrOG4NT05kbJVh0sO5TjtExPgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fW0I68FE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5RLl1IO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEDD606A31B;
-	Tue,  3 Nov 2026 17:28:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043AF606A335;
+	Tue,  3 Nov 2026 17:28:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fW0I68FE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897961F000C1;
-	Tue,  3 Nov 2026 17:28:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5RLl1IO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9510D1F00A18;
+	Tue,  3 Nov 2026 17:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793726908;
-	bh=L8Kc1h3qldc7P42YJFGTJxIOgbW2dxJ/Zvhy7dmtYp8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fW0I68FEqa5kALAl6gQ1ENqgwAmffeIoOdfLTNdKtjKMwFcZqqJWlKJV6wbSwo1BP
-	 0wWiuRCoQXUzd3g229QKBzUr/EiJlHZC1xllsY750PGh0kdWmdJEyG0x5dKExlbeXj
-	 nc4Ca8UlNyXRdkr3s+Qkidcf1MCQqKBo8ZRy7i4HeROMsjivJUeELslN+wvGZf/eaC
-	 4Qj5GVLq3Oz9rByFkfKXsBCNnODyDcLQxhOVDwyd8HwpkdsaG6O5+WYHzoMb7QVAxu
-	 fDOKVNZJafPMiaQco7NfKYp3R9XQh3MvJ/NWju9EJlTzDUz3uT8NHxRhyajEl8Ixj9
-	 0DDscGO/NseuQ==
-Received: by pali.im (Postfix)
-	id 47E8F809; Tue,  3 Nov 2026 18:28:25 +0100 (CET)
-Date: Tue, 3 Nov 2026 18:28:25 +0100
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: koraynilay <koray.fra@gmail.com>
-Cc: Amir Goldstein <amir73il@gmail.com>, Andreas Dilger <adilger@dilger.ca>,
-	David Sterba <dsterba@suse.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>,
-	Yuezhang Mo <yuezhang.mo@sony.com>, Chuck Lever <cel@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Sean Smith <defendthedisabled@gmail.com>,
-	Andrey Albershteyn <aalbersh@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>, linux-btrfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	exfat@lists.linux.dev, ntfs3@lists.linux.dev,
-	linux-api@vger.kernel.org
-Subject: Re: [RFC PATCH v3 3/5] ntfs3: make crtime user-settable using ptime
-Message-ID: <20261103172825.zm22jhwutzhehfmj@pali>
-References: <20261101015551.786044-4-koray.fra@gmail.com>
- <20261102142452.d6jkitgdeuquy23i@pali>
- <CAOQ4uxhQ3uhq6s+4deEJAQV5iy8QZoucojR58_dUNYrnjt_yvA@mail.gmail.com>
- <20261102153845.d67wlorqcbe3c2w7@pali>
- <DD1A08F1-8F47-4612-A807-AEA39461AF9B@dilger.ca>
- <CAOQ4uxh8EDX5HzFFKWv10-mHYVcSC1zXN+BS2qCm5cTMq=GOCA@mail.gmail.com>
- <20261103094906.n55n5dhrpct5ykmw@pali>
- <CAOQ4uxizEdR-MauSMOTfVcdxnuSMkrEuPth3nm3MsZuhcN5vjA@mail.gmail.com>
- <20261103152515.svzvdugqxrwpz5ju@pali>
- <DMLQOHTQ5UV5.32Z3QPMCWLPOS@gmail.com>
+	s=k20260515; t=1793726901;
+	bh=AvPtCDS+wgmZZ4Uut5yzp2nAGAYjmT4jNq/nlnchh+c=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Q5RLl1IOCeOqF/3QryGc+LTmZ53qvHjrLXbIGCf1IpGaOC/SMbAn0WhUPJ18kK8rY
+	 dAB1pa7eXXSANGSD/igvETU18G+E1RRDX2w6xWPyrr8nVeBpDI8BSfelH4vvk1fK4x
+	 +WrpTMsqDZt3sHh+pIhdCpzHkvxrN1KZSh6R6/vau3uelWs+bi9veE+MAZITUEO3NR
+	 39z5ma2AsQYJbS3ApxraHpkEUacb0Mus5EzlV9RYyxhVX4N7a3hryAfEB7aBJHcjwn
+	 gQrKXjhaXITzrhZ0a+dM5V06e3kr/tYVp8C8TpTu6UueGDc5hCZc2crjeIa5mz19UG
+	 eX8eWBj/7ecFg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 53C8ACE0C97; Tue,  3 Nov 2026 09:28:21 -0800 (PST)
+Date: Tue, 3 Nov 2026 09:28:21 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Gary Guo <gary@garyguo.net>,
+	Kunwu Chan <kunwu.chan@gmail.com>, rcu@vger.kernel.org,
+	lkmm@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH -rcu/dev 1/4] hazptrtorture: Release all deferred hazard
+ pointers before stopping
+Message-ID: <50169ee7-032e-4da7-95fc-0594f98ab92f@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261027163811.2470569-1-parri.andrea@gmail.com>
+ <20261027163811.2470569-2-parri.andrea@gmail.com>
+ <eb59edbb-c6e8-49c6-a426-c55cdb792853@paulmck-laptop>
+ <9da03ed6-fea2-44df-8aee-f7a61a1d35ce@paulmck-laptop>
+ <178eaa0b-e7bd-455e-ac3c-f1115d731a52@paulmck-laptop>
+ <359B417A-8412-45E0-A061-C4A11E606F0E@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,214 +76,305 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DMLQOHTQ5UV5.32Z3QPMCWLPOS@gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <359B417A-8412-45E0-A061-C4A11E606F0E@mainlining.org>
 
-On Tuesday 03 November 2026 18:07:43 koraynilay wrote:
-> On Tue Nov 3, 2026 at 4:25 PM CET, Pali Rohár wrote:
-> > On Tuesday 03 November 2026 16:10:24 Amir Goldstein wrote:
-> >> On Tue, Nov 3, 2026 at 10:49 AM Pali Rohár <pali@kernel.org> wrote:
-> >> >
-> >> > On Tuesday 03 November 2026 09:23:32 Amir Goldstein wrote:
-> >> > > On Tue, Nov 3, 2026 at 2:19 AM Andreas Dilger <adilger@dilger.ca> wrote:
-> >> > > >
-> >> > > > On Nov 2, 2026, at 09:38, Pali Rohár <pali@kernel.org> wrote:
-> >> > > > >
-> >> > > > > On Monday 02 November 2026 16:09:41 Amir Goldstein wrote:
-> >> > > > >> On Mon, Nov 2, 2026 at 3:24 PM Pali Rohár <pali@kernel.org> wrote:
-> >> > > > >>>
-> >> > > > >>> On Sunday 01 November 2026 02:55:49 koraynilay wrote:
-> >> > > > >>>> @@ -154,6 +158,11 @@ int ntfs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
-> >> > > > >>>>      if (flags & FS_APPEND_FL)
-> >> > > > >>>>              new_fl |= S_APPEND;
-> >> > > > >>>>
-> >> > > > >>>> +     if (fa->fsx_xflags & FS_XFLAG_PTIME) {
-> >> > > > >>>> +             ni->i_crtime.tv_sec = fa->fsx_ptime.tv_sec;
-> >> > > > >>>> +             ni->i_crtime.tv_nsec = fa->fsx_ptime.tv_nsec;
-> >> > > > >>>> +     }
-> >> > > > >>>> +
-> >> > > > >>>>      inode_set_flags(inode, new_fl, S_IMMUTABLE | S_APPEND);
-> >> > > > >>>>
-> >> > > > >>>>      /* Save nodump flag to return in ntfs_getattr. */
-> >> > > > >>>> @@ -275,8 +284,9 @@ int ntfs_getattr(const struct mnt_idmap *idmap, const struct path *path,
-> >> > > > >>>>      if (unlikely(is_bad_ni(ni)))
-> >> > > > >>>>              return -EINVAL;
-> >> > > > >>>>
-> >> > > > >>>> -     stat->result_mask |= STATX_BTIME;
-> >> > > > >>>> +     stat->result_mask |= (STATX_BTIME | STATX_PTIME);
-> >> > > > >>>>      stat->btime = ni->i_crtime;
-> >> > > > >>>> +     stat->ptime = ni->i_crtime;
-> >> > > > >>>
-> >> > > > >>> For me this patch looks dangerous. Somehow I would expect that the
-> >> > > > >>> "btime" will never change for existing inode.
-> >> > > > >>>
-> >> > > > >>> But because the ptime is mapped to i_crtime and ptime is settable from
-> >> > > > >>> userspace, with this patch it is directly possible to change btime.
-> >> > > > >>>
-> >> > > > >>>
-> >> > > > >>>
-> >> > > > >>> I was thinking more about it... Is not this just misunderstanding of how
-> >> > > > >>> the security model around the times is working on different systems?
-> >> > > > >>> Because on NTFS there is stored just one field which says when the file
-> >> > > > >>> was created. There are not two fields like "time set by user and time
-> >> > > > >>> set by system".
-> >> > > > >>>
-> >> > > > >>> Windows security model allows anybody with WRITE_ATTRIBUTES access to
-> >> > > > >>> change that create time. Linux security model does not allow to change it.
-> >> > > > >>>
-> >> > > > >>> NTFS in this view is just a filesystem like any other (ext4, btrfs, ...).
-> >> > > > >>> In my opinion if the ext4 or btrfs filesystem is correctly implemented
-> >> > > > >>> on Windows systems, then Windows security model should handle it in the
-> >> > > > >>> same way like for NTFS or exFAT. So if something grants WRITE_ATTRIBUTES
-> >> > > > >>> access, then Windows should allow to change also btime on ext4 or btrfs.
-> >> > > > >>>
-> >> > > > >>>
-> >> > > > >>>
-> >> > > > >>> On the other hand, I understand the use case to have two creation times.
-> >> > > > >>> One time which would never be changed and could be used for any kind of
-> >> > > > >>> atomic / synchronization by userspace application logic (this btime).
-> >> > > > >>> And another time for human which can be changed at any time to any value
-> >> > > > >>> which user wants (this ptime).
-> >> > > > >>>
-> >> > > > >>> In any case, I would suggest that filesystem driver would not report to
-> >> > > > >>> userspace unsupported values and would not try to invent other values
-> >> > > > >>> and lying about them.
-> >> > > > >>
-> >> > > > >> But all those fs with mutable creation time already report it with STATX_BTIME
-> >> > > > >> so what can we do about this?
-> >> > > > >
-> >> > > > > Well, what I wanted above to point out is that the "mutability" of
-> >> > > > > creation time is not feature of filesystem, but in my opinion rather
-> >> > > > > property of the security model on the running operating system.
-> >> > > > >
-> >> > > > > Maybe better question is: how ext4 btimes differs from the ntfs btime?
-> >> > > > > In my opinion there is no much difference, both of them has meaning
-> >> > > > > "time when was the file created".
-> >> > > > >
-> >> > > > >> If userspace requests both STATX_BTIME|STATX_PTIME in mask arg,
-> >> > > > >> those fs could technically return only STATX_PTIME and it should not regress
-> >> > > > >> existing programs.
-> >> > > > >>
-> >> > > > >> But this is still a bit surprising behavior is it not?
-> >> > > > >>
-> >> > > > >> Thanks,
-> >> > > > >> Amir.
-> >> > > > >
-> >> > > > > I'm not sure what to do with it.
-> >> > > > >
-> >> > > > > If we allow to change btime of ntfs then for consistency we should also
-> >> > > > > allow to change btime of ext4.
-> >> > > > >
-> >> > > > > Maybe another idea... define new capability which would allow to change
-> >> > > > > btime (on any filesystem)? This would at least make the consistency.
-> >> > >
-> >> > > Pali, I think this is a very bad idea.
-> >> >
-> >> > Ok, if the point is that ext4 btime must stay immutable then it is a bad idea.
-> >> >
-> >> > > This has nothing to do with capabilities.
-> >> > > The Windows and MacOS filesystems have allowed setting their
-> >> > > "creation time" forever
-> >> >
-> >> > FreeBSD for some fs allow it too (see below).
-> >> >
-> >> > > and for all the other Linux filesystems that had
-> >> > > "birth time" it was immutable, so let's not mix filesystem features
-> >> > > with capabilities.
-> >> >
-> >> > I think that it is important to first define behavior and invariants of
-> >> > these "btime" and "ptime" kernel properties.
-> >> >
-> >> > If we want to be consistent then there are two possible options:
-> >> >
-> >> > 1. If we choose that the STATX_BTIME is immutable then no kernel fs
-> >> >    driver should allow to change.
-> >> >
-> >> > 2. If we choose that the "NTFS create time" is reported via STATX_BTIME
-> >> >    then STATX_BTIME is not immutable at all.
-> >> >
-> >> > These two options cannot be chosen together because option 1 would
-> >> > implie that the modifiable "NTFS create time" cannot be reported over
-> >> > STATX_BTIME.
-> >> >
-> >> > We are have currently STATX_BTIME immutable and "NTFS create time"
-> >> > reported via STATX_BTIME.
-> >> >
-> >> > If we want to stay _consistent_ across fs drivers then adding API for
-> >> > changing "NTFS create time" would break one of those two things.
-> >> >
-> >> > In my opinion we should stay consistent across filesystem drivers and
-> >> > provide unified behavior of APIs independently of used filesystem.
-> >> > Otherwise userspace applications would have to write fs specific code
-> >> > for doing their use cases (and we can stay with fs-specific xattrs, no
-> >> > need to create unified APIs).
-> >> >
-> >> > Does it make sense? Or it is still a bad idea to think about it in this way?
-> >> >
+On Tue, Nov 03, 2026 at 11:36:42AM +0000, Bradley Morgan wrote:
+> On 3 November 2026 04:50:51 GMT, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >On Wed, Oct 28, 2026 at 04:51:12PM -0700, Paul E. McKenney wrote:
+> >> On Wed, Oct 28, 2026 at 10:26:18AM -0700, Paul E. McKenney wrote:
+> >> > On Tue, Oct 27, 2026 at 05:38:03PM +0100, Andrea Parri wrote:
+> >> > > hazptrtorture can hang at shutdown when deferral is enabled, as in
+> >the
+> >> > > PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on
+> >it
+> >> > > never returns, until kvm.sh kills QEMU:
+> >> > > 
+> >> > >     [ 1800.899278] hazptr-torture: Stopping
+> >hazptr_torture_do_pending task
+> >> > >     [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer
+> >task
+> >> > >     [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436
+> >HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff:
+> >48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq:
+> >5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139
+> >relundefer 714114
+> >> > >     [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
+> >> > > 
+> >> > >     Summary: Potential hang (QEMU killed)
+> >> > >     !!! PID 1393523 hung at 1980 vs. 1800 seconds
+> >> > > 
+> >> > > hazptr_torture_cleanup() stops the do_pending kthread first, then
+> >the
+> >> > > writer, then the readers.  Once torture_must_stop(), do_pending
+> >makes
+> >> > > one last pass and leaves its loop, but unless stutter_will_wait(),
+> >that
+> >> > > pass releases the deferred hazard pointers of a single CPU.
+> >> > > 
+> >> > > Readers can also still defer after that pass, from the iteration
+> >they
+> >> > > are in when torture_must_stop() becomes true.  Readers that have
+> >left
+> >> > > their loop hold no hazard pointer, so the writer waits on one of the
+> >25
+> >> > > deferred hazard pointers above (reldefer - relundefer) that nothing
+> >> > > releases.
+> >> > > 
+> >> > > Stop the readers before do_pending, and do_pending before the
+> >writer.
+> >> > > do_pending still leaves its loop at torture_must_stop(), and now
+> >> > > releases the deferred hazard pointers of all CPUs once
+> >> > > torture_kthread_stopping() returns, that is, once
+> >> > > hazptr_torture_cleanup() stops it, after the readers.  The writer
+> >can
+> >> > > still wait in ->sync(), but only until then.
+> >> > > 
+> >> > > This should be safe because readers defer only from their own loop,
+> >> > > which they have left once torture_stop_kthread() returns for them,
+> >and
+> >> > > the hazptr_torture_acquire() IPI runs synchronously within that
+> >loop.
+> >> > > The readers do not need the writer to stop: they leave their loop at
+> >> > > torture_must_stop(), after at most one stutter_wait().
+> >> > > 
+> >> > > do_pending keeps the torture_must_stop() check before its sleep.  A
+> >> > > kthread_stop() that comes after that check and before the sleep
+> >starts
+> >> > > still delays do_pending's exit by a full kthread_do_pending_ms
+> >sleep,
+> >> > > however long that is.  With the readers stopped first, this happens
+> >> > > only if do_pending passed the check before the test began stopping
+> >and
+> >> > > had not yet gone to sleep when kthread_stop() came, after all the
+> >> > > readers had stopped.
+> >> > > 
+> >> > > With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
+> >> > > with "End of test: SUCCESS" and with as many hazard pointers
+> >released
+> >> > > from the pending lists as were deferred (reldefer: 983727 relundefer
+> >> > > 983727).
+> >> > > 
+> >> > > The hang was found with the help of an LLM.
+> >> > > 
+> >> > > Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred
+> >hazard pointers")
+> >> > > Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> >> > 
+> >> > Again, thank you!
+> >> > 
+> >> > Please see the question below.
+> >> > 
+> >> > 							Thanx, Paul
+> >> > 
+> >> > > ---
+> >> > >  kernel/rcu/hazptrtorture.c | 13 +++++++++++--
+> >> > >  1 file changed, 11 insertions(+), 2 deletions(-)
+> >> > > 
+> >> > > diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+> >> > > index 7c8b5899fb011..c46083a8af093 100644
+> >> > > --- a/kernel/rcu/hazptrtorture.c
+> >> > > +++ b/kernel/rcu/hazptrtorture.c
+> >> > > @@ -560,6 +560,9 @@ static int hazptr_torture_do_pending(void *arg)
+> >> > >  		// Omit stutter_wait() because this function needs to do cleanup.
+> >> > >  	} while (!torture_must_stop());
+> >> > 
+> >> > The torture_must_stop() function expands to this condition:
+> >> > 
+> >> > 	torture_must_stop_irq() || kthread_should_stop()
+> >> > 
+> >> > The torture_must_stop_irq() function expands to this condition:
+> >> > 
+> >> > 	READ_ONCE(fullstop) != FULLSTOP_DONTSTOP
+> >> > 
+> >> > And the fullstop variable is set to FULLSTOP_RMMOD by
+> >> > torture_cleanup_begin() (unless it has already been set to
+> >> > FULLSTOP_SHUTDOWN).
+> >> > 
+> >> > And torture_cleanup_begin() is invoked by hazptr_torture_cleanup()
+> >> > right at the beginning, before reaching any of the calls to
+> >> > torture_stop_kthread().
+> >> > 
+> >> > So doesn't the above torture_must_stop() instead need to be
+> >> > kthread_should_stop()?
+> >> > 
+> >> > As it is, hazptr_torture_do_pending() will still stop before the
+> >> > hazptr_torture_reader() instances do, correct?
+> >> > 
+> >> > Or am I missing something subtle here?
 > >> 
-> >> My "bad idea" comment was only referring to capability.
+> >> Well, one thing that I am missing is that changing from
+> >> torture_must_stop() to kthread_should_stop() might cause trouble
+> >> if rcutorture execution is terminated by system shutdown.
 > >> 
-> >> w.r.t the STATX_BTIME ambiguity there is another option we may want to
-> >> consider: Don't publish STATX_PTIME via statx() at all.
+> >> So my next suggestion is that this be added just after
+> >> hazptr_torture_reader() exits its do-while loop:
 > >> 
-> >> One of the reasons that developers have pointed to fileattr as the right API
-> >> to host the creation time as well as the DOS attributes is that it has a history
-> >> of carrying filesystem specific attributes.
+> >> 	for_each_possible_cpu(cpu)
+> >> 		hazptr_torture_do_one_pending(cpu, &rand);
 > >> 
-> >> Not every attribute available in lsattr is also available in statx().
-> >> If projid is not available in statx() then the settable creation time
-> >> doesn't need to be in statx() either.
-> >> 
-> >> The file_[sg]etattr() syscalls provides a symmetric API to set/get it.
-> >> 
-> >> The same could be true to HIDDEN/ARCHIVE/SYSTEM flags if those
-> >> are added to fileattr.
-> >> 
-> >> Do we need to stop publishing NTFS creation time in STATX_BTIME?
-> >> I think it's too late for that and nobody is going to gain anything
-> >> from doing that.
-> >> 
-> >> Thanks,
-> >> Amir.
+> >> Thoughts?
 > >
-> > Kernel NTFS driver changed more times, so I would not say that it is too
-> > late to stop publishing NTFS creation time in STATX_BTIME, and start
-> > publishing it in STATX_PTIME.
+> >How about like this?
 > >
+> >						Thanx, Paul
 > >
-> > Anyway, I have another idea (if stopping publishing of NTFS is not possible):
-> > Let fs drivers to fill ptime and btime members only when fs itself
-> > supports particular field (ext4 would fill only btime, nfts would fill
-> > only ptime; btrfs with patch would fill both). For userspace STATX_BTIME
-> > request, VFS will copy ptime to btime if the btime is not provided.
-> > For userspace STATX_PTIME request or STATX_BTIME|STATX_PTIME request,
-> > the VFS will not do this copy. Or We can introduce new flag
-> > STATX_NO_FAKE_BTIME (just random name for now) and this would cause that
-> > the ptime would not be copied to btime (so it would not be needed to
-> > misuse STATX_BTIME|STATX_PTIME). The logic would be unified in VFS
-> > layer, not in the fs drivers.
+> >------------------------------------------------------------------------
+> >
+> >commit 863f3c68c5dce601456368a9152de0239421cef9
+> >Author: Andrea Parri <parri.andrea@gmail.com>
+> >Date:   Tue Oct 27 17:38:03 2026 +0100
+> >
+> >    hazptrtorture: Release all deferred hazard pointers before stopping
+> >    
+> >    hazptrtorture can hang at shutdown when deferral is enabled, as in the
+> >    PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on it
+> >    never returns, until kvm.sh kills QEMU:
+> >    
+> >        [ 1800.899278] hazptr-torture: Stopping hazptr_torture_do_pending task
+> >        [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer task
+> >        [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436 HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff: 48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq: 5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139 relundefer 714114
+> >        [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
+> >    
+> >        Summary: Potential hang (QEMU killed)
+> >        !!! PID 1393523 hung at 1980 vs. 1800 seconds
+> >    
+> >    hazptr_torture_cleanup() stops the kthreads in random order, which
+> >    means that there could be a reader thread still running after
+> >    the do_pending kthread does its last cleanup pass.  If the writer
+> >    is still running at that point, any remaining deferred hazard
+> >    pointers will never be cleaned up and the writer can wait forever
+> >    if it is unlucky enough to be waiting on one of the deferred
+> >    hazard poiners.
+> >    
+> >    Therefore, make each reader clean up all deferred hazard pointers,
+> >    which means that after the last reader finishes, there can no
+> >    longer be any deferred hazard pointers, which means that the
+> >    writer can terminate promptly.
+> >    
+> >    With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
+> >    with "End of test: SUCCESS" and with as many hazard pointers released
+> >    from the pending lists as were deferred (reldefer: 983727 relundefer
+> >    983727).
+> >    
+> >    The hang was found with the help of an LLM.
+> >    
+> >    [ paulmck: Make readers release deferred hazard pointers. ]
+> >    
+> >    Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
+> >    Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> >    Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> >
+> >diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+> >index 7c8b5899fb011..3059ccb01979d 100644
+> >--- a/kernel/rcu/hazptrtorture.c
+> >+++ b/kernel/rcu/hazptrtorture.c
+> >@@ -449,6 +449,28 @@ static void hazptr_torture_defer(struct hazptr_pending *hppp, struct torture_ran
+> > 	atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_defer, raw_smp_processor_id()));
+> > }
+> > 
+> >+/*
+> >+ * Release the specified CPU's set of deferred/pending hazard pointers.
+> >+ */
+> >+static void hazptr_torture_do_one_pending(int cpu, struct torture_random_state *trsp)
+> >+{
+> >+	struct hazptr_pending *hppp;
+> >+	struct hazptr_pending *hppp1;
+> >+	struct llist_head *llhp;
+> >+	struct llist_node *llnp;
+> >+
+> >+	llhp = per_cpu_ptr(&hazptr_pending, cpu);
+> >+	llnp = llist_del_all(llhp);
+> >+	if (!llnp)
+> >+		return;
+> >+	llist_for_each_entry_safe(hppp, hppp1, llnp, hpp_node) {
+> >+		hazptr_torture_reader_tail(hppp, trsp);
+> >+		atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_undefer,
+> >+					    raw_smp_processor_id()));
+> >+		kfree(hppp);
+> >+	}
+> >+}
+> >+
+> > /*
+> >  * Hazard-pointer torture reader kthread.  Repeatedly dereferences
+> >  * hazptr_torture_current, incrementing the corresponding element of the
+> >@@ -513,31 +535,13 @@ static int hazptr_torture_reader(void *arg)
+> > 		stutter_wait("hazptr_torture_reader");
+> > 	} while (!torture_must_stop());
+> > 	torture_kthread_stopping("hazptr_torture_reader");
+> >+	// Each reader clears all CPUs, so nothing is left after all
+> >+	// readers exit their for_each_possible_cpu() loops.
+> >+	for_each_possible_cpu(cpu)
+> >+		hazptr_torture_do_one_pending(cpu, &rand);
+> > 	return 0;
+> > }
+> > 
+> >-/*
+> >- * Release the specified CPU's set of deferred/pending hazard pointers.
+> >- */
+> >-static void hazptr_torture_do_one_pending(int cpu, struct torture_random_state *trsp)
+> >-{
+> >-	struct hazptr_pending *hppp;
+> >-	struct hazptr_pending *hppp1;
+> >-	struct llist_head *llhp;
+> >-	struct llist_node *llnp;
+> >-
+> >-	llhp = per_cpu_ptr(&hazptr_pending, cpu);
+> >-	llnp = llist_del_all(llhp);
+> >-	if (!llnp)
+> >-		return;
+> >-	llist_for_each_entry_safe(hppp, hppp1, llnp, hpp_node) {
+> >-		hazptr_torture_reader_tail(hppp, trsp);
+> >-		atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_undefer,
+> >-					    raw_smp_processor_id()));
+> >-		kfree(hppp);
+> >-	}
+> >-}
+> >-
+> > /*
+> >  * Hazard-pointer release of deferred/pending hazard pointers.
+> >  */
+> >@@ -560,6 +564,7 @@ static int hazptr_torture_do_pending(void *arg)
+> > 		// Omit stutter_wait() because this function needs to do cleanup.
+> > 	} while (!torture_must_stop());
+> > 	torture_kthread_stopping("hazptr_torture_do_pending");
+> >+	// Readers clean up after themselves before exit.
+> > 	return 0;
+> > }
+> > 
+> >@@ -773,9 +778,7 @@ hazptr_torture_cleanup(void)
+> > 		return;
+> > 	}
+> > 
+> >-	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+> > 	torture_stop_kthread(hazptr_torture_preempt, preempt_task);
+> >-	torture_stop_kthread(hazptr_torture_writer, writer_task);
+> > 
+> > 	if (reader_tasks) {
+> > 		for (i = 0; i < nrealreaders; i++)
+> >@@ -785,6 +788,14 @@ hazptr_torture_cleanup(void)
+> > 		reader_tasks = NULL;
+> > 	}
+> > 
+> >+	/*
+> >+	 * Stop the writer only after do_pending, and do_pending only after
+> >+	 * the readers: the writer may be waiting on hazard pointers that
+> >+	 * readers deferred, which do_pending releases once they stopped.
+> >+	 */
+> >+	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+> >+	torture_stop_kthread(hazptr_torture_writer, writer_task);
+> >+
+> > 	torture_stop_kthread(hazptr_torture_stats, stats_task);
+> > 
+> > 	/* Do torture-type-specific cleanup operations.  */
 > 
-> I feel like this would be a bit of an over-complication/not clear
-> enough, as we would merge a lot more of the meaning of btime and ptime,
-
-Yes, this would need a very clear and unambiguous documentation because
-otherwise it would not be clear for developers how to use such API.
-
-> while you would never return mtime when userspace asks for  ctime (I
-> think?).
-
-Yes, this is another argument why to rather stop publishing NTFS
-creation time in STATX_BTIME (of course if it is possible).
-
-> But maybe it could make sense as a compromise to not break userspace too
-> much.
 > 
-> 
-> Best,
-> koraynilay
+> This looks okay to me.
 
-Every compromise has something good and something bad.
-I'm just trying to brainstorm ideas and possible solutions.
+Glad you like it, but I do need to remove the extraneous changes.
+
+Something for later today.  ;-)
+
+							Thanx, Paul
