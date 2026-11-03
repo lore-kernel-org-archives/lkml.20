@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793740136;
-	b=gEEDnSRoaSRS+JcbzYR+dee3iZECVOvl/k3bm9uYhZvR0nxf2Z4YScCEiyAPG8EcHn4W
-	 4LXwV/0NkDExpd+/VG8JUETFCAXoC43l3VhR+2DD0kEB+R2FijbYoqCGxAGtLjJadUTW4
-	 Sj/+ulf4pIWsPJMTY0s4fSIQlJGNwk1r317ky7nNlUfMDwX7anA7dZ3t+Mm5EIF650a17
-	 SVvOA7rrFLGfsbcYt4hN+jToRs+gA7R9zUR7bi7tB85XikiL5G4g4vmZK3orSb0G+egkZ
-	 2HoFLBhyCS7qevFP9s1l4GOjwhoqPUYoMfvXEBNtkfOTzudIB8ICuAEs2BV0c5D7kjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740136;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SHYGP7YdDrluRd4VWQyjYbq8NHSmfkSt9LBV7zxwYfU=;
-	b=VT5FaSiGjdcTLp1L1kauARMDXBocjUaWnFwwN7WMMKRKRG0Uzl6aMikAFahsAdws5pBm
-	 unvQX5xzeWU51FVY+S19fR1b+WF+VcIYm+rVEfxgx2CV8w5jyXTNM43f8wmzmi3OGVNU0
-	 KLsXlDlr5dTywMNFqITJyK+TvrdBPQ65WN4yuLm8Ndrd7bEC24RUd13EXSs0dkc9JKX/H
-	 Y36mKKNTpgxSr+ciyF+Zy3+G65qREcApWF+hFSh0XENxh8VxmBq1Z1qkhywfixqYmM6Dh
-	 A8rrJwbPJ4e0xaNAenhShE9jvO7xOpsvT9IU5Wc/uF5AGGOLWtc6AS4Ax7tuOgqnBfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwhpBTM5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793740193;
+	b=rjb1/Vj8vE4LwPdM0liTBSx7G+WdAUYvh+FVAnC/zQif54qt3jfyLFJ4irSUqmkWgSJQ
+	 Xpwb9iMyN9z0kuRE/svemXGPDVonXLaZRDu3dfIsRsbc1Hv7emSwm9zxMUfTmfciBE5Ai
+	 CKfU+js7VJYUXdnaPpQWzcwyapeN90meGKSxHWT8Y7PRRmwZdU87gvK9NCb77SIt07oAh
+	 AGsQ6Xzp7Wv5yF4H4Czitc3k1kCLB21UwGP1QUXL+WJJsXT1QcDkDTCGOi45vJUVs6TL2
+	 cgx1gLDmROgaqPNHclwLRZpKDIodmNkICvSKVPPs0xR5U762Hw+WaUP0uRPLZLW6Aug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740193;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=L8hrw8BTqeQMi8RBhrOpxHodTpU949C3/zsJFzvh1l0=;
+	b=D4f7d91eyHFLWi+L6oyx0LMe50TY6Lq9GAb/fRE10dmrz/KPtH60dY8Mrx+ZE9a7qXYk
+	 gZWSOCH4vUyOtvSuoTKdkMOhidJ3NUEh3N84fkMOvLm9zSgOjhoyj964q0O630loIRzpY
+	 Sr/9x6dTsBfquQDqgLrAl99vBcp/QrsCut6SUlmIv52Xn9it6+2c0DvswmF2+mxMzb5hv
+	 oQBYbRRi9UIlAhd2oRxwNNcCeMgOGuQMkQj1w22sXaHg9/HbKgk4k3d5W/7DurgLcvjtK
+	 r13iP+d40VdHE9l3L81VO8C02Rl0U/Gxh1nmH2uIWSAG3jeB0NkAsDbu8wC8Yyc9pRw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZCicF8;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB24606A31B;
-	Tue,  3 Nov 2026 21:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B984606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwhpBTM5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793740135;
-	b=VjuKyfetme59n3j4S0pM/xKGZzcwidq2leVyhd5lk1p63OkEV8bfLNNQ30+bkXnMljH6
-	 /fiY9LyKc5fZXs5xIvQ7Y1EN4akjTNG0FPjc2nmMNH+0LegSBO6lUQNfTZ5ziAFa3/1bA
-	 WQg8hWhvy0e8koaW1TXTuiCcXguCigOIY8laOi2ojFvo+9D/Rus3aQx2/hLOw/CraJ34J
-	 +8/Z5hrHWndCqHuAGxwFialTzLT8eM4CS9nckLfAm7cQcyTtL6Uq8TKQzs2ERAMfvRPkD
-	 XiCVHsEMbYSRyIAw5M8Fz/K2if0NWFvdmCgNBx3RswImDGLdeMeOJa/H3AhE4Pr1GqQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793740135;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SHYGP7YdDrluRd4VWQyjYbq8NHSmfkSt9LBV7zxwYfU=;
-	b=yHiC4T2WH6/Iy49TZUy77BaltArbJ8mcxISUT+F10o6PA5GRsEQSyiAFlFNfy8JJWmbT
-	 5v3zKtMWyLMCJgF4hZfBFdpoFsVwwj0/92SBo5tbf1Y5I1z7vtZ8pkl7aa5TtHJ9GHVbz
-	 xwDZj4zqlzXtVMGZizoEjphQMD5pApVe9OwULJ26ZLENaEZ0r0WLtMP7286a2OIKKLAIi
-	 h2Ya2mgTNfMVsn0NTvJsWuhEjTwb/RBy7cnhwKip34Oc5pW5LiE4Q6neMvW3yvkScelIi
-	 e/VVQP3rE/XRhAkDrNrBGwHFTkOfGn1yjg7b5cUb9Yu6oYRNlxzLw2XmSTs3MwYutMQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 03E0C1F000C1;
-	Tue,  3 Nov 2026 21:08:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZCicF8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFE9E1F0093A;
+	Tue,  3 Nov 2026 21:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793740135;
-	bh=SHYGP7YdDrluRd4VWQyjYbq8NHSmfkSt9LBV7zxwYfU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=IwhpBTM5K54K1iQEs/6DNB7oaPizr7IWrEaG0RdCtObNHrbuJXRvnxwEnSKePVtG0
-	 mN7Z87+gkRDlmkgsIWIxd5UDLwM/UMrEIFA4wXiJJZTLQvyhQl9HGZ3HFe8pffxVBd
-	 cmE8CAMbae6Lg5V+8B3eKigK+KnMuu85NF11/T7kZHTL9X6g3L9zb9kY9VAdrPnuPy
-	 U3WgiEvRTCv78kjphZzZN7IKF2jhaPSGB45RJbCc6s48squhl1gmUs+J5O6jijCg8K
-	 f80t0oFQPuICwVLjEK619RiPoCR6wCF8scLyTabmfaD2KJ96JWjQdrqguhDSFQVFdm
-	 YC9jjm0fSiAwA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5450C46B12;
-	Tue,  3 Nov 2026 21:08:54 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 16:08:54 -0500
-Subject: [PATCH v2] mm/memory-failure: set PG_hwpoison of a non-hugetlb
- page under hugetlb_lock
+	s=k20260515; t=1793740193;
+	bh=L8hrw8BTqeQMi8RBhrOpxHodTpU949C3/zsJFzvh1l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ggZCicF8qVpL2p8CxZxhAgqd1m6OOdaB8MzPqmx4LwwFXvXxihrS9pAiiTOE+8eXe
+	 zInNJAW+I11QJdjffta61+KcEDmfgXApxE6i7DF0WKHsIJfjR40/s2rxFrQFg3Qi+5
+	 sdJl0U4HRp6QVEFcEhfCo/MskkPWCJHWtoor0/9KNbs0AbN6utrpUkCSp5XrR5CB5C
+	 h8AkN/E+Tx84Zsyf969MZ36ySXkDFZ45zgPXzLKB7CRSvVQdkD0KEk4yfWDKdfMr2k
+	 Oi62dhKdRbdSiQtzUYol6Mf5Kr5iSWOhYyBd/Nd6bEOmCAKuFrBCvCe7RbraF6bJ/V
+	 6Q5Q9iB6PHuQA==
+Date: Tue, 3 Nov 2026 21:09:48 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
+	torvalds@linux-foundation.org, olof@lixom.net,
+	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
+	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] riscv: build kernel atomics from LR/SC when Zaamo
+ is disabled
+Message-ID: <20261103-distance-audio-9b6aac0b1b4b@spud>
+References: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
+ <20261101-lrsc-only-v4-1-4e1d010463b3@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,216 +67,318 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-hwpoison-hugetlb-ro-v2-1-43876fc9eef1@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4V0bU2nQoOu/A/Doi0DHYOUtBQ1h
- H+Xx9blSe49Z2YRA2Fkt2xmASeK5PsV5Clj1um+RU71ykwKqUBcBHfvwVP0PXepxbEzPHheNGV
- ZglZCN1e2PoeADX1266M6OCbzRDtuqm3hKI4+fPfsBNvuKICAv4UJOHCdy1rlANao4m59l16G9
- BnrxKplWX6iq0beywAAAA==
-X-Change-ID: 20261030-hwpoison-hugetlb-ro-5f8881a60af9
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Miaohe Lin <linmiaohe@huawei.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Kiryl Shutsemau <kas@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, 
- Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793740134; l=7194;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=1F4vtxF/OETYZMMsAx/an9+en/AsTwNgpWrKWjVH9+s=;
- b=36qX1N4lsVP5MFwUZeAQ1y7uk2rexo4x3/XUNeYm0dqNg3zcPDbnsyeLp2sMTGDQolR+TJ8VC
- LT0k2JgrqVFAcMOQCxNNO6yyIUGyzrUXC/qdyEQtYC8Of1b6KxxvDHO
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+2FX1BX//UlnZkwX"
+Content-Disposition: inline
+In-Reply-To: <20261101-lrsc-only-v4-1-4e1d010463b3@mobileye.com>
 
-From: Mani Tofigh <mt4022@columbia.edu>
+--+2FX1BX//UlnZkwX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-memory_failure() checks under hugetlb_lock that the page isn't part of
-a hugetlb folio and sets PG_hwpoison only after dropping the lock.  The
-page can become a tail page of a new hugetlb folio in the meantime.
-With hugetlb_free_vmemmap=on its struct page then lives in the tail
-page that all such folios in the zone share, so the flag lands on tail
-pages of every one of them:
+Hey,
 
-  Task A (memory_failure)              Task B (nr_hugepages write)
-  get_huge_page_for_hwpoison()
-    /* P not hugetlb */
-                                       alloc_fresh_hugetlb_folio()
-                                         /* P becomes a tail page */
-                                         hugetlb_vmemmap_optimize_folio()
-                                           /* P's struct page now in
-                                              the shared tail page */
-  TestSetPageHWPoison(P)
+Sorry about not noticing the v4, I had the v3 on my todo list for a few
+days and didn't check for an update.
 
-The error on P itself is ignored, while healthy pages of other folios
-stay marked and are never reused once their folio is freed.  After
-freeing the pool, /proc/kpageflags shows them as hwpoisoned.
+On Sun, Nov 01, 2026 at 02:51:39PM +0200, Vladimir Kondratiev wrote:
+> The A extension is Zaamo plus Zalrsc. MIPS P8700 implements only
+> Zalrsc, and its AMO instructions trap to SBI. A typical atomic is
+> about 40 cycles with LR/SC and about 600 cycles with an emulated AMO,
+> so keep the existing AMO sequences when the toolchain defines
+> __riscv_zaamo or __riscv_atomic, and use an LR/SC loop otherwise.
+>=20
+> Add RISCV_ISA_ZAAMO and RISCV_ISA_ZALRSC. Both default on, and that
+> selection still passes "a" in -march. Zalrsc remains required because
+> cmpxchg and the conditional atomics are LR/SC sequences. Zaamo can be
+> turned off only with CONFIG_NONPORTABLE, and only when the compiler
+> accepts _zalrsc in -march. GCC 15.1 introduces that support. Older compil=
+ers keep Zaamo
+> enabled and -march keeps "a". An LR/SC-only build passes _zalrsc
+> instead of "a".
+>=20
+> Suggested-by: Chao-ying Fu <cfu@wavecomp.com>
+> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> ---
+>  arch/riscv/Kconfig               | 32 +++++++++++++++++++++++
+>  arch/riscv/Makefile              | 15 ++++++++---
+>  arch/riscv/include/asm/atomic.h  | 56 ++++++++++++++++++++++++++++++++++=
++++++-
+>  arch/riscv/include/asm/bitops.h  | 51 ++++++++++++++++++++++++++++++++++=
+++
+>  arch/riscv/include/asm/cmpxchg.h | 18 +++++++++++++
+>  arch/riscv/include/asm/futex.h   | 53 ++++++++++++++++++++++++++++++++++=
++++
+>  arch/riscv/kernel/entry.S        |  9 +++++++
+>  arch/riscv/kernel/head.S         | 14 ++++++++++
+>  8 files changed, 243 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index 5874ca30f4f6..925963a61f62 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -730,6 +730,38 @@ config RISCV_ISA_ZACAS
+> =20
+>  	  If you don't know what to do here, say Y.
+> =20
+> +config TOOLCHAIN_HAS_ZALRSC
+> +	bool
+> +	default y
+> +	depends on !64BIT || $(cc-option,-mabi=3Dlp64 -march=3Drv64im_zalrsc)
+> +	depends on !32BIT || $(cc-option,-mabi=3Dilp32 -march=3Drv32im_zalrsc)
+> +
+> +config RISCV_ISA_ZAAMO
+> +	bool "Zaamo extension support for AMO atomics" if NONPORTABLE && TOOLCH=
+AIN_HAS_ZALRSC
 
-This is the allocation side of the race that commit 32c877191e02
-("hugetlb: do not clear hugetlb dtor until allocating vmemmap") fixed
-for freeing.
+Probably this option should be called something like
+TOOLCHAIN_HAS_ZALRSC_ZAAMO if you're going to use it like this, because
+it is confusing why ZALRSC gates a ZAAMO option.
 
-Set the hugetlb flag of a new folio under hugetlb_lock and set
-PG_hwpoison of a non-hugetlb page inside the locked check, so that the
-vmemmap can't be optimized in between.  The retry path clears it under
-the same lock, unless the page has become a tail page of a hugetlb folio
-in the meantime.  With the fix, no healthy page gets marked anymore.
+I'm curious actually, does every toolchain provide zalrsc and zaamo as a
+pair, or should you check for both here? I'd be surprised if there was a
+toolchain with one but not the other but worth checking to avoid some
+bizarre toolchain bug..
 
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 35s.
+| > The text here doesn't really make much sense, given it is default
+| > disabled as it depends on NONPORTABLE that is default disabled.
+| > If this is retained, it should be default n and the text reworded.
+|=20
+| Not exactly. RISCV_ISA_ZAAMO is visible if NONPORTABLE &&
+| TOOLCHAIN_HAS_ZALRSC (later was added in v4). Otherwise it is not
+| visible and set to "y". If one disables NONPORTABLE, RISCV_ISA_ZAAMO set
+| to "y" with no option to change it. Same for added in v4
+| TOOLCHAIN_HAS_ZALRSC
 
-Fixes: f41f2ed43ca5 ("mm: hugetlb: free the vmemmap pages associated with each HugeTLB page")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Changes in v2:
-- In the retry path, also clear the flag if the page has become the
-  head page of a hugetlb folio, so that the retry doesn't take the
-  folio for already poisoned (Sashiko)
-- Rebase on mm-new
-- Link to v1: https://patch.msgid.link/20261101-hwpoison-hugetlb-ro-v1-1-a42d6411cb65@columbia.edu
+Ah, right. But that kinda goes against how NONPORTABLE is meant to work
+since the default cannot run on all platforms? At that point, just get
+rid of NONPORTABLE?
 
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/hugetlbro.c
----
- mm/hugetlb.c        |  3 +++
- mm/memory-failure.c | 45 ++++++++++++++++++++++++++++++++++++++-------
- 2 files changed, 41 insertions(+), 7 deletions(-)
+> +	default y
+> +	help
+> +	  Use AMO instructions for kernel atomic memory operations. When
+> +	  disabled, those operations are built from LR/SC and the kernel
+> +	  is compiled with zalrsc instead of the A extension.
+> +
+> +	  Disable this only for a hart that implements Zalrsc but not
+> +	  Zaamo, such as the MIPS P8700, and only when the compiler accepts
+> +	  _zalrsc in -march. GCC 15.1 introduces that support. Without it this
+> +	  option stays enabled and -march keeps the A extension.
+> +
+> +	  The resulting kernel cannot run on a hart without LR/SC.
+> +
+> +	  If you don't know what to do here, say Y.
+> +
+> +config RISCV_ISA_ZALRSC
+> +	def_bool y
+> +	help
+> +	  Zalrsc provides LR/SC. cmpxchg and the conditional atomics
+> +	  require it, so it is always enabled.
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 779b1de33c78..dd409d7f697e 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1792,7 +1792,10 @@ static void account_new_hugetlb_folio(struct hstate *h, struct folio *folio)
- 
- void init_new_hugetlb_folio(struct folio *folio)
- {
-+	/* Pairs with get_huge_page_for_hwpoison(), see there. */
-+	spin_lock_irq(&hugetlb_lock);
- 	__folio_set_hugetlb(folio);
-+	spin_unlock_irq(&hugetlb_lock);
- 	INIT_LIST_HEAD(&folio->lru);
- 	hugetlb_set_folio_subpool(folio, NULL);
- 	set_hugetlb_cgroup(folio, NULL);
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index b215312f261b..80bac8d544d4 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1956,6 +1956,7 @@ static unsigned long __folio_free_raw_hwp(struct folio *folio, bool move_flag)
- #define	MF_HUGETLB_FOLIO_PRE_POISONED	3	/* folio already poisoned */
- #define	MF_HUGETLB_PAGE_PRE_POISONED	4	/* exact page already poisoned */
- #define	MF_HUGETLB_RETRY		5	/* hugepage is busy, retry */
-+#define	MF_HUGETLB_NON_HUGEPAGE_POISONED	6	/* not a hugepage, already poisoned */
- /*
-  * Set hugetlb folio as hwpoisoned, update folio private raw hwpoison list
-  * to keep track of the poisoned pages.
-@@ -2040,7 +2041,11 @@ static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 	spin_lock_irq(&hugetlb_lock);
- 	folio = page_folio(page);
- 	if (!folio_test_hugetlb(folio)) {
--		ret = MF_HUGETLB_NON_HUGEPAGE;
-+		/* Mark it before it can become part of a new hugetlb folio. */
-+		if (TestSetPageHWPoison(page))
-+			ret = MF_HUGETLB_NON_HUGEPAGE_POISONED;
-+		else
-+			ret = MF_HUGETLB_NON_HUGEPAGE;
- 		goto out_unlock;
- 	} else if (flags & MF_COUNT_INCREASED) {
- 		ret = MF_HUGETLB_IN_USED;
-@@ -2091,7 +2096,8 @@ static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
-  * PageHWPoison) should be done in single hugetlb_lock range.
-  * Returns:
-  *	0		- recovered
-- *	-ENOENT		- no hugetlb page
-+ *	-ENOENT		- no hugetlb page, now marked hwpoison
-+ *	-EEXIST		- no hugetlb page, already marked hwpoison
-  *	-EBUSY		- not recovered
-  *	-EOPNOTSUPP	- hwpoison_filter'ed
-  *	-EHWPOISON	- folio or exact page already poisoned
-@@ -2110,6 +2116,8 @@ static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
- 	switch (res) {
- 	case MF_HUGETLB_NON_HUGEPAGE:	/* fallback to normal page handling */
- 		return -ENOENT;
-+	case MF_HUGETLB_NON_HUGEPAGE_POISONED:
-+		return -EEXIST;
- 	case MF_HUGETLB_RETRY:
- 		if (!(flags & MF_NO_RETRY)) {
- 			flags |= MF_NO_RETRY;
-@@ -2169,10 +2177,32 @@ static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
- 	return identify_page_state(pfn, p, page_flags);
- }
- 
-+/*
-+ * Keep the flag if the page has become a tail page of a hugetlb folio in
-+ * the meantime, as HVO may remap its struct page.  A head page is never
-+ * remapped, and keeping the flag there would make the retry take the
-+ * folio for already poisoned.
-+ */
-+static void clear_non_hugetlb_hwpoison(struct page *page)
-+{
-+	struct folio *folio;
-+
-+	spin_lock_irq(&hugetlb_lock);
-+	folio = page_folio(page);
-+	if (!folio_test_hugetlb(folio) || &folio->page == page)
-+		ClearPageHWPoison(page);
-+	spin_unlock_irq(&hugetlb_lock);
-+}
-+
- #else
- static inline int try_memory_failure_hugetlb(unsigned long pfn, int flags)
- {
--	return -ENOENT;
-+	return TestSetPageHWPoison(pfn_to_page(pfn)) ? -EEXIST : -ENOENT;
-+}
-+
-+static inline void clear_non_hugetlb_hwpoison(struct page *page)
-+{
-+	ClearPageHWPoison(page);
- }
- 
- static inline unsigned long folio_free_raw_hwp(struct folio *folio, bool flag)
-@@ -2450,12 +2480,13 @@ int memory_failure(unsigned long pfn, int flags)
- try_again:
- 	res = try_memory_failure_hugetlb(pfn, flags);
- 	/*
--	 * -ENOENT means the page we found is not hugetlb, so proceed with normal page handling
-+	 * -ENOENT and -EEXIST mean the page is not hugetlb and is now marked
-+	 * hwpoison, so proceed with normal page handling.
- 	 */
--	if (res != -ENOENT)
-+	if (res != -ENOENT && res != -EEXIST)
- 		goto unlock_mutex;
- 
--	if (TestSetPageHWPoison(p)) {
-+	if (res == -EEXIST) {
- 		res = -EHWPOISON;
- 		if (flags & MF_ACTION_REQUIRED)
- 			res = kill_accessing_process(current, pfn, flags);
-@@ -2486,7 +2517,7 @@ int memory_failure(unsigned long pfn, int flags)
- 			} else {
- 				/* We lost the race, try again */
- 				if (retry) {
--					ClearPageHWPoison(p);
-+					clear_non_hugetlb_hwpoison(p);
- 					retry = false;
- 					goto try_again;
- 				}
+| > So why have a kconfig option for it then? It's pointless if always
+| > enabled.
+|=20
+| My logic when adding it:
+| There are 2 sets of extensions related defines: one is Kconfig ones,
+| CONFIG_RISCV_ISA_<ext>; and another one found in the
+| arch/riscv/include/asm/hwcap.h, RISCV_ISA_EXT_<ext>
+|=20
+| In the hwcap.h, there's already
+|=20
+| #define RISCV_ISA_EXT_ZAAMO		97
+| #define RISCV_ISA_EXT_ZALRSC		98
+|=20
+| added by commit 35173b666a16 (riscv: add parsing for Zaamo and Zalrsc
+| extensions, 2024-06-19)
+|=20
+| These 2 sets are logically coupled, and used in the BPF JUT code like
+|=20
+| #define rv_ext_enabled(ext) \
+| 	(IS_ENABLED(CONFIG_RISCV_ISA_##ext) &&
+| riscv_has_extension_likely(RISCV_ISA_EXT_##ext))
+|=20
+| So I thought if RISCV_ISA_EXT_ZALRSC exists although it is mandatory,
+| CONFIG_RISCV_ISA_ZALRSC counterpart should exist for the same reason.
+|=20
+| Do you suggest this is different case and it is worth to remove
+| CONFIG_RISCV_ISA_ZALRSC anyway?
 
----
-base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
-change-id: 20261030-hwpoison-hugetlb-ro-5f8881a60af9
+If this is the justification for it, then you need to provide this
+justification in your commit message - but if zalrsc is always enabled
+then there's no need for any code like that in the bpf jit in the first
+place, once more making this dead code that should be deleted?
 
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
+> +
+> +config RISCV_ISA_A
+> +	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
+> +
+>  config TOOLCHAIN_HAS_ZBB
+>  	bool
+>  	default y
+> diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
+> index 44f5a439741a..1b0a459a0f74 100644
+> --- a/arch/riscv/Makefile
+> +++ b/arch/riscv/Makefile
+> @@ -58,8 +58,9 @@ ifeq ($(CONFIG_SHADOW_CALL_STACK),y)
+>  endif
+> =20
+>  # ISA string setting
+> -riscv-march-$(CONFIG_ARCH_RV32I)	:=3D rv32ima
+> -riscv-march-$(CONFIG_ARCH_RV64I)	:=3D rv64ima
+> +riscv-march-$(CONFIG_ARCH_RV32I)	:=3D rv32im
+> +riscv-march-$(CONFIG_ARCH_RV64I)	:=3D rv64im
+> +riscv-march-$(CONFIG_RISCV_ISA_A)	:=3D $(riscv-march-y)a
+>  riscv-march-$(CONFIG_FPU)		:=3D $(riscv-march-y)fd
+>  riscv-march-$(CONFIG_RISCV_ISA_C)	:=3D $(riscv-march-y)c
+>  riscv-march-$(CONFIG_RISCV_ISA_V)	:=3D $(riscv-march-y)v
+> @@ -75,9 +76,15 @@ else
+>  riscv-march-$(CONFIG_TOOLCHAIN_NEEDS_EXPLICIT_ZICSR_ZIFENCEI) :=3D $(ris=
+cv-march-y)_zicsr_zifencei
+>  endif
+> =20
+> -KBUILD_BASE_ISA =3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(=
+rv32ima|rv64ima)fd([^v_]*)v?/\1\2/')
+> +KBUILD_BASE_ISA =3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(=
+rv32ima?|rv64ima?)fd([^v_]*)v?/\1\2/')
+>  export KBUILD_BASE_ISA
+> =20
+> +# Zaamo is off only when the compiler accepts _zalrsc in -march.
+
+I think the comment here is not quite right, it should be "can only be
+off", no?
+
+> +ifneq ($(CONFIG_RISCV_ISA_A),y)
+> +riscv-march-$(CONFIG_RISCV_ISA_ZAAMO) :=3D $(riscv-march-y)_zaamo
+
+Isn't this dead code? The logic for RISCV_ISA_A is:
+config RISCV_ISA_A
+	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
+but ZALRSC is always set, so RISCV_ISA_A is equivalent to
+RISCV_ISA_ZAAMO so there can't be a case where RISCV_ISA_A is not set
+but RISCV_ISA_ZAAMO is?
+
+> +riscv-march-$(CONFIG_RISCV_ISA_ZALRSC) :=3D $(riscv-march-y)_zalrsc
+
+And here, this is effectively just riscv-march-y, since if you get as
+far as here, it must be true.
+
+> +endif
+> +
+>  # Remove F,D,V from isa string for all. Keep extensions between "fd" and=
+ "v" by
+>  # matching non-v and non-multi-letter extensions out with the filter ([^=
+v_]*)
+>  KBUILD_CFLAGS +=3D $(KBUILD_BASE_ISA)
+> @@ -85,7 +92,7 @@ KBUILD_CFLAGS +=3D $(KBUILD_BASE_ISA)
+>  KBUILD_AFLAGS +=3D -march=3D$(riscv-march-y)
+> =20
+>  # For C code built with floating-point support, exclude V but keep F and=
+ D.
+> -CC_FLAGS_FPU  :=3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(r=
+v32ima|rv64ima)([^v_]*)v?/\1\2/')
+> +CC_FLAGS_FPU  :=3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(r=
+v32ima?|rv64ima?)([^v_]*)v?/\1\2/')
+> =20
+>  KBUILD_CFLAGS +=3D -mno-save-restore
+> =20
+> diff --git a/arch/riscv/include/asm/atomic.h b/arch/riscv/include/asm/ato=
+mic.h
+> index 616b8b332ac5..dc6a8c95c975 100644
+> --- a/arch/riscv/include/asm/atomic.h
+> +++ b/arch/riscv/include/asm/atomic.h
+> @@ -50,6 +50,7 @@ static __always_inline void arch_atomic64_set(atomic64_=
+t *v, s64 i)
+>   * have the AQ or RL bits set.  These don't return anything, so there's =
+only
+>   * one version to worry about.
+>   */
+> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
+
+| > ...why are we making this a compiletime decision in the first place?
+| > Why can't this be an alternative, starting with the zalrsc stuff and
+| > moving to the better implementation if available?
+|=20
+| I started with alternatives approach, see
+| https://lore.kernel.org/all/20260114072552.731974-1-vladimir.kondratiev@m=
+obileye.com/
+| Then I converted it to the static compile-time decision following input
+| from Gary Guo that I think is valid, here:
+| https://lore.kernel.org/all/DFSQIY6WV4U7.3B3RY31KE739B@garyguo.net/
 
 
+Okay, that logic from Gary does make some sense. I'll accept that
+argument, but again this needs to be communicated in the commit message.
+
+| > Is there some zaamo code that gets generated automatically that we lose
+| > out on by always building the kernel with zalrsc instead of with all of=
+ a?
+|=20
+| There's BPF JIT that emits AMO instructions, patch for this is not ready
+| yet. These AMO instructions will be emulated and work correctly but very
+| slowly.
+
+I think that needs to be part of this series. You're far too focused on
+your individual platform where the instructions work, rather than the
+holistic solution of lowering our minimum requirements so that platforms
+that do not have any AMO support work. The only way that it'd make sense
+to move forward with this without the bpf jit patch is if you disabled
+bpf entirely when RISCV_ISA_ZAAMO is disabled.
+
+> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
+
+Something else to note is that we do not use this pattern anywhere else
+in arch code as far as I know? We always use the RISC_ISA_WHATEVER
+config option to gate conditional stuff. Since RISCV_ISA_A is equivalent
+to RISCV_ISA_ZAAMO (unless I am mistaken there somehow) this just collapses
+to a single check?
+
+>  #define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
+>  static __always_inline							\
+>  void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
+> @@ -59,7 +60,25 @@ void arch_atomic##prefix##_##op(c_type i, atomic##pref=
+ix##_t *v)	\
+>  		: "+A" (v->counter)					\
+>  		: "r" (I)						\
+>  		: "memory");						\
+> -}									\
+> +}
+> +#elif defined(__riscv_zalrsc)
+> +#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
+> +static __always_inline							\
+> +void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
+> +{									\
+> +	register c_type ret, temp;					\
+> +	__asm__ __volatile__ (						\
+> +		"1:	lr." #asm_type " %1, %0\n"			\
+> +		"	" #asm_op " %2, %1, %3\n"			\
+> +		"	sc." #asm_type " %2, %2, %0\n"			\
+> +		"	bnez %2, 1b\n"					\
+> +		: "+A" (v->counter), "=3D&r" (ret), "=3D&r" (temp)		\
+> +		: "r" (I)						\
+> +		: "memory");						\
+> +}
+> +#else
+> +#error "Need AMO or LR/SC atomics"
+
+And this error is actually unreachable?
+
+(and so on in every other place that this pattern is repeated)
+
+Cheers,
+Conor.
+
+> +#endif
+
+--+2FX1BX//UlnZkwX
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaupNmwAKCRB4tDGHoIJi
+0lWJAP47/7wo97SPKRn2JxsE8gcUN7h5rA05GC/OEt6LjOPMyAD9ETG5/W9W55Qa
+W+OuieCq72k6AUkvJ1n9DOwZIvFKtA0=
+=zFph
+-----END PGP SIGNATURE-----
+
+--+2FX1BX//UlnZkwX--
