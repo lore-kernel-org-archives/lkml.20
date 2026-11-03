@@ -1,86 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.248
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674683;
-	b=llIaarveHhquhD1JJx96zg54EefFw4Y4xFbd/7w9a3avfkaL+0RRwzb34bWMz6uQ+o4e
-	 LIXxNQEEkDW5bg0/qzm1Ag08YiWRqXXasDfKcHGgWX6N7tR5DgvVpw++6/4YE7LRCVq/+
-	 s8D1Oersl04JxAfXRy68IpvAwkp/rGNfS9dN/YHBbyxiD83Lv/gVxTD36xMkyBJR7zFCP
-	 l8lZgwXpwuKJ9dQC+7KSdUJMQF9SmQpwLBl3xWyxlCaJeQVjJaqgZCJfwG6ALXNERmL9b
-	 iSrLfSUdkExO8YTK4ZXdBTf6vh5ZX1nYOIiGdDwSAgjvb4Su4xfomAQKZ8Q5i1F3z8Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674683;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4IRpsKB31ZWOQ5n/UsohIDOoT7iKXviBSO161ss/1dE=;
-	b=G7tB+Hy8Kvpm+g+GItplQZohGJMxwseRW+HSSjZPy5HPDI2g8YVAAATLrN9nCD7h74Iv
-	 MI/Z8CsnRzy177oNuSTMVq4NyE/uvRN7jShhoGEpWAGDNFgqRio94wYbWUH/FL0ngc3Xn
-	 gqRgVjTmo7RrHmQxpn7iNfx1v35WadYdqIQRf18syo8uwX8IO/NkbIpgDGrTaR/gJRZPF
-	 Yjby+Hg6aUdkmtVjwbRTOy61/CAW9bPXeO1Dw0lUApJbIIJEGZI8cxU+AJ5nPXbx5Z0J3
-	 PNeqE9PLtnPavG/yd7e7Kv7NoKDd2yR+YHSbX5BH6rMRc7mb6M489bcbbocSSUAfHqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ymnes9hU;
-	arc=none smtp.remote-ip=95.215.58.248
-Received: from mta1.migadu.com (out-248.mta1.migadu.com [95.215.58.248])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793674742;
+	b=mL8CsErk515dBnBetjerUZuwI9cuZ89cIlYHxziXKt59XA/tIlMdHLvVKOh5XFDorOKl
+	 BBHdX8G8QVzfCT+bBOnXFrFwJzM5lseAI6qDvGQ6sj++TZZuc0o6gQTDgL3x1C4qa5vno
+	 15KweT5LgsBk340UdPaTvYpNRe3oMAvIeNxVanmFoLx5Xmls7UYeKM8Gz05/Yj5f/Xqjw
+	 /2tAyS+S+uTe/6p0j0Zx9qR3Q3W+3e4lTLW5tkWvn6wt+UqyvLpumuIKgmfxeuf9514gr
+	 9KcW1oW7nEfAy9Y3z/nUjt66EusT2IOA1GT3yofnET11NKVXHy2DAU8zPLsekB4y1RQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674742;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=UeAgzZLdotti0IHP6YHs9fQ/pnjZZ1tIB55pQGz1Z2g=;
+	b=CPvGlbecBdfw2nyIkfCLliyfJeyF3RJPR8gSsaNu8u2E2D1sXh/FGrn8d53iDpmDrWmP
+	 bi517SVFNEFCyfGxU80MAvYj0tlveZw1dZWZhvlBY23x9qYCtYVBHp7VUuCX5ExB55a0E
+	 Uh1PRNuAaSjs/wI8P8DxpC+qNzEjRKV3d2KX80aK8Qy/AVPbV0/CtRDkM4S1tJj9zkNwk
+	 RLK9jD+16gwTcXxQWGJ54c3XXBF+VGStb7YjcsFiZMfVi/7R1Tc1/4cO10kPBwRuSMYU0
+	 kfm83ZNHMm5Uo2hDCDRHIj4553t+5WYhid9zOD6QgXAwJJGoh+1Cnc4y5KAV+gn9Gow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SWftFRzf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66993606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66993606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD4606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:59:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DBD4606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ymnes9hU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lyrb92uDQUPbkiBltZi1bjdhjSGbJYzJNmN2CpAeRBY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793674680; v=1; x=1794279480;
- b=Ymnes9hUueYcoUxGz5QwDS5GUw1Qmnr7X/K2zXmtGUWjBAqldu6yJuJArKlNuSWuC36/5Kw5
- BCkiEyv5qn7dI9NQNbJMqcVEVyyNlWsdwcoMUU9VOtgUcRweQ7FNGpdbwVe7hR2frOOLJNuqDOu
- ValsYvN1tCUXXv1UX2u6Uwn8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 595423ef5b9c1195;
-	Tue, 03 Nov 2026 02:57:59 +0000
-X-Mizu-Trace-ID: 595423ef5b9c1195
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v6 7/7] mm/mglru: add tracepoint for inc_max_seq()
-Date: Tue,  3 Nov 2026 10:56:10 +0800
-Message-Id: <20261103025610.3738894-8-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261103025610.3738894-1-ridong.chen@linux.dev>
-References: <20261103025610.3738894-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SWftFRzf
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso2856a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:59:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793674740; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lp3FelmgUWM7TeKJ8I31Ug8YImSPvOEUolD0Pz2/nT3HUiyoU1WxI9CRHuH0QA4lf7
+         Vh9JnjRNF4SiaAo17JQKchzbZ39PPFZfaF5zUHvgM6igyICbIk+5/2C0tQ+4nyXgvxrK
+         J+vCRNOxhWZgEwtdu/UtBnB2OCYr8rAZ8gbGFtlqrra7KSnpDzmwWOzOle6gq9AEThQA
+         MuhqDBggxbBhY2tLdGKSQH283PE36mrJPyns+G0+QC4KWlz35DbymTQBEttxn/sn1cwI
+         6pPNWwLALV0Al/XdUv1k9/75LGtKBHWjGs5dUxABT5m8QUAJqB2YvDXlEBlByR/hOUMr
+         6kig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UeAgzZLdotti0IHP6YHs9fQ/pnjZZ1tIB55pQGz1Z2g=;
+        fh=ZWzjNrxmLFpP7IWcuAqZkwyto7n97HYMitGY2FBYgGo=;
+        b=maiv4iDbmgHIXWqnIBYRrE6RWEpd7YcLZb36OIwnGvYC4jXRaNmQPJKBgRI8Io8slY
+         B+lSqlUcyZ/1V6z6cMmHg48Hwx42WsemAjRdw/Us5eYu0U6oLuGwLEnB5SxdKPmvcpmU
+         WrlASqsAKYLW4UFpZ/jfR+GD/Z8lOlVugCRLR0Y7EUyCNf2IHTY3jOehfkHZr0kmUVx6
+         KficXfopSJiCiRyzEjPnLkBzN0E7zb8hQ3S5LojX4LXFR+Bye9yB9NH/5nBAVUQdek2R
+         yndEVfqYMMNr4jFmQLlt55JVbMfhbtpWZ6IzSyLp2gC0j+QGbAAfMcYlSF3EBqQmS1Ou
+         pMCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793674740; x=1794279540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UeAgzZLdotti0IHP6YHs9fQ/pnjZZ1tIB55pQGz1Z2g=;
+        b=SWftFRzfsr6HRx4mZ7jlKL9NBy880MECjOX0cGycb8yBgGDCdwhmaMudA5uCPfnCsr
+         12rC+qqqvmSvKFG7NqLjNYRVUZE34khfj2SjffiiS8W5B5WZr/ZYboQR6rm2ybo5agl6
+         KXtEvNcgHqwKMkLMR95tW4NLAlMHOmoqEX0mXlVeJqVOqHwpQ7u/x7oYcJcbK6Whw0Yv
+         SxHXuClHnSuLcYRwTHj9cfFqZT5eWfkatAmjmPJy9ZR93RGnD24qRv3ORgNWVvy0TSYi
+         DHvVQHYtwo4qQKosyCBDfYGYqALpH+v6Yh7R/cORV1TV7J7hYBYNhA+WlDn9ASn3KBGH
+         lUHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793674740; x=1794279540;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UeAgzZLdotti0IHP6YHs9fQ/pnjZZ1tIB55pQGz1Z2g=;
+        b=uvTtnV6nLL3R3/2iqR72zlBa4TPcuIlYHOPm7+uz0kw4G0g2DqhYooZqjjCT59Rvkh
+         DCF5CCzQPdVgDlhkXxk8MiGSitonGhScp7I2ubROKRjLZba6NyCiTb4XpJsWg46+76VQ
+         YAb4VfLbivn7TurGiWaxRMmHvXveI5SS6dm03+1RMOsLvV3Vr0dl3obfxKRG6lPEuVg4
+         aVeKZ2BvHCqt54fd2ROLnygKct7XFiP95tVfWffKzVxx1XV/SEGToYfxDK0tVYUFuGbl
+         WsamlXxPNVMhph79fyDcqWpUU0eXS3kt8/D1hhHV/osGAHklESW9nj5EDGjvOITna1jC
+         VbBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHLAJaezFb4TPsVUpeRQZxPgwxlt4fw2TTZQmuIR7Xu/QMAY8r666zzgKEsrv57GCOeUArrT+CViGbJPM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9K9s0ILhlrVZQcZC3XWwMj3feUXqlv9veQFTn3nywrQh/DRVxf
+	LCsBjOo0nhXB9/Mkpj5OyKHsvfNZJqktFjxQGeNkMa0Q2gnJsvB4kyhJUOEdQR6TeG/8vPK3DEt
+	6lyUDc04+PTDLhtlMFqKiHlKI6mlUZ7PCGlPtw0pH
+X-Gm-Gg: AYBFou3EzxSxueNBrBbu2eDXBM+KEqxIb0ZeaRVBRmUY8qmEkssawVq+L5VUcAQTCG/
+	/Pd7hGFglrylZXDnFAs8qxBl/QpRMeYT+2ssB/GehNDMubtx843z4uGSMVw5hrYgzUC4I2feswW
+	A2ijtnxUcyNluP/twmV+EGvSDbm+3X0V5NbyXEYDL4gQkvx24fGeG4RGm0djEwzmzMbBlB56hvN
+	WzmltCigdHlGYRBPibJBj329ghDunagVYXwQK/0Yx2xrqk4SBPMqIgKi1TXceF2d8Z6VQ7111li
+	AhSbymJaAPa3wrNNhfS41ljcYe0UZ37u5/iKBPn6v67RJNGVNL0jrXYqLnLKAtBuDkK6kLiDFDK
+	nRbKNU55JdRuV/bWPmT4vAyast1547lSdGS1RML8=
+X-Received: by 2002:a05:6402:438d:b0:6b3:f12d:7405 with SMTP id
+ 4fb4d7f45d1cf-6b53e778d41mr32077a12.14.1793674739712; Mon, 02 Nov 2026
+ 18:58:59 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,110 +104,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261102191438.1059771-1-sdf@fomichev.me> <20261102191438.1059771-8-sdf@fomichev.me>
+In-Reply-To: <20261102191438.1059771-8-sdf@fomichev.me>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 2 Nov 2026 18:58:48 -0800
+X-Gm-Features: AclHuK9Z5oWBbhWwMCS_z-DuUMSaT3p8QPAgg8n9KeMCHplfWy0Bv6rYsGa7af8
+Message-ID: <CAHS8izMyGmLC0yg+WT7eAZ0tkSoJ5K80t-J8-WfYegvjDXonMA@mail.gmail.com>
+Subject: Re: [PATCH net-next 7/7] selftests: drv-net: devmem: TX from a
+ hugepage-backed dmabuf
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, 
+	edumazet@kernel.org, horms@kernel.org, corbet@lwn.net, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org, michael.chan@broadcom.com, 
+	pavan.chebbi@broadcom.com, sdf@fomichev.me, bobbyeshleman@meta.com, 
+	asml.silence@gmail.com, daniel@iogearbox.net, razor@blackwall.org, 
+	leitao@debian.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On Mon, Nov 2, 2026 at 11:14=E2=80=AFAM Stanislav Fomichev <sdf.kernel@gmai=
+l.com> wrote:
+>
+> TX net_iovs are now sized from the dmabuf layout, but the TX tests
+> use a regular memfd, which usually keeps them small. Add -H to ncdevmem
+> to back the udmabuf with 2MB hugepages and a TX test which sends a 3MB
+> buffer from it, so that frags end at and continue past the 2MB net_iov
+> boundary. The payload has a 7 byte period to catch offset errors.
+>
+> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
 
-Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
-youngest generation. There is currently no tracepoint on this path, so
-the moment a new generation is created, and how the min_seq of each type
-trails behind it, cannot be observed as it happens.
+Acked-by: Mina Almasry <almasrymina@google.com>
 
-Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped while
-the lruvec lock is still held, with the node id, memcg id, the new
-max_seq, the anon and file min_seq, and the number of pages in each
-generation for both types, as computed by lruvec_gen_size().
-
-The nr_anon/nr_file arrays are ordered by seq rather than by generation
-slot: entry i holds the generation max_seq - MAX_NR_GENS + 1 + i, i.e.
-they go from the oldest generation to the newest, the same order as the
-debugfs lru_gen file, so the output can be read directly without mapping
-slots back to seqs. Entries for seqs below the corresponding min_seq are
-not in use and normally read as 0. The arrays are printed with
-__print_array(), so the output is hex and its length follows
-MAX_NR_GENS automatically.
-
-Only the lruvec is passed in; all of the above is collected in
-TP_fast_assign(), so inc_max_seq() does no extra work when the event is
-disabled. Paired with mm_mglru_scan_folios it makes the full
-aging-to-eviction window observable per memcg.
-
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/trace_vmscan.h | 46 ++++++++++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c       |  2 ++
- 2 files changed, 48 insertions(+)
-
-diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-index 8148b8224422..40d6d90f1d7a 100644
---- a/mm/trace_vmscan.h
-+++ b/mm/trace_vmscan.h
-@@ -456,6 +456,52 @@ TRACE_EVENT(mm_mglru_scan_folios,
- 		__entry->min_seq)
- );
- 
-+TRACE_EVENT(mm_mglru_inc_max_seq,
-+
-+	TP_PROTO(struct lruvec *lruvec),
-+
-+	TP_ARGS(lruvec),
-+
-+	TP_STRUCT__entry(
-+		__field(u64, memcg_id)
-+		__field(unsigned long, max_seq)
-+		__field(unsigned long, anon_min_seq)
-+		__field(unsigned long, file_min_seq)
-+		__array(unsigned long, nr_anon, MAX_NR_GENS)
-+		__array(unsigned long, nr_file, MAX_NR_GENS)
-+		__field(int, nid)
-+	),
-+
-+	TP_fast_assign(
-+		struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+		unsigned long max_seq = lrugen->max_seq;
-+		int i;
-+
-+		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
-+		__entry->max_seq = max_seq;
-+		__entry->anon_min_seq = lrugen->min_seq[LRU_GEN_ANON];
-+		__entry->file_min_seq = lrugen->min_seq[LRU_GEN_FILE];
-+		/* from the oldest generation to the newest, as debugfs lru_gen does */
-+		for (i = 0; i < MAX_NR_GENS; i++) {
-+			unsigned long seq = max_seq - MAX_NR_GENS + 1 + i;
-+
-+			__entry->nr_anon[i] =
-+				lruvec_gen_size(lrugen, LRU_GEN_ANON, seq);
-+			__entry->nr_file[i] =
-+				lruvec_gen_size(lrugen, LRU_GEN_FILE, seq);
-+		}
-+		__entry->nid = lruvec_pgdat(lruvec)->node_id;
-+	),
-+
-+	TP_printk("nid=%d memcg_id=%llu max_seq=%lu anon_min_seq=%lu file_min_seq=%lu nr_anon=%s nr_file=%s",
-+		__entry->nid,
-+		__entry->memcg_id,
-+		__entry->max_seq,
-+		__entry->anon_min_seq,
-+		__entry->file_min_seq,
-+		__print_array(__entry->nr_anon, MAX_NR_GENS, sizeof(unsigned long)),
-+		__print_array(__entry->nr_file, MAX_NR_GENS, sizeof(unsigned long)))
-+);
- #endif /* CONFIG_LRU_GEN */
- 
- TRACE_EVENT(mm_vmscan_write_folio,
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 1581b73aec56..841fefa68d1f 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4115,6 +4115,8 @@ static bool inc_max_seq(struct lruvec *lruvec, unsigned long seq, int swappiness
- 	WRITE_ONCE(lrugen->timestamps[next], jiffies);
- 	/* make sure preceding modifications appear */
- 	smp_store_release(&lrugen->max_seq, lrugen->max_seq + 1);
-+
-+	trace_mm_mglru_inc_max_seq(lruvec);
- unlock:
- 	lruvec_unlock_irq(lruvec);
- 
--- 
-2.34.1
-
+--=20
+Thanks,
+Mina
