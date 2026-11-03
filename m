@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706750;
-	b=voHgNVZNaIwG+wkHKOVm6Meei4q5PL8apCGY0zbVBXVXp49CHtRzAu9jrk4GRlaliHVs
-	 Wbf2JbjgI9cgG8RuANmWdo/HveGVc6O+rErK++jfuANo7AKUoPcfE6+jImI2t75EPr71q
-	 rVqW6sJCMcuNgAcN6Ncyf1wBsECQFtvCmV0LV9rj2ksRL/wexgzjXvWRna4TGoO2SK9AD
-	 X/qRLv5rKEUbpH+b2/c14ii/8kQKEArWgi6dCGeAo9dY9nhspTKqRCXZyRft2NVxdLxgE
-	 HYT1NEbwsubQH+yGQUNzeUb87pyN7hQ7bPxtTJY54pTGYZc2oRWCFFus3jqDcUZzS0w==
+	t=1793706752;
+	b=M3eqaBuyVuRmrqB6SXQ3/6Mm9MPZD1OhHwXafSi0gRiUSULMStExgFkU0PqoVxISBgO+
+	 l8s/9T7Bq2L+U4K70dADyFOZiNmxvY3R5Y2FWduhYHc0LuJ1C+PXcsIjXb5eM8q8rvJ+6
+	 VYsGWJxHJ1KHgNSqTiWB/XX5Fw43oqXOjbZzhTtxhbB1bcMubF6hi2LyTIZEnGLCfGIXy
+	 CLN2VdBo7uIMd56ByYzNfIDVL9p+Q/VKvwJB/u6q5zetoF9bI7FA42JWeKO2QIr4tGKNc
+	 y9DuAOGVu2wVgxwyINI3An2sQNDi0BU6xYDvF8c+9EIsgB350x9k5xHyCEF0x3t/tlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706750;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iWyW+bGyGveMgmXtKW3uGBlbS+JH67BydEPcZUH8PVc=;
-	b=IkAEp3QfMB7BaJ6MGsCX8q3HbvRJ8oxa+eUAkl4mqhLJDaNfZbDHwgBE2JfzLXOFAQtb
-	 xXVxvP1YQ1kJBGMESQTLjqI2Uwhhxh18OlZ0YPS6QE4J7lwIJJ1ulAzP0ZEaGaEKh6FtX
-	 KpH+M/uyF34YhliQeq5gfMCjjZPEMgVAkfnbij+FZ9bftSvi8r5vMsT8f4jK09u1qPA4D
-	 YUY377JOtkCCVFT7GYgboyJrh7NSrgMKW8cAKACbd7vmdlEthSemUwc+DCl6yVkpkw2wq
-	 WGO1GLEnNoRBVMJYSpu3lQ062XsgLlAxwxLvjDTSHBAySDuX0/TXnQjLYDWtfGTwVRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706752;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=zb0ra8F4z1oJwV+jl/q/Ivgid5QKOvgM37fMrbY/TEk=;
+	b=XLRJjpChI9GcEyQG6EksjFOWz/me3eL1CiJDN7xwMHEXd9CG0zTOcAVZv/OXlSYwpiKo
+	 F/7nqhuwBVonwnbxPelpOkUbmlDz4Z1t+KY99fPOwJV3S8buwFDcuqKtZCn+wvtnFnCAT
+	 /OGoNcNQQH482d4X8tLAgUVOfV0Y8CdNhg04/kok/62OWv0bopS+4qDVV39QhzoCyLFLj
+	 SpAHCpqtM4jCPVogmolNPnXCnEb7IlJA9dcSCHMEb05QcCACyb5j2Hc3H6GFg6p/mWFTn
+	 6cYXrpG/A8p2aeIjmE6gtCdRWSL7xB8eICQ1YVdoA8WPICJnO97GiNZ69tcQb7DfPdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKoyMglv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kUvcUA89;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28E1606A329;
-	Tue,  3 Nov 2026 11:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB11E606A337;
+	Tue,  3 Nov 2026 11:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB11E606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKoyMglv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D621F000C1;
-	Tue,  3 Nov 2026 11:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706749;
-	bh=iWyW+bGyGveMgmXtKW3uGBlbS+JH67BydEPcZUH8PVc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WKoyMglvOchDD2D5K5t6zuBBSTJeqjwBhmAjJHtuQuQrIMQn4TyLXg7poNkpL3+ur
-	 ANeQ6Oy1q5X7Z9Hax5cjkJLaLfVpFFW0seUViNrnZaNMjX+4SdA1y+aM0NpktUIJVD
-	 mdMxecqUxS3yjrc0yPHtRX2wlQV1cWukiFNUFHuKlPCXDKdj9TamuRJRpNAq0AcRjd
-	 89/+N2XmDgCzG6Vay9XiZ5vM5yI4hftxzxHh0I5h9obnt8hFx1cEo17X3xdgt5WGjZ
-	 7un3053U62ewJJuIWhJjsN1Or2XFE525Spv39c3D2y9uDWvxOmFvzl/AMlNW+67b8L
-	 j4JURwckfmKTA==
-Date: Tue, 3 Nov 2026 11:52:24 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Liam R. Howlett (Google)" <liam@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, Chris Mason <mason@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] maple_tree: Update internal warning and bug_on
- code
-Message-ID: <aunI9hG6Qw8IQ1Uk@gremlin>
-References: <20261103020724.2614498-1-liam@infradead.org>
- <20261103020724.2614498-4-liam@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kUvcUA89
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706751; x=1825242751;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ykfe23YasqmB0JlJCK/c+B5CbBjcPOG62Ef3O9sjCSM=;
+  b=kUvcUA89n3ZOr9pZQFznB94wbFLVXnCkIUJ/ePwIblG5wjk1r8g9jeYG
+   iMY4f0BILFSoIbunllPVKjKcmjv/xjemXVmqWsCw4YeLvn2e9f8+P82PF
+   SRgjDnG/lR+aVP9uGU1GBK2EJq3WRUjA376RS0HSLS1pmLB4d3JRH1+/n
+   ZWEayBKd/jfS2IE3173jzq0s9o42CSpqBMt9a1kpdy5ERK0qqHIIvh4Hd
+   WMn4DttxUoMS1kUvt+0oCKsfTAPHkOZjdtzQdST+pSlvplrwV2CiH3nz1
+   LpuKwpQmTfoaFirLugBta6doHdgtuuZMYeqe/pgBfCD2EN3GtZqAJ3Hsj
+   w==;
+X-CSE-ConnectionGUID: nLgTqxh0QAeZ7iyk/SebvA==
+X-CSE-MsgGUID: bmrTSOw5QH6GZi9fD9XgXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2456405"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2456405"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:52:30 -0800
+X-CSE-ConnectionGUID: K5UjyLdZS5a9XPzh4t82mg==
+X-CSE-MsgGUID: mzNrLGlERW291EJPQqaM9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6524505"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:52:28 -0800
+Date: Tue, 3 Nov 2026 13:52:25 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: Matteo Martelli <matteomartelli3@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Victor Duicu <victor.duicu@microchip.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: pac1921: validate the ACPI description
+Message-ID: <aunK-dEwsK-X_lpr@ashevche-desk.local>
+References: <20261103114115.74662-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,241 +85,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103020724.2614498-4-liam@infradead.org>
+In-Reply-To: <20261103114115.74662-1-k.chen@smail.nju.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 02, 2026 at 09:07:24PM -0500, Liam R. Howlett (Google) wrote:
-> When CONFIG_DEBUG_MAPLE_TREE is set, call WARN_ON() once per site after
-> the custom information is dumped about the tree.  Without using the
-> kernel's WARN_ON calls, syzbot will not catch issues detected by this
-> code.  The BUG_ON variants now stop instead of dumping and continuing.
->
-> Update the non-debug code to call WARN_ON_ONCE() as well.
->
-> The userspace tests asserted on dump_stack() but only print on
-> WARN_ON(), so make WARN() fatal in maple-shared.h and have the maple
-> test exit with the result of maple_tree_seed().
->
-> Cc: <stable@vger.kernel.org>
-> Reported-by: Lorenzo Stoakes <ljs@kernel.org>
-> Fixes: f0a1f866aba1 ("maple_tree: add debug BUG_ON and WARN_ON variants")
-> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+On Tue, Nov 03, 2026 at 07:41:15PM +0800, Kang Chen wrote:
+> pac1921_match_acpi_device() reads elements[0] of both _DSM replies
+> without checking the top-level object type, the package count, or the
+> element type.  An empty package makes elements[0] an out-of-bounds
+> read.  A string reply to the shunt query, or an integer reply to the
+> label query, makes the driver interpret unrelated union members; for
+> the label query this can pass a firmware-chosen pointer to
+> devm_kstrdup().
+> 
+> Require a package with at least one element of the expected type before
+> reading it.  Also reject a shunt value that does not fit in the int
+> range checked by the driver before it is truncated to u32.
 
-Thanks for doing this! This covers off my concerns with the userland testing
-changes so all LGTM and:
+Check mailing list for potential prior work.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+...
 
-> ---
->  include/linux/maple_tree.h          | 48 ++++++++++++++---------------
->  tools/testing/radix-tree/maple.c    | 13 +++++---
->  tools/testing/shared/maple-shared.h | 33 ++++++++++++++++++++
->  3 files changed, 66 insertions(+), 28 deletions(-)
->
-> diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
-> index e30e57f5f3df9..3a9751c6689fc 100644
-> --- a/include/linux/maple_tree.h
-> +++ b/include/linux/maple_tree.h
-> @@ -680,7 +680,7 @@ void mt_cache_shrink(void);
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> +		BUG_ON(1);						\
->  	} else {							\
->  		atomic_inc(&maple_tree_tests_passed);			\
->  	}								\
-> @@ -696,7 +696,7 @@ void mt_cache_shrink(void);
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> +		BUG_ON(1);						\
->  	} else {							\
->  		atomic_inc(&maple_tree_tests_passed);			\
->  	}								\
-> @@ -713,7 +713,7 @@ void mt_cache_shrink(void);
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> +		BUG_ON(1);						\
->  	} else {							\
->  		atomic_inc(&maple_tree_tests_passed);			\
->  	}								\
-> @@ -722,16 +722,16 @@ void mt_cache_shrink(void);
->  #define MT_WARN_ON(__tree, __x)  ({					\
->  	int ret = !!(__x);						\
->  	atomic_inc(&maple_tree_tests_run);				\
-> -	if (ret) {							\
-> -		pr_info("WARN at %s:%d (%u)\n",				\
-> -		__func__, __LINE__, __x);				\
-> +	if (!ret) {							\
-> +		atomic_inc(&maple_tree_tests_passed);			\
-> +	} else if (__ONCE_LITE_IF(ret)) {				\
-> +		pr_info("WARN at %s:%d\n",				\
-> +		__func__, __LINE__);					\
->  		mt_dump(__tree, mt_dump_hex);				\
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> -	} else {							\
-> -		atomic_inc(&maple_tree_tests_passed);			\
-> +		WARN_ON(1);						\
->  	}								\
->  	unlikely(ret);							\
->  })
-> @@ -739,17 +739,17 @@ void mt_cache_shrink(void);
->  #define MAS_WARN_ON(__mas, __x) ({					\
->  	int ret = !!(__x);						\
->  	atomic_inc(&maple_tree_tests_run);				\
-> -	if (ret) {							\
-> -		pr_info("WARN at %s:%d (%u)\n",				\
-> -		__func__, __LINE__, __x);				\
-> +	if (!ret) {							\
-> +		atomic_inc(&maple_tree_tests_passed);			\
-> +	} else if (__ONCE_LITE_IF(ret)) {				\
-> +		pr_info("WARN at %s:%d\n",				\
-> +		__func__, __LINE__);					\
->  		mas_dump(__mas);					\
->  		mt_dump((__mas)->tree, mt_dump_hex);			\
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> -	} else {							\
-> -		atomic_inc(&maple_tree_tests_passed);			\
-> +		WARN_ON(1);						\
->  	}								\
->  	unlikely(ret);							\
->  })
-> @@ -757,18 +757,18 @@ void mt_cache_shrink(void);
->  #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
->  	int ret = !!(__x);						\
->  	atomic_inc(&maple_tree_tests_run);				\
-> -	if (ret) {							\
-> -		pr_info("WARN at %s:%d (%u)\n",				\
-> -		__func__, __LINE__, __x);				\
-> +	if (!ret) {							\
-> +		atomic_inc(&maple_tree_tests_passed);			\
-> +	} else if (__ONCE_LITE_IF(ret)) {				\
-> +		pr_info("WARN at %s:%d\n",				\
-> +		__func__, __LINE__);					\
->  		mas_wr_dump(__wrmas);					\
->  		mas_dump((__wrmas)->mas);				\
->  		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> -	} else {							\
-> -		atomic_inc(&maple_tree_tests_passed);			\
-> +		WARN_ON(1);						\
->  	}								\
->  	unlikely(ret);							\
->  })
-> @@ -776,9 +776,9 @@ void mt_cache_shrink(void);
->  #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
->  #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
->  #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
-> -#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
-> -#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
-> -#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
-> +#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
-> +#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
-> +#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
->  #endif /* CONFIG_DEBUG_MAPLE_TREE */
->
->  /**
-> diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
-> index bfe4b8626c429..846c67e20e82a 100644
-> --- a/tools/testing/radix-tree/maple.c
-> +++ b/tools/testing/radix-tree/maple.c
-> @@ -36502,22 +36502,27 @@ static void regression_tests(void)
->  	test_spanning_store_regression();
->  }
->
-> -void maple_tree_tests(void)
-> +int maple_tree_tests(void)
->  {
-> +	int ret;
-> +
->  #if !defined(BENCH)
->  	regression_tests();
->  	farmer_tests();
->  #endif
-> -	maple_tree_seed();
-> +	ret = maple_tree_seed();
->  	maple_tree_harvest();
-> +	return ret;
->  }
->
->  int __weak main(void)
->  {
-> +	int ret;
-> +
->  	maple_tree_init();
-> -	maple_tree_tests();
-> +	ret = maple_tree_tests();
->  	rcu_barrier();
->  	if (nr_allocated)
->  		printf("nr_allocated = %d\n", nr_allocated);
-> -	return 0;
-> +	return ret ? EXIT_FAILURE : EXIT_SUCCESS;
->  }
-> diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
-> index 2a1e9a8594a28..5f827709773a0 100644
-> --- a/tools/testing/shared/maple-shared.h
-> +++ b/tools/testing/shared/maple-shared.h
-> @@ -8,6 +8,7 @@
->  #include "shared.h"
->  #include <stdlib.h>
->  #include <time.h>
-> +#include <assert.h>
->  #include "linux/init.h"
->
->  void maple_rcu_cb(struct rcu_head *head);
-> @@ -20,5 +21,37 @@ do {                                            \
->      call_rcu(&((_p_struct)->_memb), rcu_cb);    \
->  } while(0);
->
-> +/* Make WARN() fatal */
-> +#undef WARN
-> +#undef WARN_ON
-> +#undef WARN_ONCE
-> +#undef WARN_ON_ONCE
-> +#define WARN(condition, format...) ({				\
-> +	int __ret_warn_on = !!(condition);			\
-> +	if (unlikely(__ret_warn_on)) {				\
-> +		__WARN_printf(format);				\
-> +		assert(0);					\
-> +	}							\
-> +	unlikely(__ret_warn_on);				\
-> +})
-> +#define WARN_ON(condition)					\
-> +	WARN(condition, "assertion failed at %s:%d\n", __FILE__, __LINE__)
-> +#define WARN_ONCE(condition, format...)	WARN(condition, format)
-> +#define WARN_ON_ONCE(condition)		WARN_ON(condition)
-> +
-> +/* Once state for the debug macros */
-> +#ifndef __ONCE_LITE_IF
-> +#define __ONCE_LITE_IF(condition)				\
-> +	({							\
-> +		static bool __already_done;			\
-> +		bool __ret_once = false;			\
-> +								\
-> +		if ((condition) && !__already_done) {		\
-> +			__already_done = true;			\
-> +			__ret_once = true;			\
-> +		}						\
-> +		__ret_once;					\
-> +	})
-> +#endif
->
->  #endif /* __MAPLE_SHARED_H__ */
-> --
-> 2.47.3
->
+> +	if (status->type != ACPI_TYPE_PACKAGE || status->package.count < 1 ||
 
---
-Cheers, Lorenzo
+What's wrong with _typed() variant of acpi_evaluate_dsm()?
+
+> +	    status->package.elements[0].type != ACPI_TYPE_INTEGER) {
+> +		ACPI_FREE(status);
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Invalid shunt value from ACPI table\n");
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
