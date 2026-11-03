@@ -1,96 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695652;
-	b=dvPCbWfJrvdGfK0XFvi3q/O7E/GkRqPhdil5lNV83JOhhpQRrlBZbSEfh1o8HNn9Po1t
-	 qvNLrOjgKG1f11mAzXCsbQaVnN2gte4T/dEEJfJZ8wiueGdfFLs3qbsY/Vdo7YRSFbXCf
-	 fS5gbLK4Epmf/74bVAkfH+ehJOk7DnhxPziov2oDg5xIES5U9+kUWfJZ7AvHXLF0IN0Yq
-	 BUSULr7gKOkTmprv6bHmJkYN2Qadyy91Bl1ri31cca4P8feogCZ2RkUayubyAAfpsY8y2
-	 Z1BdpOeSRCXhFLQInno4prCyekm4EJf06zZulWYWJYHWD96s1ayWy/cetXyWbAEHLag==
+	t=1793695662;
+	b=dIFgmf8fLDzZbjQhKJ5mzbp2XkZLXOClM+NJQ7NxQAz7fEcbiGqZH718f3JWVTXg4uL/
+	 t69sHk4sPuW63/amHwXXl1Cn0S7tOsJOxiLaK3GOkGKagSnJsLD5vmy0Nw+amef8OR4Qt
+	 9+GVNN06j70aXtJHNeEOQHEvn09uJVgMXMJsvg55pm/mT4aIJQdCqMByVo0hYkKtJ/J28
+	 azEszLApjS+zqaIMQnCv4y9BBjj4+/0eZhlkfroXkiA6xm08d87WZ98/rKCYszwUvRAZs
+	 E7NySXp5joHoGEBtcq1FwADKVgd6qILRNzqLFy8HnsxfitBdHp7UrMdzRQo+3PdcFzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695652;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=U4tKXObhoI+fdUM+1l8D4TYSSuaXMy7Ud+cPi9l7w0w=;
-	b=RCUh9qlkE7m2LkUjUXN3aDr9K5QEC20JY7AzrW3Bkyv+LVFWJlYY68MvmmRMRDY/Nr77
-	 PpdZlZxm8B0Um1GOHAZat3T9uJxov5quX/HYmiV8GHyNC37ubk6HHKhjWURSdlpsRYd/6
-	 ji53uQk0+S3hcfmndw0jysQk4ulIR2pP9z91kyRtRqDoijGMZhYnMfNPhni3Fnt2JrH1h
-	 rDRLFrGEnLqS4e7AiCZG658tHaeGryfUDocd2aG3thpbtT4A1kRY+idKEDc8lPQdPKDID
-	 uPrS8PvjXlL2xeB1demnopaoUpkl1xlR+xLE19QP9l/Kz5rUNtfhKAz7LWbHinb1gZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695662;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=c3qK4FwglSng5Fj2jaUKFhFzwkFcNf8BcwxMiOOgqS0=;
+	b=m+WDk5dFOXhywEyoagJv9FZY38/e0U57OabgWGyVF2AaopnaDE7ezAmH48aOfKDdDKfC
+	 ZSnsFe1fuXqZaIsE+y23qwYF8i+Cg6CxZTw9TFlTGJMVBXRY2WhIHwovpURHfHALt4/UX
+	 Fk3YOxCftj5BESYLTF88Kms61PWN+7iQ6lEiyesn8OmfTlgx0VxfCyEzQfYLPcfqA4fQn
+	 2rauhVC1j3KG/PwypoTLhLrtDII5emXTntUHLk92Q1vvSueeD1zmOqolK1k66Z2SOYD71
+	 pIxrelVmKsyWiPYoj/tuwW/SvQuPhBrvg+w+zl6KhnIbm1veQmlBKwwUqWm9st5zciQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="WeI/PAMh";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sxSiMFiy;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C15C606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:47:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C15C606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C78606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C78606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WeI/PAMh
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3aded3c6103so1854722a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:47:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793695652; x=1794300452; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U4tKXObhoI+fdUM+1l8D4TYSSuaXMy7Ud+cPi9l7w0w=;
-        b=WeI/PAMhpY6ElVATxqJzgVu3Tvz50yNK9Mtvb0jpEhROSFUKak1i9ybMTlBzKA5whc
-         H3oJfPliaqhT5UOmk3LO/ZpJ7jbeCP5z5xo4PZO7HB8ogQrBN0ozoiT5gf0Or2bmfAhJ
-         y54kdg9c2zPBpztYQ21x1A6cnAQKechI9efPsSFGYmdgmX6n615wxC5JTxtHGkcaAkp6
-         Gq1yHGQpIzojAVWYkF6u9oT5W1Lctw5gPpwYUDwPUAi7zKghOiscZSFVSGfPpAWvekYX
-         5c/VMOrFzi5Yf1yy3AjkUim90lI715PTUEBDA5BbI+7KOYRSq6UNnLFBLJG6rg7ERn+/
-         5H8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793695652; x=1794300452;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U4tKXObhoI+fdUM+1l8D4TYSSuaXMy7Ud+cPi9l7w0w=;
-        b=r8xDYiiEjkQI3e2GPzArJ+BJjtFJ3gF3TWoh45flSILuncP8wmpXTEzO9iPam08fqV
-         5dlkjDGmFjN17Wz/W8FXCpogQGRMzLb84RyCK6ehWtMUDZGDE564vtdb9hmrHdpqXOmV
-         7daQul/HLGiCDwyCDQs0MX79WKl5kRBO+ocX6BA4loqzxZ1knIpxV4hU0LbTwMp9AqNk
-         T5sEZiiRf3GUw2DlprTGYmd9NRNegAU2nDyM2rM0AD4/TWPbJOswr3+XXtMwA4zYJL0M
-         XHr2OMsQ+8D7NK7JRiV3fRtgT4Ckjex+8ptaJsk7QU8eXE/grF01njj20idg4x/n/cX1
-         xXjA==
-X-Forwarded-Encrypted: i=1; AKwUvByvFJDKFItzJxxDKohppF9yVHCNZRwxpV77xYav93Qz/znhEN8n/9VzmJHifybWz2N4r0/773BDPuGFYNc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZLFFb7weKjlqJ7nAJzmG+olEn+eLIh//un2sblvA7T2+QYdMi
-	Pkc6lMliwF3dfXfNI16jXGgoOPUAopqpAsVBRmjuOiM59jZsp5ezr0Th
-X-Gm-Gg: AYBFou3Qckjwzu32qms7cHsdd47l+M0CfULWB1slnH52QXLuZ5ETZOk7tA3RCyrVQRn
-	eOSKkLGbcbjvpdnTbSMaRomfPDhmMt8aEm8tCwkBwe9/fQAp5lDaxhrpnEqRwg1sSomSWJhwS3v
-	LyNnfqwWFGwb/bbaC7IF0HMke6mzKcDqF/YvpHUfp3yQwEvyyvx6h1Bixnt8qYbnf/WNeGNpquV
-	eIdOBS41YmFduTczy23hVTSelTnspOf70Awh/2KVzkAb4prxL+1frQBCc0fWmGsnVTuaiLPpcEE
-	r/RIlJQQxtndokewtOmop5I3/l10RfrH0qLq2neAH0NxbQ60isUKtw0bXNypMA95VvdJmcH6NqV
-	U1jzcNHyW/AiaA4+UHHvgVvzWNUI37lsUCMqwG+bktJb53Meg285JzkCAWwJZ29hZpfsI35AlGk
-	tihV137qluvjtlJpvf8sqIGqVlKXkMAhes/R81qoMztbNTSFZBjp9fVn9xYqNgPCd2Zcsz9k2+F
-	LIE97Uh8QTiYgtkg7EPrmVdSgbtHPzOMKWWFJk1jQMWjBj2ga+ZHHpgNDt5R53zWIMq5i2nZsUC
-	sFrI5LGqryac71tjgz8uCHL1MQxI2u4yIWAOChkdHX6VwHs+
-X-Received: by 2002:a17:90b:2fd0:b0:3ac:af8b:6f3 with SMTP id 98e67ed59e1d1-3ae898149e2mr9319285a91.52.1793695651757;
-        Tue, 03 Nov 2026 00:47:31 -0800 (PST)
-Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6740a1sm3294725a91.10.2026.11.03.00.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:47:31 -0800 (PST)
-From: Li Ximo <lixicaicai@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Michal Simek <michal.simek@amd.com>
-Cc: "S M, Suhan" <Suhan.SM@amd.com>,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sxSiMFiy
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 96B8AC4FEE4
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:48:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 24E576046C;
+	Tue,  3 Nov 2026 08:47:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6075510328ED0;
+	Tue,  3 Nov 2026 09:47:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793695651; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=c3qK4FwglSng5Fj2jaUKFhFzwkFcNf8BcwxMiOOgqS0=;
+	b=sxSiMFiy7HNZ4xlSURfkDEPt/23DfqwfwlHea7pgOVh25nzrWPgfR0aTtdDtjYbJMfpzL0
+	nEhm9q4vRWCX7pq7sGIJanZ6GD3+zbhyz2aa4VbNA/4hOz/zFsrXiRIMyg0x1ldnlT6LiW
+	+4F2ggBzhMmaumtNbvL5sGdyXXA2miLWVcS/aFYKJr2W8iONLdcyUpv/LbAOiM9rhhP46a
+	RuqZqL3mHKLGZWYglZm7ZkDJncWwz85Jb8xaBi3C/slubjgF9DXGY2jAbgn3H++laWQpHU
+	g9Vgz3W1XsfTpNXO+TOYBjP1hJnnTqi4RnehwlKPGvQtJnFCJgx0qX6HSGzClg==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>
+Cc: linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Wang Haoran <haoranwangsec@gmail.com>,
-	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH v2] usb: gadget: udc-xilinx: guard EP0 dequeue against empty queue
-Date: Tue,  3 Nov 2026 16:47:22 +0800
-Message-Id: <20261103084722.1821982-1-lixicaicai@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH] ACPI: platform: Add basic support for ACPI 6.5 fixed clock resources
+Date: Tue,  3 Nov 2026 09:47:18 +0100
+Message-ID: <20261103084718.8222-1-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,64 +70,122 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Wang Haoran <haoranwangsec@gmail.com>
+ACPI 6.5 introduced a clock input resource descriptor, which allows to
+specify in the ACPI tables what clocks are connected to a given device.
 
-The EP0 dequeue side, xudc_ep0_out() and xudc_ep0_in(), calls
-list_first_entry() on ep0->queue without checking whether a request is
-queued, while the enqueue side __xudc_ep0_queue() already guards the
-same queue with list_empty() and the non-control endpoint handler
-performs the same check before its own list_first_entry().
+This patch adds support for the most basic clock resource, which is the
+one that represents a fixed clock. The new code will then create a
+clk_hw for each fixed clock resource, which is then made available to
+the device drivers, that can obtain it through a regular call to
+clk_get(NULL).
 
-list_first_entry() never returns NULL on an empty list; it returns the
-container_of() of the list head, i.e. a non-NULL wild pointer into the
-enclosing struct xusb_ep. Switch both functions to
-list_first_entry_or_null() and return early when no request is queued,
-making the dequeue side consistent with the rest of the driver.
-
-This is a defensive consistency fix found by static analysis.
-
-Fixes: 1f7c51660034 ("usb: gadget: Add xilinx usb2 device support")
-Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-Reported-by: Li Ximo <lixicaicai@gmail.com>
-Reviewed-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
-v1: https://lore.kernel.org/r/20261023073131.637062-1-lixicaicai@gmail.com
-v2: refactor the commit description as a defensive consistency fix per
-Suhan's review (the originally described bus-timing trigger is not
-reachable without software first arming a buffer), and add the Fixes
-tag. Carry Aldo's Reviewed-by. No code change.
+ drivers/acpi/acpi_platform.c | 64 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
- drivers/usb/gadget/udc/udc-xilinx.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/gadget/udc/udc-xilinx.c b/drivers/usb/gadget/udc/udc-xilinx.c
-index bef06fe75..032d9f04f 100644
---- a/drivers/usb/gadget/udc/udc-xilinx.c
-+++ b/drivers/usb/gadget/udc/udc-xilinx.c
-@@ -1822,7 +1822,9 @@ static void xudc_ep0_out(struct xusb_udc *udc)
- 	unsigned int bytes_to_rx;
- 	void *buffer;
+diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
+index 80ea7121744d..bae6a2eacd71 100644
+--- a/drivers/acpi/acpi_platform.c
++++ b/drivers/acpi/acpi_platform.c
+@@ -10,17 +10,27 @@
  
--	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
-+	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
-+	if (!req)
-+		return;
+ #include <linux/acpi.h>
+ #include <linux/bits.h>
++#include <linux/clk-provider.h>
++#include <linux/clkdev.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/ioport.h>
++#include <linux/kconfig.h>
+ #include <linux/kernel.h>
++#include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
++#include <linux/units.h>
  
- 	switch (udc->setupseqrx) {
- 	case STATUS_PHASE:
-@@ -1875,7 +1877,10 @@ static void xudc_ep0_in(struct xusb_udc *udc)
- 	u8 *ep0rambase;
- 	u8 test_mode = le16_to_cpu(udc->setup.wIndex) >> 8;
+ #include "internal.h"
  
--	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
-+	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
-+	if (!req)
-+		return;
++struct acpi_clk_data {
++	struct device *dev;
++	unsigned int idx;
++};
 +
- 	bytes_to_tx = req->usb_req.length - req->usb_req.actual;
+ /* Exclude devices that have no _CRS resources provided */
+ #define ACPI_ALLOW_WO_RESOURCES		BIT(0)
  
- 	switch (udc->setupseqtx) {
+@@ -130,6 +140,57 @@ static unsigned int acpi_platform_resource_count(struct acpi_resource *ares, voi
+ 	return AE_CTRL_TERMINATE;
+ }
+ 
++static int acpi_add_fixed_clock(struct acpi_resource *res, void *d)
++{
++	static const unsigned long clk_scale[] = { 1, HZ_PER_KHZ, HZ_PER_MHZ };
++	struct acpi_resource_clock_input *clkres;
++	struct acpi_clk_data *data = d;
++	struct device *dev = data->dev;
++	struct clk_hw *clk;
++	unsigned long rate;
++	char name[64];
++	int err;
++
++	if (res->type == ACPI_RESOURCE_TYPE_CLOCK_INPUT) {
++		clkres = &res->data.clock_input;
++
++		if (clkres->mode) {
++			dev_warn(dev, "Only fixed rate clocks supported for now.\n");
++			return 1; /* keep going */
++		}
++
++		if (clkres->frequency_divisor == 0)
++			return -EINVAL;
++
++		rate = DIV_ROUND_UP(clkres->frequency_numerator * clk_scale[clkres->scale],
++				    clkres->frequency_divisor);
++
++		clk = devm_clk_hw_register_fixed_rate(dev, dev_name(dev), NULL, 0, rate);
++		if (IS_ERR(clk))
++			return PTR_ERR(clk);
++
++		snprintf(name, sizeof(name), "%s-clk%u", dev_name(dev), data->idx++);
++
++		err = devm_clk_hw_register_clkdev(dev, clk, name, dev_name(dev));
++		if (err)
++			return err;
++	}
++
++	return 1;
++}
++
++static void acpi_platform_init_clocks(struct acpi_device *adev)
++{
++	struct device *dev = &adev->dev;
++	struct acpi_clk_data data = { .dev = dev };
++	LIST_HEAD(list);
++	int ret;
++
++	ret = acpi_dev_get_resources(adev, &list, acpi_add_fixed_clock, &data);
++	if (ret < 0)
++		dev_err(dev, "Failed to add clock resources: %d\n", ret);
++}
++
+ /**
+  * acpi_create_platform_device - Create platform device for ACPI device node
+  * @adev: ACPI device node to create a platform device for.
+@@ -217,6 +278,9 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
+ 	else
+ 		pdevinfo.dma_mask = 0;
+ 
++	if (IS_ENABLED(CONFIG_COMMON_CLK))
++		acpi_platform_init_clocks(adev);
++
+ 	pdev = platform_device_register_full(&pdevinfo);
+ 	if (IS_ERR(pdev))
+ 		dev_err(&adev->dev, "platform device creation failed: %ld\n",
 -- 
-2.30.2
+2.47.3
+
