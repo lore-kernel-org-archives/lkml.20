@@ -1,89 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793669709;
-	b=r1cKkOOirhbc+rZze427mv7PusaG+033bC6QhevYvNpmFxgq+ixyOePw0S67IIbEH844
-	 U5KYgVr+Zu8jZ9ZA6saA2IMxLv0rmPhgxXN26L76591HABOgXFtDfE1JDnBgDDfkCAR2G
-	 pBU4nKHfY8ingBTzUPvrJZOIdlI9QMOKTMzcVD/9iYwuIIWLBSa2I3AaEo+PqnirZQusJ
-	 WP1eikxFxdYMZ2dJPqYJFq+HQ0/IZcvrlEq7x4Dg7PGK1y9iyZ8fYO09orAwYe3GrDe48
-	 3pbTIOxzHMSonUwYX7sRCZ3frgG2WDuy8msFYPHmmnf+goDqEu1lPGwQRWphsHF8Llg==
+	t=1793669686;
+	b=PbrDIXSC6X7jsC1tDWM4wLTVNdrloyZyhOUF2+1fYOj+JA4jxsooNYOXCL9QNZIBAQop
+	 KiQ7uZQXQTtVdvbQCCgJrwXD4Gq2btst53gk4j3PDVHY/63nqWsflA4ezVv2edV/2uWgO
+	 tUpIi74lmbm6wMe5I5wkiMqUkM4KkSRb2lnqvpwF9WNUbEYS2jFesBQdnsk1E2KYLCjy7
+	 6hdACiQxE3U8eUvMEnp6xaS5hlmM6I4Z5ItJfD8O6GpfYnCtJTDdpKXlgdJU3U1A7rUtD
+	 7D1WQnNzo727+cTcnPizo8ZwehbHVs8IVNcLdKICxU7Qmo8IMJ7c7hefxvGRwHyk8EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793669709;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793669686;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cmE3tFhLbp9XIfbD4gcsOZim0cWMbcIHyG8WKJckdko=;
-	b=kK9IpTJhA8iYrhxf41V8MkB+kuE3LT6FirhLQWrqQe4oafqM+dCjnGwcY9sSRkzpOst7
-	 av1iofFSXOIFa0MnObHnrLWAPQBjZmsWq2Y+TpCIr+t1cM6gxliWSVY2K9wAP7/KcfCT3
-	 dj71363N1/lSmSSRKxJMoOAjiTXWjKMrIErGBTxhrWftl5SvknQRpwa8PLaVuPsNUE1Cf
-	 mFs0eCaAeDjHvPJ/ZKdWl0WD3ei3DA+ok803QF/HylWWtlqxUaQ/Ip9e3bkR43Q/OJvZz
-	 QEdluDkUwHYVx1xgLzD7GOZQqGWqeP1o/kko/WBUw1/z8iYCHZ/o1/tiPcSEExkvW0g==
+	bh=gVDlJuxO1aJ29OkzZ0LvZrlNFA/4PNrvnmKFmGqNW1Y=;
+	b=2bjbgTqCMWmGSkzqA4Xe4Ejw4sQr6+SVy5TTQAEle2HDwz7S6HAKyvMDRNmZr/0rU4IH
+	 xdY5j+kPbI1nB1L3mRku70pxe0c+zialVBJoc9PEIdqKMLAVbDmncniKy1jlAS0d5Eg8k
+	 7+wMj+Q0+qF77rETSIrxrWb5JRpoMgT1V5FfxLzfw5GFAEl4Co1oFhUMWgQewi+DHRqyk
+	 DpJAuArCNXtqAupscsEHGp+6TyCnuvjvvckaQ1OzN1wjlhVRYqB8A2gr9tvBV9v/cvXoa
+	 u8ponYPlIDFQlXVjFffq1AHDBeKxouiLhiuIVHtVOiwMIf+xJw21Uu+LvGfjz5fBElQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=layalina.io;
-	spf=pass smtp.mailfrom=layalina.io;
-	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NuoCxkJL;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C690C606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 01:35:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C690C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Joc1Ic7l;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4747C606A324;
+	Tue,  3 Nov 2026 01:34:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4747C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NuoCxkJL
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so40558725e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 17:35:08 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Joc1Ic7l
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793669707; x=1794274507; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cmE3tFhLbp9XIfbD4gcsOZim0cWMbcIHyG8WKJckdko=;
-        b=NuoCxkJL96FXhxPfYM7AekE0pKHxaSSwTmhFn0RRgwt7DFojYvybKoFTLpR9aXuB6P
-         Q66YtUbHI+b9aY/4WBtybV7IUkusslLVseefxk9ztImh/wKXWL0TrlE6s478zKJXvKgU
-         Mkxm2054QyrjRTUBZbP9EzXmWhDffbenpwPiWnhhIVqn8u8skUtrc6wcFsTbxukcTGl/
-         n+E+lrlfqllhnkoCudsi7ycFovRivm8YCpcewg1edHJbGmq/vUYBB2CkHHzH/cijFA40
-         cOptCT11fQeylbkHozg+4iRTih8Y9VPQU6ORB6ZeriWM1tmJCrlk9rzHPNerNjwpBvhG
-         sa3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793669707; x=1794274507;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cmE3tFhLbp9XIfbD4gcsOZim0cWMbcIHyG8WKJckdko=;
-        b=dgnTQToxD6p5DXifD+F1zVHVXcM7Pbq6IRqGfOGlCZU9xQHL3tCYboAbCxZcUKuIiS
-         UY3aXL2haZzq2ES8gNpxIesJbrTIQR65Pv80Y91y6zfxwJ85NeWMsPnw2nFuxyCqrV3K
-         NjGCBDec1HotUxQ7XFdBz/D9Wux4u/zGLBzvg6M2WTru20VLUbwo9n5PAmizASlGTuB9
-         Diib1riahk5H331PnLya/+AT/vdlAj687edzZ3kqs5TN9F/2gFyCZs9XHPrOkmXj9fX6
-         sRjZTSmEI8W6HMQM8jiabnXi7PGyU82Pa2o2uQ49XRB0TQvxNmvHiJR85UJDDUNCPGkl
-         /aTA==
-X-Forwarded-Encrypted: i=1; AKwUvBxGj4rGPj81UPA5SLDlJa4voUi+0iTfw3+ypCQtAagfHn9lNIDM8bhsLR06b4T8mzMmIbNHNYROm6aP7l8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXdUfBJT6IaM6sWXCJahurUEKJ7ltLqctyc4qcEMvMq0g+ahnt
-	qX8H0iB0vMZ+utqYocqKFZfRi4kZmHiJ03cifaLriwwO9iFDS0OvFZ5dhL3LRPnKk9A=
-X-Gm-Gg: AYBFou2GYxOxSNecHE5/ED2tIvuoqegfCTATX65TEwb1FkUNdJuo6uV39uv1k32bJ1b
-	X37TMI0C7RJgb3sqBtCxd17OHfcqZ4t49aTFTsElKC65cnRSt5jqYQjRaWVV1S4iY+KKdV6r7KR
-	RjVurlWC0T2kUZcqkNvneUEufC09cc+2lnIBslvcqmuYApWnUlKBksSAbs3mYCclhig6dx1h1GO
-	vynJmVFpm+NHS1/a8VEYBq3gkAxdksDIpoA4U9rlGvfkA+n6epOwqLKPQHK1JrY0NDhbGMd5LVo
-	5cjFfoXhmoBSBhrk+OOZxcFUBEl9fKI3262V/nViQGk2306sr4fYxazJIKQbbEx/Va6LIfoHRD0
-	RIXRhFx8v88md2XikIpgJ1nWdM7nLSzQ/DDiRdRXJ7OOWu/rOSLWvgw1TQCX5FIY2II5biumo5l
-	8vhBratJB8jkqVAmpGQIYZAaIUDNzgQXhz+blYc7g+SIctMwKLY2ALIxnyi1/gQ7sjAc1eVHhD0
-	3QSFG6ZHTguFJZ3XRM+BU1NA8980htYF6U2DeX013mCFrr00mHIiLA/Bu9p4Wf3bAxOYxsuCd2m
-	eVe+pfn12TekxeHxLV0QC2lCcxQiuOzp7/d2zNIzgvz7eO/fyn8FYfXsYK1XBYtf88Za70KdwLT
-	cedpuIY4pmBeU
-X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr270781525e9.4.1793669707217;
-        Mon, 02 Nov 2026 17:35:07 -0800 (PST)
-Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm25705915e9.0.2026.11.02.17.35.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 17:35:05 -0800 (PST)
-Message-ID: <37a6df6f-7f25-4acf-a253-d00a40bc796a@layalina.io>
-Date: Tue, 3 Nov 2026 01:35:05 +0000
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Joc1Ic7l/b0pV1nB1uVV3Mux1NmYTD7WsI3korK0fF0ss8byrtsUz5i8IpljRJPNkMyw751m4ltRT
+	 Q0kb8LRyq/hVXOVM01p2Sfv/d+Ix5E520VCsucV74tv/A0OnSeIx3+e0MFPCrRltJ2pViR9hAQeqYN
+	 igCzJi4hWStKCDQY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae93a32ed0-68e8b;
+	Tue, 03 Nov 2026 09:34:43 +0800 (CST)
+X-RM-TRANSID:2ee16ae93a32ed0-68e8b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56ae93a31df2-e4dfc;
+	Tue, 03 Nov 2026 09:34:42 +0800 (CST)
+X-RM-TRANSID:2ee56ae93a31df2-e4dfc
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] media: sti: hva: Remove bogus mutex_unlock() in hva_hw_get_ip_version()
+Date: Tue,  3 Nov 2026 09:34:40 +0800
+Message-ID: <20261103013440.1138-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,54 +69,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] sched/uclamp: Move uclamp_rq_{inc, dec}() from
- core.c
-To: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Christian Loehle <christian.loehle@arm.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
- linux-kernel@vger.kernel.org
-References: <20261103005953.56271-1-qyousef@layalina.io>
- <20261103005953.56271-5-qyousef@layalina.io>
-Content-Language: en-US
-From: Qais Yousef <qyousef@layalina.io>
-In-Reply-To: <20261103005953.56271-5-qyousef@layalina.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 00:59, Qais Yousef wrote:
+When runtime resume fails, hva_hw_get_ip_version() calls
+mutex_unlock() on hva->protect_mutex before returning.  The only
+caller of this function is hva_hw_probe(), which does not hold
+protect_mutex at that point, so the error path unlocks a mutex that
+was never locked.
 
-> @@ -2188,11 +2173,10 @@ void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
->  		update_rq_clock(rq);
->  
->  	/*
-> -	 * Can be before ->enqueue_task() because uclamp considers the
-> -	 * ENQUEUE_DELAYED task before its ->sched_delayed gets cleared
-> -	 * in ->enqueue_task().
-> +	 * Need to be careful what operations are done here, some classes like
-> +	 * fair and RT can enqueue tasks without going through core due to some
-> +	 * features like throttling.
->  	 */
-> -	uclamp_rq_inc(rq, p, flags);
->  
->  	p->sched_class->enqueue_task(rq, p, flags);
->  
-> @@ -2222,10 +2206,11 @@ inline bool dequeue_task(struct rq *rq, struct task_struct *p, int flags)
->  	psi_dequeue(p, flags);
->  
->  	/*
-> -	 * Must be before ->dequeue_task() because ->dequeue_task() can 'fail'
-> -	 * and mark the task ->sched_delayed.
-> +	 * Need to be careful what operations are done here, some classes like
-> +	 * fair and RT can dequeue tasks without going through core due to some
-> +	 * features like throttling.
->  	 */
-> -	uclamp_rq_dec(rq, p);
-> +
->  	return p->sched_class->dequeue_task(rq, p, flags);
->  }
-psi_enqueue/dequeue() are done at core, not sure how much an impact this has on
-it due to throttling dequeueing/enqueueing without going via core and missing
-these updates.
+The line appears to be copied from the encode path in
+hva_hw_execute_cmds(), which does run under protect_mutex.  Remove
+it so that a failed runtime resume returns without corrupting the
+mutex state.
+
+Fixes: 57b2c0628b60 ("[media] st-hva: multi-format video encoder V4L2 driver")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/media/platform/st/sti/hva/hva-hw.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/media/platform/st/sti/hva/hva-hw.c b/drivers/media/platform/st/sti/hva/hva-hw.c
+index fcb18fb52..bd33d8dab 100644
+--- a/drivers/media/platform/st/sti/hva/hva-hw.c
++++ b/drivers/media/platform/st/sti/hva/hva-hw.c
+@@ -271,7 +271,6 @@ static unsigned long int hva_hw_get_ip_version(struct hva_dev *hva)
+ 
+ 	if (pm_runtime_resume_and_get(dev) < 0) {
+ 		dev_err(dev, "%s     failed to get pm_runtime\n", HVA_PREFIX);
+-		mutex_unlock(&hva->protect_mutex);
+ 		return -EFAULT;
+ 	}
+ 
+
+
