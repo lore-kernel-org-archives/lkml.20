@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701561;
-	b=muXmTLm8jfyClY+cKFPCIpUMN6inIgePkO/LPqWgZrYZxBDZNcnUPyyhvU5jI+rVF++a
-	 18m9opIgEHoU9tls+fVrRW65WwyCq/5R/NbuDOyjiIn1Bfxaesz10YBBxTnvfvgNJ4UUq
-	 pGjCrGQPnZHboe3k4Rype07r89N49YzDtkJTLAaxGP7TeJ+oEPgRUF3WaGOCEm32EX9ss
-	 TSYWZ88Uqev+uJiIyCxl0ZYJPlyDy3NiyqM3PT/VDvsjnlg8T4uSPqFFsQqtthciYrQ+z
-	 QvcOgjucs4BFnX78K7XRjA6c8h5QU/4wptJF+e3O47klw0Td/6S/zR4V+iPv+JVpZnw==
+	t=1793701571;
+	b=TZBBtsA9NZRsv3Nvx5EJBnIt9RzwlAwrhkOsyihkVkflCysUIko4geIQXJSPMtovLoSC
+	 xAh+HK8OauQD3rQTThFQ4Xzrv69EtDruCnmluj6z+5GtEWYfjbKets9c54eNPO0Xgl2+w
+	 nhdvpa0u2Wcdmk0qQAbrtfbksaNwW9MwRqZy8vNwKa+c5qlndRhRT83jWXhgpjRLEL83h
+	 ZLTGYopvAyQ7rUBwtuhQlWPBzerNzv8fsjr5vaBWKU9QbaClhwuwgbQv1Ao5atrjINhMP
+	 3NQI3bm/ZyFSCc7blrrGlqs+Zh0ngCDP/ODbCfqjV/iQ9yLq6i69XyFw0Ve9EQhXtGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701571;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LVepNa8MBgnxzOIR4Tx+W3uy/yFi60gYxq1FZlSu/kQ=;
-	b=kMvpr9JE6wjkvB/xj+SeOP3rc46tEI2thOB3BOc8gBOZaX5k9JjHLEZiRV4Ky4vGTlpa
-	 eXMgSBflukhdzljxA9gueEdtGaeRoxSXqcLay66yJNk6cx5nq+1Q4NjbVMtRcnxRFIuQL
-	 Mp8REypgmLUrl/ZKSj70/q2gel4tmJG9msGdGgo6NOnSvc4pu+RISothjConbXbNoeHdW
-	 CNJD2mQCq/zeja243T6xTWPaZY6fdIKixEwTK+EKq5XAPmXFbLuYHhKJo30RcFFl5QWcm
-	 P9E5M0Q/Xg4lVww30eW4xBdowLeip4H00troXcL+eDWUBi4bgZg+5q7UI4xuYllIqyQ==
+	bh=+tVXS2qXFnFcTdFlcoUpcMZROLwvP5rjxvPBVj72EVo=;
+	b=mQKRLpBvEc3NkURKf/gkt3F0njI3hOgSbdOwbDev3zP9HFZONmubD65d6dvZSJCwBI1I
+	 xnKHOl9rhVEGo0WodvqOyE8n07A/nMl16Aw5oDDgqcrziW1/nZ5mEBA9QLtL/KxxPIh3s
+	 zyBekJzqR5VVfpock2i4NTvyNxtVLZsGq313lHIauBsTXuO6LQ9/BZumLgfVUbym/6q4/
+	 2P4R/+EQ5Thmr7UzLfeJDITKzTraMbPHvXmmyqkpBsttKe+JtSDEnhYqcXq/FTYQfaAi8
+	 FQIiOU7+reZR9nPKUarmpVGxziC+pHaPTIFvJtuTKs3oM6ggudCSB+D8CxdAl296zfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YKjrBA/m";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V96M6+aW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6CD606D80D;
-	Tue,  3 Nov 2026 10:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5797E606B13A;
+	Tue,  3 Nov 2026 10:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YKjrBA/m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957E21F000C1;
-	Tue,  3 Nov 2026 10:26:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V96M6+aW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2141F00A1E;
+	Tue,  3 Nov 2026 10:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701561;
-	bh=LVepNa8MBgnxzOIR4Tx+W3uy/yFi60gYxq1FZlSu/kQ=;
+	s=k20260515; t=1793701571;
+	bh=+tVXS2qXFnFcTdFlcoUpcMZROLwvP5rjxvPBVj72EVo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YKjrBA/mej4tTGzq0T8wexaUUvNDO1PFLajq/VyjYTc8bTtvyYP5brGpAOeaT6YFX
-	 dyi3WDtz15/cPCJOfI1SBe1oS4pAHGoYDXl1Y2aMOZx1hBs2Za8+T2U8j7Vuwm8r22
-	 S4NJPmIN+VLIIM0fB3kG/9e0RUaPu8gN/8nGHK/IEMmm31fjGD4G/1R3ejXgCsDYEH
-	 WPww9c/E68B4mbK+0ocCC9SrhhY2M0JAKHW4qC/PsPOAp6uBOmdXR5y6Cqmiz0dNMc
-	 N9WYEUWtyhn4uoWTG84NsEEzZBDxYBmi2+FSeV7Gn6MLo12p4FWCq3KJyQB9Dqi1rM
-	 kfu+QknFBny6A==
-Date: Tue, 3 Nov 2026 11:25:58 +0100
+	b=V96M6+aWiTTHVj6EbJcdFT+MAlD9HNzEDEOOfCOKlXGFDP6zXRe6tkbF3v7ACN0r7
+	 k+uFpQjxwLofHgDmGv3P2OtzI0xREeFM34cKMgZ9Bw4WmtgQ2Tn59o1R+Qfs82y6ih
+	 DvHAKn2o3h3XKQy9pAbxQLgPzxtvHsU9sso4ngt3/vRR9OF40hhVuSzNHm+V3Oj/C9
+	 zJmJ7+g7zjgveisL8ZhYoYuoR/alUTsef9VNo2TPK4BHDnikvnTPe9/wy+fkEA81UE
+	 PHfSc/Pvw2oSzCLx6cIM9sjCMKqY8XxUMkSzScA0hM/amQQZpmoSzVlnOzsVBxPlpF
+	 75ldcgmtL4uZQ==
+Date: Tue, 3 Nov 2026 11:26:08 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, Sean Anderson <sean.anderson@linux.dev>, stable@vger.kernel.org, 
-	Madalin Bucur <madalin.bucur@nxp.com>, "David S. Miller" <davem@davemloft.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, 
-	Eric Dumazet <edumazet@kernel.org>
-Subject: Re: [PATCH] net: fman: drop the FMan device reference after port
- probe
-Message-ID: <20261103-magnificent-happy-cuttlefish-adbaad@quoll>
-References: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+Cc: Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+	Potnuri Bharat Teja <bharat@chelsio.com>, Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH] net: cxgb4: do not leak a PTP skb when the Tx queue is
+ busy
+Message-ID: <20261103-astute-literate-malkoha-251bce@quoll>
+References: <20261103100530.1309928-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,27 +61,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100530.1309928-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:32 +0000, Wentao Liang wrote:
-> fman_port_probe() looks up the parent FMan platform device with
-> of_find_device_by_node(), which takes a reference on the embedded
-> struct device.  The reference is released on the error paths, but not
-> after a successful probe, and the __devm_request_region() failure path
-> jumps directly to freeing the port.
+On Tue, 03 Nov 2026 10:05:30 +0000, Wentao Liang wrote:
+> cxgb4_eth_xmit() stores the PTP skb in adap->ptp_tx_skb with an extra
+> reference before the descriptor credits are checked.  When the PTP
+> queue is full the function returns NETDEV_TX_BUSY, and later failures
+> such as an unsupported FCoE offload or a failed DMA mapping jump to
+> out_free.  None of those paths transmit the packet, so no transmit
+> timestamp ever arrives and the extra reference is never released.
 > 
-> As a result the reference is never dropped.  Put the FMan device and
-> the port node before returning success, and route the failed region
-> request through the existing cleanup labels as well.
+> Only take the extra reference once the packet is certain to be queued,
+> just before it is handed to the hardware.  The initial check for an
+> outstanding PTP skb is kept, and PTP transmits are serialized by
+> adap->ptp_lock, so only one PTP packet can be in flight.
 > 
-> Fixes: 18a6c85fcc78 ("fsl/fman: Add FMan Port Support")
+> Fixes: a456950445a0 ("cxgb4: time stamping interface for PTP")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/freescale/fman/fman_port.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+>  drivers/net/ethernet/chelsio/cxgb4/sge.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
 
 
