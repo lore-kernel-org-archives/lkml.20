@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697367;
-	b=elp34w93b3dWU2uzBm0KqtJxJe6h6AzHeT9UwMtwJSZO/sA47xcnqHJkRPGq9GEe2GHV
-	 oXywS75bouXFPIP50wU8xfrJLT4eEF57V3Zjfwj3ax/842T5AiUEm3BEpbYWdt1J2YYlT
-	 BaxMKsJ28My1yQ45LOP0LnEi4MihsvPsF9wZi499K4Rq48sBoqdimcEEu8aEvFm4/ci30
-	 k4R78n+hQ13Z4uuICO61AI7QLgt8+2FXvCxNWl84UymvYjA82M29NxIarnt8KjWHg1nxG
-	 rhXc/KF4QYJp8Bt9VtN8NUQZuTHVmSBn9b0Y2mN1QtwmQzmUx16WxP8HBb0s3qXg28A==
+	t=1793697370;
+	b=PQe3YS8dqFN6W0ytxsOTd/WHz/72x3VppDVwYxEIoJ92ePsf+u+H+A3Gng1lzOnR4AsN
+	 WH95g7rm8/Oz4BI67p9cLAndO4jDpBXlmkRFQhDBUZ+ZHTx4Po8LsfKj3gg4umQwtN5EG
+	 EHITmf+VwQ9s881XXUguVvPNUWMCtGjQ9nnHeK8LJJQ0sr4pEJAjo6Ag6UwSqJ+3yL3Gn
+	 ecPpnty4xOvLlqcAJkp4ITPnjS2nmLX+W0guxB/SVG6V9bGETNHgFih42KTU17uDx6nBm
+	 IZ1OGJ2HshT8hdv2KYvImKgBSnKTyq3wDV5MHqEUNecfjaWjv8gnytqMDYKmrOs9IKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697367;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=48sfBtezaLrmsDLxpZBqDtVgmBMh4esLZj8eSRsa2cM=;
-	b=mUSrw0jpiIWX7A/ZdARHcHEv5nCM3/I2pguMucXM7M19upmwM3SrLlLXYXsQddF5wnzQ
-	 rQziaXLa0et0UeAzemW7ynkX7dN10gKEJxDGTyUl155H63W1QlukFpz9EyeEn3z6hNnO1
-	 ohu2EDpNB26hhRnbMrCy4TvgIThP1cILmOX4RxG0ueFEzX6J+eK5gMw2L50iz47PMUuhh
-	 uFasBBUmQYWmpzLRyByb8Ubv2bEubsameaMBExGixy7ydej0iq9l76v11hVjJ08JByPnE
-	 0gkx74FcojQX9+P0rfnXxSJXsOoouXxeqrB9D74CEK1W4yZduUoQ7ZbMiUpLQuBAC/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697370;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uUsU7swoASs4qpVgMmxfbyL3WUNpRYGzgg7QYLya2UY=;
+	b=Sf3jQYXZE7UPhr2TEBn04saa4wpQtJ2/BIoe7H4xy7YcEypLQc/wHkQiNg6cQpLg+6Ok
+	 o7NrBO99vej1DUd5xS2tRLPBZrj/dnguEUs35Lw/qTKFpb+ONts4cnhLaQq8/iO6zuSGW
+	 EDGHpyM8LIAaJuu8PwddLTSJ5V0XsOVppQsrpE03Yn8nDGG3o8cdxf8BaFTTx0WXIVeJ/
+	 xDQlQVIItv9Q817IRbM/OYlqaxrupo0/NX+wkXJ28jT6GMNKjEMFOqQdvkO4xkccce+aH
+	 s/2PGW26QbjfqFfiDdV1o1933MTXIAv5XHrW2XmCjjX3aIBOF5c4ZjTstiuuCrpAfWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="MQ7/wjZC";
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dhZAImKV;
+	arc=none smtp.remote-ip=115.124.30.131
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA87A606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA87A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FDD606A335;
+	Tue,  3 Nov 2026 09:16:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FDD606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=MQ7/wjZC
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=48sfBtezaLrmsDLxpZBqDtVgmBMh4esLZj8eSRsa2cM=;
-	b=MQ7/wjZCJByib4DUAG1rr8PWbq4ZKNqzIaaZ0Biehny2BBZjAjV3wKEwUZvkviWzcCEbf0g+v
-	XU2u1c0FR7BeFFcd2sKiP2M9NRejpiGNFnV1aQNjASXnIdM5gSq78pUOH9pz1/Cnp1FM1nmDrIn
-	G/mzrhIC2kG1FA5PLDo4uzc=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jJjbc4bwXz1T4JR;
-	Tue,  3 Nov 2026 17:15:40 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D79EB40538;
-	Tue,  3 Nov 2026 17:15:58 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
- 2026 17:15:57 +0800
-Message-ID: <f3f239df-6d94-46b2-aa0d-e890a509cda1@huawei.com>
-Date: Tue, 3 Nov 2026 17:15:56 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dhZAImKV
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793697360; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=uUsU7swoASs4qpVgMmxfbyL3WUNpRYGzgg7QYLya2UY=;
+	b=dhZAImKVsxZH/iFeiGP8oh3cEpXkJ+edZHSp8MSeXNFim18XRh4zzSes09YTCOlNN7P7g+Orahcd2nqL7NLTDv200JmLQOv2uEp0Tir+6s97cORI1PpRAeZq6cgpibdkUoEw9cjwqhDGIeX2aACindHX6aczPvnUNt0cyDU1lQE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R551e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE2MA62_1793697359;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE2MA62_1793697359 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 17:15:59 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] smb: client: skip NULL channel in __cifs_put_smb_ses()
+Date: Tue,  3 Nov 2026 17:15:58 +0800
+Message-Id: <20261103091558.2342761-2-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20261103091558.2342761-1-joseph.qi@linux.alibaba.com>
+References: <20261103091558.2342761-1-joseph.qi@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,98 +62,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/15] arm64: kexec_file: Fix CMA page leaks in segment
- placement retry loops
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <thuth@redhat.com>, <leitao@debian.org>,
-	<yeoreum.yun@arm.com>, <robh@kernel.org>, <sourabhjain@linux.ibm.com>,
-	<kees@kernel.org>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
-	<tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
-	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
-	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
-	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
-	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
-	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
-	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
-References: <20261026075201.699550-1-ruanjinjie@huawei.com>
- <20261026075201.699550-4-ruanjinjie@huawei.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261026075201.699550-4-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-Will fix sashiko review issue in v8.
+cifs_chan_skip_or_disable() clears a secondary channel's slot in the
+session (ses->chans[chan_index].server = NULL) without lowering
+chan_count when the server stops supporting multichannel.  When the
+session is later released, __cifs_put_smb_ses() walks every slot up to
+chan_count and calls cifs_put_tcp_session() on it, which dereferences
+the server pointer immediately, so a slot left NULL by the skip path
+makes the release crash with a NULL pointer dereference.
 
-在 2026/10/26 15:51, Jinjie Ruan 写道:
-> The retry loop drops nr_segments, leaking the CMA pages of the failed
-> segments.  Release them first, and disable CMA for the retry: it
-> ignores buf_min and would hand out the same region forever.
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Breno Leitao <leitao@debian.org>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Yeoreum Yun <yeoreum.yun@arm.com>
-> Cc: Baoquan He <bhe@redhat.com>
-> Cc: stable@vger.kernel.org
-> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  arch/arm64/kernel/kexec_image.c        | 8 ++++++++
->  arch/arm64/kernel/machine_kexec_file.c | 5 ++++-
->  2 files changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-> index 74d24c8aa2fa..6ed1991e3142 100644
-> --- a/arch/arm64/kernel/kexec_image.c
-> +++ b/arch/arm64/kernel/kexec_image.c
-> @@ -111,6 +111,14 @@ static void *image_load(struct kimage *image,
->  		 * We couldn't find space for the other segments; erase the
->  		 * kernel segment and try the next available hole.
->  		 */
-> +		/*
-> +		 * kexec_alloc_contig() ignores buf_min, so disable CMA to
-> +		 * let the retry make progress.
-> +		 */
-> +		if (image->segment_cma[kernel_segment_number])
-> +			image->no_cma = true;
-> +
-> +		kexec_free_segment_cma(image, kernel_segment_number);
->  		image->nr_segments -= 1;
->  		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
->  		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
-> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-> index 854d872dfd0f..e48f29167b38 100644
-> --- a/arch/arm64/kernel/machine_kexec_file.c
-> +++ b/arch/arm64/kernel/machine_kexec_file.c
-> @@ -179,7 +179,10 @@ int load_other_segments(struct kimage *image,
->  	return 0;
->  
->  out_err:
-> -	image->nr_segments = orig_segments;
-> +	while (image->nr_segments > orig_segments) {
-> +		kexec_free_segment_cma(image, image->nr_segments - 1);
-> +		image->nr_segments--;
-> +	}
->  	kvfree(dtb);
->  	return ret;
->  }
+Clearing a slot without lowering chan_count is older than
+cifs_chan_skip_or_disable(): cifs_chan_update_iface() could already
+do the same since b54034a73baf9 ("cifs: during reconnect, update
+interface if necessary"), and the release loop has been unguarded
+since then.  12d1e301bdfd1 ("cifs: do not let cifs_chan_update_iface
+deallocate channels") later removed that trigger, but the crash is
+reachable through it on older kernels.
 
+cifs_decrease_secondary_channels() already guards the same put with
+if (server).  Add the same guard to the release loop so a skipped
+channel slot is left alone.
+
+Fixes: b54034a73baf9 ("cifs: during reconnect, update interface if necessary")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/smb/client/connect.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index e68fffb2ab2ea..6497b0d54fea7 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -2200,7 +2200,8 @@ void __cifs_put_smb_ses(struct cifs_ses *ses)
+ 			kref_put(&ses->chans[i].iface->refcount, release_iface);
+ 			ses->chans[i].iface = NULL;
+ 		}
+-		cifs_put_tcp_session(ses->chans[i].server, 0);
++		if (ses->chans[i].server)
++			cifs_put_tcp_session(ses->chans[i].server, 0);
+ 		ses->chans[i].server = NULL;
+ 	}
+ 
 -- 
-Best regards,
-Jinjie
+2.39.3
 
