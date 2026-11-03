@@ -1,16 +1,16 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.12
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793686890;
-	b=nBT7OeOhb3YGQd1b2jCFSnSgshNkN5i+AkdCkUnnBpuEzpQ0Y1IjI2bCHyP7JLYCEXAr
-	 r8sN7T6nvDQ9LwJ7sps6ybXh9wHPXT+Dn6YxdR0LUeUQKDUOuUeHoYlpKdmaB+FrLm7sw
-	 3oDVvYejE73c+b2G0rSqQ/FkN/9A7qn40rOcEe8CFjxDS5HYfBgO9LgON6qiHi0Jhr7wm
-	 e8yx44bkfk/3vMos0Su88cJ2N1s6u+NFzqHtmlr3GDsiFeCzdTVzn+rXyNyJAOJpcEUHk
-	 wIkaFazH0MA2vccDk3iP+xRgaBaKhy+KNOIjXt783LGPBNGHdXL/R/gyUcj0Ne+Yd0g==
+	t=1793686903;
+	b=eUhKJdcm4uEqT5OyoUfXa+fAQlKMEScIVoVGIlAPX42Gs4FrpT+qRHEksab6Ti3sIK4z
+	 fekvTrKmr0H9sRg2SHUr4HHkGJYC3b8UJK7E2qGM6PEghLbn4fJkVDFEYeSDKg+pLOkyX
+	 imZrtsFO3YIcWU61Ni/Nfi2PpMDVgtMakgihDTCumG6WOOI+rMqE0Vb09bSbhCOFGfHLC
+	 qkZkBLMyOZla2CvjR3/gZMTFhb0l4fvMUp+RF9T2v3z0MYcN5XK8jVCyPAZ6OmQdaSTu1
+	 tAbfvTjBL1NCl2xNltXZp8Dde2pF7iTB5Ulq/AruSHXPaqPpKN/rapKBpXnrVRj12bw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686890;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686903;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
@@ -24,79 +24,76 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=H9KYcujEuNYpQcJRvedFCKkWToV+X8VwQK8BL6pfp5I=;
-	b=Py1DAk5PIrbHozxnLCpe0cflJNoA+gkdbRw46Oo3FgzYLUNQEpTTsa35QR3MTXGlcra1
-	 DcPrjRgyve0exwGrb+BsqWMu0Pvds9emAO29gM6YTFX9a9dbZOooQ+Y/KWBu3TaQeLX+v
-	 Pj/sl4KrjXTbk+Xrhx3F7dB8c6CS8bzMCjLTORa9FtMEy6JKqr40c6vnrr1ydLrCVDJWg
-	 fu95u5LCgFg3NA8VN0xifIXJv6Qgvyt0SlHGpze979jsJn6TRa2iSkLxVxNpo6PBUQfjx
-	 xgGBV1uTWKetSWf9Cr8xNpLavzDDErZSs0tgwo6Xwi4Bw/AUegkNOhbIv96eq7AV5Kg==
+	bh=mgaHoaDSnb1mohn5EaSrqbs7+U3txp2mNBSExj0uQW0=;
+	b=K5WKFJhNmq6ToxPbaBpg4oqwMEZ0lDvVlsTOsHyKO8yYPLr0B36FveOqQzGtDgDEjMl7
+	 eBtNQ2aTztSlEddt/Zs6rslTNGixUQgsl0ELwRKHy01x/uJZ4kwT+UITUK8ypHH5B5Wv1
+	 JDkWtYAZ3ncE9H8rTCFX/XMVTH3y+9S1+gFyAOzhG/WHMKnsNR8rsUgrW/A5TRhXBt/w9
+	 SKeupXwAa4OdL3WHdGYOmu7CF3oYEg2mY1l0IaL8EVm2xGJx7mF1JoABf6SPw1nSGiLkm
+	 VVm4y6ozOqdx8C988IR9VnVf7LG7sjva1UCyB+G0KCmyUy042jdpNhochpcSK5L6ztA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=HVCXmNH+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.58
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013058.outbound.protection.outlook.com [52.101.72.58])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YHsXXiiF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.12
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012012.outbound.protection.outlook.com [40.107.209.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C839C606A32D;
-	Tue,  3 Nov 2026 06:21:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C839C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625BB606A32C;
+	Tue,  3 Nov 2026 06:21:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 625BB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=HVCXmNH+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YHsXXiiF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A4zuJ0dFRC23dseMXZN8OxZQ7p7uc9AzBgzssFEXCS0CXlc+9KERuiko3ZOubiIy5rbyCn2/e3JMiHuURB3Ln+cVnkavzi+4/9GYnHJXjv65DylTsSqaImIujI2QIS+zHCeHq3SYz8qJoE9dgLJ+sf0qcgFUVABkd2QlFshx9RdFql6V9goG/uUwktH0/4Rh4cl8kdzEef32yRk+rCOzy/acmjB3ZIsvf9twmNDJEUquf+v+AQyaDKA/jucXuhuanJntpujUjb17Jvslau20qBYv8G2QeSEfylAbDc7nd0Rpv0HcjoubG4ort/jagyPLUs5gZi4d7a1bCvMDhcfEIA==
+ b=jEAmLTlksRrMFyEcMRzpR8x1g3ijnt6/scgRwSbP3rm5HuKB9Gq6qrzKsSkgsTUjDMQ0l2XIomWlpIbtnUGmg/3Q36iz1pvhzcdbx8pOVbfE8Kx7vpdccj97+FdE8Rbm+GhCRaeCjEvoEP5AoVfKTpi4igFXtaVEwjnHccBJHKNKD/RgK6ADJ0Llyj+T9+R8XwDw26nSntrGZWNY27ZDievrPJcG2k1G2rr/CRlrHTzZSO35rOhj0YWZoZstj5qQClFSyrmrBw1697a6SHFty0QEArkqhpFH3JC7KM+WReGF8ydId7R1FdFg4Pur3N4IA9bmZKebfDs4AoX6jL91NQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H9KYcujEuNYpQcJRvedFCKkWToV+X8VwQK8BL6pfp5I=;
- b=QmE8r5ZYKrRyRpeMgwGElZRWMVVB5P0L45PHNTFHwX3qreSArIIG4o0bqTBSiG9hJFd+Np/ejT5BZhiKnNuumW9dmYnm1Z13CrFK4CTKJdEFzYIlY7sfuJuyFHspuOYKO4vxM3MDjLPZgQjaJMb1Di+oyiUc0DGNx0Z0Srq7IIm4O5zj6Lheh+/KaiOovGNpfEe0FUp0mHwB9OpUd92Zfuyi5tptcxTChBAVXcjX9D6A7SaavkEFtL+EXM3vqQ/sXiPO81P4PE1AJFNJoHca0PEUJ4Xs/lCAgH98BlfHd5Z5xeYnEVwdlc1AEIBwXdlTHUdm+BCD2lgM7Ke77jX/iA==
+ bh=mgaHoaDSnb1mohn5EaSrqbs7+U3txp2mNBSExj0uQW0=;
+ b=KECFOceopEc+6pT1skFgtBgVELAfz14hCMy6fJgu8QZZZRg9C+1zEafjugpuXMecTXvmZf4UreyfazhsglXjv9u30rnBhE5r9PxYoBYxQeZvFPQHz51838fqFplr3pQH2BuFM0aiHDtavk3BizQI7etou22YOpry1aQDO2Asdtvo0/X7uMB1G/91PMzGbr2q4R3yShbfCIUVtz5r8wja+gQ61rlK1s0AcD36XE79ZPi9DG5F9lSywgR11SKQRY7ZXNKRQVpLQW2JcJqqcgdtjFrYDCvVZw+C/7xRiaeuVIFVlB2pvWNxexLp6Ajh273MoEm9quo9l7h4wkWd5YC0Sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H9KYcujEuNYpQcJRvedFCKkWToV+X8VwQK8BL6pfp5I=;
- b=HVCXmNH+cSiikwLNoAVzbRvyLWDylE1pBfWz2gyVLIrh1IAMoHL1svqBtiRd23ArRak7q9F5SHuEZQtgvYn4w9uG8pdFosKAuxQ0XbIxzqdMA8a4OZ47JmCAGXyFfDHVeSLh45mEIAO1UqeT9ZnuDrgGHNpkmrQqN/NvVo4Ub+ptdms2PP8OTTAl5JRvlFrWbWNFPEyaDFAP+5Qcjt9W4cihygMPGlIEsm8Vc1suVtsqRR1iV7hV9Yk0T94qjgnsPuZ8QZ3lK18p2PRNK46euEemLyHieaRc2pBoA9pEVHPIDZdv6T6/4bjXXS3zDLDxhZRyEtm/yW25gA0VVXRolw==
+ bh=mgaHoaDSnb1mohn5EaSrqbs7+U3txp2mNBSExj0uQW0=;
+ b=YHsXXiiFpJxCVZJUsDC1us6TriZk7/RrObzYaZnch8Sm6VVrOxjbXcUlVDKnqGjyBQwdJfIpMDOMeAWYYW3nBb//rcDoXZkQxprLi3orDx/HgfOvFSMsD4n33CPVceAJFu9ma3n98rfv7qaVzsIwhrT2LCI57DJXcqfPNYghinc=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by PR3PR04MB7353.eurprd04.prod.outlook.com (2603:10a6:102:82::20) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY1PR12MB9559.namprd12.prod.outlook.com (2603:10b6:930:fd::14)
+ by DS7PR12MB8249.namprd12.prod.outlook.com (2603:10b6:8:ea::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 06:21:26 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 06:21:26 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Tue, 03 Nov 2026 14:22:06 +0800
-Subject: [PATCH v9 10/16] drm/imx: dc: Use TCON operation mode
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-imx8-dc-prefetch-v9-10-3b985e7636e2@nxp.com>
-References: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
-In-Reply-To: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI2PR01CA0005.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::23) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+ 2026 06:21:37 +0000
+Received: from CY1PR12MB9559.namprd12.prod.outlook.com
+ ([fe80::1761:23a3:6ab5:fbb8]) by CY1PR12MB9559.namprd12.prod.outlook.com
+ ([fe80::1761:23a3:6ab5:fbb8%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 06:21:36 +0000
+Message-ID: <3ad2be9f-906a-4f7b-b9c3-627aad8f0a06@amd.com>
+Date: Tue, 3 Nov 2026 11:51:29 +0530
+User-Agent: Mozilla Thunderbird
+From: "Nagavarapu, Dileep Kumar" <dnagavar@amd.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: iio: adc: Convert xilinx-xadc
+ bindings to YAML schema
+To: Michal Simek <michal.simek@amd.com>, Jonathan Cameron <jic23@kernel.org>,
+ Pramod Maurya <pramod.nexgen@gmail.com>
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Salih Erim <salih.erim@amd.com>, conall.ogriofa@amd.com
+References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
+ <20260515075736.172172-1-pramod.nexgen@gmail.com>
+ <20260515075736.172172-2-pramod.nexgen@gmail.com>
+ <20260516121856.12b8880f@jic23-huawei>
+ <ba1a416b-1e4a-4c75-9856-6d7a8794dab2@amd.com>
+Content-Language: en-US
+In-Reply-To: <ba1a416b-1e4a-4c75-9856-6d7a8794dab2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0192.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b6::10) To CY1PR12MB9559.namprd12.prod.outlook.com
+ (2603:10b6:930:fd::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,430 +104,149 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|PR3PR04MB7353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72e41865-6a28-4eb8-b2d4-08df3972b0c9
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9559:EE_|DS7PR12MB8249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 591342b1-3a23-4e5c-2571-08df3972b6bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|7416014|376014|1800799024|6133799003|10067099003|18092099006|22082099003|261102123227099003|18002099003|3023799007|921020|56012099006|11063799006|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261022075727099003|261009223027099003|261028144727099003|261026140227099003;
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|22082099003|261102123227099003|18002099003|3023799007|56012099006|11063799006|4143699003|261022105027099003|261021121427099003|261009221227099003|261026121527099003|261022075727099003|261022113327099003|261009223327099003|261009220027099003|261009221727099003|261009223027099003|261028144727099003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
-	OcgMlB3vKW+UYqGnrTL/LwNZItnuYqXTaVHvUiOGcrae9YCUq33NgoHBwnB7gaMOa4uqa7RPxxAGMy/n4ImkF7gf2aNesRvhyzSQqy9TLEC4rvHvdz2MXptcS0+lsf+0df8OIUo6wUOxLXNchs4jbkDhp51VBDZud8IIud6ah+PLUhjZWFuBg/uKtTIbcWvBae9TdPIePlvszgs4lUXSAznmmbmQK5wY+9W4k4EVdRUMZoFq1rifs74TIXZUKiVbkxiLMrGfdeIzRjrTB3kFfvegfT5/vxfnak+iL8fSjF0EmgczLw4h4nvstA/ZF6KK2xSLmzgSjKtYmCqSisUC9EEkSCjA11BSGOiDFPgKJT/NxDpbvBMLybVQaUFKYi1WRxJJIvaHcSRmTcX4znQ+pxvp6CS7oWyggBMEYuCzM+Km1MAWlxnQ3rqn0AExnz5WlssRQfZvEt8AgHrm0LpSAwi++IZaprHMPcXsBtU/kwzc0IorMR9AKUSv7EsLmvZQgZFJgtTCxAfUSyc6i2ICqoOakW9VFg/5Tuqz5Ddr7xfiEuUFmQXeZoe1LCbaPgBaKPcJIPFN82QeFwbf59Hly4TDG3B3QC5eO8rfbjroiwjqvdUZM6trzmUPG42O+2hXsfHxBTcQcHC1ICveZMSdE+xDcEvAO0a6EImT1O1+WNGLUIA8lzOjk8PfcBIczgm2lPstHAmv34dDmPwH+ETrWg==
+	On73emmriXbso+yxSZNdl9HeBv+KrpeGmD7Xg7lCCP8WP8Zh+bFkVyb5sOSdBc0pEE7uLHCITlLPyOAdGGU5rr/bGwCG7rdEOmIuc0nYhKCibVs8vsYoxpbVsetvETxyynU/SW1Mp2g0jhFYl/ocFBYI8ChMyU8di0ODIB6ARc9whN508sGLk7j+PPRM2AZZX5S+1tziGpKobhq65NTLVPzE8PmCvEVhPGNJgQV9fwoqJZwdOuzUwjcNPbHhBOjbRXrrl8rVIVA2arWUAn8d/LbmOaJwvn6i48Jqpu6OLBqjY3k9EEipxmfq2CVRdWNcxAPdj8/3i4VnzzI2yQOBS5PXEwA+OPJoyi2MeXuOExTpZHF84xQFVup5kPfhwXb5I9KQNUa+vdl8QFW6PgmPEXLbAapPXRrVtRNSIdHLl0YfOGPCY6PEg05qBe5V5b0fVq1x7Z8zuPQovOwLVG4XF7XHsCMMYdcURdpvk3a17Tb4+NTR/+D22V1OMT/EVlPFx8c5YbhM2UtrCFp08cKCzQ35yMqq1cQgD1pETLHEBDweREfEPZWzrgnTIKR4OZFgWycrM6ajzvNma9EcStDNJoRZyhelAZhEnE7c6+9YwASAyVSi3UTi0w6J2pHbxsl7
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(7416014)(376014)(1800799024)(6133799003)(10067099003)(18092099006)(22082099003)(261102123227099003)(18002099003)(3023799007)(921020)(56012099006)(11063799006)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261022075727099003)(261009223027099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9559.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(56012099006)(11063799006)(4143699003)(261022105027099003)(261021121427099003)(261009221227099003)(261026121527099003)(261022075727099003)(261022113327099003)(261009223327099003)(261009220027099003)(261009221727099003)(261009223027099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V0JZM0IyV3l0dzBteHZrbkN3TmNjV0dWRC9Odks4eENJZ1lYRU8yQVRGbWwx?=
- =?utf-8?B?T3pPQ3Q4Y0E0anpJYnNuVUcvK3c3cTRrMS9aKzIwSjhCTVlLWStlZm1sV3RW?=
- =?utf-8?B?SGVGSkJuRFhMdUFRY2VFallUTzl5OGVLZ2dUd3dXZWx2c3dGc200VGM1SmxN?=
- =?utf-8?B?V3hmTitGQ2t6eFE2NExpc1RNN2ZvS09DVkdRaStmVVZxUVZmMkZlSXcvVGVV?=
- =?utf-8?B?alV2TmVIcnhLREdzT1JqTGpPWEFXcld1R0NrTmN1enVKcmxKQ3RaWHA2THJn?=
- =?utf-8?B?cmJHZ0M0dVFrMjllMEZOQkxtU0w1b0JnMlpYNXB5UDRTN1h6dUZXMHdnUVJn?=
- =?utf-8?B?WlpMWks4Ulh4S2ZoVjF4eXU4YmZwc0Vpd2IxeWlsdEM0OGY0WWdsNlBWL1ho?=
- =?utf-8?B?Qk95VmorazB5aEoxSEttU3J6bFlQN1llSTFrVlgyTXhUeFllL2FqckxicXYy?=
- =?utf-8?B?cGxvRG14Y1hvVE9TY2dhQnRsdk5xeDdWUC9RTzcvTTNCK1UyNkVESFBjMitr?=
- =?utf-8?B?Y3o0NkFjaEI4bm5JVGRKd0lZS3E3VnZPM3E2OWtOMVFtZDNFMkpmeUhsUjZN?=
- =?utf-8?B?alRpQ1lrYTEzU0ZRVGxzb1VWZG5waElGclRNV25vcTRBVVJhTmNGM0xWcmlo?=
- =?utf-8?B?TmJpRC8rRnAzQm15STRxMUt6U1pZTUNUdFh2WTh6MU40Nkhmc3Byak8wRWx0?=
- =?utf-8?B?Nmxpd3d5dTE4M3FzSHJ6Vzc0NHd2V0llcEZ4YXViYytXanZWS3ZkbGpBZHh4?=
- =?utf-8?B?Y1N4SDZ6VXNlUkhxMXAwSEZXa1JOSzVRQ0Qwem92ZjhMWFhLNjI2Z28rY2pS?=
- =?utf-8?B?Y0ZYcFowNGJzK2hqeXFEREFBemNCUklHVlk0UzJlYjdCQ1BsalJCR2F3ZjNG?=
- =?utf-8?B?ZzN0cWxpL0ZYT3BuOE5GQWtsSXQwbnkwTHk1citPZnVjandhSVB1NHpvMito?=
- =?utf-8?B?TVB6MHEycUxoL0JlbCtmK2MzOGFFVDJpMnVDeVFzaXlNU2N4NWVhb1p5Mzc0?=
- =?utf-8?B?b2RBSDdKV3NtMXJ2VXZLVUczWldjcmFvZnlTbG90UytPcnRYeVczOFFqRWhJ?=
- =?utf-8?B?NndhVkdmb1Eyek9TQ3hrdUp6UFhJZVBnaGJHWHRXYlU4V3FBUUppTXFqWGxm?=
- =?utf-8?B?Yi9XTDE0eHFRMUlldHBscmtBcU8vRlF6S2hRZVc0bCs0aUcvK0hRMDNDZVhE?=
- =?utf-8?B?NktzbkRNeHFoM0RHSDJkdENXU0lZQjQwbXFZbHJPS2FZMlpjQm1PME9HWmd0?=
- =?utf-8?B?TU1QTjdyVTl5WXprNGVNSDZoME5UTWFqdUIvRkFjY01lMnJWWkpDQkNsSFhu?=
- =?utf-8?B?R0JyL1UrUk1vRkx2dk43dlBYc0RXYjErNDdhd3BiMVJ6Q1BzMkROdXU5K01o?=
- =?utf-8?B?VmExdEtsb3llMUR2WnJaQ0J2RVFVbmJXRVNiOFVvc2RkZTAyazNnY3FqcWZY?=
- =?utf-8?B?QWZWTEtwRDNqTjNWeHVTYlFyTGNuRldSNWY3WGZuc2FWcjR4bWtaVVJURTdI?=
- =?utf-8?B?RlJ5NFpsT3dxUEV1OWJDOVpCbGdyRnYrTWdLWWVONWFvQVlHUjdGcHc3Uyt4?=
- =?utf-8?B?bkZiTEpCS1pMQjFkU1Axc3MyMGNpUWRtaW1RdWlqSXBZY29CdDBKMnBuQ2c0?=
- =?utf-8?B?ZzRwNDF5MWN4UkhoVmNUcTlnYmE2QW5DUzdlS1gwUGNISXpNSUR1bmdVaHps?=
- =?utf-8?B?ZFF3YTdGTXFhZFhOY1hNZG1aRG90SWlQclQzZ0ZtUjJxUnhMVWtmbTluRkVh?=
- =?utf-8?B?b3dCemR5UkVDWXhSUTNaVUJRYUFmV1JEaUVzdHRGNjhOb3g2UGFGMXMzTlVP?=
- =?utf-8?B?YmUyeHhUaytEYkRZMTd0QkppNVlTNzh3d2xNeCtMNWxMeWdUajZleXN2NXN6?=
- =?utf-8?B?THFIT09FVjZGd1BaeUNyODk3WUFCZkhaSU85R2N2S0xOYXpuaUE5V2YrUm9N?=
- =?utf-8?B?M3BUODZlVEdQZ1RUR00zb1dranc0Y251QzJnRFpuMHVxM1UvWHpnb3RLOEwx?=
- =?utf-8?B?YTBNMXpwdFc2M3hESmJueW5QYTBUZTJSSXN1b21Ub0ZNUlU3Vm5LUHZydGph?=
- =?utf-8?B?S3JoMjRuNWl3d1FTSklJdWNsaVNZMWRLOG5MeHBKMUtTNVlpUWp2eUlpUEk1?=
- =?utf-8?B?M0M3MUtsSEZTcHZRS3ZzZGVqOWx2ZXBkMkdYNmMwQ1g0a3VTK3g4MktTRjRy?=
- =?utf-8?B?Nk9BZkNrc3VUSk9hV29Ra0FKMUo5Znd1Vjkvc0M0U0FzTXVpVi9TbmJmMDFW?=
- =?utf-8?B?bzJPZFFKTXAzT3MvQUpVWUlOZnBKSFd5MTBOSEZPVklWSnBGQ3I1SzhCbGIw?=
- =?utf-8?B?bUZxQXBoMDJqMzJMYnUzcSs2RTYxdHFEcnBnSUY2NGpPMHhKNmtZZz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72e41865-6a28-4eb8-b2d4-08df3972b0c9
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+	=?utf-8?B?SGpXOW1xZUp1aDlrZ1YwMzQ2RzVjdnM5ZlFDaE1TTkpscGJMUzlIR2RFUk9T?=
+ =?utf-8?B?dk1maFlzWVBLbFZ6bGlwdi9aQXN5YmpNTy9IaDZPWDEySUt5aHZGOGRLNGl1?=
+ =?utf-8?B?VkcvcXk1SU5sQXZ4OGpsU1ZpcUdsangvSktJSnRDYVlmWTZIUzQ0UUJ1WHBp?=
+ =?utf-8?B?bEFma0ZvNmIyVWRjc041UzZ2dDNPOXdVOElMWlNwOG5hK1ROZHNWbmtpamVO?=
+ =?utf-8?B?Vi9XODVTTkFBVDZWSzlqSUhNcVQwRTFUSXZYcTlaa0d6Y1BwY1lrSUN6WVNj?=
+ =?utf-8?B?UW9YZHY3VE9TdHd2eFVZbkExOXB0cHk5K2JpQUplNVZtcFR5QWdYSDllMUg5?=
+ =?utf-8?B?RFU1ZDVaUDlqdUhKajMrSkxJZ2Y5RVBJbEowMWpyNnlhcVBUSzVpS0pVK2hW?=
+ =?utf-8?B?ZjdJTXdzNUxhaFc4Vi80SENuVmpVaStUUTBsenZQMU16YnhOUDVJeE15ak1X?=
+ =?utf-8?B?NjMxQ2VHKzVvSVB3ZkdOdFkxTnZIWXhITitzdHQ3RGVlTm5FK2VsM1p3bmxV?=
+ =?utf-8?B?Mm03NlFCYnRoWjYremU4NHo4VGJKRGdqQ1QrV3BJeTdIQ21NcncrY0lqdDI0?=
+ =?utf-8?B?aXNxZXBvMmZna1JaaUVlQjFNT2FpYmhpSStJY3VuQS9jU3l3bTVoNlFmaEU5?=
+ =?utf-8?B?QnVGdUNva0N1aTJSQ2srNXhaRkg1Q1NaYmp6NmxFUXNSS0ZTYXM1QUJ3Vm9F?=
+ =?utf-8?B?Z0hQRHFiVGdmYWRZSHFMUEtLS0VZQStIdm5iTFVPSlFFaUZMU0pmeHp4VDg1?=
+ =?utf-8?B?SThxeEZDSUlkTkYxOWlaNmdoREl3aXZ2dGxXR1JUQlRCb1B2TWsyaFBOdUc1?=
+ =?utf-8?B?c1NOMjZySmkwRFN1ZXd3bnZ4K0lQVCt2US9iSk04MEQvWnZ0U3RYM2FSYlJS?=
+ =?utf-8?B?MVFXSWptcXRhTWhPS0ZFemF4R1FVTFRLMlJFQmlSb0FUczFSdXRiSnRlY21v?=
+ =?utf-8?B?STNlTkUweDduNmZYSlhtQ085dVgxalRVOVcyZ2Zxb0hoTG1udjhybU1scjRo?=
+ =?utf-8?B?dmVGM2VuOGZJSnB4a2lWdXFvNlFtd1dFWmwrUTBSREdpMHRER3dxSWRvREJv?=
+ =?utf-8?B?UDdsNHNyTjVQQjN4U2lVRHI0QmtjRTliTnREVzdpTWUzYk1CaVNNWFk1UDBX?=
+ =?utf-8?B?alJxaVVteW1kZUZKY1dzZHVEMU1CUUFSQVVsZGtlZ3Urc21WcDNWRHhzVjI5?=
+ =?utf-8?B?Q2RSQ3RIWHJVTmJqOUk3cU9jdkIvSE5jdmhPQmozYXBWMTllUTZUMytHUmJM?=
+ =?utf-8?B?d0ErVDN0RlJ2NWVXb09VUTl5K0tZOGNieHZHWndGUmt3dkVsdHZ3b21qektj?=
+ =?utf-8?B?aGdlVVdiSnVvQVlUOFZZZExYOU9Fdm5mbXBoMTdPWjVMWXhZbXlrMi9Sb3l1?=
+ =?utf-8?B?SUQvSmVjVnlyQjlQa2YrODB5VXpMYlRORnhTTE92ejB0VkdVT2lnYklKelN0?=
+ =?utf-8?B?VkRzWGozU3VKQTdWT1k0U2pIRDZXajNvck9KM1JyZEtZY1E3TTh3OTlKTkdW?=
+ =?utf-8?B?dlFnc1JhK3FCa2toa0h3NmJ1WWQrUEtjeVN2SEhBdVV5SW03bXJYU2VqYWFS?=
+ =?utf-8?B?bk5ja0RDNWNMc05wZFFwS1I0NWZ2a1I3b2ZOVWtvSVE1S2V6N0ZKQ2ZDUVpX?=
+ =?utf-8?B?d0ZBc2EvTFJCSW5PNi9lREZXNTNnSFRyMzVVTy9naHh6QjNiK0lWNmp2R3Rh?=
+ =?utf-8?B?RUFDQkZDL3hCOXh6TnZPOFh1TWVSK1p3cCtlTnpOQkpiOVY5WDNOSUZXMFAz?=
+ =?utf-8?B?Z1l5b0puT05UWlZvK2tDUnFhajA4WmlWaDBISGFxRnB2MlpnK08xN1AwY0lj?=
+ =?utf-8?B?elQzVE5xd1BnT0dVTytENitlQzBuYUVwamtWODlFd1RROGdQT3ZhRUJTTEZn?=
+ =?utf-8?B?aFFROEIxeDMxNnlmdHJwRXFxelVHQmM1UTN3OTl4d1J0dVFzQTZFRTFrQlQ3?=
+ =?utf-8?B?VmpPUCtKTS9oS0lEZWduTWxuWC9rV3JSc0pockpOb2RoZUpTN1BWcWQrNFZp?=
+ =?utf-8?B?UzBVTFNOcGlTdkRpaHBibmE4WENXM2hLUTNmbURHYmovZWJZMEJIZkFaeHpW?=
+ =?utf-8?B?UTY1dU9ibU1PZXVEbE9kZG5QaHZMdjhwdENyQ1diQ2FXcmQ1UmtuYjYxNVhO?=
+ =?utf-8?B?K1I2MlpuK3p3U0xJQ1BzZ2xTYkMycVlsVGYyMjZOS0tYNFJHTUdXQXRkZlNN?=
+ =?utf-8?B?T3YydW1pNnlGeXF4WFAxMEV4THBIbU51clllbWFCVGI5cFRodVRMaWY4Q3JJ?=
+ =?utf-8?B?bXJxdHdrSU1zTjFnblFaRDhVbktoRzJVam43c3VSRnBGZjhsaWdCTlhBM1lq?=
+ =?utf-8?B?VkFNS1FnL1hKQjlpOHdXQktsM053N2kxMGJ1WkNEeVZwMkQ2ZWczdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 591342b1-3a23-4e5c-2571-08df3972b6bb
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9559.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:21:26.6119
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:21:36.8526
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zxdm/a00j33c+9IKxvNF6qzAM/F+UOO0uU8jZQRTtk1wdvaZxovJRqQt6FlB4liFRNOsyg20IiK7tAQDVGw3cA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7353
+X-MS-Exchange-CrossTenant-UserPrincipalName: i3uMGADRv/N24j0QfJOzPMQMPFCV0lBN45WcC5TNnniH2GLuYL82bBd1gufkxjkL5Bgd+EDhDQ3uXVRQzNKf8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8249
 
-In TCON operation mode, sync signals from FrameGen are ignored, but
-a much more customized output timing can be generated by the TCON
-module.  By using TCON operaton mode, generate KACHUNK signal along
-with HSYNC/VSYNC/data enable signals.  The KACHUNK signal is used as
-a synchronization signal inside the prefetch engine(DPRC + PRG(s),
-attached to FetchUnit(s)).  Carefully switch TCON bypass mode to TCON
-operation mode when CRTC is being enabled so that the prefetch engine
-may evade the first dumb frame generated by the display controller.
-The switching is done with local irq and preempt disabled to ensure
-it is done right after FrameGen frame counter moves as instructed by
-design team.  Set use_raw_spinlock flag in flag in FrameGen and Tcon
-regmap configurations to avoid sleeping on PREEMPT_RT when switching.
-Also, replace jiffies with timekeeping API ktime_add_ms(), ktime_get()
-and ktime_before() in dc_fg_wait_for_frame_index_moving() to avoid a
-potential hard lockup when switching.
+Hi Pramod,
 
-Since TCON BYPASS bit is controlled by KMS driver when doing atomic
-commits, drop the bit setting when initializing TCON.  This also
-avoids accidentally initializing TCON BYPASS bit to 1 when driver
-module removing and re-installing where an upcoming patch would
-disable a CRTC at boot in TCON operation mode if needed.
+On 5/18/2026 3:07 PM, Michal Simek wrote:
+> 
+> 
+> On 5/16/26 13:18, Jonathan Cameron wrote:
+>> On Fri, 15 May 2026 03:57:34 -0400
+>> Pramod Maurya <pramod.nexgen@gmail.com> wrote:
+>>
+>>> Convert the Xilinx XADC and UltraScale System Monitor device tree 
+>>> binding
+>>> from the legacy plain-text format to a YAML schema, enabling automated
+>>> validation with dt-schema.
+>>>
+>>> The new binding covers the same hardware and compatible strings:
+>>>    - xlnx,zynq-xadc-1.00.a (ZYNQ hardmacro)
+>>>    - xlnx,axi-xadc-1.00.a  (AXI softmacro)
+>>>    - xlnx,system-management-wiz-1.3 (UltraScale System Management 
+>>> Wizard)
+>>>
+>>> The xlnx,channels subnode retains its legacy name (including the comma)
+>>> for backwards compatibility with existing device trees.
+>>>
+>>> Place xlnx,channels under properties: now that dt-schema PR#195 allows
+>>> comma-containing nodenames for long-established bindings. Fix reg
+>>> constraints inside channel subnodes to use maxItems and an items block
+>>> rather than bare minimum/maximum keywords which are silently ignored on
+>>> array types. Remove the redundant type: boolean from xlnx,bipolar since
+>>> the $ref to /schemas/types.yaml#/definitions/flag already implies it.
+>>>
+>>> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
+>>
+>> Various folk +CC, questions for them inline!
+>>
+>> A few comments from me.  Whilst the original was 'example rich' I don't
+>> see a need for more than one in the yaml.
+>>
+>>> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml 
+>>> b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+>>> new file mode 100644
+>>> index 000000000000..06a0ce498352
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+>>> @@ -0,0 +1,210 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Xilinx XADC and UltraScale System Monitor
+>>> +
+>>> +maintainers:
+>>> +  - Lars-Peter Clausen <lars@metafoo.de>
+>>
+>> I'd like a confirmation tag from Lars that he is still happy 
+>> maintaining this.
+>> If not Pramod, would you be willing to step up?
+>>
+>> Maybe one of the AMD/Xilinx folk?
+>>
+>> Please +CC Salih, Michal and Conall on future versions..
+>> (done on this reply).
+>>
+>> AMD folk, given you currently have a series (including bindings) for 
+>> the newer
+>> similar IP, would someone mind reviewing this?
+> 
+> Keep me in CC and I will make sure that series is reviewed.
+> 
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
----
-v7:
-- Set use_raw_spinlock flag in FrameGen and Tcon regmap configurations to
-  avoid sleeping on PREEMPT_RT.  (Sashiko AI bot)
-- Replace jiffies with timekeeping API ktime_add_ms(), ktime_get() and
-  ktime_before() in dc_fg_wait_for_frame_index_moving() to avoid a
-  potential hard lockup.  (Sashiko AI bot)
-- Use adjusted timings(e.g., m->crtc_hdisplay) in dc_tc_cfg_videomode()
-  instead of logical mode timings (e.g., m->hdisplay).  (Sashiko AI bot)
-- Update commit message.
+As there is no further activity on this thread, we would like to take 
+this forward by addressing the review comments and posting the next 
+version of XADC YAML binding as a standalone patch, while retaining the 
+original authorship.
+Please let us know if you have any reservations. Otherwise, we plan to 
+send the updated patch by the end of this week.
 
-v6:
-- Rebase onto the latest drm-misc-next and resolve conflicts.
+Thanks,
+Dileep
 
-v3:
-- Collect Frank's R-b tag.
----
- drivers/gpu/drm/imx/dc/dc-crtc.c |  28 +++++++++
- drivers/gpu/drm/imx/dc/dc-de.h   |   2 +
- drivers/gpu/drm/imx/dc/dc-fg.c   |  11 +++-
- drivers/gpu/drm/imx/dc/dc-kms.h  |   2 +
- drivers/gpu/drm/imx/dc/dc-tc.c   | 119 +++++++++++++++++++++++++++++++++++++--
- 5 files changed, 155 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
-index 5bc952d6883e..d03246036d4a 100644
---- a/drivers/gpu/drm/imx/dc/dc-crtc.c
-+++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
-@@ -6,8 +6,10 @@
- #include <linux/completion.h>
- #include <linux/container_of.h>
- #include <linux/interrupt.h>
-+#include <linux/irqflags.h>
- #include <linux/irqreturn.h>
- #include <linux/pm_runtime.h>
-+#include <linux/preempt.h>
- #include <linux/spinlock.h>
- 
- #include <drm/drm_atomic.h>
-@@ -68,6 +70,14 @@ do {									\
- 							__func__);	\
- } while (0)
- 
-+#define DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(fg)		\
-+do {									\
-+	if (!dc_fg_wait_for_frame_index_moving(fg))			\
-+		dc_crtc_err(crtc,					\
-+			"%s: FrameGen frame index isn't moving\n",	\
-+							__func__);	\
-+} while (0)
-+
- static inline struct dc_crtc *to_dc_crtc(struct drm_crtc *crtc)
- {
- 	return container_of(crtc, struct dc_crtc, base);
-@@ -230,6 +240,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- 	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
- 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
- 	enum dc_link_id cf_link;
-+	unsigned long flags;
- 	int idx, ret;
- 
- 	dc_crtc_dbg(crtc, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
-@@ -250,6 +261,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- 	enable_irq(dc_crtc->irq_ed_safe_shdload);
- 
- 	dc_fg_cfg_videomode(dc_crtc->fg, adj);
-+	dc_tc_cfg_videomode(dc_crtc->tc, adj);
- 
- 	dc_cf_framedimensions(dc_crtc->cf_cont,
- 			      adj->crtc_hdisplay, adj->crtc_vdisplay);
-@@ -274,7 +286,22 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- 	dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
- 	dc_ed_pec_sync_trigger(dc_crtc->ed_safe);
- 	dc_fg_shdtokgen(dc_crtc->fg);
-+
-+	/* Don't relinquish CPU until TCON is set to operation mode. */
-+	local_irq_save(flags);
-+	preempt_disable();
-+
- 	dc_fg_enable(dc_crtc->fg);
-+	/*
-+	 * Turn TCON into operation mode as soon as the first dumb
-+	 * frame is generated by DC(we don't relinquish CPU to ensure
-+	 * this).  This makes DPR/PRG be able to evade the frame.
-+	 */
-+	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
-+	dc_tc_set_operation_mode(dc_crtc->tc);
-+
-+	local_irq_restore(flags);
-+	preempt_enable();
- 
- 	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(ed_safe_shdload_done);
- 	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(ed_cont_shdload_done);
-@@ -567,6 +594,7 @@ int dc_crtc_init(struct dc_drm_device *dc_drm, int crtc_index)
- 	dc_crtc->ed_cont = pe->ed_cont[crtc_index];
- 	dc_crtc->ed_safe = pe->ed_safe[crtc_index];
- 	dc_crtc->fg = de->fg;
-+	dc_crtc->tc = de->tc;
- 
- 	dc_crtc->irq_dec_framecomplete = de->irq_framecomplete;
- 	dc_crtc->irq_dec_seqcomplete = de->irq_seqcomplete;
-diff --git a/drivers/gpu/drm/imx/dc/dc-de.h b/drivers/gpu/drm/imx/dc/dc-de.h
-index 211f3fcc1a9a..c39f2ef5eea9 100644
---- a/drivers/gpu/drm/imx/dc/dc-de.h
-+++ b/drivers/gpu/drm/imx/dc/dc-de.h
-@@ -54,6 +54,8 @@ enum drm_mode_status dc_fg_check_clock(struct dc_fg *fg, int clk_khz);
- void dc_fg_init(struct dc_fg *fg);
- 
- /* Timing Controller Unit */
-+void dc_tc_set_operation_mode(struct dc_tc *tc);
-+void dc_tc_cfg_videomode(struct dc_tc *tc, struct drm_display_mode *m);
- void dc_tc_init(struct dc_tc *tc);
- 
- #endif /* __DC_DISPLAY_ENGINE_H__ */
-diff --git a/drivers/gpu/drm/imx/dc/dc-fg.c b/drivers/gpu/drm/imx/dc/dc-fg.c
-index 3741dc66c0d9..26b786e146d4 100644
---- a/drivers/gpu/drm/imx/dc/dc-fg.c
-+++ b/drivers/gpu/drm/imx/dc/dc-fg.c
-@@ -8,7 +8,7 @@
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/device.h>
--#include <linux/jiffies.h>
-+#include <linux/ktime.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-@@ -122,6 +122,11 @@ static const struct regmap_config dc_fg_regmap_config = {
- 	.reg_stride = 4,
- 	.val_bits = 32,
- 	.fast_io = true,
-+	/*
-+	 * Registers could be accessed with local irq and preempt disabled,
-+	 * so use a raw spinlock to avoid sleeping on PREEMPT_RT.
-+	 */
-+	.use_raw_spinlock = true,
- 	.wr_table = &dc_fg_regmap_write_table,
- 	.rd_table = &dc_fg_regmap_read_table,
- 	.max_register = FGCHSTATCLR,
-@@ -230,7 +235,7 @@ u32 dc_fg_get_line_index(struct dc_fg *fg)
- 
- bool dc_fg_wait_for_frame_index_moving(struct dc_fg *fg)
- {
--	unsigned long timeout = jiffies + msecs_to_jiffies(100);
-+	ktime_t timeout = ktime_add_ms(ktime_get(), 100);
- 	u32 frame_index, last_frame_index;
- 
- 	frame_index = dc_fg_get_frame_index(fg);
-@@ -238,7 +243,7 @@ bool dc_fg_wait_for_frame_index_moving(struct dc_fg *fg)
- 		last_frame_index = frame_index;
- 		frame_index = dc_fg_get_frame_index(fg);
- 	} while (last_frame_index == frame_index &&
--		 time_before(jiffies, timeout));
-+		 ktime_before(ktime_get(), timeout));
- 
- 	return last_frame_index != frame_index;
- }
-diff --git a/drivers/gpu/drm/imx/dc/dc-kms.h b/drivers/gpu/drm/imx/dc/dc-kms.h
-index cd7860eff986..a25d47eebd28 100644
---- a/drivers/gpu/drm/imx/dc/dc-kms.h
-+++ b/drivers/gpu/drm/imx/dc/dc-kms.h
-@@ -50,6 +50,8 @@ struct dc_crtc {
- 	struct dc_ed *ed_safe;
- 	/** @fg: framegen */
- 	struct dc_fg *fg;
-+	/** @tc: tcon */
-+	struct dc_tc *tc;
- 	/**
- 	 * @irq_dec_framecomplete:
- 	 *
-diff --git a/drivers/gpu/drm/imx/dc/dc-tc.c b/drivers/gpu/drm/imx/dc/dc-tc.c
-index d0d4faba790e..626758904f77 100644
---- a/drivers/gpu/drm/imx/dc/dc-tc.c
-+++ b/drivers/gpu/drm/imx/dc/dc-tc.c
-@@ -8,11 +8,30 @@
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-+#include <drm/drm_modes.h>
-+
- #include "dc-drv.h"
- #include "dc-de.h"
- 
- #define TCON_CTRL	0x410
--#define  CTRL_RST_VAL	0x01401408
-+#define  SPLITPOSITION_MASK	GENMASK(29, 16)
-+#define  SPLITPOSITION(n)	FIELD_PREP(SPLITPOSITION_MASK, (n))
-+#define  DUAL_SWAP	BIT(15)
-+#define  MINILVDS_OPCODE_MASK	GENMASK(14, 12)
-+#define  MODE_4PAIRS	FIELD_PREP(MINILVDS_OPCODE_MASK, 0x1)
-+#define  LVDS_CLOCK_INV	BIT(11)
-+#define  LVDS_BALANCE	BIT(10)
-+#define  LVDSMODE	BIT(9)
-+#define  ENLVDS		BIT(8)
-+#define  INV_CTRL_MASK	GENMASK(7, 4)
-+#define  BYPASS		BIT(3)
-+#define  TCON_SYNC	BIT(2)
-+#define  CHANNELMODE_MASK	GENMASK(1, 0)
-+#define  CTRL_RST_MASK	\
-+		(SPLITPOSITION_MASK | DUAL_SWAP | MINILVDS_OPCODE_MASK | \
-+		 LVDS_CLOCK_INV | LVDS_BALANCE | LVDSMODE | ENLVDS | \
-+		 INV_CTRL_MASK | TCON_SYNC | CHANNELMODE_MASK)
-+#define  CTRL_RST_VAL  (SPLITPOSITION(0x140) | MODE_4PAIRS | LVDS_BALANCE)
- 
- /* red: MAPBIT 29-20, green: MAPBIT 19-10, blue: MAPBIT 9-0 */
- #define MAPBIT3_0	0x418
-@@ -24,6 +43,16 @@
- #define MAPBIT27_24	0x430
- #define MAPBIT31_28	0x434
- 
-+#define SPGPOSON(n)	(0x460 + (n) * 16)
-+#define SPGMASKON(n)	(0x464 + (n) * 16)
-+#define SPGPOSOFF(n)	(0x468 + (n) * 16)
-+#define SPGMASKOFF(n)	(0x46c + (n) * 16)
-+#define  X(n)		FIELD_PREP(GENMASK(30, 16), (n))
-+#define  Y(n)		FIELD_PREP(GENMASK(14, 0), (n))
-+
-+#define SMXSIGS(n)	(0x520 + (n) * 8)
-+#define SMXFCTTABLE(n)	(0x524 + (n) * 8)
-+
- static const struct dc_subdev_info dc_tc_info[] = {
- 	{ .reg_start = 0x5618c800, .id = 0, },
- 	{ .reg_start = 0x5618e400, .id = 1, },
-@@ -32,6 +61,8 @@ static const struct dc_subdev_info dc_tc_info[] = {
- static const struct regmap_range dc_tc_regmap_ranges[] = {
- 	regmap_reg_range(TCON_CTRL, TCON_CTRL),
- 	regmap_reg_range(MAPBIT3_0, MAPBIT31_28),
-+	regmap_reg_range(SPGPOSON(0), SPGMASKOFF(4)),
-+	regmap_reg_range(SMXSIGS(0), SMXFCTTABLE(3)),
- };
- 
- static const struct regmap_access_table dc_tc_regmap_access_table = {
-@@ -44,9 +75,14 @@ static const struct regmap_config dc_tc_regmap_config = {
- 	.reg_stride = 4,
- 	.val_bits = 32,
- 	.fast_io = true,
-+	/*
-+	 * Registers could be accessed with local irq and preempt disabled,
-+	 * so use a raw spinlock to avoid sleeping on PREEMPT_RT.
-+	 */
-+	.use_raw_spinlock = true,
- 	.wr_table = &dc_tc_regmap_access_table,
- 	.rd_table = &dc_tc_regmap_access_table,
--	.max_register = MAPBIT31_28,
-+	.max_register = SMXFCTTABLE(3),
- };
- 
- /*
-@@ -59,10 +95,85 @@ static const u32 dc_tc_mapbit[] = {
- 	0x13121110, 0x03020100, 0x07060504, 0x00000908,
- };
- 
-+void dc_tc_set_operation_mode(struct dc_tc *tc)
-+{
-+	regmap_write_bits(tc->reg, TCON_CTRL, BYPASS, 0);
-+}
-+
-+void dc_tc_cfg_videomode(struct dc_tc *tc, struct drm_display_mode *m)
-+{
-+	int hdisplay, hsync_start, hsync_end;
-+	int vdisplay, vsync_start, vsync_end;
-+	int y;
-+
-+	hdisplay = m->crtc_hdisplay;
-+	vdisplay = m->crtc_vdisplay;
-+	hsync_start = m->crtc_hsync_start;
-+	vsync_start = m->crtc_vsync_start;
-+	hsync_end = m->crtc_hsync_end;
-+	vsync_end = m->crtc_vsync_end;
-+
-+	/*
-+	 * Turn TCON into operation mode later after the first dumb frame is
-+	 * generated by DC.  This makes DPR/PRG be able to evade the frame.
-+	 */
-+	regmap_write_bits(tc->reg, TCON_CTRL, BYPASS, BYPASS);
-+
-+	/* dsp_control[0]: HSYNC */
-+	regmap_write(tc->reg, SPGPOSON(0), X(hsync_start));
-+	regmap_write(tc->reg, SPGMASKON(0), 0xffff);
-+
-+	regmap_write(tc->reg, SPGPOSOFF(0), X(hsync_end));
-+	regmap_write(tc->reg, SPGMASKOFF(0), 0xffff);
-+
-+	regmap_write(tc->reg, SMXSIGS(0), 0x2);
-+	regmap_write(tc->reg, SMXFCTTABLE(0), 0x1);
-+
-+	/* dsp_control[1]: VSYNC */
-+	regmap_write(tc->reg, SPGPOSON(1), X(hsync_start) | Y(vsync_start - 1));
-+	regmap_write(tc->reg, SPGMASKON(1), 0x0);
-+
-+	regmap_write(tc->reg, SPGPOSOFF(1), X(hsync_start) | Y(vsync_end - 1));
-+	regmap_write(tc->reg, SPGMASKOFF(1), 0x0);
-+
-+	regmap_write(tc->reg, SMXSIGS(1), 0x3);
-+	regmap_write(tc->reg, SMXFCTTABLE(1), 0x1);
-+
-+	/* dsp_control[2]: data enable */
-+	/* horizontal */
-+	regmap_write(tc->reg, SPGPOSON(2), 0x0);
-+	regmap_write(tc->reg, SPGMASKON(2), 0xffff);
-+
-+	regmap_write(tc->reg, SPGPOSOFF(2), X(hdisplay));
-+	regmap_write(tc->reg, SPGMASKOFF(2), 0xffff);
-+
-+	/* vertical */
-+	regmap_write(tc->reg, SPGPOSON(3), 0x0);
-+	regmap_write(tc->reg, SPGMASKON(3), 0x7fff0000);
-+
-+	regmap_write(tc->reg, SPGPOSOFF(3), Y(vdisplay));
-+	regmap_write(tc->reg, SPGMASKOFF(3), 0x7fff0000);
-+
-+	regmap_write(tc->reg, SMXSIGS(2), 0x2c);
-+	regmap_write(tc->reg, SMXFCTTABLE(2), 0x8);
-+
-+	/* dsp_control[3]: KACHUNK */
-+	y = vdisplay + 1;
-+
-+	regmap_write(tc->reg, SPGPOSON(4), X(0x0) | Y(y));
-+	regmap_write(tc->reg, SPGMASKON(4), 0x0);
-+
-+	regmap_write(tc->reg, SPGPOSOFF(4), X(0x20) | Y(y));
-+	regmap_write(tc->reg, SPGMASKOFF(4), 0x0);
-+
-+	regmap_write(tc->reg, SMXSIGS(3), 0x6);
-+	regmap_write(tc->reg, SMXFCTTABLE(3), 0x2);
-+}
-+
- void dc_tc_init(struct dc_tc *tc)
- {
--	/* reset TCON_CTRL to POR default so that TCON works in bypass mode */
--	regmap_write(tc->reg, TCON_CTRL, CTRL_RST_VAL);
-+	/* reset TCON_CTRL to POR default except for touching BYPASS bit */
-+	regmap_write_bits(tc->reg, TCON_CTRL, CTRL_RST_MASK, CTRL_RST_VAL);
- 
- 	/* set format */
- 	regmap_bulk_write(tc->reg, MAPBIT3_0, dc_tc_mapbit,
-
--- 
-2.43.0
-
+> Thanks,
+> Michal
