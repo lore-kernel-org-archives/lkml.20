@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709152;
-	b=W1tYn4ptkkmA6dAEW/z63lcHL2q4DXfY1KfgR8pGlRDjiBL+F6t3s6Kv6/X9FL+Jx3Nr
-	 zbbS7JpKee3M9s2JjvBIkizUfGe42PpmtuBQGiVj1LaprQyv9TZ5p6fGrY+sIMw1iL7Xu
-	 R4s6TFh1J4RWGkvPFJkFmBVS/iiyKN24Sb0LE6WgsfFqxhWUORzrL2mgPCThRqy10l37H
-	 fIgcP4//3AmjZa93+MmFD0Xbnk+k/B3oIhNJmfQYInZUaUF9NvdiWLU75vM0TsMOxNlRF
-	 fKQ0njv5jPzTelk+U8H3EW9QCJgOzIxWPPwix7giVW7v1fSheMhSFXo/jJyXQ2XxSQg==
+	t=1793709187;
+	b=1r9umMRX+oc22/E7U2KV3FZfQ0XqdSZ3HJhqr8vMdtk6KuzHJxOtsHMFLtbOkZtmzuMR
+	 Y6AfFMq/g6V/rLh6LOTWWgRPMYjjQQ9qrxlvVcPrJLjCetf4wZ5ymUAfO2Z4sgLensiKD
+	 KryhXjjwydnP3IVsJ0xrgAOnppETtu0ylOs2L4l/HudaFRcJJMyBdWWbcOn6CBEM20wfq
+	 qdMUqdM4GrLLhQjVJAynTkZEGV8ouYsiyIbcH5zWSOIu3m8WRAirfwDPq9sS9P32uEklJ
+	 z+Ld181tx+IZ2X9JbaCJJh16vf0XA0w8D18a3Kt2eBLpXfDo+Bbn4y+6mvQgCxYgTSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709152;
-	h=DMARC-Filter:DKIM-Signature:Content-Type:To:Message-Id:
-	 X-Lms-Return-Path:X-Original-From:Content-Transfer-Encoding:From:
-	 Subject:Date:Mime-Version:Cc:In-Reply-To:References:X-Mailer;
-	bh=x2ncG86rAs9pOnWEtcTfjniv2/ccRbZe8/nBUY3DZLo=;
-	b=mxzqtLQEvjSuUHyBjXn/gYOQIWRoC1lTgzYnINDzWIvvEaSvJaGKMaXPnDx1YHcIt+YC
-	 pvEe/agmj76AktWDhEEr+sYXQsvEFOWCJHueJwBPqUWMEtBgOc93W5GzQBtt035EOmGQF
-	 W0N75EOLP87Whb1kWIYdhWDRnAGV/UMeviCYvJbw0fY1Mw19qAYJkElJzu+0IJj15+COV
-	 odWA1XT8wCVD8/gd1spdRJXu4GQykrDesHzFh2Nv5TOzzrAv0gXvXwacCeOdsYZFvTMB8
-	 gI4vXsL108y6VkUFPFbPLBKzCurNspiQ/F+zpL/dHmtFiQb449/qNNV/RcgMAzMu5tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709187;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hbNZBfIv/0uOJ1PwEaNvIG/iW/b95+ao7lxg1RZI7vg=;
+	b=WgGVSAnGXJEjsjsGBdygT7ibnmH9ImJg1VyeWmnt6GMnbGgLq7BIBhZY955kuXqWQaV5
+	 aKliUTPiuoekDpizqMEwZuDV5PEXM1qUa/gGxy/MWSFkgS6wPU6cskDrJNj08lZmoZyyS
+	 9TiD7Lc+Ma2pGwH0iNnNjNOcaO9QNVL+bmbFYNeV8HVolSayRtDvJ7tgfZfDAvuv+5RAQ
+	 2Eo0sXaE960mW9wccq3GCxMeNdvzypqorFSdOEn2djoRCm5ye8Lf/Aj8nVFstf+3gRTxt
+	 IecNUJbm7ftRsaRMvi9dvT8g5Nzl1kUAtqAj4E1s7PAnKoFdxe5mVbclNoip/9uc2KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Y7UZCyZj;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDW0sEDl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309536085089
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:32:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 309536085089
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 25D6D606A33E;
+	Tue,  3 Nov 2026 12:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Y7UZCyZj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793709147; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=x2ncG86rAs9pOnWEtcTfjniv2/ccRbZe8/nBUY3DZLo=;
- b=Y7UZCyZjRyqCvZIhBQOZ+OaQT+8AW2wR11H/WdPbRmW7HHKYsQKuUtiRktBQkBR7cBEUAy
- fs5zO5r1Wf0Hp775TZH17f0cyHfXe1K/v4EHX3uxW/unTk/4EShVzzVs2IT37THbAp1C/n
- QmGAHm4CuOw0LZN25pTooVaNibUcEF2YwRJ+S9ZEPXFDBzK0QtzN2PjLhiok2ANnlYQtYt
- eGmRZ94XZVkgh4wBM3fbYDWkD2ofNQr92wYX4OWgqEE2rUcxqvyrta/mWQSbGLbdYD3kOO
- ubG5ongpAav/ElFiE1oQX0D3A5UO9db2HcH88t76hTFju7IHpzUwjr5gPGFjeg==
-Content-Type: text/plain; charset=UTF-8
-To: <tj@kernel.org>, <hannes@cmpxchg.org>, <mkoutny@suse.com>, 
-	<akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
-	<ziy@nvidia.com>, <joshua.hahnjy@gmail.com>, 
-	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <liam@infradead.org>, 
-	<rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>
-Message-Id: <20261103122816.48037-4-lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26ae9d459+5a0c5c+vger.kernel.org+lizhe.67@bytedance.com>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Subject: [PATCH 3/3] mm/mempolicy: add BPF kfuncs for cgroup interleave weights
-Date: Tue,  3 Nov 2026 20:28:16 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDW0sEDl
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EC4DD1F000C1;
+	Tue,  3 Nov 2026 12:33:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793709186;
+	bh=hbNZBfIv/0uOJ1PwEaNvIG/iW/b95+ao7lxg1RZI7vg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EDW0sEDlW2wyXrqPiUIz4rgTWdWs+WgapdIvK4nwhLfYu1Co1MpHXB7mQJjNJ9bRv
+	 lDyuQE/LQHORvl9uqBZcqAu1wOOfST0VYoPaA7gXpkA6L+SWo709JpDbSM8NNETvq1
+	 s1/GcAj7kCaOuYo7KmSsKU6+2D799JemLOXIBF34SkjifBZ96Crj3oC4y02cAS8RCB
+	 EVRycZWZSStQU5ra/mLJAIy6pekBJU+vibpj/B9MzaSqkG+v6dnmNZ/gzvCVr4nRze
+	 +j0Na05ig8M3KiCZ6vVXWraYtn0IpcER8ew/B1Spx8zrpLmCLfOjjyvnB0N8bOoUQF
+	 n7Fy0XXdE99wg==
+Date: Tue, 3 Nov 2026 13:33:03 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/2] usb: typec: Add onsemi FUSB15201 driver
+Message-ID: <gi22hjj45arue56j52h24bu2hmrfzcpxqrbp24i35e2tpv4n5v@nkavpfddugki>
+References: <20261103041806.1885974-1-shengchao.guo@oss.qualcomm.com>
+ <20261103041806.1885974-3-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,262 +60,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Cc: <cgroups@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-mm@kvack.org>, <bpf@vger.kernel.org>, 
-	"Li Zhe" <lizhe.67@bytedance.com>
-In-Reply-To: <20261103122816.48037-1-lizhe.67@bytedance.com>
-References: <20261103122816.48037-1-lizhe.67@bytedance.com>
-X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103041806.1885974-3-shengchao.guo@oss.qualcomm.com>
 
-Expose bpf_wi_set_weight(), bpf_wi_clear_weights(), and
-bpf_wi_get_weight() as a BPF syscall control plane for cgroup
-weighted-interleave overrides. The kfuncs let a privileged program
-update one node weight, remove an override, or read the effective
-weight.
-
-All three kfuncs are sleepable, require CAP_SYS_ADMIN in the initial
-user namespace, and accept only cgroup ids from the default cgroup-v2
-hierarchy. Updates materialize a complete weight table and publish it
-with RCU.
-
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
----
- mm/mempolicy.c | 201 ++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 200 insertions(+), 1 deletion(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 751a5e90a4e1..7521542712cb 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -78,6 +78,8 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+On Tue, Nov 03, 2026 at 12:18:06PM +0800, Shawn Guo wrote:
+> The FUSB15201 is a dual-port USB Type-C and Power Delivery controller
+> which runs the Type-C state machine and the PD policy engine on an
+> integrated microcontroller. The host only observes the resulting state
+> and may ask for role swaps, so this is a plain Type-C class driver
+> rather than a TCPC driven by the Type-C Port Manager.
+> 
+> Register a Type-C port for each connector described in firmware, report
+> attach and detach, orientation, power and data roles and the PD
+> capability of the partner, and drive the USB role switch of the attached
+> USB controller so that OTG role switching works. Data and power role
+> swaps requested through sysfs are forwarded to the controller, which
+> performs them asynchronously and reports the outcome as a port status
+> interrupt.
+> 
+> The controller exposes a per-port VBUS ADC reading, but the Type-C class
+> has no VBUS attribute and nothing needs the value, so it is not read.
+> PD messages, PDOs and alternate modes are not exposed by the hardware at
+> all. The chip-wide MASTER_RESET command would drop both ports at once
+> and has no caller, so it is left alone as well.
+> 
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
  
- #include <linux/mempolicy.h>
-+#include <linux/capability.h>
-+#include <linux/bpf.h>
- #include <linux/pagewalk.h>
- #include <linux/highmem.h>
- #include <linux/hugetlb.h>
-@@ -103,6 +105,7 @@
- #include <linux/proc_fs.h>
- #include <linux/memory-tiers.h>
- #include <linux/migrate.h>
-+#include <linux/module.h>
- #include <linux/ksm.h>
- #include <linux/rmap.h>
- #include <linux/security.h>
-@@ -245,7 +248,7 @@ static struct weighted_interleave_state *wi_task_state_rcu(void)
- 	return NULL;
- }
- 
--void weighted_interleave_cgroup_free(struct cgroup *cgrp)
-+static void wi_cgroup_clear_weights(struct cgroup *cgrp)
- {
- 	struct weighted_interleave_state *old_wi_state;
- 
-@@ -260,6 +263,202 @@ void weighted_interleave_cgroup_free(struct cgroup *cgrp)
- 
- 	wi_state_retire(old_wi_state);
- }
-+
-+void weighted_interleave_cgroup_free(struct cgroup *cgrp)
-+{
-+	wi_cgroup_clear_weights(cgrp);
-+}
-+
-+static struct weighted_interleave_state *
-+wi_effective_state_cgroup_rcu(struct cgroup *cgrp)
-+{
-+	struct weighted_interleave_state *state;
-+
-+	state = wi_cgroup_state_rcu(cgrp);
-+	if (state)
-+		return state;
-+	return rcu_dereference(wi_state);
-+}
-+
-+static void wi_cgroup_set_state(struct cgroup *cgrp,
-+				struct weighted_interleave_state *new_wi_state,
-+				u32 nid, u8 weight)
-+{
-+	struct weighted_interleave_state *old_wi_state;
-+
-+	mutex_lock(&wi_cgroup_lock);
-+	old_wi_state = rcu_dereference_protected(cgrp->wi_state,
-+						 lockdep_is_held(&wi_cgroup_lock));
-+	rcu_read_lock();
-+	wi_state_init_from(new_wi_state, wi_effective_state_cgroup_rcu(cgrp));
-+	rcu_read_unlock();
-+
-+	new_wi_state->mode_auto = false;
-+	new_wi_state->iw_table[nid] = weight;
-+	rcu_assign_pointer(cgrp->wi_state, new_wi_state);
-+	if (!old_wi_state)
-+		static_branch_inc(&wi_cgroup_weights_set);
-+	mutex_unlock(&wi_cgroup_lock);
-+
-+	wi_state_retire(old_wi_state);
-+}
-+
-+static bool wi_valid_nid(u32 nid)
-+{
-+	return nid < nr_node_ids && node_state(nid, N_MEMORY);
-+}
-+
-+static int wi_cgroup_get(u64 cgid, struct cgroup **cgrpp)
-+{
-+	struct cgroup *cgrp;
-+
-+	cgrp = __cgroup_get_from_id(cgid);
-+	if (IS_ERR(cgrp))
-+		return PTR_ERR(cgrp);
-+
-+	if (!cgroup_on_dfl(cgrp)) {
-+		cgroup_put(cgrp);
-+		return -ENOENT;
-+	}
-+
-+	*cgrpp = cgrp;
-+	return 0;
-+}
-+
-+__bpf_kfunc_start_defs();
-+
-+/**
-+ * bpf_wi_set_weight - Set one weighted-interleave node weight for a cgroup.
-+ * @cgid: cgroup id that must name a cgroup in default cgroup-v2 hierarchy
-+ * @nid: memory NUMA node id to update
-+ * @weight: new weight in range [1, 255]
-+ *
-+ * The first update creates an explicit override for @cgid by copying the
-+ * nearest ancestor override, or the system-wide weighted-interleave weights
-+ * if no ancestor has one. Nodes not named by the first update become local
-+ * values in that table and do not keep tracking ancestor changes. Later
-+ * updates modify the cgroup-local table. The override affects new
-+ * MPOL_WEIGHTED_INTERLEAVE allocations made by tasks in the cgroup and
-+ * descendants that do not have a nearer override.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid node or weight, -ENOENT
-+ * when @cgid does not name a cgroup in the default cgroup-v2 hierarchy,
-+ * -EPERM for insufficient privilege, or -ENOMEM when the override table
-+ * cannot be allocated.
-+ */
-+__bpf_kfunc int bpf_wi_set_weight(u64 cgid, u32 nid, u32 weight)
-+{
-+	struct weighted_interleave_state *new_wi_state;
-+	struct cgroup *cgrp;
-+	int ret;
-+
-+	if (!wi_valid_nid(nid) || weight == 0 || weight > U8_MAX)
-+		return -EINVAL;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	new_wi_state = wi_state_alloc();
-+	if (!new_wi_state)
-+		return -ENOMEM;
-+
-+	ret = wi_cgroup_get(cgid, &cgrp);
-+	if (ret) {
-+		kfree(new_wi_state);
-+		return ret;
-+	}
-+
-+	wi_cgroup_set_state(cgrp, new_wi_state, nid, weight);
-+	cgroup_put(cgrp);
-+	return 0;
-+}
-+
-+/**
-+ * bpf_wi_clear_weights - Remove a cgroup weighted-interleave override.
-+ * @cgid: cgroup id that must name a cgroup in default cgroup-v2 hierarchy
-+ *
-+ * After clearing, the cgroup inherits the nearest ancestor override, or the
-+ * system-wide weighted-interleave weights if no ancestor has an override.
-+ *
-+ * Return: 0 on success, -ENOENT when @cgid does not name a cgroup in
-+ * the default cgroup-v2 hierarchy, or -EPERM for insufficient
-+ * privilege.
-+ */
-+__bpf_kfunc int bpf_wi_clear_weights(u64 cgid)
-+{
-+	struct cgroup *cgrp;
-+	int ret;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	ret = wi_cgroup_get(cgid, &cgrp);
-+	if (ret)
-+		return ret;
-+
-+	wi_cgroup_clear_weights(cgrp);
-+	cgroup_put(cgrp);
-+	return 0;
-+}
-+
-+/**
-+ * bpf_wi_get_weight - Read the effective weighted-interleave node weight.
-+ * @cgid: cgroup id that must name a cgroup in default cgroup-v2 hierarchy
-+ * @nid: memory NUMA node id to query
-+ *
-+ * Return: the effective weight, -EINVAL for an invalid node, -ENOENT when
-+ * @cgid does not name a cgroup in the default cgroup-v2 hierarchy, or
-+ * -EPERM for insufficient privilege.
-+ */
-+__bpf_kfunc s64 bpf_wi_get_weight(u64 cgid, u32 nid)
-+{
-+	struct weighted_interleave_state *state;
-+	struct cgroup *cgrp;
-+	s64 weight;
-+	int ret;
-+
-+	if (!wi_valid_nid(nid))
-+		return -EINVAL;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	ret = wi_cgroup_get(cgid, &cgrp);
-+	if (ret)
-+		return ret;
-+
-+	rcu_read_lock();
-+	state = wi_effective_state_cgroup_rcu(cgrp);
-+	weight = wi_state_weight(state, nid);
-+	rcu_read_unlock();
-+
-+	cgroup_put(cgrp);
-+	return weight;
-+}
-+
-+__bpf_kfunc_end_defs();
-+
-+__ADDRESSABLE(bpf_wi_set_weight)
-+__ADDRESSABLE(bpf_wi_clear_weights)
-+__ADDRESSABLE(bpf_wi_get_weight)
-+
-+BTF_KFUNCS_START(wi_kfunc_ids)
-+BTF_ID_FLAGS(func, bpf_wi_set_weight, KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_wi_clear_weights, KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_wi_get_weight, KF_SLEEPABLE)
-+BTF_KFUNCS_END(wi_kfunc_ids)
-+
-+static const struct btf_kfunc_id_set wi_kfunc_set = {
-+	.owner = THIS_MODULE,
-+	.set = &wi_kfunc_ids,
-+};
-+
-+static int __init wi_kfunc_init(void)
-+{
-+	return register_btf_kfunc_id_set(BPF_PROG_TYPE_SYSCALL,
-+					 &wi_kfunc_set);
-+}
-+late_initcall(wi_kfunc_init);
- #else
- static struct weighted_interleave_state *wi_task_state_rcu(void)
- {
--- 
-2.20.1
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
