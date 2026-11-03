@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711363;
-	b=NBKsYhQNGzMe3WxIGKCbjrSq0JVw6VsSNXgWmgOCRjOWEC0ynYEEMJgmiO9Cx93gGUnb
-	 ZkLlzqbZfZBUxES32o8FjUCe0ifDAocE8UIoIyz/XqQL+uXc3uokiOCHOx49eoSSLltN1
-	 W8eftfmM+FkJJuP1pIqXGBn2liCFXCx9iwwEo+4SBObXSmJvXkMjlTP9xUpPGgZwZcFYz
-	 Vo/LOV1TUiUtOorNmZ2uIKqsJzPw9xNuJ1oAdpp54a2wAH2CWR2ot85jUF3X2n8o2kBug
-	 0+xvYS3q0fkp3m8l09WE8MjuBNPUg4/+eDqRdff/O2ewGude/ozQ7th+FDFNW1keKVg==
+	t=1793711404;
+	b=jpeU8CcpS32mRCUW6mQO+A5ouYnCF6nxaXAbN1oaUjGzfzKiWZqUPUo8LMX/TjLYs5v2
+	 W1lmX0TduVsiHEMAae/LI3rmOa73/x4V8UWUECT8z7AYQ67ikGU9k2D+taDs3+OORfSz+
+	 vmu7c93aP17BA1po2f11NDPXX4Vbli6WBaLK7i/YKFh7QO4HphnoKZbXxxUvYFdEHQso1
+	 CtGc5Yim//ONlhaIJX/ObS+XuhrSLRZ4eurWE5joQGXmnu1v/qHtgduri6q+mxxvv8qnk
+	 9uvbB8REg+7XoFCgIn55F4Os8+09jCyftsU+fKlX+bMisu8ITFeZWS0csBmutZkIXjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711404;
 	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=yZpf1H/k4whOqY1BVAHAnVNVl1rw8m1xEANoC6I5NO8=;
-	b=dPAXSyynziYTZzxJKvTXR8BVXRKP3bg5exnnz6ryiIEaAESfNpWiTQIx7i83D0VV4l+g
-	 TYgVJq+E1yDZ6vSoAw23s5BLqRsFkbOYEaIZ1o65pUvDJbD59qOp5cLOaEIWQM/9MMXi5
-	 /uKWRpE4rbWru0G9Go4aaO4QAM5Yj1QLVC4BaZYvEIrrzX7blllhnIx6kXl1Q3fu2lvbF
-	 Lb2YLx3gugJ+vxufOJ+DO2u5AO3wNxXUxvkogkLDxIC2UPSI7dFOT9GgPE9+4OwnyyysG
-	 mQ37qCeoEfUW7IIdzjUmELHpYomfhXcmCftJad+yq5qj4PE1gs4m6Mk2ha+LVdaJRXw==
+	 In-Reply-To:X-Debian-User;
+	bh=w3H7blSooLszPMxpdrt6nkYHGz8mEQiZ6Smc95l6Wxo=;
+	b=0jIuLrp9iR/CcM0/aR/G4+yA4PXFLOGrQQhG4cQEWCxtipQJ6dBBjJ88pcQzjHM1noxg
+	 uuR6sopMxQvZ6khlLFLb+/uEi0NG0DPDUUDhlGHj62dNBQy+uOvfVUlSczh12XUZviXPD
+	 phb2zLou38Y9y/I+v/VqQiFPG1PD0KmmOHXQ3mt1CqaTX/NqpkRyf2gFADieOAYymoaVK
+	 TLbJ/36H/Oxd3V4sIFOs59RSJdZCnFjLUpi1jA35qa6DNKIWc3Jkf8DVUZVQAVVeDwH6b
+	 I3K1z7PD3j/7vgFf0cQsofYmjaN9lYl6F2pBuQj3ZkFdACG8frPrPJMphhF2EVCa3IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="v+/GviCh";
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cxWQCZlZ;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FD1606D82B;
-	Tue,  3 Nov 2026 13:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30FD1606D82B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3DD606A326;
+	Tue,  3 Nov 2026 13:10:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED3DD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=v+/GviCh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=yZpf1H/k4whOqY1BVAHAnVNVl1rw8m1xEANoC6I5NO8=; b=v+/GviChsC3nfnI/bGjE3OJRB/
-	cuzwpZpEQEv8eCzynRfAm0aIjtEtxa+n8wb3qtQE6fnyXNjmXXQrwk5csDwQTTwAqBQ40X6dij1xY
-	/Sq9uEWlvC65HITtW4gqx5E5fbCFKCyZwwXeP/Q3JV5bfasObqYNAgewI1HnGOOcq4Gs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOEGD-00E3QR-No; Tue, 03 Nov 2026 14:09:09 +0100
-Date: Tue, 3 Nov 2026 14:09:09 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: pcs: xpcs-rk: limit advertised interfaces
-Message-ID: <f554dcc0-14ea-4721-9517-dc0337c47426@lunn.ch>
-References: <20261029094916.3127193-2-coiaprant@gmail.com>
- <c5fc86f9-3c43-4aee-8d88-92e8f88c6d5d@bootlin.com>
- <1B8D463D-1295-4BF0-972D-859C342E49F5@gmail.com>
- <48cb8a9d-622f-497c-a13e-bc679c764ce0@lunn.ch>
- <27E466B0-72FD-47BA-B952-68BF4A817A04@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cxWQCZlZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=w3H7blSooLszPMxpdrt6nkYHGz8mEQiZ6Smc95l6Wxo=; b=cxWQCZlZV2IvzjmfRq2QtTPOQW
+	54CSCbMtbNhCCuKN6nHKoXxgcUwzTC0AYb2d0QRHp+H+TCxCuwohIRrVe3qkyAkkupoKiw/6FJBtE
+	9TOlPD6/4vliE8F81UqEAxHlp0NVe6nkdgmlSQUYQCBqvQjPrKRfv7OVY8OVo6FbKSNc2Cvc6kx8Y
+	kWDEACaM/DNLJhLq0xqE3SnmoTR+ZGU0+Zbun6Puct5FSQ86QhSDtXXIEB/9yEvPkJyDgDrHVUUSh
+	ue7jZ7QTQsKB6lsp5Jw/SVhY/s8yebdz6dQB9qINT7t1AwljGPNd0VQIDsFeEDG59m7+Kox52PMza
+	n4x7LEig==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOEH1-006xOC-2a;
+	Tue, 03 Nov 2026 13:10:00 +0000
+Date: Tue, 3 Nov 2026 05:09:55 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Shuai Liu <847807867@qq.com>
+Cc: Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzbot+675af112519ca34f5502@syzkaller.appspotmail.com
+Subject: Re: [PATCH] io_uring/sqpoll: don't set IO_SQ_THREAD_SHOULD_STOP on
+ thread exit
+Message-ID: <auncyphG6lXI7rvo@gmail.com>
+References: <tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,25 +69,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <27E466B0-72FD-47BA-B952-68BF4A817A04@gmail.com>
+In-Reply-To: <tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com>
+X-Debian-User: leitao
 
-> >Are there any registers which describe how the PCS was configured at
-> >syntheses time?
-> >
-> >	Andrew
-> 
-> Hi Andrew,
-> 
-> Yes, looking at the `xpcs_identity` code, the core does probe different
-> MMDs to get the rough type: PMA/PMD MMD for C73 and VEND2 MMD for C37.
-> 
-> However, even if we determine it's a C37 or C73 block, that only gives
-> us the rough family, not the exact feature set.
+On Mon, Nov 02, 2026 at 04:05:42PM +0800, Shuai Liu wrote:
+>   WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop
+>   Workqueue: iou_exit io_ring_exit_work
+>   Call Trace:
+>    io_put_sq_data
+>    io_sq_thread_finish
+>    io_ring_ctx_free
+>    io_ring_exit_work
 
-You might want to try reaching out to Synopsys. There are sometimes
-feature bits in VEND1/2 which list the exact configuration
-synthesised.  And since it is a core part of the licensed IP, it
-should be safe to trust it, independent of the platform it has been
-integrated into.
+I've started seeing this issue on my debug kernels.
 
-      Andrew
+Not sure if this is the right approach to fix it, but, I've tested this
+patch, and the warning went away.
+
+Jens, feel free to add my `Tested-by: Breno Leitao <leitao@debian.org>'
+if you decide to get this patch in.
+
+--breno
