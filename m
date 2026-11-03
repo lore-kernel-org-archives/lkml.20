@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676417;
-	b=BXvns3+mmd+VKj4GMvy4w9Pvh86P3Hsxw3p4Je7LKFsk6fJYg0/14FfI3nY970xTTOuh
-	 LosnB7Egb01/NWDUW0LeQwTj/fVTfnmrWCTqzpSgIeMNAGKglSz614k0EdkQ6j+8R5Vxb
-	 H/uMJipywqS7EmfNi8tV0L6VDku1xN9fYZJVmas06uBA3lIdJ9xTYuMwPnAzHViCwIY23
-	 L62z//feyfcZ16YEYWA+Mq43wglRJllg0MUCu2GovrUlf6YRRzgZ+uKj4fOhzV09tN+4M
-	 Sb+NQRT37Iq5tsEqXmI19vQCRwUJBzB5f3VUl281fAbymWeT14c3RB4KVeAwu9hL5NQ==
+	t=1793676421;
+	b=CL0tdAp3ozJitYWaEXwQQwnJLwDqkg50sc46VhU7LbVOgR3oeH7CQZt9u1kn6Vbr86j4
+	 8ndlijmWZVDMCly66iXBuiIVQNhSBhvZC5n390SdqJ1B+ePqzeV1mNFqpfVndMT1f503X
+	 lUf3Xff4pafQ9Xftih5vevGXzoqL5xYZAko8pM0yr0VYpLPBwAgiLJoWjmX+/3MLHs+jr
+	 FUyzs/tBret7LE0Y4w0JoKZlS7o0+cZf9QaYo4TF/sZEtexpp8725DB0ZDNbhYxDfF6Gy
+	 0DCl0vSM0+XtnZ6Yw+cRC3YTWAAxqi5hjDNcuxPmoqJpfDdVNhJ3b+5QHGjamgG0xYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676417;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Pj1JU03F9Laxq6eHx9zjcjJnN4EfO5e/haxBemgdWVs=;
-	b=25S1r0P+FZNa/BYU6HI9hPJDCeqpayHgrlMTLZHyurSxe93yoRBuMZUk24I62H3j6hdh
-	 DHnVyeq5yPsD6SVVFiXs65awFZEM5007rbqpv5cb0jjeZo69JcZ0Aq9bYhazbb2sEBuyr
-	 dbZGxPhdOphRBZ/Dv6etFjy6omsTmmv8LISV3v3YUAiUojGdnbRfaQsRkATRXk/xnNqML
-	 OBjjWDxGkGd9BtxD5ExKnoMB0DZ+pCpeNCNjjafs9kQmFAdUwO0rNInLo+xyrrrExMxJO
-	 YfPx1eGIQGRbEFc7HaQ///vEHf94jFmA/dK7ZNZmhERVoQC4Tn+2lemYq0SJ1l2iS9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676421;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=7sXvPNBaxHdWaLLan0lLsEk3zIV5UYZaQkD5N7bRqig=;
+	b=G0Diz8wvHgvohSTknqNTq/9/Bi7zc9Wpd1UA/QujJ+vM3YbBI71p93jXQaWIjOCssvzb
+	 E7ue5lAflyiFLbq81qN/jSbELjb7fOem/NQhQHhugxL3DLbEQVeKU/7kDo34bWpKMn1SE
+	 e32jKUWTuPN8YYnaygArRZhyaqClMXN+NJl7Td6d319/n1Tuas/kucU+kkoYZrCNKPnqk
+	 zz35SqWp+NDvBOcj6IJvPL3A8NkX3hGPMrQ8pTkWHqgy00F351aYE58lnHe9D01VUXFMm
+	 b3HZk74ppXtjO8SkYLMmuh6FLT4Nb432mBZ8Mx0pAWbMbpBoCFJPXWGsS/HiNlY/Qfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZ3Vm7l0;
-	arc=none smtp.remote-ip=95.215.58.3
-Received: from mta1.migadu.com (out-3.mta1.migadu.com [95.215.58.3])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=I6lGbH2z;
+	arc=none smtp.remote-ip=203.205.221.245
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AC4606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0AC4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B53606D802
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B53606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wZ3Vm7l0
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wtEVdOVSVnuKwh+DFugaJpr8wQGqhhMMSkFBirTr1Zg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793676414; v=1; x=1794281214;
- b=wZ3Vm7l0mlxhJDHMtn+MSeTkfra8gPRhQ/C9k1Ov7E5B2EKvdeEFGhRIzJ8empktpQHbZLSy
- sWaXtGmxIrM1ilcMcT5/WgFfmCwPB4DJNFpQ7m1N1/QT+Xt/mFQnCB+BUoBPZLv3cUTN8OaZ2W3
- c2PI4w6nCYlqu5dodVSmpQ2Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id e74cd1523336b06b;
-	Tue, 03 Nov 2026 03:26:54 +0000
-X-Mizu-Trace-ID: e74cd1523336b06b
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 3 Nov 2026 11:26:35 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
-	David Lebrun <david.lebrun@uclouvain.be>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Mathieu Xhonneux <m.xhonneux@gmail.com>,
-	David Lebrun <dlebrun@google.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>,
-	Andrea Mayer <andrea@common-net.org>
-Subject: Re: [PATCH net 6/6] selftests: seg6: add test for skb checksum with
- CHECKSUM_COMPLETE
-Message-ID: <aulUayPCDOYwAm1e@fedora>
-References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
- <20261031225033.64-7-andrea.mayer@uniroma2.it>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=I6lGbH2z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793676410; bh=7sXvPNBaxHdWaLLan0lLsEk3zIV5UYZaQkD5N7bRqig=;
+	h=From:To:Cc:Subject:Date;
+	b=I6lGbH2zaVPWaLjPEcHLNkSAEqNj5chJw9+eXzPL6IPVe7uOrSXLBYyRdJepUJYGn
+	 owZyY1x3AHHaoJpMbgP2AnyjCsk/Jd+6nc/M5hw53oKRIWxCeFu5NQmSeu+R82bivp
+	 ZWyUcBuwsKBxOvvX7LqUZhd0Hq2pK/dTd7BVkkGc=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.198])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 6AF9942A; Tue, 03 Nov 2026 11:26:47 +0800
+X-QQ-mid: xmsmtpt1793676407tgbprm8d0
+Message-ID: <tencent_A21BAE90D8EE04A5FB98B4168BA73C695306@qq.com>
+X-QQ-XMAILINFO: MvUAcPkRmFBfe/k0sJA1gXnVBGWOmN+E9nwdKqhHlDHiisGEPnQQgrKhQ/6Utj
+	 zm8pIokQRVlTcbXkkbFkAk8pw6RcVcJvpadsmpDHhm2s4mjNZ+Eq6TYHuy/UY2EPa89FwCkwv3vw
+	 0y1Dbg9HDSnNh6mR+qGjpFDDwMKTerjDlZyGcnTiuCYYz5kod/loeKRbllFSCm4o+7A2L4mZLkdF
+	 5XjtyJNAJe9JHlyxBd9z41ZkMe2G8AEZNdOVXY5Vs9EKyK+IaqG6G0HC2BQqj4sWaCzFFDekySRk
+	 kioT7rmTOsj99OkQ1odU56p5DwzfCbh75Mm8OiKdSSIo0RBjPNFEZnXcCMEVgUv9eu5lP7DPbhIB
+	 Ukp7cbcBp0vbNLo7JgNdyfl/LrrAbztm/0r2BKYY6WM5R8NrkPxaJQNAdoeYw+2LPCSY794ZZ3lS
+	 n46bvIPpETVmrLw8HcvO2JxATfUzgCLgXBTBKvfTg9iZdT5MP8mr9iwF0EuqqWL8i4JnRZvt82dw
+	 GLDcL8MLaVjwKYOqTv4nXG/uodrcWHF+rD12k3dIH5mE0WlChbBN+BVxevfyKO2YXhgWMkca3tpn
+	 mHG51pHpIAiOwEeRIIRsAoSghyYYQ7PXOS4NhMiw2PlcW3jpycdgsaYCPD62n0Pj6ZiC2vLOPbOb
+	 S0P7dGYHrwYcKvtFr5Tu0lv1rP0vEVXtnppK4+2TyqPVV3gtebYWIeevG5pgFenL5aGL0if5XrVO
+	 SZhJSiNrsgSRLUBqhPHFd9Ro54GQIKiAzvK3tvSCID/0I1U8MnRmincIFAPnIMHA0hFjil7ql39j
+	 bKIjhkcJ48wUmTfi0hQPVqfEZowGSrQOn0oN/EmzPgIwnI2kyiw6/tkK6CXNG7NwdHRWUVseLf4x
+	 I3W9Zq4mdKYrD/ojbWjNU5MF3lQTa8ikcF2P81kxxP9l2QaW0GRSrjGlOTLzcFnD55BPYqhtvwf1
+	 bAuLaIez4NraZSmdBJnTOkQYrUtJnIcIQphrcG1a6cAkLEPUGvxv9Tg+15nFfVdiP+Ba0ujPpd8k
+	 0PWeCcBEzc3lWFwmhUzxy5yBWsyfcgfh3zPzta15gXcu9ukbIE13Q5mDwXAiY=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-mtd@lists.infradead.org
+Cc: richard@nod.at,
+	syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com,
+	luquijeffrey@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH] jffs2: initialize f->inocache to NULL in jffs2_init_inode_info()
+Date: Tue,  3 Nov 2026 11:26:47 +0800
+X-OQ-MSGID: <20261103032647.70138-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,78 +79,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031225033.64-7-andrea.mayer@uniroma2.it>
+Content-Transfer-Encoding: 8bit
 
-Hi Andrea,
-On Sat, Oct 31, 2026 at 11:50:33PM +0100, Andrea Mayer wrote:
-> Add a selftest for received packets with CHECKSUM_COMPLETE that the SRv6
-> code processes before they are delivered on the same node. The test checks
-> that, after the node changes the packet, UDP does not read a wrong
-> skb->csum.
-> 
-> The test uses a host and a router connected through a veth pair. Since veth
-> does not provide CHECKSUM_COMPLETE, a tc ct action on the router computes
-> skb->csum in software.
-> 
-> The host sends a UDP datagram to the router along five paths: no SRH (the
-> reference), an SRH with local segments, End.B6.Encaps with End.DT6, End
-> with the next-csid flavor, and End.BPF. Each datagram is expected to be
-> delivered, not dropped as a checksum error. Without the previous patches,
-> every path except the reference fails. With them, every path passes.
-> 
-> The host also sends a control datagram. It checks that the test detects a
-> wrong skb->csum after a change to the packet. After the ct action, a BPF
-> program on the router changes the Flow Label of the control datagram
-> without updating skb->csum, and UDP must drop it. If UDP accepts it, the
-> paths above may report a false pass, and the test fails.
-> 
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  tools/testing/selftests/net/Makefile          |   1 +
->  .../selftests/net/srv6_csum_complete.bpf.c    |  65 ++
->  .../selftests/net/srv6_csum_complete_test.sh  | 642 ++++++++++++++++++
->  3 files changed, 708 insertions(+)
->  create mode 100644 tools/testing/selftests/net/srv6_csum_complete.bpf.c
->  create mode 100755 tools/testing/selftests/net/srv6_csum_complete_test.sh
-> 
+new_inode() can hand back a jffs2_inode_info recycled from slab with a
+stale f->inocache still pointing to a jffs2_inode_cache that was freed
+by a previous mount's jffs2_free_ino_caches().  jffs2_init_inode_info()
+initialises every other pointer field but leaves f->inocache untouched.
 
-[...]
+If jffs2_new_inode() then fails before jffs2_do_new_inode() assigns a
+fresh f->inocache -- e.g. in jffs2_init_acl_pre() -- the error path does
+make_bad_inode() + iput(), and evict() ends up calling
+jffs2_xattr_delete_inode() which dereferences the stale pointer when
+reading ic->pino_nlink, causing a slab-use-after-free:
 
-> +
-> +log_test()
-> +{
-> +	log_test_expected "$1" "$2" "$3"
-> +}
+  BUG: KASAN: slab-use-after-free in jffs2_xattr_delete_inode
+  Read of size 4 at addr ... by task repro
+    jffs2_xattr_delete_inode
+    jffs2_do_clear_inode
+    evict
+    jffs2_new_inode
+    jffs2_mkdir
+  Allocated by jffs2_scan_make_ino_cache (jffs2_do_mount_fs)
+  Freed by jffs2_free_ino_caches (jffs2_put_super)
 
-We'd better use log_test_expected directly, otherwise the log_test in
-lib.sh will be overwrite.
+Fix by clearing f->inocache in jffs2_init_inode_info(), consistent with
+the other pointer fields there.  Verified with the syzbot C reproducer
+under QEMU with KASAN: the UAF is reported before the patch and absent
+after it.
 
-> +
-> +test_command_or_ksft_skip()
-> +{
-> +	local cmd="$1"
-> +
-> +	if [ ! -x "$(command -v "${cmd}")" ]; then
-> +		echo "SKIP: Could not run test without \"${cmd}\" tool"
-> +		exit "${ksft_skip}"
-> +	fi
-> +}
+Originally proposed by Lucas Jeffrey <luquijeffrey@gmail.com>
+(Link: https://lore.kernel.org/all/20260909023955.1642244-1-luquijeffrey@gmail.com/);
+that thread has seen no activity since September 10 while the bug is
+still reproducing upstream, so resubmitting with his credit.
 
-Then we can use require_command() in lib.sh here, which will call
-log_test() in lib.sh.
+Reported-by: syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3a8099322b09d8d073d1
+Suggested-by: Lucas Jeffrey <luquijeffrey@gmail.com>
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+ fs/jffs2/os-linux.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-[...]
+diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
+index bff2134d771d..e80b786c9ea2 100644
+--- a/fs/jffs2/os-linux.h
++++ b/fs/jffs2/os-linux.h
+@@ -55,6 +55,7 @@ static inline void jffs2_init_inode_info(struct jffs2_inode_info *f)
+ 	f->metadata = NULL;
+ 	f->dents = NULL;
+ 	f->target = NULL;
++	f->inocache = NULL;
+ 	f->flags = 0;
+ 	f->usercompr = 0;
+ }
+-- 
+2.43.0
 
-> +
-> +if [ "$(id -u)" -ne 0 ]; then
-> +	echo "SKIP: Need root privileges"
-> +	exit "${ksft_skip}"
-> +fi
-
-I wonder if there is any one run the selftest with none root privileges.
-Cause almost all the selftests need ip configurations.
-
-Thanks
-Hangbin
