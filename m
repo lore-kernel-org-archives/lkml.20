@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717573;
-	b=D7zC8koGXIgBTkhfu0cCPhmKV2KSIQE/RgcQo274hHuhZ0c3Ubrh+H0hEyPQS8/zHpaI
-	 6U0rgyvo9M9nybWTjse+vfj1/36v5ieDLp5cr9q9GhgHspH9h5UXswFHhJ1qTvsU5xOov
-	 MEkNX5RwX6GJEAKRGoqOGnbpC/iskY2dAaNyhWUlDd0Ry6y71DFVzZPqn0E6NJIh9e5ba
-	 e8VMYaJdrqMi31C5wAVdpndQSp88tsEhwGk0YTAo1jPAS5ozzztW3vskCeYOzs2tZli78
-	 3gGjqrtsgWkZLxvub3QWzpka1oQeT0ev0oOd6RnXQ38ml68bXBGHy3Fcwaz1F9T781g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717573;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=AZzVmOOfoRtDvZHpF7qwPdY9qMJ2XRmaKfYRT9GKTJM=;
-	b=dU5U46tBPh8fcUzmXuYWZjtj+v6/vvzLR11vVDoY2UgCpWSHd3AlBi6RsAtwrqx8095w
-	 yzcadsIN35AAjxpkImLO0mNjPTsWnvuce2pEgK/Vk/c7dAbDg4UAgXgNaB65MzkeCXS5V
-	 Dd1+n86Wbw2Y1NsbKQzQMZM7Qh7yTiPPAaM2LWNNzEeXF9jgyE1BOaeJDlE3Y+ig95qvu
-	 KsO4k3cZOgO5QUdzUqfeU7CAX+yyAZ1CvwA/u4EB8xw3E7iGB5eEvuEeEkVJr6xkK1Ck+
-	 hGZtgVKHt4nC71EcmSMmrXULv4GGLrg+v5jWYRCHIz0XsvuVWZ6qXjHMLr/1f4b0ASA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=skz89O6F;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793717585;
+	b=PBvnqyrov41cy9QTKK+Ud4A4/DZwnPhNgDbn1Tb67fc0k+zUAG3k5lzS03ZbqmSeJXDM
+	 3tPvsviyuP1WgT3Vu50uyAjcpu4VTgmBqQTBm137I0WG667YCo12D6EoZQgnMWQS7pfr3
+	 xjwAsMhrNL6Zer+V1AIJEx2voVqZDLTPcoeGSMrlkvFXkC0UAK+PNg4lt8fTfk31EQb4o
+	 jF8bEv+ub3P2RXbsbeLHkEbdYOtPw1g32hIXS1bGkK49ackPn9vVjFL12Hn/BrpUZzKfU
+	 QDO9G0uwyPPSj07lNXE+fr07AaQ3aSW5eyIzg0HqhfYiDbsGwVwDUevhNG9dxfopCvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717585;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ZgsSRgLhdRJXX0D7l/a2ulYRdMo+CZDmbqVMPRhhICM=;
+	b=ScoIOKI24spaHNS2Nx3ypjiiG497XPTL08vEWEUAi9heJ+fTixCfVkjb97jJq9t6RGEw
+	 1QmqOJRyAANJHAyRmrcyXlqK6zKNaB5yrZwaJHuseTrj67xCxu1ICjZ6d5x3ANUCAHjUT
+	 ecYneUDqK9F7ljn9ab8cogn1k2Fo73ejPvUyJhR74k+OUQK+OQTdZuSLiRe7ngcd+XIwF
+	 uLqs/psOFUCsyQ3mea12EqVg1KOdleNcQBkaeKzTcoqmbJlX2ZsT4RpgZmyFLo518ztmi
+	 jotAIxNOvnjvDvkCAA5znwgzbsTbE5pvfbDUS2NeRn8qDss5IKnH3caI2+QjuMZT/PA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcQQD26j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DF760A5BDC;
+	Tue,  3 Nov 2026 14:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcQQD26j
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793717583;
+	b=1V31pSPAn/+/FqScK9noDd28CdPaNy+33vsKiyCAsassRvPZL0t4yCMvWbSbBDriHi1F
+	 ma6MRXDPAL798Mar27IhauMEIiH4e+Cz+CZiTkKgtx30Zmg+d6MT693PoF5FRfDCZ3rgJ
+	 OVlri4UUfFI8tv864vxKtEiT2sD5vra2/Cl1aCO9Ke2qdAnA94L4cE2O76oy6pOgKHi/7
+	 JbJBh6VVZvVCHzroI/SCwIiCFbT1/KN1T4P/fu3nfN4qtnz7m2OyZPdSUnUaI0voy4Iai
+	 irwnh6cEPSQyAaDTGXq4SPv0xxj8zzI4AYYKJ/Z/iNwG2xR/v4uhkvqVeHhzlTbe7Rg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793717583;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ZgsSRgLhdRJXX0D7l/a2ulYRdMo+CZDmbqVMPRhhICM=;
+	b=zGaPfuuCJcNGO+5NuJsXNg3QbdHGMT+QFBo9KW7GnbF1xEtwU6+KF1vCiMNEQSh9r7Ik
+	 vILDYWInLfSIsdWqoaOV+rouqLl2WIuk+/cpQHY9dzrI1wNj4EYc6HGa4CR1IpWt73/AR
+	 1jmnkPF4D0Iy560/JokZ5yREtR1r0zo3JUluoULUahMPCut59dnMTYjvdeGJVwjOAMMrG
+	 K8Dq2XJgNBdGhDxBkQOcneZDbiUS7x3n/Tqhl8wOHNkIl2yvoy93lbEfdBIqfPe8teyBn
+	 WmGfeL/O0GkWAbnMnwalanoesrx20ayOdD4Xvx827WQrS9KgcLUuijuKCkyPBe86VdQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84026606B24E;
-	Tue,  3 Nov 2026 14:52:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84026606B24E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=skz89O6F
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=AZzVmOOfoRtDvZHpF7qwPdY9qMJ2XRmaKfYRT9GKTJM=; b=skz89O6F8mEMMNAlN1u/nqq/Nd
-	Am9hqZOCT8D63YyzHpNND8SaYE7BEFaMaPgSN1SXruvzs3jWwVbmwO15MPpWrpfUvhhVI6lh8oCQg
-	vihlRywjPlCWqWXryCEux9ucABuQ3flQ4k1vEpsm19EAKcG/SD4lerWSD7aOspiW9J3PLKSqXTVQq
-	DaVcLkgntHTCpDCQUzFG6cdwMuE1hupteVUPjtcatFiMXb3p+jprlXmi33oYgyKSVwip16YVuqbxv
-	x/1UR+UqZpE0nX22ScRLXLcLFolszfJYW0mhkSyCLlm917oXRyvBenEHMqi97nC02kD7akamLQvu0
-	W/ZJbZdQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOFsD-0000000Ebhh-1pHh;
-	Tue, 03 Nov 2026 14:52:29 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2505B301185; Tue, 03 Nov 2026 15:52:28 +0100 (CET)
-Date: Tue, 3 Nov 2026 15:52:28 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Sasha Levin <sashal@kernel.org>, kernel test robot <yi1.lai@intel.com>,
-	oe-lkp@lists.linux.dev, kernel test robot <lkp@intel.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Red Hat)" <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Kirill A. Shutemov" <kas@kernel.org>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>,
-	guoren <guoren@kernel.org>, Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Rich Felker <dalias@libc.org>, Song Liu <song@kernel.org>,
-	Stafford Horne <shorne@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Will Deacon <will@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>
-Subject: Re: [linus:master] [atomic] 80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-Message-ID: <20261103145228.GO2668804@noisy.programming.kicks-ass.net>
-References: <202611022259.def3e086-lkp@intel.com>
- <20261103122647.GL1813469@noisy.programming.kicks-ass.net>
- <20261103123508.3910990-1-sashal@kernel.org>
- <e69e6690-cfc0-4ea8-83e1-5ad2d98b84d5@app.fastmail.com>
- <846703eb-111c-4376-a0ba-36bd3e13f632@app.fastmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id E4C821F0093A;
+	Tue,  3 Nov 2026 14:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793717583;
+	bh=ZgsSRgLhdRJXX0D7l/a2ulYRdMo+CZDmbqVMPRhhICM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=gcQQD26j3orAlu23raTtvUQUIEWJBUU8k9DynM8xDxVnYHU68j2m9Phrgke0s5tL2
+	 9PC1TveTSoqgkhr/E6bjj14tFSuWjqRc9fQWbtBZvislIZjqdsUYrzNzRLg/0s7kHZ
+	 JU0KhF+w89aa/69X5MhmKszQopvw2OUMiNmSDZVWeVdFfejqtPb283PD7QV9S41RD6
+	 /f2qyAfJzJJXlXYwr2iFRyVwTE3ZeGHD7Ry75Q3CtisDBBzvzT4WDzg6QdATQXRmzb
+	 vJd7eZP/f07JHhqBzGV7a50fRcW+lPG6u5qbXHoeee0KTNAW1vBpHw2HK5x2qWWRe9
+	 sNkp2JaVOh6/Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 697E3469A2;
+	Tue,  3 Nov 2026 14:53:01 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Tue, 03 Nov 2026 11:52:58 -0300
+Subject: [PATCH v3 02/10] iio: backend: add devm_iio_backend_get_optional()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,93 +82,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <846703eb-111c-4376-a0ba-36bd3e13f632@app.fastmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-ad9910-backend-support-v3-2-0e9224ddf7b7@analog.com>
+References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
+In-Reply-To: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
+To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, 
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793717581; l=4433;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=DR+JgLsY7qzSw7iJ/0ySFgwEAMpmPHtv/6q9aBcxSno=;
+ b=DGkCPtymJw3YK+3vP3zTiq3xT4HrI+5ohXpB3/hKOkFbDCw+BDCBkqAYYnZsiF0mdjnwuXtaL
+ PFT3szY4R4UDnFiPAjYHExlLCujsF9UHEsSKdvp8NykBLjslEdXonVA
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 02:41:32PM +0100, Arnd Bergmann wrote:
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-> FWIW, I checked the other architectures that may be affected:
-> 
-> - 32-bit arm has transparent hugepages and a 64-bit pmd_t with lpae,
->   but that type has natural alignment, and pmd_populate is a
->   simple assignment.
-> 
-> - arc has transparent hugepages and a 32-bit pmd_t but a 64-bit
->   pte_t that is not naturally aligned. It probably should be
->   aligned, even though I don't see any actual bugs
-> 
-> - sh has a 64-bit pmd_t on sh4a CPUs that is not naturally
->   aligned and probably should be, but there are no transparent
->   hugepages.
-> 
-> All other 32-bit targets don't use transparent hugepages
-> or 64-bit pmd_t. 
-> 
-> We probably only need to align p?d_t though, not p?dval_t.
-> How about the version below?
-> 
->     Arnd
-> 
-> diff --git a/arch/arc/include/asm/page.h b/arch/arc/include/asm/page.h
-> index 9720fe6b2c24..af5303459d56 100644
-> --- a/arch/arc/include/asm/page.h
-> +++ b/arch/arc/include/asm/page.h
-> @@ -65,7 +65,7 @@ typedef struct {
->  
->  typedef struct {
->  #ifdef CONFIG_ARC_HAS_PAE40
-> -	unsigned long long pte;
-> +	unsigned long long pte __aligned(8);
->  #else
->  	unsigned long pte;
->  #endif
-> diff --git a/arch/sh/include/asm/pgtable-3level.h b/arch/sh/include/asm/pgtable-3level.h
-> index d1ce73f3bd85..6d5e2e3248f2 100644
-> --- a/arch/sh/include/asm/pgtable-3level.h
-> +++ b/arch/sh/include/asm/pgtable-3level.h
-> @@ -33,7 +33,7 @@ typedef union {
->  		unsigned long pmd_low;
->  		unsigned long pmd_high;
->  	};
-> -	unsigned long long pmd;
-> +	unsigned long long pmd __aligned(8);
->  } pmd_t;
->  #define pmd_val(x)	((x).pmd)
->  #define __pmd(x)	((pmd_t) { .pmd = (x) } )
-> diff --git a/arch/x86/include/asm/pgtable-3level_types.h b/arch/x86/include/asm/pgtable-3level_types.h
-> index 580b09bf6a45..061283293341 100644
-> --- a/arch/x86/include/asm/pgtable-3level_types.h
-> +++ b/arch/x86/include/asm/pgtable-3level_types.h
-> @@ -16,14 +16,14 @@ typedef union {
->  	struct {
->  		unsigned long pte_low, pte_high;
->  	};
-> -	pteval_t pte;
-> +	pteval_t pte __aligned(8);
->  } pte_t;
->  
->  typedef union {
->  	struct {
->  		unsigned long pmd_low, pmd_high;
->  	};
-> -	pmdval_t pmd;
-> +	pmdval_t pmd __aligned(8);
->  } pmd_t;
->  #endif	/* !__ASSEMBLER__ */
->  
-> diff --git a/arch/x86/include/asm/pgtable_types.h b/arch/x86/include/asm/pgtable_types.h
-> index 2ec250ba467e..5c028b3f59c4 100644
-> --- a/arch/x86/include/asm/pgtable_types.h
-> +++ b/arch/x86/include/asm/pgtable_types.h
-> @@ -292,7 +292,7 @@ enum page_cache_mode {
->  
->  typedef struct pgprot { pgprotval_t pgprot; } pgprot_t;
->  
-> -typedef struct { pgdval_t pgd; } pgd_t;
-> +typedef struct { pgdval_t pgd __aligned(sizeof(pgdval_t)); } pgd_t;
->  
->  static inline pgprot_t pgprot_nx(pgprot_t prot)
->  {
+Frontend devices might not need a backend driver to rely on. An IIO device
+that supports backends can behave differently when they are not available
+and that should be acceptable. Such parts may provide basic functionality
+solely using the control interface (SPI for instance), being able to have
+extended features when a backend is present.
 
-This doesn't cover all of p?d_t, does it?
+Add devm_iio_backend_get_optional(), which returns NULL when the backend
+is not described in firmware, i.e., when the io-backends property is not
+present or, for a named lookup, when the name is not listed in the
+io-backend-names property. Other errors, such as probe deferral, are
+still returned.
+
+To make that possible, a named lookup that does not match any entry of
+io-backend-names now fails with -ENOENT, the same error returned when the
+io-backends reference is missing. Also, the missing reference is no longer
+logged as an error, leaving that to the caller.
+
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+ drivers/iio/industrialio-backend.c | 38 ++++++++++++++++++++++++++++++++++++++
+ include/linux/iio/backend.h        |  2 ++
+ 2 files changed, 40 insertions(+)
+
+diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
+index fbf5c39d7655..d12d163f45ca 100644
+--- a/drivers/iio/industrialio-backend.c
++++ b/drivers/iio/industrialio-backend.c
+@@ -1006,6 +1006,9 @@ static struct iio_backend *__devm_iio_backend_fwnode_get_by_index(struct device
+ 
+ 	struct fwnode_handle *fwnode_back __free(fwnode_handle) =
+ 		fwnode_find_reference(fwnode, "io-backends", index);
++	/* not described in firmware, let the caller decide what to do */
++	if (PTR_ERR(fwnode_back) == -ENOENT)
++		return ERR_CAST(fwnode_back);
+ 	if (IS_ERR(fwnode_back))
+ 		return dev_err_cast_probe(dev, fwnode_back,
+ 					  "Cannot get Firmware reference\n");
+@@ -1034,7 +1037,17 @@ static struct iio_backend *__devm_iio_backend_fwnode_get(struct device *dev, con
+ 	int ret;
+ 
+ 	if (name) {
++		if (!device_property_present(dev, "io-backend-names"))
++			return ERR_PTR(-ENOENT);
++
+ 		ret = device_property_match_string(dev, "io-backend-names", name);
++		/*
++		 * device_property_match_string() also returns -ENODATA when
++		 * @name is not listed in the property, which means that this
++		 * backend is not described in firmware.
++		 */
++		if (ret == -ENODATA)
++			return ERR_PTR(-ENOENT);
+ 		if (ret < 0)
+ 			return ERR_PTR(ret);
+ 		index = ret;
+@@ -1061,6 +1074,31 @@ struct iio_backend *devm_iio_backend_get(struct device *dev, const char *name)
+ }
+ EXPORT_SYMBOL_NS_GPL(devm_iio_backend_get, "IIO_BACKEND");
+ 
++/**
++ * devm_iio_backend_get_optional - Optional device managed backend device get
++ * @dev: Consumer device for the backend
++ * @name: Backend name
++ *
++ * Gets the backend associated with @dev. A backend not described in firmware,
++ * i.e., the io-backends property is not present or @name is not listed in
++ * the io-backend-names property, is not treated as an error.
++ *
++ * RETURNS:
++ * A backend pointer, NULL if the backend is not described in firmware,
++ * negative error pointer otherwise.
++ */
++struct iio_backend *devm_iio_backend_get_optional(struct device *dev,
++						  const char *name)
++{
++	struct iio_backend *back = devm_iio_backend_get(dev, name);
++
++	if (IS_ERR(back) && PTR_ERR(back) == -ENOENT)
++		return NULL;
++
++	return back;
++}
++EXPORT_SYMBOL_NS_GPL(devm_iio_backend_get_optional, "IIO_BACKEND");
++
+ /**
+  * devm_iio_backend_get_by_index - Device managed backend device get by index
+  * @dev: Consumer device for the backend
+diff --git a/include/linux/iio/backend.h b/include/linux/iio/backend.h
+index 9c16b695a602..93d5f2073cc3 100644
+--- a/include/linux/iio/backend.h
++++ b/include/linux/iio/backend.h
+@@ -267,6 +267,8 @@ int iio_backend_extend_chan_spec(struct iio_backend *back,
+ bool iio_backend_has_caps(struct iio_backend *back, u32 caps);
+ void *iio_backend_get_priv(const struct iio_backend *conv);
+ struct iio_backend *devm_iio_backend_get(struct device *dev, const char *name);
++struct iio_backend *devm_iio_backend_get_optional(struct device *dev,
++						  const char *name);
+ struct iio_backend *devm_iio_backend_get_by_index(struct device *dev, unsigned int index);
+ struct iio_backend *devm_iio_backend_fwnode_get(struct device *dev,
+ 						const char *name,
+
+-- 
+2.43.0
+
+
