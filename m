@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.2.5.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716049;
-	b=vWcPjNzhB8N42/0bCdZUGSkKkbDXykLvv5EXeSrr5cCk4qO7sGuFSNUxA6lLHh+OTSpj
-	 50E9hST9j1AZ5wg2m5YSyCu+aqKCRsm4oRb2xaWP6uqHeGdKY9nw2R2oa6XxHm1pPT7ox
-	 FrqgH/uXPJcrmnO/3O2rdTj0uddJwTGZaZ2pRLMkNGUrFeEc9E7qShukRdeqT3HbExeE5
-	 bUVzgXJ1OjlL/jatyK2jqnM3CZo59WT8LEY73XlYh0MK+iRE5obIdZT9IdWGPMF+xsi1l
-	 iValooK8p5i7H4oBR/2Y13U6gZsd6+2M/C3TqS2XLjPsdl4dqjuTJ59M/atU3A58nJg==
+	t=1793716079;
+	b=wU69ITzaZXkjnObnvCblsYg3HFz5ib8rimQ+FBDVEKVYC3S65h0qUDqK/3bqf7hTRXPC
+	 gRcfEkFefpsp8+4woU+pN6x5pYZT3gLA7qlhrsh/VdPV2riXBZmKEX/PjcfoZJa629vl1
+	 x18H0aKnUcgxUFlsnVFlIkTzWZk6/RpXe875PSWeTiUnvR3pQETOqpT4CXHqM0x1CgUst
+	 LoEr2+dQypzk3DrGblH20QlBJ0fWfBpf2xlT79UD+u0TKCT1luQxnHFpk5Pf1mlNmKb6s
+	 ZrTy4L/CvHyne52a37I9iqsB+2juwKGKwNw9jzjXof5jj9v48hzti6wOLHFbZn0WQ9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716049;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ccATpapPbTgEfZ1P+cWb/MajiGhbQxL2uaUWAgOO/tE=;
-	b=SKrcG37ZFJb8Fh0IqtK8IuHnd3wJwCeubxK2TutewpqjNCsb8Ms2mmEUH2HhXCLQBP5A
-	 ZfxBjzPjOJytp8J3ZIELlbkP73AT1WOh9mg85IcJejuMttHQuarLEUH5fIwBCukylirBM
-	 fHmVs1Pt/vqMoJ2n3d3PSr0170JT4QnwO2WAOOhKnwdsyzPI+Llt5XfAaqD304/HQXMjW
-	 7vUQybena2Z/Zmj2NepbPv3ghpqt8G5fn/UO/LvG7yZgn2XF1td6XbsVDTvMuhmrbLeBF
-	 VLdK8qW+krfPrq9ps9cxkK4+ffEVL9qw1XVaWmqXrspSaI614J27Inmv47LdD30MyXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716079;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dejmHhxeXbifKefac16SRC6v8LfF3VPO/ivty0pHofI=;
+	b=erZkof23WKVSyJGNY9gPus03kqbQC8CEZ8u/JEcb3Wtm7cjl11N0dBuKNITSAlnh1ohQ
+	 rYkQt8gu6K7MPfG+wALuY4rvtJZVH7xnBLxzod6iVOZKjOpKrAr8oxjy7cAyvNWmp5BHG
+	 KoujHb5nqxYah2sARzfNq1z09Eya6Il3v4SyheeL4nmnMOPUwCK1mdUU1Fq0/RVYSKkl2
+	 zJ7oTL/JYIifPicMUnfnf9FYjmAS/RFAnPNB+xGHf07Q8dWUsd1nFS1obMchGL9iT0WxQ
+	 BLIeupAPJKQh/ThzW7FW7zZ/CYBRttWK9z9xR88IeHnLD64PtoelIA8B5rDZo3gKQyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=student.uni-tuebingen.de;
-	spf=pass smtp.mailfrom=student.uni-tuebingen.de;
-	dkim=pass header.d=uni-tuebingen.de header.i=@uni-tuebingen.de header.a=rsa-sha256 header.s=20211202prod header.b=PxHzAkHh;
-	arc=none smtp.remote-ip=134.2.5.213
-Received: from mx03.uni-tuebingen.de (mx03.uni-tuebingen.de [134.2.5.213])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUKzUwyK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB2E606A327;
-	Tue,  3 Nov 2026 14:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BB2E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=student.uni-tuebingen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uni-tuebingen.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E143606A32C;
+	Tue,  3 Nov 2026 14:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=uni-tuebingen.de header.i=@uni-tuebingen.de header.a=rsa-sha256 header.s=20211202prod header.b=PxHzAkHh
-Received: from localhost.localdomain (u-251-c108.eap.uni-tuebingen.de [134.2.251.108])
-	by mx03.uni-tuebingen.de (Postfix) with ESMTPSA id 5547120C4D72;
-	Tue,  3 Nov 2026 15:27:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx03.uni-tuebingen.de 5547120C4D72
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uni-tuebingen.de;
-	s=20211202prod; t=1793716039;
-	bh=ccATpapPbTgEfZ1P+cWb/MajiGhbQxL2uaUWAgOO/tE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=PxHzAkHh/fmxvyEjMmGb+SpJtcHersuWjrVBHdYD8SS4DBV5s02E2pCYgZENrigkF
-	 f2Asc5YAKjqDkbOqtbXQNCaEn+jKbxgKsCZULQ2gW5VsrHzzEIFumw2mebHa0tJsIE
-	 MiM14lygy372a7O0x0KbQA522laVKee6Exlh+qtCnvtMXmvUf31Or6EELNOqUX5W0U
-	 htBUXNFmWLow5euXWpXb1nfKiQQ7nLu5EuAVGiBfNWkk99K9nbx/piUVdTrAZ/IyWb
-	 OBFYrGg9Jq2cxIIhwBDGoTNguSAgiv+ml9O59eBt9KoO9O8BufUds6/T5YJRT7fAd9
-	 J1YJQC+fTmhVw==
-From: 0z5a <dezhen.lu@student.uni-tuebingen.de>
-To: leon@kernel.org,
-	jgg@ziepe.ca
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>,
-	stable@vger.kernel.org
-Subject: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation for pages >= 4G
-Date: Tue,  3 Nov 2026 15:27:09 +0100
-Message-ID: <20261103142709.66179-1-dezhen.lu@student.uni-tuebingen.de>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUKzUwyK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8CBC1F00919;
+	Tue,  3 Nov 2026 14:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793716078;
+	bh=dejmHhxeXbifKefac16SRC6v8LfF3VPO/ivty0pHofI=;
+	h=From:To:Cc:Subject:Date;
+	b=nUKzUwyK0jqNK151DC/OEVBoJAFG407hZrQ/MasVYD0biSZutqbyf+1knwKD4Yqqd
+	 GVMota9jUUK2m4BSRL5GkG75UJbVC3E/ZJHsn15Z6UdXek/7MSnBI8rL+pyEVyYtLM
+	 SImgscDKmCOEFdPG7weJ9C2SuC2w+Y7Pqs3m3yE39wtUGeHiAmM+dt+pqVid8ME/UT
+	 sWcCjssy4K94wqnkkLJ2BbvJKKLUxnnUBqurlaUyRL6OuY+xUQm6T4pHnb5nYM+WkZ
+	 nJP+CqxPHm0YZIAHpPUlbDPMOajRlPhwQ4ubFIaFmjuPspNiz5DAEAAHsfrrjYyt1H
+	 X3+k0XKREgR6g==
+From: Sasha Levin <sashal@kernel.org>
+To: Shuah Khan <shuah@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Aleksa Sarai <aleksa@amutable.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests: probe for sanitizer support in fchmodat2 and openat2
+Date: Tue,  3 Nov 2026 09:27:56 -0500
+Message-ID: <20261103142756.132111-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,84 +64,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+The fchmodat2 and openat2 tests are always built with -fsanitize=address
+and -fsanitize=undefined. Toolchains without the sanitizer runtimes,
+such as clang without the compiler-rt package, cannot link them and the
+tests fail to build:
 
-devx_umem_find_best_pgsize() computes the page size in an unsigned long
-but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
-in an unsigned int. When the DMA mapping of the umem is contiguous and
-aligned to 4 GiB or more, and the umem length is a multiple of that
-size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
-value is a power of two, the truncation turns it into 0 and the
-registration fails with -EINVAL.
+  ld: cannot find /usr/lib/llvm-21/lib/clang/21/lib/x86_64-unknown-linux-gnu/libclang_rt.asan_static.a: No such file or directory
 
-The umem log_page_size field is 5 bits wide on top of
-MLX5_ADAPTER_PAGE_SHIFT, so the command can encode these page sizes.
+The same happens with USERLDFLAGS=-static, which AddressSanitizer does
+not support. KernelCI's clang builds fail this way on every
+architecture.
 
-Seen on two GH200 nodes (ConnectX-7, firmware 32.38.3056 and
-32.43.1014) with a dma-buf exported from cudaMalloc memory: registering
-4 GiB or 8 GiB umems at 4 GiB-aligned offsets of the dma-buf fails with
-EINVAL every time, while 2 GiB umems at the same offsets and
-ibv_reg_dmabuf_mr() of the same ranges succeed. Restricting the user
-pgsz_bitmap to <= 2 GiB makes all of them succeed.
+Link an empty program with the sanitizer flags first, and only add them
+when that works. With the runtimes available the tests are built as
+before.
 
-Other large physically contiguous buffers, such as a 16 GiB hugetlb
-page on an arm64 kernel with 64K base pages, should hit the same path.
-
-Use unsigned long for the page size, as commit f0c2427412b4
-("RDMA/mlx5: Fix page_size variable overflow") already did for the MR
-paths.
-
-The bug was found by an AI coding assistant (Claude Opus 5.5, Anthropic)
-during an audit of 32-bit truncations of page sizes and offsets in
-drivers/infiniband/core and drivers/infiniband/hw/mlx5. The assistant
-also wrote the reproducer and this patch. The reproducer was run on the
-GH200 nodes described above.
-
-Fixes: 7610ab57de56 ("RDMA/mlx5: Allow larger pages in DevX umem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+Tested on x86_64 with gcc 16 and clang 21, building both suites with
+O=: with the runtimes installed the binaries still link ASan as before.
+With clang pointed at a resource directory without the runtimes, and
+with gcc and USERLDFLAGS=-static, the build failed before and now
+builds all five programs without the sanitizers. fchmodat2_test and the
+openat2 tests give the same results from both builds.
 
-Notes:
-    Testing notes:
-    - The failures above were reproduced with the DOCA-OFED 26.01 mlx5_ib,
-      whose devx_umem_find_best_pgsize() is identical to upstream; I do not
-      have root on these hosts, so I could not load a patched module.
-    - So I have not verified that CREATE_UMEM accepts log_page_size values
-      for pages >= 4 GiB. If it does not, capping pgsz_bitmap at 2^31 in
-      devx_umem_find_best_pgsize() is the alternative fix.
-    - Compile-tested on v7.4-rc1 (arm64 defconfig + MLX5_INFINIBAND, W=1).
-    - A standalone reproducer (dma-buf from cuMemGetHandleForAddressRange()
-      plus mlx5dv_devx_umem_reg_ex(), sweeping offsets) is available on
-      request.
+ tools/testing/selftests/fchmodat2/Makefile     | 18 +++++++++++++-----
+ .../selftests/filesystems/openat2/Makefile     | 18 +++++++++++++-----
+ 2 files changed, 26 insertions(+), 10 deletions(-)
 
- drivers/infiniband/hw/mlx5/devx.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
-index fc6f793dc..2277160d9 100644
---- a/drivers/infiniband/hw/mlx5/devx.c
-+++ b/drivers/infiniband/hw/mlx5/devx.c
-@@ -2294,8 +2294,8 @@ static int devx_umem_get(struct mlx5_ib_dev *dev, struct ib_ucontext *ucontext,
- 	return 0;
- }
+diff --git a/tools/testing/selftests/fchmodat2/Makefile b/tools/testing/selftests/fchmodat2/Makefile
+index 4373cea79b794..21f6b0b0cdc8f 100644
+--- a/tools/testing/selftests/fchmodat2/Makefile
++++ b/tools/testing/selftests/fchmodat2/Makefile
+@@ -1,15 +1,23 @@
+ # SPDX-License-Identifier: GPL-2.0-or-later
  
--static unsigned int devx_umem_find_best_pgsize(struct ib_umem *umem,
--					       unsigned long pgsz_bitmap)
-+static unsigned long devx_umem_find_best_pgsize(struct ib_umem *umem,
-+						unsigned long pgsz_bitmap)
- {
- 	unsigned long page_size;
+-CFLAGS += -Wall -O2 -g -fsanitize=address -fsanitize=undefined $(KHDR_INCLUDES)
++CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES)
++
++TEST_GEN_PROGS := fchmodat2_test
++
++include ../lib.mk
  
-@@ -2333,7 +2333,7 @@ static int devx_umem_reg_cmd_alloc(struct mlx5_ib_dev *dev,
- 				   int access)
- {
- 	unsigned long pgsz_bitmap;
--	unsigned int page_size;
-+	unsigned long page_size;
- 	__be64 *mtt;
- 	void *umem;
- 	int ret;
+ # gcc requires -static-libasan in order to ensure that Address Sanitizer's
+ # library is the first one loaded. However, clang already statically links the
+ # Address Sanitizer if -fsanitize is specified. Therefore, simply omit
+ # -static-libasan for clang builds.
++SANITIZER_CFLAGS := -fsanitize=address -fsanitize=undefined
+ ifeq ($(LLVM),)
+-    CFLAGS += -static-libasan
++    SANITIZER_CFLAGS += -static-libasan
+ endif
+ 
+-TEST_GEN_PROGS := fchmodat2_test
+-
+-include ../lib.mk
++# Build without the sanitizers when the toolchain cannot link them.
++ifeq ($(shell echo 'int main(void) { return 0; }' | $(CC) $(CFLAGS) \
++	$(SANITIZER_CFLAGS) $(LDFLAGS) -x c - -o /dev/null >/dev/null 2>&1 && \
++	echo y),y)
++CFLAGS += $(SANITIZER_CFLAGS)
++endif
+diff --git a/tools/testing/selftests/filesystems/openat2/Makefile b/tools/testing/selftests/filesystems/openat2/Makefile
+index d848aac96bded..2f712dfcbf75c 100644
+--- a/tools/testing/selftests/filesystems/openat2/Makefile
++++ b/tools/testing/selftests/filesystems/openat2/Makefile
+@@ -1,17 +1,25 @@
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ CFLAGS += $(KHDR_INCLUDES)
+-CFLAGS += -Wall -O2 -g -fsanitize=address -fsanitize=undefined $(TOOLS_INCLUDES)
++CFLAGS += -Wall -O2 -g $(TOOLS_INCLUDES)
+ TEST_GEN_PROGS := openat2_test resolve_test rename_attack_test emptypath_test
+ 
++LOCAL_HDRS += helpers.h
++
++include ../../lib.mk
++
+ # gcc requires -static-libasan in order to ensure that Address Sanitizer's
+ # library is the first one loaded. However, clang already statically links the
+ # Address Sanitizer if -fsanitize is specified. Therefore, simply omit
+ # -static-libasan for clang builds.
++SANITIZER_CFLAGS := -fsanitize=address -fsanitize=undefined
+ ifeq ($(LLVM),)
+-    CFLAGS += -static-libasan
++    SANITIZER_CFLAGS += -static-libasan
+ endif
+ 
+-LOCAL_HDRS += helpers.h
+-
+-include ../../lib.mk
++# Build without the sanitizers when the toolchain cannot link them.
++ifeq ($(shell echo 'int main(void) { return 0; }' | $(CC) $(CFLAGS) \
++	$(SANITIZER_CFLAGS) $(LDFLAGS) -x c - -o /dev/null >/dev/null 2>&1 && \
++	echo y),y)
++CFLAGS += $(SANITIZER_CFLAGS)
++endif
 -- 
-2.43.0
+2.53.0
 
