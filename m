@@ -1,57 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716112;
-	b=XN4EQL6JPkL6Da17mPzEAvJt3rljCD1Fn5Am4ZgLX6E10EPN3jiI/pTVW8UYeCUP8Son
-	 72zTYf8uzRlXt0sYUxbCNqc7MSF+BUlGmHhJULCsRMKqzxDre3gWsip7hERt04sJIZeZn
-	 RyMTOsWZWpJUEW5/1zs9em3BiHydPYh0DXHSx625Xs+TavoZgvc7lB24ukEKcRnn+c9Z7
-	 QH+o0XI38mqB86ML9idXz+073DiTvGyDdJeQ49nrOkPs0vnUIAcZwUln3ZOv1olPweN6u
-	 3J9EbwQewIS12ufZ7VzjT/VuymrrJe47XnGyQgGGtcWH5OgMSHzU9MqHq1IOQSu0Qdw==
+	t=1793716186;
+	b=h2hbHC4AA+fUm5j/Z4z/d5SN544hm4y7xAbIGazEQfRiX+8PdhK41yOpZhaotucDpq8e
+	 CdkkihXFO+NdbjTXaxRCCxk+ORO82Vq0HIM5E3q7/f6LJPA9yX1m8aaTeWZ9rJSXogk1K
+	 C6Xn51XLFl7G2AU84+0jTPpK20hsdJNUAyUTXFdh06gUZd+4Td1U/F62hXl2/Aw94HPav
+	 N3xhBueizu08x4ES0I+Inwm89C6wP9AiGCRADPCOslDvpkFC3qa3G6KWoTdL+mOXot8T5
+	 yF1k5zXzsEiF/fyyhm19k+Nsu6ZV6WFkL8aJMc48T2UTXHe1I1657jP0KT/ZC3Ih2Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716112;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UdCrdVZDlFndt41z3bOYToZNZuvFj+cGbPGOI0EsK3c=;
-	b=KeAb5TOVeDDgj3LEWX5zMppOgRHvxohelfV7N0f5bGK0UiV0eowsfEqLcfIAWDCW7NC/
-	 IElQKzQOovFLwY00fmLjai0VdtEbrabc3/hejjd6ivQdl8v0KNdD5nFalvCnBtwvZ02u/
-	 lXWH/Uo/DpzhOhL4X4ArjnDm9IBK+J0f6Qu+nrDnx4qtYf6p+lBJYjXsLgtCTalK0H8Ad
-	 MqAnwu56Ja2cYxpR6JD7YO2rTZQSXz3AVJi9BRIxkmCi2JH2e6tK5cRlBqlSEmc6zobvT
-	 MSpiHYZIZHH7T7oV2z1bJK181UzHr8TOGaBOxdmxKubD2WPl8gi71+RgGPUVghtf/yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716186;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n/GZUP2ZsjOuhhEd/klWEvvXLu7voLybiNnp082YBt8=;
+	b=ULF6mYSHZC1cqhi956tZVUwzghYWxa/BLcgdYBWRD1OGRVb1DNGOYfsG+C9NjLZSfIbZ
+	 iSJFn/ahUpUa1dv3KCvlx09J3HPPTYODova/RraZ0woAhLtOuJEXZivkO3YCiaRiwS9CG
+	 p5AAYeKwIJ1STIo3MObismv96bowWnWdqqnoCCk+ZsllMOBaMn9cKTX8jd7dprFhy0agB
+	 A4PcVnliF7x0ZpwANxgceJxRaqYYKY1qP5Eb41WaUBMxiOEeC+eGITeK+EHmSLVzCm0tQ
+	 DqhFDALtS3QU8fC2TOwEuK/IDxYXF+hwuA/nIt2ERyUmSaLFUyzrpOWSI6AW+EevH6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tpdud+3C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=lycISWbw;
+	arc=none smtp.remote-ip=115.124.28.122
+Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com [115.124.28.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0807606A324;
-	Tue,  3 Nov 2026 14:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16726606A324;
+	Tue,  3 Nov 2026 14:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16726606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tpdud+3C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A141F000C1;
-	Tue,  3 Nov 2026 14:28:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793716111;
-	bh=UdCrdVZDlFndt41z3bOYToZNZuvFj+cGbPGOI0EsK3c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tpdud+3CVTx4EXgG0n1UYnDjsNjSYDWp0IhdEQ9xm4ODBqo65s5eT+h9s5Jlyjel0
-	 4aJ813vPYUdS92yJC+bSEbpLs5bBTgsoREc0rYzum9wx714WiCg8zKX7sFX/Vm0RlB
-	 xqgfa5GN5YnYUpMk9l/0glqdetN30GfhOsorjEbidU1C3LDURdEWz+4KNhGVR/VmuC
-	 vY0l7L4JHwGtCdTe4gPcUMayWjfCSD7j6DEuOiB/TiSTdvjR4WxPbQkg2V/4E+w4Ay
-	 gwMcVnfhStEpP9t//ddi7V/GPgCYogNycrq4CKWLjsp/dbQ/7UYrd0v1E6b+86R/2I
-	 dMi+C3/lOGhcg==
-Date: Tue, 3 Nov 2026 16:28:26 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Doug Ledford <doug.ledford@hpe.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Iraimani P <iraimani.pavadai@hpe.com>,
-	Mamila Santosh <santosh-kumar.mamila@hpe.com>
-Subject: Re: [PATCH 00/11] Subject: [PATCH for-next 00/11] RDMA/cxi: add the
- HPE Cassini verbs driver
-Message-ID: <20261103142826.GJ264423@unreal>
-References: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=lycISWbw
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793716175; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=n/GZUP2ZsjOuhhEd/klWEvvXLu7voLybiNnp082YBt8=;
+	b=lycISWbw5HzTTpeAPheAB7FhQf0XGx9b+yFlGISP2Y46AoBMnFJ8sHgJ2fP+s6b2ufndj9SFDFWfDCeqUCiv+yufbWudAImvL0C/RA770TBSUO0gd2QttzkZ7wjLHWLrW61pcs4bplaJdbwuuu5Yh1gmpn4xzBgYNkrGdEtEAgQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1085895|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.0253143-0.00086085-0.973825;FP=3442595331818532187|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jvr1CsY_1793716173;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jvr1CsY_1793716173 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 22:29:34 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH] vhost/vringh: reject zero-length indirect descriptor tables
+Date: Tue,  3 Nov 2026 22:29:32 +0800
+Message-ID: <20261103142932.65745-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261103055650-mutt-send-email-mst@kernel.org>
+References: <20261103055650-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,37 +68,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
 
-On Fri, Oct 30, 2026 at 09:35:28PM -0700, Doug Ledford wrote:
-> This series adds cxiverbs, an RDMA driver for the HPE Slingshot Cassini
-> NIC. It exposes the NIC through the verbs API using the UET reliable
-> unconnected (RU) queue pair type from the UET RDMA core series.
-> 
-> cxiverbs does not drive the hardware itself. It is an auxiliary bus
-> client of the cxi-ss1 Cassini core driver and does everything through
-> that driver's exported CXI interface.
+Hi Michael,
 
-<...>
+Thanks. I checked the applied v2 (60a792b97933) in your
+vhost branch and it looks good.
 
-> Before posting, the series was reviewed with the Sashiko AI code
-> review tool and checkpatch. All valid findings are fixed, except the
-> open items listed above.
+One small thing on top of it: vringh_bad() there still
+passes the raw desc->len, so the reported length reads
+wrong when the vring byte order differs from the CPU
+byte order. The October 21 posting had this right; the
+rest is fine as is.
 
-<...>
+Happy to send a one-line follow-up on top of your branch
+if you want it; otherwise fine to leave as is.
 
-> ---
-> base-commit: 306a2f8432f516069b2e673de7a07043132c034f
-
-Sashiko failed to apply this series as this base-commit doesn't exist.
-➜  kernel git:(wip/leon-for-rc) git show 306a2f8432f516069b2e673de7a07043132c034f
-fatal: bad object 306a2f8432f516069b2e673de7a07043132c034f
-
-https://sashiko.dev/#/patchset/20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com
-
-Please make sure that upstream sashiko runs on it too.
-
-Thanks
+Thanks,
+Fang
