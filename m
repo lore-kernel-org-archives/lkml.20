@@ -1,61 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704938;
-	b=bnJfUIIZiyF0tDqtDEySDbB4bjnDzHWWvfaPQm0kdsnEQxf97FsgYk7qENuZ1q/CPpYV
-	 vFsMoD6u92FSzu1Dl/Sq1MfVG9kTy3hVm54ZqcWFLXlISdLQjwf5PzHv8qnNxHVkVwKtS
-	 MqoTkXW0Xxj3RA+Fy+E8St/ajmkAZkY+4KR66Bj1RVGF7AcBq79x+8YRtQxjO+/4EP1le
-	 LsIpaBae+A80Q3DwMBzgGVLTrPdKCquj7eFZuUkbZtQcRCqdWoaXXvA4cw5k+tfnIgqk/
-	 VMMWfyOyZaRe7UxMn9h7pGljj7F9oHn629v10BPu/GOpm3XsGjkZ6vLOAmq69+0DEsg==
+	t=1793704957;
+	b=2AfByChqZZdgx2KOMb8VIwmqSRCMopYdP2fdUDxEBTMnmessK61bO9KQA0DLjenpHOfC
+	 JlM24hjqZpq6N+hfn3O/OhKqEHhkGNJpzUWdOLgAcTDgHixo1/bLKDhM0Oli1wwMMXIOI
+	 LLHUP62uRQkdUzdCL+Szs/VrHo92yUvqua/BRrdDauM5MQoaUi4Pd/+gxBLzTcwxRLOtm
+	 41DGH4ZVw+HwsUv1hS1qXrtvnxTjBKymd3CfjoVN2PiajVWldKpP9IxJgdqgkRLaCPEXp
+	 V7OtU4Hm/gqAZ/4H2m8BEZ6oI+Ah/p36hMqxbSYCiIwFPIH24+fo4xQsNybkbZ+sgmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704938;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fAu2ZoplK+V+G5f7JtA/l7OAvhcVaK3WJnGS7o74htg=;
-	b=aidXSDnnVDM1SxRcmjUhVAjHVHw5ZGWqFMPO7eQKdfsuY1uvc6ZjZhChYhn/auUnXkci
-	 l+wVOL9WMFszjDr5YIvYPmlIzT8fLafXoVwp11ApEEjq5FWEEj6FY11LtS+rIC5EtT7n6
-	 EK0OxtKpPRC74zP8ISxvRxLYOwWaTfRG2PPR9priWwwzu9aO/yAsb32wTGSZKsYWinynZ
-	 +7BbHisxOKzlwlU1QGvb+FhuQEHO2vUMlPbIM/NgvRDoj8ANirAeI2zYlZsK0pJ0RKL2r
-	 kJZ4WwPBKKgjDFxqBSzvphO+M23R/iTFPUZpQFASfjgIUjvC7MEFRo5EfT/Eud8AJ9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704957;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=j2Vh/M2QHwx9LQT45XzMEr7PiYDFWEPpUEvbC6uYgDI=;
+	b=fZxq54qpPSVOQ0TcUcWjSQXvfLW1rNMPeQdSv7AnhsrucBK1XOHrzQomok1h20fdE2sG
+	 2sOTOlCR/wWVqXKDls/onfr6m/OAmpld1+gVkbAYI3SOeODjfsNVcG64MwZ4x3BH2NGmZ
+	 c0oBUqLHgQqhDx1mjFV1d7OM2tpikDXnGFSrqcv0dfqGM8HSGbETPVQGxlwMbTi3d7x7a
+	 VioqeWS43y7YYh3rq5iZD6X1dohh8H+EwZ8am4vr9O+T1kxP+xJceZ3QZi+Mo3bSsXyTN
+	 Y33V0Nr9Vm4mZq7Z95Iopf2CxMMDN0bMMUhCyw93I9JpUSYDsf2H82TKJQBsExRkSew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iuycr1Wm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EDVldgBb;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3173F606C566;
-	Tue,  3 Nov 2026 11:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985EB606C584;
+	Tue,  3 Nov 2026 11:22:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985EB606C584
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iuycr1Wm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DEA81F000C1;
-	Tue,  3 Nov 2026 11:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704937;
-	bh=fAu2ZoplK+V+G5f7JtA/l7OAvhcVaK3WJnGS7o74htg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iuycr1WmVaW8Uy3tv3ybAuDURmbtZbS4uAsRgz85ha45o8LplpX1AyUHYSzQGUU4c
-	 lC2WaDxDgJg2VkhGodIqVBM+3TPiuztnJULHT78C+gPSTtAAw0jnqT8LBNG5mGC5DK
-	 SYI77HKit/pD68quMCGS9WEl8z3IBx65bNDEEZl6GhN29byH+Wn3PxW8e1bQ5Ex6LX
-	 M28n+vi3jvQOhXMX2B6RUT87O3CWaP2yxhTtCwYF+j6F1Oly9jzt+OkFEYSMlSaaLR
-	 nZBnX+E8b5TTVWFF7xlgfRyFDAk/JTDpsdXNdHYH2BRgFJKiqA9fIDHzph+PqiXBI+
-	 uC1xx9Jzwy6ww==
-Date: Tue, 3 Nov 2026 11:22:13 +0000
-From: Simon Horman <horms@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Jonas Gorski <jonas.gorski@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jon Mason <jon.mason@broadcom.com>, Arnd Bergmann <arnd@arndb.de>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v4 2/2] net: dsa: b53: restore the NSP IMP port 2
- Gbps mode
-Message-ID: <20261103112213.GG865646@horms.kernel.org>
-References: <20261029211540.4123250-1-florian.fainelli@broadcom.com>
- <20261029211540.4123250-3-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EDVldgBb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793704955; x=1825240955;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LGOcdMIjTZ8MBgrCIttX59enpT8IHif0wBqJ31SNup4=;
+  b=EDVldgBbatmNcmVlrX0zMALU3CZ2uymRac0JcRtsJjCCDSWVf6mSPOqS
+   Jm0+y/rbrG5fQyMS6VXiZzeLOqa1iC3JcagFM9hpcuHPJYME+Rna+szxR
+   jrZpm6ZqvBuY7JFeru2I5XoEJRvQieH9W734bNohPaBBnwhk9rP5Wu6Rf
+   RS5UtlryGjd2OzMOzU1Hs8U1fwjeSZ78PFKyMZTVsHEYaNmaJ3CeQk8/K
+   kN9XicutZ7buhkqNIg691IDwvSKYpZ2tDnu3kT455p7kFXieh4XsUCdew
+   Zkbz2i2lhfpA5NjmU5JhOiTIT6EiqxSxc2gS+7EBcNxpXjHUnQvtAdYbZ
+   w==;
+X-CSE-ConnectionGUID: 1pQkppDVRlqIEw6I/9veQw==
+X-CSE-MsgGUID: VDThjk2BQrSXQtV5UYBPKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2453527"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2453527"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:22:35 -0800
+X-CSE-ConnectionGUID: 5tabxthBQLGBcCDsn+EM+g==
+X-CSE-MsgGUID: b8AaKYU1RsK18v9j9dsZig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6227264"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:22:32 -0800
+Date: Tue, 3 Nov 2026 13:22:30 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nikhil Gautam <nikhilgtr@gmail.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org
+Subject: Re: [PATCH v4] iio: chemical: ccs811: Make sampling frequency
+ configurable
+Message-ID: <aunD9kPZ03d8s8AI@ashevche-desk.local>
+References: <20261101054019.10188-1-nikhilgtr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,21 +82,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029211540.4123250-3-florian.fainelli@broadcom.com>
+In-Reply-To: <20261101054019.10188-1-nikhilgtr@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 29, 2026 at 02:15:40PM -0700, Florian Fainelli wrote:
-> The Northstar Plus IMP port uses the switch's proprietary 2 Gbps mode for
-> its internal link to the AMAC.  Its fixed-link description reports 1 Gbps,
-> so applying that speed clears PORT_OVERRIDE_SPEED_2000M and leaves the two
-> ends of the internal link configured at different speeds.
+On Sun, Nov 01, 2026 at 11:10:19AM +0530, Nikhil Gautam wrote:
+> Allow userspace to configure the CCS811 IAQ measurement rate through
+> the IIO sampling_frequency attribute.
 > 
-> Force the 2 Gbps mode and flow control for BCM5301x and NSP CPU ports.  The
-> mismatch caused switch output queue discards on both copper and SerDes
-> ports, with one discard for every TCP retransmission.  With both ends
-> restored to their high-speed modes, iperf3 reports no retransmissions.
+> Support the three IAQ measurement modes with sampling frequencies of
+> 1 Hz, 0.1 Hz, and approximately 0.016667 Hz, corresponding to
+> measurement intervals of 1, 10, and 60 seconds.
 > 
-> Fixes: b6a8a5477fe9 ("net: dsa: b53: fix resetting speed and pause on forced link")
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Preserve unrelated bits in the MEAS_MODE register when updating the
+> drive mode, and cache the selected mode after a successful register
+> write. Expose the supported frequencies through
+> sampling_frequency_available.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+...
+
+> +static const int ccs811_samp_freq[][2] = {
+> +	{ 1, 0 },
+> +	{ 0, 100000 },
+> +	{ 0, 16667 },
+> +};
+
+Now it would be better to have a common enum to index above and below.
+So it will be kept in sync
+
+enum {
+	CCS811_MODE_IAQ_1SEC_IDX,
+	CCS811_MODE_IAQ_10SEC_IDX,
+	CCS811_MODE_IAQ_60SEC_IDX,
+};
+
+static const int ccs811_samp_freq[][2] = {
+	[CCS811_MODE_IAQ_1SEC_IDX] = { 1, 0 },
+	...
+};
+
+> +/* Drive mode for each entry of ccs811_samp_freq[], same order */
+> +static const u8 ccs811_drive_mode[] = {
+> +	CCS811_MODE_IAQ_1SEC,
+> +	CCS811_MODE_IAQ_10SEC,
+> +	CCS811_MODE_IAQ_60SEC,
+> +};
+
+...and here in similar way.
+
+...
+
+> +static int ccs811_update_sampling_freq(struct ccs811_data *data,
+> +				       int val, int val2)
+> +{
+> +	u8 drive_mode;
+> +	u8 mode;
+> +	int i, ret;
+
+Why is 'i' signed? Also keep reversed xmas tree order.
+
+> +	for (i = 0; i < ARRAY_SIZE(ccs811_samp_freq); i++) {
+> +		if (val == ccs811_samp_freq[i][0] &&
+> +		    val2 == ccs811_samp_freq[i][1])
+> +			break;
+> +	}
+> +
+> +	if (i == ARRAY_SIZE(ccs811_samp_freq))
+> +		return -EINVAL;
+> +
+> +	drive_mode = ccs811_drive_mode[i];
+
+
+With
+
+	struct i2c_client *client = data->client;
+
+> +	ret = i2c_smbus_read_byte_data(data->client, CCS811_MEAS_MODE);
+
+	ret = i2c_smbus_read_byte_data(client, CCS811_MEAS_MODE);
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	mode = (ret & ~CCS811_MODE_MASK) | drive_mode;
+
+> +	ret = i2c_smbus_write_byte_data(data->client, CCS811_MEAS_MODE,
+> +					mode);
+
+	ret = i2c_smbus_write_byte_data(client, CCS811_MEAS_MODE, mode);
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	data->drive_mode = drive_mode;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int ccs811_get_sampling_freq(struct ccs811_data *data,
+> +				    int *val, int *val2)
+> +{
+> +	int i;
+> +
+> +	guard(mutex)(&data->lock);
+
+> +	for (i = 0; i < ARRAY_SIZE(ccs811_drive_mode); i++) {
+
+	for (unsigned int i = 0; i < ARRAY_SIZE(ccs811_drive_mode); i++) {
+
+> +		if (ccs811_drive_mode[i] != data->drive_mode)
+> +			continue;
+> +
+> +		*val = ccs811_samp_freq[i][0];
+> +		*val2 = ccs811_samp_freq[i][1];
+> +
+> +		return IIO_VAL_INT_PLUS_MICRO;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+...
+
+> +static int ccs811_write_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int val, int val2, long mask)
+> +{
+> +	struct ccs811_data *data = iio_priv(indio_dev);
+> +	int ret;
+
+Why? I don't see any followup, without which this variable is redundant.
+
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		ret = ccs811_set_sampling_freq(data, val, val2);
+> +
+> +		return ret;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
