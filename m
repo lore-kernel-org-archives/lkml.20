@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736171;
-	b=N5Mj28hNSFSAvs/BUUWSkly4np6LsnTDHekD675zjLFDdSxHnn45bNDvGPxz+wx3F6OC
-	 aSgedgsa5HkbvXPaeWL8jRle+L07Mv0hTfslgJIiVYT0bt3JFDcfE64Js/uhYaH11QWS9
-	 sRZ6yfMNJHx/JhU4t5EijzTeDgUR2o06bgb/D2Jd8zYf4n5diEu+RpX2YHbR5fEODldVb
-	 E1mFVg7WdKENqaUo3K+98oiLJLUZEC/DGB3XIG/d1ZN/ClcNs0Ox6OFHuAGnrAfKscZc7
-	 MX5Id1YHureAB5hMSCb3oE0GFwo6dOQEeYWs/hsK8EEolVWOJ2/EuVpT5PZ0tpqDyJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
-	b=UWsBHB9uKIZupwfDCGcuJqQ+0wnLEpP7JZiDmh/tsClo6XM1SLnfbjr2UasbbiqLdZiF
-	 /FwiYUyIDj7aTizw5vYcyeKgAfiX/u2UJAxXDfsCq9OwGZMwyNPSl4RUokkwvHHOAqVcm
-	 3YTUZ6ykRqXSHTly+dfQSkonwJsnBSH6N1txgVLmjNhq9pYfAtGJa7d9IQyZXyr7PSXa0
-	 RftSZE8FrmUptxQWRy5vf9CGKfO0sEWD7vHDRaCNwFz0qeJGEkbO0zgUZKwPGtU65DvB9
-	 cyYtTmyGZ8OfjMYMGf5lxNNjQb4QtUdwzOXvk2s7/Pud27fRzc0ub7GyKTCpaHIKrZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793736173;
+	b=16sseJUIiTxqxOAQQZ2ELPupY8fPiYa4WzKq+aeSDl77Ft8DbLqFwBsQUpmpPr9BJqUU
+	 I6RORW4qGFExbyuG0GPlmZIUnFtgwR/1It/CZ7kkvv3465dHnjSZ+ZOFYoc5E3Fv8g4jO
+	 QAzlRr3O210ZbRrZrytTlK2CtWgzATafYnuH3S55jKETWdlcq0VR8GlXalV2wxrtK37gt
+	 U2STAunQJv0j+nh5RHC7iLkdaK2S450cr9PpCtjszP2nx3lNSzDrDS4hgBtV3HgQnXSg6
+	 YNsYK0814P1GDreGj1A+nuOxfLRm7VVy2JANxxzjxuO33AxZQxQulWiKh0Sn7z4KCYg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736173;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0IULrKtmWKoiZT+6TkcJdwDnBY1ZhJuqnaD6U4Ev2LQ=;
+	b=UhtIAKt/T/H/j5YIpUahj9Mw3aWIkbP4tG7V7P9EZeHImUdA97Jt4GlJ62wuARuaGaXe
+	 ttHh5U62wUnTiIgLDM116dhxF2e6gWLtYBahjvgWfCkfbJUBTS1HYhJ8xfbP2GKSTKypd
+	 wIlcq9ZAHHGikQIrmMdjQCoDmmEbef4Sc4QgjZCQaviqdzCTMj+B+880W5oF8p8zyxoDk
+	 M0i05ApE6j21lENrZ9ru63ko3RmFty+0CcbB7z/2nVpC8cRurXA+Dmm4ZV48vmPAzeCG2
+	 uxUak0ebC55zRMdurtaSh/C3imNYO8iOYdORB01AXhnI8HkAJGSpmaSO9ykSTP14Zlg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyv2MkFh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B64606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:02:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyv2MkFh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793736173;
+	b=v/dbxQbcuYAAFnWfSCeUTJrw1xjP3RgwbV0SVEb3bK81zdAt5h98I3iVfpMXTKp8N1Q8
+	 8DPPyC0B622Y5TbWPrAUYKKw3YE9HP8COHIQJNLgOuMMFNYQud2MXwwqhUoYKGL8q20m7
+	 ujXS8WzYdpBZluh8rsknwtNLy1G5hbHhOD8sZs+pdBW+2U8O2B+60w1lieXQIuuCxlEHR
+	 Z5onRrsLf8wvp88jDNOeYpM1xUksEkVyt+y0t81wrty4Lb9HEzTJpxjwMib1kQglErOOj
+	 Z59CsnQMQ9wXFFhTeUvRUfdjaqypXYqDvZoY/+hoz6LAU1vyh5RZHI6PbMI9tUc1Wvw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793736173;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0IULrKtmWKoiZT+6TkcJdwDnBY1ZhJuqnaD6U4Ev2LQ=;
+	b=EV+NRvbEzSjd3YByo27ND6OpEY3z4yd9JqQVYC5bPfJ9CLtpb4YIITbPwHP4Af6LI1iU
+	 buOalaV9UYxtR/fdcrLmqwDQFo5OLwi5rYqzHpXYiOlM3ynkkr0G9JtcoYFCAbr2/3l2w
+	 aSlgAmxCJxlrmF+h9qyDDfIuxJ0UvKvGBLPoCnP4ugAusbcMRb4gx9kwXZWaME6w7V7OM
+	 pa7qpVrD3FG4M7tSwJv5/E+ZgGqkLGKPRgE7N+6zcORSAQGjZfRTDhn6IKvTdhvU4GMhd
+	 /r+IkstD24aMQDamj5dopJFJ2vtRTHMeLzfDzWmB2u2FAORoYv0Ii2cLVk7698FoJyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762B6606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 762B6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a8cc11ac42so31703c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:02:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793736169; x=1794340969; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
-        b=IMIi0lcwaYilC5g2AlqhKWWjrMWQI4GWC1wHHyUcDpYA1VjjA4rZg3G+gu57oNMOCZ
-         L23NEy0TVcXP4YI1f+xhLBvS8of/B9gD0ufgA4ol5QccJXY/IKAyxwxW0v1ZQYETWjiK
-         ojoSDEtrxPvKTpqjodA3bCsDUGX8abgkkPcq81ePRT2sGTN4kvqA2Ua/M4SbUQnLJU13
-         Z7rJNCZtrHSERcXqY4QGnwmQw7yD+02JcTAyDYA7N3y/yxwO8Uit/YpCSSyN1HOvd0Cg
-         Cs86vphKnq5f+5fpNxuDZKqAalCt+UDoE53lGErEjhtsm8O2ltiV1Ze7Ww8LfDV9Jfn/
-         sSfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793736169; x=1794340969;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
-        b=pKyk1hklpjBW6uhQ+p2V7cwkSFsoQfpbSz6JjW57+ywO/oxwEsqEJOOKxVPaMEehtT
-         +2F9ibmeDvfdbDufW0O3v5NyBAP6TNXCDFzZ7PlVwQVm3jlF/fNtkH1eYlfnKTiOS/83
-         WdsozFOBl+DPw5Bo6mErDo5iTObug0t+XGynIbdUFjIbTkFKlNqaFw7FRrv9h72lfikC
-         JRP1GRxWL5uvrRN8SiKmFygypnmBVQCCJE2wJBiHXwzIjT5R5XSwf6DGPT/wevmKk9SR
-         fnDQjqC04djUmnBKpu8T+bFgt7v0rL7U1XsUZWj5ZL1p8thvtfq3NmMfB/1d1U/faSXj
-         +B9w==
-X-Forwarded-Encrypted: i=1; AKwUvByad/h+FLQY7VJiL3X1nydMJzq5vqySOzh5damUikXZV6Ctd4/IliiYw1XzoPIwJAwcQ4X2z3yPq9E1A+g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93lGDgEPhDwy8EJVyoTsqYeKrF5J9wRl2TrkBObVWGHOw1vcNS
-	W+YzxhzSTiwcpxV0OtTgtwnRK8T7S95oAx5WUxYKI01WmhI+xR6gEc7X
-X-Gm-Gg: AYBFou2oqbZSi3sojwdifBxGV52M+za4q7mdyXK5skgHNGccAzN6lHW44LwiRvh3Ym4
-	6LDW3fmeRjKjUyJ2NPlLAHpKVBieRRQKsXk0mahnwoMxICb1kiTtn7k5wRr2fV+bfgwma6j4U1x
-	ZYPfjWaCpPbeRJhoNcM0+Ketb3O8yMO8IckIsHmwB8Y7vRVZCHzwF0gnuDgrLtgB8I0pFF4N77z
-	qhjUIO2sUrR9aXvHrwCLq5HzRc+AyzGe9WKRFxA622cC7VPax3xCczBn3BCWg7bpG1NdFFvbG3v
-	etCBqiWpkQjOIUS8T5B3rHlBplcPZbp/juUwWrPeRCJPw4nYsLCpswQnxz2WP0f3BzI+j0KHAJK
-	ID6MXm49XXrkYs6L71bQd4y1hIRfcztEvfYnyvwulERYqM4/ngym1+AG08R3uXkkZZUo0eHftb6
-	NSTkG7Kbmi/BDGTtFWzt2x592KKqVZxdbSU8bcPMrcYLAWlqWjBnx/AX4J8/rCdBBP++7CLxMDW
-	sN1CZ9nt5G2bYuQMSApZrLpaS6o4R8NuZnSS2HV4rnnTakpulKRcsFrU5tq3GC5mYLMAUZ7BGdH
-	J+eERfUmeGHQgt+lVbZQtyYRgS0xpi4XLxmUm1Bgfwb2fhmlFKuTnOWJTTqPzFveub0=
-X-Received: by 2002:a05:7022:eb44:10b0:186:5b49:90d8 with SMTP id a92af1059eb24-1ac5782fd31mr22158852c88.4.1793736169213;
-        Tue, 03 Nov 2026 12:02:49 -0800 (PST)
-Received: from arpith-debian ([2402:3a80:449:13bc:6d9f:f092:24ee:20f6])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm1395865c88.15.2026.11.03.12.02.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:02:42 -0800 (PST)
-From: Arpith Alexander <arpith99@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Lixu Zhang <lixu.zhang@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Jake Steinman <j@metarealtyinc.ca>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arpith Alexander <arpith99@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: ivsc: csi: Add sensor node in bound callback
-Date: Wed,  4 Nov 2026 01:32:26 +0530
-Message-ID: <20261103200226.100989-1-arpith99@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 57FEA1F0093A;
+	Tue,  3 Nov 2026 20:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793736173;
+	bh=0IULrKtmWKoiZT+6TkcJdwDnBY1ZhJuqnaD6U4Ev2LQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hyv2MkFhuKwxl4fa83ztzly6/CHjHDn0GC+3d0EzDkHiJ5bnHkQEKvA6eaEEUxyME
+	 +psVQzCNWvDKXOXvyKCa7FEw/L52xw8t/C42PN6J2oP3AGF2QoEtjYA8K7vvZsC6t7
+	 Uce91c9H3KC9VP5ohKXCUKLkOQzptcgc/8gEP9djh02wORbrMj/PO/zGnPte17ZcI4
+	 9KDoMDHvidm1dwm4umdF3u2DV+qsCwz34v201gtc9WkjD3DYBh4QmgEj/grfWoe0eY
+	 JbuPJs3k/fFpvD2XZ3Jz9S+MXMtHRTMFLoDZnQwe/jcGbwwaafPR/DzfTBC6WPmf87
+	 fN+2bGj8O3yWQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DE3FA46AE5;
+	Tue,  3 Nov 2026 20:02:51 +0000 (UTC)
+From: "David R. Hedges via B4 Relay" <devnull+linuxdev844.thelittleman.net@kernel.org>
+Date: Tue, 03 Nov 2026 14:02:48 -0600
+Subject: [PATCH 2/5] drm/nouveau/kms/nv50-: don't enable a DP output with
+ no trained link
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,97 +83,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-nouveau-dp-relink-v1-2-7ee88c7f1e8a@thelittleman.net>
+References: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
+In-Reply-To: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@intel.com>, Ben Skeggs <bskeggs@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Danilo Krummrich <me@dakr.org>, 
+ "David R. Hedges" <linuxdev844@thelittleman.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736171; l=7227;
+ i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
+ bh=fTBppiTsiT2GDYHmvIFueQkmv7rwIKMHTWHZcuUcfpg=;
+ b=qiwvuDt4IUf4VuhzEePZdh9kjlE33AMdMLJwLxilaOBLpr6+JSG9hy9QecBdkjbVvbPZAUSSZ
+ GwfHqduU3i7DccM1sP6IYHNIqgeuE3sZgc9FZHZkqtT0bBEFsMr7l+b
+X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
+ pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
+X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
+ with auth_id=1397
+X-Original-From: "David R. Hedges" <linuxdev844@thelittleman.net>
+Reply-To: linuxdev844@thelittleman.net
+Content-Transfer-Encoding: 7bit
 
-The IPU6 ISYS creates sub-device nodes in its bound and complete
-callbacks. A sensor behind the IVSC is bound by the IVSC's own notifier,
-after the ISYS's bound callback has already run for the IVSC, and
-mei_csi_notify_bound() doesn't create a node. Unless another device
-binds to the ISYS afterwards, the sensor's node is therefore only
-created by the ISYS's complete callback, which runs once every sensor in
-the graph is bound.
+From: "David R. Hedges" <linuxdev844@thelittleman.net>
 
-Commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor") added
-the HM1092 to the ipu-bridge list. The HM1092 has no driver in mainline
-yet, so it never binds and the complete callback never runs. The OV02C10
-behind the IVSC therefore never gets a sub-device node.
+A commit that only turns a CRTC back on mustn't fail atomic check, so
+it still reaches nv50_sor_atomic_enable() when the sink's link
+capabilities have dropped below what the mode needs, or are unknown
+because the sink stopped answering AUX.  nouveau_dp_train() then has
+nothing to train, and the SOR is attached to the head regardless.  On
+a GA102 with GSP-RM 570.144, mutter turning the screen back on while
+the monitor was switched off (HPD still asserted, AUX not answering)
+did exactly that, and the display engine hung: "core notifier
+timeout", after which GSP stopped answering RPCs.
 
-On a Dell XPS 13 9340, libcamera then fails with:
+Have nouveau_dp_train() say why it failed.  When no lane count and
+link rate can carry the mode, leave the SOR detached, set the
+connector's link-status to BAD and send a hotplug event, as the
+link-status property's documentation describes.  Userspace that
+handles link-status can pick a new mode; userspace that doesn't still
+gets the hotplug event and reprobes.  When training is attempted and
+fails, the output is enabled as before; only the case where there was
+nothing to train changes.
 
-'ov02c10 3-0036': Failed to open V4L2 device '': No such file or directory
-No valid pipeline for sensor 'ov02c10 3-0036', skipping
+The head produces no vblanks while the SOR is detached, so until the
+sink is back and a modeset restarts the link, each commit to it waits
+out the window channel's 2s timeout ("wndw-0: timeout").  On the
+GA102 above that was the only side effect, with and without GSP-RM.
 
-Register the sub-device nodes in mei_csi_notify_bound() as well, so that
-the sensor's node is created as soon as it binds. If the complete callback
-runs later, v4l2_device_register_subdev_nodes() skips sub-devices that
-already have a node.
-
-Commit 7456b40bc992 ("media: i2c: cvs: Add sensor node in bound callback")
-is the CVS equivalent of this IVSC fix.
-
-Fixes: 29006e196a56 ("media: pci: intel: ivsc: Add CSI submodule")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+Link: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
+Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
-Tested on a Dell XPS 13 9340 (Meteor Lake IPU6, OV02C10 behind the
-IVSC) with v7.4-rc1. ipu-bridge connects both sensors ("Connected 2
-cameras"), the HM1092 has no driver and doesn't bind, and the OV02C10
-now gets its sub-device node. libcamera finds the camera and streams at
-30 fps (cam -c 1 -C10). The camera last worked on v7.2.
+ drivers/gpu/drm/nouveau/dispnv50/disp.c     | 10 +++++++++-
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 18 ++++++++++++++++++
+ drivers/gpu/drm/nouveau/nouveau_connector.h |  1 +
+ drivers/gpu/drm/nouveau/nouveau_dp.c        | 13 +++++++++----
+ drivers/gpu/drm/nouveau/nouveau_encoder.h   |  2 +-
+ 5 files changed, 38 insertions(+), 6 deletions(-)
 
-The test kernel also had my two other v7.4-rc1 fixes for this laptop:
-https://lore.kernel.org/linux-spi/20261103131435.21838-1-arpith99@gmail.com/
-https://lore.kernel.org/linux-media/20261103163814.96980-1-arpith99@gmail.com/
-
-Unlike a revert of commit 4fdb0342f05e, this keeps the HM1092 entry for
-the pending driver, and it also covers kernels built without that driver
-once it is merged.
-
- drivers/media/pci/intel/ivsc/mei_csi.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ivsc/mei_csi.c b/drivers/media/pci/intel/ivsc/mei_csi.c
-index 005b1414a252..f9513cffaacd 100644
---- a/drivers/media/pci/intel/ivsc/mei_csi.c
-+++ b/drivers/media/pci/intel/ivsc/mei_csi.c
-@@ -29,6 +29,7 @@
- #include <media/ipu-bridge.h>
- #include <media/v4l2-async.h>
- #include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
- #include <media/v4l2-subdev.h>
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 8af01de822d5..7f55c016d846 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1843,7 +1843,15 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
+ 		nvif_outp_lvds(&nv_encoder->outp, lvds_dual, lvds_8bpc);
+ 		break;
+ 	case DCB_OUTPUT_DP:
+-		nouveau_dp_train(nv_encoder, false, mode->clock, asyh->or.bpc);
++		/* Attaching the SOR to a link that hasn't been trained can hang
++		 * the display engine.  If the link can't carry the mode at all,
++		 * which atomic check only rules out for a modeset, leave the
++		 * output detached and tell userspace the link is bad.
++		 */
++		if (nouveau_dp_train(nv_encoder, false, mode->clock, asyh->or.bpc) == -EINVAL) {
++			schedule_work(&nv_connector->link_bad_work);
++			return;
++		}
+ 		nv50_sor_dp_watermark_sst(nv_encoder, head, asyh);
+ 		depth = nv50_dp_bpc_to_depth(asyh->or.bpc);
  
-@@ -513,7 +514,7 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
- 				struct v4l2_async_connection *asd)
- {
- 	struct mei_csi *csi = notifier_to_csi(notifier);
--	int pad;
-+	int pad, ret;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index cc3caf8de64b..cae4e35c30aa 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -398,6 +398,7 @@ nouveau_connector_destroy(struct drm_connector *connector)
+ 	nvif_event_dtor(&nv_connector->irq);
+ 	nvif_event_dtor(&nv_connector->hpd);
+ 	cancel_work_sync(&nv_connector->irq_work);
++	cancel_work_sync(&nv_connector->link_bad_work);
+ 	drm_edid_free(nv_connector->drm_edid);
+ 	drm_connector_unregister(connector);
+ 	drm_connector_cleanup(connector);
+@@ -1261,6 +1262,22 @@ nouveau_connector_funcs_lvds = {
+ 	.early_unregister = nouveau_connector_early_unregister,
+ };
  
- 	pad = media_entity_get_fwnode_pad(&subdev->entity, asd->match.fwnode,
- 					  MEDIA_PAD_FL_SOURCE);
-@@ -522,10 +523,14 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
- 
- 	csi->remote = &subdev->entity.pads[pad];
- 
--	return media_create_pad_link(&subdev->entity, pad,
--				     &csi->subdev.entity, CSI_PAD_SINK,
--				     MEDIA_LNK_FL_ENABLED |
--				     MEDIA_LNK_FL_IMMUTABLE);
-+	ret = media_create_pad_link(&subdev->entity, pad,
-+				    &csi->subdev.entity, CSI_PAD_SINK,
-+				    MEDIA_LNK_FL_ENABLED |
-+				    MEDIA_LNK_FL_IMMUTABLE);
-+	if (ret)
-+		return ret;
++/* The sink isn't getting a picture with the current mode, and userspace may
++ * need to pick another one to get it back.
++ */
++static void
++nouveau_connector_link_bad(struct work_struct *work)
++{
++	struct nouveau_connector *nv_connector =
++		container_of(work, typeof(*nv_connector), link_bad_work);
++	struct drm_connector *connector = &nv_connector->base;
 +
-+	return v4l2_device_register_subdev_nodes(subdev->v4l2_dev);
++	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] link-status bad\n",
++		    connector->base.id, connector->name);
++	drm_connector_set_link_status_property(connector, DRM_MODE_LINK_STATUS_BAD);
++	drm_kms_helper_connector_hotplug_event(connector);
++}
++
+ void
+ nouveau_connector_hpd(struct nouveau_connector *nv_connector, u64 bits)
+ {
+@@ -1383,6 +1400,7 @@ nouveau_connector_create(struct drm_device *dev, int index)
+ 	connector = &nv_connector->base;
+ 	nv_connector->index = index;
+ 	INIT_WORK(&nv_connector->irq_work, nouveau_dp_irq);
++	INIT_WORK(&nv_connector->link_bad_work, nouveau_connector_link_bad);
+ 
+ 	if (disp->disp.conn_mask & BIT(nv_connector->index)) {
+ 		ret = nvif_conn_ctor(&disp->disp, nv_connector->base.name, nv_connector->index,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
+index eb292d2ba4bc..3109278d36ea 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.h
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
+@@ -134,6 +134,7 @@ struct nouveau_connector {
+ 	struct nvif_event hpd;
+ 	struct nvif_event irq;
+ 	struct work_struct irq_work;
++	struct work_struct link_bad_work;
+ 
+ 	struct drm_dp_aux aux;
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+index 019af307c669..9bc24f3914bd 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dp.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+@@ -401,14 +401,17 @@ nouveau_dp_train_link(struct nouveau_encoder *outp, bool retrain)
+ 	return ret == 0;
  }
  
- static void mei_csi_notify_unbind(struct v4l2_async_notifier *notifier,
+-bool
++/* Returns -EINVAL if no lane count and link rate can carry the mode, in which
++ * case nothing has been trained, or -EIO if training failed.
++ */
++int
+ nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc)
+ {
+ 	struct nouveau_drm *drm = nouveau_drm(outp->base.base.dev);
+ 	struct drm_dp_aux *aux = &outp->conn->aux;
+ 	u32 min_rate;
+ 	u8 pwr;
+-	bool ret = true;
++	int ret = -EINVAL;
+ 
+ 	if (mst)
+ 		min_rate = outp->dp.link_nr * outp->dp.rate[0].rate;
+@@ -434,13 +437,15 @@ nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc)
+ 				outp->dp.lt.nr = nr;
+ 				outp->dp.lt.bw = outp->dp.rate[rate].rate;
+ 				outp->dp.lt.mst = mst;
+-				if (nouveau_dp_train_link(outp, false))
++				if (nouveau_dp_train_link(outp, false)) {
++					ret = 0;
+ 					goto done;
++				}
++				ret = -EIO;
+ 			}
+ 		}
+ 	}
+ 
+-	ret = false;
+ done:
+ 	mutex_unlock(&outp->dp.hpd_irq_lock);
+ 	return ret;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_encoder.h b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+index 4422c6185d49..9366678e7d05 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_encoder.h
++++ b/drivers/gpu/drm/nouveau/nouveau_encoder.h
+@@ -156,7 +156,7 @@ enum nouveau_dp_status {
+ };
+ 
+ int nouveau_dp_detect(struct nouveau_connector *, struct nouveau_encoder *);
+-bool nouveau_dp_train(struct nouveau_encoder *, bool mst, u32 khz, u8 bpc);
++int nouveau_dp_train(struct nouveau_encoder *outp, bool mst, u32 khz, u8 bpc);
+ void nouveau_dp_power_down(struct nouveau_encoder *);
+ bool nouveau_dp_link_check(struct nouveau_connector *);
+ void nouveau_dp_irq(struct work_struct *);
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.55.0
+
 
