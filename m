@@ -1,66 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698521;
-	b=WPamL7x+RaUoBzGlskFRDIqLq4RcmoiKbD/3zpoAVovFvP7KR0FboBCpB7aF9IgtEahS
-	 sLvi7ycXEPP7lvF7A3jrfPq0piCnEQ9kg7QTMtEU+sV2rueEgMgmZRxSR7n+DJEtk9dBr
-	 kVwvDjJt7+ojA7DUcn/1pfPjECXmZElEbZk9ykPLv1AuZWghM2u6g+B/vL9yjo7AviRM6
-	 A/eQ2bH/Ogy1BqXz2jIjMrr+h1lvnd/YdW99hnKet5wUmjeOqzHxCJca9Qd6C4Mcld8s8
-	 u3jg9k+Mdk7KFH7B6MP13Pc2fJOFCFAr40ySS7Web7R2cXrXr9u+afMLBYzyW3x4O8A==
+	t=1793698548;
+	b=NGAan3tdLK8V0YbMhDcROP7po+zlbG5+Xyeus0koqaYB8N3p+dQcfdpNPvtWV7s73HWk
+	 ckvNZcCkUp2QX84mxrsmqWYBSE2ahUsGX5Vp1yvG5xPoBAl3bLhBibIJOq5lzNuIXTaQw
+	 lMrQ6p8HJ73BTsTqbLt7cygnVOzrnST9ef7GmUFHQz/DdzNOAEKgfWL+J6KMymA02Fn0e
+	 glkkL1c3tkAM/fo9cRIhov/yo3X6669SEf3sDmXQNNIKp7b3rwAGwNhOAsCkau2ftX9zO
+	 1/zl2mjEd5VPUWWiX01bw7rPLMcIXhh1rEA5kXONGdJljmv7kcz19A2apmw+FGJno9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698521;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=6o537cHF3ZsBsyeLBKkxyQxJxv6nVsc5mI6mjoRRjxc=;
-	b=3qnydjF6QF8/T8Divok0MIq7PyzgiDcfzfegPCVVKJHdPGwDPs66NebT+ZLRU0Kp8g0I
-	 JyvoT9/5Stphq7WWRjpAP0HHBY3lpObzcs5bsaaXLSGhyVQamilg9oviLeBxvqyM7HMkk
-	 jag0JqAcrHBGC9uwmj74I3Fhb7DO9flNilYwbbXsXz6V+GXlZ5XHokbNY9RO/7kESWhkB
-	 Z+fTrPrcE3C9sLYWcihF0YJq4q3inj2pDRRZ/t5y8u7cs6TZVqk4W4d8mo8MrEsfh3Gke
-	 kR3wKc984Tu85qOQRIgxkcuNNfBHl9hDTdB52EFx1o0hGxrvpZaTRARom1aai9oOdAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698548;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=gpFVu/yceB6Fg1msM9HwfwlY+GbM47kVog6XkWJbktI=;
+	b=KGNEDpu5xGA6LAgr42hbjlsm8rL7P0uyj5PVTiquqRiZq7AfiWmTSEYHbYnBK3u+hNbS
+	 ZjAjSvf/LHee4BEDXt9WiQ5CgF7oMXXHWFu5fBk9ZgAVCV0G96RMa31a3CG0B65W35QRu
+	 8DlQyWEvvk+8ZIds6LcTkFD2y6ijWxGNKFtIdzela/Ud/YIiJ7uZxng2mNo+yMmm3fFpF
+	 +MLV9G2AWFvIdJW6aq9SmhKO8JLT+LXJjoq1z4kCBJeR6IQXhLnaJalBMtKXZZ/WfuH7C
+	 FkxMxgQhQ3pIb/v2ctyHK35bTZi9hbP00TMHxUIwxHIoPFkE0HiX955gkTK9h0flhWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nNuECPAC;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bti+Ab9a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BBC606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:35:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36BBC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A69C606A324;
+	Tue,  3 Nov 2026 09:35:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nNuECPAC
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 891884E413CA
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:35:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4F93A6046C;
-	Tue,  3 Nov 2026 09:35:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0DEDB10328C5E;
-	Tue,  3 Nov 2026 10:35:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793698517; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=6o537cHF3ZsBsyeLBKkxyQxJxv6nVsc5mI6mjoRRjxc=;
-	b=nNuECPACV+cGKmPfxJhqKNk7MK/aKdFSJwRREPIFUAYzyMsUAVdqXl14Ey7ijgjRfjWTdm
-	wDvJePyaAGHPefamMXBytyWpCXIoosdDVl4CiC0FPuaNoFT9tcWlDJ6p86vKbCAlFm/jFo
-	s8LEalw8+fL2QhA+O+f59W4KZnwffpqkfd0lU7KlMDMJmUQtyX3yxr9ahn9CcjbHSlVx4J
-	KsXeA6/3ll4T1oAQye1WI0Yw18RCunwC7jZEP25PeC4MyctaB5j+p/PXqlynBxfr/m86yh
-	P+RksDFY5JrxEImLKO8IdcqSWOjRwWXANhrUYr8pXSov2Shrxe+qJrD+iztRow==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH] mmc: sdhci-cadence: enable probing from ACPI
-Date: Tue,  3 Nov 2026 10:35:00 +0100
-Message-ID: <20261103093501.218232-1-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bti+Ab9a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99C181F000C1;
+	Tue,  3 Nov 2026 09:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793698548;
+	bh=gpFVu/yceB6Fg1msM9HwfwlY+GbM47kVog6XkWJbktI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=bti+Ab9a6dN2nh2HzxisPetb7FvTtwArwySmAxHl7McZmPCXFolymj2PN0wPB6tKS
+	 vnSZAR3+O/D75GMf6VxMvz74diUySEnRT8MFiRvQUe76Pm5KQIBs7li55w9ArTQRBb
+	 HDqRiaeTISgAL36Le/tI9VrIVTiUqfFpWcVFD9xK/DFHNLTTu4n0shUNPAvqQ5N4UK
+	 0HP/gPy+xSQ3udf8QooSSvw9MrwyBBZg4HrZYsvIwlT+DbJKufp3ipgI26AXwPHHQN
+	 UpG7lrl57LCV3NXEAQoJDB/lsEmxP53byc0VA0h5ELN+YewdH3KLb1no5OZhz+kLiX
+	 w0dWtmosgNMsw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: FUJITA Tomonori <tomo@flapping.org>
+Cc: tomo@flapping.org, anna-maria@linutronix.de, frederic@kernel.org,
+ gary@garyguo.net, ojeda@kernel.org, tglx@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
+ dakr@kernel.org, daniel.almeida@collabora.com, jstultz@google.com,
+ lossin@kernel.org, lyude@redhat.com, sboyd@kernel.org, tamird@kernel.org,
+ tmgross@umich.edu, work@onurozkan.dev, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, fujita.tomonori@gmail.com
+Subject: Re: [PATCH v1 2/2] rust: hrtimer: Use
+ hrtimer_forward_safe_from_callback()
+In-Reply-To: <20261103.111711.1426428689637198062.tomo@flapping.org>
+References: <20261101232829.593680-1-tomo@flapping.org>
+ <uqohX3cKDZh17tB-JJSkR4WV6BtvMvP4NMJC5JJoemnBUsIjS3tgB2c1emjwPLLUo2s0unyBH-LAcKmQkHedhg==@protonmail.internalid>
+ <20261101232829.593680-3-tomo@flapping.org>
+ <87se1jmhiw.fsf@t14s.mail-host-address-is-not-set>
+ <20261103.111711.1426428689637198062.tomo@flapping.org>
+Date: Tue, 03 Nov 2026 10:35:01 +0100
+Message-ID: <875wyemf5m.fsf@t14s.mail-host-address-is-not-set>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,144 +67,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-Use the device property API instead of the OF-specific property API.
-This way, the driver will also probe from ACPI.
+FUJITA Tomonori <tomo@flapping.org> writes:
 
-Note the change in the core's probe function for SD6HC. We can't have
-named clocks in ACPI.
+> On Mon, 02 Nov 2026 15:31:35 +0100
+> Andreas Hindborg <a.hindborg@kernel.org> wrote:
+>
+>> "FUJITA Tomonori" <tomo@flapping.org> writes:
+>> 
+>>> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+>>>
+>>> Safe Rust code can start a timer while its callback runs. A timer
+>>> started through Arc<T> or Pin<&T> can be started again from another
+>>> clone or copy of the pointer. HrTimerCallbackContext::forward() calls
+>>> hrtimer_forward(), which writes the expiry without the base lock, so
+>>> the write can race with the concurrent hrtimer_start().
+>>>
+>>> Call hrtimer_forward_safe_from_callback() instead. It does the update
+>>> with the base lock held. If the timer is already queued by a concurrent
+>>> start, the expiry is left alone and 0 is returned.
+>>>
+>>> HrTimer::forward() keeps calling hrtimer_forward(). It takes
+>>> Pin<&mut Self>, so no other reference to the timer exists and no
+>>> concurrent start is possible. Narrow the safety requirement of
+>>> raw_forward() to exclusive access, since the callback context no longer
+>>> uses it.
+>>>
+>>> Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+>> 
+>> This looks good to me.
+>> 
+>> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+>
+> Thanks!
+>
+>> While reading this, I thought we should expand the safety requirement
+>> for the handle trait, because even though handles keep the callback
+>> target alive, they do not own the target. The armed timer does. And so a
+>> (future) &mut method on the handle is not allowed to mutably access the
+>> target. This implicit today, but I thought maybe we should make it
+>> explicit.
+>
+> I agree that we should make this explicit. It does not depend on this
+> series, so could you send it as a separate patch? A few comments below.
 
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
- drivers/mmc/host/sdhci-cadence-core.c   | 22 ++++++++++++----------
- drivers/mmc/host/sdhci-cadence-phy-v6.c | 10 +++++-----
- 2 files changed, 17 insertions(+), 15 deletions(-)
+Yes, I did not intend to hijack this series. Just wanted your input.
 
-diff --git a/drivers/mmc/host/sdhci-cadence-core.c b/drivers/mmc/host/sdhci-cadence-core.c
-index 745455743b01..c5a4fa8e2fc6 100644
---- a/drivers/mmc/host/sdhci-cadence-core.c
-+++ b/drivers/mmc/host/sdhci-cadence-core.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2026 Altera Corporation
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
- #include <linux/dma-mapping.h>
-@@ -145,26 +146,26 @@ static int sdhci_cdns4_write_phy_reg(struct sdhci_cdns_priv *priv, u8 addr, u8 d
- 	return ret;
- }
- 
--static unsigned int sdhci_cdns4_phy_param_count(struct device_node *np)
-+static unsigned int sdhci_cdns4_phy_param_count(struct device *dev)
- {
- 	unsigned int count = 0;
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++)
--		if (of_property_present(np, sdhci_cdns4_phy_cfgs[i].property))
-+		if (device_property_present(dev, sdhci_cdns4_phy_cfgs[i].property))
- 			count++;
- 
- 	return count;
- }
- 
--static void sdhci_cdns4_phy_param_parse(struct device_node *np, struct sdhci_cdns4_phy *phy)
-+static void sdhci_cdns4_phy_param_parse(struct device *dev, struct sdhci_cdns4_phy *phy)
- {
- 	struct sdhci_cdns4_phy_param *p = phy->phy_params;
- 	u32 val;
- 	int ret, i;
- 
- 	for (i = 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++) {
--		ret = of_property_read_u32(np, sdhci_cdns4_phy_cfgs[i].property, &val);
-+		ret = device_property_read_u32(dev, sdhci_cdns4_phy_cfgs[i].property, &val);
- 		if (ret)
- 			continue;
- 
-@@ -204,7 +205,7 @@ static int sdhci_cdns_set_dma_mask(struct sdhci_host *host)
- 	struct device *dev = mmc_dev(host->mmc);
- 	int ret;
- 
--	data = of_device_get_match_data(dev);
-+	data = device_get_match_data(dev);
- 	if (!data || !data->dma_mask)
- 		return 0;
- 
-@@ -649,13 +650,13 @@ static int sdhci_cdns4_phy_probe(struct platform_device *pdev, struct sdhci_cdns
- 	struct sdhci_cdns4_phy *phy;
- 	unsigned int nr_phy_params;
- 
--	nr_phy_params = sdhci_cdns4_phy_param_count(dev->of_node);
-+	nr_phy_params = sdhci_cdns4_phy_param_count(dev);
- 	phy = devm_kzalloc(dev, struct_size(phy, phy_params, nr_phy_params), GFP_KERNEL);
- 	if (!phy)
- 		return -ENOMEM;
- 
- 	phy->nr_phy_params = nr_phy_params;
--	sdhci_cdns4_phy_param_parse(dev->of_node, phy);
-+	sdhci_cdns4_phy_param_parse(dev, phy);
- 	priv->phy = phy;
- 
- 	return sdhci_cdns4_phy_init(priv);
-@@ -673,7 +674,8 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	static const u16 version = SDHCI_SPEC_400 << SDHCI_SPEC_VER_SHIFT;
- 
--	if (of_device_is_compatible(dev->of_node, "cdns,sd6hc")) {
-+	/* Note: ACPI only provides one unnamed clock */
-+	if (!has_acpi_companion(dev) && device_is_compatible(dev, "cdns,sd6hc")) {
- 		clk = devm_clk_get_enabled(dev, "ciu");
- 		if (IS_ERR(clk))
- 			return dev_err_probe(dev, PTR_ERR(clk), "failed to enable ciu clock\n");
-@@ -687,7 +689,7 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 			return PTR_ERR(clk);
- 	}
- 
--	data = of_device_get_match_data(dev);
-+	data = device_get_match_data(dev);
- 	if (!data)
- 		return dev_err_probe(dev, -EINVAL, "missing platform driver data\n");
- 
-@@ -723,7 +725,7 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 	 * For SD6HC, sdhci_add_host() will automatically read capabilities
- 	 * and version from the host controller registers.
- 	 */
--	if (of_device_is_compatible(dev->of_node, "cdns,sd4hc")) {
-+	if (device_is_compatible(dev, "cdns,sd4hc")) {
- 		__sdhci_read_caps(host, &version, NULL, NULL);
- 		ret = sdhci_cdns4_phy_probe(pdev, priv);
- 		if (ret)
-diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-index 22d56bb46d75..551a0e3b58ad 100644
---- a/drivers/mmc/host/sdhci-cadence-phy-v6.c
-+++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-@@ -880,17 +880,17 @@ int sdhci_cdns6_phy_probe(struct platform_device *pdev, struct sdhci_cdns_priv *
- 	 * Cadence-recommended defaults (2500 ps IO-cell delays, 24 ps DLL
- 	 * delay element) that are valid for typical SoC packaging.
- 	 */
--	ret = of_property_read_u32(dev->of_node, "cdns,iocell-input-delay-ps",
--				   &phy->iocell_input_delay);
-+	ret = device_property_read_u32(dev, "cdns,iocell-input-delay-ps",
-+				       &phy->iocell_input_delay);
- 	if (ret)
- 		phy->iocell_input_delay = SDHCI_CDNS6_PHY_DEFAULT_IOCELL_DELAY;
- 
--	ret = of_property_read_u32(dev->of_node, "cdns,iocell-output-delay-ps",
--				   &phy->iocell_output_delay);
-+	ret = device_property_read_u32(dev, "cdns,iocell-output-delay-ps",
-+				       &phy->iocell_output_delay);
- 	if (ret)
- 		phy->iocell_output_delay = SDHCI_CDNS6_PHY_DEFAULT_IOCELL_DELAY;
- 
--	ret = of_property_read_u32(dev->of_node, "cdns,delay-element-ps", &phy->delay_element);
-+	ret = device_property_read_u32(dev, "cdns,delay-element-ps", &phy->delay_element);
- 	if (ret) {
- 		phy->delay_element = SDHCI_CDNS6_PHY_DEFAULT_DELAY_ELEMENT;
- 	} else if (!phy->delay_element) {
--- 
-2.47.3
+>
+>> diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
+>> index ab7c568b8855..84f45a7a3a17 100644
+>> --- a/rust/kernel/time/hrtimer.rs
+>> +++ b/rust/kernel/time/hrtimer.rs
+>> @@ -771,6 +771,14 @@ fn run(
+>>  /// is running. If the timer handler is running when the handle is dropped, the
+>>  /// drop method must wait for the handler to return before returning.
+>>  ///
+>> +/// While the timer is armed, the callback target is borrowed by the timer: the
+>> +/// timer callback can create a reference to the target at any time, and for
+>> +/// some pointer types that reference is exclusive.
+>
+> The module doc defines the timer states as stopped, started and
+> running, and does not use "armed". Could we use these terms here?
+
+Yes, good point.
+
+> The
+> callback creates the reference only in the running state, but the
+> requirement needs to hold in both the started and running states,
+> because a started timer can move to the running state at any time.
+
+>
+>> +/// Implementers must not create
+>> +/// a reference to the callback target that would conflict with the reference
+>> +/// that [`RawHrTimerCallback::run`] creates for the pointer type in question.
+>> +/// Deriving raw pointers from the target, as the [`Self::cancel`]
+>> +/// implementations do, always satisfies this.
+>
+> Even without creating a reference, an access through a raw pointer can
+> be UB, for example a write to a field that the callback also uses.
+
+Right, but creating the pointer and using it for offset calculations is
+fine. I can try to make that more clear.
+
+> `cancel` is fine because it only accesses the `HrTimer` field, which
+> is wrapped in `Opaque`, and hrtimer_cancel() takes the base lock. So I
+> think the requirement should be about accesses, not about references.
+
+I see. I'll try to rephrase a bit.
+
+Best regards,
+Andreas Hindborg
+
 
