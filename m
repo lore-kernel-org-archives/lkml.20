@@ -1,72 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719953;
-	b=isDmBWaYTBxuTIr9jrJyVN4glsvje7knXCiiHFhaMiY9olua1zQIQ1IRZv499DyFhYJt
-	 9RfLk4x4vWbUTaIc3xQkNVsCOvzhUll4cZ00z7lIQAa3rEubgW0wBSMpfQ6w+gv8c3/mH
-	 iCriBHXBElvVAmNas5A3mE5dB/blxwEzmmaSKkM9qCXM77EO6xTlkzCwoLOguzE+X/hsP
-	 QTfLy0TKzOMKn56kbyn08aVuuKELmrN2NGDHFzJvkgPV7a0N1zwxtAKSffYgc/fV1jG0F
-	 454efVgjGmb3M6gveJ3OmKEHE+z+jQ1pfStgV+czP5SUc8TZr8NoJ6ZCadf4uWnpUig==
+	t=1793719958;
+	b=igLh7UeyQfSbuDqhRzCPa6bE7m3V36/i9VIif7sCu0s14Nys5DvSNZXJmYwGUlw1fiXK
+	 HpUF4pM/RP24jPI+HLn/A/Z1/o1lOYZpQ3Lil2UM67JbfA1BCYu4Vhm8sYtTtWYJrXa3n
+	 ZVWD0//ZFOKO/cgC23BFQEIljmGdmzy0j2kZ+4oO/5y1xqj1yJL0p+RZrv07KDL/mkagq
+	 wTfXMhwy42OOvkyCiYR7FMBiU4ucZAcxNBUK3Fr61pu5CprtMn86u5TdmmtXmvr78y3k8
+	 +SV7QdHsJWm2M+61hPxMcAplgUC/WTsKTkYJjAtAt+Ev2cELI7GRj6g6Qb286v8xTKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719953;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VyeiR5vnw71KrKc2dGrrliTZpBidJK/i1XEfJAb6e3g=;
-	b=Ail2V5oPfFesm605JyhIBdl9S1L1Ruq/zcNgehafd48aRpTF8kb2bV9lxOIt6hlD7nG8
-	 fix/q//zFP5qkpqdzMcLspPdBXewG9P508nyP2/U7heXSVNkNDOSrCgllrgdlUIjXm3vV
-	 zSDDnu2FNNeJGyF6M+j5DYUjQsW6gcHtzfVCyUDQpfK4JBzvj78BdKjkyBHAImh9EVoBr
-	 dxqLpko2Q3C8JsZQBJuH7wHNshSx3O1m1jxsYwXe+YTy+zgI0NZ5+mCm4Fi7jaylbugoR
-	 N/NJESMgOQQ0gARP5+PIWROykUQOUs3IbnmPhhQRQgzd8MI4nYLexJdbyCU5DBScTdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719958;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
+	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
+	 Message-ID:X-Scanned-By;
+	bh=VmOZ73jgvHkU0dumvVNmxvri2WLmB7Wyi+ggYVy61Tw=;
+	b=NyYZzqx9gfmcNai8/iGtMTfd7GIzjcjZr0VHT7ht9D5UPn92xOEO5uUiPsjPVVrXSEjP
+	 5PqnoxmquHW6iJkFZVXpOXkqVXWH2eyfZvSkVgntSijNVgBnc7v+nI4jAwwlqGEyL0nsg
+	 G1t3lwWx6wfrOc1TIXZbBfmS21yntbnki/IE4xHy7x9geVINLEIVBwLIU6+MrWhpnbl/5
+	 x/KAblSYvFKetu9IiVQ4R5qsdaf+bqNIXOdFjhcjpRMZSWoLyqCEYGv/uOW4GcStRdQP6
+	 Qp0ZL1kkNgyaxsypD8E9kTyPChD3PeSOMTFS6Aa3Eb4v06WDKxzVksNPsU65bA6mNgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq5TULc5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h2N8pzUd;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1571606A324;
-	Tue,  3 Nov 2026 15:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DFC606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10DFC606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq5TULc5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5321F000C1;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h2N8pzUd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793719957;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VmOZ73jgvHkU0dumvVNmxvri2WLmB7Wyi+ggYVy61Tw=;
+	b=h2N8pzUdVQqe5ZCLNiU8NuMPVedAFlYRJPBxG4pSUmR2KI9ITAs5PqA1OrhcnwfVuHJgli
+	tM2FogLvthTAF2U9P9P9AysBiiN842zaS86rXVFUsHxISzT09fZvu75UAsarxrT0Z0973+
+	2p1okoy4cUZoVJTVmxhyfe6GiXP2bBc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-222-iXgHiXyjMFO01IbGrQNv8Q-1; Tue,
+ 03 Nov 2026 10:32:33 -0500
+X-MC-Unique: iXgHiXyjMFO01IbGrQNv8Q-1
+X-Mimecast-MFC-AGG-ID: iXgHiXyjMFO01IbGrQNv8Q_1793719951
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4A9671956057;
+	Tue,  3 Nov 2026 15:32:31 +0000 (UTC)
+Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 67B3118005B0;
 	Tue,  3 Nov 2026 15:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793719952;
-	bh=VyeiR5vnw71KrKc2dGrrliTZpBidJK/i1XEfJAb6e3g=;
-	h=From:To:Cc:Subject:Date;
-	b=Pq5TULc5Z+s0xoKNjOnTxsWIe9aBmcz/nGPtud3kgt1buEe/bnaodo7vMpSF+ajAS
-	 vJClZT9gyXL3ybxShcQZDd0tN5Z9z3jzu0+LaXspRSF3W/7lEjYsVTyNBLw0dEHws+
-	 opru8B2PtDBGX5LaKO93Hx+d1H8DpzvfinC24vXhHYQaxFno92hYnsZdPo0mCtwGMB
-	 BjXC5oCowfypwUpQ0oQZPAjb2f72lwbvHU7PLQS4kMFdrhthyVxXaqpE7rTD6ugGqm
-	 lZ2+ClMGcd59/k6JFkmNCQSN0glHSmKbPtvHm4qBuowk1X3WYHjJfkOYXGAAsz1JnO
-	 dZw7Yfd3t28MQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [RFC PATCH v7 0/8] rust: Add drm::JobQueue
-Date: Tue,  3 Nov 2026 16:31:30 +0100
-Message-ID: <20261103153138.1087330-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <aun4kXCJDtYomzpu@kernel.org>
+References: <aun4kXCJDtYomzpu@kernel.org> <aunNj35KmcAC4ByH@kernel.org> <20261103030226.2685251-1-jarkko@kernel.org> <641294.1793700187@dhowells-thinkpadp1gen8.rmtgb.csb> <669211.1793714419@dhowells-thinkpadp1gen8.rmtgb.csb>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, Eric Biggers <ebiggers@kernel.org>,
+    linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>,
+    keyrings@vger.kernel.org, Roberto Sassu <roberto.sassu@huawei.com>,
+    Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+    Eric Snowberg <eric.snowberg@oracle.com>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    "open
+ list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+    open list <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v2 00/11] KEYS: Sanitize the garbage collector
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,235 +87,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <683283.1793719946.1@dhowells-thinkpadp1gen8.rmtgb.csb>
+Date: Tue, 03 Nov 2026 15:32:26 +0000
+Message-ID: <683284.1793719946@dhowells-thinkpadp1gen8.rmtgb.csb>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-I really hoped that I could present you guys with a v1 today, but, of
-course, I discovered an issue that was overlooked over the last months.
-See below.
+Jarkko Sakkinen <jarkko@kernel.org> wrote:
 
-tl;dr: If JQ1 has dependencies on JQ2, and JQ2 dies, then we also need
-to inform JQ1 somehow and act accordingly (teardown).
+> > Actually, it can be done if the rxrpc and rxrpc_s key types are moved out
+> > into their own module upon which rxrpc.ko depends.
+> 
+> Hmm... I'll experiment with this, thanks. This was useful.
 
-We need to discuss the desirable solution for that problem, thus I'm
-requesting comments by you guys and remain on RFC for now.
+It's not entirely trivial.  I've attached a patch that makes a start on it,
+but it needs access to bits of the security class implementations (rxkad and
+rxgk).  Those bits only parse the key (and in the case of rxgk access the krb5
+code), so in theory it should be possible to extract them out.
 
-Based on drm-rust-next plus ScopedWork by Danilo & Alice [1] and my
-lock-error-fix [2]. My branch with a minimalist tester (my old tester updated
-by Gary) can be found here [3].
+One thing that needs to be considered, though, is the security class selected
+should really be up to the application, not merely switched on by the
+security_id.  This is one of the reasons I would like to add an add_key2()
+syscall that adds an additional parameter string argument.
 
-[1] https://lore.kernel.org/rust-for-linux/20261020-rust-workqueue-v3-0-ea7c74d02068@google.com/
-[2] https://lore.kernel.org/rust-for-linux/20261022160725.2215244-2-phasta@kernel.org/
-[3] https://gitlab.freedesktop.org/pstanner/linux-drm-work/-/tree/jobqueue-jobqueue-rfc-v7-2?ref_type=heads
+David
+---
+commit 365e715b91b9b2ac3030f51c31ff4de8f24a4e19
+Author: David Howells <dhowells@redhat.com>
+Date:   Tue Nov 3 14:15:39 2026 +0000
 
-Changes in v7:
-  - Unfortunately, I discovered a design question that we completely
-    overlooked so far: If a "neighboring" JQ dies, its fences get
-    signaled with an error – but the callbacks registered on a fence
-    don't query that error, leading to UB by that GPU ring relying on
-    the work being done. Thus:
-      - Always inform about errors in
-	FenceCallbackRegistration::on_signal() about errors.
-      - Similarly, replace Fence::is_signaled(). It's a useless function.
-	You *must* query whether a fence got signaled *successfully*.
-      - !!! RFC: Add a JobQueueOps::kill() to tell the driver to tear this
-	JQ down.
-  - Add ID accessors for FenceCtx and JQ.
-  - By Gary: Working self references + PinInit. Kudos to Gary!
-      - Among the many changes that he did is a portation to a new
-	minimalist list-type, since the default list collides with
-	self-references.
+    rxrpc: Move key types to own module
+    
+    Move the rxrpc and rxrpc_s key types to their own module so that if keys
+    pin the module that implements the type, they don't cause outstanding
+    connections to make the module unremovable.
+    
+    Signed-off-by: David Howells <dhowells@redhat.com>
 
-Changes in v6:
-  - Rework DmaFence so you can signal fences without dropping them
-    (since we'd have to drop in atomic context otherwise)
-  - Use synchronize_rcu() for fence dropping for now – with a fast path
-    optimization! – instead of call_rcu() because the latter can run in
-    atomic context.
-  - Add DropWorker for JobQueue which drops jobs and their fences in
-    process context.
-  - Rework locking design: All JQ API functions can be invoked without
-    any driver locks. run_job() is not executed with the JQ lock held,
-    thus the driver can sleep.
-  - Add a seqno based approach to catch potential races with the
-    unlocked call to run_job().
-  - Redesign JobQueue::complete_jobs_up_to_seqno() so that by default
-    jobs are completed with status == Ok(()). This is done because it
-    makes the race-catcher above easier to implement (otherwise we'd
-    have to carry the last error around, and if we ever implement batch
-    submissions we'd need a list of errors).
-  - Since our design assumption is that users will always close their
-    ring and drop their JQ if anything goes wrong on the ring, just
-    provide one function that signals with an error on teardown:
-    JobQueue::teardown().
-  - Move the work items out of the locked JobQueueInner, since the work
-    queue lock already synchronizes everything. The
-    Revocable<JobQueueInner> needs to stay, however, so that the
-    SubmitWorker can be safely cancelled on JQ::drop().
-  - Fix various logical bugs that I found (code is unfortunately still
-    untested).
-  - Extend documentation significantly.
-  - Formatting.
-
-Changes in v5:
-  - Add back the Revocable<JobQueueInner…> from my earliest RFCs. Reason
-    is still the same: JQ dropping while dependency fences signal could
-    deadlock. Similarly, this solves a dependency kicking of the work
-    item again while drop() is running.
-  - Do not call run_job() with a lock held, since run_job() might sleep.
-    AFAICS, this also makes the proposed XArray solution impossible and
-    demands that we use a list.
-  - Re-add the earlier credit-count-system, so that run_job() is
-    infallible. Simplifies the design quite a bit. (Danilo)
-  - Drop jobs in a deferred manner through the work item so that job
-    payload data can do atomic-hostile stuff.
-  - Because of the point above, I suggest that we stop dropping a
-    DriverFence on signal (Danilo's and my idea). It has no real
-    advantage, and getting rid of it allows for better controlling what
-    drops when through JobQueue. For fence it's only relevant that there
-    is an RCU grace period, thus:
-  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
-    would, therefore, demand that everyone who's got a problem with the
-    delay drops via work item.
-
-This can still not be tested as I'm blocked by pin-init vs self-ref.
-Just FYI.
-
-I would appreciate confirmation of these following thoughts on locking
-design:
-
-1.
-I believe that callers of jq.new_job() and jq.submit_job() do not need
-an outer serialization mutex. Reason is that JQ serializes with its
-internal lock. Sequence numbers cannot take over older seqnos because it
-is submit_job() who sets the seqno.
-
-2.
-I, furthermore, believe that a driver will not need to hold a
-driver-lock while calling jq.complete_jobs_up_to_seqno().
-
-IOW, I am suggesting that a driver can always safely use JQ without an
-outer lock, and actually *should* do so to avoid potential locking
-issues.
-
-Reason:
-
-let driver_stuff = foo.lock();
-let current_gpu_seqno = driver_stuff.get_seqno();
-drop(driver_stuff);
-jq.complete_jobs_up_to_seqno(current_gpu_seqno);
-
-Thus, I believe that it is OK for me to take the JQ lock in
-jq.complete_jobs_up_to_seqno().
-
-Please correct me if I'm missing something.
-
-Should I be wrong and a lock inversion could occur, then we could
-hypothetically add a fence Signaler object, with which we could signal
-fences with a different lock. Similar to how drm_sched does it with the
-hardware_fence.
-
-
-Regards
-P.
-
-
-====
-
-Cover letter from v4:
-
-As the commit messages and code comments detail, progressing JobQueue is
-currently somewhat blocked because of an issue with self-referential
-PinInit, which Gary generously offered to investigate.
-
-This code compiles, but the example does not because of the
-aformentioned issue. Nevertheless, I wanted to provide another RFC here
-so that we can move our discussions forward in the meantime, especially
-since very much about JobQueue has changed.
-
-Our, now upstreamed, DmaFence abstractions informed some of the notable
-changes in JobQueue. Most notably, JobQueue now owns the FenceContext,
-Jobs are created on the queue and own the DriverFence. Jobs, again, are
-owned by the JobQueue. We hope to enforce correct behavior that way,
-having FenceContext, JobQueue and firmware ring all correspond with each
-other 1:1:1.
-
-I suspect that a potential deadlock on JQ drop still exists. I
-previously solved that with Revocable, which I tend to think will also
-be the way to go here.
-
-(One very great news btw is that we almost magically solved a number of
-issues with the new DmaFence design – in combination with this JobQueue
-design, for the first time it would be possible to fully support the
-dma_fence backend_ops. The driver-unload-problem previously had most
-users use intermediate fences, like the drm_sched_fence, which means
-that callbacks, e.g. from userspace, could not be passed through to the
-driver. Now, with FenceContextOps <-> JobQueueOps, we can theoretically
-support all of them)
-
-The differences between this draft and Daniel / Tyr's prototype which
-probably are most noteworthy are the different lock design
-("Philipp"-JobQueue has one big lock, wheres Tyr-JobQueue has 2, 3 if
-you count the XArray lock) and the used data structure.
-
-The presented solution uses lists over XArray because:
-  1. XArray is semantically more complex and has an additional lock.
-  2. An Xarray-as-ringbuffer needs own algorithms for index tracking,
-     wrapp around etc. With list you enqueue into a waiting list, and
-     for running you move into the running_list.
-  3. The memory reservations we need for pre-allocating everything for
-     our job-submission path are solved in one go with list, because a
-     job simply contains a list head.
-  4. Most notably, it is unclear how XArray behaves for ever-increasing
-     indices with a sliding window, whereas the list semantic is well
-     understood and deterministic.
-
-I obviously don't claim to own all the wisdom in that regard; it's just
-that I still propose this solution because these arguments make me
-believe that it is the right one.
-
-Since all the list handling is done with iterators, there is currently
-no unsafe needed.
-
-
-I hope we can discuss many things here before we, hopefully soon, can
-address the lifetime issue and move to a v1.
-
-
-This is based on drm-rust-next (10a6623a24a8), plus Danilo's ScopedWork
-[1] and my patches [2][3] regarding 'static and lock errors.
-
-Regards,
-Philipp
-
-[1] https://lore.kernel.org/rust-for-linux/20260807165252.3849875-1-dakr@kernel.org/
-[2] https://lore.kernel.org/rust-for-linux/20260922083631.444614-2-phasta@kernel.org/
-[3] https://lore.kernel.org/rust-for-linux/20260924085523.2620704-2-phasta@kernel.org/
-
-Gary Guo (1):
-  samples: rust: Add JobQueue Tester
-
-Philipp Stanner (7):
-  rust: DmaFence: Implement Deref for FenceContext
-  rust: DmaFence: Add ID accessor for fctx
-  rust: DmaFence: Don't drop on signal
-  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
-  rust: DmaFence: Replace is_signaled() with status()
-  rust: DmaFence: Tell results in signaling callbacks
-  rust: drm: Add JobQueue
-
- rust/helpers/dma_fence.c             |   4 +-
- rust/kernel/dma_buf/dma_fence.rs     | 225 ++++----
- rust/kernel/dma_buf/mod.rs           |   3 +-
- rust/kernel/drm/job_queue.rs         | 826 +++++++++++++++++++++++++++
- rust/kernel/drm/mod.rs               |   4 +
- samples/rust/Kconfig                 |  11 +
- samples/rust/Makefile                |   1 +
- samples/rust/rust_jobqueue_tester.rs | 242 ++++++++
- 8 files changed, 1195 insertions(+), 121 deletions(-)
- create mode 100644 rust/kernel/drm/job_queue.rs
- create mode 100644 samples/rust/rust_jobqueue_tester.rs
-
--- 
-2.56.0
+diff --git a/net/Makefile b/net/Makefile
+index 5b2dd7f07a85..f543097c89b9 100644
+--- a/net/Makefile
++++ b/net/Makefile
+@@ -30,7 +30,7 @@ obj-$(CONFIG_LAPB)		+= lapb/
+ obj-$(CONFIG_CAN)		+= can/
+ obj-$(CONFIG_BT)		+= bluetooth/
+ obj-$(CONFIG_SUNRPC)		+= sunrpc/
+-obj-$(CONFIG_AF_RXRPC)		+= rxrpc/
++obj-$(CONFIG_RXRPC_KEYS)	+= rxrpc/
+ obj-$(CONFIG_AF_KCM)		+= kcm/
+ obj-$(CONFIG_STREAM_PARSER)	+= strparser/
+ obj-$(CONFIG_ATM)		+= atm/
+diff --git a/net/rxrpc/Kconfig b/net/rxrpc/Kconfig
+index 2cebb666dc07..ffd42d71f85a 100644
+--- a/net/rxrpc/Kconfig
++++ b/net/rxrpc/Kconfig
+@@ -3,6 +3,14 @@
+ # RxRPC session sockets
+ #
+ 
++config RXRPC_KEYS
++	tristate "RxRPC key types"
++	select CRYPTO
++	select CRYPTO_LIB_DES if RXKAD
++	select KEYS
++	help
++	  Say Y or M here to include support for rxrpc and rxrpc_s key types.
++
+ config AF_RXRPC
+ 	tristate "RxRPC session sockets"
+ 	depends on INET
+@@ -10,6 +18,7 @@ config AF_RXRPC
+ 	select CRYPTO_LIB_DES if RXKAD
+ 	select KEYS
+ 	select NET_UDP_TUNNEL
++	select RXRPC_KEYS
+ 	help
+ 	  Say Y or M here to include support for RxRPC session sockets (just
+ 	  the transport part, not the presentation part: (un)marshalling is
+diff --git a/net/rxrpc/Makefile b/net/rxrpc/Makefile
+index f994f9f30a29..196e0ce085ba 100644
+--- a/net/rxrpc/Makefile
++++ b/net/rxrpc/Makefile
+@@ -3,6 +3,7 @@
+ # Makefile for Linux kernel RxRPC
+ #
+ 
++obj-$(CONFIG_RXRPC_KEYS) += rxrpc_keys.o
+ obj-$(CONFIG_AF_RXRPC) += rxrpc.o
+ 
+ rxrpc-y := \
+@@ -19,7 +20,6 @@ rxrpc-y := \
+ 	input_rack.o \
+ 	insecure.o \
+ 	io_thread.o \
+-	key.o \
+ 	local_event.o \
+ 	local_object.o \
+ 	misc.o \
+@@ -32,7 +32,6 @@ rxrpc-y := \
+ 	rtt.o \
+ 	security.o \
+ 	sendmsg.o \
+-	server_key.o \
+ 	skbuff.o \
+ 	txbuf.o \
+ 	utils.o
+@@ -45,5 +44,9 @@ rxrpc-$(CONFIG_RXGK) += \
+ 	rxgk_app.o \
+ 	rxgk_kdf.o
+ 
++rxrpc_keys-y := \
++	key.o \
++	server_key.o
++
+ obj-$(CONFIG_RXPERF) += rxperf.o
+ obj-$(CONFIG_KUNIT) += tests/
+diff --git a/net/rxrpc/key.c b/net/rxrpc/key.c
+index cbd26da44951..c353a4304788 100644
+--- a/net/rxrpc/key.c
++++ b/net/rxrpc/key.c
+@@ -893,3 +893,39 @@ static long rxrpc_read(const struct key *key,
+ 	_leave(" = %zu", size);
+ 	return size;
+ }
++
++/*
++ * initialise and register the RxRPC protocol
++ */
++static int __init rxrpc_keys_init(void)
++{
++	int ret;
++
++	ret = register_key_type(&key_type_rxrpc);
++	if (ret < 0) {
++		pr_crit("Cannot register client key type\n");
++		goto error_key_type;
++	}
++
++	ret = register_key_type(&key_type_rxrpc_s);
++	if (ret < 0) {
++		pr_crit("Cannot register server key type\n");
++		goto error_key_type_s;
++	}
++
++	return 0;
++
++error_key_type_s:
++	unregister_key_type(&key_type_rxrpc);
++error_key_type:
++	return ret;
++}
++
++static void __exit rxrpc_keys_exit(void)
++{
++	unregister_key_type(&key_type_rxrpc_s);
++	unregister_key_type(&key_type_rxrpc);
++}
++
++module_init(rxrpc_keys_init);
++module_exit(rxrpc_keys_exit);
+diff --git a/net/rxrpc/server_key.c b/net/rxrpc/server_key.c
+index 3efe104b1930..b5e60a3364ad 100644
+--- a/net/rxrpc/server_key.c
++++ b/net/rxrpc/server_key.c
+@@ -42,6 +42,7 @@ struct key_type key_type_rxrpc_s = {
+ 	.destroy	= rxrpc_destroy_s,
+ 	.describe	= rxrpc_describe_s,
+ };
++EXPORT_SYMBOL(key_type_rxrpc_s);
+ 
+ /*
+  * Vet the description for an RxRPC server key.
 
