@@ -1,53 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672864;
-	b=q61xQpTV+WZdLP3GfcBkbOvQi6By5KjS8zyT2WzIfx4B7j+a1ju/g0YYrvikiSFoi8yl
-	 v594HcDaDelRXv/xmfj1nLNUpbY2vTeSjUmApXCgk0oxc4Kx1wpyQ3WikC0yA+wwAAEEm
-	 yklaAEczBbfTX8eXwydxlIKN1Hh1CpB9KX4/OhScvHfgPDbzhtYWFBNoYrl1nqA489Gkd
-	 jk7UDCgOjujDJ5kMfbhCL2x/VIYART4W84yn4emaWJf3bGPfm0CE/kOGbvRaxOi5nJ+2l
-	 UqDR76ufhkSn4IaKuEeYvdXf5wtCpEvZL81g6ztwrJ72CmBXQYAeAOJlz3HoLnAUuhA==
+	t=1793672865;
+	b=lniYRzdxhrk01uKG7YJHwnYL+GAMR+XHTC+65GAnYdmCzNWj/KzZBg8s4UdQ+ppslRVo
+	 P+H6UI8VqdqvyKk+vD1k5FJmUPjsHEpMtIeYoCQblRdRUcJ2r5+nRU/RRkC9W7JWOstgi
+	 4+QNKEE6nnINR6wz1AJuQ6sesuqiGIWvvsHmkLOK3PRC0hwj+KeZFp64oXzymlJ1YSsfW
+	 oeod8CH7+kViZkq/cMGsj3nImtW1y9Um1O5k3kve6ujr9ODFMtXje/Db9cmh8Dp08fnXK
+	 d1YRWIg2B4IZNJgo/kLC7v8MGVa2c4mr6WkaS9D9JovQZ8wmczQCGvCN9B2NLe8psiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672864;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=jwmw9ePHObCEAc7+hakbNtWfd2LgIPfpKlFzZDtHoSw=;
-	b=ImfdgzYb0bo0+fRgNcZSAsUnMUDKlvjCy6V7zNeNtoDQx+JaGG8HJFDAp61+Xx1QgWiS
-	 Lljxh7c595bgKUUOQhO5AvSeIV8QxOulseGVm9VOlymaysSHg0FukOIWpElyurhajesmD
-	 ZsKLWupwUiW5rM0/KIkLcKpZwA9QuerP4dGuy8lNhSwZvX+U4bKz4C+mpZGyEILWGXTDg
-	 v3ZODtwuB1BfEOFyWQuco226/jF3yy6+zt2y/E/soE9/dR5WFa2v1EDvMwn7zGASDnjR9
-	 dmVsy8Ak+pRz1eFn3yTBqmfQJglgNxPjRacElvAkctx7hnDvzTQZr/7nPpx7EHOxi5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672865;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=p8Gfu7m3jVEYukKEc7L9eAr2IwmBTUG/Vj2feSFNAgQ=;
+	b=kQag7B4jucYOzvWnf7NhgaQUj2v4b/NljQaDVPU4YfjDGWGsfelPuCnxdB9fprbbud2n
+	 p2GdbaHWY9LparFhrPxitnw03e1qZz3x2bdz3KG2xvglLAK6mctiW2lzGEhmMPPtzcI2X
+	 EbmUhtzg3j0ElN66I8bsLSGgAfnLUx6wg+1/UZSfGD9trN+9OTbU5AOA/1vpZ/NmMqaKE
+	 hF2dtSmmA6X+9viXnjQDV/eFSydmEBH7MYL/CNMQeE19lC0fMKSecksT9LHV9+h15W7Zh
+	 xHD7m2S8Q1aEKKTQdppZH6xFHaxDU0c4KVSNzipGuSAkRAz/4krDZDyrc/OeE/PZQsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C6736606A324;
-	Tue,  3 Nov 2026 02:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6736606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxpvCcRulqes8bAA--.15231S3;
-	Tue, 03 Nov 2026 10:27:40 +0800 (CST)
-Received: from [127.0.0.1] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAxX8+bRulqcQsyAA--.37690S2;
-	Tue, 03 Nov 2026 10:27:40 +0800 (CST)
-Subject: Re: [PATCH v1 2/2] LoongArch: BPF: Use beqz and bnez instructions for
- trampoline
-To: bot+bpf-ci@kernel.org, chenhuacai@kernel.org, hengqi.chen@gmail.com
-Cc: loongarch@lists.linux.dev, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, ast@kernel.org, andrii@kernel.org,
- daniel@iogearbox.net, martin.lau@kernel.org, eddyz87@gmail.com,
- yonghong.song@linux.dev, mason@kernel.org, ihor.solodrai@linux.dev
-References: <20261102072808.23080-3-yangtiezhu@loongson.cn>
- <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <1276eb14-b851-aee7-36ad-d61e2ddd9ba4@loongson.cn>
-Date: Tue, 3 Nov 2026 10:27:39 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYM5HwkO;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89936606A326;
+	Tue,  3 Nov 2026 02:27:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89936606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYM5HwkO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793672865; x=1825208865;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SQ13tx7di0W4Idm6/YUJIKkQi+15W7dpYhnzBWHKOWI=;
+  b=mYM5HwkOc7RHzxxnLFvHQhF+C9ElHspd0118ZK1wVzEQ57tlymTWEHQg
+   rht3+j4AEgsk76zaVfxZa6yF70IzOtScZvJ9XjlXOmN+Eh2qed/d9gvY2
+   UUHmGlxpQUpGpEWwTbj5BJf2gOrojcW0JNfmfnQfLk8PvnWbrhRH88y1G
+   8SPLCL2tifLsYvQtzzz0JPWjo5DXmU5+ZVA/3CBsp/l4uZwsmdlHHSSmm
+   neNvnzMUD7wCVD5lgXte+17I+XprzXJiqEPMhgt3/JS2FYc5E1mZ0dyvj
+   9jvogl3xKU7QY+0S8g1qlta+2SjA/rUFWoVV3WfAqC7G5YATgtw3F3Xof
+   w==;
+X-CSE-ConnectionGUID: xNn0LjLARQWqyf+WBuj8nw==
+X-CSE-MsgGUID: dnlMqDAGRWGRCIgDz44CLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2263874"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2263874"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:27:44 -0800
+X-CSE-ConnectionGUID: GsbJAB9mQJKdODKnrSQSEQ==
+X-CSE-MsgGUID: 0UF13+5WQHGVAcq4ug7Gcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6380580"
+Received: from emr-371.sh.intel.com ([10.112.106.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:27:39 -0800
+From: Baoli Zhang <baoli.zhang@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baoli Zhang <baoli.zhang@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: SOF: ipc4-topology: Fix pin format leak in process widget setup
+Date: Tue,  3 Nov 2026 10:17:10 +0800
+Message-ID: <20261103021710.3647599-1-baoli.zhang@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,46 +90,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxX8+bRulqcQsyAA--.37690S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoWruFyxtFW7GF1UXFWUCw15trc_yoWxtwb_Gw
-	1UXFn7A3yUJF93KFs2gFs3Zrs7tF43Zr4rAryxZrWjqry7GrWkWF98JFyYva15WF93Ars8
-	Zws8uw4furnxZosvyTuYvTs0mTUanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbDAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8
-	JVW8Jr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
-	x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
-	McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7
-	I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF
-	x2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r
-	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
-	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
-	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jz-eOUUUUU=
 
-On 2026/11/2 下午3:53, bot+bpf-ci@kernel.org wrote:
->> LoongArch: BPF: Use beqz and bnez instructions for trampoline
-> 
-> TL;DR: Commit message only: the claimed branch-overflow risk looks impossible,
-> since trampolines fit in one page and the old code behaved identically, so the
-> Fixes: and Cc: stable tags may not be justified.
+sof_ipc4_widget_setup_comp_process() allocates the input and output pin
+format arrays via sof_ipc4_get_audio_fmt(). When the following
+sof_ipc4_widget_setup_msg() fails, e.g. because the firmware does not
+provide a module matching the widget UUID, the error path jumps to the
+'err' label, which frees the process struct and clears swidget->private
+but skips sof_ipc4_free_audio_fmt(). The arrays are then unreachable and
+are reported by kmemleak:
 
-...
+    sof_ipc4_get_audio_fmt+0xc9/0x420 [snd_sof]
+    sof_ipc4_widget_setup_comp_process+0x8e/0x200 [snd_sof]
+    snd_sof_load_topology+0x71a/0x840 [snd_sof]
+    sof_pcm_probe+0x77/0x120 [snd_sof]
+    snd_soc_component_probe+0x21/0x60 [snd_soc_core]
+    ...
 
-> Could the changelog drop the overflow-risk wording, or describe the change
-> as a cleanup, and could the Fixes: and Cc: stable tags be reconsidered given
-> that stable-kernel-rules requires a fix for a real bug?
+Jump to 'free_available_fmt' instead, as the other process widget error
+paths after sof_ipc4_get_audio_fmt() already do.
 
-Will update the commit message and remove the 'Fixes' and 'Cc: stable'
-tags. If no more comments, I will send out v2 next week.
+The other IPC4 widget setup functions (pga, mixer, src, asrc) free the
+audio formats in their common error label and are not affected.
 
-Thanks,
-Tiezhu
+Fixes: f9efae954905 ("ASoC: SOF: ipc4-topology: Add support for base config extension")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
+---
+ sound/soc/sof/ipc4-topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 8b13c97b34804..de03dc58021a1 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1313,7 +1313,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
+ 
+ 	ret = sof_ipc4_widget_setup_msg(swidget, &process->msg);
+ 	if (ret)
+-		goto err;
++		goto free_available_fmt;
+ 
+ 	/* parse process init module payload config type from module info */
+ 	fw_module = swidget->module_info;
+-- 
+2.43.0
 
