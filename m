@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698804;
-	b=v6iufagG4esRZSvJLY6jJRDxSAdYW2zfP83m4/0B+RXYT9ActmedPGbbvDaEpFSetBUV
-	 JqHBP9jyMJ8vIvfP14Dp1U0MmOB7/MLLqzuFq0w1x09TgXoscWrC4RjSgz8kJ694ZubW8
-	 ftfZx/p4AG0RMtCXiq4ZjosivnQ6iHRk9Mvy+tBkkVBRc7+ktEoVNnxp27ufZnnY6EvoO
-	 hhuVv5Hd7xB0xMx3KLR4Ca1ZbPobJs/t1zAsKe+pWdnYJueK9D7PHzYcOTmNh2Wn5l2ZI
-	 +n4J++Izswcy98Vbr7KHhMw/uv3Jd60rejn7e6fgVAbrbUkYo0JMMM3WyWNL1J4s+nA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698804;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=SxWl47Zl4zSv6hrWucnwr8CzOQ1TbBYqBciLqiXEt4I=;
-	b=hy5sxzT2GVW6NeR8+nz8LIcQ9KKfwvEgO7kJTAd7vqKMQf/MJEjsxa4fz9tk0OOy4cj3
-	 a5aMoO1pfhCv9dTPVRZYpjHseDm0s53FS/ClSj9JUZzeAYcmz5XoP2Uc7ox/mhZkrC3/e
-	 xcK7iIRwWIHJdVEuA2GGuBrz7WRzlWjMbygy8yjdER2w3ipOo3sXnoy25Apr5bMb0mhxI
-	 D5wpIErqHQm08GQ/nfl4UHymsoiel9uObrJ9ME9T0ncS/m9VgH8sBVUFy3hSN/ZaylCJQ
-	 OFS9v+Q0SJcLaURLHfqSfX+5kt08SnUROgfxQLzDARZ+XKZe/RguFTf775Tz1x8ZQCA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0x3VAey;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793698820;
+	b=StOh/tR1DikfJsbfwPpx6JouS/saCL9dLFvifDUxN2Rgr3XD2dPb2JTCk213lWLhSt9V
+	 SQT/o9KxvHJn5K60GbNckMgXGpbDsXWl1PzEOaTrLqwQlmq5q+uPaf+gDdL6Dd/wbYmKO
+	 T45MqPDi4qKdZSqmkTls5nf77Fnxeb4pklFJD2iP4imtzz6jsQPTk2OnlS1wFO8jI6Wrx
+	 hchnJcGdl+goC8ixr15nrrzKhYtP1sgFRz/I83avjXjSoEdhOlf1e+mL1/C543TELnJq1
+	 Lhdmajc5Cq+HdFZiiw16qGM16OtsEF4VPRAa5JgjKo3yVEbAuwUL32n2tMCxNlbcPNw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698820;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=SoUavllOOu5q4EGy2EwAVcdcsFqC0ZHBZHZDDMPy0Zw=;
+	b=YmTqBkChoAyPCbVVwB4Y06weH+WOGlvr/g+1avmywJSNAbz0OmNYOZgt40Q7/gCIgOzp
+	 4M8vbddsPO6oflZX5jpU+JrCemCKAcw1jusFKESTShE1NMhOSOAuFcJ00X9BU5Uh06lpo
+	 Wi5byWpg+VnbUic9xmEc5G+JpSEJmHkbyTGmI13iXCg5blsQSm0l2BZvLdQ6PcrtXU6n0
+	 dR0HWz5bVS/55iBnkBzDE/K6QHyIBW2CLNYEU6KozfXy6lQr4Iy1eHFCVEQq1ihzcHj0N
+	 62RvveYQJVQdu3MJv7MDyWpK2seVCXXL8cOHF/7k3JDzx4xnJDIkkXwZYShR3tE25/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Bcl4/e4p";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24898606D805;
-	Tue,  3 Nov 2026 09:40:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CFBE606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CFBE606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0x3VAey
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6C31F00919;
-	Tue,  3 Nov 2026 09:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698803;
-	bh=SxWl47Zl4zSv6hrWucnwr8CzOQ1TbBYqBciLqiXEt4I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j0x3VAeyyNguDXq1IJjZYYg+GvvhKVj3fvRwGxj6NTwPtHsudPFQGdx9DMI9DPGrX
-	 uQE4IvwwRe3RzpEqDw7Fp58QS753x14hObD8t/NZt/lRbtqtlw5ZGS79hajQgiTKUh
-	 FJ076WtpetDHuPyZV9LOX3ZWTyxX6e+iMe0Ezrfq2rmI+hD31h7S1BVUico0ReqK/C
-	 RTzGaXLXwsp4aZosxhCAe8vIokPCduI8XopjPm7Fu/JkYCQl9sype3mH1AfbPzZv5C
-	 PrD4/oIfUhW+KzmPH4rbhR9GGpL5NcwqlWT4DEZMJxUHchi/KYdtm50fakytqv1jUq
-	 y2JjFGnFB1Xiw==
-Subject: Re: [PATCH] net: ti: icssg-prueth: Fix device_node refcount leak in
- prueth_probe()
-From: netdev-bot+sashiko@kernel.org
-To: laixiangwu@cmss.chinamobile.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, danishanwar@ti.com, rogerq@kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 09:40:02 +0000
-Message-ID: <179369880262.488856.8946204452140783033@kernel.org>
-In-Reply-To: <20261030085651.1944-1-laixiangwu@cmss.chinamobile.com>
-References: <20261030085651.1944-1-laixiangwu@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bcl4/e4p
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-675617e81f9so3532173d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:40:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793698819; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TV7sMon2Q1AT6VyTz/Zzhv9IVLeieai5pBZo7NaPBkhXZziI8nvtEqCcTGk71zQzDj
+         3jMsBSFJoW5OhqasEHdAoM8wmFBitYEeOeVsgw3Rv2veETGT+lzSsns9EMv4K8v/7TR5
+         g18bKxGi7p4bm+sLmtiW08gi/WS2p4i8ZzUFVjmgmO+Wj2CjD16fBVCSOokyHuBsw7n1
+         Nb1rqh00zu9QLrAoCBaABlAAEaf6DQBCPDV08zivzW/22/lJmSV0lmQkeFiKsbjaifXe
+         N+tVWOn5gv5LjFqWNZVKECSI7qvQAHZux4DX3kY2X8swzlnJTKn3frohHZjHNO0PIFR/
+         JkkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SoUavllOOu5q4EGy2EwAVcdcsFqC0ZHBZHZDDMPy0Zw=;
+        fh=Cd5lEnIooXlDPdPP09hbUZrBmZqsqsMIDIC/nJxSRlQ=;
+        b=sV00qBmLMP4Dgex+pQWCqyxskbbDG2DsGcyFz5sU24f69WY4rtb+tmsJCzNZGlB83A
+         QLcx6rftFx4Gn1w09dkG3P2Weugcs6wqw2VKvyd3ttkZ04bcZxKAFrgO+6zvf8fRm2rK
+         rv6pQRmX1BVDYaghblZkWPFJhYxMeJQnpC7Rt37Xo01EYlRAwJmtvxdtD8IpyX73vAWQ
+         Q+EwtPHpQHFhMejesnxf38nLQcvEKNU+be5aJIqyihorB8ivWA06X9GLJJwqq4xIRDnv
+         50oNMM3mKGoQEPN8P4PTiFOWwX2MjTkG4fdYE5aRS5V85w3GoySGVC6eXLi3oLjq7c/s
+         cILw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793698819; x=1794303619; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SoUavllOOu5q4EGy2EwAVcdcsFqC0ZHBZHZDDMPy0Zw=;
+        b=Bcl4/e4pfJXk8T9seSrGkQ+IYi6EBAg3ylBUFruPMYAw5c9nFuNnEbEGQlFGJI1JqH
+         4avjO4kIySvU6oj/20gAYXq4+NNeI1wJaaFypgan/bd25u8r90C//Aiww77pBDmbjqDy
+         n0k58ogdSg4POJYyNsKbUuAJtT5riXJMTkbflJ52gXwv/FfV5XXyuIejDTRVpsof4QnQ
+         WLzD+IS4ax4yk27LJ4/swgyk3GOHNDslT6a7g7ZEUmNPt8SssRYP+Q0GaX37f6cMhxjc
+         gHxNWh1/0AGdfZAefBbw+gCF612G5uyJ69FtxRirb1NICz9AbqIz1+bfn3PLHukeTxcU
+         Dd1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793698819; x=1794303619;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SoUavllOOu5q4EGy2EwAVcdcsFqC0ZHBZHZDDMPy0Zw=;
+        b=KYQaTQqkw/S6zGxp+Srluv++TYVRn4AvGYrYfcsOvjhT2lbHH0FlsZvge70/WZznJ5
+         H42O/yFE7uQx3uE+1u9Yd4Ru3chBdIEZOY72e+8ZRIBmaSLSwMdI9hfb8NBA3m3s9HMG
+         m+EItlieoOvjO85AWKSOzv+MD5t/Xw/wGpnVt05Q+oImYbRtP58YNdqGWnRDKtWzF2c+
+         8Di+Z4Gro+PwnffD0lHPK/mCeQoAGhPQstNe5O63yxmhVC+98GhfnU8ViuJnVcnAWflA
+         DxsVPH6Y3UqbiPwRzXFi+ha8IsXJPsF3eHo48ybgM0DbRLUcnCF2KuF1GxAloOQ5nG6f
+         6MlA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/4zXr1XZAOrwN4wDS8olzhU5LwnTo7MppdFpr3k9NkX0AswjXwp6IW1I8U7qm0qEWMdCX1/Y4qcFjyjI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lFoRod/NhYD5G7wyZZiwSn7oBawAi9mmWyqtHsi6djOOkVPzF
+	0v0HfmhMGWlpxEYwHtTiOnMze4cMiXTGkGHWE/4S2KVwiMxjsikftZXndnC9e2TJBmo9Tg88RLM
+	5iGdC2HrAm+J77L6u7DcC2cGaNPgaYA==
+X-Gm-Gg: AYBFou0Jlqa0b1lBhbiTvqHkH5JNOCXjGVaDE0oY95HwXuLd5oIBPc3y+U8VECxjd2v
+	L19mRSVrL8IplUMFBLm0fJQE9BS/rXV9nLIbvLRlNSLMpuj413oDf0zIOhLwvl3PXIBBgV3AH/v
+	8geta3dMRsVEOSdWs1zLOm5mwUQdf74IDwK6vaB1OggC6xbEt09nb014DS5deCZG7edrZn27qn6
+	WdoRAjq67OpPqP1X0d7e4JsUIoAEFt1vdJ5yVvODPJzkg/WzFYZ2LsE/JJMLsaSrb1NKJaYOhP1
+	ASnR++lqRl/MSc4rjiTBbgmPW7eaOMMoncW29F3x4llnfYk12FpvlYHCEW1Qbr3ePLCJqQeS4Ng
+	I61mpyyYRWcLz2N+IgUkxXJv4b9ba11y8D4VCT4LhJM5MDDQCZQ7Ea5JPxm2N9rJefpPNOTTr6A
+	Coii+zblDnEZmA6xY=
+X-Received: by 2002:a05:690e:80c:20b0:671:3c9c:e5ad with SMTP id
+ 956f58d0204a3-67ba4f070c8mr5998587d50.49.1793698819403; Tue, 03 Nov 2026
+ 01:40:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,188 +104,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261103-a100-thermal-trips-v1-1-73bce7ff0767@gmail.com>
+In-Reply-To: <20261103-a100-thermal-trips-v1-1-73bce7ff0767@gmail.com>
+From: Rajan Yadav <rajanyadav0307@gmail.com>
+Date: Tue, 3 Nov 2026 03:40:07 -0600
+X-Gm-Features: AclHuK-4a97yVJVbkGNNnQIL8viqTEZhruO_MoVfFcSl06giv7eYpRWt0lOZS3E
+Message-ID: <CANxy8yTAJ=9AwD=s_oVpvnoQWiip2NDecscAJmccRRZ8bCfzww@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: allwinner: a100: Add CPU thermal trips and
+ cooling maps
+To: rajanyadav0307@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+For transparency, per Documentation/process/generated-content.rst:this
+patch and its changelog were prepared with help from an AI coding
+assistant (Claude), which drafted them from my instructions and helped
+run the tests. I reviewed every line, checked the values against the
+Allwinner BSP and the A133 datasheet, tested it on my board, and take
+full responsibility for it. Happy to answer any questions.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The SR1.0 sibling driver keeps the same device_node refcount
-  leak, and this patch does not touch it.
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the port-
-  node loop in prueth_probe()…
-- [Low] This problem wasn't introduced by this patch, but the DT binding
-  and the driver disagree on whether "ti,mii-rt" is required.
-
---
-
-net: ti: icssg-prueth: Fix device_node refcount leak in prueth_probe()
-
-In icssg_prueth.c, prueth_probe() returned directly with -ENODEV when the
-ti,mii-g-rt or ti,mii-rt syscon lookup failed. This patch changes both
-returns to goto put_cores, so the eth0_node/eth1_node references are
-dropped on those error paths.
-
-> diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.c b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-> index 591be5c8056b4..9b971d1dfd8cf 100644
-> --- a/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-> +++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-> @@ -2258,13 +2258,15 @@ static int prueth_probe(struct platform_device *pdev)
->  	prueth->miig_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-g-rt");
->  	if (IS_ERR(prueth->miig_rt)) {
->  		dev_err(dev, "couldn't get ti,mii-g-rt syscon regmap\n");
-> -		return -ENODEV;
-> +		ret = -ENODEV;
-> +		goto put_cores;
->  	}
-
-[Severity: Medium]
-The subject says this fixes the device_node refcount leak in
-prueth_probe(). Does the SR1.0 variant of the driver still have the same
-leak?
-
-drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c has its own
-prueth_probe(). Its port loop takes the same of_node_get() references on
-eth0_node/eth1_node, and it still returns directly here:
-
-drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c:prueth_probe() {
-    ...
-	prueth->miig_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-g-rt");
-	if (IS_ERR(prueth->miig_rt)) {
-		dev_err(dev, "couldn't get ti,mii-g-rt syscon regmap\n");
-		return -ENODEV;
-	}
-
-	prueth->mii_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-rt");
-	if (IS_ERR(prueth->mii_rt)) {
-		dev_err(dev, "couldn't get ti,mii-rt syscon regmap\n");
-		return -ENODEV;
-	}
-    ...
-}
-
-That file already has a put_cores label that calls of_node_put() on both
-nodes. prueth_put_cores() checks each pru/rtu/txpru pointer for NULL, and
-at this point those pointers are still zero from devm_kzalloc(). So the
-same "ret = -ENODEV; goto put_cores;" change looks like it would work
-there too.
-
-CONFIG_TI_ICSSG_PRUETH_SR1 builds the SR1 driver, and in-tree DTs use it,
-for example k3-am65-iot2050-common-pg1.dtsi with compatible
-"ti,am654-sr1-icssg-prueth".
-
-Should the SR1 driver get the same fix, perhaps as a companion patch with
-its own Fixes: tag?
-
->  
->  	prueth->mii_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-rt");
->  	if (IS_ERR(prueth->mii_rt)) {
->  		dev_err(dev, "couldn't get ti,mii-rt syscon regmap\n");
-> -		return -ENODEV;
-> +		ret = -ENODEV;
-> +		goto put_cores;
->  	}
-
-[Severity: Low]
-This is a pre-existing issue and was not introduced by this patch. The
-driver treats ti,mii-rt as mandatory here, but the DT binding does not.
-
-In Documentation/devicetree/bindings/net/ti,icssg-prueth.yaml, ti,mii-rt
-is only listed under properties. The top-level required list has
-ti,mii-g-rt but not ti,mii-rt:
-
-required:
-  - compatible
-  - sram
-  - dmas
-  - dma-names
-  - ethernet-ports
-  - ti,mii-g-rt
-  - interrupts
-  - interrupt-names
-
-The binding's example node sets ti,mii-g-rt, ti,pa-stats and ti,iep, but
-not ti,mii-rt. A DT written from that example would pass schema
-validation and then fail here with "couldn't get ti,mii-rt syscon
-regmap".
-
-All in-tree users (k3-am642-*, k3-am654-*, k3-am65-iot2050-common.dtsi)
-provide ti,mii-rt, so in-tree boards are not affected.
-
-Should ti,mii-rt be added to the binding's required list and to its
-example?
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. While
-looking at the eth0_node/eth1_node references, the port loop earlier in
-prueth_probe() also seems to have a few related problems:
-
-drivers/net/ethernet/ti/icssg/icssg_prueth.c:prueth_probe() {
-    ...
-	for_each_child_of_node(eth_ports_node, eth_node) {
-		u32 reg;
-
-		if (strcmp(eth_node->name, "port"))
-			continue;
-		ret = of_property_read_u32(eth_node, "reg", &reg);
-		if (ret < 0) {
-			dev_err(dev, "%pOF error reading port_id %d\n",
-				eth_node, ret);
-		}
-
-		of_node_get(eth_node);
-
-		if (reg == 0) {
-			eth0_node = eth_node;
-			...
-		} else if (reg == 1) {
-			eth1_node = eth_node;
-			...
-		} else {
-			dev_err(dev, "port reg should be 0 or 1\n");
-		}
-	}
-    ...
-}
-
-When of_property_read_u32() fails, the code only logs the error and
-keeps going. Can the reg == 0 and reg == 1 checks then read an
-uninitialized reg?
-
-In the else branch, is the reference taken by of_node_get(eth_node) ever
-dropped?
-
-If two available port nodes both have reg = <0> (or both have <1>), the
-second assignment to eth0_node (or eth1_node) overwrites the first. Does
-the first node's reference leak in that case?
-
-Related to that, can this check ever fire?
-
-	if (eth0_node == eth1_node) {
-		dev_err(dev, "port0 and port1 can't have same reg\n");
-		of_node_put(eth0_node);
-		return -ENODEV;
-	}
-
-Each iteration stores a different node into at most one slot. The two
-pointers can only be equal when both are NULL, and the earlier
-!eth0_node && !eth1_node check already returns in that case. So a DT with
-duplicate reg values would probe successfully instead of failing.
-
-The SR1 copy of this loop in icssg_prueth_sr1.c has the same pattern.
-
->  
->  	prueth->pa_stats = syscon_regmap_lookup_by_phandle(np, "ti,pa-stats");
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030085651.1944-1-laixiangwu%40cmss.chinamobile.com
+Rajan
