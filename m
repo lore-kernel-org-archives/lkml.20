@@ -1,104 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793677597;
-	b=igmRZZ2JvgSPtM/3tqZe5YPm5lEwsSPbxPPUE23M116HuWGUiCsNAIBE8ZNj3kS8QYXu
-	 w+dOdCRvRKDeTuFvnd/pqOEY2OLZfv6iE91ycpgKTR/fP+qtHFUZ4aBUEeumpshKnThVg
-	 FJSUMpziveVc3n1wWb7MTIlxfxEAMLNZElSi/IuMJtG8/Vs0LIUeXLGOiUjIt2h1ro5dr
-	 XsY4zdSwjqhno9NWdHjLhKYNHHkWbYyw5526AMUDJKeSB9sPTVmkkMP+MB6r5xkJE2MTu
-	 3FjZphkD6olHPgSr+unBDaoKwZ4zGVdGsvU+aeQWJfznyYMbCVFFKFG/1TzQ/hQ31zg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793677597;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Pyxe9BJ4trPYIv57AxgZqUysPagmUKFnFPYKXnN+IKI=;
-	b=SgfHSfrhGmwHkUPLgVQtR8LJpEFIvfIKndGj0WmynLxCdJxKx0y8vPVK+F/DyLWc1exw
-	 18FmICL7+944W78UhxmqrgumO1fLc6C00X+zfQGj9Sn90GmDGmJQypBM5aO7+qBZQrVcO
-	 xVSR/O3Xm6oIC9QM/AmjJ9GX02fnN3tu8+fthMcT0m2r5WuIkb4blBn1G3yxlB/cx8tZF
-	 exfAX7lUKX7jqYyJ0WAQqq1Kpubilh60+jt6pS8lnD3+lVctDYSZ7fUQJn/RDnVyEJVxm
-	 4PENpmadzKpBbftctzYvnhQNJGFOhBzdDGjPTdcPLbPZvx+WvgE3o2YqAhD/Z+djUfg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IJ2eXeYY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.9
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012009.outbound.protection.outlook.com [52.101.48.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793677628;
+	b=Q0hVUafXDkCE0LIVSrf5NqYf32pMk5jk+9blVuopPxGp7AgVff7CW0oPJssbFvr2erIi
+	 Sz9aF6PO9yruDSInlwWVbHvotAczo0evR+aVHcv2GiJZJX6uBVR1xq2PkiGBDDoklsUB0
+	 vhXxqueAOunoReECvr7ufIxqyRiQ5/rlTcGo308BMgNJZgTgMF2xQzIshY1TZavOsgdMS
+	 eZIsebiMFFSMbF4wiilxa3N84zxjNYUX1fQgfUjHaeQGtiMt9uU0CQykG/BE7gYkKHgKZ
+	 as3J+CTP6BlpNE/hn+VQ9SGepDh1g40BgBerctdg7xphn3JiWfOAnMn4+RR4u+tHRag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793677628;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=maHIkboEgnzx/EAsKH1mh6xQ0d4cEjjdI99L5Mt/MBo=;
+	b=FxVoqrbohyBBNJsPgT93ucuJtNrfi6eYiQ3uppEM205h+bZUfP9ogt5Vi0xdO1YvyHhE
+	 e4hZMbm4nUKxel1ubhvPxm1mlXgxg7CgLy2nEUsc1Gel3rPp6dKhXqJOpy5PR1EY38GnJ
+	 PZ5z6K4K6y71Bdzsu13vz8PcpOqq91FktHKSP+PqtBRFOLgDf/TbyqiOnBLURA0yNI6ZY
+	 FE8cPrY8/JkAntL/zWQx17bH7R1hVp1aXsIfedn+lo7IaHKKh8AK8oerS1+dQ2cj+12IK
+	 21Xt3dtFdAu2Noy2Wbrl9SykVrS1EdmqAH953dV6NuUbvuI2VdEc0PPB4vP5vv5h/Nw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdNQrCn9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE60C606A329;
-	Tue,  3 Nov 2026 03:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE60C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D47F606A324;
+	Tue,  3 Nov 2026 03:47:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IJ2eXeYY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wYkRkuH6U6yB6e2FFfx8BDCErhmWn3S/HwbFDP/oAkWt2itlCGlZo5PVRsy2jDibodC3pmgd0vkJLWtFQzSO8XNGc34kdJ+RFU/8dEDqju3Wm5LiLS0kt3HHl0oe1KPWwniuIgXjzuYkpJAIEm7qnSCR4Y8HmOAUD3RnMJOxFXhznvVkZWsAEwQa9scWRt4S87jYxcPZYqhTrVPyhje0aGkc4Kc1LoVQYYD8UIGCKWzJ9k9IbO3xEMPDTeN2fFdcqlNI/yY4DEdG2M3IJv3QkjjWOtGmkuWrOWXF+whDN4phY0VcsxJc03z2X+423evwbSzDSUrK6+lXCoGz0g6c2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pyxe9BJ4trPYIv57AxgZqUysPagmUKFnFPYKXnN+IKI=;
- b=fIfZllZZRBmt4HHJ6pgD3Fs3joiAg0il5RAAMesjjSFbopWanxSSE+UcfPrs7bN9m3kNT9/hZ7IhkxIg5nZJUfD62HK25OyhSosJicrRJ8jN901+yJQDHXQrZrK79sXNBGcM4z5Al7wULGaXfNkdHKiYWh/QcljMsSaN2PGScwn+wgL26SSTEl4UD0FsFo8BI/0KuPnSAFmlRsygzy0SwV3kD8mCUnM9hHls5xWR/P5FCVxRn3sX6CAc0yXk/L3j5jr19HjLzP0O2afN2MkVMhiDPEbm9fVHh7g5g4b4+hg2Dt8aSQBAPno5Z1YY+H7ROIj/QZkKD4cR6k5+iG/0eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pyxe9BJ4trPYIv57AxgZqUysPagmUKFnFPYKXnN+IKI=;
- b=IJ2eXeYYQTBeMRF9KmfPS7uadxDFyH2BDQUx1RwZdZ3AEYe0PzkOU726FvI8juIWKwMuIoORVYyD0YfStFZ2V+JJBVA3GIsRiGBk/u6kXFSAYPxqOX7AyvW5TvN70WS2I/CVG5QeCVd1BLwx+yCUSvFXEeVQFxIWKfYIx4qv8c8OQ+CG4aT1jyr0hTFAmPRGb+sNY+nHaORV5hdVMK/Eh/C3eNXTXyikCNFS0QYZPjQbuicbiS+KS7PaWjxCV8Sez3zONeLoJNQvU+u/9cA63GGcstCi7j44mwfH3PsVFXL7EQbQ/In3oTb9FKIdKWzjvFW2R/lxj2kSah5qcp4SOA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM4PR12MB5890.namprd12.prod.outlook.com (2603:10b6:8:66::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Tue, 3 Nov
- 2026 03:46:31 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 03:46:31 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 22:46:29 -0500
-Message-Id: <DML9N19HM19L.1PDQBUPSX3RQT@nvidia.com>
-Cc: <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>
-To: "Tal Zussman" <tz2294@columbia.edu>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
- "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
- <joshua.hahnjy@gmail.com>, "Byungchul Park" <byungchul@sk.com>, "Gregory
- Price" <gourry@gourry.net>, "Ying Huang" <ying.huang@linux.alibaba.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Jason Gunthorpe" <jgg@ziepe.ca>,
- "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu" <peterx@redhat.com>, "Hugh
- Dickins" <hughd@google.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH 7/8] mm: remove read_cache_page_gfp()
-X-Mailer: aerc 0.22.0
-References: <20261102-page-wrappers-v1-0-e7280bdb31f6@columbia.edu>
- <20261102-page-wrappers-v1-7-e7280bdb31f6@columbia.edu>
-In-Reply-To: <20261102-page-wrappers-v1-7-e7280bdb31f6@columbia.edu>
-X-ClientProxiedBy: BN0PR10CA0027.namprd10.prod.outlook.com
- (2603:10b6:408:143::28) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdNQrCn9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22A41F000C1;
+	Tue,  3 Nov 2026 03:47:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793677627;
+	bh=maHIkboEgnzx/EAsKH1mh6xQ0d4cEjjdI99L5Mt/MBo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SdNQrCn9rj2xTe8ObujI4uLByGhJrmcx0aejtqUovCDyVqWNzi3yTNxiFlG462FgN
+	 +ugeIwBiCi6XTMaKuUhNWjWk3kdYe65P+MEcyTHde937eYFBpP48KAPzX96thKdJh1
+	 LeEhnyT5pAHd5siZvnXI3T7R1ZnL1Pei7hNeqYHKJunqUYhgRTPIODdWMRBA/U6oPH
+	 x9PgyyvbS7UMMqxjfcWFxq+sIqImENi0R28UYK6ZrNwEK9cvOcgAD8Vg+tmmLfAwcM
+	 615Zd4g3MffRfexnyt1oflGhyRJOxikjAgoetIE3cwsO+aNVaZhSxLuY5n2Ila/+V5
+	 aU586KudvjBmw==
+Subject:
+ Re: [PATCH net] tcp: restore IPv6 af_ops on disconnect of a v4-mapped socket
+From: netdev-bot+sashiko@kernel.org
+To: zhiyuzhang999@gmail.com
+Cc: edumazet@kernel.org, kuniyu@google.com, ncardwell@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ lyutoon@gmail.com, tpluszz77@gmail.com
+Date: Tue, 03 Nov 2026 03:47:06 +0000
+Message-ID: <179367762613.488856.7087052675164086918@kernel.org>
+In-Reply-To: <20261030032314.1978575-1-zhiyuzhang999@gmail.com>
+References: <20261030032314.1978575-1-zhiyuzhang999@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,84 +65,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB5890:EE_
-X-MS-Office365-Filtering-Correlation-Id: 028be32c-986d-4f9b-26fa-08df395d0c66
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|261102123227099003|22082099003|921020|10067099003|4143699003|11063799006|261021121427099003|261021123027099003|261022075727099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	AORhaMLXjpWKlYEmd0U+iVMOqNuQsH2jZEuvzFIOiogiYQpmmdMXfyC61+1DBX4a0ookr85iEvUQNo6M8JrzJ89wUfHm8PkURwTuVc12K682aVgnQF2koiKbepIi8DBU04IE80jM+IvxHytT7xspUTd2fQbjXjvNMfA/DiEO5vEp1OdTPST8HwdRpSh91xbw4jA8X0vs1CWpT3xdXvCg5kIkIOIVoT5sGZY6QPP6ifnDG+iyOGtWR9O6/F/My5f5Rm/jeDnzooVdxt0LWFHvmWTxurDaSsUuO286HyeM8hSFMCb40MWe7bnh3MV1G4ksgojZ0UtxQN+wHRzKpJ/6Oq5MSGEgLiw+aishfyTw7bzdgyCAL4l/bZUncY69LeDMALezTgq2+X0C4SR8quVZ/f9zMg1xv+wGB6T1205qp2IoxHh+pi1Q1KlpjnEiWTcQn797N8n+HPCAsZhRhEsCyfy47Xr6ZNS5yduHKb8U2+2qUAhBfbu87YjgloiDsB87KnjiB0o5SjVmXYHQTQ1EoG5en00Ie+YvAi9c2BjctgSN0r/ZtAC4Hn/Syt+U0Oa8EmvaBZCE0D2o5ZL50+TNQwxL2oclEocYZtKE7/+Tb5B/MD2YaiuFu3uLYwj7CdjVmrXrH9LD5Kr58W7ptjLrqx8RV8GSXgjaLYZg7zLMP99coksTfPWZcBR4Tijle7VK/G3i/bBKI7b3FrKHpko04g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(261102123227099003)(22082099003)(921020)(10067099003)(4143699003)(11063799006)(261021121427099003)(261021123027099003)(261022075727099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Zm0zRVFwMDFZVDBZSDZER0M1STBRNE1BQXNnQkRrcmdSVUVMQjJmYkZrd0FP?=
- =?utf-8?B?d1o5QUFPUWo3VjBkMnI3d0l2SXRVem1LWGNZWHJUQkdNN2MxaEQ2MzQvQ3Fs?=
- =?utf-8?B?RVRvNlJYMHFHU0pFWnJna1U1Q3RVVk4wbmc1WjNmMFN6QVpTUE5vaXFNSW9n?=
- =?utf-8?B?d3AzdXV3cDUwSUZQVVU5Sk13SFFHZWxVMGV2eWkrMitUVzd5NmJVeUtIc2xL?=
- =?utf-8?B?WEFuVFNtWmFkS1VEYS82alByZWNhMElUVjFLMkRVdFYyN3p3aU1KQldvcEts?=
- =?utf-8?B?VHZyeTRGS2tZcUE3cmNxT2RmSlQrNHdFSWRzcGFpdkwxbWlGSGh0bXhtR2d1?=
- =?utf-8?B?S2Z4SVp0dzd6VjF1RFlha3psTXR3eVI4RThjSmZxZ2JmZmZ0czFvb2t4U0tO?=
- =?utf-8?B?K2ROQkNxc0lJYkxHK0VEOFFvV0NvYkZ6SUV3WVl3N2laYnNYV3pDQnI0UWJ0?=
- =?utf-8?B?Qi9LTEtsSFd2czVocnBPYzdsQWFQa1NuR2xpMDlpZ3ZLQ0ZXTGR3cDNwaW5J?=
- =?utf-8?B?WXhSKzY0b21WaTdyWC9STGxVWm9SbW03V2VXQ2N5TmdJcXp0RndxaE9MLzBH?=
- =?utf-8?B?YzVmd01JMHFJRHgrTEhka3FUWHlIZkJmZWpxN2w3M0ZUSCtmckMzK0Rra1Q3?=
- =?utf-8?B?WFowcWdNUllONFRhaEhYSTN2YkYraEVCb21CMnJnOUxDL2p6YlhJNzJXQ25F?=
- =?utf-8?B?enorSWxvb2tvaG8zaGdSWUVVWnBNVjUzWll1SUdQK1BpVGlMUU83SFNaZE1i?=
- =?utf-8?B?bE02TUFnT2dSeGd2YUxpdEtsei9aZ21RWlJPSGdHQVdXanpOdkt6VnlTUjBj?=
- =?utf-8?B?OFR3QmE2Sm9mSk9iTGRzVzF2YTNUTnArV0lIbXdFQkprbnJpVG94K3BPaHcr?=
- =?utf-8?B?VzlGaHdKTG5JZ3Z6MnNBYzM3cU5ZaFZLdzdnSTJveWFNM1hTSHJPeTk5Sml5?=
- =?utf-8?B?aFN5YXpSenR5ZzlZZlZzbmxNR3ZJSGk4YXIxbTBtRDBiWWVJQmJ6K0dnNndJ?=
- =?utf-8?B?OUZBdlZhUGlzVUVQdXNwRUQxUzBvazJYTHBsOHl2RHY1dW02ZTJ4dHQrdzAy?=
- =?utf-8?B?MTQ2d0FMMFBqc2luUkxyaGdIOFVwMEJlbzlWQmJaTVo3elE4ZW4wVXdHTTZ4?=
- =?utf-8?B?NUE0ampUUEwvVFliS041SWZKenQ3NGxwK0tEbnI2VXFTUTJDU05Ga0w3ckdO?=
- =?utf-8?B?UXYyQlJxTEdlMWlNaFNoUHlKZ2Q4MTE2VGh1NUNzRzgzVW1jcDltUXgybHB6?=
- =?utf-8?B?UjJ6UUFiQ2NFOGVLNXcrbkRrWW5zV1pZM2NwWDJZdWl5eTRzU0NMNHJmR2Zv?=
- =?utf-8?B?aWxQaXR4VGlYNHhXS0JrM3F1ZW9PWHBWaTFUd0tDQm5tT0gzT3pyQy8yZGh4?=
- =?utf-8?B?cWRsdkdML210KzVCeUV4SzBNdUtGK1Z0MGNKTFVOQWtWNC96N1MrVXJ3REsx?=
- =?utf-8?B?NXJ6V0pkc0d2a3VpQWZLeFd2QU1oekZMN2NONFZsM0FpL0REZHY0RUF6d0xZ?=
- =?utf-8?B?czlEMjlzMnJRRFNaL0I1R1dGcXpOQ3FZUnFFQVlMSC96ZWtnblBWRU96aHRw?=
- =?utf-8?B?VGFnN3NRK09EWU1GQndOU1E0Q1hWZHp1R2U5MGhrVnJDb0xlRHZ6aXVxc3Vi?=
- =?utf-8?B?dnlCSFhXZ0p6VGlqcDJGYktrZXh3MkpNbFI2VXJ5N24yZjVjblNVL096Wmty?=
- =?utf-8?B?emxNSlczTzVJTXQwYTNmRjBqZDZhTENCc2NMZERBSW1pdzI1WTdiakNVNHBO?=
- =?utf-8?B?RThFenNOdHV3MHVtcUd2VzRSd2hKeVJGZ2RaaXFJS1BZaEdnTnhuQmZyVVBT?=
- =?utf-8?B?QlRmWFBCV1RjMVkvZGxhZVoxSStOMnRaaTVzaVNtNk9KMVkrcVIyTi9wSDZq?=
- =?utf-8?B?bjBDYWU0Z3VlQS95QWpaeWlmUzViMitXSFhJaEp3YUNyaUVvd2YxMnFCQWY1?=
- =?utf-8?B?SUE2YmZ1czc1WTFDZE1WaSsxQTdvM1R1b0kxL28wclFMQ0VJbXNNNmp6eThM?=
- =?utf-8?B?Q2N3ZDhndVRJZkNrOENnNTZkUUtiU3lHaEFBTktCZ0xUM1Y3UkRIbWhSQVli?=
- =?utf-8?B?STBuYVFJbzhPV3JiaC9rd0thcHJuSVlscGNPdkdkV011WXRJRWpsSFlrbGQ3?=
- =?utf-8?B?WVhacjYyK05seXVkdVBlV1JrYm9zTGhGYzlTMkZXRTd5ZWRhTDFJSVFVbnhD?=
- =?utf-8?B?cnRLRkMwMmFONXBiT0FObW5hYWhCYVZqWU1xVjVlZW51bTdELzdYMGhEL1R2?=
- =?utf-8?B?NTZsazIzSFUvaEdXeEpkb1ZadXFVcm15NFNKS3ozQktaS2NqcUNwaHVhOFhG?=
- =?utf-8?Q?89HJsqyS+s2dVuHcCt?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 028be32c-986d-4f9b-26fa-08df395d0c66
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 03:46:31.3552
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YYMWpGRI+Q0gr8kfZ5SFVJ7OEU2tZCK4iDXcqe7C6ylp+X4ToGobAOxkp9D9qe+b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5890
 
-On Mon Nov 2, 2026 at 5:54 PM EST, Tal Zussman wrote:
-> There are no callers left. Point the comment on shmem_read_folio_gfp()
-> at mapping_read_folio_gfp() instead.
->
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->  include/linux/pagemap.h |  2 --
->  mm/filemap.c            | 23 -----------------------
->  mm/shmem.c              |  4 ++--
->  3 files changed, 2 insertions(+), 27 deletions(-)
->
-Acked-by: Zi Yan <ziy@nvidia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
---=20
-Best Regards,
-Yan, Zi
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch does not fully close the bug class it targets: an IPv6
+  skb handed from the socket backlog to tcp_v4_do_rcv(), which then…
+
+--
+
+tcp: restore IPv6 af_ops on disconnect of a v4-mapped socket
+
+This adds tcp_v6_disconnect(). When a socket that was connected to a
+v4-mapped address is disconnected, it restores icsk_af_ops,
+sk_backlog_rcv and af_specific to the IPv6 handlers. The connect() error
+path uses the same helper, and the two MPTCP teardown paths now call
+sk_prot->disconnect instead of tcp_disconnect() directly.
+
+Closes: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
+Link: https://lore.kernel.org/netdev/CAL4WiiqFJpmcV4=TWRpukCq6q=-729658FwGvieNcPXe97kLvQ@mail.gmail.com/
+Link: https://lore.kernel.org/lkml/20261029054136.1174216-1-zhiyuzhang999@gmail.com/
+
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index e006a30360eae..a93410aab66e6 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+
+[ ... ]
+
+> @@ -2093,6 +2099,19 @@ static int tcp_v6_init_sock(struct sock *sk)
+>  	return 0;
+>  }
+>  
+> +static int tcp_v6_disconnect(struct sock *sk, int flags)
+> +{
+> +	int ret = tcp_disconnect(sk, flags);
+> +
+> +	/* A socket used for a v4-mapped connection must not keep IPv4
+> +	 * handlers when it is reused for listen() or a native IPv6 connect().
+> +	 */
+> +	if (sk->sk_backlog_rcv == tcp_v4_do_rcv)
+> +		tcp_v6_restore_af_ops(sk);
+
+[Severity: High]
+Does this also cover the opposite transition? The check only restores the
+handlers when going from mapped to native. Going from a native IPv6
+connection, through connect(AF_UNSPEC), to a v4-mapped connect() still
+looks like it can pass an IPv6 skb from the backlog to tcp_v4_do_rcv().
+
+In tcp_v6_rcv(), the socket lookup, tcp_v6_fill_cb() and the TCP_LISTEN
+check all run before the socket spinlock is taken. Once the lock is held,
+nothing checks sk_backlog_rcv again:
+
+net/ipv6/tcp_ipv6.c:tcp_v6_rcv() {
+    ...
+	tcp_v6_fill_cb(skb, hdr, th);
+    ...
+	bh_lock_sock_nested(sk);
+	tcp_segs_in(tcp_sk(sk), skb);
+	ret = 0;
+	if (!sock_owned_by_user(sk)) {
+		ret = tcp_v6_do_rcv(sk, skb);
+	} else {
+		drop_reason = tcp_add_backlog(sk, skb);
+    ...
+}
+
+Can this ordering happen?
+
+CPU1 (IPv6 segment for the old native connection)
+tcp_v6_rcv()
+  __inet6_lookup_skb() finds sk
+  tcp_v6_fill_cb()   /* fills header.h6 */
+
+                     CPU0
+                     connect(AF_UNSPEC)
+                       tcp_v6_disconnect()
+                         /* sk_backlog_rcv is tcp_v6_do_rcv, no restore */
+                     connect(::ffff:a.b.c.d)
+                       tcp_v6_connect()
+                         sk->sk_backlog_rcv = tcp_v4_do_rcv;
+                         tcp_v4_connect()   /* SYN_SENT, still owned */
+
+  bh_lock_sock_nested()
+  sock_owned_by_user() is true
+  tcp_add_backlog()
+
+                     release_sock()
+                       __release_sock()
+                         sk_backlog_rcv() -> tcp_v4_do_rcv()
+
+tcp_v6_do_rcv() redirects ETH_P_IP skbs, but tcp_v4_do_rcv() does not
+check skb->protocol at all.
+
+In SYN_SENT, a stale ACK carries an ack_seq from the old connection.
+tcp_rcv_synsent_state_process() rejects it, so tcp_v4_do_rcv() ends up
+here:
+
+net/ipv4/tcp_ipv4.c:tcp_v4_do_rcv() {
+    ...
+	reason = tcp_rcv_state_process(sk, skb);
+	if (reason)
+		goto reset;
+	return 0;
+
+reset:
+	tcp_v4_send_reset(sk, skb, sk_rst_convert_drop_reason(reason));
+    ...
+}
+
+>From there, tcp_v4_send_reset() reads ip_hdr() of an IPv6 packet. It then
+passes &TCP_SKB_CB(skb)->header.h4.opt, which actually holds h6, to
+ip_send_unicast_reply() -> __ip_options_echo(). That is the same 40-byte
+overflow the commit message describes.
+
+The window is narrow. Hard irqs, vCPU preemption, preemptible softirqs on
+PREEMPT_RT, or a socket filter run by tcp_filter() inside the window can
+make it longer.
+
+Is an skb->protocol check also needed in the mapped receive path, in
+addition to restoring the handlers on disconnect? It could drop ETH_P_IPV6
+skbs, or redirect them to tcp_v6_do_rcv(), like the existing ETH_P_IP check
+in tcp_v6_do_rcv().
+
+> +
+> +	return ret;
+> +}
+> +
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030032314.1978575-1-zhiyuzhang999%40gmail.com
