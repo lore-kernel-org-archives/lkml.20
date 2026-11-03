@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736136;
-	b=X3KPCheF1Yr9WJIvldLPmdSmEftISaAVWHexRPnL07I8WYFi81zl70slIu8mx1Nt87e1
-	 BANnpUs7ODOpDz+uCpMTImcW/YYYyLYpISZfUM1cy5rrYPmcqyWX3Pu0dBuk8bLzDVV5I
-	 sL4nCCEDHD+tHW2TUJiUsEjMRN+QN2vNaIkZhPtMjEzZ0T14GjsK9kfWMEKg5mit6XyKK
-	 p+l2eLglNyO/m/9+JEq+qTM/n571tZtUUPyCrsZ1OQZXouMvxlWQyAJZn1XBWLFeVKBz5
-	 t7hHKDB2/BNHiX9Hl3KWDI7F7Eo7r3Pt3WJ59M9ctxjGQp56WgMyzzO74RD59M1Kyyg==
+	t=1793736171;
+	b=N5Mj28hNSFSAvs/BUUWSkly4np6LsnTDHekD675zjLFDdSxHnn45bNDvGPxz+wx3F6OC
+	 aSgedgsa5HkbvXPaeWL8jRle+L07Mv0hTfslgJIiVYT0bt3JFDcfE64Js/uhYaH11QWS9
+	 sRZ6yfMNJHx/JhU4t5EijzTeDgUR2o06bgb/D2Jd8zYf4n5diEu+RpX2YHbR5fEODldVb
+	 E1mFVg7WdKENqaUo3K+98oiLJLUZEC/DGB3XIG/d1ZN/ClcNs0Ox6OFHuAGnrAfKscZc7
+	 MX5Id1YHureAB5hMSCb3oE0GFwo6dOQEeYWs/hsK8EEolVWOJ2/EuVpT5PZ0tpqDyJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736171;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Q52uD5mO5l7I73CKeFvIMYM58IICKJHs7MHknkb2HSk=;
-	b=119thdqdL4QF0VZBAZZPLXNqKH7PpLBvGvPpnaL2f0mrdKnFMEVJiPP1Lmppv/4p+DN9
-	 Gt7mR5Ukb3dvuD0qM00lV5dYO2eSXzj6nga80UEQ30CZ4PDaDd/cPhS3IEUuJTRGUYMFQ
-	 D/emlVh7mbdHgsqlO8jaiOdfMWdGSxhe4FINGi4j2k/SkrCAHF7qnHr/ELm7Dk1X0L2Wc
-	 q20tlpJl+kghyjPhGYSidFBeShskKVWxifmUg7ZeHBvjnSsEhw7Ht4g2bNDrfRgczoTVu
-	 ljyzUO4hVqXSh99zlnwiGnP/AEzB9T3rrfdgM9fY1eG/iAvN0DpgSO5KlXZLYeHWacg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+	b=UWsBHB9uKIZupwfDCGcuJqQ+0wnLEpP7JZiDmh/tsClo6XM1SLnfbjr2UasbbiqLdZiF
+	 /FwiYUyIDj7aTizw5vYcyeKgAfiX/u2UJAxXDfsCq9OwGZMwyNPSl4RUokkwvHHOAqVcm
+	 3YTUZ6ykRqXSHTly+dfQSkonwJsnBSH6N1txgVLmjNhq9pYfAtGJa7d9IQyZXyr7PSXa0
+	 RftSZE8FrmUptxQWRy5vf9CGKfO0sEWD7vHDRaCNwFz0qeJGEkbO0zgUZKwPGtU65DvB9
+	 cyYtTmyGZ8OfjMYMGf5lxNNjQb4QtUdwzOXvk2s7/Pud27fRzc0ub7GyKTCpaHIKrZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nI5xhvfq;
-	arc=none smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CEF606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:02:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4CEF606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762B6606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 762B6606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nI5xhvfq
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67be7b9abc8so41893d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:02:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a8cc11ac42so31703c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:02:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793736135; x=1794340935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q52uD5mO5l7I73CKeFvIMYM58IICKJHs7MHknkb2HSk=;
-        b=nI5xhvfqJJqz/LKU3zu9PbzpzfQ5Va50DydxwoMOt8UGt+zI2aGOnKnPmhWE4PvpgO
-         /jTWkeTivaXjLbzL4+7hJGs+vGgdNVRC4351EbuQnq6oPZrzzQ6uS3j9V5D3NV5yYtW+
-         CbkFsNgBvcccolvTvLKds+5z5XXUJCRRXYGDya4kmX4KMrbgPKbUm8TMZ9rA8+Svw1QM
-         8Bn8rVQdvK8VcVczpN9jw6uimilyL6otP697wUg+DpBEnweVU2NOlW3Iz4mYQrB4Q+0U
-         dtuVH8TH8z+VORkTnLGEc0w0t/QwxZLluGu93dj4Ei1eDPPa2xF90n3EI5CGWdpgAHh6
-         Vd7Q==
+        d=gmail.com; s=20260707; t=1793736169; x=1794340969; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+        b=IMIi0lcwaYilC5g2AlqhKWWjrMWQI4GWC1wHHyUcDpYA1VjjA4rZg3G+gu57oNMOCZ
+         L23NEy0TVcXP4YI1f+xhLBvS8of/B9gD0ufgA4ol5QccJXY/IKAyxwxW0v1ZQYETWjiK
+         ojoSDEtrxPvKTpqjodA3bCsDUGX8abgkkPcq81ePRT2sGTN4kvqA2Ua/M4SbUQnLJU13
+         Z7rJNCZtrHSERcXqY4QGnwmQw7yD+02JcTAyDYA7N3y/yxwO8Uit/YpCSSyN1HOvd0Cg
+         Cs86vphKnq5f+5fpNxuDZKqAalCt+UDoE53lGErEjhtsm8O2ltiV1Ze7Ww8LfDV9Jfn/
+         sSfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793736135; x=1794340935;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q52uD5mO5l7I73CKeFvIMYM58IICKJHs7MHknkb2HSk=;
-        b=ywRFToRZXn9Df5Cu0UpzFnAyj1Vkh50MZvTQp+uSQ6bhUVFmaAEClU//ZO3/vgOy7P
-         6uwwa3nt6UyE2eYJDyLbvhewOlo9gXvN/bip9aBw6J/HY5qbxL9B6MaUeuL9MWpFdCsO
-         gxgbsDOI01GVZgUjtJTmFRmoQhx+4WyOKWGQ7OUmJpnYoab00wZt42eOw3vpGqupIsem
-         V1G13YdB44EXKL63fG93D3jfhmvSYHpEe/mtbR8RnDOrBWGTfvEp0lDLtvl3gI/3qTSG
-         ts+EVDD+aijLDgUHouH0iuul6hG2tCdy5A7CLLrideNNfHbfROYTaA6MjThZioaP7cdP
-         17Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDb0rULWzwtl+nD2m2B7jBN411B9/rTz31dPu6Du/oPahCWYn7/PSFxlW4kpxJOVM2/cCKqXNKqhFmdDY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DsmW2i4hNvHT+j3OCwWt8ZJ0ccxlRybSOfMQtBcHlAHM7gdtp
-	OEGjm6Dmvy7mwRnytAeZD2rZ/naY2toJ0xzHfLcEDz71lffZZuR7AzP7
-X-Gm-Gg: AYBFou1eMbcPTy8n+y/q1Rq8/S7xFHNPLYrGYOq5cqWRMkpggdGEb+BB5Dj8H8pKJvE
-	2pua2Teva9osMHJAeBWga0LAU821nLOU6fJUvWCNj2a/FrwVRPLDW67D0k6DHWsUwKuFJ+01Ia2
-	uEt4gf/1l0bIJ8unfp32P/C7I8Yo3KFHvftmJjuZpWyMHsqHHIlM51l0tHmc6cuq0J8otI/EYZX
-	PttVO0XvhQE35M2ISuMjk5N0G89t9Ez1GdcO/Lb+XsUJt1DF1IHUc0d+xB3/Z2QFhDLjK/7CfdR
-	4TLefUAOHax4s3/UEIckFHgh3P8IuOOjc3GNeSLmwk0ZJ9wMVITEYd+m4/HbfPE3+Px4I4p/H+w
-	+edu7Tj4OvVsZVPg3s0kIzCQKo8g+u61RKLuEWkoDOv5mUFTn+dx6RTDmAlBfgc62AgzMulCuFB
-	6mcQYO9T7ZoqIlPih62+d6+Mgqv8gnweXfJHpdEcYgb/KZhJc/tA+hVvIfC72Zfuc31B8qtwLEw
-	kxmh7qQb+Jp94AtMvUV9cKZXz58ZDZpyw5V/chD3qxX1V8txSI8oyA8pFdLCIf0vY540FFoZlN+
-	mhQJbL69Z0PD8J3LFAZm2SzwC9bC7IErXRE8eprai8XhiaG9sIcp
-X-Received: by 2002:a05:690e:128b:b0:67b:d315:7770 with SMTP id 956f58d0204a3-67bd3157831mr3828276d50.27.1793736134436;
-        Tue, 03 Nov 2026 12:02:14 -0800 (PST)
-Received: from Abelha2665.autotrac.corp ([149.78.105.186])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee245f70sm92764d50.11.2026.11.03.12.02.11
+        d=1e100.net; s=20260707; t=1793736169; x=1794340969;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+        b=pKyk1hklpjBW6uhQ+p2V7cwkSFsoQfpbSz6JjW57+ywO/oxwEsqEJOOKxVPaMEehtT
+         +2F9ibmeDvfdbDufW0O3v5NyBAP6TNXCDFzZ7PlVwQVm3jlF/fNtkH1eYlfnKTiOS/83
+         WdsozFOBl+DPw5Bo6mErDo5iTObug0t+XGynIbdUFjIbTkFKlNqaFw7FRrv9h72lfikC
+         JRP1GRxWL5uvrRN8SiKmFygypnmBVQCCJE2wJBiHXwzIjT5R5XSwf6DGPT/wevmKk9SR
+         fnDQjqC04djUmnBKpu8T+bFgt7v0rL7U1XsUZWj5ZL1p8thvtfq3NmMfB/1d1U/faSXj
+         +B9w==
+X-Forwarded-Encrypted: i=1; AKwUvByad/h+FLQY7VJiL3X1nydMJzq5vqySOzh5damUikXZV6Ctd4/IliiYw1XzoPIwJAwcQ4X2z3yPq9E1A+g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93lGDgEPhDwy8EJVyoTsqYeKrF5J9wRl2TrkBObVWGHOw1vcNS
+	W+YzxhzSTiwcpxV0OtTgtwnRK8T7S95oAx5WUxYKI01WmhI+xR6gEc7X
+X-Gm-Gg: AYBFou2oqbZSi3sojwdifBxGV52M+za4q7mdyXK5skgHNGccAzN6lHW44LwiRvh3Ym4
+	6LDW3fmeRjKjUyJ2NPlLAHpKVBieRRQKsXk0mahnwoMxICb1kiTtn7k5wRr2fV+bfgwma6j4U1x
+	ZYPfjWaCpPbeRJhoNcM0+Ketb3O8yMO8IckIsHmwB8Y7vRVZCHzwF0gnuDgrLtgB8I0pFF4N77z
+	qhjUIO2sUrR9aXvHrwCLq5HzRc+AyzGe9WKRFxA622cC7VPax3xCczBn3BCWg7bpG1NdFFvbG3v
+	etCBqiWpkQjOIUS8T5B3rHlBplcPZbp/juUwWrPeRCJPw4nYsLCpswQnxz2WP0f3BzI+j0KHAJK
+	ID6MXm49XXrkYs6L71bQd4y1hIRfcztEvfYnyvwulERYqM4/ngym1+AG08R3uXkkZZUo0eHftb6
+	NSTkG7Kbmi/BDGTtFWzt2x592KKqVZxdbSU8bcPMrcYLAWlqWjBnx/AX4J8/rCdBBP++7CLxMDW
+	sN1CZ9nt5G2bYuQMSApZrLpaS6o4R8NuZnSS2HV4rnnTakpulKRcsFrU5tq3GC5mYLMAUZ7BGdH
+	J+eERfUmeGHQgt+lVbZQtyYRgS0xpi4XLxmUm1Bgfwb2fhmlFKuTnOWJTTqPzFveub0=
+X-Received: by 2002:a05:7022:eb44:10b0:186:5b49:90d8 with SMTP id a92af1059eb24-1ac5782fd31mr22158852c88.4.1793736169213;
+        Tue, 03 Nov 2026 12:02:49 -0800 (PST)
+Received: from arpith-debian ([2402:3a80:449:13bc:6d9f:f092:24ee:20f6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm1395865c88.15.2026.11.03.12.02.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:02:13 -0800 (PST)
-From: Jhon Wilker Rodrigues Aquino <jhonwilker0112@gmail.com>
-To: Richard Leitner <richard.leitner@linux.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Tue, 03 Nov 2026 12:02:42 -0800 (PST)
+From: Arpith Alexander <arpith99@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lixu Zhang <lixu.zhang@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Jake Steinman <j@metarealtyinc.ca>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
-Subject: [PATCH v2 1/2] dt-bindings: usb: microchip,usb251xb: add battery-charging-enable property
-Date: Tue,  3 Nov 2026 17:01:53 -0300
-Message-ID: <20261103200154.125681-2-jhonwilker0112@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103200154.125681-1-jhonwilker0112@gmail.com>
-References: <20261103185514.72144-1-jhonwilker0112@gmail.com>
- <20261103200154.125681-1-jhonwilker0112@gmail.com>
+	Arpith Alexander <arpith99@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: ivsc: csi: Add sensor node in bound callback
+Date: Wed,  4 Nov 2026 01:32:26 +0530
+Message-ID: <20261103200226.100989-1-arpith99@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,42 +103,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
+The IPU6 ISYS creates sub-device nodes in its bound and complete
+callbacks. A sensor behind the IVSC is bound by the IVSC's own notifier,
+after the ISYS's bound callback has already run for the IVSC, and
+mei_csi_notify_bound() doesn't create a node. Unless another device
+binds to the ISYS afterwards, the sensor's node is therefore only
+created by the ISYS's complete callback, which runs once every sensor in
+the graph is bound.
 
-Describe the battery-charging-enable property as a list of downstream ports in the USB251x device tree binding.
+Commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor") added
+the HM1092 to the ipu-bridge list. The HM1092 has no driver in mainline
+yet, so it never binds and the complete callback never runs. The OV02C10
+behind the IVSC therefore never gets a sub-device node.
 
-Add an example that enables charging on ports 1 and 2.
+On a Dell XPS 13 9340, libcamera then fails with:
 
-Signed-off-by: Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
+'ov02c10 3-0036': Failed to open V4L2 device '': No such file or directory
+No valid pipeline for sensor 'ov02c10 3-0036', skipping
+
+Register the sub-device nodes in mei_csi_notify_bound() as well, so that
+the sensor's node is created as soon as it binds. If the complete callback
+runs later, v4l2_device_register_subdev_nodes() skips sub-devices that
+already have a node.
+
+Commit 7456b40bc992 ("media: i2c: cvs: Add sensor node in bound callback")
+is the CVS equivalent of this IVSC fix.
+
+Fixes: 29006e196a56 ("media: pci: intel: ivsc: Add CSI submodule")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arpith Alexander <arpith99@gmail.com>
 ---
- Documentation/devicetree/bindings/usb/usb251xb.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tested on a Dell XPS 13 9340 (Meteor Lake IPU6, OV02C10 behind the
+IVSC) with v7.4-rc1. ipu-bridge connects both sensors ("Connected 2
+cameras"), the HM1092 has no driver and doesn't bind, and the OV02C10
+now gets its sub-device node. libcamera finds the camera and streams at
+30 fps (cam -c 1 -C10). The camera last worked on v7.2.
 
-diff --git a/Documentation/devicetree/bindings/usb/usb251xb.yaml b/Documentation/devicetree/bindings/usb/usb251xb.yaml
-index 0329a6aaaa928..0eb3035553c37 100644
---- a/Documentation/devicetree/bindings/usb/usb251xb.yaml
-+++ b/Documentation/devicetree/bindings/usb/usb251xb.yaml
-@@ -230,6 +230,12 @@ properties:
-       Specifies the time it takes from the time the host initiates the
-       power-on sequence to a port until the port has adequate power.
+The test kernel also had my two other v7.4-rc1 fixes for this laptop:
+https://lore.kernel.org/linux-spi/20261103131435.21838-1-arpith99@gmail.com/
+https://lore.kernel.org/linux-media/20261103163814.96980-1-arpith99@gmail.com/
+
+Unlike a revert of commit 4fdb0342f05e, this keeps the HM1092 entry for
+the pending driver, and it also covers kernels built without that driver
+once it is merged.
+
+ drivers/media/pci/intel/ivsc/mei_csi.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ivsc/mei_csi.c b/drivers/media/pci/intel/ivsc/mei_csi.c
+index 005b1414a252..f9513cffaacd 100644
+--- a/drivers/media/pci/intel/ivsc/mei_csi.c
++++ b/drivers/media/pci/intel/ivsc/mei_csi.c
+@@ -29,6 +29,7 @@
+ #include <media/ipu-bridge.h>
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-subdev.h>
  
-+  battery-charging-enable:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Specifies the downstream ports which will have battery charging enabled.
-+      Battery charging is disabled on all ports by default.
+@@ -513,7 +514,7 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				struct v4l2_async_connection *asd)
+ {
+ 	struct mei_csi *csi = notifier_to_csi(notifier);
+-	int pad;
++	int pad, ret;
+ 
+ 	pad = media_entity_get_fwnode_pad(&subdev->entity, asd->match.fwnode,
+ 					  MEDIA_PAD_FL_SOURCE);
+@@ -522,10 +523,14 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 
+ 	csi->remote = &subdev->entity.pads[pad];
+ 
+-	return media_create_pad_link(&subdev->entity, pad,
+-				     &csi->subdev.entity, CSI_PAD_SINK,
+-				     MEDIA_LNK_FL_ENABLED |
+-				     MEDIA_LNK_FL_IMMUTABLE);
++	ret = media_create_pad_link(&subdev->entity, pad,
++				    &csi->subdev.entity, CSI_PAD_SINK,
++				    MEDIA_LNK_FL_ENABLED |
++				    MEDIA_LNK_FL_IMMUTABLE);
++	if (ret)
++		return ret;
 +
-   swap-dx-lanes:
-     $ref: /schemas/types.yaml#/definitions/uint32-array
-     description: |
-@@ -264,6 +270,7 @@ examples:
-         manufacturer = "Foo";
-         product = "Foo-Bar";
-         serial = "1234567890A";
-+        battery-charging-enable = <1 2>;
-         /* correct misplaced usb connectors on port 1,2 */
-         swap-dx-lanes = <1 2>;
-       };
++	return v4l2_device_register_subdev_nodes(subdev->v4l2_dev);
+ }
+ 
+ static void mei_csi_notify_unbind(struct v4l2_async_notifier *notifier,
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.55.0
 
