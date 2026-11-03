@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793737100;
-	b=41Rq+sHo/U1Dhmaew2fY9CqIaJA3rxwoLqv+cd/q2SQFgEu+AFd0lzGRIaa3bZOEjJEq
-	 0AmfOgBxP3lK5MIYfVPVF+1l4eZvB3HaYY8b90vetUc2GUde3fjeLzBYPe9JB7ose3aNP
-	 xvCZRrwEFfB05MxcqhHDoC7ho37R0dOafeYZ0JSf8flJStbDP8RU33xcHA0Obdjik7GlM
-	 5hB8jg5X8W0YnTO5LIYLmuo3PKKpSRdcffcIZJedykqQWL4a9K30AvYEB7iOssRqgGd4T
-	 wRkP1h1d4mMj+6PdPbIP8yiMSvIE98sT7OjTp30ur1iDwO8r8Sl7j8/QfSo+hIF0qfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737100;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793737105;
+	b=qBJSGqW9n9xA2vFU6gtPDGUYShUeduJ0spUo+EO31owuXgDrVCoFiuIdIzVpHXaeGIoC
+	 zSJ5vYJrFu1TFyuu9v12SJjumC52jhLH/1R6ZR9h9aadlufFn59GAImqwnuzXJAzX2l1j
+	 yJZNZ8YsEzsgJMeexDK/o1fzXYnDQOQLMYSQ6e4IajhbPdyZuIS0nuYs4Do18XY9kewcj
+	 PEQG80QMe6l6572IRYp/W4lA7hoRkVtythPpl9xw8bEqn2bm2uAQ2khmolOcQ7F0AybT4
+	 Zm5bEoPbeb+UDbUB7PzfxxcyXz0q2jqjmo51YtkA3LHdTvfT1Ht0854CmsW8ZVQdEIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737105;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
-	b=RaXAYjMzRS11ugzsnoeUPXX0nXpYoP0WJeiaV5LsYCFEkBsUkElvw0z7X+9R/MfJ1nv+
-	 Mav/GH0M4tTX+v3Q8VE6Jx4Eqps/WgYJZCB+c3GzHur17i/KQGq7vDf/dPiIlTsw6o9q9
-	 0JoksCaeRNkBicoVjQP+5A72T760uhgqq4hZEdtW5XaCI8Gwu1JNqZB+kGaztVV0Wo/yk
-	 j4vtk+Br8P7VPfsA0wzBZHAEq1lXF2gOVXOH6mL4gIxRaCJTYoAawZkU2aqMFsIe7aSUt
-	 Db4i2EmYrLn6ORzseGmYW2QQ0REzvwL9rEkKgLeN0qbs5eLJ15x6d+6c3NygkW4gzWQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Xny6TxdisJDz1rgCYagKSUk768TV4NYM8IYebe0cybY=;
+	b=eIynhJp1srVIS20SiLeYoeH/QWSkQf1enh9fO8KLZkBmFLStobTlBR4mX1+d32qbNAp2
+	 CErYckoKnXJzfyKAxTq9P8NnU6nQwrHwIB3jP94WHh3RGdaFXDheBs9EjymoO8ITWAL9m
+	 f3NMrAw38XenYpkjwcSRS2ltf8oMvUG2wVBZF3/gnZhnFdmYTpvmvyFV1wKwF+H6PxWPo
+	 QkZ+S9e61axDfCSXxgC9+X1YhOSFNZTAcoZNnpQ6WWavG1w8JxkkqV480xd+iKmPEByfl
+	 Ly54xkPuq4CrpBXCNK89wPNrupPQ+14pqFbsLSZCq12jrbiJftQblw6KUkfsQhx01WA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYQEHHEz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nipKVCTB;
+	arc=none smtp.remote-ip=209.85.219.45
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E257C606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E257C606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994E1606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:18:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 994E1606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYQEHHEz
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso1710811a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:18:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793737098; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cQf77SVta5HZIKgyvrnF1aJ++kwg0aHwApdjIeQkuldBfWN9mL4hMkMwqoC+r3jDvs
-         OQgN91s9gu6ZTXsFQsHFyj1C+TD572h8HZNyddBFTc571/mTH5QTggSOGYIu+3ri0NkG
-         T/GwswhpIZEj/AUuol3GUfNP3h/rJdSbkyOAylEEZwWdVntfsC7V68tlVc1zygyn8Vf1
-         bpcH3nX3bCLBz6PIaUwzl9SGi5yXPYBUf25REoxzzqfYQIGR3L8L79J/IVNWbmQUwLXu
-         EaIrFoNbg3+hvGvmHTS7WK+1LqlWbpHjJauZMp2yUieH409MdB/1We6m5+9k/0pP2MeE
-         mUtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
-        fh=IjXR5/j6hp8tLlyuMKOMV+6XApifgxVDCayOmXBhOxc=;
-        b=L21vSLFlbQac4VZ7jld6sr1+P83zAivRd0epXApO05CJUeCTPULRrqTeXemm7LOdfN
-         WAyNRSK8u/U/TY3myMMFPF/XaAA7zAzq1fY9tKuGPkbZtbA541wz+RXPUzPfi9U+wjPZ
-         3ieQezaSy349mGrxlXuL1oN2IQQpOLBHCcWgZtpHTel8iUeo02zHleajgrFoQ6eDLQGN
-         HnJ75gwQU+nG+jGnCxMbKGRswVjL5X8NtJGVNe5g9TUcBA9+8pR+bdE7XLoZiMhicrWW
-         +ywCjgHloeTEi2rj8z7yjwOb2biYqT9V5qq51IgcAgKxRhz53pMgwZka8BRE5Ppq84ud
-         IR4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nipKVCTB
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91c791d5460so734086d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:18:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793737098; x=1794341898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
-        b=jYQEHHEzPR85viHaxy80rXbEWVIbdt6b6puPPSPn9+EE6hdtzc2GP3uStvSQQmutfC
-         DnDgl5eAG24ujCmOF1JgLe9UISXq02MxzYI+CgLdKk3GMoVItIuRjAmGYWnk8P6Lloww
-         DX0AExm7aLuzW5KejMRQT46i9AGhNXUOd+2ayq4gnCXa041aSm/9O4v/O/2ZE4j3iNc9
-         x/lxuw8hfO18qqSWap1jYCt5ietKXgrpWh4g+qUvCz8Wvcn/v5T224jbfxwTiGv1+BpI
-         wMN+4wNtJIeZhgLtt9Xf8HiwF8k575xamYW0P5xlkDVyZOjESzrinoHDpixFVr2iRvrq
-         +uZQ==
+        d=gmail.com; s=20260707; t=1793737103; x=1794341903; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xny6TxdisJDz1rgCYagKSUk768TV4NYM8IYebe0cybY=;
+        b=nipKVCTBE9DipRbWBWM8riaSp+ZE5lc1wbL2Tg2pOFblhssBproOupEOeIPs7TfOMX
+         xPHcGiXojn400BMFeVVH4rrBXLEZjdnB35uFeiMqNOqvI1CvR4+7MA0ZwiF8DzxVhkRw
+         VUocVl0dJr9607/qHbpCjkr+iSYSX/3elC7yfjtP0YKFpPkcxFc8vOslJHB9cMfkKK+K
+         Vo8nEbDAoOyLoyfEwlzqf0TlYLdF0pUsGkvMo30ti12hOkNJgss5znGvq3NldLvHIZQM
+         9MyfZaTokUIc31x6SAi2Sb2hPJ+CTv92RdjQfdy4tzvAs+fgQnS9jRX7JXhlqmQiGrLn
+         57Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793737098; x=1794341898;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kkHd2eqDN6g9r6mKgVJdjw4ebv001gReOK3lLkRcsJQ=;
-        b=ARrM7M8QBAz+yEVlWFMsGRWNATrieszi2LcGB+lySBQ1NyUr5khGzT+WBDNf3yOgJn
-         C9b46MOW+Nu4ar3TrKX55/7XH5Tpg3cGLuQLNoDz5Rdn2dOZpEoSbX7P2moOn3cl8hy/
-         fJjsBXwl/u288ptsz4dy1mzSMLXgOkHe70AXn+zzzZSWkVNXDsRUkt1ZSLVjLxeP2pb7
-         OFFbbxvgCRJwv5YTMAE3vuynrNhHIxrXg69D9L0sfG9HYAwtrQ/BkMmYoousYFvhshCi
-         wQhL94iVr3ra7TPgAWILS6qp8IXZW0dW7yjDk79xUOTSk5c2wgLmMI4SxelHkaTHhjXY
-         y9hg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQFX8TYYG5XoLxJ5L5VJDBzGl7voZ+qTzgrwVTL6iiY8j5mjLa3h3ERD+cav6LggpODY/kBxFjiYSoNbo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eKoh5wbSS/6+6/htChk962I9QCoDSkJFyHlQmBFIGMqt0X/VM
-	G0Ne+YvQ9MNymqbYnDZ7hxUl5W9OCizqQeOUBRe9Judu6dAFsAmSNpU+AjdJnG2KGqIxVKet80e
-	PBCgHGwa7VZT93pSHWzYQ16mU+Nucoek=
-X-Gm-Gg: AYBFou3qLgDrcW9vC8ihDV5sQjoxjrS30YdPSGYOiHEhDOzA/3jiuWJRowDRJ+CiQM8
-	ydGbQj0s8V93CDqa2Wptej1u+GC33DqXVVq3jN66WWgh6wh1ICYknMq/vc0sog57alRZ2Sn7vRx
-	68xaXyC/F5TBDMLfk0noNA02cCAuae4FRkGZpqLXgAwb3zI1lk7MQzK5dtbXIwUDYEjypBQfV/u
-	29hFGMToWxB6a2KeuzbKEQI8GsRltSNhAsbPqfDruhjV/N9js5AovnWGTqt8b4YFwuKeyqaJo/6
-	nUozwUWFEgH+9x8oa6LcWlSPFBut25eGJqEUfN3aaylGwa2JrsNZ2Wf/KpGG8skFWaJYj+FpSx3
-	Cyz6xPrnNxqKyStbc7IsNiXFsHeqBmgkpyU/R
-X-Received: by 2002:a17:907:7f9e:b0:c25:5159:6a25 with SMTP id
- a640c23a62f3a-c49d1285bb1mr1572706066b.6.1793737097942; Tue, 03 Nov 2026
- 12:18:17 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793737103; x=1794341903;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xny6TxdisJDz1rgCYagKSUk768TV4NYM8IYebe0cybY=;
+        b=dxOfkAsDBz2LHQHhZ+M/iP/aYLI7erXnuAe3Lp3FjrUQ6yKOXAmQCJMsthiXDI/S5R
+         HizhFt48zAt1jVNeTbBdbWYADZ18PGOLKDhicm3+0PA9ux1iWb34u8gli4tuA2y88g9t
+         GuBNCVTSfJlgJbcDNJBLmZkmQpPtmcJsLB13PCsn35njTwYWvfSrcSSkOo2DUdctaXka
+         FbLHTrzZx44IIK8FRamIAS5hrtUMB+2Kr69EX/hd34lyDLHIsRMMa4WBaoju8wz/yILL
+         UF14IMWFfUISy7XOl5IFKZVo+NTmJyaP7WtkV7hUnUg5ETSzJcgDJBIX8MkRbIKSXP2I
+         cTDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYv6QbOgp1oAb/5+b27QQFH2aLS2KH2mMKSJOeBml/9/kvdaxoCmUzWr9Rb2+q8Vo2RQXz88EocDpQ/QA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JQG5S82nlMfFvhC9g6xN7sBweky13SUK8gZ7CmP+jfQtXxY9u
+	AfNnwQX2u/vhV2pJmBcym70OysMXGHzpJJ7pJRR1K/DbcZ4YbC9aCnrn6fdQ3A==
+X-Gm-Gg: AYBFou2lb2R1D6qEFQ9Q5N1GIL96BSV+lcdE7FiFCvxX7j+5BpbZ6mq5nen+iUBPXed
+	gyfAwP5Cm0kqsazPTFpSxTotjpByLoL34MMMoM19uZfQsfrtnwFesvUmadt7Iy3Pj3KBs92+1sJ
+	12OqakM9VxRJZleWcTnfp+pz89iRAfhv98QTVjjtX2L1k7Ftik95ZP87cs2oi2OQioi7a03yJ4k
+	Ip4n4QZBQyYeAWURvHYmFoUN9L1lfteXDBSpYNlKmwEjhsmIziZe0hsVCPd3xDXcCe/zq/ilSCv
+	FmctJ6JX9s650g34o04VFF27j+yrE9GlmAN3HzMhNtNqLoEkDXufZGNYeDx4pYy81aRNiPJo4l/
+	PralrLw8F0ACxY5PshiF6ZmRfWAikHS9n6yZrAgMEjgblJ7zmBY83MxD44xjOTTbpYCb29AlnPw
+	drEpnPSSKRJXozHC3rcZmLy/viISjb5BxovAn8qoeTLf3afGUH53eH3d5oldzO2fj9JPwfwJkyU
+	lBg+pB1WiKZ0DcqCbShy/oTrN/lO0zb3hHe5KNjTgCW6eNtvUJeS0unnQptQEuiHOKJyHY9OM3x
+	wqU/3Ot5TaEzLwnk8K05WVyQH6XY504Pk7mVUqKWzTrFrIEY8qDW
+X-Received: by 2002:a05:6214:5910:b0:91c:6cd1:8058 with SMTP id 6a1803df08f44-91ca4aea703mr226950896d6.13.1793737103352;
+        Tue, 03 Nov 2026 12:18:23 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7c79b50asm1854636d6.31.2026.11.03.12.18.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:18:22 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Marc Zyngier <maz@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v2] irqchip/gic-v3-its: Drop ITS node reference on its_of_probe() errors
+Date: Tue,  3 Nov 2026 15:18:10 -0500
+Message-ID: <20261103201817.1259660-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,166 +99,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com>
-In-Reply-To: <20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com>
-From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
-Date: Tue, 3 Nov 2026 21:18:06 +0100
-X-Gm-Features: AclHuK-B3KHOmhLm8nxGZsAI0SElT7ZlUOKjLlskY-PolsjxdKCIQLffMl5plIQ
-Message-ID: <CA+xk8n--qQfYro+xsGu+z7nuCrAJgwzOOyrc+iXuBeSsPOWjhw@mail.gmail.com>
-Subject: Re: [PATCH] lsm: don't call d_path() when current->fs is NULL
-To: paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org
-Cc: jack@suse.cz, linux-security-module@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com, neganhat@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello,
-Just following up on this patch to see if anyone has had a chance to
-review it or if any changes are needed since we're at 7.4-rc1.
-Thanks,
-Drif Abdelmalek Mohamed Said
+its_of_probe() walks the ITS nodes with of_find_matching_node(), which
+drops the reference on the previous node and returns the next one with
+its reference count raised. The loops are balanced when they run to the
+end, but the three error returns (a failed its_reset_one(), a failed
+its_node_init() and a failed its_probe_one()) leave with the current
+node still referenced.
 
-On Mon, Oct 19, 2026 at 11:29=E2=80=AFPM Drif Abdelmalek Mohamed Said
-<drifabdelmalekmohamedsaid@gmail.com> wrote:
->
-> When the last reference to a file is put from exit_task_work(), the task
-> has already run exit_fs(), so current->fs is NULL.
->
-> syzbot reported:
->
-> Unable to handle kernel paging request at virtual address dfff80000000000=
-2
-> KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
->
-> Call trace:
->  kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
->  kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
->  kasan_check_byte include/linux/kasan.h:402 [inline]
->  lock_acquire+0xa4/0x320 kernel/locking/lockdep.c:5916
->  seqcount_lockdep_reader_access include/linux/seqlock.h:73 [inline]
->  read_seqbegin+0x6c/0x144 include/linux/seqlock.h:838
->  get_fs_root_rcu fs/d_path.c:244 [inline]
->  d_path+0x224/0x4dc fs/d_path.c:287
->  audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
->  audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
->  dump_common_audit_data security/lsm_audit.c:421 [inline]
->  common_lsm_audit+0x1d0/0x290 security/lsm_audit.c:451
->  smack_log+0x1f4/0x264 security/smack/smack_access.c:400
->  smk_tskacc+0x210/0x2ac security/smack/smack_access.c:255
->  smack_file_open+0x1d0/0x230 security/smack/smack_lsm.c:2078
->  security_file_open+0xec/0x258 security/security.c:2739
->  do_dentry_open+0x2a8/0xfbc fs/open.c:973
->  vfs_open+0x44/0x2dc fs/open.c:1101
->  dentry_open+0x74/0xc0 fs/open.c:1124
->  ima_calc_file_hash+0x120/0x5cc security/integrity/ima/ima_crypto.c:269
->  ima_collect_measurement+0x420/0x874 security/integrity/ima/ima_api.c:300
->  ima_update_xattr+0x160/0x230 security/integrity/ima/ima_appraise.c:617
->  ima_check_last_writer security/integrity/ima/ima_main.c:227 [inline]
->  ima_file_free+0x40c/0x528 security/integrity/ima/ima_main.c:251
->  security_file_release+0x84/0x148 security/security.c:2424
->  __fput+0x2c4/0x74c fs/file_table.c:506
->  ____fput+0x20/0x30 fs/file_table.c:541
->  task_work_run+0x1cc/0x25c kernel/task_work.c:233
->  exit_task_work include/linux/task_work.h:40 [inline]
->  do_exit+0x58c/0x1a74 kernel/exit.c:986
->  do_group_exit+0x198/0x238 kernel/exit.c:1129
->  __do_sys_exit_group kernel/exit.c:1140 [inline]
->  __se_sys_exit_group kernel/exit.c:1138 [inline]
->  pid_child_should_wake+0x0/0x104 kernel/exit.c:1138
->  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
->  invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
->  el0_svc_common+0x19c/0x23c arch/arm64/kernel/syscall.c:121
->  do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
->  el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
->  el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
->  el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
->
-> d_path() renders a path relative to current->fs->root.  After exit_fs()
-> there is no such root, and no substitute root is meaningful: the
-> record's pid/comm describe a task that can no longer name the file, and
-> the file may have been opened by a different task entirely.  Falling
-> back to another root would produce a well-formed but misleading path,
-> so report the field as unknown instead, as exe=3D(null) and name=3D(null)
-> already do.
->
-> Handle this in audit_log_lsm_data(), where the meaning of the field is
-> known, for LSM_AUDIT_DATA_PATH (Smack file_open), LSM_AUDIT_DATA_FILE
-> (SELinux file_open), LSM_AUDIT_DATA_IOCTL_OP and the AF_UNIX path in
-> LSM_AUDIT_DATA_NET.
->
-> Alternative: omit " path=3D" as it is done for inode in audit_log_lsm_dat=
-a.
->
-> Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
-> Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D975ace299d6ba2eb1cea
-> Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gm=
-ail.com>
-> ---
->  security/lsm_audit.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
->
-> diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-> index 955b2e7b2c8e..5ed505d781bb 100644
-> --- a/security/lsm_audit.c
-> +++ b/security/lsm_audit.c
-> @@ -169,6 +169,15 @@ static inline void print_ipv4_addr(struct audit_buff=
-er *ab, __be32 addr,
->                 audit_log_format(ab, " %s=3D%d", name2, ntohs(port));
->  }
->
-> +static inline void audit_log_lsm_path(struct audit_buffer *ab,
-> +                                                                       c=
-onst struct path *path)
-> +{
-> +       if (current->fs)
-> +               audit_log_d_path(ab, " path=3D", path);
-> +       else
-> +               audit_log_format(ab, " path=3D(null)");
-> +}
-> +
->  /**
->   * audit_log_lsm_data - helper to log common LSM audit data
->   * @ab : the audit buffer
-> @@ -196,7 +205,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->         case LSM_AUDIT_DATA_PATH: {
->                 struct inode *inode;
->
-> -               audit_log_d_path(ab, " path=3D", &a->u.path);
-> +               audit_log_lsm_path(ab, &a->u.path);
->
->                 inode =3D d_backing_inode(a->u.path.dentry);
->                 if (inode) {
-> @@ -209,7 +218,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->         case LSM_AUDIT_DATA_FILE: {
->                 struct inode *inode;
->
-> -               audit_log_d_path(ab, " path=3D", &a->u.file->f_path);
-> +               audit_log_lsm_path(ab, &a->u.file->f_path);
->
->                 inode =3D file_inode(a->u.file);
->                 if (inode) {
-> @@ -222,7 +231,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->         case LSM_AUDIT_DATA_IOCTL_OP: {
->                 struct inode *inode;
->
-> -               audit_log_d_path(ab, " path=3D", &a->u.op->path);
-> +               audit_log_lsm_path(ab, &a->u.op->path);
->
->                 inode =3D a->u.op->path.dentry->d_inode;
->                 if (inode) {
-> @@ -321,7 +330,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->                                 if (!addr)
->                                         break;
->                                 if (u->path.dentry) {
-> -                                       audit_log_d_path(ab, " path=3D", =
-&u->path);
-> +                                       audit_log_lsm_path(ab, &u->path);
->                                         break;
->                                 }
->                                 len =3D addr->len-sizeof(short);
-> --
-> 2.43.0
->
+Declare the iterator in each loop with __free(device_node), so that the
+reference is dropped whichever way the loop is left.
+
+Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register before probe")
+Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisation of its_node")
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+v2:
+- Use __free(device_node) on the loop iterators instead of adding
+  of_node_put() to each error return (Marc).
+- Rebased on v7.4-rc1.
+
+v1: https://lore.kernel.org/r/20260923165447.619477-1-oss.patchbox@gmail.com
+
+Compile-tested only (arm64 defconfig, W=1).
+
+ drivers/irqchip/irq-gic-v3-its.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index 282e4bafb084..7c5df91a317c 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -5572,7 +5572,6 @@ static void its_node_destroy(struct its_node *its)
+ 
+ static int __init its_of_probe(struct device_node *node)
+ {
+-	struct device_node *np;
+ 	struct resource res;
+ 	int err;
+ 
+@@ -5582,7 +5581,8 @@ static int __init its_of_probe(struct device_node *node)
+ 	 * reset, don't even try to go any further, as this could
+ 	 * result in something even worse.
+ 	 */
+-	for (np = of_find_matching_node(node, its_device_id); np;
++	for (struct device_node *np __free(device_node) =
++	     of_find_matching_node(node, its_device_id); np;
+ 	     np = of_find_matching_node(np, its_device_id)) {
+ 		if (!of_device_is_available(np) ||
+ 		    !of_property_read_bool(np, "msi-controller") ||
+@@ -5594,7 +5594,8 @@ static int __init its_of_probe(struct device_node *node)
+ 			return err;
+ 	}
+ 
+-	for (np = of_find_matching_node(node, its_device_id); np;
++	for (struct device_node *np __free(device_node) =
++	     of_find_matching_node(node, its_device_id); np;
+ 	     np = of_find_matching_node(np, its_device_id)) {
+ 		struct its_node *its;
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
+
