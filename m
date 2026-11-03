@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721384;
-	b=FNCoMxiD8RqMBT4KNPeb6bn9C5uNyRz6+fwTi479+YX9nRRUyT7CWXKAe9d1sQBf1plJ
-	 RCFcgwNGWSAxbMgIwX5ip0WBGEZSjy6MD6q5zoHRtVxUl/BJWpV6pkA3h/OnCtjnzwKKv
-	 V2kdjFzGim7/Rw7mZyshZ/bc0W1Pp0H87Y1/cmZy0LJ14s+CzJRfmXnf8AgqxwEpSYVxD
-	 uXxZ2FILcuVG2QkRPONydB2zZS+bwpEMQoFLeb03qdwbMXzbwefnfpYYu7iBHmttbxuY0
-	 72k+vdeszR5Dkvdxg+S2ddxjSWf7JVXeYRI0+Lx7M/7Nxso/EChJNDwyHdDWSYwaByg==
+	t=1793721398;
+	b=Df0E5YE6pTryuFVjCo+PCuIpFJw8fBoxspkRoCPvLSa0PzYXQqm1fv1XseErG1chu9ae
+	 W6LsWVHWzfPglEfqxqmklrJgO4vhtRaHGTJNATCTI+kYLI2SKA+pKirVQvxQ8JaYHCeqg
+	 WRsVa3Xxr68F0mZytwqGmNkcjohCqLS4PjzuLeECRHXNf4En6/Xasg0i0VJSSde/HT4BU
+	 qjL5xdmgOfwXIr8bTcrEo6s1/3/3NhMMfB+a9w93y4wgBYXkUGlAycL6PlViMZd/ZI8nc
+	 2/m5MpoWmVublr2JsxpasS3rlpTWR7faEUi2MGdnUh0apmDSWUjTxeAyb4CCM4wxPEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721398;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=wIMgPKEMYhN58vj1EK1fajh3YurZ9rZG08jfSQgadcI=;
-	b=MSpY1WDKF+PhSMeBpS1i8HGRM9FL10L9DfOd6a8/61y20gcH5Ndoh6hhgrsHzFWooTze
-	 l+SH9livLwa45nQl+yrx1u6fJgov4CvVFnFzrSZCdLioV62BAmKZRlUrRfWV84vpWaq3J
-	 cOULHwrod4X78EZbHKuyw/0omHqKQ/0ppnphb6F+Wnleatuykrle9zcNvZf9t1mQkaB8W
-	 qEhxzpYKU38gGyHA+z0N5AmGrB25Q+5qv/VedlyWRXfHhkIdp+5zl6L9RAnc9VYKI1/u4
-	 B1C/dWkkRrX5DdtLF1ALkUuGGJBrb5+kWzYqDm8WhrbbXlo4Hy2BP0FIj7hkNFZy2ZA==
+	bh=VtbvE/wi+r1db1317acIdezolGI3eGnw0B2xfIHOof4=;
+	b=y3xNuhredZiQsS2HyEfKrHcpgVxJN63XI8AOjrv2xsluYriRmgLFMdIsUc1l6zLP9HFr
+	 iXdDeW84sLhVzKyXmZ1KJBvd9r61tXKvPpcMaguNc4PXzJb4aV3QIphcj5lTTuaB2lfGo
+	 9eoctFji/UNSMVeeVDU9LnAnMRKvaJbM0rqpsvZTSsrHWYLBBSTYYejkd9L68FbqdwV0u
+	 uzZU61GrPJjQpagEpWLcexALwjEEnAWAIritGWaRSbch96raoU0AJkqU7XZf7XlGms0wa
+	 HeeDRV+uiwyzN1m6/xBCBcCPfT2jb/ZUW824i7NvD3sVfMvEYcWPmMXxeEz9CVDkIWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1YA5bmJd;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WYnMHotI;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D439D606D81F;
-	Tue,  3 Nov 2026 15:56:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D439D606D81F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080266082BE8;
+	Tue,  3 Nov 2026 15:56:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 080266082BE8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1YA5bmJd
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WYnMHotI
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7E33D4E413DC;
-	Tue,  3 Nov 2026 15:56:22 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BE2711A1435;
+	Tue,  3 Nov 2026 15:56:36 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 489C56046C;
-	Tue,  3 Nov 2026 15:56:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40EFF10329123;
-	Tue,  3 Nov 2026 16:56:11 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 890D76046C;
+	Tue,  3 Nov 2026 15:56:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 739F2103290E8;
+	Tue,  3 Nov 2026 16:56:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793721379; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1793721393; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=wIMgPKEMYhN58vj1EK1fajh3YurZ9rZG08jfSQgadcI=;
-	b=1YA5bmJd7Kyux944+w4c5vOf4PG+Nv7TvRAQ71IG4Rh1A2Mot+/KwfHKC3PRnmCoRGqTfG
-	y1cfW89y4D/8cTR6D955djCzX6DZI52zfYdVJEiB82EQr+Yhm3C39oG3yoqKJDjTyClbvf
-	Vd22npYFCtKaX3rJOa+iQWRyjW8PnSuILVA1wtYTyGu1SaL0iHXuKixpWZekx56UvRAokx
-	p7oHRKZIVd6eSjsbgsBWLERof8ixITVJoTeN1QD0GqqxmgAu3WHNWwFcTUGUJxfD55jmiK
-	VdjVVMMeePOPfjvTAfrO6YfWOBuiF1hY6L0s3puJhviwyp6LRY4i19xMxKBpGw==
+	bh=VtbvE/wi+r1db1317acIdezolGI3eGnw0B2xfIHOof4=;
+	b=WYnMHotIpxvyjJRNbVB6F10sQkLBnJohFPlIIBI+z7iRJf0qy22QM3xVJjrfeM8/Aw36bA
+	IOwxyiLoSsGxN+p6YP2Upe+ZCiGlrVAPMZwMnAALyqJxpO63qkUpI3xhwUvu8h5gQ8gdO2
+	c5uIFgr2WjRGxjmGVF1Cf9T2h1EHy1os/DFEW788CjXn5cR/pn3Gy5JJhVnieZuNL7idvJ
+	ADzk6Be/xcZrBxsqaNYKZ9QPUXz5uRW5YV/nwr+AsCvzgzI115r4GTNM2u3C9V+fLO6iDx
+	b9i+PP18FCbT1E79Cd5pCnBtL6vo+nbS4xYH9yojvb0aZKag/YcwUiHgjq/+Bg==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
 	Richard Cheng <icheng@nvidia.com>,
@@ -95,12 +95,10 @@ Cc: driver-core@lists.linux.dev,
 	Steen Hegelund <steen.hegelund@microchip.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org,
-	Ulf Hansson <ulf.hansson@linaro.org>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v14 01/10] driver core: fw_devlink: Introduce fw_devlink_set_device()
-Date: Tue,  3 Nov 2026 16:55:07 +0100
-Message-ID: <20261103155540.365294-2-herve.codina@bootlin.com>
+Subject: [PATCH v14 03/10] pinctrl: cs42l43: Use fw_devlink_set_device()
+Date: Tue,  3 Nov 2026 16:55:09 +0100
+Message-ID: <20261103155540.365294-4-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103155540.365294-1-herve.codina@bootlin.com>
 References: <20261103155540.365294-1-herve.codina@bootlin.com>
@@ -116,44 +114,34 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Setting fwnode->dev is specific to fw_devlink.
+The code set directly fwnode->dev field.
 
-In order to avoid having a direct 'fwnode->dev = dev;' in several
-place in the kernel, introduce fw_devlink_set_device() helper to perform
-this operation.
+Use the dedicated fw_devlink_set_device() helper to perform this
+operation.
 
-Having this helper allows to hide the fwnode devlink related stuff
-behind the helper.
-
-Cc: stable@vger.kernel.org
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
 Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Acked-by: Linus Walleij <linusw@kernel.org>
 Reviewed-by: Richard Cheng <icheng@nvidia.com>
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Tested-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
-Cc stable because used by other patches with Fixes + Cc stable
----
- include/linux/fwnode.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/pinctrl/cirrus/pinctrl-cs42l43.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
-index a9dcaf7e7076..3ce49575cf82 100644
---- a/include/linux/fwnode.h
-+++ b/include/linux/fwnode.h
-@@ -260,4 +260,10 @@ void fw_devlink_purge_absent_suppliers(struct fwnode_handle *fwnode);
- void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode);
- bool fw_devlink_is_strict(void);
+diff --git a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c b/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
+index 8990fab0446c..563070aba3d8 100644
+--- a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
++++ b/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
+@@ -576,7 +576,7 @@ static int cs42l43_pin_probe(struct platform_device *pdev)
+ 				return ret;
  
-+static inline void fw_devlink_set_device(struct fwnode_handle *fwnode,
-+					 struct device *dev)
-+{
-+	fwnode->dev = dev;
-+}
-+
- #endif
+ 			if (!child->dev)
+-				child->dev = priv->dev;
++				fw_devlink_set_device(child, priv->dev);
+ 			fwnode = child;
+ 		}
+ 	}
 -- 
 2.56.0
 
