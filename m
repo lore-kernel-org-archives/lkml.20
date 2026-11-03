@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715577;
-	b=jJzDHdZfd8569j/9+QKFDXCzmctn98bghpS7EVT6LYrFz6veWPTWrN4s43Vuy2Oe6sKY
-	 rS1K1Fcw+nnuyRHQX5Gq2CXwLgkfb3XdkEGyzyG5j45SPITugkvXql6h3ayQcNWexQETZ
-	 VIj6D6IS7cPUx37INCynW87TbuNz6SCXYQc1RgtMWexnrZybxgMSi+bQWH2YNfU3B13sr
-	 G7Vw7ClBmFApHiQ/UzleD5DxzwvDTbShCCGRSmYpQOj70X0D+Irodyx0v3mw4B/RYYj63
-	 8VUZ4gzwaZnWzguMGfof3Q5SlqyQJDipXMUFesFwX5WDPV6UyKIYrep/Bk7GQAKqrlg==
+	t=1793715597;
+	b=v3eFZ6qTGJYbC5aDnEGHipS9ZKzmXXcxgeWIFQGVTbti1fNUY/nfPzHgGC5b0td3DAd7
+	 aFMOsAmGFfWbQkaUoQpbxtZHsKV5JuAlCw+RCyQDSm6N5ptMIpeTTT/FEJuRSo83DCyK0
+	 ckl3XU4Oa8gRu3R+hxgRxJzQbh+2eOi9Px0YhJv3O8PqFtExpkc/BjXTi7NWgXh25ZLUj
+	 SPMnzBPrPozKENbF4TQNJi/K6JDXPBuUGCnIJ41Ole/ONheHdpEIVTFgzoKfBP/2e7Gdu
+	 eG1NOAA7IMximevQ2xCXz/3K7a+eEKOHxSJR8CspIpu9kqJObOI0ILhf16qnsA4vHSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715597;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=M8BA0Qz+O6VqvHfW/TGA5Wo83iiGaTSgDTRZR1HKjhc=;
-	b=HxfKBlnqYVakUc6jYMbmqA2OfAiL//i/mTSMyB7KBJ2yLmh9uGDm3JhGgzNw2jFP708Q
-	 J8mcMOTeDwmUHK/rjaKb4OA9fsxWLQa6hV5TkmMjniEzklxbsSl3vupTVd2GcBlL0xTi1
-	 Eb5b5MT5CP7+gVbZ49mlsjEfDllMAnMGAU1qU5bQls2iccFZHrCRGpsDuLmTQTR97tVuU
-	 xwSuHLuYqIVHRfcbegZCyCBQ5okiojvsaSZA3BNXcHHQE4ZXTY0coWzruKmRsVH0imQgn
-	 z1eHn7Qi0SA7BVr+Ztf4nLrYRtIgd2F69pxHz/ylaoVKI/UyLJp5/2NEw767mtdyexQ==
+	bh=SZCN1KJ0Gxb3baIrMzkxwxg1JoGJHrMBrLpX0iRDcDQ=;
+	b=rYhPfrHHwcvrbe/dYqipjCQm9IckwBuP/cv/5l92rNuSanme6vTpi0auquZ3suHrlutc
+	 HWxRoYERcCuQ6NFK4edOqOTC5KJptUrllH7T9gx8XktGF802IqOl+gSpf25XO0/Eep6QR
+	 UqDwXp9qNZgyfaUQQC4e+6e/SB+T+y1zqWepgXLg90vJlBn/3t/LKPnswyXV7etnwJe3S
+	 kmPNXbeV0EvvP0BYw2B3TIk22WsYekcs08D/JcUhheB4ZWQNZQYC5kR7BIiB0tUYZENYp
+	 PFeu0tKhk2k5HWbetG03eGmcGEDJ3tho5YPISQq1vKh7WVPk04tkBa7OgPdw4Nl0qjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AdV0+L/u";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0kMnQsS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0840606A326;
-	Tue,  3 Nov 2026 14:19:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF96606A327;
+	Tue,  3 Nov 2026 14:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdV0+L/u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0EE1F0093A;
-	Tue,  3 Nov 2026 14:19:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0kMnQsS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53C21F000C1;
+	Tue,  3 Nov 2026 14:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715576;
-	bh=M8BA0Qz+O6VqvHfW/TGA5Wo83iiGaTSgDTRZR1HKjhc=;
+	s=k20260515; t=1793715596;
+	bh=SZCN1KJ0Gxb3baIrMzkxwxg1JoGJHrMBrLpX0iRDcDQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AdV0+L/uu5w6p4XYXQjY0H68mZ3hUmUioWfgrsFtcpEZraV3xGIdjVnxqoCqgv8FK
-	 vVknPmbL5TKvr1cAdyiQMi69A21ftzjcFVBLJGDtgG8ejLxjTAyxvySlk0iCCVmUS+
-	 7mqLZ5BuhAAM4TyU9caJhU/2gHSyoVwXJYiTVCJydolWutcVTOkH/KMLFtp+S47+V+
-	 kWllxc5+Q2XssEc9fDX6lhF3/QqSLJAALbP887aXNFFXS22lwmur/D8f0dusaNhpbY
-	 TxJ7zv3Hck2GLMXTOzXkEw8BeJMbIgBOs7ThIFaCcLPiRQju3SKsqITRTq/FL6YSRC
-	 ZljTPZy/qDFtw==
-Message-ID: <0fbf3947-29da-471b-93d8-3ac9853075ed@kernel.org>
-Date: Tue, 3 Nov 2026 15:19:30 +0100
+	b=c0kMnQsSOC5cxQwmlZLw8EGmyMWEFgPbWGm1M9peib0BSrFl+zK8FYEf8gcjgs6HG
+	 E/7vFzVvnDyAQiwvvr+rmEO4BmDtMZoAjLBCB8uwIh2oOS2ZGViO44iXFqPIXIPCXK
+	 So+dNI6VbTOqt8/wJxBvL/IG3sgPaYvOWsC4iB4idqwEBuCHo2InTFUyt3XSNtc8cs
+	 jtXr4l0gFUsa8ihfJzrCmFGeHYUQqfyTrO1mobWwBgWyo+NimJZQHu444pLWRH8jWZ
+	 Njb3Dj5UTK487c9IwBL8aqobl6jwLdG73YczFMjWY/uBCEAFl+0cRbKQ/5rFCfoxUX
+	 P+pOS6Rl+kU0w==
+Message-ID: <593b9102-73cd-44f1-9a57-7df0806d6505@kernel.org>
+Date: Tue, 3 Nov 2026 15:19:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,93 +52,108 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/11] dt-bindings: gpio: vf610: fix clock requirements
- per SoC
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>,
- Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-References: <20261103-gpio-vf610-fixes-v2-0-7c71fb36e184@nxp.com>
- <20261103-gpio-vf610-fixes-v2-1-7c71fb36e184@nxp.com>
- <20261103-venomous-hyena-of-fortitude-063eae@quoll>
- <auneixIA0ZtvXukt@shlinux89>
- <80091b45-377b-4736-aabb-c1f3364d7d9f@kernel.org>
- <auno8f235ZdGQsxZ@shlinux89>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 2/2] media: videobuf2: order buffer initialization
+ before bufs_bitmap publication
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa <tfiga@chromium.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+ <CGME20261103105616eucas1p212ea654a93c4754fcc58bf449a2e58b4@eucas1p2.samsung.com>
+ <20261103-vb2-mmap_lock-v2-2-054e11dcd013@chromium.org>
+ <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auno8f235ZdGQsxZ@shlinux89>
+In-Reply-To: <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 15:00, Peng Fan wrote:
->> Subject has nothing to do here. Read again my comment. You say vf610 has
->> no clocks, but I do not see corresponding update.
+On 11/3/26 14:39, Marek Szyprowski wrote:
+> On 03.11.2026 11:56, Ricardo Ribalda wrote:
+>> Stateless mem2mem decoders call vb2_find_buffer() -> vb2_get_buffer()
+>> from .device_run() without holding q->lock or q->mmap_lock, which can
+>> run concurrently with VIDIOC_CREATE_BUFS on a streaming queue.
+>>
+>> Both set_bit() and test_bit() are unordered, and mutex_lock(&q->mmap_lock)
+>> is only an acquire barrier. On weakly-ordered architectures such as
+>> arm64, a lockless vb2_get_buffer() caller can observe a newly set bit in
+>> q->bufs_bitmap before the kzalloc() zeroing, buffer initialization, and
+>> q->bufs[] pointer store performed by __vb2_queue_alloc() become visible.
+>>
+>> Pair smp_mb__before_atomic() in vb2_queue_publish_buffers() with
+>> test_bit_acquire() in vb2_get_buffer() so that any reader observing a
+>> set bit in q->bufs_bitmap also sees a fully initialized vb2_buffer.
+>>
+>> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 > 
-> Thanks for quick reply. I see.
 > 
-> In v3, I will include below in the dt-binding patch. please let me know if
-> it is wrong.
-> 
->  - if:
->      properties:
->        compatible:
->          const: fsl,vf610-gpio
->    then:
->      properties:
->        clocks: false
->        clock-names: false
+> Can't we use ordinary locking instead of those memory barriers and relying
+> on not-always-atomic bit operations? For me this looks like over-optimization,
+> taking into account that those operations are not on the critical path nor
+> anyhow time-comparable with filling the whole buffer with image data.
 
-Looks ok.
+I was thinking the same thing.
 
-Best regards,
-Krzysztof
+I *think* the code is correct, but I'm not sure. Memory barriers are hard to get
+right, and I consider myself to be a newbie when it comes to that. A simple spinlock
+is much easier to understand, and this is hardly a high-performance loop where you
+need to squeeze the last bit of performance out of it.
+
+It's why I wanted to split this off from the original patch, so it is easier to
+review.
+
+Regards,
+
+	Hans
+
+> 
+> 
+>> ---
+>>  drivers/media/common/videobuf2/videobuf2-core.c | 8 ++++++++
+>>  include/media/videobuf2-core.h                  | 6 +++++-
+>>  2 files changed, 13 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+>> index 70ef38c3d16a..d0dd4b22b646 100644
+>> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+>> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+>> @@ -461,6 +461,14 @@ static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
+>>  
+>>  	lockdep_assert_held(&q->mmap_lock);
+>>  
+>> +	/*
+>> +	 * Order the buffer initialization and the q->bufs[] stores done by
+>> +	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
+>> +	 * test_bit_acquire() in vb2_get_buffer(), which is also called
+>> +	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
+>> +	 * from a mem2mem .device_run().
+>> +	 */
+>> +	smp_mb__before_atomic();
+>>  	for (i = start; i < start + count; i++) {
+>>  		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
+>>  			    test_bit(i, q->bufs_bitmap)))
+>> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+>> index 2e93e6985d5f..20b961da21e0 100644
+>> --- a/include/media/videobuf2-core.h
+>> +++ b/include/media/videobuf2-core.h
+>> @@ -1288,7 +1288,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
+>>  	if (index >= q->max_num_buffers)
+>>  		return NULL;
+>>  
+>> -	if (test_bit(index, q->bufs_bitmap))
+>> +	/*
+>> +	 * A set bit guarantees that the buffer is fully initialized, pairs
+>> +	 * with smp_mb__before_atomic() in vb2_queue_publish_buffers().
+>> +	 */
+>> +	if (test_bit_acquire(index, q->bufs_bitmap))
+>>  		return q->bufs[index];
+>>  	return NULL;
+>>  }
+>>
+> Best regards
+
