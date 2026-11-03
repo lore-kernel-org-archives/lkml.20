@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791351;
-	b=1VVLCddYlzzJrzCrvPExHhdY/FGoPP3C5QEkSPufVJrE/NSi8Tp7eM+yW9FCr4c++ZHd
-	 JlIpmnG2suw33T/oW9mrYEk+Pv1OPwF6ydjnf3jd0mkQk+vDmI7hMXEeq+83pn/E0QIE1
-	 UWrgvNijXShmMzaoe/XSy+fG+dAZJpnbdgUlQBwWl+M8u0eV9tfrdv7uFO9aIZPc2mhxs
-	 wZsiM7hcRyRB0PPNscDLO0OnMUpBlN3CGi38mFeEcR51B/FObqZHVGdGgiId1eqePkSQT
-	 BrEmnvCabg9IO14X7zBrYkNMYUbephAxmTArmrg6IG8J8hn5J7szMEBoP/phk6kPU4A==
+	t=1793791360;
+	b=wRvx5CjB709T+yo5Ey+APDZauNJKEj0jRnNns+cv6hKsmK8RZIDU+53AwHYQN85zypbx
+	 5yRD+9uSy8FefsAOfEHOdjUU75fjPTrAcMsvnkMM5ucRIvG3mg4/9cb6J5JsbSsg8wFrO
+	 +TEKoAu1PEizCe6Kace1pQDbeAV/xaGYgChyYNl2huAOcQDUtQ8P92ZuTtnDjlWZZj7Pj
+	 R62aMKYmmWb0y9Hsh5FUHY4wj1ZOvXr67CyzyVSqFFcrElZgJvj/tiGMfPws3OdXtzMcS
+	 QYoZZo6VlTKMp3UNUR4udyGLmdw87s2XHfMZG89PsXqqYBHQK0auYFrSt7GUpOkiklQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791351;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PhlIWW6g3N+AFu1LsfAztQ3Wt3gvl8nW98AXZASgM/A=;
-	b=ehO4OGuetP5NxGnS1z0oPGvGCe8zdsH16STFI+WUOwxMiMcX5FBS/GgPthTcwN2kNXvI
-	 FlIXmnsJKBv2AqaRNB7OZ6+9gD8FzOpsdzpFmaiBpYAaB3AenQ8A1M31ofeFjz59/OYxM
-	 2cuXdpt3ZqnDPArAGNV7Rx13411jqjbDp55RvGeVfvhKjeA1Ea9qNRtqx5JVwQ0/FtNOt
-	 8MmUEAKTEw5c9ZQ+kDBEs81lUv5MwBj5UdmV2LRI/HoNt4PLpffyVYEF+6f4Qjc8ZHNGA
-	 ejmEYkBAbddEf4vAn+eCyuA7mzBELOQVMEKaaQnAUKod8Af6oGpAtfyiFgXFPNGiZLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791360;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=ztl+pbmgGYCgH6Cy8DY8nxr8DlBMb7+Zh30yCIxB2r0=;
+	b=Fys4B036ZT4rUXgBQkj3QjBPut1g7xU2a1SFJFfDqt9Y01TI9Qv1Rn/Mp0kCHhpEwHvY
+	 7VGBNynG9txf3HYF0VQI/k0wLBf7lHY1tdmD6cGB8TW0ILwiB9K4w62QdEHIFb+vFdcog
+	 zvsuYCwz4NpNP0vV8+kSM9nxWPRfd6rkk2FJ9qDKwO0Nndrde21ifJGI1pIknmfFH0Ach
+	 iae84PIdbkk6S97TSSQefCUMqqmI0boVqdsC+teoqbeOH6qA3i38052c1NGKFwuXhRz+x
+	 9pNRF9GYKAc7mIRclyZ3VMFPc0owMr5hFtleErKxaALTgCZpS2i5Kw1mVC6PV9wlZkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzQFw0Fc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Odf8DaH3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA43606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AB6606A326;
+	Wed,  4 Nov 2026 11:22:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzQFw0Fc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC30B1F00A16;
-	Wed,  4 Nov 2026 11:22:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Odf8DaH3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80EEC1F00919;
+	Wed,  4 Nov 2026 11:22:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793791350;
-	bh=PhlIWW6g3N+AFu1LsfAztQ3Wt3gvl8nW98AXZASgM/A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PzQFw0FctCGUG1qHhQ27pa7aqyd7BxJUFvbnrW/uv19RT1NEp+QBsPx9tWUT0MRKZ
-	 EP/IgnjNU2qQXaN6ydBSAjnVmbibh1JigkN4pF0k4b4TVFlN6vXgsHaMIv4OLWjbtW
-	 9JZAxCVdX8vntYR8F2GsWdf0v+5nIZntQeHoeycoXS6Lh2ud8VSmqn3XOp3F5vl6Gk
-	 1UEiBKOXa+yKIeI0dmRVCCjCuoSXB1eQLxtei9hnz4GTO95SjGcSospGRBVSQlJ3qW
-	 ekL/wjVM9kPF4GBBy0057j6cy9SYv1Kl52peqE0i5VtsYdAP5nRfejwHQD75bTPkD2
-	 5zQx0FPWv/hpg==
-Date: Wed, 4 Nov 2026 13:22:22 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 1/2] kho: skip zero-sized lowmem and global bootmem areas
-Message-ID: <ausVbqZd9qgZf4zc@kernel.org>
-References: <20261103-kho-bootmem-sizing-v1-0-45aa74098f34@kernel.org>
- <20261103-kho-bootmem-sizing-v1-1-45aa74098f34@kernel.org>
- <auo3PzmisfK3br1l@google.com>
+	s=k20260515; t=1793791359;
+	bh=ztl+pbmgGYCgH6Cy8DY8nxr8DlBMb7+Zh30yCIxB2r0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Odf8DaH3lB3Xb3zWUiGnVJI/XusuvTPu5NLbI6ktQ23kihoSEa3/48M3bfvfCqz4L
+	 17Q0azT8KYpXJDPQjmwpVCMWjPrQr6hPa+zHsE4uYxdsP8vADV+IhY7e7fz7cyf1ts
+	 ltacVOtyHxD2xFHWEHyJcbBcWJSPdtUpzEeQ5x2Q2LnYN99dW6a5jJE9EFfUwUHCfL
+	 9syH2po3qxgQlPWT9RKl839WBlD/CNdBBN3MqJItdNffOB3ZN6jM1UVbO2dSnTeswC
+	 YJpKc3wSZBhGLKSmB0FsDVba/K/OA7MeZyaVgfTCeptSHhQlb6Fl3Kv/qREjaGNIHQ
+	 CkMulk2LrUCUQ==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 38CED25D9AA6;
+	Wed, 04 Nov 2026 11:22:37 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, heiko@sntech.de, 
+ Jude Gyimah <jude.gyimah87@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261103132537.3717496-1-jude.gyimah87@gmail.com>
+References: <20261103132537.3717496-1-jude.gyimah87@gmail.com>
+Subject: Re: [PATCH 0/5] ASoC: rockchip: fix missing REGMAP_MMIO
+ dependencies
+Message-Id: <179374840410.2186205.8917422053194660674.b4-ty@b4>
+Date: Tue, 03 Nov 2026 23:26:44 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,97 +63,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auo3PzmisfK3br1l@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
 
-On Tue, Nov 03, 2026 at 02:48:36PM -0500, Pasha Tatashin wrote:
-> On 11-03 13:49, Mike Rapoport (Microsoft) wrote:
-> > The lowmem and the global bootmem areas can have zero size, for example
-> > when none or all of the memory is below ARCH_LOW_ADDRESS_LIMIT, or when
-> > either of those areas is explicitly set to zero with kho_bootmem=.
-> > 
-> > For a zero-sized allocation memblock returns an address without reserving
-> > anything, and that empty area is recorded in kho_bootmem. If there is no
-> > memory below ARCH_LOW_ADDRESS_LIMIT, allocation of the empty lowmem area
-> > fails and KHO gets disabled.
-> > 
-> > Extract a helper that checks for zero size and allocates memory from
-> > memblock, and use it to skip empty areas the same way as empty per-node
-> > areas are skipped.
-> > 
-> > Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-> > Reported-by: Chen Pei <cp0613@linux.alibaba.com>
-> > Closes: https://lore.kernel.org/all/20261026131851.9942-1-cp0613@linux.alibaba.com
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  kernel/liveupdate/kexec_handover.c | 61 ++++++++++++++++++--------------------
-> >  1 file changed, 29 insertions(+), 32 deletions(-)
-> > 
-> > diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> > index 6f1f55fe31819..f268c57413a7e 100644
-> > --- a/kernel/liveupdate/kexec_handover.c
-> > +++ b/kernel/liveupdate/kexec_handover.c
-> > @@ -820,6 +820,27 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
-> >  	return false;
-> >  }
-> >  
-> > +static int __init kho_reserve_bootmem_area(int *idx, phys_addr_t size,
-> > +					   phys_addr_t end, int nid)
-> > +{
-> > +	phys_addr_t addr;
-> > +	int i = *idx;
-> > +
-> > +	if (!size)
-> > +		return 0;
-> > +
-> > +	addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES, 0, end,
-> > +					nid, true);
-> > +	if (!addr)
-> > +		return -ENOMEM;
-> > +
-> > +	kho_bootmem[i].addr = addr;
-> > +	kho_bootmem[i].size = size;
-> > +	*idx = i + 1;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  /**
-> >   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
-> >   *
-> > @@ -832,7 +853,7 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
-> >  static void __init kho_reserve_bootmem(void)
-> >  {
-> >  	int nid, i = 0, max_nr_bootmem;
-> > -	phys_addr_t addr, size;
-> > +	phys_addr_t size;
-> >  
-> >  	if (!kho_enable)
-> >  		return;
-> > @@ -852,56 +873,32 @@ static void __init kho_reserve_bootmem(void)
-> >  	 * reserve bootmem area in low memory for lowmem allocations in the
-> >  	 * next kernel
-> >  	 */
-> > -	size = bootmem_size_lowmem;
-> > -	addr = memblock_phys_alloc_range(size, BOOTMEM_ALIGNMENT_BYTES, 0,
-> > -					 ARCH_LOW_ADDRESS_LIMIT);
-> > -	if (!addr) {
-> > +	if (kho_reserve_bootmem_area(&i, bootmem_size_lowmem,
-> > +				     ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE)) {
-> >  		pr_err("Failed to reserve lowmem bootmem\n");
+On Tue, 03 Nov 2026 14:25:32 +0100, Jude Gyimah wrote:
+> ASoC: rockchip: fix missing REGMAP_MMIO dependencies
 > 
-> You are adding a helper that returns an error code and then ignoring it 
-> at all call sites. Even though it can only return -ENOMEM right now, 
-> dropping the return value is not good practice.
+> Each of these drivers can be built into vmlinux while the code
+> providing a symbol it calls is a module, which fails to link.  The
+> same shape in 5 drivers, so they are here as one series.
+> 
+> Affected: rockchip_i2s, rockchip_i2s_tdm, rockchip_pdm, rockchip_sai,
+> rockchip_spdif.
+> 
+> [...]
 
-I don't think error code is important here.
-Even if some theoretical future update will change
-kho_reserve_bootmem_area() to return anything but -ENOMEM I don't see why
-the error code should be printed at all.
+Applied to
 
-And anyway, that would be the part of that change.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
--- 
-Sincerely yours,
-Mike.
+Thanks!
+
+[1/5] ASoC: rockchip_i2s: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/1c57404bf9ba
+[2/5] ASoC: rockchip_i2s_tdm: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/b8284f2b73f8
+[3/5] ASoC: rockchip_pdm: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/420c7918a61b
+[4/5] ASoC: rockchip_sai: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/829904994e7a
+[5/5] ASoC: rockchip_spdif: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/67a7e2073909
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
