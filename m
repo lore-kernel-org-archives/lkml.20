@@ -1,118 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722286;
-	b=3PLkDfmfUclvd+fJddAQwxyh4YySz0TSRpd2nWbnXdpu4MisblDDqUu8BN1kLFvYwvpQ
-	 eL4cEpwYAj2lTjpWXUT0Yuea2zsVogD+Go5BvlGLO5yV2Ug75GmMHNFrquQk5+mcqSSsE
-	 2F8kRS/0jkDmLM1RYeU46lZVnlxBZAgWnf3+7g0o4J0O071ERL8in03iErna7iCKGLx0t
-	 rGa/ABqIENcV0NcEuOi60MYm7XEwbYS0MQIx0mcKGPqt6aKA9vd30XA4Ua+4+D9l747NE
-	 +n9gtWdAAC1XtrjtOUCpnThWYhtsrK88hJ+9IwuC0KKSS89uI+xbBX5S1V4CXvQvp1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722286;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rNwvKOCdTYC9J02wHQU8L2xZ+KavqPuMAcm6uI6YuYg=;
-	b=ASscaMlJvhUgJWueS+pfOE033tuonVttvMvPnsexqpWTC8WnLWW9GDX1odikzvFhgPXp
-	 cn/WtSTpyyAybYKTG6TqZgbVRTODKuQ5ZzrphVKaBt1T0fZfm4ILACFYLz+UTt1Osl2OB
-	 xwkksiIoUdRlvFVqzNpNIP1fPpWGNgi8TK1VDc89/PHnxwspG1FUkf3SmNrLY/WO/TYHR
-	 evG9VpDgXUBlH5RzURbFlbCr4bo9Hu1ywhekuMl5t+WNYNwtaX2r/dtBIAXF1kbZ0IIrb
-	 KruyKOrMWPOSU2N3KYdTl+kd7lheYJn9iv8XxM9siGpvTjYMjlF+O4cfSm4lGGZuPqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OisoyWl3;
-	arc=none smtp.remote-ip=209.85.167.171
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793722304;
+	b=guT8fhR9ux+KE7MI3M4GEtfjDmXiqqBMrpAOA8GfYH6R3ECBF8pJUgQ+5wcbjJcCp9zX
+	 n76RXzdYfFIZLW6tVFc1NIFwqQ0xxw8llZRK+nqnr0IHbe4egI8nlqtf1/Id0uzoPkNiz
+	 ZOxe9JfVDjl/OmnY+SUO01aDaW8yTnjTGpCpuMp1gPi2XLbRhmXsWsbUWC6vaQSxAlrl8
+	 6CPrC43XjvReuK05HczTuwmVwFqAmyHPIwT1DXtLjfqau+9I9BXULVKIcwXlfoGZoJge+
+	 QgAwAv49V4L4DD3QIUojLEfexS9XvRCX14zlu9N4zypXrXf8U0GjSK2CqKEnPAQiQNA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722304;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=knVfMihA34/swoT1UZQLVmq2kD4XEWEDQcjVhXkvDZM=;
+	b=jkC15h99rOGXWeDOpe4atcWT/sgtHcislOit6EWOXtfmnJprMYn+qPhSDPV93fYdiOge
+	 0NobjnH7n92W9Ty8J9XoDya4C8oMMBDEO0vGcDuHZlvWbvakm8oAPJw1Rijgg8Q1KHdKx
+	 cRSAEAC5Iu2zJ9jk4yIprPnMU+zBrVfVpG0CETB8RVzgvXGWagR7QmjfWmooluNchPSk4
+	 pk7WzCJ2SNMvX9KfG1Af5sMUehu3gQmBTaTcF7Pe8pZqKeFMq16mH+GM6DuAcG7tEhAFT
+	 xQVAF2M2ItBN90qYUq///YtZ2rKThp0jC4r4F5eXwJRwRw4mR+CLwMmhFJiP4QaZjbg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Hmt0GuJK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.20
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011020.outbound.protection.outlook.com [52.101.52.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17B96083628
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:11:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A17B96083628
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A57C606A326;
+	Tue,  3 Nov 2026 16:11:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A57C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OisoyWl3
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-53ec9237600so2447672b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:11:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793722284; x=1794327084; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rNwvKOCdTYC9J02wHQU8L2xZ+KavqPuMAcm6uI6YuYg=;
-        b=OisoyWl3dq9YmaoVmW7pkYvLeJC3unuO2MXG97Um3OIJbF0VRqLl8qnUMllF/pheoz
-         XK5mkdphNHCv9rH8FJfdFbBw6U5IrgklVV3X0Hxp/Q5QHwoKsgXrGVzan/6PXLGZKxw9
-         wUw+9K9nBJWwbEJD9epkdIvI0sKWwwT39AxSE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793722284; x=1794327084;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rNwvKOCdTYC9J02wHQU8L2xZ+KavqPuMAcm6uI6YuYg=;
-        b=fH4BaLHOOYQdKV+OdivTjQ/VEAIAdQcDvzIOU1xQKnrw4ie8t/D5JdWQkGF6PIooeu
-         4Twl1uw1Ct3BF6k6iALpkig+lAYara3n4/d8DJ9/nWijsaHfEVry6QsjN56ANYXAWedi
-         cE5GD3Dx/5Zo1WoV/FWRXt1UqKEqRFZhSO+l0JErdQFDSsSs4g8IC3FTl3UPoWj/6ukF
-         bNPStBFOMzM3oBhbfntCGeO5lUmmSUtDf3wZqoHMFdU2XbKUJo5n05IFKJCD1PVdGwLV
-         gS5fndgwzFSZeZlPa/lEjixe7YcyMAR5SuK4SPjAR3CYo4rXj6WI3Ur8jhgBdDwX0v5j
-         UKZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzLCNuhF10wtp6OSE5DDrucUMbluWPVs2DNSZqvxC/CV1kqbVOuTushUCLXPE3njGZEWG5E6dwh0ERPBoE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OWsSkM+fygzRL86RjZjwjjFvxa3MRVyljfiTnQc8+kpATR8Qq
-	A/7x3PB8tBVAGNvvQih7o08iZr9Tmlp1CYK0EGoqz3t+Y/3KIHaBkX+hMbBOIpooFw==
-X-Gm-Gg: AYBFou3PoaDeedsK96zEXjgaoR/SuKaQRE0Qg0TH6dHg6dkrJ1DRPdrqAmB/ZlptBGe
-	Uh+yjF+2F8m8OyJwwGbafaa8x0x5M7p6auNzk5O02La2W8BXspa2E92VwxwnyN4e17nzjTtxynC
-	HcyBkwehXFRSbc65BuOPpw7bRBVaKWeF/RwVWjjPqF9Q9O+WhL2118F4WBHKE0AwbFql+LTjiv8
-	+geyepwCSLNuh6OoE/kQ+X8Nz3vA8P2OabAGPHxsAEUsZ9tmUsoMxKWfmbFBpcyLR11WgeWvg7E
-	8vAAv4ko2uY6uuI+HGpvG+Gm3GjQS6GZezAWtSmGVSbr8GY9ZYDOMsUFO3ahjwKOtWAtnI+w6S0
-	X8eWprwv1xaTMmCkmO7AHPecfmOESj7c2NuOzXxaFsMJOVAMxTdU7wy0s9EO+IVl83bzvYVKY5t
-	gP/6vM7N90LLDWxCEJH2RYKWamIU9HSFMlyMuqhVZR2QYVRE2eh8eSN7ShEo0fMxJb/btCs/ulq
-	EFEqqxONN3Ip4YoVYwxkGIHgbLVnv0s2w+//uHTrfmCIF7iYW+m4/0PlSMFT6vopjiCjiUTL7EI
-	BFe/SLDD2BlGDRbWUcpwjuJH+Nie5fTh8KoImOV4c9hVUdZ6lqoMqZB9WqOhSs2ZsnRX/O9Avxs
-	aCRBttaV0/8JNJwU=
-X-Received: by 2002:a05:6808:2218:b0:52b:7641:33a6 with SMTP id 5614622812f47-5640deea502mr9137854b6e.14.1793722284423;
-        Tue, 03 Nov 2026 08:11:24 -0800 (PST)
-Received: from rrangel.c.googlers.com.com (194.246.27.34.bc.googleusercontent.com. [34.27.246.194])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd95dc0sm11688383b6e.6.2026.11.03.08.11.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:11:22 -0800 (PST)
-From: Raul E Rangel <rrangel@chromium.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Timur Tabi <timur@kernel.org>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v9 8/8] serial: 8250: retain DMA resources when termination fails
-Date: Tue,  3 Nov 2026 09:11:04 -0700
-Message-ID: <20261103161104.2449407-8-rrangel@chromium.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-In-Reply-To: <20261102-submit-serial-8250-dma-cancel-v1-v9-8-9159caade148@gmail.com>
-References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com> <20261102-submit-serial-8250-dma-cancel-v1-v9-8-9159caade148@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Hmt0GuJK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s//XKhahjsd3vJTNemz3EyIMJrnkMwD1hOuJ4ozbkjTFxSys4t1i9G99vALIGB2xvhPLEqNfMSxrTnfyyTopJ3Q/Wx6o2av+KFuBHewEDP12k7uwcFE3yAcNyjQcQ55lLF1YjeCJTTS+Eg6f2mBvNcilXmVjklCYee8gNYd8jwpuQDfOH5PtcFS4ikr70zaHW+NqnLKwWikhlqWdJ+TYNovnGfCP/dWSKQn3J7ss+/+AOcWoIPrP4SDmy2YifEvD9WlmWH+Ua5d3E+Psqf2nKeLnzR+0btGNd5xQG3JIavjnTS7+/TeqdlVfkaZL/Qh0emQrFp4sVYyDu8YzkLIfxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=knVfMihA34/swoT1UZQLVmq2kD4XEWEDQcjVhXkvDZM=;
+ b=cfM7c4IhQxWcAPaglzXWN4qRiZelvMEfcucPhdiaT9sLNkePRDuE6Xwof9a6ZXNHykhBGsF4OldliNuE+SvcZwX8GXCsV8NDgiPZySC5+zGIcJ6k7bvxjkP04enaulVHf4+CScBIWNFHplkIbYbTW4NrKjTj1qYmDDtsmJl4zyZFDvygpdviaqDY3a4Ed9UmfurQXV+/Ubf8fq9XxKC6dmq7FszA8r1cVanjHECPI+/UJqX+OT4RNWRpUQ8SnguOCd7AAJJOuxNIlt7hMclirAlk6c678F4zJisln6QVhQSxOvh0jnuWmgh6hszBVqkKpRTWUuZPhlU0FY7zKJDDqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=knVfMihA34/swoT1UZQLVmq2kD4XEWEDQcjVhXkvDZM=;
+ b=Hmt0GuJKlBBcGyePUJFsses28r88zPOlkFMGKxI1zoWc8Wp5gJMCjiR7njDCinuN7ZtO3Il9tDwR0Y/zIlMxSgRC5W2KoCz80+QHejggVicnObVYYPB47WhsmPjfF2jNBM/ftjwqqYj6nfOg9+vw+FKdkd3dNv1rnlfVGp5FMoj58Klh6sm4M9/IlIR51N5QW6WfvTE//t/HZmPRmp2yBltD5pAXQ0lzAJ9naRGaQAjVoeiCWlfOZxQXIEa/1M9ASHhpoivinutkzTgeRjAKJAaUymQ9kfqj5OIs0+DAbKbv5HhVlsqRt5MC4yedD6OGEDkj/R6CgSqCsaiJl2UL3Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS5PPF884E1ABEC.namprd12.prod.outlook.com (2603:10b6:f:fc00::658) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 16:11:34 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 16:11:34 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/mm: fix format warnings on 32-bit architectures
+Date: Tue, 03 Nov 2026 11:11:32 -0500
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <29C315FF-6C6D-49D1-9C6C-243903B425E9@nvidia.com>
+In-Reply-To: <20261103155451.534587-1-sashal@kernel.org>
+References: <20261103155451.534587-1-sashal@kernel.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0368.namprd03.prod.outlook.com
+ (2603:10b6:408:f7::13) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,85 +106,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS5PPF884E1ABEC:EE_
+X-MS-Office365-Filtering-Correlation-Id: e306d695-9cf9-498e-49fe-08df39c5214e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|7416014|1800799024|6133799003|18002099003|22082099003|3023799007|10067099003|261102123227099003|56012099006|11063799006|5023799004|261021123027099003|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	txqsWMVIuPYeqGtXG31Iukyp9vCZtGsibCi8ooLXEfrNkQLnjEgS5VtqaJKxYgQAAHT/0VWZo6H/dUZAtTD8NzQ/6U4ctC6p3HYR4Rb6YgThfNOjvVgLodzq6uZTGZtdBXtvW1dJztSBfEZGgIoe80eAsfq8mHsJUsc7YXwuy8dQLoCEBzEEFipGQ0po+c2Y9PR9c4k520qPL1tSxKho54FpUZhu8pcUCmw/7cbj2F3Zk2plHw3EfGVAA/W/V2vdu415cp/KN+rmblxBhFB8CpOkQFv00j3PjftVsqyma27iyDfdT9McCtSjSafcmzNyfSkPRfXXHY/w4oj6OvGg8e2Sr7/W9Oz/RwxWOcc13x9UOrtYTUkVNq8w7Nf8AgG8ss6Zkz6VFw1WttxiMEz95XDBa5df2zzhmqGUwxxOj5UOJ/r4K72eyPHa7xqabREB0GA6RVyLoHTLz/nhTGtU/QcXXjzzx1gjzcusOuNwlNLn11KTgvz/HSkNBwc4y5EaFlOgze+IPYzVqpW4W9q5WySZCrwG+Uy/ASKSQxW4k3t8YMAkaQO4tWfC7q+Wb1TdRlAi4Jkg4EmBhZFCfFIGdCpKMaGMZUwPCwN+ToKTnNtUfvW5Uc9rfXqgFzNcWN361EQFRcESYljyD4gDubthlJ9kifWP3uhLB2tVhLQvrbg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(10067099003)(261102123227099003)(56012099006)(11063799006)(5023799004)(261021123027099003)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hj56yKpFuMMJasqq6zJLMlDgYgXjV8l5zxU+wSbWdxKVsEIhqJ4ouhz+IQbg?=
+ =?us-ascii?Q?Ne9utpUZY1Wl/rASt/0h2P93bw2du2tXl7PjiJyymJUnC9kvgpQTl0Aw6+KO?=
+ =?us-ascii?Q?1B/kCCfqd8M5hVat09U4Z/zWEqzIe0kbLcegjdY70EQowrxZmP98gWrPYPI5?=
+ =?us-ascii?Q?sQbmn9KVrBarPR07r/QENwxwHMgFRNjEA1tT/QgUWIIyCfrCxZNlekiVODFu?=
+ =?us-ascii?Q?1H9/qnIDgiuSkCoF6Utp9l37wHmIm8Dv/kepLh8XT2JzRaTxHikXAU6Okain?=
+ =?us-ascii?Q?cQtYX6xQYcvEVctTumfyiYfzFwun122zRi6CSN5IQMpiq8WRGVohIgAyII9+?=
+ =?us-ascii?Q?m7cyGNEb8tfUCHWXgGzqPNTfjcWdhOgjKJ8GUucalOkavc1/HhIuPiNjlVBj?=
+ =?us-ascii?Q?cUkWe9aLtiR557G11ceHBuQ4DJdvdgEaA/0oXmDC7c/iKtzUkKeJOsaF85cJ?=
+ =?us-ascii?Q?HkHWLWNDbIMc7Ydn0NkRg5+3OQfej+I2xH0zXTyFXpYZyjkPuW73aakU1Ito?=
+ =?us-ascii?Q?a+PYN/Qk29KmPJcnvdZMOaXTpUHBiPC2ynrLoj3OsyBl4qVvokRVkp4FPljF?=
+ =?us-ascii?Q?pr7mQga6731KOdVWrKrdaTN9C7+p74SpREN5Z0qksf1UtHTWDpo+SyceUYvN?=
+ =?us-ascii?Q?tUU9qrXoAJavIT1xgRAL6ztmhH9ijecBvEBGXZW6KW2BmC3lsakjfnukFrvU?=
+ =?us-ascii?Q?Rx44/OAlYASrL5Eg2vJEEcg1FrLXGyKk6vFFo9k4qE5mqujkRV5CfS4fwonR?=
+ =?us-ascii?Q?H0ROuuqjPzoc5TAA1osh4JOU0Uhl178Py5zgkjBQtsDMqX/azEKGdPeYqpBg?=
+ =?us-ascii?Q?ruIZ6JEctyWAvMwnd1y6TZW0zZlwCShJbzlxs4JKzwxKoINeDxG/QycKVuN4?=
+ =?us-ascii?Q?FPGZ6fpzzPWgPV6ROoYdxMZGA/J0GFTHK4q2/bk+7/cHolUrt7xtz9LEEmyv?=
+ =?us-ascii?Q?xryPmqg5LqDF0Eeak2ytkREvAo8PEuz53paZRZjV/JX19kz2sz6d8SmpItKw?=
+ =?us-ascii?Q?19cUXqqA/IY/8I2U1cn7ZnTJtY0N0EEJmQ1n39raYHPpyPdbaWvl5mWc6TpM?=
+ =?us-ascii?Q?/ihFb4buk3AB8SL0LT6Vkj48hL55F+Wxv44oyN1x08lK1V4iTWNyTsOjBKbr?=
+ =?us-ascii?Q?s82FHAiC6O5BQi+CsyHomIlMnrPrJiMOwmsPba3Rl7/tT1JvTeoBNc+cH+Os?=
+ =?us-ascii?Q?OnCjlFdepPuZBPlUR9I2HFYKsXgukdGxBEHDlYVOAxM7FNlnEs+fJk0xaN3I?=
+ =?us-ascii?Q?TTSPeRcmUVsXz3MnDon3MJYS0XwLerPw6aLaMTC+zSXs/7O6u7mCdvqoZ2Iy?=
+ =?us-ascii?Q?EVwZTpTejq/g2Tyku8mGe5K7iEZD/RTKNCLJwVGp6fYnxAVLARg17NhKLsnV?=
+ =?us-ascii?Q?l45WnY5fpIIaqLAtaDgYXAAjAggSSiVM9p2oTOUd8u7i1U6Jiu1jSIZthCuS?=
+ =?us-ascii?Q?2p+zvIKDxyJBN4EFHvAbHI5P2F9lTS7D5Gw6fQWANHKO4gyZ64jW7uVm4tSz?=
+ =?us-ascii?Q?O7NFOuArRRyFOV5ZXxR/KDnBWA21jCfjpS8g2E9H/+HVBFAexjaLZvOB5KKm?=
+ =?us-ascii?Q?At82WdvflVkBKRSsgUFxJRxJgQjpkJ9nDDwzyCVwnQj3qhksx4NmFBTTNp7y?=
+ =?us-ascii?Q?udgGaPxCWlEEjz931fkTKnr3+fV0X+rZS7xEtRqvYbXNaqG+ss48v/tK+Lh0?=
+ =?us-ascii?Q?ChPwiYlcBij7P6THxAjCM9oSS7wA6es+miSguJoWgmfOwaJV?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e306d695-9cf9-498e-49fe-08df39c5214e
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:11:34.1647
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PMiHqqmmT8F4ce+oxaJObpoInlFECMgP40n0fM+ERtEr7mC5BpgeTLfHXWqWyTO2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF884E1ABEC
 
-Hi James,
+On 3 Nov 2026, at 10:54, Sasha Levin wrote:
 
-Thanks for replacing the fixed 100 ms sleep with exponential backoff
-(1 ms -> 1 s) and adding the initial/ongoing/recovery diagnostics in v9.
+> On 32-bit architectures size_t and uintptr_t are unsigned int and
+> ssize_t is int, and with _FILE_OFFSET_BITS=3D64 off_t is long long, so
+> printing them with %ld, %lu or %lx, or scanning /proc/self/maps into
+> uintptr_t variables with %lx, warns:
+>
+>   hugetlb-read-hwpoison.c:32:58: warning: format '%lx' expects argument=
+ of type 'long unsigned int', but argument 3 has type 'size_t' {aka 'unsi=
+gned int'} [-Wformat=3D]
+>
+> Print size_t with %zu and %zx, casting the nonnegative ssize_t read
+> totals to size_t, print off_t as unsigned long long, and scan the
+> addresses into unsigned long variables.
+>
+> split_huge_page_test also builds its debugfs commands from uint64_t
+> addresses with %lx. write_debugfs() has no format attribute, so nothing=
 
-Following up on our v8 discussion regarding blocking in
-serial8250_terminate_dma() versus non-blocking resource quarantine:
+> warned, but on 32-bit the commands get the wrong addresses. Print them
+> with PRIx64, add the attribute, and cast the pointers through uintptr_t=
+,
+> as casting them straight to uint64_t warns on 32-bit too.
+>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> Found with a 32-bit build of the selftests with a 64-bit time_t (gcc 16=
 
-1. Why non-blocking quarantine cannot be done purely inside 8250_dma:
-   I agree with your v8 reply and the updated commit message here that
-   serial8250_release_dma() cannot simply return early while leaving
-   serial_core to proceed with normal teardown:
+> and clang 21 with -m32 -D_TIME_BITS=3D64 -D_FILE_OFFSET_BITS=3D64);
+> KernelCI's 32-bit arm builds show the same warnings. The changed files
+> build without format warnings there now, and the x86_64 builds don't
+> change. The other selftests get the same kind of fix in separate
+> patches.
+>
+>  .../selftests/mm/hugetlb-read-hwpoison.c      | 25 +++++++-------
+>  .../selftests/mm/hugetlb-soft-offline.c       |  2 +-
+>  tools/testing/selftests/mm/mseal_test.c       |  2 +-
+>  .../selftests/mm/split_huge_page_test.c       | 34 +++++++++----------=
 
-   a) Immediately after serial8250_release_dma(up) returns in
-      serial8250_do_shutdown() (8250_port.c:2474-2511, and similarly in
-      omap_8250_shutdown() at 8250_omap.c:794-803), the 8250 driver itself
-      clears the hardware FIFOs (serial8250_clear_fifos()), reads UART_RX,
-      frees the IRQ (up->ops->release_irq(up)), and drops runtime PM
-      (serial8250_rpm_put_tx(up) / serial8250_rpm_put(up)).
-   b) In uart_tty_port_shutdown() (serial_core.c:1841-1853), immediately
-      after uart_port_shutdown(port) returns, serial_core unconditionally
-      calls uart_free_xmit_buf(port) (line 1850) — freeing the page that
-      dma->tx_addr is still DMA-mapped to — and powers down the UART via
-      uart_change_pm(state, UART_PM_STATE_OFF) (line 1852). Likewise,
-      uart_suspend_port() (serial_core.c:2502-2514) calls ops->shutdown(uport)
-      (line 2502) and unconditionally sets UART_PM_STATE_OFF (line 2512).
-   c) Even if startup() returns -EIO on reopen when DMA is still active,
-      uart_port_startup() (serial_core.c:422-423) has:
-        if (retval && capable(CAP_SYS_ADMIN))
-                return 1;
-      which causes uart_port_activate() (serial_core.c:2060-2062) to set
-      tty_port_set_active(port, true) with tty_port_initialized(port) == false
-      and allows root open() (serial_core.c:2040-2042) to succeed (0). From
-      that state, ioctl(TIOCSSERIAL) -> uart_set_info() (serial_core.c:1068)
-      -> uart_shutdown() (serial_core.c:466-511, which calls
-      uart_free_xmit_buf() at line 510 outside if (tty_port_initialized))
-      or uart_hangup() (serial_core.c:1942-1950) or uart_change_port() ->
-      release_port() (serial_core.c:932-933, 1072) can free the TX buffer,
-      power down the UART, and release MMIO mappings while DMA is active.
+>  4 files changed, 32 insertions(+), 31 deletions(-)
+>
+<snip>
 
-   We modeled these cross-layer paths in Serial8250TxDmaV8.tla
-   (QuarantineGuardsShutdown, QuarantineGuardsAdminOpen, and
-   NoDmaOnPoweredOffUart in Serial8250TxDmaV8_UnguardedQuarantineHazard.cfg
-   and Serial8250TxDmaV8_AdminReopenQuarantineHazard.cfg vs.
-   Serial8250TxDmaV8_TerminateRetryHang_Fixed.cfg, alongside
-   Serial8250TxDmaV8_QuarantinePioReopenHazard.cfg at
-   https://github.com/ismell/linux-8250-dma-tla), and TLC confirms that
-   quarantine without those serial_core and PM guards violates
-   NoDmaOnPoweredOffUart / NoConcurrentFifoAccess (in 6 states) and
-   NoUsersAtFree (in 7 states). Given that enforcing non-blocking quarantine
-   requires coordinated changes across serial_core.c, runtime PM, and 8250
-   shutdown, addressing non-blocking quarantine in a separate follow-up
-   series and documenting the limitation here makes sense.
+> @@ -70,7 +70,7 @@ static int check_after_split_folio_orders(char *vaddr=
+_start, size_t len,
+>  	return status;
+>  }
+>
+> -static void write_debugfs(const char *fmt, ...)
+> +static __printf(1, 2) void write_debugfs(const char *fmt, ...)
 
-2. What in-tree DMAengine providers actually return from terminate_all:
-   For context on when the retry loop in serial8250_terminate_dma() can
-   trigger, I audited all 78 .device_terminate_all implementations in
-   drivers/dma/:
-   - 64 out of 78 unconditionally return 0.
-   - Among DMA controllers used with 8250 UARTs, synchronous FIFO-draining
-     drivers (drivers/dma/dw/core.c dwc_chan_pause ~40 us,
-     drivers/dma/idma64.c idma64_chan_deactivate ~100 us) already poll in
-     microseconds inside terminate_all and return 0.
-   - The only 8250-paired DMA controllers that can return non-zero are:
-     * drivers/dma/tegra186-gpc-dma.c (tegra_dma_terminate_all, lines
-       714-743), which already polls readl_relaxed_poll_timeout_atomic()
-       for up to 5000 us (5 ms) in tegra_dma_stop_client() / tegra_dma_pause()
-       / tegra_dma_pause_noerr() (lines 389-414, 676-712) before returning
-       -ETIMEDOUT; and
-     * drivers/dma/at_xdmac.c (at_xdmac_device_terminate_all, lines
-       1999-2039), which only returns < 0 if pm_runtime_resume_and_get()
-       fails.
-     (Even across all 14 non-zero .device_terminate_all implementations in
-     drivers/dma/, the only one designed around a caller retry loop is
-     cppi41_stop_chan() -> cppi41_tear_down_chan() in drivers/dma/ti/cppi41.c:
-     652-770, which is a USB MUSB controller used only by musb_cppi41.c.)
+TIL, __printf() tells the compiler that write_debugfs() is doing
+printf_style arguments and the compiler will do the corresponding
+checks.
 
-Thanks,
-Raul
+LGTM. Thanks.
+
+Acked-by: Zi Yan <ziy@nvidia.com>
+
+Best Regards,
+Yan, Zi
