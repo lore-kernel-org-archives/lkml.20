@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793700889;
-	b=Xyg2BI1Z4TCBifeV5BXqaD5jgcOXFPw2TEzDCNcB8vckuIxSgHcOGyKtXi247H98v5m/
-	 Q4WPo9nvYtDROtgTwlxRl50Tf/shSMwfkJdys/I7rPvttdHs2bYCaJadbIpOKEIPpOQzx
-	 jTQ4rYf1Zd3HaHXN7lUy43bo+nGwl5A8sEmCVjujvVtLUjMW5cl8hwR9BOx2TEErOzHoU
-	 5mBBdsT8C9uSknoyWLWMvW4THTipcHKarHYh1KplWkeSS41yBJgh4mfNT610KZtGJNLeG
-	 LeEIqWOLZn7BryhjlXgBdV1cUaubk6ayqJLEA/iVkbjiNkPTln2IYlWDo3NHnIVMB1w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700889;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BJNyGdSOOirOq9LaEv4gLULV3sAodWivkwhlHUUZpk0=;
-	b=QnweEqjv9sAHcaMSQeWSqqVaymlMefyREHFcteVQaoeaimx9UQT9ueT5h3nPAwH5JZ4n
-	 W5J0xDLcWyCWEWwwHW+rYy/HRiajvohhFJZD66quhUo1aWjmnEE7WgeZoI67YVRm6ZuNr
-	 teyOc7mzekPyOlPG63i1ylgMrDbpYwGWcjTJk9kfOjEExkPUev4fT6yif6M2sA3/1r5gF
-	 KZ+Qf0u26dYG5FydlKMDWLGnIR/qHVOm2zgkK2gOa56lrOViEuT3zvUqjqGZcyp5FKKhj
-	 +nJ06joQzoWvHvsFKPT88lgRUl2k/sxrUWSQHSPAcqBgPopa+E2c4Crv57742dMOz3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HW48AcTm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793700915;
+	b=j4j8ohSXM65/TQ2uYTrS6pCk2lwfIsU8Jaxp0+naueFkpmFECtFyI0M0lgeWBSFBNb1p
+	 GbvaDO6nqQJilM0+MPulvovFPZC9cPZtW4F4Fqekif62sziiDflLp34oxBCPF9I94a8at
+	 FojoC/doHyjGHI2Dw620+xQR9C0oi7el8AP5PsmJvQ+a0DXZlV51OHcSyAdACQD995oHn
+	 jSVIXBN31gn7k8fCy+eqZtaU1+KFO8MwB+ZjwO9sW9Yv3KwJeDBNASL04dC2eBAz+Pmk9
+	 gE0SfBAoEjXqyDNQBIu/rpDqh80ijM3qHSvV4KynnKQGSgBa4nVxxAfShxbXdOnqMkA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700915;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=KflOFbLY5u9mx0Muoa8qC0v11tzTAKkxWAovm53vbYg=;
+	b=UCji4k3I8tJtRWCvCfk+uuJxrFwCXgZNXJs9spLtJKlT5GOL+BaZhoJNBoNB5JVuQiWY
+	 z7lF4HUbSrU/0cwvGCVHiCr8RV7/L9UjKs48n+2b9t5lHXTXBCtgTqIQhSHo9R/c3Zwz4
+	 G4/InD5cyDSjiSwQ3HL+n5uzLYBSh42ga1E9hFHbJFIW+q0xtFDx7vFGOP8pqhoL8IL7z
+	 Z8feRCe1fpJC5Qub04yXkqobM8bZkGuoRDnfK1lbpclWYAd8fu6Bk71mpCqoLeoRYx+8D
+	 IcNr/yMdu724R9mc0NU9qnv5NEHKkxZG1vNOcdXfZDUwe3lbE6VKMG+SdVRadoPEFiA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsTsu43x;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D5B606A336;
-	Tue,  3 Nov 2026 10:14:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B226606C563;
+	Tue,  3 Nov 2026 10:15:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HW48AcTm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793700889;
-	b=Bez9/PTgtvxt2BOggGHD00KW4Dv7YI/saRq/4O73rvbLviRxuTzkKzjVvdivtjK9RvMh
-	 6ZULhl8tFvxBQe9xm5jNCX1J0syl0SnWmQ97ESPaNNnaldhHPtu98/5TaXQBQjy8e5IDr
-	 lSBUGiX6W4c9Aigl/ygEkL/TuOKGN6NQx5lOaG8Y2AJ1WgVjB3xCzuhAGpJGV8dTSJhmN
-	 QEbualFEG+8c5db+tcN4/7gpP+8ndc4IQGmW8YhiPHy5tGqQfMqdCo94ubNup8fBbNvHx
-	 SLrONoWQrM7UtbEk5PeKipwzCdgVZ9nyRQHJ+TIIoSFV0DF+PwX9D5N4zHZZk3eeMOw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793700889;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BJNyGdSOOirOq9LaEv4gLULV3sAodWivkwhlHUUZpk0=;
-	b=vOkPIntng+PClrKuSeE3wbMgoRJcHduSaGlSNWFHv0n/cBvSIdL6RdmvDkPIGh6UYywB
-	 sD9D9ffP8CNkiir6syqkKa0c2kh89+ZC+5HGqBKybc4LvkWO3zZfBxaqwecLXMgQeXONx
-	 lwFdt0xFdt9fedqlybcT0gv8XY0xMcvCFW2k8tLQiTgAJeJEVQT7YSR9yRbWCv39IEdoD
-	 jt25cs+5IzZKDI/l5kAp29CQsrV1YSLS1/QtrZDaeuAvBT0MEGgMYmjeQqJwvuV8oxnfZ
-	 ZnPi0/gaQjEKW5UyxZp5z3EUyQ594YwV1RKbRmN8PFD7Q+L9iQctR3fks2ADeY6rMtw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2A8AE1F00A29;
-	Tue,  3 Nov 2026 10:14:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsTsu43x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D3F1F000C1;
+	Tue,  3 Nov 2026 10:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700889;
-	bh=BJNyGdSOOirOq9LaEv4gLULV3sAodWivkwhlHUUZpk0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HW48AcTm/KWAEvYZIyTKDYqblUBcr+ZhKRiH9oRKmSAgretFVnSAWR73YdZlPyC+l
-	 HXngzouVQ30m/xhlYJ/r7RKaXbnS+gMcv5zMd7MjZrgmhsRaeOoAmNu71UqQ1pxFWO
-	 dSEnyW5wASeg6Q5obivmlBWw3oEZrGWvqtGi0bAawBt4nNC8K6sk2NBLKhPeu146hl
-	 179UKkZ3xEfez0uRuz0ZshPGDfiZ3hW5h5sSA9BpsiivnQDlqJg4QPx6iJ7ZF6Wun9
-	 EJW5+qHUBC3KfKEbmYUDd2Lkik3fYopItmciG1P1mkhu3f0bktjueMJgwvajbXu8J6
-	 Iox+TB5Vb6Avw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9190746899;
-	Tue,  3 Nov 2026 10:14:47 +0000 (UTC)
-From: Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org>
-Date: Tue, 03 Nov 2026 21:14:37 +1100
-Subject: [PATCH 02/13] drivers/perf: apple_m1: Remove unused variables
+	s=k20260515; t=1793700914;
+	bh=KflOFbLY5u9mx0Muoa8qC0v11tzTAKkxWAovm53vbYg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hsTsu43xgYhCVYi/HFHrb7jTce6hd/qxecG53zTDVkpWJNmiWAZwqSsUfeu42QqNe
+	 ycwS/gpVfBo93PHe3OOurrVpgwDLOFkoZxRtufL6NQ4Y4htLrm+ulw9r6oIWONw6vT
+	 QIAP4gtQbuiYuS8V0le/97OnBOVDoMbCCdvZUbQgXEMO5ogjoZBj2q3GD8tN/zexAL
+	 OO5q4axH68Brh57AwL6NsEgeJPr4dtubg6eRofNpaWspmki8o5SEqNCEHGrz3ZEK+L
+	 Hr5eXIgxYoCQhKw8zg/zxXhkdepaG1gufJahNbIcdZWPzu1QUnuYVuIPIDqlkZvsbH
+	 4R1mc2+ebp3mA==
+Subject:
+ Re: [PATCH net] net: dsa: motorcomm: Do not publish partial MIB sample
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Tue, 03 Nov 2026 10:15:13 +0000
+Message-ID: <179370091371.488856.10191220263144152711@kernel.org>
+In-Reply-To: <20261102101334.3525485-1-mmyangfl@gmail.com>
+References: <20261102101334.3525485-1-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,66 +63,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-m3-plus-pmu-events-v1-2-a8eb6c1139fe@gmail.com>
-References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
-In-Reply-To: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
-To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>, 
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
- Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, Yuvan Shen <yuvanshen09@gmail.com>, 
- Myria Sarvay <myrialsarvay@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1077;
- i=myrialsarvay@gmail.com; h=from:subject:message-id;
- bh=tqfKByDug9XSrpXX1trL6e24TzZYUYwCyC7bLswrs2o=;
- b=owJ4nJvAy8zAJRbk4iixYu2/l4yn1ZIYsl5uEcl+dSZ+X5hXZ335TA//YpED/579NTH5antr/
- o4e26K2K9IdpSwMYlwMsmKKLPqmadqT2RoulS5z3QIzh5UJZAgDF6cATGRVIiPD9t28Vy6kuPtK
- avEa9SjJuCe3Xpnr5Jm+7Isq375eX7e3jAzt/CZvnz5dJTy1LLDc9curdb4fvlUfL+sXtP3u/sP
- zcBkPAIF7Sp8=
-X-Developer-Key: i=myrialsarvay@gmail.com; a=openpgp;
- fpr=2F35662B930680D275A645B452444118A8ADFEE9
-X-Endpoint-Received: by B4 Relay for myrialsarvay@gmail.com/default with
- auth_id=1027
-X-Original-From: Myria Sarvay <myrialsarvay@gmail.com>
-Reply-To: myrialsarvay@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Myria Sarvay <myrialsarvay@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-These variables are calculated elsewhere as well, remove the extra dead
-code.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
-Fixes: a639027a1be1 ("drivers/perf: Add Apple icestorm/firestorm CPU PMU driver")
----
- drivers/perf/apple_m1_cpu_pmu.c | 7 -------
- 1 file changed, 7 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/perf/apple_m1_cpu_pmu.c b/drivers/perf/apple_m1_cpu_pmu.c
-index 1f73c8a77462..de4026c63afd 100644
---- a/drivers/perf/apple_m1_cpu_pmu.c
-+++ b/drivers/perf/apple_m1_cpu_pmu.c
-@@ -421,13 +421,6 @@ static void m1_pmu_configure_counter(unsigned int index, unsigned long config_ba
- /* arm_pmu backend */
- static void m1_pmu_enable_event(struct perf_event *event)
- {
--	bool user, kernel;
--	u8 evt;
--
--	evt = event->hw.config_base & M1_PMU_CFG_EVENT;
--	user = event->hw.config_base & M1_PMU_CFG_COUNT_USER;
--	kernel = event->hw.config_base & M1_PMU_CFG_COUNT_KERNEL;
--
- 	m1_pmu_configure_counter(event->hw.idx, event->hw.config_base);
- 	m1_pmu_enable_counter(event->hw.idx);
- 	m1_pmu_enable_counter_interrupt(event->hw.idx);
+- [Medium] On weakly ordered 64-bit kernels (arm64, riscv64, ppc64),
+  yt921x_dsa_get_stats64() can still combine a new packet count with an…
+
+--
+
+net: dsa: motorcomm: Do not publish partial MIB sample
+
+This patch changes yt921x_mib_read() so that it returns early when a
+register read fails. Previously the partially refreshed buffer was copied
+into the published u64_stats counters anyway. Now the last complete sample
+is kept.
+
+> diff --git a/drivers/net/dsa/motorcomm/mib.c b/drivers/net/dsa/motorcomm/mib.c
+> index 6b170fc6e1875..bbcc418fcc871 100644
+> --- a/drivers/net/dsa/motorcomm/mib.c
+> +++ b/drivers/net/dsa/motorcomm/mib.c
+> @@ -127,6 +127,12 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
+>  		buf[i] = val;
+>  	}
+>  
+> +	if (res) {
+> +		dev_err(dev, "Failed to %s port %d: %i\n", "read stats for",
+> +			port, res);
+> +		return res;
+> +	}
+> +
+>  	flags = u64_stats_update_begin_irqsave(&pm->syncp);
+>  	for (size_t i = 0; i < ARRAY_SIZE(yt921x_mib_descs); i++)
+>  		u64_stats_set(&((u64_stats_t *)mib)[i], buf[i]);
+
+[Severity: Medium]
+Can yt921x_dsa_get_stats64() still pair a new packet count with an old
+byte count on weakly ordered 64-bit machines, even when every register
+read succeeds?
+
+On 64-bit kernels, u64_stats_update_begin_irqsave() and
+u64_stats_update_end_irqrestore() do no sequencing. u64_stats_set() is a
+plain store. This loop stores rx_good_bytes and tx_good_bytes, and then
+pm->rx_frames and pm->tx_frames are stored further down with no barrier
+between them.
+
+The reader does not take priv->reg_lock. On 64-bit,
+u64_stats_fetch_begin() returns 0 and __u64_stats_fetch_retry() always
+returns false:
+
+drivers/net/dsa/motorcomm/mib.c:yt921x_dsa_get_stats64() {
+    ...
+	stats->rx_packets = u64_stats_read(&pm->rx_frames);
+	stats->tx_packets = u64_stats_read(&pm->tx_frames);
+	stats->rx_bytes = u64_stats_read(&mib->rx_good_bytes) -
+			  ETH_FCS_LEN * stats->rx_packets;
+    ...
+	} while (u64_stats_fetch_retry(&pm->syncp, start));
+}
+
+On arm64, riscv64 or ppc64, the stores in yt921x_mib_read() and the loads
+in yt921x_dsa_get_stats64() can both be reordered. This applies when the
+read comes from yt921x_mib_poll() or from an ethtool-triggered
+yt921x_mib_read(). The reader can then see the fresh rx_frames together
+with the previous rx_good_bytes.
+
+When ETH_FCS_LEN * new_frames is larger than old_good_bytes, the unsigned
+subtraction wraps to about 2^64. Two cases where that holds:
+
+  - the first publication after the per-port stats are allocated, when
+    the old byte counters are still zero
+  - a burst of traffic on a port that was mostly idle
+
+This is the same symptom the commit message describes:
+
+  "mixing fresh packet counters with stale byte counters; get_stats64 then
+  subtracts ETH_FCS_LEN per packet from the stale byte counter and
+  underflows on unsigned arithmetic."
+
+The patch removes the read-failure trigger. A complete published sample
+still doesn't give the reader a consistent view of several fields on
+64-bit, though.
+
+Would it make sense to clamp the subtraction in yt921x_dsa_get_stats64()?
+Another option is to compute the FCS-adjusted byte counts in
+yt921x_mib_read() and publish those instead.
+
+[ ... ]
 
 -- 
-2.56.0
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102101334.3525485-1-mmyangfl%40gmail.com
