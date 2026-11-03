@@ -1,80 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715148;
-	b=jrepdKO/yYA48JfPE58LzwdCV+gLfkNFdbHHY3kVhgYHIMnEPhhooPIsM3ikcnJQfdZC
-	 ChPTjT4v6UoutOvjKT/FG90ngsu1o6PxctjD/P8+mxGA8YgquAjKr7kES/tQd7LULmZlu
-	 tr/FwANsCKe7eFkEpm4LghkAYWXTzxDSSfYBi7bPrj6E4wjR99dcO7Y2avBrSiGoVpwOE
-	 9+Sbcpdt6Ac0pILyJ5Yp1vC05hEkQhR5S79N1FQfkQZW5jKa/7q71iL9CGcB+wf6mQAoS
-	 qlWIwr0bxKgKDe5BX7ozuoGnT3YCQDpzHkSY9F4bpa2BQRDPnxtRTgj5yxM10YZlHQw==
+	t=1793715176;
+	b=FFB1bLGJovF3xqVbh8pD2A5pLHMXDXJA2uN0MCWwTk9g+Mj98FJxlVAikIy9vti4Ma6s
+	 YkndxPnS5cNRtkM3W4mczJwngxxDzU4/ABNS8XxBCiOifMgTv/YN7IH3Qzk+n9y6z5U9R
+	 yHHpmx78y/RTBQZ6oaOp+awhkeM7wqjlxtqLw+2FEMCXQYHFjYf3SoVPe9mLCSGhuBrpR
+	 a39+ZYadED72+Jrc7lk5jJ7cKvda8Qi86sEP80Aj2ViBwH06WCTvqpG0yHQjkrGr4t7a+
+	 Z8nYvwVXhxphBChYo+hc0fYBxagIo/kuFf8FYDiD8VTDNtGDmRmydXnezgGp2sbSOpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715176;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Eesf9lxozUdMnetwmPu754uA3KVkBfzDrE0eDVDJ2UA=;
-	b=qOA6eiifRPrWOIK3Adl3voHQDfOeRUmjj9nWoP5aKDLmgCVGMKZOV9F97/zPyxm45V7+
-	 h9SWJkmwgmhwjSfp6UoItWB64u/bMukCHPGccL2oqaraqK6HbIYV79l+i+NTi4CtavTXf
-	 r0POsk7ayoAYcMYOLAJIWfEKnPq4dQjnu5IxYJJjnRWkq7D7BUrlu+zg9qoUhKCTse49w
-	 XReP9t3yLPTsPKa/hTSkb05mCB/19y8NOP50A3JgVhWUrvTvgabaRLnY8S3Fpc7+uDSNP
-	 HAAxmWFkrLdVVq9rYxK11XyjU19j97ScTJbWuvg1zBFM4G/QW1Qc8DekOz5ZiLO3gKA==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=VJiYm7UJux9idX0JQ7Nj/k1JSHluv9DMg/+XlxnNVXM=;
+	b=XL+sRzvLgOm+KxlDrj1OYfS4madjdBc1RMdTuHU69QG7yp6Db94LYnWCnbD0cAVKN/g0
+	 IUF8VDeomECbikm/xl0UNA/yJKOyDMuh2gMZU8dAixo/WEIQSuaQtAGIeo1TFikX71+pj
+	 HWOUtnbtUAnW3ooEiIlz+3R3GBPT9dFJ7qyz0z2eKe+omEdg2JgbgEevV6ZW6K+Hh/uDd
+	 FtsvLOlDy31JOcwGS/XScIL3uffRuwl28kyW/cxFjQla3Hrp1zTULvmkHCxs/v1VlZz2c
+	 TktH5kYRB/Og925/BnwYfgzvUCroCyarpT2al436SK4q1qGgtK+iS4bCZa3hFk5+6TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ao9p2MRl;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="G/MDCWAJ";
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FD3606A327;
-	Tue,  3 Nov 2026 14:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FD3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F79606A324;
+	Tue,  3 Nov 2026 14:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2F79606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ao9p2MRl
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G/MDCWAJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793715147; x=1825251147;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AG9SejqizuSU9dqiGUfetYq9cDG0DMmqEfppslJdVyQ=;
-  b=ao9p2MRlVc+rEMMS7zGs4/BkK9K1gel2XDzq21nLsul8sQEv8xum1xiX
-   eqCZkA80LaNUjjG4+kBiyrYMmD4NDdtUe0CA/Kj7P5FEB3Q08WJmeCD53
-   Wb2zyiYn+YLIuDm+As+1kIJtXdMH2WCHvT38+PqnvPbz+8f6pGREOMJP/
-   R3DKO0VSxKoiKVTL2A6Psus5z81nRpqID8rDuB11dng5s/p3JLljDJ+PW
-   T3zh0nADi6oh8IlTBHdR/up1Q8ED7TPgmA4D7QwI7aHiB5JeUNm085dOX
-   KzCkTa2LIHABKPAo2NChA84vSx5LpsLgBAyt79ordxJNODxjipdlFuq6u
-   Q==;
-X-CSE-ConnectionGUID: Q6NQfskeQi+IjOdqTv+60w==
-X-CSE-MsgGUID: GFU0r7K/Q4OgiC+MYvdT6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2330219"
+  t=1793715176; x=1825251176;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=GEtSxpe7gQ6US0v+DeHjs5kOMzZtxFEAD5UmXw0Um+M=;
+  b=G/MDCWAJPihWNvGBHMVc2D64silIEmyMi7l6UviepbnvMnv/+ndPBidM
+   nWM1OcD8OPsyUHKgUegl1baX9SSD7pDJKo9ATnGGw9KuHPPxgLuYFcYgs
+   wdGORYmrOmcPLzutlkJ6aNgaQHMdYnWm07kxrF52bvULvlC4jNbrzUIRM
+   IcTqkFE+bwotaTTwNJQ+5nI1Ze4vRH/eAHTrhmTmK3CKmleBPfYxYoxMu
+   va479aUTVtHCFTG2CO1phGk20azLPT3PcmgHWBQrEJajryVg/Clkqragw
+   vyTt6CcX/AKvxasAZghzDNJOaASDNpxavcezmGRbsJfDFURcU9dDyUe6S
+   g==;
+X-CSE-ConnectionGUID: U5/SQhvmRkmpfyt+NXiKTw==
+X-CSE-MsgGUID: kny0DaCYTT6zzi3PpcJ+dw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2455525"
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2330219"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:12:26 -0800
-X-CSE-ConnectionGUID: XVV0O7VQRoGkq64OU6944Q==
-X-CSE-MsgGUID: p799BbrCSLmxgZkZbDe1pA==
+   d="scan'208";a="2455525"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:12:56 -0800
+X-CSE-ConnectionGUID: ThEnGDMZQKabsvKHZ2R5FA==
+X-CSE-MsgGUID: h3UKpd6eTV6kDZLmRg6ckw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6759732"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 03 Nov 2026 06:12:25 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOFFO-00000000iou-2DnN;
-	Tue, 03 Nov 2026 14:12:22 +0000
-Date: Tue, 3 Nov 2026 22:11:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: Re: [PATCH 24/45] KVM: Introduce a generation number for memory
- attributes
-Message-ID: <202611032129.t2hEI0s4-lkp@intel.com>
-References: <20261102174512.8903-8-pbonzini@redhat.com>
+   d="scan'208";a="6772446"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.109.222]) ([10.125.109.222])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:12:55 -0800
+Message-ID: <e936116958efcf6b4220b1769654d60628f801af.camel@linux.intel.com>
+Subject: Re: [PATCH] HID: sensor-custom: Synchronize misc-device teardown
+ with file lifetime
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: jikos@kernel.org, jic23@kernel.org, bentiss@kernel.org
+Cc: linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, simeon@maryasin.name
+Date: Tue, 03 Nov 2026 06:12:54 -0800
+In-Reply-To: <20261103015734.578613-1-srinivas.pandruvada@linux.intel.com>
+References: <20261103015734.578613-1-srinivas.pandruvada@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,124 +83,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102174512.8903-8-pbonzini@redhat.com>
 
-Hi Paolo,
+On Mon, 2026-11-02 at 17:57 -0800, Srinivas Pandruvada wrote:
+> The HID sensor custom misc device frees its per-sensor state in
+> remove() while userspace may still hold an open file descriptor. A
+> reader blocked in read() can remain queued on sensor_inst->wait after
+> the
+> object has been freed, and a later wakeup races with teardown and
+> touches stale memory.
+>=20
+> Synchronize the misc-device teardown with file lifetime before
+> freeing
+> the per-sensor state. Set a removal flag, reject new opens, wake
+> blocked waiters, and wait for the last open file to close before
+> deregistering the misc device and freeing the FIFO. Fail in-flight
+> read()
+> and poll() operations cleanly once removal is in progress so
+> userspace
+> cannot access freed memory after the device disappears.
+>=20
+> This avoids use-after-free on read(), poll(), release(), and open()
+> after the HID sensor custom character device has been removed
+>=20
+Hi Simeon,
 
-kernel test robot noticed the following build errors:
+Shashiko found issue with this change, so hold on for testing.
 
-[auto build test ERROR on kvm/queue]
-[also build test ERROR on kvm/next linus/master next-20261030]
-[cannot apply to mst-vhost/linux-next kvm/linux-next v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thanks,
+Srinivas
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Paolo-Bonzini/KVM-nVMX-nSVM-check-unconditionally-whether-CR3-is-valid/20261102-124045
-base:   https://git.kernel.org/pub/scm/virt/kvm/kvm.git queue
-patch link:    https://lore.kernel.org/r/20261102174512.8903-8-pbonzini%40redhat.com
-patch subject: [PATCH 24/45] KVM: Introduce a generation number for memory attributes
-config: i386-randconfig-1010-20261103 (https://download.01.org/0day-ci/archive/20261103/202611032129.t2hEI0s4-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032129.t2hEI0s4-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611032129.t2hEI0s4-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from <command-line>:
-   include/linux/kvm_host.h: In function 'kvm_mem_attributes_generation.isra':
->> include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_523' declared with attribute error: Need native word sized stores/loads for atomicity.
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |                                             ^
-   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
-     683 |                         prefix ## suffix();                             \
-         |                         ^~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:705:9: note: in expansion of macro 'compiletime_assert'
-     705 |         compiletime_assert(__native_word(t),                            \
-         |         ^~~~~~~~~~~~~~~~~~
-   arch/x86/include/asm/barrier.h:69:9: note: in expansion of macro 'compiletime_assert_atomic_type'
-      69 |         compiletime_assert_atomic_type(*p);                             \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/asm-generic/barrier.h:176:29: note: in expansion of macro '__smp_load_acquire'
-     176 | #define smp_load_acquire(p) __smp_load_acquire(p)
-         |                             ^~~~~~~~~~~~~~~~~~
-   include/linux/kvm_host.h:2640:16: note: in expansion of macro 'smp_load_acquire'
-    2640 |         return smp_load_acquire(&kvm->mem_attrs.generation);
-         |                ^~~~~~~~~~~~~~~~
---
-   In file included from <command-line>:
-   include/linux/kvm_host.h: In function 'kvm_mem_attributes_generation.isra':
->> include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_523' declared with attribute error: Need native word sized stores/loads for atomicity.
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |                                             ^
-   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
-     683 |                         prefix ## suffix();                             \
-         |                         ^~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/linux/compiler_types.h:705:9: note: in expansion of macro 'compiletime_assert'
-     705 |         compiletime_assert(__native_word(t),                            \
-         |         ^~~~~~~~~~~~~~~~~~
-   arch/x86/include/asm/barrier.h:69:9: note: in expansion of macro 'compiletime_assert_atomic_type'
-      69 |         compiletime_assert_atomic_type(*p);                             \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/asm-generic/barrier.h:176:29: note: in expansion of macro '__smp_load_acquire'
-     176 | #define smp_load_acquire(p) __smp_load_acquire(p)
-         |                             ^~~~~~~~~~~~~~~~~~
-   include/linux/kvm_host.h:2640:16: note: in expansion of macro 'smp_load_acquire'
-    2640 |         return smp_load_acquire(&kvm->mem_attrs.generation);
-         |                ^~~~~~~~~~~~~~~~
-   In function 'kvm_vm_ioctl_set_mem_attributes',
-       inlined from 'kvm_vm_ioctl' at arch/x86/kvm/../../../virt/kvm/kvm_main.c:5624:7:
-   include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_804' declared with attribute error: BUILD_BUG_ON failed: sizeof(attrs->attributes) != sizeof(unsigned long)
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |                                             ^
-   include/linux/compiler_types.h:683:25: note: in definition of macro '__compiletime_assert'
-     683 |                         prefix ## suffix();                             \
-         |                         ^~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
-      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-         |                                     ^~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:51:9: note: in expansion of macro 'BUILD_BUG_ON_MSG'
-      51 |         BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
-         |         ^~~~~~~~~~~~~~~~
-   arch/x86/kvm/../../../virt/kvm/kvm_main.c:2795:9: note: in expansion of macro 'BUILD_BUG_ON'
-    2795 |         BUILD_BUG_ON(sizeof(attrs->attributes) != sizeof(unsigned long));
-         |         ^~~~~~~~~~~~
-
-
-vim +/__compiletime_assert_523 +702 include/linux/compiler_types.h
-
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  688  
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  689  #define _compiletime_assert(condition, msg, prefix, suffix) \
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  690  	__compiletime_assert(condition, msg, prefix, suffix)
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  691  
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  692  /**
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  693   * compiletime_assert - break build and emit msg if condition is false
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  694   * @condition: a compile-time constant condition to check
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  695   * @msg:       a message to emit if condition is false
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  696   *
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  697   * In tradition of POSIX assert, this macro will break the build if the
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  698   * supplied condition is *false*, emitting the supplied error message if the
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  699   * compiler has support to do so.
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  700   */
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  701  #define compiletime_assert(condition, msg) \
-eb5c2d4b45e3d2d Will Deacon 2020-07-21 @702  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-eb5c2d4b45e3d2d Will Deacon 2020-07-21  703  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Reported-by: =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=
+=8F=D1=81=D0=B8=D0=BD <simeon@maryasin.name>
+> Signed-off-by: Srinivas Pandruvada
+> <srinivas.pandruvada@linux.intel.com>
+> ---
+> =C2=A0drivers/hid/hid-sensor-custom.c | 27 +++++++++++++++++++++++++--
+> =C2=A01 file changed, 25 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/hid/hid-sensor-custom.c b/drivers/hid/hid-
+> sensor-custom.c
+> index c2b425afd951..c9338ae47050 100644
+> --- a/drivers/hid/hid-sensor-custom.c
+> +++ b/drivers/hid/hid-sensor-custom.c
+> @@ -53,6 +53,14 @@ struct hid_sensor_custom {
+> =C2=A0	struct kfifo data_fifo;
+> =C2=A0	unsigned long misc_opened;
+> =C2=A0	wait_queue_head_t wait;
+> +	wait_queue_head_t remove_wait;
+> +	/*
+> +	 * Shared with the file operations; use
+> READ_ONCE()/WRITE_ONCE() for the
+> +	 * teardown state. The actual lifetime guarantee comes from
+> misc_opened:
+> +	 * removal waits for the last fd to close before
+> deregistering the misc
+> +	 * device and freeing the FIFO.
+> +	 */
+> +	bool removing;
+> =C2=A0	struct platform_device *custom_pdev;
+> =C2=A0};
+> =C2=A0
+> @@ -653,6 +661,9 @@ static ssize_t hid_sensor_custom_read(struct file
+> *file, char __user *buf,
+> =C2=A0	sensor_inst =3D container_of(file->private_data,
+> =C2=A0				=C2=A0=C2=A0 struct hid_sensor_custom,
+> custom_dev);
+> =C2=A0
+> +	if (READ_ONCE(sensor_inst->removing))
+> +		return -ENODEV;
+> +
+> =C2=A0	if (count < sizeof(struct hid_sensor_sample))
+> =C2=A0		return -EINVAL;
+> =C2=A0
+> @@ -662,9 +673,12 @@ static ssize_t hid_sensor_custom_read(struct
+> file *file, char __user *buf,
+> =C2=A0				return -EAGAIN;
+> =C2=A0
+> =C2=A0			ret =3D wait_event_interruptible(sensor_inst-
+> >wait,
+> +				READ_ONCE(sensor_inst->removing) ||
+> =C2=A0				!kfifo_is_empty(&sensor_inst-
+> >data_fifo));
+> =C2=A0			if (ret)
+> =C2=A0				return ret;
+> +			if (READ_ONCE(sensor_inst->removing))
+> +				return -ENODEV;
+> =C2=A0		}
+> =C2=A0		ret =3D kfifo_to_user(&sensor_inst->data_fifo, buf,
+> count,
+> =C2=A0				=C2=A0=C2=A0=C2=A0 &copied);
+> @@ -684,6 +698,7 @@ static int hid_sensor_custom_release(struct inode
+> *inode, struct file *file)
+> =C2=A0				=C2=A0=C2=A0 struct hid_sensor_custom,
+> custom_dev);
+> =C2=A0
+> =C2=A0	clear_bit(0, &sensor_inst->misc_opened);
+> +	wake_up_all(&sensor_inst->remove_wait);
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> @@ -694,6 +709,8 @@ static int hid_sensor_custom_open(struct inode
+> *inode, struct file *file)
+> =C2=A0
+> =C2=A0	sensor_inst =3D container_of(file->private_data,
+> =C2=A0				=C2=A0=C2=A0 struct hid_sensor_custom,
+> custom_dev);
+> +	if (READ_ONCE(sensor_inst->removing))
+> +		return -ENODEV;
+> =C2=A0	/* We essentially have single reader and writer */
+> =C2=A0	if (test_and_set_bit(0, &sensor_inst->misc_opened))
+> =C2=A0		return -EBUSY;
+> @@ -712,6 +729,9 @@ static __poll_t hid_sensor_custom_poll(struct
+> file *file,
+> =C2=A0
+> =C2=A0	poll_wait(file, &sensor_inst->wait, wait);
+> =C2=A0
+> +	if (READ_ONCE(sensor_inst->removing))
+> +		return EPOLLERR;
+> +
+> =C2=A0	if (!kfifo_is_empty(&sensor_inst->data_fifo))
+> =C2=A0		mask =3D EPOLLIN | EPOLLRDNORM;
+> =C2=A0
+> @@ -736,6 +756,7 @@ static int hid_sensor_custom_dev_if_add(struct
+> hid_sensor_custom *sensor_inst)
+> =C2=A0		return ret;
+> =C2=A0
+> =C2=A0	init_waitqueue_head(&sensor_inst->wait);
+> +	init_waitqueue_head(&sensor_inst->remove_wait);
+> =C2=A0
+> =C2=A0	sensor_inst->custom_dev.minor =3D MISC_DYNAMIC_MINOR;
+> =C2=A0	sensor_inst->custom_dev.name =3D dev_name(&sensor_inst->pdev-
+> >dev);
+> @@ -751,10 +772,12 @@ static int hid_sensor_custom_dev_if_add(struct
+> hid_sensor_custom *sensor_inst)
+> =C2=A0static void hid_sensor_custom_dev_if_remove(struct hid_sensor_custo=
+m
+> =C2=A0								*sen
+> sor_inst)
+> =C2=A0{
+> -	wake_up(&sensor_inst->wait);
+> +	WRITE_ONCE(sensor_inst->removing, true);
+> +	wake_up_all(&sensor_inst->wait);
+> +	wait_event(sensor_inst->remove_wait,
+> +		=C2=A0=C2=A0 !test_bit(0, &sensor_inst->misc_opened));
+> =C2=A0	misc_deregister(&sensor_inst->custom_dev);
+> =C2=A0	kfifo_free(&sensor_inst->data_fifo);
+> -
+> =C2=A0}
+> =C2=A0
+> =C2=A0/*
