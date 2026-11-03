@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793738176;
-	b=j5PV1U88lALSoGtpoZTv3yI/WdMgdUl0FgqMJwNYY+pgdCcOmf6lSwuwHkM6/WBWjTBU
-	 G1ZCFWzxS1jzbeDPLiTQeg/oboSNU/QROCoGWQcSmw+33+GOhEYNZOr0vDz1NO9oRy19O
-	 fXUSZvAIF/db6BdVRSjkn+N6luWRp3MvdztPdzC9MbBRQHgPbeOWAqjDidDdRSZ1/HGWb
-	 0sfB1asaNEw/GdxmVK32uUvWZLDkh5gM2n+U3tJFgK0YfZHnWIQjjy4QjmXd59yvUBYQj
-	 WFOLySZPYDIuNkLzzoWYIto+twQIqK53W4YjgixCWMTCblu6ZQjM9nuaYCf/y0UiU+w==
+	t=1793738198;
+	b=X9wFxR7XFYY7pGZrnYFD0ahH/6ITTI3IAXaTopPbm2QIi9nsnr0AXU6zU6kco3wiY7LN
+	 qVUQLEPfB5hWY4fQ/RV24ldUMe+9gCnjmmJrjc0cvZ25YdD6EwwVCXTmDEsj/LCjLzI8r
+	 oQ37hth1fH+C1vO6gpDkTxZyRV4kHUr9fUQRHG/YXQhwi2nW5f2ctaT46qrga3b0KNHgV
+	 634Py2h7b4AVKMD4qekoEeActegeUkG9SHtWZdUgUJu1h1NO4J/OoOjcidB/qpT4oXCYT
+	 Tz6Md3Wr4p0Tp/cPqxqIRiDXz7PGx8QIJF/jRTjgIP0uCRwzJRnZ5PWNUf8Qz3rhhCA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738176;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xQ4+oRgLtbqlKeiqs+JELHHN3xsV9CKXX0CLSPpUZjo=;
-	b=3jfzlcxUW8Q0oL5CddsGRi+pLHJEuihRmZELfd3tl99ap82s2IQ4APDN8eXW6Ys0Yeis
-	 KNMBpBkLzSlemXdGi3xRBBDw4CZ8Z+Mlo5BMvJqb/KoMxdWPbK0ILUeqQbCltCpWB0zWx
-	 FoYlKNgeEmKWjaY+yjo1UmpvC0z+0akN1F0sr9a1bEyasFyqvRg+o40sR4WwbydcrZmpv
-	 j5HTsdDnCa4M/eGsU/hT6FOfzTWM2rh5/BuCMCvVH+fHWj+vb/+PJYeprRaaU4h7KGaKs
-	 kXh1AzGfLWKfhHpU67fxDv5lMItbO5+2CA8VcsBw483iKj5jERJ+fdE5VcS8cGvRteg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738198;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=tpEII053p3mhNfn30gTOffmnMpSklTjLEUHLptTr0Fo=;
+	b=w0TcurI3hpSrRmZomI6eHdk45G8GmZvEw94KptOy0IxfxT8O56bMWEEI9x2+wN+PddPP
+	 rk2HN1eH84Kj+mfNAp072PiHgwapq4qhsl2HIKece0xWuNB3ihGdZ50tIIqOP9ZbFeYOA
+	 eLze/rCYB16xp7BZ/C0FUeEvYUU4Ugm2ZmfJ4kBWtJtEHRUX3Ue8JNWy/zF8e+qX5820Y
+	 9mJTHl4diKaRXX97gK70Jk5MaHmQLwne3YjHqUlTSZQMXdkjG469XfBgY1df9ysBRpuvd
+	 vTai7q1CGwtehOCFHxoL0y5JVEh1IsY4T98KJBBpHLxkL+9AwIzlPrD8U2EFItR460g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bf9JONb3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.172
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hFKFYw+G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E245606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:36:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E245606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12815606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12815606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bf9JONb3
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab53a99771so200181fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:36:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793738175; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jpSXSugByKh/Kvo3D8N1XgGJHHXAqEf8RCczOFpQvNlHqXBAuL0qV3m/Wi3a8B7oYl
-         mgDWORyvT9Sltv6qucg8DJu1NgXeA8UwmhtJwKsfOkX9lNetUzgwWiI2RIZVT3vd6cWt
-         wbbpz8xKxEEcrl6B3UW0zxZ2igmI8DQtrZaJeDTCuKm+xjscaZ9Q9wDSsluiY0qwKQnb
-         epGC4yBE9SxN4nkvOouzlfOLyd4xoc+0LfHrYornOSCkfp38u/JpdkzOKKeCR1M++2Cm
-         Z0jnss/WiWBHwYPcuYh5q1fOiU2+EF9TFGjs4hLmi2ukrQ4OrZ01AUXP17if0idGPl5r
-         KpPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xQ4+oRgLtbqlKeiqs+JELHHN3xsV9CKXX0CLSPpUZjo=;
-        fh=FYFB1CMqsaz9WalrNU1TjOu97HCwAEyrzzEd4XfdZDU=;
-        b=k52NajoIe+sd+TnWNDKBzEb2/ZNFw7T5CDv13ZZV34VtW2mT55mjEmGcJffBqO2b9g
-         VAdt9zPXIk2CoFvJgaXnzlFJY3BZMoNHIpE76KTXqkFiC6r/J5LdHX5r5n4uaLS0uOi9
-         ZNCc9wE7yFPpNYgn2t2+c8WNoxoXolI+shJsaFuLpHZA8GBsB2pQZTF4e0cQAMAdHAt8
-         CGeNxm+n2NQEBUmaPZh0AUSO5XFuNpHOz2M6zdcXbedTNJLQreSkLfUCKw1sNPXNyco5
-         a30ABTIvPqoLTqcoKBdVLP3Z9yAbCZ3NbQvdXbpnYiSvyxAOgp3t1915ScozsWFkSrCL
-         ihGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793738175; x=1794342975; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xQ4+oRgLtbqlKeiqs+JELHHN3xsV9CKXX0CLSPpUZjo=;
-        b=Bf9JONb3tnHnffKYegeTecqFiyDWbdgWPTHUTayiSdHMFN5ahHLEdrlOc4Ka2yqU16
-         r0wPdQz5WWPa2G8gHOqWH8WQAr8mDq1kdwkoPYPNgpyUTKN0ONz51fv/I+1MVfySyxip
-         tC3LkYQD2rm+4thrZvujp/3VARnFED+6alYiLfHH1AlxX2CrBTURgD8BuzlE30WHqMks
-         3jpHP549hG6Q/+M9EffK4JCNFIsFomDb+6hivIi/Kl9BWD3Tw/6FKwk/0A6TvPGE9HlW
-         Dn4vT0JDBF7X158LdSpAemHTLXG1PUX0fanexjTn54/EW+UTS3TP74uiomxJHa2uLc2T
-         mdFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793738175; x=1794342975;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xQ4+oRgLtbqlKeiqs+JELHHN3xsV9CKXX0CLSPpUZjo=;
-        b=XfK+f6tLKandu8coCDvzUVzwhTwpfY03TDVmTqu1duO0FYqnf3RdczFuoSITQj+/hv
-         7NLs5JM/c6jK7/IP0OkC0ReVzYmMX+Tndq6LeUzOJRsTzSrtIO8DZ4zuPWtVXkkuzeVQ
-         9PJxiH8n6OdJcZTizuH9A8V3hugi2IxtAVEiZHmtwQAr0tnBxcgFCD4bLdsTWKt2uAEn
-         8P11fCoKbPGjwOqE7f5OlyswOSL9gHQ4YxXiJCZFvmWbzhFn/E2ZAh7v4B7IHzIJ2qf1
-         wkW0/m6oXUe6iFGhTImNCq1NF7n6gQY+tYw09J+1wjGl4CGso5p1ah9o0Q4Q9x0ZLZPt
-         rUwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8NNbvbxnR+MpLZeth7f0smlxZ5Y0u3JEH6YT6d1/EI6zl/Auixg3U5tDS4el17xLEVMtkQhrjmkgwMz8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T2G7/UCUCzV4GLL5kPL0r0DGHboJI31685IMMbg+9QRwj4Ttk
-	ywv9XrBqPfZAjFItrl4MMtyln4N2KRPKYKXt224JFwUHac/4/TVWqtgV3Jg1Sq1ekKkvrG9qfuO
-	7UoiQiO+n30R+S+q9t5H2yjwcbydjssg=
-X-Gm-Gg: AYBFou0YfO1DdLmwpMMBf85xqhamFGjLswSRHuYivSx5LO1Vhr/q5dLJFC1r38Enjbb
-	N04m++1GLL7Q9gbfHOpuR7pIiXQd95cI67ukTwhl1hZgvi62a1BaLi9j0/rjp6OyxEBRWazXXw/
-	IAoU5rGy3mh5iiwRMDecgAjlHWyaifj6rU1vv3xQ1WYNeyRAisUWdW+HPL+7Lsn27HYqBf0vJhL
-	ALeoN6V1VBu3B1Sx3FNZe2cEQuxpxnlthXf/u/7onDeIG5LftPGaFtsvq3KBVum7oPcIh6gRJA0
-	fuVn5kxoSVDpTMuvFoE/dA53/XXsqL0zAVv7vCNrDaTVQThcY5i1eRnOYCJq1roWx+8FAqC7V/f
-	I6SU2S6sAPCqhx7PCpOtqbYjVstUl+IJAYa9+Jrg1SimOmu8xyhyYXB4frBmbAI6OxIyt0tzF5u
-	IXUIPKaHlvAFZ0qxxfCB3LWcRumCCQB7fgmEvY2sN/8IecI7m3fxTJ
-X-Received: by 2002:a2e:8a88:0:b0:3ac:4ce6:8b73 with SMTP id
- 38308e7fff4ca-3acb7acf227mr31681581fa.22.1793738174621; Tue, 03 Nov 2026
- 12:36:14 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hFKFYw+G
+ARC-Seal: i=1; a=rsa-sha256; t=1793738181; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DDlv12rk9rKzIaATLgnXoA5qSygbFakFdb2HP2wuok52/9mXkeZCrQ9RMCWvlpNJT+nEE8l169Wn8+Qff6uW8g5jk642lebxuTVMaqi39UjPB1TLJvjz4ffCPrlLIhKw8RvvuxDoPavu+cwoCvhRgMV8ulD8qy3w5su5gYtaflI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793738181; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tpEII053p3mhNfn30gTOffmnMpSklTjLEUHLptTr0Fo=; 
+	b=A1VdwA2cJWG+2HQBAN0TwdXvdyS3zprerKo0d9uwb2avh/iHBBEouZ7V+Mr4l8X2Lw9HIg4lX+1uOBV8+L2iIg6v74kqddme8iXb727wYWRD76YbM/Y6A1jbE3CfoYjxVBw5dzffKc20t8U6U3THeQSkcZ83c/0OvamOeVNAGYk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=hFKFYw+GppvQihmNZVs5V7WsYuzDn2H6ftn5z17WLIO0kBLDDsjaUQ7dFoTVBVIs0oXDfsiU3w3s+G9+bmm5ygt5uTHVhv6vl6+Rll//NwB90U4vuEoBzE3B8YDYY6ie1ju6HZJzHTse4CVw7xOKnhX1d1fdPI5JnSLfJ7SyER8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=tpEII053p3mhNfn30gTOffmnMpSklTjLEUHLptTr0Fo=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179373818058011.607757256583909;
+	Tue, 3 Nov 2026 12:36:20 -0800 (PST)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v2 0/2] Two small perfcnt fixes for Panfrost
+Date: Tue, 03 Nov 2026 20:36:07 +0000
+Message-Id: <20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +60,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-alpha-profileme-v4-0-61e00f5e1da8@gmail.com>
- <20261102-alpha-profileme-v4-5-61e00f5e1da8@gmail.com> <CA+=Fv5RgTNGzApgq-YcPZ6u_My9-c8T6xMjb-_yuQRV5C53T7Q@mail.gmail.com>
-In-Reply-To: <CA+=Fv5RgTNGzApgq-YcPZ6u_My9-c8T6xMjb-_yuQRV5C53T7Q@mail.gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Tue, 3 Nov 2026 15:36:02 -0500
-X-Gm-Features: AclHuK9vlMkzNd2fjRaApLlEuj1lZIne7iaoIdNdKx6zdWRN1ZXEG5eUPUtd56E
-Message-ID: <CAEdQ38Gd4sDEtbUqSoy3QsFeQb46Bg3CZRzmPiGFLbSqLpxG+g@mail.gmail.com>
-Subject: Re: [PATCH v4 5/7] alpha/perf: implement ProfileMe sampling
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4V0bU3b8BBX/odh0Q5TqUFKZpBoC
+ P9uwbh1c5OTuXPPIhgpIItztgjCOXCIQwJzyAR0drihDG1iYZQptdK5HO3gKfIkCRlTWkCWPrx
+ Slr7wJi/qFmon0sBIuB/S/7X5Mj/dHWHaFrdGF3iK9N7ts956P1HxTzRrqaRzVQ66OpVWuQvEv
+ rcukj1CfIhmXdcP2oDCydoAAAA=
+X-Change-ID: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1929;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=E8MnxMy9vF68TqjM4+LG2zhCzTUUYzvJPrza97Mqc28=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq6kW5xYci1qak3iNu7yOhtteIgrBtPP7wwv6gF
+ oljX8uUUmeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaupFuQAKCRAOJn5M7lND
+ PWT4C/4u/2kZE1A5PwP3aJUIDLQDPl0lIn+HeqBrYVh8YwHgbOawQ/N+jGobl5lKWj50aKIS52p
+ bLXv0O59VAuV9nR+iU/LBlO3rVESHxU0rqewzdFOzdAWJZaoniNyuXjMufzLGcoqTK5sj3RDDIF
+ ABuBqEFO4DrIHhJLBShoFBcCL0yTxhGdn1u1RLl1cLwmfLzzGWBctcoKwPY75KiX+PencehfItq
+ ayOR0xxy2eEPLHDhCcg2RtAVJKwEsQozMRVPSxmQYeyMf7si9TDMDbyNY3AMtnC0e+lER6oGuIl
+ Gd6g+iBeO2yIKofll8pneGk87WrgroXGYWE1D5bai9gINTIt7eFc79tbdrT62GvaEC+i+7dA73H
+ 73I04s4UOFTLrHv4voT5b7mwD9OgHxw8Z7wp2FTNQP+u09ApEZcpxaJBwHry8ZUZy06pj0lSXrN
+ vN5Ma7cYmUQ/nv1OrXk2AKUTyf9I+oNy2kU4QsSjyftxQvvOMftHcC/IBOs4pBKWDs9vQ=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On Tue, Nov 3, 2026 at 2:41=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com> =
-wrote:
-> One remaining question, should we accept precise_ip=3D3? For a PAL-mode
-> PMPC we report the interrupted PC, which can differ from the profiled
-> instruction. Should we reject level 3, or skip those fallback samples
-> when level 3 is requested? What do you think?
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Good catch. I think rejecting it is right. Level 3 means "must have 0
-skid", and we can't promise that while the PALmode samples, and a user
-PMPC in a kernel thread, keep the interrupted PC. Dropping those samples
-at level 3 would hide ITB misses and redirects completely, which seems
-worse than having a little skid on a few samples.
+First fix makes sure cycle counter is enabled when starting a new
+session. This is required by some profiling frameworks like
+Perfetto. Second fix deals with a recently-introduced race condition.
 
-AMD IBS refuses precise_ip > 2 for the same reason (its fallback when the
-RIP is invalid looks just like ours), and perf's :P falls back to 2 on
-its own. So cycles:P and perf record's default event still get ProfileMe.
-On my ES47, cycles:ppp now fails and cycles:P records with precise_ip 2.
+---
+Changes in v2:
+- Added review trailers.
+- Removed warning from cycle count reference check.
+- Link to v1: https://patch.msgid.link/20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com
 
-v5 refuses it with -EOPNOTSUPP.
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 
-Thanks,
-Matt
+---
+Adrián Larumbe (1):
+      drm/panfrost: Fix race when restoring reset state in perfcnt
+
+Boris Brezillon (1):
+      drm/panfrost: Enable cycle counting when perfcnt is enabled
+
+ drivers/gpu/drm/panfrost/panfrost_gpu.c     |  6 +++---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 18 ++++++++++--------
+ 2 files changed, 13 insertions(+), 11 deletions(-)
+---
+base-commit: 6f7098738fff3ec7393f924343188cb8e6ebc5d2
+change-id: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
+
