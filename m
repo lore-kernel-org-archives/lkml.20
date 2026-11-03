@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680841;
-	b=3iPF7DPplepo9B/9XFxau7exvPKT60YqQlB2XpFs57kBcTXXTx1q/3sWC9KtyFUUsS6B
-	 9EkSq3RyY4hhKSNphXT1GskywgU1vy8YXe/LsvOHP7VNLpT7Be8Kn+8pjZ5MOE9FuFoC9
-	 rLZqYJUm1eYAtbm15x3Pw7cVRcsc62/QyN5U71TaPQI/22TnBpl/U729WKEouw4+2v4eM
-	 Aez/YmnIf6qQRgLrPfPnGshQd7L4aghUzNfUVf3tIB87uosZ+hc9e5jemudGoHsC9N7uL
-	 tcpmxvbw0QBHnONrBh45cJ7SsML0sqnGywaHVk43VNMtvkff6TbYT86E7MDytr/zPpw==
+	t=1793680852;
+	b=YK2puQepYa6dil40+eINo/re1568QrEVeinEMaTyDGYT1WPpoPBmKEPDUw9lyJ9v+q97
+	 XScvVg6/RA8e0lAJrP3jmFVnH4t5dHbL1/VLIG/QbwfTjeQVzRHSyvkkYst0jWcky9Lcx
+	 yxKp8u5KaEltC7cOxCfjo/DzKDx20DIZhjZZJwUWum/x7cXXI+kVUAyjpSJTlTU3xjBgm
+	 4MweZixbJmNG1VljaUuRAU7cJbkfqG+wCU5EG7bvNokfEDlqefEifC9d1/f5CvFray3Xn
+	 47wY9fEXs6Sv4jZjOUXQoz/UG0yEni90dFPR86rstri2N/MjSKstlWdJ/YgWISekmig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680841;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=75PcmoaRkELEZYnSZBhFOQlg0FMdwQhkoGGy8J7+las=;
-	b=sAfvYk0fOmQxlwdDtlEWCIpw1/wjC0rvcHfKXT1UlV0bD7UgEkRC1bfoU+YC4iPOVEHc
-	 5eu7x9DTTzLqVyeZDpZVJdAlbR7zit8S3VkEkTW9L6pNbSk7Mzg0TfmMFsCzbL3mtz4kP
-	 XYGocM+daXg5iT++U4IbsMEKRxf21zIEQHVT5JmwisvNtKswXJE4Q1UpUbVTmuMosAkFs
-	 xH+0t8wv0eVwLrrmXhHBoBVRyNssefigepleZL19Eis2QLHY/kiSZDnVgN6ncVDK2u/k3
-	 yLkEAaK5GPiODrGEjdvPUTCmv+kOZFU0ukUl5Lo3msaKqcnRhGWvNvRtdjbpJ+QZWeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793680852;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=j4UWGF2Jl/A/3GEHz2p1BlrUwEyemSNO9c8LNyLgpDo=;
+	b=QrwEjrYNWMfsGs0zgxQDhwkrq9eBCARkQA2yvCqmhaQ5WgHy2Xbkz6wpKvDlp+myz9uw
+	 JzSKnzYiwtj+AS7kkJuOaXPWGkPxJmnkv/NVW+qh0t8Xl8ErYqF7W6q/b+mODZXkHUXu1
+	 r2sXW6I5Uumri6iaZTJmPWq+yPZc3V3phqYKrg3qYiTsRilA/g8Gz//tZgXHsrkGWxt7+
+	 wv92NhvBmgzocsQV+TWw45IWhxd0CPP6uyK0dq6UsCWYl5nYJMCS11zEnnaUj34adjRGK
+	 wh//JBwR4APoC8fBYnErVazDbV0IlfWK0/jGov+PMuNeWf/hIK10ugPL9TK8Fh02GoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Z8LulxRY;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FkSycQ7R;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70AE606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C70AE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6588F606A329;
+	Tue,  3 Nov 2026 04:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6588F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Z8LulxRY
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so24610055e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:40:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793680839; x=1794285639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=75PcmoaRkELEZYnSZBhFOQlg0FMdwQhkoGGy8J7+las=;
-        b=Z8LulxRYwjxQ0AikjHu6lCMhpe7fWgPnRc+8gbdBOqQZgPKav17mTknrIFKgbRszaq
-         6q+1btt92F+xz/pNTdOGCphDyzPuxUBARCKZjd06qPfBiNPFenh+PpTIt6JV2UrDW90h
-         1JA5321kAUn/r9I3kauxqCTmv3FLaSCYUBYdsGn8RqWdr3/2NLx8o0/VXQNW7azMtK1O
-         lU3epGIyF09j/rooAg8f/xM7pjzQDIQoN5HJQDjf91oKUQ5uco9kl+j+g7ZGXdFkZV1N
-         x+iAKKcP3y/C65np1iOe+lwC6pIANoV8MfqZxKI62nAXEvEoHtBQfh4KYRMO6jcmd8RH
-         E3Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680839; x=1794285639;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=75PcmoaRkELEZYnSZBhFOQlg0FMdwQhkoGGy8J7+las=;
-        b=ed37jFFd5Fq6oyiSnQa40sbfYFDcE4icNC3oQ4vBj8qQEeLV5sREo8dxaNxU3CYvPv
-         +WWBAJPrOeVzrgY9/lt70bt7cmxzRBhVkW7C+VOK0zUleKl0JwgfWfwNVbtDTVvJl6M4
-         /J6sP6de7Hqd4YH1rGsBbqPzn7KgoIuFbK0u77CPPJvlGfH0HTmoaa3ehPrOo4N9UlT7
-         ua8KqVdDCL7Sh5ocNGiOEcrVJsP/mOHk2xeS/Pj9F9+7mtBz5Ht6yJlFChWhKfyvmo/y
-         eiomODbi4RfJcJDfHVEhm2r2+wuHFf/RLZiQ1pOAF2GtS9mBtXZ33Emk2z38b5eK8bN3
-         4pHg==
-X-Forwarded-Encrypted: i=1; AKwUvBziYXtDVPrU1DY8u9vWSdFF79EvyKo/0lFhyJbOqoJlglJM/2vi1t+d3U3VYlKy0hNisgu9QPLHDwgfuMo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQrOaiWLV53T7WevNIbCHMqaCE0pIrCkVd6vxcY8XekxgGQ+aV
-	RudtySsAHA8hWt5vFXiGDcUxg2TM4QM7O+WYDSbKTDPpxLhlZKnVrUraPsiWeytyNJkV8PZISPb
-	jm/4Ks4Dslg==
-X-Gm-Gg: AYBFou1m8Jikffp3o5Yvjl3wtAU/qxpT2I/+SfHOqgWjMYsG1BPNM+6RwtDWHNHz1lt
-	Fa1EIDD7VWcs9QwPLhAr/rDf7RVXgaTm1ZJpOptaDqrD3skyU/xNilhapE9htjB1R+03U4aujuW
-	roYL4lw6vxcHjwOkAO7Qv1JYlpXyXek6DZFeaHEFNL4KnyzmclrnRoYrJJKBG7sX0rf1kyQ2quB
-	SD9l3Zhx4UP0yjcs7S7g0tHKwWXe3U0c8PhlZrRpwIim0MRDN/5YN2KTCHH72QYUu4uaMsdCiwA
-	ADVqrIDuwfxPnwb9Vi4ZFVC793XsEfr/fM5BIcoGyWdVzVs/5rz4JRC5nD121U3yltmu55imlw1
-	AtNTOXTdE8eFDolGSNDUNsTXaMpn2tnUY2UzXHtapCuJLCmyexB/MkAyN8XPr14LRPaKy7Yc28z
-	WLDJp05OovF/buzBlrdOWYvuqHJxMzplI7aMiLoxQ40G5fhFXIJ+1b6c2KkZ6ShfcvxRojGmNtt
-	f9DElDLhJbd625xxhUiKtNmHoIIkRzCOVfGl5ZXLsGj9OHK2oPAibecj95lhHe3kJxqt/Ncy6yL
-	UuL0t9HNa6KfjqTBF2sF
-X-Received: by 2002:a05:600c:6099:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4ac180f2ac5mr251204285e9.16.1793680839161;
-        Mon, 02 Nov 2026 20:40:39 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a9e2ed3sm37427610c88.19.2026.11.02.20.40.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 20:40:38 -0800 (PST)
-Message-ID: <9b8d9f77-981e-4bcc-9d30-5c53a2c1d1b2@suse.com>
-Date: Tue, 3 Nov 2026 15:10:30 +1030
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FkSycQ7R
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=j4UWGF2Jl/A/3GEHz2p1BlrUwEyemSNO9c8LNyLgpDo=;
+	b=FkSycQ7RjKZ9tN1oz45numLfH/pVXallKdAD74jIpOhHQiZgJ26gRiPJhxsUqBaW61mOULeN2
+	VqWVk8ezofSx+cnGJU+X5gnO8K1hfPetn2Q6RfKoaewMyVJRcR89s5lMQfLt65HBSfSp11MIqYe
+	Ft6QqHRNvkcHW6Bw2YcHhaM=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jJbVD4hjPzKmVr;
+	Tue,  3 Nov 2026 12:40:36 +0800 (CST)
+Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
+	by mail.maildlp.com (Postfix) with ESMTPS id 86D4140586;
+	Tue,  3 Nov 2026 12:40:41 +0800 (CST)
+Received: from [10.174.177.243] (10.174.177.243) by
+ kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 3 Nov 2026 12:40:40 +0800
+Message-ID: <68fe0706-733d-4ba4-9420-107b70e8b8dc@huawei.com>
+Date: Tue, 3 Nov 2026 12:40:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,146 +63,97 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] btrfs: tree-checker: reject extent owner ref without
- simple quota
-To: Siddharth Mishra <smish149@asu.edu>, David Sterba <dsterba@suse.com>
-Cc: Boris Burkov <boris@bur.io>, Chris Mason <mason@kernel.org>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103034932.1790235-1-smish149@asu.edu>
- <20261103034932.1790235-3-smish149@asu.edu>
+Subject: Re: [PATCH] iomap: allow writeback from kswapd again
+To: Yiqing Wu <wuyiqing@cmss.chinamobile.com>, Christian Brauner
+	<brauner@kernel.org>
+CC: <gfs2@lists.linux.dev>, Andrew Morton <akpm@linux-foundation.org>, Shakeel
+ Butt <shakeel.butt@linux.dev>, <linux-xfs@vger.kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<syzbot+5e659793378ad9e06387@syzkaller.appspotmail.com>
+References: <20261103023804.8074-1-wuyiqing@cmss.chinamobile.com>
 Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261103034932.1790235-3-smish149@asu.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+In-Reply-To: <20261103023804.8074-1-wuyiqing@cmss.chinamobile.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk300003.china.huawei.com (7.202.195.93)
 
 
 
-在 2026/11/3 14:19, Siddharth Mishra 写道:
-> [BUG]
-> An extent item can contain an owner ref.  The owner ref is correct only
-> when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
-> check_extent_item() gives a WARN_ON() and then accepts the leaf :
+On 11/3/2026 10:38 AM, Yiqing Wu wrote:
+> Commit ff59f71f1c95 ("iomap: simplify writepages reclaim guard") removed
+> the PF_KSWAPD exemption from the iomap_writepages() guard on the
+> assumption that kswapd can no longer reach filesystem writeback now
+> that pageout() returns PAGE_ACTIVATE for non-shmem, non-anon folios.
+> That assumption only covers the folio reclaim path.  kswapd can still
+> reach filesystem writeback through the inode shrinkers, and syzbot
+> reports exactly that on GFS2:
 > 
-> 	case BTRFS_EXTENT_OWNER_REF_KEY:
-> 		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
-> 		break;
+>    WARNING: (current->flags & PF_MEMALLOC) in iomap_writepages
+>    kswapd -> balance_pgdat -> shrink_node -> shrink_slab
+>    -> super_cache_scan -> prune_icache_sb -> evict
+>    -> gfs2_evict_inode -> evict_linked_inode -> gfs2_log_flush
+>    -> gfs2_ordered_write -> filemap_fdatawrite -> do_writepages
+>    -> gfs2_writepages -> iomap_writepages
 > 
-> For all other incorrect inline refs, check_extent_item() returns
-> -EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
-> calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
-> SIMPLE_QUOTA bit.
+> Under memory pressure kswapd evicts GFS2 inodes whose glock is still
+> dirty, and gfs2_evict_inode() -> gfs2_log_flush() ->
+> gfs2_ordered_write() then writes back the ordered data of every inode
+> on sd_log_ordered.  This is long-standing, intentional behaviour: in
+> the default data=ordered mode GFS2 must flush dirty data before the
+> log commit that writes the metadata.  Writeback from kswapd has been
+> explicitly allowed since 2010, when the guard was still in XFS:
+> commit d4f7a5cbd544 ("xfs: allow writeback from kswapd"), because
+> the kswapd stack usage is low and it cannot deadlock on the
+> filesystem.
 > 
-> I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
-> tree.  On a kernel with CONFIG_BTRFS_ASSERT=y, I removed the file of the
-> extent.  At the next commit, btrfs frees the extent and gives :
+> Beyond the noisy warning the new guard is actively harmful: it returns
+> -EIO on every hit (WARN_ON_ONCE only limits the report), while
+> gfs2_ordered_write() ignores the filemap_fdatawrite() return value, so
+> the log commit proceeds with metadata even though the ordered data was
+> never written, breaking the data-before-metadata ordering guarantee of
+> data=ordered mode.
+> 
+> Restore the historical semantics of the guard using the
+> current_is_kswapd() helper that replaced the PF_KSWAPD flag: warn about
+> and refuse writeback from direct or memcg reclaim, but allow it from
+> kswapd, as was the case from 2010 until ff59f71f1c95.
 
-I don't think this should go into BUG section, but CAUSE.
+I only considered the folio reclaim path and missed that kswapd can
+still reach filesystem writeback via the inode shrinkers, thanks for
+your fix.
 
-> 
->    WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
->    assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
->    in fs/btrfs/extent-tree.c:354
->    kernel BUG at fs/btrfs/extent-tree.c:354!
->    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->    RIP: 0010:btrfs_get_extent_inline_ref_type.cold
->    (fs/btrfs/extent-tree.c:354)
->    Call Trace:
->     lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
->     lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
->     __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
->     __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
->     btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
->     btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
->     ksys_sync (fs/sync.c:104)
-> 
-> Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
-> btrfs continues to use the owner ref.
-> 
-> [CAUSE]
-> For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
-> WARN_ON() and keeps the leaf.  For all other inline ref types, it
-> rejects the leaf.  Two sources can put owner refs without the
-> SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
-> without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
-> enabling simple quotas").
-> 
-> [FIX]
-> Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
-> Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
-> not reached.
-> 
-> syzbot reported the WARN_ON() and the ASSERT() in 2024 without a
-> reproducer.  Both reports were closed for inactivity.  At that time, the
-> WARN_ON() was noted as something that "should be handled in a better
-> way".  I found the cause during the analysis of a fuzzing report.  An AI
-> tool helped.  I tested with a crafted image on btrfs for-next
-> (d6f76ca0a70d).  Without the patch, the kernel gives the WARN_ON(), and
-> the BUG above with CONFIG_BTRFS_ASSERT=y.  With the patch, the
-> tree-checker rejects the leaf ("extent owner ref without simple quota")
-> and the mount fails with -EIO.  There is no WARN_ON() and no BUG.  A
-> clean simple quota filesystem still writes data, frees extents and
-> mounts again without errors.  The fstests group qgroup has no new
-> failure (34 passed, 3 not run here).  The crafted image and the commands
-> are available on request.
-
-Again, remove the last paragraph.
+Reviewed-by: Kefeng Wang <wangkefeng.wang@huawei.com>
 
 > 
-> Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
-> Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
-> Fixes: d9a620f77e33 ("btrfs: new inline ref storing owning subvol of data extents")
-
-Again, I don't think this really counts as a fixes.
-
-Or all hardening would be considered as a fix, which makes no sense.
-
-> Cc: stable@vger.kernel.org # 6.7+
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+> Fixes: ff59f71f1c95 ("iomap: simplify writepages reclaim guard")
+> Reported-by: syzbot+5e659793378ad9e06387@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=5e659793378ad9e06387
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: gfs2@lists.linux.dev
+> Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: linux-xfs@vger.kernel.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
 > ---
->   fs/btrfs/tree-checker.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+>   fs/iomap/buffered-io.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-> index 0d75cb537..5c44bed99 100644
-> --- a/fs/btrfs/tree-checker.c
-> +++ b/fs/btrfs/tree-checker.c
-> @@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
->   			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
->   			break;
->   		case BTRFS_EXTENT_OWNER_REF_KEY:
-> -			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
-> +			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
-> +				extent_err(leaf, slot,
-> +					   "extent owner ref without simple quota");
-> +				return -EUCLEAN;
-> +			}
->   			break;
->   		default:
->   			extent_err(leaf, slot, "unknown inline ref type: %u",
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index d6e2f1ded5ca..324da0f5cb29 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -2082,7 +2082,7 @@ iomap_writepages(struct iomap_writepage_ctx *wpc)
+>   	 * Writeback from reclaim context should never happen except in the case
+>   	 * of a VM regression so warn about it and refuse to write the data.
+>   	 */
+> -	if (WARN_ON_ONCE((current->flags & PF_MEMALLOC)))
+> +	if (WARN_ON_ONCE((current->flags & PF_MEMALLOC) && !current_is_kswapd()))
+>   		return -EIO;
+>   
+>   	while ((folio = writeback_iter(mapping, wpc->wbc, folio, &error))) {
 
