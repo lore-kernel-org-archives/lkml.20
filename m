@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793687373;
-	b=xiudTlPp2m6o6ZxM0RkcGHfgQdtFcl6zWf6I5NUCbaZkE8bJ+tyseh1bC737IIi1Jn4E
-	 fdoS1NgVa5xnVslPs8Yls7ll8y1Bx3nCSplcsW9ZtJH0zM3gmJBzNwNTn1xFZeFhDR9Ci
-	 TRrpDyyRksyMccd32goRnZQVjZjcnPGbqsPvXB1JtnbzAfGeAiXxF8+JIlk5PotF2C6aH
-	 nZCugfgSxMonolDWONxgss5teW1BmFKF6T1I1X8KKPElqzwL14vd/ijq12U5/N7UkKRuP
-	 lHoD3DELtmx1errFGdvv85wJBnLF24ZM6w1XB/5afS6Ufy1bTT7iH3WifZH9xKUIE/A==
+	b=BIVyk70PqZGFNiqJxmmedKTIsmzHQ/qrKdaLLMIJ8+YHyVH+5BqdrUjQcPHwX6KOllWE
+	 OvR4Ji6qVV2y9dmnaDVUGdszcd2wb3RldrRXl6K68xnot95PeEVZF8Gs0mOJ42IMzx0tm
+	 Kxd+UaFNMdGQzVcTM8dw1TMKIE9TQCr2dLPm0KTHWK3nWzOv4IirPMCUVJIaoscCa+bJq
+	 VStpuuw+R8UBIH+m8mSe9EMUCWuKmJLdH68+t7NXwxQFWeBH2NA3AHJ6lTCNLW2eaJjFB
+	 qOTLr+xCauHtAKvktFU9PwOhUWm1BGPgbpbjiJ2zqlTgWE1C6uCFWP113S0QYGZCARA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793687373;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YsyfiCpg9lxmYrMJMc2pVDhQtP06099TNCGNIqa+JxM=;
-	b=FZ6Ge4SJYxjYuYXILS8/fX7QHBt35wDmHwymx865qIT8CTwdEBe46O7y8Zb1mvbGSM3N
-	 qmG8LGuYt5lP5etuiLII402/zLxOJsO/VFG4pSjft3q5kHV4pjFgAvkKRzcu/6dNtLuSN
-	 pafUqVU4Z0Y9lVnPfBGY1Et+TwwzFejvCekiW3OzOqlyNk9wAWsGPrzEUSItZ1wROkxII
-	 OW8u+/DNkuHkCzxHN7V4vOMlane+gPWzm1y4W4eZciSablvrqZBC3P4WsuNPu4+pW+X4s
-	 luHuYCjq/FPbB0QIaDI6JjNQMChMvoB9l5+SXy1ZPmFw50heBngF4bDOmYYbAsvBONw==
+	bh=7UPmuk4TFC5ZpEEeEBchAtDv38dC4JEqbtSylYNe2BE=;
+	b=FIeW3I7wwNdBEYR7GjiijtH7rwN0V2MwfG0dBPGhI3fYrBB3+MulJixHEyHKr5jm6slv
+	 uZxq4Ktfl/sraxiH5J9TUvoq9EgzKZc/O/b+ikSfljBDTR75qFuOb6Vst/xTCq5dSOrYT
+	 y9ACDL7nzE8GoT5GFeGbM6thtZUkxDZ6qJHIGDZcdELTOWd+JtvfVzzsstpeZcn12SEx6
+	 m2LWc6iz7FxrfKDhrfnDubnhTsL8B5sNnmYdcpbYxlIoh9TA5rF0nOOPpB8xdYtyQz41N
+	 DiGMCPcP30XnKLk0XoALR59KOiGmgMR4MMm83uKLBRsKL0LqqPjpeG6VyL76nwsrjhQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESVoQ6+e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6aCophM;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F29E606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F48C606A32D
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:29:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESVoQ6+e
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6aCophM
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793687372;
-	b=U3ZAt3aAZPhgqwkSq0h6QwcXdurN5j6DddbPLRIuZWMo+KFyD9iJdAkkmQLAUIrF3CBZ
-	 LNGC76tx/BuvRVAR0eRwdyS99E+H1Nc1c+GIcLfeJr/pBdfsZd408vNG5j0wXV4OQXIdP
-	 KPD8bDSw+8DVGKs4b2WW9odzfdxZS7s/SiAA/bTeUTkYl/+qn0hRv/3ywyqxZF7enjxlD
-	 uQgt5epn9Ndg5+8FBZ6TAQccU1prgk5wDuB4DvjlqG+mkxQZ5lZgIrYbA2cRQC+GE9Ppz
-	 ig6MDJq02MiaQF6ycEDVbgdjuvjjeRom6o5fOu3RSoC4xE1JiO45vBBLlSvcKgccSoQ==
+	b=ApRbXla/LMwvJrpLG6ExGmVcncQiY+gAw4x882xiVEyaVcv09a2dxOVP1G3zQRvZ/BkI
+	 9GAZpmlu/FVx+7uj7rt8T9KDtlqLmW4Ry8/Wj5zoXYovXdaVZ2eadOIpbNWrBPj3j8/RX
+	 7cVODPUNicsMR775E6+KmmZvVtZYWgja5YmwNOJXPvMDJGmLRi7A8tW20hy6JSNrcGJiO
+	 rZmZduZQ2g/xm063yE/nJx9sW7Jihj6mNe8JXz64oQRtoDqqhD6JsmJn24uqdPisbe3r8
+	 8BRLxWIN+hxjHdSalon5YbDtRX76s0GuEqPEckfIXgm+UyOYKxjLltL5DW5rMOzPNCw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793687372;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YsyfiCpg9lxmYrMJMc2pVDhQtP06099TNCGNIqa+JxM=;
-	b=2RMDRkd8m8z2Dpe+HvEUE+zm7PrhucVQrQqOsWnfPwjZNL0DG6iAaC497PH3g7SbCwLt
-	 IlkH5H5O7GZPMEzEzoF3XYwKKDNgHQJSUI5/vcsuY26wZb6hZ747lOhXRKlNh0P+QPEn4
-	 BCqVrI12hShXHrZrGYJTaFC0/Nv038iAp3z8PPnfYXOQiNrQYQBCSo+O2J94vP4SRfLHL
-	 HDkPZ5B4oNjbZYXseeYf30mQcFoLhB/8MqQG9cdS7Wqphf8hXETo2OCsdhxwJDFHcOqTK
-	 q6cyHgUAa7vyAt3Tr8xYD87mDQRzttUNJjGg2X+GQIARpalA3F16nICNBidXnqZQ6tA==
+	bh=7UPmuk4TFC5ZpEEeEBchAtDv38dC4JEqbtSylYNe2BE=;
+	b=mrLG+7nREFFDEvWNbOxbpxiJdQb7lNAD/7pYL5UMzxYJvDqCESqfgFSCJtDuD7iCn2nf
+	 502sp+ZJnmIKeOm39jZqJPTOPL+pEw6gYSjQngEdROq2RNkv1rzmLjdoo59FmM07GJDap
+	 ksxuanLqDPBogtFV/dTXqwHT9ITzdd+eMveVX5cdv8I8P6jXreW6rJq2jMWcSbwNVGp4m
+	 c/doAEz+jQp3RKxd151vIYD6F8EUNX+BzWr/jR/Ww0LN1mIR7V9lyI4q9DkHpTBrAzxPW
+	 oT1P/NqfFeRO6zB5wZBexF9/bvoLmPBo6oXOgDIvcIwhqF7FtZDMAsWj5C6zwoUFi1A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B93BE1F00A02;
+	by smtp.kernel.org (Postfix) with ESMTPS id BB4ED1F00A18;
 	Tue,  3 Nov 2026 06:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793687372;
-	bh=YsyfiCpg9lxmYrMJMc2pVDhQtP06099TNCGNIqa+JxM=;
+	bh=7UPmuk4TFC5ZpEEeEBchAtDv38dC4JEqbtSylYNe2BE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ESVoQ6+e1ICd0qf5MASR6lW/koOQseOyNzvCCjPUoeJd/E4KGW7943urUX852eoup
-	 +9UZP6uHA7TC+BhI6D4pxuqNwJfSHMGw1h9Pt+FFHe/y7GOaWaY39dnRYWRYdf0Ncx
-	 Li8dyro36aWpirblux72rQF+rp6LCSCK1DeaZ7oIGYx5TramB3ZRcE7KTqyo581Ttx
-	 FLhY6lAis5PxpSLnDg5c/ma2mDU4kVTdRYBjjw+wcUsLegu7xZPxGszu8pIs/I1rMW
-	 ihnVAqXYvX8sbt55dAElbcjDbu/2pd47u0kxSJQ9WYqhRvGf5PqvYJ7UoPkP6L32s7
-	 gR759PG9/O0mQ==
+	b=X6aCophMR1lsAYRXpxIlT6YvzgeyFEYvVR8t/b+S32DH+2qf9kW6AtldiTFJB7PUe
+	 07KYjM+WxUzRcY16aaRYcsI4HugwIx4245ktCr66E1HukjaGFFnjd4IAyTaQqNzkiJ
+	 9Tbe1a6iiGWESFEiS7Bdl23L92ortgPqEkdYVB+xbt9N67wHUqZBnCvvcCNoILLRJ5
+	 ZXRt0wO+lloDVJ+t2O5x5+IglVHmg5rj6nOTOFhkvj6llNNoLLC/somyZInl6NsnVc
+	 z8ExXcYG3v/YooJtjP0J/o5dBlWALdQmJsIyyZlJEmHuA99flJeRVKZKxe9799e1kx
+	 AVtqvTMsoKrMg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 30380467D4;
+	by lkml.kernel.org (Postfix) with ESMTP id 3C8CA467E2;
 	Tue,  3 Nov 2026 06:29:31 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Tue, 03 Nov 2026 15:29:31 +0900
-Subject: [PATCH v2 1/3] erofs: apply the stacked fs check to extra
- file-backed devices
+Date: Tue, 03 Nov 2026 15:29:32 +0900
+Subject: [PATCH v2 2/3] erofs: treat files shared by inode_share as stacked
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,20 +83,21 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-erofs-fileio-bioset-v2-1-5b91af423f72@samsung.com>
+Message-Id: <20261103-erofs-fileio-bioset-v2-2-5b91af423f72@samsung.com>
 References: <20261103-erofs-fileio-bioset-v2-0-5b91af423f72@samsung.com>
 In-Reply-To: <20261103-erofs-fileio-bioset-v2-0-5b91af423f72@samsung.com>
 To: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>
 Cc: Yue Hu <zbestahu@gmail.com>, Jingbo Xu <jefflexu@163.com>, 
  Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
  Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793687370; l=2267;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793687370; l=2096;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=sBPUwaW5nh1BZZ5bGZhc9yc4TVa5dHShdY8rmkDN50M=;
- b=illcO8XCFxG/SolTRokzWsZMW4CHgUDWCeN3ezbH5XDUb4PA8UF2JLJLIYffOSRXsQ7qTWBcD
- vt4ms4C8dIABzjmVDkd4HqwvwStFV82NyQF/ABTjbi0FhSITSqXTgyg
+ bh=KxcTgYYaPu5ba+F2AtFEMVGnO9mL8oKwwj4AMcUNn08=;
+ b=S2n4lwsiv48b8UmHOXyIuZvRI8taOqLM2WUyGaIMQkzTKbeosLWqY2VLTTxtt3lXybxjk8GeO
+ tfdGCvnzh0AAsqQdRw3rYVFSDUmFZHEXvR9Rr4zYg0qWgt80rOcwHju
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -108,62 +108,50 @@ Content-Transfer-Encoding: 7bit
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-erofs_fc_fill_super() rejects a file-backed mount whose image is on a
-file-backed EROFS or on a filesystem with s_stack_depth set. This
-bounds the nesting of reads. Extra devices given by device= are not
-checked. File-backed mounts can still nest through them without limit.
+A file-backed mount whose image or extra device is on a block-backed
+EROFS passes erofs_is_stacked_file(). If inode_share shares that file,
+erofs_real_inode() may pick an inode of a file-backed EROFS in the same
+domain to read it. File-backed reads then nest in the same task.
 
-Apply the same check to extra devices.
+Treat files that use erofs_ishare_fops as stacked.
 
-Fixes: fb176750266a ("erofs: add file-backed mount support")
-Reviewed-by: Gao Xiang <xiang@kernel.org>
+Fixes: 34096ba919fd ("erofs: support unencoded inodes for page cache share")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261030-erofs-fileio-bioset-v1-1-caf47adbb3a3@samsung.com
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
- fs/erofs/super.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ fs/erofs/super.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index ce05557bd9..ee01a5ef85 100644
+index ee01a5ef85..e92a7fa90a 100644
 --- a/fs/erofs/super.c
 +++ b/fs/erofs/super.c
-@@ -122,6 +122,14 @@ void *erofs_read_metadata(struct super_block *sb, struct erofs_buf *buf,
- 	return buffer;
+@@ -125,9 +125,12 @@ void *erofs_read_metadata(struct super_block *sb, struct erofs_buf *buf,
+ /* see the comment in erofs_fc_fill_super() */
+ static bool erofs_is_stacked_file(struct file *file)
+ {
+-	struct super_block *sb = file_inode(file)->i_sb;
++	struct inode *inode = file_inode(file);
++	struct super_block *sb = inode->i_sb;
+ 
+-	return (sb->s_op == &erofs_sops && !sb->s_bdev) || sb->s_stack_depth;
++	return (sb->s_op == &erofs_sops && !sb->s_bdev) || sb->s_stack_depth ||
++	       (IS_ENABLED(CONFIG_EROFS_FS_PAGE_CACHE_SHARE) &&
++		inode->i_fop == &erofs_ishare_fops);
  }
  
-+/* see the comment in erofs_fc_fill_super() */
-+static bool erofs_is_stacked_file(struct file *file)
-+{
-+	struct super_block *sb = file_inode(file)->i_sb;
-+
-+	return (sb->s_op == &erofs_sops && !sb->s_bdev) || sb->s_stack_depth;
-+}
-+
  static int erofs_init_device(struct erofs_buf *buf, struct super_block *sb,
- 			     struct erofs_device_info *dif, erofs_off_t *pos)
- {
-@@ -161,6 +169,11 @@ static int erofs_init_device(struct erofs_buf *buf, struct super_block *sb,
- 		} else if (!S_ISREG(file_inode(file)->i_mode)) {
- 			fput(file);
- 			return -EINVAL;
-+		} else if (erofs_is_stacked_file(file)) {
-+			erofs_err(sb, "%s: file-backed devices cannot be on stacked fses",
-+				  dif->path);
-+			fput(file);
-+			return -EINVAL;
- 		}
- 		if (!dif->dax_dev && test_opt(&sbi->opt, DAX_ALWAYS)) {
- 			erofs_info(sb, "DAX unsupported by %s. Turning off DAX.",
-@@ -701,9 +714,7 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+@@ -713,6 +716,9 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		 * EROFS is the only fs supporting file-backed mounts for now.
  		 * It MUST change if another fs plans to support them, which
  		 * may also require adjusting FILESYSTEM_MAX_STACK_DEPTH.
++		 * Files shared by inode_share may be read through a
++		 * file-backed EROFS in the same domain, so treat them as
++		 * stacked too.
  		 */
--		inode = file_inode(sbi->dif0.file);
--		if ((inode->i_sb->s_op == &erofs_sops &&
--		     !inode->i_sb->s_bdev) || inode->i_sb->s_stack_depth) {
-+		if (erofs_is_stacked_file(sbi->dif0.file)) {
+ 		if (erofs_is_stacked_file(sbi->dif0.file)) {
  			erofs_err(sb, "file-backed mounts cannot be applied to stacked fses");
- 			return -ENOTBLK;
- 		}
 
 -- 
 2.43.0
