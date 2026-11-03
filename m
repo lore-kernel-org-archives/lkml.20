@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681555;
-	b=TTxQiDkNWNqKHsTRrDncO+prLnX+CeRPMNPlhIfdYe2wzrhdDO1mIGiC7fdVkyqWtPEJ
-	 /h/6vW1rBJjWuAFG2eFb5SN5p2BK/hO2v4qTJQIauSRHJVM7TYiClXYVsR8Tf9gREJY6t
-	 sa4fia1N/UxoGolF1Fz/xDAgBfdz6rdLgPzE98YaNZwYn9ThYC5kWfRk+nbPcwWj8UpCw
-	 fRGQ+0oGIoR0m2PMC/sbJox6dL1IPnECpp17aIJPqmp5FHcVfHyqt800p1pMzXOerEJJ5
-	 Jxfe92KrIUKnu/8H20lh8Ziqiiidv6pB6/RHgKl2OpE926Lcw+efV+IbP8duMuhlrSQ==
+	t=1793681995;
+	b=mDnbGII9JpILM06g4ILbyDClNo7c+xiJvXbRDnA7XUiB/XgBg+OvlMBy22etfQbougPh
+	 qJ+M3g0CJEtqnG5mTU6dIuj+IbmDggAxcOKHDR97H009i/R5i7Qwtk0KVSqCdntiyaULn
+	 jUZGJ8nkGMOp1ntpdbGxLStK+vLSFWNT9vUJ4mBgTwCmD7mRPSk8LicJXRsCe3PKlkbAy
+	 luIRAQ7G6AIhY6g/iI/E+XMxV2NiG7DkvmQN2hLQfXMcHfq8B+ejf4VWtLcSXc5WH86HO
+	 d4NXBh/BzPnGLAXinSHyd1RjyjcKY2z1k6rNrNYw9z9BraIX192paclUo5tPyxRtRkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681555;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=34p6/q4mUiohDUq3YP/o+RtLUNRMezD/7unT8fjXWqs=;
-	b=aZNcYfHenfXxmWB3fHTLpTTdLWnYv2dPYHBrAmXsC1pVLWEtpbFFnD+T7hyyEI5R0VHb
-	 55QJ4ygsOXDBm/l0+qumPOEW9ecv60DZ3bKv1tfeQjE4PJfCQWrJL04OKpdmbJL7deD28
-	 lsfc5QSkSazjqT+OjLXOvFHNIDotHOZfH58AzOhIMxfnj3U+lr+5ymz+U57gMTkH3MlQr
-	 IpYyPLTqXAMg2qPTxrPQfCpVPl+iWlzuNGHTTuzLM6CaUP5R1zgje1ozb+200gYwgfc69
-	 qXLkuQIFa1MgcP+uhFFZujgp1uQLWtN/XeBQ9LusWjjU5JefhI7y2HF8JYucwuaSLyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681995;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=LXajKIsKvudYKoT6Qka57GNOPhZZEEXC9uwxtsOqE7E=;
+	b=w6+LXhwZM1AEsOlkncorSh18meqhhRlAMuNctQF9xoyXXQB4prWHWEM+AU2r6DZKgRy8
+	 s9VNlGC7mWyjyHxIOOWNvSV4msZdasHaYJRzdcC4H4JhYnhjh2SPO3HOZbv6agSuKKmsP
+	 9hQQ3/weNdjEPUo65uK2ToZ4y0rEdPgyuhZZaZlj8RvIcOOISVU5TOmJfGIgxSscJ16Ak
+	 xDEawLFFmTQCzied8g2OudSG+SK3fsoneFZjm0UoUcgkEoZdeOj7biH8ylLZtm7CaF1G/
+	 WdcbRtT1Z1WYnLGVSFVleVlmRf3gVUnfUwrAEjyEQdbeg+wDOavrWMr/RZRzYmxe9Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mh0L3Skv;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RA9DTIkU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FBD606A326;
-	Tue,  3 Nov 2026 04:52:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3FBD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288CE606A324;
+	Tue,  3 Nov 2026 04:59:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mh0L3Skv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793681554; x=1825217554;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=r+WZUoyk2WCPAmB29GrTF3vpV/Ii9qAichtjByshkXk=;
-  b=Mh0L3SkvF+rk4XrXm7l0FahMCKcxURLLbRk5RlkoQX81txrRo0Q7sPKv
-   loIJR9LRyOf7wDxTnIVq+nBDpnKFIA8WrjkSOdnTShHQpH81iZY6vHkcv
-   09fKza2gyEyb/hlkXj1V6LyQFww+tWDu3c04zrwajQ0ZEjdAUhkaQIpei
-   iqFtUPq+kGNGJaTEZcueXKqv/jm2h8mf2mFV3LSvsyUtv/DWAIYJQzfTT
-   qQgA+S0CYY5A8K4OqDd0CfMMzQRfUnre4dzrJCYuXYg3QOv/snRv0Blsd
-   MZqyYWWCWzLw2yL/FheDxauVuK51+wSCbGxqaF7Ri4hTeOFCPD6JliImm
-   g==;
-X-CSE-ConnectionGUID: JsukaCJvTYm0HtOhWAeXYg==
-X-CSE-MsgGUID: im2z6ax1SlGiRvu6izoaTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2269712"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2269712"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:52:33 -0800
-X-CSE-ConnectionGUID: b/1gL201RsWw53qtt2NzoA==
-X-CSE-MsgGUID: ua1yMAqYQf6kZ1IShzMipg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6852594"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa010.fm.intel.com with ESMTP; 02 Nov 2026 20:52:25 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xO6VS-00000000iJU-0Zcp;
-	Tue, 03 Nov 2026 04:52:22 +0000
-Date: Tue, 3 Nov 2026 12:51:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Michael Roth <michael.roth@amd.com>,
-	Liam Merwick <liam.merwick@oracle.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Ninad Naik <ninadnaik07@gmail.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	coconut-svsm@lists.linux.dev, joro@8bytes.org
-Subject: Re: [PATCH v3 4/8] KVM: SEV: Add direct VMSA capability
-Message-ID: <202611031239.b4rFO1dx-lkp@intel.com>
-References: <20261102114137.1198982-5-joro@8bytes.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RA9DTIkU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E9F1F000C1;
+	Tue,  3 Nov 2026 04:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793681994;
+	bh=LXajKIsKvudYKoT6Qka57GNOPhZZEEXC9uwxtsOqE7E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RA9DTIkUXnFt62mjBEtoaKaPDAq6B/QaT0sMgn1tWpcdt8rQHPyeK7H9AM71UmZGM
+	 9tXGN8tP3npEwi+RlHGqvB7wuWQB4D1NKkm3ooOvEHDPMGuewCcdUuIQW+Ym+h3N4g
+	 l9UDYLvfUivrnQE3drK+MgpBQo/pd/Bz1EBkc9Xvo+O1x4WAQ/cnaF4VzgGxOh89un
+	 awMftiOKDTUvOq50Jlx9OOQLjm9zUg1I9hw0yT/vWen8JCsJlak923dIaFUV6KKwNP
+	 IbvxWnxKpyP/WTN+ec3tUsivNjat9jvRxtAodlgaRGGPLhBYJo+JFLyFWitr/chQJV
+	 L3vghLV6yeD/g==
+Subject: Re: [PATCH] mpls: reject headroom that overflows skb header offsets
+From: netdev-bot+sashiko@kernel.org
+To: kylebot@openai.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ outbounddisclosures@openai.com
+Date: Tue, 03 Nov 2026 04:59:53 +0000
+Message-ID: <179368199381.488856.1269001903165496876@kernel.org>
+In-Reply-To: <20261030042246.74144-1-kylebot@openai.com>
+References: <20261030042246.74144-1-kylebot@openai.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,107 +62,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261102114137.1198982-5-joro@8bytes.org>
 
-Hi J�rg,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-kernel test robot noticed the following build errors:
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-[auto build test ERROR on kvm/queue]
-[also build test ERROR on kvm/next linus/master next-20261030]
-[cannot apply to tip/x86/core mst-vhost/linux-next kvm/linux-next v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/J-rg-R-del/KVM-SEV-Document-SNP-direct-VMSA-userspace-ABI/20261102-124130
-base:   https://git.kernel.org/pub/scm/virt/kvm/kvm.git queue
-patch link:    https://lore.kernel.org/r/20261102114137.1198982-5-joro%408bytes.org
-patch subject: [PATCH v3 4/8] KVM: SEV: Add direct VMSA capability
-config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20261103/202611031239.b4rFO1dx-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031239.b4rFO1dx-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611031239.b4rFO1dx-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> arch/x86/kvm/svm/svm.c:5473:2: error: cannot jump from switch statement to this case label
-    5473 |         default:
-         |         ^
-   arch/x86/kvm/svm/svm.c:5466:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-    5466 |                 guard(mutex)(&kvm->lock);
-         |                 ^
-   include/linux/cleanup.h:423:2: note: expanded from macro 'guard'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^
-   include/linux/cleanup.h:303:3: note: expanded from macro 'CLASS'
-     303 |                 class_##_name##_constructor
-         |                 ^
-   <scratch space>:80:1: note: expanded from here
-      80 | class_mutex_constructor
-         | ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:86:1: note: expanded from here
-      86 | __UNIQUE_ID_unlock_1239
-         | ^
-   arch/x86/kvm/svm/svm.c:5466:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-   include/linux/cleanup.h:423:15: note: expanded from macro 'guard'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:165:2: note: expanded from macro '__UNIQUE_ID'
-     165 |         __PASTE(__UNIQUE_ID_,                                   \
-         |         ^
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:74:1: note: expanded from here
-      74 | __UNIQUE_ID_guard_1238
-         | ^
-   1 error generated.
-
-
-vim +5473 arch/x86/kvm/svm/svm.c
-
-  5456	
-  5457	static int svm_enable_vm_cap(struct kvm *kvm, struct kvm_enable_cap *cap)
-  5458	{
-  5459		switch (cap->cap) {
-  5460	#ifdef CONFIG_KVM_AMD_SEV
-  5461		case KVM_CAP_SNP_DIRECT_VMSA:
-  5462			if (memchr_inv(cap->args, 0, sizeof(cap->args)) ||
-  5463			    kvm->arch.vm_type != KVM_X86_SNP_VM)
-  5464				return -EINVAL;
-  5465	
-  5466			guard(mutex)(&kvm->lock);
-  5467			if (kvm->created_vcpus)
-  5468				return -EINVAL;
-  5469	
-  5470			to_kvm_sev_info(kvm)->snp_direct_vmsa = true;
-  5471			return 0;
-  5472	#endif
-> 5473		default:
-  5474			return -EINVAL;
-  5475		}
-  5476	}
-  5477	
+- [High] The new `skb_headroom(skb) > U16_MAX` check in mpls_xmit() and
+  mpls_forward() only shows that the data offset (skb->data - skb->head)…
+- [Medium] mpls: mpls_forward() resets network_header before U16_MAX
+  headroom check
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+mpls: reject headroom that overflows skb header offsets
+
+This adds a check after skb_cow()/skb_cow_head() in mpls_forward() and
+mpls_xmit(). The check drops the packet if skb_headroom() exceeds U16_MAX.
+The aim is to stop the u16 header offsets from truncating when the aligned
+headroom expansion pushes skb->data more than U16_MAX bytes past skb->head.
+
+> diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
+> index ad4ad6f2001ab..4bfdb7c81f046 100644
+> --- a/net/mpls/af_mpls.c
+> +++ b/net/mpls/af_mpls.c
+> @@ -453,6 +453,10 @@ static int mpls_forward(struct sk_buff *skb, struct net_device *dev,
+>  	if (skb_cow(skb, hh_len + new_header_size))
+>  		goto tx_err;
+>  
+> +	/* The aligned expansion must still fit the u16 header offsets. */
+> +	if (unlikely(skb_headroom(skb) > U16_MAX))
+> +		goto tx_err;
+> +
+>  	skb->dev = out_dev;
+>  	skb->protocol = htons(ETH_P_MPLS_UC);
+>  
+> diff --git a/net/mpls/mpls_iptunnel.c b/net/mpls/mpls_iptunnel.c
+> index 1a1a0eb5b787f..4eccbd911fe1f 100644
+> --- a/net/mpls/mpls_iptunnel.c
+> +++ b/net/mpls/mpls_iptunnel.c
+> @@ -109,6 +109,10 @@ static int mpls_xmit(struct sk_buff *skb)
+>  	if (skb_cow_head(skb, hh_len + new_header_size))
+>  		goto drop;
+>  
+> +	/* The aligned expansion must still fit the u16 header offsets. */
+> +	if (unlikely(skb_headroom(skb) > U16_MAX))
+> +		goto drop;
+
+[Severity: Medium]
+Is the new check early enough in mpls_forward()?
+
+Before skb_cow() is reached, the label pop has already moved skb->data
+forward and written the new offset into the u16 network_header:
+
+net/mpls/af_mpls.c:mpls_forward() {
+	...
+	/* Pop the label */
+	skb_pull(skb, sizeof(*hdr));
+	skb_reset_network_header(skb);
+	...
+	if (mpls_pkt_too_big(skb, mtu - new_header_size))
+		goto tx_err;
+	...
+}
+
+Suppose an MPLS skb arrives with skb_headroom() in [65532, 65535]. That
+is still within U16_MAX, so nothing rejects it on the way in. The
+4-byte skb_pull() then takes the headroom to 65536..65539.
+skb_reset_network_header() hits its DEBUG_NET_WARN_ON_ONCE() and
+truncates network_header to 0..3.
+
+One source of such an skb is a previous mpls_forward() hop. With
+nh_labels == 0 and !dec.bos, new_header_size is 0, so the new check
+accepts a headroom of up to 65535 and sends the packet on. After the
+peer's eth_type_trans(), the next hop sees the MPLS header at that same
+offset. AF_PACKET on a netkit device with a near-maximal
+needed_headroom looks like another way to inject one.
+
+The truncated offset is also used before the packet is dropped. For a
+GSO skb larger than mtu - new_header_size, mpls_pkt_too_big() calls
+skb_gso_validate_network_len(). That goes through
+skb_gso_network_seglen(), which computes skb_transport_header() -
+skb_network_header(), so the MTU decision is based on a bogus header
+length.
+
+skb_cow() can only grow the headroom, so the new check after it will
+still drop the skb. By then, though, the warning has already fired. On
+CONFIG_DEBUG_NET kernels with panic_on_warn, that is a crash reachable
+from a user-owned network namespace.
+
+Could the bound be enforced before the pop, for example by rejecting
+an incoming skb whose headroom plus sizeof(*hdr) would exceed U16_MAX,
+before skb_reset_network_header() runs? Or is there a better place to
+catch this for skbs that reach mpls_forward() with headroom close to
+the limit?
+
+[Severity: High]
+
+Does this check cover all of the u16 header offsets that the comment
+refers to?
+
+By the time it runs, skb_cow_head() has already gone through
+__skb_cow()->pskb_expand_head()->skb_headers_offset_update(), and that
+function does unchecked u16 additions:
+
+net/core/skbuff.c:skb_headers_offset_update() {
+	if (skb->ip_summed == CHECKSUM_PARTIAL)
+		skb->csum_start += off;
+	/* {transport,network,mac}_header and tail are relative to skb->head */
+	skb->transport_header += off;
+	skb->network_header   += off;
+	...
+	skb->inner_transport_header += off;
+	skb->inner_network_header += off;
+	skb->inner_mac_header += off;
+}
+
+skb_headroom() only bounds skb->data - skb->head. The transport_header
+and csum_start offsets point past skb->data, so they can wrap while the
+headroom is still at most U16_MAX.
+
+For example, take a netkit device with needed_headroom in [65426, 65441].
+That gives LL_RESERVED_SPACE() = 65456. A UDP packet built by
+__ip_append_data() reserves 65456 bytes of headroom, so transport_header
+is 65476. netkit advertises NETIF_F_HW_CSUM, so udp_send_skb() sets
+CHECKSUM_PARTIAL with csum_start = 65476.
+
+mpls_xmit() then asks for 65460 bytes, and __skb_cow() expands by
+ALIGN(4, NET_SKB_PAD) = 64. The headroom becomes 65520 and passes the new
+check. transport_header and csum_start become 65540, which wraps to 4.
+
+netkit_setup() sets mpls_features to NETIF_F_HW_CSUM | NETIF_F_GSO_SOFTWARE,
+so the skb reaches the peer unchanged. If it is later sent out a device
+without checksum offload, validate_xmit_skb() ends up in
+skb_checksum_help():
+
+net/core/dev.c:skb_checksum_help() {
+	...
+	offset = skb_checksum_start_offset(skb);
+	ret = -EINVAL;
+	if (unlikely(offset >= skb_headlen(skb))) {
+		DO_ONCE_LITE(skb_dump, KERN_ERR, skb, false);
+		WARN_ONCE(true, "offset (%d) >= skb_headlen() (%u)\n",
+	...
+}
+
+The negative offset is compared as a large unsigned value, so skb_dump()
+and WARN_ONCE() fire. A device with checksum offload would instead get a
+bogus checksum start offset.
+
+mpls_forward() has the same headroom-only check after skb_cow(). The
+same window appears to apply there to CHECKSUM_PARTIAL skbs received from
+a netkit peer.
+
+Could the check bound the largest header offset, or refuse the expansion
+before it wraps, instead of testing skb_headroom() after the offsets have
+already been updated?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030042246.74144-1-kylebot%40openai.com
