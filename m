@@ -1,113 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793706540;
-	b=SdeCnpeBpS9dhnxwmqkkEkCPLK8XOn1VgckLwekCimxe195cx6PJAvnxdSSnXzxEZAFt
-	 2lX37EPMS4Bn1+YbOVJVFOSFiz8MblphKi47tuVfZQIj9z8lgonFBYxDzPc2Dc2LDBwh+
-	 QVjzC966GTut7kd5UldYMetQ3NhV0+cIW7p+QjCOqUxe+gtiGA16rYTeY32G9jU74FyBn
-	 FyzEvdnXwVI9GxNEMgQmOA6EqcOhp05X1XhAZcaLEnq/EZxKTaWtYkLydueov6Fw37XdU
-	 YIty9DWsk+w7p4ukAFW7mi61KKzOgu5nXURwFvuiOBHq5TmSAsBjl12l/w1A6ZV/78Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706540;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=q3MLGlASNURJinrGMbeueE2BwD1HdPJmSDG1uQeT7x8=;
-	b=sUIlmTrk29cNqGJRNcBgxUGu9dfFbHBqmkHsjLDvG1nwXLNPg4lKVaggRrJIf37zr2Rc
-	 tu75sD2ZnJV67mKlhh54h7SOMuR8P+WJuLJVVc/SF11kkjs3rX97DCXjPkaRhbnyDzwU6
-	 qB2+5H20XVcFXKj5o1WUm4kIUSuovkoC/5ZPs8gm4iha+IiKI4EGlmYpvhNDnCGFeX4Ce
-	 PSTax5hFTB4uaApUmUiTHT6okjmYxefJBgql6Q9GuTtoU4b0S/0ABYcFGTGyCus+P4Osa
-	 /UDcB8dRmgQuOUwrccnL+mv74Jle7hHQyBkvZuJ4SV4bx1Hsin8hoqZ4/hca9ev/H9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YRtHXdjp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793706541;
+	b=juCVvG/o5CVUHDMw1gsGmCLqX0QZp2rEXlDTsBlDHyCYyt3Kj5tWqnVrpwDaqMCE11Rb
+	 BBV/t2RXRAgAxD2r0dPREmMy6vEQWnFbRdlOAAq5sSXKD0QT+Fa8foL1pIa1Eqv+Y2i/0
+	 MbJ+5mwhggHAUqUeGzDak1C+EUeD7qrHkbGbcx3XR/6BxKGxLkIXg0SpSGoiewFW4djFc
+	 uMLqepljNIYkWZMIAMa/ja2BO3N+QRo961Qg9eC+8eU6qzpD1FiV3aSYjE8uA2f0W5Wax
+	 MdoS/XOEvixMMTGO4Mphi/pnUvuYig4fpM5YnwF6FxulpKoZ+CPykvrTZXaQKvZaiDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706541;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=W0ZUFOadJC6PrSKEwszh5okV1YbbWnVO0ckCp82sIZI=;
+	b=PbSS/HtFK03pTbd+mFKQd+7yCHYAUm2oan1eryKq21OvqrDv2xS+T5WDwzzneF24nZu1
+	 omXZwQRsHeIJyzQI/zBYU8peLEnlrDHnm2LyCitGnQ6Qi5W73rFStCP2g/gq+OmWrKQ2t
+	 N4fTxbrjPEuq0Vz6fdT0eBEMGDqoSJphKNNHA1yJvGSftl2svk2l/kf1z7OAfBrAFbnIo
+	 YBI6ZFyjwcjny5rA3CjI8BfxPEAfIe7nBMuX5ZeUGbXvPI6/2PHL0XiaFSrLteI7yzk8Y
+	 r+VkLnDc7aCeha/psb8PKyCyhJo2eeNxsGv1FRNWFoDQ2gmvaWNWrWzMOJAsHvXTOag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=bDm2GHYu;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=LR8s8ZiP;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DFF606A329;
-	Tue,  3 Nov 2026 11:48:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DFF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B35B606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B35B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YRtHXdjp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qJBAhPEdsrxUgEvb1bXobVJgc5DNiL+uaqSlw7xwXvfBjlgMTjPRf8YIRcB27uIHRLnJcVVtiE3sWJoA7xOP7ovi240km4fbEVZL3O9AFlrIow7rFpVD5EvmCTz/6rn0LuBBXnzxv0Xvs709PKw4AjIqj6MJ6oVaCWlXyDxnH6tcy5i+9haYaUYb3HyqM/wKo/3FWeaFCP2X9H7I4XxIefOLZk5hIbHlsGH8TrXEbsdbbzAn75IElNWk8LFcSoSAQXDYc37ic5Hl60uU3LKGDETWjw54s1da9pYEDzSN2vdD7ZQ0Bx8rHwouXgiuIQwQrjQCt9ECz0J3CChNxuIOCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q3MLGlASNURJinrGMbeueE2BwD1HdPJmSDG1uQeT7x8=;
- b=iiz52hHVHVZ8sO8Tps7ZeaQVDfDw4sBdYOZ3ekakKHJe8HwWz1njQolL0CrNu2Cc1wg0CEt6ZQYQ79HP7nZXJC+rdE1sZ+1oS1DkMKTlhb7HjIAL3R5zLsVExXI9enpDhcprqMb2XyECqs35dfkM0nxaJAyfU1gUJozVHj0QtrCPjHtCwkzI2iS2iVsUbqXVk4wIPhhYbi2mgEKjigw3OZsb7QombZL2hCqukn+sn7S8C6ls4kh4iIN+0pqd67dTrPf3njJOqRfBjAhQGg0vbmG+fJP2Ot3k1tQsWHp76FV1KEXq4FXebBph6cElfbo5UbdyrWzL/r+Pxubj9EX8tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=codeconstruct.com.au
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q3MLGlASNURJinrGMbeueE2BwD1HdPJmSDG1uQeT7x8=;
- b=YRtHXdjp7BwBil7Q50ZAqiO6kVpgp1OgQ56+1m5bmTfgpkrE7s0aNZSd2UI62rW/ifJ7DMAFsF0Iec2+SsgeSfkopYUb77BT6rupkbB3hGapo8WkJ1ZwVXNhO9XTtSHZmGFl0Us0Y8x07sxHorImGxyWp6p5s07v5qpW6+MXwh2FEK3S7JbnYPySH2U+Ph/nphU0bqBPsLoFCfFNnOiMfRNy64qBKg1v0Jlzv2ptmJymb98i2V6VtvgEXbDcp/Zf+i4iHybbDb5E5TE4z6BOE6ZQZw8yHwLY2H3/3N8FeNwWfd2cb4bqVjVxQa4ouHls417b7pmw20+NdjxexsV18Q==
-Received: from PH0PR07CA0022.namprd07.prod.outlook.com (2603:10b6:510:5::27)
- by MN0PR12MB5715.namprd12.prod.outlook.com (2603:10b6:208:372::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 11:48:53 +0000
-Received: from SJ1PEPF000023D2.namprd02.prod.outlook.com
- (2603:10b6:510:5:cafe::8a) by PH0PR07CA0022.outlook.office365.com
- (2603:10b6:510:5::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 11:48:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ1PEPF000023D2.mail.protection.outlook.com (10.167.244.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 11:48:52 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 03:48:37 -0800
-Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
- 2026 03:48:35 -0800
-From: Jacky Huang <jackyhuang@nvidia.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley
-	<joel@jms.id.au>
-CC: Jacky Huang <jackyhuang@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>,
-	<devicetree@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<openbmc@lists.ozlabs.org>
-Subject: [PATCH v2 1/2] dt-bindings: arm: aspeed: Add NVIDIA MGX Vera C2 BMC
-Date: Tue, 3 Nov 2026 20:47:52 +0900
-Message-ID: <7a3f142b8142b7c067182799d30b33b026e74221.1793705210.git.jackyhuang@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793705210.git.jackyhuang@nvidia.com>
-References: <cover.1793705210.git.jackyhuang@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=bDm2GHYu;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=LR8s8ZiP
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793706530; bh=W0ZUFOadJC6PrSKEwszh5ok
+	V1YbbWnVO0ckCp82sIZI=; b=bDm2GHYuLgJgsv1tigyfg8wCCz8luzpaITA7dtAo4ZROwJSouD
+	nMZI9HWXSMsQ4c1P+5HOOR1iHzumvla4XuY6Fs2SiuI+dY0Zeco7bfChDKQV3eLI0m9kfKS5CE6
+	YPuHBb2yT2+lMPX1xhzU1uuXQn4POUfWdswS7iH2WNd112Fo9CT+oASA36d8FtsZ00bxnmr5ljf
+	SNwZSd0W7tfbEJ2AcOwh0jVqbd9TXx6Rjvy1kncVjKsDlEK2orHsqx/+L1i208BzkwfpehnHXmh
+	R1uidw8LHtD37sqfT883lblwSaeKQGLFrEM3Q2zPTsBJ46QmSSxJXQFyBtsJk9uXioQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793706530; bh=W0ZUFOadJC6PrSKEwszh5ok
+	V1YbbWnVO0ckCp82sIZI=; b=LR8s8ZiPGOLCPF9tLMbTdiWec6+ioKJ1ftUMcZwrMpaw+aerQh
+	0OkZAtuGQEP4rj7GBl0l41ut2Fpidf/OlFCw==;
+Date: Tue, 03 Nov 2026 11:48:52 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: daniel.lezcano@oss.qualcomm.com
+CC: akpm@linux-foundation.org, heiko@sntech.de,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, peterz@infradead.org, rafael@kernel.org,
+ tglx@kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_1/2=5D_smpboot=3A_Allow_restr?=
+ =?US-ASCII?Q?icting_per-CPU_threads_to_a_CPU_mask?=
+In-Reply-To: <af37c4e7811a86adafb2064e7cf4aa4f5090ab4b.1793660202.git.daniel.lezcano@oss.qualcomm.com>
+Message-ID: <79AC1B3F-F158-4808-AD7E-70AE659E8DB5@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,61 +66,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|MN0PR12MB5715:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbefca3c-d0cc-41db-72a5-08df39a06ea4
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|82310400026|1800799024|376014|36860700016|23010399003|18002099003|22082099003|56012099006|261102123227099003|10067099003|261009223027099003|261021121427099003|11063799006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
- mu7YEoK49OHKrnLTJ/yW7u7+nrC4RCuQSZBjnkfXX/KeFrOJFMBoHvttAQDoFkiGaHMzaFB6o0tftJPVy+mJ9K5TF/nGXwlq/2TZO3L3Cn3mAkUk7uYB8NFyExJ4ZKKhPNu0oby4eNNv8Jpc4/jM318ekHl/TxAc76kfAmt5cqhK/59gn037mDpwUXeYNGdcS7+hmKWThu35HdlKmnBzpy9skINT3L0TAQMhVvL/fW4PpI7GWATE7O/R6TP8/E8TFiYE/eNQpxaIzBOe3uAPcCnhQSyOEyyjy9gdQo1Y7sAqVREpU14cteSvsM8dG4tpa9dCK0ph7ybfj9kkd/PydO3KsPK2aT5/3dV+Is6OeTQtnaW0roDSwvgF3d1/kD7H2ILfqPFyoh98Ej88VeTST4Y2o7exagygmq1s85uHTjPRIqsMu3jzq6gcvxPPqOd+9rBwvlIosY/3Vv9UtyNXgDyraZEI2cwIYr3j9/xd/sRKD6pv7jW+iH2ITw64C8nYBqL9OefV6krNbJgglSjaQTZb6vVdgkXVC89JpFcgU+tRVI+jpSh4rm+528n6Y7ccxsh1EwC23oyxnVQTXVuG9Pg5Pao8x0SQ95ME/PJmbfYUgpmOgf4NTpOsHVVRRmLOvgE+JYy9Owi8ikIEgrtjoJcRKhD99aoQGyY6IX8Cf6F4RK+f558LySJPtpmo6DVvs57aAi1z63JohbvsXEzqCg==
-X-Forefront-Antispam-Report:
- CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(18002099003)(22082099003)(56012099006)(261102123227099003)(10067099003)(261009223027099003)(261021121427099003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- 3b+bbEAfZZYkeppPBWVUMmDJuAb8U1meHPJoJ8rqaim0eXA/xFh69hoN32soVskgP3Ho0u4D2WiiZcfwTOcpXJGBlIw0zW5unvwEq9Usu9lKYtauyrbSyxCDOZ7icMT+foKTmRg/1/xN4D7q4urLpWZdzYA9TXLuk8WR3ohbn8nm94wW04YeNhwEVDPg7yaXtWbTzpD17SnPmSRETOKsHLcMGKSX+6BuHZHOKuRGvSDRxVE5kK9qPpsqvCaOehjr5JxB+/Q3N0VDMNJgO8W5r3KUDagqNKdd+ehk0D85iTz0efRCEDKVdQQl6PTmD/V8fhNFY/Uu/vd1w1J+iXluk1q9JlLdY9oO3/DvsOqZ/xD8k/rZSJRQSpXoYUReYEpNJa9/6n+yh4Nw6GmW8rgV9acjSZgI3vBnUFevAOtyhP4/etTOedAvBZOnNiWDBa8d
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 11:48:52.2453
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbefca3c-d0cc-41db-72a5-08df39a06ea4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5715
 
-Add the board compatible for the NVIDIA MGX Vera C2 BMC, which is
-based on the ASPEED AST2600 SoC.
+On 2 November 2026 23:09:40 GMT, Daniel Lezcano
+<daniel.lezcano@oss.qualcomm.com> wrote:
+>smpboot_register_percpu_thread() creates a thread for every online CPU
+>and registers the descriptor for subsequent CPU hotplug operations.
+>There is currently no way to restrict these threads to a subset of
+>CPUs, even when the user only needs work performed on that subset.
+>
+>For example, an idle injection device targets a specific CPU mask.
+>Creating threads outside that mask consumes resources unnecessarily.
+>Supporting multiple such devices also requires each descriptor to
+>manage only the threads associated with its own CPUs.
+>
+>Add an optional CPU mask to struct smp_hotplug_thread and apply it
+>throughout the thread lifecycle. Registration creates threads only for
+>online CPUs in the mask. CPU bring-up creates threads for selected
+>CPUs that were offline at registration, while parking and unparking
+>are restricted to the same mask.
+>
+>Apply the restriction to thread destruction as well, both during
+>unregistration and registration failure cleanup. This is necessary
+>when descriptors with disjoint masks share the same per-CPU task
+>storage: tearing down one descriptor must not stop or clear threads
+>owned by another descriptor.
+>
+>The caller must keep the mask valid and unchanged until the descriptor
+>is unregistered. Callers sharing per-CPU task storage must ensure their
+>masks do not overlap and serialize ownership changes themselves.
+>
+>A NULL mask preserves the existing behavior, so current users continue
+>to manage threads on all CPUs.
+>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
----
-Changes in v2:
-- Add Krzysztof Kozlowski's Acked-by.
+This is simple as it gets, thanks.
 
- Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-index b7e70868e..92127d7c4 100644
---- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-+++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-@@ -115,6 +115,7 @@ properties:
-               - jabil,rbp-bmc
-               - nvidia,gb200nvl-bmc
-               - nvidia,msx4-bmc
-+              - nvidia,vr-c2-bmc
-               - qcom,dc-scm-v1-bmc
-               - quanta,s6q-bmc
-               - ufispace,ncplite-bmc
--- 
-2.43.0
+>Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+>---
+> include/linux/smpboot.h |  4 ++++
+> kernel/smpboot.c        | 17 +++++++++++++++--
+> 2 files changed, 19 insertions(+), 2 deletions(-)
+>
+>diff --git a/include/linux/smpboot.h b/include/linux/smpboot.h
+>index 9d1bc65d226c..98c072eeaf24 100644
+>--- a/include/linux/smpboot.h
+>+++ b/include/linux/smpboot.h
+>@@ -5,6 +5,7 @@
+> #include <linux/types.h>
+> 
+> struct task_struct;
+>+struct cpumask;
+> /* Cookie handed to the thread_fn*/
+> struct smpboot_thread_data;
+> 
+>@@ -27,6 +28,8 @@ struct smpboot_thread_data;
+>  *			unparked (cpu online)
+>  * @selfparking:	Thread is not parked by the park function.
+>  * @thread_comm:	The base name of the thread
+>+ * @cpumask:		Optional mask of CPUs on which to create threads. Must remain
+>+ *			valid and unchanged until the descriptor is unregistered.
+>  */
+> struct smp_hotplug_thread {
+> 	struct task_struct		* __percpu *store;
+>@@ -40,6 +43,7 @@ struct smp_hotplug_thread {
+> 	void				(*unpark)(unsigned int cpu);
+> 	bool				selfparking;
+> 	const char			*thread_comm;
+>+	const struct cpumask		*cpumask;
+> };
+> 
+> int smpboot_register_percpu_thread(struct smp_hotplug_thread
+> *plug_thread);
+>diff --git a/kernel/smpboot.c b/kernel/smpboot.c
+>index 4503b60ce9bd..07857523a465 100644
+>--- a/kernel/smpboot.c
+>+++ b/kernel/smpboot.c
+>@@ -168,6 +168,9 @@ __smpboot_create_thread(struct smp_hotplug_thread *ht, unsigned int cpu)
+> 	struct task_struct *tsk = *per_cpu_ptr(ht->store, cpu);
+> 	struct smpboot_thread_data *td;
+> 
+>+	if (ht->cpumask && !cpumask_test_cpu(cpu, ht->cpumask))
+>+		return 0;
+>+
+> 	if (tsk)
+> 		return 0;
+> 
+>@@ -225,6 +228,9 @@ static void smpboot_unpark_thread(struct smp_hotplug_thread *ht, unsigned int cp
+> {
+> 	struct task_struct *tsk = *per_cpu_ptr(ht->store, cpu);
+> 
+>+	if (ht->cpumask && !cpumask_test_cpu(cpu, ht->cpumask))
+>+		return;
+>+
+> 	if (!ht->selfparking)
+> 		kthread_unpark(tsk);
+> }
+>@@ -244,6 +250,9 @@ static void smpboot_park_thread(struct smp_hotplug_thread *ht, unsigned int cpu)
+> {
+> 	struct task_struct *tsk = *per_cpu_ptr(ht->store, cpu);
+> 
+>+	if (ht->cpumask && !cpumask_test_cpu(cpu, ht->cpumask))
+>+		return;
+>+
+> 	if (tsk && !ht->selfparking)
+> 		kthread_park(tsk);
+> }
+>@@ -267,6 +276,9 @@ static void smpboot_destroy_threads(struct smp_hotplug_thread *ht)
+> 	for_each_possible_cpu(cpu) {
+> 		struct task_struct *tsk = *per_cpu_ptr(ht->store, cpu);
+> 
+>+		if (ht->cpumask && !cpumask_test_cpu(cpu, ht->cpumask))
+>+			continue;
+>+
+> 		if (tsk) {
+> 			kthread_stop_put(tsk);
+> 			*per_cpu_ptr(ht->store, cpu) = NULL;
+>@@ -279,7 +291,8 @@ static void smpboot_destroy_threads(struct smp_hotplug_thread *ht)
+>  * 					    to hotplug
+>  * @plug_thread:	Hotplug thread descriptor
+>  *
+>- * Creates and starts the threads on all online cpus.
+>+ * Creates and starts the threads on online CPUs selected by the descriptor's
+>+ * cpumask, or all online CPUs if no mask is specified.
+>  */
+> int smpboot_register_percpu_thread(struct smp_hotplug_thread
+> *plug_thread)
+> {
+>@@ -308,7 +321,7 @@ EXPORT_SYMBOL_GPL(smpboot_register_percpu_thread);
+>  * smpboot_unregister_percpu_thread - Unregister a per_cpu thread related to hotplug
+>  * @plug_thread:	Hotplug thread descriptor
+>  *
+>- * Stops all threads on all possible cpus.
+>+ * Stops all threads associated with the descriptor, including offline CPUs.
+>  */
+> void smpboot_unregister_percpu_thread(struct smp_hotplug_thread
+> *plug_thread)
+> {
+>
 
+
+--- Thanks!
