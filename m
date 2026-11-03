@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711657;
-	b=E7VC6LolVGfRnHQ0dsXMzqzaxtpxUM5X+ZC6wIGYYavQLbTMWvCmI0kxsUSCeWv8BvfA
-	 1/40xGBdAoOMoOAr7V0KcV9Yzv6Ow/IzfagIAgxokQMZ6I9bypLQFfVxJAPM4P3Z3Gj06
-	 tMAsvQB0g4fm7NvgflSRO01QzhblOrsIXRAmyfvJfxclLsXe+LVw7Ko//nnUSlP4S5gMa
-	 44ePpa+4fXxejxo6zY+0SC9cALrao4KqUQ9VB7tkU5biUnZF5pc2I6Ysu6MQAcsoib58K
-	 bvkmzwCoTQX3rhzS6ErB/8e+f6QZC6ugOqVVKSo/XmNPE8dc5u9/s6Z4YVYchfwO60g==
+	t=1793711669;
+	b=lNZQAJehDeakQh1Qe9P/Y27G6V/1EwEMeUY8rhYllKFSb0DR1JZZ2MGFULTZkCaNMU/J
+	 vT2sVjKO7X/S27K3nA4dC+Exfskp4wiVUodJrTHTIfdzmI/+kWQZXIGrK705lipAJEDC3
+	 EgUgPeuyR2JbTYRauZyMacsJBbbAGVnWwWkrd+8AM23mj289/PWY6z5C5UTIwAKA5M1qJ
+	 v4/hGPJE8IlYgloRuXKTAIbM/fScFNT6hbirZLALtcU2nqZizXq9ngZxs9AUbJfSkuWOC
+	 Z7i1Ks9cl+sKWZmlXTP/HKGfwyKoo1RgE0jxZSdi36bZHbqox5beEI/g7iIalYbX3yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711657;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+N5yte8k506gdAd07FWZatoVY6BZUAsON70EGk53k8o=;
-	b=fXiTGMONckYkZqGF5ZA7JNZQBvX72iE38GYF0Ryh1CL26fflXG9ljnkgAPkbJHMDxffQ
-	 MEK+DORy87sJDNqJCC3wxnbuTJMp7dGNhom1II8PHp4bQpWxBuUfCM4/NSMAk4EPwOGKU
-	 rv7U0fGwQCP7GRBqfFY7neAKsLKmlg9laj841VQCnWt6ixFdh+vm1e4Db0063tp+9UFjK
-	 83n4mawzfN4DBsbaq8NvFsMfHOxbYFvaqYH8pGsEncga1wbDSadVynbZNl2s/miIYKLL/
-	 BTTH7H9LIi7nVvqujSmdmBhDdWdxHRBDfrrEWGW+UfEZgAtvW347lCwqsVdudmVpQcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711669;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
+	b=Z6vnzIs1l+k0tKjcyso1fjcV26NMpJhHD4uAd9uZ1tKOolbeoropisU9X6mahWyREmfW
+	 Rb4gvgQPExsZwKZw2kQqnDwz2b2SLt2KReHHNq30TWkRo502l250MP5J6qEyTePzj2db6
+	 C6Iyx5zCMp+MYcY9yXxs8vwQnpq2bgp9Ka9dhVR6Xr9tcHMDBNmFN+c7X4Auzg3f0xW2T
+	 brgo8C31rsdiiziievh730wCBsOYTrQO4dl66bMSOBA10ZIXt8skeoqnANYDaqahwj3Pe
+	 UYLSlGR1bMdm+SxHnSBOBgX5SRrcbfBbCkpz1fTSeJK6RC/jfATDNoMoBFm7yq3ejTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4vZzdJU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AD3606A32F;
-	Tue,  3 Nov 2026 13:14:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188A1606A327;
+	Tue,  3 Nov 2026 13:14:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 188A1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4vZzdJU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C7E1F00919;
-	Tue,  3 Nov 2026 13:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793711656;
-	bh=+N5yte8k506gdAd07FWZatoVY6BZUAsON70EGk53k8o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M4vZzdJUgMv9XE8JukddMfdco/TQE9yI3XokJF/ojfSwt5VIMM8zShaG4g2XK4ats
-	 CBo6Nw3zQkRVR0Kue6ZbXt8WInX0wL4fAB5tmHisJ8zoNq94DoNM8KfIWe7LJT63a1
-	 HQlZTGbKd+c4qIbyGxvJibkz7t1q68N4ixGy62qrLhMRvz5q5ADSF5KMWH8FDYEzih
-	 tqXi3JuWHzwqRVE+wbc4y32GbrR/y4OT/g8tSZq1f6V/bj2leg/DC5gtGT1O3EaQgF
-	 52N+becHFjFOhEwQqh52fyiccqLLOUQ3zzghCptbboS9JA+m9syPdNlQSkTpB2Vz82
-	 cwi0M8r0Xd0CA==
-Message-ID: <80091b45-377b-4736-aabb-c1f3364d7d9f@kernel.org>
-Date: Tue, 3 Nov 2026 14:14:07 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wKFhpKn8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7EwAjiQX
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C76821F33;
+	Tue,  3 Nov 2026 13:14:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793711667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
+	b=wKFhpKn8FbpiC1Ry3ukLnKh9WcjasGmPN3hj4tWGmwvoCWlXXC7jWfNDr6IOKpEW3Soqjj
+	VsOjjo+tDi8Vi/p7BV0jxsqUJR6vthFZJmG0lnnU0OVHzEykYuhxwy/bDHI9VQ6lVyuAPH
+	uI68YrZX+vbMKz1n1uNoumBoxINPezk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793711667;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
+	b=7EwAjiQXMuoVIB5khWZ2AS/zoAA6A/P0hTHchANcF8Y8UpIscgPh1ZNQF+3nWUZAJKeqP7
+	0kR5dx1SK/d2i6Bw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793711667; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
+	b=wKFhpKn8FbpiC1Ry3ukLnKh9WcjasGmPN3hj4tWGmwvoCWlXXC7jWfNDr6IOKpEW3Soqjj
+	VsOjjo+tDi8Vi/p7BV0jxsqUJR6vthFZJmG0lnnU0OVHzEykYuhxwy/bDHI9VQ6lVyuAPH
+	uI68YrZX+vbMKz1n1uNoumBoxINPezk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793711667;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hAJtqAUg3MfDfcplgjk/O3ozi5Dl/AosfPRtaJzcQcs=;
+	b=7EwAjiQXMuoVIB5khWZ2AS/zoAA6A/P0hTHchANcF8Y8UpIscgPh1ZNQF+3nWUZAJKeqP7
+	0kR5dx1SK/d2i6Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D002C1350A;
+	Tue,  3 Nov 2026 13:14:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 416+KjLe6WoEMQAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 13:14:26 +0000
+Message-ID: <46911561-1659-44ad-be43-61036548d626@suse.de>
+Date: Tue, 3 Nov 2026 14:14:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,89 +107,97 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/11] dt-bindings: gpio: vf610: fix clock requirements
- per SoC
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>,
- Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-References: <20261103-gpio-vf610-fixes-v2-0-7c71fb36e184@nxp.com>
- <20261103-gpio-vf610-fixes-v2-1-7c71fb36e184@nxp.com>
- <20261103-venomous-hyena-of-fortitude-063eae@quoll>
- <auneixIA0ZtvXukt@shlinux89>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2] nvme: remove namespaces in parallel
+To: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, Hannes Reinecke <hare@kernel.org>,
+ Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>,
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ Stuart Hayes <stuart.w.hayes@gmail.com>
+References: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auneixIA0ZtvXukt@shlinux89>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261103-bug-nvme-remove-ns-async-v2-1-44e43766e44a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.infradead.org,vger.kernel.org,kernel.org,gmail.com,linux.ibm.com,wdc.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.79
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 03/11/2026 14:15, Peng Fan wrote:
-> On Tue, Nov 03, 2026 at 12:46:12PM +0100, Krzysztof Kozlowski wrote:
->> On Tue, Nov 03, 2026 at 07:44:05AM +0800, Peng Fan (OSS) wrote:
->>> From: Peng Fan <peng.fan@nxp.com>
->>>
->>> The i.MX7ULP GPIO controller needs both the GPIO and PORT clocks,
->>> while the i.MX8ULP and its derivatives (i.MX93/94/95/952) only have
->>> a single "gpio" clock. The VF610 controller has no gateable clocks,
->>> so keep clocks optional there.
->>
->> Same second comment.
+On 11/3/26 7:28 AM, Qiliang Yuan wrote:
+> nvme_remove_namespaces() removes the namespaces of a controller one
+> after another. Each removal waits for RCU grace periods in
+> del_gendisk() for the namespace and for its multipath head, about
+> 20 ms in all.
 > 
-> Please suggest what I should use to replace vf610 in the subject.
-> I not find a better idea expect picking "vf610" from the filename.
+> Deleting a controller, such as disconnecting from a fabrics target,
+> thus takes time proportional to its namespace count, over a second for
+> 64 namespaces. Scanning had the same problem until commit 4e893ca81170
+> ("nvme_core: scan namespaces asynchronously") made it add namespaces
+> in parallel.
+> 
+> Remove the namespaces through an async domain the same way, and wait
+> for all of them before returning. Each removal still waits about
+> 20 ms, but the waits now overlap: a grace period is system-wide, so
+> removals that wait at the same time are released by the same grace
+> periods instead of each needing its own.
+> 
+> Disconnect time from a target on the same host, over tcp to 127.0.0.1
+> and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
+> boots per kernel:
+> 
+>    namespaces  transport  before              after
+>             8  tcp         170 /  171 ms        85 /   91 ms
+>            32  tcp         628 /  628 ms       294 /  293 ms
+>            64  tcp        1201 / 1308 ms       533 /  550 ms
+>            64  loop       1988 / 1913 ms      1283 / 1200 ms
+> 
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+> V1 -> V2:
+> - Explain why removing the namespaces in parallel saves time
+> - Drop patch 2 until the elevator switch locking change settles:
+>    https://lore.kernel.org/r/20261031044141.5569-1-laveeshb@laveeshbansal.com
+> 
+> v1: https://lore.kernel.org/r/20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com
+> ---
+>   drivers/nvme/host/core.c | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Subject has nothing to do here. Read again my comment. You say vf610 has
-no clocks, but I do not see corresponding update.
+Cheers,
 
-Best regards,
-Krzysztof
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
