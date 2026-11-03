@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716817;
-	b=BOdlcj4NmAuVEoAeT/HZmDrLFYe3IoZdW/in+F1x6cDvn2cox7UTh3vl5jqWF1zEZK04
-	 6vufVAdynGZ3lj2cpH/N5Nd4U/Sihc0rIaXfjg9VAv6HIrMZt+vLGUmGYls12RCeYpCSm
-	 vRzOYHVKR128TGUtYNlUdWyEkkufyJvDm4IXwW2IKGTGWyrt5xzU4xpEwoKCfGZGdwIb1
-	 3I1yYFYguUWL86CzawzWfy316+9VnpHBYEeS04zxhlSoV1fkRB3ojfx/GeR6sx5IbAs2y
-	 fsZ2A9/fV5YctG/qqPoJiVyyUtxC73NFb47QkJRQKRd2TlNyGNSdWItYTy4Djd6owLA==
+	t=1793716839;
+	b=3Q+RF/c4h0tdWCBRPRfUnvXhm+aa3NWu544RX7nXq5+4LoNLi2WHc4o7V++bjpzFKXcw
+	 y99Q8ajpkyd15CQABLBYsqw69xAUucpSqDqNt7OwbLWLhtbmgPI+koGAcfuda81+wp+ZQ
+	 y+MVE6N08Xn4JtvKmftYM0voH4YMi5x8pcmfKTcLQXieOi+FGEME3oI4m5F0dobSg9h7J
+	 MAqjTSv46U424x5Idr4phAaFQzCSjCwhM2uhT4ml1YpMgy++IjMVuj6xQaioIWHejeniQ
+	 XskwqDKWfLh5jHvPJIcWSJcRV69be5iSStxMmNOed3LqWAXyE8u3wbF1rlJc6bOFeSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716817;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
-	b=sEx1R6N3LyawF9OygBx7xi3UjcASqnFIy9epT6pJl+81TX8X4G4kUMNd93HPa0EfdZc5
-	 jJLzOQ612IgzblCpomJfZlwUge6Wn0VKm2BUAuQgdFppOu0Okj4EUNXaZHwRyNCa/HkFg
-	 AKJdP8vfehgCmjx6wyAcgYqTyWHgmKS66jK4Y0gIDr72yPzysCy/kLDH1TccINyTye6Av
-	 RsGQLhIJkMW/jWdWhffE4Rzz09DVd1eGlvzkGtTzlz9aJzlUBGCrUiLPe8nqGHo/nYsiF
-	 oxX9pww3OpAFP3lAivtLHipqLCuzNdr7+Wc2MnGguxYsPPsz1mx/JMt28Hekt9MVDew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716839;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=uYGorSdShMQBHQquhWX9/8c57HWBfRFBIdfPOd+oM1Y=;
+	b=xhDJfKoHXgTpZhbKXH37KMZmgKTusIf2q7j0ny/h1/XRewmy9fj+AYQSIDjPUpRf6+Wr
+	 tI4D57KNf/sqsA0lyCX7pSuhMa/m4qlZ++6k5xhjsKJwERzPo5bNiFHkH94U9kmzxu/0k
+	 DlMkakO7RVLVjqKdhqsh3FmDzJjghDRF6T9ectofx1g8nqB7fnJIL0nx25wnbtOWll8hw
+	 g5exTngzJGDVBDwgVJlDpat7jUCGQEXmt2vnTtzd0uukDY4uKyP8UlBBepSnPq5J76GEb
+	 Bf32xrNtqDfqJdgfBX0j+/VyxNHKqh0oM6ll0piSqOcgwpT3hMT2jYVOhOKuD5UQAYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gq4Sjd1n;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF54606D829
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF54606D829
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gq4Sjd1n
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9d1114320so33758865ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:40:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793716816; x=1794321616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
-        b=Gq4Sjd1nkr806ZfkHPCD8I+Wq7PFRBibp43p12T5dqn6XYKP0JgKCuSbp0Ffqpj9tJ
-         JFuN2zand4F1B0DFfBUO/9SUwHIYMKiELFyoj2ov8BFFaZbrqKKLraB1qtQ7dKKqzlXy
-         cBG9yXObS+fpxB9b8aCxG6CkZUBl4gMfDW6LID7aZ29CyvlL9cCY9ipkVqD0yLQTs8jD
-         6rEYgND1oVlM+Qgyf7J62X2yF9e60GjrbHpvfy6kci2JQkRjVsPuwNOObhvToqAyO1c3
-         Bxh401YLw5NKUiUW/STsm3vghJ1m71Ee0eKDtAhqDPVOaD9Wy/PTbeXqjNIjjQIOoY66
-         nEYQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7F3606D811
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:40:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC7F3606D811
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f8281066c4so5587818b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:40:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716816; x=1794321616;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
-        b=Ivbp9yVXikDU1rC+8ujZKu3hv8QK/NkJoSIOhaqaxRHTcb7zPmslJ86ZowwMSBjVwT
-         ihGVp7kSX2iX0oyzOJu57xJIDDRXQskTviL5sq0lAC47Qal/9WlsdWxJKmqbGZguk4aK
-         Yk7B0/utOGbWezRNcS6xLHmeOI3bkNXA1/PkLJUfMMYSk61tbk4Yjcc/X4D3sIDPrfDO
-         isyW4bgvKmUE0vxlB6NMIiJaiVSmCmiXjdrlZ/Y7Cbz+4GxBNwezTh/Hr23SfK3eStxh
-         z+udFylU4puYAWHeaDFzt4dFmskLoApugM8Dmxz3fDzy1tHhje3q91eg5FM8NO3ie6X6
-         EHaw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYJCxNeCHzMRGOB6nP8ZorIMFa+sR1cUjo41otah1HuC0VzLxG03eOKKXTtIda4phFOkTl77kC00Qx770=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9R3nPXGQs2701TdwLvMylkLWrtbXO2Wowhvl/rB8PJrWAtmkEr
-	zE5H/DnteHCyQDHzrCrLdxhj+D+Mc70CYjwSmGeAjozrbyVwAI2EPLBR
-X-Gm-Gg: AYBFou0+0TwdNnEIwCtIUc9aF00tG+CTuCEKDLFlfIJ+JLk3hv7JQKhfaik3YoDvp8R
-	OUiUm0GBGZ+Vc4nZrZKbfH8tNkrVe/7emUR/kcZLIZRBAEjScIF9lfOyR7u83oHk4JgHe5D+Blw
-	waEruBK+tVvj+NLyAQtUdgVBCkvEG9a2z0jJdi30QUtqS0xoRoWHxlQWBCQ88jqC97GipRdPDvL
-	AfDUCojxRVDF7filkGqjR4yPw7w/z1ZGdB5shECBi1OLoy5nVBTtMWU67wNEMYxLaMhD13pHasn
-	u0gXbHSJxUwg8ynXXF2wJMCOPD91OBXgojgt2zbbxWdR+zKDF9ZJwqkxrlDkcD23CPLruB0qU9M
-	NZyKqe6UdRHv2UqOaHvVoccY958J1kbUqE8acJPY71RcUksPdv8u9esoj0pThiKJeM7JfEc0gU+
-	9tvp9G+mx6NMPnW6gR2wRw9LgPLSuCa/iTa6E+2AXf23erhLboIn8W6DPZcun1CoCNpRHHsbkQU
-	yhEffVI2Abwxl0NbyWDwcDjAwConx2Ju3HeN7SyU82O5KnnTjAgthb20fzrb+902iINzGzgeFIg
-	RYl40dD8s0ZeGDsVcHfWuPmGoda2/4k1OvvoVJMraQjPA49jf5ov/kVrGuFIXSinbg==
-X-Received: by 2002:a17:902:cec9:b0:2e8:5202:aa8c with SMTP id d9443c01a7336-2eb364f0a21mr124331295ad.48.1793716816439;
-        Tue, 03 Nov 2026 06:40:16 -0800 (PST)
-Received: from localhost.localdomain ([2400:d802:dd7:8000:314f:4575:be3:a064])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39052edasm42898465ad.4.2026.11.03.06.40.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 06:40:16 -0800 (PST)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com
-Cc: mhklinux@outlook.com,
-	stephen@networkplumber.org,
-	linmq006@gmail.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] Drivers: hv: vmbus: Keep the channel when vmbus_add_channel_kobj() fails
-Date: Tue,  3 Nov 2026 22:40:05 +0800
-Message-ID: <20261103144006.69857-2-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261103144006.69857-1-izaiahsun@gmail.com>
-References: <20261103144006.69857-1-izaiahsun@gmail.com>
+        d=1e100.net; s=20260707; t=1793716838; x=1794321638;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uYGorSdShMQBHQquhWX9/8c57HWBfRFBIdfPOd+oM1Y=;
+        b=RC272HgN2MRtq/qyEXbuzULIJlSAFCltCvcjb1u5lww7sIxHg3+Z8bj6WYBVNSvngj
+         luL1T3JZ6BXAnzG8fHsaFYRvc48+q+1wspuku0+wAnOvt0vRgQiwcbw5ftkiFSGtcknj
+         n98feUv7jv+cIPD7natnB6mx7e+piOJMFlqTA0LIysrYVQafhiC37DSbe2+9G7jkbygn
+         BdQKJZmCCiv9UcDRbkwKpDNONdHewIAVyXYfevZGB8LS8wvJ2TXbsZk1gZX1yhSI6OCP
+         XUFif9r5Zss2mQ5FBKoRae7HznpGKo7/26SfJZHb8HHeNzPjWN5Fs9I1x4o1xSW0fX4+
+         abGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGo8plkXiIG6EkUKlbbC4VwPQiqV3ZjMaTeBqmeoUY+mVA8/jAx5XA3tCYXYopth0UeAly1ypkSshbAfM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dU3Ty9BG0lOvOrfttrK/zCdJKznJfAnU5fbtdhyvToW4CYLU1
+	mRxP3B/W6StfcUUgPjQ0iA9Sx5tisNq+YkAn5C5eUMQXoqjk4c95+ufYQdAzPMH7qoTeERZgrQJ
+	Tzwmielr5SnHBF3BH7yYvzfKlrFDG826tOup3uI8+GrE47GMxnGizdpIafYU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,142 +58,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:c3d5:b0:4b9:a829:f016 with SMTP id
+ 5614622812f47-5640de7a768mr9396181b6e.34.1793716837868; Tue, 03 Nov 2026
+ 06:40:37 -0800 (PST)
+Date: Tue, 03 Nov 2026 06:40:37 -0800
+In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae9f265.318f3b9a.23acd0.0002.GAE@google.com>
+Subject: [syzbot ci] Re: KVM: x86: Introduce memory protection attributes
+From: syzbot ci <syzbot+ci04113eef29edb032@syzkaller.appspotmail.com>
+To: amoorthy@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nsaenz@amazon.com, pbonzini@redhat.com, seanjc@google.com, 
+	stable@vger.kernel.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The channel is freed by the release of its kobject, and free_channel()
-drops that reference. Since commit 8bc69f86328e ("Drivers: hv: vmbus:
-Fix memory leak in vmbus_add_channel_kobj"), vmbus_add_channel_kobj()
-also drops it when it fails, as kobject_init_and_add() asks for. That
-frees the channel, and both callers then go on with it:
-vmbus_add_channel_work() unlinks a sub-channel, unmaps and releases its
-relid and calls free_channel(), a use after free and a second
-kobject_put(); for a primary channel, vmbus_device_register() unwinds
-through vmbus_device_release(), which removes the channel too.
+syzbot ci has tested the following series
 
-The kobject is also only initialized in vmbus_add_channel_kobj(), so the
-error paths before it, for instance a vmbus_device_create() failure in
-vmbus_add_channel_work(), call free_channel() on a kobject that was
-never initialized: kobject_put() warns and does nothing, so the channel
-is leaked, and removing the attribute group from a kobject that is not
-in sysfs warns as well.
+[v4] KVM: x86: Introduce memory protection attributes
+https://lore.kernel.org/all/20261102174130.8779-1-pbonzini@redhat.com
+* [PATCH 01/45] KVM: nVMX/nSVM: check unconditionally whether CR3 is valid
+* [PATCH 02/45] KVM: x86/hyperv: do not overwrite hc->ingpa for SIGNAL_EVENT hypercall
+* [PATCH 03/45] KVM: x86: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING
+* [PATCH 04/45] KVM: x86/emulate: Check TSS busy-bit writes during task switches
+* [PATCH 05/45] KVM: loongarch: do full validity check on the gfn-to-hva cache
+* [PATCH 06/45] KVM: selftests: Test address translation for Hyper-V direct L2 hypercalls
+* [PATCH 07/45] KVM: selftests: Take into account mixed memory fault flags
+* [PATCH 08/45] selftests: kvm: drop TEST_ASSERT_SUPPORTED_ATTRIBUTES
+* [PATCH 09/45] KVM: Define and communicate KVM_EXIT_MEMORY_FAULT RWX flags to userspace
+* [PATCH 10/45] KVM: x86: Introduce memory fault on invalid hypercalls reads/writes
+* [PATCH 11/45] KVM: selftests: test hypercall memory fault exits
+* [PATCH 12/45] KVM: x86/mmu: intersect writability from __kvm_faultin_pfn with fault->map_writable
+* [PATCH 13/45] KVM: x86/mmu: Extend map_writable to a full ACC_* mask
+* [PATCH 14/45] KVM: x86/mmu: Init memslot hugepage information for non-private_mem VMs too
+* [PATCH 15/45] KVM: VMX: return error from kvm_set_cr*
+* [PATCH 16/45] KVM: adjust for presence of more than one attribute
+* [PATCH 17/45] KVM: Introduce NR/NW/NX memory attributes
+* [PATCH 18/45] KVM: Include memory protections in result of gfn->hva conversion
+* [PATCH 19/45] KVM: Introduce kvm_fetch_guest_page() and use it for x86
+* [PATCH 20/45] KVM: Take memory protections into account for memory read/write/fetch
+* [PATCH 21/45] KVM: Take memory protections into account for __kvm_vcpu_map
+* [PATCH 22/45] KVM: Encapsulate memattrs array into anonymous struct
+* [PATCH 23/45] KVM: Introduce kvm_check_gen()/kvm_memslots_check_gen()
+* [PATCH 24/45] KVM: Introduce a generation number for memory attributes
+* [PATCH 25/45] KVM: Take memory protections into account for accesses with cached gfn->hva
+* [PATCH 26/45] KVM: pfncache: Fail to refresh if it contains memory protections
+* [PATCH 27/45] KVM: x86/mmu: Do not prefetch sptes on gfns backed by memory attributes
+* [PATCH 28/45] KVM: x86/mmu: Take memory protection attributes into account during faults
+* [PATCH 29/45] KVM: x86/emulate: change return value of emulator_io_permitted to int
+* [PATCH 30/45] KVM: x86/emulate: Propagate memory faults to userspace
+* [PATCH 31/45] KVM: x86: "Handle" failed decode when skipping instructions
+* [PATCH 32/45] KVM: vmx/sgx: make return value of sgx_gva_to_gpa consistent with its callers
+* [PATCH 33/45] KVM: x86: Allow page fault fixup to return errors
+* [PATCH 34/45] KVM: x86/mmu: Adjust gva_to_gpa to allow returning an error
+* [PATCH 35/45] KVM: x86/mmu: Propagate errors from nested GPA translation
+* [PATCH 36/45] KVM: x86: Propagate memory faults through load_pdptrs()
+* [PATCH 37/45] KVM: x86/mmu: Issue memory fault exit if walk failed due to memory attribute
+* [PATCH 38/45] KVM: x86: mark VM as dead after KVM_SET_SREGS fails to load PDPTRs
+* [PATCH 39/45] KVM: VMX: mark VM dead on shadow VMCS or eVMCS access failures
+* [PATCH 40/45] KVM: let kvm_arch_post_set_memory_attributes drop mmu_lock
+* [PATCH 41/45] KVM: x86/mmu: Obsolete all roots if memattr contains gPTEs
+* [PATCH 42/45] KVM: x86: selftests: Introduce memory protection attributes test
+* [PATCH 43/45] KVM: x86: selftests: Introduce memory attributes PTE test
+* [PATCH 44/45] KVM: x86: selftests: Introduce memory attributes side-channel tests
+* [PATCH 45/45] KVM: x86: split out parts of load_pdptrs
 
-Initialize the kobject when the channel is allocated, so that
-free_channel() is the one place that drops its reference on every path.
-vmbus_add_channel_kobj() then only adds it, and leaves the reference to
-its callers when it fails. Remove the attribute group only if the
-kobject was added.
+and found the following issue:
+WARNING: suspicious RCU usage in __kvm_gpc_refresh
 
-Fixes: c2e5df616e1a ("vmbus: add per-channel sysfs info")
-Fixes: 8bc69f86328e ("Drivers: hv: vmbus: Fix memory leak in vmbus_add_channel_kobj")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+Full report is available here:
+https://ci.syzbot.org/series/beb5d6f5-3128-404c-9de5-537fb4326658
+
+***
+
+WARNING: suspicious RCU usage in __kvm_gpc_refresh
+
+tree:      kvm-next
+URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
+base:      d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/1748209f-578f-45cd-8bb4-6f6392d79a88/config
+syz repro: https://ci.syzbot.org/findings/d02cf2a1-ed84-4f69-ac5f-29b2075b5e1f/syz_repro
+
+=============================
+WARNING: suspicious RCU usage
+syzkaller #0 Not tainted
+-----------------------------
+./include/linux/kvm_host.h:2636 Suspicious memory attribute generation usage
+!
+
+other info that might help us debug this:
+
+
+rcu_scheduler_active = 2, debug_locks = 1
+locks held by syz.1.189/6607: 2, last CPU#0:
+ #0: ffff8881bf19dc38 (&gpc->refresh_lock){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
+ #0: ffff8881bf19dc38 (&gpc->refresh_lock){+.+.}-{4:4}, at: __kvm_gpc_activate+0x91/0x3b0 virt/kvm/pfncache.c:417
+ #1: ffff8881bf19dbb0 (&gpc->lock){....}-{3:3}, at: __kvm_gpc_refresh+0x1af/0x1830 virt/kvm/pfncache.c:272
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 6607 Comm: syz.1.189 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ lockdep_rcu_suspicious+0x140/0x1d0 kernel/locking/lockdep.c:6972
+ kvm_mem_attributes_generation include/linux/kvm_host.h:2634 [inline]
+ __kvm_gpc_refresh+0x1657/0x1830 virt/kvm/pfncache.c:306
+ __kvm_gpc_activate+0x289/0x3b0 virt/kvm/pfncache.c:436
+ kvm_set_msr_common+0x2dab/0x4320 arch/x86/kvm/msrs.c:-1
+ vmx_set_msr+0x15b3/0x27f0 arch/x86/kvm/vmx/vmx.c:2632
+ __kvm_set_msr+0x60c/0xab0 arch/x86/kvm/msrs.c:806
+ _kvm_set_msr arch/x86/kvm/msrs.c:812 [inline]
+ kvm_do_msr_access arch/x86/kvm/msrs.c:549 [inline]
+ kvm_set_msr_ignored_check+0x2a/0x390 arch/x86/kvm/msrs.c:818
+ nested_vmx_load_msr+0x245/0x4d0 arch/x86/kvm/vmx/nested.c:1126
+ load_vmcs12_host_state+0x10ca/0x1e20 arch/x86/kvm/vmx/nested.c:4935
+ __nested_vmx_vmexit+0x1a12/0x2c90 arch/x86/kvm/vmx/nested.c:5203
+ nested_vmx_vmexit arch/x86/kvm/vmx/nested.h:46 [inline]
+ vmx_leave_nested arch/x86/kvm/vmx/nested.c:6898 [inline]
+ nested_vmx_free_vcpu+0x8e/0xd0 arch/x86/kvm/vmx/nested.c:389
+ vmx_vcpu_free+0x109/0x3e0 arch/x86/kvm/vmx/vmx.c:7536
+ kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:9627
+ kvm_vcpu_destroy virt/kvm/kvm_main.c:477 [inline]
+ kvm_destroy_vcpus+0x123/0x380 virt/kvm/kvm_main.c:497
+ kvm_arch_destroy_vm+0xf6/0x1d0 arch/x86/kvm/x86.c:10198
+ kvm_destroy_vm virt/kvm/kvm_main.c:1314 [inline]
+ kvm_put_kvm+0x772/0xb50 virt/kvm/kvm_main.c:1351
+ kvm_vm_release+0x6b/0x80 virt/kvm/kvm_main.c:1376
+ __fput+0x40d/0xa50 fs/file_table.c:512
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe8f039f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff5710adc8 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007fe8f0627da0 RCX: 00007fe8f039f559
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00007fe8f0627da0 R08: 00007fe8f0626038 R09: 0000000000000000
+R10: 000000000003fd98 R11: 0000000000000246 R12: 00000000000213f0
+R13: 00007fe8f062609c R14: 000000000002118b R15: 00007fe8f0626090
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
 ---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
 
 Notes:
-    The bug was found with kbound, a research static analysis prototype.
-    The patch, the changelog and the test setup were written with the help
-    of an AI coding assistant (Claude); I have reviewed them and tested them
-    as described in the cover letter.
-
- drivers/hv/channel_mgmt.c |  5 +++--
- drivers/hv/hyperv_vmbus.h |  1 +
- drivers/hv/vmbus_drv.c    | 25 ++++++++++++++++++-------
- 3 files changed, 22 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-index c42def04ac41..cb1d8d76928f 100644
---- a/drivers/hv/channel_mgmt.c
-+++ b/drivers/hv/channel_mgmt.c
-@@ -367,6 +367,7 @@ static struct vmbus_channel *alloc_channel(void)
- 		     vmbus_on_event, (unsigned long)channel);
- 
- 	hv_ringbuffer_pre_init(channel);
-+	vmbus_init_channel_kobj(channel);
- 
- 	return channel;
- }
-@@ -663,8 +664,8 @@ static void vmbus_process_offer(struct vmbus_channel *newchannel)
- 			mutex_unlock(&vmbus_connection.channel_mutex);
- 			cpus_read_unlock();
- 			/*
--			 * Don't call free_channel(), because newchannel->kobj
--			 * is not initialized yet.
-+			 * Don't call free_channel(): newchannel was never
-+			 * added, and its kobject holds nothing yet.
- 			 */
- 			kfree(newchannel);
- 			WARN_ON_ONCE(1);
-diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
-index 33923621a5a3..7865a519dd7f 100644
---- a/drivers/hv/hyperv_vmbus.h
-+++ b/drivers/hv/hyperv_vmbus.h
-@@ -408,6 +408,7 @@ struct hv_device *vmbus_device_create(const guid_t *type,
- 
- int vmbus_device_register(struct hv_device *child_device_obj);
- void vmbus_device_unregister(struct hv_device *device_obj);
-+void vmbus_init_channel_kobj(struct vmbus_channel *channel);
- int vmbus_add_channel_kobj(struct hv_device *device_obj,
- 			   struct vmbus_channel *channel);
- 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 4692687cdbf3..fc0f16f51266 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -2084,6 +2084,15 @@ int hv_remove_ring_sysfs(struct vmbus_channel *channel)
- }
- EXPORT_SYMBOL_GPL(hv_remove_ring_sysfs);
- 
-+/*
-+ * vmbus_init_channel_kobj - initialize the kobject that holds the channel's
-+ * lifetime; free_channel() drops its reference
-+ */
-+void vmbus_init_channel_kobj(struct vmbus_channel *channel)
-+{
-+	kobject_init(&channel->kobj, &vmbus_chan_ktype);
-+}
-+
- /*
-  * vmbus_add_channel_kobj - setup a sub-directory under device/channels
-  */
-@@ -2094,13 +2103,14 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
- 	u32 relid = channel->offermsg.child_relid;
- 	int ret;
- 
-+	/*
-+	 * On failure the kobject keeps its reference: the callers' error
-+	 * paths drop it in free_channel(), which also frees the channel.
-+	 */
- 	kobj->kset = dev->channels_kset;
--	ret = kobject_init_and_add(kobj, &vmbus_chan_ktype, NULL,
--				   "%u", relid);
--	if (ret) {
--		kobject_put(kobj);
-+	ret = kobject_add(kobj, NULL, "%u", relid);
-+	if (ret)
- 		return ret;
--	}
- 
- 	ret = sysfs_create_group(kobj, &vmbus_chan_group);
- 
-@@ -2109,7 +2119,6 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
- 		 * The calling functions' error handling paths will cleanup the
- 		 * empty channel directory.
- 		 */
--		kobject_put(kobj);
- 		dev_err(device, "Unable to set up channel sysfs files\n");
- 		return ret;
- 	}
-@@ -2124,7 +2133,9 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
-  */
- void vmbus_remove_channel_attr_group(struct vmbus_channel *channel)
- {
--	sysfs_remove_group(&channel->kobj, &vmbus_chan_group);
-+	/* A channel that failed before vmbus_add_channel_kobj() has none */
-+	if (channel->kobj.state_in_sysfs)
-+		sysfs_remove_group(&channel->kobj, &vmbus_chan_group);
- }
- 
- /*
--- 
-2.53.0
-
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
