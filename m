@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690809;
-	b=xkOir3QU3pp9AK1YBiiJguXH2RV38VlJL0wmTJneOj2ZlBf2OZ5pJjTqTRA5/snCyyRa
-	 Zfl2z1R7fYOICGIa982imD0wU1/5Mw4upLD89gJ0UtYP3E/r4JGGFJ8zkqSsR6AKkjlxF
-	 7zIk7acnVullMCI0MJeYZ3NQrbG05IufXoOg4RTbVTsYK4dFcOFxoY6YUCOrHF7pYwEsE
-	 Sg44EsHIgduEybFjgSJghjDa+/UhcnRMcfeV9VQIe62qNdGFesUQtYoxS9uSOvHg/cVUA
-	 4RjMMQNpdtYlpH6q/wp4NZ28+gaXLLEDoR2KQpYLNj0R8EKnYwqVk7QLC/KIgWX0Qfg==
+	t=1793690824;
+	b=i2BT7R4SP2Cpnh115IJqwFrSsxyH5G9b0C3MCmaJsT7bV73Ai/UqsJtjkrrPZnvoW7As
+	 F+AWC1+NxGV+kkgW1UaPRIp8VgFyBIcvSSyQYtq/Qp82UNFg3Li2zOKYRjHcOPrifDXVn
+	 eYkH5T85lXeRYnVC5af0x/LOxF3wtkQsW332BLUsRrQiu0R7lf0q3z0sZLGJojb+aDWQ7
+	 E9PhNSgkFZvHm/gWEiXGOysY7xUI04DzwvhWBWY3e8Xn2J5Rc8ap4AL60ZRDw+vk7tLlC
+	 G/gDS6bnvtopBOXh0zjuqvQuCiw1faiz+kKDEMxDJ85Veia9kJ+QUWFvchipilZsr7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690824;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cWD6HISfk/RSMSoaxgmdaTD1BK2I+6ChmJkCmkdV6rY=;
-	b=TW+Ww7uv9qw38pScpP81mHEk9Ww1bZ4jSe9K670UqznTBbODYqwtsuwIaa8jf3faW0tM
-	 c7x8gqNOSA+vKe5dpZaV0A1jeeF/yOhD9SANTU09DzjjGwgQs6U0KHk5TUZd/SnK69OQ7
-	 EZ3+amZmIvu0gv7tjkB4/DKUwu3HgkMxEdpoCIvf2w+ODgnGr98D41PnDLx/V81njo3WQ
-	 xy+yhKJ6kLHw+mynTGAR1NzKehGwTV+Zn4q17IFzTORcm0oaW67GDk8BqynYgnIbyq5Qo
-	 1rHFPWv1Xm6/DGMRE1uiMCblRYFNEV104R1Y4AiVeiklDtF0KOBAHtNLAMJVTn4zTVA==
+	bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
+	b=m02ndrF9VcnIybxDGFBnF+s0XeSeHYlR8cS++V+7tQjcw2iVz0pgvfYjxiAELqdRdZcf
+	 L1K9wk5PfuCkfXDHiO1ZkLteANHIp/Zt7RaE5wnZ5e9kVaGV2/PnZ+OsyFVhJbIK+vfy9
+	 iqSlVhfAT3JYXPnD0GhmNMg3s6HsgxvBd8n1rOCDTJwJaUx2tUl10yyBdJgoKjIg805Hv
+	 o9paro84wzPebiKGAu9YbXnx1IlnZFcVR3DQuUOSFX558K2r2gGov4MA32fNykRNmB5GR
+	 u0FiTYLqAXI+MdnIdKK9jKOVrdwveywsZkDBEh8Udh++FSaFSKQduo6W58aJX40eFJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g89jAtiK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C490A606A329;
-	Tue,  3 Nov 2026 07:26:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6D2606A32F;
+	Tue,  3 Nov 2026 07:27:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g89jAtiK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B2E1F000C1;
-	Tue,  3 Nov 2026 07:26:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CCB21F000C1;
+	Tue,  3 Nov 2026 07:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690808;
-	bh=cWD6HISfk/RSMSoaxgmdaTD1BK2I+6ChmJkCmkdV6rY=;
+	s=k20260515; t=1793690823;
+	bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g89jAtiKsZgG6WB+kazVgGXBuA6Ack/7yxaBEURfyryEQ849WGH4SYN1Z0dnf/oFM
-	 Emd4a5Hlk+d+ZBdPQF4QOlYS7wtU0xVFkI6xe+4BmgCz8XhEnIHWGbWk8OKD3huiD+
-	 e9OOUZnxeTwVOitvsc76slPRu9Q2N5nnf4LlYb7UhFKmdl/2Ce2mOZxWJ5mRyns3Bj
-	 l/2B+STwAOOkVbEmettxU2+JOXoi76dOxaNUDLBjsXSlrkQD33bg+OVsezEuk2ufHt
-	 ZrfsIlBlY7Vw7Rvlt5pav7ltQ+1bAzw00m442+s0XlS7idzkc06mIQB94L79Obp2PE
-	 BS+KJACKF1huw==
-Date: Tue, 3 Nov 2026 08:26:45 +0100
+	b=NIiyxDSnojE1F4PCwK7yqKFa+jsgtfS5tsZ52Il6MxHOgyuEgSdh4TI8GPt9M6uJm
+	 52ZHO5L0CImM4bwOnbMppBktyOrU+4rs/Y3zFtjs7JB3Nj5fJ4f8a6y2tnj9igylnj
+	 PtC/51vZJ06PyYvXKUQteHnWeJgg3dyXtKqC7dlLTvmQdokfMQSc4XxhxlDP7vzXSF
+	 2aFDKKWCAj54sPez+fvBoQ/Yyr+KmRnpGVM0e9X97vAtw6VSaOpC16d973rW5iNdcU
+	 fGNPl97f/lq/27kXaKbbu4iNVDNbPLPXqcRxnm1BtaahCP82hbhpf4yUXfbJ67ec+N
+	 nRtY/EvAt2Dyg==
+Date: Tue, 3 Nov 2026 08:27:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, alexander.shishkin@linux.intel.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] intel_th: Balance the runtime PM reference on driver
- removal
-Message-ID: <20261103-mystic-eager-beagle-9f9c7f@quoll>
-References: <20261103070904.1085387-1-vulab@iscas.ac.cn>
+Cc: tursulin@ursulin.net, jani.nikula@linux.intel.com, 
+	rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/selftests: Put GuC test contexts on early
+ failures
+Message-ID: <20261103-careful-honorable-earwig-cee583@quoll>
+References: <20261103065554.1073445-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,27 +60,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103070904.1085387-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065554.1073445-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 07:09:04 +0000, Wentao Liang wrote:
-> intel_th_remove() resumes the device with pm_runtime_get_sync() before
-> calling the driver's remove callback, but never drops that usage counter
-> increment. Disabling and re-enabling runtime PM does not reset the usage
-> counter, nor does the driver core's subsequent pm_runtime_reinit().
-> Repeated unbind and bind cycles therefore retain an extra reference each
-> time and can prevent the device and its parent from suspending.
+On Tue, 03 Nov 2026 06:55:54 +0000, Wentao Liang wrote:
+> intel_hang_guc() creates an intel_context before changing the heartbeat
+> interval and initializing the spinner. If either operation fails, it
+> jumps to err without dropping that context. intel_guc_fast_request()
+> also skips the context put when spinner initialization fails.
 > 
-> Drop the removal reference with pm_runtime_put_noidle() while runtime PM
-> is disabled, before restoring the existing active state.
+> Release the context on these failure paths. The existing put after
+> igt_spinner_create_request() handles the later paths.
 > 
-> Fixes: 142dfeb20209 ("intel_th: Add runtime power management handling")
+> Fixes: 69142c0a5f9a ("drm/i915/guc: Add selftest for a hung GuC")
+> Fixes: 706785c19fe9 ("drm/i915/guc: Add a selftest for FAST_REQUEST errors")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/hwtracing/intel_th/core.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/i915/gt/uc/selftest_guc.c           | 1 +
+>  drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c | 2 ++
+>  2 files changed, 3 insertions(+)
 > 
 
 
