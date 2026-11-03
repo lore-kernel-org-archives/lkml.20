@@ -1,91 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708840;
-	b=BMJFzZlvqS6ysPN/uwxl12HnhrnVu8icBeA5l+VtwhJnKGk1mGQUwGUikt+r8JICOdiI
-	 5RJNt1HQYfwdPmcfpkD1357HjiaGJTrqe9SIqx0vpDRJmaqY7xFH2VEUAELJ1eh58wC5k
-	 jPtvru2eDWQ9+tHj5sOHMYt6OHAMhAXJ8H7oU40zVi6NEeFVlG6OOxjyeI//bcKYMtzi5
-	 I33ocRMRXGwrp+29wE6OeZDCpb6DNTZBjJZH2RJzCY/Ybp53FHM/jNlPlW4vBkoLPTkEj
-	 WcwlALo5LOJNtRBvSKM4oNJvzss8jGed/l/N5sx0c3Mc84rSl95FvFUzPYDsT++rXnw==
+	t=1793708879;
+	b=T66RYd0V/khrm9nOKoGmAhOazjHYZ250wz9V7MzG8Sarox79/h8SP5bONA8C3IGJWosU
+	 nHVH3BSCAAFqhYr0REok8dc9qRgZFrH7Hyfia6lefxdK77iIOgea8tbLwx4Z5DRXmu4AK
+	 GWCI+TTEIi5lH92RnKohlZjEBsU+EtKW97ALK0GlDuGJrbxPccp3PMFRZNxMlEjpQv5dn
+	 9kJ5BuqLIFNgmVjKZxLPCT9Lik4P6UPfAU8jtu7gR/XbCEyGfksWu4uBEqh2mcGNL3eRM
+	 TnDCz2oNcjYCk9TWo7PoIWSozochWBBXIafPLLHY5B/pch18MfUlm1IrHZVpX5cqmag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708840;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=DyJu+3/AT7hm4iQUNa2fs6Lr4tUQc1qSvYE1x28gUus=;
-	b=DgVuznmCAcvFzxLT/nFmsp9Xql9nKXBIJysD2k16BscuIebYYnvCLQrxXOjqy2+miFRW
-	 ElhTxb7lXQyW88WsA5VwC6Pe/eR5Z/kLLu7mYcVHZ7d1mEgrb/t785/q+I2Zt/C2IeyHt
-	 R5A41SDrJlcFfcF20wt592lSwP/CAoKP+A5oxm2DTQReSiROq1IFUQ3SbQaRFUTosgtci
-	 B/4hZONNJruriH0p/7NSHVqGo+s91t6KbNvrfeCwGetXgvi2t7bzVTNepusFVY7lW7os2
-	 87VccE8f4sWDX/2Pdc10Et5UVL9L1bOCalWmmLRwRlpECBBlYlO8LA/9pYUlM/WxDgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708879;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=jq9z8RFA4dazThWyCz2uhR2f4H9dYXNX0jntKIXAKg0=;
+	b=aWTciwqt7JHAILo5Gg+pvoMbVROnHc0r/Ir+iZy8HvWcwB5iUTaEWYS/laMo147ULdYy
+	 ybPoCfhfO1Xz1POCTYPQIwgnbbXOj2SBL0iVz8TccJyekjPAx4WZCxmxhbRQnTyh03QRB
+	 aCaA3u0MeP6+8WBj/uwVEpKflMvol8POiOCW2Ej3M9URV6hSMOW4kMgV6pW+AE9U2m5s9
+	 q8tqh1sfmraxMxvs7pKKKcU8cR0VtFFk+fIq+/ZMW04mMFBswH5t3ciEFu7NNUWIcpmNh
+	 6GNVbzZ0fO7/9QDjrRDEKATurM7w017CEoRwQcWylK45JY16ZoimqWmz8WrBm5HgYog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Obm3p5tJ;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VhclsXH6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T1VfbRAr;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B647F606A326;
-	Tue,  3 Nov 2026 12:27:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B647F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18850606D80F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18850606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Obm3p5tJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=DyJu+3/AT7hm4iQUNa2fs6Lr4tUQc1qSvYE1x28gUus=; b=Obm3p5tJ8cbPtFXgkX+mPa/AcV
-	asrC8ICkIHF/9B3UbCD97jpK2r3DXjYM/y+dIInI1yLRB1TAOOOYAm2F3KbolOSwdcZ+QKxUjetVc
-	xa8WX6ygpiPsGvuShwnR4PbpHB7z/EeptAejv2GUqNJFcKErWR/zKfb8eP0Pm3qDaFz7fg4mS49nx
-	7+73ZAQjAf6tIsudraP/l4ht7iwueW9O1NWTa2CeZxXqpv27fK+50A7uOJlDc05vipvOVajEcGTVm
-	Hi5oOZ+gZiBVqWu/kUdxOyk0jasqPLpf+3Y55f44zPLiCHX6GM4uyExjIINiLRnfZOkXH/o2g5V9v
-	Pwj6mhdA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xODbG-00000000RDp-0n9y;
-	Tue, 03 Nov 2026 12:26:50 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B3E11301185; Tue, 03 Nov 2026 13:26:47 +0100 (CET)
-Date: Tue, 3 Nov 2026 13:26:47 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: kernel test robot <yi1.lai@intel.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Finn Thain <fthain@linux-m68k.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ard Biesheuvel <ardb@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Daniel Borkman <daniel@iogearbox.net>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>, Gary Guo <gary@garyguo.net>,
-	Guo Ren <guoren@kernel.org>, Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Jonas Bonn <jonas@southpole.se>, KP Singh <kpsingh@kernel.org>,
-	Marc Rutland <mark.rutland@arm.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Rich Felker <dalias@libc.org>, Song Liu <song@kernel.org>,
-	Stafford Horne <shorne@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Will Deacon <will@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>, david@kernel.org,
-	liam@infradead.org, kas@kernel.org
-Subject: Re: [linus:master] [atomic]  80047d84ee:
- WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked
-Message-ID: <20261103122647.GL1813469@noisy.programming.kicks-ass.net>
-References: <202611022259.def3e086-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VhclsXH6;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T1VfbRAr
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3CPGhs2848341
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 12:27:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jq9z8RFA4dazThWyCz2uhR2f4H9dYXNX0jntKIXAKg0=; b=VhclsXH6+Yv91vvl
+	EovOPCN2eJHAfCD21gEdkn2kZYuhYi6kBl61YPaDGYQW6bQXrCOOnfxjuUPTKCq9
+	5GtQxDtwGp0IcxgS3S0Dy0i812sgRwDh+uyPNRdHPY9vLAiLEGus0uIP1IUiXQVq
+	c2DzhlU9pQ6ySXp4/munh385bNNY3EnYG2Q7zCFCVaoSoK5FeGq0GTaP1VS2CEMU
+	GOzpSOkLFXobu1kGEpRWBv/OQuTaed2ZDHUE+rOazxS2UsjN4EGqzlZ4EBd2DkyM
+	E6Azuf8OF3QIHB4Mt1JTlar+vOd8ww4e58KMkJdhTaHbH3UiZ9CLo94fqBF7BHY5
+	fR5HDw==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq0873p3y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:27:57 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-990ca9607c3so2055568241.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:27:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793708877; x=1794313677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jq9z8RFA4dazThWyCz2uhR2f4H9dYXNX0jntKIXAKg0=;
+        b=T1VfbRArcKsKizfIpdLl7lKFSM/CUP/KIbyAc2zR6YIGMuJ8NRgk4grTDXLEVt7vBq
+         9Nyo3M81FepRfGx9MJGb8kBsNALSv1IgTI7pdXNzzfIll4IUmkErpinmrgvZcjXxm3B/
+         laJ+udEMrgXY3WvmZ+mJBhDe9V+1KyEbmBS3Gix67TkQcR/hjE2dgKj0J41lc+LsohdY
+         DdqERsG4zhePD/a9J673qYBbC6vsHqV8a7trDNU2wQxUkpoPwrzMiNhjty8mEY8VGma1
+         H0OA6+e6Gnxc8C+FfIUpBHr1P/6gKzQxS8dBfB0EVDbjhARwQ/HaBlPITnknyWSuO/8+
+         I8cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793708877; x=1794313677;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jq9z8RFA4dazThWyCz2uhR2f4H9dYXNX0jntKIXAKg0=;
+        b=toxbrouLa8GXBmcOhK7KMyxC9C80jK+WMJtpc7yNB2Sq7WjbwS2VMKuZtioy8+Tvro
+         RE2PAV87FeNa1CN+h5h3F9JOMrBYe5ZuYnUFHG3IT0oOrZ54Vy+jtOTKRqb3T38HISBu
+         uLe2gocESe6qO2tlxn/QyIsNLh/C+E1GIAwyj2XSnaNfGVY6CeS+zLUB7aRcpY7a8CYD
+         kBZkVtJa/EXOCj9Vh99awTq5UlXKjjtpGBpb7kxinkVUVYEetwUwagoECVWhlQ1gH45B
+         4FzfXU7y+Ld3aU6a6afAHbSVHLQaOYAC9nqTG6Y4yotuMv2G6yu2pJSJ4nZmhRCyj6EQ
+         Ollw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLD83M6PqWwYgQ7EmUxbYdc/JGaAQyj7G77LjPEHmCws4nVfWciR2FNJUnGT6PWa6/mlsGjIG6Z1qHak4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TwwjE/R62gSMKWv13kHiHeR6PDDPgMMHSqmU1bFC4UjymbUqj
+	/DNTHxgOJh8wlwYXvX3m+oBZEp/mS/Mn7PbiZxNr3W8J8gJVYfkxV6nqp1Z6PDh31zWJdmd97OL
+	GM042cTzubbA+7UkuCgWIPHJ3avdNLlroOS5mp/fJOzqgg0SuJA9mRlwwi8uCK/uFmY4=
+X-Gm-Gg: AYBFou3vl1ezm+Th7ONzSh/QCSNTvBY8GVORT3WU4ZNEWd3f7/xJJDgqOryk4eRJBGj
+	RzSyvEFvt8RFV7zK3t4OpuDpfNhLHbXsqrfpz14OnvUh0A33xWpYoge74k7P+71stmfOcvx3ynx
+	ZICGph6MTY/tmyGY2fD8DXkt0XxwXF9+7bWNSNlV1GzIpWnzOktLJ/ubpxkuBIRjmVPvJKkc6I9
+	KNaojGGdjv5XvtGKRZJn6EM5KgGXi5bT/Yc4MFfTa3zd7ohlGhNQnd8cuoprGOimy4/1CwcSUw5
+	iQR4m6tEhzj1y4iIkhh+mRrNklxIHRQUq8zznBulMO/fFdeg7E74Z18w4cPXP8f59jUesj1KE6D
+	/L+dcbj9iergmVCAzLLqM/2zBTGAtXf7HzXd1nJFMTohhW5caDYht2XXGYVx6PBYQvRaaWSAIPm
+	Yf
+X-Received: by 2002:a05:6102:358d:b0:7a7:198a:c2bc with SMTP id ada2fe7eead31-7d072d5e4a4mr6184609137.36.1793708877312;
+        Tue, 03 Nov 2026 04:27:57 -0800 (PST)
+X-Received: by 2002:a05:6102:358d:b0:7a7:198a:c2bc with SMTP id ada2fe7eead31-7d072d5e4a4mr6184595137.36.1793708876792;
+        Tue, 03 Nov 2026 04:27:56 -0800 (PST)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b789ecsm23906739f8f.29.2026.11.03.04.27.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 04:27:55 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Yu Zhang <yuz08559@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] gpio: virtuser: remove the debugfs files before freeing the line data
+Date: Tue,  3 Nov 2026 13:27:53 +0100
+Message-ID: <179370887056.27597.16992402623638417415.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102075707.41742-1-yuz08559@gmail.com>
+References: <20261102075707.41742-1-yuz08559@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,97 +124,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202611022259.def3e086-lkp@intel.com>
-
-On Tue, Nov 03, 2026 at 08:58:07AM +0800, kernel test robot wrote:
-> 
-> 
-> Hello,
-> 
-> kernel test robot noticed "WARNING:at_include/linux/instrumented.h:#__split_huge_pmd_locked" on:
-> 
-> commit: 80047d84eed25e9c92cfb9169980a0dfec110246 ("atomic: add alignment check to instrumented atomic operations") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-> 
-> [test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
-> 
-> in testcase: trinity
-> with following parameters:
-> 
-> 	runtime: 300s
-> 	group: group-02
-> 	nr_groups: 5
-> 
-> 
-> config: i386-randconfig-1005-20261101
-> compiler: gcc-14
-> test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
-> 
-> (please refer to attached dmesg/kmsg for entire log/backtrace)
-> 
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <yi1.lai@intel.com>
-> | Closes: https://lore.kernel.org/oe-lkp/202611022259.def3e086-lkp@intel.com
-> 
-> 
-> [   18.704659][ T3738] ------------[ cut here ]------------
-> [   18.706815][ T3738] WARNING: include/linux/instrumented.h:62 at __split_huge_pmd_locked+0x6d2/0xac0, CPU#0: trinity-c1/3738
-> [   18.717796][ T3738] Modules linked in:
-> [   18.719286][ T3738] CPU: 0 UID: 65534 PID: 3738 Comm: trinity-c1 Not tainted 6.19.0-rc6-00100-g80047d84eed2 #1 PREEMPT(lazy)
-> [   18.723193][ T3738] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> [   18.726644][ T3738] EIP: __split_huge_pmd_locked (x86/include/asm/pgtable.h:228 (discriminator 1) huge_memory.c:3128 (discriminator 1))
-> [   18.728717][ T3738] Code: dc 85 d2 75 0c c6 45 c2 00 85 c0 0f 84 ee fe ff ff f6 45 bc 03 0f 85 47 03 00 00 8b 45 bc 80 08 10 c6 45 c2 01 e9 d5 fe ff ff <0f> 0b 0f c7 4d ec 0f 84 34 fd ff ff eb f2 e8 db 58 40 01 85 c0 0f
-> All code
-> ========
->    0:	dc 85 d2 75 0c c6    	faddl  -0x39f38a2e(%rbp)
->    6:	45 c2 00 85          	rex.RB ret $0x8500
->    a:	c0 0f 84             	rorb   $0x84,(%rdi)
->    d:	ee                   	out    %al,(%dx)
->    e:	fe                   	(bad)
->    f:	ff                   	(bad)
->   10:	ff f6                	push   %rsi
->   12:	45 bc 03 0f 85 47    	rex.RB mov $0x47850f03,%r12d
->   18:	03 00                	add    (%rax),%eax
->   1a:	00 8b 45 bc 80 08    	add    %cl,0x880bc45(%rbx)
->   20:	10 c6                	adc    %al,%dh
->   22:	45 c2 01 e9          	rex.RB ret $0xe901
->   26:	d5 fe ff ff          	{rex2 0xfe} ud0 %r23,%r31
->   2a:*	0f 0b                	ud2		<-- trapping instruction
->   2c:	0f c7 4d ec          	cmpxchg8b -0x14(%rbp)
->   30:	0f 84 34 fd ff ff    	je     0xfffffffffffffd6a
->   36:	eb f2                	jmp    0x2a
-
-AFAICT this is pxx_xchg64() from the PAE code operating on an on-stack
-pmd value.
-
-The below 'fixes' it, but the question is of course, WTF are we using an
-on-stack pmd value for set_pmd().
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA0OSBTYWx0ZWRfX4gEewnV+WElA
+ wN4jhzZ3vVZVbylVTEkJVq5cv77hwWyKJugUPXqSwNcdW+R3SSUGyxFzS3ljpxwdEqQdmHKPWoU
+ tEt5t9rn1zSC1qlLlj2roFOd1mAN7FU=
+X-Authority-Analysis: v=2.4 cv=K9m3jCWI c=1 sm=1 tr=0 ts=6ae9d34d cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=J7LRkWeI4YL75y-5Oa0A:9 a=QEXdDO2ut3YA:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA0OSBTYWx0ZWRfXzeXbWj1iWwR9
+ oJUFjWw+2GxL7ExFH5gLGT0zerj0Rcj+dZAgdMG4kbmvrjHncOOZJP9/b023QOymNJNWOjlS5QP
+ anhHU0WbtYhnSJfmsZ6P4MK9YTZC+jieDmejjdsAc75L4BZUp84yR7Ajnw28g+1uegKQm70m37G
+ w8YwSJIhYRkWvsiIkXruGye4qI2JtHKx1f3yEhA+MTYAjaeiBBTr+k6QJ8iDuXFPQmMcCFi2tEh
+ 6vh1sT0siZ5jgrHC+BmFvb6skwYYFH4QS3t3ztYDMuxz7qhyy2Ow4OKKq3AuRYvBbYMcht0zY7j
+ OMaRDwQ5wjX1JGDmkDWPUSr+RCJymr89oo7c8KOXfsLA5mg/YGYT+wxwX7Rqimb/Te6sG1k5H8X
+ 6HCWw8zasFzZdG60A0tsg5jzBZLJzfnIrCgfPw7k13rVOf6c1LymnV6UobbiNzISPW5RiRbnTF8
+ SVlkc0MZ0bM/XZZNjYA==
+X-Proofpoint-ORIG-GUID: e8FIPe4To-13W-HOV3aSBgidawYCtY42
+X-Proofpoint-GUID: e8FIPe4To-13W-HOV3aSBgidawYCtY42
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_02,2026-11-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030049
 
 
----
+On Mon, 02 Nov 2026 17:57:07 +1000, Yu Zhang wrote:
+> gpio_virtuser_probe() registers the devm action that removes the debugfs
+> directory before it allocates the per-line and per-array data that the
+> debugfs files point to. devres releases resources in reverse order, so
+> on unbind the line data is freed, the consumer_lock mutex is destroyed
+> and the GPIO descriptors are put first, and the debugfs files are only
+> removed afterwards.
+> 
+> [...]
 
-diff --git a/arch/x86/include/asm/pgtable-3level_types.h b/arch/x86/include/asm/pgtable-3level_types.h
-index 580b09bf6a45..b1343a1dc55a 100644
---- a/arch/x86/include/asm/pgtable-3level_types.h
-+++ b/arch/x86/include/asm/pgtable-3level_types.h
-@@ -5,12 +5,12 @@
- #ifndef __ASSEMBLER__
- #include <linux/types.h>
- 
--typedef u64	pteval_t;
--typedef u64	pmdval_t;
--typedef u64	pudval_t;
--typedef u64	p4dval_t;
--typedef u64	pgdval_t;
--typedef u64	pgprotval_t;
-+typedef u64 __aligned(8)	pteval_t;
-+typedef u64 __aligned(8)	pmdval_t;
-+typedef u64 __aligned(8)	pudval_t;
-+typedef u64 __aligned(8)	p4dval_t;
-+typedef u64 __aligned(8)	pgdval_t;
-+typedef u64 __aligned(8)	pgprotval_t;
- 
- typedef union {
- 	struct {
+Applied, thanks!
+
+[1/1] gpio: virtuser: remove the debugfs files before freeing the line data
+      https://git.kernel.org/brgl/c/c2d0710318b8cd57d0ef6088d0ee4bbc1e827fd3
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
