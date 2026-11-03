@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742202;
-	b=MtFCCIdmgORIhUEzXWKBQHQOqhU9NI4l1XdwNEvvJX2O9ZmXs9m8M8f9TtUR/7IMF+r+
-	 9q335ZpJYMa7BRWNZHx3ZNj3lXgRV9DquimmY3rR+SR1nmtwdlBfuHCXXM9G/2KBY8dE+
-	 KznmUFcZcns6CPkHXj1eojz0zTkTtlCoMQX2ev9Xio+PfXjs6C8DRGKZEjeISBVtraPug
-	 /0zleeckd6WvI2bSjwQMOmRPjjVlF9xm2B1r8xUG+wvogxBTAnVMcoH84rwYZsSkaMGrt
-	 RumMN+fR43+5PTXP2YIMn8tvpV6v9G+eMCH1VoSDjUzEWVhd06TaqAXkev7vkzY2Lcg==
+	t=1793742208;
+	b=28xvDVzeqOdcRo8a/VV564h9bZMOk8dkSL9QfXoYtA3G+S6xT3bEsWK81itGh/Esztgr
+	 YhZzMERT5bisMSBWqz2JOAh0qIdRtA+byvtRCJB9a0YjD2kvuOny62WlJDgnqwrbx9UkK
+	 PM8/bBavmTQKqWG6rKxbyoShEPuc1kJP9vIoUf4n2sKn5cnb+lXbhtj8wvBN5A1r4QFXn
+	 XHimBArAw+d7g6bfVIQ3x8cdXT6MJJXWVa89AxrJwUWwacHjJ3zOtigLyTgJUjkcRfJzw
+	 zsMgqL3AK7UAQtFjG7lJRQ45PHH6I1RI6uEKhkSbaFyUi/kiZ8pYPDARTV/imttSSRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742208;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=81mqqgopMMqaUyS97akIwgKPW+Eqt+aTu6eaajJHQ9M=;
-	b=Tj3LQfD6Q1bx22bYsSupiuRM9grQp92CxhEXyWKAn51bqHnszY1phNIZ2pws24d4oEKb
-	 LJesSgcYuKDaBeL4qibpeAnmBAcOuJoIT3UEFFHICjVxd9Z5Q1msf58WHtbR59yzOWL+Y
-	 6DzIZKG3tQTlMVHivkU2f3Mqjisc3jOViGM0WVJ+99f8znNk8XtaG/MRhtW9OKvy0W7Yu
-	 1bcyEex6ypXO0zGVKKs5qYQquECtHYAhbds5WHBShlmIWPkJxxECbxZUAspQUXO7QBlDi
-	 OkOh+uATWd+9BJ9WvwvtNEcS4yF8k0G/nY4+a07L+tMB278dUzJmA3MgUEv2eou9MgA==
+	bh=C9mkZI7UPnFUcdrNwGMweO7b1qOA1u4Bsg8DNlvkpTc=;
+	b=1baewwosia3zs9TF05PLWtlUqO4jLNtFAXGVMXVU1X6Zw0jRJslZHR8CAsxXyHquxUlD
+	 toePcNCcBSok4XMcAOqVMTjuXntj9kdE1xbMpzAzVTskI6B0FOS2AZKIDrWs2+wn/xA4/
+	 Wp7nyqThVze92KhcZJ6/DncBAy2+AMaFYgFTlGTQKLAb22C9EUFPjngv0Cc9vY6ppfAZf
+	 gsjwWYtD06y25GYlHYwJdbpz+YWrlHks3bKbQ2XpZNIx8Jy7CJMPJLL1zJ2IDLFvYQgmw
+	 DKdlSEIkbTV6zJWuNDvQgR32vAFwpnNKyaptJr9PSbe6Gj5gOoQE27eAR0PpECkvlqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LfTmx+ef;
-	arc=none smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S8HHgAqG;
+	arc=none smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE4C606EE8E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE4C606EE8E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200D06082BDF
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 200D06082BDF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LfTmx+ef
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so8990a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S8HHgAqG
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso4243a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:43:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742201; x=1794347001; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793742206; x=1794347006; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=81mqqgopMMqaUyS97akIwgKPW+Eqt+aTu6eaajJHQ9M=;
-        b=LfTmx+efFswCAby3m3Vw92kBaSJTODARnqfktZh/gGGW2SiJQJZTtGQw/PO+c7/fT9
-         sGLIU9BjLOm9/GVP4sh+ZsZgKyThKaBrO85qGdntNz133zN9j+IepFHI7D6EEclEopVz
-         j2EPu+Hddmd14B8SmmqtQuVZAK7ZDdtyVTognBmRJw6QKWsTqHi1QxSNWxCPg8M3VgGG
-         uEG0jcQOHKJ4ihZBwaqUheCWsEMbaAjNvUDwtZ8QS1b7XN+SWdzCZK6mAka0p3F2hFD3
-         830KpGHnxhGgLE0Zu6ck/K0+HREqz0AjnPru3rAbpYNP3MRbvf6zpEFr7FfNhwXfn0Dt
-         Q7Hg==
+        bh=C9mkZI7UPnFUcdrNwGMweO7b1qOA1u4Bsg8DNlvkpTc=;
+        b=S8HHgAqGYZ6dlH5v1zjdH6Cf8l977nm3fXP26IoSm6c39LE1EYQk4jEpmHmy8bVoF+
+         4VyWrdpKf+25yQ97Jk167umkbqjmbzQlLH/8qAIVqfpBWNt9ffSZTycV/0/mCnnmnE/z
+         xvFm3sGeMFGFh4CcY3pwTF/C2QAnHJN7jRHo41CqVTP+kiWI/b2LtD3TekNDKAyYZKh6
+         fRqzr9PelGdXZvOlYt01AgIQmUIZFVXRSoO1O9LxctstHDfPI5KahwTRI8buSAMLS8Ov
+         7rWrkUpt6UDhHXX5yGKEJUGFcYwKP1UeEEpahenRqpG/RcIZt7cPHh21VftGLQnsmYkJ
+         kE3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742201; x=1794347001;
+        d=1e100.net; s=20260707; t=1793742206; x=1794347006;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=81mqqgopMMqaUyS97akIwgKPW+Eqt+aTu6eaajJHQ9M=;
-        b=xaYh47uxSgMjllutRPbfValyVmRvCnGzRuU+jGiYFSJrdHYyfWjXMzkBMVPUlVhTzL
-         ErS/iyKkLVPGmfP0YovpT0iB8gW1oEvjxBVnIw267dLa4Yqj7g9FQp2qQah2+AB02XfZ
-         q65+uylPfIVOc8FVkxmuX+exR0HPyylLc8LejWMWeHKDou+UxcBN2crcj2t8ySIkjzen
-         kcPxKkaElgv4tKi4Lp9C7hi4VNwz5+rO3gGhS9Ly3r9PXc97HDIDjI8RmVZjgmWIKy0B
-         2JHawN42lQCnRbxAlJj+pM886nQqgzZYSCSwipMellsl0GErCIYmUyZPiSVy+51Nvr7k
-         3vrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuKTmLFHA1YbeAIQVHQT9soLZ2dAm8LzjUxq/MxuEBV/MjLdGwNpP262o4AoVivFvu76qMYpxSgK/t/Vc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Jh0E1ngBFp+VbH/toq+PSdg+XJ1eEAV3IdR3rgRu8JvovXkSY
-	hAgkYlyOlNBfjdJmaWQ5HlJKkXIxFHWaiBxLj0bc9R33svYgcIKjno3K
-X-Gm-Gg: AYBFou2nQVLGqSoYLIcL6xFA6QFwbwOL+ak8SI8QgFFRj3bFhVq3ZKZpJpdnTUEyqvG
-	mNHwqvSJnGH0t2WAU+Dnb16ttWXjXP6hcS9L7BbAtP0prKM3xzzKOUrKW3Gmx//zVnhxUeVp1gQ
-	rd3+Qqi3EEDg4l+Z89/hW+OMlpQzb4QiYt6+ogBhlXfdPUfv3B2Q2crYcQuUyddFRQkG86BIeJ+
-	3G9U6G351JJka+a9QzIpSgIQdA3CABhvaMmAO6S7uFJDIt/HS9Mi1mwoCDArvUOgIsQhl1+xsrR
-	CPTuTQtgwy6F8ifeASIGznWN2wr6QbAzSCWmHl3UUVYnBjGSCEb8RIlL2dKEL0U7TSk/riS1xzc
-	qQ2ifqya0O2fPnKo140Fb2zGh8+5HA5h4XWx6nzx3cMSF3iUiTHBwXCU9ASwkbFpD9SYe45/Jmr
-	y54ARpP6OZmU6eiWBNe8aRoffxX1va08J94h4Tn7s81UQ1un3koS1hD10GFuu40g/VszIUbdojC
-	Lkq8qr5nlCkQAqvYOGRIJ++4DOkaiedQbjSWpvt3qtqQmaaN1G7wUnCg7bd6AGuVGXiMa9BE5aN
-	ndxJQKjFU0KNuZG5aS/n9RrvEWNjZFTGNE2421cj+NwO86Soymif2ZQxX9o9aM0zHrGRt7g=
-X-Received: by 2002:a05:6402:7ca:b0:6b4:35af:327f with SMTP id 4fb4d7f45d1cf-6b4d515d7efmr8563685a12.43.1793742201019;
-        Tue, 03 Nov 2026 13:43:21 -0800 (PST)
+        bh=C9mkZI7UPnFUcdrNwGMweO7b1qOA1u4Bsg8DNlvkpTc=;
+        b=zWcZQ8Qa5l4k2UBoUC0h1KKxwjVrSGnDdY0NUtRa/RsXG3en6EQs70FysrYDJ7e1qB
+         EhYH8Wp4bc+bsGkNoB4veTMEZWmSZNFQYl4dEEKz32lsi4vnqIkzQsumZNTx1usXYg5W
+         sSH41LG4C4+90YsF0m9Y7vCs30gWcOvF3d2MT0Gh0laPdICHSCHR1NjjPxoyfyw0/t20
+         A1/UU+gtGyIOG4TeNDoS8xjWZXH3L3EwPzWuartH+qy0d3uU7tBfY9+DLGQgTtIrMT7V
+         0+oPII5ODFKGnhhM7dWLH9HWkm7Sy5Dhl4IyRimReKAct2vps24HyehRDJf4YerZXD/a
+         8x9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ2uOnFiUwozvAmyn7nybM1FVQ0Z30rfMArL4Oh+ZSJygugvcUmQc6r0XUq0vr/Ea7PFg4PDJZ+nRKDeM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GI8MWu6U5X8Y7xWViltww/yb6xfrOIllNpWqXf7QcueWJZMxc
+	gRLktLB7z8C0PcI5yRmf/+xUA5LK0gGfcyv+tN2ZmIftkrAfKyHvyP4t
+X-Gm-Gg: AYBFou2lnwqGJFeM6EGhdDZ7dGL1Ny/yOHN1SVs4ZOAaDX+6duZW7lBwraSQNp2Z5sR
+	HhwhDf6rJKRHanBh+b9wr3heynF9vLRNsfZzEylPWaCkIN9VGJsx8QnZ2TI9KzinXozjAk/25I+
+	XXa8doLbIFisJhKX7zAKv5AzrnmxKpoBtpjPEA9fBIAbZNOEfELVYgWbmcXngQoWVvX9oZu8MMK
+	ajFz0ibFnsM9ovOQd7yy0okGRpHaf+45V3crL3spZZezRF7ej3jFOAxM86Ra8QuJpOv3iAG8T3q
+	ASC/jXSGyh2T9FuV0Bo08xj6/e5QRfx6XRpKBwpYI/whxTnlB7vyfyJgtan2zhe9y8AKnT1TcPM
+	7N5MHu9aclLyvRhjcm33THrhaurMGKjeDnhCa0m6K4f2MnkMllRhCJFA8FR5C08DRDVO3GmAo71
+	9w5YbQ1rGjoyQh+kxWICpVkMjGvOuLm2lB+bnwX6HflD6/SM7QIDxp0nvLHOy8GJQZQQfnskKJs
+	nARC3QK2kjh2QG2b75zZvEVuv/0y0NmF4SLPL0b2lDDNxqR/t8jZYqoOYwCCm0mgrf7eOQl8now
+	Iur+PyUFZ1xKEGBdgl6mPy17dm1KemOlYVU5C+oSMUe2lyo55Nj03gM1P1s8dF/hWAgxvW0=
+X-Received: by 2002:a05:6402:27d4:b0:6b4:7f3:a9cb with SMTP id 4fb4d7f45d1cf-6b4d64b21c9mr11493103a12.42.1793742206485;
+        Tue, 03 Nov 2026 13:43:26 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.20
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac5a2a6sm40550a12.16.2026.11.03.13.43.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:43:20 -0800 (PST)
+        Tue, 03 Nov 2026 13:43:26 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
 Cc: linmag7@gmail.com
-Subject: [PATCH 08/14] alpha: use generic syscall exit for new tasks
-Date: Tue,  3 Nov 2026 22:35:14 +0100
-Message-ID: <20261103214120.1099893-9-linmag7@gmail.com>
+Subject: [PATCH 13/14] alpha: use generic getrusage for OSF resource accounting
+Date: Tue,  3 Nov 2026 22:35:19 +0100
+Message-ID: <20261103214120.1099893-14-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103214120.1099893-1-linmag7@gmail.com>
 References: <20261103214120.1099893-1-linmag7@gmail.com>
@@ -101,144 +101,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move fork and kernel-thread startup into C and use
-syscall_exit_to_user_mode() for the return to userspace, retaining the
-saved user context for exit work.
+Use getrusage() for OSF resource accounting. This intentionally aligns
+osf_getrusage() accounting with getrusage(2): RUSAGE_SELF covers the whole
+thread group rather than only the calling thread, and ru_maxrss, block
+I/O and context-switch counts are populated instead of remaining zero.
+CPU times use the generic microsecond conversion instead of the previous
+jiffy rounding.
 
-This also supplies the child syscall-exit tracepoint for fork, vfork,
-clone and clone3.
+Keep the OSF structure layout and the existing RUSAGE_SELF/RUSAGE_CHILDREN
+selector restriction. Share result conversion with osf_wait4() and remove
+the jiffy-based time conversion.
 
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/alpha/kernel/entry.S   | 23 ++++++++++-------------
- arch/alpha/kernel/process.c | 16 ++++++++++++++++
- arch/alpha/kernel/proto.h   |  6 ++++--
- arch/alpha/kernel/signal.c  |  8 --------
- 4 files changed, 30 insertions(+), 23 deletions(-)
+ arch/alpha/kernel/osf_sys.c | 56 ++++++++++++++-------------------------------
+ 1 file changed, 17 insertions(+), 39 deletions(-)
 
-diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
-index 2233eb6da7065e7d85cbc668a09e565bcfd75a52..5da8c0d17a1d893f59bee1a12f5782276432674d 100644
---- a/arch/alpha/kernel/entry.S
-+++ b/arch/alpha/kernel/entry.S
-@@ -417,11 +417,11 @@ ret_from_exception:
- 	beq	$0, restore_other
- 	br	restore_all
- 
--ret_to_user_from_exception:
--
--	mov	$sp, $16
-+ret_from_fork_common:
-+	mov	$17, $16
-+	mov	$sp, $17
- 	DO_SWITCH_STACK
--	jsr	$26, alpha_exit_to_user_mode
-+	jsr	$26, alpha_ret_from_fork
- 	ldgp	$gp, 0($26)
- 	UNDO_SWITCH_STACK
- 	br	restore_all
-@@ -548,9 +548,9 @@ alpha_switch_to:
- 	.align	4
- 	.ent	ret_from_fork
- ret_from_fork:
--	lda	$26, ret_to_user_from_exception
--	mov	$17, $16
--	jmp	$31, schedule_tail
-+	mov	$31, $18
-+	mov	$31, $19
-+	br	$31, ret_from_fork_common
- .end ret_from_fork
- 
- /*
-@@ -560,10 +560,7 @@ ret_from_fork:
- 	.globl	ret_from_kernel_thread
- 	.ent	ret_from_kernel_thread
- ret_from_kernel_thread:
--	mov	$17, $16
--	jsr	$26, schedule_tail
--	mov	$9, $27
--	mov	$10, $16
--	jsr	$26, ($9)
--	br	$31, ret_to_user_from_exception
-+	mov	$9, $18
-+	mov	$10, $19
-+	br	$31, ret_from_fork_common
- .end ret_from_kernel_thread
-diff --git a/arch/alpha/kernel/process.c b/arch/alpha/kernel/process.c
-index 2182496c535661f399a73400e308c0a7fc6d76f1..c7e6e7b593af10305414ea30f5b944b9d21dd2e2 100644
---- a/arch/alpha/kernel/process.c
-+++ b/arch/alpha/kernel/process.c
-@@ -10,6 +10,7 @@
-  */
- 
- #include <linux/cpu.h>
-+#include <linux/entry-common.h>
- #include <linux/errno.h>
- #include <linux/module.h>
- #include <linux/sched.h>
-@@ -226,6 +227,21 @@ flush_thread(void)
- 	current_thread_info()->pcb.unique = 0;
+diff --git a/arch/alpha/kernel/osf_sys.c b/arch/alpha/kernel/osf_sys.c
+index 61d8061762133f5e128d8538cf104dfede57ea6d..c08796f627332e4562a30557dee700052d03c0e7 100644
+--- a/arch/alpha/kernel/osf_sys.c
++++ b/arch/alpha/kernel/osf_sys.c
+@@ -15,7 +15,7 @@
+ #include <linux/sched/signal.h>
+ #include <linux/sched/mm.h>
+ #include <linux/sched/task_stack.h>
+-#include <linux/sched/cputime.h>
++#include <linux/resource.h>
+ #include <linux/kernel.h>
+ #include <linux/mm.h>
+ #include <linux/smp.h>
+@@ -960,13 +960,6 @@ put_tv_to_tv32(struct timeval32 __user *o, struct __kernel_old_timeval *i)
+ 			    sizeof(struct timeval32));
  }
  
-+/* The assembly stub keeps the complete user switch_stack below regs. */
-+asmlinkage noinstr void alpha_ret_from_fork(struct task_struct *prev,
-+					 struct pt_regs *regs,
-+					 int (*fn)(void *), void *fn_arg)
-+{
-+	instrumentation_begin();
-+	schedule_tail(prev);
-+	if (fn)
-+		fn(fn_arg);
-+	instrumentation_end();
-+
-+	/* A kernel thread may return after a successful kernel_execve(). */
-+	syscall_exit_to_user_mode(regs);
-+}
-+
- /*
-  * Copy architecture-specific thread state
-  */
-diff --git a/arch/alpha/kernel/proto.h b/arch/alpha/kernel/proto.h
-index 90af335cd6798ad4039ecc2a3c67505eadbd32a2..c418333d0b89d910ec59d1d57d6bcc0550efc4aa 100644
---- a/arch/alpha/kernel/proto.h
-+++ b/arch/alpha/kernel/proto.h
-@@ -164,14 +164,16 @@ extern void entDbg(void);
- /* pci.c */
- extern void pcibios_claim_one_bus(struct pci_bus *);
- 
-+/* process.c */
-+extern void alpha_ret_from_fork(struct task_struct *prev, struct pt_regs *regs,
-+				int (*fn)(void *), void *fn_arg);
-+
- /* ptrace.c */
- extern int ptrace_set_bpt (struct task_struct *child);
- extern int ptrace_cancel_bpt (struct task_struct *child);
- 
- /* signal.c */
--extern void alpha_schedule_user_work(void);
- extern void do_signal(struct pt_regs *regs, unsigned long r0, unsigned long r19);
--extern void alpha_exit_to_user_mode(struct pt_regs *regs);
- 
- /* syscall.c */
- extern void alpha_syscall(struct pt_regs *regs);
-diff --git a/arch/alpha/kernel/signal.c b/arch/alpha/kernel/signal.c
-index 244fec20294b81e0c749a07321f917befb62b1a7..e3cb1b50c83d9680032731799b644118b46803bc 100644
---- a/arch/alpha/kernel/signal.c
-+++ b/arch/alpha/kernel/signal.c
-@@ -538,14 +538,6 @@ do_signal(struct pt_regs *regs, unsigned long r0, unsigned long r19)
- 		ptrace_set_bpt(current);	/* re-set breakpoint */
- }
- 
--asmlinkage noinstr void alpha_exit_to_user_mode(struct pt_regs *regs)
+-static inline void
+-jiffies_to_timeval32(unsigned long jiffies, struct timeval32 *value)
 -{
--	instrumentation_begin();
--	local_irq_disable();
--	instrumentation_end();
--	irqentry_exit_to_user_mode(regs);
+-	value->tv_usec = (jiffies % HZ) * (1000000L / HZ);
+-	value->tv_sec = jiffies / HZ;
 -}
 -
- void arch_do_signal_or_restart(struct pt_regs *regs)
+ SYSCALL_DEFINE2(osf_gettimeofday, struct timeval32 __user *, tv,
+ 		struct timezone __user *, tz)
  {
- 	struct thread_info *ti = current_thread_info();
+@@ -1062,37 +1055,27 @@ struct rusage32 {
+ 	long	ru_nivcsw;		/* involuntary " */
+ };
+ 
++static int put_rusage32(struct rusage32 __user *ru, struct rusage *r)
++{
++	if (put_tv_to_tv32(&ru->ru_utime, &r->ru_utime))
++		return -EFAULT;
++	if (put_tv_to_tv32(&ru->ru_stime, &r->ru_stime))
++		return -EFAULT;
++	if (copy_to_user(&ru->ru_maxrss, &r->ru_maxrss,
++			 sizeof(*ru) - offsetof(struct rusage32, ru_maxrss)))
++		return -EFAULT;
++	return 0;
++}
++
+ SYSCALL_DEFINE2(osf_getrusage, int, who, struct rusage32 __user *, ru)
+ {
+-	struct rusage32 r;
+-	u64 utime, stime;
+-	unsigned long utime_jiffies, stime_jiffies;
++	struct rusage r;
+ 
+ 	if (who != RUSAGE_SELF && who != RUSAGE_CHILDREN)
+ 		return -EINVAL;
+ 
+-	memset(&r, 0, sizeof(r));
+-	switch (who) {
+-	case RUSAGE_SELF:
+-		task_cputime(current, &utime, &stime);
+-		utime_jiffies = nsecs_to_jiffies(utime);
+-		stime_jiffies = nsecs_to_jiffies(stime);
+-		jiffies_to_timeval32(utime_jiffies, &r.ru_utime);
+-		jiffies_to_timeval32(stime_jiffies, &r.ru_stime);
+-		r.ru_minflt = current->min_flt;
+-		r.ru_majflt = current->maj_flt;
+-		break;
+-	case RUSAGE_CHILDREN:
+-		utime_jiffies = nsecs_to_jiffies(current->signal->cutime);
+-		stime_jiffies = nsecs_to_jiffies(current->signal->cstime);
+-		jiffies_to_timeval32(utime_jiffies, &r.ru_utime);
+-		jiffies_to_timeval32(stime_jiffies, &r.ru_stime);
+-		r.ru_minflt = current->signal->cmin_flt;
+-		r.ru_majflt = current->signal->cmaj_flt;
+-		break;
+-	}
+-
+-	return copy_to_user(ru, &r, sizeof(r)) ? -EFAULT : 0;
++	getrusage(current, who, &r);
++	return put_rusage32(ru, &r);
+ }
+ 
+ SYSCALL_DEFINE4(osf_wait4, pid_t, pid, int __user *, ustatus, int, options,
+@@ -1104,12 +1087,7 @@ SYSCALL_DEFINE4(osf_wait4, pid_t, pid, int __user *, ustatus, int, options,
+ 		return err;
+ 	if (!ur)
+ 		return err;
+-	if (put_tv_to_tv32(&ur->ru_utime, &r.ru_utime))
+-		return -EFAULT;
+-	if (put_tv_to_tv32(&ur->ru_stime, &r.ru_stime))
+-		return -EFAULT;
+-	if (copy_to_user(&ur->ru_maxrss, &r.ru_maxrss,
+-	      sizeof(struct rusage32) - offsetof(struct rusage32, ru_maxrss)))
++	if (put_rusage32(ur, &r))
+ 		return -EFAULT;
+ 	return err;
+ }
 -- 
 2.43.0
 
