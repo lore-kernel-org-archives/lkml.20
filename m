@@ -1,85 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714809;
-	b=nGVywZVrfqf6H5lhwPXwVC+dItMgkCXaamGeQ5QvnfkCU/3R4oLkNz8t0p7nNKG5qxS7
-	 aqPXVtYKlYAQ93qlZbAzEDvoreYwYp1D8R+xjf5XObZFFVj70DfTmWUkidvBf6S/1GYHA
-	 Rvw34izm6ZDVNDXc3TC0OfC10td07GIgKX0KYbSYVUhJjYpHxFsVY283e1ImpqEhD8vEN
-	 iWCnp8W0HtSnX/s43oRl3Vn1epnRif8AeeCuNzD2O13lOiDl8X4+NVXlhI2+/I8aqS/ve
-	 OLQ4HbJAOwRopbbpjFl6Vz6snlh8VLuWtN3RaOGhuqhx3BYXzVN6PUyO/7XAR7JYNsQ==
+	t=1793714860;
+	b=cE/767WmUyhUaL7eSVVthFfNTr6RMU4Va2cAiIjj8Q7qoofJKOI/wiaq2DFqLLrGNsyj
+	 +7WfQjhwFi/vlfrm9T672ocSevk15kUMmiLk2e1hYGGz8vftzpg7XEba/yhWEePdQ4Ocq
+	 4rmAoVRjg1YxOnwmraVx44xTa2dL+bXaDZXzPc6RW4/i45Lrrks8J9imgecEJibM2Ucjn
+	 exF/ZlasgoLwz4lfVGx26vGoqwr4ueOlhA2HU5FRuVlePen9qnHG5oOezRoPWniv5QVKW
+	 mCBLvrClE4xML+2vH0gCZsPBnS9p7nlX8ERSqrXqrk4Bpy5MKSCq6uKt7uBHmQViovg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714809;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=;
-	b=aavxD44BcKsVxYVHZ70xwuhbZFddV5iJJIffKkneGJBZWa2J8sRNowVDqkLahvaGUgOF
-	 CHTu3XFUZsFFhtYZjDD/6RC/SVQrBQBI50Ac2iW8tZLsVkyYfg+c4+91Q9P4xiruBaLzD
-	 Aq0HTYsVBPdrwEMDBapuDRJRkow4ldTSdgk2VDoxGS9F27uZmnJDzFptzhErb6j2AXHAG
-	 dd5P0nJuVGTmx16PUqe6V6tlLCEemLrTjAUH8E17WloQV1/bjtsmLaVWP8tpa11q599hS
-	 Ba5OKDgMhD+kr4qKfE3Buq/K7pPDStpvUNIiEYGxTMnBN8XSwzC6JorDCO5jPjnkC8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714860;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=qxI6uxKuEBsKWE5dZToQWARpMTqM0sfykaf/tV2OkQE=;
+	b=iblv5MxGkDRCnV2kr6Q3r+uy4uLsxzxfij5bfQ8b5Zn/D52dePolAtRc0Tn1OKDxpETn
+	 6jqTy5CYBwfJOrqlEpbKU4O0ZCfX3zZDQvq4W2VQkvOskg2jA+Q8SeuRz7ajTyhiHAY2u
+	 nelnUUik+Don87yLonfeH/Af48joA8baAby1O0n70gDJtB58eJwyIO7oBj+6eHmmjvZJy
+	 rDOsMyNGjX//EeHmQEozcWxEguqgGXCaplsJmLutf+mBghhcZ68X8a+d8HjpXSStThSOX
+	 PIf8C5u7g2DFRSXM6NT7vVs81pM9bICmXYxeXJMtqDOIqtrAlg7fc61D5r1ZlqfdH9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ;
-	arc=none smtp.remote-ip=44.202.169.32
-Received: from omta033.useast.a.cloudfilter.net (omta033.useast.a.cloudfilter.net [44.202.169.32])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvAhsPMv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78499606EEB7
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78499606EEB7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D020A606A336;
+	Tue,  3 Nov 2026 14:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id ODTxxylRCPG7QOFA0x9kXg; Tue, 03 Nov 2026 14:06:48 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id OF9kxlaW2NBINOF9kxK0dn; Tue, 03 Nov 2026 14:06:33 +0000
-X-Authority-Analysis: v=2.4 cv=fvzcZE4f c=1 sm=1 tr=0 ts=6ae9ea78
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=FzxAIiGUqTgkHgvMK3YA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=; b=WbReQISJVjZ9SKK4v8Lk919q/S
-	QTS26pV4lYlANCIoJX843UZDmeNC13XMJ7bB0Wqvu1IeqMZGLj5gPPTYFPogkSeumAPrkqdhz8JWM
-	LBpnM6UXBgskJ8KW5j6JAZg+Av9jqqE5HYXz6jjqepwYxCBr6t6I2+OPEbUUiw5dYY26ictnnczDR
-	er9Ur6IHHtxttRzzWkPTX5kgg2WNWpfc0BHUU8S+DnvyLW3c0EF54IayDnqoce1GmzP/i655QgJrp
-	tIy7l0Cl4IHGOaziz1OIFk8S/dLVOPMSI9ml6YfTtOCF52l10PVQG3kjzS+h5i4ptuLxI0Bcf3N2a
-	l7cITQMA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52734 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOF9j-00000002ZuZ-352a;
-	Tue, 03 Nov 2026 19:36:31 +0530
-Date: Tue, 3 Nov 2026 06:06:30 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Kevin Jia <kjia@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: Re: [PATCH v3 2/2] hwmon: (fs1603) Add driver for TDK FS160x and
- FS1006 uPOL converters
-Message-ID: <85bc9a12-9674-4fb0-9dc3-11ef8695599e@roeck-us.net>
-References: <20261030-fs1603-v3-0-6f8963a74def@nexthop.ai>
- <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvAhsPMv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18EF31F0093A;
+	Tue,  3 Nov 2026 14:07:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714859;
+	bh=qxI6uxKuEBsKWE5dZToQWARpMTqM0sfykaf/tV2OkQE=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=kvAhsPMvD47M67OaIC8UcigKRO5xXurkov7sP13ENoG9Bu8aSgSd4XGyHHp+MHDbS
+	 rjhyieqt2+LLMMTKTa2+Il1z6oGL8rZ60njQIpEmAmSgFE1U9O94psfATXjDm1SiO6
+	 n0vptLQLV1S0wy7d/e0Psm4iNIMRXTyXVT43KLThvIyp6jFhniBDBdo2A4bsdIoGHJ
+	 i+6OWJsxSz4S37woEi7UMx51fGMHxnh7Fo0o77QSy3WSfFk/yth/jEO6h5hh8aLa+8
+	 EMadLU71WZDBZWr/ZemQM7hENGXMQ7RTvMbxpwUbfORwZSTzJlkD2YHzVISli31o5Z
+	 8wvLAtpgk6ehw==
+Content-Type: multipart/mixed; boundary="===============0895216361124977455=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,67 +49,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOF9j-00000002ZuZ-352a
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:52734
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 15
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBcrTgOdOikw56i+wzxSL72l0juy/YILhEcEJjYgoFcrq6Cy+nuPkbUTQvXXLrk0fZaxXn4drPrNPOYcdocgFl5hd7s0qU7XR2jUTVWRyluHTz1dO8s3
- Fjdf1zkRRzzxuakWttBwnjoypAq75FKtQLbbbBUNNEGHWwklcg9FcQmJcjs2yM0AvDtJ6Iji1n+e1n3my4NamBGdYLGI0kY5z+Hu70cGlBtxVVE3HUr0dRJv
+Message-Id: <cdb4a70a69306fb920d52c3e5511bb1cbac094d4f47b1b89ae56b674853c287d@mail.kernel.org>
+In-Reply-To: <20261103132613.1952975-4-cui.tao@linux.dev>
+References: <20261103132613.1952975-4-cui.tao@linux.dev>
+Subject: Re: [RFC PATCH v12 3/4] selftests/bpf: add iocost cost model test
+From: bot+bpf-ci@kernel.org
+To: cui.tao@linux.dev,tj@kernel.org,josef@toxicopanda.com,axboe@kernel.dk,alexei.starovoitov@gmail.com
+Cc: cgroups@vger.kernel.org,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,andrii@kernel.org,eddyz87@gmail.com,ast@kernel.org,daniel@iogearbox.net,linux-kselftest@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ameryhung@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue,  3 Nov 2026 14:07:39 +0000 (UTC)
 
-On Fri, Oct 30, 2026 at 08:35:38PM +0000, Kevin Jia wrote:
-> The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
-> an integrated inductor. They report input voltage, output voltage, output
-> current and temperature, plus over-voltage, over-current and
-> over-temperature status, over a proprietary I2C register map. They are
-> not PMBus devices, and their register numbers collide with PMBus command
-> codes: 0x21 is a status byte here where PMBus defines VOUT_COMMAND.
-> 
-> The parts have no ID register, and the FS1606-0600 and FS1606-2500
-> presets change how telemetry is encoded: the -2500 uses the 20mV steps
-> of the higher voltage parts, and the -0600 needs a current correction
-> derived from the IOUT_GAIN register and the output voltage. The model is
-> therefore taken from the device name or compatible.
-> 
-> The over-voltage and over-temperature protection thresholds are
-> reported as in1_crit and temp1_crit. The over-voltage threshold is a
-> percentage of the VOUT_SET target, so the driver reads VOUT_SET but
-> never writes it: VOUT_SET is a two-byte pair, and a partial write leaves
-> the part silently ignoring all register writes until its input power is
-> cycled. The driver is read-only.
-> 
-> Power good is not exposed. It also deasserts while the output is
-> disabled or soft-starting, so it would report a deliberately disabled
-> output as a fault.
-> 
-> On boards that raise the rail with a feedback divider, VOUT_SET holds
-> the feedback-pin target while the output voltage telemetry reports the
-> rail. The driver measures the divider ratio at probe from the output
-> voltage and the Fb register and scales the over-voltage threshold by
-> it, so in1_crit is in the same domain as in1_input. A part whose Fb
-> reads within four steps of the output keeps a ratio of one.
-> 
-> Co-developed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
+--===============0895216361124977455==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Applied.
+> selftests/bpf: add iocost cost model test
 
-Thanks,
-Guenter
+TL;DR: Selftest cgroup names "iocost_pairing" and "iocost_ms" lack a leading
+'/', so the cgroups are likely created outside the work directory and not
+removed by cleanup_cgroup_environment(), leaving empty cgroups on the host.
+
+> diff --git a/tools/testing/selftests/bpf/prog_tests/iocost_model.c b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
+> new file mode 100644
+
+[ ... ]
+
+> +	/*
+> +	 * cgroup_setup_and_join() creates the priced-IO cgroup with the
+> +	 * available controllers enabled, so the cgroup has
+> +	 * io.weight/io.stat and the iocg activates.
+> +	 * cleanup_cgroup_environment() removes it from every exit path
+> +	 * below. io.cost.qos and io.cost.model are root-only cgroupfs
+> +	 * files: they are written at the hierarchy root and reverted on
+> +	 * exit.
+> +	 */
+> +	cg = cgroup_setup_and_join("iocost_pairing");
+
+[ ... ]
+
+> +		cg = cgroup_setup_and_join("iocost_ms");
+
+Will these cgroups actually be removed by cleanup_cgroup_environment()?
+
+The name has no leading '/', and format_cgroup_path() in cgroup_helpers.c
+joins the pieces with no separator:
+
+    #define format_cgroup_path_pid(buf, path, pid) \
+        snprintf(buf, sizeof(buf), "%s%s%d%s", CGROUP_MOUNT_PATH, \
+        CGROUP_WORK_DIR, pid, path)
+
+So cgroup_setup_and_join("iocost_pairing") ends up doing mkdir on
+"/mnt/cgroup-test-work-dir<pid>iocost_pairing".  That is a sibling of the
+work directory directly under the cgroup2 root, not a child of it.
+join_cgroup(), write_cgroup_file() and read_cgroup_file() build the same
+path, so the test itself works.
+
+But __cleanup_cgroup_environment() only walks the work directory:
+
+    format_cgroup_path(cgroup_workdir, "");
+    join_cgroup_from_top(CGROUP_MOUNT_PATH);
+    nftw(cgroup_workdir, nftwfunc, WALK_FD_LIMIT, FTW_DEPTH | FTW_MOUNT);
+
+so the sibling directory is never visited.  The empty cgroup remains on the
+host as /sys/fs/cgroup/cgroup-test-work-dir<pid>iocost_pairing, which also
+contradicts the comment above ("cleanup_cgroup_environment() removes it from
+every exit path below").  serial_test_iocost_model_streams() has the same
+problem with "iocost_ms", including the matching write_cgroup_file() and
+read_cost_usage() calls.
+
+Other callers that use a fixed name pass a leading slash, for example
+"/skb_cgroup_test" and "/cgroup_iter_memcg_test".  Would "/iocost_pairing"
+and "/iocost_ms" at every place they are passed put the cgroups under the
+work directory where the existing cleanup removes them?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41646836440
+--===============0895216361124977455==--
