@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793667278;
-	b=Cq4nT8jCcckkfIZA8emW2OUpgHTHdWwE8/nHilWwnvMQA56+1sRDSiiT/rrmfIrdbksF
-	 wyO7YgU2BrVCatg4f4rEs6x4iLvlcpMMaGkhLZHGg49Vnn4J57T80ZF95b0BmaOvX5QQ7
-	 mOEO++bE6w8yIwHp3WzDfoFdvRHyv59T0dTzTTRQ4115rlJglOw9mjobJoWEB4422Q/SL
-	 KK5huZ8TvDDnLENtJHsOVvPb2RNANOi55l1Wtrv2mpuC2mBMXJXRtw8jyWfAhCquZQQGS
-	 EHu/I+JVdWBOG2WzhTWfj+EW6WNfjETYZ8nh0g881Ff1feILa0F0YZB/YDLy+Ia8aVw==
+	t=1793667301;
+	b=rzD/TzkwxySNsuZYqWnhNp+s/k4FgMcPDXJt47vBErsvtaT8bpx1dvDQLZ4HognQhC2P
+	 YFnR97j7hmcbqFirRUgo79qw7+XTAVgFLre3iMfYlyjHkzrGn+NGaox2C+T1b/DFkhFLO
+	 IU3mh3YLvGi9ue/Vepbk99eDyrUcex5yBZtW6yZQHn8TU1uy+OKKp/kjkW2DJbkOWErqg
+	 rh2WvpDj5OBGz+F/GQtDc2HunOiKcsvsk3H5UdslO4jRSpwK2FRvcrUD4/Ev38vFXPha5
+	 oSwVczsaZhuG9WdifJG89Y+4Fzy7fudpVypdRnJKJOGvAnOICsxgSkFht6+nVoB24Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793667278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793667301;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4CRzR+sjBX6VsuFNx9eyTn0HYGGxNmmsAqwo1yu/UIs=;
-	b=JVKHbl0mr5ivhcaQm1KNgsPWPp4xJ6Ex5i3gBRXIiQ2x9Khy7oFYEW+eVNHeXeQDX0Mg
-	 0v+Ag1SuqR8uZ5jilvXA26OHlRFzgL0LS+xs1r+V3hLSpaxYRUtYLngtN+cV+IjnimLHn
-	 pvagSeWxoKTCe9ZUVnjY8ZBZHNFkaAkpu3jogTG6cZQ66raXXOEgPpVD0Hz4xpx0js+3i
-	 dLAqDi+m+k4NjXEn0eIVyw+JojApUG9yTXo9p5vmaWnGo3P03e40IEtXqSAh3R6lgD3mf
-	 xff+WdnnqiEhPeuiKPFQY6vhaYjyZEdvsYDYMZBeCPcptdnIRG3yMVjt8dx2TtIB39Q==
+	bh=utYETJ5rHiqNuCeYbazrvQTxJbHnffVJ+WGLRhPpEcM=;
+	b=b55aKsU4O1VDJVImR+MP6OvG1YwN9p88F8d+tZ0HL7/0/H0I8vrCOq0T0trtgFQNLnmJ
+	 8wphAW8whnSknrMlQUIWplwzGk0swvvJ6hsM9NhBln0A91iCOOxqlaSD54uOXwzqRLkwc
+	 3OquHRo6k90vt6H5Ok/PmR3ygoZ7RhOYbrVrMSshv6ZgYWfPY2k0JYZNgdC2mVREPUCDQ
+	 tRHbpRvw586AqsQ9yJ3vZBS9UmThSA0LYlooI0ejuUGxx2pCxEXezO5x+m4FWXeh8CNZg
+	 Oo378T/vjoyAg4NHFzCh4G17HndSYl9PSw2fZOZY7TZavVEmPPUBK12CeUf9eDT0EwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KviEatYT;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bd9EZMML;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D86A606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:54:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D86A606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50436606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:55:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50436606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KviEatYT
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so1463102a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:54:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bd9EZMML
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e987a2ba0cso20773985ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:55:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793667278; x=1794272078; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793667301; x=1794272101; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4CRzR+sjBX6VsuFNx9eyTn0HYGGxNmmsAqwo1yu/UIs=;
-        b=KviEatYTCIe1F1JARjiYMmm0IkQvlTlh+vAksjy3ez66bujdFRZbGuoM22a/8Df7GQ
-         dqAiaJJ/eSXd71fyyfygKa7D0On0JxLQ0AVk7/auMm8Nwv1MpiNehNqGFXkZm8/tg8H6
-         NzKyLzB9UagV8slm6uiWZAs2IAvfv7bLeDFkqMz7BqxtLMFWHiGesb3XBkUkxlT75Cid
-         pVxRQTB+8Wh3DjZjHfbsVFhcJfyd+h4aSCKeGkMOgLDxBWw4JGFYyyybHcOtIgNM9f8t
-         zjEjQI0iouSAbFxd33BQhSTXw9isYjuyz1kwVKh1+TLV06gCTVYOSDoqZbT8YId59zo2
-         gqFQ==
+        bh=utYETJ5rHiqNuCeYbazrvQTxJbHnffVJ+WGLRhPpEcM=;
+        b=bd9EZMML14wYf0UyH1KfDmLzXItlV4cSJ947/8NxS9Eusjh/IQIGNIIfYHDILhJR/G
+         5ZfpxoRhau49tYdjKwHNMJ36pkJPl94vOIUVOfNfs4qTIbjcE1ZY+IXO6M53Y0Sn2B87
+         H96/g6GCOC3xff49Aw8BQGKJ51bbUNEgx9opdi+XVftnkBfS1ZvXQf2l/DLHcwy+Nm2W
+         ZTQkgRLEGv6EcLNQkhcmnQSiBwW6XADp0wi9TAsFGTcJS4/FL3fqZLJ1CtkuadgHhV6t
+         s/VdBhrfngckZ1fvvydgrSMCmM20I7YfqmelVsRWvgwqWahmoEWPOQbMhwYXr79wyMbt
+         W1Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793667278; x=1794272078;
+        d=1e100.net; s=20260707; t=1793667301; x=1794272101;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4CRzR+sjBX6VsuFNx9eyTn0HYGGxNmmsAqwo1yu/UIs=;
-        b=SiHUoV+9UWXJinkXPmahzYxz3njw29t71meEIwNEj2WkuDBTYrUUefzPShk3DmeU/n
-         xw+VyUaYYnRwl23//8s0nTHtI0n3+BKoaO1g+9OTGY3GfKxE4VezS+q1+td1YT0hmFb4
-         kHRWF68GLeRgSSEJyDWNdWgxacZcXxswOInWwyV7N68FL0ZTYk7whvUQnQMgwXJDKqNz
-         iNPcymjh7XnhjgYdELgslhQXVPtnCAIxUjRcM1sJlrfncd/KxFkZxLxj3F+/bBIV+9nB
-         D4VF4A965Ib4Kx3SPNMiC7F2IbGUbYfWV885G2lH8RbbNEjoKKLEx82TJvE0XCMKBflE
-         im7Q==
-X-Forwarded-Encrypted: i=1; AKwUvByQRZ5IROeYCcoIq94zhc1sxK/hfw7A9oqRMqXY5V5na8/N1nP+lloLrCvCD98Gf+Q9mHnHXilEuMXsLjE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tZzgZpxENCovwBO8D/gK0PveCo4EBiKUh65m+aU83m6pWOm/q
-	Afw+l1D9CgZ//Mj+Z+pshnha7U53ueZv05TY+C9/Wz+RUtYZYo0Sr//UyWuwuDAojA==
-X-Gm-Gg: AYBFou2NYd0tu7IOAPOvsUl+IwDxSI3kpMY/PG8kd4qHE9WWZcf6oP8FnUUk2r9sKz2
-	iK5X9/+0Pw6ekzNPlRLxMWG8Av5HSoHbcbftC0wtTH1NDpBU8ik7EdbdsZin2Z0Yga3YCQb175R
-	ldTmAV0FPEfFnAMBQjiM1o9OanwmIqO2PsPWwJbD/26PyVLwS3QwYWfO0LuDgy4Wem4JX821xif
-	sz737+4nPPUiQQ6tubyhmgQ4f95sfk4QyDg2Ng8rmo+C1MdGSkHJX94Iq7k15CeWFEtC1b9JOms
-	BrqJwnRmBNfCeESGzu6/vEi/DXtIV3Iyvy6d4Tobmb9j+1404WYUGTVyDAQ1RPljts0q7mJE8/Q
-	DnYZO5czMMvVY16HS3H0IrX+Xpol559RJ8vuRaitor+8pBd/fHP3dn5ZcETE6c77sJ4m8sri5mc
-	oh5xBb0IEXOFaeYe73J0+cy/aWLVOVKGCa6PbWd1DrZj2/UKAErlkCMecwin3PF7zBclVKf1ZbB
-	mi8MHixYfE6KI7iei8VKGrPCoTFU2Z41a/gj/YBQcYUgfhkHkpaB4w4trjQutpE/lvz1xOT8cQs
-	4WH3JIxaYYFisouz29onqvVtZLszzzegCyZEeqvDUNRXTahBXHdGWjNzDzHub0GDkw==
-X-Received: by 2002:a17:90b:590d:b0:3ad:1da4:2ddf with SMTP id 98e67ed59e1d1-3ae8980ed29mr8608648a91.51.1793667277032;
-        Mon, 02 Nov 2026 16:54:37 -0800 (PST)
+        bh=utYETJ5rHiqNuCeYbazrvQTxJbHnffVJ+WGLRhPpEcM=;
+        b=QyQ1+HNo3nSGMqVV5e5FTKiWXTNyWqGZ5mrR3oU1XgeyhdIsPOpuseEq/n3OxdoKjW
+         I9Ulls5Jk7kB1xLvT7KRylkUAL9H8sJ+ygJv6H5yAejjkZ+/69z6815Gp0AWSY5QcpnU
+         H4hySg9nmut56v0YWrUEffTaKf868c9bRdH7eLxO49ZAquiQMzRDwfnUXVGNJq9QiXIJ
+         T1oZzgRikxg97j6baswYhDGYhxgLWGrHNyYNvplsRgi8m1GcEm0Kmkt4OxY+yz3JlQ3a
+         5iRg6Mt/gus+YrgOfsu6slkpAXJAEbaBbQvCKDe7bIIPSTaIrLWxmjbEwlUVEVyER7fV
+         AWKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUyT85N7tKKUTRQVDGzCatqn2XTbHXjj4ZNJLRr+sLZIH83WBHWSs4qFqz8k2NJOey1ch0JhKC3kXCqn4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dCDpUkUSEAs8Cmwug6VsHLiEPwWkaIOiJ24uv/DxIYIwILuMb
+	O5vZKVfbW+wWk+WnQB2FZq92KLJZyUQ4R/ovAro6jrhj1esdZKWioFI/6DVKI4fLag==
+X-Gm-Gg: AYBFou0Yy68I3m5FlbRKo8QivLHY6Xpxe1j/c0el4FRHfgxzy19rZIllL6Wrur5/eD5
+	1RjGnggk6v7BuaekdIYaE4RSnyCxi3QpjX9HhhkPDt/8ZPQUXapyNyRD836ttjKHuuM9w5QWRUa
+	Hpzq2x5Ad1ny8IrvkD4AQjWz6fYSlogC1w34HwqNArDLTiELTKVlN/qRWRvdteIPsfBFSNX9YK9
+	kRfeD+Ag9Pgmitr24DhClhMHzvDM0cPCUDXYUyuJi/XkHMArQe5aTv0nJo50wXD3gb5S2q/LL73
+	bEG4hNzKpRzxs01BAE4noDipHn5hpSThliqBlqdgPt/UDLQywNbSDXABEt6Thbtgc3cPM0qVi59
+	kNDe4zYqFcMwwBHiR2Bv4BA6TFmddEpJtyzU0AsQTMGWulAspcby7luUHCTCrKtwkIO5gBTP6E/
+	D5WHO8VS2Ly/gcqal6hdOJp6T46fjpPD/YIWROiu4SF93pzVbqHw/Xqahv1+2fbgIEf8A7ojz5E
+	BfrwtWDshhMUdWPAHuZ8RfpbtmZSigYymTR7ND3KKJ71Gvg5jFkFtT/CqZ4Xerotk6EQL98/ixV
+	B3XPHYpneOVpc1E105YI6KK5QZaRKAA6D6SE3HlO2Ip69gqEWHNKn5TSyzRJTOJs
+X-Received: by 2002:a17:90b:4b12:b0:3a8:5fd6:cb6 with SMTP id 98e67ed59e1d1-3ae89173bedmr9255823a91.0.1793667299847;
+        Mon, 02 Nov 2026 16:54:59 -0800 (PST)
 Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85cb1bfdsm10260602a91.0.2026.11.02.16.54.36
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae87fc548fsm10138264a91.4.2026.11.02.16.54.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 16:54:36 -0800 (PST)
-Date: Tue, 3 Nov 2026 00:54:32 +0000
+        Mon, 02 Nov 2026 16:54:59 -0800 (PST)
+Date: Tue, 3 Nov 2026 00:54:54 +0000
 From: David Matlack <dmatlack@google.com>
 To: Mina Almasry <almasrymina@google.com>
 Cc: Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
@@ -90,11 +90,11 @@ Cc: Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
 	Raghavendra Rao Ananta <rananta@google.com>,
 	Vipin Sharma <vipinsh@google.com>, Alex Mastro <amastro@fb.com>,
 	Matt Evans <matt@ozlabs.org>
-Subject: Re: [PATCH v3 2/3] vfio: selftests: Add vfio_pci_find_mem_bar()
- helper
-Message-ID: <aukwyHVkAXGEFI0E@google.com>
+Subject: Re: [PATCH v3 3/3] vfio: selftests: Test BAR write faults after
+ clear_refs
+Message-ID: <aukw3s0IR689RYYG@google.com>
 References: <20261102230445.3993629-1-almasrymina@google.com>
- <20261102230445.3993629-3-almasrymina@google.com>
+ <20261102230445.3993629-4-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,18 +106,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102230445.3993629-3-almasrymina@google.com>
+In-Reply-To: <20261102230445.3993629-4-almasrymina@google.com>
 
 On 2026-11-02 11:04 PM, Mina Almasry wrote:
-> Add vfio_pci_find_mem_bar() to libvfio to locate a BAR (or range within
-> a BAR) of at least min_size bytes that behaves like ordinary memory and
-> can be safely read and written without device-specific side effects.
+> Add a regression test in vfio_pci_device_test to verify that huge_fault
+> on writable MAP_SHARED VFIO PCI BAR mappings handles write faults after
+> soft-dirty tracking clears VM_SOFTDIRTY and downgrades vma->vm_page_prot
+> to read-only via /proc/self/clear_refs ("4").
 > 
-> Detection is backed by a table of known devices, starting with QEMU's
-> pci-testdev (1b36:0005) BAR 2 when configured with membar=<size> and
-> membar-backed=on.
+> Use vfio_pci_find_mem_bar() to locate a memory-backed BAR of at least
+> 2 MiB that is safe to read and write, and zap existing BAR mappings via
+> PCI_COMMAND_MEMORY before each sub-test to verify both:
 > 
-> Suggested-by: David Matlack <dmatlack@google.com>
+> 1. Read-then-write fault sequence after clear_refs, exercising in-place
+>    huge PMD/PUD write-protection upgrade via wp_huge_pmd()/wp_huge_pud().
+> 2. Direct initial write fault on an unpopulated BAR VMA after clear_refs,
+>    exercising vmf_insert_pfn_pmd()/vmf_insert_pfn_pud() with
+>    FAULT_FLAG_WRITE set.
+> 
+> Skip gracefully when the device has no known memory-backed BAR >= 2 MiB
+> or when /proc/self/clear_refs soft-dirty tracking (CONFIG_MEM_SOFT_DIRTY)
+> is unavailable.
+> 
+> Suggested-by: Alex Williamson <alex@shazbot.org>
 > Cc: David Matlack <dmatlack@google.com>
 > Cc: Matt Evans <matt@ozlabs.org>
 > Signed-off-by: Mina Almasry <almasrymina@google.com>
