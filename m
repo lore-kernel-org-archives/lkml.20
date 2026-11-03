@@ -1,99 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695577;
-	b=XRBN3ZUV7+D4lyF/kVkDPpFv5/YyKPlJNYaGM59ujPy4gwTDOL6+lO19pzCEIg+qBD4i
-	 lLrLEjPHoo+/KojF4pwgBEQMkZN1hEgUTRJCaXmlkmWCulAFO36Y62yl7lacgZHEzP55/
-	 Bq5+2NcJDKU6sD40hV0RyoX2tq9dF5aVSCP6xrqoUqLjxRZwykpGuxXUktukR7mMo0YeZ
-	 9TLwRrT7jsXtBNzkEMWZX5mjlY0r4sN76B0hTNtzyiSedX4iafToCaL99atFGqbFcPtwf
-	 ZiZ73dyK5thigCGKIXdpMYJWGspOvxLbqeW47RCO00AS+0J4kPyboFyOAVo+7k3KCrg==
+	t=1793695608;
+	b=tijNO+aIk7lNOzYBr9vEonxFjZuthy8yBrgAs/2xUq7qWLrfwvNIfpRtKBV80LAP139M
+	 Q4d+rT8SzLq+tFzTsfHUSooAB+jnd3A4ae0vC2aCHBNH2R0fCYr0d20vvUqtb7figQ2mp
+	 /YE0T6bL1ECDecq3Dm5OrgLgJc44LcxYHy7ANbF9cgQA3dNhN99v7Cr4KUeUoCPRhq8M+
+	 gPzeWADthdCONjBkOL/TOy/speICzVBaTMB2iakwOjv+iofHovAhsI9wV/xC0vi+ZIxqP
+	 IOyXNN9yzm3Cxe0dDgJ3e+cdtbe9T0FuDi9+fhvs8ouu6WRP/46Ii6p3xYxg9uROGBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695608;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hlACJn+aleIiiH7PZHd4IeV1oftT0VE5o7a2ILaOKhw=;
-	b=IKomtyq34z2iDvH6hUjwV+4wCqfMONX89yyJA32Ef38CTgNQbEeeVOmVv9VYNCrFt+yG
-	 itJgfFQ7btz20t/z/Xz9bnfDc5MaqzUPlNtI61MQSSf+vfIDGFLtxgWherHADq4ibdxX7
-	 mpCt86xtKsnmK0104KS0wH9CZaH5XeGrgh5Ldr3023pX2fP2LDHsDJuJivCmhP1+CWHmS
-	 SP7W/f2UbUEsLvnm2ZzslXvK90/RD4aEXVnQ8MxzglooeK02wczGpeD6VCoXywU0Rd5ou
-	 zOuZxQ9detu2S8dulBlEKAQXhrvCgPVmo56ym34ifOWgYytVbjS19nD3HEwi9sETH6g==
+	bh=ZwpN3MWkuJgEw/5lVf5YS3s9N6pKk0wMcXzClzDmDeU=;
+	b=hNyDs+KypHTOxz6F4oJnZOuBswcgU7TnPCsfO6IltFLSKbw8pGlCJ4QbVBC3Yg6g1Nwy
+	 ZV9p8Gz8s427bLNUqazhFFThXIM6yDxEKQcfuvvsXG46QFI3xjOdv+bLnpHJXe4g9J6g7
+	 CF3RI7o0f3v/R3Lu7tmXmBV5WunsjaGKn5AgLxn2b11SDJqJ3YcaNBBmhcqjn8F+wQ2jX
+	 ZugOXDsybdR3MuvSxaiqj+1nKYlvrdMaPGkaiXa/E7x/n7vuqeQCjnevpzr4RRjM5Tx0P
+	 epQCsAMNBCVDwetGKrFtNOhshVW6UzPB2ORTUXfyNj7ZKVnMjO3/de5IQc60NX8shpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C0q7FXbU;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tmrLDn5D;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9A7606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB9A7606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A6D606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:46:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7A6D606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C0q7FXbU
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso22914635ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:46:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tmrLDn5D
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso2375236a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:46:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793695576; x=1794300376; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hlACJn+aleIiiH7PZHd4IeV1oftT0VE5o7a2ILaOKhw=;
-        b=C0q7FXbUsSI2Az6wam+S8YWpYCHEZ+T45mTSSqsdmlvzcrXLJU6rdETKsjUpXKskbA
-         AuapcF/9Wj7l+xVO3Z4qiuprrZ4GCLuVb05G62SI7dO+I8B4BHB/USOxOVu28lpLs/Q0
-         SOb0dt47xENz23XHCFcvOZoHNwpnQ12gHFoDEx7ALPFs98YSzhieYTxtTAzawvK3flP3
-         FFC2Ptn2wALJHQ9Glq746c3C2o5ML+VkVgdCfbYf9ivAklIOovNmVMB6F3ixLNouidda
-         L+7onOkNSriFJUbUUOgC3njZJjCz6ofAS1knQilha6Wj6QIZJzQgt+TrMxWO9WNvRh08
-         alpg==
+        d=gmail.com; s=20260707; t=1793695607; x=1794300407; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZwpN3MWkuJgEw/5lVf5YS3s9N6pKk0wMcXzClzDmDeU=;
+        b=tmrLDn5DgdsgbIctBbIJsfK7Y2GKRlv04AVwZzWIVHmW5P1vliiZbYj/pkdJrN9YIc
+         FU/twe4HI1RPmiFs78bzbQvbHNGn4JP883Uin26ttA7z/MK9FrCJtnMHZoxCXCZ9JX5E
+         RNG+2684vScWrtFCOyVwj1z2d+Oa/Id82LBP/Pt0j2ljK5xQvFgbHb400AdmWWD4Z9rp
+         N0PKe2T7nuxxynUiNBu43cDnwf6QSKRZttd9S8yAWslmyq8teVJpoEBZDTmFWYzFmmLw
+         Whkr/0rTzrgEJkVBjWrvJn1lNvef03prOlIqd0tE5CwkMAgKIuPjbHcVKduRu78M/rJQ
+         fLnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793695576; x=1794300376;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hlACJn+aleIiiH7PZHd4IeV1oftT0VE5o7a2ILaOKhw=;
-        b=xHwxnfLVRBbKweswfFUqzrhVrtgTygcTOHVjVtfqCTN5HzeRXsoYB98K5m9476qO3+
-         Tv1soGGwS4TQvaURK2T81jgDr/8YUAYc7aExtfhzcKFgLOXSoVCiqwXrCZG9zO0UkJGE
-         Amq1ne7Derj8GIzz0/rk8iJdK98aDoMRj+JR9uYBxgoaag9ykV8e253/OAfPk91cxYYa
-         5gv12hlgqZhaBoxEymcmAtZvoRtPED4oBrM0LTCd2P9KA0L9uMCzhvlFLSrmKXShnb/6
-         4xgclhvRLuEqZf2S9kACOGf1/zgSVFWIXZtRw5WcZ1mpZ2CodFNpRmAJCdwovUqMNm5g
-         bc1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwtsld0gxJX9pnO0/IdMOipRXwLdb7FZ/a2e4VvwgPuoesNva2gEO5izxwvbsl2xseeOLWB3meJ91tmbho=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mTNZPKuR31buWQTqAO5aX6NdJnxRwMGDWOKCUmwaImpkkqBXm
-	KvaluKYW1AnMHO6fdiYyIRISG/f91K61AYyQ0jXdmXyUgpJflETvRnlp
-X-Gm-Gg: AYBFou37pvUGgR4LPrOtU5oSPXqhR4+aTzw8LPgyuiwaZqlPWZFAbGn4jSA77bG6UCn
-	ExynHtNq5EwDv/SVLWe6lku6O+bHlj77KXFxf5/PcUwDXn643hyJU2JNyPZt8ZVwQfOElC0IHNv
-	11/DDra4lluc8Pd72ks9+ucpx9SpX5BZcb77hN7HNuu1ZY+uAMp0wnbD5ad+VG5L8vRy30EwY2b
-	HXVng12K4k99l6QumXy5esMs4zv+C2S0bE9zEAMbb3X0bv7+1b/AlQHdDQ6vV0PsOrsGIiXjcgU
-	+ER7XB/isYOFR5NzXDgh8i12dej7tBSEx4rcYrvXYHtiykOrAiUa14nK49Xn96nvc6D+Kd0DOcg
-	aOoZMLIUQ5Z82KgTNcxqjk5vHeOkEc9qhKLHUHoBGNBd8OfxsWh1l1n85Qw+7ROzHUih4nyU4pU
-	9j1sgtLfLW9Z7rjWSUy0TPVAznZHa22j7jmJJyxzASZyrZOrVxMb6Pp7M3pFiQJLW7pmRMprYge
-	inbgv+ld7UNoAUfMRV22cYNhSeS2KSMfasFpSJQMAMEIUOGD/zfDwH9QB243Q0X5y8Ia+oUSnv5
-	6syHCAkj4ZhBOZ92ZZsxsHtkhOel2ug2pzvwE3CYUFRQVPrJ
-X-Received: by 2002:a17:902:f686:b0:2e9:87e8:71c8 with SMTP id d9443c01a7336-2eb36395e36mr125228405ad.4.1793695576032;
-        Tue, 03 Nov 2026 00:46:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793695607; x=1794300407;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZwpN3MWkuJgEw/5lVf5YS3s9N6pKk0wMcXzClzDmDeU=;
+        b=n72R2fnIQCd1DIaXBf2YwN/0mN0/muiouHX764mwjT185yrUtw/fWxqu/Vd2tRIyuX
+         1aEsQuePwUIRdVHhyDUscWf+lp3nAdAzv73Ccrm/CFgEv6mnsCt7Co4QOYEMeWTHW9yd
+         cVbWKjM3JsUU2w0IgeMBvyUG8gebk9LJcpfKYEVdLDT2n3XYkopOKooCQ3eu0MdLs+KB
+         8Fbc4l8BS52/q2DFYFzy9c+Td/of5tB9vKWCBAOikedHPcwHIfIQ5km8AiPbtu5KJBUD
+         Jti6vkSiVbVNZO98vhmWm4ZD8TAupfyXsTyL1SdG54KiyuY/eY0/uhySE1T1g4uCSJvv
+         n/UA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoDB23JJ5+ewgg4L8BoDgP3HGHaGU/nllX3vS6wiilrIVs+t47I9StDVFdGJFYRyQltOmP1P7UKJdftuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DBBsxAPiFy4S6PekWP785DFnHefxK8PbKYMAZLtivIHUcGI4H
+	R7bggaSxWqEaPR+Fam0u2vTEMjPXDyC0cIc/tbz0Ppe6LX5zqi9qMWay
+X-Gm-Gg: AYBFou250+9jgKr86eEKbm/baEkCgWaTyGYXaBnVKJKxFvrX+TeEaB0/kl4cv5cxgOn
+	d92RcuyvMqWYpX8iss+k9Z/kL1OquN0bLz57yaBCjqcJLS9SXuGNPB+esk0XtTn2z+koJFAU4p+
+	FnODdxORoxhi3C+raslm0BwYI3KOZpv6cb4tW6sjSui1Fwcg6oRnzSwcf6rxu2yFieeU8jsVqFY
+	CFSVvkkk9PRJw4GE3zhgamfxvz4EfisI2Ajt2L3RpgpfXTLhgaAHJzqizHDJHSlvG740cfa5JBY
+	PtCRmUWiXqGLhLof2Kx/QqAQOkrSceqJFJMb73f+Cm1f1oRzDn4iWvFTyMgHQlHC1nhwixMA0dv
+	eXKbYrN9cLhUsB8phVosG8qs613UQDqHAe0xD8qulMU5vsp3b8jED8UJcozdWQ6kB+tAJ3qJ2ld
+	6EFuAeNyKA33bkOncr+3nWVISOxLMtq+U77ZQiB919hY21iJo5DR2EmxJ1qOCRCpvvoxCfIbN+m
+	4RBHYnTF0SaaZetedsJ3KBDFrf0FJB1VgEUL+5E3D9QnDndv+Is3QoSgkcqYohoIzGF9wg2TwNo
+	zy4uD4Qd31O4sQ438w1ZpiqUuDX4kZ823DggAMkyhJQzPB4ei+v7vepsCRJSnS9ekceJJA==
+X-Received: by 2002:a05:6a21:1bc1:b0:3e1:8a96:7bbb with SMTP id adf61e73a8af0-3e928a24501mr11343003637.51.1793695607116;
+        Tue, 03 Nov 2026 00:46:47 -0800 (PST)
 Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3922f635sm39075315ad.17.2026.11.03.00.46.12
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb364a8910sm901853a12.23.2026.11.03.00.46.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:46:15 -0800 (PST)
+        Tue, 03 Nov 2026 00:46:46 -0800 (PST)
 From: Li Ximo <lixicaicai@gmail.com>
-To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	linux-pm@vger.kernel.org,
+To: Keguang Zhang <keguang.zhang@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	linux-mips@vger.kernel.org,
+	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wang Haoran <haoranwangsec@gmail.com>,
 	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH v2] thermal/drivers/rcar_thermal: fail probe when no sensors are probed
-Date: Tue,  3 Nov 2026 16:46:04 +0800
-Message-Id: <20261103084604.700540-1-lixicaicai@gmail.com>
+Subject: [PATCH v2 1/2] dmaengine: loongson1: reject zero-length sg requests in prep_slave_sg
+Date: Tue,  3 Nov 2026 16:46:37 +0800
+Message-Id: <20261103084638.1190232-1-lixicaicai@gmail.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,60 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Wang Haoran <haoranwangsec@gmail.com>
 
-rcar_thermal_probe() returns success even when zero sensors were probed
-(the per-sensor loop simply falls through with i == 0), leaving
-common->head empty. rcar_thermal_suspend()/rcar_thermal_resume() then
-call list_first_entry(&common->head, ...) unconditionally, and
-list_first_entry() on an empty list does not return NULL: it returns
-container_of() of the list head, i.e. a wild pointer into
-struct rcar_thermal_common, which is dereferenced at
-priv->chip->needs_suspend_resume and in the MMIO accesses that follow.
-A malformed DT node with no MEM resource triggers this at every
-suspend/resume cycle.
+dmaengine_prep_slave_sg() forwards an sg_len of 0 to the driver
+unmodified. ls1x_dma_prep_slave_sg() does not reject it, and
+ls1x_dma_prep_lli() then builds no LLIs (the for_each_sg() loop body
+never executes) yet still returns success, producing a descriptor with
+an empty lli_list that is queued as a valid transfer.
 
-As suggested by Niklas Söderlund, fix this at the root instead of
-tolerating an empty list in the PM callbacks: fail probe with -ENODEV
-when no sensor was probed, since a successfully bound driver with zero
-sensors is meaningless. The error path through rcar_thermal_remove()
-already tolerates the empty list (it iterates with
-rcar_thermal_for_each_priv()).
+Reject sg_len == 0 requests early; a zero-length transfer is meaningless
+anyway.
 
-This issue was found by static analysis; we do not have R-Car hardware,
-so this is compile-tested only.
+This issue was found by static analysis.
 
 Reported-by: Wang Haoran <haoranwangsec@gmail.com>
 Reported-by: Li Ximo <lixicaicai@gmail.com>
 Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
-v1: https://lore.kernel.org/r/20261026115018.3227372-1-lixicaicai@gmail.com
-v2: completely rework the fix per Niklas Söderlund's review: fail probe
-with -ENODEV when no sensors are probed instead of guarding
-suspend/resume.
+v1: https://lore.kernel.org/r/20261026115113.3359939-1-lixicaicai@gmail.com
+v2: split the two independent fixes into separate patches as requested
+by Frank Li; no code change.
 
- drivers/thermal/renesas/rcar_thermal.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/dma/loongson/loongson1-apb-dma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/thermal/renesas/rcar_thermal.c b/drivers/thermal/renesas/rcar_thermal.c
-index 9a9038671..6a1e977d8 100644
---- a/drivers/thermal/renesas/rcar_thermal.c
-+++ b/drivers/thermal/renesas/rcar_thermal.c
-@@ -514,6 +514,12 @@ static int rcar_thermal_probe(struct platform_device *pdev)
- 			enr_bits |= 3 << (i * 8);
- 	}
+diff --git a/drivers/dma/loongson/loongson1-apb-dma.c b/drivers/dma/loongson/loongson1-apb-dma.c
+index 89786cbd2..e7eb40584 100644
+--- a/drivers/dma/loongson/loongson1-apb-dma.c
++++ b/drivers/dma/loongson/loongson1-apb-dma.c
+@@ -302,6 +302,9 @@ ls1x_dma_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
+ 	dev_dbg(chan2dev(dchan), "sg_len=%u flags=0x%lx dir=%s\n",
+ 		sg_len, flags, dmaengine_get_direction_text(dir));
  
-+	if (!i) {
-+		dev_err(dev, "no thermal sensor probed\n");
-+		ret = -ENODEV;
-+		goto error_unregister;
-+	}
++	if (!sg_len)
++		return NULL;
 +
- 	if (common->base && enr_bits)
- 		rcar_thermal_common_write(common, ENR, enr_bits);
- 
+ 	desc = ls1x_dma_alloc_desc();
+ 	if (!desc)
+ 		return NULL;
 -- 
 2.30.2
