@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793679490;
-	b=iqKZwTPKSDd6vA2ndk47NxrZvHWoN0+LDDN98vMdD7R65QM6Og7eANENFRfdmkc4fnU2
-	 lziZx0JYJzHLE4RVtMjhBhUoEC1NPlmsqqLclTYrZf5otqVmrUMPP/RaaWILRfg4Wp+NE
-	 yw1n7BoCj01HGgN/lISiVy5eloLl4YaeT+kBQ6X+K/Tqk9uZf6xGJohvrU7PhSc6P+qVH
-	 vbGo4rlRmZlAbA5PAh1qZ3ZK0DTl2eKLK9PWPaOqALivM+3b1+JMU3II34ZAfAsXo2ZpG
-	 pioBYdv2aScLJ+RyYa10n4A3PGD8NNaxClN1XioSbeIgeskfdmzfAU9OyI+ADtjO43A==
+	t=1793679507;
+	b=U9e4Mo/oq70jX+L+nqCOqz88M5ez9zrGX1WjtXec316jEAY5EexA7dE5u+j9IgGxF85+
+	 uCEs/UQPmZkkEcxFzCIOPrOoEI4bkB4DLjcMTQ+W/CU6BdvoOOVmivczJZNOciYhA5/oO
+	 hAaTqP2bxF7habxPC1tinKhtx5XVa1hmTHYzHF8qosJIlKo2RjDx8mWZBxckQFMVbdIhY
+	 /0z6VgKMn1ke0wDo9FfUBs+MYZYkiJuQAwFUDo2XcRfMQxv0i/V/26LmXsr7GGlJp+tXv
+	 rZ32ZuDq7g18aU6e4M9RihSPFEnNeGKxUiL0NQB+er8maNRPyZM7VSPM6a1Rn0PBEJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793679490;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=i5UScEbi5P+SKDxLk2/1WH1m35SDk+R8PVhmVEVHgPs=;
-	b=CXJrknyoemHET6QLlntiXgxhsMCJlN42gL3t7tpP7jh4jx4A7CV6rfsM8mtpmINv/fHN
-	 ZSaJp6oBwRR4qxrIW7zTgc9m4qYk8E2ZxgF0/1qJzT9yVDYi6HnyL40edqcUBKJqzH1rJ
-	 t4TbElKtkDZ6EJk6Ii86OTXqnFs5Npx4UmOfJWhVyPWU0voa0U2He139WblCmi2z24J0H
-	 3bfdoqwueA4MU7mPS7RXIABnuFi7iA/JNQKK8apWClKQDZ+/Clbtzk4hLXn+qp1sqe3qV
-	 tVDzuTQ8wuUPDYssx7+guYIdJFncSGqEfg8s/IyZgjuR2/zANaT8h8TMWrSJTCcgODA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793679507;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
+	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
+	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
+	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=x+dElKkp++qIJHqjVaYGMgPLSvYo/yZEgWC3hXRcnJ0=;
+	b=crW9+e8jtC+yC0ftYqIbadlt7SJmW5pHcM8iohjIjKVpyJepi4u3y+yMlTLuSF6qvmpi
+	 2k17Tm+bd/IYbu9sxKhj/TiyCYe+aCccP8VBdW3w8gTc3XBKSQ+/FNPxYvQGjf7HCVJLG
+	 6KuNWKasr8YRiRXP0LDiuV5UbZgZo6Wc8WfbkZEPx/kYls7WPbNINxnatAXBbTthtZZYP
+	 opnWKUfcWsdgkzjfIpn+NPmPr6a3X404NLITDdpTgSX8DftD0Y3zaQ6A7Q8LnUYfUPStY
+	 lXB5F7YB7Plcg6OpdJ3AavcIWeSjfSAznkQoef8sry4ep9MYHmxa/uJkCcR1OLCJONA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=a7t79Qzf;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vKaUwgv4;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78DA606A326;
-	Tue,  3 Nov 2026 04:18:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D78DA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E502D606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:18:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E502D606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=a7t79Qzf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793679487;
-	bh=i5UScEbi5P+SKDxLk2/1WH1m35SDk+R8PVhmVEVHgPs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=a7t79QzfSTdOmbUGBi5zuXRXLb9bnKCNXZ7ddcXCve5Iki/BJfETkutBAfN6dIsSa
-	 6hWOY8+mbeiLrGyha8O5lIQ/p7UB+I0Ll4SsJPrg/ujXWKTRaiMCx6dk5CCCYfdKie
-	 TDllu+3oC2+dHpqpaW5IYHSsrjguyDQBTv67x76CrDX576Gaa5lFfNlUUygdF3zoWF
-	 SW2O2ZEUJSZBb14lGttfI5aBk3F8AnH39EyAwqmWdxvjwY2zhhJmgG/PgYI3aQQvgm
-	 Mq+2XnwOg5SN4ix95gbCrxbwfRF44hJavRKXeW53i4kZASS28FOrji5FhIKvW28kFj
-	 /HAhKA+WVXVsw==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id D92A9648E3;
-	Tue,  3 Nov 2026 12:18:06 +0800 (AWST)
-Message-ID: <bc6e605a8c5bee59ad9bcbce5f4fe775c9c3324e.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] arm64: dts: aspeed: Enlarge AST2700 EVB kernel
- partition to 12 MiB
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Cooper Huang <cooper_huang@aspeedtech.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>, Ryan Chen
- <ryan_chen@aspeedtech.com>, Billy Tsai	 <billy_tsai@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, Chin-Ting Kuo
-	 <chin-ting_kuo@aspeedtech.com>
-Date: Tue, 03 Nov 2026 14:48:06 +1030
-In-Reply-To: <20261029-ast2700-evb-kernel-part-v1-1-e6f52742c575@aspeedtech.com>
-References: 
-	<20261029-ast2700-evb-kernel-part-v1-1-e6f52742c575@aspeedtech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vKaUwgv4
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261103041818epoutp0356298af0b559c6666df0ffb35d025ff6~kbgANcTU82673426734epoutp03X
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:18:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261103041818epoutp0356298af0b559c6666df0ffb35d025ff6~kbgANcTU82673426734epoutp03X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793679498;
+	bh=x+dElKkp++qIJHqjVaYGMgPLSvYo/yZEgWC3hXRcnJ0=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=vKaUwgv4v9xGP3Otq6i/l/2q2NWcGAjxq0zMPwe4EQLDism8B8otgkinO/IDDJkxH
+	 eKtcPOoCgrUEzOoTinlv2LD/uv8QTPl6AOHqqloXVs3lB3f9NZgQ+Ut3E2xpD+4jYK
+	 gqJKpEY1H1srQUJ+lbC4R44dJE5A3/+iTMmRPldM=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261103041817epcas2p3a3f9b84cc41517462395611187f08c7c~kbf-w6PNE1410014100epcas2p3L;
+	Tue,  3 Nov 2026 04:18:17 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.212]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jJb0T23ZWz2SSKj; Tue,  3 Nov
+	2026 04:18:17 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,93 +62,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH] mm/readahead: keep at least half of the async window
+ when aligning it
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Jan Kara <jack@suse.cz>
+CC: Andrew Morton <akpm@linux-foundation.org>, "Matthew Wilcox (Oracle)"
+	<willy@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <747jhqta3plrrx3bfikceoltsewshdpejdei2qjpn3onnvtu3p@cptmb4phbn54>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261103041816epcms2p19b933a93aed4463f954e901c7326e055@epcms2p1>
+Date: Tue, 03 Nov 2026 13:18:16 +0900
+X-CMS-MailID: 20261103041816epcms2p19b933a93aed4463f954e901c7326e055
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261102214705epcas2p4e71e245666406025381037104803dedb
+References: <747jhqta3plrrx3bfikceoltsewshdpejdei2qjpn3onnvtu3p@cptmb4phbn54>
+	<20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
+	<CGME20261102214705epcas2p4e71e245666406025381037104803dedb@epcms2p1>
 
-Hi Cooper,
+On Mon, Nov 02, 2026 at 10:46:53PM +0100, Jan Kara wrote:
+> OK, I can see how it easily happens once that we trim the readahead
+> significantly due to alignment. I'm not fully clear how it happens
+> periodically. Is it that you do 1 MiB misaligned reads and so we
+> periodically end up triggering async readahead from positions that are
+> not aligned to the current value of ra->order?
+[...]
+> Instead of trying to second-guess the logic of page_cache_ra_order()
+> in page_cache_async_ra() I think we could pass a flag to it in ractl
+> telling it it's allowed to shrink the window instead of allocating
+> small folios and then handle the alignment in page_cache_ra_order().
+> Hum?
 
-On Thu, 2026-10-29 at 15:25 +0800, Cooper Huang wrote:
-> From: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
->=20
-> The 128 MiB flash layout of the AST2700 EVB reserves 9 MiB for the
-> kernel FIT image. A FIT image containing an LZMA-compressed kernel,
-> the DTB and an initramfs is already close to that size, leaving little
-> room for the kernel to grow.
->=20
-> Grow the kernel partition to 12 MiB and take the 3 MiB from rofs,
+Thanks, agreed. v2 will pass a flag in struct readahead_control and
+align the window end in page_cache_ra_order() after clamping new_order.
+When a window still starts just below a 1UL << new_order boundary, v2
+steps new_order down until the trim keeps at least half of the window.
 
-Why 12MiB? Why only take 3MiB?
+Your diagnosis of the periodic trim matches the trace:
 
-> which now starts at 0x1020000 and shrinks from 82.875 MiB to
-> 79.875 MiB. rofs still ends at 0x6000000, so the u-boot, u-boot-env
-> and rwfs partitions are unchanged.
->=20
-> This is the same layout used by the OpenBMC images ASPEED provides
-> for the EVB [1],
->=20
+1. After the 4 KiB read, the window at page 48 has size 56 (ilog2 = 5)
+   while ra->order is 6. Aligning to 64 before clamping to ilog2(56)
+   trims [48, 104) to 16 pages.
 
-Why was what was sent upstream different to what you were doing
-elsewhere in the software stack? It seems oddly incoherent.=20
+2. Because of that trim, ra->size is only 64 near the end of the 1 MiB
+   read, where the remaining req_count is 81. get_next_ra_size(64, 81)
+   sets ra->size = 81, and ffs(81) - 1 = 0 skips alignment.
 
->  so the rofs partition described by the device tree
-> also matches where those images place the filesystem.
->=20
-> Link: https://github.com/AspeedTech-BMC/openbmc/blob/438e761ed38644b77ba7=
-04c984cb607649bf2724/meta-aspeed-sdk/meta-ast2700-sdk/conf/machine/ast2700-=
-default.conf=C2=A0[1]
-> Signed-off-by: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
-> Signed-off-by: Cooper Huang <cooper_huang@aspeedtech.com>
-> ---
-> Notes:
-> - "Already close to that size": with mainline at c339f4010dea
-> =C2=A0 (v7.3-17997), ASPEED's aspeed_g7_defconfig [2] and GCC 13.2, a FIT
+3. That enters a 13-window cycle every two 1 MiB reads (sizes 64, 81,
+   63, 126, 2, 4, 8, 16, 32, 64, 4, 16, 32), where [896, 1022) leaves
+   the next 128-page window at page 1022 and trims it to 2 pages.
 
-A bit of a tangent, but GCC 13.2 is over 3 years old at this point.
-Debian stable ships 14.2. Why such an old compiler?
+Tested on mm-new in QEMU (XFS on NVMe, read_ahead_kb=128, cold cache),
+reading a 512 MiB file after a 4 KiB read at offset 0 (5-run median):
 
-> =C2=A0 image with the LZMA-compressed kernel, ast2700-evb.dtb and the
-> =C2=A0 OpenBMC phosphor initramfs is about 8.99 MiB, less than 20 KiB
+- max_sectors_kb=512, 1 MiB reads: mm-new issues 3329 reads in 0.251 s
+  with 9721 folios (0 of order 7). v2 issues 1031 reads in 0.200 s with
+  1039 folios (1021 of order 7).
 
-What are your measured sizes for the kernel vs the initramfs?
+- max_sectors_kb=1024 or 2048, 1 MiB reads: mm-new and v1 allocate 2839
+  folios (766 of order 7) as ffs(255) - 1 = 0 skips alignment. v2
+  allocates 1039 folios (1021 of order 7).
 
-Is the initramfs content reasonable?
+- max_sectors_kb=2048, 3 MiB reads: v1 issued 348 reads with 0 order-9
+  folios as ffs(385) - 1 = 0 skipped alignment. v2 issues 265 reads
+  (273 on mm-new) with 252 order-9 folios out of 277.
 
-Andrew
-
-> =C2=A0 below 9 MiB (the exact size varies by a few KiB between builds).
-> - Upstream OpenBMC's AST2700 machines use the static-norootfs layout
-> =C2=A0 (no rofs) and are unaffected; the rwfs offset does not change.
->=20
-> [2] https://github.com/AspeedTech-BMC/linux/blob/76457d3afe2bd4022ca82dd9=
-eb8fc48b84f0e9ab/arch/arm64/configs/aspeed_g7_defconfig
-> ---
-> =C2=A0arch/arm64/boot/dts/aspeed/aspeed-evb-flash-layout-128.dtsi | 6 +++=
----
-> =C2=A01 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/aspeed/aspeed-evb-flash-layout-128.dtsi =
-b/arch/arm64/boot/dts/aspeed/aspeed-evb-flash-layout-128.dtsi
-> index b54915f06efd..f54d53077538 100644
-> --- a/arch/arm64/boot/dts/aspeed/aspeed-evb-flash-layout-128.dtsi
-> +++ b/arch/arm64/boot/dts/aspeed/aspeed-evb-flash-layout-128.dtsi
-> @@ -16,12 +16,12 @@ u-boot-env@400000 {
-> =C2=A0	};
-> =C2=A0
-> =C2=A0	kernel@420000 {
-> -		reg =3D <0x420000 0x900000>; // 9MB
-> +		reg =3D <0x420000 0xc00000>; // 12MB
-> =C2=A0		label =3D "kernel";
-> =C2=A0	};
-> =C2=A0
-> -	rofs@d20000 {
-> -		reg =3D <0xd20000 0x52E0000>; // 82.875MB
-> +	rofs@1020000 {
-> +		reg =3D <0x1020000 0x4fe0000>; // 79.875MB
-> =C2=A0		label =3D "rofs";
-> =C2=A0	};
-> =C2=A0
->=20
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20261029-ast2700-evb-kernel-part-63b3c998ea6e
->=20
-> Best regards,
+Daejun
