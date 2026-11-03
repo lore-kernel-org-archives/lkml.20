@@ -1,82 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801729;
-	b=fvoJB1kESdPDIMb8QWsS+EWLi1bMzTneF5g0vKklkqzoemk8iyLXV1mx+hJKVxWSlnjL
-	 nqn8tT1w0z6kIE0+gzeXOQbM/7bUASq72h7lmCkk372vqa0arPk+mA6QdB/h/a4Yt2puK
-	 dgMKkU7sIe1KfFQy/AOL+1y/hrsYqxkXQfUYFaKG/GnR9CHs3yY5mZNy63rBrRTCOmIVd
-	 jNFUOx08kfmmgoei2UgnmNesc6pcf7JuF9mcK5fU8QwfHjZlgLCHtXp7czVvuManqj+k7
-	 mLwyksFzW/7a/gf2MVG20VLgpjVDxC9zAeuyG09XG5Q8GK5QmwScdor/c690M/CL3Yw==
+	t=1793801750;
+	b=J9O1hhSbaTqbDSOdZLaHF/Ns72yv/vxmQGwxnJJagLCPtiO3l9Xf2U7gQCZY91q1El1q
+	 CzumaBzwZmd4CdVGujB5n1VIHfOLIiVs8iXi7nEeABgXMV10KukWMS8ykfZ/tUPp6sa+W
+	 LV/PjwvPWxE3TRNWvl4tsCBi2HI8rmXomba90kBdUfn71l7O878+cIu47CRm5mQ6hnuPA
+	 oGJbFevb5RQqWNIQiYOMfXFdhw2DIJ8spHl3QGrmMAfhSLq488WqgNB1rQfXzMsVJzI6E
+	 x2h10nhJ443g7uNSfEnc8nDM+7+xCAemUnNx1xlNfSxwHVlNQMs1bg+Q0Fku3ojqTvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801729;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=P9mDSptb20RgCYQgJTchrS9a945O7hKBF0Rro4rOWTo=;
-	b=u4KIROfcWM9a4GZmNWYOFikcQUMzPb5x9W+QIbkPHW1M+GmlyD8GhYTL+eeAHg/uf2PZ
-	 Z/fOH8C2BngXX4BUZuEfMHSaNTORkKd4nZe54au+16oR2VeStyDw8RP2fuOruX0aC+6Lc
-	 n5t05cYd+TBAa/QVECQp4mAUFpotZqLFCBwy8tY2vjVroJreVYDDbQopDMqqZcnlIuRkk
-	 WXBtHoVxIOuqZ39GEF837LLlVFVJVVA/yGuMsnljTRjeB7XjlwQadFNz0T0MyOd3msf3r
-	 n07mEIQ7BGHR6IBmFbnO+IZnoj5/3uO4DrGVuMvSJxrLofU6k/mYnQVUJH6eMeeuvJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801750;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Rspamd-Queue-Id;
+	bh=Np1A/Bb9TzjHwdcPoBlBfdvQEliYOOVrjpPeCFhEzDo=;
+	b=jP2rZzjAZdPonZVOqa6cixbTGRgD0c3+AJQg/WVosHF/wETgdjM68ClgWRzORBJildc9
+	 0R8fiCGzRgTR5fvj3Ja+zc3QSy4WHMmQ48k5mfyCFmGgno83uPrjcTtQ3jokcY2KZjx7S
+	 doEE97mD967OzWQ56w7RGXQb7okIl6U2pTHE+5L9nDJbIBGFMrHaCN44YW3i+ubKUOnga
+	 gFPtbHOgM/PV6vcL+zEuTPCBuj532J4RLx7+ZACOW/vDcFeLv3usmVa0353N4+p7Bfzuj
+	 3XuvTD893PtZ+N44nb3Fq+mVeWRKJa3qFWlluEdfG+rMG/vql7SQv5fzreXmxCzfgCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qXPP6i3r;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b="ZK2B5Be/";
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB6F606D80E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:15:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BB6F606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFEE606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFEE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qXPP6i3r
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BiRNs678715;
-	Wed, 4 Nov 2026 14:15:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=P9mDSp
-	tb20RgCYQgJTchrS9a945O7hKBF0Rro4rOWTo=; b=qXPP6i3ruv2affUoFtrfzq
-	HuEW1b5mLRug73tqD2HLfBcI2e4tL8C2A6K83bmxObDpthiIfT6l9fihmm5N/Lhu
-	RRVh2qsKECHYHyaSdqC/GdRN70u0G0A4jBQqJ4WdjSRwJOzx/vCYRFz0uoQHGba8
-	QM3sFMGThzeX+Lhqu2RCpSABuLRGN+anfs8ZpJwky+YLhbYqi2GKXBdVwjsK5zs/
-	HHZCNr4oFbNNu85i5/KehGpRsN/p9kqGbyoieSBWuiuwpzod0floXhmmvle1Xivc
-	eRCv2pqNxPQ/zly9QzYOujeA+dylA9j6yLJtHp6ToPzjGm+v1oH+6yuDeJw4cw0g
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u3ma5k-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 14:15:02 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BaoKh2895009;
-	Wed, 4 Nov 2026 14:15:02 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqsf5avda-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 14:15:01 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4EEwNR50594096
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 14:14:58 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1AB312004E;
-	Wed,  4 Nov 2026 14:14:58 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 82A382004B;
-	Wed,  4 Nov 2026 14:14:50 +0000 (GMT)
-Received: from [9.43.115.84] (unknown [9.43.115.84])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 14:14:50 +0000 (GMT)
-Message-ID: <ac2eaf0b-10bf-4f58-8c9a-fd195ff569ea@linux.ibm.com>
-Date: Wed, 4 Nov 2026 19:44:48 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=ZK2B5Be/
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jKSCP3nH0zMm4C;
+	Wed, 04 Nov 2026 15:15:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793801745;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Np1A/Bb9TzjHwdcPoBlBfdvQEliYOOVrjpPeCFhEzDo=;
+	b=ZK2B5Be/HTcXbJywzS7p1kGqklpc0Qs/5CwmzUqNk9VF1nIHs0CyoJMk3EchrQswIoCwc8
+	YLtmr/RGRl9AvxUxb7n6TrAK2nHx/mZ2aWwIl4jxSv9KeZ12E9WYmooV/yGHdl2KL8flj/
+	FyBvPU1fmd4KTOLAy1jaVEViKfRYkuR7Fo2jQ/I/9gMVlGl6XdijEh0/OGPma3ywSHR80c
+	FnERCREPRiq9STVnfELdytxERLnN2mJUnXE/ZXmHUXaPwjaNznD55rhq+PtTY2BoP6K/B5
+	koDfVxT/drtvMlcbmQ8pk9frUHtt8ezp0eHgoAhEbOcojEFaHJrwA54Fuwx+bg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+Subject: [PATCH RFT 0/3] drm/amd/display: Fix the doubled AUX backlight
+ minimum on the custom curve
+Date: Tue,  3 Nov 2026 13:15:56 +0000
+Message-Id: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,216 +68,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/crash: Add only the onlined CPU's node to the
- crash FDT
-To: sashiko-reviews@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-        x86@kernel.org
-References: <20261104053848.1381005-1-vishalc@linux.ibm.com>
- <sashiko-outbox-196696@kernel.org>
-Content-Language: en-US, en-IN
-From: Vishal Chourasia <vishalc@linux.ibm.com>
-In-Reply-To: <sashiko-outbox-196696@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6aeb3de7 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=4K4iQTxZuiMNCueA7y0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 5EBu8d4rtl24D0GkzjZMtIW2Fy7tAs4D
-X-Proofpoint-GUID: BvJ_0unD2b_-CIzkNMMFO6a7aeDscCgA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NiBTYWx0ZWRfXzNAodv1jplm9
- oV2nYfQbx7iLWEWCBTnaPJHdKL81AKGTMHGDYS0MA1MD76w5S2izcJgmSVXYNKFRJBULmm9MAlM
- U3dvXWwi+8m9rmqsQIZeeRHXiud9K4btTrXylyAQionqTNjFl3MJ/6uGAxxLT7Xvyp+TQHqf5tw
- WYTEGM5q4j6hiaVmzIRODVUnX3VPIUKdsFj6MqqVwp6yOyEMR27VnH2rO/QM7Y1NFp2m+uLWD+M
- alLRUEEhoIuNBdaz5IjJeCdeTj4Sc3LvAIifhq8W98MTK7L+X0wJgMFIc5A9RCKRd9aq2gqLpHS
- zDPGmcHXwwUMHYmF2iKvhrHaxennXkKDHrUxRB3UH1z+RLD2iemTL3Ut43dvlzpPWaQNxw4Ud40
- dfffU498p3KyYBGniStnm7UZp38RJrdknINF+QnvkvnRm9Z+zWDSmW0MVjkxlxtdNl6utwyyes1
- 8myPBhw/R0w8gHzEzKg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NiBTYWx0ZWRfX0nocnygZC7Mu
- ljblV3Hwesjt9ErB4TPQCN1om438fN+Cv7jLLPJsVp7s45b98eYCOTVtLOgq8USwvfE78ABsL6r
- 0N5u643nfODZDAf9vf/XV5+G1jA/kF0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1011
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040056
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBQFryJv7QeTitAeoAco7qSLmHztL5hKY
+ kQQ727aLmdgZkfkIBxxK3YEXiXKx2dQZQH7Mn5kEpcZutKNUpUmM7lxTmTSRjaFlWkST5eh6bV
+ R9upqRk7nwINsv22Hx73F8y9j6t9sl+8Qx3EC+dtRY30AAAA=
+X-Change-ID: 20261102-amdgpu-aux-curve-min-3f6b2a1c9d4e
+To: alexander.deucher@amd.com, siqueira@igalia.com, harry.wentland@amd.com, 
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com
+Cc: Hugo Sales <hugo@hsal.es>, alex.hung@amd.com, roman.li@amd.com, 
+ mario.limonciello@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ linux-kernel@vger.kernel.org, bhawanpreet.lakha@amd.com, 
+ dri-devel@lists.freedesktop.org, ray.wu@amd.com, simona@ffwll.ch
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2198; i=hugo@hsal.es;
+ h=from:subject:message-id; bh=EotL7zGrVuTJ2BGeh5m18PxE5BZRro4hOkV4v+5E1KM=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7ea7rlJdqwL3tTrvcX9oqkm9rzcqL/X+l5LfIsU
+ 3KiaEbv1LUdpSwMYlwMsmKKLLo3PBlYJk6emVP0fAnMHFYmkCEMXJwCMJH0YIb/aRYd2zrt267L
+ O0zNEFHPCjp4U6rF86Cw2ZIXj+Z+DEh9yMjwJefA3N//7XrZ39zhubjj8jPxDb+4Gzf9ODthx/K
+ A4ntreQBqzVAe
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+X-Rspamd-Queue-Id: 4jKSCP3nH0zMm4C
 
+With an ATIF custom brightness curve, convert_brightness_from_user()
+adds the minimum brightness of an AUX backlight panel twice, so a
+request for 0 lands well above the minimum. Patch 1 fixes that, patch 2
+drops the argument the fix leaves unused, and patch 3 adds a KUnit test
 
-On 04/11/26 11:22, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] powerpc/crash: detached DLPAR CPU nodes accumulate in crash FDT in update_crash_fdt()
-> - [High] powerpc/crash: incomplete CPU subnode left in FDT on fdt_setprop() failure in update_crash_fdt()
-> --
->
-> commit f91f7035e04400925af984e21ed910579118bae0
-> Author: Vishal Chourasia <vishalc@linux.ibm.com>
->
-> powerpc/crash: Add only the onlined CPU's node to the crash FDT
->
-> This patch updates crash FDT handling on CPU online events to pass the onlined
-> CPU number to arch_crash_handle_hotplug_event() and insert only that CPU's
-> device node into the crash FDT if it is not already present, rather than
-> rebuilding all CPU nodes via update_cpus_node().
->
->> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
->> index 775895f310379..ca37006bddeae 100644
->> --- a/arch/powerpc/kexec/crash.c
->> +++ b/arch/powerpc/kexec/crash.c
-> [ ... ]
->> @@ -584,32 +585,71 @@ static int get_fdt_index(struct kimage *image)
->>   }
->>   
->>   /**
->> - * update_crash_fdt - updates the cpus node of the crash FDT.
->> + * update_crash_fdt - add the node of the onlined CPU to the crash FDT.
->>    *
->>    * @image: a pointer to kexec_crash_image
->> + * @cpu: the CPU that was onlined
->> + *
->> + * The node is added as the first child of /cpus, the same position a node
->> + * attached to the live device tree takes. Nothing is done if the FDT already
->> + * has the node, for example when an offlined CPU comes back.
->>    */
->> -static void update_crash_fdt(struct kimage *image)
->> +static void update_crash_fdt(struct kimage *image, unsigned int cpu)
->>   {
->> +	struct device_node *dn;
->> +	struct property *pp;
->>   	void *fdt;
->> -	int fdt_index;
->> +	int fdt_index, cpus_offset, node_offset;
->> +
->> +	dn = of_get_cpu_node(cpu, NULL);
->> +	if (!dn) {
->> +		pr_err("No device node found for CPU %u\n", cpu);
->> +		return;
->> +	}
->>   
->>   	fdt_index = get_fdt_index(image);
->>   	if (fdt_index < 0) {
->>   		pr_err("Unable to locate FDT segment.\n");
->> -		return;
->> +		goto put;
->>   	}
->>   
->>   	fdt = __va((void *)image->segment[fdt_index].mem);
->>   
->> -	/* Temporarily invalidate the crash image while it is replaced */
->> +	cpus_offset = fdt_path_offset(fdt, "/cpus");
->> +	if (cpus_offset < 0) {
->> +		pr_err("Malformed device tree: error reading /cpus node: %s\n",
->> +		       fdt_strerror(cpus_offset));
->> +		goto put;
->> +	}
->> +
->> +	/* Node already present, e.g. an offlined CPU came back online */
->> +	if (fdt_subnode_offset(fdt, cpus_offset, dn->full_name) >= 0)
->> +		goto put;
->> +
->> +	/* Temporarily invalidate the crash image while it is updated */
->>   	xchg(&kexec_crash_image, NULL);
->>   
->> -	/* update FDT to reflect changes in CPU resources */
->> -	if (update_cpus_node(fdt))
->> -		pr_err("Failed to update crash FDT");
->> +	node_offset = fdt_add_subnode(fdt, cpus_offset, dn->full_name);
-> [Severity: High]
-> What happens across DLPAR CPU removal and addition when update_crash_fdt()
-> only appends missing CPU nodes and never removes detached ones?
->
-> On pSeries, dlpar_cpu_remove() offlines the CPU threads (where
-> KEXEC_CRASH_HP_REMOVE_CPU is a no-op in arch_crash_handle_hotplug_event()),
-> pseries_cpuhp_detach_nodes() detaches the CPU device_node from /cpus in the
-> live device tree, and pseries_remove_processor() clears its bits in
-> cpu_present_mask so those logical CPU IDs can be reused.
->
-> Previously, update_cpus_node() deleted all existing cpu subnodes under /cpus
-> in the crash FDT and rebuilt them from the live /cpus tree, purging any
-> detached DLPAR CPU nodes. With this change, detached CPU subnodes remain in
-> the crash FDT indefinitely:
+I'm preparing a separate series that stops rounding the backlight level
+to 8 bits and the luminance to a whole percent, and removes
+convert_custom_brightness() along the way. This series stays minimal so
+it can go in on its own first. If you'd rather take it all at once, I
+can fold this fix into that series instead
 
-As mentioned in the previous paragraph, during the CPU offline path,
-crash handler doesn't update the crash image and returns early.
-update_cpus_node() is not invoked.
+PWM went through the same code until commit d422a66847a9
+("drm/amd/display: map PWM brightness through custom backlight curve"),
+which is how I found it. My laptop drives its panel over PWM, so I
+tested this with KUnit and with the amdgpu_dm_brightness trace on 7.2.9,
+before that commit. A Tested-by from someone with an AUX backlight panel
+and an ATIF curve would help: brightness 0 should give the panel's
+minimum
 
->
-> 1. kdump_extra_fdt_size_ppc64() in arch/powerpc/kexec/file_load_64.c only
->     budgets extra FDT space for possible_cpu_nodes concurrent CPU nodes:
->
-> 	if (image->type == KEXEC_TYPE_CRASH) {
-> 		possible_cpu_nodes = num_possible_cpus() / threads_per_core;
-> 		if (possible_cpu_nodes > cpu_nodes)
-> 			extra_size += (possible_cpu_nodes - cpu_nodes) * cpu_node_size();
-> 	}
->
->     When a CPU is DLPAR-removed and a CPU with a different DRC index is
->     DLPAR-added, retaining the detached node alongside the newly added node
->     exceeds possible_cpu_nodes and causes fdt_add_subnode() or fdt_setprop() to
->     fail with -FDT_ERR_NOSPACE.
-Behaviour is same as before.
->
-> 2. Because detached nodes remain under /cpus in the crash FDT,
->     smp_setup_cpu_maps() in the kdump kernel still iterates over them and
->     assigns logical CPU IDs up to nr_cpu_ids, which can push valid present
->     CPUs past nr_cpu_ids.
->
-> 3. If the same DRC index is later DLPAR-added again via
->     dlpar_configure_connector() with updated properties (such as
->     ibm,associativity), fdt_subnode_offset(fdt, cpus_offset, dn->full_name) >= 0
->     matches the stale node and skips updating its properties.
->
->> +	if (node_offset < 0) {
->> +		pr_err("Unable to add %s subnode: %s\n", dn->full_name,
->> +		       fdt_strerror(node_offset));
->> +		goto out;
->> +	}
->>   
->> +	for_each_property_of_node(dn, pp) {
->> +		int ret = fdt_setprop(fdt, node_offset, pp->name, pp->value, pp->length);
->> +
->> +		if (ret < 0) {
->> +			pr_err("Unable to add %s property: %s\n", pp->name,
->> +			       fdt_strerror(ret));
->> +			break;
->> +		}
->> +	}
-> [Severity: High]
-> If fdt_setprop() fails partway through copying the properties in
-> update_crash_fdt(), should node_offset be removed with fdt_del_node(fdt,
-> node_offset) before breaking out?
->
-> Leaving the partially populated subnode under /cpus has two consequences:
->
-> 1. Any subsequent update_crash_fdt() call for sibling SMT threads of the same
->     core (or a later re-online of the CPU) sees
->     fdt_subnode_offset(fdt, cpus_offset, dn->full_name) >= 0 and returns early
->     without populating the missing properties.
->
-> 2. If the device_type = "cpu" property was written before fdt_setprop() failed
->     on ibm,ppc-interrupt-server#s and reg, early_init_dt_scan_cpus() in
->     arch/powerpc/kernel/prom.c will match the partial CPU node during kdump
->     boot, get NULL for intserv with len left uninitialized, and dereference
->     intserv[i]:
->
-> 	intserv = of_get_flat_dt_prop(node, "ibm,ppc-interrupt-server#s", &len);
-> 	if (!intserv)
-> 		intserv = of_get_flat_dt_prop(node, "reg", &len);
->
-> 	nthreads = len / sizeof(int);
->
-> 	for (i = 0; i < nthreads; i++) {
-> 		if (be32_to_cpu(intserv[i]) ==
-> 			fdt_boot_cpuid_phys(initial_boot_params)) {
+I also wonder whether the ATIF curve is meant for AUX at all. My
+understanding is that on PWM the curve is meant to linearize the panel's
+response to the PWM signal, and that an AUX panel gets a target in nits
+and drives its own backlight to reach it. So it seems odd to me that AUX
+gets the curve too. Is it meant for AUX, or is there a different curve
+for AUX panels? This series keeps applying it on AUX, as the code does
+today
 
-Similar errors on update_cpus_node() can live the crash fdt
-inconsistent and result in crash kernel boot hangs.
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+Hugo Sales (3):
+      drm/amd/display: Add the AUX backlight minimum once on the custom curve
+      drm/amd/display: Drop the unused min argument of convert_custom_brightness()
+      drm/amd/display: Add a KUnit test for the custom curve minimum
 
->
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 14 ++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |  3 +-
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 70 +++++++++++++++++-----
+ 3 files changed, 62 insertions(+), 25 deletions(-)
+---
+base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+change-id: 20261102-amdgpu-aux-curve-min-3f6b2a1c9d4e
+
+Best regards,
+--  
+Hugo Sales <hugo@hsal.es>
+
