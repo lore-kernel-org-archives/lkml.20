@@ -1,85 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701883;
-	b=ktMUr5hzTXEvY0gAzxbiK3veVnOcLTiBb/N9hnxFPyMfOtdzIn61zzlydP/tp8erkjqG
-	 ZqGl3XFhcSsApjTcmQdzy8Rw2YnndfsPZL7F+DaxX/Zev2Y/KfGQymgY4D6tKJ2yMLHNH
-	 sLDPNrgYU+yXICFJ9HmaTwjcI75pGjz5UQlCawACkGTH/xqRwp9r+dSM6F06tGv1lnBcl
-	 ordtiD5csjxl1Bvvmn4LNU9NM2ns48JgE+0PYV0981YbNJnSvPShlaTZzeEuu4F+FeBFO
-	 /ne7YT4uA678UZ6p0fz8UGESXW0ueytr2ccoAM53iZBUkWMG4eguw3xZab/gu0hd5NQ==
+	t=1793701885;
+	b=zZZuUwkuQ+zdqkQ8NnKbBzB92sLDLAY+rH6qHpK8gpV+kob4YJ028HOL5xEu0vBtDJ/o
+	 6esbTDwGOS19BL0K7kcRsI+g4AV5NlJ/W1sMdsDSsdjquXyi6Yu0RK0c6d8RbcuofnuXX
+	 1SBAUs1CGC/XuOXIfxHqn3c3iIOv1G3spiUW8XaTNnjRMlvKFYJw12fmrtVl0PWhe9F/+
+	 M/n0WdJVaX/xqPx21dZDEIiB9/KWj6S3YKFvJpnTWF7XqeN8Gd72ikEFsKexWA0DGnBOf
+	 ryQ9782OxWQQ46gf/q2TjnLyeh2GrvDcv811anmeBbCz6bgMwSX8iIhF5uqwzWQm0xg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701883;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701885;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
 	 User-Agent:MIME-Version;
-	bh=Rs9aptcosfl4sxU2wNHY4NxTkHzvKObUn6UWa3h+nME=;
-	b=ol2c0kw7MI1iVaSOHA4g0N1h1oh9zmTNh6iXJXcSNezrhAsPDPwCcGFMtUiIpMogFSZM
-	 bfh5SmMBvpMsmPIjX5l9j6lzsB7JsAEZgGUkHylD2Qe2LexuJGadz6EcCCUF04+x03iSj
-	 860mg3mc3coj5cm5KwMFTSCvUXe/wSZIm89Nos7mxQ59eYGHTuLYLaZfDQNq9+IamxXgN
-	 57QSAU6mEXc8PzmqF994MoL9z+fK9MsmEB64aurAklJYHsX94LRtqlQd5KWDkAi8YWwkF
-	 WAfYyAyGTzyPM8ifNkrf85jbMGgJLDfkC8SPF5LQl96SyFrRgcJkMSvmQQFFb23ru3w==
+	bh=s6jlXuIWGSzJYM+4zNXCauXxsYreYDY1Mmi3dicUxAE=;
+	b=cl2vBuY7gvZmnCk3RGCVHIYcS97iSexeCvpKZgsrNhcVE4d5JsfoNKWZrE4XFuZe6HeL
+	 wo5aMQ5Ytbqf/WRCSy84vDiHuE+35yM84RYct0UJDO2nrGYbL76b8doXbTEh+n2ebK+M9
+	 qeHyXLZHlunVQmagTXC6xpS5vSB6ngtj8KY4+ma+CNDJcwJqIQA+c/5JAYklv1pbJK+T5
+	 I/tLtrcXRLyExIRpR4leH8TynnV37CVcsjEuHYTuXRSKdpXAJCx+WrdPWiXZxREd98lIL
+	 1y4Fq3S1oPlAvp/ghl88roSdbMBPBjRBGxVK0rga+NC2hsEhTIKKT9lkaw7xkNfOLTw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=P6lRlmH9;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Cv5RSPPQ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F738606BF8B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:31:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F738606BF8B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B846D606C54D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B846D606C54D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=P6lRlmH9
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Cv5RSPPQ
 Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
 	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 541C9201BAB;
-	Tue, 03 Nov 2026 11:31:19 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 23A9B202831;
+	Tue, 03 Nov 2026 11:31:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793701879;
+	s=20260414; t=1793701883;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Rs9aptcosfl4sxU2wNHY4NxTkHzvKObUn6UWa3h+nME=;
-	b=P6lRlmH9+WI0DCxkFoj8+JVeDUwNQq46p8ivdXxpyxLjFpDBovUBdaNPBKP/SXODzu7YS9
-	5+15x76kHftK/KnEZZpLOUVsagkWhEThHgICYy50tiXWA5vSaIKDYSdoBPWSZD6u8qh+aC
-	SoSGafZ4w/j8g6aOEGnGnCMKv1S/rzJU6dN3Z4NL/uvs2wvzLuXv2rYHZ34533emQ8mX0v
-	Qxrxq6bz6etkutKUHYRGny4mlJGdeXoU0oHyduGA8ITCuTvULLhj7aVdhtzdHkxYgDjbGN
-	/ex6YyeK0sJubPFPN2JtzdFXzzNwpJv30wgrRaBrfCKAbBlSyj0cpOOpPEHcBQ==
+	bh=s6jlXuIWGSzJYM+4zNXCauXxsYreYDY1Mmi3dicUxAE=;
+	b=Cv5RSPPQn30y1ZTW4fRUry8ConHRnQrBGORFkDfAzF3viA6ZQkABwURFbHN/P3UKlCt60/
+	UHTH6GI73/6U05YQezifes3e2SIxo92DpfBRp7WlFhA8Y6iw2Z40zBlqgRYG+AGJa5h8Ti
+	8JXatTSGAuIVEykZcwEdi3JCT0C1xfefLOuQRDVnNqv59KLrnAsYqtcqvnawjM20kV7EWd
+	OxQ7C0KzYfVwSeyQ/YIZy1964JcW2UYHf5w0yZ8S1s/SNeRvp8F8MIvCG7TW5nmxic2pAP
+	vI04wZan2Tq7k5dhrikF5f82ZVEfAh1XPX58Z614I5k+HpTs8UwisAzZNR1NrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793701879;
+	s=20260414; t=1793701883;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Rs9aptcosfl4sxU2wNHY4NxTkHzvKObUn6UWa3h+nME=;
-	b=FubyZAbmQq+bPiRMDFmiDkVNKV71j0fzbjidx1vr3xHI3EI5YX3BQloJ89gAMldjG+hjkk
-	MAQ2DuD87/sgJwRem4E4o0bl0u++8mfXWThb2xhRr7uzCuHgLHkRJ6pZAc+BKd/JrZ9jMY
-	oPKXohFIT5Sl/fhcitKu9R1pTioqlmHIUiWLANE848XKlF5btWAJRAmpIghaPBnwLMdHtV
-	qJIB1bknRPV28OXMA/U6PuAQiOPaFixU0uJNSz7if8LmkJXRdnw0zukWTn65VZE9d7A6DB
-	n1b2m0P/Prf+LTq9GPpBJ4BOeAM6oRhQHx2p5EmpEyoaErJ9d0PXBlF5sy+A0w==
+	bh=s6jlXuIWGSzJYM+4zNXCauXxsYreYDY1Mmi3dicUxAE=;
+	b=S5RDCzoMN3N/MZ8JQr9894KHAO9yFcGOByfeixcJmPZmt8KRys9OVuvpc3qoKbY9iROGuc
+	4wTXY6hwvU9aY7SucQ/byD1p/pZAdw6iTW8685SnLO5xor0sQNOq1P3/Fa7/Q16YqQYuHj
+	0wqNdgyhVztVi/0TgAzs9bu5SgfjFHOptyeTswCN3TCQ4u7pr98mbHGskPZdRBuPejJfAP
+	N8w/BXroCHmkbdsc8GrHfJrFKCoSlLgGPGXejoIWvoCdF/Alr0CWubTaRPh3qyQnVbu5GR
+	m0KGsVS4Pa9AeN2NKWs5svuwwsmETwbPPtCxrQbgxD+u7OJzuSil5/vUtNCadg==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793701879; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793701883; a=rsa-sha256;
 	cv=none;
-	b=VUsRnU+dEyTEWmeRWoGndG1GfUBiXbIaSKttV4pu/mt7nuQWBvquwQ7Wbu4WY2lEAfwL6f
-	TwT3aYomUlDfVzhzkamXghph/AaZ/0Od8Hvf4mz4/PndK7UhZOYqAjQw7ZvHynTmxASLxp
-	jMwnWQ2l6GIKH+LkU5Em75nq4QcLX73EmE+7qM+fCisi3E/XBBSoRUfGBxnE92Yu6GqE+6
-	jTDrzZucTTJCSfjOosQmpfEnYEExl7/G+xZLaZwhP8cu3KWZ5HnVHNS0I3ufg25UoxDRNd
-	chES1gYvOu8uRuqqWGdN7kXz/WBmTKzVWPZMz6ahdkyCLa50RNqp4kCW7KCSpA==
-Message-ID: <494e3f11c03c9d7a58bd334b899bee1417d7e122.camel@pengutronix.de>
-Subject: Re: [PATCH v4 0/2] reset: Serialize shared resets whose ops may
- sleep
+	b=Kxv4zJElW81wD8YConWNO84wqLJucmL6gFWeGdzsal3HRDzmyTsFHaKZeYmujvBqh0qJKB
+	RBmUXaX3RKG4JnA5EdJVYgmd7elpiTOV/mMyGj1Y5uphmlqX3U2kZWAL0uSGz0lSNBHvY6
+	Qp7LOv4HEUT+iwQZfdk5qLXzyEffn4ZdVE1bN16wWGNT550AdLi6zO2OeewN+UviZ+kQKB
+	h7bBPlw1NDch9vhJw7smibTTrGtctbcd3D2KJ2VkHuAgOOsD/+b6Uw3yyx22cYmIsqvy+S
+	7HPsqQhMj/dYSfhjawjf9VI60189+BOYDlqZ4fhEg+lR923uDYfpk5dXtBTW+A==
+Message-ID: <997efb02ed01baa188011d951724596a4f331184.camel@pengutronix.de>
+Subject: Re: [PATCH] reset: fix racy acquisition of exclusive reset controls
 From: Philipp Zabel <p.zabel@pengutronix.de>
-To: shengjiu.wang@oss.nxp.com, krzk@kernel.org, hansg@kernel.org, 
-	linux-kernel@vger.kernel.org, broonie@kernel.org, alvin.sipraga@analog.com
-Date: Tue, 03 Nov 2026 11:31:19 +0100
-In-Reply-To: <20261023071609.3795354-1-shengjiu.wang@oss.nxp.com>
-References: <20261023071609.3795354-1-shengjiu.wang@oss.nxp.com>
+To: Alvin =?UTF-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>, Bartosz
+ Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, linux-kernel@vger.kernel.org
+Date: Tue, 03 Nov 2026 11:31:23 +0100
+In-Reply-To: <20261022-reset-acquire-race-v1-1-adab083d7274@analog.com>
+References: <20261022-reset-acquire-race-v1-1-adab083d7274@analog.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -93,25 +93,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Fr, 2026-10-23 at 15:16 +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->=20
-> For a shared reset only the first caller runs the hardware op; the others
-> bump the refcount and return. When the op can sleep, a concurrent caller =
-can
-> return before the first caller's op has finished and then touch hardware
-> still in reset.
+On Do, 2026-10-22 at 20:06 +0200, Alvin =C5=A0ipraga wrote:
+> A given reset line may only be acquired by up to one exclusive reset
+> control at a time. If two tasks with their own exclusive controls race
+> to acquire a currently released line, only one may succeed.
 >=20
 > [...]
 
 Applied to reset/next, thanks!
 
-[1/2] reset: core: Serialize concurrent deassert/reset of shared resets
+[1/1] reset: fix racy acquisition of exclusive reset controls
       https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3Dbd357ffa1145
-[2/2] reset: gpio: Set can_sleep for the shared reset serialization
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D526bed2c313b
+?id=3D2527f6a8cfa1
 
 regards
 Philipp
