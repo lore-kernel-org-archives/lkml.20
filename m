@@ -1,53 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711695;
-	b=420IbvTO+551JfWy0HDvuFJCnZpYoGB1QTw4wCOtyZGeSbYN4V2+YXU9UrSI7Hy3MyKf
-	 yL2vS66z0A9HbZdgX89t90VcvZL+pib0AXmTRqPfekC+bfRE3cIsbGMzHMjPed5+Wyz1M
-	 PjnoLDJnkKlJnXuw5p568SmnY7A7S/z3BoTYc8X5GP8VpRTo8eqQm3v1ap1CFKBVeBrAB
-	 ZaSGzGT4XjQA6vAe7V9GkwYn9nii/sbqemfUnNIG1KuBezrRk24p3Y07RvAMSjs5OFUB0
-	 46HnnF8pL1MlkfNaWxIZTZMutsPM35/uadgKvOOQRzrIoTQx3LCboEhWkGpi2EBaB1Q==
+	t=1793711692;
+	b=LN/sT5My8cUhAZDipHi36r7CxfLHZsgu0PI02MRhNJIbbY56CodytAeMrta7jgaE9fuX
+	 OIZ91t/SEFAH92U/FckEyY4SFJfxsmCdTd8xkGGjfaSGHMxGvWHbQKX2WqtvoJn30DaLy
+	 lvRG04Qma2pjY60R/F4BCwBXgvujDCmnlrvwYTpRgOUkqrerdbp2cOm4Yy7euCSxKzq1L
+	 lNsVD5hm6xhesMqE4vpNKcin1jPQcmRv0sVnl75+KZXsVsm6dkXMGmtCOe7nWnFCONMey
+	 wCKSMnV9z0UZY+19wTzx7SwXrxIwd/LMV83z9ikM2q/QvvKXPdivOzh/KxiEQ8/BM7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711695;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OfIZX0zVNkUweF251bj/CyePsa3O8Tj5vZPXXxbgpT4=;
-	b=Eo9er7C+zOdbKycKixMxaut5bgH1PKTcnblRyN5hqxtOAk/6bhXgr8dxxTSJ/PLpv0Kv
-	 7JvKjKTPVrx4AlBVH7fE+4YtHT0buswmkmYSdmmK5GiC0mAs3x0vBbueFEQ8ZHtKg3saY
-	 VFdXjzHNtZCd9eSGctoDR/G7iP5vbgJcP5hi3je72z91slA9pQPfhtq6EY57tTjaDaMmF
-	 jEXtCqHnlZ+TjhC+qA53gYa17zSTkHSpyoOZqqlgXvqvjc3LhHBVfvXRDPVSMZH0yfHNO
-	 ZK2q9ngg9XuXnQug2L5MAkf1hxfR1fjQOeMbE2+MQytX2tU2OWg2+Yy17VUdRU/Mnig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711692;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
+	b=gTB55KKNVD2IhURIsu8r85piVs76c6vIUZY6Wgqnsy+E+VwqmYvNpLQ7ZcD5255E6G+Q
+	 gLEzAsYRS9xljqLXct38JZFC48nZZvF9dBK92yv84wruEWXMGtU2LEoBLSBVGTxoFY8xg
+	 DTYQAxgTAZqj1Oe0B+JoQACOFpZk2p4Gm6dh6NcJqLlSZQIq+A+/kcLHMQfVZRBxnPpSc
+	 Iff4/HvxlB+W9CrOkmWpkM7mFCFkrhHSXKxpa/g9w2YDAS2Pq/xOkLONMl+oI3ETeRz+B
+	 BlQ3u2IONpwGPGonbRzFTtVfGpeHAHw3g5WDKz33gQXUdWaFId/W8WUxjgDWIDkJp6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=aPyANorZ;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viVoHylw;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD2F606A32E;
-	Tue,  3 Nov 2026 13:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD2F606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0E7606A332
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:14:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C0E7606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=aPyANorZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=OfIZX0zVNkUweF251bj/CyePsa3O8Tj5vZPXXxbgpT4=; t=1793711693; x=2109071693; 
-	b=aPyANorZh63yM/FrwdVoSsfpqVGJR7ln3r1YWP1WFuM9JZ1Bb1FKHk2hS8xE9N218c6bpZVMqJP
-	m7ij8wzZ/NnXNcJaJoXQ38JewZtADbJ5ClxSQnBADLKRkJv+iAMMnRex7PVgQcxjHr/7blIrFpNPM
-	/jOu9kNbRxMz74Fel5zHD9s4XyG9x3HOt62dni+AihnVuhimTRGDP6uaEFp/ZtV6AIpxzF1LBMl99
-	Cyb4Ic+gN5Oc787xgH3vXVdEDJQggmKXzSP9EWph/OmuxhcLEGDHB0cMnmAKc+lpYJCm8b/D6JFDz
-	CPqeyka2y+2aWXsk33ve5LMHmqL6uZnMdoug==;
-Received: from [58.29.145.179] (helo=[192.168.8.237])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xOELd-001F3u-LJ; Tue, 03 Nov 2026 14:14:45 +0100
-Message-ID: <07681b2b-3960-4866-affd-43ec7190a14e@igalia.com>
-Date: Tue, 3 Nov 2026 22:14:37 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viVoHylw
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-353804b591eso7190504eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:14:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793711691; x=1794316491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
+        b=viVoHylw3O2xFHrqITHTuVW143bD5XvorRJEgsNje3zvK778fq/JxiCAd0hYnQSmqK
+         cR9EDjemET3qN4azii+Cuk4YhfXECn+TXjGbPug1c2iObS7GKW6p8sHPMs8m+zcp/4wx
+         ndrdxflaa266irios+ucQKW4NSEhRJIaQ0dM/RDT+UjjziuDK8iNygd4SouqNNSki3Du
+         hwM5Z/OzPrRyG6JxKvq0qgUgESFKehUTkliaA4Kc8taBqCu4ttdXPKVA1KQ7P7nB5/hG
+         MYsNmBviZ9Jzzz6BBsPxlVs355pApxDzgadbKPJPWbKkve6pteZPTIQe6k8mBOyVmPuH
+         9y0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793711691; x=1794316491;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
+        b=uhCghT3Khja7+AAxKg2Te4JSRiw62T8y51YNZgdqNrlLiQ+tZFH7ADVkbF+OzlKS9b
+         kE4hj/dHIB6GeJoUXaElNY1joj1M5zTVRPtNNUaEgx+vob4ASQ3y5mdrC91uwrZckQBW
+         XeyEqKJ7dFAeQ+t7KWLAxZ/O6lqt1nHYkzBlvWVFa2G18X9E47n5cBDNlL+A+G8XiG7t
+         D2CduJUenooLyS60kpDy2TWKihVnXr7/6NNYqJjCCgzvo63Be6RJcpKrhaDEE6cKjHg9
+         rWah34npu/AODAq0BnaaoezEiK2d/tY/SenStlSu/eVIJVxQADxbG1Du5e+1Q4WBKpDQ
+         26kg==
+X-Forwarded-Encrypted: i=1; AKwUvBwir3yvaHlLMhxc1c4AoRIoxiKWN37wiT9cJ9isYoFFv2qT+7UOY8bTCetDBM3FRdK+m3Qxoa7YKRdOio8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8m+PV7NXRE2fZBGx8c44d3wmSRP2YF8xipiN3nmK7n8gAy0o+T
+	N5swtHV158nMRduVCioMeowFy/KzBnGvZkX3X6SyOLnKSdVqXEJPYq2Z
+X-Gm-Gg: AYBFou1croL7msQ7SEcY+Wwr31h3jEnD+zzAErHVOvN70zlAnrJFdc/t0q9OipLg8mM
+	J9cxTyXcTjWeSuwBknvSXDAZX/6oEyavBfqxaal1x1CSg+06aeFoZd4ikht/W72IJbAF9voufKQ
+	HSoDed2k331ApokSzsT9XEocpX+iMpCEGNhAVROHJtXFB53tpipnMX6eGpJVEYGauhxHmuBD6AF
+	gaI8ESs2j0hArxCT7rF7eC3YIWLZbUIPEOVkcuJ0gFwTo+KcO7Pt+V0DRd2tut1IFrVpWlZJcF0
+	ZYdAtx3xXuJd5p0jvqEhiDIRfTmXlcoBfVRu9L0kJknjzTLRkjzvayvDx0iU9FGFEHxMyYyFbon
+	WJDnlDcQ2R0Qj4f/lFINdBEob0iYFblYQ6UHpfzUn2tu3+l/Ji8xCtCO/UQE88rEyaJZDwqqYpN
+	ub+T3X2dmYZ7f8Hsezbnm4h6t9z9VHVue/UNSrr4lpFoZ6F7CgjYs7gZLJtPy3OPmYCrXOHbHpB
+	Bl/NMckZRjER6zjnkxt7FOfLoxvC0eEUvk8L1PpdnhQ2lDApS2XdDQfZELUPne2dr8xmGYvr9Yh
+	JRB4Ecas7rCLyWYI0i1Lv+z3B20KEgVkfSQ7dCXT2NgwRHgn4zFwy90aIJvgpP1peg==
+X-Received: by 2002:a05:7301:db8a:b0:36a:279:c93f with SMTP id 5a478bee46e88-36a423fda77mr19551196eec.33.1793711690526;
+        Tue, 03 Nov 2026 05:14:50 -0800 (PST)
+Received: from arpith-debian ([2402:3a80:40d:48cf:34b0:c816:2853:c60c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm55335792eec.22.2026.11.03.05.14.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:14:48 -0800 (PST)
+From: Arpith Alexander <arpith99@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Weibin Liu <liuwb@xiaopeng.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arpith Alexander <arpith99@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: ljca: Don't require data in write replies
+Date: Tue,  3 Nov 2026 18:44:35 +0530
+Message-ID: <20261103131435.21838-1-arpith99@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,182 +99,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 1/3] selftests/bpf: libarena: Order equal rbtree
- keys FIFO
-To: Emil Tsalapatis <emil@etsalapatis.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, david.dai@linux.dev,
- Gavin Guo <gavinguo@igalia.com>, bpf@vger.kernel.org,
- sched-ext@lists.linux.dev, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com
-References: <20261028060046.549097-1-changwoo@igalia.com>
- <20261028060046.549097-2-changwoo@igalia.com>
- <DMKK7WGBASS7.2VBQTIIX6YEGS@etsalapatis.com>
-From: Changwoo Min <changwoo@igalia.com>
-Content-Language: en-US, ko-KR, en-US-large, ko
-In-Reply-To: <DMKK7WGBASS7.2VBQTIIX6YEGS@etsalapatis.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Emil,
+Commit 0fe4573c822c ("spi: ljca: validate the response length before
+copying the data") made ljca_spi_read_write() reject any response whose
+payload, as announced by r_packet->len, is not contained in the data
+received.
 
-Thanks for the review.
+That is right for reads, but the adapter acknowledges a write with only
+the packet header: r_packet->len holds the number of bytes written and
+no payload follows. The reply is 2 bytes long, so
+"ret < sizeof(*r_packet) + r_packet->len" is true and every write fails
+with -EIO.
 
-On 11/2/26 4:51 PM, Emil Tsalapatis wrote:
-> On Wed Oct 28, 2026 at 6:00 AM UTC, Changwoo Min wrote:
->> An RB_DUPLICATE tree links a new key to the left of an equal one, so
->> rb_least() and rb_pop() return the newest of several equal keys. A
->> queue of tasks keyed by vtime should instead serve equal keys in
->> arrival order, as sched_ext's vtime-ordered DSQs do.
->>
->> Send equal keys right on insert, as the kernel's rb_add() does. A new
->> node then lands after every node with an equal key. Rotations and
->> removals preserve the in-order sequence, so equal keys stay in
->> insertion order without a tie-break field.
->>
->> Add a selftest that interleaves equal keys while the tree grows and
->> checks the pop order.
->>
->> Signed-off-by: Changwoo Min <changwoo@igalia.com>
-> 
-> Hi Changwoo,
-> 
->    Patch looks fine to me, one nit below.
-> 
->> ---
->>   .../bpf/libarena/include/libarena/rbtree.h    |  6 +--
->>   .../bpf/libarena/selftests/test_rbtree.bpf.c  | 37 +++++++++++++++++++
->>   .../selftests/bpf/libarena/src/rbtree.bpf.c   | 16 +++++---
->>   3 files changed, 51 insertions(+), 8 deletions(-)
->>
->> diff --git a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
->> index 486428911d96..00e63b12d82e 100644
->> --- a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
->> +++ b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
->> @@ -45,9 +45,9 @@ enum rbtree_alloc {
->>    * the existing node.
->>    *
->>    * RB_DUPLICATE: Allow nodes with identical keys in the rbtree.
->> - * Finding/popping/removing a key acts on any of the nodes
->> - * with the appropriate key - there is no ordering by time
->> - * of insertion.
->> + * Nodes with identical keys are kept in insertion order, so
->> + * rb_least() and rb_pop() return the oldest of them. Finding
->> + * or removing by key acts on any of them.
->>    */
->>   enum rbtree_insert_mode {
->>   	RB_DEFAULT,
->> diff --git a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
->> index 856c484a009a..1e2a0fac1e4f 100644
->> --- a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
->> +++ b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
->> @@ -248,6 +248,43 @@ __weak int test_rbtree_duplicate(void)
->>   	return rb_destroy(rbtree);
->>   }
->>   
->> +#define FIFO_NR_NODES	64
->> +#define FIFO_NR_KEYS	4
->> +
->> +SEC("syscall")
->> +__weak int test_rbtree_duplicate_fifo(void)
->> +{
->> +	const u64 per_key = FIFO_NR_NODES / FIFO_NR_KEYS;
->> +	struct rbtree __arena *rbtree;
->> +	u64 key, value;
->> +	int ret, i;
->> +
->> +	rbtree = rb_create(RB_ALLOC, RB_DUPLICATE);
->> +	if (!rbtree)
->> +		return 1;
->> +
->> +	for (i = 0; i < FIFO_NR_NODES && can_loop; i++) {
->> +		ret = rb_insert(rbtree, i % FIFO_NR_KEYS, i);
->> +		if (ret)
->> +			return 2;
->> +	}
->> +
->> +	for (i = 0; i < FIFO_NR_NODES && can_loop; i++) {
->> +		ret = rb_pop(rbtree, &key, &value);
->> +		if (ret)
->> +			return 3;
->> +
->> +		/* All of key 0 in insertion order, then all of key 1, ... */
->> +		if (key != i / per_key)
->> +			return 4;
->> +
->> +		if (value != key + FIFO_NR_KEYS * (i % per_key))
->> +			return 5;
->> +	}
->> +
->> +	return rb_destroy(rbtree);
->> +}
->> +
->>   static inline int
->>   clean_up_noalloc_tree(struct rbtree __arena *rbtree)
->>   {
->> diff --git a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
->> index 7f0f6dc3e17d..e6c9430f734b 100644
->> --- a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
->> +++ b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
->> @@ -161,8 +161,14 @@ struct rbnode __arena *rbnode_find(struct rbnode __arena *subtree, u64 key)
->>   	return node;
->>   }
->>   
->> +/*
->> + * Find the node to link @key under. Smaller keys go left and everything else
->> + * right, so a new key lands after every node with an equal key and equal keys
->> + * stay in insertion order. Rotations and removals preserve the in-order
->> + * sequence, so they keep that order too.
->> + */
-> 
-> I think this description is more harm than good let's remove it. Can we also keep the
-> old name? The new one sounds like we're inserting a parent.
+Where the Intel Visual Sensing Controller (IVSC) is connected through
+the LJCA, as on the Dell XPS 13 9340, its initialisation fails and the
+camera behind it is lost:
 
-Sure, I will drop the comment and keep the original name in v2 as you
-suggested.
+  spi_ljca usb_ljca.ljca-spi.0: transfer failed len: 256
+  vsc-tp spi-INTC10D0:00: SPI transfer failed: -5
+  intel_vsc intel_vsc: error -ENODEV: init hw failed
 
-Regards,
-Changwoo Min
-> 
->>   static
->> -struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *subtree, uint64_t key)
->> +struct rbnode __arena *rbnode_insert_parent(struct rbnode __arena *subtree, uint64_t key)
->>   {
->>   	struct rbnode __arena *node = subtree;
->>   	int dir;
->> @@ -171,7 +177,7 @@ struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *subtree,
->>   		return NULL;
->>   
->>   	while (can_loop) {
->> -		dir = (key <= node->key) ? 0 : 1;
->> +		dir = (key < node->key) ? 0 : 1;
->>   
->>   		if (!node->child[dir])
->>   			break;
->> @@ -255,7 +261,7 @@ int rb_node_insert(struct rbtree __arena *rbtree,
->>   	if (rbtree->insert != RB_DUPLICATE)
->>   		parent = rbnode_find(parent, key);
->>   	else
->> -		parent = rbnode_least_upper_bound(parent, key);
->> +		parent = rbnode_insert_parent(parent, key);
->>   
->>   	if (key == parent->key && rbtree->insert != RB_DUPLICATE) {
->>   		if (rbtree->insert == RB_UPDATE) {
->> @@ -278,8 +284,8 @@ int rb_node_insert(struct rbtree __arena *rbtree,
->>   	}
->>   
->>   	node->parent = parent;
->> -	/* Also works if key == parent->key. */
->> -	if (key <= parent->key)
->> +	/* An equal key goes right, after the existing ones. */
->> +	if (key < parent->key)
->>   		parent->left = node;
->>   	else
->>   		parent->right = node;
-> 
+Only require the payload to be present when there is a receive buffer
+to copy it into. Write acks are still checked for a non-zero length that
+does not exceed the request.
+
+Fixes: 0fe4573c822c ("spi: ljca: validate the response length before copying the data")
+Cc: stable@vger.kernel.org # 6.8+
+Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+---
+Tested on a Dell XPS 13 9340: with this applied the IVSC initialises
+again and the camera works.
+
+0fe4573c822c is tagged for stable but has not been backported yet, so
+it would be good to get this in before it is.
+
+ drivers/spi/spi-ljca.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
+index 8fd001610f67..b1babd43adda 100644
+--- a/drivers/spi/spi-ljca.c
++++ b/drivers/spi/spi-ljca.c
+@@ -109,8 +109,9 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
+ 	if (ret < sizeof(*r_packet))
+ 		return -EIO;
+ 
+-	if (!r_packet->len || ret < sizeof(*r_packet) + r_packet->len ||
+-	    r_packet->len > len)
++	/* write acks carry no payload */
++	if (!r_packet->len || r_packet->len > len ||
++	    (r_data && ret < sizeof(*r_packet) + r_packet->len))
+ 		return -EIO;
+ 
+ 	if (r_data)
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.55.0
 
