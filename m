@@ -1,83 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713053;
-	b=tpS1Kqo/Ji5+f/wGxaP4JhqOKOM+8ffde5yXdZcd0OCbvQlpARpvRCRoBmhldf18odGN
-	 SW9kkjFe7r0YnqXnGrgvsUylaoiZI+BfC8YggGOoLU8IYvtaDTct6FXxjmyBZbzfMIhsL
-	 0nu+cFIM7vKLuMDyBZoh0a2RfIfJwHS8JrpxEz8VMwTw7iMn47/8g64W2wV++zLXM/GHA
-	 IYrd/C4nw0klo7ZbZ8d1Pgc5JPHsGyId7vpBRNWz6UAjZScWO6NfwU0dhUXJVSKBRHjs/
-	 1biXnQ7nYoK3Z7OpHjXxhJEQIxiyQmSVqB5Tb56RSXND0UN0Qa44TphoezicgFKapjQ==
+	t=1793713117;
+	b=A+j3LRgPPyTqs6Nwp8lV+SZ4ZSRnfI5/rAfNH2uDJv9eKffWeUPHYk34lzrDEMd1wQrq
+	 Dp2LN77HLg7HoWdrYa+TUpBC2XJbN99tTCA2cD9/i2K/WTrBXATYuUFSyB2t3Qjj590Tm
+	 PHlJBew/amrNhloP9v2G/01YZznKSlJ5UDiuTH/aTleZoB10vzaHfjgEeKWRnZnC0jcuq
+	 L4VVrLiJq80kWcQGDt5k8ezn8NhURE0Gu46TqJNu1rxgjEziVJTb3CkKMhPkDcsW1zePA
+	 UxdbOz8WQSaD6Im0HLIuKtZbB5FI4AfRMfys+A5n6jq0eAPT017aw0hWtoykvR93ZvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
-	 References:In-Reply-To;
-	bh=z8I4fwdpHZEHxjsoI7j2kaC5QiNqCfLlTB8//I16Q20=;
-	b=k97EVx1uQm9tEz3IU/AtYXigfzlhVbWkU8IznMUa+pUOkYBgPX/6IPAErpBmjmPA3fZl
-	 8M7OT3n8qbbAY3u0iMLUEzJZBSNOVFLVq9KHVZTpHP2bPzlxSX5NgEKL3jow9QtXdPf5t
-	 PDdHXYNN1vT5aR5CYg+CChEhYhlRpkQconXwEFog3Tol/UtqdQX7upJyTm0SvUGe9HfbZ
-	 d5qIC5vKXPEbjsRxX/YsV23SeNydx/WNHACAgL5Ns6uqGsIf3YSlgDzgcXesOXhPHxp/6
-	 A0UUbdV7b2yZKgNPX2sVBNRlwkz61ueG+qAVLvobXSIlqRixxT6IZopuVvv2Ujq3lsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713117;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=VwtEDaQcAhVmJ7JYis2QG6RHgDJgRtJGtpize8EwNyM=;
+	b=qqFja0GCD4gIQzgBLU2ChJ0+fLPfIOUea52htPs7GdAouuvycd4PNmFDObIoR/Ht1jmC
+	 nlnVQTs8F8+wlrGRZCo+uCDIL7GNaU17M36nHDkvMdLTFvD9sP2G55sgxRMMAkV4l+z5S
+	 L/3uhWI1VZFG78jj3P11Nt81AIS2SioVWTOKCgO12BE11JQJQ6KaIwtsuiYn4KtXOVa0K
+	 iZW+UP6Zlq55Ng2QpC7JbgICTjIEHog+JWZq0FB+lNrtT5ejjwh++Iu6FmUovkQ/Wvvu0
+	 V/25hdbduvhP5mzklGf0yFlSaFOLwf7GD1LsUImPYd8aFB9GGiAYxS235E/tknIo1lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZuOeHSCa;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fK9OJ8BN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=oQ2QNvW9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GfxejqrD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GVnFgtgW;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABB7606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:37:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ABB7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249D7606A326;
+	Tue,  3 Nov 2026 13:38:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 249D7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZuOeHSCa
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c434376dbebso161971366b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:37:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793713051; x=1794317851; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=z8I4fwdpHZEHxjsoI7j2kaC5QiNqCfLlTB8//I16Q20=;
-        b=ZuOeHSCalGGW/kf+LdsGX3X/V+G76kaicuZZtepch9j2N9yf3BoqQuUO7uIAjscwar
-         fNR823LiPdamg1xyvEX05Xbdx/+mykhO0rtfldD9xtRNHGMkuQYKxl/m1oGmUZYFTMAl
-         FSUFJhDLPsvIEaJfrDyrjpF76kQoK8TqJR0kU2+U79yvV92155XDJKPgv9gxgaydqkWy
-         ATTkxhXKOM0DsIgIeFsGBL8CWIckSL3Fd6EfB5QFpi9KwFU8HkeexHFzOhzajM7L5ZoS
-         8cigLmr81NyK7nZ6bVnrqCeDoTadNnThZQGJdqP5MxBn7Ju0kpOzVynprDWNxViacffI
-         6KqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793713051; x=1794317851;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=z8I4fwdpHZEHxjsoI7j2kaC5QiNqCfLlTB8//I16Q20=;
-        b=q/UJCbLduejZdQkvSzvh6qbwmt+Mg7Cbnnhw3/VA2ki/kqBa8VBzq8blDnhiC7QAe+
-         lHvuv5cuT8d5cgT/b1LmgxHysLePk1RBePvzSC1td5rUhCIg0XmmJGE/91Q/1X25rrvf
-         wSVVYoLyUaTjy24heWsiG0z6fOnQ4T+S7/hYc0qosmenROyLd89afD2DxznvhRE8LkFb
-         65Q5i1ixJG5UXLP/XQxBFVfAzfp54A2Fpf9bB7QAiP3JMtlaZT/EFktq/OSCR5z2feZ2
-         3FgcDb1nU+tFe+lWVDl79oDDs28YH5sIBzzkhKALKv2V7mYVi0FW34qqcFUxK1klDki5
-         vwWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxSOfH7D9Pzu+3Z34b45QcWlQFuwAclGaunmD7gTxCw3fZ8KvWRvXBxYMCG8+7ENKgDOFqSiOaeyHD9qyE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Cd/MMbWBmhdQI3jtet24d8STcjlt1Tp+2ggjMXkuYyZmkTjHV
-	AU3PeuYKf47cOMwoeog40rI1SJN7kMGRDcukpblUys4ObJVZOCGD+9WU
-X-Gm-Gg: AYBFou2vJJt4A+j8JQ6mWP4OxlDcAnAiwyRC/XvtA8xDBY0Ra4oIx/xiNIQAzl/qn1e
-	CTxtaWj6RCqkldGHQ9478EtMmx0HJyVqSywsvJ6/SGrx83zNtWCk/ExneHW9xOANuFm5UXjWiew
-	FptIguOdG6ygTKInENjUjxQsmi+08wGlz0REH4Ez6rlWRxWWaxN/P4k+oFHKJIIpibxT3jwP/zj
-	C1BZDUwEsSLWdIVG4q3kKp9J8xz2v/1EHYkAvBWpF8HfZ/QJEbRPuSBTthiYFp8fpJ/5d4BftZH
-	S2VxmyPuUQbPlJmqfY9jFRmdistPNX+ag25o0Lr/ds8aqAVjx91vKNuG2B9B2oDwHo4P0sRg6e+
-	Zt40T8MJ/umAKoEnafbaHf5fPjYzzkPZtsO01F1zanKA5vWBU4tma46eQ1opyCWtJSczg9Z2oix
-	Bdw9pCOEZb21sIeOtkVx/7bYyRryljJMl9+Ba318V7NGYDmGOxlN/2yqHZNw/1pM1dqvOYhAKNK
-	HsZF12EpYEuCkXSS3Mk1JE8lvRR7Q6aulZS7N/vaUX/r3INGn01SroluadDfQ7rXxIJaSSa+SMM
-	dZaJLWdjiK6vjn9ek+nElbmYdSuhBTJ7c8OUv447QtSc3+US
-X-Received: by 2002:a17:906:7093:b0:c4c:b683:363a with SMTP id a640c23a62f3a-c4cb6833696mr550318166b.20.1793713050430;
-        Tue, 03 Nov 2026 05:37:30 -0800 (PST)
-Received: from localhost ([130.192.98.149])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm28064453f8f.6.2026.11.03.05.37.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 05:37:29 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fK9OJ8BN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=oQ2QNvW9;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GfxejqrD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GVnFgtgW
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E17121FB80;
+	Tue,  3 Nov 2026 13:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793713115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VwtEDaQcAhVmJ7JYis2QG6RHgDJgRtJGtpize8EwNyM=;
+	b=fK9OJ8BNI9aFq2ckciDxFFRzZSJOQbPQhL/Jioi2978AmliL+wz+xMPyiD0UX0tz9JEewd
+	K9Qy6Ik2DOZiCU+62rKQbeteVfQkUtYIWx7gvC8gWhnbpIOjodXQh3hf1XDusyq9YIWZh0
+	zXKgOaCfQOwP/cWIafyk8AEpEnsvbng=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793713115;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VwtEDaQcAhVmJ7JYis2QG6RHgDJgRtJGtpize8EwNyM=;
+	b=oQ2QNvW9ltAmIDJSwbHEx03IPD2xbKC5ZRY2nTHMdMICuV7+yIc9RfqvctXTy8EMQS4Buh
+	EoJc2EWrWOFCiQCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793713114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VwtEDaQcAhVmJ7JYis2QG6RHgDJgRtJGtpize8EwNyM=;
+	b=GfxejqrDcSQuy3ht0KaTITE0qUp0G5cPTk5r8YpZk5nA3OV9/4DRfD47Y8jApjEm2cTaoG
+	UajEi6W0pV6z4LnGYJcy6kpvPIqb+gD9OHcVlVCe0/OTCGKgkcoMHHWSR/sJDa/4mb1dCm
+	aNoKFtcXzCBwFb2j35yujFju3xyF+Zs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793713114;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VwtEDaQcAhVmJ7JYis2QG6RHgDJgRtJGtpize8EwNyM=;
+	b=GVnFgtgWSPNFvkdLx2A9GYbgN3wUlmyGTdnZwalznI3alnRXGLJFKw2S9dbE++humhkZcu
+	vgEWc+ssAYj4aTAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 57169134B8;
+	Tue,  3 Nov 2026 13:38:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id I67sC9rj6WoUSgAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 13:38:34 +0000
+Message-ID: <9d264274-adcd-4e01-afe4-dbb96bb1ecd0@suse.de>
+Date: Tue, 3 Nov 2026 14:38:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,555 +105,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=b8a5d7c24979484bc010700948d777a4b3d3da4f8cc6b6d0af825f593776;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 03 Nov 2026 14:37:18 +0100
-Message-Id: <DMLM7E5X17UG.AOHJCH4UYMLZ@gmail.com>
-Cc: "Amir Goldstein" <amir73il@gmail.com>, "Andreas Dilger"
- <adilger@dilger.ca>, "David Sterba" <dsterba@suse.com>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
- <sj1557.seo@samsung.com>, "Konstantin Komarov"
- <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
- <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
- <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
- <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
- Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
- <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
- <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>
-Subject: Re: [RFC PATCH v3 3/5] ntfs3: make crtime user-settable using ptime
-From: "koraynilay" <koray.fra@gmail.com>
-To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, "koraynilay"
- <koray.fra@gmail.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261101015551.786044-4-koray.fra@gmail.com>
- <20261102142452.d6jkitgdeuquy23i@pali>
- <CAOQ4uxhQ3uhq6s+4deEJAQV5iy8QZoucojR58_dUNYrnjt_yvA@mail.gmail.com>
- <20261102153845.d67wlorqcbe3c2w7@pali>
- <DD1A08F1-8F47-4612-A807-AEA39461AF9B@dilger.ca>
- <CAOQ4uxh8EDX5HzFFKWv10-mHYVcSC1zXN+BS2qCm5cTMq=GOCA@mail.gmail.com>
- <20261103094906.n55n5dhrpct5ykmw@pali>
- <DMLIYIKP2CN8.3VGUCOLTMZC5J@gmail.com>
- <20261103113835.7kndzvvegrkwjlsd@pali>
- <DMLKDOZWVDTU.GLUJUDOZES2V@gmail.com>
- <20261103124816.m27zk5c75lzee272@pali>
-In-Reply-To: <20261103124816.m27zk5c75lzee272@pali>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 3/5] tls: update the RX key when a KeyUpdate
+ is received
+To: Martin Belanger <martin.nvme.dev@gmail.com>,
+ John Fastabend <john.fastabend@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Sabrina Dubroca <sd@queasysnail.net>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>,
+ kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Martin Belanger <martin.belanger@dell.com>
+References: <20261102-keyupdate-rfc-v4-0-f17419972b9f@gmail.com>
+ <20261102-keyupdate-rfc-v4-3-f17419972b9f@gmail.com>
+ <dd6d8c92-a96c-4bb3-aee1-a28f2156fb9d@suse.de>
+ <46288afa-affe-4262-bd0d-38a16f4608b4@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <46288afa-affe-4262-bd0d-38a16f4608b4@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,queasysnail.net,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TAGGED_RCPT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.79
+X-Spam-Level: 
+X-Spam-Flag: NO
 
---b8a5d7c24979484bc010700948d777a4b3d3da4f8cc6b6d0af825f593776
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On 11/3/26 12:23 PM, Martin Belanger wrote:
+> 
+> 
+> On 11/3/26 02:15, Hannes Reinecke wrote:
+>> On 11/2/26 5:58 PM, Martin Belanger via B4 Relay wrote:
+>>> From: Martin Belanger <martin.belanger@dell.com>
+>>>
+[ .. ]
+>>> @@ -2023,9 +2041,8 @@ ssize_t tls_sw_splice_read(struct socket *sock, 
+>>> loff_t *ppos,
+>>>       if (err)
+>>>           goto splice_read_end;
+>>> -    if (!skb_queue_empty(&ctx->rx_list)) {
+>>> -        skb = __skb_dequeue(&ctx->rx_list);
+>>> -    } else {
+>>> +    skb = __skb_dequeue(&ctx->rx_list);
+>>> +    while (!skb) {
+>>>           struct tls_decrypt_arg darg;
+>>>           err = tls_rx_rec_wait(sk, nonblock, true, false);
+>>
+>> Why this change? Looks a bit out of place here...
+> 
+> splice() handles a single record. With this patch,
+> tls_rx_one_record() returns 1 for a KeyUpdate that the kernel
+> consumed. splice() then frees that record and has no skb to pass to
+> the user, so it must wait for the next record. The loop does that.
+> recvmsg() and read_sock() already loop over records, so there a
+> "continue" is enough.
+> 
+> The unconditional __skb_dequeue() only sets skb for the loop test.
+> It returns NULL on an empty queue, so it does the same as the old
+> skb_queue_empty() check.
+> 
+> I can move the restructuring into a separate patch without a
+> functional change, if you prefer.
+> 
+Yes, I guess that would be best. Having a separate patch also allows
+you to describe the rationale (as you just did) and avoids confusion
+why a change for 'splice' ended up in a keyupdate patch.
 
-On Tue Nov 3, 2026 at 1:48 PM CET, Pali Roh=C3=A1r wrote:
-> On Tuesday 03 November 2026 13:11:30 koraynilay wrote:
->> On Tue Nov 3, 2026 at 12:38 PM CET, Pali Roh=C3=A1r wrote:
->> > On Tuesday 03 November 2026 12:04:39 koraynilay wrote:
->> >> Hi and sorry for the late reply,
->> >>=20
->> >> On Tue Nov 3, 2026 at 10:49 AM CET, Pali Roh=C3=A1r wrote:
->> >> > On Tuesday 03 November 2026 09:23:32 Amir Goldstein wrote:
->> >> >> On Tue, Nov 3, 2026 at 2:19=E2=80=AFAM Andreas Dilger <adilger@dil=
-ger.ca> wrote:
->> >> >> >
->> >> >> > On Nov 2, 2026, at 09:38, Pali Roh=C3=A1r <pali@kernel.org> wrot=
-e:
->> >> >> > >
->> >> >> > > On Monday 02 November 2026 16:09:41 Amir Goldstein wrote:
->> >> >> > >> On Mon, Nov 2, 2026 at 3:24=E2=80=AFPM Pali Roh=C3=A1r <pali@=
-kernel.org> wrote:
->> >> >> > >>>
->> >> >> > >>> On Sunday 01 November 2026 02:55:49 koraynilay wrote:
->> >> >> > >>>> @@ -154,6 +158,11 @@ int ntfs_fileattr_set(const struct mnt=
-_idmap *idmap, struct dentry *dentry,
->> >> >> > >>>>      if (flags & FS_APPEND_FL)
->> >> >> > >>>>              new_fl |=3D S_APPEND;
->> >> >> > >>>>
->> >> >> > >>>> +     if (fa->fsx_xflags & FS_XFLAG_PTIME) {
->> >> >> > >>>> +             ni->i_crtime.tv_sec =3D fa->fsx_ptime.tv_sec;
->> >> >> > >>>> +             ni->i_crtime.tv_nsec =3D fa->fsx_ptime.tv_nse=
-c;
->> >> >> > >>>> +     }
->> >> >> > >>>> +
->> >> >> > >>>>      inode_set_flags(inode, new_fl, S_IMMUTABLE | S_APPEND)=
-;
->> >> >> > >>>>
->> >> >> > >>>>      /* Save nodump flag to return in ntfs_getattr. */
->> >> >> > >>>> @@ -275,8 +284,9 @@ int ntfs_getattr(const struct mnt_idmap=
- *idmap, const struct path *path,
->> >> >> > >>>>      if (unlikely(is_bad_ni(ni)))
->> >> >> > >>>>              return -EINVAL;
->> >> >> > >>>>
->> >> >> > >>>> -     stat->result_mask |=3D STATX_BTIME;
->> >> >> > >>>> +     stat->result_mask |=3D (STATX_BTIME | STATX_PTIME);
->> >> >> > >>>>      stat->btime =3D ni->i_crtime;
->> >> >> > >>>> +     stat->ptime =3D ni->i_crtime;
->> >> >> > >>>
->> >> >> > >>> For me this patch looks dangerous. Somehow I would expect th=
-at the
->> >> >> > >>> "btime" will never change for existing inode.
->> >> >> > >>>
->> >> >> > >>> But because the ptime is mapped to i_crtime and ptime is set=
-table from
->> >> >> > >>> userspace, with this patch it is directly possible to change=
- btime.
->> >> >> > >>>
->> >> >> > >>>
->> >> >> > >>>
->> >> >> > >>> I was thinking more about it... Is not this just misundersta=
-nding of how
->> >> >> > >>> the security model around the times is working on different =
-systems?
->> >> >> > >>> Because on NTFS there is stored just one field which says wh=
-en the file
->> >> >> > >>> was created. There are not two fields like "time set by user=
- and time
->> >> >> > >>> set by system".
->> >> >> > >>>
->> >> >> > >>> Windows security model allows anybody with WRITE_ATTRIBUTES =
-access to
->> >> >> > >>> change that create time. Linux security model does not allow=
- to change it.
->> >> >> > >>>
->> >> >> > >>> NTFS in this view is just a filesystem like any other (ext4,=
- btrfs, ...).
->> >> >> > >>> In my opinion if the ext4 or btrfs filesystem is correctly i=
-mplemented
->> >> >> > >>> on Windows systems, then Windows security model should handl=
-e it in the
->> >> >> > >>> same way like for NTFS or exFAT. So if something grants WRIT=
-E_ATTRIBUTES
->> >> >> > >>> access, then Windows should allow to change also btime on ex=
-t4 or btrfs.
->> >> >> > >>>
->> >> >> > >>>
->> >> >> > >>>
->> >> >> > >>> On the other hand, I understand the use case to have two cre=
-ation times.
->> >> >> > >>> One time which would never be changed and could be used for =
-any kind of
->> >> >> > >>> atomic / synchronization by userspace application logic (thi=
-s btime).
->> >> >> > >>> And another time for human which can be changed at any time =
-to any value
->> >> >> > >>> which user wants (this ptime).
->> >> >> > >>>
->> >> >> > >>> In any case, I would suggest that filesystem driver would no=
-t report to
->> >> >> > >>> userspace unsupported values and would not try to invent oth=
-er values
->> >> >> > >>> and lying about them.
->> >> >> > >>
->> >> >> > >> But all those fs with mutable creation time already report it=
- with STATX_BTIME
->> >> >> > >> so what can we do about this?
->> >> >> > >
->> >> >> > > Well, what I wanted above to point out is that the "mutability=
-" of
->> >> >> > > creation time is not feature of filesystem, but in my opinion =
-rather
->> >> >> > > property of the security model on the running operating system=
-.
->> >> >> > >
->> >> >> > > Maybe better question is: how ext4 btimes differs from the ntf=
-s btime?
->> >> >> > > In my opinion there is no much difference, both of them has me=
-aning
->> >> >> > > "time when was the file created".
->> >> >> > >
->> >> >> > >> If userspace requests both STATX_BTIME|STATX_PTIME in mask ar=
-g,
->> >> >> > >> those fs could technically return only STATX_PTIME and it sho=
-uld not regress
->> >> >> > >> existing programs.
->> >> >> > >>
->> >> >> > >> But this is still a bit surprising behavior is it not?
->> >> >> > >>
->> >> >> > >> Thanks,
->> >> >> > >> Amir.
->> >> >> > >
->> >> >> > > I'm not sure what to do with it.
->> >> >> > >
->> >> >> > > If we allow to change btime of ntfs then for consistency we sh=
-ould also
->> >> >> > > allow to change btime of ext4.
->> >> >> > >
->> >> >> > > Maybe another idea... define new capability which would allow =
-to change
->> >> >> > > btime (on any filesystem)? This would at least make the consis=
-tency.
->> >> >>=20
->> >> >> Pali, I think this is a very bad idea.
->> >> >
->> >> > Ok, if the point is that ext4 btime must stay immutable then it is =
-a bad idea.
->> >> >
->> >> >> This has nothing to do with capabilities.
->> >> >> The Windows and MacOS filesystems have allowed setting their
->> >> >> "creation time" forever
->> >> >
->> >> > FreeBSD for some fs allow it too (see below).
->> >> >
->> >> >> and for all the other Linux filesystems that had
->> >> >> "birth time" it was immutable, so let's not mix filesystem feature=
-s
->> >> >> with capabilities.
->> >> >
->> >> > I think that it is important to first define behavior and invariant=
-s of
->> >> > these "btime" and "ptime" kernel properties.
->> >> >
->> >> > If we want to be consistent then there are two possible options:
->> >> >
->> >> > 1. If we choose that the STATX_BTIME is immutable then no kernel fs
->> >> >    driver should allow to change.
->> >> >
->> >> > 2. If we choose that the "NTFS create time" is reported via STATX_B=
-TIME
->> >> >    then STATX_BTIME is not immutable at all.
->> >> >
->> >> > These two options cannot be chosen together because option 1 would
->> >> > implie that the modifiable "NTFS create time" cannot be reported ov=
-er
->> >> > STATX_BTIME.
->> >> >
->> >> > We are have currently STATX_BTIME immutable and "NTFS create time"
->> >> > reported via STATX_BTIME.
->> >> >
->> >> > If we want to stay _consistent_ across fs drivers then adding API f=
-or
->> >> > changing "NTFS create time" would break one of those two things.
->> >> >
->> >> > In my opinion we should stay consistent across filesystem drivers a=
-nd
->> >> > provide unified behavior of APIs independently of used filesystem.
->> >> > Otherwise userspace applications would have to write fs specific co=
-de
->> >> > for doing their use cases (and we can stay with fs-specific xattrs,=
- no
->> >> > need to create unified APIs).
->> >> >
->> >> > Does it make sense? Or it is still a bad idea to think about it in =
-this way?
->> >>=20
->> >> Personally I think in this discussion we should separate linux
->> >> filesystems vs non-linux filesystems, as linux filesystems are "ours"
->> >> and are the ones we can change as we want, while non-linux filesystem=
-s
->> >> are not made by "us" and cannot be easily changed (like NFS I would s=
-ay)
->> >> or cannot changed at all (e.g. NTFS (well, unless we make ntfs
->> >> incompatible with windows lol)).
->> >>=20
->> >> But I understand why it would be better to keep a unified API across =
-all
->> >> filesystems, even "non-official" ones, so I can think of 2 options
->> >> (well, with ntfs/exfat in mind, as I don't know much about NFS/smb):
->> >
->> > SMB for timestamps has exactly same meaning and storage format as NTFS=
-.
->> > So it should be pretty straightforward what to do with it.
->> > NFS3 does not have btime at all. And NFS4 has FATTR4_TIME_CREATE attr
->> > which I described in previous email (there is no more info). So based =
-on
->> > the decision of 1 or 2, that NFS4 attr would either map to btime or pt=
-ime.
->>=20
->> Ah ok, thanks.
->>=20
->> >>=20
->> >> 1) keep btime aliased to ptime, which means that (to userspace) btime
->> >>    would be mutable for ntfs/exfat/vfat/etc
->> >>=20
->> >> 2) move ntfs/exfat/vfat/etc's cr_time from btime to ptime, effectivel=
-y
->> >>    "removing" btime from those FSs and "keeping" only ptime; in this =
-case
->> >>    stat would show "-" for Birth:, but would show the correct timesta=
-mp for
->> >>    Origin:/Create:/Provenance:/...
->> >>=20
->> >> I prefer 1) because it probably breaks less scripts, but 2) would be
->> >> more correct semantically.
->> >
->> > My personal opinion is 2) because the btime stay immutable also in
->> > userspace and is also more correct semantically.
->> >
->> > Another argument why 2) should be less breaking change: Userspace
->> > applications have to already expect that the btime is not filled at al=
-l
->> > (e.g. when filesystem does not support it or when application is runni=
-ng
->> > on older kernel version without such support).
->>=20
->> Right, I didn't think of that.
->>=20
->> > My opinion is that if the _new_ API provides two different timestamps
->> > based on the filesystem then we should report it as is, so userspace c=
-an
->> > decide how to want to process them. For example full 1:1 clone backup
->> > application would want to preserve both btime and ptime and correctly
->> > indicate if one of them is not available (e.g. because underlying fs
->> > support only one of those times, like NTFS). And such full 1:1 clone
->> > backup application do not want to "invent" some unavailable values.
->> > Option 1) would not allow to do that for such applications.
->>=20
->> Ok yes I agree, I'll update the ntfs/exfat patches to switch btime for
->> ptime then.
->
-> Well, what I wrote is my personal opinion, not the decision from this lis=
-t.
+Cheers,
 
-Right, I don't have a strong personal preference either way, so I'll
-wait for more feedback (so there's also less diff between v3 and v4).
-
->> >> And both break at least 1 existing script anyway (as per https://xkcd=
-.com/1172/).
->> >
->> > Yes. And that is because we want a new feature which allows changing
->> > something which was immutable. So we need to handle it somehow.
->> >
->> >> >> >
->> >> >> > I think the ext4 and xfs maintainers have repeatedly said that b=
-time/crtime
->> >> >> > attribute should not be modified by users.  There was a long dis=
-cussion on
->> >> >> > this from Ted as well, and the reality is that "creation" time i=
-s not worth
->> >> >> > the bits that it is written on,
->> >> >>=20
->> >> >> This is an opinion of individual people, who did not lay out techn=
-ical
->> >> >> arguments.
->> >> >> I have concrete technical arguments in favor of first class creati=
-on time for
->> >> >> ext4/xfs from my experience with production systems that need it a=
-nd use xattr
->> >> >> to store it (by smbd), but I am not going to list them here becaus=
-e
->> >> >> this is not a
->> >> >> thread about implementing mutable creation time for ext4/xfs.
->> >>=20
->> >> For my (backups, preservation) use case, making btime mutable would a=
-lso
->> >> be fine, but I can see the value of having a "ctime" for creation, he=
-nce
->> >> this RFC.
->> >>=20
->> >> >>=20
->> >> >> > since it is not preserved by any tools, has
->> >> >>=20
->> >> >> Facts check:
->> >> >>=20
->> >> >> # NEWS for rsync 3.2.3 (6 Aug 2020)
->> >> >>=20
->> >> >> ## Changes in this version:
->> >> >> ...
->> >> >>  - Added [`--crtimes`](rsync.1#opt) (`-N`) option for preserving t=
-he file's
->> >> >>    create time (I believe that this is macOS only at the moment).
->> >> >>=20
->> >> >> Incidentally, I have an implementation for --crtimes for cifs [1],=
- but this
->> >> >> is not extendable to support all the filsystems which support sett=
-able crtime.
->> >> >
->> >> > Another two facts check:
->> >> >
->> >> > FreeBSD has also API for changing "birth (creation) times".
->> >> > It is documented in utimes(2) manpage:
->> >> > https://man.freebsd.org/cgi/man.cgi?query=3Dutimes&sektion=3D2
->> >> >
->> >> > So I guess that there has to be some tool which is using this API a=
-nd
->> >> > therefore these "birth (creation) times" are preserved.
->> >> >
->> >> >
->> >> > NFS4 has time_create attribute (FATTR4_TIME_CREATE=3D50) which is
->> >> > per-fs-object read-write attribute and defined (in RFC8881 5.8.2.40=
-.) as:
->> >> >   The time of creation of the object. This attribute does not have =
-any
->> >> >   relation to the traditional UNIX file attribute "ctime" or "chang=
-e time".
->> >> > Since NFSv4.1 it can be even specified during creating a new file/d=
-ir
->> >> > which seems to be for backup-restore. And permissions (RFC8881 6.2.=
-1.3.1.):
->> >> >   ACE4_WRITE_ATTRIBUTES
->> >> >   Operation(s) affected: SETATTR of time_access_set, time_backup,
->> >> >     time_create, time_modify_set, mimetype, hidden, system
->> >> >   Discussion: Permission to change the times associated with a file=
- or
->> >> >     directory to an arbitrary value. Also permission to change the
->> >> >     mimetype, hidden, and system attributes. A user having ACE4_WRI=
-TE_DATA
->> >> >     or ACE4_WRITE_ATTRIBUTES will be allowed to set the times assoc=
-iated
->> >> >     with a file to the current server time.
->> >> >
->> >> > I'm not sure if there is some backup/restore tool which do it over =
-NFS4
->> >> > but the NFS4 description seems to be very clear that the network pr=
-otocol
->> >> > itself is already prepared for these use cases. And permissions mos=
-tly
->> >> > matches the SMB / NTFS / Windows security model.
->> >> >
->> >> >> > a "vague" meaning (is it when the *file* was created, when the *=
-content* was
->> >> >> > created, do edits update it, is it preserved across filesystems,=
- archives,
->> >> >> > etc.) and adding it into the filesystem is misplaced effort.
->> >> >>=20
->> >> >> Sorry now you are talking nonsense. Meaning has nothing to do with=
- it.
->> >> >> This is a property of filesystems (plural) which have documented A=
-PIs
->> >> >> and documented network protocols - it is what it is.
->> >> >>=20
->> >> >> If you are looking for a meaning, it is the first publication date=
-, whether
->> >> >> it means something to you is irrelevant - what's relevant is that =
-customers
->> >> >> use it and want to preserve it in backups, whatever its meaning is=
-.
->> >> >
->> >> > I agree here. I also heard lot of times that users (customers) want=
- to
->> >> > preserve create time in backups and be able to restore it. And that
->> >> > Windows is already able to do it, Linux not yet.
->> >>=20
->> >> Hi I'm one of those users, I still can't believe no-one has implement=
-ed
->> >> something like this yet since POSIX came out way back when (*cry*).
->> >>=20
->> >> > Maybe what is a "vague" here is where that "create time" is stored =
-and
->> >> > from which (API) source is GUI (or CLI) application showing it to u=
-ser.
->> >> >
->> >> >> >
->> >> >> > Storing it as an xattr has some reasonable chance of being prese=
-rved across
->> >> >> > tar/cp/filesystems, and doesn't introduce a herculean effort of =
-changing
->> >> >> > all of the system calls and on-disk formats for every filesystem=
-.
->> >> >> >
->> >> >
->> >> > I think the part "being preserved across tar/cp/filesystems" is
->> >> > relevant. If a completely new API is introduced into Linux then it =
-means
->> >> > that every existing backup tool would not be able to preserve this
->> >> > property and also would not be able to restore it.
->> >> >
->> >> > I'm not sure if we can do anything with this issue, but it is impor=
-tant
->> >> > to know about this limitation.
->> >>=20
->> >> My thinking for this RFC would be to then submit relevant patches als=
-o
->> >> to at least the main tools I use like tar, cp, rsync and vim, which w=
-ill
->> >> hopefully make it gain momentum and be supported also in other less
->> >> well-known tools (I would also love for it to be supported by HTTP li=
-ke
->> >> mtime is, but that will likely be a lot more difficult to get accepte=
-d
->> >> and implemented).
->> >
->> > If having two btime and ptime fields would be the direction then we ca=
-n
->> > propose an extension for NFS4 protocol with a new attribute (as NFS4 h=
-as
->> > currently only one). There are already some NFS4 extensions which come=
-s
->> > from Linux or was inspired, e.g. umask or xattr support.
->>=20
->> Yes that would be nice, so when making the patch for nfs (in v4 or v5),
->> should I treat FATTR4_TIME_CREATE as ptime and maybe try to add the
->> needed code for a new btime?
->
-> That is good question and I do not have any definite answer how should
-> Linux handle it.
->
-> The reason is very simple. If you look at the FATTR4_TIME_CREATE in
-> specification (basically I have copied everything about it in previous
-> emails) it is short and does not say which one it should be.
->
-> I was implementing commercial NFS+SMB server with a hard requirement on
-> compliance with both protocols at the same time and also interop between
-> them. So from this my perspective by reading NFS4 spec with knowledge of
-> how SMB server should behave and how are designed Windows/SMB attributes
-> and permissions into NFS4, if I was asked to which of "ptime" or "btime"
-> I should map the FATTR4_TIME_CREATE then I would say it is "ptime".
-> Reasons: all those time attributes are R/W (like in SMB/Windows),
-> all of them require WRITE_ATTRIBUTES acl permission (like in SMB/Windows)
-> and we somehow agreed that Windows "create time" matches the "ptime",
-> and also because the request from from SMB to change create time would
-> not result in changing the linux "immutable btime". Basically in that
-> NFS4 spec I see a connection between FATTR4_TIME_CREATE and SMB create ti=
-me.
->
-> But please this my analysis not from the Linux perspective, but rather
-> from the FS server perspective with respect to the NFS4 and SMB protocols=
-.
-> I'm just giving inputs here.
-
-I also agree that FATTR4_TIME_CREATE should map to ptime, mainly because
-in the spec you posted it says it's user-settable with the right
-permissions, while btime wouldn't be (and semantically it wouldn't make
-sense to be able to, considering btime means "inode creation time").
-
-Best,
-koraynilay
-
->> Thanks,
->> koraynilay
->>=20
->> >> > About the part "introduce a herculean effort of changing all of the
->> >> > system calls and on-disk formats for every filesystem.". In my opin=
-ion
->> >> > it is better to do that cleanup (maybe even in all stat-related
->> >> > syscalls) if it makes things easier and prevents another technical
->> >> > issues.
->> >> >
->> >> >>=20
->> >> >> As I said I can provide data for why the xattr approach taken by s=
-mbd is
->> >> >> limited and inferior, but this is not the place to get into it (th=
-ere are hints
->> >> >> in the rsync commit message below).
->> >> >>=20
->> >> >> Thanks,
->> >> >> Amir.
->> >> >>=20
->> >> >> [1] https://github.com/amir73il/rsync/commits/cifs-crtimes/
->> >> >
->> >> > I would say that xattr does not solve this issue too.
->> >>=20
->> >> I would also like to note again that xattrs aren't available to symli=
-nks
->> >> (or other special files), which would break at least my backup/preser=
-vation
->> >> use case.
->> >>=20
->> >> Best,
->> >> koraynilay
-
-
-
---b8a5d7c24979484bc010700948d777a4b3d3da4f8cc6b6d0af825f593776
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRJ2XvJtXGwULYEerQ0bnTtJTDoOAUCaunjjgAKCRA0bnTtJTDo
-OBCMAQDUp2CJtyRW7WbFqkhgGVQxt6/K0KLBxryACyOPZaLaXwEA3qYj7EV55tWu
-W7Yc1QH/pjeFNiRY0kJ/xtLxJAL6TA4=
-=Szox
------END PGP SIGNATURE-----
-
---b8a5d7c24979484bc010700948d777a4b3d3da4f8cc6b6d0af825f593776--
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
