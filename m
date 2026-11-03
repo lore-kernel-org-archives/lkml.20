@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793666778;
-	b=nWVh+xOu3XnwG0C2tT49eR6b8fopBPCv63qL+1nuHnwa1wly/U9ONr1DRrgn88ldzPJi
-	 atH2GJUL1fXXtpQG9B0QlHdFwUnFfPxE6J30xEsSEpthYiy9lkhbDGbQM//4xMInmujFt
-	 BOoeiqoCgc09PJfPKCiujvb/jXVBwHnWbraFeG8uYR1sdUaZFwgHqKuc0r2ks45zC6gVp
-	 G4hQIwc2v9pmkoRmfyc02MdsYSdChylWsrhcgOd4Rgo5+MQN0Gki0NxxVshUL8APm1D34
-	 tcm4UrmCM/nBIvDgoMEU6sKldEzokLEGG46DxiiQ+511pvR7fFs6j+sGVBwK6VzPePg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793666778;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=P6zdhMrVQdSbUCSy9T5hCPdt8mnqgszANMMXRfbHvQA=;
-	b=aODpd8nr2P00jTMkPvUyjGlfv7At2a9CuS2cpCGFRdl7c2m5f1r8go+z5wpfdrSCLUwj
-	 vyy6XHNFk34WTOYxKMUotxBTkp1QGTlCF/XzwX8Xps6G01gUjgoRCp9v0IFMK6PKJePxw
-	 ra4wuYTNZRf/zbatYU0KTz5onKGvtK0CGMxS20zpdG2CrHEQyJnuw+EWKvOQW/zFYssn1
-	 pDjmVmwbCcNqhlpoOUECpVCECHl9gQOW7VbECbvwhFX/rbDm49gQZTfcaFeiBUvt8J7Ik
-	 WTWNE/a879jdugmic7T2vIc5jndijxCBiYWnq/3XtZLJtuidS2CipoFXk5S0+lhxURA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=YEJ91bHe;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793666872;
+	b=vqtcszWN4qMSp245tSyALVMl1CBrheqOxTqWNl5v3tWi63v/93apFwNTlH+nk29CEhuQ
+	 rIr60Ytr8JMbB91T8jVkCi1/nt3yujsRg0D2W37qTNLpjYL12bVvi59OqduP4yKkrpA9O
+	 cb8b3sBUfqOoHNvqipNtvCP5Z3jptbxAwY9FlJ+c94MT/etE++xDSaAt9Dpt3QTAb9/J2
+	 R9XqB5tA/f6x+Vx4Pt8Xf5vxk8V4wkMZ0Ma0v1NTtsPDnroBP+9naJcGtE4GMgL2djCTp
+	 s54XcSi+eFNuO8JRp3cdN1jTF1s+MvkffVQVZybJEDoHjn9ObFvoBtjr20dkch0kVaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793666872;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qmH5OvatWzBofiEN6YsVBCfdM8VLN8xm2S+OiSeq2qc=;
+	b=1YapuyKCeMWCzY7TCUs1M4qzk5m8updmz9kz5eIOfx0K6vK4tSGi+avODh1tdnxvNZBa
+	 ObdoSb3+nrNeI+CuLTsgxV/kALBe4UWmNzAssQm+U2hGO2d8R3F7BryMPV9ZaAqjk/LJZ
+	 /1F0J3lCIS6N1OJ4qQfZeJKgWsBkwlDlcjALCwkHiyI5vORAV7CKyPnSQUQ4kf5XR1kay
+	 KK6mFbev6geVNR3psUmFFU40pYrZM2D3Orau0PDx3jtJNa9s9IQVR/FjUD1AAWSxNZUtz
+	 s2MyA4s907MBKn/dsa9S2DXspEu2QLoqVcvEYmMwkOIPrdUa/33kvGDWq4CKDiTtbcw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=paul-moore.com;
+	spf=pass smtp.mailfrom=paul-moore.com;
+	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=NE+5SyMU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488A2606A324;
-	Tue,  3 Nov 2026 00:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 488A2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D62E606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:47:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D62E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=YEJ91bHe
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E63A540E016C;
-	Tue,  3 Nov 2026 00:46:14 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id ugQTfxD5SsTq; Tue,  3 Nov 2026 00:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793666768; bh=P6zdhMrVQdSbUCSy9T5hCPdt8mnqgszANMMXRfbHvQA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YEJ91bHecdj53GxAo6rc9mKOeHJzKr4cxQ/09btqC8Pv69LWCP//4j7WgIZOmn3K5
-	 VuibwijhSdxkNT4FsCPpJZUBr3OVrcIgy4s3C5j3SajV0S65J+GTXjT7Z+rZgv3h4d
-	 6SJKg1+GOc7qAdYnQVAX8bJzUPFRWVweKU5MV1pMjmow5DEEFXZ/o4a+KKVvWF4AZQ
-	 Lu6z1KTLP/SG+pnZu1np2Ygabrla7JoSxZcfNivK+q7HUoBgs1rMdtl4wIiit1GgCW
-	 +MuyKdoZawSr1KPSfxC4OcPMEyFrp5nyc61N+MUgYi66q+gies9M+9Xt/IXQBEiPh+
-	 ep7W9jxmSaEJA7ZfLsHklQHYZ777Pnh/jy/Pp4VO9+qq2aiBCTXktaoNJMjGeRT9VC
-	 LE/LnHVx93Uo8IRD/9Q5gTLzqhYXbMsZMj1J+iiS+yw/omF8AMjmh6bJ/r7KZmPNYq
-	 UCBjPTvRpAMIl9YnNLSYx4xKXYoH3OfCgvs9NP8VJ+dwlA+ZKJi6kXzOUFOz8t3yp2
-	 kON4ympmSoJYojttVZiiuoYS6d2v+wSPsHIsi/XWEnWLB0YnZZ0PnBBrj6LgqELFRo
-	 6iVFDv8IJG/lPvFLscRfSJY9pyOSoG/2jRQd5t936hQ6sAK5dfyI6D3n9hFoFIntzO
-	 HMEL5UFf4veh4Vnki+VDNPXw=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id CE2B540E029C;
-	Tue,  3 Nov 2026 00:45:34 +0000 (UTC)
-Date: Mon, 2 Nov 2026 16:45:31 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: "Kalra, Ashish" <ashish.kalra@amd.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, x86@kernel.org,
-	hpa@zytor.com, seanjc@google.com, peterz@infradead.org,
-	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
-	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
-	Tycho.Andersen@amd.com, Nathan.Fontenot@amd.com,
-	ackerleytng@google.com, jackyli@google.com, pgonda@google.com,
-	rientjes@google.com, jacobhxu@google.com, xin@zytor.com,
-	pawan.kumar.gupta@linux.intel.com, babu.moger@amd.com,
-	dyoung@redhat.com, nikunj@amd.com, darwi@linutronix.de,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	kvm@vger.kernel.org, linux-coco@lists.linux.dev
-Subject: Re: [PATCH v4 1/2] x86/sev: Clear RMPOPT when segmented RMP is
- disabled by firmware
-Message-ID: <20261103004531.GEaukuq9sXbCs_PjfL@fat_crate.local>
-References: <56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com>
- <20261102052841.GBaugfibOXxGorZKgq@fat_crate.local>
- <69ed0d93-f96d-4baa-a587-fade5a0a3262@amd.com>
- <414b2fc2-a55a-4b2d-ac70-4def101c4aee@amd.com>
- <20261102144805.GCauiipTaEXcg6Lr59@fat_crate.local>
- <d81f6807-26ac-49b9-a205-c89c394ec1d4@amd.com>
- <20261102193116.GDaujlBJc3XjG3xzLj@fat_crate.local>
- <9ebcb83a-1c0e-423a-8730-eff6b710634b@amd.com>
- <20261102214343.GFaukED8ep3EMmQxfx@fat_crate.local>
- <30947e17-bffc-4c70-b19c-56504771c9fa@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=NE+5SyMU
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so584463a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:47:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793666871; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F6qT3NGX9xuLbVW7lUatJYG8OcS+o7qqJme2vcpu126/EYb9+0vcO9jyB95+Ca8NNB
+         iW0XkmrsO2V+J6waYieg3Mv6z2PLkJJ35rc/RBAQBHX29je2r5BYdW8HxiNAqdyXOOF1
+         Lon3HphasDe9XjkF65QUjc4aea/F924fWT3jObnOMhmxN/1gZABoBTj6uCJsn0C3jP8S
+         tyZJjyhDZlp938gSTaBDgpsA9NjTgZ/yAneeCJF5mL4xKsUfMGXy+HO/SrFoIsggVT/z
+         LDYjAbEAWgaOyz7kDDipQmpW0i0APVNYoRMz2Ej81HlMDbJpqJdm97fVnGCSKQcGZkh8
+         aDKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qmH5OvatWzBofiEN6YsVBCfdM8VLN8xm2S+OiSeq2qc=;
+        fh=VIE+ZVFgs57fQ1oplWRK3ifrj+1+FvBZzO6juZ5B52U=;
+        b=SDa6e9Nh5qbzguPNksfn6hzjImILYvaE5kgPxlXTpZqj46DovzHwnvvwanLAyaaFOU
+         Q439ov8EzQV031l1IiBXuY0LMvcUPOBkli0PYTrpXYSfXiOE5IOb/vxkP4wqbLcdc+yc
+         DmATKixKnZkXG8TKjEZ+zlGfW1cAMxYr27v2jykwvpVfk4m+rjaiAilz/q5eTsH69hzx
+         roDtC8BzTjjQqckyKd99ckxQZL/BchBebtDEIIF8cd+IgqThK1Ae/Nylm5LU/PHXXv7b
+         qqrunXWKHl+gSOplVpL6UWoBXmNaFtB5+gzGj3turfJn65p/cciN6SeAtCltYaVxd3Zz
+         VdNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1793666871; x=1794271671; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qmH5OvatWzBofiEN6YsVBCfdM8VLN8xm2S+OiSeq2qc=;
+        b=NE+5SyMUfN+gGxZQPx0GVzjzJeWngBa34Ls/rh45/noiG21jaRtB5aBI8BrctrYY09
+         b374TBrKwJW43aNm3XeK6M7ItT4nrAosQEfR/UOQZYSgpdnOWqAiHtz3SNuy1WvOuV1c
+         2tLrrZN9w5H4jY8do/0mM+ixJdkEFG5OwW4kpKP2UYYQzjybupKPXfu9O2gKZIsSnB/7
+         Pv5Qygy0gs5BcaIAkygAUskAhuvrx9bcsw6nf8P8R4fPLUNUEyzVDKBKmCGMx/5YLecR
+         19z5pz2LtUth6gsMZEoc5+5WblkJBZuBhPLzCjeUFP6FeVYUfd8udpkjIyuDbQ0kGJin
+         mi/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793666871; x=1794271671;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qmH5OvatWzBofiEN6YsVBCfdM8VLN8xm2S+OiSeq2qc=;
+        b=IGfS+U/mNWtoBkSsxtY1gw6irplW/esqtZLigoXV91muCEyE5Dlz0skJd3+3f7wl+5
+         Yn/4kbTu2FO0z2exEQ3a+DnJc6JFbC6EvYJhWrHyQHaVewzvOrMaLVO7R/S7nTZq8ZU5
+         DpzWIg1gIizzkpVRLzj8T4wGx/KxuteUo1uCidf8c9XUj+YSpybl2cAHvI9nU1Hhpvfu
+         VyZ8zBqK+tgwkazQfhsE/Mw2Bcui1TIJQ1ujMxDhwGM+1an8pHwZOoH5oY1FN1AoaTL4
+         KUJ++tfJ1Ax84W90ygZqjuB0Y4CzXb3XpzSE/n1yI6r5gVSwVudSGX6QTADnRc6Vg0Wd
+         fw1w==
+X-Forwarded-Encrypted: i=1; AKwUvBz2S87LPHlVnpxs0euz33qvMfzFRoAUDqEzPJHlMKjzuoOQlHZ0gZnHAmF9Op+p/Oe8WEf7mwmHtzm0OWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xi07P8a6J9OjdvNRXWt8KA1KQLWyuwMVr2GFeC3eg/NqVkJc6
+	cPENW36GBDQ8YbbfTRRXnP44O0Ces5YhPKH2NKikZL94DiZKfXdO15RsF4iX4QBGTPUYiuKEGNR
+	j2NznGIcsr3hQTlEKygdHj/gfoh2ANDdjfiyjPSiJ/1zNqPUTGCkUrg==
+X-Gm-Gg: AYBFou0sk3TpgaB5AmXITAYeb+KauVYh9zhwDxbDGdOg64i6IUkxn9qpGH8QhxdZLMR
+	gt+UeaMNo51I7iJvXSdxx2NFrC/xeQZQxxWv96BNAVWzzxEYqo7bjPNK6EusbE5Zv54GDzidd1l
+	mVPx3BKFm6GQYjsyGdPOuu8mqxPj9dkmzoznCCSdHA0+pon4npOY3LE37bXlJpo1bBly8SFvj97
+	l6epHs4ttxwhklfrj+3vvivybC1vy+46RhmhQreWbwceib4lgbj03Id4dweAFcM7YyCETLvzfN9
+	TWVi8N/0xCXTBwAVNF17ZdAUBaXSSGrJIs3Spl7pA9qj+ysVgTe34jsVmZk7aI69ube+8ld3JXo
+	N81a7lb5kDYsifP16K5NeEpmUB9D4ct1EABqMxqW3MEpo+ZodGukY2bp1cGMGkkj78SNp
+X-Received: by 2002:a17:90b:35c8:b0:3ac:9a5e:9ce7 with SMTP id
+ 98e67ed59e1d1-3ae897aa7aemr9873041a91.49.1793666871426; Mon, 02 Nov 2026
+ 16:47:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,112 +104,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <30947e17-bffc-4c70-b19c-56504771c9fa@amd.com>
+References: <CAAUqJDt1pXQ2KVBvMoMiDrzz8ishonqhQ0nnQLEppot4nmv9Bw@mail.gmail.com>
+ <2026101814-strut-endnote-a0b5@gregkh> <atYj06gmgCa40q6T@google.com> <CAEjxPJ4zV-YE9vRJ0=DgjuQY5gjXwRa8hcd0KpgVtyK_9AM+oA@mail.gmail.com>
+In-Reply-To: <CAEjxPJ4zV-YE9vRJ0=DgjuQY5gjXwRa8hcd0KpgVtyK_9AM+oA@mail.gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 2 Nov 2026 19:47:39 -0500
+X-Gm-Features: AclHuK-H5LxOjKqHADEoKlThTJbWl_uN7gOPX5dElTGASqVVMSHM9dmMRNjNZS0
+Message-ID: <CAHC9VhTzV-6FbwCimrdUHuyvVhmUfzwL8PtydKx7Xq3Jkp5mmw@mail.gmail.com>
+Subject: Re: BUG: selinux-testsuite binder tests fail with CONFIG_ANDROID_BINDER_IPC_RUST=y
+To: Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	Carlos Llamas <cmllamas@google.com>, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, SElinux list <selinux@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 06:07:35PM -0600, Kalra, Ashish wrote:
-> LGTM, tested on HW.
+On Mon, Oct 19, 2026 at 2:33=E2=80=AFPM Stephen Smalley
+<stephen.smalley.work@gmail.com> wrote:
+> On Mon, Oct 19, 2026 at 12:58=E2=80=AFPM Alice Ryhl <aliceryhl@google.com=
+> wrote:
+> > On Sun, Oct 18, 2026 at 06:53:49PM +0200, Greg Kroah-Hartman wrote:
+> > > On Sun, Oct 18, 2026 at 06:36:04PM +0200, Ondrej Mosn=C3=A1=C4=8Dek w=
+rote:
+> > > > Hello Android binder maintainers,
+> > > >
+> > > > Fedora Linux has recently enabled CONFIG_ANDROID_BINDER_IPC_RUST [1=
+],
+> > > > which turns out to cause the binder tests of selinux-testsuite [2] =
+to
+> > > > fail.
+> > > >
+> > > > Minimal reproducer (no SELinux involved):
+> > > > # git clone https://github.com/SELinuxProject/selinux-testsuite
+> > > > # cd selinux-testsuite/tests/binder
+> > > > # make
+> > > > # ./init_binder.sh
+> > > > # setenforce 0   ### <-- may be needed if SELinux is enabled
+> > > > # ./manager -n &
+> > > > # sleep 1
+> > > > # ./service_provider -n &
+> > > > # sleep 1
+> > > > # ./client -n -c -r 3
+> > > > Client ioctl BINDER_WRITE_READ error: Invalid argument
+> > > > #
+> > > >
+> > > > With only CONFIG_ANDROID_BINDER_IPC=3Dy the last command succeeds.
+> > > >
+> > > > The issue reproduces even on a kernel compiled from commit
+> > > > eafedbc7c050, so it seems to date back to the origin of the Rust
+> > > > implementation. I'm not sure if it's a bug in the new kernel code o=
+r
+> > > > some bug/wrong assumption in the testsuite code - can you please lo=
+ok
+> > > > into it?
+> > >
+> > > Given that the "real" binder client works, perhaps the test is wrong =
+and
+> > > should be fixed?
+> >
+> > Apparently there is a divergence of behavior if the SELinux permission
+> > `binder { impersonate }` is granted to a process, though Android never
+> > uses this permission anywhere.
+> >
+> > Thanks for the report.
+>
+> I would treat Android as authoritative here and fix the
+> selinux-testsuite to match unless you think there is an actual bug in
+> the Rust driver.
+> We originally implemented the binder impersonate check just to make
+> sure no one ever impersonated a different sender without us noticing.
 
-Ok, thanks.
+Unless someone knows of any other widespread Binder users, I tend to
+agree with Stephen that we should treat Android as the standard at the
+present time.  I may have missed it, but has anyone posted a fix for
+the test?  We're at -rc1 now and we really should get the test fixed
+soon ...
 
-This below is what I have now, and the code looks a lot better. If there are
-no more complaints and it looks like what you tested, you can wait for me to
-push out the two patches and then you can test tip:x86/urgent again.
-
-Thx.
-
----
-From: Ashish Kalra <ashish.kalra@amd.com>
-Date: Wed, 28 Oct 2026 19:49:22 +0000
-Subject: [PATCH] x86/sev: Clear RMPOPT when segmented RMP is disabled by
- firmware
-
-Segmented RMP support is advertised via X86_FEATURE_SEGMENTED_RMP, and the
-firmware enables it via MSR_AMD64_RMP_CFG[SEG_RMP_ENABLED]. The latter can be
-cleared in platform BIOS by the user, in which case the system runs in
-contiguous RMP setting.
-
-snp_probe_rmptable_info() does not clear X86_FEATURE_RMPOPT in the
-advertised-but-firmware-disabled case.
-
-As a result, this does not prevent snp_enable_rmpopt() from trying to program
-MSR_AMD64_RMPOPT_BASE, which raises a #GP on the MSR access.
-
-Make sure X86_FEATURE_RMPOPT is cleared in all cases where segmented RMP is
-not enabled.
-
-  [ bp:
-   - Put the commit message on Ozempic
-   - Simplify snp_probe_rmptable_info()
-   - Fix feature check order in snp_enable_rmpopt()
-   - Add RMPOPT feature dependency on SEV_SNP ]
-
-Fixes: 15d974be0a3b ("x86/sev: Initialize RMPOPT configuration MSRs")
-Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://patch.msgid.link/56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com
----
- arch/x86/kernel/cpu/cpuid-deps.c |  1 +
- arch/x86/virt/svm/sev.c          | 17 +++++------------
- 2 files changed, 6 insertions(+), 12 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
-index 99801e844b30..acbcec394ef1 100644
---- a/arch/x86/kernel/cpu/cpuid-deps.c
-+++ b/arch/x86/kernel/cpu/cpuid-deps.c
-@@ -93,6 +93,7 @@ static const struct cpuid_dep cpuid_deps[] = {
- 	{ X86_FEATURE_SPEC_CTRL_SSBD,		X86_FEATURE_SPEC_CTRL },
- 	{ X86_FEATURE_LASS,			X86_FEATURE_SMAP      },
- 	{ X86_FEATURE_INVLPGB,			X86_FEATURE_PCID      },
-+	{ X86_FEATURE_RMPOPT,			X86_FEATURE_SEV_SNP   },
- 	{}
- };
- 
-diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-index bd70c4d0b774..417e6a41ac60 100644
---- a/arch/x86/virt/svm/sev.c
-+++ b/arch/x86/virt/svm/sev.c
-@@ -669,10 +669,10 @@ void snp_enable_rmpopt(void)
- 	u64 base;
- 	int cpu;
- 
--	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
-+	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
- 		return;
- 
--	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
-+	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
- 		return;
- 
- 	if (!rmpopt_soft_init)
-@@ -819,18 +819,11 @@ bool snp_probe_rmptable_info(void)
- {
- 	if (cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP)) {
- 		rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
--
--		if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED) {
--			if (probe_segmented_rmptable_info())
--				return true;
--
--			setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
--			return false;
--		}
--	} else {
--		setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
-+		if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED)
-+			return probe_segmented_rmptable_info();
- 	}
- 
-+	setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
- 	return probe_contiguous_rmptable_info();
- }
- 
--- 
-2.53.0
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+--=20
+paul-moore.com
