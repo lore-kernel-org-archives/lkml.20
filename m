@@ -1,110 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702710;
-	b=wM6W7DwXSWVHxTRly95jr6kK2lrJlD01sbI4NogI7Tu/0De7kXynSZWFH0+H1j175t2Q
-	 YpJf2UJezfctO1ZtUHxNDHbN/mxKsBpls60tLVNMxscBjIIm/ZGASdUlsiOVIIF34dKYc
-	 VBgNnBe62fz28KT8bGiubTvq0Jp7/0F7N3RPdbxdWxar14o04JpmYKuBcLjQ014L6sKLQ
-	 nu8AL7bLL6CXui9/pEcPX83gb5Pw4qbHQSYm8X+ktb+VaOnlX1bpL/tyar4uGRzJrWWFR
-	 90inb9s8+7GlylD8qSuomb6YCTVHXUqN0s/2UzGT/u/fL3bFk6nJjPkuMoy2d7pRWgQ==
+	t=1793702739;
+	b=roMuZYV9UTXxO16KciCcSGrf5pebJekIAbLwk4aIH/VWIJj/jC6Mjby+hokkiNAdjZFN
+	 Y3R56WoUySVuuGRtSDlT2QjVnoCVlt65CMrFT6i0Froo1N4EFXxYKAEokabMG/9Y+Ylm+
+	 e4CW/IoLp+6FMGrWVtp4YiDaQXNvt2f0kPoU1gR96inWmYCUtcKaTqwp6fZTpy9lEyWoc
+	 Oo5WRKwznx1rg/kMWvOpjrDN2hGNVYdW1PC1WjaDxQQDS5oBpzaxVBMCmuI3Rrv191W8x
+	 Z0W0vthTtf6M4GqtkN+27D7We3PXRn7uxSD01qvuK6xBPTzpi8Fc/7q3m05Ny9/f6LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702710;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
-	b=RpV3X+AEO9JMVAOBc2ma9pKYL8yOCKcV1SE5LwruAGR5+pdGCXJsGIlQ86OhIza52c9q
-	 w0vvmGFGH7ElEJ5S4qDfYTjiYVITe43dzs1BZ6u2APL1pxShkx06mpq1yRpAmhXKfQTer
-	 urAYDyIWqqjsX7ksdkm7R0hbkjTWqEIGhzBRti0U8/XomO4r9ik/krFDxIGVQ/HZS4tPh
-	 +exZ+hwqYEbX1fl/gXD5xLyCd3o4x37jD9+I2nmDgSr9qSOVoikBOxmXZ/ERhjweznbsc
-	 H73gooV4Ym8sl3erNDbjMaD3Ua0KPg6r/pdrOnObQjLSp1RJC5CXLQBqc6lvyURHjBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702739;
+	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=huomXK9SMndISLTL5gBVcSuerv7DR74V+Dr7Q6zCtnc=;
+	b=bgvhVnOXvx8Ft415CtLKsPhJHlEHvhlvSAM98XMRKSPXiKgdLyb4KgFslioqU+oiMfVc
+	 kN6KHbEXhl70dnPR0YkZn//FxqrQkN+RRRlEfasWVx/UlNm6RYPWt7W5mQYturrS++SaI
+	 fGbi6AF/F0lsXK0K47np3c6BofC4lR+W+FZ395kkXrOcyai38LoGcxU/DELbBUCt1imAC
+	 2lY9WFVJlyA/Ze0R+gkBXtA31NL5hXHiON7rgFvN4W8crfgKndJzjO85MEYyK9U5ao+fM
+	 PhKBU2AJjY8Frz/sTg60I5XpiXjQJja0/CPtdeP1zBOwccqigmxibtwgN6W1eIENWmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="0Gx/9y7U";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="0Gx/9y7U";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4A4606C596
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:45:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4A4606C596
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0Gx/9y7U;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0Gx/9y7U;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C5E7721F15;
-	Tue,  3 Nov 2026 10:45:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793702708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
-	b=0Gx/9y7UOj02HXjG4ZsdvnvIaajiv9dBUb2r3VdVEq0QfXfWxIuCYk7lmKzbP7Dpt9bHXM
-	O09oY0CU5ZAk/CmFUHHdy7ARuiW41YjDPJLoqrA+0e57TqdoTPgxtgd1Vwp5y0RD/m6VjA
-	awbOn8Xxw+mQ7nRS3A1rHucNSC74faA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793702708;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
-	b=kxGiifaQdf093IUSGJk2pNHGkMa15+9Mjqc/E9+t2Vl5OU5HCx/UBVzLwvfm63nLWik2JX
-	I/1W0uM6+7tmkDDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793702708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
-	b=0Gx/9y7UOj02HXjG4ZsdvnvIaajiv9dBUb2r3VdVEq0QfXfWxIuCYk7lmKzbP7Dpt9bHXM
-	O09oY0CU5ZAk/CmFUHHdy7ARuiW41YjDPJLoqrA+0e57TqdoTPgxtgd1Vwp5y0RD/m6VjA
-	awbOn8Xxw+mQ7nRS3A1rHucNSC74faA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793702708;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
-	b=kxGiifaQdf093IUSGJk2pNHGkMa15+9Mjqc/E9+t2Vl5OU5HCx/UBVzLwvfm63nLWik2JX
-	I/1W0uM6+7tmkDDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 657F01350A;
-	Tue,  3 Nov 2026 10:45:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zUufDzS76WqlFgAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 10:45:08 +0000
-Date: Tue, 3 Nov 2026 11:45:03 +0100
-From: Daniel Wagner <dwagner@suse.de>
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
-	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 08/18] nvme: Implement cross-controller reset recovery
-Message-ID: <dce1f3c8-d988-45a0-b943-6418b4d704ac@flourine.local>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-9-mkhalfella@purestorage.com>
- <6e0b4de0-b030-47cc-84ce-3f021a5c75b0@flourine.local>
- <20261031082155.GC34016-mkhalfella@purestorage.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7CE606C58D;
+	Tue,  3 Nov 2026 10:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD7CE606C58D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xOC1E-0000000031r-0auF;
+	Tue, 03 Nov 2026 10:45:32 +0000
+Date: Tue, 3 Nov 2026 10:45:29 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/6] media: rockchip: rkcif: fix the MIPI stop path locking
+Message-ID: <744eeec346f96d580a9215c657951f5a737e734e.1793702189.git.daniel@makrotopia.org>
+References: <cover.1793702189.git.daniel@makrotopia.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,52 +60,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261031082155.GC34016-mkhalfella@purestorage.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.30
+In-Reply-To: <cover.1793702189.git.daniel@makrotopia.org>
 
-On Sat, Oct 31, 2026 at 01:21:55AM -0700, Mohamed Khalfella wrote:
->  701
->  702         if (!wait_for_completion_timeout(&ccr.complete, tmo))
->  703                 ret = -ETIMEDOUT;
->  704
->  705 out:
->  706         spin_lock_irqsave(&sctrl->lock, flags);
->  707         list_del(&ccr.list);
->  708         spin_unlock_irqrestore(&sctrl->lock, flags);
->  709
->  710         if (ret || !completion_done(&ccr.complete))
->  711                 return ret;
->  712         if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
->  713                 return 0;
->  714         return -EREMOTEIO;
->  715 }
-> 
-> Actually, this code has a bug. It does not correctly handle the case
-> when CCR operation completes with an error. I added line numbers to show
-> that.
+rkcif_mipi_stop_streaming() takes the subdev state mutex, and the
+interrupt handler calls it at the frame end that completes a stop. A
+mutex taken in hard interrupt context sleeps when it is contended, and
+CONFIG_DEBUG_ATOMIC_SLEEP reports the call on every stream stop. The
+state itself is not read on either path; the lock serialises the
+read-modify-write of the interrupt enable and status registers, which
+the streams of a MIPI block share.
 
-Fair enough, then let's use the local variable. 
+Guard those registers with a spinlock per interface, taken with
+interrupts disabled, so that the handler and the process context paths
+exclude each other, and leave the subdev state alone.
 
+Fixes: 1f2353f5a1af ("media: rockchip: rkcif: add support for rk3568 vicap mipi capture")
+Assisted-by: LLM
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+ .../rockchip/rkcif/rkcif-capture-mipi.c       | 24 +++++++------------
+ .../platform/rockchip/rkcif/rkcif-common.h    |  3 +++
+ 2 files changed, 12 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+index 686b995525b9b..53cfd37bf02bd 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+@@ -721,17 +721,14 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	struct rkcif_interface *interface = stream->interface;
+ 	const struct rkcif_output_fmt *active_out_fmt;
+ 	const struct rkcif_mipi_match_data *match_data;
+-	struct v4l2_subdev_state *state;
+ 	u32 ctrl0 = 0, ctrl1 = 0, int_temp = 0, int_mask = 0, vlw = 0;
++	unsigned long flags;
+ 	u16 height, width;
+-	int ret = -EINVAL;
+-
+-	state = v4l2_subdev_lock_and_get_active_state(&interface->sd);
+ 
+ 	active_out_fmt = rkcif_stream_find_output_fmt(stream, false,
+ 						      stream->pix.pixelformat);
+ 	if (!active_out_fmt)
+-		goto out;
++		return -EINVAL;
+ 
+ 	height = stream->pix.height;
+ 	width = stream->pix.width;
+@@ -746,6 +743,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
+ 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
+ 
++	spin_lock_irqsave(&interface->irq_lock, flags);
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
+ 	int_temp |= int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
+@@ -753,6 +751,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
+ 	int_temp &= ~int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, int_temp);
++	spin_unlock_irqrestore(&interface->irq_lock, flags);
+ 
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_Y, vlw);
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_Y, vlw);
+@@ -769,26 +768,21 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	 */
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_CTRL, RK3588_MIPI_CTRL_CAP_EN);
+ 
+-	ret = 0;
+-
+-out:
+-	v4l2_subdev_unlock_state(state);
+-	return ret;
++	return 0;
+ }
+ 
+ static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
+ {
+ 	struct rkcif_interface *interface = stream->interface;
+-	struct v4l2_subdev_state *state;
+ 	u32 int_temp = 0, int_mask = 0;
+-
+-	state = v4l2_subdev_lock_and_get_active_state(&interface->sd);
++	unsigned long flags;
+ 
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, 0);
+ 
+ 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
+ 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
+ 
++	spin_lock_irqsave(&interface->irq_lock, flags);
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
+ 	int_temp &= ~int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
+@@ -796,10 +790,9 @@ static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
+ 	int_temp &= ~int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, int_temp);
++	spin_unlock_irqrestore(&interface->irq_lock, flags);
+ 
+ 	stream->stopping = false;
+-
+-	v4l2_subdev_unlock_state(state);
+ }
+ 
+ static void rkcif_mipi_set_crop(struct rkcif_stream *stream, u16 left, u16 top)
+@@ -881,6 +874,7 @@ int rkcif_mipi_register(struct rkcif_device *rkcif)
+ 		interface->in_fmts_num = ARRAY_SIZE(mipi_in_fmts);
+ 		interface->set_crop = rkcif_mipi_set_crop;
+ 		interface->streams_num = 0;
++		spin_lock_init(&interface->irq_lock);
+ 		ret = rkcif_interface_register(rkcif, interface);
+ 		if (ret)
+ 			continue;
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+index 4d9211ba9bda8..16a5ecb25c2fb 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+@@ -198,6 +198,9 @@ struct rkcif_interface {
+ 		struct rkcif_dvp dvp;
+ 	};
+ 
++	/* interrupt enable and status are shared by the streams of a block */
++	spinlock_t irq_lock;
++
+ 	void (*set_crop)(struct rkcif_stream *stream, u16 left, u16 top);
+ };
+ 
+-- 
+2.56.0
