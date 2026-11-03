@@ -1,111 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724563;
-	b=1RKvL6WVexxuHnme1pm5UPVSqgc4K6eHBBQ+NK7yuIasgVzgWyq7ckRW9+zYmQWsMtUo
-	 vYx7235WyGUHM6b/lnF3MAloXbvnpK2ULRQwOM8zjZe6SVfrvR3QBIEV425uETLFvmSu3
-	 5DqHYJk9Tr6ObLMTOCp/S9Vgxc0BukhVkuG8udwDsxBh/Rgl64jIub5EiaKMpJFzu9qxG
-	 Otkpj5jWm/D2rYap4RXXDUhFr5NNHckekGZ4tFpfLsYvc8jf9df9ZuuMEDNTK4Hf1+IHh
-	 EECYL0feiNOvbkskIv7Wp6gRnqn22iLzU64WPrxqThcz6rHnJceot940sNrBtrtlosw==
+	t=1793724571;
+	b=Yl2KYroTGRlPWgcwrEMOpSHHWrmf4gv+5I92GAKo79Gc55564pEHLabVV2sOV/1f9t/i
+	 6zPYUfNffYwPGRyQE6b2wM6G8tfuCSfLA/tDncHzlY/48HrKOuHRtQPesQ3SLd8uKl+bt
+	 +mQsFiIkFzlYmuAZML+KjAd5fwRUnY2aKe0BlE65Dtz2Lj8TRC3y9b81XoFI0Qi3p/cRz
+	 3rkw+3+Huqv81AGloVKqKeSUQon6mOMRI/NSG74ae+tZeJLbLo5SeuCBQDzkHq0+tpd4O
+	 qu0XZueaBykrQbA47yrEou7ew8MrV9VK5CNYv1EMoediwanD6ZnVHcRL6zVX+/Xlqvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724563;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=R9Dy48Gg68z6JbCwXeGt+RTdvVH82Yt9FWqbgGzfrzY=;
-	b=2XfOp1z+tY6CT7QU1jP6TJV1by2zG9KiRC7kNzxZQnw/ROb7l0cWexjEZhBRN3qvlO5n
-	 ni0bpd37rZzMlqYPv767i7aApCYegXK4g/ba8sxYR2e2Mg3MKIieRvSH77oxwqhYRxj0a
-	 r3Ee5+H+ytmYv7qM3fuXiq1DjYqlY13rCNwyfHcYdK5PmXYfjajEwdJ3MqgjI/lyKGf30
-	 kTAjyBG1km20FSVAZRLR/LJt4AMOX4VEiU8jLOKk4Omp+3N6nGrZ/A6WtyoYrikeWun/w
-	 jnVfsUDSRhd1xR/CUexXQSU3902zPxOrV2qHeWAEK0wAL0B1+GrD6HCuvtOUu2voXBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724571;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=5dGb8WXTIZvpvRNeR8lBF+8mxozMxifiVbHhgx0PdyY=;
+	b=c5XUyyrjnY6D6cqJ7R7VJzoxYKstYkCZxMnT+12RKXMWRoZ7cjMDD28vhZ2ki1MGiggq
+	 qYRWBiPaQg2kDJm7D5VaioM3ERcUWH8qMSc+2aEetI7XCWuxI3sGGrU3FyGlFbOinsn59
+	 IpezsUA19GLqNwB6qGLTthEs6w6Mh0I3ChrfA70hwhaNGn0ahmS2YdJvYTvYS1br8Q06F
+	 RVmtzoJ/2icWD5ZaOLr+UqHim3lW3fjAq4pympnoQlFN/xCENH/gne/yuy9W14apsxp52
+	 lMNhWDZpwg97mZxEjHcxiZw/X11eYBFPHoOl9taXO3GEbuKSgGbpdiXL7fOwJ63lR6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BZKTqSfZ;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MIwJML6Z;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ACAA606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ACAA606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7CB606A331
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:49:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE7CB606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BZKTqSfZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=R9Dy
-	48Gg68z6JbCwXeGt+RTdvVH82Yt9FWqbgGzfrzY=; b=BZKTqSfZwdhpx8MSBYyZ
-	Jo0+7Fl/Dx1uDGVAkHAD/aL4YecYKnQhkqybkL63HcTfBnn3ibTKAgC8Ql5eF5Xj
-	fO0qycxsw4HlTUjN4UtljRtDvzRjWUpn/tfMpkPdVgPb/kjLqRU7Ia0cnmAvk6/s
-	dQo9MXr4hUGWbA2mTi6yp60HqdkZrgPVJ5a5V6EF6WMxaaj5kwJro8DUMZy+AnNQ
-	CnB5dOjITMTMbb/uY/Q22pbBFaGDkDhUsjbTS8i8+h08eGNj+GDf2r4Wj/9vlL1a
-	v46nTWysCmgA9NVgarUwzYN9oPXQM1OtEQrfVxvSz43VgnKaEcOTk7cEEI3V3k/7
-	7g==
-Received: (qmail 359133 invoked from network); 3 Nov 2026 17:49:15 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Nov 2026 17:49:15 +0100
-X-UD-Smtp-Session: l3s3148p1@DIfkCmJfcrTAwtcC
-Date: Tue, 3 Nov 2026 18:49:14 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Frank.Li@oss.nxp.com
-Cc: Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	CL Wang <cl634@andestech.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	vkoul@kernel.org
-Subject: Re: [PATCH 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <auoQiuIm9FxdOrYl@shikoro>
-References: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MIwJML6Z
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 493524E413E6;
+	Tue,  3 Nov 2026 16:49:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 150F76046C;
+	Tue,  3 Nov 2026 16:49:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 28C0D10328C5E;
+	Tue,  3 Nov 2026 17:49:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793724567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=5dGb8WXTIZvpvRNeR8lBF+8mxozMxifiVbHhgx0PdyY=;
+	b=MIwJML6ZrlML9gz4Da6Q/pl+r7yvzkdB1t99vQCrz9KcnpBFz6rKO4/9fh/7X8eejWR3En
+	C3YsFzJs/+s0kA7YGKSralaozX2IWSwrEtAMNWLlcmU1xChHsX5L6rrKONeeAei7H7Xywk
+	RRP2mVeed8iMRMHRhS07fIAQXPGlBj7hD5N4enabnNV3CiMKjnaHdBoobtNQtmw7WTDTld
+	6rhbW+Vsze5lLum/0OTl0e18R0x3Ex0aQq330KScu9UyzZJSA/v9hrFVfnwOaI9TamqqtY
+	/gvUMDEsnvBBfPlXeAlFDIQ+ZjXiuS/2Az8m/J+BggJQog6bag0vcYCx0XnyeA==
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Subject: [PATCH v5 0/9] Congatec Board Controller: Add storage devices
+ support
+Date: Tue, 03 Nov 2026 17:49:08 +0100
+Message-Id: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,16 +63,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43QzW7CMAwH8FdBOS+VnTT94MR7TDukqQNRSwNJ6
+ QaId19aJLaJw7hEciL//nauLFJwFNl6dWWBJhedH1Kh3lbM7PSwJe7aVDMBooASS262jeFOGB5
+ HH3R6b1OXocjj6XDwYeSNJCoNaSkFsMQcAln3tUS8f9zrQMdTShrvl2xPMeolab2acxBECbWUU
+ GSiQlHUiiPviTYdhYH6zIftDD+3ScAcRA6ZQCyrgkvehcs5XkZvs85fev8ZO7fxMWbHk+6N3++
+ zdLB5qp2b9zkv/zDhMtaycgX5/ytPyIFbamWlEIoSzabxfuzd8OAn8YtEfIEUiZRkdV1XBGTVM
+ yl/yPolUiZS1XmjpG2MIv1M5g8SAcQLZJ5IanJBYLG1qv5L3m63bzDq4x5hAgAA
+X-Change-ID: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
+In this v5, I re-ordered a bit the patches to fix I2C bus names first.
+I also made an error message more user friendly.
 
->  drivers/spi/spi-cadence-quadspi.c | 3 +--
->  drivers/spi/spi-dw-dma.c          | 6 ++----
->  drivers/spi/spi-sh-msiof.c        | 6 ++----
+Lee, this series conflicts with some other ongoing patches series:
+- mfd: Assorted resource lifetime, teardown, and error-handling fixes [1]
+- mfd: Constify mfd_cell arrays [2]
 
-For these:
+To make your life easier I rebased this series on top of them. Please let
+me know if you want to proceed in an other way. 
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com> # Renesas related drivers
+[1] https://lore.kernel.org/all/20261027093306.2812695-1-lee@kernel.org/
+[2] https://lore.kernel.org/all/20261030071137.100954-3-krzysztof.kozlowski@oss.qualcomm.com/
+
+Best Regards,
+Thomas
+
+Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+---
+Changes in v5:
+- mfd: fix error message in case we fail to get session handle.
+- fix I2C bus names earlier in the series.
+- Link to v4: https://patch.msgid.link/20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com
+
+Changes in v4:
+- Fix struct cgbc_i2c_platform_data comment (kernel-doc warning)
+- Move struct cgbc_i2c_platform_data from linux/platform_data/i2c-cgbc.h to
+  linux/mfd/cgbc.h
+- Use MFD_CELL_NAME macros.
+- Link to v3: https://patch.msgid.link/20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com
+
+Changes in v3:
+- rebased on v7.3-rc2
+- use PLATFORM_DEVID_AUTO for child devices
+- move I2C bus and I2C device definition in the MFD driver
+- Link to v2: https://patch.msgid.link/20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com
+
+Changes in v2:
+- i2c: fix typo in CGBC BIOS EEPROM label.
+- mfd: make cgbc_devs const
+- Link to v1: https://patch.msgid.link/20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com
+
+To: Thomas Richard <thomas.richard@bootlin.com>
+To: Lee Jones <lee@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Werner Gartner <Werner.Gartner@congatec.com>
+Cc: mfd@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+
+---
+Thomas Richard (congatec GmbH) (9):
+      mfd: cgbc: Fix use of negative error code as valid session handle
+      i2c: cgbc: Use real I2C bus names
+      mfd: cgbc: Add I2C platform data
+      i2c: cgbc: Use plateform data to get bus ID and adapter name
+      mfd: cgbc: Use PLATFORM_DEVID_AUTO for child device registration
+      i2c: cgbc: Add support for fixed frequency buses
+      mfd: cgbc: Add virtual I2C bus support
+      mfd: cgbc: Add virtual storage devices on the virtual I2C bus
+      i2c: cgbc: Register known I2C devices on the bus
+
+ drivers/i2c/busses/i2c-cgbc.c | 108 ++++++++++++------------
+ drivers/mfd/cgbc-core.c       | 187 +++++++++++++++++++++++++++++++++++++++---
+ include/linux/mfd/cgbc.h      |  16 ++++
+ 3 files changed, 244 insertions(+), 67 deletions(-)
+---
+base-commit: d3dfdb6b429a5b99bfd47176bf07cad0956f14ed
+change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+prerequisite-message-id: 20261027093306.2812695-1-lee@kernel.org
+prerequisite-patch-id: 7d50ed21b2d5d1bb25290d19c46b4668073feddf
+prerequisite-patch-id: 45cdf12f5527ab86a560ba98c02cc447bf6eee4e
+prerequisite-patch-id: 6148da531ee7713f8afb7bec90fb3f548b562d28
+prerequisite-patch-id: fb0c30c409ef451192973c417a0585f989f8917b
+prerequisite-patch-id: 8403fcd8efcd44138f139767624773fa654a5a2f
+prerequisite-patch-id: 434546741519ecd3032e19f3acf2c5370e9a454c
+prerequisite-patch-id: 29540ca5739d6f6f3e2d3fe5b87893ad31f6c3ee
+prerequisite-patch-id: a33adadb2e2efe82d2a14417c1c35c579bf212d0
+prerequisite-patch-id: dd53f1e6db35d71b51061dad45de28dde9ebc70f
+prerequisite-patch-id: 85a1da1285d64ce3fc78c8ae7969fbb0dc7c3cd7
+prerequisite-patch-id: e9b952ebc380d058ac2144771c780a0b08c3b7c3
+prerequisite-patch-id: 1f0dcc7a8c5df7ae1c8bfb5a1c8f62b441704286
+prerequisite-patch-id: 077a4ef70d74321711e2efd4e016e01a1d41c818
+prerequisite-patch-id: 4dcd6cc156bb6ba43684605972fb179557a3891e
+prerequisite-patch-id: 62e87491674feaae09327a99a5ff1b4ed368f221
+prerequisite-patch-id: ab1eac435fd40cdb3d9a8d453a12852a105f57c4
+prerequisite-patch-id: 1cbcc3b666db27cbe9f3fa6c6ead2f49a0d459da
+prerequisite-patch-id: ecb566a7bea44600e9d7e9617e280c994773e3dd
+prerequisite-patch-id: 20e295db85a31587d342471a3c341615c8eb0fd7
+prerequisite-patch-id: 06118bf6e5affc234e7edbdb5c0aae9b05412b33
+prerequisite-patch-id: 17afeb13c5012348feee8eb739ff058e84ed2df8
+prerequisite-patch-id: 27693bdeffbc7a0a295c165912b89af5ca3264aa
+prerequisite-patch-id: 8313fe2293eaf0e69ffd2f0017e18fde64ca68f7
+prerequisite-patch-id: fc53af34353efecb4490087ed066ccb256a74695
+prerequisite-patch-id: 02ad8a3b1fddb4f4e806939d36ae642c01004c36
+prerequisite-patch-id: 7b9b8460613f4240492ffe11ee7ee0e6c0b6ded8
+prerequisite-patch-id: 699c068a32ac9d3171e7a494fb2ca5522045779a
+prerequisite-message-id: 20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com
+prerequisite-patch-id: f6cf975bf90acb029fa985ecd659b59076fdc0cd
+prerequisite-patch-id: 4f16ad80662de796ae1454904c938e7e85115fbd
+
+Best regards,
+--  
+Best Regards,
+Thomas Richard
 
