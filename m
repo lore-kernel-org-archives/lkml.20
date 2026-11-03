@@ -1,59 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.93
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704651;
-	b=eigpZeAdRc4WeHUfdhZrmYs0cNa0QQzdvZ+cK8xBJNy86UUvwuXXHr+2o7mzXC+aIJT0
-	 +EypkpULDk/FC6/d/xO+716djn6bTtVFp8jioq6gGYDv7ZiEg5gcfBGY+EUBjps10Hjdi
-	 wti/sNSuiZjvs8lpq5s94C6JyTpD8FicU5PBH2euMJhKG0Q5oWtWPhueoFCKmNgLQny5l
-	 EdviFXw0AuuQTrOXXQIFI9CjeB3DDLVScG53BGIAq4MhyGkrOyWU9u59MK4u/EoD4deBk
-	 YDs7Zu8e7TvMieG9GpjP6ZbBXUmB22Ur9TX9LGBQXplVGY40zjvKAS7BFmHlFwF9OAA==
+	t=1793704652;
+	b=jtAG/2WOMkJWufp9onIKKk4mio1f+D1K7Bkw1UwWiDuBv1bwc03foQHZjbvVWi0nUtoy
+	 ZeOWc4eCVrzbUuhkDKCR8zpbcf1CSXoTnxU3xTuF7JD5ZJXRtggYxhhYHP3hSrztRoSEQ
+	 xdIsvm1nWWgZ+UB+VcVThpdCxJ/qjAdvQ98JjZUjAtJe7Vhr1XTmYW7SoAuxTgWVKObuK
+	 AW4UUatgyEUfncjOchSW8NE4sEQm7iX0VKFqNUqD+Lgn7f8RvDtAi0VkzNVDPesouW3V3
+	 o1e11Ur2Tn8ErAXl11xYiuc8kPM2a2EauSmMAdkyjokcT7v7VDehRpyz4YImIvgvaLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704651;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704652;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=PHgr1LHm7Xcha6AWPRlmKOmDfNatN6pJnVJpXcSkCQw=;
-	b=Yh/w6C6aMCBVvFQjF4QuNxZzmj3R3i6oMTGsOhrSasYrlEM9OGTYNTWzm7fU8ACVMmBR
-	 iuYkEcTBjbHG9GxHTgA7lu1qj15gBona1AvfnpaU00zsUf+chRr8kQc6T7C9aAKnKhr/X
-	 LBlJPzFl9Pg1E0Lm48Vw66v5Q74LjoURFciqwk1aTAdZUBojQwqvxTFR8W3tLi3f3AzcY
-	 LroJFOLSi1+aK3LvMKuQ+gfm6BEfNYEmfQTg1ITwKNnLiezEiJdvTzr44OFgPc0+cU4X6
-	 kM+x5VXEHb9BayrrQ6wpY81kC5mC4KFxwR2PxMTLmV6MqNWZdObrVDrg44dnfdzJyAw==
+	bh=hFYlYc5PM0tE3sH4k8YQSdBsYLlcumfy6xEhllgkK9Y=;
+	b=0Kgp48owSkSkwlhYKZrUKZy1ZJNWuiT7fljrq1uV0oSxHyuKKPnKhTaX/pvpo9/PUJgS
+	 rdDz0X5GvVtmbc7XdCkhXswPheuTSbMVqqDeEpx0W3ltzmF3YZ7+UFqtmm6asvu4Z6sXL
+	 An16hCdVRekMvsyv8GFIO4Ri2M2XKpZYNfOFaIcCjYJzIuWIaZc3KDpMBonJH6U6t3mgb
+	 z4seG+bXLEAsp5J0oksiEs1HqWfif027TMT8gp3vjrG4sM7WhUDCmcATIBS1m5RHRJTV0
+	 CSD2VTjqtobPFiFmL7iCf8RqSKrJlTXN1Lj322j/FAaqV75Uf2A51HRHyhklmQdb/0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QcUVqop9;
-	arc=none smtp.remote-ip=115.124.28.125
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AIlxs0Th;
+	arc=none smtp.remote-ip=95.215.58.93
+Received: from mta1.migadu.com (out-93.mta1.migadu.com [95.215.58.93])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7836606C592;
-	Tue,  3 Nov 2026 11:17:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7836606C592
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712BA606C59A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:17:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 712BA606C59A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QcUVqop9
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793704639; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=PHgr1LHm7Xcha6AWPRlmKOmDfNatN6pJnVJpXcSkCQw=;
-	b=QcUVqop9s0xtniBdh2HvchwfbrTi3C6mDaQ0h/ST84WRMSLmu3SXV6xYUCleNXM03GJj2BOctF5w899BWaQc/OzPgZMCPJRxWd2AX2Wf4Rr5B68SvOJ31vPsozoE/5D3gIab6x9m0xutU9jjl+xVNd2XGgi3J7ddGOZNQziAt4Y=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.4216508|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0572168-0.000769457-0.942014;FP=11345945774640399411|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jviw8wa_1793704635;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jviw8wa_1793704635 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 19:17:19 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Input: adi - bound the two-stream packet merge
-Date: Tue,  3 Nov 2026 19:17:14 +0800
-Message-ID: <20261103111714.472080-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103084135.426629-3-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-3-zhugl3@xiaopeng.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AIlxs0Th
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=er7vEvw7eEQfgtWtDDwvcrrNONf3+8zJKkLeBQQrLno=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793704649; v=1; x=1794309449;
+ b=AIlxs0Th0OYP7ixC3TWAcNwE2pW/8Iu7YxnvSJwMFQouQmQpCw8n3eS1UR0GHo4r0i8mZRHf
+ +tqm7yqa8Twp36XH3BYlP31wODrpowzbe5v9zBulxo8vI4hnwyMrKlQ3Hr1L37571aEQ8yh0dWZ
+ VKw8EkxMkZlhy/wva9TODwjs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e89f1b07798417ab;
+	Tue, 03 Nov 2026 11:17:27 +0000
+X-Mizu-Trace-ID: e89f1b07798417ab
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Asim Viladi Oglu Manizada <manizada@pm.me>,
+	Eric Woudstra <ericwouds@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4 2/2] pppoe: queue unbound packets directly
+Date: Tue,  3 Nov 2026 19:17:10 +0800
+Message-Id: <20261103111711.28202-2-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261103111711.28202-1-qingfang.deng@linux.dev>
+References: <20261103111711.28202-1-qingfang.deng@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,58 +76,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a second device shares the wire, adi_move_bits() appends the
-second packet to the first one at an offset taken from the
-10-bit length field of the ID packet:
+Queue unbound packets directly with sock_queue_rcv_skb() and remove
+the unused backlog callback.
 
-	for (i = 1; i <= adi[1].ret; i++)
-		adi[0].data[((length - 1) >> 1) + i + 1] = adi[1].data[i];
+Previously, __sk_receive_skb() serialized receive processing with
+PPPIOCGCHAN through the socket lock. Receivers either finished before
+the ioctl acquired ownership or ran from the backlog after PPPOX_BOUND
+was set.
 
-	adi[0].ret += adi[1].ret;
+The new lockless path relies on synchronize_net() from commit
+92c1bf630abf ("pppox: drain queued packets on channel handoff").
+After setting PPPOX_BOUND, PPPIOCGCHAN waits for receivers that saw
+the old state to finish queueing before draining sk_receive_queue
+into PPP. This prevents packets from being stranded after handoff.
+SOCK_RCU_FREE protects the socket lifetime during teardown.
 
-Nothing compares the merged packet against the size of the buffer:
-adi[0].data is the last member of struct adi, and struct adi_port
-holds two of them back to back, so an oversized length field makes
-the loop write over the second struct adi - its device pointer, its
-length and its packet - and the inflated ret later walks the reads
-past the buffer as well. The connect path also calls
-adi_move_bits() before the length has been validated at all.
-
-Reject a merge that does not fit in the buffer. Use >= for the
-combined length so adi_get_bits() can never walk to data[ret] with
-ret == ADI_MAX_LENGTH, and invalidate both half-streams on the
-rejection so the unmerged packets are not decoded as standalone
-reads.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 ---
-v2: per review, use >= so a combined ret of ADI_MAX_LENGTH is rejected
-    as well (adi_get_bits() allows idx == ret, and data[idx] with
-    idx == ADI_MAX_LENGTH reads one byte past the array), and set
-    adi[0].ret = adi[1].ret = -1 on the rejection path so the
-    unmerged half-streams are not decoded as standalone packets.
+v4: no changes
 
- drivers/input/joystick/adi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+v3:
+https://lore.kernel.org/netdev/20261030045943.2093-2-qingfang.deng@linux.dev/
+---
+ drivers/net/ppp/pppoe.c | 40 ++++++----------------------------------
+ 1 file changed, 6 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/input/joystick/adi.c b/drivers/input/joystick/adi.c
-index e07b719..41262b7 100644
---- a/drivers/input/joystick/adi.c
-+++ b/drivers/input/joystick/adi.c
-@@ -168,6 +168,11 @@ static void adi_move_bits(struct adi_port *port, int length)
+diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
+index 5d5187e4976b..51445fddb4d3 100644
+--- a/drivers/net/ppp/pppoe.c
++++ b/drivers/net/ppp/pppoe.c
+@@ -340,35 +340,7 @@ static struct notifier_block pppoe_notifier = {
  
- 	if (adi[0].ret <= 0 || adi[1].ret <= 0) return;
- 	if (adi[0].data[0] & 0x20 || ~adi[1].data[0] & 0x20) return;
-+	if (adi[0].ret + adi[1].ret >= ADI_MAX_LENGTH ||
-+	    ((length - 1) >> 1) + adi[1].ret + 1 >= ADI_MAX_LENGTH) {
-+		adi[0].ret = adi[1].ret = -1;
-+		return;
-+	}
+ /************************************************************************
+  *
+- * Do the real work of receiving a PPPoE Session frame.
+- *
+- ***********************************************************************/
+-static int pppoe_rcv_core(struct sock *sk, struct sk_buff *skb)
+-{
+-	struct pppox_sock *po = pppox_sk(sk);
+-
+-	/* Backlog receive. Semantics of backlog rcv preclude any code from
+-	 * executing in lock_sock()/release_sock() bounds; meaning sk->sk_state
+-	 * can't change.
+-	 */
+-
+-	if (sk->sk_state & PPPOX_BOUND) {
+-		ppp_input(&po->chan, skb);
+-	} else {
+-		if (sock_queue_rcv_skb(sk, skb))
+-			goto abort_kfree;
+-	}
+-
+-	return NET_RX_SUCCESS;
+-
+-abort_kfree:
+-	kfree_skb(skb);
+-	return NET_RX_DROP;
+-}
+-
+-/************************************************************************
+- *
+- * Receive wrapper called in BH context.
++ * Receive a PPPoE Session frame.
+  *
+  ***********************************************************************/
+ static int pppoe_rcv(struct sk_buff *skb, struct net_device *dev,
+@@ -417,11 +389,12 @@ static int pppoe_rcv(struct sk_buff *skb, struct net_device *dev,
  
- 	for (i = 1; i <= adi[1].ret; i++)
- 		adi[0].data[((length - 1) >> 1) + i + 1] = adi[1].data[i];
+ 	skb->dev = NULL;
+ 
+-	if (likely(po->sk.sk_state & PPPOX_BOUND)) {
++	if (likely(po->sk.sk_state & PPPOX_BOUND))
+ 		ppp_input(&po->chan, skb);
+-		return NET_RX_SUCCESS;
+-	}
+-	return __sk_receive_skb(&po->sk, skb, 0, 1, false);
++	else if (sock_queue_rcv_skb(&po->sk, skb))
++		goto drop;
++
++	return NET_RX_SUCCESS;
+ 
+ drop:
+ 	kfree_skb(skb);
+@@ -528,7 +501,6 @@ static int pppoe_create(struct net *net, struct socket *sock, int kern)
+ 	sock->state	= SS_UNCONNECTED;
+ 	sock->ops	= &pppoe_ops;
+ 
+-	sk->sk_backlog_rcv	= pppoe_rcv_core;
+ 	sk->sk_destruct		= pppoe_destruct;
+ 	sk->sk_state		= PPPOX_NONE;
+ 	sk->sk_type		= SOCK_STREAM;
 -- 
-2.43.0
+2.34.1
 
