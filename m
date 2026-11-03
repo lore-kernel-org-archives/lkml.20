@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726582;
-	b=ByjHDoZQ53tRCQPA9DL6i0ErRKazRsA9C8tXcoOJeXUChI199QuI2ssllC4UPZUz17H2
-	 pRcKg/RK0YYUt7xiFzZNcUY9FvrXDxyDJrzWtLmEYeKWRikBtwmvA3XzB60unCEOD5LJd
-	 3by3olRVaMGZ/TeMO1mhQl0XdSv9t4JpGwNGIKaWh2nn+zDEjD7qgmns4dmH2T76OYVTJ
-	 ZOthbORdec0Avje70yw+cgE3s6wweB9Pgxe9Wd6QnQNY1WLcA9yWM+V/TseRk7ZYHI5T4
-	 ok8eezGUA7bLCXwPvAQc27QDIp8H2F9uFIeTjFD0DK1CUIqvx3x3J0k9RF+/IgGYAvA==
+	t=1793726628;
+	b=GeesRG4qiPjddfXcEyXjBPAWAblGnfFN/rTfZMMHoGD/fYqzfWb0avgP0sCOicEMTxTW
+	 e6iinuhARewBJCBmen6FPxqVT0fxreDAmh0tU5aLy+3Q6SWePdHJccUDdfWOSs7oWIdMw
+	 3ctlNJ40x3zm7vHpLeHixnlgNZt2CWejPgoNL/Nei+57Fl+qPUJeQ8WtWgG5SBYWf+QEu
+	 FdDhc/2hGwZW0fX+8TMeOY/ctr7pBDI6ACrsDRswY9SaLCHR6UDWF6ZnfNWN8hj+AVghH
+	 S/JkKlbqqpRsuFahUwRSFXWmZFy7ZuWjqdTWxYovs/g2a+1q9Z6Ydd3kXfTLQ3S4MAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726582;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QBNeyKGgsk+FmC6nEM5xjOZsGGaqbtElvO5AoS80vXU=;
-	b=U0J4Crit7YapwA6NkuCWkFL9uI+mOFQHEXm0/UrJP4Teo9O8IOV+KRl2Kgd6X6nUk0Ci
-	 1wSX33dhj+9xDtJeOEDrlouitiv/Lvw4PfGEE2KLN+I5bJmT4w68fgW1UjEiVBh5jOyYK
-	 iqC02AtZDue4aYRUS9wnZWLvDFR5oEk+uI9Lipjj/VBtJyt/HG1DYrDEqyosIqrWal1Di
-	 SH2m5V9d7sKGlUBxdqd45H2gEWXSDdjsw2zo2zXU4yTjpglhDl0VtAtB7od+9OAF5iKEO
-	 bn2eQjaIyW2+VXx+HAMOkk5HqUb8yHCPj4OjSyDk2uwkQ6D3bXVvzKTE7f8+gKxTL7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726628;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=IXb4yV9mnjGFFMF2fUFFF4uke1VBAuM43A0GXpbx3l0=;
+	b=ACBKA+tiu5rRs7imweP3DOMkY2eN7v5N2Y8zMsk4Uyd2XoWt7yoLBhffS95vjjqP34TI
+	 Ke5ckkqQPr2jQBaXacchspnb1cqIs2eDLu9QipvdEmSauv6tbrp3wK4kexJCBFng8cUPn
+	 OBYMasloChXsVD9YbeNiScSVgQbKtUdxCm4FHyJHh70szd0XXgM8ogkjaQb/kWpVzq91p
+	 9zcVea7u0XyT8kP3pm9HCslGXsRLVWXLl8HHZlRztKDhipeVo/H4/GWuql1DojFq/uO11
+	 +ungTvEC+msWjPbjXj+ZyVRBjIgW2GTrddDBZx+HciLoQ2H9GRgWa3e4hc880y8iAow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JuqPUtXY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Ub39bYyw;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD10606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2461B606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:23:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2461B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JuqPUtXY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FECC1F000C1;
-	Tue,  3 Nov 2026 17:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793726581;
-	bh=QBNeyKGgsk+FmC6nEM5xjOZsGGaqbtElvO5AoS80vXU=;
-	h=From:To:Cc:Subject:Date;
-	b=JuqPUtXY3lVPSVcRFVuZA/BBRi9VAdMSiGG3EoccW24PuUNhBStcghlFoPv/6s4Cj
-	 gYVe/iHq/vcBu9u/sqoU++k46+HQKMvQc8aXh6nq2leFbBx+vUroM+Rsedf3Fx/Pvu
-	 0Ikqgtps5Ubp2z068GGtW+sagTUMCPhzsQJO4Eyd/RjE9a6KC5cfC7Cg6kw559ksw1
-	 +riXeRcidDwEzg/YGoRHLOQ/kYPjjH6PfHbSGXVHTk331C/LckAIx19SGkDkToy9CT
-	 8JnHrjbzS4APBE6am6Cwp55+4hIjDRD6VLoBG+qZcD62u+9nN+wgAYMG3Aqt3A4rx6
-	 lKDIYu/p6m+dw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2] mm/memfd_luo: don't use memfd_pin_folios()
-Date: Tue,  3 Nov 2026 18:22:50 +0100
-Message-ID: <20261103172251.2348370-1-pratyush@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Ub39bYyw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=IXb4yV9mnjGFFMF2fUFFF4uke1VBAuM43A0GXpbx3l0=; b=Ub39bYywn2mantva38X88Rbrot
+	u1gcpXL2hN8nNfZUeia/AQ+NHT3qf4rxjM7jAcGbFH7z1scouz5HDpkfmttcNwd7ukXxV1+Wj6hR4
+	68+LTTNWdMS7XrgovdY77Col43imi0dFbQkpH+7EPSjFvU8O16TVekj4ZuOxh/ujL0jtbECm1ccPH
+	CuEKgBbcDyMgFXzCIi/OM49bLjsbgz18WR9Z4BVtUuYHzVlWkeg04FiRS7lSGXuQe7EeKNzsEPgcO
+	lnNNWPXnaU+hRTUwfpAsfoyX8ApU4GNe8ZurAZCCCoKnpSQ+Zg0P7oqkatqEt3FqTsCw8nL4ZHEx1
+	ahMW320g==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOIEW-0075v5-2E;
+	Tue, 03 Nov 2026 17:23:41 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 03 Nov 2026 09:22:28 -0800
+Subject: [PATCH] kcsan: Don't flush the consoles while holding report_lock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,468 +62,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-kcsan-irqtrace-emergency-v1-1-162288205435@debian.org>
+X-B4-Tracking: v=1; b=H4sIAFMY6moC/yXMQQrCQAxG4auUrA00HRHxKuJimvlbozhqpopSe
+ ndHXX6L92YqcEOhXTOT42nFrrlCVg3pMeYRbKmaurbbiLSBz1piZvP75FHBuMBHZH3zIJJSCNu
+ 4Dko1vzkGe/3W+8Pf5dGfoNP3R8vyAViRJg58AAAA
+X-Change-ID: 20261103-kcsan-irqtrace-emergency-f11dd338a43c
+To: Marco Elver <elver@google.com>, Petr Mladek <pmladek@suse.com>, 
+ John Ogness <john.ogness@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Waiman Long <longman@redhat.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
+ kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4629; i=leitao@debian.org;
+ h=from:subject:message-id; bh=PqV+5SeKbOcbWoiZGtCRVcv8lA/jERSTOfPEU+Jzq/U=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6hiZ4JwnWns036FQsQn8OiYTTBg4+CoFZNVLr
+ vVB3pfzLgmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauoYmQAKCRA1o5Of/Hh3
+ bfX2EACtjxGWUzX3/T+j3/Hd7nWsGyV3MzY8MJvp5RckEjBz1XFgwvRYulqAlZa1/aJ7xszbqQD
+ fvGh7kx5CTlw3Rh+pUyJ8zsckzRS81KdWzULh6nJEkdUIXlM3H+FLM9QcM/HOsVdNwDAHdJjjt6
+ rPm33gNlpSFhnwb0rWQnnjcUifrEYVXWks/3FIgu89Ma8Sph4w8LrKVfjJj/W77CEFRBILCMH+H
+ zcLizAonYzl4h+GlY6PmZG0HxG+IzWgkaSTl4Dk/8Jz02syAfYr/xEw+0iLckIhTTK7iJzBb2r/
+ xfJkXr94vtXsYrXHMVcd/2C20pD9KOKUv6COwAWDqCq7AmQMEuyS+yW18EN/AO2dDxzHhrqspxV
+ YcxKIJ2x7yn4J6/I4APA3dwsXa8/JPgyx1rbGlRIWW7idRAsfsKGqS8RRApnkrVwEmx/gm8kjn9
+ 5mQgy7+A/77bPWL8rjPlyMKhXuWmuTrOUiJKoT2M1MyRfuB8hyO440MEgatbewTdKb86w/Ez5YH
+ ttgO1/EV2zIe2tePmdxqIwBUHmozjrHAisTwj652aJSgoOwvSS2mZBFe2UnlprMbKm1zwebl0xu
+ 85q/NsXEy1Ch7oCclbWmfHAI0JuIF4m27hzmv3ktQ3gMW1Ft1eiXM44EAQF9OKanhIYlBHMDC6V
+ vCIYYQf3h1T5s8Q==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+Since commit 59cd94ef8009 ("lockdep: Mark emergency sections in lockdep
+splats"), print_irqtrace_events() runs inside an nbcon emergency
+section. In an emergency section, every printk() flushes all pending
+records to the nbcon consoles from the calling context (instead of the
+printk thread).
 
-memfd_luo takes a snapshot of the folios in the file's mapping. To make
-sure the snapshot does not go out of sync, it pins the folios in the
-file via memfd_pin_folios(). The pinning also migrates the folios out of
-MIGRATE_MOVABLE to make sure doesn't land in KHO boot memory or in a CMA
-region.
+With CONFIG_KCSAN_VERBOSE, print_report() calls print_irqtrace_events()
+while holding the raw report_lock with interrupts disabled, so every
+verbose report writes out the whole console backlog under report_lock,
+as consoles/UARTs are usually slow, this is not good.
 
-memfd_pin_folios() does not lock the folios. So it can race with
-shmem_writeout(). A folio returned by memfd_pin_folios() might already
-be in swap cache. This happens to work but is fragile. memfd_luo looks
-at folio flags and index on a folio that isn't in the memfd's page
-cache.
+Other CPUs that detect a race in the meantime spin on report_lock with
+interrupts disabled, as the lock is taken before rate_limit_report()
+gets a chance to drop the report.
 
-In addition, memfd_pin_folios() needs the caller to allocate an array of
-folios. memfd_luo does not really need that since it will vmalloc
-folios_ser and store the information there anyway. The folios array is
-unnecessary overhead.
+On a 72-CPU arm64 machine with a pl011 serial console, a printk flood
+from memory offlining left the console about 16 seconds behind. The
+next KCSAN report flushed that backlog under report_lock, the rest of
+the report never made it to the log, and the buddy watchdog flagged a
+CPU waiting for the lock:
 
-Finally, memfd_pin_folios() fills in holes in the memfd. This makes
-preserving sparse memfds very expensive in both compute and memory.
-While this patch doesn't yet stop filling in the holes, it sets up the
-infrastructure to make it simpler.
+  BUG: KCSAN: data-race in mlx5e_poll_tx_cq+0x5d8/0x998
+  ...
+  irq event stamp: 28975074
+  smp: csd: Detected non-responsive CSD lock (#2) on CPU#35, waiting 5000000052 ns for CPU#26 ipi_mb+0x0/0x18(0x0).
+  smp: csd: Detected non-responsive CSD lock (#3) on CPU#65, waiting 5000000020 ns for CPU#00 do_nothing+0x0/0x18(0x0).
+  watchdog: CPU71: Watchdog detected hard LOCKUP on cpu 0
+  Kernel panic - not syncing: Hard LOCKUP
 
-Fix all this by walking the page cache directly using shmem_get_folio()
-with SGP_CACHE. This returns a locked folio with an elevated refcount.
-memfd_luo holds that reference until the memfd is unpreserved. This
-blocks compaction, migration, etc.
+Even without a backlog, each verbose report held report_lock for 0.2 to
+0.8 seconds on that machine, the time the console needs to write the
+report itself.
 
-There is still a need to migrate folios out of MIGRATE_MOVABLE page
-blocks. This is because those might be CMA or KHO scratch. memfd_luo
-will hold a longterm reference to the folios so it will block migration
-in that pageblock. Introduce memfd_luo_migrate_folio() to do this.
+Add __print_irqtrace_events(), which prints the same lines without the
+emergency section, and use it for verbose reports.
+print_irqtrace_events() keeps the emergency section, as the lockup
+detectors and the scheduler bug reports rely on it.
 
-Also factor out folio unpreservation logic into memfd_luo_put_folios()
-and use it from memfd_luo_unpreserve_folios() and from error paths in
-memfd_luo_preserve_folios().
-
-Since shmem_get_folio() always returns uptodate folios, drop the folio
-zeroing logic.
-
-This change also improves preservation performance, shown in the table
-below.
-
-|------------------+----------+------------+-------|
-| memfd            | baseline | this patch | delta |
-|------------------+----------+------------+-------|
-| 4K pages, 32 GiB | 748 ms   | 600 ms     |  -20% |
-| THP, 4 GiB       | 0.59 ms  | 0.59 ms    |    0% |
-| THP, 16 GiB      | 2.99 ms  | 2.61 ms    |  -13% |
-| THP, 32 GiB      | 4.83 ms  | 5.21 ms    |   +8% |
-| sparse, 32 GiB   | 8695 ms  | 7269 ms    |  -16% |
-|------------------+----------+------------+-------|
-
-Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
+ include/linux/lockdep.h  |  4 ++++
+ kernel/kcsan/report.c    |  6 +++++-
+ kernel/locking/lockdep.c | 10 +++++++---
+ 3 files changed, 16 insertions(+), 4 deletions(-)
 
-The diff is unfortunately hard to read. It would be easier to review the
-patch by applying it and looking at the final code.
-
-This patch is picked from a separate series I sent [0]. It is more or
-less an independent change. It fixed a race for that series so I added
-it there, but since that series might take longer to go through, I think
-it is useful to take this patch separately.
-
-[0] https://lore.kernel.org/all/20261027173031.763213-2-pratyush@kernel.org/
-
-Changes since v1:
-
-- Add memfd_luo_get_folio() which combines shmem_get_folio() and the
-  migration logic.
-- Collect tags.
-- Rebase to v7.4-rc1.
-
----
- mm/memfd_luo.c | 305 ++++++++++++++++++++++++++++++-------------------
- 1 file changed, 189 insertions(+), 116 deletions(-)
-
-diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-index 6b68220275ebe..9fd9abf9fedf6 100644
---- a/mm/memfd_luo.c
-+++ b/mm/memfd_luo.c
-@@ -77,26 +77,160 @@
- #include <linux/kexec_handover.h>
- #include <linux/kho/abi/memfd.h>
- #include <linux/liveupdate.h>
-+#include <linux/migrate.h>
-+#include <linux/sched/mm.h>
-+#include <linux/sched/signal.h>
- #include <linux/shmem_fs.h>
-+#include <linux/swap.h>
- #include <linux/vmalloc.h>
- #include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
+diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
+index a6451ecbbe9a05..3cf52a4ba9002d 100644
+--- a/include/linux/lockdep.h
++++ b/include/linux/lockdep.h
+@@ -476,8 +476,12 @@ do {								\
+ #endif /* CONFIG_LOCK_STAT */
  
- #include "internal.h"
- 
-+static void memfd_luo_put_folios(const struct memfd_luo_folio_ser *folios_ser,
-+				 u64 nr_folios)
+ #ifdef CONFIG_PROVE_LOCKING
++void __print_irqtrace_events(struct task_struct *curr);
+ extern void print_irqtrace_events(struct task_struct *curr);
+ #else
++static inline void __print_irqtrace_events(struct task_struct *curr)
 +{
-+	u64 i;
-+
-+	for (i = 0; i < nr_folios; i++) {
-+		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
-+		struct folio *folio;
-+
-+		if (!pfolio->pfn)
-+			continue;
-+
-+		folio = pfn_folio(pfolio->pfn);
-+
-+		kho_unpreserve_folio(folio);
-+		folio_put(folio);
-+	}
 +}
-+
-+/* How many times to retry isolating a folio someone else has isolated. */
-+#define MEMFD_LUO_MIGRATE_RETRIES	3
-+
-+/*
-+ * Move a folio out of ZONE_MOVABLE or CMA, so it can be held until the next
-+ * kernel. Called with a reference on the unlocked folio, which is always
-+ * dropped. The caller must look up the folio again afterwards.
-+ *
-+ * Returns 0 on success, -EBUSY if the folio could not be isolated (e.g.
-+ * because someone else has it isolated right now), or -ENOMEM if migration
-+ * failed.
-+ */
-+static int memfd_luo_migrate_folio(struct folio *folio)
-+{
-+	struct migration_target_control mtc = {
-+		.nid = NUMA_NO_NODE,
-+		/* Not movable, so the target is neither in ZONE_MOVABLE nor CMA. */
-+		.gfp_mask = GFP_USER | __GFP_NOWARN,
-+		.reason = MR_LONGTERM_PIN,
-+	};
-+	LIST_HEAD(source);
-+	bool isolated;
-+
-+	/* Flush per-CPU LRU batches holding the folio so isolation works. */
-+	lru_cache_drain_for_folio(folio, 1, NULL);
-+	isolated = isolate_folio_to_list(folio, &source);
-+	/* Isolation holds its own reference. */
-+	folio_put(folio);
-+	if (!isolated)
-+		return -EBUSY;
-+
-+	if (migrate_pages(&source, alloc_migration_target, NULL,
-+			  (unsigned long)&mtc, MIGRATE_SYNC, MR_LONGTERM_PIN,
-+			  NULL)) {
-+		putback_movable_pages(&source);
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Look up the folio at @index, allocating it if needed, and make sure it can be
-+ * held until the next kernel. Folios that are not longterm pinnable are migrated
-+ * out first, retrying a few times if someone else has them isolated.
-+ *
-+ * On success, returns 0 with *@foliop locked and holding a reference.
-+ */
-+static int memfd_luo_get_folio(struct inode *inode, pgoff_t index,
-+			       struct folio **foliop)
-+{
-+	int err, busy_retries = 0;
-+	struct folio *folio;
-+
-+	for (;;) {
-+		err = shmem_get_folio(inode, index, 0, &folio, SGP_CACHE);
-+		if (err)
-+			return err;
-+
-+		if (likely(folio_is_longterm_pinnable(folio)))
-+			break;
-+
-+		folio_unlock(folio);
-+		err = memfd_luo_migrate_folio(folio);
-+		/* Someone else might have it isolated, retry a bit. */
-+		if (err == -EBUSY && ++busy_retries < MEMFD_LUO_MIGRATE_RETRIES)
-+			continue;
-+		if (err)
-+			return err;
-+	}
-+
-+	*foliop = folio;
-+	return 0;
-+}
-+
-+static int memfd_luo_preserve_folio(struct folio *folio,
-+				    struct memfd_luo_folio_ser *pfolio)
-+{
-+	int err;
-+
-+	err = kho_preserve_folio(folio);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * A dirty folio is one which has been written to. A clean folio
-+	 * is its opposite. Since a clean folio does not carry user
-+	 * data, it can be freed by page reclaim under memory pressure.
-+	 *
-+	 * Saving the dirty flag at prepare() time doesn't work since it
-+	 * can change later. Saving it at freeze() also won't work
-+	 * because the dirty bit is normally synced at unmap and there
-+	 * might still be a mapping of the file at freeze().
-+	 *
-+	 * To see why this is a problem, say a folio is clean at
-+	 * preserve, but gets dirtied later. The pfolio flags will mark
-+	 * it as clean. After retrieve, the next kernel might try to
-+	 * reclaim this folio under memory pressure, losing user data.
-+	 *
-+	 * Unconditionally mark it dirty to avoid this problem. This
-+	 * comes at the cost of making clean folios un-reclaimable after
-+	 * live update.
-+	 */
-+	folio_mark_dirty(folio);
-+
-+	pfolio->pfn = folio_pfn(folio);
-+	pfolio->flags = MEMFD_LUO_FOLIO_DIRTY | MEMFD_LUO_FOLIO_UPTODATE;
-+	pfolio->index = folio->index;
-+
-+	return 0;
-+}
-+
- static int memfd_luo_preserve_folios(struct file *file,
- 				     struct kho_vmalloc *kho_vmalloc,
- 				     struct memfd_luo_folio_ser **out_folios_ser,
- 				     u64 *nr_foliosp)
+ static inline void print_irqtrace_events(struct task_struct *curr)
  {
-+	struct memfd_luo_folio_ser *folios_ser, *shrunk;
- 	struct inode *inode = file_inode(file);
--	struct memfd_luo_folio_ser *folios_ser;
--	unsigned int max_folios;
--	long i, size, nr_pinned;
--	struct folio **folios;
--	int err = -EINVAL;
--	pgoff_t offset;
--	u64 nr_folios;
-+	u64 nr_folios = 0, max_folios;
-+	unsigned int pin_flags;
-+	pgoff_t index = 0, end;
-+	int err;
-+	loff_t size;
+ }
+diff --git a/kernel/kcsan/report.c b/kernel/kcsan/report.c
+index 11a48b78f8d15b..ab15ed9d642c90 100644
+--- a/kernel/kcsan/report.c
++++ b/kernel/kcsan/report.c
+@@ -385,7 +385,11 @@ static void print_verbose_info(struct task_struct *task)
  
- 	size = i_size_read(inode);
- 	/*
-@@ -113,98 +247,65 @@ static int memfd_luo_preserve_folios(struct file *file,
- 	 * Guess the number of folios based on inode size. Real number might end
- 	 * up being smaller if there are higher order folios.
- 	 */
--	max_folios = PAGE_ALIGN(size) / PAGE_SIZE;
--	folios = kvmalloc_objs(*folios, max_folios);
--	if (!folios)
-+	end = DIV_ROUND_UP_ULL(size, PAGE_SIZE);
-+	max_folios = end;
-+	folios_ser = vmalloc_array(max_folios, sizeof(*folios_ser));
-+	if (!folios_ser)
- 		return -ENOMEM;
- 
- 	/*
--	 * Pin the folios so they don't move around behind our back. This also
--	 * ensures none of the folios are in CMA -- which ensures they don't
--	 * fall in KHO bootmem. It also moves swapped out folios back to memory.
-+	 * The folios are held until the next kernel, so keep newly allocated
-+	 * ones out of ZONE_MOVABLE and CMA -- which also ensures they don't
-+	 * fall in KHO bootmem. Existing ones are migrated below.
- 	 *
--	 * A side effect of doing this is that it allocates a folio for all
--	 * indices in the file. This might waste memory on sparse memfds. If
--	 * that is really a problem in the future, we can have a
--	 * memfd_pin_folios() variant that does not allocate a page on empty
--	 * slots.
-+	 * A side effect of this is that it allocates a folio for all indices in
-+	 * the file. This might waste memory on sparse memfds. If that is really
-+	 * a problem in the future, this loop can be taught to skip empty slots.
- 	 */
--	nr_pinned = memfd_pin_folios(file, 0, size - 1, folios, max_folios,
--				     &offset);
--	if (nr_pinned < 0) {
--		err = nr_pinned;
--		pr_err("failed to pin folios: %d\n", err);
--		goto err_free_folios;
--	}
--	nr_folios = nr_pinned;
-+	pin_flags = memalloc_pin_save();
-+	while (index < end) {
-+		struct folio *folio;
- 
--	folios_ser = vcalloc(nr_folios, sizeof(*folios_ser));
--	if (!folios_ser) {
--		err = -ENOMEM;
--		goto err_unpin;
--	}
-+		cond_resched();
- 
--	for (i = 0; i < nr_folios; i++) {
--		struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
--		struct folio *folio = folios[i];
-+		if (fatal_signal_pending(current)) {
-+			err = -EINTR;
-+			goto err_restore;
-+		}
- 
--		err = kho_preserve_folio(folio);
-+		if (WARN_ON_ONCE(nr_folios >= max_folios)) {
-+			err = -EINVAL;
-+			goto err_restore;
-+		}
-+
-+		err = memfd_luo_get_folio(inode, index, &folio);
- 		if (err)
--			goto err_unpreserve;
--
--		folio_lock(folio);
--
--		/*
--		 * A dirty folio is one which has been written to. A clean folio
--		 * is its opposite. Since a clean folio does not carry user
--		 * data, it can be freed by page reclaim under memory pressure.
--		 *
--		 * Saving the dirty flag at prepare() time doesn't work since it
--		 * can change later. Saving it at freeze() also won't work
--		 * because the dirty bit is normally synced at unmap and there
--		 * might still be a mapping of the file at freeze().
--		 *
--		 * To see why this is a problem, say a folio is clean at
--		 * preserve, but gets dirtied later. The pfolio flags will mark
--		 * it as clean. After retrieve, the next kernel might try to
--		 * reclaim this folio under memory pressure, losing user data.
--		 *
--		 * Unconditionally mark it dirty to avoid this problem. This
--		 * comes at the cost of making clean folios un-reclaimable after
--		 * live update.
--		 */
--		folio_mark_dirty(folio);
--
--		/*
--		 * If the folio is not uptodate, it was fallocated but never
--		 * used. Saving this flag at prepare() doesn't work since it
--		 * might change later when someone uses the folio.
--		 *
--		 * Since we have taken the performance penalty of allocating,
--		 * zeroing, and pinning all the folios in the holes, take a bit
--		 * more and zero all non-uptodate folios too.
--		 *
--		 * NOTE: For someone looking to improve preserve performance,
--		 * this is a good place to look.
--		 */
--		if (!folio_test_uptodate(folio)) {
--			folio_zero_range(folio, 0, folio_size(folio));
--			flush_dcache_folio(folio);
--			folio_mark_uptodate(folio);
--		}
-+			goto err_restore;
- 
-+		err = memfd_luo_preserve_folio(folio, &folios_ser[nr_folios]);
-+		index = folio_next_index(folio);
- 		folio_unlock(folio);
--
--		pfolio->pfn = folio_pfn(folio);
--		pfolio->flags = MEMFD_LUO_FOLIO_DIRTY | MEMFD_LUO_FOLIO_UPTODATE;
--		pfolio->index = folio->index;
-+		if (err) {
-+			folio_put(folio);
-+			goto err_restore;
-+		}
-+		nr_folios++;
- 	}
-+	memalloc_pin_restore(pin_flags);
-+
+ 	pr_err("\n");
+ 	debug_show_held_locks(task);
+-	print_irqtrace_events(task);
 +	/*
-+	 * Free the unused tail so it doesn't get preserved. If vrealloc fails,
-+	 * the folios_ser is still valid.
++	 * No emergency section: it would flush all pending messages to the
++	 * consoles while report_lock is held with interrupts disabled.
 +	 */
-+	shrunk = vrealloc(folios_ser, array_size(nr_folios, sizeof(*folios_ser)),
-+			  GFP_KERNEL);
-+	if (shrunk)
-+		folios_ser = shrunk;
++	__print_irqtrace_events(task);
+ }
  
- 	err = kho_preserve_vmalloc(folios_ser, kho_vmalloc);
- 	if (err)
--		goto err_unpreserve;
-+		goto err_put;
- 
--	kvfree(folios);
- 	*nr_foliosp = nr_folios;
- 	*out_folios_ser = folios_ser;
- 
-@@ -215,15 +316,11 @@ static int memfd_luo_preserve_folios(struct file *file,
- 	 */
+ static void print_report(enum kcsan_value_change value_change,
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index c3dc84a7cef26f..847157d46e4c2f 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -4241,12 +4241,11 @@ check_usage_backwards(struct task_struct *curr, struct held_lock *this,
  	return 0;
- 
--err_unpreserve:
--	for (i = i - 1; i >= 0; i--)
--		kho_unpreserve_folio(folios[i]);
-+err_restore:
-+	memalloc_pin_restore(pin_flags);
-+err_put:
-+	memfd_luo_put_folios(folios_ser, nr_folios);
- 	vfree(folios_ser);
--err_unpin:
--	unpin_folios(folios, nr_folios);
--err_free_folios:
--	kvfree(folios);
--
- 	return err;
  }
  
-@@ -231,26 +328,11 @@ static void memfd_luo_unpreserve_folios(struct kho_vmalloc *kho_vmalloc,
- 					struct memfd_luo_folio_ser *folios_ser,
- 					u64 nr_folios)
+-void print_irqtrace_events(struct task_struct *curr)
++/* Like print_irqtrace_events(), but without the emergency console flush. */
++void __print_irqtrace_events(struct task_struct *curr)
  {
--	long i;
--
- 	if (!nr_folios)
- 		return;
+ 	const struct irqtrace_events *trace = &curr->irqtrace;
  
- 	kho_unpreserve_vmalloc(kho_vmalloc);
+-	nbcon_cpu_emergency_enter();
 -
--	for (i = 0; i < nr_folios; i++) {
--		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
--		struct folio *folio;
--
--		if (!pfolio->pfn)
--			continue;
--
--		folio = pfn_folio(pfolio->pfn);
--
--		kho_unpreserve_folio(folio);
--		unpin_folio(folio);
--	}
--
-+	memfd_luo_put_folios(folios_ser, nr_folios);
- 	vfree(folios_ser);
+ 	printk("irq event stamp: %u\n", trace->irq_events);
+ 	printk("hardirqs last  enabled at (%u): [<%px>] %pS\n",
+ 		trace->hardirq_enable_event, (void *)trace->hardirq_enable_ip,
+@@ -4260,7 +4259,12 @@ void print_irqtrace_events(struct task_struct *curr)
+ 	printk("softirqs last disabled at (%u): [<%px>] %pS\n",
+ 		trace->softirq_disable_event, (void *)trace->softirq_disable_ip,
+ 		(void *)trace->softirq_disable_ip);
++}
+ 
++void print_irqtrace_events(struct task_struct *curr)
++{
++	nbcon_cpu_emergency_enter();
++	__print_irqtrace_events(curr);
+ 	nbcon_cpu_emergency_exit();
  }
- 
-@@ -287,15 +369,6 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 	ser->pos = args->file->f_pos;
- 	inode_size = i_size_read(inode);
- 
--	/*
--	 * memfd_pin_folios() caps at UINT_MAX folios; refuse larger
--	 * files to avoid silently preserving only a prefix.
--	 */
--	if (DIV_ROUND_UP_ULL(inode_size, PAGE_SIZE) > UINT_MAX) {
--		err = -EFBIG;
--		goto err_free_ser;
--	}
--
- 	ser->size = inode_size;
- 	ser->seals = seals;
  
 
+---
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.0.385.gac671c819a-goog
+change-id: 20261103-kcsan-irqtrace-emergency-f11dd338a43c
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
