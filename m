@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701788;
-	b=b/TjWm2J9hJdWvFFhPw5303flXFzJ+DKXjOgeA7NJwTOPJXrJcGrBUayoC/SNwsTpbBt
-	 x6cyhtoyw4qY4s7TbtjSz9z+2iXSxLkMROTT6Xuryj0iGeGyfFETZn8V2XuHowL9PcReV
-	 YIfMiDM2/T3a/MY/dq4MD76ylCGsZgcRhN2hoFmnvFdmxhqL3PTA7ifhnjDb7fH/pGW87
-	 Se5NcWAoLVKiA7gYS3dBl9i8aS1TPaMlrTsyWI2ln4NXhSIND1oa0tdyvFem7zpvPeWm6
-	 krH7iPApCTf1oI2S8rcxdKp7GElZpEycfjpwbC0qBaDSpCDGpZODhVidbyA0ak+/nag==
+	t=1793701849;
+	b=RZwkss73yh0cXoAgxsyxkxhLKI5R43mVekGFtt+4uV9tRbq19lc/skh8WHNCvMnOjY3U
+	 EZUod9MKgwfNXAKrhFdR+8QXIX4ek/qRKoRat0zKmrpWb46N62MIiDAtH69BKRpe+4CuB
+	 ZlFY9yHCm3dplOn0s9hgUYLsvelFietEMdAD8DG4zERXhxJe5uRxxkEk9fHxtdlNr9Ula
+	 nMNkvyFFMfvVzxZ1H/dE0ymWNfIDlXh9kY/B/6HOzx8n0iwrAmLv1RZtvZIZsEXB5mzDr
+	 7Kg0ZihKvhQfNjCzDnU4PxFP+DZPJU2qnQWMD14NtxghjdaZi5xNjHUjsTmGhDJYSCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701788;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9OSvScGRwha8A7Tb2tHR3R5F02sXRmMamVkr8+PRTWs=;
-	b=boGSWF/oJwOHaRJosKfGbCKJsSiejBS7hQE6RT4B2bGlQTDU+rhE8xywI8XyaVheyij5
-	 CR7hbi9SCKgARXC+rMpx47wG0X88lLe1saUMteB7KkcMu2QxiM0Iu/zvLljWm8nl+0f8s
-	 KOQkgQd2JG6apFp3L2cWwDviaDVoOPCsBLZL1QIE/Gp08eM5HQ/UQkkBy4helM9ejR3Zq
-	 aVt1vreRE+lom0AIj4+bMPQJXSClSq+k0RaF3YjmiTbZ9YwquYNKWe294MKgRVIyxr264
-	 2r0LuLDNrtAF99Gii/ZAQJRnwlxP9OzNP0iB4AZqpgrQqYUhE8ngdsyzS8fT6YIgmXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701849;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=LX5axVMOj5+LNVZyhy4UCdkzJORi67a8TUGxLDQdgqM=;
+	b=Qz1TF/QQAEsnPJbpBCJDueULQlDL4gCztMvtFImcoQfPIuY3opeDOpEtm7w9c4Jwopjy
+	 Wn9swPW5X1i0AdRZ2xE4F1WZ/SC5HX7Z57Kekse5i/S9PcVDls+1W62jZhRSPDmL9WEgi
+	 nGGbotxDAYfPcB6q3H4cUmIZfS7IAgWnlC3iKQm9C1MRtjbX+z577meScyB2U+r2oBny2
+	 OWbTnA+DLTxY9oDY7gF+FAnxLnsVNj9xTz5HVW/LPgqwuFggnrSr+w7pRzSt/VnqIW5NV
+	 o00iimzXM3jSc/ephUTgCSKohIx5AllGlCk232/bBsFzsrRm/qzzIiq+t17KMF7SXWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QQ1qfgqU;
-	arc=none smtp.remote-ip=91.218.175.96
-Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=KKHEULN0;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F17606B128
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F17606B128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C46F606A80F;
+	Tue,  3 Nov 2026 10:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C46F606A80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QQ1qfgqU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9OSvScGRwha8A7Tb2tHR3R5F02sXRmMamVkr8+PRTWs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793701785; v=1; x=1794306585;
- b=QQ1qfgqUbGhGBerxeLuJhyNk7bgr29IpB6mdUWq7I5GBjwVxZyy1/52gPaY/7kXtM0GXHLCx
- 4RpcT2uiJ1ar4EFiI4YDe8tiB1L5f3BVfM1Orm01rf7eF0WUMSfamObsQPcMPJ6r1YAuC3tWkmp
- 0vu1Vhi7wZbuoThW/OWjzw8w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 129eb9b76a2afe71;
-	Tue, 03 Nov 2026 10:29:45 +0000
-X-Mizu-Trace-ID: 129eb9b76a2afe71
-X-Migadu-Flow: FLOW_OUT
-From: George Guo <dongtai.guo@linux.dev>
-To: ardb@kernel.org,
-	pratyush@kernel.org
-Cc: rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	chenhuacai@kernel.org,
-	shuah@kernel.org,
-	ilias.apalodimas@linaro.org,
-	akpm@linux-foundation.org,
-	baoquan.he@linux.dev,
-	ruirui.yang@linux.dev,
-	guodongtai@kylinos.cn,
-	kernel@xen0n.name,
-	graf@amazon.com,
-	liukexin@kylinos.cn,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [PATCH v6 1/8] efi: Pass KHO state to the next kernel in a configuration table
-Date: Tue,  3 Nov 2026 19:29:41 +0900
-Message-ID: <20261103102941.11087-1-dongtai.guo@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2382a0ee-cb6d-4572-be6e-ce3cf4d006e5@app.fastmail.com>
-References: <2382a0ee-cb6d-4572-be6e-ce3cf4d006e5@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=KKHEULN0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=LX5axVMOj5+LNVZyhy4UCdkzJORi67a8TUGxLDQdgqM=; b=KKHEULN0j+MCzFZ2EutZManWvB
+	LmBQia+tFgoDG59w7dfEnXAlthauE4QnZLP2ATUDk3D20PfCqkdgvgWnvYOlFf3ceGeRRbeAmflTt
+	xT+ulMNsxH7v979tCE7q3nHc9I5DWueD54k20FIC8AcQshbjhz1dUPn16w/8OFp1m5CDtmNEmpfKt
+	84M3RSzGKk2d9dNIuZ+hi0x87NoWz3vfBenEpCV5N6uIPxCxv0vrgPBjxR4vC341k46mAE7cuR9v4
+	mlOyZ2VPlcsfaBDezZcaWkn6J+u/fYtMjnKzPZ8jmDM6/L+SBxvz5eEqpYJma8nq8iMehGI36tN8+
+	CZsnrMfQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOBmx-000000020u9-32wV;
+	Tue, 03 Nov 2026 10:30:47 +0000
+Date: Tue, 3 Nov 2026 02:30:47 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Li kunyu <likunyu@open-hieco.net>
+Cc: axboe@kernel.dk, tj@kernel.org, josef@toxicpanda.com,
+	cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] block: Add done_split_bio() for chained bio
+ post-processing
+Message-ID: <aum31_1jjv7OROxl@infradead.org>
+References: <20261030065945.88742-1-likunyu@open-hieco.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,25 +65,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030065945.88742-1-likunyu@open-hieco.net>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Ard, Pratyush,
+On Fri, Oct 30, 2026 at 02:59:43PM +0800, Li kunyu wrote:
+> 
+> patch 1:  Introduce a new abstract function 'done_split_bio' and call it
+> from bio_remaining_done to resolve this issue.
+> 
+> patch 2: Implement the blkcg_iolatency_done_split_bio callback in
+> blk-iolatency to correctly decrement the inflight count when the other
+> bio headers, which have not called rq_qos_done_bio(bio), complete.
 
-On Thu, Oct 29 2026, Ard Biesheuvel wrote:
-> Can we handle this as an arch table then, and handle everything in
-> the LoongArch arch code?
+Why are you not simplify calling rq_qos_done_bio before
+bio_remaining_done?  __bi_remaining is only incremented for clones of
+various types, and the qos processing should probably happen before
+calling back into the submitter anyway.
 
-Ard, LoongArch is currently the only user, so I understand the suggestion
-to keep the handling in the architecture code.
+As far as I can tell all the code here is duplicating the existing
+done code without much of an explanation of why we need another copy.
 
-My preference is to keep the table definition and handling common, given
-the potential for x86 to use it as Pratyush described in his reply, to
-replace setup_data once x86 gains EFI support. The table contains no
-LoongArch-specific fields, and only the LoongArch stub installs it. On
-systems without the table, the common code does nothing.
+While we're at, the existing code in rq_qos_done_bio added in commit
+aa1b46dcdc7b ("block: fix rq-qos breakage from skipping rq_qos_done_bio()")
+is extremly wrong and dangerous.  Once a bio completes, bi_bdev
+is invalid, the driver could have even used it for something that is not
+a block device like md raid5 does, but it certainly does not have any
+use for the qos/iocost code.  So it really needs to derive anything
+it needs to I/O processing from the bio itself.
 
-Would that be acceptable, or would you prefer to keep the handling in
-LoongArch until a second architecture adopts it?
-
-Thanks,
-George
