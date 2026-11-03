@@ -1,65 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742424;
-	b=Uy+M8HCsUCIxZjOcVcPDjCxkbT1CKXAf9ki3QJxlGg73QzKee3iTniBp2/tPM2YVcpCj
-	 PaBTQEce1vCS8ODWCl2KEfz3FBSNJMXbmciMCL4a2YvsbAGEVnkkqZGj2DkS6l0MPeS8y
-	 9nUAlhfGf4x6j/Dud42p24+BaFZHG8G76X2EQG+FQsdUL9PB96Ua3Cf8EJrzr2NYsv8pB
-	 Jg2XWu1trpnnyknn67SsW4hXVzU6/g4USKrTE1SrVpR4LqlIRkL7WxvZm+wuZjb9hXdG0
-	 mh/pTGpxUqNDzkCThlC01W48NjleXQq8INvFXIEzeJZQHSVOk/xCc/Hv4NB6hID8K3A==
+	t=1793742435;
+	b=KDSkQTbMHqKl80fGep3jvqMJ6bqG9rcoWXuegXusK6EP9/rk+zpWqUxPQJjMR0xeLPs+
+	 Z9hPmmp93IHik/1To/NWIS8EEZft1p7Z7sFfk+9Pt5DD+lMl39ZEj+rUIlNJqfPGDss/8
+	 8WqxyaDPuZzH87JXYF7WuWhLaAOMRTwKdqrrjPFf05EXU0by37854eh1eBO4hguY6QQI3
+	 PCTTtCGzD3MqFNeUHpP0BhLNIM8ZJeScDPUSwabwpHayUJZefUWArE+XYEiuTnyiboA/G
+	 WKMbV0N4bI6d3EGC5KmMZloWS+86DCeEiiJQmCIufGlcgqSKxHN4F8PNQpb1kaIGUVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742424;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0qIMVRakx8MFE3+X6O+uiOk2xUDzs4Y5tphV+i06Ud4=;
-	b=pVASN6c7mPi2ZcMiUa1B8UyXsKS8HKUvwo9eFmHVvv/R3qEq9oaw0LnDrOeMwZ8DCpbE
-	 clYcJjdtN1BAn6ImlHq5o9HiSGd6esR2jgQZXhX9X57cYwJo0lRQXB8TsbPxz0Cy4KaQV
-	 3y36eXybKBt6TNGZUuFBYVn6rZZqEJRlgJxPGGDxRJgu7ILpc5elwEDg7meIQNl0SvHFQ
-	 QY+JpQDUw2/GZBVwBIqkiuJTmpbI1X5oGDX1VXHoRYaDOvFtSWmwM2Lya33uC3vd7LuXr
-	 xXqE/LI36esZMT3xYyEfNCpmEDRomPT2JhWxLnIlOKzMe5m0r55S6yclhTc32Q6Xl2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742435;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Gslbebf1LMvPLM8Q5E/+GJDx3HzrVAFeNFBvrSeRD3A=;
+	b=MDdT/RB7F0VrZJ8tg0omzOoBlioZJe+WuCckFfkEqsaOx2kQAGX99fAPEtp1jAEZ8g2l
+	 YAIpY9voktvqgE5fnu+iO53tVdmDq4Uq9pDQOPWkPT3l5UiZh+pfPUNiXm4cDHkTMNAXT
+	 M/yLpODwj/QJ9tPHiBILiwyw/RSJn1G9UUC2Vp1P5khkdFAoCjM4QXg0BfZYOIajqt/6j
+	 eGmPNudytjpEz6krJNYtw3NKHGkWUU12KiIcDvo//p9J7GcAJiVYQkT5vzXZR8P6VuOSM
+	 0SVshPRLTy4YZagZRd/Qnou4y/0UC6Q7fCuZBnKEyq3mEPYImUVmkEnMMUUHky50qQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrP6fJQb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=dama.to;
+	spf=none smtp.mailfrom=dama.to;
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Rz9zp9i3;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A05606A31B;
-	Tue,  3 Nov 2026 21:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF28606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:47:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF28606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrP6fJQb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD4F11F000C1;
-	Tue,  3 Nov 2026 21:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793742423;
-	bh=0qIMVRakx8MFE3+X6O+uiOk2xUDzs4Y5tphV+i06Ud4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XrP6fJQbEMevUrTsydlsPVLlGv7HAoO5QaCj+GegM3+0hNUUNIvkkgdh9OZKQQ09y
-	 OO1k2l2GiX67dVfoedyKZyy9szczuqj4MY3shuEtW5aet2pHS9lmQ5d2C7jyor97OV
-	 aW2WEyv7Ikv6cjwXNLJIRowhq9j0Z/o+zDu04dy95467Oxc2bxUBOpW72mvR3jI/iy
-	 ysYWG1U1WD6bgirOIg9FO4C8jT8wd3r3hdvjx8wtdrfCZAc/Iph+jEjFKf6OpznsYy
-	 xQZuCCcJ3CuSU4dS5nfnMbJ4vPWa3ZXerB6XO7DuLo/DqZqnGlLZqOGyhAxYA5TAKV
-	 sd3Vh7apqLXCg==
-Date: Tue, 3 Nov 2026 21:46:57 +0000
-From: Conor Dooley <conor@kernel.org>
-To: aleksa.paunovic@htecgroup.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Djordje Todorovic <djordje.todorovic@htecgroup.com>,
-	Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>
-Subject: Re: [PATCH v2 2/8] dt-bindings: riscv: cpus: add gf,mips-p8700
-Message-ID: <20261103-synapse-posing-06a06f09a9cc@spud>
-References: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
- <20261103-p8700-dts-v2-2-3ac5d49f2c37@htecgroup.com>
+	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Rz9zp9i3
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso79858a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:47:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793742434; x=1794347234; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Gslbebf1LMvPLM8Q5E/+GJDx3HzrVAFeNFBvrSeRD3A=;
+        b=Rz9zp9i32GrLsqYq1Wv4k+MOEXRHkge1QpJ7C6/aNofnyPzJwsED2mBJ+BO36t2Hut
+         U/X3EX/P4yEQJBoeXN5o24QnyrjGOEkzSU+wtx5SH/xuFKBlH+Cty7/2p2y+FTtjgmls
+         7I7QCjDZfxEAhev/iKP3MQSpbIsLV8Ph/6Q+DPR/n0huTq4GXHNbcfILEA1X4NPlfLj2
+         ND391PjSxTHj0exOiD1aylibkcBR08bsztmT24DXhejY8LZmDn5tUiL/cjmU17IMgXiy
+         Yh3kpGdUO96yk7UD5JPAXXx4ItoLfJNwcyTu4xlyq02RpXu59D1Buwn7SqITNQ1GbrHI
+         y5pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793742434; x=1794347234;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Gslbebf1LMvPLM8Q5E/+GJDx3HzrVAFeNFBvrSeRD3A=;
+        b=QBHxfjZWOU+KnWov5/eSjhyW1p4RWlzP9SiOh6AfQA920zYPlKPBVbBbJ2qAJJYmdZ
+         RQnTRhEIxzQOs0iCT0/uemYYgUokO0s9J1lrK2gk18joERfX57SafMBOpv6uJHj1VCXp
+         k159aI/pp7YUjlsSlj/Hd5c8+mroMhwiSnsd4FxM21szdNuTtWHa2C2oYx/JA6m9X1Xr
+         rr3wgIJj0aW23ZUygacfaJB6m2beHNlMIVsAhiDmbtKKptErQ/npfPFt8NPD3pcW7722
+         KOSiL5Dhh2YwR2TOfI9lWGHT67poHXy0lHHPviG19zAEUFtmhQl/gm+RIYk5rCfHsyrf
+         MlPw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1uc1OWCB4iR0lSFmaC7N78Wx6mFUMJbRScaX+RHWwaPlH5jgAsUT8n8Ycmr47qhD5G+zd96t0WPsp0RA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80zcaHzvzf8DTk3Q/2Z7dXexnnB2lFHPpBIr/PpslnqTCX3dCH
+	iTzgm6nQy8iANrRK3j2I9MtKS5jWbKldjRk8W7ZXrCRwx6K9lmdT6p0vIbD33Ht15IQ=
+X-Gm-Gg: AYBFou1ZQ6HzRH64cjwzgbvY2q1VGGFDHgkzOHGsdEMnfCn0pqdC2W9ZT+Ki0+84IgJ
+	GWg43Syax0RedTa5RzliyVt3cgyz1JkvSKvAieAFTrEL5nyfXchzpMDbOUnyONJW2E9lDFOmpfk
+	XRaFmrdpKNQgt2c927rnTMGLkhUyJkLB2GiqLI4fj9cUQLYFLaL0BawJrRnb8Icv+nQjVF8RvYu
+	+IVx1edAcS7WovOzlW2ZH4zoxgYUza3KNdJdmoKJkrP9alN2QmYwGV4VbbuAlm3WW9DJimQqRY5
+	nDV0tjU+xWlyFzFA7wiPj2jLVUbdrCdRu7wbCkufDdOv0nV9Mpm1PAsdVxXvoeYjV6HtZUx1vz+
+	V+fiBjm4EsRrcaxwTmKGIAoH89cSSwyspEhzSzAQcoJx2m8lQILo+aRQPOlIbh60suXhyRY5FUO
+	IL1v7V9VJGzonr//VSwvgE2hMBMxjVlZisOGROu9OrTX30rkdV4sKXwwhmqZLVMAPQYDIBAcJhn
+	OCAhaeuvvToR9UPohTozsef/WU8+Czowpi1sbeU58pso1C/g/larYLEAGbSEFPBjlJ8/6q8ZZAn
+	O+8FcVQUtgjjjfL19BU7y23lNdtWbiq/CDIa+iAGVeCF3EMKwkvhUlajzIrU3t8=
+X-Received: by 2002:a17:90b:584c:b0:3ac:fe93:a731 with SMTP id 98e67ed59e1d1-3ae8981e640mr10608128a91.56.1793742434015;
+        Tue, 03 Nov 2026 13:47:14 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:4d::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae87fc548fsm12790312a91.4.2026.11.03.13.47.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 13:47:12 -0800 (PST)
+Date: Tue, 3 Nov 2026 13:47:11 -0800
+From: Joe Damato <joe@dama.to>
+To: Breno Leitao <leitao@debian.org>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, david.laight.linux@gmail.com,
+	kernel-team@meta.com
+Subject: Re: [PATCH net-next v4 2/7] net: cap sockopt_expand_out() at
+ MAX_RW_COUNT
+Message-ID: <aupWXwkFZIQi7Mae@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Breno Leitao <leitao@debian.org>, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, david.laight.linux@gmail.com,
+	kernel-team@meta.com
+References: <20261103-sockopt_expand_out_v2-v4-0-2d36da923578@debian.org>
+ <20261103-sockopt_expand_out_v2-v4-2-2d36da923578@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,62 +138,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MZmL+98OJ3neLu75"
-Content-Disposition: inline
-In-Reply-To: <20261103-p8700-dts-v2-2-3ac5d49f2c37@htecgroup.com>
-
---MZmL+98OJ3neLu75
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261103-sockopt_expand_out_v2-v4-2-2d36da923578@debian.org>
 
-On Tue, Nov 03, 2026 at 04:11:26PM +0100, Aleksa Paunovic via B4 Relay wrot=
-e:
-> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
->=20
-> Document the MIPS P8700 compatible.
-
-Same comment here.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
->=20
-> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+On Tue, Nov 03, 2026 at 03:01:01AM -0800, Breno Leitao wrote:
+> sockopt_expand_out() grows the output iterator up to INT_MAX, but the
+> MCAST_MSFILTER getters converted by the next two patches rewind it with
+> iov_iter_revert() once they know the real reply size. iov_iter_revert()
+> refuses to unroll past MAX_RW_COUNT:
+> 
+> 	if (WARN_ON(unroll > MAX_RW_COUNT))
+> 		return;
+> 
+> MAX_RW_COUNT is INT_MAX rounded down to a page boundary, so a caller
+> that expands into the (MAX_RW_COUNT, INT_MAX] range and then reverts
+> hits that WARN_ON, and the iterator is left where it was instead of
+> rewound. So does a caller whose optlen already covers such a size.
+> 
+> Cap the size at MAX_RW_COUNT instead, before the early return for an
+> optlen that already covers it, so a size that could never be reverted
+> later is rejected up front.
+> 
+> Sashiko found this while reviewing the conversions.
+> 
+> Acked-by: Ido Schimmel <idosch@nvidia.com>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 > ---
->  Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Document=
-ation/devicetree/bindings/riscv/cpus.yaml
-> index 0da219ae6769767a9b7f41f179a3559ae7160d69..c7f1cf1db6eef5b25403d53bc=
-a7cffd9bc1f2240 100644
-> --- a/Documentation/devicetree/bindings/riscv/cpus.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
-> @@ -48,6 +48,7 @@ properties:
->                - amd,mbv64
->                - andestech,ax45mp
->                - canaan,k210
-> +              - gf,mips-p8700
->                - nuclei,ux900
->                - sifive,bullet0
->                - sifive,e5
->=20
-> --=20
-> 2.43.0
->=20
->=20
+>  include/linux/net.h | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>
 
---MZmL+98OJ3neLu75
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaupWUQAKCRB4tDGHoIJi
-0jzdAP0QRFUSXCqY5Bx3PwIkHe8G4jQ4n++qQHiyt4ZrvklGjwEAq/J4pFCTTSSY
-OkWYe1RQ1q9IRpH+0wlrFRb7J/wsbQQ=
-=iO2t
------END PGP SIGNATURE-----
-
---MZmL+98OJ3neLu75--
+Reviewed-by: Joe Damato <joe@dama.to>
