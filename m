@@ -1,125 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745364;
-	b=gX7p5YNCgLApSpNE+waPYGmZjRJleWvFZfbCgB/2STiGVsXqYWR/JWogEnZ5ikffZKWP
-	 L5864aLyBatJOSz0muk+AcXBteooAdg4LWq/kakPvyJwGuImQtqmlb6eEApN3P/7kfEJn
-	 /X97Z0cQHWF16Z7MfyFOEk2jxm81su9hi54zmAdtmXeC5xZOnmNMo3jgK5R51w1/Lkstx
-	 kn00H0U7qvwPEGRTthMCZuItZuoMOTplcWNUEB9ZpzY6GsRjJnCBHwHMuiThbtZiunReg
-	 Cyz4Hx9PI0fIE8z/tyYY/a7Jcq2km2IwdKCIhMQnk1LRsQF5TSbCfpML0rrysS3jfKg==
+	t=1793745435;
+	b=wm/iw4nclRMzc6guWva465gMRx4JxmrsYx/TJiF/qdASRceIVI+7dUyged0uYgdld5CY
+	 xLwp4415jF3wgEqbVNXt8OqVGbJq0vkHFKmGjf4eE4dbK83HNQ2jtNaT3CunMmBbDS2O8
+	 BWMGDPWNJgRpvhT9hXa35vYCZVcHBgAezI3E7PV6RNCMmzD0d6EjL8f7lzoCYVpec1ypb
+	 vM2c8XUE/79qx/WG1mM+3GXYjpNt+MLmQWnLIGAxF01aKgsgBOLraebicZKTWTAO83ydL
+	 10eUy5KZUopJYAQtv+rPJODDR7gtG3pBmjLRjhn4ZcPoORzC7zOVDmiT2w0wbOeI5Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745364;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TPqHx/cU/fq4H9wkiHqa3VQQRQQa86H0rWb12bSD8zU=;
-	b=gaypKQLiWMre1ptJGJR2E2F9uL/hljcwA3pHYIjTGCADR3WM1aFqhImJflM6kZsmnZos
-	 lkzdkjExdI8VGQAM/LEIveM5kDh0BLx2qE6xnrxDm5cimkeXsIgU2MVl+ctRI+ju2L9WX
-	 svlp2BUG9eZSZB/3WsbGr//SayqerLG33qBnaZyzQ7/TXgp5/I6Pv3XQ20A9IAzjEPdOJ
-	 ua63VTOlQdiQEF/4h9gBWs7ZxiSmD26odQsgmREBOStxqr0zcXypZtr3KztpJQ9Ew9jCd
-	 GX2C8CPXrlaYwRZfD3TX/8AT8ufVqXAOQTr2EdOHbwXqeFpTzFzriUyQo9TwYzShGQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745435;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=xsK4w3jLbP3XPnppugEgOy/hVuJlXHxWXgSfS8UpOYQ=;
+	b=PT6DUW0elOX67HXFUylRKqcVzYziRhmmBzprUFollItDxSe9RsWfvqcTBrryU3EAkerE
+	 kmkp8cD+c4OUrXdSySDIr9jxE1HBn3rInb/kPYScMch+FVoJEjOn2FuyxFL8gGIszLii/
+	 a52mf71bN5gzwdmBrM/YQJka/lYieGKDEcy6AI270PZ/bkhDqqEYr1sYuGwIJUXjZnsOM
+	 cP9filhxZt18T17B3VFRMvVs4RZ7wzE4qVNWUj4pdpLAG3RmyN+GzM6zsh1lNX4I3QU+S
+	 8ZrievI+Lbn7+C5fZn8tLfU9GUnRAdz+qyFJUcKWNR+UZ0pEb2CETDCTj89+dnM4FZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=IGTPazC6;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KlANgHAH;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=1cUgVVtf;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ADC606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46ADC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD946606A31B;
+	Tue,  3 Nov 2026 22:37:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD946606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=IGTPazC6;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KlANgHAH
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 47935EC07C6
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:35:57 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 03 Nov 2026 17:35:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793745357;
-	 x=1793831757; bh=TPqHx/cU/fq4H9wkiHqa3VQQRQQa86H0rWb12bSD8zU=; b=
-	IGTPazC6xy0M58vzjx+JMD+W/XqY0vU7KCETdJmNajTLiiLiNtdicG6viC1P3Q5X
-	+7holxI4BILs6EvMqaxHPtYwnnCLc9MK5KChqNGQjKcAmRTHkfIe2kNVqZHZSf3Z
-	IaOD2wskcYeXenEccKXYTRbJPk0E4zhYqMjiYt00NIfT+NTmQyjC2rMlZohGRQic
-	4qEWsrVlu584kqWSAMwiC8HcUhHZVHhyioxgT3dttyXw/XE7C56h6KL4avz7AmDS
-	ZQExdPLtI9zpBODYfRN2Y2s/1UbUzNAPPC1+zJJnipcKOkjUx9yvpdaZFwZmwR1i
-	aobMI4Zez2s6930XuBb3KQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793745357; x=
-	1793831757; bh=TPqHx/cU/fq4H9wkiHqa3VQQRQQa86H0rWb12bSD8zU=; b=K
-	lANgHAHVasq8yLCrxnHyltI/29AjvR8kMipRGuUdMycKDNdYRetGjZpx0nXu4U5Y
-	3ZxMEGSjla0dSYF82ae8UuH30X9RNRLwkhNafPnyFZHeNzjiVuGQYY7aWN+INY39
-	QO1vibN/JPQOAE1l/j3V3qIsZ9FsEQnyucEG2mTGX7DwuJrGKcgq78sp6I+BJh0h
-	hfYDElzmPYrCpsbAz4s0skinura8ynB0BHfGX4UYFRwE+NFeesfJCZATuu0xbfTJ
-	7NJh2NjmDMC74VOZXl/G4wW5OIDNSo2BZqhVJY+ToWQ5IqDFjKRmFUIhNzQfhPL5
-	yMPetsULrHbhpCer25Ftg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793745357; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:M6R4solQ0hgt/ne2bYP5suBzu7FPdjSkaPwhfpeso873CYU
-	XpXozPFq4lq5U3NTqTRvKKUa/SO6xZ+TS/fWwXumB8AT4kM0BR1mA5615TxqVwyX
-	YcBChhGrIt1xZT/3Xk/V4TEAXNBodaTI11CTMPewyGRg0rxexQ8U5uGYxjnCmO2v
-	QIIuSB1oOygdZ7uhg0vAjX9u2yEWmVP5tjvSH4d+IlSmaB38fuA2Lv2ZWdLtpdcd
-	c1Eb5h1snTP+Be5hJcclUeN4njuFjabQB27yoDcjccHwRza7PulEQb1pDiWjR56Y
-	Y/muP8/NSVvNeT0xvbSYVQt2E8Efd5eFw2gV9Wg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:eAT+53BcZGsO6bsWh4DIkgOl3GszBJNp7CsO8VE5dxg=:tSVY1u0kwJzKuDCzne2np0L26kae7IHeO6zV5GRD6XA=;
-X-ME-Sender: <xms:zGHqaqDAaaGox9leGsWQqkVY5CqLLqXGbGUZjKlyBhIp1_zSRGEMpg>
-    <xme:zGHqahGrYohptLzOBz3vmqtzmT-Owvk-YX08LtJaV3ELzoxhTUCT1HnqZp00B_BmR
-    ko1sE4u8EIJMVZEisAbBRdvx973R6q6bG-7EIZduXkgwMHU4X4-gBA>
-X-ME-Received: <xmr:zGHqaiBVBp37714ASGQLG1FqYyshCRMxtmiauSxcdgvDLTiWmW4IWJYFPEIp8g>
-X-ME-Proxy-Cause: dmFkZTEWuavI98npZyJd5hGbCm3gmnPP2dElHheiEi3bgLGrOZg9pyjbzXfSDwZjjgcO4w
-    U3vFMoXwy1uUO2fihKGEUsRiLxnsse9WZHGg5Ezm0QidUnsW68dPy3vOA7lcuAKOAXK3Gi
-    zYvmcJtdErAyHG0SbkJzF7oprUSLqBkjjYYNZbwEe5oUXNKzvqXd67PkdiUUsSn+asqfgv
-    huLk0RTugANZcEqyEZHyeIW6wpZ3XVwcYI6l7/j3p9OrzNxyp3ZNbPnQ+vtDfRw6uvQY4r
-    Zkzdl/n4jLMNVLYd3TpwZn+UqToQLCk89WYhttwK7/UYPkcF4UVJQbuRhbPoNhLlrMycHi
-    kfjyverQ830dJfhtW/lTTx65qMmGI/f1W+uN4DECy4YqJpGS7t2KGc1FyK6cnuxzlIxD+F
-    fwd3526Wt8M7CeBPbIH76gwSHu1t+WjBmI1jYrY7CoS1PRuTkEFUrQKfoQfIF0Wy0AEaII
-    OkFMSe79oQjRLYtAGZ2vax4wvs52P2lg+HK/k2M9WSWE8ePdE7opF+jkvRfmbbZ6zJim3K
-    hNJXgjIAIRzL/67cnB9r7dHOlirwvZpPnd9uZZQ7GRmK2QVWr6D0DbEnBsa/S9H+LbHIWY
-    ti8+hz6zknslcqy1Qn3Z4PYZ7JPzKSCYpMsBI0ZlCjCBgCDxFPmCpk3CgbLw
-X-ME-Proxy: <xmx:zGHqavn_IfY0Zep3N-ll48-WlE6NBwbByPLRAwZIDZbxe7tzACxd5w>
-    <xmx:zGHqagOLHZxgk5HXKRDjFaOBCsupC6urbyxkuLYiP8O3nJYkKFeUoQ>
-    <xmx:zGHqas9ZP53Cha5AF72aQqgKdSs_52vxcO2nhtxC1r2rSUTouxr5fg>
-    <xmx:zGHqaiGgPb9Sh6HOomnip8DkUR4hG9JuW0q7o6dQyqxfXUSaBchLlg>
-    <xmx:zWHqaswAAp8m_hflg8Bcdgn3Dm7RJ2AIq2JiWd8oxOA6hNmBeqtIJ_J7>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 17:35:56 -0500 (EST)
-Date: Tue, 3 Nov 2026 15:35:53 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org, Abhishek Sahu
- <abhsahu@nvidia.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah
- Khan <shuah@kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH 5/5] vfio: selftests: Add test for device power state
- transitions
-Message-ID: <20261103153553.6caa7d7d@shazbot.org>
-In-Reply-To: <20261029203324.1637772-6-dmatlack@google.com>
-References: <20261029203324.1637772-1-dmatlack@google.com>
-	<20261029203324.1637772-6-dmatlack@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=1cUgVVtf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=xsK4w3jLbP3XPnppugEgOy/hVuJlXHxWXgSfS8UpOYQ=; b=1cUgVVtfjLR8OTj9loqDdJcnxM
+	4NUPW4VgzqHCdc5C+ue3DYNVoZBzBLZWHJuAHQHcQtvNh5vcTI9Z2pCCMdpjIx66hpAiQWW+iRDzL
+	F1eD+vZJZSsRqCURVFCc5rPOgrRzhNlrvyxjJB0tsMUeUGiehjeiHHk+DJ8oXrVp/ol+VF44yvkEB
+	x1xDE2rQn/Sb6eOQdMpgVKWuDhTqz1I6qrSz9RqpJDgXl3XDc6eIfqndVxF88WgTQRolhu6e7HvVH
+	2OKj3NgFNzHpVG1L+1DUVVpELXsirdhAdiZdsjStcx1DHsbBO2FVWcU+FvQagEV3Fl4JAR76iDGWn
+	uFEGY8mA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject:
+ Re: [PATCH v15 10/15] pmdomain: rockchip: cycle an optional power-domain
+ reset on power-on
+Date: Tue, 03 Nov 2026 23:36:51 +0100
+Message-ID: <2685454.vzjCzTo3RI@diego>
+In-Reply-To: <20261101082307.151957-11-gahing@gahingwoo.com>
+References:
+ <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-11-gahing@gahingwoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,33 +74,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, 29 Oct 2026 20:33:24 +0000
-David Matlack <dmatlack@google.com> wrote:
-> +/*
-> + * Put the device into D3hot via config space and then close it. VFIO must
-> + * return the device to D0 when it is closed.
-> + */
+Am Sonntag, 1. November 2026, 09:23:02 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> Some Rockchip domains come out of power-on with their bus interface in an
+> undefined state. On the RK3576 NPU this shows up as a hang on the first
+> register access after the domain is switched on, and pulsing the domain's
+> reset at this point clears it.
+>=20
+> Take the domain node's reset if it has one, and pulse it between
+> releasing idle and restoring QoS. The reset is optional, so domains that
+> do not list one are unaffected.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-But we're only testing that it's re-opened into D0, there are multiple
-ways that could have happened.  It's pretty common that a guest
-shutdown might put devices into a low power state and it's brought back
-to D0 on close, on reset, on the next open, or even on the reset in
-open.  So I don't think we're testing what we claim to test here.  I'm
-not sure this specific D0 transition is observable, even if we were to
-resort to pci-sysfs.  Thanks,
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-Alex
 
-> +TEST_F(vfio_pci_power_state_test, close_in_d3hot)
-> +{
-> +	power_state_set(self->device, self->pm_cap, D3HOT);
-> +	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
-> +
-> +	vfio_pci_device_cleanup(self->device);
-> +
-> +	self->device = vfio_pci_device_init(device_bdf, self->iommu);
-> +	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
-> +}
