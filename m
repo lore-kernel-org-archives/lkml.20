@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730719;
-	b=Pmlh8jV5ehevPK1AZcOOGni685h19rq+kSk5iacYLHRBs0rAo1jhnZiLFOF6mx9eBLv+
-	 G4qNlRXii5GtHAq5cXaPWM/WE5LJn7hCA4RtX22ocZ1XyxvPqU1VOFKrIkOgwlGRsKom2
-	 4xoHefo3NwqQPSCjHgVoRe1zK/ASnR5YPXuY6OKnh9D3dafKLc/1E1eqzNx97uTQqG4sk
-	 BTy7HzRXK/uieXReIFpd/MDK8aqz5L3IuyyQQ6kBrys2UhORNISSG5xwkVtd70q4y1/Uo
-	 NY/mFd1lr84SNAk23acONHS6vKOnboqwERBLvuJws7odP/uAJcvYTsK4tKWmnWpz6vQ==
+	t=1793730727;
+	b=hyXX8U13zsU42Q4yKj6JGV/v9L3/ZFZsvN2KgVdnew9AV5q33ycUy5Z1IXIMLFZUw/HT
+	 PI8bgV8M4BFkTajLrepu/dzjSinAO1sLoJpVAJqkvMBSQT4LDCOEwzDJwD8HAx1Nj5CTt
+	 +su0JXvOetlgU5GH6h6jineNuRGJMWwIAHJ0LsP702c1kLuiN/1fhpBYoF4PCpgidVfE6
+	 apy7yhNyfXZo+hSSj9OC8iP9+M0k2yOSBdnhq35BnZ9TpLY9ZzVg9DQvi4yeGe31gHwLL
+	 xAtotgbxtZVuxe7xYmaye2u44MsdS3ZIy3rYsckNlo1o1UVpveedvrA9byxt2UnSgfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730719;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YL7pUVyNm44/Ihd2CJn9w6SXbjo2vEV8c+XqARMDpew=;
-	b=y2fakBrzrqNTxqAxDCwSRlWapvpfAopttlR6i2U7mrX5QgYULfrlMzoR6bs21RFvLVL0
-	 s8ABe8Tf1JFYbyoRx1I2Xsyljw9IWyI1Op5EwGfQYluqJ5OBhtZ0BU1WliOn2sgGxoWeN
-	 8WNTlc/7blkJ46Yurc+jiHcKoAxLXXAPBMWBBkooUlCs1Rtw62BftZAi2+rfYX7jxE69P
-	 ED+FEfHdJoSDlTAQSYNsQPnp7zdz7ajLL/am4GRrl3nkWBM/B/fnCwTXOrnWhMygiJh7P
-	 K5TVdao0CqchGmlgaRflp5HYc5pSzzePojsJf9NPGGIoIaRKBLy91nJzXURPrceItGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730727;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=4lPgWCWw5afVEOKQYPDlfBM+bkXafIhu1shhrvFW/Os=;
+	b=Uqq1Nv4KQG85ZxiKSK/FMSko+IOPFQyGg3NOTbuc+KkEdgQmz7YIHDxjjF1wmDZiCr4Z
+	 fiHBzxP0V8yGHeeEm5nJpRLEesmKjLetVjobuK42rKG6RMa3AuiPRPpHHWQGQkN68HdZr
+	 YHiJM9ASWgB4WKxAciOpsdmmYATfwGtH5/j9kJO3QdVnDWBNQJ2GjNUZY1oCi0ZDSycAS
+	 kHkUhBMeugzjFfuef/HkOLi+S9uI8h4edlP4tfAIEWfYKoZGp+LaMZrxPeQ/KP0VVGdY6
+	 mH+muUJhUl23q/I6w2ZMNE4x4SWUaPI60pOn4vZ3J/j3JE/Plk9XEbg56e69yu/5znQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4aik7Uv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgpkTNhB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A5B606A326;
-	Tue,  3 Nov 2026 18:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3EF606A33B;
+	Tue,  3 Nov 2026 18:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4aik7Uv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA3A1F000C1;
-	Tue,  3 Nov 2026 18:31:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgpkTNhB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF9E1F00919;
+	Tue,  3 Nov 2026 18:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730718;
-	bh=YL7pUVyNm44/Ihd2CJn9w6SXbjo2vEV8c+XqARMDpew=;
-	h=From:Subject:Date:To:Cc;
-	b=A4aik7UvTF+WBnIEzANiOSGgFaXLqjJm80sWxnLlbMh4FnIt0x8C5uRcgdMKlvJKS
-	 +3D7SA68QXXmbdnQaybnbvcwtnvQ6BcikEn1lAWCt09If373L+S9PQ2j2CQfnzcLBj
-	 3TxbEz81yFpdP+/UQA/mV+0sIGjX59VF4A71jqjZ80YpmimmDR+JzxiYxlhhQtBinP
-	 DDyhfldjwHvV4Vu2cHjzNbl4Ej+UVYy5cL5ZS6SnV1RxtorKYeF8YdVGpULGZGQJLR
-	 SLgrMbLoZKZLBvL9Wx8bqpbZ8GrvpUYxSvk7m85OmBC/j93QJ1U58pQv7Kz574M4+w
-	 4xQtd7t8JUjaQ==
+	s=k20260515; t=1793730727;
+	bh=4lPgWCWw5afVEOKQYPDlfBM+bkXafIhu1shhrvFW/Os=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=kgpkTNhB7yGXCkKUs4H6jKAD5UBj78pCC/2XF6BjFOZtt8aJaQWLro4WgITERqSea
+	 TyXcWQBG9mkCON+8iBxqKY9eT2aC+PNu7PnRil3Ljfx3NwEGZrFqcf56Bzc9n0pyI8
+	 v4Y0SjZehNNiK3xlxdxo0YHVxys5EjJBXrmdfcQAr23ZIQ8pQ531kP3SVCl9KoBbMO
+	 P8kvxNuIkzUvuWxfWt6Ta6CNaCdwIvms1azZVe5UPBop0UMUDr6nrkSCxZw7yZIxSL
+	 lPymmtDYnrpakY2TcJiXxR0DMSdHKaJaUGCkqSm8d8Rny/vcmB9mGVPp+GD3fYD7n4
+	 fJBY0Ak91Usug==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH 0/2] mm/memfd: handle GUP references reliably when
+Date: Tue, 03 Nov 2026 19:31:44 +0100
+Subject: [PATCH 1/2] mm/memfd: handle GUP pins more reliably when
  write-sealing
-Date: Tue, 03 Nov 2026 19:31:43 +0100
-Message-Id: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,10 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAI8o6moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMj3bTMitTi+OT8otR4I11jy1RTy8S0lERLQ0sloJaColSwPFBHdCy
- EX1yalJWaXAIyQ6m2FgAYc4tScAAAAA==
-X-Change-ID: 20261102-fixes_core_2-39e59afda919
+Message-Id: <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
+References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
+In-Reply-To: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
 To: Hugh Dickins <hughd@google.com>, 
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
  Andrew Morton <akpm@linux-foundation.org>, 
@@ -73,54 +71,63 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
  stable@vger.kernel.org, Chris Mason <mason@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1358; i=david@kernel.org;
- h=from:subject:message-id; bh=7nmu6fRF1UbgSM50uuDb6xwGPEFwgJ+ETyCbNbuUspQ=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJeaUzXmx9/Xi7wYJ3EfcPQuq+aeyNMehVU1wQ9/ezl4
- OJpfTuwo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgImcDmD4n/DbZVlKGAOfCcdW
- z/fTtX+v0ayb//LJfp1ovtSTEz9st2NkeMW5bKX8AS2Ps6ubhFk6jXu7SpUvzNcR1Dz+6fJ00/p
- +dgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1804; i=david@kernel.org;
+ h=from:subject:message-id; bh=Wy87zWgjvDFa6nQn3gznSv/cs+suxS5XMGobWeCkKH4=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJeacxay2Tq/jbvx5a4SpXu5FvTM5f3zpp0mGf3tISf8
+ 8orotOZO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiIjC4jw35n6f1q96ULl63I
+ 5P10sEks7a+G2Pf/s6X9mafcXTDzji0jw6Ps/xadM04YR4VOShN4+fWJYTFnrmRs52SRBKPbM+4
+ /5wIA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-I spent way too much time on this, looking for better options. I think
-patch #1 fixes the most immediate issues but something like patch #2 is
-needed.
+memfd_wait_for_pins() detects GUP references by comparing a folio's
+actual refcount with its expected refcount. As spelled out by
+folio_expected_ref_count(), obtaining the expected refcount when there
+can be concurrent folio (un)mapping is racy.
 
-Long story short: someone can trigger a race such that we don't detect
-GUP references when write-sealing, allowing to modify content later.
+So it is possible that a changing folio mapcount can race with our
+check for GUP references, and F_SEAL_WRITE might succeed even if there
+are some, allowing file contents to be modified after sealing.
 
-Patch #1 handles pins reliably for folios with a pincount. Patch #2
-handles the remaining references, but can reject write-sealing with
-populated file mappings. vm.memfd_write_seal_mapped allows restoring the
-legacy behavior if needed.
+For folios with a reliable pincount, detect FOLL_PIN references using
+folio_maybe_dma_pinned() before falling back to the refcount comparison.
+For small folios without that, the 1024 pinning BIAS makes it very hard
+(although not impossible) to misguide the refcount comparison.
 
-All alternatives to patch #2 I tried ended up too complicated and nasty
-in corner cases. We should never have allowed write-sealing with
-existing file mappings.
+This improves FOLL_PIN detection for folios with a pincount. Handling
+FOLL_GET and small folios requires a more fundamental change.
 
-Plenty of details in patch #2.
+Fortunately, most interfaces that allow for GUP'ing such pages use
+FOLL_PIN, in particular interfaces using FOLL_LONGTERM. However, we
+still have some FOLL_GET leftovers ...
 
-Did some testing on x86-64 without any surprises.
-
+Fixes: 05f65b5c7090 ("shm: wait for pins to be released when sealing")
+Cc: stable@vger.kernel.org
+Cc: Chris Mason <mason@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-David Hildenbrand (Arm) (2):
-      mm/memfd: handle GUP pins more reliably when write-sealing
-      mm/memfd: handle GUP references reliably when write-sealing
+ mm/memfd.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- Documentation/admin-guide/sysctl/vm.rst | 21 +++++++++++++++
- mm/memfd.c                              | 45 ++++++++++++++++++++++++++++++++-
- 2 files changed, 65 insertions(+), 1 deletion(-)
+diff --git a/mm/memfd.c b/mm/memfd.c
+index 0f6fff004f5e4..9eda4c3eeaca5 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -32,6 +32,13 @@
+ 
+ static bool memfd_folio_has_extra_refs(struct folio *folio)
+ {
++	/*
++	 * Use the precise pincount where available to avoid racy refcount
++	 * comparisons.
++	 */
++	if (folio_has_pincount(folio) && folio_maybe_dma_pinned(folio))
++		return true;
++
+ 	return folio_ref_count(folio) != folio_expected_ref_count(folio);
+ }
+ 
 
----
-
-base-commit: 462595652740dc45f2392dc59d9609e509ee60af
-
-change-id: 20261102-fixes_core_2-39e59afda919
-
---
-
-Cheers,
-
-David
+-- 
+2.43.0
 
