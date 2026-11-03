@@ -1,67 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.61
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681472;
-	b=cqZeTmSmC86Xtka0Sl4w1hYL7MeEdZTmNKi01I14rAh3APf/FGo23uP/teF20FEpohwr
-	 sZbj2jFu2jFUewEi/choTVNrY5HbtWEE3CUK/gCBdYZBLsgBgRjcmhibG0XTTqtW4W2As
-	 gEM2Vw/70POsj8PA3xbRYdDCf9uplMKbGXfO5oqdnYatD/LTJhhwyR9o7XdEZXqbAotHO
-	 NH3xAfmUB2EyT3lN+P/r7EUiFG944tlKdgn6rPKLHZpXVY3aUZqwJzncjWwth52M4hmDs
-	 i0Z0MFak/bdRnyKX5Vna3uorUvWTKWRRMGS5DyTV8FT0j25je18e/yCjR9kEmB2A2vQ==
+	t=1793681501;
+	b=HDV6IAUnWByeZlGKBlufOs0H6b1/HS/kCEW+TzvPxPnD0f3opWgcVKUBWe6WdQJTemlC
+	 Z6HDHCxZQ8hLBGzSlTgdqyPrr5Q6L2/xU27jpkfqMwO4ctqwhd741MavnEKEDIfOLQBPo
+	 Na03ohcAEis2ND4rv8kHPBr0PiPy9Zqvu0MJ+teQSpwW+EF/Lebm9Sv0eMRaNoTRiteW4
+	 lzzbbSgT1A0QfK/RlrrPwW0IbrJOQ5Gem8YEI34DgAVrcNncIDPuTiCcmgAlHNv7SROsA
+	 IiRtYVrW2tWVB02kCqZhX4L3t5OEEqWN1rXzA8hNUvrq+iLLde+alJiBo4VI7KdQE0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681472;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=xaVG5gHIVqbQ9ul/dJPjVIZQfI9Fixu/KkPob37v9NY=;
-	b=nLuIqFw6UeW/2N5DCVHt79qiB8bISzKb98Y2e8oRDZFeT2iP5qsjebHow0R5/oojXAeP
-	 Zd3ljkr+ibKC7bWhOGiewBvgyC8PskKmQvSv8VMwQDG/DHzRs3TM9SSSUlKlw9BxDs78+
-	 OFAm83fb/cIs18Cn1LpegNu2kpDHIcXQ4/E8/PkPoQmkMRyZFJRwW3jkuQXYRKE5bVWT+
-	 Z4GVV+mk2IG7GKZc02568KnZ1mT3Hv4Fgosa9ICjkLj61Ha5QmKCJgKB93LDY9r848DdX
-	 DQvujCfPtg7QeZW6pfNNvP5VQjL4tvu4VnLfN5FIrqDm88GrUafd9VghfAd23n8+fxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681501;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=fd+wMcCOKOdTaezQs0U03el5N54RhGPDas6JR+Ra5Z0=;
+	b=mBQqsf0+9nhw7o90viHuS/WEZAYwaZN6GCybhKKfACeVxW5yjV2A6pzHxMZarG/41cmi
+	 +sYjLAWNmo+ieQv+2nbdV1vOoVCI2xef99v4aZIiI3QU+/D5WIgdiUgMJWh9+erHPoVow
+	 QWVzypPDga+bZcOWBy0uhOf83EJRvXVuBr61k4ck5qMhWaJNGExabuG6FOYY7+QaF7FoR
+	 Jd8S72XADka4I7rjf5G5tCTe8Lkr6hV1rVbp2r37bO8qd4LTCa2BYd3/Gbpk61oQj+hCD
+	 gb82Lb/P7bsmnjX9vJtXJq+hi7KgnHKxVL/9r6jbpDCVI0LIX3xkafTehzJ8GjYKMCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LEuibVSA;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.61
+Received: from mta1.migadu.com (out-61.mta1.migadu.com [95.215.58.61])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92110606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92110606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=LEuibVSA
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=xaVG5gHIVqbQ9ul/dJPjVIZQfI9Fixu/KkPob37v9NY=;
-	b=LEuibVSAF+UvrgJznpG2pGaxo2AR0TiCltYbq0cXoZCkUUZGx/cF1Bx5sA5JRJVWPaGncLnCc
-	wNadBv1noSdJ1Vf6zQGoJ3hjyjij7DygQFIbbTyjFcAMctAjSKsdUH2zhca49Tnn3ozgmTxbVqu
-	s9Zawf+tIh9w3T9CAs23+r8=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jJbjv42Zzz1T4HJ;
-	Tue,  3 Nov 2026 12:50:43 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 893BF40561;
-	Tue,  3 Nov 2026 12:51:01 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 3 Nov 2026 12:51:00 +0800
-Subject: Re: [PATCH 0/5] ubifs: harden validation of on-disk inode and node
- metadata
-To: <shao.mingyin@zte.com.cn>
-CC: <richard@nod.at>, <linux-mtd@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261103123059667zqKLXZXpg5bc5F5FV7Xy8@zte.com.cn>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <f9a31ba0-2a71-440a-6fe1-42641bdde01d@huawei.com>
-Date: Tue, 3 Nov 2026 12:50:59 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB378606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB378606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oS3G7YTuGm7Wj/oTYe68peuLJlvFaQ35fQbGEbUos/c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793681491; v=1; x=1794286291;
+ b=EL+OI/KIEoG/ItKsyUhCm6rmYsTrtYNcyfQKHdeAsrrBWEKk2hvaIeiiCoODfhY8klpS3y1S
+ sVHsOA8IoV4wkY+GHNNPZ7wjvr5OaFeuSGdd0A5+pLMQss1E/q3A0O4nliXRkgKrk9pT2+wf/Ci
+ O7YFQzbUqJxKuRnjrtRY4zWs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bd5412f0d877ae2f;
+	Tue, 03 Nov 2026 04:51:31 +0000
+X-Mizu-Trace-ID: bd5412f0d877ae2f
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: gregkh@linuxfoundation.org,
+	arve@android.com,
+	tkjos@android.com,
+	brauner@kernel.org,
+	cmllamas@google.com,
+	aliceryhl@google.com,
+	nat@pixelcluster.dev,
+	arunpravin.paneerselvam@amd.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	viro@zeniv.linux.org.uk,
+	agruenba@redhat.com,
+	trondmy@kernel.org,
+	anna@kernel.org,
+	cel@kernel.org,
+	jlayton@kernel.org,
+	cem@kernel.org,
+	akpm@linux-foundation.org,
+	david@fromorbit.com,
+	david@kernel.org,
+	hughd@google.com,
+	hannes@cmpxchg.org,
+	yosry@kernel.org,
+	nphamcs@gmail.com
+Cc: matthew.auld@intel.com,
+	matthew.brost@intel.com,
+	thomas.hellstrom@linux.intel.com,
+	jack@suse.cz,
+	neil@brown.name,
+	okorniev@redhat.com,
+	Dai.Ngo@oracle.com,
+	tom@talpey.com,
+	qi.zheng@linux.dev,
+	roman.gushchin@linux.dev,
+	muchun.song@linux.dev,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	mhocko@kernel.org,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	chengming.zhou@linux.dev,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fsdevel@vger.kernel.org,
+	gfs2@lists.linux.dev,
+	linux-nfs@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-mm@kvack.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH] mm/list_lru: Account node removals in isolation helpers
+Date: Tue,  3 Nov 2026 12:50:53 +0800
+Message-ID: <20261103045053.59548-1-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,47 +122,637 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261103123059667zqKLXZXpg5bc5F5FV7Xy8@zte.com.cn>
-Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-在 2026/11/3 12:30, shao.mingyin@zte.com.cn 写道:
->>   From my perspective, I'm not really interested in the problem scenarios
->> triggered by malicious fs image, let Richard decide whether to merge it.
->> This series does not seem to introduce any issues, there are two small
->> nits in patch 2&3.
-> 
-> Thanks for the review.  The threat model in the cover is the only one the
-> series claims: mounting such an image needs CAP_SYS_ADMIN in the mounting
-> namespace or access to the flash.
-> 
-> Two of the five are not strictly "malicious image only", in case that is
-> useful for Richard's call:
-> 
-> - 4/5 is replay: a node that was corrupted on flash or written wrong would
->    otherwise let ubifs_recover_size() extend an inode to a bogus size.
-> - 5/5 leaves the image unmountable after a single removexattr(): the
->    underflowed counters are written back to flash, so it survives remount.
-> 
-> The other three are mount-time validation of fields that validate_inode()
-> and validate_master() already range-check for other values, so they change
-> nothing for a valid image.  The patches are independent and any subset
-> applies, so dropping some is fine -- I will leave the decision to Richard.
-> 
-> Both nits are taken: patch 2 folds the size check into the existing
-> ui->xattr block, patch 3 merges the lower bound into the highest_inum
-> check (that one then reports error 3 for both bounds).
-> 
-> For the series: I will repost only those two as [PATCH v2] in a new
-> thread, each noting that it supersedes 2/5 or 3/5 of the v1 series.  1/5,
-> 4/5 and 5/5 are untouched, so I would rather not resend them -- say the
-> word if you would prefer the whole series as v2.
-Resend v2 series please.
-> 
-> Thanks,
-> Shao
-> .
-> 
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
+
+Successful writeback calls zswap_entry_free(), which removes the entry
+from the LRU and decrements both the sublist and node item counts.
+shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
+to decrement the node count again.
+
+The affected call path before this change is:
+
+  __list_lru_walk_one()
+    shrink_memcg_cb()
+      zswap_writeback_entry()
+        zswap_entry_free()
+          zswap_lru_del()
+            list_lru_del()
+              __list_lru_del()
+                atomic_long_dec()  /* first node count decrement */
+      return LRU_REMOVED_RETRY
+    atomic_long_dec()              /* second node count decrement */
+
+During the mailing list discussion, Johannes Weiner suggested making
+users of the isolation interface responsible for maintaining the item
+counts, rather than having the walker decrement the node count based
+on the callback's return value.
+
+Pass the list_lru_node to walk callbacks and isolation helpers, and move
+the node count decrement into list_lru_isolate() and
+list_lru_isolate_move(). Reuse list_lru_isolate() in __list_lru_del() and
+remove the decrement from the walker. Update all callers accordingly.
+
+Fixes: 5878303c5353 ("mm/zswap: fix race between lru writeback and swapoff")
+Closes: https://sashiko.dev/#/bug/linux-68d2ca49-23be-4504-9a75-b8526ec92388
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+Changes since v1:
+- Move node accounting into list_lru isolation helpers and update all
+  callers
+
+v1: https://lore.kernel.org/all/20261028113619.38752-1-kaitao.cheng@linux.dev/
+---
+ drivers/android/binder/page_range.rs |  7 ++++---
+ drivers/gpu/drm/ttm/ttm_pool.c       |  6 ++++--
+ fs/dcache.c                          | 21 +++++++++++----------
+ fs/gfs2/quota.c                      |  4 ++--
+ fs/inode.c                           |  8 ++++----
+ fs/nfs/nfs42xattr.c                  | 14 +++++++-------
+ fs/nfsd/filecache.c                  | 15 ++++++++-------
+ fs/xfs/xfs_buf.c                     | 12 +++++++-----
+ fs/xfs/xfs_qm.c                      |  9 +++++----
+ include/linux/list_lru.h             |  9 +++++----
+ mm/huge_memory.c                     |  5 +++--
+ mm/list_lru.c                        | 16 ++++++++--------
+ mm/shmem.c                           |  7 ++++---
+ mm/workingset.c                      |  3 ++-
+ mm/zswap.c                           |  5 +++--
+ 15 files changed, 77 insertions(+), 64 deletions(-)
+
+diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
+index b0c797523bc2..046b12aae5e5 100644
+--- a/drivers/android/binder/page_range.rs
++++ b/drivers/android/binder/page_range.rs
+@@ -685,7 +685,8 @@ fn drop(self: Pin<&mut Self>) {
+ #[no_mangle]
+ unsafe extern "C" fn rust_shrink_free_page(
+     item: *mut bindings::list_head,
+-    lru: *mut bindings::list_lru_one,
++    node: *mut bindings::list_lru_node,
++    list: *mut bindings::list_lru_one,
+     _cb_arg: *mut c_void,
+ ) -> bindings::lru_status {
+     // Fields that should survive after unlocking the lru lock.
+@@ -728,7 +729,7 @@ fn drop(self: Pin<&mut Self>) {
+         };
+ 
+         // SAFETY: The item is in this lru list, so it's okay to remove it.
+-        unsafe { bindings::list_lru_isolate(lru, item) };
++        unsafe { bindings::list_lru_isolate(node, list, item) };
+ 
+         // SAFETY: Both pointers are in bounds of the same allocation.
+         page_index = unsafe { info.offset_from(inner.pages) } as usize;
+@@ -746,7 +747,7 @@ fn drop(self: Pin<&mut Self>) {
+     }
+ 
+     // SAFETY: The lru lock is locked when this method is called.
+-    unsafe { bindings::spin_unlock(&raw mut (*lru).lock) };
++    unsafe { bindings::spin_unlock(&raw mut (*list).lock) };
+ 
+     if let Some(vma) = check_vma(&vma_read, range_ptr) {
+         let user_page_addr = vma_addr + (page_index << PAGE_SHIFT);
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 1bf37023fed6..5b6667744d46 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -346,12 +346,13 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
+ }
+ 
+ static enum lru_status take_one_from_lru(struct list_head *item,
++					 struct list_lru_node *node,
+ 					 struct list_lru_one *list,
+ 					 void *cb_arg)
+ {
+ 	struct page **out_page = cb_arg;
+ 	struct page *p = container_of(item, struct page, lru);
+-	list_lru_isolate(list, item);
++	list_lru_isolate(node, list, item);
+ 
+ 	*out_page = p;
+ 	return LRU_REMOVED;
+@@ -388,12 +389,13 @@ static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
+ }
+ 
+ static enum lru_status pool_move_to_dispose_list(struct list_head *item,
++						 struct list_lru_node *node,
+ 						 struct list_lru_one *list,
+ 						 void *cb_arg)
+ {
+ 	struct list_head *dispose = cb_arg;
+ 
+-	list_lru_isolate_move(list, item, dispose);
++	list_lru_isolate_move(node, list, item, dispose);
+ 
+ 	return LRU_REMOVED;
+ }
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 37d021d22a7d..d237a0b5727e 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -556,24 +556,25 @@ static void d_shrink_add(struct dentry *dentry, struct list_head *list)
+  * LRU lists entirely, while shrink_move moves it to the indicated
+  * private list.
+  */
+-static void d_lru_isolate(struct list_lru_one *lru, struct dentry *dentry)
++static void d_lru_isolate(struct list_lru_node *node, struct list_lru_one *list,
++			  struct dentry *dentry)
+ {
+ 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
+ 	dentry->d_flags &= ~DCACHE_LRU_LIST;
+ 	this_cpu_dec(nr_dentry_unused);
+ 	if (d_is_negative(dentry))
+ 		this_cpu_dec(nr_dentry_negative);
+-	list_lru_isolate(lru, &dentry->d_lru);
++	list_lru_isolate(node, list, &dentry->d_lru);
+ }
+ 
+-static void d_lru_shrink_move(struct list_lru_one *lru, struct dentry *dentry,
+-			      struct list_head *list)
++static void d_lru_shrink_move(struct list_lru_node *node, struct list_lru_one *list,
++			      struct dentry *dentry, struct list_head *head)
+ {
+ 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
+ 	dentry->d_flags |= DCACHE_SHRINK_LIST;
+ 	if (d_is_negative(dentry))
+ 		this_cpu_dec(nr_dentry_negative);
+-	list_lru_isolate_move(lru, &dentry->d_lru, list);
++	list_lru_isolate_move(node, list, &dentry->d_lru, head);
+ }
+ 
+ static void ___d_drop(struct dentry *dentry)
+@@ -1309,7 +1310,7 @@ void shrink_dentry_list(struct list_head *list)
+ EXPORT_SYMBOL(shrink_dentry_list);
+ 
+ static enum lru_status dentry_lru_isolate(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++		struct list_lru_node *node, struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *freeable = arg;
+ 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
+@@ -1329,7 +1330,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
+ 	 * another pass through the LRU.
+ 	 */
+ 	if (dentry->d_lockref.count) {
+-		d_lru_isolate(lru, dentry);
++		d_lru_isolate(node, list, dentry);
+ 		spin_unlock(&dentry->d_lock);
+ 		return LRU_REMOVED;
+ 	}
+@@ -1360,7 +1361,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
+ 		return LRU_ROTATE;
+ 	}
+ 
+-	d_lru_shrink_move(lru, dentry, freeable);
++	d_lru_shrink_move(node, list, dentry, freeable);
+ 	spin_unlock(&dentry->d_lock);
+ 
+ 	return LRU_REMOVED;
+@@ -1390,7 +1391,7 @@ long prune_dcache_sb(struct super_block *sb, struct shrink_control *sc)
+ }
+ 
+ static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++		struct list_lru_node *node, struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *freeable = arg;
+ 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
+@@ -1403,7 +1404,7 @@ static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
+ 	if (!spin_trylock(&dentry->d_lock))
+ 		return LRU_SKIP;
+ 
+-	d_lru_shrink_move(lru, dentry, freeable);
++	d_lru_shrink_move(node, list, dentry, freeable);
+ 	spin_unlock(&dentry->d_lock);
+ 
+ 	return LRU_REMOVED;
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index b2984fb7b35c..98e7b8b70459 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -149,7 +149,7 @@ static void gfs2_qd_list_dispose(struct list_head *list)
+ 
+ 
+ static enum lru_status gfs2_qd_isolate(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++		struct list_lru_node *node, struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *dispose = arg;
+ 	struct gfs2_quota_data *qd =
+@@ -162,7 +162,7 @@ static enum lru_status gfs2_qd_isolate(struct list_head *item,
+ 	status = LRU_SKIP;
+ 	if (qd->qd_lockref.count == 0) {
+ 		lockref_mark_dead(&qd->qd_lockref);
+-		list_lru_isolate_move(lru, &qd->qd_lru, dispose);
++		list_lru_isolate_move(node, list, &qd->qd_lru, dispose);
+ 		status = LRU_REMOVED;
+ 	}
+ 
+diff --git a/fs/inode.c b/fs/inode.c
+index 702f2d5ef459..f401cb012ae9 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -931,7 +931,7 @@ EXPORT_SYMBOL_GPL(evict_inodes);
+  * with this flag set because they are the inodes that are out of order.
+  */
+ static enum lru_status inode_lru_isolate(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++		struct list_lru_node *node, struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *freeable = arg;
+ 	struct inode	*inode = container_of(item, struct inode, i_lru);
+@@ -952,7 +952,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 	if (icount_read(inode) ||
+ 	    (inode_state_read(inode) & ~I_REFERENCED) ||
+ 	    !mapping_shrinkable(&inode->i_data)) {
+-		list_lru_isolate(lru, &inode->i_lru);
++		list_lru_isolate(node, list, &inode->i_lru);
+ 		spin_unlock(&inode->i_lock);
+ 		this_cpu_dec(nr_unused);
+ 		return LRU_REMOVED;
+@@ -975,7 +975,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 
+ 		inode_pin_lru_isolating(inode);
+ 		spin_unlock(&inode->i_lock);
+-		spin_unlock(&lru->lock);
++		spin_unlock(&list->lock);
+ 		reap = invalidate_mapping_pages(&inode->i_data, 0, -1);
+ 		if (current_is_kswapd())
+ 			__count_vm_events(KSWAPD_INODESTEAL, reap);
+@@ -988,7 +988,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 
+ 	WARN_ON(inode_state_read(inode) & I_NEW);
+ 	inode_state_set(inode, I_FREEING);
+-	list_lru_isolate_move(lru, &inode->i_lru, freeable);
++	list_lru_isolate_move(node, list, &inode->i_lru, freeable);
+ 	spin_unlock(&inode->i_lock);
+ 
+ 	this_cpu_dec(nr_unused);
+diff --git a/fs/nfs/nfs42xattr.c b/fs/nfs/nfs42xattr.c
+index 37d79400e5f4..c7d306dc3381 100644
+--- a/fs/nfs/nfs42xattr.c
++++ b/fs/nfs/nfs42xattr.c
+@@ -801,8 +801,8 @@ static struct shrinker *nfs4_xattr_entry_shrinker;
+ static struct shrinker *nfs4_xattr_large_entry_shrinker;
+ 
+ static enum lru_status
+-cache_lru_isolate(struct list_head *item,
+-	struct list_lru_one *lru, void *arg)
++cache_lru_isolate(struct list_head *item, struct list_lru_node *node,
++		  struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *dispose = arg;
+ 	struct inode *inode;
+@@ -827,7 +827,7 @@ cache_lru_isolate(struct list_head *item,
+ 	cache->inode = NULL;
+ 	NFS_I(inode)->xattr_cache = NULL;
+ 	NFS_I(inode)->cache_validity &= ~NFS_INO_INVALID_XATTR;
+-	list_lru_isolate(lru, &cache->lru);
++	list_lru_isolate(node, list, &cache->lru);
+ 
+ 	spin_unlock(&inode->i_lock);
+ 
+@@ -866,8 +866,8 @@ nfs4_xattr_cache_count(struct shrinker *shrink, struct shrink_control *sc)
+ }
+ 
+ static enum lru_status
+-entry_lru_isolate(struct list_head *item,
+-	struct list_lru_one *lru, void *arg)
++entry_lru_isolate(struct list_head *item, struct list_lru_node *node,
++		  struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *dispose = arg;
+ 	struct nfs4_xattr_bucket *bucket;
+@@ -896,7 +896,7 @@ entry_lru_isolate(struct list_head *item,
+ 
+ 		hlist_del_init(&entry->hnode);
+ 		atomic_long_dec(&cache->nent);
+-		list_lru_isolate(lru, &entry->lru);
++		list_lru_isolate(node, list, &entry->lru);
+ 
+ 		spin_unlock(&bucket->lock);
+ 	} else {
+@@ -907,7 +907,7 @@ entry_lru_isolate(struct list_head *item,
+ 		kref_get(&entry->ref);
+ 
+ 		cache->listxattr = NULL;
+-		list_lru_isolate(lru, &entry->lru);
++		list_lru_isolate(node, list, &entry->lru);
+ 
+ 		spin_unlock(&cache->listxattr_lock);
+ 	}
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index 17a94e6fcb15..e3c58f6228de 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -510,7 +510,8 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
+ /**
+  * nfsd_file_lru_cb - Examine an entry on the LRU list
+  * @item: LRU entry to examine
+- * @lru: controlling LRU
++ * @node: LRU node that accounts for @item
++ * @list: locked sublist that holds @item
+  * @arg: dispose list
+  *
+  * Return values:
+@@ -519,8 +520,8 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
+  *   %LRU_SKIP: @item cannot be evicted
+  */
+ static enum lru_status
+-nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
+-		 void *arg)
++nfsd_file_lru_cb(struct list_head *item, struct list_lru_node *node,
++		 struct list_lru_one *list, void *arg)
+ {
+ 	struct list_head *head = arg;
+ 	struct nfsd_file *nf = list_entry(item, struct nfsd_file, nf_lru);
+@@ -554,7 +555,7 @@ nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
+ 
+ 	/* Refcount went to zero. Unhash it and queue it to the dispose list */
+ 	nfsd_file_unhash(nf);
+-	list_lru_isolate(lru, &nf->nf_lru);
++	list_lru_isolate(node, list, &nf->nf_lru);
+ 	list_add(&nf->nf_gc, head);
+ 	this_cpu_inc(nfsd_file_evictions);
+ 	trace_nfsd_file_gc_disposed(nf);
+@@ -562,8 +563,8 @@ nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
+ }
+ 
+ static enum lru_status
+-nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
+-		 void *arg)
++nfsd_file_gc_cb(struct list_head *item, struct list_lru_node *node,
++		struct list_lru_one *list, void *arg)
+ {
+ 	struct nfsd_file *nf = list_entry(item, struct nfsd_file, nf_lru);
+ 
+@@ -576,7 +577,7 @@ nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
+ 		trace_nfsd_file_gc_aged(nf);
+ 		return LRU_ROTATE;
+ 	}
+-	return nfsd_file_lru_cb(item, lru, arg);
++	return nfsd_file_lru_cb(item, node, list, arg);
+ }
+ 
+ static void
+diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
+index 6c93b4f5629c..ce3217379c8d 100644
+--- a/fs/xfs/xfs_buf.c
++++ b/fs/xfs/xfs_buf.c
+@@ -1468,7 +1468,8 @@ __xfs_buf_mark_corrupt(
+ static enum lru_status
+ xfs_buftarg_drain_rele(
+ 	struct list_head	*item,
+-	struct list_lru_one	*lru,
++	struct list_lru_node	*node,
++	struct list_lru_one	*list,
+ 	void			*arg)
+ 
+ {
+@@ -1485,7 +1486,7 @@ xfs_buftarg_drain_rele(
+ 	}
+ 
+ 	xfs_buf_kill(bp);
+-	list_lru_isolate_move(lru, item, dispose);
++	list_lru_isolate_move(node, list, item, dispose);
+ 	spin_unlock(&bp->b_lockref.lock);
+ 	return LRU_REMOVED;
+ }
+@@ -1561,7 +1562,8 @@ xfs_buftarg_drain(
+ static enum lru_status
+ xfs_buftarg_isolate(
+ 	struct list_head	*item,
+-	struct list_lru_one	*lru,
++	struct list_lru_node	*node,
++	struct list_lru_one	*list,
+ 	void			*arg)
+ {
+ 	struct xfs_buf		*bp = container_of(item, struct xfs_buf, b_lru);
+@@ -1581,7 +1583,7 @@ xfs_buftarg_isolate(
+ 	 * yet.
+ 	 */
+ 	if (bp->b_lockref.count > 0) {
+-		list_lru_isolate(lru, &bp->b_lru);
++		list_lru_isolate(node, list, &bp->b_lru);
+ 		spin_unlock(&bp->b_lockref.lock);
+ 		return LRU_REMOVED;
+ 	}
+@@ -1597,7 +1599,7 @@ xfs_buftarg_isolate(
+ 	}
+ 
+ 	xfs_buf_kill(bp);
+-	list_lru_isolate_move(lru, item, dispose);
++	list_lru_isolate_move(node, list, item, dispose);
+ 	spin_unlock(&bp->b_lockref.lock);
+ 	return LRU_REMOVED;
+ }
+diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
+index dd5011f578a6..11670128f68e 100644
+--- a/fs/xfs/xfs_qm.c
++++ b/fs/xfs/xfs_qm.c
+@@ -412,9 +412,10 @@ struct xfs_qm_isolate {
+ static enum lru_status
+ xfs_qm_dquot_isolate(
+ 	struct list_head	*item,
+-	struct list_lru_one	*lru,
++	struct list_lru_node	*node,
++	struct list_lru_one	*list,
+ 	void			*arg)
+-		__releases(&lru->lock) __acquires(&lru->lock)
++		__releases(&list->lock) __acquires(&list->lock)
+ {
+ 	struct xfs_dquot	*dqp = container_of(item,
+ 						struct xfs_dquot, q_lru);
+@@ -450,7 +451,7 @@ xfs_qm_dquot_isolate(
+ 		XFS_STATS_INC(dqp->q_mount, xs_qm_dqwants);
+ 
+ 		trace_xfs_dqreclaim_want(dqp);
+-		list_lru_isolate(lru, &dqp->q_lru);
++		list_lru_isolate(node, list, &dqp->q_lru);
+ 		XFS_STATS_DEC(dqp->q_mount, xs_qm_dquot_unused);
+ 		return LRU_REMOVED;
+ 	}
+@@ -473,7 +474,7 @@ xfs_qm_dquot_isolate(
+ 	lockref_mark_dead(&dqp->q_lockref);
+ 	spin_unlock(&dqp->q_lockref.lock);
+ 
+-	list_lru_isolate_move(lru, &dqp->q_lru, &isol->dispose);
++	list_lru_isolate_move(node, list, &dqp->q_lru, &isol->dispose);
+ 	XFS_STATS_DEC(dqp->q_mount, xs_qm_dquot_unused);
+ 	trace_xfs_dqreclaim_done(dqp);
+ 	XFS_STATS_INC(dqp->q_mount, xs_qm_dqreclaims);
+diff --git a/include/linux/list_lru.h b/include/linux/list_lru.h
+index a450fffe1550..c05ea3df6f42 100644
+--- a/include/linux/list_lru.h
++++ b/include/linux/list_lru.h
+@@ -271,12 +271,13 @@ static inline unsigned long list_lru_count(struct list_lru *lru)
+ 	return count;
+ }
+ 
+-void list_lru_isolate(struct list_lru_one *list, struct list_head *item);
+-void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
+-			   struct list_head *head);
++void list_lru_isolate(struct list_lru_node *node, struct list_lru_one *list,
++		      struct list_head *item);
++void list_lru_isolate_move(struct list_lru_node *node, struct list_lru_one *list,
++			   struct list_head *item, struct list_head *head);
+ 
+ typedef enum lru_status (*list_lru_walk_cb)(struct list_head *item,
+-		struct list_lru_one *list, void *cb_arg);
++		struct list_lru_node *node, struct list_lru_one *list, void *cb_arg);
+ 
+ /**
+  * list_lru_walk_one: walk a @lru, isolating and disposing freeable items.
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e8684..92594197dd8b 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4639,7 +4639,8 @@ static bool thp_underused(struct folio *folio)
+ }
+ 
+ static enum lru_status deferred_split_isolate(struct list_head *item,
+-					      struct list_lru_one *lru,
++					      struct list_lru_node *node,
++					      struct list_lru_one *list,
+ 					      void *cb_arg)
+ {
+ 	struct folio *folio = container_of(item, struct folio, _deferred_list);
+@@ -4649,7 +4650,7 @@ static enum lru_status deferred_split_isolate(struct list_head *item,
+ 	if (!folio_try_get(folio))
+ 		return LRU_SKIP;
+ 
+-	list_lru_isolate_move(lru, item, freeable);
++	list_lru_isolate_move(node, list, item, freeable);
+ 	return LRU_REMOVED;
+ }
+ 
+diff --git a/mm/list_lru.c b/mm/list_lru.c
+index d1d256822ccc..50dfb292e23c 100644
+--- a/mm/list_lru.c
++++ b/mm/list_lru.c
+@@ -211,9 +211,7 @@ bool __list_lru_del(struct list_lru *lru, struct list_lru_one *l,
+ 		    struct list_head *item, int nid)
+ {
+ 	if (!list_empty(item)) {
+-		list_del_init(item);
+-		l->nr_items--;
+-		atomic_long_dec(&lru->node[nid].nr_items);
++		list_lru_isolate(&lru->node[nid], l, item);
+ 		return true;
+ 	}
+ 	return false;
+@@ -291,18 +289,21 @@ bool list_lru_del_obj(struct list_lru *lru, struct list_head *item)
+ }
+ EXPORT_SYMBOL_GPL(list_lru_del_obj);
+ 
+-void list_lru_isolate(struct list_lru_one *list, struct list_head *item)
++void list_lru_isolate(struct list_lru_node *node, struct list_lru_one *list,
++		      struct list_head *item)
+ {
+ 	list_del_init(item);
+ 	list->nr_items--;
++	atomic_long_dec(&node->nr_items);
+ }
+ EXPORT_SYMBOL_GPL(list_lru_isolate);
+ 
+-void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
+-			   struct list_head *head)
++void list_lru_isolate_move(struct list_lru_node *node, struct list_lru_one *list,
++			   struct list_head *item, struct list_head *head)
+ {
+ 	list_move(item, head);
+ 	list->nr_items--;
++	atomic_long_dec(&node->nr_items);
+ }
+ EXPORT_SYMBOL_GPL(list_lru_isolate_move);
+ 
+@@ -359,7 +360,7 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
+ 			break;
+ 		--*nr_to_walk;
+ 
+-		ret = isolate(item, l, cb_arg);
++		ret = isolate(item, nlru, l, cb_arg);
+ 		switch (ret) {
+ 		/*
+ 		 * LRU_RETRY, LRU_REMOVED_RETRY and LRU_STOP will drop the lru
+@@ -371,7 +372,6 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
+ 			fallthrough;
+ 		case LRU_REMOVED:
+ 			isolated++;
+-			atomic_long_dec(&nlru->nr_items);
+ 			if (ret == LRU_REMOVED_RETRY)
+ 				goto restart;
+ 			break;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index a6e3c9c7f72d..1350d725ebb2 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -853,7 +853,8 @@ struct shmem_unused_huge_scan {
+ };
+ 
+ static enum lru_status shmem_unused_huge_isolate(struct list_head *item,
+-						 struct list_lru_one *lru,
++						 struct list_lru_node *node,
++						 struct list_lru_one *list,
+ 						 void *arg)
+ {
+ 	struct shmem_unused_huge_scan *scan = arg;
+@@ -874,14 +875,14 @@ static enum lru_status shmem_unused_huge_isolate(struct list_head *item,
+ 	inode = igrab(&info->vfs_inode);
+ 	/* inode is about to be evicted */
+ 	if (!inode) {
+-		list_lru_isolate(lru, item);
++		list_lru_isolate(node, list, item);
+ 		objcg = shmem_get_and_clear_objcg(info);
+ 		spin_unlock(&info->lock);
+ 		obj_cgroup_put(objcg);
+ 		return LRU_REMOVED;
+ 	}
+ 
+-	list_lru_isolate(lru, item);
++	list_lru_isolate(node, list, item);
+ 	objcg = shmem_get_and_clear_objcg(info);
+ 	set_shmem_unused_huge_isolated(info);
+ 	list_add_tail(&info->shrinklist, &scan->list);
+diff --git a/mm/workingset.c b/mm/workingset.c
+index 1504f91cdca5..df21529b7988 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -707,6 +707,7 @@ static unsigned long count_shadow_nodes(struct shrinker *shrinker,
+ }
+ 
+ static enum lru_status shadow_lru_isolate(struct list_head *item,
++					  struct list_lru_node *nlru,
+ 					  struct list_lru_one *lru,
+ 					  void *arg) __must_hold(lru->lock)
+ {
+@@ -745,7 +746,7 @@ static enum lru_status shadow_lru_isolate(struct list_head *item,
+ 		}
+ 	}
+ 
+-	list_lru_isolate(lru, item);
++	list_lru_isolate(nlru, lru, item);
+ 	__dec_node_page_state(virt_to_page(node), WORKINGSET_NODES);
+ 
+ 	spin_unlock(&lru->lock);
+diff --git a/mm/zswap.c b/mm/zswap.c
+index ad01c691a263..4834d2002083 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1177,8 +1177,9 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+  *    can expect from writeback. We scale down the number of objects available
+  *    for reclaim by this ratio.
+  */
+-static enum lru_status shrink_memcg_cb(struct list_head *item, struct list_lru_one *l,
+-				       void *arg)
++static enum lru_status shrink_memcg_cb(struct list_head *item,
++				       struct list_lru_node *node,
++				       struct list_lru_one *l, void *arg)
+ {
+ 	struct zswap_entry *entry = container_of(item, struct zswap_entry, lru);
+ 	bool *encountered_page_in_swapcache = (bool *)arg;
+-- 
+2.53.0
 
