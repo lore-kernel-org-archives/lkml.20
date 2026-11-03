@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723957;
-	b=q8tymWVaw2H7pgs1PF6r3g9yy2l0WylErXp9PCSTAg1rEpIcWt6GYSfLxcPPVsfn5RTB
-	 BdQEzwKTovNgXed42heeDmPjWqoXV5WYES11EndIpKnbJq4H81pg2YTTpqnL4tSKTcl5P
-	 OTop9iY2nzZHGz6fpRvKYCneIemYHb71W3zv8A+ccPKQS3kcUz1CpxRkJU5t0VTeBhdBz
-	 fW2sRyY82ZsCDcpOvGUokoewRG5LNW5KR/LsOSX9FJO6ZUIc9fBe6IPL1c3lHBAderQoP
-	 MomqH6mvXMAx8TP1xeaG8QYrU7dtLq0Dmzr4hVzqFQMf0S8fcE0ew02BKMJzOJQ07Ng==
+	t=1793723968;
+	b=DqLOT/O8Ns8FaclKYlrBnH8Bi5qZJSY0cI5HtDZEYWYCGXFAqccygYWLDx+I7nsiDS4c
+	 pZE+0MXmyK/JxbMIpHywK21fbDpEHaers7ycQrouBEeJr8ArwdGNiJac32fPQ2+h5dBtp
+	 NQ6nZJHYP6P4gFAbhHd2HYKfGCzNLOTPk4c12peWy789DRKS1vIbRE7ZMs72OYIPGbgGP
+	 l+AHdr5VgSyUyIAh13cWOmlC1JLP5zpeSH/j9eLbL1Jd9RwnHnvY+z5DUykv74pxMK9Mf
+	 r1vwPAIvkT0TRHrOA6xDsy5BKSbCDgDLbeo4x5Cem63T/F3cZyZdYM5DaIZRJnR6h8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723968;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=U1lxcS3q2M2BGowz3comI0WJhii7k0j7HI0vK6MSldo=;
-	b=r4fSXZDXJPJ4sEnMCQUZMLXC2gHLvNqaEObtJGW4rMzv7xmPkSPgK4H1/oMkG9JaMo2M
-	 lkyqeyHZ80mX0k0cb0fs2e7JUMGBHwXNxnhfhbWJC8oJ6hJS1a9RUdhwoR78Jj3Mk7K4T
-	 uxy6U51thgOIeSZiOyzLanwhuyrZ+XYPtA0l6DOWgFi3eGWDHx9WOHrUqC8xMJ+TIILnC
-	 oBsG0XqUq84B8UtIqRTh5aW0V+GjCKeCfSq4Y2dvRITq5SdiR8a7xoaFbLNV6+IStLm3b
-	 jBFZ98mDcTd5amrG+XkkJRqT+tDCKqhevlJ0JdvXn4+r1GK06q13g10FtdBSPruGcDw==
+	bh=ynLnvUTX6OUwI9Rad50F+oVa95c877fK+kIjaHq7gYw=;
+	b=jQXCrctgf8vEpv1TW+9UhCsAfhKf4iwqqaye7ZDDlemEyXUKX9oEn9TTQ8heVJrn0Dm+
+	 J380NPNqCKMJGlH9QOrmsnPaq3E3y2xQCLrQCC/MQkT5ON9HXh5NarLM8uZnpTOLEuT1w
+	 COmWpaprchicatxgyVb4PBxPu7gQUixRr8Q/sA115cCzTxCKW76+yfgJ0MDt7IdoKshbZ
+	 ba59B+lEZct6beCc4RX/m+Y00uQgVrOEjMmerLq9+DB6yLd+OIDNMTacSbo0aUjOjcf/z
+	 rAPi7l7wu7TIqrSAqGqK1Ca5YIg4qHKEpIOzrMLVKlRx2jaFJ9yT/DYQLS0XLMARhZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QB3fYHuz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8vuVutf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E670A606A336;
-	Tue,  3 Nov 2026 16:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5876860A2630;
+	Tue,  3 Nov 2026 16:39:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QB3fYHuz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C4FF1F00919;
-	Tue,  3 Nov 2026 16:39:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8vuVutf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A5B1F0093A;
+	Tue,  3 Nov 2026 16:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723956;
-	bh=U1lxcS3q2M2BGowz3comI0WJhii7k0j7HI0vK6MSldo=;
+	s=k20260515; t=1793723968;
+	bh=ynLnvUTX6OUwI9Rad50F+oVa95c877fK+kIjaHq7gYw=;
 	h=From:To:Cc:Subject:Date;
-	b=QB3fYHuzgSfjedcjS0LfcKXF0ioqA65RuwWVlcDg7WpTcczrHmM65uT3k0u4ze35N
-	 1E5g9k7+zMPWCdkbQ8+LpnE5KupAvVkmuHwvn9TwMOydXMCL7V1I0mDpb4InEDg3hd
-	 E8jAuPwLLzesrFO3mzrZrgYBtwz8C+9WcmDphO43+jGDeULi0kz8NvzOLs84qJMokA
-	 QnTyJhatn2rKaNZ5/ZLi6+DgW07p44lT0uOvFfCI9DXkxtb0cHV7wZbGtjzIXYbii4
-	 NwBBYMPIDl/Lccj+3lAbg761XffyhwQ90et1MhFEizjNQM+bufgJTwkX9Xq/558TfZ
-	 3z9StkXbrR5uw==
+	b=V8vuVutfXAZH6lxPpst7Nso/NZVFQXGWTlZG6Hnt6pAcaR03kbKV/uTW6i9KyUqNE
+	 O8R9bK3RnNPnc1/Ak82LSmvFHxWdufMp2MJroQ1o4T7lqNH8a9j2+hd8GxaIJHOXw2
+	 xhr58iPYqG/HDPsINUPy9/zmZV9S1bjx6tV1krS9DXGeO9p4ZieTm3GVuYQhCHLYEF
+	 9AD38ghGMYnJSiMoBvn7oX5fBj58p+76KMkzS8q5StBBf0Zrzqr9wHu1XAeE6PDVI5
+	 +pkvEE6b1YAvaGsXPnewaMtHBgNSN4IUmtfL7wigzZIzxR+Ye4aEMGbgW46VNN/oWu
+	 /87h1uzJbiF7Q==
 From: Sasha Levin <sashal@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Suren Baghdasaryan <surenb@google.com>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Pavel Begunkov <asml.silence@gmail.com>,
+	Breno Leitao <leitao@debian.org>,
+	io-uring@vger.kernel.org,
 	Shuah Khan <shuah@kernel.org>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/proc: cast the PROCMAP_QUERY address through uintptr_t
-Date: Tue,  3 Nov 2026 11:39:15 -0500
-Message-ID: <20261103163915.640990-1-sashal@kernel.org>
+Subject: [PATCH] selftests/io_uring: cast optval through uintptr_t in mini_liburing.h
+Date: Tue,  3 Nov 2026 11:39:26 -0500
+Message-ID: <20261103163926.641431-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,10 +62,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-proc-maps-race puts a pointer into the 64-bit query_addr field of struct
-procmap_query with a plain cast, which warns on 32-bit architectures:
+io_uring_prep_cmd() puts the optval pointer into the 64-bit optval field
+of the SQE with a plain cast, which warns on 32-bit architectures:
 
-  proc-maps-race.c:626:24: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+  mini_liburing.h:272:23: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
 
 Cast through uintptr_t.
 
@@ -76,22 +76,22 @@ Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
 KernelCI's 32-bit arm builds show the same warnings. The changed files
 build without them now, and the x86_64 builds don't change.
 
- tools/testing/selftests/proc/proc-maps-race.c | 2 +-
+ tools/include/io_uring/mini_liburing.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/proc/proc-maps-race.c b/tools/testing/selftests/proc/proc-maps-race.c
-index bf4c5073f6fc8..c484a14eb6491 100644
---- a/tools/testing/selftests/proc/proc-maps-race.c
-+++ b/tools/testing/selftests/proc/proc-maps-race.c
-@@ -623,7 +623,7 @@ static bool query_addr_at(int maps_fd, void *addr,
- 	memset(&q, 0, sizeof(q));
- 	q.size = sizeof(q);
- 	/* Find the VMA at the split address */
--	q.query_addr = (unsigned long long)addr;
-+	q.query_addr = (unsigned long long)(uintptr_t)addr;
- 	q.query_flags = 0;
- 	if (ioctl(maps_fd, PROCMAP_QUERY, &q))
- 		return false;
+diff --git a/tools/include/io_uring/mini_liburing.h b/tools/include/io_uring/mini_liburing.h
+index 44be4446feda5..1f5b0cfc1e5b6 100644
+--- a/tools/include/io_uring/mini_liburing.h
++++ b/tools/include/io_uring/mini_liburing.h
+@@ -269,7 +269,7 @@ static inline void io_uring_prep_cmd(struct io_uring_sqe *sqe, int op,
+ 
+ 	sqe->level = level;
+ 	sqe->optname = optname;
+-	sqe->optval = (unsigned long long)optval;
++	sqe->optval = (unsigned long long)(uintptr_t)optval;
+ 	sqe->optlen = optlen;
+ }
+ 
 -- 
 2.53.0
 
