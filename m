@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723263;
-	b=w7VgAIF0BKKyrZ0Fk6aBFPE4wCf0jUNbzKUeHwAhSPfHSPQjBNEGkbK1C6vVm/x2QPQS
-	 zjl1TRupgg8ptd7pgJUz0Tb70n/TQ9hFs8YSOZOoSLcU2c7U30Kzl8q51IRFH0nLrYgRA
-	 clQydUbOShtHj7nusVLFZOr3roZa7yz4g/A6XklVROyG88KC5de2eEYQPKCy19vPp5qgh
-	 mi8W48H2m8ccsUj/O3JVlsFK9gcXiTTszeu9ccKtflujMXT2+zJdqPSLuxR6cFtMBY4XM
-	 Faupt9O0YVb8PGRrngEZ7/be3FgY+QxzbvkiE6rEFEOaoO4uq3Nn3exSTzG/BjC28JA==
+	t=1793723295;
+	b=FtKw4IvA6LXe1UAh6m5MgCrTdg3a0PmyOFY2C7Iz537TTjQFQkNpsfJA1Bw0exJBlgqB
+	 7Y1O5iUuGokI1yA1xCUGgnU4LTiSB10iLOrQ0hXaIh0CZa59x1zxTvdG+tmzuo27wbz03
+	 CLdrEexWvUZJEiNEsveNy4kYSvNl3s1NZBtl7NM4ZbLqnii4oqOuneY+Tcc59E0SNVLi7
+	 wc46c3I41o9sgZi+o4rR1ZLeMvSvrR4rlt0S7EyT60M9NacvG9Uj79OvYKupVeDZ1PG8J
+	 Hj71M0qSTXshdqKYJ6MOfdXEwJHgOEm32GIhOQ8MHsEsNtrpWBilF2J19SwA5VlbyNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723263;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=+5PLFHNYvI6hooOQPVoYk381jXL7ECOUIpIdtIa4bbI=;
-	b=mpZjtVqkD3jmbXu6dZV4gOFHPvXxUBaMXBEviNE3u+gTRux+FVvwOnerS9u4HeykPDZi
-	 5C+gLwElqnIEETAZZKu7WCtaybyLPYqrOCAHQkuadEfkcKtuoA04oQAZ7FhMJbsArpXdU
-	 9wSX+3AjDoqw5nP9KUMCQo84+Cq80bZgOIyeMuskk5AsdJeet7QE90SQ2HMQyBX9dzhSd
-	 XeTolrTRaJFWRkDyrFgoTucnEzG1whu5bm+RFHrgUEMVQkRl7z4QN3lOpUrvmgeBIF2MR
-	 zlbnXbr69bn29UoUhzNAAYwA5N5XQ4OfgdN6UfSR2Z2WEuuBfp4TypKoF7ZnBlVVmgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723295;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VJDE2VaGlBqL1jKqnMs85FG086tb9WxrYjVRcaqG+3U=;
+	b=bbe7GuIWeDy5a6CaA/BmRJWAAxDJ0D4cZSdSSVtqTdb+9tgfQhKt7/CukuM+vvF/vjTE
+	 gy93+69nRJvHyHgz9Fgetgp5sbqFye9XlgHgNWCYDiS6bNt5HhvqiMx+I2FBdn9I0sgee
+	 AzKaETx8i00uQDRwG2jgEgmRwzEAq66bEG0gYbtqjW4TfK3mt/2a1WkXEj0Kb2aU6ODgT
+	 B1uRfl9mPpdGxzYsyC0cLGvKuCF9wXToEMCcI/TdbTexZkJxv8mR5aH5chUW10sY5kpzD
+	 XtrcB0Z0V65HAY0rACmafFzIJksegJwXy0JKnRqRXA7yB391ZpJYbB5uFBlOyHQkaBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XJDplvXf;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A46B6606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:27:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A46B6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkmOKoRN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F40606A326;
+	Tue,  3 Nov 2026 16:28:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XJDplvXf
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC42C1595;
-	Tue,  3 Nov 2026 08:27:37 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.89.242])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 518803F628;
-	Tue,  3 Nov 2026 08:27:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793723261; bh=T+7vmJQXaSpuHN4NQcYqhOks+C9X4fCqNSJv3hn3SJg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XJDplvXfcxus5djwB5e/QMx9m4tfrZNnG1V5cRyKth8kDvHRIvrvWAXpsNvpvd5ty
-	 gnNGddgyxQrKzm4RMlH4m+Uv6h0DteyPhHf6sYl/9zOrwV9nVoO939XosBkh6Ea1xj
-	 jTS1txaXomlx1M9HpXVL/VtBbecU8GUpTQOguISc=
-Message-ID: <c7f180d1-f81e-495e-91be-b76a4c4df21d@arm.com>
-Date: Tue, 3 Nov 2026 16:27:37 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkmOKoRN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DA91F000C1;
+	Tue,  3 Nov 2026 16:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793723295;
+	bh=VJDE2VaGlBqL1jKqnMs85FG086tb9WxrYjVRcaqG+3U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WkmOKoRNNL2pOzw7Uj84JOivX/pMLxbV5J7iZcjv1/TLSJ+utD3OCblyij3dq2Dnr
+	 9feC+UlQytWfYP33F3owi4g37dQdcmd9vvWoi0GkgtXJ2gZThsFzLwiE/xcNRxPQOr
+	 oItU+sxORR/jc77LGjAY4U774yWvwKFAbWVGltZBDKgJIg9pmWqpe2ED823z32RKMR
+	 PUdljHUhVvqfLqcQL0edLv+ihXNVvKHpv66dMe5ANpDK8Y7zx+O5m9kvao4/3gvvtj
+	 /QVFTqWDJuJDQ6hue9xe9d7OaJZuZmUvHvDD3uMotmu0OPT28Pui7It2ocZMK5Orab
+	 15HpJk0eh73+w==
+Message-ID: <5babb98b-7d6e-4f3a-b306-b40b30c4cdfa@kernel.org>
+Date: Tue, 3 Nov 2026 17:28:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,78 +51,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [RFC PATCH v2 10/10] arm_mpam: resctrl: Update the comment on
- monitoring domain setup
-To: Reinette Chatre <reinette.chatre@intel.com>, james.morse@arm.com,
- Dave.Martin@arm.com, fenghuay@nvidia.com
-Cc: tony.luck@intel.com, yu.c.chen@intel.com, babu.moger@amd.com,
- fustini@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, patches@lists.linux.dev
-References: <cover.1792443633.git.reinette.chatre@intel.com>
- <f6080eca2696f4a06777725854447a563aa29696.1792443633.git.reinette.chatre@intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <f6080eca2696f4a06777725854447a563aa29696.1792443633.git.reinette.chatre@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: x86-android-tablets: fix codec teardown if
+ poweroff handler setup fails
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103105544.1394559-1-vulab@iscas.ac.cn>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261103105544.1394559-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Reinette,
+Hi,
 
-On 19/10/2026 23:07, Reinette Chatre wrote:
-> The comment in mpam_resctrl_setup_mon_domain() explains that the L3
-> component IDs need to be used for a monitoring domain because there may
-> be no control component for the L3. It also describes searching each
-> event's class for a component with overlapping CPUs.
+On 3-Nov-26 11:55 AM, Wentao Liang wrote:
+> lenovo_yoga_tab2_830_1050_init_codec() stores the codec device reference,
+> the pinctrl handle and the pin mappings in globals on success; they are
+> only released by lenovo_yoga_tab2_830_1050_exit(). If the
+> register_sys_off_handler() call which follows it fails, the init callback
+> returns an error before the exit callback has been registered with the
+> framework, so the codec device reference and the other resources are
+> never released.
 > 
-> Neither matches the code. The monitoring domain has its own structure
-> and is set up independently of the control domain, so whether a control
-> component exists has no bearing on it. Each event's class must have a
-> component that contains the CPU, and all components of the domain must
-> cover the same CPUs, which is stricter than overlapping.
+> Factor the codec teardown out into a helper and call it from the error
+> path of both init callbacks.
 > 
-> Rewrite the comment to say where the domain's ID comes from and what is
-> required of the components that back the domain's events.
-> 
-> No functional change.
-> 
-> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> Fixes: 4ce8f4c2027d ("platform/x86: x86-android-tablets: Fix Lenovo Yoga Tablet 2 830/1050 poweroff again")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
-> Note to maintainers: This comment update is kept as a separate patch to
-> make it easy to review. It can be folded into "arm_mpam: resctrl: Give
-> the monitoring domain its own structure" and "arm_mpam: resctrl: Require
-> monitoring components to cover the same CPUs" if preferred.
-
-Yes, I think squashing those 3 patches together would be good.
-
-Thanks,
-
-Ben
-
-> ---
->  drivers/resctrl/mpam_resctrl.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+>  .../platform/x86/x86-android-tablets/lenovo.c | 27 +++++++++++++------
+>  1 file changed, 19 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index c3ea61a40bb2..61fbde9c0960 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -1647,11 +1647,12 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
->  	int err;
+> diff --git a/drivers/platform/x86/x86-android-tablets/lenovo.c b/drivers/platform/x86/x86-android-tablets/lenovo.c
+> index 52d96ae89078..294986f84ce8 100644
+> --- a/drivers/platform/x86/x86-android-tablets/lenovo.c
+> +++ b/drivers/platform/x86/x86-android-tablets/lenovo.c
+> @@ -548,6 +548,14 @@ static int __init lenovo_yoga_tab2_830_1050_init_codec(void)
+>  	return ret;
+>  }
 >  
->  	/*
-> -	 * Even if the monitor domain is backed by a different
-> -	 * component, the L3 component IDs need to be used... only
-> -	 * there may be no ctrl_comp for the L3.
-> -	 * Search each event's class list for a component with
-> -	 * overlapping CPUs and set up the dom->mon_comp array.
-> +	 * The monitoring domain takes the L3 cache ID as its ID even when its
-> +	 * events are backed by components of other classes, see
-> +	 * mpam_resctrl_pick_domain_id().
-> +	 * Find the component of each event's class that contains the CPU and
-> +	 * set up the dom->mon_comp array. All these components must cover the
-> +	 * same CPUs.
->  	 */
+> +static void lenovo_yoga_tab2_830_1050_exit_codec(void)
+> +{
+> +	device_remove_software_node(lenovo_yoga_tab2_830_1050_codec_dev);
+> +	pinctrl_put(lenovo_yoga_tab2_830_1050_codec_pinctrl);
+> +	pinctrl_unregister_mappings(&lenovo_yoga_tab2_830_1050_codec_pinctrl_map);
+> +	put_device(lenovo_yoga_tab2_830_1050_codec_dev);
+> +}
+> +
+>  /*
+>   * These tablet's DSDT does not set acpi_gbl_reduced_hardware, so acpi_power_off()
+>   * gets used as pm_power_off handler. This causes "poweroff" on these tablets
+> @@ -578,8 +586,11 @@ static int __init lenovo_yoga_tab2_830_1050_init(struct device *dev)
+>  	lenovo_yoga_tab2_830_1050_sys_off_handler =
+>  		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_FIRMWARE + 1,
+>  					 lenovo_yoga_tab2_830_1050_power_off, NULL);
+> -	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler))
+> -		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
+> +	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler)) {
+> +		ret = PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
+> +		lenovo_yoga_tab2_830_1050_exit_codec();
+> +		return ret;
+> +	}
+
+lenovo_yoga_tab2_830_1050_exit_codec() does not touch lenovo_yoga_tab2_830_1050_sys_off_handler,
+so there is no reason to store the error-code in ret before calling it.
+
+Please just keep this line:
+
+		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
+
+as-is.
+
+
 >  
->  	for_each_mpam_resctrl_mon(mon, eventid) {
+>  	return 0;
+>  }
+> @@ -588,10 +599,7 @@ static void lenovo_yoga_tab2_830_1050_exit(void)
+>  {
+>  	unregister_sys_off_handler(lenovo_yoga_tab2_830_1050_sys_off_handler);
+>  
+> -	device_remove_software_node(lenovo_yoga_tab2_830_1050_codec_dev);
+> -	pinctrl_put(lenovo_yoga_tab2_830_1050_codec_pinctrl);
+> -	pinctrl_unregister_mappings(&lenovo_yoga_tab2_830_1050_codec_pinctrl_map);
+> -	put_device(lenovo_yoga_tab2_830_1050_codec_dev);
+> +	lenovo_yoga_tab2_830_1050_exit_codec();
+
+Please also remove the empty line which was there to group all the codec
+cleanup calls together which now no longer is necessary.
+
+>  }
+>  
+>  /*
+> @@ -776,8 +784,11 @@ static int __init lenovo_yoga_tab2_1380_init(struct device *dev)
+>  	lenovo_yoga_tab2_830_1050_sys_off_handler =
+>  		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_FIRMWARE + 1,
+>  					 lenovo_yoga_tab2_830_1050_power_off, NULL);
+> -	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler))
+> -		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
+> +	if (IS_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler)) {
+> +		ret = PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
+> +		lenovo_yoga_tab2_830_1050_exit_codec();
+> +		return ret;
+> +	}
+
+Same as above, please keep this line:
+
+		return PTR_ERR(lenovo_yoga_tab2_830_1050_sys_off_handler);
+
+as-is.
+
+Regards,
+
+Hans
 
