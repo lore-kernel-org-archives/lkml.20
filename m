@@ -1,89 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715898;
-	b=TkUgvAHkCyvwj9IgzJkyQdYTMKyTWrQGLYaAG63nLboOYygUkdGU36vb9a4hzWHHKdd7
-	 vD0u9BgbcShPuvsZQQCWc1t6U+m1VrGG8G0ZG1SIFM/LhyYrArdVDZukYpzH83GUBSJBU
-	 lb1fDsGGpmK2puSCr5Ht6ArBrdQCf6ng4tV/akmNUCBHamtUDxIUAR3rthIRXMiUKUxF1
-	 vLmEGs2TmfVOIARf+iQ+l/gp1QCJGRbk/NueFKGogpXipPi6AAsVItufnD69otGqoGIAa
-	 r+jWhlT3FMyeHAYYWvH0sjXVpybgnqDMnJHYpRE2cKx1o+VM+zqIbwr5N7j3y69Aegg==
+	t=1793715899;
+	b=GSJW1q140lQ2Ngh33jPBbPLnhG3NB7Qzs6MsUTgBS1Um9hSWsLYNs2lFnit0Vs5EsmIw
+	 vlGpvYacgOQnllt1O8J47yc7p4penIQcTTndIwi6aZvwkvFP0dYLba+4bdSGhB2bW2riI
+	 A5J23WINdTv7Jg2WDItn8n6Lgnuzk52kTS7rq8KT4gSrRHhIPBWX767KvMjYoCt0kxwq2
+	 iWcJi5TiYvC1s2x0N0h4BiomjLcjlegLIsyURkNGiTOdNjX7kKw1zVw/z9xxE6M/sp4mx
+	 RZPhcG5cBiVMvpKQr/Uan5NRaXdx50KVHL9C7PZVfU9JVNk9Uayge6ZMGAGF5A5+pWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715898;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
-	b=Xv4Fadsq5mlsooXV4084cjWHFC97S6tG2WweLd802cDQbKpjVlLfwGrg0v+Dx6biTafK
-	 uGmSjwT37IP6ys63tMNerOGEuVjKjoodpkqpJCPRUYuWsPGfi74BqIQkjXgDGpPFF+nOP
-	 uY+In2pgwuIaoIX1OrGY0kqJsrVnOsTB01/kTdDef/sIz5b2cRcIo348O57Wt4oGYmIXc
-	 YES9RpfVAMWIpJcSJKIYeNh0NNlX1Qa/pCNWPar4pR+VhmMAyZbHjKliSX8sFLb8JhbGb
-	 bTTBmmYVAGqNLa1j6b9J2rkILj+pzJfKor1UxE62cTusXfQiAa/XXyEdFKefDwBZcqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715899;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=PZiKbZWTrHONJmoKUC4QEXVnjTjcMLvJSvvfBXZ47Yw=;
+	b=0fjc0SVvaxUagboPuEWaLwk2pQQ9gBbswU/kDuYl8QRUqdiWACAku2PGjBm+Fa8eAzmm
+	 49TwNZOPm5Scoii4pGygxniaMaJkGSniOpGMm+LJQ09+BsL1Ck7X5RmppgbNSzUeXPFko
+	 9UQHQDmSrmim1a86k4O1MeNoNiMgsjgpwhaLsCChAPYjFmsRY1UupaU1VozxUJQLdftAP
+	 3rcbkFWmgm1FfpgSPM1ijq9K0zdYVPkYMx+lNIk3gldbkR6gV72rGTDDCscDg3OZR7gt6
+	 zKl3EMNnpFEY8UvmmGkI7y+Uny+0JsP5QESPB2PzeExccQawvjNvQc8Z32vivFd5DaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WASXR6+Q;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEE0606A33C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:24:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECEE0606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WASXR6+Q
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso553690a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:24:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793715896; x=1794320696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
-        b=WASXR6+QktALwIYfvUJyNOjQf/PDBB3cfp4FNeNRntcgkgHY2WV8cpY/gy9Tky+24W
-         h/Fu1zs47zL3h/6r0HU8EDrdl3bHqsLtoVKX7ZB0GiUVaTLcJzCJiZbxfbYdMHzJxUQD
-         eW7ys3sawcM2gzqiimc/NvByfzXzuh/A+DU9yJSYLkrLSiDjBQE+NSkCyM+7qQOXykjq
-         vuGjc8gVsM0b2SzrnRo4AaZJJ4s0p74K3DvVwe7bZNtmy7LzojLqan7rjcP9xWVsR0y1
-         O83geE5VrUxa05PIonQsJudInSBSxQaXdo5gkuHjEpsx7mNmUe6+/qfv4d0HhqPS3/Yb
-         a1ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793715896; x=1794320696;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4TONlcxqo54iN78pAMzbzkX6q3qNAFO1iKV1Ffm2IVw=;
-        b=y41P/7DqqnLAx5ioTbLjGF+t1yiX/ToYatIhrCYrtzvKYZLrVaFSjNYlPiB31odNP5
-         CbvXhV3UHudAiUatiKDO9vpyDFZ3wSsawpWvwy0r45eu6LMWC1RasGShIxyrZjyX3xiq
-         Sc6FxnY9VnYGGgf3HDLJxvMHJOyzzAJf0ttSx/vMzVg0Kvk7kahE/YNID8UXbiJvz31t
-         UFygl9VN5hKuzWuI3NTG+oZmCh1Xa+6eGpQ7pXR5lY8u6QELxVh1sA6L0hOrBkPBbcXl
-         YtrJMoFT5HYQogm6BgOKGIBvmA9N0Lan+3aUlCkCX7wKSo6oDin1XXjCMHMRDyQ9fJYc
-         RCMA==
-X-Forwarded-Encrypted: i=1; AKwUvByhvLfT8TnOQKEX0sZlQIA6SwPT88pLqO0fLBnLo64waIQ7IhKnHHKe+0RTBBLWIk05Ga735zfGht8JsjU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ht38+D1pXBYm/gFsqZV3k1w7vmKvt8LR1QjU0aiSjAdyhKDWY
-	EzrS4qyN5S19BmZSbsaCQdRSLs4hgMj0TodLNQoyltmOPDycoVi0nE8=
-X-Gm-Gg: AYBFou3jF3aCWJWBWdBHGjAkj8gzBb6Gu8Um+29LOMbCo16NfA+DvIHT9jBdXpbQiti
-	rUDGGvK+b5DktBuqX0EVAufUWZ98EL0lypUDdichOyR6NJAWW1KPKrieHTTbU3SgQNCM15soB+N
-	GLG78o1IQ0wS6poSky1cxwfO7gAU6e5eF71UMxN7GEbVHK5+ku/QCgZ0okuQ82IiuWXwq0SArTJ
-	p94XEprj59Peu0qD03o0TO1duCsnhWxrtbTylLoGBqPyC8W5XMVJdSbV/ZG+BLoUBshlT9f0zjv
-	6HTleShSzyjV8BQCo+FFY5mnChnliMznc3B6CfRVxyKY8YtrpNbcufo9UQ6gRZu6+SDRjbors/S
-	eB9a5Fot+V2fei3rTeajLjuL02pbLbAI/B14sV0jY0vhCb7RfwGRaI/NoOvKBJbyxQ5v2TdrVpt
-	DNFeutagfq0de/ceBJ5U+ndfy1oBSGpI1fMFI7gNHzxsRu7YAbaVV81ZfXuY6Gi3vf85UBaFEZz
-	ML1T+u8Vls7GaCU4fLroCMc2NSiaeAApldLebmQkVDc+3PJ6b9TOBbZqTfPZsYeHcX15HHoom6t
-	OIcOBPx3Ihf2zgeIodPq463FE/BY7CPlsYpmJdXluiNFuRu9cPNeLElXuLJxCKwTWENskjsc/yR
-	Hrpgv7u0b
-X-Received: by 2002:a17:906:7309:b0:c46:645f:cedd with SMTP id a640c23a62f3a-c4ca7a18e93mr1175687766b.8.1793715896002;
-        Tue, 03 Nov 2026 06:24:56 -0800 (PST)
-Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cebf3cadbsm90903766b.50.2026.11.03.06.24.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 06:24:55 -0800 (PST)
-Message-ID: <d4b18854-0e02-4fce-b168-d4e80035aaa8@gmail.com>
-Date: Tue, 3 Nov 2026 15:24:53 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0F6606A324;
+	Tue,  3 Nov 2026 14:24:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E0F6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
+	Message-Id:To; bh=PZiKbZWTrHONJmoKUC4QEXVnjTjcMLvJSvvfBXZ47Yw=;
+	b=Cueg3mrotnsW+7NSD1kAKcCTYv3lyGG3/ikrKQtSaO++5R70fw2GK7t7pH3brI
+	lwQ0EIkzDfKz0SUvcenrrBjnDT70UtGjCdJ3vTjbInBpC7DX7dqGOLa5l4fwy+1F
+	vwsy/yx8iMW0UkDBacNXzFNXe9qSN004QWjHd0RknDj60=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD31xKI7ulqFs2VEw--.7556S3;
+	Tue, 03 Nov 2026 22:24:10 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Date: Tue, 03 Nov 2026 22:24:03 +0800
+Subject: [PATCH v5 1/2] ASoC: es8328: reset the codec at probe time
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,106 +52,415 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/msm/debugfs: Use cleanup.h for gpu state dump
-To: rob.clark@oss.qualcomm.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
- <20261102190010.720443-4-robin.clark@oss.qualcomm.com>
- <a4151c32-bac2-40ec-86f3-59d4dbfaae62@oss.qualcomm.com>
- <CACSVV02mTpCPZ-JtyYrsTEsRXKyS3zuxTehx=c91NbxgQSdpUQ@mail.gmail.com>
-Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <CACSVV02mTpCPZ-JtyYrsTEsRXKyS3zuxTehx=c91NbxgQSdpUQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-es8328-vol-init-v5-1-9c505c97a8e1@163.com>
+References: <20261103-es8328-vol-init-v5-0-9c505c97a8e1@163.com>
+In-Reply-To: <20261103-es8328-vol-init-v5-0-9c505c97a8e1@163.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wD31xKI7ulqFs2VEw--.7556S3
+X-Coremail-Antispam: 1Uf129KBjvAXoW3Zw4xKF43WryUJF4fJr1DZFb_yoW8Gr1kZo
+	W2qry3Ww47Ww1kXFyrtr1fWF17WF4rZ343tFsrCw4DZwn7JFy5Kws2qw15ta4aga4Y9rZ3
+	Zw1DXFnxJrWxGF17n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4i-B_UDUUUU
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3QryYGrp7or8yQAA3X
 
-On 11/3/26 2:58 PM, Rob Clark wrote:
-> On Tue, Nov 3, 2026 at 3:28 AM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->> On 11/2/26 8:00 PM, Rob Clark wrote:
->>> We need to move the gpu lock around a bit for the next patch.  Use
->>> scoped_guard/etc so we don't have to make the error path handling more
->>> complicated.
->>>
->>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
->>> ---
->>>   drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
->>>   1 file changed, 12 insertions(+), 19 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
->>> index f12701e286ec..aa59b28a3392 100644
->>> --- a/drivers/gpu/drm/msm/msm_debugfs.c
->>> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
->>> @@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
->>>        struct drm_device *dev = inode->i_private;
->>>        struct msm_drm_private *priv = dev->dev_private;
->>>        struct msm_gpu *gpu = priv->gpu;
->>> -     struct msm_gpu_show_priv *show_priv;
->>>        int ret;
->>>
->>>        if (!gpu || !gpu->funcs->gpu_state_get)
->>>                return -ENODEV;
->>>
->>> -     show_priv = kmalloc_obj(*show_priv);
->>> +     struct msm_gpu_show_priv *show_priv __free(kfree)
->>> +             = kmalloc_obj(*show_priv);
->>>        if (!show_priv)
->>>                return -ENOMEM;
->>>
->>> -     ret = mutex_lock_interruptible(&gpu->lock);
->>> -     if (ret)
->>> -             goto free_priv;
->>> -
->>> -     pm_runtime_get_sync(&gpu->pdev->dev);
->>> -     msm_gpu_hw_init(gpu);
->>> -     show_priv->state = gpu->funcs->gpu_state_get(gpu);
->>> -     pm_runtime_put_sync(&gpu->pdev->dev);
->>> -
->>> -     mutex_unlock(&gpu->lock);
->>> +     scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
->>> +             scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
->>> +                     msm_gpu_hw_init(gpu);
->>> +                     show_priv->state = gpu->funcs->gpu_state_get(gpu);
->>> +             }
->> My clanker tells me we can't grab the PM reference before a mutex,
->> as the recovery mechanism depends on the rpm count being appropriate
->> to let it drop it (and kill gx this way)
-> Yeah, but we also can't do it in the other order, or more specifically
-> disabling ifpc needs to come before gpu lock or it can deadlock with
-> recovery.. but ifpc disable needs to be after runpm get.
->
-> Re-working that ordering was the whole of introducing cleanup.h, to
-> avoid the error path with mutex_lock_interruptible() after taking
-> runpm
->
-> I guess if you are hammering on debugfs while crashing the gpu, maybe
-> the first recovery fails, and then a subsequent one eventually
-> succeeds.
-I guess it leads to a sort of deadlock scenario because the recovery 
-path waits
-for power to collapse, though it timeouts after one second.
+Nothing brings the codec into a known state when the driver probes: the
+supplies may already be on, a warm reboot or a kexec keeps the registers
+alive, and a driver rebind leaves whatever the previous instance
+programmed.  Everything that reads a register back and writes it again,
+from the DAI format to the mute control, then works from a value the
+hardware never had.
 
-After that hangcheck will have to trigger again so I guess the delay 
-introduced
-would be significant.
+Issue a control port reset while probing so the codec always starts from
+its documented defaults.  SCP_RESET is not self-clearing, so the reference
+and the VMID divider are written back afterwards, which is the documented
+default value of the register.
 
-I really wish there was some better way of doing recovery that didn't 
-rely on
-the counbter having a known value.
+The cache outlives a component rebind, so rebuild it from the same table
+after the reset instead of dropping it: a drop would send every later
+read-modify-write to the bus, and this part does not read back reliably
+everywhere.
 
->
-> BR,
-> -R
+Describe those defaults in the regmap as well, one table per supported
+part, so the cache describes the codec instead of being filled in lazily
+on first access.  The two parts differ in eleven registers, so one table
+cannot describe both; the variant is looked up from the match data in the
+I2C and SPI glue, which also makes the driver work on ACPI systems.  The
+SPI glue gains an ES8388 entry and an id table of its own, so a part
+behind SPI resolves the same way and the id table lookup never runs off a
+NULL table.
 
+The values come from the ES8328 datasheet, Revision 1.0, sections 6.1.1
+to 6.3.30, and from the ES8388 datasheet, Revision 5.0, same sections.
 
-Best regards,
+Tested on a QuarkPi-CA2 (RK3588S, ES8388, I2C): a register deliberately
+modified before a warm reboot comes back at its reset value once the
+driver probes, so it is the reset rather than a power cycle that restores
+the state.
+
+Signed-off-by: Bob Hui <bg9oxa@163.com>
+---
+ sound/soc/codecs/es8328-i2c.c |  18 ++--
+ sound/soc/codecs/es8328-spi.c |  20 ++++-
+ sound/soc/codecs/es8328.c     | 191 ++++++++++++++++++++++++++++++++++++++++--
+ sound/soc/codecs/es8328.h     |   9 +-
+ 4 files changed, 221 insertions(+), 17 deletions(-)
+
+diff --git a/sound/soc/codecs/es8328-i2c.c b/sound/soc/codecs/es8328-i2c.c
+index 36a4987e1a593..cb9392c0b8ea3 100644
+--- a/sound/soc/codecs/es8328-i2c.c
++++ b/sound/soc/codecs/es8328-i2c.c
+@@ -16,23 +16,29 @@
+ #include "es8328.h"
+ 
+ static const struct i2c_device_id es8328_id[] = {
+-	{ .name = "es8328" },
+-	{ .name = "es8388" },
++	{ .name = "es8328", .driver_data = ES8328_TYPE_ES8328 },
++	{ .name = "es8388", .driver_data = ES8328_TYPE_ES8388 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, es8328_id);
+ 
+ static const struct of_device_id es8328_of_match[] = {
+-	{ .compatible = "everest,es8328", },
+-	{ .compatible = "everest,es8388", },
++	{ .compatible = "everest,es8328", .data = (void *)ES8328_TYPE_ES8328 },
++	{ .compatible = "everest,es8388", .data = (void *)ES8328_TYPE_ES8388 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, es8328_of_match);
+ 
+ static int es8328_i2c_probe(struct i2c_client *i2c)
+ {
+-	return es8328_probe(&i2c->dev,
+-			devm_regmap_init_i2c(i2c, &es8328_regmap_config));
++	enum es8328_type type = (unsigned long)i2c_get_match_data(i2c);
++	const struct regmap_config *config;
++
++	config = type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
++					    : &es8328_regmap_config;
++
++	return es8328_probe(&i2c->dev, devm_regmap_init_i2c(i2c, config),
++			    type);
+ }
+ 
+ static struct i2c_driver es8328_i2c_driver = {
+diff --git a/sound/soc/codecs/es8328-spi.c b/sound/soc/codecs/es8328-spi.c
+index 88e353ae52a10..93df788222ab6 100644
+--- a/sound/soc/codecs/es8328-spi.c
++++ b/sound/soc/codecs/es8328-spi.c
+@@ -13,16 +13,29 @@
+ #include <sound/soc.h>
+ #include "es8328.h"
+ 
++static const struct spi_device_id es8328_id[] = {
++	{ .name = "es8328", .driver_data = ES8328_TYPE_ES8328 },
++	{ .name = "es8388", .driver_data = ES8328_TYPE_ES8388 },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, es8328_id);
++
+ static const struct of_device_id es8328_of_match[] = {
+-	{ .compatible = "everest,es8328", },
++	{ .compatible = "everest,es8328", .data = (void *)ES8328_TYPE_ES8328 },
++	{ .compatible = "everest,es8388", .data = (void *)ES8328_TYPE_ES8388 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, es8328_of_match);
+ 
+ static int es8328_spi_probe(struct spi_device *spi)
+ {
+-	return es8328_probe(&spi->dev,
+-			devm_regmap_init_spi(spi, &es8328_regmap_config));
++	enum es8328_type type = (unsigned long)spi_get_device_match_data(spi);
++	const struct regmap_config *config;
++
++	config = type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
++					    : &es8328_regmap_config;
++
++	return es8328_probe(&spi->dev, devm_regmap_init_spi(spi, config), type);
+ }
+ 
+ static struct spi_driver es8328_spi_driver = {
+@@ -31,6 +44,7 @@ static struct spi_driver es8328_spi_driver = {
+ 		.of_match_table	= es8328_of_match,
+ 	},
+ 	.probe	= es8328_spi_probe,
++	.id_table = es8328_id,
+ };
+ 
+ module_spi_driver(es8328_spi_driver);
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index aaa6646ad4c5e..fc33d9418449a 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -78,6 +78,7 @@ static const char * const supply_names[ES8328_SUPPLY_NUM] = {
+ struct es8328_priv {
+ 	struct regmap *regmap;
+ 	struct clk *clk;
++	enum es8328_type type;
+ 	int playback_fs;
+ 	bool deemph;
+ 	int mclkdiv2;
+@@ -812,6 +813,7 @@ static int es8328_component_probe(struct snd_soc_component *component)
+ {
+ 	struct es8328_priv *es8328;
+ 	int ret;
++	const struct regmap_config *config;
+ 
+ 	es8328 = snd_soc_component_get_drvdata(component);
+ 
+@@ -836,8 +838,47 @@ static int es8328_component_probe(struct snd_soc_component *component)
+ 		goto clk_fail;
+ 	}
+ 
++	/*
++	 * Put the codec into a known state: the supplies may already be on,
++	 * a warm reboot or a kexec keeps the registers alive, and a driver
++	 * rebind leaves whatever the previous instance programmed.  Without
++	 * this every read-modify-write in the driver works from a value the
++	 * hardware never had.  SCP_RESET is not self-clearing.
++	 */
++	ret = snd_soc_component_write(component, ES8328_CONTROL1,
++				      ES8328_CONTROL1_SCP_RESET);
++	if (ret) {
++		dev_err(component->dev, "unable to reset the codec\n");
++		goto err_clk;
++	}
++	usleep_range(1000, 5000);
++	ret = snd_soc_component_write(component, ES8328_CONTROL1,
++				      ES8328_CONTROL1_ENREF |
++				      ES8328_CONTROL1_VMIDSEL_500k);
++	if (ret) {
++		dev_err(component->dev, "unable to clear the codec reset\n");
++		goto err_clk;
++	}
++
++	/*
++	 * The reset put the codec back to its documented power-on values, so
++	 * rebuild the cache from the same table instead of dropping it: a
++	 * drop would send every later read-modify-write to the bus, and this
++	 * part does not read back reliably, registers 0x28 and 0x29 return
++	 * their power-on value whatever has been written to them.
++	 */
++	config = es8328->type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
++						    : &es8328_regmap_config;
++	ret = regmap_reinit_cache(es8328->regmap, config);
++	if (ret) {
++		dev_err(component->dev, "unable to reinitialise the register cache\n");
++		goto err_clk;
++	}
++
+ 	return 0;
+ 
++err_clk:
++	clk_disable_unprepare(es8328->clk);
+ clk_fail:
+ 	regulator_bulk_disable(ARRAY_SIZE(es8328->supplies),
+ 			       es8328->supplies);
+@@ -856,16 +897,150 @@ static void es8328_remove(struct snd_soc_component *component)
+ 			       es8328->supplies);
+ }
+ 
++/*
++ * Power-on defaults from the ES8328 datasheet, Revision 1.0, sections
++ * 6.1.1 to 6.3.30.
++ */
++static const struct reg_default es8328_reg_defaults[] = {
++	{ ES8328_CONTROL1,	0x06 },
++	{ ES8328_CONTROL2,	0x1c },
++	{ ES8328_CHIPPOWER,	0xc3 },
++	{ ES8328_ADCPOWER,	0xfc },
++	{ ES8328_DACPOWER,	0xc0 },
++	{ ES8328_CHIPLOPOW1,	0x00 },
++	{ ES8328_CHIPLOPOW2,	0x00 },
++	{ ES8328_ANAVOLMANAG,	0x7c },
++	{ ES8328_MASTERMODE,	0x80 },
++	{ ES8328_ADCCONTROL1,	0x00 },
++	{ ES8328_ADCCONTROL2,	0x00 },
++	{ ES8328_ADCCONTROL3,	0x06 },
++	{ ES8328_ADCCONTROL4,	0x00 },
++	{ ES8328_ADCCONTROL5,	0x06 },
++	{ ES8328_ADCCONTROL6,	0x30 },
++	{ ES8328_ADCCONTROL7,	0x30 },
++	{ ES8328_ADCCONTROL8,	0xc0 },
++	{ ES8328_ADCCONTROL9,	0xc0 },
++	{ ES8328_ADCCONTROL10,	0x38 },
++	{ ES8328_ADCCONTROL11,	0xb0 },
++	{ ES8328_ADCCONTROL12,	0x32 },
++	{ ES8328_ADCCONTROL13,	0x06 },
++	{ ES8328_ADCCONTROL14,	0x00 },
++	{ ES8328_DACCONTROL1,	0x00 },
++	{ ES8328_DACCONTROL2,	0x06 },
++	{ ES8328_DACCONTROL3,	0x32 },
++	{ ES8328_DACCONTROL4,	0xc0 },
++	{ ES8328_DACCONTROL5,	0xc0 },
++	{ ES8328_DACCONTROL6,	0x08 },
++	{ ES8328_DACCONTROL7,	0x06 },
++	{ ES8328_DACCONTROL8,	0x1f },
++	{ ES8328_DACCONTROL9,	0xf7 },
++	{ ES8328_DACCONTROL10,	0xfd },
++	{ ES8328_DACCONTROL11,	0xff },
++	{ ES8328_DACCONTROL12,	0x1f },
++	{ ES8328_DACCONTROL13,	0xf7 },
++	{ ES8328_DACCONTROL14,	0xfd },
++	{ ES8328_DACCONTROL15,	0xff },
++	{ ES8328_DACCONTROL16,	0x00 },
++	{ ES8328_DACCONTROL17,	0x38 },
++	{ ES8328_DACCONTROL18,	0x38 },
++	{ ES8328_DACCONTROL19,	0x38 },
++	{ ES8328_DACCONTROL20,	0x38 },
++	{ ES8328_DACCONTROL21,	0x38 },
++	{ ES8328_DACCONTROL22,	0x38 },
++	{ ES8328_DACCONTROL23,	0x00 },
++	{ ES8328_LOUT1VOL,	0x00 },
++	{ ES8328_ROUT1VOL,	0x00 },
++	{ ES8328_LOUT2VOL,	0x00 },
++	{ ES8328_ROUT2VOL,	0x00 },
++	{ ES8328_MONOOUTVOL,	0x00 },
++	{ ES8328_DACCONTROL29,	0x00 },
++	{ ES8328_DACCONTROL30,	0x00 },
++};
++
++/*
++ * Power-on defaults from the ES8388 datasheet, Revision 5.0, sections
++ * 6.1.1 to 6.3.30.
++ */
++static const struct reg_default es8388_reg_defaults[] = {
++	{ ES8328_CONTROL1,	0x06 },
++	{ ES8328_CONTROL2,	0x5c },
++	{ ES8328_CHIPPOWER,	0xc3 },
++	{ ES8328_ADCPOWER,	0xfc },
++	{ ES8328_DACPOWER,	0xc0 },
++	{ ES8328_CHIPLOPOW1,	0x00 },
++	{ ES8328_CHIPLOPOW2,	0x00 },
++	{ ES8328_ANAVOLMANAG,	0x7c },
++	{ ES8328_MASTERMODE,	0x80 },
++	{ ES8328_ADCCONTROL1,	0x00 },
++	{ ES8328_ADCCONTROL2,	0x00 },
++	{ ES8328_ADCCONTROL3,	0x02 },
++	{ ES8328_ADCCONTROL4,	0x00 },
++	{ ES8328_ADCCONTROL5,	0x06 },
++	{ ES8328_ADCCONTROL6,	0x30 },
++	{ ES8328_ADCCONTROL7,	0x20 },
++	{ ES8328_ADCCONTROL8,	0xc0 },
++	{ ES8328_ADCCONTROL9,	0xc0 },
++	{ ES8328_ADCCONTROL10,	0x38 },
++	{ ES8328_ADCCONTROL11,	0xb0 },
++	{ ES8328_ADCCONTROL12,	0x32 },
++	{ ES8328_ADCCONTROL13,	0x06 },
++	{ ES8328_ADCCONTROL14,	0x00 },
++	{ ES8328_DACCONTROL1,	0x00 },
++	{ ES8328_DACCONTROL2,	0x06 },
++	{ ES8328_DACCONTROL3,	0x22 },
++	{ ES8328_DACCONTROL4,	0xc0 },
++	{ ES8328_DACCONTROL5,	0xc0 },
++	{ ES8328_DACCONTROL6,	0x08 },
++	{ ES8328_DACCONTROL7,	0x00 },
++	{ ES8328_DACCONTROL8,	0x1f },
++	{ ES8328_DACCONTROL9,	0xf7 },
++	{ ES8328_DACCONTROL10,	0xfd },
++	{ ES8328_DACCONTROL11,	0xff },
++	{ ES8328_DACCONTROL12,	0x1f },
++	{ ES8328_DACCONTROL13,	0xf7 },
++	{ ES8328_DACCONTROL14,	0xfd },
++	{ ES8328_DACCONTROL15,	0xff },
++	{ ES8328_DACCONTROL16,	0x00 },
++	{ ES8328_DACCONTROL17,	0x38 },
++	{ ES8328_DACCONTROL18,	0x28 },
++	{ ES8328_DACCONTROL19,	0x28 },
++	{ ES8328_DACCONTROL20,	0x38 },
++	{ ES8328_DACCONTROL21,	0x00 },
++	{ ES8328_DACCONTROL22,	0x00 },
++	{ ES8328_DACCONTROL23,	0x00 },
++	{ ES8328_LOUT1VOL,	0x00 },
++	{ ES8328_ROUT1VOL,	0x00 },
++	{ ES8328_LOUT2VOL,	0x00 },
++	{ ES8328_ROUT2VOL,	0x00 },
++	{ ES8328_MONOOUTVOL,	0x00 },
++	{ ES8328_DACCONTROL29,	0xaa },
++	{ ES8328_DACCONTROL30,	0xaa },
++};
++
+ const struct regmap_config es8328_regmap_config = {
+-	.reg_bits	= 8,
+-	.val_bits	= 8,
+-	.max_register	= ES8328_REG_MAX,
+-	.cache_type	= REGCACHE_MAPLE,
+-	.use_single_read = true,
+-	.use_single_write = true,
++	.reg_bits		= 8,
++	.val_bits		= 8,
++	.max_register		= ES8328_REG_MAX,
++	.cache_type		= REGCACHE_MAPLE,
++	.reg_defaults		= es8328_reg_defaults,
++	.num_reg_defaults	= ARRAY_SIZE(es8328_reg_defaults),
++	.use_single_read	= true,
++	.use_single_write	= true,
+ };
+ EXPORT_SYMBOL_GPL(es8328_regmap_config);
+ 
++const struct regmap_config es8388_regmap_config = {
++	.reg_bits		= 8,
++	.val_bits		= 8,
++	.max_register		= ES8328_REG_MAX,
++	.cache_type		= REGCACHE_MAPLE,
++	.reg_defaults		= es8388_reg_defaults,
++	.num_reg_defaults	= ARRAY_SIZE(es8388_reg_defaults),
++	.use_single_read	= true,
++	.use_single_write	= true,
++};
++EXPORT_SYMBOL_GPL(es8388_regmap_config);
++
+ static const struct snd_soc_component_driver es8328_component_driver = {
+ 	.probe			= es8328_component_probe,
+ 	.remove			= es8328_remove,
+@@ -884,7 +1059,8 @@ static const struct snd_soc_component_driver es8328_component_driver = {
+ 	.endianness		= 1,
+ };
+ 
+-int es8328_probe(struct device *dev, struct regmap *regmap)
++int es8328_probe(struct device *dev, struct regmap *regmap,
++		 enum es8328_type type)
+ {
+ 	struct es8328_priv *es8328;
+ 	int ret;
+@@ -898,6 +1074,7 @@ int es8328_probe(struct device *dev, struct regmap *regmap)
+ 		return -ENOMEM;
+ 
+ 	es8328->regmap = regmap;
++	es8328->type = type;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(es8328->supplies); i++)
+ 		es8328->supplies[i].supply = supply_names[i];
+diff --git a/sound/soc/codecs/es8328.h b/sound/soc/codecs/es8328.h
+index 9109f6b5b045a..3e2cfca050e2b 100644
+--- a/sound/soc/codecs/es8328.h
++++ b/sound/soc/codecs/es8328.h
+@@ -10,8 +10,15 @@
+ 
+ struct device;
+ 
++enum es8328_type {
++	ES8328_TYPE_ES8328 = 1,
++	ES8328_TYPE_ES8388,
++};
++
+ extern const struct regmap_config es8328_regmap_config;
+-int es8328_probe(struct device *dev, struct regmap *regmap);
++extern const struct regmap_config es8388_regmap_config;
++int es8328_probe(struct device *dev, struct regmap *regmap,
++		 enum es8328_type type);
+ 
+ #define ES8328_DACLVOL 46
+ #define ES8328_DACRVOL 47
+
 -- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+2.34.1
 
