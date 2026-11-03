@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745753;
-	b=je2NXUXG6GkGFWGJmFONwYHyHtOiW5QrczjIeG5tk8xCEcdVXhZiERJ0Ned/RUuavfV/
-	 dzqIhlDAa2XT3nZquTnKMqnG9GnsC8nBsTqiHy5t/zLbmFHpH2yuQ+y2N3YTtNSTWYsCQ
-	 ngP6LXgkfyz5tZH7UHvRL5PWAfbLTAGCn24sERJyfOUUk0duhYlUtdY8Y77RbQXlkCFhK
-	 huF9gBmWyXLv/rj0Bj1fIIcyV407VRf5Fq92zZjZ45kBoXq1R4pGZduKz++aiHkPTmQk1
-	 V1Q0FzibgTczQiPWeQ85wBBWUJVUe+Rp4v9Sn+bpVza0kneFG++/X26OPFic7FPq3Rw==
+	t=1793745759;
+	b=dZcMjSZq1eMwZ9rTm6N2/Pt1erKdJRHF26U279LFzvL2BO6o/fdD81FBjhY02RMkRiWk
+	 sFRidDbbeNLCXdghPgDXJsWrJv4/BElQcPV+4WTqRSP3THRD2wayU20uaQzWB+7SO9TcO
+	 YunulNzDXIzZdnuKO9yYHbWpwbOij+SAGWg0fiOK55NouQbEa5QCNnK3/UKLQWbVKo/ID
+	 FNbP7bnuLrP7V3lpzWHS5HNwdyZUdZ0ik0X+jgiV0cuPdwWNG3e7zdHmAntkYuqX8XNuY
+	 1JGIRC551Msmy/X6Huj4tnzqbXBGDZgp0FZDfIw/t5xSxnR6XiYotrWYJnmhyxX8xPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745753;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745759;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=PE3JoFAsPWYzM/2VTWaCcmrBAhB5QjBCHLVh8VYps6c=;
-	b=AxjtlGVfiCiwkCXSNnIc1PSRjJNcHH8wwbz+yjwcNpK/pEG/YDhDwrTLcrS8L7jvHsp8
-	 JgWmOSzhb9kXuvPlOMCieImWU89q0M6V/8NgPc0AGTuNlAevdcVbZJYOW5TFkfTrk/KSZ
-	 KQIgjO9SUvUVXjAipc5rXbx/BQwnEBNhDGZgWvvG9IR02jkIYsY06lOkkiwy5YuwaJeNu
-	 IdLFnZaxMUP5n2WHV5cM1yK4sms9YF54u+d5BPyaJhlHdcA9fYxfIMn0mZV90jdKG4H4r
-	 SiUzs6ERR9z8bDeY/8JczDV3eJMve5ky7QxZxo0acE6Ii/wRv5xw4xjPrP4aYH3aPEg==
+	bh=qJz4Y3pmBhvfNKPCdS16oXtdOSx6Dt11DR2lDyz2UZg=;
+	b=CErIqeu0ev7MKlt444CRBIG41cGs+pDrjgnMJItPj8BjiwdtMr44+YQ4To6rMOKtNhJV
+	 jb+fLUWCns76+KDELp8QtWheP9D1Fug/Nks1zcw0jWMaXFpVOMLbIpRc8S/1Uhxl/xbbm
+	 Qao2VA3Qvt3+BXSzwX1k/uc/hGHCUkcC44qh4R8p5pAMxkbridJlgKId6FJmBYUvQHqeX
+	 /DAlJYodCpwBC6rqUxnCBcqf8wzyC0pSQ1MucAeqDTBPk7djPPwoMQeZ9wbOtHqkCFLty
+	 2W9EbY5E1GB9SpZRWi/aNT42JGcdQdZYVRNNsetIgvl1zm0HihRL1FwO6j0zD3qR3WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qy5uaxuE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbpGCKDK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85B6606D805
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC643606D835
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:42:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qy5uaxuE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E152D1F00A02;
-	Tue,  3 Nov 2026 22:42:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbpGCKDK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E4D1F00A1F;
+	Tue,  3 Nov 2026 22:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793745752;
-	bh=PE3JoFAsPWYzM/2VTWaCcmrBAhB5QjBCHLVh8VYps6c=;
+	s=k20260515; t=1793745758;
+	bh=qJz4Y3pmBhvfNKPCdS16oXtdOSx6Dt11DR2lDyz2UZg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Qy5uaxuEVoVv9knelReqa35dRFNHxzX5B85LqHbOGdaT7s+0YzGHAArT67qUaaN4W
-	 7phmYSgI6e9NET1p2a/RGn9Ap6FU2e11OfWjhT15pfXExpYJbLJyj3bsdpb2Ofg0QT
-	 MloHuhWSLb77Zhj9/I/JhQpKDnSE3ynu4b8koy6BKPOb9lOxc7lIGZoZm/z87Hsf4p
-	 9unACogQ9zkS+LnNd6z1LB1hCy4ijWf+8fyuh0VLMevjzqPCXcIxIvK6yW5ugxqCel
-	 0aFWsd3USz3Bfdo6xz8exXkkttBaIHYILr8hF19ieORtlMx5VWlw3t2jYHJuoKzlo2
-	 Cj39yBmJzJc3g==
+	b=PbpGCKDKxV5hlKimg1geLnJHi7WavKPOJXa+vAu62pVQIReLlYVMnDmyInxzVh8/s
+	 tkQD58PAC3Ao2qq7juLFFN/ziOrBHyyP/66tHsexB1fcrWoTyTNDqTllTuXLf4130n
+	 mbO0sqbRJuvOwlkLvuvtGtI/oCGHQQ7wihTCQR2xaQXyep/HL3wucEOXp0dan53v+p
+	 KsTfm72BNRE5N3RVYCYqZXUq4fNiQZpOopd0pPwI3swJGKdEnmMycwXsN3jnYxn5Pz
+	 C/hhQ+ST1Qt3ZbvyONUjAGq/Ay8Ikf1Uj9dqEgz275dL07Rb9DkcuNlAC6feSr+XzT
+	 ZDIbvvwZTNpqg==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 16:42:10 -0600
-Subject: [PATCH v11 09/12] drm/nouveau: add connector luminance support
+Date: Tue, 03 Nov 2026 16:42:13 -0600
+Subject: [PATCH v11 12/12] drm/solomon: add SSD130x connector luminance
+ support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-backlight-property-v11-9-00cce7b2ba22@kernel.org>
+Message-Id: <20261103-superm1-backlight-property-v11-12-00cce7b2ba22@kernel.org>
 References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -75,395 +76,314 @@ X-Mailer: b4 0.16.0
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose Nouveau panel brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled and atomic modesetting is exposed. Reuse
-the existing NV50 and DPCD hardware paths while preserving the backlight
-class interface otherwise, including for pre-NV50 displays.
-
-The panel backlight is probed and the property attached before the DRM
-device is registered. The luminance helpers are called from the NV50
-atomic commit tail.
+Expose SSD130x contrast through the connector LUMINANCE property when
+DRM_LUMINANCE is enabled. Program contrast directly and register the
+backlight class device only when DRM_LUMINANCE is disabled, so contrast
+has a single owner.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v11:
- * Call the luminance commit helpers from nv50_disp_atomic_commit_tail()
-   (Sashiko)
- * Attach the property before drm_dev_register() (Sashiko)
- * Keep the class device for non-atomic NV04 and nouveau.atomic=0
-   (Sashiko)
- * Fix stale brightness on eDP enable for the class device path (Sashiko)
- * Keep selecting BACKLIGHT_CLASS_DEVICE (Sashiko)
+ * Keep selecting BACKLIGHT_CLASS_DEVICE and drop the guards (Sashiko)
+ * Register the backlight device only without DRM_LUMINANCE (Sashiko)
+ * Initialise the controller with the committed luminance and don't
+   clobber the saved contrast on disable (Sashiko)
+ * Skip contrast writes while the controller is powered down (Sashiko)
+ * Unify contrast dispatch and backlight ops (Sashiko)
+ * Drop Reviewed-by due to the rework
+v10:
+ * Guard the backlight operations and registration with
+   BACKLIGHT_CLASS_DEVICE
+ * Fix Kconfig recursive issue
+ * Add the Reviewed-by tag
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c     |  13 ++-
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 152 ++++++++++++++++++++++++----
- drivers/gpu/drm/nouveau/nouveau_connector.c |   3 +
- drivers/gpu/drm/nouveau/nouveau_connector.h |  23 +++++
- drivers/gpu/drm/nouveau/nouveau_drm.c       |   6 ++
- 5 files changed, 174 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/solomon/ssd130x.c | 149 ++++++++++++++++++++++++--------------
+ drivers/gpu/drm/solomon/ssd130x.h |   2 +
+ 2 files changed, 98 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db67..57653fe720d95 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1755,6 +1755,7 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 	struct nouveau_connector *nv_connector;
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
- 	struct nouveau_backlight *backlight;
-+	u16 level;
- #endif
- 	struct nvbios *bios = &drm->vbios;
- 	bool lvds_dual = false, lvds_8bpc = false, hda = false;
-@@ -1836,9 +1837,14 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
- 		backlight = nv_connector->backlight;
--		if (backlight && backlight->uses_dpcd)
-+		if (backlight && backlight->uses_dpcd) {
-+			if (backlight->dev)
-+				level = backlight->dev->props.brightness;
-+			else
-+				level = nv_connector->base.state->luminance;
- 			drm_edp_backlight_enable(&nv_connector->aux, &backlight->edp_info,
--						 backlight->dev->props.brightness);
-+						 level);
-+		}
- #endif
- 
- 		break;
-@@ -2188,6 +2194,7 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_commit *state)
- 	drm_dp_mst_atomic_wait_for_dependencies(state);
- 	drm_atomic_helper_update_legacy_modeset_state(dev, state);
- 	drm_atomic_helper_calc_timestamping_constants(state);
-+	drm_atomic_helper_commit_luminance_disables(state);
- 
- 	if (atom->lock_core)
- 		mutex_lock(&disp->mutex);
-@@ -2370,6 +2377,8 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_commit *state)
- 	if (atom->lock_core)
- 		mutex_unlock(&disp->mutex);
- 
-+	drm_atomic_helper_commit_luminance_enables(state);
-+
- 	list_for_each_entry_safe(outp, outt, &atom->outp, head) {
- 		list_del(&outp->head);
- 		kfree(outp);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index da1ee24a2531d..2366901581077 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -234,12 +234,15 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 		    const struct backlight_ops **ops)
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index ee43cf0da8792..32e892194f578 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -627,7 +627,7 @@ static int ssd130x_init(struct ssd130x_device *ssd130x)
+ static int ssd132x_init(struct ssd130x_device *ssd130x)
  {
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
-+	int brightness;
-+
-+	brightness = nvif_outp_bl_get(&nv_encoder->outp);
- 
- 	/*
- 	 * Note when this runs the connectors have not been probed yet,
- 	 * so nv_conn->base.status is not set yet.
- 	 */
--	if (nvif_outp_bl_get(&nv_encoder->outp) < 0 ||
-+	if (brightness < 0 ||
- 	    drm_helper_probe_detect(&nv_conn->base, NULL, false) != connector_status_connected)
- 		return -ENODEV;
- 
-@@ -284,11 +287,25 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 
- 	*ops = &nv50_bl_ops;
- 	props->max_brightness = 100;
-+	props->brightness = brightness;
- 	return 0;
+ 	const u8 cmds[] = {
+-		2, SSD13XX_CONTRAST, 0x80,
++		2, SSD13XX_CONTRAST, ssd130x->contrast,
+ 		3, SSD132X_SET_COL_RANGE, 0x00, ssd130x->width / SSD132X_SEGMENT_WIDTH - 1,
+ 		3, SSD132X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
+ 		/*
+@@ -696,6 +696,18 @@ static int ssd135x_set_contrast(struct ssd130x_device *ssd130x, u32 brightness)
+ 	return ssd130x_write_cmd(ssd130x, 4, SSD135X_SET_CONTRAST, a, b, c);
  }
  
--int
--nouveau_backlight_init(struct drm_connector *connector)
-+/*
-+ * LUMINANCE is an atomic connector property. Pre-NV50 hardware and
-+ * nouveau.atomic=0 don't expose atomic modesetting to userspace (even though
-+ * NV50+ still commits atomically internally), so keep the backlight class
-+ * device there.
-+ */
-+static bool
-+nouveau_backlight_use_luminance(struct drm_device *dev)
++static int ssd130x_set_contrast(struct ssd130x_device *ssd130x, u32 contrast)
 +{
-+	return IS_ENABLED(CONFIG_DRM_LUMINANCE) &&
-+	       drm_core_check_feature(dev, DRIVER_ATOMIC);
-+}
-+
-+static int
-+nouveau_backlight_create(struct drm_connector *connector)
- {
- 	struct nouveau_drm *drm = nouveau_drm(connector->dev);
- 	struct nouveau_backlight *bl;
-@@ -317,6 +334,8 @@ nouveau_backlight_init(struct drm_connector *connector)
- 	bl = kzalloc_obj(*bl);
- 	if (!bl)
- 		return -ENOMEM;
-+	bl->id = -1;
-+	bl->encoder = nv_encoder;
- 
- 	switch (device->info.family) {
- 	case NV_DEVICE_INFO_V0_CURIE:
-@@ -349,26 +368,36 @@ nouveau_backlight_init(struct drm_connector *connector)
- 		goto fail_alloc;
- 	}
- 
--	if (!nouveau_get_backlight_name(backlight_name, bl)) {
--		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
--		goto fail_alloc;
--	}
--
- 	props.type = BACKLIGHT_RAW;
--	bl->dev = backlight_device_register(backlight_name, connector->kdev,
--					    nv_encoder, ops, &props);
--	if (IS_ERR(bl->dev)) {
--		if (bl->id >= 0)
--			ida_free(&bl_ida, bl->id);
--		ret = PTR_ERR(bl->dev);
--		goto fail_alloc;
-+	if (nouveau_backlight_use_luminance(connector->dev)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0, props.max_brightness,
-+							      props.brightness);
-+		if (ret)
-+			goto fail_alloc;
-+	} else {
-+		if (!nouveau_get_backlight_name(backlight_name, bl)) {
-+			NV_ERROR(drm,
-+				 "Failed to retrieve a unique name for the backlight interface\n");
-+			goto fail_alloc;
-+		}
-+
-+		bl->dev = backlight_device_register(backlight_name, connector->kdev,
-+						    nv_encoder, ops, &props);
-+		if (IS_ERR(bl->dev)) {
-+			if (bl->id >= 0)
-+				ida_free(&bl_ida, bl->id);
-+			ret = PTR_ERR(bl->dev);
-+			goto fail_alloc;
-+		}
- 	}
- 
- 	nouveau_connector(connector)->backlight = bl;
--	if (!bl->dev->props.brightness)
--		bl->dev->props.brightness =
--			bl->dev->ops->get_brightness(bl->dev);
--	backlight_update_status(bl->dev);
-+	if (bl->dev) {
-+		if (!bl->dev->props.brightness)
-+			bl->dev->props.brightness =
-+				bl->dev->ops->get_brightness(bl->dev);
-+		backlight_update_status(bl->dev);
++	switch (ssd130x->device_info->family_id) {
++	case SSD133X_FAMILY:
++		return ssd133x_set_contrast(ssd130x, contrast);
++	case SSD135X_FAMILY:
++		return ssd135x_set_contrast(ssd130x, contrast);
++	default:
++		return ssd130x_write_cmd(ssd130x, 2, SSD13XX_CONTRAST, contrast);
 +	}
- 
- 	return 0;
- 
-@@ -384,8 +413,40 @@ nouveau_backlight_init(struct drm_connector *connector)
- 	return ret;
- }
- 
--void
--nouveau_backlight_fini(struct drm_connector *connector)
-+/* Called from .late_register, the backlight class device needs connector->kdev */
-+int
-+nouveau_backlight_init(struct drm_connector *connector)
-+{
-+	if (nouveau_backlight_use_luminance(connector->dev))
-+		return 0;
-+
-+	return nouveau_backlight_create(connector);
 +}
 +
-+/* Called before drm_dev_register(), the LUMINANCE property must exist by then */
-+int
-+nouveau_backlight_luminance_init(struct drm_device *dev)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	int ret = 0;
-+
-+	if (!nouveau_backlight_use_luminance(dev))
-+		return 0;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	nouveau_for_each_non_mst_connector_iter(connector, &conn_iter) {
-+		ret = nouveau_backlight_create(connector);
-+		if (ret)
-+			break;
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return ret;
-+}
-+
-+static void
-+nouveau_backlight_free(struct drm_connector *connector)
+ static int ssd133x_init(struct ssd130x_device *ssd130x)
  {
- 	struct nouveau_connector *nv_conn = nouveau_connector(connector);
- 	struct nouveau_backlight *bl = nv_conn->backlight;
-@@ -401,6 +462,23 @@ nouveau_backlight_fini(struct drm_connector *connector)
- 	kfree(bl);
- }
- 
-+/* Called from .early_unregister */
-+void
-+nouveau_backlight_fini(struct drm_connector *connector)
-+{
-+	/* LUMINANCE state is needed by commits until the connector is destroyed */
-+	if (nouveau_backlight_use_luminance(connector->dev))
-+		return;
-+
-+	nouveau_backlight_free(connector);
-+}
-+
-+void
-+nouveau_backlight_destroy(struct drm_connector *connector)
-+{
-+	nouveau_backlight_free(connector);
-+}
-+
- void
- nouveau_backlight_ctor(void)
- {
-@@ -412,3 +490,35 @@ nouveau_backlight_dtor(void)
- {
- 	ida_destroy(&bl_ida);
- }
-+
-+void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+	unsigned int luminance = conn_state->luminance;
-+
-+	if (!bl)
-+		return;
-+
-+	if (bl->uses_dpcd)
-+		drm_edp_backlight_set_level(&nv_connector->aux, &bl->edp_info,
-+					    luminance);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, luminance);
-+}
-+
-+void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+
-+	if (!bl)
-+		return;
-+
-+	if (bl->uses_dpcd)
-+		drm_edp_backlight_disable(&nv_connector->aux, &bl->edp_info);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, 0);
-+}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cc3caf8de64b0..cbbdd36f49bb7 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -400,6 +400,7 @@ nouveau_connector_destroy(struct drm_connector *connector)
- 	cancel_work_sync(&nv_connector->irq_work);
- 	drm_edid_free(nv_connector->drm_edid);
- 	drm_connector_unregister(connector);
-+	nouveau_backlight_destroy(connector);
- 	drm_connector_cleanup(connector);
- 	if (nv_connector->aux.transfer)
- 		drm_dp_cec_unregister_connector(&nv_connector->aux);
-@@ -1225,6 +1226,8 @@ nouveau_connector_helper_funcs = {
- 	.mode_valid = nouveau_connector_mode_valid,
- 	.best_encoder = nouveau_connector_best_encoder,
- 	.atomic_check = nouveau_connector_atomic_check,
-+	.set_luminance = nouveau_backlight_set_luminance,
-+	.disable_luminance = nouveau_backlight_disable_luminance,
+ 	int ret;
+@@ -1836,6 +1848,23 @@ static const struct drm_crtc_funcs ssd130x_crtc_funcs = {
+ 	.atomic_destroy_state = ssd130x_crtc_destroy_state,
  };
  
- static const struct drm_connector_funcs
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index eb292d2ba4bcd..f53107ec0bf3f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -50,6 +50,7 @@ struct nouveau_backlight {
- 	struct backlight_device *dev;
- 
- 	struct drm_edp_backlight_info edp_info;
-+	struct nouveau_encoder *encoder;
- 	bool uses_dpcd : 1;
- 
- 	int id;
-@@ -237,8 +238,12 @@ nouveau_conn_mode_clock_valid(const struct drm_display_mode *,
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
- extern int nouveau_backlight_init(struct drm_connector *);
- extern void nouveau_backlight_fini(struct drm_connector *);
-+int nouveau_backlight_luminance_init(struct drm_device *dev);
-+void nouveau_backlight_destroy(struct drm_connector *connector);
- extern void nouveau_backlight_ctor(void);
- extern void nouveau_backlight_dtor(void);
-+void nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state);
-+void nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state);
- #else
- static inline int
- nouveau_backlight_init(struct drm_connector *connector)
-@@ -250,6 +255,16 @@ static inline void
- nouveau_backlight_fini(struct drm_connector *connector) {
- }
- 
-+static inline int
-+nouveau_backlight_luminance_init(struct drm_device *dev)
++/*
++ * With DRM_LUMINANCE, initialize the controller with the committed connector
++ * luminance, which may have changed while the display was disabled.
++ */
++static void ssd130x_load_luminance(struct ssd130x_device *ssd130x,
++				   struct drm_atomic_commit *state)
 +{
-+	return 0;
++	struct drm_connector_state *conn_state;
++
++	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE))
++		return;
++
++	conn_state = drm_atomic_get_new_connector_state(state, &ssd130x->connector);
++	if (conn_state)
++		ssd130x->contrast = conn_state->luminance;
 +}
 +
-+static inline void
-+nouveau_backlight_destroy(struct drm_connector *connector) {
-+}
-+
- static inline void
- nouveau_backlight_ctor(void) {
- }
-@@ -257,6 +272,14 @@ nouveau_backlight_ctor(void) {
- static inline void
- nouveau_backlight_dtor(void) {
- }
-+
-+static inline void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state) {
-+}
-+
-+static inline void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state) {
-+}
- #endif
+ static void ssd130x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 					  struct drm_atomic_commit *state)
+ {
+@@ -1847,12 +1876,16 @@ static void ssd130x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 	if (ret)
+ 		return;
  
- #endif /* __NOUVEAU_CONNECTOR_H__ */
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 5e1336615cf6d..53bf7c2caa164 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -673,6 +673,10 @@ nouveau_drm_device_init(struct nouveau_drm *drm)
- 		ret = nouveau_display_init(dev, false, false);
- 		if (ret)
- 			goto fail_dispinit;
++	ssd130x_load_luminance(ssd130x, state);
 +
-+		ret = nouveau_backlight_luminance_init(dev);
+ 	ret = ssd130x_init(ssd130x);
+ 	if (ret)
+ 		goto power_off;
+ 
+ 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+ 
++	ssd130x->enabled = true;
++
+ 	backlight_enable(ssd130x->bl_dev);
+ 
+ 	return;
+@@ -1873,12 +1906,16 @@ static void ssd132x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 	if (ret)
+ 		return;
+ 
++	ssd130x_load_luminance(ssd130x, state);
++
+ 	ret = ssd132x_init(ssd130x);
+ 	if (ret)
+ 		goto power_off;
+ 
+ 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+ 
++	ssd130x->enabled = true;
++
+ 	backlight_enable(ssd130x->bl_dev);
+ 
+ 	return;
+@@ -1898,12 +1935,16 @@ static void ssd133x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 	if (ret)
+ 		return;
+ 
++	ssd130x_load_luminance(ssd130x, state);
++
+ 	ret = ssd133x_init(ssd130x);
+ 	if (ret)
+ 		goto power_off;
+ 
+ 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+ 
++	ssd130x->enabled = true;
++
+ 	backlight_enable(ssd130x->bl_dev);
+ 
+ 	return;
+@@ -1923,12 +1964,16 @@ static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 	if (ret)
+ 		return;
+ 
++	ssd130x_load_luminance(ssd130x, state);
++
+ 	ret = ssd135x_init(ssd130x);
+ 	if (ret)
+ 		goto power_off;
+ 
+ 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+ 
++	ssd130x->enabled = true;
++
+ 	backlight_enable(ssd130x->bl_dev);
+ 
+ 	return;
+@@ -1945,6 +1990,8 @@ static void ssd130x_encoder_atomic_disable(struct drm_encoder *encoder,
+ 
+ 	backlight_disable(ssd130x->bl_dev);
+ 
++	ssd130x->enabled = false;
++
+ 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_OFF);
+ 
+ 	ssd130x_power_off(ssd130x);
+@@ -1980,8 +2027,34 @@ static int ssd130x_connector_get_modes(struct drm_connector *connector)
+ 	return drm_connector_helper_get_modes_fixed(connector, &ssd130x->mode);
+ }
+ 
++static void ssd130x_connector_set_luminance(const struct drm_connector_state *conn_state)
++{
++	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
++
++	/*
++	 * The encoder enable already initialized the controller with the
++	 * committed luminance. Skip if it failed to power up the controller.
++	 */
++	if (!ssd130x->enabled || ssd130x->contrast == conn_state->luminance)
++		return;
++
++	ssd130x->contrast = conn_state->luminance;
++	ssd130x_set_contrast(ssd130x, ssd130x->contrast);
++}
++
++static void ssd130x_connector_disable_luminance(const struct drm_connector_state *conn_state)
++{
++	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
++
++	/* Keep ssd130x->contrast, it is restored when the encoder is enabled */
++	if (ssd130x->enabled)
++		ssd130x_set_contrast(ssd130x, 0);
++}
++
+ static const struct drm_connector_helper_funcs ssd130x_connector_helper_funcs = {
+ 	.get_modes = ssd130x_connector_get_modes,
++	.set_luminance = ssd130x_connector_set_luminance,
++	.disable_luminance = ssd130x_connector_disable_luminance,
+ };
+ 
+ static const struct drm_connector_funcs ssd130x_connector_funcs = {
+@@ -2016,55 +2089,16 @@ static const struct drm_driver ssd130x_drm_driver = {
+ };
+ 
+ static int ssd130x_update_bl(struct backlight_device *bdev)
+-{
+-	struct ssd130x_device *ssd130x = bl_get_data(bdev);
+-	int brightness = backlight_get_brightness(bdev);
+-	int ret;
+-
+-	ssd130x->contrast = brightness;
+-
+-	ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = ssd130x_write_cmd(ssd130x, 1, ssd130x->contrast);
+-	if (ret < 0)
+-		return ret;
+-
+-	return 0;
+-}
+-
+-static int ssd133x_update_bl(struct backlight_device *bdev)
+-{
+-	struct ssd130x_device *ssd130x = bl_get_data(bdev);
+-
+-	ssd130x->contrast = backlight_get_brightness(bdev);
+-
+-	return ssd133x_set_contrast(ssd130x, ssd130x->contrast);
+-}
+-
+-static int ssd135x_update_bl(struct backlight_device *bdev)
+ {
+ 	struct ssd130x_device *ssd130x = bl_get_data(bdev);
+ 
+ 	ssd130x->contrast = backlight_get_brightness(bdev);
+ 
+-	return ssd135x_set_contrast(ssd130x, ssd130x->contrast);
++	return ssd130x_set_contrast(ssd130x, ssd130x->contrast);
+ }
+ 
+-static const struct backlight_ops ssd130xfb_bl_ops[] = {
+-	[SSD130X_FAMILY] = {
+-		.update_status	= ssd130x_update_bl,
+-	},
+-	[SSD132X_FAMILY] = {
+-		.update_status	= ssd130x_update_bl,
+-	},
+-	[SSD133X_FAMILY] = {
+-		.update_status	= ssd133x_update_bl,
+-	},
+-	[SSD135X_FAMILY] = {
+-		.update_status	= ssd135x_update_bl,
+-	},
++static const struct backlight_ops ssd130xfb_bl_ops = {
++	.update_status	= ssd130x_update_bl,
+ };
+ 
+ static void ssd130x_parse_properties(struct ssd130x_device *ssd130x)
+@@ -2213,6 +2247,13 @@ static int ssd130x_init_modeset(struct ssd130x_device *ssd130x)
+ 	}
+ 
+ 	drm_connector_helper_add(connector, &ssd130x_connector_helper_funcs);
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		ret = drm_connector_attach_luminance_property(connector, 0,
++							      MAX_CONTRAST,
++							      ssd130x->contrast);
 +		if (ret)
-+			goto fail_backlight;
- 	}
++			return ret;
++	}
  
- 	nouveau_debugfs_init(drm);
-@@ -697,6 +701,8 @@ nouveau_drm_device_init(struct nouveau_drm *drm)
- 	}
+ 	ret = drm_connector_attach_encoder(connector, encoder);
+ 	if (ret) {
+@@ -2270,16 +2311,18 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
+ 	if (ret)
+ 		return ERR_PTR(ret);
  
- 	return 0;
-+fail_backlight:
-+	nouveau_display_fini(dev, false, false);
- fail_dispinit:
- 	nouveau_display_destroy(dev);
- fail_dispctor:
+-	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
+-					    &ssd130xfb_bl_ops[ssd130x->device_info->family_id],
+-					    NULL);
+-	if (IS_ERR(bl))
+-		return ERR_PTR(dev_err_probe(dev, PTR_ERR(bl),
+-					     "Unable to register backlight device\n"));
+-
+-	bl->props.brightness = ssd130x->contrast;
+-	bl->props.max_brightness = MAX_CONTRAST;
+-	ssd130x->bl_dev = bl;
++	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		bl = devm_backlight_device_register(dev, dev_name(dev), dev,
++						    ssd130x, &ssd130xfb_bl_ops,
++						    NULL);
++		if (IS_ERR(bl))
++			return ERR_PTR(dev_err_probe(dev, PTR_ERR(bl),
++						     "Unable to register backlight device\n"));
++
++		bl->props.brightness = ssd130x->contrast;
++		bl->props.max_brightness = MAX_CONTRAST;
++		ssd130x->bl_dev = bl;
++	}
+ 
+ 	ret = ssd130x_init_modeset(ssd130x);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/solomon/ssd130x.h b/drivers/gpu/drm/solomon/ssd130x.h
+index fd81262f2ceb9..536a5649edffc 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.h
++++ b/drivers/gpu/drm/solomon/ssd130x.h
+@@ -100,6 +100,8 @@ struct ssd130x_device {
+ 	u32 prechargep2;
+ 
+ 	struct backlight_device *bl_dev;
++	/* Controller is powered and initialized, set from atomic commits */
++	bool enabled;
+ 	struct pwm_device *pwm;
+ 	struct gpio_desc *reset;
+ 	struct regulator *vcc_reg;
 
 -- 
 2.53.0
