@@ -1,71 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721149;
-	b=Ya3DJshrgn0m6zMki++UG8VMFAUiTm1SQupNfq9ZA2jDBHDoOXbM1iluFZMeuEWPtzWP
-	 7R9MXV0pYhXAH57cK47+P3mPRP6SZxhC8aUjBEPEqwdFdDMeOFtk6zVXTFpdMWsv3UQZg
-	 QRkgpb0C1ez70ODMW25hFkLYNnhiPpySJBoreXawVwyyST/lpqihyBDWZl5MBu2kJApex
-	 fM2+KfvHzJpWVtuPHfzPNOVH55CkUz+1VJovJ+cL0Vj4Tc5SeQRtecqttAzNNjl6NuGHE
-	 /TWV/v/FsW+XHx9R1NHeInEgnPk36Q4G9MbDziXr4KE+1/mwD48PvWH5cjx8yApHcig==
+	t=1793721203;
+	b=IKKhaUT36GSamyafcKnIJbXCbpdUnp9t5a93MICVv8CLLeIbFpEd9ph4pmRS6SM9FrNj
+	 ZZmoSwmepl4h5GsDuX07GS+TPQIrFDCNscTR+DbWRsMMfs1UCfBQAt2KbGTKqcAQVZpW4
+	 TCC+6QIX/0CUjSeiGlNoCV0D6C6sCsP6BxrmGoH/oWoKq4rWFocWBfx1qhQwMEppN3bNr
+	 XNcdPWyoOGKk9rIeL2bu9ET/QUVpJUOr0LaK4kFh8OnzV8t0ne5qdfV9X4C9q/LO5OXkd
+	 vYCYvOWFq7/9WLUa/25bT1LW/RA1/173qXSWWX6njR1jJyTWefXefXPkBEHZuudRc4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721149;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
-	 X-SA-Exim-Mail-From:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
-	 Subject:X-SA-Exim-Version:X-SA-Exim-Scanned;
-	bh=aic3tVYzbc1I/0g2BTqr6oVUCrnWTHeRD86DtgFdNnw=;
-	b=e7Bg7FiWrhsFOu6L5XTFNVw2oVyQA07f0ZMTiu2jXbmUw0bbB2nw0uFlNv+7ovAUev3/
-	 gOf3p8RuUm9BdbbkSeYdCF83G6Pf4uYkigVDd+VpUdoDUyQtGqPJ5FBgZLzwIco1AFm8R
-	 txktMedwcyoqqax9hZdXMOOud7ssUgw5c1yF+nXWG7tYTG4Zpee2/GHvRQi/BEX0ABJYl
-	 b3BezMrmdKTEy0bO3hAPbEkwI9SRWrqdkzK5EzHTnAN17gBBqpMTMxql/KphAtBVzY6U+
-	 bYA0DvuMjE/DYZ8V9eXTsYmpCTXpbb9I7DWfzUd0qBX9x1qvoK+gKchK5glkowSD6KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721203;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+	b=iGVHz+K3nhECAvzbFlCoYAW7rlqCA9IpmKKUnW4GTwtS+YM+3LQtkCsnjwIHednq2oil
+	 GeHJ7SMphIsM5/sCgeNvvJNdLiwqWbd0rJdC5w2ZQ6NnaVezAhYEs8bQB+KijrBiIItzH
+	 ufHZvAogB/8hE3zf5h0p2oLQWmiDPDGtiy76Z44kEw3iA44k2FqbuluNh6S66YJogfdiR
+	 91a+A4cezyt3tZ4UTFJNjNmrhB4rgX+gGRGA0QkQOs+lUAhXBO0HAb23zH3G2xft+AhTJ
+	 B8Xh7xnf1kabxk3yEQBvylUjJFiHtowjWWVj/T6g9MGM0x0Q0L9M3lly7KlrzYmfkmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deltatee.com;
-	spf=pass smtp.mailfrom=deltatee.com;
-	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=BwmDPiEE;
-	arc=none smtp.remote-ip=204.191.154.188
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tSNX67su;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC38606A33C;
-	Tue,  3 Nov 2026 15:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC38606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA46C606A328
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA46C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=BwmDPiEE
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Cc:To:From:content-disposition;
-	bh=aic3tVYzbc1I/0g2BTqr6oVUCrnWTHeRD86DtgFdNnw=; b=BwmDPiEEhr/Rt6jVX+uImj5J8e
-	ee8FNpDYOHR/oNqeEriYh/pM5svaaP851Ru+Xrbm9c9+wEErR8dr+6OGivkO9v/wkSOnrRMcPoxyD
-	s03LIrsxDfK8ALk8ynMcyi1tVmCSJrrXNoIy0leSqCluLDawOCy9nuJPpShbMbmEhmMCclJzm6Tof
-	li1jw22Yksm4IIs4ZmusQc1cP/CUBcfY2XSuQvnH4yDF2vUiTZh4eG/wc4AmT53jlYlMj2BdICKdA
-	WX6j9XnFmiF1eVrR72X4faizeKdLlpE0P2Byk82q3OW+jnlE5orcehegT+rQGa+3YXoj9LO9d2CIk
-	pN4hCGTQ==;
-Received: from donard.priv.deltatee.com ([172.16.1.31])
-	by ale.deltatee.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xOGoF-000000091R5-0aOj;
-	Tue, 03 Nov 2026 09:52:28 -0600
-Received: from logang by donard.priv.deltatee.com with local (Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xOGns-00000001w7d-1TK7;
-	Tue, 03 Nov 2026 09:52:04 -0600
-From: Logan Gunthorpe <logang@deltatee.com>
-To: dmaengine@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tSNX67su
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso17936385e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:53:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793721201; x=1794326001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+        b=tSNX67subyw79uMOg4DSMsKrL4qoZR3fWMirU+8bRpPuHGhaWmjkMuROfHKcpYZP3e
+         oE4uUjh/767qBQ9+CO+ovt8otMG8ZjjJjjDA/hN7HWBE6LZ9/1w9/VFAs6dCeyFyMaDa
+         NejxEV3MAUgDZ2M/wOqitCqlG2nrLA8PhVVvV4hoKsuwwlbGHsRqCj23u6ZCywCohzp5
+         rQ6BKIgKdt7sQYmxWVQTA6CFM4OPVOfdtnBAKEJKQW52gE8VLax0Q2iVSto6qbfaFaCi
+         qnHpuYQYpLZm1l8fo9nwOiSFp4GOOlMyMyIzvBZgk/gTIMMG3alnfapmXv7+KJOB3EHH
+         Gw6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793721201; x=1794326001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+        b=NDuJGnXepFxN0b81E7Wm73FUxYCgXfFdtCKP/mHlWh/KdY5mrBPEqfrGl9s+U2DdgT
+         bjx5XxVHKEyIMqmRyoMbuz71v2nf1jJsSw8XYbh+cMyPujLoy8jNkHzhzhdrrgIHXTYg
+         OKjMSFtWBNLv598RJmYxfVSij2/s/jyaluvQqWayHlNwSkm/W1SiCHGzsP+ND076zL3V
+         CC4NOBNsn1yDdbb1MIZDlgC8yFmaTOt0AiZk2/9tXp6BzO8vw2Om3xtLlUFERrVtgnmu
+         QZtaMKo2Yw9Hakq5STyTgRCgKeSfqx5VTrWe19Z45+JpANkDd2aT5/TODeO43CsMUn1r
+         cUNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBye/nvqzUCrclu9Reghh8SZLY9kRoe1DADNTdiFiNDRbIwqQpd2SThxKJKVtIG9IeIzLev+CJdluD5BYhg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Z/K0ZfKt9ce7NEEWTFWD3PRbGneI0abvRrnrgwNmVh9Mw1zLq
+	SjHFYe2afTOxNWZRl/p8GGtBQmiHLrQ7Pt8DWFkgGgc1jWm2vhtz2qkf
+X-Gm-Gg: AYBFou3Nm2a5xW0kvtXEfx+sn3Z7CVqodvsfi88TOXFKxcO1qa83K0zQrhMqAJfnIDm
+	PN2bsTO+MzXbizCP9PjvW47IpSEEUBZoclKtzcY4BGjpj36MPONDizcdxvXte4M/kj4krccAtqC
+	dBl3o8mGrhrCfIiLP9qmLaFFVR2UoFLnVylz2KmpHQbl2OFUQyIEXytq2t6QocokZdRxUEIo4o6
+	057EpJ3CE/2GhGlL3pvXFiIwQVa6AkHiX0j03wDbdI4CKyZVo/z9QWkdlcVB1vTawB/imNuFsSi
+	w9k0T4MUsWaaQtwK2e2riZZ2+xPjLxOi2+0TI6EixqaYmbREq7ZF9c64ZNIxRilJ72IVu8EsKyA
+	C4UWUaJGUVxeLjQe05rL3VsNihEpjfRWwHaHPPc3NtQGJYql82CJF54lqJNGfyG3zx4pNmFLlqS
+	NEtCru+gwh6IzXyBBBd4snk+cKVsoZ8kiLhcReT614cRiBRvQ82L01n+fBOcO2SCAUyigZBeHtG
+	3gilwn2vxopyHw9FAS2Wt/v5fMquBMyaTHJbMwj7+YAREw5mgIiA45eLgyek9fWCeZ0Uio+Lu0r
+	9kXMrWa6n0G0Vj3LZLN5bbrHXrzbrawfbhAPtgjVE7SSfEuuNN/LCwJWCVgP5k6uW4dPyAvP
+X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ac177538c5mr237110155e9.1.1793721200982;
+        Tue, 03 Nov 2026 07:53:20 -0800 (PST)
+Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 07:53:20 -0800 (PST)
+From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+To: Mario Limonciello <superm1@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bin Du <bin.du@amd.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>,
+	Benjamin Chan <benjamin.chan@amd.com>,
+	King Li <King.Li@amd.com>,
+	Caspar Adriani <caspar.adriani@proton.me>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.li@nxp.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Date: Tue,  3 Nov 2026 09:51:57 -0600
-Message-ID: <20261103155202.461725-3-logang@deltatee.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103155202.461725-1-logang@deltatee.com>
-References: <20261103155202.461725-1-logang@deltatee.com>
+	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Subject: [RFC PATCH 0/3] GZ302 rear camera (OMNI13B1, OV13B10) board data
+Date: Tue,  3 Nov 2026 18:53:10 +0300
+Message-ID: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,87 +113,107 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 172.16.1.31
-X-SA-Exim-Rcpt-To: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, Frank.li@nxp.com, logang@deltatee.com, vkoul@kernel.org, sashiko-bot@kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: [PATCH 2/6] dmaengine: plx_dma: fix descriptor ring leak in alloc_chan_resources()
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-If the device is removed between plx_dma_alloc_desc() and the pdev
-check, the error path frees hw_ring but leaks desc_ring and every
-descriptor in it.
+This series is NOT meant to be merged yet. It puts the board data of
+the rear camera of the ASUS ROG Flow Z13 (GZ302EA) into patches, so the
+sensor can be enabled once the ISP firmware supports it. In the v6
+thread of the ISP4 driver [1], Mario noted that OMNI13B1 would need a
+new amdgpu entry and the matching GPIO tables; this is that data, plus
+the board configuration and a small sensor-driver change.
 
-Add plx_dma_free_desc() and use it here and in
-plx_dma_free_chan_resources().
+Caspar Adriani already posted an OMNI13B1 amdgpu/amd_isp4 patch in
+his RFC [3] and dropped it after Pratap's reply [2]; credit for the
+first posting goes to him. This series covers the sensor reset GPIO,
+the 24 MHz clock and four lanes in the graph, and an I2C ID table for
+ov13b10, and lists where every value comes from (below).
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dmaengine/20260717223217.B6FBF1F000E9@smtp.kernel.org
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
----
- drivers/dma/plx_dma.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+Why not for merging: with isp_4_1_1.bin from linux-firmware,
+SET_STREAM_CONFIG fails with error 6 (UNSUPPORTED_SENSOR) for this
+sensor, as Pratap explained in [2]. Merging patch 3 would make every
+GZ302 show a camera that cannot stream. The stock linux-firmware image
+does not start this sensor; on my machine the camera runs with ISP
+firmware and sensor setup data from my own Windows driver
+installation, read from the Windows partition of that machine. I do
+not redistribute any of it.
 
-diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
-index 0a7ad2473cb1..bfccbb0c70e8 100644
---- a/drivers/dma/plx_dma.c
-+++ b/drivers/dma/plx_dma.c
-@@ -404,6 +404,16 @@ static int plx_dma_alloc_desc(struct plx_dma_dev *plxdev)
- 	return -ENOMEM;
- }
- 
-+static void plx_dma_free_desc(struct plx_dma_dev *plxdev)
-+{
-+	int i;
-+
-+	for (i = 0; i < PLX_DMA_RING_COUNT; i++)
-+		kfree(plxdev->desc_ring[i]);
-+
-+	kfree(plxdev->desc_ring);
-+}
-+
- static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
- {
- 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
-@@ -424,7 +434,7 @@ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
- 	if (!rcu_dereference(plxdev->pdev)) {
- 		rcu_read_unlock();
- 		rc = -ENODEV;
--		goto out_free_hw_ring;
-+		goto out_free_desc;
- 	}
- 
- 	writel(PLX_REG_CTRL_RESET_VAL, plxdev->bar + PLX_REG_CTRL);
-@@ -443,6 +453,8 @@ static int plx_dma_alloc_chan_resources(struct dma_chan *chan)
- 
- 	return PLX_DMA_RING_COUNT;
- 
-+out_free_desc:
-+	plx_dma_free_desc(plxdev);
- out_free_hw_ring:
- 	dma_free_coherent(plxdev->dma_dev.dev, ring_sz, plxdev->hw_ring,
- 			  plxdev->hw_ring_dma);
-@@ -454,7 +466,6 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
- 	struct plx_dma_dev *plxdev = chan_to_plx_dma_dev(chan);
- 	size_t ring_sz = PLX_DMA_RING_COUNT * sizeof(*plxdev->hw_ring);
- 	int irq = -1;
--	int i;
- 
- 	spin_lock_bh(&plxdev->ring_lock);
- 	plxdev->ring_active = false;
-@@ -474,10 +485,7 @@ static void plx_dma_free_chan_resources(struct dma_chan *chan)
- 
- 	plx_dma_abort_desc(plxdev);
- 
--	for (i = 0; i < PLX_DMA_RING_COUNT; i++)
--		kfree(plxdev->desc_ring[i]);
--
--	kfree(plxdev->desc_ring);
-+	plx_dma_free_desc(plxdev);
- 	dma_free_coherent(plxdev->dma_dev.dev, ring_sz, plxdev->hw_ring,
- 			  plxdev->hw_ring_dma);
- 
+The values and where they come from:
+
+- ACPI _HID OMNI13B1: \_SB.CAMB in an SSDT (confirmed).
+- I2C address 0x10: the sensor answers there; the _DSM returns the
+  same value (confirmed).
+- Sensor clock 24 MHz: the rate declared for the OV05C10 platform
+  (assumed).
+- Four CSI-2 lanes at 560 MHz: the ov13b10 full-resolution mode
+  (assumed).
+- Sensor reset, amdisp-pinctrl GPIO 0, active low: tested on the GZ302
+  (confirmed).
+- enable_isp, AMDI0030:00 pin 85: copied from OMNI5C10 (unconfirmed).
+  The capture driver needs it to probe, no ACPI device claims the pin,
+  and the ISP also boots with it left undriven.
+
+Bin, Pratap: the firmware sets up the sensor clock and link, so could
+you confirm the clock rate, the link frequency and whether pin 85 is
+needed on this board?
+
+Sensor model: as Bin and Pratap explained, on Linux the ISP firmware
+controls the sensor, and the reference ov05c10 sensor is not bound by
+a host driver. Patches 2 and 3 fit that model. Patch 1 and the 24 MHz
+dependency below only matter if a host sensor driver is used, which
+is how my out-of-tree setup starts the sensor. Which model will the
+sensor-agnostic driver use for OV13B10? If it is firmware-only, patch
+1 can be dropped.
+
+Dependencies before this can be merged:
+- ISP firmware that supports the OV13B10 on this platform.
+- With a host sensor driver only: 24 MHz support in ov13b10, which
+  accepts only a 19.2 MHz external clock today.
+- Patch 3 needs patch 2: the ISP setup in amdgpu uses the software
+  node that amd_isp4 attaches to the ACPI device, as for OMNI5C10.
+
+Patch 2 copies the software-node graph of the OV05C10 entry. If a
+shared graph builder is preferred, I am happy to rework it that way.
+
+Patches 1 and 2 have no user-visible effect on their own; patch 3 is
+the one that makes amdgpu create the ISP for this board.
+
+Testing: built with W=1 (clang) on next-20261026. Not runtime-tested
+in this form. The same graph, I2C address and reset GPIO work out of
+tree on the GZ302: the board configuration in a patched amd_isp4
+module, the reset GPIO registered from there, and an ACPI override
+that lets the stock amdgpu find the sensor. There the clock is still
+declared as 19.2 MHz and the sensor driver is adapted to 24 MHz. That
+out-of-tree code is in a repository I can share on request. I can
+test patches and firmware on the GZ302 at any time.
+
+Related: two isp4 driver fixes found on this machine were sent to
+linux-media separately [4] and have been reviewed by Bin and Pratap,
+and the GZ302 bring-up is discussed in [3].
+
+AI use: Claude (Claude Code) helped me write these patches and the
+changelogs from the out-of-tree code, and run the checks. I reviewed
+everything.
+
+[1] https://lore.kernel.org/all/3a671359-b05a-4d58-84ca-f29385088e5c@kernel.org/
+[2] https://lore.kernel.org/all/ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com/
+[3] https://lore.kernel.org/all/lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me/
+[4] https://lore.kernel.org/all/20261026182442.229869-1-saif.elden.hatim@gmail.com/
+
+Regards,
+Seifelden
+
+Seifelden Abdelmonem (3):
+  media: i2c: ov13b10: add an I2C device ID table
+  platform/x86: amd_isp4: add the OV13B10 (OMNI13B1) board configuration
+  drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |   1 +
+ drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  |  13 ++-
+ drivers/media/i2c/ov13b10.c              |   7 ++
+ drivers/platform/x86/amd/amd_isp4.c      | 127 +++++++++++++++++++++++
+ 4 files changed, 147 insertions(+), 1 deletion(-)
+
+
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
 -- 
-2.47.3
+2.56.0
 
