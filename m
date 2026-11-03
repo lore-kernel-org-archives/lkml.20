@@ -1,69 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793671662;
-	b=pliTrv4Bp4LB4sCo/3SghuHU3B0U4zzvQ4MU3J0gGM9RZnEVyMSWmgzJ4ANm2uJ/sLJW
-	 wLgwq3VlwVVtTs3JqpCGeiU8uBtNWGu1Rqy8VN0ewroajOk5HthsB9DcKpg5RohqWJyXp
-	 nJ2emApr82dn+c57gjWG0FOxQ0wtyfrCxLkg34vr0Mdu6FoNg+Z7ytLAuix0pvxT05CcG
-	 4S1LpKnUbkKb1McA3gO8fLVD+B6u4CSGc/OnAnd2kfQ9EZkPHpF+UhSMJH2T/YNAHaUNv
-	 z2mZ98q/pvOq/LiBaLPvV5SDByfTomQUauwVr5aAZbkxe5PzW7ScAaP9/pP94Y8s/1g==
+	t=1793671668;
+	b=CsqlgWFrl2dnMG2SbeFbWe/oQPemSLUmhAknT7dmwXX0mlce0aRdR08AfBK9osKpVYsA
+	 V9LnYSNj6wFfy5BgJj7jBgoa8H2BVDi7ocC/TzWylMvffbExdxIsSchwR+QSL4Ea+7bI4
+	 gVM0UyDJpMllAnt3l5+zhwQFZh5sGpylr2xsUhC74G8MgdzXswGJmEC4QxpaKAmQGtO1Y
+	 wFHOde82RGGOTYpMSbiIxaGTLyQQ3Hx5cLzURnX4RInYrozPphY7omq6HP+qQFQhJoGiZ
+	 8DRa8u003KPMytIoyXYYSkZsMMn3YIt1RH7QZmpLBbCFGRufdLjoR2NGO8a4T4DHcUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671662;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MEV4XsnTYsJd2QIYPZzwGFBH4RUpwBZrt7qJP+LJW+Q=;
-	b=uquNqmv90FiNX1U477aR1oLw53O6PXk9gclL0S29t7a3vwSTye/xOb7SD+pHVdQ3ieDD
-	 8ZUhio6jrsdUvNyTXqJsYkaigCzxdtO6jS69YrmBUkaPQXUyHgKgL4es0lXP6J0/ORid9
-	 2YjMX9eSa0JP4V8cuZQDf9IvU4lGWfLC18PF6ZWV11t9yRoVjToGenWhPHafqMB1EyWqa
-	 mguTpRPz1BPfjminYgrzbZNv8GCpypjoyDqb+A8suH68zCCYZZnJYtr1MUf1K2iIUiFRQ
-	 L1LwhidOw4J3niq4YyjaVt3MHjhafomAMKBc7a7surgHOnXiAvud0tpkw/cnRecPYiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793671668;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mnCMgi1Mjc7rqcgOPGVHBPcSRGGmUVFCpLTaHePthjU=;
+	b=RyPy18A/UirDmk/TeOjJMBaMn7JvCl2sLjkxCZKu5k7PeUiZtp9/ne2sB/0qyhsjRX9P
+	 viMWwz8qM/wH28JH14tw7dSaDPvf7mDoNiC989VnbNk1Uitly/gdS4b0A1P9lTtGtq0Ve
+	 aGhtpTkZ+0A5sPtioq9WDYx9nhrLO943waDyMrSmmPJ0HGO3ceANmrZMbBHf9/pnAdYl7
+	 05W4rB9QV7VOF0/hLcxRMKUwsLcd894oaBMClpEOdYypAWxd/bkDu0kaiuRu87/cNEusa
+	 o+f1aSbbZh/CuQqno3Mk0/zXP0xCFMOjW4RrjeelMm8UmYjYkrtUeKg+iI1sOfIQQ6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=TGDbtYWA;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLjZ44wG;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6AC606A32F;
-	Tue,  3 Nov 2026 02:07:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F6AC606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF93606D808
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF93606D808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=TGDbtYWA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=MEV4XsnTYsJd2QIYPZzwGFBH4RUpwBZrt7qJP+LJW+Q=; b=TGDbtYWArsJWmFb3FBdvGRXq3y
-	/zTPL8JTSu6IehKB5dEpwTQ3TwVAhCCB5zNGmOs70Z5ij93fulZLIICFFuyt9iUgrWqPaHQOr1tVI
-	EuJZeVW7fckP3OUzsI+yliQd7k2wv9YRdoOH2vi11EDtIdp7SPFIpyYSkujEdbKvDi/LrPpV/BV7A
-	qj9Db6H5/buO58CT8FkDvpACZ3B3HhFlYpWRNXkY79KlwPfyk/BZFFzdUIuKgk+gjc2dOPydy9EXj
-	QyGbi0UBLgYirKwL/x9SU36GILoO5SU2nu0UxIx/adPYhOrlDoB5yGqKnj/Aswu0vIzQPG3bghHSA
-	jJ+pM5bA==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xO3w4-00000000quQ-0vQ8;
-	Tue, 03 Nov 2026 02:07:40 +0000
-From: "Liam R. Howlett (Google)" <liam@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] maple_tree: Fix rcu reader NULL dereference after the tree is emptied
-Date: Mon,  2 Nov 2026 21:07:22 -0500
-Message-ID: <20261103020724.2614498-2-liam@infradead.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103020724.2614498-1-liam@infradead.org>
-References: <20261103020724.2614498-1-liam@infradead.org>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLjZ44wG
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1a8cc11ac42so3520629c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 18:07:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793671667; x=1794276467; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mnCMgi1Mjc7rqcgOPGVHBPcSRGGmUVFCpLTaHePthjU=;
+        b=aLjZ44wGmMHqn8e7JX/I8P1V8VARuQh9o/ia1bogyOm6JOCislA1YcxOmIPAwzWMj1
+         IStM6BfN0n6A/Mi7nmKeP+I/YEQ4JUI7eoCX12cJ9HDCtLihrgNPebZlvOTpH2BmP9dD
+         jawS7ea3vQz4o3ANdgnbSTDQswDHEQkKX/To8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793671667; x=1794276467;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mnCMgi1Mjc7rqcgOPGVHBPcSRGGmUVFCpLTaHePthjU=;
+        b=OT4Cvjx+2gWAZFMH4+li/h0R72bDVRjkU7iX4N25pKK0K3JFV2m6s/tmpoxdbyodbG
+         eWPAlSAqionQsDgJQUdgSDvlLwNOuMVrqSomvjTYRbAGoMrcfG9fP8h0DgdYH3CzIXum
+         59P3yFec++0hD2ZcMKF/9nMiE1/80w6HkDpHQyYOYfDYvQ5+Y7VnfFM3XsJtsY6AQK/y
+         OLsts3UQDJNAHyMmLO45VV96sQzwPUS6fQE4uOLl0fyctjwGvuComW9DPOJlgdmmEf79
+         17vw2Uwg3zmhGKOyvAOxaaRsWMdWiT4XjcaV21cWD/p0hjuSZVre+0x0OuRfLEXo35k7
+         Hq1A==
+X-Forwarded-Encrypted: i=1; AKwUvByo0xgvTF3Cv3yx/3KazIx/C/xe4LAvZ0cYRdsWO/+pO9NS0KyVWbLLMv+4tg2fHGtDRIiG5GEUNAlLQsQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLADi9L2+2IfjElPVLW9tTT23yhE3+jaN3Rsv/Psmxiagi3ZTQg
+	XacIye64e4pGn4Txc71ZJy3mwHQq2+rw8mfI/c+qWhJbyiKQj/e/ANg7Qni9xo9Mkw==
+X-Gm-Gg: AYBFou0glWGaSyoNzLg+He6RgfHiuH+Kibc9fH7Er0A1Cxvu1uKe8JK/JY49iYVjeOq
+	DOmie8wbOQ+KMW6Xjzc1a3sUaBaptwc6X/7AhwMGHtGGvgm0hw5fsBhabRz2cTRs7rpklczckqH
+	D1aVWEl84ATfwp/qibhyAq4/r6X8DV2NAJp0PNPdhf21NyBxrP5k5/GZbTBPMIA1hbw0hItUciH
+	tn6zBLlDu/Cduu/qHNyC6ikIxLh2XrMjhCjYKfTjtUK5CYDYTmi6UmqHs/201lC/KMokCKJCGIk
+	+iTwWhQrgGq0JjgQLDA7HnmLjV7J/RSDmET2a0WVjQDTB3JvFMZHoaZddZW88liRjRMsILEXvoJ
+	2jLdj/ilcprAGj/znR1lq30TeDfRx14WT+ez0pjUlqOTjhzoGvJczD4IjDg3MCFByGEsgFcHlHJ
+	nkLPuo5Hvl4rQDLPai8HJcThG6zUgvfTx3ucqeRnwGqJGaoB8Tf4OlmnwjOSDkMGE6/4pBp2Z8O
+	QzD45mYRfCPrPv0sy8qnNGY3vJCElYoi7aQfy51Fx+WNt3lg1keuOeRxgH+fP7NvXjg1hGnk/aP
+	eVSD4OqoNvy3aOZAhpLt8N3F3FynLJR5T03rSCiIqIRpluin1iLdUwzyyl8vsTgc6/E=
+X-Received: by 2002:a05:7022:f105:b0:168:e942:4e62 with SMTP id a92af1059eb24-1ac601d2f3amr14793852c88.40.1793671667220;
+        Mon, 02 Nov 2026 18:07:47 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b23b847348sm4090158c88.4.2026.11.02.18.07.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 18:07:46 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:07:44 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 3/9] soc: google: Add CPM over MailBox Array driver
+Message-ID: <aulB8F6hc1eDvyfj@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
+ <20261028-literate-pony-of-valor-3209fb@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,226 +109,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-literate-pony-of-valor-3209fb@quoll>
 
-RCU readers may hit a NULL dereference if the tree is emptied while the
-walker is restarted from a dead node.  Avoid the NULL dereference by
-checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
-set the maple state limits correctly.
+On Wed, Oct 28, 2026 at 02:27:05PM +0100, Krzysztof Kozlowski wrote:
+> On Mon, Oct 26, 2026 at 02:43:41PM -0700, Brian Norris wrote:
+> > --- /dev/null
+> > +++ b/drivers/soc/google/Kconfig
+> > @@ -0,0 +1,13 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only
+> > +
+> > +config GOOGLE_CPM_MBA
+> > +	tristate "Google Tensor CPM MailBox Array Interface"
+> > +	depends on ARCH_GOOGLE || COMPILE_TEST
+> > +	depends on MAILBOX
+> 
+> Can it be compile tested without mailbox?
 
-A reader of /proc/<pid>/maps racing with an munmap() of the whole
-address space can hit this.  The first implementation has the same
-problem in both directions.
+I don't think so. mbox_request_channel() and friends do not have stub
+implementations for the non-CONFIG_MAILBOX case.
 
-Initial fix was generated by LLM and sent by Chris Mason in private.
-
-Cc: <stable@vger.kernel.org>
-Fixes: 54a611b60590 ("Maple Tree: add new data structure")
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
----
- lib/maple_tree.c | 112 +++++++++++++++++++++++++++++++++++------------
- 1 file changed, 85 insertions(+), 27 deletions(-)
-
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index 0b0036c9f8489..a36dc20af84c4 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -3891,14 +3891,56 @@ static __always_inline void mas_rewalk(struct ma_state *mas, unsigned long index
- 		goto retry;
- }
- 
--static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
--		struct maple_node *node, const unsigned long index)
-+/*
-+ * mas_next_no_node() - Finish a next walk that restarted into a tree without
-+ * nodes.
-+ * @mas: The inactive maple state (ma_none or ma_root)
-+ *
-+ * The arrival here is either because there is a root value or nothing.  Either
-+ * way, the next entry is nothing.  So set the limits and overwrite the status.
-+ *
-+ * Return: NULL
-+ */
-+static inline void *mas_next_no_node(struct ma_state *mas)
- {
--	if (unlikely(ma_dead_node(node))) {
--		mas_rewalk(mas, index);
--		return true;
-+	if (mas_is_ptr(mas))
-+		mas->index = 1;
-+	else
-+		mas->index = 0;
-+
-+	mas->last = ULONG_MAX;
-+	mas->status = ma_none;
-+	return NULL;
-+}
-+
-+/*
-+ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
-+ * nodes.
-+ * @mas: The inactive maple state (ma_none or ma_root)
-+ * @index: The start of the range the walk left
-+ * @min: The lowest index to return
-+ *
-+ * The arrival here is either because there is a root value or nothing.  With
-+ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
-+ * sits at 0: stop on it as mas_prev_setup() does, unless the walk was at 0.
-+ *
-+ * Return: The root entry if @index and @min allow it, NULL otherwise.  A node
-+ * if the root changed again since the walk; the caller restarts.
-+ */
-+static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long index,
-+		unsigned long min)
-+{
-+	mas->index = 0;
-+	if (mas_is_none(mas)) {
-+		mas->last = ULONG_MAX;
-+		return NULL;
- 	}
--	return false;
-+
-+	mas->last = 0;
-+	if (!index || min)
-+		return NULL;
-+
-+	return mas_root(mas);
- }
- 
- /*
-@@ -4006,14 +4048,14 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- 	node = mas_mn(mas);
- 	type = mte_node_type(mas->node);
- 	pivots = ma_pivots(node, type);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (mas->min <= min) {
- 		pivot = mas_safe_min(mas, pivots, mas->offset);
- 
--		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--			goto retry;
-+		if (unlikely(ma_dead_node(node)))
-+			goto dead;
- 
- 		if (pivot <= min)
- 			goto underflow;
-@@ -4028,10 +4070,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- 		if (mas->index <= min)
- 			goto underflow;
- 
--		if (mas_prev_node(mas, min)) {
--			mas_rewalk(mas, save_point);
--			goto retry;
--		}
-+		if (mas_prev_node(mas, min))
-+			goto dead;
- 
- 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
- 			return NULL;
-@@ -4045,8 +4085,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- 
- 	slots = ma_slots(node, type);
- 	entry = mas_slot(mas, slots, mas->offset);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (likely(entry))
- 		return entry;
-@@ -4063,6 +4103,17 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- underflow:
- 	mas->status = ma_underflow;
- 	return NULL;
-+
-+dead:
-+	mas_rewalk(mas, save_point);
-+	if (likely(mas_is_active(mas)))
-+		goto retry;
-+
-+	entry = mas_prev_no_node(mas, save_point, min);
-+	if (unlikely(xa_is_node(entry))) /* The root changed again */
-+		goto dead;
-+
-+	return entry;
- }
- 
- /*
-@@ -4176,8 +4227,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 	node = mas_mn(mas);
- 	type = mte_node_type(mas->node);
- 	pivots = ma_pivots(node, type);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (mas->max >= max) {
- 		if (likely(mas->offset < mas->end))
-@@ -4185,8 +4236,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 		else
- 			pivot = mas->max;
- 
--		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--			goto retry;
-+		if (unlikely(ma_dead_node(node)))
-+			goto dead;
- 
- 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
- 			mas->status = ma_overflow;
-@@ -4208,10 +4259,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 			return NULL;
- 		}
- 
--		if (mas_next_node(mas, node, max)) {
--			mas_rewalk(mas, save_point);
--			goto retry;
--		}
-+		if (mas_next_node(mas, node, max))
-+			goto dead;
- 
- 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
- 			return NULL;
-@@ -4226,8 +4275,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 
- 	slots = ma_slots(node, type);
- 	entry = mt_slot(mas->tree, slots, mas->offset);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (entry)
- 		return entry;
-@@ -4244,6 +4293,13 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 	}
- 
- 	return entry;
-+
-+dead:
-+	mas_rewalk(mas, save_point);
-+	if (likely(mas_is_active(mas)))
-+		goto retry;
-+
-+	return mas_next_no_node(mas);
- }
- 
- /*
-@@ -5450,7 +5506,9 @@ void *mas_find(struct ma_state *mas, unsigned long max)
- 	/* Retries on dead nodes handled by mas_next_slot */
- 	entry = mas_next_slot(mas, max, false);
- 	/* Ignore overflow */
--	mas->status = ma_active;
-+	if (mas_is_overflow(mas))
-+		mas->status = ma_active;
-+
- 	return entry;
- }
- EXPORT_SYMBOL_GPL(mas_find);
--- 
-2.47.3
-
+Brian
