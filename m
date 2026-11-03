@@ -1,60 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699075;
-	b=xD4YmNDsIxdiF31WtKWm+fyhMhgHUSRqxp2uQ/87kl7YEeGZ03mQ+y4GKnHubbujM1k/
-	 UBvOEaxlH49UOD0xJx940nCyp1Z6vikK8RQ40agI+Qw1vsZKwhFGRXWzXALgy9mqeterT
-	 wrWi/B9ng1N+95rQ4Clg6iFIg0yEcWHeurizpr2Gz8glKFEreVML0NLJi6CYEVd0F6VdA
-	 VZhNOT2V3McWaK0GudX/15MmvEMoELMQkVOdSkqEgEwaGTmLUpp9A9rnIQ06/QMyEGw1w
-	 ibfTM6LlWLutc5R+AcGSxUdci2RMijrYOhThGAOvwBozeAr1D8fYt78Hv3bQk6G1pyQ==
+	t=1793699105;
+	b=VPIr+Vw2SewCdhh2gLflGeOb5pOj1cJsJbbLTaWt3Fib4U9XeIVsYzoC64LMpbwYO+cm
+	 34yQs9R0qUn9ZZy2ylb9VKaysNfbsd72VBcRRo+Zi0DdXnERlHDGqC3ob0qA1UUsZEStN
+	 JBTij/sHzYU4dschBkPRoIlhE6XvOmRqRSpzywUQTT1AfdfnU1Z3NDqwYnbSZtpliE+Tp
+	 vJ/lGQ3yU9lwk7Cx0245MM4UoqwWYzkf3QdjrARS9VO/CjyOfFdGjakCFbgOXWEdlUZhy
+	 fHrFufS8r9NOqTgglubnDDstKdA1ddIi3sKXNOLoThA1pGJxbdJAC4nKOWOR0r723jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699075;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=EqD6XXEFKVf4WUIZtUdGo2rdQDUJQpo7+qGZ1y//k9Y=;
-	b=DcPUqL5ny2mVImNYY2w64mudV6m33Fft+5aYMw3ljU+ZnR5K59hLBxdM7H5hyb0NYbmK
-	 9o4qqcHBeBPMMxvaydr7QO/GXdi1ijXob7Z6aM7593pCMlbJ/CB21gi/FqBbqckPDyeds
-	 iXbhiDCNHLmVfgNDGFqNCTIXSXF7po71zHIuz9NlphtDJn3VpS35OV88c9SIVQfVOeI/k
-	 PZRCfgZ7t6TwlgOiHYbS3+P6pTMxmhP+5E9oCoxxF981V/O8QAAJ47Dsaba/VhqWU0HON
-	 7IpSfwoO5TUX0jhnZjgqu0pNQIz39/sVSuMZZOkFVDkYaQGNZ3w/v1G5l+DYZI4wshA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699105;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=eJXDxjtpxlaRlyectS+NiI2BE6CyW1HF3ivWw5VpKUk=;
+	b=2si7xxnWZ4UOSsPmAHdHou3MaqTCjHj7GgkrzoZ9CnY8huxaQ4HhyAtT3PC9nU+ffgH+
+	 /qG2LGgBpjLIny5N7Xlh08OcNsCrNB4o4RHUn27XVLZtTms77IXDc6e6CGM7WwtDqOr9A
+	 6qJzJyl8vZHybj0PAcYewYR/P1lleowmDy1m2DSsH2xfnZnpj5Q2faXWt5sWd+ljbaLlA
+	 mzxm1s4Z9w9bxbxvidmANwxp8/gP3FsS711r5u1O2sZz+UD/kbrBuO47JNp0PGU2NHjgP
+	 qYYtWr/l5kOEYuO+ChxdZHVBQ99bo12caF1JPSuHZXJvVR2JKWJIX1y+e0dZtfFfm+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NFegZMCm;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aZMKTuDW;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC01606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC01606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058A0606A326;
+	Tue,  3 Nov 2026 09:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 058A0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NFegZMCm
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103094425euoutp02085d6059802cb446690b3dccfef1a404~kf8wGHcmE2998629986euoutp020
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:44:25 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103094425euoutp02085d6059802cb446690b3dccfef1a404~kf8wGHcmE2998629986euoutp020
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793699065;
-	bh=EqD6XXEFKVf4WUIZtUdGo2rdQDUJQpo7+qGZ1y//k9Y=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=NFegZMCmsOz9eMS3itkiBpvSwHFNBoGwf/1MbFWg2hwoq6nDtOviGgPzwKEQMieAq
-	 BOAhrAlUiRqpCclrpKU8YGbKCRT9ZGzbeNMHXA3CGtVpCqUnhSE1GnX/aNkjJmUmby
-	 4dt4J1ImQVGPlOkD5w0ASZ47AFZhwhHBTo7b8leY=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103094425eucas1p14f8698866db3a44dc2559fef5569686e~kf8vsv8-G1950419504eucas1p1X;
-	Tue,  3 Nov 2026 09:44:25 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103094424eusmtip1a4f4097b78810e28de113df65a194052~kf8ug9zZc1524615246eusmtip1d;
-	Tue,  3 Nov 2026 09:44:24 +0000 (GMT)
-Message-ID: <8b1e8238-e5ba-4875-869f-478177591738@samsung.com>
-Date: Tue, 3 Nov 2026 10:44:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aZMKTuDW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793699103; x=1825235103;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qP/t4N3PI5wThGHkMAYxTPrH5iaWsuCbk6aKxmmZ9b4=;
+  b=aZMKTuDW9EXEPyFDszcUWOfAo4dW10KGsxa0mX4IUAJelhU/Q8NwGA85
+   DeypawCnLpC7ebfOH/aXiBV0lw+S4u1hW4jlMo1dSz5Jpd8451KyqkyMH
+   k6JQRHqHCzbmt+jsh2xMuOhWBKVmbrloqnm5q82d+j2qDGOyy6x8MpU5n
+   MIxVLu8ZnsY9neTjA14MlWNKZIf8BQ/BUMoXNPgNHLRFmgKyQAtSlb+je
+   FiljiZcRxOvh/OKXJz60xd2yKwV658ELbiqNuq2ZZ971c5hCA9d2NJuW/
+   vE8skjvGtEJ9upwoLa6JYpQ/vJ89dfKr1uwh6H7Xcwu3PcdVrkygRBMIg
+   A==;
+X-CSE-ConnectionGUID: OC4+zF5ASJSDsEfSey1gGg==
+X-CSE-MsgGUID: lFbuFQQNQ96JoJNMvwte6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2443826"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2443826"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:45:02 -0800
+X-CSE-ConnectionGUID: zHbXd8tfQoSfJzSB11ByKQ==
+X-CSE-MsgGUID: eAFN0YoqR82Ahh0sG4Z4vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6237758"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 01:44:57 -0800
+Date: Tue, 3 Nov 2026 11:44:54 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Guenter Roeck <groeck@chromium.org>,
+	Jagath Jog J <jagathjog1996@gmail.com>,
+	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Jinseob Kim <kimjinseob88@gmail.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Remi Buisson <remi.buisson@tdk.com>,
+	chrome-platform@lists.linux.dev, linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Marco Elver <elver@google.com>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [PATCH v4 0/9] iio: enable context analysis for all drivers
+Message-ID: <aumtFi5Jdzs8NIWE@ashevche-desk.local>
+References: <20261027124954.110697-1-zoone.rupert@gmail.com>
+ <20261101033018.05897c08@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,81 +100,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] of: reserved_mem: mark the early_memremap() array
- helpers __init
-To: Sasha Levin <sashal@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>, devicetree@vger.kernel.org,
-	llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261102224528.2495168-1-sashal@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261103094425eucas1p14f8698866db3a44dc2559fef5569686e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261102224535eucas1p2a4b762399cd706fadb9dbaeb08188846
-X-EPHeader: CA
-X-CMS-RootMailID: 20261102224535eucas1p2a4b762399cd706fadb9dbaeb08188846
-References: <CGME20261102224535eucas1p2a4b762399cd706fadb9dbaeb08188846@eucas1p2.samsung.com>
-	<20261102224528.2495168-1-sashal@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101033018.05897c08@jic23-hlaptop>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 02.11.2026 23:45, Sasha Levin wrote:
-> early_array_map() and early_array_unmap() wrap early_memremap() and
-> early_memunmap(), which are __init, but the helpers themselves are only
-> static inline. If the compiler decides not to inline them, the out of
-> line copy ends up in .text and modpost complains. clang 21 does this for
-> a riscv allnoconfig build:
->
->   WARNING: modpost: vmlinux: section mismatch in reference: early_array_map+0x30 (section: .text) -> early_memremap (section: .init.text)
->   ERROR: modpost: Section mismatches detected.
->
-> Both helpers are only called from fdt_scan_reserved_mem(), which is
-> __init, so mark them __init too.
->
-> Fixes: aa05faf81583 ("of: reserved_mem: allocate and map the reserved_mem array early")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Sun, Nov 01, 2026 at 03:30:18AM +0000, Jonathan Cameron wrote:
+> On Tue, 27 Oct 2026 14:49:45 +0200
+> Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+
+...
 
 
-I wasn't aware that 'static inline' functions might need __init
-annotations.
+>  #
+>  # Makefile for the industrial I/O core.
+>  #
+> +subdir-ccflags-y += $(CFLAGS_CONTEXT_ANALYSIS)
 
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Personally I would move this to the end of Makefile.
 
+>  obj-$(CONFIG_IIO) += industrialio.o
+>  industrialio-y := industrialio-core.o industrialio-event.o inkern.o
 
-> ---
-> KernelCI's clang-21 riscv builds fail on this once dt/for-next is
-> merged, so it will probably show up in tomorrow's linux-next as well.
->
-> Tested with a riscv LLVM=1 allnoconfig build (fails at modpost before,
-> links after), plus W=1 builds of of_reserved_mem.o for riscv and arm64
-> defconfig with clang, and arm64 defconfig with gcc.
->
->  drivers/of/of_reserved_mem.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 0fd1683cba011..630ad65466385 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -66,11 +66,11 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
->   */
->  #if defined(CONFIG_GENERIC_EARLY_IOREMAP) && !defined(CONFIG_PPC64)
->  #include <asm/early_ioremap.h>
-> -static inline void *early_array_map(void *array, size_t size)
-> +static inline void * __init early_array_map(void *array, size_t size)
->  {
->  	return early_memremap(__pa(array), size);
->  }
-> -static inline void early_array_unmap(void *map, size_t size)
-> +static inline void __init early_array_unmap(void *map, size_t size)
->  {
->  	early_memunmap(map, size);
->  }
+But if it's already in, it's not a big deal.
 
-Best regards
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+With Best Regards,
+Andy Shevchenko
+
 
