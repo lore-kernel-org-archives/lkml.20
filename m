@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703231;
-	b=pYdtYNClYdKRGtBGUrrVzH94cAc/hwDb8tfWkUoLMQ4Vg4e1SDV34q1pdqFrQsxhNdzy
-	 VD6NIlF+UvkmchWjl9vx+vGnUcSLny2jf4FbHRs6s2qwCTzw+iszPZUyS3lT+SEC1k2nh
-	 zK4D1Rh3kUknCaabRHwo1Fa3rrUPzJ/LfaW+E1/rVOiBGk+5Vt0Vs5lQ43c0hVIKbXlz2
-	 rca8Vmk5Xu2tSJSgPvxBtb7w1y4X4n8z/QxgdXOOWSZ7T3bILMV2j/agu9x6EU9VIxBRY
-	 j0OKaIvXNbj8hXnAYFCm3WMde8RqFBDhvZJ9Yv2c9uHCNJfU/K8Dh/ljMIaHN5Pq+sA==
+	t=1793703237;
+	b=b3QXDJvbMR3tAW8FZ5OMv8yrjLx68klwHyD3fShdORK2UHSARaI2Azm3Ljt2pt8rIEt+
+	 w0YuJgkytnfrR9TV32d4LBu1dXOqWACZzXfCRRSohj3z4sb4taxRTBDK0pCyLaADEJyL7
+	 1vwr+iWaxe9cdX7NSJys6f2ZQ2hPVV7zbmSVvVRhWykNplh3yWdiVa211/NJjOGik68BH
+	 8NHPW/utIbgRWRys+NhIYNSvUoNnEA8Vq1mYBlfAUaXqgZfCLZ711RtqtU7gpKmeNgWO0
+	 wa9nsYDLZ5XoVCBX0MgRhU0cWcb8Y9oIDU3KMFrKXL4Xy/NNKx1p89+B8z8otD/bNbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703237;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
 	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
 	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=lUa5DhZx9WKWQsHa9sNTQT9uSwjaE9ND4ZF6lWuR460=;
-	b=UT9Njkf3Nd/VdKKplG/Ep2a5zRG7ApdewXKgWxDvLr6jWQXSlg6Th1uxp+Qurcf0ZakR
-	 ykaqgQG2OgSFcoW9Q+VmuScQk5GwHESJQbm7h4jh14f1nu7/isTvPso6SfmCS9mzgWvKb
-	 bEywbwJndvVeXvNYTrml90WITtoA2Xu3MjYcp8sd9FnIPk2JKnmYPDpGv1QADOIdveSap
-	 Jx/CB3HPpdpvYUJkogM6bihP/qWg5jlMJ6xxpQ1lI0WfCqP4aLehCOU9/qf24RmEExPBg
-	 xpy6bqoWSPB7vLfBtP6aR8BvsfLiPdDwJHB36J64KsHDk+s271cvE+LGsKR72kXb1/A==
+	bh=U+ORXMqaOXg6t6xSZ+rypV+aRvjTEzPE/DKzgfW4tEg=;
+	b=45/hDru5cYlTJshiyTbMs2zCzeBuQR/ewGAmVaIxTQ8rOfOdn0cZNBNKK72XthJf5gNL
+	 EnS5iKifFt80BsEym5ZNeU2nVzx/SdT+5Tb3B5vao+jfrNrfFXId4Kcjl6ZRnY3dX7CKp
+	 rG2C3At98fYzsDgDz6bu6igqkmRYrDhoQpxpXyavCEfRq4iNXkv1/lP++3FELg0PYDwWa
+	 dQ7qqK2U0l1OHOUin+sD4fLhcX726KT0IhsUVnRoEjFevkWMQehoQFLWhGFwSLYrf2luX
+	 WBMBtIv/GZP7AIvGndbAcmQPjkA15RTIiVoTukVfoV8si+qAgby9ONdIDBlso6w7Kgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B96606A823
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:53:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B96606A823
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29776078F39;
+	Tue,  3 Nov 2026 10:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E29776078F39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJlmr5sBxz5B103;
-	Tue, 03 Nov 2026 18:53:48 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6A3ArdXh088366;
-	Tue, 3 Nov 2026 18:53:39 +0800 (+08)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJlmv1RJbz57HS8;
+	Tue, 03 Nov 2026 18:53:51 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6A3Arkxm088466;
+	Tue, 3 Nov 2026 18:53:46 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp01[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Tue, 3 Nov 2026 18:53:42 +0800 (CST)
-X-Zmail-TransId: 2afa6ae9bd3694e-b20b3
+	Tue, 3 Nov 2026 18:53:49 +0800 (CST)
+X-Zmail-TransId: 2af96ae9bd3de97-af5ff
 X-Mailer: Zmail v1.0
-Message-ID: <20261103185342600lmk67Fuw_xX7_kWvJgP-j@zte.com.cn>
-Date: Tue, 3 Nov 2026 18:53:42 +0800 (CST)
+Message-ID: <2026110318534911091Mvzh5diLU9SKNWyne2p@zte.com.cn>
+Date: Tue, 3 Nov 2026 18:53:49 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,40 +58,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>,
-        <bmarzins@redhat.com>, <dm-devel@lists.linux.dev>
+To: <mkp@kernel.org>, <James.Bottomley@HansenPartnership.com>,
+        <linux-scsi@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBkbSBsb2cgdXNlcnNwYWNlOiBkcm9wIHRoZSBkZXZpY2UgcmVmZXJlbmNlIG9uIGVycm9y?=
+Subject: =?UTF-8?B?W1BBVENIXSBzY3NpOiBjb3JlOiByZWplY3Qgc2hvcnQgUkVQT1JUIExVTlMgcmVzcG9uc2Vz?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A3ArdXh088366
+X-MAIL:mse-fl1.zte.com.cn 6A3Arkxm088466
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 03 Nov 2026 18:53:48 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Tue, 03 Nov 2026 18:53:51 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE9BD3C.000/4jJlmr5sBxz5B103
+X-Fangmail-MID-QID: 6AE9BD3F.000/4jJlmv1RJbz57HS8
 
-userspace_ctr() takes a reference on the log device with
-dm_get_device().  When the integrated-flush workqueue allocation fails it
-jumps to the shared error path, which frees the log context without
-dropping that reference, so the device stays busy and cannot be removed.
+scsi_report_lun_scan() allocates the REPORT LUNS buffer with kmalloc()
+and does not ask scsi_execute_cmd() for the residual count.  A device that
+completes the command successfully after transferring fewer than the eight
+bytes of the LUN list header leaves the header uninitialized; the bogus
+length read from it can trigger a multi-gigabyte kmalloc() retry or probe
+LUNs that do not exist.
 
-userspace_dtr() drops the reference correctly; do the same here.
+Request the residual and abort the scan when the header was not
+transferred.
 
-Fixes: 5066a4df1f42 ("dm log userspace: allow mark requests to piggyback on flush requests")
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-diff --git a/drivers/md/dm-log-userspace-base.c b/drivers/md/dm-log-userspace-base.c
-index 3ca35aa4e057..267ae428dde4 100644
---- a/drivers/md/dm-log-userspace-base.c
-+++ b/drivers/md/dm-log-userspace-base.c
-@@ -315,6 +315,8 @@ static int userspace_ctr(struct dm_dirty_log *log, struct dm_target *ti,
- out:
- 	kfree(devices_rdata);
- 	if (r) {
-+		if (lc->log_dev)
-+			dm_put_device(lc->ti, lc->log_dev);
- 		mempool_exit(&lc->flush_entry_pool);
- 		kfree(lc);
- 		kfree(ctr_str);
+diff --git a/drivers/scsi/scsi_scan.c b/drivers/scsi/scsi_scan.c
+index 52f3b525d2fd..abbcf529bdc4 100644
+--- a/drivers/scsi/scsi_scan.c
++++ b/drivers/scsi/scsi_scan.c
+@@ -1475,10 +1475,11 @@ static int scsi_report_lun_scan(struct Scsi_Host *shost,
+ 		.total_allowed = 3,
+ 		.failure_definitions = failure_defs,
+ 	};
++	int ret = 0, resid = 0;
+ 	const struct scsi_exec_args exec_args = {
++		.resid = &resid,
+ 		.failures = &failures,
+ 	};
+-	int ret = 0;
+ 
+ 	/*
+ 	 * Only support SCSI-3 and up devices if BLIST_NOREPORTLUN is not set.
+@@ -1567,6 +1568,12 @@ static int scsi_report_lun_scan(struct Scsi_Host *shost,
+ 		goto out_err;
+ 	}
+ 
++	if (resid > length - sizeof(struct scsi_lun)) {
++		/* Short transfer: the LUN list header was not filled in. */
++		ret = 1;
++		goto out_err;
++	}
++
+ 	/*
+ 	 * Get the length from the first four bytes of lun_data.
+ 	 */
