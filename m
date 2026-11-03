@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737898;
-	b=b57oqV5g/yWdbTgdRgSl7/dojrlirwVOlhSodSyjHyqQJjlJudZp6cr9OnPILotBh4ud
-	 o9oGvMtUQFuDWd9Ev1zaR5CVWoQBksyMBD2SkTjsKOZnaxmR+ITlrLWgUf37e82+BwwPb
-	 j1GDNTDb3pdVvMxndX6sOgu4D6nsPYFUCWH5cLMyMJGi9Ff8XGz1Aez2STs3JeWH3aFyD
-	 cGIAGXkNsFRCXBtDg382PWTMkCgyD7AzgCqt4r0l5CS1c7U6eBerovHUFCqJlfHbBR5xj
-	 lj/1afn5AECVIomjBLJ57mqWrJx/DwByuLxZvQg/nmIlCe1M4m2RTqarrYH0CP36DvA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737898;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793737981;
+	b=wUVOqokcOiiqqmKtyJtCLOa+LI/FXmEGZkGPxNkkFj6O+rKvVwuCE24zLs5Ds7HF+2ip
+	 gKpffu/py0rBcw+pk2w+lkb3pe7VIwUoTKBJrQGHqnnyeb/525CloW7UnT6hksU3+mBz+
+	 CNjOmXJjCw7hxewDQayrW2Bn8OXomJDDCOAMbkogGzT7Zs8FvAwwj0qWy33FfSXqj+8Ll
+	 q2QMHls1rFA2Cp5ha340EiJwl/PwGPL8hfdxvQB75A9IFbKeEtgouGWDJryy7zg7V1gZ9
+	 0kHa38T+xZQ1rvabrddnQmNTLVsZl7yZWDOcHz0JZ5AQWOcrgiYp7XTACxlzOfkQpow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737981;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=yH/XRG7heWWZ+jvry39cY9jHOPmxtv5uOcm4fDn0jL8=;
-	b=O3uuHofmULOT8aiLuxONG0Y5X32Ubn3JkeebSLAI4VNhhXWGwXzxaghdJrtCua9syi53
-	 XEjqAs87/CGdOn3FrnGT3ytc2x2LPbvNFGQyaMLOXUlVs7UZojaXRn8wRUBd13uSs4Q1d
-	 gB2bFwLLqVyiVI5p3iai67CyriRo+Wm0KQp2SYJFm5S5V22abjU2TrBQYsrbbMMRYSd7M
-	 zDJxHlJpXBJNv0i4WkB2AeK8b+yZGZdaO08zRF7WNC9VsVvjDUQuiWmVy9BZhEQCBu2b8
-	 zHpeQZBx61Uu4NrbPbfYs5tVmdTIhahrS96OBvL+8zFsqHCejwaYzm19FDf5i84zxfg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gg+W2EgP56N1Sf6e0W1B3Tc564yhByMeGofGsIPeu+U=;
+	b=yszAkQeDMucQswHwPn7fIcoP0T3H4UEFhhUTqYubpnsV/YHWAduJfpUchyujyEGBjBkQ
+	 DFC5AzCenIHuQq9M6Ympotp/ZUTA+0EOcXZocFvb8fgHw9rGtyioa1jsJwzl4lS7tp2d8
+	 wFOabXLdjgW88kIFN6M2dGihSg42wAUoDFb8OTOwJJWSIFH1yOr0I6zSDpIwH9GNt3QjW
+	 8J5MzVFba5n+o6FAZTjjV+7aGeCjHE3n6NWshVNtrrCZA4W7zNgN0+tiuXVG6DzpVbCVn
+	 PdFyFNORlfCm+ppAbhjkO4tiFvtdyPKUxdGOUUnSsmxrAVRlEY+3MvRJOPuWlocmsug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFz8Yp7u;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jm9h17sU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894E6606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:31:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 894E6606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A51606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43A51606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFz8Yp7u
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so29699875e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:31:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jm9h17sU
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ac91f5aa89so325221fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 12:33:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793737979; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y+R8gn/7cpkMqPRvUPqQw54X5+MJYAo+NYBC14TtkS3g3JdCfhojw18TcxgleGDR8J
+         R4WJ71je6rE2GNExwWzweU5R/nss+xMIhwEhrPgffFMIPjpgCrHKLAb9krjfo+rfBLeH
+         liSIx8ezLYtKUYael8nr0L3OwLxMHbrkbRuD7X0YFYqHpImstjnHNiPCnq51D2cR7wv1
+         hNT9TDeHWVlm8Jf9JYzQOmmBBgHZzM9t+kWbZ7m8Yoc2qVoX97bY494ziJuNkXTkN/oi
+         visUUXdrGc1hYuhOgSaDUpbB1aBRkNnUwOtepAU+Jsg9a1cIZ3jwK0imrJ4y2aiAevJH
+         ukyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gg+W2EgP56N1Sf6e0W1B3Tc564yhByMeGofGsIPeu+U=;
+        fh=/+RvYKgP25PHWVl9yGG5s3yrMogKb5dS5/ZzgXkfo40=;
+        b=kjZlVvkba8dmxqkoxRapS2wvzQE8mNO/CTxAzurARGTVFrDJre6aDq6pqK5jYxO6fR
+         67GqT/0n6AaPOrNaFUOGy5lvOqZYR3uJTbC/h4YdC5OOLkvoN74ipnocA4CDV/btsqgh
+         EA5CZAzTWS1bjDi4fNiOe3u3oV8ie/u1t0ow559Vd+n6IGQqpT5YNkBSyqHXsZ5VgSyx
+         EqCUnXauF3OJq7s3FE9m5+ry+oIff03PwII3jv0clcZRd1XOtOWANxGtY0uOaZKtXCjo
+         5vXKu1s85Fv8TIFRpATvYqeLxCIihmfnv1cE3tUWnE/iZ++p+8/ZR9W5k6HVT/OSd5X5
+         HDxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793737896; x=1794342696; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yH/XRG7heWWZ+jvry39cY9jHOPmxtv5uOcm4fDn0jL8=;
-        b=RFz8Yp7uY0eJxd+1QzwiZ7WVFvlDvKXPH/KU7OnSu4C4lVInrMJDIUgw+t6NS3QwWN
-         51a1+V0XGOm2kfNpKTsIFbU7XtCaiaeVNmEhgFeFb1/CrgAAdjx6RnrCKSI/GQcbxXIj
-         zk4oXe/ZcmhoB/9RZoXaMLelwk9hUZc0kCiiJoa4eh/Mo95xbaQlqYkyTUWpyU5DunS8
-         /Rk43e8dBuiwCxXMo+YKIA/4tuqPntQC4r09s1wi8SZN3fTyOhCC4XzaoNcMkwT97oky
-         TyvMinMrf3bhPU4GoPScWDTt5Yyl27cvFCNI9OWgSMUN/ce15ceTsoEM8yVAia/L78Wh
-         u65w==
+        d=gmail.com; s=20260707; t=1793737979; x=1794342779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gg+W2EgP56N1Sf6e0W1B3Tc564yhByMeGofGsIPeu+U=;
+        b=Jm9h17sUzBa0J1wZjuoUGLG8nXwDfKaiZdnwQV8i0Z5rIyLWtnFizG54Mb8VhuEFNX
+         rW7Y4rc1FmE2eQGibXhlfFcLCv/cANTCjYmEA3X0qB/wSffc+Jue8m0ZrTj91g/ysaH3
+         II453nGlC1agps4Kl22gBYgtJAmrJewCpfylTLwG8ckuEdaqaCxeknDvLnvo8KkYqMMr
+         oN1Hk4uuEJ4jQ2j8NVNpkyQEC2uRRabXtMqJv3w2Gpxh7olpRi4CGgDHr79l4gcpAzUT
+         M7UJMSMiGL6ExHwGMnOskz1O2ZQopyzLk9ZiQ+5rpbFdRZFhlLgNMm/Pm5gCb6nLX0Gh
+         Mdng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793737896; x=1794342696;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yH/XRG7heWWZ+jvry39cY9jHOPmxtv5uOcm4fDn0jL8=;
-        b=xyS898JTduFiimiwszPhllzxsBa8tzkaVAcR81yddSG4tKcMEJIij69Th1+RKPL29I
-         FZ4i0t+8BkdrMpr5eKMdwWEL7UltFjCt+wMtV46weaKVW19sZrhyhiP2P+AU4boqrFgd
-         hwxtxzXHmmNCZw0++824USI/FMTjOkQMrgGW8UWJrux61yLX19H78hiSylyuRHABRk6N
-         JJdkKUe/5FDALcDaIUjwzphfh+Q3wM2PbcIvLStqjdkKOBZ6KyIVSjXX/R2Zrvc7bdsq
-         v0Z9f/JBOgYw65vZ1RqQQLkpivO3w1RL2s/vDCcJJlH7LVZJ//ksJKrAuPlAwnXKU2dr
-         6xaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzT5ekn4c3BnrLbByE0JGm6QyqsH4tJe+j+7+L4vWTW1Ip35nw5h2gSV/smVT/ji6X131B1DcAT9O6K+FQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mZ1y3fiYWydbpxWrvkP08uavrSJNUUoIRXBfHWEQR5NPyLlBv
-	0X+T1vlK3hQsLdVf5mhK479+QUq6Wiemc6Qe4KNaZg5KnQHNSkakyEf8
-X-Gm-Gg: AYBFou1GV9XIQEu2T4kfrDYM3TfATU6OE9EbUo2H1jqGQj8lXnXIVjS7K4qMdPjj4rF
-	zsxBn85EPHMe9KUxsO6L8DAH0paSmJrVxOMB+fX7B+FVQCsjiQocggqQCH1GaeSVycXxCCoC8L8
-	R6jDhtd+Tu1UZn2JkjQsBroj1lrqOQ6BGHLTDpgrmk2uRdb3IgOP/9SKnrcm2wnYivUOJLiu4MG
-	4ktpyxqK4Vkj48swaWN4jJDj7QZSzpDSEbJ4VskInTyFD5N41IDBZ2wy3sb381cgUIQhBtswqC8
-	vfqW1kL5nbmKzQqPxYaxr0vQhJSvMVjuXa/ZcUmsfvcZnOoPd8e/mfZKa9pWBhSRdkBrGbzwyHT
-	GS1FdDyuBN0zgscqINhicR2L0XX4ISu2dDmXsZrTjWWfVlUYvTLFDTeJkj2bPlT/lY5DysBQ8VC
-	iUiiWVpznzQ4b+dV8oHxNxMV7+k+VbuCzFVHwyyjGS9aoTpLyqsK6c8dItxVQtYYZuXD3UgLGN+
-	tiJcqq/0A3oapK5wzex6O8CIvdMGAIFCJREXekOwjiQN5JjH62Ln+b/YANWN1ryYvFpmQOguevB
-	FHEYdPdGvXynpNIY9DLtsi8mr6ijU/0IUZZ8fwK2u/Q/i0VxWkx/WZFXSV3HpeWvn5rMpgo0hQ=
-	=
-X-Received: by 2002:a05:600c:1c17:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4ac18b7ddcdmr302817215e9.20.1793737895986;
-        Tue, 03 Nov 2026 12:31:35 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b411de95b4sm4931815e9.0.2026.11.03.12.31.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:31:35 -0800 (PST)
-Date: Tue, 3 Nov 2026 21:31:33 +0100
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-security-module@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/landlock: fix the regex_escape() error check
-Message-ID: <20261103.06edcd6fc9f1@gnoack.org>
-References: <20261103163917.641130-1-sashal@kernel.org>
+        d=1e100.net; s=20260707; t=1793737979; x=1794342779;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gg+W2EgP56N1Sf6e0W1B3Tc564yhByMeGofGsIPeu+U=;
+        b=dZz7NzUsuAEQJ/f944AH/z7AtywPO6MUo0Vu8C/SCKAqErS9b6KCMwMcxolBUtmWtN
+         Pj06o40x7JwlVP634tpb1H6HyiHThV77EtLgj6mU0J0bQM66gd8GLeLcm2SLK8uvakEk
+         72C8vIuE5ES/tW7+cnwm5iYMZjly+fH4cLzBL49XUqrkfYt6KZYsObiZ4KLhy8Pxkqed
+         U1ybcAhNZx7oc2xu17eDlhX7mYNcbilBkiDJYKQW5ei6QUlNIzNCHXoNzC7FeSZvu+qh
+         9vn7pfglkmNFoBpz2As/I9ON/VJHNu8gqqo5/ncUiX7yKSY0vmRqyc0js/7mVzOKA0R7
+         +alg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/83eHXHp452i1KPZ/xAzijWCulovFCkS36wps3ulKhjmvazTIiOxou7t16lDzGioQMqWA2V4ULpVgjZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AOAmuAtLf9ucRGfFjIeVTCiEdxlxWQY3ki8Oc/0D6CYe2Ay03
+	dHCLBa9+nNmVcYj6KPaY41tVRVSttKRhgREltcVQ7aWGhqO9daEQtqgTEuG8Zubq9Vq+Yl9V1OL
+	gr9e0CpUUmhzXo6P6ERahKbQLvfn3I5I=
+X-Gm-Gg: AYBFou3l6TnXTmMAbzNyD7pmH76xJ61T8EuqVl0AmCOv8KcnrdJZrATBSoNsAJ6mQSR
+	4oa6iDzpDaaT7iJdNtpELcZa+ZjgKqfksp/INmVbQzIlDVcdrQsMs8LwaXg5bWRVeprD2Y/b+X3
+	PW7W6ziz0IZOm5aI37hMQgZCbYjYp6sDUtGKLlwEc0IlFRNfV1eAwFLCO74hzH6ikAOu50tUR2k
+	EpMDKfUj4UcVUznI8oiX5KAD4UdzFaJzmDHNRWVtrscnk4QhYHkDsggLlVKe5VBFYxI1ShTUg28
+	3phT2b+0odW1Nq9FSvRaI1b1vcyThD3UBxOF9qPGVaLYq1RYVlSIhEn5kF4YjCu4OPlX01jyCGQ
+	rL0IKvEqh8haBvSon6ZCRqT8pWsbi043nzyqoAAex7z/aGF3W+AbCP7DcXPagBb5d3Af5fXQbBk
+	RsEn7T+fyhEsoqAeGAdDKjfaHYJR/Nz66wPuhaiLCH4aM85GFk2hUq8/LBV4KScZS1BkxT3mvBB
+	w==
+X-Received: by 2002:a05:651c:a0cf:10b0:3a6:58fb:8540 with SMTP id
+ 38308e7fff4ca-3acb7b2ae3fmr23751711fa.19.1793737979205; Tue, 03 Nov 2026
+ 12:32:59 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,74 +106,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103163917.641130-1-sashal@kernel.org>
+References: <20261102-alpha-profileme-v4-0-61e00f5e1da8@gmail.com> <CAP-5=fWC7AM9aAsHaZvQVXznYzVp5FRQtH=vu2xxQys7QWvCQg@mail.gmail.com>
+In-Reply-To: <CAP-5=fWC7AM9aAsHaZvQVXznYzVp5FRQtH=vu2xxQys7QWvCQg@mail.gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Tue, 3 Nov 2026 15:32:47 -0500
+X-Gm-Features: AclHuK_DMhE10jbZfTykItRyJaRbazl8IY4r3kkMT9nMEXLGWMUP-9x3lCLMK38
+Message-ID: <CAEdQ38GGq6Dsq+daBNKsPOWtR8h6+KcdvaVqrxd24Dd3QJhZwA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] alpha/perf: add ProfileMe sampling
+To: Ian Rogers <irogers@google.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Magnus Lindholm <linmag7@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Sasha!
+On Mon, Nov 2, 2026 at 10:29=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
+te:
+> [...] I have a suggestion about the rest of the data, which is
+> currently only reachable through PERF_SAMPLE_RAW. Raising it now since
+> it's easier to shape before the uapi lands.
 
-On Tue, Nov 03, 2026 at 11:39:17AM -0500, Sasha Levin wrote:
-> regex_escape() returns (char *)-ENOMEM when the buffer is too small, but
-> matches_log_fs_extra() checks the returned pointer with "< 0", which is
-> never true, and goes on with a bogus cursor. On 32-bit architectures gcc
-> also warns about the cast of the pointer in the error return:
-> 
->   fs_test.c:7474:24: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-> 
-> Compare against (char *)-ENOMEM instead.
-> 
-> The size left after the escaped path also subtracts the prefix a second
-> time, which can make a long path fail with -E2BIG. Compute it from the
-> cursor instead.
-> 
-> Fixes: 316d06b01130 ("selftests/landlock: Add audit tests for filesystem")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> Found with 32-bit builds of the selftests (gcc 16 and clang 21 with
-> -m32, with and without -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64);
-> KernelCI's 32-bit arm builds show the same warnings. The changed files
-> build without them now, and the x86_64 builds don't change.
-> 
->  tools/testing/selftests/landlock/fs_test.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-> index f725882fa4a78..27a78434d1c21 100644
-> --- a/tools/testing/selftests/landlock/fs_test.c
-> +++ b/tools/testing/selftests/landlock/fs_test.c
-> @@ -7470,10 +7470,10 @@ static int matches_log_fs_extra(struct __test_metadata *const _metadata,
->  	log_match_cursor = regex_escape(absolute_path, log_match_cursor,
->  					log_match_remaining);
->  	free(absolute_path);
-> -	if (log_match_cursor < 0)
-> -		return (long long)log_match_cursor;
-> +	if (log_match_cursor == (char *)-ENOMEM)
-> +		return -ENOMEM;
->  
-> -	log_match_remaining -= log_match_cursor - log_match;
-> +	log_match_remaining = sizeof(log_match) - (log_match_cursor - log_match);
->  	chunk_len = snprintf(log_match_cursor, log_match_remaining,
->  			     "\" dev=\"[^\"]\\+\" ino=[0-9]\\+%s$",
->  			     extra ?: "");
-> -- 
-> 2.53.0
-> 
+Thanks, Ian. This is incredibly valuable feedback. I really appreciate
+you taking the time to write this!
 
-Thanks for the contribution!  I also stumbled across this one when I
-did a wider cleanup, and at the time I came to the conclusion that it
-would be wiser to fix the weird way in which regex_escape() reports
-errors.
+I've done all of these in v5, as patches 8 to 11.
 
-https://lore.kernel.org/all/20261008142604.39107-20-gnoack3000@gmail.com/
+> The PCTR1 window count looks like a natural fit for
+> PERF_SAMPLE_WEIGHT_STRUCT.
 
-Does that seem reasonable to you?
+Patch 8 does it as you suggested, and only when the sample's IP is the
+profiled instruction. On the ES47 the weight matched PCTR1 in the raw
+record in every exact sample, and was 0 in the PALmode ones.
 
-If you are looking into Landlock selftests, you might want to have a
-look at that patch set, it already fixes a wide range of issues.
+> Similarly, if any I_STAT trap types identify a memory event, a DTB
+> miss on a load or store say, setting PERF_SAMPLE_DATA_SRC (mem_op,
+> mem_dtlb) for those samples would make them visible to the memory
+> sort keys.
 
-–Günther
+Patch 9. The DTB miss trap types map to an L1 mem_dtlb miss. I_STAT
+does not say whether it was a load or a store, so mem_op comes from the
+opcode. A test touching one word per page got LOAD and STORE as
+expected.
 
-P.S.: Mickaël, gentle nudge!  I would still appreciate a review on the
-      selftest cleanup patch set, even though I know that I need to
-      start rebasing it soon to make it apply cleanly.
+One thing turned up while testing: an instruction killed before it was
+mapped can have TRP and MIS set, even when it is not a branch. So
+those bits are ignored when PM_KILLED_BM is set.
+
+> The remaining status bits (retired/killed, mispredict, trap) don't
+> have a generic home, but they'd make useful filters
+
+Patch 10 adds retired, mispredict and trapped in config1. As with SPE's
+event_filter, a sample must match every bit that is set. Dropped
+samples still go through perf_event_account_interrupt().
+
+> Since PEBS and IBS op only sample retired instructions, it may even
+> make sense for precise_ip to imply retired-only, leaving the profileme
+> bit for the unfiltered view.
+
+Patch 11, kept separate since it changes the default. On a loop with a
+randomly mispredicted branch, 19% of the unfiltered samples were killed
+before map and another 48% later; with cycles:p both are 0%. The cost
+is that DTB miss samples are of aborted instructions, so seeing their
+data source needs cpu/cycles,trapped/p.
+
+Thanks,
+Matt
