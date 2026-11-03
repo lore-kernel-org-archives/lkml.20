@@ -1,58 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697390;
-	b=RXi1OA0wWNvimAlqX2r1q58ZFY03vHp/gigrKCjqiFnF+w0PCvKmIjbXhj10YYQkCS/v
-	 yMwZzZRF/+UZja0uNFyyyIhMzocbAKJWby932JW0sYLb/cwAT9acRENOvq0W7/hDCRtl3
-	 GgxSKh+KsaBHF5o+LuFQk97miQ1IWgsbCGUFbrtyyFTD8PyDaanoRj5FVxfaJTYNOZ1fF
-	 /cdrHcxiaJ3Z1OeovX11pMrP+CGaTKWcqf0R709m9tj6V8eV9dsgLl7z2StlRkXPmBhRq
-	 rtamjEoU8KTLjzQlndVXtgO9ENFSV17zQ/GX0zK4n6U9jkU7w7AePkOvXTjfV10dWUQ==
+	t=1793697423;
+	b=2uiPluJ2kqErY3bT9t0+Bg0m5wlP8kH18QHPf8nJqsoTCgHkKtIw/HXe7NFi024Hp4dy
+	 ljhtmqpxQMbY/mmmmgnnXhZ6q4AQqZFmPg71+uMOgCWSwdc8VONthOJ9jQ8k4F5ni0BPG
+	 5waWqzoEbI+jBJNZWm//vfzXeOgppQ0f2EOGU38KwqMxSQWlxmdA2AmHWf5Mhu9Fz0+EX
+	 ryGN2dmCayXlr2GeZ4Xt32rNvlwUvQvI2Dc+PHRpvzpaqVSmfSVUTgLJdeSa23sOwTA71
+	 g19s+bXmAdalOw0s3vjiDmGtkrY6YPMzDgNCUg83JCcviRmbFKoctD4i8hDbfnuR0GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697390;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=c/0hZKufvkH/OYW00aRP0EoGvS2iUIY4dlDmgt6M/Mw=;
-	b=GH1dNUoERxh7NNqyQYPkYp5mjxJxwmj+c/xtf5o6FBRl2iFdysvt9IpYHx21mLvptCh5
-	 1Uf1EyZqh6h8dF/E5xgeF2HTGvOf2S9opFNTGy4b7X5MyuOhTBX3HyXBMDTipWlzfEzFq
-	 fXctWWZJl/NnfmjHCn88MWpwA2NBdVVhPc/OW+g+eVqMWmafXqgWj2V61FAb5MmCSc6Kv
-	 F4gR5BWUE/me5ta3AwE5BfQ7stG0STwzCikUGBH8Cv3Rv2bos97CPYfWD/JOuRRRhVZ1w
-	 DmPSzaLwM9FQaOtjQ0jby33u5CyXxistY1Qmls+evqgYxgVV4Hm4Qdq9SBMV11qGZXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697423;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=w2H8MyAJaO3E0Y/5RKb2VsySWe5qpJSMhyxRnp7Mk58=;
+	b=ZXnQ3TfiaVGI7MDa8bAYc5aIb8Zib8VCpD07nXIE23mB1dFx3hG7sTep3q9imrz8Gg5Z
+	 gORsojk/TsaV7gupxTaH5A15ZQcDWmS5D2OnOPzNWCwEU4zujivybVEWwec+2vpGk0bSk
+	 oeXTVUwObSQTbU4lIdw9kRmxUlkxmL/Rr8yGA1HsVxflLLioNeCeTPlolXE3xwgbeP5Uh
+	 PiVWAs7nRAbLCQKzxPqjks1dyYMmsY3LO3otd5IJ08GteT7s1EnM3o/QC8JfJ8iLTnJ8w
+	 BX42u9cEieC7MdR8nJyjyMAV0wrvDzDe479JWmbKQ6LB32HHHk1Qy1kw3XTg4H9CfTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4DXGQ09b;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADG+UeTy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E80F606A334
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E80F606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE30606A324;
+	Tue,  3 Nov 2026 09:17:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=4DXGQ09b
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=c/0hZKufvkH/OYW00aRP0EoGvS2iUIY4dlDmgt6M/Mw=;
-	b=4DXGQ09bqE2PEAJtjiuGEIxPkyR4WjwiC7ksDXHrbemdIxEQDHk6VaPRbtJElOvQBITMnTqnY
-	srWuVrJKqwgvc1zcbqHERnrW2EJ6xbZjtycFl6KEG6RooII6hHAUnHUHO9DbyxyTM0ByJl5fvpa
-	OfjJ7hHwPYGxreXazxTjPfg=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jJjbp6kLMzcZxn;
-	Tue,  3 Nov 2026 17:15:50 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id CBADA40579;
-	Tue,  3 Nov 2026 17:16:15 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
- 2026 17:16:13 +0800
-Message-ID: <9ef43c59-72b8-4ef8-96cd-0dfd133cde0f@huawei.com>
-Date: Tue, 3 Nov 2026 17:16:13 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADG+UeTy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A50B1F000C1;
+	Tue,  3 Nov 2026 09:16:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793697422;
+	bh=w2H8MyAJaO3E0Y/5RKb2VsySWe5qpJSMhyxRnp7Mk58=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ADG+UeTyNPhwM/GZoqzHgTDZJCfYwjqY8aScLzrXTC/0s0ss/4SAuLUDPAP5HH303
+	 dYmwK3Q0nGyYjdiEnQ45vz2CqcEM67GAq8IitvWL+d3dfW5kgLN9Y8bHjd/t5/RWSQ
+	 B58dn4Cggzc9fR8cKFAhIiyWM5JbgjMaHzIifneEdttGUVMfZ0zWbyb4r3tJRVqe/q
+	 FA8MQnHKpSpjDHn+1Mvzoa0Og/MbX2hfDEEapi1XaPCPIoAusN59GaxzjY13PTmEDg
+	 9YsD00rebhNrwdNmZrPCVTvCVrffRHamO5ikUsJ0WacKDTBpH5PAd1KxtyVYt+bbYR
+	 2hOSBSBPQt/Dg==
+Message-ID: <9ad64922-e6f3-49fe-9715-3efba48a8677@kernel.org>
+Date: Tue, 3 Nov 2026 10:16:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,98 +52,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/15] LoongArch: kexec_file: Fix CMA page leaks in
- segment placement retry loops
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <thuth@redhat.com>, <leitao@debian.org>,
-	<yeoreum.yun@arm.com>, <robh@kernel.org>, <sourabhjain@linux.ibm.com>,
-	<kees@kernel.org>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
-	<tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
-	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
-	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
-	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
-	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
-	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
-	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
-References: <20261026075201.699550-1-ruanjinjie@huawei.com>
- <20261026075201.699550-6-ruanjinjie@huawei.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261026075201.699550-6-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH] media: exynos4-is: Release clocks if enabling the bus
+ clock fails
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103090653.1208652-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103090653.1208652-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Will fix sashiko review issue in v8.
-
-在 2026/10/26 15:51, Jinjie Ruan 写道:
-> The retry loop drops nr_segments, leaking the CMA pages of the failed
-> segments.  Release them first, and disable CMA for the retry: it
-> ignores buf_min and would hand out the same region forever.
+On 03/11/2026 10:06, Wentao Liang wrote:
+> fimc_clk_get() acquires and prepares all of the FIMC clocks.  If the
+> subsequent clk_set_rate() or clk_enable() call on the bus clock fails,
+> fimc_probe() returns immediately without calling fimc_clk_put(), leaking
+> the clock references and leaving the clocks prepared.
 > 
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Youling Tang <tangyouling@kylinos.cn>
-> Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: Kees Cook <kees@kernel.org>
+> Jump to a common cleanup label that releases the clocks on both failures.
+> 
+> Fixes: b71b56b264ae ("[media] s5p-fimc: Check return value of clk_enable/clk_set_rate")
 > Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
-> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  arch/loongarch/kernel/kexec_efi.c          | 8 ++++++++
->  arch/loongarch/kernel/machine_kexec_file.c | 6 +++++-
->  2 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/kexec_efi.c
-> index 5ee78ebb1546..d42711b895a2 100644
-> --- a/arch/loongarch/kernel/kexec_efi.c
-> +++ b/arch/loongarch/kernel/kexec_efi.c
-> @@ -86,6 +86,14 @@ static void *efi_kexec_load(struct kimage *image,
->  		 * We couldn't find space for the other segments; erase the
->  		 * kernel segment and try the next available hole.
->  		 */
-> +		/*
-> +		 * kexec_alloc_contig() ignores buf_min, so disable CMA to
-> +		 * let the retry make progress.
-> +		 */
-> +		if (image->segment_cma[kernel_segment_number])
-> +			image->no_cma = true;
-> +
-> +		kexec_free_segment_cma(image, kernel_segment_number);
->  		image->nr_segments -= 1;
->  		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
->  		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
-> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-> index 5412aa9f3568..62a5be102065 100644
-> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-> @@ -217,7 +217,11 @@ int load_other_segments(struct kimage *image,
->  	return 0;
->  
->  out_err:
-> -	image->nr_segments = orig_segments;
-> +	while (image->nr_segments > orig_segments) {
-> +		kexec_free_segment_cma(image, image->nr_segments - 1);
-> +		image->nr_segments--;
-> +	}
-> +
->  	kfree(modified_cmdline);
->  	return ret;
->  }
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 
--- 
+You just don't bother to read replies, right?
+
 Best regards,
-Jinjie
-
+Krzysztof
