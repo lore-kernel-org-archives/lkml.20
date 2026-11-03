@@ -1,66 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718644;
-	b=kY0VCxE013xB7j3Eq1cTJRiuJTVHLwJAv0Z2Pk3m6OQ8TsMD9cMGzy+z8Jn7+NQAe8gN
-	 CaYxTRL7+qsB4bqTdvqdN4AnnWgd2XxxFx0bCp+ldg7ylQoVjKbaLRroeNnZY7u/01ijq
-	 KDQdKXRR/0NBFNke6RemM2jIt3UO2UY/cYjSE+5FJSbcCXO18bHALY4OC4CqCW61e0/aA
-	 hF+Z/70+RqCGxVEQGrV6cffDobWmVI7L5nUSnQwxbJW38ro+2esJSMp/RdbEU78rU5UUd
-	 L03jHI6+T0dovqhVdKdT1sSOy8uAxgSELMTRsOzuJLtr9HbMqlq5oSbg0r69W/tyznQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718644;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Stat-Signature:
-	 X-Spam-Status:X-Rspamd-Server:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=ESkAEuuc6yy51dqWmu+sKhO9bwkMv1/8Gydhfy53QWQ=;
-	b=vI7Jx/IaOMYkqvjpb8YdMNhS/6JAJwKr1QsNXDpMDy1+w4iBzlDmvQy5trdaUyszKsjX
-	 iVSUAY4K5c289VoDrOcXLAUpCKlaMUKBBD5noX2hvSIFPZ18dly2CkrC2tGPqD+405TQD
-	 eIPMRcHThKzZCxDU3NjAIdaIs/1K6lKryiys6y+F8Q6r+Ed0jvsXZlUtrtCsybexwbjBT
-	 MtkJdBti8NBZrBhRREwpJMw5FPLI5HoMXNbiUWHI/rWlTh8dUCG0DRtsVSP5YaoQ3xN8A
-	 LGjw58Z/tA0QHJxan7lEBjiLeoUVD0qdot34hWeE3tPdUBDFSvunQpxIP+GditRdBXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=vgIXlRYX;
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793718698;
+	b=oNJdUgGXd0UUELV4u5Wf60ld6H3J2jVD8zSBf/TILM1vwTgC3CzEmGZDUrGfO83z2l11
+	 lVFD/kGBFfpkAXF3Luawq7hKxIEL0EMKgEN2W00zQKwNFwqFDl+hjec4lbbFBiiegol+N
+	 e94TPZJDUapqkzKfvnA1FpK/vocW7/0iCth+Oajsji0PNV3LISCKkYtlvGO95NsTGhac2
+	 zBdvooE3lNPg9oASbOknDpqzth7EuS/NDBZuq3lCUPt4k9+bysNFkkKpygpaJETe4mN9c
+	 zq3b6ukSCIe976YFaaYOCdTtw7SCrXvjRdQM5gyjKGYzpBvGVqKx2maNeV573V1vwjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718698;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4+NonyAXN/54L4B5J1GdAxssGMZv7U7qe2SeN3qFx78=;
+	b=pvtBLC1o3cFCd1NVNbfhurEGvYeyKQ06ss2pFT1mbM4YZTOauBoMZKjo5jYQ9SMCHjIC
+	 2GMsx2+iGB0IQg1h3fiAbZv8w7CRekh7qddBFQeB3QfMwC2UL8B9fs/XLTPmje+Msu8S0
+	 urjPrEucXtkhgWv6Q/CbZj/0T8xILKRA1gHCxnWNFy+odcQXk2bFe88qIwPxm6szUAYT9
+	 pVON8dnv0IDhj4J9XR8K7No++c+jkVZKZ4fTUAeHFZJkB6aIqL/V1NIKRA3981CJpLXUC
+	 oNzafEAlG8jnWEqPpqKX8zJMhuZ1izm1hp3+hZtB4A21ms28xA3OT4CsooftJpdLEdg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9gQCSXd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B246606A79D;
+	Tue,  3 Nov 2026 15:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9gQCSXd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793718698;
+	b=2bfMFHZY8qxWH2YV0FfJB/v5znEXofF272T3q4YdYUfvlK0Fg+NhYOIMHdH/nmP1USpd
+	 NYMH95U2N00U9y7D/n3Q3VnxZwcJh9Kat7IGDAA74D7aCTMoZxUR0ySVJgf4kvkTaysh5
+	 fjjZh08zmMpvAUh3sMR23XpBAyoBewYWbTkv9kE5d/36oBZ5bBYjh8t421TG+sdI8axga
+	 marKt1hRmzU558zJ4Hn1YjIac+T7BOpQnAQ89YaR+zNvmglm282V981DvjZJsFx+PaJDF
+	 6+WlpPTDBUKxg0nSww113CKw96LVX/inGbCveL4Ir2URl3PmYFJ/uK+IPaz/uqUYkbw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793718698;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4+NonyAXN/54L4B5J1GdAxssGMZv7U7qe2SeN3qFx78=;
+	b=AaF/jqFOm/qU42WeDBLJloB+rUZBdJbBHvrFdWYPULwoZn/VOYopXFTEQc/tyoVvGUQe
+	 7skXMPA1d5xv7UiqCntMsd3wwKb0YglEwOUpx5dmTWkKg4hsuNUQvEBeFsuVbtpVj2TEO
+	 7LtJa6XLn3kQNtMXjmeB5VSN2IUQ82jLAEV/X8dAYVgFv6Ch23pyOtfPJsNTmN96IdO56
+	 xKy9kAFpW/6b01WDqCaklVRb9rsPSG5pm3Wl2l/xP/cdBmQFiBmoreIw83ud8WYvvITIR
+	 HKYDYI3noQliK3iMMxld6/HPOuxe7+G9Jea3rkHhLcJZcY7rksU48E1C8sPdfq12bwA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1666F606D2DA;
-	Tue,  3 Nov 2026 15:10:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1666F606D2DA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=vgIXlRYX
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id BB1FFA047C;
-	Tue,  3 Nov 2026 15:10:39 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 80A5B30;
-	Tue,  3 Nov 2026 15:10:35 +0000 (UTC)
-Date: Tue, 3 Nov 2026 10:10:34 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Paolo Bertinetti <paolobertinetti200f4@proton.me>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, Kan Liang <kan.liang@linux.intel.com>, Leo
- Yan <leo.yan@arm.com>, Francesco Nigro <nigro.fra@gmail.com>, Sumanth
- Korikkar <sumanthk@linux.ibm.com>, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject: Re: [PATCH 0/2] perf: Fix PERF_EVENT_IOC_REFRESH for tracepoints
- and breakpoints
-Message-ID: <20261103101034.75f5bb0f@gandalf.local.home>
-In-Reply-To: <20261103131138.765683-1-paolobertinetti200f4@proton.me>
-References: <20261103131138.765683-1-paolobertinetti200f4@proton.me>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by smtp.kernel.org (Postfix) with ESMTPS id 809A81F00919;
+	Tue,  3 Nov 2026 15:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793718698;
+	bh=4+NonyAXN/54L4B5J1GdAxssGMZv7U7qe2SeN3qFx78=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=j9gQCSXdMNbaZ8cZ/S2FzSxtYkt8ZYZ6xj4khI1hM/ZQSgpzcFrk4Rzecl5gjipzJ
+	 38f51C1Duq7NJUwW43iYZ+GP6pp4CXQbAInXqnne4+l9DmhjeeskQDl1qnf2zMRI+e
+	 SUXd31l/RwuhBkAsDsyWphKbru+2RhrMihiw27K4xDVG7uwol9clCYbxFMB9l3w/hB
+	 r4iVnsOEmaTy8dl31pOSDRHL/RitEaRBD2KX3X8EHktEU1b/kqx3uIRjMROEqBvZ7e
+	 i1mg0f0gf6rtHZXNNkPKAg737ibWzUQ7R4kNRI8EZ6Z2akmf2/qFkTrH024lijiWck
+	 yaB+3xkL2YnsQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DD59E469CA;
+	Tue,  3 Nov 2026 15:11:35 +0000 (UTC)
+From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Date: Tue, 03 Nov 2026 16:11:25 +0100
+Subject: [PATCH v2 1/8] dt-bindings: vendor-prefixes: Add GlobalFoundries,
+ Inc.
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,28 +83,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-p8700-dts-v2-1-3ac5d49f2c37@htecgroup.com>
+References: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
+In-Reply-To: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
+ Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, 
+ Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793718695; l=1355;
+ i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
+ bh=9qjHBKUSAQcCeAu/Qtd3snEiEJmunnX9GsHooFoy87M=;
+ b=FQWNfNXPVPyp9HJv9Ro8JIQfGPRSFgeAR5mxjbX3Yj2tWFah2fC2WlJBGPsEWhms7Kehkze/9
+ coy1AgxDG2ZAdwB4eu1SQoofaw4GGP2gKwswIauZ/qaGaNSvqUbszk8
+X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
+ pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
+X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
+ with auth_id=476
+X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+Reply-To: aleksa.paunovic@htecgroup.com
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 80A5B30
-X-Stat-Signature: u1mhwxim99k5uhjipj1oif11qk1hhbbm
-X-Rspamd-Server: rspamout08
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/lxSyrX1gU2HgudnYaeKf4tSHeqyO5JcE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ESkAEuuc6yy51dqWmu+sKhO9bwkMv1/8Gydhfy53QWQ=; b=vgIXlRYXqd26A4OEK4CWvjySd7mR6lI47OqAj87iJoNj70UOViW1elyhCSjbgQQnEO1CuspSC+iHNvDmcmJRzm5HSh3fwxB0vGIT7HwuToBu+KPox/tKzHpjrELtSR9+vthP8XlPmWE23fYkTTjcrZ1PIdNkKCbMjEyg0Ln3r0M=
-X-HE-Tag: 1793718635-427110
-X-HE-Meta: U2FsdGVkX18rKnbTyAE96elUkva/DyDa9fDxY7tpAh+us0eWVDzJjLuxGjRVgLMUvOr+Q/i5hSU6zMPLOQXf1Vxw46bdrSPgXIWjS6SI0MVjJAu6U2yQewrYzIOr8nDavVBYKXhNBSBWvR9jtpr7NbYgpK2/tkE2HUIQIYHtEaR2cLT1OnoR8EB2/gtCXHVo2jq9i9B4m7q3rsJDMDBdi2BDE5xUNppHfFx6wdtasXMZZPBmL4wY8BTpn+ZjKFG1vfFT5vQGQHKUAqa0nMrXREBjuFQ2J/MkYBDCl5+swRuuizqwPgV2Xmve1P1JUGUlUQm2oeawvLDC6ohtV7DvBkIjgFDUGOr+X3tuOI8wxkJMJlarIKwLzQ==
 
-On Tue, 03 Nov 2026 13:11:41 +0000
-Paolo Bertinetti <paolobertinetti200f4@proton.me> wrote:
+From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-> This series went out twice by mistake. Please ignore this copy and
-> reply to the first one:
-> 
-> https://lore.kernel.org/r/20261103130732.764081-1-paolobertinetti200f4@proton.me/
-> 
-> Sorry for the noise.
+GlobalFoundries acquired MIPS. All MIPS RISC-V
+compatibles should be labeled with the 'gf' prefix in the future.
 
-Yet this one has the cover letter whereas the other one does not :-/
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
--- Steve
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373433b1f48118872c46cf7bcfff276..eea7f86ebed0d038c53cd3c22d2dd71514224475 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -668,6 +668,8 @@ patternProperties:
+     description: Genexis BV/AB
+   "^geniatech,.*":
+     description: Geniatech, Inc.
++  "^gf,.*":
++    description: GlobalFoundries, Inc.
+   "^giantec,.*":
+     description: Giantec Semiconductor, Inc.
+   "^giantplus,.*":
+@@ -1104,7 +1106,7 @@ patternProperties:
+   "^minix,.*":
+     description: MINIX Technology Ltd.
+   "^mips,.*":
+-    description: MIPS Technology (deprecated, use 'mti' or 'img')
++    description: MIPS Technologies Inc. (deprecated, use 'mti', 'img', or 'gf')
+     deprecated: true
+   "^miramems,.*":
+     description: MiraMEMS Sensing Technology Co., Ltd.
+
+-- 
+2.43.0
+
 
