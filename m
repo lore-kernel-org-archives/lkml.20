@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742955;
-	b=SfNAC9nziAK6M/b65SKOI56aOMZLDy0Ielo+HAm6NI2h2DosWKPL0CN5pBkKST4O1olu
-	 NPiArMiQ7CyAWOmTWiFdImryNSsA+UvlHRa2UxrdcFEffFRiMhmx67QY/V0q8l+do+u3d
-	 /d7P3+VjVeW9MX1rtsmwEOKUj4cZF6TgoqWMbl1RK6s66mth88fyu+MMDHee42nHsRYSD
-	 7BA99UAH46bmTok0uRgpBKeJqR1di7OrMNJyV2XSy8ew2C5knIv7rpwxe9f+ruovA4nSv
-	 AUcXHCQYO2ztDbfepPV1/0MkQM0QZy4hPBcAIWaaWPmbFD3ykLKiE9nEsH50ycmPT5g==
+	t=1793742960;
+	b=ucYkq0LrFO5Pc/pnX7f7EyO9+P0XDe0x72kvts4yJc8uAXKpI9i3DKOqLyMjwQFjMjKu
+	 6mmyq4kiln9KvlapV4S0WTtFPYq+PJbezyMtUVOxJSvuybkQjPe0iGQnhXAc2e2UhES76
+	 FitqL+hgHJa4A5BuDAKmEE1gkviKP3O2wIt8TjFf17sqll8w+XhgNh/BF1y2X0oyCUGA0
+	 6VBR7Vv4idhF+6+RfBmdx3szx92pDLT2OWSQeJnFuloKqj/kcvPWXoZn2XinL/1pHzsSr
+	 1eHbiffoosDvgVntkuYWOTZXotnaJoMloTEXE548rDWWFutqokLZswVPsRFHpMrCGHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742960;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Uxnt8iGFrfRR2RqBEZ3KeYSljAR2LUdExAhrd9BxOE4=;
-	b=J4rRMdRQiEYt0sRNQkZUWsc85NHvBImLyUbepRsmzBvbjuDyZRSB4PjcuQRAlz/nrmhK
-	 Q3qGppArvebN1y5LMstjOpYWE77WFJCR0oYsWipkEfZwG2cBXKPol7uriI4a1vsBj1DyE
-	 g209fMIdB7OpgFkHjuwziNssNQKoxc00D4w7gRwZJMa5WkBN9yZPkmgPN6zqhxwgCEgzM
-	 4zBwyYV9SZFIf0mnSk9g4kFMGnRHEoUnAkBskpdX9RXxjNNN/8dGYvtTyI9SThjhW7/A0
-	 YDftbgXy8tEhVVpIE7Zy1q6T/4kWQFGJYQwDjzVRSdGGfPbM32sU1Cvg8Ia1/CaWDxA==
+	bh=s3fU+uIBacPNU5dcYXXxOIdYe2LuItJu7S++G+cSYLw=;
+	b=auPvK4a7XLqWQAWyXfRIvX71WJ89xnErqR5o/6j8idxt36gd7NhzUPUs8SDPJNz3d985
+	 Jo9bqEoGaf7KML3mMYd/Znhr7hIGOmsNxmiHaP3guvUcl5TF19TGZgwBrnjJo5LS1mbDa
+	 UzYuP+Hmjbfigt9lPHoTHEwJVY6zWQyNo8yVXTg0RQAx/Bl4pOdL1wThq3XBaRgb8blmW
+	 z2KKMP0xm8evA3qLurkHV1c8m8xgbEdAqEQLJHjUPfduf0DypuFbPu7iHFdceuWfjR4zO
+	 rJQHvURvNoHzJVpr+EZ5Oedwm4HWMmoQpPZ2ASalrIAPpA4BQwJJox9ns2dhbEcQAIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfuNBzzN;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WsfbYW2Z;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85203606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:55:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85203606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D628606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:55:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D628606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfuNBzzN
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-368c26de2e0so1228283eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:55:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WsfbYW2Z
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae702d28c4so60227a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:55:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793742954; x=1794347754; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793742959; x=1794347759; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uxnt8iGFrfRR2RqBEZ3KeYSljAR2LUdExAhrd9BxOE4=;
-        b=sfuNBzzN/UPokfGhMFu7uaQLMXvaErnOcSaFw2i3bFhGkgbRskcKeni8N53tr/B4WI
-         +boW9bxRpBvOUiE4wWizeSWbRvN5zEt4A73maTA/LhcdeO1KuKwFdLMEkL0VCr2NPHx2
-         0c0z0J/lzfmH4L6dj4TEzzwOsZQ/FBo6LAIr72HvRiUqNIN0jW+RNHA7LuSwUzbgrNwj
-         HyeR0ginrwv94KBDVPeF6hKIglgoX+LoEOaevgMT2vgy2lRomtXkYwIOer/Rl6RULaZQ
-         oEpKMyiPK1719m9OvaU1G0OvijYckCFUYvGpYXGohwjNa3gBDqROKfN7kYQWwvPf1bie
-         Ib4w==
+        bh=s3fU+uIBacPNU5dcYXXxOIdYe2LuItJu7S++G+cSYLw=;
+        b=WsfbYW2ZnE3D8XrxZ2f5xlSnVCKbXaiCxJTYTHnq3f51CAcUf6YOaN+IvPYAbSvn2c
+         L2djqS9YTEJByI/BIJRM1dvld7GHrEDPop8XK1JpkemEBdlNxKHTZMG+T6qdrfC0yDUK
+         mFAx8sQ3tNPZQxtrAR9Z6YayVQWAGwyqXrDxnx11R4TBS1LDrdxTQqwxJuURltQPf1xY
+         YGRk4Kpg40ZMLjJeJDY1fvO29slp+GVVSpm3mMWXqeVNrs+oTaIwZbx2BxX30gQFi9Co
+         JqognmRJatCnyg26E8eajiq2d8xoHLoYN1X6vQZl1R41qwh/yS5HjsUY026ICCWICtH1
+         DuXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793742954; x=1794347754;
+        d=1e100.net; s=20260707; t=1793742959; x=1794347759;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uxnt8iGFrfRR2RqBEZ3KeYSljAR2LUdExAhrd9BxOE4=;
-        b=GAGzAk/PbzRf8lQ3KaJ3x0hlLzFkO5W1Lhge3eriJaGpQ0tRYHUFqOh/KvAdJMGGsM
-         B6s53f6QC1NF6hqccFc+rcy50rUSSYmMoC4p6jg/VeZaQUIVXDu2MjOKpY0jfS7o2mms
-         QmQyKd6f+RTrVd8WBRnRqrdkOPsO9+vsqjaiiysqN6tuhjFjfolX7aT7m7KiZwg/IcBE
-         LsAAwUjp0CgXnw4RqPuQlA7rmqTzFVgCjMd4T8r7OgOTSR62GERFLyHSX2y9etXl5oTo
-         IHuBdoKeIwHvSbDPeQTYf56B2tXwxN60dbxl/4uOiaLCRp6t/IXu7UHcNTZHwngH9LRo
-         ou/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwO+LTsAcyWOLFKBLogAMm9mhsQs/68jalp3jRPQvCEW5NDqyfwVTZ8p2+m0RP/337n3YEhHrW3PEo5tqY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dqop7nik4gzC75cuhnABJtJezjXDNIvJ8fk+vjn3U+zJegnTw
-	pjcKJqASa88t1w1iZXywo9mxJ7XJ6uNEQGRrGEwvA9HQ5RbCtrYiOboq
-X-Gm-Gg: AYBFou3rxfwcSBmhtBdyUn4Jrt9OvjMp1tiCzUGP5/8qAs3EAudns06uMXbAqtoPg4v
-	gutjb/voAnIaH7q0djkMQXTUmL/pnnEmgHSZ+FFpbZyD3QoEQLldqhIxRjYp0gQkJHWJUOaObQ7
-	hxEmI/NxHHNUbW+/en4AhTnJSMDU1f3hSw/fZbMQR4yZEJbXh9hcadUq0COVMLuFYBUntzk6GtE
-	pSKJKKaS22nV4rvGyYIQ5w6YEDysL+zSg6n5eJprAVg5RCdR0YYY/Qp4Cv8nB1bfJE8XevHUu0H
-	Q8iL9nal/0ygn8FbAWP6GvxRFLtpfLRWGJmE0GHHCMQlPUZr/Z1puKM2p5mJIRCp4Csa3i5a48f
-	4AgDwzRpYzAKuFxbDPdJYkgga7FnvcU2gW+Y9irSgKiwrgcd27gur/2dnY+Y9uSW5RTCWvga9qD
-	ETme3z8mIU+wLKzqymj5H6XSGZgllUpaCYtNLI/e/ev90uWuQHcMAUt7VuHwYqKUMkXN8Sv4G+N
-	YBhsdOKPYpJya0PPV9ZFiqr+7kuF8NhckLV0K88LGNx6cn+KMOovwzF8fmcUouqniTYyqbPdlYH
-	CRzwDQhJ4tgXKiWfM55NQcrUnxng7W5C5d8di0UDToLMK2fX74iiRPEz7ClUBXTZVZW28qdgCiM
-	Y7HzABz0FZgEYsdHNSaE9z9GMtGWXWnL0qb2Zdw==
-X-Received: by 2002:a05:693c:6090:b0:36a:4a68:84e5 with SMTP id 5a478bee46e88-36a4a68851cmr22202818eec.8.1793742953533;
-        Tue, 03 Nov 2026 13:55:53 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3958746sm867414eec.22.2026.11.03.13.55.52
+        bh=s3fU+uIBacPNU5dcYXXxOIdYe2LuItJu7S++G+cSYLw=;
+        b=oPp7TOoHjTD9iGrwXh1h0TI9VeQHjp9DKktu4WHRJ347lXv3ijxYAF/ecXCKQ67BpD
+         QcOosD/QBXvwJ9ILNRsWpOZR/adiU3+FBSzc7KcehAcsLZz8StbyvPmx95IF9TUrvEA/
+         nfB5Ymvk2SUj8odC4CHRDLMb21T6wJEDmy2Z9709mWSH2xjTT56jb6SkewPTynHJzZV4
+         YUa2VpaXa89fMK3VSNymP9XchwdtTzpKLebypW6o/AdubO+onGzDFrhbtcBe7KUeLopM
+         AeDJbT7umaeNqOjzWyWDJWfJvNFQGq+EmSzNZiLsEs8xv+JwgUEtnAHJI53gPci+9bAr
+         wNcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBbB5r0+xri4jUrRsIZrdtGhxf4k6EoXi0xVmdcXMtt/sLyKNT27edzyTrYNv1S0AjBWaLqPCd/CLk/0w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97LpuE+ITAa2XKnOighqKad8jtdlxj22NsA9qFVB2yPtCmF79H
+	/xOOwYDU7hdNxoYxRSwq6tKfiiUCF7IBS1e34yobf+PTAPQHMNS7HzZ4
+X-Gm-Gg: AYBFou2xHtb5Vnq8RNjDKvEyEt0WWtw+E7djoQGdQcid+4pWPhNASr7eCOhBd0J65TV
+	PG35yY9dI/hpH2e2ib4JafPqXau8rYMqamJj57/RsP/go2tJFgSmNothYfGiv7HkOuDgzdlJAph
+	/HADUHRRtGgLpnHGqIULnf3cMftmADLCqGOeVeHSXwQsaHdNeTtgl46e8BRJgpL9KDYgeLfpf81
+	1oXGyHi5u/WNRqM8bL57eOyzbfJp1q/+Y+awcg86EEmdzxciym5mhT7WGThw6lUbXricK+Fc0y9
+	KtiM83K96DDbpgGC9wr1Jdf1mpP3ZtjH4RZicpAlTGQVlZj45nCz4CV3B9qYX8uaytNCA9c7NC0
+	FY9E7yaSDF1O3Mmpb7jmQspqnl98iyu7fPMsaQ8O1cFq2lj1zwEemv6VGl6eQPEJA1q64nP3PNt
+	FCCGiM89jH0c/0y8tmeBX10cV0O6Zv9AxJn06oMyLaccxiJn6zbke/CcSwSmlAflB6bsAhKtTFX
+	BoF7yyPPN7+wzyYdEjolCfj3v0LRdlSGBk9nfFnyY/WovDRyPzZaH/nuKujxYAX0XFV13XTnHEs
+	B/2LigHO9ZLXMTV0ALS0UqViSRVu2WRGdYn5cxLTX1/kYJSu2nc7eGbVJWIjUfzRZ0KYeS6uz+W
+	hwDPFiLsuBCWowh6KGAmB3FGF3/yrzE4KOb+d8NbiLjKtWlZJGsbuu5DRS6xRkHwDwffH1p2bIK
+	hHZuf7PkOK4Lohd4obwvrCqoA=
+X-Received: by 2002:a17:90b:4f88:b0:3ac:b185:fa16 with SMTP id 98e67ed59e1d1-3ae898185bamr11970368a91.43.1793742959303;
+        Tue, 03 Nov 2026 13:55:59 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944ea360sm830523a91.14.2026.11.03.13.55.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:55:53 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: ast@kernel.org,
-	bpf@vger.kernel.org
-Cc: daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	ihor.solodrai@linux.dev,
-	iii@linux.ibm.com,
-	bjorn@kernel.org,
-	pulehui@huawei.com,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH bpf-next] selftests/bpf: Account for zero extensions in patch list expectations
-Date: Tue,  3 Nov 2026 21:53:09 +0000
-Message-ID: <20261103215309.19950-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 03 Nov 2026 13:55:58 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function support before evaluating it
+Date: Tue,  3 Nov 2026 13:55:57 -0800
+Message-ID: <20261103215557.183459-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,63 +98,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-patch_list_insert_in_front() checks the translated instructions around
-the call of an inlined bpf_loop() and its callback. On s390, the verifier
-adds zero extensions after the two 32-bit register writes in the loop.
-The call is therefore at instruction 25 rather than 23, and the later
-instructions checked by the test are also shifted by two. The test
-fails despite the call and jump offsets being correct.
+When the WiFi device has no ACPI companion, or the firmware does not
+implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
+acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
 
-Use the corresponding instruction indices on s390 and RISC-V, whose
-JITs request explicit zero extensions. Keep the original expectations
-for the other enabled architectures and retain all branch offset and
-callback entry checks.
+  ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 rev:0 func:10 (0x1001)
+  ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 rev:0 func:6 (0x1001)
 
-Fixes: 57fae4059380 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf 7.4-rc1")
-Link: https://github.com/kernel-patches/bpf/actions/runs/41696128762/job/126138168160
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Here the handle is NULL, and acpi_evaluate_object() returns
+AE_BAD_PARAMETER. All callers already treat failure as "no policy
+provided by the platform", so this is only noise.
+
+Bail out early when there is no ACPI handle, as acpi_check_dsm() would
+otherwise hit the same warning while querying function 0. Then use
+acpi_check_dsm() so that functions the firmware does not advertise fail
+quietly at debug level, as rtw89_acpi_evaluate_method() already does.
+
+Seen on an RTL8852BE in a desktop PCIe slot.
+
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../selftests/bpf/progs/verifier_patch_list.c  | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ v2: check handle separately. Remove Fixes.
+ drivers/net/wireless/realtek/rtw89/acpi.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_patch_list.c b/tools/testing/selftests/bpf/progs/verifier_patch_list.c
-index 581b75b7b5c5..a9ad1dc56c3a 100644
---- a/tools/testing/selftests/bpf/progs/verifier_patch_list.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_patch_list.c
-@@ -298,6 +298,23 @@ __arch_arm64
- __arch_riscv64
- __arch_loongarch
- __success
-+/* The verifier adds two zero extensions for these JITs. */
-+#if defined(__TARGET_ARCH_s390) || defined(__TARGET_ARCH_riscv)
-+__xlated("25: call pc+7")
-+__xlated("...")
-+__xlated("32: exit")
-+__xlated("33: r0 = ")
-+__xlated("35: r0 = &(void __percpu *)(r0)")
-+__xlated("36: r0 = *(u64 *)(r0 +0)")
-+__xlated("37: if r0 != 0x0 goto pc+2")
-+__xlated("38: r0 = 1")
-+__xlated("39: exit")
-+__xlated("40: r1 += -1")
-+__xlated("...")
-+__xlated("51: if r1 != 0x0 goto pc-12")
-+__xlated("52: r0 = 0")
-+__xlated("53: exit")
-+#else
- __xlated("23: call pc+7")
- __xlated("...")
- __xlated("30: exit")
-@@ -312,6 +329,7 @@ __xlated("...")
- __xlated("49: if r1 != 0x0 goto pc-12")
- __xlated("50: r0 = 0")
- __xlated("51: exit")
-+#endif
- __naked void patch_list_insert_in_front(void)
+diff --git a/drivers/net/wireless/realtek/rtw89/acpi.c b/drivers/net/wireless/realtek/rtw89/acpi.c
+index ebb6cf555747..3396d42594b3 100644
+--- a/drivers/net/wireless/realtek/rtw89/acpi.c
++++ b/drivers/net/wireless/realtek/rtw89/acpi.c
+@@ -372,11 +372,22 @@ int rtw89_acpi_evaluate_dsm(struct rtw89_dev *rtwdev,
+ 			    enum rtw89_acpi_dsm_func func,
+ 			    struct rtw89_acpi_dsm_result *res)
  {
- 	asm volatile (
-
-base-commit: d4bf9e34e299e45af8da2b0457b0ac3efbd7ae8d
++	acpi_handle handle = ACPI_HANDLE(rtwdev->dev);
+ 	union acpi_object *obj;
+ 	int ret;
+ 
+-	obj = acpi_evaluate_dsm(ACPI_HANDLE(rtwdev->dev), &rtw89_guid,
+-				0, func, NULL);
++	if (!handle) {
++		rtw89_debug(rtwdev, RTW89_DBG_ACPI, "acpi dsm no handle\n");
++		return -ENODEV;
++	}
++
++	if (!acpi_check_dsm(handle, &rtw89_guid, 0, BIT(func))) {
++		rtw89_debug(rtwdev, RTW89_DBG_ACPI,
++			    "acpi dsm func %d not supported\n", func);
++		return -ENOENT;
++	}
++
++	obj = acpi_evaluate_dsm(handle, &rtw89_guid, 0, func, NULL);
+ 	if (!obj) {
+ 		rtw89_debug(rtwdev, RTW89_DBG_ACPI,
+ 			    "acpi dsm fail to evaluate func: %d\n", func);
 -- 
-2.43.0
+2.56.0
 
