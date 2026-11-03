@@ -1,58 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700162;
-	b=pKCjlfQGB8Z+rIakMnOw6yvnSWJValiZRwREAFiOwRI6pqiHpiGYU020kwKnrMeK7Y5p
-	 laOyLYBsGmKLhIiegSwRrqkYVG07L0iEjI2oBtJfF9jH/76jVvt3VTItlRrnQwUGPUO9N
-	 R0yepJfki58QnSYjxIAKUsG3b+fOu7ftmSFSIpbpgTD6qNe6/ipyZkq8kaBREH9CgYKgm
-	 V2YrlZE1PV9JLV9mqB8r/DPhcNgW30mY+fgI4bGiDAD+xQa1S5jOHr2fw37daHb7Tlic5
-	 Sx33kpQ6ndi+3X3rlshkDHZS0RUMr2Uhdbd6naPUbSLiYadIZnoWW2Y0nshMP64VogQ==
+	t=1793700200;
+	b=BnsZL+HlRxVSFXvLtLtou7YJ6jChkI6sEhUVus/+X4BZs+kqKUuBMzJsYwlgDVusN2pK
+	 HTX84Bov0+pZWJAfi3se6yBdze5pzZ/feiyVlR6PLlQMyr922FeiKVtFt5QNMeoQitKGn
+	 GPjigjIoaNcNBLZFBGBLz21z0tQX4CirXXDD/m0n0dvPznMAdO4iL1py5JAemnet2dnpa
+	 dU9qW6VTjFVwTsqxLD+sw0KAXxiGm4yZ614+/nIrf0MwBV1wwGGcog49otnpWnGIdHZb6
+	 CdbnPhAJxrQvBlmR31cT5OldhIIDVXgcB62DhyqeP4ME0djtjrG0I8zLXTJi6YW5YSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700162;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=x+uOsE01FYLCNNNOL1PikYz4xGMxpppHc1xkTCV4W8c=;
-	b=34R6RyT5JJIzsSUVEyP9hlAhnAeGiQksMZhzjqsmdb8r22ouKO7QcxscewVI2R5h6wBQ
-	 ECaMqLeEKMcBnhvniyKbO3NB0Zgh3Yr9p4V9IA8YXeszdNh/THccBDiqkrfz3VzCyEMZh
-	 QDm/Xt/e/PzYCJkqqhczUkpXGGaGzi+e/a5vETEKiVhMYEaxZZrnTwxwVZ8vao+h496AO
-	 nQfTsJYrIus9CutKf3ibjJv9eIZ7gO+5JgUmwrD7xVKtQA5+LH55kK1KAuCIOie0dpoi0
-	 Q4juUPjb/3cfeUdzFoZRf+e2CkODfHt9j1V9/WOGMpkP4cyd2OILQavKf3PNVJfICqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700200;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
+	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
+	 Message-ID:X-Scanned-By;
+	bh=OTEmd9f41wMG+18kcGlnpl8UhbldgzXmqe8LN0msAw8=;
+	b=lsKEHNf7cUXbN3m3YMieKEy2vFvHfWUklBjTwFDyLMlsT4NW60XwVOf3xeicFG/bGIQ1
+	 P8od/7irxa41IZYcsaH6Sb5TYrN1uqbLZxjI6awpZ8MnRg2THz8jNMVGRjRXGgiVlscwj
+	 heGSvBMup78BNVYIuce8T2gQfuch2erF7I5P+PzS2madyQMYJJ96of78hsD6U4SwV0+Lq
+	 pQEQXuqMVhtopu7klBTEddKBNlnAIxlaTSobAvOQPckY4jHy/GpWpWICeK8aEZ4LosDyj
+	 m0Hl3r+ph1Rnsy2VgZESrovav7Q0eK54BIb562jmIWtaLKLDv/8E9MQpt9NC568k4jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq7ykDf3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AatHd+zX;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB97E606EE90;
-	Tue,  3 Nov 2026 10:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ADA606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86ADA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq7ykDf3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ACAC1F0093A;
-	Tue,  3 Nov 2026 10:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700161;
-	bh=x+uOsE01FYLCNNNOL1PikYz4xGMxpppHc1xkTCV4W8c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Zq7ykDf3LwUYRMrTGDMpxEENTVeJBwJwvSoLywvvUN4xRLl7KIsJvv8FEzUTV02Bj
-	 hspsXosw/LjGIhNaCC/EJ0QEWveZRiTgld41XcHQVeg6LxTi/2+fY+WvRB3kuPQPNt
-	 WGJqyS2kndDbczu8Mys4Abg7Y/6Nhw25wAIDJkrY1Wzgm6OTnMCULkeMkOhR1FIHTw
-	 vTfHDRvpIsQd8xi+DLVGWAsK7/utVJaTCixkalEBGP7arupKNNJV3xJWAUnHqK1MGf
-	 Aiq/Au66CkhJB1bXPGSOux/eMcl6p9d0jw3qrKDTcGAmYRKxZ5o8aF5bgj2FVCSNhS
-	 PhpHYPtkwigLw==
-From: Carlos Maiolino <cem@kernel.org>
-To: linux-xfs@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
-Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
- Dave Chinner <dgc@kernel.org>, Pankaj Raghav <p.raghav@samsung.com>, 
- Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
- Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
-References: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
-Subject: Re: [PATCH v5 0/9] xfs: pNFS block layout fixes
-Message-Id: <179370015876.413123.10956026336394412777.b4-ty@kernel.org>
-Date: Tue, 03 Nov 2026 11:02:38 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AatHd+zX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793700198;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OTEmd9f41wMG+18kcGlnpl8UhbldgzXmqe8LN0msAw8=;
+	b=AatHd+zXxj5lLwDbtDeY1NrMTqI3sXjSquyiGeyBaGyQxpGkwW4OBXwuTHDQpoO6K+GJLu
+	IkejeghODfuSEqliN6r8i0+rkhOXU807VBEuGGyqdwfg0mw2Ipj7F3+3NQ+GmG1l0awucG
+	fe5Fo/FS7liJUGQRNglFowzVQomp4vg=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-bVG1b6y6N5y4cdL06X-BMQ-1; Tue,
+ 03 Nov 2026 05:03:15 -0500
+X-MC-Unique: bVG1b6y6N5y4cdL06X-BMQ-1
+X-Mimecast-MFC-AGG-ID: bVG1b6y6N5y4cdL06X-BMQ_1793700192
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A20DB1955EA1;
+	Tue,  3 Nov 2026 10:03:11 +0000 (UTC)
+Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7D029195608B;
+	Tue,  3 Nov 2026 10:03:08 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20261103030226.2685251-1-jarkko@kernel.org>
+References: <20261103030226.2685251-1-jarkko@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, Eric Biggers <ebiggers@kernel.org>,
+    linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>,
+    keyrings@vger.kernel.org, Roberto Sassu <roberto.sassu@huawei.com>,
+    Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+    Eric Snowberg <eric.snowberg@oracle.com>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    linux-security-module@vger.kernel.org (open
+                         list:SECURITY SUBSYSTEM),
+    linux-kernel@vger.kernel.org (open list)
+Subject: Re: [RFC PATCH v2 00/11] KEYS: Sanitize the garbage collector
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,45 +87,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <641293.1793700187.1@dhowells-thinkpadp1gen8.rmtgb.csb>
+Date: Tue, 03 Nov 2026 10:03:07 +0000
+Message-ID: <641294.1793700187@dhowells-thinkpadp1gen8.rmtgb.csb>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Thu, 29 Oct 2026 11:22:57 +0900, Daejun Park wrote:
-> The XFS side of the pNFS block and SCSI layout fixes. A pNFS client
-> alone can trigger the bugs fixed by patches 1 and 3 to 6. Patch 7
-> closes a race with a local process writing to a shared mapping.
-> Patches 8 and 9 make a LAYOUTCOMMIT stable the way fdatasync does.
-> 
-> Patch 3 needs patch 2. Patch 4 should not go without patches 2 and 3,
-> and patch 6 not without patch 5. Patches 1 to 6 are marked for stable.
-> XFS_BMAPI_CONVERT_ONLY takes bit 12 of the bmapi flags, which the
-> fs-verity series [1] also uses.
-> 
-> [...]
+Jarkko Sakkinen <jarkko@kernel.org> wrote:
 
-Applied to for-next, thanks!
+> The first change has user space visible effect: rmmod semantics will change
+> from always succeeding into returning -EBUSY when keys or restrictions have
+> the LKM pinned.
 
-[1/9] xfs: mark the inode preallocated for pNFS write layouts past EOF
-      commit: 77d5d75d727ab3d4c540632ead457d47d3456cd3
-[2/9] xfs: add a flag to convert unwritten extents without allocating blocks
-      commit: e0fbfbec7d5ba059fcb1529054b5447cbe9c6e0e
-[3/9] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
-      commit: faf5f20d6c005af531de079a5a0ea658b305954a
-[4/9] xfs: clamp a pNFS LAYOUTCOMMIT extent before computing its end
-      commit: 351fccff2881e40f4f449bf100aceb47a54688e9
-[5/9] xfs: cap the block count of xfs_iomap_write_direct() at one extent
-      commit: cefa7c7b065d129fe95a64b24ee68ca8c47629c6
-[6/9] xfs: clamp the pNFS layout range to the maximum file size
-      commit: e4211f8034ce04a6bb1e12fc6a054e08b933e5cd
-[7/9] xfs: take the invalidate lock while mapping a pNFS layout
-      commit: d58a23e183d578aca38d7186c353702facbf722b
-[8/9] xfs: add datasync and log_flushed arguments to xfs_log_force_inode()
-      commit: c92cc6514b9c11dd29b90b0a814e8ea87b4a4687
-[9/9] xfs: make pNFS LAYOUTCOMMIT stable the way fdatasync does
-      commit: c3b00a553cbb68b0bebed0ca16d2aa0300d07e56
+Please don't do that.  That will cause the AF_RXRPC module to get pinned in
+place by outstanding connections that haven't timed out yet.
 
-Best regards,
--- 
-Carlos Maiolino <cem@kernel.org>
+David
 
