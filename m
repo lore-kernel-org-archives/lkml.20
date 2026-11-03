@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793709029;
-	b=XOGl326IsY8qNkUZxHejOvTNHjyUqmhG6osOZtzwsi5eetFqTlI2Kn1SaFy+aLDxc4ML
-	 1EF0E8GgEri5FxyAlVFtHT1ISIGNGhSFnpc6V5IZvabKbc5ZuacfalsAeHArqDWEyquos
-	 ws810myhoedNOvlfibZboA8tHmSzMqa0l2rII/VRqpRWHG6iSdsL9v5+mGiYQUu4fqL+1
-	 nCI9mpOzOyy0nyEOsshNySfYbpLds7Fd2HALsZtLY3jcE1SKUOxOB0+MZKeo6f8s9DorS
-	 OIX6sRIZ9v2+haOJ09KnMFNGJqwVjR+KO058Vdbt5WKGg3FhDAHR6HZAanZBsZ0nV6w==
+	t=1793709030;
+	b=Qqy26bdFlv3Ve/BrzjcZFn3b5td8rOBeoeoAsXWZ4/mM9sr+chI/EGNgwpG+gS2upcU1
+	 rAYpRA/WvHjVnn+y8peeJBACRXAyJRzTRImBS+7gT/xjr5GonhKTlXhbVRN8BR4z/iJvg
+	 JN1EO5PeYAN9XVccnVrv0RC6aZgHh3Ig9XZDxjKrPv4nCNwNjKuu64a7nhKsKjPcaPdmq
+	 cqUAT4PUXa+ycgWdrmc3MUVvfb2+amlcIILHs1IX4kYViIyrOgeac9JFYKaLwI426qR60
+	 neWyVPud3LBDZvOCz4nzEBnHx/0EeAvPrvFdYDThGcSv8j7fTGg6IPXn6OZMLOuHFIQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709030;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=TJ2FEertI0l/LzQyig9XdLZrCMbpVaIRn0kj8anLICM=;
-	b=qM2MJdYRpqfMFPEWRIGnWbAS3OQlnQ5zCVYcLdgeRc38KgmzxSYi1nt2WVQX5IV6CB3w
-	 /pAYfEQb8fzh1p4ewqBQqryfW3FTJmlCKN+eqNdCwp/mHZtSRRf52azDJb76eKtuaPz8j
-	 F7gJ1sBtwFhhL3kny2t2qnubXDQLlO9uC4VnGK3CDx72HT2+9oDo0K5KbBk9YnKCwGYhY
-	 ck6k+xmLr7K0HOPmUc5HxYp7B9kCL/88PDo5v4GwSYSXVLmwJYkp7XN0548CuinL9RDXA
-	 VhmViq3M7GLma0MTzu3HELLdLnYIu3Lv2qJs+Dy9NyE7bPR32WECcD17DJUilrhVGOw==
+	bh=bOwFUNdLBVTZXvMFj034/EgiBq5/Z2tdxaCiUfuCqy4=;
+	b=SX9zduSA0tcKniV09JetOp8h5hN1hCek6Wf6CaTOxy5BNGVHwv9h2AKj9ojE7E7ziE+j
+	 ENrb7S3JLpzAEb4UBrZi+BVnQCWVacQ2gfCEB8oN2MFfyO0LXuOmQDw0NUHB2OnrNuxuh
+	 Nd9VbeaIH88X+QbCh3++8XvM1JjbE7Q2aVfuctKmzWUbhJleU35ef1YDqwtc9k6Tt1RGg
+	 UKD2muYUiHaV8rnK2BZWELDYgMfmf92tt3okicU3cOj0eEtWKnESS0s3u/wEG7W2ZNWqW
+	 SUiZuDv3D3j/9K/S0HkZqLqM5vBc3yxSJq982GfB6b/ZqsZji37yBWD0OrfHcljcl1w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lK3EB1y8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUGKZF5b;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7000D606D802;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34C2606D822;
 	Tue,  3 Nov 2026 12:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lK3EB1y8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUGKZF5b
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793709029;
-	b=dF6NKk81BHybhm/DbJR1M34OnpprX0Tj7A+aTEZClYKX/AlXDVwsiyg6aGQTYRE5GwPf
-	 gjcb6uELDMbj9ta/TpJgXm2tYLCY32VXaoNukO3B4RdZKkUO7VeGeBuv184XokRuBPgA6
-	 98PFchVsBQ3tYWmipbdB5rWDHlLL0am0FKmKKoYTMw+qe65JawitVJEhogUqQPJR2ANce
-	 AwNHfE8sSbKZahsvcdHQkUx5mSzO7+byVnYAUKgMHH2C82LS2ha4ed6MGsgjAVRtaubZ+
-	 yz/CR7BYVns6gnzq88gTpy7HnMh783cls2n9aAwUXC0EVntXsIt/tlXqEL/Az/t596w==
+	b=egVPrZXouz2WuQM9VtwzwW5IncCIBjMTSdZA9mLwb0fBVEKiUzNRhkSlmyDdUChMRrwR
+	 qRoGK9Bk5gsPRtlnbEVXMZfWN/8c08QpOjgh7xBSPHgnrZCAEVM9+jfEZRHt/WbQLWw44
+	 04W7/qfzls8DJSTSz/s+A1/TTNkAH7PnTuigkCJDa60fObgdPprjdGg8jxKpQrW/E9EEu
+	 uPS9zP84nLonnO3MUwZbcMI2asEDGUzLKclLvhxA6cj7Oh+p8lOxFgqaBVriMNbgJKmoU
+	 7e/wiD1uZPi5dFRpJ3NtH+YUaNl34oQgTUg/Rr9gYun/RK7uCq+vnQrMenXJkM1lM5w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793709029;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=TJ2FEertI0l/LzQyig9XdLZrCMbpVaIRn0kj8anLICM=;
-	b=2eKRQq5UMipUwQfgpCMvvLah9g0TmqyV6MA3LT7v+tn/lmq+9n7cOCB22Z4V8febyGBR
-	 LM7MF/7RacAT4zTDR8GDuM3520beGB2OYAqSXHKU4e9Td5zwvNAJTQa8d3CAtVsfcThFe
-	 f+dK5i9EorfXxAydy2OiQTsIxk+NDBlZUoQpexZtsRtbb6JX5/ihHb8JCJ9YPPp4QmPoF
-	 SUoDAecxQM0XyGELSMHgnlXqRxNCHQiXjtvbL7CEkJdZRURoX7UJt30kRwE/+ynyGqm4l
-	 uOvdUT7n1fni1jVmkU3pBD/ihgsrZMwtmeQ8Ik1Pyh9snzvvvjbBvnPBtEQ+EkIcQQw==
+	bh=bOwFUNdLBVTZXvMFj034/EgiBq5/Z2tdxaCiUfuCqy4=;
+	b=ajSi3MSMhnfFKb7chqCB16+OQp4AxfWAGjUxHo11mH3fGwHzjtUAUDNQ3fKnRjFIGt97
+	 THZ0js6EpDskNaqurCk34vaa+Kb6sQaxsBZmV8/0ioDbPxc8/U1G9Dn5PHQzgRF//NbhB
+	 eHbbWhxI1dhaey3WvR6MF/jHgGbL+KWVBEJqXK86YXXyHMUDGAy3mJOfrMruRAzuq5zVw
+	 JWzo7DgYEQHu3QH2bsA7kCwtz/wgiE70+a+K4E97LJd8MbjLuGphElsp4iOF1H4ywTh2i
+	 HCE2m1cx/26zs3+C7wRlf27zM2mYC31GuJJV6XgaZV5oZRDAm17YxZJIisYTsejVLmw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8B6571F00A17;
+	by smtp.kernel.org (Postfix) with ESMTPS id 10EFA1F00A16;
 	Tue,  3 Nov 2026 12:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793709029;
-	bh=TJ2FEertI0l/LzQyig9XdLZrCMbpVaIRn0kj8anLICM=;
+	bh=bOwFUNdLBVTZXvMFj034/EgiBq5/Z2tdxaCiUfuCqy4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=lK3EB1y8zHRA3L5syl1DzBuGs0lxqocRUdz0Usdft0Qdyl/uY2ILvRE+f8HcpJ4GC
-	 WE74DXkfEmE6qu4VhPcFmWeUPkBOmDokhbNBsqviZA7EN7PEQ8b7Jq+lFc/jSwh53/
-	 3sGcX98KCdp12qq436gIFcCjIv5xI7ky/oKkOy8dzf8jnEWNCgJLHm+Hbr7sqIRm0Q
-	 oGqD/g2JrAxHZ//PpKwrUgNX+eoEfUmfqDz5waYMnC7zFKuIDbX/0UyxyO9S5/BBEj
-	 VMCmX3zoAQQiXdGgunWageTnmsl6Tm8S4USahVhAumRCJozvePXsQLX/54PyEiUiWf
-	 sjD2fi1L8rhSQ==
+	b=UUGKZF5bkHxvhZL7uY5qmasDoMgGuHM80+GdtL2Z9TMO40075KkzmOS6lwWASYMH5
+	 setjYXwGYw6XPLPKR3ZYuErvI0s1FOnE5hh+xrgnV6Xtiluw/luoNkeMdSFSJpbpg9
+	 ol4qNRgzvIg3THHH8neByBFN0zXqpL1uVJrlgPk/vXY9d8BSGFh2aT03FLeAN0PU50
+	 k9OfZxCy5yXn8DjEObAQGTAGee5IuKDbCGbMUOdLhGi6Ijgp6bKl7ACWxOTQbu3nHu
+	 2g2IB4UQHKphdY24/LFoZZ+CQTSnPDSGUWJYpv53etZFzkLUMFVSYvIFf/o+TiU4uR
+	 tGePMT+KMjkgg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7F87C4693C;
+	by lkml.kernel.org (Postfix) with ESMTP id 7064C46938;
 	Tue,  3 Nov 2026 12:30:25 +0000 (UTC)
 From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Tue, 03 Nov 2026 13:30:23 +0100
-Subject: [PATCH v8 07/14] can: peak_usb: register the netdevs only once all
- channels are set up
+Date: Tue, 03 Nov 2026 13:30:22 +0100
+Subject: [PATCH v8 06/14] can: peak_usb: reject records for unset channels
+ in PCAN-USB Pro
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-canfd_check_channel_idx-v8-7-4e8b2c0a8806@peak-system.fr>
+Message-Id: <20261103-canfd_check_channel_idx-v8-6-4e8b2c0a8806@peak-system.fr>
 References: <20261103-canfd_check_channel_idx-v8-0-4e8b2c0a8806@peak-system.fr>
 In-Reply-To: <20261103-canfd_check_channel_idx-v8-0-4e8b2c0a8806@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
@@ -95,11 +95,11 @@ To: Marc Kleine-Budde <mkl@pengutronix.de>,
 Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Tristan Madani <tristmd@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793709024; l=8119;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793709024; l=2985;
  i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=wzAGLFhXXU/vNiSRj5UBCBL6x7232wbHfmhdj2xLAIE=;
- b=qyr+TDuVDT9RIYikKinctINYiPP6e0tKK8fBntP28sKEBzFCkSIDrSnX/mvY3VpWxSqmcjqbG
- Vj4k0m/7JfDCGWKPX1dIYHN7KWQValbyRGWsryE1bpiocOS39UFzHVc
+ bh=bN/0zrh0R7MUNYeuAPZD8b88LOd0Urf3DxJPfyFeHNA=;
+ b=nSOtbv6//4gmhPx0SeoR1sthUY/AQjC4t+fz6EAVsrz8Xac4x1/SPwEMrBMWMKgxWQm120ppa
+ 5L391UotedqAOqUaGzecZpQ7XzEEHzRalzi0/Mas5BeqQVAOS4ViDAe
 X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
  pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
 X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
@@ -110,216 +110,80 @@ Content-Transfer-Encoding: 8bit
 
 From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-peak_usb_create_dev() registers the netdev of a channel before calling
-dev_init(), dev_set_bus() and dev_get_can_channel_id(). Userspace can
-therefore open or configure the netdev while the channel is still being
-initialized, outside of rtnl_lock():
+Records received from a PCAN-USB Pro device carry a CAN channel number
+used to index the CAN device table usb_if->dev[]. The decoders only
+check this number against the size of the table.
 
-- peak_usb_ndo_open() may run before dev_init() has set up the adapter
-  private data, e.g. pdev->usb_if, which is then dereferenced while
-  still NULL by pcan_usb_pro_start() or pcan_usb_fd_start();
-- the commands sent by the open or bittiming callbacks may race with
-  the ones sent by dev_init() on the same command buffer;
-- dev_set_bus(dev, 0) may switch the controller off right after
-  peak_usb_ndo_open() has started it.
+The slot of channel 1 stays NULL until that channel has been
+initialized, while the RX URBs of channel 0, which share the same
+bulk-in endpoint, may already be running. A record for channel 1
+received in that window leads to a NULL pointer dereference in URB
+completion context. Moreover, when probing channel 1 fails after its
+slot has been filled, the slot keeps pointing to the freed channel.
 
-On multi-channel adapters, the same applies to the channels already
-created while a sibling is being initialized, since they share the
-interface resources: on PCAN-USB Pro FD and PCAN-USB X6, the command
-buffer and the firmware info used by the sibling init, and the
-ctrlmode copied from the first channel.
+Reject records for a channel whose slot is empty, and clear the slot
+of a channel in pcan_usb_pro_free(). Slots are published with
+smp_store_release() and read with READ_ONCE().
 
-Moreover, if dev_init() or dev_set_bus() fails, the adapter private
-data is released before unregister_candev(), which closes the netdev
-if it has been opened in the meantime, and then accesses the released
-data (interface object and, on the CAN FD adapters, command buffer).
-
-Register the netdevs in peak_usb_probe(), only once all the channels of
-the interface have been initialized, and only unregister (and report as
-removed) the registered ones in peak_usb_disconnect(). Since no netdev
-is registered while the channels are being created, there is no RX to
-stop anymore when creating a channel fails. If registering a netdev
-fails, peak_usb_disconnect() still stops RX on the channels already
-registered, which may have been opened in the meantime. Since the
-channel id is now read before the netdev is registered, PCAN-USB reports
-a failure to read it with dev_err() instead of netdev_err().
-
-Fixes: bb4785551f64 ("can: usb: PEAK-System Technik USB adapters driver core")
+Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
 Assisted-by: LLM
 Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c      |  7 ++-
- drivers/net/can/usb/peak_usb/pcan_usb_core.c | 68 +++++++++++++++++-----------
- drivers/net/can/usb/peak_usb/pcan_usb_core.h |  1 +
- 3 files changed, 47 insertions(+), 29 deletions(-)
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 90f69afcba97..451d08421504 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -390,9 +390,12 @@ static int pcan_usb_get_can_channel_id(struct peak_usb_device *dev, u32 *can_ch_
- 	int err;
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+index e38aee7834ce..9e2f48683a9d 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+@@ -543,7 +543,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
+ 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
+ 		return -EINVAL;
  
- 	err = pcan_usb_wait_rsp(dev, PCAN_USB_CMD_DEVID, PCAN_USB_GET, args);
-+	/* explicit use of dev_xxx() instead of netdev_xxx() here: this is
-+	 * also called during probe, before the netdev is registered.
-+	 */
- 	if (err)
--		netdev_err(dev->netdev, "getting can channel id failure: %d\n", err);
--
-+		dev_err(dev->netdev->dev.parent,
-+			"getting can channel id failure: %d\n", err);
- 	else
- 		*can_ch_id = args[0];
+-	dev = usb_if->dev[ctrl_idx];
++	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
++
++	/* reject records for a channel that is not (or no longer) set up */
++	if (!dev)
++		return -EINVAL;
++
+ 	netdev = dev->netdev;
  
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-index f5c39b43b0fa..e5198ec5c760 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-@@ -1006,15 +1006,6 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
- 	SET_NETDEV_DEV(netdev, &intf->dev);
- 	netdev->dev_id = ctrl_idx;
+ 	skb = alloc_can_skb(netdev, &can_frame);
+@@ -590,7 +595,12 @@ static int pcan_usb_pro_handle_error(struct pcan_usb_pro_interface *usb_if,
+ 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
+ 		return -EINVAL;
  
--	err = register_candev(netdev);
--	if (err) {
--		dev_err(&intf->dev, "couldn't register CAN device: %d\n", err);
--		goto lbl_restore_intf_data;
--	}
--
--	if (dev->prev_siblings)
--		(dev->prev_siblings)->next_siblings = dev;
--
- 	/* keep hw revision into the netdevice */
- 	tmp16 = le16_to_cpu(usb_dev->descriptor.bcdDevice);
- 	dev->device_rev = tmp16 >> 8;
-@@ -1022,7 +1013,7 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
- 	if (dev->adapter->dev_init) {
- 		err = dev->adapter->dev_init(dev);
- 		if (err)
--			goto lbl_unregister_candev;
-+			goto lbl_restore_intf_data;
+-	dev = usb_if->dev[ctrl_idx];
++	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
++
++	/* reject records for a channel that is not (or no longer) set up */
++	if (!dev)
++		return -EINVAL;
++
+ 	netdev = dev->netdev;
+ 
+ 	/* nothing should be sent while in BUS_OFF state */
+@@ -933,7 +943,8 @@ static int pcan_usb_pro_init(struct peak_usb_device *dev)
  	}
  
- 	/* set bus off */
-@@ -1035,25 +1026,15 @@ static int peak_usb_create_dev(const struct peak_usb_adapter *peak_usb_adapter,
- 	/* get CAN channel id early */
- 	dev->adapter->dev_get_can_channel_id(dev, &dev->can_channel_id);
+ 	pdev->usb_if = usb_if;
+-	usb_if->dev[dev->ctrl_idx] = dev;
++	/* publish dev to the decoders */
++	smp_store_release(&usb_if->dev[dev->ctrl_idx], dev);
  
--	netdev_info(netdev, "attached to %s channel %u (device 0x%08X)\n",
--		    peak_usb_adapter->name, ctrl_idx, dev->can_channel_id);
-+	if (dev->prev_siblings)
-+		(dev->prev_siblings)->next_siblings = dev;
- 
- 	return 0;
- 
- adap_dev_free:
--	/* the whole interface is released when probing a channel fails:
--	 * stop RX on this channel, which may already be open, and on the
--	 * channels already created, since their RX URBs may carry records
--	 * for this one.
--	 */
--	peak_usb_stop_rx(dev);
--
- 	if (dev->adapter->dev_free)
- 		dev->adapter->dev_free(dev);
- 
--lbl_unregister_candev:
--	unregister_candev(netdev);
--
- lbl_restore_intf_data:
- 	usb_set_intfdata(intf, dev->prev_siblings);
- 	kfree(dev->cmd_buf);
-@@ -1078,11 +1059,15 @@ static void peak_usb_disconnect(struct usb_interface *intf)
- 	for (dev = usb_get_intfdata(intf); dev; dev = dev_prev_siblings) {
- 		struct net_device *netdev = dev->netdev;
- 		char name[IFNAMSIZ];
-+		bool registered;
- 
- 		dev_prev_siblings = dev->prev_siblings;
- 		strscpy(name, netdev->name, IFNAMSIZ);
- 
--		unregister_candev(netdev);
-+		/* on probe error, some netdevs may not be registered yet */
-+		registered = test_bit(PCAN_USB_STATE_REGISTERED, &dev->state);
-+		if (registered)
-+			unregister_candev(netdev);
- 
- 		kfree(dev->cmd_buf);
- 		dev->next_siblings = NULL;
-@@ -1090,7 +1075,8 @@ static void peak_usb_disconnect(struct usb_interface *intf)
- 			dev->adapter->dev_free(dev);
- 
- 		free_candev(netdev);
--		dev_info(&intf->dev, "%s removed\n", name);
-+		if (registered)
-+			dev_info(&intf->dev, "%s removed\n", name);
- 	}
- 
- 	usb_set_intfdata(intf, NULL);
-@@ -1103,6 +1089,7 @@ static int peak_usb_probe(struct usb_interface *intf,
- 			  const struct usb_device_id *id)
- {
- 	const struct peak_usb_adapter *peak_usb_adapter;
-+	struct peak_usb_device *dev;
- 	int i, err = -ENOMEM;
- 
- 	/* get corresponding PCAN-USB adapter */
-@@ -1117,13 +1104,40 @@ static int peak_usb_probe(struct usb_interface *intf,
- 
- 	for (i = 0; i < peak_usb_adapter->ctrl_count; i++) {
- 		err = peak_usb_create_dev(peak_usb_adapter, intf, i);
-+		if (err)
-+			goto lbl_disconnect;
-+	}
-+
-+	/* register the netdevs only once all the channels are set up: the
-+	 * channels of an interface share resources (command buffer, firmware
-+	 * info, ctrlmode copied from the 1st channel...) that must not be
-+	 * used through a netdev while a sibling is being initialized.
-+	 */
-+	for (dev = usb_get_intfdata(intf); dev->prev_siblings;
-+	     dev = dev->prev_siblings)
-+		;
-+
-+	for (; dev; dev = dev->next_siblings) {
-+		err = register_candev(dev->netdev);
- 		if (err) {
--			/* deregister already created devices */
--			peak_usb_disconnect(intf);
--			break;
-+			dev_err(&intf->dev, "couldn't register CAN device: %d\n",
-+				err);
-+			goto lbl_disconnect;
- 		}
-+		set_bit(PCAN_USB_STATE_REGISTERED, &dev->state);
-+
-+		netdev_info(dev->netdev,
-+			    "attached to %s channel %u (device 0x%08X)\n",
-+			    peak_usb_adapter->name, dev->ctrl_idx,
-+			    dev->can_channel_id);
- 	}
- 
-+	return 0;
-+
-+lbl_disconnect:
-+	/* unregister (if needed) and free already created devices */
-+	peak_usb_disconnect(intf);
-+
- 	return err;
- }
- 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.h b/drivers/net/can/usb/peak_usb/pcan_usb_core.h
-index 234d20f81154..bed2b3c70f82 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.h
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.h
-@@ -108,6 +108,7 @@ struct peak_tx_urb_context {
+ 	/* set LED in default state (end of init phase) */
+ 	pcan_usb_pro_set_led(dev, PCAN_USBPRO_LED_DEVICE, 1);
+@@ -981,6 +992,9 @@ static void pcan_usb_pro_exit(struct peak_usb_device *dev)
   */
- #define PCAN_USB_STATE_CONNECTED	0
- #define PCAN_USB_STATE_STARTED		1
-+#define PCAN_USB_STATE_REGISTERED	2
- 
- /* PEAK-System USB device */
- struct peak_usb_device {
+ static void pcan_usb_pro_free(struct peak_usb_device *dev)
+ {
++	/* clear this channel's slot: dev is going to be freed */
++	WRITE_ONCE(pcan_usb_pro_dev_if(dev)->dev[dev->ctrl_idx], NULL);
++
+ 	/* last device: can free pcan_usb_pro_interface object now */
+ 	if (!dev->prev_siblings && !dev->next_siblings)
+ 		kfree(pcan_usb_pro_dev_if(dev));
 
 -- 
 2.53.0
