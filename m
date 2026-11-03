@@ -1,55 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699466;
-	b=F36XXRNWGIKZ22rgAlp3i25dDMLG0RQLenlvpN8+CiJildf351c7PeYStKq9212Hn65D
-	 CC4NjoXO1YpIFVB3XGragM/684vTfAvgQGnG5ygbvLAxzPQ5a3vIm6cILMrdsRM5IwUDc
-	 MzjVVkbTeOnVkFFMToCtIR70YCsqUAaJpWtf8epB9IgKUzQYhkXiMyhXATrmNdUbwI3Gk
-	 P/zyG8CqVYeUvL++qrn1diUVg7GS84IBEOMyvPRwimdXRWM2Mi92xKP0DUwh7VJnZ12r6
-	 cC9+z/55LeSXJpsZO/S/jKGiD5B3SvcDMVu5rQJgndR4QZMZaSFi7ZsyhKIvSrecqRg==
+	t=1793699468;
+	b=WVkfdfDYTV3lC7ZszpZkJsYm3bAcYwBGdrE65I3GEm5rCV33pGEmq1LH1FTh3myXJFaf
+	 SVhmLgkJBJCtGCDdXog7Tzu0+xtkNzfvCeApZOImpRyvzLO+WhS0CJVY/DuBJdVbeDKjA
+	 yrqno+dsO+zZiZQxlZnFc0SGhRF+bj7OmgBD0QDVaYTaUC4zga1OF0T+PCuo2cK31RZZ+
+	 UHHzQv80Z7tSvivtrvWdYsSZj/iXFLuQdpd8zlWFDxTeHd7RCfwgODEDXiaYMP91bf7xL
+	 N9fdNW9Z/6eG+8iAe/T5i1zqjhvUnMsmRDbW81iFkdsAXqg7XJkvmxrFqXuae8LPAsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699466;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=M8mDAdHjens4fLiFQccbP/0Y8oUck8pzo9WB/WyQJwc=;
-	b=m23Br5Z1y1kUOKqLZ8uenxSh7dXsjeO/EW9j5GOCHI+dtb34qYIZD5ID1gpBns3rr1F9
-	 iOCkV32Enr/XUDk4t6FsnmkzikJCCd/r+mYhEarKCEq2ZgJcKG4GbJiJ+YydhMQ4t3zpV
-	 ucsCbfAfpal/pgNsMzyn6GssC3Imcmykd+8rUnE4GOEziRFE0V9Npr+2hOc3KAHnqVivo
-	 C1ezjyh8O1lWv3Za1MlZs6ak22EAAIq3x60Cehv2vIOWJ4RTC+eaouyggawlwo93ORkAy
-	 ixa8+bkJbFb59h/s4OtA1FFDK4CsxwwJNY4mlpCZCR4rv9qj4veaJMXWLHafizSgGZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699468;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=egFZ+CUkcSsEU6Plv0bPxdEnwjHAJmOsofwONArJtfE=;
+	b=3klIrqQey2VH+e1XQq8aDUZWGikz27nI05tEWGqKMa62GQbjajiMNNXTA/WQFmLFTQ3f
+	 71Ik8KDYwT0C9JUEpLUwZCifA7eaWo3GKuvRPUSBtTRhqHYm9hg9ifydNu3ZbcgDmeN6e
+	 vEC2JY6u2kiXd2uiMx2AFeFspLfyyzW9sO2rtc+8I2tdhvqzOqbKBLXyY21Pfc9pZLg8m
+	 cgqUAKuUMQVzUPhCu3f3xEd6WFEJrZnjVo0+VqTjTtR2fBHJ6YdvkYcH6iB2GMcKALoAx
+	 eGFFsp3KJpRMBsuzSaWFHSIBw2mqSFJRk3PGBMMUxnC7eAqRdguggx9rs5dW8avWVcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=karaolidis.com;
-	spf=pass smtp.mailfrom=karaolidis.com;
-	dkim=pass header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=A4zWXGhK;
-	arc=none smtp.remote-ip=79.135.106.113
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0Si+w7q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC45606D82E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:51:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC45606D82E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F71E606A335
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=A4zWXGhK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
-	s=protonmail3; t=1793699463; x=1793958663;
-	bh=M8mDAdHjens4fLiFQccbP/0Y8oUck8pzo9WB/WyQJwc=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=A4zWXGhK7fPCcUFId0bIyVWNAGFLf+Tih0RWhej2GZkoqyDUuQfIiwemw0pszZyZZ
-	 Zcxc8PKz56Bd8UtbPB8jkRIV+zkh5rwH7+xkqsUbNBAt+Um5qKVwTbm/KMdshxckN1
-	 ZPAVdHU1DpVGH160Cgru0oQ10RNv3Fbjx0HDb63eh8P5gp8hWBXNuldGznBzPD3t7L
-	 XDTv//gMM69uPD6Xa5Zh8Yt4fd1ijYHGv9O+4qzHiwee0raLEEOhsZq3I2H/7OD8lJ
-	 k7H5qcdMfxoaXT28AyLpWhpmXBwzSXom6rN2DwW7PZPAM6pye1HXqgCzXmQVyVRf7Q
-	 YmVfPaYiv0qgA==
-X-Pm-Submission-Id: 4jJkNP0KKSz2Scj6
-From: Nikolaos Karaolidis <nick@karaolidis.com>
-Date: Tue, 03 Nov 2026 09:50:10 +0000
-Subject: [PATCH RFC 4/6] virtio-mem: move
- virtio_mem_sbm_try_remove_unplugged_mb()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0Si+w7q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE14B1F00A1C;
+	Tue,  3 Nov 2026 09:51:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793699468;
+	bh=egFZ+CUkcSsEU6Plv0bPxdEnwjHAJmOsofwONArJtfE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O0Si+w7qQU48iOAROrEodVnySMaj/guHd6/W88us2r8ZRAO4Q+C+7sLJAf1kJxt5y
+	 qSP05yf4pmmUWy8Ibd9AWYba6LMGF7yDFZN7Nw9nPw+nFGbCfXWeySAEYrBu47wxlO
+	 W4UZNyHQTv0CyBbjpdSIhjhBTy/VKq1s3+MUkMHgMmDaCQfcJy46MkA4AF/dmIjwMF
+	 CkVCHNHHIgMCGjcxPMwonrN5yb+ba+vIVB3vcFROdXgApLvZESvRNYmt65PbrH0c+S
+	 WhrDyyUA+g11fbwY4ec8gsQkxRmhoC/xywBGn0BljwHmtGHTQKAfmIm35j+PLdnxA3
+	 aWrl0WBcH/w+A==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B4B621980052;
+	Tue,  3 Nov 2026 04:51:03 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Tue, 03 Nov 2026 04:51:05 -0500
+X-ME-Sender: <xms:h67pal9ZnLbWHExwOAy9SGfyqSpwEUA3NMoQdTM_tJujWsv3OVjV0w>
+    <xme:h67paicDmptRKFXkjwKv0nICnqf6UGXUOBoNs43PdN6dDU75HqZ_sRU53pb4eCnHZ
+    NyYG72C9VWjHhnBKO_6yXDQ_XgwcuqbqayOrtgsPfmHuMB18PoKS6SVzw>
+X-ME-Received: <xmr:h67pahuB-6My-vFtxfkBuHVD9wBj-SrVnKtNnHHVEzPKySakCJ2-hDMjBUM>
+X-ME-Proxy-Cause: dmFkZTEafPFpDsB+iCHvxJAO8+/K3z3CdRdJQPrpIxEVD39bmGj4/U/LJCZAd51olEmH1k
+    6qE564jpNX+1TdKbvOIB6IQqoEWMe6lmfsHXz/7H5av9n07ycVm9KaqNAIFuxM/2yQ6ZQf
+    2WwWRfyTOBvsJefTEHwTSIlMEprKmlBMCaMQEiOCHNx9GlqItvdGfsqrXvTSv4YwWhfjog
+    Hisq+Pm0kPe9yLdILX1nzJHxDiI4HZI/f/WiRyVg1IU5TnSyC+qdCi/OaPKH/o52uYw5Pg
+    NWBfdHzJ6Nj9gleMoUsWymwlxC4s3Xd8EfbSP1s94cT1TvBMvX9Px0+DW0sTMVcz6ljQEA
+    bNAqnrXT9kSnldOc7GBnoXknTZI4CrGQbGLxz5gcYZTcqrYDenzWioW72YDipsFCgRr9Nc
+    uHBP0n3wHEHm0xd1bC4PM449f0K6KLv76IEdnFJtRBmsT/86yFTF/k+YNA7ynRtyx7gRna
+    Kdv04/M7HAJayP6d0M6sfwsmt2NxrALe4AgmeDI6puNDmrhfuTxLwDKsNAcQvOKadj7BTj
+    haYfLIDqjkraFwT0ww55Xb+vCFS+FGgc4wHxE4eUt8EVIgb2JTv4LQ1XW3ZWMb1d2KhaT2
+    PU8/KLA1icWuLdOTL6ghs2iL36LEgDAWlkXyHmhA1D22rcIIoeNo1PaFssdA
+X-ME-Proxy: <xmx:h67par3REpkKj-iFbIx6OpMTiClv6JggmrTZ2vnL95mTjoV1WnqWTw>
+    <xmx:h67pauDaZfE9CaGgf87_XUEHj4UdQQBG6yShD9rbXk1nBnYJmINEwQ>
+    <xmx:h67pagcoelXpPMERwyrq_euIeL4P3SsGx8hAa2itEDWuoAW_H3ASQA>
+    <xmx:h67paoxeEzN5MwZep7_7iT4Ux1UqJY_4UkUcxyapsgxs5qXS9IeIBw>
+    <xmx:h67pajNnJMxSw7lfAbohqfwd3JfPbixn6e8WbpqRLjWogVqlRQ-CqeHQ>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Nov 2026 04:51:02 -0500 (EST)
+Date: Tue, 3 Nov 2026 09:51:01 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, shuah@kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	yeoreum.yun@arm.com, ziy@nvidia.com
+Subject: Re: [PATCH v2] selftests/mm: handle child status safely in khugepaged
+Message-ID: <aumtBg9KOgrY9MIe@thinkstation>
+References: <auhvkuDO8cP9Pip4@thinkstation>
+ <20261102185130.30504-1-ampr.mhd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,130 +87,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-virtio-mem-memmap-v1-4-308ae1da6240@karaolidis.com>
-References: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
-In-Reply-To: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
-To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Oscar Salvador <osalvador@suse.de>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>, 
- Hui Zhu <teawater@gmail.com>, 
- Georgi Djakov <georgi.djakov@oss.qualcomm.com>, 
- virtualization@lists.linux.dev, linux-mm@kvack.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-cxl@vger.kernel.org, Nikolaos Karaolidis <nick@karaolidis.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2798; i=nick@karaolidis.com;
- h=from:subject:message-id; bh=GU2oa106EeH8dI11q71ORgUyNnPj2av4Aihez49DNQA=;
- b=owJ4nAFtApL9kA0DAAoB2mjImL9M9YgByyZiAGrprnc/6ByFXuJChDmSsarYLCIu+Kp2XDzMr
- lxN1joAcbphnIkCMwQAAQoAHRYhBLMZG7EWqsMYjymWX9poyJi/TPWIBQJq6a53AAoJENpoyJi/
- TPWIE70QAJpnT8Qz/qvNyHuWszstgMQamGr6va87wXLS5+gKnCmAPou+fN30tKYLqRR2nIBnCjj
- UvgMXUQ26+Fw7jcr4PimEuozX7cwly8ZTdQ60ngPI8XMV0xbN26ayd5jaRAd1pBLmtrgbS6BM/7
- OzLC2uu5Fw9OKG3dsj7TZrbMSOQlDP3qjKf7V7G7AbkzzJgKYeA0Q+B83ucwqqw2xKDGNNezQ67
- PS0jcdzFs0MQji/X95qL8FCw29Nhh3Qz9iRtc2TN9MZEWhoJPIyJcV8cCX0HIfU1ayqAtfRMiMz
- d/hCH4Q7u7dVciFK+xygmO7gIyleSLzTYBFk7J1EUsVdfHpQ0AEwgcjOgNPYYP3gqfV7CNn+YbK
- dxX7JkcX3zmXKAsgi9zPP223qfmr0uYYolNGWwwHARzT5G62hzvWy2sgJMpsGvDkr8NQhuc0W5Q
- ZqlqqCJd87kgps7a+LiQbZhSEnF3IQXqrAAysaSM+sZLTRqsbVl3+QaOfc9VXiBxJmocUiwBX7y
- idjtWa//M8BQPQPaLOXtAW14WkewCxDVmYiWKsgAbiahwW8ZKJhVEHhZGL1xdYVryS8F/kqDCrP
- btORLY9AX8HlX9mEmngfA2Xsmq27lX9n/aQ5RQTpeALH4NRikRPsZgVPYnRHm1wMvNBiQsAtQJ9
- r96NGUpvLFPWNVTg86m4x2g==
-X-Developer-Key: i=nick@karaolidis.com; a=openpgp;
- fpr=B3191BB116AAC3188F29965FDA68C898BF4CF588
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102185130.30504-1-ampr.mhd@gmail.com>
 
-Move it below virtio_mem_sbm_unplug_mb(), because the next patch makes
-it call virtio_mem_sbm_unplug_sb().
+On Mon, Nov 02, 2026 at 10:21:30PM +0330, Muhammad Mahdi Amirpour wrote:
+> collapse_fork(), collapse_fork_compound() and
+> collapse_max_ptes_shared() take the child result from
+> WEXITSTATUS() without checking WIFEXITED(). For a child
+> killed by a signal WEXITSTATUS() is 0, which is KSFT_PASS:
+> the parent runs its own checks and the test reports ok even
+> though the child crashed.
+> 
+> Fail the test when the child did not exit normally, and print
+> the signal that killed it. Also fail when fork() fails,
+> instead of reading an uninitialised status.
+> 
+> Use get_child_status() in all four fork tests, and use
+> wait_for_child() to handle fork() and waitpid() in the
+> three blocking-wait tests.
+> 
+> Fixes: bd212a7dbdb1 ("kselftest: mm: return fail when child test result is fail in khugepaged")
+> Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
 
-No functional change.
-
-Assisted-by: LLM
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
----
- drivers/virtio/virtio_mem.c | 56 ++++++++++++++++++++++-----------------------
- 1 file changed, 28 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
-index 034d07207e44..688c178c760f 100644
---- a/drivers/virtio/virtio_mem.c
-+++ b/drivers/virtio/virtio_mem.c
-@@ -791,34 +791,6 @@ static int virtio_mem_sbm_offline_and_remove_mb(struct virtio_mem *vm,
- 	return virtio_mem_offline_and_remove_memory(vm, addr, size);
- }
- 
--/*
-- * Try (offlining and) removing memory from Linux in case all subblocks are
-- * unplugged. Can be called on online and offline memory blocks.
-- *
-- * May modify the state of memory blocks in virtio-mem.
-- */
--static int virtio_mem_sbm_try_remove_unplugged_mb(struct virtio_mem *vm,
--						  unsigned long mb_id)
--{
--	int rc;
--
--	/*
--	 * Once all subblocks of a memory block were unplugged, offline and
--	 * remove it.
--	 */
--	if (!virtio_mem_sbm_test_sb_unplugged(vm, mb_id, 0, vm->sbm.sbs_per_mb))
--		return 0;
--
--	/* offline_and_remove_memory() works for online and offline memory. */
--	mutex_unlock(&vm->hotplug_mutex);
--	rc = virtio_mem_sbm_offline_and_remove_mb(vm, mb_id);
--	mutex_lock(&vm->hotplug_mutex);
--	if (!rc)
--		virtio_mem_sbm_set_mb_state(vm, mb_id,
--					    VIRTIO_MEM_SBM_MB_UNUSED);
--	return rc;
--}
--
- /*
-  * See virtio_mem_offline_and_remove_memory(): Try to offline and remove a
-  * all Linux memory blocks covered by the big block.
-@@ -1648,6 +1620,34 @@ static int virtio_mem_sbm_unplug_mb(struct virtio_mem *vm, unsigned long mb_id)
- 	return virtio_mem_sbm_unplug_any_sb_raw(vm, mb_id, &nb_sb);
- }
- 
-+/*
-+ * Try (offlining and) removing memory from Linux in case all subblocks are
-+ * unplugged. Can be called on online and offline memory blocks.
-+ *
-+ * May modify the state of memory blocks in virtio-mem.
-+ */
-+static int virtio_mem_sbm_try_remove_unplugged_mb(struct virtio_mem *vm,
-+						  unsigned long mb_id)
-+{
-+	int rc;
-+
-+	/*
-+	 * Once all subblocks of a memory block were unplugged, offline and
-+	 * remove it.
-+	 */
-+	if (!virtio_mem_sbm_test_sb_unplugged(vm, mb_id, 0, vm->sbm.sbs_per_mb))
-+		return 0;
-+
-+	/* offline_and_remove_memory() works for online and offline memory. */
-+	mutex_unlock(&vm->hotplug_mutex);
-+	rc = virtio_mem_sbm_offline_and_remove_mb(vm, mb_id);
-+	mutex_lock(&vm->hotplug_mutex);
-+	if (!rc)
-+		virtio_mem_sbm_set_mb_state(vm, mb_id,
-+					    VIRTIO_MEM_SBM_MB_UNUSED);
-+	return rc;
-+}
-+
- /*
-  * Prepare tracking data for the next memory block.
-  */
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-2.55.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
