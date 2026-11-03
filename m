@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735282;
-	b=VYIUmph5ZPagpgl6dfZwrNdlTJ4Ecriy0WtoEMa+3Xra38c8gVY6ecmTYnW2GuSZAzv1
-	 95SEK/ReKSFpu2ySILCDam8z9CcnRISk2ttR+cDNkAo+m6ExHTnib8K2ljXGicb2URd9m
-	 VHbCp7raYU+v2aanvqDmq/Yb/rrG6KpNv2JxcwI0StjGZ/s2VMBJFwCg9qfbDPy98wkga
-	 JhkEA02P4nYv7gSyYU5cV754KYHf1T+Zn603yYNp53L+dCeZ6t1wbPfri5GmStyhCrReU
-	 M75FHCsVBuK8Jb0ttwaOOyjmc6I959McV6eTfG82DTmpu6BmrGhyJ2NvN0LK5q86wwg==
+	t=1793735318;
+	b=neqBhkbMDNJ7CNiNiAMQSC/b0V4D7zydVvbfPOd7fBV4KLtvHvY1OfaypZGyccUZQbik
+	 rvJzl4KHOvJIHoUUm7iSZOOJhYfuroMm7zRHf2CFnosCPWN0HHhN/ORNOLztwuLXOuK2r
+	 5uXKoivkMTrttfVBqlS6C7o9ueAgZd+thcR/ZxFM09FVqafeW9sozGp/uhDXlhZKqX/ao
+	 Xw9pTd65Hn7Sf1EuEortdmYnE7xEN3SUAl3FxTdutpoku8641rXf/+v9ZVoc94f2i7H91
+	 U5jgaY99hS+RyaAJSKYyq21FsDo6qUV7xtrskUR8TO5DR+iVPOQ4ONgsnQEYJftQi6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735282;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735318;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VXvJfI/dWhdkcdG1zI34QvgiZR0Honn8mj5uvJip0QM=;
-	b=KkobDc0+qsvm69cHXnw3rov9zrHbgIdlLuLjY+Rz+TE0do4ukoB8bcutUWIU8bk+Z5dv
-	 ptB4G442tk3ndZL5asg9O+UA1Fg4gtiBtQxKjjlKyUsZaceIYQ+nmdnYOf7fDvzWwiBJI
-	 lOgxzuPldFtDEPII6ujzHDdJw55uw1tQb6afNvwxCGIibBp/ovs6wPuIkGK/pJVTE4f0I
-	 qB1zxUPP/WBpBDYjUXoWCj73t0CfSANFRnJrlidxFqbClwAbVviqHOEI6z+wx8MpqPd41
-	 ymWC9sDlY7jYI0943Hvkd5uovwn9QJUC1LayajhWJ/WPQ5N1j6+Jv3t1NvuFteGBIvA==
+	bh=mmIYdzsXtSLJ4H9TN4ODtrKjdEj6BTA0VO5FF1tJVsk=;
+	b=G3cbO8axSmZJdfgR72Dpfwb7RLvWWsSX+lmE7mhS7MEcKL8S2edghQgcZ0DT5YUxRx2Q
+	 274dMUhMkhFIAF2jpVJTbAttod+OKVTnOJdvbfS7HAwC+jAzv6XrOEwRM+UhICMSl8pQf
+	 dE8x7BNbxh5wwoesUzlF/jvbJl5E/OBCOWRpQL3WrKOjDKNdS9JUw5Ez9NxdcmvSlvzqt
+	 rb25P86VgqJQEoN1HFhiwIthX24qnoG16YP9wOl5Y509xYCTB/TA5H/9XHoxf5ZAN+xZ/
+	 fkxUKsB2wppgXkrIPnCxSkr6M10OrPbDKjqHSwOskyqad8dv7PYZPcVV+zhAKSrD3Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H6WQJUUF;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=e4JNb9+o;
+	arc=none smtp.remote-ip=209.85.217.48
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D1A606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4D1A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644A7606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:48:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 644A7606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H6WQJUUF
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15943c9c005so4139345c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:48:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=e4JNb9+o
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7cc365db987so3096072137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:48:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793735281; x=1794340081; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1793735317; x=1794340117; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VXvJfI/dWhdkcdG1zI34QvgiZR0Honn8mj5uvJip0QM=;
-        b=H6WQJUUFlKKaWZ84UY9W3Yr2WFBYEWYpyd+D7n0FN+LVdGD+bRROnCOjYNVqMwCTQG
-         KYs1wqIsKvXcB68tNuJZc9gxs3kXtfzgzdac9QURPRloGkktHfOgMZQB3m1puNKVTS2e
-         A6GPY1DVBItpBXuSCL1joUHZR+cwVNP+Vg/CM=
+        bh=mmIYdzsXtSLJ4H9TN4ODtrKjdEj6BTA0VO5FF1tJVsk=;
+        b=e4JNb9+owrYIEwf1V23PHkD7rOBUZ+SuEEboYQT1ciknAHv/TyndPdXQfCcx7LlvL9
+         cDmEaXae0raZNt9VS3Ua9HSkau4Qyq0DRZkUfqec+f7XkcdoGa+pBARVE3//x5oB0Zoa
+         haCAYBZG2+2YMGFPT3xxic6dlwThz14Vx0h7RO05AHI4YRYdoYaa9FQodaHmVsrG+xAG
+         BOD7OYMOnUeTKwQQ9WF8zkV6lqd7ahhVYcS3jg/FoT+rStMy3R5UmW3X5dJ74vEeO0Jp
+         bYYH7AY30qmsBMSwTJo0BxOf6tqCLuUQVmzjkFgKvf1YYoCmYLy1jarKKT4vsAHqsavo
+         Tz+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793735281; x=1794340081;
+        d=1e100.net; s=20260707; t=1793735317; x=1794340117;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VXvJfI/dWhdkcdG1zI34QvgiZR0Honn8mj5uvJip0QM=;
-        b=WGZP1FfDpo1eA9rYy2jTVRx8Yno726zh/rW+Xal9G/ldRkDYS8QgJyiLXTdjyQrGHO
-         GA0jrt2qI630Wb5zpqNm4N8Nl+aE9AVFyplbS5xpxVNaoZdWv0ykk4cwE4xO5ZYNxBcr
-         oRpJf4wAh3FJ/8CIz8XWRbo/3O6fMr/nRZ3PnTWZzt0UFRxNvlSRsWmZ66mAso6Q3Enu
-         Xtqg7+DmY6F9ybxz7oVesRokLpHd6kLEMmfo39MjwXt+bodtsvpb1B+VygSyz6jI3oHZ
-         HPv8Bbw1ERkcwiamFd/8iLrdyV08xVFbq5uGkVUk7ve+ejQ4L2b8wdbGAANmV7vFTos5
-         C0BQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjwSRolMg97GvrJ8bFtQe/RCvL1Qlzu72ztmLqGZZ+AONHqSxc2BjJoqwVv9+GUnKYygWRLtuccFgGM74=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OEcBJ0JHMsDOsxv/xf2EU7FpJ0GCaup6Hxwq00CKuCykozwVJ
-	pDUwYYlMKF9mBsV9oeKdq6iG4I/Mk86RINkjkbqCb35+vK91ZedGa3EVFlliP0aAFg==
-X-Gm-Gg: AYBFou2/UIU1GU5JVFFI04f2r4g47LwerzX4k/oNRJClXuAQ4p6R4fm9GoclZSJ3Ydt
-	Lqr5b6Q8u4n2t4GRU1kNVrfYkTmDM+LwwQnA1IYvFtPQH90hmaQhhQDIXCsCeQ563SUZ8rbdHvR
-	zppQhF/EtwvpvE11Eux1dbsOzWb0adc+DOpUmTx6bZFoDKJbFFlPrrwkBWnxCeNNapkcDdGAHDl
-	J3eYGMrhofRIi6IYZWKb3fV/NpJU4t83HM60ygagbTXPCUBB2B87bX+UQXDbSNGBiN0h4S0fYon
-	uDKTSKIbfdKWi95Ty31SFr/gDzcxPBW4+10CrEPfkkQSjURWY2FALNm8yHn9NEfDjLGNhmKrECs
-	rO8GMbTTX2ECqC/sVI3UX22UB3lQ0Mid4vhVCHDHFz+M6DJyPgQev6paPt/j48HqmWv4LFmaCTl
-	p31K4FJWt858Cf4OO1evJCSDsnEmsG+mlk6rY+57V7fcx+S8LIipKG+AHsJO5IZhk3qLkEIv4tI
-	QU9mjziEqiqUHGMX+2cU8wXksZs8p+qtCzJ/cRdkljqYZ1dvvQa/ukeSJA6DHzz4IkD42fDaYva
-	iQkIeZU/vv1JXI+4/mjD/8jm0gzpC8jPTx9zNrumYtXJrIGphgK50Z38XJN6RUVuQ0w=
-X-Received: by 2002:a05:7022:e807:b0:1b2:4188:840b with SMTP id a92af1059eb24-1b2418884a4mr3582177c88.25.1793735280597;
-        Tue, 03 Nov 2026 11:48:00 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245c463e9sm1010564c88.14.2026.11.03.11.47.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 11:47:59 -0800 (PST)
-Date: Tue, 3 Nov 2026 11:47:58 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Stanley Jhu <stanleyjhu@google.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Jens Axboe <axboe@kernel.dk>, Bart Van Assche <bvanassche@acm.org>,
-	linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PM: runtime: Update runtime_pm.rst for non-fatal resume
- errors
-Message-ID: <auo6bvjDtwAMKOid@google.com>
-References: <20261029040005.2100005-1-stanleyjhu@google.com>
+        bh=mmIYdzsXtSLJ4H9TN4ODtrKjdEj6BTA0VO5FF1tJVsk=;
+        b=izUuJwlvBQanlSmUUuBs8ejw3hA+V/dLMZlbZWkTC20fD+TIigEiu8la93f4/SLDuu
+         b3ef527qtSc99YENWgasb6O545Sf+j9qk8gz93OUvubMhyxc127kdWw3UvOD/WmfG96s
+         +LekIAGclow3aRRvzUC38Fj8VbF0+u/NwpzZchmzLwjxbCInHSOjw/cnAwh/+Ghdi1eV
+         Lkx5KXLnqm8GJeXZsDsjvyUqv9cK7Wu4Q9brecwIleyC82uHS/88tNSUQLZzas30274m
+         eJ5WarhAP+bETsuIhlE5ciDzmOvC4+hYXbh1Y4qnlQcvZGoxPNL7YoyVCht3N2rbPTAp
+         yklQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjv835Xx+YbSY9l48Esfm3RGOKfEZBMplQKZ7IkoA33L2qhBhJz8tg8U8uY4e8Ya99geWeQAz51/VATKc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6v1E+Ia5nUQRBDYLabmTqubctbFbjwkQD5Nt7PSeJSjMA3WQv
+	+DNby8RgDXooO6rDgOXMoaIz3NYj99rbqEBeyfxLk1fzftpNmSjZel7tt2gkKWgYFlk=
+X-Gm-Gg: AYBFou3Vyb0HvqtizeH5uqDcRV4BrWzFnp9iTiMHF9rImAbxmj+xy9Z7cieh3KMagE6
+	gvZ/qJZUgXSgFmIXdN02OS08/1GNgIDaBd0c91l+HV0y9eGXs15XKzuXGHey+Xyl/U/Aaf//QE6
+	jBBJhuChncMVsFV8cAEnjEBJiFWO1oTxdXsKis70NyT7xFlxqZX/aHzLamLJa4PlczPLUQPXPGX
+	0MChjcgJ1I5GdxRke7VTJqSojBE+EYswyuFnWY/tKnhZ0NEF7iCKQxt2XIoSdcw5w94Xzb5TnPL
+	NmOsz7s22+zcdrspg5tj0NfnUrGnZQFSxDHOhJEZiI9xspfrzg/cWOpJUvbfwQ2gkTxxpwkh9tb
+	cJwelT8ZN7sy1JcyM3cfzRalk8WRmWSkSS9LFLxDYi88PdTGuLDQZD6K5EH/OkobDqNgcGm1tiN
+	sVqISO9ZNJU6bAeveZx4Y4bpxUemg6K/zpFjwxhehMeR47u1pPUlqVDsMGJtHGK8y53SE2kZUuN
+	TtL3vtM+bg/YA8cq0pIoAtXg4lllqjqSGRmRLBiBIUqc+AngvQMfNeU7g6kIODI8Z5d21TStzIr
+	gU/wFEahBv1eAPhc2s/+Fgm/qrVb2W5UTRm/XsNN5+nPawAH1udJS1yPlAt2bUx0Wf7/Qb7oenN
+	13X/Clx5r27qEBwprJ3wLWGHweSExm/I=
+X-Received: by 2002:a05:6102:549f:b0:7c3:ac79:9b09 with SMTP id ada2fe7eead31-7d072735c70mr6239243137.30.1793735317321;
+        Tue, 03 Nov 2026 11:48:37 -0800 (PST)
+Received: from google.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d9c906fcsm51783241.11.2026.11.03.11.48.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 11:48:36 -0800 (PST)
+Date: Tue, 3 Nov 2026 14:48:36 -0500
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chen Pei <cp0613@linux.alibaba.com>, 
+	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>, 
+	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org
+Subject: Re: [PATCH 1/2] kho: skip zero-sized lowmem and global bootmem areas
+Message-ID: <auo3PzmisfK3br1l@google.com>
+References: <20261103-kho-bootmem-sizing-v1-0-45aa74098f34@kernel.org>
+ <20261103-kho-bootmem-sizing-v1-1-45aa74098f34@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,127 +104,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029040005.2100005-1-stanleyjhu@google.com>
+In-Reply-To: <20261103-kho-bootmem-sizing-v1-1-45aa74098f34@kernel.org>
 
-Hi Stanley,
-
-On Thu, Oct 29, 2026 at 03:11:45PM +0800, Stanley Jhu wrote:
-> Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
-> suspend callback failures"), rpm_callback() no longer sets
-> dev->power.runtime_error when ->runtime_resume() returns an error.
-> However, Documentation/power/runtime_pm.rst still states that the PM
-> core treats any ->runtime_resume() error as a fatal device error and
-> refuses to run runtime PM helper functions until the device status is
-> manually reset.
+On 11-03 13:49, Mike Rapoport (Microsoft) wrote:
+> The lowmem and the global bootmem areas can have zero size, for example
+> when none or all of the memory is below ARCH_LOW_ADDRESS_LIMIT, or when
+> either of those areas is explicitly set to zero with kho_bootmem=.
 > 
-> Update the resume callback semantics bullet to state that on error the
-> PM core resets the runtime PM status to 'suspended', returns the error
-> code from synchronous resume helpers, and leaves power.runtime_error
-> unset so a subsequent resume request can invoke ->runtime_resume()
-> again. Also drop ->runtime_resume() from the ->runtime_idle()
-> comparison of callbacks whose negative return codes are treated as fatal
-> device errors.
+> For a zero-sized allocation memblock returns an address without reserving
+> anything, and that empty area is recorded in kho_bootmem. If there is no
+> memory below ARCH_LOW_ADDRESS_LIMIT, allocation of the empty lowmem area
+> fails and KHO gets disabled.
 > 
-> Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+> Extract a helper that checks for zero size and allocates memory from
+> memblock, and use it to skip empty areas the same way as empty per-node
+> areas are skipped.
+> 
+> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+> Reported-by: Chen Pei <cp0613@linux.alibaba.com>
+> Closes: https://lore.kernel.org/all/20261026131851.9942-1-cp0613@linux.alibaba.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > ---
-> This updates Documentation/power/runtime_pm.rst as discussed in the v3
-> thread for commit eef1d74bf88f:
-> https://lore.kernel.org/r/CAJZ5v0ga8qqYg79+hQVtO8T=FOCj8XLmTz3HpEKoOykV_K-HSQ@mail.gmail.com
+>  kernel/liveupdate/kexec_handover.c | 61 ++++++++++++++++++--------------------
+>  1 file changed, 29 insertions(+), 32 deletions(-)
 > 
-> Two .runtime_resume() paths assumed the old latching behavior:
-> - blk_pre_runtime_resume() (q->pm_only underflow):
-> https://lore.kernel.org/r/20261029040001.2100001-1-stanleyjhu@google.com
-> - __ufshcd_wl_resume() in UFS, where after a failed resume the retried
->   resume releases the clock-gating hold a second time:
-> https://lore.kernel.org/r/20261029040002.2100002-1-stanleyjhu@google.com
-
-Those need a close eye, as the code involved is a bit subtle. I tried to
-review, but I'm not really an expert in those subsystems. (I'm also not
-quite sure the second one was 100% a regression, vs further exposing an
-existing underlying problem.)
-
-> Should other .runtime_resume() callbacks that undo suspend-time state
-> on failure, assuming no retry, be audited?
-
-Sure, that seems reasonable (although difficult), especially considering
-you seem to have identified real problems here already. I don't know
-that you'll get a formal sign-up from anyone here for that work, but
-you're free to do it yourself :)
-
->  Documentation/power/runtime_pm.rst | 17 +++++++++--------
->  1 file changed, 9 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
-> index 40a5c23d5259..04dc2a538352 100644
-> --- a/Documentation/power/runtime_pm.rst
-> +++ b/Documentation/power/runtime_pm.rst
-> @@ -222,11 +222,12 @@ what to do to handle the device).
->      I/O operations as needed.  The runtime PM status of the device is then
->      'active'.
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 6f1f55fe31819..f268c57413a7e 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -820,6 +820,27 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+>  	return false;
+>  }
 >  
-> -  * If the resume callback returns an error code, the PM core regards this as a
-> -    fatal error and will refuse to run the helper functions described in
-> -    `Section 4`_ for the device, until its status is directly set to either
-> -    'active', or 'suspended' (by means of special helper functions provided by
-> -    the PM core for this purpose).
-> +  * If the resume callback returns an error code, the PM core sets the
-> +    device's runtime PM status back to 'suspended' and returns the error
-> +    code from synchronous resume helpers.
-
-This part seems good.
-
-> As with a suspend callback
-> +    returning -EBUSY or -EAGAIN, this does not set power.runtime_error,
-
-I think this is a weird comparison to make, for two reasons:
-
-1) we don't talk about power.runtime_error anywhere else in this doc.
-   That's probably a good thing, since it's not really something any
-   consumers should need to inspect in most cases. Instead, the
-   runtime_suspend() section you're referring to mentions "remains
-   'active'" (i.e., can be retried later) or "fatal error" and "will
-   refuse to run [...] until [...]" (i.e., not retriable).
-
-2) -EBUSY and -EAGAIN aren't relevant here at all. All error codes are
-   now treated the same for runtime_resume(). (I know you aren't
-   claiming they matter in runtime_resume(); but the wording seems a bit
-   cloudy to me.)
-
-I think it would be better to flip the comparison to the other
-direction, and deemphasize power.runtime_error. For example:
-
-  "Unlike with the suspend callback, failures in the resume callback are
-  never considered fatal, [...]"
-
-> so
-> +    the helper functions described in `Section 4`_ are not blocked and a
-> +    subsequent resume request can run the resume callback again.
-
-Looks good to me.
-
->  The idle callback (a subsystem-level one, if present, or the driver one) is
->  executed by the PM core whenever the device appears to be idle, which is
-> @@ -250,9 +251,9 @@ call to pm_runtime_autosuspend().
->  To prevent this suspension (for example, if the callback routine has scheduled
->  a delayed suspend or determined the device cannot be idle), the routine must
->  return a non-zero value (typically -EBUSY or -EAGAIN).  Unlike
-> -->runtime_suspend() and ->runtime_resume(), the PM core does not treat negative
-> -return codes from ->runtime_idle() as a fatal device error; any non-zero value
-> -simply stops the PM core from suspending the device.
-> +->runtime_suspend(), the PM core does not treat negative return codes from
-> +->runtime_idle() as a fatal device error, and any non-zero value simply stops
-> +the PM core from suspending the device.
-
-Looks good. Sorry, I think I missed this part when updating this
-language recently in commit aedc51762a0d ("PM: runtime: Clarify
-->runtime_idle() callback return value handling").
-
-Brian
-
+> +static int __init kho_reserve_bootmem_area(int *idx, phys_addr_t size,
+> +					   phys_addr_t end, int nid)
+> +{
+> +	phys_addr_t addr;
+> +	int i = *idx;
+> +
+> +	if (!size)
+> +		return 0;
+> +
+> +	addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES, 0, end,
+> +					nid, true);
+> +	if (!addr)
+> +		return -ENOMEM;
+> +
+> +	kho_bootmem[i].addr = addr;
+> +	kho_bootmem[i].size = size;
+> +	*idx = i + 1;
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
+>   *
+> @@ -832,7 +853,7 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+>  static void __init kho_reserve_bootmem(void)
+>  {
+>  	int nid, i = 0, max_nr_bootmem;
+> -	phys_addr_t addr, size;
+> +	phys_addr_t size;
 >  
->  Core Guarantees and Synchronization Rules
->  -----------------------------------------
-> -- 
-> 2.56.0.313.g2479322e68-goog
-> 
+>  	if (!kho_enable)
+>  		return;
+> @@ -852,56 +873,32 @@ static void __init kho_reserve_bootmem(void)
+>  	 * reserve bootmem area in low memory for lowmem allocations in the
+>  	 * next kernel
+>  	 */
+> -	size = bootmem_size_lowmem;
+> -	addr = memblock_phys_alloc_range(size, BOOTMEM_ALIGNMENT_BYTES, 0,
+> -					 ARCH_LOW_ADDRESS_LIMIT);
+> -	if (!addr) {
+> +	if (kho_reserve_bootmem_area(&i, bootmem_size_lowmem,
+> +				     ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NODE)) {
+>  		pr_err("Failed to reserve lowmem bootmem\n");
+
+You are adding a helper that returns an error code and then ignoring it 
+at all call sites. Even though it can only return -ENOMEM right now, 
+dropping the return value is not good practice.
+
+Either capture and print the error in pr_err(), or even better have 
+kho_reserve_bootmem_area() return bool and move the pr_err() 
+inside it, using nid != NUMA_NO_NODE for per-node areas and a name 
+argument for "lowmem"/"global".
