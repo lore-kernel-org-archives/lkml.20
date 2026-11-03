@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695290;
-	b=R5vnApT6CPK1oVp3P5D4AO9ZVec7Z81OSZIkm6SEDzhfUfPAem1zK2Co7iDgyIMs5NI8
-	 MS4R+Afkwg/KFgMpWPUgVtrPJN6pVPB+U8vbyN6LrtYsUiKtYbT+F1TSXc5NrChhxEo6A
-	 EPutTs/XC0OxYy8Rznh6uBgf4TGgsRERpsVe1sHIck6UjM7YrTt8trygNwUVdyEUpNvJr
-	 owgxw24oyf4mTu/O3HfcJ8Twfk5LdQLlvhID8CoNm3f6DMw2K+FQPQIL6qw6A23URj5wy
-	 ww2Jwd7r5iU5oL1W9/ANqvYtkrNzjRG1rNQElfYuMMeeD7cnBG1iUr3Z7u6ByUiV5qQ==
+	t=1793695308;
+	b=EOqVQfFJOeJJhJZFB6SVOkQFvszX/XL8pEwrci3K8gn5QPjHwrdpJEUdmx5q9as2rQOz
+	 c8zP6TLfV2Ldkxs09ZXbZr0z877KU7PKa39pnX6Pf0761wjmYlDy4Cr8NfMb+4HqWo77q
+	 Pl3Q0fdLV0yKlfQXc/uKp3Fz/rX60OL/eulkuUIzt+VffbjuTtWnTIOHmO2BjAi0dEOYE
+	 tneLYkD6IwlFyBUbX7xHgZW9ETccYMlqS4F5FdoMPK0vQqIoKMQoE3LDxuqouAl+on7lg
+	 FcvirsUCcJcmZy+I0vINHdXRTom3FwuSfCm3jrCvvj5j+WGfIi/xmssVlzTb5stXKMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695290;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695308;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cB56U3zz4BIamuL2D9lo1seRf8zlHSyiWkQcTlFt580=;
-	b=N6tygZOh90Aegd0nKHBJQJH/vdXrQ1NQmQYbsHoiO9E4DjCQsKdoLUookVUKz8h3P7Eq
-	 000JB7LskGpw5EsMFdFE73MTYM3d2e/aQiqsmtIiIArsMZZ6D8nQFHjn5r8KyR9QJ0zd+
-	 Vwq+xOAJDr/F7Gm1AMHCShkPgt/Z/PxXVut4UScy+ejtL6OAoVsqNj59F4XobEq9lVZIy
-	 ynMPTc5TlSdaJPUj4T+uWDU1PXEboQL8ZrUXjwPTt07WB0UdsF77SLrFzWR4sG7cOrvvS
-	 caa8UFL6bDiQMhjtnGNdVqALK0ALLcGz1333VznOt84H0M4wKWVaPhjRcpZr0wE2MLg==
+	bh=5vyfnd47uwZqspbq4knftFHy6Kp+DJLcSlxq3/tWFaA=;
+	b=XkXJKshNSq/GsCuFKKnvdItwQJa0pGbhf/kMlZUe8Oay+2eOtV8tr/AMQm6oseIvQ2qv
+	 poFE6Yme3+2sazjQAQ2WfWv1DTJNuAB8wH5ZoO8B0D1mMz9iAUbdd5bsWPljbFn/pTlck
+	 JK/Dz5ECopn+XNuU6bWp+X2RdmE56dSVMeqwwAXich+p2cKJQLL3MsYrWCoKdTPqthQkU
+	 mzrU70mFt0XuJfbzmzIJ781KNyczDqwY7MkuyWG1i4QVe3oOKmk9IsOlB+PH8ccFRyZ8e
+	 w9b1zRZTRdhNDsFfc5HnhlUwGTd0PbDQ+2C1aLVP0XbHQVbRtMoZw8ThMCAJ7HX61yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=faetalize.dev;
-	spf=pass smtp.mailfrom=faetalize.dev;
-	dkim=pass header.d=faetalize.dev header.i=@faetalize.dev header.a=rsa-sha256 header.s=protonmail3 header.b=FS3JUV4L;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=LHvdR1zo;
+	arc=none smtp.remote-ip=115.124.28.74
+Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E93F606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:41:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E93F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=faetalize.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=faetalize.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6210E606A943;
+	Tue,  3 Nov 2026 08:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6210E606A943
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=faetalize.dev header.i=@faetalize.dev header.a=rsa-sha256 header.s=protonmail3 header.b=FS3JUV4L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=faetalize.dev;
-	s=protonmail3; t=1793695283; x=1793954483;
-	bh=cB56U3zz4BIamuL2D9lo1seRf8zlHSyiWkQcTlFt580=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=FS3JUV4L2bq2l7hW5H1Bjwb5ECygZzdzXEWQG6STvXcYK5qsnTqAaUbqMaj5gvRYP
-	 zGjTtG997sdbK8pk0F9INa0zuCMP3rnzL+sHnuHHNemB5GiMAvW9oBrl6KBwLxJhWx
-	 zcxY4iJ865RW3wo37mkr5agKIpg27041nnDZulllPTdcHk5DGA8mOSO9QgeyEy43FC
-	 zjJEmzkC4pI4kQNIWgsOayM0Z1ZNxMwsasghOGiNNTIYUjqMHY5X0CmeZkPQEMBVF8
-	 Auj805bHxBlA0jcQcHgXbDPq/clxfuabkdI41b7lrrGciE9N5yIAjVdkLmv1cUyYuG
-	 2JMkZ93PBN5Cg==
-Date: Tue, 03 Nov 2026 08:41:20 +0000
-To: "akpm@linux-foundation.org" <akpm@linux-foundation.org>
-From: =?utf-8?Q?f=C3=A6_OSS?= <oss@faetalize.dev>
-Cc: Takashi Iwai <tiwai@suse.de>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "faetalize@proton.me" <faetalize@proton.me>
-Subject: [PATCH v2] mailmap: Add entry for faetalize
-Message-ID: <cS36vWzKl0opt60dfok0G86AYiayAAnWdMgSnZaOA3eLuBlv1I__uEKhQYRTd2ekP1AaMIP7LBJnPxPDBaix-O6auDO1Kt-dKxjEgU1MQEQ=@faetalize.dev>
-Feedback-ID: 231676493:user:proton
-X-Pm-Message-ID: 684fb195f39ac3586a176b35d4a49cd20bfdcfcb
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=LHvdR1zo
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793695297; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=5vyfnd47uwZqspbq4knftFHy6Kp+DJLcSlxq3/tWFaA=;
+	b=LHvdR1zoVWzugXqXNicymP3YF9nyqevFYL+5USwGAHLM7l5cPLK5rD79ZlQpWQ1pxcPASWMy4zdRnXUk56aybcJmjR5v/yQQ+LE7muk+M6Cd6pgAMs6yjB9T3TTgJLw7owrdBtI637wnQOTe5pChovj0/HcFguslu4Cw2+cmhd4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1426679|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.000769656-0.000153283-0.999077;FP=8582228276987769954|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jvUy9E9_1793695297;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvUy9E9_1793695297 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 16:41:37 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: lpc32xx-keys - reject matrices bigger than the hardware has
+Date: Tue,  3 Nov 2026 16:41:32 +0800
+Message-ID: <20261103084135.426629-5-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103084135.426629-1-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,35 +63,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-From: faetalize <oss@faetalize.dev>
+The scanner state array holds the last state of eight matrix
+columns, and the interrupt handler walks the matrix size that the
+device tree declared:
 
-Map my old address to the one I now use for open source work.
+	u8 lastkeystates[8];
+	...
+	for (i = 0; i < kscandat->matrix_sz; i++)
+		lpc32xx_mod_states(kscandat, i);
 
-Signed-off-by: faetalize <oss@faetalize.dev>
+The probe path only checks that rows and columns match; the
+hardware supports square matrices from 1x1 up to 8x8, but nothing
+stops a device tree from declaring more, which makes the state
+array index run past the field into the rest of the driver data -
+including the keymap pointer the same code dereferences.
+
+Reject matrices larger than the hardware supports.
+
+Fixes: 69690bec400e ("Input: add support for key scan interface of the LPC32xx SoC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
-v1 -> v2: fix author name
-v1: https://lore.kernel.org/all/Df1D8q4zSMqSYWxhXJ06Yx8T6iDutvSRCAaBTq5S5Ep=
-fGghkxGxFMK7ZOvoYLpsediiuR0luoDYo3tDh22ZuC2bjRkE67nTPL-U4NfVmSfk=3D@faetali=
-ze.dev/
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/input/keyboard/lpc32xx-keys.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/.mailmap b/.mailmap
-index 0d05be949ef..6cf852eb482 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -305,6 +305,7 @@ Eugen Hristev <ehristev@kernel.org> <eugen.hristev@lina=
-ro.org>
- Eugen Hristev <ehristev@kernel.org> <eugen.hristev@collabora.com>
- Evgeniy Polyakov <johnpol@2ka.mipt.ru>
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar> <ezequiel@collabora.com>
-+faetalize <oss@faetalize.dev> <faetalize@proton.me>
- Faith Ekstrand <faith.ekstrand@collabora.com> <jason@jlekstrand.net>
- Faith Ekstrand <faith.ekstrand@collabora.com> <jason.ekstrand@intel.com>
- Faith Ekstrand <faith.ekstrand@collabora.com> <jason.ekstrand@collabora.co=
-m>
---
-2.56.0
+diff --git a/drivers/input/keyboard/lpc32xx-keys.c b/drivers/input/keyboard/lpc32xx-keys.c
+index 285d5c32fe70..1d0b082e7881 100644
+--- a/drivers/input/keyboard/lpc32xx-keys.c
++++ b/drivers/input/keyboard/lpc32xx-keys.c
+@@ -142,6 +142,11 @@ static int lpc32xx_parse_dt(struct device *dev,
+ 		return -EINVAL;
+ 	}
+ 
++	if (rows > 8) {
++		dev_err(dev, "rows and columns must be at most 8!\n");
++		return -EINVAL;
++	}
++
+ 	kscandat->matrix_sz = rows;
+ 	kscandat->row_shift = get_count_order(columns);
+ 
+-- 
+2.50.1
+
