@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710364;
-	b=m4nATKbnHWpmZsiOS2pUHMEh+7YuLNVVgO4XUJpiLRBy3C7dRWa/7se7JFTFwxQUas0I
-	 pj4hST+c3hUwK1GtLRMmHvceF9ayqOLL7xoaKZuPPAV+f0DeSW25JqKiNYi2BIZgLSFIE
-	 S7YJmU/fZ3z1at0q2yocXXPRzwNv2P1YzweSWosP7in4a6yAGRPVMXw5HRDlIBLzKak0p
-	 UYa1LmLO2p//ZBl6Qdt4MzM5srA6sjxUads3bjM6BjoFbafetvhbosJQy2XO58WfqfNI/
-	 zVka+SpmDgerVYZqHCy8SpSp81UEdaRkfJLtQQoiPPI0Vnarn5Gy9/rqxb8ORdmfhIQ==
+	t=1793710373;
+	b=5qrraW6HG4ziiyux6gwGmV16z8Cbg24vdVSG7MLqYL0gQlZcP/GdQYfxztHO+AECv+AO
+	 eqa1Kowev7z/EfpqB3ZoMqxeMRhPTK2VfhSlj7r3Xqf+V5HuLDKLmccA99g6dBBNewClY
+	 dSzXpfP4GyulqlqXPz1oHaK4LtoaXXF7GXYZgBMcJlemj4TYTnouPBykIvjTQh3Lg8z8I
+	 MxIQP3iJjsTK/d3WFA2u3zWcrhA37m1Trsx+4Vr2YUaH7dudnEoFP9F3zcQGUG2PEeunY
+	 1ftZwO61+PZzdImfapes4ErV9+SQlEwjsAtEORNtEhwRdSGrWH8ite02RPNXaCJPCmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710364;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OxChCZD2o0yQGRgsO2CGIoKtpGo86ALe5rnyFgOgtTE=;
-	b=DL5acqo1zjdkakLLg0oHwf1BAEhLMqaHiyn0b1sUrE44Pb/w9hVOcTwkg0bsnnGDLM8W
-	 OMJ9rctysEW1z+rQpGFTjVmTwj+AeLV93pZ+MKGDEdAvw4A3YdrMkZudZxv4gqvfHKGn1
-	 XTziVbaRxxDMx2ES5hHaiX8B8nIKnxk+6O2gyw6mx8rTZvcAe8st5Pw6uWLpuAPCx08PI
-	 Z/dXMnMMTRBR1c6StE64Axk3A+hGYRGjstlrzEKF2IQEcshWGWZ7ZhRMd6QSczEWG1P98
-	 pVEwYT20Geoxf+Pa/y0BNE7lW9QcTb0UnWTwtd/koFxzSJvVjtARrd6ACOAVLfVoQqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710373;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=8hA8/g+bmMCq6bv5YDH3OeXIosbAXwn+RNBKjCSQfaM=;
+	b=aFNm3mrVJqoigzL/0SDRyfahjcusUhAvNp/89ZNukW2v4Rczlzy2se95vYWCcotD4je3
+	 IUv6/gkB0aCMEKPmGeiCh2sZo3oEHOt8g4L1e1FxT876PlMKxTxp6QSEbOAQsuXdxZ0A1
+	 5nDoXhmjdj7kiXw+m9hqxQTwhndqkzBcy8zd+ooNwz+57Pb+V7crtAcielPCS4oWvvzwy
+	 ssPxFGctl1wULrziTebQ33uAeEESPWWAkj1T3KCZJtk1+zkTd3bYfwgYYLzxAeamty1G0
+	 9pUj4ODGEfQ+fRkIsA1HGprSy9Z3Qt/or6e0deoe/Nua7RnsD4btFVq0d4hZAtILIPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5LME5TA;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=ykLiUdxW;
+	arc=none smtp.remote-ip=93.188.205.243
+Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23926606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:52:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23926606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10922606A333;
+	Tue,  3 Nov 2026 12:52:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10922606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5LME5TA
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3550c917fd3so5635592eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:52:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793710363; x=1794315163; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OxChCZD2o0yQGRgsO2CGIoKtpGo86ALe5rnyFgOgtTE=;
-        b=h5LME5TArfJBnxSoUoZoGTGBbOAQ8cXaX8FXX36hNeDm7KxiIgxeW8yJvVjI+BXbBX
-         eCQPc79CPCNshV94OejJVsBbYxzBFyrDdS0dt0lVfKAMgl3B4bGZOmflC7yYVmznRkYm
-         dflLBFS8FVPXZCvJqHOZWSSN+/EB4MK+URtSTWwxvX5JBo9rKGb5U4UDCNFc1mwhcnuh
-         9lU3VHhmZ9HBRzUh8msVdzk+RCVJNvotW1jyj1snEHD1mEKgEjkPqdKdWRa6w/3py9op
-         +W6FkYNxcy1SbZJGDgiWaPIfskdVx2lfjwkGXaizOIvk5eC2hF8d3VgRpiBx0280bk9p
-         t0Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793710363; x=1794315163;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OxChCZD2o0yQGRgsO2CGIoKtpGo86ALe5rnyFgOgtTE=;
-        b=sUtiYUNWD4WQdY8zHJqcXxDcbiAj6FRiMc+aRw5diksxeIowk7/S0PBcmDB9lXQIRE
-         EfMJj6VNCj4IkNibOBs4/bOTNAJOrT8aOUdZdc2NXTTqGrDzbcB+5YH/qAO51vC/MJMk
-         e4vD4kut615xUIMg/h8+HoD+hoAFGbYmQk0vtOYj/AdM2xtAqUJ8UoKdcBHaqcZSdw8k
-         Mo8jocNanhcoVor74aYGLsFGj2c1yzWMfTqvOOB6Nek9Tlnrn4lWDq40zdRcb97QJRTw
-         bja1578GkV1q1EA43TQnPBo2asr9X0touKKB8MPvHhfW+ZxCM7Fxe7MKvVt6qjgtDvU0
-         j9AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+x5mZq0mcb2nXWD+wH2PB/5P3oHu0iBzaZmvJ3lyTl3mkHfWdZWLHRme6x7e2FuZSOfIKwH6CxirAW3Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sQN2S7glSDs7ysP1zISvKQ/KK7R558Ao0JM5QFjvo79WL+v/O
-	UbSUPkL4sqyTP9mQn+Zm84b7iUH5x/XKAzSzbR8ziMloMCZO4ebeuKfK
-X-Gm-Gg: AYBFou248bO3rXysKD+2R11Z/SlV7OiJkg+mGrWCCdfta+wKxAd+rryplu8DrQt1Hwn
-	S5LCB8mt83eUJw9DCOlBipuZbNCZh9HAy7piKK4cXB/ty4Lmj+eCDZzEwXTxbEg6n+kJ96OMNtJ
-	qHvxZ5a4jt/oUnwbBBVK2HRdcZR/yaHfLYVHP0tf/EEJAlgZBwiRhDfoTO6tG+lOK1o+N5+EHM6
-	GVaBy763KHQIFN2bE0CgMajyWD3j1j3Xh4D/4pZxuNEsf6//CKSnETkIoONxNIW9xgSNCLzYrbK
-	gXR4dEV5sUniEc1REOGjPnyv0eAzzt0w7HTM2qZe0/aE/czj4BC0p+xr+G16PH/oBgym6uX3h20
-	YlMbWxCjkHEfRtZHW9NxWBi8ufhU2WSQcLKSZaJ+S0pZUerJnKDxDL5LU/Vvwb0OKw24E6rj5//
-	eOMeC1xONDKP9qbOCmptAtDv8wiLM3Qt0jVbP4XLuVHL/hC6iexHcLB9thfs+/Ca3Rvh89Hqs2B
-	gvzAgmXWAeMVet6uRC+n0y9kzaFfVll4z5vmsVVD2wDM5zhbLkWTrjy1X7Tc5MS2f8XtPVHDkAE
-	6P2Q1BIF184ox8O3psasmEU2oGyMlVZ853Q3o+3RyJiyYjtU3PM=
-X-Received: by 2002:a05:7300:d58d:b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-36a4221aca2mr21618441eec.5.1793710363113;
-        Tue, 03 Nov 2026 04:52:43 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429000f8sm48196220eec.13.2026.11.03.04.52.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 04:52:42 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: cezary.rojewski@intel.com,
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=ykLiUdxW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793710362;
+	bh=iouGWSMMa76ghwbzwSYQ6bAw7O0sN2zqkEE0UIP46bw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ykLiUdxWD+FUHhMSFlnG326R1gDFgCSR6JuEP42ivk6fJK84+ldEl1Zf+5NMZOEkG
+	 iBqxPCON5M61IjyIqsiyXMwBjIASRwZV5BvsUMXmVypdrv4GiNgZ5Ys8iOhxbnW34U
+	 PJKfc7b3XrDncNLGqcZ+OaJeg+MJmPgLC/D23FN5arZjYL1btjFravq41pSXRCTY8j
+	 GNtjQi+D+Ca4FQOfXxKf9cSi6MEGLOWxSXCyI4rl9H484QO5rJpBeDPwPxoO9IafDU
+	 /YxGkHS99gupu/Ihi56tLZ3M7gue8ZI2Pdrs1bXtwQm31Tpam9BYC5aGuKHN7mkeSG
+	 2nBr49abPVZ+g==
+Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id B499E1FA27;
+	Tue,  3 Nov 2026 15:52:42 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
+	Tue,  3 Nov 2026 15:52:41 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.27.207])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJlCK5Myzz3vN0;
+	Tue, 03 Nov 2026 13:28:13 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Yinjie Yao <yinjie.yao@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sasha Levin <sashal@kernel.org>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	rosenp@gmail.com,
-	sreekuttan2156239@gmail.com,
-	tim.bird@sony.com,
-	tiwai@suse.com
-Subject: Re: [PATCH] ALSA: pcm: Fix source frame count calculation
-Date: Tue,  3 Nov 2026 12:52:11 +0000
-Message-ID: <20261103125211.3484-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87pkwn8ebe.wl-tiwai@suse.de>
-References: <87pkwn8ebe.wl-tiwai@suse.de>
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] drm/amdgpu/vcn: set no_user_fence for VCN v2.0 enc/dec rings
+Date: Tue,  3 Nov 2026 13:27:48 +0300
+Message-ID: <20261103102754.1500-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,20 +85,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {diag_burst_silent}, {date_rfc_vio_soft_silent}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207221 [Nov 03 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/03 11:26:00 #28786010
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-Hi Takashi,
+From: Yinjie Yao <yinjie.yao@amd.com>
 
-I would like to kindly follow up on my first patch.
+commit 8d80b293b41fcb5e9396db93e788b0f4ebcbafb7 upstream.
 
-Could you please let me know if you have had a chance to review it?
+VCN encoder and decoder rings do not support 64-bit user fence writes,
+reject CS submissions with user fences.
 
-For reference, here is the patch link:
-https://lore.kernel.org/all/20261102135034.2751-1-sreekuttan2156239@gmail.com/
+Fixes: 1b61de45dfaf ("drm/amdgpu: add initial VCN2.0 support (v2)")
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit e2b5499fca55f1a32960a311bbb62e35891eaf73)
+[mdmitrichenko: Adjust the ring initializers to the 5.10/5.15 context,
+ preserving the existing vmhub fields.]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-63856.
 
-I would appreciate your feedback whenever you have time.
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thank you for your time and consideration.
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index e2744f172610a..da3809fef38ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -2005,6 +2005,7 @@ static const struct amd_ip_funcs vcn_v2_0_ip_funcs = {
+ static const struct amdgpu_ring_funcs vcn_v2_0_dec_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_DEC,
+ 	.align_mask = 0xf,
++	.no_user_fence = true,
+ 	.vmhub = AMDGPU_MMHUB_0,
+ 	.get_rptr = vcn_v2_0_dec_ring_get_rptr,
+ 	.get_wptr = vcn_v2_0_dec_ring_get_wptr,
+@@ -2036,6 +2037,7 @@ static const struct amdgpu_ring_funcs vcn_v2_0_enc_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.no_user_fence = true,
+ 	.vmhub = AMDGPU_MMHUB_0,
+ 	.get_rptr = vcn_v2_0_enc_ring_get_rptr,
+ 	.get_wptr = vcn_v2_0_enc_ring_get_wptr,
+-- 
+2.43.0
 
-Best regards,
-Sreeraj
