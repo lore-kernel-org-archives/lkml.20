@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793697261;
-	b=E+sBaKWJKm0XPvtSuxhN0F39NmbQAghu1n+lgWL8k+19/zBaBQwytxMiC9YBx5o4CS/q
-	 Sn00Gx15EVbcXObehxPNpL+rtKX2kE5E3bowgCZf9WYv8qcVxKpPJmVQVn44482ew+ghj
-	 j3DCqZEE8I2cy87U9IAKqJTZ17BP0DYKoiNzo7UuLpAy9A8HDbcU9PFMSXMUepFxUoKPa
-	 Mh4p44DcCHnlnKPkMFpZnW3KqkqSUYxUB+65R6EZk/FD3WdddZg4EySp46O6NTXFKtmM1
-	 x9ifW47b2sOXGNjttt1MqtZW8vkjasU6cGq0UJup+9yK1vngi7lH4whI9hIbB0iPLWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697261;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
-	b=vEW3OyDTqdkJxDAMVs/AGBsZ+ZcEjrvA+di6RWih+AcWhEC2MTA4s7NNMLqYfmqAcwEw
-	 QV9FPEvtVgy2LNfRepoEaTHP6riKmLZczDwVR+bN9P0H81+NuoTE1RurpU2JEAd4mlTD9
-	 8m/Nz0UkajwnLLICi6I8W7BQ+q0KP2h72a4kuUYREkEWQokPdZLTtorUjqjKyhz/s4w17
-	 cN31zncz8rs5Dr9UwfE2UoNIAK1pYUqw7fRLPs5nt4SPtabgADAEnwPc5tAvvXc8IoQI8
-	 gAFK3yTUwUeK+Z4Oeur2LciZg9yjly0HMwku0c7+bg9hQruLffqZU64L/XY90lxwCJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Az16B1NT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793697284;
+	b=FanEo2yiBib0PkKL8xJ90rbjwdSAei5jJ5DCyYOpATA/SW04Qi2u04T0viez7Yaj9fg6
+	 TjwSYngdjx1lDSMN7AN2RjSAucNfHj6RgaoCukzqLzw0cpO6Tfi+v274a1ua2uchRUP83
+	 e3wxVxxfD1y6vEYc7pqi8U+gCsrndRczXjPBw06oONgKj21HRZ9TH+zf1v3BiZ5Tz72y+
+	 QHqO7zXfdX7axCMBB9w7Y+YWo2TcVLog/A8XHtpJbrBWfL4AtPEaOxlYsWC/vmySSz89K
+	 Tn5IM7MFcbqy2iiHm4jimEhGnuZ3byZr4hGAifeREPzuKjNk6laNGEP4n770ksQLMXg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697284;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Tn8JJ6e2rb+ujxI+sTGHT+OqEATEBHO8rrC9BgLrjPE=;
+	b=zQ+03d0tdDYrqSl1zueZTzyTVPk0bBxnf6HoXYM7yeAgd1DhRjPvxiBVtk87DLtKJqPT
+	 6/v2339j7rrKAmqCEprFGhR1TNPFbXg5XcfS27JjyyNBMwi/CqWmgzlDyP37rJpbH2gpd
+	 E0fj2g8KdbS9JbaTXXC7PUz9Rwvt9+w1gLS4xpdfbShmPNPAsvpTkA3/z2eCjS342wI+5
+	 /nTFdXGLO6iDQ+yBPfAV8qMsrU7mWJx+len4lP3blmIjHuBB78Z4YK/+Xv4Bb932Iwg1z
+	 VJ3SiEdRXhDATFtxL9gNCPcSOuGrTp1Gl1QHHdalP8MU8nT2j4yNVJcTshsiZH8UhPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ZZLh0PUQ;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794B4606A324;
-	Tue,  3 Nov 2026 09:14:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 794B4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99573606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99573606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Az16B1NT
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A9E7320103C;
-	Tue, 03 Nov 2026 10:14:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793697257;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
-	b=Az16B1NT/o8u9bVz4Vr+qtoUJMO3XnS5rLrEvivYNfOeg/KeYGFKJa8LvN/V523v7lH/79
-	dKjT1Dj0L2tkZoPLOQYbfdaLEiI4+49lt+e0MAxy8rJLme1LJMizWuHIj3IuJqhIdplKzl
-	bLdN24LfJoTlqzgYGPzLR7nqq8CoC8dBkvg2VKgJL1LKp2XvwAUqf3Q/cBzK8GgB83tSLq
-	iJQT7CebcWCXUevcw24RNeD62XHc1PVw01VapBpiNKtOAGGnKnBK9rgWhkCY3EnEB6J/J/
-	TZDqOnUvRwt7btSCyUqCt3QOIkm1cCXRPqacLNsX22HxcLv1l68DnXQC2AxoCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793697257;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
-	b=IeFNgT0IVHiRepot8IhD9+8MZxksgKp8QtZ0Q+NkRQKSzRW3F1st38bGCwY408Qds7atpb
-	ASrtbeQfpuAnNb5kkd7A+fbJ8ddafXqTtv0cWMMKVkgzhTPcwxdGEQURAVF1Bq9QZ0rgTg
-	9Vy3wLWnvjju/NCLna2Jd9dKEalVQTk8EXyJGFG8zWnPj2aNmEqFl0MlVN2ji7XxzsVrsT
-	WQO+2MIY9f1v0UNM0UDw6LyRIoKSSMVnq3fAMy5ZR/NKyOiIELMNjRr/xIJYmGGI4VnjHD
-	4JiOPXyDQ1eksy1+MAANficJxkHsVtWHcA8cTuH9WeEIu9XiQesit2LyMZgpcA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793697257; a=rsa-sha256;
-	cv=none;
-	b=MqelqDHcu32UrtpOsw3KKZGLgLnFSR66JSukkrD0iM4rky+LVtOW4DCdHiERKyp0wwyUUR
-	GpeDDOCAgBKM7K8U1C36Gv6NbS5q0c332HXHoL93qzyNgEhptnCF4Q7rWM42PJSwcutHq7
-	hj+C8jujlg6ifEOlQI652m1MHSw4+zhWckIyPos4F8hrlN7763yEA8xzS9Aogizms7TF/z
-	N9uxspC3AcdMXAscx5zzdN40nfJrBNAnohLxQCGiVeRKE+pr0x0NTROgrjV/fgvjOKINoW
-	XQbjuGVpvakYsEUAjDsft9Ml7OavlmNny2MoEjyxe4tOnmtQ082HCtQPFGF80g==
-Message-ID: <88963fd1fd87123496a55e2002bc8b0dc2466bd4.camel@pengutronix.de>
-Subject: Re: [PATCH 6/9] reset: google: Add CPM reset driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian
- Masney <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,
- Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,  Peter
- Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org, Tudor
- Ambarus <tudor.ambarus@linaro.org>,  =?ISO-8859-1?Q?Andr=E9?= Draszik	
- <andre.draszik@linaro.org>, linux-samsung-soc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Radu Rendec	
- <radu@rendec.net>, linux-arm-kernel@lists.infradead.org, Mariano Marciello	
- <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>, 
-	linux-clk@vger.kernel.org, Jakub =?UTF-8?Q?G=C5=82owacki?=
- <jglow@google.com>
-Date: Tue, 03 Nov 2026 10:14:17 +0100
-In-Reply-To: <aukyyYhDCBUdIH16@google.com>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
-	 <20261026144346.6.I0b1ad34a718a9b5f667d2481041970ea45989dd3@changeid>
-	 <8d57f0a1dc8a07838bf1320f9b79588196264ff5.camel@pengutronix.de>
-	 <aukyyYhDCBUdIH16@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ZZLh0PUQ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Tn8JJ6e2rb+ujxI+sTGHT+OqEATEBHO8rrC9BgLrjPE=;
+	b=ZZLh0PUQ1ZZiNnfLu8uV6kw465/92VoTefC9sc818KZ47gSrCoOLE4H+gQBVYp/oXtMCHQGBE
+	/xxU76TnM8sqb8j6X269lFFu/zBlJdYIDfc09Pt9kMeIGaLVXeVOU+Fj5wlRPONrYU2LJAaTcTe
+	QH3ZbbAuATkrqCZCdRFZpKs=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jJjZ432W9z1T4LL;
+	Tue,  3 Nov 2026 17:14:20 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id A470540537;
+	Tue,  3 Nov 2026 17:14:38 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
+ 2026 17:14:36 +0800
+Message-ID: <6ed88169-f663-4b72-a8f7-f75f2c7dc080@huawei.com>
+Date: Tue, 3 Nov 2026 17:14:35 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,68 +62,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/15] kexec: Fix CMA and elf header leaks and rework
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <thuth@redhat.com>, <leitao@debian.org>,
+	<yeoreum.yun@arm.com>, <robh@kernel.org>, <sourabhjain@linux.ibm.com>,
+	<kees@kernel.org>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
+	<tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
+	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
+	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
+	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
+	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
+	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
+	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261026075201.699550-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mo, 2026-11-02 at 17:03 -0800, Brian Norris wrote:
-> Hi Philipp,
->=20
-> On Wed, Oct 28, 2026 at 03:03:24PM +0100, Philipp Zabel wrote:
-> > On Mo, 2026-10-26 at 14:43 -0700, Brian Norris wrote:
-[...]
-> > > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_assert_debugfs_fops, NULL,
-> > > +			 goog_cpm_rst_debugfs_assert_set, "%llu\n");
-> > > +
-> > > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_deassert_debugfs_fops, NULL,
-> > > +			 goog_cpm_rst_debugfs_deassert_set, "%llu\n");
-> > > +
-> > > +static void goog_cpm_rst_add_debugfs(struct goog_cpm_rst_debugfs_ent=
-ry *entry,
-> > > +				     struct dentry *debugfs_root,
-> > > +				     const char *name)
-> > > +{
-> > > +	struct dentry *d =3D debugfs_create_dir(name, debugfs_root);
-> > > +
-> > > +	debugfs_create_file("assert", 0220, d, entry,
-> > > +			    &goog_cpm_rst_assert_debugfs_fops);
-> > > +	debugfs_create_file("deassert", 0220, d, entry,
-> > > +			    &goog_cpm_rst_deassert_debugfs_fops);
-> > > +}
-> >=20
-> > Please drop the debugfs functionality or explain what it is needed for.
->=20
-> Ack. I think I'll probably go with "drop", but some notes:
->=20
-> There's no real way to test and validate a "reset" driver without a
-> consumer. There is no direct (even for debug) interface into the reset
-> API, unlike in some other subsystems (e.g., GPIO). I believe the main
-> purpose here on Pixel drivers has been hardware+driver testing, so one
-> can test reset functionality before hooking it up to real client
-> drivers, and without adding fake drivers or extra debug code (a la
-> "printf debugging").
->=20
-> (One might observe these results either via /dev/mem-like access to
-> registers, or even through external debug peripherals/consoles that can
-> monitor the status of the underlying component that is being reset.)
->=20
-> This all would generally be in an early hardware bringup scenario, so
-> admittedly it probably doesn't have as much of a use case in the
-> upstream kernel  -- it's a long shot for this kind of hardware/product
-> development to *actually* work directly on an upstream kernel, with
-> upstream drivers.
->=20
-> ...but if I were imagining a better way to do this without bypassing
-> reference counting: perhaps it could be useful to a have a
-> debug-oriented "reset client" driver, that could bind to arbitrary reset
-> devices, if they're not already owned, and expose a sysfs or debugfs
-> interface like this? That could fill similar use cases for this sort of
-> hardware testing/validation area.
->=20
-> But anyway, I understand such a proposal should definitely come
-> separately from this driver submission.
 
-Thank you for explaining anyway. With that use case in mind, I think
-"drop" is the right choice for now. This functionality can be
-implemented in the core and use reset controls like any other consumer
-driver.
 
-regards
-Philipp
+在 2026/10/26 15:51, Jinjie Ruan 写道:
+> ARM64, LoongArch and RISC-V load the elf core header, initrd, DTB
+> and cmdline parameters with almost identical code. This series fixes
+> the bugs in that path. And as Mike suggested, rework the common part
+> into a helper.
+> 
+> Patch 1 stops using the Image text_offset for arm64, which breaks CMA
+> segments in both the load and release paths, and rejects images with
+> a non-zero value.
+> 
+> Patches 2-7 fix the CMA page and elf core header leaks in the retry
+> loops in arm64 and LoongArch, also fix a modified_cmdline leak
+> in LoongArch.
+> 
+> Patches 8-10 pass the kbuf fields to crash_prepare_headers() to
+> simplfy code.
+> 
+> Patch 11 frees the elf core header from the generic post-load cleanup.
+> 
+> Patches 12-15 add kexec_load_other_segments() and convert the three
+> architectures, and arch_kexec_setup_other_segments() builds
+> the architecture specific boot parameters (a DTB or a command line).
+
+
+Hi, everyone,
+
+Any thoughts or suggestions?
+
+> 
+> Tested with kexec_file_load() and kdump on arm64, RISC-V and LoongArch
+> under QEMU, including the non-zero text_offset rejection.
+> 
+> This series is also available at:
+>         https://github.com/ruanjinjie-eng/linux/tree/kexec_cleanup_v7
+> 
+> Changes in v7:
+> - Rework the kexec_file load code to avoid code duplication
+>   as Mike suggested.
+> - Add Acked-by.
+> - Drop the two non-zero text_offset fix patches
+>   and deprecate .text_offset in arm64 as Mike suggested.
+> - Drop the x86-32 fix patch.
+> - Drop the TOCTOU race fix patches.
+> - Link to v6: https://lore.kernel.org/all/20260921090450.807575-1-ruanjinjie@huawei.com/
+> 
+> Previous Versions are as below:
+> - v5: https://lore.kernel.org/all/20260918100442.3841135-1-ruanjinjie@huawei.com/
+> - v4: https://lore.kernel.org/all/20260907125404.922123-1-ruanjinjie@huawei.com/
+> - v3: https://lore.kernel.org/all/20260826092541.3905933-1-ruanjinjie@huawei.com/
+> - v2: https://lore.kernel.org/all/20260729031235.2840255-1-ruanjinjie@huawei.com/
+> - v1: https://lore.kernel.org/all/20260723131242.1537633-1-ruanjinjie@huawei.com/#t
+> 
+> Jinjie Ruan (15):
+>   arm64: kexec_file: Stop using the Image text_offset
+>   kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+>   arm64: kexec_file: Fix CMA page leaks in segment placement retry loops
+>   arm64: kexec_file: Fix elf_headers memory leak in retry loop
+>   LoongArch: kexec_file: Fix CMA page leaks in segment placement retry
+>     loops
+>   LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+>   LoongArch: kexec_file: Fix a modified_cmdline leak
+>   arm64: kexec_file: Simplify load_other_segments()
+>   LoongArch: kexec_file: Simplify load_other_segments()
+>   riscv: kexec_file: Simplify load_extra_segments()
+>   kexec: Free the elf core header in kimage_file_post_load_cleanup()
+>   kexec: Add kexec_load_other_segments() helper
+>   arm64: kexec_file: Use kexec_load_other_segments() to simplify code
+>   LoongArch: kexec_file: Use kexec_load_other_segments() to simplify
+>     code
+>   riscv: kexec_file: Use kexec_load_other_segments() to simplify code
+> 
+>  arch/arm64/include/asm/kexec.h             |   5 -
+>  arch/arm64/kernel/kexec_image.c            |  33 +++++--
+>  arch/arm64/kernel/machine_kexec_file.c     | 103 ++++-----------------
+>  arch/loongarch/include/asm/kexec.h         |   4 -
+>  arch/loongarch/kernel/kexec_efi.c          |  20 +++-
+>  arch/loongarch/kernel/kexec_elf.c          |  11 ++-
+>  arch/loongarch/kernel/machine_kexec.c      |   2 +
+>  arch/loongarch/kernel/machine_kexec_file.c |  96 +++----------------
+>  arch/powerpc/kexec/file_load_64.c          |   4 -
+>  arch/riscv/include/asm/kexec.h             |   4 -
+>  arch/riscv/kernel/kexec_elf.c              |  11 ++-
+>  arch/riscv/kernel/kexec_image.c            |  11 ++-
+>  arch/riscv/kernel/machine_kexec_file.c     |  79 ++++------------
+>  arch/x86/kernel/machine_kexec_64.c         |   4 -
+>  include/linux/kexec.h                      |  17 ++++
+>  kernel/kexec_core.c                        |  25 ++---
+>  kernel/kexec_file.c                        |  99 ++++++++++++++++++++
+>  17 files changed, 248 insertions(+), 280 deletions(-)
+> 
+
+-- 
+Best regards,
+Jinjie
+
