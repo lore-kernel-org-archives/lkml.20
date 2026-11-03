@@ -1,76 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704957;
-	b=2AfByChqZZdgx2KOMb8VIwmqSRCMopYdP2fdUDxEBTMnmessK61bO9KQA0DLjenpHOfC
-	 JlM24hjqZpq6N+hfn3O/OhKqEHhkGNJpzUWdOLgAcTDgHixo1/bLKDhM0Oli1wwMMXIOI
-	 LLHUP62uRQkdUzdCL+Szs/VrHo92yUvqua/BRrdDauM5MQoaUi4Pd/+gxBLzTcwxRLOtm
-	 41DGH4ZVw+HwsUv1hS1qXrtvnxTjBKymd3CfjoVN2PiajVWldKpP9IxJgdqgkRLaCPEXp
-	 V7OtU4Hm/gqAZ/4H2m8BEZ6oI+Ah/p36hMqxbSYCiIwFPIH24+fo4xQsNybkbZ+sgmA==
+	t=1793704961;
+	b=cFW3SMRbTNihcJUbhLFkJ8GGQiSIJLGVD5op5alpkM+Esd3tGvpFo6HdV3cG4z1pBgUH
+	 Zoa33v5WIbfkJGZtttDwPLMyKXSo2ZD0t5xusJy5GIwRWZD9A1rjnB3Y4srZXfJoL0OPV
+	 nthIIwYUiMwDon3HXPe7BlHXF2YIMuUzex80MDZ6W5qX1RzQQB5MQrEZf1pYvvillmcYD
+	 yOre6OVvO+jvFlwzijSEzZs0E0aym3rnd9aJmllQwZtDUzOVZf6dryLz+g+y2WcoSP6z4
+	 eqRQAaAQjNLQz2Fn4YBnJxtEarhf8qOvkqzFGYORdrB1JlRneRrZUkfQGOCO/0Oy56g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704957;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=j2Vh/M2QHwx9LQT45XzMEr7PiYDFWEPpUEvbC6uYgDI=;
-	b=fZxq54qpPSVOQ0TcUcWjSQXvfLW1rNMPeQdSv7AnhsrucBK1XOHrzQomok1h20fdE2sG
-	 2sOTOlCR/wWVqXKDls/onfr6m/OAmpld1+gVkbAYI3SOeODjfsNVcG64MwZ4x3BH2NGmZ
-	 c0oBUqLHgQqhDx1mjFV1d7OM2tpikDXnGFSrqcv0dfqGM8HSGbETPVQGxlwMbTi3d7x7a
-	 VioqeWS43y7YYh3rq5iZD6X1dohh8H+EwZ8am4vr9O+T1kxP+xJceZ3QZi+Mo3bSsXyTN
-	 Y33V0Nr9Vm4mZq7Z95Iopf2CxMMDN0bMMUhCyw93I9JpUSYDsf2H82TKJQBsExRkSew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704961;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=Im2hD/3RPp585O4FNz8w013aAEGmolE3drO5PuJAwxI=;
+	b=d3pwb/wPlv+1j2WVQe8DzGqNgca92di6P/VrVfu3wSzoutZSD6y5cElpjqodObc2m/8c
+	 CW+4DyC0LqJKZ+WTVoD3ue2/zmBzMJi50eDIRWoIVx3rfBy+ksGX7UoDPgCE3lPeawvzN
+	 9SWfqETgJBtNMOPNUsrXllUleiOQGdiWSwLINABGMG+eLEpnv62qnNxS+zWACfotDrS0S
+	 zjw9tPccw/EzC5oyBm2CN+EYnNvk19bUdwaKT9Jos6SfxCa8HcxtCigOJ6YMqITvAc8zf
+	 7I2IEV4Qg3U1gez+eltRbW2kf02TXUXR/uN5Dbyn4a37ZxajUUm6RZ4bOglbXkfqx/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EDVldgBb;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="mpQ/H7qb";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985EB606C584;
-	Tue,  3 Nov 2026 11:22:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985EB606C584
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581B5606C59A
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:22:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581B5606C59A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EDVldgBb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793704955; x=1825240955;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LGOcdMIjTZ8MBgrCIttX59enpT8IHif0wBqJ31SNup4=;
-  b=EDVldgBbatmNcmVlrX0zMALU3CZ2uymRac0JcRtsJjCCDSWVf6mSPOqS
-   Jm0+y/rbrG5fQyMS6VXiZzeLOqa1iC3JcagFM9hpcuHPJYME+Rna+szxR
-   jrZpm6ZqvBuY7JFeru2I5XoEJRvQieH9W734bNohPaBBnwhk9rP5Wu6Rf
-   RS5UtlryGjd2OzMOzU1Hs8U1fwjeSZ78PFKyMZTVsHEYaNmaJ3CeQk8/K
-   kN9XicutZ7buhkqNIg691IDwvSKYpZ2tDnu3kT455p7kFXieh4XsUCdew
-   Zkbz2i2lhfpA5NjmU5JhOiTIT6EiqxSxc2gS+7EBcNxpXjHUnQvtAdYbZ
-   w==;
-X-CSE-ConnectionGUID: 1pQkppDVRlqIEw6I/9veQw==
-X-CSE-MsgGUID: VDThjk2BQrSXQtV5UYBPKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2453527"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2453527"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:22:35 -0800
-X-CSE-ConnectionGUID: 5tabxthBQLGBcCDsn+EM+g==
-X-CSE-MsgGUID: b8AaKYU1RsK18v9j9dsZig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6227264"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:22:32 -0800
-Date: Tue, 3 Nov 2026 13:22:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org
-Subject: Re: [PATCH v4] iio: chemical: ccs811: Make sampling frequency
- configurable
-Message-ID: <aunD9kPZ03d8s8AI@ashevche-desk.local>
-References: <20261101054019.10188-1-nikhilgtr@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mpQ/H7qb
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A7D9B1A1430;
+	Tue,  3 Nov 2026 11:22:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 685516046C;
+	Tue,  3 Nov 2026 11:22:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9B9810328267;
+	Tue,  3 Nov 2026 12:22:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793704951; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Im2hD/3RPp585O4FNz8w013aAEGmolE3drO5PuJAwxI=;
+	b=mpQ/H7qbmCeJCsVUAv6mUbCuYfblkczMBNsSOQkUfNvgj759C8FjqB4FV+lT4PATF1vIUq
+	4gSGLJ7S4Z1H1wvRqHsb06gyBkHzGz7wj+bDgDmcQRQxL2sGXlkc1MQzoRlJzc0Vm+a+jF
+	rjEQ0zpOfvj8qLHi8CkxQ4RXb1VnIxD0LlikBV+nmA0Ljnt5KAiJTjxCTOrnigwxkYdp5W
+	2MYcQ6l4aAQpcWbPswrjdU1w2f+KW7/ZSvWbRyetHOSdeqBPXSuqMwTMfXn9JVL0sC27ow
+	OUPAfqhTxi4k2zVBP86GI1wEXclSlyrSARiuc9aZ9sjKDntfL09dICGY9ZwscA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
+ Sam Ravnborg <sam@ravnborg.org>, imx@lists.linux.dev, 
+ Esben Haabendal <esben@geanix.com>
+Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ "Oliver F. Brown" <oliver.brown@oss.nxp.com>, 
+ Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
+ Liu Ying <victor.liu@nxp.com>
+In-Reply-To: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
+References: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
+Subject: Re: (subset) [PATCH v5 0/4] drm/bridge: nwl-dsi: Various fixes
+Message-Id: <179370494317.651381.10938572686386767972.b4-ty@b4>
+Date: Tue, 03 Nov 2026 12:22:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,158 +83,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101054019.10188-1-nikhilgtr@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Nov 01, 2026 at 11:10:19AM +0530, Nikhil Gautam wrote:
-> Allow userspace to configure the CCS811 IAQ measurement rate through
-> the IIO sampling_frequency attribute.
+
+On Tue, 27 Oct 2026 11:33:48 +0100, Esben Haabendal wrote:
+> This series brings a few patches fixing horizontal sync timing, EOTP packet
+> behavior and hsync/vsync polarity selection when using DCSS endpoint, as
+> well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
 > 
-> Support the three IAQ measurement modes with sampling frequencies of
-> 1 Hz, 0.1 Hz, and approximately 0.016667 Hz, corresponding to
-> measurement intervals of 1, 10, and 60 seconds.
+> The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly from
+> NXP vendor tree, so I have kept Author unchanged, although I have modified
+> the commit message. Let me know if I should change Author for that.
 > 
-> Preserve unrelated bits in the MEAS_MODE register when updating the
-> drive mode, and cache the selected mode after a successful register
-> write. Expose the supported frequencies through
-> sampling_frequency_available.
+> [...]
 
-...
+Applied, thanks!
 
-> +static const int ccs811_samp_freq[][2] = {
-> +	{ 1, 0 },
-> +	{ 0, 100000 },
-> +	{ 0, 16667 },
-> +};
+[1/4] drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
+      commit: 8dad0ebd822f54102aadc6ca4f0f8777112d175d
+[2/4] drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+      commit: 54a88d9afcca66221d14f438d0960472984968ec
 
-Now it would be better to have a common enum to index above and below.
-So it will be kept in sync
-
-enum {
-	CCS811_MODE_IAQ_1SEC_IDX,
-	CCS811_MODE_IAQ_10SEC_IDX,
-	CCS811_MODE_IAQ_60SEC_IDX,
-};
-
-static const int ccs811_samp_freq[][2] = {
-	[CCS811_MODE_IAQ_1SEC_IDX] = { 1, 0 },
-	...
-};
-
-> +/* Drive mode for each entry of ccs811_samp_freq[], same order */
-> +static const u8 ccs811_drive_mode[] = {
-> +	CCS811_MODE_IAQ_1SEC,
-> +	CCS811_MODE_IAQ_10SEC,
-> +	CCS811_MODE_IAQ_60SEC,
-> +};
-
-...and here in similar way.
-
-...
-
-> +static int ccs811_update_sampling_freq(struct ccs811_data *data,
-> +				       int val, int val2)
-> +{
-> +	u8 drive_mode;
-> +	u8 mode;
-> +	int i, ret;
-
-Why is 'i' signed? Also keep reversed xmas tree order.
-
-> +	for (i = 0; i < ARRAY_SIZE(ccs811_samp_freq); i++) {
-> +		if (val == ccs811_samp_freq[i][0] &&
-> +		    val2 == ccs811_samp_freq[i][1])
-> +			break;
-> +	}
-> +
-> +	if (i == ARRAY_SIZE(ccs811_samp_freq))
-> +		return -EINVAL;
-> +
-> +	drive_mode = ccs811_drive_mode[i];
-
-
-With
-
-	struct i2c_client *client = data->client;
-
-> +	ret = i2c_smbus_read_byte_data(data->client, CCS811_MEAS_MODE);
-
-	ret = i2c_smbus_read_byte_data(client, CCS811_MEAS_MODE);
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	mode = (ret & ~CCS811_MODE_MASK) | drive_mode;
-
-> +	ret = i2c_smbus_write_byte_data(data->client, CCS811_MEAS_MODE,
-> +					mode);
-
-	ret = i2c_smbus_write_byte_data(client, CCS811_MEAS_MODE, mode);
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	data->drive_mode = drive_mode;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ccs811_get_sampling_freq(struct ccs811_data *data,
-> +				    int *val, int *val2)
-> +{
-> +	int i;
-> +
-> +	guard(mutex)(&data->lock);
-
-> +	for (i = 0; i < ARRAY_SIZE(ccs811_drive_mode); i++) {
-
-	for (unsigned int i = 0; i < ARRAY_SIZE(ccs811_drive_mode); i++) {
-
-> +		if (ccs811_drive_mode[i] != data->drive_mode)
-> +			continue;
-> +
-> +		*val = ccs811_samp_freq[i][0];
-> +		*val2 = ccs811_samp_freq[i][1];
-> +
-> +		return IIO_VAL_INT_PLUS_MICRO;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
-...
-
-> +static int ccs811_write_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int val, int val2, long mask)
-> +{
-> +	struct ccs811_data *data = iio_priv(indio_dev);
-> +	int ret;
-
-Why? I don't see any followup, without which this variable is redundant.
-
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		ret = ccs811_set_sampling_freq(data, val, val2);
-> +
-> +		return ret;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
 
