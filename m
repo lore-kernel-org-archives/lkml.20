@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701568;
-	b=NlgmRxDittllU1RLnbEbZejDOVuc3AkMbH0+jYqtD6NQfzfP3ynBzB3Gxco5D9WCckDg
-	 kUvo5vib4jDCHwLWpyQwrchYxS+lAjY3WmIDOZ8Hs+ByeksijJjCUo3aOjMI/RHLcBMI2
-	 cYlKDaj9czY8q+mgV+sRIlIzFlSOMfEl+5RmKKLH++LLjFMMDeirxfE3UyFua40CA+Wvb
-	 7Zt1xshyIJMRYrPJQidySOchT8a21UbET8DZnUTrOVA/yKPRU6aM/mqFfUieGQd0Gi0x8
-	 beStTpUXKSWZqlIbPxxC3H6cG/dRBwK2IYdGBFKkbEgzZOQIC4oj0kfRezcCSkO23Mg==
+	t=1793701577;
+	b=Xz4pTwBIL5kjFrRfYCFxMasTXQi0ifJlv2IM9x+ryUFxzlc1KW/65RCfGxFzwqmBmjo5
+	 SJsqHxnL9qZ35fDKio5CNSDi4x3RyGsRhDk3zAl+HR0QxAOOv8VJ2t4aKA2rSrtdsD3oh
+	 O68oWbuEM15GBnLqeGnFReczO+kmeMn4vXrG2NFd2ECBYqb0o8cNqHsEi5TTBAqDDmp4P
+	 kURTzHqtec1DUD+Hn366AxL2YDAk9poVnNj6tBDI+J8Ow7/NBK01YicfjxvGUkA0O9W6F
+	 MwsaL4aZqmpyWIob9VNTAOTbpbHgvutIe3r08rffSKpXoco5KNQGGQ+1Akv1g/5H8zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701568;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701577;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZuF7fJYmTTru6AFzam/kZmRQYRbtMt5mtJ5Bhl2O7Ns=;
-	b=xqqpZD0GCeNP0eb2A1bNqqCuH4ZBLfVuOkgqPD8EbarIScrFGzGeXkmZsW1NNL9mC8Zn
-	 vTE5+nkIZfefK9J1T9uMNmBmms4njbglvCFfDxyRTXihjccV4mL1NweEefyqcSsLu3Kdq
-	 WRGF+kROLYYCVqg0fNJMuVsPu7VZSf1sZ147oNB5Uv821+bJHOr/PefQ7ilmP/2B1EDSf
-	 z15UQYZYUBhfeuAPVan1k1mfMa1p8lJ67XHBEN91Uq+CvbUMb6ikEOuxCzZxmYAljnSsM
-	 /ZePICU1PTnirzA9vkjVWLkfXBHQR71ZIiCBRGLncC4SWNrinfPdz1STU3+S14cX27Q==
+	bh=9clrbqdXgsnOrqBlmLUFDxai3Lw9LgBHe2HqLH/Q/qQ=;
+	b=2CevA98rTB3XfDblPzClneoU/L7qIDKzwJAzhz+gBgNTVJB9nikqxlgI2Cj6k9y2H+kS
+	 Z2MgW++e8vSPjj4fLH0cEo9JK6SYHIEUtXRyUR5q+WN3CVRQC9hTy259YjjcSWHLYsG3/
+	 6Kr5MmsUZvwkDrg5GBKblUUKCROinA5YVbyCS9dN8rxk7tde6O4F6kMVTTUQtzdkawdFk
+	 TPnZ/Yv7oJjW6W3wjasMXLuNernUoQVn2dLQM46r+pdl8VljQCOtuHDMkBRQfUCzMcDvx
+	 nZNjwiB+Qk90098lgY9xo2sX/B6aXSHJra4Ws6RA2OR66Smihy2vYq2ySV0PIuecIjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kr5GWY8B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeahQ9Dq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3773606D837;
-	Tue,  3 Nov 2026 10:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55E1606A32E;
+	Tue,  3 Nov 2026 10:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kr5GWY8B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA4D1F000C1;
-	Tue,  3 Nov 2026 10:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeahQ9Dq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE941F000C1;
+	Tue,  3 Nov 2026 10:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701567;
-	bh=ZuF7fJYmTTru6AFzam/kZmRQYRbtMt5mtJ5Bhl2O7Ns=;
+	s=k20260515; t=1793701576;
+	bh=9clrbqdXgsnOrqBlmLUFDxai3Lw9LgBHe2HqLH/Q/qQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kr5GWY8B8k9A2Xlh6UV8JUw4/lNOHG5KFxHXewAh+SkTH5QgBoNDrB8KBI/ie6LK0
-	 giaAY3iV9RjcMEkbFnr2p51A/K5476YCgnDARCKFQkdlM8FHMXygP39Rt3oZeduLYm
-	 RILuMBXVjLAIxEMA82qC88imdvvxwC29yl3OCSXw2TNrIbhyS0HoSC9STa4BTLFkD8
-	 Vibih8Xkv39rclW4dNAJvHNwOruq9rZFlRIlZ0Gb7Ora9bE8oTL/42Fk3VOitL2bNW
-	 6njUttuBIbfU5lyY/qME+Xbjby2Q99tghrl2GwMDJsRyLosNKNC9IN8Z2zPMqOZU6Z
-	 KYnVMV4Xx0Adw==
-Date: Tue, 3 Nov 2026 11:26:04 +0100
+	b=LeahQ9DqABmAbcGyj0dThYoT0DpdsUvtLcNFqMLHA1CJdSENL0/8DLpPsbhNoS2yF
+	 zcOxZYbasmxfKxo4YZeIUek1YLFILiJ8neYYC0APDRMf48s08rTmCq8neceielPrL3
+	 hyF1Dqhx0guchGXSEienywv2eWIJ6an+TGlo4kP8r4WkDJ1GXr7Qkz7Ue8D6qY3dEK
+	 9HLopgH7WABUEAyBdBTMut1Zy0+Hq2w+WavwvK4y43pNox32G0NkaHtBxjlsho8L+K
+	 gKZopNZOxsyBRuthlcghJwvTuYddNK3Ub7b/NX5KZ3b5Rf5I89o1iLT/yvxfSA+z7v
+	 CNzEO7UxSdFwA==
+Date: Tue, 3 Nov 2026 11:26:14 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Paolo Abeni <pabeni@redhat.com>, 
-	Eric Dumazet <edumazet@kernel.org>, Elad Nachman <enachman@marvell.com>, 
-	linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: prestera: release the ruleset in
- prestera_flower_prio_get
-Message-ID: <20261103-fine-blond-donkey-b4cda2@quoll>
-References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-mtd@lists.infradead.org, 
+	Richard Weinberger <richard@nod.at>, stable@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>
+Subject: Re: [PATCH] mtd: rawnand: atmel: Release the HSMC clock on legacy
+ init failure
+Message-ID: <20261103-watchful-iguana-of-criticism-257adf@quoll>
+References: <20261103100602.1310416-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,24 +63,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100532.1309990-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100602.1310416-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:32 +0000, Wentao Liang wrote:
-> prestera_flower_prio_get() looks up the ruleset with
-> prestera_acl_ruleset_lookup(), which increments its reference count,
-> but returns without calling prestera_acl_ruleset_put().
+On Tue, 03 Nov 2026 10:06:02 +0000, Wentao Liang wrote:
+> When atmel_hsmc_nand_controller_legacy_init() fails after acquiring the
+> NFC clock with of_clk_get(), the error paths return without dropping the
+> clock reference.  For failures after clk_prepare_enable(), the clock is
+> also left enabled.  The caller returns the error without running the
+> controller removal path, so the reference and the enable count are both
+> leaked.
 > 
-> The ruleset reference is leaked on every successful priority query.
-> Release it after the priority range has been copied out.
+> Add error unwinding that disables the clock when it was prepared and
+> always puts the reference.
 > 
-> Fixes: 44af95718fed ("net: prestera: manage matchall and flower priorities")
+> Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/marvell/prestera/prestera_flower.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/mtd/nand/raw/atmel/nand-controller.c | 26 ++++++++++++--------
+>  1 file changed, 16 insertions(+), 10 deletions(-)
 > 
 
 
