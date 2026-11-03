@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705524;
-	b=KNCcE8r8wBKAacBP5rVvCbCRHxxGeqNjMQXoZtqaYm2Mo8r7wGhk1zgdRXVWV+/+sozf
-	 diFMMjtu/npCnw0K55Vm1pA4Z/NevWAra4dINc7T3maIlHSMc7EziwqBFkmPoZ1FQmPy0
-	 vy8aI56EIwYUOh3l4wi3Vy5vMNfWwLgnfc53g+dAteQFQGG5vGUXDT0W12VSb1qs1FrrH
-	 3aGKcouNJ3cvWi+FR/61EspMoT30BPt/JUu//aW9yLPTuFXIqK2SCisHEMT6vv4Kqf+x8
-	 8VNg5lfKJkyLhI5hZf6BgAvCxDQtLuenhzyxgaDWWPlX7ohFDbges2TfXjvJIqR4Yuw==
+	t=1793705572;
+	b=WVFlBYndwPIYL4vwbcwQVc25CL+nyGeMNzHPrKt9c/nXKvKGu0zTnYAcaXop1bZzHHtl
+	 X0gcosi5FNoKdTWGiz64PM8AxFj1HurTIjyRv87AzwhGhiE4FAjafDEQe3emVjSRBgTL9
+	 +IGxFx0S2T3OcBdaVY6cSG8rBYgFUZz9ajuhHGZayA/DcB7NMgnub7CcX45ew6UZDhUaG
+	 jIYXNMHaJUia+J9F3KZdo41m6AatrDcOafxD1XSnTR4+eTmWf0HjwJ9k79WwkxMxgFwD8
+	 V6Adf3cE8/VUUPf2I4TRz4NSPypM5mCdKI6jwrRzs9jdXMVKBfFijBfXpZSKRvcwYsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705524;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=7GRooN83x6ErSEZ7eQlsuClOyGITM5JI8kEIIsp5Uws=;
-	b=lV2TNhufnYtRULoC8ZWwo1jyh+vLHs91Jja4kyXz9wT8zDB9Odm9T/HlkvTC0blLFimu
-	 1/xJ6XRfDip/SnQY9c/qOAmC2mhC1VyfGy7VO1o5tujHZdHLG5D1jbTlldUnSRbV1iiLv
-	 ZmTAuYlP1foz4mxYupLU96ZeMyPn3P3Hz0L1D8cRRPtOG4IJIjZtdGKbhUUrGJydlXmcH
-	 CLk8hyV/VY3cyl39KllNcH2M4xWbzVIIMsYa9EyrJanfs9YdfxbqZfQUZmqS1RyxfJ7Cz
-	 x5fL2ZCAKZ3FUx1b2biuG87YAKJpiT9q0IKV2XHiKKU5hfnDR8aJYRc5ov5Lor5ZEow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705572;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=zkIY764UuQQv/krUXxJi9ZSTyaSSPK0zmO7edHBGUf8=;
+	b=vDdu03f4wt+MFBvtGESULdTr78tjx6kmm/KdlQqX/ZI+oG0mYD6At0vzthrzI+reurxw
+	 VDgX2yobHOHpo171dg5fAiMwMrEtwI4obvD1HCof70AUQjIuuIKdgyXx9Ll+FAsoen3so
+	 xeXZovGD01HY3LJwbxXuunkW6hSnS9FoQtycAVILaI5jkWyQ9EbhOjLDmmupixJZQbKpE
+	 +NdlSNiRJrEocpBDUYEUwPtWwFEZGpe2nuCfm1Fs8c2FhxThvSirzoaJ3/MCdrXNS7GOr
+	 Hx5e/wKxGZ7s5mEtxsYBHibKiMM/tW1wlHUtnDjxzB4bEzyTvid/JZTjI/ss4RKHMQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MiijHqWN;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44F5606A825
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:32:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D44F5606A825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=aYzbJrDb;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 752E0606A330;
+	Tue,  3 Nov 2026 11:32:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 752E0606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MiijHqWN
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 41FAE4E413E1;
-	Tue,  3 Nov 2026 11:32:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 009816046C;
-	Tue,  3 Nov 2026 11:32:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 07D28103291C2;
-	Tue,  3 Nov 2026 12:31:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793705518; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7GRooN83x6ErSEZ7eQlsuClOyGITM5JI8kEIIsp5Uws=;
-	b=MiijHqWNjmPtcaT8Mf1Kow0VIwehEQcAdcTAs/LazBXh/jPLgJZRoltImdyXMMcMcubQ7X
-	9qYDQPMDci3n8J6dIyWh+YZvrvg8PyxYmVmQ+HLltmrNcJj0h66i9j/ZyZJdoxU7l4MbO7
-	khAFSdDhHQPb0spJn0euVAphvRrRRXvp2aH6RItyRKHOz5hA/qmqHR5WGdF830y+MlG5bh
-	wrRGcQ/q8vPovizKeldkWq2X/nKXlGa2GgYchfuBlSPMwDnAV0/cglzG7W23N64+hjSiVV
-	in2IkrAttpBdP2kYAhFvw6aNLDITULCtS7r5iIjDyHhtWNf9bR2QBfVjTIFu6g==
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=aYzbJrDb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=aYzbJrDbeP/7tWdxMtcgSSwEmNgpxtzQOdod7HkyQTJqQm7k0/rVAhtJkCUkEj4NlxtHLqxuPtW9c
+	 fnHDvM8syOzQaHV+iJxisUeDMFuSlM8d+hnY+rzWqfgq//vPtkFIsMTmzl/BQqSUXyvgFLnVAP0XLu
+	 UvNcctGqZC7YOQZ4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ae9c655251-95671;
+	Tue, 03 Nov 2026 19:32:38 +0800 (CST)
+X-RM-TRANSID:2ee76ae9c655251-95671
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from dsh.local (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76ae9c654b7c-f8a46;
+	Tue, 03 Nov 2026 19:32:38 +0800 (CST)
+X-RM-TRANSID:2ee76ae9c654b7c-f8a46
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: kraxel@redhat.com, vivek.kasireddy@intel.com, dri-devel@lists.freedesktop.org
+Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] dma-buf/udmabuf: do not warn on huge user-controlled allocations
+Date: Tue, 03 Nov 2026 19:32:37 +0800
+Message-ID: <20261103-udmabuf-nowarn-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,77 +64,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 12:31:49 +0100
-Message-Id: <DMLJJB5I34LD.2E1BV057SDSIZ@bootlin.com>
-Subject: Re: [PATCH v5 0/4] drm/bridge: nwl-dsi: Various fixes
-Cc: <Frank.Li@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Laurentiu Palcu"
- <laurentiu.palcu@oss.nxp.com>, "Oliver F. Brown"
- <oliver.brown@oss.nxp.com>, "Sebastian Krzyszkowiak"
- <sebastian.krzyszkowiak@puri.sm>, "Liu Ying" <victor.liu@nxp.com>
-To: "Esben Haabendal" <esben@geanix.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, "Fabio Estevam"
- <festevam@gmail.com>, "Robert Chiras" <robert.chiras@nxp.com>, "Sam
- Ravnborg" <sam@ravnborg.org>, <imx@lists.linux.dev>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
-In-Reply-To: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email 2.43.0
 
-Hello Esben, Robert,
+Since commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
+default") size_limit_mb defaults to INT_MAX, so a user can ask for a
+buffer of up to 2 PB.  pgcnt is taken from that request and
+init_udmabuf() allocates an array of that many pointers before the memfd
+is even looked at.
 
-On Tue Oct 27, 2026 at 11:33 AM CET, Esben Haabendal wrote:
-> This series brings a few patches fixing horizontal sync timing, EOTP pack=
-et
-> behavior and hsync/vsync polarity selection when using DCSS endpoint, as
-> well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
->
-> The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly fr=
-om
-> NXP vendor tree, so I have kept Author unchanged, although I have modifie=
-d
-> the commit message. Let me know if I should change Author for that.
+For a request above 1 TB the array is larger than INT_MAX bytes, so
+kvmalloc() hits
 
-I applied patches 1 and 2, but dim [0] reports a fatal error about patch 3:
+	WARN_ON_ONCE(!(flags & __GFP_NOWARN))
 
-  dim: 72e5001e5c2b ("drm/bridge: nwl-dsi: Correct auto-insert EOTP behavio=
-r"): author Signed-off-by missing.
+in __kvmalloc_node_noprof(), returns NULL, and udmabuf_create() turns
+that into -ENOMEM.  The warning is reachable from userspace through
+/dev/udmabuf, and with panic_on_warn=1 a bogus ioctl turns into a kernel
+panic.
 
-[0] https://gitlab.freedesktop.org/drm/maintainer-tools/-/blob/master/dim?r=
-ef_type=3Dheads#L1071-1075
+The size is user-controlled and the allocation failure is handled
+already, so pass __GFP_NOWARN for the page array, the pinned folio array
+and the per-item folio array, matching how other subsystems handle
+user-controlled sizes.
 
-@Robert, I think it's up to you to agree on having a SoB line in this
-patch.
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+---
+ drivers/dma-buf/udmabuf.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-@Esben, can you help sorting this out? Also can you provide an URL of the
-original patch 3 in the vendor tree?
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd00..47e130e 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -190,11 +190,17 @@ static void unpin_all_folios(struct udmabuf *ubuf)
+ 
+ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ {
+-	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
++	/*
++	 * pgcnt comes from a user supplied size, so do not warn when
++	 * kvmalloc() refuses an impossibly large array.
++	 */
++	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt,
++				    GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ubuf->pages)
+ 		return -ENOMEM;
+ 
+-	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
++	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
++					    GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ubuf->pinned_folios)
+ 		return -ENOMEM;
+ 
+@@ -387,7 +393,8 @@ static long udmabuf_create(struct miscdevice *device,
+ 	if (ret)
+ 		goto err;
+ 
+-	folios = kvmalloc_objs(*folios, max_nr_folios);
++	folios = kvmalloc_objs(*folios, max_nr_folios,
++			       GFP_KERNEL | __GFP_NOWARN);
+ 	if (!folios) {
+ 		ret = -ENOMEM;
+ 		goto err;
+-- 
+2.43.0
 
-Luca
 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> ---
-> Changes in v5:
-> - Add fixes tag.
-> - Sort header files alphabetically.
-> - Fixed speling mistake.
 
-Funny typo here :-)
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
