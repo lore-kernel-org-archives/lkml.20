@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793697274;
-	b=i1Y6awp5tWIPQPp+kZmVn89NEBagO53MddJCIdiw4kdbBe4hv69oJkAA+liPOKq7pyf0
-	 rKBb0B33I4vPwyPUlB2MQiPZ4hf+d0MUH22BTopJA7YHvGB1H2jbLhPE+Pi6kFsEIMPJQ
-	 IDsCaSmiS6tQlGd9lMsAQ6jpSXlSaUEg1+Obdsg3WtMUwWem1IUvwgQYY/uHSng853f1M
-	 AV3c8OceO9fPSFUoTC0nWK7nQdP2JiXQBMfGDVemWj1b9YZ8akCPAZPj9JgMo2GoKw3rJ
-	 k8V4ObQ9Sv1V9uXIIiBSs1u6BgtR3d0vSYpa98ih0Mx1iAtJbqvzbN2wk9IPQE20teg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697274;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=i14dmH5BR+9SimyzQMrEk5iidp8zGrGHl7mp1tLTg74=;
-	b=NnTDrhjUASs0rJ82OcKFeu1Cg974hiu8l/HZDqc6eIjaDw6igLYzDxpp84veS+iJeV43
-	 fF+OmyverZJQZUjLe6HXHG8Ujykk7ZrcyjSbJ9UHnOPSOuFtC01zJJjb8lz5xlOND1ohr
-	 9EQjTTD66/WIrn6Y9B7PPe5wKzHRPxq85aVzhsD5nUIpPzLo1Wv65dM7KAehGQHkdIfy9
-	 FHEuz+Ep4kT4rcgO4nF2bEDgsQ5rC4dEcgE3RoQHWpLPULm4m2NGg8DpOUQjT0HXTUsrV
-	 bHykcsF4dikYqS57pnxTt1JtLqKBtvMUDc3oC3FdxgWpLNPyTIYBdbKUfIVID3nElpw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BFRA5WkF;
-	arc=fail smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793697367;
+	b=elp34w93b3dWU2uzBm0KqtJxJe6h6AzHeT9UwMtwJSZO/sA47xcnqHJkRPGq9GEe2GHV
+	 oXywS75bouXFPIP50wU8xfrJLT4eEF57V3Zjfwj3ax/842T5AiUEm3BEpbYWdt1J2YYlT
+	 BaxMKsJ28My1yQ45LOP0LnEi4MihsvPsF9wZi499K4Rq48sBoqdimcEEu8aEvFm4/ci30
+	 k4R78n+hQ13Z4uuICO61AI7QLgt8+2FXvCxNWl84UymvYjA82M29NxIarnt8KjWHg1nxG
+	 rhXc/KF4QYJp8Bt9VtN8NUQZuTHVmSBn9b0Y2mN1QtwmQzmUx16WxP8HBb0s3qXg28A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697367;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=48sfBtezaLrmsDLxpZBqDtVgmBMh4esLZj8eSRsa2cM=;
+	b=mUSrw0jpiIWX7A/ZdARHcHEv5nCM3/I2pguMucXM7M19upmwM3SrLlLXYXsQddF5wnzQ
+	 rQziaXLa0et0UeAzemW7ynkX7dN10gKEJxDGTyUl155H63W1QlukFpz9EyeEn3z6hNnO1
+	 ohu2EDpNB26hhRnbMrCy4TvgIThP1cILmOX4RxG0ueFEzX6J+eK5gMw2L50iz47PMUuhh
+	 uFasBBUmQYWmpzLRyByb8Ubv2bEubsameaMBExGixy7ydej0iq9l76v11hVjJ08JByPnE
+	 0gkx74FcojQX9+P0rfnXxSJXsOoouXxeqrB9D74CEK1W4yZduUoQ7ZbMiUpLQuBAC/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="MQ7/wjZC";
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9DC606A33C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9DC606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA87A606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA87A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BFRA5WkF
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5383c97c8cfso140131cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:14:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793697273; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qv4OEB36/eJA3ZU2yklL+ksH6u9Q6Z11XBxudGJFYDP6/4F5f6tov/BSZTFZcNR82y
-         meKfVomIrKvBNQAXOJusmuQLyy3z83ILhF0SU5+peQCJNgRQjYqLU4FQxFCo6aH6eVIt
-         r4MDayQftTqesP5At/5CtMSOTUIGgKc2VNr9jyfvUqN6s7mSc2EtxAQ3NzWwB3avLc64
-         w2zQAngAmUGrcFnbngUtBOiw0gSLLFSbQnWuk8hc9D6TYfzCnYxRZjw+QzVGfvlaCXUo
-         +XaktPlotkA95bCTRg+oBPk2VkMU8QKi9IpKH7gAp1sYFFPSnTqNZd1uXzE+iLrFKA9O
-         GIJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i14dmH5BR+9SimyzQMrEk5iidp8zGrGHl7mp1tLTg74=;
-        fh=TjhFyfH09K81NaLgPmfmJns3Un6kVM80IWHn4/phDDc=;
-        b=d/FYlH5A7kaSX3QuWCcknWZ1d1FxGIPoG+yIisn8Rz1ircCbZatfCmRZWsrwO72CIR
-         SjveMPzRZqYSz9c+zsch/EQStVSmubBT2cv28tef5l+WCtxw056WGq91INilnQnajSbE
-         xK03TR8KNrN5OOZpyhwY9MqLs1uGPFtrih8AT9nvuB2BMyJIA3EXrT3N+PBSqET0QTOu
-         lzS/D3sTy4LpF62R24H6EkJ10ZWwdZymMDYIku3AmiPbgx/ncWGDCJkjLhSzoavx+/su
-         cbv9g1IcGB8XmHTF2I+8NUH/7Utyas4Y5aWiv6njRaff8y1bAGdB7AFTjwUzPBYbHQNV
-         sHUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793697273; x=1794302073; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i14dmH5BR+9SimyzQMrEk5iidp8zGrGHl7mp1tLTg74=;
-        b=BFRA5WkFVzwofI4Y9qPUhFW2qtyO8NlwR48s0vcWHVm26tP/5OcdiQb7uQdbBFJ3l6
-         6eWpgCHaYgj4N1eDLLQrwwhYiXTq7d11vqjE4ug1RgS0ElbGzpDYB2KQ9TkFp2okdQER
-         yFf4tAgPt9WLDcmCO0BQmFV0yYbVZ8lRUw/90MMImfZoLthc1w4BHcofV8LGWl/B54q1
-         nfF6Nupkbu20jzw4PqHlTu1tCWB6DY7rzVVWK6hzYnJCfcxYQPAhj2SwIldQyFdPZHAJ
-         lQvb1sVV0SVYiVnLmhmTyS+xxxRLOhf7PlY2k0ra40cMDEjxCqbzHGepPLgMmkzh219l
-         CA5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793697273; x=1794302073;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i14dmH5BR+9SimyzQMrEk5iidp8zGrGHl7mp1tLTg74=;
-        b=YuBaqAWmU8bOXU3olb73Xc9hc4ZThGKigsB7ZmE91PLySwf9fuqEAEj1lFu+ay6rxk
-         aPyVJRfvcPi3sW6QqINSQaHWyn1VQM67KwQsG95+9Fyy5jeYxF6uxoonsgwGTUpaOADd
-         aatW4pvS5ZvQBHIG+2ld1Nezm/UwdUvmgsgcqaqh9dsf9jBlUNdwRx+fh2XI0bct/Oqa
-         xryBHXFc7pTkac65zwTlfgJ+8q8zsy06J5zplpLaTgwlUQnEM2AIGjyvlrbtmDQfQSVJ
-         L/4v8PcdnA/K1asvh86jnG+t8Ha/59j4SvOJoc8TKOs8xdNGVk1soczLse/xrOVSy9hf
-         NrXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCQc254P75Ga93BT/qKbOoFxnbT470+WjxMqdwQOK7PI3Ua5ZfvX5N5a3FT3Ez3VWoaf0WGmjljfa6L4s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Xp44dCa8MmO8q+5DrFGf+9JaPZht9OAtyWDJeUX/9duJLiTeM
-	TS/kxBGFmJKFmzMsKkX7zPGTJ6GNRhbfx+TN5rb5PD1vg0/9nF+VXW8Jzf+HHkWddMxTKZkAyqI
-	eET7IikyNTKfbHdBb/lnp0U5mACPox7oBWWR6A8Qu
-X-Gm-Gg: AYBFou3mPaIH03P/Wu/MHw88xX+q8ntlk3ZvvNagzpvuGdJAMp7VVLPi9U+0EBJfE3Y
-	8BcaMRQ2RY0jVuW0PNx9O5iP6S0EgaWjtwQzKRrSkgfRkrzGbwxC9f6Wm7gOaJerVrBbmTE+1Z2
-	FNNKraJWlz1AnSXrm5Uih+W43/Zih+UmSq2ySpoYDkcK/Den+ihEjy/CiEL+FkKnrnsWZWtoLUJ
-	Ani5wPaDJDue8VWQ7YJoWy4UylenuhJfJWE2142z9IpNS2DKjC6NEPvgoKyq7QCp9bTMVuZSE3O
-	VSiaLdafMaQksyPrxhseKmncbKWcyz0AeLd74uU1j4tHo+kcQxe3W1aF9ouDSWXhDdNF2SWnbq6
-	hrLeg17/mY4sZxQ9aQSYLQti+E7MWLEh/qDUHvYq834AkDb9DFE3H+Z65KfU=
-X-Received: by 2002:a05:622a:598b:b0:535:84ef:2e26 with SMTP id
- d75a77b69052e-549dfce05fdmr11810771cf.7.1793697272817; Tue, 03 Nov 2026
- 01:14:32 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=MQ7/wjZC
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=48sfBtezaLrmsDLxpZBqDtVgmBMh4esLZj8eSRsa2cM=;
+	b=MQ7/wjZCJByib4DUAG1rr8PWbq4ZKNqzIaaZ0Biehny2BBZjAjV3wKEwUZvkviWzcCEbf0g+v
+	XU2u1c0FR7BeFFcd2sKiP2M9NRejpiGNFnV1aQNjASXnIdM5gSq78pUOH9pz1/Cnp1FM1nmDrIn
+	G/mzrhIC2kG1FA5PLDo4uzc=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jJjbc4bwXz1T4JR;
+	Tue,  3 Nov 2026 17:15:40 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D79EB40538;
+	Tue,  3 Nov 2026 17:15:58 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
+ 2026 17:15:57 +0800
+Message-ID: <f3f239df-6d94-46b2-aa0d-e890a509cda1@huawei.com>
+Date: Tue, 3 Nov 2026 17:15:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,76 +62,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261003212241.3432303-1-lrizzo@google.com> <0cc1cac1-a500-489b-9c1b-b49598b5550b@kernel.org>
- <CAMOZA0JaiKsRgDdjHkL_N+MshhcyLSv+cT9SzEbNsC_sumHvOw@mail.gmail.com>
- <b31efcd5-149c-4edf-81a2-1744d363c390@kernel.org> <CAMOZA0+6kAbwgNwGTsCT5AqpwcZKz4pziEGC9UpHkNCVoqrF-Q@mail.gmail.com>
- <20261022201229.GH3381610@ziepe.ca> <CAMOZA0KaanmevmvWS=M3gKfBeborzfCQTiF_xbSeYMWbozG7Mg@mail.gmail.com>
- <20261023140107.GC3977851@ziepe.ca> <CAMOZA0J+MOLv+s4PAvsAK1jbasnbQRyHffZw1VEKutH9Vr6ODw@mail.gmail.com>
- <20261023145023.GH3977851@ziepe.ca> <20261103080933.GA4213@lst.de>
-In-Reply-To: <20261103080933.GA4213@lst.de>
-From: Luigi Rizzo <lrizzo@google.com>
-Date: Tue, 3 Nov 2026 10:13:56 +0100
-X-Gm-Features: AclHuK_l2TEIEs7qqznKn-9_c2yONWQ9t4tXrp8CyyoGHrPwnIyHLaBfgdlxlp4
-Message-ID: <CAMOZA0+Fhq0_Pm02xGWpex06vb2y5pVzuFxOk=URZB7aq0xJ5A@mail.gmail.com>
-Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, "David Hildenbrand (Arm)" <david@kernel.org>, Luigi Rizzo <rizzo.unipi@gmail.com>, 
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 03/15] arm64: kexec_file: Fix CMA page leaks in segment
+ placement retry loops
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <thuth@redhat.com>, <leitao@debian.org>,
+	<yeoreum.yun@arm.com>, <robh@kernel.org>, <sourabhjain@linux.ibm.com>,
+	<kees@kernel.org>, <coiby.xu@gmail.com>, <Yeking@Red54.com>,
+	<tangyouling@kylinos.cn>, <maqianga@uniontech.com>,
+	<zhangtianyang@loongson.cn>, <guodongtai@kylinos.cn>, <blum@kernel.org>,
+	<adityag@linux.ibm.com>, <hui.wang@canonical.com>, <sohammetha01@gmail.com>,
+	<guoren@kernel.org>, <gaohan@iscas.ac.cn>, <kai.huang@intel.com>,
+	<kas@kernel.org>, <vishal.l.verma@intel.com>, <piliu@redhat.com>,
+	<jbouron@amazon.com>, <mclapinski@google.com>, <me@linux.beauty>,
+	<graf@amazon.com>, <bgwin@google.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-riscv@lists.infradead.org>, <kexec@lists.infradead.org>
+References: <20261026075201.699550-1-ruanjinjie@huawei.com>
+ <20261026075201.699550-4-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261026075201.699550-4-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, Nov 3, 2026 at 9:09=E2=80=AFAM Christoph Hellwig <hch@lst.de> wrote=
-:
->
-> On Fri, Oct 23, 2026 at 11:50:23AM -0300, Jason Gunthorpe wrote:
-> > > Disk I/O is still potentially affected by the same problems
-> > > (cost if io mapping/unmapping, iotlb thrashing, bounce buffers
-> > > in confidential computing...)
-> >
-> > The disk folks already have a proposal to address all of this using
-> > io_uring and preallocated buffers. I really doubt yet another version
-> > is going to be interesting there.
->
-> Huh?  If you mean the dma-buf I/O it doesn't really have anything
-> to do with disks, except that this is the first user.  The dma-buf
-> iovec can work for every ->read_iter/->write_iter consumer, and
-> should be adopted more broadly.  Including by networking instead of
-> their own totally weird different world.
+Will fix sashiko review issue in v8.
 
-Christoph, is this the dma-buf series you are referring to ?
-https://lore.kernel.org/all/cover.1791975048.git.asml.silence@gmail.com/
+在 2026/10/26 15:51, Jinjie Ruan 写道:
+> The retry loop drops nr_segments, leaking the CMA pages of the failed
+> segments.  Release them first, and disable CMA for the retry: it
+> ignores buf_min and would hand out the same region forever.
+> 
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Breno Leitao <leitao@debian.org>
+> Cc: Pratyush Yadav <pratyush@kernel.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Yeoreum Yun <yeoreum.yun@arm.com>
+> Cc: Baoquan He <bhe@redhat.com>
+> Cc: stable@vger.kernel.org
+> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/arm64/kernel/kexec_image.c        | 8 ++++++++
+>  arch/arm64/kernel/machine_kexec_file.c | 5 ++++-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
+> index 74d24c8aa2fa..6ed1991e3142 100644
+> --- a/arch/arm64/kernel/kexec_image.c
+> +++ b/arch/arm64/kernel/kexec_image.c
+> @@ -111,6 +111,14 @@ static void *image_load(struct kimage *image,
+>  		 * We couldn't find space for the other segments; erase the
+>  		 * kernel segment and try the next available hole.
+>  		 */
+> +		/*
+> +		 * kexec_alloc_contig() ignores buf_min, so disable CMA to
+> +		 * let the retry make progress.
+> +		 */
+> +		if (image->segment_cma[kernel_segment_number])
+> +			image->no_cma = true;
+> +
+> +		kexec_free_segment_cma(image, kernel_segment_number);
+>  		image->nr_segments -= 1;
+>  		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
+>  		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+> index 854d872dfd0f..e48f29167b38 100644
+> --- a/arch/arm64/kernel/machine_kexec_file.c
+> +++ b/arch/arm64/kernel/machine_kexec_file.c
+> @@ -179,7 +179,10 @@ int load_other_segments(struct kimage *image,
+>  	return 0;
+>  
+>  out_err:
+> -	image->nr_segments = orig_segments;
+> +	while (image->nr_segments > orig_segments) {
+> +		kexec_free_segment_cma(image, image->nr_segments - 1);
+> +		image->nr_segments--;
+> +	}
+>  	kvfree(dtb);
+>  	return ret;
+>  }
 
-I am not claiming that my proposal is a good fit for disk or accelerator I/=
-O,
-but every subsystem has different constraints, so it is not unreasonable
-that a proposal for (N)etwork and a proposal for (D)isk focus on the
-different bottlenecks (still there can be learning from looking at the
-other solution).
+-- 
+Best regards,
+Jinjie
 
-As an example, in networking we have to deal with the following:
-- typically at least two buffers per packet (header+payload)
-- often, very small fragments (1400-ish MTU plus crumbles from
-  data in different buffers
-- extremely high I/O rate with almost no spatial locality, which is an IOTL=
-B
-  killer and the main reason behind my proposal and some of its complexity.
-- on tx no good way for the application to pre-reserve buffers
-  (buffers are sliced from a 32K per-task block,
-  going to possibly different destinations)
-
-cheers
-luigi
