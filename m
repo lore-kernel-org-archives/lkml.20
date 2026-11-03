@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695338;
-	b=1qzQpx9Vpfv6sNmWUf38AamWE1pVikAYhLMmOb9K1DoraK/HlG0sc1Ldzu9hnL3kGi7/
-	 l/z5t2qNZjYutCe0NwOnEcUPCLPqyN2XWuJnPIvrv28cwyqd/RBTsCx5zF0RPPvHT8fNQ
-	 IOnIKqvTptvn7hm+Gj9FjY6eMzvaxeU522EIi3px1npfbPzX2799P61YnpxcaHZKiYPst
-	 SPMWhYhcWN+ERzgwfqxdoUmKp1KEeoqE35hFdBH6BotB+1zh82q1u++PQDNGsx+4sJMWq
-	 N/vVPaMXfW8TCb44623fN6hXce+YJhm9XYCjvdsYCXeGGDN8A/mYNwXYlJM+jV/vssA==
+	t=1793695354;
+	b=woAx4kk4VtptIhpTDq8hIMpy9Ig2M9vaEz88zb4eIUG42TJjhciOXSOCW0NS8bhxkV5Z
+	 lcKuqnam7ix1+XSsFvXXsw+qiZQOQh7oHUD4ftHmxe34t8kUHtNehnGnovwAtJCMZJlZI
+	 NxCZKBgenaSCmzYI9PxiDROX3AtJ0oRsJkcOppHjP8C1BAHHstqJvH9+TJ0TfBpvDFMLm
+	 QmDnOq2YZv6E8+Dy7OEes2rOo9C7n8sNp8hKDDvM1BChrMFH0ZiXgHjSfkOW1KT2D7+Xj
+	 Use5MGJq54xLaEHDWrxT3dQq3RS3U4CT2OxxVcU3b7Tf1OU6a0tqHZOXRln85LYFbDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695338;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=N7v5AcWY2ZN/+fvAV11vpesr+5u2uhrmRksKZXAExiU=;
-	b=xvp7KsHTyzmDuM5Rv5J5cP0B+FxlLAT6/7Yh+IavAvrscJHJdVMf3RIok54qJ+e1g4Yz
-	 YtNuTgNsd6Ge/FANC4wPRlABTAd2WxuxeFXtAij/Jn9A+nHvph1MXigqqvEchPWJI5Smt
-	 ljsJyoxucLYwUO3DZcbFycrhf/+5+C4vQUCzVSz960LWcgMlm9Q98LW2k5J8Bmpe0pOy6
-	 ZBtk8KkfvZmCY3HQyZt+fXwMyMhugGa8Bt0OMRm8GKTNGPtRYijvYqGR3fotG8e6FGEgQ
-	 5lqtmvqig78m0Fhs2TLjr1XnPuryRh7QVvpsEdt2Q/9jrn12kCGxC3SFy0LhZUSzyRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695354;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=N6lF+Cgq07u7hRt8qodG60GURr6XJTFAKElEWQyNaqk=;
+	b=CIctUokUcTOa5YnnaMsGScMMyuOiR10TTGTXU4Nzd3BA42HR2wtIoN40MzMj/DFNd0Kw
+	 Io2Gyx1PrSp/aw9mL2HyPsah6H8QAPIv7Z2oyB/ds24GVpMBUcDPGAixYwUG9rsSxVd0x
+	 UQ4HhI98n8UJuNZNsOjGSRWoP6S3NRpFBqM7JAilNXeKqP34Aqo352Bh3+Br4/zCDLdda
+	 ZLwp3bhyjouWvu2u7E+TbF9iWYdXXX9NLAm3xIGyErPO2lOtBQ1EdFcTeDFltwz7NQH8m
+	 aolVPaCr31YSobNW6tXlrs9huTL4b27fobAXl453LqrJwXDI3HnN3PdF8BD+s+kCJtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=D8uhUPk8;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Un/xWjeC";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78386606B6DC
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:42:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78386606B6DC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA93606A32F;
+	Tue,  3 Nov 2026 08:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=D8uhUPk8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6FE494E413D5
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:42:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4331D6046C;
-	Tue,  3 Nov 2026 08:42:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 12CFB10328C5E;
-	Tue,  3 Nov 2026 09:42:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793695333; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=N7v5AcWY2ZN/+fvAV11vpesr+5u2uhrmRksKZXAExiU=;
-	b=D8uhUPk8e/mDWNQ+IHdNBipUhZAigKwtP86YXYMWiA53N+F4JJHnkKcappOXI1fJ5xcaf+
-	FEMwoVfqygp9Km+2Ltw5kIv3KqUMlTnGUWoESOwBPR9GON1Tk3aE2Lf2Ff3Asw2xL2Ya0U
-	PmPiuYVFgJg2kwHgGbsjn3mbVbSu+TXn6KIDvfpSFqvl+6/DnRQrbxV5pWaRpqk2glH4cg
-	CjUSjSt5HqRUZm9z1OSqCFCkUCK54oiudhyv6cJfGwGS/9OoJX2mrwi1nF2lnlXyBrOAXy
-	HKj/sjE9felgZshvjt32+z6ITKP9Ok+n1hs92qNYuCs3b+1T/AqhlHCSZCeSTQ==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH] arm64: Kconfig: add CONFIG_CMDLINE_EXTEND
-Date: Tue,  3 Nov 2026 09:41:40 +0100
-Message-ID: <20261103084140.7689-1-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Un/xWjeC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9FF51F0093A;
+	Tue,  3 Nov 2026 08:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793695354;
+	bh=N6lF+Cgq07u7hRt8qodG60GURr6XJTFAKElEWQyNaqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Un/xWjeCpHxG02qi7ifK2pzrR3XHFSDlXq6bk5LxW46SJ3N8TkY6AHCyfecvj8TXC
+	 HVgo/Zn2AsykqrS+mIEDgxkxMdXzjKwu4t/zp7Af6BFGnsxxHAmMu94Xwxk69rdhEw
+	 ZeYluik3rkad0xgx/07HLsT0RAJsn21T79n7Vnkvzv9UTCM4iDsJHGhmc3JGlYLHii
+	 WMNGBT8LAid85gaAHYjmzhmAnjY6ACYNzGloyeBEY3srVGo1QwzGDxdjr52LxWWEqi
+	 gL1EhVmLPS6pZHreauTHLFqdwIbxhu39thl0zR86q4Wm59q//5Ta2/nKKFs0ZKR5dA
+	 pzcrDGaVKt1Iw==
+Date: Tue, 3 Nov 2026 08:42:26 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 8/8] mm: remove thp_size() and thp_order()
+Message-ID: <aumeA1i8nIAlS1EZ@gremlin>
+References: <20261102-page-wrappers-v1-0-e7280bdb31f6@columbia.edu>
+ <20261102-page-wrappers-v1-8-e7280bdb31f6@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,34 +66,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-page-wrappers-v1-8-e7280bdb31f6@columbia.edu>
 
-Other archs have it, and it is supported in arch-independent code, so I
-see no reason why it is not provided on Aarch64. Add it there.
+On Mon, Nov 02, 2026 at 05:54:13PM -0500, Tal Zussman wrote:
+> The last callers of thp_size() have been converted to folio_size(), and
+> thp_order()'s only remaining user was thp_size() itself, so remove
+> both.
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
- arch/arm64/Kconfig | 6 ++++++
- 1 file changed, 6 insertions(+)
+LGTM so:
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1075bc661833..f8542e532b50 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -2551,6 +2551,12 @@ config CMDLINE_FROM_BOOTLOADER
- 	  the boot loader doesn't provide any, the default kernel command
- 	  string provided in CMDLINE will be used.
- 
-+config CMDLINE_EXTEND
-+	bool "Extend bootloader kernel arguments"
-+	help
-+	  The command-line arguments provided by the boot loader will be
-+	  appended to the default kernel command string.
-+
- config CMDLINE_FORCE
- 	bool "Always use the default kernel command string"
- 	help
--- 
-2.47.3
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
+> ---
+>  include/linux/mm.h | 21 ---------------------
+>  1 file changed, 21 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 8b5883878538..143865580169 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2146,27 +2146,6 @@ static inline unsigned int page_shift(struct page *page)
+>  	return PAGE_SHIFT + compound_order(page);
+>  }
+>
+> -/**
+> - * thp_order - Order of a transparent huge page.
+> - * @page: Head page of a transparent huge page.
+> - */
+> -static inline unsigned int thp_order(struct page *page)
+> -{
+> -	VM_BUG_ON_PGFLAGS(PageTail(page), page);
+> -	return compound_order(page);
+> -}
+> -
+> -/**
+> - * thp_size - Size of a transparent huge page.
+> - * @page: Head page of a transparent huge page.
+> - *
+> - * Return: Number of bytes in this page.
+> - */
+> -static inline unsigned long thp_size(struct page *page)
+> -{
+> -	return PAGE_SIZE << thp_order(page);
+> -}
+> -
+>  #ifdef CONFIG_MMU
+>  /*
+>   * Do pte_mkwrite, but only if the vma says VM_WRITE.  We do this when
+>
+> --
+> 2.39.5
+>
+
+--
+Cheers, Lorenzo
