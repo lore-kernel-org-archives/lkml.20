@@ -1,202 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793695803;
-	b=vgq6O3hH6eoj1p+vXNWic408+7fGkGVh/LsFZQAui4DlrYasl+orMidfBUQCjog7yRLq
-	 BcnQnPRXx6ZKG5ktpXnYKEMzVlaaZqAMg6nbu4FDJCyAhsv2dbsPe6bUBYecywLsLXzsg
-	 Tm/0umfSwWWb1GQyHBUdfHwdAon/19cgtn1nGFp71p1bNqC3M04e3MnTyRj62QVIp704r
-	 uO0v8Uvx5ONMWZWUEfZi2XUNVOyrU3Gs/O+VGZhkhW/xwqJG9RdAH2nLYBUktN++JR03u
-	 2aHv8MDn4VR6zpoAmMcM0JO6R40NQm3Y9KVhxmLG5JfvHcUmcXOvoJ0xIgK/vSmPyFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695803;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=sUs4JX+HSChLsfAZPDdVpAo1vb3ivpcKHGQX3zq/SR4=;
-	b=dR50Y1zqzknNNFFBCUFqMSum0Bo5rgFJAqaSE26GpoDX6+DkTCUpewaco6bZ8bzEkq7J
-	 aRCNbMxl3xx+Gj5WnyunXAlXPFAhrMn47x9YWQMfv/6SiFrbm2QTTxcc9FdbKh0JlSzhn
-	 I3PF+xOz7UZsuprpKFAiwIBoSkVgPBrct5WCSyCf2Vp5tztPxZa2OnrC4RmkRPknomzBk
-	 o0DF7oTYyzhs1RSpzmqNXSpYR3SbVG4WUEY/vDNfl9KwHqTD4AzdYLC7OiCSYVntKhLSh
-	 ME49256kx2AmF15wcj7QaA0xpZa35vg8uaO/RbCso/ST4d5qiAmX44gjOxEMV5lPz+A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G6PlQrnE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793695815;
+	b=OnSQfIav49tOxg5X2vosKH45ef7RAtAEwUot6rKF/em/3diA3qxo1EnVTYovo00yxosj
+	 Peex+tgNhro+tOhEHWubzqDR+tFZC4LKSh+VSRoge95/ZNGpnX82aVv8EFVl+4VpzvmaF
+	 auGS0g8eUxBk4UM+hNA4r2fdWQqknLf8Rc315LNkjgGk+b6De6Z0ZJqbTUm6wpbI/EKCh
+	 IshyxwWVzhE+TzR/v+Td60SjdSpl+zqLgwzYGl4sT3+I6DoeqMMNGB9eyVGUNa9ojM6jn
+	 U5Yx+BhV1po3dutuyOfh0uvjTzcXoK3GLEazW1cmQGf9XBN28Iq91rvq9zGxMQ/oc8A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695815;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xyyv00RDv+h2IFmUEvqQmBS2x3EOpc+Kzx0ylyqL+AE=;
+	b=BWpMmkcK+LZ3ydM2q0spiZ19SpebLf2CMt4NHEZe8iwCgrvJeb7eoUSoqOcXAfVqzDMe
+	 Kk/VP+ZfdrPUN3Z7QPH9jR5MGUzF8rYPQRfwSKvHGZ3djIMtv9gu5mAWm0o3AG+Z7zLN0
+	 KvORlns8SPRzlIrPBOtl+61xt4jkJdlETxPE0gm0cy438QVm4KphuMNQvR+6J89qvp87d
+	 UfWj5qhMiKJgLB1c5OAgX7AD2z5YC+6gO8IRyKxaDPOHogHG+ywhfLWqGHyAWj/P3/WZL
+	 6bclBfxNa4oEDqJ0m3lN/sp++HhXqEDcJtVvsYKzSgZ6tMlRU/txT/7K1Yo2ej0+OVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3wjA9Jp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EAD606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89EAD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F620606A327;
+	Tue,  3 Nov 2026 08:50:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G6PlQrnE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793695801; x=1825231801;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=sUs4JX+HSChLsfAZPDdVpAo1vb3ivpcKHGQX3zq/SR4=;
-  b=G6PlQrnEM8LJnWqxIwsZ2AnVNX+smsPvnr3r27xaKCbTqKO3Pq1btrFQ
-   1LX+ihyAMzveAWn6ZAXSAA/sVElA0Xuyh16AAorEJtuPHf2h6BKKGbPQu
-   Ts0wrVHncT81ghWpAbS8xszIM8GBym88bmbJKSZFC4o2j1TzOkc9ps0a8
-   VFBk7c4svpQRwrbUFUoT/Jag9lzP2IaPmHQLsDE/ZqEMGvlBDhi1hMPq4
-   pgwQwprrg27fwImU+Gs0wwGUxC2CUkxf8EU39tYHsVU+bvTJmPtjY/EVl
-   6d2cBB1FBBhv4LXrTQnttXySdNhCWSwUGx1L3RfsVsDu0lrq65RQR06w3
-   A==;
-X-CSE-ConnectionGUID: zlyAsGerQOGKUilunq0bJA==
-X-CSE-MsgGUID: NJgaD7AmQ+CM9AXRBV8IKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2500784"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2500784"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 00:50:01 -0800
-X-CSE-ConnectionGUID: MnYHdF2uQz2yamj5qszBKw==
-X-CSE-MsgGUID: 6iMD02luRR+hK9DCh0vnzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6359914"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 00:50:01 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 00:50:00 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 00:50:00 -0800
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.63) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 00:49:59 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vwJuSOIcAa9UYFnGxDy4mY2wVDmXKt/snBX6+sshoKmoMIe48dOcmP8kjw/ArW7E0wOs9q9/EJOqumBXNTCsIPAeNYdz+SkXdUtCPRaHiialH0XwUiKf9K7562mQMLR0YS6iH7vrAbth9PbgILVc6/n3j6z/O8qOGxp3m+rvhlBGDd/9b+KsEenbo8qucpZ3ctK2p0MV32Fq5c6Mi1SVU+sjIuIb7XKnp2OP3J9P9OZ+bFsaU9MsT2zliUVo9jMA4qD8/g7eanvaTtgMqBOb8d/boylMHfWCd1mhIbuPfe8G7zc2fa4U3FdL1a4Ji5jb21PsBTwbMd8Y185Fz7Ggcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sUs4JX+HSChLsfAZPDdVpAo1vb3ivpcKHGQX3zq/SR4=;
- b=t0zjIeY+n+1hQ2e+yf3UDJlNjZLsAo/lUcQJZurvGbUCMoVbrph8zJVUy1vAKZWNtKJfQaQcYHC/UDIsrb+RJDMHqlccWxSaQ13Fka2ajQx4qo+1BRTep6RDqHDB5lS4z+q6pvFRd5nOAaEnJAMCH4V2EN7qvgi1nVS95EVzBpNN9Q9EW3pUbSz6XTpAeheGgEOzwFzBsw0yu9W0vyeyU3RbnjBFGYX4rJSvCEpySGojzl3f5zvsxp+t3QHSOsNwdZ4Vt5sAHODryoLQFOMiHWYgCNlBZImsDoWM0IAvHfI6d0/ErKs4IdMPIgWAbuO4Dm3ngx+AJ38cRP2GoEIrxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
- by PH7PR11MB8571.namprd11.prod.outlook.com (2603:10b6:510:2fd::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 08:49:57 +0000
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 08:49:56 +0000
-From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "Li, Xiaoyao"
-	<xiaoyao.li@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao
- P" <chao.p.peng@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"jgg@nvidia.com" <jgg@nvidia.com>, "aneesh.kumar@kernel.org"
-	<aneesh.kumar@kernel.org>, "Tian, Kevin" <kevin.tian@intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>,
-	"Gao, Chao" <chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-Subject: RE: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Index: AQHdS9rFOalajx5+oUCDkC5Yzlha8rcCNcsAgAIPpMCACwdhAIAB6v4ggALZp1CAB3RpgIAAwCFw
-Date: Tue, 3 Nov 2026 08:49:56 +0000
-Message-ID: <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-7-zhenzhong.duan@intel.com>
-	 <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
-	 <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
-	 <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
-In-Reply-To: <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|PH7PR11MB8571:EE_
-x-ms-office365-filtering-correlation-id: c8dd3b90-184d-44f1-76a4-08df39876fad
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|10067099003|22082099003|18002099003|38070700021|56012099006|11063799006|4143699003|261022105027099003|261022075727099003|261028144727099003|261026140227099003|261026121527099003;
-x-microsoft-antispam-message-info: eWj8Q5boUlSfGNVViYVz7YksnJMRbMOxMjd8NkVBCCoypNss5cwSnaMMG/CtNKa9e2meN5riu4QqDEUW3q+xdzlwT2jS7MdCwsy/L0v9wy++rLj+dqGKMojMvaJhugMHIfdmIY6SSkszg+lG5j9YIYvv5MOIguSK0d1Ix5/YYxe0bByapZtF1JR5txN4as0oDSue+H5bIeDaghkv/FsTkVgdgg1OQOBUNIOVVS/RpVpoGZb24G5kRLHCcHe4/20cS2aurccYBng4pD7Svp627RbqchhWhs4MGNUCHWmE4QwIFA7+kb0VUG6tH8AQf111sdehlMEHGzuQtX+RqcNITzklNi7WD/OV0NN7QOmBbiirpRUixvNVSFEnMRgEQaqO0gFlTnmz21GAfCbj7GcDQFO28kef1RhONEiDxb6DpsH6QJoyEmWYLQpBx6SMGbmAAj/Dq4mXpZcmAI8nRez0voJW2LonmdTgoNlpd2I1SrkH8cH4MfZ92qcSZDlKMXy2XBRRe4B4tRSXMy5TpZZiNGR3k2Qv8oIoQB9UYI+3kxlqeHWP/lxV43O6hgK4Cl3I7bJNTQhAyF7fyFrpJ9j0Lc5oVeah+n5Rkn4wXaRockQ+hMH6b9d1KRb8Nv6Niv270+oOpUHPTRPPEQaoRnC5xwVOBIXTASKo1LDMPY1N463BwcTQvc0KJfg9r/onfb8581b9se0Nq7K3wFkrWHrvmCAQme6cRtV6B4mAgPWBYSY=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(10067099003)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(4143699003)(261022105027099003)(261022075727099003)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MjRVMjl1WmlscmdsUHd3SjdTU2g4ejF5VTcyRWxycXR5K0RRL3JUWWg4OXIv?=
- =?utf-8?B?NWMrc0h5Tk9XTjdJOVV1YXZURmN5QzRlZmdlTC9YbUhKK1FKNWgvVTVqUzJZ?=
- =?utf-8?B?Vmhmcys0cHVXMVNwRWtENzVmSEZJVTZBN1UvQ3JmSVJvS0lqSmpRR0V5ajgx?=
- =?utf-8?B?c2dMYndKZ1JlZmcvOTJkdytUQTFxSnQ5Vk1VUi81bEdkKzY5aVdmYWU4a1Nl?=
- =?utf-8?B?VklCaG5oQjBJNjBTYkNUZ09IbHlBOHVwWGYra21XdE5YbVZrUHR1UE5CUlhJ?=
- =?utf-8?B?QTZ2QmdxbDJtY3BUZEU5MHM4bUV2R0xCdVNuVk44ZnRsWTVhZ3NsWGR1WFMw?=
- =?utf-8?B?V3dhSysyeTF1SERrTmJSbk4wRUMyWUQ1b3NILytJVXJiazI2U09qQk9UdFR3?=
- =?utf-8?B?Nks3RTQ2L0VMTEV1eG5zb0EraG0yanRxYzFHQjZnTWFJMm41dThGYXR2cUFF?=
- =?utf-8?B?cDAwQ3lyelB1UTFwc3FWajZpWXk2TTlxUlY1SkNSNC9WL0gxUHZDZVRhQnZ3?=
- =?utf-8?B?S09wcUo3OGQvS1duNWV4NGRqUUE3MEs1YmowQnpxemdKQlFkNzUva1UwMkMr?=
- =?utf-8?B?MnN4UXBSZkQxSndwTURZR1NtaXBVaVdCdExPbFpLNlFxZHZwczNyWXFqYTRy?=
- =?utf-8?B?VVlNaFJQbDhYd3FubFczcy8yb3IvVU1CTWhmZEI1TldhT1lJUlJxdTdLeHI0?=
- =?utf-8?B?dnN4TGdadDA2ZzNoSnNzZE1lMUdxUFpmYjNSSlZFSGRtMVFyNnpzYmJMY1d5?=
- =?utf-8?B?M3lWMkkyOEhZeXB3TnZFRzBNRmZIRDB1T1B4UHplWHM3TzlpZnZpTXRJSXZL?=
- =?utf-8?B?VVp1NEw5bUE5cjJlK3QxaVZFeHJhTVk0NGQ5cnpTOGEwblc2TnkwNmJPcVBD?=
- =?utf-8?B?YThsalpsTE1hWUwzR1orY1dVajcyTVhwMUpxbTlHa3hQUDFFYTF1ZmxpUE9W?=
- =?utf-8?B?VWExc3BXYkREellMN3ZBY0R1TlU3SGFFeitERDZpOWNpNGU3OWg4aWRudC9v?=
- =?utf-8?B?dDV3c3Azcjk4WUtoTlo3anNRRXVBdDdFL0E2QkxRYXlLbFVSajFvb3p1WXdK?=
- =?utf-8?B?L1RRMVRLcjhNS3ZaR2NQYWNhdjE5TnNVQ3o3S05NTGw3blBzeDhKRFNuTFNY?=
- =?utf-8?B?QkZYSjExa2dYQmhwU0dDU2wyL3NBSGZSSTFqaU8zQU4zNW03V3FYVXV1dm1F?=
- =?utf-8?B?bk5MTlJ0MGsvK0pPMCtHZHBWWGdGUkgxNkU5eTF5SXJXUXh6RHA0K0U0VUJx?=
- =?utf-8?B?b1lqNURtb01qZzRUYVlKQnJhdkhBa1BjaWJNSzhHNXBBYytIODBkOGJZS3VL?=
- =?utf-8?B?RncyV3NZL2NsUEsxRmlKTEtTOXRzNSs5elJkbE5ScWlIcE1kdWs2ZEdVT1lz?=
- =?utf-8?B?azFLemIvZ212Uk4zZ09waHNjdk9PdnR1QmhkSjRTZ0x3Ly9pNXlIK2RIVXNT?=
- =?utf-8?B?QktlQmlyUkUzUDFlNXZSbjFDTEFOVlA0cVJPQzhBYUhHam9oNi96dDRXQm1n?=
- =?utf-8?B?RjhuTVZvRVZJV0NhcU5ySEdWY3JyQnBPaThnNHhzOUl0YngwZFJKSUh4aDdH?=
- =?utf-8?B?bytZaTcyYkpIV3lrdjkyZFVnK0tJaldzbGpYclN2WC9TNnFmc1RvWm9OYWdu?=
- =?utf-8?B?VHZrelEwM0o4c0ZYK21YYzBNQWsxWlZ4ZFMrc2NoQlI2clRraEhDNzcraS90?=
- =?utf-8?B?STFaakhkTTExS0pTcTIrZmdYUnF0QzBLVk5jNm1SMzR5ZUFBeEhtcHNyQlJq?=
- =?utf-8?B?VmhZbkhBMFBDNExITTRmU2tqNWorYjIwTEI1Zk5MOCswbnRQOVJCeHN3ODlS?=
- =?utf-8?B?eFB2ME1KVlMybDMrQ3RRZlVNTjdyNHFNRFlDb0NVL0tNYWFmM3pjYXZEUlZE?=
- =?utf-8?B?WXhTTHcyRTRTK1BYY2ZzL1RWaERkTXI2TDdTMVo0ZDBMcExHak05TEd2SzRL?=
- =?utf-8?B?WnhOMVVLY0lXTTJ4bkhSWmZZUFlreVRXWjZ1T3NTVDh2dWNVSm82Q043Y2lB?=
- =?utf-8?B?U1hjQUtJaWZDYWh4dlBsaElBODhSUmw5bUdERVNCNTdGOGd1d0taRXl1cU1O?=
- =?utf-8?B?RDBLK21pRWlYTnIrbE9TMnp4ei9QUmkzSXRZZEY3b0l1YUI3RGNSUVFxRHhJ?=
- =?utf-8?B?MXFpRkpoM3FBeG8vd0xyZHgvdFE1V0JWdjRlWjEra2hEYkcvUUs1QzlZYlpP?=
- =?utf-8?B?RDVtVXZOYitGOS81SzVGeUZlSmNJYmVRK3lvVWxhK1hEcnRWaUdUUkpLREtR?=
- =?utf-8?B?MWI3T2tPOXdqRVFmdFNLNFdjM1hPS3pNcDl1T052YUpySTlDREVwU2hZS0hm?=
- =?utf-8?B?YmhZMVJOTVE3U0FWNmJzMGgvNHpDdGticWxFRjZGZjRpUGduTUpmdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3wjA9Jp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8D91F000C1;
+	Tue,  3 Nov 2026 08:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793695815;
+	bh=xyyv00RDv+h2IFmUEvqQmBS2x3EOpc+Kzx0ylyqL+AE=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=V3wjA9JpanZ8ZdqwykivW/zvI7NADD+Oxjej2BtlzVenyf9bdeV4DFPTd8D8Ib+kZ
+	 Ree0sY5yumvQYAaIFnUw0eYRoxoOth7QIqkIWhTixgl1YDsJ8dFyWbzt5lAEuYrqxG
+	 8g3A0U2PlbSEHHRpgA3l+ZYG9COGwS53mMDAGMSDNOpBeMQlak11YLfXmDjBbJw3JP
+	 wCFydalGGRA0j3s59lw0Bzd33y1OG3qdqE6p/AnHq6Mo8UWyRCApXw0j0PIEJybwbt
+	 tGMvfyPxxP5YSlCqC1E4bCQoc+AO9VQNBD0rF02aTBEGDGjMQDmK71xJ+OeMSvLIjE
+	 WDTviZTGyFrZw==
+Message-ID: <129153ba-7e5e-470d-86a7-78c346c03d6c@kernel.org>
+Date: Tue, 3 Nov 2026 09:50:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -206,27 +51,344 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: RAfIomJxKlI1TRPIUzZlpyuBRGqVwcnSLIirmF7NdbaD8fkAe4ri9Oh8EzLsLInw70z1yAvZKUfbJlwT+JxOUi8rYKGmRPjPuTjiVpANboWNDTm8cHeNYsu5MxtSDVjIVqGNl4S1NKCFugZy113X/c5NgqxCB9ipLs64aVGCbUFQCHobQkPSNpRXZZTXUhV+T4jW/L0tKVIeXI+JLxiFFgMpD3dXB5XLdr/N5eH7aeqtvP9emSgA1AQpdnX1pVSA9GQEwXij7MC4DkuFPvVy1ZbYXRjcewtA4xGv8EvwHs0uMO1C4sbVJudzRYKYr7dFETataE3ksF6jCplQwiTLRA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8dd3b90-184d-44f1-76a4-08df39876fad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 08:49:56.5822
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: i4exkek7QqLC70Ycal3jRNLzAyGb08mp2WxNGmkdOLYkqmTcDH+m4FrZqyQUioOXMeUDSu3rWCVswULmfAN3IPGeFNs0B4D/jLcahqqsGso=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8571
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: videobuf2: publish buffers in bufs_bitmap under
+ mmap_lock
+To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IEVkZ2Vjb21iZSwgUmljayBQ
-IDxyaWNrLnAuZWRnZWNvbWJlQGludGVsLmNvbT4NCj5PbiBUaHUsIDIwMjYtMTAtMjkgYXQgMDM6
-MjYgKzAwMDAsIER1YW4sIFpoZW56aG9uZyB3cm90ZToNCj4+IEkgd2FudCB0byBkaXNjdXNzIHRo
-aXMgZnVydGhlci4NCj4+DQo+PiBJZiB0aGUgVFNNIGRyaXZlciBzdWNjZXNzZnVsbHkgbG9ja3Mg
-YSBkZXZpY2UgYnV0IGxhdGVyIGZhaWxzIHRvIHVubG9jaw0KPml0LA0KPg0KPkNhbiB5b3UgZXhw
-bGFpbiBzb21lIGNvbmNyZXRlIHNjZW5hcmlvcyB3aGVyZSB0aGlzIHdvdWxkIGhhcHBlbj8gV2Ug
-Y2FuDQo+dGhpbmsNCj5hYm91dCB3aGV0aGVyIGl0IGlzIHJlcXVpcmVkIGZvciBhbiBpbml0aWFs
-IG1pbmltYWwgc2V0IHRoYXQgZG9lcyBzb21ldGhpbmcNCj51c2VmdWwuDQoNCkkgY2FuIHRoaW5r
-IG9mIHNvbWUgcmFyZSBjYXNlczogdGhlIFREQ00gaHlwZXJjYWxsIG1heSByZXR1cm4gYW4gZXJy
-b3IoZS5nLiwgYSBtZXNzaW5nIFZNTSBvciBUREkgZGV2aWNlIGZpcm13YXJlKSwgb3IgVERDTSBo
-eXBlcmNhbGwgcG9sbGluZyB0aW1lb3V0KGUuZy4sIGhlYXZ5IGxvYWQgaW4gaG9zdCkuDQo=
+Hi Ricardo,
+
+Thank you for the patch, some comments below.
+
+On 02/11/2026 18:12, Ricardo Ribalda wrote:
+> vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
+> To keep vb2_mmap() safe, newly allocated buffers must not become visible
+> in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
+> held.
+> 
+> Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
+> memory is allocated and without holding q->mmap_lock. As a result:
+> 
+> - A concurrent mmap() can find a half-initialized buffer, and if buffer
+>   allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
+>   without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
+> - If fewer buffers are allocated than requested, they are already
+>   counted as active in q->bufs_bitmap before .queue_setup() checks
+>   whether the smaller count is acceptable.
+> 
+> Fix this by keeping new buffers only in q->bufs[] during allocation and
+> setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
+> and .queue_setup() succeed. Add a memory barrier pair on q->bufs_bitmap
+> so lockless vb2_get_buffer() readers also see fully initialized buffers,
+> and let __vb2_queue_free() read q->bufs[] directly when cleaning up
+> unexposed buffers.
+> 
+> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+> This patch was generated by an LLM, but supervised and reviewed by a
+> human (not the most handsome human, but a human).
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 97 +++++++++++++++++++------
+>  include/media/videobuf2-core.h                  | 13 +++-
+>  2 files changed, 85 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..185393078ce3 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -427,19 +427,36 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
+>  }
+>  
+>  /**
+> - * vb2_queue_add_buffer() - add a buffer to a queue
+> - * @q:	pointer to &struct vb2_queue with videobuf2 queue.
+> - * @vb:	pointer to &struct vb2_buffer to be added to the queue.
+> - * @index: index where add vb2_buffer in the queue
+> + * vb2_queue_add_buffers() - publish buffers staged by __vb2_queue_alloc()
+> + * @q:		pointer to &struct vb2_queue with videobuf2 queue.
+> + * @start:	index of the first buffer to publish.
+> + * @count:	number of buffers to publish.
+> + *
+> + * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
+> + * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
+> + * them visible to vb2_get_buffer().
+>   */
+> -static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
+> +static void vb2_queue_add_buffers(struct vb2_queue *q, unsigned int start,
+> +				  unsigned int count)
+>  {
+> -	WARN_ON(index >= q->max_num_buffers || test_bit(index, q->bufs_bitmap) || vb->vb2_queue);
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held(&q->mmap_lock);
+>  
+> -	q->bufs[index] = vb;
+> -	vb->index = index;
+> -	vb->vb2_queue = q;
+> -	set_bit(index, q->bufs_bitmap);
+> +	/*
+> +	 * Order the buffer initialization and the q->bufs[] stores done by
+> +	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
+> +	 * test_bit_acquire() in vb2_get_buffer(), which is also called
+> +	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
+> +	 * from a mem2mem .device_run().
+> +	 */
+> +	smp_mb__before_atomic();
+
+Move the memory barrier changes to a separate patch. I'm not at all certain these
+are needed. I noticed before that LLMs are very 'generous' with such things and
+I am not sure they know what they are doing.
+
+> +	for (i = start; i < start + count; i++) {
+> +		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
+> +			    test_bit(i, q->bufs_bitmap)))
+> +			continue;
+> +		set_bit(i, q->bufs_bitmap);
+> +	}
+
+So if I understand it correctly, the root issue is that vb2_queue_add_buffer
+sets the bit in bufs_bitmap, even though __vb2_queue_alloc() might free it
+again.
+
+I think these changes are a bit too extensive. How about just dropping the
+set_bit from vb2_queue_add_buffer()? And at the end of the reqbufs/create_bufs
+function call bitmap_set() to update bufs_bitmap?
+
+>  }
+>  
+>  /**
+> @@ -448,6 +465,8 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
+>   */
+>  static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+>  {
+> +	lockdep_assert_held(&vb->vb2_queue->mmap_lock);
+
+It doesn't hurt to have these asserts. But put these in a separate patch please.
+
+> +
+>  	clear_bit(vb->index, vb->vb2_queue->bufs_bitmap);
+>  	vb->vb2_queue->bufs[vb->index] = NULL;
+>  	vb->vb2_queue = NULL;
+> @@ -460,6 +479,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+>   * @first_index: index of the first created buffer, all newly allocated buffers
+>   *		 have indices in the range [first_index..first_index+count-1]
+>   *
+> + * The allocated buffers are stored in q->bufs[] but not published in
+> + * q->bufs_bitmap: the caller must either publish them with
+> + * vb2_queue_add_buffers() or free them with __vb2_queue_free(), both under
+> + * q->mmap_lock.
+> + *
+>   * Returns the number of buffers successfully allocated.
+>   */
+>  static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+> @@ -506,7 +530,9 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  		}
+>  
+>  		vb->state = VB2_BUF_STATE_DEQUEUED;
+> +		vb->vb2_queue = q;
+>  		vb->num_planes = num_planes;
+> +		vb->index = index + buffer;
+>  		vb->type = q->type;
+>  		vb->memory = memory;
+>  		init_buffer_cache_hints(q, vb);
+> @@ -515,7 +541,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  			vb->planes[plane].min_length = plane_sizes[plane];
+>  		}
+>  
+> -		vb2_queue_add_buffer(q, vb, index++);
+>  		call_void_bufop(q, init_buffer, vb);
+>  
+>  		/* Allocate video buffer memory for the MMAP type */
+> @@ -524,7 +549,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  			if (ret) {
+>  				dprintk(q, 1, "failed allocating memory for buffer %d\n",
+>  					buffer);
+> -				vb2_queue_remove_buffer(vb);
+>  				kfree(vb);
+>  				break;
+>  			}
+> @@ -539,11 +563,20 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  				dprintk(q, 1, "buffer %d %p initialization failed\n",
+>  					buffer, vb);
+>  				__vb2_buf_mem_free(vb);
+> -				vb2_queue_remove_buffer(vb);
+>  				kfree(vb);
+>  				break;
+>  			}
+>  		}
+> +
+> +		/*
+> +		 * Stage the initialized buffer in q->bufs[]; it becomes visible
+> +		 * to vb2_get_buffer() only after vb2_queue_add_buffers() sets
+> +		 * its bit in q->bufs_bitmap under q->mmap_lock.
+> +		 */
+> +		WARN_ON(vb->index >= q->max_num_buffers ||
+> +			q->bufs[vb->index] ||
+> +			test_bit(vb->index, q->bufs_bitmap));
+> +		q->bufs[vb->index] = vb;
+>  	}
+>  
+>  	dprintk(q, 3, "allocated %d buffers, %d plane(s) each\n",
+> @@ -562,7 +595,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>  	struct vb2_buffer *vb;
+>  
+>  	for (i = start; i < start + count; i++) {
+> -		vb = vb2_get_buffer(q, i);
+> +		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
+> +		vb = q->bufs[i];
+>  		if (!vb)
+>  			continue;
+>  
+> @@ -580,6 +614,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>   * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
+>   * related information, if no buffers are left return the queue to an
+>   * uninitialized state. Might be called even if the queue has already been freed.
+> + *
+> + * Buffers are looked up directly in q->bufs[] instead of through
+> + * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
+> + * never published in q->bufs_bitmap (because a later .queue_setup() call
+> + * rejected the allocated number of buffers) are freed as well.
+>   */
+>  static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
+>  {
+> @@ -587,9 +626,19 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	lockdep_assert_held(&q->mmap_lock);
+>  
+> +	/*
+> +	 * No buffers were ever allocated (e.g. REQBUFS(0) on a fresh queue),
+> +	 * only the queue state needs to be reset.
+> +	 */
+> +	if (!q->bufs) {
+> +		q->memory = VB2_MEMORY_UNKNOWN;
+> +		INIT_LIST_HEAD(&q->queued_list);
+> +		return;
+> +	}
+
+This change looks dubious. It doesn't appear to have anything to do with the actual
+change. If it is meant as an optimization, then I would just drop this: this situation
+almost never happens in practice, so it just adds code for no benefit.
+
+> +
+>  	/* Call driver-provided cleanup function for each buffer, if provided */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (vb && vb->planes[0].mem_priv)
+>  			call_void_vb_qop(vb, buf_cleanup, vb);
+> @@ -624,7 +673,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  		q->cnt_unprepare_streaming = 0;
+>  	}
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  		bool unbalanced;
+>  
+>  		if (!vb)
+> @@ -676,7 +725,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	/* Free vb2 buffers */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (!vb)
+>  			continue;
+> @@ -1000,14 +1049,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+>  		 * VB2_MEMORY_UNKNOWN.
+>  		 */
+>  		__vb2_queue_free(q, first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return ret;
+>  	}
+> +	vb2_queue_add_buffers(q, first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> @@ -1125,14 +1176,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> -		 * VB2_MEMORY_UNKNOWN.
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+> +		 * VB2_MEMORY_UNKNOWN if no buffers are left.
+>  		 */
+>  		__vb2_queue_free(q, *first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return -ENOMEM;
+>  	}
+> +	vb2_queue_add_buffers(q, *first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..0b32ac7bc8fc 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -565,8 +565,11 @@ struct vb2_buf_ops {
+>   * @memory:	current memory type used
+>   * @dma_dir:	DMA mapping direction.
+>   * @bufs:	videobuf2 buffer structures. If it is non-NULL then
+> - *		bufs_bitmap is also non-NULL.
+> - * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
+> + *		bufs_bitmap is also non-NULL. __vb2_queue_alloc() fills in
+> + *		an entry before its bit is set in bufs_bitmap, so buffers
+> + *		must be looked up with vb2_get_buffer().
+> + * @bufs_bitmap: bitmap tracking which bufs[] entries hold a fully
+> + *		initialized buffer. Bits are set and cleared under @mmap_lock.
+>   * @max_num_buffers: upper limit of number of allocated/used buffers.
+>   *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
+>   *		     for backward compatibility.
+> @@ -1286,7 +1289,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
+>  	if (index >= q->max_num_buffers)
+>  		return NULL;
+>  
+> -	if (test_bit(index, q->bufs_bitmap))
+> +	/*
+> +	 * A set bit guarantees that the buffer is fully initialized, pairs
+> +	 * with smp_mb__before_atomic() in vb2_queue_add_buffers().
+> +	 */
+> +	if (test_bit_acquire(index, q->bufs_bitmap))
+>  		return q->bufs[index];
+>  	return NULL;
+>  }
+
+Regards,
+
+	Hans
+
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261102-vb2-mmap_lock-959e0cc4edb3
+> 
+> Best regards,
+
