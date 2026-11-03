@@ -1,101 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793702828;
-	b=0X8bVQpsbh031vRIrQu6zqcvLijR/GTMy3VUqCAFBdBBzG0vPVoViUPTFBA2SC2g6K/T
-	 9MtNvCGf/AK7c5nikHA0hsSM5p9icEdeqcPq894mpCnJKF6h7CwOUaS+GWlH+lQH87xRd
-	 /OQnuiDCyIBvao0nvc+N96bgl0jLaMTuSmMljf9nmyHSTDRNjIqRcGnY2UQ15M2MrrHMQ
-	 HTPt+887JxnZpTb0500to51W+nzuoJOJ5/N6L9/OK0wNNMtgfrUkJCSn188AfQvNo6v8H
-	 /yPlQYFKzijcDVs0geB5O76O6ZyCuSld0md58QGWowPSzQCGWvBKLrTt3NGWCNNmdtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702828;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:X-NVConfidentiality:References:Content-Type:
-	 Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zubcZKrFCwpdJ/l6TQeGKSWOF76sttKGzTiAFZnubYk=;
-	b=D7Zu2KkRBen8mDUMGmH66flE3kbup8oXHtzWjgqPjzP46HiibfEehlNtpFraFN35O3VP
-	 r0xIiFjM5fcPjSjuQX6iS1/s95gue//9AB/TspQh47N4BmYjc/7NeFzNJitNS3oX8aHt+
-	 u/1hM47NpYuh8dn2On+dmCF4S20pd1CIvCswI4QUI4ZHezRe4uHboEy0S80AoYbYdnUo1
-	 ZscQ/hkcQVvMInQVq7tHXqPHI+6ZtPmNwBC0Ew7mlzmTDdB9kjDSgPuCnHlmgbl+j8W5S
-	 RAA2yKBl4AyOHNUCJJ15GCdiMtVKcvVWX4hO2ET/4XLkgwfrQIadL8xIhWU/YPOEmvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CsOlhO6u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.17
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010017.outbound.protection.outlook.com [52.101.61.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793702843;
+	b=rjQo9DDLV76SIaDDQMlXT9fuWG5+q5nJrxK/2LKF66Vnc7ph/wkFoP3Bc+T9dHP9Chif
+	 fRGFqsRlMrAPfcAwsnpLxS/LaABI28GR2poPMQErXvSgw/cEJ+cShNFctakDIrSsAvxF2
+	 +MikhkPWXMvA0N403b20gvCt/o/h3ghGLs+hG8AK7DanD6Ajd5qMwNbL2sIN2I9ubTxHy
+	 yAEoOr/MzCYZB0yCBWAg8whHk46VgVE+vqnsGxjXT221+NyMVLuNR/N1znN0IUNfwHzv0
+	 HDqs1VXzgYVIL/nFOlPXQnBVpVsKAtdZE6o7JTFpVDSOxSFzrvBni1jJ+V0EL7kFvxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702843;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=SkUcxZ1t63MePeSMW2Wu2q33BJB/cbn4zP9hnNeC3Q4=;
+	b=RBzO9z6VYCnocVu7viS4IpkPIBz+0iNkKabeYoMmWcqRilap3+7fI2g7itpnCCinvDl5
+	 +2TR5F0i0nchT8f3IQFbUFcdMOhcVTxh5baOnfKmJ7+eBUHVBAt8pPmAFFih3ojNiFUfR
+	 1O6ku4KAYcS3tAeGrazVJeXOkNukXSbSw/XB2A8/EUquuo30m++rycKCs0QzgLrDBI0Bs
+	 xZ/kLuym9ytm+/W61RSp/UXRt48H+D+y3WDxM6D3AUtxRhfe8LsTWEqVk1GXWgoaVwJ9Z
+	 DFdiJbjpRDCr8Eo658UC7hLn/gSbCCQRnE9/FHbxEZNjKWu4g5FrXL77ubRLGS3g8/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="cT/Z/88J";
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02A4606C5BE;
-	Tue,  3 Nov 2026 10:47:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F02A4606C5BE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300E7606F7F5;
+	Tue,  3 Nov 2026 10:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 300E7606F7F5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CsOlhO6u
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oGIp9aaDwwv0EbKQFz/j/FzA+yPHOz7oGB/yIo7tnZctRIstYKiXENm8/qSg/1+xn5VH1ILqOWseZTOoAqnA2qOMWj068tcayPFyHWu99GxOr8yATAgEB6vNjXkUBthA+LC6zL6knUIo2TtPkluLEJlznDRv1rkPZy2CTIZiQnwm31uzVbBn4U0gt0+KO6ZtvDHItgdfaHGEFr5TdLT0SGMYoDiLHBBqO+BQUKHvadI8WWb9Mcy3lUtiIO1Wtn2Pw6oT1lmdXJGbKn1De6L/KyL/pc8XWWCs3foRHz06UVIe/bFOS8ra3ND5BM4LPVb9WgG6bhjdUX73mkzOkmBOYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zubcZKrFCwpdJ/l6TQeGKSWOF76sttKGzTiAFZnubYk=;
- b=S8ImK3QrM+AOgyfeULfJbq6nPAtSNCaJZynpuefwgrbrx85gs+H/qUL02zrzPsocfBIHZvou+XlSyGeiITCuGwEfQ4sNg0sac/qhc4THGe0sN2PXQecAd69WF9ZmnW4zxvf87vc0v/nQHdHIVxG5zgQ/DHZ++fwiT+lpqBUMUMs6Dnf6cyu+pMKPxzTCP1qT2dnNnzdewgZH0m+cH1IShTmgVCwGDgSPo3s+XxP/ppyiy8qOrN4C5ZAxsP+H0qXc3xkGp2sLwTrVw93CI/kb658VNEb6suR41DFTj9Pv/DpRWRkwuX06bFGVGOaogl5h66kqKNpaPgzEJH7X8EJ2NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zubcZKrFCwpdJ/l6TQeGKSWOF76sttKGzTiAFZnubYk=;
- b=CsOlhO6uVfIlL2RpPpv2YHUBN7TM87geIPzxmG+1cQ3xwZ7bclNwrA5jWSO+RSZkosW3imynEphaAkVISz6V1q06qsQbjjXVKn3yqfrsJxDemjwBP8vPUoARZi1xgXKEl9PHZH0pN08N95bmr+pUHKAAyaN3lfEgoL/nNdBOxawCZSfwgNP/W7pJsqj3B+pNcbb3M5KEpTa0Bflw9YMlJzd/3JXQ+5r7LlqYM5ck/bKzGDzxmISRwjExs7afjlXLHf5oE8LYC5SDxZZ71lmAAO4Uo7f5cTqoSQuukKzXkvAb3pGAs5JCJVJ+Ej7M63ceIDsWDM1/Xxk0pmgh06VRMA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS7PR12MB6022.namprd12.prod.outlook.com (2603:10b6:8:86::7) by
- SN7PR12MB8002.namprd12.prod.outlook.com (2603:10b6:806:34b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:46:57 +0000
-Received: from DS7PR12MB6022.namprd12.prod.outlook.com
- ([fe80::ed94:5edb:3834:5a3c]) by DS7PR12MB6022.namprd12.prod.outlook.com
- ([fe80::ed94:5edb:3834:5a3c%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 10:46:57 +0000
-Date: Tue, 3 Nov 2026 11:46:50 +0100
-From: Thierry Reding <treding@nvidia.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Jon Hunter <jonathanh@nvidia.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
-	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cT/Z/88J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793702842; x=1825238842;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oyoUK38FkkANBumPrhhkNVYPQ3RbXsytpYkdsY/NfX8=;
+  b=cT/Z/88Jzcha2+5aMDhnJ0caE00hwijNwzOpMwBkKobGi4lBIgZBLvay
+   UCfPh94338eiK+EPq1KRzF4n+VNlCfXYO4jhogUeyFONbhpenXCML+Xvo
+   PT0Q6e4WlytuaC6A7ISfaPM/0oYROPSCFUa/dqYNrGMo0z7jhejEn6QBz
+   FUfktbRrssbixtWY2ZYw/UC8wnXkZJQC6yw2qqXcGA26vDayaRMkozQNH
+   Xyea35XXCJfIenuHNKRvyS1LniiE11doEtStZPchWi1oy5N6+EjHdV5rj
+   y6YUXcgDq3x8SYi6S28KAJ5oB1Uf3UNMSp5wMDZd732dh0+RKtILhV7oJ
+   g==;
+X-CSE-ConnectionGUID: VyzEIqYbSKq3Rw2JUzAm/A==
+X-CSE-MsgGUID: n/hJQqoPQECAgPTWJu4KpQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2301022"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2301022"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:47:21 -0800
+X-CSE-ConnectionGUID: pwN/pBCzQ9+D0Ol6T40Xcw==
+X-CSE-MsgGUID: WffITHA7QsGtfFS1Mex6tw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8179559"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:47:17 -0800
+Date: Tue, 3 Nov 2026 12:47:14 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] dt-bindings: net: Convert snps,dwc-qos-ethernet
- to DT schema
-Message-ID: <aum66Z1w3spgTXWM@orome>
-X-NVConfidentiality: public
-References: <20261102203353.1384705-1-robh@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cta34f2ri6kq3kjl"
-Content-Disposition: inline
-In-Reply-To: <20261102203353.1384705-1-robh@kernel.org>
-X-ClientProxiedBy: BE1P281CA0168.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:66::16) To DS7PR12MB6022.namprd12.prod.outlook.com
- (2603:10b6:8:86::7)
+Subject: Re: [PATCH v4 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <aum7smuAHnSSb69e@ashevche-desk.local>
+References: <20261102201155.10948-1-olivier@mgcrea.io>
+ <20261102201155.10948-3-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,119 +88,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB6022:EE_|SN7PR12MB8002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6afe987e-8214-4f7c-9204-08df3997c815
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|10070799003|18002099003|22082099003|56012099006|261102123227099003|3023799007|10067099003|261009223027099003|261022113327099003|261022105027099003|261021121427099003|261021123027099003|11063799006|261028144727099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	YWK5edwdLaONdaLq1GxSjUDavNCP67tr9ftPkAy6QsXPmARDV1SMtPUhaFMzA3QEHlbGYtf+V9jtuwbBQP+jQNnP6PyBVi//TXzW+gaeWFSSmAZpaukK2fgVszbxffz6pjPQNEbJKgoDaM1DSNA/b8V5Xgr/G6wN/oNPI2mVd3ixGBo/7WB6/hvAo6KtrUcP30+p9Hk0OlNkmDFB5geQox5KZB7S3wHhed9RTSFuiVdWxOyMxOEaOa5UVyx9z7bMZH1ON8cGm9lHc5F58dn/sYnAfPc1tMQr9n6u5OwIK2esX/qLW5WOWotybXAC2UpVtdcv8cxbRdWEBqpvLUO4r1F3Pwo3jtS+6h69ao5yy7cJNax29d6E61krMoZO/JQFeLPIEjCZIorYHo9IwwdeiX0h2pgJatHdgPCNOXkJg7UKABcSe1um5TDn28GjpzbIh987u7nKx69WnnC3RzFPdeGOq2XCvmjrJGtPO4knvwPP2qRNjuCSUhIrdxurQ/i8V0BDvRhIGwr6L2Szuj0OWWHEkyVc0jhHPtyrzF1uZWAu+Hoa0n9dpgF0Fu4zIlX03RKgTrqRPareW6/SvBi5ggTeFUZoZ1WhSVEAVR0B9CH2u2+cwNTncjmcB2EdJXgnaA0KusPqaSw9P6zagzmdWgMslCBYdWAVBRiVMFUpjLc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB6022.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(10070799003)(18002099003)(22082099003)(56012099006)(261102123227099003)(3023799007)(10067099003)(261009223027099003)(261022113327099003)(261022105027099003)(261021121427099003)(261021123027099003)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?pwvkVhQ4Z44d6KMJeYRKa9Y2tYH9cIngWR2y1fWJPDaovjacqtKET4nMqSLx?=
- =?us-ascii?Q?c+Q631pIxCOfdG59w9XGla+vZWKPkvx1G1tQntVeii/qtmtPUC0NVpP2faJ+?=
- =?us-ascii?Q?6LObrDTMFdfmcK82ejx/eG3780WraOB9KXf4I6ubNrXgw1rjCvP5ZGf3liPi?=
- =?us-ascii?Q?YG/KKDz3Sm7pTOnY9GzpEAPtyZANSByB1Idgi4VKksLnRghcfv1/eMwUzRl5?=
- =?us-ascii?Q?eSXN20u/j5Kpe3OfE43R0zen3UlbZOOXSubpF6tI3wuhrXrxGLN2997iQfGr?=
- =?us-ascii?Q?4WVF5hCaztQhfdXnV1JgdezwY4Ab6oJoVvl46pzLkLuvlTXakavVXy/LUnaJ?=
- =?us-ascii?Q?TMFsA3P80fQzznZqLR5DOJ4vLTlzQOGi6w4rL1K63LLiercuImrS6QWSigS+?=
- =?us-ascii?Q?JObSU23LbSSVW7ldh2aSL7zh/tIGnxE4cWC4zVLuPBTboKO4zYJF6pYW9zXe?=
- =?us-ascii?Q?VQ8rgrHVkNFPoxlrbk/R7lxH6msjn9Xdtud5BuOvwoV2bwPlGfoKNDqdu2gI?=
- =?us-ascii?Q?a8HXnMOFNYdSWfAfHXxW+RwXBQltDrBMLowFlDqkOWBkvnZSPLNG8hSLq2Pf?=
- =?us-ascii?Q?9zj5+XCdnyMqmc/wfoZ9p7SdjBnazs+Fzar9+BtHrBkfETuClDcuKhQYUCVF?=
- =?us-ascii?Q?gycc3+z3NDScyzt0kyFD4eQm7dkTHS5Esg9a7wLzB4yFm+9Qx5GZjYHzgP3J?=
- =?us-ascii?Q?J36XiqYVsZqz+84GrBaD2XyZD5+gh0mb1STauPiqttQzgh8vEKzpHBmYnmIt?=
- =?us-ascii?Q?alyQYilQgrvueaw6G9hpBXxpsIIhmtS4d3llfiO6kgWdyoyVIipEF7S41R8j?=
- =?us-ascii?Q?C9Cj72hxdpTL7efREkA0vLrde5Ug3in2UxRNg0mk2gNYZVwTib0X71tXejaq?=
- =?us-ascii?Q?WFmvBNlaaABN7k78eAk7C2ZgTWvfdOpjt7l9RTUB26mCcfiGVyS5LK6kVBjk?=
- =?us-ascii?Q?h7JBnUYMY/4mzLwzG9Fd5zaRyTesrS6QrLisJyPxWs2OQnRZmgDjyRPFeTRa?=
- =?us-ascii?Q?ljzENpSps5WIz3nZ16lLcwXnuwVXIJt5xNwSPAK9juImdLRwyZgNh/sqKluW?=
- =?us-ascii?Q?1VMkpW0TCVf9e/sUNgu26OZBjtsm23o1w7WosnWnDu+rC0LDOgnIvbXZsaf+?=
- =?us-ascii?Q?hW9tuFCPXVcva69wd2Djixui4L9Nx+wv2pozPGNX1sqHyJZbnsznA/3UHsqO?=
- =?us-ascii?Q?HZUxJPzAPr4C/H0VtjUOfQUyWtIxVcuJtgN/YN3mDffIDzjnic4wMebZdMfx?=
- =?us-ascii?Q?Pvjqxc2Ve5iqKXBFEQ4F1QbnzxxBb1NEFpGIGMrt9+SVFNE3kwrrisEmf/x9?=
- =?us-ascii?Q?g169P15qzrcbSsnSCeb/OxFZk5Z29EBIA7/Y0tqiNjC1nITp6akrnh8dv4kh?=
- =?us-ascii?Q?23oAsyA6ZbbnVtZDn6FRyG4Gw/iNbQqqpymAvKHDqoVIyIfdqPSMlVJXdDHd?=
- =?us-ascii?Q?6kx2SHPyEcByJ4Y1tb8TV4zUQVKuYcAzjmBH2B2UOXZzz/1aGALB5jiDYJO2?=
- =?us-ascii?Q?Y2QZqCNT3mp6hK/ZgYAobCcJj3f79oGkMg5QNKnhQcB9OgkpzF/mk5ZR24h0?=
- =?us-ascii?Q?Fes3huyAR+wPxok+CS4QKr9Or4JYTuNY67xMjMVQNZy4IO16LHZc1dF5tdQ0?=
- =?us-ascii?Q?OFfIAWgU4XBPQBWFRVo9GgzDnQgrSS6oHzqmGO85RAo4cW0+YgAgnT5TfJ1t?=
- =?us-ascii?Q?rI7lMAMXd+8sTfORKVd2+54HfnM6ECBmZ9pVvEdbKOAtEvUWeb1JXyFO/r9u?=
- =?us-ascii?Q?7BK0yM17tv7l4hZFk4AmFTAFSq62bL6IDavMjlGI+4NehYIDvROBXC3IMeQE?=
-X-MS-Exchange-AntiSpam-MessageData-1: LlEizSeSqK/Jyg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6afe987e-8214-4f7c-9204-08df3997c815
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6022.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:46:57.0739
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VPm3epOcE9FE+kLn2PNtRbbDR1uoZiuwgMtvISYNVsjltHUFTHI3o2EA+mPfAUfT+0RiNVII987hLGTKbYR6Vg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8002
-
---cta34f2ri6kq3kjl
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net-next] dt-bindings: net: Convert snps,dwc-qos-ethernet
- to DT schema
-MIME-Version: 1.0
+In-Reply-To: <20261102201155.10948-3-olivier@mgcrea.io>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 02, 2026 at 02:33:50PM -0600, Rob Herring (Arm) wrote:
-> Convert the "snps,dwc-qos-ethernet-4.10" binding to DT schema format.
-> The binding uses several common snps,dwmac properties, so move them to
-> the snps,dwmac-common.yaml schema.
->=20
-> Drop support for standalone "snps,dwc-qos-ethernet-4.10" compatible
-> and "axis,artpec6-eqos" as there are no users. Also drop the
-> "snps,dwc-qos-ethernet-mdio" as it is also unused. Add the interconnects
-> and iommus properties. Replaced the example with one from Tegra186.
->=20
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../net/snps,dwc-qos-ethernet-4.10.yaml       | 225 ++++++++++++++++++
->  .../bindings/net/snps,dwc-qos-ethernet.txt    | 168 -------------
->  .../bindings/net/snps,dwmac-common.yaml       |  20 ++
->  .../devicetree/bindings/net/snps,dwmac.yaml   |  20 --
->  4 files changed, 245 insertions(+), 188 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/net/snps,dwc-qos-et=
-hernet-4.10.yaml
->  delete mode 100644 Documentation/devicetree/bindings/net/snps,dwc-qos-et=
-hernet.txt
+On Mon, Nov 02, 2026 at 09:11:55PM +0100, Olivier Louvignes wrote:
+> The X1600's SAR ADC has four auxiliary channels, each with its own start
+> bit, interrupt flag and 12-bit result, and none of the touchscreen or
+> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
+> driver that exposes the four channels as voltages against the 3.3 V
+> reference.
+> 
+> The registers are in chapter 19 of the X1600 programming manual. The
+> ADC clock divider is even, as the manual has it (an odd value divides
+> by one less); the vendor kernel writes the divider minus one, which
+> gives a slightly faster clock than it asks for.
+> 
+> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
+> behind adc-keys: all three read and report correctly.
 
-I've had a variant of this in my tree for a while but never found the
-time to properly finish it up. Thanks for taking this off my plate.
+A few nit-picks below, otherwise feel free to add
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-This also gets rid of 16 warnings on 64-bit Tegra platforms and making
-another 6 boards issue-free.
+...
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-Tested-by: Thierry Reding <treding@nvidia.com>
+> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
+> +{
+> +	unsigned int bank, shift;
+> +	int ret = 0;
+> +	u32 enable, data;
 
---cta34f2ri6kq3kjl
-Content-Type: application/pgp-signature; name="signature.asc"
+Keep reversed xmas tree order, also split assignment.
 
------BEGIN PGP SIGNATURE-----
+	unsigned int bank, shift;
+	u32 enable, data;
+	int ret;
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrpu5oACgkQ3SOs138+
-s6EotA//SmfJrKb1cGMNIvO6bgW4wQZoNoegMvQMcwFkrGBxo5lnHUX+Uu1QtCsv
-ZDN2Usk9S7KoACQgcwOIAqxYmwbDG0gssQFPfbBTjez1Ua3tnDrnRV85u7Pmp2YW
-93ahehgg120n7XhgGE5mLvoJOVA7r3Bwib5s14xOXsUBy0TYGRB7NVEJz8WMw+9M
-LUUOOOEav5ozcYHLkCh6/dvUZutPujiOSno7kINOquE41mX4gGqkDo43ZCUyLpQZ
-zJOga5zvnam+dadvMN5P4elV4Uo75F2fAFTWEqUdqaFUMyz6ogOa6XEokS90GG8+
-PUG9phqQlJmPTNWb+6qugZDlV0wn5vil6ddXVd/FmrRqHwIJMoGvBbJ2/RFCY50b
-v0GhUQnOmew14QCNymRBHKZtl22tbbP/dzn7851Xud9JwDNMubsV6O1/98Lr6Snk
-vOQpIRb0hfzecpCHwoxRJsH/7w1AElfM3sTMySH9Dzroda9gNSM2/U/l3xL5+kMz
-55uXITqLoTUtVGpelIK52iukecEhUxvw/a0f60q5tIIus3ea+Zaw/RnCvCuzsGtt
-WBx2TV6DI9kbULsBtnh6wh8MApc5uUAFrG3wWYF+4d6/HLz1jeOJ2hcA74i6HzSh
-HGLbto4EehPc8s9Ox+yKLsbUpSzWlw8AvE9ySBLc0c9nffi5b7c=
-=gWSl
------END PGP SIGNATURE-----
 
---cta34f2ri6kq3kjl--
+> +	guard(mutex)(&adc->lock);
+> +
+> +	reinit_completion(&adc->done);
+> +	x1600_adc_write(adc, X1600_ADC_REG_STATUS, BIT(ch));
+> +	enable = x1600_adc_read(adc, X1600_ADC_REG_ENABLE);
+> +	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, enable | BIT(ch));
+
+> +	if (!wait_for_completion_timeout(&adc->done,
+> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
+> +		ret = -ETIMEDOUT;
+
+#define _TIMEOUT		msecs_to_jiffies(...plain number...)
+
+	if (wait_for_completion_timeout(&adc->done, X1600_ADC_TIMEOUT))
+		ret = 0;
+	else
+		ret = -ETIMEDOUT;
+
+> +	enable = x1600_adc_read(adc, X1600_ADC_REG_ENABLE);
+> +	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, enable & ~BIT(ch));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Two results to a data register, the even channel's in the low half. */
+> +	bank = ch / 2;
+> +	shift = ch % 2;
+> +	data = x1600_adc_read(adc, X1600_ADC_REG_DATA(bank));
+> +	*val = field_get(X1600_ADC_DATA_MASK(shift), data);
+
++ blank line.
+
+> +	return 0;
+> +}
+
+...
+
+> +static int x1600_adc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct iio_dev *iio_dev;
+> +	struct x1600_adc *adc;
+> +	unsigned long rate;
+> +	u32 div, reg;
+> +	int irq, ret;
+> +
+> +	iio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
+> +	if (!iio_dev)
+> +		return -ENOMEM;
+> +
+> +	adc = iio_priv(iio_dev);
+> +	init_completion(&adc->done);
+> +	ret = devm_mutex_init(dev, &adc->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	adc->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(adc->base))
+> +		return PTR_ERR(adc->base);
+> +
+> +	adc->clk = devm_clk_get_enabled(dev, NULL);
+
+Can we have clocks always be named? Otherwise if any new dual-clock HW appear
+here, the code will be disrupted.
+
+> +	if (IS_ERR(adc->clk))
+> +		return dev_err_probe(dev, PTR_ERR(adc->clk), "Unable to get clock\n");
+> +
+> +	/* Powered down, interrupts masked and cleared, as the vendor does. */
+> +	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, X1600_ADC_ENABLE_POWER_DOWN);
+> +	x1600_adc_write(adc, X1600_ADC_REG_CTRL, X1600_ADC_CHANNELS_MASK);
+> +	x1600_adc_write(adc, X1600_ADC_REG_STATUS, X1600_ADC_CHANNELS_MASK);
+
+> +	rate = clamp(clk_get_rate(adc->clk), 2UL * X1600_ADC_CLK_RATE_HZ,
+> +		     254UL * X1600_ADC_CLK_RATE_HZ);
+
+I would put it as
+
+	rate = clamp(clk_get_rate(adc->clk),
+		     2UL * X1600_ADC_CLK_RATE_HZ, 254UL * X1600_ADC_CLK_RATE_HZ);
+
+for the sake of the logical split (and yes, 81 characters in this case is okay).
+
+> +	div = round_up(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE_HZ), 2);
+> +	/* US and MS at their reset values: single conversions don't use them. */
+> +	x1600_adc_write(adc, X1600_ADC_REG_CLKDIV,
+> +			FIELD_PREP(X1600_ADC_CLKDIV_CLKDIV, div) |
+> +			FIELD_PREP(X1600_ADC_CLKDIV_US, 16) |
+> +			FIELD_PREP(X1600_ADC_CLKDIV_MS, 4));
+> +	reg = x1600_adc_read(adc, X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
+> +	x1600_adc_write(adc, X1600_ADC_REG_STABLE,
+> +			reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1));
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Left powered up: a typical use, such as buttons read through adc-keys,
+> +	 * polls every few tens of milliseconds, and powering up takes 2 ms.
+> +	 */
+> +	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, 0);
+> +	fsleep(2 * USEC_PER_MSEC);
+> +	x1600_adc_write(adc, X1600_ADC_REG_CTRL, 0);
+> +
+> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	iio_dev->name = "x1600-adc";
+> +	iio_dev->modes = INDIO_DIRECT_MODE;
+> +	iio_dev->channels = x1600_adc_channels;
+> +	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
+> +	iio_dev->info = &x1600_adc_info;
+> +
+> +	return devm_iio_device_register(dev, iio_dev);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
