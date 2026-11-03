@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730657;
-	b=MA0ozwDRe28vkcoLyn7CsdKFgPbxzTurzf4GPXujiinZim3pGw1wg10KnlOudoPLZARl
-	 w064kEV6oh9DINI1WWzwztTG9RzchiFOvcXfvfw7NghT0Ohn7EOhVYVIMoRKO1Yv4tSxZ
-	 05I0aQSNzwYAIzr+pvVuem6cM79d6VqVaBVrFRAFafgitQs4ihjLxe+gjtk00beLvu7KA
-	 kEY+C6n+4Dsf+k/z+EmSrRwecr+V+gpk5iO8C0nRoajBTACoByJOAUt2Y5zKGyxfmKMH4
-	 WUFGwvrwN++XCFGKtCAjgwskEwW8W18fYbOEdYVE9VzCDNplQfHVEtU/iRx+Ag1Aggw==
+	t=1793730659;
+	b=vz/uOKt4JCtZU+RHz6+c1RBiXYFIQwEKu7nUtSyYS4GvpKR7dKhIg8s9k7Cn4yuFg544
+	 Nx4uw1LZzdtjxmAjTK8jfNSk0s4LrFNUO2kSssDUQirjQ6P5i5CzgUga+Gu8EA2yEzZGz
+	 ZEQUVzvM28XcLWmzrWO6g7NcRMC7Kvy0gFjgaolvzqjqp/7j7r5waQpDSia05UlBu0/B1
+	 YQZZ4/PUOYYI7ze/WigoN+6qEg4H8pBHIMDXeWh+ZG6eixdJEaNTRv5LHlBD6nhof82ox
+	 sQpvlec7wH/rU7M3ijL5Fu7VJD23ts6r9nnNDPwfuf7lK6P4igaM8OaQ5vKDtxWB3Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730657;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730659;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ub0WZcvYrfsAg+1QngeRQr7bchPe1sdav2r3oWVP5WQ=;
-	b=vEaRqJZ/oInq+NOwuW0nok3Pm4kgY1N+KkXlJvWtFybrcpYIjyDgtxRZqHJ6KFHe6kVi
-	 G7rh/mGwHuxGJQ888gKBmeKxL+EhtSFv7o35rVEa7CJ5HHBERgyf+/egb0cboV265FDIx
-	 01DxzQmrNkLp3mRa8M5KzYrIS4kt7D702ssJFVysJ9m/7+NY++NMjgv2NHQQjHSqdV8Y+
-	 pTrpL7taNrMJquFovrpe9EDIWb6e+sQg2lF3XRg4U2/9HkesowiuKbCsHkqVa04TwLFGE
-	 J9+IEzdUsU1aVfXIjEz1nAfry/+bfgnp7x3qy2ZAlalp/fZaojZPp4LPDA3eEAqc2Ag==
+	bh=3GsiDmClXUsZuQhYM79SYeH9oaXJBKEF/AnaKpHO+KY=;
+	b=HCb3UaeYdGuNZ/YlaOaOa6vE/BOhLrQcbClD89GyA+D7j/XuJuuLH20xBGQecXG58yq8
+	 Mp9plfNBppiUVSxR+mbm1Ux6TZ78YejSTXFBEIzyeEojBrhC38JxndykqWK5KZBOJSxRU
+	 lPympIvq1/QEOiXRC7XJQz77lyJONUlPRlUVA2VWBh8nwsTUBXSYMdz3l2aNK0nq2Utho
+	 8wl/E3MFXYgtZ4LWuozI5iVzGiHUZOdsapDFQhzck/Wyv3xbAa1FN9/+Yw/YhtyIoz0LS
+	 AbZHFzmn6bxBG3Mp6TiUnPfHn8oF7xzrawbJAilRczF+zLuLuPnrz3hzd1tvvtgjcfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nO469B1O;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2796FpU;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC0F606D815
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:30:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FC0F606D815
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBC6606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CBC6606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nO469B1O
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so38597785e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:30:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2796FpU
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so45780495e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:30:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793730656; x=1794335456; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793730652; x=1794335452; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ub0WZcvYrfsAg+1QngeRQr7bchPe1sdav2r3oWVP5WQ=;
-        b=nO469B1OhySyj4Eq3Nr824UOlch/dqrL435H0TKCuf2FvOnVvu8I9qaLKZD9zd76qF
-         LeeVBGkEZwM1ZYbn8e9Rpyri0LPSaYM1v9UqO0S2xwvYptXskLG9via+8qrndPv7pXd9
-         pNRjfoNA9adhVvtd3Z5EVIcDEjI2ch9WReTvXjN0AgxLovj+xV24pmNTpndHoJGdXh9g
-         KawRNwONalcv5OKl5Huu1pAwt5bjfKpa2FhG+zA+EXi7p09aOL5PdFkg7IXouQwHW52H
-         zH11ASs/mY1l3ES9+W7S1S82AxjJA05gG7EiVbtmpEQjJSVHgu0phKbi9Dn+or9FRq2Z
-         y/sg==
+        bh=3GsiDmClXUsZuQhYM79SYeH9oaXJBKEF/AnaKpHO+KY=;
+        b=d2796FpU5fg7+pPLgDfZuaHg0vWJESQuG7eQifI/1ZPOBFdkWQ0rjuYLc8vkVZLg69
+         tpT8e/G92EeQw+Xo2gMF0SrE2BU152EYO1VxuVt6is/sQa+huMcsafMf6ErjQ5qDYura
+         XHPu9inmeYSQr3YAjdvU8Nz/fvGFH3HRXisW70RWAH6Fx8PaIoafhBfSgPN7ZjR/Wcrb
+         yJFSe/Ko0vItmIZYukLKg4J7noxCvr1ZygvpuDhN7oNz8eUPdytB5NzNsBEwtW4nExxV
+         vipdSwT3IsAy38FIyhg6yoEeRjZ+E6gGwNnL0OlHBsc+o1GWjTKxtnFVFJ6a6s3hWbo6
+         Y1oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793730656; x=1794335456;
+        d=1e100.net; s=20260707; t=1793730652; x=1794335452;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ub0WZcvYrfsAg+1QngeRQr7bchPe1sdav2r3oWVP5WQ=;
-        b=eWxEA22hXfEf3wEp3+D6adO7Woiy4Rqpp/yeOn9qQqT9miqf+7TbAcqH+vvNBWzcD/
-         AIgHdCihavFTdBh9K4W5koPp6lbMF6cbdbHJKbItDb6ga99FDVSb/z9muL7S/gSZX60y
-         D+vCu0uwlXryx6Al6To2J0WIRGZlfLh2vdtfTQqmmeahLyZLJAOaZSlmT5bHx9mS2c4I
-         hSSChHhjLzEdxW4gLWHKkBA1H63QvIXGOnDxwOCBSAXpXBPLzXVV7uzxabFTt3zbr5Zt
-         LE5M7YEgTwt6PmxYBMy0uYByaZ6MvkluJy9H53zN1DHJGjRu06DXe5cmsjUM2xCTEaSA
-         e0DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwC+5LEQ/Kg7G7XWeBIJ+j0AZsQZ3wxzbc9l0QPm8Ow2fy/9x0I+Tq1bh98an5dLi0NOS7YdHNYARU8Yrg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HBwiA1mFJwzhRZ0lnK3+4R6aJRp4znh7KNvko2JwM6DnRxaQv
-	jYdElVllMLQHyTxWDqFgzmwm4q4jnPPgBugzzr2gjUJuBaYka0b3IloG
-X-Gm-Gg: AYBFou1kYax+7YhCSMvz6lu/EKGwsu3VN/qkQv1flFo4KSIXeHtjvTxT8Uwk1yTcmBS
-	ISPR3KlLgDunwUJJa6mD6OIeCfDi59r2yqo5y8CeATdrCYmmR8kc0dvq3hy8V3vMcfM+0raOCJJ
-	ySD3laoJGrMPkFwc84lIGGgGV7xZ5OYr/7roA6EAXa4R5pUBsqSPN/CO7HqtLdy2s9ljJAe8F7V
-	f1dvnQin3nA6OV9nH3m37NOltN3NZPBP6WHV0fLPNJIwJ7XYbi/sMaXHBsZKDuhHYKCmmoCzma8
-	uAqnIVH+Y9AC3C9FV52hu/9iglqgKKPstrdbIlvq4RKCQGszFPvqzobzPxkzQCW2iqHAOTEaHz/
-	73GtD+tvogP1aW/dlgMENm4CQ+SDh9agTJP5dhY5EnBHRn8nhl5QGH64huuBpJTJvCCi7kegeSy
-	BBjbS9/Ge5P9YVGoHWlkYEIfD+uh7JYqQVdVZflE5f2h6+OMLrF5YGLWks96d2sr/bdUlylC+fD
-	WhveksvOqWez9lrhvPvCw8SJrlB6kjNtMjjFu2R5a4YdPyQDoVT3Ho5N1f9rYQSjqes8Bhs98JL
-	3Ya88yMmjzHRwqQ2CUQTqdL+EDA7ewSvTQAkxFaPVcejA7OxFWcTew+q50PS43DgRLqbslkN+js
-	UCj5G5O50LDPTbH4vtO1d45eOWN45YkNmFxqaYiH2MKnmQgeJ/5mZuo3HcunJaPgbnLUbyrY5G/
-	Wv3vUEey+wQqoqxD+Pqr8vXz28A0Ws+lbQvc7KVfCtejUebHo12Sz6wAHBy+xAfP50X6+qJg+mC
-	CM6q5Yz8IpstVA0t00ukr7MNcbXU/aTwYdGf7wSxjipQ1Nv+Q==
-X-Received: by 2002:a05:600c:4e14:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4ac187a80bfmr329609245e9.30.1793730655752;
-        Tue, 03 Nov 2026 10:30:55 -0800 (PST)
+        bh=3GsiDmClXUsZuQhYM79SYeH9oaXJBKEF/AnaKpHO+KY=;
+        b=sayN40gkT/HjogIH/umNjLgW7bYedz8OW1GJiHlnSFCaZ4fYeiByG688vYi6tu29Ak
+         Z1+HkdCmt/+F5CuFURpIzUnYMYJwivnPb0pAn/lN8N4r476slbMy4t8BqwS/zKSP2xyK
+         q+dgbxBqhDI3gsLhRTFz7op40vOzXlx9Va1rKbwzCzqziWKW5HqSOdXmWszvBoYCzrLU
+         RTLYrcAwOTibaplexi4hw5UhnkI/qQCIiHvycy+R5QZyHYVgCYB1iYdfP4S1lyyRA93p
+         ETHJIsfQKXaA/3mDjy1JaInCJmiyrwonKcvJX3kajE9+LBASpcvajAB4A0SI1fO9oRYJ
+         IhZA==
+X-Forwarded-Encrypted: i=1; AKwUvBx4H/xLwaY3HGko0K/gfRp3T7aakTDJwAbPKBC6YLncg5sD2haLvv/eWRzi049Rx/HPabShExg9XLcmMn4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nYqDXwzKDH62oxUtnH7XVRgCTtPEioZBR73js/NaXE87wd7uA
+	OU6/bpouJA1H/O7vs6tM5JuUp4TRtrgNrTzLb4n1x2k+pl+CkyZwfinM
+X-Gm-Gg: AYBFou2hiQbgPihM0Ztf2D0NMzm2p0HghElpFS+5an8PzHsDbynmsqWgQpGy/6MBL2x
+	2SiOuX1miTIA8+SgB/6Dumx47HMpBrkUZU2Li7sKIo+Javy9ZOgWX711AIl08TRKM+cVUYa4Iho
+	4eDBbQdxR0PChLEYKJhUr/V0qta23v3wbR9dhrz7oBSCOcldHFi7y8hwLDd02TrH8DckwQA/+Hq
+	rVyfwT8t7q3D+7dIg8/oMU3sEy6WO8SDO22IAh1dQvP2B6ZPitzN0TvjtLxo8jlUOaoajoxhdGV
+	8x/Nrs5/1GXhMj+f13ZFC0srd/vk4q3cMiYaLUZMsuoBbk9iO93qPtvKrVGmi9ZGzY8Peu3SYno
+	6jUjaAJtKoaCO1K99Pae8wmhl9nwpxjMCQpJ475vWH8gb9/uAvcYWTrrqUIvW0lFzBlSV6uwuKz
+	pLpbF9M7SDZ3mYDGHSl+l+oHgm3lTSeOsTFajRVdswV2afG9hV+D0y1Psw0W+KsNfwc/q+oMO/E
+	mEVELH6JU2+odXErUB6NiKkRhn3fLksKroKFqrYKRvGQ1mY3lWyaT80XsQdVGqTffbwbicE0Trr
+	O9ZxtejWjJUJf7QUvJk+M6Aj1OOmd2LYxPLKqo2la97L+c7E3N9Y+zhDIRag0wORiMztSAmsd1K
+	hEKuOrzBzP3gQ/wKOQFlMQix5/4T9EARkX34ufxP8pxNND3msJOuckg099iQXmebKcIjn5P4KtR
+	TMi9qNrNzEhJzWHJpt2jBAiLGpY+beCPUwVrPKPeqzDPbZD+2CIUTS+IcvvbnAHN4Sb/JTKFKl6
+	4XJNK90s/Cm81T9T5x+QYsoEzovJvn2kmmCe7kc/eDMKNrczw==
+X-Received: by 2002:a05:600c:1d29:b0:4a5:5fb9:5d35 with SMTP id 5b1f17b1804b1-4ac187a7678mr340616585e9.21.1793730651873;
+        Tue, 03 Nov 2026 10:30:51 -0800 (PST)
 Received: from jernej-laptop (194-152-27-116.dynamic.telemach.net. [194.152.27.116])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab00ff3dsm146339785e9.14.2026.11.03.10.30.54
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab00ff3dsm146339785e9.14.2026.11.03.10.30.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:30:55 -0800 (PST)
+        Tue, 03 Nov 2026 10:30:51 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Ulf Hansson <ulfh@kernel.org>
 Cc: Chen-Yu Tsai <wens@kernel.org>,
@@ -92,9 +92,9 @@ Cc: Chen-Yu Tsai <wens@kernel.org>,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 4/4] mmc: sunxi: Distinguish CRC and timeout errors
-Date: Tue,  3 Nov 2026 19:30:30 +0100
-Message-ID: <20261103183030.81078-5-jernej.skrabec@gmail.com>
+Subject: [PATCH 1/4] mmc: sunxi: Report manual stop errors correctly
+Date: Tue,  3 Nov 2026 19:30:27 +0100
+Message-ID: <20261103183030.81078-2-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103183030.81078-1-jernej.skrabec@gmail.com>
 References: <20261103183030.81078-1-jernej.skrabec@gmail.com>
@@ -109,61 +109,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver reports every command and data error as -ETIMEDOUT. The MMC
-core however relies on -EILSEQ to recognize CRC errors, which mean
-that the sampling point drifted, and flags the host for retuning when
-it sees one. With every error reported as a timeout, retuning is never
-triggered.
+When a data transfer fails, sunxi_mmc_finalize_request() sets the stop
+command error to -ETIMEDOUT and the threaded interrupt handler sends a
+manual stop command. This has two problems:
 
-Report response and data CRC, start bit and end bit errors as -EILSEQ
-and keep reporting timeouts as -ETIMEDOUT, attributed to the command or
-data phase that actually failed. Report any other error as -EIO.
+- If the manual stop command succeeds, its response is stored, but the
+  provisional -ETIMEDOUT error is left in place. The request thus
+  completes with a stop command error that didn't happen, and as the
+  block layer only checks the card status in the stop response when
+  the stop command didn't fail, errors reported there are ignored.
+- If the manual stop command fails, -ETIMEDOUT is stored in the
+  response instead of in the error field. The block layer then decodes
+  it as an R1 card status with random error bits set.
 
-Currently supported SoCs don't implement tuning, so this doesn't change
-much for them, but it is needed for the upcoming A523 delay-chain
-tuning support.
+Store the error of a failed stop command in the error field, and clear
+the provisional error when the manual stop command succeeds.
 
+Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/mmc/host/sunxi-mmc.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/mmc/host/sunxi-mmc.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
-index b875ef4c2b79..eb1b7883a715 100644
+index fe4c0f6d73f3..9744b6b860ac 100644
 --- a/drivers/mmc/host/sunxi-mmc.c
 +++ b/drivers/mmc/host/sunxi-mmc.c
-@@ -537,13 +537,29 @@ static irqreturn_t sunxi_mmc_finalize_request(struct sunxi_mmc_host *host)
- 
- 	if (host->int_sum & SDXC_INTERRUPT_ERROR_BIT) {
- 		sunxi_mmc_dump_errinfo(host);
--		mrq->cmd->error = -ETIMEDOUT;
-+
-+		if (host->int_sum &
-+		    (SDXC_RESP_ERROR | SDXC_RESP_CRC_ERROR))
-+			mrq->cmd->error = -EILSEQ;
-+		else if (host->int_sum & SDXC_RESP_TIMEOUT)
-+			mrq->cmd->error = -ETIMEDOUT;
- 
- 		if (data) {
--			data->error = -ETIMEDOUT;
-+			if (host->int_sum &
-+			    (SDXC_DATA_CRC_ERROR | SDXC_START_BIT_ERROR |
-+			     SDXC_END_BIT_ERROR))
-+				data->error = -EILSEQ;
-+			else if (host->int_sum &
-+				 (SDXC_DATA_TIMEOUT | SDXC_FIFO_RUN_ERROR |
-+				  SDXC_HARD_WARE_LOCKED))
-+				data->error = -ETIMEDOUT;
-+
- 			host->manual_stop_mrq = mrq;
- 		}
- 
-+		if (!mrq->cmd->error && (!data || !data->error))
-+			mrq->cmd->error = -EIO;
-+
- 		if (mrq->stop)
- 			mrq->stop->error = -ETIMEDOUT;
+@@ -470,10 +470,12 @@ static void sunxi_mmc_send_manual_stop(struct sunxi_mmc_host *host,
+ 	if (!(ri & SDXC_COMMAND_DONE) || (ri & SDXC_INTERRUPT_ERROR_BIT)) {
+ 		dev_err(mmc_dev(host->mmc), "send stop command failed\n");
+ 		if (req->stop)
+-			req->stop->resp[0] = -ETIMEDOUT;
++			req->stop->error = -ETIMEDOUT;
  	} else {
+-		if (req->stop)
++		if (req->stop) {
+ 			req->stop->resp[0] = mmc_readl(host, REG_RESP0);
++			req->stop->error = 0;
++		}
+ 	}
+ 
+ 	mmc_writel(host, REG_RINTR, 0xffff);
 -- 
 2.43.0
 
