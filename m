@@ -1,104 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710457;
-	b=hHZ7DZ62XlAG2vcE+7lEF2UjMCuJYxhHvKuyKx1KVZ+zfc1lNUqBE/EODrbkPBnChAuZ
-	 4dS+zt/tJAsbfFI/LOl2kYvW2zzceEk+Guim5GbXlFkYTlGZang5hHDjijLdfHEQ7P6U/
-	 /OV38zGFtza7h+JV/8+GxNKwlFIaXBzGyDvlhb3SRUC8+ufpMvdzNtYq7TX3Gb7wKevSe
-	 REiC7RZ2MCtLKfLY9H0u+qZjZnMRvDXcmf4WYnFxDOjX5mALiLF5T3bplibOXKKxvatQZ
-	 0Zg6QZ6SGP59hAfIEqJj+114DDyo8S59KM1zM3k5W99e6Vh0i8DCRn5TJmrJkb7laZA==
+	t=1793710490;
+	b=ldZEHTwzWmhQ9kp9mBSVXP2PdqUMMR7pILFULk4F3E7rjxHGAVVpEpRa9U8Mq3s6HSVK
+	 SKd1YPTlQ/3VoVFA/ypA+W3zgOcpXgkH5FrN+gGrryXYvBvpQzg6phhHKByCepI9kLYOE
+	 cA1O0vTbTrfMqvLTz2F0Yba9Dc5yMF/IU6OKtkzz/m13OUJOUg1CvlHJ21R5YgjcnAwvH
+	 fjBAIg0/E82nKeZY+7xRG5CSyjUoKXU6Qf3QsYa+Ggz3C/ndPJrZ9m4tpmB7gnTpAATxR
+	 NBTogkjeil/qpxGA8emS/SQKlT/FayrbibuceRJOK++2jEsKjYq3XqFd5l8Roqm0I1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710457;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=T84aiAJqcr9eIc+RMHEdRg8f3K7zIQJ4MBqlwh+rBPc=;
-	b=1cKeOjacCyOG9Tce5+Oohvs/upubk8ETiszWAeSOVoODQGoxRCms+ICyuo7AhFeVJlln
-	 nhsDq0v48OSBE9EmG260kQ8mmnz1EVeAA3qvTCBTICG0ReWR28HCsFeRFjDXoWGEeUXZM
-	 9PQQ7WevTC5eajnZHWc8xEg5Mt5yvJAvLxAsVsv+bTnR5P/E5IZi9rj4kqVCF2bP5CLlL
-	 nobvTZYDO3dWQYtkRJNhcFonlWq8gvKxRsOmcjt+/HDiYYzyhmVPn0KP0vZ9hhnnNVbbD
-	 hyG2S4WNOhgTNJ0l7HdiT/Dykd9XeoaAsREuoxFVVRnaTn0kTxVPxzm+2YsW7i69Zlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710490;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=SdD3JViuLyebMZNfF0ybXy7U5RuZHTvrIy6Iv8uugos=;
+	b=jrhdnVHjYP0+0Qdbz2qgXxrrAq5TvxqrylfZdkPu5sPFIqmFje4uUTp9xHFW2eUxPuh1
+	 X0Gz2T6kRZwb/pGNQJDNiFlHiYYYa2Z9rl+w7jrdaQJQVhm0m96AynQM60CdvJS3xpj6O
+	 jfl8FuyID9HLDi9LYVMUmMpmUjQe0JIaUZkGl7Pzvt3MdlH2Rnvxx3lZXc3GQbMImt3L8
+	 DsbVXKnTyasvoDP7hVkX5SzaI9KMipLuosNVjLibU50Au1cGUr5C0E8Xt/IM4lxEOHWSj
+	 HoMuK0EQOafsMIVjfByYzZkdIEV2hsoMSqWnvbMHvVWUMOU2PwIzEcQ7NkI8A7c7EMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMsegJ5d;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x2TJVwRr;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8BA606A32F;
-	Tue,  3 Nov 2026 12:54:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE8BA606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F67606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:54:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F67606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMsegJ5d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793710454; x=1825246454;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IhRkmlNFW8wvqh1/ycRf3KZ3oTStQ6uioF6qvXYIdxs=;
-  b=mMsegJ5dKg6nPnD0khk1DwMuw8ekVkHkKZAm3a9AvqaqWnMn8udLFEdq
-   CW51kiwgk0aMyd9r1rpBJqHaOdQKD5ddqDJhAjOLIA+3+1UrBzjqI+5K0
-   iKfPbmsoaUALpZQaV6EPs2+1mhRDbY6C5Cj+kokYkXsqrWEms5RSBeNvk
-   2f0PGyYWQnzq1Oh4obBpGkrp4IYogNTD75pSyTSVLrOjO0t7wVXpNRxoA
-   iJgt7zubVj0zJd9asR7v4EQ8jeopApDqDw3ngtsxoHVOlBsJ268ATqvNM
-   WIwrUZc0zIobaw+jLsfKAWtEmS1dQ1bvHJsov7ENVnwM73hwoih9E7BUf
-   w==;
-X-CSE-ConnectionGUID: 3LCnV0BxRqG3LKfyLylI7A==
-X-CSE-MsgGUID: v8ont5CzReat21RRZ1HWqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2323234"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2323234"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:54:13 -0800
-X-CSE-ConnectionGUID: bIrfVphKRsiEpMbkrvetPA==
-X-CSE-MsgGUID: 3fvg2CqPSWirao/zO/h4zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8203943"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 03 Nov 2026 04:54:07 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOE1a-00000000ik4-3PiJ;
-	Tue, 03 Nov 2026 12:54:02 +0000
-Date: Tue, 3 Nov 2026 20:53:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matthew Ruffell <matthew.ruffell@canonical.com>,
-	Waiman Long <longman@redhat.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Caron Wills <caron.wills@pulsar.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: Re: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU
- LRU caches on isolated CPUs
-Message-ID: <202611032053.I3Ud8d11-lkp@intel.com>
-References: <20261103075940.110308-4-matthew.ruffell@canonical.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x2TJVwRr
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 154C9C8F460;
+	Tue,  3 Nov 2026 12:55:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 608486046C;
+	Tue,  3 Nov 2026 12:54:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2F571032919A;
+	Tue,  3 Nov 2026 13:54:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793710480; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=SdD3JViuLyebMZNfF0ybXy7U5RuZHTvrIy6Iv8uugos=;
+	b=x2TJVwRrLqBUh/xG8SzQmquVkjJvSBFEpYMJWEwUzpeWWGYBRZw8RWw7QJopMbnQsXYn6/
+	1RV2VulSbNAbqLGTcaOshiHYcwaK6mJytKsVg0bOVQ/EIUawWtA78vfnzkBIX3h035VRix
+	nWgMx0bY8fLUXbJwnFIrMEwn8UessDClXNwkF+JL64woNbJSjgfkqnEJW64LudWEFpul2I
+	h9+8YIHBvcrNa3PJicQnIqx/L3EzlpJjvvz+DclHnsv84PgpcUMJPn9p+PtR/C/Cp/5/Te
+	chdNPagkXPkqd9tzv2GZLrdlh5FSKvWJDLH7wksEru6JxaZHm4/RAtdTXcGKgw==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Magnus Leatti <magnusleatti@kernelriot.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel interrupts
+Date: Tue,  3 Nov 2026 13:54:28 +0100
+Message-ID: <20261103125430.962715-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,65 +81,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103075940.110308-4-matthew.ruffell@canonical.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Matthew,
+The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
+and this leads to interrupt storms when one of these interrupts starts
+firing :
 
-kernel test robot noticed the following build errors:
+ - The RBU (rx buff unav) which triggers under high traffic load
 
-[auto build test ERROR on akpm-mm/mm-everything]
+   This triggers easily with iperf3 and small udp packets, and shows
+   when running the netpoll kselftest
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Ruffell/sched-isolation-Consider-nohz_full-CPUs-isolated-in-cpu_is_isolated-again/20261103-205935
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20261103075940.110308-4-matthew.ruffell%40canonical.com
-patch subject: [PATCH 3/6] mm/folio, mm/mlock: Don't batch folios in per-CPU LRU caches on isolated CPUs
-config: um-allnoconfig (https://download.01.org/0day-ci/archive/20261103/202611032053.I3Ud8d11-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032053.I3Ud8d11-lkp@intel.com/reproduce)
+ - The RPS (rx process stop) which triggers when we stop the DMA RX.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611032053.I3Ud8d11-lkp@intel.com/
+   This one shows when restarting the RX logic without doing a down/up
+   cycle, like when attaching an XDP program. The XSK kselftests
+   triggers it.
 
-All errors (new ones prefixed by >>):
+Let's make sure we clear these interrupts for multi-MSI cases, and call
+stmmac_global_err() upon tx_hard_error to avoid possible races with
+other interrupts/napi.
 
->> mm/folio.c:293:6: error: call to undeclared function 'lru_batching_bypassed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     293 |         if (lru_batching_bypassed())
-         |             ^
-   1 error generated.
+For that introduce an "ERR" DMA dir, as we don't want to touch the
+RI/TI bits when handling these interrupts.
 
+Both of the above storms have been found on dwmac-motorcomm (YT6801),
+and are triggered by the xdp.py, xsk_reconfig.py, xdp_features.py,
+ring_reconfig.py and netpoll_basic kernel selftests.
 
-vim +/lru_batching_bypassed +293 mm/folio.c
+This seems to only affect dwmac4, there's no multi-msi mode on
+dwmac1000, and on dwxgmac these interrupts are masked as of today.
 
-   280	
-   281	static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
-   282			struct folio *folio, move_fn_t move_fn, bool disable_irq)
-   283	{
-   284		unsigned long flags;
-   285	
-   286		folio_get(folio);
-   287	
-   288		if (disable_irq)
-   289			local_lock_irqsave(&cpu_fbatches.lock_irq, flags);
-   290		else
-   291			local_lock(&cpu_fbatches.lock);
-   292	
- > 293		if (lru_batching_bypassed())
-   294			folio_move_lru_now(folio, move_fn);
-   295		else if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
-   296				!folio_may_be_lru_cached(folio) || lru_cache_disabled())
-   297			folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
-   298	
-   299		if (disable_irq)
-   300			local_unlock_irqrestore(&cpu_fbatches.lock_irq, flags);
-   301		else
-   302			local_unlock(&cpu_fbatches.lock);
-   303	}
-   304	
+Fixes: 6ccf12ae111e ("net: stmmac: use interrupt mode INTM=1 for multi-MSI")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+V2:
+ - Dropped reviews/tested tags as the implementation has substantially
+   changed, sorry :(
+ - Discarded the helper, call directly stmmac_dma_interrupt_status on
+   all chans and use stmmac_global_err() for TX hard errors, following
+   sashiko's review.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  5 +++++
+ .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  2 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++++++++++++
+ 4 files changed, 27 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index c74bc7c9750e..a972bee66504 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -382,6 +382,7 @@ enum dma_irq_dir {
+ 	DMA_DIR_RX = 0x1,
+ 	DMA_DIR_TX = 0x2,
+ 	DMA_DIR_RXTX = 0x3,
++	DMA_DIR_ERR = 0x4,
+ };
+ 
+ enum request_irq_err {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+index 43b036d4e95b..a7caac3c98e6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+@@ -173,6 +173,11 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
+ 					 DMA_CHAN_STATUS_TI | \
+ 					 DMA_CHAN_STATUS_MSK_COMMON)
+ 
++#define DMA_CHAN_STATUS_MSK_ERR		(DMA_CHAN_STATUS_AIS | \
++					 DMA_CHAN_STATUS_FBE | \
++					 DMA_CHAN_STATUS_RPS | \
++					 DMA_CHAN_STATUS_RBU)
++
+ int dwmac4_dma_reset(void __iomem *ioaddr);
+ void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			   u32 chan, bool rx, bool tx);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+index a0249715fafa..02aa1a3dd1e2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+@@ -150,6 +150,8 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 		intr_status &= DMA_CHAN_STATUS_MSK_RX;
+ 	else if (dir == DMA_DIR_TX)
+ 		intr_status &= DMA_CHAN_STATUS_MSK_TX;
++	else if (dir == DMA_DIR_ERR)
++		intr_status &= DMA_CHAN_STATUS_MSK_ERR;
+ 
+ 	/* ABNORMAL interrupts */
+ 	if (unlikely(intr_status & DMA_CHAN_STATUS_AIS)) {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 7ffed295eb14..6360605ef5ea 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3145,6 +3145,22 @@ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan, u32 dir)
+ 	return status;
+ }
+ 
++static void stmmac_dma_err_interrupt(struct stmmac_priv *priv)
++{
++	u8 channels_to_check = max(priv->plat->rx_queues_to_use,
++				   priv->plat->tx_queues_to_use);
++	int status;
++	u8 chan;
++
++	for (chan = 0; chan < channels_to_check; chan++) {
++		status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
++						     &priv->xstats, chan,
++						     DMA_DIR_ERR);
++		if (unlikely(status & tx_hard_error))
++			stmmac_global_err(priv);
++	}
++}
++
+ /**
+  * stmmac_dma_interrupt - DMA ISR
+  * @priv: driver private structure
+@@ -6494,6 +6510,9 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id)
+ 	/* To handle Common interrupts */
+ 	stmmac_common_interrupt(priv);
+ 
++	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
++		stmmac_dma_err_interrupt(priv);
++
+ 	return IRQ_HANDLED;
+ }
+ 
+-- 
+2.56.0
+
