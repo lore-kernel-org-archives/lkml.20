@@ -1,83 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710229;
-	b=ZJ+7fxEzq4l1my4PQI7HFmKucNN3iJYaUmAJ4LP03SET2duWPu2Dfi4i+izBAeDS/zsP
-	 bZ0FFT0+6N/95nHV0NGmBeCFY7YaEk9f9UfoGfTx1e/MKI1oAymZWWYHQc0mI+ip8j61S
-	 rdAH0mTafI3ZHDROFxb1I0P3myiLo/VbuzIp5AUfD9EdEeS94RpayJKHYTd7CrGXNkeIJ
-	 JM/FpYlKcFDnq1MGl7D9VX78R4OQCT5ZS5Bo97lrh0h44gGGea8nhP18Nq3gli5ZPrZHc
-	 MuAQqugsvnrWlxIkGXbgKdPQkx22YVu2sqzeDu7uZsyk59/O+dssxCNsHdSQmPKSO5g==
+	t=1793710231;
+	b=lusnkmISD+1nYlJJPW60e2iKtS3RzzSSKVwGzfz7KKwBiTeDDqdfL8SLIZJ53lEjOVIE
+	 7o3mYlveCTCno6z0tIUYtDxteotXo5hifLRl7TkZzLf5Fj8A3kPUHZ0pTKa4fqLdcob0t
+	 MHPWUVseDOo3vfuH05gyi1WTB4Csi7PfnVeDk1O8nowqQycA8aNXBz+ZLwmpjEIWi3mgU
+	 VLeDbEEyoQdtEXdLQyyVr+5yw12awD/NkIV/fhO8LMuAol1JtyMYGXNPfojQLsoy8phCe
+	 FjddgJQRvfT9zQghY0OYaeqBfUe3dg/tVo/DQ/1we7QsVfp+h3MzeQNw2RriyNpoKLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710229;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710231;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fVruni02f1KhjN7plFvbiZ0eo1NN/cpMLIaSDj/3PxE=;
-	b=5GvQFrTr74fPBC9cWiGWWeEPD4J5jPHHmoptq3cVc/MOdDSAuVaECeauQqPaJu3v0dpa
-	 EXVzQYbxhiXVrgKn23iCttcNSi7Zv0VYayJ+B6b4IWLILy382JKQayi6vP88pZ0hO45N2
-	 jVlC0XyqYYRZJBRBOWKBEcfDqE59EEv2M/VjG1kLH0SotFYqo3P5WPbinuY4QzBsUuAa6
-	 zJlqZY2XozbIdtAlcgVQIMcAPs+axdu9cDRxRx/Jqh3XVDh08Mlp/94R2/dVTAAPnY9fu
-	 +6ONe8cLcAa8YJMnlGcviYHjm6D5MK4G2DeVmTVtxwynLxaZMaPZB7H/aHuAE/rXMow==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qS8ztVVMIjwfG7AlBvbmWvP1WuCvhnu2ikDFy5AVT94=;
+	b=fmHbEeIss23IR41qMok0abct+J3cdvHnHkgxWVeTZCly3y/y84JZ9X9biKC/QQCQWogV
+	 FbSmARsLB37JmwhldQUCPvpW7srgdWbUU8gcVO1VxWlbYvUV8SLOK/9gJ0S2M7flCzNnJ
+	 BWaje5yE/pvYu0zyrACvbMaohnBpFx9sMOWiP4x3048FC8i3UgKIS1s7wVuR0faLJeJyK
+	 G8bMWDXxEbXI6wxIjxW9lfqnf3xK633fP+LuTYdH87awiW6IkudJaKGHkOWQC0puNZQO6
+	 Gq9pvsYtadh2b9BFmmMx1TJ9BzkvzMQkqpRv419zlgFz0yn2HFnpUXg4sEF/UQJ8JqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YIj+MeUM;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb8cxiZd;
 	arc=none smtp.remote-ip=209.85.128.42
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36342606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36342606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5C8606A336
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:50:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF5C8606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YIj+MeUM
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so31213675e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:50:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb8cxiZd
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so27999565e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:50:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793710227; x=1794315027; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fVruni02f1KhjN7plFvbiZ0eo1NN/cpMLIaSDj/3PxE=;
-        b=YIj+MeUMjk8k95d/WDY+hsdQQifEB+sLygCr+j6LiaDauxHmYHCQsdoXMALt2Z3gYR
-         gNUDDujfzjush7WcwUz61uuquLt6mDyhbuHyclPsoEZhsWXjBlHl4eZ1ZsvmW2fXVRM1
-         omKLdy9WWdE9KnhD9Ql7fp2ON6SD+ybGzDEEgEcSNkJAFqLZLLCtHITt4uzR6NrJBlKo
-         xnEjZ5DtQEp62zYokgQwYQSNvL7+6FaHoTPM4iUZUVpLSo+5zzy7JbcGpZvxL8gJoshb
-         tVOXluusG5wtLRUsZEx1AC2y2dZwhbfwCa3UruDw75B64jpHHs4Ami76FJ3FGnUcTocv
-         mgHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793710227; x=1794315027;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793710229; x=1794315029; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fVruni02f1KhjN7plFvbiZ0eo1NN/cpMLIaSDj/3PxE=;
-        b=TyQIgcElD8FYjjmGhqJxfdETE6nsOCIzv/VxGzzQ8/lB4IX/SaSLH8vyWixfy1JNT5
-         DDLBMXzIK/OyV4oTnygCeRKtPwVRIYa3/+4n7RbBlB4XomZ5xxKHeA0cL98xUS7tTRGW
-         LUpqEsBAPqtVOwF7Zp6WlWowHW0qxLWgwBQi/xn8l/6j0Q07Udj2Xs2q5xlaRnfzJ1/r
-         9pkCcTQZ6FEwyo49j/4RsdTYjxUKNBsIxrDtn0nwmTyKKXhGCWhGg3inX5YjS/x3jlQG
-         0Uwr3EWSjBpDjMx2cYCNxcmlOvVvnYlCy+N71MxhJPMPczbULWyWSTMtK1k0+B7M4wGY
-         rsWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzHXBwO5hj6yB6sShyVUvhjaNg2DHgy0luHNzPzuapj/Knte98siK8YNIqKZ0ki5UypoVZ36fqwd8qSfVw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+G78uohvcAh8dxkj/H4r8W5WxNFQBgTTZfKnicyue3yvLgEWB5
-	HwD0r6RZATGQvPiN21NP6wlZikBBG6IZLY/3Cb5iLpsTk3wpzgbX66bA
-X-Gm-Gg: AYBFou3R88hO600nSfLEj3yYw0W7Try/f9R7x1sDEnrZNmH3lKTMva6q4VuG9NlnLr6
-	eZaOux2KrO75OD+yfEJSzkP04JRLSP3coaEz2EnqrB9b+DU3nSDEQKBoqmpvBqeqg8fChwtFCXc
-	hACchfCyIVCCZ3AwYsxctdI9tRT79t8Sm6QXdfw63Ci4M1mNZElEUfTY6kpeIoXYIk5tYjMMg9t
-	re2eaWvq6oJKCGfkU+cStDXwPluXAaSXYGBOTWRWRV2VU6PYYOcfBt2mLoXY5PP9gvDyVs+bbIz
-	zGaVbKafG7F32w8DNfv0me/c2xUUvd4JVP1toivNOtNEV6lF7pKpOLAV+4UeAk6R0oJY5qHNKR+
-	8lDUWWJdHkL/08dkFMq16znayxMwj4b4TNNqoFLQ9lmBKgczDuslVdExvo6u/pIJ0tNyEUbBgTS
-	8SijKylOAoxmqJtBjuVfa/WP/BB4cvbDEV4Kxq8M7+gAH53A72xDS5CFaOZbCS5K0S8YyoCPPrm
-	wLpHja6vwpyt5PBxgffmBGIyCLsA2QLZyHH5vspBoXwKIpodymaDMmqhd7wOlLnTAyKw7c6anaI
-	umF+v1xWaWUFXebYni0KSp+EsTTuehWX539PoJJGfrgg4A/7GXUpFGj6pdOShKOucbkFq4tL+De
-	so0MXXKu467CJpRTyBBr4rNOlUACNtvykxI0/9sPltjoftQZg0ZnRsR+x8hcXbg==
-X-Received: by 2002:a05:600c:628d:b0:4a1:e01e:1927 with SMTP id 5b1f17b1804b1-4ac17d16a1bmr294497215e9.5.1793710227348;
-        Tue, 03 Nov 2026 04:50:27 -0800 (PST)
+        bh=qS8ztVVMIjwfG7AlBvbmWvP1WuCvhnu2ikDFy5AVT94=;
+        b=Wb8cxiZdnUZ9Ddj1KcznRD60LPv1ZcjSK1WUp5d0qJJwqyVRu6WXtBE9dETR/tCQuT
+         Q3Hjk/eQGTx4nZqIF28pb59MtYmEE4QO18Wr2FxBVmrczg05gS6ewrOr9hWg6aakCNjy
+         dafunkpbiNLdInz/1nj4dbk2l2+M6jXj8yhbw1KxTeP5IcexXiREofeCuzPMR2g0X5en
+         aeeH8FywHTRdyxaUXMeyalaAWk6AaGfFje/d9oPXac390wLtfUqBBtUmxnbZ+oYuu2zs
+         PMG+e1rbnnynGujTdEjMhGX9ymJJYiBhfePDJnJeCB2a2gG4xl0+qskOnNmiKSv48+Fz
+         GD0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793710229; x=1794315029;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qS8ztVVMIjwfG7AlBvbmWvP1WuCvhnu2ikDFy5AVT94=;
+        b=fXm7zWvfLaOQOo3/Rg26S5f/ZnYvFP4vcmOi/VdcmXjcj9GkOEMGSCXBN/QD4rB/wq
+         AlOeyK6IYLjfJzRKQRAx2NLKwcooTl38QVLcjmPas+rLtr6S4fyoqdWQY3SSpCLh6H8n
+         XcK13n4vm5zNgeON+ZDMXUf6eHvElmc8GcvDvnpnyeWHR6/2z93kFPGOLn+xvp9T9RMN
+         l0Zxx0uASKgL5YnhPgy47aoAlsSzZBemwIKGBallhuTi58GwvV36z/YDGTZhO5EjsdeA
+         ASbZpfGOXVfGxNiGCbOPNr//xF+zgeqf3jQO0W1SvD/w6qk5CCwuy3oMauqdDKPTpSmV
+         PwLA==
+X-Forwarded-Encrypted: i=1; AKwUvByhlt67BElIQ/UBg7OfBYir7FGcwBoMMysGUQR9VkacLK9ijufdwb2FjuFpYABgfa3IHEcFpErtYBLtETI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dwmTFHR763QHLhOQJnDj29bRwDt12cQIrD+JEovvZXpFU1naR
+	EmIskLjabEt5K1sxZ0xRnPJhTO9BLZQL/BJTTYxEeO1Cx2C0lCkN7O08
+X-Gm-Gg: AYBFou2VQCf8cp8DIjcZ1eN5HT9Fnlio/XmNmMrsClGll4Wlkis9XBH0Gs7laWlZzIM
+	e/1B3dn73Fvc5fzjgTkRFVafleOjJSG4fMF4eLzbgcxSq4/ttnZ1/mYy3d+Upj082dyZ4cLBLHO
+	/88VEJrw1Q0zSamSd6aBj237gmdXQ349u5mpDgXDgD7LS7IvHxhlPSEbYhhssQDCU+fO0wtOESE
+	xIEvJT+gPO/pOutuXPZrVfuf+8cbjFLKPQWhq6PHZJfbfMODiEPeJokmiwe0JN1t7terleU1bmj
+	jqS/DcXNIYd3omx6D/Rhu5DDriM3I7vAU9mYs/AuDHv1NAL/gZpwofAx9esLuTR+gRYp3qqqL1v
+	A6PEQKEvav+fAS9LLRYD7FtMkNPwBqExCK+OEpxhr/qTub3z9Q+dUMWWPWA07LyJj0nPhaEf3nb
+	qbxr9/RWX1cw22yPz6O/pjUur1vWmS5PvA0eul6HDg2KZ88eqL9FuPzyOjI7ENW9dbOVzEURNa1
+	hCY+NyS5NUrxwUmmi1xWEwbqEJoilIZNL/1Qf7v87kVS8ZmNsBPPEcQ6np2Dcc15sMVLh7og14l
+	PcRns6PzxtYdWR+gotzr3R/SEKn8CJq3C+DyEZ5BCsr1W9as9bVqqKSBzasYGJ6EmLZcW2XQlY2
+	PLNMmSteTGyQR0oVrFa2OFhmo2fwxUMlCfoYEN66QIUbeC4d81G0cobQggBAoew8=
+X-Received: by 2002:a05:600c:6285:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4ac182dc8f6mr294558275e9.34.1793710229187;
+        Tue, 03 Nov 2026 04:50:29 -0800 (PST)
 Received: from localhost.localdomain ([2a00:102a:403b:96a2:e8a9:f4a7:ed37:36a3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm61406425e9.0.2026.11.03.04.50.25
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm61406425e9.0.2026.11.03.04.50.27
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 04:50:25 -0800 (PST)
+        Tue, 03 Nov 2026 04:50:28 -0800 (PST)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: netdev@vger.kernel.org
 Cc: marcin.s.wojtas@gmail.com,
@@ -89,10 +90,12 @@ Cc: marcin.s.wojtas@gmail.com,
 	maxime.chevallier@bootlin.com,
 	w@1wt.eu,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 0/5] net: mvneta: fix the TX queue arbitration and the mqprio offload
-Date: Tue,  3 Nov 2026 13:50:16 +0100
-Message-ID: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
+Subject: [PATCH net v2 1/5] net: mvneta: lift the per-queue TX rate limits
+Date: Tue,  3 Nov 2026 13:50:17 +0100
+Message-ID: <20261103125021.70845-2-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
+References: <20261103125021.70845-1-pepe.schlehofer@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,57 +107,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NETA TX arbiter is left at its reset default, which serves the TX
-queues in fixed priority. Under load a busy queue starves the others.
-OpenWrt has worked around this since 2017 by sending all TX traffic
-of its 32-bit boards through queue 0 [1].
+The per-queue rate limits set by mqprio stay in effect after the
+shaper is turned off.
 
-Patch 3 serves the queues in weighted round robin. While working on it,
-four older bugs in the mqprio offload showed up. Turning the shaper off
-leaves the per-queue rate limits in place (patch 1). Deleting the qdisc
-never reaches the driver (patch 2). A failed setup is not undone
-(patch 4). Opening the interface or changing its MTU sets every rate
-limit to 10.23 Mbit/s (patch 5).
+mvneta_disable_per_queue_rate_limit() only changes the mode bits in
+MVNETA_TXQ_CMD1_REG. The token buckets keep limiting the TX queues
+with that mode as well, and their refill rate still holds the old
+limit.
 
-The series was tested on a Turris Omnia (Armada 385). The other NETA
-variants were not tested, but the driver already programs registers of
-the same block (MVNETA_TX_MTU and the token sizes) on all of them.
-Suspend and resume were not tested.
+Refill the token buckets of all TX queues at full rate when the rate
+limit is disabled. Deleting the qdisc reaches this code only with the
+next patch.
 
-With patch 2, replacing an offloaded mqprio qdisc with another mqprio
-under a new handle loses the new configuration. The new qdisc is set up
-before the old one is torn down, and the driver now acts on that
-teardown. Software mqprio loses the configuration in the same way.
+Tested on a Turris Omnia (Armada 385) with 10 Mbit/s limits on a
+100 Mbit/s link. When mqprio was set up again without a shaper, each
+TX queue stayed at 10 Mbit/s. With this patch the link reaches
+94 Mbit/s.
 
-Changes in v2:
-- Add patches 4 and 5. They fix the pre-existing issues that the
-  Sashiko review pointed out.
-- Patch 1: say that deleting the qdisc reaches the new code only with
-  patch 2. When MVNETA_REFILL_NUM_CLK_REG was never programmed, the
-  full rate refill keeps the refill period that the queues have after
-  mvneta_txq_hw_init() and only raises the tokens, so it is not slower
-  than before.
-- Patch 2: describe the replace case. The v1 cover letter called it an
-  existing limitation, but before this patch the driver kept the new
-  configuration.
-- Patch 3: add a missing blank line in the commit message.
-- No code change in patches 1 to 3. Rebased on current net/main.
-- v1: https://lore.kernel.org/netdev/20261102112816.12322-1-pepe.schlehofer@gmail.com/
+Fixes: 2551dc9e398c ("net: mvneta: Add TC traffic shaping offload")
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+---
+ drivers/net/ethernet/marvell/mvneta.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-[1] https://github.com/openwrt/openwrt/blob/a5e96c837ead549820867bb83c1ad471e39f5ace/target/linux/mvebu/patches-6.18/700-mvneta-tx-queue-workaround.patch
-
-Josef Schlehofer (5):
-  net: mvneta: lift the per-queue TX rate limits
-  net: mvneta: fix the removal of the mqprio offload
-  net: mvneta: serve the TX queues in weighted round robin
-  net: mvneta: unwind a failed mqprio setup
-  net: mvneta: keep the TX rate limits across open and MTU change
-
- drivers/net/ethernet/marvell/mvneta.c | 91 +++++++++++++++++++++++----
- 1 file changed, 80 insertions(+), 11 deletions(-)
-
-
-base-commit: f56daaadfecae1f760d0fb34385b256d3af68970
+diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+index ea755cf05b9e..9b9efac2846e 100644
+--- a/drivers/net/ethernet/marvell/mvneta.c
++++ b/drivers/net/ethernet/marvell/mvneta.c
+@@ -5204,9 +5204,16 @@ static int mvneta_enable_per_queue_rate_limit(struct mvneta_port *pp)
+ static void mvneta_disable_per_queue_rate_limit(struct mvneta_port *pp)
+ {
+ 	u32 val = mvreg_read(pp, MVNETA_TXQ_CMD1_REG);
++	int queue;
+ 
+ 	val |= (MVNETA_TXQ_CMD1_BW_LIM_SEL_V1 | MVNETA_TXQ_CMD1_BW_LIM_EN);
+ 	mvreg_write(pp, MVNETA_TXQ_CMD1_REG, val);
++
++	/* The token buckets still limit the queues, refill them at full rate */
++	val = (1 << MVNETA_TXQ_BUCKET_REFILL_PERIOD_SHIFT) |
++	      MVNETA_TXQ_BUCKET_REFILL_VALUE_MAX;
++	for (queue = 0; queue < txq_number; queue++)
++		mvreg_write(pp, MVNETA_TXQ_BUCKET_REFILL_REG(queue), val);
+ }
+ 
+ static int mvneta_setup_queue_rates(struct mvneta_port *pp, int queue,
 -- 
 2.54.0 (Apple Git-157)
 
