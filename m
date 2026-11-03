@@ -1,112 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700019;
-	b=mWh1o9dgA4cUx5Lta4t/KbmNOCXB5Znd32W8vEJhoIgRBYHlC8Qb4/pPdYu/RBjKNmrH
-	 obnGyxN1G56v/D8P3COjPy5Ge9hGI2MFMx/yfOMnJ5j88yTfSgPif2nPh142LtczY8ld6
-	 dLhTX2IHh2ROCEygTdHmMEkNSzxkbA/txj2hn9vYtPC2PsHcRbMwjpit1t82rXVHizjEs
-	 SBjGuH15De6hsM844uHNFY64VvIwIX008C2T9Tf6IRzlv3Q6AzRcfbX3tpqn0BP3S6JId
-	 EFTBjlbz6PpxO0q6Z3cFQDEW8nedos8bhp546yGsnvt/tJMJEEyHyXJqUFPgzG9IG3w==
+	t=1793700027;
+	b=w16K/gfRtmOfVY5DJjdU0eqwh+gsffd70yS6VZb3/+ly/nBJxL0WSWduyJoaIePbFW4v
+	 RTqE+UKgT2MBXESRr00MPFN08JMFcaO6avsh9Uqu6v0HQLUkTfeJP+D0qEqPNFSifF9+h
+	 L0KVXBp1RshtxfM/zPQ7vD5EDaYVWsqN6S8a1DwM4WwD6LSyUDkmOAt7RauTHtScV5ir/
+	 XrXbh0OM7BTx9DbC/cFqlt6P8+Fmwv3oUHKi3KGZ7OaY7sSHhG0aDmEvYFFKQg+MESSFh
+	 /slG30yt891u/I4aiecxW8ImsDvS2ilMkKez0vOqcGu7lIVvFrtuSFk5YGQ59W0hH5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700019;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Q5oZvAe4yZHBD19Azg/eQm0Ntd5kMepBMsrszjKcomw=;
-	b=E4zbJIIJG/zK2ZhygSkwmZA8TGhyL9wt1zB2v4s1+ZWdCxn3MoP6TIAyVb+5qbmzMQyr
-	 KmbVNKkDxq+6aCq7bhFrwsZ3VyEQzewMx6doVlYuTTkH+sLJsbaQssPaDZ6rOnv4ZHAz+
-	 xou18aXSS1PJ/FTmF4ZAq85wFDycQrLPB2xWyv78Seu46qFkwXnY4+ugwsRn81VhPVdAP
-	 gCWFqB2k/iuC2pIfVsP43H1tNMkx52t0QjyV84x0hB0ehMwUKeVoM7/A/xilNA04C22fi
-	 as0OotT1NU90WGXlVzzmGI9TV7vX48TgGbHKkvW4UAZM9uDJigJ4DR0NzyEM3uknBsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700027;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5eBsKnOAtib/53cPHq4YDPTfnBHbrb23tyc46Pd1NRs=;
+	b=ixFZm4gIh3byTZZd5yXx/8C+6tsc7pv49MLe9JhNoN0ETir7ohr31vUz4slhed+AJ7Xe
+	 p2SM3Tx5I2kO0y0WAMsShX3GaaJJ16je6fhIQRJT9nWSclkmnKu5b8VfejHXPwUqL/0AV
+	 gqgc4iXk0ny1iUoDIy73gmrjrYgVC3CrvtouZjMOzQ1cJP2PUCwfHnJp9APG7dQD0Ds2e
+	 ixU7qRz5DyiAoibponvfBVDyAFHg/YeDA9wsmkeNTfo7ZZEkQ0vMl7YHMEZ3eALl1sc7O
+	 Mca6U7SUPFfrM+onRlvYPR8vxb84Z2ImsdMG4wbgO7q/kB3DmS/JIZyUYMJx0lrPHOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Yf0zCZx/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MyWAlCnp;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiSil1mq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D81D606A81C
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:00:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D81D606A81C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB29606A835
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:00:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yf0zCZx/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MyWAlCnp
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37u4Un2402966
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 10:00:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Q5oZvAe4yZHBD19Azg/eQm0Ntd5kMepBMsrszjKcomw=; b=Yf0zCZx/Ypb+hlgh
-	oaZfNlIE0bWMGtX/K+RLPUHTz0Wwg/Buyj+nq/CiMKiOLobuqXVPSEKKkgjppctY
-	qFvHKLboD8JqKHbUSFywllFzuktxr2yAn2aJ1LS6H0cg5g+JACskUXKgyPeMiwbW
-	y1dL2Fleg7n+ikBv7AhgY7haz0RQEBiqkkaURO1CsTS7IWCm/VTgGK9MS1RqAX17
-	QcM6/373sgRPWF1I41CQNHKa3K+qK7JbxIMjOr9Plw26WNmDbuqZzc5nxO5jQzw/
-	mPygQQVxCxqT1WSHg7xvxIuMUJ2HABq+05dLyER6M9qfGA+sq7Dv7uEL1hDaIKTG
-	WQuVzA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq3uy2a6c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 10:00:18 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e941532594so44531985ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:00:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793700017; x=1794304817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q5oZvAe4yZHBD19Azg/eQm0Ntd5kMepBMsrszjKcomw=;
-        b=MyWAlCnpYAw9UqcQD/MQI3CSOzwgC3scIGGIbE+2mRAV7BoHBkYGuqTfa+i1sA3KHU
-         TZMR/n6td6gQKiuWKRare0rWjv19b7ipMxb121SH8JtxdEYgeArR3fYj3WtE6Ce9EKE8
-         t+7sq5HtkHrBQfjT3gK2PtIq1YsZUzuxCkqcFSNLeAJHr/kMfhPHLTSKd/XeLjpoD6jF
-         Wx1zbdy4jm4PWiYWhx1tOFgn6EfccypdaJ2inOmMQmuDAE/WCMHtXKtCCtXFH8mHdmqi
-         aKCOwSi6y4cE+3xAKEhxfZB7FSYLx83BLvyKeZm+jyJqotrJV0OMee7435pyFd3Iy+/R
-         /VVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793700017; x=1794304817;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q5oZvAe4yZHBD19Azg/eQm0Ntd5kMepBMsrszjKcomw=;
-        b=KmQxiJWMvZTHr4Vw3STYfJ1ZFoOxVnZt4pOtDxLipxiLo7E039uzkXJpfkqnJxzvBR
-         tlewb8xiXbur1C4CluuLmgal+bRQP08CA3uoUd0FF7B6sy2nE7ZQf62cAtYm3QVU/zjk
-         7t1SliBlKfu2Jf1B3ns0wF34QrzhUZqsVw30t4md1s2hlA+jhz0v+xfNLLl7N3GUZhil
-         ROdxfkSrtY+bc/19R6ThO28FubR3kRT76ZDj+ianSMsEW9YnPxZ10bTKDl/TzYRUbKHB
-         +GcIvQYAG0erR4exq4I8Afrm5tEXVA7FghQWyaci0AIUZFv4h4JMJncMAXHU07+vnA8E
-         qKYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQLRvGSbR1+VU70ST1EpkGHUhteg9xHRNmuvnx5VV5soCmik0kMwArkm+WnxVmwjkRYMIiIVR47lEzjII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Fgz64YYU19ZrIs7h906suMpJvoPa8bSCtMFM/wiXx5Ddj/ft2
-	vHENzF10raBi22a+3kXFrTyOk916KpgtziNNggro732fZsO8c/ENlPCHCVNNmf/+y/Bea2OPl/r
-	JEw2YbT6mwspXteZkTqVofeSWPpxRonv9C5I2kWOVfOKpABFXPL4JW2qiJ9hdHHjvh7k=
-X-Gm-Gg: AYBFou3OYsPibzyPhL6I/9v8/VzCl5xV542htOLSGwAA/B7ynP+kygzNx+2A1AnRKCy
-	uXz2Wj/56jh0eB9f17U1GbliSV2GJLfNLNzAbFi9+bAAUv2erU4CxmTOIMeUUr6ZJKTz7ETF1zL
-	U6/2yZ7WjBRKaSagzwpRPh3GCm/cuKtPSjqP4vSkMdNuaAs3FfFrs1hscL/FnkJQSa4HKqGox2Y
-	u7W/vGhBUZqwqIHtgYWVmscL4tluBCWxNV/aH8oogH5nTlnKX8NSv2amdx0uQoCdlF68ZG56490
-	FcmFItqn7S9iIcx/n5qNAzsjzd3JDiFkg9HPpyVGhMaiXwY52qqW0n8Ur4PjKhHY25LPWSN44Zb
-	cDvOLznBPYaRsicV77A9yxp7/4J2gXiywSNj/EtEY4vEzxTTYik0ckw+8V3tPwzrqkpg56OYbz2
-	WeYTbk
-X-Received: by 2002:a17:903:190:b0:2e9:460e:ca4e with SMTP id d9443c01a7336-2eb36401dcemr127984715ad.1.1793700017373;
-        Tue, 03 Nov 2026 02:00:17 -0800 (PST)
-X-Received: by 2002:a17:903:190:b0:2e9:460e:ca4e with SMTP id d9443c01a7336-2eb36401dcemr127984395ad.1.1793700016823;
-        Tue, 03 Nov 2026 02:00:16 -0800 (PST)
-Received: from [10.217.219.98] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eced9d14c5sm7467525ad.74.2026.11.03.02.00.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 02:00:16 -0800 (PST)
-Message-ID: <08bb4de0-dc94-4c4f-8d1a-ad3a4fce86bb@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 15:30:12 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiSil1mq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4301F01577
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793700026;
+	bh=5eBsKnOAtib/53cPHq4YDPTfnBHbrb23tyc46Pd1NRs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eiSil1mqSE0j2PYtwUbO9UfsvsIc5feXXEeOV0FGZxcqNNvxcFFzgkmJz2YYlj5KA
+	 W4xh6ZLH6hqIBcKHCrN/zbE+Nyix2wwVQh2jGgY9APgvDVsvgLjOBTOyyClHwvO/au
+	 xbLkvvIHhYgbqAR0qXbZwlp0ztXzvvK1lTFj6O5wjuZOXUwx8tkp4fSciwzsrUhAQ2
+	 Bh5v+AZ5LNxws7W1zrbh6S7jUGTtlLIsIA3WPGQLMQtgFidT76LzNqYUg8xD1uKKcS
+	 olKLS5u8FGkqrefsr146rJBCUIXSysi3dMug3YD64IteAWnOz21nM6rO9eDwY5o2oN
+	 MDpFozkxNK7jg==
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f269e335eso516297685a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 02:00:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwRmkvQ4cKRAIv3/qUlOGxmOfmGBLraFfuD1Mq3MiAmj3yXjhNbcvfSlTFqG/yeHUbW1SIV4t0cKGAyK08=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+t1WC7pgOu6aplO/57N0o4R/9/2hVGQEw5El0dYHVAx1lDkOhG
+	kdD0jhcTAxu5fCgyTUkYL89bcnfBXCWUw/7gYTMTdDjt21Hv8oew9X89WRMgdHEHPqR1mBHf+BD
+	Ar+6nMC2/tvWevGhrvBVfZeHXyNyzTCY=
+X-Received: by 2002:a05:620a:7303:10b0:945:b101:67c1 with SMTP id
+ af79cd13be357-945b10169d1mr751687785a.24.1793700025088; Tue, 03 Nov 2026
+ 02:00:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,66 +59,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dmaengine: qcom: gpi: Add I2C bus recovery opcode
- support
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: naresh.maramaina@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org
-References: <20261103-20260826_aniket_randive_oss_qualcomm_com-v4-0-59b3ce96dc4b@oss.qualcomm.com>
- <20261103-20260826_aniket_randive_oss_qualcomm_com-v4-1-59b3ce96dc4b@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20261103-20260826_aniket_randive_oss_qualcomm_com-v4-1-59b3ce96dc4b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: IVD8n04-B66u-ngeydj0PTMaywUgI5Js
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzOSBTYWx0ZWRfX6+ioO9AvX3mx
- 66iunQD+turJKm0+2p7fBQVkqmVS8Uvo/p8Mm8UnSai4hK5zh39rKqDhSf6sX7q8HOMsuiibA18
- 4rO6DskfIjCtiJScOnMTVqcH1E6FdgB+lOSobtFQU58LB5Xm14lpyvLyl2DWd+21WToDmBa/fIH
- EYCLlIbJT+5GUW1BPkZCIQUNcYaSbMASFN8wDzIidyMioRJodr/OLQV8lbPSNVwV45ibhK6gWDV
- TQ4UbgrOOFDwS2eyimmCJY31LtPx0RnzmNlvryQ7hOdA6+Itc1Z3YRjcnV8QB81uaQrmWONxtdQ
- fkR6XlIRqFeiqi7t8x4orJxHTPA0Xu26SqhRZRpfTeRo2ltkTJBqpsN5Dcmp37KLkHbXO6OCh7M
- tDAfnGYJZLFLyX288DRmTZmB01dk41pRb125wfnPrbkSYFTsPWT5kqxyKQZHPCz0PKH2Ok5m/Xr
- T905eEKJ2stg8DMnWeQ==
-X-Authority-Analysis: v=2.4 cv=VoG2kO2n c=1 sm=1 tr=0 ts=6ae9b0b2 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=ue_Pd434T0zeNjF84AEA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: IVD8n04-B66u-ngeydj0PTMaywUgI5Js
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzOSBTYWx0ZWRfX3jQnP2peK64D
- nGSZ57OP/Qrz2X/j49xKOHVbTD5cBsrM8El3C6IysHh2/K0E8kXpAdX8YqZj51Jm0WAeQWlXHN+
- H6lLm4gwO9Y+Bwo0B6L0KdIxe2xpZQo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030039
+References: <20261103025610.3738894-1-ridong.chen@linux.dev>
+ <20261103025610.3738894-8-ridong.chen@linux.dev> <CAGsJ_4xCTSctcPcC7X6Dx4zYaOycaPqs0DG7AaxB55wx1Afwpg@mail.gmail.com>
+ <9cabcddf-d807-4a36-84f1-5bb06ea72aac@linux.dev>
+In-Reply-To: <9cabcddf-d807-4a36-84f1-5bb06ea72aac@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 3 Nov 2026 18:00:13 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xXDZjhN+NkvtN+vAp8Bokack_JdNgP=nGPQtHUX8_rqg@mail.gmail.com>
+X-Gm-Features: AclHuK-l8OdgfBebeJ7I2lXBHNEFb91IlwAm3Z2gmv4eIjSIYhVp7xL_4GoZss8
+Message-ID: <CAGsJ_4xXDZjhN+NkvtN+vAp8Bokack_JdNgP=nGPQtHUX8_rqg@mail.gmail.com>
+Subject: Re: [PATCH v6 7/7] mm/mglru: add tracepoint for inc_max_seq()
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>, Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Nov 3, 2026 at 4:39=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev> =
+wrote:
+>
+>
+>
+> On 11/3/2026 2:48 PM, Barry Song wrote:
+> > On Tue, Nov 3, 2026 at 10:58=E2=80=AFAM Ridong Chen <ridong.chen@linux.=
+dev> wrote:
+> >>
+> >> From: Ridong Chen <chenridong@xiaomi.com>
+> >>
+> >> Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
+> >> youngest generation. There is currently no tracepoint on this path, so
+> >> the moment a new generation is created, and how the min_seq of each ty=
+pe
+> >> trails behind it, cannot be observed as it happens.
+> >
+> > We might be more interested in why aging is triggered rather
+> > than the exact moment when max_seq is advanced.
+> >
+> > With your patch, we get:
+> >
+> > ~ # cat /sys/kernel/tracing/trace | grep mglru_inc_max_seq
+> >             a.out-93      [001] d..1.   278.276539:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D4 anon_min_seq=3D2
+> > file_min_seq=3D1 nr_anon=3D{0x0,0xf016,0x12,0x0}
+> > nr_file=3D{0x1886,0xb,0x4c,0x0}
+> >           kswapd0-50      [000] d..1.   278.422400:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D5 anon_min_seq=3D2
+> > file_min_seq=3D2 nr_anon=3D{0x5,0xccb6,0x3439,0x0}
+> > nr_file=3D{0x4ae,0x4f,0x55,0x0}
+> >           kswapd0-50      [000] d..1.   278.508003:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D6 anon_min_seq=3D3
+> > file_min_seq=3D4 nr_anon=3D{0xccb6,0x3d29,0x1,0x0}
+> > nr_file=3D{0x0,0x59,0x7,0x0}
+> >           kswapd0-50      [000] d..1.   280.046056:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D7 anon_min_seq=3D4
+> > file_min_seq=3D5 nr_anon=3D{0x3bf3,0xcbbd,0x23e,0x0}
+> > nr_file=3D{0x0,0xb,0x1,0x0}
+> >           kswapd0-50      [000] d..1.   280.124876:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D8 anon_min_seq=3D5
+> > file_min_seq=3D6 nr_anon=3D{0xcafd,0x3e31,0x0,0x0}
+> > nr_file=3D{0x0,0x5,0x7,0x0}
+> >             a.out-96      [001] d..1.   290.629014:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D9 anon_min_seq=3D7
+> > file_min_seq=3D6 nr_anon=3D{0x0,0x10615,0xb,0x0}
+> > nr_file=3D{0x331,0xb,0x9a,0x0}
+> >           kswapd0-50      [000] d..1.   290.653098:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D10 anon_min_seq=3D=
+7
+> > file_min_seq=3D7 nr_anon=3D{0x15,0xef23,0x18c4,0x0}
+> > nr_file=3D{0xb,0xb8,0x55,0x0}
+> >             a.out-96      [001] d..1.   290.684875:
+> > mm_mglru_inc_max_seq: nid=3D0 memcg_id=3D1 max_seq=3D11 anon_min_seq=3D=
+8
+> > file_min_seq=3D9 nr_anon=3D{0xeee3,0x1afb,0x2,0x0}
+> > nr_file=3D{0x0,0x76,0x4,0x0}
+> >
+> > You can see that the youngest generation is always zero,
+> > because you're just getting the newly added youngest
+> > generation :-)
+> >
+>
+> Hi Barry,
+>
+> Thank you very much for testing and reviewing.
+>
+> > This somehow suggests that the information is redundant, as
+> > there is always a zero there.
+> >
+> > I suspect we'll need an additional tracepoint to show why
+> > aging is triggered and at what sc->priority it happens.
+> >
+> > But do you know why you trace the moment just after aging
+> > is completed, rather than the reason why aging is needed?
+> >
+> My original goal was to pair it with mm_mglru_scan_folios, to see how
+> the aging window of each memcg moves. The per-generation anon/file
+> nr_pages were added following your suggestion on v1. I put it at the
+> end of inc_max_seq() because of the restart there, as max_seq and
+> min_seq are only final after that.
 
+The per-generation anon/file nr_pages are perfectly good, as
+they can also help explain why aging is needed, especially
+now that we're introducing new code for imbalance-based
+aging.
 
-On 11/3/2026 2:26 PM, Aniket Randive wrote:
-> The I2C_BUS_CLEAR and I2C_STOP_ON_BUS GENI sequencer opcodes release a
-> stuck I2C bus, but the GPI DMA driver has no way to emit these
-> zero-payload control commands, so an I2C controller using GPI DMA
-> cannot recover the bus.
-> 
-> Add I2C_BUS_CLEAR and I2C_STOP_ON_BUS to enum i2c_op so I2C drivers can
-> request them through gpi_i2c_config.op. Handle them in
-> gpi_create_i2c_tre() by emitting a CONFIG TRE (when set_config is set)
-> followed by a GO TRE with IEOT set and no DMA TRE, and reserve the
-> matching number of ring entries in gpi_prep_slave_sg().
-> 
-> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
-> ---
-Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+>
+> You make a very good point that the reason for aging is also
+> important. So I'd like to discuss which way is better:
+>
+> 1) Keep mm_mglru_inc_max_seq, and add another tracepoint at the aging
+>   decision in try_to_shrink_lruvec(), reporting why aging is needed
+>   and at what sc->priority.
+>
+> 2) Replace mm_mglru_inc_max_seq with a single tracepoint in
+>   try_to_shrink_lruvec(), right before try_to_inc_max_seq(), reporting
+>   the reason, sc->priority, swappiness, max_seq/min_seq and the
+>   per-generation nr_pages before aging. The youngest generation is
+>   not empty at that point, and the new window after aging can still
+>   be seen from the following mm_mglru_scan_folios.
+>
+> Which one do you prefer?
+
+Maybe we should keep option 2 for now. Understanding why
+we are aging and at what priority is much more important,
+especially since we're still introducing some
+imbalance-based aging code.
+
+It should be quite simple, just a matter of moving the code
+around a little.
+
+If we later find a good reason to have option 1, we can
+always add it, right?
+
+Best,
+Barry
