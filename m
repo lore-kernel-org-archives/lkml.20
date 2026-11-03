@@ -1,128 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664590;
-	b=S3E/V92HCIBucI/AyuL1xrktpdyDUtHQooo+2HOken7rNqZW+xOM4zMNPcs4ErFAVXed
-	 VV+t9dr6H6AguJ6LIT97zzKtmD273UpNWOF7EvRnwLimWAfk9vo6qjjOv8n6cjaj3cn51
-	 biJ6tdXGmRsswILEz4rhmsE5Pv5FI7a2nqkzNm+ZNpPFjkQDzNJHl25AB6HfZ6rFXp8wC
-	 dBf86aCZwmXa/cU2b3Yin42dk2hErCuDZjrxDm5++fE3HYD8eqI6pqtqCSZNBkXQ+wF24
-	 BdLQp46u+Kl2OZevE011GCTLhIvd1DhlGOrMhkPRP88T4xE68GWD58xNQ5Eu3BajyLg==
+	t=1793664635;
+	b=t8DVQ2mkYlhZXa0U9M90tBsCSo9Up9LjX9txzH2BMMMBN/jIWVcgShWLEZHBjqNr1p/I
+	 rGzViBtPuAL5U+A/GZFi9ncz5piYZy465X3Z+ZzlNjNfehaD19tkmRhkcezQkUKULlSRW
+	 mIpD4Cdu08bHrj2dQcifRwfpfsZD0zr2WqmNA4QyhZJVIxepDq3sEMkHIiRV1QJ3tH6s8
+	 Q2CSS859vRXMqSt7nIV7T5WkyIsguBfHtbev8PAUHF3wthc8AY9kU4ZotwOSfnRGV3BoA
+	 kPThpy5FSW/RWf6KFkwxjMwxx2nylAuxJg1acuLSfG/gfpnpodsEPMIKJHu+Pwv7IGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664590;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mDHKJyK5c1CJp4RtBvlfo+it5c3vxzVpCCGcJ32CrV4=;
-	b=HAlXN8NdpTLRggeckFHBSZ1siHQnvsfoisgNreP5YMGuvzGkSdLqOTBbPWkTVJRwdRge
-	 VZEobCScU/p/GUzOJbUkpiWJanq11+7yNokUjSN1QTa9McZ1uDx2ztK7aMMe04GrAMomM
-	 cZjVZYVmFdJHTA3ALsKtQxMryaWJKYyFC4NpFcNFIja3NB5NaIUfy2ak13RNi0T2MhYs4
-	 Zg4siImu56HQZ17LjyPBsOtF/JZEiAmXLFraH8YC0LWMlhbNnBaodb8siAnoYidLRkvSQ
-	 NyUXo4tiihKBOqjJpnGuttLYk/3fnuF79YvNWqOjyRadSh2gKEBSTAFBPBROFx4+qlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664635;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=J6L8mY31MNtz95VGUAtfNyYMcOeErTGfjG4txWKjWTE=;
+	b=I3/YZ6W37NPBS80EUGAvENGNzWSKh4lvBu/vQRi+oJoHey8Pf4XP3TpywI2iUDCfUi8K
+	 vJG3xKru2U91NdFrTZOtikhD/SA4SDxZRiIBNCPHb0kOLMM0jvTRDqXIW56WIwQir3mUU
+	 nrl2ssxq2t/rlPjdPbt4fnZcwpQLssCuoUi0AgKgdVmPxJfFC6Upvw8ME+rYH8oz5xLX2
+	 nIdQMN3SLSuZ6495k5kcPaANV+fSsk17bvsRM+cFE9izdYYihMxhK4/xTVRHSdQd2VM1q
+	 4rHS2XZPUZi9gtMr6Hnq/C+kUjByGzVwgiHoUN0Vosd3/LCgyHm043BqvldVc+6vNLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=Hp9Mrree;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=V75K01UH;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ehVpHByY;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0247606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0247606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA1F606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 00:10:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DA1F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=Hp9Mrree;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=V75K01UH
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id F30BF140022E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:09:48 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Mon, 02 Nov 2026 19:09:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793664588;
-	 x=1793750988; bh=mDHKJyK5c1CJp4RtBvlfo+it5c3vxzVpCCGcJ32CrV4=; b=
-	Hp9Mrree3VnbpxT5gxkY433aIYABxyK1h95QBeSCj09UBtA+FNtuqP29ruvoU5yj
-	3477c89h4xGZ01WYyglDA9D9fpfJmKgUnL9ldlXN/mmA2DS7pGVKzdftoSnqR7tL
-	dSH1k5E3Zml2JFoA1fzKLl+iu6Og6GPIYwhsL8RDygiAmE9MlGZVWsyPLJiKeKiA
-	eSPABcHcQfeqsc2qjuk/V4iDOX8Hcvatd1F1mc39nfIxyCh3W6IHnER5I+w6pauo
-	N0QkaYRbcvCrnuOZpXV+tgjKehg+Ndd3kgs7+cJm9v45iQHt3JpGpUTDcs4mNwPv
-	3Krn3G+Gf+qphW/pbOv5sA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793664588; x=
-	1793750988; bh=mDHKJyK5c1CJp4RtBvlfo+it5c3vxzVpCCGcJ32CrV4=; b=V
-	75K01UHIv5eCEnyst9Q8Bf1nYJCp/TZLZmCz8VZ/C0sQoV6svLJNXYgRHoZkZSX/
-	h66fYFDNgHK2cU5ab1LWJt3nZ8Aam/XEL4Ow3VaRndzu8l5oc1ueQzwj2f5mz5K9
-	dCsG5vg4oI1DoYOuxalPXoPPi6NNstsiugDQNji9dEx+f1wKPgK3XKxausK6Sl7N
-	JRARfaZUPYiv/JzYRqg3V8+FPw3KGBgmPNdZf4QvUslwrvhNCKLGx/tPPGa2+MW2
-	HeqtRW6df9Yc1guk1lPX+c1ZXyc06v37JgCirbOragGezAJoMonqdk9/Bh+Fq2ZZ
-	gu++8GfQMSbtA7Em/spXA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793664588; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:suVf6F+POmotzklBtABmRHDbwInB3MPdqLnznBpNrLB5o+y
-	/U3JfSWeWJhD9mei+OCEijdwXqVg4xNotxQTU1J0SZJoUMj2r+zEiCH8iyd6K9Q/
-	oqsTgAZUbz4gOPSMdpP3MqhKgKNADqReYhUfEWfLc1x/HDCkd6SvjUI912oNTT7X
-	Dpg2xkaCanLWmT2WqGy0U0/5F/rCg0M0nXOfqTThqgMDQdKeyAZSWVkEj5PK7J6I
-	eAI1CQbPcOEwm0J0mv6pBHIMJzwMIGwQZ0GUxHlh+sSQuwfjfP12wx89zHH9+C6B
-	/08dZ9R8NcE2erv06/lMbNT+umfuL71px62qbUQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:aqhEssKWk1rEt2kkqV3wnQnZaFRM9Gy039LCdv9N9SE=:s04PlBV1l9I+ZNkUIn0NuF3aBDUOBu14aCARp2OF4vY=;
-X-ME-Sender: <xms:TCbpage6r2MXflGVS7Z0sXAPYN4QQ6mQqwVIOzAvyuv7s6y_sOxsmA>
-    <xme:TCbpavbVoPlj7lYEgyGinzUUvPAYshhj_F4BLgtQhPQ5fR1y3XFzCRYdvd_xFg6Jd
-    UxlqIHudWnhuzXj22ejMmbcjAtEIGA19zWS2XyeboXAabDLgiMY-rE>
-X-ME-Received: <xmr:TCbpamCWNVTUBCkbao21-ShPS68mSxU-uo4gp2xDcpgqCL7dE21BbjV4ewYPEPV4i9PYZ3kIT9B_wTs8keOhzcbZ>
-X-ME-Proxy-Cause: dmFkZTE4dGC5aH3pUEK+WuNNJghp4gp1C/HfLybS5qkgQ4M/8HSC4SBwuAumiylDZsYl7h
-    AceqeRoypc6ArWbSKhg8acKoNijhwLGigROiT//Du/4rVdoGWi/4MVw0CHcDKhj52DHcYR
-    pgN1EiUMDwyiTLUy72R0iygDc/+QIZYydT+TYCUbneNM8BLRCLUlQv7A4BLoPPHOGpo2rC
-    U3OzAHyw96aOw0JK7hi5rcV6GW+qs+sNGXWm4iEvsx9sKgoYZmfuLnO9SvcvgaQafTy0IM
-    bMJ+SUsdSCmcgNb91iRRthIBujs4OsWzK31NOmhRTiuRYd46XprMdhVaVwxMSV913ZWuEv
-    BsnlpmkDImtoTeHoKs2KE1/ffzMGJxP+WeB+IcXOLWRxFY5HNYn3WC+2X9fJJYh2y6l+Ib
-    pFThVkMfKtIam62Ce/5uymht/rF1LHi+Q8N3t1X//FhCuJFB88XnrPaDP/lCzdQSEkS43p
-    m6+sYVg+yP4f+ZXepYhTF+ieGkaYsj3z7SPiLyZm0cRNcXcQoaAUszHLvhVqcnj8sXB4aK
-    zJTktCvlSh/JkdOBj1siaaagzuWo3wsHh83VDD533V64oNGprzWdob3MVx1E7a7abxxip1
-    AwF1Evhh3gzJQLPmekckMBdpIYTm1hol4PPy2VY64aG2m8NoOMO+uC8mK0fg
-X-ME-Proxy: <xmx:TCbpaiJONPZMkXuP_Az_axzFxLh8rF7Y34ljLP0p-oM97MS9TY0MXA>
-    <xmx:TCbpatq1kbwqNVuDlQARVQk5b4tmgETJfSQbUChI71_vk1UVC0aI1w>
-    <xmx:TCbparPwdapiqLmIROxXaS47rGHtQOUkRwrN4WJBta5pq6aubFuvIQ>
-    <xmx:TCbpaqPqdnclNMegqznfEsgjcAodJ-ASx-qrkgpzRg7EGxh4_7Ul6w>
-    <xmx:TCbpahBTwgZC23DwkB55Jr0Hbc38EpK4D-n9aMKIKFffVChCemI4PTwz>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 19:09:43 -0500 (EST)
-Date: Tue, 03 Nov 2026 09:09:41 +0900 (JST)
-Message-Id: <20261103.090941.728506274497185931.tomo@flapping.org>
-To: boqun@kernel.org
-Cc: tomo@flapping.org, aliceryhl@google.com, arve@android.com,
- brauner@kernel.org, cmllamas@google.com, gary@garyguo.net,
- gregkh@linuxfoundation.org, ojeda@kernel.org, tkjos@android.com,
- a.hindborg@kernel.org, acourbot@nvidia.com, bjorn3_gh@protonmail.com,
- dakr@kernel.org, daniel.almeida@collabora.com, lossin@kernel.org,
- lyude@redhat.com, tamird@kernel.org, tmgross@umich.edu,
- work@onurozkan.dev, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, fujita.tomonori@gmail.com
-Subject: Re: [PATCH v9] rust: sync: condvar: use Delta<Jiffy> for timeout
- and result
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <auixgbeSSfBWwVS9@tardis.local>
-References: <20261102035934.711973-1-tomo@flapping.org>
-	<auixgbeSSfBWwVS9@tardis.local>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ehVpHByY
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0688a43d3so2543840b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:10:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793664634; x=1794269434; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J6L8mY31MNtz95VGUAtfNyYMcOeErTGfjG4txWKjWTE=;
+        b=ehVpHByYYF2DK9rR/bSPBeu58DBwDQ4nrUyGNi9vI0lfJ7BQa41cOtPIazX8pL4Q7x
+         U4kKinUUgvsFQDFBkmqv9T14DpG3DG5iPDfjEQX4geYGzX0SNEyA/ZMvnKAltqaRKvbM
+         AbAtm3VMq+LfszI+ln2vBRayeWn7xX/cT/ioXUaEvIXpHBD2zOMDcjRtV+4/pAdvLZs7
+         HDR1BPNFlvYgnoDcTnkNm+K40M2ojo+mJGYX9/Ei5p82ARUgcYcY0EmjtiEkwXdEL9xX
+         NlaqjSQ7VlXc9mbhexOQC5Ji0NE/Y37yvdPT1z10f9EI4xII66hJL1hsRS1mUaRWPQLD
+         YNTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793664634; x=1794269434;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J6L8mY31MNtz95VGUAtfNyYMcOeErTGfjG4txWKjWTE=;
+        b=oJPQ4Ynaj5IU7L8DlSODwxTG+1H35eZ67f4su3AOMtW9a4mD6KSf+LdSAp53qQsGxR
+         808ZY8YPiWNVpbnYgVdpKgzu8l7eashSImxLm4wBju41MdRUXjGH2gBc1SpAT46eQXCb
+         dvhDMlAHlkypvKi2NZdnndr1QKx+NXseaXHa0Z3HDA4U1KMC9/xAYsmPJaKtL0tqJTBe
+         +k5BiMuQo0aIDHnlQJfZ84dZRfHArMyjRbBcCq7BT2OVU+SDh8a1mFTP4PM/Jjk0AAtL
+         oKWTGWSFAVVXlYS93CqZ+TEg0ZG+rvmN0rTLpcXChUVUHGdVJg6P7oIu436k335xIMlm
+         xf1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzQssk+bSsRu2j5pRiBj4KOOXuvox7bZu8QemwKdyXsNozqW3AGyh96tsKUzSuWrNv7QQZRQgCfLXit1kU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GSDyWMTDvQ1G1aId8eekLP9+QEWgUaFi8EK/OZufp9LucC+cc
+	jluQ0l8JM3fHKCtT0ihGQsOzxqGHL6PUeLRg9AVJSBWmSsxYISTlZOm31KQi6p/JIV7QkV6gIns
+	lmRCbWg==
+X-Received: from pfhx5.prod.google.com ([2002:a05:6a00:1885:b0:8a0:9321:5329])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:ab05:b0:886:9078:546
+ with SMTP id d2e1a72fcca58-8a9be96509amr9968061b3a.26.1793664634176; Mon, 02
+ Nov 2026 16:10:34 -0800 (PST)
+Date: Mon, 2 Nov 2026 16:10:33 -0800
+In-Reply-To: <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,62 +80,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <20261102231428.13523-1-pbonzini@redhat.com> <20261102231428.13523-5-pbonzini@redhat.com>
+ <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com>
+Message-ID: <aukmeb9mV8b504T6@google.com>
+Subject: Re: [PATCH 4/7] KVM: nVMX: Process each host MSR entry at most once
+ when unwinding failed VM-Entry
+From: Sean Christopherson <seanjc@google.com>
+To: Jim Mattson <jmattson@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	stable@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2 Nov 2026 07:51:29 -0800
-Boqun Feng <boqun@kernel.org> wrote:
+On Mon, Nov 02, 2026, Jim Mattson wrote:
+> On Mon, Nov 2, 2026 at 3:19=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com=
+> wrote:
+> >
+> > From: Sean Christopherson <seanjc@google.com>
+> >
+> > Add a missing "break" in the inner for-loop of the open coded mess that
+> > unwinds MSRs back to the pre-VM-Enter state when VMLAUNCH/VMRESUME VM-F=
+ails
+> > due to a consistency check that is caught by hardware but missed by KVM=
+.
+>=20
+> That sentence does not accurately describe what the code does.
 
-> On Mon, Nov 02, 2026 at 12:59:34PM +0900, FUJITA Tomonori wrote:
->> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
->> 
->> wait_interruptible_timeout() takes the timeout as a raw Jiffies, and
->> CondVarTimeoutResult reports the remaining time as a raw Jiffies. The
->> type does not show the unit.
->> 
->> Switch the parameter and the result fields to Delta<Jiffy>.
->> 
->> Delta<Jiffy> is signed, but schedule_timeout() prints an error and a
->> stack dump for a negative timeout. Clamp a negative timeout to zero, so
->> it means an immediate timeout.
->> 
->> Update the only user, binder. It now converts the freeze timeout with
->> Delta::to_jiffies_timeout() instead of msecs_to_jiffies(). Both round
->> up, so a short timeout does not become zero. They differ only for a
->> very long timeout. msecs_to_jiffies() returns MAX_JIFFY_OFFSET for
->> 2^31 ms (about 24.9 days) or more, which means an infinite
->> timeout. to_jiffies_timeout() has no such special case. It converts
->> such a value to the matching number of jiffies, so the wait is long
->> but finite.
->> 
->> Reviewed-by: Gary Guo <gary@garyguo.net>
->> Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-> 
-> Thanks. Alice, any concern regarding the change in binder?
-> 
-> I have some naming suggestion, please see below:
+"attempts to unwind MSRs back to the pre-VM-Enter state"
 
-[...]
+> > I.e. move on to the next MSR in the VM-Entry load list after performing=
+ a
+> > write using a value found in the VM-Exit load list.  Processing *every*
+> > matching entry in the VM-Exit load list makes the processing quadratic,
+> > which is problematic if the load lists are full of MSRs that are expens=
+ive
+> > to emulate.  E.g. writing APIC_BASE triggers kvm_recalculate_apic_map()=
+ and
+> > a whole pile of unnecessary work.
+> >
+> > Functionally, arbitrarily restoring the value of the first matching ent=
+ry
+> > is "fine", because none of this is architecturally correct: the load li=
+sts
+> > are never supposed to have been used in the first place.  In practice, =
+it's
+> > likely a moot point as no well-behaved VMM will have multiple, divergin=
+g
+> > entries in the load lists.
+>=20
+> This isn't "fine." This is disgusting.
 
->> @@ -248,11 +261,11 @@ pub enum CondVarTimeoutResult {
->>      /// Somebody woke us up.
->>      Woken {
->>          /// Remaining sleep duration.
->> -        jiffies: Jiffies,
->> +        jiffies: Delta<Jiffy>,
->>      },
->>      /// A signal occurred.
->>      Signal {
->>          /// Remaining sleep duration.
->> -        jiffies: Jiffies,
->> +        jiffies: Delta<Jiffy>,
-> 
-> Similar for these two: s/jiffies/remainder
-> 
-> Thoughts?
+The "fine" here refers to what is being changed in *this* patch, which is t=
+o
+load each MSR at most once, and to use the first value encountered, e.g. ve=
+rsus
+the last value.  IMO, that claim stands: in the context of the existing cod=
+e,
+this change is "fine".
 
-Sounds good to me. Now that the type shows the unit, the names should
-say what the value means. I'll rename all of them in v10.
+> The assumption that the VM-exit MSR-load list will "undo" every
+> assignment made by the VM-entry MSR-load list is misguided and wrong.
 
-I'll wait a few days for Alice's comment on the binder change before
-sending v10.
+No one is assuming that.  The comment even says *exactly* what you're sayin=
+g:
+
+	/*
+	 * This nasty bit of open coding is a compromise between blindly
+	 * loading L1's MSRs using the exit load lists (incorrect emulation
+	 * of VMFail), leaving the nested VM's MSRs in the software model
+	 * (incorrect behavior) and snapshotting the modified MSRs (too
+	 * expensive since the lists are unbound by hardware).  For each
+	 * MSR that was (prematurely) loaded from the nested VMEntry load
+	 * list, reload it from the exit load list if it exists and differs
+	 * from the guest value.  The intent is to stuff host state as
+	 * silently as possible, not to fully process the exit load list.
+	 */
+
+> Xen, for instance, puts SPEC_CTRL on the VM-entry MSR-load list, but
+> it does not put it on the VM-exit MSR-load list. Instead, after a
+> normal VM-exit, it restores the host value in
+> vmx_asm_vmexit_handler():
+
+...
+
+> KVM needs to do better.
+
+Meh, KVM is doing pretty darn good, all things considered.  Yeah, this code=
+ sucks.
+But I'm not convinced the alternatives suck less.  We've gotten the set of =
+missed
+consistency checks down to effectively zero, module the TPR mess that I do =
+test
+by running warn_on_missed_cc=3Dtrue.
+
+E.g. for Xen to run afoul of a misbehaving guest, Xen would have botch its
+handling of vTPR.
+
+I'm not opposed to trying to figure out a not-horrible way to snapshot a li=
+mited,
+hardcoded number of MSRs to make KVM less wrong.  But I sure as hell ain't =
+going
+to spend cycles on it at this point, because potentially clobbering L1 MSRs=
+ when
+L1 itself has already screwed up is firmly in "don't care" territory right =
+now.
