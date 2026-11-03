@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689680;
-	b=Z+MtR9EDP6sppGkqrCnzEpgu/ytdAR+iBg4K5Hw29ou5NfIf6MA7WwwmMLRCmP+qRGbY
-	 1XYABBWcqyj8rmBvNmMmocHTbHV6QT3Pj1nuqqlJ96U9TrC7w+YjMiv72875IhJSwuEq+
-	 rl62+iIUQCkt6HDquSUGJDYHArXjZFkmV0OZSRIWc1jjwRYmD/2RCuuUtBy77ZJS4VzgN
-	 AZuk2/IKgrIhKiXgWu3efjf6vKw62JVqZ6jZyAZ1pKqB+/FFA3rNQa1CTfAprK/WbQqMw
-	 BkKmEsZzYJV33OO6/bpQ8WsP975biHjkCi239NUejhz4XEjai+E3x74+btF5rjl+9yQ==
+	t=1793689738;
+	b=KFs222KKzWBNGjKY+TwBoYQwrJrzBaAxkMaqcp87bBbdeqJDWf/mC/o5SEunKa/XKRC3
+	 +mpMOnjOzM3/Lw6HSRphcx6WyPO8OheD+nysk+sGOxE8lFW5Y/WwsdOH3lAJp1SGeFEqS
+	 en8dcuEgBGGo7mOR5Ii/GHhqU08HJl8gNCJQ7cp/uNmzYswDPFeQ7JVdtvRmna8g9oGiu
+	 2UhCoTn4tYyGaMZpp1u6qTd1VdRFWUDpXGqz7B/wNtuKMHviSX5IybYhgpSD4TZlbN1j9
+	 sC9nj132cyhMo9Qx28b7TyIVtxTyz+LNhCbTAqpdrICyCU2oZnbR0xCWSe4xiUA/gTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689680;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=AYkF4SdOGoqUcvfJhNNNczBVqdFPZxRd+YMOIYTKY+Y=;
-	b=YnncYyc9FWy87IfrXIxfzMR+FTkayl266zK0XTYja5YClepLJdhzc749qPB/+fZYqd1E
-	 SgRMu/PDkZiNjOKRuS62tPzI/lUDNJVTlFgcYBlE5zyAjRFh0uHqTB4RYJo6EGZbUgHU1
-	 ovy6OYXOU00kuuB4YUV5ZTSpqE0QRXLDWl0OqJeCDAF16URsE8rbewkaga1hnl+Wky5GR
-	 GJsvi9HcqItCoqt9XPp+uUgweqgD70R8mYlZ3j1hUSozt9sIurjBmzRoOCydzf/SmMe0j
-	 fIwqjGZjcfmSX2CV2sqeFFcXb+HTF+DUNZ5Fu5grt9xkIoN+2qW1TTb53UgMsGKFilA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689738;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=m8AuPCOFAf/2S2nvWRU/STz1Sg7kLIO+T08Yd5N1l88=;
+	b=n7/TB+tbAoSrjxXdgcjWE8qjekmi0QUwhXOkR5C3Mfu35bnKRh5gNxyQQlm6tUWfQz2Z
+	 J75rYEBHwNcwMQ3+fo7j6ePJ/en+G9AqKoI4tElTsIp/BT14Bn9ItqGcyBXzD34X3q4n7
+	 3FpuW75VqcFGdcN/bpHNaSMPkoPE9TJjuoJ8thEN1XK6jMLkDyZvO4fsQ0JZoeN6+yX+w
+	 OZByykJtuydN79tAwPwcYOzfbzqAsp0Ddl1qgYrLMsaFs7Hy7PjjMRRPCb6jffBTltl0l
+	 gePmykCqm2GdbI73FzoqPDbc6jUXGikxFNK9Kxi4po+aMDjlT1FesL5+cDyLu8/1prQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=icetMTAo;
-	arc=none smtp.remote-ip=115.124.30.97
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF63606A331
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:07:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BF63606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=icetMTAo
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793689670; h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
-	bh=AYkF4SdOGoqUcvfJhNNNczBVqdFPZxRd+YMOIYTKY+Y=;
-	b=icetMTAoGh//a6+W3ysn+d7bhgPPmUijvdSU84mXg/8Y6lyJzM9oeQ3gXl9avi6U8Mi9wQBp7Q4kiGVfBD4D5mgcw3gWb6xCKkj8w1+pwdHnqrnJQtgAtfAcQxffBFE3UJ3fpc3oJphWhDqm6KYy2TgERrMsJcJAfO+JOW6q5Rc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=dtcccc@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XE1pYxA_1793689662;
-Received: from 30.74.145.222(mailfrom:dtcccc@linux.alibaba.com fp:SMTPD_---0XE1pYxA_1793689662 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 15:07:49 +0800
-Message-ID: <37fb82ff-ed5d-41d7-91b7-afe4379a636c@linux.alibaba.com>
-Date: Tue, 3 Nov 2026 15:07:41 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7145E606A324;
+	Tue,  3 Nov 2026 07:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7145E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACHk5SHiOlqkLQ5AA--.4125S2;
+	Tue, 03 Nov 2026 15:08:55 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.shishkin@linux.intel.com
+Cc: linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] intel_th: Balance the runtime PM reference on driver removal
+Date: Tue,  3 Nov 2026 07:09:04 +0000
+Message-Id: <20261103070904.1085387-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +51,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Tianchen Ding <dtcccc@linux.alibaba.com>
-Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
-To: Chengfeng Lin <lin2530632123@gmail.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- Mike Galbraith <efault@gmx.de>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
- linux-kernel@vger.kernel.org
-References: <CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHk5SHiOlqkLQ5AA--.4125S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF4UXrWfCw17uF15Xw1fWFg_yoW8Jw15pF
+	4DXFy2kFW7Xw42va12yrnrZFyYgayftrWfGFykGa4rZa45Aa42qryUKFyYqa4UtryrtF9x
+	tw4ktrW7WFW8tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0E
+	wIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E74
+	80Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0
+	I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04
+	k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7Cj
+	xVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUYzuWDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUAA2rpWfWghwAAsX
 
-Hi Chengfeng,
+intel_th_remove() resumes the device with pm_runtime_get_sync() before
+calling the driver's remove callback, but never drops that usage counter
+increment. Disabling and re-enabling runtime PM does not reset the usage
+counter, nor does the driver core's subsequent pm_runtime_reinit().
+Repeated unbind and bind cycles therefore retain an extra reference each
+time and can prevent the device and its parent from suspending.
 
+Drop the removal reference with pm_runtime_put_noidle() while runtime PM
+is disabled, before restoring the existing active state.
 
-We also observed a regression in a pipe-based context-switch benchmark and 
-bisected it to commit 333238da9a19 ("sched: Update time before requeueing 
-delayed entities").
+Fixes: 142dfeb20209 ("intel_th: Add runtime power management handling")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/hwtracing/intel_th/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Our working explanation is that updating curr before calculating the delayed 
-wakee's lag advances the runqueue's average virtual runtime. With DELAY_ZERO 
-enabled, the wakee's positive lag is clipped to zero, triggering repositioning. 
-With only curr and the wakee in the same cfs_rq, this can align the wakee's 
-vruntime with curr's, making both tasks eligible.
-
-Curr can then retain the CPU through slice protection. With equal weights and 
-slices, the wakee's newly assigned deadline can also be later than curr's 
-remaining deadline.
-
-Before this commit, the wakee would commonly preempt curr after being woken by 
-curr's pipe write, while curr remained runnable. After the commit, curr 
-typically continues until its subsequent read finds the reply pipe empty, then 
-blocks and voluntarily switches out. We believe this change is the main cause of 
-the benchmark performance regression.
-
-We observed a throughput recovery after disabling DELAY_ZERO. It would be useful 
-to try this with your benchmark as well.
-
-With 333238da9a19 retained, lag compensation on delayed requeue uses up-to-date 
-runtime accounting. Should we consider making DELAY_ZERO default-off?
-
-Thanks.
+diff --git a/drivers/hwtracing/intel_th/core.c b/drivers/hwtracing/intel_th/core.c
+index 56acf31546da..1c1f59b8ed3f 100644
+--- a/drivers/hwtracing/intel_th/core.c
++++ b/drivers/hwtracing/intel_th/core.c
+@@ -162,6 +162,7 @@ static void intel_th_remove(struct device *dev)
+ 	}
+ 
+ 	pm_runtime_disable(dev);
++	pm_runtime_put_noidle(dev);
+ 	pm_runtime_set_active(dev);
+ 	pm_runtime_enable(dev);
+ }
+-- 
+2.34.1
 
