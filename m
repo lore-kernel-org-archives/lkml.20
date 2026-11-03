@@ -1,118 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793677819;
-	b=C+xkrdsbQNzlATaD1v9JTydwsXPOmwGNuu4IdlRGNfNv7eS65vCBxzN3iU78T+uDXf8w
-	 JppuzpHLMEE4YrNnAFJOtzMfpAFdzNvAj30riqJ62HWjDuO98UQ74Ep++BKjr9i/vr5lz
-	 mX9j3au3tQ8lD6mffg1l6NGTkakqzrTPH75glQCrrmmN3+i4L3pBqfUlP6VvIg8JtGukv
-	 a1XFSU0qb2QAYrcIk8FXZesL8k8Yiv97s7f0g9N9VHQvby9WNuB4EIQJK1cIVwD5i3YKS
-	 h1W/F5BJkBPdqe1gY/NXD2RIvh+sboGGuYBMK8YZ9q0j3UGNz4ewputV1FjtRrzH4Lw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793677819;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LiFZncE3kiMciw8nuHVJunXl6r+N1QQAwGpAzwmYzr4=;
-	b=jnK8F4ZNyrhiot1Q1+CzC6J2XLdDBx7GfZlUI6I5NvK4U59MKyKuAeXK8okAHLwmyVEX
-	 mEQ9fvuvl7LlEc6znenvPNGNMFB9Asv7lAVszNPMuu8C7peDw6CTg9j9cs0ml/vNf3oOH
-	 YuI48e6jNKUbi+F8WIsSFRG1EUR7JCAlGV6+N9VXAv3cuyJDzyHkBcFKUYOEn6i88wC5C
-	 a9mZrynMh4Hyir7BiZt6nG1m0iCeLugdfV/FxNG08pxAzbAKMNdiL/9i8XOIQjPwTrMtT
-	 BrmwBUfgsXqzdd1hZtfxJuMU9uNYLI5IPGJ1UnFhx523d6lIiDflH1mCy+oPio8Y6Vw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SE0JoPwq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.31
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013031.outbound.protection.outlook.com [40.107.201.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793677814;
+	b=epjAiDbsJPnoZXtdxUH3vjFN6cCdZ7vARV52t94aCryEYUjwse48eXWjMfixgyyqXM66
+	 h3duvXXAuQOoppo5ab1EQ8eWzm1nyQ9og8aBLsbRt/7hYzbgLdlz4kk1mykEW5X6m5RLf
+	 WxE64TuvjUc17QEf4kCEaPtmBpNl4aSJ5kI3xBAfvWDjdlpLwu/x3GaxwxHjjLQNU22at
+	 W6J/7b3HW08d7B5sxDygq5fUbb6pqCA+GmzM61YIuIDqKkXxAOptbN2CMz17xVMilsa26
+	 jw9g2PBkjj91/yvgBounPRm5e9hz7/HTqPnHwXe+Ii0QGIHvBrvpMGMxjSoVjbqULfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793677814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1+blZSQgxNEahjdVa8AiR3LXNuVUk/+DfoiG+PYMEIc=;
+	b=mOx8J2CkQ+vZCQuontXUGCFSeliKYW9VcRbVEQ3aSO51Svm2O0kVPiaR88xPU8T78vhR
+	 mqOZr+bZqVFESA+B4ciuE4WBpfKUrLfK5YF6huWm2VyVhZdz3/jpYDDkJ+hMBD6t25EaU
+	 ehy/vzZcRev1TaPMDInNq8XKxcgXN7are7gFbFzVD7dSGxFKb3pABAZopOjWT3crvaT72
+	 lhqkfYx7CnQgRTYvo/eDvrbOIeerCACRNC8x/8WfqEL0ziqOd+S2MXra5kg95FZl8OMey
+	 hOr3Tyyf3MEWUC6/ywXCsVPkEGRI9OuPM6aMpUdqxzs4cKVIv62yfVrfFQuL8bDLPLg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OxwDrfGQ;
+	arc=none smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76318606D802
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76318606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED98606A336
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED98606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SE0JoPwq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JjkJ0OvtV35RNSo93Azpa4NVX1r5u9bfRMq/Qad1dPjb5H7Z+Qb/+cxlibvij8MmJWLoMYU8NlEZpRfe9G537UOKRawORqZlZUmnIDOB0yxejC4cdXs3QDtJoRKQPU9pgq+1dwEhDXqMJX9RjHXSLdscQFIEdU+gW4spCE4ElmAHWc+taFUouxqfOH/32RzL28ASAJ/IYbsDtArzlI7pLN+UuOlecIF/3Bk9o/j0Ib+p/fPjuwBeLgy/8OE4UP+qga0c21M3BfMpXPYrTxnmPv3w6TqD5OictFOZ0zmh2y98PU5rietLAXidmc5FJQBRglWzLcBUdxyc6Wp/Wa5ltA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LiFZncE3kiMciw8nuHVJunXl6r+N1QQAwGpAzwmYzr4=;
- b=WBEM+3n0MgEcE1pab8tqj8cyMTcMyl8fkFwuewTE5clvn6R4IJa4/hqPGQSFMcfAMjjRWQlAblKNtmP3TQ4UEBLGeDA0+EOc6s+AjzF2dQ/Enhtp8ky2ylqUvTn4HC6KVxzcUH91rgJ6WpTkWYzZnWld5etwDD82zPSSH6ueHhJJT4SvXlFvkwqjFUEbXvIFMNrUv2PJRTSVhZRqo8UTCQ2lnmb343RmZmSykxmisHJvFNRtK32S2iuocFyG25sCtlrbxypj7iPzIbn5JBtWUgbQFhjoxV/+1rvRM1JuDc7P41rtoPfEhmMsF9FIz+1uwSMFO/g7O/9yEn/LPi/JKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LiFZncE3kiMciw8nuHVJunXl6r+N1QQAwGpAzwmYzr4=;
- b=SE0JoPwqplVYyC0XysFYce38xoHiw5DDV4O8NFmvTxaXchHlyNP59GPgK1y0OeVKO+sQU1gtdVJ1umGpNWd1Tw6XrDnGtgVfLejWGg7EmQqCVk+tQncIr5BYAASkWu163mrSvUIXX1PWGny2Fcy5vo/9PktbDXr5+tsniTrcL/bB9lbophZADLkMr9lx/Se01o6Cy0J1lhPlcxgnQG+gdYBnuoeFtyowPZ2XYSnhACtEAVoNyZvX9si3PSJG9sxc5lVkwJ8gHBoRAVX6QWGkV/KZZ377fGMbhGMrmInMGoennhpKs3P6eDobqKo2snp6KdRW2sFqRKw/FUXywXyCyA==
-Received: from MW3PR06CA0005.namprd06.prod.outlook.com (2603:10b6:303:2a::10)
- by BL3PR12MB6595.namprd12.prod.outlook.com (2603:10b6:208:38e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 03:50:13 +0000
-Received: from MWH0EPF000D894C.namprd05.prod.outlook.com
- (2603:10b6:303:2a:cafe::86) by MW3PR06CA0005.outlook.office365.com
- (2603:10b6:303:2a::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Tue, 3
- Nov 2026 03:50:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MWH0EPF000D894C.mail.protection.outlook.com (10.167.249.212) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 03:50:12 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 19:50:02 -0800
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 19:50:01 -0800
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Mon, 2 Nov 2026 19:50:00 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, <joro@8bytes.org>, Will Deacon
-	<will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, <rafael@kernel.org>, Danilo Krummrich
-	<dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Marek Szyprowski
-	<m.szyprowski@samsung.com>
-CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Pranjal Shrivastava <praan@google.com>,
-	"Mostafa Saleh" <smostafa@google.com>, <linux-kernel@vger.kernel.org>,
-	<iommu@lists.linux.dev>, <driver-core@lists.linux.dev>, Sonang Patel
-	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>,
-	<shameerali.kolothum.thodi@huawei.com>
-Subject: [PATCH v2 3/7] dma-mapping: Keep DMA memory private for capable devices
-Date: Mon, 2 Nov 2026 19:49:46 -0800
-Message-ID: <a2a5fe1a1c4d8c99d96874a166f77996d51f3cb7.1793676742.git.nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793676742.git.nicolinc@nvidia.com>
-References: <cover.1793676742.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OxwDrfGQ
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53381e53b80so41783831cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:50:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1793677813; x=1794282613; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1+blZSQgxNEahjdVa8AiR3LXNuVUk/+DfoiG+PYMEIc=;
+        b=OxwDrfGQN31bGh6PS3DPbNc/mCVz5T+pPRw7AhOgLYipAC1uyglOFwIWTT2VxvTuth
+         5Xm1KdTFIMYfOG5CFSY96Grs2I8YsPNJatY5gInNoOb1ZGkgqrHmehVS1FLgd32Pjz6h
+         S2mW3NiwQtMWQeYM2EXMhzRUSr07GbSd+pDnUIi8WuE2jXkiz1lAMauLvoOsRY5UQ9lw
+         dycZjA8WOh9YMNcLmy7igtwMmYtmnUQOhRIZccvOCw0e6J7UgS6IjevRTfAkdkVjFNNV
+         +H/e4yweFcGDN70SZsoJ2x5y6AHWwYV7p7tXnRc8RJqb5mU7EdxgWWJI6ckPcDcbxl/d
+         qhnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793677813; x=1794282613;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1+blZSQgxNEahjdVa8AiR3LXNuVUk/+DfoiG+PYMEIc=;
+        b=omtewgZRWP6SGNAG5skxoabo6ZVnAsbCLEQ14WSScgv/pPlsRSS8UjV6LBJzdQReT5
+         dGPpVg6X7N4Qdr275vfoWYTo9ZGgNXpiPgoAcBmUoBLsjdjyH8tpIg3XzrTMCmGuptm2
+         HdpLL5HSM6pLRuBbGnhY3Oj4c1KWDDgDtE7aWs47ECtaa2WjGakmZU33nGHUdo046A03
+         cN0HzbgSW1agG4KCpshQvxlTnFbuueYhoyFpRs7+8KJC6XV47DcsZ2275mt+ShdJoh90
+         Mg8g5Nm7RDz6cod1QbR/Z15uhA1ot6/cUQiF7IGmOXga3azcTwJTvyoZs35C8wrDZHi6
+         l7rA==
+X-Forwarded-Encrypted: i=1; AKwUvBzw9rJ0Em/RpsgM0AY72AQac91Gnn97ShKiZNba6gMqDh3/NvAslZjE+wvJ/Kn4U7oWndYRex1ht2EUftk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXw3nmtdVNQMI8OKW8XzziTHKToQWWm4+Wc3jvd+3L5tnCTlRB
+	zjZ87E9F3zJ9LrxFdWNMBhN707nIHJ+1QOfjkTCTgCnKWRViDkDZVrFBm/tJ/WmpKw==
+X-Gm-Gg: AYBFou3uUu/cO4Msz1YJBKFFrTwsR5Fbw61adyZTVegdr7IE80BGFmD5BHkIcny5jH7
+	BAn2UAMYb8KICQuLDN7LoRS5cIodqTV9y7uPZtSF7AhlDn5lzb9HQx51RySvlPiStiGUrB43MvH
+	DmHhLG99UHwZJjCtH1yJYejOsWnWGwqTlde5v+wBIyRyVEsVrfCcoorCxqMcI4a6LtCjH4a6ox5
+	OP8FOazu/FlYBfr3vWrDUVrJfqN3LIu1aS8Hi4ggdSjeMhLziyefkntCErbG+S39VMzcrjWHtCH
+	xINNOPjJ2naEVr9hBx8CDZuEae/CUXJqItVAiajmTs/neNdZiPMdEpkARnnZ3ybk2TAV2iIAqq8
+	lzdPjfzwodtE52gNaD57g50RgdsFqslZTQlyuc5Kav6XMt/fiRdvWRx29PeiVSuQYL5UQL2+/IV
+	A9CDA9TpqK0U26i4+T1Fhldx5H5eaem/0U7Ji6tBmxzCu0Q+0Hr08XsAtrgaHdysUcB2D4U2KNB
+	1EqNZ2SujfJnoP3b5FfNWYgxvnnV6ooqRtFaCe1/6vWsfRyiUN16iYgYKXZ8kpgezabua993E3i
+	ygw0k/ePv9pIL8qEhlLhyC512v0TAkCdP2Gq
+X-Received: by 2002:a05:622a:2610:b0:536:725f:588 with SMTP id d75a77b69052e-542b85e3f8cmr200524281cf.76.1793677812711;
+        Mon, 02 Nov 2026 19:50:12 -0800 (PST)
+Received: from localhost.localdomain ([206.206.222.26])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7e2342asm105461276d6.5.2026.11.02.19.50.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 19:50:12 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: David Sterba <dsterba@suse.com>
+Cc: Qu Wenruo <wqu@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	Chris Mason <mason@kernel.org>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Mishra <smish149@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] btrfs: tree-checker: reject extent owner ref without simple quota
+Date: Mon,  2 Nov 2026 20:49:32 -0700
+Message-ID: <20261103034932.1790235-3-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103034932.1790235-1-smish149@asu.edu>
+References: <20261103034932.1790235-1-smish149@asu.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,178 +103,97 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D894C:EE_|BL3PR12MB6595:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04a0f43f-cf4a-4ab0-17a8-08df395d909c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|11063799006|5023799004|56012099006|261009221227099003|261009220027099003|261009221727099003|261009223027099003|261009223327099003|261028144727099003|261102123227099003|261022113327099003|261022075727099003|261022105027099003|261021135927099003|261021123027099003|261021121427099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	mGtV4tgAyM5IT+ipVqvreF5vgOPa+YHYCOzXuQnTU7w2LyqbaiueRBsYx0c65y863IS8DKzkKvcMRF2MYt4CbMgQnEplUIUT5I2B9gfrYejLy2M6Fc0s3q/+/2XyiSx2QmDfGKoOvqtOgL6bRSJwSp2CkhV293MtNpR5PRca025uI+9k3wIBRuW37b5UectYEdr8LQVBIqrlkc3XH0Qv67OGsKq3jxI7TXsUyx4Rbr1u3n+8f8x2Si1LAHPWRQrhHaVTssbCfP6iQ5oEd/qKluaVIRmW5ackD0pbAWT9raXghymW6annZUgd6kjXtLh5cvjiH9HBUcxGM1UqJWuwKEhpV53ShshzLRVf6oJRQl4BN4uPpX6yTDXF9uFwEu+MhQbafr7uIvsvA9XQuOklPWBIsDojRBEl6X/VfFBrH4u5P54A+05LI7sOiPOFyEddVheEqt7H3JXCR9Cn7H+Kr9uNreqhKRG/b0wcgLefaE68Wo9y9xOt7AZp0ZRXBiWQcJvzSeqMkXmh9DeDx+cAqJTqKHAtznwJrVsLxH1UmOV6vCPAkhVeniIua+xqSbSfwUtbsINPhHUCsADzxuLLU38UjWPz5+WoVkI0KdPzgo2a6Ukb40Po2HzBabtEFHeIWMMBLA4VP9alq3GbOBkxk9yW89aEW8LvBEemhMu2+UerLAFXvQ+wMKV7/uNpWwT7nL5d8NHTWvDkpC+5yMtDHg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261009221227099003)(261009220027099003)(261009221727099003)(261009223027099003)(261009223327099003)(261028144727099003)(261102123227099003)(261022113327099003)(261022075727099003)(261022105027099003)(261021135927099003)(261021123027099003)(261021121427099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xmQ6gczGd0jvf+S5LfZxbzketfQyRr2z3a6kiSKqOt2tC/TH60LVdI33KH4XXlAL1Akr2AWKnoGamWsKGQ3ZcD+wdqLy4ULSBNfu4Bj6CJtt6Sy6wH+O4k2NeQ3PTOtPkSLKQ66F/pqSKJHUMGy4rqNHwgs1Ae7a4zuxa+OBgj4p/3n2oFC8qdsUhmS969vcKJXCBgUmQ6r8Q9eGFSHEKWYBijeq0iUWdu3jFYxSMGNlOwSyV70qDpYfbC5xOgCVYjSVrB4TnctpLz1hpHmTO6UEPyqwA0t65rgXPRCCeB6w+xxVpexKxsvACWFa5rVf0eODIo7ZTr8rx7/Qa2gKeVoRD5xuTEHemQ25e7FK+cwk8JSH7XbpmSOyj5hf0t6G6c/3UqTe1snpCXwNLst+iF+nAXgdhJBADKn65aNVVs64jAt23aRd6k1IoiCCSPtq
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 03:50:12.9803
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04a0f43f-cf4a-4ab0-17a8-08df395d909c
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000D894C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6595
 
-Architecture code can require devices to use unencrypted memory. This makes
-the DMA API use shared memory for coherent allocations and bounce streaming
-mappings through SWIOTLB.
+[BUG]
+An extent item can contain an owner ref.  The owner ref is correct only
+when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
+check_extent_item() gives a WARN_ON() and then accepts the leaf :
 
-A device marked with DEV_FLAG_DMA_CC_PRIVATE can reach private memory
-directly. Add dma_require_decrypted() to combine force_dma_unencrypted()
-with the new device flag, and use it throughout the generic DMA code.
+	case BTRFS_EXTENT_OWNER_REF_KEY:
+		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
+		break;
 
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+For all other incorrect inline refs, check_extent_item() returns
+-EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
+calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
+SIMPLE_QUOTA bit.
+
+I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
+tree.  On a kernel with CONFIG_BTRFS_ASSERT=y, I removed the file of the
+extent.  At the next commit, btrfs frees the extent and gives :
+
+  WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
+  assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
+  in fs/btrfs/extent-tree.c:354
+  kernel BUG at fs/btrfs/extent-tree.c:354!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:btrfs_get_extent_inline_ref_type.cold
+  (fs/btrfs/extent-tree.c:354)
+  Call Trace:
+   lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
+   lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
+   __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
+   __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
+   btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
+   btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
+   ksys_sync (fs/sync.c:104)
+
+Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
+btrfs continues to use the owner ref.
+
+[CAUSE]
+For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
+WARN_ON() and keeps the leaf.  For all other inline ref types, it
+rejects the leaf.  Two sources can put owner refs without the
+SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
+without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
+enabling simple quotas").
+
+[FIX]
+Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
+Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
+not reached.
+
+syzbot reported the WARN_ON() and the ASSERT() in 2024 without a
+reproducer.  Both reports were closed for inactivity.  At that time, the
+WARN_ON() was noted as something that "should be handled in a better
+way".  I found the cause during the analysis of a fuzzing report.  An AI
+tool helped.  I tested with a crafted image on btrfs for-next
+(d6f76ca0a70d).  Without the patch, the kernel gives the WARN_ON(), and
+the BUG above with CONFIG_BTRFS_ASSERT=y.  With the patch, the
+tree-checker rejects the leaf ("extent owner ref without simple quota")
+and the mount fails with -EIO.  There is no WARN_ON() and no BUG.  A
+clean simple quota filesystem still writes data, frees extents and
+mounts again without errors.  The fstests group qgroup has no new
+failure (34 passed, 3 not run here).  The crafted image and the commands
+are available on request.
+
+Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
+Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
+Fixes: d9a620f77e33 ("btrfs: new inline ref storing owning subvol of data extents")
+Cc: stable@vger.kernel.org # 6.7+
+Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
- include/linux/dma-direct.h |  7 ++++++-
- kernel/dma/direct.c        | 16 ++++++++--------
- kernel/dma/mapping.c       |  2 +-
- kernel/dma/swiotlb.c       |  2 +-
- 4 files changed, 16 insertions(+), 11 deletions(-)
+ fs/btrfs/tree-checker.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/dma-direct.h b/include/linux/dma-direct.h
-index daa31a1adf7b0..fb35ca27941cc 100644
---- a/include/linux/dma-direct.h
-+++ b/include/linux/dma-direct.h
-@@ -134,6 +134,11 @@ static inline bool force_dma_unencrypted(struct device *dev)
- }
- #endif /* CONFIG_ARCH_HAS_FORCE_DMA_UNENCRYPTED */
- 
-+static inline bool dma_require_decrypted(struct device *dev)
-+{
-+	return !dev_dma_cc_private(dev) && force_dma_unencrypted(dev);
-+}
-+
- static inline bool dma_capable(struct device *dev, dma_addr_t addr, size_t size,
- 		bool is_ram, unsigned long attrs)
- {
-@@ -146,7 +151,7 @@ static inline bool dma_capable(struct device *dev, dma_addr_t addr, size_t size,
- 	 * requires unencrypted DMA addresses. Treat it as not DMA-capable
- 	 * so the caller can fall back to a suitable SWIOTLB pool.
- 	 */
--	if (!(attrs & DMA_ATTR_CC_SHARED) && force_dma_unencrypted(dev))
-+	if (!(attrs & DMA_ATTR_CC_SHARED) && dma_require_decrypted(dev))
- 		return false;
- 
- 	if (is_ram && !IS_ENABLED(CONFIG_ARCH_DMA_ADDR_T_64BIT) &&
-diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-index 25e9a86835fd3..b3b9ff090c590 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -41,7 +41,7 @@ static inline struct page *dma_direct_to_page(struct device *dev,
- 
- u64 dma_direct_get_required_mask(struct device *dev)
- {
--	bool require_decrypted = force_dma_unencrypted(dev);
-+	bool require_decrypted = dma_require_decrypted(dev);
- 	phys_addr_t phys = ((phys_addr_t)max_pfn << PAGE_SHIFT) - 1;
- 	u64 max_dma = phys_to_dma_direct(dev, phys, require_decrypted);
- 
-@@ -72,7 +72,7 @@ static gfp_t dma_direct_optimal_gfp_mask(struct device *dev, u64 *phys_limit)
- 
- bool dma_coherent_ok(struct device *dev, phys_addr_t phys, size_t size)
- {
--	bool require_decrypted = force_dma_unencrypted(dev);
-+	bool require_decrypted = dma_require_decrypted(dev);
- 	dma_addr_t dma_addr = phys_to_dma_direct(dev, phys, require_decrypted);
- 
- 	if (dma_addr == DMA_MAPPING_ERROR)
-@@ -226,7 +226,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 	struct page *page;
- 	void *cpu_addr;
- 
--	if (force_dma_unencrypted(dev))
-+	if (dma_require_decrypted(dev))
- 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
- 
- 	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED) {
-@@ -385,7 +385,7 @@ void dma_direct_free(struct device *dev, size_t size,
- 	 * If the allocation used decrypted/shared backing pages, restore
- 	 * the encryption state on free.
- 	 */
--	if (force_dma_unencrypted(dev))
-+	if (dma_require_decrypted(dev))
- 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
- 
- 	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
-@@ -452,7 +452,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
- 	struct page *page;
- 	void *cpu_addr;
- 
--	if (force_dma_unencrypted(dev))
-+	if (dma_require_decrypted(dev))
- 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
- 
- 	if ((attrs & __DMA_ATTR_ALLOC_CC_SHARED) && dma_direct_use_pool(dev, gfp))
-@@ -496,7 +496,7 @@ void dma_direct_free_pages(struct device *dev, size_t size,
- 	 * if the device had requested for an unencrypted buffer,
- 	 * convert it to encrypted on free
- 	 */
--	bool mark_mem_encrypted = force_dma_unencrypted(dev);
-+	bool mark_mem_encrypted = dma_require_decrypted(dev);
- 
- 	/* If page is not from an atomic pool, dma_free_from_pool_page() fails */
- 	if (IS_ENABLED(CONFIG_DMA_COHERENT_POOL) &&
-@@ -665,7 +665,7 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
- 	const pgoff_t pgoff_end = vma_end_pgoff(vma);
- 	int ret = -ENXIO;
- 
--	if (force_dma_unencrypted(dev))
-+	if (dma_require_decrypted(dev))
- 		attrs |= DMA_ATTR_CC_SHARED;
- 
- 	vma->vm_page_prot = dma_pgprot(dev, vma->vm_page_prot, attrs);
-@@ -814,7 +814,7 @@ size_t dma_direct_max_mapping_size(struct device *dev)
- 	/* If SWIOTLB is active, use its maximum mapping size */
- 	if (is_swiotlb_active(dev) &&
- 	    (dma_addressing_limited(dev) || is_swiotlb_force_bounce(dev) ||
--	     force_dma_unencrypted(dev)))
-+	     dma_require_decrypted(dev)))
- 		return swiotlb_max_mapping_size(dev);
- 
- 	return SIZE_MAX;
-diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-index ded585b39fb92..0252473edd0b5 100644
---- a/kernel/dma/mapping.c
-+++ b/kernel/dma/mapping.c
-@@ -673,7 +673,7 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
- 		return NULL;
- 	}
- 
--	if (force_dma_unencrypted(dev))
-+	if (dma_require_decrypted(dev))
- 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
- 
- 	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr)) {
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 2c57b49ac7c06..ddfc4533934a2 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -1550,7 +1550,7 @@ phys_addr_t swiotlb_tbl_map_single(struct device *dev, phys_addr_t orig_addr,
- 	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
- 
- 		/* swiotlb pool is incorrect for this device */
--		if (unlikely(mem->cc_shared != force_dma_unencrypted(dev)))
-+		if (unlikely(mem->cc_shared != dma_require_decrypted(dev)))
- 			return (phys_addr_t)DMA_MAPPING_ERROR;
- 
- 	} else if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT)) {
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index 0d75cb537..5c44bed99 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
+ 			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
+ 			break;
+ 		case BTRFS_EXTENT_OWNER_REF_KEY:
+-			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
++			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
++				extent_err(leaf, slot,
++					   "extent owner ref without simple quota");
++				return -EUCLEAN;
++			}
+ 			break;
+ 		default:
+ 			extent_err(leaf, slot, "unknown inline ref type: %u",
 -- 
-2.43.0
+2.54.0
 
