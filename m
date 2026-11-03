@@ -1,92 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793703959;
-	b=uQJhORlOFvi9PrQQTc+mP1FSZPHXaaLB7N86ZHWq04d+f+yDt81APyfeDjoVY5Yr5V30
-	 1RBbIk+tSvodnkwlPK2CDln1Hl1BRS8LNPrwanePPbOJavV2PT79e8ylfKA8l810cp9qb
-	 XZ+NDWmpwizw9gGXKsEVuOXGWSohXHYyxTnJ2TU5tshStqPTbED9MhMlXGWWCrfxJM0i+
-	 Wo3Kyats2ZgqE19AACA3cysdNXskcTYB3UUGQL4p03b/Uv5f0eQSUvOeL1OHD+21wPGiy
-	 8MXQImCn7LtOYHU5ygAJkTfYaiFTpvW4IpJRZJJG7QumztioXhjqezRGU6xwfYjpEQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703959;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=E6xFmup/yEIZ1IuqulqlA5h3vJoc+lm2TD8ofRNf4dQ=;
-	b=IhY2pq1XyuGWnekLQWjyVD2u9BMJBmF4TOQaBwvdB/+1yfTW4DE2IPMiGYty0Jj+OXQZ
-	 IX/fRkzNEES7DQ1QwtXB/OcO1TkaAFowbxjybAGGGMmfDERouCUqQRpQz0sp957jnsGAC
-	 fd8BYw70o7HJZCar4QFQ2x2u/FuGVJiruZmLX6kYSPFpesOcZl858MHQLpPl1oZUv83D4
-	 okU/BkVrudFnBBkKpV89yhxVgtOp8F/hoTAKHrUGkp95/MjZSwVlKASxnlbh+kauta3t0
-	 uiChr8TvxLCEHp14hOsqZgPkavGt4SeXLMRYd1DZvE3xkeIvfq3e7OIn/50WSDTpfYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=f0ilioRu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793704000;
+	b=I2e7WXzeNrm0LdlktVEG5nOk/eKdp7jsy1LXBnJvLVApV3Ek2f39tVjHKzAI4POHFPZC
+	 94Gxnc+PtiWa0Ozh+6Kmp9mOWMb6lxctjBy2bylg328M2P3eBhAgEt/GgX3XGqwSBN5re
+	 UzqMCyT8+KSkesp24YxVviJ9XkeuLtby+1WZCy2jz+Bi0KO5/Vzh3LW+28+RKUDzQ+3x1
+	 zSiuaclQToeopnH6GwEguyj0rUJu/FPfw66u8wLz3UMb06nQamb7cQTaH5cw0yaV0Y2YV
+	 FOyWphDF4cSG9P1PEujbce8MzUNv6xzlyILUzm5kDt3PwyeoKI82/BlR1t/KOZWHIoQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704000;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=d5Z9wG+EVu9kY+hFLz3UoxaHzvTb8LC6qwfAF10+NBw=;
+	b=lUokldruqQYwQ3V8HLuIQB/E9Mt07hKGLWZjk/+nvp+sSWV5s4qdsp1jmYY5VkUtT39i
+	 t1MxdCgGYKrNHmik25UzrF7zsni0vc/KnjKQVfvEtNl6/2zWPRY57/I3LULarHoCnlS46
+	 lwv+gy76Q1ZT9M4T+D59Cfg4KDqK6rgfrjhPlPq/SgxnYqoMHNOWAXbkCou25iTQWy/xK
+	 uv7BCJfChGJAPfenxtPybrFhckjuD/vIJbQstW+oAT2GF4WJkj4dNcnQIXPLCM8j9JgP+
+	 FvJluJE7Xe3jU8znS1ktNodXK62MzjHr77jbJrAHL/MedGmKU4lZPXEcPhqaEgFpZmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=reMgaxj+;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1410606C594;
-	Tue,  3 Nov 2026 11:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1410606C594
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DFE606F7C2;
+	Tue,  3 Nov 2026 11:06:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1DFE606F7C2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=f0ilioRu
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3D7BF2000E3;
-	Tue, 03 Nov 2026 12:05:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793703957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E6xFmup/yEIZ1IuqulqlA5h3vJoc+lm2TD8ofRNf4dQ=;
-	b=f0ilioRuHsoTFeMVBSTMzFjf0TrYX3nbs/cQMUGevP+JAdNnlcAKATNX+1pbZT/wO1DUzr
-	h/yqoyfsY/U45pqr/DiAgCyoKNJHKMp8wi//MmJxQNvXEWHHNusvwbO2SZ0Dax/R9Am4mB
-	35B7Xmzg3uFXGKoHtKwykMTePNKV9Vj9/9iYVVeURPGeZVRYRlYgUcXUXohERSJoY5V7LR
-	a/2004Ny9V9o2kDz9NvA1HNXSguJj2LLNJp6uIcaI6cPhZGVoF49FPLYkV5PG1Fv4wsBsu
-	XelurssC/5E/f75Gw3XfZHAO1Pu9e/a2/nqhneEZXze6RAirTuv4xJnSDswAKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793703957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E6xFmup/yEIZ1IuqulqlA5h3vJoc+lm2TD8ofRNf4dQ=;
-	b=ClsgWvFEBdQYxawQOm6oE3Q3WKpAXx8s00g8y/lkwVgJlAoPdnPC+YNbygs27zNmiYysRF
-	X7JFUBuW4uOidF1dPkeI9vpoAir3hz0UI/YICsIekCm+qEepyUsoMiRmFdJgZJ+rQUldt3
-	q7HkyvB8GPkYTKsnZZq/gKiiU5xgan20R8ZzZH9SqMVEGZSWk9rNQMtd2oUQ4a58tZQZfG
-	9Aj6dLOB40g96murxDZEjCBbb5OfeTiZeU2mf5abm293lSh5eutDFBmvWWrenqQ54iUp95
-	GvrJxuE0LoGh5p/x80L7ic6mCXhQssC6et+ZT8noePxISzTXiwnk2+A455w9Xw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793703957; a=rsa-sha256;
-	cv=none;
-	b=H7HEh51TVoJsiKXPx5iNOrI8dZoM90QPqccOfGB7E+kTEiDzbzfeYcdbDSpENdGLMOQw4u
-	zc0HIU+HVExel7HT4rKhd4gM4woEW0d7bUJE1ul7X0pXEapTUMExTkDCD28lhUOTXcLkay
-	KCOtJQ+Wuubz9c3SZcNMSQPvUEpJLEWPpWFstWnRvp8tfjIYRVD5b/03ox+5zVT81nG5ML
-	EyxC79BE79h+k6nY3xn/m5MEVtgP/+a9d6Rt7jtPSc6TaXuJWmL6Mwk5QPg96EV+qdfA1o
-	elDR+KEhe+XQiN3VjP/yvrMSugiCUWLu4arXcQqgcVZRPQV3409AxokRx+lbxA==
-Message-ID: <9e0d2e4a1f551d2e016975b146b8303508a7a1fe.camel@pengutronix.de>
-Subject: Re: [PATCH 1/2] reset: rzv2h-usb2phy: Add suspend/resume support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
-	tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, Peter
- Rosin	 <peda@lysator.liu.se>, Fabrizio Castro
- <fabrizio.castro.jz@renesas.com>,  Alvin =?UTF-8?Q?=C5=A0ipraga?=	
- <alvin.sipraga@analog.com>, linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 12:05:57 +0100
-In-Reply-To: <da95bad94c99855b960b3566c07671f8c15d5dea.1791389435.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1791389435.git.tommaso.merciai.xr@bp.renesas.com>
-	 <da95bad94c99855b960b3566c07671f8c15d5dea.1791389435.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=reMgaxj+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=d5Z9wG+EVu9kY+hFLz3UoxaHzvTb8LC6qwfAF10+NBw=; b=reMgaxj+DRua4X65pjHbGjieoV
+	ee1LPp/r4JIAzLFuIRajFlgCIgSP9czYZd+MV8XL20rlVWyKMtZwaPaxVyfiswrKx4gaA10wSJPH/
+	hGbZM0rpqkt5+H6qoH2fLrSfUljGdfqjW08V64VB34fP5DP+sQmwbIU04d11DW3GVkKiHRFLNQmmY
+	PEbOQHTxTBuGCUvwbpdKCEqwpaHGYiqHMy//ZSHmPrRJxY1woXNwEl1vhr6TwWVREtU40rFXV0t1j
+	OSG0JnYeik7/LcHAO4O+zKcDO+/djkcbfEZICrph210eZZqC6DNRRWXiXi8PV+za1eehhySB7EcLl
+	5rVpXdeA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOCLc-006tCW-0O;
+	Tue, 03 Nov 2026 11:06:36 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 03 Nov 2026 03:01:00 -0800
+Subject: [PATCH net-next v4 1/7] ipv6: treat a negative optlen as 4 in
+ do_ipv6_getsockopt()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,21 +63,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-sockopt_expand_out_v2-v4-1-2d36da923578@debian.org>
+References: <20261103-sockopt_expand_out_v2-v4-0-2d36da923578@debian.org>
+In-Reply-To: <20261103-sockopt_expand_out_v2-v4-0-2d36da923578@debian.org>
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
+ kernel-team@meta.com
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2443; i=leitao@debian.org;
+ h=from:subject:message-id; bh=oB/f2JpXdqBpX3duFOcpr87zR35sk8trgG1TCFAjf8k=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6cAuX0649qpXHECEQ3+3dfugqYwG+0TotbMBq
+ coYFGyUg8mJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaunALgAKCRA1o5Of/Hh3
+ bVZVD/9zRKL+8ozqwUKJqHzWcmiYLGlEIyZ5GkqrzsmckwpcsuN5Z8ytdZCqIOoGD3DCfIDkKuo
+ bgOnTqG5wMy8Jw+SU8U8SWLkqaCMqCpSBL52h4rUdeoVGANjHOVC89qo1dmVx2KlDzqvGNwUH1v
+ 3shECH67etIKkojbPVM9jQrdXhv6UMlgstLLoADCobME2Y7+RCFAsy15OHWAuDRkNX+Z1s5NlEu
+ 9Z46K2wJOK4wbljDTxI3qMEDAhzQ7Sx6N9jTO39Npl3obSRrKSII+E+W7lHk7Q9DuWC1xkTdWxp
+ LBjLC1h2nUUs6B1M/Ufrokr5yh2OXmrRmCSdhOGA7RzOJXsFIEDCSeKW785SyJdoZ2FDDlqrQrF
+ V96Xo8wa4kQMgpF3Bw1OWU/gOYoHpxFu0oD3mktQDcQa861pwZlHIsETd5M9tCyqSSqvzytVEoH
+ sjcKkD/rQ4MU29ZAxDRLA9wNO6IQ/ZS+phF8ugwLInKFUy1zvz5P7EgbKcEsEMWxf1AjbNE9bxa
+ U+7f+uGKi3RB8WcLJHrC8KecnVnjWH4rqmaDfHRRnDF8l9RcIeg5W1R4PrcMmfVUoERjcVyEFpU
+ A9jcoZQkMDDqiumujLfrryYcJ3pCntisRcQ7QHpuXSi9n9aGp2WTyAKK9pcgcAqZz+k0yizWB+X
+ PYeHMpPblG5yYSg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Do, 2026-10-08 at 09:44 +0200, Tommaso Merciai wrote:
-> The RZ/V2H(P) USB2PHY reset driver is also used on the RZ/G3E SoC,
-> where deep sleep turns off power to the USB2PHY block.
-> Part of the initialization sequence written at probe time is cleared,
-> leaving the PHY unprepared to receive assert and deassert requests.
->=20
-> Add suspend/resume support to assert the reset on suspend, and to
-> deassert it and rewrite the initialization sequence on resume.
->=20
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+do_ipv6_getsockopt() reads optlen into an int and never checks its
+sign. Most of what consumes len compares it as unsigned, so a negative
+optlen reads as a huge buffer, and the reply depends on the option.
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+The int options clamp it to their own size:
 
-Can I apply this independently from patch 2?
+	len = min_t(unsigned int, sizeof(int), len);
 
-regards
-Philipp
+so getsockopt(fd, SOL_IPV6, IPV6_TCLASS, buf, &len) with len set to -1
+answers 4 bytes and reports 4, rather than failing.
+
+The other options see a huge buffer. The sticky options reply with
+their whole header, IPV6_2292PKTOPTIONS writes every pending control
+message without a limit, and IPV6_PATHMTU and IPV6_FLOWLABEL_MGR pass
+their length check.
+
+do_ip_getsockopt() rejects a negative optlen, but doing that here would
+turn a call that works today into an error for a caller that passes an
+uninitialized length. Answer it as 4, as the int options do, for every
+option this function handles itself.
+
+That leaves the int options as they are. The sticky headers are cut to
+4 bytes, IPV6_2292PKTOPTIONS gets a 4 byte control buffer, and
+IPV6_PATHMTU and IPV6_FLOWLABEL_MGR fail with -EINVAL, as they do for
+any other undersized buffer.
+
+MRT6_* is dispatched earlier and keeps rejecting a negative optlen, and
+the netfilter fallback still sees the caller's value.
+
+This changes what callers that pass a negative length see. It is a
+behaviour change, not a fix, so there is no Fixes: tag.
+
+The conversion of this function to sockopt_t builds its buffers from
+optlen, which the standard helpers reject when negative, so the answer
+has to be settled before that.
+
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Acked-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ net/ipv6/ipv6_sockglue.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
+index 4b3536571c9804..700133e2fd11c2 100644
+--- a/net/ipv6/ipv6_sockglue.c
++++ b/net/ipv6/ipv6_sockglue.c
+@@ -1002,6 +1002,11 @@ int do_ipv6_getsockopt(struct sock *sk, int level, int optname,
+ 
+ 	if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 		return -EFAULT;
++	/* Historic bug compatibility: take a negative optlen as 4, as the
++	 * int options always did.
++	 */
++	if (len < 0)
++		len = 4;
+ 	switch (optname) {
+ 	case MCAST_MSFILTER:
+ 		if (in_compat_syscall())
+
+-- 
+2.53.0-Meta
+
