@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793747710;
-	b=inkKAGVMylPRVsuOmmHZSJeOReasx4LPl1T/F0ArtWFRUN88jbMKmQ97HblkzfWwTU+2
-	 PdY2bMddczZmQhu3ZkQsRM761vdrmmiAAoNS/bwAURSJ8M366LSfugjRow6vT4tmGF4kt
-	 i4xHpJygMWkA5F9ZALsUtE74G8C8sQAXi7O00s7c3yz0p/yW3mUU15pKCy16Zt1JSASYs
-	 sn8nJ2ITkG/RZjaot1WdmAUHsQJOxsb35UBlflncNMRkn7fPd3gN9UU6TaLihXbnjBuHv
-	 vI0PfYCox3dazmdKbXzxTJtQbegnwNPfLW/A9aJkLQzdgpRGHEtAmdrN+H+qLWxtsTA==
+	t=1793747842;
+	b=w0Kd5Y+GWDLYGIksMuKBBKE1Iogkn2lj/L5BFSx13ngsAImeAKtHwEEOQewjghGNx4qA
+	 cjRKkP1cBqn7HxSLklcUXNJQSjAGkoTcXMTxjCo0ynYS/OdWfOnPFzAQ8k8OIK2+5tXEs
+	 rb3SbKUpfRuFrvgCqEy/96ibffO1r2wWeOyiA2clP7GIv3NXg6im6wWTafXjqLMPr5hWn
+	 tkuhlqHiOdIyIHJzyBAgeLyPq244tVahMoMRkS2RTlsOP3HF2ZtZ8R4B6bxPHV9VpvHiw
+	 pxLQPR3RQ+U/ai6k6rFZF9Lva3LkzOhw/GVQsYDosJxHfcrTTeulwCQVaX1d2tIYJfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793747710;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TjIDhsiNoFKT7GQmQmy1LEfKMzTPVQcje4l0m+vQabw=;
-	b=vrBFzZZ/hLVZQvlNtu/BHoDq0KqRoJsWSPVtgca0yCdM7qMHFUzA2bn86Q+nEIrhZvFK
-	 uRg7yVZWD9QVzU3lMJkcYUTdi3qrAxuUWU9qHM6uvz5+hq0+aocEfAk5EjVh5gC73SDk0
-	 qZjtg6+ra2x0mWiVi3Di2iV0EZZylA4GJBsFua9cAxBE/Jk33oRLWa1etqPn5iLAGDxLu
-	 VvbUNQb95Fnrknj3i/MNXSadzXQuNELppUCFm39zDXBz/qHUvezTMhn5AKNIUNWSDz6/3
-	 iIRkT/GGn3e5bYzEu60dFiGE2MZzcQX3cnIsobLi1FBW2TFBF6FhqOS7VxTYYkxb9Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793747842;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=B+L1Uuxz2fs3fhKfYISIYRyVaqaMEuSiqTjLZMDu2i8=;
+	b=rgi5QPwUktFH70t1IsmJKCPdJF4R5gIG4ycCaqFAMmXvzJvLTTFYo4LqEeyWPdhe+DPX
+	 XZU++mtkLwnBTTmpJtrTTAxQNfoDwAMJm5GjPoLM+6swiTK4l7Sa/YRHL1MXRmLHXwHc4
+	 InueyotIBDXOc76qgQKUX2GUMYUtq3VEDHhb9sqRCwKiOFmhYkttjSIH7OWwOSn6ThKM2
+	 lSmtITFvQ4UfrGSsGu+jxS8jCHucxgFEw0U+9PPerJ3pmMV88FtjJ/mbDLrjs2U/GySns
+	 nUVDEOK/hGWoZyCkLf7j9b6HOk/y2ZOhQQNSc3vp6D64EDi9TftPONYVXi+24jPZS9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4IXI2VB;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FdKh1Pl/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BFB606A329;
-	Tue,  3 Nov 2026 23:15:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1BFB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94A7606A31B;
+	Tue,  3 Nov 2026 23:17:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4IXI2VB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793747707; x=1825283707;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ER/uMytXcuQ7Jd0o5RZpa2P+OWAuTpzUwNLe2Mx1RiE=;
-  b=A4IXI2VBAYvSE97mesG41GOr0k5cOk3uebFinwQJDp0wUvakOU/kR1WQ
-   rlrl2tfOiKyJ37JovzSMdzoEUKbnnjik8snvsBhIlhv1iAokHWGDvwu1z
-   5zwZH3u0bBdW7PEH+8ALx3r6uwqdBrmNIPBat4oTXWgepRIp6pj4fUyHR
-   yaMmWSRpzg72Z3GdQwzdBsEv93irEJUrIC5GqGy12cUAIb+ONZvGnx09B
-   U1QjzMVy0eetZKbEUiK2l8a5oa3kGn6DamL5az/0dpUciH27OOCXb+z/h
-   oIwIqMLIOVI//tGA4MFQJ2mko6g6nMwbt8LZg7V4VvkB6zxwO4qkDVRYS
-   A==;
-X-CSE-ConnectionGUID: vP7qVmsgSkqLzlqH/aTP6A==
-X-CSE-MsgGUID: nzjyTcFZQj61j1ziRrHlGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2400514"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2400514"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 15:15:07 -0800
-X-CSE-ConnectionGUID: eyTkesYrTsyFImYIFruE2Q==
-X-CSE-MsgGUID: EDcOyBTIR52uXcFvs3ydjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6941073"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.235]) ([10.125.109.235])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 15:15:05 -0800
-Message-ID: <f1e51d7f-645b-490e-b67c-36732b6db644@intel.com>
-Date: Tue, 3 Nov 2026 16:15:05 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdKh1Pl/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621A31F000C1;
+	Tue,  3 Nov 2026 23:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793747841;
+	bh=B+L1Uuxz2fs3fhKfYISIYRyVaqaMEuSiqTjLZMDu2i8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=FdKh1Pl/J7jiQ8krqZCeiLgdT9ousS5+rAGtG4u1faXwOTyaM+iAGKCnqGNUbpbth
+	 tmFsNXF4aVdv6ski1ohAwUt0xZbpYhfPTKSuy5A8/bgxIxjCaITpj6WquEt8QQx31V
+	 Po90oP5SxMr3kLV8N0ooHl+kqHlP9WItWfgOKJMFvx66ngp3auVm5Do5zYRvybtKOS
+	 40FNNt5UqEaYgFdamx13g97sj6ktc+qTb2L7qF3MeYkZtCuA/op+6WbQliHGVmTpEj
+	 2AU1Dv9d4O1Jw/1WPtq3oqhE3laPUD7W1kAo3Oj/inVfpDl+Fg7xih1ZryGGKIQ0bR
+	 2C6cvaWujVA9Q==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 82E0225BE0AC;
+	Tue, 03 Nov 2026 23:17:18 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bob Hui <bg9oxa@163.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103-es8328-vol-init-v5-0-9c505c97a8e1@163.com>
+References: <20261103-es8328-vol-init-v5-0-9c505c97a8e1@163.com>
+Subject: Re: [PATCH v5 0/2] ASoC: es8328: enable capture on the ES8388
+Message-Id: <179371988157.2270148.2933912415392447667.b4-ty@b4>
+Date: Tue, 03 Nov 2026 15:31:21 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +62,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cxl/port: Fix endpoint RAS error unmasking
-To: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>,
- Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
- alison.schofield@intel.com, vishal.l.verma@intel.com
-Cc: iweiny@kernel.org, ming.li@zohomail.com, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org, kaihengf@nvidia.com, kobak@nvidia.com,
- newtonl@nvidia.com, kristinc@nvidia.com
-References: <20261103063409.18275-1-icheng@nvidia.com>
- <aaa772ba-554a-4bef-8910-e271580c2a5b@amd.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <aaa772ba-554a-4bef-8910-e271580c2a5b@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1534; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=74AfnBWAFk+UWrW7DvKwzDhGPvn8BluiWgcvBglnPUg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeZZe2lXptOBLFK8p3Tl9FJlbZxyfnulbnwiVLGOa/m
+ tF2f9W9jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzk3imG/7F575W6pjQe8fj+
+ tc0prJHhh+znxuksL1JL/XyVtF/938zI8Kr/61Qzj8VF6+8qu3GqT/269eN5Ph7N+vf5ESJ6WY9
+ EeQE=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Tue, 03 Nov 2026 22:24:02 +0800, Bob Hui wrote:
+> ASoC: es8328: enable capture on the ES8388
+> 
+> This series fixes capture on boards built around the ES8388.  That part
+> shares the driver with the ES8328, and the two differ in eleven power-on
+> register values and in the meaning of bit 7 of DAC Control 21, so the
+> driver has to know which part it is talking to before it can set either
+> of them up.
+> 
+> [...]
 
+Applied to
 
-On 11/3/26 11:35 AM, Cheatham, Benjamin wrote:
-> On 11/3/2026 12:34 AM, Richard Cheng wrote:
->> Moving endpoint RAS handling from cxl_pci to cxl_port left
->> cxl_ras_unmask() checking whether port->uport_dev is a PCI device.
->> Endpoint ports always use a cxl_memdev as uport_dev, so this check
->> returns early and leaves the CXL RAS error masks unchanged.
->>
->> Resolve the PCI device directly through the memdev's parent. Rename
->> helper to cxl_endpoint_ras_unmask() and its param to endpoint to make
->> its endpoint-only scope explicit.
->>
->> Fixes: dab7162d0ae7 ("cxl/port: Move endpoint component register management to cxl_port")
->> Signed-off-by: Richard Cheng <icheng@nvidia.com>
->> ---
-> 
-> ...
-> 
->> -static int cxl_ras_unmask(struct cxl_port *port)
->> +static int cxl_endpoint_ras_unmask(struct cxl_port *endpoint)
->>  {
->> +	struct cxl_memdev *cxlmd = to_cxl_memdev(endpoint->uport_dev);
->> +	struct device *parent = cxlmd->dev.parent;
-> 
-> Two small nits:
-> 
-> 1. Maybe just use endpoint->uport_dev.parent directly and drop the cxlmd part? It's less
-> readable, but it's future proofing for when/if CXL.cache devices come along.
-> 
-> 2. I don't think you need to rename the port parameter if you change the name to endpoint. It's
-> self-explanatory at that point and cuts down on the diff.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-I asked for that change. Since we are making changes on that line already, may as well make it explicit for readability. Or at least satisfies my OCD :)
+Thanks!
 
-DJ
+[1/2] ASoC: es8328: reset the codec at probe time
+      https://git.kernel.org/broonie/sound/c/ba61f5733094
+[2/2] ASoC: es8328: set SLRCK for the ES8388
+      https://git.kernel.org/broonie/sound/c/bcc60bca720f
 
-> 
-> Both are really up to you on whether you think they're worthwhile, and the change makes sense as-is,
-> so regardless of whether you implement the above:
-> 
-> Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
-> 
-> Thanks,
-> Ben
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
