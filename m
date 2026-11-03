@@ -1,103 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681236;
-	b=o1f/GaZH599ANgUjxjXPcFQhjAJqazIDE/ui7eYjVGlMWb9KgUnip//isK7i+iKMl8na
-	 dcwqpFi4mXpthpT3XQvT+nSSKXPCTbBLn/bsF1nU6x0luyToRvtEzx2LhE1udFMvbpnEG
-	 vEtbI8FriP11JZ4kKh+eTJZ6Nu/i5H1XwRrxBR3dHogXeScmy019WXSNPkFugkDcEHdah
-	 JkmwB+ngupdjQlGGsT5nRArpH75yg0FldUTaf+pX4L/vnIcGTueMrXE46CehpbzIJwClq
-	 kaQLMW1do0TZ6KwFTojxm15u9UmcWL1hbKvDrnzRxhaUdr3CBcZ+dWEsbIjRr5vNY8w==
+	t=1793681337;
+	b=BsIPXJxiIcCkYKggAZBoNtEklcfzFBShuv5sLoHV8ugeLEWAw2hm/Z3Ovcgc7TK7oWo+
+	 GuLPFVHcmWBkMotH7/ly4J63sx9B2is9ezkaxsLG5wHPrdPi1nj6ct7O0MUzX+ceLfGzI
+	 GTPktw+cIh9WBQ7HrhHeCGQ7/8kbxBQd0/ok5u/+M8rEmSuit8srYpOT5YeHaOsCd3qxZ
+	 niKgeLzWvldDgm7fEhDsjgyII/ONUfiTTK0EVnTsU+df5Kt34Pb8cSYIa27iKBMMXooHZ
+	 2LNrY0DLeQAkHCApGMju9uknNSH8X1DUYqCCPJvZ9vphMS+l7zK4lTTY6u98Xnw9VmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681236;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NHDV0dfETVzr0Td0ndrjnRkd4XpFGPgc0UC2tibzLAw=;
-	b=48YBzfsunCMT/TbDFbAFcIn+f54/17ifXAcVAszVY9q6vn/bKWSHV4YIWwbx4AT0Ke7/
-	 oeU+joDVBW7vgDeB7rNUlNAdwOxBsfxcIJ3/5xL6fzf2+C515dycnQH9eSnf77/CVLYqr
-	 apXfpGAgggo8z9efScNLgY+9AtRLIaGKDyFk0O7YhoUpdC0Bp7gmGu27xU4J0/Eo3EGUt
-	 F8IalTpLxoSuxiBxyDBO9jSj13ZaQzmYot1HesnJEk1Xzf7/sbRqNVFAwn6pick4SCcd4
-	 K7dyZE9hXIQl4NYyhMoktQgwoeTc8UGo3SwN5uPChuEwr5xA5064YVFxHN6ZGbmYbqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681337;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=QaMvQc7YPxqzERreS7uDmkIOc8TUZOr8mXcE/xhevoA=;
+	b=ECyUq4Fsi4w2h6uTKsmGCxXddDh588HwWCuYF60JXpupnxPzhl8ZVPWXNNK0l26F/eaJ
+	 MjL7z0QofmMjgc4PXYdqfTlfmyQLgzUuXelg7vlN9K163+aWut2rLcBpF2/x03Dk6lyYw
+	 xf+ybGlf0Up1N7zjL5b0letdBxa/C4HGkscAg2SQvYud+/txse+18VzdjkxDRbCmk6LKt
+	 Dy24qkiL9sVjG3d+HbA4cofHnnHpm0YRSqzVrb+lAkkVxK8wF9EfO/I6HP5FNHUVU1ga8
+	 4gCKJtsJnf9A6eAR8Q8QgLlMFzFRef4TPFAH4AJrv/eWCiQE70djLmrtFS1EVSJTzWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PrsakT07;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cyS5S6oI;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GWjBqKhN;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5FD606A335
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:47:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF5FD606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB26606A327
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 04:48:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BB26606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PrsakT07
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so7794398eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:47:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cyS5S6oI;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GWjBqKhN
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31eN1e1431362
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 04:48:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=QaMvQc7YPxqzERreS7uDmkIOc8TUZOr8mXc
+	E/xhevoA=; b=cyS5S6oIf1Po/eJc0NRAJ+h+J0JEeZkHQEeiRELOGNXlBQCgMVn
+	tsLQ/dynwsKN7YmfZkjHARE9RumS3C/rHEJO6866e9ykeTVdNDpYRJw6j2csUgL8
+	jhCyteS8BBXZWbKXrlGLVH3DOVNtBMnRQwCxWqiaz50QU5jNvLpIJoX9w7ftdYSE
+	HLvub43wxvNdXgHqt4xc3jd790ELVW6g9kolPcrllvfDzMQ8cwODPSFdEOOM94JL
+	Forox06Pgt2W1Mm8tH6DCuz/h/kF5hOhPgGOFraxtRuU6zng3NsQTPBdzunxxsm/
+	cXcqgBED7XSTf+Fogf5AYM5ZD5AXh9t4N+Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq0871xux-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:48:55 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f3969a2a7so576621085a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:48:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793681235; x=1794286035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NHDV0dfETVzr0Td0ndrjnRkd4XpFGPgc0UC2tibzLAw=;
-        b=PrsakT07XcYgmLFxgW01fAQjPwC0fknJKdLkeToBwVQiuuCE4te9rRxrVQz5S3Ey4+
-         zkrmSbMw1y6FCRHhc2bgrAJ0gNeDshcue0ODdQpXedr7bgrXfkOGMSOVmXEyZ+cME1gp
-         69knzzcR3eSvx2gKpwGi7uoi1bOpzHf3TpGADNTlS8ge/LcaXZEFQ8nMskDGmmnZkjEA
-         jx2TzXRBZ1F93q5zbpFZUjdmSCnJfNybOZFQFW4sU622sccZawxdux0Rxng2si5viPFu
-         JsTa+pnI7XfF/qqZl3IJX0PU/IobWMGXOxPCpMxoVlf0WVaJnktdKiW0NMM3fY0Tx8fu
-         UVPg==
+        d=oss.qualcomm.com; s=google; t=1793681335; x=1794286135; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QaMvQc7YPxqzERreS7uDmkIOc8TUZOr8mXcE/xhevoA=;
+        b=GWjBqKhNw2lLsGKH3nI0esgtVGSUbHHYIeCFPkEdvNawI5C1VdTst1kAvCnT9gteIt
+         Lj8IPf+XBDChda5PVyu7e1uWSgu3JqbCzM1VXa0RmcXxV+YFF4ttqx3GfE67y+eSFybe
+         br4TVa+kOoCfpep5MJHUWI8DN4JwNrzUqZByudVX9eYSoUE9hz94ShgwtTX2y0cyu9Nk
+         11ZbRStVQUi5r/qA8ltrTpB/WyUgqR9t6EklKahBPnNTX8cYiPw37ttoACdNGeO91qHY
+         UzId9aMWTc1qU/XdI8W3Lz00SvOBCp4SBbmQ19rPSILXFqCZkoPt6VKfRkW2yfbLR3bR
+         qnsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793681235; x=1794286035;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NHDV0dfETVzr0Td0ndrjnRkd4XpFGPgc0UC2tibzLAw=;
-        b=xlJGy+gLxL7oP4EtVw+wSVtAgjGd4JfG+L5baC7CMoqM3DOKssjKFRaWkOVJYIzLib
-         ORWBWWS3BCXAIvIozE/A9du1Mp1EjjRoA8I6K4ksMekDmG+m+l4V4hu1YjK4cud0TnGd
-         azz2Ho1Fk08fdNTw3arR4mkkEM+RchCTvo/aD2KmyCySYBgQ5GvGWLeeKdblnsFrx0+j
-         7YV8P03aTy0SuSyc/geK5MdfVSp2DiMPYmC0SWzai+uSXVo33vpl8a7VtXprtfKguYMi
-         djIaW2oxsj7wQadRgklLgsG9cAYbDTkXmOyqCjtojmQM6E+jcI0OLAmOEXFmDCutTV4s
-         q5cQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIDnYE6Piq0q0YyZrJpnQTYVrVIaGl5IJzTZbU85BlRui6Wcllm5G++sGWxSW0+t09cmrYsW4inzzoko8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DjPKjZtZt4XtBi0wLyHx0sn0QE1cb/wNXUNpQoSaFe9dd1AtA
-	9yttvH+wgSgIbHMp1RGp1qWvT7AotjOGOmlz12DIaOj0IXK9aPIWnyB1
-X-Gm-Gg: AYBFou280p+Jcr2FmfU09NFZxUeRiUfKdU20rBLXH0cu7WgQB1mg05GWXo1qtfHQ9WO
-	mgJFqlRHNiUDBWmoDiasJKVkFc81Nc1Y5pselIOElXoNT6PzpPKLimiOVOR86G4Nxs12W6Jn9Ag
-	x2/QHh4Bf1TSGvL7mDhpr+UHqk61Z8qCnPz0og/Ax549RWST9E1d9/mdcUcyjuuTL+XjrZtG8Wi
-	6wauJJM955saDe95cZZNnXCrWbMz70x+WEW7oDWqQwOymRoOsH3APblkiPz666HsgFNTwUpFcZ3
-	6F+2ErXnTqk56QpqBdwQXNRgNsSKmZCv2UBcMq2AQ+fsr+F6A0wrH+VsYZH1qRyR/6T9Pdl2cEu
-	1FxhC0vOHQl5TNPfC2jUdT4T+3xAZz6xN2kxHkP2h9//Hwn5kxMD24eUHkaRI4SwUd4gZIdM4Wa
-	zl71kg6Wjl1SFpcZqbnyASxU0VtGfKhpV022PENtVAeqSIS6ujPUdJzsgScYjOZHuCZeGBRL6Zn
-	lSJ8vrB1rARllXyJJ+Ai9unfuwxrG9cA8ug8zax28EP5bkVPfp131vlG+SAGQ0Se/OtonLPfhWj
-	Hxh7Ev2G+MOayRbLywWQTCqXvLoBt9U5mCzWr57+Eb9vMVV3bs72jDrFRLhAfBUoiZoLDQlDy/t
-	ja8xMVSkNWgjf+luO
-X-Received: by 2002:a05:7300:c730:b0:36a:43d9:f2a5 with SMTP id 5a478bee46e88-36a43da454emr17661523eec.32.1793681234531;
-        Mon, 02 Nov 2026 20:47:14 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:98f:6bcd:858b:7a64])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42902649sm48385807eec.11.2026.11.02.20.47.13
+        d=1e100.net; s=20260707; t=1793681335; x=1794286135;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QaMvQc7YPxqzERreS7uDmkIOc8TUZOr8mXcE/xhevoA=;
+        b=D/tYJEYmRwvRmTPMO0NjCy/W+fPPE7eT/9TGqqJwmzeoiN6Fv02YTmoLTS3SQNfq0D
+         DnW1KARr1xe9mq77tu1Cdbg23EvkjnbJeXdCRxEiVD3gl1g0/KzTZpBDAfvPbvRY7m1F
+         k8pCNfWJpQ02kpKrVeg1WECx+CflDmpgHQpnkiGOOh1yB8ZQQa7hY9URv+tQb0tu2GLo
+         O+Vxd3m75V6Bo5Poa2fcX/Y9Z+Y4SnV+IAT6o6d6c9N5mzExWILme9zchfV/KzQtM0+J
+         w4ZOYBj0RAtfpS6k6jZHpqeNOOPlTE/n7psttFETBIl0VORi2/m5vHjtdOipWuedpR8f
+         +x+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzB/9rH72MGalv9r9R50KDxrdaA3DEcvsROk1ZPJbuR54wPWPzIevHAtD74Oj3cRKwuBbp8iGiGUp2FeHw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Hc7UBToEuB91UgNMn/EXMPecKCqo8Ej9dHg9xn8p196pOt/Pd
+	F11r+BlHUK7S+YcOSYLhcHTnGCXfuPeSCXz2Nd8+DwWsV/x00zBFkufslxEyr3DkufmZHPito+8
+	G5+FTb/wOPl4glq5NDpjzf4lrRTiSYA8liOPTbTInJQyaJ/UFOJDGbR64KA/dao/SHvw=
+X-Gm-Gg: AYBFou3Qn5hkNQCCDZlkd7D2gb1c1qgrcBodyD66hf6kyPfzLm8senAFvdhY5PKU6SC
+	X1fSa3POXupJerFT5newE6t/dQt+kKx44+rGfKPJTRv/JFN2zxwY6bnuaX7Dy/3m1+6g++6lQA8
+	ts1wy54Nqn4pGhLldxhOfHQoFnBw23WBtOmhGNVsK0RlMQcdKfzRWLutJsA8v+FH8D31y625Tpv
+	M/dZClzRZ5UZFxvg+nN1m+etR1e4XXzJW51KceTtRRRGVAZakxhr9DPE8sGob3F0YrXQQmKJrhb
+	pUxfCXmer37HCdnNhubOrDm6RHAdPK2dg/uTj8bgemxiEtktaagUqrICsz52lb3dlwnGGgsd6Xt
+	aBOCbF44sun5WDcIB9qBVy8ZwzCs2fnlTkhb0waHu9TIzx3fOWxzK8BQOQF5sp+MXQ5gEQf4U2x
+	kk
+X-Received: by 2002:a05:620a:3945:b0:93c:70da:e45e with SMTP id af79cd13be357-94421677245mr2452915185a.36.1793681334889;
+        Mon, 02 Nov 2026 20:48:54 -0800 (PST)
+X-Received: by 2002:a05:620a:3945:b0:93c:70da:e45e with SMTP id af79cd13be357-94421677245mr2452913185a.36.1793681334303;
+        Mon, 02 Nov 2026 20:48:54 -0800 (PST)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:8b9e:7797:dd05:11cb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879fb29sm25685445e9.4.2026.11.02.20.48.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:47:13 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	David Heidelberg <david@ixit.cz>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Val Packett <val@packett.cool>,
-	Hendrik Noack <hendrik-noack@gmx.de>,
-	Ferass El Hafidi <funderscore@postmarketos.org>,
-	Sasha Finkelstein <fnkl.kernel@gmail.com>,
-	Jeff LaBundy <jeff@labundy.com>,
-	linux-input@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] Input: touchscreen - parse touchscreen-x-mm and touchscreen-y-mm
-Date: Mon,  2 Nov 2026 20:47:04 -0800
-Message-ID: <20261103044708.2461481-2-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103044708.2461481-1-dmitry.torokhov@gmail.com>
-References: <20261103044708.2461481-1-dmitry.torokhov@gmail.com>
+        Mon, 02 Nov 2026 20:48:53 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
+Subject: [PATCH v5 0/6] powercap: Add generic hierarchy support and convert DTPM
+Date: Tue,  3 Nov 2026 05:48:14 +0100
+Message-ID: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,329 +122,161 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfXztiMwHHHOSIC
+ Wlv5bNrSUBQ95IeixxWfsmiosIqrjEWNv2Cy1OBCowpdh5vMpnLo7OmP3qnShHUzx0NyD0TkpHf
+ ERbvTIHuUnd85btsde6l7nei6ZDDCy4=
+X-Authority-Analysis: v=2.4 cv=K9m3jCWI c=1 sm=1 tr=0 ts=6ae967b7 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=Lw0nehYz5hoo17msdR0A:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfXzbdbSvrqasM6
+ ZCV5l4JZtGKNbYdposXwnaRFMhDTzbgh8H2spvJSVAUY8UTh9wCvuHoICSS0yIvnT0C+Xo+vCi4
+ 6wHnvDTnDJLjEuBTLyCaPsGd9E7ZSAXMM49ZbJVk1p2EuErgdH/zNL0I7lb2CJU5Xgendal3sto
+ xf6XryTqwk3P2YbuplJMNGtSqeJc+mN9otWLuwMPcssW11hPv2QKdYWGig/VyBRvXFd3zsDQhKV
+ ypovbPamK4HTCMOxsXJqkKBj1F5q1aCnij23rJHJAaOjpV53Q5Xgbw0y4t0h6WzrlSv8PzJ7+BQ
+ WkTcBd8/SZrFbt+nguWRgc5CoSRnaETZQnNfWDjK+qusquV2aph5ADSwnNY1KjHS4vWvg5LmUuS
+ owpH2SThamnVu/5ibNHYU7acAFx2QRskqmU9rKpbjhCPBmU5CbJ3GfQ5A8LIPqAiBDIx74M8TQE
+ EecuMZPAIepPqtLQZDQ==
+X-Proofpoint-ORIG-GUID: 9B7IEpQIMGfk-xa6Qm2UcmfLeIEoyH8v
+X-Proofpoint-GUID: 9B7IEpQIMGfk-xa6Qm2UcmfLeIEoyH8v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030018
 
-The touchscreen device tree bindings define common touchscreen-x-mm and
-touchscreen-y-mm properties specifying the physical dimensions of the
-touchscreen in millimeters. However, touchscreen_parse_properties() does
-not parse these properties, forcing individual drivers to parse them
-manually or fall back to arbitrary resolution values.
+Powercap controllers may expose trees of power zones, such as packages,
+clusters and CPUs. This series adds generic helpers to duplicate a static
+hierarchy description, create its zones through backend callbacks, and
+destroy them in reverse order. Parents must precede their children in the
+node array; the helpers validate that ordering rather than sorting nodes.
 
-Parse touchscreen-x-mm and touchscreen-y-mm in
-touchscreen_parse_properties() and calculate axis resolution in units
-per millimeter as the coordinate count (maximum - minimum + 1) divided
-by the physical dimension, rounded to the nearest integer. Guard against
-zero physical size or invalid axis ranges, and preserve pre-existing
-resolution settings when the properties are omitted. Apply resolution
-before early exit so callers passing a NULL properties pointer still
-get axes configured and so coordinate inversion and axis swapping
-continue to work seamlessly. Also add KUnit test coverage for resolution
-calculation.
+Drivers supporting multiple platforms can place each platform's hierarchy
+description and node array in initdata. powercap_hierarchy_dup() creates a
+working copy of the selected hierarchy and rebases its parent pointers.
+All original descriptions, including those for unused platforms, can then
+be reclaimed automatically with init memory. Names and backend-private
+data are not duplicated and must remain valid for the working hierarchy.
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/tests/Makefile           |   1 +
- drivers/input/tests/touchscreen_test.c | 209 +++++++++++++++++++++++++
- drivers/input/touchscreen.c            |  18 ++-
- 3 files changed, 223 insertions(+), 5 deletions(-)
- create mode 100644 drivers/input/tests/touchscreen_test.c
+The controller supplies creation and destruction callbacks to connect the
+generic hierarchy traversal to its backend. The creation callback receives
+the control type, node name, private data and parent zone, registers the
+zone with its operations and constraints, and returns it to the helper.
+The destruction callback unregisters it during rollback or teardown.
 
-diff --git a/drivers/input/tests/Makefile b/drivers/input/tests/Makefile
-index 90cf954181bc..b5e769d9f8cc 100644
---- a/drivers/input/tests/Makefile
-+++ b/drivers/input/tests/Makefile
-@@ -1,3 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
- 
- obj-$(CONFIG_INPUT_KUNIT_TEST) += input_test.o
-+obj-$(CONFIG_INPUT_KUNIT_TEST) += touchscreen_test.o
-diff --git a/drivers/input/tests/touchscreen_test.c b/drivers/input/tests/touchscreen_test.c
-new file mode 100644
-index 000000000000..f8661c349fcc
---- /dev/null
-+++ b/drivers/input/tests/touchscreen_test.c
-@@ -0,0 +1,209 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit test for touchscreen property parsing.
-+ */
-+
-+#include <linux/input.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/property.h>
-+
-+#include <kunit/device.h>
-+#include <kunit/test.h>
-+
-+static struct input_dev *
-+touchscreen_test_create_device(struct kunit *test,
-+			       const struct property_entry *props)
-+{
-+	struct input_dev *input_dev;
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "touchscreen-test-dev");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	if (props)
-+		KUNIT_ASSERT_EQ(test,
-+				device_create_managed_software_node(dev, props, NULL),
-+				0);
-+
-+	input_dev = devm_input_allocate_device(dev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, input_dev);
-+
-+	return input_dev;
-+}
-+
-+static void touchscreen_test_resolution_single(struct kunit *test)
-+{
-+	const struct property_entry props[] = {
-+		PROPERTY_ENTRY_U32("touchscreen-x-mm", 100),
-+		PROPERTY_ENTRY_U32("touchscreen-y-mm", 200),
-+		{ }
-+	};
-+	struct touchscreen_properties prop;
-+	struct input_dev *input_dev;
-+
-+	input_dev = touchscreen_test_create_device(test, props);
-+
-+	/* Driver-supplied ranges: 0..999 (1000 units), 0..1999 (2000 units) */
-+	input_set_abs_params(input_dev, ABS_X, 0, 999, 0, 0);
-+	input_set_abs_params(input_dev, ABS_Y, 0, 1999, 0, 0);
-+
-+	touchscreen_parse_properties(input_dev, false, &prop);
-+
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_X), 10);
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_Y), 10);
-+}
-+
-+static void touchscreen_test_resolution_multitouch(struct kunit *test)
-+{
-+	const struct property_entry props[] = {
-+		PROPERTY_ENTRY_U32("touchscreen-min-x", 10),
-+		PROPERTY_ENTRY_U32("touchscreen-size-x", 1010),
-+		PROPERTY_ENTRY_U32("touchscreen-x-mm", 50),
-+		PROPERTY_ENTRY_U32("touchscreen-min-y", 20),
-+		PROPERTY_ENTRY_U32("touchscreen-size-y", 2020),
-+		PROPERTY_ENTRY_U32("touchscreen-y-mm", 100),
-+		{ }
-+	};
-+	struct touchscreen_properties prop;
-+	struct input_dev *input_dev;
-+
-+	input_dev = touchscreen_test_create_device(test, props);
-+
-+	/* Multitouch axes setup */
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_X, 0, 1, 0, 0);
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_Y, 0, 1, 0, 0);
-+
-+	touchscreen_parse_properties(input_dev, true, &prop);
-+
-+	/* min=10, max=1009, count=1000, 1000 / 50 = 20 */
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_X), 20);
-+	/* min=20, max=2019, count=2000, 2000 / 100 = 20 */
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_Y), 20);
-+}
-+
-+static void touchscreen_test_resolution_rounding(struct kunit *test)
-+{
-+	const struct property_entry props[] = {
-+		/* 1951 / 100 = 19.51 -> rounds to 20 */
-+		PROPERTY_ENTRY_U32("touchscreen-size-x", 1951),
-+		PROPERTY_ENTRY_U32("touchscreen-x-mm", 100),
-+		/* 1949 / 100 = 19.49 -> rounds to 19 */
-+		PROPERTY_ENTRY_U32("touchscreen-size-y", 1949),
-+		PROPERTY_ENTRY_U32("touchscreen-y-mm", 100),
-+		{ }
-+	};
-+	struct touchscreen_properties prop;
-+	struct input_dev *input_dev;
-+
-+	input_dev = touchscreen_test_create_device(test, props);
-+
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_X, 0, 1, 0, 0);
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_Y, 0, 1, 0, 0);
-+
-+	touchscreen_parse_properties(input_dev, true, &prop);
-+
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_X), 20);
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_Y), 19);
-+}
-+
-+static void touchscreen_test_resolution_swap_invert(struct kunit *test)
-+{
-+	const struct property_entry props[] = {
-+		PROPERTY_ENTRY_U32("touchscreen-x-mm", 50),
-+		PROPERTY_ENTRY_U32("touchscreen-y-mm", 200),
-+		PROPERTY_ENTRY_BOOL("touchscreen-inverted-x"),
-+		PROPERTY_ENTRY_BOOL("touchscreen-swapped-x-y"),
-+		{ }
-+	};
-+	struct touchscreen_properties prop;
-+	struct input_dev *input_dev;
-+
-+	input_dev = touchscreen_test_create_device(test, props);
-+
-+	/* X count = 1000, Y count = 2000 */
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_X, 0, 999, 0, 0);
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_Y, 0, 1999, 0, 0);
-+
-+	touchscreen_parse_properties(input_dev, true, &prop);
-+
-+	/*
-+	 * Before swap: X res = 1000/50 = 20, Y res = 2000/200 = 10.
-+	 * After swap: X absinfo receives Y absinfo, Y absinfo receives X absinfo.
-+	 */
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_X), 10);
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_Y), 20);
-+	KUNIT_EXPECT_TRUE(test, prop.invert_x);
-+	KUNIT_EXPECT_TRUE(test, prop.swap_x_y);
-+}
-+
-+static void touchscreen_test_resolution_edge_cases(struct kunit *test)
-+{
-+	const struct property_entry props[] = {
-+		/* Zero x-mm */
-+		PROPERTY_ENTRY_U32("touchscreen-x-mm", 0),
-+		/* y-mm omitted */
-+		{ }
-+	};
-+	struct touchscreen_properties prop;
-+	struct input_dev *input_dev;
-+
-+	input_dev = touchscreen_test_create_device(test, props);
-+
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_X, 0, 999, 0, 0);
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_Y, 0, 1999, 0, 0);
-+
-+	/* Pre-configure resolutions */
-+	input_abs_set_res(input_dev, ABS_MT_POSITION_X, 15);
-+	input_abs_set_res(input_dev, ABS_MT_POSITION_Y, 25);
-+
-+	touchscreen_parse_properties(input_dev, true, &prop);
-+
-+	/* Zero size and omitted property must preserve pre-existing resolutions */
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_X), 15);
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_Y), 25);
-+}
-+
-+static void touchscreen_test_resolution_invalid_range_and_null_prop(struct kunit *test)
-+{
-+	const struct property_entry props[] = {
-+		PROPERTY_ENTRY_U32("touchscreen-x-mm", 50),
-+		PROPERTY_ENTRY_U32("touchscreen-y-mm", 50),
-+		{ }
-+	};
-+	struct input_dev *input_dev;
-+
-+	input_dev = touchscreen_test_create_device(test, props);
-+
-+	/* X has valid range 0..999 (1000 units), Y has invalid range 500..500 */
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_X, 0, 999, 0, 0);
-+	input_set_abs_params(input_dev, ABS_MT_POSITION_Y, 500, 500, 0, 0);
-+	input_abs_set_res(input_dev, ABS_MT_POSITION_Y, 42);
-+
-+	/* NULL prop pointer */
-+	touchscreen_parse_properties(input_dev, true, NULL);
-+
-+	/* Valid X gets resolution computed even with prop == NULL */
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_X), 20);
-+	/* Invalid Y range (max <= min) preserves pre-configured resolution */
-+	KUNIT_EXPECT_EQ(test, input_abs_get_res(input_dev, ABS_MT_POSITION_Y), 42);
-+}
-+
-+static struct kunit_case touchscreen_tests[] = {
-+	KUNIT_CASE(touchscreen_test_resolution_single),
-+	KUNIT_CASE(touchscreen_test_resolution_multitouch),
-+	KUNIT_CASE(touchscreen_test_resolution_rounding),
-+	KUNIT_CASE(touchscreen_test_resolution_swap_invert),
-+	KUNIT_CASE(touchscreen_test_resolution_edge_cases),
-+	KUNIT_CASE(touchscreen_test_resolution_invalid_range_and_null_prop),
-+	{ /* sentinel */ }
-+};
-+
-+static struct kunit_suite touchscreen_test_suite = {
-+	.name = "touchscreen",
-+	.test_cases = touchscreen_tests,
-+};
-+
-+kunit_test_suite(touchscreen_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit test for touchscreen property parsing");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/input/touchscreen.c b/drivers/input/touchscreen.c
-index d699b24bb548..05ddb2ea7c66 100644
---- a/drivers/input/touchscreen.c
-+++ b/drivers/input/touchscreen.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/export.h>
-+#include <linux/math.h>
- #include <linux/property.h>
- #include <linux/input.h>
- #include <linux/input/mt.h>
-@@ -33,7 +34,8 @@ static bool touchscreen_get_prop_u32(struct device *dev,
- 
- static void touchscreen_set_params(struct input_dev *dev,
- 				   unsigned long axis,
--				   int min, int max, int fuzz)
-+				   int min, int max, int fuzz,
-+				   unsigned int size_mm)
- {
- 	struct input_absinfo *absinfo;
- 
-@@ -48,6 +50,8 @@ static void touchscreen_set_params(struct input_dev *dev,
- 	absinfo->minimum = min;
- 	absinfo->maximum = max;
- 	absinfo->fuzz = fuzz;
-+	if (size_mm && min >= 0 && max > min)
-+		absinfo->resolution = DIV_ROUND_CLOSEST(max - min + 1, size_mm);
- }
- 
- /**
-@@ -69,7 +73,7 @@ void touchscreen_parse_properties(struct input_dev *input, bool multitouch,
- 	struct device *dev = input->dev.parent;
- 	struct input_absinfo *absinfo;
- 	unsigned int axis, axis_x, axis_y;
--	unsigned int minimum, maximum, fuzz;
-+	unsigned int minimum, maximum, fuzz, size_mm;
- 	bool data_present;
- 
- 	input_alloc_absinfo(input);
-@@ -89,8 +93,10 @@ void touchscreen_parse_properties(struct input_dev *input, bool multitouch,
- 	data_present |= touchscreen_get_prop_u32(dev, "touchscreen-fuzz-x",
- 						 input_abs_get_fuzz(input, axis_x),
- 						 &fuzz);
-+	data_present |= touchscreen_get_prop_u32(dev, "touchscreen-x-mm", 0,
-+						 &size_mm);
- 	if (data_present)
--		touchscreen_set_params(input, axis_x, minimum, maximum - 1, fuzz);
-+		touchscreen_set_params(input, axis_x, minimum, maximum - 1, fuzz, size_mm);
- 
- 	data_present = touchscreen_get_prop_u32(dev, "touchscreen-min-y",
- 						input_abs_get_min(input, axis_y),
-@@ -102,8 +108,10 @@ void touchscreen_parse_properties(struct input_dev *input, bool multitouch,
- 	data_present |= touchscreen_get_prop_u32(dev, "touchscreen-fuzz-y",
- 						 input_abs_get_fuzz(input, axis_y),
- 						 &fuzz);
-+	data_present |= touchscreen_get_prop_u32(dev, "touchscreen-y-mm", 0,
-+						 &size_mm);
- 	if (data_present)
--		touchscreen_set_params(input, axis_y, minimum, maximum - 1, fuzz);
-+		touchscreen_set_params(input, axis_y, minimum, maximum - 1, fuzz, size_mm);
- 
- 	axis = multitouch ? ABS_MT_PRESSURE : ABS_PRESSURE;
- 	data_present = touchscreen_get_prop_u32(dev,
-@@ -115,7 +123,7 @@ void touchscreen_parse_properties(struct input_dev *input, bool multitouch,
- 						 input_abs_get_fuzz(input, axis),
- 						 &fuzz);
- 	if (data_present)
--		touchscreen_set_params(input, axis, 0, maximum, fuzz);
-+		touchscreen_set_params(input, axis, 0, maximum, fuzz, 0);
- 
- 	if (!prop)
- 		return;
+The API supports both fatal creation errors, which roll back previously
+created zones, and optional nodes: a NULL callback result skips a node and
+its descendants while allowing independent branches to be created.
+
+The helpers were motivated by the SPEL work and also let DTPM share the
+same hierarchy infrastructure:
+https://lore.kernel.org/lkml/20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com/
+
+A kselftest exercises static and duplicated hierarchies, skipped branches,
+reuse after partial destruction, and rejection of repeated creation. Its
+userspace script checks the 16 exported zones and selected attribute
+values, then removes the module with a sysfs attribute descriptor open.
+
+DTPM is converted to the generic helpers while preserving best-effort
+creation when individual backends are unavailable. The CPU backend finds
+an online sibling when a hierarchy's representative CPU is offline.
+Entirely offline policies remain unavailable during initialization.
+
+The RK3399 description is reduced to one CPU entry per cpufreq policy.
+The old backend already suppressed duplicate registration; the extra
+entries were redundant descriptions, not additional registered zones.
+Finally, a shared Rockchip virtual descriptor and an RK3588 CPU hierarchy
+are added. RK3588's three frequency domains are represented by cpu@0,
+cpu@400 and cpu@600 below a virtual package node; no GPU zone is added
+for RK3588 in this series.
+
+Changes in v5 (since v4):
+- Address Lukasz Luba's review of patch 4: reject a DTPM DT node with a
+  NULL path before calling of_find_node_by_path(). Treat the missing path
+  as an invalid descriptor (-EINVAL), rather than skipping it as an
+  unavailable backend.
+- Collect Reviewed-by tags from Lukasz Luba for patches 1, 3, 5 and 6.
+- Keep the v7.3 base and the six-patch organization.
+
+Changes in v4 (since v3):
+- Rebase on v7.3.
+- Address the selftest issues reported by Sashiko:
+  - Add a kselftest config fragment requesting CONFIG_POWERCAP,
+    CONFIG_MODULES and CONFIG_MODULE_UNLOAD, guard the module build with
+    CONFIG_POWERCAP, and skip building when prerequisites or Module.symvers
+    are missing instead of failing at modpost.
+  - Resolve the kernel output directory and pass absolute O=,
+    KBUILD_OUTPUT and module-output paths to Kbuild so cleanup works when
+    a relative O= is inherited from the parent selftest make invocation.
+  - Keep the statically initialized mutex in permanent module data so its
+    lockdep key does not point into freed module init memory. Retain a
+    separate init-only description for the hierarchy duplication test.
+  - Return KSFT_SKIP when powercap sysfs support or the test module is
+    unavailable, while retaining failures for actual module-load errors.
+
+Changes in v3 (since v2):
+- Rebase on v7.3-rc7.
+- Add POWERCAP_HIERARCHY_INIT() and document static versus duplicated
+  hierarchy ownership and lock initialization.
+- Explain how duplication retains the selected platform hierarchy while
+  init memory containing the original descriptions is reclaimed, and
+  describe the controller callbacks and their arguments.
+- Reject populated hierarchies with -EBUSY before invoking callbacks.
+- Validate names and parent ordering before zone creation, including for
+  static hierarchies; document the accepted hierarchy structure.
+- Use explicit mutex locking, a signed reverse-loop index, and the clearer
+  powercap_node.zone member name.
+- Define NULL creation results as skipped branches and retain rollback for
+  error pointers, preserving DTPM's best-effort behavior.
+- Handle offline CPU representatives through an online policy sibling
+  while holding the CPU hotplug read lock.
+- Fix selftest output-directory handling and module cleanup, use
+  powercap-owned zone allocations, and keep shell validation/counting in
+  the main shell so failures propagate.
+- Extend and document selftest coverage for static creation, skipped
+  branches, hierarchy reuse, -EBUSY, and an open descriptor at teardown.
+- Fix indentation, __initdata placement, unnamed setup callback arguments,
+  and whitespace-only lines reported by checkpatch and patch application.
+- Correct descriptions of redundant CPU entries and actual sysfs checks.
+
+Earlier generic hierarchy API and selftest submission:
+https://lore.kernel.org/all/20260806110159.69690-1-daniel.lezcano@oss.qualcomm.com/
+
+Daniel Lezcano (6):
+  powercap: Add generic zone hierarchy creation helpers
+  selftests/powercap: Add powercap hierarchy creation API tests
+  powercap: dtpm: Remove duplicate RK3399 CPU hierarchy nodes
+  powercap: dtpm: Use generic powercap hierarchy helpers
+  powercap: dtpm: Rename Rockchip virtual node descriptor
+  powercap: dtpm: Add RK3588 hierarchy
+
+ drivers/powercap/dtpm.c                       | 180 +++++-----
+ drivers/powercap/dtpm_cpu.c                   |  62 +++-
+ drivers/powercap/dtpm_devfreq.c               |  22 +-
+ drivers/powercap/powercap_sys.c               | 204 ++++++++++++
+ drivers/soc/rockchip/dtpm.c                   | 129 +++++--
+ include/linux/dtpm.h                          |   6 +-
+ include/linux/powercap.h                      | 205 ++++++++++++
+ tools/testing/selftests/Makefile              |   1 +
+ tools/testing/selftests/powercap/Kbuild       |   5 +
+ tools/testing/selftests/powercap/Makefile     |  46 +++
+ tools/testing/selftests/powercap/config       |   3 +
+ .../selftests/powercap/powercap_hierarchy.c   | 314 ++++++++++++++++++
+ .../selftests/powercap/powercap_hierarchy.sh  | 128 +++++++
+ 13 files changed, 1153 insertions(+), 152 deletions(-)
+ create mode 100644 tools/testing/selftests/powercap/Kbuild
+ create mode 100644 tools/testing/selftests/powercap/Makefile
+ create mode 100644 tools/testing/selftests/powercap/config
+ create mode 100644 tools/testing/selftests/powercap/powercap_hierarchy.c
+ create mode 100755 tools/testing/selftests/powercap/powercap_hierarchy.sh
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.56.0.385.gac671c819a-goog
+2.43.0
 
