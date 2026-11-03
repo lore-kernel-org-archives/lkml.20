@@ -1,108 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715522;
-	b=eHLL0er6kA4467bji8DnPsK3PtPf/G6m+z//K7OVm6bhmMkrX6zruDOhQevv7dAGHskn
-	 4fOlzeDdqRGgwX16HrkfF6xPEN/fWkeb2+9QkRZUPm7OBQ4sv65Kd7BA1IsC+9r2sDgdl
-	 RUhy+RGznPgbj5+jV9AIgZa14wD2MGYg7+FE0F23/cvd5o6BGdLBSXlm0RRpMI5Axt0Re
-	 T+LqCnsXDANrhpldwZP8LzymC2dpB6IgkN88ex2ntJNGkuS5/FiURxli2ESrFmALqf6Js
-	 SWlYSfAqCCi9JxXICbdGtOx6lEVxHa3+pgCEVVCTKu3vdv1qUgIQlZgEMkOGGmsKHWQ==
+	t=1793715555;
+	b=zzrHR35omARn8PuGsdMY4N0kQlxzbVK7T7otlSclQTzYvGW1xt4GXaDCFTkwQPHMxw4K
+	 dCJRsFlRWy7mPCXwbtfrZNEbejosR67RSxjMErGzixAQkBSwk3cPv0mj+WCZIXZ4nrG7u
+	 vT1QuFa2Nfvhet/NmaSLEu38SJX5EOILL2wL2h/hpkCMEtg/3V1rUdWt0eq3ZJo+TB1VB
+	 7djID4uGUUyDaPCszshmchooDp+CdgIfNxfgoJ5un6d27fN1IJHTZEamOORoBZ3A8Blvw
+	 HDelHLZMimbe/LAHzPUUcsQ6J2QXnfZ1Jx4iwz7WuAcGS5oz0aPBJ5XdOI30hjWgwRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715522;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=87L8NH0chbxJMXxlwkxaucZepbhcei/lYwpnUvY2jS4=;
-	b=s5kGnzwkUiGVgMsHs4BKRhFVk5/odznJ1NRRDKZ69IBKAvvye6fa7P5hVxa9X6Ildioq
-	 WYIwH+QJyDhTmiS6Q4/qr3OOHaS/ZiUoNta0Eiolg2uTmHhdN5WXLVhpmdZeyufJCSJVN
-	 /MWiIH2nCNnhIRzWUnyNaxRwziJ+3qK8yMh960qx8n+TRvlbmeCCory9Clr8ohou4d1WA
-	 yOGIIE4ELwUBVbp5pUUFwv69DZwrYvuOh8xxjowYNiGWEA+CMP503S03w+cigZAAIT9/4
-	 dTqq/Z28XiArh9U6XY05aDb4kzH2L37phcoLSzlCplMBAySJWD2BjLpgvvs3HEIU0ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715555;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=tvx6JCmTroZKHXwhLSqePhouVC/T90z2COn4c0vx7p8=;
+	b=3Gu8bl9+M9rdjvNIMt/IjL7sp6vGZyz9IfsdAP7HDjsd+w/hySq136qMuXSdZTObrRxb
+	 eiwU6l7ylMYzfVt/7htS+7HW3NQiMT7X9aFaN2D+tk7/wL4EOaq5L7Orae7HGti1eNZhr
+	 bvxB+cOFScjcaQ8WMvXnEJWMaUIJ1AVYWioSvd04SdUljmSqLObjffCly+iZAbi6IbnIW
+	 xZAkXeafX23H6qblMsIKN1FwmnTHLKa0IltTdrZClrvDNCY/qk+k2KqJOHUeP5K0tIgaM
+	 8oeTeUBg+lIK7gGl5ugt94z1QCAC1nzQYT6khy4/+dS1wqGLmFnZQABkQBTNhNhnxWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IRHMtWVE;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UgDLLBfc;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYCkIn5e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44458606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44458606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1048606A336;
+	Tue,  3 Nov 2026 14:19:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IRHMtWVE;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UgDLLBfc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793715521;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=87L8NH0chbxJMXxlwkxaucZepbhcei/lYwpnUvY2jS4=;
-	b=IRHMtWVEaCXcKVrnszruv3kFHaSJccvoW+KGOCSMNJTSrjFKUSTRy1XIQfgHD2WZI2lAw+
-	pluaZQCPEXoLi1/0FzdHeHUCnPkWGpCoXYkpsjlD8r742KI0NKYHI0/i/iKL6Tbpjg+Wne
-	pWKvcNibOarbCy40Trkg8fJrEthcDF4=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-299-UZz44yA_NamwJqIvyJNj-A-1; Tue, 03 Nov 2026 09:18:40 -0500
-X-MC-Unique: UZz44yA_NamwJqIvyJNj-A-1
-X-Mimecast-MFC-AGG-ID: UZz44yA_NamwJqIvyJNj-A_1793715519
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a4654add56so35609085e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:18:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793715519; x=1794320319; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=87L8NH0chbxJMXxlwkxaucZepbhcei/lYwpnUvY2jS4=;
-        b=UgDLLBfc/bXJiOyeTY9h3E/2b9NcVvDXC2LHhKd1RL9yvya9KWHlPTuzXFDRw/ZYkI
-         SyMPuW8h+ac1OXG31eFAmG8xUx4mrLWdqwU8VefOMWepj8xXAmYr50zgPseM24oVZBGf
-         pVQwm2sgTBDxEbvuBBhORrgapJVaQMcBDxU8ILnrhmQNpHDzS9eiJOk4sX4J2gkAAuRD
-         4ChNUmaElJnviB+3xvHvIp/S9vPdcGqNS19YHNj28eFbYlShAQ5dLnkz+44TX2vn1ovf
-         nUPmyUsZjhbGga0wb0SxvRgRLABPX0orDHe1hm+r1Wbx9w+eU97m0oY43FVB85m4IP9Z
-         17gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793715519; x=1794320319;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=87L8NH0chbxJMXxlwkxaucZepbhcei/lYwpnUvY2jS4=;
-        b=GcY7tF4JA3T84VHgtqyMXB01bTSYIh0WTo9eiMtnQz/fthUzjlSM0nmGZTw7EOkGRr
-         msjewfrlU0nETpCH6kP2aFpQS89ng6IA1xsk1nDLBWl2b8bcqJkMo+OM9uWeFMWFKJMo
-         j/zIc1h8huY4Usnn3d6lpVhFyEaMMM/vhq+YBQmf2up0SkbP4jBTzX1jrrTPGEbkr6gp
-         mCUZMgPE7Lb8nBMeCSrWvAZUwSivwzFyANWf1AZCTMZHUCPzMMgy2536jF3oyQyxO+W2
-         RGDB21P61HJ0zl2hEgIC8FG0P174G4OytJOTLl0tIqAHwP+FrAqYuU0qLkLznfA6gFvW
-         HRgw==
-X-Forwarded-Encrypted: i=1; AKwUvBzmiduVFuGTul6BZXnqOlmXCWm8PleFLejSAG6iAkAIn8cNhULv2lHZflnaYdfvrikkJkgEv3E64p2et5k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4I/YsrUBpXSfIbCl6lDLmAOCsJFqxMsGoiBL2Rte2TuUTnvej
-	mN8zyKJ+2yVZNrrk6pJsj8xpAe8M3RQkiGFEVitmUZJScIMeezClQ9NOpbOa/UTds2iITIPK/1f
-	U5J/B1CpfTGveg6QlrktilIUaGT7InV7hFqEQ46kIAkcj8lQOr6zuaBY9acXoBp8Mmw==
-X-Gm-Gg: AYBFou2uKxNW4NwEylJWxxq48iVfBskI6ZOcczKe1WbRSALziIPcPt4hd7SiU09i4An
-	j9AQgBBYMGlRwMZ2IZ+udWSeYzpeBoe6nsQQOnTLyW7XA1rf+bq58HdPI09Vgy8E/hiG/JNicGh
-	qlaf9eSc3wd/T1NuCx1QYtUB84JWqtTjV0oDEY+Ci9htd7/dFCb3szlg4K/CIs5MPNdDinri2R9
-	IztIKSA9vGBqOYjwNSp/fRPTv2CdLrPky87B2LM1M4I6oKiW6N3fSv4yvHUCoU2QJ8196BQ5qFx
-	5ikChUDZLnodj7bDiStEid6TBLKTBlayFr/m1qsLgjvFXCgFj9bA8lto5cLJiGDtVKBCWC1KIf0
-	kU1znMHhsthNb9a22vAR0HHFuA0NNZJZ3Aix9e8nQqUTtFkpvw9kvdbxrd6gZbEWtu71cyZglFc
-	Zfwt5ZL9KLppLXhXQAutTcc3Vxj3zqWMjnmm2s9J721Jg=
-X-Received: by 2002:a05:600d:c:b0:4af:83ad:8f70 with SMTP id 5b1f17b1804b1-4af83ad8fa7mr160826675e9.35.1793715518727;
-        Tue, 03 Nov 2026 06:18:38 -0800 (PST)
-X-Received: by 2002:a05:600d:c:b0:4af:83ad:8f70 with SMTP id 5b1f17b1804b1-4af83ad8fa7mr160826195e9.35.1793715518348;
-        Tue, 03 Nov 2026 06:18:38 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab3ea6a9sm91268795e9.15.2026.11.03.06.18.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 06:18:37 -0800 (PST)
-Message-ID: <4d97a782-8d88-4dd0-b819-fb704582f2ec@redhat.com>
-Date: Tue, 3 Nov 2026 15:18:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYCkIn5e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070331F00A16;
+	Tue,  3 Nov 2026 14:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793715554;
+	bh=tvx6JCmTroZKHXwhLSqePhouVC/T90z2COn4c0vx7p8=;
+	h=Date:From:To:Cc:Subject;
+	b=hYCkIn5eiDKmR0EZ0wa18ohRkwF6ul9NLz80ROdgMw0l6pQrwZeT0b3wtwg4AY68Z
+	 3iVWDOMZujI3MJcXgCOTJGe0z2eJC1jbt6Qz06ahwwBEnGe0XfZrhBv6NkXB5yv9ks
+	 hQQURpVq/rBjtLcD5m+Bs9FkGKELJ4pp83b8c0H9qqxLtYKBKAHZF6kXRgMQ7MyvnO
+	 TuoimmVrSTdvAl6rJ4nny4K7WdyV+R7EuaxaWwbbDjUo+NvvxdQluFRJCGtf0SPbKT
+	 DaiXMhXclNa6ORbQDXjx57VWbg1FOGyYqjdEHyELT+680xRNENnJ6/bOd54ezDzoWb
+	 VkvSr5eNzy2aA==
+Date: Tue, 3 Nov 2026 14:19:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Christopher Hoover <ch@murgatroid.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Sanjay Chitroda <sanjayembeddedse@gmail.com>
+Subject: linux-next: manual merge of the iio tree with the iio-fixes tree
+Message-ID: <auntXn1lF8QIemTp@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,46 +58,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net/smc: don't spin in smc_rx_recvmsg() while a
- pipe holds spliced data
-To: Bryam Vargas <hexlabsecurity@proton.me>,
- Dust Li <dust.li@linux.alibaba.com>, "D. Wythe" <alibuda@linux.alibaba.com>,
- Mahanta Jambigi <mjambigi@linux.ibm.com>,
- Sidraya Jayagond <sidraya@linux.ibm.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Eric Dumazet <edumazet@kernel.org>
-Cc: linux-s390@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
- linux-rdma@vger.kernel.org, Tony Lu <tonylu@linux.alibaba.com>,
- Wenjia Zhang <wenjia@linux.ibm.com>, netdev@vger.kernel.org,
- Stefan Raspl <raspl@linux.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>,
- Simon Horman <horms@kernel.org>, Ursula Braun <ubraun@linux.ibm.com>,
- linux-kernel@vger.kernel.org
-References: <20261029-b4-disp-da7f8e6a-v2-1-9052904adf72@proton.me>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261029-b4-disp-da7f8e6a-v2-1-9052904adf72@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ePI7VleqgFTAcDT7"
+Content-Disposition: inline
 
-On 10/29/26 09:03, Bryam Vargas wrote:
-> While bytes spliced off the RMB are still in a pipe, recvmsg() waits
-> for the pipe to release them before it copies the data behind them.
-> The path to that wait skips the timeout and signal checks, and
-> smc_rx_wait() returns at once on RCV_SHUTDOWN. With a signal pending,
-> after SHUT_RD, or once the peer closes or shuts down writing,
-> recvmsg() spins on a CPU until the pipe is drained, and SIGKILL cannot
-> stop it. MSG_DONTWAIT and an expired SO_RCVTIMEO wait there too
-> instead of returning -EAGAIN.
-> 
-> Check the timeout and signals before that wait, and end it when the
-> pipe releases the data or the connection is killed, not on RCV_SHUTDOWN.
-> A zero-length read returns 0 without waiting for the pipe; a
-> non-blocking one returns -EAGAIN while poll() still reports the socket
-> readable (splice() can still take those bytes).
 
-@SMC experts, please review. IMHO the above trade-off sounds like a better
-solution is needed.
+--ePI7VleqgFTAcDT7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-/P
+Hi all,
 
+Today's linux-next merge of the iio tree got a conflict in:
+
+  drivers/iio/temperature/hid-sensor-temperature.c
+
+between commit:
+
+  73c53b592a982 ("iio: temperature: hid-sensor-temperature: Use per-instanc=
+e callbacks")
+
+=66rom the iio-fixes tree and commit:
+
+  f5df16bbfbd60 ("iio: temperature: hid-sensor-temperature: convert probe a=
+nd teardown to devm-managed resources")
+
+=66rom the iio tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/iio/temperature/hid-sensor-temperature.c
+index ae67daff6df5a,ac5a287d1de32..0000000000000
+--- a/drivers/iio/temperature/hid-sensor-temperature.c
++++ b/drivers/iio/temperature/hid-sensor-temperature.c
+@@@ -233,39 -238,14 +234,17 @@@ static int hid_temperature_probe(struc
+ =20
+  	platform_set_drvdata(pdev, indio_dev);
+ =20
+ -	temperature_callbacks.pdev =3D pdev;
+ -	ret =3D devm_sensor_hub_register_callback(dev, hsdev,
+ -						HID_USAGE_SENSOR_TEMPERATURE,
+ -						&temperature_callbacks);
+ +	temp_st->callbacks =3D (struct hid_sensor_hub_callbacks) {
+ +		.send_event =3D temperature_proc_event,
+ +		.capture_sample =3D temperature_capture_sample,
+ +		.pdev =3D pdev,
+ +	};
+- 	ret =3D sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE,
+++	ret =3D devm_sensor_hub_register_callback(dev, hsdev, HID_USAGE_SENSOR_T=
+EMPERATURE,
+ +					   &temp_st->callbacks);
+  	if (ret)
+- 		goto error_remove_trigger;
++ 		return ret;
+ =20
+- 	ret =3D iio_device_register(indio_dev);
+- 	if (ret)
+- 		goto error_remove_callback;
+-=20
+- 	return ret;
+-=20
+- error_remove_callback:
+- 	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE);
+- error_remove_trigger:
+- 	hid_sensor_remove_trigger(indio_dev, &temp_st->common_attributes);
+- 	return ret;
+- }
+-=20
+- /* Function to deinitialize the processing for usage id */
+- static void hid_temperature_remove(struct platform_device *pdev)
+- {
+- 	struct hid_sensor_hub_device *hsdev =3D dev_get_platdata(&pdev->dev);
+- 	struct iio_dev *indio_dev =3D platform_get_drvdata(pdev);
+- 	struct temperature_state *temp_st =3D iio_priv(indio_dev);
+-=20
+- 	iio_device_unregister(indio_dev);
+- 	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_TEMPERATURE);
+- 	hid_sensor_remove_trigger(indio_dev, &temp_st->common_attributes);
++ 	return devm_iio_device_register(dev, indio_dev);
+  }
+ =20
+  static const struct platform_device_id hid_temperature_ids[] =3D {
+
+--ePI7VleqgFTAcDT7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrp7V0ACgkQJNaLcl1U
+h9Dtgwf8DzmA8eKVxMEVAqkT/nUfh7PX7lfRwpZGGUMKf/wpWtuEw8pldYoAzYQo
+iEpy1FIrkj86JnPdemR86EzuD+4kB+CYYK5iaUwebBrPLlX4bwfP6+zbQ3ZXXqNE
+Q4Y2wbX60/Hb3jPNKEHefV4K/Z46+Umc5+HrgzawYJ7XgLtzW+uOuWbB6V5PJnoQ
+BlNaxUFv9wicw1bxMeSUu6cXdzO0UZkvKACdIaqyOKq9EvplCa3nNWRCnK6n81lm
+q3TkTWlw30RwzZlJnkzoWNZ+ivhHfLiRaHiUfdyOh0pYWNRFYJVbHfro9zKtzCMG
+mkU4eKEVk09JaWcm+3tNFhE3YnZS8A==
+=uxSj
+-----END PGP SIGNATURE-----
+
+--ePI7VleqgFTAcDT7--
