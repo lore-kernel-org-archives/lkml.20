@@ -1,104 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743950;
-	b=3XXKdOzaChM6a9ycX+/p+/HFAwtfcZHClfx9xVYH3uCUUsorIw5jtut2JHt45IvCNRwu
-	 KoHsdzveV6KQr2Cu9xc47xFFNtb5SO8/dHvcjcp6hXyhFx/nHX30SVQV+ToRKECmvHgN0
-	 ccRVXvvS3dqYMUYpIQC9QiC/ZZjFMw2jy8MBTF3mEHqb+uSVUCDljFq1hoR1gz54R49Qm
-	 LeqRgR4bO11tcAszEQQtmscmR+xHUidASCurmnXIKsGMUuPOf70QpmcHk0ffeAyXD6R7n
-	 DHpZak/1I0LU8HKlfQdeIdXRoEwxUzKnm5lYvIiVn1+P8IvlUXV4xRyuwmJ9NERcLJQ==
+	t=1793743955;
+	b=dxPXAcFjHzGqxoTvqMG0EHmc+O66tGn7hDvrn5uvuEt14l8JBIoF6wTWk0MP1LGZNyeM
+	 9kwuGdpgiKDzfxcXRxSIFf53Q2vHhZdmbsTHeXvR109VmhWiOh2ELK5RJJSFLIKwgYOY6
+	 lVZyuEO1R1tzIHdtS/b/dYQBbhWWE3C3uOr8NIgdaS4xrHPtq55aYiiZnRIMm6O3kKE0k
+	 FeUUv8UBT4hxkg3lnpIzk/w6gpzU+5bVzc6izxgoIPA2OcaKJpxOWb7QUutuH8UVedUNi
+	 9JlJp3K7ZnU6zWWszJoMKz84Gma0S6dbShtCxd3fFxZWbETjGqcn4IDpq2pk6luOEGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743950;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:X-Google-Original-From:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=vtZnMJF2vZlZg027D24VbqVYv+QbjJx2DNalcemb7hE=;
-	b=BEjF37ZrisD0FUMl0Dqn0rh5qhBFZjsymzmRVzOpBnpn1NVAdnyTLfYsgEB8PGC5JG+Q
-	 EHSp8Aasp4rrUjsx9kCyM6zTxhNIY1pH0wVcaTcpnnycgB1Y/AyGPMWtGJfb4jQWnoejf
-	 IwctVD1CMdWfO2uWgWr4jUrmO871ZR1IJM77vkJZ/v8QMHVy618aKRVAY2NM3yoFdokvg
-	 3JnWUmmvyxTzTKwTG193OdTKo9KwSoslm/tWiwzEnZAhJzCSO3klAEKDTz2fNADUjYKK+
-	 93UN0wFIjEbWdrgPAU9YyVMCFj2MZvWVp15xI87XLwtbzXkb5Lyp92s6muAs2Suwu7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743955;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=x84ot11ZHk8kmM1pFcELFVBbhxlp1ehogrcHxTfRDVY=;
+	b=pCk4li695ewiOKNtv+oKrzzpazCtdgLxZzFFYVlOPw76yHYxd7hJ/2Nqza/0/FXLo3ND
+	 dJj0dAiqmw7ipQP4AI/entQpA6k6zwCuoecvXTkiBZOLxcZotfftp2ej6kgNs2iwkGSmi
+	 2Far15Uj9n8Eqdc1c8dWaqOOpUYMyOVzKRtrsc0Am4Y1aZy1xdQ+Nprl+GIbhU9CxargP
+	 XVQ9KE7Z+S8z+6Ji6JiZtOQdhTNzPkSRfLvaSRjt1LdvgZHwjA+yKHLMjIoG1QVrSipl1
+	 afA0ew5zFtnhcffxEDv4+mRbo2RwKOenSbrYmMxgK/Lel56/NJ/yOWEvwtW1yV5CExA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=K57+C3L2;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=Igalia.com;
+	spf=pass smtp.mailfrom=Igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=F9HLVpaL;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBF4606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCBF4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087F1606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 22:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 087F1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=K57+C3L2
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b0960fdde9so63456a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:12:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793743949; x=1794348749;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:dkim-signature:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vtZnMJF2vZlZg027D24VbqVYv+QbjJx2DNalcemb7hE=;
-        b=VBuJ+EHwPFwIOvQlLBsKRMejAqaG0udIIIumgvT8Y8E73XAPq1faO05IRPGfixe8mL
-         vcenAjxcbw9Wec6N+iQuu0aNLaWlH9LcCHRUysWcpyqmUDnahiB2C5eVtT4Hrzm4Nesg
-         uT/GdrZFRhqHKvPfrFDXJbRMh0DXIh4aVPJG7KvPClWL4tUFT7YmLX/0yR1Fw9H/aVEy
-         XjiIR9df1Wu8qWUaB988KdOXPIu84IANeNIWD3t/a6lU1GCMVjv89RzXwZIxnWBCNTlf
-         UwAfXZO+BxbXYyGzQUM0yHVJZv73+Lhv6EAekE2IbeIIO2Tif+0vUDMDIQNALwZmtI+E
-         qsaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiOlYNLpE1iQgX18E2nVYg1UzSzPLZqX+tXN2NuNKizwL45isu0V29jZJpuLgxyL5Y2ZOXGnTsHlpm/KY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+voIWpINwbXGctPugw2SpKjtZg7TcUL2GDemHUixO2eHlBzDA8
-	puRzmNYfVSkyYt6NbZbC1yGBlSySiGwrhO63O1WZFLQFn5toRTptiwKEKuGn71LdRCzKyZprK6W
-	+klWlbe1jxwmNq179cS9LrLBG2xZj+tBkKuM82P9Da0ua8CFnj8V3omhsmRlBJbDXaSqqODC1Yy
-	gm6GjRzow1cYrJM6r9m8hiH3SvFXmOkNGYZScBt+jvxfwXCFcss1GOc7kGCzZT4lWox0XWjQcLl
-	LI/MdcVLZN5ytxoKDHtq7ds2t8=
-X-Gm-Gg: AYBFou0agvja+erY2mn/YrSwO33dbnQl8I/gptzPKPGnMmEq1MzK2ExEOQkNZwKj6KP
-	aqkkj8VWMTOpBZJ4gL7m8cLQaizzM25ZuFIkWhhrx6qPw5XwDJ5V99Lab3Dij9I71WQARJclm4M
-	6LebuQIrcPqHZu+6GlTeLBJu4ZDHGwgDLbDVLO/uR/qjpYrQwRdCfi0L15Ea7r7B/e2wfcit5t2
-	7GpaalaSP5F0ZEAizVC82czGkOGH9k00qI4RnW9ZoZsOeID0zeBd3JZQ8uTvlWnq93y9jRAsCdC
-	DUlPMrrKtv7Z49uWiC3a+FZQVH+Jv0l6+w7B4ry7ds8xEXETcwatTuq2v8jAguR+qpMBgjT5i70
-	T7C58h7dTpC5QAulHvrVv41gq9uUT5OX2f/FeJNNOoMLJKzHYEMaL3j7cVmS2hzPLicc6dgfuo1
-	ExHdqbyvnqMDSdqLiXNGLrD05ZV/ywkNJ1wZLbDIN+
-X-Received: by 2002:a17:90b:3887:b0:3a0:d265:3647 with SMTP id 98e67ed59e1d1-3ae89573dbfmr10993524a91.8.1793743949075;
-        Tue, 03 Nov 2026 14:12:29 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b07c7ae5besm2742354a91.2.2026.11.03.14.12.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 03 Nov 2026 14:12:29 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91c7a26f892so3346336d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793743947; x=1794348747; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vtZnMJF2vZlZg027D24VbqVYv+QbjJx2DNalcemb7hE=;
-        b=K57+C3L22hgw4U+Q4/70yUZil/8/Ps+3bw3smGfhKxKi81uoeP0wbtmQBhLIrt+hLT
-         f5gvsabfFkyou9OvrQZiaPm1M77d5NhYNP0dbABz7Jokt+Js8kwZkoHLQkTRbVOwb+RU
-         MlildZELpoBkjLqUwNURvdgV6NXJYcFSxFq+s=
-X-Forwarded-Encrypted: i=1; AKwUvByanjFRNQXZA4Rv+zLrnTivlTmsL7RPf/OyX8vtH+JoAHBw0en41h3zTMec/ShjjcJsrG6XzAIUIIFrD2g=@vger.kernel.org
-X-Received: by 2002:a05:622a:412:b0:535:7b01:1ac7 with SMTP id d75a77b69052e-542b3979c2dmr236984661cf.6.1793743946744;
-        Tue, 03 Nov 2026 14:12:26 -0800 (PST)
-X-Received: by 2002:a05:622a:412:b0:535:7b01:1ac7 with SMTP id d75a77b69052e-542b3979c2dmr236984191cf.6.1793743946136;
-        Tue, 03 Nov 2026 14:12:26 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e012f9dsm1985446d6.25.2026.11.03.14.12.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 14:12:25 -0800 (PST)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-X-Google-Original-From: Florian Fainelli <fainelli@broadcom.com>
-Message-ID: <3c034e89-7e17-42c5-9471-159962897a7c@broadcom.com>
-Date: Tue, 3 Nov 2026 14:12:22 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=F9HLVpaL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=x84ot11ZHk8kmM1pFcELFVBbhxlp1ehogrcHxTfRDVY=; t=1793743953; x=2109103953; 
+	b=F9HLVpaLPArVACjfn4KYT4QazJP9l44+Nc7HNdTgtTgbceeV4+xcimDyU/MF5VKj9uw08JlV3se
+	r3CsDCP4XDLycFRQIeJr99quFOgn9sDzmkgw9KjsZKq1FOYyRO8IxpyamjE2fFIZtssMDOUFqXgdt
+	FLAU+eoVHt3QybLlsrzy9CNP9EEC1JiaACV4qNW2RFOTBWATffLnqElj0O2YK+dSHN4oXF5/Q4SzK
+	n2j4mULOcm6Zs6UIYFIULMNRJObHJg5EGS3i4Xfe3r0UNMjdw6WVhHF2CPHu6d3IcqE53VsFLKQuy
+	1OvrJRXZs4lSxvOXaJueB8vi3OAip7gdulSg==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xOMjs-001enn-GI; Tue, 03 Nov 2026 23:12:20 +0100
+Message-ID: <a359e88a-8afb-4aa5-bb5c-264ae56c4ee1@Igalia.com>
+Date: Tue, 3 Nov 2026 14:12:12 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,106 +58,479 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] Revert "drivers: convert sbd_duart.map_guard from
- atomic_t to refcount_t"
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Elena Reshetova <elena.reshetova@intel.com>,
- David Windsor <dwindsor@gmail.com>, Kees Cook <kees@kernel.org>,
- Hans Liljestrand <ishkamiel@gmail.com>, linux-mips@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <alpine.DEB.2.21.2605241602220.1450@angie.orcam.me.uk>
- <alpine.DEB.2.21.2605241628110.1450@angie.orcam.me.uk>
-Content-Language: en-US, fr-FR
-Autocrypt: addr=fainelli@broadcom.com; keydata=
- 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
-In-Reply-To: <alpine.DEB.2.21.2605241628110.1450@angie.orcam.me.uk>
+Subject: Re: [PATCH v6 1/7] drm: writeback: Refactor drm_writeback_connector
+ structure
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: "Shankar, Uma" <uma.shankar@intel.com>,
+ "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, "sean@poorly.ru"
+ <sean@poorly.ru>,
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "laurent.pinchart+renesas@ideasonboard.com"
+ <laurent.pinchart+renesas@ideasonboard.com>,
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>,
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+References: <20260714042805.77934-1-suraj.kandpal@intel.com>
+ <20260714042805.77934-2-suraj.kandpal@intel.com>
+ <fef90473-9572-4bbe-8cd3-8e2ef3a16469@Igalia.com>
+ <DS4PPFE901A304FE19EA821D66BE3B9E3B1E3692@DS4PPFE901A304F.namprd11.prod.outlook.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <DS4PPFE901A304FE19EA821D66BE3B9E3B1E3692@DS4PPFE901A304F.namprd11.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 5/24/26 16:12, Maciej W. Rozycki wrote:
-> Revert commit 22a33651a56f ("drivers: convert sbd_duart.map_guard from
-> atomic_t to refcount_t"), which broke perfectly valid code:
-> 
->    ------------[ cut here ]------------
->    WARNING: CPU: 1 PID: 1 at lib/refcount.c:114 sbd_request_port+0x54/0x140
->    refcount_t: increment on 0; use-after-free.
->    CPU: 1 PID: 1 Comm: swapper/0 Not tainted 4.11.0-rc2+ #34
->    Stack : 0000000014001fe0 0000000000000000 ffffffff80830000 0000000000000000
->            ffffffff8127bc7a ffffffff8016fe08 ffffffff808d0000 ffffffff808d0000
->            ffffffff807aa828 ffffffff80822337 ffffffff808ce188 a8000001860b0000
->            0000000000000001 0000000000000001 00000000000001c8 ffffffff808a3090
->            00000000000000bb ffffffff801b09d4 a80000018609bb68 ffffffff801231cc
->            ffffffff812a0000 ffffffff80171388 0000000000001000 ffffffff807aa828
->            0000000000000001 0000000000000001 0000000000000000 0000000000000000
->            0000000000000000 a80000018609bab0 0000000000000000 ffffffff803c47cc
->            0000000000000000 0000000000000000 0000000000000000 0000000000000000
->            ffffffff807cb648 ffffffff8010bff8 0000000014001fe1 ffffffff803c47cc
->            ...
->    Call Trace:
->    [<ffffffff8010bff8>] show_stack+0x28/0x88
->    [<ffffffff803c47cc>] dump_stack+0x8c/0xc0
->    [<ffffffff801aff5c>] __warn+0xe0/0x114
->    [<ffffffff801233f0>] warn_slowpath_fmt+0x40/0x50
->    [<ffffffff80455bcc>] sbd_request_port+0x54/0x140
->    [<ffffffff804563a4>] sbd_config_port+0x2c/0x68
->    ---[ end trace f666d696412caa3e ]---
-> 
-> (report at the offending commit) -- sbd_request_port() is called twice
-> per DUART instance, to reserve a resource holding the control register
-> block shared between the two channels, so there's no slightest chance
-> for an overflow.  Also this doesn't stop the driver from working and
-> it's just the reservation that is missing as a result, i.e.:
-> 
-> 10060100-100601ff : sb1250-duart
-> 10060200-100602ff : sb1250-duart
-> 
-> as from the offending change, vs:
-> 
-> 10060100-100601ff : sb1250-duart
-> 10060200-100602ff : sb1250-duart
-> 10060300-100603ff : sb1250-duart
-> 
-> beforehand, which is surely why the breakage has gone so long unnoticed.
-> 
-> "If it ain't broke, don't fix it," so just revert the broken commit.
-> 
-> Fixes: 22a33651a56f ("drivers: convert sbd_duart.map_guard from atomic_t to refcount_t")
-> Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+On 11/3/26 00:30, Kandpal, Suraj wrote:
+>> -----Original Message-----
+>> From: John Harrison <John.Harrison@Igalia.com>
+>> Sent: 18 July 2026 01:10
+>> To: Kandpal, Suraj <suraj.kandpal@intel.com>; freedreno@lists.freedesktop.org;
+>> dri-devel@lists.freedesktop.org; kernel-list@raspberrypi.com; amd-
+>> gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org; intel-
+>> xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org
+>> Cc: Shankar, Uma <uma.shankar@intel.com>; Murthy, Arun R
+>> <arun.r.murthy@intel.com>; abhinav.kumar@linux.dev;
+>> tzimmermann@suse.de; sean@poorly.ru; marijn.suijten@somainline.org;
+>> laurent.pinchart+renesas@ideasonboard.com;
+>> dave.stevenson@raspberrypi.com; tomi.valkeinen+renesas@ideasonboard.com;
+>> kieran.bingham+renesas@ideasonboard.com; louis.chauvet@bootlin.com;
+>> kernel-dev@igalia.com; Liviu Dudau <liviu.dudau@arm.com>
+>> Subject: Re: [PATCH v6 1/7] drm: writeback: Refactor drm_writeback_connector
+>> structure
+>>
+>> On 7/13/26 21:27, Suraj Kandpal wrote:
+>>> Some drivers cannot work with the current design where the connector
+>>> is embedded within the drm_writeback_connector such as Intel and some
+>>> drivers that can get it working end up adding a lot of checks all
+>>> around the code to check if it's a writeback conenctor or not, this is
+>>> due to the limitation of inheritance in C.
+>>> To solve this move the drm_writeback_connector within the
+>>> drm_connector and remove the drm_connector base which was in
+>>> drm_writeback_connector. Make this drm_writeback_connector a union
+>>> with hdmi connector to save memory and since a connector can never be
+>>> both writeback and hdmi it should serve us well.
+>>> Do all other required modifications that come with these changes along
+>>> with addition of new function which returns the drm_connector when
+>>> drm_writeback_connector is present.
+>>> Modify drivers using the drm_writeback_connector to allow them to use
+>>> this connector without breaking them.
+>>> The drivers modified here are amd, komeda, mali, vc4, vkms, rcar_du,
+>>> msm
+>>>
+>>> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+>>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+>>> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>>> Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+>>> ---
+>>> v5 -> v6:
+>>> - Rebase on latest kernel
+>>>
+>>> v4 -> v5:
+>>> - Remove more unnecessary wrapping of drm_writeback_to_connector()
+>>> (John)
+>>>
+>>> v3 -> v4:
+>>> - Use drm_writeback_to_connector() wherever possible (John)
+>>> - Do not wrap line where not needed (John)
+>>>
+>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+>>>    .../display/amdgpu_dm/amdgpu_dm_connector.c   |  4 +-
+>>>    .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
+>>>    .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
+>>>    .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+>>>    .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
+>>>    drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+>>>    drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+>>>    drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
+>>>    drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
+>>>    drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
+>>>    drivers/gpu/drm/drm_writeback.c               | 28 ++++----
+>>>    .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  3 +-
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 14 ++--
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+>>>    .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  6 +-
+>>>    .../drm/renesas/rcar-du/rcar_du_writeback.c   | 16 +++--
+>>>    drivers/gpu/drm/vc4/vc4_txp.c                 | 12 ++--
+>>>    drivers/gpu/drm/vkms/vkms_composer.c          |  2 +-
+>>>    drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+>>>    drivers/gpu/drm/vkms/vkms_writeback.c         | 13 ++--
+>>>    include/drm/drm_connector.h                   | 69 +++++++++++++++++--
+>>>    include/drm/drm_writeback.h                   | 66 +-----------------
+>>>    24 files changed, 150 insertions(+), 141 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 1726eb6a3c63..427a8a52d256 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -4885,7 +4885,7 @@ static void dm_set_writeback(struct
+>> amdgpu_display_manager *dm,
+>>>    			      struct drm_connector *connector,
+>>>    			      struct drm_connector_state *new_con_state)
+>>>    {
+>>> -	struct drm_writeback_connector *wb_conn =
+>> drm_connector_to_writeback(connector);
+>>> +	struct drm_writeback_connector *wb_conn = &connector->writeback;
+>>>    	struct amdgpu_device *adev = dm->adev;
+>>>    	struct amdgpu_crtc *acrtc;
+>>>    	struct dc_writeback_info *wb_info;
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> index 91affbdb2d6c..a1faf9f3670e 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>> @@ -894,7 +894,7 @@ static inline void amdgpu_dm_set_mst_status(uint8_t
+>> *status,
+>>>    #define to_amdgpu_dm_connector(x) container_of(x, struct
+>>> amdgpu_dm_connector, base)
+>>>
+>>>    struct amdgpu_dm_wb_connector {
+>>> -	struct drm_writeback_connector base;
+>>> +	struct drm_connector base;
+>>>    	struct dc_link *link;
+>>>    };
+>>>
+>>> diff --git
+>>> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>>> index 88f938a8f24f..d48d764eae63 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>>> @@ -1368,11 +1368,9 @@ create_stream_for_sink(struct drm_connector
+>> *connector,
+>>>    		aconnector = to_amdgpu_dm_connector(connector);
+>>>    		link = aconnector->dc_link;
+>>>    	} else {
+>>> -		struct drm_writeback_connector *wbcon = NULL;
+>>>    		struct amdgpu_dm_wb_connector *dm_wbcon = NULL;
+>>>
+>>> -		wbcon = drm_connector_to_writeback(connector);
+>>> -		dm_wbcon = to_amdgpu_dm_wb_connector(wbcon);
+>>> +		dm_wbcon = to_amdgpu_dm_wb_connector(connector);
+>>>    		link = dm_wbcon->link;
+>>>    	}
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+>>> index 3ee31634549e..18ef4ce73b46 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+>>> @@ -205,9 +205,9 @@ int amdgpu_dm_wb_connector_init(struct
+>>> amdgpu_display_manager *dm,
+>>>
+>>>    	wbcon->link = link;
+>>>
+>>> -	drm_connector_helper_add(&wbcon->base.base,
+>> &amdgpu_dm_wb_conn_helper_funcs);
+>>> +	drm_connector_helper_add(&wbcon->base,
+>>> +&amdgpu_dm_wb_conn_helper_funcs);
+>>>
+>>> -	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon-
+>>> base,
+>>> +	res = drmm_writeback_connector_init(&dm->adev->ddev,
+>>> +&wbcon->base.writeback,
+>>>
+>> &amdgpu_dm_wb_connector_funcs,
+>>>    					    encoder,
+>>>    					    amdgpu_dm_wb_formats,
+>>> @@ -219,8 +219,8 @@ int amdgpu_dm_wb_connector_init(struct
+>> amdgpu_display_manager *dm,
+>>>    	 * Some of the properties below require access to state, like bpc.
+>>>    	 * Allocate some default initial connector state with our reset helper.
+>>>    	 */
+>>> -	if (wbcon->base.base.funcs->reset)
+>>> -		wbcon->base.base.funcs->reset(&wbcon->base.base);
+>>> +	if (wbcon->base.funcs->reset)
+>>> +		wbcon->base.funcs->reset(&wbcon->base);
+>>>
+>>>    	return 0;
+>>>    }
+>>> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+>>> b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+>>> index e8cb782a6f8e..6611920c45fb 100644
+>>> --- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+>>> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+>>> @@ -213,7 +213,7 @@ void komeda_crtc_handle_event(struct komeda_crtc
+>> *kcrtc,
+>>>    		struct komeda_wb_connector *wb_conn = kcrtc->wb_conn;
+>>>
+>>>    		if (wb_conn)
+>>> -			drm_writeback_signal_completion(&wb_conn->base,
+>> 0);
+>>> +			drm_writeback_signal_completion(&wb_conn-
+>>> base.writeback, 0);
+>>>    		else
+>>>    			drm_warn(drm, "CRTC[%d]: EOW happen but no
+>> wb_connector.\n",
+>>>    				 drm_crtc_index(&kcrtc->base));
+>>> @@ -269,9 +269,9 @@ komeda_crtc_do_flush(struct drm_crtc *crtc,
+>>>    	if (slave && has_bit(slave->id, kcrtc_st->affected_pipes))
+>>>    		komeda_pipeline_update(slave, old->state);
+>>>
+>>> -	conn_st = wb_conn ? wb_conn->base.base.state : NULL;
+>>> +	conn_st = wb_conn ? wb_conn->base.state : NULL;
+>>>    	if (conn_st && conn_st->writeback_job)
+>>> -		drm_writeback_queue_job(&wb_conn->base, conn_st);
+>>> +		drm_writeback_queue_job(&wb_conn->base.writeback,
+>> conn_st);
+>>>    	/* step 2: notify the HW to kickoff the update */
+>>>    	mdev->funcs->flush(mdev, master->id, kcrtc_st->active_pipes); diff
+>>> --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
+>>> b/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
+>>> index 83e61c4080c2..9c34302782c0 100644
+>>> --- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
+>>> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.h
+>>> @@ -53,8 +53,8 @@ struct komeda_plane_state {
+>>>     * struct komeda_wb_connector
+>>>     */
+>>>    struct komeda_wb_connector {
+>>> -	/** @base: &drm_writeback_connector */
+>>> -	struct drm_writeback_connector base;
+>>> +	/** @base: &drm_connector */
+>>> +	struct drm_connector base;
+>>>
+>>>    	/** @wb_layer: represents associated writeback pipeline of komeda */
+>>>    	struct komeda_layer *wb_layer;
+>>> @@ -139,7 +139,7 @@ struct komeda_kms_dev {
+>>>    static inline bool is_writeback_only(struct drm_crtc_state *st)
+>>>    {
+>>>    	struct komeda_wb_connector *wb_conn = to_kcrtc(st->crtc)-
+>>> wb_conn;
+>>> -	struct drm_connector *conn = wb_conn ? &wb_conn->base.base :
+>> NULL;
+>>> +	struct drm_connector *conn = wb_conn ? &wb_conn->base : NULL;
+>>>
+>>>    	return conn && (st->connector_mask ==
+>> BIT(drm_connector_index(conn)));
+>>>    }
+>>> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+>>> b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+>>> index c1bedbaa26f9..848ac37a76e4 100644
+>>> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+>>> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+>>> @@ -53,7 +53,7 @@ komeda_wb_encoder_atomic_check(struct
+>> drm_encoder *encoder,
+>>>    		return -EINVAL;
+>>>    	}
+>>>
+>>> -	wb_layer = to_kconn(to_wb_conn(conn_st->connector))->wb_layer;
+>>> +	wb_layer = to_kconn(conn_st->connector)->wb_layer;
+>>>
+>>>    	/*
+>>>    	 * No need for a full modested when the only connector changed is
+>>> the @@ -151,7 +151,7 @@ static int komeda_wb_connector_add(struct
+>>> komeda_kms_dev *kms,
+>>>
+>>>    	kwb_conn->wb_layer = kcrtc->master->wb_layer;
+>>>
+>>> -	wb_conn = &kwb_conn->base;
+>>> +	wb_conn = &kwb_conn->base.writeback;
+>>>
+>>>    	formats = komeda_get_layer_fourcc_list(&mdev->fmt_tbl,
+>>>    					       kwb_conn->wb_layer->layer_type,
+>> @@ -183,9 +183,9 @@
+>>> static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>>>    		return err;
+>>>    	}
+>>>
+>>> -	drm_connector_helper_add(&wb_conn->base,
+>> &komeda_wb_conn_helper_funcs);
+>>> +	drm_connector_helper_add(&kwb_conn->base,
+>>> +&komeda_wb_conn_helper_funcs);
+>>>
+>>> -	info = &kwb_conn->base.base.display_info;
+>>> +	info = &kwb_conn->base.display_info;
+>>>    	info->bpc = __fls(kcrtc->master->improc->supported_color_depths);
+>>>    	info->color_formats =
+>>> kcrtc->master->improc->supported_color_formats;
+>>>
+>>> diff --git a/drivers/gpu/drm/arm/malidp_crtc.c
+>>> b/drivers/gpu/drm/arm/malidp_crtc.c
+>>> index ebe8e1078777..4402c1de8c69 100644
+>>> --- a/drivers/gpu/drm/arm/malidp_crtc.c
+>>> +++ b/drivers/gpu/drm/arm/malidp_crtc.c
+>>> @@ -421,7 +421,7 @@ static int malidp_crtc_atomic_check(struct drm_crtc
+>> *crtc,
+>>>    		u32 new_mask = crtc_state->connector_mask;
+>>>
+>>>    		if ((old_mask ^ new_mask) ==
+>>> -		    (1 << drm_connector_index(&malidp->mw_connector.base)))
+>>> +		    (1 << drm_connector_index(&malidp->mw_connector)))
+>>>    			crtc_state->connectors_changed = false;
+>>>    	}
+>>>
+>>> diff --git a/drivers/gpu/drm/arm/malidp_drv.h
+>>> b/drivers/gpu/drm/arm/malidp_drv.h
+>>> index bc0387876dea..aa5599467d27 100644
+>>> --- a/drivers/gpu/drm/arm/malidp_drv.h
+>>> +++ b/drivers/gpu/drm/arm/malidp_drv.h
+>>> @@ -32,7 +32,7 @@ struct malidp_drm {
+>>>    	struct drm_device base;
+>>>    	struct malidp_hw_device *dev;
+>>>    	struct drm_crtc crtc;
+>>> -	struct drm_writeback_connector mw_connector;
+>>> +	struct drm_connector mw_connector;
+>>>    	wait_queue_head_t wq;
+>>>    	struct drm_pending_vblank_event *event;
+>>>    	atomic_t config_valid;
+>>> diff --git a/drivers/gpu/drm/arm/malidp_hw.c
+>>> b/drivers/gpu/drm/arm/malidp_hw.c index 9b845d3f34e1..5a7bd27d3718
+>>> 100644
+>>> --- a/drivers/gpu/drm/arm/malidp_hw.c
+>>> +++ b/drivers/gpu/drm/arm/malidp_hw.c
+>>> @@ -1315,15 +1315,15 @@ static irqreturn_t malidp_se_irq(int irq, void
+>> *arg)
+>>>    	if (status & se->vsync_irq) {
+>>>    		switch (hwdev->mw_state) {
+>>>    		case MW_ONESHOT:
+>>> -			drm_writeback_signal_completion(&malidp-
+>>> mw_connector, 0);
+>>> +			drm_writeback_signal_completion(&malidp-
+>>> mw_connector.writeback,
+>>> +0);
+>>>    			break;
+>>>    		case MW_STOP:
+>>> -			drm_writeback_signal_completion(&malidp-
+>>> mw_connector, 0);
+>>> +			drm_writeback_signal_completion(&malidp-
+>>> mw_connector.writeback,
+>>> +0);
+>>>    			/* disable writeback after stop */
+>>>    			hwdev->mw_state = MW_NOT_ENABLED;
+>>>    			break;
+>>>    		case MW_RESTART:
+>>> -			drm_writeback_signal_completion(&malidp-
+>>> mw_connector, 0);
+>>> +			drm_writeback_signal_completion(&malidp-
+>>> mw_connector.writeback,
+>>> +0);
+>>>    			fallthrough;	/* to a new start */
+>>>    		case MW_START:
+>>>    			/* writeback started, need to emulate one-shot mode
+>> */ diff --git
+>>> a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
+>>> index a4c6a00c0941..4c77a459c241 100644
+>>> --- a/drivers/gpu/drm/arm/malidp_mw.c
+>>> +++ b/drivers/gpu/drm/arm/malidp_mw.c
+>>> @@ -212,7 +212,7 @@ int malidp_mw_connector_init(struct drm_device
+>> *drm)
+>>>    	if (!malidp->dev->hw->enable_memwrite)
+>>>    		return 0;
+>>>
+>>> -	drm_connector_helper_add(&malidp->mw_connector.base,
+>>> +	drm_connector_helper_add(&malidp->mw_connector,
+>>>    				 &malidp_mw_connector_helper_funcs);
+>>>
+>>>    	formats = get_writeback_formats(malidp, &n_formats); @@ -229,7
+>>> +229,7 @@ int malidp_mw_connector_init(struct drm_device *drm)
+>>>
+>>>    	encoder->possible_crtcs = drm_crtc_mask(&malidp->crtc);
+>>>
+>>> -	ret = drmm_writeback_connector_init(drm, &malidp->mw_connector,
+>>> +	ret = drmm_writeback_connector_init(drm,
+>>> +&malidp->mw_connector.writeback,
+>>>    					    &malidp_mw_connector_funcs,
+>>>    					    encoder,
+>>>    					    formats, n_formats);
+>>> @@ -244,8 +244,8 @@ void malidp_mw_atomic_commit(struct drm_device
+>> *drm,
+>>>    			     struct drm_atomic_commit *old_state)
+>>>    {
+>>>    	struct malidp_drm *malidp = drm_to_malidp(drm);
+>>> -	struct drm_writeback_connector *mw_conn = &malidp-
+>>> mw_connector;
+>>> -	struct drm_connector_state *conn_state = mw_conn->base.state;
+>>> +	struct drm_writeback_connector *mw_conn = &malidp-
+>>> mw_connector.writeback;
+>>> +	struct drm_connector_state *conn_state = malidp-
+>>> mw_connector.state;
+>>>    	struct malidp_hw_device *hwdev = malidp->dev;
+>>>    	struct malidp_mw_connector_state *mw_state;
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c
+>>> b/drivers/gpu/drm/drm_atomic_uapi.c
+>>> index 1050dddadb17..a5c11832ff64 100644
+>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>>> @@ -1514,7 +1514,7 @@ static int prepare_signaling(struct drm_device
+>> *dev,
+>>>    		f[*num_fences].out_fence_ptr = fence_ptr;
+>>>    		*fence_state = f;
+>>>
+>>> -		wb_conn = drm_connector_to_writeback(conn);
+>>> +		wb_conn = &conn->writeback;
+>>>    		fence = drm_writeback_get_out_fence(wb_conn);
+>>>    		if (!fence)
+>>>    			return -ENOMEM;
+>>> diff --git a/drivers/gpu/drm/drm_writeback.c
+>>> b/drivers/gpu/drm/drm_writeback.c index 6ba3833a93ca..f93c936643bb
+>>> 100644
+>>> --- a/drivers/gpu/drm/drm_writeback.c
+>>> +++ b/drivers/gpu/drm/drm_writeback.c
+>>> @@ -95,8 +95,9 @@ static const char
+>> *drm_writeback_fence_get_driver_name(struct dma_fence *fence)
+>>>    {
+>>>    	struct drm_writeback_connector *wb_connector =
+>>>    		fence_to_wb_connector(fence);
+>>> +	struct drm_connector *connector =
+>>> +drm_writeback_to_connector(wb_connector);
+>>>
+>>> -	return wb_connector->base.dev->driver->name;
+>>> +	return connector->dev->driver->name;
+>>>    }
+>>>
+>>>    static const char *
+>>> @@ -193,7 +194,7 @@ static int __drm_writeback_connector_init(struct
+>> drm_device *dev,
+>>>    					  struct drm_encoder *enc, const u32
+>> *formats,
+>>>    					  int n_formats)
+>>>    {
+>>> -	struct drm_connector *connector = &wb_connector->base;
+>>> +	struct drm_connector *connector =
+>>> +drm_writeback_to_connector(wb_connector);
+>>>    	struct drm_mode_config *config = &dev->mode_config;
+>>>    	struct drm_property_blob *blob;
+>>>    	int ret = create_writeback_properties(dev); @@ -275,7 +276,7 @@ int
+>>> drm_writeback_connector_init(struct drm_device *dev,
+>>>    				 struct drm_encoder *enc,
+>>>    				 const u32 *formats, int n_formats)
+>>>    {
+>>> -	struct drm_connector *connector = &wb_connector->base;
+>>> +	struct drm_connector *connector =
+>>> +drm_writeback_to_connector(wb_connector);
+>> FYI: I missed this before but drm_writeback_connector_init needs to be
+>> removed. The whole point of Dmitry's patch set is to switch to drmm instead of
+>> drm init/alloc functions. I don't think it really affects this patch set much. But I
+>> believe the last version of the i915/Xe writeback support was still using the
+>> manual memory management interface via this function. That will need
+>> updating to use the drmm version.
+>>
+> I think from the last revision of Dmitry's patch series we are currently not use drmm versions
+> At least for now
+>
+> Regards,
+> Suraj Kandpal
+>
+Yeah, the drmm route was proving too complex. Too many tangles too 
+unravel all at once. It still seems like a better way to go, but that 
+can wait until later. Getting something functional landed now and 
+polishing it later is better than never getting anything merged at all.
 
-Tested-by: Florian Fainelli <f.fainelli@gmail.com>
--- 
-Florian
+John.
+
