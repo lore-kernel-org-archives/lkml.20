@@ -1,23 +1,21 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.20
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.129
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701387;
-	b=CVk4BbcKij/krylrdkZ8DgCISPPbM2VFlAjUV1T8jyLMhGAP+ULsMRPFqvwmzORl09C2
-	 VmPI1FbkU8scCLSvyYSvpFCNo6LH7Sr6ChLMWow7XxABgqI18oP4nDGd+hR9lb0/gE9Wo
-	 /a5hdsJ21jMQ/Kh4kPzw/ynosv0XxKpepdSQYXg70spFC/LfRJHGQxtJAt5gGU15tLCuO
-	 IDrLACQ7yhoCCNYn+FFrSRhxSzR71jkujrY7VLPy/2rTZ/XXbEoEhE8STHvCV4HHsSwzb
-	 VF7O7gtDMAi+whIfpni+2goPsQyof9GhVDxAs94MNtMhvraXoGRS5/EMURKdztKVm4w==
+	t=1793701383;
+	b=IUCAwJ6xymVtfDh2IE3W7smXPYRdv1vGxdSQAvlyesD8RrgXeTPjAXQpTh7JceaWexfW
+	 tQl4t8gwy8nYNN1Yxv1v/t8z9r0eJmH3fIy6M3Pjxsz2VHQXtqu6a1hDTm7zlsCh3Hqxr
+	 akNL8lviyoeUJ7/7tnHg535qIyhMlZV1pkBi0u41S3b4eFR+Ml0u6XlHs3yHwCT6l9ST4
+	 +kgfKNDDlzSXoEMyfTOjcbIVFHWTmac6dFiM7KJU4seP2pagCRdmCAGFB1loItofE9jZc
+	 F8zQ33PFT4udoCsYIBS491wrhVTQzZNGqTcJQYJ1aGe9PQXD/l3HfNirm+3EAfeUIsg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701387;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701383;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -25,74 +23,67 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=0ow7y3xOCCm7ia/YovVDyjMWPBk/rAKxyTNO02ElnB0=;
-	b=ehR8r+AxERVWK3L2vRVYftluLsekqe0sCpxEDwf3zTpRDXySKVz51SHQ8eEQkyX2lgzE
-	 4qTAJcEJtC6n5i2rXqz87k8++6pCeA0ry9pDtgtOn+riGQamkd/roD+SP+jTUfauCwwvS
-	 MPKAt4zpJXk7V/ixbgRH7wsFP/fUCf4hVD5Yjte/YCI2RK39LSMclDGT3q7hrlxOS+qns
-	 Mr50gvxW77xSu188Y8wOMD4Lp0eY97WE0BljUT6l1gORODYJ3oIxv/lxg5BR8yRWGsHyB
-	 0/vedL2WHHsJEzdcqcZ9KMB4Ht+yRxNE816Ncr6u9HivDGdSLbrCyZ8136692yxr0Hw==
+	bh=Fg9RbYaao15Dc5QDyQ0gkfoBb4Fe3fSXIAbgMbRP9ZA=;
+	b=MecV3UNUaetpcZD11xgysx6paWMSMqZdTxeIiqw5O6NTibRhnPeMt78FKufiMnfdgNRd
+	 FIu29SDZca8O9+9mk+Neqz1xd9QcIhWEnD/wR0O0j9nfetoOHZEIkoG57uPy7JjEzDeK2
+	 9BnYOH8qGjUy5ZFgt4Z59JnEKXoi8TcHHCSc6ifACODdnEUc7pzkfheEa8P8xIxniSt/2
+	 /BchY7mhDnFxPSam2DvX3iP/FeJwVvGGnZKYwK6Cfi7IvRGo3PKCwuqCVRZiOh96h6GGT
+	 blBJtjrijm6SX459oa6DtCz2YtfT+UKlSMJ1Gj36/h1e2UqKN05c0YMij55mWmg7Iag==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cmXP6jhJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.20
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.129
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB86085097;
-	Tue,  3 Nov 2026 10:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20AB86085097
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cmXP6jhJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v1iEVqvPPI9ieWGpXAXefsSmWJ+aA/x96b8N+qBETL9tf1auOYarAR2WCA9N4GCvdbtZfceGjCG3Gu2hlziHSPucVX6DNvgeSVFrpRgZXPwkwu/54aLl9sSKc464C9CkqbruGCRFmsYpOVlCOmPdQB+F+Z9UeYcrIbxb++87vK0yw9GVj/JcSDITpSDQenKHodmEl/DdbWe58KxQM1vh37xMOVh9Xul6EGh9hX2R8ILER5/gQIT4E/WytwmueOQN0NltAPBfTjnM2tfTV9KMLbfZFLbtXKvMJeCkroCIMIIKs6d0vTUdW9yLXSrocZtK6D5Mk+GiKreCdUPClbBEaQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57044606FACF;
+	Tue,  3 Nov 2026 10:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57044606FACF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ioeH/gnZ7aBO/Sl/YlbYt7v2KHOLfbVesS7noCspHxuP3Mp5jjmTZ0WRjZ44LtVTNa4j5IdncV9MGLTIpzeMGkl9GDW/VbjC4qpiDkCN+AFxOCuI4f7ZBkWmsPuwf973ufgujEjkintvlQ2sgBmoJUgOn57iEBt7JOFHZDVuNQ/ki8d7B72uB2LijQTzPUsyctVYLKrKZjMh7VthJW9HyEbVCXJ0QVY1yDYnSZHF89u4mlOr1eqnIH8A70iHew0fASKiVmh2F8O/lcMP9OVA9XIxNdYRxytPTIkw7sQ8qecWHRIV6nIgu+q13u4GBTPUMBpv7z4acvx5qLZihGz+HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ow7y3xOCCm7ia/YovVDyjMWPBk/rAKxyTNO02ElnB0=;
- b=M2UcB1csahqbZxospLALHeafVDulXDtET26Yv5VtA4Xwp3h8jBU342SBicpyYpV4xLphG9eHi7zQHHoUMBxKyzSB+Y/aBIGXRqkYQfkVkJzTQXzhRH8M6O+q1f/JYusE7lm79YFmmqK+K5Dh7b9JYeJsArc150CK/pIpGCDEyMkzx2BiurrrkLxHvF1JJtt+ZAs6OdZLVJzQlvEdZKaWJF+Q7ZRgzDS9XJrSjxxSwE+w6DU7WYPAyYzFC+f+fmVCOjpYmo9QiHYZg2HjviWjPgd6bfnlt8CyliMXS19p1p7OEFsxGZwXGMRNm4mslFj8J0wzo3q1dlJx/QevfIYu0Q==
+ bh=Fg9RbYaao15Dc5QDyQ0gkfoBb4Fe3fSXIAbgMbRP9ZA=;
+ b=eWORBuYwEMqWrZH5T5kgP0Vs4cFm5aMYySNnDq0akDVx1SCSMeh04GGhp8+SIAQ6GBVPiIE3MOJud1tEri8WPhtVy/tTtPGsVR2QHHa/T9q3DSBULCCy0yLWt2EQvoG7dNjSKSCAwYD/0CCS5KHRR41GhcLBsWNtromB5cb6dOTSq9MGsnA04+RD7Yt9pdXJ7TZzREzOWT8oWrYbrVBMKlVlnf2e9w1LNMU0byFTf//FpA4YdcnvgEuC7l3pvvCiUN6jpXo+y367EzalRf6154gZIMZ1eo514z+LKC8S3/kSPcYw+3YnVbDn+cPM5QhRhtj0tYFCKiSN9lBnuWeM5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ow7y3xOCCm7ia/YovVDyjMWPBk/rAKxyTNO02ElnB0=;
- b=cmXP6jhJTYojYwxodyky1XsbPXb1M+jbxJKV/J+8tzsOvpw6OTbhbWO4Sl+WSTFooHRZNMOKSMq0oNHsbclnvJ+mZYkF2pw3ZvU1vIIgkmrdveW9Gvzx4lNbbmakEW5y4I7KY68gAVnKN6KYkQLjMWYGe8vfReowJPyS7MH4T/vQSVIsShBS48qekTuVRCrkEAzR0br+cRP2AygBeahTi59Bao51LyPFnC5vzXpd/UqzxX26avKPzMJOfvQjoKpuAvZ3kG1oAxWwiLxP2jpQJ2+0MUf/8zPZMfPSj/Wx+0ZzqHSCSNaZf9b9OLDcMv8nb+IkWKBIDHa+gtvfTNUZGg==
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by BL1PR12MB5756.namprd12.prod.outlook.com (2603:10b6:208:393::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:23:04 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 10:23:03 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 03 Nov 2026 19:22:43 +0900
-Subject: [PATCH 5/7] gpu: nova-core: falcon: allow DMEM DMA transfers to
- request tagging
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-r000-fw-v1-5-e3d38fc130e3@nvidia.com>
-References: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
-In-Reply-To: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P286CA0128.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37f::17) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ 2026 10:22:51 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0569.011; Tue, 3 Nov 2026 10:22:51 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 RESEND 6/8] pinctrl: starfive: Add StarFive JHB100 emmc controller driver
+Date: Tue,  3 Nov 2026 02:22:34 -0800
+Message-Id: <20261103102236.96872-7-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
+References: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJXPR01CA0066.CHNPR01.prod.partner.outlook.cn (10.43.33.33)
+ To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,150 +94,190 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BL1PR12MB5756:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f105a0a-7197-4e84-9879-08df3994713f
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 947c3382-9da2-4887-94af-08df39946a1e
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|10070799003|23010399003|366016|261102123227099003|56012099006|261021121427099003|11063799006|261009223027099003|261022115727099003|261022075727099003|261026121527099003|261021123027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|23010399003|6133799003|10067099003|261102123227099003|22082099003|18002099003|3023799007|38350700014|56012099006|5023799004|261022075727099003|261026121527099003|261026140227099003|261021121427099003|261022105027099003|261009223027099003|261028144727099003;
 X-Microsoft-Antispam-Message-Info:
-	n8o3lNN/wLzFHKwOuJBW9fpKjpRfGAyX3fYOO4IKmsSW7sIuzW+iz7EGaSDOUfwpNQdlnsdqgyLtFarMQ/w70Nzc3StTGYJbB4Y3D0zyUs8o+3239zeFyyDflDmkPPIeSZ1zXvrUflzPtTfZi0qyYIpWv7XL+vRs3u63Prs71mjVJAk6dM/WzFq7y44fNeF+LceXDmR7+d6xBqMgz4WjMCHqdQmWTJCI1lqTgs69HR9apTFEjVndLBeXqbNBptN5+mZXhY2UkbGiZtKhi2cb+Lt0kJdLS8Vr9hsnmCfBNyUIxQFWR/B2IXWGlzN8rYhjbaYhyFLwwzoEgrETlR3hvIMTggfGIIwnX9sficlK+cUaRcZPm9innx60gikz/+Ma6terEuqzqDvG+0GEHihTo8oq1NV3BNfrl6vBTor2QYS8EhZSwwTTNSxROccElHm+G43EpSoLHQSQ8ieDeEFd2t0WwPnF5Zl2nzdL9MKMmBDYjVYQ/8dFhvkPZWAMPFff4aPn+1ViLon+ctSBJtki/H+DMTc/fd/yVK+vBZ8vw1rkqAR8NXQfhUL10zTILGfkXvuveJhbu2FUdb/Qa10atf4YDK7Pf+QJwwc2inI24Eec+a2EwDGfiY6Kr9d0BBLuXG6gq2uETiLU4bxuTLnPuLt7LT612J6ORfz4dej6abg=
+	JgdVdEC9L8plkJJN71MVJPSojghWREIQYPe+kbzi7C24gRTz4UFzbtx8wFsk2TV5xCg+jZq2hcTrmxHyINTDgnC7zmJz0JebfINH8OQAOCwR94F/x7MbfqsuCp+Feoqgyi3xjYKkGfTn+FAgnbIA0PdT6qFoW7gQUOKpYhqJsuhiDyXPYObiG/ac6bX4qk3OXpUVnY2uTgnv44owREp/WzBkyqb5DHy6lGWdBOe/kjR7n0c26ugCMyn7JhVEUlNPQYAPWSGIM0oXbY9m5FAYE8cMyzvK7iiK3VPSPJ2HL8ONExySGdtoINfKYSOWUK3/ZXE+BymH9nVwuTxGK8ZSzxSVlbzrf1uiUFDDeazBZilNdoiEDEZ8iCbWJ03c2LajRpFSa4RuPsZKMQcDS1HNbCppdimNwvHfvXLBBV+e9//eZLNujm53PEnJs94GVsMZIU7WJXAy+WJ5DSSlOVhiObyvObDTPSuBQOsiW9HdD9XruBQK41b5gYesGyNma1MTy/9rgb4n1VolW0CJMz3eeJfMZ4h8TiSvppQWSgqwvsQJgyzDWAeyUBi4Rr8GBSiU
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(10070799003)(23010399003)(366016)(261102123227099003)(56012099006)(261021121427099003)(11063799006)(261009223027099003)(261022115727099003)(261022075727099003)(261026121527099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(261102123227099003)(22082099003)(18002099003)(3023799007)(38350700014)(56012099006)(5023799004)(261022075727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022105027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a3N3VWxhUVdNRU5WZkpyS2lPSGFmT0pvbXAveGloUmFCalY2a29MQmRLWENn?=
- =?utf-8?B?L3E1TFZwS2c3ZWlmTWdMRmVFWnNFRlIzRWI4QWlLQXJjSTJsVVFJZE9jN2t5?=
- =?utf-8?B?OVdjQUE1MUFIOGhhN0JqYkFNSnQrVGpKK3hvMW1xR1p0cEJRdFl1UUJqN2Rz?=
- =?utf-8?B?NEpEZkZWRi9yd0JxTEo0eFVETTczQXNoOUlIenlldFlaOStraUZIQVRjWlY4?=
- =?utf-8?B?KzlUTTBiVlJNYXBCVXh1TFk4L0lrU21OYUVFb0o0WmxTbS9UM2FDTGpWWVB4?=
- =?utf-8?B?UEpzRWQ4VEFDV2k0NEVpSDQzUjFjUW1sSHBHaVEraEhLNEdaRlpRTWM0RzF5?=
- =?utf-8?B?NmZGUWhSODE4VFZ6THNwWWI2TzhNTnQySUxYNWhBa3BLNFJrM2t0UjlnM21Q?=
- =?utf-8?B?UHczelVlQ3EwMlkrMkdyS1FIbDlHTERMeXgyQ1p1RXN4djVCalJDUjUxUUNT?=
- =?utf-8?B?Z3UybWc3S0QyR29NSExVMVlXTkMwREMyQjY4YXlhNjNZYkVOWGhLRVd0Mmlz?=
- =?utf-8?B?MG1ERUJxZGFlSU8vUFBoeEhTUGpLUUJ5aEV6MzZsZy9nV3RvOXZUS2pFdFVx?=
- =?utf-8?B?T21FRTdoNXdQTjd4NlhVODAvUm5DemFqUzZSQW41VjdCM2FtR2Vzd09IMnY1?=
- =?utf-8?B?WFloN0pmL1k2KzdNUnM0TVFKc24rQXlvbW1WZzJ3eS8vTTZnbm5FanY4WVFu?=
- =?utf-8?B?Sk03RmJ0d3VINkxEeXEweHZFbEgwbzlPWHVwZG5vY3NraldWZERuQnIxdmx2?=
- =?utf-8?B?SEMvOHVvc3NNL2ExYTN2Y0pRMmUwNkNKakljMFZEU3FBNlZsVDNLUG4vTVN1?=
- =?utf-8?B?RUhxSUJOQUNOTzZKRU1BQnpLMERBbmVqWmQwL3pCUlpqSHFhZjRnaW1reGp0?=
- =?utf-8?B?VVB6aWcwWDZNN0FTNFBOVWVtWHdxS0I4eFFvc2c4eHFscGloMS8rVk96bHNk?=
- =?utf-8?B?U3BDVDFjS3ZkdWpZR1Rub0RISG5iNFF0aVhRa0M1bkpPT1VCNEF2d3BhUnc4?=
- =?utf-8?B?SkRiMHF4dkcxRStRdmhDN3BwU0dkNjRSaWJmNDJFZWhnSDl1dGUrK2Uwamh3?=
- =?utf-8?B?cVlyTFdHTmtpeUl2Y0Z0cXZ1N2c4WFgxRVpienhLZ241RFZpYmZDWDJ1b2lD?=
- =?utf-8?B?N0N5OVJsaTRxeVUyWEZXeGRHb0FFd0pZZG4ranh0SUdKSDdrNzJSOUJ5K1Rs?=
- =?utf-8?B?VmtKMGhBakRBaiszTjcwOFI3MllqQklMVklJbjh3WndCNXl0RFBFZTZINDZ1?=
- =?utf-8?B?eGZaRHM4N1pWRkpUQ0tDdzJRSHpIbC9KUWh1SURSYlpWMDhqb09kRnNQM0tk?=
- =?utf-8?B?aFZTWVB6RGlPSU56RllidTluNnowVjVGdkpIUEtsL29rS09aaStIWU1ZSEFl?=
- =?utf-8?B?cHc4SFc5NWZ3Uk5FVVZrMmdBOVZ0U0ticjh6YXJzNElEa3VRQXR2RnNNZUts?=
- =?utf-8?B?REhNa0xMNjNCNkxXTU1EOFNVb25rbnF3ZWZNM2dqY0tNejNrS0pyVllCeE1m?=
- =?utf-8?B?QzdFNUY0QktJdkFDNXlpcnFkVFpFQk8wS052d01SamRuUmcwcDdzNTVrejcz?=
- =?utf-8?B?cnQ1RXNORW9CQXlCMFVSRHlxQklEc0p6N25HWWRVMDhQSjVjbXFyeHVZMGUw?=
- =?utf-8?B?ZVZEL0xvN0pkeCtiZFpvdGJkLytMZGUxY0JEakpRaWtnY2VIRktJb3NjREVj?=
- =?utf-8?B?SjIzZ1ZyYmNiYnhsYUxqWFZFQkZIM0RsZUVuT2hjTVVNWFZJc0Q2cUxFWWhE?=
- =?utf-8?B?YnZCVGlxcEFOcXRVMFlkMzJUY0JUZUpSc09EMXlyQUFoa1VERWI4SW9hL2ll?=
- =?utf-8?B?VXV6T3BwUmI1N1BSMmM1SS9VSWpNcWhJTVpZNyttVWdNcjV5ZlZYV1ZTZ1hY?=
- =?utf-8?B?RFRZTmpyYjhHQzRXd3R2VFFmem1Sbm1LQlRRZ0w4MHdNQ1IyQ1J1SVdxeWhI?=
- =?utf-8?B?QzRJa25WQzJrNmdEQUdnUEZQUWwzTGE3LzBTWDY5Y0tSRm5ieWJ0WENaR2FE?=
- =?utf-8?B?YUpSVjBoNXVNdmVENG1YdGovUE9RRFhmN1lxYzlrZmdpUzdvaW1TUk12MTFp?=
- =?utf-8?B?YzNSNXgwN0dBaG4rMUdaVWlaeWh6MGU5WFJhOWpKSkROYjNQVW4vbFc4QVpw?=
- =?utf-8?B?b1BUeG1ucGIxNUJzaWhtVWV6MmxoTGlrcXVWN1pPcS96UGhucTFuSmtkSThk?=
- =?utf-8?B?NWdFbDNVejZ5a1hMcHhZclhZdWJxaG5adDJrVC9XdFRZRmpZNEdxeEsrNkxG?=
- =?utf-8?B?UFh3S214aURhZUlmMDVuK2RkODFCbjIzZUJjQnBRT2lDUVBCb1ZPNVZ0TU4x?=
- =?utf-8?B?dE1XV3hoV3Nqejl6UjA4aGw1SjVpcXhjTUJyT2hzc0lSaEVXeWs2eXdHZnla?=
- =?utf-8?Q?cIRsPGwXlh1eYS0ZaHffRW3+H4t9r3zUlqzTEBZ8HnAZn?=
-X-MS-Exchange-AntiSpam-MessageData-1: 1a0E3/QVS3f1iQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f105a0a-7197-4e84-9879-08df3994713f
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+	=?us-ascii?Q?S8BmOqppeXyn5gRqof7+QxpRuTbY3rMv7BlYSM9NPKU4rjnDdSlRMR7NU3TO?=
+ =?us-ascii?Q?F0RGHRjtuvGi33WMnYoQTYBLPJ0mssJbWFCO/E7zpDmeEq6slcZExk9s42ys?=
+ =?us-ascii?Q?85TvL1dkw4z9RZ/X8HTNT6tb+FNpNWpH+Z4pkoijElwsG8lBrWMa7Mi6Zjs7?=
+ =?us-ascii?Q?r81EXpu58JCplhk42E6t11VGnOO8JzAusKZpQqZ9qwJhG+vVyq+JxCHR3dnm?=
+ =?us-ascii?Q?YJb2fXSZ6c7NARhsIS3k8zErJ8MoJxg3TJjLsXNeoFLpGthDUzm/FO9BtSAo?=
+ =?us-ascii?Q?gc2M12JPqcqSPHo62kkcr5jY6X7tsAgACOxpUvBXQHNFAXvbFblalsjGvWHq?=
+ =?us-ascii?Q?lhB6AwB7od4W9/qOcNjR+WDDtCNQTb8SZlxJsSUn36mCfXIG6Sebwo2kkZl5?=
+ =?us-ascii?Q?03D9ziL1493yYsW5IEh0KZq3WFh4h2FnPhUmwwi3vFp+hKw7AICb/Gfp9sbb?=
+ =?us-ascii?Q?fDkaLsMOjK6jMBIy3Sv0hiCqqA0xr2P1W+RZd2WPxbq9MV+R01zv5vHOJLlc?=
+ =?us-ascii?Q?AEndr7yZ/epkP2DK/Px5f9UE6OrcoFIVXZxRWp0nVceIY+bmOzqm1bcwxIpb?=
+ =?us-ascii?Q?B31h443feHvE+kO3N/Ps1PnAEg+7pQQBCxfup9Z8pqiR6Mw3IRPEc0C+FaNA?=
+ =?us-ascii?Q?GTPycaurYCGvnFIw2F+SIJnKZGocZuDiAgvQ/pvNZw3i084dE2S6YyRCv3gO?=
+ =?us-ascii?Q?4T9KoCNipmaCR8sJOX8HWeCG6gDfTLRBoVuF+2ywByuE+XMfG/gyYtU0py4T?=
+ =?us-ascii?Q?hKLVN1UxKNOfBO3GxRNHL/LACDsLB48rC8k+PRN9s91plj0dGj53YyHMMZKI?=
+ =?us-ascii?Q?gfZ19QVLitWgEDUiThPp8R0vOvSYtlj3SmkBv6Y2Hj8tMDuLwqjSfE80oHF4?=
+ =?us-ascii?Q?BAoMavlT/myCf9yjcKBvwbsPh1NoyaE7kzzvF5Sz4Jowj/dH9Ih3s0cSeGjR?=
+ =?us-ascii?Q?DA+MqsTvstnVzKa4nX4B4mzn5LGxQplgWLqE/aidHIkyYMADUS/j/71hTIG5?=
+ =?us-ascii?Q?M8PTM/Jyi/PMX5YavgHHcHQDroK8fGl0iO8jhcg3uOxbqmephHZBn33Uuet+?=
+ =?us-ascii?Q?7rmK6xsoanHMHY0yuoRhiuqUMm6Zq0YXlCjoFgsLZtH8GDiqVOgSQXIGdz4/?=
+ =?us-ascii?Q?q3b8ASmIPcOvTnhkZnyt0aUcXjc/zcqfxYJ+h+hfemVkgR6BqwSCDx7BRYJ1?=
+ =?us-ascii?Q?gqY3CyTe3wY8BbQ/M20ZNWbHBqkfk1BiXFZ0XKOBQ8wtT89+PYYgmhZ96nAH?=
+ =?us-ascii?Q?MMMaRzye4wYFrampgb2hm0f7bZOoWsZ22RwHAU74cwxtb+5PEjSe6xK/nBb+?=
+ =?us-ascii?Q?n2SO7hNyMNsE2vDfiY1m7YkTeT9KXKVG+dneTiA1AlufJ+hVeom3pcKkMFD2?=
+ =?us-ascii?Q?5VsJBwZ/Np1ZVwm+5H7wohvgyAxvekDkF4Avr/Gb7PER5TFyVIfBZzMP+aw7?=
+ =?us-ascii?Q?M3+lCJxIm4LpJ+wf0dZ0P3NCZIdoOZWMVps/2qOLFhMu3OlrPck03Ic7LbWZ?=
+ =?us-ascii?Q?KSW/ceNX0ve+8Hc+Qgxeli21KO6eL0RzGEmdOlJtpSZz2LngpjnxE35OMegm?=
+ =?us-ascii?Q?/sncFrWc2VhCufVJJIf8N2n/0PWmsbuLvhC9JH0DpnVpaOqR+10zfj89/UDS?=
+ =?us-ascii?Q?DbLeJVQsb50wVs1uDG5TTl4UFa5Am+gRovtN2hERmCptTkA+WRyWoooAGIxe?=
+ =?us-ascii?Q?6kJqhcrDIxppIbEioHnBe5cKZzqcxWXQ26R7SBZekJUgGM0te8/pO0A6Qwdp?=
+ =?us-ascii?Q?sn+fGGSWTvAwJaxnUuzW/cxRhtU6W3EJu4z4TPmIBuSRT9/s7eIc?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 947c3382-9da2-4887-94af-08df39946a1e
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:23:02.8949
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:22:51.0490
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WG9Dha9y+1ooGnaHT42EeHTvgKetbJwYPLPhNbYt70KCkufEq9qs60W474cNG+kzlPlfBdGPM9T+gL4sfe98Jw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5756
+X-MS-Exchange-CrossTenant-UserPrincipalName: BDyd9+aK/HpgxbpvyNvMmSAak0IlI7dm1x+0ekP4dyG6NDL2nspEOg0b1leLvkqxc2RYcRF37hIhCFytVFcG8IeNwPuZ+n3EBweebqES61EY/ACzFrmsLnnpV4+PyT6y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
 
-Add a tag flag to FalconMem::Dmem and set DMATRFCMD's DMTAG bit from it.
+Add pinctrl driver for StarFive JHB100 SoC eMMC(emmc) pinctrl
+controller.
 
-This is needed for the r000 load-and-execute event which specifies
-whether DMEM should be tagged or not.
-
-No functional change intended.
-
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Signed-off-by: Alex Soo <yuklin.soo@starfivetech.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 ---
- drivers/gpu/nova-core/falcon.rs | 20 +++++++++++++-------
- drivers/gpu/nova-core/regs.rs   |  2 +-
- 2 files changed, 14 insertions(+), 8 deletions(-)
+ drivers/pinctrl/starfive/Kconfig              | 11 +++
+ drivers/pinctrl/starfive/Makefile             |  1 +
+ .../starfive/pinctrl-starfive-jhb100-emmc.c   | 77 +++++++++++++++++++
+ 3 files changed, 89 insertions(+)
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-emmc.c
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 1bceb38c33c6..f48f2eabab0f 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -131,8 +131,9 @@ pub(crate) enum FalconMem {
-     /// Non-Secure Instruction Memory.
-     #[expect(unused)]
-     ImemNonSecure,
--    /// Data Memory.
--    Dmem,
-+    /// Data Memory. If `tag` is set, a transfer into DMEM also tags each block with its source
-+    /// offset, which is then the DMEM virtual address of the image.
-+    Dmem { tag: bool },
- }
+diff --git a/drivers/pinctrl/starfive/Kconfig b/drivers/pinctrl/starfive/Kconfig
+index f869c474fc50..76f2d59e8a8d 100644
+--- a/drivers/pinctrl/starfive/Kconfig
++++ b/drivers/pinctrl/starfive/Kconfig
+@@ -76,6 +76,17 @@ config PINCTRL_STARFIVE_JHB100_ADC1
+ 	  peripherals supporting inputs, outputs, configuring pull-up/pull-down
+ 	  and interrupts on input changes.
  
- bounded_enum! {
-@@ -529,9 +530,9 @@ fn dma_wr(
-         // code addresses in the firmware (and the boot vector) are virtual.
-         //
-         // For DMEM, the start offset is folded into the DMA address.
--        let (src_start, dma_start) = match target_mem {
--            FalconMem::ImemSecure | FalconMem::ImemNonSecure => (load_offsets.src_start, 0),
--            FalconMem::Dmem => (0, usize::from_safe_cast(load_offsets.src_start)),
-+        let (src_start, dma_start, tag_dmem) = match target_mem {
-+            FalconMem::ImemSecure | FalconMem::ImemNonSecure => (load_offsets.src_start, 0, false),
-+            FalconMem::Dmem { tag } => (0, usize::from_safe_cast(load_offsets.src_start), tag),
-         };
- 
-         let dma_address = {
-@@ -568,7 +569,8 @@ fn dma_wr(
- 
-         let cmd = regs::NV_PFALCON_FALCON_DMATRFCMD::zeroed()
-             .with_size(DmaTrfCmdSize::Size256B)
--            .with_falcon_mem(target_mem);
-+            .with_falcon_mem(target_mem)
-+            .with_set_dmtag(tag_dmem);
- 
-         for pos in (0..num_transfers).map(|i| i * DMA_LEN) {
-             // Perform a transfer of size `DMA_LEN`.
-@@ -625,7 +627,11 @@ fn dma_load<F: FalconFirmware<Target = E> + FalconDmaLoadable>(&self, fw: &F) ->
-             });
- 
-         self.dma_wr(&dma_obj, FalconMem::ImemSecure, fw.imem_sec_load_params())?;
--        self.dma_wr(&dma_obj, FalconMem::Dmem, fw.dmem_load_params())?;
-+        self.dma_wr(
-+            &dma_obj,
-+            FalconMem::Dmem { tag: false },
-+            fw.dmem_load_params(),
-+        )?;
- 
-         self.hal.program_brom(self, &fw.brom_params());
- 
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index b7070282d692..cba080ccaab2 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -323,7 +323,7 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
- impl NV_PFALCON_FALCON_DMATRFCMD {
-     /// Programs the `imem` and `sec` fields for the given FalconMem
-     pub(crate) fn with_falcon_mem(self, mem: FalconMem) -> Self {
--        let this = self.with_imem(mem != FalconMem::Dmem);
-+        let this = self.with_imem(!matches!(mem, FalconMem::Dmem { .. }));
- 
-         match mem {
-             FalconMem::ImemSecure => this.with_const_sec::<1>(),
-
++config PINCTRL_STARFIVE_JHB100_EMMC
++	tristate "StarFive JHB100 SoC eMMC pinctrl and GPIO driver"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select PINCTRL_STARFIVE_JHB100
++	default m if ARCH_STARFIVE
++	help
++	  Say yes here to support eMMC pin control on the StarFive JHB100 SoC.
++	  This also provides an interface to the GPIO pins not used by other
++	  peripherals supporting inputs, outputs, input debounce and interrupts
++	  on input changes.
++
+ config PINCTRL_STARFIVE_JHB100_PER0
+ 	tristate "StarFive JHB100 SoC Peripheral-0 pinctrl and GPIO driver"
+ 	depends on ARCH_STARFIVE || COMPILE_TEST
+diff --git a/drivers/pinctrl/starfive/Makefile b/drivers/pinctrl/starfive/Makefile
+index cc8ce1e67d4b..d570b192b260 100644
+--- a/drivers/pinctrl/starfive/Makefile
++++ b/drivers/pinctrl/starfive/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_PINCTRL_STARFIVE_JH7110_AON)	+= pinctrl-starfive-jh7110-aon.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100)		+= pinctrl-starfive-jhb100.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_ADC0)	+= pinctrl-starfive-jhb100-adc0.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_ADC1)	+= pinctrl-starfive-jhb100-adc1.o
++obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_EMMC)	+= pinctrl-starfive-jhb100-emmc.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER0)	+= pinctrl-starfive-jhb100-per0.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER1)	+= pinctrl-starfive-jhb100-per1.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER2)	+= pinctrl-starfive-jhb100-per2.o
+diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-emmc.c b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-emmc.c
+new file mode 100644
+index 000000000000..32f8c141133b
+--- /dev/null
++++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-emmc.c
+@@ -0,0 +1,77 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Pinctrl / GPIO driver for StarFive JHB100 SoC eMMC domain
++ *
++ * Copyright (C) 2024 StarFive Technology Co., Ltd.
++ * Author: Alex Soo <yuklin.soo@starfivetech.com>
++ *
++ */
++
++#include <linux/platform_device.h>
++
++#include "pinctrl-starfive-jhb100.h"
++
++static const struct jhb100_pin_layout_desc jhb100_emmc_pl_desc[] = {
++	{ .pin_start = 0, .pin_cnt = 12, .name = "gpio", .gpio_func_sel = 0 },
++	{ 0xff },
++};
++
++static const struct config_reg_layout_desc jhb100_emmc_pinctrl_crl_desc[] = {
++	{
++		.pin_start					= 0,
++		.pin_cnt					= 12,
++		.fields[PAD_CFG_DEBOUNCE_WIDTH]			= { .shift = 0, .width = 17 },
++	},
++	{ 0xff },
++};
++
++static const struct starfive_pinctrl_regs jhb100_emmc_pinctrl_regs = {
++	.func_sel		= { .reg = 0x3c, .width_per_pin = 2 },
++	.config			= 0x00,
++	.output			= 0x30,
++	.output_en		= 0x34,
++	.gpio_status		= 0x38,
++	.irq_en			= 0x40,
++	.irq_status		= 0x44,
++	.irq_clr		= 0x48,
++	.irq_trigger		= 0x4c,
++	.irq_level		= 0x50,
++	.irq_both_edge		= 0x54,
++	.irq_edge		= 0x58,
++};
++
++static const struct jhb100_pinctrl_func_maps jhb100_func_maps_emmc[] = {
++	{ .func = "emmc",		.val = 1 },
++	{ .func = "gpio",		.val = 0 },
++};
++
++static const struct jhb100_pinctrl_domain_info jhb100_emmc_pinctrl_info = {
++	.name			= "jhb100-emmc",
++	.pl_desc		= jhb100_emmc_pl_desc,
++	.crl_desc		= jhb100_emmc_pinctrl_crl_desc,
++	.regs			= &jhb100_emmc_pinctrl_regs,
++	.fmaps			= jhb100_func_maps_emmc,
++	.num_maps		= ARRAY_SIZE(jhb100_func_maps_emmc),
++};
++
++static const struct of_device_id jhb100_emmc_pinctrl_of_match[] = {
++	{
++		.compatible = "starfive,jhb100-emmc-pinctrl",
++		.data = &jhb100_emmc_pinctrl_info,
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, jhb100_emmc_pinctrl_of_match);
++
++static struct platform_driver jhb100_emmc_pinctrl_driver = {
++	.probe = jhb100_pinctrl_probe,
++	.driver = {
++		.name = "starfive-jhb100-emmc-pinctrl",
++		.of_match_table = jhb100_emmc_pinctrl_of_match,
++	},
++};
++module_platform_driver(jhb100_emmc_pinctrl_driver);
++
++MODULE_DESCRIPTION("Pinctrl driver for StarFive JHB100 SoC eMMC domain");
++MODULE_AUTHOR("Alex Soo <yuklin.soo@starfivetech.com>");
++MODULE_LICENSE("GPL");
 -- 
-2.56.0
+2.25.1
 
