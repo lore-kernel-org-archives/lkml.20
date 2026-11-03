@@ -1,101 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793710978;
-	b=SEUYH10RmmywVU1GHC09hBqsGpmSkUQ8mg+qUxp37d18ToKgZ+ehxqOpEg6JLIVE07rl
-	 WH+JbJAAdb4+Y/HbTwHfeI1DBNirExdYIrrutJ9EgMGJ80WTYy3iYovuQFsidDwS+AYRY
-	 4cnf9z8H04t7ohL7is4akkgWZ+0+6tymuPXHmdhOQuGECoAMdPLfz+Q1SQTE5woiItfPC
-	 c6Dnuu4P0TNjwdwaooiMIekrJhalz2N0rVn2pvUP2JblIaCote0D7JMPyN5v+xVWkGodp
-	 ensTi6CYNgCOx0KCFcZwHkh7dTQs1X/H0/57G55POk4cynUkwrXSPyF/1fs5sLFKp4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710978;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=on37PXbM7L/a+kn8oZoA/9dm3L7FCQljHg4Hf4R0FgM=;
-	b=DH/LQglCHyh9ELXK0EQcpDhW7x4SYhqz7SRlmXtoZX2aInzoj9NeaQuLxZ97X0HsXU2G
-	 /y0lDoCtkY6kARudrAmSpeE4AmOh/uzA0pFsn509KgripZZxcF0DMOgIljC6JhflWwz2g
-	 4EZ3678Vq7RN03AXf4GllK7SbbRRWBYVTOT8LRUm11jHxBNVd/nAkbTXbKK3Yazvqi6vx
-	 u8/Zny6ZEFDTBgPRkUIoCjm4TuOoNm6oWgErLilHXkV4oogOiJcbyUP5jdCPjWJwzpjTk
-	 jBHLs5VbfWzb+yMKbCyYPoWpNkgLk0n6nCRIpffg4pL3CK8p2D2vJla2H/VMxojhwVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v0J1OrXe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793711016;
+	b=OQArUklV9X3CEls1pCRi6Pof/9kmPvzMydtkj+XU4Rf4eDc/4OMfzs7RLkk/WtEcceji
+	 LgXCM/qPr5EZIckZlhTAq5DqjcGYQOoW70b2/8Qn8ejIHxY4A9JR6dfpJg7OwHV8Mkneb
+	 bdbuuEoUNldClIObKZTm+JfKJSz3kwlhdK4iw5b8DZlDQEof67fLZOvR4L0BkOGXwInnE
+	 uNW/0doQwwhnkBoqqdUeb1Vwqdvhff76Mw01DIBS42myFi6hvfam0xURaCuJjw3Xc7EO1
+	 lSQe4xTv05vrsFTlCReoaE2y9T16int67T44xe5F1zmksF4QDG3g/f978WaFhC6yegQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711016;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0P+ytSK0bOW8b158bPuMgr0LCfs97gULxxvFrsgq9Wc=;
+	b=wf6LyI4S1yvCTu8RHQoBjtC+14l4K3I3Jir10y6krr8bLgCrul0rsXgI121NX+p3CWnc
+	 typLoiqY+vxdK/FgVrfywcHvCMF4mh+B07xg/YhmD+2EjEi1iWmHOo0v9gD3kbb4NKuW8
+	 5Bc8J69goJ/XrvNhw2WfVHaSAeJZuJ4iXA4CJsTvAwlHVsVFl9CHoL/CCtz7TicL5RqBc
+	 DangsWa2cdGGglG+H/LV+hTwiKM4wrvqTrbkOjZXEbh/1ETpOKtdJyKMTOpwHSFRJSw1c
+	 MDJBnHrQ7dUqQTpLvQIoIXcPGGNfXaDGGpebcAlsiBKS5rCI0YMMXepQLYM9PU5oCJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=dmcrOp8T;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25428606A327
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25428606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3250606A324;
+	Tue,  3 Nov 2026 13:03:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3250606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v0J1OrXe
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91befe703c4so39807796d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:02:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793710977; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gYzSc1+Egn5iB7VBy4pSa4WpbLZn7F+7FE48C+iqiAumvKqtUM4vqHTaddJNZWIBo2
-         MQoCbnRIREAmzXVkIlVaHVn4MOgDXmJ6xIgrWmVY1Mf0FdqILlqJCP+jaBaOpcHJOdV/
-         ydDCVKeBOBWgbroOa4vGVpvV4z6mflPvcQcW4WfgF3F7Oj+dh5yZqlmlmc4PAz1YDbJm
-         Slng1mXR9oBFqmYmaMZ29s1QFYltN7NVGkaFX5gJGV2qiqb7SnSRIeRL9Y/GQCY/Tk9K
-         kguzWHUoyFV/3X5v02cknsqpm4S3JfOrag3XKuZmRGjGDnYmsw40eEq08pzvhMTpjJLt
-         LHaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=on37PXbM7L/a+kn8oZoA/9dm3L7FCQljHg4Hf4R0FgM=;
-        fh=Qyk07H/5/Cx82L0ccIWbEwqdj22LCNGuIfn5P4Jr13g=;
-        b=clIUOMknLIAkhLDB8nlcSNFL477lUq1cgOV/eb6vI5uCcKKMgbGgV8x7unSuWYYv74
-         M7Miylphttff9frO5bjTz48IPn873rY4rPvTNLBZPmWPatzIZ1d6aYHSsGC74W/0P60c
-         /sWVHtNh/2z1jbcMfaeu1At56vaQPpQBfiGmyrF245UNP5XjSDEEpyTbCPMy6ckbhSYL
-         fY2gKI3MM6mCl6y8ohf8tPEE79p8qXeuj6k/CNaAIX9z9qYBwQJ+sptb5a4kAlvetYv2
-         NGyPh1NCRz1kengAv2VXE8+qZzIGA8dxNA18qqNGF95a5q/uEaffBhsHO/TaYqS21/3i
-         kSzQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793710977; x=1794315777; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=on37PXbM7L/a+kn8oZoA/9dm3L7FCQljHg4Hf4R0FgM=;
-        b=v0J1OrXeUMPEmEEhT62ssZ3ErEq4u9Fiey81vE5lfj9wYme9hgrRMzBDKfKooflQgS
-         eZdeGpcj4iTjypeLMMbRFaCyvNzimAA43o2YWCrUDXmOy/uycVDcOiQfDTHF0QK7HrOS
-         djEB0ujJ5N+KMcZkV/NBlWQEj3Svm9CAadJvAqlkER1rmRsjH4fDc+yZ99JTr3xiF7aL
-         Ik7C0GrsEywAJcI4vzpqmn4duAKSCbpBxYWZmvPv3bSd1gmE6FuSFd3+dsOETkmXYcDb
-         jWFakBYUVgLmKIVcx+o3d2c1qaXlQ53LfuvK81EDJ8MP77oBRb5w9tKYMyfega1yQF1T
-         WfQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793710977; x=1794315777;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=on37PXbM7L/a+kn8oZoA/9dm3L7FCQljHg4Hf4R0FgM=;
-        b=lVrPJ6Z/82dtjPpmPd11B3epaoa8nn+LskKeM14pSwKVEnWILc4KRnXOVdwsJ03L6x
-         uG9NXJlkpjKY+sPrpbcwuz+rQiq5qr010aC6iLfNjmFQBIIYkfDwerT9+3AHjKVgalIB
-         5EMJ/z+5QNIplLNcPQ0n7OOggBv/Uhausyuh9omDhPG5yOtNzI8JkI+ZhgKKO4hqAHxy
-         WcQ5JJT0rO8+MSp6+rKbDFMhyYsI8zxuJPi/M3XUppCeDczepG2hTJnTxFg5LiSl69d6
-         TzDtNc1uILAnZ4JT7yTUeLki0YjZYNxyFgcT4j5mSrLab2Ff/Vrp4F11RA0CBifo1irT
-         VAJA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6jMzM99/FaFIWcoZGZll6zejAOcE2TpUu3HF7W7AzFA9CSKv+DNC1SEAgP94KQh0X8BpF9lRgm2p6XFs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b0ZSd4y01AgAwTFVJmFCFSprz7JXTt4bjOlyh+Q+YMrIsrY3j
-	DdJdGws9FGpnOoy2q3BeN6zfYnxj26cLBuUD2/Gpg/99qONJUGrp0yQLnBkWW4eYR6cTQLaUys8
-	qyIOpyOSUaBY09O44I8tzqLxLTMbWLpg=
-X-Gm-Gg: AYBFou2qtr/jMJRsf9oaZBGoaPkll7DAolHoz/KQ6lddKIbqy+BVtfQpMAf18rcJ5uS
-	Q4EhbSGPcQzDPUX7uuNrlKGD9AWsrFfEnfpCbc9vtZg7VOkRy2o0K2jmQI4kACwGIojvNhpIvh+
-	xai7eAfbe3U7J/NU6Xpg/rSh0gTGexjoylVmLQ+ycG2bUXBTtMkZHWFg2i2uhxstkIvvHdk5HVh
-	MEpQ/zA0vVPAAZTh2VN/87+UtQQWTakA3iGBrqwJ4JjgyLRRb+Pdnhe3Mpdycyckh/zIFj17TT1
-	qjo1Z7klaPfz2zbXGuYHZhCiy/aQ8S+6wjK4PuMd0aVi8zOmIhXS/nGB1qrkr3Z9KmU7EHTWl2p
-	gdIGOKXtgawpqT6ER6pgcYWDL1XhRMZ1h0BrYhDFUUrGUnY2erE4aVlHrWdnnEsFmv/CpqLgVQ8
-	5h/wXBwzxLuWQjNgRQBR+GCtzSlTJzQG6tHNmjLYnkVbt245zrRzPcchRwNbY8WFGpuMi+0dfer
-	U/c9a1v7Q3EXP81w3yXNbA=
-X-Received: by 2002:a05:6214:4a89:b0:91b:9352:15d0 with SMTP id
- 6a1803df08f44-91ca4bad090mr196643286d6.35.1793710976699; Tue, 03 Nov 2026
- 05:02:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=dmcrOp8T
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=0P+ytSK0bOW8b158bPuMgr0LCfs97gULxxvFrsgq9Wc=; t=1793711013; x=2109071013; 
+	b=dmcrOp8TA3J/XsF6LBhqxZp6Zmp5phaf5KUuNbbbCTnHWSejPqerAhUSqmhehK8r5bJUFqEfC1T
+	Z+FllVAwBABaZw/5YS073xy4ga2l07uRGA48eZP8HMhfPDdA3zQxDEbhrScJ1IR9S2dT+LY/s/78p
+	xunRy03tI0JpxjxQWGK/FJTQmvjx7omUvjGRYVkwhlQgi/ClYUVAOe3nayVcKrceCUST7XUpxdqxz
+	066ySTHV5E530equUjV+4pPeW7BaSaAZHyxwARbGFt8rvZH5NQQyuXzZepKKAfumnSN+DlMiP8GVL
+	OQ9WKjOoddQIO8lolju4xVyhdN1b0tMXy1SA==;
+Received: from [177.172.122.137] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xOEAb-001Ea8-LM; Tue, 03 Nov 2026 14:03:21 +0100
+Message-ID: <8b8f7eee-96bb-432e-aab0-a76ec727a60f@igalia.com>
+Date: Tue, 3 Nov 2026 10:03:27 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,34 +57,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029123611.1108424-1-ruanjinjie@huawei.com>
- <20261029123611.1108424-20-ruanjinjie@huawei.com> <CAMAsx6c655ZN6YkwCSmgo9rdddUG9sjYQE_1XQi6=J=i=7N_Jw@mail.gmail.com>
- <432a92de-bd62-4d89-b0b8-3e89086660e0@huawei.com>
-In-Reply-To: <432a92de-bd62-4d89-b0b8-3e89086660e0@huawei.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Tue, 3 Nov 2026 10:02:45 -0300
-X-Gm-Features: AclHuK9p5bXr6svQ6FTPGus5f_ZqQ_8eDBEs8TppHm5Lc6glYTBwkJFMiYpPjIg
-Message-ID: <CAMAsx6fCiTLSPpbOPW9nh1rmqLEzy6i-YjK5BzhtmRq4nBykjA@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 19/19] Documentation: arm64: mpam: Describe the L2
- monitor events
-To: ruanjinjie@huawei.com
-Cc: reinette.chatre@intel.com, james.morse@arm.com, ben.horgan@arm.com, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/futex: load atomic values before harness
+ comparisons
+To: Sasha Levin <sashal@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Darren Hart
+ <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Nathan Chancellor <nathan@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ llvm@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261014200147.1364987-1-sashal@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20261014200147.1364987-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 05:59 AM, Jinjie Ruan <ruanjinjie@huawei.com> wrote:
->
-Hi Jinjie,
+Em 14/10/2026 17:01, Sasha Levin escreveu:
+> Clang 21 rejects the harness comparison because typeof(*futex) preserves
+> the atomic qualification. Load the value explicitly in the three affected
+> assertions so the harness compares unsigned integers. Atomic access and
+> its existing sequentially consistent ordering are preserved.
+> 
+> The baseline produces three invalid-operands errors. The complete futex
+> suite builds with Clang 21 and GCC 14 after the change.
+> 
+> Fixes: 608323bf7bb8 ("selftests: futex: Add tests for robust release operations")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-> This is an outdated message leftover by mistake; please ignore it.
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
 
-Thanks for clarifying. Will the commit message be fixed in the next
-version, or will the patch go forward as it is? I ask because the stale
-sentence ("Say why a bandwidth counter is assigned for the life of the
-monitoring group...") would otherwise end up in the git history.
-
-
-Thanks,
-Daniel
