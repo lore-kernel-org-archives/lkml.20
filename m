@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793684249;
-	b=l7kfgVpbCQZSnJzwiZqHgtNEmqBCWdRAtRSD5XpcUV5OUQgqIv1pfD66Qvi98eA7xWuW
-	 d5COJSe2poilxRYGrGfEh0pkn7ljHcrSXsINYq8n16MoFzwu89NiLuQZs+I7nKcVsjk9j
-	 3VQAgwiOUHIu+Rp6gfg1FhH6VHdes+KYjpZswlVup/QeEkOJCUk0Qy+B99RYVc+Nig2Vy
-	 03FbpNNlG9Zo9BS1fspME0TBrXbu0W0ho1sCm+8MEd1jbVXfOKkCA6kcqXrP72BVsgiM0
-	 1dUlBWTYSMgsXPOArw65/DUf9MzHCCgb+5Br0el33ZdQY+A1XnoKQRu7GooMRW/sEaQ==
+	t=1793684250;
+	b=S0gvpgun81W4HHGg/6a8QGhlOp5WH5iQ/6Cma7xJfVZQj+7sn6cLLNNxeTcpidIA704W
+	 fUiNpCGNl2UVMR38JMa6Gupq+MZfS9sEOhNLg0O6xKif/J0Dca/okxUQybUvMS+WSLidg
+	 3kaalcO0tHKJnelicyP0uPkvaMAvT8N7aHSWlo3rEs3Sho9KXSICQNLS8WSQmFjmZk3EE
+	 n1qAuk9zA9pSQgmXWsHhxztrAMwQk0qWkeu4Rt/X8umXlL7SClpP83wKfoWDvYIOjwiEp
+	 BnpDEPyY0exFXyxwXEucn7/UCLy3BbAc9A3zLd9LnrioID93QMJWNrZ/n+k7ic5SVTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793684249;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=1SUHukhOZD2PvxvVE654q0jDC0/+kYhMEDgWdq91p3s=;
-	b=heiP7pU56KqXnx1iwXrr9fbMHycHbo30wXREOqIdRfYxGjvXTZJgzQBttAC+7RtdqKr2
-	 LT9tzgyHYXc2S5wCKu+viyfXEuYY3N4iswksEnh3G5g+UYBzPFMjkOF4PnRpYO06flmwY
-	 aAIbVVsuy/y9mPqFFUNhqgcjquMZ8M+tXu7Zy7jqJBUQFzQ8m3NWsjg0GdQwYaqPggSyF
-	 IclDPoFSm01daAT+9fpc16X7WIJ8x9QxeFBLS65Iw5aXpjLohxVWf8vg3pdjqdf8r32cy
-	 0POi5xGpAb9LsrQzjPyqXiSkC2rsn3QneKVp48TO+idMTbKIRv9jzpmL7gDG9DrrpCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793684250;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9N045PGX72xkHaVesJTSxEo5HdRSWDD+P7HKyru9AE=;
+	b=asIT0HdK/gqbk21eWuMGYHkrIXi2LdTVe8w9h+uxvMdoeYt0l9iln5PLsPhkJSb6LYG/
+	 vNy7FRQyIg2Ryox2B8fa9ZfYEq3MHWmnIQpEdrqAGwM3TYTYLMGrdY7ThyDE4GZ27lgjM
+	 kubuzfoQ6o9DdsZr01Zo688Ls3UiqKRnRswj90ogaObfwmNpzxu+jo9zCjqh7ts+729t4
+	 BhgcbQ/dzUcC4dW/WMGgSakK/hVc4vcl3RVmi1btSJ4cIwle3fQAcmAnM1gn66NQNBARE
+	 uZ4rusRferV6h1+aWSjTwrSohysRCgMnLvqTISvb83TKOGosce97EXpddENY6dm/Y5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z+jH3h5+;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxZDhmJD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4B4606A324;
-	Tue,  3 Nov 2026 05:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4B4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68B2606A32E;
+	Tue,  3 Nov 2026 05:37:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z+jH3h5+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1S
-	UHukhOZD2PvxvVE654q0jDC0/+kYhMEDgWdq91p3s=; b=Z+jH3h5+Mqutwxst4m
-	qYje7Uo1OEQ+LrKJjtfbVj173XF4EzTZGSkhcmr5DKs4vpI85aTyXzHGnn9eNQFs
-	Jseca0Orfh2lkWEtRuH/ZOYmFpWN71IrtJWnyXCHakmCGtCjrGgY3sIDOLPhtGQB
-	kr6fCwq3RQCoehqTJdOokbcOk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCXSZPSculq7ZSvDg--.17660S2;
-	Tue, 03 Nov 2026 13:36:34 +0800 (CST)
-From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Len Brown <lenb@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Robert Richter <rrichter@amd.com>,
-	Ben Cheatham <benjamin.cheatham@amd.com>,
-	linux-cxl@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6] cxl/core: Create EINJ debugfs files regardless of EINJ init order
-Date: Tue,  3 Nov 2026 13:36:18 +0800
-Message-Id: <20261103053618.884065-1-yangyongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261102032436.230945-1-yangyongxin@kylinos.cn>
-References: <20261102032436.230945-1-yangyongxin@kylinos.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxZDhmJD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FBB1F000C1;
+	Tue,  3 Nov 2026 05:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793684249;
+	bh=Z9N045PGX72xkHaVesJTSxEo5HdRSWDD+P7HKyru9AE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fxZDhmJDNgRkKuV+/q/ETsgBgdTezFC5dL54nTcUZSNJKF6wHleyKFQaecX6MqT4g
+	 LZJ7vMFd5AkEs3KbKy6gn+VDH2Kg5eB2BbRQ77CPUBP7i5ODD4e9IXCkRCAtcplFje
+	 1oTMxLOhFWjODDYq2T6vKjTyl+MOVd6stGmArTngl1MbvbHTZZwaZhCAp8b1U255lj
+	 RH/3k7cHlawE8jiZvVwytCbAvro6g4rsn5dnrg5+Z5StuMvuIbmhMZsHQqmVSGodCA
+	 OXh356L09rVispOj/3PTtcobSipo8ZO0fFwtLyfInvL60/CeXPHykHJXA+gzNESIBu
+	 q/wmq6i/rlUfw==
+Subject: Re: [PATCH net] selftests: drv-net: pause: Skip support tests without
+ link autonegotiation
+From: netdev-bot+sashiko@kernel.org
+To: mohsin.bashr@gmail.com
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ maxime.chevallier@bootlin.com
+Date: Tue, 03 Nov 2026 05:37:28 +0000
+Message-ID: <179368424817.488856.1260070865221347541@kernel.org>
+In-Reply-To: <20261030173516.1002250-1-mohsin.bashr@gmail.com>
+References: <20261030173516.1002250-1-mohsin.bashr@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,95 +64,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCXSZPSculq7ZSvDg--.17660S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWFykZrW8Jw45ArW7uFy5XFb_yoW5ZFyrpa
-	1DC3sYy3y8Cay3Cry3Aa4UZFySqwn5Wa47Ar98u343AF4kCrn8GFn5ArWY9ayDWFs8Ja4F
-	q3WYyr1DCr1Ykr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTUDJUUUUU=
-Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC4wPph2rpcuPufwAA3N
 
-The einj_types file under the CXL debugfs directory is never created when
-cxl_core is built in.  cxl_core_init() runs at subsys_initcall level, while
-einj_init() registers EINJ at device_initcall level, so the
-einj_cxl_is_initialized() check in cxl_core_init() always sees EINJ as not
-up yet and the debugfs_create_file() below it is never reached.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Change the file creation condition from EINJ being initialized to a compile
-time check for ACPI_APEI_EINJ_CXL and return -ENODEV until EINJ is up.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-The same check also guards the inject files under every downstream port
-directory, not just the RCH ones.  Gate that directory creation on
-CONFIG_ACPI_APEI_EINJ_CXL as well, and check einj_cxl_is_initialized() in
-cxl_einj_inject() to reject writes until EINJ is up.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
-Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
----
-Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
-Link: https://lore.kernel.org/all/7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com/
+- [High] The fix is incomplete.
+- [Medium] The new require_link_autoneg(cfg) call in pause_test_support()
+  (pause.py:469) now runs before pause_setup()'s guard for devices that…
 
-Changes in v6:
-- Apply the same compile time check to cxl_debugfs_create_dport_dir() and
-  move the runtime check into cxl_einj_inject(), so the inject files under
-  the downstream ports are created as well.  This is not RCH specific, all
-  downstream ports are affected.
-- Reword the commit log as suggested and drop the parts that the code makes
-  obvious.
-- Drop Cc: stable and both Suggested-by tags, move the lore links below the
-  git marker.
+--
 
- drivers/acpi/apei/einj-cxl.c | 3 +++
- drivers/cxl/core/port.c      | 7 +++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+selftests: drv-net: pause: Skip support tests without link autonegotiation
 
-diff --git a/drivers/acpi/apei/einj-cxl.c b/drivers/acpi/apei/einj-cxl.c
-index e70a416ec925..22a7eb4dc75e 100644
---- a/drivers/acpi/apei/einj-cxl.c
-+++ b/drivers/acpi/apei/einj-cxl.c
-@@ -30,6 +30,9 @@ int einj_cxl_available_error_type_show(struct seq_file *m, void *v)
- 	int cxl_err, rc;
- 	u32 available_error_type = 0;
- 
-+	if (!einj_cxl_is_initialized())
-+		return -ENODEV;
-+
- 	rc = einj_get_available_error_type(&available_error_type, ACPI_EINJ_GET_ERROR_TYPE);
- 	if (rc)
- 		return rc;
-diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 625e4aa427db..a949228de936 100644
---- a/drivers/cxl/core/port.c
-+++ b/drivers/cxl/core/port.c
-@@ -806,6 +806,9 @@ static int cxl_einj_inject(void *data, u64 type)
- {
- 	struct cxl_dport *dport = data;
- 
-+	if (!einj_cxl_is_initialized())
-+		return -ENODEV;
-+
- 	if (dport->rch)
- 		return einj_cxl_inject_rch_error(dport->rcrb.base, type);
- 
-@@ -819,7 +822,7 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
- 	struct cxl_port *parent = parent_port_of(dport->port);
- 	struct dentry *dir;
- 
--	if (!einj_cxl_is_initialized())
-+	if (!IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
- 		return;
- 
- 	/*
-@@ -2515,7 +2518,7 @@ static __init int cxl_core_init(void)
- 
- 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
- 
--	if (einj_cxl_is_initialized())
-+	if (IS_ENABLED(CONFIG_ACPI_APEI_EINJ_CXL))
- 		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
- 				    &einj_cxl_available_error_type_fops);
- 
+This commit calls require_link_autoneg() before pause_setup() in
+pause_test_support(), so the test is skipped when either interface lacks
+link autonegotiation. The goal is to stop cleanup failures on fbnic, where
+the deferred restore of unchanged link settings returns EOPNOTSUPP.
+
+> diff --git a/tools/testing/selftests/drivers/net/hw/pause.py b/tools/testing/selftests/drivers/net/hw/pause.py
+> index ca4a55e59c30f..1537f88e0e77e 100755
+> --- a/tools/testing/selftests/drivers/net/hw/pause.py
+> +++ b/tools/testing/selftests/drivers/net/hw/pause.py
+> @@ -466,6 +466,7 @@ def pause_test_support(cfg, pauseparams):
+>      supported fields.
+>      """
+>  
+> +    require_link_autoneg(cfg)
+
+[Severity: Medium]
+Can this turn a SKIP into a failure on devices that don't report link
+modes?
+
+require_link_autoneg() reads the JSON key directly for both interfaces,
+without checking that it exists:
+
+def require_link_autoneg(cfg):
+    ...
+    if not ethtool(f"{cfg.ifname}", json=True)[0]["supports-auto-negotiation"]:
+    ...
+    if not ethtool(f"{cfg.remote_ifname}",
+                   json=True, host=cfg.remote)[0]["supports-auto-negotiation"]:
+
+ethtool fills both "auto-negotiation" and "supports-auto-negotiation" from
+the same LINKMODES_GET reply. If the driver has no get_link_ksettings,
+ethtool still exits 0, but the JSON has neither key.
+
+Before this patch, pause_test_support() reached this guard in pause_setup()
+and skipped:
+
+    link = ethtool(f"{cfg.ifname}", json=True)[0]
+    if "auto-negotiation" not in link:
+        raise KsftSkipEx(f"{cfg.ifname} doesn't report its link modes")
+
+With this patch, require_link_autoneg() runs first and raises KeyError.
+ksft_run() catches that and reports a failure for all four variants.
+
+The other callers of require_link_autoneg() first go through the
+require_pause_supported helpers. Those check "supported-pause-frame-use"
+from the same reply. pause_test_support() is the only caller that has no
+earlier guard.
+
+Would using .get("supports-auto-negotiation") avoid this? Checking for the
+key and skipping would also work.
+
+>      pause_setup(cfg)
+
+[Severity: High]
+Does this fully fix the fbnic CI failure described in the commit message?
+
+pause_setup() always defers a restore of the current link settings. It
+does this for both the local and the remote interface, even when nothing
+will change those settings:
+
+    if link["auto-negotiation"]:
+        defer(cmd, f"ethtool -s {cfg.ifname} autoneg on")
+    elif "speed" in link and "duplex" in link:
+        defer(cmd, f"ethtool -s {cfg.ifname} autoneg off speed {link['speed']} "
+                   f"duplex {link['duplex'].lower()}")
+
+pause_advertising_test() and pause_aneg_resolution() still call
+pause_setup() without a require_link_autoneg() check:
+
+pause_advertising_test():
+    require_pause_supported_allof(cfg, pauseparams["linkmodes"])
+    pause_setup(cfg)
+    lp = controllable_lp(cfg)
+
+pause_aneg_resolution():
+    require_pause_supported_allof(cfg, required_local_linkmodes)
+    require_peer_pause_supported_allof(cfg, required_remote_linkmodes)
+    pause_setup(cfg)
+    require_controllable_lp(cfg)
+
+fbnic has .get_link_ksettings, but it has no .set_link_ksettings and no
+.nway_reset.
+
+Take the "RX off TX off" variant of pause_advertising_test(). Its linkmodes
+list is empty, so the support check passes, and then:
+
+pause_advertising_test()
+  pause_setup()
+    defer(cmd, "ethtool -s ... autoneg off speed X duplex Y")
+  controllable_lp()
+    ethtool -r -> EOPNOTSUPP
+    raise KsftSkipEx(...)
+ksft_flush_defer()
+  ethtool -s -> EOPNOTSUPP
+  KSFT_RESULT = False
+
+The result is "not ok ... # SKIP", and ksft_exit() returns 1.
+
+pause_aneg_resolution() takes the same path through
+require_controllable_lp(), for example in the all-off/all-off variant.
+
+controllable_lp() also does not cache a result when it skips. Every later
+test runs ethtool -r again and fails the same way.
+
+Would it be better to add require_link_autoneg() to these two tests? The
+other option is for pause_setup() to defer the link-settings restore only
+when it actually changes the link settings.
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030173516.1002250-1-mohsin.bashr%40gmail.com
