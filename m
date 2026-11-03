@@ -1,75 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676005;
-	b=oI6KQr5m4K9BpsNexXf0Kp07ANRYJalDei4jeLtHZQq+p7fY+LDrwJUZfxoxNYdIqcUC
-	 ywkxij6GxO4SyHWYjCqlC12pRV8y+imfiJucvFpE6crW7wkq2H3G3wanErwhgwVyFH8ym
-	 bsY1n5/IduYFHgWoFpuD5XVaaRflePNuU+Bt1ZeH6R9qKb3yq73j/Jw0DStwwElHtmbAz
-	 KOgDWH+FZAhBvpWoDlTW3tG91CN+lOUs85Q6rEqms7wGUMdSLA0w4D5mIzudcOp5p04cp
-	 1Ok0obDL4O94+QyJxYxFg2VS8oGwnkK3mXHKV8eQaYJynUwdvjrUzVgLxWX96BA38jg==
+	t=1793676114;
+	b=AF6bpExOCLXsbKgsairot1d9tbH/fFBXUiAqodwM14EstmiIZZiLXLUH+yd8CroqVNB9
+	 sJl/tC0kVAvGj+3ixLwuFUeIMyGKpnGBBTEyFhEiBgLD3ceNy0rTbUbNRuDr0PN0qDl/3
+	 m/eo59Y9hjEXIEXUZZOxX/gKwdOykpxvhEjkyeWozZfm2PUfqIqyb7VhlJH78vEsnxvYx
+	 0Esru+0k61c6o7jQFzKjqBPtWTcvLaRJX6eEZftXSPZwmgW4mkV8XTu5B4WQoBq53blHe
+	 N3TPYGPCJ8ABB/CrRcq65Jx22gHguKB9M4HUIyRxMWziHGUh47AOp9TdQHKK9Hu/uEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676005;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=oTzxNjNvedBemKTDj6yGseHCQTs1NpwXkh8k9G7UfEk=;
-	b=K1VKzzQ3u9HX/jQ4Frl0q87QuGcRNsBfUzuDAy5W6e+2OK7t2Z3eSHScqW07JWk5+GXh
-	 MTWnU121sSOSDOQ1CoXVWO5vTx9vLZwsHEW+GoK7+CmxZvmxCHJ3MCVate1TcWinF18IC
-	 Gi47sry/57Fm5ictpc+RLLrUyCTzykYUjGjEMXzuJAetR0WWWX46HHZs5gedN6h/zH9Ve
-	 WRlkcvhIqPK3jC9PLjuUcvJVhtNtCzUDePGkEO//aQX9fGQZ/xk1/SUMEAwF6Z2//PQLF
-	 1hJooKNn2AGKSTxMZMoLVLJL6OkPFxo8lciOGsF+hw7M2vrbrtQ8zbDPvqyv7jrH5BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676114;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=6hpdvsK0Hrmc4uMZchvry04ArqEL30GvpLJeJ7hrgyk=;
+	b=C4UwOW4IWK/7nOEHwFxTd76P04mg3IRatAOrPk+Fev4uk3FsZ5gVXuy4+pDsZSiFcQCz
+	 A+WTH77RsgdIvZqtB1WHqlVTmk6u38yN6D/2s6qshGQr3ZiFIbj26oj4KJFbvxALNw4q9
+	 qegYA/dtXKQoOGGFRRGKmUtXXN7xgsVd/ex3esaq0TeMxnlS348JbaWFeyMLo4B/LgLiP
+	 scmmjDmk2jYsfrjtoJ5FvWjNI5MZ55SOSWwvyUYS1Ruh/4X2KgYdts1AiPGHHch7aJn1b
+	 THKwdotTn4MSXy0JfTxCRMT+xvhXtYeTqxfqGJiq65qKHaWO9X2q/Y+mP1R4/Y39xug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="O/NRm2X1";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=erDD87IF;
+	arc=none smtp.remote-ip=91.218.175.201
+Received: from mta0.migadu.com (out-201.mta0.migadu.com [91.218.175.201])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAA0606A32D;
-	Tue,  3 Nov 2026 03:20:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AAA0606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD4B606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:21:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD4B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=O/NRm2X1
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A33JhNmA2697069, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793675984; bh=oTzxNjNvedBemKTDj6yGseHCQTs1NpwXkh8k9G7UfEk=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=O/NRm2X1Ne9PryN/GNJuu7V889ty0YYW3Wdb24BHOO2T2+ahRTZXwQCipz1SMGImj
-	 1P/Kf3MOPaXRNa17ipQYVgvkQqeIYdBhXAtoUvwJPyaTsaeCZjdthQoad8WZv8CGsa
-	 dvZv8Vaq8E9oJdu4BD5PjUBEXg0zkQlsut5jzIdqeGDb/cudWZvFyzXJUsuu8AKURs
-	 cSWz+xIVrHzLHEDoznvyF30yKUN0/7X+3oagRnKIgS/7qP/KORhIIoUycErG1p8ntQ
-	 h4S78NFSC4dxqpswWkYqZ/RWv5v67rtUZTpHGNG7H8xSg7TSE254ZW3qt235HA1Aq8
-	 tfNBjhbkmPloA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A33JhNmA2697069
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:19:43 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:19:44 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:14:43 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 11:14:38 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Hungyu Lin <dennylin0707@gmail.com>, <pkshih@realtek.com>
-CC: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<luka.gejak@linux.dev>, <fiona.klute@gmx.de>, <kvalo@kernel.org>, Hungyu Lin
-	<dennylin0707@gmail.com>
-Subject: Re: [PATCH] wifi: rtw88: 8703b: avoid converting RX SNR twice
-In-Reply-To: <20261010183629.39748-1-dennylin0707@gmail.com>
-References: <20261010183629.39748-1-dennylin0707@gmail.com>
-Message-ID: <b943b334-2507-4c0c-bb73-9b35e76866f8@RTKEXHMBS06.realtek.com.tw>
-Date: Tue, 3 Nov 2026 11:14:38 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=erDD87IF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qpopzn/+LxUuJye0OmBehYq4z85SruAh2igo69vC/Dg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793676111; v=1; x=1794280911;
+ b=erDD87IFKhVaekyO+FkeXbc9mEeQmViLGA8XE/RWb51zBlfheRmlnVVYU0Wmwc+ZlKAkmPvB
+ cOc0qyXE0+EhzTbyhd1ViLBplk32nT6aJW+oSWguQK/AQo/YkDJ2XGIv25yzGyY/CEfFoxm3YEQ
+ uRH0YOAKwU8QWigGa/Qs5VR4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id bb50f4f34a0a70ae;
+	Tue, 03 Nov 2026 03:21:50 +0000
+X-Mizu-Trace-ID: bb50f4f34a0a70ae
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,27 +57,186 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 04/12] mm: hugetlb_vmemmap: generalize vmemmap page
+ allocation
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <aujPACLfTbPJnIJa@kernel.org>
+Date: Tue, 3 Nov 2026 11:21:31 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BFFEC8BA-6BEA-48E5-8D40-687A630D3D64@linux.dev>
+References: <20261102032525.3597743-1-songmuchun@bytedance.com>
+ <20261102032525.3597743-5-songmuchun@bytedance.com>
+ <179361471104.1337633.3959715900505206111.b4-review@b4>
+ <09EF0F81-23CA-4F3C-BA0E-41F34A0AA4B2@linux.dev>
+ <aujPACLfTbPJnIJa@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-Hungyu Lin <dennylin0707@gmail.com> wrote:
 
-> query_phy_status_ofdm() divides the SNR report by two when filling
-> pkt_stat->rx_snr, then shifts it again when updating dm_info->rx_snr.
-> This halves the SNR used for diagnostics and average statistics.
-> 
-> Store the raw report in pkt_stat->rx_snr and convert it only when
-> updating dm_info->rx_snr, as the other chip drivers do.
-> 
-> Fixes: 61a486bcd782 ("wifi: rtw88: Add rtw8703b.c")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+> On Nov 3, 2026, at 01:57, Mike Rapoport <rppt@kernel.org> wrote:
+>=20
+> On Mon, Nov 02, 2026 at 08:34:03PM +0800, Muchun Song wrote:
+>>> On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
+>>>=20
+>>> Hi Muchun,
+>>=20
+>> Hi,
+>>=20
+>> It's my email client's fault. Let me email it again.
+>=20
+> Things happen :)
+>=20
+>>>> Vmemmap page allocation is currently tied to restoring a virtual =
+range
+>>>> and assumes an empty destination list.  These constraints prevent =
+it from
+>>>> being reused when pages are requested independently of a vmemmap =
+range or
+>>>> appended to an existing list.
+>>>>=20
+>>>> Generalize the allocator and give it an all-or-nothing list =
+contract so
+>>>> the restore and optimization paths can share the same allocation =
+policy.
+>>>> This also allows HVO head-page allocation to fail gracefully under =
+memory
+>>>> pressure without triggering the OOM killer.
+>>>>=20
+>>>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>>>> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>>>> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+>>>> ---
+>>>> v2:
+>>>> - Collect Reviewed-by from Lance Yang and Qi Zheng
+>>>> ---
+>>>> mm/hugetlb_vmemmap.c | 39 ++++++++++++++++++---------------------
+>>>> 1 file changed, 18 insertions(+), 21 deletions(-)
+>>>>=20
+>>>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>>>> index 0e5b2b182d1bf..4b20a8efc0678 100644
+>>>> --- a/mm/hugetlb_vmemmap.c
+>>>> +++ b/mm/hugetlb_vmemmap.c
+>>>> @@ -334,28 +334,26 @@ static int vmemmap_remap_free(unsigned long =
+start, unsigned long end,
+>>>> 	return ret;
+>>>> }
+>>>>=20
+>>>> -static int alloc_vmemmap_page_list(unsigned long start, unsigned =
+long end,
+>>>> -				    struct list_head *list)
+>>>> +static int alloc_vmemmap_page_list(struct list_head *head, =
+unsigned int nr_pages,
+>>>> +				    int nid)
+>>>=20
+>>> Please indent with two tabs, like David likes :)
+>>> Applies throughout the series.
+>>=20
+>> Sure. Should we update scripts/checkpatch.pl in the future for MM,
+>> since this script seems to favor the alignment approach?
+>=20
+> Yes, makes sense to me.=20
+>=20
+>>>> -	for (i =3D 0; i < nr_pages; i++) {
+>>>> -		page =3D alloc_pages_node(nid, gfp_mask, 0);
+>>>> -		if (!page)
+>>>> -			goto out;
+>>>> -		list_add(&page->lru, list);
+>>>> +	for (unsigned int i =3D 0; i < nr_pages; i++) {
+>>>> +		struct page *page;
+>>>> +
+>>>> +		page =3D alloc_pages_node(nid, GFP_KERNEL | =
+__GFP_RETRY_MAYFAIL, 0);
+>>>> +		if (!page) {
+>>>=20
+>>> I think goto err_do_cleanup is cleaner than ad-hok cleanups
+>>=20
+>> I=E2=80=99ll use goto style, either is OK for me.
+>>=20
+>>>=20
+>>>> +			memmap_pages_add(i);
+>>>=20
+>>> This is confusing. Updating counters only to use
+>>> free_vmemmap_page_list() seems worse choice than walking the list =
+and
+>>> __free_page().
+>>=20
+>> I think the memmap accounting should be done right after each =
+successful
+>> allocation =E2=80=94 that way, using free_vmemmap_page_list() becomes =
+more natural
+>> and simple.
+>=20
+> Why are you against using a loop with a plain __free_page()?
 
-c3ae9e68e138 wifi: rtw88: 8703b: avoid converting RX SNR twice
+I'm not against. This is probably just my own fixation, I think I've =
+fallen
+too deeply into the trap of code that looks simple but actually isn't =
+that
+great. Good thing you pulled me out in time. So I'll use your suggested
+approach to fix the problem here.
 
----
-https://github.com/pkshih/rtw.git
+Thanks,
+Muchun
+
+>=20
+> We know for sure it's not a reserved page and there is no need in
+> free_vmemmap_page().
+>=20
+> And with memmap_pages_add() per page do a bunch of atomic_long_add()s
+> instead of one.
+>=20
+> BTW, it would have been nice to avoid per-page counters update in
+> free_vmemmap_page_list() too, but that's not related to this series.
+>=20
+>> Somthing like:
+>>=20
+>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>> index c04f53f708d2..cab9ec14873d 100644
+>> --- a/mm/hugetlb_vmemmap.c
+>> +++ b/mm/hugetlb_vmemmap.c
+>> @@ -207,14 +207,13 @@ static int alloc_vmemmap_page_list(struct =
+list_head *head, unsigned int nr_pages
+>>=20
+>>                page =3D alloc_pages_node(nid, GFP_KERNEL | =
+__GFP_RETRY_MAYFAIL, 0);
+>>                if (!page) {
+>> -                       memmap_pages_add(i);
+>>                        free_vmemmap_page_list(&local);
+>>                        return -ENOMEM;
+>>                }
+>> +               memmap_pages_add(1);
+>>                list_add(&page->lru, &local);
+>>        }
+>>        list_splice(&local, head);
+>> -       memmap_pages_add(nr_pages);
+>>=20
+>>        return 0;
+>> }
+>>=20
+>> Thanks for your review, Mike.
+>>=20
+>> Muchun
+>>=20
+>>>=20
+>>> --=20
+>>> Sincerely yours,
+>>> Mike.
+>>=20
+>>=20
+>=20
+> --=20
+> Sincerely yours,
+> Mike.
+
 
