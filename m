@@ -1,62 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714613;
-	b=BpZui9FuCPwbF6fDgg8RD6yRg1ScGfORXaGHfDoWe+BUwks5UBw0rz4Nv1wxzCe5WQiS
-	 MTQGF3ZJXRtFc9BFNQhfvEl3116n7LacKETS8VW6yHIhQjnTjxaoBrw/JWTKDNRZcH/Kn
-	 Fd6IgfyrHx5q5RqMS1VwqIDOZQ0OZlBHRj1m1U9LJ8G2Ezt1C8ibcFJoiBiSEhUesJstg
-	 U/ViaE8D0P/4EqYzfKtUs7KVqr/XpoZtFCbFXJTdqj0c4NnP7eu0K8dMI39QrkImSiwPp
-	 cvrZw8e7bPpLkKo7Jm5QzujYCUYb9GKZQwuiSzxnS8j/rB801X+uiQEMNiKDjQNTFuA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714613;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-AI-Review-Draft;
-	bh=3HJX18ykscvO3Ox8qDgd1rJ1bwooSHpiMGqMiZwMMMg=;
-	b=PnmCGQKNBS46peh4x0USb+IWd9yVaz9MIT9QyIYi+Jlun3IVpw5XVMUTTMVw6T+7O8Ae
-	 +rxyISGVvpUQLcLTfUmVWskpYOlYBNuEtHrvXikQKlTUXV+ApoOojSbXKcljvLdapLIk4
-	 RZg2cS0wATglNXTXNXiAqv/8GlVcMw/RsuF9Ss+OFp484djegvJStjeUet/YQcC3C4r1B
-	 YzW2iSAMnhcwXg0ew4baJmUWeQCj/trd9mtNO4Pe8SqMnAYYyG7YJ7Utd/b5zlqpYsZBi
-	 lmfVAprbqK7wJV0+tSdYb5oJR87wZ+FMdYrZrnMLCEhDxSTXM4ZGesmvkVsoyL+fIoA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+25HXE5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793714629;
+	b=QxBhLnSDcI4WbVuO7EET7s9XK3qx8OQ0Ot6Db1dC5QG4hyV+tmycHoecOEy9N8wZJ+4d
+	 kNWzazwFXrFO59Bf1doorlsoYdU1fjDwVeAZH6ND0rwdQL3bGzQ/wPxPY05Pp8OkoNDJI
+	 OedHtM1bPOBvcOjUJ1Zug6/70Jtf31trvdgLr1ZXij3+CKNZNEjiYj7KBO/sB0MfAz+qz
+	 bVcBT8JdO7+mF3KKpHblz8rmiUp9in8aTYLGQgR4odSnHwjDTLijXu+SQ4bbtq4ASsqOO
+	 yT57kQupG0keAKZRctvor8NLvlkIcBVnQa4rzr6K/W2SOZ6XtuX0rKgK6LlsFNCR96A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714629;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
+	b=h9yTf/Fmb2tJo8l4pK3gzHofHxJs91RMFPK/guJ0pKUwRy83Te4MhZNHy4pf+p6SGW3o
+	 7nk8nRxAMwEoZZFF2XLMBlvg2zOcfBGM0WwSSB0+gmCX6vRkj4Y32CNeNJk64Ov78ogW4
+	 z6AvVRaQCnyqHMJGL9aoNaFyNOG46jWxY+H0BiQsK7u2lWsnyhZmj7tF3fwg5MLvAUVTi
+	 pl9lLiXYohbvSre569jnWMYIvbxd/91IgPc8AvRlzFHR1K6VYCny6OPCHvs32Wh4yEj07
+	 SR/m8Epgh+A0PHOLFlWvViweRwtDUYTDho5v/ORPAPtfwLOHwjA2T/yH5TiieTt2S8w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4mZfUJ7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0933D60A5BC5;
-	Tue,  3 Nov 2026 14:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F606071BD2
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:03:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F606071BD2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+25HXE5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1231F000C1;
-	Tue,  3 Nov 2026 14:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793714612;
-	bh=3HJX18ykscvO3Ox8qDgd1rJ1bwooSHpiMGqMiZwMMMg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H+25HXE5bQpX4SO6gYb6lfNqegbOjuTEPRjDTsov3P5/8PY3O6+yCpLEnoRuWG2cM
-	 R3F3IONKnEja1N07TiEc6wZb4sxxfAXv3QJOyoahBKWyL8AT1B0J4aluBdr55LSvRH
-	 xJt10MUkc/KbiXXgzOc6meqOQUJ/Q8e8yza3gfKJKcK01aeuKZdv5AzBl0LDpqJia+
-	 uMy57b7+9YkgVs4PG20ToXl7VRPeRxdXFeXLJyV2nCgAmoAc3AEn0OBDLhfRvh+QuO
-	 rzrDuT1Q/ok87SlSTgdOHGi/J3hEIU1SJDIZf3NaxSJJmJrje95+ccNgkVzajP3lA7
-	 06lV6qUKJ+t1g==
-Date: Tue, 3 Nov 2026 14:03:26 +0000
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-	Ion Agorria <ion@agorria.com>,
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org, mfd@lists.linux.dev,
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v12 5/7] leds: Add driver for ASUS Transformer LEDs
-Message-ID: <179249575817.1833288.1089755405582445022@kernel.org>
-References: <20261019100406.103687-1-clamor95@gmail.com>
- <20261019100406.103687-6-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4mZfUJ7
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48afbd2c386so2477858f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:03:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793714627; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aK6sJGvKb7eVa5pjuSOX3p9FWKFmNS6wnx/BRLruPqAdVqaIU305C2gywR4qgZ1PQB
+         v3h/qeAAp50evKYd43oBnmRHT/Wj5BbxIb9NlwYMzI3xVdPHEe0VZTP4+ZY8dm65L0pk
+         nInI19qEhCxThWf6if9UmnOX1hzpQAT8HV6Ym5b5rEntdNVKOFxoflgHbC7iAc7GwepB
+         KhKQBcJpLHQrMjnXwazAh7r1grRu+5aab/KFKP+VDWwfuJaGQe740RYoeTLGvtcQYmIX
+         NqIgHOdAIcp/QqfjJ43yeuFL9XKRbjiBAW5D7XR+M3QE4FcXeu9e+GYsHsCYavVFvMV/
+         T1KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
+        fh=WJGZVXa4/O+RmYrUz+ev3CUHzJ7CkceAKiBx3QJOFaQ=;
+        b=cFE0On5QwogDqXjcf6GNOPVG/jrYGov2mOhSpudqZFwaJ1di4/dCejg1IcQ4m/tQkg
+         aVgsLh0UpHytojsqHVR1SNlsj9SxY8X81NkHBvTyqrYIUWmmj+TL6uC6GZ6CxjiK9VQ/
+         QKjYLBCCWH0MHcMgXDutOByBx1HFtouPLEMiehvN2NGnJsSeqxjt87ieFonbOt3CF1L9
+         g6Y4QBGt3AvIUVLc83cJ3KVBuHhAQKuEh0cqko1oJUO8B3qOGUbMyMUiXbeG2r72zkhv
+         G0Yj2eUBIga/NK8re2F+HovNaM3GOExMdYR2A7VCNE+04bBOHT6kpW8jDN024DRg8KdY
+         U03g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793714627; x=1794319427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
+        b=e4mZfUJ7A7a8iaDoHeZNcPNu/+CUH+2+6ZCaJVcqzNhCbPI5HXDRpLYwVgTKzinAMp
+         vdlHKExM5IcuSQCBgk2KTnJVvIv1R9GryL8ma9Ew5xv8FlAio01SzeKcQcI5ji4ySfjd
+         jSAQAyoTxu6R1edo4NkOfXCd5hk0LfpQ9UnbrcN+HOK3kE3YbvHA5/uRDkWbLfV0gRIU
+         5DrrHuT9rGliqmLyXossXTnTkbfNtAmihKyCbbRr2GngOXttEFoJqiVEcT+2h1pav2Vr
+         dLeryfGKX0rhY2VHMKOafLTTQtNsVKEthvOe3etVFWOnyFbnWujkW8CXN2502xR4LYHA
+         Bang==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793714627; x=1794319427;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0mpQqPcx/wO2M/JeyOkuY7Hd6GV1/TOLmZZItrx8K9I=;
+        b=jCbQrYybL0AC4ogpxLxFBgjvnhLQulcYNJ3TXETS57VR826XBPz2+OQnKoQOXQP4Qv
+         R5IrbywqJWRg7bv0jGoL9TKd0iyKD+UV8Az8Y6XhfIP3FBfMFitD5FgpJx0aqiTeFc7x
+         yQ1UnZ7/Aajdq5O2G6ec1T3siZGwEj2PkM7z0wg0f6X2+R3MY2kuzbPz+Knu4AF4VySu
+         9OQyzeudzs6xW4wgnjjD0F5pJoPFxAzjc0z8X2mK7M2A0fb/VfKawA/IkOlH+CmNJEVh
+         V1mIAGAca6DhJCzo8moYvCS3ZqEXlRHiiJCP8/XT5J2GrqUqheGVaIsMQwWmtVNKKKV6
+         mzUA==
+X-Forwarded-Encrypted: i=1; AKwUvByV2wfxO0Mst/aBu8CHTfHFMVaptT6Sp9BgHUqLSRsccG5a9uQ34O2EINK3xh6xv1qFHGORk6GABLTBFW4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9a42fH0g4OcAZS7fLfKfPrDa5gDpQzlA2cYfjm6zAuyWc7OCSS
+	ObU/y5e83jAcc5bCCblvAbc9tokItxbY1qkGCgD4/qb32il5aBfpduoD2mlwaASaMBhVT7iQqv7
+	OtzTp/l0LYujEqyt2zCAWPYo9mhCRV2g=
+X-Gm-Gg: AYBFou1wTlMZaL7+B+1X9R7Iv/GcC8jTPeV57WUNtb2faw7uHKis/RaHj8k29qLoOMP
+	lrvU/YTo+yVrmT0NvqL769Oc6VwZgxX3NSbPHxrpaoO0lYNS+RplzEZmKSKY7jJ8BCerYkGU7C/
+	xCPBL3OlfJ5B+uKFmVXPUd8/wVA9GgklBSKRsgVMvQXAW/EHtjvyCj7oznuVYsnWTZkvv++PC/R
+	FN4cxlF5jVFbJs0rU2M/WaTXg1eD+4UMhM5N2S/WdrYCG82qOvR3qWxwUiUFuHQ+DP8WCKBF2sp
+	f8H4CUKU55T3Zd8z3mnsERv/AyY9hRszjAd7q2pChc+fKHebA6B4F0orOVEr05/pi+c4OpERqh5
+	lWSanEiyF5EjLuiOL9g9/r8xIQKZ/3Io6mxq0+VEVklH1603twbNgDgOFFLudalAIYmnY4y951Q
+	zZo7mYSSD6+dWZgxMGp7hTVniri7+8O/PEX0ayMv16AGPcQg6VnX1vosbx
+X-Received: by 2002:a05:600c:848c:b0:4a1:efd3:9862 with SMTP id
+ 5b1f17b1804b1-4ac1765d977mr282488195e9.21.1793714622717; Tue, 03 Nov 2026
+ 06:03:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,220 +105,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261019100406.103687-6-clamor95@gmail.com>
-X-AI-Review-Draft: <20261019100406.103687-6-clamor95@gmail.com>
+References: <20261102170911.3867389-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261102170911.3867389-1-Frank.Li@oss.nxp.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 3 Nov 2026 14:03:15 +0000
+X-Gm-Features: AclHuK9lTBNUFEhnmVUe-0bw9b56qg4kVZy5zFZ6xKayAE9tcP58fndIr_XiG0M
+Message-ID: <CA+V-a8t0bf_8hc1vd7c+OXBQfgBjp6EJjDALm8+myVYRNzy-Xw@mail.gmail.com>
+Subject: Re: [PATCH 1/1] iio: use dmaengine_desc_set_callback()
+To: Frank.Li@oss.nxp.com
+Cc: Eugen Hristev <ehristev@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Stepan Ionichev <sozdayvek@gmail.com>, 
+	Felix Gu <ustc.gu@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+	Shuvam Pandey <shuvampandey1@gmail.com>, Piyush Patle <piyushpatle228@gmail.com>, 
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Cheick Traore <cheick.traore-ext@st.com>, 
+	Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
+	"Rob Herring (Arm)" <robh@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, 
+	Kees Cook <kees+treewide@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
+	"open list:MICROCHIP SAMA5D2-COMPATIBLE ADC DRIVER" <linux-iio@vger.kernel.org>, 
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:RENESAS RZ/T2H / RZ/N2H A/D DRIVER" <linux-renesas-soc@vger.kernel.org>, 
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, imx@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 19 Oct 2026, Svyatoslav Ryhel wrote:
-> From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+On Mon, Nov 2, 2026 at 8:55=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
 >
-> ASUS Transformer tablets have a green and an amber LED on both the Pad
-> and the Dock. If both LEDs are enabled simultaneously, the emitted light
-> will be yellow.
+> From: Frank Li <Frank.Li@nxp.com>
 >
-> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper.
+>
+> No functional change intended. Prepare make to struct
+> dma_async_tx_descriptor private to the DMA engine.
+>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
->  drivers/leds/Kconfig                    |  11 +++
->  drivers/leds/Makefile                   |   1 +
->  drivers/leds/leds-asus-transformer-ec.c | 125 ++++++++++++++++++++++++
->  3 files changed, 137 insertions(+)
->  create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+>  drivers/iio/adc/at91-sama5d2_adc.c                 | 3 +--
+>  drivers/iio/adc/nxp-sar-adc.c                      | 3 +--
+>  drivers/iio/adc/rzt2h_adc.c                        | 3 +--
+For the T2H changes,
+
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+Cheers,
+Prabhakar
+
+>  drivers/iio/adc/stm32-adc.c                        | 3 +--
+>  drivers/iio/adc/stm32-dfsdm-adc.c                  | 3 +--
+>  drivers/iio/adc/ti_am335x_adc.c                    | 3 +--
+>  drivers/iio/buffer/industrialio-buffer-dmaengine.c | 3 +--
+>  7 files changed, 7 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-> index 7ec2c8d785426..788e689fe875c 100644
-> --- a/drivers/leds/Kconfig
-> +++ b/drivers/leds/Kconfig
-> @@ -120,6 +120,17 @@ config LEDS_OSRAM_AMS_AS3668
->  	  To compile this driver as a module, choose M here: the module
->  	  will be called leds-as3668.
+> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sa=
+ma5d2_adc.c
+> index 78081cbfde5e8..d479c9bc9b3e8 100644
+> --- a/drivers/iio/adc/at91-sama5d2_adc.c
+> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
+> @@ -1240,8 +1240,7 @@ static int at91_adc_dma_start(struct iio_dev *indio=
+_dev)
+>                 return -EBUSY;
+>         }
 >
-> +config LEDS_ASUS_TRANSFORMER_EC
-> +	tristate "LED Support for Asus Transformer charging LED"
-> +	depends on LEDS_CLASS
-> +	depends on MFD_ASUS_TRANSFORMER_EC
-> +	help
-> +	  This option enables support for charging indicator on
-> +	  Asus Transformer's Pad and its Dock.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called leds-asus-transformer-ec.
-> +
->  config LEDS_AW200XX
->  	tristate "LED support for Awinic AW20036/AW20054/AW20072/AW20108"
->  	depends on LEDS_CLASS
-> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-> index 4d4b089156e24..3da746279bb81 100644
-> --- a/drivers/leds/Makefile
-> +++ b/drivers/leds/Makefile
-> @@ -15,6 +15,7 @@ obj-$(CONFIG_LEDS_ADP5520)		+= leds-adp5520.o
->  obj-$(CONFIG_LEDS_AN30259A)		+= leds-an30259a.o
->  obj-$(CONFIG_LEDS_APU)			+= leds-apu.o
->  obj-$(CONFIG_LEDS_ARIEL)		+= leds-ariel.o
-> +obj-$(CONFIG_LEDS_ASUS_TRANSFORMER_EC)	+= leds-asus-transformer-ec.o
->  obj-$(CONFIG_LEDS_OSRAM_AMS_AS3668)	+= leds-as3668.o
->  obj-$(CONFIG_LEDS_AW200XX)		+= leds-aw200xx.o
->  obj-$(CONFIG_LEDS_AW2013)		+= leds-aw2013.o
-> diff --git a/drivers/leds/leds-asus-transformer-ec.c b/drivers/leds/leds-asus-transformer-ec.c
-> new file mode 100644
-> index 0000000000000..1b129247ea6c6
-> --- /dev/null
-> +++ b/drivers/leds/leds-asus-transformer-ec.c
-> @@ -0,0 +1,125 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/err.h>
-> +#include <linux/leds.h>
-> +#include <linux/mfd/asus-transformer-ec.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +
-> +enum {
-> +	ASUSEC_LED_AMBER,
-> +	ASUSEC_LED_GREEN,
-> +	ASUSEC_LED_MAX
-> +};
-> +
-> +struct asus_ec_led_config {
-> +	const char *name;
-> +	unsigned int color;
-> +	u64 ctrl_bit;
-> +};
-> +
-> +struct asus_ec_led {
-> +	struct asus_ec_leds_data *ddata;
-
-
-Why do we need 'struct asus_ec_leds_data' at all?
-
-If we put 'const struct asusec_core *ec;' directly into 'struct
-asus_ec_led', we can drop the outer wrapper struct and the back-pointer
-completely.
-
-> +	struct led_classdev cdev;
-> +	u64 ctrl_bit;
-> +};
-> +
-> +struct asus_ec_leds_data {
-> +	const struct asusec_core *ec;
-> +	struct asus_ec_led leds[ASUSEC_LED_MAX];
-> +};
-> +
-> +static const struct asus_ec_led_config asus_ec_leds[] = {
-> +	[ASUSEC_LED_AMBER] = {
-> +		.name = "amber",
-> +		.color = LED_COLOR_ID_AMBER,
-> +		.ctrl_bit = ASUSEC_CTL_LED_AMBER,
-> +	},
-> +	[ASUSEC_LED_GREEN] = {
-> +		.name = "green",
-> +		.color = LED_COLOR_ID_GREEN,
-> +		.ctrl_bit = ASUSEC_CTL_LED_GREEN,
-> +	},
-> +};
-> +
-> +static enum led_brightness asus_ec_led_get_brightness(struct led_classdev *cdev)
-> +{
-> +	struct asus_ec_led *led = container_of(cdev, struct asus_ec_led, cdev);
-> +	const struct asusec_core *ec = led->ddata->ec;
-> +	u64 ctl;
-> +	int ret;
-> +
-> +	ret = asus_dockram_access_ctl(ec->dockram, &ctl, 0, 0);
-
-As requested on v6 and v8, why are we still using this bespoke accessor instead
-of Regmap?
-
-> +	if (ret)
-> +		return LED_OFF;
-> +
-> +	return ctl & led->ctrl_bit ? LED_ON : LED_OFF;
-> +}
-> +
-> +static int asus_ec_led_set_brightness(struct led_classdev *cdev,
-> +				      enum led_brightness brightness)
-> +{
-> +	struct asus_ec_led *led = container_of(cdev, struct asus_ec_led, cdev);
-> +	const struct asusec_core *ec = led->ddata->ec;
-> +
-> +	if (brightness)
-> +		return asus_dockram_access_ctl(ec->dockram, NULL,
-> +					       led->ctrl_bit, led->ctrl_bit);
-
-Use 100-chars throughout to prevent early wrapping.
-
-> +	return asus_dockram_access_ctl(ec->dockram, NULL, led->ctrl_bit, 0);
-> +}
-> +
-> +static int asus_ec_led_probe(struct platform_device *pdev)
-> +{
-> +	const struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
-> +	struct asus_ec_leds_data *ddata;
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-> +
-> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, ddata);
-
-What consumes this?
-
-> +	ddata->ec = ec;
-> +
-> +	for (int i = 0; i < ASUSEC_LED_MAX; i++) {
-
-`i` isn't just a random iterator here - maybe call it `led`?
-
-> +		const struct asus_ec_led_config *cfg = &asus_ec_leds[i];
-> +		struct asus_ec_led *led = &ddata->leds[i];
-> +
-> +		led->cdev.name = devm_kasprintf(dev, GFP_KERNEL, "%s:%s",
-> +						ddata->ec->name, cfg->name);
-> +		if (!led->cdev.name)
-> +			return -ENOMEM;
-> +
-> +		led->cdev.max_brightness = 1;
-> +		led->cdev.color = cfg->color;
-> +		led->cdev.flags = LED_CORE_SUSPENDRESUME | LED_RETAIN_AT_SHUTDOWN;
-> +		led->cdev.brightness_get = asus_ec_led_get_brightness;
-> +		led->cdev.brightness_set_blocking = asus_ec_led_set_brightness;
-> +
-> +		led->ddata = ddata;
-> +		led->ctrl_bit = cfg->ctrl_bit;
-> +
-> +		ret = devm_led_classdev_register(dev, &led->cdev);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to register %s LED\n",
-> +					     cfg->name);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct platform_driver asus_ec_led_driver = {
-> +	.driver.name = "asus-transformer-ec-led",
-
-Clever!  But, I'd prefer we still to the usual format to be honest.
-
-> +	.probe = asus_ec_led_probe,
-> +};
-> +module_platform_driver(asus_ec_led_driver);
-> +
-> +MODULE_ALIAS("platform:asus-transformer-ec-led");
-> +MODULE_AUTHOR("Michał Mirosław <mirq-linux@rere.qmqm.pl>");
-> +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> +MODULE_DESCRIPTION("ASUS Transformer's charging LED driver");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.53.0
+> -       desc->callback =3D at91_dma_buffer_done;
+> -       desc->callback_param =3D indio_dev;
+> +       dmaengine_desc_set_callback(desc, at91_dma_buffer_done, NULL, ind=
+io_dev);
 >
-
--- 
-Lee Jones
+>         cookie =3D dmaengine_submit(desc);
+>         ret =3D dma_submit_error(cookie);
+> diff --git a/drivers/iio/adc/nxp-sar-adc.c b/drivers/iio/adc/nxp-sar-adc.=
+c
+> index 2f716a2f97b80..82d8d921b0293 100644
+> --- a/drivers/iio/adc/nxp-sar-adc.c
+> +++ b/drivers/iio/adc/nxp-sar-adc.c
+> @@ -696,8 +696,7 @@ static int nxp_sar_adc_start_cyclic_dma(struct iio_de=
+v *indio_dev)
+>         if (!desc)
+>                 return -EINVAL;
+>
+> -       desc->callback =3D nxp_sar_adc_dma_cb;
+> -       desc->callback_param =3D indio_dev;
+> +       dmaengine_desc_set_callback(desc, nxp_sar_adc_dma_cb, NULL, indio=
+_dev);
+>         info->cookie =3D dmaengine_submit(desc);
+>         ret =3D dma_submit_error(info->cookie);
+>         if (ret) {
+> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> index 8ba7b0fde8a19..3e52b7d660dd3 100644
+> --- a/drivers/iio/adc/rzt2h_adc.c
+> +++ b/drivers/iio/adc/rzt2h_adc.c
+> @@ -394,8 +394,7 @@ static int rzt2h_adc_start_dma(struct iio_dev *indio_=
+dev)
+>         if (!desc)
+>                 return -EBUSY;
+>
+> -       desc->callback =3D rzt2h_adc_dma_callback;
+> -       desc->callback_param =3D indio_dev;
+> +       dmaengine_desc_set_callback(desc, rzt2h_adc_dma_callback, NULL, i=
+ndio_dev);
+>
+>         cookie =3D dmaengine_submit(desc);
+>         ret =3D dma_submit_error(cookie);
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 600f975f1d7b5..fa2a781e37777 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -1901,8 +1901,7 @@ static int stm32_adc_dma_start(struct iio_dev *indi=
+o_dev)
+>         if (!desc)
+>                 return -EBUSY;
+>
+> -       desc->callback =3D stm32_adc_dma_buffer_done;
+> -       desc->callback_param =3D indio_dev;
+> +       dmaengine_desc_set_callback(desc, stm32_adc_dma_buffer_done, NULL=
+, indio_dev);
+>
+>         cookie =3D dmaengine_submit(desc);
+>         ret =3D dma_submit_error(cookie);
+> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-df=
+sdm-adc.c
+> index 674767da3ac37..f0239f5f30afe 100644
+> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
+> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+> @@ -1006,8 +1006,7 @@ static int stm32_dfsdm_adc_dma_start(struct iio_dev=
+ *indio_dev)
+>         if (!desc)
+>                 return -EBUSY;
+>
+> -       desc->callback =3D stm32_dfsdm_dma_buffer_done;
+> -       desc->callback_param =3D indio_dev;
+> +       dmaengine_desc_set_callback(desc, stm32_dfsdm_dma_buffer_done, NU=
+LL, indio_dev);
+>
+>         cookie =3D dmaengine_submit(desc);
+>         ret =3D dma_submit_error(cookie);
+> diff --git a/drivers/iio/adc/ti_am335x_adc.c b/drivers/iio/adc/ti_am335x_=
+adc.c
+> index e53c839e87ef3..230f1c990317a 100644
+> --- a/drivers/iio/adc/ti_am335x_adc.c
+> +++ b/drivers/iio/adc/ti_am335x_adc.c
+> @@ -259,8 +259,7 @@ static int tiadc_start_dma(struct iio_dev *indio_dev)
+>         if (!desc)
+>                 return -EBUSY;
+>
+> -       desc->callback =3D tiadc_dma_rx_complete;
+> -       desc->callback_param =3D indio_dev;
+> +       dmaengine_desc_set_callback(desc, tiadc_dma_rx_complete, NULL, in=
+dio_dev);
+>
+>         dma->cookie =3D dmaengine_submit(desc);
+>
+> diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers=
+/iio/buffer/industrialio-buffer-dmaengine.c
+> index b9f8b5b3aa6b6..7ecb9d875b8e8 100644
+> --- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
+> +++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
+> @@ -160,8 +160,7 @@ static int iio_dmaengine_buffer_submit_block(struct i=
+io_dma_buffer_queue *queue,
+>                 return -ENOMEM;
+>
+>         if (!block->cyclic) {
+> -               desc->callback_result =3D iio_dmaengine_buffer_block_done=
+;
+> -               desc->callback_param =3D block;
+> +               dmaengine_desc_set_callback(desc, NULL, iio_dmaengine_buf=
+fer_block_done, block);
+>         }
+>
+>         cookie =3D dmaengine_submit(desc);
+> --
+> 2.43.0
+>
+>
