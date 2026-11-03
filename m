@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793699528;
-	b=GRSZ9Xfqe+JMX49XUOGwM6wDWH4XWbSmcq2NKx6gnarTufiHs0oiLlGY1wvmVeicGQby
-	 Bm0d57A2CJv03M4ogRLQXJLdVvThXAypxNTKelnETvbpv1KrH+QeDdv1SIJDdFTtum9wv
-	 sF9T7Ev7HYd3xA3LoT44pwo4KyyNPpzCDoSO73dBtgngdBt3lFmdS9Uvac2WhMOz2U9s6
-	 bCvv3uLZLaqNbDb16ARMI+efQAZaBJnraHNuJOnSyO0Q5BZsvRwgdrDdbXS5JlxdrwOcF
-	 uyVO8jY3UWrMC8VfTjDEj5nAxOBxYGQIhh89QU6szBBfd0QIwdy2dXW7Lpc0gikFk5A==
+	t=1793699526;
+	b=vGyVdTT7Ta79zAlSAJgBkfDvhFO6esA7BDfkASKTiakmXzG4N/i+R4ilXcn7fbpg2CgP
+	 BHdBdUunFom9BVAr3Bn5cxEgAt9Xx2fG4k6g4EulXwKD2nCMsJMu/tuzitpE8xqCJOugW
+	 7D8YZbsl5DkLU5Kl+JxLZol5QHGNl10aG4OE38dqhrbbeVKf2VlyCMsRxoaTtvxgW8euw
+	 LF+w5VmLPyXmJ0v5aeKFb7Gf02lB/m3I+9C7nw2v4lU1+HByZKTRvium/UmBcAPuvmcDy
+	 LF2qeUPy+Kh43Q2RmuDF5wQzWdrGj7R1v41T8JH0xq6Qu4p70TuLWSfTLGirsaERAkQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699528;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2Rjk1OJO5Aj+he8nLnF01U7gZlB1bfdmBrf/5i2ju0o=;
-	b=BbUTIFr70eL3jsum8i4ynAHy7uRaQ34RNXF7YQVDoduadMXH58FZca0KXjkvZIg7Bjlz
-	 c5vSNFx/I0FXrvxBjns+Wj2yTqS3CUWqiJRcPnC/jfZmGrHvCI4zyH3+tiyn6X/e7mXhN
-	 tSceAOcNvydn2a+jRYNyS3gRo/EEjAEhh7cZS3LIaZ/x0+15Tmc0Hkgue4m8r6UFYHlF2
-	 YawnZrmMYnkMybFPJBAdB3+eBolesNSqb1GEpBZn0pNnWslmZ+zoL8eh+HthSg43s5Zii
-	 4PGZ9pFbuFAP5YX+slx309MDPrgSrpbtnaaipjPm7hdq/8ca3nCDRhZW/G+PA/HlLqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699526;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Cq+d0zPbekVbfPXnyR10Si7Wi/Qh6wqlZK0pSrczvHE=;
+	b=eC9DrPuk+rzzHnD8lY3WDloVFdMVYe5mnL79FxHMLC1ArI1Qz2wDhd7oPm1nXVBJJhrd
+	 T6gCt4/DAeyLmYOTt9Wabv4iXJXxr0o40Rp6tAvo2MCFY6HcZa2Ef9IG3rzY/uULJEFx5
+	 2h1qk4n2ndYwMMY61ZkJCo2t8yMWL/od00cqonnc3pMyZMDJZD9Mx4UUYRWvoX97aBhk1
+	 mwFIk37yhpyaecsdil/VUo0X3fYa+DevRI53ODILL7HtkkFuIWm+sF5QxAZYBokngFqQD
+	 7UnRUIK3lH0IyAnwdjvPeltkSfEWU32JVx4RRfhtlm149467BUW1WRBm8FW1MEybHhg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZ2ZraZZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYxYkWJI;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9DE606D80C;
-	Tue,  3 Nov 2026 09:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75620606A32D;
+	Tue,  3 Nov 2026 09:52:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZ2ZraZZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYxYkWJI
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793699527;
-	b=CKSlb2ZU+HW+SJlp5zta0Mr2BUlJ1wyYiY6ZIZLXp0xQqrShWlNp9Xeo6q5N60reep+T
-	 w6lA5vI9Ps7XSWu+Ux1vrbtFnKJqytqQoGvnXcn2Jy4j6K/0cYwEfTXYTM10xK3GAK4Ka
-	 Uo1c9vP9uVhzLdIdD3ZdnV6oARHc8F7fCqAThp0Wr6ymoeF0eZryD2CFMhwV7KfcDyJK7
-	 B4ZaziPpjxHvAlaik8ZmOAN+q1nm4ZtThHeNYIT5wwMTfkJBDqs82JCyiSnQk1MjBCAl7
-	 ELe6trrN9JEMHRUSaU02pVoiVy5iumzLeMEm++qIKJOVOcMVlZp+3CG0yde0XWP2M9A==
+	t=1793699526;
+	b=ryQNYyaKgmrdMJbQd0+6PPSfBKEJSpPl/yZQNcPYM4fzQwvW8NDCbKeUcHTm/t2vYKfd
+	 RrlpUfq2/WCXrhiMKkf+LLa2egeFR2Cb88caHuNl+YrTgR7aCmCpMudvjiUirclE4dVCn
+	 i6kedmF/q8toOpp2GePbDlaXRbz72RmUDvjpdq9OvidyLlTrBSdoHjgxGgJuFZlp7sjWv
+	 8XYlAS2IHV+66eabMsYA61i3kKmbSD53HVL/Kj56i9lrs9y+NBdcIRgOhIbf3tkuwZld2
+	 ek9T2aXAWd+hl3o/wsHKX2EuWeoJlAclHyip4Xiv9qWkAB4Ctqf+7mU18pyIEBmscEA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793699527;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	c=relaxed/relaxed; t=1793699526;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2Rjk1OJO5Aj+he8nLnF01U7gZlB1bfdmBrf/5i2ju0o=;
-	b=wMeuu7sckTtARp4ATfU389Jv1JETL+ZCVCyMy+Ehv+mNcamA/PSXrFxb8ZrYgAiwWkdl
-	 nBvD8gbYx6TDovyl0QkDDbuXkmHADgjUNX9qj5qlW5L9C/paD8D5PjXit74gV7V9j2V3y
-	 Mx9KFIrfNQu2+o7IDlRGg3oCN+Q3IQLkbwtGrGwVsb3jk1fwaULGCow6c7EEvBVwIxcGk
-	 DOYqjt9q6JEboFIKd9bOcgF5UbgB//aN/fIOPANigEvaL0qMuJq7rki5iffgrKjsyo/Mk
-	 18/ejQZJtEEkHDAuzkZIxGP+7vPqOJliCuy7f0cf0Nd9RZAXFGAZWYN3xyCmZHEZbsQ==
+	 X-Original-From:Reply-To;
+	bh=Cq+d0zPbekVbfPXnyR10Si7Wi/Qh6wqlZK0pSrczvHE=;
+	b=PLK3JW/REZ5YRD5UEr2cAVk8rzkt5lYeNzJwGQVjcfQ+IgpNFTgO0R+MhjSy/px5mWqI
+	 mysVNaPWQEKS5/OZ6a/WNPH0fO0fyw9TxQ1oglLxG51Mo3KyM0RTflQIvJR9fZwnIObUN
+	 GGWupiIB9UTprxNMHusDU3favx761OBEkqyJrR1MwdSqSLx+n5UMSsOlw71KzlO5gQjGF
+	 W/4sxQRo4IH03q556dZhO1McHVR3dUdTVquIBP/TbkSMD0odDPiD8DuxWkgd1jciRi4Kx
+	 B/wF/zp8gdXLAg/I61JEMMYjrY+sx1mVRmEh6bwmEoWr2lnOSkId9cudKPPH+1bJkFA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E8D991F00A16;
+	by smtp.kernel.org (Postfix) with ESMTPS id AC3B11F000C1;
 	Tue,  3 Nov 2026 09:52:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793699527;
-	bh=2Rjk1OJO5Aj+he8nLnF01U7gZlB1bfdmBrf/5i2ju0o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UZ2ZraZZM33daAZ0wzH8BEogcz6rAGLRG/8dUSqAAE1e67vmAU3LUqwJBARjmkwlk
-	 TG1NmLXwzImuxfBv2K3Q33QB95mNbNvcgwEVpbCOSWVxQuwjro09CE454U/GCjekyQ
-	 OnAvzvlXUEk6TTkf+Ss/f/oSOdf2IMmUzZ9Epcp5rTX1ztwvfS0QU9qP7qFgeflosw
-	 brTgZzjHZp2RWSnBgvuhOe0jpe2apEoKlpeT9iOJbfWd8LvaZ732QZF/qDpxvlIcRe
-	 SUsj80RIHHq133VxwMNJwvvWXNbzWJT+4PZy9gVYTgWAFXegvhQ6AjYm4vXEpcrdJD
-	 ihG2dzxRmRNqQ==
+	s=k20260515; t=1793699526;
+	bh=Cq+d0zPbekVbfPXnyR10Si7Wi/Qh6wqlZK0pSrczvHE=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AYxYkWJIdFHwHZJjVVXs4RAEFsAskt3cCoHMGmtR9ubhCEOSTzC17Wbv5VZQiImhp
+	 3ENQPBkHFPkXzOOjg3U9lboLrdwHg8Qf6twJyTOmwK45KcgPziwp3Rih8WzIWtN55q
+	 s2OHsZ2g4j3VxES+V5GnVhevK2i16wwMairGMsHS2UhFiBD+ZTDlO94iPQY/69zGux
+	 8MCMk9b+Fnl7UjGZq0JSgzgs8lF624WYRBpcmmNb3OGuce/uf1KwKPO0hpSV0Lb2sj
+	 NdhM6aYwYW/eZ1WQ9A6Af/lDojw/Rnty+RF0I1rCbBpVvF2HIlzvZ9BxgM9KJgBJ5f
+	 +2CqMT9c0MI8Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 72E5846882;
+	by lkml.kernel.org (Postfix) with ESMTP id 3A23E46876;
 	Tue,  3 Nov 2026 09:52:05 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Tue, 03 Nov 2026 10:51:57 +0100
-Subject: [PATCH 4/5] pinctrl: freescale: add the LX2160A RCW pad-mux driver
+Subject: [PATCH 0/5] lx2160a: change the pad muxes through the RCW override
+Date: Tue, 03 Nov 2026 10:51:53 +0100
+Message-Id: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-0-0a61a9837744@free.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,9 +84,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-4-0a61a9837744@free.fr>
-References: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-0-0a61a9837744@free.fr>
-In-Reply-To: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-0-0a61a9837744@free.fr>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALmu6WoC/x3NQQrDIBBA0auEWXfAMWCbXqV0ITq2A42RsUmEk
+ LtXunyb/w+orMIV7sMByptUWXIHXQYIb59fjBK7wRrriMyIaVFcS/0q+xk/zZIzHjXsWCTPa8O
+ NcKQ0+ThdY7g56KGinKT9J4/nef4AZ720WHQAAAA=
 To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
  Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
@@ -99,460 +101,85 @@ Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
  Vladimir Oltean <vladimir.oltean@nxp.com>, Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793699524; l=14211;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793699524; l=3357;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=mgJWUp01N8MKAH+Eg4XUymjim1QvmmPHCrTSnou8fE8=;
- b=1+VBhkwfliJ2Pu2V+8B3v+SsdmmVcv6xdtp9tcOV4xaJ5pVPLvm7Kq0/dfCQBeCmqQUdBrL1T
- 7Z7bLMkJwf6Djn34ipjza8pHVVem+f/P3SVLoWnRuRDmfWq4D6x+Xa3
+ bh=H/F/71DKZELYrsCeArdeH29vFI4h+DiOsPHSFldq9hc=;
+ b=HxbL5KezPJiJpYUCq6Y1ipgDHVAmH5FonZYrAkEpjXi56eVEz2l6plAPEXArY4C5zpW5FbAMp
+ GPpKkEWmxMWCznkGZ59K/fOo2NEIQw55gnnzqhxdD6sTHdBVkl7xjg3
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
  auth_id=871
 X-Original-From: Vincent Jardin <vjardin@free.fr>
 Reply-To: vjardin@free.fr
-Content-Transfer-Encoding: 7bit
-
-From: Vincent Jardin <vjardin@free.fr>
 
 The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
-fields of the RCW, read-only in RCWSR12..14 of DCFG and changed at
-runtime through the same fields of the override registers in its DCSR
-view, which read 0 until written.
+fields of the RCW. They are read-only in RCWSR12..14 of DCFG, and are
+changed at runtime through the override registers in the DCSR view of
+DCFG, which read 0 until written.
 
 Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
-gpio to support bus recovery") Linux drives them with pinctrl-single on
-the override registers, so its first pin state clears every other field
-of the word: a board whose RCW programs a non-zero pad mux loses those
-pads at the first I2C probe.
+gpio to support bus recovery"), fsl-lx216x.dtsi drives the override
+registers with pinctrl-single for the I2C bus recovery. Its first pin
+state clears every other field of the word: a board whose RCW programs
+a non-zero pad mux loses those pads at the first I2C probe.
 
-Add a driver for the pad mux as a child of the DCFG node: the fields
-of RCWSR12..14 and their encoding.
-Then pin states select them with the generic function and groups
-properties, and every change goes through the RCW override
-of fsl-guts, which reads the status register, writes the override and
-waits for the status register to follow.
+This series reads the fields in effect from RCWSR and writes RCWCR, as
+fsl_guts_rcw_rmw() already does for the SerDes protocols:
+
+- patches 1 and 2 describe the pad mux as a child of the DCFG node,
+  which gains its DCSR view
+- patch 3 exports the RCW override of fsl-guts for any RCWSR
+- patch 4 adds the pinctrl driver: one group per RCW field, one
+  function per encoding
+- patch 5 moves the pad muxes of fsl-lx216x.dtsi under DCFG. Labels
+  and pin node names stay, so no board file changes, and the
+  pinctrl-single node goes
+
+Patch 4 uses the exports of patch 3, and patch 5 needs the driver of
+patch 4, since the I2C pin states of fsl-lx216x.dtsi then belong to it.
+DTBs built before patch 5 keep their pinctrl-single node and behave as
+before. There is no Fixes: tag, since patch 5 depends on a new driver.
+I did not believe it should be backported then.
+
+Tested on a Nodebox v3 (LX2160A) whose RCW muxes XSPI1_A_DATA[7:4],
+SDHC1 and IIC5 are not set with the defaults, so I could confirm:
+ - pinctrl-single the first I2C probe cleared those fields
+ - with this series RCWSR12..14 read after boot exactly what the RCW and
+   the board's pin states select
+ - all I2C controllers come up with their recovery states and a
+   forced bus recovery on IIC1 (multi-master enabled for the test)
+   changes only that field
+
+Thanks to Vladimir Oltean for pointing at fsl_guts_rcw_rmw() when I
+tried to prime the override registers from the RCW instead:
+https://github.com/nxp-qoriq/rcw/pull/8
 
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- MAINTAINERS                                 |   7 +
- drivers/pinctrl/freescale/Kconfig           |  15 ++
- drivers/pinctrl/freescale/Makefile          |   1 +
- drivers/pinctrl/freescale/pinctrl-lx2160a.c | 355 ++++++++++++++++++++++++++++
- 4 files changed, 378 insertions(+)
+Vincent Jardin (5):
+      dt-bindings: pinctrl: add the NXP LX2160A RCW pad mux
+      dt-bindings: soc: fsl: layerscape-dcfg: add the LX2160A pad-mux child
+      soc: fsl: guts: add the RCW override of any RCWSR
+      pinctrl: freescale: add the LX2160A RCW pad-mux driver
+      arm64: dts: lx2160a: describe the pad muxes as the DCFG RCW override
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..6c488605f5da 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20207,6 +20207,13 @@ F:	Documentation/devicetree/bindings/clock/*imx*
- F:	drivers/clk/imx/
- F:	include/dt-bindings/clock/*imx*
- 
-+NXP LX2160A RCW PAD-MUX DRIVER
-+M:	Vincent Jardin <vjardin@free.fr>
-+L:	linux-gpio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
-+F:	drivers/pinctrl/freescale/pinctrl-lx2160a.c
-+
- NXP NETC ETHERNET SWITCH DRIVER
- M:	Wei Fang <wei.fang@nxp.com>
- R:	Clark Wang <xiaoning.wang@nxp.com>
-diff --git a/drivers/pinctrl/freescale/Kconfig b/drivers/pinctrl/freescale/Kconfig
-index fd53cf5bb843..a3222714c970 100644
---- a/drivers/pinctrl/freescale/Kconfig
-+++ b/drivers/pinctrl/freescale/Kconfig
-@@ -283,3 +283,18 @@ config PINCTRL_IMXRT1170
- 	select PINCTRL_IMX
- 	help
- 	  Say Y here to enable the imxrt1170 pinctrl driver
-+
-+config PINCTRL_LX2160A
-+	bool "NXP LX2160A RCW pad-mux driver"
-+	depends on OF
-+	depends on ARCH_LAYERSCAPE || COMPILE_TEST
-+	default ARCH_LAYERSCAPE
-+	select FSL_GUTS
-+	select GENERIC_PINCTRL_GROUPS
-+	select GENERIC_PINMUX_FUNCTIONS
-+	select GENERIC_PINCONF
-+	help
-+	  Say Y here to mux the IIC, XSPI, SDHC, UART, IRQ and EVT pads of the
-+	  LX2160A at runtime. The pads are muxed by fields of the RCW:
-+	  the driver changes it in the DCSR view of the DCFG that fsl-guts
-+	  drives, and is what the I2C bus recovery of the LX2160A needs.
-diff --git a/drivers/pinctrl/freescale/Makefile b/drivers/pinctrl/freescale/Makefile
-index d27085c2b4c4..5ec0d1710ad5 100644
---- a/drivers/pinctrl/freescale/Makefile
-+++ b/drivers/pinctrl/freescale/Makefile
-@@ -35,3 +35,4 @@ obj-$(CONFIG_PINCTRL_IMX25)	+= pinctrl-imx25.o
- obj-$(CONFIG_PINCTRL_IMX28)	+= pinctrl-imx28.o
- obj-$(CONFIG_PINCTRL_IMXRT1050)	+= pinctrl-imxrt1050.o
- obj-$(CONFIG_PINCTRL_IMXRT1170)	+= pinctrl-imxrt1170.o
-+obj-$(CONFIG_PINCTRL_LX2160A)	+= pinctrl-lx2160a.o
-diff --git a/drivers/pinctrl/freescale/pinctrl-lx2160a.c b/drivers/pinctrl/freescale/pinctrl-lx2160a.c
-new file mode 100644
-index 000000000000..ba5bbcfab9fd
---- /dev/null
-+++ b/drivers/pinctrl/freescale/pinctrl-lx2160a.c
-@@ -0,0 +1,355 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * LX2160A pad muxes: fields of the RCW, changed at
-+ * runtime.
-+ *
-+ * Copyright 2026 Free Mobile - Vincent Jardin
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/fsl/guts.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/pinctrl/pinconf-generic.h>
-+#include <linux/pinctrl/pinctrl.h>
-+#include <linux/pinctrl/pinmux.h>
-+#include <linux/platform_device.h>
-+#include <linux/seq_file.h>
-+
-+#include "../core.h"
-+#include "../pinmux.h"
-+
-+struct lx2160a_pmux_func {
-+	const char *name;
-+	u8 val;
-+};
-+
-+struct lx2160a_pmux_group {
-+	const char *name;
-+	u8 rcwsr; /* 12..14 */
-+	u8 shift;
-+	u8 width;
-+	const struct lx2160a_pmux_func *funcs;
-+	u8 nfuncs;
-+};
-+
-+#define FUNC(_name, _val)	{ .name = _name, .val = _val }
-+#define GROUP(_name, _rcwsr, _shift, _width, _funcs)			\
-+	{								\
-+		.name = _name, .rcwsr = _rcwsr,				\
-+		.shift = _shift, .width = _width,			\
-+		.funcs = _funcs, .nfuncs = ARRAY_SIZE(_funcs),		\
-+	}
-+
-+static const struct lx2160a_pmux_func iic2_funcs[] = {
-+	FUNC("i2c", 0), FUNC("gpio", 1), FUNC("flextimer", 2), FUNC("sdhc", 6),
-+};
-+
-+static const struct lx2160a_pmux_func iic3_funcs[] = {
-+	FUNC("i2c", 0), FUNC("gpio", 1), FUNC("can", 2), FUNC("evt", 6),
-+};
-+
-+static const struct lx2160a_pmux_func iic5_funcs[] = {
-+	FUNC("i2c", 0), FUNC("gpio", 1), FUNC("sdhc-clk", 2), FUNC("spi", 3),
-+};
-+
-+static const struct lx2160a_pmux_func iic6_funcs[] = {
-+	FUNC("i2c", 0), FUNC("gpio", 1), FUNC("sdhc-clk", 2),
-+};
-+
-+static const struct lx2160a_pmux_func xspi1_funcs[] = {
-+	FUNC("flexspi", 0), FUNC("gpio", 1),
-+};
-+
-+static const struct lx2160a_pmux_func sdhc1_base_funcs[] = {
-+	FUNC("sdhc", 0), FUNC("gpio", 1), FUNC("spi", 2), FUNC("sdhc-spi", 3),
-+	FUNC("sdhc-data4", 4),
-+};
-+
-+static const struct lx2160a_pmux_func sdhc1_dir_funcs[] = {
-+	FUNC("sdhc", 0), FUNC("gpio", 1), FUNC("spi", 3), FUNC("sdhc-data", 4),
-+};
-+
-+static const struct lx2160a_pmux_func sdhc2_data74_funcs[] = {
-+	FUNC("sdhc", 0), FUNC("gpio", 1), FUNC("i2c", 2), FUNC("flexspi", 6),
-+};
-+
-+static const struct lx2160a_pmux_func sdhc2_base_funcs[] = {
-+	FUNC("sdhc", 0), FUNC("gpio", 1), FUNC("spi", 2), FUNC("flexspi", 6),
-+};
-+
-+static const struct lx2160a_pmux_func uart_funcs[] = {
-+	FUNC("uart", 0), FUNC("gpio", 1),
-+};
-+
-+static const struct lx2160a_pmux_func uart1_rtscts_funcs[] = {
-+	FUNC("uart", 0), FUNC("gpio", 1), FUNC("uart3", 2),
-+};
-+
-+static const struct lx2160a_pmux_func uart2_rtscts_funcs[] = {
-+	FUNC("uart", 0), FUNC("gpio", 1), FUNC("uart4", 2),
-+};
-+
-+static const struct lx2160a_pmux_func irq_funcs[] = {
-+	FUNC("irq", 0), FUNC("gpio", 1),
-+};
-+
-+static const struct lx2160a_pmux_func irq_flextimer_funcs[] = {
-+	FUNC("irq", 0), FUNC("gpio", 1), FUNC("flextimer", 2),
-+};
-+
-+static const struct lx2160a_pmux_func evt_funcs[] = {
-+	FUNC("evt", 0), FUNC("gpio", 1), FUNC("flextimer", 2),
-+};
-+
-+static const struct lx2160a_pmux_func clk_out_funcs[] = {
-+	FUNC("gpio", 1), FUNC("flextimer", 2),
-+};
-+
-+static const struct lx2160a_pmux_func asleep_funcs[] = {
-+	FUNC("asleep", 0), FUNC("gpio", 1), FUNC("evt", 2),
-+};
-+
-+static const struct lx2160a_pmux_func reset_req_funcs[] = {
-+	FUNC("reset-req", 0), FUNC("gpio", 1),
-+};
-+
-+static const struct lx2160a_pmux_func iic1_funcs[] = {
-+	FUNC("i2c", 0), FUNC("gpio", 1),
-+};
-+
-+static const struct lx2160a_pmux_group lx2160a_pmux_groups[] = {
-+	/* RCWSR12 */
-+	GROUP("iic2", 12, 0, 3, iic2_funcs),
-+	GROUP("iic3", 12, 3, 3, iic3_funcs),
-+	GROUP("iic4", 12, 6, 3, iic3_funcs),
-+	GROUP("iic5", 12, 9, 3, iic5_funcs),
-+	GROUP("iic6", 12, 12, 3, iic6_funcs),
-+	GROUP("xspi1-data74", 12, 15, 3, xspi1_funcs),
-+	GROUP("xspi1-data30", 12, 18, 3, xspi1_funcs),
-+	GROUP("xspi1-base", 12, 21, 3, xspi1_funcs),
-+	GROUP("sdhc1-base", 12, 24, 3, sdhc1_base_funcs),
-+	GROUP("sdhc1-dir", 12, 27, 3, sdhc1_dir_funcs),
-+	/* RCWSR13 */
-+	GROUP("sdhc2-data74", 13, 0, 3, sdhc2_data74_funcs),
-+	GROUP("sdhc2-base", 13, 3, 3, sdhc2_base_funcs),
-+	GROUP("uart1-soutsin", 13, 6, 3, uart_funcs),
-+	GROUP("uart1-rtscts", 13, 9, 3, uart1_rtscts_funcs),
-+	GROUP("uart2-soutsin", 13, 12, 3, uart_funcs),
-+	GROUP("uart2-rtscts", 13, 15, 3, uart2_rtscts_funcs),
-+	GROUP("irq11-8", 13, 18, 3, irq_funcs),
-+	GROUP("irq7-4", 13, 21, 3, irq_flextimer_funcs),
-+	GROUP("irq3-0", 13, 24, 3, irq_flextimer_funcs),
-+	GROUP("evt4-3", 13, 27, 3, evt_funcs),
-+	/* RCWSR14 */
-+	GROUP("evt2-0", 14, 0, 3, evt_funcs),
-+	GROUP("clk-out", 14, 3, 3, clk_out_funcs),
-+	GROUP("asleep", 14, 6, 3, asleep_funcs),
-+	GROUP("reset-req", 14, 9, 1, reset_req_funcs),
-+	GROUP("iic1", 14, 10, 1, iic1_funcs),
-+};
-+
-+struct lx2160a_pmux {
-+	struct device *dev;
-+	struct pinctrl_dev *pctl;
-+	struct pinctrl_desc desc;
-+	struct pinctrl_pin_desc pins[ARRAY_SIZE(lx2160a_pmux_groups)];
-+};
-+
-+static u32 lx2160a_pmux_group_mask(const struct lx2160a_pmux_group *group)
-+{
-+	return GENMASK(group->shift + group->width - 1, group->shift);
-+}
-+
-+static void lx2160a_pmux_pin_dbg_show(struct pinctrl_dev *pctldev,
-+				      struct seq_file *s, unsigned int pin)
-+{
-+	const struct lx2160a_pmux_group *group = &lx2160a_pmux_groups[pin];
-+	unsigned int i;
-+	u32 val;
-+
-+	if (fsl_guts_rcw_read(group->rcwsr, &val))
-+		return;
-+
-+	val = (val & lx2160a_pmux_group_mask(group)) >> group->shift;
-+	for (i = 0; i < group->nfuncs; i++) {
-+		if (group->funcs[i].val == val) {
-+			seq_puts(s, group->funcs[i].name);
-+			return;
-+		}
-+	}
-+	seq_printf(s, "0x%x", val);
-+}
-+
-+static const struct pinctrl_ops lx2160a_pmux_pctlops = {
-+	.get_groups_count = pinctrl_generic_get_group_count,
-+	.get_group_name = pinctrl_generic_get_group_name,
-+	.get_group_pins = pinctrl_generic_get_group_pins,
-+	.pin_dbg_show = lx2160a_pmux_pin_dbg_show,
-+	.dt_node_to_map = pinconf_generic_dt_node_to_map_group,
-+	.dt_free_map = pinconf_generic_dt_free_map,
-+};
-+
-+static int lx2160a_pmux_set_mux(struct pinctrl_dev *pctldev,
-+				unsigned int fsel, unsigned int gsel)
-+{
-+	struct lx2160a_pmux *pmux = pinctrl_dev_get_drvdata(pctldev);
-+	const struct function_desc *func;
-+	const struct lx2160a_pmux_group *group;
-+	const struct group_desc *grp;
-+	unsigned int i;
-+
-+	func = pinmux_generic_get_function(pctldev, fsel);
-+	grp = pinctrl_generic_get_group(pctldev, gsel);
-+	if (!func || !grp)
-+		return -EINVAL;
-+	group = grp->data;
-+
-+	for (i = 0; i < group->nfuncs; i++) {
-+		if (!strcmp(group->funcs[i].name, func->func->name))
-+			break;
-+	}
-+	if (i == group->nfuncs) {
-+		dev_err(pmux->dev, "%s has no %s function\n",
-+			group->name, func->func->name);
-+		return -EINVAL;
-+	}
-+
-+	return fsl_guts_rcw_override(group->rcwsr,
-+				     group->funcs[i].val << group->shift,
-+				     lx2160a_pmux_group_mask(group));
-+}
-+
-+static const struct pinmux_ops lx2160a_pmux_pmxops = {
-+	.get_functions_count = pinmux_generic_get_function_count,
-+	.get_function_name = pinmux_generic_get_function_name,
-+	.get_function_groups = pinmux_generic_get_function_groups,
-+	.set_mux = lx2160a_pmux_set_mux,
-+	.strict = true,
-+};
-+
-+static int lx2160a_pmux_add_functions(struct lx2160a_pmux *pmux)
-+{
-+	const struct lx2160a_pmux_group *group;
-+	const char **groups;
-+	unsigned int i, j, k, n;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(lx2160a_pmux_groups); i++) {
-+		group = &lx2160a_pmux_groups[i];
-+		for (j = 0; j < group->nfuncs; j++) {
-+			const char *name = group->funcs[j].name;
-+			bool seen = false;
-+
-+			/* already added from an earlier group? */
-+			for (k = 0; k < i && !seen; k++) {
-+				const struct lx2160a_pmux_group *g =
-+					&lx2160a_pmux_groups[k];
-+				unsigned int l;
-+
-+				for (l = 0; l < g->nfuncs; l++)
-+					if (!strcmp(g->funcs[l].name, name))
-+						seen = true;
-+			}
-+			if (seen)
-+				continue;
-+
-+			groups = devm_kcalloc(pmux->dev,
-+					      ARRAY_SIZE(lx2160a_pmux_groups),
-+					      sizeof(*groups), GFP_KERNEL);
-+			if (!groups)
-+				return -ENOMEM;
-+			n = 0;
-+			for (k = i; k < ARRAY_SIZE(lx2160a_pmux_groups); k++) {
-+				const struct lx2160a_pmux_group *g =
-+					&lx2160a_pmux_groups[k];
-+				unsigned int l;
-+
-+				for (l = 0; l < g->nfuncs; l++)
-+					if (!strcmp(g->funcs[l].name, name))
-+						groups[n++] = g->name;
-+			}
-+			ret = pinmux_generic_add_function(pmux->pctl, name,
-+							  groups, n, NULL);
-+			if (ret < 0)
-+				return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int lx2160a_pmux_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct lx2160a_pmux *pmux;
-+	unsigned int i;
-+	u32 val;
-+	int ret;
-+
-+	/* The override needs the DCSR view of DCFG, mapped by fsl-guts */
-+	if (!fsl_guts_rcw_override_supported())
-+		return dev_err_probe(dev, -ENODEV,
-+				     "no RCW override through fsl-guts: the dcfg node needs its DCSR reg\n");
-+
-+	pmux = devm_kzalloc(dev, sizeof(*pmux), GFP_KERNEL);
-+	if (!pmux)
-+		return -ENOMEM;
-+	pmux->dev = dev;
-+
-+	for (i = 0; i < ARRAY_SIZE(lx2160a_pmux_groups); i++) {
-+		pmux->pins[i].number = i;
-+		pmux->pins[i].name = lx2160a_pmux_groups[i].name;
-+	}
-+	pmux->desc.name = dev_name(dev);
-+	pmux->desc.pins = pmux->pins;
-+	pmux->desc.npins = ARRAY_SIZE(pmux->pins);
-+	pmux->desc.pctlops = &lx2160a_pmux_pctlops;
-+	pmux->desc.pmxops = &lx2160a_pmux_pmxops;
-+	pmux->desc.owner = THIS_MODULE;
-+
-+	ret = devm_pinctrl_register_and_init(dev, &pmux->desc, pmux,
-+					     &pmux->pctl);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "pinctrl registration failed\n");
-+
-+	for (i = 0; i < ARRAY_SIZE(lx2160a_pmux_groups); i++) {
-+		ret = pinctrl_generic_add_group(pmux->pctl,
-+						lx2160a_pmux_groups[i].name,
-+						&pmux->pins[i].number, 1,
-+						(void *)&lx2160a_pmux_groups[i]);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = lx2160a_pmux_add_functions(pmux);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 12; i <= 14; i++) {
-+		fsl_guts_rcw_read(i, &val);
-+		dev_dbg(dev, "RCWSR%u = 0x%08x\n", i, val);
-+	}
-+
-+	return pinctrl_enable(pmux->pctl);
-+}
-+
-+static const struct of_device_id lx2160a_pmux_of_match[] = {
-+	{ .compatible = "fsl,lx2160a-rcw-pinmux" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, lx2160a_pmux_of_match);
-+
-+static struct platform_driver lx2160a_pmux_driver = {
-+	.driver = {
-+		.name = "lx2160a-rcw-pinmux",
-+		.of_match_table = lx2160a_pmux_of_match,
-+	},
-+	.probe = lx2160a_pmux_probe,
-+};
-+module_platform_driver(lx2160a_pmux_driver);
-+
-+MODULE_AUTHOR("Vincent Jardin <vjardin@free.fr>");
-+MODULE_DESCRIPTION("NXP LX2160A RCW pad-mux driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("FSL_GUTS");
+ .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   |  71 ++++
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml      |  18 +
+ MAINTAINERS                                        |   7 +
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi      | 373 +++++++++++----------
+ drivers/pinctrl/freescale/Kconfig                  |  15 +
+ drivers/pinctrl/freescale/Makefile                 |   1 +
+ drivers/pinctrl/freescale/pinctrl-lx2160a.c        | 355 ++++++++++++++++++++
+ drivers/soc/fsl/guts.c                             |  73 ++++
+ include/linux/fsl/guts.h                           |   3 +
+ 9 files changed, 741 insertions(+), 175 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-for-upstream-lx2160a-rcw-pinmux-v1-31f9ad97dc86
 
+Best regards,
 -- 
-2.43.0
+Vincent Jardin <vjardin@free.fr>
 
 
