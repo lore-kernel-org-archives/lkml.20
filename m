@@ -1,62 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706472;
-	b=3c+LO1YN2PUnAZ36uzBB511L/JUU35ag2OzKIT8i/E8Po3a7CydUPANH5caJB79tkMxj
-	 XL23s76JRLT3LfY99/+0fMGKFHxjKPAwz+bKcGCq/PAKYUZIef1Ks0Qr2HLX0ZhWFPD2O
-	 ej40xvJlebkK5LD5urT2qjSYL9IRyG6KNO77nZSZKV172P10lOtJ4rr3MES9SfrVu6wm3
-	 DbCrbVowy/WUqdl5G/briP8HOPYDlo2JSsMWlCKXmnF+VgtHvm5GaDL4wPpnDQ6mJF6sJ
-	 kT7PILrNA+fGBZUaKVQUp5J0EmpG/iAMUcnv5WpmSVSCxxbU5NWhkCD9DJOZ26Ad6aA==
+	t=1793706480;
+	b=AvbSLRxB3vhQroStaiCO3f5BQBWPD1CzWyWoKI+XclrtT54xV0FAyrB3x67zNe23p2nM
+	 BdDZ6VlFG0IPEuBAXmnAw3lr5xrOjEm8UpJ9yqodNJbpt5GzRTevgHts8TrN/mVUH/fLO
+	 x2/P3qsYLG2uSYeIWvgMkdAfPYB8hRsjxkpbA46ljZRBT50BbIGWBVNVKa5eGy8OA44tC
+	 bhKyOqdB0c4dNz33njUDdL8hv7vvYLEyCj6p8lesGhmhSECBV77NXA3VIUGmW6G3TPETZ
+	 eW+u51bV3fgwoT95R/68bQdGd6KZ3Gy4Ov+xnE5G1qID09V1GM7ztFO9h4PxKgcANJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706472;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dYjrImbKjvTgduATVWv6BpAbZVCe/ugP8SgqQZOZVmk=;
-	b=y9qZ0+/W1f5T3KYoC+GxbyLq8hBAa6/jAmhaexJzybb6B/LfxUiOO0GXBuuyKgaAw74I
-	 AFBHk/fsBHmABmLoyBEBnrOWnzIwczfMMsvAgLGHKQBaOzdhZlZJeY9gFbMj3RXgDloIP
-	 JFRyYjmiH1h0tpGvIhSqolxIiWI3czsyT93X0x8rQ/loVZmQ9Hnxo7tLdO5c0v+vl54RA
-	 Qts17m1wlxE4yfjNHb9JH0kaPdknez18rCALwhhsa7SNfaXk7NT6e3UhgeohIq01dh9c9
-	 KY378dsgZCQa+8ehLwj3n5jNGYJFMTeHZYqez+/pBupP+i9F0Ephm99c8ghRTFCVwYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706480;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=gpNnj5q4z35v5NpxDoXWpLWIxpF/EVXKHOt/hVE3ktU=;
+	b=vB3Eyz40W8Of4nAwEU2x0QTovqRbMGgT8+DPHxu3+gfQgjr/6uvAQBNrbb1q5qBPrt1s
+	 p9JjituxId83XBL0ug+tAnjRNeXxF0Eu/D80/bEbtfkDHQOYglQqtkb0Y9dxoP8QmBQws
+	 kJcYcBgeTpeDOs2FRxdnL+hBiKfFVrw2DJcb1ubQplUXXillj95jFlx/CGapj6hwjCWti
+	 dD5hY91Gz26bCe/eOg1fILa1iWMn86WJF2ELGx2OsojHbip8jgYgU5Xi40cKfFVjcUlO8
+	 CQ1HizWqyX8uc3Ya4RSCaTgGx4l6Acb2p1GdFsChijlliI/FdHpDRZddcIt1FI5KFmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="L0/vJzZ4";
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=pZLy0L9d;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Y4zBKWh3;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CHDXryvq;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Y4zBKWh3;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CHDXryvq;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8409606D802;
-	Tue,  3 Nov 2026 11:47:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8409606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB5E606A334;
+	Tue,  3 Nov 2026 11:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BB5E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=L0/vJzZ4;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=pZLy0L9d
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793706468; bh=dYjrImbKjvTgduATVWv6BpA
-	bZVCe/ugP8SgqQZOZVmk=; b=L0/vJzZ4PDtJUHg/9NqgCyT0SCD06oYuI6ze0WnUX2pIj/7J4F
-	ZbWF/ZVJW1netL6/+CyF7HHGjNbR10UKgZxVd57fwVGpyfBaeUibpZiUUZvUYglKsZAqD7/Ovu7
-	AOyLeaPlb6rm0glrzY/ROrF5LqKP58CRb/BnKyD/IlBtlJARmOmtDDkQVi5tQkRI/In+McyHa/o
-	05zYhdfjwzXRs0IrtfIgfoYAGfA2Gq0mCOxmmwpIeNZTIZzz1GQAgAMgZgMfjGomNWeJ4krK6qr
-	oLVLZC1JK7b6CxJi4fx9S8JUfNGoD8Usn9LPYHaaQNirxNqxU+QnRJh3AMHzNP6IuPA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793706468; bh=dYjrImbKjvTgduATVWv6BpA
-	bZVCe/ugP8SgqQZOZVmk=; b=pZLy0L9dPusggIsjur5QpHR6mAHsN/+75f0GGHYOixwM7qv5W1
-	9xBFzkcLjYgY7EZNH0amXuLEKQMJf+DPKrBg==;
-Date: Tue, 03 Nov 2026 11:47:50 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: elb12345@hotmail.co.uk
-CC: eperezma@redhat.com, jasowangio@gmail.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, mst@redhat.com, netdev@vger.kernel.org,
- peterz@infradead.org, shakeel.butt@linux.dev, stable@vger.kernel.org,
- virtualization@lists.linux.dev, vschneid@redhat.com, ziqianlu@bytedance.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_vhost=3A_Run_TIF=5FNOTIF?=
- =?US-ASCII?Q?Y=5FRESUME_work_in_the_vhost=5Ftask_loop?=
-In-Reply-To: <AS8P251MB0001F1EACBED6E7A2AFA8A96C8692@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Message-ID: <8DACE49B-4588-4419-BB47-4C35F7600AE2@mainlining.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Y4zBKWh3;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CHDXryvq;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Y4zBKWh3;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=CHDXryvq
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2FACE1F83B;
+	Tue,  3 Nov 2026 11:47:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793706478; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gpNnj5q4z35v5NpxDoXWpLWIxpF/EVXKHOt/hVE3ktU=;
+	b=Y4zBKWh3jpv6KMan74hAIoPBOSLs6tZK+6I3oXqMSfIYnA8S5ywXTaZUj3pHgSrb7VT90k
+	329ZViAKBSeKUbGb8+5mzc2frx/+GV6reJ9nXvxCL4vReDMldn3E1PoxUzI1wb8UPaR2qV
+	R/wJmcymFrxhPjRxW0H5+f3xz5M+HuQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793706478;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gpNnj5q4z35v5NpxDoXWpLWIxpF/EVXKHOt/hVE3ktU=;
+	b=CHDXryvqgLheeosXz5cGd2sibnFQ1eIqkqKPm0R0TjOV2ia+1m/8RKNtWnzplPS6lEGySx
+	jwKpi9Hus6OsYyDA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Y4zBKWh3;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=CHDXryvq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793706478; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gpNnj5q4z35v5NpxDoXWpLWIxpF/EVXKHOt/hVE3ktU=;
+	b=Y4zBKWh3jpv6KMan74hAIoPBOSLs6tZK+6I3oXqMSfIYnA8S5ywXTaZUj3pHgSrb7VT90k
+	329ZViAKBSeKUbGb8+5mzc2frx/+GV6reJ9nXvxCL4vReDMldn3E1PoxUzI1wb8UPaR2qV
+	R/wJmcymFrxhPjRxW0H5+f3xz5M+HuQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793706478;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gpNnj5q4z35v5NpxDoXWpLWIxpF/EVXKHOt/hVE3ktU=;
+	b=CHDXryvqgLheeosXz5cGd2sibnFQ1eIqkqKPm0R0TjOV2ia+1m/8RKNtWnzplPS6lEGySx
+	jwKpi9Hus6OsYyDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B3A57134B8;
+	Tue,  3 Nov 2026 11:47:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LqoVIu3J6Wr7VgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 11:47:57 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 31B58B23A; Tue, 03 Nov 2026 12:47:57 +0100 (CET)
+Date: Tue, 3 Nov 2026 12:47:57 +0100
+From: Jan Kara <jack@suse.cz>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org, 
+	linux-mm@kvack.org, ryan.roberts@arm.com, abuehaze@amazon.com, alisaidi@amazon.com, 
+	blakgeof@amazon.com, dipietro.salvatore@gmail.com, rvvandan@amazon.com, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, linkinjeon@kernel.org, 
+	sj1557.seo@samsung.com, yuezhang.mo@sony.com, miklos@szeredi.hu, agruenba@redhat.com, 
+	djwong@kernel.org, hyc.lee@gmail.com, almaz.alexandrovich@paragon-software.com, 
+	cem@kernel.org, dlemoal@kernel.org, naohiro.aota@wdc.com, jth@kernel.org, 
+	willy@infradead.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, gourry@gourry.net, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, ritesh.list@gmail.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, exfat@lists.linux.dev, 
+	fuse-devel@lists.linux.dev, gfs2@lists.linux.dev, linux-xfs@vger.kernel.org, 
+	ntfs@lists.linux.dev, ntfs3@lists.linux.dev
+Subject: Re: [PATCH 0/2] mm, iomap: account dirty at page granularity for
+ per-block dirty folios
+Message-ID: <mcskrz2zbav5r3xtlwqytyotgjcmmi3wapeibkqornuhb3qp5y@qk22j77kvkqx>
+References: <20261027112702.3747009-1-dipiets@amazon.it>
+ <auCrqvae2tm4a8PV@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,83 +126,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auCrqvae2tm4a8PV@pedro-suse.tail5790ac.ts.net>
+X-Rspamd-Queue-Id: 2FACE1F83B
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[amazon.it,linux-foundation.org,kvack.org,arm.com,amazon.com,gmail.com,zeniv.linux.org.uk,kernel.org,suse.cz,samsung.com,sony.com,szeredi.hu,redhat.com,paragon-software.com,wdc.com,infradead.org,google.com,suse.com,nvidia.com,intel.com,sk.com,gourry.net,linux.alibaba.com,vger.kernel.org,lists.linux.dev];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	RCPT_COUNT_GT_50(0.00)[50];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLwajpstcpqr181tektcof4ecz)];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email]
+X-Spam-Score: -11.51
 
-On 3 November 2026 10:54:40 GMT, Aamir Ahmed <elb12345@hotmail.co.uk>
-wrote:
->Since commit e1fad12dcb66 ("sched/fair: Switch to task based throttle
->model"), a throttled task is only dequeued when TWA_RESUME task_work
->runs on its way back to user mode.
->
->vhost workers never return to user mode, and vhost_task_fn() only runs
->task_work via get_signal() when a signal is pending. A busy vhost worker
->therefore ignores its cgroup's cpu.max, while its runtime is still
->charged to the group, throttling the group's other tasks (typically the
->VM's vCPUs) harder.
->
->This also fixes memory.high and block cgroup throttling for vhost
->workers, which are handled in resume_user_mode_work() as well.
->
->Run pending notify-resume work at the top of the worker loop, as io-wq
->does in io_run_task_work(). Commit 12013e3d4695 ("KVM: powerpc: Use
->generic xfer to guest work function") fixed the same problem for KVM.
->
->Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
->Cc: stable@vger.kernel.org # 6.18+
->Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
->Tested-by: Shakeel Butt <shakeel.butt@linux.dev>
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
->Assisted-by: LLM
->Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
->---
->v2:
->- Also describe the memory.high and block cgroup throttling fixes
->  (Shakeel)
->- Add Shakeel's Reviewed-by and Tested-by
->- Update the code comment to match
->- v1: https://lore.kernel.org/AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
->
->Tested on x86_64 with a vhost_task-based reproducer: in a 0.2-CPU cgroup
->a busy worker drops from 100% to 19% of a CPU. Reproducer available on
->request.
->
-> kernel/vhost_task.c | 9 +++++++++
-> 1 file changed, 9 insertions(+)
->
->diff --git a/kernel/vhost_task.c b/kernel/vhost_task.c
->index 3717885a599..f63ac005214 100644
->--- a/kernel/vhost_task.c
->+++ b/kernel/vhost_task.c
->@@ -6,6 +6,7 @@
-> #include <linux/completion.h>
-> #include <linux/sched/task.h>
-> #include <linux/sched/vhost_task.h>
->+#include <linux/resume_user_mode.h>
-> #include <linux/sched/signal.h>
+On Tue 27-10-26 13:59:59, Pedro Falcato wrote:
+> On Tue, Oct 27, 2026 at 11:27:00AM +0000, Salvatore Dipietro wrote:
+> > Since iomap gained per-block dirty tracking, a large folio can be
+> > partially dirty: struct iomap_folio_state records exactly which
+> > blocks are dirty, and writeback only writes those ranges.  The mm
+> > dirty accounting, however, still charges the whole folio even if a
+> > single block is dirty (up to 512x over-accounting for a 2 MB folio
+> > over 4 KB blocks).
+> > 
+> > balance_dirty_pages() then throttles writers against a number that
+> > is unrelated to how much data actually needs writing back.  On
+> > workloads that repeatedly dirty small ranges of large folios --
+> > e.g. PostgreSQL, which writes mostly 8/16 KB pages -- dirty_thresh
+> > is crossed and writers are throttled long before the real dirty data
+> > justifies it.  On the benchmark below, run on v7.3-rc7, the
+> > unpatched kernel charges ~159 TB of dirtied pages while writing
+> > ~6 TB to the array, a factor of 27; with this series the dirtied
+> > pages charged match the data actually written.
+> > 
+> > This series makes iomap charge and discharge the mm dirty counters
+> > per dirty page for folios that carry per-block dirty state, so a
+> > partially dirty large folio is accounted for the dirty part only:
 > 
-> enum vhost_task_flags {
->@@ -31,6 +32,14 @@ static int vhost_task_fn(void *data)
-> 	for (;;) {
-> 		bool did_work;
-> 
->+		/*
->+		 * We never return to user mode, so TWA_RESUME task_work and
->+		 * memory.high/blkcg throttling would otherwise never run. Run
->+		 * them here, where no locks are held, like io-wq workers do.
->+		 */
->+		if (test_thread_flag(TIF_NOTIFY_RESUME))
->+			resume_user_mode_work(NULL);
->+
-> 		if (signal_pending(current)) {
-> 			struct ksignal ksig;
-> 
->
->base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
->
+> Why? This looks wrong. Yes, you may only have dirtied e.g 4K out of a 2MB
+> folio, but the whole 2MB folio is still effectively pinned by the VM, awaiting
+> cleaning + writeback. And that's precisely what we want to measure and
+> throttle in certain cases, so that e.g the VM system never finds itself
+> short of clean pages it can reclaim, and no easy way to start writeback
+> on them.
 
+Fully agree on that. We have already discussed this with Joanne about one
+year ago [1]. There are some aspects of dirty accounting that could be made
+more finer grained but overall the whole folio is difficult to reclaim due
+to dirtiness so accounting it all is the correct approach.
 
---- Thanks!
+								Honza
+
+[1] https://lore.kernel.org/all/20250829233942.3607248-1-joannelkoong@gmail.com
+
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
