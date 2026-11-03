@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687342;
-	b=aIkz0NmBl0sQwaLoW4eBYsM/MUBzmNCAdJy9NiBQ5fea4BrvyRtERfp48fAjfy55Ud1k
-	 O+O0sHfgQ7EWzRtKpixDI7mWaU5LED/tsqauWSObMPv7rVRxEAEHYZ5ztdBKLgylUGttA
-	 d2qaUhdXpRObzH0DurgN9pg1pNPy805h7oD0YYYxU3jeC4KxxM3M/8bEZ++D61U5xQUZU
-	 il0OWCawMwTLRpEsWHA6sTyd7xfBcVaGTrDPCGgMawcQy3hwdjHdrWOYfowVTBKPdPg8d
-	 sjiV5sWNK5GosfbVlgREMoqM0ukOPi+paQFkzjhetb9GDXiILaasH7qZRh4Qk5RV/Qg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687342;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=kPjMT+SFzLPVRdUodSrgDaoLXCme21lrWUEOuuTeAiE=;
-	b=qnC1kQLPdPSm/N6lZw4xxVW1gG1zzd3BLld3f/x5t+A40EBHzWbGTs4y2zp2yjct6lhk
-	 Rm62fGc9Mq2iH5NWwGCmwXs8UHi5FoxJVPpjrbWFBrjOjwJVlISWvOuIg0/wf6y7EGjml
-	 r/FNAJYHqRtnnYu5QVudomBayK1zvY8W/9FmqFBu68tNb4zrTF1ogFyMmtHzMiwHmA/ut
-	 fbW9DGD/83uR5sBfmsZeDpmASJxyH2Gv/YEpQbpcK3BlEzh673rcYX7mMWD8vposXnTp5
-	 wZIufuoKiOcxEM2xpyh7PnGyCPc30/2tcwksJYIzznhgBRTSYlk8lwYWYy8eKDrgGcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--cyueh.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j1GQBjH7;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793687373;
+	b=xiudTlPp2m6o6ZxM0RkcGHfgQdtFcl6zWf6I5NUCbaZkE8bJ+tyseh1bC737IIi1Jn4E
+	 fdoS1NgVa5xnVslPs8Yls7ll8y1Bx3nCSplcsW9ZtJH0zM3gmJBzNwNTn1xFZeFhDR9Ci
+	 TRrpDyyRksyMccd32goRnZQVjZjcnPGbqsPvXB1JtnbzAfGeAiXxF8+JIlk5PotF2C6aH
+	 nZCugfgSxMonolDWONxgss5teW1BmFKF6T1I1X8KKPElqzwL14vd/ijq12U5/N7UkKRuP
+	 lHoD3DELtmx1errFGdvv85wJBnLF24ZM6w1XB/5afS6Ufy1bTT7iH3WifZH9xKUIE/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687373;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YsyfiCpg9lxmYrMJMc2pVDhQtP06099TNCGNIqa+JxM=;
+	b=FZ6Ge4SJYxjYuYXILS8/fX7QHBt35wDmHwymx865qIT8CTwdEBe46O7y8Zb1mvbGSM3N
+	 qmG8LGuYt5lP5etuiLII402/zLxOJsO/VFG4pSjft3q5kHV4pjFgAvkKRzcu/6dNtLuSN
+	 pafUqVU4Z0Y9lVnPfBGY1Et+TwwzFejvCekiW3OzOqlyNk9wAWsGPrzEUSItZ1wROkxII
+	 OW8u+/DNkuHkCzxHN7V4vOMlane+gPWzm1y4W4eZciSablvrqZBC3P4WsuNPu4+pW+X4s
+	 luHuYCjq/FPbB0QIaDI6JjNQMChMvoB9l5+SXy1ZPmFw50heBngF4bDOmYYbAsvBONw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESVoQ6+e;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F29E606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESVoQ6+e
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793687372;
+	b=U3ZAt3aAZPhgqwkSq0h6QwcXdurN5j6DddbPLRIuZWMo+KFyD9iJdAkkmQLAUIrF3CBZ
+	 LNGC76tx/BuvRVAR0eRwdyS99E+H1Nc1c+GIcLfeJr/pBdfsZd408vNG5j0wXV4OQXIdP
+	 KPD8bDSw+8DVGKs4b2WW9odzfdxZS7s/SiAA/bTeUTkYl/+qn0hRv/3ywyqxZF7enjxlD
+	 uQgt5epn9Ndg5+8FBZ6TAQccU1prgk5wDuB4DvjlqG+mkxQZ5lZgIrYbA2cRQC+GE9Ppz
+	 ig6MDJq02MiaQF6ycEDVbgdjuvjjeRom6o5fOu3RSoC4xE1JiO45vBBLlSvcKgccSoQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793687372;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YsyfiCpg9lxmYrMJMc2pVDhQtP06099TNCGNIqa+JxM=;
+	b=2RMDRkd8m8z2Dpe+HvEUE+zm7PrhucVQrQqOsWnfPwjZNL0DG6iAaC497PH3g7SbCwLt
+	 IlkH5H5O7GZPMEzEzoF3XYwKKDNgHQJSUI5/vcsuY26wZb6hZ747lOhXRKlNh0P+QPEn4
+	 BCqVrI12hShXHrZrGYJTaFC0/Nv038iAp3z8PPnfYXOQiNrQYQBCSo+O2J94vP4SRfLHL
+	 HDkPZ5B4oNjbZYXseeYf30mQcFoLhB/8MqQG9cdS7Wqphf8hXETo2OCsdhxwJDFHcOqTK
+	 q6cyHgUAa7vyAt3Tr8xYD87mDQRzttUNJjGg2X+GQIARpalA3F16nICNBidXnqZQ6tA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27D6606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B27D6606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cyueh.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j1GQBjH7
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887c99013edso1960020b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:29:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793687341; x=1794292141; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kPjMT+SFzLPVRdUodSrgDaoLXCme21lrWUEOuuTeAiE=;
-        b=j1GQBjH73SUB5ThsxahsdEBents9hXXu2EKz1l0qZx6gkh0tn9edRg/WWJ+wK/UC6g
-         ahVh2MkdvWY93+GyivU5dz9jJfHJanY1B7+FpYn1oJ6mtQVS+haXlmuRMi/pwsXKC0t6
-         0+7KMq4l1DlofkirWHNMOXZLoavk4oZ4TVdP/EzzAJVNNZckEL2+Ts1BepYd97b25BWj
-         Yj3PkAosT5q+Ahob+qW5ZwU6Gh2Bnmj6mA47H5sUmremYidoTxClt/BHuxPG297nfMwD
-         7NOuJYr3QudiJwZzUMv7m+TJa4LfififrfklHQ648y1AGogZfOUjHX7UgdNymGHo1I3x
-         RFeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793687341; x=1794292141;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kPjMT+SFzLPVRdUodSrgDaoLXCme21lrWUEOuuTeAiE=;
-        b=A0K0mdzqucAtaQ3tXqna/LtIpbTc3gXVQrVn5xqtdiqGMgPqfK3V7lKIJo+x+Nel19
-         Fn5rmjmgBiwNWe2ZG+5hvYwDhRJ/yH+F9FIgoCbICZP/eiCBtl7YtqsMQ5Qukqgv+k96
-         RtXMFAWuON/8vg9Ik+XE/yjW89MArq8noFZ86BosqJks/xhUKJARSG1whrPuv21LROUw
-         RMJ+AwmBhZ0CdvYopAGBT3BG4xHdxyG878z4CaRtILKI81DeV4h6DgvMjIp6+Aq3fPfy
-         a9i89hj8eJv4Sn6TDj4M7mb9ekc9sry0gr4lsp+CX5V+4kytnnPe/A42rATVvKpVcfxv
-         8Asw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKBRel+AhluVnoKrFC/V8WJ0LGdQvhk6CpmsIbwdM8P+7O1/lxzGjQ2YpH5dMOhctnarPLYwg3qPFIIIo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+j1TSS2mfSlb5IYvoSKsgAOfwOzLgNfURcJOpf5U4edBB0s56Q
-	5/twZ5I6fptivYQHFaDhCfQR2IsJjhmY5eoNdCMieQcd8WDRzDZsJLbOWbxwg3kry8i/wU/XBJG
-	6RA==
-X-Received: from pfbgq25.prod.google.com ([2002:a05:6a00:3bd9:b0:89f:4f8e:282d])
- (user=cyueh job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:a510:b0:3e2:257a:a61f
- with SMTP id adf61e73a8af0-3e928fbdc2dmr9948243637.59.1793687340722; Mon, 02
- Nov 2026 22:29:00 -0800 (PST)
-Date: Tue,  3 Nov 2026 14:28:02 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id B93BE1F00A02;
+	Tue,  3 Nov 2026 06:29:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793687372;
+	bh=YsyfiCpg9lxmYrMJMc2pVDhQtP06099TNCGNIqa+JxM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ESVoQ6+e1ICd0qf5MASR6lW/koOQseOyNzvCCjPUoeJd/E4KGW7943urUX852eoup
+	 +9UZP6uHA7TC+BhI6D4pxuqNwJfSHMGw1h9Pt+FFHe/y7GOaWaY39dnRYWRYdf0Ncx
+	 Li8dyro36aWpirblux72rQF+rp6LCSCK1DeaZ7oIGYx5TramB3ZRcE7KTqyo581Ttx
+	 FLhY6lAis5PxpSLnDg5c/ma2mDU4kVTdRYBjjw+wcUsLegu7xZPxGszu8pIs/I1rMW
+	 ihnVAqXYvX8sbt55dAElbcjDbu/2pd47u0kxSJQ9WYqhRvGf5PqvYJ7UoPkP6L32s7
+	 gR759PG9/O0mQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 30380467D4;
+	Tue,  3 Nov 2026 06:29:31 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Tue, 03 Nov 2026 15:29:31 +0900
+Subject: [PATCH v2 1/3] erofs: apply the stacked fs check to extra
+ file-backed devices
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,60 +82,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103062802.361878-1-cyueh@google.com>
-Subject: [PATCH] platform/chrome: cros_ec_rpmsg: record last_event_time on
- host event
-From: Cheng Yueh <cyueh@google.com>
-To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kernel-team@android.com, 
-	Cheng Yueh <cyueh@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-erofs-fileio-bioset-v2-1-5b91af423f72@samsung.com>
+References: <20261103-erofs-fileio-bioset-v2-0-5b91af423f72@samsung.com>
+In-Reply-To: <20261103-erofs-fileio-bioset-v2-0-5b91af423f72@samsung.com>
+To: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>
+Cc: Yue Hu <zbestahu@gmail.com>, Jingbo Xu <jefflexu@163.com>, 
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
+ Chunhai Guo <guochunhai@vivo.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793687370; l=2267;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=sBPUwaW5nh1BZZ5bGZhc9yc4TVa5dHShdY8rmkDN50M=;
+ b=illcO8XCFxG/SolTRokzWsZMW4CHgUDWCeN3ezbH5XDUb4PA8UF2JLJLIYffOSRXsQ7qTWBcD
+ vt4ms4C8dIABzjmVDkd4HqwvwStFV82NyQF/ABTjbi0FhSITSqXTgyg
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-Transports with a dedicated interrupt line (ec_dev->irq > 0, such as SPI
-and I2C) record ec_dev->last_event_time in the top-half
-cros_ec_irq_handler(), while transports without one (ec_dev->irq == 0,
-such as LPC in cros_ec_lpc_acpi_notify() and ISHTP in ish_event_cb())
-record it in their respective event callbacks.
+From: Daejun Park <daejun7.park@samsung.com>
 
-cros_ec_rpmsg also operates with ec_dev->irq == 0: when an MKBP event
-notification (HOST_EVENT_MARK) arrives in cros_ec_rpmsg_callback(), it
-schedules host_event_work to invoke the bottom-half cros_ec_irq_thread()
-directly, bypassing cros_ec_irq_handler() and leaving
-ec_dev->last_event_time as 0.
+erofs_fc_fill_super() rejects a file-backed mount whose image is on a
+file-backed EROFS or on a filesystem with s_stack_depth set. This
+bounds the nesting of reads. Extra devices given by device= are not
+checked. File-backed mounts can still nest through them without limit.
 
-cros_ec_sensorhub_ring relies on ec_dev->last_event_time (via
-fifo_timestamp) as the AP CLOCK_BOOTTIME reference timestamp to calibrate
-the offset and clock drift between the remote processor's local hardware
-timer and the AP timebase. Without this calibration, IIO sensor sample
-timestamps cannot be synchronized to CLOCK_BOOTTIME
-(SystemClock.elapsedRealtimeNanos()), failing the Android CTS sensor
-specification TimestampClockSourceVerification.
+Apply the same check to extra devices.
 
-Record ec_dev->last_event_time = cros_ec_get_time_ns() upon receiving
-HOST_EVENT_MARK in cros_ec_rpmsg_callback(), matching the other ChromeOS
-EC transport drivers.
-
-Fixes: 2de89fd98958 ("platform/chrome: cros_ec: Add EC host command support using rpmsg")
-Signed-off-by: Cheng Yueh <cyueh@google.com>
+Fixes: fb176750266a ("erofs: add file-backed mount support")
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
- drivers/platform/chrome/cros_ec_rpmsg.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/erofs/super.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/chrome/cros_ec_rpmsg.c b/drivers/platform/chrome/cros_ec_rpmsg.c
-index 39d3b50a7c09..07b9e71ac8e3 100644
---- a/drivers/platform/chrome/cros_ec_rpmsg.c
-+++ b/drivers/platform/chrome/cros_ec_rpmsg.c
-@@ -180,6 +180,7 @@ static int cros_ec_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 		memcpy(ec_dev->din, resp->data, len);
- 		complete(&ec_rpmsg->xfer_ack);
- 	} else if (resp->type == HOST_EVENT_MARK) {
-+		ec_dev->last_event_time = cros_ec_get_time_ns();
- 		/*
- 		 * If the host event is sent before cros_ec_register is
- 		 * finished, queue the host event.
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index ce05557bd9..ee01a5ef85 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -122,6 +122,14 @@ void *erofs_read_metadata(struct super_block *sb, struct erofs_buf *buf,
+ 	return buffer;
+ }
+ 
++/* see the comment in erofs_fc_fill_super() */
++static bool erofs_is_stacked_file(struct file *file)
++{
++	struct super_block *sb = file_inode(file)->i_sb;
++
++	return (sb->s_op == &erofs_sops && !sb->s_bdev) || sb->s_stack_depth;
++}
++
+ static int erofs_init_device(struct erofs_buf *buf, struct super_block *sb,
+ 			     struct erofs_device_info *dif, erofs_off_t *pos)
+ {
+@@ -161,6 +169,11 @@ static int erofs_init_device(struct erofs_buf *buf, struct super_block *sb,
+ 		} else if (!S_ISREG(file_inode(file)->i_mode)) {
+ 			fput(file);
+ 			return -EINVAL;
++		} else if (erofs_is_stacked_file(file)) {
++			erofs_err(sb, "%s: file-backed devices cannot be on stacked fses",
++				  dif->path);
++			fput(file);
++			return -EINVAL;
+ 		}
+ 		if (!dif->dax_dev && test_opt(&sbi->opt, DAX_ALWAYS)) {
+ 			erofs_info(sb, "DAX unsupported by %s. Turning off DAX.",
+@@ -701,9 +714,7 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		 * It MUST change if another fs plans to support them, which
+ 		 * may also require adjusting FILESYSTEM_MAX_STACK_DEPTH.
+ 		 */
+-		inode = file_inode(sbi->dif0.file);
+-		if ((inode->i_sb->s_op == &erofs_sops &&
+-		     !inode->i_sb->s_bdev) || inode->i_sb->s_stack_depth) {
++		if (erofs_is_stacked_file(sbi->dif0.file)) {
+ 			erofs_err(sb, "file-backed mounts cannot be applied to stacked fses");
+ 			return -ENOTBLK;
+ 		}
+
 -- 
-2.56.0.385.gac671c819a-goog
+2.43.0
+
 
