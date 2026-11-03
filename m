@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793724135;
-	b=S9fAHnfrM3nHsQmvW6OJ4ARviv6n2H7TuEd+Th6y+0ZD22+Ts7TLVOUN7oreY9fXT8fo
-	 xua5U8MvcpxZNyvAaFvx1Xt1nyy6m4Yrh5stD5TefB3/rnxrasq6waiAMtxGiAewej9fo
-	 Qysw3x2DNuKKwjphrB+8eoIDfPBbKQvvQYg3y/UtB6yMuVnVhfkueggSpRu2INA8jyV7k
-	 AQJ+UcwYGEU/BfJdxnS+4QGIPCxNfQ6oaWlkymBmCSCD1mKZtV5YXcAFILR4p2E9eAYlW
-	 dcW7DJp2p1gqIoxKdxgrlDcZWJdfSKJq1TcVkx5CFDDxkvbUlwQG/dVavGraLRJYJKA==
+	b=GbDBDoqloY1ICMNJTCOM83xptpj3NMtOpFP0VEEpx3q/LGdj8JGwowC3k1CBtTlzdwS5
+	 tQ1KU+GjZIJMG3g3jw929cINoM68swxoFwWBV/5ny8/FKRc0thavrcvtvxfsxXR7jq1H3
+	 AuRQ+SYs2tqTiXalQQo0mXYuP7ozhfkd+14ljJLVKhK16AojU4jioBYvAfoMBEMc/YrPF
+	 MbGIY/wJGxsGGCZMdyYbMFLZlOyTW/ZBCyVa3FV7YcKZpgx/5kesx11UZGe0XwB6L6IYW
+	 /hnKQD6oICnApXEdVaYauhgDsshuldoF4VSSHCTe5+n0ufV5XFkk88H1AIBYpL+mbvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793724135;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=dFu0BmUsSXWAe9QPth5pHhcE9E3fA52ja0PpZwFJV88=;
-	b=YmM/Kxz1huzZed0YG4528YOFDEOSEDbAntnNSd5BVP5+9xJm/6wXp2k6+1pHhfrM3KQP
-	 Eaap66qSjKWEVxEGGTlnsBqlUvbqLgWREpCwM5Mhpujb9rQlOjnDO3onhlNs2ff239Y0R
-	 Jj+246d9Dp+xuEkOuNFEXGkt76d2A7DH3/TGips69ntWeoy8WWM6GppT6k9kdwQ1cZ0CF
-	 9L0odtO2xUoqEBo1szRKf7t2HHcQSNVjnOFS9lF/cxYlZWOZ2SamSYAwOTHettuVaPRWm
-	 bGqooquZfaP6RIR3nT8MIw8ChTl1FjmRH0GByvnCIaa7fGwvXEKdNNoSWNAOpQYqFlA==
+	bh=Zo1rcdI8Q6lPkwe/dLHXa1UqIpAJqN6yvImDWTZdvdI=;
+	b=MYzSctpik2oyWEukK9znvSn0AfK8rF60oqg7bRyESKkcaGbdK9sj0lUQq2XOI4s//oB7
+	 yp/QND4gGJ9uLw5xwLgkBT+qwoQCQ8OmkxW2O12mkgl5j/wOlo/p1tZxtwdFLwpOUnNGV
+	 Kky7Acv7Cu93ZGDuKK+G6vfQ+we9aHmqJ3S2CGrL2SG4JyPVaW9Lw3grQ7syQJ/t0tHLd
+	 ae2voA9wdBuXZnDSRBTti18bpi2E7CX5i1Mhte5KN9l3H9tYL0sXQz0Xv7d5YGqQMbyLG
+	 t7ENedj1LVYHZAG8E/mzS42XtqHc2EAIEsqcM9bAGYnFPZAtWS7qmZ2IwnGfW6owLTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=daylightlinux.ch;
 	spf=none smtp.mailfrom=daylightlinux.ch;
-	arc=none smtp.remote-ip=83.166.143.173
-Received: from smtp-8fad.mail.infomaniak.ch (smtp-8fad.mail.infomaniak.ch [83.166.143.173])
+	arc=none smtp.remote-ip=84.16.66.174
+Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656CF60A6F4B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F6D60A6F4E
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 656CF60A6F4B
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78F6D60A6F4E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daylightlinux.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=daylightlinux.ch
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJvVk5R68zBtb
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:42:06 +0100 (CET)
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJvVl07VMzjW8
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:42:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daylightlinux.ch;
 	s=20261016; t=1793724126;
-	bh=dFu0BmUsSXWAe9QPth5pHhcE9E3fA52ja0PpZwFJV88=;
+	bh=Zo1rcdI8Q6lPkwe/dLHXa1UqIpAJqN6yvImDWTZdvdI=;
 	h=From:To:Cc:Subject:Date:From;
-	b=f9O5+jLCQkkr8W9IGWQs6tVmiQNkt36qE0q2RmLiE666rqeL1deRooJIJd86NxI73
-	 52mdaWe/Xh/x1r/qu9EARiXbwg03fYmj1jlE3q+985BXPNAxfb5b7KQDS1K//sMELF
-	 kI8AU4PRMXKIQUcDHK46eR5cgxk/IkiDBRjhPHQCe37UzShYxOTdf/Swv+7jHVJ9es
-	 dceUd7wGFWPdfz5689KGVxswkteut5HVvtfKbLq56GZV0XJYw48gR6XSpT3g7eLPeT
-	 yLG8LBY61T3RdUju4CcR0YLfJOIyRNjyOyP+nOVQKyPzfDhdJwdICLAxlnPGnNrt1a
-	 MTC5PENO3N9/Q==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJvVj6Vg5zqnq;
-	Tue,  3 Nov 2026 17:42:05 +0100 (CET)
+	b=A1O9FdBCLSgB3uo6e4chIpVswi/oy64ds4GS+8zOSLPi4n6mo6p3leYdQ+L6b5oZT
+	 o45ecXAhYZs3P3jpD/YEKFDUTmLzslpZMMhXGe8w7U1WjuyBDD58GnsU8UpUJg0BOs
+	 7xKF4P0C9v6PGX8qAxyweT9VqgjXqo8zpMotpE0++CJFae/kqZaorOoutMMivWO963
+	 nfGNZqWqw5MwXdULA9GvhP8NOjxnIxZOVheTiqpTJPn0p40l8HGO4iQj8M3BZZlWuP
+	 lTBoP5SvLDAdUCnY8LjOWDPCNIQ0xG1pcyFPPQk8Kr8T8z4Bnc7RBask0lumd6ClbH
+	 mqxuhwW8hWrMA==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJvVk2xcgzqbn;
+	Tue,  3 Nov 2026 17:42:06 +0100 (CET)
 Received: from unknown by raspberrypi with local (Exim 4.96)
 	(envelope-from <info@daylightlinux.ch>)
-	id 1xOHaH-00FDdQ-1c;
-	Tue, 03 Nov 2026 17:42:05 +0100
+	id 1xOHaI-00FDdp-07;
+	Tue, 03 Nov 2026 17:42:06 +0100
 From: Hamdy Abou El Anein <info@daylightlinux.ch>
-To: linux-kernel@vger.kernel.org
-Cc: hamdy.aea@protonmail.com
-Subject: [PATCH] scripts: check_extable: match allowlisted section names exactly
+To: sunjunchao2870@gmail.com
+Cc: hamdy.aea@protonmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scripts: macro_checker: match parameter identifier boundaries
 Date: Tue,  3 Nov 2026 17:42:05 +0100
-Message-ID: <20261103164205.129703-1-info@daylightlinux.ch>
+Message-ID: <20261103164205.129713-1-info@daylightlinux.ch>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,52 +71,49 @@ X-Infomaniak-Routing: alpha
 
 From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
 
-The unanchored .text and .fixup expressions match more than the two
-allowlisted sections. For example, relocations into non-executable
-.text.data or .fixup_data sections are silently skipped. The unescaped
-dot also matches a section called atext.
+A substring search treats value as used by other_value. This hides
+unused parameters and can mark the macro as correct in the initial
+scan, suppressing its report in the second scan.
 
-Filter the relocation target field with anchored, escaped section
-names and an optional relocation addend. Apply the same exact match
-after resolving a symbol to its section.
+Match identifier boundaries around each parameter. Preserve whitespace
+before a continued line so that joining the replacement list does not
+merge an argument with the preceding identifier.
 
-Tested assembled ELF objects with .text and .fixup targets, and with
-non-executable .data, .text.data, .fixup_data and atext targets. The
-allowlisted sections still pass; all non-executable targets are
-reported and cause a nonzero exit.
+Tested an unused value parameter next to other_value, direct use,
+stringification, token pasting and a continued replacement list.
 
 AI assistance: ChatGPT/Codex identified the issue and prepared the
 change, commit message and executable regression tests.
 
-Fixes: c31e4b832f12 ("scripts: add check_extable.sh script.")
+Fixes: d1c7848b58c6 ("scripts: add macro_checker script to check unused parameters in macros")
 Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
 ---
- scripts/check_extable.sh | 6 +++---
+ scripts/macro_checker.py | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/scripts/check_extable.sh b/scripts/check_extable.sh
-index 4b380564cf7..eb299e182d9 100755
---- a/scripts/check_extable.sh
-+++ b/scripts/check_extable.sh
-@@ -10,10 +10,10 @@ file ${obj} | grep -q ELF || (echo "${obj} is not an ELF file." 1>&2 ; exit 0)
- objdump -hj __ex_table ${obj} 2> /dev/null > /dev/null
- [ $? -ne 0 ] && exit 0
+diff --git a/scripts/macro_checker.py b/scripts/macro_checker.py
+index ba550982e98..9a67b16dac9 100755
+--- a/scripts/macro_checker.py
++++ b/scripts/macro_checker.py
+@@ -47,10 +47,11 @@ def check_macro(macro_line, report):
+             if "..." in arg:
+                 return
+         for arg in arguments:
+-            if not arg in macro_def and report == False:
++            used = re.search(r"\b" + re.escape(arg) + r"\b", macro_def)
++            if not used and report == False:
+                 return
+             # if there is a correct macro with the same name, do not report it.
+-            if not arg in macro_def and identifier not in correct_macros:
++            if not used and identifier not in correct_macros:
+                 print(f"Argument {arg} is not used in function-line macro {identifier}")
+                 return
  
--white_list=.text,.fixup
-+white_list='(\.text|\.fixup)'
- 
- suspicious_relocs=$(objdump -rj __ex_table ${obj}  | tail -n +6 |
--			grep -v $(eval echo -e{${white_list}}) | awk '{print $3}')
-+			awk 'NF {print $3}' | grep -Ev "^${white_list}([+-]0x[0-9a-f]+)?$")
- 
- # No suspicious relocs in __ex_table, jobs a good'un
- [ -z "${suspicious_relocs}" ] && exit 0
-@@ -120,7 +120,7 @@ function diagnose()
- 	# In this case objdump was presenting us with a reloc to a symbol
- 	# rather than a section. Now that we've got the actual section,
- 	# we can skip it if it's in the white_list.
--	if [ -z "$( echo $section | grep -v $(eval echo -e{${white_list}}))" ]; then
-+	if [ -z "$( echo $section | grep -Ev "^${white_list}$")" ]; then
- 	    continue;
- 	fi
- 
+@@ -93,7 +94,6 @@ def file_check_macro(file_path, report):
+                 macro = macro_strip(macro.string)
+                 while macro[-1] == '\\':
+                     macro = macro[0:-1]
+-                    macro = macro.strip()
+                     macro += f.readline()
+                     macro = macro_strip(macro)
+                 if not args.verbose:
