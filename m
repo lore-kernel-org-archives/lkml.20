@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713926;
-	b=Lf0t48X2sKOv6W2SjOD6pFc8PLLFzCokD/cVimq19Z+7aJlnFkEdSL/FfFL65oaLfn3F
-	 uJRBN6UQvSnMxJ48QoIhvGrj5Jm4EQFfKTM9DbOs1SW3JamTk1b0mTC6FF96K1c3fpFEp
-	 1MiUhC+QRQWrAhoxJQCr/83dNQShSwVwVwZ9QkaDAY43d2KgMJyES4NQCVy/f/ueigvfL
-	 CXEWUj2f+s9Dan0wNGibfAzdGrdErtXBrztFjkYKRsMh2mX5g+w7fa4xybleYK9CWdjAx
-	 pzMKxQ1WYSsgEf/3M4BKUhmU8o7ze7xSy2bkk04K9tSjqRz7P+ReO9aO2GWh+FX+tCg==
+	t=1793713962;
+	b=DdXLKU2k5LYnqwoJcitBaqzdjzwrDQ8zgzepjXo997gtSoEftFL91OuHIB2u/Hdr/NhF
+	 ugEvFIacAnIvsKsRL31Mr2OsEfkJQczRF848wruHXL7hi7mARbMUKT+Rde+RT8c8SARuj
+	 brfqvPVKFncmFixGXRUi5QpXS92o1ad8VVCxvqsqVeCHsjRmn0+mmDux/jF0OuY/2FS2E
+	 3BvvBa9HWKNtV7CyS5xMgfuY2PPXYT62iCvSdEFmraA5EoavKWRPVH0cTZ0r7G5Q4+W88
+	 3NvVZirIth+YBQBG3lfN4GoPSDcbyPdJVoN5o5b9UGPPF5a1iFRK3qQBhzUHjD43bVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713926;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=W1tkqKF93EHK5v1LmFbojcUWZtW3bK8Eocj3ZPj09P0=;
-	b=UqHvmEcVe2Zf1jF2/75iR/Zv6rhem6HqG7acJmiqYyDrrNtsUXDI9jmJcqLXDD2nOfOX
-	 QQ0JJDaRHKA14dEn/F5VvkuDbQ5S4acsqxad6VMxmwO6nJUi7S19HCe0beOUPx/sFxTFm
-	 6hfYv8BdE/DnK3YJWvCjzUCS0MyXMIOayM+YpkTV6lRZO4Z6jW4z0Tn6GzdMQnYbsusZC
-	 YcntrjzYbW1y9u1UgcfaEpNQj2n2tAtSSjHxm58FuuNa3LZe2BvFieALb1iOSDLQqmOk3
-	 Oz0OTt+7HcyNUXtqFzJsC8WQXpZ1xP0wMVWTvunnZ1mVinPAY4CYQfH/Z1VB06VLW1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713962;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=yZJfo9oYEeyXTDoCyv9KQAHG+G/ATpGWmwk6aa2xlaE=;
+	b=w0212PQIqfRJcUaFLvdwBkMM9ivv8uA0IwtXDeWXDrfU3Mz+PeXzBXvdjOcur5s0s0AV
+	 XjRAxy01Zfy5e0jVTaZo+6FrAUMMoWnowmAc7sx3B2dsihRDNeUZP/MeZ/uDQG08cqyWJ
+	 ymhATot9k5jg9iq46bXSNtwmRkK4Cv89C+ERsIIIQo7OFvG6ESbaNdQ0s6s7Em3Ln2iqb
+	 7s10CwmMH4/sC30d1SgsdZy/Xiq/Nq2Cgmd6okIOXb1nslRTf9gmjztZTXiWoMUBofmZR
+	 Cq25G+YegTy08sR+hNMrlfrg9EqbHuV4n+by9+z2gmCzChGI+5j4UbL6P2hV1cfteRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="K/n/rmOB";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOIOtxwB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691156082BCC;
-	Tue,  3 Nov 2026 13:52:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263BB606A330
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:52:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K/n/rmOB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48FF51F0093A;
-	Tue,  3 Nov 2026 13:52:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOIOtxwB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A0E11F000C1;
+	Tue,  3 Nov 2026 13:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793713925;
-	bh=W1tkqKF93EHK5v1LmFbojcUWZtW3bK8Eocj3ZPj09P0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=K/n/rmOBfIf1cNYRN7pQ2I5IiMt8Hf4XbACakBlz4xqpsSp8owd8YyjSt0N29Agq0
-	 MbXe68/dA3Au0e2tImespBQoo8oKjp0SfGUnbDndCpbiqol88qFaTO6VqzH9Jcmljl
-	 b+3cdfpxhU9m+wxEHZxKvFtZdUoNdzlk1Uic0GXb4gLw8r0zGQuVHFHKC+eyishg2G
-	 eyJ1s756v9+yjzdRmFL+ey5nESMY4SyoiQPIx4+OjwkDrwuIZLEyM3wp8HsIwmqPpe
-	 TV/gTCJ46ugFRkP/55wOJYmhkyKvUjM0c+p0608Z9rBnfxqLzL882NP7ETOVy/lIJ3
-	 4L0iwsKQ1y/RQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Tristan Madani <tristmd@gmail.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-In-Reply-To: <20261030193235.3470653-1-tristan@talencesecurity.com>
-References: <20261030193235.3470653-1-tristan@talencesecurity.com>
-Subject: Re: [PATCH v10 0/2] RDMA/rxe: copy send WQE to kernel buffer
- (TOCTOU hardening)
-Message-Id: <179371392293.1727833.9297401437119983949.b4-ty@kernel.org>
-Date: Tue, 03 Nov 2026 08:52:02 -0500
+	s=k20260515; t=1793713961;
+	bh=yZJfo9oYEeyXTDoCyv9KQAHG+G/ATpGWmwk6aa2xlaE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oOIOtxwBaM9TpmgKwAgiGluslQ29Ry79BveIub24E0A0oqnxvr4QFKOBdqMQTiPek
+	 GdE60X/sPS5Te+UcezZ+egiL6q4PS6R1RazPDa03Nps+ci3l1t0kEMa+tNO+at6Amx
+	 d9Pwor/eFeb64bVHyrLd73pikpBeJnKkWWuGgexuyvrizAzjDUuLgjp94Y4ECwPVxZ
+	 WH7DKO86yRgniClgZlFy4sPj79XUt780870vauaBvpVKlU9oK1/MvAQfGyukWxS26W
+	 5xkoIm7t9pfdvh8/NEG2cMSqgs0BPW3YbEz19OgXK2KIaQwxnud49Od2nbzx89YZG/
+	 Jkl4w/MJOKQfA==
+Date: Tue, 3 Nov 2026 14:52:38 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: anna-maria@linutronix.de, tglx@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clockevents: Match the CPU when unbinding devices via
+ sysfs
+Message-ID: <aunnJgIALzGyhO41@localhost.localdomain>
+References: <20261101141120.367124-1-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,32 +57,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261101141120.367124-1-thnkslprpt@gmail.com>
 
-
-On Fri, 30 Oct 2026 19:32:33 +0000, Tristan Madani wrote:
-> The SoftRoCE (rxe) send queue is mmap-ed into userspace, allowing
-> the requester and completer to process work queue entries (WQEs)
-> whose fields can change between kernel reads.
+Le Sun, Nov 01, 2026 at 04:11:20PM +0200, Avi Weiss a écrit :
+> Clockevent devices belonging to different CPUs can share the same
+> name. The sysfs unbind handler selects the first matching name from
+> the global device list, which can cause a request for one CPU to
+> unbind another CPU's device or incorrectly return -EBUSY.
 > 
-> This series copies each WQE to a kernel-private buffer before
-> processing: patch 1 for the requester, patch 2 for the completer.
-> Both paths validate opcode bounds and SGE indices after copying,
-> preserve DMA progress across multi-packet operations, and write
-> back updated fields to the shared queue via WRITE_ONCE / smp_store_release.
+> Check the device's CPU mask when selecting the clockevent to unbind
+> so that the request targets a device eligible for the specified CPU.
 > 
-> [...]
+> Fixes: 03e13cf5ee60 ("clockevents: Implement unbind functionality")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 
-Applied, thanks!
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
-[1/2] RDMA/rxe: copy send WQE to kernel buffer before processing
-      https://git.kernel.org/rdma/rdma/c/a668a8564748d5
-[2/2] RDMA/rxe: copy send WQE to kernel buffer in completer path
-      https://git.kernel.org/rdma/rdma/c/195c20429f13fd
-
-Best regards,
 -- 
-Leon Romanovsky <leon@kernel.org>
-
+Frederic Weisbecker
+SUSE Labs
