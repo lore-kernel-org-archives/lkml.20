@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793666617;
-	b=K7KruGYPF3KiuNPBj7ujOaOMWJOdTIc9SLsFGF7P6UAgsfJwqhYCZZx2LiY/s2hBDEKd
-	 DdqrgR2YlIWfjUOcp7gDdeG7jdr8JfsYuM1aGQVPeJty59W4tJc5z22tvB8AD3FE6qp7S
-	 ZLJOK01IA1esMnZ5b+q3DKMFzCj4/uFAMvJjxhZAGOzdBeQ5llYTAPoNByCOutPKxJ7YU
-	 WkEQKfg4jnKMSpnHu/3IUVxb1RZeN+9ePNGI/e95GnaoC0IFhuEifBhNuIocfIhKzQIg/
-	 EWx58iIkZJ/dTgqj4J2D7+4So3eAtJA7ClMYou69eXYq0Rg4X4g6mzhhv5Rm3OcXxQg==
+	t=1793666756;
+	b=PDqQKgcNLkdlNL+JVx8q4ytfPGF7GzMU+FMdMx89z85xmtq/4z9NGH1vS/dVOtrJrSOG
+	 b11G6X5cXzEq+OpGsSiWGLcUgNoEAtrqRVDXy3y9N3OfOsSw/iikhK3ID17SjL1XHptBQ
+	 QRdfCyu+p+be3wPMzRjropX4P+XgUTdP5WfgThZvSiCyvEY+1hOU2e9L30AsRWDTZAyT4
+	 LAn/YnS8IUEAZHMxuyqNY0XCVmE+QzZL16C1bR3tVC8FppJi9SSBcYXp6rzQcZPTxZd6G
+	 TqO1ul18FBiEnmCv3F8v6B6Kzv2cKdtBJ7/pKPYGHzB/gX38a7iPymYmTocUnxlNA+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793666617;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=gNtTtJrXDkKo1GQXPVfwRLQdP0jNqQAaumhhVJ72Ess=;
-	b=3geHHA8/xF9RYHH2+eU2Dko209Y5+wA8dqiBKaaFYaTAdNFFYNxPJcRjsoKuMH2G2hNF
-	 5EUOXwH7U8cxQ6Ou9jV3XupiV+GbKVca+BoxV0TQ7ZuLkLKAygtzY3d0LSRjIIkIxfrCA
-	 HAKQ+1/nKsg5MAT5Fd3ih9hTVjAY4QqzRl9Nkj+M8FcBuR5neOnoqhs+aCBsSID5GfH5X
-	 OjmjTnWWepOyJLeal/naQUXrI8/fToWeDWlb5hu2Tsew6HmRDXPfD5CCKJi8iDpvAD0mV
-	 odFRuea9llSlLUYhbe0mVwUem4IFiiYy2MosA/sML9XmhD3uUCzTdTOf6/xDBhjXPwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793666756;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=tn2zR8vINusI2egn9LwHOlQ92sKaYJj4tVl36aYhKxo=;
+	b=zQ9NjM5iYVp2Q5/cQQKkyL5TIWJ37WQ0rFq10ioZmAoPTGXlA3oCGj5YiTST022Y0d7g
+	 A8xShQmkZ4vs1DBK3qMGm6r03mLc/0R5+lWyD3FfCom7IzwzaxAfAd6y1xziGyVO8eYc6
+	 gTo9lHjNiIQfFEAfIe+4ECRGkxkXfD21QVQJ7yatkQFsO6DXryy1zNsqdh/j1LUps4f4N
+	 +BPDQ1n9wwCBg4vOBH4xEiMLi72ZcudNkZkTtYxQXsXlPwx9CJ3a72ObyXSav3Hi9Q1/5
+	 SyfQbDYf6x6nYfgCX+RkXrAFFgdipLIS1gpYY6MyHEU2prt48fMsco5ON9JaQCDhblw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kwsd2nmo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=Uzfh8B9E;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A20606A324;
-	Tue,  3 Nov 2026 00:43:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEC3606A324;
+	Tue,  3 Nov 2026 00:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BEC3606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kwsd2nmo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D191F000C1;
-	Tue,  3 Nov 2026 00:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793666616;
-	bh=gNtTtJrXDkKo1GQXPVfwRLQdP0jNqQAaumhhVJ72Ess=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Kwsd2nmo2bhK0gftF+pHi8REOYzrKWq01fnIdnkx2SRO7xvStK6EmKAwTXI3X7Lx+
-	 ZaIfl6PjDdImoZ2VqmA7J56KP3hc9xhK0GkCNrey6ogyXqFDfgNAb9ISrBAfRa6Tqv
-	 8tQ7uMVDC+862V67QMyh5wf9TepysLDZXmaH8R9kfPYG/sESfdwPWAZyBAsV+Iqs/m
-	 TEDHqL3KexHYgnYhFlOedZicauWYATLzITVOoXteTXIMBSyFOtSHx/949lxtT2BUui
-	 cnEWJZrWq/y2/50efY0toTWfjeHkzgvatydKnJ1yQc5kvKvZhOCxj7g1RaaxZPuuf/
-	 dSsiIEbUpU8lQ==
-Subject: Re: [PATCH net] net/mlx5: IPOIB, Fix QPN lookup race
-From: netdev-bot+sashiko@kernel.org
-To: prathameshdeshpande7@gmail.com
-Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, cratiu@nvidia.com, cjubran@nvidia.com,
- valex@mellanox.com, erezsh@mellanox.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 00:43:35 +0000
-Message-ID: <179366661505.488856.13530839414893749142@kernel.org>
-In-Reply-To: <20261030002241.8508-1-prathameshdeshpande7@gmail.com>
-References: <20261030002241.8508-1-prathameshdeshpande7@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=Uzfh8B9E
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 533e14b0e;
+	Tue, 3 Nov 2026 08:45:48 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Tushar Behera <tushar.behera@linaro.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [PATCH 0/2] tty: serial: Keep UART driver state until ports are removed
+Date: Tue,  3 Nov 2026 08:45:45 +0800
+Message-ID: <20261103-cmc-tty-0-f5f5ec0841@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,90 +62,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19ede90a303a1kunm33c27c8011821e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0hNVktNTUxKTU5DTR1OSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
+	++
+DKIM-Signature: a=rsa-sha256;
+	b=Uzfh8B9EEJUGA7VG7PUsaEpxpJqTJmtXkckz0Zl5imQ1aUj6bTHgWvjv4wz/b+u8bt553UXwVIhAKWyzQotBkJ66bl3yo5PtYgSnCbERvRPG8tRq9rjYyECPslHg3yiiIwAkHIp0uII52saa0jqY13VDnvox1ftgzqVf8vTts/Q=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=tn2zR8vINusI2egn9LwHOlQ92sKaYJj4tVl36aYhKxo=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Keep shared UART state available until all ports have been removed.
+The two independent fixes cover ip22zilog module exit and Samsung
+per-port removal.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Prepared with AI assistance and reviewed by the submitter. The affected
+objects were build-tested with W=1; configuration details are included
+with each patch. No hardware or fault-injection tests were performed.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Guangshuo Li (2):
+  tty: serial: ip22zilog: Fix potential NULL dereference on exit
+  tty: serial: samsung: Fix potential NULL dereference on removal
 
-- [High] The fix closes the use-after-free by putting
-  spin_lock_bh()/spin_unlock_bh() on one device-wide lock, ht_lock, in…
+ drivers/tty/serial/ip22zilog.c   | 2 +-
+ drivers/tty/serial/samsung_tty.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
---
 
-net/mlx5: IPOIB, Fix QPN lookup race
-
-This commit adds ht_lock around the QPN hash table lookup in
-mlx5i_pkey_get_netdev(). Without the lock, the RX path can walk a bucket
-while mlx5i_pkey_del_qpn() removes and frees a node. With the lock held,
-node->netdev is read before the unlock.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
-> index 4120afd097c36..6c24ae8e76621 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ipoib_vlan.c
-> @@ -126,13 +126,17 @@ int mlx5i_pkey_del_qpn(struct net_device *netdev, u32 qpn)
->  struct net_device *mlx5i_pkey_get_netdev(struct net_device *netdev, u32 qpn)
->  {
->  	struct mlx5i_priv *ipriv = netdev_priv(netdev);
-> +	struct mlx5i_pkey_qpn_ht *ht = ipriv->qpn_htbl;
-> +	struct net_device *result = NULL;
->  	struct qpn_to_netdev *node;
->  
-> -	node = mlx5i_find_qpn_to_netdev_node(ipriv->qpn_htbl->buckets, qpn);
-> -	if (!node)
-> -		return NULL;
-> +	spin_lock_bh(&ht->ht_lock);
-> +	node = mlx5i_find_qpn_to_netdev_node(ht->buckets, qpn);
-> +	if (node)
-> +		result = node->netdev;
-> +	spin_unlock_bh(&ht->ht_lock);
-
-[Severity: High]
-Does this add a device-wide spinlock to the RX datapath for every received
-IPoIB packet?
-
-mlx5i_pkey_get_netdev() is called once per RX CQE from NAPI:
-
-mlx5i_handle_rx_cqe()
-  -> mlx5i_complete_rx_cqe()
-       netdev = mlx5i_pkey_get_netdev(rq->netdev, qpn);
-
-The hash table is allocated once per parent and shared with every PKEY
-child in mlx5i_pkey_dev_init():
-
-	ipriv->qpn_htbl = parent_ipriv->qpn_htbl;
-
-The parent's own QPN is also added to the table through
-mlx5i_dev_init()->mlx5i_pkey_add_qpn(). So even a plain parent interface
-with no children now takes the same ht_lock on every packet, on every RX
-channel and CPU. The lock's cacheline would bounce between all the NAPI
-CPUs under load.
-
-The only writers are mlx5i_pkey_add_qpn() (from ndo_init via
-mlx5i_dev_init()) and mlx5i_pkey_del_qpn() (from ndo_uninit via
-mlx5i_dev_cleanup()). Both already run under RTNL. The NAPI readers run in
-BH context, which is already an RCU read-side section.
-
-Would an RCU based lookup close the same use-after-free without putting a
-lock on the datapath? That would use hlist_add_head_rcu() in
-mlx5i_pkey_add_qpn(), hlist_del_rcu() plus kfree_rcu() in
-mlx5i_pkey_del_qpn(), and hlist_for_each_entry_rcu() in
-mlx5i_find_qpn_to_netdev_node(). It would replace the reader-side locking
-added here rather than build on it.
-
-The commit message also does not mention the per-packet locking cost.
-
->  
-> -	return node->netdev;
-> +	return result;
->  }
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030002241.8508-1-prathameshdeshpande7%40gmail.com
+2.43.0
+
