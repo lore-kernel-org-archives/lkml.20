@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735320;
-	b=FamUgvLpG97KaHrayr8O0xpUkyADvTdiTnqnxNxXbv6Hu06+R+0lfT12hraDCa5BUePr
-	 5qDcUwUwwyUK8G1bsJ8dgcDDyw4nxq0ivgU5kmCwGSB/NAuUFUp9w4DllC7oeb6gUfe+3
-	 a0eRo0qBwz8zyPKhIs8VmacLOZnBHMi6OJImNo3i/bbP1Yaz0g8hzyKDhFJUinH8ujj35
-	 20THfMIp4F6KdxZpooYt80n4Xzj/A91sWQZSXZiiwtV9Kax1Dk+ge3plxkL1uryidmPMO
-	 Bo6GoLAyD+ivY8292uVpQ3BbJ/n0pwIcG/glKl/dWZNxfR2zWG/dBi2bdc1PJqvD4cg==
+	t=1793735352;
+	b=bsznNDMJ4F5peN0UQkOgzW8BrRZm3oGRxoJCrggTumDnAC7oS6l9OU3HXSV4eoiBIgkt
+	 e0Hs68a4sR5T8C+UQv/jkz2qTv1+gYhhqXBOX9nw4N3INeTytcY8eZBYFNOuCTdZLCOXN
+	 b0lL/qaqL3PZQt01ta7gr+HU1ynyVDHYnMeum0/4aJnqR8kUCH0vY9sBPOhTC6rp3z52T
+	 c/7bSZo74K+JDILPgmWnEG3iOu2PHyrJK3VuPi9JLER63eDkDiGZQ6cEKudnNQR8H7SCV
+	 emgxqsNRcBgryE9OOoLUci/MuY3Is4hNL0wSemjbnc7Xo76xwbdJa/d9DIwY9sq6kMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735320;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qDht7kUBjwiFuupxpSjoCHWozkHuOwZYWLrUEOZke3Y=;
-	b=05Juec9TKEOTxmQV1ywrIW9a3tQnBpD0/6TdaN987zfKbcHQfON1M+YROa5KqUALrBB2
-	 SfBfLvB9hQAlFdOpwVg/LPlw1Lhud1g+SQsAu+ZxgMnfPPhXI7BOE1NyOKRvHggdDtDxZ
-	 CfsZf4sr+M3+FlmvHHI5sR+pgy6ffMTiBaCfaH5zo2scosQebOEIpwzInWOyegFAbiS9c
-	 vPopsIfJT5X+TEz5DPDw2mGsWf8RswTCu35t5IbMXpaOjuSHeJHU77//QC4RAea8mMqF7
-	 vg0a/kmnzrCpLcEKVcYwaoTFobqFWfuk5RRa2Bspfv+WKIwYt9WNap15XM/ST1L4tiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735352;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=P0AC+ymgXYnQmZ+rTAXF3fAS8FaKmkjFTCnbuMJ/sUM=;
+	b=j18h9pmr4P34NoKYCjZaNmhx7lSdTJqCmW9fmNxk3ysQokB4TmpHPgVbvOuTkw5u5vQ/
+	 DC5J2sIHagWGhsOZJ25u3H7t8cl4/ftV6US84v0Ep4CEd1Ln0VhrQ2Ra3w5OXJXk/tDmq
+	 B7Tmx5YfnquSE2qCJ4cTqmNEzR+zeTMUuUU/7bNfLW9HSNLBJmQpK9csflnw6fZB3XEBl
+	 IhXf5X8plgOBG7S6i1M6s+tFuU5CoKosUW37S2Am/EXSnD5mcAOYwEM9bZyyaI1JHCtqZ
+	 zdKSyNJJQsAXdq5+3Ki9YdEM74KaEOv12wO4j9sGXXsEinoMzXgoZC642wCi2kdY/Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Da0lOPL7;
-	arc=none smtp.remote-ip=95.215.58.22
-Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aGZ2Et9X;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF13606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:48:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DF13606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CC0606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:49:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7CC0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Da0lOPL7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Cs/EvP2YgSGBbFayzDmMjVfLNJJWOpIwZ2LJBIWe214=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793735316; v=1; x=1794340116;
- b=Da0lOPL7y+1EoOnSSPKf7p7REg4b2JIvJNlAO2HcVQW63NbEJ28kHlGJWw6tvaRwSkCBlTdK
- 4Cm+Ez0hRLCRnl931x3o5hp88wK++p3BQYzLty53Fr+nY74NXwu0ASv/jsAnIxfi9If6zecpGYA
- V8KGO1cx+uabKb55X82nEQSQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c2e169ec5dd3d5b0;
-	Tue, 03 Nov 2026 19:48:35 +0000
-X-Mizu-Trace-ID: c2e169ec5dd3d5b0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5ad5837a-dd9a-4558-b85f-f8c83da57e48@linux.dev>
-Date: Tue, 3 Nov 2026 19:48:32 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aGZ2Et9X
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5129542eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:49:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793735351; x=1794340151; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P0AC+ymgXYnQmZ+rTAXF3fAS8FaKmkjFTCnbuMJ/sUM=;
+        b=aGZ2Et9XRSoW7cbdfG5lGqV1+6xNkMS1R5B1w4VS3Ui4cwG+dA7ZizFdMHeq/+0/U2
+         BilbKO1Fm20PtDD+HMuAm41zwNmvgYD1/eu5ZYOqs0KvvAzMehsm4uvfUZwfY7oaLBib
+         FeozBa5ngKAi8pE181aL5qQbAJrKKuOySBVyw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793735351; x=1794340151;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0AC+ymgXYnQmZ+rTAXF3fAS8FaKmkjFTCnbuMJ/sUM=;
+        b=H+VpATa5Z9avDiIP9Lcni1SOHqQBf7r/7cMFhj8w4xzBBQ+EL1y591OJvCxb5euT1M
+         OzWkjldSPd9wZTGgmJ3ZXbTNratG1eHaZDmMqcz8ig2uBsRakYVsP8/mLRl7iCaRFGWg
+         B8vnZusLWCTzcWUgsB0J+CMzUg4jrtYHKYXXIUtUeCtHfbsiUIooU+E+N4maBW734NhI
+         SjMvujQIL1tKpnly9G6dRJ2qfuBkAfr2SY9YfvBggssQZTdl5JXFoGL5jG2OlxebHMWn
+         /qtLKW71bb9g0vB764ehu/sT81YrGi1wzrVpquD5+P8dNwHv/LjT/2mg0vy7g33aJQ8l
+         Ynxw==
+X-Forwarded-Encrypted: i=1; AKwUvBwofdmjqLcc5o1+pZ582l1PyO8pf3PshBSi9eFYy32F3hdf+aZwoWB0QTOnBOrWzqadJsXK1o/TWDw13/c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Mz5CFFSH9Jbu8YTXh90ezHg2tevUkv8rKMNkLnLIg+YxFf3cW
+	MS2PYfwoCK0DiOosrxGbNkNdXRRRKjDYYxwGAFsWJrTwiQr089m5WhBQON6iaVmk8Zz3EV4uGPj
+	SJkM=
+X-Gm-Gg: AYBFou2vY6wKdp2HZ8EcFHFkBdNex5TQdqLVRpaexupvh+TCeBLJATU7af/adRD7/SH
+	AbcakDxxL94GuWymdQ8QOj3wHf1FFuaMEYl5ZPrZ03f3jU8vmKbQdEfU+5G2PKQOrGCwYIKtKO8
+	BfuEme/fzxEgd0fsu33081+8lF8FrlEsj8LCJGny4ux6DQfPviU9BJzkgFmK7vGqoX53+RpxUWC
+	KsR0LPwI8aTb2U65SnIWdrOx11xXJWAzZ/l5Qb8HysfYJE1bn9LLg0Kix+9rMM3bCFV2wPfT0uR
+	uTmrhh88JxqmZ30X0AkA+8J0nu2o9dI4M4Wleh4yR7kMW8Y5G2SW9U1TXW+0EcKXO5OjKIzSNdL
+	Voc3wqi89plifJ7iPGkslDPlAadA9rjhsm1/Ph7cAQGcEXppD9o0TEIYjx31MsEy35zrVbPsiVo
+	boZUh7bxssVCem9cKGjT/jZDgZyipDb3q6Nvs5lWd69pHS5ZJxBw+YZoL3jo4lOBd5HrO+U9F8X
+	u0DtV2CD87eEgUi+yqlf+ashaQwNylo+9yS33pu8VN1GH+K/Q4MgkiG3W4HDpwKhiQpVe7HmHzq
+	t7Z5W3Bk/D0TjYFerbly/YlPFK5Ut95UHqYKDNTjTJn2dbkNZFg3cBBjamFghgbCYSEU
+X-Received: by 2002:a05:7301:4203:b0:36a:50f4:ed0d with SMTP id 5a478bee46e88-36a50f4ef92mr16355856eec.25.1793735350827;
+        Tue, 03 Nov 2026 11:49:10 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36ca38a54ccsm382104eec.4.2026.11.03.11.49.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 11:49:10 -0800 (PST)
+Date: Tue, 3 Nov 2026 11:49:08 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Stanley Jhu <stanleyjhu@google.com>, Jens Axboe <axboe@kernel.dk>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Praveen Talari <praveen.talari@oss.qualcomm.com>,
+	Alan Stern <stern@rowland.harvard.edu>, linux-block@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
+ already active
+Message-ID: <auo6tLmH0R4_TRG6@google.com>
+References: <20261029040001.2100001-1-stanleyjhu@google.com>
+ <8125a75a-ea47-49f8-90e4-7f7c83db90e2@acm.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,54 +100,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/15] drm/tidss: Add support for AM62P display
- subsystem
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
- <20261103-beagley-ai-display-v5-13-f1c8d0e52bb4@ideasonboard.com>
-Content-Language: en-US
-From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261103-beagley-ai-display-v5-13-f1c8d0e52bb4@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8125a75a-ea47-49f8-90e4-7f7c83db90e2@acm.org>
 
+Hi Bart,
 
-
-On 03/11/26 11:34, Tomi Valkeinen wrote:
-> From: Swamil Jain <s-jain1@ti.com>
+On Thu, Oct 29, 2026 at 09:22:23AM -0700, Bart Van Assche wrote:
+> On 10/29/26 12:08 AM, Stanley Jhu wrote:
+> > 2. The first runtime resume fails in the driver callback, and
+> >     blk_post_runtime_resume() sets q->rpm_status to RPM_ACTIVE and calls
+> >     blk_clear_pm_only(), decrementing q->pm_only from 1 to 0 so recovery
+> >     commands can enter the queue (intended since
+> >     commit 6e1fcab00a23 ("scsi: block: pm: Always set request queue
+> >     runtime active in blk_post_runtime_resume()")).
 > 
-> The DSS controller on TI's AM62P SoC features two instances of the TI
-> DSS. Each DSS instance supports two video ports, similar to the DSS
-> controller found on the TI AM62X SoC. This allows three independent
-> video streams to be supported: OLDI, DPI, and DSI.
-> 
-> Since the DSS instances on AM62P are architecturally similar to those
-> on the AM62X DSS controller, the existing dispc_am625_feats
-> configuration can be reused for the AM62P DSS support.
-> 
-> This commit adds the necessary device tree compatibility entry for
-> "ti,am62p-dss" in the tidss driver, pointing to dispc_am625_feats,
-> thereby enabling DSS support on AM62P devices.
-> 
-> Signed-off-by: Swamil Jain <s-jain1@ti.com>
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> q->rpm_status should be changed back to RPM_SUSPENDED if a runtime
+> resume fails. The changes made my this patch don't look right to me.
 
-Seems like b4 did not pick up my R-b tag from the previous version.
+Pardon me if I'm misreading/misunderstanding, but I believe your
+suggestion is essentially to unwind the quoted commit 6e1fcab00a23,
+which might reintroduce a deadlock.
 
-Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-
--- 
-Regards
-Aradhya
-
+Brian
