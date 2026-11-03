@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676421;
-	b=CL0tdAp3ozJitYWaEXwQQwnJLwDqkg50sc46VhU7LbVOgR3oeH7CQZt9u1kn6Vbr86j4
-	 8ndlijmWZVDMCly66iXBuiIVQNhSBhvZC5n390SdqJ1B+ePqzeV1mNFqpfVndMT1f503X
-	 lUf3Xff4pafQ9Xftih5vevGXzoqL5xYZAko8pM0yr0VYpLPBwAgiLJoWjmX+/3MLHs+jr
-	 FUyzs/tBret7LE0Y4w0JoKZlS7o0+cZf9QaYo4TF/sZEtexpp8725DB0ZDNbhYxDfF6Gy
-	 0DCl0vSM0+XtnZ6Yw+cRC3YTWAAxqi5hjDNcuxPmoqJpfDdVNhJ3b+5QHGjamgG0xYg==
+	t=1793676490;
+	b=cK4HLWfU6o9AvOBMTSa6UYQuZLq/QmEYZQqXoATstqv0goXwYVieIkTMXh3nUzIotqNz
+	 3t9vk4DbRIjJ/RByJ/gKYxLVFdN0ZQGa5J0bUklDbsfkPeC+KtzQnRT0mfwfhvmdqCsoD
+	 FckBiWUAnuMb2xpw+jvASsHh9jt7x/gNR+RzhDnvPS//1oHO1xcVTD+xroQI5E92lm5N6
+	 O5jUlF8kT5OL4x7Th14/i9/H3/dVAtKBE0kxcqkllKFbQsBRMTgnKQJEhhPcfz+Z7QH9R
+	 3Y7OMbX4W0W/ibvQbooMA0bRZNnd/MMlscqw0fUlEFnYa9R05EndrObRzA1u7XCceNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676421;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=7sXvPNBaxHdWaLLan0lLsEk3zIV5UYZaQkD5N7bRqig=;
-	b=G0Diz8wvHgvohSTknqNTq/9/Bi7zc9Wpd1UA/QujJ+vM3YbBI71p93jXQaWIjOCssvzb
-	 E7ue5lAflyiFLbq81qN/jSbELjb7fOem/NQhQHhugxL3DLbEQVeKU/7kDo34bWpKMn1SE
-	 e32jKUWTuPN8YYnaygArRZhyaqClMXN+NJl7Td6d319/n1Tuas/kucU+kkoYZrCNKPnqk
-	 zz35SqWp+NDvBOcj6IJvPL3A8NkX3hGPMrQ8pTkWHqgy00F351aYE58lnHe9D01VUXFMm
-	 b3HZk74ppXtjO8SkYLMmuh6FLT4Nb432mBZ8Mx0pAWbMbpBoCFJPXWGsS/HiNlY/Qfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676490;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=IT22gR2pwKiJhADmHWP/+r0coNccC8xLlTiDO/rBpoY=;
+	b=MJymJkzU4ma3c/0+txhrMNYMWf+lZEnex67bNkEgfHSDTbEl4GTlDj5rwXhg/YtMtx7q
+	 x6tG3bWRhdMy0VBUCFTTg1T8LHw0qvQmORVFSjGY2w9O1DRzHxcA1e0ilpHkJcndcTwrO
+	 F3M+Oa4NJQ3crIuEUd6o0IoFaugVWZJc3VznuBfvNYCNyR5NOJfRSicTsgu63egF2o1/I
+	 ng/kAPn1AdozNnVebWPjU67eA362mvKHzVLIdXTIGcRZpNAtI7BpwTq65mQgI68XeGR4X
+	 X48fpoogQHZyWOSopIPXg6x8/7GD9DnS3pI0+xR4o6fAHjFWz9oNMYu9zVB/YC7PTaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=I6lGbH2z;
-	arc=none smtp.remote-ip=203.205.221.245
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsHluK77;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B53606D802
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:26:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B53606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F004606A324;
+	Tue,  3 Nov 2026 03:28:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=I6lGbH2z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793676410; bh=7sXvPNBaxHdWaLLan0lLsEk3zIV5UYZaQkD5N7bRqig=;
-	h=From:To:Cc:Subject:Date;
-	b=I6lGbH2zaVPWaLjPEcHLNkSAEqNj5chJw9+eXzPL6IPVe7uOrSXLBYyRdJepUJYGn
-	 owZyY1x3AHHaoJpMbgP2AnyjCsk/Jd+6nc/M5hw53oKRIWxCeFu5NQmSeu+R82bivp
-	 ZWyUcBuwsKBxOvvX7LqUZhd0Hq2pK/dTd7BVkkGc=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.198])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 6AF9942A; Tue, 03 Nov 2026 11:26:47 +0800
-X-QQ-mid: xmsmtpt1793676407tgbprm8d0
-Message-ID: <tencent_A21BAE90D8EE04A5FB98B4168BA73C695306@qq.com>
-X-QQ-XMAILINFO: MvUAcPkRmFBfe/k0sJA1gXnVBGWOmN+E9nwdKqhHlDHiisGEPnQQgrKhQ/6Utj
-	 zm8pIokQRVlTcbXkkbFkAk8pw6RcVcJvpadsmpDHhm2s4mjNZ+Eq6TYHuy/UY2EPa89FwCkwv3vw
-	 0y1Dbg9HDSnNh6mR+qGjpFDDwMKTerjDlZyGcnTiuCYYz5kod/loeKRbllFSCm4o+7A2L4mZLkdF
-	 5XjtyJNAJe9JHlyxBd9z41ZkMe2G8AEZNdOVXY5Vs9EKyK+IaqG6G0HC2BQqj4sWaCzFFDekySRk
-	 kioT7rmTOsj99OkQ1odU56p5DwzfCbh75Mm8OiKdSSIo0RBjPNFEZnXcCMEVgUv9eu5lP7DPbhIB
-	 Ukp7cbcBp0vbNLo7JgNdyfl/LrrAbztm/0r2BKYY6WM5R8NrkPxaJQNAdoeYw+2LPCSY794ZZ3lS
-	 n46bvIPpETVmrLw8HcvO2JxATfUzgCLgXBTBKvfTg9iZdT5MP8mr9iwF0EuqqWL8i4JnRZvt82dw
-	 GLDcL8MLaVjwKYOqTv4nXG/uodrcWHF+rD12k3dIH5mE0WlChbBN+BVxevfyKO2YXhgWMkca3tpn
-	 mHG51pHpIAiOwEeRIIRsAoSghyYYQ7PXOS4NhMiw2PlcW3jpycdgsaYCPD62n0Pj6ZiC2vLOPbOb
-	 S0P7dGYHrwYcKvtFr5Tu0lv1rP0vEVXtnppK4+2TyqPVV3gtebYWIeevG5pgFenL5aGL0if5XrVO
-	 SZhJSiNrsgSRLUBqhPHFd9Ro54GQIKiAzvK3tvSCID/0I1U8MnRmincIFAPnIMHA0hFjil7ql39j
-	 bKIjhkcJ48wUmTfi0hQPVqfEZowGSrQOn0oN/EmzPgIwnI2kyiw6/tkK6CXNG7NwdHRWUVseLf4x
-	 I3W9Zq4mdKYrD/ojbWjNU5MF3lQTa8ikcF2P81kxxP9l2QaW0GRSrjGlOTLzcFnD55BPYqhtvwf1
-	 bAuLaIez4NraZSmdBJnTOkQYrUtJnIcIQphrcG1a6cAkLEPUGvxv9Tg+15nFfVdiP+Ba0ujPpd8k
-	 0PWeCcBEzc3lWFwmhUzxy5yBWsyfcgfh3zPzta15gXcu9ukbIE13Q5mDwXAiY=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-mtd@lists.infradead.org
-Cc: richard@nod.at,
-	syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com,
-	luquijeffrey@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH] jffs2: initialize f->inocache to NULL in jffs2_init_inode_info()
-Date: Tue,  3 Nov 2026 11:26:47 +0800
-X-OQ-MSGID: <20261103032647.70138-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsHluK77
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893541F000C1;
+	Tue,  3 Nov 2026 03:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793676490;
+	bh=IT22gR2pwKiJhADmHWP/+r0coNccC8xLlTiDO/rBpoY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dsHluK7762BZ80/LESPY/xhDZDWPXpmU9W48PG4h3UMez8w68s+LNv80MHWQ0RTac
+	 5XeeVLn5sew2Y3XC7g5qtyA3yu7+r2z++Pc5qpuEHKGLcm+IW4q2BDgoPoCdmSvOqA
+	 GwnhOmGTMQm8tsCk/Ab4Ea5hYSv8kipAB9VIMQBv75X830u0SH7aBclarZ2aRMGZek
+	 WUW8bPm81HISM7t6YfnllVatmV1b2zsRVLUisNRcuafYrYSuUlWwkkfuJD02l1tcSD
+	 R/NNDY+smO/ubpd5Xd0TRx/omX4XiX0+NyKPuj/0ct4dWaiC6/sk1GVDfXpoH0YBNO
+	 PSaO+a83mAadQ==
+Subject: Re: [PATCH net v5] arp: Fix Hole-196 vulnerability by dropping
+ unicast ARP replies in L2 BMC
+From: netdev-bot+sashiko@kernel.org
+To: starchang@google.com
+Cc: netdev@vger.kernel.org, ja@ssi.bg, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, johannes@sipsolutions.net, johannes.berg@intel.com,
+ linux-kernel@vger.kernel.org, wangroger@google.com
+Date: Tue, 03 Nov 2026 03:28:09 +0000
+Message-ID: <179367648906.488856.5105608241587328517@kernel.org>
+In-Reply-To: <20261030031136.607720-1-starchang@google.com>
+References: <20261030031136.607720-1-starchang@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,59 +64,228 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-new_inode() can hand back a jffs2_inode_info recycled from slab with a
-stale f->inocache still pointing to a jffs2_inode_cache that was freed
-by a previous mount's jffs2_free_ino_caches().  jffs2_init_inode_info()
-initialises every other pointer field but leaves f->inocache untouched.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-If jffs2_new_inode() then fails before jffs2_do_new_inode() assigns a
-fresh f->inocache -- e.g. in jffs2_init_acl_pre() -- the error path does
-make_bad_inode() + iput(), and evict() ends up calling
-jffs2_xattr_delete_inode() which dereferences the stale pointer when
-reading ic->pino_nlink, causing a slab-use-after-free:
+Critical: 0 · High: 1 · Medium: 2 · Low: 1
 
-  BUG: KASAN: slab-use-after-free in jffs2_xattr_delete_inode
-  Read of size 4 at addr ... by task repro
-    jffs2_xattr_delete_inode
-    jffs2_do_clear_inode
-    evict
-    jffs2_new_inode
-    jffs2_mkdir
-  Allocated by jffs2_scan_make_ino_cache (jffs2_do_mount_fs)
-  Freed by jffs2_free_ino_caches (jffs2_put_super)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fix by clearing f->inocache in jffs2_init_inode_info(), consistent with
-the other pointer fields there.  Verified with the syzbot C reproducer
-under QEMU with KASAN: the UAF is reported before the patch and absent
-after it.
+- [High] The patch does not close the Hole-196 ARP cache-poisoning attack
+  it claims to fix.
+- [Medium] The patch rests on a false protocol premise, and with the
+  sysctl enabled it breaks legitimate traffic without saying so.
+- [Medium] The patch's GARP exemption does not match the kernel's own
+  GARP definition, and as a result the updated sysctl documentation is…
+- [Low] The patch reuses an IP-specific drop reason and RFC justification
+  for ARP, so both in-tree descriptions now misdescribe the new code.
 
-Originally proposed by Lucas Jeffrey <luquijeffrey@gmail.com>
-(Link: https://lore.kernel.org/all/20260909023955.1642244-1-luquijeffrey@gmail.com/);
-that thread has seen no activity since September 10 while the bug is
-still reproducing upstream, so resubmitting with his credit.
+--
 
-Reported-by: syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3a8099322b09d8d073d1
-Suggested-by: Lucas Jeffrey <luquijeffrey@gmail.com>
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
- fs/jffs2/os-linux.h | 1 +
- 1 file changed, 1 insertion(+)
+arp: Fix Hole-196 vulnerability by dropping unicast ARP replies in L2 BMC
 
-diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
-index bff2134d771d..e80b786c9ea2 100644
---- a/fs/jffs2/os-linux.h
-+++ b/fs/jffs2/os-linux.h
-@@ -55,6 +55,7 @@ static inline void jffs2_init_inode_info(struct jffs2_inode_info *f)
- 	f->metadata = NULL;
- 	f->dents = NULL;
- 	f->target = NULL;
-+	f->inocache = NULL;
- 	f->flags = 0;
- 	f->usercompr = 0;
- }
+This patch extends the drop_unicast_in_l2_multicast sysctl to ARP. When
+the sysctl is set, arp_process() drops ARP replies that arrive in L2
+broadcast or multicast frames unless sip == tip. Gratuitous ARP is left
+to drop_gratuitous_arp, ARP requests are not filtered, and the sysctl
+documentation is updated to match.
+
+> diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+> index d3523c9064a22..0747ff20ba472 100644
+> --- a/Documentation/networking/ip-sysctl.rst
+> +++ b/Documentation/networking/ip-sysctl.rst
+> @@ -2301,8 +2301,8 @@ promote_secondaries - BOOLEAN
+>  	Default: 0 (disabled)
+>  
+>  drop_unicast_in_l2_multicast - BOOLEAN
+> -	Drop any unicast IP packets that are received in link-layer
+> -	multicast (or broadcast) frames.
+> +	Drop any unicast IP packets and non-GARP ARP replies that are
+> +	received in link-layer multicast (or broadcast) frames.
+>  
+>  	This behavior (for multicast) is actually a SHOULD in RFC
+>  	1122, but is disabled by default for compatibility reasons.
+
+[Severity: Low]
+This isn't a bug, but the next paragraph still cites RFC 1122 as the
+reason for this behaviour. RFC 1122 section 3.3.6 covers IP datagrams
+and says nothing about filtering ARP replies.
+
+The new drop in arp_process() has a similar problem. It reports
+SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST, which
+include/net/dropreason-core.h documents as:
+
+	 * @SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST: destination address of L2 is
+	 * multicast, but L3 is unicast.
+
+The ARP check looks at ar_op and sip != tip, not at an L3 destination
+address. So drop_monitor and kfree_skb tracepoint users would see these
+ARP drops described as L3 unicast in L2 multicast.
+
+Would a separate drop reason, or updated kernel-doc, fit better here?
+
+> diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
+> index 1ca4ced280aef..8736092d5c629 100644
+> --- a/net/ipv4/arp.c
+> +++ b/net/ipv4/arp.c
+> @@ -794,6 +794,26 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
+>  	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+>  		goto out_free_skb;
+>  
+> +/*
+> + * Hole-196 defense for ARP:
+> + * If drop_unicast_in_l2_multicast is enabled, drop ARP Replies received
+> + * in L2 BMC frames unless they are Gratuitous ARP (sip == tip).
+> + *
+> + * Standard ARP Replies are strictly unicast (PACKET_HOST). An ARP Reply
+> + * in an L2 broadcast frame with (sip != tip) is an injected unicast packet.
+
+[Severity: Medium]
+Is this premise accurate? The commit message makes the same claim:
+
+  "Under standard networking behavior, a non-GARP ARP reply is strictly
+  meant to be delivered as an L2 unicast frame (PACKET_HOST) to the
+  requester."
+
+RFC 3927 section 2.5 requires ARP packets whose sender is an IPv4
+link-local (169.254/16) address to be sent as link-layer broadcast, and
+that includes replies. RFC 5227 section 2.6 also discusses broadcast
+ARP replies.
+
+Take a host with drop_unicast_in_l2_multicast=1 that ARPs for such a
+peer. The solicited reply arrives with pkt_type == PACKET_BROADCAST,
+ar_op == ARPOP_REPLY and sip != tip, so the new branch drops it.
+
+Nothing else in arp_process() resolves the entry. Wouldn't the
+neighbour stay INCOMPLETE and then go FAILED, so IPv4 connectivity to
+that peer is lost?
+
+The existing code in arp_process() already treats broadcast replies as
+valid input:
+
+		/* Broadcast replies and request packets
+		   do not assert neighbour reachability.
+		 */
+		if (arp->ar_op != htons(ARPOP_REPLY) ||
+		    skb->pkt_type != PACKET_HOST)
+			state = NUD_STALE;
+
+The sysctl was documented as covering unicast IP packets. This change
+widens it to ARP without mentioning the compatibility impact, and with
+the Fixes: tag it would also go to stable. Should the documentation at
+least call this out?
+
+> + * Legitimate GARP (sip == tip) is preserved and defers to DROP_GRATUITOUS_ARP.
+> + * ARP Requests are left untouched per RFC 826.
+> + */
+> +	if ((skb->pkt_type == PACKET_BROADCAST ||
+> +	     skb->pkt_type == PACKET_MULTICAST) &&
+> +	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+> +		if (arp->ar_op == htons(ARPOP_REPLY) && sip != tip) {
+
+[Severity: High]
+Does this close the cache poisoning path described in the commit
+message? Only broadcast replies with sip != tip are dropped. A GTK
+holder can still overwrite the victim's gateway entry with broadcast
+frames that pass this check.
+
+The first way is a broadcast ARP request with sip = gateway IP,
+sha = attacker MAC and tip = victim IP. With the default arp_ignore=0
+and arp_filter off, it takes the RTN_LOCAL branch in arp_process():
+
+			if (!dont_send) {
+				n = neigh_event_ns(tbl, sha, &sip, dev);
+
+neigh_event_ns() then overrides without any condition:
+
+net/core/neighbour.c:neigh_event_ns() {
+    ...
+	if (neigh)
+		neigh_update(neigh, lladdr, NUD_STALE,
+			     NEIGH_UPDATE_F_OVERRIDE, 0);
+    ...
+}
+
+So the LOCKTIME window the commit message relies on doesn't apply on
+this path.
+
+The second way is a broadcast GARP with sip == tip == gateway IP. It
+can be a request, or a reply with tha == sha. It passes the new check,
+and drop_gratuitous_arp defaults to 0.
+
+arp_is_garp() then returns true because the gateway address is
+RTN_UNICAST. That forces the override in the update block:
+
+		override = time_after(jiffies,
+				      n->updated +
+				      NEIGH_VAR(n->parms, LOCKTIME)) ||
+			   is_garp;
+		...
+		neigh_update(n, sha, state,
+			     override ? NEIGH_UPDATE_F_OVERRIDE : 0, 0);
+
+Broadcast requests whose tip is not local also fall through to that
+block. They overwrite an existing sip entry once LOCKTIME has passed,
+which is the same primitive this patch blocks for replies.
+
+With drop_unicast_in_l2_multicast=1 set as the documentation suggests,
+the attack in the commit message still seems possible with these
+frames. RFC 826 requires requests to be merged into the cache, so a
+filter based on opcode and sip may not be enough. Should the subject
+and changelog claim be narrowed, or the approach reworked?
+
+[Severity: Medium]
+Is sip == tip alone the right GARP exemption here? arp_is_garp() is
+stricter for replies:
+
+net/ipv4/arp.c:arp_is_garp() {
+	bool is_garp = tip == sip;
+	...
+	if (is_garp && ar_op == htons(ARPOP_REPLY))
+		is_garp =
+			...
+			tha &&
+			!memcmp(tha, sha, dev->addr_len);
+
+	if (is_garp) {
+		*addr_type = inet_addr_type_dev_table(net, dev, sip);
+		if (*addr_type != RTN_UNICAST)
+			is_garp = false;
+	}
+	...
+}
+
+Consider a broadcast reply with sip == tip == gateway IP,
+sha = attacker MAC and tha != sha. The kernel's own definition says it
+is not GARP, but this check doesn't drop it.
+
+With drop_gratuitous_arp at its default of 0, ipv4_neigh_lookup() finds
+the existing gateway entry. neigh_update() then overwrites it once
+LOCKTIME has passed. If tha == sha as well, arp_is_garp() returns true
+and the overwrite is immediate.
+
+That is the commit message's scenario with tip set equal to sip. The
+updated ip-sysctl.rst text says non-GARP ARP replies are dropped. Does
+that match what is implemented here?
+
+This overlaps with the question above. The separate point is the
+mismatch between the exemption and the documented behaviour. Should
+the documentation also say that drop_gratuitous_arp has to be enabled
+for the described protection?
+
+> +			kfree_skb_reason(skb,
+> +					 SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST);
+> +			return NET_RX_DROP;
+> +		}
+> +	}
+> +
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030031136.607720-1-starchang%40google.com
