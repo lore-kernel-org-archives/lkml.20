@@ -1,107 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721462;
-	b=M5fFbfS6NSJPen9ePga8G8Kcpsy4WCt+cjMSPmBM1pIvzik9TqVXAZy+E+PIPSLCEL3N
-	 uYunIqQVo9sP7sh+rHbpkbLJTqdGO2ziyzPhthoCCbS/sJ4oIU//2yisWDEOat1SzwHo6
-	 F2yQncsraocPnPdFy9Rm7qiglGozj4ilD0Q2vQQqxksBYOfKuTdDWS4ATWiJRf8zjoLIf
-	 Xw6akAhZXui9eVVRrtvi7/6gY+RopRx/4tmkZtIePtzfJSNoG2pR1AcRVVGAzLnsWdbUR
-	 VIAlgYXtlWHBjeZ4A+MFae7aVKcPWPIe4pA5zXbIKFaELZW9gRmQN8+2SHdt378XIhg==
+	t=1793721465;
+	b=qseP5svzdnMRqfAP8o/cmJ8jFV+7GuHj3AOTmt1qp81PHwNIu+ZeTm/KwAImvJ+JX4AR
+	 MCe1D1w9QcFp8UHOu/WHgAylZ9N9yHa1AHzbjHkF87Yd24eBd3iWouOf2DEp2sH6DX/U4
+	 LasLpuDQV779h+yVIYw8po64Y7t/w+4IzXh4v496Liy/YsdviF5FBV3mgOt9pRi5zWIW3
+	 GdLSClRjMLm5psp+JvCNu9Bqtj/0gvyq+4LHUFnsd/bHzAKUTf+aRHi+QEFNR5LQdlr0z
+	 IJ/8M0LJtAwhE+LaG0pIt83mI/OAoMvgsWt3dcC+nHYYcASm3HMA6rHJ7dCDcVwAaXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721465;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BH3r5p3dkFUSM4CjnTP+PtK3GedpKcBSkt3Memes7rg=;
-	b=xvvKHhmnui8AN0xEM/Kscd+Y8oc/7LmYgfWbsc4fX/aZT1VR1OFHyznS5ZwpvOpzmXVf
-	 4eBGSNNhPFWPvH0c68KHsNtGILCAbkhSEb2h7B1u//1oQTdyOwRm0nW/W2gt+/q3O55Te
-	 ZifeGkP5V1m72zY3yk6RlmJJfFcPuXyRY+1zqs57w5LRE4jpQRYw7ZtKoPPbyuor9e9UV
-	 H9OApfY4caKqt/a6Gt/2eiiXp5bhA8aigrfkvUbS5c5vItdHHuBaSV54dvf30k7bQzgzZ
-	 ZtYL5ABqdxaKehRLoZ46WwuarwRafN97uK7rbH5qtT1g8Os/BFrxzlFT+7yUyJYY50Q==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=aln50v0aoKBzqhGbJMmUlhCOqpkuSXDrmBoJJHHZAPg=;
+	b=seM2WhjbmmwN77E13jo91cQ8mRNaktv9407ZdImR5B0UcvG1qwXw2Zxloy3LS9BNDoBC
+	 l20mEFoX/v9ALWiKrf2l4CNQhLySOrzsAM9cOUmPp04nbkcpALdCx6sHyihZLmZTcSJ+i
+	 I6WpXC9TXgzfAigq5n1h2EdGMGt2gDPeqF5L2rwMfIw3exHGi8JkOVejDFcsPNaTb4zsO
+	 1z90xgtJzEkkJXEaJy7A0UALJ1sCiWIVBuodRBHwsS9KGMaxRBxdZBiQK4gHm863HoJvo
+	 r+RVCmzL1r2zdaDRcDfrV35xNjEac2Oy/lFSdEzLk3pbMuR6y9VHiCv4Gmr/yRGFQCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ncsu.edu;
-	spf=pass smtp.mailfrom=ncsu.edu;
-	dkim=pass header.d=ncsu.edu header.i=@ncsu.edu header.a=rsa-sha256 header.s=google header.b=fqWnr9sL;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=X4FpSHpV;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D900606EEAF
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:57:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D900606EEAF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ncsu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ncsu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E3260A382F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 15:57:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0E3260A382F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ncsu.edu header.i=@ncsu.edu header.a=rsa-sha256 header.s=google header.b=fqWnr9sL
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91791ec1b83so33502196d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:57:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=X4FpSHpV
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso519685f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 07:57:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ncsu.edu; s=google; t=1793721460; x=1794326260; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BH3r5p3dkFUSM4CjnTP+PtK3GedpKcBSkt3Memes7rg=;
-        b=fqWnr9sLvLKCNwXQxULueqtAQhF0csCZCwvjtYwxiGq+JdAV9KggQ7sUTZ1mdCrzHZ
-         V41fZo1WWxFgLtupyYhTL+jZ9ti0ki9KZ4OSA3oiV7RLICtCFze02SuSv+nA7j43Lgtx
-         efGGZKPB/92rJiW9WSkm5YjDkWJRILGZb5Dqch3YsmYaJD37LRqwjO5UBZYzfCYPuKA2
-         TtbAHns/w75DfvNbesJQBHXojWTGt745/pkS+s5MhFZRxZ4Ki3FfKKn/LQnzF2Fu9QHT
-         iTdhKA3XsEUrsrx+KfaIjOIyWqrsndvMMBdtKpZUR22AbHMJxzwIaDKftoUORCIo3HbR
-         NGfA==
+        d=suse.com; s=google; t=1793721463; x=1794326263; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aln50v0aoKBzqhGbJMmUlhCOqpkuSXDrmBoJJHHZAPg=;
+        b=X4FpSHpVy6uUXBwY/TcPN+bm3X9rRp/JRqsWmaFy2uigdcS+56Rx9u7p/N8n4nBSjQ
+         fIyyeMM3y1+OO3LOt4aFKW/EnmyaFVSUMI/TgvPjv2f2gcdO1ZNJfy9iFNs/HlFfxeN0
+         AR/OA7LqSPenm6VoTwwg4Hl835opiCrfQ0CBA/42pSd8GJh5l9Xa16EudWTfmJO1XMnk
+         UMoSCoS9Ptz4+TlqKRON8DcSjEv5DccUxqmrmUWGnkieccJjc3usswcQG+LNnRiu5Tki
+         jLj2Iu2P5UmH1d/zl0FsshQotXHjuRgxem+A893Rcf6SYMvXyvEioyqv3CMrr8K0KHD9
+         LT4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793721460; x=1794326260;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BH3r5p3dkFUSM4CjnTP+PtK3GedpKcBSkt3Memes7rg=;
-        b=EjH9RBM2wr7Kyy2mK05fvIJqMQafnWjQ2qfWQx+Zqgnj2+oXs1+Du2332Sx6ifx4N7
-         ZTz44tTxOjCs+JBgOMU5uyGRf/ftnCIJY15bKX19CNfH4a7s9ADL1apQVDwLq1XwPKFX
-         qm4NqERDNIuMMrDzRXIPU1nz4jYPRuA+A+IOZahoYMRzNNDKYLdO8Z+RhH1iAMjM+pJb
-         SU+4v9uHYpSlEaLuBgWxDQT2VxVKM3a0EDcZY0PgFzw1kXgV9Z3nPseYzJGQu/NJsSry
-         6aLeiiaWKssg4s06VtC3TK9owOsXm79T//ZKqKqf6QC36s/CcOe6/boY/AVTKmWBBAn4
-         0A1A==
-X-Forwarded-Encrypted: i=1; AKwUvByGMQ0idYuPCXmWKETeDsgJZh1AjA2BQ15YuzLupnm2aetuxiK0x6eE546QLaqC3arhIdCYmohHiv9H2F0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ltxWflBTUDs/ipvEbQUtur+czZCYfUEftJLCFBCtuvOPTn4zp
-	yS3d5kLpj1oH0bbd19rlVqMLKCw8bovluwTo41YI7axOXq8I7eI++O54FOSazBjD1A==
-X-Gm-Gg: AYBFou2L8NLcoSyr5yzZPiW0OsV1jl96yPiH+OkyyWbQrsfeW9hBxDczYY6MhGw/xWt
-	kFmVSG7dz42lRlxrIWLSShPN7RmgMQc3rM4+0OfxN/MxSseCIOBmBJV6RZTEkHqEgyPkiCcAQAi
-	1iiDHzjRUdv7MmEYAEq5kGr/v599CREK/Mv/ASD/NNqJWC2qjiPAOVmt1Q6hcMr7Md+JFspJ3Md
-	v3tCMhOGLqYTn/m65fh2GtQ4+xHXKuw5H0TGtQvYElcToMuLaiMJyolxoYM0tVTydd+6l2tuPE+
-	16D75S4Qvpy0HtjRX5RP6nndPweDlZbpR2Bf7Vpvn1glVL5T0B/IB4G3SDUOYI98+lk07GvcRjl
-	ohuy1MZF9Uus67q8z5T+Yj6PY9xGrfYQEzMs0EUo2TV4uLYYFNVrp76PMwkFdQ/LfjeJfsdwuLU
-	jmA2SR6HHi+fnIw7hbYNRbZ9dlbBwtDv/+zVujaM0L8DahY26VP8IuJ8sRCr6VqYsXWk88RtMHI
-	55y2ha2Vx1PFBOiV1LL7qr5Bum73eFHmO/8HHsJNFo9YxA0nIi7rxF6gV3eXI0xqGQRHACAbwVf
-	B7qal12gr1I1GMtHgWvawtntPa+2HGGhk8r8WBHJ599heoJXEo/BOAghrGFijxml54CV6J584L4
-	YrUhajy1CAlEvle+PzpIxXyVABiIsS29RAxRGIAeXY+Q=
-X-Received: by 2002:a05:620a:a2c1:10b0:945:c6bd:16be with SMTP id af79cd13be357-945c6bd17b0mr298417885a.10.1793721460174;
-        Tue, 03 Nov 2026 07:57:40 -0800 (PST)
-Received: from flag-System-Product-Name.tail132f98.ts.net ([136.61.118.42])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425a7195esm1113191985a.27.2026.11.03.07.57.39
+        d=1e100.net; s=20260707; t=1793721463; x=1794326263;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aln50v0aoKBzqhGbJMmUlhCOqpkuSXDrmBoJJHHZAPg=;
+        b=Q5shpO+sFO6KoAG27pQ+sVk/FMXlQU9wdJ02Ild8FBpUuRmoX8LqzLiIRAOclzpZ0x
+         q2bnBFcxfrVSGYfOQjcEn5gqgl0mbMAmwVL3s5fzaoNzjp6vmnByH16n3IFG9z6mCt0O
+         OGVOrILfP/TG/aOX/1ROS4/lV+U5CQ3u+b8VkN15R9/Zq0HkwVvY/bfs/8Sq3GA6TQ5f
+         H20thc3cZnVPo/sUgPC3BMKoTcl8emEkzO9tWip98krlSq6Po+TYv/FOjGv38YP8XiMO
+         vXk+VHJjyVeZL144IGrockydr0S3t6iRFBzfMYrNM16b73jYGxS94SKFJxBS+TTUGtsf
+         peOA==
+X-Forwarded-Encrypted: i=1; AKwUvBznStG0Rf5LSA1VhgKtIJkx8OACNqgaxqn4ik3DT93fNtj7ZhTu8O4dx8C/0bg77VHB2Hnep18vGxT/JOs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SFzT9q8tdw7dKjYb2Ec9ySBivRUWueo+AR2shDuEZTKNp9cBL
+	NxfutUorEEeluAN9XXcj+oNZoWnNkF5/r7T/PcThMGouuKogUDXFgJ/wT++1/mKfR7U=
+X-Gm-Gg: AYBFou01fRmkvNT7w3TJs22KhQC7J57v2kOyEAvpVjcwk3WvnBYrwV7OL0sAi15SGkj
+	Vbcl3d6VDPS0Y7vt4whxQUZkTm6UdeljW+gaDGgIRUxGsurzm9GRaiY7plR5mx4dh8dv+RRAt2T
+	8yY+uhXkeN0144lmZ3h0GG4qGqlpfeGZyiFsXRFsjqTdcN10WGx4qco/D0Gp9qVzQEVumjInsQC
+	ucxTjmfz1ueZuLfcxn0NxKAj1mOlmgIhnlDPXacfzyeIX0rNpFlXiU0TVY/CyFPfJjtxaoLpmRG
+	nbSUuvP4imOJdlonQVUTnlgo6JaYRQ36qz1Mx6fWUy7AkUVb/I5PmM1iE0KMdZ+xXAP0DI9xVV9
+	wAJQnfx+YQQROJAE/dEVoKdaQmtMuqpg1RkyNeeVnydffHeZk/TQ2tlJy8l8PPG3wMlKYIEkqEH
+	e2lWLDgIKRiHuQhiw9Xigp2fcOLs7uFiB3gzXc6ySXBjVjL8BacBRmyE01iSL0W3iEuyvakkmIt
+	F0e9ToG5TDVwBW+LL4J4fsFClfj0DcPmqBEhUQodG6ryYH0OPmIRrcXQH6SJs4P1I9kgwAiY09I
+	ad1MTSjyFkUNr7duccTNLV2nCrGTEA==
+X-Received: by 2002:a05:6000:26c8:b0:48e:6dd7:4d13 with SMTP id ffacd0b85a97d-48e6dd74d5bmr32790980f8f.14.1793721463064;
+        Tue, 03 Nov 2026 07:57:43 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c6e9sm25948956f8f.43.2026.11.03.07.57.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 07:57:39 -0800 (PST)
-From: Yanbo Zhao <yzhao62@ncsu.edu>
-To: Namhyung Kim <namhyung@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Kan Liang <kan.liang@linux.intel.com>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Zecheng Li <zli94@ncsu.edu>,
-	Xu Liu <xliuprof@google.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yanbo Zhao <yzhao62@ncsu.edu>
-Subject: [PATCH v4 2/3] perf dwarf-aux: Add C++ vtable helpers
-Date: Tue,  3 Nov 2026 10:56:49 -0500
-Message-ID: <20261103155650.269973-3-yzhao62@ncsu.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103155650.269973-1-yzhao62@ncsu.edu>
-References: <20261103155650.269973-1-yzhao62@ncsu.edu>
+        Tue, 03 Nov 2026 07:57:42 -0800 (PST)
+Date: Tue, 3 Nov 2026 16:57:40 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Chris Down <chris@chrisdown.name>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 04/16] printk: Separate code for adding/updating
+ preferred console metadata
+Message-ID: <auoEdNHVTRBNYszx@pathway.suse.cz>
+References: <20260929120546.328616-1-pmladek@suse.com>
+ <20260929120546.328616-5-pmladek@suse.com>
+ <87cxsv4acy.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,425 +103,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cxsv4acy.fsf@jogness.linutronix.de>
 
-Add DWARF helper functions needed to resolve C++ virtual function calls
-statically in the data type profiling:
+On Tue 2026-10-27 13:11:33, John Ogness wrote:
+> On 2026-09-29, Petr Mladek <pmladek@suse.com> wrote:
+> > The logic for adding or updating a preferred console is currently
+> > duplicated within __add_preferred_console(), making the code difficult
+> > to follow and prone to consistency issues.
+> >
+> > Split the code for adding or updating entries to avoid code duplication.
+> > Make it clear what operations are done only for new entries.
+> >
+> > Use this opportunity and replace an int with an unsigned int for
+> > iterating over the preferred_consoles array.
+> >
+> > It is a preparation step before adding more consistency checks.
+> > No intended functional changes.
+> >
+> > Signed-off-by: Petr Mladek <pmladek@suse.com>
+> 
+> Reviewed-by: John Ogness <john.ogness@linutronix.de>
+> 
+> Some minor comments below...
+> 
+> > diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+> > index c3e50f19a32b..174aee533a53 100644
+> > --- a/kernel/printk/printk.c
+> > +++ b/kernel/printk/printk.c
+> > @@ -2577,35 +2584,56 @@ static int __add_preferred_console(const char *name, const short idx,
+> >  	if (name && idx < 0)
+> >  		return -EINVAL;
+> >  
+> > +	if (!pc->name[0] && !pc->devname[0])
+> > +		is_new_entry = true;
+> > +
+> > +	if (is_new_entry) {
+> > +		if (devname)
+> > +			strscpy(pc->devname, devname);
+> > +		if (name)
+> > +			strscpy(pc->name, name);
+> > +		pc->index = idx;
+> > +	}
+> > +
+> >  	/*
+> > -	 *	See if this tty is not yet registered, and
+> > -	 *	if we have a slot free.
+> > +	 * Historically, the preferred options are stored only by the first
+> > +	 * caller who prefers the particular console.
+> >  	 */
+> > +	if (is_new_entry) {
+> > +		pc->options = options;
+> > +		braille_set_options(pc, brl_options);
+> > +	}
+> > +
+> > +	if (!brl_options)
+> > +		preferred_dev_console = i;
+> > +
+> > +	if (user_specified) {
+> 
+> Here you drop the comments:
+> 
+> 	/*
+> 	 * @pc console was defined by the user on the command line.
+> 	 * Do not clear when added twice also by SPCR or the device tree.
+> 	 */
+> 
+> > +		pc->user_specified = true;
+> 
+> And here you drop the comments:
+> 
+> 	/* At least one console defined by the user on the command line. */
+> 
+> > +		console_set_on_cmdline = 1;
+> > +	}
+> 
+> The comments seem useful to help track all this. I do not see this
+> information preserved anywhere by the end of your series. But you have a
+> better understanding of the big picture. If you think the comments are
+> insignificant and/or misleading, I am fine with you dropping them.
 
-- die_get_vtable_index() returns the vtable slot index of a virtual
-  function DIE from DW_AT_vtable_elem_location.  DWARF defines the
-  attribute as a location description of the slot but GCC and Clang
-  both emit the slot index as a single DW_OP_constu, which is also how
-  debuggers interpret it.
+Heh, they did not fit 80-characters per-line, so I dropped them ;-)
+OK, I am going to add them back the following way in v6:
 
-- die_find_virtual_func() finds the virtual function DIE at a given
-  vtable slot index of a class.  The (primary) vtable of a class starts
-  with the vtable of its primary base class, i.e. the first non-virtual
-  base class at offset 0 which has a vtable, and the slots for virtual
-  functions introduced by the class come after that.  So it looks at
-  the class first and then follows the primary base class chain.
-  Non-primary base classes have their own secondary vtables with a
-  different slot numbering, so they are not searched.  Note that an
-  empty base class can be placed at offset 0 too (empty base
-  optimization) and it comes before the primary base in DWARF if it's
-  declared first, like 'struct Derived : Empty, Base'.  So the base
-  class needs to be checked if it has the vtable pointer at offset 0.
-
-- die_is_vtbl_ptr_type() checks if a type is the vtable pointer.
-  Compilers add the vtable pointer as an artificial member named
-  '_vptr.<class>' (GCC) or '_vptr$<class>' (Clang) to the class that
-  first introduces virtual functions, and both give it a type of
-  pointer to a pointer type named '__vtbl_ptr_type'.  Checking the
-  type is cheap once a member type is resolved, so the instruction
-  tracking can use it on every pointer access without an extra DWARF
-  lookup.
-
-- die_get_vptr_class() checks if the member at an offset of a class is
-  the vtable pointer, following DW_TAG_inheritance into base class
-  subobjects like die_get_member_type(), and returns the class whose
-  vtable it points to.  Since
-  the primary vtable of a derived class extends the one of its base,
-  the vtable pointer at offset 0 is returned as the vtable of the
-  (derived) class itself, and only when a non-primary base subobject at
-  a non-zero offset is entered it's the vtable of that base class.
-  die_deref_vptr_class() is a variant for an access through a pointer
-  to the class like die_deref_ptr_type().
-
-The walks over the base classes in die_find_virtual_func() and
-die_get_vptr_class() are bounded by MAX_TYPE_CHASE like the other type
-chases, in case of broken debug info with cyclic inheritance.
-
-For example, with the following classes (GCC 15, -O2 -g):
-
-  struct Base {
-      long a;
-      virtual long get(long x);
-      virtual void set(long v);
-  };
-  struct Other {
-      long c;
-      virtual long hi();
-  };
-  struct Multi : Base, Other {
-      long d;
-      long get(long x) override;
-      long hi() override;
-  };
-
-the vtable pointers and slot indexes are described like below:
-
-  <1><10b>: Abbrev Number: 15 (DW_TAG_structure_type)
-     <10c>   DW_AT_name        : Base
-  <2><14d>: Abbrev Number: 25 (DW_TAG_member)
-     <14e>   DW_AT_name        : _vptr.Base
-     <152>   DW_AT_type        : <0x2bf>
-     <156>   DW_AT_data_member_location: 0
-  <2><15f>: Abbrev Number: 17 (DW_TAG_subprogram)
-     <160>   DW_AT_name        : get
-     <16e>   DW_AT_virtuality  : 1        (virtual)
-     <16e>  DW_AT_vtable_elem_location: (DW_OP_constu: 0)
-  <2><188>: Abbrev Number: 38 (DW_TAG_subprogram)
-     <189>   DW_AT_name        : set
-     <194>   DW_AT_virtuality  : 1        (virtual)
-     <195>  DW_AT_vtable_elem_location: (DW_OP_constu: 1)
-  ...
-  <1><2f>: Abbrev Number: 15 (DW_TAG_structure_type)
-     <30>   DW_AT_name        : Multi
-  <2><3e>: Abbrev Number: 20 (DW_TAG_inheritance)
-     <3f>   DW_AT_type        : <0x10b>                        # Base
-     <43>   DW_AT_data_member_location: 0
-  <2><44>: Abbrev Number: 20 (DW_TAG_inheritance)
-     <45>   DW_AT_type        : <0x1d0>                        # Other
-     <49>   DW_AT_data_member_location: 16
-  <2><a2>: Abbrev Number: 17 (DW_TAG_subprogram)
-     <a3>   DW_AT_name        : get
-     <b1>   DW_AT_vtable_elem_location: (DW_OP_constu: 0)
-  <2><cb>: Abbrev Number: 17 (DW_TAG_subprogram)
-     <cc>   DW_AT_name        : hi
-     <d9>   DW_AT_vtable_elem_location: (DW_OP_constu: 4)
-
-Multi::hi() is at slot 4 of the primary vtable of Multi (after get,
-set and the two destructor entries), while Other::hi() is at slot 0
-of the vtable of Other.  Thus for a 'Multi *' the vtable pointer at
-offset 0 is looked up with Multi: slot 4 finds Multi::hi() and slot 1
-finds Base::set() through the primary base.  The vtable pointer at
-offset 16 belongs to the Other subobject, so it's looked up with Other
-where slot 0 finds Other::hi().
-
-Signed-off-by: Yanbo Zhao <yzhao62@ncsu.edu>
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
----
-Changes in v4:
-- No change (rebased).  Add Reviewed-by from Namhyung.
-
-Changes in v3:
-- Check the value of DW_AT_virtuality instead of its presence, as it
-  can be DW_VIRTUALITY_none (Sashiko, Namhyung).
-- Bound the base class walks in die_find_virtual_func() and
-  die_get_vptr_class() with MAX_TYPE_CHASE and bail out, in case of
-  broken debug info with cyclic inheritance (Sashiko, Namhyung).
-
-Changes in v2:
-- Drop the DW_AT_vtable_elem_index fallback which does not exist in
-  DWARF (0x8c is DW_AT_loclists_base) (Namhyung).
-- Drop the DW_LANG_C_plus_plus_* fallback macros; they are enum
-  constants and the language check is not needed anymore (Namhyung).
-- Drop cu_get_language(), cu_is_cplusplus(), die_get_base_class(),
-  die_get_parent() and die_find_member_by_offset() which are unused
-  or duplicate die_get_member_type() (Namhyung, Sashiko).
-- Document that die_get_vtable_index() returns the vtable slot index
-  of the function.  GCC and Clang both emit DW_AT_vtable_elem_location
-  as a single DW_OP_constu with the slot index, not a byte offset
-  (Namhyung, Sashiko).
-- Fix die_find_virtual_func() to return the DW_TAG_subprogram DIE
-  instead of the DW_TAG_inheritance DIE when the function is found in
-  a base class (Sashiko).
-- Follow only the primary base class chain in die_find_virtual_func()
-  since non-primary base classes have their own secondary vtables with
-  a different slot numbering, and skip an empty base class at offset 0
-  which comes before the primary base in DWARF.
-- Add die_is_vtbl_ptr_type() to identify the vtable pointer by its
-  type ('__vtbl_ptr_type') and die_get_vptr_class() /
-  die_deref_vptr_class() to get the class of the vtable pointer
-  through base class subobjects, replacing die_find_member_by_offset()
-  and die_is_vptr_member().
- tools/perf/util/dwarf-aux.c | 233 ++++++++++++++++++++++++++++++++++++
- tools/perf/util/dwarf-aux.h |  18 +++
- 2 files changed, 251 insertions(+)
-
-diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-index eb4b8f3475df..10079f47a6c3 100644
---- a/tools/perf/util/dwarf-aux.c
-+++ b/tools/perf/util/dwarf-aux.c
-@@ -2293,6 +2293,239 @@ Dwarf_Die *die_get_member_type(Dwarf_Die *type_die, int offset,
- 	return die_mem;
- }
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -366,6 +366,7 @@ static int console_locked;
+ static struct preferred_console preferred_consoles[MAX_PREFERRED_CONSOLES];
  
-+/**
-+ * die_get_vtable_index - Get the vtable slot index of a virtual function
-+ * @func_die: a DW_TAG_subprogram DIE
-+ *
-+ * Returns the index of the slot of @func_die in the vtable of its class or
-+ * -1 if it's not a virtual function.  DWARF defines the
-+ * DW_AT_vtable_elem_location as a location description of the slot, but
-+ * both GCC and Clang emit the slot index as a single DW_OP_constu (or
-+ * DW_OP_litN) and it's what debuggers expect too.
-+ */
-+int die_get_vtable_index(Dwarf_Die *func_die)
-+{
-+	Dwarf_Attribute attr;
-+	Dwarf_Op *expr;
-+	size_t nexpr;
-+
-+	if (dwarf_attr_integrate(func_die, DW_AT_vtable_elem_location, &attr) == NULL)
-+		return -1;
-+
-+	if (dwarf_getlocation(&attr, &expr, &nexpr) < 0 || nexpr != 1)
-+		return -1;
-+
-+	if (expr[0].atom == DW_OP_constu)
-+		return expr[0].number;
-+
-+	if (expr[0].atom >= DW_OP_lit0 && expr[0].atom <= DW_OP_lit31)
-+		return expr[0].atom - DW_OP_lit0;
-+
-+	pr_debug("Unexpected vtable_elem_location OP %x\n", expr[0].atom);
-+	return -1;
-+}
-+
-+static int __die_find_virtual_func_cb(Dwarf_Die *die_mem, void *arg)
-+{
-+	int index = (long)arg;
-+
-+	if (dwarf_tag(die_mem) != DW_TAG_subprogram)
-+		return DIE_FIND_CB_SIBLING;
-+
-+	if (die_get_vtable_index(die_mem) == index)
-+		return DIE_FIND_CB_END;
-+
-+	return DIE_FIND_CB_SIBLING;
-+}
-+
-+/*
-+ * Find the primary base class: the first non-virtual base class at offset 0
-+ * which has a vtable.  Note that an empty base class can also be placed at
-+ * offset 0 (empty base optimization) before the primary base.
-+ */
-+static int __die_find_primary_base_cb(Dwarf_Die *die_mem, void *arg __maybe_unused)
-+{
-+	Dwarf_Attribute attr;
-+	Dwarf_Die base_die, vptr_die;
-+	Dwarf_Word loc, virtuality;
-+
-+	if (dwarf_tag(die_mem) != DW_TAG_inheritance)
-+		return DIE_FIND_CB_SIBLING;
-+
-+	/* The attribute can be present with DW_VIRTUALITY_none */
-+	if (dwarf_attr_integrate(die_mem, DW_AT_virtuality, &attr) &&
-+	    dwarf_formudata(&attr, &virtuality) == 0 &&
-+	    virtuality != DW_VIRTUALITY_none)
-+		return DIE_FIND_CB_SIBLING;
-+
-+	if (die_get_data_member_location(die_mem, &loc) < 0 || loc != 0)
-+		return DIE_FIND_CB_SIBLING;
-+
-+	if (die_get_real_type(die_mem, &base_die) == NULL)
-+		return DIE_FIND_CB_SIBLING;
-+
-+	/* It should have the vtable pointer at offset 0 */
-+	if (die_get_vptr_class(&base_die, 0, &vptr_die) == NULL)
-+		return DIE_FIND_CB_SIBLING;
-+
-+	return DIE_FIND_CB_END;
-+}
-+
-+/**
-+ * die_find_virtual_func - Find a virtual function by its vtable slot index
-+ * @class_die: a class type DIE
-+ * @index: index of the slot in the vtable of @class_die
-+ * @die_mem: a buffer for result DIE
-+ *
-+ * Search a DW_TAG_subprogram DIE at the slot @index of the vtable of
-+ * @class_die and store the DIE to @die_mem and returns it if found.  The
-+ * (primary) vtable of a class starts with the vtable of its primary base
-+ * class, that is the first non-virtual base class at offset 0 which has a
-+ * vtable, and virtual functions introduced by the class come after that.
-+ * So if @class_die doesn't have a virtual function with the @index, it
-+ * continues to the primary base.  Other (non-primary) base classes have
-+ * their own secondary vtables where the index is different, so they are
-+ * not searched.
-+ *
-+ * Returns NULL if not found.
-+ */
-+Dwarf_Die *die_find_virtual_func(Dwarf_Die *class_die, int index,
-+				 Dwarf_Die *die_mem)
-+{
-+	Dwarf_Die cur_die = *class_die;
-+	Dwarf_Die base_die;
-+	int chase = 0;
-+
-+	while (die_is_compound_type(&cur_die)) {
-+		if (++chase > MAX_TYPE_CHASE) {
-+			pr_debug("DWARF: base class chase limit reached at DIE 0x%lx\n",
-+				 (unsigned long)dwarf_dieoffset(class_die));
-+			return NULL;
-+		}
-+
-+		if (die_find_child(&cur_die, __die_find_virtual_func_cb,
-+				   (void *)(long)index, die_mem))
-+			return die_mem;
-+
-+		if (die_find_child(&cur_die, __die_find_primary_base_cb,
-+				   NULL, &base_die) == NULL)
-+			break;
-+
-+		if (die_get_real_type(&base_die, &cur_die) == NULL)
-+			break;
-+	}
-+	return NULL;
-+}
-+
-+/**
-+ * die_is_vtbl_ptr_type - Check if the type is a C++ vtable pointer
-+ * @type_die: a type DIE
-+ *
-+ * Compilers add the vtable pointer as an artificial member to the class
-+ * that introduces virtual functions first.  Both GCC and Clang give it a
-+ * type of pointer to a pointer type named "__vtbl_ptr_type", so it can
-+ * be identified by the type without looking at the member name.
-+ */
-+bool die_is_vtbl_ptr_type(Dwarf_Die *type_die)
-+{
-+	Dwarf_Die ptr_die;
-+	const char *name;
-+
-+	if (dwarf_tag(type_die) != DW_TAG_pointer_type)
-+		return false;
-+
-+	if (die_get_real_type(type_die, &ptr_die) == NULL)
-+		return false;
-+
-+	name = dwarf_diename(&ptr_die);
-+	return name != NULL && !strcmp(name, "__vtbl_ptr_type");
-+}
-+
-+/**
-+ * die_get_vptr_class - Get the class of the vtable pointer at the offset
-+ * @type_die: a class type DIE
-+ * @offset: offset of the accessed member in @type_die
-+ * @die_mem: a buffer for result DIE
-+ *
-+ * Check if the member at @offset in @type_die is a vtable pointer and
-+ * return the class DIE whose vtable it points to.  The vtable pointer is
-+ * a member of the class that introduces virtual functions first, so it
-+ * follows DW_TAG_inheritance to look into the base class subobjects like
-+ * die_get_member_type().
-+ *
-+ * Note that the vtable pointer at offset 0 belongs to the (primary) vtable
-+ * of @type_die itself as it extends the one of the primary base class.
-+ * Only when a non-primary base class subobject (at non-zero offset) is
-+ * entered, it points to a separate vtable of the base class.
-+ *
-+ * Returns NULL if the member at @offset is not a vtable pointer.
-+ */
-+Dwarf_Die *die_get_vptr_class(Dwarf_Die *type_die, int offset,
-+			      Dwarf_Die *die_mem)
-+{
-+	Dwarf_Die class_die = *type_die;
-+	Dwarf_Die vptr_class = *type_die;
-+	Dwarf_Die member_die, mb_type;
-+	Dwarf_Word loc;
-+	int chase = 0;
-+
-+	while (die_is_compound_type(&class_die)) {
-+		if (++chase > MAX_TYPE_CHASE) {
-+			pr_debug("DWARF: base class chase limit reached at DIE 0x%lx\n",
-+				 (unsigned long)dwarf_dieoffset(type_die));
-+			return NULL;
-+		}
-+
-+		if (die_find_child(&class_die, __die_find_member_offset_cb,
-+				   (void *)(long)offset, &member_die) == NULL)
-+			return NULL;
-+
-+		if (dwarf_tag(&member_die) == DW_TAG_member) {
-+			if (die_get_real_type(&member_die, &mb_type) == NULL ||
-+			    !die_is_vtbl_ptr_type(&mb_type))
-+				return NULL;
-+
-+			*die_mem = vptr_class;
-+			return die_mem;
-+		}
-+
-+		/* DW_TAG_inheritance: go into the base class subobject */
-+		if (die_get_data_member_location(&member_die, &loc) < 0)
-+			return NULL;
-+
-+		if (die_get_real_type(&member_die, &class_die) == NULL)
-+			return NULL;
-+
-+		offset -= loc;
-+		if (loc != 0)
-+			vptr_class = class_die;
-+	}
-+	return NULL;
-+}
-+
-+/**
-+ * die_deref_vptr_class - Get the class of the vtable pointer via pointer access
-+ * @ptr_die: a pointer type DIE
-+ * @offset: offset of the accessed member from the pointer
-+ * @die_mem: a buffer for result DIE
-+ *
-+ * Same as die_get_vptr_class() but for an access through a pointer to the
-+ * class, like die_deref_ptr_type().
-+ */
-+Dwarf_Die *die_deref_vptr_class(Dwarf_Die *ptr_die, int offset,
-+				Dwarf_Die *die_mem)
-+{
-+	Dwarf_Die type_die;
-+
-+	if (dwarf_tag(ptr_die) != DW_TAG_pointer_type)
-+		return NULL;
-+
-+	if (die_get_real_type(ptr_die, &type_die) == NULL)
-+		return NULL;
-+
-+	return die_get_vptr_class(&type_die, offset, die_mem);
-+}
-+
- /**
-  * die_deref_ptr_type - Return type info for pointer access
-  * @ptr_die: a pointer type DIE
-diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
-index 7c893e385824..803182cdff8a 100644
---- a/tools/perf/util/dwarf-aux.h
-+++ b/tools/perf/util/dwarf-aux.h
-@@ -26,6 +26,24 @@ const char *cu_get_comp_dir(Dwarf_Die *cu_die);
- /* Check if DIE is a compound type (structure, union, or class) */
- bool die_is_compound_type(Dwarf_Die *type_die);
+ static int preferred_dev_console = -1;
++/* Set when there is at least one console preferred via the command line. */
+ int console_set_on_cmdline;
+ EXPORT_SYMBOL(console_set_on_cmdline);
  
-+/* Get the vtable slot index of a virtual function (-1 if not virtual) */
-+int die_get_vtable_index(Dwarf_Die *func_die);
-+
-+/* Find the virtual function at the vtable slot index of a class */
-+Dwarf_Die *die_find_virtual_func(Dwarf_Die *class_die, int index,
-+				 Dwarf_Die *die_mem);
-+
-+/* Check if the type is a C++ vtable pointer (pointer to __vtbl_ptr_type) */
-+bool die_is_vtbl_ptr_type(Dwarf_Die *type_die);
-+
-+/* Get the class of the vtable pointer at the offset of a type (or NULL) */
-+Dwarf_Die *die_get_vptr_class(Dwarf_Die *type_die, int offset,
-+			      Dwarf_Die *die_mem);
-+
-+/* Get the class of the vtable pointer at the offset from a pointer (or NULL) */
-+Dwarf_Die *die_deref_vptr_class(Dwarf_Die *ptr_die, int offset,
-+				Dwarf_Die *die_mem);
-+
- /* Get a line number and file name for given address */
- int cu_find_lineinfo(Dwarf_Die *cudie, Dwarf_Addr addr,
- 		     const char **fname, int *lineno);
--- 
-2.53.0
+@@ -2607,6 +2608,10 @@ static int add_or_update_preferred_console(unsigned int i,
+ 		preferred_dev_console = i;
+ 
+ 	if (user_specified) {
++		/*
++		 * @pc console was defined by the user on the command line.
++		 * Do not clear when added twice also by SPCR or DT.
++		 */
+ 		pc->user_specified = true;
+ 		console_set_on_cmdline = 1;
+ 	}
+
+I'll keep your Reviewed-by. Speak if you do not like it, please.
+
+Best Regards,
+Petr
 
