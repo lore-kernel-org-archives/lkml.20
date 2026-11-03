@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697677;
-	b=Y0d6iocpf2YuqWMsFzkJtMXeiJ/bs1C3/2DgRjd7LW5Pi+B40NRqlg4qQLZtTIvawKxm
-	 zwRJOYSgEy1XdH+w5M7hosXu9CdcF4av3+54KTavhgHUlSUxvj1yBfXpPnPBEr+hfkv5f
-	 8IfbB4u0MibKEU2KqUGlN2S+ZNNw5BoOaempA0Lq3J2Vbb3ZAD1U6Oxpa785W/0ki5Un6
-	 rEmsPvtE6fRzWKD1U5uDHsak43cq0H5QvchZtTUw0x14xQH9z9v7plnhVL/Xm/+K7EWX9
-	 I6P4ioa3bcQHKzxwdE/NIDG/reTrf5LzUiWbDFm3wfXTujkd9AH0gywaWHx0TgvJKcQ==
+	t=1793697694;
+	b=Cl1wQnl1sa+rtP0VT2gq1hQKtdZU0rQyvvts0KQN2MLUPlN2aI/9/orHdehN8v5MNaIx
+	 VrOcI6+sapRWkJQAsGGDHuFBGih0goJyP+pbyoNBNKRhDtxlh0o86Pa9LJlr4Gx1wG9Wo
+	 PKeKpjwg7+gE1ROIKThz6PA4EAxhTVReMOtnt+r8IzXpaYo678S9zsHwJEyh4i+OCnACQ
+	 WMpkIXiyO+E+oEahby2RdkyciorW58naipwJ8AChTJvm/puRtaugg8/FREVuEG8xleTxS
+	 O+yZr0Q3BPalHvp+BG87R0JNWukVdPBHDwo1uccdzaHkuwuw8Ztm0uiZw9PcNYWVzqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697677;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=9seIfKUb5mL9/pRiltJe+WDkz9VAJT3ACyumajU4uZs=;
-	b=L7VxFWNr2KEj6RlJpH8BAPAVU6NFk6Ve0J2jO0kROA1LwDquvESLmPq3e1yxWZFfrn6K
-	 KZyw8FyFWucpVaGGrh5GR2LSUZCSN0BZqI+d91vyOevkRRPu+EGDibE0iNCF1JxCJuujr
-	 asBBdIXIT+GNBCX9rGh895i0asNWCQT0bZMf66sUZt2yKgu9ExzFcnvgP3xTTmzpQfCFO
-	 eBN7P3qiqYYW/TXJfIziVJ/GfZcieUL1rHScOBED/+QOZzj0SodS4ME47Su1BymSwaHWP
-	 bvklHclnjvcicLmXYoT70sCdhEB3XQsoZLj6gJ3Y3DM+YXVYR8EF9R9LiGPScQr+JFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697694;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=r/BYfi44pWt5omLrxYHtr+zgS/ql3OzU/W5sAwqn8fY=;
+	b=1NWGayySrdA3FuDfMiLKqVYGFAL6eocJy0Df1fLmOI1GQyPqb5kC3daROgFiUByOLgJZ
+	 1nqwZt0B9RLWJoBE/3SwasT10Knnkesjb3qaVE9bugj0GkhWhogz3a17CL8S5opls1OCm
+	 quxNRGuoZrIvHKv2rxcxqoQnm9NWXTQZUN36KoiJDZqvFWCX1Uu2B7bnQjUfyR1yaS5NS
+	 TCmFxRvpVCu0588o8qF2stbNovLBnh7RY3l1ncBH2w0UoajIqOHE0QCxiR3Vt8Wgnrap8
+	 UeVD8ZrUUxPC7vtOpZSRHR8kXBGENarUgZCoH8tzOvgmcCNwgmBBkZejoKzIqZCWYBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I0mgW61i;
-	arc=none smtp.remote-ip=91.218.175.34
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFwHWBRn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFE7606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:21:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AFE7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAB5606D837;
+	Tue,  3 Nov 2026 09:21:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I0mgW61i
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Dogg26upRcYPteVZYsSyT1265sb9gcafjUHnbvF97og=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793697675; v=1; x=1794302475;
- b=I0mgW61inAYftsexWS2+OTxq41aS9OM4setyUhQfKYaBmWfTJytrcMqojQ0HODeozLwBPc8B
- F2sx/UdNm9jEmk4u1B8Ym+o8SjPVTsrOktNVM0L/K66HIL7G9pqJIfOc53Pz+vjek0BaOQevYR5
- dfLHkzjveKcQhLRg/Iyy8nb4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 6dbf83cf33588557;
-	Tue, 03 Nov 2026 09:21:15 +0000
-X-Mizu-Trace-ID: 6dbf83cf33588557
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Subject: [PATCH net v2 0/3] net: ioam6: makes IOAM insertion transparent to
- IPv6 ECMP
-Date: Tue, 03 Nov 2026 17:20:49 +0800
-Message-Id: <20261103-ipv6_ioam_ecmp-v2-0-6ef0318bdb5e@kylinos.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFwHWBRn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14AE31F00A15;
+	Tue,  3 Nov 2026 09:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793697694;
+	bh=r/BYfi44pWt5omLrxYHtr+zgS/ql3OzU/W5sAwqn8fY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OFwHWBRnr5xy89CQpN+MpgeqDnw74EZd4qe77AQfSfa7m9+z/Mo5xVEELrXgTwA7S
+	 TOJtcsxsEuomj/GbPGaIAj0mv6AVUsWsq/0tHCwYqvk9cvAVEL2wpaUiuYhQZJdDAr
+	 h4dIyBRX19u9g6UYDtfiqp43zc64QlgaQAHUxV0Bkg5ORfNPF2A3dxaeqwPnZHdizk
+	 d8e1SChQ/RWF6U0MH2VOJqg6BTzDXC4XYLLJQ94prI1rpZdsM3U8TdaFm81KcCfxoz
+	 7BRGt8cwu5hTAhPAX2J1AGHV/0kCg3j4YsOGc32zzLmMU5MF+0+3fEml1H2FNNpPMp
+	 MjRSCPXmaX/kg==
+Date: Tue, 3 Nov 2026 10:21:31 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	linux-media@vger.kernel.org, nas.chung@chipsnmedia.com, jackson.lee@chipsnmedia.com, 
+	mchehab@kernel.org
+Subject: Re: [PATCH] media: chips-media: wave5: Release m2m devices if video
+ registration fails
+Message-ID: <20261103-important-platypus-of-wholeness-5fdac7@quoll>
+References: <20261103083250.1174880-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,100 +58,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Nyw6CMBREf4XctTVtg/Wx4j8MIW25yFVpSYuNh
- PDvArpyeSYzcyaIGAgjXLIJAiaK5N0CcpeBbbW7IaN6YZBcKsElZ9QnVZHXXYW265nGHBuuc1N
- rhGXUB2zovR1eweEA5TeML3NHO6xXa62lOPgwbtoktvLPcPo3JME4Oxt1FAejmtzy4jE+yfm4t
- w7KeZ4/uK+fcMQAAAA=
-X-Change-ID: 20261020-ipv6_ioam_ecmp-ae4ef0a4bdae
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Justin Iurman <justin.iurman@gmail.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Hangbin Liu <liuhangbin@kylinos.cn>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103083250.1174880-1-vulab@iscas.ac.cn>
 
-This series makes IOAM insertion transparent to IPv6 ECMP, as required
-by RFC 9486 (C2): a packet carrying IOAM options must be forwarded
-along the same path as the identical packet without them.
 
-Patch 1 fixes the transit side: hash policy 0 hashed the raw IPv6
-nexthdr, which becomes NEXTHDR_HOP once an IOAM Hop-by-Hop header is
-inserted. The policy-0 key (and the ICMPv6-error flow selection) now
-uses the nexthdr the packet would have had if the Hop-by-Hop header
-carried only IOAM options and padding.
+On Tue, 03 Nov 2026 08:32:50 +0000, Wentao Liang wrote:
+> The encoder and decoder registration helpers allocate a v4l2_m2m_dev
+> before registering their video device. When video_register_device()
+> fails, both helpers return without releasing the m2m device. The probe
+> error path only unregisters codecs that were successfully registered,
+> so it does not call the failing codec's unregister helper either.
+> 
+> Release the m2m device before returning the registration error and clear
+> its pointer. This balances v4l2_m2m_init() for both codecs without
+> unregistering a video device whose registration failed.
+> 
+> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 5 ++++-
+>  drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
 
-Patch 2 fixes the injecting node: on an ioam6 output destination-cache
-miss, inline mode now reuses orig_dst so the ECMP sibling from the
-original socket lookup is kept (the destination does not change).
-Encapsulation may switch the destination to tundst, so it still
-re-looks up the transformed packet, using the Hop-by-Hop nexthdr for
-flowi6_proto (IPPROTO_IPV6 after encap) and precomputing fl6.mp_hash
-from the packet so ICMPv6 quoted-flow and L4 keys are not lost when
-ip6_route_output() runs with no skb.
 
-Patch 3 adds selftests/net/ioam6_ecmp.sh, covering both places: a
-transit forwarder with a multipath route, and an encapsulating node
-compared against a plain ip6ip6 baseline.
 
-The issue was found while reviewing RFC9486. It can be reproduced and
-verified by the newly added ioam6_ecmp.sh test.
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
 
-Tested with:
-ecmp_rehash.sh
-fib_nexthops.sh
-ioam6_ecmp.sh
-tcp_ecmp_failover.sh
-forwarding/gre_inner_v4_multipath.sh
-forwarding/gre_inner_v6_multipath.sh
-forwarding/gre_multipath_nh_res.sh
-forwarding/gre_multipath_nh.sh
-forwarding/gre_multipath.sh
-forwarding/ip6gre_inner_v4_multipath.sh
-forwarding/ip6gre_inner_v6_multipath.sh
-forwarding/router_mpath_nh_res.sh
-forwarding/router_mpath_nh.sh
-forwarding/router_multipath.sh
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
 
----
-Changes in v2:
-- patch 01:
-  * use skb_network_offset() as the start of offset.
-  * try get inner next header for ICMPv6 errors.
-- patch 02:
-  * use origin dst for inline mode, as dst is not changed.
-  * use HBH nexthdr for encap mode, as dst may change to tundst.
-- patch 03:
-  * remove `-w` to prevent ping from ignoring `-c` and continuing to send
-    packets before receiving replies.
-  * remove beta_tnl warm up since the tunnel will be re-create every time.
-  * move trap cleanup before setup
-  * update some comments
-  * remove tunsrc in ioam encap setup
-- Link to v1: https://patch.msgid.link/20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0@kylinos.cn
+3. Your bot does not even bother running checkpatch, right?
 
----
-Hangbin Liu (3):
-      ipv6: route: consider IOAM options in ECMP hash policy 0
-      ipv6: ioam6: use transformed packet nexthdr for ECMP re-lookup
-      selftests: net: add ioam6 ECMP test (RFC 9486 C2)
+4. Nothing of this was reproduced nor tested.
 
- include/uapi/linux/in6.h                  |   1 +
- net/ipv6/ioam6_iptunnel.c                 |  79 ++++---
- net/ipv6/route.c                          |  95 +++++++-
- tools/testing/selftests/net/Makefile      |   1 +
- tools/testing/selftests/net/config        |   2 +
- tools/testing/selftests/net/ioam6_ecmp.sh | 348 ++++++++++++++++++++++++++++++
- 6 files changed, 495 insertions(+), 31 deletions(-)
----
-base-commit: c3e67bd82b9b9b1a5118f09a429ccefe2aab0741
-change-id: 20261020-ipv6_ioam_ecmp-ae4ef0a4bdae
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
 
 Best regards,
---  
-Hangbin Liu <liuhangbin@kylinos.cn>
+Krzysztof
+
+
+
 
