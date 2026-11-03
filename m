@@ -1,79 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793732652;
-	b=SFd1sIiLgrO3mdvOe7XxXrK8OV0a5TBAHHmENavcNcVJwnEbheOuBzJ1HU7VawfgIfuW
-	 30N+1UVNESqbbkr/jiyJyY9tdDFtC0zw8hhiEIL8G5QCxMUqA8qrW6nKk2Tb+VyO07sFt
-	 hDq8x3sdD9Fvm9UvElTJhhnarVYSzWuaoMqrwOVkxz/LAphv6sEjDzNv7wNhkX3E1Vlnh
-	 GCFESr9QVRUuaiTUIjYqWDJfbZBaFhkETzSi0oSuCJdQhyZvgd4slTC3W/Fhiq03S7grO
-	 JrHDNS9tOaAfKfEXFUioOtLX9NPHU/kgbirE8HNPx03ilYDX6HH4QqJSQlmhBwujTmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732652;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nPJWsS0873Oy+02TJGKyZpW86wslqZHLsLqHfzEf5Zw=;
-	b=UiAOEnJNzPgN2Ib1v4+TJDO7pdH8bf+ibZTLQuLYifuLe6so0fvS7RVAQ1MdDYGKUTbQ
-	 LONCCSneuS4/+qte69tlGHPmjbKmU9kl19lpdby4lhM/GbGlPqyZKmjpd2AZVrk/HErsj
-	 OZcXrcKcyySZ2KmPCQS3mnTd3IwfJroLlL/8sGH3cW4rzyTY8I2JIjkuLBQMfxhSasKmf
-	 bEoRayuH2nuGYE7m/gPi9AvBn6hEJ9ciYtiHViELWLxJhUQIg1Mhw657hzFsaao/ZrzzX
-	 iSs7qihbITJktrI00qwhOQdu4IDSNaVSK1NgqhB2+ReQo5cfONJaDKdjpEfh7JwGPZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbE2m5+z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF704606A31B;
-	Tue,  3 Nov 2026 19:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbE2m5+z
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793732651;
-	b=jGQoX8rQBJVJWcU1sEmvDKgG8Bcxy0s4Rl5JD2MfXlXeF+pJ9XPOmEFkxIGeVOrvZ5aT
-	 +bGjP+2gk/edCz9uiSRuyIUZs0btnOHkr05d1T7a7XD0ERcZTKq8SRdKUE56djh5vWx7l
-	 ca2p/TX8JQD48vItYv9Sq/DdgeSkQU9gEMy1lnVfeJDC7l8D2C234PAVnfVfOaL83O6Hz
-	 6AK6PhWPXaeG6Bv4si6QH6bVdwi0PxFybenGaFPuSKLaW/xkQdxL0uLF1O8oFvpGoc3Qe
-	 JT/Heyf27yy7/z8rNhsyxsNsoThwczyFJcEKMbhKbykLFRFjNJtDbMNbJbnCcMjISkg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793732651;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nPJWsS0873Oy+02TJGKyZpW86wslqZHLsLqHfzEf5Zw=;
-	b=bDqHiGbQH3pRrnulzgzHpxmXeszmzDrbv79cFGAtw94obWHTCnpHJZnaZiTGuWq3zkDg
-	 ZnhO/DWel1sBREDVr0l4/IbZc5vOAZ1SdjB1MheykvczgJsQX8P52juGkzNEkdBaQemeH
-	 MMaanRegRAlJlkjK11KP/915VXfSAv2eC1WaoDbGtIkeNg/ISmL+mgO3TduwO8vAyTO1d
-	 MJsvMUUTQXH+8bgGg5G1jKPEt/s+SDhykmc/xyJrbLsKuYIn9bebTEfMsgNrK9vi3k4Me
-	 ze5f4RGHxNDyPqEBFN/i6o8/ywOXNrkRjetDcpF1q7SzDfZH09u1yOnC59M6/y0mKAQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793732725;
+	b=PXWRCuP6parqCm9PX2JXC+PlL5BfDfKMyjudkN9Y4TcKz9432GTR5S3b1M63VR6IGuW9
+	 5S9Qlfd38oFxNCINztpegAcT5EzNXc7csOI9ZIRo7QVeyFhomAN8JpEnlV3iPwn3v9+zn
+	 lTKGw4CV2/P5NeNYPCy4/OqmxYYpUUgaCeBCnr19Qfq64yNyC/x1zpxT0BdEvMDaN4rsA
+	 z3k5o47t5vEFTiqUP3D0z5YqKbV+e+kBHh6y3GWyB4ZyPLk1LrJ55EOTTf8QOsFeQjEuV
+	 OulTPVYiAt5noVQdlwxcu9VnBEAKVk1S0fGgDf3BZw7a/WzAZaoiUjXhRsjlEXmy9ZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732725;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WtXsrBXeBrmea4xy+IMxZHACmlbGQ2t5B9G23jCH2E8=;
+	b=hMJgo+Y+XrI+EyMsB+SPIpRmzmi++IwPkUcJ3RBOEAD1NoZL5JbOw++D+TSRMcj/UmCk
+	 3helQIAoPX1eu4VCqfQ08AfLsqlWRijk5FKynrQ3hIj6LO22v021T+GPJeP7czsnIes+K
+	 /Yp7MBD7Q8kLcKZxDtUPMyDJuDcyWJjM5DZhIwjfqkEiLaSlcclzK5zICzoAlP4qUFbsZ
+	 IZTs6w+r63yJNNQRQtvtPLLmish8RwZ0oyWiM4stvY6YAr8kzkYl87rnivtg2M0D3L/f0
+	 QH2XtZZf+WnHsVXZKCOTjOEF2fp5T+t/huXOEpz2bX6cLm6VnAMg0lF9xVKbS5AcIJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IV7/fYpY";
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BA4031F000C1;
-	Tue,  3 Nov 2026 19:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793732651;
-	bh=nPJWsS0873Oy+02TJGKyZpW86wslqZHLsLqHfzEf5Zw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=lbE2m5+zi2UWh6nw1VuunUHlA74sdhXdsyG5GdxlInbhrNUysFWjMU0DwkyiGK4LQ
-	 rov4QWd2Yf9jU3CmeeMljcpOQiaNE/PHtPLcRqDVJolcTVqU8kzDf0IZeHCJ85GvkY
-	 dyVaaCaX6LyjoZuk3+vn6i1J4J3KrHvXP0gcIvsjxys8V1/axQhiJUtnFVmNnh71Bh
-	 lyEuzGabiAssM1zTfDJugIGrhBEiht7LPw+hhW5AzBCF6GJP5Zf+Zw/7dOuwL+js8Z
-	 XEwofdMnXT3VQHNcYDYh/k131zmyUu2jRxy+rOUKYgmXphdZz62bLa2LjnQnf3LVdn
-	 QLYLHUbDPToQA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1C0A746AB0;
-	Tue,  3 Nov 2026 19:04:10 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 14:04:10 -0500
-Subject: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
- tag set
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E185606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:05:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E185606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IV7/fYpY
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so29299985e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:05:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793732723; x=1794337523; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WtXsrBXeBrmea4xy+IMxZHACmlbGQ2t5B9G23jCH2E8=;
+        b=IV7/fYpYNuBEtNqc5z1/sjDc1RqRj4DijHdpMzPFCxf/E24ZACHz77CR7SHexFtAe9
+         tzcuWCn6wUJSnOhsvrSJtxIMUouWHiVTKu3D65sP/y2q1pCmS3P56xpnkpHyALf2ZUZT
+         2ZZntWnRVaMY+fhIRaTY6np78zVfPAWa8nsY37SUpOyBoWKcLONOkVjsZoaRpUlCDqrO
+         D8PbhZ47XE1SZvIxeqHu/C9YPvuc4XBItAGZWc5lt8E03oGf4h1GB0SOg4c2+LZbU80o
+         FBRuXHr+VXeHBqv/S6CYx1yAo7eUclm6CKCBgNXqdatTkvJtNLM5RzYyelSZ8k/fTVyR
+         ZRQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793732723; x=1794337523;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WtXsrBXeBrmea4xy+IMxZHACmlbGQ2t5B9G23jCH2E8=;
+        b=xTTsEM9r2rbuZChCy/MldsmdpusFYZp5ZJrdF2f9kvX2vfYpXHB9MieP5P7HbmkaXL
+         BvSHJkLTpgfHM9+V1BehNG2ZguIyktD2/x6o7gkRZQrid2+OuXbIW8V3NIhf7rYcOZxo
+         tAzlPk3HWlTdReFahod2MenzIY/1yTpt1+oxijbC8QBM9G+hvaVlu9AVF22sh9YrzVZr
+         FridxmX+0e7HkZiWmQMg4T51J0K4HjndJp38na+3bk/FPotvrP73K19agTuYYq9675Vj
+         cn/+7jpmRCL8DyiFKszfZfVhsx7t5+UEN0jRpgUfPtOt0h94VtotuDv0VZuBHUma69i2
+         1PSA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7WZGH/lhhdBVUvZocwatw4ezJ7GJM24huakOFFx3UM0ZNEHAhqtI4ak5XTuwB1WHD5x+aNkOByKcvSsE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CqiNjM2q8+exlgyxfHducQMnrD3IfSK8DoOHqICnJ4Z9ddbDP
+	1BhduXDO5FdSsLF12m7DZ6K2UGIwSVHh24Fq0f1QjkzWvAFgg7tW7ObC
+X-Gm-Gg: AYBFou0Fv8kSsrLcZILAx9jdqvuf7lv7pE+NlSKiH0VJcdi3uayOZrlzJAd6TvOF4Ju
+	DD4tLsqHztiMkZ+hEOuCHHaEEnrLiJAn/C+xePIelj75U/HxvEvwOsSFyHZXY/VGQauGrPS8hxs
+	UQeF6lhHuqK5PqGrczn6LVgrigqu8BKR+wxqux765gb6YGgzx3N0bTzlhzZQhU3HE7+BdtsGU+e
+	A7qoK0l5vN7XIZ4E1wvTvkMNEdQGuFoyaDXNgcB/tzfXvKXTkiuxVtgbSuSpcC+a8v0xsME9ii8
+	KH153zKZTeHNosQ23BcndFJG0ZqPVmjVCbpPjycuIv8GaF0xS+tFih2drg+PoIVNodIWJDHb+eF
+	mOVrA7aCm1Xy1Gu0+9/bpyxoTOzA8eR2mxQ1+T3lvNgbXX50vgr8kWyc3qG3UtGNNgFm+uueCPo
+	4ucvfYZTp91l6hRaPEru04Hx0rt/Fmgh0EKa0eVTxHaBUZhnrGCs2bJcc+mLeGevjxBgHfRI7Hx
+	Vmf6sL1w85q/+KlkiwBLDnzEoSzXl2DSxu7Vi73blJvKsOfOF8F1reQsjrmxbi1igHua6cO5OeT
+	MCXJGdeXh7tslz5ljbwilQ9olhk6Nf9g15QcBTspM1y8dsf+6+xw97uqa1BSRfKTL+dJ/oykeKY
+	JJYBZY5mY
+X-Received: by 2002:a05:600c:8116:b0:4a2:150f:160f with SMTP id 5b1f17b1804b1-4ac1913eecdmr318548705e9.25.1793732723261;
+        Tue, 03 Nov 2026 11:05:23 -0800 (PST)
+Received: from andreayoga.wind3.hub ([31.189.68.219])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4104d600fsm4202845e9.0.2026.11.03.11.05.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 11:05:22 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Gary Guo <gary@garyguo.net>,
+	Bradley Morgan <brads@mainlining.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	rcu@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH -rcu/dev 1/4] hazptrtorture: Release all deferred hazard pointers before stopping
+Date: Tue,  3 Nov 2026 20:05:06 +0100
+Message-ID: <20261103190507.1913628-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <178eaa0b-e7bd-455e-ac3c-f1115d731a52@paulmck-laptop>
+References: <20261027163811.2470569-1-parri.andrea@gmail.com> <20261027163811.2470569-2-parri.andrea@gmail.com> <eb59edbb-c6e8-49c6-a426-c55cdb792853@paulmck-laptop> <9da03ed6-fea2-44df-8aee-f7a61a1d35ce@paulmck-laptop> <178eaa0b-e7bd-455e-ac3c-f1115d731a52@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,129 +113,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw6CMBRG4a2QO+YmLRp5bIU4sOVHLpRXK8aEs
- HeLDr/BOTsFeEGgKtnJ4y1B5ilCpwnZ7jE9wdJEU6aym9bqwsYNPK7cwPG6xdKC3WwHNiVUW+j
- ympuCYr14tPL5nev732EzPezr3NFxfAEh1NGHewAAAA==
-X-Change-ID: 20261103-blk-mq-del-quiesce-lock-b9e0f81947b8
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Mohamed Khalfella <mkhalfella@purestorage.com>, 
- Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>, 
- Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>, 
- Nilay Shroff <nilay@linux.ibm.com>, Josef Bacik <josef@toxicpanda.com>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793732649; l=4068;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=N19XFK6Pp+jL6yjmYqq3sqsEIVvyVqas9SpWxi3HCEA=;
- b=KLSAIAInJMbfO/21dGqhMqi18T4b90sFGUsLqNtLBOtEtudKJecw/Bt+m+iV7SNh2BtKReW2Z
- alM2Gh4DK7TBrSEQ2KSyc1pzeTIemYgMvXVPO71MFIFGn6ZxglREXk3
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+On Mon, Nov 02, 2026 at 08:50:51PM -0800, Paul E. McKenney wrote:
 
-Unquiescing a tag set can run the hw queues of a queue whose hctxs were
-already freed.  blk_mq_unquiesce_tagset() walks the tag set's queues
-under quiesce_lock and rcu_read_lock().  Commit 71ec3c7d6db8 ("blk-mq:
-quiesce a queue that joins a quiesced tag set") added quiesce_lock to
-the walks and to adding a queue, but blk_mq_del_queue_tag_set() still
-removes a queue without it.  The hctxs are then freed right away since
-RCU only keeps the request_queue itself alive:
+[...]
 
-  Task A (controller reset)            Task B (namespace removal)
-  blk_mq_unquiesce_tagset()
-    /* finds q */
-                                       blk_mq_del_queue_tag_set(q)
-                                       blk_mq_release(q)
-                                         /* frees the hctxs */
-    blk_mq_run_hw_queues(q)
-      /* reads freed hctxs */
+> How about like this?
 
-The window is short.  On PREEMPT_RT quiesce_lock is a sleeping lock and
-the walk can be preempted inside it, which is how it's hit here:
+Works for me, thanks!  With it and patches 2-4 on top, two 3-minute
+PREEMPT runs with kthread_do_pending_ms=10000, which hung without a fix,
+and a 30-minute PREEMPT run end with "End of test: SUCCESS" and with as
+many hazard pointers released as were deferred.  In one of the
+kthread_do_pending_ms=10000 runs, the writer also stays in ->sync() long
+enough for a writer-stall report 31 seconds after boot, and moves on by
+46 seconds.
 
-  [  399.851277] BUG: KASAN: slab-use-after-free in blk_mq_run_hw_queues+0x4bd/0x550
-  [  399.851328] Read of size 8 at addr ff11000003014148 by task kworker/u9:2/116
-  [  399.851352] CPU: 1 UID: 0 PID: 116 Comm: kworker/u9:2 Not tainted 7.3.0-16299-g81cb9aa43246 #1 PREEMPT_RT
-  [  399.851425] Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
-  [  399.851441] Call Trace:
-  [  399.851457]  <TASK>
-  [  399.851551]  blk_mq_run_hw_queues+0x4bd/0x550
-  [  399.851564]  blk_mq_unquiesce_tagset+0x128/0x210
-  [  399.851576]  nvme_loop_reset_ctrl_work+0x78/0x4c0
-  [  399.851600]  process_one_work+0x92b/0x16d0
-  [  399.851660]  worker_thread+0x4e6/0xd60
-  [  399.851707]  kthread+0x300/0x3e0
-  [  399.851727]  ret_from_fork+0x4f0/0x6f0
-  [  399.851776]  ret_from_fork_asm+0x1a/0x30
-  [  399.851793]  </TASK>
-  ...
-  [  399.851988] Freed by task 111:
-  [  399.852040]  kfree+0x1b3/0x4b0
-  [  399.852050]  blk_mq_release+0x400/0x550
-  [  399.852060]  blk_put_queue+0x94/0x120
-  [  399.852068]  disk_release+0x1bd/0x3f0
-  [  399.852102]  nvme_free_ns+0x39/0x270
-  [  399.852113]  nvme_remove_nsid_range+0x2d1/0x4a0
-  [  399.852123]  nvme_scan_ns_list+0x2cc/0x390
-  [  399.852134]  nvme_scan_work+0x421/0x9f0
-  ...
+The variant from my previous reply, with the pass right after the
+reader's loop, passed the same tests, but there is no need for it with
+this version, so I will not send a v2.
 
-With BLK_CGROUP the disk's root blkg holds the queue until a grace
-period later, which hides this for NVMe namespaces.  It's still open
-without BLK_CGROUP, and from reading the code also for queues freed
-without a disk (e.g., SCSI device queues on a UFS host).
+A few small things below.
 
-Take quiesce_lock around the list_del_rcu() as well so that the walk
-either finishes with a queue before it leaves the list or never sees
-it.  With the fix, KASAN doesn't report the use-after-free anymore.
+[...]
 
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it about once every 20 minutes on a PREEMPT_RT kernel.
+>     hazptr_torture_cleanup() stops the kthreads in random order, which
 
-Fixes: 59e25ef2b413 ("block: Use RCU in blk_mq_[un]quiesce_tagset() instead of set->tag_list_lock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Stable trees need 71ec3c7d6db8 first since it adds quiesce_lock.
+The order is fixed: do_pending, preempt, the writer, then the readers.
 
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/blkquiesce.c
----
- block/blk-mq.c | 3 +++
- 1 file changed, 3 insertions(+)
+>     Therefore, make each reader clean up all deferred hazard pointers,
+>     which means that after the last reader finishes, there can no
+>     longer be any deferred hazard pointers, which means that the
+>     writer can terminate promptly.
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 5ae22d556540..54ccfc43c27c 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -4354,7 +4354,10 @@ static void blk_mq_del_queue_tag_set(struct request_queue *q)
- 
- 	lockdep_assert_held(&set->tag_list_lock);
- 
-+	/* blk_mq_unquiesce_tagset() runs the hctxs, which are not RCU freed */
-+	spin_lock(&set->quiesce_lock);
- 	list_del_rcu(&q->tag_set_list);
-+	spin_unlock(&set->quiesce_lock);
- 	if (list_is_singular(&set->tag_list)) {
- 		/* just transitioned to unshared */
- 		set->flags &= ~BLK_MQ_F_TAG_QUEUE_SHARED;
+With the pass after torture_kthread_stopping(), a reader cleans up only
+once hazptr_torture_cleanup() stops it, so this also relies on stopping
+the readers before the writer.  Maybe worth a sentence here?
 
----
-base-commit: 801bddbf1e4147a69b811c548c35a06a157941b4
-change-id: 20261103-blk-mq-del-quiesce-lock-b9e0f81947b8
+>     hazard poiners.
 
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
+s/poiners/pointers/
 
+>     from the pending lists as were deferred (reldefer: 983727 relundefer
+>     983727).
 
+These numbers come from v1's patch; with this version, the 30-minute
+PREEMPT run gives reldefer: 657653 relundefer 657653.
+
+[...]
+
+> +	/*
+> +	 * Stop the writer only after do_pending, and do_pending only after
+> +	 * the readers: the writer may be waiting on hazard pointers that
+> +	 * readers deferred, which do_pending releases once they stopped.
+> +	 */
+
+do_pending no longer releases them; the readers do.  Perhaps:
+
+	/*
+	 * Stop the writer only after the readers: the writer may be
+	 * waiting on hazard pointers that readers deferred, which each
+	 * reader releases once it is stopped.
+	 */
+
+Also, "hazptrtorture: Nest a second hazard pointer in readers" conflicts
+with moving hazptr_torture_do_one_pending() up, as both add a function
+after hazptr_torture_defer(); keeping both resolves it.
+
+Thanks,
+  Andrea
