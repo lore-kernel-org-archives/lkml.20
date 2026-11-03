@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701734;
-	b=XrJI36EBvTYQiXg7Ox5PZ1VG5K4RafO4cxlidP73OSXnAs8pX9L1GOYAyr/IlM1J23uf
-	 hw1jA+eIX/SyXQimmTOEqzYC00aL/MgD3vmYppqXwCnTAEwFPD2+d6zY9ZK+LZBt7K6I/
-	 TM4yyRDKLxYf43QUk0gxX6vknfX9NZgTSu2cCoiz4ifpC8DJ4zUj0wQNd46KW9AbK6Qfh
-	 WrJ5jhtgdzWsnqSTqipc+Q34mdtLyghfUXtcPM7yWtp7lxpe5LvdDYEOoRmIXNrWu7BXO
-	 yeVI1hUjc3/n9yRbxeQOTemGLk2fOOQsn0SalUIswgIPS0Y4hrKUaJebhOF51S/Qd+A==
+	t=1793701735;
+	b=xP16u8vmPNeIe1npWlMG0QcFTR062qIaVcIggZ1wq6U2fCTnS+QiyeVhpVLUts6a826+
+	 FDoBgeQRS1bQj3fyBMXEAB1/Pf04w8bbY/3KeEPMIFEszqRDHUN0n0ZQg90PYR05mrp+z
+	 tI3XfJX1YO6HyAVk+zNAENpty/vl6PzIObZBPeLSc305beMrbFz7I49VxeXWD9aOyYmOb
+	 p8Pmbrl+8bO3KlKPX2pnS5aQ2svFA0MRQQ1VNHOgMzlQZMIuutc6AubOZIWAjo2tZguyZ
+	 qzTKjswpC75bkoPIlqM3tQ3eqCqi+jZVM8IBOHTM5XHthINqTaXIpiu2DHEqNAarnVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701735;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=390o3YbRhnmm390quMy8CCMR9NiMxLhl4RRsXOSIFdI=;
-	b=l3OGN87mndCEM5xCy31aXqmZ1YjrVfI4rKPILdMDG5QeTuqA/+VehDXSjS7A7ccBHrc2
-	 ytLTeCcvkRoqSyrTr3qRobKK4/gDPY+0YcOg21bwFpffpEIvvBsBnTpuzaqwkYECBon7U
-	 FcFGgJxDEYJw37q4t1hWITepzI8rBDq1hRY2zMSvxYrH9Rucqz2uMB7J0RTWuK3194rT8
-	 prmcKksnI/He1KtCkZNb9ejS+xp1RwtNjPM6l/tYsbKdm+OCAQsNZff4QrwClfLFm9Mqo
-	 BEtN4b6mAYptkOfVe87S1hLSuy90aTI+973D/nkm8nkEdDD3AiJN3zrA9iyP7dX8UKg==
+	bh=GIo5PxjdlqP/Xj3D5eFLFmZ+IhvJb/6GVNVYjGH5TxM=;
+	b=oFAiAKkpqqKmMfKz+A0CP/PN6BV2oCPxqh+oFYQbsGlFB9WrIz2QkjdFDlGjx6oLpZwJ
+	 ZsVGJ7cU6DcyP9amwcdPm6VvKEO4aCDEmLs88wonMT5g2Y6wMOdTG3ifpAMWonsDD+M7v
+	 g8HH/odS9VVeymySRbjuxXCXflf9uRHGrOPgGhE8q8AqIp/eAMhI/Jjh3DD+vupsM92DR
+	 m9Qlv2Wu3J/s1pvk0t1pbVq41BdaUJiy6CXPTaVdbT3y7FCHP7t1sa0aDxIvmupreA7cq
+	 CF3qiDphJUSN/KUkJjUIbPz+ReUQIBfMp1jQfaMDRE864MvI5EXflzY8tHO9KQXLBUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,32 +25,31 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7061060A3824;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4807360A5BFE;
 	Tue,  3 Nov 2026 10:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7061060A3824
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4807360A5BFE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABHWJlft+lqoqk7AA--.3119S2;
-	Tue, 03 Nov 2026 18:28:47 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowADH0JFdt+lqkak7AA--.6524S2;
+	Tue, 03 Nov 2026 18:28:45 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
+To: Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
+Cc: linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net/mlx5e: TC, release meter if rule offload fails
-Date: Tue,  3 Nov 2026 10:28:56 +0000
-Message-Id: <20261103102856.1340672-1-vulab@iscas.ac.cn>
+Subject: [PATCH] ieee802154: fakelb: release platform device if driver registration fails
+Date: Tue,  3 Nov 2026 10:28:54 +0000
+Message-Id: <20261103102854.1340581-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,71 +61,69 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHWJlft+lqoqk7AA--.3119S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFy8WryfJFy5Zw4ftw47Arb_yoW8Cry7pa
-	y8t347Gr97Za4UWw47Ca1rWw15uws3tF45CF1Sy3yavr1DtFWUWr95W3yUur1UCr1UWrZx
-	tr97uw13A3Z5AFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowADH0JFdt+lqkak7AA--.6524S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFy7Zr1fur1fAFWkuw4xXrb_yoW8Ar4kpa
+	1UWayrCryUurW2yw4xJ3WxZFy3C3yIg3y09FyxJwnxZw4rZF17CF17Wa9xAF1kJF4kCasI
+	vr4DGr15Can8ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
-	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
-	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIAA2rpnO5vUgAEsO
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
+	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIByFQAAsg
 
-mlx5e_tc_rule_offload() adds the flow meter to the attribute and then
-adds the offloaded rule. If mlx5_eswitch_add_offloaded_rule() fails, the
-meter reference taken by mlx5e_tc_add_flow_meter() is not dropped.
+fakelb_init_module() registers a platform device and then registers the
+platform driver, returning the result of the latter directly. If driver
+registration fails, module initialization fails and the module exit
+function is never run, so the platform device is never unregistered and
+leaks.
 
-The error propagates to mlx5e_tc_add_fdb_flow() and the flow is freed
-without the OFFLOADED flag, so mlx5e_tc_rule_unoffload() and
-mlx5e_tc_del_flow_meter() are never called. Release the meter and the
-post meter state in the failure path of mlx5e_tc_rule_offload() itself.
+Check the result of platform_driver_register() and unregister the device
+on failure. Also check the device registration result, which can be an
+ERR_PTR, before using the stored pointer.
 
-Fixes: a8d52b024d6d ("net/mlx5e: TC, Support offloading police action")
+Fixes: e1e49b641387 ("drivers/ieee802154: IEEE 802.15.4 loopback driver")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/en_tc.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/net/ieee802154/fakelb.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-index 708b7987ea4c..17bd92529a44 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-@@ -491,6 +491,8 @@ mlx5e_tc_rule_offload(struct mlx5e_priv *priv,
- 		      struct mlx5_flow_attr *attr)
+diff --git a/drivers/net/ieee802154/fakelb.c b/drivers/net/ieee802154/fakelb.c
+index e11d8eda85ea..35863c3aff44 100644
+--- a/drivers/net/ieee802154/fakelb.c
++++ b/drivers/net/ieee802154/fakelb.c
+@@ -243,12 +243,20 @@ static struct platform_driver ieee802154fake_driver = {
+ 
+ static __init int fakelb_init_module(void)
  {
- 	struct mlx5_eswitch *esw = priv->mdev->priv.eswitch;
-+	struct mlx5_flow_handle *rule;
-+	bool meter_added = false;
- 	int err;
- 
- 	if (!is_mdev_switchdev_mode(priv->mdev))
-@@ -503,9 +505,14 @@ mlx5e_tc_rule_offload(struct mlx5e_priv *priv,
- 		err = mlx5e_tc_add_flow_meter(priv, attr);
- 		if (err)
- 			return ERR_PTR(err);
-+		meter_added = true;
- 	}
- 
--	return mlx5_eswitch_add_offloaded_rule(esw, spec, attr);
-+	rule = mlx5_eswitch_add_offloaded_rule(esw, spec, attr);
-+	if (IS_ERR(rule) && meter_added)
-+		mlx5e_tc_del_flow_meter(esw, attr);
++	int rc;
 +
-+	return rule;
+ 	ieee802154fake_dev = platform_device_register_simple(
+ 			     "ieee802154fakelb", -1, NULL, 0);
++	if (IS_ERR(ieee802154fake_dev))
++		return PTR_ERR(ieee802154fake_dev);
+ 
+ 	pr_warn("fakelb driver is marked as deprecated, please use mac802154_hwsim!\n");
+ 
+-	return platform_driver_register(&ieee802154fake_driver);
++	rc = platform_driver_register(&ieee802154fake_driver);
++	if (rc)
++		platform_device_unregister(ieee802154fake_dev);
++
++	return rc;
  }
  
- void
+ static __exit void fake_remove_module(void)
 -- 
 2.34.1
 
