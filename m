@@ -1,49 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793708596;
-	b=Zou7qkKP+ncm9aO0I1Peu8ERrk090zAr9AhUzy02aPxV/gidbucl8Wt51tRw40srZU5b
-	 QRFTsUCVrNxQhX1CumTBVQ40I2YoTx6re2hJNtT/1p0edDbb1crfyppmm3Jv8y4PFgzVl
-	 8jkjoqzPjCMhCXU0Hbyt3xfWjA/9aRsSW0QFS73o8t7ql/U3YuBvSb/ruRMrggO8XY5oB
-	 R7N38lOxjgj86cd4pe97fTyz57BA7uKodZtCsNxWkLriUn6/HF64ecRNxeKgo9Pe/KUM5
-	 tHyAaczuQJWwcI3GYkXkrYBOrEoCu3rD+zKWQXHTfXdC8ZwzIx9+wzF10gSgadMU+JA==
+	t=1793708600;
+	b=GkLBs5qs5rTsaBAdgFbpRTd2MlpVgJNfColUVOn7trhIm1Hua5nQkbt4j4GkKy+G3Idk
+	 uiVyu7YeG5lZSedzKzblRSvhwNZiz5ZATYsdybyT8xUotn1M9q7WJL1YXx7nlIjQ3CGGB
+	 gyjzvbZQ5XlqH6z1tlFXWEGRhWBn9ZKPoQi8Ho6M5ahv9b1sAhO+PLh+nGVAAQdKbFh+H
+	 OO1biA9VwL33KFvMmnutvQ36AfHW+qhfNxpXpXgRInG7Pes0SqFGGSMvthSJ3vBwfvmEJ
+	 g/zaT3DPFYVceLsdw3MtnmL++x3DbAg/iHlcPZano388ZI+6/dUzP5i6hmG6w/opM5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793708596;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=CH7v1QYtuAIpGEme7SIV7J6uwrhadxjJXEqMvW5h55w=;
-	b=L6jq6F2ab16w3br6XZdyCKAwFITBhpH2R17k1HjhZ7WPBs1vOeOG6sf+U1sTo4tug9C1
-	 Y7ubJQkhVc8nYf7vSNVtI/4Kjxm83iYwevMI+ClvTs0dKSOS0CfWgtbXRuV0lbeGpawSo
-	 H92svRn1KgY7+J52VKE0AVLWbl+76tRCfX/ClJlHeKqfRTV95RKDbBuKC6y0e82VUjX4T
-	 HaO+9v882VTD8VYnhMAC1EZT1QEvM3z4QUl7cRDTDNoWokQDCZI4cLwmk5JaibXy543qe
-	 0bzdS0AHFxQrextWjFqE5zSe7tuzJU5kLGh+CwJOUjf6ACFoVIZuK/ajEbP3sihDH9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708600;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=RtuVHL9/omrRNBvcHmS0u8yV6iWbKVJcQ8hfDOCEdpQ=;
+	b=3+j9Gg8Vb7Blu37ERs2zabQxx3XfX3P1EQqFuAOXTeCwWQCONrF9Y8duHdNMW5mCIaXB
+	 /m+cJI4WYe8wEN0VymxYvCXZcOyApbti2eSdRBUtzH5xN7efw4s6PtiqNC5rANwzXe3fg
+	 eMfjj25wJCdpGYAY/ugHygg17Mvw8y0VSQesKBIYC5MoLWNTMaj2F6Eq6X5qk7kYX1p7b
+	 ZcSa1UyWw7V17DWuGWzxUN/T+R4EGiNx8fnC5v39ZUuNJ+iq39e3IlA/egdCLJq/QscGd
+	 GDplWE1Wp7fCZbyuVGZ2RFAW1eFb3cXsTjqA6Bus6KsiAmbPCQRfhO86jGcSDkwBlpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jbF7EyAV;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A191606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:23:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A191606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xsp6i+Ui;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E30E606A336
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:23:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E30E606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jbF7EyAV
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B14C11691;
-	Tue,  3 Nov 2026 04:23:12 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.89.242])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9908A3F628;
-	Tue,  3 Nov 2026 04:23:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793708595; bh=S9BO58FYCbI1LYWmEmCYU6CXvki/lX9LlFi6yxqpDiQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jbF7EyAVJr6fqxqz3iev/lFhjI3sfdc7S6aXSUt7cdtglJ+kZYzv6Q5RRAstaWy6Y
-	 PzukBrOhCYmQ0pZ7NlUgtLLrf94rKEQ5vJbIynQu5WOg9ECOoVO0CqbipqSwnGtQW6
-	 QHs/dicXZGDzUYwV4lfuPBNTKekGnyifxq2zjguM=
-Message-ID: <6fd6dee4-7bf9-4fd1-9ad5-43e262dc6f32@arm.com>
-Date: Tue, 3 Nov 2026 12:23:12 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xsp6i+Ui
+Received: from smtpout-01.galae.net (unknown [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C276FC8F45C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:24:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 317DB6046C;
+	Tue,  3 Nov 2026 12:23:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D4E610328267;
+	Tue,  3 Nov 2026 13:22:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793708576; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=RtuVHL9/omrRNBvcHmS0u8yV6iWbKVJcQ8hfDOCEdpQ=;
+	b=xsp6i+Uijz5hhHj3zfrjW78ybSqI/l5L3qEFLrOa4jDyHagGWK5yoBy/HME7hqKJkBAT7C
+	Ix5/4mTO1xybw1/N8nWSsb+KEOLqbQpPUTH6effkk/WGhOyFJUt7IvwlKH11kuuPHabQYC
+	q2kwEktXdGYcv88blWjZmXRx/jio1EPgRipFMqvkoeKSJtfZVvDuiVebnW3nsuU1MPqI3N
+	KUqnIE/VdX52OHhljKg9MptV6mfNYosrVaSy/XBI+pSmAgCSzlJMxna4VwF/HCMlUHNHCY
+	B70Tyand1vRZwQfM+QEeJ3RfdstG6RExHCJWAfTkn6wEFnsuV7VlqpOSwUvLZw==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH net-next] net: stmmac: selftests: Add missing endianness conversions
+Date: Tue,  3 Nov 2026 13:22:48 +0100
+Message-ID: <20261103122249.951523-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,39 +78,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: arm_mpam: plans for the SMMU integration series?
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- andre.przywara@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com
-References: <20261103121534.532108-1-leeonion.muyu@gmail.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261103121534.532108-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Ping,
+The kbuild bot found some endianness issues in the stmmac ethtool
+selftests [1] let's address these.
 
-On 03/11/2026 12:15, Ping Li wrote:
-> Hi James, Ben,
-> 
-> I have recently been debugging SMMU MPAM support, and noticed the
-> series James has on the mpam/snapshot+extras/v6.18-rc1 branch. Is
-> there a plan to merge it upstream?
+In practice these missing conversions didn't cause any issue, as the
+masks / values on which the conversions were missing were either always
+0 or ~0, so skipping the byte swaps lead to the same value being passed
+anyway.
 
-There is interest in getting SMMU for MPAM and more generally IOMMU and
-device requestor in resctrl but I don't know if anyone is actively
-working on that at the moment. The latest thread on this topic can be
-found at:
+[1]: https://lore.kernel.org/oe-kbuild-all/202611010511.Mk620DTd-lkp@intel.com/
 
-https://lore.kernel.org/lkml/arKx__kOPe4B5gDW@agluck-desk3/
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+This isn't worth sending to net, I've dropped the Fixes / Reported-by /
+Closes tags, let me know if I should add'em back.
 
-Thanks,
+There are more of these endianness warnings in other places, but they
+require a bit more attention. This'll be addressed at a later point, I
+don't think we have many big-endian stmmac setups anyways.
 
-Ben
+ drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-> 
-> Thanks,
-> Ping
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index 40811df8f2b7..df696e2c1528 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -1216,7 +1216,7 @@ static int stmmac_test_rxp(struct stmmac_priv *priv)
+ 	sel->offshift = 0;
+ 	sel->keys[0].off = 6;
+ 	sel->keys[0].val = htonl(0xdeadbeef);
+-	sel->keys[0].mask = ~0x0;
++	sel->keys[0].mask = htonl(~0x0);
+ 
+ 	ret = stmmac_tc_setup_cls_u32(priv, priv, &cls_u32);
+ 	if (ret)
+@@ -1463,8 +1463,8 @@ static int __stmmac_test_l3filt(struct stmmac_priv *priv, u32 dst, u32 src,
+ 
+ 	key.src = htonl(src);
+ 	key.dst = htonl(dst);
+-	mask.src = src_mask;
+-	mask.dst = dst_mask;
++	mask.src = htonl(src_mask);
++	mask.dst = htonl(dst_mask);
+ 
+ 	cls->rule = rule;
+ 
+@@ -1594,8 +1594,8 @@ static int __stmmac_test_l4filt(struct stmmac_priv *priv, u32 dst, u32 src,
+ 	keys.key.dst = htons(dst);
+ 	/* Match the full IP proto field */
+ 	masks.bmask.ip_proto = 0xff;
+-	masks.mask.src = src_mask;
+-	masks.mask.dst = dst_mask;
++	masks.mask.src = htons(src_mask);
++	masks.mask.dst = htons(dst_mask);
+ 
+ 	cls->rule = rule;
+ 
+-- 
+2.56.0
 
