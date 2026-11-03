@@ -1,60 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698995;
-	b=h6ySzNxUPAduYuXv11zdLOs8XMGPKyGCHaTzldp2z1kv2hAQxY6D7ybWyHwzW7F8D6P3
-	 0VrILd67E/o47ClIADQ/A9bDknBSewroqnS4ULGqIt2Toq0dMYY4gqrCorIaYZjtHW+Wb
-	 GFqLDiAC8vv1/alNraIYxTx0MzL7BL5YOZBQl/DNb5Xp4DXfyLrEk84DLlXws/dMGPgj1
-	 uo5AR7fs74Vgl7PxYjwKDarSEGkevDlLS6/xq1Sb7VHauGGW6HHQbyZJXMluwCOLTL6u9
-	 P3m+AOKxi7g1Kp+OlUoebPraLGUGokSpp5CA5VB7SufdGRDHoV02S/Dp3YcuR/yXxOQ==
+	t=1793699062;
+	b=kz6CX0RS5AYao2jLpLlA6H58hYey93pdB5p4qh2YOSo24TPDgy8xcEadf7/qTHczZxLE
+	 2KoXf7PESeTWFG/KaNbJStKGHU1eA7O5ohUjSkHHRz4oUM2TOQDs0cZcz1QGZVepDpMFc
+	 ISyabWwOXfYCzSlC8pSzc0ZWY19tCY6TRIoX7+9jQ7/pi9nUy0OBIx8vkQLtK9nCU+9qU
+	 PubbmRkY2hnq09W1ZEgcHrNp2Z/2DUIduHbRlvwDD0EAEEyc2JZlnOOX+sIDXVWd+xJsw
+	 PgIbE71SxMFF3EOfaTOsQSUlcotwei7tW+ClxDuvWcVGVqdsQQFgmxh4CHKsexeJd6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698995;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Ax+Y1NYJ7G+p3oM+b1SjSykoPY3EvHvOyGpyknFiIuU=;
-	b=i2bslBY8ww+ifl9apyhLDmnOWtFXOkU6DPneqzT34rIXCDuECmkTJKcifAIa62Gj3aXJ
-	 RHSqxJQMDlhE5BygqS6YFzLOXFe6+4vX41pGdqM6u9uauOpGnsCdRMm7CbdfQvL4+ClAs
-	 1n1dkPxj73y1GCDUtW07KzX3UMTbn0JATzUTC7YZMuTQnHOQwqgAneLUqUGAhG+Ta6YYV
-	 citKLWixpalW+GDsHqHvsibiVNFj6sdRjLsqQNMZ0aRNiUuII8zmTQ5urvH9SgzInx6oU
-	 uHCi881tshZAYxc1jXSlFmZvg5l3sg0mNRaj+m75ueAGa8IzpomLhhxxEIWERpoXJfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eIolNKpjbc4RYfEkJstUlCqagpZzn46CDvq+iobq3B4=;
+	b=CN5XIrg5qIPAAhGXKIrqaimsaUKBvATIgAXNoNu1wmlQHjWmfipbvH3pubMudXJZ0NHC
+	 4Vc6mYehQJ+3n1imBDSgtQgg1GXgaHWQBddaJZZkchcgx3bhvz/3qsjGeN1fc7moH9Jsx
+	 XX9V+HbsvwkZb5dO9SKt4Omlymub4w85gBVMPh5HHOrKRQmtsCdmaPtpQPM7LBF5XwKQN
+	 id7Q5vAgNJyk+2RVBM5fYVFeQF/ZI7e7xYQvo5kP9W+njmoj+S1SVbyHp9Dh7QdsaZJFZ
+	 1FpdkedRrjMr24lEsBu604kJ0m6kL0OwK99q+jq8gcMMYyX8OWx31CEHbUPd4nE/qpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VB2YJGf6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DArpoPKf;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A519606A327;
-	Tue,  3 Nov 2026 09:43:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5499D606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5499D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VB2YJGf6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7E71F000C1;
-	Tue,  3 Nov 2026 09:43:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698995;
-	bh=Ax+Y1NYJ7G+p3oM+b1SjSykoPY3EvHvOyGpyknFiIuU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VB2YJGf6qTqPTT2o1HMhTrsJ1ggNEmsUspWeULkwX39iyMgek3DLLLcNMIdCtakZN
-	 XP/S56xZo0yC3yRCBTTQWRb4QzGrR7c7Hbpy5ygVo65+UA7Z6pAcPnxIObdaxTar2+
-	 c+k61U8oa/6OBp10g812TMh6x2JQFtQxvBk9+iBeBVwt7/xo9XenP2fNnWU3uvDkFh
-	 6PYvH8ImiFTiMscwKX4YJgVQwAjWrK+2NSRv8uvUhfkYvptnsn+Bjw48Cdv+bpAdUW
-	 JWdFfmlJ398b3HrqKsQGvcSMV7yGSi0cSUzWoC317d851Kc4nbO4m5SaMfL5MVm4Tl
-	 YpZyeh04NGDlw==
-Subject: Re: [PATCH] net: ti: icssg-prueth-sr1: Fix device_node refcount leak
- in prueth_probe()
-From: netdev-bot+sashiko@kernel.org
-To: laixiangwu@cmss.chinamobile.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, danishanwar@ti.com, rogerq@kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 09:43:14 +0000
-Message-ID: <179369899417.488856.4974450054291603730@kernel.org>
-In-Reply-To: <20261030085851.2019-1-laixiangwu@cmss.chinamobile.com>
-References: <20261030085851.2019-1-laixiangwu@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DArpoPKf
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b00aa033bso512336f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 01:44:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793699061; x=1794303861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eIolNKpjbc4RYfEkJstUlCqagpZzn46CDvq+iobq3B4=;
+        b=DArpoPKf5xoeQIv1aNscCTXIGhjfLj/yxs8DzuAyyrL0HLsOm5EbVJLNYVjNzVts5c
+         bL+XE6S2CfIAJYsLXppv4W1u7AZEqdvT4Vad3h/JtSo+6E91VCwWwhBtQZjWPF94xel6
+         UFqawneEUqW9T4M/muDJmMkJM8nox/12rz8QtfjJmvsYItg/cpJDGpBkH/Isaj2/E4QV
+         HIa8mWqBVMcN9OFvEHW+LBBtiu30wU8ZRL3dTwbTI6aLfW8O9Poc/PtGdL0W2uivhdP7
+         7S5kTZCOvHFxbPPKg3Jw6AIrrfRdWAj5eY9YeCJK142Lyp1e/Q3gMGNB2VOIMoJRZVoK
+         yBqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793699061; x=1794303861;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eIolNKpjbc4RYfEkJstUlCqagpZzn46CDvq+iobq3B4=;
+        b=BuVynX+iXc6eWqmKPiZzUqkUSfyGnV/KXWBu1wavxcdaVw+4r58yGJB5vtcUZ3pX9Z
+         KLEreVQTETvxbOFbpUGvQoIDSvyztXeNX0RRaMRz7woFzYR0dKMASpWOm27ZOQwB2NLT
+         EDm7FptjOzNHgzyL5QNBrAk+dMh68IaSk/iMWZaJnuGH8fCprljwy7jIj4VP5uu02m0K
+         g2CRVqQ+1hD/QDzIuts8pEp/5fbd2Lq8Nj1NujuBGGeJejIB93VuxcU4tk3oPUG5hcNg
+         ewDxiA1nzjjOPkU2dGrXj1e7ieRY+5n70iO3q8A+GtiiAon6gL9bFX6ylNVVJs7WwPba
+         eXjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEQPMOGfZlrSswtMQ1cwpBhk6pASZ5gkrShT7sMC77F0YLs73VsKgY7BYwE1aWYTwc4aKSfcCIemafq5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wzCld+Q83slg3mN3Fng+mJmoYtD1Glr8Wb/sB+0zR5azFUse+
+	wRlNOLVZGMuP2xEcNjuoC34Te8AEMv6IUBKE6bJHeMAHZ13eOhHYdVjc
+X-Gm-Gg: AYBFou1rmVCyvb6b+jPcOK8+E+chj22NtPgidQFmtwLOWSSO0DcQMBIC9nAlsEcIQ0h
+	ZpgWsbuHQEicTM7Pckq3jeTpGSLkl2A4ZzDp1IPHWLaIQUmJbqTJV+17oJLYsBoMAGWvE9Iz7TI
+	P6O2kEv9zSIiSvHxypHCnSMqdX1PLTnfuy2N6ywhd9BM/L9me688SKSOSgB/xVQAK0lwsYo3qbC
+	AI/NDu3xcwBjPeOoY883n4URkwbSYWEhdjI4cQkAr6H30GiH0fGnr7lqV5uX3xOb+HGpcrpn6Ff
+	hexTwIYoN3jFuGLTa3/8bub/cE7XW6pU7gMYE0ympjzHtlCUcNUbPRKPx27zMt7WRzhJtHyP21T
+	jNuZAWalHRCEjvocrV+fPF8JWhKOA92bJNmCPp+czfGPkvzj+www9f5Waz0y61IN6uSrz6dloR1
+	jwX6PBAk6RrSyrMA35EaBC/YICE0+YjiETv1jAFyvtu9213BAUrWROSrfh1R9QlRqLv/p/nIVKZ
+	kNNwS8POm1P4tNvxqfAdf2aSVjj9SNRoZzRj2/S2MLcggTcBlIaAOr5stqZGNQpiL5HODYo59F5
+	dm/2MlPWtVj0ZsgmVE40sgcb2MHBoqAoMGsRWpYhhDl9GRLT3R209l8bD5Cby5jrDaI0bA==
+X-Received: by 2002:a05:6000:4006:b0:48e:28f2:64ea with SMTP id ffacd0b85a97d-48e6e30088amr33275987f8f.4.1793699060575;
+        Tue, 03 Nov 2026 01:44:20 -0800 (PST)
+Received: from HIT (92-247-231-33.spectrumnet.bg. [92.247.231.33])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e88876946sm5226314f8f.5.2026.11.03.01.44.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 01:44:19 -0800 (PST)
+From: Viacheslav Shevchuk <slavik.a.shevchuk@gmail.com>
+To: miklos@szeredi.hu
+Cc: corbet@lwn.net,
+	rdunlap@infradead.org,
+	skhan@linuxfoundation.org,
+	fuse-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Viacheslav Shevchuk <slavik.a.shevchuk@gmail.com>
+Subject: [PATCH] docs: fuse: fix typos in fuse-caches.rst
+Date: Tue,  3 Nov 2026 11:44:07 +0200
+Message-ID: <20261103094407.912-1-slavik.a.shevchuk@gmail.com>
+X-Mailer: git-send-email 2.56.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,96 +99,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Fix two misspellings of "successfully" and change "then next time"
+to "the next time".
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+The misspellings were found with the help of an AI coding assistant
+(Claude Opus 5.5) by grepping Documentation/ for the entries in
+scripts/spelling.txt.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Viacheslav Shevchuk <slavik.a.shevchuk@gmail.com>
+---
+ Documentation/filesystems/fuse/fuse-caches.rst | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-- [Medium] The same leak is still present in the sister ICSSG driver.
-
---
-
-net: ti: icssg-prueth-sr1: Fix device_node refcount leak in prueth_probe()
-
-In the SR1.0 driver, prueth_probe() returned -ENODEV directly when the
-"ti,mii-g-rt" or "ti,mii-rt" syscon regmap lookup failed. That return
-leaked the eth0_node/eth1_node references taken with of_node_get(). The
-patch sends both error paths to the existing put_cores label instead.
-
-> diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
-> index b8115ca47082f..ef1dc32ff8b46 100644
-> --- a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
-> +++ b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
-> @@ -963,13 +963,15 @@ static int prueth_probe(struct platform_device *pdev)
->  	prueth->miig_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-g-rt");
->  	if (IS_ERR(prueth->miig_rt)) {
->  		dev_err(dev, "couldn't get ti,mii-g-rt syscon regmap\n");
-> -		return -ENODEV;
-> +		ret = -ENODEV;
-> +		goto put_cores;
->  	}
->
->  	prueth->mii_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-rt");
->  	if (IS_ERR(prueth->mii_rt)) {
->  		dev_err(dev, "couldn't get ti,mii-rt syscon regmap\n");
-> -		return -ENODEV;
-> +		ret = -ENODEV;
-> +		goto put_cores;
->  	}
-
-[Severity: Medium]
-The SR1 change looks correct. Does the sister driver still leak the
-port@0/port@1 device_node references the same way?
-
-prueth_probe() in drivers/net/ethernet/ti/icssg/icssg_prueth.c parses the
-ports the same way. It calls of_node_get(eth_node) for each port and stores
-the results in prueth->eth_node[]. It still returns directly on both syscon
-lookup failures:
-
-drivers/net/ethernet/ti/icssg/icssg_prueth.c:prueth_probe() {
-    ...
-	prueth->miig_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-g-rt");
-	if (IS_ERR(prueth->miig_rt)) {
-		dev_err(dev, "couldn't get ti,mii-g-rt syscon regmap\n");
-		return -ENODEV;
-	}
-
-	prueth->mii_rt = syscon_regmap_lookup_by_phandle(np, "ti,mii-rt");
-	if (IS_ERR(prueth->mii_rt)) {
-		dev_err(dev, "couldn't get ti,mii-rt syscon regmap\n");
-		return -ENODEV;
-	}
-    ...
-put_cores:
-	if (eth0_node || eth1_node) {
-		prueth_put_cores(prueth, ICSS_SLICE0);
-		of_node_put(eth0_node);
-    ...
-}
-
-Both returns skip put_cores, which is the only place eth0_node and
-eth1_node get released.
-
-The same ret = -ENODEV; goto put_cores; change should work there without
-modification:
-
-  - prueth is allocated with devm_kzalloc().
-  - prueth_put_cores() NULL-checks the core handles.
-  - of_node_put(NULL) is a no-op.
-
-Valid DTs can reach this path. The ti,icssg-prueth.yaml binding does not
-list "ti,mii-rt" under required, so an AM64x/AM65x SR2.0 DT without that
-phandle would leak these references on every probe attempt.
-
-The SR2 driver would need a different Fixes: tag, so could this be sent as
-a separate companion patch rather than folded into this one?
-
+diff --git a/Documentation/filesystems/fuse/fuse-caches.rst b/Documentation/filesystems/fuse/fuse-caches.rst
+index 0778dd3d..d19592c6 100644
+--- a/Documentation/filesystems/fuse/fuse-caches.rst
++++ b/Documentation/filesystems/fuse/fuse-caches.rst
+@@ -156,11 +156,11 @@ in several occasions:
+ 
+ - When a new file system object is created (e.g. ``FUSE_CREATE``,
+   ``FUSE_MKDIR``, etc).
+-- When a lookup is sucessfully performed.
+-- When a dentry is sucessfully revalidated (``->d_revalidate()``).
++- When a lookup is successfully performed.
++- When a dentry is successfully revalidated (``->d_revalidate()``).
+ 
+ A dentry expiry time can be set to 0, indicating that it is stale. This means
+-that a ``FUSE_LOOKUP`` will be sent to user-space then next time it needs to be
++that a ``FUSE_LOOKUP`` will be sent to user-space the next time it needs to be
+ looked up. It can be set to 0 in several occasions:
+ 
+ - When the user-space FUSE server explicitly requests a dentry to be invalidated
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030085851.2019-1-laixiangwu%40cmss.chinamobile.com
+2.56.0.windows.1
+
