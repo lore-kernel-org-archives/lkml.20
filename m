@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732897;
-	b=pbYoxp2JTFEYgxFzRZlG7vTkUCmwGJDoVwUu+bS0hOTmsBZtqKXZYqvXQ9bqjlREtAcH
-	 oPujxdVMqfZsHdRKf6UtsobKE5wSA2eKuYqA6OOxoXHebvhnPJZnQEWyolL1n/5oHUHJ4
-	 j0DCP6bQRV2gvd7IeydZQRvWhgDeL5Io4eY4TMKijyEjIw63gKGZU/ujo9rsPpIw76Nx1
-	 D5NSqpv1R3i+aVMgME6y93Uz2jO3TPGIB9yAzDZSD2EXxq/Miwoi/szdePx2WT/Ph27N9
-	 eYAIUqjIN8gU/r+ZTeSHM1g3ZqmR+HmHPxLf8HXIbnht4s2ypkzy54w/s07uQv1VQ+g==
+	t=1793732904;
+	b=mMS+SNElajk9O2un/pyTRlIYn28z5jidRPsa8fJM9x9dw+Pwc3rfcCgzIAyBPCV2nd6n
+	 VgPbjlCFynwQvyKkP2B2fuAAn4GXy3U7VlURJXJf+so396izjvnLgaPz87OfQZUPFFTEp
+	 YOVAUHjBLxqiiuzLzsLcuR6imGPYYmc80Cf418bCdMPSeouobUMqEKMrXoJHPfqq+SrAz
+	 oNa8//czo6RQ1Mb2Oboyi1dpbLHirb6NrDGdensG4VU4QP/TqijwoUZmzs6Ds2ywxqxIl
+	 Z+Loz/Tt0e6P1u+Zg2/c0R6XqEaTX8oxsfkJlKb331s5e5b+A0mcLV8Scni3w1Gjesg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732897;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=z7grRwM8WCPf1zlbK4nUUkkFYLNOkxsXBBTP+mvK+4c=;
-	b=KKOZZmyLp09/8zoSbcIJBTJZal8kwco1W5qzUIFQZpUEvVpNXYFhGYp3YZMUszyPpePJ
-	 Xreo779IHgV7D9YXFKGporXkyVu3GgQn+H7e/SnNozELytTQ17kN9uM4WsQit8M6r6ZZZ
-	 sA2KXtXhtkXeMF0kgqVmWDEvAITAuQhmBcEm5wX8EHr66iXNFHaPcLpooDKJ8Jbf6SUea
-	 zf9aKL9pmFSNTIZwM2iQiPCou7tbzYPbr4LpR45iD/GTdvAlMOpXsE3a3RuA71Gu1hMHO
-	 1L9ktDyuYmpDjIjIQyNoZbhmx1W86Xiel1qgciM+nxBK4TRnmx+KC/Z4fGV1SGhxrSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732904;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=IxD8yh34NPGaNP8ew9kHc7SiNkT4kaFRl3q2ZiG2UR4=;
+	b=MaYAqVUKX9zyUtJ8ir8+4bsOBXDoNzZU1fa3buS8emXjbvKg93k4IysNA2RtxyOOVqgx
+	 OXszFAWlxY1h5IVYa7WCkfXl/EtNZTbgqP8nZNYA2UqjOa7umSgI7+33WKKFOI6hBW2KN
+	 aMyepUcJnT4OHq6ynDm4LMkh7mb81k8Z/wdbDCUjt2+96g+Rhz7JzxfGIsSUzPVfbe1Zf
+	 9kztPH6VNji8ClftBBiiAcYygzr4ZciF1tHmqHLmoNEKS5sSxhr9uwQFxsdO52OJ8hbsU
+	 +rlp6IZ80EIQMOtGJBHtTlF/26ogTmq84XexanGRAV4BB2trcUFbArO2NOym04O6aMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3TKZXNe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BTvYhbp2;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAF8606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F46606A334
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 19:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F46606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3TKZXNe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEADF1F000C1;
-	Tue,  3 Nov 2026 19:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793732897;
-	bh=z7grRwM8WCPf1zlbK4nUUkkFYLNOkxsXBBTP+mvK+4c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O3TKZXNecHe8eRQZymbl357ja5s5/vT3IHeQm6MhGvHFK5QPNE1fbbRac2ZmF5/+G
-	 crXqtNDZShkO1BeegusGfu+7n1ivVwRJYd7HpXE0W/+QqHZNcxwf9iZQcsrSJQVpkS
-	 OoXYciWFNtuFTZVcIY644I0MWCIy39JCY2sS9N3BJ54GFvYGRk5zaRrCwgcDCtcaWw
-	 sfvC6rdBPl5o3owyWUMcfQQ7U7q87cNkiceT+UBGml531OeRCHvImchlNj+j2fgMA9
-	 HYZ5KlXD5ffyOa430iXwFGPZQo9YwfR9QSjY6JcO1LN5KbpkF1dKrOOMvMQ++CDod5
-	 uvFTiT2lPsENA==
-Date: Tue, 3 Nov 2026 12:08:15 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Liao Xuan <liaoxuan@open-hieco.net>
-Cc: axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	default avatarZheng Tan <tanzheng@kylinos.cn>
-Subject: Re: [PATCH 1/3] nvme: Add adaptive PCIe link rate switching function
-Message-ID: <auoxH197kQfUJGaE@kbusch-mbp>
-References: <cover.1790134954.git.liaoxuan@open-hieco.net>
- <85a11a4085d04a2823c04059702630cf34abf6d4.1790134954.git.liaoxuan@open-hieco.net>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BTvYhbp2
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49953abe51fso23213245e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 11:08:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793732902; x=1794337702; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IxD8yh34NPGaNP8ew9kHc7SiNkT4kaFRl3q2ZiG2UR4=;
+        b=BTvYhbp23CpMOgiWEWCKr7McZqBXZPOdBtUEtX//vd9+O7U6addvxgD3dFrV+Bnq9Z
+         bd9wMnjVYdafU/XCTkXTDg1f5KjEEtXy2F9FE/LPujZGU4mTZvnoDKnRdJzIhWaS+HO9
+         PjCenKazyfmzyeY+Ovu3kRvwddEqQ2OjOJmUqeHBbBYVg25OLlvZUfihV1hNOi1T+lRm
+         HEcBbxfcK93d5AZHXbLfJVuWSMQyj7JFvXQkUpbxQsnojjln9xX3ew2/WQhKSnD+Z7VA
+         jYvljCk6LG6jW6YqtPSUfAA9v885K9wmvYmN7p9f7sBrwnlcG3q63CX0nrzqkRHcNkQK
+         lz0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793732902; x=1794337702;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IxD8yh34NPGaNP8ew9kHc7SiNkT4kaFRl3q2ZiG2UR4=;
+        b=sCJWZdG5nyBWCXXErpB6V9zLcER10YKZioy7/H+2+g7WCNz9aaGpIF02Iytb6hfyo6
+         d9IVj2LkiqtP+SiiLKDKq+2U9bS2QnFB2awVgZKC8xd5qJw6bITyPr9ngOYQV4oMpfvA
+         w3P7RvCtLuFp12Y49k+dC9TvnWli44bXt26M4I+GqSZxPbkOo37DN5KonBDR8pD86JwM
+         zKrODvRueE1ZD+rG70UOvtUPMMukY6NUhFnuwdCzF/eIMcBgUPa6q8q00US9902FgXwD
+         hNeIN3cAxLIao9PnqkdvKmQaecZJX9yPP1BizU7MqTaelAq93/mrD5uvCj+ZNkCbrYCB
+         BLzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLvJfQNZkXd2RKyEcRevAqjL7qKZqtzNYJxdSycC3WRb04NqJHsj/L6ZkTi7gyPizwNNOeL8AdwvtTkAk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/M+zi9DU2+tj5SzsUk1WHjZK71UfcyMQroJtvSjSDYg+2vT+ct
+	4PjceKl44VzHHle2ohAh84bS+7DnA3LdvY45wCRsy5kDMnkE18VbWEAt6vqUi0gr3yFRfaYrwwG
+	o4knhd2YmzjqDlA==
+X-Received: from wrxg10.prod.google.com ([2002:a05:6000:118a:b0:48b:593:62ae])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:1d07:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4ac18c735b3mr324456175e9.25.1793732902362;
+ Tue, 03 Nov 2026 11:08:22 -0800 (PST)
+Date: Tue,  3 Nov 2026 19:07:47 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,19 +75,216 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <85a11a4085d04a2823c04059702630cf34abf6d4.1790134954.git.liaoxuan@open-hieco.net>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+Message-ID: <20261103190805.3487350-1-jpiecuch@google.com>
+Subject: [PATCH 6.18.y 0/2] sched_ext: Fix bpf_scx_unreg() teardown race
+From: Kuba Piecuch <jpiecuch@google.com>
+To: stable@vger.kernel.org
+Cc: Kuba Piecuch <jpiecuch@google.com>, Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
+	Richard Cheng <icheng@nvidia.com>, Cheng-Yang Chou <yphbchou0911@gmail.com>, 
+	Sasha Levin <sashal@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 02:25:43PM +0800, Liao Xuan wrote:
-> Add support for dynamically adjusting the PCIe link rate of NVMe
-> devices based on I/O activity. The link is downgraded to a
-> configurable minimum rate during periods of low activity to save
-> power, and upgraded to the maximum supported rate as soon as the
-> workload exceeds a computed threshold, so that peak performance is
-> maintained under load.
+6.18-stable commit f786e6652b93 ("sched_ext: Reorganize enable/disable
+path for multi-scheduler support", upstream dbd542a8fac7, v6.18.46) made
+scx_disable() queue disable_work only if it wins scx_claim_exit(). If
+scx_vexit() has already claimed the exit and error_irq_work has not yet
+queued disable_work, kthread_flush_work() in bpf_scx_unreg() is a no-op
+and the last sch->kobj reference is dropped while the scheduler is still
+enabled:
 
-Pretty sure PCIe ASPM L1 states would save more power than downgrading
-the link rate, as well as have better entry/exit latency than a software
-driven monitor and link retrain.
+  CPU A                          CPU B
+  -----                          -----
+  scx_vexit()
+    scx_claim_exit() -> true
+    irq_work_queue()
+  scx_error_irq_workfn()
+    scx_dump_state()
+                                 bpf_scx_unreg()
+                                   scx_disable()
+                                     scx_claim_exit() -> false
+                                   kthread_flush_work() // no-op
+                                   kobject_put(&sch->kobj)
+    kthread_queue_work()
+  scx_disable_workfn()
+    scx_root_disable()
+      kobject_del(&sch->kobj)
+
+kobject_put() has already done __kobject_del(), so the second
+kobject_del() drops another scx_kset reference and frees
+/sys/kernel/sched_ext. The next attach then hits:
+
+  BUG: KASAN: slab-use-after-free in kobject_get+0xcb/0xe0
+  ...
+  Freed by task 210:
+   kfree
+   kobject_put
+   __kobject_del
+   kobject_del
+   scx_root_disable.cold
+   scx_disable_workfn
+
+Returning early also lets the struct_ops maps be freed while ops can still
+be called, which is how mainline hit the same race (see patch 1).
+
+Mainline fixed this with 510a27055446 and d99f7a32f09d. They didn't reach
+6.18.y because they fix f4a6c506d118, which 6.18.y doesn't have. This
+series backports them, with error_irq_work in place of disable_irq_work:
+bpf_scx_unreg() and the enable error path now wait until exit_kind is
+SCX_EXIT_NONE or SCX_EXIT_DONE.
+
+I didn't revert f786e6652b93: that also fixes the reproducer, but brings
+back scx_disable() acting on scx_root rather than the link's scheduler.
+Detaching the leftover link of a scheduler whose ops.init() failed would
+then disable a scheduler loaded after it.
+
+Tested in vng with KASAN:
+- v6.18.60: KASAN slab-use-after-free on re-attach, 3/3 runs.
+- v6.18.60 + this series: reproducer passes 5/5, no warnings;
+  sched_ext selftests 23/23 pass.
+
+Reproducer: a syscall prog calls scx_bpf_error() on CPU 1, ops.dump()
+spins to hold error_irq_work, CPU 0 detaches the link, then the
+scheduler is attached again.
+
+  bpftool btf dump file vmlinux format c > vmlinux.h
+  clang -O2 -g -target bpf -D__TARGET_ARCH_x86 -c repro.bpf.c
+  bpftool gen skeleton repro.bpf.o > repro.skel.h
+  cc -O2 repro.c -o repro -lbpf
+  vng -r arch/x86/boot/bzImage --user root --cpus 4 -e ./repro
+
+---8<--- repro.bpf.c ---
+// SPDX-License-Identifier: GPL-2.0
+#define BPF_NO_KFUNC_PROTOTYPES
+#include "vmlinux.h"
+#include <bpf/bpf_helpers.h>
+#include <bpf/bpf_tracing.h>
+
+char _license[] SEC("license") = "GPL";
+
+void scx_bpf_error_bstr(char *fmt, unsigned long long *data,
+			u32 data__sz) __ksym;
+
+volatile __u32 dump_entered, unreg_done, exit_called;
+
+SEC("syscall")
+int trigger_err(void *ctx)
+{
+	static char msg[] = "repro";
+	unsigned long long param[1] = {};
+
+	scx_bpf_error_bstr(msg, param, sizeof(param));
+	return 0;
+}
+
+/* Hold scx_error_irq_workfn() before it queues disable_work. */
+SEC("struct_ops/repro_dump")
+void BPF_PROG(repro_dump, struct scx_dump_ctx *dctx)
+{
+	u64 start = bpf_ktime_get_ns();
+	u32 i;
+
+	dump_entered = 1;
+	bpf_for(i, 0, 8000000)	/* bpf_iter_num caps at BPF_MAX_LOOPS */
+		if (unreg_done || bpf_ktime_get_ns() - start > 500000000ULL)
+			break;
+}
+
+SEC("struct_ops.s/repro_exit")
+void BPF_PROG(repro_exit, struct scx_exit_info *ei)
+{
+	exit_called = 1;
+}
+
+SEC(".struct_ops.link")
+struct sched_ext_ops repro_ops = {
+	.dump	= (void *)repro_dump,
+	.exit	= (void *)repro_exit,
+	.flags	= SCX_OPS_SWITCH_PARTIAL,
+	.name	= "repro",
+};
+---8<--- repro.c ---
+// SPDX-License-Identifier: GPL-2.0
+#define _GNU_SOURCE
+#include <pthread.h>
+#include <sched.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <bpf/bpf.h>
+#include <bpf/libbpf.h>
+#include "repro.skel.h"
+
+static void pin(int cpu)
+{
+	cpu_set_t set;
+
+	CPU_ZERO(&set);
+	CPU_SET(cpu, &set);
+	sched_setaffinity(0, sizeof(set), &set);
+}
+
+static void *err_fn(void *arg)
+{
+	LIBBPF_OPTS(bpf_test_run_opts, opts);
+
+	pin(1);
+	bpf_prog_test_run_opts(*(int *)arg, &opts);
+	return NULL;
+}
+
+int main(void)
+{
+	struct repro_bpf *skel;
+	struct bpf_link *link;
+	pthread_t tid;
+	int fd, exited;
+
+	pin(0);
+	skel = repro_bpf__open_and_load();
+	if (!skel)
+		return 1;
+	link = bpf_map__attach_struct_ops(skel->maps.repro_ops);
+	if (!link)
+		return 1;
+
+	/* CPU 1: claim the exit and enter ops.dump() from error_irq_work */
+	fd = bpf_program__fd(skel->progs.trigger_err);
+	pthread_create(&tid, NULL, err_fn, &fd);
+	while (!skel->bss->dump_entered)
+		sched_yield();
+
+	/* CPU 0: unregister while disable_work is not yet queued */
+	bpf_link__destroy(link);
+	exited = skel->bss->exit_called;
+	skel->bss->unreg_done = 1;
+	pthread_join(tid, NULL);
+	usleep(350000);
+	repro_bpf__destroy(skel);
+
+	/* re-attach touches scx_kset, freed on buggy kernels */
+	skel = repro_bpf__open_and_load();
+	if (skel) {
+		link = bpf_map__attach_struct_ops(skel->maps.repro_ops);
+		bpf_link__destroy(link);
+		repro_bpf__destroy(skel);
+	}
+
+	printf("%s: ops.exit() %s before unreg returned\n",
+	       exited ? "PASS" : "FAIL", exited ? "ran" : "did not run");
+	return !exited;
+}
+---8<---
+
+Cheng-Yang Chou (1):
+  sched_ext: Fix scx_flush_disable_work() UAF race
+
+Richard Cheng (1):
+  sched_ext: sync disable_irq_work in bpf_scx_unreg()
+
+ kernel/sched/ext.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
+
+-- 
+2.56.0.385.gac671c819a-goog
