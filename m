@@ -1,53 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694202;
-	b=xclJCSuk4yLSR/KhMKb1K+83+/0WM2x3Xms4yOek+4j9wZ914vpOPCS+1FWkFMdw/NtM
-	 fd+ZdYXA3uKSTseoKFuBots35aBwD0qBzyHpzE6lJ4MCbVHbJ0vjPb/o33Rh1pGKgp3L4
-	 tos1mbqsRAE9CfoICWcxieiOKkjXCcNDV20/36VRGblS27Y8cXQ1rJGErQ2KZVhYt8QcN
-	 kQLr4iPDo+ToSmrfcb/KN/YWE8/lkb+VSqA+2N99bvbG6y3htq0w/6CC2mAz9edyrl+LR
-	 AdL+nqLtmqBfGEOLuHy9H2/k+O8rI9CoLXrVtulrPdiJlUG2z9U03VwkguSbCkfn5Gg==
+	t=1793694207;
+	b=CZPBc5aQl39w8QhGU63FGuwSczbUWQ8OR245CC2VCUMUrOYb/2VnQV7y8JVLbM7ZANN5
+	 PozRK8BqZkCC35ipWoNoUUGQlMc2JWmoa9ugMBeOiSD9Qv3Jz1ee/s0pLSheHweCLinJU
+	 sha3wZ6RCoGpwlj5aSgnKqXKpYUSWE5aET+XAenycu8zb51ZgArlQ17J1Q16L5R1S/LV4
+	 vVxffuFx4Nu7UA+QnVJCstYJTg6FZ9RWD7n6vT17fKA3GK/6A+7K074sXteg2hfmrp+X4
+	 ioU7tdJIfj95Pc2w3OSTayVvyRN0u+TU/IYwSnf1U/Qep55J9DlCxgpKqXNZWUXGBEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694202;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=EtUju2R+r7AYp51wmtEoA2Wws7SJmf1SkZiA/dd2hvY=;
-	b=SRJaz6wrEqmNHLp5uMynt99qcBhqs3DBWxpTWNpqm/oCVPF7LdE9wJu9YbzjStF5ElLJ
-	 vo3ujmPrr1FqABGjhWh1l5hWtFUxOUCz+O4rkqgCcsBXNN+Ys/Jx2w4OURth+8N0ICdPW
-	 AJV6q2QW1tP/Tl/kdHRwayvQek6pdMxx37gqEH4ivJD8W0iAkWA2mD8aQHBBPsJElROCv
-	 vorILgQHxiMlvrnmM7zzq7lwvtrcbDngRwGRdfxgHQv3hah8NmjdTeUNQpv3noy6TtiVP
-	 sQON8jAIMT8EfrFwx4eQimwK5TAGCFxzVT8086LwWosg3LKSGjqqKC1bCyZPWJsS46Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694207;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=uu2p/imvpYYwGCawb+da14uOdwKVbFCIiMNwg0pW/BU=;
+	b=FMfBnhd5huAxJ5RVFTNV2TNFpH5CoDVvR7qwBhXMryVlaiJAItiaLtIWAuINsNsI8Zyf
+	 X/Khj6ZihoIRo8Xj89rpbCfuoJhU68w+gStZnwYhmfQA3XoRi11+VaSqAH/Y3Te2cWBU8
+	 IO6mUpVCazG4y2XoBF+RMZZ3Y52IYUXyVve6O0L2y54bHujKW+gDyEDCScI6HE0MIXulT
+	 G3/Eh9cv2zBuVpxOirRwmO728EhpGVSoNAHJxSXG+6bS2/hoWLxxexbMIpI+SAPnlvxiP
+	 NTCYR5zCktPtf6HR1N2k//9IW+zHa4QEWvDJXEnA7U234u5x+e10lFXOlNGoHMp3CeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9F2606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:23:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F9F2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-83c2311eb1dso6576802a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:23:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793694201; x=1794299001;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EtUju2R+r7AYp51wmtEoA2Wws7SJmf1SkZiA/dd2hvY=;
-        b=LGPDQ2az5/xXkH/d0vAaLm2gkHUYUwe4QC93TZue8hUbSDTB63c/ysN4TZPGPYxvio
-         vwv2jyc2Fbdja3EDdjsIMGh/H2W7TFIdkiqJscfUYEPH1iVwmwbBUyfP9dPS9PZwbTU0
-         bT/AmgX6tzEsU0C1YQ8+jkRJ1WszyWsWfAdQdWry1WCFBSx3jqOAPo8i0Zi0Yf6AE2CO
-         LocGVULa+CBK9ydprQIqFLdikUucpQH0U5Z71MHXOmhoqkA6057cJlbOOmYpWfm20odS
-         dDNx2GG6RgbI6z+Y4PwlRvfLu+W37jg3MKRR4VprWyIsit10g3xkQuxJPPyC382qCoWo
-         Gwvw==
-X-Gm-Message-State: APuU4Z+JINidTow4vqA7MkSs/43lh3yQm0WDCjUrz6sztdgKRe9oGSfR
-	ChVoFHh+MYYpKwsDMkapT5za6Fo/o634fs6SVLofyklTUktk4mlYqyCWVV50722aSCt+Fg/p5w0
-	gN2KQCE3PYznMr1U8hQX+4YzwavcqVSa4e/an+y0ZpapL5LisDWrTXr/37hU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B97606A324;
+	Tue,  3 Nov 2026 08:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03B97606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAHFpf4melqOmQ6AA--.1296S2;
+	Tue, 03 Nov 2026 16:23:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com
+Cc: bmarzins@redhat.com,
+	dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] dm: release the sysfs kobject when its initialization fails
+Date: Tue,  3 Nov 2026 08:23:29 +0000
+Message-Id: <20261103082329.1159472-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,154 +55,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:618:b0:70b:afa3:fb1f with SMTP id
- 006d021491bc7-714f1fd614fmr6655199eaf.5.1793694201562; Tue, 03 Nov 2026
- 00:23:21 -0800 (PST)
-Date: Tue, 03 Nov 2026 00:23:21 -0800
-In-Reply-To: <000000000000f6bf6d0604af3b95@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae999f9.0c24fc0a.13a0ab.0035.GAE@google.com>
-Subject: Forwarded: [PATCH] drm/syncobj: Silence allocation warnings for
- user-sized arrays
-From: syzbot <syzbot+95416f957d84e858b377@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAHFpf4melqOmQ6AA--.1296S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr43KryUJry7Ww4rGw1UGFg_yoW8Jw13pr
+	srXrWavrykJw4xtw1DZ3W09F9Yqw4Sk3y7GFWS9ayF934rZr17XF1rtFW7AF4DJF4kGF4r
+	tF9Yyr98Ga4vkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
+	DUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkAA2rpWmXzjwAAsM
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+dm_sysfs_init() uses kobject_init_and_add(), which requires a matching
+put even when adding the object fails. dm_setup_md_queue() currently
+unwinds the disk and holder links without releasing this object. Since
+md->type is still DM_TYPE_NONE, cleanup_mapped_device() also skips the
+sysfs cleanup, leaving the initialized kobject behind.
 
-***
+Call dm_sysfs_exit() before unwinding a failed sysfs initialization. This
+both puts the kobject and waits for its release callback, including when
+CONFIG_DEBUG_KOBJECT_RELEASE delays that callback, before the mapped
+device can be freed or its queue setup retried.
 
-Subject: [PATCH] drm/syncobj: Silence allocation warnings for user-sized arrays
-Author: fei.yu@intel.com
-
-From: Fei Yu <fei.yu@intel.com>
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-The syncobj wait, timeline wait and timeline signal ioctls allocate
-several temporary arrays whose size is taken directly from the u32
-count_handles provided by userspace:
-
- - handles and syncobjs in drm_syncobj_array_find()
- - points and entries in drm_syncobj_array_wait_timeout()
- - points and chains in drm_syncobj_timeline_signal_ioctl()
-
-A large enough count makes these allocations exceed KMALLOC_MAX_SIZE
-and trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
-
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
-  Call Trace:
-   __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
-   __do_kmalloc_node mm/slub.c:5519 [inline]
-   __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
-   _kmalloc_noprof include/linux/slab.h:995 [inline]
-   _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
-   drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
-   drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
-   drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
-   drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
-
-The allocation failure itself is already handled by returning -ENOMEM,
-so the only problem is a warning that userspace can trigger at will.
-
-Pass __GFP_NOWARN to all allocations whose size is derived from
-count_handles. Guarding only drm_syncobj_array_find() is not enough:
-the wait entries are much larger than a handle, so a count that passes
-drm_syncobj_array_find() can still trigger the same warning in
-drm_syncobj_array_wait_timeout().
-
-No functional change and no new limit on the uAPI.
-
-Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-Signed-off-by: Fei Yu <fei.yu@intel.com>
+Fixes: 784aae735d9b ("dm: add name and uuid to sysfs")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Testing: on v7.4-rc1 (x86_64, KASAN) the syzbot C reproducer triggers the
-___kmalloc_large_node() warning with the same size (0x100000920); with
-this patch it runs clean. DRM KUnit: 667/667 passed.
+ drivers/md/dm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Notes:
- - An earlier attempt [1] added a size check returning -ERANGE, but only
-   for the handles array, so the syncobjs array and the much larger wait
-   entries could still warn, and it changed the ioctl's error codes.
-   This version keeps the existing -ENOMEM behaviour for all six
-   allocations.
- - kvmalloc() was not used on purpose: it would let userspace trigger
-   multi-GB vmalloc() attempts. A hard upper limit on count_handles
-   would be a uAPI change; happy to do that instead if preferred.
-
-[1] https://lore.kernel.org/all/20251227160830.34291-1-madhurkumar004@gmail.com/
-
- drivers/gpu/drm/drm_syncobj.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index f1d4da168..10aede1c0 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -1051,7 +1051,8 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		lockdep_assert_none_held_once();
- 	}
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 1881d86111fb..08b87fd6f955 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -2647,8 +2647,10 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+ 	mutex_unlock(&md->table_devices_lock);
  
--	points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-+	points = kmalloc_array(count, sizeof(*points),
-+			       GFP_KERNEL | __GFP_NOWARN);
- 	if (points == NULL)
- 		return -ENOMEM;
+ 	r = dm_sysfs_init(md);
+-	if (r)
++	if (r) {
++		dm_sysfs_exit(md);
+ 		goto lock_out_undo_holders;
++	}
  
-@@ -1064,7 +1065,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		goto err_free_points;
- 	}
+ 	md->type = type;
  
--	entries = kzalloc_objs(*entries, count);
-+	entries = kzalloc_objs(*entries, count, GFP_KERNEL | __GFP_NOWARN);
- 	if (!entries) {
- 		timeout = -ENOMEM;
- 		goto err_free_points;
-@@ -1238,7 +1239,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 	struct drm_syncobj **syncobjs;
- 	int ret;
- 
--	handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-+	handles = kmalloc_array(count_handles, sizeof(*handles),
-+				GFP_KERNEL | __GFP_NOWARN);
- 	if (handles == NULL)
- 		return -ENOMEM;
- 
-@@ -1248,7 +1250,8 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		goto err_free_handles;
- 	}
- 
--	syncobjs = kmalloc_objs(*syncobjs, count_handles);
-+	syncobjs = kmalloc_objs(*syncobjs, count_handles,
-+				GFP_KERNEL | __GFP_NOWARN);
- 	if (syncobjs == NULL) {
- 		ret = -ENOMEM;
- 		goto err_free_handles;
-@@ -1573,7 +1576,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		return ret;
- 
- 	points = kmalloc_array(args->count_handles, sizeof(*points),
--			       GFP_KERNEL);
-+			       GFP_KERNEL | __GFP_NOWARN);
- 	if (!points) {
- 		ret = -ENOMEM;
- 		goto out;
-@@ -1586,7 +1589,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		goto err_points;
- 	}
- 
--	chains = kmalloc_objs(*chains, args->count_handles);
-+	chains = kmalloc_objs(*chains, args->count_handles,
-+			      GFP_KERNEL | __GFP_NOWARN);
- 	if (!chains) {
- 		ret = -ENOMEM;
- 		goto err_points;
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.34.1
 
