@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698426;
-	b=zpUkUsSmtGq2jX+j0qKu6OqxQIUFMTjQ/82ovYkVH0V4ssDNU7rre/ChSt+o92SAiiLa
-	 0ckDxvJ0p525RqTpTQFQC1aR7Z1GIepvYR0MY1Y6DS44nuBooTrde2RLEYmsUdI/Dgkye
-	 4rK17pg8nKcKYtynAxCTrlqLB2BLQ9DEZXbvM9/zqWDk8xzfA83SkJinA4bu20FSRmA++
-	 mm/y/YWRSaA+3vE6i46FwqLmgoghm9R34/l3Dodn+tjcZJNzDIG+uTicvNFDPsPlhk/Iz
-	 bI685gewGotgpcUFVsdwyWD6v4nKplWJiB39bfDLrJsdNM2WgRCgBCq01sPcc4M2BbQ==
+	t=1793698501;
+	b=qwhCHzkSM1FyxjOjq9dueYUkoY2uIDmXVuA3dKKEm1REttkAUPVgPNzGOUOB2PYZw/zP
+	 LCtsk0pRrXMz+uREsb4PvR4Ma+XtPA3BNJmCDlu/FzDi/PZD6y6HCI7zpEcKJkdEF5BNc
+	 m/apNlX2qQZaOELMJk4jvHEspA3opOcb+Laa62pe4uUxNuCD/ydvA69r21VCIR8C7WhhB
+	 33bOUc1icsm4RDjJ52IKNSLZMLjp6YnHxxe7+d39mk18vi39Ul/E9ogcmI+RN0q3+w7Zs
+	 cwQqZoIuUZgCxDDrg9ZZdZlxRX7bVRWJPndguh6nlo2geEyVGNHCTewzIirxZOfTDwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698426;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=D6rny5kjXK5DrJDvzkFSnRh5hQ+TqEu9S3skisSzk08=;
-	b=qkNAKHj8cVRyOUXqA8mh+v3o10/hpp0TMJbn8Oat7Zzl8hZ/P0boqjV6TZbKo6NMl36I
-	 IqfY5bnIL2isoi6GyYMWTz8PTKYwUQKByQtpVRQsMVYGXmuOo45/kpZWmnq2jVsm7JwIp
-	 UkLlpmAZOErOafeIGOxjOoX8wNEsdtgpzBvIMJJU5uQutqyv1jIUovB3fH93rWr9y/AMs
-	 4Qk1LfcYOCfgPhkgdDOEWj6zTIqDh7t28TQsx4YzD31H7QVGX+/k9V60O3tIE1IipJjVj
-	 bZhyqbMCLEpbovoEjsSM3LRaDtD7WWBStwOWj/K9ydF1bU2bp+tc0xFJGcDqbW4xkTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698501;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=duchPy3gA7qrB3uLfSZGqw9HsG8qAFPps9294n5glZI=;
+	b=v6iOrGLgyRkguk5KbY+G2Zfr4ewSUwKp9hXSDod8OYsqO0sWbCxhNQvwDcRvD5/VDnDS
+	 bukQFyowGnDYQ96xIE0SrNXZdndJaf0ow8lS+Oj4fszQveYdrcjMikpJLOleY7cQtlc6N
+	 QLrDJ3t7F9gZ6t9sPcvaHpYYwWMUGbF3klud7oxPc2l95stu66yLyFqf7SqEatAhqQSrk
+	 5sQ782SU1HM5Uv8QgZ1VipAQlQbbX9kdx6hnutxrNbOVftAA7B09nC6xed45y3JAdtUaw
+	 qi2WieUzg3Fj1isyYez+8xBr8VEh8FJzH/pmmLqeTpAQaiGQqVoMCUG7+ua08qIGSOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XDwNz6/X";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dKvnBZaL;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A554606A329;
-	Tue,  3 Nov 2026 09:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59872606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 09:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59872606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDwNz6/X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588901F0093A;
-	Tue,  3 Nov 2026 09:33:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698426;
-	bh=D6rny5kjXK5DrJDvzkFSnRh5hQ+TqEu9S3skisSzk08=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XDwNz6/X0GpDQK0tjwuoGy3TWaQl/Dxzlr5GxqbYRhKwwtzuoBRRTXln1RQ7g3mf8
-	 kPcKMs5zlFnb8gNclOOmphQCGI4EnSaF3r9KGrNIxHIfGLlnNbXbnrxgfHCqfhA7zS
-	 GbZZlEFsGH5ZGpdcRQJqoWw63YqXMyYnQuhvid0TA6on96iRybfnHPp2YIye1JeQhN
-	 v1Erbwp+3Cg+KQ9FCc4b9PLGyWv+OJxEcQ/L/yRaBxUcXqgbTKsy56kBLZf8WH5ol6
-	 WVDh4+1BaQslqT5bAuI93g2gQygc6DCujpnhZnB7xHJnnsM4PB2LPQMVetJUTA7aRI
-	 AJ3rCxzCO3bfQ==
-Subject: Re: [PATCH net v3] ipv6: fix dead half of the MTU guard in
- __ip6_append_data()
-From: netdev-bot+sashiko@kernel.org
-To: treebacker@foxmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, dsahern@kernel.org, edumazet@kernel.org, idosch@nvidia.com,
- horms@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 09:33:44 +0000
-Message-ID: <179369842489.488856.13715635403726520174@kernel.org>
-In-Reply-To: <tencent_AE3DA7423209553B562E5C7FBCB808EB680A@qq.com>
-References: <tencent_AE3DA7423209553B562E5C7FBCB808EB680A@qq.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dKvnBZaL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=duchPy3gA7qrB3uLfSZGqw9HsG8qAFPps9294n5glZI=; b=dKvnBZaLPaI/I/A5GwmkqIKC+d
+	Y4JksYIStSOUkxIv5bKdzRJtpTD+iFZYz5OnpSEnuebf3/F8PxIMQxVyNY95Z8eq9DN2y2NUkDjI8
+	OdFGtSmT2EPTvjbvh36L+ZS5vNmQ+b1WMznPIkhvcLIeFbQ98Y/fIzkaztzlNN3fSzBD3G27LBm5+
+	zhEX/T66At8Hg+Z2EZPaU35BPD7w951BqYcOZPd3C81MzG3YYflDNX4sfM2X0eUDU3qvnyyXVtnNT
+	NkDI5y7oxsgpZ5h8zLUQ2HXCCu/YE2+izlXqmNGmQN72HVz4lX64TdZZyz/dGZusBRrxftXAII4CE
+	1K8Wb6Bg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOAug-006pz5-1E;
+	Tue, 03 Nov 2026 09:34:42 +0000
+Date: Tue, 3 Nov 2026 01:34:36 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, kernel-team@meta.com
+Subject: Re: [PATCH] x86/sev: Fix kmemleak false positive for the RMP segment
+ descriptors
+Message-ID: <aumqYDB-9R4njxEj@gmail.com>
+References: <20261102-sev-rmp-kmemleak-v1-1-e6fb2eb96e79@debian.org>
+ <036145d8-46b2-4389-afd7-26c897d09ce7@intel.com>
+ <aukO-_uELcL15JnH@gmail.com>
+ <b004e572-8d52-447a-b5b2-10bed36896b2@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,103 +73,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b004e572-8d52-447a-b5b2-10bed36896b2@intel.com>
+X-Debian-User: leitao
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, Nov 02, 2026 at 02:54:06PM -0800, Dave Hansen wrote:
+> >> Why don't we just kmalloc() the thing?
+> >
+> > That would do the work as well, if this is an option.
+> 
+> I don't see a reason it needs to be allocated directly by the page
+> allocator. My friendly LLM agrees with me. kmalloc(PAGE_SIZE) aligns to
+> page boundaries and has for years.
+> 
+> BTW, there's almost no reason to use the page allocator directly these days.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Ack. Let me respin and use kmalloc, and use kmalloc(), simplifying the
+fix.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In __ip6_append_data() (net/ipv6/ip6_output.c:1502-1507), the
-  patch adds a new minimum check: `mtu < reserved_headerlen +…
-
---
-
-ipv6: fix dead half of the MTU guard in __ip6_append_data()
-
-This patch replaces the MTU entry guard in __ip6_append_data(). The
-second half of the old guard could never be true. The new guard requires
-room for the fragmentable headers, plus dst.header_len for non-tunnel
-xfrm, plus a fragment header and one 8-octet payload block. The goal is
-to stop maxfraglen from underflowing, which leads to an skb_over_panic()
-in skb_put().
-
-> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-> index 25fe0ba98b1a6..936dad85f1c98 100644
-> --- a/net/ipv6/ip6_output.c
-> +++ b/net/ipv6/ip6_output.c
-
-[ ... ]
-
-> @@ -1499,8 +1499,11 @@ static int __ip6_append_data(struct sock *sk,
->  		     (opt ? opt->opt_flen + opt->opt_nflen : 0) +
->  		     rt->rt6i_nfheader_len;
->  
-> -	if (mtu <= fragheaderlen ||
-> -	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
-> +	reserved_headerlen = fragheaderlen;
-> +	if (!skb && !(rt->dst.flags & DST_XFRM_TUNNEL))
-> +		reserved_headerlen += rt->dst.header_len;
-> +
-> +	if (mtu < reserved_headerlen + sizeof(struct frag_hdr) + 8)
->  		goto emsgsize;
-
-[Severity: Medium]
-Does this new check also reject datagrams that fit in the MTU and would
-never be fragmented?
-
-The minimum is computed only from header sizes. It runs before
-__ip6_append_data() knows whether this send needs fragmenting. Take an
-IPv6 socket whose extension headers (for example a hop-by-hop options
-cmsg) leave mtu - fragheaderlen between 1 and 15, and a payload where
-headersize + transhdrlen + length <= mtu. That send used to work.
-
-On the first skb, the alloc_new_skb path picks the mtu side of the
-clamp, because cork->length <= mtu:
-
-    if (datalen > (cork->length <= mtu ? mtu : maxfraglen) - fragheaderlen)
-        datalen = maxfraglen - fragheaderlen - rt->dst.trailer_len;
-
-The clamp does not fire, so fraglen = fragheaderlen + length <= mtu. The
-underflowed maxfraglen is never used on this path. After that,
-__ip6_finish_output() sends the packet without fragmenting it:
-
-    if (unlikely(skb->len > mtu ||
-        (IP6CB(skb)->frag_max_size && skb->len > IP6CB(skb)->frag_max_size)))
-        return ip6_fragment(net, sk, skb, ip6_finish_output2);
-
-With this patch, the same sendmsg() returns -EMSGSIZE from the new check,
-and ipv6_local_error() reports a pmtu.
-
-The commit message says:
-
-    Replace the dead expression with a single check that requires room
-    for at least one 8-octet payload block after the fragment header,
-    matching the minimum ip6_fragment() already enforces:
-
-ip6_fragment() only applies this minimum to packets that are larger than
-the MTU and are actually being fragmented:
-
-    if (mtu < hlen + sizeof(struct frag_hdr) + 8)
-        goto fail_toobig;
-
-Here it applies to every send, including ones that fit. Since IPV6_MTU
-accepts any value >= 1280, it is not hard to land in that window. The
-patch is also tagged for stable, so stable trees would get this change
-in behaviour that userspace can see.
-
-Could the minimum be applied only when this call will need to fragment?
-For example, gate it on cork->length + length > mtu - headersize,
-evaluated before cork->length += length. Or could the commit message at
-least describe the change for unfragmented sends?
-
->  
->  	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_AE3DA7423209553B562E5C7FBCB808EB680A%40qq.com
+Thanks for the review and suggestion,
+--breno
