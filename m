@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693392;
-	b=K5r6HZe3wY48ztn13b7PWjHMSaPZ3I9gpnXv6+D+mCmhHLSfEvqk56Bs/QuYwaExSQi0
-	 E8YiGSUvHjFjFtjGivWUXkRVjP9q0QU2cnxiBICPGIjDnml5MtKAlgS7B0YF1Qf+HSHxo
-	 etYcOo6O//xZFO2qaHQztrog7GijVY4hw3DjxPhJ6Kgsv49vSYYEgUkWhMrJBL0AhRDIu
-	 BT4adWCJj7NE0Su/SWk8ez1PQVFUhUBov943XZLbvoC87jNXTpxMDMX65rA1JAvhI6x+y
-	 TjWTO7jmkAeiK1rsWgZUM9qw/PjuZ3NnDTBWElqVGlfb/TUZaT6si13zfN7Ax11kaMg==
+	t=1793693408;
+	b=qBT9YDKDRpCYtFuQIllvkcguZFWqfGaPvJGzx72L8uL1MKbEtXZV8y3Hyn2vZSWI7Ghk
+	 auwa1dDds8EyFHr7AXM/1QDLKkwmjub259uYSHnaA1mT50yYb5aX3aV8N4g8LVWANG/EV
+	 kvQOxB37ibn9SOEd/uhcznVypPzQcrw7ByyGujC9/lGdZ4PsunlbpWB4MXst2xUj84Aom
+	 Lna1E9NIycFEDU07pCIzKbYZza7iJCiCCu/l9l8pd0+rQr5E/fBtPKjb1h+7EwXw7/YMm
+	 aJAqKBAnyW6uOHWVBGASzWue9HBUDrH0mlL1gVNWM6XYc1kgPulpLdhT1grXqICbFgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693392;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zf6qC7Z68PAfi/g1Lq1I7GPVQN/ADTRNm3/p9ryG3Ic=;
-	b=yzOjXfzJLa5eQox/NPnha9snDbWJW9i4RYK0I+aFYGhp5UVFVAuc9MIbcOdFxkbGgkLs
-	 eRij79W769cgdgN6caUV2lWDzox4gvzwv4wJU/odCidX4AR8Xj7o6I4CCY2SB+TVD1ndi
-	 BJNVVHJ+V+2OgqK+rgjGtxdPfS8XIZ6xAToMtwnioK9sohQFpJtKPRkqDOZaSdSalgefs
-	 2Yw+IWn7sRDC2ePqctBxclDYNTWlFU7aPODwtaKRn4EqW7hsYlarJ+q4o17i3NBmD5z+q
-	 /d697+4mfojFlA30Ya41LSImtKFu9opST++cclxVWiOG7HNtaq96snQNa7aCr5J+QaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693408;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=W+rCt5JffqT9igP/FHJlTjxb2JKgyvGadn6kqlftxyg=;
+	b=HUoYsqwHlxSQoLh275fOHXnnQzCzEHl8cYjQTtaJTM/H7ZY8olKDLz/IJGKIVu8cqNej
+	 oVPIslyCSQwP0LAIiXM8bSpTloBJSlAWrEcEO2ZSIVO9JY6QJ4xeLd9pyl2XdNZlUJbVS
+	 n878ZwpO9lS153ATjVYsxNE10+mnzpPgVX4l3A9/KD4pqgl7XYv+YenhV/Qt+3MYg/Tgl
+	 zRJGHUNu93LTOy9fq3vSfa83GIaTNN4ojjJgnhtXxxwjjOLEqY6laKDuNoYCk2u+E6IGz
+	 2r8oDdaiFMaE18rETTSOYnONSNoXcD/ATkiuLPKvm+0+XVz+/RpVWaGHYXiE1moEVVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=BxTAX8VR;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Go5owOop;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFB4606A329;
-	Tue,  3 Nov 2026 08:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFFB4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFFC606D801;
+	Tue,  3 Nov 2026 08:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=BxTAX8VR
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793693383; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=zf6qC7Z68PAfi/g1Lq1I7GPVQN/ADTRNm3/p9ryG3Ic=;
-	b=BxTAX8VRtOhWPBzgGjv2raOsIG1CdVFV/Wn+gpsAafgN4CaNxyvOygIqCVReS/hByyiLC5wojvtdu8mdCy4ogC/UGBWUTPmcLtAT8VvDT9LzY1we8ZgAOwOTlxenMPFkvdk9h5y2Z6XJ+MHGD+X5KRGeqh12RqAALHVEl+oitSE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R251e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XE27L0Y_1793693381;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XE27L0Y_1793693381 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 16:09:42 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	alex@ghiti.fr,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	graf@amazon.com,
-	shuah@kernel.org
-Cc: guoren@kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	kexec@lists.infradead.org
-Subject: [PATCH v2 3/5] riscv: Add support for kexec handover (KHO)
-Date: Tue,  3 Nov 2026 16:09:24 +0800
-Message-ID: <20261103080926.2079-4-cp0613@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103080926.2079-1-cp0613@linux.alibaba.com>
-References: <20261103080926.2079-1-cp0613@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Go5owOop
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4981F00919;
+	Tue,  3 Nov 2026 08:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793693407;
+	bh=W+rCt5JffqT9igP/FHJlTjxb2JKgyvGadn6kqlftxyg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Go5owOop+lJsQUqur9qbyUb79jlZHreekfAOVjWqHl5+PJSLH1/IDqLr2vU1qMsTq
+	 e/gTUjOte224eNmE672iD7k8DECG4jgF0Gk8pekN/K6BMi2JfOCScPPbnYYeFfwEWu
+	 DfSJI/MOhZ6qWKJK6tbrwvjar3Pwvh2VZp8aU4l6AOInYQKoI4MZu4rJSdQwdO0T6F
+	 zJ4M7T3o9JXVLoCZooDnbpyFrq2efF0JUPzHn/Jm+7Kt6bCgkU7JtLbiDZnQEVhQ43
+	 KsooIqJXse7U6T9Pzv7KTXa2nkNdsJF3T8sgwj1GMLlwXCQdg4DBxONRmMaE5lNVK9
+	 dUvRwZ1BZKQHw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D39A380823A;
+	Tue,  3 Nov 2026 08:10:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,38 +54,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179369340630.929695.14145463061574872626.git-patchwork-notify@kernel.org>
+Date: Tue, 03 Nov 2026 08:10:06 +0000
+References: <20261030083539.777877-1-almasrymina@google.com>
+In-Reply-To: <20261030083539.777877-1-almasrymina@google.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me,
+ kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com,
+ asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
+ andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
+ tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
 
-KHO is architecture independent: the outgoing kernel publishes the
-handover FDT and the scratch descriptor array in the /chosen node of
-the DTB it builds for the incoming kernel (kho_add_chosen(), reached
-from of_kexec_alloc_and_setup_fdt()), and the incoming kernel picks
-both up while scanning that node (early_init_dt_check_kho() ->
-kho_populate()).
+Hello:
 
-RISC-V already builds that DTB in load_extra_segments() and passes it
-to the incoming kernel in a1, so only the architecture symbol is
-missing.  Depend on 64BIT to match ARCH_SUPPORTS_KEXEC_FILE, and on
-MMU because KEXEC_HANDOVER selects CMA, which depends on MMU.
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
----
- arch/riscv/Kconfig | 3 +++
- 1 file changed, 3 insertions(+)
+On Fri, 30 Oct 2026 08:35:34 +0000 you wrote:
+> Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+> add netdevsim support plus selftests covering both RX and TX device
+> unregistration. These issues were found via LLM-assisted code review
+> (Sashiko) and reproduced and verified with the new nl_netdev.py
+> selftests on netdevsim (not tested on real hardware):
+> 
+> 1. net: devmem: unmap dma_buf synchronously on queue uninstall
+>    Synchronously unmap and detach binding->attachment under binding->lock
+>    when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
+>    or closed in net_devmem_unbind_dmabuf(), and unmap remaining unbound RX
+>    bindings on NETDEV_UNREGISTER, preventing slab-use-after-free in
+>    dma_unmap_sg_attrs() when the binding is freed after dma_dev. Factor
+>    out net_devmem_lock_dev() and net_devmem_unlock_dev() to synchronize
+>    netdev_nl_sock_priv_destroy() and __net_devmem_dmabuf_binding_free()
+>    against NETDEV_UNREGISTER.
+> 
+> [...]
 
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index 435da0713243..e11463a923a3 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -1125,6 +1125,9 @@ config ARCH_SELECTS_KEXEC_FILE
- config ARCH_SUPPORTS_KEXEC_PURGATORY
- 	def_bool ARCH_SUPPORTS_KEXEC_FILE
- 
-+config ARCH_SUPPORTS_KEXEC_HANDOVER
-+	def_bool 64BIT && MMU
-+
- config ARCH_SUPPORTS_CRASH_DUMP
- 	def_bool y
- 
+Here is the summary with links:
+  - [net,v5,1/4] net: devmem: unmap dma_buf synchronously on queue uninstall
+    https://git.kernel.org/netdev/net-next/c/c4466d2c3e77
+  - [net,v5,2/4] net: devmem: detach TX bindings on NETDEV_UNREGISTER
+    https://git.kernel.org/netdev/net-next/c/ede1618064a9
+  - [net,v5,3/4] netdevsim: support devmem RX and TX bindings
+    https://git.kernel.org/netdev/net-next/c/c153da399354
+  - [net,v5,4/4] selftests: net: add devmem RX and TX netdev unregister tests
+    https://git.kernel.org/netdev/net-next/c/121ba2ac7968
+
+You are awesome, thank you!
 -- 
-2.50.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
