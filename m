@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711284;
-	b=2tpT6e3ivVe9LywcqpNHd6uS/eb4DnmSTuLsmB3xVypz0aC3GcqQwfMvL7Ha3JwZ0X5S
-	 8YLvLMgnBkDz0cz3TrpjTGv7h0xipyp8oNbxzYKyWYNYzWQKuGiQ/u6fA3boAQTjl2KUY
-	 8gdexgK4aEKiarwLsRZbkZo53FqwDkndcPgysfdVavtIfd7PM0gq+nNT4DmRC84UU6qK9
-	 fzTxVBZnXKfkom6geJaGiC4RvYwKUWu+wjQ1L7BvO491I6DqA2VMDeIgRm4zQumlGA/UK
-	 Vs1NZeKXkfVQRNr1Dg0Z5oipaZnM2Rs/xsr2pCV+/XRVqcf2xSN9uArBvDjE3+Jql5A==
+	t=1793711292;
+	b=W4w8iabcpBbu1ZVpgMVabE+kFUkpBfj76dVQSBqHkPCUf44GAt4O3mhqbobMcTX/CiZT
+	 Etly72UnDtkvbAyGMgm5td20M7yrL55z9wK7Uu6aX0YqdC9lrs5usvcenAffCyeieKOMT
+	 mIS0HzwuunqX/Xxf7/3Rm/qsHMlnRs6fzBgDxve5oZOco/21OnpC6hdbDuNXJYG116/kT
+	 ms/PBGNY9ScZRClPYLPtXxfXaK0b1it7LE9LtlQYj3ksExgqvlfuSQeDijJNljyz6KGJN
+	 pBKovZ3V3N5pDL2LOLhQdozhcoMvr3cFI3e/vbjZZKNbtjDhtm7aoJRhWA4yIkS6NvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711284;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
-	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=W2xyD++8XiWlS4AbutD+lsd/dYfEJDqvy16CGeerZrM=;
-	b=AW7j0QuTmUA3OZ7foSJjsaiYuDxSG504KfHYaBahIXMef247T2qYx13IxsRhIOF/XM3M
-	 6VIp0RAX1Ic8rnMcq1EN6Snk8XRSQQxrxTOa4QWxfHP4YSodrJTPvwzSynTF1KWX/krYF
-	 aj0g2qjJqkrYN9ZKWsJaqwJvSnVR2XU6xNdcs0B4L+0a4PcjB8T7VkL1v01XfblrCJkbd
-	 tfPvaihOMaTgmVB8mL7qGivQZD5v+qzrB6IUKk1WNsNQw+95BkBP/rSo+jBYttMRsSf6v
-	 8k0uCEKspLKTApGba0tshPOPJA251+tILa1ugqkY9jyT8WehHESODZUN+47PkKZi2mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711292;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9G2Juop9m4yYRvSwrC6ILNCsmsnKaKioHaaLbaf4ZaY=;
+	b=ZKw+TYybqy0PyF89gfZGfSCDSs9j0tTnYG4a48jTkstW7/OBBKsQfQx6S8StImdhAseK
+	 k+a6VPSt45bMtYV8KytrS01YHCSIKbSE6EExPkaJvZ9VsIg5iW8OyKOmJ7rTCbmunYs32
+	 PWjcOUG/r7YA2mQSIY6qvExLPw28dZqRJhDEHfLIdHZ8wC6C/y32BvXuMymHG/g2Vctul
+	 4gyYlvm6iu18MAsWiyf1rXy4S0GKFLGTuXuQk9EfNGB7LIjNyJYNwmlYv7NUgv3tO79AP
+	 Zb9vaffCUF+OTdqyU3oMqE9dyq8HVP/2Og2XNCbkociR5oZRq4IJzrl+U4tIQffbaOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiiSDd0d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58A06082BE7;
-	Tue,  3 Nov 2026 13:08:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B58A06082BE7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJplZ1pQ2z55y2H;
-	Tue, 03 Nov 2026 21:07:54 +0800 (CST)
-Received: from szxl2zmapp05.zte.com.cn ([10.1.32.37])
-	by mse-fl1.zte.com.cn with SMTP id 6A3D7ikf004967;
-	Tue, 3 Nov 2026 21:07:44 +0800 (+08)
-	(envelope-from zhang.yanze@zte.com.cn)
-Received: from localhost.localdomain (unknown [192.168.6.15])
-	by smtp (Zmail) with SMTP;
-	Tue, 3 Nov 2026 21:07:47 +0800
-X-Zmail-TransId: 3e816ae9dca3029-7eddf
-X-Zmail-LocalSMTP: 1
-X-Zmail-RealSender: zhang.yanze@zte.com.cn
-From: Yanze Zhang <zhang.yanze@zte.com.cn>
-To: jgg@ziepe.ca, leon@kernel.org, julianbraha@gmail.com,
-        huangjunxian6@hisilicon.com, yanjun.zhu@linux.dev
-Cc: Markus.Elfring@web.de, lkp@intel.com, linux-kernel@vger.kernel.org,
-        linux-rdma@vger.kernel.org, wei.quan@zte.com.cn,
-        han.junyang@zte.com.cn, ran.ming@zte.com.cn, han.chengfei@zte.com.cn,
-        zhang.yanze@zte.com.cn
-Subject: [PATCH rdma v9 2/7] RDMA/zrdma: Add core data structures and ABI definitions
-Date: Tue,  3 Nov 2026 20:56:49 +0800
-Message-ID: <20261103125654.2707069-3-zhang.yanze@zte.com.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103125654.2707069-1-zhang.yanze@zte.com.cn>
-References: <20261103125654.2707069-1-zhang.yanze@zte.com.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B58C60850A9
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiiSDd0d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295291F00A1E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:08:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793711292;
+	bh=9G2Juop9m4yYRvSwrC6ILNCsmsnKaKioHaaLbaf4ZaY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fiiSDd0dNMWI2HxljcQ049PEevntMnzLhtPIAyW1iy8DiP9Hrhr8VMzahcZsuWy4u
+	 jnSKcdKTgVA+YWEHeevmTy+aD3wyWGyV8yx5h9ABQO4CMZBXIQdDKWCIHbJY4ixXtn
+	 BQtbaGpqpxcuqB4CeShIXKlJkgx00SnqWCb7Ppp5jJIdWscS/CqM9x723WEpBUqD9U
+	 GlobWxbxr4SRHADSYNuNOSp7YhG8tvVNuYbdi2Mv1y/IlJK8vQNZ6i2TAGtPb0WJfz
+	 IaHpwaCMFiE5M+exSs0mbxzpGdsGdzk8xxMHFqOEjiyHJCgEba6AYmmwKISh/PSwEX
+	 Dg8VjJJqstLjg==
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49ddddefadbso1850015fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:08:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByq7s4IJ4jLp0/Ljt1V0CrNBuLTxoqOOOqIbdT3S2/CIwK8uPZAlblwyaonRKkEGqF3r8YEwH3qLEGpERs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/XBTak6JtPrs8jNoF9hEIrXhZr2mwW5rze3XzDYxSpmdJyqYfI
+	HxznawE3iYh1PL5bcex4dmH2MwXmhFjckHfp8N9DdQ6ZUzY5C4a78KWaN9naZSNa7AtuEiAOHMS
+	fT8/+wsEVuA213G6R0NO7phAjIREM5FQ=
+X-Received: by 2002:a05:6870:9694:b0:485:d31b:7767 with SMTP id
+ 586e51a60fabf-4a9077462c9mr8289053fac.37.1793711291506; Tue, 03 Nov 2026
+ 05:08:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,299 +59,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
-Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl1.zte.com.cn 6A3D7ikf004967
-X-TLS: YES
-X-ENVELOPE-SENDER: zhang.yanze@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 03 Nov 2026 21:07:54 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE9DCAA.000/4jJplZ1pQ2z55y2H
+References: <cover.1792838740.git.julius@bairaktaris.de> <7b6a12fbe0853f7faf2987610e25957d2017bd54.1792838740.git.julius@bairaktaris.de>
+ <20261103124400.GK865646@horms.kernel.org>
+In-Reply-To: <20261103124400.GK865646@horms.kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 3 Nov 2026 14:08:00 +0100
+X-Gmail-Original-Message-ID: <CAL4WiipAgQ06hBJ-bXQ-tj5XY595RWci+kf+Dd5+wJckY9O+Cw@mail.gmail.com>
+X-Gm-Features: AclHuK8t-8Y9DTLhyYrs294XEo10Oog3RUVjzkCkQh2uqbx6hyfW-H1A0CmrDq4
+Message-ID: <CAL4WiipAgQ06hBJ-bXQ-tj5XY595RWci+kf+Dd5+wJckY9O+Cw@mail.gmail.com>
+Subject: Re: [PATCH net v4 2/4] net: gso: count the inner UDP header of
+ encapsulated UDP GSO packets
+To: Simon Horman <horms@kernel.org>
+Cc: Julius Bairaktaris <julius@bairaktaris.de>, netdev@vger.kernel.org, dsahern@kernel.org, 
+	idosch@nvidia.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
+	steffen.klassert@secunet.com, willemb@google.com, jiayuan.chen@linux.dev, 
+	mfleming@cloudflare.com, almasrymina@google.com, bigeasy@linutronix.de, 
+	richardbgobert@gmail.com, ecree.xilinx@gmail.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add fundamental data structures, hardware control structures, and
-user-space ABI definitions required by the driver. These headers
-provide the type definitions for the subsequent implementation patches.
+Le mar. 3 nov. 2026 =C3=A0 13:44, Simon Horman <horms@kernel.org> a =C3=A9c=
+rit :
+>
+> On Sun, Nov 01, 2026 at 05:42:30PM +0100, Julius Bairaktaris wrote:
+> > skb_gso_transport_seglen() adds the inner TCP header length for an
+> > encapsulated GSO packet, but not the inner UDP header for
+> > SKB_GSO_UDP_L4, whose gso_size covers the payload only. Every segment
+> > of a UDP GSO packet in a UDP tunnel, built by UDP GRO behind a tunnel
+> > socket or sent with UDP_SEGMENT over VXLAN, is counted 8 bytes short.
+> > ip_forward() and ip_finish_output_gso() then let DF segments that
+> > exceed the MTU by up to 8 bytes leave unfragmented.
+> >
+> > Add the inner UDP header as the unencapsulated branch does.
+> >
+> > Fixes: ee80d1ebe5ba ("udp: add udp gso")
+> > Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+>
+> Reviewed-by: Simon Horman <horms@kernel.org>
 
-The UAPI header is installed to userspace, so it carries the
-Linux-syscall-note SPDX tag that headers_install requires for a
-GPL-licensed UAPI header.
-
-Signed-off-by: Yanze Zhang <zhang.yanze@zte.com.cn>
----
- drivers/infiniband/hw/zrdma/zrdma_ctrl.h |  20 ++++
- drivers/infiniband/hw/zrdma/zrdma_defs.h |  19 ++++
- drivers/infiniband/hw/zrdma/zrdma_type.h |  86 +++++++++++++++++
- include/uapi/rdma/zrdma_abi.h            | 114 +++++++++++++++++++++++
- 4 files changed, 239 insertions(+)
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_ctrl.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_defs.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_type.h
- create mode 100644 include/uapi/rdma/zrdma_abi.h
-
-diff --git a/drivers/infiniband/hw/zrdma/zrdma_ctrl.h b/drivers/infiniband/hw/zrdma/zrdma_ctrl.h
-new file mode 100644
-index 0000000000000..935b4cbd3e4a9
---- /dev/null
-+++ b/drivers/infiniband/hw/zrdma/zrdma_ctrl.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
-+ *
-+ * ZTE DingHai Rdma driver
-+ * Copyright (c) 2022-2026, ZTE Corporation
-+ */
-+
-+#ifndef ZRDMA_CTRL_H
-+#define ZRDMA_CTRL_H
-+
-+struct zxdh_hw {
-+	struct device *device;
-+};
-+
-+struct zxdh_sc_dev {
-+	u32 max_ceqs;
-+	u8 ep_id;
-+	u8 driver_load;
-+};
-+
-+#endif
-diff --git a/drivers/infiniband/hw/zrdma/zrdma_defs.h b/drivers/infiniband/hw/zrdma/zrdma_defs.h
-new file mode 100644
-index 0000000000000..208f1f60bbaee
---- /dev/null
-+++ b/drivers/infiniband/hw/zrdma/zrdma_defs.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
-+ *
-+ * ZTE DingHai Rdma driver
-+ * Copyright (c) 2022-2026, ZTE Corporation
-+ */
-+
-+#ifndef ZRDMA_DEFS_H
-+#define ZRDMA_DEFS_H
-+
-+#include <linux/bitfield.h>
-+#include <rdma/ib_verbs.h>
-+
-+#define ZXDH_FEATURE_RTS_AE 1ULL
-+#define ZXDH_FEATURE_CQ_RESIZE 2ULL
-+#define ZXDH_FEATURE_64_BYTE_CQE 128ULL
-+
-+#define ZXDH_MAX_USER_PRIORITY 8
-+
-+#endif /* ZRDMA_DEFS_H */
-diff --git a/drivers/infiniband/hw/zrdma/zrdma_type.h b/drivers/infiniband/hw/zrdma/zrdma_type.h
-new file mode 100644
-index 0000000000000..ded4052453455
---- /dev/null
-+++ b/drivers/infiniband/hw/zrdma/zrdma_type.h
-@@ -0,0 +1,86 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
-+ *
-+ * ZTE DingHai Rdma driver
-+ * Copyright (c) 2022-2026, ZTE Corporation
-+ */
-+
-+#ifndef ZRDMA_TYPE_H
-+#define ZRDMA_TYPE_H
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/msi.h>
-+
-+enum zxdh_rdma_reset_type {
-+	ZXDH_RDMA_PFR,
-+	ZXDH_RDMA_CORER,
-+	ZXDH_RDMA_GLOBR,
-+};
-+
-+enum zxdh_function_type {
-+	ZXDH_FUNCTION_TYPE_PF,
-+	ZXDH_FUNCTION_TYPE_VF,
-+};
-+
-+struct zxdh_rdma_core_dev;
-+
-+struct zxdh_rdma_core_ops {
-+	int (*request_reset)(struct zxdh_rdma_core_dev *cdev,
-+			     enum zxdh_rdma_reset_type reset_type);
-+	int (*zxdh_common_func)(void *in_param, void *out_param, u32 opcode);
-+};
-+
-+struct zxdh_rdma_ver_info {
-+	u16 major;
-+	u16 minor;
-+	u64 support; /* 0~7:net_major,8~15:net_minor,16~23:rdma_minor,24~63:rscv */
-+};
-+
-+enum zxdh_rdma_protocol {
-+	ZXDH_RDMA_PROTOCOL_IWARP = BIT(0),
-+	ZXDH_RDMA_PROTOCOL_ROCEV2 = BIT(1),
-+};
-+
-+struct zxdh_qos_params {
-+	u8 num_tc;
-+};
-+
-+struct zxdh_rdma_core_dev {
-+	struct pci_dev *pdev;
-+	struct auxiliary_device *adev;
-+	u8 __iomem *hw_addr;
-+	int zdev_info_id;
-+	struct zxdh_rdma_ver_info ver;
-+	void *auxiliary_priv;
-+	enum zxdh_function_type ftype;
-+	u16 vport_id;
-+	u16 slot_id;
-+	enum zxdh_rdma_protocol rdma_protocol;
-+
-+	struct zxdh_qos_params qos_info;
-+	struct msix_entry *msix_entries;
-+	u16 msix_count;
-+	const struct zxdh_rdma_core_ops *ops;
-+	void *dh_dev;
-+};
-+
-+struct zxdh_rdma_if {
-+	void *(*get_rdma_netdev)(void *dh_dev);
-+};
-+
-+struct zxdh_auxiliary_dev {
-+	struct auxiliary_device adev;
-+	struct zxdh_rdma_core_dev *zxdh_info;
-+	struct zxdh_rdma_if *rdma_ops;
-+	void *ops;
-+	void *parent;
-+	s32 aux_id;
-+	void *auxiliary_ops[18];
-+};
-+
-+struct zxdh_sc_pd {
-+	struct zxdh_sc_dev *dev;
-+	u32 pd_id;
-+	int abi_ver;
-+};
-+
-+#endif /* ZRDMA_TYPE_H */
-diff --git a/include/uapi/rdma/zrdma_abi.h b/include/uapi/rdma/zrdma_abi.h
-new file mode 100644
-index 0000000000000..53f15591f894e
---- /dev/null
-+++ b/include/uapi/rdma/zrdma_abi.h
-@@ -0,0 +1,114 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR Linux-OpenIB)
-+ *
-+ * ZTE DingHai Rdma driver
-+ * Copyright (c) 2022-2026, ZTE Corporation
-+ */
-+
-+#ifndef ZRDMA_ABI_H
-+#define ZRDMA_ABI_H
-+
-+#include <linux/types.h>
-+
-+/* The version of the user space ABI that this driver implements. It is
-+ * reported to the core as the uverbs ABI version of the device.
-+ */
-+#define ZXDH_ABI_VER 5
-+
-+/* The versions of the context that the user space can ask for with
-+ * struct zxdh_alloc_ucontext_req.userspace_ver. A version tells the
-+ * driver which features of the user space are available.
-+ */
-+#define ZXDH_CONTEXT_VER_V1 5
-+#define ZXDH_CONTEXT_VER_V2 6
-+#define ZXDH_CONTEXT_VER_V3 7
-+
-+enum zxdh_rdma_tool_flags {
-+	ZXDH_QP_EXTEND_OP = 1 << 0,
-+	ZXDH_CAPTURE = 1 << 1,
-+	ZXDH_GET_HW_DATA = 1 << 2,
-+	ZXDH_GET_HW_OBJECT_DATA = 1 << 3,
-+	ZXDH_CHECK_HW_HEALTH = 1 << 4,
-+	ZXDH_RDMA_TOOL_CFG_DEV_PARAM = 1 << 5,
-+	ZXDH_RDMA_TOOL_READ_RAM = 1 << 6,
-+	ZXDH_RDMA_TOOL_DEVX_MODIFY_CQ = 1 << 7,
-+	ZXDH_RDMA_SET_CREDIT_CAP = 1 << 8,
-+	ZXDH_RDMA_SWITCH = 1 << 9,
-+	ZXDH_RDMA_TOOL_DEVX_EXT_MEM = 1 << 10,
-+	ZXDH_RDMA_TOOL_PRIV_EXT = 1 << 11,
-+	ZXDH_RDMA_TOOL_IOVA_CAP = 1 << 12,
-+};
-+
-+enum zxdh_db_addr_type {
-+	ZXDH_DB_ADDR_PHY = 0,
-+	ZXDH_DB_ADDR_BAR = 1,
-+};
-+
-+/* Request of the uverbs command INFINIBAND_UVERBS_CMD_ALLOC_CONTEXT. */
-+struct zxdh_alloc_ucontext_req {
-+	__u32 rsvd32;
-+	/* Version of the user space, one of the ZXDH_CONTEXT_VER_*. */
-+	__u8 userspace_ver;
-+	__u8 rsvd8[3];
-+};
-+
-+/* Response of the uverbs command INFINIBAND_UVERBS_CMD_ALLOC_CONTEXT. */
-+struct zxdh_alloc_ucontext_resp {
-+	/* Number of protection domains that the user space can create. */
-+	__u32 max_pds;
-+	/* Number of queue pairs that the user space can create. */
-+	__u32 max_qps;
-+	/* Size of the work queues (SQ+RQ) in the mmaped area. */
-+	__u32 wq_size;
-+	/* Version of the driver that created the context. */
-+	__u8 kernel_ver;
-+	/* Type of the address that a doorbell is written to, one of the
-+	 * enum zxdh_db_addr_type.
-+	 */
-+	__u8 db_addr_type;
-+	/* The RDMA tool features that the driver supports, one of the
-+	 * enum zxdh_rdma_tool_flags.
-+	 */
-+	__u16 rdma_tool_flags;
-+	/* The features that the driver supports. */
-+	__aligned_u64 feature_flags;
-+	/* The keys of the mappings of the doorbell areas. The user space
-+	 * passes a key to mmap() to get the address of a doorbell.
-+	 */
-+	__aligned_u64 sq_db_mmap_key;
-+	__aligned_u64 cq_db_mmap_key;
-+	/* The limits of the work queue entries. */
-+	__u32 max_hw_wq_frags;
-+	__u32 max_hw_read_sges;
-+	__u32 max_hw_inline;
-+	__u32 max_hw_rq_quanta;
-+	__u32 max_hw_srq_quanta;
-+	__u32 max_hw_wq_quanta;
-+	__u32 max_hw_srq_wr;
-+	__u32 min_hw_cq_size;
-+	__u32 max_hw_cq_size;
-+	__u16 max_hw_sq_chunk;
-+	/* The revision of the hardware and of the chip. */
-+	__u8 hw_rev;
-+	__u8 chip_rev;
-+	__aligned_u64 srq_db_mmap_key;
-+	/* The offset of the doorbell area in the page that is mapped. */
-+	__aligned_u64 sq_db_bar_off;
-+	__aligned_u64 cq_db_bar_off;
-+	__aligned_u64 srq_db_bar_off;
-+	/*
-+	 * Size of the mapped SRQ doorbell area. The V1 and V2 contexts do
-+	 * not have this field, so only the first page of the area is mapped
-+	 * for them and they must not access beyond it.
-+	 */
-+	__u32 srq_db_mmap_size;
-+	__u16 rsv[6];
-+};
-+
-+/* Response of the uverbs command INFINIBAND_UVERBS_CMD_ALLOC_PD. */
-+struct zxdh_alloc_pd_resp {
-+	/* The identifier of the protection domain. */
-+	__u32 pd_id;
-+	__u8 rsvd[4];
-+};
-+
-+#endif /* ZRDMA_ABI_H */
--- 
-2.43.5
-
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
