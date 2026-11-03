@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740996;
-	b=z9GsgLfWrAKgYXDLcDGUj62GhJ8Gk83R/OQD0AL05DT5BHcR1vAFDkW0Bt/dPlsU2CUp
-	 LW8Wr6kxCii7rHIQ1zODWdgoLwVjw24oFPn/kosZtnwW1+LOJUWLGvxl2ngG3sMqQLsuC
-	 a08xGM+/dyepoZKYk2/Y9pMIQKKN8z2k3ulM6jg1DvpP18KDwVjQ5bjgm86dwSoFMKLqj
-	 9fF0Cs4Ihk8DNi6JOBlT8uH2zLpUBvkfF5hUNNE9p8EpEzbl+tfjOSkYdIMckDbv86fCS
-	 XksH8lYU1XHl+Ut3G2t2TRgmsS44gMBtX2AgpQXTXB9REVk7JbjolXjts5cGsDvRkgQ==
+	t=1793740998;
+	b=KhaOEhvrUUym+kTbZCTXdu0wf3jxzuZeDAggEMUOnRLi2pAe/5nsDotqSalduOqdJ6fF
+	 seUNSnie/IJLalIByh6G9bUXye7Oui+trxu4COJoCcdq/rMAHu8Yhimg/XSKSTejwcIdp
+	 aXgT8HfIg5UIcjhR7kAWa+TA6yMXb/HUDyvJY/iuS3oBljkoEq8NKD1tujxB1hmFHfwoy
+	 8aPfW123Py+bkb6cBiN3k2KHDg67+ZXzJgY4+qaIAStRCIq9GEJjS3uhkyCeyOD7olghW
+	 Hc95bGaUN9XPTra/IGGzP81EfJBACHyMqDw3UWxIHCOlvhN2q/w0u+HAzBNuwC7LS3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740998;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=49wHpfS1iBmOzeF/9QKpHr1zrETms8BaGm7SVOEBTc0=;
-	b=QpATGkXNPWI5ZXML4jxqfxV6enjFERjRJ2XB7Gzb0Eu4Y2b2x6pBwj0Yra5EUx0GjNzo
-	 tveBBfZZXtEye8h6nUP1F2xNeu35iOeWCTqtwENlH33Yt02ghAQeJ7SC+/MLAY72bf18l
-	 7PDhCy71usrGEOksCK36sVOC3lAJ9ezD+AGkrbEzABu65qGS+smjLhFEcmIH8btrE23nc
-	 yB72jzTjKVkGMxYOsBQmGY46u/1wk+ZoZZxmKcU+LUZs9ufJI5MYkHFQtsbFK41nbHEvA
-	 4ziLAHRSQ/78f+1FVizdVVfEHXnMmlG0nnCHG4kXxhrAy7pCKPNInNlYT0d28J6cmqQ==
+	bh=3oGDVZCbhDYSAm8svmjDBj8www6GvSfpJIKzPDKRcqA=;
+	b=MxDuYzQiMkvv8Jg/g+IrLrkO+VJSdJAUE6OPSu7zPOk66csU8VvHurEWsi3bBGthLTCY
+	 cDHxWb/SiEjsVDfM7VQZNzWZ3AtTqaAWZsgGc8kFFdG+1LsAPejSd8U0OFVeUcejzXkTW
+	 qDsqF8WMFqydoxrelNWMW4aKmZfNXwsEcsGHt60yxOyrNANImbn85cY1wdLrsPgy+7uFP
+	 Aavq9N2NC8R0/vosRlnBP5zzuLW3ZScKZrd9DMohkiAUT9IFiK0zkJ4iPs2Tas4P3fO0V
+	 4q8j6iphPLHMJXVVL3PSNyR2hnCcpMbBSbtdN6ldHAPkAOgHhJDWwMgAVOepOVBehWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePoEa621;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ICkp2c8W;
 	arc=none smtp.remote-ip=192.198.163.11
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34C5606A332
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34C5606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB03606D829
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BB03606D829
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePoEa621
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ICkp2c8W
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793740995; x=1825276995;
+  t=1793740998; x=1825276998;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=nOh5LvjpLeZd1ekSqK8H/akhvhVopMAuvYo9A8HWnFs=;
-  b=ePoEa621DtZ1nFa01MLUwSMZUkEexAjW898G3pRmNSbaL8F01blpHYCT
-   5qHMPJiELPJHYbL4ai6ReDwECZ5o93WQw1dXgPBy1b4n4dMWCj2jZe6Qf
-   VupAq/K1bs4xaJGnndbzkT6ArNfTu5xWLwg1Rdk847JYGfJ9qs2xQbDJl
-   ITMvlPKbkESkEQEa8MTSJggvioeABO0i9sZWaywVzzI+7FReLUWOuy/jN
-   X66/v6d9m77DlgKRDaI9ZONgG0VXS0cncjVRyvrVNZKGHyhpImMXx43Jb
-   96mmNtiWew8P3ezpJK8UE8VwJI1bANmjSaJJzPiGJ/oXSOp1biB4XfwqV
+  bh=MW56v4zMC4f37LZGqlv+/gFWWRjTDR661pjk1iSp824=;
+  b=ICkp2c8Wd/dUGTyhjtnuVJPeHKoKzobmMD749USoeqXqE+wymC71f1PZ
+   vP4XTlzHQEob5s8C8VYaAZah/0Hmr7Cx8stKJB9qpV1qp3kLt1ertm0y3
+   MnLQNlE/Ta0hz7OQBon2dubHOBEhRrY0rYhSSh820VjpcamynxA6FmQ6e
+   XQkucyeay/rIHq6O1vdZ3lDfyFMLqHFaMP7QvMrwY8vwOJxgOFSFewiNm
+   eUQZrXGbZacKDed4Z17tV7qOkKcx3Z0UWVdbK5OJSL3Ftiz8S1Snml76T
+   HeNCDQC9xJjejDGPm56jPdHDR7eTB9Sw3AA3E/aMM/CToysSyo1zWJYdN
    g==;
-X-CSE-ConnectionGUID: +g5liay0RFufJzNHBMHVQQ==
-X-CSE-MsgGUID: GCKvULJ2Rpy2N278nvZi1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2393503"
+X-CSE-ConnectionGUID: tc11yG7UQtGCKvnGu/4grQ==
+X-CSE-MsgGUID: jzdrB4ZPQnez2+3P6vrusA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2393543"
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2393503"
+   d="scan'208";a="2393543"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:11 -0800
-X-CSE-ConnectionGUID: t5fXAp7KRhaFXSHYFvHH2Q==
-X-CSE-MsgGUID: fGsRE4vdSBu8mCZJNGZOrg==
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:12 -0800
+X-CSE-ConnectionGUID: cmbyD4tfQ9upZJfM21RFBg==
+X-CSE-MsgGUID: WakLz13mQza9jxSML+2SoQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6624583"
+   d="scan'208";a="6624599"
 Received: from rosenzwe-mobl1.amr.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.124])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:09 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 13:23:11 -0800
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -75,9 +75,9 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [RFC PATCH v2 07/11] arm,x86,fs/resctrl: Store cache bitmask length per control domain
-Date: Tue,  3 Nov 2026 13:22:50 -0800
-Message-ID: <20261103212254.18314-8-tony.luck@intel.com>
+Subject: [RFC PATCH v2 11/11] fs/resctrl: Document asymmetric L2 allocation options
+Date: Tue,  3 Nov 2026 13:22:54 -0800
+Message-ID: <20261103212254.18314-12-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103212254.18314-1-tony.luck@intel.com>
 References: <20261103212254.18314-1-tony.luck@intel.com>
@@ -92,338 +92,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Cache allocation bitmask properties currently live on the shared control,
-which assumes that every domain has the same CBM length. Asymmetric cache
-domains can have different lengths.
+The rdt= kernel parameter accepts separate options for asymmetric L2 CAT and
+CDP. On asymmetric systems, info/L2/cbm_mask represents the minimum cache
+bitmask across domains.
 
-Store CBM length on each control domain and use that value when initializing
-default controls, validating and displaying masks, and calculating cache
-allocation sizes. Initialize the per-domain value in the x86 and MPAM
-implementations.
+Document the l2cat_asym and l2cdp_asym options and clarify the meaning of
+cbm_mask.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
- include/linux/resctrl.h                | 10 +++++++--
- arch/x86/kernel/cpu/resctrl/core.c     |  9 +++++---
- arch/x86/kernel/cpu/resctrl/rdtgroup.c |  2 +-
- drivers/resctrl/mpam_resctrl.c         | 14 +++++++-----
- fs/resctrl/ctrlmondata.c               |  9 ++++----
- fs/resctrl/pseudo_lock.c               |  2 +-
- fs/resctrl/rdtgroup.c                  | 31 ++++++++++++++------------
- 7 files changed, 47 insertions(+), 30 deletions(-)
+ Documentation/admin-guide/kernel-parameters.txt | 3 ++-
+ Documentation/filesystems/resctrl.rst           | 3 +++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index f58a9e773ff6..8ac799d1feff 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -184,12 +184,15 @@ static inline bool domain_header_is_valid(struct rdt_domain_hdr *hdr,
-  * @mbps_val:		When mba_sc is enabled, this holds the array of user
-  *			specified control values for mba_sc in MBps, indexed
-  *			by closid
-+ * @cbm_len:		Length of cache bitmask for a cache control in this
-+ *			domain
-  */
- struct rdt_ctrl_domain {
- 	struct rdt_domain_hdr		hdr;
- 	struct pseudo_lock_region	*plr;
- 	struct resctrl_staged_config	staged_config[CDP_NUM_TYPES];
- 	u32				*mbps_val;
-+	unsigned int			cbm_len;
- };
- 
- /**
-@@ -597,8 +600,11 @@ void resctrl_arch_sync_cpu_closid_rmid(void *info);
-  * resctrl_get_default_ctrlval() - Return the default control value for this
-  *                                 control.
-  * @ctrl:	The control whose default control type is queried.
-+ * @d:		The control domain to query, or NULL if @ctrl's properties
-+ *		should be used instead (e.g. when no domain exists yet).
-  */
--static inline u32 resctrl_get_default_ctrlval(struct resctrl_ctrl *ctrl)
-+static inline u32 resctrl_get_default_ctrlval(struct resctrl_ctrl *ctrl,
-+					      struct rdt_ctrl_domain *d)
- {
- 	switch (ctrl->type) {
- 	case RESCTRL_CTRL_BITMAP:
-@@ -606,7 +612,7 @@ static inline u32 resctrl_get_default_ctrlval(struct resctrl_ctrl *ctrl)
- 		 * Should map to 100% allocation as exposed to user space
- 		 * via "cbm_mask".
- 		 */
--		return BIT_MASK(ctrl->bitmap.cbm_len) - 1;
-+		return BIT_MASK(d ? d->cbm_len : ctrl->bitmap.cbm_len) - 1;
- 	case RESCTRL_CTRL_SCALAR:
- 		return ctrl->scalar.reset_val;
- 	}
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 7981ddbde8c9..cd3bcd71f475 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -484,14 +484,14 @@ void rdt_ctrl_update(void *arg)
- }
- 
- static void setup_default_ctrlval(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
--				  u32 *dc)
-+				  u32 *dc, struct rdt_ctrl_domain *d)
- {
- 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
- 	int i;
- 
- 	/* Initialize the control MSRs to their reset values. */
- 	for (i = 0; i < hw_res->num_closid; i++, dc++)
--		*dc = resctrl_get_default_ctrlval(ctrl);
-+		*dc = resctrl_get_default_ctrlval(ctrl, d);
- }
- 
- static void ctrl_domain_free(struct rdt_hw_ctrl_domain *hw_dom)
-@@ -524,7 +524,7 @@ static int domain_setup_ctrlval(struct rdt_resource *r, struct resctrl_ctrl *ctr
- 		return -ENOMEM;
- 
- 	hw_dom->ctrl_val = dc;
--	setup_default_ctrlval(r, ctrl, dc);
-+	setup_default_ctrlval(r, ctrl, dc, d);
- 
- 	m.res = r;
- 	m.ctrl = ctrl;
-@@ -625,6 +625,9 @@ static void domain_add_cpu_ctrl(int cpu, struct rdt_resource *r,
- 	d->hdr.rid = r->rid;
- 	cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
- 
-+	if (ctrl->type == RESCTRL_CTRL_BITMAP)
-+		d->cbm_len = ctrl->bitmap.cbm_len;
-+
- 	rdt_domain_reconfigure_cdp(r);
- 
- 	if (domain_setup_ctrlval(r, ctrl, d)) {
-diff --git a/arch/x86/kernel/cpu/resctrl/rdtgroup.c b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-index edf42c59d7c1..691cd9fb1687 100644
---- a/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-+++ b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-@@ -257,7 +257,7 @@ void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
- 			hw_dom = resctrl_to_arch_ctrl_dom(d);
- 
- 			for (i = 0; i < hw_res->num_closid; i++)
--				hw_dom->ctrl_val[i] = resctrl_get_default_ctrlval(ctrl);
-+				hw_dom->ctrl_val[i] = resctrl_get_default_ctrlval(ctrl, d);
- 			msr_param.dom = d;
- 			smp_call_function_any(&d->hdr.cpu_mask, rdt_ctrl_update, &msr_param, 1);
- 		}
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 12315cc7dec6..d2890b0d1cd8 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1246,7 +1246,7 @@ static int mpam_resctrl_control_init(struct mpam_resctrl_res *res)
- 		 * we have configured the SMMU and GIC not to do this 'all the
- 		 * bits' is the correct answer here.
- 		 */
--		mpam_ctrl->r_ctrl.bitmap.shareable_bits = resctrl_get_default_ctrlval(&mpam_ctrl->r_ctrl);
-+		mpam_ctrl->r_ctrl.bitmap.shareable_bits = resctrl_get_default_ctrlval(&mpam_ctrl->r_ctrl, NULL);
- 		list_add(&mpam_ctrl->r_ctrl.entry, &r->controls);
- 		r->alloc_capable = true;
- 		break;
-@@ -1411,7 +1411,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
- 	lockdep_assert_cpus_held();
- 
- 	if (!mpam_is_enabled())
--		return resctrl_get_default_ctrlval(ctrl);
-+		return resctrl_get_default_ctrlval(ctrl, d);
- 
- 	res = container_of(r, struct mpam_resctrl_res, resctrl_res);
- 	dom = container_of(d, struct mpam_resctrl_dom, resctrl_ctrl_dom);
-@@ -1440,12 +1440,12 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
- 		}
- 		fallthrough;
- 	default:
--		return resctrl_get_default_ctrlval(ctrl);
-+		return resctrl_get_default_ctrlval(ctrl, d);
- 	}
- 
- 	if (!r->alloc_capable || partid >= resctrl_arch_get_num_closid(r) ||
- 	    !mpam_has_feature(configured_by, cfg))
--		return resctrl_get_default_ctrlval(ctrl);
-+		return resctrl_get_default_ctrlval(ctrl, d);
- 
- 	switch (configured_by) {
- 	case mpam_feat_cpor_part:
-@@ -1453,7 +1453,7 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
- 	case mpam_feat_mbw_max:
- 		return mbw_max_to_percent(cfg->mbw_max, cprops);
- 	default:
--		return resctrl_get_default_ctrlval(ctrl);
-+		return resctrl_get_default_ctrlval(ctrl, d);
- 	}
- }
- 
-@@ -1704,6 +1704,10 @@ mpam_resctrl_alloc_ctrl_domain(unsigned int cpu, struct mpam_resctrl_res *res,
- 	dom->ctrl_comp = ctrl_comp;
- 
- 	ctrl_d = &dom->resctrl_ctrl_dom;
-+
-+	if (ctrl->type == RESCTRL_CTRL_BITMAP)
-+		ctrl_d->cbm_len = ctrl->bitmap.cbm_len;
-+
- 	mpam_resctrl_domain_hdr_init(cpu, ctrl_comp, r->rid, &ctrl_d->hdr);
- 	ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
- 	err = resctrl_online_ctrl_domain(r, ctrl, ctrl_d);
-diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
-index 627998fed555..90274fdb0364 100644
---- a/fs/resctrl/ctrlmondata.c
-+++ b/fs/resctrl/ctrlmondata.c
-@@ -189,10 +189,11 @@ static int parse_bw(struct rdt_parse_data *data, struct rdt_resource_final *f,
-  * requires at least two bits set.
-  * AMD allows non-contiguous bitmasks.
-  */
--static bool cbm_validate(char *buf, u32 *data, struct resctrl_ctrl *ctrl)
-+static bool cbm_validate(char *buf, u32 *data, struct rdt_ctrl_domain *d,
-+			 struct resctrl_ctrl *ctrl)
- {
--	u32 supported_bits = BIT_MASK(ctrl->bitmap.cbm_len) - 1;
--	unsigned int cbm_len = ctrl->bitmap.cbm_len;
-+	u32 supported_bits = BIT_MASK(d->cbm_len) - 1;
-+	unsigned int cbm_len = d->cbm_len;
- 	unsigned long first_bit, zero_bit, val;
- 	int ret;
- 
-@@ -255,7 +256,7 @@ static int parse_cbm(struct rdt_parse_data *data, struct rdt_resource_final *f,
- 		return -EINVAL;
- 	}
- 
--	if (!cbm_validate(data->buf, &cbm_val, ctrl))
-+	if (!cbm_validate(data->buf, &cbm_val, d, ctrl))
- 		return -EINVAL;
- 
- 	if ((mode == RDT_MODE_EXCLUSIVE || mode == RDT_MODE_SHAREABLE) &&
-diff --git a/fs/resctrl/pseudo_lock.c b/fs/resctrl/pseudo_lock.c
-index 836a9b93a587..043a704aa8c9 100644
---- a/fs/resctrl/pseudo_lock.c
-+++ b/fs/resctrl/pseudo_lock.c
-@@ -637,7 +637,7 @@ bool rdtgroup_cbm_overlaps_pseudo_locked(struct rdt_ctrl_domain *d, unsigned lon
- 		return false;
- 	}
- 
--	cbm_len = ctrl->bitmap.cbm_len;
-+	cbm_len = d->cbm_len;
- 	cbm_b = d->plr->cbm;
- 	if (bitmap_intersects(&cbm, &cbm_b, cbm_len))
- 		return true;
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 57c050b05798..02636fee9dfd 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1106,7 +1106,7 @@ static int rdt_default_ctrl_show(struct kernfs_open_file *of,
- 	if (!ctrl)
- 		goto out_unlock;
- 
--	seq_printf(seq, "%x\n", resctrl_get_default_ctrlval(ctrl));
-+	seq_printf(seq, "%x\n", resctrl_get_default_ctrlval(ctrl, NULL));
- 
- out_unlock:
- 	info_kn_unlock(of->kn);
-@@ -1250,7 +1250,7 @@ static int rdt_bit_usage_show(struct kernfs_open_file *of,
- 			hw_shareable |= ctrl_val;
- 		}
- 
--		for (i = ctrl->bitmap.cbm_len - 1; i >= 0; i--) {
-+		for (i = dom->cbm_len - 1; i >= 0; i--) {
- 			pseudo_locked = dom->plr ? dom->plr->cbm : 0;
- 			hwb = test_bit(i, &hw_shareable);
- 			swb = test_bit(i, &sw_shareable);
-@@ -1546,7 +1546,7 @@ static bool __rdtgroup_cbm_overlaps(struct rdt_resource *r, struct rdt_ctrl_doma
- 	/* Check for any overlap with regions used by hardware directly */
- 	if (!exclusive) {
- 		ctrl_b = ctrl->bitmap.shareable_bits;
--		if (bitmap_intersects(&cbm, &ctrl_b, ctrl->bitmap.cbm_len))
-+		if (bitmap_intersects(&cbm, &ctrl_b, d->cbm_len))
- 			return true;
- 	}
- 
-@@ -1556,7 +1556,7 @@ static bool __rdtgroup_cbm_overlaps(struct rdt_resource *r, struct rdt_ctrl_doma
- 		mode = rdtgroup_mode_by_closid(i);
- 		if (closid_allocated(i) && i != closid &&
- 		    mode != RDT_MODE_PSEUDO_LOCKSETUP) {
--			if (bitmap_intersects(&cbm, &ctrl_b, ctrl->bitmap.cbm_len)) {
-+			if (bitmap_intersects(&cbm, &ctrl_b, d->cbm_len)) {
- 				if (exclusive) {
- 					if (mode == RDT_MODE_EXCLUSIVE)
- 						return true;
-@@ -1761,10 +1761,10 @@ unsigned int rdtgroup_cbm_to_size(struct rdt_resource *r, struct resctrl_ctrl *c
- 	if (WARN_ON_ONCE(r->ctrl_scope != RESCTRL_L2_CACHE && r->ctrl_scope != RESCTRL_L3_CACHE))
- 		return size;
- 
--	num_b = bitmap_weight(&cbm, ctrl->bitmap.cbm_len);
-+	num_b = bitmap_weight(&cbm, d->cbm_len);
- 	ci = get_cpu_cacheinfo_level(cpumask_any(&d->hdr.cpu_mask), r->ctrl_scope);
- 	if (ci)
--		size = ci->size / ctrl->bitmap.cbm_len * num_b;
-+		size = ci->size / d->cbm_len * num_b;
- 
- 	return size;
- }
-@@ -2479,7 +2479,7 @@ static int resctrl_ctrl_max_show(struct kernfs_open_file *of,
- 			seq_printf(seq, "%d=%u", d->hdr.id, ctrl->scalar.max);
- 			break;
- 		case RESCTRL_CTRL_BITMAP:
--			seq_printf(seq, "%d=%lx", d->hdr.id, BIT_MASK(ctrl->bitmap.cbm_len) - 1);
-+			seq_printf(seq, "%d=%lx", d->hdr.id, BIT_MASK(d->cbm_len) - 1);
- 			break;
- 		}
- 		sep = true;
-@@ -4227,6 +4227,9 @@ static int mkdir_mondata_all(struct kernfs_node *parent_kn,
-  * cbm_ensure_valid - Enforce validity on provided CBM
-  * @_val:	Candidate CBM
-  * @r:		RDT resource to which the CBM belongs
-+ * @d:		RDT domain to which the CBM belongs. Its bitmap properties
-+ *		(e.g. @cbm_len) are used since these may differ from
-+ *		@ctrl's on asymmetric systems.
-  * @ctrl:	Properties of the bitmap control CBM should be tested against.
-  *
-  * The provided CBM represents all cache portions available for use. This
-@@ -4241,10 +4244,10 @@ static int mkdir_mondata_all(struct kernfs_node *parent_kn,
-  *
-  * Return: A CBM that is valid for resource @r.
-  */
--static u32 cbm_ensure_valid(u32 _val, struct rdt_resource *r,
-+static u32 cbm_ensure_valid(u32 _val, struct rdt_resource *r, struct rdt_ctrl_domain *d,
- 			    struct resctrl_ctrl *ctrl)
- {
--	unsigned int cbm_len = ctrl->bitmap.cbm_len;
-+	unsigned int cbm_len = d->cbm_len;
- 	unsigned long first_bit, zero_bit;
- 	unsigned long val;
- 
-@@ -4312,20 +4315,20 @@ static int __init_one_rdt_domain(struct rdt_ctrl_domain *d, struct rdt_resource_
- 	}
- 	if (d->plr && d->plr->cbm > 0)
- 		used_b |= d->plr->cbm;
--	unused_b = used_b ^ (BIT_MASK(ctrl->bitmap.cbm_len) - 1);
--	unused_b &= BIT_MASK(ctrl->bitmap.cbm_len) - 1;
-+	unused_b = used_b ^ (BIT_MASK(d->cbm_len) - 1);
-+	unused_b &= BIT_MASK(d->cbm_len) - 1;
- 	cfg->new_ctrl |= unused_b;
- 	/*
- 	 * Force the initial CBM to be valid, user can
- 	 * modify the CBM based on system availability.
- 	 */
--	cfg->new_ctrl = cbm_ensure_valid(cfg->new_ctrl, r, ctrl);
-+	cfg->new_ctrl = cbm_ensure_valid(cfg->new_ctrl, r, d, ctrl);
- 	/*
- 	 * Assign the u32 CBM to an unsigned long to ensure that
- 	 * bitmap_weight() does not access out-of-bound memory.
- 	 */
- 	tmp_cbm = cfg->new_ctrl;
--	if (bitmap_weight(&tmp_cbm, ctrl->bitmap.cbm_len) < ctrl->bitmap.min_cbm_bits) {
-+	if (bitmap_weight(&tmp_cbm, d->cbm_len) < ctrl->bitmap.min_cbm_bits) {
- 		rdt_last_cmd_printf("No space on %s:%d\n", f->name, d->hdr.id);
- 		return -ENOSPC;
- 	}
-@@ -4373,7 +4376,7 @@ static void rdtgroup_init_mba(struct rdt_resource *r, struct resctrl_ctrl *ctrl,
- 		}
- 
- 		cfg = &d->staged_config[CDP_NONE];
--		cfg->new_ctrl = resctrl_get_default_ctrlval(ctrl);
-+		cfg->new_ctrl = resctrl_get_default_ctrlval(ctrl, d);
- 		cfg->have_new_ctrl = true;
- 	}
- }
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd9..a16f84bed8f9 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6460,7 +6460,8 @@ Kernel parameters
+ 	rdt=		[HW,X86,RDT]
+ 			Turn on/off individual RDT features. List is:
+ 			cmt, mbmtotal, mbmlocal, l3cat, l3cdp, l2cat, l2cdp,
+-			mba, smba, bmec, abmc, sdciae, energy[:guid],
++			l2cat_asym, l2cdp_asym, mba, smba, bmec, abmc, sdciae,
++			energy[:guid],
+ 			perf[:guid].
+ 			E.g. to turn on cmt and turn off mba use:
+ 				rdt=cmt,!mba
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index 524ad062a6d9..241461e0612b 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -91,6 +91,9 @@ related to allocation:
+ "cbm_mask":
+ 		The bitmask which is valid for this resource.
+ 		This mask is equivalent to 100%.
++		On systems that support asymmetric, per-domain,
++		cache allocation bitmasks this is the minimum
++		mask across all domains.
+ "min_cbm_bits":
+ 		The minimum number of consecutive bits which
+ 		must be set when writing a mask.
 -- 
 2.56.0
 
