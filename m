@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716450;
-	b=Vd33dL7U6YvZyUyOqHfXkHPWD+N1Inapz+KHnYHUzVtSKB7l3/CWTCAB+DwEVhNkCzof
-	 VjtquDAZTffO1sG7GfnfBXRvmNbCyVJOJCCYxpcgWotSdtTzuxKP/214yY7achmh16MGR
-	 FkNrKSWYT1uXS96/PzhLGMkZIBaKSEcSWJp5lKzjNi93t7mT39/EvGEIC3fLWU+sixTzk
-	 XF1n99CgwFBG42B5GwzajlwkSUdlSvzKas+sDjP3rSHpN/u+dAeMyizunWEFqmLkfHUth
-	 wCmrnOb+65lNaG0TXJE3L/ffAce1S5yyEPzL5Hn5PfuEvd06BdN+opyzOeK53MJgKMw==
+	t=1793716458;
+	b=wzNndmRw6zhvChu909Zl993LuFgusCN9z8j+gA3pBeC/Qm9Ze8VqCbl81hU5kjMKv14N
+	 BxwFie37qTad0kzdDWNbJl4OqlUfMrB+DXrTIQfUBNmh7KSKOnejixH4d4B3XIfwZ4Jm/
+	 hlNoFuZrLouZa9eR33MZMfT6dxY9PQE3Id4x3JNbmWjN/P3MAOfaz4msY73TtiTev/c7T
+	 D5WV3ciVt0X3zKXBwzRF4PSNWuedbdOXPejYPXTgwmma+7PhU1rf2L9DyPI1/PHzGRhmI
+	 kJ9kFDHzfa0F2P7imKlfCnS3PaYrhY4VBbdBZUwKvNRZmYzT0FmQElaf4R2rOGxFtpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716450;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
-	b=vCpUio84HoHGdjfTKwCuCcwZwNg+Qq8vk8P400XrD/q8FhAxyNfjvD3zOP0LguykMWfC
-	 mx25LMPUS/PMpl/6/LTkBPhqxd/FxJKaUsDhvXJIaosyZdgUdSqzoPDAcpBaxy1WYBGeR
-	 HLTnEAHUT3oEqG6XFO/d4V9bQnGBZyxSRDc3972spPG7HDdglquPzwQd8xrOPMJYOF2SJ
-	 2+WJkQJra81pt8FQ/kkT3J/oZ1w2YzLbJlhBA1t/HdqmL3P96/3/nCJO4HmSN5fKYa4Kg
-	 vbdpov7PkAWhhhJM8IrALFKQZ7bJwsUdEBN2/UGYfBxShVPMqG+nqwuB7UNs1PYfQcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716458;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0ajyy7n+0qSH1YTBPHJg2ZBD7XeUrxHy6Kcj1EJImYg=;
+	b=d4qipvW2A4OYPJiwkHIbLdVR93dTIQWGh2tPxIBWRgTGg4VIooNs3B6wTRNdoFTE/D+/
+	 Aa0MJEGEAWNvN3OGOshlsKlnsT8YjbQfKs9bqIKkxGFsSu/+Kt9EnX8D36P6h2a1rBviK
+	 0vLB/qfOXWFHb9zFgLxXEL+xzKzokRjdpyh5wW0+1OVaIZrNAizkibanymrkJt969DdcT
+	 Z4m9YtnoBoFeKN8erZkdYKlCMcPynxgkTvyRy0LTa5crDTeSIFcdEY7faJLrogE9cdom5
+	 8eyGrRrNCRChTpf6el95pyZwgK5gXMAJGS1IaG1OWGjNPGcHp8HvD+uimuynbX/FBvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz;
-	arc=none smtp.remote-ip=79.135.106.97
-Received: from mail-10697.protonmail.ch (mail-10697.protonmail.ch [79.135.106.97])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TPTCykYL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AC606A33C;
-	Tue,  3 Nov 2026 14:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A1AC606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20F0606D83E;
+	Tue,  3 Nov 2026 14:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793716447; x=1793975647;
-	bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=sJYuyUCzkNU/lmgDb0NwnnxE4957XBhDJxljyhYhXxubK3nITlCHcpr75CZzF6D4h
-	 DBF5FLZKmS4dGUFfXmTjgHmbKH7lDuCX/YctsWdU73r9Evkx4Zutb1RmFVGlgfghec
-	 dLX+dM4dVCsv3WhVe19+/Fc7zNy/YskLFq04IKQkLttpCTvDNaPyLv5+ASOALXSTm2
-	 6pd3bQsxfLza73fL+JIyAC2ippfNzBF54nXiXuMMfc5+mkVjJq0OLEZ3aVn4WFCBZM
-	 OicfTi4OMHZ7i+oSY9i5J3biCLw8igL5SZfJzsZgkt8R2vekBLQ/9ZiiEXjbaIxsZf
-	 1xqmPJLsU/syg==
-Date: Tue, 03 Nov 2026 14:34:02 +0000
-To: Daniel Thompson <danielt@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
-Message-ID: <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
-In-Reply-To: <aunqGVkX7-Y61iDA@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com> <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com> <aunqGVkX7-Y61iDA@aspen.lan>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 53d7bfe873821e818f7ca436899c3f949815e231
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TPTCykYL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC6E1F0093A;
+	Tue,  3 Nov 2026 14:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793716457;
+	bh=0ajyy7n+0qSH1YTBPHJg2ZBD7XeUrxHy6Kcj1EJImYg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TPTCykYLb7YyiJfftqIjfbRil9UPgYWqaphUQv4SNzGMIybk7zut1L7O8CycL0PEv
+	 Smo0NgFZGhnE+mBm7d9Btecxf57Ahxs29iz8mkXeRHCPAETLHr85sZIyWoN6caU4eI
+	 Ol7GIqDjsQJNf1roys0/r/YwrfJP37d3aGtuBGDBHiKYgYoKHl7VVo5s8XPI5BOU3q
+	 Jlv+0oj6r42VtAZvavVTNp0T2saIeiOJ1iLja14RovmpDMdwqr8eAnzS0XW8QkM8Lw
+	 887397wb8fvNkInSWSXM7qeWGxayhLmWhlLO+BDB2X2DhcHaVwnIi73BFArxarkNqm
+	 vJrNG4eH9MRIg==
+From: SJ Park <sj@kernel.org>
+To: Wang Guangke <gkwang@linx-info.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
+Date: Tue,  3 Nov 2026 06:34:09 -0800
+Message-ID: <20261103143410.87235-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103034034.7978-1-gkwang@linx-info.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,79 +62,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Daniel,
+Hi Wang,
 
-On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@kernel.=
-org> wrote:
+On Tue,  3 Nov 2026 11:40:34 +0800 Wang Guangke <gkwang@linx-info.com> wrote:
 
-> On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay wrot=
-e:
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > Kinetic KTD3137 is an LED IC, used in various mobile devices for the
-> > display backlight. Add devicetree bindings documentation for this chip.
-> >
-> > Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
-> >
-> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> > ---
-> >  .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |  5 ++
-> >  2 files changed, 69 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,k=
-td3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3=
-137.yaml
-> > new file mode 100644
-> > index 000000000000..140615640a9a
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.=
-yaml
-> > @@ -0,0 +1,64 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml=
-#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Kinetic Technologies KTD3137 LED Backlight
-> > +
-> > +maintainers:
-> > +  - Roman Vivchar <rva333@protonmail.com>
-> > +
-> > +description:
-> > +  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for =
-medium
-> > +  to large size LCD panels.
-> > <snip>
-> > +  led-max-microamp:
-> > +    minimum: 5000
-> > +    maximum: 29800
-> > +    default: 20200
-> > +
-> > +  vin-supply: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vin-supply
->=20
-> Why is vin-supply required?
->
-
-The chip cannot function without VIN power supply. Even if it's on the
-always-on power rail on certain board, there's always a chance it might be
-accidentally left disabled on the other. It's better to document supply in
-the bindings as far as I understand.
-
-Best regards,
-Roman
-
->=20
-> Daniel.
+> estimated_memory_bandwidth is calculated by access_bytes *
+> USEC_PER_MSEC * MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval,
+> and users read it via
+> /sys/module/damon_stat/parameters/estimated_memory_bandwidth.
 > 
+> On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned
+> long once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC),
+> so users get a wrong value.
+> 
+> Fix it by doing the calculation in 64-bit and splitting the division
+> into quotient and remainder.
+> 
+> The issue was reproduced on a 32-bit system (qemu-system-i386): the
+> parameter estimated_memory_bandwidth reported 362 instead of the
+> expected 1926150; with the fix, the value matches the expectation.
+
+Looks good to me.
+
+> 
+> Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Wang Guangke <gkwang@linx-info.com>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+This patch is applied to damon/next [1] tree.  I will repost it soon (~1 week)
+as an mm.git merge request.  So, no action from your side is needed for now.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
