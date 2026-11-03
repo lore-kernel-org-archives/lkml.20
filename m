@@ -1,84 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793717490;
-	b=kXYkDeKehyrdOjjNKeUTy8xsPZVybNEAqawe68gdnn/oezt3hw4PoI1q+awk+vzwu3VT
-	 atfbOq7ByhrufVFXLsVoooXliB4FtqzLl/lWUsctecNCbzb/E9uuzMqnngDQVS27ntQc3
-	 VG51+KakFlkqNe9H9Gwb3FPE057sRPhT0e2uXXlAA1Lt4Ev83n/1VECARDe7MbaXiHgYi
-	 O7X3Gj1MPOoDgtCB1UrT6Ma4uzV+1bJ7wBUNCXncyPQbzlelkeCuL3ZU+oDlVtksUY0kB
-	 nyORuIGcggnxO4qDvLYuWGwmff05w37URibfmo8uDYPvuFvdZBXDgQ1Sphwtn5jwNzQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717490;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=8CEWkT7YqUsdXweSEdsC/4Zt6jRvvN21t2iGWXTpN6Y=;
-	b=dekz73Pe6YlDZp5Z2mWGUyy0NzfMxyVVKl0wJhzjITwI2qoSuzPdU14g2Etr3oigFdT3
-	 dVque7t+lmdGlC047FET3VB8eTVxraxkoIQd8W5I78Hm9cgoMUiv2dNDiLXUxTeHJnhzF
-	 lL3Z9RcC++yKsM32ioXfEYMpvdImaFS2K2H5yPepA+3KczG+y5D6VvEHPS6lXd4ugeUY2
-	 1vQNVsq08IqDMkDentW5Lr8+3IlLNVGX9hDa/7rnpj3sLVhqQlw2jrkcS3K027Y0zy1ZW
-	 1KCBsRtT+eBYGay6ysbfYvk82IcPu5NvpeNKSx5MtwTtPD23Mw2fsQuUd7Jbow3K3bA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AKxvzUaM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793717515;
+	b=lX57L97H3QPThiPyDXfWP8OmSPS773wJ272S1IrStw+o7eOOtW0mbCGfyVrmnX3vfcgG
+	 dAFMya6jh4EgMTGtrZkm6zC1vnkCAV+RMmA4rw1zcCqF3EbRh1rg7EdCkCCqf25zaRiqz
+	 6WYQmhMWo8bxUfOfrYvghOLiFvvaASw3OsNjkrbeOUM2MrH8M4tuGPB0bGZ+m4C7Fx4DL
+	 s9b92GZ/Tt+Kp45V6BSwQx06a6PGmuatW2A/oNS4BEG2ggytIThc1Q1FvzeCKEBi1W8vO
+	 JttR2WnWV7JBNtLjgEFZeQVjPi5SO4WVnrtF2G4DN7PToBjQ3G4VDPh19bEa/6I6yRQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717515;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qj/jBK5uYX1lBOAh7CIGNjD5DbAGZcwkTAmQo8pBkzs=;
+	b=Pyk1ioVu8FD2Nd4FSxFcJbSv6joq1aUrG2Ss4VS7P1VSZff0hS2B04s4QnDzoVOMtMI6
+	 tD0CFsAjz6MdD70kB141knLxmUiJCfuopW+HB0rFbGeYKkbw3fPpFMi1DZfVw9sXpwFpE
+	 9fkCG9gXWb2YYNQ3mvUBfO39PFBInqVMcA9GO0KARfDP3u6Rv9b71GH3FYuMC0UbmxoZ0
+	 BayHal96DC/cD+nJdVZ/MZc/O0KlrZ5KpjUwiq2I5cJyiMUuAdncRUvZE5KdJdrizGV2a
+	 akSELlRy7rv/x84Qk8VP9sX9rcefYSOxRMJJC0K6sbeTmOQMw0r4ru0GFdgq4HF6qzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1yzwcN7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964B8606A33E;
-	Tue,  3 Nov 2026 14:51:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 964B8606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56AC606A7BA;
+	Tue,  3 Nov 2026 14:51:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AKxvzUaM
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 85DFE20282F;
-	Tue, 03 Nov 2026 15:51:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793717482;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8CEWkT7YqUsdXweSEdsC/4Zt6jRvvN21t2iGWXTpN6Y=;
-	b=AKxvzUaMon+g0eGzCnebblLH0CQcxu8Mo/fFmm8bfgtmnb02+x1Vy5RY1vosc/Dw6PLVz0
-	iRKifvYEPlj5/s7iWFg1uVg/oUekVa6FeN8gSMs2n7hniuC8liZ/LCHiE1Wayt8dKd+xC/
-	0HWs26UU6iYCS/AuSEj8Craj6vU+On1yXrQ0YBdoPrSO4fA8n9o8nX4Fc4/3f9hHBDNBDf
-	8+cZj+HpHZHxmGBd8cISMMjBkY2RFlLvZupD3w7qL8BQC845KA4iQLM0RGwfABSaMyZ6J5
-	n7gODCunrVoOj24Xg23eiZo6dtn6YfFYG4eNG16MN0XA4aesJAR+xn89xIT2lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793717482;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8CEWkT7YqUsdXweSEdsC/4Zt6jRvvN21t2iGWXTpN6Y=;
-	b=J1YgoWoR056rCWe9m7gmbluw3/CwDa8OIITK8tjGD2eFfT7dUXhwOEyeIzKBDBbiVb10qu
-	LXbERBF3J09rvwzzJrcRwU3I+6y7pxSysu2RCSgU/MmBjduzbNSuaeqUApW9iUtA9P1CYe
-	a7EEvwH3mCR/3DMV6uqGyE0iyxRODSLcNpDxJPUY4hod4qkj3ZgaeZYpGjfenWIUybOUQs
-	1HRNdsOa0DOm/sRcF7/WyZGp0XupTHtswpxzFMfpM9VET3UYEICYB8hfasa/Zv7ElBAnEw
-	2ykIAIkl2V+d1zgGBxaHKCG0HtPZ4ceq9mgR4HWFgtFRwjXH7gKnymwshWYhJQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793717482; a=rsa-sha256;
-	cv=none;
-	b=FlBlrPWLFpbVGtVUDlo+TNRTijjaKFBomt6Ys7PgXV8sXb/txPBFgyoAcFHzNBCb2O89lZ
-	Wi+mJiMIQVCmECccsrtmnvXai0v73WrvlemN2YdULLu8ZZ/cjONxI3GMTIST/HTnwlml0+
-	ougMKkF+V0D3D4fJTCNUMcFmU9/3GFRpLNq4rV/OD0gOyyKTwsuueAy1ckCSDjxgJF4V2B
-	aWBR65LqU8FwHC/+T+tato3U1QfM9PtfLAoUCvLnAeBiaBLXnNyPb8VkfpuaHYDmHXdh5d
-	2BOyqE56pn2OjATD86azrqrGYzQnNR8Ll03qkn96TMoGLWfC5m3eLJwCNgJMNg==
-Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1xOFr8-002SzQ-1V;
-	Tue, 03 Nov 2026 15:51:22 +0100
-From: Philipp Zabel <p.zabel@pengutronix.de>
-Subject: [PATCH 0/8] reset: Use regmap_test_bits to simplify status
- callbacks
-Date: Tue, 03 Nov 2026 15:51:20 +0100
-Message-Id: <20261103-reset-regmap-test-bits-v1-0-1b33607a76b0@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1yzwcN7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06DAA1F000C1;
+	Tue,  3 Nov 2026 14:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793717514;
+	bh=qj/jBK5uYX1lBOAh7CIGNjD5DbAGZcwkTAmQo8pBkzs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B1yzwcN7CWiyNWpcvubXRrCbxuNfue3EMWaxmI3o8yCwa1dApj+/hy+6VaZvzbFwj
+	 gEiGdceIHEoatSvdxVZYydAj6jRnOYabrYDeBySkuosbTg1kwo0jFsSP59YwWge8Fh
+	 vUK638xS1loXo8ZXokQ+5An9IkLHb3WpMcTzQ3KsL0J8WrjSZcRZhAoPTl6T2kttoz
+	 rdkBGDeGBcS3zMVvm8FyuDJ2cPNbXIXbrVQhwpQZhqqSn2Json5EKJTKee4s6G1RTm
+	 tpxiF8y58k6WRTbQocwVUIseU94DsGbwghXbH7zHPKxEd/jWAiuBKsm5tltGI3Ev+r
+	 CvokGvV5slJGw==
+Date: Tue, 3 Nov 2026 14:51:52 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Pedro Falcato <pfalcato@suse.de>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH RFC 4/4] mm/slab: serialize defer_free_barrier()
+Message-ID: <aun0lgIta8LmcP1T@thinkstation>
+References: <20260624-kmalloc-nolock-fixes-v1-0-fdf4d17351dd@kernel.org>
+ <20260624-kmalloc-nolock-fixes-v1-4-fdf4d17351dd@kernel.org>
+ <feb3e339-f61d-4f99-9859-e1895d396561@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,54 +63,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOj06WoC/yXMwQrCMBCE4Vcpe3YhidJWX0U8JHHarmAt2VWE0
- nc36mXgO8y/kqIIlE7NSgUvUXnMFX7XUJ7iPILlWk3BhdZ7t+cChdUd73FhgxonMWXf5RRSPPY
- HN1A9LwWDvH/h8+VvfaYbsn1rtG0fG+lJgXoAAAA=
-X-Change-ID: 20261103-reset-regmap-test-bits-17cb2ba9840f
-To: Damien Le Moal <dlemoal@kernel.org>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
- Daire McNamara <daire.mcnamara@microchip.com>, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Philipp Zabel <p.zabel@pengutronix.de>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <feb3e339-f61d-4f99-9859-e1895d396561@kernel.org>
 
-A lot of the regmap reset controller drivers open-code a variant
-of regmap_test_bits() in their status callback function. Simplify
-them by calling regmap_test_bits() instead.
+On Fri, Jun 26, 2026 at 05:00:51PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 6/24/26 15:11, Harry Yoo (Oracle) wrote:
+> > irq_work_sync() uses rcuwait instead of busy waiting in two cases:
+> > 
+> >   1. The kernel is using PREEMPT_RT and the irq work does not run in a
+> >      hardirq context.
+> > 
+> >   2. The architecture cannot send inter-processor interrupts to make
+> >      busy waiting reasonably short.
+> > 
+> > However, rcuwait.h says:
+> >> The caller is responsible for locking around rcuwait_wait_event(),
+> >> and [prepare_to/finish]_rcuwait() such that writes to @task are
+> >> properly serialized.
+> > 
+> > Since defer_free_barrier() calls irq_work_sync() without any locks,
+> > it can potentially cause a hang as writes to @task are not serialized.
+> > 
+> > Fix this by calling defer_free_barrier() under slab_mutex and
+> > cpus_read_lock() and add lockdep asserts.
+> > 
+> > Now that defer_free_barrier() is called inside cpus_read_lock(), iterate
+> > over online cpus instead of possible cpus.
+> > 
+> > Reported-by: Sashiko <sashiko+bot@kernel.org>
+> > Closes: https://sashiko.dev/#/patchset/20260615-kfree_rcu_nolock-v3-0-70a54f3775bb%40kernel.org?part=5
+> > Fixes: af92793e52c3 ("slab: Introduce kmalloc_nolock() and kfree_nolock().")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Harry Yoo (Oracle) <harry@kernel.org>
+> 
+> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
----
-Philipp Zabel (8):
-      reset: a10sr: Use regmap_test_bits in a10sr_reset_status
-      reset: reset-intel-gw: Use regmap_reset_bits in intel_reset_status
-      reset: k210: Use regmap_test_bits in k210_rst_status
-      reset: lantiq: Use regmap_test_bits in lantiq_rcu_reset_status
-      reset: mpfs: Use regmap_test_bits in mpfs_status
-      reset: rzv2h-usb2phy: Use regmap_test_bits in rzv2h_usbphy_reset_status
-      reset: zynq: Use regmap_test_bits in zynq_reset_status
-      reset: tn48m: Use regmap_test_bits in tn48m_control_status
+It was dropped as it now introduces a mutex.
 
- drivers/reset/reset-a10sr.c         | 8 +-------
- drivers/reset/reset-intel-gw.c      | 9 ++-------
- drivers/reset/reset-k210.c          | 8 +-------
- drivers/reset/reset-lantiq.c        | 8 +-------
- drivers/reset/reset-mpfs.c          | 9 +--------
- drivers/reset/reset-rzv2h-usb2phy.c | 6 ++----
- drivers/reset/reset-tn48m.c         | 8 ++------
- drivers/reset/reset-zynq.c          | 8 +-------
- 8 files changed, 11 insertions(+), 53 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-reset-regmap-test-bits-17cb2ba9840f
+(codetag_unload_module() invokes kvfree_rcu_barrier() ->
+deferred_work_barrier() but doesn't have access to slab_mutex
+so we can't reuse it.)
 
-Best regards,
---  
-Philipp Zabel <p.zabel@pengutronix.de>
-
+-- 
+Cheers,
+Harry / Hyeonggon
