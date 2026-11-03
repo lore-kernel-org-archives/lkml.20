@@ -1,51 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673928;
-	b=l6xI3mTXH1sBtu1q3GJSxPbTSV72oG6D+qQO2p/Kww+C3XksBUJkHm7uiGKXi/AJh3VR
-	 eo/nJed91l7Zq5dtrxfcO9JMg+U44pY+/Uy7ZYII2LP37nr4Kh5m4EWEbttDrhsfY+Z2P
-	 1P5TlP+4a/c6d1dg5tBPNVj2wnb4AQMvFPF5ZLHfDuxddTfOU48ueHsgv+l4XZnOiHT7I
-	 k8WquemtxVimDM/JYNsCpmwipqHHl9kMSvXK26o9GxZk5PQpA5aa+zUcUOANInLGJGrLm
-	 l12SYoDGCZ6zHpu5ITGIFY2TZe5vcMrQz64pA9K1DyjCtwmkM0/arXoJyBQsumN71wQ==
+	t=1793673944;
+	b=PJqRASfmzaZ8dwZXv1JzehgmR6gsyHwD5vRsQXnr+vw//t3yHSXLukmoe0riBTZk9Scm
+	 IzFj8mxKJ6BepHEBT+GYGa1nYWP1UW56avnrwFliiN9/FLaf8Hhh4vQfTHg0wIFeHkIJG
+	 VW9d9iDRjmbPJq+PKmdLVG7KKCt8EahZvC77f/6nxfdc2vAMOQu/20FGUkFcM7Lm0/Bji
+	 jxGx71ifiXbTATZDisrrm8wjoAi1SZyr3zbkkKS+poMSyRKBQwbKDdU2IaHBcWIYPi3c1
+	 UY9YHQRlJiz70XOxkSoRBRxTSdq+wO+Tq8adXQ0tMrfR6dmIEXNegm+f496Q3KK4ezg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673928;
-	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=Ly9vorsoAEZ8Lm7cyUOymIGr8/QAsw9D7wuydh3LtzE=;
-	b=j4ZWus4FVPZuq6z/P1issxZlj+mSh/FsIMjqEV1cvmCRPYIkVrNmF4g5zV39S5XIwIsI
-	 sw/s9pyrhu10lvOFu/SoudJhtvqugGeqeONE2NyjIlxUg1vQERuvatCJG4eSSLuzbxuK8
-	 5oEpp3KWiRxucOlP9cFWZeLJHAKQYRbQk2KidRLpa6dasUWZaItR8b1rKwqHot/h+zZCt
-	 OOOaRqopFdWGvv1FyshEVQzwxqA8FYyq8PnlbS1pQk3Gxb60btdhNv/viw4HWHqQLlhlj
-	 vEVIB622PGfz/iRaWvWku9nJbCZ5qo4vZCeKT1igKvMkA45Pf4edRXGH1UAPUvcyjDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673944;
+	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=nwlAC0OGiFDOCcl9hz0k9DtD6vLQALBgD/KW414bxrI=;
+	b=y2jnBc3O89gSDh/jLAok3hxt3AgY/ApO/WSHX+AEjVBy8avNgIxab0AkL8LAApt7uZX4
+	 MBw7wFsWoqZ8XabfYdeVTaf1yNLAqTjzuDmkwl4/xa7QsQqpNm9UGZsN438l1c5dwOffp
+	 GVljYp/ZB3iG/dkv6jm+rVQspw1hku5xupayw/EcbknkGNMo0Gjszs1S3+pEPE4rC/oQU
+	 tMwVaosBgjA4rayA4/OWkRgxdTjp7RsGcXRAqbSaEEdpRaGdHKLvIcyRpi5tpOEEI73MG
+	 V/1ErHAvPD6WUvRfaLlO2TOLrXfITypI742o4gJdZRnGUy6dIgbHpq0ITcqWda0w5uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=ZbtRar3M;
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=cjy4FTON;
 	arc=none smtp.remote-ip=45.254.49.197
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14434606A32F;
-	Tue,  3 Nov 2026 02:45:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14434606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18823606D80C;
+	Tue,  3 Nov 2026 02:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18823606D80C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=ZbtRar3M
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=cjy4FTON
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [IPV6:2409:8a00:3c11:dbc0:2581:8e:ca0f:59ab])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 534316a3e;
-	Tue, 3 Nov 2026 10:45:24 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 534316a46;
+	Tue, 3 Nov 2026 10:45:26 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Beau Belgrave <beaub@linux.microsoft.com>, linux-kernel@vger.kernel.org
+To: Namjae Jeon <linkinjeon@kernel.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, linux-cifs@vger.kernel.org
+Cc: Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+ Steve French <stfrench@microsoft.com>, Ronnie Sahlberg <lsahlber@redhat.com>,
+ Hyunchul Lee <hyc.lee@gmail.com>, linux-kernel@vger.kernel.org
 Date: Tue, 03 Nov 2026 10:45:19 +0800
-Message-ID: <179367391951.8187.4749000539954371762@stu.pku.edu.cn>
-Subject: [PATCH v2 1/2] tracing/user_events: validate dynamic cpumask size
-In-Reply-To: <179367391951.8187.1770217673912340635@stu.pku.edu.cn>
-References: <179367391951.8187.1770217673912340635@stu.pku.edu.cn>
+Message-ID: <179367391951.8187.2063761250230294066@stu.pku.edu.cn>
+Subject: [PATCH v2] ksmbd: require NUL-terminated EA names
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -57,75 +56,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa19f4c0e5b03a2kunm153cdd6b10a861
+X-HM-Tid: 0aa19f4c194903a2kunm153cdd6b10a872
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGE8aVktOHx4dGktJTB5DTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQkMZVkgdTxlJQx5KQk5LT1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaS0tBSBhKSkEfGRhLQUlOQ0pBQx5BGBpLHUFOQh
 	oZWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE1DVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=ZbtRar3Mnq+giyLUjh4dN94VVFFl0ZTzKHiMflRKaJmbIb+cIDn4mfrb9JuHyjd7HXvOOKv5RnAjIVliEUjLVaoQH9EJ9okNJ6RwmXldz+uY0hovAb51Y+wmCdJqIkqJRJ8zrpVngFcQPsDD38jsdsRXMT68ChhwYuiqlWjJwqI=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=Ly9vorsoAEZ8Lm7cyUOymIGr8/QAsw9D7wuydh3LtzE=;
+	b=cjy4FTONylSIx4uMhfzzjFXxcAxWqBdMUhUqs+j80qD9QD7IGRqMWHmEK193quWLGKBeH1UzFr5BejEu3/0k7XSNjRtIjNwJMQgBslMXKUh/17fE97816ipigXwhniC1RQDLVO88sIt7ZEy6B29CLz/CgXi82+RyzqLQq+DOhqg=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=nwlAC0OGiFDOCcl9hz0k9DtD6vLQALBgD/KW414bxrI=;
 	h=date:mime-version:subject:message-id:from;
 
-user_event_validate() checks that a dynamic field lies inside the event but
-does not verify the minimum size required by its filter type.  A one-byte
-dynamic cpumask can therefore reach filter_pred_cpumask(), which consumes
-cpumask_size() bytes beyond the event buffer.
+smb2_set_ea() verifies that the byte reserved for the declared EA-name
+terminator lies inside the request, but it does not verify that the byte is
+zero. With SMB debug logging enabled, the name is passed to %s and the
+diagnostic reads beyond the request allocation.
 
 KASAN reports:
 
-  BUG: KASAN: slab-use-after-free in filter_match_preds
-  Read of size 8
-  filter_match_preds
-  trace_event_buffer_commit
-  user_event_ftrace
-  user_events_write_core
+  BUG: KASAN: slab-out-of-bounds in string
+  Read of size 1
+  string
+  vsnprintf
+  _printk
+  smb2_set_ea
+  smb2_set_info
 
-Mark dynamic cpumask fields and reject locations shorter than
-cpumask_size().
+Reject an EA entry whose declared terminator byte is nonzero. Return
+-EBADMSG for the malformed buffer, and map that error to
+STATUS_EA_LIST_INCONSISTENT for both SET_INFO and CREATE.
 
-The patched kernel rejects the short event and accepts a full-size control
-event without a KASAN report.
-
-Fixes: 2467cda1b5c9 ("user_events: Validate user payloads for size and null termination")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
 ---
- kernel/trace/trace_events_user.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v2:
+- Return -EBADMSG for the malformed EA name terminator.
+- Map -EBADMSG to STATUS_EA_LIST_INCONSISTENT in SET_INFO and CREATE.
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index f658c3a77aa7a..85938b45b7618 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -170,6 +170,7 @@ struct user_event_file_info {
+ fs/smb/server/smb2pdu.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index be226664b8afc..c0be3265246dd 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3454,6 +3454,11 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+ 		if (!eabuf->EaNameLength)
+ 			goto next;
  
- #define VALIDATOR_ENSURE_NULL (1 << 0)
- #define VALIDATOR_REL (1 << 1)
-+#define VALIDATOR_CPUMASK BIT(2)
- 
- struct user_event_validator {
- 	struct list_head	user_event_link;
-@@ -1159,6 +1160,9 @@ static int user_event_add_field(struct user_event *user, const char *type,
- 	if (strstr(type, "char") != NULL)
- 		validator_flags |= VALIDATOR_ENSURE_NULL;
- 
-+	if (strstr(type, "cpumask_t"))
-+		validator_flags |= VALIDATOR_CPUMASK;
++		if (eabuf->name[eabuf->EaNameLength]) {
++			rc = -EBADMSG;
++			break;
++		}
 +
- 	validator = kmalloc_obj(*validator, GFP_KERNEL_ACCOUNT);
- 
- 	if (!validator) {
-@@ -1598,6 +1602,10 @@ static int user_event_validate(struct user_event *user, void *data, int len)
- 		offset = loc & 0xffff;
- 		size = loc >> 16;
- 
-+		if (unlikely((validator->flags & VALIDATOR_CPUMASK) &&
-+			     size < cpumask_size()))
-+			return -EFAULT;
-+
- 		if (likely(validator->flags & VALIDATOR_REL))
- 			pos += offset + sizeof(loc);
- 		else
+ 		ksmbd_debug(SMB,
+ 			    "name : <%s>, name_len : %u, value_len : %u, next : %u\n",
+ 			    eabuf->name, eabuf->EaNameLength,
+@@ -5606,6 +5611,8 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (rc) {
+ 		if (rc == -EINVAL)
+ 			rsp->hdr.Status = STATUS_INVALID_PARAMETER;
++		else if (rc == -EBADMSG)
++			rsp->hdr.Status = STATUS_EA_LIST_INCONSISTENT;
+ 		else if (rc == -EOPNOTSUPP)
+ 			rsp->hdr.Status = STATUS_NOT_SUPPORTED;
+ 		else if ((rc == -EACCES || rc == -ESTALE || rc == -EXDEV) &&
+@@ -9304,6 +9311,8 @@ int smb2_set_info(struct ksmbd_work *work)
+ 	}
+ 	else if (rc == -EINVAL)
+ 		rsp->hdr.Status = STATUS_INVALID_PARAMETER;
++	else if (rc == -EBADMSG)
++		rsp->hdr.Status = STATUS_EA_LIST_INCONSISTENT;
+ 	else if (rc == -EMSGSIZE)
+ 		rsp->hdr.Status = STATUS_INFO_LENGTH_MISMATCH;
+ 	else if (rc == -ENOSPC || rc == -EFBIG)
 -- 
 2.39.5 (Apple Git-154)
