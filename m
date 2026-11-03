@@ -1,60 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740281;
-	b=v3FRGwH9bzPXL414mH/XujsjXDSoGA3y+b9hARm+KxHIjo50s1iW8LBXchQr+Zot53pZ
-	 dNolre1Fsp+ppRbNuDnMWaW59J0sY5mGfF+BCmjrnwpx2umneI75nfgEqf0po4BwHUFoK
-	 HAlDa47PuXH1Rx/1SXm5M7fOyHNy0wRBxQ1ZUBuf9NNyuP1QFZomGxQPirHz87FAUWI/a
-	 vqklxseU1qyysGuZvDX6Z8YV2qTD545KlIU39vVGgaX03W/H9IhZhdLm9DM4i9ubeA31x
-	 Och/JY/FcTW3uuAhYYS4FVX4U9nitby5hS6Fr1ull4XCzg5xQ/H5aJyD96o+G4Cpurg==
+	t=1793740433;
+	b=fE5SfpRJ4erPXf3pn0qcG7jhowKNfREW7s2Fv5GqsUZSx32n9ggQBZzxky0QgLhTaFwL
+	 n9h0WVpIvJ7uJYHO8UQ3ZWCY6+NfqE2SBPXBXy0N63EUu9joB8buQmOiFh4LqkTDHf3vd
+	 7Y4MASrjEMhNYkiE/hn81lolRV+opduuyuVyL3wKJdy88Qxualul1fv11bwEgRV52ewQC
+	 K40aem5udFML94QzWcjqNRXg1u3hDHi9fTL7tU56YICldMbKWMPqx649CQRAHuwBmPM5p
+	 gr+e4JiESgHyu+ek0DvzlQ9lj4KKkSSFKOFyIk+9xPCdqLTpw7WVwN1dons7RFYNpug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740281;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KCa9z8lDt29OfaAKm450/Je1WPRYXsZvXR2r4M2kWqg=;
-	b=5izVE+J8dlH3kmSy57fl2WpEm+hSprxUb0xEEfyBrAjBwKuoYbLUt+oIEXMDgYei6v28
-	 xALSc9fRLM4t0tjepUBloEnu4XcKlyNysYHDdPSIED+8dkl4M4Zf3VgVbhyWNa1yS8hjH
-	 GegFlQtBmJWOidypBwXdNkWmHYXOUdDmCDjIJDLRpBdznP7xVIYlSapn/MZon1UYRj0Bd
-	 uav8B196+C8ED4rkjeApR1moKBaHeeIBeC4/yhD5FgTK7BAePdztrZd1TZIYIDk+RArZ/
-	 StT4JNDeti8ffUiSv+pMDRRSVR+xYGz0drN4x1cQLU8aXZRwFsj2/kDOVW2uM0MT2dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740433;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=j+CzPDafxCj9fZ8Cq3DLaNwMhYmNWGXJCSroxfgm+X4=;
+	b=GZYYLS60DX71R+mv87Fvg37ehUIMouZQfQ0SY2YE3t+r7q2i+meTLII+Q6CDRB0fW6hu
+	 DBfvf1LAIdbjQu8+2mWneGcLgrSuq6sy16/3c6c9XdHwkRvcp4APRaMQRuh3MmyHsDsm2
+	 EaOLisqZD0FWT+Kl/nNS+bYoGed4f01xn0+7ZHl2fKaxX+s6j/P3RajpfojMMMGVue3um
+	 9lCXZ8w8ogGcPhb4Hr5BU8hYsstiNVLlr4yTryr6U/JakOz3zsRlmu5iaf3HvkXwMk57+
+	 0qKOqxDYqgvM0tN/kG1QW6k51XGVV8pKxUnvAmlaTd89H2g/Pu3VbtzgIp8b8fjC7aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JR0wSCoz;
-	arc=none smtp.remote-ip=185.70.43.101
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTsWmL3Z;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37E2606A326
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:11:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C37E2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289D0606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:13:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289D0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JR0wSCoz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793740278; x=1793999478;
-	bh=KCa9z8lDt29OfaAKm450/Je1WPRYXsZvXR2r4M2kWqg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=JR0wSCozU7vMnfOeEmYxCmZL9DznNqC2HB0RUtkZF+lxemozsLnVqo2PgAyNMJcr1
-	 s3HQ1F0SM3VZg9rqVJQGV/FkMdoffZFoYrSuwQtD9JoN4hxU8coVWUxEDYOEQchhmE
-	 MEbU9WTClj9CFGRMssjwS+CaxSedbdhNE4/3lWwyYxx9zuQDrFMq21XFgccUDGKE/y
-	 efp9nBFOQmsXWpUO4XtN3h0PAunio5+WVdqn89XrnUpfiCk7hJnWkkj2OwBHE4JbB4
-	 jVHU7FolXj+m7Brzpb2oKRsOH4XUu7Z5dIifHoKM2bYSSoGcMKlVq1DF2E3hyoPjU4
-	 PgxRMWA0bs3lg==
-Date: Tue, 03 Nov 2026 21:11:13 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v2 09/11] media: intel/ipu6: unmap the dummy L2 page table in ipu6_mmu_destroy()
-Message-ID: <20261103211031.1573726-10-valerii.sokolov@pm.me>
-In-Reply-To: <20261103211031.1573726-1-valerii.sokolov@pm.me>
-References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
-Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: c400ef70a91a4d1c8e0a7781355612d7ae9b286f
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTsWmL3Z
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so47069115e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:13:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793740431; x=1794345231; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=j+CzPDafxCj9fZ8Cq3DLaNwMhYmNWGXJCSroxfgm+X4=;
+        b=wTsWmL3ZHIIOBiHw3gbuOC52/IfWm3h6XXc4PQN2CH78Q3UkowvPO5Kog2uQbB7sOq
+         CWruA8GaUHCyPy1iczpY4gXbsgHDHpdoCxNHz2JbFS/1n4jzxteldQaZ3u71PlsoeQND
+         PCewtlMU7XT+tlfbL30Nkv2LIUQ014c0DZu1qbyG/7zByfMapztddxKoCovFnxHAVKQZ
+         LTGQ25H0i7zYbKYdIAZ+QcpMKqpBQFtRSQBL+T857cNAPal4c3mCcw9xJ8nEYGDwanyn
+         Tc95G+8jQzNnXB/ikhBOB6ajViTdAczqTH1+v8m9ypBocwyuEbRVCGSegkUM43ZuEk/L
+         W+XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793740431; x=1794345231;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j+CzPDafxCj9fZ8Cq3DLaNwMhYmNWGXJCSroxfgm+X4=;
+        b=P4wqrN3y1I9HnumZtavZmHzH6pvkMVp3Q6UvXn474IbpO1J5HLSGy5bdaRIxe2RJdq
+         4J8NF4bjo0/JwKJeKjVs67++tix2GU3tYGjzvV3vZHDD01xJihKhOo/wgNaTQ3z5FrzL
+         lQ5yx968XHEJ7wj3YIwvh7x8t+D2o6JOXaC+zjmb17ZijD45MoLYHpZF0Qo1j+yzif4Z
+         dox6IrtCVX69/ydTF66hmQH8KhDJ/KPhEV1wHkDNwAp5qgEBPZuCyCIlyOlXaZ9mkqlx
+         /mrGWSpl4PG2JiegT4CMCVzTr6Q9z1AzX/p2kisEjzn4SQ/fSidXyII1OTCk5WleKDgq
+         Lyvg==
+X-Forwarded-Encrypted: i=1; AKwUvByC383zyziHjfwUutKqq7m0hvH5caXLIszgEV0jafgIIY/5sYpcEqD0ni9228A2PkguQ0UQWGQQl+dWBOo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/alNx+QzZMRL1aBIT3GkA5cPHkIRFzDfGu9Rf1YBxfZdYXfpXk
+	XZ63JZcFo4mVYkAIZUyHqj/+htLxuOGTpLS3xlAxBQIKkEAIkZ6a2Wo=
+X-Gm-Gg: AYBFou2wwjbgzmykRQ9bdxCjiWCLUwhUep68sPUlCZ6WISk2nQfuGPcTBhCSY5b8lvr
+	UxFWzZ2/f4VWe5O+/1i5TZYhHT4RTzhcRFXApeI/J43v9p0yWgWO7cq9MayTDdBn+C2NRWvTkMG
+	NcNBU4khRpp868sxzKgIVPZ+ewEu8ATDKSKs7yNqATr3a5h503OPIbK6ULKKTzbiqo8yhx7yuHD
+	G+hQXsNiUD+RywrwyoAtbWMc8ruu8mqNYjN1TPIZ3DF6ydy9LQtzzH5BIBHgv0HwrL5AAV0DVju
+	zwQ9pl4DSXFuXQMS4U4RrbKjyeJshlB2nNCqcH10x3q5Yo3VohV27qOOGJ+w8AzqWYBc41fnE7Z
+	ohf6Vvj71XX3hLWK1LOP5ancIwoxgZI1s269nvBX1/szr3EtNFtFpQOAzVT2ZgeOcM97KaD4sku
+	v0351uvlAtPQUZ2tB47eZRGQ5tnovAsDIBPbEs7cXwRI8QGunXdA9dt3jzDyIydXPSLNCPpTPPa
+	EP7hqn5maKUl7lKHkUEd1IPkH0h1o/HNbhZrNqmkUnyxkn6/t52HmPQGifpulPS7GO2cs1wEjVC
+	N8xNcx1CA64E6EG9SNzRY2saOEV9W6vxBCvPUYw3zsw4qh/tMiq9uw7XhvqoH1tzZFq8Srfpexw
+	=
+X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr364511255e9.11.1793740431324;
+        Tue, 03 Nov 2026 13:13:51 -0800 (PST)
+Received: from localhost.localdomain ([2a02:8109:9d9f:2700:6d31:a289:bf62:2372])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab3ea6a9sm125728205e9.15.2026.11.03.13.13.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 03 Nov 2026 13:13:51 -0800 (PST)
+Sender: Akshay Ubale <akshayubale.dev@gmail.com>
+From: Akshay Ubale <akshay.ubale001@gmail.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Kees Cook <kees@kernel.org>,
+	Matheos Worku <matheos.worku@sun.com>,
+	linux-kernel@vger.kernel.org,
+	Akshay Ubale <akshay.ubale001@gmail.com>
+Subject: Re: [PATCH net] niu: bounds-check phy-type and model VPD strings
+Date: Tue,  3 Nov 2026 22:13:48 +0100
+Message-ID: <20261103211348.39521-1-akshay.ubale001@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179253979539.3290.9924821446681218748@kernel.org>
+References: <179253979539.3290.9924821446681218748@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,39 +110,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-ipu6_mmu_destroy() frees mmu_info->dummy_l2_pt with free_page() instead
-of the existing free_dummy_l2_pt() helper, so the streaming DMA mapping
-of the dummy L2 page table (mmu_info->dummy_l2_pteval) is never unmapped
-when the MMU is torn down.
+Hi,
 
-Use free_dummy_l2_pt().
+Answers to the questions about this patch:
 
-Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and MMU t=
-able")
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
-Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
----
- drivers/media/pci/intel/ipu6/ipu6-mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Discovery: manual code inspection. While reviewing unchecked strcpy()
+  calls in the kernel, I found that niu_get_of_props() copies the
+  "phy-type" and "model" device-tree properties into fixed-size buffers
+  without checking their length. No syzbot report, production report,
+  or static analysis tool was involved.
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/in=
-tel/ipu6/ipu6-mmu.c
-index 1a564ceb74..b1c34964ce 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-@@ -668,7 +668,7 @@ static void ipu6_mmu_destroy(struct ipu6_mmu *mmu)
- =09free_dummy_page(mmu_info);
- =09dma_unmap_single(mmu_info->dev, TBL_PHYS_ADDR(mmu_info->l1_pt_dma),
- =09=09=09 PAGE_SIZE, DMA_BIDIRECTIONAL);
--=09free_page((unsigned long)mmu_info->dummy_l2_pt);
-+=09free_dummy_l2_pt(mmu_info);
- =09free_page((unsigned long)mmu_info->l1_pt);
- =09kfree(mmu_info);
- }
---=20
-2.56.0
+- Triggered: not triggered. This is theoretical, found by code
+  inspection. No symptoms were observed. Triggering needs a property
+  longer than the destination buffer, which I have not seen reported.
 
+- Hardware: not tested on real hardware. The change was verified with a
+  SPARC64 cross-build (gcc 13.3, W=1, no warnings) and a standalone test
+  harness for the length-check logic.
 
+Thanks,
+Akshay Ubale
