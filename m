@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704240;
-	b=f6SWmIquBIQdfE8ITGe6mIAxVqcMzXENlUkKEIH8eGY4W94+bEX7X/ZVtG33gMwsSDWt
-	 gcdqGxOrzBdIesoauEBPL3XOvGN7NZtderOkL02GN1eFgnV45/UOw96J0hvt5hZ45RlX5
-	 c+L9INXM7X4H+f+06INpH8ra37K3yCZjfjSSSmIxKEVNcBiY30MKzktqQcW9vxZVDVAwD
-	 4LeKKLyWDyAPjd/I+UkC+B9gZPEwLZxNHcqKSXGo/XbgC94w1fz83KWrNUC85u3tanF6k
-	 k6XTpgs+kLvHxrr6dPEsGJ+SvTFPAC5OZ3kZZxe8te75dYskzUueP2XeRpIFXZYy25A==
+	t=1793704251;
+	b=YQoFmEKX3wtHyxnZsnDgNDDebhLplnYtEnvuaGXdWabGwiQV0BaC6iBcFgp0J9iYW0v4
+	 k9grtfUVE3d00SWE3Ptd4TR9n2BJM194SCoBLuvs32+DZjMQMw/rTr4D5fOF0O0nsrc1W
+	 uXWfICLE4Opjqy4/FQ68PoVzu5qcg80/E2HUPoKcQelGgGWQ2ZDXhycpDbf4mnE9PODtP
+	 bzLwY213VTVveig2495pyFqrOd1OWhTCE/uckeLd2ivj3hCVk5x2rL1PEn0nRC1WZzBaE
+	 aUNIBESzg3ccYZ4kqmc2DKYygYWwM/DDWehd05KaM9tud0uHPejrulvoclosloaECHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704240;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704251;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mEwIOTgOFQ/xOnsi+5g5rx2vlC8yYz8+GdpWkMmVPrc=;
-	b=M5aGdTaqZhRw9zakye1kEDaEsl4OGPkRz4+pQIQ/pQOtpkNutv67o/ipV7fogid4wNjs
-	 EfmFqpTqIu1Gigcd0p24wq6zxy1VBLohzdzDxGE8QkUz6xCaH5hfY+7KVSx9oXn5WIyZ/
-	 +neM+6ugFUPu5URmA2ampF/Co9I+qQqj7+0PnLdBiOarDl8ovtDCPpwuCwGN0j1q63srU
-	 uH5bvANK1ox6vwUgBBPMDP0wUU8beRazR97v8n7vYtdfnyEw2C5Zh1yqRx3DaRdPErGjy
-	 2UdblqfBS6lIQf8GIT706FTUW2xNbOBUwJ/jGBCyUcgf/9ZBPm4wWECgYXf2VLcwFQQ==
+	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
+	b=e68/fIJle3SqJsqkLUne70GrJZ0yQw/TzdxCWIes5N1QC9UVpwIVGaPpsMyttuS4VwWg
+	 rLKCi5a61mPiahSiFjVhcgWFDstka1+n3MD3O26ElJlaKAArJpYj47KIjpRmht7+cWTgc
+	 zOSFSMZ/IW6VtYnA3W3io7unGFpEUtWjllswFBMIi3EiTT5clXdUuw3jw9WcsWKVIg/83
+	 c/hnKPfvDOMLRPZ+gfIcnWYOFtgH3vDckCHZ3hzgNmLtVHT9KxS0RE1SF3M40u1y7LfId
+	 Hy04GhYjuxVeDdWMfOK/2DkCBvyZ8SUAb2w0bPzVmsdOhfx10p1pXhk1E63Ds0uN7WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEcBbzLs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED9D606C5A8;
-	Tue,  3 Nov 2026 11:10:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8060E60A2606;
+	Tue,  3 Nov 2026 11:10:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEcBbzLs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC531F00A16;
-	Tue,  3 Nov 2026 11:10:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916191F00A15;
+	Tue,  3 Nov 2026 11:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704239;
-	bh=mEwIOTgOFQ/xOnsi+5g5rx2vlC8yYz8+GdpWkMmVPrc=;
+	s=k20260515; t=1793704251;
+	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WEcBbzLs1K5aUIsYHMJ2XMLN+Pda6ra/ttPYxWjgMByjya3S/NJC9neOKsIokWrtn
-	 7+mBFfW9Id1CwxEHDIWKWkKD25SiBpUgwHHEEHoIbKBOiTB+iIEDCXU2KEk2Obo61v
-	 J65p5zfpHdRzqnpPrnAdgJx9iyG3OSbI1KqPOAXVV5ZjxfWFLRhi4cgMKT78mo0TwZ
-	 Ifb3T9M0FYOcpoxx8Swh3BNtxQieQHNNfwJB8pgeF1F6Fl8jLqPlxejJgDrs9fEnsg
-	 1rqsNYOupVnG4N3FlN2zxKQQ2zfQlf8FVe2/CiJzpHX9q7EKjEyJRB15ka9JBbvjhe
-	 ZM3Hopxr7XdZQ==
-Date: Tue, 3 Nov 2026 12:10:37 +0100
+	b=XJ1UAi9mpNneNpGrFngBKLnAAQoITDGDRX7v4IG7AZyyyfA42cWofmwPqt48E9T0a
+	 PLFWJv1Fu0Cs/qHNcyuY/WlX0vNKRz+zKevKXBB8/nqvidQOt5fEhxt61ey9kRtpNM
+	 2SL4Q6Ie2OlnP8ByQ02yVZGsVN2w18YJ4bSSsDV+HMKrIXWAVRSN7S90a6SIYd+1qj
+	 NwOFh35Q51WmE8OnvtWaKpggB4ojxT4poaHyuP3bdr7nQVvOkJQvkhPh2pgfXZl9C6
+	 YxHUylOq3PVySM5dT05rNQPguMH/gTn/GskVIXQy96v2f0HuaiDxMYWZQg26+342Lj
+	 14i5bqImHsfYQ==
+Date: Tue, 3 Nov 2026 12:10:48 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, stable@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: keystone: drop host bridge reference in
- ks_pcie_quirk()
-Message-ID: <20261103-natural-buzzard-of-ampleness-aaba0f@quoll>
-References: <20261103104239.1373754-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
+Message-ID: <20261103-crystal-auburn-bug-b75e9e@quoll>
+References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,26 +58,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104239.1373754-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:39 +0000, Wentao Liang wrote:
-> pci_get_host_bridge_device() takes a kobject reference on the host
-> bridge device.  ks_pcie_quirk() returns without releasing it on every
-> path after the lookup, including the AM654 PG1.0 path that only limits
-> the MRRS, so the reference is leaked once for each enabled downstream
-> device below an AM654 root complex.
+On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
+> extron_connect() registers a v4l2 device, which takes a reference on
+> the underlying serio device. extron_disconnect() never unregisters it,
+> so the reference is never dropped. The extron structure allocated in
+> extron_connect() is not freed either.
 > 
-> Move the AM654 handling out of the enclosing conditional and release
-> the reference through a single cleanup label.
+> Unregister the v4l2 device and free the structure at the end of
+> extron_disconnect(), mirroring the error path in extron_connect().
 > 
-> Fixes: 86f271f22bbb ("PCI: keystone: Add workaround for Errata #i2037 (AM65x SR 1.0)")
+> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/pci/controller/dwc/pci-keystone.c | 45 +++++++++++++----------
->  1 file changed, 26 insertions(+), 19 deletions(-)
+>  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 Multiple things here:
