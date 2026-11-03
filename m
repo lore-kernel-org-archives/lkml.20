@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704251;
-	b=YQoFmEKX3wtHyxnZsnDgNDDebhLplnYtEnvuaGXdWabGwiQV0BaC6iBcFgp0J9iYW0v4
-	 k9grtfUVE3d00SWE3Ptd4TR9n2BJM194SCoBLuvs32+DZjMQMw/rTr4D5fOF0O0nsrc1W
-	 uXWfICLE4Opjqy4/FQ68PoVzu5qcg80/E2HUPoKcQelGgGWQ2ZDXhycpDbf4mnE9PODtP
-	 bzLwY213VTVveig2495pyFqrOd1OWhTCE/uckeLd2ivj3hCVk5x2rL1PEn0nRC1WZzBaE
-	 aUNIBESzg3ccYZ4kqmc2DKYygYWwM/DDWehd05KaM9tud0uHPejrulvoclosloaECHQ==
+	t=1793704234;
+	b=SbC/Stc7dmOcdbhdC8PQgM+232aKXbxsVa+7GIdW6ax6a4knbMSp62H8oYoA2DEKSMCx
+	 4CUSFY/qb3ICz7jBQvPBJ6WVq9MyVeReE8JyqGGDKNvmc6cY1DF2yqtAxf94f5w30cx9F
+	 1xlMt/8DuzwxX80ltKYvo8xrbzCi4WonLmr1yZWZtRuqS9OF3qK3xtXkpkYBE1qhT5c1c
+	 ydnSnnEJa3NA7X35W3HqxHDfm0zJf/ZGdTcJBXJTHi00YykUByTcd+ptQUb32aCo6Y+Ab
+	 NdSU+au4ZAL+SXH+UMdB4YpBhGZJEoSSA6Vie31ldybcgT2Ynf/2D7HhQP1zXPe0faQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704234;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
-	b=e68/fIJle3SqJsqkLUne70GrJZ0yQw/TzdxCWIes5N1QC9UVpwIVGaPpsMyttuS4VwWg
-	 rLKCi5a61mPiahSiFjVhcgWFDstka1+n3MD3O26ElJlaKAArJpYj47KIjpRmht7+cWTgc
-	 zOSFSMZ/IW6VtYnA3W3io7unGFpEUtWjllswFBMIi3EiTT5clXdUuw3jw9WcsWKVIg/83
-	 c/hnKPfvDOMLRPZ+gfIcnWYOFtgH3vDckCHZ3hzgNmLtVHT9KxS0RE1SF3M40u1y7LfId
-	 Hy04GhYjuxVeDdWMfOK/2DkCBvyZ8SUAb2w0bPzVmsdOhfx10p1pXhk1E63Ds0uN7WQ==
+	bh=BC5ZWCqYDUyejAF6NFkt8ipXNaHStAN0cMKCsLvoZ0A=;
+	b=aZBWNCHORt2l1bVF1PvgbqNzAbzBLolm8AUtWAtp4boVMaN72L24bD+c8vcLhY9/509X
+	 Lm/uSIaUWXX3ImSS2pbFKBbZMc0NCJzEjiicAoMbf5fC2UvBrsVdseLX5+dumL0zQCkYB
+	 ICTJjrS6zddm00WAIenKiJ8i/3En9yAbGitSer/+9JqXYz+CfouDi0FOOnoq7N5a5Nq/s
+	 39LrQa8vsd7FzdkAUipiP0fZ5oEwAtK6TAVZEeop3NLnfBa2vOzT1uPEvRQItZO1mHLrW
+	 4zFnOoWBfhXqCno2ewhlkvvdep7j7vKB1d3aBSnfbVqndy54X7anBDPB6lNdcng/Hzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=krvoYdNR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8060E60A2606;
-	Tue,  3 Nov 2026 11:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB836606D827;
+	Tue,  3 Nov 2026 11:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916191F00A15;
-	Tue,  3 Nov 2026 11:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=krvoYdNR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0B61F0093A;
+	Tue,  3 Nov 2026 11:10:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704251;
-	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
+	s=k20260515; t=1793704233;
+	bh=BC5ZWCqYDUyejAF6NFkt8ipXNaHStAN0cMKCsLvoZ0A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XJ1UAi9mpNneNpGrFngBKLnAAQoITDGDRX7v4IG7AZyyyfA42cWofmwPqt48E9T0a
-	 PLFWJv1Fu0Cs/qHNcyuY/WlX0vNKRz+zKevKXBB8/nqvidQOt5fEhxt61ey9kRtpNM
-	 2SL4Q6Ie2OlnP8ByQ02yVZGsVN2w18YJ4bSSsDV+HMKrIXWAVRSN7S90a6SIYd+1qj
-	 NwOFh35Q51WmE8OnvtWaKpggB4ojxT4poaHyuP3bdr7nQVvOkJQvkhPh2pgfXZl9C6
-	 YxHUylOq3PVySM5dT05rNQPguMH/gTn/GskVIXQy96v2f0HuaiDxMYWZQg26+342Lj
-	 14i5bqImHsfYQ==
-Date: Tue, 3 Nov 2026 12:10:48 +0100
+	b=krvoYdNRBDovEc4Qq0WzdzlwDT4b+cTFRhhU1fl89qM2313trWOslupTh0ffparZY
+	 MHvkF9zFCRu1X6acvIpestjh+C09BjYbQvU2OO0CcxJV6NDyLn3Eh83lNT2Y+8083D
+	 Z9XT3UdBQUMAirc7TNLscnnFaqiBMcK/nZF6+kgduZpG6JujRmyZiA/eTERJyp1LgU
+	 dhn7d61NREojMHnEdJmTZayvFfnXTUSy+uDStt1OkyQ5Rs1C7MCvEtteuDL4aT+zv0
+	 0koJSZXlGDQdZ0rBC7prC8pjAkDxeuy75ngPQXF/Wom83MXrG9FBQtuYMdTFJ4hAFT
+	 MWxlC7YaKmT9w==
+Date: Tue, 3 Nov 2026 12:10:31 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
-Message-ID: <20261103-crystal-auburn-bug-b75e9e@quoll>
-References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+Cc: linux-wireless@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+	Mark Greer <mgreer@animalcreek.com>, David Heidelberg <david@ixit.cz>
+Subject: Re: [PATCH] nfc: trf7970a: release runtime PM reference on RF-on
+ errors
+Message-ID: <20261103-opalescent-sarcastic-impala-3a41da@quoll>
+References: <20261103104240.1373772-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,25 +60,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104240.1373772-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
-> extron_connect() registers a v4l2 device, which takes a reference on
-> the underlying serio device. extron_disconnect() never unregisters it,
-> so the reference is never dropped. The extron structure allocated in
-> extron_connect() is not freed either.
+On Tue, 03 Nov 2026 10:42:40 +0000, Wentao Liang wrote:
+> trf7970a_switch_rf_on() bumps the runtime PM usage counter before
+> validating the state and before initialising the chip.  Neither the
+> incorrect-state path nor the trf7970a_init() failure path drops that
+> reference, and none of the three callers balance it either, so the
+> usage counter stays elevated.
 > 
-> Unregister the v4l2 device and free the structure at the end of
-> extron_disconnect(), mirroring the error path in extron_connect().
+> Use pm_runtime_resume_and_get() so that a failed resume does not leave
+> the counter incremented, and release the reference with the same
+> mark-last-busy/put-autosuspend pair that trf7970a_switch_rf_off() uses
+> when either of the subsequent steps fails.
 > 
-> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+> Fixes: e6403b7c756f ("NFC: trf7970a: Add pm_runtime support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/nfc/trf7970a.c | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
 > 
 
 Multiple things here:
