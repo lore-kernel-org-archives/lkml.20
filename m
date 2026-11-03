@@ -1,58 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706830;
-	b=cf5JIitp3IC1eb+Hi9un6UuyJVp7epImNCNkp/+dCashYuWpdVQG8i2gafCOkvNtvP3i
-	 u8hQGAX602MzITxTnhJiwrJbeb0eBxTjsx+cZhHfwP3IJwyWbeJEGXFsRCHNZN+HLPJki
-	 umZNlUOYj/qPeZz68sqbHBdKaF/hyovGcXf0zkSTtu8nrmXPyGdubyfD4/Q/KiUrZdzWo
-	 xi+8Du55zOEG88au39c/l0cKLOk/aRq1ASWx4w9YTjRvTu8cYC4EEi80Hviny372FRgGk
-	 FaR0gmXwiGq+JcN030vxqX20IPslEX9bktR1tnnfiO1dMc8tq+nSIakViQ/M6a/10Lw==
+	t=1793706831;
+	b=nymArl/3s0KVYJ6MCNMxvbeJQu/3XNFheq8IpEh+JBPOe3VtZJo0H9ACsigX4c1oIXFv
+	 LT3HvC9A4Fwnef6A12AUVPFCmYZgWrCBiMQNay8pIlhDrB0x0dClAxub5RzUZJDHyUp58
+	 UiG0c+HUXoML5wndfhieRXPZuNr57DC/4zHBuxAFDADAJIjLhXcPwY+MmeVAnGUX1nh11
+	 jP+p+ISLKx150NwFF/Zn6WPhUAX/AHHFckHP6gK5+aAPdBfYg4V94UoAnLJJrDWctrOnC
+	 vPjiVijx1LR7ToyYZHcIcfaxfB6IGUm2bwwNhAkJEeUpym4EkF5kIBxbCtocAiHQrRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706830;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=vO+tfNz9oBLgaawkQfvSqGvnLa08mTKBztLYezUzMxf/Rj8wvY6uVdPpmr/ocPCC21yp
-	 gqshK3jb/2vaMSCRUW85G2FammrOyjgPyEGgULQqMlKYsVz/7gOlNvxwbXXSF7gDBV+Gg
-	 KrjTxSEC3t4RR0cbqizxJeJls2i84eKT3f1QvYGG7Wel9MNLiGHSxsv0Dkl6bxSUba2vG
-	 hc3VTOGA+hkxdKYA794+H/0zQh9Gg9giEpjsB9srKQNvPmS+o7zNP3OqBa91boyBxCrkh
-	 oKDcoN7xvkrljcnRd/tcUq4FIlGeeEDyWpGNxt8Yn0PPt1b3k6HBCKV3bRYIjnRAnrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706831;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=RllDWIKtBnZGWzJv6L6Y2irHmhyGV0d/oUU3v4XZDuQ=;
+	b=hb3mLW7tqbwNrZm3+o22A0QuDiM08TozpPPsTobi/refbhX9rgBtXrqtp/NUxyMazOrF
+	 GBumdIyxipEqxM/TzUs+q2PtdaLrteYrUxalfdamqiBiRIGC/MNLqWqiYL12pz8KeE+hc
+	 Tff+Wv8RhJPu56BQ/0Vdo8aw095NSr3bxqo1yCUZWZR9AYe5kRD8fYCThVT5mz9VlDHNo
+	 uARbKkZ2OeFoGOk2RFcQVsLZMjewT8D7bKzh76qtMgEfGpFjR9XVhC2nBYYh3a17WTpk7
+	 UZktYJojxCdJS9G/nfDaJmYY8cvmK5K2bTlnevTb8GbscHgyV0EMUJjNSY522xXza1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCth66kd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WgtTr2XU;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBCB606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6DD606A332;
 	Tue,  3 Nov 2026 11:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB6DD606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCth66kd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B4A1F00A16;
-	Tue,  3 Nov 2026 11:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706829;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eCth66kdqFP+g5VjB6QG2hx/b5DY4kt9VX7oEF3dmEAVoOQBkfCrkkSAKH7umkDCa
-	 hGkDvEdvxJpAMC0ASzRV+wSclhy++hlkerd3hRmy31x1hUsHiyA0IJWPCCDk6KB+IQ
-	 QDpSzoS/X/FjdtiMhmjYOVnXdhXlIf5poYZC+iqzgNZXQgGH+eJaQoiXsu6D9khBnU
-	 6KVVmh9f+SVuxKm5Tam8JU5xOGm5Wtbp0h6wennhsfYDmIMlTHp587dTGpclj5fE7B
-	 j6LVCSLwaq1aOfzGU7IslvS8xGst54dVAJQz1mhDxU39Od0Drizcj3amWN0b1jIsnv
-	 togv5108aQiBg==
-From: netdev-bot+sinfo@kernel.org
-To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, alexandru.tachici@analog.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: ethernet: adi: adin1110: mask the RX IRQ of the
- port being stopped
-Date: Tue, 03 Nov 2026 11:53:49 +0000
-Message-ID: <179370682903.488859.10553739131009732027@kernel.org>
-In-Reply-To: <20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com>
-References: <20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WgtTr2XU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706830; x=1825242830;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=E/bb+RaCzD9TUBzETNHN6mhOmTvpe0fusV4NGUlFins=;
+  b=WgtTr2XUfrkdgwKdkspizAkUNpeCiHg/8hDyPlGmAr2eNseeTeJOc25F
+   Noy5yFeTV+7pX8kVuF859zxlbLQ4Q1mHnAiXaro59b3zG2PmxpaTW68j3
+   uCTqXi5kx/pz8cwB7WwwDuL3+zs8cU6a3iD+vVf/cEAfRIwu/VpG7PECb
+   NTp5hpFCNGxFq+TuqkohKZVPVv6ahflG39dfdcRaSaF6KFrwyk6vCUV7Q
+   CM9yZRqgWsw2NxqhmIBg+L+aRxIWBp2Jarxol8O8gp17nCUgN6zgd8Liw
+   UcAhbAtMksfdtfJXVRG78+pzSmpjrrx1gR+pVHCyei0HskEIv5AxoKMif
+   w==;
+X-CSE-ConnectionGUID: 7fiVG2L0Qeun/G1KlolUoQ==
+X-CSE-MsgGUID: ETlLr33sQsaI0ZRst4ThIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2316694"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2316694"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:53:50 -0800
+X-CSE-ConnectionGUID: /KnJXmWqSWWiqTNtxQs9vQ==
+X-CSE-MsgGUID: E6NN+KmHSOeB/tZ6Q5EIWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6735312"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:53:47 -0800
+Date: Tue, 3 Nov 2026 13:53:44 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Raushan Kumar <mitramaurya80@gmail.com>,
+	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] media: atomisp: reject short _DSM packages
+Message-ID: <aunLSDomvfnT7d6A@ashevche-desk.local>
+References: <20261103114121.74901-1-k.chen@smail.nju.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,29 +85,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103114121.74901-1-k.chen@smail.nju.edu.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi!
+On Tue, Nov 03, 2026 at 07:41:21PM +0800, Kang Chen wrote:
+> gmin_get_config_dsm_var() walks the package returned by the atomisp
+> _DSM function, but it does not reject packages with fewer than two
+> elements.  count is unsigned, so an empty package makes count - 1
+> evaluate to UINT_MAX and the loop walks far past the end of the
+> elements array, reading unrelated memory.
+> 
+> Require at least two elements before scanning the key/value pairs.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Stop being a meat proxy to AI. Read the code.
+NAK.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+-- 
+With Best Regards,
+Andy Shevchenko
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
