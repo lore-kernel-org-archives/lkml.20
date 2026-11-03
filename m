@@ -1,106 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740433;
-	b=fE5SfpRJ4erPXf3pn0qcG7jhowKNfREW7s2Fv5GqsUZSx32n9ggQBZzxky0QgLhTaFwL
-	 n9h0WVpIvJ7uJYHO8UQ3ZWCY6+NfqE2SBPXBXy0N63EUu9joB8buQmOiFh4LqkTDHf3vd
-	 7Y4MASrjEMhNYkiE/hn81lolRV+opduuyuVyL3wKJdy88Qxualul1fv11bwEgRV52ewQC
-	 K40aem5udFML94QzWcjqNRXg1u3hDHi9fTL7tU56YICldMbKWMPqx649CQRAHuwBmPM5p
-	 gr+e4JiESgHyu+ek0DvzlQ9lj4KKkSSFKOFyIk+9xPCdqLTpw7WVwN1dons7RFYNpug==
+	t=1793740469;
+	b=zx0MKQ5b3AQ6yFsbAKBjRzHcU0uhH3uDkdfa6ZF8Rq1TUah+xCIJB6BOXRh8+5/8Ff6b
+	 qampBa80s5JOj1D7JJKMH7JqbigpqjYx578mNFipMWqfclBHLDP8pIODE8eptZ3A7KEwh
+	 t/TdwN7Wf4rbz/mtbK8mufy05cas4Nuze/pqYTPJ88jBVNvRPYjGc3qssoUFcp4Cyezu3
+	 sNWevZyYWFWKWQPDEu/37LS6geo+Yb/kz3vv4nwI30ho3qCKUv3FDXzEseZetKf5ODhQZ
+	 gUvVR6zuGxAKHMzyS+BIRj4mJtniSwlt2eqnZjvx5eRAi/ktrXe1RMzFwX8C/LeOB4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740469;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=j+CzPDafxCj9fZ8Cq3DLaNwMhYmNWGXJCSroxfgm+X4=;
-	b=GZYYLS60DX71R+mv87Fvg37ehUIMouZQfQ0SY2YE3t+r7q2i+meTLII+Q6CDRB0fW6hu
-	 DBfvf1LAIdbjQu8+2mWneGcLgrSuq6sy16/3c6c9XdHwkRvcp4APRaMQRuh3MmyHsDsm2
-	 EaOLisqZD0FWT+Kl/nNS+bYoGed4f01xn0+7ZHl2fKaxX+s6j/P3RajpfojMMMGVue3um
-	 9lCXZ8w8ogGcPhb4Hr5BU8hYsstiNVLlr4yTryr6U/JakOz3zsRlmu5iaf3HvkXwMk57+
-	 0qKOqxDYqgvM0tN/kG1QW6k51XGVV8pKxUnvAmlaTd89H2g/Pu3VbtzgIp8b8fjC7aQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=nPKrnedIiXISgzxsOwTXqr4LP+3anTVqjEfGvppRktM=;
+	b=IGJaI/VlOovHxyrK0VM6FCOnjur0QTioS9iQ07mwLE+cc/1d7OhEjDvXZW/406xi48Hx
+	 Tg9yxzU8tqQtmToJCNfUHSOQUDJWwKZ93fcuRXDlJ0pJe2JMkFJr6hYrX8FHtJ/2tcDa+
+	 jUdpiPRbM34MYuruZUS4faqtDcXmLWcKftZskHCY/TIl5jcGEriOoBKCmPxsWqYwbeTiI
+	 qdpEZVbZPfv38UoQ1Ke0OiukNIS+PxyYw4bKQJp0RrNtyG+FVCqZrcyZjDVXbuoptFbNp
+	 zuq+wCAnIJYdzinKC7yjCUxlW+3v0hXNZGipsgscp5VQoY5lavJj3W6YDEmmMIE3DJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTsWmL3Z;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B5e1ru4B;
+	arc=none smtp.remote-ip=74.125.82.71
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289D0606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:13:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289D0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9A2606D80F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 21:14:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9A2606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTsWmL3Z
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so47069115e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:13:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B5e1ru4B
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1ac19c6bc71so51685c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 13:14:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793740431; x=1794345231; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j+CzPDafxCj9fZ8Cq3DLaNwMhYmNWGXJCSroxfgm+X4=;
-        b=wTsWmL3ZHIIOBiHw3gbuOC52/IfWm3h6XXc4PQN2CH78Q3UkowvPO5Kog2uQbB7sOq
-         CWruA8GaUHCyPy1iczpY4gXbsgHDHpdoCxNHz2JbFS/1n4jzxteldQaZ3u71PlsoeQND
-         PCewtlMU7XT+tlfbL30Nkv2LIUQ014c0DZu1qbyG/7zByfMapztddxKoCovFnxHAVKQZ
-         LTGQ25H0i7zYbKYdIAZ+QcpMKqpBQFtRSQBL+T857cNAPal4c3mCcw9xJ8nEYGDwanyn
-         Tc95G+8jQzNnXB/ikhBOB6ajViTdAczqTH1+v8m9ypBocwyuEbRVCGSegkUM43ZuEk/L
-         W+XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793740431; x=1794345231;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793740468; x=1794345268; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j+CzPDafxCj9fZ8Cq3DLaNwMhYmNWGXJCSroxfgm+X4=;
-        b=P4wqrN3y1I9HnumZtavZmHzH6pvkMVp3Q6UvXn474IbpO1J5HLSGy5bdaRIxe2RJdq
-         4J8NF4bjo0/JwKJeKjVs67++tix2GU3tYGjzvV3vZHDD01xJihKhOo/wgNaTQ3z5FrzL
-         lQ5yx968XHEJ7wj3YIwvh7x8t+D2o6JOXaC+zjmb17ZijD45MoLYHpZF0Qo1j+yzif4Z
-         dox6IrtCVX69/ydTF66hmQH8KhDJ/KPhEV1wHkDNwAp5qgEBPZuCyCIlyOlXaZ9mkqlx
-         /mrGWSpl4PG2JiegT4CMCVzTr6Q9z1AzX/p2kisEjzn4SQ/fSidXyII1OTCk5WleKDgq
-         Lyvg==
-X-Forwarded-Encrypted: i=1; AKwUvByC383zyziHjfwUutKqq7m0hvH5caXLIszgEV0jafgIIY/5sYpcEqD0ni9228A2PkguQ0UQWGQQl+dWBOo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/alNx+QzZMRL1aBIT3GkA5cPHkIRFzDfGu9Rf1YBxfZdYXfpXk
-	XZ63JZcFo4mVYkAIZUyHqj/+htLxuOGTpLS3xlAxBQIKkEAIkZ6a2Wo=
-X-Gm-Gg: AYBFou2wwjbgzmykRQ9bdxCjiWCLUwhUep68sPUlCZ6WISk2nQfuGPcTBhCSY5b8lvr
-	UxFWzZ2/f4VWe5O+/1i5TZYhHT4RTzhcRFXApeI/J43v9p0yWgWO7cq9MayTDdBn+C2NRWvTkMG
-	NcNBU4khRpp868sxzKgIVPZ+ewEu8ATDKSKs7yNqATr3a5h503OPIbK6ULKKTzbiqo8yhx7yuHD
-	G+hQXsNiUD+RywrwyoAtbWMc8ruu8mqNYjN1TPIZ3DF6ydy9LQtzzH5BIBHgv0HwrL5AAV0DVju
-	zwQ9pl4DSXFuXQMS4U4RrbKjyeJshlB2nNCqcH10x3q5Yo3VohV27qOOGJ+w8AzqWYBc41fnE7Z
-	ohf6Vvj71XX3hLWK1LOP5ancIwoxgZI1s269nvBX1/szr3EtNFtFpQOAzVT2ZgeOcM97KaD4sku
-	v0351uvlAtPQUZ2tB47eZRGQ5tnovAsDIBPbEs7cXwRI8QGunXdA9dt3jzDyIydXPSLNCPpTPPa
-	EP7hqn5maKUl7lKHkUEd1IPkH0h1o/HNbhZrNqmkUnyxkn6/t52HmPQGifpulPS7GO2cs1wEjVC
-	N8xNcx1CA64E6EG9SNzRY2saOEV9W6vxBCvPUYw3zsw4qh/tMiq9uw7XhvqoH1tzZFq8Srfpexw
-	=
-X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr364511255e9.11.1793740431324;
-        Tue, 03 Nov 2026 13:13:51 -0800 (PST)
-Received: from localhost.localdomain ([2a02:8109:9d9f:2700:6d31:a289:bf62:2372])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab3ea6a9sm125728205e9.15.2026.11.03.13.13.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 13:13:51 -0800 (PST)
-Sender: Akshay Ubale <akshayubale.dev@gmail.com>
-From: Akshay Ubale <akshay.ubale001@gmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Kees Cook <kees@kernel.org>,
-	Matheos Worku <matheos.worku@sun.com>,
-	linux-kernel@vger.kernel.org,
-	Akshay Ubale <akshay.ubale001@gmail.com>
-Subject: Re: [PATCH net] niu: bounds-check phy-type and model VPD strings
-Date: Tue,  3 Nov 2026 22:13:48 +0100
-Message-ID: <20261103211348.39521-1-akshay.ubale001@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179253979539.3290.9924821446681218748@kernel.org>
-References: <179253979539.3290.9924821446681218748@kernel.org>
+        bh=nPKrnedIiXISgzxsOwTXqr4LP+3anTVqjEfGvppRktM=;
+        b=B5e1ru4BBlEgA9P06iBt9pW6ULXF22qVDV1kZzrpGnEek5hLiGoeJC/s3mkLVGsEjt
+         K6iSAJuNjPGc+dYhhidvpiWx7AD2+KtV9m5GKqxd7+uf3UxzYbK83bZU10c/ypPRpJo9
+         dXMjZgTNLpLAoahuRfkJ6HHADPBzbfJ91mZF6j9ZTsMZ2UhSBcTDsf+sHARKb9s5HIX+
+         KraxeQsqarEJI+jNHN7ABu+czMAJ5z2Cv8qgF86yAs6bt0QcXwFk/UH3PYVMr5QDXB9a
+         1be7je6BdzS1ffBM8lyaC6xLmeGERYY+drIyxtyu30uaOBkb1BYkvUBDEhphAo9cp+cz
+         3GJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793740468; x=1794345268;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nPKrnedIiXISgzxsOwTXqr4LP+3anTVqjEfGvppRktM=;
+        b=iuz3csAWM2ubbPLbG9k5NOaYFVrAsjapBZhM51OElx2oCGej6zcjQnz+ap43ABHQ4X
+         kDu9A8CfMczPJOsB8iuqP/6YtZ/b0l5f7H8pfg7+MtIQGNFDkPxLDJKW9fGtHkDaCkDF
+         /uhd82pSrPudwQue84iMhGD3Vlp/zgY92Ja9dF2eoOy1BJOxPF/Ws2C4E0ZeXTyoZxqw
+         +j5aiJcEJzTb7xN1iYdmBkKV21+PrnYNYczg1lzhBppvqmyhyugATtLJpIAM2TOry7uH
+         55kFleOwh3vzHu/b5pB35hFUP53wUASK/vDt4Ftb8yIfTfAEUJZKeYYKf8iT3O/NlSS9
+         CU4w==
+X-Forwarded-Encrypted: i=1; AKwUvBye5aksyc49ZzMbT9jaVp/yECYGgDps2dwmKHk270oq6LMiazXlnUkJMUXQySzP74Py5e5FDL/Iik36UNI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gIhJtUELztiWTIYC5onrqmZfYoAWY8j/ZpGVFIh76D2cvsQ3v
+	46zTRTsvT6W0stINRKjv3X8NRzKKi6IYP1aIw4K4Xg1dwZXRaUOkUqxyVH+uIE4tS/QkQMOfklB
+	6lLNMCeXsIrMKjN5NVU7kjxg9Hg==
+X-Received: from dlar7.prod.google.com ([2002:a05:701b:21c7:b0:195:8b4e:20b7])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:4517:10b0:185:fd0c:4585 with SMTP id a92af1059eb24-1ac5fb18de9mr20662974c88.33.1793740467189;
+ Tue, 03 Nov 2026 13:14:27 -0800 (PST)
+Date: Tue,  3 Nov 2026 21:14:20 +0000
+In-Reply-To: <20261103211424.127627-1-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,27 +78,157 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261103211424.127627-1-almasrymina@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261103211424.127627-2-almasrymina@google.com>
+Subject: [PATCH net-next v1 1/5] net: skbuff: skip managed zerocopy frags in skb_frag_ref()
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	virtualization@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, linux-doc@vger.kernel.org, 
+	bcm-kernel-feedback-list@broadcom.com, imx@lists.linux.dev, 
+	linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-omap@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Willem de Bruijn <willemb@google.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Pavel Begunkov <asml.silence@gmail.com>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+	"=?UTF-8?q?Eugenio=20P=C3=A9rez?=" <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	John Fastabend <john.fastabend@gmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
+	Johannes Berg <johannes@sipsolutions.net>, Byungchul Park <byungchul@sk.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Wen Gu <guwen@linux.alibaba.com>, Philo Lu <lulie@linux.alibaba.com>, 
+	Justin Chen <justin.chen@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Vikas Gupta <vikas.gupta@broadcom.com>, Michael Chan <michael.chan@broadcom.com>, 
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, Doug Berger <opendmb@gmail.com>, 
+	Nicolai Buchwitz <nb@tipi-net.de>, Satish Kharat <satishkh@cisco.com>, Wei Fang <wei.fang@nxp.com>, 
+	Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
+	Jijie Shao <shaojijie@huawei.com>, Jian Shen <shenjian15@huawei.com>, 
+	Fan Gong <gongfan1@huawei.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Marcin Wojtas <marcin.s.wojtas@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Sunil Goutham <sgoutham@marvell.com>, 
+	Geetha sowjanya <gakula@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>, 
+	Subbaraya Sundeep <sbhatta@marvell.com>, Bharat Bhushan <bbhushan2@marvell.com>, 
+	Felix Fietkau <nbd@nbd.name>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Tariq Toukan <tariqt@nvidia.com>, 
+	Saeed Mahameed <saeedm@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+	Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>, 
+	Horatiu Vultur <horatiu.vultur@microchip.com>, UNGLinuxDriver@microchip.com, 
+	Daniel Machon <daniel.machon@microchip.com>, Steen Hegelund <Steen.Hegelund@microchip.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Yibo Dong <dong100@mucse.com>, 
+	Brett Creeley <brett.creeley@amd.com>, Justin Lai <justinlai0215@realtek.com>, 
+	Larry Chiu <larry.chiu@realtek.com>, 
+	"=?UTF-8?q?Niklas=20S=C3=B6derlund?=" <niklas.soderlund@ragnatech.se>, Paul Barker <paul@pbarker.dev>, 
+	Masahisa Kojima <kojima.masahisa@socionext.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Roger Quadros <rogerq@kernel.org>, 
+	MD Danish Anwar <danishanwar@ti.com>, Jiawen Wu <jiawenwu@trustnetic.com>, 
+	Mengyuan Lou <mengyuanlou@net-swift.com>, Ronak Doshi <ronak.doshi@broadcom.com>, 
+	Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Ankit Garg <nktgrg@google.com>, Tim Hostetler <thostet@google.com>, 
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>, Eric Joyner <eric.joyner@amd.com>, 
+	Mohammad Heib <mheib@redhat.com>, Prabu Thayalan <prabu.ponrajthayalan@amd.com>, 
+	Chintan Vankar <c-vankar@ti.com>, Nora Schiffer <nora.schiffer@ew.tq-group.com>, 
+	Alexander Sverdlin <alex@sverdlin.org>, Kevin Hao <haokexin@gmail.com>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Meghana Malladi <m-malladi@ti.com>, 
+	Jacob Keller <jacob.e.keller@intel.com>, StanleyYP Wang <StanleyYP.Wang@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+skb_frag_unref() and skb_release_data() skip releasing references on
+managed zerocopy fragments (SKBFL_MANAGED_FRAG_REFS), whereas
+skb_frag_ref() acquires a reference unconditionally. If skb_frag_ref()
+is called on a managed zerocopy SKB, the acquired reference is never
+released by skb_frag_unref() or skb_release_data().
 
-Answers to the questions about this patch:
+Skip acquiring a reference in skb_frag_ref() when skb_zcopy_managed(skb)
+is true so skb_frag_ref() matches skb_frag_unref() and
+skb_release_data(), and disable share_ok in iptfs_output_queued() when
+skb_zcopy_managed(skb) is true so iptfs_consume_frags() does not append
+unreferenced fragments into a managed zerocopy outer SKB.
 
-- Discovery: manual code inspection. While reviewing unchecked strcpy()
-  calls in the kernel, I found that niu_get_of_props() copies the
-  "phy-type" and "model" device-tree properties into fixed-size buffers
-  without checking their length. No syzbot report, production report,
-  or static analysis tool was involved.
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+---
+ include/linux/skbuff_ref.h | 10 +++++++---
+ net/core/net_test.c        | 10 ++++++++++
+ net/xfrm/xfrm_iptfs.c      |  3 ++-
+ 3 files changed, 19 insertions(+), 4 deletions(-)
 
-- Triggered: not triggered. This is theoretical, found by code
-  inspection. No symptoms were observed. Triggering needs a property
-  longer than the destination buffer, which I have not seen reported.
+diff --git a/include/linux/skbuff_ref.h b/include/linux/skbuff_ref.h
+index b6f6da556ee90..e94c599ce83d2 100644
+--- a/include/linux/skbuff_ref.h
++++ b/include/linux/skbuff_ref.h
+@@ -36,12 +36,16 @@ static __always_inline void skb_netmem_ref(netmem_ref netmem, bool recycle)
+  *
+  * Acquires a reference on the @f'th fragment of @skb via skb_netmem_ref()
+  * (pp_ref_count if skb->pp_recycle and page_pool-backed, else non-pp
+- * backing refcount). Counterpart to skb_frag_unref().
++ * backing refcount), skipping managed zerocopy fragments. Counterpart to
++ * skb_frag_unref().
+  */
+ static __always_inline void skb_frag_ref(struct sk_buff *skb, int f)
+ {
+-	skb_netmem_ref(skb_frag_netmem(&skb_shinfo(skb)->frags[f]),
+-		       skb->pp_recycle);
++	struct skb_shared_info *shinfo = skb_shinfo(skb);
++
++	if (!skb_zcopy_managed(skb))
++		skb_netmem_ref(skb_frag_netmem(&shinfo->frags[f]),
++			       skb->pp_recycle);
+ }
+ 
+ bool napi_pp_put_page(netmem_ref netmem);
+diff --git a/net/core/net_test.c b/net/core/net_test.c
+index 2b5080c226636..e20059a00003c 100644
+--- a/net/core/net_test.c
++++ b/net/core/net_test.c
+@@ -571,6 +571,16 @@ static void netmem_ref_test_page(struct kunit *test)
+ 	skb_frag_unref(skb, 0);
+ 	KUNIT_EXPECT_EQ(test, page_ref_count(page), base_ref);
+ 
++	/* SKBFL_MANAGED_FRAG_REFS skips both skb_frag_ref and skb_frag_unref */
++	skb_shinfo(skb)->flags |= SKBFL_ZEROCOPY_ENABLE |
++				  SKBFL_MANAGED_FRAG_REFS;
++	skb_frag_ref(skb, 0);
++	KUNIT_EXPECT_EQ(test, page_ref_count(page), base_ref);
++	skb_frag_unref(skb, 0);
++	KUNIT_EXPECT_EQ(test, page_ref_count(page), base_ref);
++	skb_shinfo(skb)->flags &= ~(SKBFL_ZEROCOPY_ENABLE |
++				    SKBFL_MANAGED_FRAG_REFS);
++
+ 	skb_shinfo(skb)->nr_frags = 0;
+ 	consume_skb(skb);
+ 	__free_page(page);
+diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+index 103cf7c5dbfb9..04ef833074fc8 100644
+--- a/net/xfrm/xfrm_iptfs.c
++++ b/net/xfrm/xfrm_iptfs.c
+@@ -2258,7 +2258,8 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
+ 				nextp = &(*nextp)->next;
+ 		}
+ 
+-		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb))
++		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb) ||
++		    skb_zcopy_managed(skb))
+ 			share_ok = false;
+ 
+ 		/* See if we have enough space to simply append.
+-- 
+2.56.0.385.gac671c819a-goog
 
-- Hardware: not tested on real hardware. The change was verified with a
-  SPARC64 cross-build (gcc 13.3, W=1, no warnings) and a standalone test
-  harness for the length-check logic.
-
-Thanks,
-Akshay Ubale
