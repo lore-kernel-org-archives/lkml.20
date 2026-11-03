@@ -1,64 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706110;
-	b=478XLX7y1dcgBS14N7HwmojR2B81oag7ejbshU+V4qSbuW1eDzdfCrMQso5RSbEtZkC0
-	 wKar5HccHuV2HR9sOrLOFDRj79NRIMo+Ht0MIfRzHbIoiw/J/u1kF0z7DulkvJfq3oWng
-	 9cAXAIQbA6d0duzhQAefKBvqoUlCUZQzViqQW046jXcksqzF0l6NcFQ0iLANo2re+MolO
-	 mnTd4/cO+VmbGVux9sY5RRTwXdzH6Y1HeFD1d4PpMC8sQrj0FcBlPUnF+TzI4EbfTYHxN
-	 x/ni+659a3BeJgEhiQnCaj/pKZ5wSAtSqMnpFFijB5gcxbgfUIwV84U7AHQ0gdofUDA==
+	t=1793706108;
+	b=iVojAtn1X/6s5Hl0X/vUYhgylNrX3cAK9/l5Ogi2nO6DP03XFmYTWDI86IGw8NgdQy6H
+	 lrxq9LFG8xI5f9mTJW/dHzkiA7AGGhS8CbuoTdsAryrq+wSvNb087M8tY4mQgCTQtSTli
+	 /HHlB0xB4l3kt4LcLRxQQdC7SItMr+9j0pgf6md54f/i57AfYkdEPdTlHW4jvAIs8jMeA
+	 asWoV2J95+EQ/TnxZUeFKnOn+rWjv6g9bzZhgZkxFg26GHdMQFYK1x8q92p9IVGDW0Gzt
+	 V15PiTf13teTkZmszm7EJ9qDKFPrbkl7+o5OdMJaA3WbXR3lBvM5JSmmmB6LprjXrdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706110;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706108;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=AHUtrGVVVpPripQgHM30mxejG4b6kABVp9lqtckcJZo=;
-	b=b2RSNSvk+w1pBcu4VT1ofZES4iESdCvCD6uq50h7FNRwcBPQPIFENaLJYHpvo10a9DdT
-	 I1Svxrg0P/lm1agmpj7lxnh1lPNgQmu7oM5zYnptehtVnNYpMKHbqDB512j6RAC4ez1cK
-	 7vwbJSdPdq7kvXmyDHGzJrV1y0B2eBecMlZgLA42//4ZgpDJjP6m5fexe5mvBbcYzYsVO
-	 Tfmngh2OMsl8wdO+bPD+1MM+2ohYCiB2VRvkabm68KFKQyM/O5rs7lKv1ctBRL2Y+gv11
-	 YtOJ9xiAHCeArQu36/fvVOvBwTf9vpjKnL4fv5p2W9xD06TgHPfB4xzKH4UqQDNyhVw==
+	bh=98sbnNcQ4xTrrBMCKpTpd4cIOz4HhfKlfG0vG7r4VIU=;
+	b=v2E4uk2htDMtQe7uqQZyjP+lXgSzJRGcWxGQbc4tyKF0BhN8uG0UFL+VXHCJACZJrgnY
+	 xnZ3KaSY67marxdXKkKYbyQFBpbE6phxf9GeTIrrSXhKr8BliFHFjTziFkMXZOyhmc5Ss
+	 778jI4VZXR2CE5SUpUv+b1ZCoYhaQXYWivVh/ZCIj3IuAKP5SpzTfX+s76BNpJJVFVgoP
+	 bHBhO+J3i4M/GT+IZXqFNzGlkUNTOMM3BpVfzVcf9viSJR+1dYguHFlamtQ0mYNiPjK+Z
+	 L7godw8xNL6b5Al7s0vFzXm1PAVYjBcFdUqcqzYsRzqfONk5YA9IemZF4r9t7ag8S8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=49f1Y1MS;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=AztlxkXK;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B2C606EEA9;
-	Tue,  3 Nov 2026 11:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67B2C606EEA9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB6B606A33B;
+	Tue,  3 Nov 2026 11:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB6B606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=49f1Y1MS
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=AztlxkXK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706067;
-	bh=AHUtrGVVVpPripQgHM30mxejG4b6kABVp9lqtckcJZo=;
+	s=iohv2404; t=1793706070;
+	bh=98sbnNcQ4xTrrBMCKpTpd4cIOz4HhfKlfG0vG7r4VIU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=49f1Y1MSkXdbFMOnaqN7OaTzdKVCoLYPLgMFW7UuP/HfWDLsZV7blhMizh5yH0m/G
-	 t0+6NkzwuK5JDYtp13IWRDqWZ7GDIht1ivxGFhX6hj3lw/9ts+G3o6tMDG4oeg4Mx6
-	 kUaSGxOLJAghXo3g+ly9IWPUNMJql5l6HqB17qUI=
-X-QQ-mid: zesmtpip2t1793706062td5792a11
-X-QQ-Originating-IP: 6OE4mHE8SKQGXjON/lNok7v+0STxNPg+VR8JNlTF80I=
+	b=AztlxkXKhSYR8sL2oUWf+hWReRl8/zjb3OPEmhJqkg2F15JMqBxHfQnmcbdlfBXYL
+	 gHU/WY8MTLMIC5QqaMQO6P9mr1bm3GCJRx7uafsrxAYt7R8Sjts08WXq5wytQHccJw
+	 YFIEEqojJvlhHRYKILwHTgiHFsikMFh3D7NGPiC4=
+X-QQ-mid: zesmtpip4t1793706065ta37db7c4
+X-QQ-Originating-IP: ic6LCeYmqbpu3GOvYX5E4cg1FQtPpeaxLuELqofmFVA=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:00 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:41:03 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5616215956870493913
+X-BIZMAIL-ID: 11553825441436544460
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Marius Cristea <marius.cristea@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: adc: pac1934: validate the ACPI channel configuration
-Date: Tue,  3 Nov 2026 19:41:00 +0800
-Message-Id: <20261103114100.74050-1-k.chen@smail.nju.edu.cn>
+Subject: [PATCH] thermal: intel: int340x: bound the PATC trip count
+Date: Tue,  3 Nov 2026 19:41:03 +0800
+Message-Id: <20261103114103.74195-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,168 +71,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: NQR8mRxMnur9YXYoFTeISnJlHBu+IOPI00FyHeaGER4PpHrrqG3Ldqtw
-	pm01eSs5KfUjGAAc25rq8t1Z5Z5suKhsTnvPDvkrLrip7TiwJDc2DMz7jUE8vuziBj6/7G/
-	KEeILyyb6rMJT/Dd26jA/knZ7aIs+9g5alOrLQVIjzE+TqEY9XCDjCAaKLXVrbfvXjCzqiA
-	wnhvkf1Fp93PXHhU5DWHYic4A6DXWuaXVQHCxB0J7TzBWEF7Z/GW5Yvo0eppso76FJNHzQ8
-	FkLx7rL+T7GPMHYZudQ/GPH4IF7RBvLLQn1r4CtsWPmJbvz0BKyridxb5IJqe7fMr7WDweV
-	Sq7GCR5WIKoBv/MrmVINvX3DIXCfJYiTraFey6MtpZZhgSQzt3Ocx/LrrPraLjOmRnCeiRb
-	M8WHfQbsg0L0k/t5Mfn7tpGFsgbnlUCJJj8IBeSS+fA6w5uO9UFnzAoy3wQ9eZ/TFVDgzhB
-	bWxw1o/d5mPa5h7q/jlGBpT0c1nuRlSPkkWWWZt9ZeQZ6LdXZc5ldvzxRUo+Txwf56a6x9S
-	F5vg50YRWibxs+qtsY/HhtB46lEbF+ocMwte7hhH3raNagMYIYBOi3LxMj1zswKjLVmZ6FU
-	LZx4e8VRQ4HZVhxhQzTmsd/24Ve3Vr82E+dngswT4dUEHWCABKVdOZDNMUDSa2F7Ti0lIs6
-	EH1Znfaa9PZ0V4PnXa+9SanODBJ5ril9LI/9oTBKtGufq1OzMoqfuPm//Pl5Lj5EmoSPaCf
-	YVDoGlEKdrXhapovpc43fELitE32DegTOSQSZ7jSJNGsVZ9ktoqwIhRVzFiWpSMdHcShS/R
-	WfI30LfVM+dRHNfr6GT6CLJ10BzKYCCmN8KvUa6jwE0unw/Y1vI5l9j+Z9kS4sT0SDp/9s4
-	Ud82dMGukqubwhCkOKtouWBI0oFEERvduV27awrvFWutkX5LtZbuhDYM8qNDcpXULMXUJ6+
-	ZkL4/Aaxfr5ietr4tkv7oC06a39Im2cVtWrnZcdmy/vCVRH98ZNYftkO+uDnIqt0/5XNIsr
-	k6u+IU378eEsVPA0fKml/c+GZF+jerJX+agpzoVPyuVFut9EdJDh0VSMMFsig=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: NAtipnnbTPeaPDWpvDNGIdvxLeJnPRhJ3WdEmG7uhc+vSzBVVet+PLTP
+	Gq/WqtMbI9xtbOVJYrVGBvYM6T/jkFodYbdkG8mPKqmffruWhGYvZWWU9Ifq+cwn1ZJ2wV7
+	fthjVarFDLz27w4DxsEaHHWo4wlYfI/96L2TtdpiatnC3D3i9nbnfNvBDgUj6cXXG05Ae8I
+	RWC01T4zLScVLsg9YdYWlCi6XRse94Fo3omLnMJoDB9Goxw46dzRQGiGFsOSK1BxPGYa9Ow
+	KVjEkDQWh8/nDSGDSkYiC+2foRoCqn7SAaLGiInPfG6u6nIiPH4a1fFo9gbB49kyCg8r/En
+	9JWn3FqjfkuNQ59X/qBWG7axzCAR3BWjvIJNIKgl3WszL+r/Pe43u39UC/dGNM6YYB5bdHa
+	6gjxKfo3nbFopylGGG7mVkCYoTELMaDp6QcAgZ5N7N6JMmQrkR/4xL0Y288kZRBYtGufH7y
+	JEscW5CX9dHdR06OxkbvZtHBdwibh8/5s2pODcE1ZDw0YgU/91D8p1qfG9lLZ3SmvW5b67P
+	MaCwtC2DTcD8a5GpXQX3a+oIXVBl8QkiDlfbNEn9zTj/0nExkut2ijS3kjfDs2yHlKRnJIQ
+	JxxToalqPEdlLuR+TLLiVYPAulJ0Za9F3f2taK12m3Idh9xzbYQpTS2ikRkhFdrLFNWVjwk
+	wGulIZK4BJzSU7baMZd0zF1Gwoym54HOMkWBVeav1D1EZSM6PB9Dx1UybCoyJ1FnGNbamOk
+	qmb/0L8ZHhWrTiN1fU10Xc30jGr99JxVUkRYk+zQtX3ZN+gkjuGPxAS7xsQFZNzljlfQDqR
+	VYsg4V/4kYmpooWxORQqwBry5oSmGIZUp3Jsuo8O95YXyGUcQmr0LuY+njRMembe+Knanbs
+	S3BGljDSWZ21u9+fSxP44kmQZkE5Kc3nnPXpU7BZZE5rl552T/YtBliW0GKA48XZoaW4Lwv
+	HfWP4SBDzTPikqwvisZANpwK+Rj88igwRNdoAL0kIVUzgCvDLG60oLJO9x1ZbelN7I+SzDG
+	0BOcZW8cVstfvKCMW4QqPLNYQGcME=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 
-The four _DSM calls that describe the channel configuration trust the
-returned package.  The first one is walked in pairs and its count is
-used to index the four-element labels[], shunts[] and
-active_channels[] arrays; a longer package writes past them, and an odd
-count reads elements[i + 1] past the end.  Non-string or non-integer
-elements make the driver use union members that hold unrelated data,
-including a firmware-chosen pointer for devm_kmemdup().
+int340x_thermal_zone_add() adds the value returned by PATC to
+INT340X_THERMAL_MAX_TRIP_COUNT without checking for overflow, and then
+uses the same 64-bit value as the allocation size, as the loop bound,
+and as an int argument to int340x_thermal_read_trips().  A PATC value
+of U64_MAX makes the allocation count wrap to 12, while the fill loop
+still runs for U64_MAX iterations and writes far beyond the allocated
+array.  Values above INT_MAX are also truncated when passed to
+int340x_thermal_read_trips() and stored in aux_trip_nr.
 
-Validate the object type, the package count, and the type of every
-element before using it.  Allocate the labels with devm_kzalloc() and
-reject an impossible allocation length, so the terminating NUL cannot
-be written out of bounds on 32-bit systems.  Reject milliohm values
-that would overflow the u32 micro-ohm fields, and micro-ohm values that
-do not fit in u32.  Also validate the single-element bipolar and
-sample-rate packages before reading them.
+Also add parentheses to INT340X_THERMAL_MAX_TRIP_COUNT so that the
+macro can be used in expressions safely.
 
-Fixes: 0fb528c8255b ("iio: adc: adding support for PAC193x")
+Ignore values that cannot be represented as an int after adding room
+for the fixed trip points, so the zone still registers with its fixed
+trip points.
+
+Fixes: f4118dbe61bb3 ("thermal: intel: int340x: Use generic trip points table")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/iio/adc/pac1934.c | 72 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 63 insertions(+), 9 deletions(-)
+ .../thermal/intel/int340x_thermal/int340x_thermal_zone.c | 9 ++++++++-
+ .../thermal/intel/int340x_thermal/int340x_thermal_zone.h | 2 +-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/adc/pac1934.c b/drivers/iio/adc/pac1934.c
-index 5e901ab25c8e..b0447fc813fc 100644
---- a/drivers/iio/adc/pac1934.c
-+++ b/drivers/iio/adc/pac1934.c
-@@ -1094,7 +1094,7 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 	union acpi_object *rez;
- 	struct device *dev = &client->dev;
- 	unsigned short bi_dir_mask;
--	int idx, i;
-+	int idx, i, ret = 0;
- 	guid_t guid;
+diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
+index 965700ee6962..6eda7823a7e2 100644
+--- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
++++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
+@@ -130,8 +130,15 @@ struct int34x_thermal_zone *int340x_thermal_zone_add(struct acpi_device *adev,
+ 	int34x_zone->adev = adev;
  
- 	handle = ACPI_HANDLE(dev);
-@@ -1105,18 +1105,44 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 	if (!rez)
- 		return -EINVAL;
- 
-+	if (rez->type != ACPI_TYPE_PACKAGE ||
-+	    rez->package.count % 2 ||
-+	    rez->package.count > 2 * info->phys_channels) {
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
- 	for (i = 0; i < rez->package.count; i += 2) {
-+		size_t len;
-+		u64 mohm;
-+
-+		if (rez->package.elements[i].type != ACPI_TYPE_STRING ||
-+		    rez->package.elements[i + 1].type != ACPI_TYPE_INTEGER) {
-+			ret = -EINVAL;
-+			goto out_free;
+ 	status = acpi_evaluate_integer(adev->handle, "PATC", NULL, &trip_cnt);
+-	if (ACPI_SUCCESS(status))
++	if (ACPI_SUCCESS(status)) {
++		if (trip_cnt > INT_MAX - INT340X_THERMAL_MAX_TRIP_COUNT) {
++			acpi_handle_warn(adev->handle,
++					 "Invalid PATC value %llu, ignoring\n",
++					 trip_cnt);
++			trip_cnt = 0;
 +		}
-+
-+		mohm = rez->package.elements[i + 1].integer.value;
-+		if (mohm > U32_MAX / 1000) {
-+			ret = -EINVAL;
-+			goto out_free;
-+		}
-+
-+		len = rez->package.elements[i].string.length;
-+		if (len == U32_MAX) {
-+			ret = -EINVAL;
-+			goto out_free;
-+		}
-+
- 		idx = i / 2;
--		info->labels[idx] =
--			devm_kmemdup(dev, rez->package.elements[i].string.pointer,
--				     (size_t)rez->package.elements[i].string.length + 1,
--				     GFP_KERNEL);
-+		info->labels[idx] = devm_kzalloc(dev, len + 1, GFP_KERNEL);
- 		if (!info->labels[idx]) {
--			ACPI_FREE(rez);
--			return -ENOMEM;
-+			ret = -ENOMEM;
-+			goto out_free;
- 		}
--		info->labels[idx][rez->package.elements[i].string.length] = '\0';
--		info->shunts[idx] = rez->package.elements[i + 1].integer.value * 1000;
-+		memcpy(info->labels[idx],
-+		       rez->package.elements[i].string.pointer, len);
-+		info->shunts[idx] = mohm * 1000;
- 		info->active_channels[idx] = (info->shunts[idx] != 0);
- 	}
- 
-@@ -1133,7 +1159,19 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 		return 0;
- 	}
- 
-+	if (rez->type != ACPI_TYPE_PACKAGE ||
-+	    rez->package.count > info->phys_channels) {
-+		ret = -EINVAL;
-+		goto out_free;
+ 		int34x_zone->aux_trip_nr = trip_cnt;
 +	}
-+
- 	for (i = 0; i < rez->package.count; i++) {
-+		if (rez->package.elements[i].type != ACPI_TYPE_INTEGER ||
-+		    rez->package.elements[i].integer.value > U32_MAX) {
-+			ret = -EINVAL;
-+			goto out_free;
-+		}
-+
- 		idx = i;
- 		info->shunts[idx] = rez->package.elements[i].integer.value;
- 		info->active_channels[idx] = (info->shunts[idx] != 0);
-@@ -1145,6 +1183,12 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 	if (!rez)
- 		return -EINVAL;
  
-+	if (rez->type != ACPI_TYPE_PACKAGE || rez->package.count < 1 ||
-+	    rez->package.elements[0].type != ACPI_TYPE_INTEGER) {
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
- 	bi_dir_mask = rez->package.elements[0].integer.value;
- 	info->bi_dir[0] = ((bi_dir_mask & (1 << 3)) | (bi_dir_mask & (1 << 7))) != 0;
- 	info->bi_dir[1] = ((bi_dir_mask & (1 << 2)) | (bi_dir_mask & (1 << 6))) != 0;
-@@ -1157,11 +1201,21 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 	if (!rez)
- 		return -EINVAL;
+ 	zone_trips = kzalloc_objs(*zone_trips,
+ 				  trip_cnt + INT340X_THERMAL_MAX_TRIP_COUNT);
+diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h
+index d504e271009a..b1da47cc5402 100644
+--- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h
++++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.h
+@@ -10,7 +10,7 @@
+ #include <acpi/acpi_lpat.h>
  
-+	if (rez->type != ACPI_TYPE_PACKAGE || rez->package.count < 1 ||
-+	    rez->package.elements[0].type != ACPI_TYPE_INTEGER) {
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
- 	info->sample_rate_value = rez->package.elements[0].integer.value;
+ #define INT340X_THERMAL_MAX_ACT_TRIP_COUNT	10
+-#define INT340X_THERMAL_MAX_TRIP_COUNT INT340X_THERMAL_MAX_ACT_TRIP_COUNT + 3
++#define INT340X_THERMAL_MAX_TRIP_COUNT (INT340X_THERMAL_MAX_ACT_TRIP_COUNT + 3)
  
- 	ACPI_FREE(rez);
- 
- 	return 0;
-+
-+out_free:
-+	ACPI_FREE(rez);
-+	return ret;
- }
- 
- static int pac1934_fw_parse_channel_config(struct i2c_client *client,
+ struct active_trip {
+ 	int temp;
 -- 
 2.34.1
 
