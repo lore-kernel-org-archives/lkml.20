@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703822;
-	b=P4F8+FxETGr69tuZWQxWPkYmD6eNB7EoDD9tVEVpdIrFzmS20/8AxDl1VPvn/gREou/b
-	 0IxMi5h4uM5k2LE6uIzwTOSXVySewnlHKUL+Qb/GJNly11pr4pqUKg43dPCGNim+s9QUt
-	 zu2sd0W5To5Ze1WwM0rIeZrpHQVfUFdj1T8QxHvN7SYM2Idmz/UmcnfuBqFAqq+Rv/76A
-	 Q5TYL/ZxVqhlEE/PYtRFQuZWjJiCbaAF2nq+GYQ0cABs7TwQwAkZTvf9Yo2Wr23F2KMOf
-	 zyuBXN5xBJI4VM0Ktt4rmENxphtvQ34FIHGOUyfp8k05BmgFR5+bRtt5BO00GwEGvpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703822;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JyM24O+rf+svFmAkF/rQOfx0k+ek4EwDrMXxgQ5Nhow=;
-	b=ZB5PSVrAgPiTYT6f6kXiOOvKwAGY4As8pYHIcccCqhA/2VnMSyvjSZJ7TAG9tyE5m5LX
-	 Ld1zFPCy/CjL1PMenumdYXySMm92AME+f+ZvhDNPdSilSj1ynKfrEbZy/5+6/4KWrxq5j
-	 KxqWOra+ZofRDNzJNr6LAzRveoO7e0GkGqk1+eBiFWHqIOST3qxnFzPLJLy9187pn9t3c
-	 tMTXOiCUhZ2hYm4bbclD/m2kt6AinoCgTlVAf3eWh9is8k8qh5It7pGDChbqoLTKrX4B+
-	 11/C/RwOdg36t/A3GxGUvkKPaZRs2H7pkkTFi1I7cnM4HPklb4Gnie5UWSik+1GmWvg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxQ2tZEZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793703844;
+	b=zuFM9efZ2gDeUlEgN9rOovAR83qgKbUnPf28n6r/hltkPY2q7+YdqlWgrb4z9k0XNtkk
+	 GhFWvfI66UcP6XeyHm0dAp7UdogeiadmCvfEQeuOls4EpJlWIl+N7FBJw121sTJUl+v72
+	 iI54mhlpXZlhP2TLLGVwRKNa8GxGunJJwGr0gIf57kbdzOPuEtf1ZIhUOxIqdDtEMlF+u
+	 32CJv4IJ43Sebyb4a6FcioanIQ6wDghewOaxMi45eGD1YRUByLmpE3S6xHI+HZpdVGpwL
+	 5BBP/JXeG2h6W/vqt4s8EWJW38L/4K0yF4pyHeXRwfzCXjSuNA/dmu07s+t9IOZV9WQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703844;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=9+j8TmaWLqssBXOiaemL9Pho6D080LRmzK8roZic8Ps=;
+	b=CLs8Ghu2gz4TxBzA1nEoWRHu8vcKDpmXorQzFlCGgXJ4iRAr730lXN7ZM+zGPuJS7PwH
+	 I2mKOSiiHcb//C6TwikK9DtGVieTTyQN5sI06EUl+DaHOLD3UEZhGRt9UfN/vQTI+pNXM
+	 LyS38K8Vd2nivRrNeHf+VXdbzz2ChXiLM5Mc29PJUb/VzUCU4ll1vTkzMcXssNrczXCi0
+	 QtCMiUOKJ42kYFl6WmBXgJaXldrI7ZOI4Dm0PZkzcokxKBQbFXGPRxQYP0YJXBmddFBG6
+	 lSh+NklBt22MbLa9tkRaJPqIR8V+BNOpBxtwxJcK7PTIwkZ/EQ5ro7p4VdkHI2RWq2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Jc90BoPB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F76606B12F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544A3606BA77
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:04:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544A3606BA77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxQ2tZEZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0471F00A02
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793703821;
-	bh=JyM24O+rf+svFmAkF/rQOfx0k+ek4EwDrMXxgQ5Nhow=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fxQ2tZEZz+PbVM3Z4auQyCMbdO7aGrzjU5Xveb23ELRrVyCn6TcXGZuT7DR2SdngH
-	 8ddSwT5ZeGYqFze5MgT3jazyU+cDMSvKa4Dvl1/HmKhpyQnxI4cLauY2Exi+9i+RjH
-	 J+353L6LEjmTbU2juCF9fPVHOfd1XB0LpEVRyEFe/eDh8XGfepd7scv7hLoNIAaGtD
-	 bS3E349yU2nqW5OTQXPavCB3+5Qkk2JHyJvb9LEm/uvT2yLkSIw/kvf+HFaZhBix0i
-	 5PHEAZ0+sVv1uw4wM23R+KiuIeiQKpDGXL3AhQr/5IJlXw5JF8jl7HMO6ZLUjDP3yg
-	 VTMgS+B9KYHFw==
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a71d0c4233so2073934fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:03:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzk/l7r6+NiSyAZGzxsr0HzwhQzV+wMnOdt/gEQwsBxYuVGfQ/kvqkPpgqiwC4FmUh7DhNsZbU+2UhiS50=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yHRgedvs/I2JgRWKaoqXth/D757ZmIfOtAodihbelgZzzBqB+
-	hfdZ5UVame1haE844ran9SLlfkihQSdpWC6G5OSiyde1E6lmWdp1t9Pc+3rU2k2GX+TwBCiHRU3
-	NEgMuQXH0UrNrEtmcPOmyRFIhGaP5tXw=
-X-Received: by 2002:a05:6870:d614:b0:494:117b:81d7 with SMTP id
- 586e51a60fabf-4a9077981a6mr8442786fac.54.1793703820673; Tue, 03 Nov 2026
- 03:03:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Jc90BoPB
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9D3482000E3;
+	Tue, 03 Nov 2026 12:04:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793703841;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9+j8TmaWLqssBXOiaemL9Pho6D080LRmzK8roZic8Ps=;
+	b=Jc90BoPB2m09qPV5RCIggu7BdHaigZs6oobU/kkMRjlBvAQQsER36aTYs+0yA4V2viZn0D
+	9IOFnm4MB2MrtSWlBawUEn6m77a+pjGsUtPg2Jh9RvDMzHE/FIrmgZNh5h+CYpDwQXX5jD
+	PInHrpp2ZdVA0T8XeRSodcB5WlYvLvfZDtqC4XjERA6LUcs94M6GOmBdnbtPMf01xb1r2S
+	V8UrXgvcdt1+KL5bTrDQ9HCOKfB3aIuHHYgna2kvUIW/cTkRIOypRpEYFd3t7W1uC7pkbc
+	uMoepfkGQ15NlXW9fEqQeZ0YWY55oxNkfj4tjw//OIhvyTq3DQokuzhZk0pgYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793703841;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9+j8TmaWLqssBXOiaemL9Pho6D080LRmzK8roZic8Ps=;
+	b=T49uY6iISswxJGUtAIkUg8wnsDsUJizPUO3sawt1f2O1BXLVCYGBQE0ajEGa2gNNV78NU+
+	7L3a7hhs8dGEvBValngCo0hBJiDANqQwMUNJ1m1AuYD/9itxmIJ9QhLLMVvQDAdHhM56WM
+	MVAMX3PP6axkRUiLIH5TUYZNaPyO39HTUWYtYzkBD07mnDsNGFM3vPECWf9xl/mKUADZWF
+	adW5UMzwDpgvLxEBNSteHJYgrp8V+yBmQ/TKlXu460xSGgZuG+Ee3dT9wBJ5G8XrzUWuWc
+	qYsITrrpF3dH6XKzKXC2VhO1fw5Co4qtEMi4ZwghwjGwPcpsLFD85oe0ZYwAQw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793703841; a=rsa-sha256;
+	cv=none;
+	b=Rx6LJC2yTwIOFc6EGkNmrGtrnjTzEvcY++tM/oV8LLfz5QM7h9x9mY4C3Z8S9L588dbilv
+	w5jy9BoYMt6EUr0gC+aQLnl4AQnyVCh0BaPd//AMaL9An0sBqQjLfsuv8SyMz/b+3Ww/eR
+	ORd0UFW3BHtirreItQZs1ShGIaJeYIj/O2X4sKuiM2G/5OfaQyoVeEH7yHMuuEdyfppaMs
+	e6Gded/RTFspCTzgjkOYJSY7invnM7WY447zw7vYzPTRaCrWUNzOc9YNQBk4KVFUiOAPgo
+	YlilMSkEuvCt3vgptrFl79cSFb62ExXMV+DvTP9Gm1zdl2L8FrdDFrCSbb/zWA==
+Message-ID: <bb3ee3d119d848034fa16943a4df9639b39df98c.camel@pengutronix.de>
+Subject: Re: [PATCH v2] reset: spacemit: Fix the RCPU2 PWM reset registers
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>, Guodong Xu
+ <docular.xu@gmail.com>,  Yixun Lan <dlan@kernel.org>
+Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>, Alex Elder	
+ <elder@riscstar.com>, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, 	linux-kernel@vger.kernel.org
+Date: Tue, 03 Nov 2026 12:04:01 +0100
+In-Reply-To: <20261021132130.3026998-1-alan.tseng.cs@gmail.com>
+References: <20261021132130.3026998-1-alan.tseng.cs@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,246 +94,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103103633.2707416-1-zhiyuzhang999@gmail.com>
-In-Reply-To: <20261103103633.2707416-1-zhiyuzhang999@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 3 Nov 2026 12:03:29 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiip0RPZkfrwHeuNp6ntVWarpkL=wJ-wW6sUvNzYWS68s3Q@mail.gmail.com>
-X-Gm-Features: AclHuK9W0Wv5Y05dpi8H0OgE8o30SKR3SptbPMVtNuc87b7hbFA_4UpDoxGktls
-Message-ID: <CAL4Wiip0RPZkfrwHeuNp6ntVWarpkL=wJ-wW6sUvNzYWS68s3Q@mail.gmail.com>
-Subject: Re: [PATCH net v3] tcp: prevent cross-family skb processing after disconnect
-To: Zhiyu Zhang <zhiyuzhang999@gmail.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>, Neal Cardwell <ncardwell@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Matthieu Baerts <matttbe@kernel.org>, 
-	Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, netdev@vger.kernel.org, 
-	mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Tong Liu <lyutoon@gmail.com>, Qi Tang <tpluszz77@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Le mar. 3 nov. 2026 =C3=A0 11:40, Zhiyu Zhang <zhiyuzhang999@gmail.com> a =
-=C3=A9crit :
->
-> From: Eric Dumazet <edumazet@kernel.org>
->
-> A successful connect() of an IPv6 socket to a v4-mapped address switches
-> icsk_af_ops, sk_backlog_rcv and af_specific to their IPv4-mapped
-> variants. A later connect(AF_UNSPEC) calls tcp_disconnect(), which does
-> not restore them.
->
-> The socket can then be reused for a native IPv6 connection while
-> tcp_v4_do_rcv() remains installed. IPv6 packets drained from its backlog
-> are consequently passed to the IPv4 receive path.
->
-> There is also a race in the opposite direction. tcp_v6_rcv() can look up
-> the socket and initialize TCP_SKB_CB(skb)->header.h6 before taking the
-> socket lock. If the socket is disconnected and reconnected to a
-> v4-mapped peer in that window, release_sock() can drain the queued IPv6
-> skb through the newly installed tcp_v4_do_rcv().
->
-> tcp_v4_send_reset() and tcp_v4_send_ack() then interpret header.h6 as
-> IPv4 options. __ip_options_echo() can consequently overflow its 40-byte
-> destination buffer.
->
-> Commit 8cc3aef0cb19 ("tcp: Do not allow buggy transitions between ehash
-> and lhash2.") prevents listen() after connect(AF_UNSPEC), but a native
-> IPv6 connect is still allowed.
->
-> Add tcp_v6_disconnect() to restore the IPv6 handlers after disconnecting
-> a v4-mapped socket, and use the same helper in the connect error path.
-> Reject non-IPv4 skbs in tcp_v4_do_rcv() before accessing IPv4
-> control-block data. In the reverse race, the skb belongs to the
-> disconnected connection, so drop it instead of redirecting it to the
-> IPv6 receive path.
->
-> MPTCP subflows override sk_prot, while two teardown paths call
-> tcp_disconnect() directly. Route them through the protocol-specific
-> disconnect operation so IPv6 MPTCP subflows receive the same
-> restoration.
->
-> Tested with TCP and MPTCP by reconnecting an AF_INET6 socket in both
-> directions after connect(AF_UNSPEC). A socket filter was used to widen
-> the native-to-mapped race window and verify that the stale IPv6 skb did
-> not reach tcp_v4_send_reset().
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: Tong Liu <lyutoon@gmail.com>
-> Reported-by: Qi Tang <tpluszz77@gmail.com>
-> Closes: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=3Da3+jUHtPohxbra8=
-gox+aYAfWathJnn-J+Q@mail.gmail.com/
-> Link: https://lore.kernel.org/netdev/CAL4WiiqFJpmcV4=3DTWRpukCq6q=3D-7296=
-58FwGvieNcPXe97kLvQ@mail.gmail.com/
-> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-> Co-developed-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
-> Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
-> ---
-> Changes in v3:
-> - Reject non-IPv4 skbs in tcp_v4_do_rcv() to cover packets queued
->   across a native IPv6 to v4-mapped reconnect.
-> - Drop Kuniyuki's Reviewed-by tag due to the code change.
->
-> v2: https://lore.kernel.org/netdev/20261101182736.430733-1-zhiyuzhang999@=
-gmail.com/
-> v1: https://lore.kernel.org/netdev/20261030032314.1978575-1-zhiyuzhang999=
-@gmail.com/
->
->  net/ipv4/tcp_ipv4.c  |  5 +++++
->  net/ipv6/tcp_ipv6.c  | 37 ++++++++++++++++++++++++++++---------
->  net/mptcp/protocol.c |  4 ++--
->  3 files changed, 35 insertions(+), 11 deletions(-)
->
-> diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-> index a7f9242f1e42..8fa6564d2b60 100644
-> --- a/net/ipv4/tcp_ipv4.c
-> +++ b/net/ipv4/tcp_ipv4.c
-> @@ -1836,6 +1836,11 @@ int tcp_v4_do_rcv(struct sock *sk, struct sk_buff =
-*skb)
->  {
->         enum skb_drop_reason reason;
->
-> +       if (unlikely(skb->protocol !=3D htons(ETH_P_IP))) {
-> +               reason =3D SKB_DROP_REASON_INVALID_PROTO;
-> +               goto err_discard;
-> +       }
-> +
+On Mi, 2026-10-21 at 21:21 +0800, Hung-Chun Tseng wrote:
+> Every entry in k1_rcpu2_resets[] uses RCPU2_PWM9_CLK_RST, so asserting
+> or deasserting the reset of any RCPU2 PWM from 0 to 8 acts on PWM9
+> instead. Each PWM has its own register, RCPU2_PWMn_CLK_RST at offset
+> 4 * n, as k1-syscon.h already defines.
+>=20
+> [...]
 
-We do not want to add yet another check in TCP IPv4 fast path,
-for a problem that only exists for IPv6 sockets.
+Applied to reset/fixes, thanks!
 
-tcp_v6_do_rcv() already dispatches IPv4 skbs to tcp_v4_do_rcv().
+[1/1] reset: spacemit: Fix the RCPU2 PWM reset registers
+      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
+?id=3D168cae7e87463
 
-Simply stop changing sk->sk_backlog_rcv for v4-mapped sockets
-(tcp_v6_connect() and tcp_v6_mapped_child_init()),
-so that skbs found in the backlog are always handled by the correct path.
-
-tcp_v6_disconnect() can then test
-inet_csk(sk)->icsk_af_ops->net_header_len =3D=3D sizeof(struct iphdr)
-(this also covers subflow_v6m_specific).
-
-Thanks.
-
-Untested patch:
-
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index e006a30360eae1b43a4d53173b46b931ae668825..74358bed6ba210074f0534dff61=
-247de34a56727
-100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -130,6 +130,18 @@ static int tcp_v6_pre_connect(struct sock *sk,
-struct sockaddr_unsized *uaddr,
-        return BPF_CGROUP_RUN_PROG_INET6_CONNECT(sk, uaddr, &addr_len);
- }
-
-+/* Undo the v4-mapped setup done by tcp_v6_connect(). */
-+static void tcp_v6_restore_af_ops(struct sock *sk)
-+{
-+       /* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
-+       WRITE_ONCE(inet_csk(sk)->icsk_af_ops, &ipv6_specific);
-+       if (sk_is_mptcp(sk))
-+               mptcpv6_handle_mapped(sk, false);
-+#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
-+       tcp_sk(sk)->af_specific =3D &tcp_sock_ipv6_specific;
-+#endif
-+}
-+
- static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
-                          int addr_len)
- {
-@@ -234,7 +246,6 @@ static int tcp_v6_connect(struct sock *sk, struct
-sockaddr_unsized *uaddr,
-                WRITE_ONCE(icsk->icsk_af_ops, &ipv6_mapped);
-                if (sk_is_mptcp(sk))
-                        mptcpv6_handle_mapped(sk, true);
--               sk->sk_backlog_rcv =3D tcp_v4_do_rcv;
- #if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
-                tp->af_specific =3D &tcp_sock_ipv6_mapped_specific;
- #endif
-@@ -243,14 +254,7 @@ static int tcp_v6_connect(struct sock *sk, struct
-sockaddr_unsized *uaddr,
-
-                if (err) {
-                        icsk->icsk_ext_hdr_len =3D exthdrlen;
--                       /* Paired with READ_ONCE() in tcp_(get|set)sockopt(=
-) */
--                       WRITE_ONCE(icsk->icsk_af_ops, &ipv6_specific);
--                       if (sk_is_mptcp(sk))
--                               mptcpv6_handle_mapped(sk, false);
--                       sk->sk_backlog_rcv =3D tcp_v6_do_rcv;
--#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
--                       tp->af_specific =3D &tcp_sock_ipv6_specific;
--#endif
-+                       tcp_v6_restore_af_ops(sk);
-                        goto failure;
-                }
-                np->saddr =3D sk->sk_v6_rcv_saddr;
-@@ -1363,7 +1367,6 @@ static void tcp_v6_mapped_child_init(struct sock
-*newsk, const struct sock *sk)
-        inet_csk(newsk)->icsk_af_ops =3D &ipv6_mapped;
-        if (sk_is_mptcp(newsk))
-                mptcpv6_handle_mapped(newsk, true);
--       newsk->sk_backlog_rcv =3D tcp_v4_do_rcv;
- #if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
-        tcp_sk(newsk)->af_specific =3D &tcp_sock_ipv6_mapped_specific;
- #endif
-@@ -2093,6 +2096,21 @@ static int tcp_v6_init_sock(struct sock *sk)
-        return 0;
- }
-
-+static int tcp_v6_disconnect(struct sock *sk, int flags)
-+{
-+       int ret =3D tcp_disconnect(sk, flags);
-+
-+       /* A socket used for a v4-mapped connection must not keep IPv4
-+        * handlers when it is reused for listen() or a native IPv6 connect=
-().
-+        * Note that ipv6_mapped and subflow_v6m_specific both use an IPv4
-+        * network header.
-+        */
-+       if (inet_csk(sk)->icsk_af_ops->net_header_len =3D=3D sizeof(struct =
-iphdr))
-+               tcp_v6_restore_af_ops(sk);
-+
-+       return ret;
-+}
-+
- #ifdef CONFIG_PROC_FS
- /* Proc filesystem TCPv6 sock list dumping. */
- static void get_openreq6(struct seq_file *seq,
-@@ -2283,7 +2301,7 @@ struct proto tcpv6_prot =3D {
-        .close                  =3D tcp_close,
-        .pre_connect            =3D tcp_v6_pre_connect,
-        .connect                =3D tcp_v6_connect,
--       .disconnect             =3D tcp_disconnect,
-+       .disconnect             =3D tcp_v6_disconnect,
-        .accept                 =3D inet_csk_accept,
-        .ioctl                  =3D tcp_ioctl,
-        .init                   =3D tcp_v6_init_sock,
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 7a22e9388e0e9a8b1bd6fe27d04245a1db6950b1..fdfbc7de2ec03612bc49d0a337a=
-80fe1089a7d81
-100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2608,7 +2608,7 @@ static void __mptcp_subflow_disconnect(struct sock *s=
-sk,
-                /* The MPTCP code never wait on the subflow sockets, TCP-le=
-vel
-                 * disconnect should never fail
-                 */
--               WARN_ON_ONCE(tcp_disconnect(ssk, 0));
-+               WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, 0));
-                mptcp_subflow_ctx_reset(subflow);
-        } else {
-                tcp_shutdown(ssk, SEND_SHUTDOWN);
-@@ -3287,7 +3287,7 @@ void mptcp_subflow_shutdown(struct sock *sk,
-struct sock *ssk, int how)
-                        break;
-                fallthrough;
-        case TCP_SYN_SENT:
--               WARN_ON_ONCE(tcp_disconnect(ssk, O_NONBLOCK));
-+               WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, O_NONBLOCK));
-                break;
-        default:
-                if (__mptcp_check_fallback(mptcp_sk(sk))) {
+regards
+Philipp
