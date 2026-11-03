@@ -1,84 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737303;
-	b=APaGd8gfQfNuf2fZLJvZBv7KZwCLMHCHIQ3mneW9+lvrsccH8lx9Q/FhdQSjvtoWQvRd
-	 vh2J13T1JbYtOZm9RP81MJt6obEeZ5AnY8n22PMmM59HghbuPwuZw0CpHDFyUnNJ9FtsF
-	 uEK7kYkVzv+PkdN6k3GHCBfuAyQ2RRn1yLAmEpC34RiymSY5uNhRVB/LluNGmOPd8hdBQ
-	 55hyXIuDUNxH3cOGMpPylQgclz14XYGk1T0P0iMh/IfWJui46QmVsWsP5l965uUFOoLss
-	 A5fNOj1G+oJ7p48Vzep4lUktbYfpZrnGFyg4ihgd30UfyWmhApgT/eEPJMEULi8Pv5A==
+	t=1793737320;
+	b=Ne7AgaQq7V/fNygofWY88cUEAi7CgzgoVQKt6bRa85hSdp2yAbfsjiP/T759dlkHtSIY
+	 WHvKr+shdDC55gn8eDcVd4tW1Qqpcsk+Zw9Ru8dVJacpD1wNJZ0da8wkSN88U85o9kbRe
+	 gj6SfrvtbTd2JmSriSENSoBVmhTpcycoTvPDE8Wd10tXMwMJqImt2H9I4QbJdZr9RETGk
+	 6xXigxOw96s/FV1XZdyzv6ZDu3bG6Cgb/FlKZQp/wJVlwisSoOdL9/r3fZzmWCjzjPVGo
+	 60zhUos83+OotMxhEr1OFnpQ3lVbSWj/R7oU3bWSEUhNZZwQsss1JHEv+CfGAYJHj3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737303;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=4CQ9QXYgEq5HlpZ4WHk4AkIIAa+3/a95hTxApO1XSIs=;
-	b=EqCVvwOOv9SORSTukGlOFJ3Lf1qJRSbF6hTDju8cF2AzM4BB6QpwzM2anbHG9t0X8Hbu
-	 KdfDNllLiB8ZFoWFMz2RLbnXKYLJ7bZMH7Jp/b0tv9faBvg+zIQ/Q78f/u0E01ehyDoRD
-	 FXqhCXnF6agERgULVMffWgdtkVnSe4YRNH9TQ4pXyHGTZ/mguBlZTavrakyCvZ27mRU8I
-	 dGeCKGVRvJ2KhpJoGi70EcTs0YlsmshTsLGtVIQG58My27zie8VaQqjcn1KkjZxCtSlKL
-	 9P3WJALbZPor7y4qfu7+XXxhuVEPFrsTB7LKac/cUCgS79S7RfQXa6C0ciP48q++iYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737320;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZI36IvN614wZfc+9bgno27AitbTt9jTYGJEoJ2XdrFY=;
+	b=RQ7C+k1i8/OEaN/LNlOld3ru8mf0xxic8YMRdtVRJAbwHF0jise7Lz8dqbVXvJPPtAVR
+	 VKMLt3YjOTNvl3EB1UkzIY9bPddIKSKzfKovOcg//kMXFcK3UIjTlIst1zdqipvzAEHMK
+	 1LJJTl/i726Clih7nBbUPi8LwVQQH6jaDSXljdt8PZskAWw6rodPIbCy3ETv+vpleG1Ui
+	 313zhIBnQ7wmGHGdw+BjIkbEJPJKYFCFcCNosEwzocDFsQxYSixq0peo6HDelv5BXy248
+	 fG2u1NwZwrzMTBRrPceXuRMJr1k6Z0dA3KO+S51Fh6sxUfy6pm/8HS/KV4tfFV/NFBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FpHPeaD5;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcoDvnjE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2CB606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E2CB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB603606A329;
+	Tue,  3 Nov 2026 20:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FpHPeaD5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793737301;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4CQ9QXYgEq5HlpZ4WHk4AkIIAa+3/a95hTxApO1XSIs=;
-	b=FpHPeaD5HpO72jgRfMWFwnFiFyJw6WQuDSwKNq3yyB/pFSeadU2/K7+lcOzxtSML3j+NS9
-	8xjHkOLEkvnzLcoCgKgH1anf6YLdqryGbZ/6FEZG2t9JuoFJrNflvwYD++AHPSFWywzr6z
-	iObmHsNfeXLt4i8UJw4FuShyU3fPMXo=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-557-y3M3VMR7O3mDnncLOjtuSA-1; Tue,
- 03 Nov 2026 15:21:38 -0500
-X-MC-Unique: y3M3VMR7O3mDnncLOjtuSA-1
-X-Mimecast-MFC-AGG-ID: y3M3VMR7O3mDnncLOjtuSA_1793737296
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8547E18002F8;
-	Tue,  3 Nov 2026 20:21:35 +0000 (UTC)
-Received: from jocolema-thinkpadp1gen4i.rmtusco.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6FE4A18004D2;
-	Tue,  3 Nov 2026 20:21:32 +0000 (UTC)
-From: "John J. Coleman" <jocolema@redhat.com>
-To: zenghui.yu@linux.dev
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	peterx@redhat.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	audra@redhat.com
-Subject: [PATCH] selftests/mm: scale uffd memory region contingent upon base page size
-Date: Tue,  3 Nov 2026 13:20:49 -0700
-Message-ID: <20261103202049.499206-1-jocolema@redhat.com>
-In-Reply-To: <20261011163527.95988-1-zenghui.yu@linux.dev>
-References: <20261011163527.95988-1-zenghui.yu@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcoDvnjE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54161F000C1;
+	Tue,  3 Nov 2026 20:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793737319;
+	bh=ZI36IvN614wZfc+9bgno27AitbTt9jTYGJEoJ2XdrFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RcoDvnjE7moujvLfJtbEFbra0suwdCXxNcVPBt9C+MQr2fIm0ROIdyzWvCf0r6dPm
+	 h1Yua3KwN/dXEbvecfBPraEq1DvHkQMvoF2Bp11NIyhrTb2NCMYj2w27/1eh/hNvWH
+	 O6IP9cDUNObqZD1pqWdB6kNJNl7EUFpDky9G3OiS6bKFKY1mVeKeMUUn4DvFnIuQJ5
+	 MfPvPYy2mOBhzLy8ZAizjeqfuKz6tTG4VQwTE83YJIVdVX9wArgcLLkJtkotpfWXyF
+	 9aX10naWVt/B4m4NQciKHVny928DYGf/UA8QtXJSt4Dc85L5sZuX2NERO9yskptzgY
+	 fgwK4+Cxd5s8g==
+Date: Tue, 3 Nov 2026 20:21:57 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, kernel-team@meta.com, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
+ memcg_alloc_abort_single()
+Message-ID: <auo5G__ac1qA9JRs@thinkstation>
+References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
+ <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
+ <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,55 +65,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com>
 
-When executing the uffd-unit-test, the "move-pmd on anon" test will fail on
-aarch64+64k with a segmentation fault because the initial allocated memory
-region is too small.  This only happens with the move-pmd* tests because the
-architecture base page size is still utilized even though the memory region is
-specific to the size indicated by the pmd.
+On Tue, Nov 03, 2026 at 06:40:09PM +0000, Alexei Starovoitov wrote:
+> On Tue, Nov 03, 2026 at 06:47 AM Harry Yoo (Meta) <harry@kernel.org> wrote:
+> >  	if (likely(size == 1)) {
+> > -		memcg_alloc_abort_single(s, *p);
+> > +		bool allow_spin = alloc_flags_allow_spinning(ac->alloc_flags);
+> > +
+> > +		memcg_alloc_abort_single(s, *p, allow_spin);
+> >  		*p = NULL;
+> >  	} else {
+> >  		kmem_cache_free_bulk(s, size, p);
+> 
+> can we call kfree_nolock(*p) here when spinning is not allowed ?
+> Karl's patch did that. You replied that memcg_slab_free_hook() should
+> not see an object that is not charged:
+> https://lore.kernel.org/all/asaAwg1KeZoEYd4K@thinkpad/
+> It's fine. __memcg_slab_free_hook() skips an object with objcg == NULL.
+> The else branch relies on that. kmem_cache_free_bulk() also gets
+> the objects that are not charged yet.
 
-Patch 9f5c2aec3388 ("selftests/mm: fix uffd move-pmd test crash on 64K base page
-systems") implements an initial fix to the segmentation fault by skipping the
-test if the allocated memory region is not large enough for the number of pages
-x page size requested.  But as this will skip over the aarch64+64k pmd tests, this
-patch is intended to resolve the problem with 64k pages by scaling up the
-initial allocated memory region subject to base page size of the architecture.
+While this is technically true, this relies too much on the current
+implementation details and makes the code hard to follow.
 
-Fixes: a2bf6a9ca805 ("selftests/mm: add UFFDIO_MOVE ioctl test")
+> > +	if (likely(allow_spin))
+> >  		__slab_free(s, slab, object, object, 1, _RET_IP_);
+> > +	else
+> > +		defer_free(s, object);
+> 
+> That's an irq_work interrupt per failed charge.
 
-Signed-off-by: John J. Coleman <jocolema@redhat.com>
----
+irq_work overhead should not matter by the time memcg fails charging.
+the kernel can't reclaim memory in unknown context and allocations
+won't succeed anyway once we hit the limit (unless somebody else
+reclaims memory for us). We have a bigger problem there.
 
-I too have been looking into a solution for aarch64+64k.  I wanted to gauge your 
-thoughts on this patch to scale up memory allocation region size predicated on 
-architecture base page sizes.
+> kfree_nolock() tries free_to_pcs() first. It calls defer_free() only
+> when that fails.
+> 
+> Then no need for allow_spin in memcg_alloc_abort_single(),
+> and the fix doesn't depend on patch 2.
 
- tools/testing/selftests/mm/uffd-unit-tests.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-index 2a97ba1d6feb1b35d6281449fd1917793a64fab1..c6cebb3c880d0b47e44c8afc4e3a4c3050cea579 100644
---- a/tools/testing/selftests/mm/uffd-unit-tests.c
-+++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-@@ -13,8 +13,14 @@
+Patch 2 is an independent bugfix as-is already. We should really stop
+open-coding slab_free_hook(). That ended up missing init_on_free handing.
  
- #ifdef __NR_userfaultfd
- 
--/* The unit test doesn't need a large or random size, make it 32MB for now */
--#define  UFFD_TEST_MEM_SIZE               (32UL << 20)
-+/*
-+ * The unit test does not need a large or random size, but the allocation size
-+ * needs to scale with base page size per architecture otherwise pmd alignment
-+ * tests will fail for architectures like aarch64+64k.  For standard 4k pages, 
-+ * this will allocate 64MiB, while allocating 1GiB for 64k page sizes.
-+ */
-+#define  PAGE_SIZE                        sysconf(_SC_PAGESIZE)
-+#define  UFFD_TEST_MEM_SIZE               (PAGE_SIZE * (16 << 10))
- 
- #define  MEM_ANON                         BIT_ULL(0)
- #define  MEM_SHMEM                        BIT_ULL(1)
+> Something like this (compile tested only):
+> 
+> diff --git a/mm/slub.c b/mm/slub.c
+> index 45e077c..fb92b48 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+> @@ -2551,7 +2551,10 @@ bool memcg_slab_post_alloc_hook(struct kmem_cache *s, gfp_t flags,
+>  		return true;
+> 
+>  	if (likely(size == 1)) {
+> -		memcg_alloc_abort_single(s, *p);
+> +		if (likely(alloc_flags_allow_spinning(ac->alloc_flags)))
+> +			memcg_alloc_abort_single(s, *p);
+> +		else
+> +			kfree_nolock(*p);
+>  		*p = NULL;
+>  	} else {
+>  		kmem_cache_free_bulk(s, size, p);
+
 -- 
-2.56.0
-
+Cheers,
+Harry / Hyeonggon
