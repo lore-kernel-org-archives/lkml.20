@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701973;
-	b=21Ds7zbpagzK58evWU6Q8M7t3wVYW3QXFnq5BLtoNrIThqG0NBBBZCGxMdz50zbgPnrV
-	 M+jOg+gAUQm0r9OeYE/cSxIVXOyTd/zH1sCDaaGGK+HUMUzVeFCuFNduLQ6Z2arDC+JEW
-	 ZDPUqxOa4/JRmexWQIxrEwqyNHzx372dxim7uMQtNsFRl/+zcBfY7Uv7Z49KC6talLGf2
-	 0gI9sufrejODKM7O3zmZc1Zi6OqhLCQ/9pxmI51IchFcfIqd3KCtULGWCoUXx+mMC7Qaa
-	 wBXJhJaXaBz0pwvHmsvp4/8gx6ma5SH4SK9mukLRrxlHDXrBJ2Xc9s6PPQ8tWL6jbrA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701973;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=l+qzHo5wRksBt7nGrTMUCyKL4/4CA96XgjMlVATDMkg=;
-	b=OdXHRPPRWQN6FpW2z5vDSRrzDqXCVPtrc/TtSPp4wpzt9kN6Xd9r3jIFYndSmttgrJ2l
-	 sY02Uf2QKx13JE4gKjoWRNMhFJ8q4XgkL4HwvHk7kg51xum92XyKLOy/yPHzXuCP1PiaP
-	 bgeWi+dUUgfBpmBdU9zk+OtdBO4Zn0+g+Yu+OPcykOYaivMVdQxsVXC3nw90354Md3Aih
-	 AXZ1390DRsJWCXBim1aDS+fPGrZ6zNyk9BN4TQ48j+2yw8vyysuLK42a+mA6er+v8r7YJ
-	 GBz1ZI/d/nFWqdHVJ+rC9bt3zZHicvF2d0ayjbm4jfavUbCgdug2L0Fnei2k4vXDG5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793701982;
+	b=wH8zosCVU8f1FL835IG1mfpau5TzhUyDspLRiNcQS1OYYTSCM0cPj+8UmCAfLoNqFwO7
+	 bPEMcZgXVt2/KmWVYIwiDiw03BW731QUyzTiO0ENKT2QIMQGSlXBkNGdiON1/G4hjNKh8
+	 +T1m7pb/WenzYSdvCjLn1mhhnHGZmfnbyIAf4xRUWoASFCeFX+rZRjz3xeKDn6+HoBEYu
+	 +VQEWo1/LR4y4dN4SbHW8X1/jzWvnTuS2ILq22ZBCaRLEfP3Vpuq6SaUz9V9BfTDN1KK8
+	 qh1uduIQaHE2SuZHTNvuA8Nt0nYUSD2kyezlvQvytz/336sFZ6MnlYjolFk8svaohwQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701982;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zctGioLclglSoaHvjtktcD+2+ZFTxZfT7HwHArdX4xo=;
+	b=p6/TC9/E1IOSeOuxGuFPJzhjMTaXxFatgzgLa3m+BHzgJwKdN/DfTTDsU+dCbYvXQXmX
+	 bV8N2Zl1kfDmWZygIkWf0PF34/8pMLhVrSpoJGwPu/sYySWju3AqXCEVo8hM8m0Bgp0QR
+	 pVjJq3k8kWso4fx77bz/LURgsie3l1v2xRXKgJQBjYuAYWO40f4INqQGr11r/4tOozRJw
+	 as03fYUGDjpCaiNPmkRPDlDl9mJ1VielfjIbqlKeSvI0wV6qhntD5pNuzwatXPlp6ykFJ
+	 LqAEgZu/jlsmVC9ppfmeaOXmdlHJNF5jUrlnwWg5LgN7VdeXFSoN0QmSNN8G3kCoafQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="aulYagr/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.59
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013059.outbound.protection.outlook.com [40.107.201.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD4D606D804
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD4D606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793701969; x=1793961169;
-	bh=l+qzHo5wRksBt7nGrTMUCyKL4/4CA96XgjMlVATDMkg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=YloxspSTIm37TD7mO4qlavAiCfvwduTfF2yKy81dPCoTDLNxIzHOW7FK76Q0Dq+R+
-	 FItmg3wJN1IzDXDBwiV/+7mziJ0Pv4ph83aKDBrq5/t2c+CvOxBFbbmTYoW2Qjs6Hn
-	 Iw6gZtvV1guEYDiFGmg87rP0qRZJzGywxf4qjUod0eiWmv76tZUE4Sw6Ka+wGijnbf
-	 EDQ9l/KIxpXf5ZsgYV6HLxN7AoEQcfGDEc/ZF9jUSW26eJvdhevAqAC+0eTiV54rRm
-	 FXDvKTwwopluKwvftiT03F5vWjbq+2rh/D4DnMv5oxAVxNw3xKb4tg8AIw6Hoy8Po6
-	 v/cSP0Fhwl9Ag==
-Date: Tue, 03 Nov 2026 10:32:42 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] media: Add the ST VD55G0 global shutter sensor
-Message-ID: <20261103103235.94397-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: e6facd6fc030380132ad81c97d2f9ab9c4c7d10c
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F7F606BA68;
+	Tue,  3 Nov 2026 10:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F7F606BA68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aulYagr/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X+YyFb8CGeZvHllfGDKbzRiwr+1/zPzn3R20xU6kJZ82lyh02AJ8IwQZBv3RP82xzYyDOiihP8cYb5am410UDAWnuaj3T33JrIQADJ99HRr4Qjzw83UG+e2fsKM54v8COPrZHgqhMiYV6+dusXRBBSjDwOz7d2K87TK6zGbtkmhFXIDqGnIN73xxv8ykGOgKVLIjHYzwwnTJbBaBBEaJoRaWWuTxio2YLMxfzSMwV7Cpr59Ql+AUF7Hja/8/W3qW2nGnt45EDS4whxi3Syy0afe3NNz6fb4JPjptbwTs8YNGxbdkR33TQZGbQovQ474IU/Vl0LevfV7Wc2QUa/A7PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zctGioLclglSoaHvjtktcD+2+ZFTxZfT7HwHArdX4xo=;
+ b=hqOGStchFVtplj3MVWbXWIv23fc7UVB/puqCW0+iFZC40hy0iG25SNoperfVi4iIE6EPS/jfocSvOosGcCUi+6fcWlVWvCZFk+hQkgC1DNlZfYeLzg7LgsMQIMnOjEGhG9sRxHxzxkaPibFLhOGIf/gCQsRlbfHVShGWV7TVaftDlpZPpx274uinRudgXsyATwNMApeRV2lNc1WEk/OuWboA4sjWUXhhiFAcGI7ehlUOZR3OUXjPsxEpov3wnxaUP6GiVz2/X0+cbb3PwtfIPDyDI4GzCbutWFO1HYFbs7kN/0cbA+wLx3c5UwijLH8InGu3QrjFfixi0EcoLcGqDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zctGioLclglSoaHvjtktcD+2+ZFTxZfT7HwHArdX4xo=;
+ b=aulYagr/oflGAzZ6478nE5PBezbWSOKGB77S5OceLqsOTciE3z8aDJa/jzONWW5oxgh+hQWIEfH25dfXMK1+M5HlsKY4M2EEXzD4ToyPd9qso7AxSCyd3OtCQb421UoosZf5iHBCrIg2OLUHCeB78SzxX4e7ALdsTgz9m6MY+G+aDMYhmrxDWw2iB4vBg3jqnh5diQDdxgeiPJpbgJuF69H3FF4kYFcCQIuiDunJy7QEREmUlCXUm6ip+qJAFFifPEANOQyQ3zqICMTIz9H+vT1ZlqhDXxk1tSNglTRfc0aMXx7GLtmOyta5KKYyHTI8r3lN/ZCVZYa2ao2kdByjTQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by BY5PR12MB4033.namprd12.prod.outlook.com (2603:10b6:a03:213::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 10:32:58 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 10:32:58 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5 5/7] gpiolib: cdev: don't leak the IRQ name when the chip is removed
+Date: Tue,  3 Nov 2026 12:32:38 +0200
+Message-ID: <20261103-gpiolib-chip-removal-v5-5-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
+References: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TL0P290CA0011.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:5::13) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,87 +104,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|BY5PR12MB4033:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c0cbcdb-3755-41f8-5650-08df3995d42f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|18002099003|22082099003|261102123227099003|56012099006|11063799006|261009223027099003|261022075727099003|261021121427099003|261028144727099003|261021123027099003|261026140227099003|261022105027099003|261026121527099003|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Rq4S8Rd7rL5T+Sa0rKw1laeF1hRJV6+fUhkQ5xd7LaKEvjuvU/iVhKxTz97RgUNTI5huQmBpOnexMcFG4s4PunM/8XP1wkiQ2IvfBbNL1Jea0HoF2q0AQgVfQZscYfhMTabL7+hjEr0Sd1BpMri4+9vH4mS/aYv36Tw/V9oXgIG1uXSn9GyRi1OiDjrw++AjfiIMSEBjGSXclvIlHJg+VIRPHodjCV84jqdCF24rtWK0ajg6j6S6ImTaX9HSxFKLQ3+K34aImxQdpZXGHdRxMDXSYVWHYPWJyj5/NtbAJBxWRVNfYVX/Y5EOKLHlg48NsvDXWVbm93g7xjEV2fN/hSObsI1SFAuH2W0ZnV/kpUGD0EYoFjfKZMk2n/p9bBTlcTUwSToctKZbslPTOeLPvrBhhrMPtHbr+UaLOSouLicG/nhi5lgc9MfIMgwbncATJWD2uwZFdQgi4cuwbqrDmL/yPzi6dST73uHjYTDJu46eN7yaBrUVAwQxsZo+TTjEfrEJOkw+WlOGBNAEEwKJ4uM2060fpkfq1EnwCD3bDRKvoXo7VgWpbRj8JMZ5XHfkk0XA3y/rDwc7MkQC4APfjGhkNMM7lwxugk9W9J3QneSFn/2a5JCWkT01DNjKT7tZ5LzDa4Xn7K87QTD1CM0ASD8mVrKjXjxegsDslzYNZko=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(22082099003)(261102123227099003)(56012099006)(11063799006)(261009223027099003)(261022075727099003)(261021121427099003)(261028144727099003)(261021123027099003)(261026140227099003)(261022105027099003)(261026121527099003)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BikEw0ZkhU4QEM1ctGukpqzVnSujMJJ87Ix7IACdreNS+avtVY73MmCt9LD7?=
+ =?us-ascii?Q?gWnHWX9xkslmixlxNmYzh2GlFgrdkOWAOSAHth0M/fUdhF2Sqvpi9pu/1Sda?=
+ =?us-ascii?Q?eDAZghsFBAoNSmyHOoMxaaBint9ZgYn0KFoFwSzjyB1/vkj7fKEE1dU1V1pv?=
+ =?us-ascii?Q?Zo3tMOxJun8pABPQSf5fK0jj90x5dlLwzd8tifSGW3/gb8YXxcMukGVVsnUv?=
+ =?us-ascii?Q?+LGUblLJA2+9cmSRJskFS0KAz5ch1QsjWRpIwqujMvVysNNabppLu8t7c7FG?=
+ =?us-ascii?Q?oAqebHAXOskUxc+6y3bn7PgExcPZQizbgtAFiAs1ED6s8xd8fOG/69UibWXf?=
+ =?us-ascii?Q?W69Em1k/hm1+gjSZuhinHgrkZRbsRwvNqi+pvzavCFIqNOEGb/rzDyIOuWGl?=
+ =?us-ascii?Q?C4y8d4SEmwRmWYL0UPy+ugEtGRWK4fbVhbmu8cy9S7/VJ8hp4kALWzCegEbU?=
+ =?us-ascii?Q?ZsWKWjQWTtul17Y6FAAyklAY/3ZWmNtoWv8cO3PqzqpcRot8HfolCAgZUEz+?=
+ =?us-ascii?Q?1VhHGpeKuqoE8QeLj9BfRKKCntPGMXP52i/PVAjiKv+wa/Iwtr4QDRkHh5Ih?=
+ =?us-ascii?Q?Je2IAj7Fc5sj1xt9LDvErEc6/BaRrzS3gsZVhy0p4unj2yC9s9MXrm1HY4mb?=
+ =?us-ascii?Q?FMcUqzdQyFVofELuv7kWFjhjeR3CS1mpFyRJXDkHSLXO+JvbbgwZwVnT9zej?=
+ =?us-ascii?Q?nS3PL20qwhiCRaDkDcK9Ak6Cua5XnHdUemzARbawkwxD/H23p0hrGrFhAoH9?=
+ =?us-ascii?Q?ityfbxNMdTXELPWnLpHDugiZtLBL/5uMN05JLwpXCtfT+SFxx0jjZRy30WzM?=
+ =?us-ascii?Q?+dnpStnUFhrb9eGQ540XLreBVaFnMHp1odWW7KEr+KJpOCp/huz0JpVYaKW9?=
+ =?us-ascii?Q?yOdEpNtgTHnXzVSeduXClQhhx5/S1z8+Icof4hO+y5n53WsJ7bn+EgRlWU0F?=
+ =?us-ascii?Q?17QT7cwmGwWYRnVBBSb50SIy0RiRbXh3+eTmW88ofjC7D9gEK3/97f4LRZ5v?=
+ =?us-ascii?Q?kd0eXE0Lv56DY2cbRxHcXYXjrzoDGP/xDEUpQyq4x4091iU8+yvHXn5z+4xP?=
+ =?us-ascii?Q?irKnfG1n2JUEGB4GEQBqQfV/d9h2Ef6jNx1S+8Yf0LWF1iohYXuMUFMu7eEy?=
+ =?us-ascii?Q?keoCIZKbOwiCdzvm4nwRvaXVdt//xdgWyCnj+Tx8nNXyk8fW9QSr+14wHPJF?=
+ =?us-ascii?Q?H8rrvwnzDMiZGQ+WUY3Q3LMpUJlK6MXfMpkN3nVMWTlrAnKj6Sb8DaaC1ecl?=
+ =?us-ascii?Q?raGvlMhJV7PkXxn7Sy8fpCf7DLduLqZ1IerFi74NZiBgzYjFrMtjOFDfszEa?=
+ =?us-ascii?Q?vTDLQjhQeyom65gM4524AjBq0HfAW52rdmJP7hnnvUwTKbtI9DQcTb6gtZyh?=
+ =?us-ascii?Q?kT8JNNEg62QY3Gtd8HxJKClv5KTgW/a2B6AiYIecLqVLYabOLetTetF5jqwC?=
+ =?us-ascii?Q?ZnLZ5QRl9gClUafzx2TywMddfmpENjnt8E00qj8+LuErsvwjwZNB74kKpE1+?=
+ =?us-ascii?Q?dHtcXKhrq9/YjWllhgAx7/sWWbYtIOuUwCX4c75mr+tDnBRRX8i5GT7WSbYH?=
+ =?us-ascii?Q?l/ywVwNpmWVdab4W6AJosjpKQGpojTMKr06dMocoZ5RpuTL98Nj7AnpzbC5q?=
+ =?us-ascii?Q?Nr99oqXM9uOZhYw8cySXbsXqWrKm3sXib+yjNXEWnYW+eG5S+e43f94eczkn?=
+ =?us-ascii?Q?jtiudT+dkBKybqfBH3Yh7A9GHVhX3upn/+Sc8f3hnzS53Rv1U89T755Q2D1b?=
+ =?us-ascii?Q?tYHctkMW1w=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c0cbcdb-3755-41f8-5650-08df3995d42f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:32:58.3352
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YojZUbryqUYg/3vOVNdrIgDs9E2jdGs0vojPNjR+F79lJDvC7PaLtHcpcBMCt4rj3l8pDE+Mto24HAbPJo9a+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4033
 
-The ST VD55G0 is a 644x604 monochrome global shutter sensor. It is the
-infrared camera of the Microsoft Surface Pro 11 for Business with Intel
-(Lunar Lake, IPU7) and of the Surface Pro 9 (Alder Lake, IPU6), ACPI
-device SMO55F0. Without a driver the camera does not appear at all.
+The character device requests line IRQs with a copy of the consumer
+label as the name, and frees the name that free_irq() returns. When
+gpiochip_remove() frees the IRQ first, it drops that name and the copy
+leaks:
 
-  1/4  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
-  2/4  media: i2c: Add ST VD55G0 global shutter sensor driver
-  3/4  media: ipu-bridge: Add ST VD55G0
-  4/4  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
+  unreferenced object (size 8):
+    comm "gpio-hold"
+    backtrace (crc dc8eac94):
+      kstrdup
+      kstrdup_and_replace
+      edge_detector_setup
+      linereq_create
+      gpio_ioctl
 
-The driver is a port of ST's own downstream driver, firmware patch
-included, as vd55g1 carries its own:
-https://github.com/STMicroelectronics/vd55g0-linux-driver
-Benjamin reviewed it off-list before v1; 2/4 carries his
-Co-developed-by, and its clock tree is based on his.
+Keep the name with the line or v1 line event, and free it there,
+whoever freed the IRQ.
 
-Changes since v1:
-- 1/4: the VD55G0 joins st,vd55g1.yaml instead of a file of its own,
-  with its 375 MHz link-frequency minimum in an if/then, as Krzysztof
-  pointed to. Benjamin's Co-developed-by went with the separate file.
-- 2/4: no code change; MAINTAINERS no longer lists a binding for it.
-- 4/4: the st,leds name and GPIO numbers now live in the bridge's own
-  structs, as the software nodes outlive the module (Fernando). With
-  v1, unloading ipu-bridge and rebinding the sensor froze the machine.
-  Adds the Surface Pro 9, which strobes from the same GPIO (Fernando).
-- Rebased on v7.4-rc1.
+Reproduced with gpio-sim: remove the chip under an open request with
+edge detection and a consumer label. kmemleak reports up to 23 such
+objects after 30 cycles; with this change, none after 100.
 
-On both machines the sensor needs Hao Yao's int3472 fix: the SSDB asks
-for 24 MHz, but INT3472 enables the clock at 19.2 MHz, so without it the
-sensor runs at four fifths of every rate this series computes:
-https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
-Its v2 fixes the Surface Pro 11. On the Alder Lake Surface Pro 9 the
-_DSM takes 0 for 24 MHz rather than 3, as Fernando measured, so its v3
-has to choose the value per platform.
+Fixes: ec8b6f55b981 ("gpio: free irqs that are still requested when the chip is being removed")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+---
+ drivers/gpio/gpiolib-cdev.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-On IPU6, frames come out corrupted unless a CPU latency bound is held
-while streaming; that is the ISYS, not this sensor (Fernando, on v1).
-
-v1: https://lore.kernel.org/all/20261019162722.25587-1-lsa.uz@pm.me/
-
-Tested on the Surface Pro 11 for Business, on v7.4-rc1 with Hao Yao's
-int3472 v2, D. Manresa's ipu-bridge 1/2 for the unload test, KASAN with
-KASAN_VMALLOC, and lockdep, IPU7 run by the ipu6 driver:
-- probe defers until ipu-bridge has made the endpoint, then binds;
-- every mode runs at 59.14 fps, as the controls give, in Y8 and Y10 at
-  all four sizes and in Y10 packed at full size;
-- under auto exposure, exposure and the gains read back what the sensor
-  applies, and carry over to manual mode;
-- the illuminator through led_mode;
-- v4l2-compliance 46 of 46, and 54 of 54 through the media device,
-  with two warnings for the read-only crop;
-- unloading the IPU stack and ipu-bridge, then unbinding and binding the
-  sensor, is clean; with v1 it froze the machine;
-- no KASAN, lockdep or Oops report; the only WARNING is the ipu6
-  driver's lockdep_assert_held() at each stream start, as with v1;
-- W=3D1 and sparse clean; dt_binding_check clean, and it refuses a VD55G0
-  example at 125 MHz.
-The Surface Pro 9 entry is not tested here.
-
-Sergey Lebedev (4):
-  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
-  media: i2c: Add ST VD55G0 global shutter sensor driver
-  media: ipu-bridge: Add ST VD55G0
-  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
-
- .../bindings/media/i2c/st,vd55g1.yaml         |   27 +-
- MAINTAINERS                                   |    9 +
- drivers/media/i2c/Kconfig                     |   11 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/vd55g0.c                    | 2434 +++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c          |   70 +-
- include/media/ipu-bridge.h                    |    6 +-
- 7 files changed, 2551 insertions(+), 7 deletions(-)
- create mode 100644 drivers/media/i2c/vd55g0.c
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
---=20
-2.54.0
-
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index 610628d0b475..3623b05fef60 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -399,6 +399,7 @@ static int linehandle_create(struct gpio_device *gdev, void __user *ip)
+  * @desc: the GPIO descriptor for this line.
+  * @req: the corresponding line request
+  * @irq: the interrupt triggered in response to events on this GPIO
++ * @irq_label: the name @irq was requested with
+  * @edflags: the edge flags, GPIO_V2_LINE_FLAG_EDGE_RISING and/or
+  * GPIO_V2_LINE_FLAG_EDGE_FALLING, indicating the edge detection applied
+  * @timestamp_ns: cache for the timestamp storing it between hardirq and
+@@ -422,6 +423,7 @@ struct line {
+ 	 */
+ 	struct linereq *req;
+ 	unsigned int irq;
++	char *irq_label;
+ 	/*
+ 	 * The flags for the active edge detector configuration.
+ 	 *
+@@ -601,16 +603,18 @@ static inline void free_irq_label(const char *label)
+ /*
+  * gpiochip_remove() frees the interrupts still requested on the lines of the
+  * chip being removed, so once the chip is going away the IRQ may no longer be
+- * ours to free.
++ * ours to free. The label is kept by the caller as free_irq() is then not the
++ * one returning it.
+  */
+-static void free_line_irq(unsigned int irq, void *dev_id)
++static void free_line_irq(unsigned int irq, void *dev_id, char **label)
+ {
+-	const char *name = NULL;
++	const char *name = *label;
+ 
+ 	if (irq && irq_has_action(irq))
+-		name = free_irq(irq, dev_id);
++		free_irq(irq, dev_id);
+ 
+ 	free_irq_label(name);
++	*label = NULL;
+ }
+ 
+ #ifdef CONFIG_HTE
+@@ -938,6 +942,7 @@ static int debounce_setup(struct line *line, unsigned int debounce_period_us)
+ 				return ret;
+ 			}
+ 			line->irq = irq;
++			line->irq_label = label;
+ 		} else {
+ 			ret = hte_edge_setup(line, GPIO_V2_LINE_FLAG_EDGE_BOTH);
+ 			if (ret)
+@@ -980,7 +985,7 @@ static u32 gpio_v2_line_config_debounce_period(struct gpio_v2_line_config *lc,
+ 
+ static void edge_detector_stop(struct line *line)
+ {
+-	free_line_irq(line->irq, line);
++	free_line_irq(line->irq, line, &line->irq_label);
+ 	line->irq = 0;
+ 
+ #ifdef CONFIG_HTE
+@@ -1080,6 +1085,7 @@ static int edge_detector_setup(struct line *line,
+ 	}
+ 
+ 	line->irq = irq;
++	line->irq_label = label;
+ 	return 0;
+ }
+ 
+@@ -1778,6 +1784,7 @@ static int linereq_create(struct gpio_device *gdev, void __user *ip)
+  * @desc: the GPIO descriptor held by this event
+  * @eflags: the event flags this line was requested with
+  * @irq: the interrupt that trigger in response to events on this GPIO
++ * @irq_label: the name @irq was requested with
+  * @wait: wait queue that handles blocking reads of events
+  * @device_unregistered_nb: notifier block for receiving gdev unregister events
+  * @events: KFIFO for the GPIO events
+@@ -1791,6 +1798,7 @@ struct lineevent_state {
+ 	struct gpio_desc *desc;
+ 	u32 eflags;
+ 	int irq;
++	char *irq_label;
+ 	wait_queue_head_t wait;
+ 	struct notifier_block device_unregistered_nb;
+ 	DECLARE_KFIFO(events, struct gpioevent_data, 16);
+@@ -1826,7 +1834,7 @@ static int lineevent_unregistered_notify(struct notifier_block *nb,
+ 	struct lineevent_state *le = container_of(nb, struct lineevent_state,
+ 						  device_unregistered_nb);
+ 
+-	free_line_irq(le->irq, le);
++	free_line_irq(le->irq, le, &le->irq_label);
+ 	le->irq = 0;
+ 
+ 	wake_up_poll(&le->wait, EPOLLIN | EPOLLERR);
+@@ -1910,7 +1918,7 @@ static void lineevent_free(struct lineevent_state *le)
+ 	if (le->device_unregistered_nb.notifier_call)
+ 		blocking_notifier_chain_unregister(&le->gdev->device_notifier,
+ 						   &le->device_unregistered_nb);
+-	free_line_irq(le->irq, le);
++	free_line_irq(le->irq, le, &le->irq_label);
+ 	if (le->desc)
+ 		gpiod_free(le->desc);
+ 	kfree(le->label);
+@@ -2149,6 +2157,7 @@ static int lineevent_create(struct gpio_device *gdev, void __user *ip)
+ 	}
+ 
+ 	le->irq = irq;
++	le->irq_label = label;
+ 
+ 	FD_PREPARE(fdf, O_RDONLY | O_CLOEXEC,
+ 		   anon_inode_getfile("gpio-event", &lineevent_fileops, le,
+-- 
+2.43.0
 
