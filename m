@@ -1,83 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726518;
-	b=jQQ2cAu86RH/9dse/qUxw4F0YpsbMmpqmnGU4MQEcofbPs4UanjyXyPzki17CZbifRep
-	 g1y9NDWmw9QVH5sD7iWDE6qvv9sq/GX2IkDOIxU++Tjxpxba/eb93LzRRyEfyFZoVuUcX
-	 kunGkJ2lzIROvOqEMbDCkG6pQ1rz6t5njbiVVwDiTmVUmDbCepFRCokWA9Et7QG8leanN
-	 alCk+BrdvLSSdNa8PBAA++Xepn+aa5imttrT/XonItE+kH2axbdN5e5ItaOtEqoyvX4LA
-	 GU3Fxut8qpUpsrlRTI98nK9zdOHXJWZfyMR9p5zq5YIuuDNw9MR2NKw66Eb1hsaNTiA==
+	t=1793726582;
+	b=ByjHDoZQ53tRCQPA9DL6i0ErRKazRsA9C8tXcoOJeXUChI199QuI2ssllC4UPZUz17H2
+	 pRcKg/RK0YYUt7xiFzZNcUY9FvrXDxyDJrzWtLmEYeKWRikBtwmvA3XzB60unCEOD5LJd
+	 3by3olRVaMGZ/TeMO1mhQl0XdSv9t4JpGwNGIKaWh2nn+zDEjD7qgmns4dmH2T76OYVTJ
+	 ZOthbORdec0Avje70yw+cgE3s6wweB9Pgxe9Wd6QnQNY1WLcA9yWM+V/TseRk7ZYHI5T4
+	 ok8eezGUA7bLCXwPvAQc27QDIp8H2F9uFIeTjFD0DK1CUIqvx3x3J0k9RF+/IgGYAvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726518;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
-	 References:In-Reply-To;
-	bh=AD4L42H0HNVoYlglqMFr39a2BJYBFr7pQM1pceNP/MA=;
-	b=dhMcy6B1ktLuMhVv3VEzFdxG35D28shOpLDOLapRwdyNBGJ15J7H/o5CEdaoPygBoPdb
-	 7v6iuMfXiNjdpVA9Tnze1k5TTBfnPPMEd920jIA1vaLkpcSWzyA7hWCQqKezAaWqApQbc
-	 bUyPaOhqytjEHZLqEmFGzorRI5/88BD66pwYal4/yia83bN3sCP5np8srZhkzqou8a0YQ
-	 IpnP7yqctR+8tJOuTiI34AhvQ/WTNYQ+Y345BZSX+WmmRt0Jsn9nxWatXswzY8F0X4Ska
-	 3oCNK3FmP6I1S6stPnN2GnliatxmLtawD0yjUUafa2l2t2zTiHvnMNpV3aKwvZqRE4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726582;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QBNeyKGgsk+FmC6nEM5xjOZsGGaqbtElvO5AoS80vXU=;
+	b=U0J4Crit7YapwA6NkuCWkFL9uI+mOFQHEXm0/UrJP4Teo9O8IOV+KRl2Kgd6X6nUk0Ci
+	 1wSX33dhj+9xDtJeOEDrlouitiv/Lvw4PfGEE2KLN+I5bJmT4w68fgW1UjEiVBh5jOyYK
+	 iqC02AtZDue4aYRUS9wnZWLvDFR5oEk+uI9Lipjj/VBtJyt/HG1DYrDEqyosIqrWal1Di
+	 SH2m5V9d7sKGlUBxdqd45H2gEWXSDdjsw2zo2zXU4yTjpglhDl0VtAtB7od+9OAF5iKEO
+	 bn2eQjaIyW2+VXx+HAMOkk5HqUb8yHCPj4OjSyDk2uwkQ6D3bXVvzKTE7f8+gKxTL7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PPSaT/cx";
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JuqPUtXY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D625606A31B
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D625606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD10606A31B
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PPSaT/cx
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a208d93758so47292555e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:21:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793726516; x=1794331316; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AD4L42H0HNVoYlglqMFr39a2BJYBFr7pQM1pceNP/MA=;
-        b=PPSaT/cxmZ6hURUQKCutb+9MNl3fhi5qn8d5wFV015ZFNP0p7wP/UMc9QWwSCjKlPZ
-         zL/DD7gvjUVS1WwDG0vy7qUtdL4e9ZBG8lQnrDRgkfIUIZlbzvv/trLSefcWiQBKSr6u
-         RWiOf73SY7QM6RfyYuZu6k4tR5WiWRRKh/RIeV0cY5iHRsNLK+hTXF4APDRoBkCtO0ct
-         XYVAwfYwEMmz7BR45aY/9jxlYMj2cVxDIW7S6WMomC8Q4pSudP/vALucJz1DmpNouKJK
-         rA6xG/hBuUMhhOF7kKRJNPw+Wh4MOGJIc9m2NaRK8UCv+/ZvMWsAaIltcn9U+q8NCPVX
-         b5Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793726516; x=1794331316;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AD4L42H0HNVoYlglqMFr39a2BJYBFr7pQM1pceNP/MA=;
-        b=fRASjMk8kxaDoryO/u8Wzd2INxLo/BLYp6QX1sQFOSvs0Yh8P1hwQ3YYA/1kOmstuk
-         8VCVC6s3Yipiz0vylObsoSqqIWJt93PxDNtl4fi8yMdLnsHjGo4z+KnBcOWUUr90U6gU
-         a+eEE4RVPOO5XSCDJaja5t4lgksyXFvZYqNX1c+MkdqtEcs3WJAvHD4gG+Pu2XiZZI+r
-         BzfwUwlu3vFgUCia7ImoCR5y14G8VAjtmc1I6ICoEECiYB25mH4pD8NaPpBR2zgNXH+T
-         AP7my7djACBu5+zf79XWCNxyhzA1aHKshPyig3h1OB4UOZuwtVQTUnk3JBwiDpzsFPGI
-         lA2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwAC93DGyqf0LnUtacXUTBx3ftNk1K7OdfAKtcEZPymDYSZjfJo0xDIzLVLvr4Fjs8KHh8Y74Zdr6Lhm4c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gzjKMUJGq+L+luqyMk9XTO5Y8VLQVS/bInXKQk7W5XpDP6iSW
-	ZwjwWndrbEabp4ghpgf9EqCMnQULRraNNPk8UObPaJW5RebcaJGPL8ej
-X-Gm-Gg: AYBFou0slZDFbWbYDYX+BDuk7B38te8jVq2w8erlwZsq4lx1UegBGrTF4HUnMrQqLeR
-	M3k48NhoEJfE5t6iuRRcnLdsIYDb9aFgP3u3rgk31sjG+nEzkzvBjc8QXiHndXeX4hX41klrjjb
-	3pkF/eXH+M665edlM9Twq8mBfIJO2a6J+Pa6+preNS6R9PsAMYG+/K7uf4Wismu/D4wzSWyFnDF
-	JLp0coNiz2kmDFL3wDaTU2jW1RhWk1+HSI/S/NMzK8mD3Fv3KZdCg1A5fEttePNdXehxsIvs/48
-	ugtrdeSDhwlL6t7gGyqTyZrLzcpsil6JXzSw+3q3Xu/M41qtfZClvCjLkbMpmGPNuhnIbh7nv/G
-	H2IvFvoequvwmGt9taJHgvFoDDyYLEhBtU9uP46B4bnlF+ckYQyu1tHQceBarYIBNCgrBooLfaM
-	xxKDcWv/oqXBADg5iaiEB4H+asLXdU8lKzcxEZvziZBpJpSxbtP7ql67asw1zqoycH0/TqUzuLC
-	R3kNH05UfWxCczBpm2kOmaOW62BGTJfFfiZS8/NPFwdSYbNuDJIWjTEVMIpYXjCpicfJukMGyft
-	qMkhTitAhQsltc6rP6uq6ibR
-X-Received: by 2002:a05:600c:3b0e:b0:4a7:7d22:c50c with SMTP id 5b1f17b1804b1-4ac150b2243mr345177055e9.2.1793726515970;
-        Tue, 03 Nov 2026 09:21:55 -0800 (PST)
-Received: from localhost ([151.60.201.12])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0a66caefsm287061365e9.5.2026.11.03.09.21.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 09:21:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JuqPUtXY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FECC1F000C1;
+	Tue,  3 Nov 2026 17:23:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793726581;
+	bh=QBNeyKGgsk+FmC6nEM5xjOZsGGaqbtElvO5AoS80vXU=;
+	h=From:To:Cc:Subject:Date;
+	b=JuqPUtXY3lVPSVcRFVuZA/BBRi9VAdMSiGG3EoccW24PuUNhBStcghlFoPv/6s4Cj
+	 gYVe/iHq/vcBu9u/sqoU++k46+HQKMvQc8aXh6nq2leFbBx+vUroM+Rsedf3Fx/Pvu
+	 0Ikqgtps5Ubp2z068GGtW+sagTUMCPhzsQJO4Eyd/RjE9a6KC5cfC7Cg6kw559ksw1
+	 +riXeRcidDwEzg/YGoRHLOQ/kYPjjH6PfHbSGXVHTk331C/LckAIx19SGkDkToy9CT
+	 8JnHrjbzS4APBE6am6Cwp55+4hIjDRD6VLoBG+qZcD62u+9nN+wgAYMG3Aqt3A4rx6
+	 lKDIYu/p6m+dw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v2] mm/memfd_luo: don't use memfd_pin_folios()
+Date: Tue,  3 Nov 2026 18:22:50 +0100
+Message-ID: <20261103172251.2348370-1-pratyush@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,131 +59,469 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=1ae0fec9eeabe43856471b243f1ece3413edf7686407593b3575066613d8;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 03 Nov 2026 18:21:53 +0100
-Message-Id: <DMLQZCDREHI8.1PLK04U05AP4S@gmail.com>
-Cc: "David Sterba" <dsterba@suse.com>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
- <sj1557.seo@samsung.com>, "Konstantin Komarov"
- <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
- <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
- <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
- <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
- Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
- <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>
-Subject: Re: [RFC PATCH v3 0/5] add provenance time (ptime)
-From: "koraynilay" <koray.fra@gmail.com>
-To: "Amir Goldstein" <amir73il@gmail.com>, "koraynilay"
- <koray.fra@gmail.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261101015551.786044-1-koray.fra@gmail.com>
- <CAOQ4uxjkG=1j1z==Mv4wzkF042rXstodokKnBfMFBf2e-Eztmw@mail.gmail.com>
- <DMLJE2Z57AD9.1W22LSE7V9HH2@gmail.com>
- <CAOQ4uxiMLDgMXuij99-43UfCqfZN2a=CTet560o_RzU2m_Y4SA@mail.gmail.com>
-In-Reply-To: <CAOQ4uxiMLDgMXuij99-43UfCqfZN2a=CTet560o_RzU2m_Y4SA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---1ae0fec9eeabe43856471b243f1ece3413edf7686407593b3575066613d8
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-On Tue Nov 3, 2026 at 4:12 PM CET, Amir Goldstein wrote:
-> On Tue, Nov 3, 2026 at 12:25=E2=80=AFPM koraynilay <koray.fra@gmail.com> =
-wrote:
->>
->> On Mon Nov 2, 2026 at 3:54 PM CET, Amir Goldstein wrote:
->> > On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com=
-> wrote:
->> >>
->> >> This is an initial implementation of a new timestamp to indicate the
->> >> time when a file/directory was initially created.
->> >>
->> >> This patch series takes inspiration from the one by Sean Smith
->> >> <defendthedisabled@gmail.com> [1], but using
->> >> file_setattr()/file_getattr() as suggested by Darrick J. Wong
->> >> <djwong@kernel.org> in [2].
->> >>
->> >> The semantics of this new timestamp should be at least these:
->> >> - it should be the same as btime on a newly created file
->> >> - it's user-settable, so it can be preserved for backups, filesystem
->> >>   conversions, archives and any similar operation
->> >> - it should be preserved every time mtime gets preserved
->> >>
->> >> and the correspondence with the other timestamps is as follows:
->> >>
->> >> ctime <-> btime
->> >> mtime <-> ptime
->> >>
->> >> Examples:
->> >> 1) a .zsh_history file created in 2019, then after a few years the us=
-er
->> >>    decides to switch to another filesystem, copying the .zsh_history =
-to
->> >>    the new home, in that case btime would have the timestamp of the c=
-opy
->> >>    and ptime would have the 2019 timestamp (just like mtime would hav=
-e
->> >>    been preserved)
->> >> 2) a symlink created in 2020 from the home directory to a /path going
->> >>    through the same process as the .zsh_history, in this case it woul=
-d
->> >>    also make sense to sync the ptime to the 2020 timestamp instead of
->> >>    keeping only the btime (so the inode creation time).
->> >>
->> >> The proof-of-concept code (for testing) for stat(1) and cp(1) is
->> >> available at https://github.com/koraynilay/coreutils (master branch)
->> >> (Note: these coreutils code changes are a prototype and won't be
->> >> submitted upstream as-is, but they work as expected in simple stat an=
-d
->> >> cp -a/--preserve=3Dptime tests)
->> >>
->> >> Lastly, the name "provenance" and "ptime" are not final, I personally
->> >> don't have a strong opinion on any name, but while testing with stat(=
-1)
->> >> I noticed that "Provenance" is definitely too long for the normal
->> >> output, so another option which would fit well is "Origin time",
->> >> abbreviated as "ntime" (OrigiN time) and not as "otime", as that woul=
-d
->> >> conflict with btrfs' internal naming and create confusion.
->> >
->> > FWIW, I agree that given the existing uses of btime and crtime in the
->> > kernel and various XXXprogs, using 'ptime' for kernel code is probably
->> > the lesser evil.
->>
->> What do you think about the origiN time (ntime) (Origin: in stat)?
->> It would also coincidentally be alphabetically (ntime <-> mtime, n -> m)
->> the same as btime <-> ctime (b -> c) ahah.
->>
->
-> Honestly I don't know.
-> My new idea is don't publish it in statx() at all.
+memfd_luo takes a snapshot of the folios in the file's mapping. To make
+sure the snapshot does not go out of sync, it pins the folios in the
+file via memfd_pin_folios(). The pinning also migrates the folios out of
+MIGRATE_MOVABLE to make sure doesn't land in KHO boot memory or in a CMA
+region.
 
-Well I was more talking about the actual variable names in all patches
-ahah.
+memfd_pin_folios() does not lock the folios. So it can race with
+shmem_writeout(). A folio returned by memfd_pin_folios() might already
+be in swap cache. This happens to work but is fragile. memfd_luo looks
+at folio flags and index on a folio that isn't in the memfd's page
+cache.
 
-Thanks,
-koraynilay
+In addition, memfd_pin_folios() needs the caller to allocate an array of
+folios. memfd_luo does not really need that since it will vmalloc
+folios_ser and store the information there anyway. The folios array is
+unnecessary overhead.
 
-> Thanks,
-> Amir.
+Finally, memfd_pin_folios() fills in holes in the memfd. This makes
+preserving sparse memfds very expensive in both compute and memory.
+While this patch doesn't yet stop filling in the holes, it sets up the
+infrastructure to make it simpler.
 
+Fix all this by walking the page cache directly using shmem_get_folio()
+with SGP_CACHE. This returns a locked folio with an elevated refcount.
+memfd_luo holds that reference until the memfd is unpreserved. This
+blocks compaction, migration, etc.
 
+There is still a need to migrate folios out of MIGRATE_MOVABLE page
+blocks. This is because those might be CMA or KHO scratch. memfd_luo
+will hold a longterm reference to the folios so it will block migration
+in that pageblock. Introduce memfd_luo_migrate_folio() to do this.
 
---1ae0fec9eeabe43856471b243f1ece3413edf7686407593b3575066613d8
-Content-Type: application/pgp-signature; name="signature.asc"
+Also factor out folio unpreservation logic into memfd_luo_put_folios()
+and use it from memfd_luo_unpreserve_folios() and from error paths in
+memfd_luo_preserve_folios().
 
------BEGIN PGP SIGNATURE-----
+Since shmem_get_folio() always returns uptodate folios, drop the folio
+zeroing logic.
 
-iHUEABYKAB0WIQRJ2XvJtXGwULYEerQ0bnTtJTDoOAUCauoYMQAKCRA0bnTtJTDo
-OI2UAQDfLMxbWJxZCtj5g/a2TQHWFv3yLHmv7IEjclN8pYY5IgD/VFtdYZ3g+FW5
-oxEEhXF7xBfTTV5O+6Ag8QIL/lM51wc=
-=XiPH
------END PGP SIGNATURE-----
+This change also improves preservation performance, shown in the table
+below.
 
---1ae0fec9eeabe43856471b243f1ece3413edf7686407593b3575066613d8--
+|------------------+----------+------------+-------|
+| memfd            | baseline | this patch | delta |
+|------------------+----------+------------+-------|
+| 4K pages, 32 GiB | 748 ms   | 600 ms     |  -20% |
+| THP, 4 GiB       | 0.59 ms  | 0.59 ms    |    0% |
+| THP, 16 GiB      | 2.99 ms  | 2.61 ms    |  -13% |
+| THP, 32 GiB      | 4.83 ms  | 5.21 ms    |   +8% |
+| sparse, 32 GiB   | 8695 ms  | 7269 ms    |  -16% |
+|------------------+----------+------------+-------|
+
+Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+
+---
+
+The diff is unfortunately hard to read. It would be easier to review the
+patch by applying it and looking at the final code.
+
+This patch is picked from a separate series I sent [0]. It is more or
+less an independent change. It fixed a race for that series so I added
+it there, but since that series might take longer to go through, I think
+it is useful to take this patch separately.
+
+[0] https://lore.kernel.org/all/20261027173031.763213-2-pratyush@kernel.org/
+
+Changes since v1:
+
+- Add memfd_luo_get_folio() which combines shmem_get_folio() and the
+  migration logic.
+- Collect tags.
+- Rebase to v7.4-rc1.
+
+---
+ mm/memfd_luo.c | 305 ++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 189 insertions(+), 116 deletions(-)
+
+diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+index 6b68220275ebe..9fd9abf9fedf6 100644
+--- a/mm/memfd_luo.c
++++ b/mm/memfd_luo.c
+@@ -77,26 +77,160 @@
+ #include <linux/kexec_handover.h>
+ #include <linux/kho/abi/memfd.h>
+ #include <linux/liveupdate.h>
++#include <linux/migrate.h>
++#include <linux/sched/mm.h>
++#include <linux/sched/signal.h>
+ #include <linux/shmem_fs.h>
++#include <linux/swap.h>
+ #include <linux/vmalloc.h>
+ #include <linux/memfd.h>
+ #include <uapi/linux/memfd.h>
+ 
+ #include "internal.h"
+ 
++static void memfd_luo_put_folios(const struct memfd_luo_folio_ser *folios_ser,
++				 u64 nr_folios)
++{
++	u64 i;
++
++	for (i = 0; i < nr_folios; i++) {
++		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
++		struct folio *folio;
++
++		if (!pfolio->pfn)
++			continue;
++
++		folio = pfn_folio(pfolio->pfn);
++
++		kho_unpreserve_folio(folio);
++		folio_put(folio);
++	}
++}
++
++/* How many times to retry isolating a folio someone else has isolated. */
++#define MEMFD_LUO_MIGRATE_RETRIES	3
++
++/*
++ * Move a folio out of ZONE_MOVABLE or CMA, so it can be held until the next
++ * kernel. Called with a reference on the unlocked folio, which is always
++ * dropped. The caller must look up the folio again afterwards.
++ *
++ * Returns 0 on success, -EBUSY if the folio could not be isolated (e.g.
++ * because someone else has it isolated right now), or -ENOMEM if migration
++ * failed.
++ */
++static int memfd_luo_migrate_folio(struct folio *folio)
++{
++	struct migration_target_control mtc = {
++		.nid = NUMA_NO_NODE,
++		/* Not movable, so the target is neither in ZONE_MOVABLE nor CMA. */
++		.gfp_mask = GFP_USER | __GFP_NOWARN,
++		.reason = MR_LONGTERM_PIN,
++	};
++	LIST_HEAD(source);
++	bool isolated;
++
++	/* Flush per-CPU LRU batches holding the folio so isolation works. */
++	lru_cache_drain_for_folio(folio, 1, NULL);
++	isolated = isolate_folio_to_list(folio, &source);
++	/* Isolation holds its own reference. */
++	folio_put(folio);
++	if (!isolated)
++		return -EBUSY;
++
++	if (migrate_pages(&source, alloc_migration_target, NULL,
++			  (unsigned long)&mtc, MIGRATE_SYNC, MR_LONGTERM_PIN,
++			  NULL)) {
++		putback_movable_pages(&source);
++		return -ENOMEM;
++	}
++
++	return 0;
++}
++
++/*
++ * Look up the folio at @index, allocating it if needed, and make sure it can be
++ * held until the next kernel. Folios that are not longterm pinnable are migrated
++ * out first, retrying a few times if someone else has them isolated.
++ *
++ * On success, returns 0 with *@foliop locked and holding a reference.
++ */
++static int memfd_luo_get_folio(struct inode *inode, pgoff_t index,
++			       struct folio **foliop)
++{
++	int err, busy_retries = 0;
++	struct folio *folio;
++
++	for (;;) {
++		err = shmem_get_folio(inode, index, 0, &folio, SGP_CACHE);
++		if (err)
++			return err;
++
++		if (likely(folio_is_longterm_pinnable(folio)))
++			break;
++
++		folio_unlock(folio);
++		err = memfd_luo_migrate_folio(folio);
++		/* Someone else might have it isolated, retry a bit. */
++		if (err == -EBUSY && ++busy_retries < MEMFD_LUO_MIGRATE_RETRIES)
++			continue;
++		if (err)
++			return err;
++	}
++
++	*foliop = folio;
++	return 0;
++}
++
++static int memfd_luo_preserve_folio(struct folio *folio,
++				    struct memfd_luo_folio_ser *pfolio)
++{
++	int err;
++
++	err = kho_preserve_folio(folio);
++	if (err)
++		return err;
++
++	/*
++	 * A dirty folio is one which has been written to. A clean folio
++	 * is its opposite. Since a clean folio does not carry user
++	 * data, it can be freed by page reclaim under memory pressure.
++	 *
++	 * Saving the dirty flag at prepare() time doesn't work since it
++	 * can change later. Saving it at freeze() also won't work
++	 * because the dirty bit is normally synced at unmap and there
++	 * might still be a mapping of the file at freeze().
++	 *
++	 * To see why this is a problem, say a folio is clean at
++	 * preserve, but gets dirtied later. The pfolio flags will mark
++	 * it as clean. After retrieve, the next kernel might try to
++	 * reclaim this folio under memory pressure, losing user data.
++	 *
++	 * Unconditionally mark it dirty to avoid this problem. This
++	 * comes at the cost of making clean folios un-reclaimable after
++	 * live update.
++	 */
++	folio_mark_dirty(folio);
++
++	pfolio->pfn = folio_pfn(folio);
++	pfolio->flags = MEMFD_LUO_FOLIO_DIRTY | MEMFD_LUO_FOLIO_UPTODATE;
++	pfolio->index = folio->index;
++
++	return 0;
++}
++
+ static int memfd_luo_preserve_folios(struct file *file,
+ 				     struct kho_vmalloc *kho_vmalloc,
+ 				     struct memfd_luo_folio_ser **out_folios_ser,
+ 				     u64 *nr_foliosp)
+ {
++	struct memfd_luo_folio_ser *folios_ser, *shrunk;
+ 	struct inode *inode = file_inode(file);
+-	struct memfd_luo_folio_ser *folios_ser;
+-	unsigned int max_folios;
+-	long i, size, nr_pinned;
+-	struct folio **folios;
+-	int err = -EINVAL;
+-	pgoff_t offset;
+-	u64 nr_folios;
++	u64 nr_folios = 0, max_folios;
++	unsigned int pin_flags;
++	pgoff_t index = 0, end;
++	int err;
++	loff_t size;
+ 
+ 	size = i_size_read(inode);
+ 	/*
+@@ -113,98 +247,65 @@ static int memfd_luo_preserve_folios(struct file *file,
+ 	 * Guess the number of folios based on inode size. Real number might end
+ 	 * up being smaller if there are higher order folios.
+ 	 */
+-	max_folios = PAGE_ALIGN(size) / PAGE_SIZE;
+-	folios = kvmalloc_objs(*folios, max_folios);
+-	if (!folios)
++	end = DIV_ROUND_UP_ULL(size, PAGE_SIZE);
++	max_folios = end;
++	folios_ser = vmalloc_array(max_folios, sizeof(*folios_ser));
++	if (!folios_ser)
+ 		return -ENOMEM;
+ 
+ 	/*
+-	 * Pin the folios so they don't move around behind our back. This also
+-	 * ensures none of the folios are in CMA -- which ensures they don't
+-	 * fall in KHO bootmem. It also moves swapped out folios back to memory.
++	 * The folios are held until the next kernel, so keep newly allocated
++	 * ones out of ZONE_MOVABLE and CMA -- which also ensures they don't
++	 * fall in KHO bootmem. Existing ones are migrated below.
+ 	 *
+-	 * A side effect of doing this is that it allocates a folio for all
+-	 * indices in the file. This might waste memory on sparse memfds. If
+-	 * that is really a problem in the future, we can have a
+-	 * memfd_pin_folios() variant that does not allocate a page on empty
+-	 * slots.
++	 * A side effect of this is that it allocates a folio for all indices in
++	 * the file. This might waste memory on sparse memfds. If that is really
++	 * a problem in the future, this loop can be taught to skip empty slots.
+ 	 */
+-	nr_pinned = memfd_pin_folios(file, 0, size - 1, folios, max_folios,
+-				     &offset);
+-	if (nr_pinned < 0) {
+-		err = nr_pinned;
+-		pr_err("failed to pin folios: %d\n", err);
+-		goto err_free_folios;
+-	}
+-	nr_folios = nr_pinned;
++	pin_flags = memalloc_pin_save();
++	while (index < end) {
++		struct folio *folio;
+ 
+-	folios_ser = vcalloc(nr_folios, sizeof(*folios_ser));
+-	if (!folios_ser) {
+-		err = -ENOMEM;
+-		goto err_unpin;
+-	}
++		cond_resched();
+ 
+-	for (i = 0; i < nr_folios; i++) {
+-		struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
+-		struct folio *folio = folios[i];
++		if (fatal_signal_pending(current)) {
++			err = -EINTR;
++			goto err_restore;
++		}
+ 
+-		err = kho_preserve_folio(folio);
++		if (WARN_ON_ONCE(nr_folios >= max_folios)) {
++			err = -EINVAL;
++			goto err_restore;
++		}
++
++		err = memfd_luo_get_folio(inode, index, &folio);
+ 		if (err)
+-			goto err_unpreserve;
+-
+-		folio_lock(folio);
+-
+-		/*
+-		 * A dirty folio is one which has been written to. A clean folio
+-		 * is its opposite. Since a clean folio does not carry user
+-		 * data, it can be freed by page reclaim under memory pressure.
+-		 *
+-		 * Saving the dirty flag at prepare() time doesn't work since it
+-		 * can change later. Saving it at freeze() also won't work
+-		 * because the dirty bit is normally synced at unmap and there
+-		 * might still be a mapping of the file at freeze().
+-		 *
+-		 * To see why this is a problem, say a folio is clean at
+-		 * preserve, but gets dirtied later. The pfolio flags will mark
+-		 * it as clean. After retrieve, the next kernel might try to
+-		 * reclaim this folio under memory pressure, losing user data.
+-		 *
+-		 * Unconditionally mark it dirty to avoid this problem. This
+-		 * comes at the cost of making clean folios un-reclaimable after
+-		 * live update.
+-		 */
+-		folio_mark_dirty(folio);
+-
+-		/*
+-		 * If the folio is not uptodate, it was fallocated but never
+-		 * used. Saving this flag at prepare() doesn't work since it
+-		 * might change later when someone uses the folio.
+-		 *
+-		 * Since we have taken the performance penalty of allocating,
+-		 * zeroing, and pinning all the folios in the holes, take a bit
+-		 * more and zero all non-uptodate folios too.
+-		 *
+-		 * NOTE: For someone looking to improve preserve performance,
+-		 * this is a good place to look.
+-		 */
+-		if (!folio_test_uptodate(folio)) {
+-			folio_zero_range(folio, 0, folio_size(folio));
+-			flush_dcache_folio(folio);
+-			folio_mark_uptodate(folio);
+-		}
++			goto err_restore;
+ 
++		err = memfd_luo_preserve_folio(folio, &folios_ser[nr_folios]);
++		index = folio_next_index(folio);
+ 		folio_unlock(folio);
+-
+-		pfolio->pfn = folio_pfn(folio);
+-		pfolio->flags = MEMFD_LUO_FOLIO_DIRTY | MEMFD_LUO_FOLIO_UPTODATE;
+-		pfolio->index = folio->index;
++		if (err) {
++			folio_put(folio);
++			goto err_restore;
++		}
++		nr_folios++;
+ 	}
++	memalloc_pin_restore(pin_flags);
++
++	/*
++	 * Free the unused tail so it doesn't get preserved. If vrealloc fails,
++	 * the folios_ser is still valid.
++	 */
++	shrunk = vrealloc(folios_ser, array_size(nr_folios, sizeof(*folios_ser)),
++			  GFP_KERNEL);
++	if (shrunk)
++		folios_ser = shrunk;
+ 
+ 	err = kho_preserve_vmalloc(folios_ser, kho_vmalloc);
+ 	if (err)
+-		goto err_unpreserve;
++		goto err_put;
+ 
+-	kvfree(folios);
+ 	*nr_foliosp = nr_folios;
+ 	*out_folios_ser = folios_ser;
+ 
+@@ -215,15 +316,11 @@ static int memfd_luo_preserve_folios(struct file *file,
+ 	 */
+ 	return 0;
+ 
+-err_unpreserve:
+-	for (i = i - 1; i >= 0; i--)
+-		kho_unpreserve_folio(folios[i]);
++err_restore:
++	memalloc_pin_restore(pin_flags);
++err_put:
++	memfd_luo_put_folios(folios_ser, nr_folios);
+ 	vfree(folios_ser);
+-err_unpin:
+-	unpin_folios(folios, nr_folios);
+-err_free_folios:
+-	kvfree(folios);
+-
+ 	return err;
+ }
+ 
+@@ -231,26 +328,11 @@ static void memfd_luo_unpreserve_folios(struct kho_vmalloc *kho_vmalloc,
+ 					struct memfd_luo_folio_ser *folios_ser,
+ 					u64 nr_folios)
+ {
+-	long i;
+-
+ 	if (!nr_folios)
+ 		return;
+ 
+ 	kho_unpreserve_vmalloc(kho_vmalloc);
+-
+-	for (i = 0; i < nr_folios; i++) {
+-		const struct memfd_luo_folio_ser *pfolio = &folios_ser[i];
+-		struct folio *folio;
+-
+-		if (!pfolio->pfn)
+-			continue;
+-
+-		folio = pfn_folio(pfolio->pfn);
+-
+-		kho_unpreserve_folio(folio);
+-		unpin_folio(folio);
+-	}
+-
++	memfd_luo_put_folios(folios_ser, nr_folios);
+ 	vfree(folios_ser);
+ }
+ 
+@@ -287,15 +369,6 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
+ 	ser->pos = args->file->f_pos;
+ 	inode_size = i_size_read(inode);
+ 
+-	/*
+-	 * memfd_pin_folios() caps at UINT_MAX folios; refuse larger
+-	 * files to avoid silently preserving only a prefix.
+-	 */
+-	if (DIV_ROUND_UP_ULL(inode_size, PAGE_SIZE) > UINT_MAX) {
+-		err = -EFBIG;
+-		goto err_free_ser;
+-	}
+-
+ 	ser->size = inode_size;
+ 	ser->seals = seals;
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.385.gac671c819a-goog
+
