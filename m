@@ -1,89 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722489;
-	b=rJPbMNjEEHVE+m2quiawsaJwVlv5Hu2b11p9Sjc/+Ag8LOQKu/upzENwU+3wZW2K63Ag
-	 VFHQu2OwrReDDnYeQXdsS3UY3OtyLXlwODnzsBAoIaYtIFpdwqB2aW1+jZpSgh600Z2Ht
-	 60PwmrbdtmrhpGN+3a0mHF1ONYqV2ZNnHRW9+JRnihQyYMz6sPFIs2rJ4Po9BA4U6NZ7U
-	 1/b+FjD2iXtd9DkYtdxWSkEABWgAbAC2+21L4gXATZgCkSDDQfy9lpXrKt7MpwyNCLg7M
-	 vLEgnH6q45u+A7/tx9ZE9+2hueZWtBi+I+Sa/RdBA22AqhWp1revjasIpqRG9AEmDPg==
+	t=1793722499;
+	b=bH6iLgMX8B/rDxTdusfFQJHY9Mlt4Y1lMNTQHLxmPt0N3FD0DsIV3nczNOVvfh23NBuy
+	 JbGn0D8S2Ax3RQoWc1RKFFviSbjIaDsgIk3zMmv3fVgKKUtXP8gnnlbem8Kr/YFTcL4oV
+	 RmHEvFFRgOfYF+88bj5L6kaAzWWjaJHm1fI0N34VgyeoArwtyh1kYVzISWbirmlboLsd3
+	 mp6BDinoZm1gL3DgTSLwtjb97fC4x4s3QeyfxHu5jZLhO8tfg3z5Ei97jQ3qzfS0E0em4
+	 H/iN3BD3ELjcsxtPlLzs4ACR+u1tMiLGtCAocFjJnp2VP4vC2faK1v8N29zpFXxJ5QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722489;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RqgKOvUc0lsw73NwDA3YxCNWSPfGQRTkcWNoeJzwXQg=;
-	b=4EWvbYq7oPekLLf9UUL1j1mo/fJRcCLi098FbkY//5HhdUkCtzY2BZ1MwtQFU/K7uZSe
-	 MMKm+6IYNllHdpl6OARbUfUa9BfTKUOHE9xRREt/vKQBpPh/hDd/NS8YZz+Orvf3Yc07M
-	 49FHQIYdrC1ml3C+lvAzjBk1dmig+uzOec4ByONgKMz7c1JuX60N6SoNH+ojhPNxHj8BT
-	 djsHib+8uZgFbUcM8/bhMkWjo0tZXr6GJw4oGIOQLAPOnBJteYkLWTmIGHKjBSY4jHpJA
-	 LAnMLn8k0D0dGayBxzxyfNIKz09ynfm4kbluyb80ZM7xAyFBeAV71YDoAQIWUHrwE6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722499;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=EKCJmsDojR6fmOrZt3xL3Qv8JIBHOSZUtNHfGzpr6gM=;
+	b=LyjlhfbeE09uWbxJ1VC/BEf+C9HZXrkzgU054AYmRqfTB2aV7IjsmRLAhcpckXwxyG6j
+	 hVuO+68dOIRjOD05d+JcNdyi3a9+bH9hGAtsZ5fSDGNY3zzp4O7JfwHuPqMxl7sdMBJau
+	 9F3i+b+AINzPsl1CQW98XY9uTnaRGKowcP69HshLXWGm3z4z1Pa60d8by5sPNYvxSQnB9
+	 JVnqqMjRxXV5Nj7dwlXBCy8VQpjtASn9QJ1oYNfDRurwYDz43SXggNW+bTnJAQFvEy2r2
+	 EY93McR21JH7wjrj+EwQytWwT3/8Rg0XWjG9Pny3oXWvbBjmRGySqeK4KPwbcNq7G7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z55d4JHE;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U7915FKJ;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704D3606A334
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 704D3606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0683606A334;
+	Tue,  3 Nov 2026 16:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0683606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z55d4JHE
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso38921735e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 08:14:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793722488; x=1794327288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RqgKOvUc0lsw73NwDA3YxCNWSPfGQRTkcWNoeJzwXQg=;
-        b=z55d4JHE0CJjIcyzwXkWFXj5/mWdgnZuDZ4EUdAB8g4kNbF9OOBgWMZxrB5XfSy8yI
-         IU788zCQHWeuqtFbGTm4Omy/lNLBlG5elcgy6bQCcPSXO+NZZlQLpk/pyMyaeAMERXeD
-         d3P51glvULBfhYRz1l9o9hxnr+QMDJgvzPv2SGyp6z8b4+bJ/AwMHZqI4jK45e1zaKEV
-         gO4ene69Ec0RNf1cD2uxw3Y1VgUom9VE+UWhJRp/froJP1N+Au+R7h9TV8QazkVriy4I
-         hJAxgl8yP0qd+9nvfITSBhOxrhl4ZqJrHtehcTOPqODQjICumVbMebbx2nLQPL+1creV
-         gkCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793722488; x=1794327288;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RqgKOvUc0lsw73NwDA3YxCNWSPfGQRTkcWNoeJzwXQg=;
-        b=noKfQivW7mjcvlR5qFSyVCM7nwB8xJ9EgCHRP+OR/x3kNardy38MiNFwnYfv9QXoTv
-         V624VO5ql7LwOHHiOq1zarnoVgD7+5oGcOvvKcHUTU5prZ+vxxm1JtNbJ6C/zXffEgkb
-         a+brRThHhcjoYModoHWJw2pNP3z/digiipvIxsfprCNnKkpwt2ct7G4/oa1hLdbheAvO
-         KKaJFMlMoGXh9E2WOWmxhGtdAhIl8Tt0BewUHndyZkyqmYZWn6/S0bNavGGvZ0lQjhuj
-         nzG2NBzqNcXMRfDbGZaFviFLir+Co2QGW4LIs4xTJvfocM1ylBwt2MgDOWdI1J5BBtF2
-         3kYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwsoA0UG/zmNuH4ByaoCSfsE1rQxbHVYseOP4lXFbr+8mtlF0s+bGetdy6s6QXYL/DM0uDVCoAnMSgY3VQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MJe9h0ZW1qSwaBAUZl1qVWL/TxcvsbZaBehk8pTrn1JZm4nvu
-	grS3dy3WRwcGe55POp51yY1nXBDOSshVPVf5guc9Tr8XG3NW10XDIqdS
-X-Gm-Gg: AYBFou3/DsOfKDBbkzu+ydqTo+oMq8iJSNFC/uXvfZHNhDyfvRrXNNukLcBdo0tnpiu
-	paq9FDK4xFHf80JIQ0xzqjo5vQRMxI54iTMspeDzmauh95+wiAyeY4KgZj9rdlg1q8yX+IH/WXy
-	xE9TFjWiwLTb5Yd2PZkhaDkMrFY1m+lSv1mD5OUiUHuwcDEmcz0zmYXqiIV2jnnneqr4BEcQiq8
-	oLFGXOCjugYQfFI+B57VsoEOOkMk7YzzlSSw96F9ytIJlUdoVjSYRBK1teijoclU2K//Cyt85Mm
-	qG00CI2Zjc53jKTAQkixwiR/mpl+WeMM1UXU8TCo4nwyRwmhQtcKwTogasjNMlNyjRUswgLCbn9
-	erUfVv+Pl/V+aGTzuGvTqY6WpvjbfYiYLVRVWLh1zERI9jhOT/hgDQPvpXBjbnAI45NmtzEaFEi
-	aWO+vgseTVPjAAr56xZBextlERGrj9CVwcK4XOhfZXT5lhvEFeZBjU/NE2T/x3f6KuG1AA3MVpM
-	jHp6kzvCr9V0tcTJQNcNGSn6h+0uXzjnsZ+iZmXnzrkYla0iuDyNwBMGRA4kYdbHUeNVSz/zh7a
-	gl7/euODyfoG7vb2Ave2Kvqk1lLmR8k9W17dq63C5OvvLrotnh86y0cZLZPqyDQxH+qu87e6FT5
-	gvMw=
-X-Received: by 2002:a05:600c:8b2c:b0:4a2:5267:3cd4 with SMTP id 5b1f17b1804b1-4ac151a8c26mr326782435e9.3.1793722487761;
-        Tue, 03 Nov 2026 08:14:47 -0800 (PST)
-Received: from ?IPV6:240e:47c:50e8:6a2a:3e80:5afd:fac0:93a7? ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d5dfsm30433803f8f.3.2026.11.03.08.14.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 08:14:47 -0800 (PST)
-Message-ID: <78210b8b-818f-44c1-84c8-c013120375ec@gmail.com>
-Date: Wed, 4 Nov 2026 00:14:36 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U7915FKJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793722499; x=1825258499;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Acx7f7PNUJNNihS9jXTISjx6ZVUeRGm4ZDOoBevZJME=;
+  b=U7915FKJa13azIbYE/daiFihw6YrsaPnjzrdtN2/0ho1ocDdZnzsic0F
+   hVEgweixGfLALxC/lzHXs09BGU6+/T1RnMS0PHixRChUNKvHrpQMcwiJN
+   TQVvlKahxTQ2pHp8xg7kA6OH1rmHbm3oEcysATpJ6E6Qc85v2m5j6hih4
+   Q+wLkR43BUSnUAPTE25n2J1X2igSSf4tZYSd4TiNdBBGhyPTYVKuuexhx
+   GsqM3nISxndBucA5CfscT8Y/LGRgjFjsMb3JC4H9INS9D/mgDv0RoHV7h
+   Hbv2xMLlVVu4ILCc9LB3ulqiBuf7OYxgT8J9/laVjteW+1jpjLjujm41b
+   w==;
+X-CSE-ConnectionGUID: euUmgpmvRBmqZbpFs8IxOw==
+X-CSE-MsgGUID: HiywbwjBReSTfCkptSPTSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2452774"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2452774"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:14:58 -0800
+X-CSE-ConnectionGUID: nhPE4N1wTuS0wqrduR9jJw==
+X-CSE-MsgGUID: rdviNjH4Tj6XJ8HBUI6SdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6620460"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:14:55 -0800
+Date: Tue, 3 Nov 2026 18:14:52 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Marius Cristea <marius.cristea@microchip.com>
+Subject: Re: [PATCH v5 3/5] iio: core: add iio_fill_val_int_64() helper
+Message-ID: <auoIfKeWziFMy0zh@ashevche-desk.local>
+References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
+ <20261103-pac1711-v5-3-71c20101a52e@microchip.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,70 +87,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 15/16] drm/vkms: Switch container_of helpers to
- container_of_const
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
- <20261030-drm-reset-state-flag-v7-15-4e55eaeae683@kernel.org>
-Content-Language: en-US
-From: Oarora Etimis <oaroraetimis@gmail.com>
-In-Reply-To: <20261030-drm-reset-state-flag-v7-15-4e55eaeae683@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-pac1711-v5-3-71c20101a52e@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
+On Tue, Nov 03, 2026 at 04:37:13PM +0200, Ariana Lazar wrote:
+> Add iio_fill_val_int_64() to populate the val and val2 output parameters
+> with the lower and upper 32 bits of a 64-bit value, as used for
+> IIO_VAL_INT_64. The helper wraps lower_32_bits() and upper_32_bits() in
+> order to split the value with a single call.
+> 
+> The pac1711 driver will be the first user of this function.
 
-On 10/30/26 6:27 PM, Maxime Ripard wrote:
-> The vkms container_of helpers use container_of() which discards the
-> const qualifier from the input pointer. This prevents passing a const
-> state pointer to to_vkms_plane_state() without a cast, for instance
-> in atomic_get_property which receives a const drm_plane_state.
->
-> Switch all four helpers to container_of_const() so the const qualifier
-> is properly propagated to the result type.
->
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->   drivers/gpu/drm/vkms/vkms_drv.h | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-> index 381483aa4fb0..dea6cad3f1b9 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.h
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-> @@ -251,14 +251,14 @@ struct vkms_device {
->   
->   #define drm_crtc_to_vkms_output(target) \
-> -	container_of(target, struct vkms_output, crtc)
-> +	container_of_const(target, struct vkms_output, crtc)
->   
->   #define drm_device_to_vkms_device(target) \
-> -	container_of(target, struct vkms_device, drm)
-> +	container_of_const(target, struct vkms_device, drm)
->   
->   #define to_vkms_crtc_state(target)\
-> -	container_of(target, struct vkms_crtc_state, base)
-> +	container_of_const(target, struct vkms_crtc_state, base)
->   
->   #define to_vkms_plane_state(target)\
-> -	container_of(target, struct vkms_plane_state, base.base)
-> +	container_of_const(target, struct vkms_plane_state, base.base)
->   
->   /**
->
+NAK. Use existing iio_val_s64_decompose().
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
