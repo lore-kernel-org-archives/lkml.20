@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737320;
-	b=Ne7AgaQq7V/fNygofWY88cUEAi7CgzgoVQKt6bRa85hSdp2yAbfsjiP/T759dlkHtSIY
-	 WHvKr+shdDC55gn8eDcVd4tW1Qqpcsk+Zw9Ru8dVJacpD1wNJZ0da8wkSN88U85o9kbRe
-	 gj6SfrvtbTd2JmSriSENSoBVmhTpcycoTvPDE8Wd10tXMwMJqImt2H9I4QbJdZr9RETGk
-	 6xXigxOw96s/FV1XZdyzv6ZDu3bG6Cgb/FlKZQp/wJVlwisSoOdL9/r3fZzmWCjzjPVGo
-	 60zhUos83+OotMxhEr1OFnpQ3lVbSWj/R7oU3bWSEUhNZZwQsss1JHEv+CfGAYJHj3g==
+	t=1793737342;
+	b=BFtuyzsnwyQmV6nfV6+/RRoMDlkpyUIYgR/Tnojme8VI6gYHHTkShMfd+Yjj2tgfRPgi
+	 GdnbpnBWs9gTXgqgNAmvUPeEEzTvARK/zO0FVLZgLZhnsxRXCht5F3zD9OnbGp40zHvv4
+	 mV7SLyz8IJ6NljF8ZmRS5SmrftiIh5THoW2N2bRCtEfOf/+91Q/TG6oxnj9k6ujtgAfjS
+	 D6G1YMOeRaVMKXuKuKUuXtMRFdbiWjpn9HjCrklQ9f+ejIeZ9zxh71KlxbWozSl9oA1dN
+	 Bn6B4NXwY+dhojaxwnrgH1nWuB/Cdj/JYLzuCN6+dQr1hssz3PsXzKRFRdAu2n3DD0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737320;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZI36IvN614wZfc+9bgno27AitbTt9jTYGJEoJ2XdrFY=;
-	b=RQ7C+k1i8/OEaN/LNlOld3ru8mf0xxic8YMRdtVRJAbwHF0jise7Lz8dqbVXvJPPtAVR
-	 VKMLt3YjOTNvl3EB1UkzIY9bPddIKSKzfKovOcg//kMXFcK3UIjTlIst1zdqipvzAEHMK
-	 1LJJTl/i726Clih7nBbUPi8LwVQQH6jaDSXljdt8PZskAWw6rodPIbCy3ETv+vpleG1Ui
-	 313zhIBnQ7wmGHGdw+BjIkbEJPJKYFCFcCNosEwzocDFsQxYSixq0peo6HDelv5BXy248
-	 fG2u1NwZwrzMTBRrPceXuRMJr1k6Z0dA3KO+S51Fh6sxUfy6pm/8HS/KV4tfFV/NFBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737342;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OowuJQe3aC0/b/4LdRy+JJUp1bkSK8DzGICROZcpBoE=;
+	b=ENiKH/tXySCD+L0xUJr0+wfhwY5pCVajVhRlObqI0NPd9pjtwnFNuNDZ11iv5wMyz9Bv
+	 DvP06Piz96sYOEaqcH4NNvXmMHQ7R244UE0hEPGhbQvCIErXJJjk3T3CKGooNB7DLU7PG
+	 QMtNfgHEHaM+Xl8v3I07G5fFYqI1GiflzsyYb5mycV2dowawPhVnr1ZPkMJav825ujKJh
+	 siO7Op+Jtyimzp/bq90ESPpQxcE8wIVaheWanMmx5mHxxsMuknYRG/MVAj2lFjN39gxHp
+	 o/u09k96OrYdu0noIaw2K584PnyUY8FJnxKh9D5QVvBP0cB2+WKe3OJiDYREVEbpWkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcoDvnjE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=F1Cb0x8H;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB603606A329;
-	Tue,  3 Nov 2026 20:21:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B00606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:22:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28B00606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcoDvnjE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54161F000C1;
-	Tue,  3 Nov 2026 20:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793737319;
-	bh=ZI36IvN614wZfc+9bgno27AitbTt9jTYGJEoJ2XdrFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RcoDvnjE7moujvLfJtbEFbra0suwdCXxNcVPBt9C+MQr2fIm0ROIdyzWvCf0r6dPm
-	 h1Yua3KwN/dXEbvecfBPraEq1DvHkQMvoF2Bp11NIyhrTb2NCMYj2w27/1eh/hNvWH
-	 O6IP9cDUNObqZD1pqWdB6kNJNl7EUFpDky9G3OiS6bKFKY1mVeKeMUUn4DvFnIuQJ5
-	 MfPvPYy2mOBhzLy8ZAizjeqfuKz6tTG4VQwTE83YJIVdVX9wArgcLLkJtkotpfWXyF
-	 9aX10naWVt/B4m4NQciKHVny928DYGf/UA8QtXJSt4Dc85L5sZuX2NERO9yskptzgY
-	 fgwK4+Cxd5s8g==
-Date: Tue, 3 Nov 2026 20:21:57 +0000
-From: Harry Yoo <harry@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, kernel-team@meta.com, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
- memcg_alloc_abort_single()
-Message-ID: <auo5G__ac1qA9JRs@thinkstation>
-References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
- <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
- <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=F1Cb0x8H
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=OowuJQe3aC0/b/4LdRy+JJUp1bkSK8DzGICROZcpBoE=; b=F1Cb0x8H3kRQarOHQ6CQBF8gcm
+	bhCaWl5QzG2ChnLUDKXehOJ1Fd70NHF5nPk8Qa2oY3y2zTXZibbInwgks6qIO7jsR2/QAgLiZ7Mnf
+	+Oq5KN0uvYZ2FH4mc561XClVhRllCL1VVkD8cLM8DXg/rxi5vNy8AYZvnsFyk4Oy41f0rrDcMYsoT
+	9NwwAIAxwrm0qTE1BW1pWuw+VsMe1BuN9kL7Pf6fyd3n7biq9e7FZh9lQVjdebAiQLka5B16WM4Jx
+	A/pcNV/fQv+5FmRItjO+L6m0SVFyXyC+E+t7lg5UlUAi029mzw0Mgmren3UPQxkYTGL562EkzD+ZM
+	fx5Fzeww==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOL1P-00000003c7K-08Ii;
+	Tue, 03 Nov 2026 20:22:19 +0000
+Message-ID: <124acf19-a676-46bb-a414-08d957d9cc7b@infradead.org>
+Date: Tue, 3 Nov 2026 12:22:18 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,72 +58,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/wii: Remove redundant 0x prefixes
+To: Thorsten Blum <blum@kernel.org>, Madhavan Srinivasan
+ <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ "Rob Herring (Arm)" <robh@kernel.org>, Jonathan Cameron <jic23@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20261103170305.455444-3-blum@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261103170305.455444-3-blum@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 06:40:09PM +0000, Alexei Starovoitov wrote:
-> On Tue, Nov 03, 2026 at 06:47 AM Harry Yoo (Meta) <harry@kernel.org> wrote:
-> >  	if (likely(size == 1)) {
-> > -		memcg_alloc_abort_single(s, *p);
-> > +		bool allow_spin = alloc_flags_allow_spinning(ac->alloc_flags);
-> > +
-> > +		memcg_alloc_abort_single(s, *p, allow_spin);
-> >  		*p = NULL;
-> >  	} else {
-> >  		kmem_cache_free_bulk(s, size, p);
+
+
+On 11/3/26 9:03 AM, Thorsten Blum wrote:
+> The %pa format specifier already includes the 0x prefix. Remove the
+> redundant prefixes to avoid printing 0x0x.
 > 
-> can we call kfree_nolock(*p) here when spinning is not allowed ?
-> Karl's patch did that. You replied that memcg_slab_free_hook() should
-> not see an object that is not charged:
-> https://lore.kernel.org/all/asaAwg1KeZoEYd4K@thinkpad/
-> It's fine. __memcg_slab_free_hook() skips an object with objcg == NULL.
-> The else branch relies on that. kmem_cache_free_bulk() also gets
-> the objects that are not charged yet.
+> Fixes: 7b69600d4da0 ("powerpc/wii: fix resource printk format warnings")
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
-While this is technically true, this relies too much on the current
-implementation details and makes the code hard to follow.
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-> > +	if (likely(allow_spin))
-> >  		__slab_free(s, slab, object, object, 1, _RET_IP_);
-> > +	else
-> > +		defer_free(s, object);
+There are other cases of this elsewhere in the kernel sources.
+Are you addressing those also?
+
+Thanks.
+
+
+> ---
+>  arch/powerpc/platforms/embedded6xx/flipper-pic.c | 2 +-
+>  arch/powerpc/platforms/embedded6xx/hlwd-pic.c    | 2 +-
+>  arch/powerpc/platforms/embedded6xx/wii.c         | 6 ++----
+>  3 files changed, 4 insertions(+), 6 deletions(-)
 > 
-> That's an irq_work interrupt per failed charge.
-
-irq_work overhead should not matter by the time memcg fails charging.
-the kernel can't reclaim memory in unknown context and allocations
-won't succeed anyway once we hit the limit (unless somebody else
-reclaims memory for us). We have a bigger problem there.
-
-> kfree_nolock() tries free_to_pcs() first. It calls defer_free() only
-> when that fails.
-> 
-> Then no need for allow_spin in memcg_alloc_abort_single(),
-> and the fix doesn't depend on patch 2.
-
-Patch 2 is an independent bugfix as-is already. We should really stop
-open-coding slab_free_hook(). That ended up missing init_on_free handing.
- 
-> Something like this (compile tested only):
-> 
-> diff --git a/mm/slub.c b/mm/slub.c
-> index 45e077c..fb92b48 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -2551,7 +2551,10 @@ bool memcg_slab_post_alloc_hook(struct kmem_cache *s, gfp_t flags,
->  		return true;
-> 
->  	if (likely(size == 1)) {
-> -		memcg_alloc_abort_single(s, *p);
-> +		if (likely(alloc_flags_allow_spinning(ac->alloc_flags)))
-> +			memcg_alloc_abort_single(s, *p);
-> +		else
-> +			kfree_nolock(*p);
->  		*p = NULL;
->  	} else {
->  		kmem_cache_free_bulk(s, size, p);
+> diff --git a/arch/powerpc/platforms/embedded6xx/flipper-pic.c b/arch/powerpc/platforms/embedded6xx/flipper-pic.c
+> index 91a8f0a7086e..e9c84793cc4d 100644
+> --- a/arch/powerpc/platforms/embedded6xx/flipper-pic.c
+> +++ b/arch/powerpc/platforms/embedded6xx/flipper-pic.c
+> @@ -145,7 +145,7 @@ static struct irq_domain * __init flipper_pic_init(struct device_node *np)
+>  	}
+>  	io_base = ioremap(res.start, resource_size(&res));
+>  
+> -	pr_info("controller at 0x%pa mapped to 0x%p\n", &res.start, io_base);
+> +	pr_info("controller at %pa mapped to 0x%p\n", &res.start, io_base);
+>  
+>  	__flipper_quiesce(io_base);
+>  
+> diff --git a/arch/powerpc/platforms/embedded6xx/hlwd-pic.c b/arch/powerpc/platforms/embedded6xx/hlwd-pic.c
+> index 1522a8bece29..a1bdb83fe51f 100644
+> --- a/arch/powerpc/platforms/embedded6xx/hlwd-pic.c
+> +++ b/arch/powerpc/platforms/embedded6xx/hlwd-pic.c
+> @@ -171,7 +171,7 @@ static struct irq_domain *__init hlwd_pic_init(struct device_node *np)
+>  		return NULL;
+>  	}
+>  
+> -	pr_info("controller at 0x%pa mapped to 0x%p\n", &res.start, io_base);
+> +	pr_info("controller at %pa mapped to 0x%p\n", &res.start, io_base);
+>  
+>  	__hlwd_quiesce(io_base);
+>  
+> diff --git a/arch/powerpc/platforms/embedded6xx/wii.c b/arch/powerpc/platforms/embedded6xx/wii.c
+> index e7eec328f121..928d082abf56 100644
+> --- a/arch/powerpc/platforms/embedded6xx/wii.c
+> +++ b/arch/powerpc/platforms/embedded6xx/wii.c
+> @@ -73,10 +73,8 @@ static void __iomem *__init wii_ioremap_hw_regs(char *name, char *compatible)
+>  	}
+>  
+>  	hw_regs = ioremap(res.start, resource_size(&res));
+> -	if (hw_regs) {
+> -		pr_info("%s at 0x%pa mapped to 0x%p\n", name,
+> -			&res.start, hw_regs);
+> -	}
+> +	if (hw_regs)
+> +		pr_info("%s at %pa mapped to 0x%p\n", name, &res.start, hw_regs);
+>  
+>  out_put:
+>  	of_node_put(np);
 
 -- 
-Cheers,
-Harry / Hyeonggon
+~Randy
