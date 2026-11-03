@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793728076;
-	b=SqiJn+dCkbkhND1EoXtHJhXbkFfMl/bRm/d8TacnHAXbpHo+Ze+p8NtIl7MUkbN/YNc3
-	 x/vDHInmPJo+kJSBZcWjADGzBOi/ZvXzQNnHcMX72G6B+RveRpFPIv8Km5r7pV/HEOasr
-	 vFGr/J489iYwIhuRW35uWb1VV/fN8WvOob3FW44qiOU5XOPBcB0UkLWzdvOz7Z8YP+/r8
-	 lLx4tV8yZL7T1pTsGP9mv11xyExqOorBmy6dgK/AnXA3RDLaI0oM+Q1Dxm5xuOaZtnGe+
-	 76uTr+RbL/dcvfMHeg42wBYA3T6LYe5jRDAKWFTl88vaUHvRsQmXbpvDFJpCuRkoZ7w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728076;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=n99mPQj1ZJP498NFAs6mVC9Ln+V99W5mU+3ATj0pCRE=;
-	b=SOyAJpNI8u0kOfEL5cQu3A5uhMHFsyGAxmvVC7jOuMm90p5KL1TFLumjeDsIaG8P9tTT
-	 rdk/lW+3kK7wGg0PO33x0Tkx1GNaMXeWzpspddXsNAUs2Gux9ecV+46/PNKj9cVXK586M
-	 un7lEmGG9N/T5mRTnZEDFkNNvrRXfojlQFFAOzZeTg5nXPH0/b/jVt1Q6HJcZfSEkdC1z
-	 oUTyr4DlO+stfGJiSbJKgCMg3OXceIz3g6wdc0ru1nLpqcutYFAM0nC3FHQYcUL15F68f
-	 IiREKJYwNr9uAxum70Z7majo0JRxZtChne8LmY9iAmVvSDMx+lvFyJyeqPCvQNDHI+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J3KIFfY5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793728097;
+	b=bj+2wSCK6jeuFHmCq1HeGTMTQk3fi5+bEp1drip8Q37CzHa7dSjsbBBEkrLiRXZvWXfo
+	 zMgfuF3PyalPeCccsm8d+WzrfEg0Rx9Zxl8q7ziFQ7bHDFLnci9PTEzyJPdx1S67FQvhj
+	 ph0eGxbooJ3MYqj+7EqFyN2/KAjyoy8m35CAe9lhrA2vlxjwGeOFTAKJeKIKX7l3gM0r2
+	 hRzQ0aAa4I7/Aul5gkuhtsOuV9hnE7jdHc74gkx59mXNUiKqkWZ3SlDSImKjlWaTVvecK
+	 GmRlQh2IveQLwwKnwSBAGhf9f6bk8Ab9ED+Vg5ExK19pevmxbhxDtMd6gjrRaBZaKwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728097;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID;
+	bh=dLUVtjZIJ/v1snvst+dkbepdyQJMtG/e3rdPXYts+UU=;
+	b=csvg67gZH2GKsTNHYJEIk83OTscEWsoRNZ6JCbxXW7czaP3o/j2/sBAl4CZfgJjA8mvy
+	 w6xlEKVtN42BK9K+9O+T6mb0fYu1TDZj7AK4n9ABNwz8Ovq7fIf+YHSxVTWBU27sVCWNu
+	 Iub+tLEuxkXVXzsyXfdlnzMBymMMZ1CZfLnVU6Fble7CzKlpmEr+6NZd7Q4xc+AblDBXq
+	 vnyaudx1z/kA5UDFri4ekZ6/zaj4CEOX65UK/TsWOkxOkkeOFYuzV78av4IsNQ1YhaHtG
+	 d0Ait4p4TABEav0dsz4tHb/kYDo7Bih/DTBOU1c9Z14bQhLMhZOqsZQcMPgfLekv8BA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=RbfOy8UC;
+	arc=none smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4BF606A328
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 17:47:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B4BF606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F16606A330;
+	Tue,  3 Nov 2026 17:48:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60F16606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J3KIFfY5
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d05d51553so29625215e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 09:47:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793728075; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rlcrBYi9QVdrODgj5jFH6ROWYBq8NIKAFuaob3VC+lA3V9FMRx2YQ2pqTp0cdiJly8
-         GVXlxLyB8BUw6nHf5KmTl/jRkQ5NHSO8q3eFvLsSFp8fwSHlJ98cmPFuIlh0JSol9Ce4
-         GOLkw2TbUnW48lFHTt2Ulx8WhCp94f10kqhROa5yrHs8Y8x2Olo5+EmmYNzcbRrcS81S
-         jb/TgLSnKWyBKe5a/jFiAe0DhJCmNqBkrDnMKX0ha4DrrqxeRwNr9wWCUzDa+Sz3GRGd
-         7nd2jORRbVjTIZs13GGRRYNgiayZhhNGUS0yJAdGw29FhZSgdxuN7dN/ediwvyoo111C
-         OTvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=n99mPQj1ZJP498NFAs6mVC9Ln+V99W5mU+3ATj0pCRE=;
-        fh=Z0Lwup0Mms1vhj4mtOVlAI+uJomAH22796nKCcSQKPw=;
-        b=OR+VifOtiyPTMELnKdEdQ4v5mdHoaI/qKndYz+yZgw/HR7kvxd/xejhrXwFJU1Jdvz
-         YypVX04/3Jl3WmtBnkmXa186ukypJT87O1b5yzM/P6bd+SGCKvfg7kjnrkZXkhm7vMiL
-         nmUp3YZCdJ7LeJFIlAjC8vLRVbVpSyDVS83LUeIyn6b2+s4k4JVu7uxx16drkj2XUfAN
-         V822nXJY6SbS0DnuUuos6w0ex9NNFzjsgXH241LMa1Mqc/998FTNrXt6B4yjFw/lGW5A
-         p8t8XuobHTocNLD3jJTR2plcmmvXfngZNiTkBVkgAxYEMEso8XNMfDLCSQ7fukh0bFO7
-         qsdQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793728075; x=1794332875; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=n99mPQj1ZJP498NFAs6mVC9Ln+V99W5mU+3ATj0pCRE=;
-        b=J3KIFfY59hOhjhOy0qmIXAJZ5B3hDT1mclNiZP6MSPOzRvAjY0eVXa1YJW0/JfzBks
-         FP26H3hNgp3zyn1JC3hWXg4OrqjeWmqB1gHwRiKAJDR1NmklcLKqp5Eu6V6CYlUV33A4
-         tf+0lhOq4TEPUBLDHXvCWvrAs6QWZxH0hm4qIM3+RsgH3T8zZB6hjoI5wQvVm9HCM6ix
-         d8bSnsIvySZtgyN8kb6hdxkUtc42aN49P3jYjt/dGkQPFJWKU4Pi83ByNcxupUrYhbMV
-         chEVda0Ayamp7ZFx91m4X4b1QEQuuaK0IWNg4QGTFdVhyqERSUvzflAellxIWFES8kRB
-         /xxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793728075; x=1794332875;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n99mPQj1ZJP498NFAs6mVC9Ln+V99W5mU+3ATj0pCRE=;
-        b=cc/qA7aYRXyiL6j38RbWZrveqrGdaFU3EHce0jt3OWm7SO23QCNCsiovX7Vw99Frtq
-         BRV78Wtq4FkiJ4MQDlEW1eBSn7bGEbs+B3KvnQM2TiamKG0L3ltVWYuQriiF+Q2PanXf
-         b4YdOb+u7ripyoXKBzsgcYW27cbZCqr91Qx9jP0rIRlXX/pFXCms3ZXmM/w5anEuhpv7
-         pAoNiBGPcxLHSyLhw3feq8b78An7YSoDTDxHHj4QlmxsBamC/tVaLA7PcXk/MW+KzKXy
-         1uNxY1VTM67ApMsk1uoF2bdHTeru9X7zagfNb/i5px5Ya16t9gNzDiBrjUnUmT5LxuJ4
-         h+Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0bVaC/0BnwOA9zm9F0VIJ0qvFBXUEKPxgQ1wFcZyF77ni+zzXm5cscnOQ2qe/CpWh1LxeyBjIC97FHXc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jjusdxpAqTI+2SLG0JNeMcPGaSyzdlsLlItgGnIsYhBRu4FI9
-	BLFxA4sx170XPl/sNnFBrRKOUPfAshxHvzZfBXIuSNftAnHnOQMapEW0WXaKeboizeewl/6o6BZ
-	2E6yliZ5zrOk139Pj8/AtQzxl6xPAd339Qv6Xsr7A3w==
-X-Gm-Gg: AYBFou1w386S2zYInYR1f/sXjjSUvBeEH9JIvYUXMddSIWrPsP+ZgM7yb6wCn3lTNvZ
-	4JlG1HTX/nPdkYUV7wiB6/eyI/SEbYLGOE78G8HNKDIEX+G0IVCbuzU5m2iwie3VslRQBnO9suZ
-	jiEPuPFQht2bXv8vpAeSM2EzNsVSeQ0NfeD+f7HTjLi0Pyz9LS+X9Bstx1CZbU9gW79RV349jIe
-	FG+iIKDIXmtoCH9lSw7MyDakJm+ySFK0bX2I5/43vslWhyb8k91BGKyId6gM36MLqPoRn8Y0JNr
-	sG+fLGz2JksRB9CmCCp5EHPFWTq8p8HAx81U5JRsiO7Iq5qw4m8NBqI9ucS1jdVR9KyTEA60VlC
-	wJ46YkrprTp5aMdl+eDCLW0nJ5Fg39Mo5kaJ4ID3smdMIzQqKSLP/cV1ff1nOtNTkmwLj
-X-Received: by 2002:a05:600c:871a:b0:4a7:d9b1:b684 with SMTP id
- 5b1f17b1804b1-4ac14ec7947mr323859765e9.2.1793728074629; Tue, 03 Nov 2026
- 09:47:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=RbfOy8UC
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EAlMN1539806;
+	Tue, 3 Nov 2026 17:48:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=corp-2025-04-25; bh=dLUVtjZIJ/v1snvs
+	t+dkbepdyQJMtG/e3rdPXYts+UU=; b=RbfOy8UCiu1qMmoLNrs0He5ysvIxm6Lt
+	Cw/zREpoVpdk+eYHc8alz7UKyeO2Knldv/Fr3fRzosCpAgSjvJ8p7ED2UyXP3FcS
+	JsxrDa69WYlP6nEePaFWObLXPPD2MoZ7mMpCFgYQfz97EMkpHWa80FAMpxhgJvLb
+	1ucHQ9C9IwQ/+yDYjMeWbEjOFprtsayZp1xPSMOGZqmCGDCbFyn7r9dIzQlJhx2h
+	ZJ9WWBZZ8/ss669RKA07BO340Ku9eebU3lDLeIC1N+22lMASM2VldyvtUVwcNjw4
+	ax3K43NNWSwpWT0P7NwiB2cAIX+dPj5r2WI4aWQ55nfC0XGgaJAyQw==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn78acrta-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Tue, 03 Nov 2026 17:48:05 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HPsgx2435237;
+	Tue, 3 Nov 2026 17:48:05 GMT
+Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hqk4nk116-1;
+	Tue, 03 Nov 2026 17:48:04 +0000 (GMT)
+From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
+To: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Shuah Khan <shuah@kernel.org>
+Cc: linux-kselftest@vger.kernel.org, John Stultz <jstultz@google.com>,
+        =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
+Subject: [RESEND PATCH v2 0/1] kernel/locking: Add mutual exclusion self-test
+Date: Tue,  3 Nov 2026 18:47:56 +0100
+Message-ID: <20261103174800.1398612-1-haakon.bugge@oracle.com>
+X-Mailer: git-send-email 2.43.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,154 +79,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029130037.5505-1-izaiahsun@gmail.com> <auoLrJPq9eRAbeQa@p14s>
-In-Reply-To: <auoLrJPq9eRAbeQa@p14s>
-From: Yuqiang Sun <izaiahsun@gmail.com>
-Date: Wed, 4 Nov 2026 01:47:41 +0800
-X-Gm-Features: AclHuK_glufPx3VPzKUbs-tqY6RCK_e-0Xc3jXhDCTseeM-7NDt0oT0ktRFS9Mc
-Message-ID: <CACdDPuwmyAjC3kje+nYJ3yz7RePg8JzXsKGkzx-Ksxb=-_CZ8A@mail.gmail.com>
-Subject: Re: [PATCH] remoteproc: core: Do not put the device when device_add() fails
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ adultscore=0 bulkscore=0 phishscore=0 suspectscore=0 spamscore=0
+ lowpriorityscore=0 malwarescore=0 mlxlogscore=797 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030070
+X-Proofpoint-GUID: jyFQ29lINDPDYLKVHJnGNi3_gHlU_GLM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3MCBTYWx0ZWRfX3h2MsqWEFWcS
+ RvFKSSv8XTrHZBPAkvtPtUaU9uVdsfieUPnAQ6h2Xs8JhTETNxksAz2baDxOEZZS4c2dKnnTN5t
+ SfgxJfb0SsCYyKuXZ7qUXUm+tjN87G6xm5+sgIdFYaRCrybbeIBY
+X-Authority-Analysis: v=2.4 cv=Mo3HeGae c=1 sm=1 tr=0 ts=6aea1e55 b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=x0eKOSpe3m1H3M0S9YoZ:22
+ a=R5gcnNxLHOFc8d1k_nsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13532
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3MCBTYWx0ZWRfX7GiO0qhJCIGH
+ kp2CKTDzxE8XPFMpdR1HUe/JoQpCzO7sq5ELAhbe/R/dMxpXetD7PhnHRv/ZiH6JATF65FBr/d5
+ bXbl6jrhMED3TlPHIe1pT7vvHxn1ZjQGJUFelL9r+x0uo3g+rL4tIRQPA419dCojprgPEhDCdxb
+ 2pySCIWit4tAHg2vxaFBXU0TOLtO5CHO91xgRMLlmfduzydep2+DCdZdtwNyCenpyeDULExrfXu
+ uyknE9ppXb1wI59W0pdKKZQqoLtNgce2wjBus5WJOs19Ank/au2gQWwKXWBt26NJSuviCwjNr67
+ cKt1BRukrCdPRweb08pyWN1yPT4J+fFZJQexET/0VA0Frd1JXXz8NEuKN1JE8s5i2CqMkLetnqc
+ YMeXNGBR5sscmMPzd1jigb3NFaGL2BnO/CVmBrElk/7YwEcE0tga1BjVmnGcVmQ+gyHP3iB+kOd
+ ulowm1FzdBeVYUwyn5ykjTKJcUvqDzTa+XN4Mg6g=
+X-Proofpoint-ORIG-GUID: jyFQ29lINDPDYLKVHJnGNi3_gHlU_GLM
 
-> Unfortunately I do not have the time to read through and digest what Clau=
-de has
-> generated in the changelog.
+Hi,
 
-Sorry for the long content.
-There is a human-written summary about the bug.
+Please consider the following patch for the v7.4 merge window.
 
-> The documentation for device_add() is clear, and looking at the implement=
-ation
-> of device_add(), I understand why put_device() needs to be called here.
+This patch adds a stress-based selftest for kernel locking and atomic
+synchronization primitives. The test runs concurrent workers against
+an array of counters while maintaining a simple invariant: every
+increment is paired with a decrement, so the sum of all counters must
+remain zero.
 
-I agree that as documented in device_add, the put_device must be called
-if it fails.
+A common test interface allows the same workload to exercise a range
+of locking primitives, including spinlocks and rwlocks, as well as
+variants using atomic and bit operations without an explicit
+lock. After the workers complete, the module checks the invariant and
+reports a failure if the resulting sum is nonzero.
 
-But in st_slim_rproc_alloc() (drivers/remoteproc/st_slim_rproc.c), when
-rproc_add() returns the error, the driver calls rproc_free() at its err
-label, which is put_device(&rproc->dev). With the put_device() in
-rproc_add(), that reference is dropped twice, and the driver uses the
-rproc after it is freed.
+The test provides regression coverage for memory-ordering issues that
+may otherwise be difficult to reproduce. In particular, it can expose
+the regression fixed by commit 415d83249709 ("locking/atomic: Make
+test_and_*_bit() ordered on failure") on weakly ordered architectures
+such as Arm. It also includes a variant modeling the incorrect
+acquire/release ordering formerly used by RDS before commit
+1422f28826d2 ("rds: introduce acquire/release ordering in
+acquire/release_in_xmit()"). This variant fails on Arm systems.
 
-The same happens in every other caller: xlnx_r5_remoteproc calls
-rproc_free() too, and the other 23 use devm_rproc_alloc(), whose
-devm_rproc_free() does it.
+The patch also adds a kselftest script that:
 
-That is why I did not change device_add() or one caller, but
-rproc_add().
+* first runs an intentionally unsynchronized variant to verify that the
+  workload is capable of exposing lost updates;
+* obtains the available test variants from the module;
+* runs each non-broken variant; and
+* supports low, medium, and high effort levels for interactive and CI use.
 
-If necessary, I can send out the full document and PoC on
-how to trigger the KASAN.
+The module exposes parameters for selecting the test variant, run
+duration, and number of elements.
 
-Thanks,
-Yuqiang
+A successful run does not prove correctness, but the test provides a
+practical way to detect synchronization regressions and reproduce
+known classes of ordering bugs under load.
 
-Mathieu Poirier <mathieu.poirier@linaro.org> =E4=BA=8E2026=E5=B9=B411=E6=9C=
-=884=E6=97=A5=E5=91=A8=E4=B8=89 00:28=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Thu, Oct 29, 2026 at 09:00:37PM +0800, Yuqiang Sun wrote:
-> > When device_add() fails, rproc_add() calls put_device() and then
-> > removes the character device.  The reference it drops is the one
-> > rproc_alloc() took with device_initialize(), which belongs to the
-> > caller: after a failed rproc_add(), every driver frees the rproc,
-> > either with rproc_free() or through devm_rproc_alloc(), and both drop
-> > that reference again.
-> >
-> > So the rproc is freed inside rproc_add(): by the put_device() itself,
-> > or, with CONFIG_REMOTEPROC_CDEV, by the cdev_del() that follows, when
-> > the character device drops its reference on the parent device.  The
-> > caller then uses the freed rproc and puts it a second time.
-> >
-> > With one allocation failure injected into device_add() (failslab
-> > restricted to rproc_add) while st_fdma probes, KASAN reports:
-> >
-> >   BUG: KASAN: slab-use-after-free in slim_clk_disable+0x38/0xf4 [st_sli=
-m_rproc]
-> >   Read of size 8 by task insmod/69
-> >   Call trace:
-> >    slim_clk_disable
-> >    st_slim_rproc_alloc
-> >    st_fdma_probe
-> >   Freed by task 69:
-> >    kfree
-> >    rproc_type_release
-> >    device_release
-> >    kobject_put
-> >    cdev_default_release
-> >    kobject_put
-> >    cdev_del
-> >    rproc_char_device_remove
-> >    rproc_add
-> >    st_slim_rproc_alloc
-> >
-> > followed by use-after-free reports in kobject_put() and
-> > refcount_warn_saturate() from the rproc_free() in
-> > st_slim_rproc_alloc().
-> >
-> > Remove the put_device(): the caller's rproc_free() drops the reference
-> > and releases the rproc, as it does for the other failures in
-> > rproc_add().
-> >
-> > The problem was found with kbound, a static analysis prototype that
-> > checks whether callers rely on an object after a callee returns a value
-> > for which the callee may have released it, on v7.2.12; it is present
-> > in rproc-next.
-> >
-> > Build-tested with x86_64 and arm64 allmodconfig (W=3D1, sparse): no new
-> > warnings.  Run-tested on QEMU's arm64 virt machine (TCG) with KASAN,
-> > using a device tree node for an ST FDMA with a SLIM core, so that
-> > st_fdma_probe() reaches rproc_add() without the hardware (no clocks,
-> > MMIO windows only mapped), and failing each allocation in rproc_add()
-> > in turn with failslab: before this patch every failure in device_add()
-> > (9 of 9) gives the reports above; with it nothing is reported, and the
-> > rproc is released once, by rproc_free().  Not tested on remoteproc
-> > hardware.
-> >
-> > Fixes: 7dbdb8bd7c02 ("remoteproc: core: Cleanup device in case of failu=
-re")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5-5 kbound
-> > Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
-> > ---
-> >  drivers/remoteproc/remoteproc_core.c | 4 +---
-> >  1 file changed, 1 insertion(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/=
-remoteproc_core.c
-> > index b88bf179507d..e4f44a3c8b4d 100644
-> > --- a/drivers/remoteproc/remoteproc_core.c
-> > +++ b/drivers/remoteproc/remoteproc_core.c
-> > @@ -2309,10 +2309,8 @@ int rproc_add(struct rproc *rproc)
-> >               return ret;
-> >
-> >       ret =3D device_add(dev);
-> > -     if (ret < 0) {
-> > -             put_device(dev);
->
-> The documentation for device_add() is clear, and looking at the implement=
-ation
-> of device_add(), I understand why put_device() needs to be called here.
->
-> Unfortunately I do not have the time to read through and digest what Clau=
-de has
-> generated in the changelog.
->
-> Thanks,
-> Mathieu
->
->
-> > +     if (ret < 0)
-> >               goto rproc_remove_cdev;
-> > -     }
-> >
-> >       dev_info(dev, "%s is available\n", rproc->name);
-> >
-> >
-> > base-commit: 82d0bbd67c42a44f0e18b0b7b0da0f3ace0c9527
-> > --
-> > 2.53.0
-> >
+If this commit gets accepted, I have the intention, subject to other
+work priorities, to expand on the locking primitives, and in
+particular add a double set of ww_mutexes for each counter and attempt
+to acquire both in a random order. Using both the Wound-Wait and
+Wait-Die variants.
+
+
+Thxs, Håkon
+Håkon Bugge (1):
+  kernel/locking: Add mutual exclusion self-test
+
+ kernel/locking/Makefile                    |   1 +
+ kernel/locking/mx_test.c                   | 723 +++++++++++++++++++++
+ lib/Kconfig.debug                          |  10 +
+ tools/testing/selftests/locking/Makefile   |   2 +-
+ tools/testing/selftests/locking/mx_test.sh | 171 +++++
+ 5 files changed, 906 insertions(+), 1 deletion(-)
+ create mode 100644 kernel/locking/mx_test.c
+ create mode 100755 tools/testing/selftests/locking/mx_test.sh
+
+--
+2.43.5
+
