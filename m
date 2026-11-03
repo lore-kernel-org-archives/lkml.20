@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.74
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793717698;
-	b=hIoTViXWfz4SvIy8Tm5Et5emIeMWfvZ3CFB2xZK7pD4q2omq5mPGJNj1mCFiT/0/nkJm
-	 AeIDJTMPM+Oi0fsDtkcXpDTB9VCg5PPi6HDkH5BPHCdbcg+7KlClv7qhlNDJHqgPSGB8j
-	 e8N4LXGj7bmebvtZARDwFsyP6dKc9/x3eJ/A6aSIXV2tOuc7Gw7eANWVv6BXSRXEH9MQ6
-	 3ImdQfC15MIJdlnJxlg4gOwMieg9fDamscGpEd+S94zy0Y55odVvbPOyfgEtypoziQXem
-	 iGRUyjqmQJv+7WqbjpQC64Dd3o9EdshN+ujiKNqBuSYB9mCb9Gva+qxNalxoxF6XdxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=PWNmAO8THzJhp/A18mhQYeWXbtrJEYcj/V0frXb3By3Z6BICG2kP+/hfZ+M6KENs40EJ
+	 /BiRXWcbELEd0o7M6BKyvU8wA2NMTnCg3T6pdlCo83Z2VjqMmXZ/SyRxF8S1HlFrE17Yq
+	 W9cv1Tzn+7Cj0d3gbGpKzNpAgY9jtAYByXDLtvn4YLSuD55UoZykiYvwG3ZmTKMxOlptx
+	 yC9DH1ciNskGUOz+pZh8mivbpTt1mbKjrw+Lw3S9e6s1Pt7YR0p7dMfvUuCNNdaFQMBxq
+	 ELDR6VJzG5EY51O6naPSFJkotxYNXxxCrMRPzGW7V4E3RPoU7tvUAqivyp+b3QDMfaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793717698;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=CAccl21Ta2xKfCvErWmXwQUaoiGO2p8CkPuu5f18Boc=;
-	b=gVirTGroF3VondCTJiWWTzqxaixgCLSj9rbLZ3GSJKoYMq8+fv3YtDCtaqH9DJ5yiR3m
-	 /LplxYTAkBveiBBMLdwaxewaZglez02/o9QhzRkydjMYdAJR7gHOGLWkYw0D/sNVWcaMC
-	 f8usIxVp2ST073bQswVRbCH8kB8xJxkJBeiTPJqDYCcXOpD9UsUAh6jq2sLMXR9l7GFUm
-	 GUup0zmXtzn2G5w3csU5o+NDUzYM9V2WUWxI72x+YEZOC8TkckaZfXHMXXdT/1iMgdLvh
-	 /5fwCXOyIvDsQYMQnUVEsV40XiZMa1Pu7HfQWnQTj9KhhejFm63KNtxsUPQBgkDoE9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=IgQ05NbEx4CjJRtb6GmYnk00OGmK1qIWhCn9DM7D2rM=;
+	b=eoCaoVBAH7rINygLkloV2kYEd5P/GusG3EycnkgHBODR4uoIHjhb2aS8s/8uRen0sotP
+	 +fCtfJdKPj9cH0+Jqaun6ofkKKFMnZwbu1Ye3onj8sFFBrCD1PPTHwDvQwxpgAKI9RXl4
+	 pkeYU1kqEKRP8d4HtYCAgmydrfT7kYnckopBibFe/e0dPObKHnJC4JrjsbZqE/RlAg9lf
+	 9h3/LAgmS4PyKJj7XxTu9EO5EQd8qXuAnBLZNXWp+e2IM3Sl48e+KheaPw/n6IG9WZlu7
+	 5/pvltrv/4rXQSuaihcEQyxbPAsQExovcCsGRgprfd9Wn7coThJrZ+3/n3NNSsQlo3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cGZYm3UA;
-	arc=none smtp.remote-ip=74.125.227.135
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lJTHeByh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.74
+Received: from mail-ed2-f10.google.com (mail-ed2-f10.google.com [74.125.228.74])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2C4606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9477606D823
 	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:54:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA2C4606A334
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9477606D823
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cGZYm3UA
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-3ac63aee1ecso1195001a91.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lJTHeByh
+Received: by mail-ed2-f10.google.com with SMTP id 4fb4d7f45d1cf-6a14f2e937cso3104655a12.1
         for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:54:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793717696; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QzsYOe4gTYBE2LMu0NSFwtQ19C0jZmCVom7Jf6hFbwuYlxIvd5MPUHNS21LlzbsZvW
+         ppJ4MgzK/wuJt2h9PgHaHRVmDPgaHcYh+lkoCJzrA82dPx9lRkcKcDSyFjQ/dpSddzni
+         bjJYkX5c9OCco1GOAeBMQz7r77NU1VOtVjpXo9mnlMRNbvkgkl+ItjMCvpwbzWXVrp05
+         or45uFEL+C9SGTvzXMavSGT6Kl0s+/HGs06MJ0vvY5IzoYjqk1v92l20OIv0cmwodA1P
+         cR8Wt0kbIkQzkzKaCdl0hcRCaAeOiAUYpJxZ9hu5REZSZyF3bzpMWv/1FXwoS3Sn9w79
+         iJQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IgQ05NbEx4CjJRtb6GmYnk00OGmK1qIWhCn9DM7D2rM=;
+        fh=nFbOlMo/ijxJ/Mm/lvGCRo4foUWBFmNsH7RIbaYc9p8=;
+        b=Eh8HGLOeNDr+6wvGmQEOnqFUAggBp4/Hu4wK8b2qE7DHnf6/0mZorAcMdLUs94f+rc
+         g0LAV6HoSySMgMNI3zm/A3Bpxm0ifbX8xL+5cuvH9WviEm+K/DGC19SqO2spjduqs0jR
+         TlWlQS8YaTwUdfTtaQd2rKF+/qD8OssNcK2aS2L2GTvnurLpQJIJgkK962+U6G2htzBH
+         kbJYjnEoiqxM8BWoU7uFP8SAK4CvikjXqw1mNtJj83mz4tMLYLdeqPnI858SFD6VISkM
+         VrYN6LwIdZ08yfAgaXzDIqlvl55fB0kc9YJoK5o57lkJx5E2RNeJoM2AQwAWVh7dm/EV
+         VHtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793717697; x=1794322497; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CAccl21Ta2xKfCvErWmXwQUaoiGO2p8CkPuu5f18Boc=;
-        b=cGZYm3UAYTYHGi7MmhOTUyo7jEpJXrjWzTcmNeYCa8209WrAgS27vxUMTaZ88QM9gg
-         J8snYVgRixOJsTkFQ4vno+yBbCMM1/ELfSy1YOnR2qZ8B+rOk30XTLqZYnyzWL4oUbNQ
-         mfQUPI3I507wi4G3DYeK3TSNw6rD9YHM/G4Zsu5hwa90aMJjmfe8KHxddYQ2kepvM7bg
-         e1mv/gh57+WAAnqtoYoveCwh16chExgRVL7mvEqtI/3TZ/Ks5g5oH8UNAMAc9CYYJ6AS
-         Wcz4GBhWQQGuNXEn3IdjtEMw8ZOsaJx0Cpdy0OUSYRPacvmrCNX13p5iIi83zMbcivm7
-         pieg==
+        d=gmail.com; s=20260707; t=1793717696; x=1794322496; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IgQ05NbEx4CjJRtb6GmYnk00OGmK1qIWhCn9DM7D2rM=;
+        b=lJTHeByhvUsqmNthJzka8HI//cTRrFzmipR5IMxMyAxoF6ts3LUAFWrILsyTik1UmD
+         2MeTsZQSE/GF5OCnYjiEhQQY96ukTa2Zfdm9XJj8qncVyf9L+q0OAkg3L8FfHcbo6l/A
+         GLJdxlI7SPbxK+62d2NCDYfz7/v5tTD3HJuB8hKbfhVuKXQaLRdszKY8SSp/v7fahQyl
+         MokP4a8V3Cw2R5dRVS4PpBM2nkGqTtUQdZXXz5Qd2Jpr4+Qh4K/z/Qs5EtBZDZ+YCHjs
+         u30BwD1FvpNrWpljxKFTQQG7S6hFxbddzd8zz4HEpyteF92F5sAIqcu8sF3iXmvOar7n
+         xHWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717697; x=1794322497;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CAccl21Ta2xKfCvErWmXwQUaoiGO2p8CkPuu5f18Boc=;
-        b=yTnbZDFo3zjA1KGKqHwlR7f+Hm5xX0XbIvZUY8c6J9dvoQCqE0ir8MDIM6auFBwmPl
-         MWYPLj8V4e1WJ4sfT0BVoMjKCp9cx2g4jpSScHUEIrqtkbH6MxE5xQW3E2Lutm0JamM+
-         slvAexH3WWjX7hs6/OWzgxl4Zg36HR8z2tlN/uNDNe8fbtgRy16etgx/blbfys8qBmT2
-         5uVY/uf5QCAabwY4Ae3Ko9qpvMj7Mrsap0y/rkxKDy8QPmkfX66yp757+GmvmUNfZ5L1
-         ZuXdZXvpuYA7lcDniAEeouI+STM03PLKP5ZELKrvQIRHdSUEBQazx5h+8EhJhAIYtVK2
-         BHgw==
-X-Gm-Message-State: APuU4Z9+YNq8GVMAS6R6nvL233QTHJhQ7D+2uz4/zsOoue87If9FypsW
-	pBGef0uvNiXj6y2dqpO+XYosMRdWRm8YsAldotl1SVR6C0h876AqkZlJDhjU+CpwyeuzJcX0
-X-Gm-Gg: AYBFou06+VMKomiHHEfM9U8xWNPh0DsmJq0rARf8cGzT0+T7qZQPPsV5gE09fnlQrZ5
-	JlUxRrJKzX7HZn9G5s4Rb6v3XFz7vPQ1Z0VZJ7lvQXwudLnhD092FGF5Dx6ruZ8DJoe5qoTeOyh
-	ClXxDotGxdh7PdiF3a7FyZ53tzfAHlDnnSeO4G88dEr0mqJSGKBJGshMOsozW0LTChU2P03Y2qb
-	BPy5mgejS5ySindUVLKv6ThmuhNHRrVIIhj81d75b2HO9gT+lK0yuk3LC3JEsY2KFuhXTRGXUyW
-	vodsxYbZ6aHXjPj4i2AYrhA+oQ7kfmy7PGKqPbwMrhHHStAc7582C8hu4IpGB891bYW9R37inLe
-	ZjaaMqCzr9q7WRJ/FI+Gf9g+vlvYMIzfiQ5uqUvyLyZfdqS0jzZ4rYlmBuP2cqAIclr8z78WCyM
-	tBINE+LiZmxnNZDOOR0KQxze4AUWlsugrAi+Lie1xiUVJBWaKMMd2MJDv0IjShEbKUWzJTTMKxb
-	lh9qfFhFvCHTGDglKcjDPMm095JOlxjZ46bTRxA90PHsX55hLwk6mYX+NSbgEplTwbqdGNDp91k
-	VueeK0mlGxnRLXovnIMcSP6duCZYgMgKzxgVk906ydmSueKVDaJrD0R+4A75aT2vGYuzHj6q5lv
-	Yd0Q+29ukEDDhX3qYj+JegYrWx/n6aQbU6hLtM2MBH6dzmBblby4ihloDiRfI2A==
-X-Received: by 2002:a17:90b:1d05:b0:3ac:80dc:f40b with SMTP id 98e67ed59e1d1-3ae897f55cfmr9602071a91.33.1793717696954;
-        Tue, 03 Nov 2026 06:54:56 -0800 (PST)
-Received: from localhost (ec2-95-40-37-200.ap-east-1.compute.amazonaws.com. [95.40.37.200])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9b0ec5sm4753310a91.16.2026.11.03.06.54.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:54:56 -0800 (PST)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Dave Chinner <dgc@kernel.org>,
-	Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>,
-	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>,
-	linux-xfs@vger.kernel.org (open list:XFS FILESYSTEM)
-Subject: [PATCH] xfs: fix misplaced unlikely() parenthesis in xfs_iformat_btree
-Date: Tue,  3 Nov 2026 22:54:47 +0800
-Message-Id: <20261103145451.23755-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1793717696; x=1794322496;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IgQ05NbEx4CjJRtb6GmYnk00OGmK1qIWhCn9DM7D2rM=;
+        b=qxikK3LIOko24TbFpgep8xZXp8g42VIwo7aHVp6Eddw67TpDKZfdy82VATBzCf9qZK
+         5wkOzqrnp3t++y5D5cSLwApQgBzmlYrIfAuQgvceyYo9kNDhRH0NkWVXBU91MbA31OCt
+         Lpy8sXnHbJkBWSGi+h9XYqpEhBHJBRotu884z7z60yScpl9xiNkAM9uPZdPRyWH1IB36
+         kcgUsHg7kKTR4c0KzfWo17iWSjveB7mBJE6tAms4W6Xsz8ptE2nj1XEW9KSRrMQ0Lk+D
+         P49h+MV9IjkkqK6df7rez9RYP2FupvkW6GejzsoiOlhj+prBiQ2S4XBAeeV3ZLzuIIow
+         Tuwg==
+X-Forwarded-Encrypted: i=1; AKwUvBypp7fCYJkbtGZDqyUKY8pUFGms6VR+fsvEiDvIh19eNjgJ8q99z9qFRDXwwCVEVHye5mk6vg1oCz8Ouj4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9v4nMjUBNpcwkyn3jaVfuA0Ar47X9RXhbKxVMJRIHmbeMjD3dX
+	9+pBIbDHDY95zRIfHtXFRYZg1QuN0iok3bWuCCOiwa3+pw6JvbfqiurgEBiTMWBB3obEYjDJ1ak
+	jLrfxGW5Vmcwh85suzvMiZL2WxVdpfWc=
+X-Gm-Gg: AYBFou3TlQStIMtjLoi0MCIhHB41hdk7f3LJ5o/LCQh3ETQdDPvMB0Tme077MCi09hk
+	sPVAjceR8YNgb2edn1ETLFzEEoh4ec/sA2dJ/4ZHB9nd/Lv/vsyLTE0Fw81KjaO5vJV6ZZjkeHr
+	sD08O1cQsQzsOtnzA80trgzL0KZBHvbQWDqZU5fd22S4xbhSFjikkgtkHsR+qGi6y+8rKex79n1
+	4yhCXWBtBGZcqoHFzTyXjjt/o29ow5glepp0CpeLWgUdguolU5SyHy15qffZLxatgB5K/Fj1PxT
+	0kRIpPXeOuwbGeegVHkEAEdJw1YoMN0upfRt8sFDX9p97ZHzJGUGuCz1m8GbjMl2rmLPBNQOUvr
+	HEfxKT0r/fw8QzEMR3fIe93dxa2MgLPxXrzh8Eo4=
+X-Received: by 2002:a17:906:8346:b0:c4c:d6a3:f4bb with SMTP id
+ a640c23a62f3a-c4cd6a3f756mr402146766b.10.1793717696122; Tue, 03 Nov 2026
+ 06:54:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,52 +104,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261029094916.3127193-2-coiaprant@gmail.com> <c5fc86f9-3c43-4aee-8d88-92e8f88c6d5d@bootlin.com>
+ <1B8D463D-1295-4BF0-972D-859C342E49F5@gmail.com> <48cb8a9d-622f-497c-a13e-bc679c764ce0@lunn.ch>
+ <27E466B0-72FD-47BA-B952-68BF4A817A04@gmail.com> <f554dcc0-14ea-4721-9517-dc0337c47426@lunn.ch>
+In-Reply-To: <f554dcc0-14ea-4721-9517-dc0337c47426@lunn.ch>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 3 Nov 2026 22:54:43 +0800
+X-Gm-Features: AclHuK95KHd0dj6_gNrX9gHZCv0l52s-Y_iZ0--uZvsX8IoRCF8VNkN1cmNSy9Q
+Message-ID: <CALj3r0hfBj_-ZGsAAvGC5FYeFDtxiWcYDsmZA5fEeq_chhvfeA@mail.gmail.com>
+Subject: Re: [PATCH net] net: pcs: xpcs-rk: limit advertised interfaces
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+Andrew Lunn <andrew@lunn.ch> =E4=BA=8E2026=E5=B9=B411=E6=9C=883=E6=97=A5=E5=
+=91=A8=E4=BA=8C 21:09=E5=86=99=E9=81=93=EF=BC=9A
+>
+> > >Are there any registers which describe how the PCS was configured at
+> > >syntheses time?
+> > >
+> > >     Andrew
+> >
+> > Hi Andrew,
+> >
+> > Yes, looking at the `xpcs_identity` code, the core does probe different
+> > MMDs to get the rough type: PMA/PMD MMD for C73 and VEND2 MMD for C37.
+> >
+> > However, even if we determine it's a C37 or C73 block, that only gives
+> > us the rough family, not the exact feature set.
+>
+> You might want to try reaching out to Synopsys. There are sometimes
+> feature bits in VEND1/2 which list the exact configuration
+> synthesised.  And since it is a core part of the licensed IP, it
+> should be safe to trust it, independent of the platform it has been
+> integrated into.
+>
+>       Andrew
 
-The two corruption checks (level == 0 || level > XFS_BM_MAXLEVELS) were
-added to xfs_iformat_btree, but the closing parenthesis of unlikely() was
-left after the previous condition, leaving the new level checks outside
-the unlikely() annotation.  Although the boolean result is unaffected
-(all conditions are OR'd), the misplaced paren loses the unlikely() hint
-for the level checks and indicates the code was not written as intended.
+Hi Andrew,
 
-Move the closing parenthesis to the end of the condition list and
-update the comment to describe the level check.
+Thanks for the suggestion. I looked into reaching out to Synopsys, but
+it seems the original maintainer is no longer active in mainline.
 
-Fixes: b3bf607d5852 ("xfs: check for obviously bad level values in the bmbt root")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
----
- fs/xfs/libxfs/xfs_inode_fork.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+I also tried registering on the Synopsys website to look for the
+databook, but the registration was rejected with:
 
-diff --git a/fs/xfs/libxfs/xfs_inode_fork.c b/fs/xfs/libxfs/xfs_inode_fork.c
-index 486fe7ab8b61..48e1c83329ed 100644
---- a/fs/xfs/libxfs/xfs_inode_fork.c
-+++ b/fs/xfs/libxfs/xfs_inode_fork.c
-@@ -195,15 +195,16 @@ xfs_iformat_btree(
- 	 * blow out if -- fork has less extents than can fit in
- 	 * fork (fork shouldn't be a btree format), root btree
- 	 * block has more records than can fit into the fork,
--	 * or the number of extents is greater than the number of
--	 * blocks.
-+	 * the number of extents is greater than the number of
-+	 * blocks, or the btree level is zero or exceeds the
-+	 * maximum allowed depth.
- 	 */
- 	if (unlikely(ifp->if_nextents <= XFS_IFORK_MAXEXT(ip, whichfork) ||
- 		     nrecs == 0 ||
- 		     xfs_bmdr_space_calc(nrecs) >
- 					XFS_DFORK_SIZE(dip, mp, whichfork) ||
--		     ifp->if_nextents > ip->i_nblocks) ||
--		     level == 0 || level > XFS_BM_MAXLEVELS(mp, whichfork)) {
-+		     ifp->if_nextents > ip->i_nblocks ||
-+		     level == 0 || level > XFS_BM_MAXLEVELS(mp, whichfork))) {
- 		xfs_warn(mp, "corrupt inode %llu (btree).",
- 					(unsigned long long)I_INO(ip));
- 		xfs_inode_verifier_error(ip, -EFSCORRUPTED,
--- 
-2.34.1
+  "We couldn't find your email domain in our records. Please verify
+   your email address and try again."
 
+It seems they only accept corporate emails or existing NDA holders.
+Without the databook, guessing the VEND1/VEND2 feature bit layout is
+risky, as it could lead to silent misdetection of capabilities.
+
+Since Wangxun (Jiawen Wu) and NXP (Clark Wang) already have their own
+XPCS PMA configurations and quirks in the tree, they must have access
+to the vendor integration manuals that document the VEND1/VEND2 layout.
+
+Do you think it would be appropriate if I post a query to the netdev
+list (CCing them) asking if they can share the feature bit definitions?
+Or is there a better channel for this kind of vendor coordination?
+
+For this v3 patch, the glue-level intersection remains the safe
+interim solution.
+
+Coia
