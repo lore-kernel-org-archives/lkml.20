@@ -1,80 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709834;
-	b=4IVkATVkX63fc53V49uyko+1L1SHukaS4F8RdqbnZpj7bCj9LQSdVkRDvx+wYLKyHQVO
-	 MYO2BnGymdQoXtSgQCHMuwlWIlxeFL62ujLZl/GTKBZ87EV610Xy87MwWmhX1cMRbX+/A
-	 qKwzltqbGdLN2Y4hUulOU/AYgM1cy9GjWVtCLdNNo+MSAJTRPW35NwVkKpZtHQUHw6tWE
-	 Tw/07kgymMZ3b7O3nen+6hhAE3VkfAh97CWfUOtI2ANQ7z5PUx90xBWodrrlIjwSVOkOB
-	 M1HtMmqpbmVMYvKhaDAWFwyFVeLqeEGjEV1HSvjeX4FXKwOV5lIsNhqtk+NL9wh7tmQ==
+	t=1793709832;
+	b=wBlKsKibpyjwqVwAas0pmG+1n61Lx7nIA45BllyxichB0lTQYC43Ob/iJUDOSBkmWup9
+	 hbga/c1jRCC1kbPS23e72zhPrJRB/o77WUpTzrB/A6BL1hsF1abs5TSSOraklaXyg/noe
+	 jh8ZEgUdnZaSfiZB2o3cY+giHr4fV7d2QW1INY4kIQXxy/0BlnLx+/+kT6CTabRikB0+e
+	 W+9NTEOjoQAGz9jHTyQvSym2wfPzjL9unf1RLrmY2yatoso9/qn1SZUVcsz5I5xAu7QF4
+	 sj8Zy+QLI/Gl1Fre3hE53ld6KC3XMToR80wa9WPA0SuKfb2ROxtj6ALSSFIAzQ9L2ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709834;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yPsTarkNePmz619K0m4BOqrBzL3fti5jQ/yGZI9K3YA=;
-	b=m4gSAZn5MC2M/uCdzCQalR6YM74PbeZAhk92hWUDMZGpZkRtZfFjGP3vyu9pIZ8gTmI5
-	 voPgzl+kPBf03RYbmazlU4b2QWnhQhyHlblxTrEeHu2Iauq23yOYsRfRGpiwz3Rf8W7Y6
-	 YDGC4qkSsmFidxNAVt5NSRTStHharnwytpwhVWxrbb+HurblpkpEkAVuSTBWQrfceCOzG
-	 icFMKPKbomxHV0Lc0B7oTUXZb+D8hzYp3l9NtNOJ0pmx2jIYeizSMajq5kV0xaZeeTaVe
-	 33Otoe4GV9ZorJ42bKrOFM0NZ3bs9uLIsLerJqKEwzSO4XEF2dFLdy0KD+dFKe34orw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709832;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NsgSbkB27Pf5TMWO9sdStQcnc7NhggjeuaxefOi9tnA=;
+	b=wHHBDHgpPO4pjXb4X2ZOON0DI5Z4gPLHG1/nMHBTZwLNLLi6aWXFhC11Fv7XQV3pw5bN
+	 s06gb+pHSJ2zFYdnBW/9Kbt+g625XfxhgPx/yC5OhMGFyn+obm5r9iRQqZcZzqtXZSndb
+	 OoOMtH56iqUcqWaO/BqWcFW2jjo45Kw2qS8iWfED/cZAT7MRQLX2WANzfR11G6QlsGrbS
+	 3pSnlTyG4OoDPLDuxoGeMh8TW2+mH1ZyZvCX7UtJNnPRSpbGsfKNyawq27d0Pn3ix0MZn
+	 to0GDH+iKHUzRDIP6Qn6+oXvzPBIUv9YIUAI86mEOO3XoaXKrdVeNIwcGX0qYs3RZoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ccauj+4A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C22606EE94;
-	Tue,  3 Nov 2026 12:43:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95C22606EE94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 32beb9f6d78411f19a56ed5b684f684d-20261103
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, SA_UNTRUSTED, SA_UNFAMILIAR, SN_UNTRUSTED, SN_UNFAMILIAR
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD
-	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:891e6794-7a56-439a-b44c-c9a2a07348f5,IP:10,
-	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:30
-X-CID-INFO: VERSION:1.3.19,REQID:891e6794-7a56-439a-b44c-c9a2a07348f5,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:30
-X-CID-META: VersionHash:7db8b62,CLOUDID:ea8dc47480066c86d37398f6f5ab4a34,BulkI
-	D:261103204346NSG9AIRS,BulkQuantity:1,SF:19|66|72|78|102|127|153|850|865|8
-	98,TC:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:40,QS:
-	nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,AR
-	C:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 32beb9f6d78411f19a56ed5b684f684d-20261103
-X-User: daiyanlong@kylinos.cn
-Received: from localhost.localdomain [(114.244.3.119)] by mailgw.kylinos.cn
-	(envelope-from <daiyanlong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 814079660; Tue, 03 Nov 2026 20:43:41 +0800
-From: YanLong Dai <daiyanlong@kylinos.cn>
-To: rafael@kernel.org
-Cc: YanLong Dai <daiyanlong@kylinos.cn>,
-	daniel.lezcano@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	linux-pm@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE5F606EE8C;
+	Tue,  3 Nov 2026 12:43:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ccauj+4A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD57E1F000C1;
+	Tue,  3 Nov 2026 12:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793709831;
+	bh=NsgSbkB27Pf5TMWO9sdStQcnc7NhggjeuaxefOi9tnA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ccauj+4AmTSvdQOJtK7q4KyI8yqvwQbSxQUW3MzkqSWtdHrc57N0rPFma3J6chcFt
+	 pVVVG7/NrPWQV1z9gn5wpBtcHzPl9feAGYiG1LCFqWgRBFMwvsah5A5GJn7XUwIoJo
+	 rCDnaVM8AwLmmFDywx7OyC05qqSQl7nblT7u5MQXv836o6DQF3FyBWfm02gMtOMcNE
+	 icUfnOIgHAPhPJGz1RDYk98NBhmB+CUQ8Evh/5QUZAHXzUIPF1lILnW315ImixEq63
+	 0HgLaM4JwQYzszN8poQczWvARLs51tXtfEgpqBZ5e3LByPKh0hlkxgbhiMEVBgGBl3
+	 NUekNCIU1Ky8w==
+Date: Tue, 3 Nov 2026 12:43:46 +0000
+From: Simon Horman <horms@kernel.org>
+To: Julius Bairaktaris <julius@bairaktaris.de>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, steffen.klassert@secunet.com, willemb@google.com,
+	jiayuan.chen@linux.dev, mfleming@cloudflare.com,
+	almasrymina@google.com, bigeasy@linutronix.de,
+	richardbgobert@gmail.com, ecree.xilinx@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] tools/thermal/thermometer: Fix missing NULL check after realloc()
-Date: Tue,  3 Nov 2026 20:43:35 +0800
-Message-Id: <20261103124336.174919-1-daiyanlong@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH net v4 1/4] net: make room for the tunnel header in
+ skb_segment_list()
+Message-ID: <20261103124346.GJ865646@horms.kernel.org>
+References: <cover.1792838740.git.julius@bairaktaris.de>
+ <b27640960edcb8e072fdd2e8d282c1deee747b8a.1792838740.git.julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,44 +63,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b27640960edcb8e072fdd2e8d282c1deee747b8a.1792838740.git.julius@bairaktaris.de>
 
-In configuration_default_init(), the return value of realloc() is
-assigned directly to config->tz_regex without checking for NULL. If
-realloc() fails, the original pointer is lost (memory leak) and
-subsequent dereference causes a NULL pointer crash.
+On Sun, Nov 01, 2026 at 05:42:29PM +0100, Julius Bairaktaris wrote:
+> skb_segment_list() pushes each frag_list member back to the outer MAC
+> header and copies the tunnel headers in front of it, but never checks
+> that the member has the headroom. A fraglist GRO packet forwarded into
+> a tunnel and segmented in software then hits skb_under_panic() on IPIP,
+> and on VXLAN the copy writes before the member's head (KASAN:
+> slab-out-of-bounds write in skb_segment_list()).
+> 
+> Call skb_cow_head() on each member before pushing it.
+> 
+> Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 
-Fix by using a temporary variable to receive the realloc() result and
-checking for NULL before assigning to config->tz_regex.
-
-Fixes: 110acbc6a451 ("tools/thermal: Add a temperature capture tool")
-Signed-off-by: YanLong Dai <daiyanlong@kylinos.cn>
----
- tools/thermal/thermometer/thermometer.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/tools/thermal/thermometer/thermometer.c b/tools/thermal/thermometer/thermometer.c
-index 1ae6c3ecedb4..b4f26d49e4c7 100644
---- a/tools/thermal/thermometer/thermometer.c
-+++ b/tools/thermal/thermometer/thermometer.c
-@@ -83,8 +83,15 @@ static struct tz_regex *configuration_tz_match(const char *expr,
- 
- static int configuration_default_init(struct configuration *config)
- {
--	config->tz_regex = realloc(config->tz_regex, sizeof(*config->tz_regex) *
--				   (config->nr_tz_regex + 1));
-+	struct tz_regex *tmp;
-+
-+	tmp = realloc(config->tz_regex, sizeof(*config->tz_regex) *
-+		      (config->nr_tz_regex + 1));
-+	if (!tmp) {
-+		ERROR("Failed to allocate memory for thermal zone regex\n");
-+		return -1;
-+	}
-+	config->tz_regex = tmp;
- 
- 	if (regcomp(&config->tz_regex[config->nr_tz_regex].regex, ".*",
- 		    REG_NOSUB | REG_EXTENDED)) {
--- 
-2.25.1
+Reviewed-by: Simon Horman <horms@kernel.org>
 
