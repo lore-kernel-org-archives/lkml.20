@@ -1,51 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.216.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670139;
-	b=iqvVHAgiBuvAWM9ahO4z3oxAFuPU0fb63Bj/HD3PRjzfLjYKfMwPaCeITyOB/YCLc9pg
-	 +fT9nqCjXGXb9QKAfRLzLxtIcoMIzHwXLr7y9fMhcqxn2W2gki84hRQTnxgmkFR30Hf2Z
-	 so+/7S2ubYimeNmum6j2hV+fcoIcLvFDk5Oio4D0vjO0zBghmJOD1YEe8BqGmPuLmg3gf
-	 xuABkdQHmxn/xHEmPkfrOnjRXegHhLqnnxMLVkpLVZzgf3SGZnwDmOhAnwjao1Vtr5YkJ
-	 2wHe9Jd98TFNHVRv/E8RW8le/3ad0Pg4vMDiNdIAoyQMnFSdvO5fF3SzDakoeDEU8GQ==
+	t=1793670167;
+	b=WlvB0VBfEL+ILCf21zw1bjIYcvOkQUzwVfPEzAmBLyeATMIwCFSZaSLleVSRORr4obja
+	 WieyL78EhyGXyhBWBpVWXWXfmSY99to9WjZ/CVJO3aIvIMaU2DzenFNpPl2C5Bi0a1kLQ
+	 eF4JcaoPqfRpidCApMOMxInv4LPRTJAP1EfZaBvSLho1CPWxNWPDMeSC5+efTyTUmH39c
+	 mtbHmdpHPo/WqpsUFeb/kxqXYfLKEFBs9Z8YbwURGWNJ2YqoMWgziBO9ZmHrWSemlj9If
+	 kVDtb7sFuPXXY2NbfWQoQ9XRrSKJpWnNfknoJPZNOkNWKzzqZR5CzxldczpTg6aVijA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670139;
-	h=DMARC-Filter:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Afkj5lR+dXFKMhy13iBEjjniqyBIKXdf8peXBygVbjw=;
-	b=SM4vtsOYdXB6SGz9Qj7aB8Yn3mkw1ONl+hIUBTrGbZ3UG7mNsOy74aAxAyl1SBzhvLx8
-	 xxKQ/KMdAb18bzNSOVdIJPGfHiD9qz1Szr4PvetCjogIGCxwoyT9viZxyw3d/axxykuJw
-	 iqMaatPlGx7XQlGNAkd38F9lMv925Wl+EdmhgRCPO9uSN7xcs67VFwwoGFJVoofURPTKf
-	 pyieLPDQ9TmMl0R1jeFaxv1iiYnv7gpU8rreGVrtZpdCavZFcCOh9nOJWeew5gwM0hNj8
-	 7BIo4K0iydByKyKCk/ypwijT2wBTcQCQUSze7lZOT9P7+0WA1IP4ZcSf0aG3jyzKLpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670167;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xlaK4MZbpQ6o9Yco876nSvoPM63Qif5CtOMBCdr/j/I=;
+	b=e2C8LwJhCG6luLh6G1EMhYrI2OkXOe6TexaaqbgHuA6sk+C1qKL0HHdzcR4m+lDg2pDe
+	 LM2lBYYlJROMqLMEl3mvSGwskPvHpp1CFT19nPc2a2+1rndolD9J9xWHojPPBZKAAeGRs
+	 AgpXE2Gw+Eb6t/E+7gBPWJZWNDRe3a77oNoItQIThwmIcDN3+GTWfGnHGpWa1uc02qFLj
+	 lt218mgHmSaKYi88nwwcP9t4a2pmVYcEuPKy6iSrOqqm9hvCum25dXKenlDVv8aCqzoqI
+	 xpd9qahV+xrDnsLFfpy/PKvgh3AnHaDFRMYYFCTkGQU+TS4ACNEPbfc/ASSwb9EDERQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=findhost.org;
-	spf=pass smtp.mailfrom=findhost.org;
-	arc=none smtp.remote-ip=195.154.216.246
-Received: from hebergement-securise.com (hebergement-securise.com [195.154.216.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4318D606A329;
-	Tue,  3 Nov 2026 01:42:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4318D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=findhost.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=findhost.org
-Date: Tue, 3 Nov 2026 01:42:07 +0000
-From: Kevin Fernandez <kevin@findhost.org>
-To: Elliot Berman <elliotjb@elliotjb.com>
-Cc: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Sasha Levin <sashal@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Yongjian Sun <sunyongjian1@huawei.com>, Jan Kara <jack@suse.cz>,
-	stable@vger.kernel.org, regressions@lists.linux.dev,
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ntfs3@lists.linux.dev, Tom Bereknyei <tomberek@gmail.com>
-Subject: Re: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR()
- checks in 6.1.191
-Message-ID: <auk775zR0FCl4L0X@hebergement-securise.com>
-References: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QIfnE9RM;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D98A606A32F;
+	Tue,  3 Nov 2026 01:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D98A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QIfnE9RM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=QIfnE9RMcrt+g77V+EuUktR1PMPEcOdQq+dFgpPIA+zjKTFa4RmivsO0o9+myl73nNn7gqE2+VM2t
+	 Ddt6Kmx1l0k15KwgcZj40of6hh5WGpGDVLL8FEpaHfk9VcPRTWmLLKK6ObR7Kmtw6jOGI4sKEl37S8
+	 pDIxy7EpoCm/8P1Y=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ae93c10177-8e4e5;
+	Tue, 03 Nov 2026 09:42:42 +0800 (CST)
+X-RM-TRANSID:2ee76ae93c10177-8e4e5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36ae93c10c41-e17fe;
+	Tue, 03 Nov 2026 09:42:42 +0800 (CST)
+X-RM-TRANSID:2ee36ae93c10c41-e17fe
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: Moritz Fischer <mdf@kernel.org>,
+	Xu Yilun <yilun.xu@intel.com>
+Cc: Tom Rix <trix@redhat.com>,
+	linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] fpga: altera-hps2fpga: Fix reset control leak
+Date: Tue,  3 Nov 2026 09:42:40 +0800
+Message-ID: <20261103014240.1194-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,27 +70,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
+Content-Transfer-Encoding: 8bit
 
-I hit the same oops on 6.1.191 on my server (x86_64, via
-ext4_release_file() -> filemap_flush()) and reproduced it in a VM with
-write/sync/drop_caches.
+alt_fpga_bridge_probe() acquires the bridge reset control with
+of_reset_control_get_exclusive_by_index(), which is not
+device-managed.  None of the probe error paths (l3regs lookup
+failure, missing clock, clock enable failure, bridge registration
+failure) release it, and alt_fpga_bridge_remove() does not call
+reset_control_put() either, so the reset control reference leaks both
+on a failed probe and on every bind/unbind cycle.
 
-Is the series needed on 6.1.y at all? When it was dropped from
-6.1.167-rc1 for this same oops, Yongjian Sun noted that 6.1.y lacks
-060913999d7a ("mm: migrate: support poisoned recover from migrate
-folio"), which introduced the race fixed by bdc56a9c46b2:
-https://lkml.iu.edu/hypermail/linux/kernel/2603.3/05097.html
+Use devm_reset_control_get_exclusive_by_index() so the reset control
+is released automatically when the driver is unbound or the probe
+fails.
 
-If so, reverting might be simpler. The two folio conversions and three
-prep commits are only in 6.1.191 as Stable-dep-of: bdc56a9c46b2, and
-a8d83471c560 fixes one of them, so they could go with it. All seven
-revert cleanly. In a QEMU test (minimal x86_64 config, same
-reproducer): reverting a8d83471c560, a3a7d360252c, 862483175d3d and
-d34e4fd4e73f avoids the oops, while reverting a3a7d360252c alone does
-not (the oops is in the conversions); also reverting the prep commits
-1c0f0e2b9b69, e6b6cbe9f2fb and e394adafb089 leaves
-fs/ext4/mballoc.[ch] identical to v6.1.190.
+Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/fpga/altera-hps2fpga.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
+index f2f125068..6d9798bb9 100644
+--- a/drivers/fpga/altera-hps2fpga.c
++++ b/drivers/fpga/altera-hps2fpga.c
+@@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
+ 
+ 	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
+ 
+-	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
+-								     0);
++	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
+ 	if (IS_ERR(priv->bridge_reset)) {
+ 		dev_err(dev, "Could not get %s reset control\n", priv->name);
+ 		return PTR_ERR(priv->bridge_reset);
+
 
