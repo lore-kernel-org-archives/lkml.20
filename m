@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.201
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793676114;
-	b=AF6bpExOCLXsbKgsairot1d9tbH/fFBXUiAqodwM14EstmiIZZiLXLUH+yd8CroqVNB9
-	 sJl/tC0kVAvGj+3ixLwuFUeIMyGKpnGBBTEyFhEiBgLD3ceNy0rTbUbNRuDr0PN0qDl/3
-	 m/eo59Y9hjEXIEXUZZOxX/gKwdOykpxvhEjkyeWozZfm2PUfqIqyb7VhlJH78vEsnxvYx
-	 0Esru+0k61c6o7jQFzKjqBPtWTcvLaRJX6eEZftXSPZwmgW4mkV8XTu5B4WQoBq53blHe
-	 N3TPYGPCJ8ABB/CrRcq65Jx22gHguKB9M4HUIyRxMWziHGUh47AOp9TdQHKK9Hu/uEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793676114;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=6hpdvsK0Hrmc4uMZchvry04ArqEL30GvpLJeJ7hrgyk=;
-	b=C4UwOW4IWK/7nOEHwFxTd76P04mg3IRatAOrPk+Fev4uk3FsZ5gVXuy4+pDsZSiFcQCz
-	 A+WTH77RsgdIvZqtB1WHqlVTmk6u38yN6D/2s6qshGQr3ZiFIbj26oj4KJFbvxALNw4q9
-	 qegYA/dtXKQoOGGFRRGKmUtXXN7xgsVd/ex3esaq0TeMxnlS348JbaWFeyMLo4B/LgLiP
-	 scmmjDmk2jYsfrjtoJ5FvWjNI5MZ55SOSWwvyUYS1Ruh/4X2KgYdts1AiPGHHch7aJn1b
-	 THKwdotTn4MSXy0JfTxCRMT+xvhXtYeTqxfqGJiq65qKHaWO9X2q/Y+mP1R4/Y39xug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=erDD87IF;
-	arc=none smtp.remote-ip=91.218.175.201
-Received: from mta0.migadu.com (out-201.mta0.migadu.com [91.218.175.201])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793676110;
+	b=rYavH3+n0tBH5lGtd59Du55lT7AlCKKlRFpkzRFfnVUvcX1KWWO2fxOrHWsY3g/4zX5p
+	 GMHHadpG40f/gOg5gp9AKcl9jJy3/MXl463R8aAa6ZKfkKTQAcqB9mUJ90eR/CAKU2YHv
+	 qxcixMFep4rl7Z1AVmq4obvSX9CMVtGT2lJA7wTwu702Fmdea73I5PHk/1ARNgnPAKaRZ
+	 s9VWjdeaYorm52iZdr+fSXCiZW3XiMyHm0eCRnBw0qmm373ewYNqORyuiU33uKWi8eJmu
+	 VqZZ/sYY7H6KfVASmv1sBBezPtgrOlqATYsqHQxSdiyuVycOubrc7KThmf/olpY1Wrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676110;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3Bqa70HFsTlC3jpdiRmNrdcuuivYTvNPkgmkmv1vsBA=;
+	b=YNTm4zbBK9vw9gv+pCH9GjqfZxYjQmSVi5UbOrd0A+jtobIjpIKU46y+1I8qU7UGXJMx
+	 zVnS4upFrbPt3VPz0hCJDE17cCN0hm3otZsWdKq01kPsdKBvrTbFqHh7LIVHhqHpOPUSG
+	 PbRaNJ62X4DkmYoV4RRqskdhFdezyoNQNqRc9GrRJChLHcU4H3xgbW1w18jEGct0Ie0h/
+	 qIjc1XB2uI8Pekzus+mk/LWZ//wMm59uU/ljFXyI01zshoC/6ik7hkuLQnUZsQ4JBvZSD
+	 cuKzxB4YWkOVCYujfdOJtwgdOhdJQXEtzmo/djxlz1EX1IoIBODpJ2Gjjhq+On3iKqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Bz/wQ1yL";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD15606A324;
+	Tue,  3 Nov 2026 03:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bz/wQ1yL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793676109;
+	b=qqMgS3Dlq+2NrZK43voZHtsd7+qnsGnJ3fHcy2vuQaGd9z5qzCHSXTuvmL/5CcpsMFI3
+	 oD59hXTbfhdy6k1Nol3hct5ofCVz+55LLUOkmLJ5OSxcLaBRPMV0cgpt5sXxg0AT22VIq
+	 ITXeE0g9W4ZiRRnEs2Bv+dDAN35xesmqd8wPJXn4dGiaigpdVERh6Gw16V+gM4mJai7nM
+	 lehTUhRZeaFwDfzDmB9IxkqSJHbEqTag1P23PFjVpsSg7rWfWhaDL6VIuhDfeqIF/65jE
+	 E4S50bPb4u5x6Ww8hoNBNJVbuKoK7D0QMmSvOSqnasv6mcQBA8g3MSMXnpAcsbeyQIA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793676109;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3Bqa70HFsTlC3jpdiRmNrdcuuivYTvNPkgmkmv1vsBA=;
+	b=Sc1YID6Ut4xksXpub5ntZHGv/Yc1pry0ZquLVA6Aca9wxzhOMlY+ZJ4VGORmlQSYifT1
+	 8FPKveN1LPpz6BVPWiMVsHLA1y0wwECpZY5ipyJO7GXJjcjvIhaIyY+Cs92L5XxBnLh++
+	 5IvYKPsvzMs/UuZOubDCLGE55cXrq3SpzWxLCB1tXnaShFvGMLnh49YqfCOVQIANX/pA2
+	 137WTUUauKXqOh1sKdl4vplAbpvTUmmhsC9BBjgqbfFXviMdeAYQW1jieN1TV9AExsWzU
+	 WbTEQ6fMU6YiZiXjHzI4TFv04pAUDUtYDWKPIY9axgOxIq2r3/8Vgno7CB22L4cWE0A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD4B606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 03:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD4B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=erDD87IF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qpopzn/+LxUuJye0OmBehYq4z85SruAh2igo69vC/Dg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793676111; v=1; x=1794280911;
- b=erDD87IFKhVaekyO+FkeXbc9mEeQmViLGA8XE/RWb51zBlfheRmlnVVYU0Wmwc+ZlKAkmPvB
- cOc0qyXE0+EhzTbyhd1ViLBplk32nT6aJW+oSWguQK/AQo/YkDJ2XGIv25yzGyY/CEfFoxm3YEQ
- uRH0YOAKwU8QWigGa/Qs5VR4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id bb50f4f34a0a70ae;
-	Tue, 03 Nov 2026 03:21:50 +0000
-X-Mizu-Trace-ID: bb50f4f34a0a70ae
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.kernel.org (Postfix) with ESMTPS id 4F3421F000C1;
+	Tue,  3 Nov 2026 03:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793676109;
+	bh=3Bqa70HFsTlC3jpdiRmNrdcuuivYTvNPkgmkmv1vsBA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Bz/wQ1yLAk84kP9CS2jCqmWv7GDwx9GXkf2aZeN3hb3z7shuakacLgmDNEtxyWJfP
+	 c/Ot3jR/DPEj3d98G3qloSxn6sr8Vpirt4DPo1EeMz7hbfUQ/3OOcoohftpLJsLacl
+	 Cw1kmP+SDf6hWtS4dZAJcSRZemC/S7oX9Zk7zhylG8Hf+TzvMIVENAy5eK7IITWTBG
+	 Vi3PJ14fg8eiNZz1HP2orM147bajBLFUrlYc0p/vbRKY2of+iZbjjpYsDfy02RSGK+
+	 cvwdUOP6TXXXa+mdR2ua0lyNuSFxtpWHVFtNvvhad3S4/TZeILZ6SvGAlupWGcNdSQ
+	 a48+e7znRlWoQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A790A46774;
+	Tue,  3 Nov 2026 03:21:48 +0000 (UTC)
+From: Jonathan Bastari Thamrin via B4 Relay <devnull+thamrinjonathan.gmail.com@kernel.org>
+Date: Tue, 03 Nov 2026 10:21:38 +0700
+Subject: [PATCH bpf-next v3] selftests/bpf: Wait for wq callback before
+ checking ok_sleepable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,186 +82,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 04/12] mm: hugetlb_vmemmap: generalize vmemmap page
- allocation
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <aujPACLfTbPJnIJa@kernel.org>
-Date: Tue, 3 Nov 2026 11:21:31 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Lance Yang <lance.yang@linux.dev>,
- James Houghton <jthoughton@google.com>,
- David Hildenbrand <david@kernel.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <BFFEC8BA-6BEA-48E5-8D40-687A630D3D64@linux.dev>
-References: <20261102032525.3597743-1-songmuchun@bytedance.com>
- <20261102032525.3597743-5-songmuchun@bytedance.com>
- <179361471104.1337633.3959715900505206111.b4-review@b4>
- <09EF0F81-23CA-4F3C-BA0E-41F34A0AA4B2@linux.dev>
- <aujPACLfTbPJnIJa@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-wq-poll-fix-v3-1-8e7b38f5e71f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMyw6CMBBFf4XM2jF0eIis/A/jopQpNKEPW4Ikh
+ H+3ce/y3JtzDkgcDSfoiwMibyYZ7zJUlwLULN3EaMbMQCW1QpSEnzcGvyyozY5c3UvSddsIUpC
+ NEDnPv9oThqDR8b7CKz86eovrHFn+r22EAutuuI2COtEM3WOy0ixX5S2c5xdF++irqgAAAA==
+X-Change-ID: 20261102-wq-poll-fix-e3902f46512c
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mykyta Yatsenko <yatsenko@meta.com>, 
+ qikeyu2017@gmail.com, Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793676107; l=2995;
+ i=thamrinjonathan@gmail.com; s=20261102; h=from:subject:message-id;
+ bh=gdSS2Zn2Y724+t41UF0QYn1E1bwWRv+MZqExp9d0kLM=;
+ b=QzNXJ7/3tjFJT5uXYRsgG7/N2lQpdIxxXgJv9b0ADpCMIAvmXMqkrG42t3cHQktY4J/fsTYVt
+ 5n6orF1dTy2DiuipA0JGB0f3bFXXaB5keaFRN1GBXIoxOlG7SWuYXZL
+X-Developer-Key: i=thamrinjonathan@gmail.com; a=ed25519;
+ pk=mr0q5PZVaUIrv8WvTxIfK7QVcAiRSYI8hOByBQL1ZRo=
+X-Endpoint-Received: by B4 Relay for thamrinjonathan@gmail.com/20261102
+ with auth_id=1383
+X-Original-From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+Reply-To: thamrinjonathan@gmail.com
+Content-Transfer-Encoding: 7bit
 
+From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
 
+wq test fails with ok_sleepable reading 0 instead of 2 as workqueue
+callback hasn't executed before check.
 
-> On Nov 3, 2026, at 01:57, Mike Rapoport <rppt@kernel.org> wrote:
->=20
-> On Mon, Nov 02, 2026 at 08:34:03PM +0800, Muchun Song wrote:
->>> On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
->>>=20
->>> Hi Muchun,
->>=20
->> Hi,
->>=20
->> It's my email client's fault. Let me email it again.
->=20
-> Things happen :)
->=20
->>>> Vmemmap page allocation is currently tied to restoring a virtual =
-range
->>>> and assumes an empty destination list.  These constraints prevent =
-it from
->>>> being reused when pages are requested independently of a vmemmap =
-range or
->>>> appended to an existing list.
->>>>=20
->>>> Generalize the allocator and give it an all-or-nothing list =
-contract so
->>>> the restore and optimization paths can share the same allocation =
-policy.
->>>> This also allows HVO head-page allocation to fail gracefully under =
-memory
->>>> pressure without triggering the OOM killer.
->>>>=20
->>>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->>>> Reviewed-by: Lance Yang <lance.yang@linux.dev>
->>>> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
->>>> ---
->>>> v2:
->>>> - Collect Reviewed-by from Lance Yang and Qi Zheng
->>>> ---
->>>> mm/hugetlb_vmemmap.c | 39 ++++++++++++++++++---------------------
->>>> 1 file changed, 18 insertions(+), 21 deletions(-)
->>>>=20
->>>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
->>>> index 0e5b2b182d1bf..4b20a8efc0678 100644
->>>> --- a/mm/hugetlb_vmemmap.c
->>>> +++ b/mm/hugetlb_vmemmap.c
->>>> @@ -334,28 +334,26 @@ static int vmemmap_remap_free(unsigned long =
-start, unsigned long end,
->>>> 	return ret;
->>>> }
->>>>=20
->>>> -static int alloc_vmemmap_page_list(unsigned long start, unsigned =
-long end,
->>>> -				    struct list_head *list)
->>>> +static int alloc_vmemmap_page_list(struct list_head *head, =
-unsigned int nr_pages,
->>>> +				    int nid)
->>>=20
->>> Please indent with two tabs, like David likes :)
->>> Applies throughout the series.
->>=20
->> Sure. Should we update scripts/checkpatch.pl in the future for MM,
->> since this script seems to favor the alignment approach?
->=20
-> Yes, makes sense to me.=20
->=20
->>>> -	for (i =3D 0; i < nr_pages; i++) {
->>>> -		page =3D alloc_pages_node(nid, gfp_mask, 0);
->>>> -		if (!page)
->>>> -			goto out;
->>>> -		list_add(&page->lru, list);
->>>> +	for (unsigned int i =3D 0; i < nr_pages; i++) {
->>>> +		struct page *page;
->>>> +
->>>> +		page =3D alloc_pages_node(nid, GFP_KERNEL | =
-__GFP_RETRY_MAYFAIL, 0);
->>>> +		if (!page) {
->>>=20
->>> I think goto err_do_cleanup is cleaner than ad-hok cleanups
->>=20
->> I=E2=80=99ll use goto style, either is OK for me.
->>=20
->>>=20
->>>> +			memmap_pages_add(i);
->>>=20
->>> This is confusing. Updating counters only to use
->>> free_vmemmap_page_list() seems worse choice than walking the list =
-and
->>> __free_page().
->>=20
->> I think the memmap accounting should be done right after each =
-successful
->> allocation =E2=80=94 that way, using free_vmemmap_page_list() becomes =
-more natural
->> and simple.
->=20
-> Why are you against using a loop with a plain __free_page()?
+This happens as callback runs later on a kworker and 50us isn't always
+enough.
 
-I'm not against. This is probably just my own fixation, I think I've =
-fallen
-too deeply into the trap of code that looks simple but actually isn't =
-that
-great. Good thing you pulled me out in time. So I'll use your suggested
-approach to fix the problem here.
+Change from 50us sleep to waiting for callback by polling
+ok_sleepable every 1ms for up to 10s. If the callback never runs, the
+test fails instead of hanging, similar to ksock_wq.c. If test_run
+fails, it skips the wait and goes to clean_up since the callback
+was never queued.
 
-Thanks,
-Muchun
+Before (usleep(50)): 3 fails out of 5000 runs
+Diagnosing issue (usleep(0)): 23 out of 100 runs
+After: 0 out of 2000 runs
+Tested using vmtest on x86_64, test pinned to one CPU with `yes` load
 
->=20
-> We know for sure it's not a reserved page and there is no need in
-> free_vmemmap_page().
->=20
-> And with memmap_pages_add() per page do a bunch of atomic_long_add()s
-> instead of one.
->=20
-> BTW, it would have been nice to avoid per-page counters update in
-> free_vmemmap_page_list() too, but that's not related to this series.
->=20
->> Somthing like:
->>=20
->> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
->> index c04f53f708d2..cab9ec14873d 100644
->> --- a/mm/hugetlb_vmemmap.c
->> +++ b/mm/hugetlb_vmemmap.c
->> @@ -207,14 +207,13 @@ static int alloc_vmemmap_page_list(struct =
-list_head *head, unsigned int nr_pages
->>=20
->>                page =3D alloc_pages_node(nid, GFP_KERNEL | =
-__GFP_RETRY_MAYFAIL, 0);
->>                if (!page) {
->> -                       memmap_pages_add(i);
->>                        free_vmemmap_page_list(&local);
->>                        return -ENOMEM;
->>                }
->> +               memmap_pages_add(1);
->>                list_add(&page->lru, &local);
->>        }
->>        list_splice(&local, head);
->> -       memmap_pages_add(nr_pages);
->>=20
->>        return 0;
->> }
->>=20
->> Thanks for your review, Mike.
->>=20
->> Muchun
->>=20
->>>=20
->>> --=20
->>> Sincerely yours,
->>> Mike.
->>=20
->>=20
->=20
-> --=20
-> Sincerely yours,
-> Mike.
+Link: https://github.com/kernel-patches/vmtest/issues/455
+Signed-off-by: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+---
+Changes in v3:
+- Go back to bounded polling on ok_sleepable, similar to
+  ksock_wq.c, as unbounded wait in v2 can hang if callback never
+  runs (Alexei)
+- Skip the wait if test_run fails, and raise limit to 10s (Alexei)
+- Drop the wq_cb_run flag and the progs/wq.c changes
+- Link to v2: https://lore.kernel.org/r/20261102-wq-poll-fix-v2-1-48b7d12815b8@gmail.com
+
+Changes in v2:
+- Wait for callback via a wq_cb_run flag instead of polling with a
+  timeout, similar to test_struct_ops_assoc.c (Kumar)
+- Link to v1: https://lore.kernel.org/r/20261005-wq-poll-fix-v1-1-99ce4bac59f4@gmail.com
+---
+ tools/testing/selftests/bpf/prog_tests/wq.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/wq.c b/tools/testing/selftests/bpf/prog_tests/wq.c
+index 97926e35aaf2..a4f71bc34fa6 100644
+--- a/tools/testing/selftests/bpf/prog_tests/wq.c
++++ b/tools/testing/selftests/bpf/prog_tests/wq.c
+@@ -4,10 +4,13 @@
+ #include "wq.skel.h"
+ #include "wq_failures.skel.h"
+ 
++#define CALLBACK_WAIT_RETRIES 10000
++#define CALLBACK_WAIT_US 1000
++
+ void serial_test_wq(void)
+ {
+ 	struct wq *wq_skel = NULL;
+-	int err, prog_fd;
++	int err, prog_fd, i;
+ 
+ 	LIBBPF_OPTS(bpf_test_run_opts, topts);
+ 
+@@ -25,11 +28,12 @@ void serial_test_wq(void)
+ 
+ 	prog_fd = bpf_program__fd(wq_skel->progs.test_syscall_array_sleepable);
+ 	err = bpf_prog_test_run_opts(prog_fd, &topts);
+-	ASSERT_OK(err, "test_run");
+-	ASSERT_EQ(topts.retval, 0, "test_run");
+-
+-	usleep(50); /* 10 usecs should be enough, but give it extra */
++	if (!ASSERT_OK(err, "test_run") || !ASSERT_EQ(topts.retval, 0, "test_run"))
++		goto clean_up;
+ 
++	/* wait for wq callback to finish and fail instead of hanging if it never runs */
++	for (i = 0; i < CALLBACK_WAIT_RETRIES && !READ_ONCE(wq_skel->bss->ok_sleepable); i++)
++		usleep(CALLBACK_WAIT_US);
+ 	ASSERT_EQ(wq_skel->bss->ok_sleepable, (1 << 1), "ok_sleepable");
+ clean_up:
+ 	wq__destroy(wq_skel);
+
+---
+base-commit: cd5bc55288d4fd999595c8f2af6a5408cbe92a52
+change-id: 20261102-wq-poll-fix-e3902f46512c
+
+Best regards,
+-- 
+Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
 
 
