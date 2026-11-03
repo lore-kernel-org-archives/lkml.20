@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707408;
-	b=Ge0FtLyPiSV0pBzS87wIIfhmV6LXBahlHwIQNstHBOK960xHvCjtQ0b0UL89tZomhgTz
-	 vNI3PAJW4XNyZUxM9IXiZhb5c3uOBpg2A3XePGfWmM8NCLynvt8A9y0NiKAgxthjRW3ak
-	 KQ7mNzIFZOGd06+nCaNOc/fhLva8IRb9XGwnHuwme+UOG2AzTxbXuXlQIGvM+Qzp7zyVn
-	 Hq54OxAiUflp4oYjRftl+BOVvRev5Q6EFPf14Y/3AycyjsvB84WuleioJcf0J6e/UGUWp
-	 ApLiD7nSg6kJVB29RVZWeJtt5YY2Yh0aq4h3y6d/i/pkYvGYX9swD9uc0DNTsh7MO2Q==
+	t=1793707405;
+	b=uQ6j39/6z3ndP1/va9Ykkp5Y2BzxN8CkYrzFZQoEh/w0oEIEuaZlKjGSa/Jn2O3spX4x
+	 6SnPQtXlDZfl55gpaVyc0o1fuPFSg3Tu5iU9+7SZa2HYciygwF0fMbj/9MFGkwEz2DWdY
+	 ti+nXRX6G+9BM7UOKe28p6YEngynxnY6vun65hTjUuYOh3+CvvjSDSTvovYV/yajXeGIt
+	 m2xYMvXfT5ZrTsNTrvXmndj3k30frmAsfqD4dTqDgwrOchb5x5CGHCVOTrMkVkmyOda7l
+	 Y4Fb6/toAeTPJprRi/do22nDtAuHbQX+dojprBYDtq7CYshgpQLXeclo/ZBJYd/aW9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707408;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=aFDkJvc0SlO0FoZdt7sy/omFWAvQLp/LHRh9YqnoHDQ=;
-	b=qMVNk3Q33n6BYv1OLl6J3njET99wFHHj2+FqtLNRgyBTsqIeP1pwTfgosneGPoWz3ni2
-	 eLRoOsBoaYb+5K11HvsVKYlu5as+6pexKD0dOR3ezAatniXKnmw69NlObzkhk7VVoJnjz
-	 O+co1RL77fYq3JXKwVKsXCdcvSQjb4SfvNIU0vIqVJh+weC7wSh9KBX+jj86656rIyTS+
-	 aqjKE7GboKH3haJV0itI3L9n+ssNhm1YXQC7a1+Gh0hoCbGdRY0gipg4+5rWMaRGuLSl6
-	 jl56NeiTkffudhfNrQp3eXlPPsnBA0TyLdvDNdXQsyfpsiPx6d95aquDV8GSzNb7OkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707405;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NOxToOaRCWHOshJgMcU31n+bkp0++VjZYWL+rK/hMio=;
+	b=Cj765+WAkbTKRqjY5ZlwJaIaJEq9uaJ2b4ArdOJESghGWNMlYyrS2+ZOOVTWxj4prWoc
+	 X5IkjDa7HIvRyUPK16q4zm1DvRGFrSeJ5XEWPKvJLeUu3g4sVrNABDMbZPkJrG9tnuPrm
+	 eJoz7Uk91XXmerPmgE5U+/1Xhjm/mMBv750SIlNWGQp0jff8orCy/CbvLy3/N8hc2emEJ
+	 UCdtML0ihsnAknokEAwHc1qYZz3yvkWyrnTR5cNZU9tBwoc9eTA/CKmEtbgZS2LVwKgva
+	 j7AGHzJEXr4G74XNL9tGKriHootjQlwv5nPuBM+BlCeHcx/rWCQ0QYvzDoVwdjDN3DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKJzLVtx;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fJI6lh9X;
+	arc=none smtp.remote-ip=115.124.30.110
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAD3606D820;
-	Tue,  3 Nov 2026 12:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDAD3606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B73606EEB6
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:03:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B73606EEB6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKJzLVtx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793707409; x=1825243409;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ms+g3QoZSUyFHUMK9wfol68PI8V8MBi/mm/vsDLdkK8=;
-  b=HKJzLVtxnCKrz1kbs/KMp5RNv0G8AoPu37zW05Ha7X8xAq7qMkHKVzOu
-   QyY0XY7CpZslVYp+hiwWwZI4oil0XouTcplQWmfuDa0L1Q+cg74AvAIfY
-   /S8p7lWEZinvzuGaVVZyPc1ZxSK74MwJJNt5tjhcCTbhCQmD4EmDzI35q
-   YmoI49FCeJEyiznEqJ33xpFoHZRDyFumKU5AGGZCSOSeZEPCbXJkj6QQH
-   2ik8BbGCIe1fMbwX1nbqQUpGOik1WB4v5uhUwJm5xqGWEureCNZ0r4NOi
-   +srPxXIxBTQXvKwNnNJJcm/YupR6SgmROhv+O9kM/wDFo6S0j+4rVKEz0
-   w==;
-X-CSE-ConnectionGUID: hiLi+IPGQaivNb8egb+K7g==
-X-CSE-MsgGUID: 1UN2z4S4TruEczkdvDe0SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2336005"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2336005"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:03:28 -0800
-X-CSE-ConnectionGUID: u0dGWKT/S9WdmDpo9aqLlg==
-X-CSE-MsgGUID: 772hCfvgTIKLnsT8dX0suA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6737785"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:03:23 -0800
-Date: Tue, 3 Nov 2026 14:03:21 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v6 4/8] serial: 8250_dw: configure the Allwinner H616 UART
-Message-ID: <aunNiQcpKMrc88EK@ashevche-desk.local>
-References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
- <20261102-submit-h616-uart-fifo-v1-v6-4-25afcb346b0c@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fJI6lh9X
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793707402; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=NOxToOaRCWHOshJgMcU31n+bkp0++VjZYWL+rK/hMio=;
+	b=fJI6lh9XqwYh55gqI66CNat1yOkXh1eWBVpYhsrIqqioZ8JbaLBIyu4AoUkqayLg9HBVJq7mUlIX/ARXtj977C4j1kx3MXP3ZxbWG+7c9I5TxS0CbhOzxoddnflN+ubJDGrqZoy6JCRGBk8EL6AEhdZFSD/MN1d6nIxyJsSmxFo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R861e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=29;SR=0;TI=SMTPD_---0XE2qH0l_1793707398;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XE2qH0l_1793707398 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 20:03:19 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	baolu.lu@linux.intel.com,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	atish.patra@linux.dev,
+	skhawaja@google.com,
+	vasant.hegde@amd.com,
+	joerg.roedel@amd.com,
+	tanchi25@mails.ucas.ac.cn,
+	gong.shuai@sanechips.com.cn
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm-riscv@lists.infradead.org,
+	Nutty Liu <nutty.liu@hotmail.com>
+Subject: [PATCH v7 10/10] iommu/riscv: Add IOTINVAL.GVMA invalidations
+Date: Tue,  3 Nov 2026 20:02:36 +0800
+Message-Id: <20261103120236.53474-11-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
+References: <20261103120236.53474-1-fangyu.yu@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,85 +87,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-4-25afcb346b0c@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 12:55:19PM -0700, James Hilliard wrote:
-> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
-> component parameter register reads as zero. Generic 16550 probing leaves
-> the port using the 16-byte FIFO configuration and its trigger-level table.
-> 
-> Keep PORT_16550A and supply H616's fixed FIFO depth through platform data.
-> The 8250 core derives the transmit load from that depth.
-> 
-> Allwinner encodes receive thresholds relative to the FIFO depth: one byte,
-> quarter-full, half-full and depth minus two. Construct the RX trigger
-> threshold array on the fly so other FIFO sizes can reuse the same mapping.
-> For H616 the thresholds are 1, 64, 128 and 254 bytes, with the normal
-> half-full FCR setting selecting 128 bytes. Use this array for both RX
-> trigger callbacks and the shared bytes-to-FCR conversion.
-> 
-> Serialize trigger changes with termios through the port mutex. Hold a
-> runtime PM reference for the register access and the UART port lock while
-> updating the FCR shadow and hardware. Changing only the trigger field
-> preserves the FIFO contents; a runtime resume failure leaves both the
-> shadow and hardware unchanged.
-> 
-> Advertise automatic flow control so CRTSCTS enables MCR.AFCE, matching the
-> DesignWare termios path's hardware CTS handling.
-> 
-> Select this configuration through the platform setup callback. H616's
-> debug-divisor and RS485 control registers overlap offsets used to detect
-> generic DesignWare features. Use the fixed configuration with BUSY-safe
-> integer divisor programming and software RS485 handling.
-> 
-> Keep the UART clock enabled during termios changes with SKIP_SET_RATE.
-> Its clock is a gate on the shared APB2 source rather than an independent
-> baud-rate generator.
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-I'm not sure I followed previous discussion, but as far as I get it Ilpo
-mentioned the possibility to have that FIFO trigger threshold helper to be
-available on 8250_dw level (meaning dwlib). Or was it decided against this?
+Previously, only IOTINVAL.VMA was issued, which is insufficient for
+second-stage address translation consistency.
 
-...
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+---
+ drivers/iommu/riscv/iommu.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-> +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
-> +{
-> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
-> +	struct uart_8250_port *up = up_to_u8250p(p);
-> +	int fcr, ret;
-> +
-> +	fcr = serial8250_bytes_to_fcr(data->rxtrig_bytes, bytes);
-> +	if (fcr < 0)
-> +		return fcr;
-> +
-> +	guard(mutex)(&p->state->port.mutex);
-> +
-> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(uart_port_lock_irqsave)(p);
-
-> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
-> +	up->fcr |= fcr;
-
-	up->fcr = (up->fcr & ~UART_FCR_TRIGGER_MASK) | fcr;
-
-(as is also okay)?
-
-> +	/* Changing the trigger alone preserves the FIFO contents */
-> +	serial_port_out(p, UART_FCR, up->fcr);
-> +
-> +	return 0;
-> +}
-
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index ff1043afe973..8c15710d60b6 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -831,6 +831,15 @@ static int riscv_iommu_iodir_set_mode(struct riscv_iommu_device *iommu,
+ 	riscv_iommu_cmd_inval_vma(&cmd);
+ 	riscv_iommu_cmd_send(iommu, &cmd);
+ 
++	/*
++	 * Per the RISC-V IOMMU spec (sec. 5.5), the IOMMU may retain
++	 * cached translations across mode switches. IOTINVAL.VMA only
++	 * covers first-stage leaf PTEs, so use a global IOTINVAL.GVMA
++	 * to flush stale second-stage translations.
++	 */
++	riscv_iommu_cmd_inval_gvma(&cmd);
++	riscv_iommu_cmd_send(iommu, &cmd);
++
+ 	/* IOFENCE.C */
+ 	riscv_iommu_cmd_sync(iommu, RISCV_IOMMU_IOTINVAL_TIMEOUT);
+ 
+@@ -1176,12 +1185,15 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
+ 		/*
+ 		 * else: IOTINVAL.VMA with GV=1,AV=PSCV=0,and
+ 		 * GSCID=DC.iohgatp.GSCID
+-		 *
++		 */
++		riscv_iommu_cmd_send(iommu, &cmd);
++		/*
+ 		 * IOTINVAL.GVMA with GV=1,AV=0,and
+ 		 * GSCID=DC.iohgatp.GSCID
+-		 * TODO: For now, the Second-Stage feature have not yet been merged,
+-		 * also issue IOTINVAL.GVMA once second-stage support is merged.
+ 		 */
++		riscv_iommu_cmd_inval_gvma(&cmd);
++		riscv_iommu_cmd_inval_set_gscid(&cmd,
++			FIELD_GET(RISCV_IOMMU_DC_IOHGATP_GSCID, iohgatp));
+ 	}
+ 	riscv_iommu_cmd_send(iommu, &cmd);
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.50.1
 
