@@ -1,53 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673927;
-	b=cX878DTHsUKrrXTE9GVwKBJNKS4/y33F6bRT5xnvWYVTXaxWrDOmfx+dsGzfL8MJUel9
-	 2gvm6QNEteTuk8b6Oms/wXIwal2FbkC7I62mhKrHvwQ4cDWXXTIar/uJl/YHFN51J1sGP
-	 1tjG2JHyWyMc6gOpKX0p77XEZRXNiYizxsMWRO7cNhZtwQXn8tT5NjeRju1gsgyMdjB+/
-	 DHWvGCMGF7jsWB5oyRF2nzuni8IughSeFqwaVtlNLkAbHAUvPB2/7ilB+qyQ6mtwbqlu6
-	 iy74Oa/m54C62Dz6v4M+K0L0WlmZpvlwJy/mZLGjgW3qye9lOt/WX1kHdrCokfUTsjQ==
+	t=1793673929;
+	b=FeXF3mFTjvhwpdM+rJybT8IfSNeOqvTVPTBgfoaR1n8PqSPbOgYSyPrHyVyzIviP7n9r
+	 qPrviilxI5y2xPtVdDxdguWysEBWoq7FEMVfyIEeTr7RtsopjQEqi7TjK3Hknji0GwOKQ
+	 aQhRuBN2h/XW6Jxkhv7b8cFiFD23cqaYKrCBlB68VB8BbECEjzEqFNAyCGKuNfMW6Z0EE
+	 +x+v6OoEEA36wCNDvePQuwMNoz2nSbfcFi7wVaaWNduzATEHbA3WMsyrbngZ+qqhj6vUY
+	 eih9wVCKUeolpFbXgBb3bQ1JtOzqGNw8MhYeFbz3CdV94ja61SiFqWuWTJTxgYyXImg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673927;
-	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=j2KD9GvfPeXoDg285IZexB8Z8vN8Y20a8MOwOXjwlFc=;
-	b=xKS6K5AB6Bh1OxrskOtqpQNr4KnyGb0hknYs0a577OhLJckLiDabpauTPFd1JRZjSDld
-	 jTYp//H4zMRusT/dyxITiCAKjdTb2WhH7GHOzeAg75sPhuoatUV7UYDkS1SanuGyGlE5i
-	 6JsneffStDbuI+Yu5M3xXFMqWmjO2Gn6DnW+0JccJPQ1JZ3ioZGotrOcct2dj0TztJHPx
-	 1yerKJdhrpAxUuShGhCuauDdCFTldLApos4jIUQ6LSVxx8EQKuwa1zbVrxAT/hlPmnpcT
-	 ptyOT6XeJFyK2Lrcwz6Q12nY34tHUog613EWZ6a5qZ+oJgNwBm+PkbBBWwWeVyBGaGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673929;
+	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=z2Ps+XVA2Ccwus88hi1fXu3RjGPJlOzPV/bkye9S1jU=;
+	b=a+MXTCOCazlXSpCBwHxDapMOMNeQ/w87Bm1GN/NwSZv9UaF9Qm0/wTpGZhatJOoNqjdx
+	 Ip3DpvPMPXPXw0LqAVGmdBd8Fhb/8YZ68tVnnJ9qlt2b8s+hx88OtCUvldEOZqax9zhB/
+	 33RakDnqY/qbK7fEPcj1IOVJUuKycp6xUCf4SJKdV5zUaq4IBcIn7vjpPcl351l6vYXMb
+	 Sn8WvhWCt8bQa5qSqW1rS9cMOG8qW0csSbO+i9u+TO6J0NjJsNw00jqcXniZIMKq8GMB+
+	 1sjnFOHu2YDSEX7afwla52y8w+kEElleQlJP7IzHa8iYbDoFHWcyTaOhyOD0I3K2Kag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=OwrRybO2;
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=KAYPfDx4;
 	arc=none smtp.remote-ip=45.254.49.197
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC861606A327;
-	Tue,  3 Nov 2026 02:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC861606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59776606D803;
+	Tue,  3 Nov 2026 02:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59776606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=OwrRybO2
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=KAYPfDx4
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [IPV6:2409:8a00:3c11:dbc0:2581:8e:ca0f:59ab])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 534316a3a;
-	Tue, 3 Nov 2026 10:45:21 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 534316a42;
+	Tue, 3 Nov 2026 10:45:25 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alexei Starovoitov <ast@kernel.org>, bpf@vger.kernel.org,
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  linux-kernel@vger.kernel.org
 Date: Tue, 03 Nov 2026 10:45:19 +0800
-Message-ID: <179367391951.8187.16512492575149308999@stu.pku.edu.cn>
-Subject: [PATCH v2 2/2] HID: bpf: reject struct_ops registration during device
- destruction
-In-Reply-To: <179367391951.8187.14164894863012056170@stu.pku.edu.cn>
-References: <179367391951.8187.14164894863012056170@stu.pku.edu.cn>
+Message-ID: <179367391951.8187.17152618045554425533@stu.pku.edu.cn>
+Subject: [PATCH v2] tracing/probes: bound symstr stores to reserved length
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,79 +55,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa19f4c04d503a2kunm153cdd6b10a857
+X-HM-Tid: 0aa19f4c136203a2kunm153cdd6b10a868
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTxgfVh5DQh4YS08dS0odHVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSklCVkhKTRhDTB8eQkkeTlYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaS0tBSBhKSkEfGRhLQUlOQ0pBQx5BGBpLHUFOQh
-	oZWVdZFhoPEhUdFFlBWU9LSFVKS0lITkNDVUpLS1VLWQY+
+	oZWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE1DVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=OwrRybO2Wuj46VFCa7BjnOIRVok+fuhiqXMbFkMrRpJfJeEQbNTlFum9N1FfyioxyppCZOYNFgl9KuOGs8RawkSExt6Kftn+ZhswJM1Dal0YZeqK0y6XnT2RvBllj6mAnSYtWAbGWB1DHtmKStYXlDCQcn2pxjkcZYj1ow9NzVY=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=j2KD9GvfPeXoDg285IZexB8Z8vN8Y20a8MOwOXjwlFc=;
+	b=KAYPfDx4w+cHHb50Av7wXG2rfJK4qJrRzi8qlCocC/dW/HUF7eUreZFi2BMvSixFniHLNB2I16PdooqqO9j1HZVK9aJY+kO1KqOJzkR/YpzQcfqhRK2i5mMszHS4iwX4Ki/eFoT5rKUGEwltwZE2S5+tOGeyu8aRz+qlWu4Vie4=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=z2Ps+XVA2Ccwus88hi1fXu3RjGPJlOzPV/bkye9S1jU=;
 	h=date:mime-version:subject:message-id:from;
 
-hid_bpf_reg() can obtain a device reference before hid_destroy_device()
-removes the device from the bus, then block on prog_list_lock while HID-BPF
-destruction cleans the device's SRCU state.  The registration path does not
-check the destroyed flag after taking the lock, so it can publish a new
-struct_ops entry and call synchronize_srcu() on the cleaned SRCU object.
+Traceprobe calculates dynamic string sizes before storing the values.  A
+probed pointer can change between those passes, so fetch_store_symstrlen()
+can reserve space for a short symbol while fetch_store_symstring() observes
+a longer one.  The store path ignores the reserved length and allows the
+second symbol to overwrite the trace record.
 
 KASAN reports:
 
-  BUG: KASAN: slab-use-after-free in check_init_srcu_struct
-  Read of size 8
-  check_init_srcu_struct
-  synchronize_srcu
-  hid_bpf_reg
-  bpf_struct_ops_link_create
+  BUG: KASAN: slab-out-of-bounds in sized_strscpy
+  Write of size 8
+  sized_strscpy
+  module_address_lookup
+  __sprint_symbol
+  process_fetch_insn
 
-Check destroyed while holding prog_list_lock.  Device destruction sets the
-flag while holding the same lock, so a registration either completes before
-destruction starts or fails with -ENODEV without accessing the SRCU state.
+Format the symbol into a temporary KSYM_SYMBOL_LEN buffer with
+sprint_symbol(), then copy at most the reserved length minus the trailing
+NUL.  Using sprint_symbol() for both sizing and storage preserves identical
+symbol formatting while bounding the destination write.
 
-Also clear ops->hdev on every registration error before dropping the device
-reference.  This keeps a failed struct_ops instance reusable and prevents a
-dangling device pointer from reaching a later unregister operation.
-
-Fixes: ebc0d8093e8c ("HID: bpf: implement HID-BPF through bpf_struct_ops")
-Closes: https://lore.kernel.org/linux-input/179317460937.87455.1799017093083467190@stu.pku.edu.cn/
+Fixes: b26a124cbfa8 ("tracing/probes: Add symstr type for dynamic events")
 Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
 ---
- drivers/hid/bpf/hid_bpf_struct_ops.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+Changes in v2:
+- use sprint_symbol() for both sizing and storage, with a bounded copy from
+  a temporary buffer, instead of formatting the destination with %pS
 
-diff --git a/drivers/hid/bpf/hid_bpf_struct_ops.c b/drivers/hid/bpf/hid_bpf_struct_ops.c
-index c90b68956cb3b..31e2cb146b92c 100644
---- a/drivers/hid/bpf/hid_bpf_struct_ops.c
-+++ b/drivers/hid/bpf/hid_bpf_struct_ops.c
-@@ -201,6 +201,11 @@ static int hid_bpf_reg(void *kdata, struct bpf_link *link)
+ kernel/trace/trace_probe_tmpl.h | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/trace/trace_probe_tmpl.h b/kernel/trace/trace_probe_tmpl.h
+index 8db12f758fdae..dea6772652550 100644
+--- a/kernel/trace/trace_probe_tmpl.h
++++ b/kernel/trace/trace_probe_tmpl.h
+@@ -87,15 +87,24 @@ fetch_store_symstrlen(unsigned long addr)
+ static nokprobe_inline int
+ fetch_store_symstring(unsigned long addr, void *dest, void *base)
+ {
++	char namebuf[KSYM_SYMBOL_LEN];
+ 	int maxlen = get_loc_len(*(u32 *)dest);
+ 	void *__dest;
++	int len;
  
- 	mutex_lock(&hdev->bpf.prog_list_lock);
+ 	if (unlikely(!maxlen))
+ 		return -ENOMEM;
  
-+	if (READ_ONCE(hdev->bpf.destroyed)) {
-+		err = -ENODEV;
-+		goto out_unlock;
-+	}
+ 	__dest = get_loc_data(dest, base);
++	len = sprint_symbol(namebuf, addr);
++	if (len < 0)
++		return 0;
 +
- 	count = list_count_nodes(&hdev->bpf.prog_list);
- 	if (count >= HID_BPF_MAX_PROGS_PER_DEV) {
- 		err = -E2BIG;
-@@ -229,11 +234,14 @@ static int hid_bpf_reg(void *kdata, struct bpf_link *link)
- 	synchronize_srcu(&hdev->bpf.srcu);
++	len = min(len, maxlen - 1);
++	memcpy(__dest, namebuf, len);
++	((char *)__dest)[len] = '\0';
  
- out_unlock:
--	mutex_unlock(&hdev->bpf.prog_list_lock);
--
- 	if (err) {
- 		if (hdev->bpf.rdesc_ops == ops)
- 			hdev->bpf.rdesc_ops = NULL;
-+		ops->hdev = NULL;
-+	}
-+	mutex_unlock(&hdev->bpf.prog_list_lock);
-+
-+	if (err) {
- 		hid_put_device(hdev);
- 	} else if (ops->hid_rdesc_fixup) {
- 		hid_bpf_reconnect(hdev);
+-	return sprint_symbol(__dest, addr);
++	return len + 1;
+ }
+ 
+ /* common part of process_fetch_insn*/
 -- 
 2.39.5 (Apple Git-154)
