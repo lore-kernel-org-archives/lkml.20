@@ -1,60 +1,91 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674971;
-	b=W5e5dSwnIaxV4JJ7H5IR2WTjojS4te0Rtc9U74Yq6tnXaGnHzwvbmpI5mNjm3zBV+R7/
-	 6nX6MoQl6MdHDwjdB6CML+mcaZRnGn8NtGY07SwovcJd9wH6XQAKS4PfxwakP9hMgo2C6
-	 FAOtG8XCdWOLbCnaEXHRtKHVd3wRjVb1OXlFxi7Llr/JEm4W/aYBLWTBGAQMdmjET+xiQ
-	 6cdMpBVtZc4Dj0WDi68jLUviISsY+SqyKoQbGLk+07DEeOjAuFWRL0cxBDAqQDab8GYq7
-	 jcWOCRITt0vDAcTjkDon7FnY6O11ag/U8YKRIwr4sm4o5QpVA73alinZpmv5YiNG7nQ==
+	t=1793674980;
+	b=VVs8dwH68LoSsXbGhJSbOFOXcjkB2i6mEa4BEeIHgtvfHZgcb7LSFr0o6uDyhJRKtZKq
+	 0AEcyHos+G46jagNy6bjQNFDfmi11cY7DaYb14loNWGEfx3sEmblhyuXctEPqJrQPNX2E
+	 54YCMJ0B7Z+Zc2ORzV63ZWFzWM+TeOgCX4NghQNmbA4fDZMid0rPxwWlAgHax69kS5IHk
+	 n7pkC6JNDZgcn8VN86JUBVp9uC98X0e+AviwTmd3lDkbeHcaXwsgvB79ktG8Zd3/iMrmr
+	 8jRt5PzGtwaUVqPM1G7SNmLRPvB3i3hDKyLFjtNGVajYoWWoazbXMZUaLNGUhZRRxRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674971;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=6uWrHIdQA4/I/nNEbaoqtIpWv2r/6R+u8p9kDzTlgDQ=;
-	b=AfT0QEri0aaZjuF73vr3f+K7DM0pcWdb4wFgUnxvSQOcXAKxIEw9JuGWSdAuvU/ckNLE
-	 D8/lg8Ly38WV0IRwrYpQAk0y+EQG6NoVO/PsyduWtEcSm4MVRRuHAVB0WAErjSjFIWMVr
-	 aQMhR0bbAuvDzoUYCgc+HWwixHO6y1zq6svptyHtjnguJG5R5BZZtmTybrqWe6QeuIOGZ
-	 MOwJowdl/cnUWKpIv1kfTj1nJA0rEs4aYLtf4TKiabb5L0HWNZt81BByQmePeo1biZf70
-	 2g5/1shjnmIvHJ57v4Es7CS7b40RbL3WkjDTLhzHEbf5lqC32ei6w2pXGV/SSmIWu+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674980;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Bqs38DpiAMDTxf3d0DpcOwxUeXEJbfBSjs7xg3AYXJg=;
+	b=BHn0M68NAkjyDpHg4qWB75aaPJWjteWMAQDdw1c0epj/g4AzLxmt6C10KEu7MoCE9ewk
+	 zOEaDwUWkVzzwMLzlmHW8j0dD8xTmc/KoElHpfkw1rr0P2A1S0NVINYx/t3a+bxqi7oQ/
+	 IjEvHw4lJdy9jkZVgW5abU5r6G8sjAlrGOPn3T6DANUp+1ZDqgvl8pr1spDPakJ29ucai
+	 28Rw9Ucr1qdGz/KeY0jbs0iItnF2zltSYRbVq/mzl8Eq6uh5T4jdRD7OocXwOsXIaJUiO
+	 K7h8XTP895+mrxwisY7VycPuM2p69WRAPoYkMXdu9oH8u0e93+2KvSrZqzZa4N4OtEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oimnZTFG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRxj7l4g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF25606A33B;
-	Tue,  3 Nov 2026 03:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 113AC606A331;
+	Tue,  3 Nov 2026 03:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oimnZTFG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1AA61F00A18;
-	Tue,  3 Nov 2026 03:02:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRxj7l4g
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0A28E1F00A1D;
+	Tue,  3 Nov 2026 03:02:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793674970;
-	bh=6uWrHIdQA4/I/nNEbaoqtIpWv2r/6R+u8p9kDzTlgDQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oimnZTFGTeJE43fq6q+zP9zhnnO569FfyCYBDdMi/QUj+r8PCev/2tGuRQVgJFyi1
-	 zNn14mwrvWqixU2DGDV9iwX8h4ArR0F/sHQ55MnbFRBseHFWtbO8YSGCiLMK6F0kOT
-	 lsVgCgkYevp8m5X5EnIDj9/XrO3+ARFuwJqjhrTYoEvbzowm1UpQ5yNuZMuBw0FYHL
-	 Z8hN9XmbCKL7t/FEeqTeHmeoBQMTXdYcLspH2sCuPv0OnjVTFpPWNw4v2X7lQn6M+m
-	 SojdJtXleZQd0k3P6KPhdySSYA3MdqRCsKFQJ/3tYVfc1TeFXbM8p3cV/I6aUiYcnh
-	 xt65wV6HMoMjg==
-Subject: Re: [PATCH net] nfc: s3fwrn5: validate the firmware image size
- against the firmware file
-From: netdev-bot+sashiko@kernel.org
-To: joasantonio108@gmail.com
-Cc: david@ixit.cz, krzk@kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 03:02:49 +0000
-Message-ID: <179367496942.488856.4052477180493084885@kernel.org>
-In-Reply-To: <179332800288.52644.4206885352837613064@gmail.com>
-References: <179332800288.52644.4206885352837613064@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793674979;
+	bh=Bqs38DpiAMDTxf3d0DpcOwxUeXEJbfBSjs7xg3AYXJg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eRxj7l4gaMO4uv0aHYV5FwM76bX2cIwC6eUXrTxVhsv90uNis3SkJCQ0/uU57NSmk
+	 1GGMfWxkLX8sRcNvT4JUuRhjX2VxJTB7CPzFIWFKLYnAWT5J3kLgtiUldLJV89gwMO
+	 p00f6OeASxs/G9iwyzUlj3SKo2dJVJJ363F3TJqG5gnVk0zkKday53CuyU5mW31J2o
+	 IWPnSVGQtvQR55MbRQ1AKShR4OdWUn0Du/wgevd1giuDB1gUa7iIQfB8f2AE+q7X6X
+	 5ROPRlAs3q4xOLKE+D29YxQbgGdgsbPoW3lp6F8eZlcbNTpxAPjfY+HUqnH9H5FC9j
+	 4nBdl8Aew0A/Q==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>,
+	linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	keyrings@vger.kernel.org,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Xiubo Li <xiubo.li@clyso.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Thorsten Blum <blum@kernel.org>,
+	Tim Bird <tim.bird@sony.com>,
+	linux-afs@lists.infradead.org (open list:AFS FILESYSTEM),
+	linux-kernel@vger.kernel.org (open list),
+	linux-nfs@vger.kernel.org (open list:NFS, SUNRPC, AND LOCKD CLIENTS),
+	linux-cifs@vger.kernel.org (open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)),
+	samba-technical@lists.samba.org (moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)),
+	ceph-devel@vger.kernel.org (open list:CEPH COMMON CODE (LIBCEPH)),
+	netdev@vger.kernel.org (open list:NETWORKING [GENERAL]),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [RFC PATCH v2 03/11] dns_resolver: Clear .dns_resolver cache when the last client unloads
+Date: Tue,  3 Nov 2026 05:02:08 +0200
+Message-ID: <20261103030226.2685251-4-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103030226.2685251-1-jarkko@kernel.org>
+References: <20261103030226.2685251-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,133 +95,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+dns_query() caches resolved dns_resolver keys into the module-owned
+.dns_resolver keyring until the TTL expires or module_exit() revokes the
+keyring.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
+Once live keys pin their key type, cached entries keep dns_resolver.ko
+pinned after its client modules unload.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Track active kernel client modules with dns_resolver_cache_get() and
+dns_resolver_cache_put(), and do the necessary plumbing for:
 
-- [High] The fix is incomplete because the signature offsets and sizes in
-  the firmware header are still not checked.
+1. nfsv4
+2. cifs
+3. libceph
+4. kafs
 
-Pre-existing issues:
-- [Low] struct s3fwrn5_fw_cmd_get_bootinfo_rsp is 12 bytes
-  (hw_version[4], sector_size, page_size, frame_max_size,…
+When the last client unloads, clear .dns_resolver and flush key garbage
+collection so dns_resolver.ko can unload immediately.
 
---
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ fs/afs/main.c                |  4 ++++
+ fs/nfs/dns_resolve.h         |  7 ++++++-
+ fs/smb/client/cifsfs.c       |  4 ++++
+ include/linux/dns_resolver.h | 13 ++++++++++---
+ net/ceph/ceph_common.c       |  7 +++++++
+ net/dns_resolver/dns_key.c   | 28 ++++++++++++++++++++++++++++
+ 6 files changed, 59 insertions(+), 4 deletions(-)
 
-nfc: s3fwrn5: validate the firmware image size against the firmware file
-
-This patch adds bounds checks to the s3fwrn5 firmware download path. It
-checks the GET_BOOTINFO response length and rejects an image offset past
-the end of the firmware file. It also checks that sector_size *
-image_sectors, plus the 4 KiB sent per sector, fits in the firmware image
-before the image is hashed and flashed.
-
-> diff --git a/drivers/nfc/s3fwrn5/firmware.c b/drivers/nfc/s3fwrn5/firmware.c
-> index 9145deec7f6c1..159afb8de7491 100644
-> --- a/drivers/nfc/s3fwrn5/firmware.c
-> +++ b/drivers/nfc/s3fwrn5/firmware.c
-> @@ -93,7 +93,8 @@ static int s3fwrn5_fw_get_bootinfo(struct s3fwrn5_fw_info *fw_info,
->  		return ret;
->  
->  	hdr = (struct s3fwrn5_fw_header *) rsp->data;
-> -	if (hdr->code != S3FWRN5_FW_RET_SUCCESS) {
-> +	if (hdr->code != S3FWRN5_FW_RET_SUCCESS ||
-> +	    rsp->len < S3FWRN5_FW_HDR_SIZE + 10) {
-
-[Severity: Low]
-This is a pre-existing issue, but struct s3fwrn5_fw_cmd_get_bootinfo_rsp
-is 12 bytes:
-
-struct s3fwrn5_fw_cmd_get_bootinfo_rsp {
-	__u8 hw_version[4];
-	__u16 sector_size;
-	__u16 page_size;
-	__u16 frame_max_size;
-	__u16 hw_buffer_size;
-};
-
-The new length check and the existing memcpy() in
-s3fwrn5_fw_get_bootinfo() both use the literal 10. That means
-hw_buffer_size in the on-stack bootinfo in s3fwrn5_fw_setup() is never
-filled in.
-
-Nothing in drivers/nfc/s3fwrn5/ reads hw_buffer_size today, so this has
-no functional effect.
-
-Would it be cleaner to use sizeof(*bootinfo) here? Or a named constant
-that documents a 10-byte wire format?
-
->  		ret = -EINVAL;
->  		goto out;
->  	}
-
-[ ... ]
-
-> @@ -307,6 +308,10 @@ int s3fwrn5_fw_request_firmware(struct s3fwrn5_fw_info *fw_info)
->  	memcpy(&fw->sig_size, fw->fw->data + 0x18, 4);
->  
->  	memcpy(&image_off, fw->fw->data + 0x1C, 4);
-> +	if (image_off > fw->fw->size) {
-> +		release_firmware(fw->fw);
-> +		return -EINVAL;
-> +	}
->  	fw->image = fw->fw->data + image_off;
->  	memcpy(&fw->image_sectors, fw->fw->data + 0x20, 4);
->  
-
-[Severity: High]
-image_off is now checked against fw->fw->size. The signature fields from
-the same header are still used without any range check:
-
-drivers/nfc/s3fwrn5/firmware.c:s3fwrn5_fw_request_firmware() {
-	...
-	memcpy(&sig_off, fw->fw->data + 0x14, 4);
-	fw->sig = fw->fw->data + sig_off;
-	memcpy(&fw->sig_size, fw->fw->data + 0x18, 4);
-	...
-	memcpy(&custom_sig_off, fw->fw->data + 0x24, 4);
-	fw->custom_sig = fw->fw->data + custom_sig_off;
-	memcpy(&fw->custom_sig_size, fw->fw->data + 0x28, 4);
-	...
-}
-
-s3fwrn5_fw_setup() then picks one of the two pairs based on
-s3fwrn5_fw_is_custom(&bootinfo). That depends on hw_version[2], which the
-controller reports in GET_BOOTINFO.
-
-The chosen pointer and size (truncated to u16) are then sent to the
-controller:
-
-s3fwrn5_fw_download()
-  s3fwrn5_fw_enter_update_mode(fw_info, hash_data, SHA1_DIGEST_SIZE,
-                               fw_info->sig, fw_info->sig_size)
-    s3fwrn5_fw_prep_msg(fw_info, &msg, S3FWRN5_FW_MSG_DATA, 0,
-                        sig_data, sig_size)
-      skb_put_data(skb, data, len)
-
-What happens if sig_off + sig_size, or custom_sig_off + custom_sig_size,
-runs past fw->fw->size? Can skb_put_data() then read up to 64 KiB beyond
-the firmware buffer?
-
-Depending on how far the read goes, it would either oops on a guard page
-or unmapped address, or copy nearby kernel memory into the DATA packet
-sent to the controller.
-
-The commit message says:
-
-    Check that everything that is hashed and sent lies within the image,
-
-The signature is sent in the same update sequence. Should both signature
-extents also be checked against fw->fw->size here, for example with
-check_add_overflow()?
-
+diff --git a/fs/afs/main.c b/fs/afs/main.c
+index 7a883c59976f..16ae947d371e 100644
+--- a/fs/afs/main.c
++++ b/fs/afs/main.c
+@@ -12,6 +12,7 @@
+ #include <linux/sched.h>
+ #include <linux/random.h>
+ #include <linux/proc_fs.h>
++#include <linux/dns_resolver.h>
+ #define CREATE_TRACE_POINTS
+ #include "internal.h"
+ 
+@@ -183,6 +184,7 @@ static int __init afs_init(void)
+ 	if (ret < 0)
+ 		goto error_net;
+ 
++	dns_resolver_cache_get();
+ 	/* register the filesystems */
+ 	ret = afs_fs_init();
+ 	if (ret < 0)
+@@ -199,6 +201,7 @@ static int __init afs_init(void)
+ error_proc:
+ 	afs_fs_exit();
+ error_fs:
++	dns_resolver_cache_put();
+ 	unregister_pernet_device(&afs_net_ops);
+ error_net:
+ 	destroy_workqueue(afs_lock_manager);
+@@ -232,6 +235,7 @@ static void __exit afs_exit(void)
+ 	destroy_workqueue(afs_wq);
+ 	afs_clean_up_permit_cache();
+ 	rcu_barrier();
++	dns_resolver_cache_put();
+ }
+ 
+ module_exit(afs_exit);
+diff --git a/fs/nfs/dns_resolve.h b/fs/nfs/dns_resolve.h
+index fe3b172c4de1..4b9ecfb4f7fe 100644
+--- a/fs/nfs/dns_resolve.h
++++ b/fs/nfs/dns_resolve.h
+@@ -9,13 +9,18 @@
+ 
+ 
+ #ifdef CONFIG_NFS_USE_KERNEL_DNS
++#include <linux/dns_resolver.h>
++
+ static inline int nfs_dns_resolver_init(void)
+ {
++	dns_resolver_cache_get();
+ 	return 0;
+ }
+ 
+ static inline void nfs_dns_resolver_destroy(void)
+-{}
++{
++	dns_resolver_cache_put();
++}
+ 
+ static inline int nfs_dns_resolver_cache_init(struct net *net)
+ {
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index bf199a5ca084..9788052599ce 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -31,6 +31,7 @@
+ #include <linux/xattr.h>
+ #include <linux/mm.h>
+ #include <linux/key-type.h>
++#include <linux/dns_resolver.h>
+ #include <linux/fileattr.h>
+ #include <uapi/linux/magic.h>
+ #include <net/ipv6.h>
+@@ -2160,6 +2161,7 @@ init_cifs(void)
+ 		goto out_cifs_swn_init;
+ 
+ 	cifs_proc_init();
++	dns_resolver_cache_get();
+ 
+ 	rc = register_filesystem(&cifs_fs_type);
+ 	if (rc)
+@@ -2174,6 +2176,7 @@ init_cifs(void)
+ 	return 0;
+ 
+ out_clean_proc:
++	dns_resolver_cache_put();
+ 	cifs_proc_clean();
+ 	exit_cifs_idmap();
+ out_cifs_swn_init:
+@@ -2242,6 +2245,7 @@ exit_cifs(void)
+ 	destroy_workqueue(serverclose_wq);
+ 	destroy_workqueue(cfid_put_wq);
+ 	destroy_workqueue(cifsiod_wq);
++	dns_resolver_cache_put();
+ }
+ 
+ MODULE_AUTHOR("Steve French");
+diff --git a/include/linux/dns_resolver.h b/include/linux/dns_resolver.h
+index 976cbbdb2832..cc11e09b0df3 100644
+--- a/include/linux/dns_resolver.h
++++ b/include/linux/dns_resolver.h
+@@ -27,8 +27,15 @@
+ #include <uapi/linux/dns_resolver.h>
+ 
+ struct net;
+-extern int dns_query(struct net *net, const char *type, const char *name, size_t namelen,
+-		     const char *options, char **_result, time64_t *_expiry,
+-		     bool invalidate);
++#if IS_ENABLED(CONFIG_DNS_RESOLVER)
++int dns_query(struct net *net, const char *type, const char *name, size_t namelen,
++	      const char *options, char **_result, time64_t *_expiry,
++	      bool invalidate);
++void dns_resolver_cache_get(void);
++void dns_resolver_cache_put(void);
++#else
++static inline void dns_resolver_cache_get(void) { }
++static inline void dns_resolver_cache_put(void) { }
++#endif
+ 
+ #endif /* _LINUX_DNS_RESOLVER_H */
+diff --git a/net/ceph/ceph_common.c b/net/ceph/ceph_common.c
+index a797c7360e3c..df62a269cb73 100644
+--- a/net/ceph/ceph_common.c
++++ b/net/ceph/ceph_common.c
+@@ -8,6 +8,7 @@
+ #include <linux/in6.h>
+ #include <linux/key.h>
+ #include <keys/ceph-type.h>
++#include <linux/dns_resolver.h>
+ #include <linux/module.h>
+ #include <linux/mount.h>
+ #include <linux/nsproxy.h>
+@@ -890,6 +891,9 @@ static int __init init_ceph_lib(void)
+ 	if (ret < 0)
+ 		goto out_msgr;
+ 
++#ifdef CONFIG_CEPH_LIB_USE_DNS_RESOLVER
++	dns_resolver_cache_get();
++#endif
+ 	pr_info("loaded (mon/osd proto %d/%d)\n",
+ 		CEPH_MONC_PROTOCOL, CEPH_OSDC_PROTOCOL);
+ 
+@@ -913,6 +917,9 @@ static void __exit exit_ceph_lib(void)
+ 	ceph_msgr_exit();
+ 	ceph_crypto_shutdown();
+ 	ceph_debugfs_cleanup();
++#ifdef CONFIG_CEPH_LIB_USE_DNS_RESOLVER
++	dns_resolver_cache_put();
++#endif
+ }
+ 
+ module_init(init_ceph_lib);
+diff --git a/net/dns_resolver/dns_key.c b/net/dns_resolver/dns_key.c
+index 451247864a63..63f4fac0dbc8 100644
+--- a/net/dns_resolver/dns_key.c
++++ b/net/dns_resolver/dns_key.c
+@@ -16,6 +16,7 @@
+ #include <linux/kernel.h>
+ #include <linux/keyctl.h>
+ #include <linux/err.h>
++#include <linux/mutex.h>
+ #include <linux/seq_file.h>
+ #include <linux/dns_resolver.h>
+ #include <keys/dns_resolver-type.h>
+@@ -31,6 +32,8 @@ module_param_named(debug, dns_resolver_debug, uint, 0644);
+ MODULE_PARM_DESC(debug, "DNS Resolver debugging mask");
+ 
+ const struct cred *dns_resolver_cache;
++static DEFINE_MUTEX(dns_resolver_cache_mutex);
++static unsigned int dns_resolver_cache_users;
+ 
+ #define	DNS_ERRORNO_OPTION	"dnserror"
+ 
+@@ -306,6 +309,31 @@ static long dns_resolver_read(const struct key *key,
+ 	return user_read(key, buffer, buflen);
+ }
+ 
++void dns_resolver_cache_get(void)
++{
++	mutex_lock(&dns_resolver_cache_mutex);
++	dns_resolver_cache_users++;
++	mutex_unlock(&dns_resolver_cache_mutex);
++}
++EXPORT_SYMBOL_GPL(dns_resolver_cache_get);
++
++void dns_resolver_cache_put(void)
++{
++	int ret;
++
++	mutex_lock(&dns_resolver_cache_mutex);
++	if (--dns_resolver_cache_users == 0 && dns_resolver_cache) {
++		ret = keyring_clear(dns_resolver_cache->thread_keyring);
++		if (ret)
++			pr_warn_ratelimited("dns_resolver: Failed to clear cache: %d\n",
++					    ret);
++		else
++			key_gc_flush();
++	}
++	mutex_unlock(&dns_resolver_cache_mutex);
++}
++EXPORT_SYMBOL_GPL(dns_resolver_cache_put);
++
+ struct key_type key_type_dns_resolver = {
+ 	.name		= "dns_resolver",
+ 	.flags		= KEY_TYPE_NET_DOMAIN | KEY_TYPE_INSTANT_REAP,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179332800288.52644.4206885352837613064%40gmail.com
+2.47.3
+
