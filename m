@@ -1,80 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729247;
-	b=P9LKuYXqjoqcHHqie8uOFKXYpJkqtvFMoHwogj8wwlW4fZV/GeQR8BxNCpifekV29V5c
-	 P8dM4XOzZYhEZtMg44KwZripaRN9MgjLcJrX+OUETTmoI1pBgN1ACC8NvcfSP9xZQTb/t
-	 6Ftzy2NgLy/by9eVite/MNts418yOr7bHJ/KzaKKF5zz1edjmcY+hFSyCEgz1LJzLmuD1
-	 0EZf1jOxqTvIlsqL/Njq27D3UIlUIHO9iPBeAZzIHt5DdSZ5fOvcCfr8r8wp0HfIrLKdb
-	 5KKGHoPJR1rTU8r1Swab/+GWCHOBjuVg/KhPkvKA9EwuHymTjl5Stz3p7CaduFEnedA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729247;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zK/MHfvWSgBGdmyh4OG7p06HHkO8iMce8c9q7NLU0+E=;
-	b=v3Bl87wOBr5iMKpz01Hsd65n5t0Th9wuigaXARK3vYCLX/EYpHBhJTMjRXTJl3dyohCc
-	 Ept5GmvuLBMhiRQLGTj1ifTxrE2hkISQZdj3ml5izVgTHMBvldPD3qR5s9+afOoCUV3MD
-	 /NR0Cb/Mo+NUGhQ2A4x8Djipx6LfGw2D7O6zIKIhZefSgn2e9wwDOit+9sdRhFyGK1fNi
-	 b1oc7fRFLts9Hcn9er7DGLSpskV/lW+iKEwAeSVXU52Y1TbGJSpH3lKfd14qyD/is90LG
-	 cEHw7hdjJPzr0D6fv+/PNEhM5eMUpCCypyHK58iqhQkiJD/xbOVslPS0La3gDapyVkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F5o7VD9W;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793729266;
+	b=Tpx4DtPRbpL7g2/mf5f6p/0+LVSEWCZHSMVwYUtCXf7pDuMBHg/dD2Hru2+LjqbXtqxp
+	 HxITiMmV4HRRy/5nrmUyCin/9K+1RnH0hYZePauKwZXaFnxzdseDia96JmQ+So/nto0We
+	 GFJ/npJbDPF6c31l4X2lK5gFiqfUIKeoDdIwW7CMdpUZByk/T/ABScoT/NV0au/2ZA+Sc
+	 8v052dIXxp5JcBHPceDBW3OOxl1CdQFMpcpUHt9ogLtQIVMFfzP9tVr4HgyK8ZVT5jJJw
+	 ZZIq5PMz55Kig1fBvSeFkoj5yJUiygAchpPF1k5hs3Cyp8GVnOU9K7PPdguA94Gh6xg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729266;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bd5FfoFP4odr9pPO3unZdQ+hEqMlsTWNyuwc7CRXAwk=;
+	b=BjPWJojKfmj/xP+oVuwzewOxzFsWp6JZsISl6y8pM3g+djaKQGivlwnriCko+eMP9kHP
+	 vNCJZ0ubgJn16BS3ymDE+f1xLU/k75XlMN+rwZUCE2XA4RJS4yljGLTxdvRjUsH6s9yBf
+	 0v/AZShfmtCdhQZPk2rFY3SPRPNi+Nw4SFfrlotOzWyn0W+N7vJ/m9ZNCdcNkzcpljpOv
+	 iEK+Q9RlQRDtkO8d/YzRyeEnIp5YOMopfi/x6O4wJ3aBajV/aYB1G3qrWLPj+J4AYowp9
+	 HRytxCxJmqU6VEbaCzZAUQunGabo08bwAcyM4F/I+2JpczBKpRclK3j2LiKSKgw5s2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DzRQRfT5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.64
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012064.outbound.protection.outlook.com [52.101.48.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E04606A32F;
-	Tue,  3 Nov 2026 18:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E04606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0709606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 18:07:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0709606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F5o7VD9W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793729246; x=1825265246;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=b64n/ALy9ONkgf58cbPGHTwkxpkalkyb2b0ByEQyLoY=;
-  b=F5o7VD9Wuq7AuNCiHZbvb9znmI3oqNgxzilz9qLCfjF4sVFXyhNwHdFJ
-   T0DsoRVVr5vpMq4367xcrJUaFUWHRLvHJG9jL9E1tpNzQ2a1s34f0kYVa
-   Q0RvTCSazRZrc3gBBFg+tjZzGWtwkj23CWF1GslSc+2CO48wrPn6jklNE
-   x0pKd5P5g8GzKL3DETaAQHIrIWnkgK0Z1ub2805o5h0GjyenObpAMELFP
-   1Mr6PsGd4tMIvraYAM2UlOZpcPh4jO01CO9+QpRzFqlX6SvkhsGpfnxO+
-   fKO54miWyFzRyaAU1pUr5V1T8ASSyPSI2RLp6TT1ynG0T6vCNVLiKtJpM
-   g==;
-X-CSE-ConnectionGUID: aa1tNM9fQR+aybWBhV5OOg==
-X-CSE-MsgGUID: iQwIrZ/aSK6guoNX8m5zrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2478666"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2478666"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:07:26 -0800
-X-CSE-ConnectionGUID: smG6AWmqT/KMhf5xtzl5sQ==
-X-CSE-MsgGUID: FFMi16GtTlixeZXBGVCi4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6643639"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 03 Nov 2026 10:07:24 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOIun-00000000j71-0RuF;
-	Tue, 03 Nov 2026 18:07:21 +0000
-Date: Wed, 4 Nov 2026 02:07:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: Re: [PATCH 23/45] KVM: Introduce
- kvm_check_gen()/kvm_memslots_check_gen()
-Message-ID: <202611040108.LHPSqkKE-lkp@intel.com>
-References: <20261102174512.8903-7-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DzRQRfT5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UZBtsOS3plNE3MsB7UlFkdBzNPPJi8L4MaeOaUC18xZDkjHvJTYlR+ZQJ/wj7/jd8M5AnnK5xbuoWIRa70cEpN4jxzO1rdBCfrRHCAMWoHUsokoRJjA11K3rtAiSEw82dECY53y4wS3O6vFJdZ4ZB2Ku6KuNoN2PX9FfEIUbby+10DWZt0XRvBAxwyXLhjbGmKmG7C4FglZqmbBTxNQ6xmAfnoXYas8yVxbZSjwQeJ0AiwoDE5HnLGEx6phcd29WFKVONSr4RodUnDZj+zfQs21lSinZlS29J8zAd8rmYAsSzRWijg3F/vycZ6sj+uMVVyst3n15YmzWxIW2psxKjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bd5FfoFP4odr9pPO3unZdQ+hEqMlsTWNyuwc7CRXAwk=;
+ b=d27ynEmRH6hHtnlSQlGpV7Y1Gjey8u6js+4lJSM+AKlfCjlmGWxZn6wgsoimdhrbt0GtJ2PlJba02sVmBneIjzwXd3V6LtYF51rT+ftzSj3h5Nr9rDJ+GyqS6U+bgQQ/SYhOVlxXgMlHZDMYR3Kq/9OL0TogLhjsjoe4wZKjBaKHP7ASxdJ0HqqflMU79oYEnKvwoTb3BTLPavTzq5sTlayvLmmudpiIwe0gueJcgEpbAuLO/ZNemy9P45TmHlEYZNpLnrKDZmKXDDN6s4+KRZJl7yopPBLze1BdA34KO2xjFxX9sJDTeQ4Nwxy330wZ5LtDrI80GlYN2BpKn1J9Xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=8bytes.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bd5FfoFP4odr9pPO3unZdQ+hEqMlsTWNyuwc7CRXAwk=;
+ b=DzRQRfT59arKh8HPT+6Swqv6TD8+CuVGqpfWaAnf5RsCnhEVR79pwEZF8wRJmqoZo2LKuUWeg3JBV0rRLdyPMHy5Z3Oubf0GDFBL+NYB5++G9WAqgJxgpV6F+yvOYXrcpMc6geqg8cqJ8391HkmZKvIxJgAER+jAq3OPgm0vQ+UpQj4/4fGfk4pmP4piNo4VmYHpiW99oJMwprzk1ZKLWM5YbV3ONAyKN5lIZJEhqsiF3u+U/8euaf4VXIt/gXnGG3D/l2vzDMw2IIKFxNB8/PBmER+2Vw7essiAs83TTGx0aXvGf4V938cNffolmPkeZVbgbMpG6Zui5iNc9wukGQ==
+Received: from PH0PR07CA0089.namprd07.prod.outlook.com (2603:10b6:510:f::34)
+ by SN7PR12MB6930.namprd12.prod.outlook.com (2603:10b6:806:262::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 18:07:39 +0000
+Received: from CO1PEPF00018865.namprd03.prod.outlook.com
+ (2603:10b6:510:f:cafe::2a) by PH0PR07CA0089.outlook.office365.com
+ (2603:10b6:510:f::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 18:07:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1PEPF00018865.mail.protection.outlook.com (10.167.249.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 18:07:37 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 10:07:10 -0800
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 10:07:10 -0800
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Tue, 3 Nov 2026 10:07:09 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: <joro@8bytes.org>, Lu Baolu <baolu.lu@linux.intel.com>, Kevin Tian
+	<kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>, Yi Liu <yi.l.liu@intel.com>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/5] iommu: Fix attach handle publication ordering
+Date: Tue, 3 Nov 2026 10:06:59 -0800
+Message-ID: <cover.1793729087.git.nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,103 +114,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102174512.8903-7-pbonzini@redhat.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00018865:EE_|SN7PR12MB6930:EE_
+X-MS-Office365-Filtering-Correlation-Id: a905e479-d2a9-4324-5591-08df39d557fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|6133799003|260925021911599003|260925022911599003|18002099003|260925021311599003|261102123227099003|13003099007|56012099006|10067099003|261009223027099003|261022115727099003|261022113327099003|261022105027099003|261021121427099003|261021130227099003|261021123027099003|261021135927099003|261022075727099003|5023799004|11063799006|261026130827099003|261026121527099003|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	HA7Vf0U54wIDJYkSl+6EX6rQteLKgCP8HtMum7OBxqr0lWoHH3qlfMrRa/1iIStZcU99JBollXLj0y1JHPAdnAgdAwIK5HOFYTTN0gkt/UX9bGzjHOtQ1/9EpGaqoirWpxIjAV5YfYzeSx+7SX6hVVKeIzyRNmIwYvPIS+xqH1xWTDTrQU4vs0mfpTV/OiERG8lqjDA9JydXXAucmDRyf7OOhLAjXvsnsIj4TMEoQy9vC/e1mDqZMJ9baWN7GC8Zk/Z54kXSomnzlGqY06nEQ++PXZcA2g6URRvnexF6q6srcpGr7WuW8gRew9/Bt4xEuFReEXL0iHQLAtfLO8wlqnQEvaYJjAXC5ieF1YssJop9l6dXNT7ODsPz7ddryvNcrFibNv5D6bAkfLGysoUOdkzNqBbESVMm5vbyJO5gItEVHYBnbjXnYCBT15Ed7arN+18/adQKLRyCqcZRnYrMJaA6Y963PmFhgAcyeu8Li+72RssJkNQI8yB0mCdPSbDb2D/DryLiAUrG+lEK60unE0+RF5mdVkQLMhOnVwOQldVS0enJaDScH09lpqY1s/kc5y6x6/XnA/61jzsghPbg9GeV78guPJgncicOWkQWlAjd/KWS8UgZvIiHSSUTVfzdmCa8WFlsC5WKaQPi3zFtrlifcDgVOdjsPzZW6orosu72D7TrPCd8MfzLJFuI/OzTKKcRd3GcestyMr7D0S5Cug==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(6133799003)(260925021911599003)(260925022911599003)(18002099003)(260925021311599003)(261102123227099003)(13003099007)(56012099006)(10067099003)(261009223027099003)(261022115727099003)(261022113327099003)(261022105027099003)(261021121427099003)(261021130227099003)(261021123027099003)(261021135927099003)(261022075727099003)(5023799004)(11063799006)(261026130827099003)(261026121527099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vSCDjiSa+ODfQsZ/SiE9olH6KG+LApQGgoYodsnOFTjjv7mxte9fwZVmz60l8apsH18P4q7NMKmVz6dJvORAoXiQ+4FxqqSpjSPLQDayfox1PSucOBD50R5O9oWKzqcvnvdnYwP/IVuwp5Dga9tX4SprTDqw3fA3B7w15WkGHMengEktDZXaRUGjnEK7bKgyYyecAWCSPr31njZV4wxD1PQfrbwytR+OCdmFMoKoMw1d03yOw/t6b+p8uF35U3k/Bblw6TFJfuCskFcb0usmlbnYVxx08cNR5gT+dKHBjpbJ5U/iS8q3DMNDTLYkjiZ/FQzMuzZ5KsdXxvZA38oMXBdPXS225C2N4uf/E74L2HB3u1MnZsseKSCao58u8DJEPxxuT4lADewqXhLdpXlS3VwzMtNK5c/cxansjKJj46T39qNjL3dSjZQLDF/V5KO1
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 18:07:37.5952
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a905e479-d2a9-4324-5591-08df39d557fc
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00018865.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6930
 
-Hi Paolo,
+Jason pointed out an issue in the attach handle replacing path:
+https://lore.kernel.org/linux-iommu/20260923233920.GJ2545495@nvidia.com/
 
-kernel test robot noticed the following build errors:
+When an attachment is detached or replaced, the IOMMU core can still leave
+the outgoing attach handle published while calling into the driver. A fault
+report looks up the handle without the group mutex, so it can find the old
+handle after the driver's fault flush and just before the caller frees it.
 
-[auto build test ERROR on kvm/queue]
-[also build test ERROR on kvm/next linus/master next-20261030]
-[cannot apply to mst-vhost/linux-next kvm/linux-next v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Patches 1-4 unpublish the outgoing handle before calling into the driver,
+for both group and PASID detach and replace operations. Both replace paths
+store XA_ZERO_ENTRY to reserve the slot and restore the old entry on error.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Paolo-Bonzini/KVM-nVMX-nSVM-check-unconditionally-whether-CR3-is-valid/20261102-124045
-base:   https://git.kernel.org/pub/scm/virt/kvm/kvm.git queue
-patch link:    https://lore.kernel.org/r/20261102174512.8903-7-pbonzini%40redhat.com
-patch subject: [PATCH 23/45] KVM: Introduce kvm_check_gen()/kvm_memslots_check_gen()
-config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20261104/202611040108.LHPSqkKE-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 65303e81f481bbfe386b8596423f94c43198ba94)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261104/202611040108.LHPSqkKE-lkp@intel.com/reproduce)
+This blocks new lookups, but does not retire a fault that already obtained
+the old handle. The driver must still synchronize those readers before the
+handle is freed.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611040108.LHPSqkKE-lkp@intel.com/
+Patch 5 rejects a same-domain replace in both of the replace APIs. Such a
+replace skips the driver callback. So, nothing would ever flush the pending
+faults before the caller frees the old handle.
 
-All errors (new ones prefixed by >>):
+This is on GitHub:
+https://github.com/nicolinc/iommufd/commits/fix_iommu_attach_handle-v3
 
->> arch/loongarch/kvm/vcpu.c:167:53: error: expected ')'
-     167 |                      kvm_is_error_hva(ghc->hva) || !ghc->memslot) {
-         |                                                                   ^
-   arch/loongarch/kvm/vcpu.c:166:5: note: to match this '('
-     166 |         if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) || gpa != ghc->gpa ||
-         |            ^
-   arch/loongarch/kvm/vcpu.c:1821:53: error: expected ')'
-    1821 |                      kvm_is_error_hva(ghc->hva) || !ghc->memslot) {
-         |                                                                   ^
-   arch/loongarch/kvm/vcpu.c:1820:5: note: to match this '('
-    1820 |         if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) || gpa != ghc->gpa ||
-         |            ^
-   2 errors generated.
+Changelog
+v3
+ * Add Reviewed-by from Yi
+ * Make the use-after-free hazard explicit in the same-domain comments
+v2
+ https://lore.kernel.org/all/cover.1793602084.git.nicolinc@nvidia.com/
+ * Rebase on v7.4-rc1
+ * Drop "Assisted-by: LLM" tags
+ * Add Reviewed-by from Kevin, Yi and Baolu
+ * New patch: reject a same-domain replace in the attach handle APIs
+v1
+ https://lore.kernel.org/all/cover.1790718296.git.nicolinc@nvidia.com/
+
+Nicolin Chen (5):
+  iommu: Unpublish the attach handle before the group detach callback
+  iommu: Unpublish the attach handle before the PASID detach callback
+  iommu: Unpublish the old attach handle before the group replace
+    callback
+  iommu: Unpublish the old attach handle before the PASID replace
+    callback
+  iommu: Reject a same-domain replace in the attach handle APIs
+
+ drivers/iommu/iommu.c | 88 +++++++++++++++++++++++++++++++------------
+ 1 file changed, 63 insertions(+), 25 deletions(-)
 
 
-vim +167 arch/loongarch/kvm/vcpu.c
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
-   151	
-   152	static void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
-   153	{
-   154		u32 version;
-   155		u64 steal;
-   156		gpa_t gpa;
-   157		struct kvm_steal_time __user *st;
-   158		struct gfn_to_hva_cache *ghc;
-   159	
-   160		ghc = &vcpu->arch.st.cache;
-   161		gpa = vcpu->arch.st.guest_addr;
-   162		if (!(gpa & KVM_STEAL_PHYS_VALID))
-   163			return;
-   164	
-   165		gpa &= KVM_STEAL_PHYS_MASK;
-   166		if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) || gpa != ghc->gpa ||
- > 167			     kvm_is_error_hva(ghc->hva) || !ghc->memslot) {
-   168			if (kvm_gfn_to_hva_cache_init(vcpu->kvm, ghc, gpa, sizeof(*st))) {
-   169				ghc->gpa = INVALID_GPA;
-   170				return;
-   171			}
-   172		}
-   173	
-   174		st = (struct kvm_steal_time __user *)ghc->hva;
-   175		if (kvm_guest_has_pv_feature(vcpu, KVM_FEATURE_PREEMPT)) {
-   176			unsafe_put_user(0, &st->preempted, out);
-   177			vcpu->arch.st.preempted = 0;
-   178		}
-   179	
-   180		unsafe_get_user(version, &st->version, out);
-   181		if (version & 1)
-   182			version += 1; /* first time write, random junk */
-   183	
-   184		version += 1;
-   185		unsafe_put_user(version, &st->version, out);
-   186		smp_wmb();
-   187	
-   188		unsafe_get_user(steal, &st->steal, out);
-   189		steal += current->sched_info.run_delay - vcpu->arch.st.last_steal;
-   190		vcpu->arch.st.last_steal = current->sched_info.run_delay;
-   191		unsafe_put_user(steal, &st->steal, out);
-   192	
-   193		smp_wmb();
-   194		version += 1;
-   195		unsafe_put_user(version, &st->version, out);
-   196	out:
-   197		mark_page_dirty_in_slot(vcpu->kvm, ghc->memslot, gpa_to_gfn(ghc->gpa));
-   198	}
-   199	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
