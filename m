@@ -1,75 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793684268;
-	b=YhygqRpaHpIn4NMN8g8mCc4SHlk21Y9AVRzTr4QpkaOeW/HPlhSmkRH1leWct8TVDeov
-	 y9jClgWnTj58xFeUQvBYSXRetTyHl+NHTo7fF9jkYqUuSfL0SrCqM+5l3i1qrCzursM1k
-	 HOeyCvyN9CMjdbKAR5a2GpiFmNU9BDFtq0VM4gxob97VlVF5i2OFfVG428FBXZpqAQXZs
-	 wMFum69I2BhpCoDJ5WCQWD0E5GxIwf8a95H3IygcS4i1m6IHBXZlImUQNbk4sCW8s/qIi
-	 ojjn4v8vme/SlfBq4ZasVFEIVC5rbulm41s1eBDQ4bvWN4vzmKY8UpZYcfL01DGGJGg==
+	t=1793684284;
+	b=AxLcG2YRArceCj8hoKjU0te7+QaWAL4V6oE0z4jgKwNVqqIItEMyfLfKK1jTqTcpVX1x
+	 LvlJ8mLIpxq86Qjza6bm56vyEPLTWbCLgIdizZfd+3KpXPx/7H8NyIVLnEi7REzYTZtEk
+	 DWwqDQep419CgDWwyI7xA9tepgrmb7FFbFSxqP1rImtK8soO+s+TLI7/WcI4wBzpHAAb/
+	 xCm6u25lpZg4dinEGjF/qYOEWOYYSmpbGn1l1XaWhe/Cks8D1RAQnzWZ2r0ba5YmrJaBm
+	 wu1JoYqmriO64l3qCzUaY3X/b7DwV5+GaoMgFuPetZ+yFDrqAJ+b1ZYJZVdZPwz4DWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793684268;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=3Zq62FP2I9javcPuWK6fvWWsBbmMoyoRRhg1nwK+GwY=;
-	b=2Bjtwhj6emWKIgRfC5ZVFg2noiqk3UhuVLPpInJpxTtheMVy5hD/GILNgSyHFh9qdG2f
-	 k+Bb49oBHavHVLSw7ydGwwDYH2pfiJP/WhxoPg+nbIn1dTKFeoZ3dvPLs3RCAxFWt36DE
-	 DWll55VH4pc+cg3Ye9MLU3xHG2HwnCnDIVvIGlziQKoxVL6tbGlVtrtJLlPuy/60E6xIz
-	 Kz6noGLnzaVYDUbvgbmbsDdhXV5LNMyV5i4BcJcNt5bHOIlTDd/By9wgA+8pnLqCGjNL3
-	 P3Lyex517eLeQA2XTJ6IUZyOSZBxcrowPbpqi5t82IW+TVgEDostGsaPQJnXIn7Nu/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793684284;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DKQqu+mzr8P4Njw19lrTInQy5OStEJKS8qeZmyL2MNM=;
+	b=QFiIrzwdIqhiMgMFMXHb5e8x9EE/g2nDcK1yyfPyVaajZh3LDvYMHKdV4Z/ZRtDLO7uy
+	 a2SHufJhf1SEdorNUcpPY1f9oU4HK6zNzsKrUOTlxqwg2RVvGGpvrIeT5V/bW/bBjQE74
+	 BJPBUVOAc8Svj6NCxLdMltsTIgL1SQzToqkyFAB6leNV25L9CRphib+nYP+izb6vRycgJ
+	 E3zdk84j2w5xcmyAfGxu3b4m7ildTHYHqjyyUYyJmf+eSLEqYDdBhmsXn4PG7WfFzrB86
+	 Oh8nw0yLiGYFVVMweqs4l1vSb0QZM8VcIZ6ocIgS+3OHaDfLGnX4NzOfAWTXsQB/3MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=j2sRd4P8;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9LN9gWC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD38606A324;
-	Tue,  3 Nov 2026 05:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD38606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC37606A329;
+	Tue,  3 Nov 2026 05:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=j2sRd4P8
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A35bh9H32768846, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793684263; bh=3Zq62FP2I9javcPuWK6fvWWsBbmMoyoRRhg1nwK+GwY=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=j2sRd4P8jlnHzP9lintiYs2nWBwQigZ0mFE0Swwi+sT3gmQ6bdt1KwR8lQHm09Qw3
-	 u4lNm/oK3lzlco6WEltRKsHxsK9BLGn7YID/jSzQ6UsDL9YTbjKOTOwMAYHCnKH+iJ
-	 Rzocof19ciU68ABzSIG+5FSHFdiUPDfnnJFgqUfVDG7YAoj3RcUqFFwSqbE2HQjBN5
-	 yy8OaU6gEpbOYqVhlycdvjOv/V4i6bRclwxUDbdsQg/Om8sjoOPAuB+nngo1DzVYQU
-	 HCkc1IEn2hbVuUzaaCiPXWq9KFteYV1+EpsY9ncHyF8RZPcJd/TAQkyVDFw8C/zIiY
-	 kv1EP5JYlgTvA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A35bh9H32768846
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 13:37:43 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:37:43 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 13:37:43 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS03.realtek.com.tw
- (10.21.1.53) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 13:37:43 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>,
-	<linux-wireless@vger.kernel.org>
-CC: <pkshih@realtek.com>, <linux-kernel@vger.kernel.org>,
-	<rtl8821cerfe2@gmail.com>
-Subject: Re: [PATCH rtw-next v5] wifi: rtw88: pci: wake the TX queues after restart_hw and interface up
-In-Reply-To: <20261023104154.2755289-1-abdurrahmankaradag19@gmail.com>
-References: <20261023104154.2755289-1-abdurrahmankaradag19@gmail.com>
-Message-ID: <f55c3d97-e714-4f65-b861-306cc0fa8f84@RTKEXHMBS03.realtek.com.tw>
-Date: Tue, 3 Nov 2026 13:37:43 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9LN9gWC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48A91F000C1;
+	Tue,  3 Nov 2026 05:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793684283;
+	bh=DKQqu+mzr8P4Njw19lrTInQy5OStEJKS8qeZmyL2MNM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B9LN9gWCiRHEa0yN41Dp6ZFAIrfEN/fEyH01CdUyaEG0DjZmd/+WZKA51CTDVK/P/
+	 n+gNGN7xmFtEzIflF/CHlkMjNQHPF+xgflDZAMaY2AE9yJuhQA/elyl7NQVXhm61PL
+	 hXyu3TBgDpxBeEsGRTBRck97t8qI2Bjq08iaRuoO0mdy9Ixz9Ntn9X+MXCWVch/pIu
+	 Tk7OaVNS8RzbRUllR062xF5lOrcHyjZdTx+6e6NYdnsqab22/oKl9eJhHTG8SqYUEs
+	 3eiWKA4g3VYdS/h8Lp4okE6/nlKXHTkLaPZIsmoUHwqL5hNGUiks1GtuqbQ32aoyxz
+	 R5Ph03y7hGjDw==
+Date: Tue, 3 Nov 2026 11:07:59 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: linux-sound@vger.kernel.org, broonie@kernel.org, tiwai@suse.com,
+	perex@perex.cz, amade@asmblr.net, linux-kernel@vger.kernel.org,
+	yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev
+Subject: Re: [PATCH 0/7] ASoC: Intel: avs: Soundwire support
+Message-ID: <aulzN9MCl5CJB1Al@parshuram>
+References: <20261102181042.1922005-1-cezary.rojewski@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,38 +57,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102181042.1922005-1-cezary.rojewski@intel.com>
 
-Abdurrahman Karadag <abdurrahmankaradag19@gmail.com> wrote:
-
-> When a TX ring fills, rtw_pci_tx_write() stops the mac80211 queue and
-> records it in ring->queue_stopped. The completion loop in
-> rtw_pci_tx_isr() is what clears them, and it needs a descriptor to
-> complete. If the device goes down first, rtw_pci_dma_release() rewinds
-> the indices and frees what was in flight, so nothing is left that
-> could. ieee80211_reconfig() does not help either: it wakes only
-> IEEE80211_QUEUE_STOP_REASON_SUSPEND, and an interface down/up does not
-> reach it at all. TX then stays dead although the device came back.
+On 02-11-26, 19:10, Cezary Rojewski wrote:
+> The RaptorLake-P and RaptorLake-M based platform used in Automotive area
+> do utilize SoundWire for streaming audio.  This patchset brings such
+> support to the public domain.
 > 
-> Reset that state where the device starts, which both
-> ieee80211_restart_hw() and an interface down/up reach through
-> rtw_core_start(). Gate the wake on ring->queue_stopped so that a
-> start which stopped nothing leaves the queues alone. The wake cannot be
-> narrowed to the queue the ring-full path stopped: the flag sits on the
-> ring, and rtw_tx_queue_mapping() puts management frames and multicast on
-> rings of their own whatever queue they came from, so a flag there does
-> not name a queue. mac80211 also keeps a single non-refcounted DRIVER
-> stop per queue, shared with the scan paths in fw.c, so
-> ieee80211_wake_queues() releases whatever holds that slot.
+> If possible, I'd like the changes to go through Mark's tree.
 > 
-> Signed-off-by: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+> As the patchset updates drivers/soundwire, I've decided to strip it off
+> any machine-boards and have here just the changes done to the main
+> soundwire driver and their user/usage.  Machine boards for RPL-P/M will
+> follow in a separate set and do not touch drivers/soundwire stuff.
+> 
+> 
+> The reasoning behind modyfing the soundwire code:
+> 
+> Typically dai->startup() is responsible for checking if all the required
+> resources are available whereas dai->hw_params() is responsible for
+> configuring such resources.  Existing code does the PDI assignment and
+> its configuration within one function - intel_hw_params().  The logical
+> split is not possible.  The change provides functions that represent
+> such logical blocks: assign, release and config.  Such division exists
+> already for the HDAudio interface, see sound/hda/core/stream.c
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+I understand that you want to split things up which helps your avs
+driver but I fail to understand why should we add one more layer in
+soundwire intel driver to handle one more driver from Intel.
 
-6ac7db1cea43 wifi: rtw88: pci: wake the TX queues after restart_hw and interface up
+Why not modify soundwire intel driver to do both startup and hw_params.
+This way the driver does not care if it is calling sof driver, avs
+driver or somenew team driver! I would like to avoid a new driver
+specific handling please..
 
----
-https://github.com/pkshih/rtw.git
+> 
+> For the user i.e.: avs-driver (sound/soc/intel/avs) it also makes the
+> code very cohesive - aligns with that's done on the HDAudio side as all
+> the HDAudio streams are assignment during dai->startup() and configured
+> with dai->hw_params().  
+> 
+> Also, the existing code fetches the PDIs based on pre-defined "dai_id".
+> That's not the case for the avs-driver.  It simply asks: "is any PDI
+> free?" and assigns it for the substream if one is found.
 
+That makes sense, we can have pdis dynamically done, that is an
+improvement..
+
+> No predefining.  Again, this aligns with how HDAudio streaming is done.
+> 
+> avs-driver -only patches follow the three soundwire ones.  First, they
+> extend the existing code so it can accommodate SDW interface.  With that
+> done, laverage existing PCM code (sound/soc/intel/avs/pcm.c) and
+> soundwire-intel to implement DAI operations.
+> 
+> Cezary Rojewski (7):
+>   soundwire: intel: Define stubs when library is disabled
+>   soundwire: intel: Allow for dynamic assignment of PDIs
+>   soundwire: intel: Split PDIs and DAIs initialization
+>   ASoC: Intel: avs: Pass irq to dsp_interrupt callback
+>   ASoC: Intel: avs: SoundWire support
+>   ASoC: Intel: avs: Expose common PCM functions
+>   ASoC: Intel: avs: SoundWire PCM BE operations
+> 
+>  drivers/soundwire/cadence_master.c    |  64 ++++++
+>  drivers/soundwire/cadence_master.h    |  24 +--
+>  drivers/soundwire/intel.c             |  40 +++-
+>  drivers/soundwire/intel.h             |   3 +-
+>  drivers/soundwire/intel_auxdevice.c   |   4 +
+>  include/linux/soundwire/sdw_cadence.h |  35 ++++
+>  include/linux/soundwire/sdw_intel.h   |  41 ++++
+>  sound/hda/core/Kconfig                |   2 +-
+>  sound/hda/core/Makefile               |   3 +
+>  sound/soc/intel/Kconfig               |   1 +
+>  sound/soc/intel/avs/Makefile          |   4 +
+>  sound/soc/intel/avs/apl.c             |   2 +-
+>  sound/soc/intel/avs/avs.h             |  15 +-
+>  sound/soc/intel/avs/cnl.c             |  25 ++-
+>  sound/soc/intel/avs/core.c            |  24 ++-
+>  sound/soc/intel/avs/loader.c          |   3 +
+>  sound/soc/intel/avs/messages.h        |   2 +
+>  sound/soc/intel/avs/mtl.c             |   2 +-
+>  sound/soc/intel/avs/path.c            |   2 +
+>  sound/soc/intel/avs/pcm.c             |  42 +---
+>  sound/soc/intel/avs/pcm.h             |  51 +++++
+>  sound/soc/intel/avs/pcm_sdw.c         | 276 ++++++++++++++++++++++++++
+>  sound/soc/intel/avs/registers.h       |   4 +
+>  sound/soc/intel/avs/skl.c             |   2 +-
+>  sound/soc/intel/avs/soundwire.c       | 112 +++++++++++
+>  sound/soc/intel/avs/soundwire.h       |  63 ++++++
+>  26 files changed, 765 insertions(+), 81 deletions(-)
+>  create mode 100644 include/linux/soundwire/sdw_cadence.h
+>  create mode 100644 sound/soc/intel/avs/pcm_sdw.c
+>  create mode 100644 sound/soc/intel/avs/soundwire.c
+>  create mode 100644 sound/soc/intel/avs/soundwire.h
+> 
+> -- 
+> 2.34.1
+
+-- 
+~Vinod
