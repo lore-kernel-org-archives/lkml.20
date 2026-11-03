@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743424;
-	b=TM8W5bHtX4IDDBLbxScBTspWsuB0G0h93fVDmrVz1KKElSUYAK/r1c00xIuGOatCNU5a
-	 ynu90Dp6VINuYOCgb+pjo3YJ8eWfZ5vUwmHErVBGxs6iPH+AHUuvWomisXT4l8mvukCkD
-	 wx+mBAYo4TVOAP+IgBBqhtRnDr2FkOnLKUsZkEWU6RA3wpazbpuVLvvbORids4Gg9mqzs
-	 6pvtwTqDvC5k3gBRfSRb8rQKvKRnWw1vtqHf9ffEi71zsCoAoqGVOQNaJPwc31emXlmmR
-	 TqhUwXw9fIjr/P9Ng+FnXosaoRTyQMOK8TAPousLM6aAcMYO16Xq2bPrFyrMIhaF04w==
+	t=1793743435;
+	b=1fZohpkdvzVkt3kK92ZFJ1IY1ttz9ARXNVSr4AWrCsV2cjIQjcp9i9y97O/e/oKP7otY
+	 5rhSLstOHOuDtPZ/9Ux1X02F2itu0VVFU7gwCn6rd7Br1coof+grcOJbxxpbeyfB/dTwd
+	 gf1GOl9ffEEnwZwaqRNCq416AFch8LcAHLpggnOwIIrZajis73vKZhUXCTClhWhUNl2hV
+	 l6v42NJQl0tY+36ZAzrYP++Iobo7usQDTql4b3eQ88rj2T16O72KHlO3nNWML8SyWaN3S
+	 w7wyXZeBKrlEp87NHpc4HMfehf5MbcQ5r8nzmGcHPCNNydQhnItOSGJ7nlvtnPNeZ6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743435;
 	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=jf8hL3+yrNWXn3sUd5oc5BYvo2c+I5ZW2JUQhRAUzew=;
-	b=OzlQGyZVJMrqsRkLY/n1SOiC1tx6I8s9vDgDbrRFanPcW9jTi6y/cPDGGZtbgtUjwmxa
-	 o1tIU/LMbgAB9/BmiQ/TLeM74YON3GmxiF80ZPA2RKzfKpXAieyYJpWnoinch/hnbu3aH
-	 lRWCEuOHqAGBbKQQyoRBnZZzLizG+/vnKORwsPVGznx4amEztFQu6hQO4caFIQHh2Ve1t
-	 Uo2DYZA4USats9IXAf78aDBVrr2GKNnDmjnxJOuAGCiOR5dyJUJu4AfY65u+MUzz79WJv
-	 zjxeuZ3eiKUPGwnLhWyn83BzYDye4dtk57Q6ym9+Bdjy2tW+DGOhAbZgsdgO3HdKxFQ==
+	bh=MNs77XB1gO7MHnyVDh7EcyeKmZYXJ3x05ZADEeiZVj8=;
+	b=heQtw14YZMifjGw2bpmttENRQAFJnQnK6NEmpYgtIF8yJ8OpfUwNp9tT/huItyKolCaq
+	 pTfHkyHQzAVQHA2iz1ahhCD8y7t0+gvkG2a8yG6iJbleX4lfDsCGGfM0oM0ujU0TljNcl
+	 zCrDwLOuGOFcO26WwB6iC4X8pUs6E/aXv26YSBnHJHq2Du3MiTr+pAt9IMI91B47SBikD
+	 RW7oGOQHli3Yx39WcYVk6kTp/nam1wQ2vNamCfPLLq9MGN4/xWjS9hj/mOzwfhQ3ZoFj3
+	 2OuZMfgSniqfC4Zgc26/c4I0a8XQ3dKuq2HD3HM/lXklvAYiVJo4aYw+1Hdjkeyj5aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=jonasjelonek.de;
 	spf=pass smtp.mailfrom=jonasjelonek.de;
-	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=Q5UGTIxR;
-	arc=none smtp.remote-ip=212.227.126.134
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=c1t1gR24;
+	arc=none smtp.remote-ip=212.227.126.135
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673206082BDB;
-	Tue,  3 Nov 2026 22:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 673206082BDB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0512F606EE85;
+	Tue,  3 Nov 2026 22:03:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0512F606EE85
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=Q5UGTIxR
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=c1t1gR24
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
-	s=s1-ionos; t=1793743404; x=1794348204; i=jonas@jonasjelonek.de;
-	bh=jf8hL3+yrNWXn3sUd5oc5BYvo2c+I5ZW2JUQhRAUzew=;
+	s=s1-ionos; t=1793743406; x=1794348206; i=jonas@jonasjelonek.de;
+	bh=MNs77XB1gO7MHnyVDh7EcyeKmZYXJ3x05ZADEeiZVj8=;
 	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=Q5UGTIxR2QT0mPZ70cW0TzfB0AAnuMMEwx8aYivjl1BpJp+wAThHlqK2UxZsjT1a
-	 ltexDM6ZcRVFEFnbSdP9lbGC8XhMXYgnMfVfZBNOoOLIzJaVs2ujw8dtgYajSiXTb
-	 CpD1nCs1IOu0igpqJIMVVmYHdcYF3KwHzqHWTnw/u/P7J9zhS+LdAfXk/xEPJZmtS
-	 73D66jllne1bwIGr/xiDDhdiy7A9e0nRPoufVMJmBCBeQZGAhtGz+ns85WEd+T8iO
-	 KVWbTdVJCEQn5GttWrISOnoE08QB0OBYRew+hO6chRx6UqijCCkWAWkXvPha7V7hE
-	 ho7do+78pee0lh38zA==
+	b=c1t1gR24fra7fO4ZH16LzyU7AGIpTg+mYIUnVEUh7GWf4Vrwcxdg85HgsBIrcO8W
+	 vu2vfVrCWWArC5jFksn2TbXHE34labHOfgSwjJ+PZBe3bEYegyge2maapCiBe7YYm
+	 qV+6q9VGaUeqRiu1aK+3RruoWXtTs5x2ZrxCVfCJEb1k+WhFC7r9gPEsi2khrCSFU
+	 7uh83AEay0ywAdOBEx0fsKrqfFCGbukzcj7qib0amfy01duivdqk9LsCJOS3Fh+gj
+	 TcR+3KP+omAvKsEwUTzzqbIEevL/M7EvEbDvnwt8b8YeP/e+ZrV30Jn7mtgDwaE94
+	 ZDVuGLBe9msykd9Y3A==
 X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
 Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue010
- [213.165.67.97]) with ESMTPSA (Nemesis) id 1MIdS1-1xLMSH14sP-007Seu; Tue, 03
- Nov 2026 23:03:24 +0100
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1MdvVu-1wpr7w065u-00kLqN; Tue, 03
+ Nov 2026 23:03:26 +0100
 From: Jonas Jelonek <jonas@jonasjelonek.de>
 To: Oleksij Rempel <o.rempel@pengutronix.de>,
 	Kory Maincent <kory.maincent@bootlin.com>,
@@ -67,9 +67,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Sander Vanheule <sander@svanheule.net>,
 	Russell Senior <russell@personaltelco.net>,
 	Jonas Jelonek <jonas@jonasjelonek.de>
-Subject: [PATCH net-next 2/4] dt-bindings: net: pse-pd: realtek,pse-mcu: add VMAIN supply
-Date: Tue,  3 Nov 2026 22:03:10 +0000
-Message-ID: <20261103220312.860629-3-jonas@jonasjelonek.de>
+Subject: [PATCH net-next 4/4] net: pse-pd: realtek-pse-mcu: avoid global disable on teardown
+Date: Tue,  3 Nov 2026 22:03:12 +0000
+Message-ID: <20261103220312.860629-5-jonas@jonasjelonek.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103220312.860629-1-jonas@jonasjelonek.de>
 References: <20261103220312.860629-1-jonas@jonasjelonek.de>
@@ -83,105 +83,112 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:dQjJ8SRBo7ikFFOBkfsfsTVUaeOe3ecOmXAFHeBCor9aqizi40p
- Js5wxLdQb0mG73kFgzsjsr+zLXiK9HE4OftAKob3NiZL7k/9xL/R99FloOXeDO7x+sbh/KE
- EcZFa0WhT03ucqQ6nO7vghPXKzdEHNzFZumZPuQFBhiMTZLQ3aoILDgIm6+pbF20wRvrzqP
- ZIZRvgBdAYlFJEjFbrXtQ==
+X-Provags-ID: V03:K1:2Qaxf/N7A/9gAxneQmJW+WOZI1s5eF5+d4BM6K6Pxv2ok+280pF
+ AJWAIWmUSW4EScr+V9LYG4PbZX+I58p3gpJFb61ebm/WIX2sQxXMzzyWR3Xuy0Nol6r3Pz/
+ Hewc5H+mTlx3CZ/U0rHtlEtBueQxSLGjTO43x6NKK2m7Js5Dhmp8C6oqDdnnA6zaThynxJ+
+ P+YVCVwgrYJenP5HVUxJg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:UrgF5Jh8Eos=;8K0jGZt5YfSNWb+6MfPsIQ11RTq
- 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
- D90JJfnaGjkRdOPmxdjSLYv4AjX0Kg==
+UI-OutboundReport: notjunk:1;M01:P0:C2C7kPxPW88=;JBdRaoGQvp+MuUaNssLKO57D1q+
+ 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
+ QPb+boXAPoQF3u8P7m6jiJ6ef9Pyig==
 
-Describe the VMAIN supply at the MCU controller level. The rail feeds the
-PoE subsystem as a whole rather than an individual PI. Its regulator power
-budget defines the aggregate limit programmed into the MCU.
+The driver installs a global-disable cleanup action when it enables a
+previously disabled MCU. Consequently, driver teardown stops all ports
+only when the MCU was disabled at probe, making the behavior depend on
+the initial firmware state.
 
-Require a finite regulator power budget dedicated to this MCU, representin=
-g
-the PoE power allocation of the system.
-
-Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+Leave the MCU globally enabled on teardown so an independently powered
+controller can continue autonomous delivery. This also allows persistent
+supply constraints to keep the rail powered without an explicit global
+disable command stopping the ports.
 =2D--
- .../bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml          | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/net/pse-pd/realtek-pse-mcu-core.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-=
-gen1.yaml b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-g=
-en1.yaml
-index 526f8525bb4d..82288bb57b33 100644
-=2D-- a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.=
-yaml
-+++ b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.ya=
-ml
-@@ -92,6 +92,13 @@ properties:
-       asserted.
-     maxItems: 1
+diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-p=
+d/realtek-pse-mcu-core.c
+index a90e19fb90e0..ab57c348436c 100644
+=2D-- a/drivers/net/pse-pd/realtek-pse-mcu-core.c
++++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
+@@ -894,13 +894,6 @@ static void rtpse_mcu_cleanup_vmain(void *data)
+ 	regulator_disable(pse->vmain);
+ }
 =20
-+  vmain-supply:
-+    description:
-+      Regulator representing the PoE power allocation of the 44-57V VMAIN
-+      supply. This MCU must be its only power-budget consumer. Its unclai=
-med
-+      power budget is used to configure the MCU global PoE power budget. =
-The
-+      regulator must define a finite regulator-power-budget-milliwatt val=
-ue.
-+
- required:
-   - compatible
+-static void rtpse_mcu_global_disable(void *data)
+-{
+-	struct rtpse_mcu_ctrl *pse =3D data;
+-
+-	rtpse_mcu_set_global_state(pse, false);
+-}
+-
+ int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse)
+ {
+ 	const struct rtpse_mcu_match_data *match;
+@@ -994,12 +987,6 @@ int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse)
+ 		if (ret && ret !=3D -EOPNOTSUPP)
+ 			return dev_err_probe(pse->dev, ret,
+ 					     "failed to enable PSE system\n");
+-		if (!ret) {
+-			ret =3D devm_add_action_or_reset(pse->dev,
+-						       rtpse_mcu_global_disable, pse);
+-			if (ret)
+-				return ret;
+-		}
+ 	}
 =20
+ 	/*
 =2D-=20
 2.53.0
 
