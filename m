@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672602;
-	b=AU9quQJXrGmyStK9sd2QwPKogGbOT3uVO13s2yB2H1Hwiw4mtZbuIZq/u5fZuP43xG+k
-	 KaZbserwZjJipLU5fGnXe6jEw9RIlPlSz4V0h6Ped/zt2FkWz967/f2o7xIDB3gUV5LeG
-	 Y1KUpi3uzYYxX9koln2rK3nJzfEVw6vmui6FKH2aqvTsFOanbiZMPEqbTrTt2X9ArdS9T
-	 fZgjWLE/+S890kXWGY4eLGIDiRHovH6CxKojeWajgsXkd6Xht2jZVqeIx6WmtvShj/U0i
-	 xeeBsd4amD9PrLr1e6kTVKbzi2Crg7VTyHPdTtqGRllbZJWib2eByJtsDAQueGHV+9g==
+	t=1793672629;
+	b=CRr/eqdn2xR6quzlmAsA6U0UWYZot7+bHZoveHQNm/LAJslFi4BtzNJ1ZPf1CPFsu4d/
+	 EtYiQyRxTzjjuoqzt4LeShgo6c1FGKNoODuHIf6TWGGc4IiYyJsNxAx/fsSjNeklfVyey
+	 H+h68LWob63hO06b32jPcIFAXn2mNYYdqQVz0Qc/bhjPQcWw2Ypxr7mUc+SQ0MNT4sAXV
+	 QNhZjrCxlHREnSRtHbGjWyJTTAYNizoOzYnFU9iDpwDuxjvJ4TovMWm1djzWbwQ2UVnsH
+	 LQCcuneYx4S/McN7GPQZR+0GiRg7EtXPiqpvtl2sOsc3WLI+Hw3ZRCOM3LN8RDDDz/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672602;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lDa4CRo0bVWLUZcEWwGEQU7uUMPS4ytlZLdUxB0z23I=;
-	b=FXJYeU73BIwV97BuT5kPIh4MInNy3U7+3vr3cnyGUtt0f6/GsdkKUYhSrPLLjIIxSbay
-	 DlYJyDAAAuntOhMYar86OpK/eGoK+W+90nmTszG+la4f372qjrDuoHXTdWb05xXMJ3+4c
-	 5tTLRvHIoLOHgz4kXnirzstXCFEuN1aLhogXtG0MVAibYO3D5bFy2A08qiGhSJvQAQpCC
-	 zR61zC6C3uWkYdPVyssVPQ57MFd7VrOZ79khs+Hv6IWZ/vP/oOUdHhXom8cxRw9muYISw
-	 gcPRnbTPOdSCDzOFRIx1XFSMXfEse4SJDHiX0zDzczIbwokib9FU/+nFdbGBDyIyyvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672629;
+	h=DMARC-Filter:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Subject:From:References:Cc:To:In-Reply-To:
+	 X-Original-From:X-Lms-Return-Path:User-Agent:Reply-To:Message-Id:
+	 Received:Date;
+	bh=oxQllBAFT/GD689LugUGzY1mG/UNAwQ+Yi2gGE1tTSA=;
+	b=k43/ZTj2GrK9jVp0SjetaFerkEL85GoSgQMuEN0u3yCLKTTnQzZVcGx34WHoct3WOkjd
+	 J5JshucWvlOpNv4CKsjFAH42vAs1uscpXAVBsS3xC98iDXU6RxmDLUpvBwp0QaQewntib
+	 V+hiIV9x/Xt30LBlZcX/ud0xL6dKHMNKmLRXwTG2MFac7qphtYITEVvxobE5QuSNU1iUY
+	 jY8IMdyMzsXIbH8F6rtc/AhAsejt1McLrCqq4MdqPtl9v3pP3V4JFvztzIHZxli63s9AO
+	 6pWoxCJG+hpVgog+zP87kho1/AxBKcOLPqvsjBRWJ1DZveNipUlHEx8VAqjIw9UrDaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=NnIXjQCH;
+	arc=none smtp.remote-ip=209.127.231.57
+Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042B4606A329;
-	Tue,  3 Nov 2026 02:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 042B4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 860adaf6d72d11f19a56ed5b684f684d-20261103
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:55c4a896-5941-4364-b680-bb36944da79f,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:750fa53f982e8e4f58d77401b07397d6,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 860adaf6d72d11f19a56ed5b684f684d-20261103
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 731410629; Tue, 03 Nov 2026 10:23:14 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Craig Hesling <craig@hesling.com>
-Cc: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	leStoppe <lestoppe@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
-Date: Tue,  3 Nov 2026 10:23:11 +0800
-Message-Id: <20261103022311.1011677-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <9970fa09ce5e1b468e473bc1e4bbe7d7802808e8.camel@hesling.com>
-References: <20260810091322.2201740-1-huangwei@kylinos.cn> <9970fa09ce5e1b468e473bc1e4bbe7d7802808e8.camel@hesling.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128BF606A326
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 02:23:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 128BF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=NnIXjQCH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793672624;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=oxQllBAFT/GD689LugUGzY1mG/UNAwQ+Yi2gGE1tTSA=;
+ b=NnIXjQCHVQlC2eaQbNsvVXVPUIt3jYmfUYkdts2m5umi2Z3PgbUH7l60tM6nJZGCyw+2gy
+ U9pu0YStIiO3nQjBiZ2jmiQnl4FVrNw0hlOVX0dSDgj6s1FXoHU/TCAPwMKkUm8nQ6sw5C
+ /rr11YcjhueN0FyrNFjQaVPAx0BEt1vANOBYMnFrONJjMX95Ko3vVeUkv/WZnUu6b44DDP
+ Pus3evB/r0ZqOExBV7W95WZrloKIaVdaSBPJsCf2O9VRf2Q9PX3uBr+Ja/UJ81Xsl6wAg0
+ kcldmxByH2nOFo1wPHeM6CbpBsD22bpjy90oWWbn53myZjz1mPau8iWwDjaXrA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,43 +52,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] md: Fix an unlock in an error path of lbs_store()
+From: "yu kuai" <yukuai@fygo.io>
+References: <9dd41992e8b2d4bd63f74a245d34fa7850529bed.1793044632.git.bvanassche@acm.org>
+Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Bart Van Assche" <bvanassche@acm.org>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+In-Reply-To: <9dd41992e8b2d4bd63f74a245d34fa7850529bed.1793044632.git.bvanassche@acm.org>
+X-Original-From: yu kuai <yukuai@fygo.io>
+X-Lms-Return-Path: <lba+26ae945af+c2b3fc+vger.kernel.org+yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+Reply-To: yukuai@fygo.io
+Message-Id: <cfc6e703-70cc-4f63-9fb1-875cb6cc4b1d@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Tue, 03 Nov 2026 02:23:43 +0000
+Date: Tue, 3 Nov 2026 10:23:39 +0800
 
-Hi Craig,
+Hi,
 
-Thanks for the additional data points - and for the comprehensive
-descriptor table. This changes the picture significantly.
+=E5=9C=A8 2026/10/27 3:57, Bart Van Assche =E5=86=99=E9=81=93:
+> If mddev_lock() fails, lbs_store() calls mddev_unlock() although the
+> reconfig_mutex is not held. Fix this by returning the mddev_lock() error
+> code directly. This bug has been detected by the Clang thread-safety
+> analyzer.
+>
+> Fixes: 62ed1b582246 ("md: allow configuring logical block size")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+> ---
+>   drivers/md/md.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 
-The VDS1022I reporting (5, 0, 0) - the same tuple as the HDS200 -
-means the full-tuple match in my v2 doesn't actually solve the
-problem it was designed for. It would:
+This problem is already fixed:
 
-  - correctly claim the HDS200 (which wants serial)
-  - incorrectly claim the VDS1022I (which needs libusb, same
-    florentbr tooling as the VDS1022)
+[PATCH] md: fix mddev_unlock() called without holding lock in=20
+lbs_store() - Jack Wang <https://lore.kernel.org/all/20260920103705.23191-1=
+-jinpu.wang@ionos.com/>
 
-So the interface tuple is not a reliable discriminator for this
-VID:PID - OWON reuses the same tuples across device families with
-different userspace needs. That undermines any approach based on
-narrowing the match at the interface level.
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index ac03b99f6428..7ce527073be9 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -6049,11 +6049,10 @@ lbs_store(struct mddev *mddev, const char *buf, s=
+ize_t len)
+>  =20
+>   	err =3D mddev_lock(mddev);
+>   	if (err)
+> -		goto unlock;
+> +		return err;
+>  =20
+>   	err =3D mddev_set_logical_block_size(mddev, lbs);
+>  =20
+> -unlock:
+>   	mddev_unlock(mddev);
+>   	return err ?: len;
+>   }
 
-Given this, I think the options are:
-
-  1. Keep the original broad USB_DEVICE() match, accepting that
-     VDS1022/VDS1022I users need to blacklist the driver (this was
-     the status quo before my patches, and users have workarounds)
-
-  2. Remove the owon entry entirely and have HDS200 users move to
-     libusb as well (uniform but breaks existing serial users)
-
-  3. Find a different discriminator (bcdDevice, string descriptors)
-     - but these seem equally unlikely to be reliable given OWON's
-     firmware practices
-
-Johan - given that the interface-level narrowing doesn't work,
-what's your preference? Should we revert to the original match and
-document the libusb incompatibility, or is there another approach?
-
+--=20
 Thanks,
-Huang Wei
+Kuai
