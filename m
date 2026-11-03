@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793675876;
-	b=PG4wptiCAqLIQKIBmLg5ajxiRfqdjyAxFvAu88DEO9syv7hDsk+9Om/fMsYNihvuREqJ
-	 DQGhlEekiH3+za6w7pZurVdftxEQuzarijl9HfZM8lihHpPjTKKYWEBwBQ6V1PBRYc/Co
-	 SR2yccuSqrwQ6JEiZOR3L/hdErZWaOwfqQZRR3SyI2XraHCs7Bs0uLf74sZcMu3sFzmn+
-	 5ogkHvoH9ZOrGjsi/gmVx/30R9V4YMpHsu3gNtpMtL3WgnHWUyPs31/xSXA1RJncMp292
-	 fY4qSyTmxcRnNfOHfOPIEBwm89nEXLZKwgl1UGF1GdQ9L2tzistub/Kod2LDoozG2uQ==
+	t=1793676001;
+	b=1Zt5JOnGGngepJa31MLV4kwJmPcjNkgnxzKczaZYifrR9uUd2R8u+Vezyv2YKAC7J4iH
+	 s4PIjXXOWPcgCP8rqP4XwgdYeCEIOL58Bts+Ke3J9NIwNhPiU/eEOKqda9sl52dml3Ypw
+	 jsWZiYJ99T195WCiN+vo/ABGLwr1Bbe7ds97QhU70h8cVn6anLEmvDBJPCRIHudq3JvOG
+	 7TWC+PiDP18WfJhvA8SY5GQGfpv2xg6K18XpYOcvFwjUQ/+2DSYgRacXNmSPyD9//GGba
+	 kt329EHr45PAb34BpZLmdkySMzze3i5vC4+hWYq4qm4adL9YDlKIxG/2W1j1Yzz8w+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675876;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=Bq8RxOjp221zCtPe1b7ySNgeViySYgXEXgz3pYeX0SQ=;
-	b=z/ZbWGJnp8H0LX5pTg9ory/VIg/QfX7NNTVHL6xgospdzfeMQdTqSgBd65afE8xPoX0g
-	 oXRlz7tz6z980Ow9FKVYL9nDzNaxNextFb/HirIhO6Ibitb5AYXN90tbVG6ci7xCFWvxz
-	 slnooWV4cGODVYLgAh6BvXglSbqSEb2y/JG5AMfx9wCdXLeGMY4qXZgr0MwN0wKtHHmez
-	 w2rsy+TZ9Htby8zhtQtbp4VmpbM9Q+hAu7+jfmO50LkOp1QfAOWvnjox5ThlhdrSUxUnj
-	 NyOVIvEj1quNBNPAmRcSbu8oPFi76A8FYWLV2K8O0QfpLvTrGf9T0Q+IRb2wjB1BcSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793676001;
+	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=oJMGcv9Tp+qvWDAs1MK8yVtD4KDhsi+aZLYZ0K0RUgw=;
+	b=EzSr0i0IMOBJCra1M55QRnvqIt6IVEMnOi2GAQAdXeUQHfcT83Wxp908uYkK+cO6memY
+	 kxpG+mwd10b7u/WjfcSZxxhK+No+nk84eWUoPw14Wfcz0YbbcWzSBCMFTQybg+V/xxbbo
+	 x1DBE9pPh0434KTRX+/PouhEZ7kRkFLTNDUlKtUTdJ6U+etJLWZVbpdRZANTZF4VvFED9
+	 g81SlssUz6VX0ycYAR8dLtuSJfr9g5arjLu+Gbj0XQ9855XSzSq9pGvfBC1FqX4bX368Y
+	 nqUKddzsYalbIeYKpDtKm127duRSg+rSugMdo43lyhjqKIGtvxbTZ0V6W6sxNZ+VmLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=RyF6tFSs;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31378606A324;
-	Tue,  3 Nov 2026 03:17:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31378606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=stu.pku.edu.cn;
+	spf=pass smtp.mailfrom=stu.pku.edu.cn;
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=Alf1+nJs;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B1A606A32C;
+	Tue,  3 Nov 2026 03:19:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B1A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=RyF6tFSs
-Received: from [192.168.166.159] (unknown [67.168.101.66])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 8037E20B7166;
-	Mon,  2 Nov 2026 19:17:40 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8037E20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793675861;
-	bh=Bq8RxOjp221zCtPe1b7ySNgeViySYgXEXgz3pYeX0SQ=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=RyF6tFSsYqXm9Tp4+4N/XOnFIwW2lrHGXaHlZIlq4MPN0j0IplShWpzIYBlPy5MeV
-	 oQMB05jEY1RJ1LDQ/KzVf+VSv0kRgouPv9xpRLvjldr4wQyiXc/XmqIP+RzmhWXX8J
-	 onuVe6gt7rrUN7PgRRsxwVrTk6FI+cNaV5ZOY9Ds=
-Message-ID: <dc41f6b6-413f-4340-9579-6853f2d5d565@linux.microsoft.com>
-Date: Mon, 2 Nov 2026 19:17:55 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=Alf1+nJs
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [IPV6:2409:8a00:3c11:dbc0:2581:8e:ca0f:59ab])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5344a3159;
+	Tue, 3 Nov 2026 11:19:55 +0800 (GMT+08:00)
+From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+To: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ Tom Talpey <tom@talpey.com>, Ronnie Sahlberg <lsahlber@redhat.com>,
+ Hyunchul Lee <hyc.lee@gmail.com>, linux-kernel@vger.kernel.org,
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Date: Tue, 03 Nov 2026 11:19:54 +0800
+Message-ID: <179367599474.14819.859478551395391125@stu.pku.edu.cn>
+Subject: Re: [PATCH v2] ksmbd: require NUL-terminated EA names
+In-Reply-To: <c02b4586-522d-49bb-87d6-69277b45add3@chenxiaosong.com>
+References: <179367391951.8187.2063761250230294066@stu.pku.edu.cn>
+ <c02b4586-522d-49bb-87d6-69277b45add3@chenxiaosong.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,93 +59,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-arch@vger.kernel.org,
- easwar.hariharan@linux.microsoft.com, jgg@nvidia.com,
- jacob.pan@linux.microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
-Subject: Re: [PATCH V3 3/5] mshv: Import data structs around device domains
- from hyperv headers
-To: Mukesh R <mrathor@linux.microsoft.com>
-References: <20261103025150.3192119-1-mrathor@linux.microsoft.com>
- <20261103025150.3192119-4-mrathor@linux.microsoft.com>
-From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-Content-Language: en-US
-In-Reply-To: <20261103025150.3192119-4-mrathor@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa19f6ba91303a2kunma4aa6ea610c5cb
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGEoZVkxLTBpOGUwZGE8eTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMaS0tBSBhKSkEfGRhLQUlOQ0pBQx5BGBpLHUFOQh
+	oZWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE1DVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Alf1+nJsTBwt3b7HXfz/bwJyXt/g2p0wetc8hbvsGY42feuYvNOP0i+otKB4N0MAxn64dUwoVvYySOli8ODXWQS2pc7x/JoQkitI67CiDcPqDKoWTuKVzq69UkJtSvgQ7Vk6Nln+lXHgR1koIV8CPVVE+5slsau64wLpNrbHrU0=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=oJMGcv9Tp+qvWDAs1MK8yVtD4KDhsi+aZLYZ0K0RUgw=;
+	h=date:mime-version:subject:message-id:from;
 
-On 11/2/2026 18:51, Mukesh R wrote:
-> Copy/import from Hyper-V public headers, definitions and hypercalls that
-> are related to checking for device domain availibility, and mapping and
-> unmapping of device pages.
-> 
-> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
-> Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-> ---
->  include/hyperv/hvgdk_mini.h |  4 ++++
->  include/hyperv/hvhdk_mini.h | 15 +++++++++++++++
->  2 files changed, 19 insertions(+)
-> 
-> diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
-> index 966945f0504f..606b16f43e16 100644
-> --- a/include/hyperv/hvgdk_mini.h
-> +++ b/include/hyperv/hvgdk_mini.h
-> @@ -327,6 +327,8 @@ union hv_hypervisor_version_info {
->  /* stimer Direct Mode is available */
->  #define HV_STIMER_DIRECT_MODE_AVAILABLE			BIT(19)
->  
-> +#define HV_DEVICE_DOMAIN_AVAILABLE			BIT(24)
-> +
->  /*
->   * Implementation recommendations. Indicates which behaviors the hypervisor
->   * recommends the OS implement for optimal performance.
-> @@ -489,6 +491,8 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
->  #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST	0x00b0
->  #define HVCALL_CREATE_DEVICE_DOMAIN			0x00b1
->  #define HVCALL_ATTACH_DEVICE_DOMAIN			0x00b2
-> +#define HVCALL_MAP_DEVICE_GPA_PAGES			0x00b3
-> +#define HVCALL_UNMAP_DEVICE_GPA_PAGES			0x00b4
->  #define HVCALL_SIGNAL_EVENT_DIRECT			0x00c0
->  #define HVCALL_POST_MESSAGE_DIRECT			0x00c1
->  #define HVCALL_DISPATCH_VP				0x00c2
-> diff --git a/include/hyperv/hvhdk_mini.h b/include/hyperv/hvhdk_mini.h
-> index 57b70efe60d4..2bb757e00d86 100644
-> --- a/include/hyperv/hvhdk_mini.h
-> +++ b/include/hyperv/hvhdk_mini.h
-> @@ -549,6 +549,7 @@ union hv_device_id {		/* HV_DEVICE_ID */
->  } __packed;
->  
->  /* Device domain types */
-> +#define HV_DEVICE_DOMAIN_TYPE_S2	0 /* HV_DEVICE_DOMAIN_ID_TYPE_S2 */
->  #define HV_DEVICE_DOMAIN_TYPE_S1	1 /* HV_DEVICE_DOMAIN_ID_TYPE_S1 */
->  
->  /* ID for default domain and NULL domain */
-> @@ -657,6 +658,20 @@ struct hv_output_get_iommu_capabilities {
->  	u64 pgsize_bitmap;
->  } __packed;
->  
-> +struct hv_input_map_device_gpa_pages { /* HV_INPUT_MAP_DEVICE_GPA_PAGES */
-> +struct hv_input_device_domain device_domain;
+Thanks. I will add:
 
-Nit: Needs whitespace
+Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
 
-> +	union hv_input_vtl target_vtl;
-> +	u8 padding[3];
-> +	u32 map_flags;
-> +	u64 target_device_va_base;
-> +	u64 gpa_page_list[];
-> +} __packed;
-> +
-> +struct hv_input_unmap_device_gpa_pages {  /* HV_INPUT_UNMAP_DEVICE_GPA_PAGES */
-> +	struct hv_input_device_domain device_domain;
-> +	u64 target_device_va_base;
-> +} __packed;
-> +
->  /* HV_LOGICAL_DEVICE_PROPERTY_CODE */
->  enum hv_logical_device_property_code {
->  	HV_LOGICAL_DEVICE_PROPERTY_PVIOMMU = 10,
+in the next revision.
 
+Regards,
+Yifan
