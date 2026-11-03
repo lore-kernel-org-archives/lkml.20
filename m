@@ -1,101 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793691461;
-	b=Tyjpg0pF7EdXKXxyHTP9fNVA3QOavbfIn/SzASYb9Yh9H4Pwynvm0viA/5lzYOKLax8N
-	 baWbwjmPbv/5tkhh3uCgLYwVdPQphPnxM0fxcip4xlmA+isAMktlWVRgZVKtVhvRhgtjV
-	 PQoE97J1zW3j3edlx2REnobDJNv3msqmY/6qsE3ZmQg7iqPgCb5+9hwI5tmMpEeCBPYLl
-	 KoXPBPMAYHFoVwb6GexFZZy8kSe84io+heIvzSgEFcElQlEOtbl6mhP2p66KBA6kN1Nlm
-	 c62Fxm3RAyotl/si+xaetZC1xvk7aANn5UCafHRz77JI4fhQ7CZwWhCRZKKxnklDe/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691461;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=85i27vNHcmh26GGO34/PDAduUVAyw2KWb9PQhHoG2mE=;
-	b=UO1q3R/2MwUMAp6H3rHrvjc2I/nzYm+aZJuWcp83wlLxQ2IFthZfR+RNjnwdwAD14jdJ
-	 EP2zOs/WJ5hyaGfoBXITBlHNyjQbdS0jLnWZHWqxG6B6uKGSi7hI9Yb9kL7agaRwtlz2v
-	 bhB/qv6kU+Nm8AF8gX7gNwOdtaGTNV1ZgFxt5zd6ULaMRdu1SOV/kgCBsx7+gocaWn9L3
-	 osWCclXZA76HE8jUSCGR7yHAd2nslZRV8ux2j2l+p3AJ0DWNjRekQFfLSiHxx/lcMx++1
-	 6hrKMyiGvPauAVJ5me8RtZxQzo5CdwzLrvVRfuyD+KxGgk+tspcXTyqSoOltJYAfaSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dnggIaTJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3086606A324;
-	Tue,  3 Nov 2026 07:37:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3086606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793691560;
+	b=4rwvdjAOX4MP4ODm1ufHAlrX7RfAELOARrKALnzEo+1idR+gh4YMkDJhJaZ6Yc56R3BI
+	 zT0KfmlG5CULLjaI4ELKCbjRym/A+wXzMGFRzoxU1qRhIbQUOUmbxcI9tdcnfhFRB/54s
+	 v0mbWPuaJplzqxiizBGajsdmgqmu0OdFiQx11xonDH/guwRaobLx69MwpJ/dI7pgJTsK4
+	 hHAGTiL3Ig6mtGB/j8LjJhwQIS65GLKDLO8uWwRscffQt/qFJAWm2Wa8bH+ORaVYWXOrc
+	 51WGwlSMnicCfYJyzNMHAW8qHcpVO7b9LFJaLOA3qzcRXZKYoWNRrk+OvrEDkiLv3/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691560;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WpkE14Q4sQba37WFN2Ur4rSIpx78Tl3jKpBy9GMhz9Q=;
+	b=Czwf26ZHAlJQUqPBOLicAS5lXKjTxThiuDiU5VmAZoVkql79qehgWVLCKEAbJkhfn9ei
+	 a3EyUVBjfL+1XnJvyBGl5fn90pDVBwGIQh5bBue7A4KCUYp7I/anRknWmMwBU4Exn/qwC
+	 c59E3BOkm4ZYKH8lhabucCat5mACsg9itPRU9Xc4/7HNsDDrNnX7VGKuiU0R31UouAfc+
+	 ei3MIVy2QtJae9ssN3bdbnk7OW1zbMLn04pUPdklHDDbMoib5/W+HHNebKBiY9nRUXFKK
+	 GAZkAi5Yn2sVQ5qH2UIZS48GrEYlsk13WkvoKPQE/WqR7eUoIkhJGPnJZ/3BOWD7Ahw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=g6uHF35M;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40B35606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B35606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dnggIaTJ
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BB6E2200B28;
-	Tue, 03 Nov 2026 08:37:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793691457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=85i27vNHcmh26GGO34/PDAduUVAyw2KWb9PQhHoG2mE=;
-	b=dnggIaTJ0kBUxE+Wt/mjxk5/+E1bTENcxd/AVZztDM5hSxVKa8gjQTJiVKqVBqNPYt6cyz
-	9MW9XlpZvPd9/hD2xGbRPhvuRgLneq/PxR+QRdmX36GWo4cHaX2/Lc4Uoaf5KD/js2XY6D
-	Y+raiiGmJluHnUdvP5rFHB54M412wkYgU2XEjPEPetziimkULZ1WHGyUxQk/s8IIW38N3I
-	RuBb1NRmuoPlSPsd0NMx7xp6d+WEiEP+0ifcySuBBdgC8QL/428VLVx0Delq6QfD99iln8
-	qZIk5aHYdVsPoXNLHeapEr34wKypdXVkyrczxSiurfJd1HHTPLtoAEBh/bdj+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793691457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=85i27vNHcmh26GGO34/PDAduUVAyw2KWb9PQhHoG2mE=;
-	b=KUF2GQ/GVTK8m/WieoQ0K1gOVitj4vqqucB8jBrNzzXHnBoXO4xf7HBQS4ZA2D4TJCHh8i
-	JGjhZfO5wOmK3XaGmXjxcZEMB0oFhG5EAfICmFvcvV2AnuToRdf9BlVaX/MPiG5C/7E+Ce
-	p1L3//ZxkvKULetehfM3Td8pXAlC0uYRD/0Q40nlK1jMjMXsCjH0Ddw7+htqtwrFg/LF3Y
-	7TI15jH3aogkcKXZ0jQ++eGP3gbbaORmhoDpr7SvGHQHFHwQ9p481pPh8Kk43hissGcavq
-	N4qy3mjSbwn8vQA6ElzF4ZqVGXjj4xd3vh6fZqxym2LxQs5xBV4pG5knLDhn6A==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793691457; a=rsa-sha256;
-	cv=none;
-	b=Pc8IkTKUKWSPJMguNT13h5HSSsDD1AvPjYfGZ70oCF771cg6/lcOqGeZiH3WaHHe83+g4s
-	eQ/5rRz+Ndl8SPqh2H7A8vfCTwdRvjPANiJ6A7TG6bap1o4dh9o/YZGWKUfismrJY5guaM
-	yp7IPWx1pKa62hljX1iLskexLROwGNPhTDRdMqbll0OUAxyRoJ0z9izoj2auxBaXau4lya
-	Y9F/CTiO0KbC50o9iqHrjgNSBZkq/hJA4F/y8ievtAdLT4I9jr4B1uJdDthmc0QTn8sUib
-	r8/ucTgL1cZ1b3Ftxcb+MOJUdvor7RB5K/uKHCTE/2LCu65PICJkOVx4XF4Sww==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xO95N-002Pt0-28;
-	Tue, 03 Nov 2026 08:37:37 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xO95N-00000008nLW-2Ilh;
-	Tue, 03 Nov 2026 08:37:37 +0100
-Date: Tue, 3 Nov 2026 08:37:37 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Stefano Munari <stefanomunari.sm@gmail.com>
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: usb: lan78xx: resume phylink on non-reset USB
- resume
-Message-ID: <aumPQeI3lInBvbNT@pengutronix.de>
-References: <20261102235133.23011-1-stefanomunari.sm@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=g6uHF35M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=g6uHF35MtQcdhvWnEesB/72cx3T9iq9L2LNY5qN7PO1OjUp8wQVDH8xKraWisn2QkEfFClgYMWK/I
+	 3LHBsF0nP4dKTE5UmlmKknN+534Kb/qGuPvqkdV0h4t2C0soQ/qrAoF5uaIghMQzqWgeJqaOnpEoGb
+	 WN0Gk47m3jRpDM9I=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae98fa08db-31565;
+	Tue, 03 Nov 2026 15:39:16 +0800 (CST)
+X-RM-TRANSID:2ee86ae98fa08db-31565
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181454368174 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae98f9feae-efdf8;
+	Tue, 03 Nov 2026 15:39:16 +0800 (CST)
+X-RM-TRANSID:2ee96ae98f9feae-efdf8
+From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
+To: gregkh@linuxfoundation.org
+Cc: tglx@kernel.org,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	linux-kernel@vger.kernel.org,
+	trivial@kernel.org,
+	zhang jiao <zhangjiao2@cmss.chinamobile.com>
+Subject: [PATCH] uio: uio_dmem_genirq: fix crash when releasing failed DMA allocations
+Date: Tue,  3 Nov 2026 15:39:04 +0800
+Message-ID: <20261103073904.1303-1-zhangjiao2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,54 +72,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261102235133.23011-1-stefanomunari.sm@gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
 
-On Tue, Nov 03, 2026 at 12:51:33AM +0100, Stefano Munari wrote:
-> lan78xx_suspend() calls phylink_suspend(dev->phylink, false) on an open
-> interface, which always stops phylink and halts the PHY. The matching
-> phylink_resume() is only called from lan78xx_reset_resume().
-> When the USB device stays powered across system sleep (e.g. s2idle) and
-> the USB core calls .resume instead, the link stays down until the interface
-> is brought down and up by hand. The ifdown triggers:
-> 
->   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0x44/0xc8
->   called from state HALTED
-> 
-> Move phylink_resume() to the end of lan78xx_resume(), which both resume
-> paths go through, and call it only if the resume succeeded and the
-> interface was open, mirroring lan78xx_suspend(). As a side effect,
-> lan78xx_reset_resume() no longer starts phylink on a closed interface.
-> 
-> Tested on a Raspberry Pi 3B+ (LAN7515) with s2idle: the link now comes
-> back up on its own after resume and ifdown no longer warns.
-> 
-> Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
-> Signed-off-by: Stefano Munari <stefanomunari.sm@gmail.com>
+In uio_dmem_genirq_open(), when dma_alloc_coherent() fails for a
+dynamic memory region, uiomem->addr is set to DMEM_MAP_ERROR (~0).
 
-Partially tested on net-next (4dd16e31135e) with a LAN7850 on an
-i.MX8MP. The USB host is reinitialized across s2idle here, so only
-.reset_resume is used. With the interface closed, s2idle resume no
-longer shows "multicast write failed -EACCES" and the WARNING at
-phy.c:1352 in _phy_state_machine() (4/4 without, 0/4 with this patch).
-An open interface still comes back after resume. The plain .resume
-path, which is the main case of this patch, is not tested.
+In uio_dmem_genirq_release(), the condition to free DMA memory only
+checks if uiomem->addr is non-zero. Since DMEM_MAP_ERROR is non-zero,
+the driver attempts to call dma_free_coherent() with an invalid
+virtual address (~0) and an uninitialized dma_addr, leading to a
+kernel crash.
 
-Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Add an explicit check against DMEM_MAP_ERROR before calling
+dma_free_coherent() to skip regions where allocation had failed.
 
-Thank you!
+Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+---
+ drivers/uio/uio_dmem_genirq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best Regards,
-Oleksij
+diff --git a/drivers/uio/uio_dmem_genirq.c b/drivers/uio/uio_dmem_genirq.c
+index 41c18ec62a45..65ee0f3de326 100644
+--- a/drivers/uio/uio_dmem_genirq.c
++++ b/drivers/uio/uio_dmem_genirq.c
+@@ -87,7 +87,7 @@ static int uio_dmem_genirq_release(struct uio_info *info, struct inode *inode)
+ 	while (!priv->refcnt && uiomem < &priv->uioinfo->mem[MAX_UIO_MAPS]) {
+ 		if (!uiomem->size)
+ 			break;
+-		if (uiomem->addr) {
++		if (uiomem->addr && uiomem->addr != DMEM_MAP_ERROR) {
+ 			dma_free_coherent(uiomem->dma_device, uiomem->size,
+ 					  (void *) (uintptr_t) uiomem->addr,
+ 					  uiomem->dma_addr);
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.33.0
+
+
+
