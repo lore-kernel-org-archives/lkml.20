@@ -1,96 +1,94 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692825;
-	b=ctjRC74V2ndnkjjVieov0I33jSbB6dXi55P+otmYrJiySl3VMD0ft0jx3wZe9oBwtqu0
-	 pGprdw6KVSHGFjYcHoxiz2kIFH0C+WdfWVFKadQzkH3WsZDuF9+hajCEIHmMYLqUUy/js
-	 rnNMQbNTH9l/XPKCooD8YZbm1dXQD7e+1whxeAsT9yZczjuXKPCg1t0BtfrbmtRwniQ2E
-	 nErlI9hjx6WQ/5hd5fk1Vb3W6kkKztY8B5NwBHyR9vK0618ozoEVZcUhRS/VO3003gD2C
-	 KItkshQdNlyKslsOfCP5XbuRBa/T9o4XgmDhhjawMzsuFfpczuw0/jfI2UcHPGzl5Aw==
+	t=1793692822;
+	b=3N98iyAhoE3X8NFwhzZUPLd4T+JIdQ8AfoR8CsR46H1AdDRgGquYfuvNCNgJ9++JbBuq
+	 mR/pydTDa3dg0og41r2Wxlwxc5lMRRLfVyyB6Xi7JilIfGvH1oqrP+sShjjTiTDgeztxx
+	 KV+C8O9wp/jOCA/qWoReRikkOkSnvqo2BueVJqa3u1wZ2X/XegecRdd+7d/4Zno0qflFd
+	 NxKNB8mA2jGs0iyvuzzW37TCxc3b7VAZxhyi73LjZAqeoQ/L+GZ/JMIHGc0fb39lk1W3l
+	 +zLhoSz2Y88kDbb+f3VnrnJNI6z/BPVfHD3HgjQEZcDlVf2OSivDBx08gmsaKxNnf5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692822;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:
 	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
 	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ExWfLqTDEogJI0H6UanVTrI1P6KRZddzPRzGdDvI080=;
-	b=dNaPaFY98lG1EHOJ30gs1R7PgSNb32+G+t4V3AnzljBkl7TKdgUCPBiWAEGjUwRpiIQk
-	 ZjMLwaAemuA6QUMhqyh2wbQkdkQJH5JgC3paaji/jhRWll8SvqZiCnHPPmyeb7OAu7cTM
-	 qeHu3redQTL4DAXs98sDpdkxZ/skM4X07G4A6Vul2Q0bi0wOTkN76AJHVVvJbqmfDan0k
-	 HMjfhYaUFYvrbkT48dUyKFKB+lGzPb57dwZ7C+1GadQZDI6oqhgSoPqGBgSntWpyFGG3T
-	 Vof05kMnYgJkKuLAe+Ebsy6lQ4aoXZrA2xwVJTgBnKcFqROmy8laTEejuDwx/k2MFXA==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=xrhIdGWRYDvwFuTtFot+aWJhfp2ZEWcKkmDR7R1zYSo=;
+	b=SqXJK7JX6vZFr4eIlBTcjwBWIeAXwFyurqplKnhVjIAWHf/EApW4e93IAHiApZbK3JQe
+	 vk7Q7VwlZEAaRO8rIigyg/6LPMl4RDaSyVrFAOKmga/lL0Gm6R5MHh0dOhVFruh66fyOJ
+	 kKYbXNMKWPbh+04PGBt7tdoH5X6qvLat56oQetQ0ztKGHrbUw4VgiU2yInTnh7qspCzR4
+	 Fq7mlSRZWEc5x0IT+bqdlnynFVtZZY7l0SxTykt6icrQAYphTva9jx0SjThzcsktZfzmG
+	 pA4ppQ5CNP4dFWsavnJuPPekI6HlKHGecVmt3tAilqK2lNrAd3bLfsHijqjsMfp34ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=canonical.com;
 	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=aBYDLBuS;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=f38tGRqn;
 	arc=none smtp.remote-ip=185.125.188.123
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3D3606A32E
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3D3606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DC2606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0DC2606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=aBYDLBuS
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=f38tGRqn
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id B89FF3F830
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:22 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id B59FA3F6A0
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793692822;
-	bh=ExWfLqTDEogJI0H6UanVTrI1P6KRZddzPRzGdDvI080=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version;
-	b=aBYDLBuSl8sUkggftwsYj3VHUMlHFXed2hjvN75wWBjYKzH0BoaU2AVpdqNpPilCW
-	 bog3yGHCKyLHxfKg+9N4+yw0AxJS6bVEwme1HzPvp2SseZocO3brSCp6+dJ0dQmURl
-	 O1TQ7kI5BTXt19ah+PO+TlDb24fRQ5H+OWeAKvavISjn6hOoRGy1d90fI74Hz178P0
-	 A6gkNbrcje98ykjprtwP4HjRY7mox1+Hzt1KJpTT6DTlP6PJLDtCwr4d7zMv857EIs
-	 M5WglasMi0AZZt9G5GC9d7qggxn/idErRZ5Uhzbm/rxfktVaCfSjNJtH5QlGs104PQ
-	 U5/rR1RN0hhpvp3/ijo9TWhpxMJR+MhfF5d3IK+1xLCuqsbJRQxx2CtF1k4Lls3GnK
-	 iNLMHD4awaS6LAIlIAXOd53LYXWKvTc6anDZac5uYYQX8ja8Nu9fXlQbaujTciwr1/
-	 u8MTPLA8WzQ+qesm/QclfXQpuqbmy6DIAx5mip4aRenwx87NhFVmFb5amm1KJThxhK
-	 QalB2FVKq6WUyO5JYZhcDkqC6Sga1iTZn2XFJ0MXI3zMaNFuphmdotw1FOouQldOVP
-	 7slfkC4/zhXzk9O1HnfQHmualMrRHDW+U3GMphuPYM5aMlM24+Z+JOyxpisRIabnlo
-	 EvkfrgE2vE8L869UJQUJ4hHk=
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c3c370b17so6580695eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:00:22 -0800 (PST)
+	s=20251003; t=1793692811;
+	bh=xrhIdGWRYDvwFuTtFot+aWJhfp2ZEWcKkmDR7R1zYSo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=f38tGRqnZw5smZo6CpFiEGeFFGCaGeq+c/oSi6jW7J8mkcCC0/fHGR8I9lxRr+q0X
+	 46MtsY8ol+3F3ZxtdwlKiNya9Y4hFNquNtHVeXWTqtmW+1zq9tJB7HAJAgy10lQnKg
+	 64j4Agi1DzhZpqaKlpe2vHB2vRf645UXntnGswaOn+zNOXo7JuqNfWMU+HgULBc1qQ
+	 QjyRHqZSiAGDG/VM/GkO+s61FScAfyUdsM8Ia8F4lZBTLJdoj0uCyyr0OUyKxojLXV
+	 AxqjQbqOqHYYsEpzCi8kau6DJFpJgakRb1eQM29GE2FJMXBf7Nv+eQnhn8kVEzBmEd
+	 dw8zUcxJPtLgtPazG9/QZwvJDkvsSn4DwBdeM5k6O928z4YEAvegL34tBoViQWVwR2
+	 Ko3oW8DuvgFJ6WJ/k4quJCFZYdI01MbMRU83IrAjp/i/RQ9zjY3/uAWcB9P2Uh0aDS
+	 pKezZz/WHZ9AKB+OA3e0a25bLILRBmKSiugdFJRXPtme40ZvjwDav7TNnrmGFFtY2g
+	 bDoiKIz6TROtR59rNbQGVYM1SkyghCJxyj+FDhQ77jN47xnYm1uOhtW/mXSwzzsqC/
+	 78rgyDYfkRyGPwsjLd/i3JHSqwSfBsB8MdEbGCH946ApWxTBqDaK1QORdebSpr0WK1
+	 MJYOOrGSXEPeJJEa7ed8uEm0=
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35c5aef2a74so16513497eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:00:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793692821; x=1794297621;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ExWfLqTDEogJI0H6UanVTrI1P6KRZddzPRzGdDvI080=;
-        b=DsA2+h9tBbP66dXjL2siFd2p138onzC9KU+2fY8s+0yRVU0MlgKZugrSswaO1enSs2
-         Orv8wkuMkG9DERNcEJ/iyPCLiLkPVrlG4POtrQu0GYDLoisFX4SI3JjXF3bbHmk+aibC
-         eKI1lCtNP4qjGEox5PTLf3pwwlP2wXu6kHpz3URChkRNZF21iC2hXVHXRYGylPVXC0dI
-         s0Ql1oBIpkMkC+1Db8+OYq8tdD2S+aaNMmg3BP+2kfpUd/8HGSLFIqrv8I43qlJ28d1A
-         fXeGHSlN7h+gOnCXeZQR0tziqWot6QjUaT/X19oCXsrrKsEVR2mzIAVrjexNk2r2zh/F
-         fx6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwtucJA60axPAwlw5x/YyQjcuNh9RryyyHpXRSG99dpGaAQIQtSRtJEVM8O8LhPtUd+SpJXonDbLVMqX2Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/P35kw7jvIYxC5FitHF0kfqBFNkqIaxYQfZzcprV+kRcOUBwWq
-	/6nx8gYvN0/hkWdaH6azJpj1+kU/oEmrVQ58Gj086Q7jXa8m56Tl6yclUgx1ScNVVti3Qy3fMtc
-	wfGb1FOqCwSpQSSF8XM2PLmh6vVI/maTfDdta1WPPXlorlGG8wPnvs0/LvdMadv1zzY1TOEN8sX
-	MvmTGzmg==
-X-Gm-Gg: AYBFou1w7+uwHOudJnNe+A2BUphG0r92/vrwCctErB7JEssg/nf44HDz9ILQLCh1m9f
-	ipxvD28yIO7ZuqdURVg1+q+evzC0KrpbLujuuO6BPBKZSV7d57eblud+obYsb5reGXenJo567/v
-	eEJvlHVcspiIAwOX0M5SmQjvsDBv7k0KeMQDi4ETxmF67JeY2xFw6sq89PvbjQ4F9e6xjGUAe61
-	dlR2m5b2+nLjB6jxdLKHnEcc9/nGAGR5/4g8LTmoqNODmOLixMYaCbb2EprfuhTb28sqj9QtHAb
-	Y1/M6dmFCE2wO3J2TWGD+xLPZ1D6z/0Gf6kviLiHuGvttGzx15i+4goQOCZoq6aaVRyahpul5r5
-	KCCTj1WQMSFOSTgNs+sJW6KY9Mfe0XUNXq2pXpsPVBSLrYe68QYxrOwEEPm36gqMr5dDTA7pHss
-	zOYp8kKXw8qMiKT7B35A==
-X-Received: by 2002:a05:693c:8811:10b0:35e:da0a:75b0 with SMTP id 5a478bee46e88-36a423be72amr18895964eec.25.1793692820485;
-        Tue, 03 Nov 2026 00:00:20 -0800 (PST)
-X-Received: by 2002:a05:693c:8811:10b0:35e:da0a:75b0 with SMTP id 5a478bee46e88-36a423be72amr18895911eec.25.1793692819841;
-        Tue, 03 Nov 2026 00:00:19 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793692810; x=1794297610;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xrhIdGWRYDvwFuTtFot+aWJhfp2ZEWcKkmDR7R1zYSo=;
+        b=JH7wFM5acSRHAbuDxhZaCzylIlCqIplcW9GBysXtUpfdZQlF9qabjwS3ZxAWddOxrx
+         n3In6tLavhPVmN1Xmndh1IiGPdn+bA0wtBK/mv3LDboNgRjA0jDTpkTaGGND/uSh4M8J
+         GJOmLsTgRP1yOvuZe8zHK2ncf7MGLKHktephatEshkPVNAtCdiYTPgomi750vUEXqnhi
+         YG7FOrtIuQPmioOSgVdTzfW7yExQmkAjtN56HriJtR0r2Xl9OLKG+qQjauZLtguOCr6J
+         8qH50cjADKTseYcSMkd+vPJmdLmLehLkTsLKOt2kMTZA7CnOeFxnSLhLSMuIUvf0czNE
+         6RCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzRfQL/PwBl4u6CHGwQres+EWhIC8YEfbtYg0zRVMqsO/0oQaLLoifcFk9gSK//9sRRsgiT5b0CzKmu1NY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97hJYyyzHyjqDq/WATOUSKGLDVESuYflqj/Us0aQjDtngRe5Al
+	zIGSEiC1HpbfZb4Tykhzjhk036iot3bFdqwpyPqU3AeLavkKxqSpdGDPI5xoe9zaybaqYiS4wJU
+	BDXLcepzFx+ECuPmW5GBs2AH7TbIJm5a5c504bBTeFOB62VbhvCf0Jm8VmFEEvu+3Pn7K8TwYk/
+	GaNRlENA==
+X-Gm-Gg: AYBFou25Dgxz8w+/D3j7hpd94QHQ7LOk8AOqi2ttnz0yoWulRr2S4C/dh3lF4L1IN1x
+	PryuCOf7v4mAZzeSvaHcgWLgPBu3Xc1ZziLXZIKVlQHdgAjIy5oyFZjGZNvBGkf82LmTeKspXD4
+	SRR0zMdeWersKEFTQ1iLI7AI4Sjj9KkUtp1G3/9L4o6XBDUyQePO1wRN1CN3yzll3VpexROJg4q
+	Wh9YBgn9Hrse7mBU5xLnzx7yho1Lbgx4tuCZhssq24bgyBU7Wz/0uyKAQKpM+pioNEFokOfJ15P
+	fOp2QeeoRNW/WcrND4SqmPRlV107GhWjjNTNex5CVy1jUp0ii+Kgsk8F8Id+dsdWFQIQsCweom6
+	6KK+NczI8iYrwbmhrPhfMvKSoVDfq7aN0j7i2kCme+0HZQK5YPBlLQmtJyWvUZ9iWSk5bUZfmz0
+	ijpmEUewDL5SacFlLkEw==
+X-Received: by 2002:a05:7301:3d06:b0:358:eccb:af7c with SMTP id 5a478bee46e88-36a42404840mr28102150eec.33.1793692809461;
+        Tue, 03 Nov 2026 00:00:09 -0800 (PST)
+X-Received: by 2002:a05:7301:3d06:b0:358:eccb:af7c with SMTP id 5a478bee46e88-36a42404840mr28102057eec.33.1793692808725;
+        Tue, 03 Nov 2026 00:00:08 -0800 (PST)
 Received: from Garunix (122-58-163-222-fibre.sparkbb.co.nz. [122.58.163.222])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm37885274eec.4.2026.11.03.00.00.09
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm37885274eec.4.2026.11.02.23.59.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:00:19 -0800 (PST)
+        Tue, 03 Nov 2026 00:00:08 -0800 (PST)
 From: Matthew Ruffell <matthew.ruffell@canonical.com>
 To: Waiman Long <longman@redhat.com>,
 	Frederic Weisbecker <frederic@kernel.org>,
@@ -123,12 +121,10 @@ Cc: Caron Wills <caron.wills@pulsar.com>,
 	cgroups@vger.kernel.org,
 	linux-mm@kvack.org,
 	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: [PATCH 1/6] sched/isolation: Consider nohz_full CPUs isolated in cpu_is_isolated() again
-Date: Tue,  3 Nov 2026 20:59:35 +1300
-Message-ID: <20261103075940.110308-2-matthew.ruffell@canonical.com>
+Subject: [PATCH 0/6] mm, sched, cgroup: LRU Cache never drains when isolcpus are used with spinning SCHED_FIFO tasks causing page migration stalls
+Date: Tue,  3 Nov 2026 20:59:34 +1300
+Message-ID: <20261103075940.110308-1-matthew.ruffell@canonical.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261103075940.110308-1-matthew.ruffell@canonical.com>
-References: <20261103075940.110308-1-matthew.ruffell@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,76 +136,390 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Caron Wills <caron.wills@pulsar.com>
+Dear maintainers of the scheduler, memory management, and cgroup subsystems,
 
-Commit 1c3329df409b ("sched/isolation: Remove HK_TYPE_TICK test from
-cpu_is_isolated()") reduced cpu_is_isolated() to a HK_TYPE_DOMAIN test on
-the assumption that "it doesn't make sense to use nohz_full without also
-isolating the related CPUs from the domain topology", i.e. that every
-nohz_full CPU is also domain isolated.
+A user, Caron Wills, ran into this problem in production and authored
+the patch series, which we have iterated on, tested, and verified on bare
+metal with the included reproducer together.
 
-The kernel does not enforce that assumption. "nohz_full=<list>" and
-"isolcpus=nohz,<list>" are accepted and documented on their own, and
-deployments exist that deliberately keep the nohz_full CPUs inside the
-scheduler domains, for example the AWS c8a.metal-48xl systems of
-LP: #2165410, booted with
+Caron Wills has been running into a problem where their low latency 
+workloads are causing systemd / PID 1 to be stuck in D state for extended
+periods of time, up to 10 minutes in their production environment, and I have
+seen 3-5 minutes in testing my synthetic reproducers. This prevents user 
+sessions from being created / ssh logins fail / and system services cannot be
+restarted or containers cannot be killed or launched.
 
-  isolcpus=nohz,18-95,108-178 nohz_full=18-95,108-178 rcu_nocbs=18-95,108-178
+Downstream bug:
+https://bugs.launchpad.net/ubuntu/+source/linux-aws/+bug/2165410
 
-On such a system cpu_is_isolated() is now false for every CPU and all of
-its users silently lost their isolation awareness compared to v6.8, which
-also tested HK_TYPE_TICK:
+The user's system uses isolcpus on a large system with 192 CPUs, with 2x
+AMD EPYC 9R45 CPUs across 2 NUMA nodes. 
 
-  - fs/buffer.c bh_lru_install() caches buffer_heads on the nohz_full
-    CPUs again, so has_bh_in_lru() makes __lru_add_drain_all() queue
-    drain work on them;
-  - mm/vmstat.c vmstat_shepherd() queues vmstat_update on them again;
-  - mm/memcontrol.c schedule_drain_work() queues memcg stock drains on
-    them again;
-  - block/blk-mq.c keeps them in hctx->cpumask.
+The cpus are pinned like so:
 
-Per-CPU work queued on a nohz_full CPU that runs a SCHED_FIFO busy loop
-never executes, and the flush_work() callers hang behind it. This is one
-half of the PID 1 D-state stall described in LP: #2165410.
+isolcpus=nohz,18-95,108-178 nohz_full=18-95,108-178 rcu_nocbs=18-95,108-178 
+rcu_nocb_poll skew_tick=1 nosmt=force idle=poll numa_balancing=disable 
+transparent_hugepage=never audit=0 nmi_watchdog=0 nowatchdog mce=ignore_ce 
+tsc=reliable clocksource=tsc
 
-Test HK_TYPE_KERNEL_NOISE (the housekeeping type set by nohz_full= and
-isolcpus=nohz, of which HK_TYPE_TICK is an alias) in addition to
-HK_TYPE_DOMAIN, and use the housekeeping_cpu() wrapper so that systems
-without any CPU isolation keep paying nothing but a patched-out static
-branch. On systems where the nohz_full CPUs are also domain isolated
-nothing changes.
+Each of the isolated cpus are running CPU intensive workloads, spinning at
+100% as SCHED_FIFO tasks at priority 80.
 
-Fixes: 1c3329df409b ("sched/isolation: Remove HK_TYPE_TICK test from cpu_is_isolated()")
-Link: https://bugs.launchpad.net/bugs/2165410
-Signed-off-by: Caron Wills <caron.wills@pulsar.com>
-Signed-off-by: Matthew Ruffell <matthew.ruffell@canonical.com>
----
- include/linux/sched/isolation.h | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+The issue happens when a significant amount of pages are migrated between NUMA
+nodes. For example, 50GB of pages being migrated from node 1 to node 0.
 
-diff --git a/include/linux/sched/isolation.h b/include/linux/sched/isolation.h
-index cf0fd03dd7a2..294c508b0018 100644
---- a/include/linux/sched/isolation.h
-+++ b/include/linux/sched/isolation.h
-@@ -84,9 +84,17 @@ static inline bool housekeeping_cpu(int cpu, enum hk_type type)
- 	return true;
- }
- 
-+/*
-+ * A CPU is isolated if it has been taken out of the scheduler domains
-+ * (isolcpus=domain or a cpuset isolated partition) or out of kernel noise
-+ * (nohz_full= or isolcpus=nohz). The latter does not imply the former:
-+ * the kernel accepts nohz_full CPUs that are still part of the scheduler
-+ * domains, and deferred per-CPU work must not target those CPUs either.
-+ */
- static inline bool cpu_is_isolated(int cpu)
- {
--	return !housekeeping_test_cpu(cpu, HK_TYPE_DOMAIN);
-+	return !housekeeping_cpu(cpu, HK_TYPE_DOMAIN) ||
-+	       !housekeeping_cpu(cpu, HK_TYPE_KERNEL_NOISE);
- }
- 
- #endif /* _LINUX_SCHED_ISOLATION_H */
+Systemd enters D state for 3-5+ minutes with the following stack:
+
+kernel: INFO: task systemd:1 blocked for more than 122 seconds.
+kernel:       Tainted: G           OE       7.0.0-1004-aws #4-Ubuntu
+kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+kernel: task:systemd         state:D stack:0     pid:1     tgid:1     ppid:0      task_flags:0x40     0100 flags:0x00080000
+kernel: Call Trace:
+kernel:  <TASK>
+kernel:  __schedule+0x2b2/0x630
+kernel:  schedule+0x27/0x90
+kernel:  schedule_timeout+0xcf/0x110
+kernel:  wait_for_completion+0x7c/0x140
+kernel:  __flush_workqueue+0x14e/0x430
+kernel:  ? raw_spin_rq_unlock+0x14/0x50
+kernel:  flush_migrate_mm_task_workfn+0x19/0x30
+kernel:  task_work_run+0x62/0x90
+kernel:  exit_to_user_mode_loop+0x14e/0x500
+kernel:  do_syscall_64+0x265/0x5a0
+kernel:  ? putname+0x41/0x90
+kernel:  ? do_sys_openat2+0x99/0xe0
+kernel:  ? __x64_sys_openat+0x5f/0xa0
+kernel:  ? __ct_user_enter+0x2c/0x110
+kernel:  ? do_syscall_64+0x21b/0x5a0
+kernel:  ? __ct_user_enter+0x2c/0x110
+kernel:  ? __ct_user_enter+0x2c/0x110
+kernel:  ? do_syscall_64+0x21b/0x5a0
+kernel:  ? __ct_user_enter+0x2c/0x110
+kernel:  ? irqentry_exit+0x17f/0x5a0
+kernel:  ? exc_page_fault+0x94/0x1e0
+kernel:  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+kernel:  </TASK>
+kernel: INFO: task kworker/u768:1:1765 blocked for more than 122 seconds.
+kernel:       Tainted: G           OE       7.0.0-1004-aws #4-Ubuntu
+kernel: "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+kernel: task:kworker/u768:1  state:D stack:0     pid:1765  tgid:1765  ppid:2      task_flags:0x42     08060 flags:0x00080000
+kernel: Workqueue: cpuset_migrate_mm cpuset_migrate_mm_workfn
+kernel: Call Trace:
+kernel:  <TASK>
+kernel:  __schedule+0x2b2/0x630
+kernel:  schedule+0x27/0x90
+kernel:  schedule_timeout+0xcf/0x110
+kernel:  wait_for_completion+0x7c/0x140
+kernel:  __flush_work+0x7d/0xd0
+kernel:  ? __pfx_wq_barrier_func+0x10/0x10
+kernel:  flush_work+0x10/0x20
+kernel:  __lru_add_drain_all+0x19c/0x2c0
+kernel:  lru_cache_disable+0x1f/0x30
+kernel:  do_migrate_pages+0x4e/0x2b0
+kernel:  cpuset_migrate_mm_workfn+0x26/0x50
+kernel:  process_one_work+0x1a2/0x380
+kernel:  worker_thread+0x1b8/0x360
+kernel:  ? _raw_spin_lock_irqsave+0xe/0x20
+kernel:  ? __pfx_worker_thread+0x10/0x10
+kernel:  kthread+0xf7/0x130
+kernel:  ? __pfx_kthread+0x10/0x10
+kernel:  ret_from_fork+0x195/0x2a0
+kernel:  ? __pfx_kthread+0x10/0x10
+kernel:  ? __pfx_kthread+0x10/0x10
+kernel:  ret_from_fork_asm+0x1a/0x30
+kernel:  </TASK>
+
+What happens is that the spinning SCHED_FIFO processes running on isolcpus are
+constantly dirtying the LRU cache, and when we attempt NUMA migration of the
+50GB of pages, systemd calls flush_migrate_mm_task_workfn() which creates a
+kworker that calls cpuset_migrate_mm_workfn() then do_migrate_pages() then 
+lru_cache_disable(), and then __lru_add_drain_all(). __lru_add_drain_all() then
+creates a kworker on each CPU to drain the LRU cache, and systemd and the
+initial kworker wait until this is done on all CPUs.
+
+Since the isolcpus are running SCHED_FIFO tasks, they never get preempted,
+and kworkers never get a chance to run until they get an opportunity to by
+returning from a syscall, and it takes a very long time before all 192 CPUs
+actually drain their LRU cache before the page migration can continue.
+
+This stalls page migration, systemd gets stuck in D state, and causes all sorts
+of problems.
+
+Reproducer:
+
+This was all tested on c8a.metal-48xl on AWS, but this instance type is not
+really necessary. You need a large system with 2 NUMA nodes, and many CPUs.
+c8a.metal-48xl has 2 NUMA nodes, and 192 cpus, so something similar will be okay.
+
+In this reproducer, CPUs 0-17, 96-107, 179-191 are housekeeping threads, while
+18-95 and 108-178 are isolated with isolcpus.
+
+All of this was tested with Ubuntu resolute 26.04 userspace.
+
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential
+```
+
+Setup isolcpus, nohz_full and rcu_nocb by setting the following grub command
+line in `/etc/default/grub.d/99-repro.cfg`:
+
+``` 
+cat << 'EOF' | sudo tee /etc/default/grub.d/99-repro.cfg
+GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT isolcpus=nohz,18-95,108-178 nohz_full=18-95,108-178 rcu_nocbs=18-95,108-178 rcu_nocb_poll skew_tick=1 nosmt=force idle=poll numa_balancing=disable transparent_hugepage=never audit=0 nmi_watchdog=0 nowatchdog mce=ignore_ce tsc=reliable clocksource=tsc"
+EOF
+```
+
+Run 
+
+```
+sudo update-grub
+sudo reboot
+```
+
+Once the system is up again, check the cmdline:
+
+```
+cat /proc/cmdline
+```
+
+Save the following to files:
+
+1. Churn Worker (`repro_worker.c`)
+
+This program pins a `SCHED_FIFO/80` thread to an isolated core, continuously 
+dirtying and discarding a 24 MB private buffer to generate un-drained local
+per-CPU LRU folio batches.
+
+```c
+// repro_worker.c
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sched.h>
+#include <sys/mman.h>
+
+#define REGION_SIZE (24 * 1024 * 1024) // 24 MB
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <cpu_id>\n", argv[0]);
+        return 1;
+    }
+
+    int cpu = atoi(argv[1]);
+
+    // Pin thread to target isolated CPU
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(cpu, &cpuset);
+    if (sched_setaffinity(0, sizeof(cpuset), &cpuset) != 0) {
+        perror("sched_setaffinity");
+        return 1;
+    }
+
+    // Elevate priority to SCHED_FIFO 80
+    struct sched_param param = { .sched_priority = 80 };
+    if (sched_setscheduler(0, SCHED_FIFO, &param) != 0) {
+        perror("sched_setscheduler (run as root)");
+        return 1;
+    }
+
+    // Allocate 24MB private anonymous region
+    char *ptr = mmap(NULL, REGION_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (ptr == MAP_FAILED) {
+        perror("mmap");
+        return 1;
+    }
+
+    // Churn loop: refault pages, then trigger MADV_DONTNEED
+    while (1) {
+        for (size_t i = 0; i < REGION_SIZE; i += 4096) {
+            ptr[i] = (char)i;
+        }
+        madvise(ptr, REGION_SIZE, MADV_DONTNEED);
+    }
+
+    return 0;
+}
+
+```
+
+2. Anchor Memory Allocator (`anchor_alloc.c`)
+
+This program allocates and holds 50 GB of memory bound to NUMA node 1 inside
+the target cgroup slice.
+
+```c
+// anchor_alloc.c
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/mman.h>
+
+#define GIB_50 (50ULL * 1024 * 1024 * 1024)
+#define PAGE_SIZE 4096
+
+int main() {
+    char *ptr = mmap(NULL, GIB_50, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (ptr == MAP_FAILED) {
+        perror("mmap anchor");
+        return 1;
+    }
+
+    printf("[+] Touching full 50 GB anchor memory (4KB page stride)...\n");
+    fflush(stdout);
+
+    // Touch every 4KB page so all 13,107,200 pages fault into physical RAM
+    for (size_t i = 0; i < GIB_50; i += PAGE_SIZE) {
+        ptr[i] = 1;
+    }
+
+    printf("[+] 50 GB anchor memory fully allocated on NUMA Node 1.\n");
+    fflush(stdout);
+
+    while (1) {
+        sleep(3600);
+    }
+    return 0;
+}
+
+```
+
+3. Orchestration Script (`run_repro.sh`)
+
+This script sets kernel panic thresholds, spawns worker load on isolated CPUs 
+`18-95` and `108-178` inside `repro.slice`, allocates node 1 anchor memory, and
+fires the `cpuset.mems` flip via systemd.
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 1. Compile binaries
+gcc -O2 repro_worker.c -o repro_worker
+gcc -O2 anchor_alloc.c -o anchor_alloc
+
+# 2. Configure capture sysctls
+echo "[+] Configuring panic and hung task sysctls..."
+#sysctl -w kernel.hung_task_panic=1
+sysctl -w kernel.hung_task_timeout_secs=60
+sysctl -w fs.inotify.max_user_watches=524288
+sysctl -w fs.inotify.max_user_instances=8192
+sysctl -w fs.file-max=2097152
+ulimit -n 65536
+
+
+# 3. Create target systemd slice
+SLICE="repro.slice"
+echo "[+] Resetting ${SLICE}..."
+systemctl stop ${SLICE} 2>/dev/null || true
+systemctl reset-failed ${SLICE} 2>/dev/null || true
+
+# Initially assign allowed memory nodes to both 0 and 1
+systemctl set-property ${SLICE} AllowedMemoryNodes=0,1
+
+# 4. Generate list of 149 isolated CPUs (18-95 and 108-178)
+systemd-run --slice=${SLICE} --scope --unit=repro-workers bash -c '
+CPUS=($(seq 18 95) $(seq 108 178))
+for cpu in "$${CPUS[@]}"; do
+    chrt -f 80 taskset -c "$${cpu}" ./repro_worker "$${cpu}" &
+done
+wait
+' &
+
+sleep 5
+
+# 5. Allocate 50GB anchor memory bound strictly to NUMA Node 1
+echo "[+] Spawning 50GB anchor process bound to NUMA Node 1..."
+systemd-run --slice=${SLICE} --scope --unit=repro-anchor numactl --membind=1 ./anchor_alloc &
+
+# Wait for anchor allocation to complete
+sleep 25
+
+# Verify memory node distribution
+echo "[+] Verifying memory location:"
+numastat -c anchor_alloc || true
+
+(
+    while [ "$(awk '{print $3}' /proc/1/stat)" != "D" ]; do sleep 0.01; done
+    t1=$(date +%s.%N)
+    echo -e "\n[*] PID 1 entered D state at $(date +%H:%M:%S)..."
+
+    while [ "$(awk '{print $3}' /proc/1/stat)" = "D" ]; do sleep 0.02; done
+    t2=$(date +%s.%N)
+
+    awk -v t1="$t1" -v t2="$t2" 'BEGIN {printf "\n[+] PID 1 recovered. Total duration in D state: %.3fs\n", t2 - t1}'
+) &
+MONITOR_PID=$!
+
+# 6. Trigger cpuset.mems write via systemd (forces cpuset_migrate_mm_workfn)
+echo "[!] FIRING TRIGGER: Restricting ${SLICE} AllowedMemoryNodes to Node 0..."
+systemctl set-property ${SLICE} AllowedMemoryNodes=0 2>/dev/null || true
+
+echo "[*] Trigger sent. PID 1 should block in task_work -> lru_cache_disable()."
+
+# Wait for the background timer to complete measurement
+wait "${MONITOR_PID}"
+```
+
+Instructions
+
+1. Log in as `root`.
+2. Save the files to a local directory.
+3. Make the script executable and run:
+```bash
+chmod +x run_repro.sh
+./run_repro.sh
+```
+
+The reproducer script attempts to migrate the 50GB of pages from NUMA node 1
+to node 0, which stalls on draining the LRU cache, and systemd hangs for 3-5 
+minutes.
+
+The following patches fix this problem by:
+
+1) Adding HK_TYPE_KERNEL_NOISE back to the test in cpu_is_isolated().
+2) Keeping unbound kthreads off nohz_full CPUs when fetching kthread affinity.
+3) Bypassing per-CPU LRU/mlock batching on isolated CPUs, committing folios
+   directly to the LRU lists instead.
+4) Draining per-CPU LRU batches when CPUs become isolated at runtime.
+5) Allowing cpuset.mems writes opened with O_NONBLOCK to migrate memory
+   asynchronously without blocking the writer in task_work.
+6) Dropping the redundant workqueue flush in cpuset_fork() so forking tasks
+   do not block on asynchronous memory migrations.
+
+Please have a look, and please let me know if you have any questions or need
+any more information.
+
+Thanks,
+Matthew
+
+Caron Wills (6):
+  sched/isolation: Consider nohz_full CPUs isolated in cpu_is_isolated()
+    again
+  kthread: Keep unbound kthreads off nohz_full CPUs
+  mm/folio, mm/mlock: Don't batch folios in per-CPU LRU caches on
+    isolated CPUs
+  sched/isolation: Drain per-CPU LRU batches when CPUs become isolated
+  cgroup/cpuset: Don't wait for memory migration when cpuset.mems is
+    written with O_NONBLOCK
+  cgroup/cpuset: Don't make a forking task wait for memory migration
+
+ include/linux/sched/isolation.h | 10 ++++++-
+ kernel/cgroup/cpuset.c          | 50 +++++++++++++++++++++++----------
+ kernel/kthread.c                | 30 +++++++++++++++++---
+ kernel/sched/isolation.c        |  8 ++++++
+ mm/folio.c                      | 21 +++++++++++++-
+ mm/internal.h                   | 28 ++++++++++++++++++
+ mm/mlock.c                      | 28 ++++++++++++++----
+ 7 files changed, 148 insertions(+), 27 deletions(-)
+
 -- 
 2.55.0
 
