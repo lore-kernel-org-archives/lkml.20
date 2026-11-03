@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704231;
-	b=Vouy6MIz9Qv/u2oPYnIlAWq7Mkn0BmsaCs/PnjuZMjfK6UEn3+IdQJZDiZf46HKtaY9x
-	 YspYTxP7ndnInhEBpr3CcHnS6H0vT6MAT/P0JWObMBjmpa/Cdfi+ogs33n7uytdMFpZuc
-	 KbA2fv8vAA8+9at24ycbhI1c5N7LpRqG7nwtGU4aHv6fpcxW2uQB/Fyj60NB1pYAPi3ck
-	 qu2yy2qNPeqxZznmYsS3HWpUpvp0jSAbaTUN3ZrNvM7XJNdxnJSpFysKRchbDuA56IVVW
-	 dIAsekHA/d2ES5FaOB5F69f9t3yItG1EsUO0Kv8jGOcOiD5mqm1NK/lt4YDRszvnxqw==
+	t=1793704237;
+	b=kqn58yZq7ZJeSTTaZhNARdXVLWyKhbg+R8ruNg2O14ajHnkx3Cuq2aukEJTr+iGBwUmC
+	 MIYS3OAb+Mr8h4I5N8v32DbUYGBKfNvVY/SS9Ak19BsiwWNzQNaiCCEEXCDlk0Ujc3R8l
+	 wnnUd9RkCeNHGRgZnk4RCrcmh1W2aOEaBXhoN96zILaQeM9+xTIxuWJcN3oQ7GF9nridK
+	 0HXAXU3Ry4DGg+5ONHwDg/CxpzFRv6x2HkF0FoKROBzDUDt7eY1bd6bbfrz3yYEYaiCE3
+	 76s/4BoBJG9XRE/b0krshh07m/ilTmeaVcSnfTi9xitYzDaCs0YDQ3eFq7Kf6bqoutQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704237;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wwG22fdJmBwOmg0TU45Al3Kqsr0pJf29eGZ38ZwAb+M=;
-	b=OnPGyKCpVNMpeUgBDV2rrowTDSCrvUXFI/s62mR/1Ocw6SlR0uAdZEiaUEvOyq9gDfkC
-	 G7pnsarQ3gEZtH/7IsgRTvCAzYbG94t87AGEC+O+ACVZg7LNO2i1T5LRRJWj74/dyEEHy
-	 3WzaDqqAvJEbu1saW4cnC3NJJmseKp8FVcAQjd1hVOo96NzvvdxMVNrI73lOozq54XZrn
-	 aguQrAaJ7bvJaEEidVG52uyNXKicFhCTQQu9g6hr0xVeSsGTLII+DabG9YhHUSixYY5fy
-	 hwjIq38gU63dv7s1T4f+chbOKGxowrdbnvglheb0FxLArbhF35LvoWRAnUMYZ4YN7fw==
+	bh=LhexjFgLMi9KDZ2tlynj0L4TbfElzEQbR/cNygIzCDU=;
+	b=RH5da3M9Fm5FzE0OzyVlVz43eafQPLsHouELLuehGhJdFNiVf/Tu4gImabf1RKux9n/U
+	 6QXadfJ+LT9b0EhZQZ5/1GbuZjXouwSzg9wsDNJ+7Q1BeYuVFI5YNr1TOZD1tyLneui+8
+	 XDOU4Q/7xyxo1Adlc2zRy8Wo23FYeqzI45Fir4tSkXUwDicbw44pgJwNJ1voUbHEtbMDg
+	 OUD6uRr6pzhLSAFs0vSWMn/03Mw7AwrQno+qrIdz/QaLiUrFDMK0Yn8preNdsddmnXqec
+	 wn6DsMe1tEavlRvtRjKoodziKqhjtSIKqdher8J+8JWYhSei2VmqgXZA/GRizEfDHNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyJEK7l3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwnmJNQr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1988606D823;
-	Tue,  3 Nov 2026 11:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E87A606EE85;
+	Tue,  3 Nov 2026 11:10:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyJEK7l3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2211F000C1;
-	Tue,  3 Nov 2026 11:10:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwnmJNQr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147E41F000C1;
+	Tue,  3 Nov 2026 11:10:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704230;
-	bh=wwG22fdJmBwOmg0TU45Al3Kqsr0pJf29eGZ38ZwAb+M=;
+	s=k20260515; t=1793704236;
+	bh=LhexjFgLMi9KDZ2tlynj0L4TbfElzEQbR/cNygIzCDU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RyJEK7l3bCWre+kk38VuCHDdjcz94HTRlWD/3iNu0Egasa3PUHwaMAoKuKIpVgRTJ
-	 Iw79dsNijHqIitkKAz5Zy3bTj/UnXFr2rh6Jsdbc5u3eAxRAfr49WmTA16RbckPl5z
-	 dY3or8QA2kyymOeiE54ugE5kC6NprP8spi7gyJJYhO74HgGHaJsONgBxBCZDV65wYi
-	 n6GSTQrFznedeN0hz2fzTiuZtP4fmLVy/T2i8KqFPqGteiGdyYNshb4UIzCmuqdjCZ
-	 NCBJgzsFRYcmQsnv1/xYYUOJWjHCPSQ0m1MUNfBRDrRkX2lPUESXVgxX8fnAAVwkk/
-	 tjgu4LhuUEoXA==
-Date: Tue, 3 Nov 2026 12:10:28 +0100
+	b=AwnmJNQrxme/znXukONSzsqJs9HU7t4sX41bCrep/ULdgHchxh5gJs76akf8DKCwN
+	 h9aMG+dQiVJXpZJ2yxFikPwpOI5mo5AAtkJxVUNbOkWcPgZPjIj/eq5VfiXoYsKy0T
+	 guQKC3ZESSJHC4V/pYBfw67sNmv6DXOoro6tEE+SqnnTyng4UEr5APZIxgkL0legoc
+	 SB7G+BijfLAp0Z5SN8gAIKgHm4XqFKNEVnjGQumEGElh5/CDP3YdAR+TsEb0rEvskz
+	 Kf7MiuC2aEPybCG8UUM+m/O92c+CuGoQDBnIxSWvGtO3Dv5Vr+J8plviTLDmdsOqLk
+	 0dTM2iPcnDjtw==
+Date: Tue, 3 Nov 2026 12:10:34 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, stable@vger.kernel.org, 
-	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Justin Chen <justin.chen@broadcom.com>
-Subject: Re: [PATCH] phy: broadcom: use devm_clk_get() in
- brcm_usb_phy_dvr_init()
-Message-ID: <20261103-hulking-tuscan-emu-e5ff7e@quoll>
-References: <20261103104240.1373792-1-vulab@iscas.ac.cn>
+Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH] nvmem: u-boot-env: release the MTD device reference
+Message-ID: <20261103-vigorous-antique-fulmar-f2b435@quoll>
+References: <20261103104238.1373700-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,29 +58,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104240.1373792-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104238.1373700-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:40 +0000, Wentao Liang wrote:
-> brcm_usb_phy_dvr_init() obtains the USB 2.0, USB 3.0 and suspend
-> clocks with of_clk_get_by_name() and clk_get().  Both take a reference
-> on the clock that the driver never releases: the error paths after the
-> lookups return without clk_put(), and brcm_usb_phy_remove() only
-> unregisters the sysfs group and the PM notifier.  clk_prepare_enable()
-> and clk_disable_unprepare() only change the prepare/enable counts and
-> do not drop the reference.
+On Tue, 03 Nov 2026 10:42:38 +0000, Wentao Liang wrote:
+> u_boot_env_probe() obtains the MTD device backing the environment with
+> of_get_mtd_device_by_node(), which takes a reference on the MTD device
+> and pins its owner module.  The reference is kept in priv->mtd for the
+> lifetime of the driver, but it is never dropped: there is no remove
+> callback and no devres action, so unbinding the driver or unloading the
+> module leaves the MTD device permanently referenced.  The reference is
+> also leaked when devm_nvmem_register() or u_boot_env_parse() fails
+> after the lookup.
 > 
-> Use devm_clk_get() so that the references are dropped automatically on
-> probe failure and driver detach, and drop the now unused device node
-> argument.
+> Register a devres action that calls put_mtd_device() so the reference is
+> dropped when the device goes away, including the probe failure paths.
 > 
-> Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
+> Fixes: d5542923f200 ("nvmem: add driver handling U-Boot environment variables")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/phy/broadcom/phy-brcm-usb.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
+>  drivers/nvmem/u-boot-env.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
 
 Multiple things here:
