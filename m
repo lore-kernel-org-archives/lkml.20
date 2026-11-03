@@ -1,119 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707933;
-	b=4O9xS0Jco41v49FLNvv5QrdleYvnYvv8C6l+8o+LIN6Jk/ksioUHQoY8F2dnTJ7yHHF4
-	 iudcnlQn3pOAVzeKZ/x8sVxcmeJpZTFMIM+7mMuBWYJzdb/ZWxvx8/jLhRam1tUv6Ix5A
-	 jPjXkIABgV4Hi7GfOk9hrSfaB0LpUhmwfVoSpv7l8pv8SEEBnGdz9Lt/a3v8HlIN+5wG1
-	 xcDOToysVKjhF6yq2GHxXw7jcJw78bOuOpvqvMxZntjM3g5YErkpM51jGz9qMcOnflwM3
-	 7Ar0PitNI4xfBK8uempO5IiPQ/x7YebCiYKmoW9eonQtVl/nAg1Uc+rwYrRXmIdk6ug==
+	t=1793707947;
+	b=KVBD91K0UnEHwPIT72K8qyVEBDB3jkRGH8SmHo6IZhF+3AsqO24tWsvnvMOs0In+VR1H
+	 /sKh6RMrAKXMAkVW9ggzdXsh2/NIx+xu1i2ruvs9RfB7o5UfwrRKVyUZvjsZjpJx+lLPh
+	 8kDBq492Am5TkCDgB+OgwYFNNISUCgvEKR6KF+pKj95Q3+btQE57PGFU8Tvzx1de+NrFu
+	 PIEuqy904tlWC0EI/xkXcz+dZ78gMpmbswV4zMv3I1IgVTIzoknbzgzqw7TDJNDORIdjO
+	 cGdIqGOR8kzH8/HG+xiD8esgc9KrLr2upRhbw9f+qfrL1qcyzrYiYBvsD0r/4nOzqfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707933;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=p7XwenWdW96OgNgWcGPygbhPSyvm8Dmo6vx2RBl2lPo=;
-	b=kvVKo1G/cq4Wv17TGsTcEAAJu93jc+Jk0G0ebxTo/31VVYatyhEg1x26aUO+LyvAVVO4
-	 2HVdqtvapXxleyaGss8/E56D74U2vwoVMi20FwONLRc0lSuee7JG9CRGYkcna5sZWwvZY
-	 X5k/D9evT0TEGgd/Yn28JUFaUbGKFfC6EARUrghbmbxrh7XO5vqF93Jw6wLtDDb57+XvY
-	 cQuhWT+xoNFzZA5rlE5nZZuWbORrxUXXHpKHWCpm+skgv9qqlcvbjp4YOaDHR1n45J44R
-	 xZeQ2ZTbXF43E+d9HZKuQG3Hss0Elrt+rCsYkhhSFQnbDwNkv7wzRoxsyWsOjO2SipQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707947;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=witjTFs0XRhQGHANRoqXunLSxwvVpHwobjifW8w61A8=;
+	b=v1+6kL3jqe99fsuWyFY9slvAfgyth2ZMnHUejTcySbveJ7iW3wRgvjRq5sOejMhK6olA
+	 nHhNJqZHxadIp3iFAIugCptwX8FEGVVGfWJa26VytRDrVkY0XaSUWiaGc8mzxrDL2oeFl
+	 WE9/OTv/gI+VtkCPvVmAVNLFJDmlY/0vdzjsY+GEmh93qIk2p6GTEr7dCV2a/PYMNY7Bx
+	 c8j1t/NItpUfPjEpGQOSpGrRKEK8Zr/gRnCTXBmV1Pni+B0vXHxzlnTJ43ryof/Yjnztf
+	 IHgFgg0LQBGTuSezAcnoYtEoMl+CCxTfYmzRlhxcyss64fjyHMgRe6eemuDuGltl30A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGkxPCLX;
-	arc=none smtp.remote-ip=209.85.222.45
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcutroK8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5991606A324
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5991606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D0E606A329
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 12:12:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGkxPCLX
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9950a7530d9so1234032241.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 04:12:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793707932; x=1794312732; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p7XwenWdW96OgNgWcGPygbhPSyvm8Dmo6vx2RBl2lPo=;
-        b=DGkxPCLX5GXvmx7M8dJnArR00vt8VtdGbHun9M0TeHbmz4k8r8YkOtmJx2Ok4rPPHu
-         +IyyaebAkT0PCI9hcq6wWzwfa4+Ir39EyF1hBUB/YTm2aqp/Od1kw10j98TRkpxAOopA
-         /YpE4umx9UMpsxEa3EJScBaoG7kCMx9RaFx0J50OYl0Ug5qm1Iu3MyvpXCjT70amlUX2
-         eF8iQyRRquy4+y3XIOlPL8Ompve33U3UDw4XHE5tjYNsw/J9X0bTDrlWIohLLzjCeAvk
-         g2lrhjn6EqumWcrGC/u0MrminOOvZ+mrLuaBfCngZZajxspfBocPmHuNRO1M1AD2OptY
-         aUAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793707932; x=1794312732;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p7XwenWdW96OgNgWcGPygbhPSyvm8Dmo6vx2RBl2lPo=;
-        b=edF6mvboWWVEmpSMYp3vsWJMsKjgnC0T50U+kZF4qK8C5nnLVc9/3//ylTu8SfBXQS
-         /6cHG81AELmYX3/H0NwMo/avqeAtSsUarrlYOgPQTbavMdaduxdVwVbIM6HEsI0i3Vw4
-         YxngJDlX3ec+hKW9oZhFKAjtdetSyQyxzASWMa+EPfmmE/+fZz2hxxZqAWzhwBszGn5D
-         YJ0YDIpfGZ8aGbEqu2T1G+B/vqxZgz0HeKJB1pD/BtFROIqZEF88wC9RyWxmSPGNxyt3
-         mDni/5osgYaIHbE6fvGg9ixpQhiuQqQfyiISBKqJaJuRg5oGZTm706IKROJrhgFeyTrW
-         UMIw==
-X-Forwarded-Encrypted: i=1; AKwUvBw6aYDRLqQ6KSn4ftYF6/T+zBzccnVJa6GJpZJWeoWlo+G0DaHuRztw6LTsfCdEZAgiTvPytQsyS0XrsrI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/02ZCCQSvfuzQ8JS7QFtesF+1AirWlPT8A8WjoNO+LP4LZXLwk
-	8EAZh7jRfYCU1Q+vlo7ajWek6iZ3oQGHTqVHjQlTaqHn7JGjEJOb0+o8
-X-Gm-Gg: AYBFou2eMD5WgBCX9kPkL2JrwyUdCeHwWE8AHz93KIEZFk0cgzyKcfFv48MSbPfXWRC
-	231C/Yxg1EekgYZn77J8oISR/0XgJyE1tW2WqU/rfQHig+lxywf0ZA8vX0JWee9+fQnSciCBs3M
-	NUFkJS9avwzKUfk3qtTOHBDnxqoSsSa9gByGiTKdBC+mSO5NyyqLxC+heYTWg9wkiuZ02YAsc1G
-	9KQ5Rz1p8fFen9194WIDQ8gCb/BPd99TUeb5q2bN9BsqYvTBAi5TTPvWj/qLjkaH6WHjpwKaqKs
-	9+VLhJCMeyOzGbwlVBYPplNGt2YbgB3hxWUDYEAcJwdhqxpOOr2CCC6bmvPfjpZGVVqSwTter/p
-	UviJZIzy7Nvtxmn/9bBaoFdjukFkwHfNyeOMi98P5f+XlPOyW06T/lp/lMs55MrCgaU2xCWnYxc
-	SIBzI7yxQoSOCAUKPm6OrXj+j1TAKqL9mPSgKO/r8OCnQjPasS8irZuJ6qYBMUqp0g9qv4rlbdy
-	Ju3tG3u1x7pO/9RY0hOpi1kk1C/U1+g/bP5CLOG3FVpo4t4wAq0oifse3XBWTwDX+9AzhgV39YQ
-	QnXZJU2U1tXMor4dK3fHIMSGjFNCz+iAI9yTeApWpRc4St22FMgEC+5Zix3+gHJCiRXaOs6H7Az
-	11KXI8yqlLeiWqSV1xOeaV8CYfbzp6cNr4blS
-X-Received: by 2002:a05:6102:fa0:b0:7c3:9982:67d7 with SMTP id ada2fe7eead31-7d072670942mr5461054137.16.1793707931886;
-        Tue, 03 Nov 2026 04:12:11 -0800 (PST)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d0775a716dsm12606282137.6.2026.11.03.04.12.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 04:12:11 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	netdev@vger.kernel.org,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Norman Herms <dockseed@proton.me>
-Subject: Re: [PATCH v6 6/8] clk: sunxi-ng: a733: Add mod clocks support
-Date: Tue,  3 Nov 2026 09:11:49 -0300
-Message-ID: <20261103121149.33238-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
-References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-6-ae8178fce7e8@pigmoral.tech> <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcutroK8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8391F0093A;
+	Tue,  3 Nov 2026 12:12:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793707946;
+	bh=witjTFs0XRhQGHANRoqXunLSxwvVpHwobjifW8w61A8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FcutroK8CsN0QCVtLTa+eGCpIWLSFhFI8O5WwXrMXdMuglYIk77DCjmIouseIrN7Q
+	 K5l7x6t2CVlHuWESS+qN84YzzEadqTZ8ndoJ8vheNr6zwK6A5wrvc8saoYMQChHxjG
+	 Ip4el72mYYEWrX9gGZRziAM3YJJqH70wJN3Ilxzui76w4tr4JgaU0eyuRzC2J8R+B2
+	 8Z7l3ABkbU6/7ZxrQ0p2YOvKuP82wD7kv73W+PJo+nCm5PkfcQAHQ1WGty5s4hToOg
+	 +7XbZzw8ImrTRG2R9lC5HhY7XFa1LcgOuxl7UtI9TEdXhMgj5rBuoBop/DwnOjGkmK
+	 hP0D8z2sV5olA==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B5561198003A;
+	Tue,  3 Nov 2026 07:12:22 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 03 Nov 2026 07:12:24 -0500
+X-ME-Sender: <xms:ps_pamx901-gQ9NgO9PbyRUJhPljJIF3g5vxcjkiwDH6aY5ErN6qOw>
+    <xme:ps_parAKdLQtAqhV47NADyuhbWYN1csTAbfnoxNSVveUQLlUG7BZJIt_1NFWUDoET
+    DVpNrTHMR59Cm54jlggx2A8wph2DhMax_Pq_7_WIcXZAxfbv0rFQ7b->
+X-ME-Received: <xmr:ps_panDM4dvPLM3uldS3BuM7OSHVj_RAomXjfNjgzGWyz1L_A_2x-GNedmw>
+X-ME-Proxy-Cause: dmFkZTFD6S4SqM24tZE6F+asJNAUKyWWUc97bzVAgcQA7flGOnDjhEQU22Rjt0vmbXDr2U
+    k4HE2t9Z6iwbd3CGjG5eGlmZrERGt6xH6LTZJQzacquKN0rKfrcFehuVkofpLQNKI7cE4P
+    qf9fswyJkIUyh7n03WoL6EhXVjbOwoGD2FHbXW6vVau9VkB5wT35j0NBJ3btq8xmsKlxjf
+    R7EusK8UVJRFTbBqiB6Pcd1WpnMxzI52oE7gFRO+oqfedKyvMNUkLCctbN5I4Qt2rjSTgY
+    J/mNGsB/WEc29sGhbJYkuS8EF0OiZtqsIfSTqPRWH5HXsC+CCeuX3AHIL2MeWwxk38PnTt
+    T8tfosuUuo3mfYcIKr7qyfScKI6S4Q1+mllpc35VloJ0BHFdApz8hPuUMiS1RdsSKU4DkP
+    zXSMjF/fczxYotS4FPhuvxJC5+vtGrMVYI328iDod54taA7J0ygmAuKiMUX4O+I/g4glVd
+    h9BR29e98BHEDA8Vpi7vRBb9G/pYbbyyLm6NYxgcSvMn2TlL+jklB1SY0CpDJ/QRgEKEAv
+    E+nYVIO5+k2P8wF05PnjbpwtvuaBWQhx2AtmkvNmKkD7GFQ9ocGcYvHN7CNP9TEGEio5md
+    +FpmXG1BkbT2KyNt/tQrj13aeUjLFnM3dWvqQoUgI4BbnbiMpesZCoFD8lEg
+X-ME-Proxy: <xmx:ps_pau5CK3bT9bRWkylSajSfn05LqblBzOTyRUZeb8vKRwEM6RYOkw>
+    <xmx:ps_par0SrOHQB7Cjc9hXjGz4gkpQl0wuhfC5QFQv5JOZkiSG7r-kNA>
+    <xmx:ps_paiB_TN_-DySTOk-IeN2BmE_SL5bmXbRHOgrTQ6xj7pCcAc-oLQ>
+    <xmx:ps_pajHq7tT-BD5pWB_hZXxpXWgAHHzyFsXhLkBACPYEcBPykcTxAA>
+    <xmx:ps_panQaMcjl5J0sTMVZaIsGJ2khidfQTU2yWk9RrG4DnJ9nsN9zXy4e>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Nov 2026 07:12:21 -0500 (EST)
+Date: Tue, 3 Nov 2026 12:12:20 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	willy@infradead.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] buffer: avoid extending i_size after failed writes
+Message-ID: <aunPPm1d3G6yVCLC@thinkstation>
+References: <20261103072234.55611-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,40 +86,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103072234.55611-1-dennylin0707@gmail.com>
 
-Hi Andre,
+On Tue, Nov 03, 2026 at 07:22:34AM +0000, Hungyu Lin wrote:
+> generic_write_end() updates i_size to pos + copied even when a nonempty
+> write copied no data. Since prefaulting moved to the slow write path, a
+> pwrite() past EOF from an unreadable buffer can fail with EFAULT after
+> extending the file to the write offset.
+> 
+> For example, on ext2, a one-byte pwrite() at offset 4096 into an empty
+> file fails with EFAULT but leaves a 4096-byte file.
+> 
+> Require copied data before extending i_size for a nonempty write. Keep
+> zero-length write_end() calls working, since generic_cont_expand_simple()
+> uses them for expanding truncate operations.
+> 
+> Also call pagecache_isize_extended() only when i_size changed. Otherwise,
+> blocking the size update would leave its endpoint beyond EOF and trigger
+> its warning.
+> 
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Link: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-On 11/2/26 16:32, Andre Przywara wrote:
-[...]
-> > +static const struct clk_parent_data usb01_ref_parents[] = {
-> > +	{ .hw = &sys_24M_clk.hw },
-> > +	{ .fw_name = "hosc" },
-> > +};
-> > +static SUNXI_CCU_MUX_DATA(usb01_ref_clk, "usb01-ref", usb01_ref_parents, 0x1340, 24, 3, 0);
-> > +
-> > +static SUNXI_CCU_MUX_DATA(usb2_u2_ref_clk, "usb2-u2-ref", usb01_ref_parents, 0x1348, 24, 3, 0);
->
-> Don't these two clocks miss the gate at bit 31? So it should be
-> SUNXI_CCU_MUX_DATA_WITH_GATE instead?
+Jan is okay with what I proposed here:
 
-Yes, both have the gate at bit 31 in the manual, and the vendor CCU
-models 0x1340 with it too. usb2-u2-ref resets to off, which is the one
-I hit on my board. usb01-ref resets to on, so nothing breaks today.
+https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation
 
-With the gate added, clk_disable_unused would switch usb01-ref off
-unless something claims it, and in my local DT nothing does (the
-USB0/USB1 PHYs take osc24M like the A523 ones). On my Cubie A7Z,
-clearing bit 31 of 0x1340 at runtime stops the USB1 Wi-Fi traffic, and
-after rebinding EHCI1/OHCI1 the device no longer enumerates (error -62),
-4 out of 4, while it enumerates again with the bit set. So at least USB1
-will need CLK_USB01_REF kept enabled once the gate is added, likely
-through a consumer in the USB controller or PHY, as suggested by the
-vendor DT. I only tested USB1, by writing the register, not the gated
-CCU itself.
+Do you want to give it a try instead? Or want me to submit a proper patch?
 
-Thanks also for your guidance throughout these discussions.
-
-Thanks,
-Vinicius
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
