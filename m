@@ -1,128 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793715555;
-	b=EcthPxU/y8yS3WqTRZR0IfI2wrugOQ29ed7wrUEk/QMK4kv6L4uwsvmgcyo+Rmk+3xR8
-	 5rOpEz/G9I/BJ+KiAm8WJooOCnjQjak7cfzD71ll+MM0VTLcQi18Qz7wkVkECZCcGOO+c
-	 xg7MSPh0vpdQrich/cR6mOYh4H29sSQ6DUHhEca6+Nb+Nx1Kv3JjIFKD+NDI8w6Ka8XKl
-	 LjyV39P7NBVCbCV0weuyFy74Zi8IBdUuVRTOL61Zgb9lutExoGX5WZAPaL21Dvdo4Pmby
-	 slegpTDjUkL0EUt/KW7cQVJa7eqvxhSIyX4iL8BJxQpOsd5CGIz3yLtl5euKaUggU8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715555;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Reason;
-	bh=yeaiagY+A1eG8SRzkigLRik5LHtOohy6O4fCNy7n2Ss=;
-	b=eC/wfgU3i9ntoAY3YvQNhGFwPpcY5Bu/SIvcIGXRuqUWyGb3dGBnJv7XBpxO6THYR3iF
-	 saTOdVDCwm1bRDB2NoUTEZ+K4vBMGjViBOf2zLfgaWPJ7IqZscrOtqjkZ4tGS8fClCBbm
-	 5v24eINSxwen/6Zy8xhh7sOy9V0CYlBIrbzY/kBc0OPJQ3cVm8LKYYQKP7mdNIHoUkIzU
-	 XsimANO38AyQ/DZgunHTJvxu83K3hDp1jNofAeuPRDPlMUppfzRImi06J1u51odUTyZoF
-	 QDO+ZWHnfXdD8BzK93epaR9L8DK1vqgG+wcIUpEMxjcfLO9BUCnPIL/mrYED+gHZMKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=fmz0JV3w;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=F++yyDZw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793715546;
+	b=wXdbtpuULr3TX/kv3OOwhe09m5loTTGTW8wprWdkonEofCUMjn0garejzDmfr7PpvukE
+	 DtWg1Fyh6+HsH2O5z51UHW0Knx8mEJlpe9ZwJih5avYmg843+6jSfI/0MEUaVbGARJi2t
+	 RFI/VRRAHoVLxlYaX0jbMQ9fqKVZaTodIMgy1kI23ASy3CZTpdT4JXXsj6iuEy0W9N8re
+	 2h9Lm843uJs1FRmCe5ShLF8g/EVxjByNDOkX3Z4G9BnolvSuqncDze4w01CL4Jgb2/EpC
+	 /3kMcUS1fk1M9sGoGXN0kE0/WCMZUK8T1U4W4CmcpwC8TSiPFQCHVZYb/kt4yZ0YdQw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715546;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3S0r6B204EHHeKzI68P1lldrfNMyDu9t5rxXVOUyz+4=;
+	b=0SvMiDhNFNTh2x/aNLZbAO0OlIfdCxK8GiK3kbyUWQQZPCnSwSkxU7NOldFr5+rTl+Lt
+	 gF05dy7uEer2QHGuTdhW3+ZPE6uLwweySDsUeVPlr/+fqVBBs10VNDiEhVt4FNbjZuI0E
+	 Kp3zJ8TklgLYpL1LLcmczLd1PKMkDcH7MjarsVYkR22f8AEaOLm41FxCD1TB/xP9TP85R
+	 3rQ2Yntf7pK5GdLajvBCismHz3YHwQe/Vgb3HuwcayhHacjRA/BafCknRJSZV35XBRnNl
+	 G70coYET8Y6XtYW2Co1UivL49E7nU9RFKqBh34qDtbu//L1NJ4j8T4/eyx2Wos11l0A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IbjsmXij;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LCCnl+JS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D44606D81D;
-	Tue,  3 Nov 2026 14:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D44606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB816606A32D
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 14:19:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB816606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=fmz0JV3w;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=F++yyDZw
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3E59Pi1102799;
-	Tue, 3 Nov 2026 08:19:11 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=yeaiagY+A1eG8SRzkigLRik5LHtOohy6O4fCNy7n2Ss=; b=
-	fmz0JV3whYZqckwjNB4032+e+VPOfueMDL9BvU+DNH+VrIfryvSEAoV/rLE+arOI
-	WT59t0RsYsRrqPBtwo0d2/5yv0PxCJH+QM2RrharEFPAvYzcejhFxP0HOYMjx38g
-	0fVfahq9gioxJFlwy4zbo992pU11yhBq3Pj/f/YRfk7WDx5V49vBgzYVhARIIc8T
-	peZp3zZU6V8+ZfnwzcP2SS8KtREWBd/twnt6sISJrfpq3M2I+S0hsR8iKTZnEXb4
-	OGf0h3276NNx0sJFcZ1Ewq/u3FeJ4EAqlnkVPQxHyYolQyIpRSzHZKGYwy2sXbuY
-	WKc6NxO5uly4WbK45n+cdg==
-Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11021107.outbound.protection.outlook.com [52.101.52.107])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hncrfuu64-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 08:19:11 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SAytJl6dwhiYhwXOyrfHhPYa8W8XJzH+JmZGVWnw3mq1n3Al7F8EiSLAFCx8DZ2Xd4XT5FcPTpxh4MiY5DOMuXwvz/lI0iwEymL0mspMY4TBouxiJWilsGBp5PA3SRdC6wknoKGWLc7NVo6MB6YDnj+E9vC1yifbfPMJI5R9fF6qH4etX976Bu+D01f6pRgwgpUqhS8SzJYE+QusYAkfhchBNmgKhvWbzkc4mwxO78Ddz3zvbnqKODFIFReDEIdl0doWmaGBlkqaWfcybs4XTI+stO7Ool1JfomPFoHZrJpB7KZxFbvuOsNLamlUNuEkqiFsGWV6eqTDpffvpjQjfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yeaiagY+A1eG8SRzkigLRik5LHtOohy6O4fCNy7n2Ss=;
- b=yk/aZxG/zttF8UziKy+sVWaGuPJqcm3gJE+Av7XWeUHLf3HmddUvFJNfR4SWQnmBcSq/vGE5WhDq24AOt4GCdd6/jsYhz/lHGIW1EtxUaPLPIDT2TgcMhNqL8y/838IH5qoQkqLYX4o0EixotIATS2p31rX3K8GkAPEpp1H/RdJBb/LLsoCxiBDZ4Zjk3fe6trD2ooDT5PyEM0xOnVfKNQoT/YPY7N26iGgCfY3twpgZqK8kRHzi+Nz/2mQ0k4aBdkugCfluyCFdFMktUU+rxeNtVTvWPrmE08kMFWPTpFWX5yBMM4QOgOU9OPqmkEmP1Ju5DkrV+vpNCS075iAQcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IbjsmXij;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LCCnl+JS
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EAMSf1453486
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 14:19:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=3S0r6B204EHHeKzI68P1ll
+	drfNMyDu9t5rxXVOUyz+4=; b=IbjsmXijZsAVSSS5s1JovtdiZOPSJ34rLnLdvH
+	rJGeFUyCqpXuvetCm3KjWpLAv7B7FbIjPuSWdTaVABNBz3Y8Oz5eIEL/NlUawPqr
+	H2FLjF6qpBFLwFlMfKB9t8c2xuljzdiEktYDEa7z9bF64NNJWyCWZbOmc7QZMVH4
+	sfYr8eQ1wC7dCziq1f5WSBGmwBKpL/ZsYFAERxgsvW7fFsQpAgPKlKhMqNgFZYNC
+	BANtA2iAojHZWbPZjtqgqB5UTmNYnpmZrDTrzSUAuiBDc1Wp0tcXVkh+iVW/W56g
+	5QfpfJ/KbYr17n00wmMtdJyJ3aHMBMfTljUBX5WsI88oUcvw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07em4dr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 14:19:04 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so2435501a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 06:19:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yeaiagY+A1eG8SRzkigLRik5LHtOohy6O4fCNy7n2Ss=;
- b=F++yyDZwpkjw4/bVp7gorwilu1a1WMjHgL5g5TWmSG0bpUFozzZyBD8+8FiEGoxxzWL1z3vcOvKlxzUQ5H8fznUlUz3qf681kUAyLu4q3CRzK0J2g/+/l/0rYOLP+4rFYzRw9cpt9biPcHTaO4IR0ceegwR/i2YJ//OlB/jj1LU=
-Received: from CH2PR14CA0045.namprd14.prod.outlook.com (2603:10b6:610:56::25)
- by DS2PR19MB9626.namprd19.prod.outlook.com (2603:10b6:8:2d3::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 14:19:06 +0000
-Received: from BN7PEPF000000A3.namprd04.prod.outlook.com
- (2603:10b6:610:56:cafe::3f) by CH2PR14CA0045.outlook.office365.com
- (2603:10b6:610:56::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 14:19:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN7PEPF000000A3.mail.protection.outlook.com (10.167.248.155) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5
- via Frontend Transport; Tue, 3 Nov 2026 14:19:05 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 0639E40654F;
-	Tue,  3 Nov 2026 14:19:04 +0000 (UTC)
-Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com [198.90.208.12])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id DAC02822563;
-	Tue,  3 Nov 2026 14:19:03 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: broonie@kernel.org
-Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-Subject: [PATCH v2 3/3] ASoC: cs42l43: Improve pop performance of the input power up
-Date: Tue,  3 Nov 2026 14:18:57 +0000
-Message-ID: <20261103141857.672537-4-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103141857.672537-1-ckeepax@opensource.cirrus.com>
-References: <20261103141857.672537-1-ckeepax@opensource.cirrus.com>
+        d=oss.qualcomm.com; s=google; t=1793715544; x=1794320344; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3S0r6B204EHHeKzI68P1lldrfNMyDu9t5rxXVOUyz+4=;
+        b=LCCnl+JSJQE8IKQe3S0PH4B1trnPt+2j3DidmTOHRhxfcpYzhf6lR6cs9xkIFuquVw
+         uoGlb3STLrMUekKHBm38hQX/vSwaJnaTZdiU9RptaMLcB/BGTAS2RjKLZ7OlA5oED8pO
+         3zWn7GW/S8mkzmuEmrGJ0yYMWuP5C4bTQgXk1bEyUEeGH3rUAYhHSi2JzlyLAEOC8WxH
+         HxyMtFR4VtRykwJY8jLgQxP3UfyMdiL1/Eyztv9K+gVZTza/NiPIZiNxa3xJ+iyWc4kr
+         Pu4V5lflwG9fnIc5Lm5AM0OzZ9kG1pE7egk/cCUU564HQ88RoUH6+t7ZKIekrrABDQAi
+         sI0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793715544; x=1794320344;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3S0r6B204EHHeKzI68P1lldrfNMyDu9t5rxXVOUyz+4=;
+        b=LucaKr1c+Hh3rCCAaY24Y96j5WkKk6MngwCQRaIDQC279asbB33/AdgaKP+9vfdNJj
+         zMIOzE/9Dbidj+G04LgJTX55EWP0CSMCiYIKVgfLErgWVvOyCJrxPw3gAVKvTwA1Q2Nl
+         IZoNj0OYdfEsWKPla3ALmXKPnkRNibqZTWQzEIMb03gNFT3qBGwVC9nRBGqIuju7hBH6
+         Kx/LSsLqtqw7E4oRLaeWyZ77/vP/Xo7LOvyz4b4D/gszv00ZBmS6OOcXdieCgRnauT8X
+         ky1hzFo2q0HEjtz0PDy3dlaGO3JRcggPRD1B93+MmhbDIEoAxqGsINtFrVDWIhKhCxVo
+         +/Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3+lDjQnVSc6RskQQlyXgUy7AqdGGZic8vCGvo+jiJU1SlDdKvhO1hUAZeDLLAy7lSt5N2Tt5g8VeV7S4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sE6FGTFuunksLlJkK1txs/v+u6n/4Dcjla9yP6yCZFn1gRCeR
+	h0/5RCgAATXwGYJ8Ii9DdHO8Ey2SFEy3KeYRzu/I5nMLUVDcucdWKRF+Faj6X25y5egOjrAJvke
+	gbf4rhOyU/UcZSlSHGAa3wwgOMq7ZvcSX0FknFvYuUflDmwj+S5cFvN9Lksf6t0K4/W+PGY22aV
+	s=
+X-Gm-Gg: AYBFou0bd+PrZTx7AHcNykGxPGHyNLHTcGmCatis3MsbpTSraV0DRA/hq4IppuyCqWz
+	pDzFp42bUJTiQuBOxJ8oeLqSvOYWbx6APNLuWCfaGJuLAA8I6tOYns5usu/CaR23B8kiOdc3VGs
+	/9nVASddpWuHgrdy77MF4QGjelR9d0P35o2pWiNepBQMtjXP0YZs1v5Xt2Jj5VFudQo7oUMCeGY
+	pOAtRIn9BWuovZDs3nwgfqP6c2JNbzPIFTJltlTqdH+uMzR59HJXpIiUpZrxtSvgWuReHLOfbcP
+	Bg/K+fvVGBnslyXv3KwaU4yyTuF64fwTm5xz1rIzLns5pmIFRTeGPJO8ne51wvcTAu9gS9kdabj
+	hC8N2LDAQR4bMrUQjtUP4R37mIRKGlwj5cVbbaEl8o32wZwEDNuPJlvIezhmn+SePoMu4NsY+N6
+	Fj+JaHO8Jl
+X-Received: by 2002:a17:90a:c2d0:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae8981bf57mr9838898a91.35.1793715543982;
+        Tue, 03 Nov 2026 06:19:03 -0800 (PST)
+X-Received: by 2002:a17:90a:c2d0:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae8981bf57mr9838876a91.35.1793715543484;
+        Tue, 03 Nov 2026 06:19:03 -0800 (PST)
+Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb36468be4sm1442126a12.12.2026.11.03.06.18.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:19:03 -0800 (PST)
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Subject: [PATCH net-next v4 0/2] net: wwan: qcom_bam_dmux: Add restricted
+ DMA pool support
+Date: Tue, 03 Nov 2026 19:48:40 +0530
+Message-Id: <20261103-qcom-bam-dmux-vmid-ext-v4-0-3690cc5ca0fd@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,254 +117,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A3:EE_|DS2PR19MB9626:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 8b0c5944-9dcb-4332-fdb2-08df39b56af4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|376014|36860700016|82310400026|11063799006|56012099006|261009223027099003|261028144727099003|261022105027099003|261021121427099003|261022075727099003|261021123027099003|261026140227099003|261026121527099003|261102123227099003|10067099003|22082099003|16102099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZZPk2l7XsSa9zHRmhq2cRR9gkOMv1FI3cse6R306Xd5/RoF8KvXtzzF1pPtq4bs7GOobBBwLRLVZjseAMCsmUnnv8QcEn0TEXYjvSwR8QZEWHIdWrHXX33hD7KOqThUm7uM1jXmYoUW17CvKZYlGv3BwjXG8DT7wG0YI5H3bXJ0uDVWisb3lTOOuGfT64PDwU9Dnq5ia1BpNSSeO2auMwDURt2yKvNy3yj/xFJ2qIA8rJbo/gAN7TcEWANZ6ap1zW/vpwQohHYRvQ92C71TlVvW+UFnjxrMT/2+dUXWVg10nV4bwzYGWVg9yLYsV0gLm8V/9sznLI7sL/7iLBAivzbm1rPn/zZyHbCr2t/fj0Si28Fn2s/NA/HUQKtaOS3+4pSajmmfck4I5u5GZoPOz85XgedaADxGvQnvE5SEyPWs4w5QaDkJTZJBcG5Jpy5JLYjuqyEIw/O6pdqrI/cOX7OSAbs6i8TRv1ahEK0Hq0zQPx4sIL3iWxQBgKXDuSnxd+9cTzQIiRJHK8dDz66t/9olnlZDNyqKdudiaaw35LNpbIDFCJ/SttUYRRjQDZvWvsn7mFGUXD3ZZcbvV/VuKcAORcGpZnUFTI7jEI3eI0bp6EH6Cu5LSkkCERnGUHxK1lfY8IZed9f/YFeLywgE6cM7GrR4Hv/yUqmwsnk5Hf0invgu7XmbKZxqulqmO2iNLH1cgQ+DLYw+EQcKqv7UJFA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(376014)(36860700016)(82310400026)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261022105027099003)(261021121427099003)(261022075727099003)(261021123027099003)(261026140227099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(16102099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	blL5EDxGuC/apXrAvGMXWFuuoYQ3gvMCVq2TjLeXPNk6yZchDcWVCkxvw/PhWbbcm4wUfY+K3n7eM8kjYd4a6Tmv9mn/A85+nYTVvtfGsGfKVDXO8hzvud0DcSGyhPDWetctyZnQaDvIc1wFTm5ty+Ady9d5D8IWGL2uWRSQLD624tkD9MgcpGAlg8GiswVwY8gZFI8C7XFBTYIs325CF9xZWf2ft+Zch/CmPm0RrYsuqc5SPN5Ejwn/JR5PdIITlRqGeSAP8MaATN0AxJRMonJwLZ6Z27Eiyp9AxWsqXE8aO5+Df2fcILJYmZSN0SySqxxtiqLbsBKZSwkIu97+1Qyleqil6JxWMmkTYSZKUiwgsC15dD4IOp0Xp7K8scoECUIIGjOp4q2v6vc51qkGbTytifrTJRreHHABIMdpS/sxohBLH6+fxQejsl8bY6Zw
-X-Exchange-RoutingPolicyChecked:
-	bXdCFMza8m7o7DNX3lUiHLQu188OUzIoAJ2LjJjXypJUmkkBqt422WH0bgAAc2Zssap3DO/KoFp3s0C/dV5mH634E6zncgDGtHAOK8wBg+ghgI8uF0zApKoTVdKWs4GnUzwIhac5MeQgKlqCeaf4pUekAwdPG8exelpCxxC76YgLwcjnN41GZpsld275KJofhNC2A2sCFagLDuf9yXmEcO4+7cUHszVwvSwDmTXScdbP/hdz6UYe584tXOLHNV5o2FvOpqGZGPrnoKvIki9kaeOvCYzLtTizqJIXOAiEaFd3kmVnCdlb1DRYHLEjM82Bizrsv4wMpYO5HiDrG0esow==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 14:19:05.3945
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b0c5944-9dcb-4332-fdb2-08df39b56af4
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN7PEPF000000A3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR19MB9626
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1NSBTYWx0ZWRfX3wUfXHhDBqho
- xyWT+Cq/5IwXgtzN6YVSBMzGQCJfDN/Yagg+fC4xU5QxQrEyPdiy6SnAXdG3gp1bOAb/CiK6W5l
- K1xmDpRI+y0hgyQAiwzsOGeFjMNir0TPaHpQcehCJlpvhpdLWG0AHDv1i2LtBbAdMPKoOm+22hL
- H3rq5D8x+LOyc/ZjOuePl0UjYqsGVZc2bIUcItynmDuS0eWrGdsfNV/pcKiYV1IQ6JNzjONkv2S
- ktOwNtPcFxla3ewl0vGFMHFOBZUU4GXecL33b9pfWPHopJpkbfuVNZv2nIoc1NpWdfcrfzMbjbn
- peVo5BHiA/ZSDZZjjQIlgssZSyMBIVpJl11QJVSq6K+EU/jOOIoG4JKMtU2xC3vLCjlYgKikHUx
- N3cKEqs3tBGTa5+tpMm/yrFEceE/YTEoYOvvUBeWDNRPLeUXrMJI06NTmglR2Sy+0jpBROzEioB
- GmXoUjC3xcoYZlwcRcg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1NSBTYWx0ZWRfXxA96eyCjzsXd
- 1UmBeuxT6BOta6fTWfVwy+WaCxr1yl2GuBSmdbR2JlCZZL24+4RSUOA7HHHl67xJPSAaDkyM+gM
- w9WqepYv3uWR9oKPqpfx6t5CSbcCF4U=
-X-Authority-Analysis: v=2.4 cv=LtgHWXdc c=1 sm=1 tr=0 ts=6ae9ed5f cx=c_pps
- a=xX5bFixAAzgdQQ8ihQiE1w==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=wcy3V9cfQUtsiWUJA5YA:9
-X-Proofpoint-GUID: 5dwjY9Is1K25Nhj5TVQlvKJhYw60emTt
-X-Proofpoint-ORIG-GUID: 5dwjY9Is1K25Nhj5TVQlvKJhYw60emTt
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEHt6WoC/4XNwW7CMAwG4FdBOc8odljT7rT3QBxC4kKkpaVNi
+ YpQ3x2rh+2yioulX/79+akyj5Gz+to91cgl5th3Eg4fO+WvrrswxCBZkaZKWzzA4PsEZ5cgpPs
+ MJcUAPE8QGqqbcDaoPSo5vo3cxnmFj6rjCTppqZNsrjFP/fhYPxZc9+/wgqDBtNQEZ713tvruc
+ 94Pd/cj/bSXscqF/rSG9KZGonH76R2hrY2tNzTzq6Em3NSMaJ5DwLaqUZr/aMuyvADdv3StaQE
+ AAA==
+X-Change-ID: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
+To: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Eric Dumazet <edumazet@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793715537; l=3232;
+ i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
+ bh=6Zmq60a17c0joTxpTILutxl9UiqcuO9gfe8ueBT+e0E=;
+ b=X19BQGEzJct/9OMvaulxhVdjSjIQqCoOboF9i5oQXxdSGvCZR3hw75w4JUB+/QRgxqhonFWBO
+ AkAYajxC94eA14SZXEJxZ5ABN2WRYRdfK3Sqoas7KMYmgwPtWU23vhK
+X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
+ pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1NiBTYWx0ZWRfX7bOXK3rUK63G
+ lweTj7wQowRpsAzIbB+ek5jHKUbg6HC5WAoAyBh7e7vhTbwMeUkMQJZeI80hC/DVU5MvtZ7DODV
+ O6KrupsLfQdF7Dj/L1a636/+VWClXQVmgtH0g7ii18VQEpIWhN1PEOqeD3rwA4sffI+T0jMACOE
+ 6SZQQIt5nLS7YOnzMHNEydrDW4OLMXWN4IyUeEFbE+tbyVYNtmcE6RfylQje8/YHZrPXfRoX7H3
+ 1VlnLuApfRTMjSkI3avl1x6sxpVSjn+yG81QkFdDUhJmoxVYfAd+ckwiDH+rxaQcP5/yXhKD++m
+ APArg9VGltBWq3uBVIgvzV61FqcyAAbMSd+xLCjnQgY759Y8n45vYA8IDSgtwBjpLmD718GKK+R
+ hTNjhQK3bH00S3RihZQw1GzpshgPhUxwO4enKAZQyEDeP9rx03438dA6/OlEyPxA3TCBF/DkBnq
+ Tvq/tAV+JNeWagznXhQ==
+X-Proofpoint-ORIG-GUID: 5-vE11AqguR43jOOB_aMcJKTKjF9eGLq
+X-Proofpoint-GUID: 5-vE11AqguR43jOOB_aMcJKTKjF9eGLq
+X-Authority-Analysis: v=2.4 cv=B/wsQ+tM c=1 sm=1 tr=0 ts=6ae9ed58 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=b6zUKPCi1xLaIh-VD8cA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1NiBTYWx0ZWRfX56VOMPvXcU+S
+ Qh2xGZQ1rbCXFd1opOeQcBLVu03B1NEcsDBN2dCiYy62hN7LVd7p+2z/yxEr9qC2KM76lhAIeJc
+ lfafvZGmghnlyn3Urt5gZFcM6vksN4I=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030056
 
-cs42l43's decimator is particularly susceptible to discontinuities
-during startup. To help reduce the pop noises adjust the high
-pass filter settings whilst powering up the microphones and add
-a sizable delay to let that filter settle, then restore the user
-settings.
+Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+domain with restricted access to system memory. BAM-DMUX DMA mappings
+and BAM descriptor FIFOs must therefore be constrained to a designated
+memory region that can be shared with the modem. Accesses outside that
+region can trigger an XPU violation.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Add memory-region and qcom,vmid properties to the BAM-DMUX binding, and
+a qcom,shikra-bam-dmux compatible that requires them. When qcom,vmid is
+present, the driver SCM-assigns the entire restricted DMA pool to the
+local and remote execution environments before requesting the DMA
+channels.
+
+The restricted pool then contains the BAM-DMUX mappings. When the BAM DMA
+controller references the same pool, its descriptor FIFOs are covered by
+the assignment as well.
+
+A related binding change allows the BAM DMA controller to use the same
+restricted pool for descriptor FIFO allocations:
+
+https://lore.kernel.org/all/20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com/
+("dt-bindings: dma: qcom,bam-dma: Allow memory-region property")
+
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 ---
+Changes in v4:
+- Decide the pool reclaim on the remote power vote after disabling the
+  PC IRQ (Sashiko)
+- Link to v3: https://lore.kernel.org/r/20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102@oss.qualcomm.com
 
-Changes since v1:
- - Added DAPM lock to affected control handlers
- - Corrected order on new registers in the decim_info array
+Changes in v3:
+- dt-bindings: Add qcom,shikra-bam-dmux, with qcom,bam-dmux as fallback,
+  and require memory-region and qcom,vmid for it (Krzysztof)
+- dt-bindings: Drop minItems from qcom,vmid (Krzysztof)
+- dt-bindings: Drop the example changes (Krzysztof)
+- dt-bindings: Drop the statement about the local VMID from the
+  qcom,vmid description (Sashiko)
+- Reuse remove() on late probe failure, since the PC IRQ may already
+  have powered up the RX path (Sashiko)
+- Skip the pool reclaim when the remote did not acknowledge the
+  power-down (Sashiko)
+- Fail probe if the restricted pool is not attached to the device
+  (Sashiko)
+- Link to v2: https://lore.kernel.org/r/20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com
 
- sound/soc/codecs/cs42l43.c | 69 ++++++++++++++++++++++++++++++--------
- sound/soc/codecs/cs42l43.h |  3 +-
- 2 files changed, 57 insertions(+), 15 deletions(-)
+Changes in v2:
+- Replace the Shikra-specific compatible and coherent RX allocation with
+  memory-region and qcom,vmid properties.
+- Use a restricted DMA pool for BAM-DMUX mappings and BAM descriptor FIFOs.
+- SCM-assign the complete pool before requesting the DMA channels.
+- Validate the remote VMID and restricted DMA pool configuration.
+- Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com
 
-diff --git a/sound/soc/codecs/cs42l43.c b/sound/soc/codecs/cs42l43.c
-index 8fccddf7a1b22..43758f790cb0f 100644
---- a/sound/soc/codecs/cs42l43.c
-+++ b/sound/soc/codecs/cs42l43.c
-@@ -1345,19 +1345,27 @@ static const struct snd_kcontrol_new cs42l43_controls[] = {
- 	SOC_ENUM("Decimator 3 WNF Corner Frequency", cs42l43_dec3_wnf_corner),
- 	SOC_ENUM("Decimator 4 WNF Corner Frequency", cs42l43_dec4_wnf_corner),
- 
--	SOC_SINGLE("Decimator 1 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL1,
--		   CS42L43_DECIM_HPF_EN_SHIFT, 1, 0),
--	SOC_SINGLE("Decimator 2 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL2,
--		   CS42L43_DECIM_HPF_EN_SHIFT, 1, 0),
--	SOC_SINGLE("Decimator 3 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL3,
--		   CS42L43_DECIM_HPF_EN_SHIFT, 1, 0),
--	SOC_SINGLE("Decimator 4 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL4,
--		   CS42L43_DECIM_HPF_EN_SHIFT, 1, 0),
-+	SOC_SINGLE_EXT("Decimator 1 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL1,
-+		       CS42L43_DECIM_HPF_EN_SHIFT, 1, 0,
-+		       cs42l43_dapm_get_volsw, cs42l43_dapm_put_volsw),
-+	SOC_SINGLE_EXT("Decimator 2 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL2,
-+		       CS42L43_DECIM_HPF_EN_SHIFT, 1, 0,
-+		       cs42l43_dapm_get_volsw, cs42l43_dapm_put_volsw),
-+	SOC_SINGLE_EXT("Decimator 3 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL3,
-+		       CS42L43_DECIM_HPF_EN_SHIFT, 1, 0,
-+		       cs42l43_dapm_get_volsw, cs42l43_dapm_put_volsw),
-+	SOC_SINGLE_EXT("Decimator 4 HPF Switch", CS42L43_DECIM_HPF_WNF_CTRL4,
-+		       CS42L43_DECIM_HPF_EN_SHIFT, 1, 0,
-+		       cs42l43_dapm_get_volsw, cs42l43_dapm_put_volsw),
- 
--	SOC_ENUM("Decimator 1 HPF Corner Frequency", cs42l43_dec1_hpf_corner),
--	SOC_ENUM("Decimator 2 HPF Corner Frequency", cs42l43_dec2_hpf_corner),
--	SOC_ENUM("Decimator 3 HPF Corner Frequency", cs42l43_dec3_hpf_corner),
--	SOC_ENUM("Decimator 4 HPF Corner Frequency", cs42l43_dec4_hpf_corner),
-+	SOC_ENUM_EXT("Decimator 1 HPF Corner Frequency", cs42l43_dec1_hpf_corner,
-+		     cs42l43_dapm_get_enum, cs42l43_dapm_put_enum),
-+	SOC_ENUM_EXT("Decimator 2 HPF Corner Frequency", cs42l43_dec2_hpf_corner,
-+		     cs42l43_dapm_get_enum, cs42l43_dapm_put_enum),
-+	SOC_ENUM_EXT("Decimator 3 HPF Corner Frequency", cs42l43_dec3_hpf_corner,
-+		     cs42l43_dapm_get_enum, cs42l43_dapm_put_enum),
-+	SOC_ENUM_EXT("Decimator 4 HPF Corner Frequency", cs42l43_dec4_hpf_corner,
-+		     cs42l43_dapm_get_enum, cs42l43_dapm_put_enum),
- 
- 	SOC_DOUBLE_R_EXT("Speaker Digital Switch",
- 			 CS42L43_INTP_VOLUME_CTRL1, CS42L43_INTP_VOLUME_CTRL2,
-@@ -1737,32 +1745,39 @@ static int cs42l43_hp_ev(struct snd_soc_dapm_widget *w,
- }
- 
- struct decim_info {
-+	unsigned int freg;
- 	unsigned int vreg;
- 	unsigned int vmask;
- };
- 
- static const struct decim_info cs42l43_decim_info[] = {
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL1,
- 		.vreg = CS42L43_DECIM_VOL_CTRL_CH1_CH2,
- 		.vmask = CS42L43_DECIM1_VD_RAMP_MASK | CS42L43_DECIM1_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL2,
- 		.vreg = CS42L43_DECIM_VOL_CTRL_CH1_CH2,
- 		.vmask = CS42L43_DECIM2_VD_RAMP_MASK | CS42L43_DECIM2_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL1,
- 		.vreg = CS42L43_DECIM_VOL_CTRL_CH1_CH2,
- 		.vmask = CS42L43_DECIM1_VD_RAMP_MASK | CS42L43_DECIM1_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL2,
- 		.vreg = CS42L43_DECIM_VOL_CTRL_CH1_CH2,
- 		.vmask = CS42L43_DECIM2_VD_RAMP_MASK | CS42L43_DECIM2_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL3,
- 		.vreg = CS42L43_DECIM_VOL_CTRL_CH3_CH4,
- 		.vmask = CS42L43_DECIM3_VD_RAMP_MASK | CS42L43_DECIM3_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL4,
- 		.vreg = CS42L43_DECIM_VOL_CTRL_CH3_CH4,
- 		.vmask = CS42L43_DECIM4_VD_RAMP_MASK | CS42L43_DECIM4_MUTE_MASK,
- 	}
-@@ -1770,26 +1785,32 @@ static const struct decim_info cs42l43_decim_info[] = {
- 
- static const struct decim_info cs42l43b_decim_info[] = {
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL1,
- 		.vreg = CS42L43B_DECIM_VOL_CTRL_CH1_CH2,
- 		.vmask = CS42L43_DECIM1_VD_RAMP_MASK | CS42L43_DECIM1_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL2,
- 		.vreg = CS42L43B_DECIM_VOL_CTRL_CH1_CH2,
- 		.vmask = CS42L43_DECIM2_VD_RAMP_MASK | CS42L43_DECIM2_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL3,
- 		.vreg = CS42L43B_DECIM_VOL_CTRL_CH3_CH4,
- 		.vmask = CS42L43_DECIM3_VD_RAMP_MASK | CS42L43_DECIM3_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43_DECIM_HPF_WNF_CTRL4,
- 		.vreg = CS42L43B_DECIM_VOL_CTRL_CH3_CH4,
- 		.vmask = CS42L43_DECIM4_VD_RAMP_MASK | CS42L43_DECIM4_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43B_DECIM_HPF_WNF_CTRL5,
- 		.vreg = CS42L43B_DECIM_VOL_CTRL_CH5_CH6,
- 		.vmask = CS42L43B_DECIM5_PATH1_VOL_FALL_RATE_MASK | CS42L43B_DECIM5_MUTE_MASK,
- 	},
- 	{
-+		.freg = CS42L43B_DECIM_HPF_WNF_CTRL6,
- 		.vreg = CS42L43B_DECIM_VOL_CTRL_CH5_CH6,
- 		.vmask = CS42L43B_DECIM6_PATH1_VOL_FALL_RATE_MASK | CS42L43B_DECIM6_MUTE_MASK,
- 	}
-@@ -1802,6 +1823,8 @@ static int cs42l43_mic_ev(struct snd_soc_dapm_widget *w,
- 	struct cs42l43_codec *priv = snd_soc_component_get_drvdata(component);
- 	const struct decim_info *info = &cs42l43_decim_info[w->shift];
- 	struct cs42l43 *cs42l43 = priv->core;
-+	unsigned int fmask = CS42L43_DECIM_HPF_EN_MASK | CS42L43_DECIM_HPF_CF_MASK;
-+	unsigned int fval = CS42L43_DECIM_HPF_EN_MASK | 3 << CS42L43_DECIM_HPF_CF_SHIFT;
- 	unsigned int vval = CS42L43_DECIM1_MUTE_MASK | CS42L43_DECIM2_MUTE_MASK;
- 	int ret;
- 
-@@ -1810,8 +1833,10 @@ static int cs42l43_mic_ev(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
-+		priv->decim_pre_pmu = true;
-+
- 		ret = regmap_read(cs42l43->regmap, info->vreg,
--				  &priv->decim_cache[w->shift]);
-+				  &priv->decim_cache[w->shift][0]);
- 		if (ret) {
- 			dev_err(priv->dev,
- 				"Failed to cache decimator settings: %d\n",
-@@ -1819,11 +1844,27 @@ static int cs42l43_mic_ev(struct snd_soc_dapm_widget *w,
- 			return ret;
- 		}
- 
-+		ret = regmap_read(cs42l43->regmap, info->freg,
-+				  &priv->decim_cache[w->shift][1]);
-+		if (ret) {
-+			dev_err(priv->dev,
-+				"Failed to cache decimator filter settings: %d\n", ret);
-+			return ret;
-+		}
-+
- 		regmap_update_bits(cs42l43->regmap, info->vreg,  info->vmask, vval);
-+		regmap_update_bits(cs42l43->regmap, info->freg, fmask, fval);
- 		break;
- 	case SND_SOC_DAPM_POST_PMU:
-+		if (priv->decim_pre_pmu) {
-+			msleep(150);
-+			priv->decim_pre_pmu = false;
-+		}
-+
-+		regmap_update_bits(cs42l43->regmap, info->freg, fmask,
-+				   priv->decim_cache[w->shift][1]);
- 		regmap_update_bits(cs42l43->regmap, info->vreg, info->vmask,
--				   priv->decim_cache[w->shift]);
-+				   priv->decim_cache[w->shift][0]);
- 		break;
- 	default:
- 		break;
-diff --git a/sound/soc/codecs/cs42l43.h b/sound/soc/codecs/cs42l43.h
-index fd50feb26ae99..2dc8d530a1fc0 100644
---- a/sound/soc/codecs/cs42l43.h
-+++ b/sound/soc/codecs/cs42l43.h
-@@ -61,7 +61,8 @@ struct cs42l43_codec {
- 	unsigned int refclk_freq;
- 	struct completion pll_ready;
- 
--	unsigned int decim_cache[6];
-+	bool decim_pre_pmu;
-+	unsigned int decim_cache[6][2];
- 	unsigned int adc_ena;
- 	unsigned int hp_ena;
- 
+---
+Vishnu Santhosh (2):
+      dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
+      net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+
+ .../devicetree/bindings/net/qcom,bam-dmux.yaml     |  36 ++++++-
+ drivers/net/wwan/Kconfig                           |   1 +
+ drivers/net/wwan/qcom_bam_dmux.c                   | 114 ++++++++++++++++++++-
+ 3 files changed, 148 insertions(+), 3 deletions(-)
+---
+base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
+
+Best regards,
 -- 
-2.47.3
+Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
