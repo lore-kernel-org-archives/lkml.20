@@ -1,107 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793714131;
-	b=TxHnsYh3vWcquYAt8TZpPkEmTWoLQYhEr0GK4qRM8/qNC6LSHsi5jAbe5PmSGJaP6fIs
-	 S3gJMUyLlo0dSg6W4DneFInLJVNKbT2gdKonjGoLi6sIyPGNo2btCSTwQVuOPMV3Bms3R
-	 E9tKwTz5Erza4Te4IOBGUmRJ1igZtu2VaDkTIGzoONrnzMCBk1AWeGNgZaPOLxPF+8Xsb
-	 DaTe96Y5bnckXYT1NxciRNtlr17NiAzXNCzyS+2sET1M9DTr/yXiGkgXTWks8eWe4kUMH
-	 NAXTwINK3ZmkLsiD6hS1lv7+5l9cwgf/XJXDRHuyDgObuMCc8A7C9nXevH5uGaLF3sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714131;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=15iPNMX76hPZfMDL2Kjo5BCd7jlwqSVRqvQ4YmPHZ9w=;
-	b=399S8NAPATHFoTrtrEuuUZz3DOh5Ctl/HCrbpgzlrRX2Uv8Ixfw4uTIsql5yM5Pq8TUE
-	 AqkC1N2bznNnXHIY9V9tCMkwdZ4VOl8dhwQrWHcIMyDNFr0cexqZX7uavMrnOHqhiqeHl
-	 Wk3IqKX3cuKZhYEJSorU0glR+7oS7DBkU6zk7e8TTcXydSithlzP+aHQyvQwa/jk6xHas
-	 IAoJ/YhJrdPcDCKbhFahrgUYoymOlHFEQji2oPuZ5gl+pi7yF7bTggbwCkZ+ovdLCQ/7v
-	 W2SCGmlhS9Jhh9WqRA3o7mk/kRlefd2ho/bmLAegjXjtmMH0uZOHijy6/eLuBEFEDAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PT+R5cD6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.67
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013067.outbound.protection.outlook.com [40.107.159.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793714180;
+	b=whwQmxC/dRqmbW+je/3J91D/08Si9s2E8G+yeDs4okZG4/WifIu4dtn9e8yj9+g0BYrq
+	 7RbtF/fYdEYsRq6bTNItZxoepehr++0VC4hKjMhThb4ngRJdpdODIRZKxEeQ1u5La3oIm
+	 dBpnmWdbDV3GngNzFJIqZNYdQIJGZMqegQBEv480QTNAHJSxvKhD99B6J8tC7pYwEn4Ai
+	 /vRzaTSgHJICMlwFsGfZaSkKnB2lsulH/AiSc8SqCbrjCVt5rDIosy9kRCQDCRukarUmj
+	 hHDckbJpFKRIk4X3Rxc1M6fLldJr3TxkdgTgjkSWApwdIIDIU8BGO9akQgFRIdl37Xg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714180;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1mF/Wb+MOtAslfyKD+az4LMnyLK9TBg4kE+T6uVGVAg=;
+	b=o/YU2HiBos2rwCF7GKc4I/35nNWLOH7ge56Kpbj869jJCtpZvwsXm1bvj+5/ANItClhR
+	 tH/AjbTxx5UELj6AzzAlMYRgpW5prMRtI9gYQLml9/gH/9PxPEqfiJR6YvrOtSrVrWCDP
+	 gchFDXPxmrTiY1rslizA9A6aSd36ci/OhZu+w/LbB9H0LqXHQ28+ULP/Xpmc9cQYxm5/6
+	 MHKZ5vVAqkDAMTu+KL6lC5YwgVL7YGc30VGHc2e49d1ZuTWGMfCpqdFNykCc7LqR6q5uE
+	 rVKZhA7AH/Qr8GNToGbyXYXOSipez0S0vmhbyWedWHxSHDL2fB8jRlHUWlohLd0w9lg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bUbXYKUB;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1925D606D80E;
-	Tue,  3 Nov 2026 13:55:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1925D606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBD9606A32F
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDBD9606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PT+R5cD6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SCEp57ZTDbh4szoNUMwfWR9xHCzvp0yNBhAE6ZSruibLBxEcOWARTms01JVMmkiKNJSCC1Jtp6XGB83oYIuMVmNv2adEi8qQuGCNExzGGA2O8RzmQ2Lrw2ijDDBMmcVJdiikx0J0+88GcumoQb6prNabNmQSPgjX4gijyu5pB2bGnjVbaXmYBz4me6/2XgJApziXQ3OUb+tXWaTTkDc/xQeHAE7cklYr6UNrk/JDT+WNlWzQXTTGd8ANwHNuC3dT9pMuGoyXXRp0VWlXK81sIkRgdFomuri3/3FBEgRt8MbvXwarm3sdEVeO8auJht7bGoQOFGlvzLc4iqXV0neKcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=15iPNMX76hPZfMDL2Kjo5BCd7jlwqSVRqvQ4YmPHZ9w=;
- b=lcPlCVDJ4YCiZ7sX2LiYZUk6j5aD8P29vp/A0mV48c+rVeHeVXHhDoVVEQSUJ8CM7qMy8SbRTzYPXE2vXpTmnmlHT5HU/OxO6Bzgz+odqvSJuCZSBMofAh3zHLKHdTd6HlcqfeKAUvW09c4b0B+usnTI26vOBunjs9SgSkZj944tq4babavPC7kOO25+5KJjzB+IDKkuEUD2X5ehE+cwwTOAxAAfvto1wmTPXAGoWgGTNhK9dkoRAqquYK1qeX8qLa6z2YLDi9PgCeMSHrOIbsj7CoV76eludDyRZ2lXFo5jNvcCZ6IKdUfGFfSPBQR+auo395PqTkkBDQHgY6WOeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=15iPNMX76hPZfMDL2Kjo5BCd7jlwqSVRqvQ4YmPHZ9w=;
- b=PT+R5cD6S4kPdNTC9xr+SLv8NhbGUSdmGeOU9P7En/jeLdiPAZcSot7J9XFUQvubOP9MZdSTRUv9cITYVRNSrxsPIOzxbOu+xlGF2T0NFA4qx/1kzYDfwTQEUTuTRSm7jZsBlqZjal4F0Z0KCkS0DfgR2+ph3DjUYV1jXK6rQrSqWHJNdO60t30DEpj79ZyjqQqH+93kGMeZHJQs4SrBkejlNTvnZUJVgFvPiRRbRvCZ4Rb0TAn+pJyunogEVN+HVEBx72iUnTV5AWoPi0tyfRlohSEvP/nWD6sOiqTbNnMcG3vODqCxOhzUDTEug9i5ay0bVXGoBGBBilQ7M2CVVg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DB5PR04MB12177.eurprd04.prod.outlook.com (2603:10a6:10:648::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 13:55:27 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 13:55:27 +0000
-Date: Tue, 3 Nov 2026 22:00:17 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>,
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v2 01/11] dt-bindings: gpio: vf610: fix clock
- requirements per SoC
-Message-ID: <auno8f235ZdGQsxZ@shlinux89>
-References: <20261103-gpio-vf610-fixes-v2-0-7c71fb36e184@nxp.com>
- <20261103-gpio-vf610-fixes-v2-1-7c71fb36e184@nxp.com>
- <20261103-venomous-hyena-of-fortitude-063eae@quoll>
- <auneixIA0ZtvXukt@shlinux89>
- <80091b45-377b-4736-aabb-c1f3364d7d9f@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <80091b45-377b-4736-aabb-c1f3364d7d9f@kernel.org>
-X-ClientProxiedBy: SI2PR04CA0002.apcprd04.prod.outlook.com
- (2603:1096:4:197::17) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bUbXYKUB
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso21766815e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:56:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793714178; x=1794318978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1mF/Wb+MOtAslfyKD+az4LMnyLK9TBg4kE+T6uVGVAg=;
+        b=bUbXYKUBx/NY1rY6hRhuBflURH7qvGs8KLWQ91r2bUdZqd4RKXgxRrxW5hYP3rQ7kp
+         2gYY3Qcn0Q6c+z2DD1uzMnmUjwY6vJARKmm3Mv2tIgiToA3ehmZ0MLNEF1AE7mm33K+c
+         Xfof6GjCA3oDqRxcottyWxjyWgsZXNmQETfOT+S5CJY0W/ehxCf5gufn/FpxPZR4KkAj
+         KOtZsEl49uR3Jx6JJQqpGokCX+4baMJu6GUQ9OYBLOiXjyWpxbbxazqW6We7a7GQpKVe
+         MhiOHKnIyX8e8m1bDsI1j0q7XeAYc7ac5ISWuvPk0H31Q7CpLcHzxA/KWelIjRP/fbC9
+         sN5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793714178; x=1794318978;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1mF/Wb+MOtAslfyKD+az4LMnyLK9TBg4kE+T6uVGVAg=;
+        b=Slsi7QPm/sCidCsH5t8N8q9Ficm2U8aqSJUutYsOKfm4sbiufdTTSa/kGXk23tl82R
+         nP2lHeFRQj1q8i765s0uffsr33Y9QT/V1HNvqQZcG0DzFq6k0yP67M/mZzKmd1U+1PDG
+         XXf1CoJaQyeArjq+zelaCl7xoMf3INkDn4vxP0f12wiKsmr9X5wG2vBNrHBwZWgVaJdT
+         NAFhBrlIRoQAJ8F0Sm5reY5ocWmq+MZ/5298MkHCmyP19iATN/Vb55MtDJzpBDAR3mjC
+         yCJqmXQ1xTa1+48POlNutHqaY/1PSMdF99XW5HIzX+iLlu1np7rEBgJb0ojQOZnlJA9e
+         PmRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwosHGjrM2LujuxsFxVtzplcqSVnFwcnY+O7tDf6loxYKYA5zDME5Td2OSwb4ry08BdWpSw6LQcBkcUqic=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XaMco5UmTsx9R8AM6INhC9cUi2hXLud0MLZtelyH/r3dHHPay
+	ZFwCezq7UyHQNZgSgRm6x75A87WB1XtPtm06SH+raIyzgelUwxTJPLvAT6cZfvNKcoA=
+X-Gm-Gg: AYBFou1FdhFXfbkij4eBTzU73MnWdHj8jHWz2nKeSbghl+RsdbSPRtKDF0QTeAqK05C
+	Py7YSlNtTD8JlfSiAtUmvqsFaOizY3xtL7SCAnsuH83wpIfm5X1BLh7/ll6wlcnUs4pdOYq/jwV
+	2ycrHoWfLbMuvPwFXrxMAA+9HDZf6Qj69At1xU1C+xn7prlXt2Z5AVdKVsOhIqbZ3BdMwQqtLpW
+	MY+XXlyn8VSDWDqLdfR04j3LEd1g+Lrp1ugSirWt6oQhq5W1mg1Rb3ingia3Xe5yfpsDTNNIxEx
+	7HG/HMwLG/FjzE0Kx/Hxh0hhzF56LTk5dXksrqfQq0qyq7WfvsQKXh2cMHKyQrYDIVz222EbWI7
+	t1m4kC6qd/dDBQplVu1sxDPZe9dXhilKGgDGrCdHqWNrFdO4h4/D5IsnXip6/uhYb9zJ7vLXgu3
+	v/20n7lo2/F1s3Jt02PFiirSOwhgqLHlhEr3vCoaOKg5ccxlT607Fxk/CW934xPi4u8u6aTc5Nc
+	h1bzHUQf88TFNv2flmwtKwdn3jK5Gbas1FZizr6AK0Or83upvzPI6xFBxKg3UNyH/LZDx9336/X
+	0kKfI6rxuVZ8mb/aUSpBDqo4Oh3PRvszKQ/uuZzYttQ=
+X-Received: by 2002:a05:600c:1c06:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ac12194311mr366054135e9.0.1793714178228;
+        Tue, 03 Nov 2026 05:56:18 -0800 (PST)
+Received: from localhost.localdomain ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1a16sm39629747c88.1.2026.11.03.05.56.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:56:16 -0800 (PST)
+From: Heming Zhao <heming.zhao@suse.com>
+To: joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	hch@lst.de
+Cc: Heming Zhao <heming.zhao@suse.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RESEND RFC PATCH v4 0/4] migrates ocfs2 DIO from buffer_head to iomap
+Date: Tue,  3 Nov 2026 21:55:59 +0800
+Message-ID: <20261103135605.22943-1-heming.zhao@suse.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,99 +98,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB5PR04MB12177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fa49bda-1bd5-4691-b5da-08df39b21d7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|366016|1800799024|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261028144727099003|10067099003|5023799004|11063799006|261102123227099003|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	uuoRGHhgbAz34EKdCyzvm6WR+uMeC1CsNwuzp0echRVxwZEZ2wqoywTm3r2ONJuD+ckvVSCH2BP2RHsvItdxbcZZRz3c20kGZ+PzK1uE32GAYqnKy2quDd++qOLubCed4ofkRRxF2asNVAbZxYckvwNAeUyW9Tt3VA0CR1JMitWL7rA4E0OAdQqVsVkBdsL44AGt5xIDW1+nH2APmxWmri7LRoX7+5cHKFCYYuwd3goJQAdEukddTWst4WRlGkHAqD+A4X58KXhs82BnfR6FR/Dw4/ptTLWSgiECTvf/9185ogHbwpXDLDOEYWOS8H32v2jKN5uj6zb5Rseejz4QXV6v2GAcDJhiFAtyNAWXuoJRK2ppZq+nCMu9oVZHRdB9M+Wtg/IoWqIVL9alHxA33cOUBeR9+a3FyIDHNbcUOlaugYl54Ccpf0yLWrVPdSiKfRvfQo5Xas5BBAWCnCa5joaAzqMi0Kmxv5GpduP8qXyo/g6wd3uFk9yenEYqbVYuxyaXU1FZHlprkKedQRe/oRR671bmGLsC0YTeohgSfWFojtJKDkQUPmwToG+8ToI/rO0w9jsYo2vF25NXPmYQcAgkNEpcT7s4PM6FKRh81aeyv2K1xkid3hWXb9TfwOeOSi6HKTTUJCpCPpARYcdqLu2YSpFeI+ee7N+Mj815X7M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261028144727099003)(10067099003)(5023799004)(11063799006)(261102123227099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?x2EEqPgC1iAZXRfE6bOjEl+w6cHgS6+6uES8xp4EoM+1uf8g8dRItIjOC6ji?=
- =?us-ascii?Q?/9DB9pncr6XSMEPRMmf7rOuOIVx/JdSsDtx4YI8n80cjr7JO9S6V+1gE2RRW?=
- =?us-ascii?Q?gaOsYUQmcr3iKJIjQftEOUCRngVLvXVuzqGrUUwWiA3Zij0UyawsQdCjVMeJ?=
- =?us-ascii?Q?TqX1U0h6uD2eOPoog9uCGuKzIY/6a2x/hauUaxgxFMjHR1fUozn9Jwdc9Z1p?=
- =?us-ascii?Q?rUZ9uJjHN+QEDibGikYjhnBQppG+f63VrV6PqZGQhxFTZG9R5pEUzG4YvnYY?=
- =?us-ascii?Q?DeR7z02g1N7hKewAcpSzL5Csh8cqxRrrKtoaaM2KLGovY+2aFDV+hGKHGqdi?=
- =?us-ascii?Q?ogyFcTPhJTi70Iz/azFanI5D+7O8LcZi6b2cS4eRjXu5MQSHRoGAf4k5rJA8?=
- =?us-ascii?Q?Y364U8nX7JMlI1zLwikq2O8ZX913D+FLbcydWn8XlCGRG10lqm5byCDNyVNY?=
- =?us-ascii?Q?wjteT4vO658EIXqrwsJVnOA//uIpR7VvBwCZIc+EFTJ5sYo+Y7myFwYl42ki?=
- =?us-ascii?Q?nOC3d/ZruKAanzUEoYXOpGWHjEDHTZYAwXDA9KOqjbfq0dM98sXSuorvxAgu?=
- =?us-ascii?Q?S7vvNF4oRp9XxpuMYHKc8oUnxlgOUr41XSNEVsmxxqyKxhPfNxIkX/giDZYW?=
- =?us-ascii?Q?/a2SXPnknqnm/1qZ3roBUcnsKbKL/qoBKYnzrCNprlEF22tbKWZO55hFaQ2K?=
- =?us-ascii?Q?JAaetVnHSXxqDjAZ2YjA70OqK8NaAD/L/ifO2Npaz2HFSAY4MW2Ch58/sUeO?=
- =?us-ascii?Q?jedJHz8KVMvpj4kmp82oNXn0PbuogoABTyEyBUvvfwGFYP715xNXJbnI5PAn?=
- =?us-ascii?Q?i4biLe404s8qMDVrlP+LfshMqejwIO7Y1X+HiCcXl+jlRXObpc8Wi0FeRECX?=
- =?us-ascii?Q?QJGrFnk66FIeE+gPU4NBRx4T7aoG1M3NCg2UyxQ5MOH2eM84nsPpPejqCc/O?=
- =?us-ascii?Q?G8o84mXvz8eQYIcTkqW+yNI+cafRfESzIRzS7aq+9WOnsd5YuMovWTFBO9OW?=
- =?us-ascii?Q?4n3nuSNmYNrtvaTIaTWu/o9aTuHKttI66Tgtf4Y1AIe1JQj/jRr/RUSuF9MS?=
- =?us-ascii?Q?/IpUN05xCaAt6xAyKrJCaifHJY+HN7q6H36jdaEl2InOHG7H8qspSW/Rz5Hb?=
- =?us-ascii?Q?aC/O+Q2fUnHlF9uyipeQ9hwir7+sFi27cYHGPi06b3tcXMNvOh1mvSUNKDzO?=
- =?us-ascii?Q?dUNnZb4afr50Ng/YekrUfZ7qYqeG4uUhB2sOu78X2s/e7vb96laKFF8UbyTd?=
- =?us-ascii?Q?9XareVPMVydas13fJFNW/QugwjD/UTwZuARhXEMDUk63LbdvKcuD95txX8RG?=
- =?us-ascii?Q?7DXvgu/uTBdpS33SS4NnDkRG5NGvl2mlbBQtnm3Yy6wqzeDr1jEbuRkouGzF?=
- =?us-ascii?Q?GbjscTqLZStEiNJKzR7Giz8kd0d/XLCf9ek+oTorV36hqjTQFkSMl64b+bD/?=
- =?us-ascii?Q?3J2/7+KjAkgz2nXhFUrHQfEtDJfO/cc40A+xjUSe16J6oz84345ca4aXFxw0?=
- =?us-ascii?Q?Bw6McNG5nucyd03F2LWw6BGnL1nH3iIjW8+ZP1ZjYZ075yICw0kpf4TyWFfV?=
- =?us-ascii?Q?myFOzZVy+uC9NWi/mMGDYuTub2hwgBBTE17WAZBCZufarFkyhakIa1sFxzeg?=
- =?us-ascii?Q?PE4W/rwnN3xETAcTdmL6hWlGVI3S2k4BQ1ZC3NBTL32TJ6BlfeHdxpr76nQc?=
- =?us-ascii?Q?2EXn7LG06ADx9MifFzmnsdzLZssg3biH26wT39s3bw8AVMSVqJy8xIZiywgf?=
- =?us-ascii?Q?lwQG18Cr0/G9np4jryjgC7gpCy3PuQOqjla/smBCxp/VveOuqnsT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fa49bda-1bd5-4691-b5da-08df39b21d7c
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 13:55:27.5397
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nKMVyiKF33s/C6R8ldJZu8N1bc1aal/CXoCRA7ZnkuTVS8yPG+7PehbTjY/fNdR0GiYEcsohsiXf0u8KHQfLAiNYKZa7H5+g0bg3emJpUhdE68PmYSVgAjxrwJvwqSsv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR04MB12177
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 02:14:07PM +0100, Krzysztof Kozlowski wrote:
->On 03/11/2026 14:15, Peng Fan wrote:
->> On Tue, Nov 03, 2026 at 12:46:12PM +0100, Krzysztof Kozlowski wrote:
->>> On Tue, Nov 03, 2026 at 07:44:05AM +0800, Peng Fan (OSS) wrote:
->>>> From: Peng Fan <peng.fan@nxp.com>
->>>>
->>>> The i.MX7ULP GPIO controller needs both the GPIO and PORT clocks,
->>>> while the i.MX8ULP and its derivatives (i.MX93/94/95/952) only have
->>>> a single "gpio" clock. The VF610 controller has no gateable clocks,
->>>> so keep clocks optional there.
->>>
->>> Same second comment.
->> 
->> Please suggest what I should use to replace vf610 in the subject.
->> I not find a better idea expect picking "vf610" from the filename.
->
->Subject has nothing to do here. Read again my comment. You say vf610 has
->no clocks, but I do not see corresponding update.
+Previously, I sent a v4 patch set based on commit 4056b3c9d3c9 (v7.3),
+which caused sashiko to fail to apply the patches. Therefore, I am
+resending the patch set based on commit 6628e7d4c6b2 (v7.4-rc1).
 
-Thanks for quick reply. I see.
+---
+This patch set migrates ocfs2 Direct I/O (DIO) from buffer_head mode
+to iomap mode. And the code base is commit 6628e7d4c6b2, and also
+merge Joseph's code and ideas from [1]:
 
-In v3, I will include below in the dt-binding patch. please let me know if
-it is wrong.
+v4 changelog:
 
- - if:
-     properties:
-       compatible:
-         const: fsl,vf610-gpio
-   then:
-     properties:
-       clocks: false
-       clock-names: false
+Fix several issues found during a sashiko review[2].
 
-Thanks
-Peng
+To simplify iomap development, we currently adopt the simplest approach:
+retaining the buffer_head style, where only one cluster is allocated
+per iomap_begin() call.
 
->
->Best regards,
->Krzysztof
->
->
+When creating a filesystem using "mkfs -b 2K -C 8K" (where the cluster
+size is greater than the page size), several xfstests cases crashed.
+The root cause was an incorrect return value from iomap end_io.
+
+Both the add and del of the orphan inode during write I/O are now placed
+in ocfs2_file_write_iter().
+
+Additionally, I attempted to implement .submit_io/.end_io in "struct
+iomap_dio_ops" to free dwc inside end_io. However, because ->bi_end_io
+runs in an interrupt context and ocfs2_iomap_dio_end_io_write() contains
+sleepable functions, this approach required scheduling a workqueue directly
+from the ->bi_end_io callback and calling ocfs2_iomap_dio_end_io_write()
+within the workqueue thread context. Furthermore, since iomap_dio_ops.end_io
+still cannot access any private data, it cannot accurately wait for the
+work to finish. Testing with xfstests triggered hangs and crashes.
+
+
+[1]:
+https://gitee.com/anolis/storage-cloud-kernel/commit/ea3fe75e2060118ba093e90b1cd34fa382914b29
+
+[2]:
+https://sashiko.dev/#/patchset/20261018143319.22329-1-heming.zhao%40suse.com
+
+v1 patch set:
+https://lore.kernel.org/ocfs2-devel/20260724052559.15409-1-heming.zhao@suse.com/
+v2 patch set:
+https://lore.kernel.org/ocfs2-devel/20260727061802.18485-1-heming.zhao@suse.com/
+v3 patch set:
+https://lore.kernel.org/ocfs2-devel/20261018143319.22329-1-heming.zhao@suse.com/
+
+--------------
+# test report
+
+This patch set has been tested on 7.3.0-rc7 kernel with the following test
+cases.
+
+## ltp
+
+runltp -f dio -d /mnt/ocfs2/
+
+1 fail: diotest4    9  TCONF  :  diotest4.c:346: Direct I/O on /dev/null is not supported
+
+This fail can be ignored.
+
+The test results: passed
+
+## xfstests
+
+./check -g quick -T -b -s ocfs2 -e generic/081 \
+-e generic/266 -e generic/272 -e generic/281 \
+-e generic/338 -e generic/347 -e generic/361 \
+-e generic/628 -e generic/629 -e generic/648 -e generic/650 
+
+The test results are the same before and after the patch set.
+
+```
+OCFS2_MKFS_LOCAL_OPT="-b 2K -C 4K --fs-features=local --fs-feature-level=max-features"
+Failures: generic/003 generic/091 generic/094 generic/177 generic/211
+generic/225 generic/263 generic/322 generic/329 generic/331 generic/370
+generic/376 generic/424 generic/448 generic/467 generic/477 generic/481
+generic/510 generic/513 generic/537 generic/552 generic/563 generic/578
+generic/607 generic/620 generic/630 generic/755 generic/760 generic/777
+generic/784
+Failed 30 of 632 tests
+
+OCFS2_MKFS_LOCAL_OPT="-b 4K -C 4K --fs-features=local --fs-feature-level=max-features"
+Failures: generic/003 generic/177 generic/211 generic/322 generic/329
+generic/331 generic/370 generic/376 generic/420 generic/424 generic/448
+generic/467 generic/477 generic/481 generic/510 generic/513 generic/537
+generic/552 generic/563 generic/578 generic/607 generic/620 generic/630
+generic/755 generic/777 generic/784
+Failed 26 of 632 tests
+
+OCFS2_MKFS_LOCAL_OPT="-b 2K -C 8K --fs-features=local --fs-feature-level=max-features"
+Failures: generic/003 generic/075 generic/091 generic/094 generic/112
+generic/177 generic/211 generic/225 generic/263 generic/322 generic/329
+generic/331 generic/370 generic/376 generic/424 generic/448 generic/467
+generic/477 generic/481 generic/510 generic/513 generic/537 generic/552
+generic/563 generic/564 generic/578 generic/607 generic/620 generic/630
+generic/755 generic/759 generic/760 generic/777 generic/784 ocfs2/001
+Failed 35 of 632 tests
+
+OCFS2_MKFS_CLUSTER_OPT="-b 2K -C 4K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
+Failures: generic/001 generic/003 generic/091 generic/094 generic/211
+generic/225 generic/263 generic/322 generic/329 generic/331 generic/370
+generic/376 generic/424 generic/448 generic/467 generic/477 generic/510
+generic/513 generic/537 generic/552 generic/563 generic/578 generic/607
+generic/620 generic/630 generic/755 generic/760 generic/777 generic/784
+Failed 29 of 632 tests
+
+OCFS2_MKFS_CLUSTER_OPT="-b 4K -C 4K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
+Failures: generic/003 generic/211 generic/322 generic/329 generic/331
+generic/370 generic/376 generic/420 generic/424 generic/448 generic/467
+generic/477 generic/510 generic/513 generic/537 generic/552 generic/563
+generic/578 generic/607 generic/620 generic/630 generic/755 generic/777
+generic/784
+Failed 24 of 632 tests
+
+OCFS2_MKFS_CLUSTER_OPT="-b 2K -C 8K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
+Failures: generic/003 generic/075 generic/091 generic/094 generic/112
+generic/211 generic/225 generic/263 generic/322 generic/329 generic/331
+generic/370 generic/376 generic/424 generic/448 generic/467 generic/477
+generic/510 generic/513 generic/537 generic/547 generic/552 generic/563
+generic/564 generic/578 generic/607 generic/620 generic/630 generic/755
+generic/759 generic/760 generic/777 generic/784
+Failed 33 of 632 tests
+```
+
+## fio on single node
+
+fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch write: IOPS=31.5k, BW=3935MiB/s (4126MB/s)(4096MiB/1041msec)
+- before path overwrite (don't remove write.1g, run above fio command):
+      write: IOPS=39.5k, BW=4935MiB/s (5175MB/s)(4096MiB/830msec)
+- applied patch write: IOPS=37.4k, BW=4676MiB/s (4903MB/s)(4096MiB/876msec)
+- applied patch overwrite (don't remove write.1g, run above fio command):
+      write: IOPS=39.4k, BW=4929MiB/s (5168MB/s)(4096MiB/831msec)
+
+fio --direct=1 --iodepth=32 --rw=read --ioengine=libaio --bs=128k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch : IOPS=47.7k, BW=5962MiB/s (6252MB/s)(4096MiB/687msec)
+- applied patch: IOPS=48.2k, BW=6024MiB/s (6316MB/s)(4096MiB/680msec)
+
+fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch
+  - creating write      : IOPS=3282, BW=12.8MiB/s (13.4MB/s)(1283MiB/100026msec)
+  - overwriting write.1g: IOPS=41.8k, BW=163MiB/s (171MB/s)(4096MiB/25115msec)
+- applied patch
+  - creating write      : IOPS=3230, BW=12.6MiB/s (13.2MB/s)(1262MiB/100031msec)
+  - overwriting write.1g: IOPS=40.5k, BW=158MiB/s (166MB/s)(4096MiB/25908msec)
+
+fio --direct=1 --iodepth=32 --rw=randread --ioengine=libaio --bs=4k --size=1g \
+--numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
+- before patch  read: IOPS=361k, BW=1409MiB/s (1477MB/s)(4096MiB/2907msec)
+- applied patch read: IOPS=362k, BW=1416MiB/s (1485MB/s)(4096MiB/2893msec)
+
+---------------------
+
+Heming Zhao (4):
+  ocfs2: Add new ocfs2_map_blocks() to introduce iomap feature
+  ocfs2: switch DIO read path from buffer_head to iomap
+  ocfs2: switch dio write path from buffer_head to iomap
+  ocfs2: remove legacy blockdev direct-IO path APIs
+
+ fs/ocfs2/Kconfig          |   2 +-
+ fs/ocfs2/aops.c           | 568 +++++++++++++++++++++++++-------------
+ fs/ocfs2/aops.h           |  38 +--
+ fs/ocfs2/buffer_head_io.c |  12 -
+ fs/ocfs2/file.c           | 213 ++++++++++++--
+ fs/ocfs2/ocfs2.h          |  46 ++-
+ fs/ocfs2/ocfs2_fs.h       |   3 +
+ 7 files changed, 616 insertions(+), 266 deletions(-)
+
+-- 
+2.55.0
+
