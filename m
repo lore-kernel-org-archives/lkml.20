@@ -1,100 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793689587;
-	b=wZMkVHOam8VFCCG+2ZfG3JkXQ9zGHK5opgxJpFkpmQiqGMiqAe6JkEcbgdvJH0MyZLbq
-	 vjw/Ak0XGdq5PqeLtXAG5QEwDU6Yvux9QJgf4kIzTC8WzHG+fu/y00Hq6hubY7J7jyrKc
-	 ue17UqbBqyikHaT9kti26A/fiDfyP+wtuG3lTI7bTYai8scu9v8gVw/v/e8/v7BYbMeOy
-	 1KTpH90aDRJ5s6RNjnC3Dy7ZPGvwJ53WnkgWtlMYyEinIcmUW2dp7Tn42DOqbRpE2WMj8
-	 vTs+EsVSkHsaAcRm6K2AU89uAXsPZVb9lDvqCWgd2tXr42e1xp67lqtCpjs/zC6EQPw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689587;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OldbtTu8SRDvvfag5jP+7J6kAcMehcX+OnBY5+x8nzg=;
-	b=MTY1+FoJ4yDZIPhDDlhugZXnPmKyXl0ndAiZJdj5HGuCBAhTHzoYF+dcB1yxSaYgVZYw
-	 cERS5kkV1v54V7pKk5d+YKUBPNCYHaC2YvjiSdGm/4z2/cHMm/lpw+TPIAkLbyXA2ZPiq
-	 fXO50gB1ph1R8UaXNjwHCPvPJn6m9vIMYyTu7QZGB2LrzDPqD5W2b0IDNA/hw/GkGoM2K
-	 0OWoakt51BxqOfmfvyYXej5Q+nBeCTHj3VJFJTuSUGNY4V/Lx8RJ3A79hkIGuoou5CPcS
-	 Hf1JilFxchH83/TSZCmrbbM0y9AMGL2M24Ui9OPaIW4px+EYOPBa1QtzvC8/WoTeU2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ionos.com;
-	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=FdIjHudX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793689586;
+	b=mLO6axtl64WUIult9Z6iVOS0F0NtMCsShsffs1tzPyNOPiAs4kxmkGtGyM1o6/p7mlk3
+	 DVeu6Xz3c5cBut1d4vO4iCLdIWI7zTMrTTBVSQhXCylEpXL9fyOwY3sxAOzw5A8PFhuQY
+	 QD/FdIiJnsoBASp7K3TEdujILaugbSg+fj4a1L8fDHV5ari0ECpQEWhwozs6PzUcTjgow
+	 lKaxYfkq+oCVKHhe/G6t/xb3DU2vbbEjccYhx/nhUmINMqYuF5KEvy7/hW8oGFvgEa590
+	 Z6MmDdpJnZCIhtt1UWXw6moJsSJogI6j2zCX4MTb65dMDHGF72pntQPSMGHgv8oPMeQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689586;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=lzx1z1WsCZ9bJXMmnAsRLv8NJqpQ4NgCzrf2v7mt/sg=;
+	b=GhPQ2Ty9NTbcf8v49awaKJA52RfpYO7JnZ85/RnrrqDBlF2/UKU9ZhV905gVf5EDvN01
+	 OYE8ndIppG9d1DDIDqdf37U5pN4ilo4ZUPT3TUUyYo8WJRnz44I6A4v6YNEi3UjsQqtnw
+	 +SJ+mccYFfu1CfpKyrNPM/Fe4AxLkLaGR3zPUZWnPlf7uNhV8k1XD4u2MAGVsnefW6m7e
+	 fzvL0bZodrzC0dD2DWJQ972EYO6Ec3PzuQm2ySgpjOsH0HEhQ3byWCZZkjuzyGNzq/jhf
+	 ytseYscBq6oU/jjTV2tEKFUyx7fKWt5Fram0O5QNYEHs33pQ6P5+knvEsxhIQ1gbHKg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AED606A330
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 07:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2AED606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=FdIjHudX
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b4b7dee316so3670373a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 23:06:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793689585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fSbcTkT0F8MW86wFR2Ma79OdMqMLLKhAiTnD5AXjLKWEjJwcskGbVEs0B7bRaHuc9Z
-         me/0hedhmieU+7vfNAV1z9uywYv+TIA2oomZsq0/1ml6/O14PrxooF14XTklcJbhJbD5
-         l8OCs7PHeUtv+lqDFvzJu2m3JZeNjzXg3wZOYi7Q3g1GAoutyrXo5R+uFNrCxNUjSxLY
-         /uMypTN4VQ3BO7F/wSkBQUiAOUweHsDP/mY63cXz5vi3CTKbV5FVfaMHODvHGqvv3089
-         ePouLz8ONsCk58j9m+cGOZ7DRiOtGnqAKonAP0qJFGhkyzhRe6doMwYCKHreqP0hjvxj
-         4+Qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OldbtTu8SRDvvfag5jP+7J6kAcMehcX+OnBY5+x8nzg=;
-        fh=PDo2OMF+mLNINl/qFGEsT/OQNzeig9zs0VT9Hdg/TF8=;
-        b=qpxW/L75D+n7OXJvqE2AmKK71ej8WYxW7oGo2bdw6nyyEE0ZkPw5cJbIKuHo6XxKA+
-         RUiGaiSHvvC7El8h84YEKxl/NUM8pds1EWROj6wfcGzXgNsGU6qM3iCxTd/Yg4TRQIy+
-         Ap8hQodM7nCCV7m7VU56JN6BuKlC279R+tmfYq4Uojcj7Pt6AGiQTCvjdyzye1IypyVP
-         0UitZZeze9xuwsnkxwt0Nz1/ASNBQdANNHbdDqtuXyder/7ktqJgUy/z8Is4zObJCrWx
-         9vjiXVGh3QA2FE4y2Kg2D7cj/Tn62rIoi0wjHDGuSI25+V154MCg/e7dg5DGyx0JTgq5
-         PCqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1793689585; x=1794294385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OldbtTu8SRDvvfag5jP+7J6kAcMehcX+OnBY5+x8nzg=;
-        b=FdIjHudX6MxqbBj+cVmyFTnWIcwpTaNo+lwV2XKjTKXc9O8YyLFtJ6n/uQNjHiD+ne
-         HzdKzaa9N6V+VS9M2u1SjHpSKozq38Jc9c9/+bBSDbeeq6TscsRW9RNuxskxZTT7qhMP
-         p7AHXRbJkGEd6ZvvMYFWNtnqJm1K/OAKDlWbs2GkHYV4S8tyUBIkBqeMGFKVmujCxVjR
-         GUU7DB6CO+zt2Ej1IIJ/McvdLgIPG3kqLan2w+++68UgrsfBSSh+LVSVnOQZH8tjDVLP
-         5Wtw7shCie2a5VjrbaIflrOX7fINXYVgaNa+dzBDQhT/32QhNGFc0P3nyFaQCRHwAuaL
-         RCLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793689585; x=1794294385;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OldbtTu8SRDvvfag5jP+7J6kAcMehcX+OnBY5+x8nzg=;
-        b=qIXpmJu/vcbaDSXmeT3zNc67v9Nh1Zdxfc1HUGcz+ZTo5CxeJvg9jnR83ssJuZCx/M
-         /XJZS3N4+YGYHX4/6zcZBJp87Ykgiulb1w30OBut0V2ARBMN3bMm1Scf3lVNbyiZgwm9
-         rtcfMYjnBtsveFI5syyMZYNAwlfDN9e8/wq/bxK1Jwxj0jAZ7BpdtCXHtqQxfc7cQWem
-         hY5VXiytHQZpfYZeaedXxHF+MiqFpRFesBhQ4RI7x1K+hM9d+DVWeQJ1EEpRqe46IDqk
-         1YVuMCcqc+3xIWA/yMBoClnZX42ZPl60z5k7Ighvqd555MQ7Eoso28hqqXJs71uy3zaL
-         4lDw==
-X-Forwarded-Encrypted: i=1; AKwUvByrOeONY85ximrNoKPUHJ+jOPjZWh584MlhzWateGtiGaeju8oEg1PDJxNjtpeknZlqz+op6PDVw3jBoiY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TdRicnabCTxUgltvk3M1oQV5LH5ofOt7OM3wnHF7SrmFCO5gQ
-	rTVp7OQjSSQnyhdmd7QZAXG02lkpvoVXymheIeSmVF4qE8AO9nOlesR8PqaQQHVIitqObReM5pi
-	SrrWHsM//BFZG3mhfFWiJoHWBb67xkkhe++tzWPDyJA==
-X-Gm-Gg: AYBFou31bOdKfPoKJ7yy5yXMg4muapT6jS5sle+wJ8xbAy9TgbH7AD8JsYhTSART3lJ
-	ulvN7Tcn1VueXxP203ntSuplCxvg8tK+rBLBcBH3uyyJlKom8z5xOn0aB2JhhPQ2UISEoxTXLGO
-	XofGctVFt8nOG/peR+HHTJTD542IiNDnwC0ujqtYegG5U87l9oIATpBDlCt0WzyhqIIYfQMzOEJ
-	w9IUUQUvDjW/CeVEVXFZZp9I5xdNZafCLj1OTSHwYi4+JtFBB1zCZXWfhm6NQxO9CZGHlv9gCNO
-	6nhyyDPHuYQ8jI4DfncMpG2ywQn33xMSofyEH8PVa+XEWTEgLobJdlpZ7C3Tbdn8TGAWXzjF6nx
-	enLwDAF0xydUkLFIsXAYYkTBN5kTSQtIiPhmjNqIwlaGzKAalJoLOvF8/n2+XV9cWKcs=
-X-Received: by 2002:a17:907:daa:b0:c42:102f:15d3 with SMTP id
- a640c23a62f3a-c4ca7b45a46mr990474666b.34.1793689585134; Mon, 02 Nov 2026
- 23:06:25 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6024606A329;
+	Tue,  3 Nov 2026 07:06:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6024606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAB3hpfsh+lq8Kw5AA--.4349S2;
+	Tue, 03 Nov 2026 15:06:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu/jpeg: Unwind late software init failures in v2-v4
+Date: Tue,  3 Nov 2026 07:06:29 +0000
+Message-Id: <20261103070629.1083890-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,34 +54,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260910123951.1241279-1-max.kellermann@ionos.com> <CAOi1vP9mrDMaABV=KtLRwrGVkBrPrGGBU8mUUnfm6wpdn_rM7Q@mail.gmail.com>
-In-Reply-To: <CAOi1vP9mrDMaABV=KtLRwrGVkBrPrGGBU8mUUnfm6wpdn_rM7Q@mail.gmail.com>
-From: Max Kellermann <max.kellermann@ionos.com>
-Date: Tue, 3 Nov 2026 08:06:14 +0100
-X-Gm-Features: AclHuK-x6djlZGI_sS2fECMKb-dIFjw_YiOQ82Ze7VryW84eodaM5B7131El-Hs
-Message-ID: <CAKPOu+82TXE2PqXSmSa2hPdj1X-AtP3BVACsBEhn=EKuOdjSRg@mail.gmail.com>
-Subject: Re: [PATCH] net/ceph/messenger: print TCP connect error
-To: Ilya Dryomov <idryomov@gmail.com>
-Cc: amarkuze@redhat.com, xiubo.li@clyso.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAB3hpfsh+lq8Kw5AA--.4349S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWrW3tr48Ar47CF4xAr4fZrb_yoWrGw17pa
+	yfZF90vr18ArsrtryDX3WUZF4Fgw13XayrWrWUCwnaq3W3Ar95trn7AFWUJ34kGFZ2krs3
+	Jr1DJ3y7uFsFvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUO2
+	NtDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpWfWRkAAEs0
 
-On Mon, Nov 2, 2026 at 10:08=E2=80=AFPM Ilya Dryomov <idryomov@gmail.com> w=
-rote:
-> I wonder if saving the error that way is actually needed.  Can
-> con_fault() just reap it with sock_error() at the time it runs?
+The JPEG 2.0, 3.0 and 4.0 software initialization callbacks create their
+rings before allocating register dump storage and creating the reset
+mask sysfs file. If either of the latter steps fails, the callbacks
+return without releasing the initialized JPEG resources, including the
+ring buffers and vmid_wait fence reference. The IP block's status.sw flag
+has not been set, so the common error cleanup skips its sw_fini callback.
 
-Maybe that would be possible.  I wasn't sure if sk_err (from
-ceph_sock_state_change()) would remain untouched until con_fault() was
-eventually called, or if it somebody would clear it in the meantime.
+Suspend the JPEG work and release the JPEG software resources on these
+late failures. amdgpu_jpeg_sw_fini() also releases the register dump
+storage if it was successfully allocated before sysfs creation failed.
 
---=20
-Max Kellermann
-Principal Architect
-Hosting Technology
+Fixes: 63d5f8db5313 ("drm/amdgpu: Enable devcoredump for JPEG2_0_0")
+Fixes: d949e91b42f2 ("drm/amdgpu: Enable devcoredump for JPEG3_0_0")
+Fixes: c3dddd602967 ("drm/amdgpu: Enable devcoredump for JPEG4_0_0")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c | 9 ++++++++-
+ 3 files changed, 24 insertions(+), 3 deletions(-)
 
-cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
-General information about the company can be found here:
-https://www.cm4all.com/impressum
-A member of the IONOS Group
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 72069b77f6f1..0707e065160a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -115,14 +115,21 @@ static int jpeg_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_2_0, ARRAY_SIZE(jpeg_reg_list_2_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+index 564e40899df2..f88200bcb2b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+@@ -130,14 +130,21 @@ static int jpeg_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_3_0, ARRAY_SIZE(jpeg_reg_list_3_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+index b29ca3a49939..454f16f24d7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+@@ -141,14 +141,21 @@ static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0, ARRAY_SIZE(jpeg_reg_list_4_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
+ }
+ 
+-- 
+2.34.1
+
