@@ -1,65 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793669686;
-	b=PbrDIXSC6X7jsC1tDWM4wLTVNdrloyZyhOUF2+1fYOj+JA4jxsooNYOXCL9QNZIBAQop
-	 KiQ7uZQXQTtVdvbQCCgJrwXD4Gq2btst53gk4j3PDVHY/63nqWsflA4ezVv2edV/2uWgO
-	 tUpIi74lmbm6wMe5I5wkiMqUkM4KkSRb2lnqvpwF9WNUbEYS2jFesBQdnsk1E2KYLCjy7
-	 6hdACiQxE3U8eUvMEnp6xaS5hlmM6I4Z5ItJfD8O6GpfYnCtJTDdpKXlgdJU3U1A7rUtD
-	 7D1WQnNzo727+cTcnPizo8ZwehbHVs8IVNcLdKICxU7Qmo8IMJ7c7hefxvGRwHyk8EA==
+	t=1793669698;
+	b=wF8kszSMwtes/KsLbA05a8XFh9mv5ailQMIeEYp94JHcQ3ClDjeFBDxYFOpRCM1cjyST
+	 t/uGkQfuMNAnd/aE5IpVYzbKd/pdgfkUd6NW7a2EQBTqjB3V6Ka65vEOcQD/S8l52PuKy
+	 XFfKwoyALattxhf7+TOa5KTOJL4gQnpPzJuRKTlO2crtniTqVjJFBbCAOSlo7n1u82JiO
+	 ykON7PgkKVn3LUNjonzv8gCXwO5ndlzFe13TvS5XEE/FGe1XKE4yWumCcRIgrF1w03PeT
+	 o+MIvCRyJn1ze8ZXzpveTP90wn8LyFVuJIypTebjWunmG1axoTvJBX/QuPUwmQZGZzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793669686;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gVDlJuxO1aJ29OkzZ0LvZrlNFA/4PNrvnmKFmGqNW1Y=;
-	b=2bjbgTqCMWmGSkzqA4Xe4Ejw4sQr6+SVy5TTQAEle2HDwz7S6HAKyvMDRNmZr/0rU4IH
-	 xdY5j+kPbI1nB1L3mRku70pxe0c+zialVBJoc9PEIdqKMLAVbDmncniKy1jlAS0d5Eg8k
-	 7+wMj+Q0+qF77rETSIrxrWb5JRpoMgT1V5FfxLzfw5GFAEl4Co1oFhUMWgQewi+DHRqyk
-	 DpJAuArCNXtqAupscsEHGp+6TyCnuvjvvckaQ1OzN1wjlhVRYqB8A2gr9tvBV9v/cvXoa
-	 u8ponYPlIDFQlXVjFffq1AHDBeKxouiLhiuIVHtVOiwMIf+xJw21Uu+LvGfjz5fBElQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793669698;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=56rap1o7worJIx5XKJcXXzxaY0FYuZMs60jrSq6DFxw=;
+	b=Z4M+Noy1httNCBHay/7kw5TjadqOy/g/pvyYkXJ27mhzYxzfujSyY+/yvPDK43xIZKqu
+	 I1PSAXrh3I2vAx99RbyjKrRBPTBi6+79GYFx7q6DPm/9RPTxUSicPwCdOvD5uXxc23pPO
+	 SHps2IHp5sIO1OLvcVKF2pCaVwQckNGQPdM6e9yCY0R4caQ/HyBQRPJsDhcajlxpXVcK0
+	 PeWMfeC2FPm4UJhnwuYLAsu+vzecqkvekDaMdmIt5WSy8mV4eFUXDR/6gbohXju/ZMsXe
+	 WWsgRDfQvarSBUGIN/oIMXB2wVmh9wWXvvRIc3TbPVSLcleDcB0TvD+pHPhnZ3Wp6lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Joc1Ic7l;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4747C606A324;
-	Tue,  3 Nov 2026 01:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4747C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OuWOEBPE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192CE606A326;
+	Tue,  3 Nov 2026 01:34:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Joc1Ic7l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Joc1Ic7l/b0pV1nB1uVV3Mux1NmYTD7WsI3korK0fF0ss8byrtsUz5i8IpljRJPNkMyw751m4ltRT
-	 Q0kb8LRyq/hVXOVM01p2Sfv/d+Ix5E520VCsucV74tv/A0OnSeIx3+e0MFPCrRltJ2pViR9hAQeqYN
-	 igCzJi4hWStKCDQY=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae93a32ed0-68e8b;
-	Tue, 03 Nov 2026 09:34:43 +0800 (CST)
-X-RM-TRANSID:2ee16ae93a32ed0-68e8b
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56ae93a31df2-e4dfc;
-	Tue, 03 Nov 2026 09:34:42 +0800 (CST)
-X-RM-TRANSID:2ee56ae93a31df2-e4dfc
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] media: sti: hva: Remove bogus mutex_unlock() in hva_hw_get_ip_version()
-Date: Tue,  3 Nov 2026 09:34:40 +0800
-Message-ID: <20261103013440.1138-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OuWOEBPE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29F11F000C1;
+	Tue,  3 Nov 2026 01:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793669697;
+	bh=56rap1o7worJIx5XKJcXXzxaY0FYuZMs60jrSq6DFxw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OuWOEBPEQbnyxrnhhRefJZallXrO2CFILZlBkI/exfpF1YdIQaHjTBy8NgtrRcNv9
+	 dlwMPJYGRhhadNj3olCdeIUMd3pEepnEGAkK3Sg9/k385MOStv3+y0tMa74pB6P33T
+	 1PvcqV4nt/qb96eyavODI4qydUoRHT1yHv1/jmRcoACCaroPfGdJZAYgmzwTT17lwa
+	 Ri/npoqchZfzYoGy9fziJf7Udljsa6F6ewwuPjKb8ZC9tN4k5ODq4qLZI1U1EkO9o7
+	 TTBAuA9/aldvTzZOuwrSTv1rtaEeJGdR1/li/lYHwnkaYXfLnpns+V9yoUxxdPKG06
+	 mXBbA8jRfHN/A==
+From: SJ Park <sj@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: SJ Park <sj@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] mm: remove wait_on_page_writeback()
+Date: Mon,  2 Nov 2026 17:34:49 -0800
+Message-ID: <20261103013449.93977-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102-page-wrappers-v1-1-e7280bdb31f6@columbia.edu>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,34 +84,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When runtime resume fails, hva_hw_get_ip_version() calls
-mutex_unlock() on hva->protect_mutex before returning.  The only
-caller of this function is hva_hw_probe(), which does not hold
-protect_mutex at that point, so the error path unlocks a mutex that
-was never locked.
+On Mon, 02 Nov 2026 17:54:06 -0500 Tal Zussman <tz2294@columbia.edu> wrote:
 
-The line appears to be copied from the encode path in
-hva_hw_execute_cmds(), which does run under protect_mutex.  Remove
-it so that a failed runtime resume returns without corrupting the
-mutex state.
+> The last caller was converted to folio_wait_writeback(), so drop the
+> wait_on_page_writeback() compatibility wrapper and its declaration.
 
-Fixes: 57b2c0628b60 ("[media] st-hva: multi-format video encoder V4L2 driver")
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
----
- drivers/media/platform/st/sti/hva/hva-hw.c | 1 -
- 1 file changed, 1 deletion(-)
+Makes sense to me.
 
-diff --git a/drivers/media/platform/st/sti/hva/hva-hw.c b/drivers/media/platform/st/sti/hva/hva-hw.c
-index fcb18fb52..bd33d8dab 100644
---- a/drivers/media/platform/st/sti/hva/hva-hw.c
-+++ b/drivers/media/platform/st/sti/hva/hva-hw.c
-@@ -271,7 +271,6 @@ static unsigned long int hva_hw_get_ip_version(struct hva_dev *hva)
- 
- 	if (pm_runtime_resume_and_get(dev) < 0) {
- 		dev_err(dev, "%s     failed to get pm_runtime\n", HVA_PREFIX);
--		mutex_unlock(&hva->protect_mutex);
- 		return -EFAULT;
- 	}
- 
+> 
+> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+
+Reviewed-by: SJ Park <sj@kernel.org>
 
 
+Thanks,
+SJ
+
+[...]
