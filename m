@@ -1,63 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706119;
-	b=VPZoiPY4aYc+pZQM5RdHYOjwXF9a7H9yPV2oNblokehLOHAXQdY/Fwi+N//WZD/REue8
-	 WSpSduqjO/l40hqzm3DphGw3H8RJIDlA779pAWlA4WyN53QcScZbn/NrXSxTtxKt82tSi
-	 aQvKr9hTA7IrBDQD8iEAzdY4uXjNivWy+++6Tn8k4+QWU+D8/sVTvby2uISvW21bpzMO+
-	 tX0t8FSH5H+Y9sgZaI/X6qU9UX1Z2cdzl3aLH9THzU0JMsVVjgqKlOjoDMVjAwo+oKvEh
-	 kuQjyMzzeN2TgMbZAXmk/IEarWgIy4r/2xo4o42F62S0eRmFpGb9o6i4tphWry7SzXA==
+	t=1793706126;
+	b=4zd8kQ83CDmFoxInSCoLzPZ3LZ9LbKZXqicJyXxUevq3FTgrq3lYTynL478bOOUFxVn/
+	 E7VNFBnqbRJSSBpJ6/PT5IHOtq9oaY4JfimRLi5gA8I9F/cHaZ5uf3y+URTmT3EbHnxzo
+	 X7tB9bWYZqXZ9m7c+WQ6navZsuwcub8yg+PvkYBDUwBie6OZMwahpp74XkW4kV/F8OKVF
+	 hdY53YUm4grqWPJPB85pyzLKP7wexUBg83q+1eGGQZWchRHjsZTZ9DSXSxEpdNr3nZznk
+	 Smtisba2kO0NGQGmnOi0Tb9c+22mk7ny06pW2J7tkd6+ULf4DfhmPtjXeV4J4HG/CCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706126;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
 	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=ENk5SyDbftTYbD5uW6iaa1Q6vZlyK2LjOT5m0xsgNcM=;
-	b=mY0IoYJ25eE5AGkyzNlD2++IULDzn7FNs7K6yQ2BnOInsN7H+77KHBP+XnsU9oDBW50/
-	 snRxQgfwd4c4zWxGJWOewHSHYiGSeywqcmuUJ+R2YcZybfm6flqHMsruwBglwUNNkjCY5
-	 ZP6lDlJKHvUH2ZAxf7+4YExRFjEvrCZA2b1DmCvHOnv7NSaUZDBXDGhiORdBgdV3jdGDD
-	 OqjMWxzmHGGAGuwDSGYQnsIRe15NmqbwyhQ32yrGt6pMoEPtWSXH1fGQ+tQNghIwu7KFU
-	 gohGOq6ixfKAujs3aJMqRmbLtSrmfgK0sruEdCdi0EJpukDCc/85PSJ46AX6G9bpSZA==
+	bh=5Xuf0pp1J4fzupoLc5nOUOvqU4eXQLWvohmGp/7FqdU=;
+	b=BwnBwZpKidmLLErkeuUtgMQtGDEDaQ18vyTYlBeCvn8KaS423TeKCoSZWJqmK1rPbpzE
+	 LDfN+ydSuWea0W/ZwOany7Ak9BE3YKMyCOiskiFEMM1SlP3Arw7ApfY0/ymnP6RLyUupx
+	 kfebUnLJm0iUIjCTJZs3Msf2VTacHWNKnQR4LqgTc2kw7hEEbd9hOveP1z7rC/MLpuXZX
+	 boG2KeClqUfBtrHseN4pyvVtFT/y9zNSt+qwXTJBxEoR3Yvd/KI55L5roMPuG1OOt62ih
+	 0R3GcoRmBtukwu0x39WQMqMGBIcnjokw4y6fmzX+0vfN3uJvHOFpnWGQ8fP6c2ix5jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=smail.nju.edu.cn;
 	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="ZVGeDG//";
+	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=P94YTgtT;
 	arc=none smtp.remote-ip=54.254.200.128
 Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA2A6083612;
-	Tue,  3 Nov 2026 11:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA2A6083612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C160A6083617;
+	Tue,  3 Nov 2026 11:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C160A6083617
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=ZVGeDG//
+	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=P94YTgtT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1793706094;
-	bh=ENk5SyDbftTYbD5uW6iaa1Q6vZlyK2LjOT5m0xsgNcM=;
+	s=iohv2404; t=1793706089;
+	bh=5Xuf0pp1J4fzupoLc5nOUOvqU4eXQLWvohmGp/7FqdU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=ZVGeDG//Z7eQT5jqhlLHGozPOQ19wKhfAjiRJzZiKRH1o9f5k4SCIS0f8a0Nhiu28
-	 BIgc72tmErf1v23AgD8399nl116WC+Z9Z+S/ZRdowFY2u/6y1GHI/XQ2JH/mvX21gS
-	 h4y25m6DR0eG1KByG3p72kYvCcGpaun0tyUTKgK4=
-X-QQ-mid: zesmtpip2t1793706089t42376647
-X-QQ-Originating-IP: rs/FEwKJBbXtW+3d7f3tQAQRUeaRJ8AsG67TGOUkIU8=
+	b=P94YTgtTCUSlaOHYyJse/pHvYGHj4oXOXyPuAaq92WW4CU/PGU6rTHcMEMfAc+BrB
+	 XHVKcoPD7k3Shbo/p1DbMSbDTyb1i7xNGPYbwoxRbiiN2nxzQyowZ/fEK3VLqMcQK5
+	 UFNF8FPHx6yVdkeGafoj4nfohLOVcdYrgkudkInA=
+X-QQ-mid: zesmtpip2t1793706083t45cfa590
+X-QQ-Originating-IP: uVoT/CjcAt0M6QyD4Te5skr3PmWTAJqoJ841h+R2er4=
 Received: from workstation-Precision-7920-Towe ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 19:41:27 +0800 (CST)
+	id ; Tue, 03 Nov 2026 19:41:21 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2264155925313795611
+X-BIZMAIL-ID: 15079065597483944055
 From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Marcel Holtmann <marcel@holtmann.org>
-Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Kiran K <kiran.k@intel.com>,
-	Vijay Satija <vijay.satija@intel.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: btintel: validate the BRDS domain packages
-Date: Tue,  3 Nov 2026 19:41:27 +0800
-Message-Id: <20261103114127.75143-1-k.chen@smail.nju.edu.cn>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Raushan Kumar <mitramaurya80@gmail.com>,
+	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: [PATCH] media: atomisp: reject short _DSM packages
+Date: Tue,  3 Nov 2026 19:41:21 +0800
+Message-Id: <20261103114121.74901-1-k.chen@smail.nju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,55 +75,58 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: NChuY+V9daHbTr9h6Jn1ViXBf0aDgCi4YRuFpqnNjDQOZYYzRLhgEhnG
-	x4NUQHSCI+qKONakqm+BXwMU/rUFnUtmeygwgnQRpT6UPXkXNG/xmu97rzvGbevaoWZyIWv
-	MHpLJV1T2rT9e4PMSoGyaDk2aEUi1kiNWjukZ3MhwUBTrl5ay+XVzIm/oBaRVxZQOE+4sgo
-	9WCekioLrl8WPxQWuP0z38PmnE13zU5IudVUgOIqrlbCMW5bdKuC5T3GL8g0hqPs1fOlvcK
-	i+PcMQlRcBQeHU9pfkPwBnGlaaYpqnskQVTFwrXLa7qXETSHMHT4HoaESb2dendnvbs9+h3
-	a/3efAiVDFu9kH8Yn888tT9etuIo10ozb9LtmQPd6tM6oefil8i2PYrNE7V12VTd3GpqJ78
-	u6eLnbHiXo9XZ6flps673XpLeMVWfDp0IvrZBddna1IbBSamSmeBTBS5DHviISZr0HhPuik
-	CxP6K9gSCmSoACfb+Kumrv/BQ61RNT8HisQ+SRpyMURaWAvdNJbki+CxCeDa1EduhW1uBIp
-	fxN3CpO1ubU4tNQgoaG0hoVPwXQ2s170/gAKkbSh4R7pcnoIFECjRoF/XzMNV6TkYNXV6xG
-	iYqqg3jAN/046mIVTKsNIyHuhM/KENlO7KxWnK4gAf2geEkaa8/1fn9wpiTgV+YcoCB35+J
-	RKQrfhshJd46sFF6uGEe0Z1UjYYQR1+gws9Um5wGwjf0eagkEFCIpbNwYn92Ryj8a8d+UA1
-	OOHioVS4/K+CrUZPoyx2x7uBMU/FL6q+yTukbAM2XliRVLcAc2gl9jHr3J1cKqgWqs8m+35
-	JLoAEP3pWCqcMo6WloV8l4EqAj8j/PhPLH2+BVe6bXhrVtB1i6kct30m8zJZo6p3rTQvyYp
-	ZByZfwQwyKJtOEPPFS5/yn7leVxiKga9KZMVTlxHHN36T6M/yg8FeN86MaxxwWpovsFEVCt
-	jZ2ZtXCN7poYvrjDJ0ivhGpKX9kMTXUcq+rROyaoakFf8MEY7emge5ofQbMOUDTPlpYKGep
-	9EgS2Uod57aiHts/Zl30CVrArm1HGnT3FHlgXOgdGOJXdZqqns
+X-QQ-XMAILINFO: NELwyfGakffPybP1pT/2iMGNURA2H78egXYTITp9z5kxUhJ+oR54uokp
+	lvg7SusGm9T/key4RSuTGPwwh0PN8DcA1YfUsCZAjIpTLnjsC8S0h+Ewpy8DNcmU6CMxBo8
+	dR9TxCCN0t3iHImk2QVbLgnB/QbN/OopmPYCMY4MM4Zqa2MtjqAB9av5lIPSaHDhol4LdGg
+	Wc72tcpGkaHuIeGvPCVVyAs/ZJqpRfFAAI6CMGN1C/ZjbhAZP8X+pdcpGHCgs65x3LV0KcQ
+	H4ODQosuzjbAOXH4jok+eodOEgup1ptckI6gADLofcekIbaiqQKPgw6xffbbwW/nXPPkbSB
+	Ngs0aykzYrc9dyQI+ErFZjYpiCeed3l3qDrmaSdMZnkPSr+sbP7skiacXm+iklR1uppbF52
+	jJrVLxx+xLjf+3HvIDgJjOV//B81TRssRXEBMdCmAS23vBOEh1o27lwhAS7RvcXpupK2ykT
+	PumJzmKD1UiaqKW9sLVd7WI7PUgT6C1+5PytcLN3H6heeMBZFwA45VJ2JoaC8UCHsqSCs6u
+	kMPPQlAfAov8u7KNO1ez46kY83l83ouzQ+2wQcbHcsa1fC5MLpq6bKJQLpTZQRB42RtNudi
+	crYLJI/LX3H+5bN29E0Tz5Yvn7kanAfSpminrdZ5u5gv87AHKiJJuRbdQieUU9rmW4r1ud4
+	JATUuvj/dBFHjQdewO/9+sjFfqR0IaIO9PArUQJzX4miy7cFmkWI7LmRi5qDvTuwHTVwgaF
+	VvYg9rffiJG3L+DEvP9a+wBS7Bd280w3j1QTTdV1PTe6FXXPKHa0fZ9Dx4IFmhG/C1sQhdD
+	vt1g69DVB8ah69Pu13Uy6rNDMD2s//Z53cszn7XTQwqOcYPZ8osnO4zSG7qWnHSaN5HOCy7
+	0oiJnNgJQk2HQIs463WyuDZIJKSwTbJUI4H+RkP68rfgBYuP2Y2fIxFFTtyLpSyUiCXNHxD
+	+T6HLG5yZlG4mzaoqDdQc9xvjtRb2CA3KwylGKEG9uZz43WNv5Bb5e6sHvTnldPM3gQFd+S
+	IgWGyH+YhK7SJMtPJL3IfDgCnrKoGg8vao1tfFT1WiS62Nw50lM/WYnzsGLb6Z6pscVNmtF
+	Q==
 X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 
-btintel_acpi_get_bt_pkg() treats every element after the revision as a
-package and reads its first element without checking the element type
-or count.  An integer element makes package.elements alias the integer
-value and dereferences a firmware-chosen pointer; a short string or
-buffer element reads past its allocation.  The function is called for
-BRDS during Intel SAR setup.
+gmin_get_config_dsm_var() walks the package returned by the atomisp
+_DSM function, but it does not reject packages with fewer than two
+elements.  count is unsigned, so an empty package makes count - 1
+evaluate to UINT_MAX and the loop walks far past the end of the
+elements array, reading unrelated memory.
 
-Skip elements that are not non-empty packages.
+Require at least two elements before scanning the key/value pairs.
 
-Fixes: e036afb1fe44 ("Bluetooth: btintel: Add support to configure TX power")
+Fixes: 387041cda44e ("media: atomisp: improve sensor detection code to use _DSM table")
 Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 ---
- drivers/bluetooth/btintel.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/bluetooth/btintel.c b/drivers/bluetooth/btintel.c
-index 0709fb3212f9..16745b58bde4 100644
---- a/drivers/bluetooth/btintel.c
-+++ b/drivers/bluetooth/btintel.c
-@@ -3042,6 +3042,10 @@ static union acpi_object *btintel_acpi_get_bt_pkg(union acpi_object *buffer)
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c b/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
+index d628fe4dca6d..159b72c1eb40 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
+@@ -1167,6 +1167,13 @@ static int gmin_get_config_dsm_var(struct device *dev,
+ 		return -EINVAL;
+ 	}
  
- 	for (i = 1; i < buffer->package.count; i++) {
- 		bt_pkg = &buffer->package.elements[i];
-+		if (bt_pkg->type != ACPI_TYPE_PACKAGE ||
-+		    bt_pkg->package.count < 1)
-+			continue;
++	if (obj->package.count < 2) {
++		dev_info(dev, "Invalid _DSM package count %u\n",
++			 obj->package.count);
++		ACPI_FREE(obj);
++		return -EINVAL;
++	}
 +
- 		domain = &bt_pkg->package.elements[0];
- 		if (domain->type == ACPI_TYPE_INTEGER &&
- 		    domain->integer.value == BTINTEL_BT_DOMAIN)
+ #if 0 /* Just for debugging purposes */
+ 	for (i = 0; i < obj->package.count; i++) {
+ 		union acpi_object *cur = &obj->package.elements[i];
 -- 
 2.34.1
 
