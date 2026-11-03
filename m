@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732850;
-	b=bWbEKaMdssLsrl1SQ0ThUeLkLxd5ZNEVdPOM+E/WSx3pgQQ9gSTH4hRPUHGQ11yr/Wq4
-	 Hf/C/9TKCQO4OOAbwAxmttYqTAQfYWokj1Q4S87EN9FGvDNAaSKWYKMP7Ct8fXGi8+iDn
-	 shGinnOtRBGzrlbP3u6FvwTjPXBdC3hd28LRl84nGWmaQg1cIW7/cYkU1GRGgsjJVDpur
-	 iguPGDo6tzYaW2750w+EpcLh1wHtVgbOL0EWVv7Po/SIfI4vzQfWegW9UW7A+o7/jTI4m
-	 SKYlNDfGPh3pO9/NVR8dhhBmvFq4q2gHC4FEmQHYjEckikDIgmAI5O+rHRkSVXok3VA==
+	t=1793732863;
+	b=sRmrHu7g7O0U9ConqVUMWhv2GHWO3+wV2SXK9Ih8qxOakCnxnZRbZ8az4AIuWCJLrMAT
+	 dkkVGV+LDkSwfE8Pz1D9/mv7odvLxW9AgU/wiDVJnUhBWZ9mvrMyXJbccTITSaPVvUahv
+	 ISLF2rOI7mMyVlKIiiBdALknuuO2eAqYbDdN6Tulfac1N9mV6ha+b8xlAX7xJd225xJvH
+	 ODvyCX63DB9gKT43OCJWzLt+3Re1LuClv7HgAv6cWk7kzUyxAaIxB5IWAKpCHg9gKXWhx
+	 p2cMLRw3o3Vj++b3On6XO0SMrMzrVJgpSWcJxeqygtqkfrzHANWJKhyD77wp1JJ6C5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732850;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=uk97Gt0Jv+LwDSOVzveSlW80YqNEq2rrsDMgaor32B0=;
-	b=HdYY4Ff7B3+wLS4zNriZ+fp+idgNewutPgML6oVbr3zFvB/XG2KOaqAITa79ykSbCLNZ
-	 K9Af5XMCavbT7nh97ScyWd7RXEwp0Xf7K+ztSeT91hsC0wm1aVokcq5VSDewDdUiirokJ
-	 ONkpmTQVqHsUXsHJLXnIjN6LDYtem9l/iTQFatILpeyugC55nzIcn8tZy2UhaU8V3N4rO
-	 qcS9lZYZTHExR/d/XxY+vgxXa6+Nu5O9zQ93ruSkaja5FOQSrn53EpcNiTjtJTE1QCuj+
-	 sF2sNnNUpUvq+aoz9nnG59z3f5al6VUE/qXg4gSKjPG18KEHglmTBUaHznpsUlToBSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732863;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=j6MbSsBqXrp0dMj1UoXcAeObU3QV9NcnvNWemCX499Y=;
+	b=RK2u0rZ4KjYHtdBgppFeRCqqwqQvNTt903Rt+c+Qk22ZYANI3YdkHOjshzqpXs4fJasZ
+	 L/IBGrAPovR8GPo8jXX1kC9YgqOxohHJ/slOxUXEGeoKmcZ6jSQE6GbWJ16vUoAOHe/hb
+	 Q+2pgpBrfIBrxs0RU2oQKJGtvsN3kQWrNmZUzmrUo2CETU2RMPVn8yNvs9+hP64auN2Rb
+	 fKFg00RnIQrwMAcalzFLWpTjrB+SgL8hTXMPgI99ICQJhN+UFf2NcIGK+It/1dwCVZVaQ
+	 PAzy16fi+G47fDXnlkYO6RaKC+ueo+XJAYN0FdymopFFWueESg6QCizI6zFVwamKaOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqUks20W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AC7606EE82;
-	Tue,  3 Nov 2026 19:07:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62AC7606EE82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJykT1z91z8Xrr9;
-	Wed, 04 Nov 2026 03:07:29 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6A3J7Nir024435;
-	Wed, 4 Nov 2026 03:07:23 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 03:07:27 +0800 (CST)
-X-Zmail-TransId: 2af96aea30ef5c7-d6b09
-X-Mailer: Zmail v1.0
-Message-ID: <20261104030727274tgEBQGKcKOwkQ_xIxqIhN@zte.com.cn>
-In-Reply-To: <20261104030720567AV9nG8iiGp4C0YlWIDDs7@zte.com.cn>
-References: 20261104030720567AV9nG8iiGp4C0YlWIDDs7@zte.com.cn
-Date: Wed, 4 Nov 2026 03:07:27 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52949606A339;
+	Tue,  3 Nov 2026 19:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqUks20W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E551F000C1;
+	Tue,  3 Nov 2026 19:07:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793732862;
+	bh=j6MbSsBqXrp0dMj1UoXcAeObU3QV9NcnvNWemCX499Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lqUks20WYDC7B2p/rL/zhBI3ASQnV205gEchgxjPoRmPWScFWzYNzb6ZqSb2r62Rp
+	 Fvd8SGw4VViGJtuMd93yhAANJQrwKRaWE5/althCzxSD9BdS/UI8ESRv2jUi2zsC+d
+	 G7ksyu+3dCIpxgIjUb95bNZB6rPDA5v1/74zg9ArZTK3Q6A9jTQQZzQi4oWKB/wK6s
+	 6mee1OfY/BNieYq6qKh4KTAxvHeg2YOQTVwMSJxqn8cOwo00nEgeqDiAsTvFGaCz0V
+	 8hl3++ZMSvrlHxNpFidWGbSZmHv2OGWAUl0+NrJE1w3uK4a2IUFBm9BNCVZ7AxdeC0
+	 ueUCiU9kwTMWQ==
+Date: Tue, 3 Nov 2026 19:07:37 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH] KVM: arm64: Use S1E1A when Stage-1 PIE is supported
+Message-ID: <auoprWUijipSDn83@gremlin>
+References: <20261103133540.29566-1-will@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,75 +57,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvMl0gbnZtZXQ6IGJvdW5kIHRoZSB0cmFkZHIgYW5kIHRyc3ZjaWQgY29uZmlnZnMgd3JpdGVz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A3J7Nir024435
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Wed, 04 Nov 2026 03:07:29 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEA30F1.000/4jJykT1z91z8Xrr9
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103133540.29566-1-will@kernel.org>
 
-nvmet_addr_traddr_store() and nvmet_addr_trsvcid_store() reject a write
-only when count is larger than NVMF_TRADDR_SIZE (256) respectively
-NVMF_TRSVCID_SIZE (32).  A write of exactly that many characters is
-accepted, and the following
+On Tue, Nov 03, 2026 at 01:35:39PM +0000, Will Deacon wrote:
+> On a system with stage-1 PIE, a guest can try to execute from an
+> execute-only mapping at stage-1 but trigger a permission fault at
+> stage-2 if the stage-2 mapping is execute-never.
+>
+> In this case, the EL2 permission fault handler will attempt to translate
+> the faulting VA using an AT S1E1R operation, which will fail due to the
+> lack of read permission at stage-1. We will then return to the guest and
+> take the exact same fault the next time around.
+>
+> Similarly to commit 55f4b215fb60 ("KVM: arm64: use `at s1e1a` for POE"),
+> use the S1E1A operation to bypass stage-1 permission checks when
+> obtaining the IPA for a stage-2 permission fault. Like FEAT_S1POE,
+> FEAT_S1PIE implies FEAT_ATS1A, so extend the existing AT invocation in
+> __translate_far_to_hpfar() to use the permission-bypassing variant when
+> S1PIE is implemented.
 
-	sscanf(page, "%s\n", port->disc_addr.traddr)
+>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Oliver Upton <oupton@kernel.org>
+> Cc: Fuad Tabba <fuad.tabba@linux.dev>
+> Cc: Joey Gouly <joey.gouly@arm.com>
+> Cc: Steffen Eiden <seiden@linux.ibm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Signed-off-by: Will Deacon <will@kernel.org>
 
-has no field width.  configfs terminates the buffer at page[count], so
-the scan writes 256 characters plus the trailing NUL, i.e. 257 bytes,
-into traddr[256].  The extra byte lands in the following tsas field of
-the discovery log entry, silently clearing the first TSAS byte (the
-RDMA queue type, or the TLS section type for TCP).  trsvcid has the
-same off-by-one with a 32-byte write; there the extra byte lands in
-the reserved bytes that follow trsvcid.
+This was useful as an excuse to go and investigate all this, take notes,
+and learn why it all makes sense :)
 
-Limit the scans to one byte less than the destination arrays.  The
-count checks can stay as they are so that a normal newline-terminated
-write is still accepted.
+And it does, so:
 
-Fixes: 9ba2a5cb8896 ("nvmet: filter newlines from user input")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with configfs; no RDMA
-device is needed to set the port attributes.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Writing exactly NVMF_TRADDR_SIZE (256) characters to addr_traddr makes
-the unterminated sscanf() store 257 bytes, so the trailing NUL clears
-the first TSAS byte of the discovery entry:
+> ---
+>
+> I've been debugging an external report of a failure in Android related
+> to S1PIE. The symptoms match what I would expect from this issue and
+> this patch has been reported to fix the problem, but I don't have enough
+> information to know for sure that my analysis is correct. I've had to
+> piece things together based on partial information and bits of logs.
+>
+>  arch/arm64/include/asm/cpufeature.h    | 5 +++++
+>  arch/arm64/kvm/hyp/include/hyp/fault.h | 5 +++--
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
+> index 4f04ad82ea34..f05ace660fa2 100644
+> --- a/arch/arm64/include/asm/cpufeature.h
+> +++ b/arch/arm64/include/asm/cpufeature.h
+> @@ -841,6 +841,11 @@ static inline bool system_supports_lpa2(void)
+>  	return cpus_have_final_cap(ARM64_HAS_LPA2);
+>  }
+>
+> +static inline bool system_supports_pie(void)
+> +{
+> +	return alternative_has_cap_unlikely(ARM64_HAS_S1PIE);
+> +}
+> +
+>  static inline bool system_supports_poe(void)
+>  {
+>  	return alternative_has_cap_unlikely(ARM64_HAS_S1POE);
+> diff --git a/arch/arm64/kvm/hyp/include/hyp/fault.h b/arch/arm64/kvm/hyp/include/hyp/fault.h
+> index fc573fc767b0..741ea12be07d 100644
+> --- a/arch/arm64/kvm/hyp/include/hyp/fault.h
+> +++ b/arch/arm64/kvm/hyp/include/hyp/fault.h
+> @@ -38,8 +38,9 @@ static inline bool __translate_far_to_hpfar(u64 far, u64 *hpfar)
+>  	 * saved the guest context yet, and we may return early...
+>  	 */
+>  	par = read_sysreg_par();
+> -	ret = system_supports_poe() ? __kvm_at(OP_AT_S1E1A, far) :
+> -	                              __kvm_at(OP_AT_S1E1R, far);
+> +	ret = system_supports_poe() || system_supports_pie() ?
+> +		__kvm_at(OP_AT_S1E1A, far) :
+> +		__kvm_at(OP_AT_S1E1R, far);
+>  	if (!ret)
+>  		tmp = read_sysreg_par();
+>  	else
+> --
+> 2.56.0.385.gac671c819a-goog
+>
+>
 
-  unpatched                            patched
-  addr_tsas 'connected' -> ''          addr_tsas stays 'connected'
-  addr_traddr read returns 257 bytes   read returns 256 bytes
-
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index b3a5242d06f9..8a6968b014c6 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -150,7 +150,7 @@ static ssize_t nvmet_addr_traddr_store(struct config_item *item,
- 	if (nvmet_is_port_enabled(port, __func__))
- 		return -EACCES;
- 
--	if (sscanf(page, "%s\n", port->disc_addr.traddr) != 1)
-+	if (sscanf(page, "%255s", port->disc_addr.traddr) != 1)
- 		return -EINVAL;
- 	return count;
- }
-@@ -242,7 +242,7 @@ static ssize_t nvmet_addr_trsvcid_store(struct config_item *item,
- 	if (nvmet_is_port_enabled(port, __func__))
- 		return -EACCES;
- 
--	if (sscanf(page, "%s\n", port->disc_addr.trsvcid) != 1)
-+	if (sscanf(page, "%31s", port->disc_addr.trsvcid) != 1)
- 		return -EINVAL;
- 	return count;
- }
+--
+Cheers, Lorenzo
