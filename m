@@ -1,84 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724873;
-	b=UQTcl6mhkFK/oLrpkR05vaibzW3BHqvbQAvVbXDiIR+JrkJ2rwBv+Uzp/lfV2jtF/Jq8
-	 HEbpc7Z0U5l4zHfhH56bmQq/QMjBTaiXdo6y/FELTbLeJiC4G+TjRfhCKH3JEKGAkfuom
-	 bjdDZMijcUC/kGHzT/hVS+CYP56b/OEz9FvwJPSqDoipHht92eW2rsSc2WP8Qm2KrohrA
-	 GLYI6hpuujekeBRmi1fV05uFBdgrbIS9pYQKkZGI/nNFZ3cODYPRM8AE4xRgQpm/vsTKY
-	 XegDEo5q0A/LuLVIv73UMcq2sxWjDNoJrLTSqK/YCJbDDLq04Rno/dxU1ufQOYglI2Q==
+	t=1793724930;
+	b=ox5xoHDUaklsoJ9Hii8xto02ljje40s+snxGXtf3WnxBDndZvlAoC/tU4qD7DwXmgjgT
+	 BFOXIuL3mRGy9W0FbzOmRZn1RbPqDzrxZHmTgvlYJUTYq58oM35w/C17kq1JdshnIT5pI
+	 FrnP+nTvc7J+Guw7N/eEd03EZMOc2gnJdf9pzTCb8LT5yvMP8VfqszXY0agX49YWLygsh
+	 /4TkIlsHJV7SFWqRpL0yb1LCzf7O1jhQEJdR4+A752DAFYZby0RDFAbRTXcOI33UW+7SO
+	 /oCSn1pRCrMXyDz6q1cEzRq2OjaJyYUzWM2honPEvlWTBdPJ040yg+5mW/sZ1sgO8YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724873;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=WD2GWrHxGNQECop37VP/Xf/Pf2MMXPl5ygD4L+CMi9g=;
-	b=bdnJpvXheVJAxPyC2YTUd1wggYWDg+WWAEj+3h669kcTn1WjdqrUb8EAAIdQbSIJOxUf
-	 6+Ykv3+zRR25UOMNucIRtSF02aCZyT7j5jfKQbmx0zWLxSETPcY6moJRcewRIMjp057gT
-	 +jWP4kZfBMaM+AloWwVeWURbUe7h7m0Lcs5QE35uYpjOK5NXZy5bwlgLWZNt0QXYDVQg1
-	 3U5HsbtOP6M4dNNRYFai9i0iA5wprud3kAI1SKxGJOG7K7buxqc1X0TN8B/qYDXhX3Pcp
-	 6t0do5/Lqp4hMWQ6hTeKtyeMNlLHP7z4xzBECy4snX/JqcH1hTCVTaa5BRNG0HFc+rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724930;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Uy62sZIrZ53EycNsa0F+QfAVrofv8khe85aXX4gapkQ=;
+	b=5T/mH6paOrxXAB0utKOSzUGxPGQkCd0pK1MlDkF03wtPRiJa7Hdpsf+AV4RJe5pLkFsa
+	 nrSWhCW264f/5b6C1J7uc+I2xpgyPa7Tn7qgcUzNk5vaDS3NKM2urxLqn1swFFFHh7efz
+	 49hZ9bdPyLJ1FxLGwPIh0o7J7+VQegH35eEC/iSnA9Tuw5bk2eQlNoIAPLFyo3j0kkAEG
+	 PMrig3FUF3gLEEflAcxuSCTdUSQJ9gUf9PZa4eP2W0/9GyMWqIk8WkcipApkpdlbxQ6+r
+	 6N4hW1nilKb9K8vzElJMwCHoo9SkgiGWDAJrr75wHUv8kvFPwZchr8yc7/DiZFDJt6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J2F6WBWX;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SM9garVI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559A6606EEAA;
-	Tue,  3 Nov 2026 16:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 559A6606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9673606A324;
+	Tue,  3 Nov 2026 16:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J2F6WBWX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793724872; x=1825260872;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zGItpx+XsrdALmEsBycV8i25IwA6vjMLwIUqW81fqJE=;
-  b=J2F6WBWXbLJBR3spy1VtPiKGfQHYqglx4SRwTyZcMCxoN5kTy13sXsNf
-   OMpMErJgMqwUTCPC77csGYChFdhOBt5MlCxqAhmhuaQ1SUmaZzIKvSgsX
-   kwKxual7/eiviTSTofES6H2mKWmixxVRT57Voh7DEphtF0dIAxkTG+e79
-   tgCZPcRw8kwwShXX9+hokix2WKSX4sw5hVwWusVjMGYvGUHaThILIgxzQ
-   eOQPOv19+ouRWGnLTI+mSp9GlLV3PvfTAgB6mw1K/cOYh+29V++a9mNVc
-   g98yZR73h18ybHxKp1AhvFJL3fNtbphgRPxBtUWEtLmSvfXgzdD3YwX4p
-   g==;
-X-CSE-ConnectionGUID: p7I1yhG3SkOLtjgI5kdRWg==
-X-CSE-MsgGUID: JLZ6G3ACT2mqTCy9K18QLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2351112"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2351112"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:54:32 -0800
-X-CSE-ConnectionGUID: ElKpCDeGRoGMohprU6iHYA==
-X-CSE-MsgGUID: 8ERzto85RWWYdWBfMOrcTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6820418"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:54:27 -0800
-Date: Tue, 3 Nov 2026 18:54:24 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>, linux-acpi@vger.kernel.org,
-	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 13/13] gpio: pl061: use string_choices helpers for
- IRQ trigger logging
-Message-ID: <auoRwOBuoxz94haW@ashevche-desk.local>
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-13-4f93114ea204@ambarella.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SM9garVI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A09A1F000C1;
+	Tue,  3 Nov 2026 16:55:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793724929;
+	bh=Uy62sZIrZ53EycNsa0F+QfAVrofv8khe85aXX4gapkQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SM9garVI8Du06Zk5PGVus1j5YVh2s2lwl1obZ9eq1O+qxLFFBxvPUJLfTVauKfTU1
+	 Ny2uh64m1SVz5j5rudVJfoL9oD8ZZoE1GlSX9+s0NFuPm5mEzNQgn83hcR2IPRvz+h
+	 sXpQ6LuRfkuxBJRkcbksscajhHaoE3TwwX62zBJkoAIicoXwLUGBH95pp7hyYDaIa+
+	 tjpJYoLtaMV1DUZ6BmsJrIVIG0M5b0V/A31CWm1eI6UmF+nkckH8tnGVJ7CLIkjs64
+	 sdqnYEsPzigid3i/OCibJSW7+WGHgtntzLWlEll9d6SmJN71Fb54k3VpWqiyqEnhUg
+	 O8CAbTv+8YKNw==
+Date: Tue, 3 Nov 2026 08:55:28 -0800
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>
+Subject: Re: [PATCH 2/3] KVM: arm64: Skip empty IPA ranges when destroying
+ stage-2 page-tables
+Message-ID: <auoSAH996QxqrqI1@kernel.org>
+References: <20261103084742.1302597-1-fuad.tabba@linux.dev>
+ <20261103084742.1302597-3-fuad.tabba@linux.dev>
+ <9841ba98-7f07-4d5d-8397-a07e22ba7f51@arm.com>
+ <CA+EHjTxWA2o7RkZw_17QMfYjXYN2dW-X6Rmj95YN1iYBvBzrCg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,20 +69,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-cv75-gpio-v13-13-4f93114ea204@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CA+EHjTxWA2o7RkZw_17QMfYjXYN2dW-X6Rmj95YN1iYBvBzrCg@mail.gmail.com>
 
-On Mon, Nov 02, 2026 at 02:46:06PM +0800, Long Zhao via B4 Relay wrote:
+On Tue, Nov 03, 2026 at 04:19:38PM +0000, Fuad Tabba wrote:
+> > > @@ -1010,9 +1010,20 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
+> [...]
+> > >                   next = stage2_range_addr_end(addr, end);
+> > > -                KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr,
+> > > -                                                             next - addr);
+> > > +                kvm_pgtable_stage2_destroy_range(pgt, addr, next - addr);
+> >
+> > minor nit: Given the kvm_pgtable_stage2_destroy_range() is the only
+> > called from here, and this caller would benefit from the walk
+> > information, would it make sense to return a hint back ? Not sure how
+> > much of that is possible. We do this in the RMM, always return a hint
+> > of the next possible address. Of course this is not that expensive
+> > as the CCA case and could be dealt in a separate series.
+> 
+> kvm_pgtable_stage2_destroy_range() is also called by
+> kvm_pgtable_stage2_destroy(), which EL2 uses to free a pKVM guest's
+> stage-2, so I'd rather not change it in a fix.
 
-> Add str_rising_falling() next to the other str_* helpers and use
-> str_high_low() / str_rising_falling() for the level and edge debug
-> lines.
+This one is still an optimization, not a fix. The re-walk after destroy
+is a bit fiddly, especially when the inner walk knows exactly what IPA
+it stopped at.
 
-It should be two separate patches. Otherwise LGTM.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Oliver
