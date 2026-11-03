@@ -1,99 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706680;
-	b=vft6F1oxewW85daXCTwMJYFpfHJzBQ5vvYT9+/OdhRn6LWSM8x35YsKWJn7UpnUhbqLy
-	 Hsn2V2yDoLbuyFpz0By1ZVzBqMnn/gFRtg3Lkz1F3lPUay9yUwv20acTg9XuLfpKTw9OV
-	 iwTo8H27FhqE/ypeoLEWTu/fQACXvNQtAloQ3OwUmRbocfZE/KUzkRgrUcfNZGYjk5/mm
-	 ipAxXDs2bnTelE8tTDVcqQpzo8QriXz0dZyLJP/GndGIxjDaVq/TQS9X/dSmHz4BwI6St
-	 ct65y3WsxV9f9vSk4BIuuEA3xzfOkd3tqh4kDJKdk6vu+wTgM7a4B8UYw4evBhxCafg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706680;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SlQGmK3GfT0qDEXFTQmxNcYHd1v3ytlMVvU+psf+o9A=;
-	b=BcolUH0hghjUHVQSBB96P9n1m2eG3HnsV2GhJAMNdAPZTajxAPm2o95G2hWvGKco9/jl
-	 QDichVnHnDHlVERT7HxSTbeAPYFYgg24MsnmEmg68rY71y+PUczQB5fPM42b/AfHg70Wz
-	 c1EgFqzXuZQ2IoyKXi1lrfXdv2ZxwhPydXLv8WzKbY3PwjCgkLm7wrNDNT7TxCFNAup9g
-	 NRckgKm/Pbjo8UilwMUvTPoOSPfDJ+egLp3ZU5AZ10gXMTPsfqmG2V02+6Y6107pPS/Jq
-	 ZwELqFSe4z81Y7UdQNl3Ro+h3lKQB3AbahGMAhUczfr1fTl+0LhLwrAm5auasvC/mdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F24LwcBB;
-	arc=none smtp.remote-ip=209.85.217.48
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793706696;
+	b=EgxjzzIXTt3NDNZOUKGLtgKD2RSo9YAKBhAI0cNLmGYnsqvf140xiimC55oft/bgK5Fm
+	 /+vdEGXwJ8zuK/GvJfWYuH4TG2pYtLpi84yBjU8ywCyQRQOCZzeoGdjMPwix1WdmMruQG
+	 JlyTMRll936M9SO+t2iFb2VM9FDBVfiQIDQRTZb1WLRz9rb7mJY3J5/3N2LpsSUM53RBh
+	 a8W04stFlwNUZKI/I8e4XR9BIjhZoOMbMnxZiM5diZ6pqg2A3rnkMaW/87RQZCtS9k7Vl
+	 j88Lyy3u8Oce9RKkXluEgiZAuKRDmFRuliW0I/qqwP2z6s4F1Y/Bx2HaH+mijmcpUCQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706696;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=18Daivnt6zE9UD//VC7SQYUlk8RVm5hsPyqwDZJVQYI=;
+	b=SFbeLSL7r17F5A4BWMpdDccBQlIz7sWxAi46vLSaKt2i1Kd8S0acvNpeiGndgYrdRRRj
+	 bC3UvYIYRYQ6v/vRvkWiAgq6YN2Z8MDJxZ5WDH/dogn5SPthk7OLjBQ3aagcXw/qrcbuq
+	 2DERfm2Ms0Hr/XF1ybmJ1dWPHj1bUF4q+21Qg2Z9HHNH+mBoFCeftPwovscE1A1NRbjvC
+	 V39cjw5uVYI5zXyxKXuLvPQvPK+PgX7ukdzRJ9hNIn4gCTapmdsUN33uO3QwMlmr9pMk0
+	 swnnTEsgjlDaqUqnAEKTlzrZ7ik6LtqQ8oadfbXx6vh5KNHE9VCZpmGBycKm3qAq21w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bk2I9PWe;
+	arc=fail smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8898606A339
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8898606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1994B606A339
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:51:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1994B606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F24LwcBB
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7c3cecbda48so842056137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 03:51:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793706679; x=1794311479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SlQGmK3GfT0qDEXFTQmxNcYHd1v3ytlMVvU+psf+o9A=;
-        b=F24LwcBB4Y0ix0078jknls3tcll95S2BkNbrQEAf75YIHMTcRsU4FdaTtn/spyKb1T
-         NW72JHRoyGd6CIH5EREUNUkOqJBksxArb9voX0hqgBKpAgMuPgo3KJ4yvpR5Uxbk8cvx
-         PjhZ4J8rckC2gsBs20YYDpM7NmDkMgpfbYTiuexbMNQ0Y+qsoWmXpxACr4o6EX32ZhqX
-         at9rLyfpLHX/gx5iChI6trd7O9RriDvuQmcwQN8wJPTFwXzWrnqoXFsjwu2PP2L8qSiW
-         0pkS2PUQtkGGyMcf+IBhN4oS1kQNH4aXj7XDBiry62KsmwIF4VYxYi2Qzflr0+p6ytM3
-         K4Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793706679; x=1794311479;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SlQGmK3GfT0qDEXFTQmxNcYHd1v3ytlMVvU+psf+o9A=;
-        b=YoRs5d+5QoMSVwkOCSB6O9ElTPgv3oxF916RJ33V9oV+5jH0zoZpz3662eaZdA7QZa
-         YiMLnAUkhvl8FrgwleE1IHTM3TWtE1bGgELQwXY7CJ+1LafIR9tZLLwY9xpz1x0g5PTN
-         R3oo122lOMdV9uLu7BNQ7ohaDl+jhnGtL+vIK/zunnBNyFe9+fKJvt42jZX7D+ak269D
-         r4gKSyv42nV8u3bdpq0QzRTjsraWDH/9VFsTaJcxF8AKPLLuLcLtWaIq/K9lli1rQJGT
-         RWsgUQfQZLU8mBRTuenvlyC8fc0dLhPghOkla9NghXvUCuvPJeCXTyYy9QLxiDRFmvAC
-         MJbw==
-X-Forwarded-Encrypted: i=1; AKwUvByjzF5mkTIzJNiBnTaUBRcjDlxXe7Nz27OQfu7lV0E+VwxrxRko27k04RPENqrEX/UUBEBnrmOTr0xxWc4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZCfWyO/ylxxexIgeytMAimF27dHnFa8mK1KgNzZzbpnrN81fM
-	s3n0HBSUcQ2AZBf+mbs/wY+tVTy+swO3QCGp4EBKqenaKrALcktAZiM2
-X-Gm-Gg: AYBFou0Yd7fRPaTTP2t/hJbm9QAOCPLFv0G7S4l8WqLzA4cxfgr26995PzdQr6ksSSz
-	8cw+ZKLu56X7QukH/8OAXkuTFSNShvifvik7SM9zGlAwCKMgoRTyQXG6jhAYzWNWtbBL+B61Son
-	byvesh8LqDnYkbY/cjhTeYHh+s/br9WGp6rrsMwv9msI1v5/0aen8c0L9glTL+S0BCtpa2BN8Mr
-	SmUrZ1XTuQohER3CQiCHbfMxbPaD4ST2vvo+X3D5DWI7P3zkwZ8FwRBuSn1gaPHszIou5l/KQ5o
-	YHS7U3800y/rInes+BRzLX7mz5eKk2xSxDNzZNMkGwWnjVo9z+0pI8BABdLdcesbpGuIcbG8Pk2
-	0tHTXIf8D3MXQ73YigJpJEnAlLPL8i6e7At5KVdwAX/xsfrPF8b6SBqFP9r4aWNzmIbkg3L59SS
-	8AbL8iDXskkcIdspEzcEcYXD0QHC3s/k6uTc4aBe1OpdN+NYK5kTZMTiOd0zqX7z6UyKM8VH7T4
-	F9sXKxOG3+SJrKX/A/Gm6LgH3cGQU+dTyIB5jSYcOi0hwXfFBPmdMNkKSpy4heOruV30ZQQ3Vjv
-	P+8g3Tpy4gPbCtn0stNXFyxLntchldJOZE71hEQTHLrLX0T0Pz5nMUNpMpZf
-X-Received: by 2002:a05:6102:c4f:b0:7cc:3eb0:6ece with SMTP id ada2fe7eead31-7d072d53fa3mr5609298137.33.1793706678757;
-        Tue, 03 Nov 2026 03:51:18 -0800 (PST)
-Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07768d366sm12231797137.10.2026.11.03.03.51.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:51:18 -0800 (PST)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-To: mika.westerberg@linux.intel.com
-Cc: andreas.noever@gmail.com,
-	westeri@kernel.org,
-	YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	helgaas@kernel.org,
-	bhelgaas@google.com,
-	linux-pci@vger.kernel.org,
-	lukas@wunner.de,
-	d@rrell.co
-Subject: [PATCH v4] thunderbolt: Call SXFP() on Apple systems with Alpine Ridge when suspending
-Date: Tue,  3 Nov 2026 08:51:04 -0300
-Message-ID: <20261103115104.13845-1-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bk2I9PWe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706695; x=1825242695;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=6K5ghJY02mmQZzqOD9p7WWwnADKtYC0ac1WKx79SGr0=;
+  b=Bk2I9PWeK5aBwDVQoJGPnHYO/BRCNawdagqPQb9qw3KsTisKFDfn7tXA
+   JZIVesdDmqb+Y66x0p5wQ8aP55BkBRniJTgsHH/yVfdMZZMHp8683I1li
+   JaLYRaU+5lp1SjVSGaIBzjF7LIpSpMTK3YlU601jTk0J8Arq9/S7lqSx4
+   q2JTRXoWXUwfjhFlJcyndb4BiP7QatPNWPvnkaZkDssIXw4EJD2SxUiBn
+   Nz5lyn/FfRYrCjnOXBro8wszxXQJjpfaZMgt65Qlmz6GXO4DISEj4AQfA
+   Z+DRdS5V/P3m7EL8pUKAQa7OgvQj/erpgnuVfmONKqPl2wKwPLMAVlLyH
+   A==;
+X-CSE-ConnectionGUID: hYsUOZYfTtKn9Va9CKG+hQ==
+X-CSE-MsgGUID: ZPo8lHIZQ7WLAIzvA0NF8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2457920"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2457920"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:51:35 -0800
+X-CSE-ConnectionGUID: yuIaVfF7Qi+jcd+bJegPlQ==
+X-CSE-MsgGUID: bfxeke1gQ3yPlZbAUXza/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8193021"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:51:35 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 03:51:33 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 03:51:33 -0800
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.14) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 03:51:33 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dbgtRGuruz5EKaIk8K4SGHLyLgq9VdNiaGWBNIO3n4tYX+AP175d1yJxduiRv62AjeciRh2Ji3kq4zbXcWcpUEKvcxEBKBwEJ/QFIZzfzHRKe3ir0/VCUoukMrtps2Tr8mMye/0HtskFNm02DiUN1O30TZySGubrQp0W1/mdSzsu2ADK/jiFpMzg5Jj0NyZbDmGcOkWB/gTtgEap1mKPXaQRbxplittfSCIxke+YIFbNkVRoML95mn9a8SpkFUrq7gRKM4opm3tNwpj2LZe8gnDULB+pMGNPD6TKyydx4HwrQPBrztwoWrLSsTqIb/MCNYcEs4KVSYqSJmTkLlYtLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=18Daivnt6zE9UD//VC7SQYUlk8RVm5hsPyqwDZJVQYI=;
+ b=ePuF4+J8fXDi1POOh42+61s8d0L6wO4zlxqBdYvPEA6r0CnK7AX02knc46d4xytceZ3/zR9X0ZVTWbEdXUr/gaZSriBparuPteNgnkDlUMWrCAQ/CzycbUtnfSQnCK52/5fgkLJJJj+lxxjrf+PqwuX4iBR2csZnozbrYNz2WdNz+Bki8tuXus+qCxjBNi03rCPIvSfHpKWLSvj73gM3j2Jrb12eROQ4LnO9wafN4O/+X2aYs75juy7jUWRPPLMCHAO1PPc0ZrezgCwNwZChFQKjj5269Bw8lJ1CQT/uAdF9pfar0r3HDXeLZSsQYeEIAlK7IsLmQsoL7Fs093loJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA0PR11MB4527.namprd11.prod.outlook.com (2603:10b6:806:72::17)
+ by CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 11:51:31 +0000
+Received: from SA0PR11MB4527.namprd11.prod.outlook.com
+ ([fe80::1058:e1d:9694:c2fe]) by SA0PR11MB4527.namprd11.prod.outlook.com
+ ([fe80::1058:e1d:9694:c2fe%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 11:51:30 +0000
+Message-ID: <68570abd-f619-4d9d-a7af-d2acf1f9aad3@intel.com>
+Date: Tue, 3 Nov 2026 19:59:52 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] iommu: Reject a same-domain replace in the attach
+ handle APIs
+To: Nicolin Chen <nicolinc@nvidia.com>, <joro@8bytes.org>, Lu Baolu
+	<baolu.lu@linux.intel.com>, Kevin Tian <kevin.tian@intel.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+References: <cover.1793602084.git.nicolinc@nvidia.com>
+ <b7dd43ba78b7342a2e0356870502746a8b7f34aa.1793602084.git.nicolinc@nvidia.com>
+Content-Language: en-US
+From: Yi Liu <yi.l.liu@intel.com>
+In-Reply-To: <b7dd43ba78b7342a2e0356870502746a8b7f34aa.1793602084.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0016.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::17) To SA0PR11MB4527.namprd11.prod.outlook.com
+ (2603:10b6:806:72::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,325 +137,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR11MB4527:EE_|CO1PR11MB5089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93b6e4b6-89c3-449b-a4ab-08df39a0cccb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|42112799006|1800799024|376014|23010399003|366016|10067099003|18002099003|261102123227099003|6133799003|22082099003|261102130727099003|5023799004|11063799006|4143699003|56012099006|261021121427099003|261026140227099003|261021135927099003|261022115727099003|261026130827099003|261022113327099003|261022075727099003|261022105027099003|261009223027099003|261028144727099003|261021130227099003|261026121527099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: 2b31/gG2fTLjwxIKm7DGX2jw4gd+edohlJ95AqwMorZzBl1+XUapE27vDvWDDNyI9r4VuTjQRp8MpItkm98tqZAeuYJo318eLCHNaUb+EmOC3rdxauXYDT812VoQGrS8Rbjui7gECir+9QyJF6aTHGj+GRm+7LZVUYQJF54wBqdNIUDNl1h7EwkRTjvJ7UHMgo311B6gwxg6h/bUOxuIzCEbZQxf6uBpYmmzWYgsBVuwq3xjQWcmNwTtZNjUix1cjiIa69/ayr+sM7ClcLyaMgs95UF/wg90x2iOEEzhAbhjdeTbMUNTOmAEQTpfcltnJmhstP/WaF0/HJX5dftZRvaeIyHCXifVCCVoh5vY4NuXoxl9na/tWqmGHiW74p46Zd/1zsXnbPgBZvl1QluswAneuv0EN+4G/sCe/XdmMBhjCxf0i8uKXNkmcrowd88JaY5PuNN7J5Jkws4t0+jzsg/XVb0tv2/cz066/Pya79nWp3aOO/1Htr0BgAWrpPgiVS3Ag6DLGD0YTldW7Hp6Wu7r2Fb3PTodVBqAQH5WkUzOj56UqlfJRB9h33IglPRhKkqiL53DJKVNsulQM/oXY9SBQA6fbHyt137bwSIc17NipoSW8DEL/whrKvIhnnaI2K8VMjowLCO1vVtmLndnqdVTZnETHsG8K0bn2a6PxrM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR11MB4527.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(1800799024)(376014)(23010399003)(366016)(10067099003)(18002099003)(261102123227099003)(6133799003)(22082099003)(261102130727099003)(5023799004)(11063799006)(4143699003)(56012099006)(261021121427099003)(261026140227099003)(261021135927099003)(261022115727099003)(261026130827099003)(261022113327099003)(261022075727099003)(261022105027099003)(261009223027099003)(261028144727099003)(261021130227099003)(261026121527099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUFPd2hPUjZBQXFYSVI4WTNNTUVvYUNzVnU5MEtVTWZrZ0s0cEU4V3I5b3B6?=
+ =?utf-8?B?WFZFVUJGK2RSRHd0SVBCVU1hSUQ2TkMydjhPemY3SlZBOGx1aHlua1pGNGVt?=
+ =?utf-8?B?cjNvay9zN0k1NlJXYmNNY3RkWWlYRnpoYXE1WjkyTHlwNzR2SFlGMytKd29k?=
+ =?utf-8?B?UDgrZTl3REFQWjlLakFJZXhEMzl5MjdiL1V1QXJpTEh2eFR2STJPdEpxK3Ns?=
+ =?utf-8?B?aE1lSU4wR1g4cStNa1VjWVhXMXl5RHZQVmljWlZPUVEwNFc5VHpQM3hMcVVy?=
+ =?utf-8?B?SjVLcTZLNTRZTWJid0RNNm9EMlllQms2eldtRnJHTkR2MHFKNU1TNS85blNB?=
+ =?utf-8?B?eDdYRCtHY2srQ0NoeGIzQVJmV1ZkMzFvL1BGRXBMRGxpRXFxRDdGdm1JVm8r?=
+ =?utf-8?B?dVpPT1JPT2JIUVdNcHk2cFRsdzRhL0tqL1ZDa3dLY080ZWY0bER1Y0ttWkcv?=
+ =?utf-8?B?UUlBdVNRNFhrckcwUDVCT3YzdWNnM3VGYzlJL2FVVHdWMmtYNHBQK2VhZG1P?=
+ =?utf-8?B?V0I2RE5HenBvc2V6dmJGcTU0RVlSMmZiTVZqdDVKaDliem9aK3p2NUtxcm1m?=
+ =?utf-8?B?eC9TL3ppaDg4MVk5bXlDN2R1T2FFeERtTi9OY1NRSVlaaW43bkVsVWl6Vi93?=
+ =?utf-8?B?cVhjNlIwWHFEQzVoRktuaXo2bnlmQjhhaURWQW56WmFNa3grdnVPUTdLbFUx?=
+ =?utf-8?B?cHBFejJoYm1DSXBrRkl2andQb0M0bzlhdW5XV2xUbWNlWmI0dmtzK3ZZMDRa?=
+ =?utf-8?B?TlYzQk9mUTI2T2tBS3pHaHlPY0RpNWp4MGtzQ0J4NzVteDFzV1Jia3UzVWZx?=
+ =?utf-8?B?Rnh6UndEejJBcWYyZ2V3aWpGRnFlZWtsVmtGcjc1NUZFdmJWaHNlSVUzeDBz?=
+ =?utf-8?B?L1VZYXFSS1k4UEdidEsxOFZ3all2dWFwVmhSVGg5N05SMnJvTUV5ampTSWZ4?=
+ =?utf-8?B?SGtrMUZXd0E1M1Q3QzFoUzVHcmNGU2JNOGJwOTdCYUtONmZENEFpeS91ZjVM?=
+ =?utf-8?B?SFQvK3BHMk9KZ0RtSElTUEQza1ZpWUFNTDl4VjdtSjRHZEVkOTkvTjZ2SWNl?=
+ =?utf-8?B?S0xqRVk1NDRmSW8zbzk0R3pNZmhwUjdqVWhDd3ExU0YrcFBpNHRBamg3bERr?=
+ =?utf-8?B?L0pUOEhHUlh5Z0M0Qi9CNHFFeG13YlJVL2FGNkpMbXltcDVQeWtNdG1ydU8z?=
+ =?utf-8?B?NmVqMldVVVRJMVZWU1B0ZThmQTRzSXBUeUc3VWFkcDV4OExuWnRGWElwMytF?=
+ =?utf-8?B?RjlrYVZGRVhKSnRXbklkUnY3VXpOYUxTTHZHTE5ZOFkzOW1KKzB3NCtpRFg2?=
+ =?utf-8?B?U0F0ZTkyVmlGWmoxREJLeXFvQkZ1WWlHQzlvTURQWmdPbnF1T2dJUi92S1pk?=
+ =?utf-8?B?dzExTzlEdldzUWc1UW9XbUZqS2NaMVV0S0ZYeHB2dFJhUlJZaVdYKzZ3bXND?=
+ =?utf-8?B?K2wvbFpvZXQzNHVqbTNnZFFWNWltcUw3bW1xeUlqRThFTjdQNW8xYUZVWWIv?=
+ =?utf-8?B?MnZvYnFFbHdCOEZkWnlyYXh0eXZMd0grNlRiRkZXeVBXeXppS0xtMlMvbTBZ?=
+ =?utf-8?B?OU43QUJ4bjdZYTlEV2pETEJsd3hiQmZTaExpS2wrby94bWdaNHJ5VFRIdjcr?=
+ =?utf-8?B?ZUNFc2YvZUl5MVVuWGUrd2RqaWt0SVNiSStFTlFBdGdVTndXdllSNWw1dnAv?=
+ =?utf-8?B?WUJQL09qVGN5TXF2NjFXTVBIYkxDV1laUjdNWkMyY0taaDgzR0h1YkdOd3RB?=
+ =?utf-8?B?QUhweWlmYW4wSHNSa2ZGMzBKOFpwMTVGZ3VtMHN0T1lMSG5kMDRmRXRyeXB4?=
+ =?utf-8?B?VW9VVjV0ZVZyM3c2bVBjVXdFM1hPaVZPNFFNOGRLdDBPSEt2RnJoenBtZ291?=
+ =?utf-8?B?eXhGcGRVYzB1WVcyVkF0dDZlZ2VXUzM5SklDZTJUNk8xSWJjc0dYVnRyM1ov?=
+ =?utf-8?B?aWZqOGh0NmVvcUt1VlhCR1QwSkpSSEptRDBQQ0ZoT2NBSzh5eTRUUThRTjA2?=
+ =?utf-8?B?U1hBU1BXMGk1UGIrWm5DVGJGNlpZM3orK2lWTzk0LzQ4VC9HRkFSNjIxT3BT?=
+ =?utf-8?B?cWNpN2psVndMSTFoS25iUDdBN0c0UG5HeWpwMDFJS3QvWjgvT3JZeVFpUXpp?=
+ =?utf-8?B?L0VyWjh5TnF5eXdPbFloUlJWS1daaWxGQ0JJaG41L1RoRTBPNVQ2ckJGSWk0?=
+ =?utf-8?B?MWI3MWxuTU5wWUZ3NHNCcHNLODh2L3RwVWt3Yld4NklxbmExYzBpclhqTUpk?=
+ =?utf-8?B?TmxaUTBrbGsvL3c1eG1oYjFrTmFSNjVSSWlvczhQM1pJc1pxbXlYWGtOemU2?=
+ =?utf-8?B?cHpCa01hZGQrN1g4Nklmei92WkZVbFVFdFpUaEUzNURZMEsxNjIxZz09?=
+X-Exchange-RoutingPolicyChecked: BtI+iAmVNqNn+M2IaaySeOewR6z6ecfU2ZHSrQOSS5RM8mZ9S1dBtqQp2LlXzsXyRpBAaPpIlAEbXWRXKQNYPr7dImeHpmWkZFuGojWVm6hXFteiTzZDakZoXsZiacc5EskAs2lkK5JHB6VmLqejXGZUkj0fzg3gn2Mm1ZqEYXCbl7STbXThU5K1v8J4tM00jhMrCVbbcPjCOR2pxXwIs0T19xkv87ao3ibasrUOQyOBruzoFUmK7+3lQpcgap1u83YJyl5P6eP0EL3XMsjncrA8dAKVCOpV6LKBrv0Os0WFpXSi+Qkr+V9xICKzJk8BDgomSw9RXfAVWOSHCc3Wpw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93b6e4b6-89c3-449b-a4ab-08df39a0cccb
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR11MB4527.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 11:51:30.7146
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LCCo9JENjrD0N0FDCCmirEGudJV3dlh080CSTEdxXEkXhBH0hCL9UsdAsuNXcT+iBfePyD7ug+3/X450rfMrfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5089
+X-OriginatorOrg: intel.com
 
-On Apple systems with Alpine Ridge, suspending to RAM with a device
-connected to a Type-C port leaves the PCIe link to the upstream port of
-the controller down on resume, and the ports are lost until reboot.
-Calling the SXFP(0) ACPI method under the NHI before entering sleep
-avoids that.
+On 11/2/26 15:04, Nicolin Chen wrote:
+> Both iommu_replace_group_handle() and iommu_replace_device_pasid() skip the
+> driver callback when the new domain is the one currently attached. In that
+> case, nothing flushes the pending faults that may still be holding the old
+> handle. Then, the caller frees the old handle once the replace returns, so
+> such a fault would hit a use-after-free.
+> 
+> No caller does this today, since iommufd_device_do_replace() returns early
+> when the new hwpt is the old one. However, it is only a caller convention,
+> which neither API enforces.
+> 
+> Reject a same-domain replace in both APIs with a WARN_ON, and document it
+> in their kernel-docs.
+> 
+> Suggested-by: Lu Baolu <baolu.lu@linux.intel.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> ---
+>   drivers/iommu/iommu.c | 34 +++++++++++++++++++++++++++-------
+>   1 file changed, 27 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index 3fea48d3538ad..a9bc4ca5dbb4e 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -3716,6 +3716,10 @@ EXPORT_SYMBOL_GPL(iommu_attach_device_pasid);
+>    * Caller should always provide a new handle to avoid race with the paths
+>    * that have lockless reference to handle if it intends to pass a valid handle.
+>    *
+> + * The @domain must not be the domain currently attached to the @pasid. Such a
+> + * same-domain replace would skip the driver callback flushing pending faults.
+> + * Then, those faults could use the old handle after the caller frees it.
+> + *
 
-The firmware can set bit 26 of plug events CS_20 when it resumes the
-NHI. While it is set SXFP(0) turns the router off and it does not come
-back on resume, so clear the bit first and skip SXFP(0) if that fails.
 
-Clearing the bit needs the control channel, which is already stopped
-when the existing suspend_noirq hook of the NHI runs. Add a new NHI
-hook, pre_suspend_noirq, that is called before the domain is suspended,
-and use it for Alpine Ridge.
+Not a native speaker, but this reads a bit ambiguous to me:
 
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
----
-Thanks for the review, Mika, and for the pointer to next.
+I parsed the last sentence as describing intended/acceptable behavior
+rather than the hazard being guarded against - "Then, ... could use"
+reads like a neutral continuation rather than a warning. Might be worth
+making the use-after-free explicit, e.g.:
 
-v4:
-- Call pre_suspend_noirq from __nhi_suspend_noirq() in nhi.c instead of
-  from tb_domain_suspend_noirq(), so the domain code no longer calls
-  into the NHI.  tb_acpi_force_power() now takes tb->lock itself.
-- Dropped .reset_interface from ar_nhi_ops, as it is gone from next.
-- Rebased on thunderbolt.git next (v7.4-rc1).
+A same-domain replace would skip the driver callback that flushes
+pending faults - this is a use-after-free hazard: a fault still holding
+the old handle could dereference it after the caller frees it.
 
-With the call moved, tb->lock is not held between SXFP(0) and the
-suspend of the domain.  The control channel interrupt stays enabled
-and hotplug_active is only cleared in tb_suspend_noirq(), so a hotplug
-event in that window would still be handled.  I found this by reading
-the code; in the cycles below the window was at most a few milliseconds
-and no event came in.  How would you like this handled?
+>    * Return 0 on success, or an error.
+>    */
+>   int iommu_replace_device_pasid(struct iommu_domain *domain,
+> @@ -3785,15 +3789,17 @@ int iommu_replace_device_pasid(struct iommu_domain *domain,
+>   	}
+>   
+>   	curr_domain = pasid_array_entry_to_domain(curr);
+> -	ret = 0;
+> -
+> -	if (curr_domain != domain) {
+> -		ret = __iommu_set_group_pasid(domain, group,
+> -					      pasid, curr_domain);
+> -		if (ret)
+> -			entry = curr; /* restore the old handle */
+> +	/* Same as iommu_replace_group_handle(), reject a same-domain replace */
+> +	if (WARN_ON(curr_domain == domain)) {
+> +		entry = curr; /* restore the old handle */
+> +		ret = -EINVAL;
+> +		goto out_store;
+>   	}
+>   
+> +	ret = __iommu_set_group_pasid(domain, group, pasid, curr_domain);
+> +	if (ret)
+> +		entry = curr; /* restore the old handle */
+> +
+>   out_store:
+>   	/*																										
+>   	 * The xa_store() above reserved the memory, and the group->mutex
+> @@ -3985,6 +3991,10 @@ EXPORT_SYMBOL_NS_GPL(iommu_detach_group_handle, "IOMMUFD_INTERNAL");
+>    *
+>    * Caller should always provide a new handle to avoid race with the paths
+>    * that have lockless reference to handle.
+> + *
+> + * The @new_domain must not be the domain currently attached to the group. Such
+> + * a same-domain replace would skip the driver callback flushing pending faults.
+> + * Then, those faults could use the old handle after the caller frees it.
 
-The note on v2 about SXFP(0) and the xHCI on the side with nothing
-connected still applies.  In one of the cycles below SXFP(0) ran before
-that xHCI was put into D3hot, which then failed with "device
-inaccessible", and it resumed fine.
+ditto. Otherwise looks good.
 
-v3: https://lore.kernel.org/all/20261021141444.10632-1-fbeltranmillalen@gmail.com/
-v2: https://lore.kernel.org/all/20261019202900.39062-1-fbeltranmillalen@gmail.com/
-v1: https://lore.kernel.org/all/20261019134851.7496-1-fbeltranmillalen@gmail.com/
+>    */
+>   int iommu_replace_group_handle(struct iommu_group *group,
+>   			       struct iommu_domain *new_domain,
+> @@ -3997,6 +4007,16 @@ int iommu_replace_group_handle(struct iommu_group *group,
+>   		return -EINVAL;
+>   
+>   	mutex_lock(&group->mutex);
+> +	/*
+> +	 * A same-domain replace would skip the driver callback flushing pending
+> +	 * faults. Then, those faults could use the old handle after the caller
+> +	 * frees it.
 
-Testing:
-I tested it the same way as v3, on a MacBookPro14,3 with 6.18.49 and a
-backport of this patch, plus the PCI series and the ACPICA change
-described in v3.  All cycles were 30 second suspends to RAM.
+ditto.
 
-- Three cycles with a USB 3 disk on one side or the other, after a
-  first one that I don't count.  Both domains came back each time, with
-  both upstream port links at 8 GT/s x4, and the disk could be read.
-- One cycle with nothing connected.  Both domains came back, and the
-  disk came up at USB 3 speed when plugged in on either side afterwards.
+Otherwise looks good.
 
-With dynamic debug enabled, in every cycle "calling SXFP" on each NHI
-was followed directly by "suspending..." from the same domain.  There
-was no kernel WARNING during the whole boot.  The version for next was
-only built (with W=1), not booted.  The cases listed as not tested in
-v3 are still not tested.
+Reviewed-by: Yi Liu <yi.l.liu@intel.com>
 
- drivers/thunderbolt/acpi.c    | 49 +++++++++++++++++++++++++++++++++++
- drivers/thunderbolt/nhi.c     |  3 +++
- drivers/thunderbolt/nhi.h     |  2 ++
- drivers/thunderbolt/pci.c     | 44 +++++++++++++++++++++++++------
- drivers/thunderbolt/switch.c  | 32 +++++++++++++++++++++++
- drivers/thunderbolt/tb.h      |  4 +++
- drivers/thunderbolt/tb_regs.h |  3 +++
- 7 files changed, 129 insertions(+), 8 deletions(-)
+> +	 */
+> +	if (WARN_ON(group->domain == new_domain)) {
+> +		ret = -EINVAL;
+> +		goto err_unlock;
+> +	}
+> +
+>   	entry = iommu_make_pasid_array_entry(new_domain, handle);
+>   	/*
+>   	 * iommu_attach_handle_get() runs without the group mutex, so unpublish
 
-diff --git a/drivers/thunderbolt/acpi.c b/drivers/thunderbolt/acpi.c
-index be91bc604900..7efe02385e01 100644
---- a/drivers/thunderbolt/acpi.c
-+++ b/drivers/thunderbolt/acpi.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/pm_runtime.h>
-+#include <linux/suspend.h>
- 
- #include "tb.h"
- 
-@@ -280,6 +281,54 @@ int tb_acpi_power_off_retimers(struct tb_port *port)
- 	return tb_acpi_retimer_set_power(port, false);
- }
- 
-+/**
-+ * tb_acpi_force_power() - Call SXFP(0) when entering system sleep
-+ * @tb: Domain that is being suspended
-+ *
-+ * On Apple systems with Alpine Ridge the PCIe link to the upstream port
-+ * of the controller does not come up on resume from system sleep if a
-+ * device is connected, unless SXFP(0) ("Sx Force Power") under the NHI
-+ * is called before entering it. Bit 26 of plug events CS_20 must be
-+ * clear when SXFP(0) is called, otherwise the router is turned off and
-+ * does not come back on resume.
-+ *
-+ * Must be called before the domain is suspended: clearing the bit needs
-+ * the control channel, which is stopped by then.
-+ */
-+void tb_acpi_force_power(struct tb *tb)
-+{
-+	struct tb_switch *sw = tb->root_switch;
-+	struct acpi_device *adev;
-+	acpi_status status;
-+
-+	if (tb_switch_is_icm(sw))
-+		return;
-+
-+	/*
-+	 * Only when firmware handles system suspend, as in
-+	 * quirk_apple_poweroff_thunderbolt(): the OS does not know how to
-+	 * power the controller back on. pm_suspend_in_progress() excludes
-+	 * hibernation.
-+	 */
-+	if (!pm_suspend_in_progress() || !pm_suspend_via_firmware())
-+		return;
-+
-+	adev = ACPI_COMPANION(tb->nhi->dev);
-+	if (!adev || !acpi_has_method(adev->handle, "SXFP"))
-+		return;
-+
-+	guard(mutex)(&tb->lock);
-+
-+	if (tb_switch_set_bit26(sw, false))
-+		return;
-+
-+	tb_sw_dbg(sw, "ACPI: calling SXFP\n");
-+	status = acpi_execute_simple_method(adev->handle, "SXFP", 0);
-+	if (ACPI_FAILURE(status))
-+		tb_sw_warn(sw, "ACPI: SXFP failed: %s\n",
-+			   acpi_format_exception(status));
-+}
-+
- static bool tb_acpi_bus_match(struct device *dev)
- {
- 	return tb_is_switch(dev) || tb_is_usb4_port_device(dev);
-diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-index e99a3fcc4a29..61ebb64cd16f 100644
---- a/drivers/thunderbolt/nhi.c
-+++ b/drivers/thunderbolt/nhi.c
-@@ -1085,6 +1085,9 @@ static int __nhi_suspend_noirq(struct device *dev, bool wakeup)
- 	struct tb_nhi *nhi = tb->nhi;
- 	int ret;
- 
-+	if (nhi->ops->pre_suspend_noirq)
-+		nhi->ops->pre_suspend_noirq(nhi);
-+
- 	ret = tb_domain_suspend_noirq(tb);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-index 88af9ab9fde7..1f4b774c7ec5 100644
---- a/drivers/thunderbolt/nhi.h
-+++ b/drivers/thunderbolt/nhi.h
-@@ -42,6 +42,7 @@ extern const struct dev_pm_ops nhi_pm_ops;
-  * struct tb_nhi_ops - NHI specific optional operations
-  * @init: NHI specific initialization
-  * @add_links: Setup device links for tunneling native protocols
-+ * @pre_suspend_noirq: NHI specific hook called before the domain is suspended
-  * @suspend_noirq: NHI specific suspend_noirq hook
-  * @resume_noirq: NHI specific resume_noirq hook
-  * @runtime_suspend: NHI specific runtime_suspend hook
-@@ -57,6 +58,7 @@ extern const struct dev_pm_ops nhi_pm_ops;
- struct tb_nhi_ops {
- 	int (*init)(struct tb_nhi *nhi);
- 	bool (*add_links)(struct tb_nhi *nhi);
-+	void (*pre_suspend_noirq)(struct tb_nhi *nhi);
- 	int (*suspend_noirq)(struct tb_nhi *nhi, bool wakeup);
- 	int (*resume_noirq)(struct tb_nhi *nhi);
- 	int (*runtime_suspend)(struct tb_nhi *nhi);
-diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
-index 4408229d8ac7..9715ce1ec731 100644
---- a/drivers/thunderbolt/pci.c
-+++ b/drivers/thunderbolt/pci.c
-@@ -338,6 +338,26 @@ static const struct tb_nhi_ops pci_nhi_default_ops = {
- 	.init_interrupts = nhi_pci_init_msi,
- };
- 
-+/* Alpine Ridge specific NHI operations */
-+
-+static void ar_nhi_pre_suspend_noirq(struct tb_nhi *nhi)
-+{
-+	if (x86_apple_machine)
-+		tb_acpi_force_power(dev_get_drvdata(nhi->dev));
-+}
-+
-+static const struct tb_nhi_ops ar_nhi_ops = {
-+	.add_links = nhi_pci_add_links,
-+	.pre_suspend_noirq = ar_nhi_pre_suspend_noirq,
-+	.pre_nvm_auth = nhi_pci_start_dma_port,
-+	.post_nvm_auth = nhi_pci_complete_dma_port,
-+	.request_ring_irq = nhi_pci_ring_request_msix,
-+	.release_ring_irq = nhi_pci_ring_release_msix,
-+	.shutdown = nhi_pci_release_irq,
-+	.is_present = nhi_pci_is_present,
-+	.init_interrupts = nhi_pci_init_msi,
-+};
-+
- /* Ice Lake specific NHI operations */
- 
- #define ICL_LC_MAILBOX_TIMEOUT	500 /* ms */
-@@ -654,14 +674,22 @@ static struct pci_device_id nhi_ids[] = {
- 	},
- 
- 	/* Thunderbolt 3 */
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_2C_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_4C_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_USBONLY_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_LP_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_LP_USBONLY_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_C_2C_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_C_4C_NHI) },
--	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_C_USBONLY_NHI) },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_2C_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_4C_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_USBONLY_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_LP_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_LP_USBONLY_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_C_2C_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_C_4C_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ALPINE_RIDGE_C_USBONLY_NHI),
-+	  .driver_data = (kernel_ulong_t)&ar_nhi_ops },
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_TITAN_RIDGE_2C_NHI) },
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_TITAN_RIDGE_4C_NHI) },
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ICL_NHI0),
-diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
-index d22d8db8f890..0b29e6ebb597 100644
---- a/drivers/thunderbolt/switch.c
-+++ b/drivers/thunderbolt/switch.c
-@@ -4034,6 +4034,38 @@ int tb_switch_xhci_connect(struct tb_switch *sw)
- 	return 0;
- }
- 
-+/**
-+ * tb_switch_set_bit26() - Set or clear bit 26 of plug events CS_20
-+ * @sw: Alpine Ridge router
-+ * @value: %true to set the bit, %false to clear it
-+ *
-+ * On Apple systems the firmware can set this bit when it resumes the
-+ * NHI. While it is set, SXFP(0) turns the router off and it does not
-+ * come back on resume.
-+ *
-+ * Return: %0 on success, negative errno otherwise.
-+ */
-+int tb_switch_set_bit26(struct tb_switch *sw, bool value)
-+{
-+	unsigned int offset = sw->cap_plug_events + TB_PLUG_EVENTS_CS_20;
-+	u32 val;
-+	int ret;
-+
-+	ret = tb_sw_read(sw, &val, TB_CFG_SWITCH, offset, 1);
-+	if (ret)
-+		return ret;
-+
-+	if (!!(val & TB_PLUG_EVENTS_CS_20_BIT26) == value)
-+		return 0;
-+
-+	if (value)
-+		val |= TB_PLUG_EVENTS_CS_20_BIT26;
-+	else
-+		val &= ~TB_PLUG_EVENTS_CS_20_BIT26;
-+
-+	return tb_sw_write(sw, &val, TB_CFG_SWITCH, offset, 1);
-+}
-+
- /**
-  * tb_switch_xhci_disconnect() - Disconnect internal xHCI
-  * @sw: Router whose xHCI to disconnect
-diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-index e86845762e22..9900d0018174 100644
---- a/drivers/thunderbolt/tb.h
-+++ b/drivers/thunderbolt/tb.h
-@@ -1099,6 +1099,8 @@ int tb_switch_pcie_l1_enable(struct tb_switch *sw);
- int tb_switch_xhci_connect(struct tb_switch *sw);
- void tb_switch_xhci_disconnect(struct tb_switch *sw);
- 
-+int tb_switch_set_bit26(struct tb_switch *sw, bool value);
-+
- int tb_port_state(struct tb_port *port);
- int tb_wait_for_port(struct tb_port *port, bool wait_if_unplugged);
- int tb_port_add_nfc_credits(struct tb_port *port, int credits);
-@@ -1524,6 +1526,7 @@ int tb_acpi_init(void);
- void tb_acpi_exit(void);
- int tb_acpi_power_on_retimers(struct tb_port *port);
- int tb_acpi_power_off_retimers(struct tb_port *port);
-+void tb_acpi_force_power(struct tb *tb);
- #else
- static inline bool tb_acpi_add_links(struct tb_nhi *nhi) { return false; }
- 
-@@ -1537,6 +1540,7 @@ static inline int tb_acpi_init(void) { return 0; }
- static inline void tb_acpi_exit(void) { }
- static inline int tb_acpi_power_on_retimers(struct tb_port *port) { return 0; }
- static inline int tb_acpi_power_off_retimers(struct tb_port *port) { return 0; }
-+static inline void tb_acpi_force_power(struct tb *tb) { }
- #endif
- 
- #ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/thunderbolt/tb_regs.h b/drivers/thunderbolt/tb_regs.h
-index 92d893634d2b..0940e8b12d89 100644
---- a/drivers/thunderbolt/tb_regs.h
-+++ b/drivers/thunderbolt/tb_regs.h
-@@ -563,6 +563,9 @@ struct tb_regs_hop {
- #define TB_PLUG_EVENTS_CS_1_LOW_DPIN_DISABLE	BIT(5)
- #define TB_PLUG_EVENTS_CS_1_HIGH_DPIN_DISABLE	BIT(6)
- 
-+#define TB_PLUG_EVENTS_CS_20			0x14
-+#define TB_PLUG_EVENTS_CS_20_BIT26		BIT(26)
-+
- #define TB_PLUG_EVENTS_PCIE_WR_DATA		0x1b
- #define TB_PLUG_EVENTS_PCIE_CMD			0x1c
- #define TB_PLUG_EVENTS_PCIE_CMD_DW_OFFSET_MASK	GENMASK(9, 0)
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
