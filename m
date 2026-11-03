@@ -1,50 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687928;
-	b=InG9aZqHu8oB4zAnEerIKXfS8dznw6JAFZgIAvPdcv1+mFjt7rmroesdckZ56cC8+I69
-	 qeCxcYqwkfqCBDPtnA0drO6lvLkEt/IS3Q5p85qM8o2+8zx5afQUd5ZWuKnf1yz1JaVDQ
-	 wE7nC1i1rwvse1m+Tp1preUX5sh6KdS9oPdx+sK77Q0Wwv8IkcAwQWQ42R3KNCtzqUIuM
-	 PBE6xNVY/rQgKaBvMfWGC0ul8lfK/kvZCVrllRrC96L+d1r0Lm3uQrqNvUzptW9OjrAQ3
-	 KqoJGqJEw89XT6j+GjewcJU3lEIEMbO7kJtnhtwpovDEEF4ZMUymOc6vCod0FK+ic3A==
+	t=1793687987;
+	b=lB68sv3LYkdrpU4M/rtKoG1Nj9D2ADAkqlgaGiK+4FclKpuo9Vt0VIkc6lfsAsvXx+CS
+	 w9vM1OSYgqeAYm2lnjUm+K3QClSWpAbLCSBEicAqtnnoF6mpCGTGx3WTctkaHcxSghMt0
+	 XJTHWL7KqLxIkVUctWYCZkyXbU3+tGKlHJ4QU27wayqBQqvgXALYwXOEL4FzrrXXBAaFo
+	 okmDiJO4KAhZuBcKaaNMhcGcKbZzGXkDevcBC2mWgQMnPqCD3ux9OGIGCH1g2iPDHPGLq
+	 h2nVhZvuYyqveYnD4Y2AQZKa+p97MKlFbPX6goRXC0uNn0iEGsYyaobjo3/6/2U3JDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687928;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=sTSdkkz2vrjceniKIFMADF9L4UGSrsp9KNEr/A42Nmc=;
-	b=4a3C5uhvPy6faFfL/siJytWaiE2PtTtsAR6OWRWTdOnypMVsqDRJg4hpp+BiN++hQyl9
-	 ZkeUwgDVKblerfBlEbYvZeGhjGkD66eY53oRzrMMEZHtvpsW+F3ddMbBWzYYpto3Imz+p
-	 dWKi9iHWDWxdt473TUM8rcJ4jqNlhXh/lEdiM17Wrz8tpY9EbH1pXmKC1yIz2oAEZOWjO
-	 I5SFeuPc7A+FEEYLLrvdX5eQ8ceb/jMjoKbI7QOtDQ7V+B7En4bpgv6At52snVKe8d+l7
-	 bZ90hCpzss7bbwanX9ZAKo84kpc8wvGLspTO3exuYE/NSfPOZRbi9FRJNaf39KUZmOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687987;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=MUsiADJ04rpJgmFJzFzxzRu8rCIUB5cThov6L5V2r4s=;
+	b=p2vvm4+xgjgnaas2qZrVQ7WYv37oVoXGGJ1v8t/rgo2ScHqTH0TUoPfGHB29TtR0Wb3u
+	 xTClrOv2iE00wbKdUpUZWuxHaiW11o+js4DEWRlcjFk8rOq9Ut3AoXITBqx97t2kRFb5X
+	 WToy8jPYwKN8BoTvL38dkUGBHop3bqKEiwbN2+DR870pk6p/waD8lYXFgK1VuGdLLygxf
+	 d39+tTCuXBUtFi89CNb2tq6+cN2zMy/5J9IyQyyPMVpgDjtofLFLaGcqo5rMj4zxjFoYz
+	 RuihRwgkQRSmyOvl4o0ldEdz/d9YdzDHkQZyMf/M+hbOcr3kfJf3jyEz6ePZHfbf6zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.99
+Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30ED606A324;
-	Tue,  3 Nov 2026 06:38:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C30ED606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHGJlxgelqZHE5AA--.148S2;
-	Tue, 03 Nov 2026 14:38:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: ayush.sawal@chelsio.com,
-	herbert@gondor.apana.org.au
-Cc: davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: chcr - Free fallback transforms when device assignment fails
-Date: Tue,  3 Nov 2026 06:38:50 +0000
-Message-Id: <20261103063850.1033008-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F77606A324;
+	Tue,  3 Nov 2026 06:39:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17F77606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jJf725QgLz1c0QY;
+	Tue,  3 Nov 2026 14:39:10 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 1E80540574;
+	Tue,  3 Nov 2026 14:39:36 +0800 (CST)
+Received: from [10.174.178.164] (unknown [10.174.178.164])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAnZvWmgelq_OCWCw--.39623S3;
+	Tue, 03 Nov 2026 14:39:35 +0800 (CST)
+Message-ID: <4851c5b8-7522-4ff8-b6e7-d69f5d9a7557@huaweicloud.com>
+Date: Tue, 3 Nov 2026 14:39:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,111 +51,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] block: partitions: reject GPT entries with starting_lba >
+ ending_lba
+To: Christoph Hellwig <hch@lst.de>, Zizhi Wo <wozizhi@huaweicloud.com>
+Cc: axboe@kernel.dk, bvanassche@acm.org, yukuai@fygo.io,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ yangerkun@huawei.com, chengzhihao1@huawei.com
+References: <20261102080442.3775061-1-wozizhi@huaweicloud.com>
+ <20261103053418.GB1382@lst.de>
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+In-Reply-To: <20261103053418.GB1382@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHGJlxgelqZHE5AA--.148S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJw48WrW7Jr18KFWkJFy3twb_yoW5tr4DpF
-	4Yk3yvyrWrJFn7KayxJrs5G3s8Ga9ayay7KrWFkw1FkwnIvrWkWF9rX3yjvF15tFW8JFW5
-	Zr4vyas8Wr1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:gCh0CgAnZvWmgelq_OCWCw--.39623S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UAr45Xw4kXw45Gry3urg_yoW8XFy5pF
+	4fJ345Cr15Ca4fu3srtan7Ja4rZrZ7GayUtF98XrWrKrW5ZasrtasrKFWUuFyjvr9rWwnF
+	vw4Ygr97ua13AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkq14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
 	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbkhL5
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQAA2rpWtl+-AAAsC
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUtVW8
+	ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr
+	0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-The skcipher, RFC3686 and AEAD initialization callbacks allocate their
-fallback transforms before calling chcr_device_init(). If no active
-device can be assigned, chcr_device_init() returns -ENXIO and the
-fallback is leaked. The crypto core does not invoke the algorithm's
-exit callback after its initialization callback fails.
 
-Free the fallback transform before returning the device assignment
-error in each of these initialization callbacks.
 
-Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
-Fixes: 0e93708dabc0 ("crypto: chcr - Add fallback for AEAD algos")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/crypto/chelsio/chcr_algo.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+在 2026/11/3 13:34, Christoph Hellwig 写道:
+> On Mon, Nov 02, 2026 at 04:04:42PM +0800, Zizhi Wo wrote:
+>> From: Zizhi Wo <wozizhi@huawei.com>
+>>
+>> A GPT entry whose starting_lba is greater than its ending_lba is accepted,
+>> and the kernel creates a partition with a bogus size. The bogus sector
+>> count defeats the end-of-device check, so I/O through that partition is not
+>> confined to it and can access sectors outside the partition on the same
+>> disk.
+>>
+>> is_pte_valid() only rejects an entry when its type is NULL or when
+>> starting_lba or ending_lba is greater than lastlba; it never checks that
+>> starting_lba <= ending_lba. For a reversed entry both field checks still
+>> pass, but efi_partition() computes size = ending_lba - starting_lba + 1 in
+>> u64, which underflows to a huge value. That value also wraps in the
+>> end-of-device check in blk_add_partition() (from + size) and does not fit
+>> the signed i_size, which turns negative.
+>>
+>> Reject entries with starting_lba > ending_lba in is_pte_valid(), matching
+>> the head-level check against last_usable_lba < first_usable_lba.
+> 
+> Looks good in general.  But should this be a >= to also catch zero-sized
+> entries?
+> 
 
-diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
-index e2f2b2a6200e..fd4720fa50a9 100644
---- a/drivers/crypto/chelsio/chcr_algo.c
-+++ b/drivers/crypto/chelsio/chcr_algo.c
-@@ -1439,6 +1439,7 @@ static int chcr_init_tfm(struct crypto_skcipher *tfm)
- 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
- 	struct chcr_context *ctx = crypto_skcipher_ctx(tfm);
- 	struct ablk_ctx *ablkctx = ABLK_CTX(ctx);
-+	int ret;
- 
- 	ablkctx->sw_cipher = crypto_alloc_skcipher(alg->base.cra_name, 0,
- 				CRYPTO_ALG_NEED_FALLBACK);
-@@ -1450,7 +1451,11 @@ static int chcr_init_tfm(struct crypto_skcipher *tfm)
- 	crypto_skcipher_set_reqsize(tfm, sizeof(struct chcr_skcipher_req_ctx) +
- 					 crypto_skcipher_reqsize(ablkctx->sw_cipher));
- 
--	return chcr_device_init(ctx);
-+	ret = chcr_device_init(ctx);
-+	if (ret)
-+		crypto_free_skcipher(ablkctx->sw_cipher);
-+
-+	return ret;
- }
- 
- static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
-@@ -1458,6 +1463,7 @@ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
- 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
- 	struct chcr_context *ctx = crypto_skcipher_ctx(tfm);
- 	struct ablk_ctx *ablkctx = ABLK_CTX(ctx);
-+	int ret;
- 
- 	/*RFC3686 initialises IV counter value to 1, rfc3686(ctr(aes))
- 	 * cannot be used as fallback in chcr_handle_cipher_response
-@@ -1470,7 +1476,11 @@ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
- 	}
- 	crypto_skcipher_set_reqsize(tfm, sizeof(struct chcr_skcipher_req_ctx) +
- 				    crypto_skcipher_reqsize(ablkctx->sw_cipher));
--	return chcr_device_init(ctx);
-+	ret = chcr_device_init(ctx);
-+	if (ret)
-+		crypto_free_skcipher(ablkctx->sw_cipher);
-+
-+	return ret;
- }
- 
- 
-@@ -3164,6 +3174,7 @@ static int chcr_aead_cra_init(struct crypto_aead *tfm)
- {
- 	struct chcr_aead_ctx *aeadctx = AEAD_CTX(a_ctx(tfm));
- 	struct aead_alg *alg = crypto_aead_alg(tfm);
-+	int ret;
- 
- 	aeadctx->sw_cipher = crypto_alloc_aead(alg->base.cra_name, 0,
- 					       CRYPTO_ALG_NEED_FALLBACK |
-@@ -3174,7 +3185,11 @@ static int chcr_aead_cra_init(struct crypto_aead *tfm)
- 		tfm, max(sizeof(struct chcr_aead_reqctx),
- 			 sizeof(struct aead_request) +
- 			 crypto_aead_reqsize(aeadctx->sw_cipher)));
--	return chcr_device_init(a_ctx(tfm));
-+	ret = chcr_device_init(a_ctx(tfm));
-+	if (ret)
-+		crypto_free_aead(aeadctx->sw_cipher);
-+
-+	return ret;
- }
- 
- static void chcr_aead_cra_exit(struct crypto_aead *tfm)
--- 
-2.34.1
+Thanks. I think > is the correct boundary here because GPT's EndingLBA
+is inclusive and efi_partition() computes the size as:
+
+size = le64_to_cpu(ptes[i].ending_lba) - 
+le64_to_cpu(ptes[i].starting_lba) + 1ULL;
+
+so starting_lba == ending_lba is a valid one-sector partition, not a
+zero-sized one?
+
+Thanks,
+Zizhi Wo
+
 
