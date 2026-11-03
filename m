@@ -1,126 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706395;
-	b=I5T5zTHNnmQ2IUeCk2V8KIacG0SC5eCgcuHzgTtKPEJVT590qQU3Rb6+zL66CxqAhvEN
-	 YunS7Y5erPwd961W7GslYpBevOPrjHQdeVjEjuv3LXlN1pjsuXcdkcmPZdlDx2Iey+GJn
-	 0/h+l1JyFJGmInZPqkKszrbcKLApPM+DyYRzLvUDPmz3p1NZfhwK37LAr3qifuhc3gbVe
-	 tiPHyl4mj1ygbbvyG1/XAb1zqWFyBBPZuBzIVgT551KxB4zPdWcSgHQ/03qtarzutjofu
-	 mjwaD9nrTIKQFNIUgIX/Tkczjd7KsGsS3tU0xuGz5Qs3Bhl20zHl+NrlKY8LOPWvFUQ==
+	t=1793706427;
+	b=jxx8tHOGbMRZHnvqajVPT0VPsmkIYz6Asp21akgu7xdpaJGIey8Eh+1hSKhHxu5hWTg/
+	 4UxHdCdFMnAmJIgK95nYpE24m0DdZAOetYOYeZI/sH/M2CECfYrDObk5gGK+jH0sYge8F
+	 DropI4Y5k63xin+M3g0XZwOaYbJUNMvNDTp6Pz0uKyYJVKiIbtggXGf9P0z4RZwja19rs
+	 q3eFt4Dfc/x/bs5xBhPOxcu2D5yGWI8XuQnIANdjEmevzYztLw7CqW4c+nqHyiX4pOaoA
+	 vE2xLDLgB0Ii1ON87vTPMArRgu6q/vx3x5Z11ZesvVvneJo8zlUmtHNIWO4H17+3fvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706395;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1h7SuxIdXP1BrmLiSW0TA0Y4x+A0dQHqIxOY0fZWzgw=;
-	b=T9O1vyrJhTFNdOxKZNgfUKlB3YdTiiPaPGUXS0rrdXKW7tlBPpt8b09ldz6EJNU0Lc/c
-	 Ev0VuKI76sxRh+W82qDncBxdqGrc2bIsHhGzTYD3OhgmJpt0+w3CnIeJrD45qLxCfD1UN
-	 9wglHuun/AlcnrFk6vYplRnnxFydP2fCPSjfa8/KsL3QHhdlbaXnCcW4yCzNT3Yz8tvkV
-	 09BTaeXyNNBo/oCHzqE6uaSJcIE6Nu9KzbjD/Gwtjp1epOOUSx1bLifDurGfoZF4R9tek
-	 zdRnzCEtZed2yYFgCN7GhMpjSuwWzn7BLVD7tV9vsJ1IK+mtodhWjJa4VMx4iMSngGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706427;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oyJaOsgyVg7i7yxpvVvv++9mxwF1nRekeAVvZqUnvdY=;
+	b=Jxbj1kSoxddtQZ8Q3aINm9SAFJtG7cYnvUrwN8F5qsVkW+0opyN44cDGog+Sjs/3o+H0
+	 44DffxC03t/szv5Bt8FzUYTLYwYBNu1EGTADxri7ad3KYKu8bWgVKn0ySfD4GeeA9P40h
+	 /VE2Kj3ivbD2wO/96Ornc1smpGiblcfLSQkcAbs1g5V1dAMO9U16KvELBq3cEWTRok//i
+	 /aI6Ygp8mgceCKOTiLKEvFH+b9oQ9S38RcGjmNHQVZ8Ae6EQPnuabGkaQnpprPqNa8XF5
+	 IjLti05F/AWL/R2lW92mtiI9dOpArV1EdtAo7T/3NlpBLaSFc+BirBKTYGZpFCVg51w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M5WQx64W;
-	arc=none smtp.remote-ip=91.218.175.221
-Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLGOiZwJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E13606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 11:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9E13606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF82606A326;
+	Tue,  3 Nov 2026 11:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M5WQx64W
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1h7SuxIdXP1BrmLiSW0TA0Y4x+A0dQHqIxOY0fZWzgw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793706391; v=1; x=1794311191;
- b=M5WQx64W3OrKv3IrbfaaaUU8t9LBurF+lIi1NsZf+TH86Tb8kzcQtOfRinqCLkp6vbJeJkjn
- Wdwp+SEY7bV+SCApfixGc5g2PSWIhjsr5o8DnWz2b+eULeX3U8KrowNWRCDh9p9CW2PdjVmXutk
- fgWn2GKcQL5AnmV3qr19TWzU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4c5c651460189e35;
-	Tue, 03 Nov 2026 11:46:31 +0000
-X-Mizu-Trace-ID: 4c5c651460189e35
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 41/47] mm/ksm: check large swap-cache folios before mapping them
-Date: Tue,  3 Nov 2026 19:46:26 +0800
-Message-ID: <20261103114626.15764-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-41-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-41-d6437171ecc3@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLGOiZwJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA531F000C1;
+	Tue,  3 Nov 2026 11:47:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793706426;
+	bh=oyJaOsgyVg7i7yxpvVvv++9mxwF1nRekeAVvZqUnvdY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fLGOiZwJtsEitAbzUlKFcW5d9p7XkcaPwIxaI3jXZAAG7Fdh6jLMYwRVNfWbfjkSO
+	 5HWjNfrN495p1IEvlw5iXNsjfkVexPbHeC6diREKCVqL5nIT97WFhpdB2ATv+JSJbN
+	 CM84WjJeHHpSRvq569RAhulh7iHiLdVT+yBz6NtpLWkXtANRKIsVIOzqaB3cBMIuYS
+	 RRFLDq92c++Kje+nSPx4pd8Dr7kkbbxo4ge15MSqGTV3wLH8RIFm2kzwPFT2o9UJ9L
+	 VEceCvgQzL4+NQHSjqJtRaV+UUD47eMKlhXJSFoRN7ejpCqubU2MxAVQbTmlmsPswi
+	 fDmef2zvh7YvA==
+Date: Tue, 3 Nov 2026 12:47:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stefan Agner <stefan@agner.ch>, Dong Aisheng <aisheng.dong@nxp.com>, 
+	Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 06/11] MAINTAINERS: Update i.MX GPIO entry
+Message-ID: <20261103-essential-uber-snail-ff3be7@quoll>
+References: <20261103-gpio-vf610-fixes-v2-0-7c71fb36e184@nxp.com>
+ <20261103-gpio-vf610-fixes-v2-6-7c71fb36e184@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,34 +64,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103-gpio-vf610-fixes-v2-6-7c71fb36e184@nxp.com>
+
+On Tue, Nov 03, 2026 at 07:44:10AM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> Update i.MX GPIO entry to include VF610 GPIO driver and dt-binding.
+
+Here and in subject - pointless "Update". Everything is update. If
+people were using such syntax, then entire `git log --oneline` would be
+useful.
 
 
-On Sat, Oct 31, 2026 at 10:40:10AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
->
->KSM folios are always small, but their shared swap slots can be read
->back as part of a large folio in the swap cache. ksm_might_need_to_copy()
->skips large folios, so another process can map a page with an incompatible
->anon_vma or page index. Reverse mapping then cannot find the new
->mapping, preventing migration or reclaim.
->
->Apply the same compatibility checks to large folios as to small ones.
->Pass the page corresponding to the swap entry and copy only that page
->when necessary. In do_swap_page()'s copy path, decrement only that slot's
->swap count, because the source swap-cache folio can now be large.
->
->Fix generated by an LLM and sent by Chris Mason in private.
->
->Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Best regards,
+Krzysztof
 
-LGTM1
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
