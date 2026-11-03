@@ -1,91 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793702699;
-	b=zxbfmKjpfmw1TfspP0gKYYwWLIq70B3nEutN9CJPQUoX12ftEmQgT3jCFgw+v57T1ny1
-	 qk0qwuLv4Lsx7hBPhrM3xBKPEp9dT0D2rr6BxQqrXRQPTyxk0Kb4l1zr2Ox4sX1/WmOpR
-	 JqGZln/K8lyrQo0uGzhqSJVIy7ziAaa7gvQIEjX+5KtSpm3bJuoY3aHlHodndGIkF6og1
-	 v7rb4JWHau3rmQXGRa5FalVBA0KB6ODN3QYkU5j3eK9teDkTY4zHcRov3WA1VyIUDGuPy
-	 juEE70AycJt/P6YibCAMSyi+PxD/Fvt4jzKG9BnnjT0j3nU13WxbYan8RR5Del0AJCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702699;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NTtjEqR2V65fDv9trZGNYOX930zyDPC9QF8SaJjXETQ=;
-	b=iOQZo+KNl7Smp8SktANGVpWMXa/v4FYcxYUK4KivmMsZZ855x7n3ajy53jGwOUaGjxbK
-	 Fy3RDAjkYkuj/QiC1erpXUC5UE9O1ci9Ze85Ixr04OwjHAQgod4No/3i+C8XmFCild4hO
-	 NFkl2JSNi07rxg/hNKMQhZjc4Z2cM8kcJegdzSmYNT0/DijmVMG3y10YTqt24LLA6Rmut
-	 wuHf65dmjub/25VYef1YW0CTpKw2hbqCOUTFeXo7cN3KfAzDsljrteA0t1QD56xMq+s6A
-	 fiI8vU1nyYMT2WDPUQQEmURzy4Zmw6/6U5xAuoPQ0+LarF9YeLKjR7ELgVScv0QjTyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iOcRoqSL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.21
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013021.outbound.protection.outlook.com [40.93.201.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793702710;
+	b=wM6W7DwXSWVHxTRly95jr6kK2lrJlD01sbI4NogI7Tu/0De7kXynSZWFH0+H1j175t2Q
+	 YpJf2UJezfctO1ZtUHxNDHbN/mxKsBpls60tLVNMxscBjIIm/ZGASdUlsiOVIIF34dKYc
+	 VBgNnBe62fz28KT8bGiubTvq0Jp7/0F7N3RPdbxdWxar14o04JpmYKuBcLjQ014L6sKLQ
+	 nu8AL7bLL6CXui9/pEcPX83gb5Pw4qbHQSYm8X+ktb+VaOnlX1bpL/tyar4uGRzJrWWFR
+	 90inb9s8+7GlylD8qSuomb6YCTVHXUqN0s/2UzGT/u/fL3bFk6nJjPkuMoy2d7pRWgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702710;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
+	b=RpV3X+AEO9JMVAOBc2ma9pKYL8yOCKcV1SE5LwruAGR5+pdGCXJsGIlQ86OhIza52c9q
+	 w0vvmGFGH7ElEJ5S4qDfYTjiYVITe43dzs1BZ6u2APL1pxShkx06mpq1yRpAmhXKfQTer
+	 urAYDyIWqqjsX7ksdkm7R0hbkjTWqEIGhzBRti0U8/XomO4r9ik/krFDxIGVQ/HZS4tPh
+	 +exZ+hwqYEbX1fl/gXD5xLyCd3o4x37jD9+I2nmDgSr9qSOVoikBOxmXZ/ERhjweznbsc
+	 H73gooV4Ym8sl3erNDbjMaD3Ua0KPg6r/pdrOnObQjLSp1RJC5CXLQBqc6lvyURHjBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="0Gx/9y7U";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="0Gx/9y7U";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAC2606BF9D;
-	Tue,  3 Nov 2026 10:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCAC2606BF9D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4A4606C596
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 10:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4A4606C596
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iOcRoqSL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vD3t4nC0CeD0H9S+bLmnYyNQCeSDjCoj9XQEDeRG8jQvCTWDWtfy3dNA4MleBy/F8T46YsoOE+5FEaKUlH39s+7qkqonEf5qYNHFvPEcW0vWbEtwb6icFL6/HazWEEPxnWodg4yzTMGIoKuhORnLkDCSTGK1lF2gx37J47geAkw5rVjBYTjoTE65hU3DHHZkZR20tczd6/QNAYai4dZtyHY2g6kz6o3UK+0QD8lXDKVJlNQ4psZtgNyreyELCkgALvKoxGaU1welLTlx2dzVd7tHIVXHKehL8EIZyQVxpIrR3esHnadkhZ8P3PqhNHdMvDCHG0aewgFFuil1ZYfkZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NTtjEqR2V65fDv9trZGNYOX930zyDPC9QF8SaJjXETQ=;
- b=F1WS0CdlAwOwxk2WiWLWMNluc6Iex4o4vGjjOZOPX2HBFGM6X6QUMYO/jHIqzFFxcxOji6LrtGJM4sJXc9vLqLr407+Bo79ELj227lOmHbD78Arz2d8K+0CjVCvqQhW894Gfq9xS/T5E0ga40u3iVL4MsauIsMXtsQdUP/1sWDE6svBvHKJ6OZ3xD0XSG/trfVlaKSSLxbdE/GbJxtJSUD8UEUaakIO/u9Dzy/eV75wYq+L3ZuTNZ6i2oIC9b0+fWJZOH6+4B02TAPM19S1zJEb3k6Y0dNQUYR1lMI3m6hP/VGK+SO1oHCY2N18dMllV4yCf6QRdDJq/W9TPNFaSwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NTtjEqR2V65fDv9trZGNYOX930zyDPC9QF8SaJjXETQ=;
- b=iOcRoqSLSFiMSQY9/zj0113OmGCxjyKpaUoKZnhzzlBy10QebyK5NAdZmVnxQgjH0zRjKSnzljrfC6iTTXCHiHx+5C79G1+/FJ/nwdj4udMY2zr57T6npx0HAWm3Sr5KxNR8CESHsLQS+LYJVYtSbeE0YerWCQXMqu6qCHKPEkE/mUExrdyuFfglUBqCdghe/Yjictw1ADJvee14HgnX9rmWmVYam5u74lPWHZFZ48CgQSbnkRf0CvptD3w4CzAXD4yhT05bON3J62oPg4tJxpB/2nsWDS5rk/xFaggsr8QQIZEbTnvHb7qm/wqBL+ZHSf2LiPG9tkLueIZJO/1Fbg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by MN6PR12MB8470.namprd12.prod.outlook.com (2603:10b6:208:46d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:44:55 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Tue, 3 Nov 2026
- 10:44:55 +0000
-Date: Tue, 3 Nov 2026 12:44:45 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: Kyle Zeng <kylebot@openai.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
-Subject: Re: [PATCH] ip6mr: Serialize multicast router socket ownership
-Message-ID: <20261103104445.GA1107544@shredder>
-References: <20261030042221.73996-1-kylebot@openai.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030042221.73996-1-kylebot@openai.com>
-X-ClientProxiedBy: TL2P290CA0019.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::14) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0Gx/9y7U;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0Gx/9y7U;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kxGiifaQ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C5E7721F15;
+	Tue,  3 Nov 2026 10:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793702708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
+	b=0Gx/9y7UOj02HXjG4ZsdvnvIaajiv9dBUb2r3VdVEq0QfXfWxIuCYk7lmKzbP7Dpt9bHXM
+	O09oY0CU5ZAk/CmFUHHdy7ARuiW41YjDPJLoqrA+0e57TqdoTPgxtgd1Vwp5y0RD/m6VjA
+	awbOn8Xxw+mQ7nRS3A1rHucNSC74faA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793702708;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
+	b=kxGiifaQdf093IUSGJk2pNHGkMa15+9Mjqc/E9+t2Vl5OU5HCx/UBVzLwvfm63nLWik2JX
+	I/1W0uM6+7tmkDDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793702708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
+	b=0Gx/9y7UOj02HXjG4ZsdvnvIaajiv9dBUb2r3VdVEq0QfXfWxIuCYk7lmKzbP7Dpt9bHXM
+	O09oY0CU5ZAk/CmFUHHdy7ARuiW41YjDPJLoqrA+0e57TqdoTPgxtgd1Vwp5y0RD/m6VjA
+	awbOn8Xxw+mQ7nRS3A1rHucNSC74faA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793702708;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OmVqza68r32jWT+7is8UbaUD50yd0FSVAcJ4aEWMju4=;
+	b=kxGiifaQdf093IUSGJk2pNHGkMa15+9Mjqc/E9+t2Vl5OU5HCx/UBVzLwvfm63nLWik2JX
+	I/1W0uM6+7tmkDDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 657F01350A;
+	Tue,  3 Nov 2026 10:45:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zUufDzS76WqlFgAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 10:45:08 +0000
+Date: Tue, 3 Nov 2026 11:45:03 +0100
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 08/18] nvme: Implement cross-controller reset recovery
+Message-ID: <dce1f3c8-d988-45a0-b943-6418b4d704ac@flourine.local>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-9-mkhalfella@purestorage.com>
+ <6e0b4de0-b030-47cc-84ce-3f021a5c75b0@flourine.local>
+ <20261031082155.GC34016-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,80 +114,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|MN6PR12MB8470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 126b7a45-df72-44a9-1f46-08df39977fbe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|18002099003|22082099003|56012099006|11063799006|261022105027099003|261026121527099003|261022075727099003|261009223027099003|261026140227099003|261028144727099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	Ow5v6asUe740BVg3Nnz+QCQcpO6P2FjO2oke5FdFuoeZBK3Hmmtc8jOTfp9/MKfC208Vs3zxakj9Rgf239UqWIjNHmCs3FceZdtcx80+4cmRAk+46aVIfKlOfBDJqz+kWQNhWW8gsV69gdVG5owXS/baRtK1m283+GZ/BWmIgqyDx2BeCIaa3CVNUusw7RdilpYMuSy7Xf+NBuxZhkRfL2y7dVgTepP6SlEbgZhIGPqbr40/iCbzh/0p0r1bwzz7mBQ2++zEiDguFsBBqZrdVDgesJib5w/hGCYSRIUa8Pe0fEBxQeRb5MJ3bMAgcChpUU0ivkDQ0bOcqdJz23nTzN2svY/ehhfIhPm9EZn5Zng5HlHhQrTcjE7aAW6vSWGtZWD/TlVSLiiWyDMRZLFFcGJDbWdJAC7dYwYMW0fajYpwoYeHpbD6r615iSyCAq/jPOgP9sINiNriVgZCGKjzLGIJ33NW+vDIEgtZ+gSYCKcXZWrjq20C3ovNnydCRrErddO09d1MgL6q5s2eTOFtp39Qv/EyhmXIZrDuGJ576pjUWX6J3QO/5HcxoXGhGMYS0b1cuwPWxky07wbnwulJYLMtrzeRKAHGvNOwYIYmUODraM3pb7e6cxZBVAyKOfmfbe1ei0W5tveYtWnDKcO7A0k4q1G2TPcTeGnl/uYAqwM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261022105027099003)(261026121527099003)(261022075727099003)(261009223027099003)(261026140227099003)(261028144727099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KIJDXOzmXDGAIpNmSd2St0SEKuBQswEKlry6f9LzuMuZ4HrmqWzdJUp4uW7k?=
- =?us-ascii?Q?MMXsn2uehMayvb7K3yQMYfu+z7wj5AS+96DEtHNIVzWJ2qNo5LD5nPpJRnwm?=
- =?us-ascii?Q?eJvIRAqlyzC6B5gFOMK8hBYorpLp39H35caLivjhEMTMgdWHoraWDS0HCXoe?=
- =?us-ascii?Q?LnNpCYVCLDhOqHhKMxjOYz6fZncivoo0MT4btRCJ9Me4wzaHyZFPi81wKcUq?=
- =?us-ascii?Q?MKL5MVt+G86yqld99KiS0lS6mvE+2A6lNxbM4cb0XPE3tODDH6dKQHz+QVIZ?=
- =?us-ascii?Q?ndIM/gCu+9uEZ6e5uzCW+ig8zmk4RGspO/2Ob5zTL/z73ait4Z/Ac13CTAuM?=
- =?us-ascii?Q?7EXJb3nNrRBJZvpaP7QOmj8qFQX4TAelqFBPiAP3hlHA6te9eCRK1NHQqXmI?=
- =?us-ascii?Q?G+n1f4ZqoUj4U/Ed8Wd3OecfEfjWLWyS8UOz/cvfeBp1ExoBhfGCYopxW0uK?=
- =?us-ascii?Q?UgtgqojbhPNqPer1t8JqXkke7EZFsHQYwTdT28mOrExRcTzhJM62DM+jJym0?=
- =?us-ascii?Q?R8xQiTjHYLmRXNPIsnMqbHo8ia5yDKRaXL4Ki1JFLfg6WDyq7HgN5bYinGSp?=
- =?us-ascii?Q?QE+J1bzaVwQ/qezQDT3FfkuTWWkancYKMx6EYquANRDOib6tbf/HjTrU2ryi?=
- =?us-ascii?Q?fAyPj3PdPz+clF0eebnl83+OHv86m3WvWTczl8B5S2WbsTGue3C21Bb5pzjV?=
- =?us-ascii?Q?FdgtmfMJUfCr5yAQG4/MyfxeHdj5bAn1I2cKid/Oj6ecJ3K7dwbCRI/Z6Ms+?=
- =?us-ascii?Q?wFce8ag+jCe4kyp7kp1WLNr9mxRmYHNTfxxYqFOAt9VbbHspN68YumjOKp4A?=
- =?us-ascii?Q?9wDpBJoJE7eG07WOVeZFZr7zdhl7t5beG8vU5sttPsIAXcIGy9lWyk6WDNwp?=
- =?us-ascii?Q?ps0UFjOUEhnbkJK51CNDEYMdkiy9/k7xftz2xPsC30VP1leuLJY7tTjpxUiD?=
- =?us-ascii?Q?8Vsr0egJuLmQAGEN6D2avSOyool0gVR6otTl85ku7jtOMqtmY+4JLxVSm0dH?=
- =?us-ascii?Q?HmcHage+YMbRK1ebmJUW0RpFKk1JROBJec9lEYeuy+8DaAfTzZwih8OgsxJ0?=
- =?us-ascii?Q?mW6qztaYNPqPtFYS0NWi8waiFXH2TGBFfg8hWuOo18TlWkvNFwS5WAx9yz/f?=
- =?us-ascii?Q?uL1ToDjXuRsuwlozUkHLqQTHCf+782ILQVdd+fbBXlsWODpIYpvdakQbTZbh?=
- =?us-ascii?Q?x+8Nz3mS2m8rZNMVk9OrPFTUGC9wQ0NZMydtSP0QQr6ti+kJxLNLfAxF+T3+?=
- =?us-ascii?Q?Q4qbxcyeZHWxRqYjqoTIMjQ06SMJ67GTvjr8gmpFCo5jjuqwl96K/IIp9ZL6?=
- =?us-ascii?Q?uPj5qHG4dYuPDFLCYZqgXJsCpz0pHauD6tNC+0MJ0mJzDOSLr+vq1hKrFxwp?=
- =?us-ascii?Q?0PyxIMx+ct0VfUYXlTmiD+mqcl2hhS5SQngf2PM5jR6tKYik5dAaOHFoC6lg?=
- =?us-ascii?Q?Uwov6FNVuq2VFB5JYB8MIJ0CbOkKzgvbB7juP275hVwqtVem4sMQz6g4+6St?=
- =?us-ascii?Q?yMPm8+tmVnPuG6B3GZYVwKSZVJtEJicmV1N9y83gkQ7MlKkV2GjyxsBT0tua?=
- =?us-ascii?Q?WpcTeOHSPjvGI/7nC7PMqUfXRaCRYR/8W3x8n+ftp6YmFSOj0PiNLkojSIl7?=
- =?us-ascii?Q?3AhEKWggdb1+TsL27SpY8H3dotJJ5YU0xJHo0Vm0nxXOu+KBaI3KkVQOK6Of?=
- =?us-ascii?Q?C/Nn6ETCRxpsG9qda4qjXQ02L+U77PPEt1sKVJW6C+n7MYux?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 126b7a45-df72-44a9-1f46-08df39977fbe
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:44:55.6915
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /ZZ/1npI/3bt/OHnbuaJgNXXD8Tm+aXP5mAvlusbupnl8TmcKqGZtcK/ER3kx93mztBL3AVT3I49Wel4EUzxrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8470
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031082155.GC34016-mkhalfella@purestorage.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.30
 
-On Thu, Oct 29, 2026 at 09:22:21PM -0700, Kyle Zeng wrote:
-> MRT6_TABLE checks whether the socket owns its current table before
-> acquiring RTNL. MRT6_INIT also looks up its table before taking RTNL.
-> Consequently, concurrent TABLE and INIT calls can initialize the old
-> table and then change the socket's selected table. Another INIT can
-> register the same socket in the new table.
+On Sat, Oct 31, 2026 at 01:21:55AM -0700, Mohamed Khalfella wrote:
+>  701
+>  702         if (!wait_for_completion_timeout(&ccr.complete, tmo))
+>  703                 ret = -ETIMEDOUT;
+>  704
+>  705 out:
+>  706         spin_lock_irqsave(&sctrl->lock, flags);
+>  707         list_del(&ccr.list);
+>  708         spin_unlock_irqrestore(&sctrl->lock, flags);
+>  709
+>  710         if (ret || !completion_done(&ccr.complete))
+>  711                 return ret;
+>  712         if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
+>  713                 return 0;
+>  714         return -EREMOTEIO;
+>  715 }
 > 
-> rawv6_close() calls ip6mr_sk_done(), which clears only the first table
-> owned by the socket. After the socket's RCU-delayed free, the other
-> table retains a dangling mroute_sk pointer. A subsequent multicast cache
-> report passes that pointer to sock_queue_rcv_skb_reason(). This produces
-> a KASAN slab-use-after-free in sk_filter_trim_cap().
-> 
-> Look up the selected table in ip6mr_sk_init() after acquiring RTNL.
-> Likewise, re-read the current table and check its owner under RTNL in
-> MRT6_TABLE before updating the selection. This preserves the single-table
-> ownership invariant shared with ip6mr_sk_done(), without changing the
-> locking of the other multicast socket options.
-> 
-> Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Actually, this code has a bug. It does not correctly handle the case
+> when CCR operation completes with an error. I added line numbers to show
+> that.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Fair enough, then let's use the local variable. 
+
