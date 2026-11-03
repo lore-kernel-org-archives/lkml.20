@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714180;
-	b=whwQmxC/dRqmbW+je/3J91D/08Si9s2E8G+yeDs4okZG4/WifIu4dtn9e8yj9+g0BYrq
-	 7RbtF/fYdEYsRq6bTNItZxoepehr++0VC4hKjMhThb4ngRJdpdODIRZKxEeQ1u5La3oIm
-	 dBpnmWdbDV3GngNzFJIqZNYdQIJGZMqegQBEv480QTNAHJSxvKhD99B6J8tC7pYwEn4Ai
-	 /vRzaTSgHJICMlwFsGfZaSkKnB2lsulH/AiSc8SqCbrjCVt5rDIosy9kRCQDCRukarUmj
-	 hHDckbJpFKRIk4X3Rxc1M6fLldJr3TxkdgTgjkSWApwdIIDIU8BGO9akQgFRIdl37Xg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714180;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1mF/Wb+MOtAslfyKD+az4LMnyLK9TBg4kE+T6uVGVAg=;
-	b=o/YU2HiBos2rwCF7GKc4I/35nNWLOH7ge56Kpbj869jJCtpZvwsXm1bvj+5/ANItClhR
-	 tH/AjbTxx5UELj6AzzAlMYRgpW5prMRtI9gYQLml9/gH/9PxPEqfiJR6YvrOtSrVrWCDP
-	 gchFDXPxmrTiY1rslizA9A6aSd36ci/OhZu+w/LbB9H0LqXHQ28+ULP/Xpmc9cQYxm5/6
-	 MHKZ5vVAqkDAMTu+KL6lC5YwgVL7YGc30VGHc2e49d1ZuTWGMfCpqdFNykCc7LqR6q5uE
-	 rVKZhA7AH/Qr8GNToGbyXYXOSipez0S0vmhbyWedWHxSHDL2fB8jRlHUWlohLd0w9lg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bUbXYKUB;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793714172;
+	b=OBD5GhshmrysBtXjL0yZ8T5+7z5xl0oBJhibF1/PoWj4p9EYHuVca20dfsUrUL5LzGtT
+	 wASIRD0405VsEOWk/4xtcL0US0eWdM/jO+sX67ToyZ5+3axgSDLp2CfupP/7UIBeNsxwA
+	 1ttY8lMvb2LWDyWhe4nNGrJhttf6/Pgkj31IbfwmxW5h3JgfuqxVQ+UXChv8Qo514TW+x
+	 SA/mP/gzFiuiKq2tRzgVXhZPDWfkzbONph/gGAORZpw5wrzt4njeSq7n6oMsXAhqgW4O/
+	 8jYKalxPL5xRwSi3QLWQfHGugpBJeQh/6YrELXvGYowsEBaLJ7G/obrIgAAi5PISskg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714172;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=trCDAkt5ny3pX+tgfc3uLUlbiTJgt8LIKzS3+7yv0ow=;
+	b=L3FBwdxFauF37rfCJ06Wi5SEOfEt0HWmMjt/LHuTJtHs73hR7P5GqY6i41gj/DS5AsVE
+	 iDPdhKSNW96i6A4Ovy0u0D0YFnw0irVWAaWMiHTWLkaUbzN92uLSjXmRCWAiM5xj+NYlX
+	 WEy2mnG4bdyVXPNhx/LlM/PyAs7kG1GzJ5vnldyUUbUV3HpddMZvxvdRflwwzAQspRcck
+	 wCgST0CxEKLvsu69nmRkNSf9O5oiMD0lFPw4R4EhQCKh/kqG4obLKggY4WHrt9qg8MQNg
+	 nz3DxQNE+cRLhbeER1nS/ni5pw9rwAHftMoVI1+4WUZ1/GmYK2d0NMUJbhitK9zLGnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nFEeCWJ9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.28
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012028.outbound.protection.outlook.com [52.101.43.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBD9606A32F
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDBD9606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0D0606A328;
+	Tue,  3 Nov 2026 13:56:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B0D0606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=bUbXYKUB
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso21766815e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:56:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793714178; x=1794318978; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1mF/Wb+MOtAslfyKD+az4LMnyLK9TBg4kE+T6uVGVAg=;
-        b=bUbXYKUBx/NY1rY6hRhuBflURH7qvGs8KLWQ91r2bUdZqd4RKXgxRrxW5hYP3rQ7kp
-         2gYY3Qcn0Q6c+z2DD1uzMnmUjwY6vJARKmm3Mv2tIgiToA3ehmZ0MLNEF1AE7mm33K+c
-         Xfof6GjCA3oDqRxcottyWxjyWgsZXNmQETfOT+S5CJY0W/ehxCf5gufn/FpxPZR4KkAj
-         KOtZsEl49uR3Jx6JJQqpGokCX+4baMJu6GUQ9OYBLOiXjyWpxbbxazqW6We7a7GQpKVe
-         MhiOHKnIyX8e8m1bDsI1j0q7XeAYc7ac5ISWuvPk0H31Q7CpLcHzxA/KWelIjRP/fbC9
-         sN5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793714178; x=1794318978;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1mF/Wb+MOtAslfyKD+az4LMnyLK9TBg4kE+T6uVGVAg=;
-        b=Slsi7QPm/sCidCsH5t8N8q9Ficm2U8aqSJUutYsOKfm4sbiufdTTSa/kGXk23tl82R
-         nP2lHeFRQj1q8i765s0uffsr33Y9QT/V1HNvqQZcG0DzFq6k0yP67M/mZzKmd1U+1PDG
-         XXf1CoJaQyeArjq+zelaCl7xoMf3INkDn4vxP0f12wiKsmr9X5wG2vBNrHBwZWgVaJdT
-         NAFhBrlIRoQAJ8F0Sm5reY5ocWmq+MZ/5298MkHCmyP19iATN/Vb55MtDJzpBDAR3mjC
-         yCJqmXQ1xTa1+48POlNutHqaY/1PSMdF99XW5HIzX+iLlu1np7rEBgJb0ojQOZnlJA9e
-         PmRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwosHGjrM2LujuxsFxVtzplcqSVnFwcnY+O7tDf6loxYKYA5zDME5Td2OSwb4ry08BdWpSw6LQcBkcUqic=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+XaMco5UmTsx9R8AM6INhC9cUi2hXLud0MLZtelyH/r3dHHPay
-	ZFwCezq7UyHQNZgSgRm6x75A87WB1XtPtm06SH+raIyzgelUwxTJPLvAT6cZfvNKcoA=
-X-Gm-Gg: AYBFou1FdhFXfbkij4eBTzU73MnWdHj8jHWz2nKeSbghl+RsdbSPRtKDF0QTeAqK05C
-	Py7YSlNtTD8JlfSiAtUmvqsFaOizY3xtL7SCAnsuH83wpIfm5X1BLh7/ll6wlcnUs4pdOYq/jwV
-	2ycrHoWfLbMuvPwFXrxMAA+9HDZf6Qj69At1xU1C+xn7prlXt2Z5AVdKVsOhIqbZ3BdMwQqtLpW
-	MY+XXlyn8VSDWDqLdfR04j3LEd1g+Lrp1ugSirWt6oQhq5W1mg1Rb3ingia3Xe5yfpsDTNNIxEx
-	7HG/HMwLG/FjzE0Kx/Hxh0hhzF56LTk5dXksrqfQq0qyq7WfvsQKXh2cMHKyQrYDIVz222EbWI7
-	t1m4kC6qd/dDBQplVu1sxDPZe9dXhilKGgDGrCdHqWNrFdO4h4/D5IsnXip6/uhYb9zJ7vLXgu3
-	v/20n7lo2/F1s3Jt02PFiirSOwhgqLHlhEr3vCoaOKg5ccxlT607Fxk/CW934xPi4u8u6aTc5Nc
-	h1bzHUQf88TFNv2flmwtKwdn3jK5Gbas1FZizr6AK0Or83upvzPI6xFBxKg3UNyH/LZDx9336/X
-	0kKfI6rxuVZ8mb/aUSpBDqo4Oh3PRvszKQ/uuZzYttQ=
-X-Received: by 2002:a05:600c:1c06:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ac12194311mr366054135e9.0.1793714178228;
-        Tue, 03 Nov 2026 05:56:18 -0800 (PST)
-Received: from localhost.localdomain ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1a16sm39629747c88.1.2026.11.03.05.56.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:56:16 -0800 (PST)
-From: Heming Zhao <heming.zhao@suse.com>
-To: joseph.qi@linux.alibaba.com,
-	mark@fasheh.com,
-	jlbec@evilplan.org,
-	hch@lst.de
-Cc: Heming Zhao <heming.zhao@suse.com>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [RESEND RFC PATCH v4 0/4] migrates ocfs2 DIO from buffer_head to iomap
-Date: Tue,  3 Nov 2026 21:55:59 +0800
-Message-ID: <20261103135605.22943-1-heming.zhao@suse.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nFEeCWJ9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DpI3GlUph949nG826yzyd3hCZEztzSK5N1/Ti3FUTNy0CEUtllOdzftj+FTAVXjoZTWq6VoUtqJn9LBx9lYFEZ4l6olgNpVJ4o7Q0kNQXQhTyRAEEZG5GSbxSvUoFputbwvHlTZ6c2roRExOBHb9/ILwN6iupH6+7kFHEGPZxj1Cuhe+sB5965Z0VUDGvNUMb8xDl52He5JBy5G45GLPe5ck/FgBxtu9AwweCo5toZA82UzXG9Xj/p7it1BVJFpGPrM8dGLuOCbRjcp0xK7lb8NtUYWclk5tS0R4NDTvavUUUppFo6XlHKJYihjT0Yu29SFRwdXpkKAljWEGDgNGIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=trCDAkt5ny3pX+tgfc3uLUlbiTJgt8LIKzS3+7yv0ow=;
+ b=NbQUGZOnw+eaEu44+vrh0lloU1mJ8XQB7dfxLQNgYwgBhYyG+BQ46DcCcJ8C/cYWc+y6Yh5jE213QTeXRAURJRoIHAABOAIPIoKMTj/Hy6gQy0qQYhWOlOVM5fDZyu1E9o0D+utQguhu1OWASnSuTFhMw4E4merpGbZSv5igqge9QalMQXBmEWYDFmGoW7M1wkmY77bxtAaJgjms8gp4QjCw3e6X0PlHLhLm7uEUva6JVFiXPziG3O8R/z8KUCyvTB6vzpaxrNISMTRhTJjhJxo9EDgkFp6bomwUz5uDC4zqQma55k+0ryMVMtTF4YZ8wdtpTcE4/VKDswMyuBUyzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=trCDAkt5ny3pX+tgfc3uLUlbiTJgt8LIKzS3+7yv0ow=;
+ b=nFEeCWJ93jxjhE/9nDrDxNonWBWmwTVO5iDMwb72+a3Uu0lUwP2cntD9sprJaabeGgCULDE9zr76Noy7xDBdYscCBceeMErhosdr8BCdIEATC5SLI1D3IqSNY9Uw/GnbUOTN/UILHuK2+uy96574JAQdCpCrUc6iWtqzgC7EhsU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5)
+ by PH7PR12MB6562.namprd12.prod.outlook.com (2603:10b6:510:212::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 13:56:07 +0000
+Received: from SN7PR12MB8147.namprd12.prod.outlook.com
+ ([fe80::3923:c1a4:778b:56f2]) by SN7PR12MB8147.namprd12.prod.outlook.com
+ ([fe80::3923:c1a4:778b:56f2%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 13:56:07 +0000
+Message-ID: <add4f327-6d01-474c-b2e2-74b32cc8543b@amd.com>
+Date: Tue, 3 Nov 2026 19:25:56 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 5/8] net: xilinx: tsn: bring up the endpoint
+ MCDMA channels
+To: netdev-bot+sashiko@kernel.org, srinivas.neeli@amd.com
+Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, richardcochran@gmail.com, michal.simek@amd.com,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
+ edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
+References: <20261016-patches_v2_external-v3-5-e33d3960ca1e@amd.com>
+ <179249749885.3135.15584191069467566874@kernel.org>
+Content-Language: en-US
+From: "Neeli, Srinivas" <srneeli@amd.com>
+In-Reply-To: <179249749885.3135.15584191069467566874@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0259.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21c::6) To SN7PR12MB8147.namprd12.prod.outlook.com
+ (2603:10b6:806:32e::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,180 +104,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB8147:EE_|PH7PR12MB6562:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf663589-b92e-4cb8-f48f-08df39b2350f
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|4143699003|5023799004|11063799006|56012099006|261009223027099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261028144727099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	IGRtZNkmjgjmdjlcuZHba8haYvuAzbGsd+3jPeXdcys0+Q2mJdp+Ir7cm/iVyonZtQtL4GMckIj4e/0oOQq+fGQJ1HNXlaPk+QlHSZRozkAqLgmUPldYDA/e9XCg7EfdVdmHGQUJRyQzo2j+i4IVlkXOyj7fgCDDiwP+8RE4INPMucoz9nSoinGi8kJ79x4TAQ/cPLS8SbcWHT/mkXzT4zMrdzvnT8kaq9+zgqbAWLjtfI/iHYH78vsx3vBaZRLjemotc79TOSHn1x4Jj+z7Y8K1xA7wN991UuoioEWrBgkz1uvJeBKERThSAQBMaU2r/5nOdU2GnzfpbFTZyJZAx9CoPn86jsBVC2e0b5vtwdvBLOWZJwd5fTqkRj8om/DYFJQrZdFFTTeD+TP3X1yc6Hhcq5u8Yt4X4Tk1w+MaCuhP+KSnWt6YyhQnBqKB9IUtzqYddMxhOcdr4318568nPfhKOiaHWMubkQkD9WuQX06oyXCCYI4gcy3DzGW6hQKGoAGArqqDWuBC87uvU4h+2nmgtx5rfkxRZasMgFgGjeuughngCXBT0ZLDhB8RwAJu82H+DN9qdYC6Qjwr51iqU/XThJWNxMc8z92nwoOnYyumd1MvQXzRTTVq++MKKuljEdYr33Hx+LwTgajsoVZ3W0VsXv9xH0naJg7/0V3SiOs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8147.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(5023799004)(11063799006)(56012099006)(261009223027099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WENPM2pCYTA0WU9oSGhySDN3NnRwMlgxYmFrQVBJQ2d0ZEYvWi9ma2wxYzJ4?=
+ =?utf-8?B?bXBweHc3ZC9VaUZTTnljTGtrUzFGY0N5WjlldC8vdHBRQ0dETlFjb3J6QmZt?=
+ =?utf-8?B?WGhGbmk3Q09pUWtaZ0FORHB3UFlrbm45cnUxUlF0YnN2aFhtbUVmOHhqbnp1?=
+ =?utf-8?B?cTdSWEZlU3E4Nm9JN3NlSER0Mnp4d1hpbUJtMTJjUno0bmZQK2lWZzkwVFJp?=
+ =?utf-8?B?U0NZVjZvMDFacGYzUThCbExSM1ZUVzJVQWVtc05pSmVveUpGOTNGYk1lbmJP?=
+ =?utf-8?B?dHZPNitUaGVZKzkyR1Blb240anF4aXdSb3Vxd0xyaHdqYXcyMEQ4QnhCSmpK?=
+ =?utf-8?B?anRaaW01TUxURVUvc3VXbnJYUFBpUGNRYmxwRG1IcEkwOG5lMldMbjdWWVNh?=
+ =?utf-8?B?aGx4YytoNnpqelRiYWdFdUhwTk1ETC9Md0VVbFhNTDhIdWpseXZuN3FwdlVY?=
+ =?utf-8?B?RWNRcU5QN2NCSklhS1piZmNvelVBODlOMUdNcU42S004U0lEMDVBN2VCQ2RB?=
+ =?utf-8?B?ejkva2wwRlNrM0Q4NU02aktrc2xFZU1ZVmdOUFNzb2QxbTFMYlVQR3BFVkZh?=
+ =?utf-8?B?TmxoZTJFVllyM3pBakJtRWpkT2ZmbGdvemE3Sm12c0IxbUtSM3Q2Y1hDVjYz?=
+ =?utf-8?B?eWlva0NlcGU3OGU0eGZtSjNpZzJsMGNLbnI4b3pWdS9RT1pFNlAvK0M2d2Iv?=
+ =?utf-8?B?Z2lnTmVPNUN5TVNVMjZoR2g5K1g0SU9JcFptNnZSTGFyYnBSVjV6eHhtaWNP?=
+ =?utf-8?B?b0ZWU0crS3Z0aFA5YkFlMk5EZHllM21wWTdWbTNPWWlNMkYxVk9ybnBvL0hH?=
+ =?utf-8?B?MDBQNkx6WVdqNENqUjlNSFBaZmh0RmVXZVZTeTNtS3R5RWowbG40bGs4amF1?=
+ =?utf-8?B?VmhiSWVOSWtSQkFzVnIyL0RMeDN0Umw3VGZxOGYwMGZYd1BNWHJHaWVsUGpn?=
+ =?utf-8?B?eHR4cW1ncklzM2tHM1V0NVErUk5lZWY0cEpYc3hoU2N0QUVmeGNsSU5zTFlM?=
+ =?utf-8?B?TXZnNGRGRTZjckk4Qld6SldvNkhWZ1JBUGVmbFZ4ditBMERhbmJST2h1YTN2?=
+ =?utf-8?B?M0xNTzhyTkVRWndnT3pWRkRjckIxV1d0WWhoaEQyQStwYWl2U01IY2VnWWY3?=
+ =?utf-8?B?VlI0SWFTZzUwbFN5RWl2a1RiYTNEcS8vSlNZUm9QS0xmNWN2S3pwMjU2ckFI?=
+ =?utf-8?B?OVgzTGMxWWx0cE15NXkyUDd5Z2FKdzdzRG1nZkhMN3VvcUFSeVorY0lKcHE1?=
+ =?utf-8?B?OUZXM3VOWlZDd01NRmxKZlcvOS9ndGtLSmcwbTdzM1FYSDRMb3pTOEFrcTRY?=
+ =?utf-8?B?cHZBTjR6aGNjUDZvdnpNQ3MzSDd3T0R2WkFOR05NMUVxbk5uWER1SGQ1bUdG?=
+ =?utf-8?B?QmRnY0NXK0NBZURMMnNSdHdDR2JvcXo0di9xZGI3dlBxWllTM0c5cDIyZHJK?=
+ =?utf-8?B?eEVhMjFMRFVlTnArODZnVUVna3h1cHFJS0k5czVCbHJNQ0VPL0NMaUVpUHRj?=
+ =?utf-8?B?Ym1EaS92MTZFVXhGcE9PM3M2RXRXK3QxaERsZ3NlRDJuUlpBK3lJSzhvMmYx?=
+ =?utf-8?B?a3gwZ1pnUGtoNkRtK0hGbVRHbDBuVFpYdFAyOUF2a1ZLc3pzeXNCT05XSWdy?=
+ =?utf-8?B?aUg0d0IxZ2lZM1pVOFVFeDBiZm82MHdiR295Um5RaGl5Vzh3cFgrU3o0TllK?=
+ =?utf-8?B?SHZUVFhtQzFYWlZtZ2N5RzF3WEZRZEEwM24vNndHZllQQXovWUFBSGhiQWVQ?=
+ =?utf-8?B?bjF6cnQvS0ZRL2xwbWcweTdRR1VlVmZwaSs1T3JnZ2x4dGIyR3lrUUJObWcx?=
+ =?utf-8?B?WHArWHBFMFJHNVJ3MnVBaGNIUjNZL2FRRUE0M3VNQ29ZeVZzeG9sTm1JYXBn?=
+ =?utf-8?B?ZGh6ZkhMVXJRWWlrNnpmLzdERmpRVlptOWlTaUxsaHpPMXZsMUZ4ZDdsaEcz?=
+ =?utf-8?B?UWN5dFRkZTZVbUZraGI0Smoza1lLYzB5NGtHTzRuQUxoSFEyekNZdGFhRGRl?=
+ =?utf-8?B?NXRCd2RUNCtzWXBrUzIvUDdUUUlKMVdsNFBEaEMyaXMySE5aOHFQVWc5YXhW?=
+ =?utf-8?B?V3AwQUI5TzZSWFZDbTJkYkFXT3pWSGdzNmFiUU9xdVhRb01HdzZyUFpmaVZ0?=
+ =?utf-8?B?U215U0lzUkVoOHVWcitqZDcwRjY5S3ZsWmUvNCtoSzlqaXMycHBlS2s4TzRQ?=
+ =?utf-8?B?VEo5c1FOdkxmeDhXUDYwMTRxdnhCNzgxTCtxSzk5SkZGTFdEQzJSMXhHakdh?=
+ =?utf-8?B?dE9zTDVQV3N0ZUcralJNV2NEcTN1cFArTXVRc2tYdUhFa1ZDUmh0ZVJPcHpQ?=
+ =?utf-8?Q?4wF3/Ny5/3ogH/70OM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf663589-b92e-4cb8-f48f-08df39b2350f
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8147.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 13:56:07.0612
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5FzzqzG/HmRHf5+OFTD4W1Dh0RKSwP5UEiy2yhf1io9qDQ/l1AcipvAjcKEv8Bg/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6562
 
-Previously, I sent a v4 patch set based on commit 4056b3c9d3c9 (v7.3),
-which caused sashiko to fail to apply the patches. Therefore, I am
-resending the patch set based on commit 6628e7d4c6b2 (v7.4-rc1).
+Hi,
 
----
-This patch set migrates ocfs2 Direct I/O (DIO) from buffer_head mode
-to iomap mode. And the code base is commit 6628e7d4c6b2, and also
-merge Joseph's code and ideas from [1]:
+On 10/20/2026 5:28 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Medium] ep_reset_dma_controller() resets the whole MCDMA core at probe
+>    through one channel handle, but the driver does not own every channel…
+> - [Low] In drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c, the kernel-
+>    doc for struct skbuf_dma_descriptor calls @dma_address the "physical…
+>
+> --
+>
+> net: xilinx: tsn: bring up the endpoint MCDMA channels
+>
+> At probe, this patch requests every TX and RX MCDMA channel named in the
+> device tree and holds them until remove. It also resets the MCDMA
+> controller once, through the first TX channel. Each channel gets a ring of
+> preallocated SKB descriptor slots in ndo_open, and the rings are torn down
+> in ndo_stop.
+>
+>> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+>> index 2adee07f6f51c..ab3d6d8cb9440 100644
+>> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+>> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> [ ... ]
+>
+>> @@ -30,6 +35,47 @@
+>>   #define TSN_MAX_VLAN_FRAME_SIZE		(ETH_DATA_LEN + VLAN_ETH_HLEN + \
+>>   					 ETH_FCS_LEN)
+>>   
+>> +#define TX_BD_NUM_DEFAULT		64
+>> +#define RX_BD_NUM_DEFAULT		128
+>> +
+>> +/**
+>> + * struct skbuf_dma_descriptor - skb container for each in-flight DMA descriptor
+>> + * @sgl: scatter-gather list backing the DMA mapping
+>> + * @desc: dmaengine descriptor handle
+>> + * @dma_address: physical address of the first sgl entry (RX path)
+> [Severity: Low]
+>
+> This isn't a bug, but is "physical address" the right description for
+> @dma_address?
+Will address in next version.
+> The field is a dma_addr_t. ep_free_dma_chan() passes it to
+> dma_unmap_single() as a mapping handle, and in the RX data path patch
+> ep_rx_submit_desc() fills it from sg_dma_address() after dma_map_single().
+> If an IOMMU sits in front of the MCDMA, the value is an IOVA, not a CPU
+> physical address.
+>
+> The same wording is still there at the end of the series. Would something
+> like "DMA address of the first sgl entry" be more accurate?
+>
+>> + * @skb: SKB owning the buffer
+>> + * @sg_len: number of valid entries in @sgl (TX path)
+>> + */
+> [ ... ]
+>
+>> +static int ep_reset_dma_controller(struct xlnx_tsn_ep *ep)
+>> +{
+>> +	struct xilinx_vdma_config cfg = { .reset = 1 };
+>> +	int ret;
+>> +
+>> +	ret = xilinx_vdma_channel_set_config(ep->tx_dma[0], &cfg);
+> [Severity: Medium]
+>
+> Can this reset stall channels on the same MCDMA instance that belong to
+> another dmaengine client?
+   The MCDMA instance is not shared with any other consumer in this design.
+   The whole instance belongs to the endpoint, as the binding example shows.
+   If a future IP revision provides per-channel reset, we will use it here
+   so that only the endpoint's own channels are affected.
+>
+> The commit message says:
+>
+>    "An MCDMA soft reset resets the whole core, so any channel of the
+>    instance reaches it."
+>
+> For MCDMA, every MM2S channel uses ctrl_offset 0, which is the common
+> control register. The call chain is:
+>
+> xlnx_tsn_ep_probe()
+>    ep_reset_dma_controller()
+>      xilinx_vdma_channel_set_config()
+>        xilinx_dma_chan_reset()
+>          xilinx_dma_reset()
+>
+> drivers/dma/xilinx/xilinx_dma.c:xilinx_dma_reset() {
+> 	dma_ctrl_set(chan, XILINX_DMA_REG_DMACR, XILINX_DMA_DMACR_RESET);
+> 	...
+> 	chan->err = false;
+> 	chan->idle = true;
+> 	chan->desc_pendingcount = 0;
+> 	chan->desc_submitcount = 0;
+> 	...
+> }
+>
+> The hardware reset hits the whole core, but software state is only reset
+> for tx_dma[0].
+>
+> The endpoint only requests the tx_chanN/rx_chanN entries in its own
+> dma-names. Nothing in the binding or the driver stops the other channels of
+> the instance from going to another consumer. Suppose one of those channels
+> is mid-transfer when the endpoint probes, for example after a probe
+> deferral or a module load. It is still marked idle == false and has
+> descriptors on active_list. Its next submit then goes through:
+>
+> drivers/dma/xilinx/xilinx_dma.c:xilinx_mcdma_start_transfer() {
+> 	...
+> 	if (chan->has_sg && list_empty(&chan->active_list))
+> 		xilinx_write(chan, XILINX_MCDMA_CHAN_CDESC_OFFSET(chan->tdest),
+> 			     head_desc->async_tx.phys);
+> 	...
+> 	if (chan->idle)
+> 		xilinx_dma_start(chan);
+> 	...
+> }
+>
+> CDESC is not reprogrammed and xilinx_dma_start() is skipped. Doesn't that
+> leave the engine halted, with no error reported to that client?
+>
+> I could not confirm that shared MCDMA designs exist in practice. The
+> binding example gives the whole instance to the endpoint.
+>
+> Is the reset needed at all?
+   Yes, but not for the DMA channels themselves. On this IP the endpoint
+   logic is reset together with the MCDMA core, so this reset is what brings
+   the conduit registers into a known state at probe. Without it the
+   endpoint would start from whatever  previous state  driver left behind.
 
-v4 changelog:
+Thanks
+Neeli Srinivas
 
-Fix several issues found during a sashiko review[2].
-
-To simplify iomap development, we currently adopt the simplest approach:
-retaining the buffer_head style, where only one cluster is allocated
-per iomap_begin() call.
-
-When creating a filesystem using "mkfs -b 2K -C 8K" (where the cluster
-size is greater than the page size), several xfstests cases crashed.
-The root cause was an incorrect return value from iomap end_io.
-
-Both the add and del of the orphan inode during write I/O are now placed
-in ocfs2_file_write_iter().
-
-Additionally, I attempted to implement .submit_io/.end_io in "struct
-iomap_dio_ops" to free dwc inside end_io. However, because ->bi_end_io
-runs in an interrupt context and ocfs2_iomap_dio_end_io_write() contains
-sleepable functions, this approach required scheduling a workqueue directly
-from the ->bi_end_io callback and calling ocfs2_iomap_dio_end_io_write()
-within the workqueue thread context. Furthermore, since iomap_dio_ops.end_io
-still cannot access any private data, it cannot accurately wait for the
-work to finish. Testing with xfstests triggered hangs and crashes.
-
-
-[1]:
-https://gitee.com/anolis/storage-cloud-kernel/commit/ea3fe75e2060118ba093e90b1cd34fa382914b29
-
-[2]:
-https://sashiko.dev/#/patchset/20261018143319.22329-1-heming.zhao%40suse.com
-
-v1 patch set:
-https://lore.kernel.org/ocfs2-devel/20260724052559.15409-1-heming.zhao@suse.com/
-v2 patch set:
-https://lore.kernel.org/ocfs2-devel/20260727061802.18485-1-heming.zhao@suse.com/
-v3 patch set:
-https://lore.kernel.org/ocfs2-devel/20261018143319.22329-1-heming.zhao@suse.com/
-
---------------
-# test report
-
-This patch set has been tested on 7.3.0-rc7 kernel with the following test
-cases.
-
-## ltp
-
-runltp -f dio -d /mnt/ocfs2/
-
-1 fail: diotest4    9  TCONF  :  diotest4.c:346: Direct I/O on /dev/null is not supported
-
-This fail can be ignored.
-
-The test results: passed
-
-## xfstests
-
-./check -g quick -T -b -s ocfs2 -e generic/081 \
--e generic/266 -e generic/272 -e generic/281 \
--e generic/338 -e generic/347 -e generic/361 \
--e generic/628 -e generic/629 -e generic/648 -e generic/650 
-
-The test results are the same before and after the patch set.
-
-```
-OCFS2_MKFS_LOCAL_OPT="-b 2K -C 4K --fs-features=local --fs-feature-level=max-features"
-Failures: generic/003 generic/091 generic/094 generic/177 generic/211
-generic/225 generic/263 generic/322 generic/329 generic/331 generic/370
-generic/376 generic/424 generic/448 generic/467 generic/477 generic/481
-generic/510 generic/513 generic/537 generic/552 generic/563 generic/578
-generic/607 generic/620 generic/630 generic/755 generic/760 generic/777
-generic/784
-Failed 30 of 632 tests
-
-OCFS2_MKFS_LOCAL_OPT="-b 4K -C 4K --fs-features=local --fs-feature-level=max-features"
-Failures: generic/003 generic/177 generic/211 generic/322 generic/329
-generic/331 generic/370 generic/376 generic/420 generic/424 generic/448
-generic/467 generic/477 generic/481 generic/510 generic/513 generic/537
-generic/552 generic/563 generic/578 generic/607 generic/620 generic/630
-generic/755 generic/777 generic/784
-Failed 26 of 632 tests
-
-OCFS2_MKFS_LOCAL_OPT="-b 2K -C 8K --fs-features=local --fs-feature-level=max-features"
-Failures: generic/003 generic/075 generic/091 generic/094 generic/112
-generic/177 generic/211 generic/225 generic/263 generic/322 generic/329
-generic/331 generic/370 generic/376 generic/424 generic/448 generic/467
-generic/477 generic/481 generic/510 generic/513 generic/537 generic/552
-generic/563 generic/564 generic/578 generic/607 generic/620 generic/630
-generic/755 generic/759 generic/760 generic/777 generic/784 ocfs2/001
-Failed 35 of 632 tests
-
-OCFS2_MKFS_CLUSTER_OPT="-b 2K -C 4K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
-Failures: generic/001 generic/003 generic/091 generic/094 generic/211
-generic/225 generic/263 generic/322 generic/329 generic/331 generic/370
-generic/376 generic/424 generic/448 generic/467 generic/477 generic/510
-generic/513 generic/537 generic/552 generic/563 generic/578 generic/607
-generic/620 generic/630 generic/755 generic/760 generic/777 generic/784
-Failed 29 of 632 tests
-
-OCFS2_MKFS_CLUSTER_OPT="-b 4K -C 4K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
-Failures: generic/003 generic/211 generic/322 generic/329 generic/331
-generic/370 generic/376 generic/420 generic/424 generic/448 generic/467
-generic/477 generic/510 generic/513 generic/537 generic/552 generic/563
-generic/578 generic/607 generic/620 generic/630 generic/755 generic/777
-generic/784
-Failed 24 of 632 tests
-
-OCFS2_MKFS_CLUSTER_OPT="-b 2K -C 8K -N 2 --fs-feature-level=max-features --cluster-stack pcmk --cluster-name hacluster"
-Failures: generic/003 generic/075 generic/091 generic/094 generic/112
-generic/211 generic/225 generic/263 generic/322 generic/329 generic/331
-generic/370 generic/376 generic/424 generic/448 generic/467 generic/477
-generic/510 generic/513 generic/537 generic/547 generic/552 generic/563
-generic/564 generic/578 generic/607 generic/620 generic/630 generic/755
-generic/759 generic/760 generic/777 generic/784
-Failed 33 of 632 tests
-```
-
-## fio on single node
-
-fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch write: IOPS=31.5k, BW=3935MiB/s (4126MB/s)(4096MiB/1041msec)
-- before path overwrite (don't remove write.1g, run above fio command):
-      write: IOPS=39.5k, BW=4935MiB/s (5175MB/s)(4096MiB/830msec)
-- applied patch write: IOPS=37.4k, BW=4676MiB/s (4903MB/s)(4096MiB/876msec)
-- applied patch overwrite (don't remove write.1g, run above fio command):
-      write: IOPS=39.4k, BW=4929MiB/s (5168MB/s)(4096MiB/831msec)
-
-fio --direct=1 --iodepth=32 --rw=read --ioengine=libaio --bs=128k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch : IOPS=47.7k, BW=5962MiB/s (6252MB/s)(4096MiB/687msec)
-- applied patch: IOPS=48.2k, BW=6024MiB/s (6316MB/s)(4096MiB/680msec)
-
-fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch
-  - creating write      : IOPS=3282, BW=12.8MiB/s (13.4MB/s)(1283MiB/100026msec)
-  - overwriting write.1g: IOPS=41.8k, BW=163MiB/s (171MB/s)(4096MiB/25115msec)
-- applied patch
-  - creating write      : IOPS=3230, BW=12.6MiB/s (13.2MB/s)(1262MiB/100031msec)
-  - overwriting write.1g: IOPS=40.5k, BW=158MiB/s (166MB/s)(4096MiB/25908msec)
-
-fio --direct=1 --iodepth=32 --rw=randread --ioengine=libaio --bs=4k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch  read: IOPS=361k, BW=1409MiB/s (1477MB/s)(4096MiB/2907msec)
-- applied patch read: IOPS=362k, BW=1416MiB/s (1485MB/s)(4096MiB/2893msec)
-
----------------------
-
-Heming Zhao (4):
-  ocfs2: Add new ocfs2_map_blocks() to introduce iomap feature
-  ocfs2: switch DIO read path from buffer_head to iomap
-  ocfs2: switch dio write path from buffer_head to iomap
-  ocfs2: remove legacy blockdev direct-IO path APIs
-
- fs/ocfs2/Kconfig          |   2 +-
- fs/ocfs2/aops.c           | 568 +++++++++++++++++++++++++-------------
- fs/ocfs2/aops.h           |  38 +--
- fs/ocfs2/buffer_head_io.c |  12 -
- fs/ocfs2/file.c           | 213 ++++++++++++--
- fs/ocfs2/ocfs2.h          |  46 ++-
- fs/ocfs2/ocfs2_fs.h       |   3 +
- 7 files changed, 616 insertions(+), 266 deletions(-)
-
--- 
-2.55.0
+> The provider already resets each channel in
+> xilinx_dma_chan_probe(). The MCDMA path of
+> xilinx_dma_alloc_chan_resources() only allocates BD memory and does not
+> program the hardware. So the endpoint's own channels look clean already,
+> and the only visible effect of this reset is on channels the endpoint does
+> not own.
+>
+> Calling dmaengine_terminate_sync() from ep_free_dma_chan() on ndo_stop also
+> resets the whole core, through the provider's xilinx_dma_terminate_all().
+> Any MCDMA client that terminates a channel causes this, so that part comes
+> from the provider and not from this patch.
+>
+>> +	if (ret < 0)
+>> +		return dev_err_probe(ep->dev, ret,
+>> +				     "failed to reset DMA controller\n");
+>> +
+>> +	return 0;
+>> +}
+> [ ... ]
+>
+>> @@ -286,9 +587,17 @@ static int xlnx_tsn_ep_probe(struct platform_device *pdev)
+>>   	if (ret)
+>>   		goto err_free_ndev;
+>>   
+>> +	ret = ep_request_dma_chans(ep, rx_dma_chan_map);
+>> +	if (ret)
+>> +		goto err_free_ndev;
+>> +
+>> +	ret = ep_reset_dma_controller(ep);
+>> +	if (ret)
+>> +		goto err_release_chans;
+>> +
+> [ ... ]
+>
 
