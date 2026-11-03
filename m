@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793674364;
-	b=0Qnkw6TGrZEQKGecsv2xLBHUrZLnGYJkCu8LU28WB5sfhQcVT3F6nVDJKOK4b/z7Nylx
-	 DxSKf+8kUQVKgMJ7AJn/oohhI9SJJlYjNhmiFaNqP9ZP1Up7jeN6/CHLED5I3mL1iZUuv
-	 /EOzPVh+Nlkw6Qc0C5r9X5YRPH513jM1NwcRwRBQk0nqqANMKr9C5/GTdHgm9ifkIT6lF
-	 UdTnTN+1/OgFheAszTTzcOx0ie8ZtbMkmYI1QybAOfiX0leXkEMcnZRkzHb4e/g5T1+yn
-	 18MtR/BPAQ99tcW1sGo6XVfov0rB7XRcHyK/0LJYKy5icL+qASCASjEZvjCVBXIeffA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674364;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=7lZGGFM47Y+vesCqWyVDCjfCNRXmTtOZ6DpDFv9Q2ho=;
-	b=oonR1jDZFMvoPWTHF5lRixmEvFgAt7kWIHCRPyrVlI0naQL/o7v5ZN5X0LFE1mg3p4xw
-	 ACW7UgeVea3EFOc3QVVX699sTYS/F1QQf8afzVUVarECMtTMGpgpnzBKwvxGUuLX3KRTD
-	 b5yoVL2L2JqGaKwih5FjbresIVjnlF2l400ILN13E4qXSJ8N4ro/vtfIa7NrLDG58tS2X
-	 Olfu4IjnBXCX2R8aY0+s0HOBQ8D3E8n9AMXaODHj5netpcpUeYBfIdIDy7pKTzt3Fe6y3
-	 cn9U1d3n+QsPYfeGfeT3dO0CEtBt3GT2UYIe+m7aabb28ERAc/EMDFTOuJiXXx9hbFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvhSP70r;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FD2606A326;
-	Tue,  3 Nov 2026 02:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvhSP70r
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793674363;
-	b=qSrePLptl6QhAVf+eqA/sz/7wye+Y8yoAbFrW6fks22TWktD73Kmqu8agAjWNvxcwnEl
-	 LyOJiqOCPAh64aUuwSOchFIpl8t7tG6W4t8Mb3JiNt52UQ9bNI59TKfcNLNT6d8JIh3MT
-	 w9zJlqJzQ3p1RwYsMRZKzWKTRbQVP5n4Doj+uuG3W99+4wAhLyCaoGbFA+Kb+GSrMEOXa
-	 BRc29thSy6EZbw6Gpt1IFSmTQHsOTMpLzlABVxFcD11XwgYxhrsZuyGyX5g2GY5dPbrt/
-	 vn0BGsfdH2j/M/wBQr3tWcleeTiysW7vRmYwyoKqFrbJsu0t3Yz7NqSWUAJOBFQ889A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793674363;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=7lZGGFM47Y+vesCqWyVDCjfCNRXmTtOZ6DpDFv9Q2ho=;
-	b=gBetH/W5427WGpiDDiJprhuSDllcf/tJuiT7LHDPbPQ0XaJUbvHYz6ipTDp6ItVvj7qM
-	 sBoF15Kajmn8lqd+eXvXnhvPFiJWQYILtVW7oDwXyimh5cJayJrFVKzfDfK/qioJ1VvAE
-	 eD0AgCJlum1QLVgsElQhJgKiK5sr93E6PFtstRMe0O1RigvOruWb8AbUZJ0Q2mtv/NaGr
-	 CyM4t3NrS8pef6U1rclQwWAHSVcoVZlMCWeglVmkrAUU+aHJRHK1ailMCGG+Noz6mm2JN
-	 t3PpY9RuAR/02nHKNEH17e6GsVc7sXhwc5kqgz+3ZSYHmER6W7BpGuu/+bZUmptMfkw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793674432;
+	b=anA/+5CLJyilKTYml9s7xkBeJy+V3SMSZ8BlWh/7PNZGayPscqFC3bLs6e3NUPfctkQk
+	 Zvz1/8BVZT6jt0CDY3bio3zTjl3YELFQrqIwjWrK0C1voncsPZ3KCltjv/Oi252JkxwE/
+	 Hwxi1GQTd7Da/5TENAwImM/3OzjxN/35DnwUvx4DEix1TKx/FsozXfy6ksWVTygu2LEt2
+	 5eQMSzHaYLq9ziMtrPlzRMbdUEzJL8LVEODFPuMU9Q3QyQQtmk+ebh/Kcw8u9QuYxPcbO
+	 riC5+jKjM+vfu1nMpH/gXmmVMfUqToIifrf553azTVBIemiJGn+ci3W+FqtD+dWWpzw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674432;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
+	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=b8PDBem/xIJsEalDu37TvEci4oklugRNp6qciOyhRm4=;
+	b=ELG4WB8yLDRFETHxmhRYsIidNfwS2s4QPM3CAaLZCakMEFrlBgW52N19/pQtfJpCMW1W
+	 TaTR5wSbTwwa8IyhFgXxl42IlysIWsERoORYib+vTOwqfedGLgkeuh/l2J6gcXM9BZ/ow
+	 K1IPxJnVfZqyjSJc/2XzMeChiIooSbGhi/jVVRyklVGp7v1zi40fjsUyIrhK8eKraK7xg
+	 XixUGMbvT3hbDq2b5RL4ECyoCz31z1MBg7nZYHrHQAZ98wKlATOqJjrYEz4Q4gVYHnKdx
+	 Fm0zSU18QqYneE19+OhgdDcz8piYAUcQLKreo+iIon9AmUDXaumqIqcZeucc6hgEhfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=zyGYukAw;
+	arc=none smtp.remote-ip=216.40.44.12
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A8F1E1F000C1;
-	Tue,  3 Nov 2026 02:52:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793674363;
-	bh=7lZGGFM47Y+vesCqWyVDCjfCNRXmTtOZ6DpDFv9Q2ho=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=LvhSP70rtb+nmlPhywjZdyZfgyVEprXdhilWqpvHV1bViyJgLK2D3PnRM/f/GSyQ8
-	 G+HNacYDlpUCoaiLL66H0IRb8UUmikr7y+aoI4SzDLFJ8SVsuBX+OZJw9szn4vn2lw
-	 bIEFgcq/YN9UU9HQAlsG5GWwjK5Dmshjs8kzqm0bIcrAi5/eLBDafdcb8FYzdEikGZ
-	 fk3ped3BQavbsVjELpzkPFlFhx8PDHPsXlu+8L7l3P+uWz9NAq9Xk1X+Qn5lL+aw1J
-	 yVkaQX4NinV48jP3vq3IprxBtVxxTDLvSbK+GNv273EcHAC91pJhgCavZuU2FK4YlL
-	 n9x6dm8OMt90w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0B5044672E;
-	Tue,  3 Nov 2026 02:52:42 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v5 0/2] i2c: Add driver support Amlogic A9 I2C
-Date: Tue, 03 Nov 2026 02:52:36 +0000
-Message-Id: <20261103-a9-i2c-v5-0-86f2dcd179d8@amlogic.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8A4606A326;
+	Tue,  3 Nov 2026 02:53:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF8A4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=zyGYukAw
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 8A8D2A02E2;
+	Tue,  3 Nov 2026 02:53:43 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id CAB1133;
+	Tue,  3 Nov 2026 02:53:41 +0000 (UTC)
+Date: Mon, 2 Nov 2026 21:53:40 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Anubhav Shelat <ashelat@redhat.com>
+Subject: Re: [PATCH v4] tracefs: Add read-only eventfs filesystem at
+ /sys/kernel/events
+Message-ID: <20261102215340.7ce61964@fedora>
+In-Reply-To: <undine-1793672283667563124-a33a39e2a7561653@undined.local>
+References: <20261102152748.614ddc8f@gandalf.local.home>
+	<undine-1793672283667563124-a33a39e2a7561653@undined.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,81 +62,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHRM6WoC/2XNQW7DIBAF0KtErEsLA9jQVe9RZQGTcYzU2BVEV
- qLId+8QtW6rLP/wH/8mKpVMVbzubqLQkmueJw7uaSdwjNORZD5wFqCgU0FrGYPMgBKs7T0BUOe
- N4HKKlWQqccKx1bny0moTXc7t+bPQkC/3nfc95zHX81yu99lFt+v3AtifhUVLJZOPh5BsN9jo3
- +LpYz5mfMb5JNonC2xQK4ANAkPryCANundpeITmLwwbNAz7ZBQiKuWMeYT2F7LcoGXoou4CaJc
- 8hf9wXdcvYY7cfmgBAAA=
-X-Change-ID: 20260911-a9-i2c-24478e22e683
-To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Xianwei Zhao <xianwei.zhaol@amlogic.com>
-Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793674360; l=2121;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=7+M64M86zXRcRp+mwvX7/HRiZidre0O5p+ZpTs5Dazo=;
- b=evoz4ROMlBv7BzBePEzTMgLz6aLHhAzwRqQXGqgAFaenx2tn5l1NLmjYiP1hcCK1tIA0RvDPo
- BrKfkqihec7ClBmyafbmm3JTfxsN6lkfa3ba6hSg/m/yD6tVmEIXXik
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+X-Rspamd-Server: rspamout06
+X-Stat-Signature: fz6n5g1kd3uk14jzjajh7ucweoy8puc4
+X-Rspamd-Queue-Id: CAB1133
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX183Wt8CH8FuISaNIx8K7FGjLVHSKMTik3Q=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=b8PDBem/xIJsEalDu37TvEci4oklugRNp6qciOyhRm4=; b=zyGYukAwFtkiXv68tVN3semdpsZxpWbn5RLSN9eHk5HpzPBzFSEc8gtQPx3yhnlTpAbdT6kai8p7H2w6RQh6N3N94Nl4S5gdLvB+9u2V6Mzuolzb0qcn/VgLapinsXqE0FMwejpEP7YIKf1/FiYSc7AWbeDAFT/Jymca+KGv+8U=
+X-HE-Tag: 1793674421-809585
+X-HE-Meta: U2FsdGVkX1+f9bhBzjnh1VJXpfxdsd10BbUG8c/yMoM0BRer/A14IjpxLj7YvkLgwIn7VWIxeYK1eE8Oh957BzR5tIMf2IUuK6X1AAcPS5k2ZfPjKVyajD1WunsWTt02ESKT7JhB9LJRgzFyJvbL2r/GS8a47zlXkgvZccs0OnsV6MvpBPy5XZ/3lQlJPSZy7mQ7USYOMTneO5hMmPByqBQsQJorg4dlh92cJXv3sBw6j+KdOeUJ7FPJRi3fqFUhCKeXEylQF//QZ5UDMn/rJ63EcRTNGN53tETpiYDZYhmINEsmYPL1o5aw8cRsy0M1idvrT8KUOJSdNL0MAGkVy7gNWsVAHBBECrKO+4dF1t9hm8PzIonsNg==
 
-Add a Device Tree binding and driver for the I2C controller found on the
-Amlogic A9 SoC.
+On Tue, 03 Nov 2026 11:18:03 +0900
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
-Changes in v5:
-- Mask out I2C_FUNC_SMBUS_QUICK and return I2C_FUNC_I2C | (I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK).
-- Link to v4: https://lore.kernel.org/r/20261102-a9-i2c-v4-0-5a169215b8e9@amlogic.com
+\
+> Thanks for the work! As we talked offline, I think we can use this for
+> the backup instance (an instance copied from another instance at boot)
+> because that backup instance is also read only. See trace_array_is_readonly()
+> and TRACE_ARRAY_FL_RDONLY[1].
 
-Changes in v4:
-- Repocess xfer len equal 0 use I2C_AQ_NO_ZERO_LEN, and Optimized the function.
-- Disable A9_RX_THRESH_READ/A9_TX_THRESH_WRITE enables of irq when xfer timeout.
-- Use guard(spinlock_irqsave) instead for direct call spinlock in xfer timeout process.
-- Link to v3: https://lore.kernel.org/r/20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com
+Will do.
 
-Changes in v3:
-- Based on the questions raised by the robot, the data flow was reorganized.
-- Some processing was optimized according to Andi's and Markus's suggestions.
-- Link to v2: https://lore.kernel.org/r/20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com
+> 
+> [1] https://lore.kernel.org/all/177502546939.1311542.1826814401724828930.stgit@mhiramat.tok.corp.google.com/
+> 
+> > 
+> > Assisted-by: CLAUDE:claude-opus-4 Apogee  
+> 
+> BTW, this tag seems removed by commit 1e035297ffda ("docs: remove 
+> Assisted-by references")
 
-Changes in v2:
-- dtbinding: make some minor modifications, suggestted by Conor and robot.
-- driver: Make some adjustments, including macro definitions, format adjustments,
-          adding quirks, process optimization, and so on. According to Andi and robot's suggestion
-- Give up MAINTAINERS file the separate submission, make it together with the driver.
-- Link to v1: https://lore.kernel.org/r/20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com
+As I was one of the first people to advocate for that tag, and I wasn't
+invited to the Maintainers Summit to argue against the removal of that
+tag, I will not remove any assisted by tags.
 
----
-Junyi Zhao (1):
-      i2c: amlogic: Add Amlogic A9 I2C controller driver
+It may not be required anymore, but hell, I'll keep them for commits
+I'm responsible for. I still find them useful.
 
-Xianwei Zhao (1):
-      dt-bindings: i2c: add Amlogic A9 I2C controller
-
- .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  56 +++
- MAINTAINERS                                        |   9 +
- drivers/i2c/busses/Kconfig                         |   8 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-amlogic-a9.c                | 431 +++++++++++++++++++++
- 5 files changed, 505 insertions(+)
----
-base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
-change-id: 20260911-a9-i2c-24478e22e683
-
-Best regards,
--- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
-
-
+-- Steve
