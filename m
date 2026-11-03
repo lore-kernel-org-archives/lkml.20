@@ -1,54 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722649;
-	b=FlZVFC/SAQOTbsiBDtNG7giIrKLJdWzRKr1xXyt8FlsWOFWK7iCkNy09MFrvyHniUTef
-	 5qTdj668upUWtmoGDYuDX1hzJok2HmCon4puBxIlMWzQnmd8uk583EB9XLWRZpF+itR3P
-	 XhIOPWMB69mOdHE5LcV9SrQBk6quSwOvFnW/zQ08Fm8x6ZkkIgGrSqg/lAZ9iWNBopA/h
-	 QeF9LROdQMCqomA45P633KTvHZTblOzcEBHx4STwL9Vee8GTwqQRSwNOIGGSjfSG+G83/
-	 0y2R8pwOdBDRa26dU79cmgFfZLCLuUQYpjHvnnTyJTg94V6CwpY62Q/CcFCzdVncRBg==
+	t=1793722687;
+	b=He8kreOFFEfucHrcJDbIf/FHGSH8DJJyWQaNz7wf7+UE/a3JtkmTxO9/1GKW/z8SS2r5
+	 DViY3BBGXWDHVxuQt8/Yfek8R72kVBB/lVzaMN0FRXMy3tKyLKw5HKTDufXBeiKHHt6Hv
+	 P/qcjHbJ30OqTEbkTcw2Qg5RqFEWp7kITz/Eruy+B0jBBpDdtb2LeX2theiIEkJQ///UU
+	 AjzSuWUVRHwetvKt/mJYLHoIeeI6GHKOZjIgoLUGfL+MjU5S/wuLwVemOnq+FBSN/7xDY
+	 rNWQb+qjA1N/xpcPt3oJNBag10qHp9Ia+HmuYCXic4KBenSSUs3mQGySr86pYG+ASTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722649;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wShB5NenMA4HXCkQchC2MjrtgX+ziK40QL7hnaqdPSk=;
-	b=XLpPM3dxLDdwXX4EkOWItZsQxUcjDmEpHOw0DLzCju/TJuamfW1KNeWDFI3yeCxsWYN3
-	 8Ow1WlWKTJYEa/A3PBNkFBFjxzQk0ZIKuJ0ChZKurT/6i2eFPmE/6ER64MhyQmchNqZRy
-	 Uq48n160tbQOKA/HNH9LYCCYt3uH+cWI4yhw1loE7THh2P4t+VJ02yg2adJdHuk+U6Xod
-	 tNDUNxYlbs0KbqbL1YjDsf85hMAyp7ZEEdtAzbMB8KmeR5a3tDFwwDeNcrcyPGnc3Q+C8
-	 pOvYyFZR0g4gXVLBOl3NwKFnBGKWK2pDBTUIFfKqM/Q5x/uDWMb7pVydWf1+t+zhmSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722687;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=SCVHjTzMUSTmHlm8ONdGw0ypScRNXOVJZAESUcOw6lF8XCIR4bD6IemaiFY1rV8xlD8R
+	 OsGc8tcMgNY7O/sZjZvUPHdmED+M2pcVc8Jp2INByiE1iaDETlyYyP4T94MPtj8NH7Z5t
+	 x/h0hmw+LsuH2vTRXrrEXbLsEkfZtnVuw2+4gxrmqIkn4GQgAyibKuy9g1coCwO6YEtFw
+	 wG44upfhUw6jkIym0KcDNEowWP4RefXB/ov4rHkCBIC9GKxbTDipVpSp0N9JvJeAls+P3
+	 CKtmzJa9TG4hWPv+cPILHSQAenCs647fvT1TG2824Ze4/B4bOpih9PI8nOzBF98LXxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrSLFXNh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEh3zYKP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274F7606D838
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 16:17:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9A2606A327;
+	Tue,  3 Nov 2026 16:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrSLFXNh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1B51F0093A;
-	Tue,  3 Nov 2026 16:17:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEh3zYKP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8DA1F000C1;
+	Tue,  3 Nov 2026 16:18:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793722648;
-	bh=wShB5NenMA4HXCkQchC2MjrtgX+ziK40QL7hnaqdPSk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WrSLFXNhROlcBCxx24dosL/wCR6GLwL38M1hTr569iliU7Aqon4MCkjC1SIRQsKMH
-	 fBT4oN4o265b+jHNz89fuR8EayDE4ZPi+a21WFP5i1zjINMrMtNcOE9yiE89YPLdhq
-	 0tQ+yJ9bQBYV5GmJl9tWp0c0h0a5/TC5YZBBBw796gXQwxBu0g+oT5If/uMeQI7WkX
-	 QUpfik43S8AqqyBcAMif4pbm/FAGQM2uhb2n0WzKmFIniVvT8Dm9hXlAsQmoVoHNIO
-	 9ZhGVuXV+wypWiS+6x/tDpEQSL+8o1MoeRYKBkZOA/CiFTMboCOO0skRUjIC/e+Wdk
-	 Gg/ywnbD4YFIg==
-Date: Tue, 3 Nov 2026 09:17:27 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Duc Anh Luu <luuducanh0505@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvmet-tcp: fix use-after-free when TLS handshake
- completes before timeout is armed
-Message-ID: <auoJF43ujPQ62SAt@kbusch-mbp>
-References: <50227b10-d1fc-4746-b156-5b9eed00eb18@gmail.com>
+	s=k20260515; t=1793722687;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JEh3zYKPyru8GOWgP8nxKUhgqKolhZVzxDR3aIas2roc9/v3Z5lwx+Ltg09RcHwDq
+	 3LjckZY42xhDEcj78H3mWJ+RNAdIOAbthbTaQTRRiBg+Yf8IzhUM0mXNA1IYw3Ky7E
+	 2QKpPdtYEqw+dXR3v+wxXyv9ZP5Mw9CTH5wc9QUFW5ZBPXAWCB/SN6r3W7WuwLdYDr
+	 zKZAmaxMW/qhTOWtz4Njw7A8zW+D4jXPAVBHM++hRYO959zATRXwDtgqYN8tfQtB+n
+	 dUfPDKTzkW0pzWDbVjHtxbf4kR7kI3JmbVuLjKUcGy3NSw3gWPkLBY/VAer5Iqd5aH
+	 ClyTDo+1oumHA==
+From: netdev-bot+sinfo@kernel.org
+To: Yingjie Wang <1075151112@qq.com>
+Cc: lvs-devel@vger.kernel.org, netdev@vger.kernel.org, horms@verge.net.au,
+ ja@ssi.bg, dsahern@kernel.org, idosch@nvidia.com, pablo@netfilter.org,
+ fw@strlen.de, phil@nwl.cc, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH nf v2] ipvs: reject negative sync_refresh_period values
+Date: Tue, 03 Nov 2026 16:18:05 +0000
+Message-ID: <179372268573.488859.9878173276038035271@kernel.org>
+In-Reply-To: <tencent_9109FFF19F0341A556269E694408976E2708@qq.com>
+References: <tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com>
+ <tencent_9109FFF19F0341A556269E694408976E2708@qq.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,84 +65,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <50227b10-d1fc-4746-b156-5b9eed00eb18@gmail.com>
 
-On Tue, Nov 03, 2026 at 11:05:18PM +0700, Duc Anh Luu wrote:
-> nvmet_tcp_tls_handshake() takes a queue reference for the handshake
-> completion callback, submits the handshake with tls_server_hello_psk(),
-> and only afterwards arms tls_handshake_tmo_work.
-> 
-> Once tls_server_hello_psk() has queued the request and notified the
-> handshake agent, nvmet_tcp_tls_handshake_done() can run before the
-> submitter reaches queue_delayed_work(). On failure the callback calls
-> nvmet_tcp_schedule_release_queue() and then drops its own reference,
-> which drops the last reference and queues release_work. nvmet_wq is
-> not ordered, so nvmet_tcp_release_queue_work() can run concurrently:
-> its cancel_delayed_work_sync() finds no pending timeout work, and it
-> frees the queue. The submitter then arms the delayed work inside the
-> freed queue, and the timer fires on freed memory tls_handshake_timeout
-> seconds later.
-> 
-> Reproduced on mainline during the v7.4 merge window on an NVMe/TCP
-> port with addr_tsas=tls1.3, with clients whose handshakes tlshd
-> rejects. It reproduces both with stock tlshd and with a minimal test
-> agent that fails every request; a non-debug kernel panics in
-> __run_timers. With KASAN, the unmodified kernel hit:
-> 
-> BUG: KASAN: slab-use-after-free in __run_timers+0x72a/0x8e0
-> Write of size 8 at addr ffff88800317a1d0 by task swapper/3/0
-> __run_timers
-> run_timer_softirq
-> Allocated by task 12: nvmet_tcp_accept_work
-> Freed by task 132: kfree <- process_one_work (nvmet_tcp_release_queue_work)
-> Last potentially related work creation:
-> queue_work_on <- handshake_complete <- handshake_nl_done_doit
-> 
-> The queue was freed 4ms after allocation and the timer fired 10s later.
-> With an msleep() inserted between tls_server_hello_psk() and
-> queue_delayed_work() the report is deterministic and points at the
-> write in queue_delayed_work_on() from nvmet_tcp_accept_work().
-> 
-> Hold an extra queue reference across the submission and the arming of
-> the timeout work. If the completion callback has already released the
-> queue, the final put queues release_work, which cancels the timeout
-> work that was just armed.
+Hi!
 
-This is a rather long commit message for a simple problem. Just the
-first two paragraphs and the KASAN splat are sufficient for this
-changelog.
- 
-> Fixes: 675b453e0241 ("nvmet-tcp: enable TLS handshake upcall")
-> Cc: stable@vger.kernel.org
-> XXX-ADD-YOUR-OWN-Signed-off-by-LINE-HERE-AND-DELETE-THIS-LINE-XXX
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Umm...
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> @@ -1910,6 +1910,14 @@ static int nvmet_tcp_tls_handshake(struct
-> nvmet_tcp_queue *queue)
-> return -EINVAL;
-> }
-> + /* Reference owned by the handshake completion callback */
-> + kref_get(&queue->kref);
-> + /*
-> + * The completion callback may run, and drop its reference and the
-> + * queue reference, before tls_server_hello_psk() returns. Hold an
-> + * extra reference until the timeout work is armed so the queue
-> + * cannot be released underneath us.
-> + */
-> kref_get(&queue->kref);
-> pr_debug("queue %d: TLS ServerHello\n", queue->idx);
-> memset(&args, 0, sizeof(args));
-> @@ -1927,6 +1935,7 @@ static int nvmet_tcp_tls_handshake(struct
-> nvmet_tcp_queue *queue)
-> queue_delayed_work(nvmet_wq, &queue->tls_handshake_tmo_work,
-> tls_handshake_timeout * HZ);
-> }
-> + kref_put(&queue->kref, nvmet_tcp_release_queue);
-> return ret;
-> }
-> #else
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Your patch is white space damaged.
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
