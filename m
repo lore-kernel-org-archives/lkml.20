@@ -1,101 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793686832;
-	b=vuFSUR7mRhbu4AdSf5wBxyZAie7I1vhzrBboDsn3VYqyLl3w5JLu3lQqAXFqHbQ1vFkJ
-	 7ohbbyV34JOQCkm5hq9ZzILEgDSNV+GfZTRDZ+f+xQ8dxQrlS9STBCtaKCPyde4AgDkln
-	 EQCVdsnPY1Bd9tfdpIGVqcUIfXu5xG0KXc7Y5KQjcEQfdKaWORvxCUe2qjdyN+xHEHC6U
-	 iHqeu3atd52Bev7NYCpDQUpylwFlufe6jSBQg+MpUpzo4TrsgPvpRQUNmvgEg+nRDOFCL
-	 muf46Ojdvtc168y2JW+hfYnJQdwH0mYKRpJ/N+H8/qk8fokXwuIn7npB0pVJh8o/Zxg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686832;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mp3kk8+6LuA0IVceTCacKEe4tqnDRWucOGMN+FIMuVo=;
-	b=gYjZkpa3qnBtqrfElLbljG7mihvmxIMBkRi5RnQJVdyzvxBjNaxE2RdrGe6pJ8ox4XsA
-	 0+YKputrI3KzjIsr+xn/0/13iJEN/DQHLKnI4oBhhtq6zGLQzVOuZJE21+Etl/k0H6SLw
-	 bsw7+PmR5YHDuHYijlK+pLhldUVPaelMpuJVPvpt0yOOjG7afQfFnT1mS03RqDkoe0gYE
-	 5MfflEQE0d3oMnrIs+LRgit7eKWgb0ieR7gARkZA7iKEvOOZTjoqwW4ffrBRFwSkINBzP
-	 VbdEA9BeKi95LNEbACdu2bZf2HlX2VJEaCoWCAUQIMB/8hwm1snjU9ELmNuj716GHzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="AiN34/6U";
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793686831;
+	b=HmJMSQj9p4y/yV0IZSKDw/71ZVAfTcmEMHinq9z+uavRvTJU9tMmYL9EDK100tTjE7cW
+	 5uHcSYLCqVz/SHBbO8qkVPq5EDNWH1lPYCHuRe2HDOBmh/fwjobfVqqfDpzWvcYpzrEPr
+	 OpTnptaszGc3lPWdz1hc1PkOm0E+HORPa6ouKJLxw31uw+osXrldpDMS2O52JS4aA0MgN
+	 Bk9JQD5A1G7Hr+Rizsoiml/P170UrJeKjlEf2iEoi6+u1kaj9k796NFBdaPLbA61igkMP
+	 3pP1nYiDAX6yo55cQikN/YWzF4y771KwwyyN17mLOLTvUz+DzhSOTXTEGz5sdPl07VQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686831;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0BrT+Cse4O5JjOHGQRmccsr+7HQd7LlAZt0gREuIMI8=;
+	b=blkZYdAPkmXt3t42AxjQpZZMzoyG8MrLtDm9cnLpAMF3JbVe/S8m4wVMorDJ7mCgRy4X
+	 EKTqVgq3dY78bCHnuzcgYCssFooUidFYqDTsNARPcRzibE28RQxDzitonOYxbBmZIWLb1
+	 GxSP8pBiaEhqMX+9y4DHdfVjg6U3EYnWr49GceuVZUDApSuxekZUNo6Bcl8wDF7sYSXXu
+	 6So4hl46JE/yEdhhY2avMRLGA5Qm3xohXQk4adY+2oVAJcHkAniTs08k7iuVJy6wX6IZo
+	 /NXv6nesYJgw1Wa2sG+gdKMZ79dfA/9eUTjqBZETqnz1LLecSoVvc0cCtceCRMqYmTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=j5yCHj1N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.69
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011069.outbound.protection.outlook.com [40.107.130.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD20E606A329
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 06:20:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD20E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3CC606A324;
+	Tue,  3 Nov 2026 06:20:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D3CC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AiN34/6U
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1a2761c69fbso6360528c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 22:20:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793686831; x=1794291631; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mp3kk8+6LuA0IVceTCacKEe4tqnDRWucOGMN+FIMuVo=;
-        b=AiN34/6UNuFp6NCRELTDRnu6ipyq1YrjuEANuk9cKyie0fgNnQXKo8LRlGVxxRSFH7
-         HzACOk2lBEIO78HEXe0WZL5ifvlNM1/GDBAaq8H5L5rncPFG08tOqGTwFcl2En+BM+kF
-         0dJkFDOVU0L43ETfA/Sa+7jv7agSh/5AadDf24tJ5TXkUq6DlGo88flab739tJhXf+fA
-         vxmWyAiGHaK+g5leHor8wdKuttx9CGWa0t6EnQVWuZVsYl+KomDc3lIqFKRRgZLqgTTn
-         VSlaW0YWDy7u1cr4nBIrtzdkKBMCsboZ6ty6wq1+t/NLSRPD1blcdQ+vFfNQf/Pn/seG
-         zauA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793686831; x=1794291631;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mp3kk8+6LuA0IVceTCacKEe4tqnDRWucOGMN+FIMuVo=;
-        b=mcCLZW/FAVDBle6OEAvCQw+N/ELD5yqn7qSNv9WRl64bLEAmPJny3KCb/ZtfS9TU27
-         tXupTzKRNu35qXeG2it57stonWdN27+a1TZJQqgWCAFDLielNnPk48crTKNRS6sbrPw5
-         9Ki66YtwMNMNFJU09yq7DflrC2wcnkuoWLCzfxJXLbsLyYWXoO8Rlon92NuTLeBiK6eE
-         0LEFKE+AAU85MBSbB86ER4lyj0UmSRW3RT3NbCxoTF50TwXXve9t0oZilUq4AMihs2xD
-         CSFWrwUtUmwITe7HKbln0eZPzAKLUAZNpigfE2t8ejQOhqIb9XEdeLXtxyXwtMY+npVB
-         Sk5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxTeqmBc9C6ecW+Kf7gHskHjpU0rhs3kbT1qF9qgpNIEkVRJxUkGHQIYjvbkg1DpmeIRjSjhOhJ2jTU4Bo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VCkYlLK/y9iKDZ/6ITIdK03mSoZhaLGi5F9X8qjtt5DhTaPsI
-	0fFmj+vkZFU+mmUaWB5W63c7VSB5X8+k1YAuj8KaihuA60Dq2gWob3JVxQHPHJ2k/Xo=
-X-Gm-Gg: AYBFou2Tyfb+GnZF+RMCEnkLNqFPN0ftlsNYY53HygPcEKcRH/dYibWH/yi7A18oHQG
-	BaY7dIAFx/4Sy5A+fQBJcZYGZ3mXNXGJcnTMQo6SCWjp8N77HEPr97DpPcHzfdHwZF/8mcDp/d3
-	fzLBB3BqXupGL4Lf5YuxvV7N1BxI2ttXixAlxGr/FPFsCga6nyozhRJV9CQr8ePD5I07FXOAYw7
-	2NrrHwPFVOIazlUaFuvClbu+usJgMZzTip2YzU4UpN69wxtMYe7CAW5HapRdUCmjC+MnIknOYHZ
-	5SMfC7mDI7AInCMh3FprUrHkQ5PMuWRMkoq4iHiI/YUpn1srvI0of7/GvRDPfM2y/j9cZPJtq1z
-	orFFAQJeIHPnNA9C9BlL8C362dqDIWyozJVmFffF8AdTRXBd9/lMWrrP3dzUm1sI92oWzKubuXm
-	8pNdQQUsB6I3cRVtp4nRtIqKqE/vyOvp1H16ehHEkYRb7rlQucbC74ADhjv9VPP94/mb7gxP0vB
-	k8z5XUyxQQKBeUmWWR6eZh3xdnMGOsPCKvk9KKy74u1vyeKrfftZ+eArGPQfKhF3eHlBo5TC+L/
-	96669SyYnSO6AD7lKp8l
-X-Received: by 2002:a05:701b:42c2:10b0:185:1640:5536 with SMTP id a92af1059eb24-1ac5ab52fa9mr19515376c88.19.1793686830658;
-        Mon, 02 Nov 2026 22:20:30 -0800 (PST)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1932sm39727023c88.2.2026.11.02.22.20.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 22:20:30 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Nilay Shroff <nilay@linux.ibm.com>
-Cc: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	Ming Lei <tom.leiming@gmail.com>,
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	Stuart Hayes <stuart.w.hayes@gmail.com>
-Subject: Re: [PATCH 2/2] block: set QUEUE_FLAG_NO_ELV_SWITCH under the read lock in del_gendisk()
-Date: Tue,  3 Nov 2026 01:20:23 -0500
-Message-ID: <20261103062023.2910587-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <44b0d0e5-b14f-4e6c-8e00-16b4af712b7d@linux.ibm.com>
-References: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com> <20261102-bug-nvme-remove-ns-async-v1-2-61780fee111c@gmail.com> <44b0d0e5-b14f-4e6c-8e00-16b4af712b7d@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=j5yCHj1N
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u46+zMZ6bC4pFfh53HqyC+jh/gUpaDRB71kyFudW5BIcsN5wjTj4cCOA9R/OlBKrE2hdlMmML/O6NlZO6kP0xLIsFGhDxRhR8ZyqBtmYN65Jn/GA+JWRj32SblL6XpB3IHRjzFuyEyppGRVtoL897MGPgqVewnY92MEZliZ9aFAJXpGvnyC5tGklR9buOxw0tXfXOS1ik+awzu2W16c2tv9WZpcequKvEjFEF75C4tkJYupl9l1Cf5eH9aGJGpjtIgWPancQL11UNK+LBiEX6HqMcLVVyuYaTShAPATYrQitgwaRhJaeFklD3ezqdq8lTaFvrWSkOEkmFYF3Y0QpGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0BrT+Cse4O5JjOHGQRmccsr+7HQd7LlAZt0gREuIMI8=;
+ b=DVzxrOU9eIG0gYQeBuIkjcnbqQbLfLLbBRUKElS9DMCceKPlmqrDFSAyHRDyxGYKJeA27vNmY5uwai5hBGdcKgwJgKVzrvhK85p+WfGrrjLt5cD00L2337YMDmY48qL1P6oe+ISFoemQ9uFIzId7SKwxJETz7KzE/YfI2FWPxhv7vsquXacI8wsYgFUs5eKPahwLpROpZFhXvSyeg7ujOpsuBvEWMfZlkipHrcezVEYydjSAXpRuyK/lg0YKatEFa6RFITzwCzAORr5QkROMFIVe8fSiOwcfKtDgd1v/Zi2QN7aqzZ/5Dx398lpOqPL/RiP4RuvuoxmjODDh2lxyjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0BrT+Cse4O5JjOHGQRmccsr+7HQd7LlAZt0gREuIMI8=;
+ b=j5yCHj1NqpAWsc3OV1+gAYin/wv0JtaMiwTl5WxuLcqzd/MHoY8weeh5ci4xnJc3sJMie2SEsG1JYvMMD5iwp4ikFnR/caI6gyQWSpYi3MF6cTnhIUqVoC/VOWcIsvGoXPsZDQUT37ve6fa6n9MG5lUeM88owtR5QG4cHLTDGPYQUVaDocBBBhKmdQSHqlX/zl5FBf4vcnNtrbSuLj+aZ54VqbKrWp3w7c2bnIwHaaLRkBmxZPS/Q+0OW8x1/FGqowhQMLB5kr6/xxVTKs6hGT8PN7iy2cB2BIrHPly4/m27AXNH5WOoYp4DohVbV3ZdDJSybV8OfhsBFZZZm6KB6g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by AM0PR04MB6993.eurprd04.prod.outlook.com (2603:10a6:208:17d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 06:20:26 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 06:20:26 +0000
+From: Liu Ying <victor.liu@nxp.com>
+Subject: [PATCH v9 00/16] drm/imx: dc: Use prefetch engine
+Date: Tue, 03 Nov 2026 14:21:56 +0800
+Message-Id: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIR96WoC/23Qy27DIBAF0F+JWJdqgGGArvofVRf2AA2LPGRHl
+ qso/14cKQ+nLAd07lzNWYxpKGkUH5uzGNJUxnLY1yG8bQRvu/1PkiXWWWjQFhwYWXazl5HlcUg
+ 5nXgrQftkgGxQTKKy5aPM18iv7zpvy3g6DL/XDZNaXm9h+D9sUhKk88hgciS0+XM/H9/5sBNL1
+ KQfPOhGl0lXbiOFyKFj39s1N888NLipnEFFIPBdjHrN8c4VKGpwrDzm2Bl03Bt+2W6fuHYNbiv
+ HxD0xRQyo1pxunCA0T0eVayI0yWTi3q25u/O6vVXeVd5Bb4EZM9NLef/EDTS4X06H2asuR7TGP
+ PjlcvkDicNgpGcCAAA=
+X-Change-ID: 20250703-imx8-dc-prefetch-028e306591c6
+To: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Liu Ying <victor.liu@nxp.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2PR01CA0002.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::21) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,24 +112,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AM0PR04MB6993:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5363f64-ee6b-4ac3-cefa-08df39728ce8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|366016|1800799024|3023799007|10067099003|18002099003|921020|56012099006|5023799004|11063799006|261022105027099003|261022075727099003|261021123027099003|261028144727099003|261102123227099003|261021121427099003|261026121527099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	Bk8d23cw5utGJ1JnX/j+KN7ChZAPcmsCPe9pfSaDJurgdeKpJa2RFL7KbpJ1MwWykXaYEV89GKyX3wazMWJXRUQkhXlahSgjXfZNSevtvKCNXUuI0TT+zYRoIhjOyRL9RXLCJWuruVf0IVFNHN3n/kjmHRX+wWsIU1L8rmwRyxsopjKjnlHTjns45bsMnXlpxkuGKQ57AHlEEIGdXD9nstFw3ZaAVaa80eWXmGbZJAQRlej/xrI0wfo/BUoel5ZRPIAImN2msNBgA7Rwrg7o0yxkYv0H/7w/bhoTfXZ7teNO7kXeEvE0Gyiwv1NekxYYWSPKzSfKzbz96YNcmjE70VC6PC3m6WnbwN/70SUhoW0aOYXfvie95pR+ZfEeQe6mPK6CYii8uIdFdVNF0QkUgsQWe8/5IIzcPDxgKi/gQZn3+i0aVJTIIgxde4afvs1mOc5zw2yasTIWNpvx9xfNAv8XfQumTK8cxdOA8dHckD0mqIZdPuaWJJsZH7/wDM9taH4OdhfUBC7Kc5iTyJa8lsPfkVKD55OIJJxR/4PeuXMv//Kz9cbcxPG1mBUwtWTExkeN5bBjvnThHIyKg/2GH1rU1U/AS6ovm6ekPKz44oSItAEc5bjNFqvs6F1toSe5j6ic/IazqLhBANPjihQZ51Bsf0/HlIh/cfEu1mJiIag=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(366016)(1800799024)(3023799007)(10067099003)(18002099003)(921020)(56012099006)(5023799004)(11063799006)(261022105027099003)(261022075727099003)(261021123027099003)(261028144727099003)(261102123227099003)(261021121427099003)(261026121527099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UHdpaTFoUmZLZHJDRVBocTlkTmsweTd0MmFCc3ZFcEcyU3lTcmFrRDJmM29p?=
+ =?utf-8?B?RkQzRFNpaHprb0NxdmQrVXVZMGphRnBGOGVVUzhzaXJLaXNqNk0rNjRhQjlj?=
+ =?utf-8?B?Yi9WUmVKK2ZQUkhhY3Z1VHVraE9FdEdmS2xMSDRQVVJqODRuMDZoSE1zNjRH?=
+ =?utf-8?B?Vm9DdkhRSVNJSkMzSG50MzZrclI1bnBPblFRWGtaOWd3TzBBcGxXUWs5dlFi?=
+ =?utf-8?B?bEkzNVkyNjVsOVNCa3hYLzBpNUl2SjFXdjFLb3MzOTY2bDVlWUhPeEs2VGY1?=
+ =?utf-8?B?OXhJSTZ3akhLRFBXUE1kajhPc0NXWmlraE8zaWxKTGRoRGgzWFNWY0Raemhx?=
+ =?utf-8?B?Rm5CTU80UVRJZ0VBK2VmKytiZHFFaW1QM1J5eVBiMjVGVkhZMXBJVUdBNE9m?=
+ =?utf-8?B?SGNoWTFUWlpvWnRxYTdyNEwyTFFOSlpGck9PM1k2cnFTSUJEM2dSa0tJcXlR?=
+ =?utf-8?B?MGYvc0RnV2c2ZEpwSHVYV0ljRlo1UHNzdFd3Z1lQTFU5NEJvdUovMnFQekFI?=
+ =?utf-8?B?WkY0bWZ4clRaT3YrdmxzVXArVjNDajN3WmZkTXJUOTVkdFhyOC9zbTY0aHNI?=
+ =?utf-8?B?WnVsREZlQmNQY1Q4SWJDbXVyNVFPNng5R3dnSi9INEM1QmtLdGtUZjhaM3Rv?=
+ =?utf-8?B?aGExajJ2K3E4eWZzYjFzS083b0VVcEloQU0rRDF3b01jV2d6RDg1a2ZMTnZ6?=
+ =?utf-8?B?eHpsYTJCT0w1Uk80SXpiUHI4d0ZoeGNxZHFTelRYblBSN1pFVnZkMjhyako5?=
+ =?utf-8?B?RlJkS2t2QytRRlpCcWZSVjBlVmk4S1JsQTJwcVYwZHc0SGRNQTNuV1dIeCt0?=
+ =?utf-8?B?YWk3Z1ZtTkZjek1mTmo5bWhPaTd0Yzd6OVNoMWxrMXI4MVRadldyeUQ2OGZh?=
+ =?utf-8?B?ZWp3MzlzT0ZJWEVieGVGaHlRc1VZQnN3VzMyQUdjelFBWm01T2w2OUpnQzBi?=
+ =?utf-8?B?UFlTZVpQMXBNQzBTR24wVGpHb1hhMDJUYnVwMUo4SWRkcWRpN1ExcmJrQmVO?=
+ =?utf-8?B?SWRTOWkvaUwyZ1ZlclE0UzcwK2NsWGIxQXlDZm8vVytPVHJpY2pLZWdIOGJl?=
+ =?utf-8?B?LzdMbkFJSHQrWGZJaklwcEZiWmxyWHJ2VXRGc3JiQmlBRGFsdUZRR3B1em4y?=
+ =?utf-8?B?N3hld0oxTVppdDRpb0d4bnpvR05qR2Q5cXcyN2MyVFltZUFwNVRVdjF3T3NQ?=
+ =?utf-8?B?YVorSENNY2FTVmpYZ3dtVTA2Z3Q5b05VWnovV0s4Y1hJRTZidkk3N0ZGV0li?=
+ =?utf-8?B?bXdnVmM0OEdTeVl0VEhxcVRodTh5KzVzQXJvLzVIUnFZS3lXVEZoQ1hReFhm?=
+ =?utf-8?B?YUw1Z1NRUmoySU9LbHR4ajQvbE1mRFRyVm51ai8vNzMwYU5OazRBUUFoMUFB?=
+ =?utf-8?B?WUFqME5vUGFwT2xJSGtrWTJ6NEhtVndac3doRFJMdm1iYkl3Z2U0ZlMyRXM2?=
+ =?utf-8?B?Vkt0Z1ArV3Q5OUJDTXdxaDl3UUo2TjRhSFZaYUFqMlVYLzdONlVtd0V4c0Vn?=
+ =?utf-8?B?RG1EQ3k5Q25XMno5eEJSeHFBSGV0TlVNRGszbDU3WjNHVi9NanFzTk5aRU4x?=
+ =?utf-8?B?UVJBRGtBRW9WZlZrcUUzZXNteVJGVFlndWw1THNIaWpsb3h1SlVDd1RVWUQ0?=
+ =?utf-8?B?RnFEUzhZcldJMzQ4VFRCZ2NvRVAvMyt2VmI3OHVZSlYwQkduaUlEdkpGSEQw?=
+ =?utf-8?B?bWRjamZqVWxPR1hSSUc0MzhZazhISmFHTmVWb0hxZEV4aEtsUk1wQng1ellh?=
+ =?utf-8?B?R05VaWpEeUx6Z1JXYnE5T2xDUEhXajM5MUJVTG9TdWJUM2F6OXg1OHI3ZDNt?=
+ =?utf-8?B?TWZhdmtYT3BHeEdQc2tGKzJkNUc5SGUycFQzNHc1LzRKbUVOdnBNejllMUJY?=
+ =?utf-8?B?UVpidUJ6R3JSTkp6b0I0OCtuaWRHRngvb09NQ2ZLbS9oT3pJbWtZaTREa2VL?=
+ =?utf-8?B?TTlPejg1bFVBaUk2MHBMUkZGcFVqYnBPdHhXVDlObzZJNTRoZnEyQzFOT3hw?=
+ =?utf-8?B?bkkyWlYybGJmTE5qNVIvSGhDMnNhcG5oOFlPanBCaXJmRjRzTDNoOERhb0FI?=
+ =?utf-8?B?UXNmOHBnVDZkZENMUHNkSmRTd0VVcGV2OUhnS1VxaEM0dnJQVVhHSlBVTTJ0?=
+ =?utf-8?B?a2U3OGFXSFlKd3FHcEtEVGVzMU1YemUxZ0s1bWxWK0RrbjJrTjc2K3pPa3ls?=
+ =?utf-8?B?YnhOd2N1NCsydzFsTEtrbnV5TmtZSDJjcTJFK090YkUxczBPeTVBNWpxU2FK?=
+ =?utf-8?B?V01FTGVVckRlT1liZ0MxTzE3NHpvZnRNSUcyS2d2bXlNOENlaExJRldQQ1FH?=
+ =?utf-8?B?NG13ZlpQakxiTHExTHY2Ly92b2tRMnRsYm9rNVNoRHhmOWk1ekMzUT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5363f64-ee6b-4ac3-cefa-08df39728ce8
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:20:26.5603
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a+/L1+YIazIC9xS11D8iM8MdM6DU+GgNp2Nj9ldPIur1Ra3TDjrAr0zuSDaxKmSMe3gYwSZ6uKbFRxhxgTDGIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6993
 
-On Tue, 3 Nov 2026 11:23:59 +0530, Nilay Shroff wrote:
-> Currently, there's a patch[1] in-review to change update_nr_hwq_lock from
-> write to read while switching elevator.
->
-> So the proposal in this patch may not work out if the changes in patch[1]
-> are accepted. I understand your proposed patchset but I'd recommend wait a
-> bit till we settle with the patch[1].
->
-> [1] https://lore.kernel.org/all/20261031044141.5569-1-laveeshb@laveeshbansal.com/
+Hi,
 
-Right, with [1] a switch holds the lock for read and uses
-QUEUE_FLAG_NO_ELV_SWITCH as its busy bit, so setting the flag under the
-read lock here could be undone by a switch that is still running.
+This patch series aims to use prefetch engine in imx8-dc KMS driver.
 
-I'll drop this patch, send patch 1 on its own, and come back to this
-once [1] has settled.
+One prefetch engine consists of one DPR Channel(DPRC) and one or two
+Display Prefetch Resolve Gaskets(PRGs).  It prefetches data from
+DDR, resolves data in tile formats if needed and outputs the result
+data to FetchUnit(s).  When one PRG is used, a prefetch engine supports
+processing pixel formats with one planar, e.g., RGB formats.  When two
+are used, pixel formats with two planars are supported, e.g., NV12.
 
-Thanks,
-Qiliang
+For now, this patch series only supports prefetch engines with one PRG
+because it is enough for XRGB8888 which is the only pixel format
+supported by imx8-dc plane driver.  Two PRGs would be supported by
+future patches.
+
+Patch 1 and 2 add dt-bindings for DPRC and PRG.  They were reviewed
+by Rob[1][2].  I slightly modified the patches' commit message to use
+imperative mood.
+
+Patch 3 fixes invisible plane issue reported by Sashiko AI bot in v6.
+
+Patch 4 fixes runtime PM issue for register accesses in .atomic_update
+and .atomic_disable callbacks in dc-plane.c as reported by Sashiko AI bot
+in v8.
+
+Patch 5 fixes FetchUnit dimensions as related to prefetch engine function.
+
+Patch 6 flags CRTC status in GERNERALPURPOSE register as needed by patch 6.
+
+Patch 7 disables CRTC at boot if needed to support prefetch engine better.
+
+Patch 8 and 9 add PRG and DPRC drivers.
+
+Patch 10 to 15 do preparations before using prefetch engine in imx8-dc KMS
+driver.
+
+Patch 16 uses prefetch engine in imx8-dc KMS driver.
+
+[1] https://lore.kernel.org/lkml/20201207165945.GA430214@robh.at.kernel.org/
+[2] https://lore.kernel.org/lkml/20201207170206.GA434964@robh.at.kernel.org/
+
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+---
+Changes in v9:
+- Collect Laurentiu's R-b tags.
+- Drop unused function arguments from dc-prg.c and dc-dprc.c.  (Laurentiu)
+- Fix Sashiko AI bot's comments.  See detail changelog in each patch.
+- Link to v8: https://patch.msgid.link/20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com
+
+Changes in v8:
+- Collect Laurentiu's R-b tags.
+- Collect Alexander's R-b tag.
+- Fix Sashiko AI bot's comments.  See detail changelog in each patch.
+- Fix Alexander's comments.  See detail changelog in each patch.
+- Fix Laurentiu's comments.  See detail changelog in each patch.
+- Trivial tweaks.
+- Link to v7: https://patch.msgid.link/20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com
+
+Changes in v7:
+- Collect Maxime's A-b tags.
+- Fix Sashiko AI bot's comments.  See detail changelog in each patch.
+- Trivial tweaks.
+- Cc Alexander.
+- Link to v6: https://patch.msgid.link/20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com
+
+Changes in v6:
+- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&7&13.
+- Include "dc-drv.h" in patch 5&6 to avoid build warnings with C=1.
+- Fix PRG BYPASS programming in patch 5.
+- Link to v5: https://lore.kernel.org/r/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com
+
+Changes in v5:
+- Squash MAINTAINERS file update into patch 1&2.  (Krzysztof)
+- Link to v4: https://lore.kernel.org/r/20251016-imx8-dc-prefetch-v4-0-dfda347cb3c5@nxp.com
+
+Changes in v4:
+- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&10.
+- Sort bits and bitfields in descending order for register PRG_CTRL in patch 6.
+- Cc Marek as stakeholder of the driver due to recent i.MX95 DC patches posted.
+- Link to v3: https://lore.kernel.org/r/20250929-imx8-dc-prefetch-v3-0-c01d0608add2@nxp.com
+
+Changes in v3:
+- Call dc_dprc_enable() only when start == true in patch 7.  (Frank)
+- Collect Frank's R-b tags.
+- Link to v2: https://lore.kernel.org/r/20250923-imx8-dc-prefetch-v2-0-5d69dc9ac8b5@nxp.com
+
+Changes in v2:
+- Rebase the patch series onto next-20250922.
+- Collect Alexander's and Frank's R-b tags.
+- Manage PRG's and DPRC's clocks with bulk interfaces in patch 6&7.  (Frank)
+- Sort variables in probe function in reverse Christmas tree fashion in patch 7.  (Frank)
+- Link to v1: https://lore.kernel.org/r/20250704-imx8-dc-prefetch-v1-0-784c03fd645f@nxp.com
+
+---
+Liu Ying (16):
+      dt-bindings: display: imx: Add i.MX8qxp/qm PRG binding
+      dt-bindings: display: imx: Add i.MX8qxp/qm DPR channel binding
+      drm/imx: dc-plane: Disable plane when it is invisible
+      drm/imx: dc-kms: Use driver specific .atomic_commit_tail callback
+      drm/imx: dc-fu: Fix dimensions
+      drm/imx: dc: Flag CRTC status in GENERALPURPOSE register
+      drm/imx: dc-crtc: Disable at boot
+      drm/imx: dc: Add PRG support
+      drm/imx: dc: Add DPR channel support
+      drm/imx: dc: Use TCON operation mode
+      drm/imx: dc-ed: Support getting source selection
+      drm/imx: dc-lb: Support getting secondary input selection
+      drm/imx: dc-ed: Drop initial source selection
+      drm/imx: dc-lb: Drop initial primary and secondary input selections
+      drm/imx: dc-fu: Get DPR channel
+      drm/imx: dc: Use prefetch engine
+
+ .../bindings/display/imx/fsl,imx8qxp-dprc.yaml     | 100 ++++
+ .../bindings/display/imx/fsl,imx8qxp-prg.yaml      |  60 +++
+ MAINTAINERS                                        |   2 +
+ drivers/gpu/drm/imx/dc/Kconfig                     |   1 +
+ drivers/gpu/drm/imx/dc/Makefile                    |   6 +-
+ drivers/gpu/drm/imx/dc/dc-crtc.c                   | 244 +++++++++-
+ drivers/gpu/drm/imx/dc/dc-de.h                     |   2 +
+ drivers/gpu/drm/imx/dc/dc-dprc.c                   | 534 +++++++++++++++++++++
+ drivers/gpu/drm/imx/dc/dc-dprc.h                   |  36 ++
+ drivers/gpu/drm/imx/dc/dc-drv.c                    |  89 ++++
+ drivers/gpu/drm/imx/dc/dc-drv.h                    |  12 +
+ drivers/gpu/drm/imx/dc/dc-ed.c                     |  27 +-
+ drivers/gpu/drm/imx/dc/dc-fg.c                     |  11 +-
+ drivers/gpu/drm/imx/dc/dc-fl.c                     |   7 +-
+ drivers/gpu/drm/imx/dc/dc-fu.c                     |  59 ++-
+ drivers/gpu/drm/imx/dc/dc-fu.h                     |  11 +-
+ drivers/gpu/drm/imx/dc/dc-fw.c                     |   7 +-
+ drivers/gpu/drm/imx/dc/dc-kms.c                    |  25 +
+ drivers/gpu/drm/imx/dc/dc-kms.h                    |   7 +
+ drivers/gpu/drm/imx/dc/dc-lb.c                     |  27 +-
+ drivers/gpu/drm/imx/dc/dc-pe.h                     |   2 +
+ drivers/gpu/drm/imx/dc/dc-plane.c                  | 100 ++--
+ drivers/gpu/drm/imx/dc/dc-prg.c                    | 329 +++++++++++++
+ drivers/gpu/drm/imx/dc/dc-prg.h                    |  38 ++
+ drivers/gpu/drm/imx/dc/dc-tc.c                     | 119 ++++-
+ 25 files changed, 1792 insertions(+), 63 deletions(-)
+---
+base-commit: ea74b623855291e60835c0f7fa7a29673332ad41
+change-id: 20250703-imx8-dc-prefetch-028e306591c6
+
+Best regards,
+--  
+Regards,
+Liu Ying
+
