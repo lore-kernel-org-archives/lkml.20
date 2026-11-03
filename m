@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701548;
-	b=kJgDyt/OfksNKfQWyTWQP3Iib2WTdmGzMclJON35Is7NDBdwhdbT4L6HdmQFrmsvDkmU
-	 6ZSxY+Hpvf3p+aPBIAWcoFdMsS6OoucQYnK/KohmniXUofND1K1WiGOzqdJgsmcvqDjnN
-	 6OuJKbNOF1qWv0mMubvYj4xx+z5Fc0V+FxP0RzJB+ZKPKUw77PS+7zmLAa7tSqMJGhWEB
-	 SwUe1ztucasy1xVbTPh9zwFFMoxufz7aj7NI0/xxk4wDhzx3vB/j9E30t8MYCbYrRAyGy
-	 ppC3YlGXSB8CtKxOiWxxqS6xherCZgrizSNhuMU7tN+p7Q8uLxDxIIAQUXJFrqUyLpw==
+	t=1793701554;
+	b=kvCD1LLbPS6DOyXnSbLgmusFA3jUYFjkilaHjbCvS2CJb3qHPNDkn7yuaCOO/ghBnDbc
+	 aOA0Yc/VmVuT4LR9q9SsqWP57kkL3PlNt1uFijqKhVnlM51NCnDsI++vj/rk3TPzXq+Tj
+	 wa7mmzrGCIMFttGSnK6r071UxsL9DQH3jbfIE0Je76YePzqB1tvEU40dUIkBAobWlk9ic
+	 FwqbMxOZikBL+dl7wKWcX3gr5Ojxxznj9mTNQrGJ5b/ljPC/ZeFjIFPX60VuNLrkvEygQ
+	 bkDnXGyqiAD6zMhwHj+1Q8H+nMr+pHJ7m2WgMJAv91Elo5l4yKKjJigdEnohD3+soqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701554;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eVBfRz3fVnCcRJSsVqH9DYQP76908hbJkwajsue4xn4=;
-	b=TGyuVTtCcs4MKLJiHc6bCyFmwi6Pqi3MG+vn7B5jFkyS2BAG6GZxo/7o8rl+BoJAWso/
-	 2x+ogNppWNvbUL8+2tBlIW6XfQWmXPxi3L9GggTMOQpsliBvuOgiH9UuewXm5Jn4IRIeD
-	 of7Aard0/1V0XZBrY/Na1TPkhGtVkzPTQUtdxwgkme85REg4wE776s6nnJj+J6Y3qVMo4
-	 T8keqAu3hC3HTrvU2YgIH0IWyU0GWzbbBkPblUK7SLDrtDdnh3r9E0N5fC/X0LPl8Op3b
-	 Xb+FyR/NEHqTrJRd//v/OYMRP1a86RyCh5Z8sJl7ci2s9Uhqrdw/Rxeqy7+RdWkqmVA==
+	bh=xMnmfPB2x1ONdx8H/7UeU0nSjR+hb66yayecZ+DFW8k=;
+	b=NlYjSbKhhDSXxzE08nQtGrFxXwXfljxaovfBTIkdLKCYqPwPnn0tdiO2pysIms2Alc39
+	 N/zsaAiCK1RMCeEdnBJMF0U8q/6kDod3VdXvmZPvHDoT9eGG3Qc2wDi7cL5/TljTfwM1v
+	 58Xbd5RlvHiNcnBynsgpn4VjCcbTyWQ4IF5hCF5WCFUxNgLEaWXU9ulgElW2EHZlarkBj
+	 8CBT0zHaHWwYgfoeL+KTIgMZaYhIHD58jrKvzoDyk/gIz+RfdsB2/Ct1ku7yNaVKNQFo3
+	 RQQMaQOSSVD0juJTATmDTmompa2mGtNPCk31cBifGJGniMJoZhpYhbnwhjZb5SQ1JzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOr+PLEa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhM18OIZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA748606A32E;
-	Tue,  3 Nov 2026 10:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE78606A337;
+	Tue,  3 Nov 2026 10:25:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOr+PLEa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D37031F00919;
-	Tue,  3 Nov 2026 10:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhM18OIZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECB91F00A1B;
+	Tue,  3 Nov 2026 10:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701547;
-	bh=eVBfRz3fVnCcRJSsVqH9DYQP76908hbJkwajsue4xn4=;
+	s=k20260515; t=1793701554;
+	bh=xMnmfPB2x1ONdx8H/7UeU0nSjR+hb66yayecZ+DFW8k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OOr+PLEan+GgFITMCObTWVGJcHeupjMJKX6wkkhl6yq8KJYZ1qRR0p2OjbdThK05y
-	 uNQ+H6wZNWOJMQU95+3NfBEFbjuCX/+6iOzLxAE+ZHKEpG7lD4uuA+DoyBFv0caF3X
-	 FPgL/c96MRtxhPcnTObVzPthB0Yk9WVsg970YAAAXqtOL2t2cU3AyDUed1BxV9CZrH
-	 nzd11OoHLxjCiua/k0ByAFjIfqx6jMb862TCwm4VHWURWY9kRayEFHzCSGKZyKLLih
-	 /EfqsoNioud1XBmlNlvGDRPzOWWe4e6Gzam0s4WQcvjp81BV2mvk5AojwJ5oxK01sk
-	 g6dJMjTTel5wg==
-Date: Tue, 3 Nov 2026 11:25:45 +0100
+	b=EhM18OIZurDB9UMxnBQ2+8Y3bdlSXHVCebvL6B6JCwTJaui7KXf2IgyCg9tJekK7h
+	 kghIfpSXgSlq97jcXy/B9/sdy86knrpvJU7SyLr5Xe5RJEljE2w21iFE2rbgwaBGBJ
+	 xv/tAY3gm34kHV+t6XLP76+B2xi+fZ/ujXq6eHyFyRPnlImQOWpqz/ci776QsryziC
+	 au5E/DHUdMQy9WRv3xFiKzCPwyLKxTytIoPe+pCNvfUYi9ac3V48dX1yuEcD1/bU4q
+	 Hia0KTNcIGXd8uopntqp4eVDOGyffvZtLIR3AbElRaq68xLDTfUrpQZX2ymvFZ9wLZ
+	 lH59lJZVAfvDw==
+Date: Tue, 3 Nov 2026 11:25:51 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	intel-wired-lan@lists.osuosl.org, Eric Dumazet <edumazet@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, stable@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Subject: Re: [PATCH] ice: release the VF reference in the switchdev trust path
-Message-ID: <20261103-gigantic-vulture-of-support-ffffa4@quoll>
-References: <20261103100530.1309907-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
+	Jijie Shao <shaojijie@huawei.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Jian Shen <shenjian15@huawei.com>
+Subject: Re: [PATCH] net: hns3: destroy the page pool if RX buffer allocation
+ fails
+Message-ID: <20261103-melodic-translucent-lemming-6abaac@quoll>
+References: <20261103100533.1310018-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,24 +62,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100530.1309907-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100533.1310018-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:30 +0000, Wentao Liang wrote:
-> ice_set_vf_trust() takes a reference on the VF with ice_get_vf_by_id()
-> and then rejects the request when the PF is in switchdev mode without
-> dropping that reference.
+On Tue, 03 Nov 2026 10:05:33 +0000, Wentao Liang wrote:
+> hns3_alloc_ring_memory() creates the page pool and then fills the RX
+> ring with buffers from it. If filling the ring fails, the error path
+> only frees the descriptors and the descriptor callbacks, so the page
+> pool created a moment earlier is leaked.
 > 
-> Return through the existing out_put_vf label so the VF reference is
-> released on this path too.
+> The page pool is normally destroyed by hns3_fini_ring(), but
+> hns3_init_all_ring() only cleans up the rings that were set up before
+> the failing one, so the pool of the failing ring is never released.
 > 
-> Fixes: 1281b7459657 ("ice: Forbid trusted VFs in switchdev mode")
+> Destroy the page pool on the buffer allocation failure path too.
+> 
+> Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/intel/ice/ice_sriov.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
 
 
