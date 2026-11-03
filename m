@@ -1,73 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793749600;
-	b=tZ+V+638LzbFGiLhSOmEXn+CBu0kfm985mpwiu9M99W2hQl0sRamwNktWzrmhqU/kM4k
-	 GJ6Pz2Q7yvn2chlu+x3JzbUbfBD+RktsAKAFcRdWB4xS4O+2gey9pjmi6CumkZUli9gLj
-	 Vr9NA7G96B1DRGKqEoausVGy0lrGlXR/vCHPiPl8Z/F+WNPypojHFOtqJbE55dHZx4Hei
-	 d1i2pCWqYlZORLLS5pfPE0e7fPUsfbG8Zpzh8jk2wkFXsVdNE3w7m5D8ojufdtJkIv5R9
-	 gPVdo6pJiOKu1Dy6qTW11OJpoU7hjcDFEKYwEp/22G42lpLr2AJp99P68k/BsCR375w==
+	t=1793749658;
+	b=1bbSqXQQhqzNeh8CMHMw77ubVhrW2FdrQ1Ay5NkKVAIjoQdloH8RUFCG9+5kldegf0Re
+	 9LJCx4OxC1l094ZZzAkSBvF4Ti16DoyvIWvJkPeio3SO7SGS29RzSRM8jBAYCAaiMEB0g
+	 NQC4f6PRfNxFsGacrQV1Xu+pedAjDoCZcnIeN13ZO8dD731ndIiExmBaYKv2hL8RK3e4R
+	 4xR4QqOijU5dlg5dJVk/l8XWaeJ20gvTKI5ySFC4kG2o0rIJ+PgZnYpwBliONI+IDilmo
+	 tWt34DXTlUUlptJ/WzVpHB9CTbb2Mf52pQEV+ZGME4xKoRS56xGTyFnemNlHk/0DSzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793749600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793749658;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=GEWu8PuLG2Ft+HArhhXScagBJNxG2RL6FgTVaDjHZhk=;
-	b=GDHtDp1LE/k953P+k6Ryvo59yDEFaIdtvIHWQBLDbFmtZ+XN3Dek4Skd3izELKfUgIP0
-	 zRCop0VsdDt5d3ikCPDSDzggLPzDOGrIdcFDDec5L/axQuXiMlnvPTpe/mrChet8RLDmz
-	 89vkWywAjZbl4lObBJp8gwzd+EJ0thHtK7vH34Z5n6ikl1HuxvQ6nusvWYRFAnVWFdOH2
-	 flqhUeWfZRYDJxxpW37KenOg2znQDadG7I4R+uI3noTdutZzEOtw5fKxjIzrxnTe6cdCy
-	 Qkwm0fFaqpdw8EK7vB/E48JfNsMuIKrskvO72waR3FqyyNFsbKiRI39nzl6cUEgF1hw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AkKw4T5m37AkLEe85hcfetEiJRRZnmi/qOahhWII6+4=;
+	b=00aGmEhJK9b0PowHRO4qwXK0eEpZGQclPMqA2vjKkIPgYZ7/nGWLmDw3Sa3BW74p9U1I
+	 XX5+C2F5YWF9Dq56g21yFRtc/p/a9ql5uV9iayLVT5xBpN4u6nCAdziu9IfQLhTTppBCK
+	 dOazATKLb4OWdagPd5W07BKIR1EiQq3PwYp+DA5Cfmd/yFSke8mmJHPrbBQ7v1+0UyDsc
+	 qsngMUIpb9SQL+pGoY8SWYEJYwzVlTNwsnIiNrdb5LuSrgc1wsh8f1pON7EKlBRvnIDZM
+	 YKph7/5YUD6htNwcvwZfmhS/VcxA2wUCSeExFykW3oOP7r3o56OBY9XLqazKysm6DKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jGsVrHO5;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ERXTcHWS;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C1B60A2633
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C1B60A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9959606A32C
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:47:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9959606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jGsVrHO5
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a06da65d92so108286b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:46:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ERXTcHWS
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c4d870d54so66605f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:47:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793749599; x=1794354399; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GEWu8PuLG2Ft+HArhhXScagBJNxG2RL6FgTVaDjHZhk=;
-        b=jGsVrHO5mutMjbg0ex0Peck4cKCqIp0BDU//tC0s/6MxmPiKoMM++muYqnuh3EkpGk
-         3yWRyCkEPBkHBdUwdolSYNKLU9P4R5ziJBwxJN/UvqvQHrmaMbNqho9bh7ohuu3WjpRE
-         swtdhmY5WXZMAuddfJfLLctsg07PBZRI0kL7by1NSUgnE36F5xynX5xfREz8nP5xYh6+
-         nHmECDH5gl405sM+dRYwSvJrHZ4HY8bVKdEykctyTPp4t0N0qHCUxQmiBW1ygmR9enFz
-         frURwBcvxtUmruWuQKQKo06P9MyhmQfYuPrWoszzfcMuThb1Nz3c4ZAbPjzT4QYUalHS
-         b2FA==
+        d=gmail.com; s=20260707; t=1793749656; x=1794354456; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AkKw4T5m37AkLEe85hcfetEiJRRZnmi/qOahhWII6+4=;
+        b=ERXTcHWSYCrkK2Qrh6f15zyBfRtOn/QeZy+UFHEqi3AW08uOHBNpKkrULsL3Qy3sN0
+         MfxlbOAAFb2//xkWF0ZAuksl8OCrXuixPN/k2+yuQ/BFQHCujTyaeact3H8+qco3HkPv
+         58U8g0M/vvgu7X7IeehrhIxJRca4IiiyXrFEDZksElVBfOIGiXl5K3BHyqX/xI+8Uc2R
+         8+Z0CDSfd9a7BSZjk8ncQaf4tJG2if7DHqpykhBy04YuBoD6+XKLd4s6+Y0FWNu70ZaC
+         sv2ZoLuUTg1xOPzQNnQyYzLaoEXlNCY3KZlZuTwvBw9v9jc3JR8UNViBdilNkXPtelLv
+         8d4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793749599; x=1794354399;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793749656; x=1794354456;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GEWu8PuLG2Ft+HArhhXScagBJNxG2RL6FgTVaDjHZhk=;
-        b=cm5h0++UYsRxzsyPtzL2+cEEQsZcslZbaOjNU3z11O9VbrycZ8LIMEf2N7j/EwAC70
-         K3uN9oRCo+2/OhcS6VYaNDacENYVY1tDSQ4OeaPlSwjAiPiuc4DychZKQgvFVNnsXvNV
-         HwdMM/4cZHg44jWAwS3Oiz265ZKAH0YziniTeToDphoSi8Xr5V1U76Z/6iYT4bgUJy3b
-         jRuHq7FtHZN3RAh4klvqlgS+xuw/D6UlvNZY1KCfDTkua+EyrcgSqabsKPbE6O1angNt
-         l1NMLEOMRUsWMlgVhO0jel64XW2lLbr8og/tVFWkAgk2fVOgf6Gt498AvsBz3AbFShnI
-         +c8w==
-X-Gm-Message-State: APuU4Z8ZNkD95VLk3nL9sG36GQHJkifpyh+iEpwprlwITB9u7Uioio3A
-	C2wrjXejwxXWIhhQ+QG2zoXigWN8V7oz0xxRafYzfSFN6IG4M35vBbldpgoN9Vy04Ueh0oFQq7g
-	/s9FAF2yLfg==
-X-Received: from pfeu3-n1.prod.google.com ([2002:a05:6a00:c0c3:10b0:89e:65fd:e92])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4189:b0:8a0:3ed7:93a9
- with SMTP id d2e1a72fcca58-8a9bffd2b12mr11644180b3a.46.1793749598214; Tue, 03
- Nov 2026 15:46:38 -0800 (PST)
-Date: Tue,  3 Nov 2026 15:44:50 -0800
-In-Reply-To: <20261103234502.1008382-1-irogers@google.com>
+        bh=AkKw4T5m37AkLEe85hcfetEiJRRZnmi/qOahhWII6+4=;
+        b=fQ2HqKciGuMi6gxMbUTSnytU90T5/U6y4AeK2MQkGdHJvm94JE+QiKyAYLZ7xU6ezS
+         8owdDSTpBclmUgQhOP5JOSRI/c11ELjOG0YDAnmW8KhLE/6J/8HRvvm/yNxEC5KcL7xB
+         ZsymaK/iia2ZUvz9cRoPv4UrWduMHI9kPwxv47dJSHOQfPvMogQX/RTnwlj4/l63qLqX
+         Dpe2gMXNPEUkY0uASoo/UVPNNPrC19k9GpsejhIq4bPsNig1bhSbSjHKkdvMt3Fy5S+1
+         wlHp0OFRshwJuAnw24gtmHhcGtKITo96D82Qjf/ucKENlLNwmA49o2jU7cQG9+kHyyvK
+         Yabg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQkbwdd4FVPwm+gmHsJzHwagy+3wyHmLGpuEJkpBEOpxQFa/WJdgBbhkVTgz3gbo8X2W2/19tzuyr7k1I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hrFb8N7E+VlEdfFB+5Hl3CuITHgLph6glQJTioeYXeA7L5///
+	aoobc2g9iQ/TxIGNvvGXxEp4xYzExeIkWbe+7UtTTLEOW/EitV9keR759nVW28MocYZZ9w==
+X-Gm-Gg: AYBFou2uiRUrR1M+crWJC815ZXetFvewbrt08Uc/5wYxEYmIJluH4/Jbljw0vwoiXm4
+	KcctD7DGbY3NQfqTXuE1YvWeYSvUaYjiDRfBulwGWJQMYCoclzglg4rkDFFkoE9qBy630N0lfuD
+	ICoErLckCwl8NjAfxKVXNO+Bvs7dtDz74P66DKHPqM2CF4p/WltiZJKhnOxjSEbpbRjPdqbVUzq
+	59ncYQyzFtX0nc0qJeR00y1hyc5i/0KCsOj9NJUXGqcJalTtinFhGcHGnrSDpvAv87ciKsXsgWH
+	fxmFQ+xRuQ8COqwXwgFFEUpeBnb1b2xhSBtOUDvErvyh6EJPrEBqiQvLE/HYC3z13C2ShAPfLNk
+	SSj5qvkfutsgN7PKxtzWqaElFGqWiNGoZK56ogwGKHGndXRlefh7pVm/ds1okh2PN02qToybglw
+	lBectodloy9+eYqa+0I1BNahbwEobHzT3IUDo230FnlQsqypxfi+IK1edNuWjAGDqDpR0SneDS1
+	zVxvUsRv9WTOIw7+qkr5+oag46Y5u8MH00dlYikEdzmuCgzdTzYu+tshFIeS3aFnfXa0Ax5UB0T
+	qUy+/i1NLqZ6sO9afRZpBVQ6P2/PbANrUwTm4yaw2Nv+bE5k9yanVZ8fNKGMzKNLQ5OoQ/l2Sxt
+	IY7cVsfg4pvV9/hXaGZPS9qte2lmQK4gx+BVQZe02KwLQPYt7LEL4RjhX8Fwl4vtXjQ==
+X-Received: by 2002:a05:6000:383:b0:48e:889b:5fe8 with SMTP id ffacd0b85a97d-48e889b6deamr11283948f8f.10.1793749656012;
+        Tue, 03 Nov 2026 15:47:36 -0800 (PST)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feea5d4e4sm550961f8f.57.2026.11.03.15.47.34
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 03 Nov 2026 15:47:35 -0800 (PST)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Mushahid Hussain <hmushi@amazon.co.uk>,
+	nh-open-source@amazon.com,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: Add helpers to allocate memslot metadata
+Date: Tue,  3 Nov 2026 23:47:34 +0000
+Message-ID: <20261103234734.45413-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,351 +97,176 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103234502.1008382-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103234502.1008382-35-irogers@google.com>
-Subject: [PATCH v1 34/41] perf pmu: Probe user and interrupt sample register masks
-From: Ian Rogers <irogers@google.com>
-To: linux-perf-users@vger.kernel.org, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Kan Liang <kan.liang@linux.intel.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Thomas Falcon <thomas.falcon@intel.com>, John Garry <john.garry@linux.dev>, 
-	Will Deacon <will@kernel.org>, Leo Yan <leo.yan@arm.com>, 
-	Athira Rajeev <atrajeev@linux.ibm.com>, Thomas Richter <tmricht@linux.ibm.com>, 
-	Ravi Bangoria <ravi.bangoria@amd.com>, Sandipan Das <sandipan.das@amd.com>, 
-	Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Extend perf_pmu__probe() with probe_pmu_regs_one() to probe supported
-register sampling masks for PERF_SAMPLE_REGS_USER and
-PERF_SAMPLE_REGS_INTR when supported by the PMU.
+From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-Test the architecture's base general-purpose register mask as a batch
-before falling back to per-register probing if needed, and on hardware
-PMUs also probe extended GPRs (such as x86 APX R16-R31 and CET SSP) and
-SIMD vector/predicate register classes via PERF_SAMPLE_REGS_ABI_SIMD.
+__vcalloc() makes every allocation at least one page, so a memslot
+that spans a single page uses 8 KiB of vmalloc for 8 bytes of
+lpage_info, plus 4 KiB for a 16-byte dirty bitmap once dirty logging
+is enabled. The waste grows with the number of memslots and VMs on a
+host. kvcalloc() avoids it for small arrays, but refuses allocations
+above INT_MAX bytes, which the rmap and write-tracking arrays of a
+large memslot exceed.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
+Add kvm_memslot_metadata_alloc() and kvm_memslot_metadata_free(),
+which use kvzalloc() up to INT_MAX bytes and vmalloc above, and route
+the dirty bitmap, rmaps, lpage_info and write-tracking arrays through
+them. That way, how KVM allocates memslot metadata is decided in one
+place instead of at each array.
+
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Link: https://lore.kernel.org/all/arr1VgGZmgUmY4hc@google.com/
+Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
 ---
- tools/perf/util/pmu.c | 249 ++++++++++++++++++++++++++++++++++++++++++
- tools/perf/util/pmu.h |  28 +++++
- 2 files changed, 277 insertions(+)
+Mushahid's patch [1] switched the lpage_info arrays and dirty bitmaps to
+kvcalloc(). Sean suggested dedicated helpers for memslot metadata
+instead [2], which this patch adds.
 
-diff --git a/tools/perf/util/pmu.c b/tools/perf/util/pmu.c
-index 3585147c5242..9179231aa7d5 100644
---- a/tools/perf/util/pmu.c
-+++ b/tools/perf/util/pmu.c
-@@ -3386,6 +3386,237 @@ static void probe_sample_types(struct perf_pmu *pmu,
- 	pmu->probed.can_weight = !!(pmu->probed.sample_types & PERF_SAMPLE_WEIGHT);
+[1] https://lore.kernel.org/all/20260815142218.85067-1-hmushi@amazon.co.uk/
+[2] https://lore.kernel.org/all/arr1VgGZmgUmY4hc@google.com/
+---
+ arch/x86/kvm/mmu/page_track.c |  6 +++---
+ arch/x86/kvm/x86.c            | 10 +++++-----
+ include/linux/kvm_host.h      |  2 ++
+ virt/kvm/kvm_main.c           | 23 +++++++++++++++++++++--
+ 4 files changed, 31 insertions(+), 10 deletions(-)
+
+diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
+index f12558dfcd81..f33547964b98 100644
+--- a/arch/x86/kvm/mmu/page_track.c
++++ b/arch/x86/kvm/mmu/page_track.c
+@@ -43,7 +43,7 @@ bool kvm_page_track_write_tracking_enabled(struct kvm *kvm)
+ 
+ void kvm_page_track_free_memslot(struct kvm_memory_slot *slot)
+ {
+-	vfree(slot->arch.gfn_write_track);
++	kvm_memslot_metadata_free(slot->arch.gfn_write_track);
+ 	slot->arch.gfn_write_track = NULL;
  }
  
-+/*
-+ * Probe supported general-purpose, extended GPR, and SIMD vector/predicate
-+ * register sampling masks for either PERF_SAMPLE_REGS_USER (!@intr) or
-+ * PERF_SAMPLE_REGS_INTR (@intr).
-+ */
-+static void probe_pmu_regs_one(const struct perf_pmu *pmu,
-+			       const struct perf_event_attr *base_attr,
-+			       pid_t pid, int cpu, unsigned long flags,
-+			       int max_precise, bool intr,
-+			       u64 *out_mask, int *out_abi,
-+			       u64 *out_simd_mask, u64 *out_pred_mask)
-+{
-+	int dummy_abi = -1;
-+	u64 gpr_mask = intr ? perf_intr_reg_mask(EM_HOST, &dummy_abi) :
-+			      perf_user_reg_mask(EM_HOST, &dummy_abi);
-+	u64 sample_type = intr ? PERF_SAMPLE_REGS_INTR : PERF_SAMPLE_REGS_USER;
-+	u64 mask = 0;
-+	int abi = 0;
-+	struct perf_event_attr attr = *base_attr;
-+	int fd;
-+
-+	attr.disabled = 1;
-+	attr.sample_period = base_attr->sample_period ?: 10000;
-+	attr.sample_type = sample_type;
-+
-+	if (gpr_mask) {
-+		if (intr)
-+			attr.sample_regs_intr = gpr_mask;
-+		else
-+			attr.sample_regs_user = gpr_mask;
-+
-+		fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+		if (fd >= 0) {
-+			close(fd);
-+			mask |= gpr_mask;
-+		} else {
-+			for (int b = 0; b < 64; b++) {
-+				if (!(gpr_mask & BIT_ULL(b)))
-+					continue;
-+				if (intr)
-+					attr.sample_regs_intr = BIT_ULL(b);
-+				else
-+					attr.sample_regs_user = BIT_ULL(b);
-+				fd = sys_perf_event_open(&attr, pid, cpu, -1, flags);
-+				if (fd >= 0) {
-+					close(fd);
-+					mask |= BIT_ULL(b);
-+				}
-+			}
-+		}
-+	}
-+
-+	if (perf_pmu__is_software(pmu)) {
-+		*out_mask = mask;
-+		*out_abi = abi;
-+		return;
-+	}
-+
-+	/*
-+	 * Probe extended GPRs outside the base GPR mask when the host ABI
-+	 * supports PERF_SAMPLE_REGS_ABI_SIMD (e.g. APX R16-R31 and CET SSP).
-+	 * Note: perf_pmu__probe() actively probes the running host kernel via
-+	 * perf_event_open(), so EM_HOST is used intentionally here.
-+	 */
-+	{
-+		int host_abi = 0;
-+		u64 host_mask = intr ? perf_intr_reg_mask(EM_HOST, &host_abi) :
-+				       perf_user_reg_mask(EM_HOST, &host_abi);
-+		u64 ext_gpr_mask = host_mask & ~gpr_mask;
-+
-+		if ((host_abi & PERF_SAMPLE_REGS_ABI_SIMD) && ext_gpr_mask) {
-+			struct perf_event_attr e_attr = *base_attr;
-+			bool ext_batch_ok = false;
-+
-+			e_attr.size = sizeof(e_attr);
-+			e_attr.disabled = 1;
-+			e_attr.sample_period = base_attr->sample_period ?: 10000;
-+			e_attr.sample_type = sample_type;
-+			e_attr.sample_simd_regs_enabled = 1;
-+			if (intr)
-+				e_attr.sample_regs_intr = ext_gpr_mask;
-+			else
-+				e_attr.sample_regs_user = ext_gpr_mask;
-+
-+			fd = sys_perf_event_open(&e_attr, pid, cpu, -1, flags);
-+			if (fd < 0 && intr && max_precise > 0) {
-+				e_attr.precise_ip = 1;
-+				fd = sys_perf_event_open(&e_attr, pid, cpu, -1, flags);
-+			}
-+			if (fd >= 0) {
-+				close(fd);
-+				mask |= ext_gpr_mask;
-+				abi |= PERF_SAMPLE_REGS_ABI_SIMD;
-+				ext_batch_ok = true;
-+			}
-+
-+			if (!ext_batch_ok) {
-+				for (int b = 0; b < 64; b++) {
-+					if (!(ext_gpr_mask & BIT_ULL(b)))
-+						continue;
-+					e_attr.precise_ip = base_attr->precise_ip;
-+					if (intr)
-+						e_attr.sample_regs_intr = BIT_ULL(b);
-+					else
-+						e_attr.sample_regs_user = BIT_ULL(b);
-+					fd = sys_perf_event_open(&e_attr, pid, cpu, -1, flags);
-+					if (fd < 0 && intr && max_precise > 0) {
-+						e_attr.precise_ip = 1;
-+						fd = sys_perf_event_open(&e_attr, pid, cpu, -1,
-+									 flags);
-+					}
-+					if (fd >= 0) {
-+						close(fd);
-+						mask |= BIT_ULL(b);
-+						abi |= PERF_SAMPLE_REGS_ABI_SIMD;
-+					}
-+				}
-+			}
-+		}
-+	}
-+
-+	for (int is_pred = 0; is_pred <= 1; is_pred++) {
-+		bool pred = is_pred != 0;
-+		u64 class_mask = intr ?
-+			perf_intr_simd_reg_class_mask(EM_HOST, pred) :
-+			perf_user_simd_reg_class_mask(EM_HOST, pred);
-+		u64 supported_classes = 0;
-+
-+		for (int reg_c = 0; reg_c < 64; reg_c++) {
-+			struct perf_event_attr s_attr = *base_attr;
-+			u16 qwords = 0;
-+			u64 bitmap;
-+
-+			if (!(class_mask & BIT_ULL(reg_c)))
-+				continue;
-+			bitmap = intr ?
-+				perf_intr_simd_reg_class_bitmap_qwords(EM_HOST, reg_c,
-+								       &qwords, pred) :
-+				perf_user_simd_reg_class_bitmap_qwords(EM_HOST, reg_c,
-+								       &qwords, pred);
-+			if (!bitmap || !qwords)
-+				continue;
-+
-+			s_attr.size = sizeof(s_attr);
-+			s_attr.disabled = 1;
-+			s_attr.sample_period = base_attr->sample_period ?: 10000;
-+			s_attr.sample_type = sample_type;
-+			s_attr.sample_simd_regs_enabled = 1;
-+			if (pred) {
-+				s_attr.sample_simd_pred_reg_qwords = qwords;
-+				if (intr)
-+					s_attr.sample_simd_pred_reg_intr = bitmap;
-+				else
-+					s_attr.sample_simd_pred_reg_user = bitmap;
-+			} else {
-+				s_attr.sample_simd_vec_reg_qwords = qwords;
-+				if (intr)
-+					s_attr.sample_simd_vec_reg_intr = bitmap;
-+				else
-+					s_attr.sample_simd_vec_reg_user = bitmap;
-+			}
-+
-+			fd = sys_perf_event_open(&s_attr, pid, cpu, -1, flags);
-+			if (fd < 0 && intr && max_precise > 0) {
-+				s_attr.precise_ip = 1;
-+				fd = sys_perf_event_open(&s_attr, pid, cpu, -1, flags);
-+			}
-+			if (fd >= 0) {
-+				close(fd);
-+				supported_classes |= BIT_ULL(reg_c);
-+				abi |= PERF_SAMPLE_REGS_ABI_SIMD;
-+			}
-+		}
-+
-+		if (pred)
-+			*out_pred_mask = supported_classes;
-+		else
-+			*out_simd_mask = supported_classes;
-+	}
-+
-+	if (!(abi & PERF_SAMPLE_REGS_ABI_SIMD)) {
-+		u64 ext_mask = GENMASK_ULL(63, 32) & ~gpr_mask;
-+		struct perf_event_attr x_attr = *base_attr;
-+		bool batch_ok = false;
-+
-+		x_attr.disabled = 1;
-+		x_attr.sample_period = base_attr->sample_period ?: 10000;
-+		x_attr.sample_type = sample_type;
-+		if (intr && max_precise > 0)
-+			x_attr.precise_ip = 1;
-+
-+		if (ext_mask) {
-+			if (intr)
-+				x_attr.sample_regs_intr = ext_mask;
-+			else
-+				x_attr.sample_regs_user = ext_mask;
-+
-+			fd = sys_perf_event_open(&x_attr, pid, cpu, -1, flags);
-+			if (fd >= 0) {
-+				close(fd);
-+				mask |= ext_mask;
-+				batch_ok = true;
-+			}
-+		}
-+
-+		if (!batch_ok) {
-+			for (int b = 0; b < 64; b++) {
-+				const char *rname;
-+
-+				if (gpr_mask & BIT_ULL(b))
-+					continue;
-+				rname = perf_reg_name(b, EM_HOST, EF_HOST, 0);
-+				if (!rname || !strcmp(rname, "unknown"))
-+					continue;
-+				if (intr)
-+					x_attr.sample_regs_intr = BIT_ULL(b);
-+				else
-+					x_attr.sample_regs_user = BIT_ULL(b);
-+				fd = sys_perf_event_open(&x_attr, pid, cpu, -1, flags);
-+				if (fd >= 0) {
-+					close(fd);
-+					mask |= BIT_ULL(b);
-+				}
-+			}
-+		}
-+	}
-+
-+	*out_mask = mask;
-+	*out_abi = abi;
-+}
-+
- /*
-  * Pack @value into the perf_event_attr config field named by the sysfs format
-  * @name of @pmu, e.g. "rdpmc" defined as "config1:1". Returns false if the
-@@ -3762,6 +3993,24 @@ static void __perf_pmu__probe(struct perf_pmu *pmu, int pmu_cpu)
- 		}
+@@ -53,8 +53,8 @@ static int __kvm_page_track_write_tracking_alloc(struct kvm_memory_slot *slot,
+ 	const size_t size = sizeof(*slot->arch.gfn_write_track);
+ 
+ 	if (!slot->arch.gfn_write_track)
+-		slot->arch.gfn_write_track = __vcalloc(npages, size,
+-						       GFP_KERNEL_ACCOUNT);
++		slot->arch.gfn_write_track =
++			kvm_memslot_metadata_alloc(npages, size);
+ 
+ 	return slot->arch.gfn_write_track ? 0 : -ENOMEM;
+ }
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 26e7beaff8a0..dc716ad83c8f 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10146,7 +10146,7 @@ static void memslot_rmap_free(struct kvm_memory_slot *slot)
+ 	int i;
+ 
+ 	for (i = 0; i < KVM_NR_PAGE_SIZES; ++i) {
+-		vfree(slot->arch.rmap[i]);
++		kvm_memslot_metadata_free(slot->arch.rmap[i]);
+ 		slot->arch.rmap[i] = NULL;
+ 	}
+ }
+@@ -10158,7 +10158,7 @@ void kvm_arch_free_memslot(struct kvm *kvm, struct kvm_memory_slot *slot)
+ 	memslot_rmap_free(slot);
+ 
+ 	for (i = 1; i < KVM_NR_PAGE_SIZES; ++i) {
+-		vfree(slot->arch.lpage_info[i - 1]);
++		kvm_memslot_metadata_free(slot->arch.lpage_info[i - 1]);
+ 		slot->arch.lpage_info[i - 1] = NULL;
  	}
  
-+	/* 3b. User and interrupt register sampling masks */
-+	if (pmu->probed.sample_types & PERF_SAMPLE_REGS_USER) {
-+		probe_pmu_regs_one(pmu, &base_attr, pid, cpu, flags,
-+				   pmu->probed.max_precise, /*intr=*/false,
-+				   &pmu->probed.user_regs_mask,
-+				   &pmu->probed.user_regs_abi,
-+				   &pmu->probed.user_simd_mask,
-+				   &pmu->probed.user_pred_mask);
-+	}
-+	if (pmu->probed.sample_types & PERF_SAMPLE_REGS_INTR) {
-+		probe_pmu_regs_one(pmu, &base_attr, pid, cpu, flags,
-+				   pmu->probed.max_precise, /*intr=*/true,
-+				   &pmu->probed.intr_regs_mask,
-+				   &pmu->probed.intr_regs_abi,
-+				   &pmu->probed.intr_simd_mask,
-+				   &pmu->probed.intr_pred_mask);
-+	}
-+
- 	/* 4. Privilege / exclusion modifiers */
- 	pmu->probed.exclude_user =
- 		test_exclude_flag(&base_attr, pid, cpu, flags, PROBE_EXCLUDE_USER);
-diff --git a/tools/perf/util/pmu.h b/tools/perf/util/pmu.h
-index cacb8bc5198b..66ee3841872a 100644
---- a/tools/perf/util/pmu.h
-+++ b/tools/perf/util/pmu.h
-@@ -300,11 +300,39 @@ struct perf_pmu {
- 		 * in a group counted simultaneously, without multiplexing.
- 		 */
- 		int max_gp_group_size;
-+		/** @probed.user_regs_abi: ABI flags for user_regs_mask. */
-+		int user_regs_abi;
-+		/** @probed.intr_regs_abi: ABI flags for intr_regs_mask. */
-+		int intr_regs_abi;
- 		/**
- 		 * @probed.sample_types: Bitmask of supported
- 		 * enum perf_event_sample_format flags.
- 		 */
- 		u64 sample_types;
-+		/** @probed.user_regs_mask: Bitmask of supported sample_regs_user registers. */
-+		u64 user_regs_mask;
-+		/** @probed.intr_regs_mask: Bitmask of supported sample_regs_intr registers. */
-+		u64 intr_regs_mask;
-+		/**
-+		 * @probed.user_simd_mask: Bitmask of supported user SIMD vector
-+		 * register classes.
-+		 */
-+		u64 user_simd_mask;
-+		/**
-+		 * @probed.user_pred_mask: Bitmask of supported user SIMD predicate
-+		 * register classes.
-+		 */
-+		u64 user_pred_mask;
-+		/**
-+		 * @probed.intr_simd_mask: Bitmask of supported intr SIMD vector
-+		 * register classes.
-+		 */
-+		u64 intr_simd_mask;
-+		/**
-+		 * @probed.intr_pred_mask: Bitmask of supported intr SIMD predicate
-+		 * register classes.
-+		 */
-+		u64 intr_pred_mask;
- 	} probed;
- };
+@@ -10177,7 +10177,7 @@ int memslot_rmap_alloc(struct kvm_memory_slot *slot, unsigned long npages)
+ 		if (slot->arch.rmap[i])
+ 			continue;
  
+-		slot->arch.rmap[i] = __vcalloc(lpages, sz, GFP_KERNEL_ACCOUNT);
++		slot->arch.rmap[i] = kvm_memslot_metadata_alloc(lpages, sz);
+ 		if (!slot->arch.rmap[i]) {
+ 			memslot_rmap_free(slot);
+ 			return -ENOMEM;
+@@ -10214,7 +10214,7 @@ static int kvm_alloc_memslot_metadata(struct kvm *kvm,
+ 
+ 		lpages = __kvm_mmu_slot_lpages(slot, npages, level);
+ 
+-		linfo = __vcalloc(lpages, sizeof(*linfo), GFP_KERNEL_ACCOUNT);
++		linfo = kvm_memslot_metadata_alloc(lpages, sizeof(*linfo));
+ 		if (!linfo)
+ 			goto out_free;
+ 
+@@ -10250,7 +10250,7 @@ static int kvm_alloc_memslot_metadata(struct kvm *kvm,
+ 	memslot_rmap_free(slot);
+ 
+ 	for (i = 1; i < KVM_NR_PAGE_SIZES; ++i) {
+-		vfree(slot->arch.lpage_info[i - 1]);
++		kvm_memslot_metadata_free(slot->arch.lpage_info[i - 1]);
+ 		slot->arch.lpage_info[i - 1] = NULL;
+ 	}
+ 	return -ENOMEM;
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e7fc94e2910a..11a6f501a78b 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1253,6 +1253,8 @@ enum kvm_mr_change {
+ 
+ int kvm_set_internal_memslot(struct kvm *kvm,
+ 			     const struct kvm_userspace_memory_region2 *mem);
++void *kvm_memslot_metadata_alloc(size_t n, size_t size);
++void kvm_memslot_metadata_free(void *p);
+ void kvm_arch_free_memslot(struct kvm *kvm, struct kvm_memory_slot *slot);
+ void kvm_arch_memslots_updated(struct kvm *kvm, u64 gen);
+ int kvm_arch_prepare_memory_region(struct kvm *kvm,
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..ce872ffc779f 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -941,12 +941,31 @@ static void kvm_destroy_pm_notifier(struct kvm *kvm)
+ }
+ #endif /* CONFIG_HAVE_KVM_PM_NOTIFIER */
+ 
++void *kvm_memslot_metadata_alloc(size_t n, size_t size)
++{
++	size_t bytes;
++
++	if (unlikely(check_mul_overflow(n, size, &bytes)))
++		return NULL;
++
++	/* kvzalloc() refuses sizes above INT_MAX, which large memslots need. */
++	if (bytes <= INT_MAX)
++		return kvzalloc(bytes, GFP_KERNEL_ACCOUNT);
++
++	return __vmalloc(bytes, GFP_KERNEL_ACCOUNT | __GFP_ZERO);
++}
++
++void kvm_memslot_metadata_free(void *p)
++{
++	kvfree(p);
++}
++
+ static void kvm_destroy_dirty_bitmap(struct kvm_memory_slot *memslot)
+ {
+ 	if (!memslot->dirty_bitmap)
+ 		return;
+ 
+-	vfree(memslot->dirty_bitmap);
++	kvm_memslot_metadata_free(memslot->dirty_bitmap);
+ 	memslot->dirty_bitmap = NULL;
+ }
+ 
+@@ -1449,7 +1468,7 @@ static int kvm_alloc_dirty_bitmap(struct kvm_memory_slot *memslot)
+ {
+ 	unsigned long dirty_bytes = kvm_dirty_bitmap_bytes(memslot);
+ 
+-	memslot->dirty_bitmap = __vcalloc(2, dirty_bytes, GFP_KERNEL_ACCOUNT);
++	memslot->dirty_bitmap = kvm_memslot_metadata_alloc(2, dirty_bytes);
+ 	if (!memslot->dirty_bitmap)
+ 		return -ENOMEM;
+ 
+
+base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
 -- 
-2.56.0.385.gac671c819a-goog
+2.47.3
 
