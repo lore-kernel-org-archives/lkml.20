@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793699172;
-	b=nJ+MVE2jQ4/S9sRvwEkRy8NNMpCemDEBrstBVhPJCP2eWdlSVYPMqtMrAFlm1/4l71ur
-	 TddewK1K691jxVZIxUAmNbzjMwlNz6h4xDwcsodeBpAB5v68qWOIe3LTYPq3AOM3QQrFE
-	 6YtRR5koyzMDNDs9YY6SxFwyXkmXe4NwSklpCULRVCqdgjrrHrv+elzg7qmQ4edPCasDl
-	 GMGstEcCOLlth3IKB68aJIS1An2Rm5XCVc7NcODSOcqgdqfw67qds1DrZ9WsMAqZwKVgb
-	 VNEHrAS8HmMLdYIt39q5u73DIcvurmHHfF2xVMovUGthsVmD0Ke1fVL0kdksVcnA1aw==
+	b=xw5ZrgpSl6H6WQv4elqaYxkwQ0PomM95qsSEzI4KMjhnUL9M6vt0V7cFR8qQ5G4C+v2I
+	 Jz2QG65HOFW5ju2rw5G4HvN2tsQl2JA/MEQ8qd6EtACXwC60kHhY2wtliHn7rNC7C1BX5
+	 pAYLxJ9EkQiHq6j7fXdRNqGoYk+RD2lB9DiZA7ev8XaWMkla2Mp3Eq/3f8iahzpsuZJ56
+	 J+6zG9I95oKK4V/AQQvZc74XM+oyCiN37V8AVYloJwRCHHI7r7Nvo2pJ5mIb9bkT8BF4g
+	 vKHpECm9CpvXZDGPtbPNPsdHfD7Zi38AFPHxsA/AzM9rNwIY1GMYnFrmGfpDYBZkk8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793699172;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=lv/56oXPRXQPRp6JeV1O5YcHVayyCW8jY8QcD0pgPIM=;
-	b=Rlg5KV7eemdViO425tijXPHtztwThxBJqCJOCIntXB+tyCs3+ylbRtpaHS9IW3M5KL0l
-	 Swn8UBCXmdX5lb99unG7azB7jUcikCdCPaoxl5b46JJxnIaZu8fk2LqmtXbNIXeML425h
-	 fPgFMmPH4tLrro4QYw61o/FQoUJy9O3RSLrpoP3oV2bShlJGQfqlTYxVHSFo9TQrEpF4a
-	 s5UXiZ1jSnzFMYU4jB1ye5+vzfUK/3+gPcvgBFb4AM/fmHfUOfU7fCQM1l5zjv0KMp61Y
-	 s+uGyKdB9ljBcitAyzwicMjD+dW9PZy3geFJl8Efxg8VYHOB4ygx1OePAka6z8Rw8SQ==
+	bh=kjNW/BEZIJiWpD0QSBrblYoaP+4qh7Pt18KlmN+Uc64=;
+	b=tWryj+47IBvFRzy/nt+xTsAlicb3oGfnxr0/uhalPT3ekwv/pGyGooeBB6XVqdAjeZnm
+	 0X/PGJ78yut6JC6soUgSvhxFT7busN4/qhoe6zYqeFZESnirAZt9INTZXPyP4V1cl5R8k
+	 lRwOpGDU4Kl8k7j35Q/10cVLsMqn+qUxSTbVhIGaXaLjtPXcuu1XTtxN/5pK7WC3qbghU
+	 4ekejzQKSjoLFIZ4SUVnr7+YsfiwUYGQnbbi64yCeOXN0ToI+vALh61G/U9r1CU9oM4A+
+	 Y/GAm2J4YeBrbKUxgfNBfXbfo1jTkRInVKB5Q3DD/200PPlaVQqyjPIzv1yTaXHPd3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,29 +25,28 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9916A606A331;
-	Tue,  3 Nov 2026 09:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9916A606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800CA606A333;
+	Tue,  3 Nov 2026 09:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 800CA606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAnOJlarelqh047AA--.2594S2;
+	by APP-03 (Coremail) with SMTP id rQCowADX4JFbrelqmk47AA--.2367S2;
 	Tue, 03 Nov 2026 17:46:03 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
+To: Bin Liu <bin.liu@mediatek.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: exynos4-is: Free the control handler if fimc_ctrls_create() fails
+Subject: [PATCH] media: mtk-jpeg: Release the decoder device on job completion
 Date: Tue,  3 Nov 2026 09:46:12 +0000
-Message-Id: <20261103094612.1289226-1-vulab@iscas.ac.cn>
+Message-Id: <20261103094612.1289250-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,10 +58,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnOJlarelqh047AA--.2594S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrWkGF1kKF4kGw1kWF4DJwb_yoW8GF47pr
-	Z3X3s3ArZ8Wa1qvayUG342kay3C3WrGrWDWrZxuw13Awsaqa1fAw18Ga1UuFZrAr1xK3W5
-	Xr18JFy3CFs0vwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowADX4JFbrelqmk47AA--.2367S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF1xGF4rCr1kury5AF1kKrg_yoW8tw1Dpr
+	W5K3yjkryUGr4jqF18WF1UZFyYkrZ3JrWY9FW7X34xW39xXF1rtry09a4IqFZ2yrWI9a4D
+	Jr1jqa97CF4jyFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
@@ -76,39 +75,58 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7WrWkGF1kKF4kGw1kWF4DJwb_yoW8GF47pr
 	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
 	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
 	nIWIevJa73UjIFyTuYvjfU7TmhDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIAA2rpnOFIXQABsn
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgAAA2rpnIRROAAAs3
 
-v4l2_ctrl_handler_init() allocates the handler's bucket array, and each
-subsequent v4l2_ctrl_new_std() call allocates a control.  When one of
-those calls fails it only records the error in handler->error.
-fimc_ctrls_create() returns that error with ctrls->ready left false, so
-neither caller calls fimc_ctrls_delete(), and that function would not
-free the handler in that state anyway.  The bucket array and the
-controls created so far are leaked.
+mtk_jpegdec_worker() resumes the component device represented by
+comp_jpeg[hw_id]->dev.  When the job completes,
+mtk_jpegdec_hw_irq_handler() drops a reference to the master device
+ctx->jpeg->dev instead of the component device.  The component's usage
+counter is never decremented, so the component and its power domain stay
+powered, while the master's usage counter is decremented without a
+matching reference.
 
-Free the handler before returning the error.
+Release jpeg->dev, the component device that was resumed, and disable
+the clock before dropping the reference as the timeout work already
+does.
 
-Fixes: 9448ab7dec30 ("[media] s5p-fimc: Add color effect control")
+Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/media/platform/samsung/exynos4-is/fimc-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-core.c b/drivers/media/platform/samsung/exynos4-is/fimc-core.c
-index b36812ad25c0..8e6dd602aa79 100644
---- a/drivers/media/platform/samsung/exynos4-is/fimc-core.c
-+++ b/drivers/media/platform/samsung/exynos4-is/fimc-core.c
-@@ -606,6 +606,8 @@ int fimc_ctrls_create(struct fimc_ctx *ctx)
- 	if (!handler->error) {
- 		v4l2_ctrl_cluster(2, &ctrls->colorfx);
- 		ctrls->ready = true;
-+	} else {
-+		v4l2_ctrl_handler_free(handler);
- 	}
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+index 32372781daf5..017c9b5401c6 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+@@ -547,7 +547,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
+ 	struct vb2_v4l2_buffer *src_buf, *dst_buf;
+ 	struct mtk_jpeg_src_buf *jpeg_src_buf;
+ 	enum vb2_buffer_state buf_state;
+-	struct mtk_jpeg_ctx *ctx;
+ 	u32 dec_irq_ret;
+ 	u32 irq_status;
+ 	int i;
+@@ -557,7 +556,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
  
- 	return handler->error;
+ 	cancel_delayed_work(&jpeg->job_timeout_work);
+ 
+-	ctx = jpeg->hw_param.curr_ctx;
+ 	src_buf = jpeg->hw_param.src_buffer;
+ 	dst_buf = jpeg->hw_param.dst_buffer;
+ 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+@@ -580,8 +578,8 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
+ 	buf_state = VB2_BUF_STATE_DONE;
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	mtk_jpegdec_put_buf(jpeg);
+-	pm_runtime_put(ctx->jpeg->dev);
+ 	clk_disable_unprepare(jpeg->jdec_clk.clks->clk);
++	pm_runtime_put(jpeg->dev);
+ 
+ 	jpeg->hw_state = MTK_JPEG_HW_IDLE;
+ 	wake_up(&master_jpeg->hw_wq);
 -- 
 2.34.1
 
