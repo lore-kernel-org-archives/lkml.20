@@ -1,84 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701597;
-	b=DFxtKK2eu/i/3q68A8m51SoJcWh0JaxZ3A1vTAdaPTrAVHzanvPeOo/QEOJurMbk7t5S
-	 QFVIkYCy6+BeBT2xl8QRqi8oF/54jO9QJOUTxlANvJ6QP8T0tTJZRpdRpnoXNebT6jPTf
-	 uM/WbFpk339eNSS/eoQIfl5TyDZ8zexonUMf9vU11IF+1iH8T08WZZv8KEANGecvwEnEj
-	 AfL14v1gxhO2bhqarVN8EN7HywQfLTCg9fJAWbZIQJcbehavcsdKChurSoZRkcpRb1sT/
-	 OCL24qxi9suUJLFb8OXUj0h/FufSI0ivVLl1MBW8MzVxKNY7ds5qk7PumFdJ6/hxCIw==
+	t=1793701596;
+	b=mOFvMr7lrvANmpe+wxG2m1wm2ttQ9yRnD91c7ZJGncGX9aqERDHIoEjoXjyiypoay5cg
+	 Y3Y2tRBiYIgI9E949MN1MrhIagAxsh9j08WUL3twHPp0QvAbM5Wm5AM2UlmULKnEY+KsX
+	 0NR6R3cN24Zb6RKomWGfFZn5Fg2VX4yicRDY9XtQ2p3+bBLgY+ma1lfwEIlW2/aE74Jqj
+	 NrM5QfLxB3kk88d4mEa/gLyWyxibvBi5OH22FNuhbgquN6Yg+AP3HuX6LqYmGV2ZpQE4f
+	 VFiK62LMSpbBnZwNBK0ollXW4xlZz56K1lQ0Gna/8l4Qq4thfJJdboVv28wtXBmC6wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701597;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=5x9Rr11HrEdahap39TQfO8SwszqIjV/38s8cyXHT6vA=;
-	b=sw70SZ1ab4c/xfAYU1VUFNrWh6/tzBkNRWBEAF9dPbGxth/zT0D90VsxrSyAWOhfZAhn
-	 zKBop4jKLI127CAZrbKYnkDuEC9kC6slzpA4SDbMO3U/zneRyHimotHmf1+mH59N9zFUG
-	 1nvFUIP5rmUtVnpt71SXCNVmDPm2izMpA9ow15Kd8cE/t7GUkZNnAVD8h6xMd3JcfhMuL
-	 ATdvcAyaPPUSlnE51cE5Z2UOoWsEMwmhCXrktTOMcqUW5mHlIwmoxRilkvp0VqARbK394
-	 /vLs1EoOBC4SvDxunhK2HEt9NAcH6HrpFmaFcLj5OXexm0357Ohx1ieOGmaMklRg71Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701596;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hmBDURKZM2gT8yAhEobO4jEMpgXoE9EjguJBnydKsTg=;
+	b=KjcTIG14+pIFh1hyapWgeoGceH2eCp4UC4veXMHOPrzbp4YY4dr8DNmUlKJRm715B0QA
+	 uXdEHB/61rGlCzZ3W9McTsaUO5QloYmW22OokxAayzrESgxnrFy5t+1XeFafF9Ke9pgHt
+	 ENI4YrbiovEM3m645R5Pn61jZ8PGIq8hDBm/8FvtbYqSP+ILUrCAKenNVrY2ea+Zu2KDM
+	 rdQPEDP19zw7wOedZ1VTE61t7IUccu9e8oJqkvyTrcXiMw96HbfGUONAdYarnS4JFHNah
+	 qTiv4HbyL35sy349aOCalsuvTQWIpYmlY5PwRP+aFcc6aWnU/+h/yO4NPH7TaX04V4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W6A5mNJm;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AS8y0wXn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02724608361E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA460606FAFA;
 	Tue,  3 Nov 2026 10:26:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02724608361E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W6A5mNJm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793701597; x=1825237597;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=bDZlbjutl0CIXovVxFWrgtRRTllYWh3L1VKIu+Yky5E=;
-  b=W6A5mNJmlYHlgneQl8KKu96VW7f2ZefFavWVrSEO3hSec5RMMj5UTYlB
-   eTXKvXlgTJHZnPz6QzEflJsF3qCyy2ek7kNESrxomrA1ffWLOvSMftKuy
-   Z/CIbwmp6j8zt+qkWVNdukpOceR9JtU/GCWD65yigsHpLrRj1FepgJGID
-   ko2nHT60OppfaQW3DX5+YsKuyfXhTkqF76yN0jg1X/GW1qAK9OTsvHWUR
-   B5Ar4IhGqSaXhwHlp0t4XW/5au48EGJOKeI4LQdt91wfmdOOjdeoKg4nV
-   Pg8LKobV+MDjAROoQNLkcvmZM2PH8g48P5bXED5IKzZa14L8DsFg4CioR
-   A==;
-X-CSE-ConnectionGUID: Cwk3PyR8TZOxmM+nbxKXBA==
-X-CSE-MsgGUID: OSSw0HrtTbK/dSDvqAmI0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2300019"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2300019"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:26:36 -0800
-X-CSE-ConnectionGUID: PmdpG4SRSkqCLrH8eOOXTA==
-X-CSE-MsgGUID: nsp7e0D/QtW5NyU2kB/Gtg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6479190"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:26:32 -0800
-Date: Tue, 3 Nov 2026 12:26:29 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-Cc: jic23@kernel.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dragos Bogdan <dragos.bogdan@analog.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: ad7405: Add support for
- ADuM7801/7802/7811/7812
-Message-ID: <aum21cmseqtOEs35@ashevche-desk.local>
-References: <20261102121352.23741-1-pop.ioan-daniel@analog.com>
- <20261102121352.23741-3-pop.ioan-daniel@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AS8y0wXn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A2E1F000C1;
+	Tue,  3 Nov 2026 10:26:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701595;
+	bh=hmBDURKZM2gT8yAhEobO4jEMpgXoE9EjguJBnydKsTg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AS8y0wXnWcBUBfhwFlyUm7+MNcSgfdkdGZy7w0+Yc7BXy59IV4eONnGcHohniBb9K
+	 OPLHbgXnHPR8Y0nQeB359c4s+kuhkKhWxl8RrImYfSd/HPChDd4+EKLOY0lybaZUyY
+	 n5NOCnXzTaLtqVvmnZ0oAyJXPRroHJs7qT/Ay3xMmJlDwFLrRSTbpO34VzC6cPOiWm
+	 2gcmG5X8T3c1rCCIuCORpvAmpVNsL68DUBlCkmajLZ0x7JJOUSc614o/zf9lIKRcj8
+	 SuckTqkzCm2xQO+Nn9Ru08zNPxqxhYjnmuCNK/4aYkjXmMaeUcUH0bma8Flc+Xd63N
+	 TdhtYHsJV+OAw==
+Date: Tue, 3 Nov 2026 11:26:32 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>, 
+	linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] bcache: Release the cache kobject when
+ cache_alloc() fails
+Message-ID: <20261103-statuesque-lionfish-from-saturn-baae9d@quoll>
+References: <20261103094643.1289833-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,41 +57,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261102121352.23741-3-pop.ioan-daniel@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261103094643.1289833-1-vulab@iscas.ac.cn>
 
-On Mon, Nov 02, 2026 at 02:13:52PM +0200, Pop Ioan Daniel wrote:
-> Add a chip information structure and a device tree match table entry
-> for each of the ADuM7801, ADuM7802, ADuM7811 and ADuM7812. These parts
-> are handled the same way as the existing ADuM770x devices and differ
-> only in their full-scale input range: ±320 mV for the ADuM7801 and
-> ADuM7811, and ±64 mV for the ADuM7802 and ADuM7812.
+
+On Tue, 03 Nov 2026 09:46:43 +0000, Wentao Liang wrote:
+> cache_alloc() initializes ca->kobj with kobject_init(), which takes the
+> initial reference on the kobject, and takes a reference on the bcache
+> module.  The object is released later by bch_cache_release(), which also
+> drops the block device, puts the super block folio, frees ca and drops
+> the module reference.
 > 
-> Also list the new parts in the Kconfig help text.
+> When one of the allocations in cache_alloc() fails, the function frees
+> only the buffers it managed to allocate and returns an error.
+> register_cache() then only calls fput() on the block device and returns,
+> so the reference taken by kobject_init() is never dropped: ca is leaked
+> together with the super block folio and the module reference.  The
+> comment on that path still claims that ca->kobj is not initialized, but
+> kobject_init() is the first thing cache_alloc() does.
+> 
+> Put ca->kobj on that path so that bch_cache_release() runs and releases
+> everything.  bch_cache_release() frees ca->buckets and ca->prio_buckets
+> as well, so clear those pointers in cache_alloc() after freeing them, and
+> drop the module_put() from the error path because the module reference is
+> now released by bch_cache_release().  Skip the bucket page free in
+> bch_cache_release() when cache_alloc() failed before allocating them.
+> 
+> Fixes: cafe56359144 ("bcache: A block layer cache")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/md/bcache/super.c | 22 ++++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+> 
 
-...
 
->  	depends on IIO_BACKEND
->  	help
->  	  Say yes here to build support for Analog Devices AD7405, ADUM7701,
-> -	  ADUM7702, ADUM7703 analog to digital converters (ADC).
-> +	  ADUM7702, ADUM7703, ADUM7801, ADUM7802, ADUM7811, ADUM7812 analog
-> +	  to digital converters (ADC).
 
-This doesn't scale. See how the latest drivers reworked this to make it
-flexible.
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
 
->  	  To compile this driver as a module, choose M here: the module will be
->  	  called ad7405.
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
 
-Also, do you need to change help text in tristate?
+3. Your bot does not even bother running checkpatch, right?
 
--- 
-With Best Regards,
-Andy Shevchenko
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
+
+Best regards,
+Krzysztof
+
+
 
 
