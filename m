@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695635;
-	b=nqnvU3JyXvuXDN19vyx2JCymkg5jFV4P0T3qRgk3EhrOtVvjPEbZqUA/DiY1Ye3UCf/f
-	 qgG97bnYQu1Qw3RsPYwKevzj8vb7/bRtXszPir8GR3CKdDzw3FTFSeXidfhFJsM/gRvZB
-	 ENpzDoRAE/9Qssr7+0PX6ouVECjU761t4Yx7zVV14K+3UekCikloDLEU17tXau5YAO65P
-	 v+gDmJo9YXiMS0xtwM2mjs6qLsOzobslry36iRVsVi4yD/k24LLjD3PgZW8l8RTBHuzxW
-	 ARntnOk+osT7aGlLqevUs/tWoG0zBnnkfUcnAplAQF9gFBfhPdUcltlMKGZwR9ifizQ==
+	t=1793695652;
+	b=dvPCbWfJrvdGfK0XFvi3q/O7E/GkRqPhdil5lNV83JOhhpQRrlBZbSEfh1o8HNn9Po1t
+	 qvNLrOjgKG1f11mAzXCsbQaVnN2gte4T/dEEJfJZ8wiueGdfFLs3qbsY/Vdo7YRSFbXCf
+	 fS5gbLK4Epmf/74bVAkfH+ehJOk7DnhxPziov2oDg5xIES5U9+kUWfJZ7AvHXLF0IN0Yq
+	 BUSULr7gKOkTmprv6bHmJkYN2Qadyy91Bl1ri31cca4P8feogCZ2RkUayubyAAfpsY8y2
+	 Z1BdpOeSRCXhFLQInno4prCyekm4EJf06zZulWYWJYHWD96s1ayWy/cetXyWbAEHLag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695652;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=aKHO6s+vDpsbcy/6pYNvSAfUraC/MEbz6EzD41uF6vs=;
-	b=eXz85toxl0d2d74nuE41bQz6So/AuernL61tr4JuuMcIbCY9PtQR0tHvS7RTGdDfLiH+
-	 EvMFIVfq6v4J+g2j9ueyNwaDu09ALZ2DojPYGI9GCH6/kMctioyb1Zw5jL5lv4yZkf6nX
-	 2IgB1JEeaRIP/6DmU54++plyHE4S4YO/JwLIQ6JYQnxJLDSTvoLGLJycYBPfH8D8BgpFh
-	 PmN/VpYTVq1C3oE2JYnta1/ltXJmnnmhj0TAmo8H0hGv00LTd8etbtBR69Wb0FiGpnIb5
-	 piyT4mVEc+PK7dTrj1D1yioYj9KLIzl+4YumMVw0or3nlmrIkTpOOn5Jc08HQWh/4vA==
+	bh=U4tKXObhoI+fdUM+1l8D4TYSSuaXMy7Ud+cPi9l7w0w=;
+	b=RCUh9qlkE7m2LkUjUXN3aDr9K5QEC20JY7AzrW3Bkyv+LVFWJlYY68MvmmRMRDY/Nr77
+	 PpdZlZxm8B0Um1GOHAZat3T9uJxov5quX/HYmiV8GHyNC37ubk6HHKhjWURSdlpsRYd/6
+	 ji53uQk0+S3hcfmndw0jysQk4ulIR2pP9z91kyRtRqDoijGMZhYnMfNPhni3Fnt2JrH1h
+	 rDRLFrGEnLqS4e7AiCZG658tHaeGryfUDocd2aG3thpbtT4A1kRY+idKEDc8lPQdPKDID
+	 uPrS8PvjXlL2xeB1demnopaoUpkl1xlR+xLE19QP9l/Kz5rUNtfhKAz7LWbHinb1gZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AnxVS1J8;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="WeI/PAMh";
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF16606A32D
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:47:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FF16606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C15C606A32E
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 08:47:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C15C606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AnxVS1J8
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso1743711a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:47:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WeI/PAMh
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3aded3c6103so1854722a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 00:47:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793695635; x=1794300435; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793695652; x=1794300452; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aKHO6s+vDpsbcy/6pYNvSAfUraC/MEbz6EzD41uF6vs=;
-        b=AnxVS1J80qJcvRAlxIaGjp7cDqrd1lbtGAUeTDA8+MYBkQJy0p4Rp1MtGhb7pefD+h
-         1Cy6S/h4hh+dvemHj4UysWtOVHQ+P4Xz7KtZCBbqw70TkxUGylPv/EZKBMZ+RFd5lsra
-         fZRz+DO507tSsxL9TsYtjTM7gDA6kJEt4oSytJM0+bOO36Mu0cKTb+UK8M3xCmhIEjSE
-         7YQNKNHd6wh2wyMsmZORNyLz1UIeH5Xipg6iSvUl3NWzH4iOkaswTOyOuholg25XgtQR
-         ukuVhQNWvj18SVFF2bBDrELhW6SrmWYZAioH6OtqWZdLZTSZi21dx0cbD3P73oOEYEGt
-         rZNQ==
+        bh=U4tKXObhoI+fdUM+1l8D4TYSSuaXMy7Ud+cPi9l7w0w=;
+        b=WeI/PAMhpY6ElVATxqJzgVu3Tvz50yNK9Mtvb0jpEhROSFUKak1i9ybMTlBzKA5whc
+         H3oJfPliaqhT5UOmk3LO/ZpJ7jbeCP5z5xo4PZO7HB8ogQrBN0ozoiT5gf0Or2bmfAhJ
+         y54kdg9c2zPBpztYQ21x1A6cnAQKechI9efPsSFGYmdgmX6n615wxC5JTxtHGkcaAkp6
+         Gq1yHGQpIzojAVWYkF6u9oT5W1Lctw5gPpwYUDwPUAi7zKghOiscZSFVSGfPpAWvekYX
+         5c/VMOrFzi5Yf1yy3AjkUim90lI715PTUEBDA5BbI+7KOYRSq6UNnLFBLJG6rg7ERn+/
+         5H8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793695635; x=1794300435;
+        d=1e100.net; s=20260707; t=1793695652; x=1794300452;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aKHO6s+vDpsbcy/6pYNvSAfUraC/MEbz6EzD41uF6vs=;
-        b=eaHvhr9bLfhh/2fUHI3ELSB/PB0Ae3Avg8FQ+6K7d8omjzsfJ6O/K/n6+Vn9tduvLM
-         PvEnxbeB1gjto6bDOkzLoW/xuSEZT8t3JqUUJHo0L3Ngy3eln1DBh81dBD1axUcnwXXu
-         D1B5d/PZSrqjwtr40aKKWrowGG9RAmYg4Zafa8DJQJG331W5R+6LaazeqfetE0wJstFB
-         LdCU3UH/Md+RNTW9vl08bGa+2Vxzvd/DewZ2VkTOMzVQdUmtAbezh+V3+7M71QSJtpyU
-         GBNoUMmvPmweDC1QosizfkLnDFd3Fq1G//rwGQSpJjkJGX1dOuqtQOexly5jPTu/8pAF
-         3MzA==
-X-Forwarded-Encrypted: i=1; AKwUvBx4vdDrgZ8dma/6G2HtFTJS6iovuUIe0wlCn1yFW5ZZQTnbeo9Psy7VS2F9mc/sSq8leIE41CN5K9i7E2A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FXZKaAN2M/i47y+Fm8h4fTaIpZxJcajX56pGICS2ytz+dFnJV
-	PH3aokPkFaZ5cDRZzIIXOYXI7iuqDzm6XqNx5OJASdJ5kuII3judhQ+7
-X-Gm-Gg: AYBFou3E/jchvj7nyVD8HiQwU3pg5+lc5/RschPRbhEXw11VWJtTFC1O42BVuVvHbdM
-	15sxDxP/I/lSxX4VlBb/Qgjz0gPdwfIvFEAprYSExa7+DVCe2WKh75UTo+Bmts30hDVKXrst/P/
-	oHCMC5V7EkvDntS2ulczn//q/B/PAw3ujVSJ21YEFY6PgxrkExUAt4uAs3OalLZlOZqFMxNCdRd
-	UpjooxxS2PB1DkOZn6Wi5spOGOmL0RV28bF5v8OsLC/WIHLfXW2+qJ2IXvh2OWH0kznWNn/pdnU
-	Y/XszAgCVyGDheI8jY6k7xDsNgtYrMoxglFZXgBfVyo+9m+3ILq2odz9i9bRg15c7x0PidSQoli
-	N2YDw1j6Dp7A28+A9SnJAz6k6TrF0AecZhr9E900eUkKzpXNbty/6DbmLCvyeAAcJntGTozANS1
-	JmrCP0PrbHYJg0G1yRxtaPWMuKZUwyH+MBomcPK+1NXKJNQyBCCjAPBILra6JoelxNuxQ/Jc9EP
-	LN+gOSj2Isui2zHOvVDG6q+xFWyrndwDaBUYc7LO61ZKp35TLfeaKUzGDAi2RVsceFuXtfaOIjf
-	r4WKdpYW81So9y7hOReAQmjsxKAzIHQ8jXmvulDICOaga9cv
-X-Received: by 2002:a17:90b:3e83:b0:3aa:f875:3385 with SMTP id 98e67ed59e1d1-3ae8973162emr10835468a91.26.1793695634691;
-        Tue, 03 Nov 2026 00:47:14 -0800 (PST)
+        bh=U4tKXObhoI+fdUM+1l8D4TYSSuaXMy7Ud+cPi9l7w0w=;
+        b=r8xDYiiEjkQI3e2GPzArJ+BJjtFJ3gF3TWoh45flSILuncP8wmpXTEzO9iPam08fqV
+         5dlkjDGmFjN17Wz/W8FXCpogQGRMzLb84RyCK6ehWtMUDZGDE564vtdb9hmrHdpqXOmV
+         7daQul/HLGiCDwyCDQs0MX79WKl5kRBO+ocX6BA4loqzxZ1knIpxV4hU0LbTwMp9AqNk
+         T5sEZiiRf3GUw2DlprTGYmd9NRNegAU2nDyM2rM0AD4/TWPbJOswr3+XXtMwA4zYJL0M
+         XHr2OMsQ+8D7NK7JRiV3fRtgT4Ckjex+8ptaJsk7QU8eXE/grF01njj20idg4x/n/cX1
+         xXjA==
+X-Forwarded-Encrypted: i=1; AKwUvByvFJDKFItzJxxDKohppF9yVHCNZRwxpV77xYav93Qz/znhEN8n/9VzmJHifybWz2N4r0/773BDPuGFYNc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZLFFb7weKjlqJ7nAJzmG+olEn+eLIh//un2sblvA7T2+QYdMi
+	Pkc6lMliwF3dfXfNI16jXGgoOPUAopqpAsVBRmjuOiM59jZsp5ezr0Th
+X-Gm-Gg: AYBFou3Qckjwzu32qms7cHsdd47l+M0CfULWB1slnH52QXLuZ5ETZOk7tA3RCyrVQRn
+	eOSKkLGbcbjvpdnTbSMaRomfPDhmMt8aEm8tCwkBwe9/fQAp5lDaxhrpnEqRwg1sSomSWJhwS3v
+	LyNnfqwWFGwb/bbaC7IF0HMke6mzKcDqF/YvpHUfp3yQwEvyyvx6h1Bixnt8qYbnf/WNeGNpquV
+	eIdOBS41YmFduTczy23hVTSelTnspOf70Awh/2KVzkAb4prxL+1frQBCc0fWmGsnVTuaiLPpcEE
+	r/RIlJQQxtndokewtOmop5I3/l10RfrH0qLq2neAH0NxbQ60isUKtw0bXNypMA95VvdJmcH6NqV
+	U1jzcNHyW/AiaA4+UHHvgVvzWNUI37lsUCMqwG+bktJb53Meg285JzkCAWwJZ29hZpfsI35AlGk
+	tihV137qluvjtlJpvf8sqIGqVlKXkMAhes/R81qoMztbNTSFZBjp9fVn9xYqNgPCd2Zcsz9k2+F
+	LIE97Uh8QTiYgtkg7EPrmVdSgbtHPzOMKWWFJk1jQMWjBj2ga+ZHHpgNDt5R53zWIMq5i2nZsUC
+	sFrI5LGqryac71tjgz8uCHL1MQxI2u4yIWAOChkdHX6VwHs+
+X-Received: by 2002:a17:90b:2fd0:b0:3ac:af8b:6f3 with SMTP id 98e67ed59e1d1-3ae898149e2mr9319285a91.52.1793695651757;
+        Tue, 03 Nov 2026 00:47:31 -0800 (PST)
 Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c627193sm3537031a91.6.2026.11.03.00.47.12
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6740a1sm3294725a91.10.2026.11.03.00.47.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:47:14 -0800 (PST)
+        Tue, 03 Nov 2026 00:47:31 -0800 (PST)
 From: Li Ximo <lixicaicai@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michal Simek <michal.simek@amd.com>
+Cc: "S M, Suhan" <Suhan.SM@amd.com>,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Wang Haoran <haoranwangsec@gmail.com>,
 	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH v2] spi: pic32-sqi: guard against empty BD list in pic32_sqi_one_message()
-Date: Tue,  3 Nov 2026 16:47:07 +0800
-Message-Id: <20261103084707.1582675-1-lixicaicai@gmail.com>
+Subject: [PATCH v2] usb: gadget: udc-xilinx: guard EP0 dequeue against empty queue
+Date: Tue,  3 Nov 2026 16:47:22 +0800
+Message-Id: <20261103084722.1821982-1-lixicaicai@gmail.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,59 +104,61 @@ Content-Transfer-Encoding: 8bit
 
 From: Wang Haoran <haoranwangsec@gmail.com>
 
-list_first_entry()/list_last_entry() do not return NULL on an empty
-list; they return the container_of() of the list head, i.e. a wild
-pointer.
+The EP0 dequeue side, xudc_ep0_out() and xudc_ep0_in(), calls
+list_first_entry() on ep0->queue without checking whether a request is
+queued, while the enqueue side __xudc_ep0_queue() already guards the
+same queue with list_empty() and the non-control endpoint handler
+performs the same check before its own list_first_entry().
 
-The SPI core rejects a message with no transfers, but it accepts a
-transfer that has neither tx_buf nor rx_buf. For such transfers
-pic32_sqi_one_transfer() iterates an empty scatterlist, queues no
-buffer descriptor and still returns success, so a message made up only
-of buffer-less transfers leaves sqi->bd_list_used empty. The subsequent
-list_last_entry() then returns a wild pointer through which the driver
-sets BD_LAST/BD_CS_DEASSERT, and list_first_entry() returns another one
-whose bd_dma is programmed as the DMA base address, corrupting memory.
+list_first_entry() never returns NULL on an empty list; it returns the
+container_of() of the list head, i.e. a non-NULL wild pointer into the
+enclosing struct xusb_ep. Switch both functions to
+list_first_entry_or_null() and return early when no request is queued,
+making the dequeue side consistent with the rest of the driver.
 
-Bail out with -EINVAL when the BD list is empty, setting msg->status
-the same way the timeout path below does. The xfer_out cleanup path
-tolerates an empty list, and normal messages are unaffected.
+This is a defensive consistency fix found by static analysis.
 
-This issue was found by static analysis.
-
+Fixes: 1f7c51660034 ("usb: gadget: Add xilinx usb2 device support")
 Reported-by: Wang Haoran <haoranwangsec@gmail.com>
 Reported-by: Li Ximo <lixicaicai@gmail.com>
+Reviewed-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
-v1: https://lore.kernel.org/r/20261026115219.3528114-1-lixicaicai@gmail.com
-v2: set msg->status on the error path as the timeout path does, and
-correct the description of how the empty list is reached (the core
-rejects transfer-less messages but accepts buffer-less transfers), per
-Mark Brown's review.
+v1: https://lore.kernel.org/r/20261023073131.637062-1-lixicaicai@gmail.com
+v2: refactor the commit description as a defensive consistency fix per
+Suhan's review (the originally described bus-timing trigger is not
+reachable without software first arming a buffer), and add the Fixes
+tag. Carry Aldo's Reviewed-by. No code change.
 
- drivers/spi/spi-pic32-sqi.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/usb/gadget/udc/udc-xilinx.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-pic32-sqi.c b/drivers/spi/spi-pic32-sqi.c
-index 5d3921e29..ce8d60497 100644
---- a/drivers/spi/spi-pic32-sqi.c
-+++ b/drivers/spi/spi-pic32-sqi.c
-@@ -391,6 +391,17 @@ static int pic32_sqi_one_message(struct spi_controller *host,
- 		}
- 	}
+diff --git a/drivers/usb/gadget/udc/udc-xilinx.c b/drivers/usb/gadget/udc/udc-xilinx.c
+index bef06fe75..032d9f04f 100644
+--- a/drivers/usb/gadget/udc/udc-xilinx.c
++++ b/drivers/usb/gadget/udc/udc-xilinx.c
+@@ -1822,7 +1822,9 @@ static void xudc_ep0_out(struct xusb_udc *udc)
+ 	unsigned int bytes_to_rx;
+ 	void *buffer;
  
-+	/*
-+	 * A message whose transfers all have neither tx_buf nor rx_buf
-+	 * leaves the BD list empty. Fail the message like the timeout
-+	 * path does, before chaining the BDs.
-+	 */
-+	if (list_empty(&sqi->bd_list_used)) {
-+		ret = -EINVAL;
-+		msg->status = ret;
-+		goto xfer_out;
-+	}
+-	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
++	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
++	if (!req)
++		return;
+ 
+ 	switch (udc->setupseqrx) {
+ 	case STATUS_PHASE:
+@@ -1875,7 +1877,10 @@ static void xudc_ep0_in(struct xusb_udc *udc)
+ 	u8 *ep0rambase;
+ 	u8 test_mode = le16_to_cpu(udc->setup.wIndex) >> 8;
+ 
+-	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
++	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
++	if (!req)
++		return;
 +
- 	/* BDs are prepared and chained. Now mark LAST_BD, CS_DEASSERT at last
- 	 * element of the list.
- 	 */
+ 	bytes_to_tx = req->usb_req.length - req->usb_req.actual;
+ 
+ 	switch (udc->setupseqtx) {
 -- 
 2.30.2
