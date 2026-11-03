@@ -1,120 +1,122 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793747944;
-	b=hS6oJutAg/BgJ2KNzQeh58PBjSqFibA/pwQq65s7HRSU6i/dg+a6mCO2WYHkZAsPkS8s
-	 p+9WT2gkECqhIZW++FTN5xR6KnBtvFjnPQEDqUgzuqClXr6swWVRJe+Wc1PxWPgipHINP
-	 ZIpe7J94KuUKBXHjH9ppnLM3gPcDvw2L2wn38euCHbShlnYPY1SqScSvmXWmF1gvgbsud
-	 NbW2vpCGoah8yYb0GDOSaWN+2xkbDZOSb2QMQRWROgJWUbKTBF6N+rxOZDpyL9pJOkWLY
-	 RTmx08i+S2gIQ8qlUGWkG3D4dG6K4SIwOvPcGCZH7eP+/NTgIakWxik76qKIs8Uk5gA==
+	t=1793747943;
+	b=CEmX/NUUI9kl0/gbf7mFmSdT+BkNwLvFCGBrcewuwEHxLrNxucxkPEWUOEqWEekVQ2dq
+	 JCCw6Z4iFLkH3ReZ0uOflEpgffvXYTK0gFEBkB1AFhr76gsnke7oy25vNCzEne0hMx1EV
+	 BJ7DQ0U0xcai4Af9YXQ+7em3BQU0/ieQWeHbR96pIY0BKdkB7MQQTXTpVMw4VbHX5H0ar
+	 jm9pNY/H9rY+J6IEYHowD2SnmTc/sNRht9iDh5lpx00o0gH/zL7FNlbwtSYAnv1aoRWaJ
+	 /KgstFRal5kuJ8BNZNTV9P+CPrefM4Yev2gTdDVYJGEEGpVOumaHykpKgB+OAjdPTKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793747944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793747943;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=UUiqxGBqlqkyCyP/zaZbA61tDabtLvEYu68IDkN9RnE=;
-	b=Sc6KzM866PNBApqwrozKGz0di7fXw8o7hmXq1KPKQmJIOdVP9j4307Ak7WSVGU32A9eh
-	 uYecz1IiNnGXwtWd2JE7APT76vg0xfvhkRJI8b7yurCzT2hPhLagbbGDzMUHK9FTPqWo+
-	 /mCV59VrDXenRWEhL+nr+sAwtAuJLBehyVPEJaonRX2Siw64xndyGhwoU7bpqvfBXn5Wx
-	 ehCudmXOPExuTugc5eyESvqr9jt8Ijji/nn40wmMoB1GOADmWbA6kNoVnSBhGTUFjlJk1
-	 /ZbDm15spK6iyIZS7od13toVeUFa/R17CpTHRb4tQShkhOpaXLsVmup1EaNlC8O3e0Q==
+	bh=dll+M/H3iQD7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=;
+	b=42hSs/3Jpv85zbEpcdpW/PGWEC3CFwmca6vMzbcdR5Gntupg+OJ8w6eDrB7327SOpW7R
+	 hvGN/TgF++3bLT369RlCvMrQk6OanzL/1zUbpGo1P66gXbeJ1jb01blgV4PP4qCilKu9K
+	 kEMxZ/zFvhUmwNaWqb30cx9OLl2iLREImw6wO02N8hPwaqaZLYBnwx2Ou7ck4PiM9wNGL
+	 /TxoLaZlG/uvRPCmPn4go0cPAGxzK30g7uge4qekWMkQ7w7JMPrauJTOS9IwLboysIYPq
+	 hYlankBqz/IxEVzMyYiEChn/eINSPANaNsK+SK13u2q5khxqk9tnM9mEinGL83lbufQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eyY2rMRs;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="QX8tHCS/";
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XGIUxLqe;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Qwzc+U/R";
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A093606A33A
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A093606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F7E606A324
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 23:19:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3F7E606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eyY2rMRs;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QX8tHCS/
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3LKptg3065603
-	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 23:18:58 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XGIUxLqe;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qwzc+U/R
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3LKbg63993567
+	for <linux-kernel@vger.kernel.org>; Tue, 3 Nov 2026 23:19:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=UUiqxGBqlqk
-	yCyP/zaZbA61tDabtLvEYu68IDkN9RnE=; b=eyY2rMRsHR+6K+KS2DA9pqAm79T
-	QYEZkWpfV8Bp7J6OfSwwJWCQ1mN6w0cPm17EnEqiHiJDY5VmLljBwLe1s/Ov5JvI
-	8M5pnabqhGkW97h7lgR8EDZJbB3rYpOcPrM5uc+b0qbOtlHNsMUPselLrEsl2ulW
-	2O6Jth7TI8I6ZbbNeImELx0NF6f+IQPrKVWqsnGHzyrijuzYuNLIhuWhCjLJKa+2
-	pOcLwLfUB/xNjoMAKJFdt3dGZIy23D1zQxrEiX3VPaGbk+eZKDxlHjSffw9bl9EE
-	2NGlyb9Bl886Wk6cZcN+wWT98sBRl17XDEJYYVIN6SdkJWtp+BIWVgnj+FQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqh2bt7fp-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=dll+M/H3iQD
+	7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=; b=XGIUxLqe0IzNl53qsfxlRzyB1eS
+	TnKCJanrJ2jE7BD+14T3y0J5reuEC/4M5H+EDvTRnmsQOs05iSYDU2Hr+8A8ZlwW
+	z1uSBRVPf5OD7CaOi87Se1Uqdd1bZoJJ9jC04rCOiQWmeFi/OfdVPpGAFMlepe8c
+	JpKkxWV720ezj2ke6btTnM4B9pfBQljSmqTKAHsB9QF6Mgw03uZp1R2AzYWfIVDh
+	yTw01MgEmgJuQsUVaP03S7qXuaF+JIQmjoT+3Y4MyY2SRzb9/5u5IzlFKZMeFDRp
+	XK9UvmLPBrb/7KZ54TBsmNK1vat1ncpZ2Z9wOf9Cg5zn98P6ii/A5+FK5Ew==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8ngvty-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:18:58 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ea381ce04fso375335ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:18:58 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:19:02 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a0688a43d3so117462b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 15:19:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793747937; x=1794352737; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793747941; x=1794352741; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UUiqxGBqlqkyCyP/zaZbA61tDabtLvEYu68IDkN9RnE=;
-        b=QX8tHCS/wixXT0D/MdERHy2cYoXNOOd7w6GQuYNmXzUKAtB266EMiF3PtTzg8pF8jx
-         UHE1Iy1SDGinxEJGTVicupkEBC0EJfI/VwNxfvatsVLHTdcxXXm5sBvWOfIFKlA1mLBA
-         4q0yk+itMQWdf7Qs6A//q7iKFYeL9ReaFAAy0cuH/szlq0nftJV+S+zm38lSjQvj4uWV
-         oiRWToFa4gldP+G30nZgheRJX9eTf3fq30LGoUJj2/wUsucBO4/g5J5ts0vmhX2FJMY0
-         UDrMROxA1/RQU1snaQZ8xeHbihRlZoQBjLmjumokaKcuFBo4qJUMIpWgRup/3/U54R0N
-         70KQ==
+        bh=dll+M/H3iQD7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=;
+        b=Qwzc+U/RO62XqL3udyGJqX5Zk93sR4hawwX0sSq8GsfjIcfncSG0UbfRLH9/RbNeC5
+         em0F4FRJjrQT3I0tYeOiCBaznJWz06bYjGVidH5doue7MhmN8ecSpx23lOIDN0Zeu8+x
+         W5XSDZE/gRND0BXmIkABhREc7it8j4L/GVGzV5pSkrVFdP+wR25Gyk+oRJm6IJA57LuQ
+         vr9BVv+xQzguvAk5RLa+1WHyZtjPQ2sG2VAADpIBIUhR03LO6OSAthoZXIuIFEPrbEPl
+         CaRT6nJFbX+4VSvWF8QGGXubyuB63pjf9+9fG08sCMwFOnc3td97CSLUEjKgKVaWDeah
+         Bb+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793747937; x=1794352737;
+        d=1e100.net; s=20260707; t=1793747941; x=1794352741;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UUiqxGBqlqkyCyP/zaZbA61tDabtLvEYu68IDkN9RnE=;
-        b=zrOxnVpq9soVI6sAe1odunScz7T1SQ6wg67Q1fYpuOHYy8FfzWyFcTAXK1OWY5XPSU
-         nzZRQbmjRzlBUa2CyGJhv/VH0m9D5e9QUHeo4I1XassduOfr4h6uIieY748TCHdyuYur
-         qkwFECLgRa3GxQrcG0k3pJ7jpb1AOz/xwC0vVN5WuMGetQqzqhIz3ZbeWFuQx9eVCRUt
-         Dw/GLOuVYrtHtSq45yTwV2VLLrpvq8pc0fCfq/QBAZeEY5T9KoyA2i3oQUc85QTiW9P+
-         ZaBoQlWS7vwZGoBaxUh7YgFna9rX80uAcdgXDOPevzS6TXR1/HYrqZDJVY/sJu3M8V65
-         NXsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/xNJbDVa6/Azp80uRR5mwXLrKX2XwGtTXwaMDFvjbH6MmMHdbX09LxDM/vWkc0u06IEoDxh7jAxS7PrU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PJnDfUjrOBmWGZkTlhkmFYFk6WSlBu7wtdSTVvtsmK6PjwYYV
-	AkY/hqcqKsHbEuRoABd4HByVRCSY24IKY3IDDHRo2A7sYKPPsfxLzj7Y/anAQYO6T5i7e6tHLIm
-	dMDdlU9IuBxSXItRazacuLK/OZpjVsDNtFwcEpE8n6yIfPRMIJboynnklRmUopjtIpkA=
-X-Gm-Gg: AYBFou38HfXGUfVH6TPNkX/wKqF+mFAAufHGgKIULB8dnQnVHqhH4QNo5FllTA/90UO
-	0cC9DwpJwnJyO5QANDNP+Zm/1UZpANm+xas4Xd5UJAYg7p1IEl9sHejU29RfpRmv3V1gypUh+cQ
-	TU369AKR7l5c+fOhELAQCbgnsN9OiVsp5dCr71AJ1euI/pBk4sC6dXMUvgY1bRAvzsbspG5aRa5
-	2JTh1OHAOzwxUD4L+crUjLCakIyhgsxh295xELa8gf3g4GEmSJF4GPDmUZDAFYvXiaUOw7p6hg0
-	Rva3xKZzQzi6Fdm/oVGwA80wVA9UYmotKibG4rC40DNwsj6clSLUapGVGrh1jUdURfmGzFO+8Pd
-	w3JGQ4jhd5otdzkgfu17MTLfKh6Si7uyzTZPfolj0shVIRTlNJwL1j/SqJQpjzuUzP0ZuEX3sr/
-	gp/sx44r1+l02XJrJln1lmI8CE66iztT/z9mTQBaq5ZzAK8xLxZcwhfhjtdw==
-X-Received: by 2002:a17:903:324c:b0:2e9:5876:17f1 with SMTP id d9443c01a7336-2eb364c41f8mr95274065ad.23.1793747937347;
-        Tue, 03 Nov 2026 15:18:57 -0800 (PST)
-X-Received: by 2002:a17:903:324c:b0:2e9:5876:17f1 with SMTP id d9443c01a7336-2eb364c41f8mr95273965ad.23.1793747936806;
-        Tue, 03 Nov 2026 15:18:56 -0800 (PST)
+        bh=dll+M/H3iQD7KOEN8AqTqNktTQiz8H9I7kmdB5ZKl/4=;
+        b=hDW9leXm0anHkHzsVxYyhG0qU6jgF3sMyBG5zBD1x8sp2iDMs2oLqqWe3bmS51eiqL
+         QWeX9/gKeyx/5cJudTxmV4D/h/7H+h6Ikh3BYfRmBsCHGRc5D3cR+kjo5J1bJK2EIonu
+         6yAN9g3eJBPjP9oN6Fi4ItRpghQoOAADsMPU9XbGrTEysZB80kTOA3f1stzRoAAk745L
+         7KG/r3OdQ4xpuWdsyNBozVcICTMVo9MNHfcrZ7414OiXsx83tlSktbm+hAxFeVt035LJ
+         fm8cp3fC19ZVRT73NeaOQsfYmqT6NgJTuslw63RJaTRvBqCXn5xlgAyoEvc/ZNefRv39
+         uWaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyLIIEjvc8nVIewK9hWz6oYLmWz1pj01qbLmwoSBirv0swzBc4/G6eH617djrMnz9AicXJmdHLNMNDL78=@vger.kernel.org
+X-Gm-Message-State: APuU4Z905lJ4HNXlTPIVBympWlf/6dhlxBBlBo0ch73fW6WIbwdqNSkR
+	00DYbYOR/cQoBonKxJed7g7N4KUn1y073OwjtuO7cNFhYkqEkMC1Q23iEqxIpRvKdTEneVZC6B1
+	CONu1FONxoWk4jZI91lXxW03yu8P1NluQCGOol9/nbSzndAyKadM+M6TGzrkxCoOF5pw=
+X-Gm-Gg: AYBFou1TJlYoogkxvyfq3J85a+yZByb6Tn6JOHvXnt5YrbhmOHxUG01Z9crryS6dqli
+	TmDEo//T+culIdwcDM9SkeH5Uryf+k82sGCTCKQcM0chodNMuzX9rtuslwC2nIp8rBZa/jrZ34l
+	qnwIjLzcvWAFH6tJPZtEGBhobbWHUdkVt6Gp9uoiKouiKuvM8tSOTL6SWLPYfSVUdpKiAV2jnjJ
+	vLLxt2QWrqr3+/d9Y9cyThgsFpk3ZrmnF356bIgaHZP0vcEXiCBwocOUijmFY9DmKXgAPhlNaLw
+	AqG2bLKzTSQUDzrqWTVAMyK697GGEych3bncHPrXVbnnNyOVMPMHy2MNa9fsMHGuGPX6umkjKC1
+	oGADR2qtmk15ddtaRjoftspdP1uNj/gswFpVUGt70X8CjnyOcbbMok69gW1QIYtBKou6KD39Msi
+	ZCtTl5gRiPLofjUQygokt4XeM5wL42M5RYihqzLWdE+D7Ui67amRZrmf0Dbg==
+X-Received: by 2002:a05:6a00:9512:b0:82f:38df:681c with SMTP id d2e1a72fcca58-8a9ba902187mr11080465b3a.6.1793747941399;
+        Tue, 03 Nov 2026 15:19:01 -0800 (PST)
+X-Received: by 2002:a05:6a00:9512:b0:82f:38df:681c with SMTP id d2e1a72fcca58-8a9ba902187mr11080451b3a.6.1793747940945;
+        Tue, 03 Nov 2026 15:19:00 -0800 (PST)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08fe1e4dsm358665ad.21.2026.11.03.15.18.56
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b569444sm155154b3a.36.2026.11.03.15.18.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 15:18:56 -0800 (PST)
+        Tue, 03 Nov 2026 15:19:00 -0800 (PST)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
         Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
         Dmitry Baryshkov <lumag@kernel.org>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
         Marijn Suijten <marijn.suijten@somainline.org>,
         David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
         linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4 1/6] drm/msm: Hold runpm ref in set_sysprof()
-Date: Tue,  3 Nov 2026 15:18:40 -0800
-Message-ID: <20261103231850.17493-2-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v4 3/6] drm/msm: Rework IFPC disable
+Date: Tue,  3 Nov 2026 15:18:42 -0800
+Message-ID: <20261103231850.17493-4-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
 References: <20261103231850.17493-1-robin.clark@oss.qualcomm.com>
@@ -128,62 +130,311 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX2L0TpjNm1pFe
- DD6hs1Ovp2jIFRf+hLQPS2umFoqGI1mDlNLH81ifgBfPutslZG3avt+i3WFSFApCZQUq8oYfRzA
- 5ltQEEG9Y8mmxoeQEujwtI4ge5bllhs=
-X-Authority-Analysis: v=2.4 cv=AKV9GsJK c=1 sm=1 tr=0 ts=6aea6be2 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX4wTVt32lmdHj
+ JUX+3BpP36KRiCQBLRQkqTgHQxI9H+ZCrclGCeYwfJQwrYkaaH5m3gvZUim5V010H/sYcMbk4oI
+ D3HKS2ulF4JQo6YF70nEFZS9wgAgSVGdEsDlURLnTz+8XvmtBrZU6od5n+RsYiuxnfJNR2jWtyU
+ QlmobgGTZ/mps62XN2jDw2TSTn/EpJcCeH0L8n4TkCbs09rpjHTMTKKMvX0JKczscl0rk93hluV
+ 6+837yWL1CRJWBkZJpEIlFqJ14xBoHHqkH5L1w7YuXO0ZE5H42s9G6lOPKIVWiHmyAYRWX92Qzu
+ k7Cyt3X1N9R4K3sthr22fSkPKTjpxMfmGKdY/WIJ7A7JZ5EREM4VQxmgNEykMnzpb4IOC56kGFl
+ A/PLly/SG8Vc040kIHp7TM38LTU/N8fVI3jIQscTqBbbVP8jfXFwNc879LhD9zbPP+y/MFu4MoK
+ f044IZRo1NduKLRLeTQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfXzpVNjWOyO2r+
+ nns8XZgjTWLsiSE68SfC+vWo2nnae/VerVtPo4Fc3uUdpDh6pNnFtl0MsJDDL55J5cBwYAxWo09
+ IAVAAHQUs73zgRXHZaOESksH4X3P1yM=
+X-Proofpoint-GUID: 4N5tQ_C7hbms5TqtWITOzUYfhzUP-7ma
+X-Proofpoint-ORIG-GUID: 4N5tQ_C7hbms5TqtWITOzUYfhzUP-7ma
+X-Authority-Analysis: v=2.4 cv=As17T+9P c=1 sm=1 tr=0 ts=6aea6be6 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=TtZx0lvJKI4lzRINSrcA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: J3n8LV2a_4-CDNjgtVT3szQONnp30qFo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA5MiBTYWx0ZWRfX2/rFByv7m9KJ
- sGTOS4E1BLkbW1wEYDGle/LkkvtGSnDjMaXOaohtU0F9OBN41RZr9GbeIddoL3xtWLcrW0mfQR0
- B8rCdXsNvYg19ei6Ql1F6EkzpvwlbNz/al9FJzBi+ib27X9GDDeQcdCaVUR8SXMeAdRn7r1BxU+
- IV2CHv+/RmBvkeETkWygs20YkIoWktDvpvmXEIS6tqkDbDpe+NmqusuC+Z0bfqikmzuDJnh9u8p
- 5w+NaJTaI+vnw2bU9xBIMm+5HgwaBNl4nOZ2r9pMGMDTBzAwJ+a0vx+oMZ4Tr732RXDsjvoJW9Z
- pFdXrWWdh4GCW8mmlEbysgQVAxN7nZaW1N2LcudcF/irvLMolVvDhSSRENx/LB/GueMLXXjSHTV
- 5z7wAVmrgqF7b7XO+07TIj6V9YD1oq+RQq6T5PY4FI7Rz+nSQn5/A7fL147fUckzxt4dqjW4dls
- 3f/o0mgMOJbKlgQpoIg==
-X-Proofpoint-GUID: J3n8LV2a_4-CDNjgtVT3szQONnp30qFo
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=0FW7IQkLa0pm2cqxDqMA:9 a=2VI0MkxyNR6bbpdq8BZq:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-03_05,2026-11-03_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0
- phishscore=0 spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030092
 
-We should be holding a runpm ref when we try to set/clear GMU OOB
-requests.  Apparently we'd been getting autosuspend lucky before.
+Previously this was coupled to SYSPROF level, which made sense at the
+time.  But there are other places that we need to inhibit IFPC.  So
+decouple it from the sysprof refcount.
+
+Now it has it's own refcount, so multiple threads can vote to inhibit
+IFPC safely.  The renamed gpu->ifpc_update() simply applies the new
+state by setting or clearing an OOB request.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_submitqueue.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 28 +++++++++++----------------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c |  5 ++---
+ drivers/gpu/drm/msm/msm_gpu.c         |  1 +
+ drivers/gpu/drm/msm/msm_gpu.h         | 26 +++++++++++++++++++++----
+ drivers/gpu/drm/msm/msm_perfcntr.c    |  6 ++----
+ drivers/gpu/drm/msm/msm_submitqueue.c | 16 +++++++++++----
+ 8 files changed, 56 insertions(+), 39 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec9d5..b02bcaa4bd96 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1443,7 +1443,7 @@ static void a6xx_gmu_shutdown(struct a6xx_gmu *gmu)
+ 		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+ 	}
+ 
+-	if (test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	if (test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
+ 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+ 
+ 	ret = a6xx_gmu_wait_for_idle(gmu);
+@@ -2128,31 +2128,25 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
+ 	return irq;
+ }
+ 
+-void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on)
++void a6xx_gmu_ifpc_update(struct msm_gpu *gpu)
+ {
+-	bool sysprof = msm_gpu_sysprof_no_ifpc(gpu) || force_on;
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+ 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+ 
+-	/* Nothing to do if GPU is suspended. We will handle this during GMU resume */
+-	if (!pm_runtime_get_if_active(&gpu->pdev->dev))
+-		return;
++	/* Caller must hold a runpm ref: */
++	drm_WARN_ON_ONCE(gpu->dev, pm_runtime_status_suspended(&gpu->pdev->dev));
++	drm_WARN_ON_ONCE(gpu->dev, READ_ONCE(gpu->needs_hw_init));
+ 
+-	mutex_lock(&gmu->lock);
++	guard(mutex)(&gmu->lock);
+ 
+-	/*
+-	 * 'Perfcounter select' register values are lost during IFPC collapse. To avoid that,
+-	 * use the currently unused perfcounter oob vote to block IFPC when sysprof is active
+-	 */
+-	if (sysprof && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	bool ifpc_disable = refcount_read(&gpu->ifpc_disable) > 1;
++
++	if (ifpc_disable && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-	else if (!sysprof && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
++	} else if (!ifpc_disable && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-
+-	mutex_unlock(&gmu->lock);
+-
+-	pm_runtime_put(&gpu->pdev->dev);
++	}
+ }
+ 
+ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 09d76cdf059f..2a4f81d14400 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1565,10 +1565,9 @@ static int hw_init(struct msm_gpu *gpu)
+ 		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_BOOT_SLUMBER);
+ 	}
+ 
+-	if (!ret && msm_gpu_sysprof_no_ifpc(gpu)) {
++	/* re-apply IFPC-disable OOB request, if needed: */
++	if (!ret && test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-		if (!ret)
+-			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+ 	}
+ 
+ 	return ret;
+@@ -2851,7 +2850,7 @@ const struct adreno_gpu_funcs a6xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a6xx_progress,
+-		.sysprof_setup = a6xx_gmu_sysprof_setup,
++		.ifpc_update = a6xx_gmu_ifpc_update,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
+ 	},
+ 	.init = a6xx_gpu_init,
+@@ -2922,7 +2921,7 @@ const struct adreno_gpu_funcs a7xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a6xx_progress,
+-		.sysprof_setup = a6xx_gmu_sysprof_setup,
++		.ifpc_update = a6xx_gmu_ifpc_update,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
+ 	},
+ 	.init = a6xx_gpu_init,
+@@ -2953,7 +2952,7 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+ 		.progress = a8xx_progress,
+-		.sysprof_setup = a6xx_gmu_sysprof_setup,
++		.ifpc_update = a6xx_gmu_ifpc_update,
+ 		.perfcntr_configure = a6xx_perfcntr_configure,
+ 		.perfcntr_flush = a8xx_perfcntr_flush,
+ 	},
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 81d21acccea1..cdb830b7b778 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -298,7 +298,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
+-void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on);
++void a6xx_gmu_ifpc_update(struct msm_gpu *gpu);
+ 
+ void a6xx_preempt_init(struct msm_gpu *gpu);
+ void a6xx_preempt_hw_init(struct msm_gpu *gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+index e7d04c865968..ba8306e9eb44 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+@@ -846,10 +846,9 @@ static int hw_init(struct msm_gpu *gpu)
+ 	 */
+ 	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+ 
+-	if (!ret && msm_gpu_sysprof_no_perfcntr_zap(gpu)) {
++	/* re-apply IFPC-disable OOB request, if needed: */
++	if (!ret && test_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status)) {
+ 		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+-		if (!ret)
+-			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+ 	}
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index ca21b3bf20df..07b7bd8d2329 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -1014,6 +1014,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	gpu->nr_rings = nr_rings;
+ 
+ 	refcount_set(&gpu->sysprof_active, 1);
++	refcount_set(&gpu->ifpc_disable, 1);
+ 
+ 	mutex_init(&gpu->perfcntr_lock);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index d27d54bdb7a7..0334a0f604ac 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -93,7 +93,7 @@ struct msm_gpu_funcs {
+ 	 * for cmdstream that is buffered in this FIFO upstream of the CP fw.
+ 	 */
+ 	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+-	void (*sysprof_setup)(struct msm_gpu *gpu, bool force_on);
++	void (*ifpc_update)(struct msm_gpu *gpu);
+ 
+ 	/* Configure perfcntr SELect regs: */
+ 	void (*perfcntr_configure)(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+@@ -186,6 +186,14 @@ struct msm_gpu {
+ 	 */
+ 	refcount_t sysprof_active;
+ 
++	/**
++	 * ifpc_disable:
++	 *
++	 * Count of votes to disable IFPC (1-based, values above 1 mean IFPC
++	 * is disabled).
++	 */
++	refcount_t ifpc_disable;
++
+ 	/**
+ 	 * lock:
+ 	 *
+@@ -375,10 +383,20 @@ msm_gpu_sysprof_no_perfcntr_zap(struct msm_gpu *gpu)
+ 		(gpu->perfcntrs && READ_ONCE(gpu->perfcntrs->stream));
+ }
+ 
+-static inline bool
+-msm_gpu_sysprof_no_ifpc(struct msm_gpu *gpu)
++static inline void
++msm_gpu_disable_ifpc_get(struct msm_gpu *gpu)
++{
++	refcount_inc(&gpu->ifpc_disable);
++	if (gpu->funcs->ifpc_update)
++		gpu->funcs->ifpc_update(gpu);
++}
++
++static inline void
++msm_gpu_disable_ifpc_put(struct msm_gpu *gpu)
+ {
+-	return refcount_read(&gpu->sysprof_active) > 1;
++	refcount_dec(&gpu->ifpc_disable);
++	if (gpu->funcs->ifpc_update)
++		gpu->funcs->ifpc_update(gpu);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm_perfcntr.c
+index ce65b1160955..867dd476ed88 100644
+--- a/drivers/gpu/drm/msm/msm_perfcntr.c
++++ b/drivers/gpu/drm/msm/msm_perfcntr.c
+@@ -259,8 +259,7 @@ sample_worker(struct kthread_work *work)
+ 	}
+ 
+ 	/* Inhibit IFPC while accessing registers: */
+-	if (gpu->funcs->sysprof_setup)
+-		gpu->funcs->sysprof_setup(gpu, true);
++	msm_gpu_disable_ifpc_get(gpu);
+ 
+ 	if (gpu->funcs->perfcntr_flush)
+ 		gpu->funcs->perfcntr_flush(gpu);
+@@ -297,8 +296,7 @@ sample_worker(struct kthread_work *work)
+ 	}
+ 
+ 	/* Re-enable IFPC: */
+-	if (gpu->funcs->sysprof_setup)
+-		gpu->funcs->sysprof_setup(gpu, false);
++	msm_gpu_disable_ifpc_put(gpu);
+ 
+ 	smp_store_release(&stream->fifo.head, head);
+ 	wake_up_all(&stream->poll_wq);
 diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index d307cdd17d90..e3e7c401fa5c 100644
+index e3e7c401fa5c..d41756c0152b 100644
 --- a/drivers/gpu/drm/msm/msm_submitqueue.c
 +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -9,6 +9,7 @@
- 
- int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sysprof)
- {
-+	guard(pm_runtime_active)(&gpu->pdev->dev);
- 	guard(rwsem_write)(&ctx->ctxlock);
- 
- 	/*
-@@ -21,7 +22,7 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
- 	default:
- 		return UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", sysprof);
- 	case 2:
--		pm_runtime_get_sync(&gpu->pdev->dev);
-+		pm_runtime_get(&gpu->pdev->dev);
+@@ -25,7 +25,13 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
+ 		pm_runtime_get(&gpu->pdev->dev);
  		fallthrough;
  	case 1:
++		/* Disable zapping perfcntrs on context switch: */
  		refcount_inc(&gpu->sysprof_active);
++		/* Disable IFPC: */
++		scoped_guard (mutex, &gpu->lock) {
++			msm_gpu_hw_init(gpu);
++			msm_gpu_disable_ifpc_get(gpu);
++		}
+ 		fallthrough;
+ 	case 0:
+ 		break;
+@@ -37,16 +43,18 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
+ 		pm_runtime_put_autosuspend(&gpu->pdev->dev);
+ 		fallthrough;
+ 	case 1:
++		/* Drop our vote for inhibiting IFPC: */
++		scoped_guard (mutex, &gpu->lock) {
++			msm_gpu_hw_init(gpu);
++			msm_gpu_disable_ifpc_put(gpu);
++		}
++		/* Drop our vote for disabling perfcntr zapping: */
+ 		refcount_dec(&gpu->sysprof_active);
+ 		fallthrough;
+ 	case 0:
+ 		break;
+ 	}
+ 
+-	/* Some gpu families require additional setup for sysprof */
+-	if (gpu->funcs->sysprof_setup)
+-		gpu->funcs->sysprof_setup(gpu, false);
+-
+ 	ctx->sysprof = sysprof;
+ 
+ 	return 0;
 -- 
 2.56.0
 
