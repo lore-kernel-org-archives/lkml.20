@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722614;
-	b=Mm7cBqsJeSkSRQSjxPVmslNEFIOsstBSzDA8+jLHnKw7r/4PBFWlgreFa/uZqI5Hj2fE
-	 uv1qZSmm9YFHRa1WDpqskkUksS+d5n2VEmB1uuhgYNk8aqA+D/cOCQzzuFUYDRcjERVav
-	 grZXiFnTfnOacW9tFO6FkeyyPKy6Q5NQmAvBSEoY5x0T+1jbnGLPbZJY06YDtYCCzfjtx
-	 xetudMvG/rMHArMrEbiqkjFPqjcBMLGYKPmMHx13Hk/W1HfYdsa3sWjwshx1jUoQm8ATR
-	 viD398qWpy0ZaWV837748J+AROYr2ojV3Ep7zUwO+D1GQAfHE4ZZZH+iEx5Cyu/S7Qw==
+	t=1793722622;
+	b=5R5SvtEnHWwCgLq//Czr3qQ9NJtaPIkirWcz2aFFlrC4BDiDBZrmSOYHw09CpocBfqS/
+	 tk0iHlxdeKsnHEXr4EMkC7z9bmSgYIbD6teMQaNVW3t4LJZKNO71Kc/xD1LPf6q3BAeb6
+	 5yeFpXGK4XOyJHLittK+K/ANvXCSA2XXnWGnBhK8UiZVe5j2zvtrxJgMnifCn0GQuU1TM
+	 kz+0VikTD1Rr91JX8rLB7bg0P1PumwIsY1bEHsWHbWIR+ILfQ67MOzKxbupksskY898RF
+	 aiCEKJe6O8YiyBXwmB8gWLIdUZgkVsjKK6x1FLIrLUbh+kD55I7U2U/HB0vqEyT8MCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722614;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=FafqJiDV3r+YgBt00+egOT7IUnjaF1ZmJPN/zCmRJDY=;
-	b=phPkvDMnLqkIErEeumcoBN77wt+GUZSehi/2lUXedQps934JlAyWe+25Mw2Lgx0dVdGF
-	 HD1VMGOpGJWIQbvmoDfle2+gmFxNnR+LKZv2+nIoCS9DwcXMYozhqN1PD+ybJFwCYPaO+
-	 UVtvyqkN7YVUcJ+RUDPWJsXp/j9JZ/dUsRITqzjWFGUPDiyXApCwF0+xin3nKr6wE1WCn
-	 eIc8dIjV17Q0FUWgD+9Ok4UxRrRRNWExZpM9DmNBMfRZ8oDUq9LIpYK5/2COLTTeZ73FK
-	 rYLJbK8AhOlWClqdkgnEhn4Ie7tIkn5Qyz0AuE5dbY+LIWYodBQGvI8enKupREbO5TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722622;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
+	b=ZupuNmgmdCogDsOrCbhGLAQxWsUau8gjfbA79QTitj3lzPLm8osHyJZbi4fnWe9+Ljfn
+	 /K6QCr9p/+GDbnqYd/Gh+5KZFEJskjnI6AuhSJROb9hXSDgud2HQ6LgELi3yrDpZsDnc5
+	 4Sse8QlE04PxZNJ5vqax02Np9qTI0xyCS/SDqTGOZ7eOulDaX6Q8qjgBK6kC0cmxU1UjO
+	 00NlxW2ZZ1GRo5Cd83JcZHVSeJtKCTuXuIDYpxvntoRmMNJTyunVVgijBkqaLS1JSd1Fs
+	 AkOJWgaEDjHUEYOAtGhuIrl8TCCwRO2+3IQPgIHWwnX3G9zPyKxtaFFF1UZSUbGAVkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTt3daFa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmV43mOz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75237606A327;
-	Tue,  3 Nov 2026 16:16:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B76606EE87;
+	Tue,  3 Nov 2026 16:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTt3daFa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E234A1F00A16;
-	Tue,  3 Nov 2026 16:16:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmV43mOz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBE21F0093A;
+	Tue,  3 Nov 2026 16:16:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793722614;
-	bh=FafqJiDV3r+YgBt00+egOT7IUnjaF1ZmJPN/zCmRJDY=;
-	h=From:Subject:Date:To:Cc;
-	b=nTt3daFaes2ppvo5vVGTGF2L5pXi7zT2F65h6quSBaxDm5gsmiGbvoz66Pkz7WktH
-	 huoswhp6navHAJMrgawDpBw+GlL+uZNP70EURKIe0YGb1D4wHjnYTqhUzAJH/VNCn6
-	 awpkzyu9LWLhUY0f9UYdF0h5+mibfqWvSdJvEZDQYbk6vW/e2B4RBfrS9NYx4j62Rx
-	 CdUk7HNb0teIruG/JO7jRqcABwgZsLhfjf9xy+/FId+4/VhGWW3zdatr2kFL7QseeN
-	 8sFUAsf/q+f+ZCkT8ne2NvZz6sfppvfA/BqdkOR1ljKiuefZGB/4wdIGP2wAlj38TH
-	 D8CJKYs37U0+A==
+	s=k20260515; t=1793722621;
+	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=HmV43mOzSIYW7Fqzzpqz0hvDqDm1I7mTGmAhF+mOU6G/sV9c35CEfISlK2ItOEFZd
+	 WOMktGf0v3XfLMGqV9cgWx97bu0HWn/qgbMbte2d+vi8wEeNrJpwLGYcvhmZZI3ZOf
+	 jMBZ4kISM5YzUrGPkNb8ATGwQ4Y/BDN8by9X0l+NL6XwH/rxYd3YJKsY1TVMQbAccK
+	 lgHYRTnm19YRWIRjT7g1F2nGjhvitI2NyfFXS4ZC1gehsPXJ+bC06xyR38sfKIwXNt
+	 GGZCRMa1i3FpZf9/ReFYE5Q8HrpJZ86OC/kxgaeyyDM7S+iYlmOUlkOrrqAC0TogcJ
+	 5ZTISNxEJEpPg==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Subject: [PATCH v2 0/5] mm, page_alloc: several stable fixes
-Date: Tue, 03 Nov 2026 17:16:46 +0100
-Message-Id: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
+Date: Tue, 03 Nov 2026 17:16:48 +0100
+Subject: [PATCH v2 2/5] mm: page_frag: refill the cache for large fragments
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,11 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAO4I6moC/32NwQ6CMBBEf4Xs2TVtSQU88R+GQ2lXWCWUtEg0h
- H+34N3jy8ybWSFSYIpwzVYItHBkPyZQpwxsb8aOkF1iUEJdpFAFTp0ZBm/RMPZ+vvObIuqqta4
- scpNrDcmcAh1BEm/Nj+OrfZCd96m90XOcffgct4vce/8fFokCK1s4aawphaT6SWGk4exDB822b
- V9sFSVGyQAAAA==
-X-Change-ID: 20261027-pgalloc-ai-hotfixes-59bcd873a355
+Message-Id: <20261103-pgalloc-ai-hotfixes-v2-2-e0d2890ab74f@kernel.org>
+References: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
+In-Reply-To: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
 To: Johannes Weiner <hannes@cmpxchg.org>, 
  "Gregory Price (Meta)" <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
  Shakeel Butt <shakeel.butt@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
@@ -71,43 +68,75 @@ Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
  Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-A bunch of fixes from Josef, filtered for page allocator by David.
+From: Josef Bacik <josef@toxicpanda.com>
 
-I have tweaked some commit logs and a comment in one case.
+A fragment which is larger than PAGE_SIZE can only be served from the
+32K page of a page_frag_cache. If memory is low and the cache had to fall
+back to a single page, __page_frag_alloc_align() returns NULL and keeps
+that page.
 
-In v2 some were dropped as they were merged already, the last one was
-changed to fix things differently. "mm/compaction: trust
-zone->contiguous only in the span" was dropped due to lots of sashiko
-feedback. compaction (as a pfn scanner) needs much more thought
+Since the offset counts up, this check comes first and is made whenever
+the fragment does not fit behind nc->offset, no matter how big the page
+of the cache is. So the cache is never refilled on behalf of a large
+fragment: with fragsz = 10000 the first three allocations succeed, the
+fourth one and all the following ones fail although memory is plentiful.
+nc->offset does not move either, so this lasts until smaller fragments
+have used up the rest of the page, which never happens if the cache has
+no other user.
 
-Based on page_alloc/for-next-fixes, to be applied there as well.
+The nfp driver allocates its receive buffers with napi_alloc_frag() and
+netdev_alloc_frag(). They are larger than a page with a jumbo MTU.
 
+Only give up if the fragment does not fit into the page at all, which is
+what the comment describes. The fourth allocation in the scenario above
+with a 32k page will thus now proceed to refill the cache.
+
+Fixes: 8218f62c9c9b ("mm: page_frag: use initial zero offset for page_frag_alloc_align()")
+Cc: <stable@vger.kernel.org>
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+[vbabka@kernel.org: make the comment more obvious]
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
-Changes in v2:
-- rebased on page_alloc/for-next-fixes
-- dropped 3 patches that were already merged from Gregory
-- dropped "mm/compaction: trust zone->contiguous only in the span" as it
-  needs more thougt
-- in the last patch, remove the VM_BUG_ON_PAGE completely
-- Link to v1: https://patch.msgid.link/20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org
-
----
-Josef Bacik (4):
-      mm/page_alloc: clear ->private of deferred free pages
-      mm: page_frag: refill the cache for large fragments
-      mm: page_isolation: do not take slab pages for free
-      mm/memory_hotplug: resize zones under their seqlock
-
-Vlastimil Babka (SUSE) (1):
-      mm/page_alloc: remove the zone_spans_pfn() check from get_pfnblock_bitmap_bitidx()
-
- mm/memory_hotplug.c  | 51 +++++++++++++++++++++++++++++++++++----------------
- mm/page_alloc.c      |  3 ++-
  mm/page_frag_cache.c | 21 +++++++++++++--------
- mm/page_isolation.c  |  7 +++++++
- 4 files changed, 57 insertions(+), 25 deletions(-)
----
-base-commit: 743a99d7e339e81acaf76f3c902b23abb29abc15
-change-id: 20261027-pgalloc-ai-hotfixes-59bcd873a355
+ 1 file changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/mm/page_frag_cache.c b/mm/page_frag_cache.c
+index e63efe78b7d4..8914437ddc51 100644
+--- a/mm/page_frag_cache.c
++++ b/mm/page_frag_cache.c
+@@ -119,15 +119,20 @@ void *__page_frag_alloc_align(struct page_frag_cache *nc,
+ 	size = PAGE_SIZE << encoded_page_decode_order(encoded_page);
+ 	offset = __ALIGN_KERNEL_MASK(nc->offset, ~align_mask);
+ 	if (unlikely(offset + fragsz > size)) {
+-		if (unlikely(fragsz > PAGE_SIZE)) {
++		if (unlikely(fragsz > size)) {
+ 			/*
+-			 * The caller is trying to allocate a fragment
+-			 * with fragsz > PAGE_SIZE but the cache isn't big
+-			 * enough to satisfy the request, this may
+-			 * happen in low memory conditions.
+-			 * We don't release the cache page because
+-			 * it could make memory pressure worse
+-			 * so we simply return NULL here.
++			 * The caller is trying to allocate a fragment that's
++			 * larger than the whole cache page.
++			 *
++			 * Either fragsz is larger than PAGE_FRAG_CACHE_MAX_SIZE
++			 * so this cannot ever succeed.
++			 *
++			 * Or the refill has fallen back to order-0 due to a low
++			 * memory condition. Then we don't want to release the
++			 * cache page to attempt a new large-size refill because
++			 * it could make memory pressure worse.
++			 *
++			 * So in both cases we simply return NULL here.
+ 			 */
+ 			return NULL;
+ 		}
+
+-- 
+2.56.0
 
