@@ -1,85 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713828;
-	b=19lbLB/SfgmtXP3YMNGb+j4llnRp0dTrnYjeozGyRlQJxgcVf43iP04By73y36JT6s/z
-	 1g7GEOcw9as36WMfYf39HCM0zMnYrvr4ywhbRMugKEa3QLgqpGVSW5NkXyrrYz9c3YoLe
-	 DwojyFC8wcFUdVyCR46aAZG19jc805q3CUowhNLKDhqHH034xQ63iWhamZjAa0ghjNtRv
-	 dN/NVhMJArMRRzG18fa0G+s7vkVxQ6F7U1wc1lkwVse1NDH2lE7iJh0eRdHHnnbWfEQv6
-	 v4E9hRIVG1K8SlkOUl19YZgRnjEOUfAP6hJ2EOc/esZX39GFuHWCf66NUUVXF59ZJfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713828;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3dgjpC6pDuaS5y6mKKf0Dd9vvhNJOGz9Bm42FlKdXjk=;
-	b=GD/aED03aJJJ1Xtqq4JSesiOnEIbGt/3Qu2qwDAjZbyHl+0A6vEZXamQuvzo9Jmm0bTL
-	 xSYN6P5tQZrj90XLfz5Kyv8sZigbe+Gjh/0x0m/ASbb/6tQDW/Lml8pkL3lVKh1+S3Rzw
-	 pTBD24bPOBaFwmNeZxjyJdddjmm+jGw7CJVc3tzLr/VtbuodlK+Tb9hwDJp5zTUWbTG1o
-	 q28VeEz3p3M0RNOJKx94HZnSc18sJMTLrm24kySFcvr+TzHKeSKwPWqFvCkznt9mMIpNZ
-	 6AITxSE2RbBLu/OmT7ctMTzMwBKGgBRXuclMZ4UszL7rsGKMjSCdCySagV6dpBV9jyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=ShhvWdvx;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793713837;
+	b=u7CEF+2w4JwTfekvE8p5IDXz2EEvhstfyxbQ7WP42A+k5TH3EOu29zmngWukCFu942SA
+	 b7TBoTQjOgA4SE4Cs6qb7IIuAlNOd+vA2xiivhe3XlK+e2YIpRYuYn54G85yX9KYPiREY
+	 kD+untdw+ewFoqefPz4zX2QSEvrvbPlzSgUF4JdXbxOL89+6W83QJ4WRzWDBhzxZ1Xlxv
+	 9FYtqM0mGDT2zofxDBd0gmLKp49kDvlCWlvh041e8eO1tRCrPj6a/WDo4ZWvN7dSZTBk3
+	 Dv2vk1naNKszT2p8ayRnO181WNaHzV31YxcKaoxRQf5IR+hsZg6onA79OGrZq2H84Eg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713837;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iw7shbvkZhScOmV8hr1+s8eUmM46Jh+7tdR6dGhGs0U=;
+	b=s40A0evrXvaOy5t6/9wthKXfFrfaPP1ZBflahomf8yo7QnmG4JNfq4GaXANnN42+LB1b
+	 Qb+lDM74PaIINyGpMZnu7p+IyC473M0dqmx5b0bYJrYKiWCDWU0OwV+l+CLL2Q4xfiXvo
+	 /DCNbwkiNhTJRRINWQXxraTtKepm1ytt4TPEfGniY0TJoDF9i4q6zT8+2uLJmYopec/YW
+	 W4NeNhXptNLuMWwXXqOMS65Mujha8LwI4CevMkjFVUSNh9lTwMdozWt2tJFpkWfKSAuI2
+	 ce4+9hFroogSe1bE/gpoMunQjiRf747NMMcewARK8tDd/Ejdrqk6YefD64zZ2sIHWzQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=ITKCYBkJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.14
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010014.outbound.protection.outlook.com [52.101.69.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D10606D801
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 13:50:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47D10606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA19606A333;
+	Tue,  3 Nov 2026 13:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCA19606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=ShhvWdvx
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-85a5455bd3cso2320437a34.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 05:50:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1793713826; x=1794318626; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3dgjpC6pDuaS5y6mKKf0Dd9vvhNJOGz9Bm42FlKdXjk=;
-        b=ShhvWdvxe43+s/mZN05eyl2bIHOs+Jfh97qzUmsf7UqgElJnD+UB3ruNsVlTJTBKBP
-         V4oQI/dcj0mWEsa3oXfnKaZihUK9u3jTwZlk1HRQp5AocEpTeQsg4Mo92H1rwuK0WmYc
-         JcdXSPMKwqV6Co1f55dYEoZ9mvF63J+1Rlvbs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793713826; x=1794318626;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3dgjpC6pDuaS5y6mKKf0Dd9vvhNJOGz9Bm42FlKdXjk=;
-        b=WsKxwgyVdSZk8mW7kNKgGMySevjSw2QoEbPBPL7TrdqOkJevHZ8zG5BohqUeUSJEAt
-         4zc9vsLAriJ99LLIgfsq4uHY3ZSCDvqwdNBO7F0l1ud+Qh4G83D/3Qh6t3SnHaBMuk8T
-         QW3DCKzwjkyq3LWyFU2GA+cSDTyZT8ORYThoAQsrhFgQgnNnP4Sg2D2t0kyChwp0/aae
-         +mXhc9EDKK7cjp8R0TPYvNeeLVMCR8NJ8d9enlHAGCSB+oWwPLP2qDZ4rb4oVMBOmoMF
-         cG6kOUkyM89kyxG+HS/0iUNB21RAbdnde5b2f8PzcgJXuo7Xj6O3zZDnSOvn5+OKJJ4e
-         +Ffw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqCmnEwe40xI8+njiotUSTpvlXg+bRGubH87xzPGJj/gWuUvEpSH22aFODdFIMNhy7Ef7/JseF1o1cZFI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rsZP5Krq1ZXvwmE5CMLAVGNuGOjwZXyQ4c9PWEN3dWbeAsiue
-	Idp7aCIvA4oiQwzqFMmGHnbb5thUHS2tfYXgkU9t544WQlKzjx3ALq3pSG+1PKWAaQ==
-X-Gm-Gg: AYBFou02uor6DSQaa9Pd4/l7oLS9n8jAwLTLEjzbOzcY5x0FM8DShI+3sUMBP9NKjbx
-	K0LetJoJpkBSnLyg+hvXJd+tglIiDRSWrrQqXxgGR5XmmHkkpO/b8OpysIq60vSfPRGYaNRi6Co
-	pn7ynNlzXODCRUbCIDlMdevsPEb3lX0ew1gVC12B+Mln2CPy2VXx+ey5NWdFGVL/agXfKP4GisW
-	Z04Zq443Qam7JkgckRIsonXxoE5eSOXblr+G8mlI4C/LUUecawqyttavpeTG+m9iTWc1mNUuB5y
-	bvk0ATfs3zFqdUG/KY3ndYrN7VvRMVrIn3Gn7nqWU31o3B1WnHhxb4aKrUCtTFn7rxmUzHtx4ab
-	0pti6MUQ7s1WmTEKypejmySdOrTGQ+kxPmJICuGx2vwwMZEAfuyKSDCCjl6mjPtlfiIqpbC+Mck
-	UOhSUB67vMEQ8c06bJspFamRFvDVgppN0oISV7joIT42vSlNWl4cnsv16BbMFCJuH/orJIC3IG1
-	6ryK79g8mBozGljmkw1YBylrhdd9w+n/fAwspHDLXddYm1FTI2k2pIDfkGHkkKEZb+w9NPXit8l
-	JE4GTF09FVKwN/oL8ilYyNQ=
-X-Received: by 2002:a05:6830:3915:b0:814:8259:780c with SMTP id 46e09a7af769-85d364b61eemr8811788a34.19.1793713826096;
-        Tue, 03 Nov 2026 05:50:26 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-85d3549a245sm12141851a34.12.2026.11.03.05.50.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 05:50:25 -0800 (PST)
-Message-ID: <686eac0f-6ec0-474f-8a9b-9d52cf23aad1@ieee.org>
-Date: Tue, 3 Nov 2026 07:50:24 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=ITKCYBkJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iq6SbGjbrZevpAcS4Mw2WwEnI+zjd769aTBQgDWvVbbg5sCgRjh2b7bSYno/Uy8izcU2F589EdDkyogDX1uP/2CvYIyRrUvdRvgDa3vmUeBD3xLzRFM1TC54f0no/w4xdMHcsut/O6ETaPSSOsfrT8354Dz5WiBF4XDyvGYJDwRRwspseEcIDyI36/jMdjg5Ds4gbsBvZcO7jIWysWZxD05R7zirayeNjKnqGYgih9r9VCUcYPousf8Tg6mR6uYsBAoN1krr5Q59qGvTUJe2t3s2WGkLtxtC7RKP+aMGWyCRqG5KoSkFi5CQniWe7XLsKwrzxKv8a1xOMoc/rgA8OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iw7shbvkZhScOmV8hr1+s8eUmM46Jh+7tdR6dGhGs0U=;
+ b=ToQXQMLeQnYN+duXWarSfVl8zy+TMbiUYMjVpBU/+h3kIHrMgke32bOGSqc1UDPZT4fCAt5sDe8E1PLZqSng8e3yXnzJA8zl89yDcOjXTG7NJwaEGtqBJFA24Q4TqnfSFGl0e9XdyFp7unjthsxzBT548D8P0uRQkzmrcX9yNplhzMuAuA8bJXRNQkxciSErYx81YiIgMyDfb/8fwTgwPVhvd8tTL0dfKOl+QogIsWRAHdPht4omEtDnAMLeBtRjJXzQA43cAW4IkQStmgAT1EfD8dBjH15ayOw5UGTiT2uFvh1IHUoFK/5RpSP7HAmIlqb+XDrn0vM8AjTNF6fAWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iw7shbvkZhScOmV8hr1+s8eUmM46Jh+7tdR6dGhGs0U=;
+ b=ITKCYBkJ84R+I63VTtNnUQPFLqaT7dt0r6DC354E97jKe7CrgYJCtaiiuQ90dyqoyZbkRquOHSadYbA+Db1LxQJodh46qD3fKkHkzIouWaFx/hliE76WLPLRSFefTT32Jq3bbvsy0QPExBhHlUYukbCjgKnqsXQUe9UOoX+dOIkkK+9WV3mL/1dTfb8gOjWQTFXJhKvPOK1xzHQlBuLbAVQEqm3iZAJ1UwIn1qgII4v6IG4Ex1dBcBXyiER4bFQfF2S2/5lW0cnheLOGpMKEwPmoSP4TJ3wJD3rUpjU7PuXI4+MH5Te3TrC7BYiIPb1bFjX6uNYni4MyD346AdVQ7Q==
+Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cd::13) by DUZPR04MB9966.eurprd04.prod.outlook.com
+ (2603:10a6:10:4d9::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 13:50:32 +0000
+Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
+ ([fe80::ca5f:7e1c:a67a:a490]) by GV2PR04MB11740.eurprd04.prod.outlook.com
+ ([fe80::ca5f:7e1c:a67a:a490%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 13:50:32 +0000
+From: Claudiu Manoil <claudiu.manoil@nxp.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, dl-S32 <S32@nxp.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"bhelgaas@google.com" <bhelgaas@google.com>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "kuba@kernel.org" <kuba@kernel.org>
+Subject: RE: [PATCH net-next v2 4/5] arm64: dts: s32n79-rdb: enable NETC IEP18
+Thread-Topic: [PATCH net-next v2 4/5] arm64: dts: s32n79-rdb: enable NETC
+ IEP18
+Thread-Index: AQHdXUZ4YWp+3nR8Rk6cLo9WgJZrt7ccd2Xw
+Date: Tue, 3 Nov 2026 13:50:32 +0000
+Message-ID:
+ <GV2PR04MB11740BC1C66529A8E2B672CF096692@GV2PR04MB11740.eurprd04.prod.outlook.com>
+References: =?utf-8?q?=3C7c22b051b08887aad6b6a73462028298902ff3e7=2E17919086?=
+ =?utf-8?q?94=2Egit=2Eclaudiu=2Emanoil=40nxp=2Ecom=3E?=
+ <179213850647.434549.7104910739428265199@kernel.org>
+In-Reply-To: <179213850647.434549.7104910739428265199@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB11740:EE_|DUZPR04MB9966:EE_
+x-ms-office365-filtering-correlation-id: 15481594-1be4-472e-c583-08df39b16de6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|19092799006|1800799024|366016|23010399003|3023799007|10067099003|18002099003|22082099003|56012099006|38070700021|11063799006|261022105027099003|261026121527099003|261026140227099003|261009223027099003|261028144727099003;
+x-microsoft-antispam-message-info:
+ OCJFUcqkC1+fUVf+r/ixLU8OeFU4DU68iv7jOniymvsNzTBHZxsYmsRYpbtHcRB3bAkmLu1Bm8Km8UxQ4M23EMkvLPRQYx2Kx5D/3b2r1QHOAvwOxXMKnA3d0iXqnnP9Gvwv2ADMqYMOL8g0nD98TxtsJP6Md/7x8Y8MM4SDnQ7Loca38frBjOGeOTV6Z8cQOVnsKLv/7u4i2TqpGLUwyMajKFjaJxIuS5BZtntP40f31IhCvuye7wqJyFjOa57Vg9sFwCouon3mm5xb95JBquyOxsfUKfJw2wlx3kip6Nb/UYlQAe2WqmM9qn/3Q2iqM3DtqeJuJe3AN2qAb/NjLHSYss++SMJ16XVcmufB+eco2XuvzNdM/bdaBjNpX9utMSQ/vcfAtUTWmC1EjAGU2HwSZFyvL2jY9FXbBapBTfkCTZ4mHsI5/uYBHM9Vx2me6QSAJzCxV8p899TqcPqWm9g7S1AZMS7atSe/ZCf8szsDnME1yEP2RBO/ld7euoVG4a0Oixz3ZE1wwlsFQW8Z7EOJe027Vv+pY1XQAOeZKMBu2L/HMKiJGnhVwXC5gLw7SScupNatjE4fZ3HKvIHHUlatQ1RTjLJLlZ2oJVnHvMITyrjbvXWORK2YlEB3+FgflOFP9eFhb9uq3bZmTvIa4yN5ULsgsnILaaQp4odeR0GyFEcqNaHJTyXTD4FjhOkHlyZQAgvUm7N+4ns52g/cheAIfURcwQf0XbuUCQpKDME=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11740.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(366016)(23010399003)(3023799007)(10067099003)(18002099003)(22082099003)(56012099006)(38070700021)(11063799006)(261022105027099003)(261026121527099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?hxaJoxV+sm/PL8h/q09+e557dmJ2j7fTEBPmDBIIjkvf9I2ODYlYq4Mi5n8+?=
+ =?us-ascii?Q?ayJxnoKMiefhP56nnHcdzUWGsb52FE/CnOI+dz5DpClh+W9f1Pi8PLmYIaRP?=
+ =?us-ascii?Q?UJqHWw4PI0aHujHaMun5tqmc/Ytd5e500K0ypV8bz7mmw6k2fyEscU/3ErHv?=
+ =?us-ascii?Q?Hbsv0jd5VsoWzypajKA2EkoU7p1Tnp7hGdWMZLts/rwHxRNzHs234pHVkxzk?=
+ =?us-ascii?Q?d3TRugDHnZstpeUFjpmdShVl6omvWSDbMXZ5D0G4VPEr0QD/PH3dWKabNkGZ?=
+ =?us-ascii?Q?jWlgzw0ev0CcXkVqMeIlc9BZwFKHPGCammsgQx3T9FC8/7aCsBaYBZIruW+C?=
+ =?us-ascii?Q?Z0/DH6uSVG1wsRQ8V/9LMKtASbMZtjR72Jht+sbrjpqsLLqu1M1WBktmulET?=
+ =?us-ascii?Q?fmJJrKuGJ6X3f3l32MM7k/gU+GSJ1bpLDBi89+9HZcQbKzY84yGbP+TfakXg?=
+ =?us-ascii?Q?WK+Zq/2OfKRVTOxuh8Uwuwsljrp2PezPNTeTSM96jjSUHLgZvEyXo9zKO1Qk?=
+ =?us-ascii?Q?zT3jK2I3iQsAxcUe+0zvaXoKreHxwOjRBLeX6Y59z49co7OzuZ8q0AlznnCk?=
+ =?us-ascii?Q?tl3p4FV5+8ptUaNWxW6/h2qIxEujVKjLlw5U88QhRwSt5EJT/7K7ImFvj0x/?=
+ =?us-ascii?Q?gSDkg4LLtnICVw4/+c2DvpDrLMAFsgHK5FdV7usJeCnR6YkPIdRf8cq8RDuy?=
+ =?us-ascii?Q?qhW6925sIQNI4DlMni4gIu8389jgS+1Y4mZb2T68ZVtr/+GvbC432rv9heeH?=
+ =?us-ascii?Q?qT+Oc2OOqEjwmb3S5R97n4T21oP9cJjNv9S6C8SkU79JsLH4fsaUbNRlG0zN?=
+ =?us-ascii?Q?n3/wyjnOK2PznEPcSwjJ+YlZHiB3h4fdUfQ0H4HACfb6g4SjxUu+secRp8En?=
+ =?us-ascii?Q?/zX3zk3xUVxDJt3LBEOvyCinJi4ek7yI6XkrNG7gKKA7/yg+uMWsHbC0MpmL?=
+ =?us-ascii?Q?TjX/TnAR+gP4YBiitvA3zCbB6BXpPgmxOgI4wV66WbqomLQorfMg2wetTHVs?=
+ =?us-ascii?Q?B7B/OzqF7IjS8qZ3FLUsz3q2QRZpZhk2aIVedG+UaAhbMb8b7IkKGy0hp25v?=
+ =?us-ascii?Q?ABQDdF1I7Oe8BmO5cA66gOa5HjJ5+o296X2UqFolV34gors+DPmeatYCCxXG?=
+ =?us-ascii?Q?O3y61i6uS7SDHYdkx2oOaSDcPFIzMf4gm1PGOhWNUz8vjGLXLUPkhhUTguxy?=
+ =?us-ascii?Q?AFOhPsUpxGBkxtvfg4iZoMTJ2u6ZdIMW6CpyTmALL753cwSnhjWPoXZNA5yJ?=
+ =?us-ascii?Q?v7Mf4Nrvgc1POWK1AkdLx4WziZ71cF2o9LT7SBi6PBIrpAwt2OFqE+iWPAMS?=
+ =?us-ascii?Q?yLyZWbVO3eW0dhO0qj68ha15OBH6+Mk6ydjrYDZwEKRrP5D2Oua9H8uWdJbu?=
+ =?us-ascii?Q?63Mt8943lXxN8tMv9Y1grT+cLZ3+bfVPfw5bUUGG5KS6I45m6MM3OcK6+9Aj?=
+ =?us-ascii?Q?Qj+6SCkj9GibltYrrVnpAuVwqA298nlYa2q5v9/9pSIZLm5s+DdHsEPI3N0V?=
+ =?us-ascii?Q?kZIzHWcq8LkhuPOIPz2qy44eVuh8z45jpF8u4m494WEXdGYYA9JyQWZCQFgX?=
+ =?us-ascii?Q?QHKrlp0BcvVniLzjz7NHg/y/tmkwfDqF/noMyekU9XBnfzeDudOzaCgtg8l5?=
+ =?us-ascii?Q?cMB6eTnpvxc7F+IsDCpDuruqtZ2In7TIZcUWw3l7LPNy467Yew7gZ31+Uukx?=
+ =?us-ascii?Q?fx0ebpoGEYJfZzWY2QocL+qXcDJK37EqFypoZulzXD5QpLV8tsunn5/5ZWp8?=
+ =?us-ascii?Q?yAE8Moau+w=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,61 +148,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] staging: greybus: light: use sysfs_emit() instead of
- sprintf()
-To: Ken <ken3009le@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>
-Cc: Rui Miguel Silva <rmfrfs@gmail.com>, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261031084648.213333-1-ken3009le@gmail.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20261031084648.213333-1-ken3009le@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11740.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15481594-1be4-472e-c583-08df39b16de6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 13:50:32.5677
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9/QMl8B8YOhG8IpsEYaXSU2j2R+9D53e9k4IpfVngKuwYj8y8m1MlQiZhwX16juJKmlmD/0ru3AXX/kTlOK4dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9966
 
-On 10/31/26 3:46 AM, Ken wrote:
-> According to Documentation/filesystems/sysfs.rst, the show() callback
-> should use sysfs_emit() instead of sprintf() or snprintf().
-> Convert fade_*_show() and color_show() to use sysfs_emit() for safer
-> buffer handling and consistency with other greybus drivers.
-> 
-> Signed-off-by: Ken <ken3009le@gmail.com>
+From: netdev-bot+sashiko@kernel.org <netdev-bot+sashiko@kernel.org>
+Sent: Friday, October 16, 2026 11:15 AM
+> To: Claudiu Manoil <claudiu.manoil@nxp.com>
+> Cc: netdev@vger.kernel.org; dl-S32 <S32@nxp.com>; linux-
+> kernel@vger.kernel.org; bhelgaas@google.com; linux-pci@vger.kernel.org;
+> kuba@kernel.org
+> Subject: Re: [PATCH net-next v2 4/5] arm64: dts: s32n79-rdb: enable NETC =
+IEP18
+>=20
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 * High: 0 * Medium: 1 * Low: 2
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] s32n79-rdb.dts enables &netc_iep18 but leaves &smmu disabled,
+>   even though the bus node says `iommu-map =3D <0x0 &smmu 0xc0000 0x100>`=
+.
+> - [Low] At this commit, enabling &netc_iep18 in s32n79-rdb.dts does not
+>   get the PPM PF to probe.
+> - [Low] The &netc_iep18 override is appended after &usdhc0 in
+>   s32n79-rdb.dts.
+>=20
+> --
+>=20
+> arm64: dts: s32n79-rdb: enable NETC IEP18
+>=20
+> This patch enables the NETC v4 ECAM bus #18 (netc_iep18) on the S32N79-RD=
+B
+> board. The goal is to get the ENETC v4 Pseudo-MAC port (PPM) PF and VF
+> instances probed.
+>=20
+> > diff --git a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> > index 1feccd61258ef..897ba24ac03ae 100644
+> > --- a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> > +++ b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> > @@ -68,3 +68,7 @@ &usdhc0 {
+> >  	no-sdio;
+> >  	status =3D "okay";
+> >  };
+> > +
+> > +&netc_iep18 {
+> > +	status =3D "okay";
+> > +};
+>=20
+> [Severity: Medium]
+> Should &smmu also be enabled for this board? The netc_iep18 node in
+> s32n79.dtsi has:
+>=20
+> 	iommu-map =3D <0x0 &smmu 0xc0000 0x100>;
+>=20
+> The SMMU node is disabled at SoC level, and s32n79-rdb.dts does not
+> override it:
+>=20
+> 	smmu: iommu@4fc00000 {
+> 		...
+> 		#iommu-cells =3D <1>;
+> 		dma-coherent;
+> 		status =3D "disabled";
+> 	};
+>=20
+> DMA setup for the ENETC PF/VFs on this bus goes through
+> of_dma_configure_id()->of_iommu_configure()->of_map_iommu_id()->
+> of_iommu_xlate(). of_iommu_xlate() rejects the disabled node:
+>=20
+> 	if (!of_device_is_available(iommu_spec->np))
+> 		return -ENODEV;
+>=20
+> of_dma_configure_id() then falls back to direct DMA and only logs a
+> dev_dbg() message:
+>=20
+> 	/* Take all other IOMMU errors to mean we'll just carry on without it */
+> 	dev_dbg(dev, "device is%sbehind an iommu\n",
+> 		!ret ? " " : " not ");
+>=20
+> 	arch_setup_dma_ops(dev, coherent);
+>=20
+> Does this leave every NETC function, including the SR-IOV VFs, doing
+> untranslated DMA with no iommu_group? If so, the VFs cannot be assigned
+> through VFIO. Whether DMA works at all would then depend on whether
+> firmware left the SMMU in bypass or abort mode.
+>=20
+> This also seems to contradict the earlier dtsi commit "arm64: dts: s32n79=
+:
+> add NETC IEP18 ECAM node for ENETC PPM ports", which says:
+>=20
+>   DMA is translated by the SMMUv3 (iommu-map)
+>=20
+> The last commit in the series does not change this.
+>=20
 
-I presume "Ken" is not like "Cher" or "Ronaldo" or "Drake".
-
-Please use real, full names in your signoffs.
-
-Also review the mailing list history for other instances of
-patches like this.
-
-					-Alex
-> ---
->   drivers/staging/greybus/light.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
-> index cab02b5da..2689f9a75 100644
-> --- a/drivers/staging/greybus/light.c
-> +++ b/drivers/staging/greybus/light.c
-> @@ -173,7 +173,7 @@ static ssize_t fade_##__dir##_show(struct device *dev,			\
->   	struct led_classdev *cdev = dev_get_drvdata(dev);		\
->   	struct gb_channel *channel = get_channel_from_cdev(cdev);	\
->   									\
-> -	return sprintf(buf, "%u\n", channel->fade_##__dir);		\
-> +	return sysfs_emit(buf, "%u\n", channel->fade_##__dir);		\
->   }									\
->   									\
->   static ssize_t fade_##__dir##_store(struct device *dev,			\
-> @@ -220,7 +220,7 @@ static ssize_t color_show(struct device *dev, struct device_attribute *attr,
->   	struct led_classdev *cdev = dev_get_drvdata(dev);
->   	struct gb_channel *channel = get_channel_from_cdev(cdev);
->   
-> -	return sprintf(buf, "0x%08x\n", channel->color);
-> +	return sysfs_emit(buf, "0x%08x\n", channel->color);
->   }
->   
->   static ssize_t color_store(struct device *dev, struct device_attribute *attr,
-
+There is no contradiction, ENETC sits behind SMMU, however the SMMU node
+is not ready to be enabled yet, and this is not in the scope of current pat=
+ch set.=20
+SMMU on S32N79 needs some support patches (SoC level workarounds) before
+enabling it, since SMMU is a system wide config that affects other devices =
+too.
+ENETC4 is functional with the SMMU node disabled, and I can confirm it with
+traffic tests.
