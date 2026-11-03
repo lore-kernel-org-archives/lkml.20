@@ -1,41 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699464;
-	b=d7+EjfF01Y3Age3NYpfKtqGUOQEeqbFW6Mo3i8QFoDguMvenfm6vDpFCehrnkDESacIF
-	 8zrrzFkJGBpXj3wilfdsAijrF6Dpz2X3cq3an/HUgdyM425WlUa+JW0dMNJvD5KGRji96
-	 WXz2HQs/iRD5PmovNH7OZHFklrHYc7DJ8NUI40FFPkkg/6s0mpqBCL+4Jk/1NHsZO6q0J
-	 1yDE36yJPIJ7B7mrE3OdH5HiMp6p4sKpR0VhllTiSmesVQM7nPXYjFNNno/8gyTZrrR0N
-	 H5mJSEDhaK/oJq0BsLrt7XDL2dqY7dwgxKTk13yf7X59KltEEO++ez5nWQtjfEjSOMA==
+	t=1793699461;
+	b=bDQgx2CLInUXBKas+maI87SASjYIXzNjpDG7YnNBIuInZyo1zehGtHiiKY036M9xHGV4
+	 B4wWZgjAoJ9besgUdAGTVa/+2PjT7fAq0RNEdtQZtmlcM6RpRYElBs7CfEUQl3p6avezR
+	 3TWfTU1JxukZZ/4oSVAwuQMy+Lr5Yym2P6KOKE31S5yF+6R8/AXIAE3WtQjorHuQP8OIL
+	 i/kBniLmqKWOp9P/nsSpNR9ePXqj8LkOuq0Ic5991lkizmSONNSZL1Am+0LpFBInSNprp
+	 rAURz79BLo/9ZTji02jmms9Ajn00m2fXeSLT9q/EO/hPFmrX0b0n4FYDdvFfBWt9u9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699464;
-	h=DMARC-Filter:Received:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=9Ytf/hgVA5s6xuBkEZhEYc5g21hKogJ9a5/6yr9VeuA=;
-	b=as543yLrsgFhZZB8kXU8akzOTxrJ58MmC/oe59sFTwO+du3J1rDDC7bbhgVo+/aQJh6D
-	 +lYpHwcRBqfBcZ4bb0vub2niRmItigtg2oatXJJyyLnYnyjRvxA13PO+JAXmkDjjtqhzB
-	 fBSLJOUX2yKecmKSV6Qfl73WtIhQB7DhvNOYy2re3oU+a8g3ZSB5AYp8lqo4kU2ejWK2S
-	 XDNLH7xPP20+2K3f4+a460Q6ElHA9ErZAlv1mACzLU6H23VoqnyHulQ7tPWKB+2+4iSRa
-	 P38sAuIaDTFL0Mmok7KSM/1bT8+cQEdl4hPr+sVLDZ55Iq0zdV1s6KtXIVgZ492MWRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699461;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=OBdI6sTn5K4OgfmCVF/8zIHq3UrF3Zy+wUPm5MAIdzg=;
+	b=V6L+TzHZ8aEofq6aAsPMFbndh3e5tB11STVi6UyCOvZZXCTPESkdocmZZan8wSADe+5l
+	 Fi/Ymi9DrII2pYRSbWV6pfmDSZShX/VFyziGpjOkACPaseKFw68Py2xA5YVJ5z7hSW1CX
+	 A5gsURUjqD/UXn9r1Jxw850VnPc3I+3KaGKBYRf7TxASXPJjl4UxHp+1KfDSaTAJF3oE4
+	 UNb3xwnhBDmYIbflMSNSx5AtsQQN4qAYS085AUSqKcwSRxsZvSV5ZDKdV7j23Dr2kC1cU
+	 Ur1LDQwz9zsWnivnAfIlNuYI1DCHQPww0DtTzaXbQjjKauUUoVWtdHCrgiTbyqaRQyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dmarc=pass header.from=karaolidis.com;
+	spf=pass smtp.mailfrom=karaolidis.com;
+	dkim=pass header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=RTFB8Kme;
+	arc=none smtp.remote-ip=109.224.244.106
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBD7606A333;
-	Tue,  3 Nov 2026 09:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CBD7606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from smtpclient.apple (unknown [121.237.245.232])
-	by APP-05 (Coremail) with SMTP id zQCowAAHobZ_rulqo_g+AA--.1625S2;
-	Tue, 03 Nov 2026 17:50:55 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19123606A32D;
+	Tue,  3 Nov 2026 09:50:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19123606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=karaolidis.com header.i=@karaolidis.com header.a=rsa-sha256 header.s=protonmail3 header.b=RTFB8Kme
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
+	s=protonmail3; t=1793699458; x=1793958658;
+	bh=OBdI6sTn5K4OgfmCVF/8zIHq3UrF3Zy+wUPm5MAIdzg=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=RTFB8KmexjksUk20HrjmyS1e1SwZL4VvFQR020kdzu5KmKV6ahtxVkSu6cytKVo3x
+	 wRpNDXXhsjvXTbd/nIBNQp2KB5cwMzGj5pTLY7I4BCvzXbr0v6MzcNQFxB0AOH7Q9b
+	 +YFtelNTADrcMBdsyiVS4Xhu3EVuhBjIRxy3SgdB2jcemj8nDtMtH3wMvw+myjiW5Z
+	 8aqIhC1E6on7pT0iKPKld7GIqpjJN29HtvfKtrrwZjF0MBHOT3hjZ66PCDNK/o9ADl
+	 H8jwHr7GGELk238IfaWXQly2UROvFAi4GfzSVrfyN631PN2v37vvS73oiFI6thOwCO
+	 4/b/lg+nNCynw==
+X-Pm-Submission-Id: 4jJkNH0h9pz2ScjC
+From: Nikolaos Karaolidis <nick@karaolidis.com>
+Date: Tue, 03 Nov 2026 09:50:08 +0000
+Subject: [PATCH RFC 2/6] virtio-mem: prepare memory notifier for a
+ self-hosted memmap
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -44,154 +58,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2] uprobes: Restore original return address in uretprobe
- context
-From: daichengrong <daichengrong@iscas.ac.cn>
-In-Reply-To: <20260810080140.96587-1-daichengrong@iscas.ac.cn>
-Date: Tue, 3 Nov 2026 16:58:03 +0800
-Cc: linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- alex@ghiti.fr,
- Albert Ou <aou@eecs.berkeley.edu>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <313E1182-DADD-485A-AE2C-36ACA58F35DE@iscas.ac.cn>
-References: <20260810080140.96587-1-daichengrong@iscas.ac.cn>
-To: Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-CM-TRANSID:zQCowAAHobZ_rulqo_g+AA--.1625S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArWkCr1UKF4fAFy5GryrCrg_yoWrXrWkpa
-	1vka43KFWDG34UuFZxXr45Z3WFvrZ5Xw47Cr1xK34fC345KryxJw1I93yUZF1FyrZ2gF17
-	Ar4jkFWUAa9rJrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVAFwVW8uwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU5iB_UUUUUU==
-X-CM-SenderInfo: pgdluxxhqj201qj6x2xfdvhtffof0/
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-virtio-mem-memmap-v1-2-308ae1da6240@karaolidis.com>
+References: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
+In-Reply-To: <20261103-virtio-mem-memmap-v1-0-308ae1da6240@karaolidis.com>
+To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Oscar Salvador <osalvador@suse.de>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@suse.com>, 
+ Hui Zhu <teawater@gmail.com>, 
+ Georgi Djakov <georgi.djakov@oss.qualcomm.com>, 
+ virtualization@lists.linux.dev, linux-mm@kvack.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-cxl@vger.kernel.org, Nikolaos Karaolidis <nick@karaolidis.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3542; i=nick@karaolidis.com;
+ h=from:subject:message-id; bh=TO2CmbxVRk5IIxBT/zUC8sOXtYzHOqzh3B7e5x1oZ0Y=;
+ b=owJ4nAFtApL9kA0DAAoB2mjImL9M9YgByyZiAGrprnfulwaXR03O2p0qJDHLazzry3QLpv4Ia
+ U4y+Pitk66ahYkCMwQAAQoAHRYhBLMZG7EWqsMYjymWX9poyJi/TPWIBQJq6a53AAoJENpoyJi/
+ TPWIRpEQALF1yuzhT+G9+r/UaOZj+ncGcwkxjmTohjHCy77NkVXvj4vAzd3+Y7HPpD2AaqYkchw
+ g15fGpkaHJGslMRxczn5mCczJOj6EjzsmThGmSQNIk++5GLtopumrnPrtR3WHpP/cIQv35P3oGn
+ Q0KOw8IVZ3XR7yZDMt3MXy9ONcuAkYT8HIpl490imwmZvW6zvJTNGLwU4ebtqqLE6PrXqHPnmas
+ VRIi/bwtPAvPxOXNLum18q3ixX7KFlV0bJV5bHH6mB/+71kOhV6SKo06ocN1yeScE2suNdDYpwX
+ SKvLtTNE3kWGQA/0ckSj7t5y5WyYE//WoBOs24j89Z9Pm2vWhDSPVOF3T7P8UTr8W6/sHigPrwc
+ mk6nHWBcxitvRp1l8NTFG3EiTkjpnq4o8rpR6pg3OZ8U7IyWO7CW7l2/4XGGk9uFS4mmtC1wkc0
+ vhrbjxLwJDC6bpZYXyNWj7skLCJmDiL/23MuL4kuE0dg98x66IqZc6UsF3D9CYA+koiBhn4zxmc
+ +XPIJi/WBmAEJkYlVZLhV6cbiD8u1wrsPtJs6akIbjv1m9AI44vz5z8hGv/+fln34JqsolDmubH
+ 4IkZb6zcMvg/0h3gA5bLrj7B6G1kYyOO1+66BPyM4FNFIr7k9tKI6b4wvIbaI0Eyj5zrpfRVXOK
+ L3rqdJjtcLV0CIEJzyBs8FA==
+X-Developer-Key: i=nick@karaolidis.com; a=openpgp;
+ fpr=B3191BB116AAC3188F29965FDA68C898BF4CF588
 
-Hi,
+With MHP_MEMMAP_ON_MEMORY, the core excludes the memmap at the start of
+each memory block from the range passed to memory notifiers. The
+virtio-mem notifier does not expect that:
 
-Just a friendly ping about this patch. Any feedback or review would be =
-appreciated.
+* In Sub Block Mode, it rejects any range that is not exactly one
+  aligned memory block with a WARN and NOTIFY_BAD.
 
-Thanks!
+* It adjusts offline_size by the notified size, while adding and
+  removing memory use the full size. Every onlined memory block would
+  leave its memmap size behind in offline_size, until the offline
+  threshold stops further hotplug.
 
-> 2026=E5=B9=B48=E6=9C=8810=E6=97=A5 16:01=EF=BC=8Cdaichengrong =
-<daichengrong@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> uretprobe replaces the original return address of a probed function =
-with
-> a trampoline address to capture function return events.
->=20
-> After the trampoline is entered and the uretprobe handler completes, =
-the
-> original return address needs to be restored in the user register =
-context
-> to keep the register state consistent with the state before probing.
->=20
-> Add an architecture-specific hook for restoring the original return
-> address during uretprobe handling.
->=20
-> The initial implementation adds support for RISC-V. Other =
-architectures
-> keep the default empty implementation until their corresponding =
-restore
-> logic is implemented.
->=20
-> Signed-off-by: daichengrong <daichengrong@iscas.ac.cn>
-> ---
-> Change in v2:
-> - Rename arch_uretprobe_hijack_set_addr() to =
-arch_uretprobe_restore_return_address() as suggested
->=20
-> v1: =
-https://lore.kernel.org/all/20260717082331.27058-1-daichengrong@iscas.ac.c=
-n/
-> ---
-> arch/riscv/kernel/probes/uprobes.c | 7 +++++++
-> include/linux/uprobes.h            | 1 +
-> kernel/events/uprobes.c            | 5 +++++
-> 3 files changed, 13 insertions(+)
->=20
-> diff --git a/arch/riscv/kernel/probes/uprobes.c =
-b/arch/riscv/kernel/probes/uprobes.c
-> index eb177d0ce8ab..90ed8596e73f 100644
-> --- a/arch/riscv/kernel/probes/uprobes.c
-> +++ b/arch/riscv/kernel/probes/uprobes.c
-> @@ -139,6 +139,13 @@ arch_uretprobe_hijack_return_addr(unsigned long =
-trampoline_vaddr,
-> return ra;
-> }
->=20
-> +void
-> +arch_uretprobe_restore_return_address(unsigned long orig_ret_vaddr,
-> +  struct pt_regs *regs)
-> +{
-> + regs->ra =3D orig_ret_vaddr;
-> +}
-> +
-> int arch_uprobe_exception_notify(struct notifier_block *self,
-> unsigned long val, void *data)
-> {
-> diff --git a/include/linux/uprobes.h b/include/linux/uprobes.h
-> index f548fea2adec..af5b633f92dd 100644
-> --- a/include/linux/uprobes.h
-> +++ b/include/linux/uprobes.h
-> @@ -230,6 +230,7 @@ extern bool arch_uprobe_xol_was_trapped(struct =
-task_struct *tsk);
-> extern int  arch_uprobe_exception_notify(struct notifier_block *self, =
-unsigned long val, void *data);
-> extern void arch_uprobe_abort_xol(struct arch_uprobe *aup, struct =
-pt_regs *regs);
-> extern unsigned long arch_uretprobe_hijack_return_addr(unsigned long =
-trampoline_vaddr, struct pt_regs *regs);
-> +extern void arch_uretprobe_restore_return_address(unsigned long =
-orig_ret_vaddr, struct pt_regs *regs);
-> extern bool arch_uretprobe_is_alive(struct return_instance *ret, enum =
-rp_check ctx, struct pt_regs *regs);
-> extern bool arch_uprobe_ignore(struct arch_uprobe *aup, struct pt_regs =
-*regs);
-> extern void arch_uprobe_copy_ixol(struct page *page, unsigned long =
-vaddr,
-> diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-> index 6300b216012c..9a2e9ce4e398 100644
-> --- a/kernel/events/uprobes.c
-> +++ b/kernel/events/uprobes.c
-> @@ -1748,6 +1748,10 @@ void * __weak =
-arch_uretprobe_trampoline(unsigned long *psize)
-> return &insn;
-> }
->=20
-> +void __weak arch_uretprobe_restore_return_address(unsigned long =
-orig_ret_vaddr, struct pt_regs *regs)
-> +{
-> +}
-> +
-> static struct xol_area *__create_xol_area(unsigned long vaddr)
-> {
-> struct mm_struct *mm =3D current->mm;
-> @@ -2659,6 +2663,7 @@ void uprobe_handle_trampoline(struct pt_regs =
-*regs)
-> valid =3D !next_chain || arch_uretprobe_is_alive(next_chain, =
-RP_CHECK_RET, regs);
->=20
-> instruction_pointer_set(regs, ri->orig_ret_vaddr);
-> + arch_uretprobe_restore_return_address(ri->orig_ret_vaddr, regs);
-> do {
-> /* pop current instance from the stack of pending return instances,
-> * as it's not pending anymore: we just fixed up original
-> --=20
-> 2.25.1
+Track the memmap pages per memory block in vm->memmap_pages, expect the
+notified range to start after the memmap in Sub Block Mode, and include
+the memmap when adjusting offline_size.
+
+vm->memmap_pages is always 0 for now, so there is no functional change.
+
+Assisted-by: LLM
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+---
+ drivers/virtio/virtio_mem.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
+index e18dd736f2ec..ab06adbc0342 100644
+--- a/drivers/virtio/virtio_mem.c
++++ b/drivers/virtio/virtio_mem.c
+@@ -158,6 +158,9 @@ struct virtio_mem {
+ 	/* If set, the driver is in SBM, otherwise in BBM. */
+ 	bool in_sbm;
+ 
++	/* Pages at the start of each Linux memory block hosting its memmap. */
++	unsigned long memmap_pages;
++
+ 	union {
+ 		struct {
+ 			/* Id of the first memory block of this device. */
+@@ -995,21 +998,23 @@ static int virtio_mem_memory_notifier_cb(struct notifier_block *nb,
+ 	struct memory_notify *mhp = arg;
+ 	const unsigned long start = PFN_PHYS(mhp->start_pfn);
+ 	const unsigned long size = PFN_PHYS(mhp->nr_pages);
++	const unsigned long memmap_size = PFN_PHYS(vm->memmap_pages);
+ 	int rc = NOTIFY_OK;
+-	unsigned long id;
++	unsigned long id, mb_start;
+ 
+ 	if (!virtio_mem_overlaps_range(vm, start, size))
+ 		return NOTIFY_DONE;
+ 
+ 	if (vm->in_sbm) {
+ 		id = virtio_mem_phys_to_mb_id(start);
++		mb_start = virtio_mem_mb_id_to_phys(id);
+ 		/*
+ 		 * In SBM, we add memory in separate memory blocks - we expect
+-		 * it to be onlined/offlined in the same granularity. Bail out
+-		 * if this ever changes.
++		 * it to be onlined/offlined in the same granularity, excluding
++		 * a self-hosted memmap. Bail out if this ever changes.
+ 		 */
+-		if (WARN_ON_ONCE(size != memory_block_size_bytes() ||
+-				 !IS_ALIGNED(start, memory_block_size_bytes())))
++		if (WARN_ON_ONCE(start != mb_start + memmap_size ||
++				 size != memory_block_size_bytes() - memmap_size))
+ 			return NOTIFY_BAD;
+ 	} else {
+ 		id = virtio_mem_phys_to_bb_id(vm, start);
+@@ -1062,7 +1067,8 @@ static int virtio_mem_memory_notifier_cb(struct notifier_block *nb,
+ 		if (vm->in_sbm)
+ 			virtio_mem_sbm_notify_offline(vm, id);
+ 
+-		atomic64_add(size, &vm->offline_size);
++		/* Adding/removing memory accounts the memmap as well. */
++		atomic64_add(size + memmap_size, &vm->offline_size);
+ 		/*
+ 		 * Trigger the workqueue. Now that we have some offline memory,
+ 		 * maybe we can handle pending unplug requests.
+@@ -1077,7 +1083,7 @@ static int virtio_mem_memory_notifier_cb(struct notifier_block *nb,
+ 		if (vm->in_sbm)
+ 			virtio_mem_sbm_notify_online(vm, id, mhp->start_pfn);
+ 
+-		atomic64_sub(size, &vm->offline_size);
++		atomic64_sub(size + memmap_size, &vm->offline_size);
+ 		/*
+ 		 * Start adding more memory once we onlined half of our
+ 		 * threshold. Don't trigger if it's possibly due to our action
+
+-- 
+2.55.0
 
