@@ -1,127 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811449;
-	b=Kzno2SZtbazCqLnh0IHFItgIFlFqFLgkoSV4k94DEGDVKDfPptpwShZKsQp7ssIWXXt4
-	 L+QJ7MIUzFWVkOv3aCFU/oYo9KIdQCWKkEoKJwdvORdmF3bCuVkTpkS0DdgsXWbHJjEXg
-	 EnbuJCJtSa3fao/4TbmK/5/GHvGdFacR2D8EncbFNt7e4bQuQ7iS2HBckiytnA3FINrS8
-	 StriIMBzq1ZZ/a80W2bsKczC1dNnnUY1v/qEEpPMSX7acckzPa9NU3fYnPZZxvgHRRxjy
-	 /M+gom6dBx/h6+Wz90reQWr2NckrtYHO2THn2oVZ8R9jhnIMwL12GikbP4TaRzeDjfw==
+	t=1793811461;
+	b=Onv1a24FttFpwMVVlIJeCf6slx6bMvkbaRxvOIlRh9o3VgxRxMHwHelfDsI/h4erhs7N
+	 tIqOXq9tdowMgj0rStV7ZdGrX67+8J2Lvek9tffBWIYwFF85oqPY8c+FhO7DRByaQgugx
+	 fr2qNfyAz1LGs9ipiE+9AR65P2LAFY0sguX/L/io6I4S36hHZPzG0ozxxEEQCA8K/zXQL
+	 OWDx1WkCqjNdbvat6MMS/ZP+1nxe6/BdQVtwwWbpGCo2Jf7Q1n/xDKL4BCeP6sA8CPYJC
+	 +7SbKMcv2or5oZTCVm+UY51VRiJ6nWGcklD8+RPUASSFTWcdAk6XuxtBWFi0DLdX8cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811449;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=8izICEiwnQYZgjlS2jA+WnZteNa4n7VbKpZ/O6pW3kg=;
-	b=d9wDYtR/jjO3iBJ8RL2h8F5Qs+RwqIsL6OEdhsypZ59Ma8Nv9BX6C59WyU8NIBCSHuRH
-	 9+kpr//B01lR+NG+euz92IkM7qQfpMJehYsnkSASHxte/M0Icb+Hxg+z53YgROR8bO9HE
-	 /u+pShf9oELvOhUTUqzXAtq9TDUtc/An0KmEuJw7F/EMvE/to1u8BHAuUEG4mySNNySjo
-	 SLxmilefWRAeCGVFt+5WADY5xlknhCgMKSaUzGIhFe+MIkBDA3ImePqlgOyKfsLsty8Gx
-	 daYcQrKoKn16ynPiEpGhQWbg0zxjllpw7J2vDbeDrVe2khncsMtob93lsH9w4B41qgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811461;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SOeq7G4y4ma0p9IJnHs+BlzRjxe0BhRxp82Dix1vOx8=;
+	b=ixPnrd69XYTXRd5QaLu2Yr+3Y2M5d+kZk2IzJ9fDlczDFb5XIlmeBfV974vAU1uLBSgy
+	 1SFwxG4EnGGc/wMEJXcE+/bP65hF6JGqexEctd4ni6j2lgNpZH/nrbrtOV1tSg23AtcSM
+	 RAD22ApjcZv4y7u8cAYRDd8SC7cZkSs3c45B4G5shLyEJirdaxg78C+CjaQYFH9qcrP0v
+	 IQ3j7HGE8avxLp8GAMMhEVpdaQUZ+KCfrB9/+1QU6x5OG+9dOjtZ1GvrDqGRbTnI2VVfF
+	 cTmG57MbyQC0sW4KN90AUeLlfL8f8Oxe+z2iBGXtsQMNGpi96iHKq/JUc+oG1EDsAvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kFu+4Fcc;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eNGdeOdJ;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFF1606A332;
-	Wed,  4 Nov 2026 16:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AFF1606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEABF606D80C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEABF606D80C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kFu+4Fcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793811450; x=1825347450;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kA+R8pE/sj6tJF3qdsiBNT3subr7oV44Dq41fpFh520=;
-  b=kFu+4FccF4mwUg+lujbS5S2z+QsSmjNhZ2VXE9pkRUGU5JFaHhAYGvqD
-   2m2d8WwUUduzhkv25AeyGq18y54cB2L2uwYz+0iORYVvJTVVqTvdzFX//
-   nY/LI7ZovPrR1J/Ai8kBe7wWWVYp/ULULxkbABr1DAiW55rj7hOf7G6gZ
-   WmDtFd7z6TbAA9Sx7emazezcXk6wyGhs6R9EPg4judjPYKUoCeL8ToSJa
-   3CitTzz5hVIteV4+ew2YrFRFmrpP9KOFL1SzmRjSdGs8owXQpa5mnZ86b
-   oA3jcPhvKxK5Rvl0dLUipiF0DGa6BFYUhPbp38L1Oxg0Ubz/xy5n/6N/x
-   g==;
-X-CSE-ConnectionGUID: yAIgH109T4WDBp+q75bbnA==
-X-CSE-MsgGUID: 13q1h3DKRZ+6UUAhKS5/xQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2455735"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2455735"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 08:57:29 -0800
-X-CSE-ConnectionGUID: i6LkdCHBS8aHv+axP23p/Q==
-X-CSE-MsgGUID: bTVdwHnSQh2Pf9cSJkKNSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7158496"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 08:57:16 -0800
-Date: Wed, 4 Nov 2026 18:57:14 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	CL Wang <cl634@andestech.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <autj6pr_bPaul3w0@ashevche-desk.local>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eNGdeOdJ
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35b2c599f43so1899540eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:57:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793811459; x=1794416259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SOeq7G4y4ma0p9IJnHs+BlzRjxe0BhRxp82Dix1vOx8=;
+        b=eNGdeOdJpnu18FUYHbtEYd9XslXM7vnKZ3T9KRrZq+Y7UtGL/Hrp9HVryybuKTdD8d
+         TGVTOmgwZwFkpLknmlNOYkP7mP6W+8tmajSQHLUXVbCsaOsjAwQofVaJiSwQiQxUiSkb
+         y9xqT4w4oN5Owdx+qyKDJxT9C9kJUEPSKBmt0GiN9BTP1Z8ezvlF/b04RtiuboJ64I+I
+         uTLZBwueAMnwJcExIi28F3kOQmAxbjSbn3xJh27uV4/3Um9o/c6k3kc26GkkIxTXtl5T
+         4ME6hkttpWSuPsKY9+uAszQkFOs6/PrYvSfXmZPJfkE6U1thqDGsfMEF+BnVXYvPXBz8
+         qawQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793811459; x=1794416259;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SOeq7G4y4ma0p9IJnHs+BlzRjxe0BhRxp82Dix1vOx8=;
+        b=V0QfFtNNNb1rSbiuuEdQ4Ja6oqA6yZUM2OjJPWd5KmIQS6WGham8+vYh7NpJMfo8t+
+         kW07EE/kG0k9UncA3FU4e4EoHf4u8Npg4O6I5nsPPCQ2WAEx8+6IPIEsIlyNXgVimAVJ
+         WAzrTZ3fB52l1idIQIA+utZRfzPnxo5KSDzJhEAstqmrSsNAniCEpo8WnJuf5Z5dvY81
+         L1Fx0X0IsHtuX+hfbtaKq4XgTMMB60BwwTsE7DSbe6eRAiAuVkM55YhtfKQhRcZYaOIA
+         XeKKKCeUJZ+COj7LP0hxBGvroa0flKvTdDG717ha5rR14ETQc8IK1e15TY5uH2a6Z9gT
+         rOSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWfyMjqYBWY47O1Ul+EWHNWMhor7F9KXFPQW1nSmpco41bU/ddUS0S1TBq8DoydjyWM3xCGFQlBSQTk8A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wK8lqYJyH1FkZKMHrOJWVCnU0X6Cib+TE2873kUsrcLyJlroY
+	PhlJIgtYh9mHk6Luaq7a6hsIyH1htiw1ULFp7WMLvIyVMuByLZuHz5ji
+X-Gm-Gg: AYBFou3oJcKMvigsHkF3gpJ1x8IGN2EkHIOlPNGjYu3zCB39Xun6jvyalgbMgORoAJG
+	oobWYARwDLhTh/ov3vX9rwO3rrnOxBw7l6VCUpMlfs+REq1n1CjXEFUQ7x9jtt9DYmvD3hQq8Z1
+	JVobwQUNtOeySnDh28CywWhEAt4NKKnSnPhCoMShWcaE8Y37JI4ahdCm50t+vCwQZ8fmsRwe4ip
+	DfCJk5e+QCqv1UIw3yJd2EoQHsf5l1ijW1ecNnHke3Ur1AVBzrD57ok0DMucZi+QvRco9YUonG4
+	OJn59tvHpyJSNjuxdd5sBMQPxBgnYgY/NV14VocQVix7Guz6qSbAjEKr1tXGusFuxQbQ9MLYqlz
+	j5Gs/VTiVzFUeRhyBLxYmOo+a3ZRuv5s3TawEMdL0+5UEnwDhuFvH/+hXDDYAt0FCoRQ02+qU3j
+	e/XsMsl3VhJ+iYxpAd17+e2aec3tq9sS/p0Du6NXzWv/ZmTfEXuHcP71QwBIqrveMsMQ9qiFngO
+	QnnFGutEG+tiS3V4BUXzF2NK8vYd9HB83s3rzwijqU3hid6tcAFS426AnLPXsKrXEnd6ojHaGNJ
+	2ZegaUzBU11jR8OiZJ5M8bZElS4DVpZAL6roKJNn
+X-Received: by 2002:a05:693c:6092:b0:369:1084:8ee3 with SMTP id 5a478bee46e88-36a423e52c8mr29328732eec.23.1793811457983;
+        Wed, 04 Nov 2026 08:57:37 -0800 (PST)
+Received: from kernel.. ([216.195.201.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d46fcsm9019567eec.13.2026.11.04.08.57.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 08:57:36 -0800 (PST)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	boqun@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 15/28] hazptr: Add reader-assisted drain for stalled waiters
+Date: Thu,  5 Nov 2026 00:54:33 +0800
+Message-ID: <20261104165504.2430480-16-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104165504.2430480-1-kunwu.chan@gmail.com>
+References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,93 +127,695 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 10:22:45AM -0500, Frank.Li@oss.nxp.com wrote:
-> 
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across SPI bus drivers.
-> 
-> No functional change intended. Prepare make to struct
-> dma_async_tx_descriptor private to the DMA engine.
+When a waiter remains blocked on a sticky address for 100+ scan
+cycles, engage a drain: snapshot which per-CPU and overflow-list
+slots hold the address, then wait for those holders to release.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # dw, pxa2xx, topcliff-pch
+Per-CPU slots are tracked via a bitmap mapping (cpu, idx) to the
+stable per-CPU slot_item.  Overflow-list slots (struct
+hazptr_backup_slot) lack stable identity, so each one is marked
+with the current drain generation (drain_gen) at engage; the
+reader cooperates on release by checking its own slot's drain_gen,
+clearing it, and decrementing backup_outstanding.
 
-(Note, you forgot to add the list of the drivers to the Rb trailers of other reviewers)
+The unchain path and the engage both hold the overflow-list lock
+during their marker operations, serializing the reader's marker
+consumption with the engage's marker writes and preventing the
+stranded-marker race.
 
->  drivers/spi/spi-dw-dma.c          | 6 ++----
->  drivers/spi/spi-pxa2xx-dma.c      | 3 +--
->  drivers/spi/spi-topcliff-pch.c    | 6 ++----
+A cmpxchg() ensures only one of the release hook, the resnapshot
+recovery path, or the unchain path consumes each marker.
 
-> --- a/drivers/spi/spi-dw-dma.c
-> +++ b/drivers/spi/spi-dw-dma.c
-> @@ -397,8 +397,7 @@ static int dw_spi_dma_submit_tx(struct dw_spi *dws, struct scatterlist *sgl,
->  	if (!txdesc)
->  		return -ENOMEM;
->  
-> -	txdesc->callback = dw_spi_dma_tx_done;
-> -	txdesc->callback_param = dws;
-> +	dmaengine_desc_set_callback(txdesc, dw_spi_dma_tx_done, NULL, dws);
->  
->  	cookie = dmaengine_submit(txdesc);
->  	ret = dma_submit_error(cookie);
-> @@ -498,8 +497,7 @@ static int dw_spi_dma_submit_rx(struct dw_spi *dws, struct scatterlist *sgl,
->  	if (!rxdesc)
->  		return -ENOMEM;
->  
-> -	rxdesc->callback = dw_spi_dma_rx_done;
-> -	rxdesc->callback_param = dws;
-> +	dmaengine_desc_set_callback(rxdesc, dw_spi_dma_rx_done, NULL, dws);
->  
->  	cookie = dmaengine_submit(rxdesc);
->  	ret = dma_submit_error(cookie);
+The outstanding count is maintained incrementally (atomic_inc
+during the engage walk, atomic_dec on consumption) so a
+concurrent unchain cannot be overwritten by a final atomic_set.
 
-> --- a/drivers/spi/spi-pxa2xx-dma.c
-> +++ b/drivers/spi/spi-pxa2xx-dma.c
-> @@ -154,8 +154,7 @@ int pxa2xx_spi_dma_prepare(struct driver_data *drv_data,
->  	}
->  
->  	/* We are ready when RX completes */
-> -	rx_desc->callback = pxa2xx_spi_dma_callback;
-> -	rx_desc->callback_param = drv_data;
-> +	dmaengine_desc_set_callback(rx_desc, pxa2xx_spi_dma_callback, NULL, drv_data);
->  
->  	dmaengine_submit(rx_desc);
->  	dmaengine_submit(tx_desc);
+A fairness cap (HAZPTR_DRAIN_MAX_CYCLES) bounds consecutive drain
+cycles for a single address: on expiry the drain disengages and
+the waiter's re-engage counter resets.
 
-> --- a/drivers/spi/spi-topcliff-pch.c
-> +++ b/drivers/spi/spi-topcliff-pch.c
-> @@ -1022,8 +1022,7 @@ static void pch_spi_handle_dma(struct pch_spi_data *data, int *bpw)
->  		return;
->  	}
->  	dma_sync_sg_for_device(&data->host->dev, sg, num, DMA_FROM_DEVICE);
-> -	desc_rx->callback = pch_dma_rx_complete;
-> -	desc_rx->callback_param = data;
-> +	dmaengine_desc_set_callback(desc_rx, pch_dma_rx_complete, NULL, data);
->  	dma->nent = num;
->  	dma->desc_rx = desc_rx;
->  
-> @@ -1084,8 +1083,7 @@ static void pch_spi_handle_dma(struct pch_spi_data *data, int *bpw)
->  		return;
->  	}
->  	dma_sync_sg_for_device(&data->host->dev, sg, num, DMA_TO_DEVICE);
-> -	desc_tx->callback = NULL;
-> -	desc_tx->callback_param = data;
-> +	dmaengine_desc_set_callback(desc_tx, NULL, NULL, data);
+Each disengage logs its reason (complete, fairness-cap, or
+orphaned) for test observability.
 
-Yeah, data can be replaced by NULL as has been already mentioned.
+Wildcards never appear in per-CPU slots: the try_acquire fast
+path publishes the actual address directly; only the slow path's
+backup slot goes through a wildcard transient.
 
->  	dma->nent = num;
->  	dma->desc_tx = desc_tx;
->  
+Suggested-by: Boqun Feng <boqun@kernel.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ include/linux/hazptr.h                        |  17 +
+ kernel/hazptr.c                               | 468 +++++++++++++++++-
+ kernel/rcu/Kconfig.debug                      |  12 +
+ .../selftests/rcutorture/bin/hazptr.sh        |  22 +-
+ 4 files changed, 513 insertions(+), 6 deletions(-)
 
+diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+index ebf804315a26..018e9309e3ea 100644
+--- a/include/linux/hazptr.h
++++ b/include/linux/hazptr.h
+@@ -39,12 +39,22 @@ struct hazptr_slot {
+ };
+ 
+ struct hazptr_overflow_list;
++struct hazptr_ctx;
++
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++DECLARE_STATIC_KEY_FALSE(hazptr_drain_key);
++void hazptr_drain_release(void *addr, struct hazptr_slot *slot,
++			   struct hazptr_ctx *ctx);
++#endif
+ 
+ struct hazptr_backup_slot {
+ 	struct hlist_node overflow_node;
+ 	struct hazptr_slot slot;
+ 	/* Overflow list where the backup slot is added. */
+ 	struct hazptr_overflow_list *overflow_list;
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	unsigned long drain_gen;
++#endif
+ };
+ 
+ struct hazptr_ctx {
+@@ -72,6 +82,9 @@ struct hazptr_slot_item {
+ 	unsigned long acquire_caller;
+ 	unsigned long acquire_jiffies;
+ #endif
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	unsigned long drain_gen;
++#endif
+ };
+ 
+ struct hazptr_percpu_slots {
+@@ -352,6 +365,10 @@ void hazptr_release(struct hazptr_ctx *ctx, void *addr)
+ 	hazptr_release_debug(ctx, addr);
+ 	slot = ctx->slot;
+ 	smp_store_release(&slot->addr, NULL);
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	if (static_branch_unlikely(&hazptr_drain_key))
++		hazptr_drain_release(addr, slot, ctx);
++#endif
+ 	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
+ 		hazptr_unchain_backup_slot(ctx);
+ }
+diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+index 8de194c07eea..7d4273a44183 100644
+--- a/kernel/hazptr.c
++++ b/kernel/hazptr.c
+@@ -323,6 +323,9 @@ static bool hazptr_bloom_contains(const struct hazptr_bloom *bloom, void *addr)
+  * match.
+  *
+  * A wildcard in an overflow-list slot means a slow-path acquire is in
++ * flight.  Wildcards never appear in per-CPU slots: the try_acquire
++ * fast path publishes the actual address directly, and only the
++ * slow path's backup slot goes through a wildcard transient.
+  * flight: that slot may resolve to any address (including @watch or a
+  * Bloom-collected one) after the walk.  To keep the single-pass
+  * completion decision safe, the caller must observe wildcards and
+@@ -402,6 +405,9 @@ struct hazptr_waiter {
+ 	int pid;
+ 	unsigned long caller;
+ #endif
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	unsigned int drain_cycles;
++#endif
+ };
+ 
+ struct hazptr_scan_state {
+@@ -417,6 +423,346 @@ static struct hazptr_scan_state hazptr_scan;
+ 
+ /* Sysfs counters, cf. RCU's rcu_stall_count. */
+ static atomic_t hazptr_stall_count = ATOMIC_INIT(0);
++static atomic_t hazptr_drain_count = ATOMIC_INIT(0);
++
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++
++/*
++ * Drain-assist: internal forward-progress mechanism for sticky addresses.
++ *
++ * When a waiter is blocked for too many scan cycles, the kthread
++ * snapshots which per-CPU slots hold the waited-for address and
++ * tracks their release via a per-slot bitmap.  A remove-only
++ * re-snapshot (periodic re-walk that only clears bits, never sets
++ * new ones) recovers lost notifications.
++ *
++ * Completion requires: bitmap empty (all per-CPU snapshot holders
++ * released) AND all marked backup slots released (tracked via a
++ * per-slot drain_gen marker and a backup_outstanding count).
++ * Per-CPU slots are bitmap-tracked; backup slots are
++ * generation-marked.
++ *
++ * The release path carries a static_branch-guarded check:
++ * near-zero overhead when no drain is active.
++ */
++
++#define HAZPTR_DRAIN_BITS	(NR_CPUS * NR_HAZPTR_PERCPU_SLOTS)
++
++/*
++ * Backup-slot tracking: overflow-list holders lack stable
++ * (cpu, idx) identity.  Instead of storing dangling pointers,
++ * each backup slot carries a drain_gen marker set by engage
++ * and cleared by the release path (a synchronous hook called from
++ * hazptr_release() while the reader's ctx is still valid).
++ * The completion check waits for backup_outstanding to reach
++ * zero, plus the per-CPU bitmap to become empty.
++ */
++
++struct hazptr_drain_state {
++	void *addr;		/* NULL = inactive; written by kthread, read by release hook */
++	DECLARE_BITMAP(map, HAZPTR_DRAIN_BITS);
++	unsigned long generation;
++	atomic_t backup_outstanding;
++	unsigned int cycle_count;	/* cycles since engage, for fairness */
++};
++
++/*
++ * Cap on consecutive drain cycles for a single address.  When reached,
++ * the drain disengages and the current waiter's re-engage counter is
++ * reset, giving other stalled waiters a chance to engage.  This
++ * prevents one continuously-re-published address from starving
++ * waiters on other addresses.
++ */
++#define HAZPTR_DRAIN_MAX_CYCLES	1000
++
++static struct hazptr_drain_state hazptr_drain;
++DEFINE_STATIC_KEY_FALSE(hazptr_drain_key);
++EXPORT_SYMBOL_GPL(hazptr_drain_key);
++
++/*
++ * Engage: record the address, snapshot which per-CPU slots hold it,
++ * and enable the release-path check.  Defers (returns false) if any
++ * slot (per-CPU or overflow-list) holds a wildcard value: an
++ * in-flight acquire could resolve to the target address after the
++ * snapshot, missing the bitmap.
++ */
++/*
++ * Clear backup-slot markers for the given generation, under the
++ * overflow-list locks.  Used by the wildcard-defer and orphaned-
++ * disengage paths, where the drain is being abandoned before or
++ * after formal publication.  Does not decrement backup_outstanding:
++ * the defer path runs before the count is established, and the
++ * orphan path runs after the drain is no longer consulted.
++ */
++static void hazptr_drain_clear_markers(unsigned long gen)
++{
++	int cpu;
++
++	for_each_possible_cpu(cpu) {
++		struct hazptr_overflow_list_flip *overflow_list_flip =
++			per_cpu_ptr(&percpu_overflow_list_flip, cpu);
++
++		for (int i = 0; i < 2; i++) {
++			struct hazptr_overflow_list *list =
++				&overflow_list_flip->array[i];
++			struct hazptr_backup_slot *b;
++			unsigned long flags;
++
++			raw_spin_lock_irqsave(&list->lock, flags);
++			hlist_for_each_entry(b, &list->head, overflow_node) {
++				if (READ_ONCE(b->drain_gen) == gen)
++					WRITE_ONCE(b->drain_gen, 0);
++			}
++			raw_spin_unlock_irqrestore(&list->lock, flags);
++		}
++	}
++}
++static bool hazptr_drain_engage(void *addr)
++{
++	int cpu;
++	unsigned int idx;
++	bool wildcard_present = false;
++
++	bitmap_zero(hazptr_drain.map, HAZPTR_DRAIN_BITS);
++	hazptr_drain.generation++;
++	hazptr_drain.cycle_count = 0;
++	atomic_set(&hazptr_drain.backup_outstanding, 0);
++
++	for_each_possible_cpu(cpu) {
++		struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
++		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
++
++		for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
++			struct hazptr_slot_item *item = &percpu_slots->items[idx];
++			void *v = smp_load_acquire(&item->slot.addr);
++
++			if (is_wildcard(v))
++				wildcard_present = true;
++			if (v == addr)
++				set_bit(cpu * NR_HAZPTR_PERCPU_SLOTS + idx,
++					hazptr_drain.map);
++		}
++		for (int i = 0; i < 2; i++) {
++			struct hazptr_overflow_list *list = &overflow_list_flip->array[i];
++			struct hazptr_backup_slot *b;
++			unsigned long flags;
++
++			raw_spin_lock_irqsave(&list->lock, flags);
++			hlist_for_each_entry(b, &list->head, overflow_node) {
++				void *v = smp_load_acquire(&b->slot.addr);
++
++				if (is_wildcard(v)) {
++					wildcard_present = true;
++					continue;
++				}
++				if (v != addr)
++					continue;
++
++				/*
++				 * Mark this backup slot with the current
++				 * drain generation and increment the
++				 * outstanding count immediately.  The
++				 * count is maintained incrementally so
++				 * that a concurrent unchain (which
++				 * consumes the marker and decrements)
++				 * cannot be overwritten by a final
++				 * atomic_set.
++				 */
++				WRITE_ONCE(b->drain_gen,
++					   hazptr_drain.generation);
++				atomic_inc(&hazptr_drain.backup_outstanding);
++			}
++			raw_spin_unlock_irqrestore(&list->lock, flags);
++		}
++	}
++
++	/*
++	 * Defer if any in-flight acquire holds a wildcard.
++	 */
++	if (wildcard_present) {
++		/*
++		 * Clear any markers set before the wildcard was found:
++		 * they belong to an abandoned round.  The count was
++		 * already incremented for these markers; reset it
++		 * because clear_markers does not decrement.
++		 */
++		hazptr_drain_clear_markers(hazptr_drain.generation);
++		bitmap_zero(hazptr_drain.map, HAZPTR_DRAIN_BITS);
++		atomic_set(&hazptr_drain.backup_outstanding, 0);
++		return false;
++	}
++
++	WRITE_ONCE(hazptr_drain.addr, addr);
++	smp_mb(); /* addr publish before static_branch enable */
++
++	static_branch_inc(&hazptr_drain_key);
++	pr_info("hazptr: drain engaged for %p (gen %lu, outstanding %d)\n",
++		addr, hazptr_drain.generation,
++		atomic_read(&hazptr_drain.backup_outstanding));
++	return true;
++}
++
++/*
++ * Release notification: the release path calls this when it clears
++ * a slot that was holding the drain address.
++ *
++ * Context: preemption disabled (hazptr_release always runs under
++ * guard(preempt)).  cpu = this CPU; idx = slot index (0..3).
++ */
++static void hazptr_drain_notify(int cpu, int idx)
++{
++	int bit = cpu * NR_HAZPTR_PERCPU_SLOTS + idx;
++
++	if (bit >= HAZPTR_DRAIN_BITS)
++		return;
++	if (test_and_clear_bit(bit, hazptr_drain.map) &&
++	    bitmap_empty(hazptr_drain.map, HAZPTR_DRAIN_BITS))
++		swake_up_one(&hazptr_scan.wq);
++}
++
++/*
++ * Re-snapshot: remove-only re-walk.  Clear bits for slots that no
++ * longer hold the drain address; never set new bits.  Also recovers
++ * backup-slot releases that occurred during the engage walk (before
++ * the drain address was published): if a backup slot's drain_gen
++ * marker still matches the current generation but the slot no longer
++ * holds the target address, the reader has already released it;
++ * clear the marker and decrement backup_outstanding.
++ * Called periodically while draining.
++ */
++static void hazptr_drain_resnapshot(void)
++{
++	int cpu;
++	unsigned int idx;
++
++	for_each_possible_cpu(cpu) {
++		struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
++
++		for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
++			int bit = cpu * NR_HAZPTR_PERCPU_SLOTS + idx;
++			struct hazptr_slot_item *item = &percpu_slots->items[idx];
++
++			if (test_bit(bit, hazptr_drain.map) &&
++			    smp_load_acquire(&item->slot.addr) != hazptr_drain.addr)
++				clear_bit(bit, hazptr_drain.map);
++		}
++		for (int i = 0; i < 2; i++) {
++			struct hazptr_overflow_list *list =
++				&per_cpu_ptr(&percpu_overflow_list_flip, cpu)->array[i];
++			struct hazptr_backup_slot *b;
++			unsigned long flags;
++
++			raw_spin_lock_irqsave(&list->lock, flags);
++			hlist_for_each_entry(b, &list->head, overflow_node) {
++				if (READ_ONCE(b->drain_gen) !=
++				    hazptr_drain.generation)
++					continue;
++				/*
++				 * Still holds the drain address: the reader
++				 * has not released yet, so the marker is
++				 * legitimately active.  Skip.
++				 */
++				if (smp_load_acquire(&b->slot.addr) ==
++				    hazptr_drain.addr)
++					continue;
++				/*
++				 * The slot no longer holds the address:
++				 * the reader released during the engage
++				 * walk, before the drain address was
++				 * published.  The release hook could not
++				 * have seen the address, so recover here.
++				 * Atomically claim the marker so that the
++				 * release hook and this recovery path
++				 * cannot both decrement for the same slot.
++				 */
++				if (cmpxchg(&b->drain_gen,
++					    hazptr_drain.generation, 0) ==
++				    hazptr_drain.generation)
++					atomic_dec(&hazptr_drain.backup_outstanding);
++			}
++			raw_spin_unlock_irqrestore(&list->lock, flags);
++		}
++	}
++}
++
++
++/*
++ * Disengage: clear the address, disable the release hook, and
++ * clear any backup-slot markers still marked for this generation.
++ */
++static void hazptr_drain_disengage(const char *reason)
++{
++	unsigned long gen = hazptr_drain.generation;
++
++	WRITE_ONCE(hazptr_drain.addr, NULL);
++	smp_mb(); /* addr-NULL visible before static_branch off */
++	static_branch_dec(&hazptr_drain_key);
++	pr_info("hazptr: drain disengaged (%s, gen %lu, outstanding %d)\n",
++		reason, gen, atomic_read(&hazptr_drain.backup_outstanding));
++	/*
++	 * Clear markers for the abandoned generation.  The static key
++	 * is off, so no new release hook can enter; an in-flight hook
++	 * that already passed the addr check may still consume a
++	 * marker and decrement backup_outstanding, leaving the count
++	 * stale.  The count is only meaningful within a generation's
++	 * lifetime and is reset on the next engage, so no adjustment
++	 * is needed here.
++	 */
++	hazptr_drain_clear_markers(gen);
++}
++
++/*
++ * hazptr_drain_release - release-path hook under static_branch.
++ *
++ * Called from hazptr_release() *after* smp_store_release(&slot->addr, NULL)
++ * has committed.  For per-CPU slots, clears the bitmap bit.  For
++ * backup (overflow-list) slots, cooperates via the slot's drain_gen
++ * marker: the engage set it, and here we clear it and decrement
++ * backup_outstanding.
++ *
++ * The slot type is identified via hazptr_slot_is_backup(ctx, slot).
++ */
++void hazptr_drain_release(void *addr, struct hazptr_slot *slot,
++			   struct hazptr_ctx *ctx)
++{
++	struct hazptr_percpu_slots *base;
++	struct hazptr_slot_item *item;
++	int cpu;
++
++	if (smp_load_acquire(&hazptr_drain.addr) != addr)
++		return;
++
++	cpu = smp_processor_id();
++
++	/* Backup slot: cooperate via drain_gen marker. */
++	if (hazptr_slot_is_backup(ctx, slot)) {
++		/*
++		 * Atomically claim the marker: only one of the release
++		 * hook or the resnapshot recovery path may consume it,
++		 * so only the cmpxchg() winner decrements.
++		 */
++		if (cmpxchg(&ctx->backup_slot.drain_gen,
++			    hazptr_drain.generation, 0) ==
++		    hazptr_drain.generation)
++			atomic_dec(&hazptr_drain.backup_outstanding);
++		return;
++	}
++
++	/*
++	 * Per-CPU slot: derive the bit index from the slot's position.
++	 * Safe because hazptr_release() runs under guard(preempt) and
++	 * the per-CPU slot was acquired on the same CPU, so the slot
++	 * item is in this CPU's items[] array.
++	 */
++	base = per_cpu_ptr(&hazptr_percpu_slots, cpu);
++	item = container_of(slot, struct hazptr_slot_item, slot);
++	if (item >= base->items &&
++	    item < base->items + NR_HAZPTR_PERCPU_SLOTS)
++		hazptr_drain_notify(cpu, item - base->items);
++}
++EXPORT_SYMBOL_GPL(hazptr_drain_release);
++
++#endif /* CONFIG_HAZPTR_DRAIN_ASSIST */
+ 
+ /*
+  * Queue @addr for the shared scan.  The waiter lives on the
+@@ -438,6 +784,9 @@ static void hazptr_synchronize_queued(void *addr, unsigned long caller)
+ 	waiter.pid = task_pid_nr(current);
+ 	waiter.caller = caller;
+ #endif
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	waiter.drain_cycles = 0;
++#endif
+ 
+ 	/* Enqueue and wake the scan kthread. */
+ 	mutex_lock(&hazptr_scan.lock);
+@@ -509,6 +858,90 @@ static void hazptr_scan_do_cycle(void)
+ 	list_for_each_entry_safe(w, n, &hazptr_scan.scanning, node)
+ 		hazptr_waiter_stall_check(w);
+ #endif
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	/*
++	 * Drain-assist: for still-blocked waiters, advance the cycle
++	 * counter and engage or manage a sticky-address drain.
++	 *
++	 * When a waiter has been blocked for 100+ scan cycles, the
++	 * kthread snapshots which slots hold the address (engage)
++	 * and tracks their release via a per-slot bitmap.
++	 *
++	 * When all tracked holders have released (the per-CPU bitmap
++	 * is empty and no backup slots remain marked for the current
++	 * generation), disengage the drain.  The next
++	 * scan cycle's Bloom walk then verifies the address is
++	 * truly absent before completing the waiter, avoiding a race
++	 * with post-engage readers.
++	 */
++	list_for_each_entry_safe(w, n, &hazptr_scan.scanning, node) {
++		w->drain_cycles++;
++
++		/* Engage when a waiter has been stuck long enough. */
++		if (!hazptr_drain.addr && w->drain_cycles > 100) {
++			hazptr_drain_engage(w->addr);
++			if (hazptr_drain.addr == w->addr)
++				atomic_inc(&hazptr_drain_count);
++		}
++
++		/* If draining for this address, check progress. */
++		if (hazptr_drain.addr == w->addr) {
++			/* Periodic remove-only re-snapshot. */
++			if (!(w->drain_cycles & 63))
++				hazptr_drain_resnapshot();
++
++			{
++				/*
++				 * All tracked holders have released.
++				 * Disengage and let the next cycle's
++				 * Bloom walk verify the address is
++				 * truly absent before completing the
++				 * waiter.
++				 */
++				if (bitmap_empty(hazptr_drain.map,
++						 HAZPTR_DRAIN_BITS) &&
++				    !atomic_read(&hazptr_drain.backup_outstanding)) {
++					hazptr_drain_disengage("complete");
++					hazptr_drain.cycle_count = 0;
++				}
++			}
++
++			/*
++			 * Fairness: cap consecutive drain cycles for a
++			 * single address.  On expiry, disengage and reset
++			 * this waiter's re-engage counter so the next
++			 * stalled waiter (if any) gets the next turn
++			 * instead of the same address immediately
++			 * re-engaging.
++			 */
++			if (++hazptr_drain.cycle_count >
++			    HAZPTR_DRAIN_MAX_CYCLES) {
++				hazptr_drain_disengage("fairness-cap");
++				hazptr_drain.cycle_count = 0;
++				w->drain_cycles = 0;
++			}
++			break;	/* one drain target at a time */
++		}
++	}
++
++	/*
++	 * Disengage orphaned drain: if the drain address no longer
++	 * has a matching waiter in ->scanning (the Bloom path may
++	 * have completed it this cycle), clean up.
++	 */
++	if (hazptr_drain.addr) {
++		bool orphaned = true;
++
++		list_for_each_entry(w, &hazptr_scan.scanning, node) {
++			if (w->addr == hazptr_drain.addr) {
++				orphaned = false;
++				break;
++			}
++		}
++		if (orphaned)
++			hazptr_drain_disengage("orphaned");
++	}
++#endif
+ }
+ 
+ 
+@@ -684,7 +1117,6 @@ static void hazptr_waiter_stall_check(struct hazptr_waiter *w)
+ 	unsigned long now = jiffies;
+ 	unsigned long timeout = msecs_to_jiffies(CONFIG_HAZPTR_STALL_TIMEOUT);
+ 	unsigned long deadline;
+-
+ 	w->cycles++;
+ 	deadline = w->reports ? w->last_report + 2 * timeout
+ 			      : w->enqueue_jiffies + timeout;
+@@ -799,6 +1231,30 @@ void hazptr_unchain_backup_slot(struct hazptr_ctx *ctx)
+ 	struct hazptr_overflow_list *overflow_list = ctx->backup_slot.overflow_list;
+ 
+ 	guard(raw_spinlock_irqsave)(&overflow_list->lock);
++#ifdef CONFIG_HAZPTR_DRAIN_ASSIST
++	unsigned long gen;
++
++	/*
++	 * Consume any pending drain marker under the list lock,
++	 * before removing the slot from the overflow list.  The
++	 * engage sets markers while holding this same lock, so
++	 * checking under the lock guarantees that if the engage
++	 * marks this slot, we see the marker before the slot is
++	 * unchained.  Without the lock, the unchain could check
++	 * drain_gen before the engage sets it, then block on the
++	 * lock while the engage sets the marker and increments
++	 * the count, and finally remove the slot without ever
++	 * consuming the orphaned marker.
++	 *
++	 * The cmpxchg ensures only one of the release hook, the
++	 * resnapshot, or this path decrements backup_outstanding.
++	 */
++	gen = READ_ONCE(ctx->backup_slot.drain_gen);
++	if (gen) {
++		if (cmpxchg(&ctx->backup_slot.drain_gen, gen, 0) == gen)
++			atomic_dec(&hazptr_drain.backup_outstanding);
++	}
++#endif
+ 	overflow_list->gen++;
+ 	hlist_del(&ctx->backup_slot.overflow_node);
+ }
+@@ -825,12 +1281,22 @@ static ssize_t hazptr_stall_count_show(struct kobject *kobj,
+ {
+ 	return sysfs_emit(page, "%d\n", atomic_read(&hazptr_stall_count));
+ }
++static ssize_t hazptr_drain_count_show(struct kobject *kobj,
++					struct kobj_attribute *attr,
++					char *page)
++{
++	return sysfs_emit(page, "%d\n", atomic_read(&hazptr_drain_count));
++}
++
++static struct kobj_attribute hazptr_drain_count_attr =
++	__ATTR_RO(hazptr_drain_count);
+ 
+ static struct kobj_attribute hazptr_stall_count_attr =
+ 	__ATTR_RO(hazptr_stall_count);
+ 
+ static struct attribute *hazptr_sysfs_attrs[] = {
+ 	&hazptr_stall_count_attr.attr,
++	&hazptr_drain_count_attr.attr,
+ 	NULL,
+ };
+ 
+diff --git a/kernel/rcu/Kconfig.debug b/kernel/rcu/Kconfig.debug
+index b64ae06f3298..b500e96ea1c1 100644
+--- a/kernel/rcu/Kconfig.debug
++++ b/kernel/rcu/Kconfig.debug
+@@ -291,4 +291,16 @@ config HAZPTR_STALL_TIMEOUT
+ 	help
+ 	  Waiter stall timeout in milliseconds, defaulting to RCU's 21s.
+ 
++config HAZPTR_DRAIN_ASSIST
++	bool "Hazard-pointer sticky-address drain assist"
++	default y
++	help
++	  Internal forward-progress mechanism for hazptr_synchronize()
++	  waiters whose target address is continuously re-published
++	  by new readers.  When a waiter has been blocked for many
++	  scan cycles, the scan kthread snapshots which slots hold
++	  the address and tracks their release via per-slot tracking.
++
++	  If unsure, say Y.
++
+ endmenu # "RCU Debugging"
+diff --git a/tools/testing/selftests/rcutorture/bin/hazptr.sh b/tools/testing/selftests/rcutorture/bin/hazptr.sh
+index 4e30ea51d9fc..d12735ddfefc 100755
+--- a/tools/testing/selftests/rcutorture/bin/hazptr.sh
++++ b/tools/testing/selftests/rcutorture/bin/hazptr.sh
+@@ -229,8 +229,19 @@ then
+ 		if ! grep -q "hazptr: waiter stall" "$console"
+ 		then
+ 			echo "HOTADDR note: no stall splats observed (record as not-reproduced, investigate interleaving)" > "$resdir/kvm.sh.note"
++		elif ! grep -q "drain engaged" "$console"
++		then
++			echo "HOTADDR note: drain-assist did not engage (Bloom completion may have handled it)" > "$resdir/kvm.sh.note"
++		elif ! grep -q "drain disengaged (complete" "$console"
++		then
++			if grep -q "drain disengaged (fairness-cap" "$console"
++			then
++				echo "HOTADDR: drain hit fairness cap without completing" > "$resdir/kvm.sh.err"
++			else
++				echo "HOTADDR note: drain engaged but did not disengage normally" > "$resdir/kvm.sh.note"
++			fi
+ 		else
+-			echo "HOTADDR: starvation reproduced, stall detector confirmed, drain verified"
++			echo "HOTADDR: starvation reproduced, stall detector confirmed, drain engaged"
+ 		fi
+ 	else
+ 		nerrs=$((nerrs+1))
+@@ -239,10 +250,11 @@ else
+ 	nerrs=$((nerrs+1))
+ fi
+ 
+-# LONGHOLD: legitimate long-lived references.  The stall detector must
+-# fire (observation), the holder must release, and the waiter must drain
+-# normally afterwards: diagnostics without interruption, module verdict
+-# stays SUCCESS.
++# LONGHOLD: legitimate long-lived references.  The holder must release,
++# and the waiter must drain normally afterwards.  The stall detector
++# may or may not fire (the 8-second hold may not exceed the 21-second
++# timeout depending on when the waiter started relative to the hold);
++# this is observation data only, not a correctness requirement.
+ 
+ echo "--- hazptr LONGHOLD (legitimate long-held reference) ---"
+ if run_kvm longhold LONGHOLD "$cpus" "" "60s"
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
