@@ -1,79 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756448;
-	b=5kuLQWq6IupfMaTqlFASP5ABmusHgjdcRng/CqqeShpXDQGSNnjVwJgbLDXSTu2UQLsN
-	 G3y0fAnc2hF+xgjWQWIBBvaFY+LL+4VBA0zVSVhaEpwryRy+63l5a3e4PyBa6UfwHhsLK
-	 Wa8M19napsycKLaa8d98RCfrVSXDQFpB4x19ZaAeq5JlQL7ndOIrqAlIYZ9njn3nuZeD+
-	 jXVBMgV5eHsZUdJ5RLVCZ2OjtjNVS1nsAngzIcha4uecOUZV48ADj5NLiH0+GLdDw5EB7
-	 77LG6YLBiTvG0E6W44TPQiAdo/OWslQgUYLCgNcK96p5pET12b9CimZqIsI1WHg7zlA==
+	t=1793756441;
+	b=b7MKMkjqksaD3sugahq5QQyMzVTZrno1WJFpv8g9cyvD5DMjo8p9/yrfxS8ms3/iBRAU
+	 I1pDVoUSAYZ/dJra56TKzb/gCHxBQZq2fD1Hlw4x7mOCiGhf56hOZ+xNYw0bNvUYEShwH
+	 H2QmgPhLvYWA81cZ8+Xd33XjS1FTOvdRkCxodimCf49oKgSnszMBACzIKjPhk761Ms4oy
+	 czmQkwdjUIOCUrZ+ZWa04szO0kjCiec/xClxM0wfkz3EzNa7hYX67OPwywI3+Vtv+7mOe
+	 blfnFfmvfF6Gi27ROMCrKfYaZ5ukxKOhOcYM6wKd2rQDb0pcClw1juV5gHjK/biGTKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756448;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756441;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/oDEBQobTAkoISRHOH1df/wI2pQ+Hp8/NwQi9C6/tD4=;
-	b=dgsU2WRz85LLKT/BBG0paL6aJRvkvcK4bAAmX1ywHWWCORFMkB9sJOOdjljooajsfUfh
-	 XRmvBcZAJsUUXq58zw7GQN6oS5ugtrSDZugjwDCxfQ/1ShVxyWpd6ytvmI0/H8N+2TSbG
-	 pRpDtWhRmHStinOTezFdZqeUBpxCygQGEdH8SCGXKAg4EBOxMzHahl+XXOAnXKg0yprKm
-	 gXjzvtq69zc2nn/o8OMiqNHzf9PZntiyJv+h602Arz8rvLdrCgTFSIAjARa2krWY9MNgt
-	 cAAc436BrAGSwPlV16H4hHSALZ8OpsW4I1Pkp/I8ak55YTnH+EkXQkq0r9C4WPbhu5w==
+	bh=ljoz0IZXV/fb7lLK+CyHT4EslT/P2ixwKVNk6JMrWWk=;
+	b=NYUNcGYAnJMailiDdKuNiCV98TsOb1zKdbjF4hF2AAlMZcif3Hmtzr2fm4RklbThRggM
+	 vdwg1OpKfzlmbjQFodl1nlRAjSdl9tUPOPnDkbzXp0ANH3VcCvtlfiApYdA58ky3ARLay
+	 OdgRSCzRjrbEal+ztJs5FBufhGVaaBf3WQnyTVOvhy34yoPip+cnwtDciyDGxXbZudb0T
+	 wcWrTuGM3qMyPcitswSpbG/EkgA/wVuYzjsrH9IIUOIGh1ZHgrVstNyjuE5sOU1yrEf6b
+	 XKnX2KFJ2wkfFe2zGYh546SwEJgFgnATi6ZyGkEW7GEVm0/bk5fbK5w+K70epXEaPxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PJUPfsYg;
-	arc=none smtp.remote-ip=95.215.58.101
-Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGSLhNHq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3E3606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B3E3606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4929B606A32F;
+	Wed,  4 Nov 2026 01:40:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PJUPfsYg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1ULaphOyEdmvDW/JCOz8UrbH3C4DwbdlGpdfuKKRgqs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793756445; v=1; x=1794361245;
- b=PJUPfsYgY/Heh6k9HWKw2bcCWUzWFct6eCBTGhp7KuLsf2IuTa3Jid16bgLsDPWgCVA4wg8m
- Fmd/v7w+ccNBaPOCb7RiA0QUPf+mvcZ/LLRKHFKStMY3EPYKGf78hZrUd+rK7gVyOpA1Eahi3jo
- YV91P2ENg3ursF66OU8PW7W8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4e7571f75edbc355;
-	Wed, 04 Nov 2026 01:40:19 +0000
-X-Mizu-Trace-ID: 4e7571f75edbc355
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	kernel@lists.opengamingcollective.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	"Jonathan LoBue" <jlobue10@gmail.com>,
-	"Khamunetri Clark" <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	"Joshua Leivenzon" <hacker1024@users.sourceforge.net>,
-	"Nathan Chancellor" <nathan@kernel.org>,
-	=?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>,
-	"Ivan Levchenko" <me@livan.pro>,
-	"Corentin Chary" <corentin.chary@gmail.com>,
-	"Hans de Goede" <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v13 03/18] HID: asus: add gamepad configuration
-Date: Wed,  4 Nov 2026 01:39:20 +0000
-Message-ID: <20261104013935.512713-4-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104013935.512713-1-denis.benato@linux.dev>
-References: <20261104013935.512713-1-denis.benato@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGSLhNHq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EECA01F000C1;
+	Wed,  4 Nov 2026 01:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793756440;
+	bh=ljoz0IZXV/fb7lLK+CyHT4EslT/P2ixwKVNk6JMrWWk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gGSLhNHqVBzKwaf4HJL7lM2pZ/TPYOlAh7Y0eZkKQohx/dWkAsljuX3akBhY1jFQC
+	 Wl4hIyU2ToFGupDpg0XySxy+sBlNlAL3Tr8+ZVuB74X5TL6tjDp/Cm4dIQ/Fql4xmQ
+	 /lM9+uO5u7/yxYyX2FHMmL+XAS3FkCpkbsyA3rgHHHEzUP8LM+FzwQw03pjrgUlPnH
+	 zu2fjoRQtyPknxQY9pGdoj97RIayJkWeM04RRlBDpGFwzoo1cYTbcTMXfsc6V+F75D
+	 0n/rnU4p66QSXtFzR5RWxndilVNyB81DVIWabd8ohgl0/hr8qxj4Eq2lnDsl0ZvcMx
+	 cqwT/MJ2c7F+g==
+Date: Wed, 4 Nov 2026 01:40:31 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Fabrice Gasnier
+ <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, Andy Shevchenko
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
+ to dependency
+Message-ID: <20261104014031.2aed1419@jic23-hlaptop>
+In-Reply-To: <aup9LKewaLr2B5cR@google.com>
+References: <20261103221717.3840215-1-briannorris@chromium.org>
+	<20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+	<20261103231719.486a18de@jic23-hlaptop>
+	<aup9LKewaLr2B5cR@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,413 +68,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add the base configuration structures for the gamepad configuration,
-detect capabilities and initialize the device in a known state.
+On Tue, 3 Nov 2026 16:32:44 -0800
+Brian Norris <briannorris@chromium.org> wrote:
 
-The configuration interface exposes xbox_controller. Reading it
-reports whether the handheld is presenting an Xbox gamepad, and
-writing it switches that mode.
+> Hi Jonathan,
+> 
+> On Tue, Nov 03, 2026 at 11:17:19PM +0000, Jonathan Cameron wrote:
+> > On Tue,  3 Nov 2026 14:14:41 -0800
+> > Brian Norris <briannorris@chromium.org> wrote:
+> >   
+> > > When a child device suspends, it does not update the last_busy timestamp
+> > > for its parent. If that parent configured autosuspend and didn't
+> > > otherwise maintain its last_busy timestamp, it may now be immediately
+> > > eligible to suspend. This is probably not expected -- the parent should
+> > > wait for its autosuspend delay before suspending.  
+> > 
+> > So reading this again - I wonder if this text is describing the
+> > expected behaviour.  
+> 
+> Agreed, this might give the wrong impression, depending on the
+> assumptions the reader makes about autosuspend delay. (I think I had a
+> particular problem scenario in mind, but didn't translate that properly
+> here.)
+> 
+> > If the child is also using autosupend then, in extreme case, that time
+> > might be longer than the autosuspend time of the parent.
+> > If so it seems odd the parent still waits.  
+> 
+> Right, that seems wrong, and indeed that's not what this patch does.
+> 
+> > So most expected to me
+> > would be if the parent were to suspend it's autosuspend time after
+> > the parent or child was last used for something that indicate a
+> > desire not to suspend (that shouldn't include actions the child
+> > did whilst suspending).  
+> 
+> (Not sure I'm parsing this sentence quite right, but...)
+> 
+> The point is that last_busy should propagate (rather than, say, the
+> expiration time). So each device still gets its own-delay-based
+> autosuspend timer expiration. That may mean the parent waits longer than
+> the child, but it may not, if the child's delay was longer than the
+> parent's.
+> 
+> > Maybe there isn't a sensible way to deal with this and what you have here
+> > is the best we can do.  Note that this is just commenting on this
+> > statement in the commit description.  From what follows I think
+> > this is just a commit description thing rather than functional.  
+> 
+> If I'm understanding what you're saying correctly: maybe it would be an
+> improvement here to say:
+> 
+>   If that parent configured an autosuspend delay longer than its child's
+>   and didn't otherwise maintain its last_busy timestamp, it may now be
+>   immediately eligible to suspend.
+> 
+> I think that would more accurately describe the target problem, even if
+> it doesn't cover all cases (such as when the parent delay is shorter).
 
-hid_asus_ally_reset_resume() now waits for the gamepad MCU to report
-ready and returns that error. A reset resume can fail with -ENODEV
-where it previously always succeeded.
+Agreed. That covers the main case nicely.
 
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Co-developed-by: Luke Jones <luke@ljones.dev>
-Signed-off-by: Luke Jones <luke@ljones.dev>
-Signed-off-by: Jonathan LoBue <jlobue10@gmail.com>
----
- drivers/hid/hid-asus.c | 312 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 311 insertions(+), 1 deletion(-)
+> 
+> > > The effect of this behavior is that a parent device may suspend sooner
+> > > than its autosuspend delay, simply because its usage was accounted by
+> > > its children, and not by direct references to the parent device.  
+> > 
+> > Sooner is indeed bad.
+> >   
+> > > 
+> > > This was noticed in several cases, and some have implemented
+> > > workarounds, such as in commit c537d3457542 ("iio: adc: stm32-adc: fix
+> > > runtime autosuspend delay when slow polling"). At the same time, Ulf
+> > > suggested these problems "should be solved in the runtime PM core" [1].
+> > > 
+> > > Instead of working around the problem in drivers, we propagate last_busy
+> > > timestamps from a dependent device to its dependencies any time it may
+> > > allow a dependency to suspend -- i.e., when releasing a refcount for its
+> > > parent or suppliers. We take care to only propagate the timestamp if it
+> > > is larger than the existing busy timestamp.  
+> > 
+> > So this sounds fine but I don't think aligns with that first paragraph.
+> >   
+> > > 
+> > > Note that this works best if the dependent device is using autosuspend
+> > > (and therefore updates its last_busy timestamps appropriately), but even
+> > > for a non-autosuspend child, this is still somewhat useful --
+> > > non-autosuspend devices still automatically update their last_busy every
+> > > time they resume.  
+> > 
+> > Can we set the last busy on the suspend of child devices that aren't
+> > suspending as a result of autosuspend timeout but for other reasons?
+> > (may be some fiddly corners!)  
+> 
+> Do you have concrete use cases in mind, or do you bring this up simply
+> because of my note?
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 2a3e8c399f0a..8277d7108bb9 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -28,6 +28,7 @@
- #include <linux/err.h>
- #include <linux/hid.h>
- #include <linux/jiffies.h>
-+#include <linux/kstrtox.h>
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-@@ -36,6 +37,7 @@
- #include <linux/usb.h> /* For to_usb_interface for T100 touchpad intf check */
- #include <linux/power_supply.h>
- #include <linux/stddef.h>
-+#include <linux/sysfs.h>
- #include <linux/leds.h>
- #include <linux/types.h>
- #include <linux/unaligned.h>
-@@ -77,6 +79,11 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
- 
- #define HID_ALLY_READY_MAX_TRIES 6
- 
-+#define ASUS_ALLY_XBOX_CONTROLLER_ENABLE 0x01
-+#define ASUS_ALLY_XBOX_CONTROLLER_DISABLE 0x00
-+
-+#define ASUS_ALLY_CAPABILITY_SUPPORTED 0x01
-+
- #define HID_INPUT_KEY_DELETE 0x4c
- #define HID_INPUT_KEY_F20 0x6f
- #define HID_INPUT_LCTRL_MODIFIER 0x01
-@@ -203,6 +210,13 @@ struct ally_intf {
- 	u8 cad_state;
- 	unsigned long cad_last_event_time;
- 	struct delayed_work resume_work;
-+	/*
-+	 * Sysfs groups hang off this interface's hdev. Numbers live in
-+	 * ally_prefs so a re-probe can restore them; ownership of the
-+	 * attributes is per device.
-+	 */
-+	bool sysfs_live;
-+	bool cal_sysfs_live;
- };
- 
- struct asus_drvdata {
-@@ -762,6 +776,281 @@ static int ally_get_endpoint_address(struct hid_device *hdev)
- 	return ep->desc.bEndpointAddress;
- }
- 
-+/*
-+ * Settings that must survive the controller powering off and coming back.
-+ * No device or input pointers live here: every transfer uses the interface
-+ * that is bound right now.
-+ *
-+ * One set for the machine is by design. The Ally controller is
-+ * part of the PC, so two ROG Ally HID devices are not bound at
-+ * once. The only way to see a second one is to emulate it with
-+ * uhid, but that would get rejected by the driver meaning that
-+ * this struct can be used on a per-machine basis.
-+ */
-+static struct ally_prefs {
-+	/* Guards every field below, including across the feature report. */
-+	struct mutex lock;
-+
-+	bool initialized;
-+
-+	bool is_ally_x;
-+	bool xbox_controller_support;
-+	bool user_cal_support;
-+	bool turbo_support;
-+	bool resp_curve_support;
-+	bool dir_to_btn_support;
-+	bool gyro_support;
-+	bool anti_deadzone_support;
-+
-+	bool xbox_controller_enabled;
-+	u8 gamepad_mode;
-+} ally_prefs = {
-+	.lock = __MUTEX_INITIALIZER(ally_prefs.lock),
-+};
-+
-+/**
-+ * ally_check_capability() - Check if a specific capability is supported
-+ * @hdev: HID device to query
-+ * @check_cmd: capability command code
-+ *
-+ * Return: 1 if the capability is supported, 0 if not, negative on error.
-+ */
-+static int ally_check_capability(struct hid_device *hdev,
-+				  enum ally_command_codes check_cmd)
-+{
-+	const u8 payload[] = {};
-+	size_t buf_len;
-+	int ret;
-+
-+	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, check_cmd, payload,
-+					       sizeof(payload), &buf_len);
-+
-+	if (!buf) {
-+		hid_err(hdev, "Failed to allocate buffer for capability check.\n");
-+		return -ENOMEM;
-+	}
-+
-+	if (buf_len < 5) {
-+		hid_err(hdev, "Capability check response too short.\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = ally_gamepad_send_receive_packet(hdev, buf, buf_len);
-+	if (ret < 0) {
-+		hid_err(hdev, "Failed to check capability 0x%02x: %d\n", check_cmd, ret);
-+		return ret;
-+	}
-+
-+	return buf[1] == HID_ALLY_FEATURE_CODE_PAGE && buf[2] == check_cmd &&
-+	       buf[4] == ASUS_ALLY_CAPABILITY_SUPPORTED;
-+}
-+
-+static int ally_detect_capabilities(struct hid_device *hdev)
-+{
-+	int ret;
-+
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	ally_prefs.is_ally_x = (hdev->product == USB_DEVICE_ID_ASUSTEK_ROG_NKEY_ALLY_X);
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_XBOX_SUPPORT);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.xbox_controller_support = ret;
-+
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_USER_CAL_SUPPORT);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.user_cal_support = ret;
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_TURBO_SUPPORT);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.turbo_support = ret;
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_RESP_CURVE_SUPPORT);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.resp_curve_support = ret;
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_DIR_TO_BTN_SUPPORT);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.dir_to_btn_support = ret;
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_GYRO_TO_JOYSTICK);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.gyro_support = ret;
-+
-+	ret = ally_check_capability(hdev, CMD_CHECK_ANTI_DEADZONE);
-+	if (ret < 0)
-+		goto ally_detect_capabilities_err;
-+	ally_prefs.anti_deadzone_support = ret;
-+
-+	return 0;
-+ally_detect_capabilities_err:
-+	hid_err(hdev, "Failed to detect capabilities: %d\n", ret);
-+	return ret;
-+}
-+
-+/**
-+ * ally_set_xbox_controller() - Enable or disable Xbox controller mode
-+ * @hdev: HID device on which the command packet is sent
-+ * @enabled: true to enable Xbox controller mode, false to disable it
-+ *
-+ * Builds a %CMD_SET_XBOX_CONTROLLER packet and sends it to the device. On
-+ * success, the new state is stored in ally_prefs.xbox_controller_enabled.
-+ *
-+ * Context: Caller must hold ally_prefs.lock.
-+ *
-+ * Return: 0 on success, -%EOPNOTSUPP if Xbox controller mode is not
-+ * supported, -%ENOMEM if the command buffer allocation fails, or a negative
-+ * errno from ally_gamepad_send_packet() if sending the packet fails.
-+ */
-+static int ally_set_xbox_controller(struct hid_device *hdev, bool enabled)
-+{
-+	const u8 payload[] = { enabled ?
-+				ASUS_ALLY_XBOX_CONTROLLER_ENABLE :
-+				ASUS_ALLY_XBOX_CONTROLLER_DISABLE };
-+	size_t buf_len;
-+	int ret;
-+
-+	if (!ally_prefs.xbox_controller_support)
-+		return -EOPNOTSUPP;
-+
-+	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_XBOX_CONTROLLER,
-+					       payload, sizeof(payload),
-+					       &buf_len);
-+
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	ret = ally_gamepad_send_packet(hdev, buf, buf_len);
-+	if (ret < 0) {
-+		hid_err(hdev, "Failed to set Xbox controller mode: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ally_prefs.xbox_controller_enabled = enabled;
-+	return 0;
-+}
-+
-+static ssize_t xbox_controller_show(struct device *dev,
-+				    struct device_attribute *attr, char *buf)
-+{
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	if (!ally_prefs.xbox_controller_support)
-+		return -EOPNOTSUPP;
-+
-+	return sysfs_emit(buf, "%d\n", ally_prefs.xbox_controller_enabled ? 1 : 0);
-+}
-+
-+static ssize_t xbox_controller_store(struct device *dev,
-+				     struct device_attribute *attr,
-+				     const char *buf, size_t count)
-+{
-+	struct hid_device *hdev = to_hid_device(dev);
-+	bool enabled;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &enabled);
-+	if (ret)
-+		return ret;
-+
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	if (!ally_prefs.xbox_controller_support)
-+		return -EOPNOTSUPP;
-+
-+	ret = ally_set_xbox_controller(hdev, enabled);
-+	if (ret < 0)
-+		return ret;
-+
-+	sysfs_notify(&dev->kobj, NULL, "xbox_controller");
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR_RW(xbox_controller);
-+
-+static struct attribute *ally_config_attrs[] = {
-+	&dev_attr_xbox_controller.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group ally_attr_groups[] = {
-+	{
-+		.attrs = ally_config_attrs,
-+	},
-+};
-+
-+static int ally_prefs_setup(struct hid_device *hdev, struct ally_intf *intf)
-+{
-+	int ret, i;
-+
-+	ret = ally_detect_capabilities(hdev);
-+	if (ret)
-+		return ret;
-+
-+	scoped_guard(mutex, &ally_prefs.lock) {
-+		if (!ally_prefs.initialized) {
-+			ally_prefs.gamepad_mode = 0x01;
-+			ally_prefs.xbox_controller_enabled = true;
-+			ally_prefs.initialized = true;
-+		}
-+
-+		if (intf->sysfs_live)
-+			return 0;
-+	}
-+
-+	/*
-+	 * Create and remove sysfs groups without ally_prefs.lock. Attribute
-+	 * methods take that lock while holding a kernfs active reference;
-+	 * removing a group drains those references, so locking here would
-+	 * invert the order and deadlock.
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(ally_attr_groups); i++) {
-+		ret = sysfs_create_group(&hdev->dev.kobj, &ally_attr_groups[i]);
-+		if (ret) {
-+			hid_err(hdev, "Failed to create Ally sysfs group '%s': %d\n",
-+				ally_attr_groups[i].name ?: "", ret);
-+			while (i--)
-+				sysfs_remove_group(&hdev->dev.kobj, &ally_attr_groups[i]);
-+			return ret;
-+		}
-+	}
-+
-+	scoped_guard(mutex, &ally_prefs.lock) {
-+		intf->sysfs_live = true;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ally_sysfs_remove(struct hid_device *hdev, struct ally_intf *intf)
-+{
-+	int i;
-+
-+	if (!intf)
-+		return;
-+
-+	if (ally_get_endpoint_address(hdev) != HID_ALLY_INTF_CFG_IN)
-+		return;
-+
-+	scoped_guard(mutex, &ally_prefs.lock) {
-+		if (!intf->sysfs_live)
-+			return;
-+
-+		intf->sysfs_live = false;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(ally_attr_groups); i++)
-+		sysfs_remove_group(&hdev->dev.kobj, &ally_attr_groups[i]);
-+}
-+
- struct ally_x_input_report {
- 	__le16 x, y;
- 	__le16 rx, ry;
-@@ -944,6 +1233,14 @@ static int hid_asus_ally_init(struct hid_device *hdev)
- 	if (ret < 0)
- 		hid_err(hdev, "Ally failed to init force-feedback off: %d\n", ret);
- 
-+	guard(mutex)(&ally_prefs.lock);
-+
-+	if (ally_prefs.initialized && ally_prefs.xbox_controller_support) {
-+		ret = ally_set_xbox_controller(hdev, ally_prefs.xbox_controller_enabled);
-+		if (ret < 0)
-+			hid_warn(hdev, "Failed to apply Xbox controller mode: %d\n", ret);
-+	}
-+
- 	return 0;
- }
- 
-@@ -1038,6 +1335,12 @@ static struct ally_intf *hid_asus_ally_probe(struct hid_device *hdev)
- 			return ERR_PTR(ret);
- 		}
- 
-+		ret = ally_prefs_setup(hdev, intf);
-+		if (ret < 0) {
-+			hid_err(hdev, "Failed to create Ally cfg: %d\n", ret);
-+			return ERR_PTR(ret);
-+		}
-+
- 		hid_asus_ally_init(hdev);
- 		break;
- 	case HID_ALLY_X_INTF_IN:
-@@ -1058,7 +1361,7 @@ static struct ally_intf *hid_asus_ally_probe(struct hid_device *hdev)
- 
- static int hid_asus_ally_reset_resume(struct hid_device *hdev, struct ally_intf *intf)
- {
--	int ep;
-+	int ep, ret;
- 
- 	/*
- 	 * The extensions failed to probe and the device is operating as a
-@@ -1071,6 +1374,12 @@ static int hid_asus_ally_reset_resume(struct hid_device *hdev, struct ally_intf
- 	if (ep != HID_ALLY_INTF_CFG_IN)
- 		return 0;
- 
-+	ret = ally_gamepad_check_ready(hdev);
-+	if (ret < 0) {
-+		hid_err(hdev, "ROG Ally device is not ready: %d\n", ret);
-+		return ret;
-+	}
-+
- 	return hid_asus_ally_init(hdev);
- }
- 
-@@ -1091,6 +1400,7 @@ static struct ally_intf *hid_asus_ally_terminate(struct asus_drvdata *drvdata)
- 
- 	ally_quiesce(ally);
- 	ally_unregister_gamepad(ally);
-+	ally_sysfs_remove(drvdata->hdev, ally);
- 
- 	return ally;
- }
--- 
-2.47.3
+Just your note ;)
+> 
+> For one, I feel like for devices with power.use_autosuspend==true, it's
+> reasonable to expect drivers to use the appropriate helpers to update
+> last_busy at the appropriate times, and so any "corner cases" are from
+> misuse.
+> 
+> But if you mean non-use_autosuspend devices: I suppose it'd be possible
+> but I haven't reasoned through the implementation very far yet. It
+> almost seems like we'd need to plumb pm_runtime_mark_last_busy() into
+> *all* the put() helpers, including the non-autosuspend ones
+> (pm_runtime_put(), pm_runtime_put_sync()). I'm not quite sure if that's
+> desirable. But I could try to look a bit more, if you think there are
+> important use cases that would need this.
+If it is hard not a problem to leave it as is and call out the limitation
+as you have done.  Someone who needs it can figure it out!
+
+
+Jonathan
+
+> 
+> Brian
+> 
+> > > Link: https://lore.kernel.org/all/CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com/ [1]
+> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > ---
+> > > Cc: Ulf Hansson <ulfh@kernel.org>
+> > > 
+> > > Changes in v2:
+> > >  * Update comments to explain when/why rpm_propagate_last_busy()
+> > >    performs the update
+> > > 
+> > >  drivers/base/power/runtime.c | 23 ++++++++++++++++++++++-
+> > >  1 file changed, 22 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+> > > index 2a117d6a776f..dd306cbabcd3 100644
+> > > --- a/drivers/base/power/runtime.c
+> > > +++ b/drivers/base/power/runtime.c
+> > > @@ -318,6 +318,22 @@ static int rpm_get_suppliers(struct device *dev)
+> > >  	return 0;
+> > >  }
+> > >  
+> > > +/*
+> > > + * Propagate last_busy timestamp from one device to another, typically when a
+> > > + * device (@dev) releases a reference count on a dependency (@target) and might
+> > > + * allow it to (auto)suspend. This can, for example, prevent overactive suspend
+> > > + * when a dependency's usage is primarily driven by one of its dependents.
+> > > + */
+> > > +static void rpm_propagate_last_busy(struct device *dev, struct device *target)
+> > > +{
+> > > +	s64 busy = atomic64_read(&dev->power.last_busy);
+> > > +	s64 target_busy = atomic64_read(&target->power.last_busy);
+> > > +
+> > > +	while (target_busy < busy)
+> > > +		if (atomic64_try_cmpxchg(&target->power.last_busy, &target_busy, busy))
+> > > +			return;
+> > > +}
+> > > +
+> > >  /**
+> > >   * pm_runtime_release_supplier - Drop references to device link's supplier.
+> > >   * @link: Target device link.
+> > > @@ -348,6 +364,7 @@ static void __rpm_put_suppliers(struct device *dev, bool try_to_suspend)
+> > >  		if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
+> > >  			continue;
+> > >  
+> > > +		rpm_propagate_last_busy(dev, link->supplier);
+> > >  		pm_runtime_release_supplier(link);
+> > >  		if (try_to_suspend)
+> > >  			pm_request_idle(link->supplier);
+> > > @@ -710,6 +727,8 @@ static int rpm_suspend(struct device *dev, int rpmflags)
+> > >  
+> > >  	if (dev->parent) {
+> > >  		parent = dev->parent;
+> > > +		if (!parent->power.ignore_children)
+> > > +			rpm_propagate_last_busy(dev, parent);
+> > >  		atomic_add_unless(&parent->power.child_count, -1, 0);
+> > >  	}
+> > >  	wake_up_all(&dev->power.wait_queue);
+> > > @@ -1368,8 +1387,10 @@ int __pm_runtime_set_status(struct device *dev, unsigned int status)
+> > >  		goto out_set;
+> > >  
+> > >  	if (status == RPM_SUSPENDED) {
+> > > -		atomic_add_unless(&parent->power.child_count, -1, 0);
+> > >  		notify_parent = !parent->power.ignore_children;
+> > > +		if (notify_parent)
+> > > +			rpm_propagate_last_busy(dev, parent);
+> > > +		atomic_add_unless(&parent->power.child_count, -1, 0);
+> > >  	} else {
+> > >  		spin_lock_nested(&parent->power.lock, SINGLE_DEPTH_NESTING);
+> > >    
+> >   
+> 
 
