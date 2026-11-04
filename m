@@ -1,101 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793809570;
-	b=aTofdxPieyU60oe+Q26xgGwMPLBm1wiHDy4RTqNPakMz+8w73PLHOG8NjeZ8TykURtsL
-	 vjSHh2YkTLcuMPsvmKtHK+hcCT6t6M3/xe3pks1pMar1X6yQp0WYgokpAtvNcVjF98YHx
-	 Ue8/00pdI21Az8moLXZfbQCjKpqFYw7rRAiYUkx/oyVYqn94OZBy+DMG8TyKto/ewL+IG
-	 8CghhIF/plQgbP92YQDO7wn7/Bumz1UBTWj4Y9GiYuzD6wgvHiWIi3xrhEtOAZHxckq4t
-	 y7zphu2c6nxDB29Esa4tt41BwUUwxyB9pgGa7h7FjmpLbT8AsvPcV7uc8BsLDzIxAtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809570;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
-	b=kZRvm6cwJkj9BKPZjJTRtij68GK4gWthZg9m+XVvrZ3YiBuDhrUeiMFKoKoG0U8rO9dr
-	 ptCqvyjBQ5yKGUXQzoehBlqPP+LIHUmSo8dwIMfRZoSYZHN57FanPIYLuVYpdq9BCyxMP
-	 f+ZxLlj5Ev1NZYuMjJMAHgt5Lk2fxSm8aM4wOlbBJaGmSYbZybd2DJbdPCQVe2qkE1skk
-	 bpQ0SpVjKfAZjGHrUyNpEvSLXWFdlSeTwyJ7C7FDSeqdO1pqkIYXp/EJAip4CGqwCgfAK
-	 eLXQzd0LDSWmXrmoMG2QBfwwLFzbnKNeNyWh078EjwadEe67mxdFBJ47rAndOP0Vffg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PkQndnVj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793809607;
+	b=n4jZCqezbGvu74leBs8VrDaIPHrTUxNpmGkYBHx7HoI3Jl0K6y+V4bfSwGquQQXaLpes
+	 1hDTyNZkeBCEWLaBKvbvHFrz0jJnQCndv2u5EZITiuThI2RRdgYDPRBLKuPK+5iE7Eqhy
+	 xiCImmVX6aHfqFDhDKK6AcOPFrMzoQe/CLZXEix1c6tHd0PvrHwj0K9YJ1xNGaOQIBO5j
+	 UEXuf4bIKn1yMrDIxrJeiD40RvLkKNPT7ZNkwh7Cjrqfo0jsuP+XXm/xYQ8Qyy3V6qI0f
+	 htahVPL6vk+m8S9JHyNVE8CJNcCbzkdRNHUOq06/sLphjEsgphqhNMrjZMiye2Tagnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809607;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6rgO4gTJYE=;
+	b=473MGZUSWoYnyvrbHCaeg9PFuBpavSM2HMHtEW1l5rfU0NmsHxUQq8FX4mjd8dWNr28m
+	 /J6cPJVBpnRw84v38QRihfl7+psT36RMX/XJz5sP5mvrr81nn91xjUGq2rEUL+DhtytNx
+	 yJd1qCT25285gB6siI/XFkvBCLl8q/p2E7mB3vJOuh3lbcfr8wbMm6Gi7cPYbUaZsMqHo
+	 Vm3kg3VD9GcvexrFjfRbQECsp6+gSFxhF9Dct0LBBlPWJp7qDT5fvBt3gHU2byt8m8LBS
+	 g+aXiSyN+NwaB3FyXW319w7wV8GjbQ5Ye5vb1LaLBN/Jr77pxqYpj41U2+4730mCnDw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jua2jF2E;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="J1K/iJK8";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648B7606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648B7606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DC2606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:26:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DC2606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PkQndnVj
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-54492d8a988so355341cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:26:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793809569; cv=none;
-        d=google.com; s=arc-20260327;
-        b=laGKmGvA4gZQRTM35pY3QXjMeeJDAHERBbfpDmhFOZU1LPuAtB3OBhUikkVwuO7DQi
-         j32f3WtCKnnw5fmTxD4uQrnbkxWhAMw839oILW/jsq2gquYEJvj2Ru0BzfjYrh8cyteU
-         qSkFgrIB3Pa6PV2+dipx+0teR2cGOcoS7QWQpT33C34VcoIBs02McNFYkmW065o08X15
-         d/CgyqW5bM0h71+38NlNWAr6OdPTnXTsghpd6SQ/nnR/dY0I2l2m0t0srp28Ws8ScFrH
-         lCWnDtpsebBVkIg/l+aN50433iJH5vCHXV8XNF22GG9KBiocyjmV1JBTpJZM/EqcuUhZ
-         917w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
-        fh=yYkpt7l0qUxMNKGcpYTTh8qO5m1V+LIPpSopSHNZT+w=;
-        b=YuQ+94mwWnRDKQ7DsIZOI722Bgh288tn5yw0VmSeSxVj5pigLyWtsPTML7a1OQRGxP
-         9VsFQYsl0B4SiKypEJ6kfFaAsqVIQA1jJoJvaYEVKx0INalYqjaOj0STsfEaFLsuR9dg
-         41b32FtGTX+3P1IQ01GeDx3TmwB2kD0xTWulCq+8uJp1YfoVd0B1RVT4oZQy9WCQYh3i
-         I5uEWg4szS31lOoRQJSiC6+GFbQRdH1U0cb/KwQDlUs5LBxINrOhFHL6WzesoUJQKXfp
-         iMuUjrkSZSY4wkSvgD/cmrKgpHQN8fqB3JoAzxLU99JwmT+7IYINaTXh9FTr3VU6kRop
-         E8ZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jua2jF2E;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J1K/iJK8
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FiwfU2250937
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:26:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6r
+	gO4gTJYE=; b=jua2jF2EPSn+F1gPrl1hsEzTBJ+xWEyGaboYkY3aOnhr04zzOwp
+	dJbhFj8NWi0DNFhsQ1V8Yog9pc5Fg9QKYSDOPnYKcEXyDS22328qNIBdINIcvw51
+	IsIMrwQAe76M40qKtu+qKmi8II4rDE9Kg3rNikBDo3/xgU/YAD1UNmTi/DpdGaK1
+	dK+4VbVOSjSpUysbGLD8ANzkMLpcsh6SMGwxEDXMLfXcNitlUI5/+2hWzxqBETCD
+	mKrcyB5M/Tv35275Yx62m2f5+je68cbLYM+KXwfi0yK6ytocFapI/pTyNbmHFFlq
+	dp4uVhF+FOj4PilKDNYUfI+Y5fcBA3/N61A==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr4bn129b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:26:44 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ecdc701a2so135774085a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:26:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793809569; x=1794414369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
-        b=PkQndnVjODxfjk8gWoorlSWxkVs/Yt5AWI09ReVaivDetcOVoiHlse74NWIkMgMaeb
-         FO2aotMPrv6Lzhpa4STmuW3+HlnXlLkdo4v/bfjyhhO7kuZDShCgQwC2McSN7nSDbAnA
-         ON0bC5dM29QNnL7HT0hpEhyAa2qFUgX+11YrSQQfiA2PV0W+vrOCmGZ+W3X52hDqBOOW
-         /QpB4VOrYkjQC4GFqDPnbDmu7Kr4n3Bz1vzOx9XcoZrrt86Uq+8zP5948IA4yQq0VNIl
-         8ehpcuEVERdPPEspxAeYIMQj+53DYvfn9JvKi4J1dhamhRs4yXIXU4g3G9VZWSm3UdiX
-         dHpg==
+        d=oss.qualcomm.com; s=google; t=1793809604; x=1794414404; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6rgO4gTJYE=;
+        b=J1K/iJK8/tp6X/UDpnzud4Jbg/XMF6i0skRrVjL3SICCFt5eM+4IF+mFxlXhDBTPCP
+         P3ZPv/izMHeL9JuRC57emurbXei0MjE8jChLXjRDZN2eG7ICaJvSjrKojIwBWXYBRJ32
+         qCQGpczd7/up+na4pi5yeb4s0U7FfALbxZJP0MFGpqTRQSyYOi9rudQJ9w5WNzEhIBRC
+         83X6DyIPA3juKpOLugdbJkQLOnI9uPzs1+9tgcYDT8KqUEPk4SN1pOJ68T8Aj0lVnvPV
+         EZPC1WBW6y022x0lUvcr16Fb7TSbWWXYZjpH6Hb6ta4lHyKWXuWskAvcEkLOmetbM2qN
+         V1Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793809569; x=1794414369;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=02xlunbPJG9twMrNC4lzpNV5WoLplwFKW8EyaQv0RmE=;
-        b=CyCLy01+pOdcUMeKQ/JaAxwjPwGLcLdDgJj9RdX6eZuyTZFapdGsum90aqoASJmBxP
-         1QXL/TBe2OlfVWvyJ791lXwlrBhvgidbZJonh+Z+bYpfjQdEcg3dqH6Ud4U/s/yMU3lE
-         29W390GNfoGSiXf3SDDC7B0u0tR5KQUtKGeb6Z80OGHpS2zCgdCByeGOKxn+u5cCjxPd
-         IpMvdzozrLVrIgQBIuHVi+OxBVGgwniAmiqt+KxsULaYIzpE6SBX2nKxDz3vKmKgvpHF
-         ZwjysywTkXCnpoE3RWIGnrp3XEgxtNpg7hIFLdP4JityST6UL84iPpKjqy2Y67NXCaY9
-         g7zA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEmH9o/f9eMWIBmDhUvuHEOlOlguVRAvWIhrMRjMltfWRqzOXG9+5Tffim0Lhk1DCBp3WG8RmhBqNgEms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93xPAgqypd4vGo7MUUTcDVdyPPrpBI8kFOHBs0scx1zRLnuhym
-	WVoS6ngSLABcbKKPg4Lqfnu52YeTEuka85Sk01OCYaLQSiPbudCAmhaRsNsmcAy6ZYwYegv0nhl
-	c421U3FClG2caMj7FKgIDxzI7JfI6/jSz9CvXGL8X
-X-Gm-Gg: AYBFou1LAglvH3WaaYzCF3rb3m2kJoc/lMlFPae4gtrgEfnehM3z1jcFcHyszFCV8o+
-	Kv1vjSfHh30i/X6tDRpJqG8+u6B3jnzhgSAEN8M3lOpKoV4LTAm1IZyPkUoPuD7s6JCHBUpDERR
-	ml+7VqOuRvTcN5OxgO+1rCZAhRDUhlvZO/RlpySJ4E/6MxA40DeM5/2VegnZgsJCi/nN2yJ3o0d
-	GIVzjjG33RTVx6zufp4vYXCQ+J5i2oxyD0grQOU0XYndnmzEJDlj7xFIxGSQquKE/4prGr1VyDX
-	LV9o4qf8oDA4NDB2QZ+RcH/7ohcd49yxv+XZev0vJ439XKkmM4Y9pxJTVesw9q82C5cpOkQGUZ5
-	L6gXqGl+bLlQm9Py7TnQlSsFI/meTJ5cpXHO5X8t4oaBzibNf/uPrA2g1bBQrGQYTCsXOQlcUvy
-	bV32nAJ/ZSwJs=
-X-Received: by 2002:a05:622a:4894:b0:535:9aa3:5ebb with SMTP id
- d75a77b69052e-54b4cd278d4mr21858561cf.8.1793809568468; Wed, 04 Nov 2026
- 08:26:08 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793809604; x=1794414404;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6rgO4gTJYE=;
+        b=Fv5WWDGfb8JququHBqMVuR+Cm8YSJuDyCLHgSSck3M7SsB9AUwsYAD4d/S/2Z3/TKL
+         +RdHN/TGIrmUKfs94wx9YPjWKWH5Gr+NRz6fu0/fy3dVcrAJHzU9Bc5nalCsEYbhdjnV
+         Dy/nR9g+1Q79Bp+NwrC2z2QRHsOTi8/UTxbmQ1tct9GEjF1MeaeQc6bBQfFfhL3mntia
+         Vf1sxf3UuqcoIVTJ+JGOEM/UEpceC1ryRlbHWkPBRtLgLgNHvdt6pEgNSeld9Owvtf/a
+         /CcB/pNo0EpeF6U6SB6dOyN4U7ab0c0FxuCMmCAqv/64wLU/GpCrO/OPeDx3OwIsaIrC
+         bMaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNnyuBGCWSq3bDyqEtaeVvh/UurCQOBEetNxzy/DnveYVVLyww0DuKjrW5zSX+E1I6VMotfxRSKt/EkPU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z942qpl4UbDy6JY6rS8lI2Kr0dqVfNZfqgoSeGNfQso69zgHIAE
+	lMs2zZ5wbwwJg5TxDQXr5nGWViivOUJtdGHwa+uQwirb15pdQxuI4dGl+d+F7X1YmZT7ia3W7SX
+	O6i+U0R3OyuMRUUqt6dYc5qx0GSHtPzBhCl1heMNnnorekHSWByZyOlc+A6EtpiYZC04=
+X-Gm-Gg: AYBFou1S6GG8lPyrvHSmao3aSXxd69ZTm5D5KOJUayJ4ySJRXXEMm9lDOuJgTKUmUqd
+	ur+k5vkieQe26+vNm+0QlG90CHrMran3DoCj8px1wC3agvCTnPiYQcWGKcnHh0DzdBwbAhPF4uk
+	7CF0+8zYQxqJ+lZDrXLO1t8XTZfnB4NXv8CjluTPEpLHoT1guyv1puDuH+CJedhyXzom9t6gC3/
+	/EfhvGdgRhAl4qKMOhIeMYAY0w4GMqnBAV+0qF2X/cgtGFflmJ2kt1tW9Q013PQfS1zLHkSe+Mk
+	p7THvDJWvdYn4KOz0s/rzo10AE3PnNKh0vXKVxvqYSU05binr6HweU9Oa0FwoaXUxbuA4EdLdWH
+	P+StL1nQp+Zu+P69Qh+G+R7UnE9yv1yK0vTJ2/7oGhIpQxdqPScmcvQLzJeHqng==
+X-Received: by 2002:a05:620a:a887:10b0:944:2f1d:950a with SMTP id af79cd13be357-9442f1d9b98mr1690607485a.47.1793809604281;
+        Wed, 04 Nov 2026 08:26:44 -0800 (PST)
+X-Received: by 2002:a05:620a:a887:10b0:944:2f1d:950a with SMTP id af79cd13be357-9442f1d9b98mr1690603085a.47.1793809603746;
+        Wed, 04 Nov 2026 08:26:43 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab010a66sm202596845e9.13.2026.11.04.08.26.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 08:26:42 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
+        Lina Iyer <ilina@codeaurora.org>, Andy Gross <andy.gross@linaro.org>,
+        Mahesh Sivasubramanian <msivasub@codeaurora.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] soc: qcom: cmd-db: Validate firmware-provided offsets and counts
+Date: Wed,  4 Nov 2026 17:26:37 +0100
+Message-ID: <20261104162636.406949-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,121 +121,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104160716.2910873-1-bwicaksono@nvidia.com>
-In-Reply-To: <20261104160716.2910873-1-bwicaksono@nvidia.com>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 4 Nov 2026 08:25:57 -0800
-X-Gm-Features: AclHuK-GeTinNBFNoWnfPGGAtOY6Xq1W9g3atyK1ujiBfiA8CNbeKnUu-zkauLA
-Message-ID: <CAP-5=fXriq3akwKxsxSuBZ0M=1OMuCe8ig_j-r6ehfCeCVAYcQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/7] perf: Add NVIDIA Tegra410 uncore PMU events and metrics
-To: Besar Wicaksono <bwicaksono@nvidia.com>
-Cc: acme@kernel.org, namhyung@kernel.org, ctshao@google.com, 
-	linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	vsethi@nvidia.com, rwiley@nvidia.com, skelley@nvidia.com, mochs@nvidia.com, 
-	rajjoshi@nvidia.com, treding@nvidia.com, jonathanh@nvidia.com, 
-	john.garry@linux.dev, will@kernel.org, james.clark@linaro.org, 
-	mike.leach@arm.com, leo.yan@linux.dev, mark.rutland@arm.com, 
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org, adrian.hunter@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2844; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=041BNTqVKtRVarLz7gLjBUicIKRSya9ySTIIEff+L4s=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq61y8f5KGGwYdjmdr7UZx5TKiyosF2uyLC0dGc
+ YNg71D0nqaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCautcvAAKCRDBN2bmhouD
+ 15dGEACY3PqT5ijuNxWF7oBmC+bqcGG2PADfv17EcGYLGIMSweTtp6Nl2C57Ewal4BN+jZDYhM/
+ ACjh3y1vXCq7zTNBnvCDAwPmIpfrFlSP9osQd7OnO+Y2l8o7PKpSJZfsm0AWOXaBx5gs2JXdXnq
+ HPALFWlHYKcWrEuzEGASjNyIPe8EnYXqAz7kzqcWNQ3cBhPb/sAsG00nW0BopAN0H4/iKH15aRa
+ gPV30B/B7yWZeP+i/ncyHe+OGyYjaeDcP3EhO3iiHU+61VYcBbS4OcANKVqlidDOMHR5B0XBqLz
+ xJOKmZdRUNEmdFVvXWUxjtBBa9uP+urBIyvgJLrYoT27epGFI48qCyLgyciE258hMPXL07R6Uar
+ Ao4lbtgSoB8o0woGLM4KgWuIOfr9S/3huBT4Wi/2DX3jaoFdTWzOrUVEXNrXduAcgcnozi0RrDR
+ okPMQRUaS7FgVom7cR3zn/uOLxNZiVrllu4CtdgHlo4YGbUc6P37IgIf24dsjPEmVH0NgBoFg8q
+ xNYppMW0i2hOIEvjNBjHu0hyPiEzDKfxoxZEDUkBn+BgGQNgm/igq685/Q49x6Co/kTSINulUxU
+ 5Mav7LpbwOmVGJvqitT7i3klgfVG0mfOh0Uq/xNqs0gjtasEQ5NrlF8TOQiDyQdjruxpF7DhNuW +BZVPG70kY7JjGg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NSBTYWx0ZWRfX6YnhWrMJbA6M
+ Se5GK8UeBQKQVhsfkpRXsMHZfFmixgTu1JCtylQniumf6nR6I3kGrblg7xHlxJTsitlsDQKz1//
+ B4T9xQJVzLQvNLmnzLNa2pBfZD74TMGc37E/7xekXvCdlg+eABQGnrmy5cxJg31Ry974mqYg41+
+ sTPC2KUk6fsBsCwJ+3W7BjEDOABZbwLOrWxW5NDPBDZeBsXrypVr2DWEdS1aQ/t3Fs7tjAZLb8b
+ tx4EsTV3jy0qCgr+9xesrkSDIR2+QfwQUK7Gbv4bTuQUAQbhzbSepg44ThEyCH/ysZ5LZbWDRXs
+ UsxfN4lc93VO19ajIMppVKBxtX2S0d1yvxeZTMkdAH1jdcn2Aj4O7qNHBCFToU2SNc0Q2YZDumq
+ /YzwvHZyElABd4nwwVn/Dl2PQj9Xx5ei2X5f+DQ1wnwRYfsq+47Xf/TWk+qj6mFLcR0xu7z4Svu
+ DqOoEy6kay9vWgkbBBg==
+X-Proofpoint-GUID: 86udXNpF_QJoAvHBmSKQ3LfMXri8aNxa
+X-Authority-Analysis: v=2.4 cv=IcUSymqa c=1 sm=1 tr=0 ts=6aeb5cc4 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JF2_t5xmk2bVYqND0VcA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NSBTYWx0ZWRfX3xAT04hc/DU9
+ O7HtP7yajQp4rwuKvX2P++ko/c0Zw6ioTDZa+AOEBjdwNX8/43o/SsSGfXJERM280B1+HZFKu+i
+ BXBdgHiDPzf/dVcDi9HbUxJ/z0WBXec=
+X-Proofpoint-ORIG-GUID: 86udXNpF_QJoAvHBmSKQ3LfMXri8aNxa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040065
 
-On Wed, Nov 4, 2026 at 8:08=E2=80=AFAM Besar Wicaksono <bwicaksono@nvidia.c=
-om> wrote:
->
-> Add event aliases and derived metrics for the NVIDIA Tegra410 uncore
-> PMUs, and fix perf's aggregation of the Tegra410 PCIe PMU instances.
->
-> The series covers the UCF, PCIe, PCIe target, CPU memory latency, and
-> chip-to-chip interconnect PMUs. It provides symbolic names for the raw
-> event encodings and metrics for bandwidth, frequency, and average read
-> latency.
->
-> The PCIe and PCIe target PMUs are named nvidia_pcie_pmu_<socket>_rc_<rc>
-> and nvidia_pcie_tgt_pmu_<socket>_rc_<rc>. perf only strips the number at
-> the end of a PMU name, so the instances of each socket were treated as a
-> different PMU, and these events and metrics gave one result per socket
-> and were reported incorrectly (e.g. with --metric-only), as discussed in
-> v1 and v2. Patches 6 and 7 fix this:
->
-> - Patch 6 adds a check of the cpumasks of all merged PMU instances to the
->   zero-count skip in perf stat, so a socket that counts nothing shows 0
->   instead of having its row hidden.
-> - Patch 7 treats both numbers of the NVIDIA PCIe PMU names as the
->   suffix, so the instances on all sockets are merged as nvidia_pcie_pmu
->   or nvidia_pcie_tgt_pmu. Per-RC results are still available with
->   --no-aggr or -A.
->
-> Changes in v3:
-> - Replace v2 patches 7-9 (merging PMU instances that match the same
->   comma-separated json Unit, naming a merged counter after all of its
->   PMUs, and the ABI document) with a special case for the NVIDIA PCIe
->   PMU names in pmu_name_len_no_suffix(), perf_pmu__match_wildcard() and
->   pmu_name_cmp(). Thanks to Ian Rogers for the suggestion.
->
-> Changes in v2:
-> - Move the uncore JSON out of the sys directory and remove the
->   "Compat" fields. Thanks to Ian Rogers for the feedback.
-> - Drop "perf jevents: Process model files before sys subdirectories",
->   which this series no longer needs.
-> - Add UCF SLC and memory bandwidth metrics from all sources to local
->   CMEM (read, write and read+write) and from local sources to local
->   CMEM and to remote memory, PCIe bandwidth metrics to local
->   destinations, and read+write bandwidth metrics for UCF SLC, UCF
->   memory and PCIe. Thanks to Chun-Tse Shao for the suggestion.
-> - Add patches 6-9 to fix the PCIe instance aggregation. Thanks to Ian
->   Rogers and Chun-Tse Shao for the pointers.
->
-> v2: https://lore.kernel.org/all/20261030174816.1544471-1-bwicaksono@nvidi=
-a.com/
-> v1: https://lore.kernel.org/all/20261019164241.403644-1-bwicaksono@nvidia=
-.com/
->
-> Besar Wicaksono (7):
->   perf jevents: Add support for NVIDIA Tegra410 UCF PMU aliasing
->   perf jevents: Add support for NVIDIA Tegra410 PCIE PMU aliasing
->   perf jevents: Add support for NVIDIA Tegra410 PCIE-TGT PMU aliasing
->   perf jevents: Add support for NVIDIA Tegra410 CPU Memory Latency PMU
->     aliasing
->   perf jevents: Add support for NVIDIA Tegra410 C2C PMU aliasing
->   perf stat: Check merged PMU instance's cpumasks when skipping zero
->     counts
->   perf pmus: Treat both numbers of NVIDIA PCIe PMU names as suffix
+Validate the data provided by the firmware, before actually trusting
+declared lengths and parsing it.  If a theoretical firmware provided
+malformed data, Linux kernel could read beyond allocated reserved
+memory.
 
-Other than the nit the that commit messages adding events refer to it
-as "PMU aliasing":
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-fc833525-3bf9-4274-8dc7-2cffd5b4338c
+Fixes: 312416d9171a ("drivers: qcom: add command DB driver")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+---
 
-Thanks,
-Ian
+Not ccing stable, this is a theoretical bug.
+---
+ drivers/soc/qcom/cmd-db.c | 50 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
->  .../arm64/nvidia/t410/uncore-cpu_mem.json     |  43 +
->  .../arm64/nvidia/t410/uncore-nvclink.json     |  67 ++
->  .../arm64/nvidia/t410/uncore-nvdlink.json     |  43 +
->  .../arm64/nvidia/t410/uncore-nvlink_c2c.json  | 115 +++
->  .../arch/arm64/nvidia/t410/uncore-pcie.json   | 249 ++++++
->  .../arm64/nvidia/t410/uncore-pcie_tgt.json    |  83 ++
->  .../arch/arm64/nvidia/t410/uncore-ucf.json    | 764 ++++++++++++++++++
->  tools/perf/util/pmu.c                         |   9 +
->  tools/perf/util/pmus.c                        |  23 +
->  tools/perf/util/stat-display.c                |  20 +
->  10 files changed, 1416 insertions(+)
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-c=
-pu_mem.json
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-n=
-vclink.json
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-n=
-vdlink.json
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-n=
-vlink_c2c.json
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-p=
-cie.json
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-p=
-cie_tgt.json
->  create mode 100644 tools/perf/pmu-events/arch/arm64/nvidia/t410/uncore-u=
-cf.json
->
-> --
-> 2.43.0
->
+diff --git a/drivers/soc/qcom/cmd-db.c b/drivers/soc/qcom/cmd-db.c
+index 5d303ca0dbd0..c75567cea086 100644
+--- a/drivers/soc/qcom/cmd-db.c
++++ b/drivers/soc/qcom/cmd-db.c
+@@ -338,10 +338,51 @@ static const struct file_operations cmd_db_debugfs_ops = {
+ 	.release = single_release,
+ };
+ 
++static int cmd_db_validate(struct device *dev,
++			   const struct cmd_db_header *header, size_t size)
++{
++	const struct entry_header *ent;
++	const struct rsc_hdr *rsc;
++	size_t data_size, end;
++	u16 cnt;
++	int i, j;
++
++	data_size = size - sizeof(*header);
++
++	for (i = 0; i < MAX_SLV_ID; i++) {
++		rsc = &header->header[i];
++		if (!rsc->slv_id)
++			break;
++
++		cnt = le16_to_cpu(rsc->cnt);
++		end = le16_to_cpu(rsc->header_offset) +
++		      (size_t)cnt * sizeof(*ent);
++		if (end > data_size) {
++			dev_err(dev, "Slave %d entries out of bounds\n", i);
++			return -EINVAL;
++		}
++
++		ent = (const void *)(header->data +
++				     le16_to_cpu(rsc->header_offset));
++		for (j = 0; j < cnt; j++, ent++) {
++			end = (size_t)le16_to_cpu(rsc->data_offset) +
++			      le16_to_cpu(ent->offset) + le16_to_cpu(ent->len);
++			if (end > data_size) {
++				dev_err(dev, "Slave %d entry %d data out of bounds\n",
++					i, j);
++				return -EINVAL;
++			}
++		}
++	}
++
++	return 0;
++}
++
+ static int cmd_db_dev_probe(struct platform_device *pdev)
+ {
+ 	struct cmd_db_header *header;
+ 	struct reserved_mem *rmem;
++	int ret;
+ 
+ 	rmem = of_reserved_mem_lookup(pdev->dev.of_node);
+ 	if (!rmem) {
+@@ -349,6 +390,11 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 	}
+ 
++	if (rmem->size < sizeof(*header)) {
++		dev_err(&pdev->dev, "Command DB memory region too small\n");
++		return -EINVAL;
++	}
++
+ 	header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
+ 	if (IS_ERR(header))
+ 		return PTR_ERR(header);
+@@ -358,6 +404,10 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 	}
+ 
++	ret = cmd_db_validate(&pdev->dev, header, rmem->size);
++	if (ret)
++		return ret;
++
+ 	cmd_db_header = header;
+ 
+ 	debugfs_create_file("cmd-db", 0400, NULL, NULL, &cmd_db_debugfs_ops);
+-- 
+2.53.0
+
