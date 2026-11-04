@@ -1,104 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793779962;
-	b=nxUdgLwpqRZfofbDmmFIQXj14j20loPpwX3dma8/T2XcWvZH9osG5nup9+7ttikgu4tN
-	 z34ttC28eCNiTMZ0c3W2hGHthYAVkwqUXtUclh2ckRJrOZQ/z3HCMfn9VcRc5xccSa3E1
-	 2se/2Wn/s0eWH2rGKpr6wCwAGiIwLOmU9pbAEmbdlFLYP56mwgflzuTLN6QhwQKLtKxFj
-	 cnvzYPCZrcpg9vyZkTHY2NCdetvj6yvlx46xr7p4X9gwEij+qjoYAnnHFS7PrWXT3Hbjz
-	 tw3j2Sg6HOiCsWrLIyGG1b4q8sVcgeBM7TQiCL07Z0RcmC9tpd6J8HSZwn9yI+0ywnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779962;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sf3dt81KgF4dIVTtzIECPw73AtQuWlZSqAxfOxxLm/Y=;
-	b=NbicsT/9e7wKrrZkeQHGzaTGS2N90ay1d0CrLy74YuKC2iRBiMXXv8tIqQhNLMg1C/Pb
-	 aH2uHLk17SmZF8/KBlOZdDamqCCEJe0zt4VaToAFWVzY/3DGmCKkphJjmbk2jibrMOZ6A
-	 5wHTq4E9jaOizHXygJHPczVb5uMK4FXdx/be4tnS06LUkVLw3y4HEPwBwSsXja615qqIk
-	 v6iN4Vy9/476jx3t+8D2jUb29iFHg7VB1d0lL5NoEW+x3uCDXKBUymyehxgPpM/zhERfg
-	 /bT0JYv+axfK/nsrMMf46bx4bvJY+UCy+8H+AuiMiHI/3rLf89eYBdyvgIt5zjhFolw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=VnwLWyDu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.8
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011008.outbound.protection.outlook.com [40.107.208.8])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793780050;
+	b=XzsomJxglONjBHJ66CZWMwOGb00vA5tuMgMjLzeM1axfG82Xbjq0JZ2geeoUQUg/J9Rh
+	 gqheX38vJGO0Pf2aU2rNjYLNjQ8+Seat0UUNWHyehUnLRVUHcRPj+MrrODu42HyBTHa+o
+	 3UI3TlcZOmcfC5OwOIXUF8M3pNxembQbjGrbhC9GbgbwnN9imw/tx0VIu185M2P/rd7UR
+	 PVSMLqBQi+E2uXfiFmKJdwORzK2ti7vX9/Gtk4y+xOQ2FRDzsEZggGY1Z9Su7KSmdbfRY
+	 vo6IAggBIwUjDaWvJPcKUcDvGuJMKEWme71UwnakVL/LWVqfYLoTYx6RbMu1nR7ogrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780050;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qA3iBaIijakHB1QdN+Ns5adqey4iVefqmbVMKWtw4sQ=;
+	b=XITzHzwSsUBZpCdxYNhzsOzuzG73xYrrIrmAPf6tplBrR+fCrJFdQPd80elc+PaxrkMW
+	 o+EJNGK1Y0oTsxrfHEWMjlWZBDsy0tvddW6LNaiECTpTiusaL1/LBcX4kiBstw2P+4XEt
+	 3R/+/YtWK1Cmai/TRaO75ETASmlJaITY/lvkXOj9TY1c5Qm9RxoYL4J8XvVJah9i7w9/p
+	 pZKgDUMbOBfHVvtFEC0xS3/JLsxsuHJda+TJ+r00/OfZp5ewf8F4aLZFO/RPagHkZkm5J
+	 SMk8Qfk+J7zCbAQ22ytAQZ9WUAsSpXvbfo887FaLC2JANQZL3t+GNkea6q8OTU2fEfw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VVKuxieD;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DMq8Khe8;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C42C606A330;
-	Wed,  4 Nov 2026 08:12:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C42C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0EE606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED0EE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=VnwLWyDu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mDiEdJj/StnXeI8YZO+m7JLP0ryyk3DPwQpj1F5ojFW3Z+CIJ0hPmLdGRZyDYfN1UxBT5l+fquZfE+Mks5V08hhP3cgP60xaeXpX4sU/0jGTg5duV0FfN0iefWQHLFYLSZwxPlcM4lGaRZIN6yGn2FC60Bzmv9VDjMfq/R3iQJgxgS0c68AXnZc7+u5+ZmiMtSzEtSMU1sj8j92LhwRZV1h56Z9eFj+0xyw83jbTQPkg6xFEqopQAjmaBZBWhB6zFEiGVXbYZ3TzmE42zIc8iRigBN88XmltKBPXfYWvstDzmy2vxIOl4DWxzj02UfT4Z5vJf4VE+aJrT0ya56goPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sf3dt81KgF4dIVTtzIECPw73AtQuWlZSqAxfOxxLm/Y=;
- b=sarCfqVFJ/NVoQSFMxyhZDJKLS1r3iW1hKHesubNFR0/C0tUCk9tna4ZfYrZE1Vdf6Ytl+2WrG1xcvK+48PFgvy8pkhypZgSes1ZOyxczsr6/gZlPihh9KwW+M/yBzfSoQ4qwpOTiKxbVcrbNPwJNuwVTeD2c7i1tZ2ye1X6ZrbS6ICl2BXxPbO25fDgTSmaml264exFVzt3aMENk16yFPc7E81YutT9PreZwoe0/KtwolpFX33eo+X+aFXQ3A8c1Ki9uBziixk4FnZ4S1cIWpf9g+UnqoqDccGHcFnmOAvfrJWHwJcAcrGPyaQpHwbQk33rNQYKONI1+ftKD+yeCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sf3dt81KgF4dIVTtzIECPw73AtQuWlZSqAxfOxxLm/Y=;
- b=VnwLWyDuKnhGDcwYdfMTcOewcDOdGKWBZkzJ3PuAYyvUebdZs0QwoCjruJXBzGzr3m7CrzU4emy9Dn1Sgy9ud8ijfndGjokC8u7Vjtx6cChX1mOwz7TdWaYAZGxMvNHidT0KwO1bStgUg4iw4cOMSXF+8QvKQOyJVAd6lCrJt/7R+JAjZfEAB8X2z9I+ZGUR0tOuIApmDju0ldPIYjeUnM5z9vdoh2UdUZ5f4q6rH0QBJ2OWn/lkd49ji4W02/ebxvUjyvgyVJiOdAgLLaJt6Goe7rGPz20ouzYdIZFXrYHIK6YDlXYm5sFaFy1zdu5d9rnRhJDauppPXb6PiMNlDg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by LV1PR03MB989626.namprd03.prod.outlook.com (2603:10b6:408:3f8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 08:12:39 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0569.010; Wed, 4 Nov 2026
- 08:12:38 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: netdev@vger.kernel.org
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Rohan G Thomas <rohan.g.thomas@altera.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 2/2] net: stmmac: fpe: Move fprq configuration to stmmac_fpe_configure_pmac()
-Date: Wed,  4 Nov 2026 00:12:34 -0800
-Message-ID: <20261104081234.10153-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261104081234.10153-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20261104081234.10153-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0034.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::9) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VVKuxieD;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DMq8Khe8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793780048;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qA3iBaIijakHB1QdN+Ns5adqey4iVefqmbVMKWtw4sQ=;
+	b=VVKuxieDICgVV3B4nJooiXaIn/1q4TULaLbjBh/4XOSc4CoZ6wk7iay36yBurte4hTwqUf
+	xyoYpNHThmyeyMZ36RiUIbGpG5Zyi8xBf7TjzUTwgps1H2OVpXQJVWLmsyG8PWN3e0Fmmx
+	GM7AwBWC0fP1HT6Q8DYKb+K1RQ1qDQw=
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-500-s7NdrF6YMiecVpuzdxim6A-1; Wed, 04 Nov 2026 03:14:07 -0500
+X-MC-Unique: s7NdrF6YMiecVpuzdxim6A-1
+X-Mimecast-MFC-AGG-ID: s7NdrF6YMiecVpuzdxim6A_1793780047
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89e05d31e54so420759b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:14:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793780046; x=1794384846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qA3iBaIijakHB1QdN+Ns5adqey4iVefqmbVMKWtw4sQ=;
+        b=DMq8Khe8tRTMUpR/1ZXMZyrmohwc/4Z9aHfkig0IxQnZQn+PyCGxOg5Yu+ZnhBpUHL
+         gcY1OvZgDMg1kUfBVJe3YjyCy26L+hQE/7Ifnqa21FvBQ5x1tvU35ZbBZelhhyeOFDHk
+         /5JByFOBeWfKQIyD3BF3Pe9YP2tGIhkZKMOCnbIF3AjCFfpxlFkOSQRgHPgfoT0tCvKG
+         kc+F/neJexDW63GPIMBwGAbV3yCXq0SAaL86tIQuJuVuUL725rzh7Gk18jfkyFJgkGiD
+         XoCYKsUWGmKyJY7d4z8MffAwvlLSgKSPQbHM3CkqGxXNxIiCpW+F85Ud8emsv1eFQn1z
+         xBHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793780046; x=1794384846;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qA3iBaIijakHB1QdN+Ns5adqey4iVefqmbVMKWtw4sQ=;
+        b=bW0FcJwFydaw6iDn5Yr82mQfuI5Zi+Ue/IioTWA5l9eQg9D7BCB2rG3rJA4yAJ06Zj
+         6rMMYe97X9ETtpT39hIoY/61iXdXhAFaeYXztc+aBx13HcrBvcDaYneJ67odfhY7SnBx
+         W335umHLM+PHQZ3jwEKDqFIkotv4ibev1sPd+rAOjsiEbjpANU1a5r0rnVAwE26a9811
+         piQKBzcEzGz5WL/YjepNqc5J58ve6O8oiOeiKUKGVB8vaOSyRhzWzqsGHP0d3yn2bdJd
+         Bn7q821DDxwtGmbGsqI+g5SFj9x3acEAMPdkpQp3E6RalYlu/riVTzTSjlKgv7UEawS0
+         YuEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV2LRNIQALdGe5xz9UFp80jqRiYh8lmN6JwaUtzxgVJvICLIa5IsKbRGNoVBjjUkvMKO05RyeYXMCuLgY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Cn+ROgTuvHlEXV88QaJ5B9fTKnrDUYqEJNiziLjfjpGIQwAlN
+	ud+ySIR6AYnoLtKp4yjUvKjgBQvSmJ3rMC28btHFzvLaq2sKQET3eQQ5nMhvFkEQkMIOJLoSFzs
+	/CgfClcgAfefXPGFKY7UrCsXrBfJ/0vgZFL9L9OGOSbmTPAPNkgYdZR6kUUv6kMp31A==
+X-Gm-Gg: AYBFou3iS+lwpmdvXn82zF6ed2aN75m8cQAv5hck2Zax2MZBTZvag8nBpkqUhObCW8F
+	jYTpaRyTqu80A+AfSmmvFz0+QkD7aCbQn4fvStP1uZejpZyE8amlzutt6xY2P+GuvgCfdx3BODo
+	kEI8sHefV4xPPNW322KYE/DJzl7TOOG875HD5ZUvXatOzV5Xw96tV2QeUuhwSKfu0FEjvgHe5wI
+	7r2dx0mwhLZmckARsXFKc5sDHJuATjMV0WkKztY1367TVwaptWTH27rW0b1wc6WZHJ84PvU7JLm
+	iQRiDl7Mh//bUFSSzDLCXXbr8jgZZUtVGRrdQM20FX8bF2Hp58Uyyqt5gKh6pGrfg+TYBTjDvMS
+	nZmpcHbMDhHzUz/YUWzLbIlEukoznWeaHxV7AvG9PIa5n1bCuEL5NYYN2yR9tbhvqs73cfnEeK2
+	jHWnTvkisRQIuuV5jZBHqoNcXA54LGxjTWLQ9oKVo05LM=
+X-Received: by 2002:a05:6a00:a219:b0:89a:5:92c1 with SMTP id d2e1a72fcca58-8a9bffd58e4mr11887834b3a.56.1793780046360;
+        Wed, 04 Nov 2026 00:14:06 -0800 (PST)
+X-Received: by 2002:a05:6a00:a219:b0:89a:5:92c1 with SMTP id d2e1a72fcca58-8a9bffd58e4mr11887807b3a.56.1793780045818;
+        Wed, 04 Nov 2026 00:14:05 -0800 (PST)
+Received: from ?IPV6:2401:4900:1f28:63e0:edae:927e:c670:b679? ([2401:4900:1f28:63e0:edae:927e:c670:b679])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b56926csm585851b3a.38.2026.11.04.00.13.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 00:14:05 -0800 (PST)
+Message-ID: <e2f4e63c-481c-4e25-bc77-e890fcfaad95@redhat.com>
+Date: Wed, 4 Nov 2026 13:43:56 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,142 +112,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|LV1PR03MB989626:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8ee7434-15e5-4b28-3aa9-08df3a4b6407
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|6133799003|10067099003|22082099003|18002099003|55112099003|56012099006|11063799006|261021123027099003|261022075727099003|261022105027099003|261102123227099003|261026140227099003|261021121427099003|261028144727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	VYqCxc4D9ZCifZJc6KUQad1Hp5uY26E1pLh04fEDfSimzgIyjxZMQgMCmrCWqR2id+AmTeAz5XVktOayjHIhztm0IF++DCXog3nYSJ6ddbRtq3COSkRYzjmOuw5JSN6W8WkXIxU5x3crLNNvf9JQprGeoxi6VYoQA7fLl2HwnY3t4kKFYEMVZBjeSDWaR0p3ZdMkRv9FlIS1XYNkP0l2NbsTjW0e1PUWWK8hjvZNcYdRqTlmj7vuUKZoONirG5eFlQOdmZnVwP1HNCEUqzbJ95Wah2NCtkJLRGQ5BOEm0cV3YXCnIeblDe8dCICXOsbNMQzRvcJsn+n1qkB+E/ZV0Uv39tsTor47tz90aEY1SwpMz9hhk7sSuYnHvwbUGtVQonyaPDTxgu3ISxPA09A1/Al39J0cxTwfSUjXb5uktjSWgIVo9cu/Ssq3wPsOCyWswxuweRtqLDPEOTAtGHUaDtwhd0/LUMYY9ubHpVZJY5J1f2cLPJ6BREKtqD1o6t8WxjptHpSu92V5Irr4iTR4AtFqOepwT2DVSnd6ziwBrCE4sh0hCjFaicp7vJxNYps6yq+U5LKKXrung/Q1bhblEpGgRbml8gx1WEJlGmxg7lFrUg5M/laS7gUEw22mvnlGzVST105lHTLIzdwET53CHsas7CNQMqFw4Phx2xbyGXo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(6133799003)(10067099003)(22082099003)(18002099003)(55112099003)(56012099006)(11063799006)(261021123027099003)(261022075727099003)(261022105027099003)(261102123227099003)(261026140227099003)(261021121427099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ufXmzo3Htd57Koaf1+EKBaZA9seo9buBgx/Jm9eEx+vizJlHCw6Xv46vm6AR?=
- =?us-ascii?Q?jdLMVUOKT9UAd7xJuNbraL8NYNDhSbu07GFG2Yw3n5h1x1ZhAwTvmxNEUedY?=
- =?us-ascii?Q?o1XTe6Ihc7kbSldCi2FStpmrFxsEQ8gGm7AwdTa/UbVpIGOYGlDOuAl8PaWV?=
- =?us-ascii?Q?wf3j4zja2oEUQ99VVfNCa+MV80tYOrNYf7u5LS6A08drI76V3EXK4Faonv/L?=
- =?us-ascii?Q?q5YtgR/MUznlcsEtAnki2NGSHYMLVos0MJMNKo0UkCR4DdrAJ0fKjgQ1hJvN?=
- =?us-ascii?Q?WNZctIOu/IbRgl5ILwFSqJ/i9BLjx7KviiXjv7yJSmzQPPy5lRUquE04kJT/?=
- =?us-ascii?Q?YBIm0+ohhT8KrR8xec7CdzDSPk/XnfqGcIvOt5RYQ/XzkWJKtd/8PRj1qxwp?=
- =?us-ascii?Q?a60nQmum2uCHmOTTpjCtZr0lwYL2jozcptu2LMkYEK0jydO4aevhZcL1/rSH?=
- =?us-ascii?Q?09toAu/nLovdUwqmPQUtzH3v3/zAXwThUyPH4CQfST9oVAmOga6KfCBFk2kS?=
- =?us-ascii?Q?EOgWjqGoreaT1PeenXquDpP/atV8AJz489Lpjcmgi2w/rwHcV2thvhicszF9?=
- =?us-ascii?Q?MJVbreJ5Qmy3GI8OyqqCq4TMHaNSHB0XVTjPsOKjaICPs0c9SbyJJvgr1DLf?=
- =?us-ascii?Q?Kx+dZ5aVfyaavIF5Q2O2UKLzu+tPLZVPERFiIAUnaYBMG0U/ki7nKz4Ex4hJ?=
- =?us-ascii?Q?A9uh62h8hBX8/pBj1nL1iLl3X/okPq1xaV7X430A7JhUUMsuColzUdYmMagW?=
- =?us-ascii?Q?nY5StEPxuOxJ9CrwgHiz4icGTp5mnk1AgnXkaIYHekVFtZa87CUEwREs3Obn?=
- =?us-ascii?Q?SQgpqv3YqTtUoZki+HwT/EE2mgYTyD8Tyk6MfhKT6PG/DTPNK5ICVyDwJF87?=
- =?us-ascii?Q?fTTP6d9mVSUm+quMsbWMzkmHWPeYIrWqcCNzj9ZqMSJZwxfvakj9YrMpRjhr?=
- =?us-ascii?Q?PFJJpLpvNfBPo16yN5gBzNC5lUT0ih0+zuQtZGwaVUS5Q0qHnSvJ4BXSQieM?=
- =?us-ascii?Q?j1opxwGrCD23rS6QFp1y+a7YnbUBhhOb9hMCEg3kkuEOPdzPpNdcZYRUZ4Tj?=
- =?us-ascii?Q?34TWen/rkhsChIIWMwC0YzUAY2Gq0zhu1FWUXiUPOmnk8GYQeae+MeAdbkPk?=
- =?us-ascii?Q?oiMbaWTu0OgQscAGJtU2R3qzQ1t6v4RFZ3YLZNrfekjhX+KY0gskP5kCbuTI?=
- =?us-ascii?Q?tWpQu9dWSaH2jbBFyMSChCSSrvF2SyNe6ilglxw09lG9BVFbZmo235yJ59R1?=
- =?us-ascii?Q?cHKHFFA2qDKElwa/KmreTKI3S+mmf+qPiagum9OQpm/ZcHW8FgS5ILF+7GCz?=
- =?us-ascii?Q?skvynXG6azItNZhAAbQ6ogHH9OB95PyFGVnvj1la4YhvpgNpzd9qIWmMvGCk?=
- =?us-ascii?Q?3taXOKYo+LtFls5DX1+4qScXn+jhF8Rso5R7bET7dCwIPNyYZ67wnyQ/d6kF?=
- =?us-ascii?Q?PS+4fFoxBlt9TYzqEll2zSwVUSfAacenYFsIAfMB7IhCFrkONftFnqKd1olI?=
- =?us-ascii?Q?2WRpAukyB+QCN14CFA7GyGLUaj5WlAuYxbRZz5pTev+yk3bunJbfxMe1uujr?=
- =?us-ascii?Q?Qp428tNAP9p2LuzmefGpWRZ7zSs51g6feuI3JoKypo/a3w66qlLS6gvapsBW?=
- =?us-ascii?Q?xFWs+lHLbcPcdd1/CJAet2vc+uvbHj6uBabQDhly0EmIhkdAQ/EaVN4DhTTn?=
- =?us-ascii?Q?eCRLYmhAHXI/lQ8w3GqBc6jD//LMx98ReWw2BNHJcNNhY6ikFZw1/acplnVh?=
- =?us-ascii?Q?4+rgYUdR2pYZQ/DG6kGYLercGQmck9AukEDlW/ixMoIcESkwRNOvn1UXTNdP?=
-X-MS-Exchange-AntiSpam-MessageData-1: TmmfBve00KixAw==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8ee7434-15e5-4b28-3aa9-08df3a4b6407
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 08:12:38.8302
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sOoVXFEKky5GNF9cbHi58K6gmtDWACo0JwFcL0IWMFPVvGU7GiThrSLQsZQixENGO0xKWpd558Nt8lCXDIssNNf4KtHxpFCrwaycITvJ7plbb4fTbBKQbwWvWsfyKH/aeWOEm6fjZ4MseKNMyFsCvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR03MB989626
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/crash: Add only the onlined CPU's node to the
+ crash FDT
+To: Vishal Chourasia <vishalc@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org, x86@kernel.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, sshegde@linux.ibm.com, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
+ seanjc@google.com, samir@linux.ibm.com, sourabhjain@linux.ibm.com
+References: <20261104053848.1381005-1-vishalc@linux.ibm.com>
+Content-Language: en-US
+From: Mukesh Pilaniya <mpilaniy@redhat.com>
+In-Reply-To: <20261104053848.1381005-1-vishalc@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-The Frame Preemption Residue Queue (fprq) controls which Rx queue
-receives residual preemptive mPackets from the pmac. This is a pmac
-concern, not a TX concern, so move its configuration from
-stmmac_fpe_configure_tx() to stmmac_fpe_configure_pmac() where it
-logically belongs.
+Hi Vishal,
+On 04/11/26 11:08 am, Vishal Chourasia wrote:
+> A CPU coming online never changes the nodes that are already in the FDT,
+> so add only the node of that CPU. update_crash_fdt() looks up the device
+> node of the onlined CPU and does nothing if the FDT already has a node of
+> that name, which is the case when an offlined CPU comes back online. Only
+> when the node is missing, the crash image is invalidated while the node is
+> created with fdt_add_subnode() and its properties are copied from the live
+> device node with fdt_setprop(). All of this is done directly in
+> update_crash_fdt().
+> 
+> fdt_add_subnode() inserts the node as the first child of /cpus, which is
+> the same position a node attached to the live device tree takes, so the
+> FDT keeps the order of the live tree.
+> 
+> Signed-off-by: Vishal Chourasia <vishalc@linux.ibm.com>
+> ---
+>  arch/powerpc/kexec/crash.c | 65 +++++++++++++++++++++++++++++++-------
+>  arch/x86/kernel/crash.c    |  2 +-
+>  kernel/crash_core.c        | 11 +++++--
+>  3 files changed, 64 insertions(+), 14 deletions(-)
+> 
+> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
+> index 775895f31037..ca37006bddea 100644
+> --- a/arch/powerpc/kexec/crash.c
+> +++ b/arch/powerpc/kexec/crash.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/types.h>
+>  #include <linux/libfdt.h>
+>  #include <linux/memory.h>
+> +#include <linux/of.h>
+>  
+>  #include <asm/processor.h>
+>  #include <asm/machdep.h>
+> @@ -584,32 +585,71 @@ static int get_fdt_index(struct kimage *image)
+>  }
+>  
+>  /**
+> - * update_crash_fdt - updates the cpus node of the crash FDT.
+> + * update_crash_fdt - add the node of the onlined CPU to the crash FDT.
+>   *
+>   * @image: a pointer to kexec_crash_image
+> + * @cpu: the CPU that was onlined
+> + *
+> + * The node is added as the first child of /cpus, the same position a node
+> + * attached to the live device tree takes. Nothing is done if the FDT already
+> + * has the node, for example when an offlined CPU comes back.
+>   */
+> -static void update_crash_fdt(struct kimage *image)
+> +static void update_crash_fdt(struct kimage *image, unsigned int cpu)
+>  {
+> +	struct device_node *dn;
+> +	struct property *pp;
+>  	void *fdt;
+> -	int fdt_index;
+> +	int fdt_index, cpus_offset, node_offset;
+> +
+> +	dn = of_get_cpu_node(cpu, NULL);
+> +	if (!dn) {
+> +		pr_err("No device node found for CPU %u\n", cpu);
+> +		return;
+> +	}
+>  
+>  	fdt_index = get_fdt_index(image);
+>  	if (fdt_index < 0) {
+>  		pr_err("Unable to locate FDT segment.\n");
+> -		return;
+> +		goto put;
+>  	}
+>  
+>  	fdt = __va((void *)image->segment[fdt_index].mem);
+>  
+> -	/* Temporarily invalidate the crash image while it is replaced */
+> +	cpus_offset = fdt_path_offset(fdt, "/cpus");
+> +	if (cpus_offset < 0) {
+> +		pr_err("Malformed device tree: error reading /cpus node: %s\n",
+> +		       fdt_strerror(cpus_offset));
+> +		goto put;
+> +	}
+> +
+> +	/* Node already present, e.g. an offlined CPU came back online */
+> +	if (fdt_subnode_offset(fdt, cpus_offset, dn->full_name) >= 0)
+> +		goto put;
+> +
+> +	/* Temporarily invalidate the crash image while it is updated */
+>  	xchg(&kexec_crash_image, NULL);
+>  
+> -	/* update FDT to reflect changes in CPU resources */
+> -	if (update_cpus_node(fdt))
+> -		pr_err("Failed to update crash FDT");
+> +	node_offset = fdt_add_subnode(fdt, cpus_offset, dn->full_name);
+> +	if (node_offset < 0) {
+> +		pr_err("Unable to add %s subnode: %s\n", dn->full_name,
+> +		       fdt_strerror(node_offset));
+> +		goto out;
+> +	}
+>  
+> +	for_each_property_of_node(dn, pp) {
+> +		int ret = fdt_setprop(fdt, node_offset, pp->name, pp->value, pp->length);
+> +
+> +		if (ret < 0) {
+> +			pr_err("Unable to add %s property: %s\n", pp->name,
+> +			       fdt_strerror(ret));
+> +			break;
+> +		}
+If a property copy fails the loop just breaks and the image is
+re-validated leaving a partially populated CPU node in the FDT. The
+next hotplug event then sees the node as already present and never
+repairs it so either drop or roll back the node on failure instead.
 
-Keep the open-coded mask/shift update rather than u32_replace_bits(),
-since fprq_mask is not a compile-time constant.
+> +	}
+> +out:
+>  	/* The crash image is now valid once again */
+>  	xchg(&kexec_crash_image, image);
+> +put:
+> +	of_node_put(dn);
+>  }
+>  
+>  int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
+> @@ -625,10 +665,11 @@ int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
+>   * arch_crash_handle_hotplug_event - Handle crash CPU/Memory hotplug events to update the
+>   *				     necessary kexec segments based on the hotplug event.
+>   * @image: a pointer to kexec_crash_image
+> - * @arg: struct memory_notify handler for memory hotplug case and NULL for CPU hotplug case.
+> + * @arg: struct memory_notify handler for memory hotplug case and pointer to the
+> + *	 cpu number for CPU hotplug case.
+>   *
+>   * Update the kdump image based on the type of hotplug event, represented by image->hp_action.
+> - * CPU add: Update the FDT segment to include the newly added CPU.
+> + * CPU add: Add the node of the newly added CPU to the FDT segment, if missing.
+>   * CPU remove: No action is needed, with the assumption that it's okay to have offline CPUs
+>   *	       part of the FDT.
+>   * Memory add/remove: No action is taken as this is not yet supported.
+> @@ -636,13 +677,15 @@ int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
+>  void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  {
+>  	struct memory_notify *mn;
+> +	unsigned int cpu;
+>  
+>  	switch (image->hp_action) {
+>  	case KEXEC_CRASH_HP_REMOVE_CPU:
+>  		return;
+>  
+>  	case KEXEC_CRASH_HP_ADD_CPU:
+> -		update_crash_fdt(image);
+> +		cpu = *(unsigned int *)arg;
+> +		update_crash_fdt(image, cpu);
+>  		break;
+>  
+>  	case KEXEC_CRASH_HP_REMOVE_MEMORY:
+> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> index e6f23933a6df..1660f26f3a44 100644
+> --- a/arch/x86/kernel/crash.c
+> +++ b/arch/x86/kernel/crash.c
+> @@ -441,7 +441,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+>   * arch_crash_handle_hotplug_event() - Handle hotplug elfcorehdr changes
+>   * @image: a pointer to kexec_crash_image
+>   * @arg: struct memory_notify handler for memory hotplug case and
+> - *       NULL for CPU hotplug case.
+> + *       pointer to the cpu number (unused here) for CPU hotplug case.
+>   *
+>   * Prepare the new elfcorehdr and replace the existing elfcorehdr.
+>   */
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index d0bd2d0cf899..53d4f2c1760c 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -651,6 +651,9 @@ int crash_check_hotplug_support(void)
+>   * NR_CPUS and CRASH_MAX_MEMORY_RANGES. The elfcorehdr is
+>   * excluded from SHA verification by default if the architecture
+>   * supports crash hotplug.
+> + *
+> + * @arg is a struct memory_notify pointer for memory hotplug events and a
+> + * pointer to the unsigned int cpu number for CPU hotplug events.
+>   */
+>  static void crash_handle_hotplug_event(unsigned int hp_action, unsigned int cpu, void *arg)
+>  {
+> @@ -676,10 +679,14 @@ static void crash_handle_hotplug_event(unsigned int hp_action, unsigned int cpu,
+>  		goto out;
+>  
+>  	if (hp_action == KEXEC_CRASH_HP_ADD_CPU ||
+> -		hp_action == KEXEC_CRASH_HP_REMOVE_CPU)
+> +		hp_action == KEXEC_CRASH_HP_REMOVE_CPU) {
+>  		pr_debug("hp_action %u, cpu %u\n", hp_action, cpu);
+> -	else
+> +		/* CPU events are raised with no argument, the CPU number is passed instead */
+> +		WARN_ON(arg);
+> +		arg = &cpu;
+> +	} else {
+>  		pr_debug("hp_action %u\n", hp_action);
+> +	}
+>  
+>  	/*
+>  	 * The elfcorehdr_index is set to -1 when the struct kimage
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-v3: No changes. Was patch 3/3 in v2.
-v2: Drop u32_replace_bits(); fprq_mask is not a compile-time constant and
-    triggered a __bad_mask build error on x86. Keep the open-coded
-    mask/shift update instead, per Maxime Chevallier and Jakub Kicinski.
-
- .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 24 ++++++++++---------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-index 2607e29930b7..cb153857077f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-@@ -47,20 +47,13 @@ static void stmmac_fpe_configure_tx(struct ethtool_mmsv *mmsv, bool tx_enable)
- 	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
- 	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
- 	const struct stmmac_fpe_reg *reg = cfg->reg;
--	u32 num_rxq = priv->plat->rx_queues_to_use;
- 	void __iomem *ioaddr = priv->ioaddr;
--	u32 value;
- 
--	if (tx_enable) {
-+	if (tx_enable)
- 		cfg->fpe_csr = STMMAC_MAC_FPE_CTRL_STS_EFPE;
--		value = readl(ioaddr + reg->rxq_ctrl1_reg);
--		value &= ~reg->fprq_mask;
--		/* Keep this SHIFT, FIELD_PREP() expects a constant mask :-/ */
--		value |= (num_rxq - 1) << __ffs(reg->fprq_mask);
--		writel(value, ioaddr + reg->rxq_ctrl1_reg);
--	} else {
-+	else
- 		cfg->fpe_csr = 0;
--	}
-+
- 	writel(cfg->fpe_csr, ioaddr + reg->mac_fpe_reg);
- }
- 
-@@ -68,10 +61,11 @@ static void stmmac_fpe_configure_pmac(struct ethtool_mmsv *mmsv, bool pmac_enabl
- {
- 	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
- 	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
-+	u32 num_rxq = priv->plat->rx_queues_to_use;
- 	const struct stmmac_fpe_reg *reg = cfg->reg;
- 	void __iomem *ioaddr = priv->ioaddr;
- 	unsigned long flags;
--	u32 value;
-+	u32 value, value_2;
- 
- 	spin_lock_irqsave(&priv->hw->irq_ctrl_lock, flags);
- 	value = readl(ioaddr + reg->int_en_reg);
-@@ -83,6 +77,14 @@ static void stmmac_fpe_configure_pmac(struct ethtool_mmsv *mmsv, bool pmac_enabl
- 
- 			value |= reg->int_en_bit;
- 		}
-+		/* Frame Preemption Residue Queue is the Rx Queue to which
-+		 * residual preemptive mPackets must be forwarded from the pmac.
-+		 */
-+		value_2 = readl(ioaddr + reg->rxq_ctrl1_reg);
-+		value_2 &= ~reg->fprq_mask;
-+		/* Keep this SHIFT, FIELD_PREP() expects a constant mask :-/ */
-+		value_2 |= (num_rxq - 1) << __ffs(reg->fprq_mask);
-+		writel(value_2, ioaddr + reg->rxq_ctrl1_reg);
- 	} else {
- 		value &= ~reg->int_en_bit;
- 	}
 -- 
-2.43.7
+Regards,
+Mukesh Pilaniya
 
