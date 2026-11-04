@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819721;
-	b=4Q582M6Lro+Cl4NMMS2I63WtPVUawEaJJ0BANVKfbp7wvtzWmsg69EV11KMtNYvWJqxP
-	 4CA0dDfwMBFYIP9ZQOsYtvwczgmY6XjuI+XNZgLJNEWidPnJiF9k8O2+hy/uBC1uD0qj7
-	 7jIkw1VmJTUHA5k3e1ujWyrlBXrAWfkJ5jup96O9jxkbTXb7cUr+XM2XL38HZruo5SB+t
-	 5ou2tcpaj098x7C91RHi/85jdbCSaiSWJ7DO+S0foSdi7P46m3lGsouPNTyeGiGsO5xc4
-	 t27h9mDkjXXj+yTf5WjwIiwNIYsFa+wXq+GP85y8Wp7QbSSAK+l3VH4No/ErmAsmKaA==
+	t=1793819734;
+	b=nTtjE7Yvx2LxEV/x2aZ+lEF6gLtir3nSZ/zjMvB9s8H0jidmOLGMUOWimfDrhiaHH9fJ
+	 Uytz7HrB/FLDLO6kYZETR0MDUYnSDci3cnElaszxTpUsO5QOx3kHpZjv25w0TimB5XDxw
+	 aHGBCu/YxW8ix5+SVr1uGzyHRZsM78ubqVdK9wOCTUeFIFNJh9+nv7tT5MbAjGR3cS77r
+	 bjOry1Pn19f8Ss/sEYHGZR33dL/0NO2avgYAX0zAESrpPMyZpq3ObniCDR4tZ+pP+8IoH
+	 awJy4OV5JjlHwYm8kLvcmiftNk0BVgS5fRg8eqWwFMMWDKR+uTqcD5+XXL8L8QOVpMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819721;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=n7BS530HV1lVozfJXYDPjT1FuSJaYmtiEdjDoPBh4cQ=;
-	b=rffLLGvgx9NBdP/9ZGXEw7VAtfj+igDkUcmSxK40Eu97lw0j4fWfWewrwgUpG4UR9iyW
-	 eQtmwhqL69hGnuB3jy0aQSOKvUwzRoc6skJeFOSE8Vb/NUmdEX9G4A13aSt7zEW02CxVZ
-	 am5dySNzo+q3nz2RoNyR418D+dLfxrhNjK0luigciCC3tOtkw3o+EthbdsWWhUihKOPiR
-	 vDDQm71J/f+2aayaDCw1W5hQQfccx/ERrx/DkYcY8Vq9G1IdrPlA/Hp21wKjnpyeVFFTx
-	 +gwIdVVVrUTAeDrXXlh6TgHFTslhmAHc+mah2s42TSDASys/xYXsSW9nW3wapyw18MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819734;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=MlgYxghNQKBjr6lPDgvVwZkLEYLr1QFSQbB5pTwPWnc=;
+	b=Y0oMFBo0QSn1B6Bzn/z67vy4O7d4diAC0YztxH96EhS51qcq+8jrCx97zc+NQMyge/n1
+	 nSBhEjR0WVrh48Smv5aPW5NkxAjGoZ/XHR9DNNN9uFyq/+ld0OHmgCoimW9TaBwnC1ole
+	 Zzl9Eq4LeTLV6ibHhjJm1vlW600162iuNYQ6Kdl209WvbvW098ajwTOQDNvWMZGCInCls
+	 M1cfctug3xzP0Bw6VCVml5W9vOPCSTnEoT58fub3NBHiIjI/u3NaNNC+L4fFb9mDw4lJM
+	 Sf5035HoTAjk4/Lj2EJES1ECsGGBmj9q6Ghnn5V0WM++1T3qLuzV7Azgb+fRu8gCayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="amfaZ/fN";
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31A8606D807
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:15:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C31A8606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=n7BS
-	530HV1lVozfJXYDPjT1FuSJaYmtiEdjDoPBh4cQ=; b=UgiGrhuQy/mGgu5Jhrxw
-	U4iW26+36DDe3grM+u14/NvLDCpHeZ0xiuEvuDfDUqellkU1LwhONVcAqHtWqrir
-	+SR14FFVUQSG5N8j9hT4Cqak0uszM2oARxHzVMCg+ItnXftQckX/LD8VCM+MbgJc
-	OtVMgXRPjBzQAIuW9E6952rvSrTqZbNRihe/dNbxKmeIUosago8yE7dRio1e5h1I
-	7r89PejZOdMx37FuhZ3BUIHM1jqAtG2m+yjmE90HpRiC97xM4UAvVvWl+2AQIqkd
-	Vyu6ZJYFPFaN7JKPddkG2Jo+0Hsgr4JxwNT/o2TWXoegl8VH2SscRRg4OhSg9R/h
-	jw==
-Received: (qmail 833035 invoked from network); 4 Nov 2026 20:15:09 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Nov 2026 20:15:09 +0100
-X-UD-Smtp-Session: l3s3148p1@LaeQMnhfGLvAwtcC
-Date: Wed, 4 Nov 2026 21:15:08 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com, Chris Brandt <chris.brandt@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: i2c: renesas,riic: Drop clock-frequency
- from required
-Message-ID: <auuEOFZ8Vo1OUTw6@shikoro>
-References: <20260806111018.782380-1-tommaso.merciai.xr@bp.renesas.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3767D606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3767D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=amfaZ/fN
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so9926745e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:15:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793819733; x=1794424533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MlgYxghNQKBjr6lPDgvVwZkLEYLr1QFSQbB5pTwPWnc=;
+        b=amfaZ/fNIQiUw+lc1Vufc+hFjeqt1vbMNrWuNzzdRZ4ecDwcQWxZk5ls68Mn4BzaQX
+         fKWiebWCVeNFZiWvvAMSP40gBkQXdw98GynwpprUM6ElejB3QR4omic+QXhVxOqmqGn1
+         mqh8NGuT2T80teHyIqy+A6vHWqkm8mWLH5rgsPAx7W635R8Q3p4q2dtyfjc5K30l7sDP
+         Inn2F7f7AUvWAyLK0r0hYWkTZAcoi9Xtvba5TECpGdiAUd1quytYcQpurlCC7nytNB7u
+         +TgyL5cQv/mum5uBlbgwcjC7srkiUHlvM5N71bXId/g+rm74Ee5eNRQskaFvadtjsYta
+         QGwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793819733; x=1794424533;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MlgYxghNQKBjr6lPDgvVwZkLEYLr1QFSQbB5pTwPWnc=;
+        b=Ex9HnuhwZjS6yMZdzDM1915rPn7UGQNrqIdWMO2OL2wmDMVGy8rg9VAgzg8wn/ZEaA
+         LeHvMCA7pJDL1I/RsOFutT5fM4J9XBmxvk0Ioqhc8QCnum6JokQuPFvMjQEvkWWomFkn
+         I6K6PX++MDFOgDO+WF/TTRrzI9AN0uDm8QSEsW59Nw2nJ88O8WJO93a1CeUj0+Eakd5U
+         UhSfY2DiS7Jt7f0Hvsm8a21FjBzw4AX3Osn4T3GO5jKkOQkSeVNrEUNZCFEX7o6dZ4d3
+         W5J8ME2m94gKJF4uDmHqiiQo0AOn+QlalE1/GtYc8OT4SiqFhaBm8DNHifPdk+fcKsI3
+         9Yyg==
+X-Gm-Message-State: APuU4Z9AOjR7Yj5E41EjaiCknl/h/T5mwh/tO3jP98bL7hlkIs9dUoHo
+	SFXS3Bj8diObubDlMwB9rJcloZk3ghmwgPSq0JK+qGvXyo8nyRtI9TZQ
+X-Gm-Gg: AYBFou0ifmpaUKa0fbFozuZsRRTfl0UyRoHOhRLcYvlRQzPekjuQYtTz+00KcbStqy9
+	RG5i1bXAbn3Givc4regqelMxV5hJsNe7hSVHRgBgxVTtzG0CRuoNuVS8fQAv8a6bNGrwWt2AEig
+	M/NhmD/yd6oe+/RPyKEbWi7sg2s0zTOOeHpf6weOLxcfRyjOgqrA2S93gaaiwc3F2UMCszSz/mU
+	oucFQEuY15wqPVdcq4c8lRrB3pRD2cEtHfv/0xh9t+sRx1IgUW9e5iiYvRldT0E/2SZkRxC4PCJ
+	yz67IEplK2PcAap97juB9PpYvU4+//IPc/kc3VNt3hTkeDr/jaKL4G3PJjO008JcRQW7kjBTYtL
+	+CIFSwGSA1sh+F0+bWca0EbFJqebavaQEkxxhyHm33QV0In7jDpD54yw4/JjJqggiVYu6utENzS
+	Wp8ESc1hzgkg/rwspsX1+OFm/RXp3te6Rm74JzSsfNXQsDJXdDA/4/pG1rukEsfD0zFvL3wHeoW
+	ET4JSoWyybT4HpzZp3QNkQSCGw3Z4BD+rgtKitHZecwuJonWAaBT55pt4U+D8YxP+vi51j/A+rJ
+	nr9f0LatsVK73S/3+oA3hNN3hl82iJm6K+RX9/ZDMeXZOgG7QGI=
+X-Received: by 2002:a05:600c:3b97:b0:4a3:5a91:5f64 with SMTP id 5b1f17b1804b1-4ac18e5dcbamr394556005e9.27.1793819732554;
+        Wed, 04 Nov 2026 11:15:32 -0800 (PST)
+Received: from localhost.localdomain ([37.167.198.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43457595asm43696535e9.4.2026.11.04.11.15.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:15:32 -0800 (PST)
+From: Luc Bertho <luc.bertho.kernel@gmail.com>
+To: linux@dominikbrodowski.net
+Cc: linux-kernel@vger.kernel.org,
+	Luc Bertho <luc.bertho.kernel@gmail.com>
+Subject: [PATCH] pcmcia: rsrc_nonstatic: fix invalid iounmap warning on card insertion
+Date: Wed,  4 Nov 2026 20:15:21 +0100
+Message-Id: <20261104191521.19857-1-luc.bertho.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,57 +92,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="glWaHYKG2SMFiRw0"
-Content-Disposition: inline
-In-Reply-To: <20260806111018.782380-1-tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
 
---glWaHYKG2SMFiRw0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+When inserting a CompactFlash card via a PCMCIA adapter on a Dell Latitude,
+the pccardd daemon triggers a WARNING in iounmap() on recent kernels
+(>= 6.12) because it attempts to unmap an address that may have already
+been released or tracking context has shifted.
 
-On Thu, Aug 06, 2026 at 01:10:13PM +0200, Tommaso Merciai wrote:
-> clock-frequency is described as optional, with 100 kHz assumed when
-> absent, yet it is also listed as required.
->=20
-> The description is correct: i2c-riic calls i2c_parse_fw_timings() with
-> use_defaults set, so the core falls back to I2C_MAX_STANDARD_MODE_FREQ
-> when the property is absent.
->=20
-> The stale requirement only produces dtbs_check noise on boards relying
-> on the default:
->=20
->   i2c@14400800 (renesas,riic-r9a09g047): 'clock-frequency' is a
->   required property
->=20
-> Drop it.
->=20
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Fix this by explicitly checking if s->cis_virt is valid before invoking 
+iounmap().
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Luc Bertho <luc.bertho.kernel@gmail.com>
+---
 
-Putting it into my for-andi branch.
+--- a/drivers/pcmcia/rsrc_nonstatic.c
++++ b/drivers/pcmcia/rsrc_nonstatic.c
+@@ -279,8 +279,10 @@
+ 			ret = s->callback->validate(s, count);
+ 		/* invalidate mapping */
+ 		mutex_lock(&s->ops_mutex);
+-		iounmap(s->cis_virt);
+-		s->cis_virt = NULL;
++		if (s->cis_virt) {
++			iounmap(s->cis_virt);
++			s->cis_virt = NULL;
++		}
+ 	}
+ 	s->cis_mem.res = NULL;
+ 	if ((ret) || (*count == 0))
 
-
---glWaHYKG2SMFiRw0
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrrhDgACgkQFA3kzBSg
-Kbag2w/+Ppbl0Sufx7faX4uyhGSaA898V2UbRRgfxY7pqzPN4eaighcl3Y4DMLH9
-KQauzZK95aseWVDMJn2Q6OhVSxSV+aPLMnGKICp9LORM2rrfO8j7TbV0SrTUrl4R
-0YUEJ1tB0wlBZqOjx5PQkbfAhZTSQLzjtwX+m0pZ4vf00O2q1q60dxJGCay3tmbJ
-F6DqENIdCVXeZBNTy3g2+ZWtZvZWoPM3Sq5HBboMogQAYlfmSjinIlwgxxtNAbXj
-1nwZyrmBtMZmdb6TUeEGB1wRxUaFhUrxx5KOqEox3Zvrvt7bzK6X5dAik8y+EzX3
-Q34yblqCZ6g9+h1Em98vgc2i4M2NgEQKKhCCqCuKBkFGvR3C+TG8GXMsLtuYT/4g
-MTGPvQaX+N/uMGCw+fF2BQY20DXsYj7Cc6vDeAycAxM3pnH4CeUAhc6OmImM1clc
-rTPueTxD7uWJ6brrziz4wXHQEX7pYcGoDTbqtr4ORbJW8PNeroznAGtYVv+swR0b
-Ki7W+6l5+oyaoBHkAWDWctyilzhlo5kC9tayAFkjiZR9tBG3R21gBRnbvWVhl8Fg
-q1PHlIRIiqCeSyK3+iRAxrKizOz8hjafmf/nnI5oyvom6omsrFSm87q8s3trDi6J
-9F0+uO9FXfemivdmB1gu4yPfrzw1WK31Wdm4l+0SfMwtY+p2uC0=
-=UmDj
------END PGP SIGNATURE-----
-
---glWaHYKG2SMFiRw0--
