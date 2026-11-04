@@ -1,64 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783088;
-	b=5sRhoQS9NbnvrLPWz5tWQ4PVzz/V+WP0wZW8NffPKgxWvZwZO+VeWmOrcC+Iv1Q102UO
-	 fRNSw6SbGJ3SijLURMa1QPnbM0e2qKPgM+nibvmdEff0BNAZEP0mf3xLIS2FiuBSZ3Uz6
-	 J60KZAejayR6RlMkAK76YWcvBIoaJEuL6hV4xeTn4jeQYBkxG+YoUlnTVuP4CCbWV6KtP
-	 A/IPBHF9ZEbfSieJ4aCOoCtsyIp01FSh6qRn17HdvyS90R4uVt6963pJNikH64K5IQcTs
-	 I7B1AtTCDMttbJ6BUpNHEFOhIXOBrXvyaB4eS6TKlllw8u9Yyy/MnjIpkn8YIAIuiHA==
+	t=1793783104;
+	b=WRe8gG67Q3WngQnkowVIvCie4bfXPnsXGK1JHkh7TRdEwT9dZK6wiu5GCIs34WB3UhhJ
+	 dp5kLLktng81jCyswhXKXmeOh2J3ZXP0QaGUg4ybmojuxKP5TxKRJ8qyUajFKdPDlnOz0
+	 ufhxwfFGJYh5F1ytClG5MRJwzOhbb8ANr0i93GCvIZHugGPpEp+ZMPOEdSqtP10Jlzd7b
+	 ZelMhJXNoFyasBUkf0cxHt3///7CWbTHcZIqTyfXFAA3f3M1daXXAamOSOrRePNoNHYT0
+	 prk0mHKd24hZzH3bYdo82HQ3B6lKleC0zyZaSvRnoSVh5SAJGIOgxqCOtdmXCnzoT5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783088;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=jS8EmX9YEz1aAtqHNYTh2/HG8DpSqns+F77LtDtIDbI=;
-	b=adxAjxX32EHquj3rFcjpN+sQ8fgLUPjqLvdfxqvc+YlHu3/BYl8csner6/CndFURL+p7
-	 NZz87oF22vOgRd6Q7EH+ynr2C3FtyOz2doPV0o/f1Km5oLCwtH4mh8sR1XHst+uDb8rv3
-	 yglHkYXfzBlXYrPC+sGiDjIq8zQPH5OP8xI2C9QdvySGO9TBmjjCT+diaceLj/a3Zdz8M
-	 KRHv9UK5Fu4b5JjRQApwpGuJZyWho0DAPr+ROPcBnf5r5Mt+jdLLrv/dh8GgLMMLQE7Kb
-	 JTVAKxkr4zqLaBWryoM631hleh3MqxHwI1AztE/ybMO4+LP1+w1kE2S5fQoQpgDsxSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783104;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=BeJ1+ZEVQLZEJsNPtmgSzO5kLlwOm5eGbYdwldVrJkWMBD6LdvYG4k50bS2S63RpCEJa
+	 pGjCY1v8umHd+sqmD9vC3Rl4AZmI2uPlmArE/hybPcAXm7QX4sDtDcEju0pcLfhvEHhas
+	 nG7ZGMMPwCbkf1pP8X6751AjcoPbWIAW2AbI9Rzta3clg4w+xdrHEDF07NsawQiSf1t/j
+	 eyUxIk0WSSMOsHV7Wqj9+O1ot/GpD/RuILAjPXq12EfZ3T310+GfHAseEWER5t6F48F7a
+	 ZkhYydgeZW3rGvF3CKBm0l+oABrkVifA0P9HfGr7CCRXZdJ6S078nbC0k2iFtrlZHyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=X2R+6IL2;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogdohVTD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48DE606A339;
-	Wed,  4 Nov 2026 09:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C48DE606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94335606A334;
+	Wed,  4 Nov 2026 09:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=X2R+6IL2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=jS8EmX9YEz1aAtqHNYTh2/HG8DpSqns+F77LtDtIDbI=; 
-	b=X2R+6IL2gnfc5FgubrtLAKLQSJY+mN0EfeVOSFCsM/IEf302O+Su0HqqjRbbqRoGUIZWFZQ+KKm
-	o/aO8U+iHj/27Ra1L4Vt/PJBWovhO0PXxCkkfrozk/Sn/PacWeYKXtNKjTVlSD5zBgPnb6ulv/ZEc
-	PZJiTrqGHL+gplGx/vytt+Ogz5nK9nXq77qTCjegD+D0h9RQesgGW5HtUxb8q72gY3i1c4K0xtmHl
-	BEI1B6TuUUM1x6nxJlb11XmbO1tqbU73dIZxSr4UmxTE2jvQcYQYZqr49P+X5Ip7P9k2748NP8kiT
-	ncKMIVn7guVlRtiBaPwCEan94G7xQPikTVSA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xOWvC-0000000AnKs-1L9j;
-	Wed, 04 Nov 2026 17:04:43 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 17:04:42 +0800
-Date: Wed, 4 Nov 2026 17:04:42 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Sahil Malhotra <sahil.malhotra@nxp.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [REPOST PATCH] crypto: caam - reject overlong RSA CRT parameters
-Message-ID: <aur1Kpi3GRQ-fT2W@gondor.apana.org.au>
-References: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogdohVTD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC791F000C1;
+	Wed,  4 Nov 2026 09:05:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793783104;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ogdohVTDI0cfEuN2qgFTmiIHWT648XiMpHfL/vIfvwvcjW/ZMN6GV6Q3gH7M2c3Hx
+	 QYC2Ou6ihYTksPvaOowqt3sKZpoWIARezoxtisraxJa4X6Ug29G/XpCDX4bxBQMCjq
+	 Q8sCaz4rPha57nBvBkyZogpyDaWfLbd6b7ZpvZxmJH0RvotFfqbr9a2hMGu7LlJKrN
+	 Fo9qhjSWleyAYz+IVcZMm1eHDD14j12KwR0qZeKatavv0u4phPHujqyoiIaNHYiA/I
+	 mWKqAtj/ixP2bp+Pcr27zxzXgYmKHWBqLVzk4sAf/Zj9FKe+4LjeHxDYZ6vNB5IffR
+	 beNkQe4w7v9SQ==
+From: netdev-bot+sinfo@kernel.org
+To: luoqing <l1138897701@163.com>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Patrick McHardy <kaber@trash.net>, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/2] netfilter: conntrack: avoid secs-to-jiffies
+ overflow in SIP helper
+Date: Wed, 04 Nov 2026 09:05:02 +0000
+Message-ID: <179378310288.488859.5501372329923288019@kernel.org>
+In-Reply-To: <20261104085925.773471-1-l1138897701@163.com>
+References: <20261104085925.773471-1-l1138897701@163.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,38 +66,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-On Thu, Oct 08, 2026 at 09:35:53AM +0000, Jérémy Jean wrote:
-> caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
-> from the corresponding prime. rsa_parse_priv_key() only bounds these
-> integers against n, so a malformed key can provide, for example, a
-> two-byte dP with a one-byte p. dstlen - nbytes then underflows and
-> memcpy() writes outside the allocation during set_priv_key(). KASAN
-> reports a slab-out-of-bounds write in caam_read_rsa_crt().
-> 
-> Reject empty or overlong CRT parameters after stripping leading zeros.
-> qInv is consumed by CAAM as a p-sized value, so size it from p rather
-> than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
-> top-level key cleanup handle partial form-3 allocations and return the
-> specific error to the caller.
-> 
-> Also test nbytes before dereferencing it while stripping zeros, so an
-> all-zero integer does not read one byte beyond its input.
-> 
-> Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
->  1 file changed, 30 insertions(+), 39 deletions(-)
+Hi!
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
+
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
