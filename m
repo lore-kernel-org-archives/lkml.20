@@ -1,89 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818163;
-	b=wdRIWvjE1XBTk3CbpqT2ta6edbyS8FUDLqBXJQgIWn9QwfUdHmq25N7bAlQDj4bPCGcr
-	 QCNZUoqvTZhhDnbC03rA+p/pqm8iNDoqB1EFOaMFBwEllY987y8AM+NAAsyWvhK8XomYG
-	 BgwEgzCWtXYJKUQl+Z9buVa0qdSOJ69OIt4qwjaX8PEEkXuQVRZzF/PemyxmgfUF54orA
-	 6BxZzTUKmFXEudZiARt1mMXXtL3VR7GyS2BvMGDKL6VwQyGrrwbkKnx1r9BB+u7B755xp
-	 I2tY33IRez07956YrSLOY7p058qEVN99ndgeYcVvd/cay6VQrvZXXoSFX8rT42q5v3Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818163;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=humTIxX4TPWI3tOk5+1a6q+LpbefpGEjc8rEG2Ixa2M=;
-	b=Nkt6NB8QMdMcxXPpSTGXxmchQYDsb2sR3UiKmTxZOjMCVvAQmb4VzhlgcM4hyfnTKHDj
-	 u4Ig2drnsbqgoNSWtM/TLXXRmNW+Qv0EbhGIK+poEqPGM1P4Iiy+pX5PRE85kzkuJpekf
-	 Dw/dTr37hHZPoopL01N+LxaZpd1tlWEhj6Zvusvoax37Myaf+FpKdTT9X22xeMNcOTsZX
-	 5Yvq9axmgNqyFU4xLXdRHODVOowbQA8qlzhOXsCf7mc9CFl/MhXeFTK0ilIgasg7iSTXY
-	 faNLn7MwiVjXNuJ+Gkpk1sptbouZsfn01TNvpfczAHKDnGdXA/pzSGYp+KrxUIzxakw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HbPtpFHS;
-	arc=none smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793818144;
+	b=ihU2pABqPCmiVmTn8hle+Y4Rftwew29a6ZOR6kfnA+8sF6dd7n9bbZXmsUFjF1vkZ+df
+	 OQ+9aupTejSXuOpzcD+8ioID0DnDSaX1qpb37vexnzAjH3+Uxz/waJshyr47eCcVSn+1e
+	 Me8QnsUyhbc8CBm2KBm1v47/eY83C0ffs/KFo/nTYrXRvgrxKOuJjaolnpl2wOWh/J15L
+	 sukAes2KPs6lUXWxc0acu5kW+0WP8/4qoNPQroKt7uG+Ds0TiKCo23WgMT/1CBdbisKxO
+	 p9Us4fo2mTRFAaHYf+Jtpb1Z4G44mtm9oss5HIxndGFzipYbyelFX5WgDTwIViGVtLw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818144;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=a5gbFSyoFRK0guk69IMyXpdI0RO3UIBCLkofjUx0efI=;
+	b=Y+CXSGUAmxfpilmV9Rf8cm3sL+LRdMcJVWqsoRTucPYL+Fazp8QZiQLBB68Ry5SfZfN8
+	 nHPrCiIYOS/U1YSIrCRfzMgUWVMCoxcBCP+9+LRr20/AUHLTF3uzjeozd5hiJiw3F/uCg
+	 t2ztsELgmW/iSjafLr7GLOl9FEsPs0Dn/VmJQPCb/tFM7Qbf8UynSmQ8jWA8B0Taom06X
+	 /GBlNN8qKXftzYIbKxt5y7OPbIbESaAoH3al2kXNe4N6n9UNCiClgHkICFJO6eABp50o3
+	 YlAPf5vi3vP29FwmZidZWBMcRLXC2n0ZML+GGMFKKEzEbkrKFodlCFWlcPavhDozqZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OKuZCkv7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.37
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011037.outbound.protection.outlook.com [40.93.194.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB3C606EE97
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB3C606EE97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AB5606A329;
+	Wed,  4 Nov 2026 18:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69AB5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HbPtpFHS
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b10d24345dso10197727b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818161; x=1794422961; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=humTIxX4TPWI3tOk5+1a6q+LpbefpGEjc8rEG2Ixa2M=;
-        b=HbPtpFHSRh1nYeo/GF+AjWWY8urtvBBI2q3N1d7qap0XGD0G4xW5akYbYMi1fVknHx
-         W+KVM7mdhPdvbDtmctOKgOjFMgRtINKOdPPeMZnS2JsovCPeyKBzqHAG/o94NWJDyhs5
-         rBHt3EaXttU8OKG7SPKyiOJ5XNBgfYIwAC1HCTaylt3zyj5tA5mbYj4GKxjxxOahaueD
-         LDzUIGesYR+4mZTw0EbitwYCP+gAg+kZa1r/Gg5s/D9skoBpOnoBGP4DWCb4ga1WmPsP
-         IG/ac3xspSVyWbGCg54Urod83ueONI8ABI4vGnoynjH7cHG4CetTBvDX8E3/n36CB5M3
-         zshQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818161; x=1794422961;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=humTIxX4TPWI3tOk5+1a6q+LpbefpGEjc8rEG2Ixa2M=;
-        b=si3OfyEMZphDfuF7EmB8VSYrCS3K8/4sAMFY/e4sOa58YrN/QGB0klPhKUpx0m9KE4
-         9g94spj/rYg1mcRG+XihTcpZomwPKdxnomhF0S/bsZgNZwY90tJ4Yzq3S5Qq5gKwm7sK
-         A+8QEQoqt2C9mWGP4t8SKYkTID3pbJbiSpiHa1vZgU/ApKJnVKUG49o2eQ+04iPewINW
-         0l9wwWynHTL/y24VYi1Fb6H3GubQ4HY7tzIv04n7Vz7tNWp3/ijhekUuj3SaSx8erOhT
-         OZeAQGDJK9rHNc1ROLf3OEQjK8KMCm0HYRyWsMUGc+UfvjmsLUB7tRHnDlF/gdIFnRkL
-         si4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxu61LrBAlJBnuHV5TxGkXGEEWczS9lXAm0OpC1M8i2P7JI5TTr2nynnLFCP2aAvystz7yRWNVkmd/Vg84=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UNHyZmmhdSp01ojXefqF8kuMd2x/rGmrHofaR34o5V2tjKtPL
-	eLZSjf6V97fjdVEnK0URcTo0UGyBO3K20iiJs+Xphg/32IUMufQWm6VHu0Qmeg==
-X-Gm-Gg: AYBFou1GTfbmguMkYNtzSkDStsIEq+xNFpREPjn3kABgA5gr4Cnt4mWOC0XcQ2hxfe5
-	BHGRjwOLSA5kpwIIJkHNxwEPFTr2r6B0QrCSzfvbOs6C0kQICbykie+R3AyKwlzwJTHTbaCtqWC
-	dF5LkFuVvd7hWSH8pEraXs8V0yXZfZWzZEt5hlYpyqm9VY4DSjCSb3OdSaSaa9jb6h5NUcZw+kq
-	5cYeHiJd7kOu2syWSejdGZKOMJHrOz3C42cUewWk6FoAvU51zT4VGO0OO6VE+cCm294II1o7Mdt
-	BEj4KE/zpA34AmNm3EeGg25iU8N6L7z89okFPZRV9sINJgNHtjceUiKpjE80AljtXKhuhs6kGdV
-	9Qb8KChPZdFPkUOP4qww0sVuVG3RPtSO1wgdY8prwZP2hyf/I9kziD5lRpEaYVbfe4dAG0MBU6Y
-	X4xuZZi9+DmQbi97LFY4qmEYLVip6A0A+gKWJKpFPI2tFCxVeHsdN7KQwLQ2De5Ow12H/GSN4DH
-	9Mc7xbc5L/UZzBlnuQGYtsj8kBe+Wy2ACgSyVd/KLLLLMQD6BY4ClXS971SePSjEbM7iLPyeY2q
-	1057pkfHzGMSNyBQmoSq0PVt6kaPqBFhQIHpKfF6OoSxmxo/vKVjrEVutsjmjQFu0988bK30lnr
-	MiPsmWEmanw==
-X-Received: by 2002:a05:690c:ec9:b0:8b0:9e22:2651 with SMTP id 00721157ae682-8b2b65d5bf2mr128910807b3.7.1793818160622;
-        Wed, 04 Nov 2026 10:49:20 -0800 (PST)
-Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bae3f4sm24290077b3.39.2026.11.04.10.49.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:49:19 -0800 (PST)
-From: Matt Turner <mattst88@gmail.com>
-Date: Wed, 04 Nov 2026 13:49:13 -0500
-Subject: [PATCH v6 06/13] alpha/perf: implement ProfileMe sampling
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OKuZCkv7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CWZlILJb1zutWD5vH2Ua16fBw1dsXVS0RLu1mDUB+74V8YVqsrnlzFDo19boQ2xRVNpk9Y3fguAPm3pY3a69SqhMFCGwmiQ5ulZKzF0CTPI5qQb8KozyYx1wAQQ/WKDdkRVbGM/zN7xVUziKWdlbwii6ZDRKb8Rj8cM0mldOrz7da4/XKaqowTXkNCs+T8Xg+zKo4bW3BDQibKGud4sXOZYfOdbv4miUDzy4gIqoId+1h0akKx0rzzV6zT1lLNjPvFPYwc9JoQGmtbYOpypfuwOLVQQODVaZg0v4C/xsrWKqr1g7r71JYHoZc9Og7YEKgONWb3i7Eud8PnX7vXKDtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a5gbFSyoFRK0guk69IMyXpdI0RO3UIBCLkofjUx0efI=;
+ b=hF39abDB3uuR3zw7TD7mboKR+opTCp07boq4V5157luttbSAX/omdkTRDFwuAdBed7ojDyykrzFGwYkYD4ClWmLR1qcMSbBqRcQwNo0NOqvs/v6lZ7X/KHb/q/TUUChSs+VQ6ddh76IJeO6G0Cal/9htS4C2zJGK2yu2+jogGPkdV/uZa0YU9FzZroLvCzqe8Z7Np1H2G/6Ay+eS6nRQZtDWvH9CX3yRh4fWAq9oFgsDivLBY9bc10kLglv6KTFhDv/yJEmUl5k3/jNryOV37Avo9oesCiVUz5JMFU5ok144IUIefWL0ri52PQGqVPE579XBlU0vob+8y0wHUpFi6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a5gbFSyoFRK0guk69IMyXpdI0RO3UIBCLkofjUx0efI=;
+ b=OKuZCkv7mT/ZlTwHM/YULLnAyyuyxBKwA9l9n/3lg+s0Z7J6+qX+5zKJ9oH0ErgIqqt4WLgY4gWA1aWWVMaG1fdfeFbHmpOolIKo5G9RmVATPg90puMlF0dJblGKYqk2RpagJYq0vzjA2Sxaofbh8eYl0wMfyPP3KQEvu+nFJoZMLoYbtK2uhvr3vvSgrjWo39sEFQkcKmFteFgtcdKVu6LH7ZKKkuc30z+tx5+pmfI4a+WmA7iVYRwL5ulbuKzs30KZOssavnZ8Y8adEfEH7CWYHM6cd2F5ChSnZ6O2P4+vHhTa127IW6RMv551Uj87bKz807Fy0IZMzCyb12tAvA==
+Received: from SJ0PR03CA0066.namprd03.prod.outlook.com (2603:10b6:a03:331::11)
+ by CH2PR12MB4167.namprd12.prod.outlook.com (2603:10b6:610:7a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 18:48:57 +0000
+Received: from MW1PEPF00018893.namprd03.prod.outlook.com
+ (2603:10b6:a03:331:cafe::4b) by SJ0PR03CA0066.outlook.office365.com
+ (2603:10b6:a03:331::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 4
+ Nov 2026 18:48:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MW1PEPF00018893.mail.protection.outlook.com (10.167.249.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 18:48:56 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 10:48:32 -0800
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 10:48:31 -0800
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.10)
+ with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Wed, 4 Nov
+ 2026 10:48:27 -0800
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, "open
+ list" <linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark
+ Bloch <mbloch@nvidia.com>, Moshe Shemesh <moshe@nvidia.com>, Parav Pandit
+	<parav@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drory
+	<shayd@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net] net/mlx5: E-switch, Restore host PF enable for ECPF that isn't E-switch manager
+Date: Wed, 4 Nov 2026 20:47:56 +0200
+Message-ID: <20261104184756.773910-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,578 +117,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-alpha-profileme-v6-6-63362e9290a3@gmail.com>
-References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
-In-Reply-To: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=21314; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=C0fXWD8NcLAIbVEqDJNwGwybWsy31qhMyVKa2UKfQy8=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16kmXzvSPK2pYV0S+x4/44/Hnb84BO8N/HJc5sH8n
- xL1JQG3Oj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
- U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOaa03GMDPdWCGtl3N
- nskhgjP++U4drdt04/ufQpLvnr/1cVKotuvnrEyDB9sbSLftEJF1v1pQ/P/Vfd8WG7T613ys25Z
- jtelBpvjeAHAA==
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00018893:EE_|CH2PR12MB4167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72c84c2b-4ae4-4c12-1e93-08df3aa44825
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|261026140227099003|56012099006|261022105027099003|11063799006|261028144727099003|261009223027099003|261021121427099003|261021123027099003|10067099003|18002099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	B2TNSmLTccf3gP6rliElgYbq7uUclRP/UqW9k4JwDAtB8sQpvtoMHf+RqJMsQ7gs3TzHGTt5HMRAK0e1XtIVp4iOU9oRFzhTVTZSCf93lqNaW8UBDO4sSAhrSlL3JL53yq5uWr+yuKExEi3ZvanynX2A2WPFe0xAgUiZbFEDeKdjksJ8kxHr0mfJqZxhAU+BhJKCOeQORGYuCQ3kyX3PdNZh3q7vVjqrypqxrdo4fG/x2Cpro0yUndPkEQfLMzE1R7Qmf/HkSfwlas6m1xhYRSlBHhG/wLbyo/IdbVGFVBqOE0CgIkn0ciTWGy002GZITBJRsIZSDEvj89qTP9mmSH8LDGfNeQjQKk0Otmf0FmXg5AC/eaPyHQfd2nMCVTsgmA4HACiPGefHqhf43IrI27Teik0L5z3mhmOT997mOa/jxMpusnYIm/nG/y1UuQYUjodeVSc6i4/2AEssujmxfaGQw57NkRx7XgNpf4lTvE5a2uYGudiRT7F2x3OvOHnZpbVCtJAM8KRCAIlJEjnfREbcs+w+S4hDTlbW0us1GDnQ2OgP8od/7qBLGR98lRrxAFEAgZU2rtdSjXqyw7m7sMPXiFeJ/yiW3XcfHzw83BfdznhOKaGyuxkKfXRJHWg+Rs2zNZhvfBOREGYmY0QO+4+3ek0h9G8AnehO7n9BIXXpeHuwpv09rBv9GpUMg8lYU2Ok8NDZg0qqRJVDmS+CcA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(261026140227099003)(56012099006)(261022105027099003)(11063799006)(261028144727099003)(261009223027099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	V4WcnZLdeamixGCXOMMZu3BYVEX7tv2IezNYJEfF+lERPacw4mMVG2LQ/sooFQ7+LK33tjAiL8YP8VCHb2JsO8cXKXTbwaPVNZSKTtWf5IMUsrNa4FRgpQvfcCUryO2S4xkXsO+DGNzOvJbQEPLZV08QyKSjWCOHbecS5w4b2w4dMPSdd4aU3yELog2BYxU1stUv5B8zXdqaoczCFn90Prr5X+va6md9ezXy5QxrStzDCq6nrn+DAUMJ+cI7ZJZjfnDaw6EsRj9yjXRQOGUUrbNQZaLtX91t7QHwMO2FTlCywxpApQSVUm9+q+9eUaU3mj8tRamhgP1nkwezfAbqqDhrCR8oU3ylH3J1sMjghCFNifWZIXex2LeNR1Lwa+ozmeL9mtocCNcTHx2cgtQE32d4cJ7KTlVz/oCIiA5LVsqnORDxLG5QllzrRa28PS81
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 18:48:56.8410
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72c84c2b-4ae4-4c12-1e93-08df3aa44825
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00018893.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4167
 
-The 21264 (EV67 and later) and 21364 have two performance counting modes,
-and the driver only uses Aggregate mode. Its samples report the PC at
-which the counter interrupt was taken, which lands a variable number of
-instructions after the one that overflowed the counter. On an EV7 a
-16-instruction user loop shows up at only 4 PCs, anywhere from 15
-instructions before to 12 after the real one.
+From: Shay Drory <shayd@nvidia.com>
 
-In ProfileMe mode, the instruction that overflows PCTR0 opens a window
-during which PCTR1 counts, and when it closes PALcode delivers the
-interrupt with that instruction's PC latched in PMPC.
+The cited commit breaks host PF enable_hca when the ECPF isn't E-switch
+manager. For example, when the link layer is infiniband, the ECPF isn't
+E-switch manager, so after the cited commit enable_hca is never issued
+for the host PF, it stays in initializing state and fails to probe.
 
-Select ProfileMe with the new profileme config bit or with precise_ip,
-since PMPC has no skid. PCTR_CTL[SL0] selects the mode for both
-counters, so a ProfileMe event is scheduled alone and perf core
-multiplexes it with other hardware events. precise_ip 3 is refused, as
-AMD IBS also does: a sample whose PMPC is a PALmode address keeps the
-interrupted PC, so zero skid cannot be promised. perf record falls back
-to 2 when it asks for the most precise level.
+Fix it by checking esw_allowed() only for vport bookkeeping
 
-The event type chooses the SL1 setting, which decides what PCTR0 samples
-on and what PCTR1 counts in the window:
-
-  event          PCTR0         PCTR1
-  instructions   instructions  cycles
-  bcache-misses  instructions  Bcache misses
-  cycles         cycles        inum retire delay
-  mbox-replay    cycles        Mbox replay traps
-
-Every interrupt rearms both counters, since PCTR0 stops when the window
-closes. The instruction count is corrected by the overcount I_STAT
-reports. The sample is attributed to PMPC. The interrupt can be taken
-in a different mode than the profiled instruction: in an unaligned
-access test on EV7 that was true of three quarters of the samples. When
-the modes match, the PC is set in the interrupt's frame for the overflow
-call and restored afterwards, so perf's mode, register and stack
-sampling all see the same frame. When they differ the registers are not
-available: a kernel instruction whose interrupt is taken after the
-return to user mode has no kernel state left, and a user instruction's
-frame may not be built yet, as the interrupt is often taken on the first
-instruction of the entry code. Those samples use a per-CPU frame holding
-only the PC, and a user instruction's sample reports no registers or
-user stack. PALmode PMPCs are physical addresses, so those samples keep
-the interrupted PC.
-
-PCTR0 is left stopped just past overflow at the end of every window,
-which the EV67 PALcode restrictions 32 and 38 warn about: a disabled
-counter near overflow keeps signaling it and blocks all other
-interrupts, and a disabled counter only clears its overflow state when
-written twice. So the counters are written twice when rearmed, and are
-moved away from overflow when a ProfileMe event is stopped or removed
-or a stray interrupt arrives for one that is gone. Without this,
-sampling every 10000 instructions wedged an EV7 in 7 of 16 runs, with
-no console output, until the service processor reset it. With it, 66
-runs passed.
-
-A ProfileMe event lives at index 0, so every interrupt taken while one
-is scheduled goes to it, including one from an Aggregate event on PCTR1
-that was pending when perf multiplexed the ProfileMe event in. That
-interrupt, and one pending from before a ProfileMe event was stopped or
-switched to the other mode, finds PCTR0 short of overflow, and is
-ignored as the previous patch does for Aggregate events.
-
-Three behaviors differ from Aggregate mode. perf record's default event
-is cycles:P, so it now records a ProfileMe profile. In ProfileMe mode
-PCTR0 counts valid fetched instructions rather than retired ones, so the
-instructions count includes the wrong path, squashed NOPs, and both
-halves of each CMOV: on an EV7 loop with a randomly mispredicted branch
-it is about twice the Aggregate count. And instructions killed on a
-wrong path are sampled at their own PC, as ProfileMe defines them.
-
-Suggested-by: Magnus Lindholm <linmag7@gmail.com>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Matt Turner <mattst88@gmail.com>
+Fixes: 0e6c95c98829 ("net/mlx5: Support devlink port state for host PF")
+Signed-off-by: Shay Drory <shayd@nvidia.com>
+Reviewed-by: Moshe Shemesh <moshe@nvidia.com>
+Reviewed-by: Mark Bloch <mbloch@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
- arch/alpha/include/asm/wrperfmon.h |  12 ++
- arch/alpha/kernel/perf_event.c     | 290 +++++++++++++++++++++++++++++++++++--
- 2 files changed, 290 insertions(+), 12 deletions(-)
+ .../net/ethernet/mellanox/mlx5/core/eswitch.c | 24 +++++++++----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/wrperfmon.h
-index 1fa9bc813263..7fbbfd74926a 100644
---- a/arch/alpha/include/asm/wrperfmon.h
-+++ b/arch/alpha/include/asm/wrperfmon.h
-@@ -92,5 +92,17 @@
- #define EV67_PCTR_CYCLES_UNDEF (1UL<<2)
- #define EV67_PCTR_INSTR_BCACHEMISS (2UL<<2)
- #define EV67_PCTR_CYCLES_MBOX (3UL<<2)
-+/* In ProfileMe mode, SL1 = 1 makes PCTR1 count the inum retire delay. */
-+#define EV67_PCTR_CYCLES_RETIRE_DELAY (1UL<<2)
-+/* Set in both SL settings where PCTR0 counts cycles. */
-+#define EV67_PCTR_PCTR0_CYCLES (1UL<<2)
-+
-+/* ProfileMe status, from the EV67/EV68 Hardware Reference Manuals. */
-+#define EV67_I_STAT_OVR_SHIFT 30
-+#define EV67_I_STAT_OVR_MASK 0x7UL
-+
-+/* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode address. */
-+#define EV67_PMPC_PAL (1UL<<0)
-+#define EV67_PMPC_PC_MASK (~3UL)
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
+index 2d289fb1353b..dd7e33a20ab0 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
+@@ -1514,13 +1514,9 @@ int mlx5_esw_pf_enable_hca(struct mlx5_core_dev *dev, u16 vport_num)
+ 	struct mlx5_vport *vport;
+ 	int err;
  
- #endif
-diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
-index dd7fc4ac1396..7208d09a32d1 100644
---- a/arch/alpha/kernel/perf_event.c
-+++ b/arch/alpha/kernel/perf_event.c
-@@ -16,6 +16,7 @@
- #include <linux/kdebug.h>
- #include <linux/mutex.h>
- #include <linux/init.h>
-+#include <linux/sched/task_stack.h>
+-	if (!mlx5_core_is_ecpf(dev) || !mlx5_esw_allowed(esw))
++	if (!mlx5_core_is_ecpf(dev))
+ 		return 0;
  
- #include <asm/hwrpb.h>
- #include <linux/atomic.h>
-@@ -30,8 +31,13 @@
- #define MAX_HWEVENTS 3
- #define PMC_NO_INDEX -1
+-	vport = mlx5_eswitch_get_vport(esw, vport_num);
+-	if (IS_ERR(vport))
+-		return PTR_ERR(vport);
+-
+ 	/* Once vport and representor are ready, take the PF out of
+ 	 * initializing state. Enabling HCA clears the iser->initializing
+ 	 * bit and PF driver loading can progress.
+@@ -1529,7 +1525,11 @@ int mlx5_esw_pf_enable_hca(struct mlx5_core_dev *dev, u16 vport_num)
+ 	if (err)
+ 		return err;
  
-+/* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs. */
-+#define ALPHA_PERF_CONFIG_EVENT		0xffULL
-+#define ALPHA_PERF_CONFIG_PROFILEME	BIT_ULL(8)
-+
- /* hw_perf_event.flags */
- #define ALPHA_PERF_FLAG_WRAPPED		0x1
-+#define ALPHA_PERF_FLAG_PROFILEME	0x2
- 
- /* For tracking PMCs and the hw events they monitor on each CPU. */
- struct cpu_hw_events {
-@@ -148,6 +154,19 @@ static const struct ev67_mapping_t ev67_mapping[] = {
- };
- 
- 
-+/*
-+ * In ProfileMe mode PCTR0 selects the profiled instruction and PCTR1 counts
-+ * during its window. PCTR0 counts instructions or cycles, and each choice
-+ * pairs with two PCTR1 inputs, so each event type picks one SL1 setting.
-+ * Indexed by enum ev67_pmc_event_type.
-+ */
-+static const unsigned long ev67_profileme_sl1[] = {
-+	[EV67_CYCLES]		= EV67_PCTR_CYCLES_RETIRE_DELAY, /* PCTR1: retire delay */
-+	[EV67_INSTRUCTIONS]	= EV67_PCTR_INSTR_CYCLES,	/* PCTR1: cycles */
-+	[EV67_BCACHEMISS]	= EV67_PCTR_INSTR_BCACHEMISS,	/* PCTR1: Bcache misses */
-+	[EV67_MBOXREPLAY]	= EV67_PCTR_CYCLES_MBOX,	/* PCTR1: Mbox replays */
-+};
-+
- /*
-  * Check that a group of events can be simultaneously scheduled on to the
-  * EV67 PMU.  Also allocate counter indices and config.
-@@ -155,9 +174,21 @@ static const struct ev67_mapping_t ev67_mapping[] = {
- static int ev67_check_constraints(struct perf_event **event,
- 				unsigned long *evtype, int n_ev)
- {
--	int idx0;
-+	int idx0, j;
- 	unsigned long config;
- 
-+	/* A ProfileMe event uses both counters, so it must be alone. */
-+	for (j = 0; j < n_ev; j++) {
-+		if (!(event[j]->hw.flags & ALPHA_PERF_FLAG_PROFILEME))
-+			continue;
-+		if (n_ev != 1)
-+			return -1;
-+		event[0]->hw.idx = 0;
-+		event[0]->hw.config_base = EV67_PCTR_MODE_PROFILEME |
-+					   ev67_profileme_sl1[evtype[0]];
-+		return 0;
+-	vport->pf_activated = true;
++	if (mlx5_esw_allowed(esw)) {
++		vport = mlx5_eswitch_get_vport(esw, vport_num);
++		if (!IS_ERR(vport))
++			vport->pf_activated = true;
 +	}
-+
- 	idx0 = ev67_mapping[evtype[0]-1].idx;
- 	config = ev67_mapping[evtype[0]-1].config;
- 	if (n_ev == 1)
-@@ -216,9 +247,11 @@ static int ev67_raw_event_valid(u64 config)
  
- 
- PMU_FORMAT_ATTR(event, "config:0-7");
-+PMU_FORMAT_ATTR(profileme, "config:8");
- 
- static struct attribute *ev67_format_attrs[] = {
- 	&format_attr_event.attr,
-+	&format_attr_profileme.attr,
- 	NULL,
- };
- 
-@@ -279,6 +312,31 @@ static inline void alpha_write_pmc(int idx, unsigned long val)
- 	wrperfmon(PERFMON_CMD_WRITE, val);
+ 	return 0;
  }
+@@ -1540,18 +1540,18 @@ int mlx5_esw_pf_disable_hca(struct mlx5_core_dev *dev, u16 vport_num)
+ 	struct mlx5_vport *vport;
+ 	int err;
  
-+/* Write PCTR0 and clear PCTR1 in one call, as ProfileMe mode requires. */
-+static inline void alpha_write_pmc_profileme(unsigned long val)
-+{
-+	val &= alpha_pmu->pmc_count_mask[0];
-+	val <<= alpha_pmu->pmc_count_shift[0];
-+	val |= EV67_PCTR_0 | EV67_PCTR_1;
-+	/*
-+	 * PCTR0 stops when a ProfileMe window closes, and a stopped counter
-+	 * only clears its overflow state when written twice (EV67 HRM, PALcode
-+	 * restriction 38). A counter left signaling overflow blocks all
-+	 * other interrupts (restriction 32).
-+	 */
-+	wrperfmon(PERFMON_CMD_WRITE, val);
-+	wrperfmon(PERFMON_CMD_WRITE, val);
-+}
-+
-+/* The counters an event occupies, for PERFMON_CMD_ENABLE and DISABLE. */
-+static inline unsigned long alpha_event_idx_mask(struct hw_perf_event *hwc,
-+						 int idx)
-+{
-+	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
-+		return EV67_PCTR_0 | EV67_PCTR_1;
-+	return 1UL<<idx;
-+}
-+
- static inline unsigned long alpha_read_pmc(int idx)
- {
- 	unsigned long val;
-@@ -289,6 +347,26 @@ static inline unsigned long alpha_read_pmc(int idx)
- 	return val;
- }
+-	if (!mlx5_core_is_ecpf(dev) || !mlx5_esw_allowed(esw))
++	if (!mlx5_core_is_ecpf(dev))
+ 		return 0;
  
-+/*
-+ * Move a stopped ProfileMe counter away from overflow. See
-+ * alpha_write_pmc_profileme() for why. The caller has read the count, so
-+ * prev_count can be rebased on the value written.
-+ *
-+ * A pending PMI stays pending, but alpha_perf_event_ovf() ignores it, as
-+ * the counter is left no nearer zero than alpha_perf_event_set_period()
-+ * would leave it.
-+ */
-+static void alpha_perf_event_park(struct hw_perf_event *hwc)
-+{
-+	long left = local64_read(&hwc->period_left);
-+
-+	left = clamp(left, alpha_pmu->pmc_left[0],
-+		     (long)(alpha_pmu->pmc_max_period[0] >> 1));
-+	local64_set(&hwc->prev_count, (unsigned long)(-left));
-+	hwc->flags &= ~ALPHA_PERF_FLAG_WRAPPED;
-+	alpha_write_pmc_profileme((unsigned long)(-left));
-+}
-+
- /* Set a new period to sample over */
- static int alpha_perf_event_set_period(struct perf_event *event,
- 				struct hw_perf_event *hwc, int idx)
-@@ -329,7 +407,10 @@ static int alpha_perf_event_set_period(struct perf_event *event,
- 	local64_set(&hwc->prev_count, (unsigned long)(-left));
- 	hwc->flags &= ~ALPHA_PERF_FLAG_WRAPPED;
+-	vport = mlx5_eswitch_get_vport(esw, vport_num);
+-	if (IS_ERR(vport))
+-		return PTR_ERR(vport);
+-
+ 	err = mlx5_cmd_pf_disable_hca(dev, vport_num);
+ 	if (err)
+ 		return err;
  
--	alpha_write_pmc(idx, (unsigned long)(-left));
-+	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
-+		alpha_write_pmc_profileme((unsigned long)(-left));
-+	else
-+		alpha_write_pmc(idx, (unsigned long)(-left));
- 
- 	perf_event_update_userpage(event);
- 
-@@ -470,7 +551,8 @@ static void maybe_change_configuration(struct cpu_hw_events *cpuc)
- 		if (!(hwc->state & PERF_HES_STOPPED)) {
- 			/* The counter is live, so hwc->prev_count will go stale. */
- 			hwc->state &= ~PERF_HES_UPTODATE;
--			cpuc->idx_mask |= (1<<cpuc->current_idx[j]);
-+			cpuc->idx_mask |= alpha_event_idx_mask(hwc,
-+							cpuc->current_idx[j]);
- 		}
- 	}
- 	cpuc->config = cpuc->event[0]->hw.config_base;
-@@ -562,7 +644,10 @@ static void alpha_pmu_del(struct perf_event *event, int flags)
- 			alpha_perf_event_update(event, hwc, idx, 0);
- 			perf_event_update_userpage(event);
- 
--			cpuc->idx_mask &= ~(1UL<<idx);
-+			if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
-+				alpha_perf_event_park(hwc);
-+
-+			cpuc->idx_mask &= ~alpha_event_idx_mask(hwc, idx);
- 			cpuc->n_events--;
- 			break;
- 		}
-@@ -587,17 +672,22 @@ static void alpha_pmu_stop(struct perf_event *event, int flags)
- 	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
- 
- 	if (!(hwc->state & PERF_HES_STOPPED)) {
--		cpuc->idx_mask &= ~(1UL<<hwc->idx);
-+		cpuc->idx_mask &= ~alpha_event_idx_mask(hwc, hwc->idx);
- 		hwc->state |= PERF_HES_STOPPED;
- 	}
- 
--	if ((flags & PERF_EF_UPDATE) && !(hwc->state & PERF_HES_UPTODATE)) {
-+	/* Parking a ProfileMe event overwrites the counter, so read it first. */
-+	if (((flags & PERF_EF_UPDATE) || (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)) &&
-+	    !(hwc->state & PERF_HES_UPTODATE)) {
- 		alpha_perf_event_update(event, hwc, hwc->idx, 0);
- 		hwc->state |= PERF_HES_UPTODATE;
- 	}
- 
- 	if (cpuc->enabled)
--		wrperfmon(PERFMON_CMD_DISABLE, (1UL<<hwc->idx));
-+		wrperfmon(PERFMON_CMD_DISABLE, alpha_event_idx_mask(hwc, hwc->idx));
-+
-+	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
-+		alpha_perf_event_park(hwc);
- }
- 
- 
-@@ -616,9 +706,9 @@ static void alpha_pmu_start(struct perf_event *event, int flags)
- 
- 	hwc->state = 0;
- 
--	cpuc->idx_mask |= 1UL<<hwc->idx;
-+	cpuc->idx_mask |= alpha_event_idx_mask(hwc, hwc->idx);
- 	if (cpuc->enabled)
--		wrperfmon(PERFMON_CMD_ENABLE, (1UL<<hwc->idx));
-+		wrperfmon(PERFMON_CMD_ENABLE, alpha_event_idx_mask(hwc, hwc->idx));
- }
- 
- 
-@@ -658,6 +748,7 @@ static int __hw_perf_event_init(struct perf_event *event)
- 	struct perf_event *evts[MAX_HWEVENTS];
- 	unsigned long evtypes[MAX_HWEVENTS];
- 	int idx_rubbish_bin[MAX_HWEVENTS];
-+	bool profileme = false;
- 	int ev;
- 	int n;
- 
-@@ -671,9 +762,13 @@ static int __hw_perf_event_init(struct perf_event *event)
- 	} else if (attr->type == PERF_TYPE_HW_CACHE) {
- 		return -EOPNOTSUPP;
- 	} else if (attr->type == PERF_TYPE_RAW) {
--		if (!alpha_pmu->raw_event_valid(attr->config))
-+		if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
-+				     ALPHA_PERF_CONFIG_PROFILEME))
- 			return -EINVAL;
--		ev = attr->config;
-+		ev = attr->config & ALPHA_PERF_CONFIG_EVENT;
-+		if (!alpha_pmu->raw_event_valid(ev))
-+			return -EINVAL;
-+		profileme = attr->config & ALPHA_PERF_CONFIG_PROFILEME;
- 	} else {
- 		return -EOPNOTSUPP;
- 	}
-@@ -682,6 +777,20 @@ static int __hw_perf_event_init(struct perf_event *event)
- 		return ev;
- 	}
- 
-+	/*
-+	 * ProfileMe samples report the exact PC of the profiled instruction,
-+	 * so it also serves any request for precise samples. It only makes
-+	 * sense for sampling events. Level 3 promises no skid at all, but some
-+	 * samples keep the interrupted PC; see alpha_perf_event_profileme().
-+	 */
-+	if (attr->precise_ip > 2)
-+		return -EOPNOTSUPP;
-+	if (attr->precise_ip)
-+		profileme = true;
-+	if (profileme && !is_sampling_event(event))
-+		return -EINVAL;
-+	hwc->flags = profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
-+
- 	/*
- 	 * We place the event type in event_base here and leave calculation
- 	 * of the codes to programme the PMU for alpha_pmu_enable() because
-@@ -872,6 +981,147 @@ static long alpha_perf_event_ovf(struct hw_perf_event *hwc, int idx)
- }
- 
- 
-+/*
-+ * Frame holding only the PC, for a ProfileMe interrupt taken in a different
-+ * mode than the profiled instruction. Being off the stack,
-+ * perf_reg_value() reports no SP.
-+ */
-+static DEFINE_PER_CPU(struct pt_regs, alpha_profileme_regs);
-+
-+/*
-+ * Report the sample with none of the given PERF_SAMPLE_REGS_* registers.
-+ * Having no user registers also means no user stack.
-+ */
-+static void alpha_profileme_drop_regs(struct perf_event *event,
-+				      struct perf_sample_data *data, u64 which)
-+{
-+	/* STACK_USER consults regs_user even without REGS_USER. */
-+	if (which & PERF_SAMPLE_REGS_USER)
-+		data->regs_user = (struct perf_regs){ .abi = PERF_SAMPLE_REGS_ABI_NONE };
-+	if (which & PERF_SAMPLE_REGS_INTR)
-+		data->regs_intr = (struct perf_regs){ .abi = PERF_SAMPLE_REGS_ABI_NONE };
-+	data->sample_flags |= which;
-+	/* Only the ABI word is written for each. */
-+	data->dyn_size += hweight64(event->attr.sample_type & which) * sizeof(u64);
-+}
-+
-+/* Report the user registers from a frame known to be complete. */
-+static void alpha_profileme_set_regs_user(struct perf_event *event,
-+					  struct perf_sample_data *data)
-+{
-+	data->regs_user.regs = task_pt_regs(current);
-+	data->regs_user.abi = perf_reg_abi(current);
-+	data->sample_flags |= PERF_SAMPLE_REGS_USER;
-+	/* STACK_USER consults regs_user even without REGS_USER. */
-+	if (event->attr.sample_type & PERF_SAMPLE_REGS_USER)
-+		data->dyn_size += (1 + hweight64(event->attr.sample_regs_user)) *
-+				  sizeof(u64);
-+}
-+
-+/*
-+ * Handle the close of a ProfileMe window on PCTR0.
-+ *
-+ * PCTR0 stops counting when the window closes and does not start again
-+ * until PCTR_CTL is written, so the status must be read first and the
-+ * counters then rearmed unconditionally.
-+ */
-+static void alpha_perf_event_profileme(struct perf_event *event,
-+				       struct hw_perf_event *hwc,
-+				       struct pt_regs *regs, long ovf)
-+{
-+	struct perf_sample_data data;
-+	struct pt_regs *pm_regs;
-+	bool pc_only = false;
-+	unsigned long i_stat, pmpc, ovr, pc, saved_pc, saved_ps;
-+
-+	i_stat = wrperfmon(PERFMON_CMD_I_STAT, 0);
-+	pmpc = wrperfmon(PERFMON_CMD_PMPC, 0);
-+
-+	alpha_perf_event_update(event, hwc, 0, ovf);
-+
-+	/*
-+	 * When PCTR0 counts instructions, up to 7 of them are counted after
-+	 * the overflow but before the window opens. I_STAT reports how many.
-+	 */
-+	if (!(hwc->config_base & EV67_PCTR_PCTR0_CYCLES)) {
-+		ovr = (i_stat >> EV67_I_STAT_OVR_SHIFT) & EV67_I_STAT_OVR_MASK;
-+		local64_sub(ovr, &event->count);
-+		local64_add(ovr, &hwc->period_left);
+-	vport->pf_activated = false;
++	if (mlx5_esw_allowed(esw)) {
++		vport = mlx5_eswitch_get_vport(esw, vport_num);
++		if (!IS_ERR(vport))
++			vport->pf_activated = false;
 +	}
-+
-+	/*
-+	 * Attribute the sample to the profiled instruction rather than to
-+	 * wherever the interrupt landed. perf takes the sample's mode,
-+	 * registers and stack from regs, so:
-+	 *
-+	 * - Interrupt taken in the same mode: the PC is set in the
-+	 *   interrupt's own frame, and restored afterwards.
-+	 * - User instruction, interrupt taken in the kernel, typically
-+	 *   because the instruction trapped: the frame at task_pt_regs() may
-+	 *   not be built yet. The interrupt is often taken on the first
-+	 *   instruction of the entry code, and its own frame then overlaps
-+	 *   that one. Report the PC alone, in a per-CPU frame.
-+	 * - Kernel instruction, interrupt taken just after returning to user
-+	 *   mode: the kernel state is gone, so a per-CPU frame that holds only
-+	 *   the PC. The user frame in regs is left alone, since perf samples
-+	 *   the user registers from it.
-+	 *
-+	 * A PALmode PMPC is a physical address that perf cannot resolve. That
-+	 * happens for ITB miss, Istream access violation and interrupt
-+	 * redirects, and for instructions inside PALcode. Keep the
-+	 * interrupted PC, which for redirects is the instruction that
-+	 * trapped. Do the same for a user PMPC in a kernel thread, which has
-+	 * no user frame.
-+	 */
-+	pm_regs = regs;
-+	pc = pmpc & EV67_PMPC_PC_MASK;
-+	if (pmpc & EV67_PMPC_PAL) {
-+		pc = regs->pc;
-+	} else if (pc < TASK_SIZE && !user_mode(regs)) {
-+		if (is_user_task(current)) {
-+			pc_only = true;
-+			pm_regs = this_cpu_ptr(&alpha_profileme_regs);
-+			memset(pm_regs, 0, sizeof(*pm_regs));
-+			/* PS bit 3 is the mode bit that user_mode() tests. */
-+			pm_regs->ps = 8;
-+		} else {
-+			pc = regs->pc;
-+		}
-+	} else if (pc >= TASK_SIZE && user_mode(regs)) {
-+		pm_regs = this_cpu_ptr(&alpha_profileme_regs);
-+		memset(pm_regs, 0, sizeof(*pm_regs));
-+	}
-+
-+	perf_sample_data_init(&data, 0, hwc->last_period);
-+	if (pc_only)
-+		alpha_profileme_drop_regs(event, &data, PERF_SAMPLE_REGS_USER |
-+							PERF_SAMPLE_REGS_INTR);
-+	/*
-+	 * perf_get_regs_user() has the same check, but it will find the PMPC
-+	 * in regs->pc rather than where the interrupt was taken. Decide here
-+	 * from the interrupted PC, for either answer that would differ.
-+	 */
-+	else if (!user_mode(regs) && in_entry_save_code(regs->pc))
-+		alpha_profileme_drop_regs(event, &data, PERF_SAMPLE_REGS_USER);
-+	else if (in_entry_save_code(pc) && is_user_task(current))
-+		alpha_profileme_set_regs_user(event, &data);
-+
-+	if (!alpha_perf_event_set_period(event, hwc, 0))
-+		return;
-+
-+	saved_pc = pm_regs->pc;
-+	saved_ps = pm_regs->ps;
-+	pm_regs->pc = pc;
-+	/* PS bit 3 is the mode bit that user_mode() tests. */
-+	if (pc >= TASK_SIZE)
-+		pm_regs->ps &= ~8UL;
-+
-+	perf_event_overflow(event, &data, pm_regs);
-+
-+	pm_regs->pc = saved_pc;
-+	pm_regs->ps = saved_ps;
-+}
-+
- /*
-  * Performance Monitoring Interrupt Service Routine called when a PMC
-  * overflows.  The PMC that overflowed is passed in la_ptr.
-@@ -907,6 +1157,10 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
  
- 	idx = la_ptr;
- 
-+	/* A ProfileMe event owns both counters but lives at index 0. */
-+	if (cpuc->config & EV67_PCTR_MODE_PROFILEME)
-+		idx = 0;
-+
- 	for (j = 0; j < cpuc->n_events; j++) {
- 		if (cpuc->current_idx[j] == idx)
- 			break;
-@@ -914,6 +1168,8 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
- 
- 	if (unlikely(j == cpuc->n_events)) {
- 		/* This can occur if the event is disabled right on a PMC overflow. */
-+		if (cpuc->config & EV67_PCTR_MODE_PROFILEME)
-+			alpha_write_pmc_profileme(-alpha_pmu->pmc_max_period[0]);
- 		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
- 		return;
- 	}
-@@ -931,7 +1187,17 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
- 	hwc = &event->hw;
- 	ovf = alpha_perf_event_ovf(hwc, idx);
- 	if (ovf < 0) {
--		/* The interrupt was pending when the counter was written. */
-+		/*
-+		 * The interrupt was pending when the counter was written, or
-+		 * is from PCTR1 and was pending when a ProfileMe event was
-+		 * scheduled in.
-+		 */
-+		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
-+		return;
-+	}
-+
-+	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME) {
-+		alpha_perf_event_profileme(event, hwc, regs, ovf);
- 		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
- 		return;
- 	}
+ 	return 0;
+ }
 
+base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
 -- 
-2.55.0
+2.44.0
 
