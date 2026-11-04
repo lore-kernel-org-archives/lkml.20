@@ -1,71 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819024;
-	b=2730OI4n8u/IC6pLtI1BickZedJe/jZkTWO7uaRgVNKODDCLYzZHavss9VcPZNOsxPJj
-	 AdyfJ/zKsW0XLtM0KWNfb06QsYTfPjOmeS/pdwBteRnSgJdKrwwfT52rmEcRgNYM7qkDd
-	 ytGTpcnQk39vZCmknFUO8Gc5r1fxtvEgvBCgeVyvnw40aAL9CjdMFoVTKpP8MDzYfV0jX
-	 H6B3M71XGnHAzxFBEvi4mlENudUJZ6rc0I0klVmLgSdt6xneRfEaQ+Op06DPTQ8iBYTnV
-	 j3Uui9bQ16DWTRhcBjvvSAjYb0OaHW9Po7u6A3kgx9zYl+rdScJA4diffJTDhpDtX3Q==
+	t=1793819029;
+	b=xo1ofyyC5xp5MgcD6I/ye10qMNAZ3lRO12kshvSjEU64NaU0740c6hFBNETnciUtJH/i
+	 P6k7UC6Fwr+tIp8m1F52QR/6IPYTaVe8n/9wTW8/JuJJYjSeikqmreUc1WvgmGjLSULpX
+	 tlm+O6dzh0/olBSeEHURT1D3axQtpQr2RVt7o6EJYUt6bmBdchmyEWP3eCtZLmdFTHjJ6
+	 YVrZesUEtKHmhrZD+KoaGCjZcJx78zbtZlw7HafmDgV47pcXyibmo5/YuI7do4q4ezFWr
+	 7hVMYZNHm4Nxs4CZ2ZXAerIhHw88f7sT1A+t2sXS7XmyEfJDVQ1PlHJwielKkolPLLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819029;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=XMmoP1+qWKtXNy9UbFcoNobznW37r4Fg/NhEAO7nu0w=;
-	b=KTGgU1sgqnLL5U2vKRlEjqfoy5BmvANRxehpppNj8nplVbKy96F1cgMYIIP/l2K4TRKu
-	 4YcxkDZkTbeuWwoHT5IHSnQMY58tFTosc6vCYgOhEaz60jEGq8H3ckV45pynJab23nZVd
-	 Jaioj10BFF6GfN+VJHulN8+En2uKO/3jmxpQTb5BS2dNTdXNQ/crMjHkeRZEqS7+7ylWr
-	 OcSH/b83hYmqo3oy6rhBNd+ERxt+zHPCwSBGI93y8vNVth7R70OlJXTCmCAIwP1X+V1Y0
-	 pA2kSMxZmE/eC2nFhM0tI9rawka7XuiWSchZUc0lNoQ0/b9rMgtG5cny3EOcG2CinWw==
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=DUcpgfrjS6s9SSnfNEZAg7l7UHGbgZn+gcmgz0ne79Y=;
+	b=HEI+IY0XViNsy8IpNjax+yvtUrnz/wnUGstjGuazIukhZpBRNEm+FelaeXiMcAgCEOrh
+	 KZrSYdBGdr12GH5c3RUaXTpfC7Rvql/uOYL1ieYJfYWHKe1Jk7RlWOuCSn+yb7lABR6xz
+	 UzBUEkqqOMCIYRY1umPu8bzDjTX1GTvw5U+8DF1b/X7Z8gIGM0iJNr3zq5EtlkF2CipT6
+	 kNwq4idBB1jPKdpKsYKsTn6LVzjswUmky/iOcSsesfWD2vbolyeuDUT6G55TRKveb+8Jy
+	 /WZFOeKoGcwVxpPXGg++DiXojLdK+e8FmgeA2q4uXcWEBl6dwcFs968AhV1TLxHLbMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Oh6ImFOa;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W3qSnieE;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C6C606A33D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31C6C606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9008606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:03:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9008606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Oh6ImFOa
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a3451ea93so1384785eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:03:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W3qSnieE
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a223755e4so3565643eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:03:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793819023; x=1794423823; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XMmoP1+qWKtXNy9UbFcoNobznW37r4Fg/NhEAO7nu0w=;
-        b=Oh6ImFOayl0UKzLRyC4m0Cv4gfVyJ+t1b72/ZjShhLUOp1XVodT3V6dJF9jCWdxLXy
-         oSs2zscPrqg5s1ycwKKFhoP3kpe2Lunz8EcUblo6fGRl98yfoqQJhpidn4EGgSuY1IJM
-         NJ2JdGFtKQMFLQbFf1LMzaAZNKCiYfNG9K34Kn6IRJFwixTBEzz1Hx6qyIF81S/WwuDo
-         WEIj0fc0/ZVDh4O0UPsAP/e2J1KU5AJb6wEXVI7sUSWoFYJeycIJgynR5Hf9FZe6Y/5N
-         8LjaHO9S9CDc6oL8mcVK/5PGEnt/CnvuN+1w/RO1dCGujCzHni1WQ3B5RCVDxHSbyiWz
-         sWFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793819023; x=1794423823;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793819028; x=1794423828; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XMmoP1+qWKtXNy9UbFcoNobznW37r4Fg/NhEAO7nu0w=;
-        b=Z/PaJ36I2JqNYsqlp0vuRxYg/WtFMk2NXp8SBdaugXIvzKRJUOnjyDR8jd4MH9cE8U
-         o5Yg1x+TTX1zb1hzFqt4D/8OeK9b8fmjy+ma0yR90l9T010DJL2eyK0xbS1ONiHXbJS1
-         ZmXJce2jgqnJjTN+IoO1LSeSrENmLw6y3Xsz7MYvbQyOEUVCqUGCoejnuS4aBlEdZLJC
-         E7oFsJovrO0Q4YocodR5Pn5CpVPaEn6Z0mM4w4J6mG3SCwz1WHmGibAIQlvaGT9ed7bc
-         B4tTaFiwtUGY5lfWmEQnmXSNkHhhyAgSLS/Vp36cmYY6m7tmhKJsnyw0DjUhA+nhhO+j
-         VOWQ==
-X-Gm-Message-State: APuU4Z9tfRCwr/DCNdyYxkBf2gS93pQPjHOEqkDUPGZAA7djfOMTNpvR
-	mdb+Av5MIiWBI1Oho10Jsfz8BSCA3nGPKKC4OpjcLHejaSEngMeMl1a86nHB1F+2h2hUbidolD4
-	5Aw7+osLv9D85hsGiKZz29M18SNWVepwzdg==
-X-Received: from dlbsv9.prod.google.com ([2002:a05:7022:3a09:b0:1ab:fb55:f657])
+        bh=DUcpgfrjS6s9SSnfNEZAg7l7UHGbgZn+gcmgz0ne79Y=;
+        b=W3qSnieEv3jiJcclT8d/SE0uy8PNypTpF80UBiouOmsInqZ9IsEBjx+E2q2cxbxozM
+         E+D2Q9yznKCT6R8XFeit0bZB7mgVUd7TqSn7BYumptuK+yTF5VbyKCFZ2raGc9CQ2PdL
+         5EGNw+JuGsg38DUPJ6dO2BpyTLdaybBys3KOdMg203gm1TWLF+lF2QoOE/NxYNAp+6N6
+         c6tXQaEm4rUtkuRGyi7ne6hMHHsGOFGDa+thGyUaUsdI1hkf8+pmm/D80lk6n9wylfiV
+         CW37GOfaPSw4ID9yqzYt/Jtw8C89NorSON5M29/QRiKJaP4jIozUQn/CNzokqyX9q+5k
+         JUrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793819028; x=1794423828;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DUcpgfrjS6s9SSnfNEZAg7l7UHGbgZn+gcmgz0ne79Y=;
+        b=08V1jCz3VO4kULI41U3IBVIgQLcXkAGKQZskCf5N5A+JZvmwyS963zgqlZUd2XsPDN
+         gCJl1iQ1nRoDlwcq/pQqgr7ju1xLduan1IIUS3/Id5ZEhA+QxQgOZ7Rj5DZCH8lzYHCB
+         76ZSXmjqE11I3oawr6luluTfWxSdWUo7+HPFHhwh9QmuYIK57mJ7a+LDuhhIR1jxfhnB
+         pIQWiQtLyvmCExKRmkAc3c01X0WK03NsercAn4Id9TK59BmapZAOhd4+3sM8g0mGsP1G
+         OprdK0fBO4WOoCUnghEMd7bWnjo2xyyWT5jFc8pAbN/6Q91k2KbFEO+qMfx+bxktA2fG
+         tzYw==
+X-Gm-Message-State: APuU4Z9RhpcQBK4rFhiLEHIBt4rVCYG09BE5Zi9jXK4eEy5fKeDsjapB
+	K6GGzzlSeZIufUme9brkmd17r61QjxEQgRb5ira7S8gOh9cGfIoWCSvQZa3NyCjj4h969iWSLXd
+	lk/xUxc4+33pkH4VeTHKVyqviOKO6Hdn2VA==
+X-Received: from dybgl9.prod.google.com ([2002:a05:7300:e009:b0:36a:c06:2852])
  (user=abhishekbapat job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:2097:b0:14b:cf58:ce15 with SMTP id a92af1059eb24-1ac600d9f9bmr25256760c88.43.1793819022924;
- Wed, 04 Nov 2026 11:03:42 -0800 (PST)
-Date: Wed,  4 Nov 2026 19:03:35 +0000
+ 2002:a05:7301:3d17:b0:36c:9af3:22f3 with SMTP id 5a478bee46e88-36c9af33136mr9263147eec.37.1793819025727;
+ Wed, 04 Nov 2026 11:03:45 -0800 (PST)
+Date: Wed,  4 Nov 2026 19:03:38 +0000
+In-Reply-To: <cover.1793818636.git.abhishekbapat@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,9 +77,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <cover.1793818636.git.abhishekbapat@google.com>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <cover.1793818636.git.abhishekbapat@google.com>
-Subject: [PATCH v5 0/5] alloc_tag: Introduce selective tracing for MAP
+Message-ID: <64ce5ba6eedf0950c22d1416b794e83afbab8ea8.1793818636.git.abhishekbapat@google.com>
+Subject: [PATCH v5 3/5] alloc_tag: Add a flags field to allocinfo_filter
 From: Abhishek Bapat <abhishekbapat@google.com>
 To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
 	Andrew Morton <akpm@linux-foundation.org>
@@ -85,78 +88,72 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
 	linux-trace-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The existing memory allocation profiling (MAP) tool accurately maintains
-aggregate counters for overall memory accounting. However, relying
-purely on aggregated counters restrics the visibility needed for
-targeted debugging.
+struct allocinfo_filter uses a whole __u64 to hold the single boolean
+used by the accuracy filter. Adding another boolean criterion the same
+way would grow struct allocinfo_get_at, which changes the
+ALLOCINFO_IOC_GET_AT ioctl number and breaks the UAPI.
 
-This patch series integrates three new tracepoints (alloc_tag_hit,
-alloc_tag_mem_alloced and alloc_tag_mem_freed) directly into the
-alloc_hooks_tag fast path.
+Add a `flags` field that shares storage with `inaccurate` through an
+anonymous union, and use bit 0, ALLOCINFO_FILTER_FLAG_INACCURATE, for
+the accuracy criterion. New boolean criteria can take the remaining
+bits without changing the struct layout.
 
-Enabling trace events globally for all allocations introduces a severe
-baseline overhead. To limit the performance overhead, we let the admin
-select specific allocations to be traced.
+Keeping `inaccurate` in the union means userspace built against the
+older API still compiles, and the values 0 and 1 keep their meaning.
+Previously any non-zero value selected inaccurate tags; now only bit 0
+is checked, so a value such as 2 selects accurate tags instead.
 
-A new IOCTL is introduced to allow privileged users to determine which
-allocation tags need tracing enabled. The IOCTL utilizes the
-pre-existing filtering mechanism to specify the allocation tags to
-enable tracing on.
+Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
+---
+ include/uapi/linux/alloc_tag.h | 16 ++++++++++++++--
+ mm/alloc_tag.c                 |  2 +-
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-v5 changes:
-- Patch 3/5: Introduced a new patch to introduce a flags field wrapped
-  in an anonymous union with the old inaccurate field. This allows us to
-  extend the UAPI with more filters without breaking backwards
-  compatibility.
-- Patch 4/5: Minor update to filter out trace_on tags using flags.
-- Patch 5/5: Updated the test to use the new flags UAPI.
-
-v4 changes:
-- Patch 1/4: Minor refactor, changed macro definition of
-  `alloc_tag_trace_hit()` for the NOOP case.
-
-v3 changes:
-- Patch 2/4: Minor refactor, documented the `CAP_SYS_ADMIN` requirement.
-  Moved the mutex lock / unlock outside the for loop.
-
-v2 changes:
-- Patch 1/4: Changed the trace events for the page allocator to track
-  pointer to the head page instead of codetag_ref.
-  alloc_tag_trace_enabled() no longer takes a tag arg, that arg gets
-  added in patch 2 instead where the function makes use of it.
-  Introduced new sections in the Documentation expanding on the newly
-  introduced trace events. Minor typo fixes.
-- Patch 2/4: Toggle traces IOCTL now uses the same filter as other
-  related ioctls. IOCTL returns -ENOENT if no tags match and an empty
-  filter matches all tags. Added a subsection in the Documentation
-  expanding on the new IOCTL.
-- Patch 4/4: Updated the test to work with the new UAPI from patch 2.
-  Updated commit message to accurately mention that the test flips the
-  state of trace_on, verifies it and restores to the original state.
-
-Abhishek Bapat (5):
-  alloc_tag: Add trace events for tracing allocations
-  alloc_tag: Introduce IOCTLs to toggle allocation tracepoints
-  alloc_tag: Add a flags field to allocinfo_filter
-  alloc_tag: Extend allocinfo_filter to support tracing queries
-  alloc_tag: Add a test for trace state toggle and filtering
-
- Documentation/mm/allocation-profiling.rst     |  73 ++++++++
- MAINTAINERS                                   |   1 +
- include/linux/alloc_tag.h                     | 106 +++++++++---
- include/linux/codetag.h                       |   5 +-
- include/trace/events/alloc_tag.h              | 122 +++++++++++++
- include/uapi/linux/alloc_tag.h                |  37 +++-
- mm/alloc_tag.c                                | 161 +++++++++++++++++-
- mm/page_alloc.c                               |   4 +-
- mm/percpu.c                                   |  13 +-
- mm/slub.c                                     |   6 +-
- .../alloc_tag/allocinfo_ioctl_test.c          | 114 ++++++++++++-
- 11 files changed, 589 insertions(+), 53 deletions(-)
- create mode 100644 include/trace/events/alloc_tag.h
-
-
-base-commit: bcc036cfa1670a64500f6d857eaa71908b79e3fb
+diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
+index dafcba2f7e2c..2fc843bb06bc 100644
+--- a/include/uapi/linux/alloc_tag.h
++++ b/include/uapi/linux/alloc_tag.h
+@@ -68,13 +68,25 @@ enum {
+ #define ALLOCINFO_FILTER_MASKS \
+ 	((1 << (__ALLOCINFO_FILTER_LAST + 1)) - 1)
+ 
++#define ALLOCINFO_FILTER_FLAG_INACCURATE	(1ULL << 0)
++
+ struct allocinfo_filter {
+ 	__u64 mask; /* bitmask of the filter fields used */
+ 	struct allocinfo_tag fields;
+ 	__u64 min_size;
+ 	__u64 max_size;
+-	/* filter criteria only; see allocinfo_counter.accurate for actual accuracy */
+-	__u64 inaccurate;
++	/*
++	 * Filter criteria only; see allocinfo_counter for the actual state.
++	 * Set ALLOCINFO_FILTER_FLAG_* bits in flags for the criteria selected
++	 * in mask. inaccurate is kept as an alias of flags so that userspace
++	 * built against the older API still compiles. Note that only
++	 * ALLOCINFO_FILTER_FLAG_INACCURATE is checked, so a non-zero value
++	 * with bit 0 clear no longer selects inaccurate tags.
++	 */
++	union {
++		__u64 inaccurate;
++		__u64 flags;
++	};
+ };
+ 
+ struct allocinfo_get_at {
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index 9ff9dd04d692..504c1a85050d 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -306,7 +306,7 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
+ 
+ 	if (filter->mask & ALLOCINFO_FILTER_MASK_INACCURATE) {
+ 		inaccurate = alloc_tag_is_inaccurate(ct_to_alloc_tag(ct));
+-		if (inaccurate != !!(filter->inaccurate))
++		if (inaccurate != !!(filter->flags & ALLOCINFO_FILTER_FLAG_INACCURATE))
+ 			return false;
+ 	}
+ 
 -- 
 2.56.0.506.g506a7eabc5-goog
 
