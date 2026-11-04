@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812142;
-	b=2xzQH3m8XJMeFw8gDajDhPp+wsGkrWM8M3HzP9C+LCOzgFHJ5j12Id+1daLI06uDBCGf
-	 W7HBBCfz5nM4shcuq3BdqZ8MqlWw1CyMjms+K3VK1Ig1NnC3zHhVoUv1O7wiM++z5QhK7
-	 pKelgcBmwZejIAio71FzbsDl1Pn2ZWWdMvyzEzo3n3e0t7Ch9lyNxIkdxMadyTlTDey6p
-	 /elqYF3DcKhPr1GB9IdKzoesdKUfvHY9CcgbUpgHOhHZNPksLls8gJX+B9SE25w5bZrAx
-	 1MleI7ejA4P5D5xoPjTqRujZkkRR+iQcWJW2Z0fuyCZn7/dS/mBWbzb3MgpeKXsRiSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812142;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=l/KAmDRtOoMoDq2gG1YpbrEXelFzd6hjViwAy8SPt2Y=;
-	b=gjFaj6lZCOFlzIIhkOSvbuRfNPGXYf44vDapNciK5yjDurGAdO0KNMcWVcSTUYDPYJoA
-	 COQgBnHzjxaawxqdy+6+nYjVJeGtMC4V0NVAXnQsy2xvdFcEMHfrJAk51Fc2984TzyiZl
-	 L7CnLtREcL/AQIzcxx3wv1I/ILZdkdkbwnmTLdAQjeS8xqwQq+XtJ5v7S2hFePA4spnXv
-	 WWTd1g0LdwFdiDsCAlytJBPxmUD+nen54XTsf5Z3gkRDUeyYg8eYoyoFfU8u/qqf0HktS
-	 r3Py5/se+IQ2YKJJfmOW/26Hifgsemwk/8hyP4L+Tio+fABtmE+WX9OXyX8SnoXLjyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxcVIJ4K;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793812147;
+	b=mjZUyW9OdQiRl6RowupQ3/f4RP6DYqvVUooLG7lPOZkfwb6Y97/EBnW/OOia3/cW5FrU
+	 p/6Xi4ZFHEVC4uisVgpjo7zX9QQsC+TWFlzot0N3sMyw+k4Ft1CYBDn1K0OrCBalo5uhw
+	 RdGyPshQwEwIOU0RCJzvBHM71tU+HM0erq0eqcec3sMvYNlz2A6HndMbPYLXKPp8C7dnZ
+	 BTT/7bXOF3FWimywBVThQvn4Qu+B+50Wp7tTQBlkLFnzysgQEIYGitfqxHLOuv2i5M2s7
+	 u/joQVYwrNT9zfT2COSyx54g5a/Yvyfag4XI8LFiC6R7B1sDtr0XbEsURagtMn1AxuQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812147;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ftI0UFOdkRAQKb5B4qPO0pM2QbqpAezKgmnOuI2y9Bw=;
+	b=gax3jm9H9dZppJbpnPX/xHdYcXSFlTB8De3ydHgQ457F/V1jAbmYc1sq8zxs+uSiXtLG
+	 kwYz/p+aDYkpJ6rE5jdLxK6pRq5ZwDeKg/nDUbRA+AKmvppU2li5CDntxVf1HzUYMXxrk
+	 6ovfzBt9n5ea4t/12FQuUzBT7r2zrKWfMC5WCkMY2+MtRimsGi/t7rZAhUzB348M6/RKC
+	 WniixcgSzzI7GfyobZxv4jGuoWdZqgGgLZjJGCrU0qRl4WCGnfoOrYdBRUSKxZYUq/TMC
+	 xzA7OsAMb3Bg5BT8GNXGNws6L3Rq8LXHik/V4tTwlIUgCao/3bHq8VKl6tgPinWz6Xg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3L1A6EoD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.6
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010006.outbound.protection.outlook.com [40.93.198.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD188606A328;
-	Wed,  4 Nov 2026 17:09:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF65606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CF65606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxcVIJ4K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687DF1F000C1;
-	Wed,  4 Nov 2026 17:08:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793812141;
-	bh=l/KAmDRtOoMoDq2gG1YpbrEXelFzd6hjViwAy8SPt2Y=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=GxcVIJ4KkfHdjV4p36lasomP9lVOIWjuYpOAHfC43DN09/q/MMmQ51NvwyQ2y2pXn
-	 R9YgZfVnq43PewitoD5MfbjJmmQHONsNoipRY+lVE+UJHqa5pwn0kQO13BQ+FjP/eQ
-	 FLn8kxqZA1xl0QwUui9HpL+mH1r/IKmo83wjtLmCckLb4pmgmDA8suznN48BX4/4qQ
-	 TMnWmZqidscFIBWmF92PBY3QohWBJe1ncJDzaYtKbIgCx4v48cCDnxO5O5lrwkFj5v
-	 VKQ+XFGw9GmARsT/N8Sx8W/LrpqHxb6A1aWOKpu08YFPFekKQj+gKGz+MNR6wv+RPH
-	 zY15jVrl2HSIw==
-Message-ID: <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
-Date: Wed, 4 Nov 2026 18:08:39 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3L1A6EoD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=moYHure8oyMDLkx5K22kCL4FsNl9VjZdmWVOMf35hXVjdsW/S90NUN4mk9QVQvPQPmVK1+zFAAmWmJUs6iEWmFDehHSXg5CtrAtl64uc29k/YXz5t0q7xsWK0wTo2jUm9wuzNMyznxr2v+QVs7uPEKIXlmKAVXg+H8v9soeAILFC39pXY40g85nEg342xkxVVft5feI8pWFwKQwqaO+pLfH6SLfS08UjtNF+hFeLNYWy3wy8HLXRU6GLN0ZjAN/Y6m8k0XmSwoK4Z5q3ZBOJ4xw246Dejy0bGRdfdtjFI9rU1R4YQC9+ZIr1Cy0ajn87KhHQmR3j4eZ1mQZve6WpZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ftI0UFOdkRAQKb5B4qPO0pM2QbqpAezKgmnOuI2y9Bw=;
+ b=UX4ZLqEcT1TjQvdyvorMvNeOj3iH8wD0OkE3VSUps4My8GLAxX3IJCOXCD6ny3T9DVjYlEtKqoLS/dO/W72xjZOTOwEuwDYVRm34tmeRVGpd5dtVgSfvRfFxon9LUhRQQMTWyZzxfc+DLT7ZeOZMgyjMGAHViHvJZkcftYhZcjWgO7hnL7aAZuATLx3iZDltn/rMSTn2kndlwxq1Rtf9zdlDdHaBsrp1TmvyG299kppj7cgDN38yjKj/rhLRNPmT1MjuZh/phy3RFy+5bpueMdTmykuzyTrSYOdUrEo6SD7nt+C3YTU+w1U9I+5j/3Hvb1yMqgudNJzIX/xhG0IV9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ftI0UFOdkRAQKb5B4qPO0pM2QbqpAezKgmnOuI2y9Bw=;
+ b=3L1A6EoDBIytYDkGTkodAFFj2JtiZd12hfUP0GozM5ButOv7xP8hCkxOGb1kBKB3oR5EIThSByAT1UfgBJYJQmkAq/9eeLSKCSQu1VrhaOmVgGJiyNcgObC2PnOzMBV060KY2JPTmQ2Ep08XJYqICISydQTomKUsqq+Jf/1U3tw=
+Received: from SJ0PR03CA0010.namprd03.prod.outlook.com (2603:10b6:a03:33a::15)
+ by SJ2PR12MB9190.namprd12.prod.outlook.com (2603:10b6:a03:554::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 17:09:00 +0000
+Received: from PH7PEPF00000005.namprd04.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::c) by SJ0PR03CA0010.outlook.office365.com
+ (2603:10b6:a03:33a::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
+ Nov 2026 17:09:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH7PEPF00000005.mail.protection.outlook.com (10.167.243.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 17:09:00 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 11:08:59 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 11:08:59 -0600
+Received: from [172.19.166.81] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 4 Nov 2026 11:08:59 -0600
+Message-ID: <ad484ed4-9b52-4210-99c2-9e035d9f8189@amd.com>
+Date: Wed, 4 Nov 2026 09:08:53 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,158 +106,277 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Frank.Li@oss.nxp.com
-Cc: Mark Brown <broonie@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
- Ryan Wanner <ryan.wanner@microchip.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
- <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
- <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Laxman Dewangan
- <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
- "moderated list:ARM/Microchip (AT91) SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
- <linux-renesas-soc@vger.kernel.org>,
- "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
- "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
- "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Thierry Reding <treding@nvidia.com>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <autj6pr_bPaul3w0@ashevche-desk.local>
- <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+Subject: Re: [PATCH V1] accel/amdxdna: Remap BO pages instead of using
+ vm_insert_pages
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20261103190821.2019203-1-lizhi.hou@amd.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20261103190821.2019203-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PEPF00000005:EE_|SJ2PR12MB9190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51def1ee-cf38-4110-32f5-08df3a9651cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|11063799006|5023799004|261026121527099003|261102130727099003|261028144727099003|261022105027099003|261026140227099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	XFHy+1Moqq5Wit//4VPMq02+5k6Vq6FQkw4d3zm0x+mDxpZXg/xL/ANJqdK3XNygT7QvhQitJ2sHtDzor/aOMUyzCd4/BVUyxoOolzu81rqwPHuV2509inh/Sj8LW0eIz0+IDcys1EXjqFyG5jfXrsfc88x8ZLygsZoVcLoRQVTtxMR7wc3NWmJ4FT7ZX4qQGH2xe2ra6+7ZnoA9VWP4ptY02yQV+5DioC3pf8ZMNY8WyhUU0IpDICgibm/BWYsWmJYrZD4QbgBvRQW1PejRLppdLKA323fZ2OY4tY0o+k9w1xA9UpisC5p5QcWCndZz9bnIdNDWjAvS58EN4X6sUTnXrpME4hFC1xjAATqtSeDSJnD1wl0Yjb1Nxwhy/TjN3XikWbmrmS5APr9ptnZIm1lJ1YiidWo/7EqVn8KTqvhyYUwRN2I2G2r+X9tpyNHzU6SEn9W50pddsaoUkgnCVr0zsm1YwZVT07tTTO404TBuCIkBGOyfkFMvVp7+sIVZtxLHkw06bmfhCCZieFrXaeLr+jQppewV2EIRJ8aiGqQGV5JZxNGyLSwroP/cH70BsZMUYfRw0sCCkcJYGEJdjpSsH3XCD91vCq6LIBHiG/IKxkPaDhM3/OMwTh8zfVZWL17I60Pr3ClNjGd745KcBRhGjsW0d02gLz/Bwleem9d2VKtuC7edM4oF8CxrGm8gvWs7ingGo7nyzFEBmzivOw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(5023799004)(261026121527099003)(261102130727099003)(261028144727099003)(261022105027099003)(261026140227099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	G7Fbc7EsVCIiLAc2XTTpv/AhO4JCrAGdA5t5Zj3P8Vh1iu+J9QOuWff8hSfrznM6gQqriW3pY/6d9LirJTvCafGb+jetaSTWR0hXWyX3iPv2SQh00KhtmgFZwv1tHg+3j3skLX414wbxHD02shMJe7z0pCNNlGj7/bd+3Ct7dAGUMWxr7zE6CtZmOZphqqUWtWZteWDRS0OczPxzP4aa3C4oZJAsl69BUfxiwWWR+ctgvabG7jRmbyiCV8rHAsVrIVSBRGUJK7w8yUhHLbY6r/k5JU1o8IJElYPFoGem5Y1B25v8dqsaQySNqkCcsOLY8JDZ5tSmFeMgtOz89i90ITi0J4G2hI9YgPErKn3uBY+F+MYyEiLKzXRjMKO/Z55u5LNp4TG3ou46gH10U9g8Z5TbMN8kBsbw2uXP8cbKyuYxxIpXQoiv5fOpi1x3f1OB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:09:00.1022
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51def1ee-cf38-4110-32f5-08df3a9651cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH7PEPF00000005.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9190
 
-On 04/11/2026 18:02, Krzysztof Kozlowski wrote:
-> On 04/11/2026 17:57, Andy Shevchenko wrote:
->> On Wed, Nov 04, 2026 at 10:22:45AM -0500, Frank.Li@oss.nxp.com wrote:
->>>
->>> Replace open-coded assignments to callback and callback_param fields
->>> of struct dma_async_tx_descriptor with calls to the
->>> dmaengine_desc_set_callback() helper across SPI bus drivers.
->>>
->>> No functional change intended. Prepare make to struct
->>> dma_async_tx_descriptor private to the DMA engine.
->>
->> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # dw, pxa2xx, topcliff-pch
->>
->> (Note, you forgot to add the list of the drivers to the Rb trailers of other reviewers)
-> 
-> These should be acks. RB creates false impression entire commit was
-> reviewed. Our docs also clearly state entire commit:
-> 
-> "Reviewed-by:, instead, indicates that the patch has been reviewed and
-> found acceptable according to the Reviewer's Statemen"
-> 
-> (not patch or part of patch)
-> 
-> "By offering my Reviewed-by: tag, I state that
-> I have carried out a technical review of this patch to
-> "
-> 
-> (not patch or part of patch)
-> 
-> When you accept only part of this code, you basically Ack. I really
-> dislike these half-done reviews, which later appear in logs and tell you
-> nothing. You could have clear security bug here, but 10 review tags. How
-> useful tags...
 
-And let me even bring a better example. Imagine a patch, doing massive
-refactoring of core SPI stuff, 1000 lines of code, complex locking and
-also simultaneously updates drivers to new API changed in this core.
 
-Reviewing that 1000 lines of code in core SPI with complex locking takes
-someone 30 minutes. He gives Rb tag, gets credit.
+On 11/3/2026 Tue 11:08, Lizhi Hou wrote:
+> VM_PFNMAP is set for shmem BO to prevent pin_user_pages() from pining BO
+> memory. Replacing it with VM_MIXEDMAP breaks this behavior.
+> 
+> Keep the VM_PFNMAP mapping established by drm_gem_shmem_mmap() and
+> populate its page tables with remap_pfn_range() immediately after
+> creating the mapping.
+> 
+> Fixes: df4d5352063a ("accel/amdxdna: Fix unsafe use of handle_mm_fault()")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 157 +++++++++++-----------------
+>   1 file changed, 62 insertions(+), 95 deletions(-)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 46b9f6c960d7..09e48c794e1b 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -564,11 +564,51 @@ static void amdxdna_mark_mapp_invalid(struct amdxdna_gem_obj *abo,
+>   	up_write(&xdna->notifier_lock);
+>   }
+>   
+> +static int amdxdna_remap_pages(struct amdxdna_gem_obj *abo,
+> +			       struct vm_area_struct *vma)
+> +{
+> +	unsigned long num_pages = vma_pages(vma);
+> +	struct page **pages = abo->base.pages;
+> +	unsigned long i, nr;
+> +	int ret;
+> +
+> +	for (i = 0; i < num_pages; i += nr) {
+> +		unsigned long pfn = page_to_pfn(pages[i]);
+> +
+> +		for (nr = 1; i + nr < num_pages; nr++) {
+> +			if (page_to_pfn(pages[i + nr]) != pfn + nr)
+> +				break;
+> +		}
+> +
+> +		ret = remap_pfn_range(vma, vma->vm_start + (i << PAGE_SHIFT), pfn,
+> +				      nr << PAGE_SHIFT, vma->vm_page_prot);
+> +		if (ret) {
+> +			zap_special_vma_range(vma, vma->vm_start, i << PAGE_SHIFT);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * The page tables are populated upfront, thus the CPU never takes a
+> +	 * write fault and drm_gem_shmem_vm_ops.pfn_mkwrite() never marks the
+> +	 * folios dirty. The device writes to the pages through the IOMMU
+> +	 * without any notification either. And the PTEs are special in a
+> +	 * VM_PFNMAP VMA, so unmapping does not transfer their dirty bits
+> +	 * back to the folios. Mark the pages dirty when they are released,
+> +	 * the same way drm_gem_shmem_vmap() does.
+> +	 */
+> +	dma_resv_lock(to_gobj(abo)->resv, NULL);
+> +	abo->base.pages_mark_dirty_on_put = true;
+> +	abo->base.pages_mark_accessed_on_put = true;
+> +	dma_resv_unlock(to_gobj(abo)->resv);
+> +
+> +	return 0;
+> +}
+> +
+>   static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
+>   				struct vm_area_struct *vma)
+>   {
+>   	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
+> -	unsigned long num_pages = vma_pages(vma);
+>   	int ret;
+>   
+>   	/*
+> @@ -587,7 +627,8 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
+>   			return ret;
+>   		}
+>   
+> -		amdxdna_mark_mapp_invalid(abo, vma);
+> +		if (!(vma->vm_flags & VM_PFNMAP))
+> +			amdxdna_mark_mapp_invalid(abo, vma);
+>   
+>   		/* Drop the reference drm_gem_mmap_obj() acquired.*/
+>   		drm_gem_object_put(to_gobj(abo));
+> @@ -600,10 +641,9 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
+>   		return ret;
+>   	}
+>   
+> -	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
+> -	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages);
+> +	ret = amdxdna_remap_pages(abo, vma);
+>   	if (ret) {
+> -		XDNA_ERR(xdna, "Failed to insert pages %d", ret);
+> +		XDNA_ERR(xdna, "Failed to remap pages %d", ret);
+>   		dma_resv_lock(to_gobj(abo)->resv, NULL);
+>   		drm_gem_shmem_put_pages_locked(&abo->base);
+>   		dma_resv_unlock(to_gobj(abo)->resv);
+> @@ -641,99 +681,21 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
+>   	return ret;
+>   }
+>   
+> -/*
+> - * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
+> - *
+> - * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because its fault
+> - * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which contains:
+> - *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
+> - * All amdxdna shmem pages are ordinary struct pages so pfn_valid() is always
+> - * true, making the combination fatal.
+> - *
+> - * These ops use vmf_insert_page() (struct-page based) instead, which is the
+> - * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  The open and
+> - * close handlers replicate drm_gem_shmem_vm_open/close using only exported
+> - * symbols.
+> - */
+> -static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
+> -{
+> -	struct vm_area_struct *vma = vmf->vma;
+> -	struct drm_gem_object *gobj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
+> -	loff_t num_pages = gobj->size >> PAGE_SHIFT;
+> -	vm_fault_t ret = VM_FAULT_SIGBUS;
+> -	pgoff_t page_offset;
+> -	struct page *page;
+> -
+> -	/*
+> -	 * Partial free of vma is unexpected. Otherwise, the wrong page
+> -	 * will be faulted in and the user application may crash itself.
+> -	 */
+> -	page_offset = linear_page_delta(vma, vmf->address);
+> -
+> -	dma_resv_lock(gobj->resv, NULL);
+> -
+> -	if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
+> -		goto out;
+> -
+> -	page = shmem->pages[page_offset];
+> -	if (WARN_ON_ONCE(!page))
+> -		goto out;
+> -
+> -	/*
+> -	 * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
+> -	 * (PFN path) because this VMA carries VM_MIXEDMAP.
+> -	 */
+> -	ret = vmf_insert_page(vma, vmf->address, page);
+> -	if (ret == VM_FAULT_NOPAGE)
+> -		folio_mark_accessed(page_folio(page));
+> -
+> -out:
+> -	dma_resv_unlock(gobj->resv);
+> -	return ret;
+> -}
+> -
+> -static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
+> -{
+> -	struct drm_gem_object *gobj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
+> -
+> -	/*
+> -	 * Bump pages_use_count so the page array stays alive for the new
+> -	 * mapping copy created by fork().  Mirrors drm_gem_shmem_vm_open().
+> -	 */
+> -	dma_resv_lock(gobj->resv, NULL);
+> -	drm_WARN_ON_ONCE(gobj->dev, !refcount_inc_not_zero(&shmem->pages_use_count));
+> -	dma_resv_unlock(gobj->resv);
+> -
+> -	drm_gem_vm_open(vma);
+> -}
+> -
+> -static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
+> -{
+> -	struct drm_gem_object *gobj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
+> -
+> -	dma_resv_lock(gobj->resv, NULL);
+> -	drm_gem_shmem_put_pages_locked(shmem);
+> -	dma_resv_unlock(gobj->resv);
+> -
+> -	drm_gem_vm_close(vma);
+> -}
+> -
+> -static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops = {
+> -	.fault  = amdxdna_gem_mixedmap_fault,
+> -	.open   = amdxdna_gem_mixedmap_vm_open,
+> -	.close  = amdxdna_gem_mixedmap_vm_close,
+> -};
+> -
+>   static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
+>   {
+>   	struct drm_gem_object *gobj = dma_buf->priv;
+>   	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
+>   	int ret;
+>   
+> -	vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
+> +	/*
+> +	 * vm_pgoff is the page offset within the dma-buf, see dma_buf_mmap().
+> +	 * drm_gem_shmem_vm_ops indexes the BO pages by the page offset within
+> +	 * the VMA. Thus the mapping has to start at the beginning of the BO.
+> +	 */
+> +	if (vma->vm_pgoff)
+> +		return -EINVAL;
+> +
+> +	vma->vm_ops = &drm_gem_shmem_vm_ops;
+>   	vma->vm_private_data = gobj;
+>   
+>   	drm_gem_object_get(gobj);
+> @@ -741,11 +703,16 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
+>   	if (ret)
+>   		goto put_obj;
+>   
+> -	/* The buffer is based on memory pages. Fix the flag. */
+> -	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
+> +	ret = amdxdna_remap_pages(abo, vma);
+> +	if (ret)
+> +		goto put_pages;
+>   
+>   	return 0;
+>   
+> +put_pages:
+> +	dma_resv_lock(gobj->resv, NULL);
+> +	drm_gem_shmem_put_pages_locked(&abo->base);
+> +	dma_resv_unlock(gobj->resv);
+>   put_obj:
+>   	drm_gem_object_put(gobj);
+>   	return ret;
+> @@ -1043,7 +1010,7 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
+>   	.vmap = amdxdna_gem_obj_vmap,
+>   	.vunmap = amdxdna_gem_obj_vunmap,
+>   	.mmap = amdxdna_gem_obj_mmap,
+> -	.vm_ops = &amdxdna_gem_mixedmap_vm_ops,
+> +	.vm_ops = &drm_gem_shmem_vm_ops,
+>   	.export = amdxdna_gem_prime_export,
+>   };
+>   
 
-Now you come, look at SINGLE line in a driver and give Rb tag. For 10
-seconds job of looking at one changed call in one driver.
-
-You just Acked, you did not review "the patch" (quoting submitting patches).
-
-Best regards,
-Krzysztof
