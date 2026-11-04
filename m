@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802926;
-	b=fsQjuaKxlN6etpoUWdjGs3ECBf3Sq/VDoDCgPMwFo86vFVNouE/Dl8A/Aj+UCfqxL6jk
-	 P+V8LoLSjD2N+S6/s4KOK48E6oX3ckjNzt2f9OmbpiXjcdKDluin4M5FN5JlgRaxAgQIO
-	 42dUqIkUU9jCZNEJJxeiKPX1PENq/jAr5wplGjBgepAY0tFom98AwVdz2MizEbGeT5kEb
-	 pOL0YW4QIKy3SaE7H2I329xinpazRVMaBBL8nzJ15OHcxKWXbPiYvYed5sFusl86fvUP+
-	 WZ3evfN5/q6zUcw/2mXWQ7/suTRDSwqdoiiBDakluPaqn2k24gMTCdDZBOBJC0JPvow==
+	t=1793802991;
+	b=LjbOmc9CDqUtsMhKJbQEkPcvubo4C+mzqV0alQTghjC2QV9mLDmIhvs9ezBCwxyf9zxa
+	 qKHwjoHQfAXHwSZF6D51XtBAY+LHmAJo1s/mplS+9bOKFCCQEDJjkYecE2hgNrRg81KOQ
+	 Qrncf67AbXxOqDOJJ8a2iVwzDjX5/eY6KAAeyvxOwp3XtW4c2PcslOqZg1fykYuJysq9Z
+	 MSXTMcD92Y10gFeB+OdDhcln20B2Ti82DD7BafeOZ6rN2o3RwH+wSngEKyYsCRrh3JRDO
+	 aATf4HIcZXbNkeewRPxUh39qN4+CvnTA97XlZA2ZbtgGkViLU5Yb4kGTHPO7AyE5jOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802926;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=259c1LmT7AqmM/9aZ6KRKIwG0j1/LADB8Zw7QHVbn7g=;
-	b=XT8lLNcTYm9GMHhww4MJdeUw6Rv7GLFNl1KHCEVcoP/9UMTK41bBdJ9M3IZNy44Oh3Wg
-	 W0r2PtsBLRN03ut7i6j7cmKbfBuxksSMqwO/mArORJylA1xUQYP3JSclE9FsAC3yoStbU
-	 rT0BLGBi/uAv2Ogxzb67y4y5m8oy5qJPsd2P1PyllTacthxGoN3gDFSnl2Kx2OjMZ4cBX
-	 l0XU2xgMMgTgpsV6qvdLOVt6iU1NUkop8DZH15s2VKcL6Tb1ju2WexhRvZx10z9xxZyCT
-	 8vqBLKTbEWH23BNCufiB2ySqNJosmMbjQqxF/PmPBovIjAnIitpIwn1ObePP2CMu4pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802991;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=UsTSTNr9Wticc38e58ZIWY5uITUM7R+lCgEyKvDw3nQ=;
+	b=r/5vdziRCnBF3CrEuC0Fa8BDViuPmk+lliihsFGf8dy/29ZcmT4WTWG7bAs8XJZMvnyb
+	 zdXZNsjo2c2EzSC9S2Y7bSY29U7dkNDH7yHEhCKW355+Sx9lA/Zoqmxt1jfYF+t8TOvn4
+	 NB9/VoQ8XO+E7482oOTbgBZLMbznsJOxbnw0n4TROIOT2D9+lee6GPngVGeCUi6EiZ8Dh
+	 0r1cxa+yOqS6GjkZyE9zf3Fk7NGX8aOcZGQ6f70abRGhU7+nnNa0Kx7jCU1U5RdkI+lXw
+	 B+yugNqZ3Bp/xzUIXETtRrC2Nz1KVenIvsfq0qbgEX/JY/fGkg2sfyM9t7DhJmhnwGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUiXfXRG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hvss5G9m;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CD0606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33790606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33790606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUiXfXRG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36F01F0093A;
-	Wed,  4 Nov 2026 14:35:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793802926;
-	bh=259c1LmT7AqmM/9aZ6KRKIwG0j1/LADB8Zw7QHVbn7g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oUiXfXRGMzDrLRdd6T0Oich0vIauJ1IxXJ1dFn9HNlQS7VRbIEYQoO5icKIFbDYQr
-	 FIesjkf53ezMftVt9AD4US0AhPM55AOt/3/t0+EPXznJHtv46pzaI/tqJWeBBhawhp
-	 ah2Z+RrmBGaLz/vTFwdBuZRRAC5Yx6UswFArajHFusFtCw7BjkTb1Z9G5ygQztzj0X
-	 oZQ+pC6lBBtSH80vJoKzQmhxC4Xu7t4+iMh9oIXUuwMnMNQ53p4tBhIuK3Lh6et0NY
-	 42k7EbDFannFvNeheyUQyuk+7awK7cJqVO7kQvbL6Ly+M4C2cMDqvLbMOR6aJBA5/j
-	 DOKbg8gShIJOQ==
-Message-ID: <12f80449-9d6c-4fb7-bcc4-e7d38e868da2@kernel.org>
-Date: Wed, 4 Nov 2026 15:35:16 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hvss5G9m
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1218757eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:36:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793802990; x=1794407790; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UsTSTNr9Wticc38e58ZIWY5uITUM7R+lCgEyKvDw3nQ=;
+        b=Hvss5G9mBXHoAafGDDQUN4FuXzGK2I4F28BMoy1eiwhT/Ce+0lcAUND/RSMKtLy5gv
+         CRILA6BnD0J2HIQj41dFspHqJggQedsp/mIiEJX2bqkxwK9kXC2LXdJ//pX9P0I8/VGl
+         J+Pg2976Iig95d9xreihq1sFJBOpltsLKsrefYl+1CmiS1Sq506b2jJLXqKF8oHJve8l
+         mxrZhRIO7tEVjZjDrQrtGurLoZW4zuzDrhYXJzsnqHxHcr7ErpTrUpvs355jM3IsI3sx
+         KEKO4d6t4Q4DfIIXOWGunuATiIAUQL7TLaECVXYfZUSAXX8K7xV5CWsRqyYnmrWXIJbv
+         H9kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793802990; x=1794407790;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=UsTSTNr9Wticc38e58ZIWY5uITUM7R+lCgEyKvDw3nQ=;
+        b=qqQtex53DHpkrZ/K5FuyPrnk7xMaU1S/bR+zaUYTr9fI2mKb2EflFpJRdOwAZcxFl3
+         C5aOnACaYc423TJac6H6wNOKMfPFs6E9UmX9sA+a/bSEMGSiVzKw1Mo3xppPJrmbdgfB
+         DCEpyrH6ZBWJAtIy/01n/tHnPzo1W2LIfRRiWXNxl4OagewKebGrr+cTsuWElVjleW+t
+         mWjRn5JDf4r56XmPyD+5ljUoNHqEcDv2kgKfGKHBTNKez6jPrR2gvqHds7hNQj7YzEsc
+         rXjLJrl2uZG3rZJK5het79K5DAlJXeLMtnXQ1WL8W4O4TLSs+9j6TlsIgoWpSNnBGfue
+         euTg==
+X-Forwarded-Encrypted: i=1; AKwUvBz90bB1mYb+1c1yl/fejAHkqTg9LBR4kixBceTg1GrVjveZiCfW+A4DgOfdSfzTy8Qsd6BsuBLXJnOVTs0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8X0abd9praLxs3vEtS9KcLJjLFgfrtqbm94zdIWrZ56DTiVjYE
+	97nESq5gH06QRunMomlHd+U3LHuiSH98OBavvFcIOuJwxAAZRx+Ykroo
+X-Gm-Gg: AYBFou2RI/ALTsxcvcSVfH78dCGkRUvVsZ6wL+xJ4hkU9Oqp4SxY1xAKeGB9bvRKmE3
+	a7HaCvOKraiUHMzXYYYB8GRKune/4u3l6lXcnuTdyyIcjGbvCePtp8bmMxeCuhq5KVB5ZmX9kaX
+	Kpgow2pST0N5fJz7bFlCPiqrMr9wEcIr9qG7Bq3VO1Gq0YKXLf9Yr3g3SkTcJOZhBL+Q1INg/NK
+	c4U8cUfG3eRP/0ZTMokQtaMuY/suWm/ONvuHFpcomciTlk8f9nPD46QmSnaHTvnQZ9CcsepfiYo
+	tIb9/2GWY87ZOywpcfpqjNJY7AoLDy3hU2sSz+lNoLyQvYFzAqLB8MC6jcyV/Hkb0hYXW5/s9AN
+	zGfIpxHI0MffwWp1PGe5DMqad0u+IMOWgqUwVeHERSX0kRNNIsMPUOMChJSsAnNsof2SUUEzpO7
+	/4KhuI69LX5bJbYPmpRu9kg+OmhzOVhRYpZF4Nae67bvfaw0PXIKZ8WuiibdkgEspyDaY2La5gT
+	kF6IUFgN2+It7Ez5QTmfUhAEbdFEqd0QdPW9a2VmUNFtz3iL9RwwlPtf9hytxmST55fuhaFs+gD
+	vCzRDMiDBqda/rwoq+Z9iwhneNYl/i8eRS5c5MKya+aRsMAfCGDWYvbquZQ=
+X-Received: by 2002:a05:693c:6092:b0:35e:5ca:e0df with SMTP id 5a478bee46e88-36a424609c2mr29593192eec.35.1793802990157;
+        Wed, 04 Nov 2026 06:36:30 -0800 (PST)
+Received: from [127.0.1.1] (59-127-145-64.hinet-ip.hinet.net. [59.127.145.64])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm6208241eec.5.2026.11.04.06.36.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:36:28 -0800 (PST)
+From: Zhi-Jun You <hujy652@gmail.com>
+Date: Wed, 04 Nov 2026 22:36:11 +0800
+Subject: [PATCH] net: ethernet: mtk_wed: fix double free in
+ mtk_wed_rx_reset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +92,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] tools/mm: add hwpoison-panic tool
-To: Breno Leitao <leitao@debian.org>,
- Andrew Morton <akpm@linux-foundation.org>, Miaohe Lin
- <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: SJ Park <sj@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-riscv@lists.infradead.org, kernel-team@meta.com
-References: <20260813-memory_failure_rewrite_test-v3-1-f9fb6542cbff@debian.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260813-memory_failure_rewrite_test-v3-1-f9fb6542cbff@debian.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-double-free-v1-1-efa52326702f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBRF0a3IH2uiRRO2IgZaD18EaRGJ2Ltie
+ Ab3XuThGJ7K6CKHgz0vc4CMI7JDM/cQ3AaTSpSWMslEu+xmgugcIIw2RW5VnhZWUyhWh47P71b
+ Vv/1uRtjtXdB9Pyt+IfBvAAAA
+X-Change-ID: 20261104-double-free-b6b95c2539c6
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sujuan Chen <sujuan.chen@mediatek.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
+ Zhi-Jun You <hujy652@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793802984; l=1229;
+ i=hujy652@gmail.com; s=20261026; h=from:subject:message-id;
+ bh=BAz+fNM/Iyf94+H1t6m97KLkVam+zChfLqMn+estExE=;
+ b=n902yQuPJrVcZaUjXryGj97qgtl3JwbpauFUgWDNdIsyHcSg+2Qqp6KztWjzVWsc0l44pJhUw
+ UWdl6ZEPjM4AWQvGOzBGd31a3rOHoTI09O+BKXmwl4p8a63U8pOu72N
+X-Developer-Key: i=hujy652@gmail.com; a=ed25519;
+ pk=uXjqvnRsKEfHEyUr63sOg4fEJIDs4AmiW/rB1cWarXg=
 
-On 8/13/26 13:45, Breno Leitao wrote:
-> Add a tool that enables the vm.panic_on_unrecoverable_memory_failure
-> sysctl, picks a kernel-owned PFN and writes its physical address to
-> hard_offline_page.  Three page kinds are selectable with -k: rodata
-> (default), slab or pgtable. In all cases the host should panic.
-> 
-> Example:
-> 
->         # ./hwpoison-panic -k slab --yes-panic-my-kernel
->         injecting hwpoison at phys 0x100032000 (pfn 0x100032, kind=slab)
->         expecting kernel panic: 'Memory failure: <pfn>: unrecoverable page'
-> 
-> In dmesg, you will see:
-> 
->         Memory failure: 0x100032: unhandlable page.
->         Memory failure: 0x100032: recovery action for reserved kernel page: Ignored
->         Kernel panic - not syncing: Memory failure: 0x100032: unrecoverable page
-> 
-> This lives in tools/mm rather than selftests/mm because every successful
-> run crashes the machine, which is not something to run from CI.
-> 
-> The --yes-panic-my-kernel argument is required so an accidental
-> invocation does not take the box down.
+mtk_wed_free_rx_buffer already calls mtk_wed_hwrro_free_buffer but
+mtk_wed_rx_reset calls both subsequently. This would cause double free
+because dma_free_coherent doesn't set freed desc to NULL.
 
-This is not upstream yet, right?
+Fix this by removing the mtk_wed_hwrro_free_buffer in mtk_wed_rx_reset.
 
-Anything missing or is this good to go in?
+Compile tested only because I don't own v3 hardware.
 
--- 
-Cheers,
+Fixes: 1543b8ff02f0 ("net: ethernet: mtk_wed: add wed 3.0 reset support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/map/216156
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhi-Jun You <hujy652@gmail.com>
+---
+ drivers/net/ethernet/mediatek/mtk_wed.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-David
+diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
+index f40ac5794341..5e9674c9e63a 100644
+--- a/drivers/net/ethernet/mediatek/mtk_wed.c
++++ b/drivers/net/ethernet/mediatek/mtk_wed.c
+@@ -1723,7 +1723,6 @@ mtk_wed_rx_reset(struct mtk_wed_device *dev)
+ 				   false);
+ 	}
+ 	mtk_wed_free_rx_buffer(dev);
+-	mtk_wed_hwrro_free_buffer(dev);
+ 
+ 	return 0;
+ }
+
+---
+base-commit: 11140c51df12e594d6bf2c8d2af5dec63b0219ac
+change-id: 20261104-double-free-b6b95c2539c6
+
+Best regards,
+--  
+Zhi-Jun You <hujy652@gmail.com>
+
