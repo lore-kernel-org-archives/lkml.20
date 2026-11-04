@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801406;
-	b=Tw46G8AppSWxSxmIS3I8rGTykYaeLa9taC+ZZWB+0LB3uUzUN6xyDxTdLT8bxFNVbhwj
-	 kaskZqyQpurX8dKuTumhTf+eWT7qTfZu/Vy2dC0LatY5zYApwvm8ogvn+t7rv1iOgWGV3
-	 WnDxvlE8D0FGGwgLoBCI21rTSxr7Pzwai1m/0jITuNilg8VBlNrc0SydvM7pmTD+fCZuh
-	 Hsbkk6iac0hk2JB6vhlH6b+rGViut0zHGc3KsmlQDqkSwf+QP7wYd0eTFP1Z8DJnAvnSL
-	 7bISWVXHmJZ1fa0h4vQqq1a3ng8H3HZdVlpzbRakkLbXF++6sBoCDxkJAu+L/b1ng0w==
+	t=1793801412;
+	b=pMugUXQKWTQu9bETKgiIsu835+Vojx6nbwMHJQNPBIw+XznxJL8BHfRMgLpBtDxo4OCl
+	 vOCNgLkgWMGX4y8Q8qYqW8aGPC17PKg0wlJ93aS2Y5PjFvk/HV9NmeQO8R1A1sZ++jxfl
+	 zW4n5iR+WiBpHAJPnxYt/o45jMEM3YB1at+v4S35B7yoOzRMOBIyg6zJVQ1TIN0M3HY9b
+	 ++yImsovVOZoiXHaDaK0pZmQsV9UJyIRwQvPSdklBexVbUh2+XB0/iv0C0l6iiBGXAzQv
+	 UbwoskeFeGWxHb2JCK0KhYYUJRppvro5MeNWZiwjOILpSw7g0k8/Hjk6oSH6PlaqIqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801406;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=b2CCWMjvgZNz5FP+7DNpzCei+hZeiZgmRKq9Ltb4IxM=;
-	b=NHdgY/ZTwFFuIyIqpA77/psljCFg5FSPY8Ia7GNLATgurcKwDQnk8GA64ugIiPjpgzAs
-	 5ZHst8KclHMULSOuBoFQV4lo3h32Bkre9+Igl5iZFcI0dWc2dpV7lhg3is5T9MF+l8Wrr
-	 g3NBhoVac+Jc7AoJznRnP9HDHlBXFRsnyaVMrY7HTYR+nHeBCrvjGsSooBlOPiWYfYbuJ
-	 TPMlfFc9iNcLgv4h5JSdruv8nIpKeUS9rLGaoNsoPDmEk/W64YDv1XFf5PldUhB9ixS+8
-	 KgvnAyE50s6cC1lod2yYweIr/NpHutQnSS6Z8z61Mds7geuQYAaDKoueB1fcwrDMaiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801412;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GN5BfdRea5fYOeBLCJpptlR+i/h5pRU6WPEvbKGT6ZM=;
+	b=vAlR4qgR4lsSYHPbyEqzxcgt1k2rMC+FQBQXRGFCVZfRdymaLh2H+ZsTbfnRisjyeTQl
+	 Wm0HD8fhhj7mB5TnLDOthex+pJW60IUxZzYz/M/anjhVgHSaepTrOfM+3FyaypOpTnzE2
+	 zT9j2xSR/aof5LUmh91+MII+zoYqf2WK1QojcgQV9kAx1OM6qReaEl0S1erWxFaVLVkvl
+	 o441tmswskp96ibxabJKtFSl7jZXYyVfgu1xRrh56QxHsK9HxWkXfT5tPBPJgRHhUJqkl
+	 wxL3u1tqYpfvFGxGo5+0+h/Mbk0MY4zO9gr9ZMiHq/950q7CeSwnIyHYOFYa7tZgxYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="pq3g/bOU";
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1EE606A332;
-	Wed,  4 Nov 2026 14:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F1EE606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jKS4j6qJGz4yjjY;
-	Wed, 04 Nov 2026 22:09:57 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6A4E9aCA075538;
-	Wed, 4 Nov 2026 22:09:36 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 22:09:39 +0800 (CST)
-X-Zmail-TransId: 2afc6aeb3ca3b3f-2aa34
-X-Mailer: Zmail v1.0
-Message-ID: <20261104220939917jqg8_alGN5sACGWq5M9D-@zte.com.cn>
-In-Reply-To: <20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn>
-References: 20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn
-Date: Wed, 4 Nov 2026 22:09:39 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20649606A33A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:10:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20649606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=pq3g/bOU
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-917aca1aee5so10042636d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:10:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793801406; x=1794406206; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GN5BfdRea5fYOeBLCJpptlR+i/h5pRU6WPEvbKGT6ZM=;
+        b=pq3g/bOUfq0Yp9sLjFjCbtvlrE7Qv37AIQDPWErqvoVqdvo9xd9+crfCI1n/K0m2B6
+         /wyj/0wj7PG9On9oxbXiA4rR65b4VsiwfWH27eP7hjSzrTjFaPE5VsCuVLqLFeDollNV
+         sSQkgF5p76zqF8M9G+GCUKOvNgstu4dm2MtmBAlnVSrHvAx2VNh1rsIbm7TLW/4YUnpH
+         2wamaFqvyznTtMzIDz0Caf8OxwRpcmXrUmepVB5vQmVQ2aC5DHcIMLavjRxAG33cfmcv
+         YehJUZYQiSvn32N26c8g4y7N960LtKU/uhkwpOuWWY9Gt8P0rRbNkVIa/+Gz2vV9TBLy
+         qiIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793801406; x=1794406206;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GN5BfdRea5fYOeBLCJpptlR+i/h5pRU6WPEvbKGT6ZM=;
+        b=WqUhLMCmuyCEaDkW5+Mqfu9UmPatEmp72yRkqjpGgS07bLnKnOnRJfkBF1ID+Z8Q+4
+         4QQyYyHcIQn2Qwxz1xsbMMuBPJr31W5EYc48bmuZHF7q89iUf/1O/bzYSnSqoY7yn56c
+         6cc3/ie91OnE7spwhY5bwuWbudyyDwq2oBcoQ1CflxQzrAZkuoNuqRpfl2mUSOY9phMR
+         E50v7KrAmtP+dE+OY5cLu8ksh3n6oSGfo3lzubzzrr5CBDDfD5KwtqxSyg+cY9x49M+c
+         GafPG72dxyG+oQ70Rd4K7A3E/FmPYPyBdqZX+OdOfYbyTbhkvcgew31nVHe/m8UcanZM
+         TTbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1xmDUJ7Fx7VbX9Md/Itsm7i9WKirKgVLE52GDOkkYOwOnQKDKipVLf80wLOsEWrTg8WBBJZyo15OFL0o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AQ5Kvty8h4N3eXNAC+Qvtzhk1jMbD92xFmpQhzAFkjIkTGRZK
+	SmFlpq8Azdof9fIBFiD1zTAPCSTohQG+8tZSD2J8mD6WEqT+JYVBO8eLUArn/e4/hHk=
+X-Gm-Gg: AYBFou0TAcbnFt8PuI4QtFiavk33PduVpGI3Xaau/vllhjqB2UL+ZN/F7FvIuxOpjTy
+	5UrUQYqO5goxqrpjoYyBwy2OriBEU37wtMfYy1M2fmPxwuu4h8XG1aacWQaEg0j1j9TQYbLHDxO
+	j8/RlgQjUp8TqQ66zGZDhetO9c1UIUioIh1DcW741TW3X48hZw1zTD+u5YbOQLlql+TWTAoRItz
+	8qFIwJAgrcbx7DoFhQC3g5Gk+ZP4Q+PSiCihd78wNEvZvrPFzFeyFnKzVCbKmbEQIGPCbgfSmPt
+	0HIoHsYVj/BGV07L4GmhuTbyp9ZLb3Nxu9Dmm+SWbSO3vn8bu2vp2OLpT3N2UxVocaohDN+DKjK
+	cj6SxvUVfztW610plnnKC6xpbSfVgD4OnWdOHXwVe/tByMYANrxvdPdGFnxXOrACHf0DwkuP3Ag
+	sBQBV7piohcyLqvdQVt8ois4tTpp+JH7pVluLOnIKfjHu7M6QKf6w8AQ/zCErKA1H2GICxWpbDb
+	lHk0cNzX/bLUdddgjy0u+mHlb5n9FZGV3cFrVCG0FobyvObVDrerYt2wt3q5V10F/ro8TPPUGUE
+	7r/2mTk2EQexlT2pVcYkfg55NMjbDodrTrMuKlWnK/9FEpI43UUctdyd3pCV4xdxRA==
+X-Received: by 2002:a05:6214:5902:b0:91c:7c53:152d with SMTP id 6a1803df08f44-91ca4b2d871mr264201116d6.29.1793801405923;
+        Wed, 04 Nov 2026 06:10:05 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.250])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e728f87sm19598316d6.36.2026.11.04.06.10.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:10:05 -0800 (PST)
+Date: Wed, 4 Nov 2026 14:09:52 +0000
+From: Josef Bacik <josef@toxicpanda.com>
+To: "Hallgrimur H. Gunnarsson" <halg@google.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Paul Moore <paul@paul-moore.com>, 
+	Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
+	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jann Horn <jannh@google.com>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
+	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
+	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, linux-api@vger.kernel.org, 
+	containers@lists.linux.dev, netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
+ opt-in netns loopback
+Message-ID: <orevqgwqw53sxc3tii5zr6x7veu3p5nr3ndkndegpikfogmqy6@j5agkwrxcksj>
+References: <20261028221705.3915340-1-halg@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,83 +107,142 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDEvM10gYXRhOiBsaWJhdGEtc2NzaTogZml4IHRoZSBtdWx0aV9jb3VudCBjaGVjayBmb3IgMzItYnl0ZSBwYXNzdGhydQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A4E9aCA075538
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Wed, 04 Nov 2026 22:09:58 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEB3CB5.00B/4jKS4j6qJGz4yjjY
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028221705.3915340-1-halg@google.com>
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed, Oct 28, 2026 at 10:16:57PM +0000, Hallgrimur H. Gunnarsson wrote:
+> When an unprivileged process creates a new user namespace, it is granted
+> a full set of capabilities (CAP_FULL_SET) scoped to that namespace.
+> While these capabilities are isolated to the namespace, they allow
+> unprivileged local users to reach deep kernel subsystems (most notably
+> networking configuration and raw sockets via CAP_NET_ADMIN and
+> CAP_NET_RAW) that historically assumed a trusted caller and have
+> accounted for a large share of local privilege escalation
+> vulnerabilities.
+> 
+> Many workloads and sandboxes use unprivileged user namespaces strictly
+> for basic UID/GID, mount, PID, or network isolation and never need
+> high-risk capabilities like CAP_NET_ADMIN or CAP_NET_RAW. Likewise,
+> system administrators often want a host-wide policy ceiling restricting
+> which capabilities unprivileged user namespaces may acquire, without
+> disabling unprivileged user namespaces altogether.
+> 
+> Prior work by Jonathan Calmels [1] proposed addressing this via a sixth
+> per-thread capability set (cap_userns) alongside a global sysctl mask.
+> During that discussion [1, 2], feedback (e.g. from Casey Schaufler)
+> suggested that rather than adding another per-thread capability set and
+> prctl() interface, capability restrictions could be integrated directly
+> into struct user_namespace and configured via clone3(). At the same
+> time, as noted in [1], a clone3() flag alone is not sufficient for
+> administrators who need to enforce a host-wide ceiling on unprivileged
+> user namespaces without modifying every userspace callsite.
+> 
+> This series combines both pieces of feedback: it embeds a capability
+> bounding set (cap_bset) directly into struct user_namespace, reusing
+> the existing task cap_bset, cap_permitted, and cap_effective sets on
+> namespace entry, and provides both a system-wide sysctl ceiling for
+> unprivileged user namespaces and a CLONE_NEWUSER_BSET flag for
+> voluntary per-namespace restriction via clone3().
+> 
+> In addition, because restricting CAP_NET_ADMIN at user namespace
+> creation time prevents userspace from bringing up the loopback
+> interface in new network namespaces, the series first introduces
+> an opt-in flag to automatically enable loopback on network namespace
+> creation:
+> 
+> 1. Opt-in loopback activation on netns creation (Patch 1)
+> 
+>   New network namespaces start with the loopback interface (lo) DOWN by
+>   default, requiring CAP_NET_ADMIN over the owning user namespace to
+>   bring it up. To block external network access while preserving
+>   localhost networking, sandboxes commonly create an isolated network
+>   namespace with only the loopback interface enabled.
+> 
+>   However, requiring a sandbox to hold CAP_NET_ADMIN in a new user
+>   namespace solely to bring loopback up conflicts with reducing the
+>   CAP_NET_ADMIN attack surface. Today, an unprivileged sandbox must
+>   start with CAP_NET_ADMIN to bring loopback up, drop it, and then
+>   block CAP_NET_ADMIN from being regained in nested user namespaces
+>   (e.g. via seccomp or max_user_namespaces limits). Conversely, when
+>   CAP_NET_ADMIN is restricted at user namespace creation time (via the
+>   sysctl ceiling or CLONE_NEWUSER_BSET introduced in Patches 2-3, or
+>   via LSMs such as Landlock), tasks inside the new namespace never
+>   acquire CAP_NET_ADMIN and cannot bring loopback up from userspace,
+>   breaking localhost networking for unprivileged sandboxes.
+> 
+>   Introduce the CLONE_NEWNET_LOOPBACK flag for clone3() and the
+>   corresponding UNSHARE_NEWNET_LOOPBACK flag for unshare(), which imply
+>   CLONE_NEWNET and automatically bring the loopback device up in
+>   copy_net_ns() before returning the new network namespace. Making this
+>   an explicit opt-in preserves default network namespace semantics
+>   while allowing unprivileged sandboxes to create an isolated network
+>   namespace with functional localhost networking without ever holding
+>   CAP_NET_ADMIN.
+> 
+> 2. Per-user-namespace capability bounding set & sysctl ceiling (Patch 2)
+> 
+>   Add cap_bset to struct user_namespace (initialized to CAP_FULL_SET in
+>   init_user_ns) and introduce a system-wide sysctl ceiling for
+>   unprivileged users at:
+>     /proc/sys/kernel/unprivileged_userns_caps_allowed
+>   (defaulting to CAP_FULL_SET).
+> 
+>   When a new user namespace is created:
+>   - Privileged creators (holding CAP_SYS_ADMIN in the parent user
+>     namespace) inherit cap_bset from the parent user namespace.
+>   - Unprivileged creators (lacking CAP_SYS_ADMIN in the parent user
+>     namespace) have the child namespace's bounding set constrained by
+>     the sysctl ceiling combined with any effective capabilities the
+>     creator already holds in the parent namespace:
+>         child_bset = parent_bset & (sysctl_ceiling | creator_effective)
+>     Allowing the creator to retain capabilities it already holds in the
+>     parent namespace ensures that a process granted a specific
+>     capability (e.g. CAP_NET_ADMIN) does not lose it when creating a
+>     nested user namespace.
+> 
+>   When a task enters a user namespace via clone()/unshare() or
+>   setns(), its cap_bset, cap_permitted, and cap_effective sets are
+>   clamped to user_ns->cap_bset. In addition, cap_capable_helper() is
+>   updated so that implicit capabilities granted to the parent-namespace
+>   owner of a user namespace are likewise bounded by the owned
+>   namespace's cap_bset.
+> 
+> 3. Per-namespace restriction via clone3() (Patch 3)
+> 
+>   Introduce CLONE_NEWUSER_BSET and add cap_bset to struct clone_args.
+>   When specified alongside CLONE_NEWUSER, the new user namespace's
+>   bounding set is further intersected with the requested cap_bset mask,
+>   allowing container runtimes and sandboxes to drop unneeded capabilities
+>   from a user namespace at creation time even when permitted by the
+>   global sysctl.
+> 
+> 4. Introspection via NS_USER_GET_INFO (Patch 4)
+> 
+>   While tasks inside a user namespace see their initial ceiling in
+>   /proc/<pid>/status (CapBnd), threads may subsequently drop
+>   individual capabilities from their per-thread bounding set. Add
+>   an extensible NS_USER_GET_INFO ioctl on userns file descriptors
+>   to allow userspace to directly query a user namespace's cap_bset.
+> 
+> 5. Selftests (Patches 5-8)
+> 
+>   Add kselftest suites covering CLONE_NEWNET_LOOPBACK, the sysctl
+>   ceiling, creator capability retention, nested monotonicity,
+>   parent-owner bounding, CLONE_NEWUSER_BSET and NS_USER_GET_INFO.
+> 
 
-ata_scsi_pass_thru() translates 12, 16 and 32-byte ATA pass-through CDBs.
-For a 32-byte CDB (VARIABLE_LENGTH_CMD with the ATA_32 service action) the
-ATA command descriptor starts at byte offset 9, so the function adds
-cdb_offset when reading the protocol (cdb[1 + cdb_offset]) and T_LENGTH
-(cdb[2 + cdb_offset]) fields.
+FYI I'm doing something similar with cells
+(https://github.com/josefbacik/linux/tree/cells) that gives the same
+sort of discrete control over the different parts of the network.
 
-The PIO multi-sector sanity check and the multi_count computation,
-however, still read cdb[1] without adding cdb_offset:
+I super dislike this mapping of user to capabilities, as you said it
+creates this hodgepodge of areas that need to be updated and just
+creates more possibility of escapes where we get it wrong.
 
-	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf))
-	...
-	unsigned int multi_count = 1 << (cdb[1] >> 5);
+Extending userns makes sense in the current landscape, but I'd rather
+get away from using arbitrary user ids + a capability set as a control
+for what a task can do. Thanks,
 
-For a 32-byte CDB, cdb[1] is the variable length CDB control byte and
-its bits 7:5 do not carry MULTIPLE_COUNT.  As a result, the sanity check
-that rejects a multi-sector count on a non-multi taskfile is silently
-skipped, and multi_count is always computed as 1 << 0 = 1, so the
-comparison against dev->multi_count either emits a spurious
-"invalid multi_count 1 ignored" warning for devices configured with a
-different multi-sector size or misses a real mismatch.
-
-Read the count field from cdb[1 + cdb_offset], matching the rest of the
-function, and report the field pointer relative to the same byte so that
-a rejected multi-sector count points at the MULTIPLE_COUNT field instead
-of byte 1.  For 12 and 16-byte CDBs cdb_offset is zero, so their
-behavior is unchanged.
-
-Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with an ATA disk
-(ata_piix / QEMU IDE) at /dev/sda.  A 32-byte ATA PASS-THROUGH(32)
-CDB for a non-multi command (READ SECTORS) with the multi-sector
-count field set (cdb[10] bits 7:5) is sent via SG_IO; a control CDB
-with the count field clear is accepted on both kernels.
-
-  unpatched                            patched
-  command accepted,                    rejected with
-  read completes (status GOOD)         CHECK CONDITION,
-                                       ILLEGAL_REQUEST,
-                                       INVALID FIELD IN CDB (0x5/0x24)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index a61fb0331279..927e75b7498d 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3574,13 +3574,13 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	}
- 
- 	/* sanity check for pio multi commands */
--	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
-+	if ((cdb[1 + cdb_offset] & 0xe0) && !is_multi_taskfile(tf)) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
- 
- 	if (is_multi_taskfile(tf)) {
--		unsigned int multi_count = 1 << (cdb[1] >> 5);
-+		unsigned int multi_count = 1 << (cdb[1 + cdb_offset] >> 5);
- 
- 		if (!dev->multi_count) {
- 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+Josef
