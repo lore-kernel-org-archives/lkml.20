@@ -1,53 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789369;
-	b=o6uGiu1AZCuDAO6S2Ix/X8jvpLtsxwrTOPQBnmBU4BhlOhPPnQ2nnLLh0UU4RtbiRdXx
-	 oRq8erJDh3GNr3nKO+s1fHHmHjGe5Sdp420L5LU20fF57giAFx5iMVzPMKbPwtq58xF/d
-	 CXbwLhXGOgdt+3L4w3+f0PT74aUp+2CaUmtPN8wP59e0dHxR+xytAlAUEHwJMzQzCy9aI
-	 tm8nbvlEfUmsABiF04N5pbDnI3IvBeeEtbvezNyNM1LF3pgDyi+fDGQ5ahjetLBZFBwKw
-	 8SR8ouCRCgUnDuE7JVMPP583Dw5HQsoMZypX6V2FucnLt0XNv9U6UA06ygJZKHL5prA==
+	t=1793789371;
+	b=zodB4Qz3KXNEiwMvyCuLOU2j0qoYvLYk0GcYpAd+CE0O6hhK007AIcHtaS59pS78OY8P
+	 nWi2jPxPTE4KKUBDAh9kRYa6rZ6zLO0HXxKOGChxmh54igKqcTK00x4AEsv9HKgUM02uG
+	 pkj+d9dQmi1Pp2BpWyGlOkEqnVk7svs6jE/gG04kmFsimHvi+4Ga00Ckf87ToKh9v5Zll
+	 Ea4ZZQvVwSTGVnLojEk9Yq/99FzsDRGFa6HHmZGK1vkIqxZyNTdHoX5I4iZiXG6e0a8ZC
+	 UemEBy74ou9EBYb2B31uzFEPoreD1QQ02tAxvW8dGbGRZX1Pt+px9POzM1xwt+dTqgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789369;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=LG6G8th4RYYpIMQmVioeS6bsnFXlnKDIialXfud1Kvg=;
-	b=x8vLULPq10VeJNa6RdCgUMkoguqY6AiDiSgsR1wTZtvvF7PrqXM2cOQNs80YvUubUNA3
-	 xBX7K77i2Jk4vEXdbmIZtaLy1FnYk9v00DwZzJaN28v4+MLt+wvw69CceMv2DvBeyaA6T
-	 8KrgnxM69JjkavUye/R2Kz0xE+Xq9KuHkeejLA8/oJl2qLm6n3QV46r8t7UTgRn9Q9ndv
-	 7cbx83kYqNh9z6c5otbAzqO5idiOEAZeYT6NB+y8WO9jz8zpUuy2PjiRogp92LzrI+Sqs
-	 QqynMrRSQ2JhNfLjz6GQY08kNn5OTlRzPDVHnbogz4LXUehw4+C94LC1wh5n/+wbQOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789371;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=PeiTE4L7cDiBX3okf4cJ5RjaFHsp1BNxTKSquB0awMA=;
+	b=x4tLUO3Zx25mNQFWl+pd21pxadhSEWi/wlYlGZiyyy751pGebz+zAkPODCcALJ3JsI3L
+	 W+/gLExv6boyDk/SMk2tbqLhzqsMvVZj8g7FCnxG2whTGhcwJOjUmRDW4BnjlCwdLEcHs
+	 SawchckCn2aVrWBaNHz8Bq3moIsS+rMtqKW7O9au3n0drPWln9eXWe1m30t+h4khfX+VI
+	 dejX/36C3Rme3pHyNjF5mToF1u/2NWRSiYe8ZYwbLVOF9BJilSRaKJQinCbWj9aVMwX7Q
+	 Jotf+yVbV9uVZYnR01/YrFKEZEGHhM2wiw0Q7Ktyrr6tx+LgiyvvLSbU43pNlU6thgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x8mLVKv2;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90406606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:49:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90406606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e9eso749476b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:49:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793789367; x=1794394167;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LG6G8th4RYYpIMQmVioeS6bsnFXlnKDIialXfud1Kvg=;
-        b=C1sYhE9g1BnZ2rl0+ZzQVp3TWY2u4A6HJX0pf+AIQOzLKns16qZ3IypAIbZavqH3IC
-         IDmJH8Qx3njSbkLOsj7iZxr/qDg4miN2bqqL1xOlS9/tTT8JZ0Cwg9OTZNhA3AjBqOMK
-         U510qJd8GbO1WMCcPs+kUut6xVVLzIkE/jOx52T1y9BG81EAOKHxwupGSDGiCnOXYzQU
-         utSCeL810WU3GmBWeMdy7WP+mdhteOXkoOF9mHgTUUondPQYfE+D9VGv3RXRaIf0wdqy
-         oMYc3F2VbpXQ3pRTYqW+PstTaNnoT+ern0khBaQ+zi8F6AjmBkM6YB/kYbR0Gr7EX9LB
-         +PtA==
-X-Gm-Message-State: APuU4Z+3LGAMI/bBXXpRhFxuYJX4a4I+UAk5mxr8oRUVukU8HphGqjV2
-	71spL9SG/qgwlREz1ez9JmLKpwu0jzOYGuEPRxkjIc1hCca35+7VVBnX8EgT7lGaB7MNjjF0cM+
-	YQy5lfySC0Ent+M6ojK+4fjWahVVnW2wgCvIUPT/gtN9mlbzVn6LYuyLqSxw=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5D1606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:49:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA5D1606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x8mLVKv2
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B9B57C8F46C;
+	Wed,  4 Nov 2026 10:50:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C1FF760770;
+	Wed,  4 Nov 2026 10:49:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 71047103291F6;
+	Wed,  4 Nov 2026 11:49:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793789366; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=PeiTE4L7cDiBX3okf4cJ5RjaFHsp1BNxTKSquB0awMA=;
+	b=x8mLVKv2sDXPU0x8hMssSMe27NlCxzyArdGIYh63Rlv8YSvaAirqVpPCOKgJVrhHdvIhVU
+	vWKsYx/NQ+Vv+bGQOMbONBFzWnPkr9xvtQjrhgaDvhcwtq2DpdkRBJFS8c9zngaObe9FUl
+	IAvMekqKXmK3RUBOGr5OXVw3t5N4YWHZnpSYOIfzuG+p4ZgXYS48EoRKKqhQ8EDbSA4TWB
+	P+rZPAeSJ9K0SxtolQfgB8enrQ7dhJQnA0846z4fiKfKcNhtU0T2mVyWBPCx58zoV7k+0Z
+	2cPydq3w+78qbXt42kLJvvy5Qg2GPFNBXvJbhwxr2yKBQnR2m2M2v+8JMIL8VQ==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Robert Richter <rric@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Umesh Kumar <ukumar@marvell.com>,
+	Shashank Gupta <shashankg@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH 0/3] i2c: octeon/thunderx: Fix DMA mask + improvements
+Date: Wed,  4 Nov 2026 11:49:09 +0100
+Message-ID: <20261104104912.166301-1-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,74 +73,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2219:b0:4f4:f3c1:72c7 with SMTP id
- 5614622812f47-564609f27admr4636573b6e.61.1793789367631; Wed, 04 Nov 2026
- 02:49:27 -0800 (PST)
-Date: Wed, 04 Nov 2026 02:49:27 -0800
-In-Reply-To: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aeb0db7.bf891901.a11b2.0004.GAE@google.com>
-Subject: Forwarded: [PATCH] net: sctp: linearize cloned gso packets in sctp_rcv
-From: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+Hi Robert, Andi,
 
-***
+This patchset adds a fix to the ThunderX driver where the DMA mask was
+not set, sometimes preventing MSI-X from being initialized properly.
 
-Subject: [PATCH] net: sctp: linearize cloned gso packets in sctp_rcv
-Author: gowtham398gs@gmail.com
+The first patch improves error handling on the bus, and the third patch
+improves the latency in HS mode.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+Cheers,
+-Paul
 
+Tanmay Jagdale (3):
+  i2c: octeon: Add error state recovery
+  i2c: thunderx: Set DMA mask
+  i2c: thunderx: Use polling with delay in HS mode
 
-Fix a kernel panic bug caused by an unexpected layout geometry mismatch
-when flattening cloned non-linear SCTP GSO packets.
+ drivers/i2c/busses/i2c-octeon-core.c     | 31 ++++++++++++++----------
+ drivers/i2c/busses/i2c-thunderx-pcidrv.c |  4 +++
+ 2 files changed, 22 insertions(+), 13 deletions(-)
 
-When an incoming packet is cloned (e.g., during packet capturing via
-tcpdump or Wireshark), sctp_rcv() must flatten the packet into a single,
-continuous memory block before parsing its chunks. However, if the packet's
-internal frag_list has tracking discrepancies, calling downstream memory
-handlers like __pskb_pull_tail() triggers an operational failure.
-Because the kernel treats this failure as an invariant violation, it
-executes a fatal BUG_ON() assertion, resulting in a system-wide panic.
-
-Fix this issue by validating memory linearization early in sctp_rcv().
-By intercepting non-zero return codes from skb_linearize(), the kernel
-can detect frag_list length discrepancies before they reach the core
-network buffer handlers, allowing malformed packets to be safely routed
-to the discard routine rather than crashing the operating system.
-
-Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f15a6eff7a53f6eb7dc3
-Fixes: 90017accff61 ("sctp: support GSO")
-Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
----
- net/sctp/input.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/net/sctp/input.c b/net/sctp/input.c
-index 9494cfa51106..6f66ae656d70 100644
---- a/net/sctp/input.c
-+++ b/net/sctp/input.c
-@@ -116,8 +116,13 @@ int sctp_rcv(struct sk_buff *skb)
- 	/* If the packet is fragmented and we need to do crc checking,
- 	 * it's better to just linearize it otherwise crc computing
- 	 * takes longer.
-+	 *
-+	 * If there is a geometry mismatch, length discrepancy, or offset corruption
-+	 * in the packet, skb_linearize will fail and return
-+	 * a non-zero error code.
- 	 */
--	if (((!is_gso || skb_cloned(skb)) && skb_linearize(skb)) ||
-+
-+	if (((!is_gso || skb_cloned(skb)) && skb_linearize(skb) != 0) ||
- 	    !pskb_may_pull(skb, sizeof(struct sctphdr)))
- 		goto discard_it;
- 
 -- 
-2.56.0
+2.47.3
 
