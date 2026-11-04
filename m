@@ -1,101 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793831486;
-	b=KalZ02L9at9JGBUlndpNzEAWylTRKjqwk/jyx4pzvzxLq3eRHaGDc3Y88yvsiLQnmsfC
-	 ESp88hicw2TRh7fvGUigba23k+Nmr03Ekgt+6yBNnaq4gmzcZXaK/rzapWTKMAEIW/Dse
-	 Cvd8F0qDFGw6gtfLwszzsMZ6sMdEZuwqaUFlfE9bJkrwAK7H5oQYH71mdv3U7fQ5RcLTj
-	 7QZwg7BMUeTXJmhFD4mrc2fU6Cpe7EjhUFAto359jrWMa3+i04zQCuC/q+hxFGnWp9gLn
-	 mLkX35rrasqsn+HHbscnB9RfRBIDU+c2lGV6tZnxima+Vm0CU1xi2O+t6M2eor7HoOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831486;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
-	b=4f0GLxfNZyzGaQPDDSBjkE9jCxPE6hhFTNzxHlSchxzFSxieCXjRf0ojwAnbxNRxxMg/
-	 tcQM1rgZmNCKPtt1UPAM+InSNYroFfGty5+ZEeXeexj8DstTkALvnAOI3L6DEpwZV+lLY
-	 VIoplcWLqZw+tHfyBrjsYv3Mss2V5JKhdGaFMzw7uwwW+pvN4eD57RXjLj19CBosZrhlK
-	 aup2yfVZqJQJiw25igOKvnbv7s5T0fFAc3s2SKKKGIGjwZ94t5BW5f8rT8Pd7e8VCiRRy
-	 EjoiBwNwq9ctKTHQSRBTRabef5bfb1U7BMrOpG6+X9+pQMGn7v4by2sdbhl82n5Zq4Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yvKTEN8B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793831497;
+	b=s+uRIz5dkZvH+7muafyaVvxM56i483qAHIJKxSeqIg1XesXDiiaUzVOXcnHgUT1xxD++
+	 bJK0+SYqKaeoVWh32UukPzVFaM7IXYnx9JSVJy9T4UB6I2+S9+WN35dpxURvDOHU4bt+A
+	 YinM/UK0+Q2iINKKY4AuJOuoJLxc15kABRggbxKpULhdU5XaHwr/+M7jp/O1rY3c+UhhU
+	 42ebwSfv6jfERSKAetuJE9HS2yfeZg/EsgFgiXPTkphZ6YhsoR9sB+gkzcVVwNkrwHSFO
+	 rX4JFpM8yd9pDx5HMYHeuAOL+7hhVvsCwL51CuqsSBefDI8+vqgkZgglJaC9iXv4fFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831497;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=LbVXLj0zkZuNnqcwxK4WnvoVEtU6uXoZa20Zxze+iC8=;
+	b=C9WYX9udRfa9TfpdSikVQ3gNIGhgnRrwNzyGxHIVKnhoNzK8c2XdxNnBxyd5ZDjlGpLh
+	 XrhGG9CNFxvU64hsPFJ0W2fRha1NUv2bf4GjKHPGo7B5F2ALKBFGrPmvk8b9jDFLqx5tI
+	 p+CuLI1H+9RlY9v09CoqIHHMrJW46NiC3DSQda6sH/ekeYgsOwDLHHFQHsrvVWtYZvzbW
+	 H1IyE+JLceVKpLW2bwkX8zbVpFaT7le6WK6NWV+zoBC11tTqQjC74czUeupAd4hWhVaRy
+	 m4mrunCEyTC4KkDW61bcIdlzW+7OfICaSy/UdFlAECGtbegSbFmA5y3sPjOKxDn5zXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=dmst8Wwh;
+	arc=none smtp.remote-ip=209.85.216.100
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C439606B2E3
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C439606B2E3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00CA606B2D7
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:31:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F00CA606B2D7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yvKTEN8B
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so971096a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:31:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793831484; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J/JyGohyqwgUrwTsgNnlWiF3SZgKiXGMUCaKGbuEunt+xlT/k7xx5wmWdahZW0FKmC
-         SdHjH94ObdyZHwOZDYwqXdj7Piuh8MtUyBWPnP7aMUssgDFpoJ+O4GTgyjaLdgrDR7d+
-         iXNtuXfg4/QoNzhjiWfjntvKQ2la0C4HueclwJhRIvJ36nWgmLH6HsCcGWgagCD/OdmB
-         r3022T7WiJvNAO5vDq1k9rihC7ZIpj1D/CVGdo4fOT6DVjLBEeTmLz+0/9ntgMqOZGkH
-         ry1lp0deqgSYoDweyQtkMguurgVo0fXN9qkBwS+chxRHdMoSU1st27DBEb+iMGYz06n1
-         vtnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
-        fh=tcyrEDjrE6/4fZTQP7RHA8C1AC9y9RWrLN/zU/WOyRM=;
-        b=OBIclfw74rqOphXNnbWDYlATmDHxsevfde5Bvm0OXoVKVxaOqxEncPzS7wfGR+611E
-         NmK+U4Ax4vWDcSX0oi3NaolSyW8pX0g/cuau7AzEQi3j2d0xYjBG45qoqklGy3/UmOOe
-         xxG7QiVgRvt7o4dcMQJY3aUiSuw6WysP3nHuAI47qOjNIbiHNfNyB6x3FlLyFXrJjZxv
-         NCGhnG++TX/BmVkpx04UOKnC2hA5f3F+j09xUMI8byJom5L45TvzWtAs63ADcX+HX+Wx
-         POByKJC5aC+shVn653YUd8BA+jPhANSDD8F7H1Hx9RaKIcauwa3N4J7giJvGxBjR1OPO
-         JaTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793831484; x=1794436284; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
-        b=yvKTEN8BO7H7/D5zBeHdDcwqdSxjk3mykZyNtP1VoCsE7rk3hjiqmRW6NKgrRSK4v3
-         ey3Un7v+fOM0Jy6V/e/j8/soOTulVrQKy0mjxiMojmIhtqBEPgo5EPUkKNkyCH+GyryP
-         d9b5zrUX3apuYVEKPTZOPd0D1etIsRz0Cf1ggf6kj1GFug26qAwX8nAZnW8q9UXRqvRz
-         5vIYcVjMxmqBu+oKWVq9yeJz+g2wqbBsbWOcNskUPkPUgpNkMxVOxJcFPrLTuu4WXwal
-         nTPo4j5LtX2nDMipiegNtwnkogd263vVFN+5SyA99NkKIJUM9993X9dNxmEyZySOvb35
-         OmvA==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=dmst8Wwh
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso733770a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:31:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793831484; x=1794436284;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1793831496; x=1794436296;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LbVXLj0zkZuNnqcwxK4WnvoVEtU6uXoZa20Zxze+iC8=;
+        b=oajiOMt0OBArwgAYedUSpK1CtzKO0an5p25O5Kx0LnK3fraPxI9PyHHdQVrU9NN8aY
+         SUr3M4yTn8JSwaYsprJ1wqRKHwzS2Cl6hlLrVuzsqNhTPuOjfaZYFF9G+aLNytr1SUuA
+         MYpH0m/gG4BcJntx2uWnpMZUtZOUFAVBHJMmWtTVz4MIR350pI6wwl2EJofIRmWbjOu+
+         8/5PGZP6VnD5avO8LK71LRk3CEWrZ7Xc/qEmYZA58Y4xS9vSYgOCsBf3OTfXQvkmIZFp
+         1bm1Uo6nzGiWqtnQ7Ygj3McaMLkkyp1Jr5NfqhXHe7udX6UQ99EN4dcznJ/V+iRLWGt+
+         AIsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtxafLd+Ev0uRnoiEBenbf69ifeER5IbBbmSWBgt0xfXj0vW62Fqhbwk1NNKArzz5sMYx3bTuQabe7sQE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TyTpaKRDUZVE6i1UntnGfuq5ruVh69xJurjp2gPD5XKg00FnY
+	7S4dw2kKs+8MopkrBEZ3zQTbrFTslS5kIv8qU2+tIzBZMhhZGlOVhfRwFf+KYJRjcZh7t6Xn2ty
+	qzYKNW+qZqJuw0pnLQyQmDK3QjDnILXBeL2WR37QSq8zHd70tyrsnRw/mmxAG+xQ9587ElrOUIX
+	jGLqKtxTPDZ4fL+emgz/gbVKdL6h8j6dqiqAKh35hOyuj//G1SW+DCdSVCfpqGfCfoJZNDgAjVX
+	mHZzAHDraEvyvc=
+X-Gm-Gg: AYBFou2CMto7f1fVkZO0UL1D8saWfM5vKVXRe5FNhiJOXleCs9KXBIDS8mRBQcr6kwu
+	k/tAMxcEjYgmUE8uBjMcV8jSE27SQrJ1KBralD1j6FMxEuJ4Z6rjzgT7qtOmdJUr7poCQV9GHRn
+	ofgKclWmB2jppA40aHIXIxj4RPxoEQRP7OQskxNahq5TI/QjzRX/MvoU1nLmUFeupO/XBvkmVRw
+	QIsBGHfIZp5C0PIUzcxzD9yrjCbX0Rvuo/yzaDQJkaNO+4pm82LbkqJbRqyqgQl4UdUwELO5rFM
+	FWvJAc+xxns9nEG0hbcHtpzn0jZwfyYXW7yWszorR1kNe/jLtjmNAtZSf5x1FG89bIZ6gBG9dpv
+	AWNcwgHF0K5n4viJNRBgOdw+ZLqO4CLs8StT2WDtHzPdFw9q8/gbP4Ccov44rhSS+1j7GBp3Hg4
+	upLDJ3++8h5v6Pz3xQVzrxrp0F7rdT
+X-Received: by 2002:a17:90b:224f:b0:3a0:516d:9f87 with SMTP id 98e67ed59e1d1-3ae897c94cemr15108821a91.13.1793831496344;
+        Wed, 04 Nov 2026 14:31:36 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b094da9182sm1062410a91.1.2026.11.04.14.31.35
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 04 Nov 2026 14:31:36 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91c817b56adso24370616d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:31:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793831494; x=1794436294; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9ElVEracKYqU2HPS7pij1Ejie+xyil1NNct20nME2rU=;
-        b=qbpbBwyeXKYmpvc5Hd/WIthfE1WA89qnLfEfMNTOZ9y/fZQoTtQfxTlczgtAkgLeoe
-         z61IxUz5IaXF2qcPjBhsY/dm9GpZe0N7N5NJ1ymnO/XY5ETQ2z+WAhUHWR0tYdZE+JZ1
-         gGxBj2mso1ObZfsBr0cwPqk1LVi90s/6Fm46SO5ZQHK0K3PlEoVP1Yq9pjvY2+AEZptE
-         HiMU0gvK6KddzwuTFO3Ngea1aMiObZHAjXCpdWr6CgkBcieTGdabszacxozRnz13U0kV
-         0ggYSPGV/zNKeYJ8efbB0GXVl4MR79kHWerQV3HJbY3td29o8oZEB5DvtVTNYoy9g1Rg
-         NVGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoD6SB5C7agbcwMwPef8HQUYq4srsG62sjDEC0jYOmb6x8Qxh66dyoOfrNz5lEOOTVSSszLg4xiBgvLb8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9p9vaWjK9+Sqbvhy4P7CifBhjNU6Q+/fuMjtxJfVKNaT/5SQJ9
-	TsSK/Fxh18/uYYKeLLnZi7ygtIs4ZKFFxXPeKJR7+OKZYdEdcPY4sRfcVbZ01F9ZXmabL4zFmbO
-	GdlK+4DLUoSenZ7jj0qF379PjEZtRDj8=
-X-Gm-Gg: AYBFou1R+22prpCfO18TYZyTMRKoQpbb6/JekUEs5zuwqvzImIN/7OYXEBB0UqGvvI+
-	R0K81YNk1D9SGQxVAj074blcynA/EHoIG0zOSjjDorFWSa83k6yVActW/asjfW3QeDEz2qaLBWO
-	d4H1/uu1ndxs3vum7ZaU351MOImuDPBnF9eUhPyu+ldmM1bn0DfxjXunwCDXwQjfXgZyIW+u45L
-	U/37WbD8oJJJA4wLKcquxdN/HZxbAttEw44+oe0yVQbjKAYK7WkkxNrBgEZ5ar/dluOpeUrq7iS
-	Bz/F2sn0cp5lJpBCj7sfbkJ1uyMq2HM5hCRvvp1l8yoKodNt23yz+rLP1Rnea96zEf1HwnRFo0i
-	SZsANFlCpuHEYEBYGllyTveeNRUm0RCy85E2BnOOXfxDTeHCSAangXNrpqv3ldQ8LNhdu4YihUB
-	P/6lhEpDwhsp3wHTIX4KEx1VA=
-X-Received: by 2002:a05:6402:3812:b0:6b4:bf13:b4a3 with SMTP id
- 4fb4d7f45d1cf-6b54cd6c670mr4543415a12.43.1793831483988; Wed, 04 Nov 2026
- 14:31:23 -0800 (PST)
+        bh=LbVXLj0zkZuNnqcwxK4WnvoVEtU6uXoZa20Zxze+iC8=;
+        b=dmst8WwhzZGkJvRrS3QJbeFKKtNYj+NbGm7k9YdQBdJI7Gyn2sATxZy7c1G6VqwtTG
+         aiJE8wxcsmmXAwj4BxT7gI91uLPTTvQ9f3zWDya4TR0xupwIYm1fq5BJZkml1oe5oBcW
+         7A0pTGZGykYeEDNDu69uu8AC22ikDOnPpJTwQ=
+X-Forwarded-Encrypted: i=1; AKwUvByqJXJQ4fFd3Q7d7K5l2ennoIrmFdIMdlJ4rI9NoSlXPiypjUPJBxYsgCPKX6vl/6y8T44JW/zwd2fC7UQ=@vger.kernel.org
+X-Received: by 2002:a05:6214:19e5:b0:91c:8632:691f with SMTP id 6a1803df08f44-91ca4b935d9mr282132446d6.51.1793831494477;
+        Wed, 04 Nov 2026 14:31:34 -0800 (PST)
+X-Received: by 2002:a05:6214:19e5:b0:91c:8632:691f with SMTP id
+ 6a1803df08f44-91ca4b935d9mr282132046d6.51.1793831494026; Wed, 04 Nov 2026
+ 14:31:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,219 +98,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-10-63362e9290a3@gmail.com>
-In-Reply-To: <20261104-alpha-profileme-v6-10-63362e9290a3@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 4 Nov 2026 23:31:11 +0100
-X-Gm-Features: AclHuK_FQC2kU8FbgVaSurfMsLUUgjteliOMC1CNRp4DejscmYttK5_od5jdt6g
-Message-ID: <CA+=Fv5Q1rPBSyqRqzQES3E8Recy9itKzWTNBSxaDZ+QpbLxmbQ@mail.gmail.com>
-Subject: Re: [PATCH v6 10/13] alpha/perf: report the data source of ProfileMe
- memory accesses
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+References: <20261016182124.GA1884550@bhelgaas> <309f6f13-b010-4818-936d-4b7b4b389239@kernel.org>
+ <179338093960.40615.2809022600772649565.b4-reply@b4> <de273977-8e8d-410e-8424-e99a0b4080b7@kernel.org>
+In-Reply-To: <de273977-8e8d-410e-8424-e99a0b4080b7@kernel.org>
+From: Ray Jui <ray.jui@broadcom.com>
+Date: Wed, 4 Nov 2026 15:31:21 -0700
+X-Gm-Features: AclHuK_DPry0maLO2zF5RJdfKHbaIbL4FCH0Yin17sY4r60u8x52Y7l_Zz2jURM
+Message-ID: <CAJ8Y1dQBr_TmqC4=8ciLdcyO5EC85KYZLo6om7WR5cX-iG0wPw@mail.gmail.com>
+Subject: Re: [PATCH] PCI: iproc-msi: Bound events handled per IRQ
+To: Eugen Hristev <ehristev@kernel.org>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+	Bjorn Helgaas <helgaas@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000000a0fae065f7af132"
+
+--0000000000000a0fae065f7af132
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Matt,
+Hi Eugen,
 
-On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
+Can you please also add a Fixes tag in v2, given that this issue can
+cause a RCU stall in corner cases?
+
+Thanks,
+
+Ray
+
+On Wed, Nov 4, 2026 at 12:58=E2=80=AFPM 'Eugen Hristev' via
+BCM-KERNEL-FEEDBACK-LIST,PDL
+<bcm-kernel-feedback-list.pdl@broadcom.com> wrote:
 >
-> Whether a ProfileMe sample's memory access missed the DTB is only in the
-> PERF_SAMPLE_RAW data, as a DTB miss trap.
+> On 10/30/26 19:22, Manivannan Sadhasivam wrote:
+> > On 2026-10-16 23:10 +0300, Eugen Hristev wrote:
+> >> On 10/16/26 21:21, Bjorn Helgaas wrote:
+> >>> On Fri, Oct 16, 2026 at 03:18:53PM +0300, Eugen Hristev wrote:
+> >>>> Limit each iProc MSI parent IRQ to 16 event-queue entries.
+> >>>>
+> >>>> A continuously fed queue could otherwise keep the chained handler ru=
+nning
+> >>>> and starve other work. The budget still drains pending events and le=
+ts the
+> >>>> next parent interrupt continue processing, improving fairness and bo=
+unding
+> >>>> interrupt-handler latency.
+> >>>>
+> >>>> Without this starvation avoidance, one CPU can stall indefinitely
+> >>>> in the loop and not serve other interrupts, timers, etc.
+> >>>>
+> >>>> While testing it with an Ethernet NIC,  when too many MSI interrupts
+> >>>> come in, CPU might get starved:
+> >>>>
+> >>>> Connecting to host 192.168.30.1, port 5201
+> >>>> [  5] local 192.168.30.2 port 52586 connected to 192.168.30.1 port 5=
+201
+> >>>> [ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+> >>>> [  5]   0.00-1.00   sec   240 MBytes  2.01 Gbits/sec    2    334 KBy=
+tes
+> >>>> [  5]   1.00-2.00   sec  63.2 MBytes   531 Mbits/sec    1   1.41 KBy=
+tes
+> >>>> [  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  5]   7.00-8.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  5]   8.00-9.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KByte=
+s
+> >>>> [  177.568497] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+> >>>> [  177.568913] rcu:     0-...!: (1 GPs behind) idle=3D28ac/1/0x40000=
+00000000002 softirq=3D28922/28930 fqs=3D1
+> >>>> [  177.569457] rcu:     (detected by 1, t=3D5256 jiffies, g=3D21629,=
+ q=3D819 ncpus=3D4)
+> >>>> [  177.569870] Sending NMI from CPU 1 to CPUs 0:
+> >>>>
+> >>>> With this bounded approach, IRQ handler will complete and continue
+> >>>> to serve MSI events on the next handler invocation.
+> >>>
+> >>> Is there something unique about iproc that makes this an issue, or do
+> >>> we need to worry about this in every MSI interrupt handler?
+> >>>
+> >> This is not specific to iPROC, so in theory it can happen to any other
+> >> MSI interrupt handler. If the handler has no way to break the loop, an=
+d
+> >> the condition that generates the MSI IRQ happens continuously, the sam=
+e
+> >> situation will happen.
+> >
+> >> Some other drivers e.g. take the IRQ state into a local variable, do t=
+he
+> >> task, clear it up, and don't care to read it again, like the iPROC is
+> >> doing, unless another MSI fires.
+> >>
+> >
+> > You should rework the iproc handler to read head and tail outside of th=
+e loop
+> > and handle the recorded events inside the loop. This will avoid using a=
+ny
+> > arbitrary max event limit and allow other handlers to also run.
 >
-> Set PERF_SAMPLE_DATA_SRC for the samples of memory instructions, so that
-> the memory sort keys see them. One that trapped on a DTB miss gets an L1
-> miss in mem_dtlb. PALcode fills the DTB, so one that retired without
-> that trap hit it, and gets an L1 hit. mem_op comes from the opcode, as
-> I_STAT does not say whether the access was a load or a store. A load
-> into $31 or $f31 is a prefetch, except for ldq_u, a UNOP that is left
-> out. Samples that fall back to the interrupted PC get none.
+> Hi Mani,
 >
-> On an EV7, a loop that loads one word from each page of 64 MB in random
-> order had as many DTB hit samples on the load as misses: the miss trap
-> aborts the load, and its refetch hits. A prefetch into $31 takes the
-> same trap, and its samples are reported as PFETCH misses and hits.
+> Thanks for the feedback, I changed it as you said, sent a v2.
 >
-> I_STAT[TRP] is ignored for an instruction killed before it was mapped. On
-> an EV7, TRP and MIS were seen set for killed instructions that are not
-> even branches.
->
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/include/asm/wrperfmon.h | 12 ++++++
->  arch/alpha/kernel/perf_event.c     | 86 ++++++++++++++++++++++++++++++++=
-++++++
->  2 files changed, 98 insertions(+)
->
-> diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/=
-wrperfmon.h
-> index 7fbbfd74926a..dc24c7cb45db 100644
-> --- a/arch/alpha/include/asm/wrperfmon.h
-> +++ b/arch/alpha/include/asm/wrperfmon.h
-> @@ -100,6 +100,18 @@
->  /* ProfileMe status, from the EV67/EV68 Hardware Reference Manuals. */
->  #define EV67_I_STAT_OVR_SHIFT 30
->  #define EV67_I_STAT_OVR_MASK 0x7UL
-> +#define EV67_I_STAT_TRAP_TYPE_SHIFT 34
-> +#define EV67_I_STAT_TRAP_TYPE_MASK 0xfUL
-> +#define EV67_I_STAT_TRP (1UL<<39)
-> +#define EV67_I_STAT_MIS (1UL<<40)
-> +
-> +/* I_STAT[TRAP_TYPE] values */
-> +#define EV67_TRAP_DTB_DOUBLE_3 2
-> +#define EV67_TRAP_DTB_DOUBLE_4 3
-> +#define EV67_TRAP_DTB_SINGLE 6
-> +
-> +#define EV67_PCTR_VAL (1UL<<1)
-> +#define EV67_PCTR_PM_KILLED_BM (1UL<<26)
->
->  /* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode addres=
-s. */
->  #define EV67_PMPC_PAL (1UL<<0)
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index c9ab40ff76ad..0723e1042145 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -20,6 +20,7 @@
->  #include <linux/overflow.h>
->  #include <linux/prandom.h>
->  #include <linux/sched/task_stack.h>
-> +#include <linux/uaccess.h>
->
->  #include <asm/hwrpb.h>
->  #include <linux/atomic.h>
-> @@ -1053,6 +1054,88 @@ static void alpha_profileme_set_regs_user(struct p=
-erf_event *event,
->                                   sizeof(u64);
->  }
->
-> +/* TRP, and MIS with it, are stale for an insn killed before it was mapp=
-ed. */
-> +static bool alpha_profileme_trp(unsigned long i_stat, unsigned long pctr=
-_ctl)
-> +{
-> +       return !(pctr_ctl & EV67_PCTR_PM_KILLED_BM) && (i_stat & EV67_I_S=
-TAT_TRP);
-> +}
-> +
-> +/* What the memory instruction at pc does, or PERF_MEM_OP_NA. */
-> +static u64 alpha_profileme_mem_op(unsigned long pc)
-> +{
-> +       u32 insn;
-> +       bool r31;
-> +
-> +       if (pc < TASK_SIZE) {
-> +               if (copy_from_user_nofault(&insn, (const void __user *)pc=
-,
-> +                                          sizeof(insn)))
-> +                       return PERF_MEM_OP_NA;
-> +       } else if (copy_from_kernel_nofault(&insn, (const void *)pc,
-> +                                           sizeof(insn))) {
-> +               return PERF_MEM_OP_NA;
-> +       }
-> +
-> +       /* A load into $31 or $f31 is a prefetch, except for ldq_u: a UNO=
-P. */
-> +       r31 =3D ((insn >> 21) & 0x1f) =3D=3D 31;
-> +
-> +       switch (insn >> 26) {
-> +       case 0x0b:                                      /* ldq_u */
-> +               return r31 ? PERF_MEM_OP_NA : PERF_MEM_OP_LOAD;
-> +       case 0x0a: case 0x0c:                           /* ldbu, ldwu */
-> +       case 0x20: case 0x21: case 0x22: case 0x23:     /* ldf, ldg, lds,=
- ldt */
-> +       case 0x28: case 0x29:                           /* ldl, ldq */
-> +               return r31 ? PERF_MEM_OP_PFETCH : PERF_MEM_OP_LOAD;
-> +       case 0x2a: case 0x2b:                           /* ldl_l, ldq_l *=
-/
-> +               return PERF_MEM_OP_LOAD;
-> +       case 0x0d: case 0x0e: case 0x0f:                /* stw, stb, stq_=
-u */
-> +       case 0x24: case 0x25: case 0x26: case 0x27:     /* stf, stg, sts,=
- stt */
-> +       case 0x2c: case 0x2d: case 0x2e: case 0x2f:     /* stl, stq, stl_=
-c, stq_c */
-> +               return PERF_MEM_OP_STORE;
-> +       default:
-> +               return PERF_MEM_OP_NA;
-> +       }
-> +}
-> +
-> +/*
-> + * Report the DTB access of a memory instruction. PALcode fills the DTB,=
- so
-> + * one that retired without a DTB miss trap hit it.
-> + */
-> +static void alpha_profileme_data_src(struct perf_sample_data *data,
-> +                                    unsigned long pc, unsigned long i_st=
-at,
-> +                                    unsigned long pctr_ctl)
-> +{
-> +       u64 op, dtlb;
-> +
-> +       if (alpha_profileme_trp(i_stat, pctr_ctl)) {
-> +               if (i_stat & EV67_I_STAT_MIS)
-> +                       return;
-> +               switch ((i_stat >> EV67_I_STAT_TRAP_TYPE_SHIFT) &
-> +                       EV67_I_STAT_TRAP_TYPE_MASK) {
-> +               case EV67_TRAP_DTB_SINGLE:
-> +               case EV67_TRAP_DTB_DOUBLE_3:
-> +               case EV67_TRAP_DTB_DOUBLE_4:
-> +                       dtlb =3D PERF_MEM_TLB_L1 | PERF_MEM_TLB_MISS;
-> +                       break;
-> +               default:
-> +                       return;
-> +               }
-> +               op =3D alpha_profileme_mem_op(pc);
-> +       } else if (!(pctr_ctl & EV67_PCTR_PM_KILLED_BM) &&
-> +                  (pctr_ctl & EV67_PCTR_VAL)) {
-> +               dtlb =3D PERF_MEM_TLB_L1 | PERF_MEM_TLB_HIT;
-> +               op =3D alpha_profileme_mem_op(pc);
-> +               if (op =3D=3D PERF_MEM_OP_NA)
-> +                       return;
-> +       } else {
-> +               return;
-> +       }
-> +
-> +       data->data_src.val =3D PERF_MEM_NA;
-> +       data->data_src.mem_op =3D op;
-> +       data->data_src.mem_dtlb =3D dtlb;
-> +       data->sample_flags |=3D PERF_SAMPLE_DATA_SRC;
-> +}
-> +
->  /*
->   * Handle the close of a ProfileMe window on PCTR0.
->   *
-> @@ -1168,6 +1251,9 @@ static void alpha_perf_event_profileme(struct perf_=
-event *event,
->                 data.sample_flags |=3D PERF_SAMPLE_WEIGHT_TYPE;
->         }
->
-> +       if (exact && (event->attr.sample_type & PERF_SAMPLE_DATA_SRC))
-> +               alpha_profileme_data_src(&data, pc, i_stat, pctr_ctl);
-> +
->         if (!alpha_perf_event_set_period(event, hwc, 0))
->                 return;
->
->
-> --
-> 2.55.0
+> Eugen>
+> > - Mani
+> >
 >
 
-I tested this on my EV67 ES40 with a page-stride workload. At the
-ldq into $31 I saw 89 PFETCH hits and 87 PFETCH misses. The load
-and store sites also showed both DTB hits and misses. All 215 samples
-at the ldq_u UNOP had no memory data source.
+--0000000000000a0fae065f7af132
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+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
+Kea1UXiDNimY9XcISXAUrVauS3TPqfSofCP4tOVkOfR2zFsciCJ7DPbmanfMXAR2cY6kCgkZCqxY
+9Szy6beT2XZUSE9/jFymRSjXZNnLqAe30YCaVeVQUqW9X3NqlPdzO9Ce8AqKdgBlVt4isO6s3zJ5
+djaWSUM3zrweXgaVpSRF3iBUxK45Nb0qOkvz0hrBYM2r+iLWR2YbF+Z7W7lw2QMvkbeT1gXn+4pC
+K8f1aWKsB9e6Id7uBOkCAwEAAaOCAdgwggHUMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAA
+MIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxzaWdu
+LmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDovL29j
+c3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EMAQUD
+AzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3dy5n
+bG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmds
+b2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwHwYDVR0RBBgwFoEUcmF5Lmp1aUBi
+cm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQwHwYDVR0jBBgwFoAUACk2nlx6ug+vLVAt
+26AjhRiwoJIwHQYDVR0OBBYEFLfOZFpVhKW7s+LOyKdJX5PQH0f8MA0GCSqGSIb3DQEBCwUAA4IC
+AQB5Y3tHNG503cqE6g1lZJG3Z1SbuQD8ZXUbYqDNZCnUAd/+zUCraK7TYIOI83X+oof/CscTxVhf
+5mazzhESPjHYlC3TLkkxDHQZi06GwKbI00651REpC78vd9dOdZnKnGjpFeDiwJKNxdarSaYiZi/t
+6cZD3FIvDaJwYIQ+8HvZOm7FBicC41sMoaxGWZ/tdC6yRoLFckWRvhq0e7wyaBOH2ae8l30V6NXB
+RtJd4XemoNk74ybCcGMro0zyBCzQhREo2slK5r/uflroC607XCCIGjLuB6TptSxV97L/9/QSrE2U
+4JteFGVwRBJw1s7k8ICf4s22debUZ+OlB0mXjI+8EUDt6vdMeregn5ilQQSsDmBMnz2GzHfV30tb
+X92uoE5xui1g4Q3BWkUVwd9wVHaganr3rzc+lQDnQq5cddu1supu3SWp5FqKq36rtf3RX/3zHZ0C
+P2pCAlilDHYH2NRF8CYb+gqFySS/PUxwPmFWuD897Hewokex+ux0oZscsuRe0IttCbYfjl/+tSA0
+a6Rd+AmkiyASFgEHsLGl6q2OTPYU1PikjUe5RXTp0UC7bdPQXzxaORlh/KWilnz/kV2XblDdybuc
+Qz3eVIGvTANnIqPpz94oImrgHX48hMGiH5gGNznLwDBoQl4ZSfvlSi01TcUsYlHJD3LRZWbsh4VG
+PDGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYtc2Ex
+KDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1FIENBIDIwMjMCDCsjlIbQJoxUU3h/cTAN
+BglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQgU6TOVgt56igvuTJy4oKfT5Zm7EOVNCsl
+j/YyCPn38sswGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjYxMTA0
+MjIzMTM0WjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFlAwQBKjALBglghkgBZQMEARYwCwYJYIZI
+AWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEB
+BQAEggEAgrFearfztgWiUGGSdnQzK1gn4+UWEwrh19UAJ90zYz2hIYKTEVFECpY96JklXj4FChHE
+ttr+WoLq5oFId29lKVsmJdyVoelD8mgYO9HYHbTDA9gAoh6pT039zElRJTIPYs3tOBs9cNqOK82v
+isS8ODmAxt26a/8PPPev9mZ0aHmC/FzXMWrGXPeJ0KSjU2VjfgFDbqXV4liVuejZ+y/rDdEtATEJ
+IyMrRFeexrV4OzZBVepYD7vwlhtmNLjDAeKTGQ0l5J/L9J7o0d9eBkxQOKhLYw49l2oN4+z9wfa3
+p7cXDuPsHUWFU4kQO+zRQFCxDIWmk2XE5q4YSH+VGZEv6Q==
+--0000000000000a0fae065f7af132--
