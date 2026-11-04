@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785460;
-	b=OJgralLLlEGEGl8ngoO8+0DXFCaqex/HWMGvvG/SBPqn1L+WO6xBI0O8Q+QmziMr81KW
-	 10VyX0AbjOuv/Hr173TZ74kRoAlHBsLBrwxTmuptPRQQ9grGMKLzgfrKEspEKedX6QWvP
-	 gmTa46ybYHjv+MVzCgIFERuCkLb297rJy20O9CrDuXRr8xLrbtNep87LjQ9pJxI/NjChD
-	 yNdIf10HRGOCG8G8nBiymgAZxP3+o7GwPp9rOSSoaiLot02lOFOf3t+40EYMiQgcMTGlu
-	 IEmKy+4VPZhcg/jK05VbSd3t8v1TXc18SSRF2r7+kWHrYMl/WOUc8HsNIigBRyBWZuA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785460;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:Message-ID:To:Cc;
-	bh=eCaLjyOBd6911x6Yq+VkNvkgea81PfoqbKdxl69yD3U=;
-	b=h2VJlEUZvUazc4P+nfLZi5dlgKc6+8jiiofPyEaazRCNTffdo7iQlpZMC786ar2HBJuH
-	 8NkTvVnzB1aLTt9e0ew7gALUScIpXZauLaOAwaRIxlBhCdPKeh/K1V0vDaie9N3axsZ2G
-	 6Cvpm/En5ZoNW06j/eeZ3+7IMmyuLLkK9MLueLV2bIp983TKqUNzakt2bA9SNaGNlEnRV
-	 xxz1KKKE7ICTR52KfqfZJ6hFtuC/mguGW++dwwlFzAi/vpLWjpKDmQvNNaduAQmdnznUO
-	 8tiP/mhcCiWE2jfuuQ8uNoOJ+/kvwSNOwVylkm7AnUikIP6JWGPsDFcNgepcDCNc8VA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f2oqeoDv;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793785512;
+	b=4639V2ezZ9uJtZaChWE7KsIGSsf84z2GlqRjLZWByIA289rKKV7FnIbjnjxgAENohrZO
+	 dPxgIG3G/A/Vb4qzhDPt/qOthMLIyzVakKTveOMhxeYNLY0knanXwXGdyc/HQ9rN0UWbV
+	 sZpY8nQbdxvoJ+pri/8jgxl2xpOcltvvR09+kVx22y4RyVTcURekJ58c/zZclLr97G7Pz
+	 zBqET3JcOn/cegZbOIENpxMsknPJ2F2NGFvCb9RAW9KWkMG48EBr3GIBod+hHaDTm1sTY
+	 YXvQzzGlLG4Gk7G81crdRtqiy+bWl+rWbcexX1IekRQKCplKW2CQumGJ7xr/I7uIiww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785512;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=grC87aXGTMnSpqdYs6SEbsA65QbwhWo0vq7ssx6NQlE=;
+	b=43YDt9/ePS1Ovs7aWmcXJympPKMeUyS6/C8gA+k+sn7VjYtJ37Q5nRcNpnhpXRe0Fc1g
+	 c9MDEzKlhM5vtTjZjjMKki+tO8mvNyCpJH1k8VSWP7x+NfcAJrCBM8jdGleqTPZv3RC/2
+	 k0NjRdyQMeOFVdgQmnM4ziRQpnd6XvQv+1jBG3pXvQcblzShLcuiDfNKcZ0W2gm5BbyES
+	 QQvoPOecYF/+5P0M9wa0PNQWhWatDfaA722ZKpXy5+ThLqKLVFkSMmM1VWtZ8+OxkxNvR
+	 rcudgeFynNvhUMZsuqdUWI3+lAbHozewvGGncCqPHsmVxtG1YLC+b4/A0o7V08p3B/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="2n/VCZH2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.33
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010033.outbound.protection.outlook.com [52.101.201.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8A9606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8A9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE642606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:45:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE642606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f2oqeoDv
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a315ed211so449124eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:44:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793785459; x=1794390259; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eCaLjyOBd6911x6Yq+VkNvkgea81PfoqbKdxl69yD3U=;
-        b=f2oqeoDvsUl95ytGmI3xBjsAllvAv3xhGg7t2I5oeZ0lzR0L6D67bRUb4fhbovwYld
-         KB7o4aIc7367/Jq9eNhubnYylEV89CLbGVH9qT/ipsgy21BXqF52faCMMOVBo3+xRUME
-         VgY7wL/bhI5OSPAvHuxyHJCm7BFxpM+1bo9AoEhdlnI/EE6L8GWxdT3xvvZ/jr1ZT8I0
-         dxk6R2Lyfm52lzMvTjcKLoy5kMNGVbaucel2uG8pOyZjJf53nPiRytxICnrJhKO/xi2/
-         kwcvPyFcTOfz0fFbbJbh8rj9qyCIlTRAmsFCe2grZ/ZBqF8cHxmXLixnYFWmtKcb7lWo
-         cPQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793785459; x=1794390259;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eCaLjyOBd6911x6Yq+VkNvkgea81PfoqbKdxl69yD3U=;
-        b=XBPEDeQcY4Y2sV0P0MnPxjtV/4UIiKSfqQmmrgSj31sVWqh46A5IdB/iVa5r150Twa
-         MlpRUd7vIYsa8Vg0H2pp+ovtfledXXLAIeobE04ffKX7LA0n7cGRZhenSvYkfLR6JfnK
-         aPJ8CH+Ec2KcB1OT42tg4gXeHZo0Y1Nf2arFgOsx5fOGfiTUyboFZq++TBAWsQzNmXVK
-         TX0fERX9xobPlJ8DDJoOQPFae9FSuRaWXlDDk9ffPoLkszZ0oDbxC2MSNDnygFT/bzWv
-         9JN7tyJWU/7QYg/gSzD07WTvPe0lK8lRY4vTGCUfKg9PqMj764m7sFbxFZe6Ws0wXcW4
-         MV+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwPgOX3AkhgqZF55IjRYGrwx+zBXpl4i/xkHB6HG0VrTfhlCrr4BpjxvubsuLjmbGeLPxxmQRb+MqxUMVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9g7bsgtUv2QFCoZM9VO0+yIjFOeSES1dAIdyPj2EISIerJybn1
-	7WqkX7MBCVwLtZLwoT4ZmxbCYsYcore2CVR1rcpe6hO3B0LXkL0hW4uN
-X-Gm-Gg: AYBFou1+wp94HVyqNAYr00L+2lvw7N2EOr2CI78Fw7e54HUVyII6+pMvD4RzT6bvSFY
-	p5+sSkkqDnIwCQPeXJUWm/bmvfkc46BQ32/eFuutfZj7rMyojzppAnSFO5kAnbj0RPvzrhyAw3P
-	Ui6xVtrqXHiAfV00ZR1JxXRt3EiRPDHupxlMVZqprcll05YfJ9aVqWERr89CRNd5z5kZCZw7MHt
-	syiUBHIAW4gXVjwFFjnkjodmGgK3LeP9urhllg2dOvkkOzDZ76ulgDZ5KHgT2hgC2Ypf/9I1W7U
-	3C+g44Zq8VBjZrLoX2qWfYD4BRhvod7nbpLtcN6FOoyfPHTQcRRq7IY6CKgDhOZ/9djGXdoqaRW
-	gccf5ZSTDfu91A2xhzrqTVt9vmIKuuGFdg7e8qC9gFNqVxmXGIFJ7qTJ/6/CUWmTPt72JXjcn6p
-	LQnGdrILRlDwFw9hj56j7xu4oxwYG7Yp7Uv8g2s981Z8rDIjUFdWZKeEOgZjU1/lCx7IJWfQ5pY
-	UH1+c1PtrsSzmeO7Y9DZ36GvR4f8h/aeH2ZVwduv3FZYFpGO4aVIhf1tm9Kp2uqLrUuM5fLG8lG
-	Zd8/+8gY2cA9I8fMrL2LVooJogUOfmqBrgylSl9OMaGCDZQD8uX0HDvJHvSflJx48Ss=
-X-Received: by 2002:a05:7300:cf8e:b0:36d:6a77:960a with SMTP id 5a478bee46e88-36d6a86f678mr179367eec.1.1793785459127;
-        Wed, 04 Nov 2026 01:44:19 -0800 (PST)
-Received: from [127.0.1.1] ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38f53a6sm5545273eec.15.2026.11.04.01.44.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:44:18 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-Date: Wed, 04 Nov 2026 17:43:51 +0800
-Subject: [PATCH] virtio_console: guard read-side virtqueue access during
- unplug
-Message-ID: <179378543196.71890.7555371342727156729@gmail.com>
-To: amit@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
-Cc: rusty@rustcorp.com.au, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2n/VCZH2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lUsCo01sVYrG/aysq6LoZUlw7YXkWjkmmFq9lGwedsQwn46iLwKlW55PN1FHuRXzqm397tcOp0v2zMftLKbZrKKI9iAkOMxWb1WuOHRYuG+RiA6prWYmJgZh3VYCcu7dyVCqpn2bR8ax0XqZx+yr7vsTrKzFQOLKX4KnKRfJ4QQhv+em3qhEKLauHAXHyqzwg7QsQbsy/TdTf85WYDsBsP3pjB4No+48jcT2YC3qwsBFYSlfxJhzhMum958F8H9t1++g3s6MmcxA2YGVDJS8DbkQkAm7Sb/NZ9dPoizngjaclGYzN8GjW6Iz3G2Eix8DeJUVaCB/GqT3oHM2Nvjz9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=grC87aXGTMnSpqdYs6SEbsA65QbwhWo0vq7ssx6NQlE=;
+ b=olCq6Qis8itt5AfodHGKrRbsyh6UDq2nV4bC8aUkYUawwa926rQXCDyREa/HVKETwod6NJxcSDILvpmcWU5HzJuSw3ZxlnAUsJpx+Ti0q04rvUGC0Zm6aKzXasfrdJys579KB57+NbQnkso495WAjtDsQG1BDGcCap3UllMo3uOB8T5wjVBlp1eMLORtrCX+2I8Xbd6cXAi3c5DrTNWPZQlsntQvT+R7W3BWLNdEleX5otEq45/oECQ3tJzxPaOLCFOAwLMznjXYfeeqxxYcN8PcEDDAqkMqDT4xiDuyTszWL0gzqUBYMC50YXnV9luivNQK6xQYLAF7v3o8fuqgEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=grC87aXGTMnSpqdYs6SEbsA65QbwhWo0vq7ssx6NQlE=;
+ b=2n/VCZH2s4LZLFUh1/ZoIlsMrw1nqV6k61VwSk6Oz8C+OyxlVRxeheFlnaXRkib7N/8LhkRQAuvXhiB0zi2zC5cr5YMBsr8kYjppulNJeHlK1OTxX6Kw7P4lQ1F8Rbr8OC5u1s+ssXgE+BAZ1zStSMZoCafWNNeVVMraSiRrUtg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 09:45:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 09:45:00 +0000
+Message-ID: <1d8aeaae-7c89-4a99-975b-5467c33554b9@amd.com>
+Date: Wed, 4 Nov 2026 10:44:55 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: "Yu, Fei" <fei.yu@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+ Madhur Kumar <madhurkumar004@gmail.com>
+References: <20261104030930.3852781-1-fei.yu@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261104030930.3852781-1-fei.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0P221CA0024.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:52a::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,86 +100,306 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcb13a7d-1159-42b4-8f19-08df3a584ae2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|7416014|261021123027099003|261009221227099003|261026140227099003|11063799006|261028144727099003|261009223027099003|56012099006|261022105027099003|261022075727099003|261021121427099003|261026121527099003|10067099003|18002099003|22082099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	mYzzBFvzKb65sFd3lcBZbveRqW/dbqXiCVXdYgUwHgdt7B4koZzH+KWebU0sIn9/EL40BN5FkswSSNsNA0ZSuYHCJtWJkGeUjeIBtP6IHc1ZMxEjcZp+NDdilaBYiPm6w4eJPh+oksk2g+/nv3eNW6fBqwYCk2HHVz4ByUwJilPIQ2gcVmnkzDtai4qn3Lp+l9x5/B3vipPBAd1cz9Yeq6l4WZg1vpQwTWOnuM3SXreP0OGASv/K6mjKculjdIrQx7OZX3c9qNXKeg/t14fPXP4C3PKKf10FXzqYgiPCAOFry2XdXyGwmTtLw6g4UnYkTEACAhgrSczKVW/Jx6Iy5ByxH5TeRzxGh9Yh941KlMTj1hO7Hc7QiSk+lp3fKODSaGijwPPlkcEZ2BwotpxTdI/6QRl4Tr4Ne50aKwGayS735kmAAe66R+4VJMu8Fd13VOoi+b1mXznNPjgeTk7+vSiAE5TtXQ2KP9XMAegXdwE91fAenQRJXQYdYhZhW1azsPSkoag0QnaZEX0t2N+CcK94WUl+iODGZFA/3B6NoRXcTKDkCsy+2bRR4PqWnovLRH0iA0QNTF/ioJL+JhZi0vQqIYUh4yuq7dtSuXvaSuQMO6/avFDrQkJ7AzdHGJ9H
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(7416014)(261021123027099003)(261009221227099003)(261026140227099003)(11063799006)(261028144727099003)(261009223027099003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Qklwd1plcjM4NlM4Y1FleWYvb0NXNlliRUNKeEdZakFVRzJSUkJ0eHNKcm00?=
+ =?utf-8?B?eSs5dTN2OStFZGhhNWxPMmhMUHpDMDNPYU5zRjRIOVMrVVBJb0pVOUNrZFcw?=
+ =?utf-8?B?ZWl1bkZjU2hXRGVSNW9mQkJ0KzdXQVNJbHNnd3UwUVNCV3lzZ1M2QnJyTHh4?=
+ =?utf-8?B?cUd0MCtNeTBvUldMK2RRYzRKRWV0eE5qWEVJbkF6ZWEvMWM2T2RoQi9UTmxO?=
+ =?utf-8?B?aE5iWmw3dGMxaGpkZ3VRMzl5Mko2cm15Q2dJZmZwTUdtYnJrTCtDaG5lL3pP?=
+ =?utf-8?B?L2NvQWpGaStJQjAyeDF2alRpQU5OVDdxbUVVMm9SM3pxUlFSSlhhVWdQbC9v?=
+ =?utf-8?B?QWlueTl3TXR6K0dlUGdWUUg1S3pYcTd5SU5NSEpESFc2bE5JRkhMSmdDblBk?=
+ =?utf-8?B?SzI2SEdObEhIWTlNL3RzYmtlbUhXbHJ6M3JuNThWL3htcHpwR3RoTkVBMnVP?=
+ =?utf-8?B?Y0c2UTVxWXRyQjhwUTNLQ0ZFYVJwNGdOVW9pNURtQzR3R0tSdk03YldPcTBX?=
+ =?utf-8?B?YStZUGNyVnlOWXU4bitzYWh6cFpOdHNFWjVRV05xYkFkVVBaMHd1amw0SU1a?=
+ =?utf-8?B?UHlHcWsrUm1SQ3RVM0E0UCtYdXJmMFd3WWVSc2hGR2dUT1lTbHJORDhnOVIr?=
+ =?utf-8?B?b3lnMEpGR25hUzJRMWNBUzFPdmIwZ1lNNzRYTGhHeE5KSzZ6cVJUUFNSREdI?=
+ =?utf-8?B?S3BwV2hKZVFlS293a3YvWVQ3L3h5c3BkK2MwSWRBbFVKUHJwYkRIMkNhdGNj?=
+ =?utf-8?B?K3BGbUh2NVpxRXlQdkttYzdHSEF3bk9kTVBnK0lWMmF6Nis2RlNaQjRYZzUx?=
+ =?utf-8?B?WXgycS9KeTJzK1krQkZ4YW9vVWRhTXJiRWpRdHIyR25LTWdRWElUNHY1Yjdw?=
+ =?utf-8?B?V1htQ0hXOUpEbHdvUjk4YzBVb1JZcjFMS2JFaEt5aHRuVFJ2UnFycnF5M2t0?=
+ =?utf-8?B?ZU1lZk9JZWE2RW9PcFEycllnR1lRajJZekN3aW1lRUxhOXZzcGpNd0pmenZq?=
+ =?utf-8?B?NmNBUksxSkRlRTEyTW12Y3BCdlc0YndOaThQTFVBZUNtL2FERnFPS0IyMXBD?=
+ =?utf-8?B?Rk5xbG1CN2t3Lzlsa216eFB0N0FNQTNNYmpQMXkvMkhzUXpzSzZaanM1dGw0?=
+ =?utf-8?B?N3RqL1ZxZFc3dzVJOTgzK3dGZmwyTTRWSCtaOUd0dmFQMGQxVEZLdkVlMkto?=
+ =?utf-8?B?WjkyQzVhU2ZOWm1rWVNzbm5MMkkxWkRORVNqTlhkd2pUUFY0eG9nbnF0RUxP?=
+ =?utf-8?B?NnkyazNNbmJsNUUrRUZBMkdkT0gvOXZUc2pDU1gxMWE5ejVtZ0RKRHpLaXk5?=
+ =?utf-8?B?ODB3a1B5L3FFY0FiYzRYUkNjOFUrL2JSc2RMRTAyNXZoZDZmTk54c3hOUXZm?=
+ =?utf-8?B?TXNjL0ZJdklZMk5yTFZtV3pHa0lXU1Ezc090SnpDOTJ0RURLZWRkellxNEtw?=
+ =?utf-8?B?N2lsLzk3YXZIWG9FRnZKc1N5a0JqWk5xZDllWWFFYUx1WFZRUy9JS3JzalNZ?=
+ =?utf-8?B?ZGIzRFN2OUF1ZWpvSDdpYWVTU0FOWFZyNXhqZStSdDNRQTluRWl3UWF1NFVV?=
+ =?utf-8?B?VmxTZkVPRlNoTHpsNjJaMGVpS0ErU0ZnRnFwR3R5eE1OUnR0aVBIT0RvWjF0?=
+ =?utf-8?B?L3p1clVoSno1cXhCY294REFKeVI0bktVUFJFY2FNSmkwL3VabE11V3pWeEN0?=
+ =?utf-8?B?a295ZVYxMDFQY1VTQkNmK0hIS2kzZG90NFUrT3V1R2pldUhKT01pTk1taGZy?=
+ =?utf-8?B?aFdvc1Z3N0dFRUxBL3QrbWJqSDZUM2pEQldNSDV1N0E4RnU0QWtzR0gvNnNM?=
+ =?utf-8?B?Z3dMWkxwZkZQb0ZsaDhLcW9neUpIeDdsc25FT3hzeExTYU5nN0NnY1RBblYr?=
+ =?utf-8?B?cFp6QnpLTmcxTW9rb3NXUTFSZHNML2hrV0lLOGtSVFBqL21oRTBCRkQwa3pw?=
+ =?utf-8?B?TjdRSUZaa1U4RG01MGZ0SFMxSldFc3kyTXM5NnF6dkIycFZLcm14Qkpvc05p?=
+ =?utf-8?B?KzZUYSsvSVV3U1NrRHVmcTZaOU9ZZWpXUGtnT0twMjBoNVhlcWFSbWJETE1C?=
+ =?utf-8?B?VXBaaG5KOG9aVWZUc1VFa2dYRG1jVHJLWVpjQ1cxUXg0aS9zNHkzckYzQ1R6?=
+ =?utf-8?B?Z1hMbmpRYWhRUVVpclpWSjBvK01OWGtiSmVxRGg1MlBoa3Y1ZFMwYjF5N2lr?=
+ =?utf-8?B?bEsxUTA1S0Q4eDhzYTlHRmFVSHovamhCV1lkcG1kSXVIcWxLd0VIelFLUk0x?=
+ =?utf-8?B?N1BIQ0tpV2JrSk5PNE1ncnVlSGp1OUZZYXBKMkZFSXBUbXVuc1RzKzRCY0N4?=
+ =?utf-8?Q?ZVGoK/J0qH4mLLfpFx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcb13a7d-1159-42b4-8f19-08df3a584ae2
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:44:59.9755
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rJtXRRQdXy7GPfJiFno2ECZVpkodY1cShnzNTfqT+iaS3HshTBct5F6oj39Yp1Hh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 
-The virtio-console write path has an unplug fence, but the read path
-can still access port->in_vq after device removal has destroyed its
-virtqueues. port_has_data() and fill_readbuf() take inbuf_lock without
-checking whether the owning port device has gone away.
+On 11/4/26 04:09, Yu, Fei wrote:
+> From: Fei Yu <fei.yu@intel.com>
+> 
+> The syncobj ioctls allocate several temporary arrays whose size is taken
+> directly from the u32 count_handles provided by userspace:
+> 
+>  - handles and syncobjs in drm_syncobj_array_find()
+>  - points and entries in drm_syncobj_array_wait_timeout()
+>  - points and chains in drm_syncobj_timeline_signal_ioctl()
+> 
+> These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
+> element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
+> 
+>   WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
+>   Call Trace:
+>    __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
+>    __do_kmalloc_node mm/slub.c:5519 [inline]
+>    __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
+>    _kmalloc_noprof include/linux/slab.h:995 [inline]
+>    _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
+>    drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
+>    drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
+>    drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
+>    drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
+> 
+> The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
+> KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
+> today, with a warning.
+> 
+> Fix this in two parts:
+> 
+>  - Reject more than DRM_SYNCOBJ_MAX_HANDLES handles with -EINVAL in
+>    drm_syncobj_array_find(), which every ioctl taking a handle array goes
+>    through. The limit is derived from the largest per-handle allocation
+>    (the wait entries) and the INT_MAX size limit of kvmalloc(), so none
+>    of the allocations above can exceed it. That is about 33M handles on
+>    64-bit.
+> 
+>  - Switch the six allocations to kvmalloc(), so that large but valid
+>    handle counts no longer depend on physically contiguous memory.
+> 
+> Using kvmalloc() alone is not enough: the reproducer asks for more than
+> INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
+> instead.
+> 
+> Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
+> Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Fei Yu <fei.yu@intel.com>
+> ---
+> v2:
+>  - Drop __GFP_NOWARN (Christian).
+>  - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
+>    arrays to kvmalloc() (Christian).
+>  - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
+> 
+> About the limit: INT_MAX / sizeof(struct syncobj_wait_entry) is about 33M
+> handles on 64-bit. It is the largest count for which every allocation stays
+> below the kvmalloc() INT_MAX size limit, so it does not add a new policy
+> number. Today the real limit is much lower: a wait on more than ~64K
+> handles already fails with -ENOMEM (plus the warning), because the wait
+> entries are a kmalloc() allocation larger than 4 MiB. If you prefer a lower,
+> fixed limit (e.g. SZ_1M) or GFP_KERNEL_ACCOUNT for these arrays, I can
+> change it.
+> 
+> Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
+>  - syzbot C reproducer: base warns in ___kmalloc_large_node() (size
+>    0x100000920), patched is clean, ioctl returns -EINVAL.
+>  - wait / timeline_wait / timeline_signal / reset / signal on 200000
+>    signaled syncobjs: base fails wait and timeline_wait with -ENOMEM and
+>    the same warning; patched all succeed.
+>  - count == DRM_SYNCOBJ_MAX_HANDLES gets past the check (-EFAULT from the
+>    short user buffer), count == DRM_SYNCOBJ_MAX_HANDLES + 1 returns -EINVAL
+>    for wait, reset and timeline_signal.
+>  - kmemleak clean, checkpatch --strict clean, W=1 clean,
+>    DRM KUnit 667/667 passed.
+>  - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
+>    202/202 subtests pass, same as base.
+> 
+>  drivers/gpu/drm/drm_syncobj.c | 40 ++++++++++++++++++++++-------------
+>  1 file changed, 25 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index f1d4da1685457..c01cf164a4f9e 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -220,6 +220,13 @@ struct syncobj_wait_entry {
+>         u64    point;
+>  };
+> 
+> +/*
+> + * Upper limit for the number of handles passed to a single ioctl. The
+> + * largest per-handle allocation is the wait entry array, keep it below the
+> + * INT_MAX size limit of kvmalloc().
+> + */
+> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
 
-Clear portdev while holding inbuf_lock during unplug, and check it
-under that lock before reading from or re-adding a buffer to the
-input virtqueue. Discard an input buffer instead of requeuing it if
-the port was unplugged during a userspace copy.
+I really wonder if we should put that into the uAPI files?
 
-A KASAN-enabled QEMU virtio-serial test reproduced the stale
-virtqueue access when read raced with device unbind. The same
-injection-assisted sequence did not report a use-after-free with
-this change applied.
+Not that userspace is potentially using it, but this is part of the uAPI and makes sense for documentation purposes.
 
-Fixes: 31610434bc352 ("Virtio console driver")
-Assisted-by: ZCode:GLM-4
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
- drivers/char/virtio_console.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+> +
+>  static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
+>                                       struct syncobj_wait_entry *wait);
+> 
+> @@ -1051,7 +1058,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                 lockdep_assert_none_held_once();
+>         }
+> 
+> -       points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
+> +       points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
+>         if (points == NULL)
+>                 return -ENOMEM;
+> 
+> @@ -1064,7 +1071,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                 goto err_free_points;
+>         }
+> 
+> -       entries = kzalloc_objs(*entries, count);
+> +       entries = kvzalloc_objs(*entries, count);
+>         if (!entries) {
+>                 timeout = -ENOMEM;
+>                 goto err_free_points;
+> @@ -1185,10 +1192,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>                                                   &entries[i].fence_cb);
+>                 dma_fence_put(entries[i].fence);
+>         }
+> -       kfree(entries);
+> +       kvfree(entries);
+> 
+>  err_free_points:
+> -       kfree(points);
+> +       kvfree(points);
+> 
+>         return timeout;
+>  }
+> @@ -1238,7 +1245,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>         struct drm_syncobj **syncobjs;
+>         int ret;
+> 
+> -       handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+> +       if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
+> +               return -EINVAL;
+> +
+> +       handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
 
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
-index 019bcae81af5c..e97e0daa34395 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -541,10 +541,16 @@ static bool port_has_data(struct port *port)
- 
- 	ret = false;
- 	spin_lock_irqsave(&port->inbuf_lock, flags);
-+
-+	/* Port is going away. The vqs are already gone. */
-+	if (!port->portdev)
-+		goto out_unlock;
-+
- 	port->inbuf = get_inbuf(port);
- 	if (port->inbuf)
- 		ret = true;
- 
-+out_unlock:
- 	spin_unlock_irqrestore(&port->inbuf_lock, flags);
- 	return ret;
- }
-@@ -725,6 +731,16 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
- 		spin_lock_irqsave(&port->inbuf_lock, flags);
- 		port->inbuf = NULL;
- 
-+		/*
-+		 * The port may have been unplugged while we were copying
-+		 * data out of the buffer: the vqs are then already gone.
-+		 */
-+		if (!port->portdev) {
-+			spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+			free_buf(buf, true);
-+			return out_count;
-+		}
-+
- 		if (add_inbuf(port->in_vq, buf) < 0)
- 			dev_warn(port->dev, "failed add_buf\n");
- 
-@@ -1568,6 +1584,18 @@ static void unplug_port(struct port *port)
- 	 * a close on an open port later from sending a stale control
- 	 * message.
- 	 */
-+	/*
-+	 * Null out portdev under inbuf_lock as well, so the read path
-+	 * (port_has_data(), fill_readbuf()) cannot race with the vq
-+	 * teardown: it checks port->portdev inside the same lock and
-+	 * bails out if NULL, preventing any virtqueue access to an
-+	 * already torn-down virtqueue — mirroring the outvq_lock fence
-+	 * below for the write path.
-+	 */
-+	spin_lock_irq(&port->inbuf_lock);
-+	port->portdev = NULL;
-+	spin_unlock_irq(&port->inbuf_lock);
-+
- 	spin_lock_irq(&port->outvq_lock);
- 	port->portdev = NULL;
- 	spin_unlock_irq(&port->outvq_lock);
--- 
-2.34.1
+That kvmalloc_array() + the following copy_from_user should probably be replaced by using vmemdup_array_user(). But that should of course be a separate patch.
+
+>         if (handles == NULL)
+>                 return -ENOMEM;
+> 
+> @@ -1248,7 +1258,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>                 goto err_free_handles;
+>         }
+> 
+> -       syncobjs = kmalloc_objs(*syncobjs, count_handles);
+> +       syncobjs = kvmalloc_objs(*syncobjs, count_handles);
+>         if (syncobjs == NULL) {
+>                 ret = -ENOMEM;
+>                 goto err_free_handles;
+> @@ -1262,16 +1272,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+>                 }
+>         }
+> 
+> -       kfree(handles);
+> +       kvfree(handles);
+>         *syncobjs_out = syncobjs;
+>         return 0;
+> 
+>  err_put_syncobjs:
+>         while (i-- > 0)
+>                 drm_syncobj_put(syncobjs[i]);
+> -       kfree(syncobjs);
+> +       kvfree(syncobjs);
+>  err_free_handles:
+> -       kfree(handles);
+> +       kvfree(handles);
+> 
+>         return ret;
+>  }
+> @@ -1283,7 +1293,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
+> 
+>         for (i = 0; i < count; i++)
+>                 drm_syncobj_put(syncobjs[i]);
+> -       kfree(syncobjs);
+> +       kvfree(syncobjs);
+>  }
+> 
+>  int
+> @@ -1572,8 +1582,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>         if (ret < 0)
+>                 return ret;
+> 
+> -       points = kmalloc_array(args->count_handles, sizeof(*points),
+> -                              GFP_KERNEL);
+> +       points = kvmalloc_array(args->count_handles, sizeof(*points),
+> +                               GFP_KERNEL);
+
+Looking at the code the handling of allocating the array and the just memset()ing it to zero when it is not used is really sub-optimal.
+
+But that is just a side comment and should probably be changed in a separate patch as well.
+
+Apart from those minor comments the patch looks good to me.
+
+Regards,
+Christian.
+
+>         if (!points) {
+>                 ret = -ENOMEM;
+>                 goto out;
+> @@ -1586,7 +1596,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>                 goto err_points;
+>         }
+> 
+> -       chains = kmalloc_objs(*chains, args->count_handles);
+> +       chains = kvmalloc_objs(*chains, args->count_handles);
+>         if (!chains) {
+>                 ret = -ENOMEM;
+>                 goto err_points;
+> @@ -1609,9 +1619,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+>                 dma_fence_put(fence);
+>         }
+>  err_chains:
+> -       kfree(chains);
+> +       kvfree(chains);
+>  err_points:
+> -       kfree(points);
+> +       kvfree(points);
+>  out:
+>         drm_syncobj_array_free(syncobjs, args->count_handles);
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> --
+> 2.43.0
+> 
 
