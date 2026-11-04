@@ -1,55 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753005;
-	b=Vd4aNax7WS02uYnvCiAhgPKWJ4V6Jk3bJZZ2MrCm+4ErTRWsnCwRENMrFgtVkm09Icex
-	 VRY14QdVHcTAtF2H5MM4wt4raYkiPSlXjaSIBfirae15sIxKDUCSuQ3Q5MqLozh/ffE2V
-	 BunKnhSWxxMelTtcluf+9l4W4jnpaM5T6Zant8q9yl7brOvUTw6VRiejxJDdzWdMaTgDg
-	 KRPB6Ifh1/s21U5NDzg/rGbElRq5ZWNxaR+35Dv6znpbLSeQCj8sxaKo0yWnVWL2h5dR9
-	 b3XjMhFjLi59FCqysZV+a2BfqNucXfvF8lc0ZUfeFRgqsICQ6iVAhlojU2BsIVq049g==
+	t=1793753012;
+	b=lWcCwZRahEPFdqJmByUQQlJ2KHinh266hwJmcnOXI9AHahAURJrKCLCxYpOmEBiFRYrn
+	 GQnnGbbuma34o03D6ZdR+2SFF9zcjlfjG3lDgd/szbmCldanGX3OEaRW3vD/XzrHpETvc
+	 L4B0XmcgRX3hq95ts/ySrK4YJC66zm0KZon1kw1H/7GiwbkAF6haTqmGDD3SXkyum65Mu
+	 CN8QBMoB2VqSb8lq+xE11ZNJ/nW8fUlwrT9cuvStBAlFrbxvXJ5AKuZZC0VbjJ1bzfbNU
+	 ogaUmW/JCoJsHSZTmk9xLRoiWIVAnzzOUF2hsUMltne274VuR11t9+q1aoyoqYwUpmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753005;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BxN183u4KZBYO0Z1LYyG6Hk9J0ZY7HIldlj4rccCYNQ=;
-	b=cbmf5aDGZsXAzjqk8ss/mbvHVgFfkTHrLQh1nLLHaRX7dCYHjufxJCOnTcAb12/xXCF6
-	 CXuSDCoEQptrFeaAHVNZuBv47wpP7Ke6J1U/cjG7x0c/XiJ8eUhXzCPG+UufW8DHeISq1
-	 ThxWtX9xh7jlbmRPs3hufYS27oTuAnZldqEW2WzxiJFnbYli5BkdL6x3End4TChs/v+td
-	 PDODLzXte1wjaUX4KYQEh/fDz8sDNgJarJOCSLbgp6UURKS6yT/1Hsn3k8ZqiPlCokDhL
-	 qFF2e8PC3gZ5tfaL6St6BmgcbaN9WSF/ickXhprZTwhZYzErL758yE+F/wb1M9LqP0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753012;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IsT5ntMMEPat1n2R0SW3YtXN4kr3zeTlQ8hBsYD60gc=;
+	b=5Kny7ce4tCIaMUsaykcd7M1Rb8XWxSOWyxrsz3uY0Vsgb1mLB0e9nSe1OnRRAC1zw6Cy
+	 U0cKpazdfvIabNn2RWMT7+RijEIJGlWgDIfDyp7vJQ29laqvXdIOKnUvVO0jzsLNU6VGd
+	 FcKV7vK5o9K6C3f07DVfCIT/GoYMY47zVRy2ra+KHbhUhSxL9gPaMePUeQl7X1dpNf81B
+	 CbIrzyU/Zp5gUjgkjDNFghzwAEb47TUBJa/H1QPgZYBj2rqZm8NQnckFm98ApG8nZHeeK
+	 EnR6AHBX3f4hOcJiuEjvA7QJeedD7tj273RdhX8yW618Q8/zQum0eMv8UDx8fkS6XQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lY9xLFc1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CgVwiQ+U;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01FE606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:43:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D10606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:43:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2D10606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lY9xLFc1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C081F00A1C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793753004;
-	bh=BxN183u4KZBYO0Z1LYyG6Hk9J0ZY7HIldlj4rccCYNQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lY9xLFc1lh28lDdpeB2+pBZzt5R9gBoe6AkIqA1oRg4A9lL88Oa08cSUW4zXtlBt1
-	 OCI874pm8I8RSeP5+Il8gMjb5OxLLJTH1vmUeMTbl/4g8uKotJyNPcFbAlQn4lVsTt
-	 rDCJJrHQ2swSHBhqcLyG01hUqvWLjOfBXWzaeArrONHouxtJ3pKu++tjXrf7W+qnad
-	 skgk7aTbT11skVjQMGX2cV2GSf+E/4aK/LpM5yFsjKffsHwl1DC5LbtYlXyDFivGNV
-	 MQC9b92cClNfMOOC/sTZ3qmWiQzwgv2QyF+iB4d6ycQ6nwWMfXXdxKay/HMIEsKKdG
-	 UrPFQofWdduSg==
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93e6eb77f0bso19940385a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:43:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxz+qptTklADjwX4qWkjwCbR+Mxhi6aMZIYICusFVO15BJZmMEYQ2vV+F6Vo5dNKiqBF37cTN4rXAzWQFw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lEvOOeUSa7yEYaJ1Uuijx3V2UHOMCKQf8PcfaC///4fgEs/AK
-	JBoZuxZzCye52vsdzi8K9B7ttLYCZd0qoHtR3VKpxK0t+E2FEos0cQfbD6uPjDH+IKWHucEK0o4
-	Ws6l5TNAXlPRRpdVJ7SAaxyKAFLB/20w=
-X-Received: by 2002:a05:620a:6402:b0:93b:d7a2:83d1 with SMTP id
- af79cd13be357-944217e5808mr2603278285a.64.1793753003736; Tue, 03 Nov 2026
- 16:43:23 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CgVwiQ+U
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso299936eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:43:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793753011; x=1794357811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IsT5ntMMEPat1n2R0SW3YtXN4kr3zeTlQ8hBsYD60gc=;
+        b=CgVwiQ+Ulv4BTdsJfO4tlA1hoz+8FDm5J573dbYk6SIT9e3xZaWn/qEIT4m9cvBpgV
+         3GAFPD24Fmu0BeklPMYLbQtpyQrXq5BpN2jSrMSs19eKVVENktIFmoo0eRTf4Oh05ARB
+         krNZi7eYnuLlKQMEUq8jaBIvo1h3pbKYca3DM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793753011; x=1794357811;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IsT5ntMMEPat1n2R0SW3YtXN4kr3zeTlQ8hBsYD60gc=;
+        b=mZcOdXprZY1qyKLhC6wtLZQoE7Ez0eliJ9TQvAeJjvjiIWeCiqm6ZNu3jNQ5wheOsV
+         Ky52VScAc4E/uY2sDfkbp5twm9DHdgIkSo89WcdYsaQfnRoOOi8ti+mU59P1E+knSYf8
+         esMlYXvIqidI+ji+O6ojjD+BdWOHHgTVonIHf5ySAuZ/tuh05U1s+iEAFjZYmOcmw+9Z
+         BfeXdSe00xzExzYSBs1gArKwiFoayvAZFGUzQ5M7i9trK8qUhvaUHaF1GQC0U/WP4Gci
+         UMqS/lptJr+vMQ81LKO5OOtuPKb/xOWDh9nBKknC0EaovbbxqgixpiWQOtxrI7gEp7rP
+         8JMg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5aOTKwXLZyILKZsV6keLgBkvqYRr5k1mf4rfi5Bc8pvnZklq4U96A+xNXHc1YJAT37poESYlRBTdVQO8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WZMIsX8Q3lpK8BSGU1UTB00ZTOUp3PLZeaZkRm0B88upHjsSi
+	rFQH84ZAIgo1wiFgw6LfB5AnFQB8W/iDjnKLH6bgps3FKHgCpAcrV4pNLU5rXg6RlQ==
+X-Gm-Gg: AYBFou2SFokVV1kqqbc6YR9eC5+iuy3d4KpxrZzClyrtE9GwT5/pFRKmYgjGOZR6+C7
+	NSuylNjuWV+UUUuIZANX4n9z5IyqaWojxNJSxvj81xI7b3k9M2jhPTqtlY/7GabwaVxUSvqJPPU
+	RJnthEvL9rhf6SwpZRMCkSU6l6VbKDf014+WNejsIkjHLkWrkwTVpAzCxViecwzqCmsxgaaRQ0K
+	8/l5LDMlKkQE7zJ0DePOcnKyNuQuQzhnqJ03WF6wIdUHhi/oErYzU5d03uFf6U/Eo9fwAwhnxKL
+	9le5IxzTZm7y1sW8Lk0NdUKV0Ln6Jtfa1sRZ4JjX4C5UhFtIvlHe58EwEweD/SPs6Q4IrafRRai
+	XluSqDTvgvdidBClsqPbDjyqdjdcs93XPELHV6yY1dv1rVpxv/gD9/LPcYoPYe68MkYbSvsP5y2
+	QUPgwKEMmho3nmRJ2hidtXOVCiBtowFkWYsBhXm4ft42RXUTRKTWLcRdHFjwQVguRXbh1+svR56
+	9Y8rO/UqHudkPb8fDgEjcSBAFKixs9UEESF8qC9/evmgyFlnFhTouphYsYcEtQc/SEQqo6q2vxB
+	i1BE39HglPCZNwKiUnoAy7AwBYSz2U+kdxqC7j6tptNodsdovUVi/69VS0Ov18LDEhjiG2Gb7cg
+	GamE6YUIwP+5y
+X-Received: by 2002:a05:693c:88ce:20b0:36a:1f8:a5a4 with SMTP id 5a478bee46e88-36a4241f808mr21941327eec.38.1793753010843;
+        Tue, 03 Nov 2026 16:43:30 -0800 (PST)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:1123:15a6:4d6:b367])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36besm2661680eec.11.2026.11.03.16.43.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 16:43:29 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Douglas Anderson <dianders@chromium.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mailbox: Only reset txdone_method to POLL if controller supports polling
+Date: Tue,  3 Nov 2026 16:42:36 -0800
+Message-ID: <20261103164235.1.Ica21c7a396cf407fca02b7c0fb3a16150feaab90@changeid>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,59 +93,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104002420.433876-1-bingjiao@google.com>
-In-Reply-To: <20261104002420.433876-1-bingjiao@google.com>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 4 Nov 2026 08:43:10 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z5M1KiFJbC3ed_572Z22qadmgnJdO3jKnEJbvpPEykZA@mail.gmail.com>
-X-Gm-Features: AclHuK9QTXGS6QfVjUVofxOTNtsuXKl-ipR_9YuybED-4phC26SwGpv3dsR-WW8
-Message-ID: <CAGsJ_4z5M1KiFJbC3ed_572Z22qadmgnJdO3jKnEJbvpPEykZA@mail.gmail.com>
-Subject: Re: [PATCH] mm/vmscan: skip lazyfree folios when demoting in shrink_folio_list()
-To: Bing Jiao <bingjiao@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Oscar Salvador <osalvador@suse.de>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 8:24=E2=80=AFAM Bing Jiao <bingjiao@google.com> wrot=
-e:
->
-> shrink_folio_list() currently demotes lazyfree (MADV_FREE) folios to
-> lower-tier memory instead of discarding them. In the earlier patch
-> series [1] that commit 26aa2d199d6f ("mm/migrate: demote pages during
-> reclaim") was based on, demotion was inside the PageAnon(page) &&
-> PageSwapBacked(page) block with a comment to skip MADV_FREE pages. When
-> that commit moved do_demote_pass above the block to also demote file
-> pages, the PageSwapBacked check excluding lazyfree pages was dropped.
->
-> Demoting lazyfree folios during reclaim does not make sense. Userspace
-> already marked the contents as discardable under memory pressure. Even
-> if MADV_FREE is treated as a cache to avoid page allocation and zeroing,
-> folios in shrink_folio_list() have already aged to the tail of the
-> inactive LRU, and demoting them still allocates a new page on the lower
-> tier, copies stale data, and unmaps the PTE.
->
-> Skip folio_test_lazyfree(folio) in the do_demote_pass check so lazyfree
-> folios proceed to the normal reclaim path in shrink_folio_list().
->
-> Link: https://lore.kernel.org/r/1560468577-101178-6-git-send-email-yang.s=
-hi@linux.alibaba.com [1]
-> Signed-off-by: Bing Jiao <bingjiao@google.com>
-> ---
+In mbox_controller_register(), a mailbox controller's default
+txdone_method is initialized to MBOX_TXDONE_BY_IRQ if mbox->txdone_irq
+is set, MBOX_TXDONE_BY_POLL if mbox->txdone_poll is set, or
+MBOX_TXDONE_BY_ACK if neither is set. Only controllers with
+mbox->txdone_poll set initialize mbox->poll_hrt and require
+mbox->ops->last_tx_done to be implemented.
 
-This makes sense to me. Lazyfree folios can be freed
-directly, and we're already in the reclaim path. Allocating
-and copying them seems wasteful.
+When a client with cl->knows_txdone = true binds to a channel whose
+controller uses MBOX_TXDONE_BY_POLL, __mbox_bind_client() overrides
+chan->txdone_method to MBOX_TXDONE_BY_ACK. Commit 33cd7123ac0b
+("mailbox: reset txdone_method TXDONE_BY_POLL if client knows_txdone")
+attempted to restore chan->txdone_method to MBOX_TXDONE_BY_POLL when
+the channel is released, but did so unconditionally whenever
+chan->txdone_method == MBOX_TXDONE_BY_ACK:
 
-It would be even better to have some real-world workload data
-to back this up?
+  if (chan->txdone_method == MBOX_TXDONE_BY_ACK)
+          chan->txdone_method = MBOX_TXDONE_BY_POLL;
 
-Best,
-Barry
+For controllers whose native txdone_method is MBOX_TXDONE_BY_ACK
+(!txdone_irq && !txdone_poll), releasing a channel (or failing in the
+controller's startup() callback) corrupts chan->txdone_method to
+MBOX_TXDONE_BY_POLL even though the controller does not support
+polling and has not initialized poll_hrt or ops->last_tx_done.
+
+Check chan->mbox->txdone_poll before resetting chan->txdone_method to
+MBOX_TXDONE_BY_POLL in mbox_clean_and_put_channel().
+
+Fixes: 33cd7123ac0b ("mailbox: reset txdone_method TXDONE_BY_POLL if client knows_txdone")
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
+Found by code inspection and only compile-tested.
+
+ drivers/mailbox/mailbox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mailbox/mailbox.c b/drivers/mailbox/mailbox.c
+index efacd24a085d..cfc49cfb057c 100644
+--- a/drivers/mailbox/mailbox.c
++++ b/drivers/mailbox/mailbox.c
+@@ -343,7 +343,7 @@ static void mbox_clean_and_put_channel(struct mbox_chan *chan)
+ 	scoped_guard(spinlock_irqsave, &chan->lock) {
+ 		chan->cl = NULL;
+ 		chan->active_req = MBOX_NO_MSG;
+-		if (chan->txdone_method == MBOX_TXDONE_BY_ACK)
++		if (chan->txdone_method == MBOX_TXDONE_BY_ACK && chan->mbox->txdone_poll)
+ 			chan->txdone_method = MBOX_TXDONE_BY_POLL;
+ 	}
+ 
+-- 
+2.56.0.385.gac671c819a-goog
+
