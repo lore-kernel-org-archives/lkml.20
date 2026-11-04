@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823249;
-	b=ORaw54Al5bOPhXIvJbcWf2A55wC7Q+5KzDAj75npy2gY2Ik5WA1YWnyrPyJFJwVInkTU
-	 5iQh3LimsxBNmMEgy2BzBcWy1jYt4eMDIICk486vhklsVvTBIpwJZVd60ec1GhqSCJKQ8
-	 hO2kLyWOppWBW8GQBB5S6aOAtIh9d0yM/x21rbFgaThIrQ1P938FfY9qDG+c3On4uIE3D
-	 Hc4uAwNXrcga91P6TzLtUzxGZChE2cdejJQ4vIkrUw6/Ay/kGFsXLm5rtxF2XVgFWSyE3
-	 ubkU7km9hX18zx+pnd+vt69ZDjv1EsylegyxQmXM+OGW+HJsGiOeXcJYSwbhFpUVqTQ==
+	t=1793823255;
+	b=dR+29dxyu50rwtXLSFJvn2LGh+ixjaUSIafy18R+jax2scLf4v4ptrEjjk+2OjOZ9BUW
+	 IFMUdHzlbSZH1SSpGaNo2CJahR6Ti2a6Z/jpRR9gXcjGruwXnAtDIItz2fkR+rDR2DG5z
+	 6NrMri9zWC8pNerPqpcZooqgBFt9Ett4AOnoySBxSb/oJ/Lsk209rcGhUbXCuLC7iuDE9
+	 QEWkyMhYWraPvnojTZqWDWex178yoXT2Nj3xUbnbLHlOa217TKuME7uXZK2ib+kHaLyvG
+	 xJtWBuDEMW8FgWO1Kxo3qj5L1yH78pMGM3/trid9BWzdaRfCFbZ8QlrRtaf/QDtqeaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823249;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
-	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=7jJ7rZhR/RZuRnAPG07TM1AxcQZjBAxPgS58g9my108=;
-	b=bcRhFumaVQt9Ik64SiDwlyEQ4+UOF97gfVYUsizLKWH4xJBxN4Zw5E9S047qe2aLT06Y
-	 oiLoRBJHj52w/LJVakOcpZdJZY3Sflfzf+2NaDycvIbAlGTTcd4IY/hXT9UY+S6VvuyBM
-	 8jGza/68bRjJc9PGKDmVDfClDjcrVmuyy3oQmKubz7GooyHy+XlTul3EjkgKH2fBgd1M6
-	 B6mUoyvD6HFSzEKUhT71Elw7jMnelra1BgLkwzVCvDeAqHIXnMc1PfbPlfj0ZRnRsUXFx
-	 WxVx6ox/WMa6wsb9k7WS6WDJO1P06ktvXivOfd5FSE4OeF272i9GyzK5htA89pPQUdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823255;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+XhnkO/jaX2+F+V1+b+f12fn6p8V7sKwIgSwZYe9g0E=;
+	b=Yln5zvawCuVN6lmlttmnCVBAnYzdf3MVJK1poKwZjPcKndZ9eouzq9SRiaZvEhtlzDHB
+	 w9rn/4t+XatsFmBHBP/xPqYfCk3ddFERn9QoGnPq/hBUlKuAiuVm7pNuWGeIjPVKYKwEw
+	 +tJUgR1zvvjtL7UX7e6/V7PqHQbWn0HfohfoO1AB592RxYEA1wCZ5e09cERexrVFSrVRF
+	 uZ318fVRziIe3y+n9ZZ+6Pq7KFEOYYpAQ2PzAJCfr1y/wv3oaY+Zf1TKZlBOBRuFnp14l
+	 aaIs9BTyMwbirdkoR/eGYgKrWNucbYKixDU2vf9DlwSXQh0tAcVFDRCCLjB+esJl0Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniroma2.it;
-	spf=pass smtp.mailfrom=uniroma2.it;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=QaUScylS;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=Rvkz0H3z;
-	arc=none smtp.remote-ip=160.80.4.35
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.35])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C884F606A331;
-	Wed,  4 Nov 2026 20:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C884F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ikOF5zdS;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6E0608176E;
+	Wed,  4 Nov 2026 20:14:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF6E0608176E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=QaUScylS;
-	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=Rvkz0H3z
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 6A4KDOvu025984;
-	Wed, 4 Nov 2026 21:13:29 +0100
-Received: from lubuntu-18.04 (unknown [160.80.103.126])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 4C52D121681;
-	Wed,  4 Nov 2026 21:13:20 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1793823200; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7jJ7rZhR/RZuRnAPG07TM1AxcQZjBAxPgS58g9my108=;
-	b=QaUScylS77oxqOdjv+06mPgody1sZJqj0PaFfLendc0FDJFxaUO1pUpCpFvxTCWCGow81v
-	GpWHWo0epkj4dPBA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1793823200; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7jJ7rZhR/RZuRnAPG07TM1AxcQZjBAxPgS58g9my108=;
-	b=Rvkz0H3zARBQLYxOnoA9dQ7RX/gUWZckCSmEdP9HrjFdj4g7J66mpWNril99QK2brJEEcc
-	cwyWvSqMbzD6ttP3VnT4yzOz7Q+4OpoR0Mo+G1nYgV7mjpTe0yvYX6sY6VsZDzKoFsmXR8
-	dc2TDvZCquLESvG+VBAIzvsXd+SExvckp3N+us3hlR/uOpJ0k1TN+Nqkm+ck7YPP5/luEE
-	BkxWtsxknhnu55CDrrqMFMlrqWmrzOssUEZaMNSXMqzc+nP6glojr7E1hXTXpMVX53mlC3
-	T0idyUSgb2OSdvRaCSW4Brxiht6x/+7l3WC+4TMRe6Ue3px9RbBdUTlMZPG0iA==
-Date: Wed, 4 Nov 2026 21:13:20 +0100
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        David Ahern
- <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-        Shuah Khan
- <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        bpf@vger.kernel.org, David Lebrun
- <david.lebrun@uclouvain.be>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Mathieu Xhonneux <m.xhonneux@gmail.com>,
-        David Lebrun <dlebrun@google.com>,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Andrea Mayer
- <andrea@common-net.org>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net 4/6] seg6: discard CHECKSUM_COMPLETE after the
- End.BPF program
-Message-Id: <20261104211320.8ad5cbc7408d3229e4f34693@uniroma2.it>
-In-Reply-To: <aulG5DJroKs6BuzS@fedora>
-References: <20261031225033.64-1-andrea.mayer@uniroma2.it>
- <20261031225033.64-5-andrea.mayer@uniroma2.it>
- <aulG5DJroKs6BuzS@fedora>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ikOF5zdS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793823254; x=1825359254;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=qpZdBR620/UVypipUZjg/2IHhTj8BgeENBuaCqCsLmM=;
+  b=ikOF5zdSzHvb3fi4WcQtoeiPYVIyepMTfGuPoDw3j2yORNtT3ARrIKkz
+   15nTmB3zy2VUiwD2+yeNJ6nUUijOd4YQZUSwjSLHQtlhFUWsi0qQKI87n
+   2bNGUIL4fE9iMekkdOWiF+mKCqLpG1fbhkGednwqQmWbhgsrOGfmzCKTc
+   2qm0R0GjPrhSbseJnxoODl+VLuygpgHMKHhAE68MqArdRb6MOayiDTlyb
+   D39vTbowcBpshoMWkO0NToCstLjv17CjXiIVACw/VsshK+XrNoiwOZJ6g
+   4NJyed61gazkYe0ej6oFoeYc73r/S38mzwItreqWxVrGClQmBDUKUt+yr
+   w==;
+X-CSE-ConnectionGUID: lNgV6q9AT8GtxytvpEj59w==
+X-CSE-MsgGUID: fu0VXpotRdqhOrbXw4dHVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2589110"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2589110"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:14:12 -0800
+X-CSE-ConnectionGUID: j31sdCJfQK6focoSXHBxrA==
+X-CSE-MsgGUID: DLJmGu9hRciiRyC7aAPSNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6925627"
+Received: from spandruv-desk.jf.intel.com ([10.54.55.20])
+  by orviesa009.jf.intel.com with ESMTP; 04 Nov 2026 12:14:09 -0800
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+To: jikos@kernel.org,
+	jic23@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	simeon@maryasin.name,
+	lixu.zhang@intel.com,
+	crofts@kernel.org,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Subject: [PATCH v2 1/7] HID: sensor: hub: Synchronize callback removal with raw events
+Date: Wed,  4 Nov 2026 12:13:57 -0800
+Message-ID: <20261104201403.2039921-2-srinivas.pandruvada@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
+References: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,36 +86,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026 10:28:52 +0800
-Hangbin Liu <hangbin.liu@linux.dev> wrote:
+Raw-event processing holds pdata->lock across callback lookup and
+invocation, and takes dyn_callback_lock during lookup. Removal must
+prevent both active callbacks and future lookups before client state can
+be released.
 
-> [snip]
-> > +	/* The program may have changed the packet and seg6_bpf_has_valid_srh()
-> > +	 * may rewrite the SRH Hdr Ext Len below.
-> > +	 * skb->csum may then no longer be the checksum of the full packet.
-> > +	 */
-> > +	skb_checksum_complete_unset(skb);
-> > +
-> 
-> Should we move this a bit later?
-> 
-> >  	if (srh_state->srh && !seg6_bpf_has_valid_srh(skb))
-> >  		goto drop;
-> >  	local_unlock_nested_bh(&seg6_bpf_srh_states.bh_lock);
-> > -- 
-> 
-> e.g. after this. As there is not need to do the setting if the skb is dropped.
-> [snip]
+Take pdata->lock before dyn_callback_lock, matching raw-event order,
+and unlink the callback while holding both locks. This ensures active
+raw-event callbacks have finished and prevents future lookups.
 
-Hi Hangbin,
+Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
+Reported-by: Семён Марьясин <simeon@maryasin.name>
+Closes: https://lore.kernel.org/all/CAM2dg7ewfVJSP4rFyhkCB1Rmd1+X56sAg=eUdbPthG2xrLqwQQ@mail.gmail.com/
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+---
+ drivers/hid/hid-sensor-hub.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Right, I will move it there in v2.
+diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
+index 6470a290ebfc..0c4884c5821f 100644
+--- a/drivers/hid/hid-sensor-hub.c
++++ b/drivers/hid/hid-sensor-hub.c
+@@ -173,7 +173,9 @@ int sensor_hub_remove_callback(struct hid_sensor_hub_device *hsdev,
+ 	struct sensor_hub_data *pdata = hid_get_drvdata(hsdev->hdev);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&pdata->dyn_callback_lock, flags);
++	/* Serialize callback removal with raw-event callback execution. */
++	spin_lock_irqsave(&pdata->lock, flags);
++	spin_lock(&pdata->dyn_callback_lock);
+ 	list_for_each_entry(callback, &pdata->dyn_callback_list, list)
+ 		if (callback->usage_id == usage_id &&
+ 						callback->hsdev == hsdev) {
+@@ -181,7 +183,8 @@ int sensor_hub_remove_callback(struct hid_sensor_hub_device *hsdev,
+ 			kfree(callback);
+ 			break;
+ 		}
+-	spin_unlock_irqrestore(&pdata->dyn_callback_lock, flags);
++	spin_unlock(&pdata->dyn_callback_lock);
++	spin_unlock_irqrestore(&pdata->lock, flags);
+ 
+ 	return 0;
+ }
+-- 
+2.56.0
 
-Thanks,
-Andrea
