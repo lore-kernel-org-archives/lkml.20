@@ -1,103 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810674;
-	b=4MdNXZhI1Mf6ewBZwj0Ft+5o5O18njwyce9khqX7+IrZ2++CgZeL523tZ53p3LViStzf
-	 VGAxNvx2m6TQ1SrNrdNVy254tpMvZjMTL7mGdCMwtcC0G7wNP8Ys0Qtm/8qmOE81NQ6j2
-	 SOpl2p0s/hpBXgJTcwlID9nfuT4sNVKbdfpp7TuoCUuD/th2cn/pQwG8K1kMb/a/0kdYV
-	 QxK53+8ycZJr+c6/d2u6rcRzqVv6ZjN+qmhzlmbvfoAsiyZumYSoKiPDGIbl6Wst0xrdD
-	 mw17e7vOX700ZNOM1qKLUix9Z6W0Ri1OofBApq0X1Mn5I90jlpfqIj64pKY02z+2NbA==
+	t=1793810724;
+	b=A2RMUEZI0dKERX7AjJFGMSdMGVrdSS3xQKs4lX2d5N1sJga2CGR1p3zIn3X4FIjq2HFd
+	 MS3qYC1sxJaDE0tKijc1ysGa0VWkQJr793la8OrhkNCqhmJIHsYuqXVmHbmpN0SZs5yGb
+	 6yviPJDoKKKdJgFkDhwJ4FYl6N2ZMfY5RZxc5pzhW6DyeMPAimWGpzzVULVWuwOUYjgab
+	 DS9mpq18lyqx59mWbuNwZVwHR/XnR6AgQl0bvfZM/1IGHv9sxkLO/8062QyO1qRJKbb95
+	 v7V+T8n10dB4LLP8QyDoVSeJ+KvP6jcemvXbjRmHF1HJrLWN3YYk+MaG79eJNKPYT8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810674;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810724;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=v85/dxSKl2fjZlg4NNDW7kCAXPImgdYEhqBglpB1Uzc=;
-	b=aHIYsXZ4mOVX2mBYWHffsrI18GU+UVXeLlxFrJorSmtuudkMYKSFiN+acXwDEvwvF4pc
-	 uqLURm0MPOAAuLctOdtCo5HSrxvI0nxepPqhW+fF7bPbW7YQ0k2ecOvn4z0/lCNTOXdMT
-	 W9wrdewgKnDVwrN/THKuDdGVZMBOM6EjauH1sZ9Mzct3IUB9pHfpAOkTsUNnrkLzGlMzI
-	 dHceYMV+Jl3GLqHGwqoAoGq4iz++exlAe8nztpqyipgxbZRvlEbBgLg942/ewMUAPfUZx
-	 M4/3t7Nc0szgczHvRJfnOc2luRESj8VPPUvOenvsj9VWoPr3a0XDBXGzTMy5rKnNhAA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
+	b=dKUH/oKuUdW+xGTynf/JbgBNw5m5eht/YJfcFAcI+vdD5TNzRw+HUKGotkCFR5+ZdjdR
+	 UeRU/AfLQRq1c4Vxtzk+vxfj75gnswyN336JOA5LUdQrg7qWBvIS8RNlsJDHlzZ72DCKh
+	 GGM4+NF3B+DnRgwhoxBsdXfsCCSdl2kOfDVmyYgE1B74Zltt5VNo4SE3ktIKe5UwkoK4s
+	 NcazBLf6gwkz7BoR4wXwC7CTjfKvR0X08bqhApzSibu7O68m9TY0g3z+eAFh1YLEs1MKn
+	 rNlSn0LcD9xudejCi6Nb0iEECtCygMjn35vsW7Qf33YarVbF6wQsK1ntXZgxBCxyVQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=G8i9hweE;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aCJZ4/Xo";
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25D4606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D25D4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACE9606A32E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ACE9606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=G8i9hweE
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so2186605ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:44:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCJZ4/Xo
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a2af4c8d00so1980390c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:45:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793810673; x=1794415473; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v85/dxSKl2fjZlg4NNDW7kCAXPImgdYEhqBglpB1Uzc=;
-        b=G8i9hweEv60CP1G9mcCfOZy9YLt+NuQZcz1tPY8+2SRuWt9vdnKUaG9Nq9MMXDcw4w
-         +3+aT7T1be68r8pVWQA/HSrQvgdd5OgkKJFaptkRZTnSOdxs5joe2KoKm3SjiSeI1Lz+
-         /iXoeRdVzG2w8WO91j3BAK/2Y84OMDBtXn//32+21JJkMGC43JFetQndQ9l8zLDldcnU
-         SSJ/iq3uI1FsuqQCQrnE2Gtltj2Y8X0lBE2R6OI/kvfWiD/yc22K6tlfVfFUveQ9Gbg1
-         umtbb0VctW1l3mSnzrIcxdpMsDPMcdSPzkqmZy0/j7kTe3KWLsg+1jkS8EGzCebIuGOT
-         bxXA==
+        d=gmail.com; s=20260707; t=1793810723; x=1794415523; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
+        b=aCJZ4/Xo9jKnaTImkPsBsYrn3ZiAHaVH5EYy0bf6wENa9Kq1tc6D6GlpvX5t0fkziK
+         wiAUHhfbnFo/FFaTP7tTCp1b8oDIUKJNqcc31oM/cgw5UTvGs6A7zVMmehHfmeh/jSh+
+         aDMBdXQ2XaaFhxuyQ0m4HZvj3Ao9VTgB4PbCAGxyOrHJNWc5imT1XVJXThXCSeckHrd8
+         FzzYh+R/uLqI+X/n4CgmuKQVIF6q2obULzITNmNETkMsHpPdDbK4/aeIAPeBTPshpCmV
+         JHCKzrf2gIhUIPftDnZYbaq7Q7rPcyllVwxNKOtUTIfy/Q3gqhTysqJh3PWEP0QYSyc+
+         8r7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810673; x=1794415473;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=v85/dxSKl2fjZlg4NNDW7kCAXPImgdYEhqBglpB1Uzc=;
-        b=lJIQdDWHe+pMe4pFXbvK7Gxhv7SllZj8nnAVEFhQsUlWuEDY2sLg/b3/w6Xhq38yoz
-         vhSe9g5KyrRedPYICBzeeb5k4BRABrwUC1sGOVUGBsjjMpNUtxPnsECle2GcJm1MOqZD
-         7tUzu8obmRbC5VopjqspowSj26cKNAY3FCXuV87h1wGZrqi/n7W8+zT3PyGMMUHK0z8g
-         NkjNXWyy6jltBIQ2dTbSopJpiXtKdxnZXN8S+BpHjKitqZzKimdO2ocivg/4vJri+JOO
-         6a9vXvQYpI42nOaTBvcM3xagh32LZbVtLLjQt85m1+5X5kAjIzVdifsMPGUQg1uXpvih
-         VVtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzJ/2EMFkjMricFh9GGhDqxHf2CEeDQ3/TRWeNI8WNBFZO4V3xKqgcnJhRLqRdnrb0Efg+K/KXhoO21wo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8sY+ZemhYV49d/EPyb/TIap5hizgu5k2Ln3yuH+x95fbwn91s
-	UAN6xOUQNoAUMgJxSXdFbKLQpoDd+oUNFsexDMp8GS/O8B3FYmhtKYC4Jtr2q+aSxm8=
-X-Gm-Gg: AYBFou2P05vTMuNTG8Fs53398HFp7wDLKbpaO/liG/ffyq74pv/d3kaFRkhtpfdNL9F
-	Uc/PgboWDmhKeSwGRiRw64ICicVk2b3oFVjOlPMSUfsWqfwHtkVa/XIvGWvj/NwEm1dZ9qPv1iq
-	tb5RSk/E8PhzYsirox6b+RqPJY6Rht9LFjHIjZz9pnUdzxIxsyEvzzB7dbPWv8r9uh7zH5a06Kd
-	3SpFdme05kr6UmTKa81l0+qzjIV69OXpkfGB7vtR1TUn61TyNY7EzmfMiXKGCDL2iv176Icec1M
-	4Pvv0ymyfRr5QPKaoGQTPyaWlklyaFjbcqetawLjUWiEyNiRoWrGpf9AmFzeEIBYFxn7+8Dvb0S
-	IHB9vvtR31fOZtqVVJFHxxuuNT4Hu5l4AMysg8l6Egdif7gt6nN+Q9KDCYbOQuZJQxGfVQ+BKx3
-	dQfAPK3ToMNwdHyeOpBVNOh/3UaTCMp/5ZfwJj0JQ4HaBag3K5GkqjcszqDl5fq5F7FfrbIsLJy
-	Udv5Njj6yQVm1zetXKq623hbCs7MBhh/7cknW+g42IsY2cW7kljspiYR9hK5qQktgqgwyzXaAbm
-	1lJlOmAWkGtHPvrghgFje0Y/EgeSanvLVuSopNEUj8EICkQl7dL/
-X-Received: by 2002:a17:903:37c7:b0:2e9:cd03:b432 with SMTP id d9443c01a7336-2eb36501f0dmr158595375ad.60.1793810673005;
-        Wed, 04 Nov 2026 08:44:33 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:bbc3:cdac:2cd9:7fc5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0910faaasm10192365ad.47.2026.11.04.08.44.31
+        d=1e100.net; s=20260707; t=1793810723; x=1794415523;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
+        b=Hjnvz1GQ/D2CSX9qCAdsEFU/A+d7LEAxAXFrlDXelWagMgQZghtz6swixCytyxdXhq
+         pWACC+Qw2UKIruVWztw5kfrZhq1T0wg928ckIMAGoVlQ/mHqdnETFR91E7U3zt/EGxZe
+         SOhQPg6F6xanjWDfY9VWS209dl7mhlGm/yuzNyp7cw6mcR3FyDwRuVCzG+uQPdTLl+7F
+         +bCzhdQp2ekuHuZNXyktP4bGc1dsNuy76H1XiSALvSTdF0dt+gaDjcsGkE/JWq8cWRZj
+         lc4MR1We23vs0HvuaBKWbLcMvlnH1iAt4wlqgzVCAcAg9nctrdmMmP+dp03JubKHRf/V
+         BYXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXOJazO3v85UlCch6a7vBs8RvAgfClLdJyxhlaSZzdGJ6UE0Xyz+x1h4TogVXAH2NdR2SElKc594womak=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9q/9rOVy1gv/6cAxlbS5dkbAPYo67XAONRlaQegkqgsZYGJf/E
+	1n74HspowBEU6EwfGcG44oeP6qbxlGNM5yYlZ8AvtKgpkW8IcKXtzbTL
+X-Gm-Gg: AYBFou3rf69c3q+XrcA/8Ie+hIz4Gy5hRA1jmprewqniA+fgPCyortb9nEkWPettR9i
+	X5L6rb5NX5qOnpKliDt3EA59A2+WyB8fWF+RVNfjTT7yxWxJ7ML3TWoog9RKGrCOYu0/a87i1gi
+	KqHbyF63avWzvqAbUEm0OAdB7EAjYELsCWugI9ES1/8BxoVVQ+3iaQB8H1DVKV5e0VkrkwV7a6R
+	ZB3muHggO6Dom47FmrbcAUUKyi04JDv6z4M25o30j9EaMg6HqwlOqp4+u+r9oF/h6aKgjWYLRVN
+	50eyJZZH50Msh6n2RjBwhAYDHBoBQilM3FGRRHGqhFvFozjn5vmZ8gIsYBSLdFTmsqNsUxkSMx3
+	kCRfgEV3Igqijimgx8JvKPFAR7M0DTufXq09TN+VU5T0sMIoLXPok+mMU667VyFWDEDoTuc0E5R
+	jGkyjvCd7h7pIMLy1AyYcISSWKO4+0ghm0CIZ6G740On5DvWkPRTLj4O/LBLKvjspA1CCiPgWp4
+	3jDlY1BmbS7tcpREqSzw4ZVbZjYMNo5jR6vMx+6G4EAyQ/CDN0URYF8uHuSkMVHG9G2wTW4Jq+L
+	LbS4ZSrNulms4MOyKVYo9UWX3ZEpOZ5HTP5zgpqRO14bwlIArqrt9i5zQKoBTZPR98+bI9vvOaM
+	5td0viy54Ms3r9Yf42KpX4SqZA89nZl43ZwoduQgJIjU5lO4r1Qot/+sXcP9vH4lkeyHYqMVWpB
+	9d4cOfhzt7mzyQqQbqrUr12GEqEobxeC+X78+8orDij/XDl2f1y4eHCITvrG/rTqs=
+X-Received: by 2002:a05:7300:a8f:b0:368:4c93:544e with SMTP id 5a478bee46e88-36a422084d2mr25419815eec.1.1793810722385;
+        Wed, 04 Nov 2026 08:45:22 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.212])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:44:32 -0800 (PST)
-Date: Wed, 4 Nov 2026 10:44:30 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v2 1/2] remoteproc: elf_loader: Create new callback for
- copying segments to remote cpu
-Message-ID: <autg7vGliR7-lH-V@p14s>
-References: <cover.1793117996.git.u.kleine-koenig@baylibre.com>
- <15d90126debc21c116c9e862a007afa4d81f704c.1793117996.git.u.kleine-koenig@baylibre.com>
- <auoAZs66RA5OYjJo@p14s>
- <auod0uYPow76TEb8@monoceros>
+        Wed, 04 Nov 2026 08:45:21 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: Salih Erim <salih.erim@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	stable@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+Date: Wed,  4 Nov 2026 22:14:59 +0530
+Message-ID: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,55 +110,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auod0uYPow76TEb8@monoceros>
 
-On Tue, Nov 03, 2026 at 06:49:59PM +0100, Uwe Kleine-König wrote:
-> Hello Mathieu,
-> 
-> On Tue, Nov 03, 2026 at 09:40:22AM -0600, Mathieu Poirier wrote:
-> > On Tue, Oct 27, 2026 at 05:25:20PM +0100, Uwe Kleine-König wrote:
-> > > diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
-> > > index da3cddbe7d4c..3c749a39e5da 100644
-> > > --- a/drivers/remoteproc/remoteproc_elf_loader.c
-> > > +++ b/drivers/remoteproc/remoteproc_elf_loader.c
-> > > @@ -227,35 +227,45 @@ int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw)
-> > >  			break;
-> > >  		}
-> > >  
-> > > -		/* grab the kernel address for this device address */
-> > > -		ptr = rproc_da_to_va(rproc, da, memsz, &is_iomem);
-> > > -		if (!ptr) {
-> > > -			dev_err(dev, "bad phdr da 0x%llx mem 0x%llx\n", da,
-> > > -				memsz);
-> > > -			ret = -EINVAL;
-> > > -			break;
-> > > -		}
-> > > +		if (rproc->ops->memcpy_tova) {
-> > > +			ret = rproc->ops->memcpy_tova(rproc, da, elf_data + offset, filesz, memsz);
-> > > +			if (ret) {
-> > > +				dev_err(dev, "Failed to copy segment %d to device address 0x%llx: %pe\n",
-> > > +					i, da, ERR_PTR(ret));
-> > > +				break;
-> > > +			}
-> > 
-> > I really like your patch, but I'm wondering why you decided to move
-> > rproc_da_to_va() in ops->memcpy_tova().  Right now it is called in both path,
-> > i.e with and without ops->memcpy_tova().  Wouldn't it be better to
-> > unconditionally leave rproc_da_to_va() in rproc_elf_load_segments()?
-> 
-> The reason is that on ADI's SC846 the memory for the remote processor
-> isn't directly accessible by Linux. So there is no virtual address for
-> the given device address and thus the implementation of .memcpy_tova()
-> on that machine won't use rproc_da_to_va(). 
+The driver sizes its channel array for 10 fixed and 21 external PL
+channels, but accepts external channel nodes numbered 20 to 50, and it
+never checks the remaining room while filling the array. Channels 20 to
+29 are the fixed ones, so listing them adds duplicates and overflows
+the array.
 
-That is a valid use case - please add something to that effect in the
-changelog.
+Patch 1 limits the external channels in the binding to 30-50, as Sai
+pointed out. Patch 2 does the same in the driver and adds the bounds
+checks from v2.
 
-> 
-> Best regards
-> Uwe
+Changes in v3:
+- New patch 1: limit the binding to channels 30-50 (Sai)
+- Patch 2: only accept channels 30-50, so a channel node can no longer
+  duplicate a fixed channel (Sai), and add a static_assert() that
+  ams_pl_channels[] holds the fixed plus the external channels
+- Patch 2: rework the commit message around the duplicate channels
+- Rebase on fixes-togreg (now on 7.4-rc1)
 
+v2: https://lore.kernel.org/all/20261023185652.195025-1-kapoorarnav43@gmail.com/
+v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
+
+Compile-tested only (W=1); I don't have ZynqMP hardware. dt_binding_check
+passes, and rejects a channel@25 node in the example.
+
+Arnav Kapoor (2):
+  dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to
+    30-50
+  iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+
+ .../bindings/iio/adc/xlnx,zynqmp-ams.yaml     |  7 ++-
+ drivers/iio/adc/xilinx-ams.c                  | 57 +++++++++++++++----
+ 2 files changed, 50 insertions(+), 14 deletions(-)
+
+
+base-commit: c293f0db308fe76a0a9b0f6674cd2dea149b03aa
+-- 
+2.53.0
 
