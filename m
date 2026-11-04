@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823309;
-	b=jdjMzTBlvv29g9gKKIvn+Uo4nZf8QRxpX8xygpXyzEoqHBUIS6PhgQGNKGkfM36JA0SV
-	 MyMopaAMuxMLSnYy6Um3PGzBIhE7yhjVNGOVsF4rmHxZOUt+QQ2z3ZH6DtycT3reriRZ8
-	 SawZbKeDxQGUuKHAdjJkOj0/TeBSyO+gir/2Ao66cDRRUqs68IV9v2DRKpPVMAYTHENjh
-	 4SC8nJDDxE2lVpyIU3diRWidNg6ZcB6bxc1G+LCl2HbZs0MyBqP9vkMG2EsEA1yXXL9b+
-	 NNTXbn1BfeNradc2iK1C7YIlS74XFVsYROZxjiWTeqvpFvFWuU8GWFue29qUkSwOyOQ==
+	t=1793823393;
+	b=SWrxnr9+WuMlNJcdtlyLevugyv3//dmjQ4CWICxxociXp6uLiaUWz4d53RhCN/0oMCUH
+	 KzBmzg6+f20/T0/Alb9Tayrk3l31R5OQed51HP4b6RjVoi+jn4uTO8srK+fKzRJ4P0Hpx
+	 cuGj6RRCWODzKGaKVL0jr1lBZcsFdnXKVJkIgVIDKvotYhnuBYpiF/TRPoChu+zev2ACb
+	 FLS19Y3lX/PpUTcfY+94Su07ostv8hpCtXIP8aLKuzCUyqisYmRmg+d1ebiSCB7lqc/4r
+	 awCvtnNTB+VkzvkemVLK+vmZeL1oTRhlFNBV3nG4cM4v6YQOA5vWXUEnsnTzJ9z3Dzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823309;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823393;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5hs0yObu632v5VqYscPdHVqsnq/hS9vQJRHPhHsRg0A=;
-	b=YYTTTdEjnUqvcA6/eucLMJpaSHMnOtjv1RTM0QOzpoTUvwIXHtDL0naDj/Jz0EpkR5hB
-	 WMEGrWP/KHQAf42Qy5mmGwa844sXlR3vDVf9GOsD6Piwm5LDD+KZHXbjMTaMbEPNmWVjC
-	 TBq9pB4oJK715vH2o8b0xs79E0gzpkkaxQMgkss2L6fiDOeTqcyndBZEjSEAy9q3uZLqQ
-	 RF8a2YEVxyf6KLIFsLKCXG4euTJrkfiQU1zH2vwuZ0i5j3hf1yQEzWPiDHHGx0gKP7OTu
-	 rqoHA/xjHCmwicORIqf3dXwKo1Sp8jBzdXOTPNBqQm4m2WobJRNojB1HuADiSyTNY5Q==
+	 Subject:To:Cc:Content-Type;
+	bh=foLRpBa47s9ruCMxuyoA6DXIF2wwXVPMOzwICiq0ito=;
+	b=RVbSnmH8ZLyCAzrIzUSr72AmFt0oQ2V1LLGdL9rVDRF2eKcJzYAAeGYAM57Ef7OF49tH
+	 0YUPwD5kaLdMagKWo+LiYrAdWDW06Vd4xAlb2MM/rYLvpJRh15ZjmDP2TCI/HpvqSC/1Y
+	 Rw3Mf3rXP1a3phNtxvd4XxGx5XAs4SYa3jS21JnGrWlbzu2tRBMb8G/8skUcKzPJVihBt
+	 QoTApEbebx9wsjxBb46G3BDMiBc5WZZkSyqwY88AiVManigm7kCqhLYknQMLo+W2oDB1+
+	 5jfSyg+yCuT8ZBi5uMlC6bubH31/673F2f6laKef1BgoVCsmd8u84OJ1ku3xOn806cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jntMCYXR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932B56082097
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jntMCYXR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3AA1F00A1C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:15:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793823309;
-	bh=5hs0yObu632v5VqYscPdHVqsnq/hS9vQJRHPhHsRg0A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jntMCYXR3W1rZcXXXOFyG8UkNWM1zptt1zDKpmY/3jOcAGPvEuxMZ+WffuO6qEarm
-	 RXltF/saZTDN+mSpF4Y1fRmkhNqU68n+uDYsM5u8Uxhwl3OzxfHw4Awgfj5xG6FU7q
-	 Pesy/LAyU3SBa0H5DOvWI3fCmCYEqW3STMLi3qhAvI7uUPzTSiLXnXdX/WugJ/AVZc
-	 1f47yXHjQONASzabXPWHALxSYWAPGhuwxS6dBRcVA8+bydeoc7pZHOe6Uv0AOjHhKS
-	 zmC7LE+jcSa1XJlUPNCb2vcqyizu64WLFSjJ5U9OEYxoih8QjYWD1u2EYn474vwuoO
-	 vK8x8ON4bKLFg==
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a2761c69fbso2515044c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:15:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwBDUb8UPHrEcl4Fo4oaIy2wjldnRXzOL3rAT57u9WFyq3F+Wwk1ITpZ8qwRdAK5EqbK7ypogrOIHCIbkc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8oCkxNiwh2UwZVGms9ysmlLpp1Stt3ed937HIyD5IfgOBRmddt
-	kLAYoVt36MlUo0n1DFLXAmZUun3XqRFAP3fF26C9wmgHrhMVp4YCu7ZdicbeaZYrO8+OPzeLgyx
-	wrK2ESMeJm7SzM7PhQl8V6DAK5j6r9h0=
-X-Received: by 2002:a05:7022:5f0b:b0:1ab:de8b:5f0f with SMTP id
- a92af1059eb24-1ac5cb18717mr23723691c88.40.1793823308323; Wed, 04 Nov 2026
- 12:15:08 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46152606D810
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:16:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46152606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so614353b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:16:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793823393; x=1794428193;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=foLRpBa47s9ruCMxuyoA6DXIF2wwXVPMOzwICiq0ito=;
+        b=c3L5fbYehTF7MQ98IVk/3U9oaPCWA7BlPK27w/NLB55qv4XZo7Y5CRGjRQzXHqIf2y
+         iSB9R9nn8E2gdOCbBPUuGeQhg5H2ZuwyQFWuO4MRCDE18Z09gCNd65E4B2Xtbo7syUUW
+         /qdnobJtFIZcpYcgIoAvBEeOahz9JoEGpIvKegQrxyNKQTSgcF2wS9nQSD355PiI1LXZ
+         Qpea5lXKrwJWp0X9Q7UGd/D81Cjr7SsL7LScvMlJ0iLveBJmZaY00jYSgmVVN+/92ueA
+         sh0fSuCPXzsoGW4XgEOVPkO2C23tK3dh70igSeCmaMI8GSVP6NppDnHy/f7PWxbpN4ni
+         UqwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx6nmLcsvCwC3NYG85I/xObHaZ2KPU7TIjmAOe+ae4BfjAGtvqE5eL+DizxHtKY9zQ66bEJaYHWN77vddY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86loRzrln81kXmzGE2gS9/P2qgOamLSiH25vwT9r+/9hsaLkEl
+	hS+IO/nt60PgSYYIXnkMS+RhTLzbRHBkJoErFfLdlzm/VlxuteDJjP198RnOVDri
+X-Gm-Gg: AYBFou1zBP1QVqDk2nbdHymNbms93z9L6eRMOld7VgvH5otA8eZdCSZZhEOCoVZGff4
+	46baiNnlzuiDDlF/zXaXTcGJqz7enbwqsPXNiQG7ixRLhw4PPSdAB7bTqJon+Frq9WEV+Z9XBhs
+	BU5ihodi1fP2/X5/UCxfIoKtXCRWcKl4efLyi2mCKmybADQU94QOxndwpP3nRoFvsB7z32RWdXD
+	amw7RpMkOAfa+solu4rx6lDmY/GOR1f4S9maVYnUfKvRne1f05fXbQdmMIFTnvX/DfiqqIcu7kG
+	LmnTwhT6AQbGBeCb1G6Uv6mnXqxFUT7eIzsqMfUMMlMvSpRbobq9gwOimPCOXBaF+ojfdV1WeSP
+	i4X0IR9nprfOnFxbaLgXzF66cdkQXhMVV7IyCUCdR5XFq4a3gbgACNJkHUG1GtvSTno1W5GSWnZ
+	4ysVg1PQMwo+xFC27YSqARgjL9LmFyTlSOPx12u93WPSF7PvLoFOIAY0OEBuhaiGbT2TClsmbW9
+	GHKZSbqA8XzOgccoyouTEAyIBlF+7VoQ5aXvmxSK/7+kWTVveud9yXaLW8H9pS797Bj98WLjwoX
+	smMrDYBGeD6lLyzWc6+B18lcQ69530WXqyUO+N5G79mlzQJ8u7eO4glFBLZAn8Gqpuuftb1X+Mz
+	q7fDQo8t2AyNdvYs9uIqc/yUcPCmJx7GB7ipRWO8R37Tf6HmAR1FMtXpLHagRDT5e
+X-Received: by 2002:a05:6a20:c70b:b0:3e0:c346:734a with SMTP id adf61e73a8af0-3eb9832eaaamr325977637.11.1793823392632;
+        Wed, 04 Nov 2026 12:16:32 -0800 (PST)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b097fe109fsm1324441b3a.8.2026.11.04.12.16.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 12:16:32 -0800 (PST)
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a315ed211so1124012eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:16:31 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxhsM4VLRVtr//twcHD1PULY57OkfF0Y40C3Gw2PAhJH/6zh6oI6HF7yEfrQgYiJaNOlSfdTr77b5sJwdw=@vger.kernel.org
+X-Received: by 2002:a05:7300:dc10:b0:36c:a1bc:6102 with SMTP id
+ 5a478bee46e88-36de0488bc8mr1203042eec.0.1793823390961; Wed, 04 Nov 2026
+ 12:16:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,92 +81,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-b4-ipe-keyring-rfc-v2-0-77727b205844@nvidia.com> <20261029-b4-ipe-keyring-rfc-v2-1-77727b205844@nvidia.com>
-In-Reply-To: <20261029-b4-ipe-keyring-rfc-v2-1-77727b205844@nvidia.com>
-From: Fan Wu <wufan@kernel.org>
-Date: Wed, 4 Nov 2026 12:14:57 -0800
-X-Gmail-Original-Message-ID: <CAKtyLkHtZeToq7YN7n2jffK0DmR7Axu3cQ+Kac_+RYvtsF=+cw@mail.gmail.com>
-X-Gm-Features: AclHuK825M3Tp0Q3mYcH1rJyDUZVk5uCyEMH07CZFl9zj20qOO90PZscL7Din2Q
-Message-ID: <CAKtyLkHtZeToq7YN7n2jffK0DmR7Axu3cQ+Kac_+RYvtsF=+cw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] ipe: add the .ipe policy keyring
-To: manuelh@nvidia.com
-Cc: Fan Wu <wufan@kernel.org>, David Howells <dhowells@redhat.com>, 
-	Jarkko Sakkinen <jarkko@kernel.org>, Christian Brauner <brauner@kernel.org>, 
-	Andrew Halaney <andrew@amutable.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Luca Boccassi <luca.boccassi@gmail.com>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kexec@lists.infradead.org
+References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
+ <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev> <bd0d89d16c9effa60088131aa81b6d5786738c0c.camel@pengutronix.de>
+In-Reply-To: <bd0d89d16c9effa60088131aa81b6d5786738c0c.camel@pengutronix.de>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 15:16:19 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ76e+ij8zPg3kEi_1qNt1gqh2PuJRCTcvQghsAHr2Ft2A@mail.gmail.com>
+X-Gm-Features: AclHuK_OSxtEYlXiOHps7a-cMZJsR_Cw4vnjS7VT6Pg5ApAUwbgB-aNStGUXOis
+Message-ID: <CAPY4CJ76e+ij8zPg3kEi_1qNt1gqh2PuJRCTcvQghsAHr2Ft2A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: Add Siflower GPIO controller driver
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chuanhong Guo <gch981213@gmail.com>, Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Qingfang Deng <qingfang.deng@siflower.com.cn>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 5:31=E2=80=AFPM Manuel Huber via B4 Relay
-<devnull+manuelh.nvidia.com@kernel.org> wrote:
+> Consider replacing this with
+> devm_reset_control_get_optional_exclusive_deasserted().
+> rstc can be a local variable then.
 >
-> From: Manuel Huber <manuelh@nvidia.com>
->
-> Add a dedicated .ipe keyring for IPE policy signature verification.
-> With this, userspace can provision its own keys into the keyring,
-> then restrict it and activate it for IPE policy signature verification.
->
-> Gate creation of the keyring behind a new by-default disabled
-> CONFIG_SECURITY_IPE_KEYRING Kconfig option. When created, the keyring
-> is empty and writable. The keyring is used as a fallback after the
-> existing policy trust sources only when it is created, non-empty, and
-> restricted with restrict_link_reject.
->
-> This enables scenarios in which a trusted userspace component generates
-> an IPE policy, and creates an ephemeral policy-signing key pair,
-> provisions its public certificate, and restricts the IPE keyring during
-> the early lifetime of a system. The trusted component can then sign the
-> IPE policy, destroy the private key, and load and activate the policy.
-> During that phase, the system is considered in a trusted state whereas
-> the system transitions into a possibly untrusted state afterwards,
-> running arbitrary user-provided applications. In such a scenario, the
-> trusted userspace component could reside on a dm-verity protected
-> rootfs disk, and applications would reside on additional dm-verity
-> protected disks. The latter disks would be dynamically attached and
-> their dm-verity root hashes and/or signatures not known a priori to
-> launching the system.
->
-> A concrete usage scenario could be Kata Containers, which enables
-> running Kubernetes pods in ephemeral, headless utility VMs, possibly
-> without systemd. The rootfs disk is static and known beforehand, but
-> containerd's image layers might be acquired and transported into the
-> VM using the erofs snapshotter and dynamic block device attachment
-> using dm-verity. While in that usage scenario, signing a per-guest
-> policy with a pre-provisioned policy-signing certificate in the
-> builtin, secondary, or platform keyrings would be technically possible,
-> it would require including its corresponding private key in the guest
-> build artifacts. Making it possible to use an ephemeral,
-> userspace-provided key avoids shipping a static policy-signing private
-> key with the guest rootfs.
->
+> Don't use devm_reset_control_get_optional().
 
-Reading through this scenario again, I have a question about the design.
-
-I suspect the reason you need a signing key inside the guest rootfs is
-that you are running the snapshotter inside the VM. Have you
-considered generating the snapshots on the VM host, signing the policy
-there, and passing it into the guest?
-
-The workflow would be:
-
-1. The host generates an ephemeral signing key pair for the VM and
-injects the public certificate into the guest's platform keyring via
-firmware.
-2. The host prepares the image snapshots, computes their dm-verity
-root hashes, and signs the resulting IPE policy which allows execution
-by dm-verity root hash with the ephemeral private key.
-3. The host attaches the snapshot block devices and passes the signed
-policy into the guest, where the guest simply loads and activates it
-against .platform.
-
-That way no private key ever needs to live in the guest, and it
-confines the TCB to the VM host. Would this approach work for your
-setup?
-
-Fan
+Thanks, v2 will do this. The binding makes resets required, so it will
+use devm_reset_control_get_exclusive_deasserted(), with rstc as a local
+in probe.
