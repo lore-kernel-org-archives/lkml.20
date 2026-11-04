@@ -1,83 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782073;
-	b=MaizY/usGjDEC7T/zGVtvYbRdDXnnPgkQ9Cl3hzWOTN6WGejoQvi0iNsACc4rJB2W3vj
-	 fSP47Ka4TDfwdpMKaNEkSAy9HWq/7voAGUo1ohh5V7Zc4PX6WR51rYr6JJEB0gdwrp+3A
-	 w9OqTmW7piczaxQRj6cgvGnHIhUkV/sEcy46efDMSJdH9mF+emKgYie5devq78+2iBmO0
-	 FPnN25fo8zuerIfxWjFgaQ2BeGw4VylhK72igbteJL8FWlobc0nTLgpB54bSo4R/zscX9
-	 4HOPonCoLIF3P0y9xl4yS3Ixp2lcTpVAV6MLqVCXgCkPOG5Gk0ZvTbnw6HgRsUUo5OQ==
+	t=1793782135;
+	b=nqZqZiv5I36QbyPHjYw4WYlxi9hg+EseoA+njebIkztgiq/8AgaDr4L1kzBrrH9K9LD9
+	 cytItW07rCBPhitADpen0SVoj3FueIx4YbhEnmhY/ZMjBb9f/FjlhuLwW9E0klOMDpgfj
+	 on/+87DC93qC/KQn/A39LA6/pYSugrBLikS3I6bWeRv58ymqfOjMOtk000hEkRNxLl2Y3
+	 +VUozeCefL5sEbIHFj2Duc8EwghPBhxSQzpRTnX5P90eyYEGHzwraQbdZUMR5/oczLHhO
+	 76YkXkO31mFdpaqH/TXtdAOOeMSo94Y62jAFcCKWxrW10/2RZLBaKTxHHA0raBecCJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782073;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=gINtp91EmSyPeKHcy9B70GgiKnQ1Mr6rYAdlWmCMvg0=;
-	b=IteczDLdO9mqNHwRmnEo0e/lM9Co4CbRMio9scaoXX0MBSwgWIDOPGunIy7DTPB0K2KU
-	 Xkx+bcDOTTFUexphuRIj2+9m5Ea3CZMyAs/OnvczLLy8byp6UU19brIpNAc8GuRdYD7XJ
-	 1JA1yD4KxzW5esFeosI1LxXtMJmapQdvczAaZy4n5XnB47r60F0JkLROrM9JhIADlNmas
-	 X705ICkFo2D+9HsgkBil45RyBx6VR6KpIw1fc6yRw7/1K0pxXZG4c01U8KnaUxJzP0VkX
-	 Q+VoYQUp2wuO0SaA+JFexiF7Y3QY/LNJArNge2XQrjwiNlC2Aj7Xyr/j6LYaCwxatoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782135;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n7dKS3uLxqz3hFWxQ/Hr/z79HJ4aXd4+1+IODE3lfqg=;
+	b=F63sUkYULfNa/xlXSlFtXE6NJaAcJ+asYTUyv0CiOK5UcYhvZDd/yHVkB5S6NJ9Je+LV
+	 6ffIywMej7ZXgF//ojUbpBMfqdW0i6+flfl2iUFUOgohv49NtRtihk+FOYcuzV/h03vOk
+	 AO36U4xjJPRj86x7McMrtgPTS0FrG6ob9F+2vis+fkiXyVA9tSjFqNnDbWHTWfClehPR/
+	 bvXhfc9tdIHIjjMrLeAj3sRQSGKE81oCWlVqrakFSQ218VSdiLwwbSTf+uDFM5+dlKS6i
+	 FTzFkX6sH/KdWgGICRxhGA+FbwCOdrCiyOTAO/6AvPHnpqEYE6dwyvPv4JIkRkkd7eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UrSeuk+E;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="T4d6Fo3/";
+	arc=none smtp.remote-ip=95.215.58.15
+Received: from mta1.migadu.com (out-15.mta1.migadu.com [95.215.58.15])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399CB606A31B;
-	Wed,  4 Nov 2026 08:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399CB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE694606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE694606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UrSeuk+E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793782073; x=1825318073;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sg3KXue8VKK8i5UA15Wz4XJnv1FMQwcpmP18U2pXNVU=;
-  b=UrSeuk+Emvbu2SbuXW7zdmXy2p4QGwEddivQaVIJQ4MjggSeP0mYOrZe
-   D3AcSAL0GBotYyB4N6P1jW5Hk2lNYHZBQmqtBMi0syciOkA3xbjHj+crd
-   zXb1vjKDhcfB7OsknfYLe9nhZ2buURQz1J2inzEPbkBkPpUxDdAQzMZ1J
-   AynYHcWRdBy7NaMblVS1AMM0PD4DxgSpBT6tSx9mzXzwJ256PQBiivc0x
-   Mo/IA7UA8C6gYqAm2j9gW2dW10V4DubqB9ngKWbZCvEmuT4JGSq0CflSt
-   ZgkKy3HPV+HDezTLEQ+70xbvOmIj2XEs5EwTtziqHCj44s9yJt3JrTHEh
-   g==;
-X-CSE-ConnectionGUID: 5NuzVbtpTyWO0CbXdLJt1A==
-X-CSE-MsgGUID: cn35GWeYQO6XE/61/NoRjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2632306"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2632306"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:47:52 -0800
-X-CSE-ConnectionGUID: CZsbyOWITqOYdLdmyUgq3A==
-X-CSE-MsgGUID: 1TVbOk0wSj6xjXfpnJ8grA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6684559"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:47:45 -0800
-Date: Wed, 4 Nov 2026 10:47:42 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	Zhaoyang Yu <2426767509@qq.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-	imx@lists.linux.dev, vkoul@kernel.org
-Subject: Re: [PATCH 1/1] tty: replace chan->device->dev with
- dmaengine_get_provider_device()
-Message-ID: <aurxLlfOa1fAa19U@ashevche-desk.local>
-References: <20261103215949.1827937-1-Frank.Li@oss.nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=T4d6Fo3/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZJp1sWID1Y8h4yq9sHvxEkK5gbfl1wOQbzOgvALLC6k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793782132; v=1; x=1794386932;
+ b=T4d6Fo3/hNK2uXQwUMot6YCj/ZodRvUBFeb4ywWwwFOHQd+itPMsvqE0eoQFVuWo4k4ZxXAH
+ VXJxBPVgI1or6TMyiVonLMWqIPE3PdDPPrTEHiXOS+trnFekxJc11CSwT8Nv+7FSCn9XkGlz8f0
+ cY2klbT9eiG/jGq6/4tqq70g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fbd8c9a40e5de126;
+	Wed, 04 Nov 2026 08:48:52 +0000
+X-Mizu-Trace-ID: fbd8c9a40e5de126
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 01/16] KVM: arm64: selftests: Inject an abort before a vCPU's first run
+Date: Wed,  4 Nov 2026 08:48:27 +0000
+Message-ID: <20261104084842.132944-2-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
+References: <20261104084842.132944-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,46 +81,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103215949.1827937-1-Frank.Li@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 04:59:45PM -0500, Frank.Li@oss.nxp.com wrote:
-> 
-> Use the dmaengine_get_provider_device() API instead of directly
-> accessing chan->device->dev to get the DMA provider device.
-> 
-> No functional change. Prepare make to struct dma_device private to the DMA
-> engine.
+KVM commits an external abort injected with KVM_SET_VCPU_EVENTS
+immediately, even before the vCPU's first run. For a normal VM on a pKVM
+host that path panicked the hypervisor until commit a2bb5f5c67a95
+("KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM"). No
+test injects before the first run.
 
-...
+Add one, checking that the guest takes the abort at its entry point.
 
->  static bool dw8250_idma_filter(struct dma_chan *chan, void *param)
->  {
-> -	return param == chan->device->dev;
-> +	return param == dmaengine_get_provider_device(chan);
->  }
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ .../selftests/kvm/arm64/external_aborts.c     | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-As mentioned in SPI patch, with another helper this function will gone.
-
-...
-
->  	if ((chan->chan_id == param->chan_id) && (param->dma_dev ==
-> -						  chan->device->dev)) {
-> +						  dmaengine_get_provider_device(chan))) {
-
-Fix indentation while at it.
-
-	if ((chan->chan_id == param->chan_id) &&
-	    (param->dma_dev == dmaengine_get_provider_device(chan))) {
-
->  		chan->private = param;
->  		return true;
-
+diff --git a/tools/testing/selftests/kvm/arm64/external_aborts.c b/tools/testing/selftests/kvm/arm64/external_aborts.c
+index 1a858d0d82968..45c9300b2ca0e 100644
+--- a/tools/testing/selftests/kvm/arm64/external_aborts.c
++++ b/tools/testing/selftests/kvm/arm64/external_aborts.c
+@@ -113,6 +113,26 @@ static void vcpu_run_expect_sync(struct kvm_vcpu *vcpu)
+ 	__vcpu_run_expect(vcpu, UCALL_SYNC);
+ }
+ 
++static void test_sea_before_run_guest(void)
++{
++	GUEST_FAIL("Guest ran before taking the injected abort");
++}
++
++/* Test that an abort injected before the vCPU's first run is taken at its entry point. */
++static void test_sea_before_run(void)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm = vm_create_with_dabt_handler(&vcpu, test_sea_before_run_guest,
++							expect_sea_handler);
++
++	expected_abort_pc = (u64)test_sea_before_run_guest;
++	sync_global_to_guest(vm, expected_abort_pc);
++
++	vcpu_inject_sea(vcpu);
++	vcpu_run_expect_done(vcpu);
++	kvm_vm_free(vm);
++}
++
+ extern char test_mmio_abort_insn;
+ 
+ static noinline void test_mmio_abort_guest(void)
+@@ -420,6 +440,7 @@ static void test_serror_amo(void)
+ 
+ int main(void)
+ {
++	test_sea_before_run();
+ 	test_mmio_abort();
+ 	test_mmio_nisv();
+ 	test_mmio_nisv_abort();
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
