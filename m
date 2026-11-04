@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820673;
-	b=dteefXCOPRTOFzViYVpUs2qlCXYtMpj3onui88DprISKj4KJyUavTiyX0bwHfGeGh1LP
-	 3qfauKZTDjJC1jj2DkTTomyifhiDPL/QXdcM5uPkzPZPNWRX39deV1NbT3WRKPxbYSUT+
-	 8ZcoCPnlQLI95jCh82PrufCJ14TEyEuI1eY1y6QgCQINaQwiRsZ8CROVEc7nPhBxUUyar
-	 OFKiWRNg5zRe10IY7LD1MaGM6yHloqasPRvHzG1pX03vUc1mw+/SYkVVcQ337rvfHR7l3
-	 +AmAcTmpNOYK3QJ9VDgGItlASQezBKOm16jZfmaatD54Z5cZ5hscUJBcmd+5jWZiD5w==
+	t=1793820686;
+	b=DXC+M9+QGMZJ6UVB1Mf4mvXNLKCy88Q7kFQ6JeE7GYhTkP6o0IUHTY/NMlpWmnIo30AE
+	 EGQbVwHeNCaj/3t5NbVS1TxIvlQzzMJZdaMwOIqUPC/kw4WRNMdI/JDT97zk/IrxcRUds
+	 ULsGUXg6SaenHyIvZhVsZ2CuoZpaVoWWBNeXJRCABOH9KfEuKWdvjwp8u+R1KiynVlQKs
+	 239GVYZP1HvCJSnxtVlq/hisYmbEdJkG97WViPchu7GVP3sBY72TXEqLuYA7/upiZr5xX
+	 NTLv6jl36IpzxDiF3qS15i6vAsre+9X7294wdsBmDmOJKfx1R+zL+8EtfisGCg/NZag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820673;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=PsYU3gTP7wRg/qADM041CPCqWdlsrAZN9M0Rb8ATmeI=;
-	b=bEcwnojxWd2MqvQIOC8BzrO7eNwcwu0KbecGVhD8q2MxbXtCcQ5vs/PZVisY7wq9DdF6
-	 TBiogMJAwK1sOitXezB4fVVQnoJGCkYoF7gFpFPeWf+bb1HOacNplTVgfrrxQS9g++Ad0
-	 IM9wqDJLLokDYJ9JrRaadl+8ZYEDKYEq0xi/vCqH+yQu/EawkHflSbslntFn1VnT61Yl2
-	 /u/XyDwsTbuEdcfJbocciduQ/lyg/g2KbI65l25s4bNY/PQzM5rsCPfcYPysFYsus3P5v
-	 /8qBgEfvpwqsLFEDTjqQE/EmjZmmAVz74gxRGKKfB7FVm6gaCC0WmxKzsGhZ27+tX+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820686;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=ZzX+Y1+WYbWKOk6oennD0Dv0zMIBzdD9xecwmJHFZfc=;
+	b=Um+gv+X823OXAYAphEO/xgJvF9xTzM6XTstLHNfkosZ8kZLv9jCg8G6dgy8VkS+VOydP
+	 oe1w+dopLtnCYeV78cbGCIvoz/H9XkoQF7/miBEO8EzLtYTr4A2iuGKQPg9fOJgTTyABl
+	 +nhrdlOhvCKyKaHqNavC/XMbg8ReuKJ0m8wBZ0wGo7tju6Hpvu+w9mF5YcblYtC0G8ERF
+	 4GGvKYpzyTJ0iLdqqzXHw3A1q1Q7oz6BKcf6fweePkVm2kFogGUeUJPQg3WYHP9TgmMxo
+	 NbTXPl4fI+hoW9+JvHa0IGYF/0+V6C4sUzzGtv2v+/cdIyHYQlE8Q2Astx6BV3OcJ9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U9PU/zDz";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ebiCagEc;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E55E607800A;
-	Wed,  4 Nov 2026 19:31:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E866098F5A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04E866098F5A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9PU/zDz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20BEB1F00A1A;
-	Wed,  4 Nov 2026 19:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820672;
-	bh=PsYU3gTP7wRg/qADM041CPCqWdlsrAZN9M0Rb8ATmeI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U9PU/zDzaVAltxYxStqwW8rHvP0jU6OdIi9RBg1wn/JWlBqPV6BYlBzlMWrwMpcJG
-	 3eU+qxUPU0LrZr9SXclOLmfymuCTpBaGHMUvrT5A1+NBX3prA1ghZ3FKndVwGcpNps
-	 KN1G8MNaJ/W/DN5CsbgTFaIRvKcadOCkNRMwaZGsRchdPUi7hYz7whizdtZ5L0z/6w
-	 HHkGlyWCzWRBgJvKrQXQ85V+EgFF3NosOiNXzT2GpDpkYEaE2RDMVF41oo977U2+yQ
-	 3w2KDBa0RmzyTMDJmENPI+Czyfs7FkGe2oaV77JLAINAlrOWELaQ79hR1EMtMGhf9U
-	 F1UghcZpaf7Pg==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 07/23] proc: let procfs own the seq_file of seq_file entries
-Date: Wed,  4 Nov 2026 20:30:58 +0100
-Message-ID: <20261104-work-procfs-core-v2-7-76ace653a773@kernel.org>
-In-Reply-To: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
-References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ebiCagEc
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-19305bcb72cso1044795c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:31:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793820684; x=1794425484; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZzX+Y1+WYbWKOk6oennD0Dv0zMIBzdD9xecwmJHFZfc=;
+        b=ebiCagEcv9jB6n5sa23e1q9YIH20vvBybwTpWuRaFE9enzofxxJUKZky5VAXZ9U9+B
+         6hJh0sdDX/cKfI3AA1HSed1ssW4IK9a3kg8HijPbPC+3mtOPsxwBBkq5bMEQMAKstOwW
+         7jLR0kDPv0fK5mOSmCNUkdqdq3PdPFnNbKikU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793820684; x=1794425484;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZzX+Y1+WYbWKOk6oennD0Dv0zMIBzdD9xecwmJHFZfc=;
+        b=Ra+hZS5F5qfi+SUZSLl4bPkB1Qtw2Efn1DZp2EUN+ingkpolgXpMKawr3Ztf/hA3BT
+         5xzbn7HpFO/RTcm8Tp9FKX0bHDnSkfitk2yTZfmq9Z6zrRgQTWWXi0jipBZCiwb7CYCv
+         HFGziwfpj2D98qzhai08C+6qThkzUeHLzyzDp9wbmiivbR/VzJVbFAmGjg65eA1Hm0wf
+         7PitN73E8g3wFzyawUOh4EiQQlpukzvzuhSnzxnKYFlsCq8nAfc+YoCeKyfYAnjDIm3B
+         /MyN/ks4DtPtpkMSMf1WohK8ClYxPNk4ZBDceVdg2V7lS1/hVSkkwyARzua3ME6hqMEF
+         jWvg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5fWNqbIgImKauayXj76VRKNT5e3KMmJzkBpXXRRK0yyxZuX18Qr6drMFnlN6Ak5cpKuGoywFF9rS+cy8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VoUV09sp2T0cVccmPVno8kFj9m5sGVDPr3tBK1egmKlqm4lBv
+	BfLx1hIZw8cQG7QrmrlgNWK5Cl3X0TrEWML88ew0u4fns4VEkAeLmOpcN7KhoShF7Q==
+X-Gm-Gg: AYBFou2LiBhL5962+GWIDPTs1BK5jZaX57WxzwDF503YxmusPqbN5Kh70yZ3E/oxBaV
+	XyJdxQ+1LgSpjoizzIKtKBhhF5orNDc92chTfJqMSl37W7pALK8t7/kl38wSYRAnIjHZzGOwbK6
+	VVlZQOCjajK4WeCn9+DKx66xfrieNKVWgQOiQaJ8rd029YpDdjKEoE1j5OddL8uR7Kq8UxX8ZZY
+	L37UE+4fp/indv9vEyWf6GS/S7vxGC5MkWWdiux8eEDVZsGNHHSYgm0+fPIQ3CdsP4SALUaxA68
+	XSK5fFFkUUerBHzOXMS/f2lIC1OPAqcu1RKtmvJi0wI5zANfHOGiA/TFg3ty5fsCbkg02hqICyr
+	UbHcXCqvad/c9OBtdTGsK5rvVXXi98hA7x7r6gbx3p9MtVFRMx22/XOzynC8ZOn6v8eKWTckbfk
+	3cMaiieehhMbfpC9+m2j8cSG8xE0ipy2wBnOaBpnwVyYtIcSDdCyDWmOX3zc0C+WV8Jz0pm3ZpR
+	vizJHQyt+VfP69B7nw1EpOtgu/V46BOkVXbltot1S1q2Gf4M61OpIHN+VcGXIklnAuh6EW960fR
+	P25fR16ffsLV3exynkrDw4CCqiTAEqFOm8Pb3YPs47pG6V+R7fjOX2A4UqhmhSr+GhM=
+X-Received: by 2002:a05:7022:3f0a:b0:144:fa57:c617 with SMTP id a92af1059eb24-1ac5c55546cmr28416697c88.34.1793820683864;
+        Wed, 04 Nov 2026 11:31:23 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:1a56:21f2:3dba:7453])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245c748eesm9683024c88.23.2026.11.04.11.31.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 11:31:23 -0800 (PST)
+Date: Wed, 4 Nov 2026 11:31:20 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
+ to dependency
+Message-ID: <auuICAm4BC_8Pzs5@google.com>
+References: <20261103221717.3840215-1-briannorris@chromium.org>
+ <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,480 +104,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16105; i=brauner@kernel.org; h=from:subject:message-id; bh=NknAwwkK4L9ER+HlZOPx363jfWosvwxugcFhrl9okcM=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bq9kjT1hrpD/5WLWx3bW3utVx21MbjYe2n+ry9bk0 It9M1k+d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExETZnhn97P+FShOdXaZ/Y/ qVlvFXBfZsHPBPZdE7fvejeHacKEOwGMDC3dcqlfe8755Ox78fjpdsH/gldmL1dtm/L357mLC9c nzmYAAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
 
-remove_proc_entry() waits until every call into the entry has returned.
-For a seq_file entry that's all of seq_read_iter(), including the copy
-to userspace. A page fault in that copy can be made to take as long as
-the reader wants, e.g. with userfaultfd or by punching holes into a
-memfd over and over. And callers of remove_proc_entry() like to hold
-locks while they wait. xt_hashlimit holds hashlimit_mutex, which all
-network namespaces share, and addrconf holds RTNL.
+On Wed, Nov 04, 2026 at 02:34:22PM +0100, Rafael J. Wysocki (Intel) wrote:
+> I should have responded to the v1 of this, but didn't manage to get to
+> it.  Sorry about that.
 
-But the entry's code only runs between ->start() and ->stop() and the
-copies to userspace happen outside of that. So let procfs own the
-seq_file the way kernfs does. An entry declares its seq_operations, or
-just a show function, and the size of its private state in struct
-proc_ops. procfs then opens the seq_file with seq_operations it builds
-for the entry when it is registered: the entry's own ->next() and
-->show() with a ->start() and ->stop() of procfs around them that pin
-the entry and unpin it again. Nothing of procfs runs between the
-records that way. procfs reads and seeks through seq_file directly. The
-copies to userspace happen with the entry unpinned.
+Hehe, well that's what v2 is for :)
 
-That changes who owns the seq_file. remove_proc_entry() can now finish
-while a reader is still copying out of the buffer, so the seq_file
-can't go away with the entry. procfs frees it once the file is
-released. ->proc_open() finds the seq_file in ->private_data and sets
-up whatever the entry needs and ->proc_release() releases just that. It
-still runs when the entry is removed, or when the file is closed before
-that.
+Thanks for looking.
 
-Since procfs reads these entries through seq_read_iter() itself they
-all have ->splice_read() now, so sendfile(), splice(), aio, the RWF
-flags and kernel_read() work on them, and readv() is one read instead
-of one per segment. Note that a removed entry still hands out what it
-had already formatted and then answers -EIO to reads, and to seeks that
-have to walk the records. Seeking it failed with -EINVAL right away
-before.
+> On Tue, Nov 3, 2026 at 11:23 PM Brian Norris <briannorris@chromium.org> wrote:
+> >
+> > When a child device suspends, it does not update the last_busy timestamp
+> > for its parent. If that parent configured autosuspend and didn't
+> > otherwise maintain its last_busy timestamp, it may now be immediately
+> > eligible to suspend. This is probably not expected -- the parent should
+> > wait for its autosuspend delay before suspending.
+> 
+> Let's first talk about what autosuspend is for: My understanding is
+> that it is there to avoid incurring the runtime PM suspend and resume
+> latency (and cost in terms of energy) in the cases when the device is
+> known or at least is expected to be needed in the near future.  IOW,
+> we want to defer the runtime suspend of the device because if it
+> suspended, it would be resumed shortly thereafter.
+> 
+> I'm not sure if that is always the case when a dependent device
+> suspends and its reference to the parent/supplier is dropped.
 
-For an entry that only has a show function the seq_operations do what
-single_open() does, like kernfs_seq_start(). If the entry can't be
-pinned ->start() fails with -EIO and switches the seq_file to
-seq_operations whose ->stop() doesn't unpin, so the entry's own
-->start() and ->next() can return any error they like. An entry that
-declares a seq_file and also a read or seek method of its own, or one
-that releases the seq_file with seq_release() itself, doesn't make
-sense, procfs reads, seeks and releases the seq_file itself, so
-registering it fails.
+To be clear: dropping a reference is not the point at which we extend
+the timer -- it's simply the point at which we propagate the last_busy
+timestamp.
 
-No users yet.
+The naive algorithm is:
+Every time a device updates its last_busy, sync that timestamp to all
+its dependencies.
 
-Suggested-by: Jann Horn <jannh@google.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/generic.c       |  65 ++++++++++++++++++---
- fs/proc/inode.c         | 146 +++++++++++++++++++++++++++++++++++++++++++-----
- fs/proc/internal.h      |  21 +++++++
- include/linux/proc_fs.h |  22 +++++++-
- 4 files changed, 231 insertions(+), 23 deletions(-)
+My proposal modifies that naive algorithm so that it avoids additional
+graph walks -- it defers that "sync" step until later. (Now that I'm
+spelling this out, I feel like I should have included this in the commit
+message...)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 84f064a651e4..59b89e251ba3 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -41,6 +41,7 @@ void pde_free(struct proc_dir_entry *pde)
- 	if (pde->name != pde->inline_name)
- 		kfree(pde->name);
- 	kfree(pde->open);
-+	kfree(pde->seq_direct);
- 	kmem_cache_free(proc_dir_entry_cache, pde);
- }
- 
-@@ -431,19 +432,41 @@ static const struct inode_operations proc_dir_inode_operations = {
- 	.setattr	= proc_setattr,
- };
- 
--static void pde_set_flags(struct proc_dir_entry *pde)
-+static int pde_set_flags(struct proc_dir_entry *pde)
- {
- 	const struct proc_ops *proc_ops = pde->proc_ops;
- 
- 	if (!proc_ops)
--		return;
-+		return 0;
- 
- 	if (proc_ops->proc_flags & PROC_ENTRY_PERMANENT)
- 		pde->flags |= PROC_ENTRY_PERMANENT;
--	if (proc_ops->proc_read_iter)
--		pde->flags |= PROC_ENTRY_proc_read_iter;
--	if (proc_ops->proc_lseek)
-+	if (proc_ops->proc_seq_ops) {
-+		pde->seq_ops = proc_ops->proc_seq_ops;
-+		pde->state_size = proc_ops->proc_state_size;
-+		pde->flags |= PROC_ENTRY_proc_seq_ops;
-+	} else if (proc_ops->proc_show) {
-+		pde->single_show = proc_ops->proc_show;
-+		pde->flags |= PROC_ENTRY_proc_show;
-+	}
-+	if (pde_is_seq_file(pde)) {
-+		/* procfs reads and seeks through the seq_file itself */
-+		if (WARN_ON_ONCE(proc_ops->proc_read || proc_ops->proc_read_iter ||
-+				 proc_ops->proc_lseek))
-+			return -EINVAL;
-+		/* and frees it, see pde_seq_release() */
-+		if (WARN_ON_ONCE(proc_ops->proc_release == seq_release ||
-+				 proc_ops->proc_release == seq_release_private ||
-+				 proc_ops->proc_release == single_release))
-+			return -EINVAL;
- 		pde->flags |= PROC_ENTRY_proc_lseek;
-+	} else {
-+		if (proc_ops->proc_read_iter)
-+			pde->flags |= PROC_ENTRY_proc_read_iter;
-+		if (proc_ops->proc_lseek)
-+			pde->flags |= PROC_ENTRY_proc_lseek;
-+	}
-+	return 0;
- }
- 
- /*
-@@ -458,6 +481,32 @@ static bool pde_needs_open_node(const struct proc_dir_entry *pde)
- 	return pde->proc_ops->proc_release;
- }
- 
-+/*
-+ * The seq_operations of a seq_file entry: procfs's start and stop around the
-+ * entry's own next and show, see pde_seq_start().
-+ */
-+static int pde_init_seq_direct(struct proc_dir_entry *pde)
-+{
-+	struct seq_operations *ops;
-+
-+	if (!pde_is_seq_file(pde))
-+		return 0;
-+	ops = kmalloc(sizeof(*ops), GFP_KERNEL);
-+	if (!ops)
-+		return -ENOMEM;
-+	ops->start = pde_seq_start;
-+	ops->stop = pde_seq_stop;
-+	if (pde_has_proc_seq_ops(pde)) {
-+		ops->next = pde->seq_ops->next;
-+		ops->show = pde->seq_ops->show;
-+	} else {
-+		ops->next = pde_single_next;
-+		ops->show = pde->single_show;
-+	}
-+	pde->seq_direct = ops;
-+	return 0;
-+}
-+
- /* returns the registered entry, or frees dp and returns NULL on failure */
- struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
- 		struct proc_dir_entry *dp)
-@@ -465,14 +514,16 @@ struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
- 	if (proc_alloc_inum(&dp->low_ino))
- 		goto out_free_entry;
- 
--	if (!S_ISDIR(dp->mode))
--		pde_set_flags(dp);
-+	if (!S_ISDIR(dp->mode) && pde_set_flags(dp))
-+		goto out_free_inum;
- 	if (pde_needs_open_node(dp)) {
- 		dp->open = kzalloc(sizeof(*dp->open), GFP_KERNEL);
- 		if (!dp->open)
- 			goto out_free_inum;
- 		INIT_LIST_HEAD(&dp->open->files);
- 	}
-+	if (pde_init_seq_direct(dp))
-+		goto out_free_inum;
- 
- 	write_lock(&proc_subdir_lock);
- 	dp->parent = dir;
-diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-index 56eab69e1dcc..d51ab7548b11 100644
---- a/fs/proc/inode.c
-+++ b/fs/proc/inode.c
-@@ -219,6 +219,87 @@ static void pde_unpin(struct proc_dir_entry *pde)
- 		unuse_pde(pde);
- }
- 
-+/*
-+ * procfs owns the seq_file of a seq_file entry and only calls into the entry
-+ * with it pinned. A read copies to userspace without the pin, so a reader
-+ * that faults on its buffer doesn't hold up remove_proc_entry().
-+ *
-+ * The seq_operations the seq_file runs are the entry's own next and show
-+ * with procfs's start and stop around them, see pde_init_seq_direct(): the
-+ * pin is taken in start and dropped in stop, and nothing sits between the
-+ * seq_file and the entry's per record code. An entry that only has a show
-+ * function is iterated like single_open() does it.
-+ *
-+ * If the pin fails start switches the seq_file to seq_operations whose stop
-+ * doesn't unpin, so that the entry's own start or next can return any error
-+ * they like, ERR_PTR(-EIO) included.
-+ */
-+static struct proc_dir_entry *seq_pde(struct seq_file *m)
-+{
-+	return PDE(file_inode(m->file));
-+}
-+
-+static void pde_seq_stop_unpinned(struct seq_file *m, void *v)
-+{
-+	m->op = seq_pde(m)->seq_direct;
-+}
-+
-+static const struct seq_operations pde_seq_ops_unpinned = {
-+	.start	= pde_seq_start,
-+	.stop	= pde_seq_stop_unpinned,
-+};
-+
-+void *pde_seq_start(struct seq_file *m, loff_t *pos)
-+{
-+	struct proc_dir_entry *pde = seq_pde(m);
-+
-+	if (!pde_pin(pde)) {
-+		m->op = &pde_seq_ops_unpinned;
-+		return ERR_PTR(-EIO);
-+	}
-+	m->op = pde->seq_direct;
-+	if (!pde_has_proc_seq_ops(pde))
-+		return single_start(m, pos);
-+	return pde->seq_ops->start(m, pos);
-+}
-+
-+void pde_seq_stop(struct seq_file *m, void *v)
-+{
-+	struct proc_dir_entry *pde = seq_pde(m);
-+
-+	if (pde_has_proc_seq_ops(pde))
-+		pde->seq_ops->stop(m, v);
-+	pde_unpin(pde);
-+}
-+
-+/* what single_open() iterates with, seq_file keeps its own private */
-+void *pde_single_next(struct seq_file *m, void *v, loff_t *pos)
-+{
-+	++*pos;
-+	return NULL;
-+}
-+
-+static int pde_seq_open(struct proc_dir_entry *pde, struct file *file)
-+{
-+	int err;
-+
-+	if (pde->state_size)
-+		return seq_open_private(file, pde->seq_direct, pde->state_size);
-+	err = seq_open(file, pde->seq_direct);
-+	if (!err && pde_has_proc_show(pde))
-+		((struct seq_file *)file->private_data)->private = pde->data;
-+	return err;
-+}
-+
-+static void pde_seq_release(struct proc_dir_entry *pde, struct inode *inode,
-+			    struct file *file)
-+{
-+	if (pde->state_size)
-+		seq_release_private(inode, file);
-+	else
-+		seq_release(inode, file);
-+}
-+
- /*
-  * At most 2 contexts can enter this function: the one doing the last
-  * close on the descriptor and whoever is deleting PDE itself.
-@@ -474,22 +555,35 @@ static unsigned int proc_reg_mmap_capabilities(struct file *file)
- }
- #endif
- 
-+static int pde_open(struct proc_dir_entry *pde, struct inode *inode,
-+		    struct file *file)
-+{
-+	const auto open = pde->proc_ops->proc_open;
-+	int rv;
-+
-+	if (!pde_is_seq_file(pde))
-+		return open ? open(inode, file) : 0;
-+
-+	rv = pde_seq_open(pde, file);
-+	if (rv || !open)
-+		return rv;
-+	rv = open(inode, file);
-+	if (rv)
-+		pde_seq_release(pde, inode, file);
-+	return rv;
-+}
-+
- static int proc_reg_open(struct inode *inode, struct file *file)
- {
- 	struct proc_dir_entry *pde = PDE(inode);
- 	int rv = 0;
--	typeof_member(struct proc_ops, proc_open) open;
- 	struct pde_opener *pdeo;
- 
- 	if (!pde_has_proc_lseek(pde))
- 		file->f_mode &= ~FMODE_LSEEK;
- 
--	if (pde_is_permanent(pde)) {
--		open = pde->proc_ops->proc_open;
--		if (open)
--			rv = open(inode, file);
--		return rv;
--	}
-+	if (pde_is_permanent(pde))
-+		return pde_open(pde, inode, file);
- 
- 	/*
- 	 * Ensure that
-@@ -514,9 +608,7 @@ static int proc_reg_open(struct inode *inode, struct file *file)
- 		}
- 	}
- 
--	open = pde->proc_ops->proc_open;
--	if (open)
--		rv = open(inode, file);
-+	rv = pde_open(pde, inode, file);
- 
- 	if (pde->open) {
- 		if (rv == 0) {
-@@ -544,23 +636,45 @@ static int proc_reg_release(struct inode *inode, struct file *file)
- 	if (pde_is_permanent(pde)) {
- 		const auto release = pde->proc_ops->proc_release;
- 		if (release)
--			return release(inode, file);
--		return 0;
-+			release(inode, file);
-+		goto out;
- 	}
- 
- 	if (!pde->open)
--		return 0;
-+		goto out;
- 	spin_lock(&pde->pde_unload_lock);
- 	list_for_each_entry(pdeo, &pde->open->files, lh) {
- 		if (pdeo->file == file) {
- 			close_pdeo(pde, pdeo);
--			return 0;
-+			goto out;
- 		}
- 	}
- 	spin_unlock(&pde->pde_unload_lock);
-+out:
-+	/* ->proc_release() has run, here or in remove_proc_entry() */
-+	if (pde_is_seq_file(pde))
-+		pde_seq_release(pde, inode, file);
- 	return 0;
- }
- 
-+/* For seq_file entries, see pde_seq_ops. */
-+static const struct file_operations proc_seq_file_ops = {
-+	.llseek		= seq_lseek,
-+	.read_iter	= seq_read_iter,
-+	.splice_read	= copy_splice_read,
-+	.write		= proc_reg_write,
-+	.poll		= proc_reg_poll,
-+	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
-+	.compat_ioctl	= proc_reg_compat_ioctl,
-+	.mmap		= proc_reg_mmap,
-+	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
-+	.open		= proc_reg_open,
-+	.release	= proc_reg_release,
-+};
-+
- static const struct file_operations proc_reg_file_ops = {
- 	.llseek		= proc_reg_llseek,
- 	.read		= proc_reg_read,
-@@ -644,7 +758,9 @@ struct inode *proc_get_inode(struct super_block *sb, struct proc_dir_entry *de)
- 
- 	if (S_ISREG(inode->i_mode)) {
- 		inode->i_op = de->proc_iops;
--		if (pde_has_proc_read_iter(de))
-+		if (pde_is_seq_file(de))
-+			inode->i_fop = &proc_seq_file_ops;
-+		else if (pde_has_proc_read_iter(de))
- 			inode->i_fop = &proc_iter_file_ops;
- 		else
- 			inode->i_fop = &proc_reg_file_ops;
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index 7dea0237f08b..674e6b4ed21e 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -46,6 +46,8 @@ struct proc_dir_entry {
- 	};
- 	/* the open files procfs has to know, see struct pde_open_node */
- 	struct pde_open_node *open;
-+	/* the seq_operations of the seq_file, see pde_init_seq_direct() */
-+	struct seq_operations *seq_direct;
- 	proc_write_t write;
- 	void *data;
- 	unsigned int state_size;
-@@ -97,6 +99,22 @@ static inline bool pde_has_proc_lseek(const struct proc_dir_entry *pde)
- 	return pde->flags & PROC_ENTRY_proc_lseek;
- }
- 
-+static inline bool pde_has_proc_seq_ops(const struct proc_dir_entry *pde)
-+{
-+	return pde->flags & PROC_ENTRY_proc_seq_ops;
-+}
-+
-+static inline bool pde_has_proc_show(const struct proc_dir_entry *pde)
-+{
-+	return pde->flags & PROC_ENTRY_proc_show;
-+}
-+
-+/* procfs owns the seq_file, see pde_seq_start() */
-+static inline bool pde_is_seq_file(const struct proc_dir_entry *pde)
-+{
-+	return pde_has_proc_seq_ops(pde) || pde_has_proc_show(pde);
-+}
-+
- extern struct kmem_cache *proc_dir_entry_cache;
- void pde_free(struct proc_dir_entry *pde);
- 
-@@ -343,6 +361,9 @@ void proc_init_kmemcache(void);
- void proc_invalidate_siblings_dcache(struct hlist_head *inodes, spinlock_t *lock);
- void set_proc_pid_nlink(void);
- extern struct inode *proc_get_inode(struct super_block *, struct proc_dir_entry *);
-+void *pde_seq_start(struct seq_file *m, loff_t *pos);
-+void pde_seq_stop(struct seq_file *m, void *v);
-+void *pde_single_next(struct seq_file *m, void *v, loff_t *pos);
- extern void proc_entry_rundown(struct proc_dir_entry *);
- 
- /*
-diff --git a/include/linux/proc_fs.h b/include/linux/proc_fs.h
-index 6ad5150020bf..ea55ed85a2d6 100644
---- a/include/linux/proc_fs.h
-+++ b/include/linux/proc_fs.h
-@@ -27,6 +27,8 @@ enum {
- 
- 	PROC_ENTRY_proc_read_iter	= 1U << 1,
- 	PROC_ENTRY_proc_lseek		= 1U << 3,
-+	PROC_ENTRY_proc_seq_ops		= 1U << 4,
-+	PROC_ENTRY_proc_show		= 1U << 5,
- 
- 	PROC_ENTRY_FORCE_LOOKUP		= 1U << 7,
- };
-@@ -37,7 +39,10 @@ struct proc_ops {
- 	ssize_t	(*proc_read)(struct file *, char __user *, size_t, loff_t *);
- 	ssize_t (*proc_read_iter)(struct kiocb *, struct iov_iter *);
- 	ssize_t	(*proc_write)(struct file *, const char __user *, size_t, loff_t *);
--	/* mandatory unless nonseekable_open() or equivalent is used */
-+	/*
-+	 * mandatory unless nonseekable_open() or equivalent is used, procfs
-+	 * seeks seq_file entries itself
-+	 */
- 	loff_t	(*proc_lseek)(struct file *, loff_t, int);
- 	int	(*proc_release)(struct inode *, struct file *);
- 	__poll_t (*proc_poll)(struct file *, struct poll_table_struct *);
-@@ -47,6 +52,21 @@ struct proc_ops {
- #endif
- 	int	(*proc_mmap)(struct file *, struct vm_area_struct *);
- 	unsigned long (*proc_get_unmapped_area)(struct file *, unsigned long, unsigned long, unsigned long, unsigned long);
-+	/*
-+	 * For seq_file entries procfs opens the seq_file, reads and seeks
-+	 * through it and frees it once the file is released. ->proc_open()
-+	 * finds the seq_file in ->private_data and ->proc_release() only
-+	 * releases what ->proc_open() set up. It can run while a reader still
-+	 * copies out of the seq_file, so it must leave that alone. procfs
-+	 * allocates ->proc_state_size bytes of ->private state for
-+	 * ->proc_seq_ops and points ->private at the entry's data for
-+	 * ->proc_show(). Nothing that runs with the entry pinned may wait for
-+	 * something a copy to or from userspace can hold, like the seq_file's
-+	 * lock.
-+	 */
-+	const struct seq_operations *proc_seq_ops;
-+	int	(*proc_show)(struct seq_file *, void *);
-+	unsigned int proc_state_size;
- } __randomize_layout;
- 
- /* definitions for hide_pid field */
+With that said:
 
--- 
-2.53.0
+> The core calls pm_runtime_mark_last_busy() for resuming devices under
+> the assumption that they are resumed for a reason and so it is likely
+> that they will be needed in near future, but I'm not sure if that
+> assumption can be extended to a child suspend case.
 
+But that's not what I'm doing: I'm not calling mark_last_busy() -- I'm
+just making mark_last_busy() transitive to all dependencies. So any time
+we *already* say the child is busy, I also extend that to the parent --
+I'm not generating any new timestamps; I only reuse the timestamps we
+already selected.
+
+My view on the logic (using your terms above): when a child calls
+mark_last_busy(), it suggests that child might be needed in the near
+future. Whenever a child device is needed, so is its parent (barring
+ignore_children). Thus, mark_last_busy() should also refresh the
+parent's busy timestamp.
+
+Importantly (in the same topic Jonathan was already asking about): this
+does *not* mean the parent gets a whole new autosuspend delay period --
+but it *does* mean that if the parent has a longer delay period
+(presumably because it has a more expensive/slow suspend/resume latency)
+it waits a bit longer (in case the child wakes back up, for one) to
+autosuspend.
+
+In concrete terms of commit c537d3457542 ("iio: adc: stm32-adc: fix
+runtime autosuspend delay when slow polling"):
+
+ * child device has 100ms delay
+ * parent devices has 2s delay
+
+SEQUENCE:
+ 1) child is active for longer than 2 seconds
+ 2) [timestamp N] child finishes I/O, drops reference with put_autosuspend()
+ 3) [N + 100ms] child suspends
+
+CURRENT BEHVIOR:
+ 4) [N + 100ms] parent suspends immediately after #3
+
+PROPOSAL:
+ 4) [N + 2s] parent suspends (if there was no other last_busy update)
+
+The only last_busy timestamp is N; we just use it in more places,
+because the parent was, in fact, busy at timestamp N.
+
+> One might argue
+> though that extending it to the child/consumer resume case would make
+> sense.
+> 
+> > The effect of this behavior is that a parent device may suspend sooner
+> > than its autosuspend delay, simply because its usage was accounted by
+> > its children, and not by direct references to the parent device.
+> 
+> The distinction between "direct references to the parent device" and
+> "usage accounted for by its children" is not clear to me TBH.
+
+"Direct reference" is to mean "pm_runtime_put_autosuspend()" or anything
+similar that updates last_busy. We expect that when the device in
+question is the target object for I/O or whatever is keeping the device
+busy.
+
+But if the I/O is performed by a child, then it's no longer "direct
+reference" -- it's "usage accounted by its children".
+
+> There are references to the parent device in both cases and it is not
+> like drivers can always expect all runtime PM references to come from
+> specific code paths updating last_busy.  There is at least one
+> reference controlled by user space (the "control" attribute in sysfs)
+> and dropping it may also cause the device to suspend immediately if
+> last_busy has not been updated recently.  How is this situation
+> different from the one related to child/consumer suspend?
+
+I think I've improperly directed you to focus on the "reference" part,
+which IMO is a bit of a distraction. The point is: when was the device
+"busy" (or "last used")? The 'control' attribute does not represent
+"last used"; it just represents some unrelated policy to prevent
+suspension.
+
+> > This was noticed in several cases, and some have implemented
+> > workarounds, such as in commit c537d3457542 ("iio: adc: stm32-adc: fix
+> > runtime autosuspend delay when slow polling"). At the same time, Ulf
+> > suggested these problems "should be solved in the runtime PM core" [1].
+> 
+> So I need to be explained how commit 9bdbb1139ca1 ("iio: adc:
+> stm32-adc: add power management support") works because ATM I don't
+> seem to understand it.  It looks to me like the .runtime_idle()
+> callback updates last_busy for the device for which it is called, not
+> for its parent.
+
+Note: stm32-adc-core (drivers/iio/adc/stm32-adc-core.c) is the parent.
+stm32-adc (drivers/iio/adc/stm32-adc.c) is the child.
+
+When the child suspends, the parent checks .runtime_idle(). This updates
+last_busy but still falls through to autosuspend -- that means we get a
+slightly suboptimal sequence like the following:
+
+ 1) child is active for longer than 2 seconds
+ 2) [timestamp N] child finishes I/O, drops reference with put_autosuspend()
+ 3) [N + 100ms] child suspends
+ 4) parent runtime_idle() updates last_busy to [P = approx N + 100ms]
+ 5) [P + 2s] parent suspends
+
+Step 5 happens approximately 100ms later than it really should, but it's
+good enough.
+
+NB: I think this is also why greybus (gb_bundle_idle(),
+gb_interface_runtime_idle(), etc.) and USB (usb_runtime_idle(),
+dwc3_runtime_idle()) look the way they do, with a built-in
+mark_last_busy() in runtime_idle().
+
+I also think that some other areas could use some logic like this. For
+example, drivers/pci/pcie/portdrv.c has a 100ms autosuspend delay so
+that lspci doesn't cause repeated suspend/resume. But suppose config
+access for a child of a port are slow ... then the port still might
+suspend immediately, between config accesses. (Never mind that
+pci_config_pm_runtime_put() doesn't update last_busy...)
+
+> > Instead of working around the problem in drivers, we propagate last_busy
+> > timestamps from a dependent device to its dependencies any time it may
+> > allow a dependency to suspend -- i.e., when releasing a refcount for its
+> > parent or suppliers. We take care to only propagate the timestamp if it
+> > is larger than the existing busy timestamp.
+> 
+> I'm not sure why propagating last_busy timestamps when dropping the
+> reference to the parent/supplier is a good idea.
+> 
+> Why is the child's last_busy timestamp suitable for the parent in the
+> first place?
+
+I think that's an area I could improve in the commit message. But see my
+comments above ("My view on the logic") which I hope answers your
+question.
+
+> Why isn't done when dropping the reference?
+> 
+> > Note that this works best if the dependent device is using autosuspend
+> > (and therefore updates its last_busy timestamps appropriately), but even
+> > for a non-autosuspend child, this is still somewhat useful --
+> > non-autosuspend devices still automatically update their last_busy every
+> > time they resume.
+> >
+> > Link: https://lore.kernel.org/all/CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com/ [1]
+> > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > ---
+> > Cc: Ulf Hansson <ulfh@kernel.org>
+> >
+> > Changes in v2:
+> >  * Update comments to explain when/why rpm_propagate_last_busy()
+> >    performs the update
+> >
+> >  drivers/base/power/runtime.c | 23 ++++++++++++++++++++++-
+> >  1 file changed, 22 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
+> > index 2a117d6a776f..dd306cbabcd3 100644
+> > --- a/drivers/base/power/runtime.c
+> > +++ b/drivers/base/power/runtime.c
+> > @@ -318,6 +318,22 @@ static int rpm_get_suppliers(struct device *dev)
+> >         return 0;
+> >  }
+> >
+> > +/*
+> > + * Propagate last_busy timestamp from one device to another, typically when a
+> > + * device (@dev) releases a reference count on a dependency (@target) and might
+> > + * allow it to (auto)suspend. This can, for example, prevent overactive suspend
+> > + * when a dependency's usage is primarily driven by one of its dependents.
+> 
+> AFAIAC, you need to say much more than this to explain all of it.
+
+OK. If we agree on the what and why, I'll take another pass at this. For
+one, I imagine describing the "naive algorithm" I mention above would be
+a good start. And maybe the principles below.
+
+> > + */
+> > +static void rpm_propagate_last_busy(struct device *dev, struct device *target)
+> > +{
+> > +       s64 busy = atomic64_read(&dev->power.last_busy);
+> > +       s64 target_busy = atomic64_read(&target->power.last_busy);
+> > +
+> > +       while (target_busy < busy)
+> > +               if (atomic64_try_cmpxchg(&target->power.last_busy, &target_busy, busy))
+> > +                       return;
+> > +}
+> 
+> And I'd rather not do anything like the above unless absolutely necessary.
+
+Which part do you not like? The loop? The use of compare/exchange?
+
+The principles involved are:
+
+1) copy the timestamp
+2) avoid going backward in time (e.g., if target already updated to a
+   newer stamp)
+3) avoid TOCTOU races between reading the target stamp and replacing it
+   (e.g., if multiple children are doing this at the same time)
+
+I suppose I could compromise on #3 by only doing a single
+compare/exchange. This would remove the looping (which is admittedly a
+little hard to reason about), at the expense of getting a suboptimal
+update in the (likely rare) case of concurrent updates.
+
+Brian
+
+> > +
+> >  /**
+> >   * pm_runtime_release_supplier - Drop references to device link's supplier.
+> >   * @link: Target device link.
+> > @@ -348,6 +364,7 @@ static void __rpm_put_suppliers(struct device *dev, bool try_to_suspend)
+> >                 if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
+> >                         continue;
+> >
+> > +               rpm_propagate_last_busy(dev, link->supplier);
+> >                 pm_runtime_release_supplier(link);
+> >                 if (try_to_suspend)
+> >                         pm_request_idle(link->supplier);
+> > @@ -710,6 +727,8 @@ static int rpm_suspend(struct device *dev, int rpmflags)
+> >
+> >         if (dev->parent) {
+> >                 parent = dev->parent;
+> > +               if (!parent->power.ignore_children)
+> > +                       rpm_propagate_last_busy(dev, parent);
+> >                 atomic_add_unless(&parent->power.child_count, -1, 0);
+> >         }
+> >         wake_up_all(&dev->power.wait_queue);
+> > @@ -1368,8 +1387,10 @@ int __pm_runtime_set_status(struct device *dev, unsigned int status)
+> >                 goto out_set;
+> >
+> >         if (status == RPM_SUSPENDED) {
+> > -               atomic_add_unless(&parent->power.child_count, -1, 0);
+> >                 notify_parent = !parent->power.ignore_children;
+> > +               if (notify_parent)
+> > +                       rpm_propagate_last_busy(dev, parent);
+> > +               atomic_add_unless(&parent->power.child_count, -1, 0);
+> >         } else {
+> >                 spin_lock_nested(&parent->power.lock, SINGLE_DEPTH_NESTING);
+> >
+> > --
