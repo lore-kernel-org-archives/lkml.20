@@ -1,79 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756495;
-	b=NX/2hmYdD9XfGAADxIIQ3D0MkDMJoUrsuqzvFd+jqrsVLKNKCePeXVXPMfq5vJzSZoSR
-	 0/3cU78u008AFNY3g35/9Co8kxyAapgIuCSpY11bL5iB4abIVVeaPSVYyWppDX3wpbW+9
-	 K5joqaHE66p39You7X4Yf+l4mp5+KZE0DKWUWVNUppkdd4cPlb0jsQNwCBmWI+lmJAs6Y
-	 Z4QubRzQUCAsNS8VNyrhBpUOwUeSCMh08mM7F7F7TjTMtcg0E039PkJU1rJkPCgvSeb3K
-	 vxvmy/W6vBDhvR2rq0YqDJigLHhfetfA0TcDEOgkXn1RpJmgW2bb9qwh6v7qZDdgRNw==
+	t=1793756498;
+	b=J4NQFZmCJ68q394pt6XXUyn4n2ACI8lVGLNYRUkm0tDOJaxj9QXB6YdAGHSNtfqFKTKK
+	 kmGGLKlx4Le7rwcq/Uuz3UqnAGcDAmK4v+wy+MnAPcMsPRZkTHvanrd2tVmeLZIXKBKgA
+	 jBUWPzGybbHt51NQtPwKR9wuJjHzLGu+Nifv1/FMTCIb74kyN0EZffiy32VV873+sX0bN
+	 F42LpCwKE7Xdayk9RT9++uvwNas0AJPGAHyP0Lv8EdliKOZIoLGipsWYszzaGnuksU75p
+	 N3iBXhug9KZHO7tIX687ZptNTA+RKUc1aS8ZNqgsShiHsmqpl7BxJp+LGhHcrbKBVbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756495;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5379CRQJx8I15aivicNrF0oYqHlT2w74jNzhiFSUHZA=;
-	b=of8BjyAbrNeeLfzMl+vg1kAmsPUqDSeWml8J4lCzcnFyRaPqM2HBelc+A1QaDIP/XH7e
-	 aybOFEv9x098Db8jIqDlJwA048nOqWv3WzIUiLjpkYxA+uXKuR/nrJyVx4qibcRrIDAf/
-	 Icsy2aa+5awseLxjPumHWwL9BBWru/h/3qdkJJcExKKhtcc/76IIZQnJ0tthBc5e4rWDN
-	 KSqfzWO1WzatizEZfAnIZ32MzdG+3bSfiXFLAyzxpSarP5OKZ3BPcqL1t4YUi4Ax/gRGf
-	 KmdjWTxm9tmkJh69VZjUc4cMcD+egODe9PuwkXMFKlGkezcRkLVnV0v2fQDYGPQ0ifg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756498;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=nrEpzo2FbyYGf4WoydGR8O8NAthTAxRR3fiKImw2LBY=;
+	b=MEudNlKSEYHaTgMBbVZESgpknaRKnN8smMTla0MWSaFewiKvCTzcbzs1cB/nJE+Ee1My
+	 zyCoQfZ6rUjq4LAOZWGVZYFqewFKAjUCuDqdQeSUAXWThse0U6Oo+ysakqpHksBZLatul
+	 oSoz8vvV9Kznwh7nK/m9avT9P2vRvpuQR89wb75FEZz4mc3Xa0+kPRjElvx+zGE13WLRz
+	 3W1c4eoXAMQUcWfrc9EszW44VdSGgQDLgkE4S2my8Z0k6WEkg02SuSmkBKks0KBEPlNQD
+	 Fp6AlgY1sXV/vqodWAMiz8uYp1ZJhYz3dHb/xs3bDfPL+yrHLJpDTm9ZLtQR+DoiF1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vDXelbPn;
-	arc=none smtp.remote-ip=91.218.175.19
-Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c2KAliKC;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DEB606D81D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24DEB606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFCB606A33A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFCB606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vDXelbPn
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PzuoZhu6Eoqymm75/Wmyv8NSmRksFQncwoKiOhcjjSQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793756493; v=1; x=1794361293;
- b=vDXelbPnSoy8ULyAKuUgNl3sS3ZvslOYhUNpIvDRa4tQlERaH7V3pgsc7wpm1ulBOlkez7TK
- UtjDP6UkEh7rB4vLsrPZtc3HksCB4kye9JxiEYV7AS5ld51dWKLnFL+PlxYv/pfyAdh5lD+8bRF
- SCGQVdAApdyORR+GQ4vIYOXI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da5024db59c4b2f1;
-	Wed, 04 Nov 2026 01:41:33 +0000
-X-Mizu-Trace-ID: da5024db59c4b2f1
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	kernel@lists.opengamingcollective.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	"Jonathan LoBue" <jlobue10@gmail.com>,
-	"Khamunetri Clark" <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	"Joshua Leivenzon" <hacker1024@users.sourceforge.net>,
-	"Nathan Chancellor" <nathan@kernel.org>,
-	=?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>,
-	"Ivan Levchenko" <me@livan.pro>,
-	"Corentin Chary" <corentin.chary@gmail.com>,
-	"Hans de Goede" <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v13 15/18] HID: asus: document ROG XG Mobile sysfs attributes
-Date: Wed,  4 Nov 2026 01:39:32 +0000
-Message-ID: <20261104013935.512713-16-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104013935.512713-1-denis.benato@linux.dev>
-References: <20261104013935.512713-1-denis.benato@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c2KAliKC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793756498; x=1825292498;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vDr2JILrP7CXpfLgY8bKxkAuyrvod5DOQU34EM2moew=;
+  b=c2KAliKC7pExndXfYaCKkJIJPiMYnKFyeJN/Y5wtwPxWO/stcOJiix58
+   PbzD4IUAvZCM/DgFjE8PqbYNvuBD1YTJ7Rg2bwhwVY5Vq4sN3fi8QdOzV
+   4AoHvYSxWwyASzX2IkQaWISfug3KK85T+9/MXwA+eus9VjkXDespwGsU+
+   ozpLYYsUSnsO/Jf0TzRVBeWdR7u1XeRCExGA+mnY3ttQJBCKv5him0+0Y
+   KB2DRm0OEejZfaj1ZdeE+tm7aXdwd9Us0bb6Vy8GeXwDKya0xDl20C0At
+   wjeUNrojb97FR/9HGwBU8GSKx/H8tRVbrMAuiqJsZ7s1Ej8d1g/K+9UHW
+   Q==;
+X-CSE-ConnectionGUID: t/h1vc8nSAyNcCyqq461gA==
+X-CSE-MsgGUID: D3acwIt9RiSrjAH+vBa5Cw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2509025"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2509025"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:41:37 -0800
+X-CSE-ConnectionGUID: nOdDaauHReGtVTXCAtE9IA==
+X-CSE-MsgGUID: z881yAwyRF2NYDW1Ta5Bng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6912924"
+Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:41:37 -0800
+Date: Tue, 3 Nov 2026 17:41:35 -0800
+From: Andi Kleen <ak@linux.intel.com>
+To: Martin Leitner-Ankerl <martin.ankerl@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Youling Tang <youling.tang@linux.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
+	Nikolay Borisov <nik.borisov@suse.com>
+Subject: Re: [PATCH] x86/cpu: Use prefetcht0 for prefetch() on 64-bit
+Message-ID: <auqNT3yNeA1ujmW3@tassilo>
+References: <20261103060658.696994-1-martin.ankerl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,120 +88,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103060658.696994-1-martin.ankerl@gmail.com>
 
-The driver publishes the station's model, serial, mainboard identifier,
-part number, firmware version and hardware generation as read-only
-sysfs files. Document each file: when it is created, what a read
-returns, and when that read is an empty line.
+> +#ifdef CONFIG_X86_64
+> +/*
+> + * Every x86-64 CPU has prefetcht0. Not __builtin_prefetch(): the kernel
+> + * builds with -mno-sse, and clang then drops the builtin without a warning.
+> + */
+> +static inline void prefetch(const void *x)
+> +{
+> +	asm("prefetcht0 %0" : : "m" (*(const char *)x));
+> +}
+> +#else
 
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- .../ABI/testing/sysfs-driver-hid-asus         | 95 +++++++++++++++++++
- 1 file changed, 95 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-asus
+One thing you should check if the inline assembly pessimizes the code on
+gcc. Normally builtins can be better optimized. Or keep using the builtin
+on gcc to be safe.
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-hid-asus b/Documentation/ABI/testing/sysfs-driver-hid-asus
-new file mode 100644
-index 000000000000..30e0d17d4cec
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-hid-asus
-@@ -0,0 +1,95 @@
-+What:		/sys/bus/hid/drivers/asus/<dev>/xgm_model
-+Date:		October 2026
-+Contact:	linux-input@vger.kernel.org
-+Description:
-+		Model of the connected ASUS ROG XG Mobile station, as
-+		reported by the station. An example is "GC33Y".
-+
-+		The file is created only for a supported station, one whose
-+		model name starts with GC31, GC32 or GC33, and only while that
-+		station is bound.
-+		The value is one line and is never empty while the file
-+		exists.
-+
-+		Access: Read only
-+		Valid values: a single line of text
-+
-+What:		/sys/bus/hid/drivers/asus/<dev>/xgm_serial
-+Date:		October 2026
-+Contact:	linux-input@vger.kernel.org
-+Description:
-+		Serial number of the connected ASUS ROG XG Mobile station,
-+		as reported by the station.
-+
-+		The file is created only for a supported station, one whose
-+		model name starts with GC31, GC32 or GC33, and only while that
-+		station is bound.
-+		The read is an empty line when the station did not report a
-+		serial number.
-+
-+		Access: Read only
-+		Valid values: a single line of text
-+
-+What:		/sys/bus/hid/drivers/asus/<dev>/xgm_mainboard
-+Date:		October 2026
-+Contact:	linux-input@vger.kernel.org
-+Description:
-+		Mainboard identifier of the connected ASUS ROG XG Mobile
-+		station, as reported by the station.
-+
-+		The file is created only for a supported station, one whose
-+		model name starts with GC31, GC32 or GC33, and only while that
-+		station is bound.
-+		The read is an empty line when the station did not report a
-+		mainboard identifier.
-+
-+		Access: Read only
-+		Valid values: a single line of text
-+
-+What:		/sys/bus/hid/drivers/asus/<dev>/xgm_part_number
-+Date:		October 2026
-+Contact:	linux-input@vger.kernel.org
-+Description:
-+		Part number of the connected ASUS ROG XG Mobile station, as
-+		reported by the station.
-+
-+		The file is created only for a supported station, one whose
-+		model name starts with GC31, GC32 or GC33, and only while that
-+		station is bound.
-+		The read is an empty line when the station did not report a
-+		part number.
-+
-+		Access: Read only
-+		Valid values: a single line of text
-+
-+What:		/sys/bus/hid/drivers/asus/<dev>/xgm_firmware_version
-+Date:		October 2026
-+Contact:	linux-input@vger.kernel.org
-+Description:
-+		Firmware version of the connected ASUS ROG XG Mobile
-+		station, as reported by the station.
-+
-+		The file is created only for a supported station, one whose
-+		model name starts with GC31, GC32 or GC33, and only while that
-+		station is bound.
-+		The read is an empty line when the version query failed or
-+		the station did not report a firmware version.
-+
-+		Access: Read only
-+		Valid values: a single line of text
-+
-+What:		/sys/bus/hid/drivers/asus/<dev>/xgm_generation
-+Date:		October 2026
-+Contact:	linux-input@vger.kernel.org
-+Description:
-+		Hardware generation of the connected ASUS ROG XG Mobile
-+		station, as reported by the station.
-+
-+		The file is created only for a supported station, one whose
-+		model name starts with GC31, GC32 or GC33, and only while that
-+		station is bound.
-+		The read is an empty line when the version query failed or
-+		the station did not report a generation.
-+
-+		Access: Read only
-+		Valid values: a single line of text
--- 
-2.47.3
-
+-Andi
