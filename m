@@ -1,70 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772878;
-	b=YL8/z3+3GSbSJAfavbYAz0cf5D+2o9PZj2f6UPaKRDXabNKcT2r1CC8E/JSdj0L+8Ll1
-	 sHO9fkA/tQaWzBeoaOtTFOjMdhWwQX+vo2xT+sRrCDhHB1NUhGrTYVOzx0InHECmk3tRi
-	 ccDhgeCGhpC6MYShtYI5rnJN75UeKaXhgh5vhJr4KKYfsRSntSK4NL+RXdPYoCSEGeTHO
-	 vth6XPsMzFRwkeCeoIKd3ArinhbCENhoLLjHse0pSwBvVmo41L47JIRwF6kRSWzELbAWH
-	 hpiLBdadeIpLYb1QWAEtBE9P3G0uWaXaUHefvJReZXmYnt95CUdb5QJ93Bh4bhlD7dw==
+	t=1793773018;
+	b=lFG5LpslVJ3O7QkNkQ/X1hO6YRxhtTUkyKvCMGY30QAzYM3yEH0aH4KG9Hbya96er8EZ
+	 RFhz34YDC2caxvbjl+/n1Afi957pv6D3f6K5zOEItuOuwswyXGkBP2PvjjLA+dy86BXpZ
+	 jkVbAs9XcfJ2AXzipLK46BVQ6OAb+hYToF64RTwM/otq02IZQNHU2BmCMQHI9VX4QpYCx
+	 pI3TsH1AqTAfHNuPc8mvP8shuon36Dk/3vZrUjVB4wiMxr0hlgl1oOlvSIuJiCZfCCTQc
+	 GMYKQ37mAcFFB4ee3Q/Sg8JqlgGFT4CffI6YYED8HnPCWIktEvgaVGrsMqByuo6A6Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772878;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773018;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CvfPGziobIrEteIOatX8FyBV7rtb7GgNQIea2gIpbyE=;
-	b=Du4bCuHkODjJwY8LRqDFh1k4ULj6z3zAqx/ETeCxYdfmdLegVe6SLA4UioRdnVI80198
-	 zwpEgXn4OypAiC4xcehtr/Y1cHCGmmVrgVxC7ld1HorncFvlTeDzZ3Cq9SdE3wsrdSJ0j
-	 1RF8W27TcWUUpyzPqQRnC8c1JnbjEukqJC0WeVfwjwl28uV3P9YPR6pn5NkXWC6rKL/rF
-	 2Vhys6qHeej5f+fX7VftiQ3Pc477kvsenGyQ956E2O9shHV+TcuD8+XJSlRBdqoMml8Q0
-	 onNDf1xjQbZ7BV3LQNPH415s0yJ2lp0lxRFoTIgZfFAX/epBNJFnpdq+SzQuj+vDpqg==
+	bh=ic+f8fAiF3rnn/6l8bF3oaVZtUIPePP4Mud6dITzj/k=;
+	b=3UeB5YUWZ55lPlhlEM+m7oGjezbiQVo6dlwZTd9EJ0ePdDlDYTJIOCS2/x7sVPbKzM0b
+	 zbiIbJJXFj9N3s/BFdxtqSo7mlUHMYuxJ2aRQ9diyvwJ6MYA/rnNzWNuhZ2OiXAA3gKwh
+	 TuZaxJrVbgJmZBCZk/M/cY7PrVGzTg1DeU2IPhwSCHpcjkGWjl9u9jGKM1/gz6JZ1w0mO
+	 xQJDLDlQ4aDIixeXUX68979QX+LohpZ/4dOV8Dxi/l7h1KGJm5kBmWoD1EkUqnV8wGG1W
+	 QG+JHXxjY5hiY+YJp/xVoo4Gt95Ojbx89QJ0zFML4P0H99uOAPEiWa35vAZWxmhfj8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=pzgmwfbB;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B7A2606A326;
-	Wed,  4 Nov 2026 06:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B7A2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="TF8/FEuy";
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5E7606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5E7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=pzgmwfbB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=pzgmwfbBkhN8kkiIQ31P4oJtjcaXPTVCQGoK7E5QgQMNbCDdemW/0QNd5uyezKyBxX1Ztq55FaoYf
-	 Dn9YKGgffjVcPB96gb70iuEVmhBxpRguXS9uNpOG4lBjrrhxANBRd4/ijA1ROcL5EKwKNeQy+QaLSB
-	 tSzVKA6Pg1fCrkqA=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aeacd47e2b-661a6;
-	Wed, 04 Nov 2026 14:14:32 +0800 (CST)
-X-RM-TRANSID:2ee36aeacd47e2b-661a6
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aeacd47cf2-161b3;
-	Wed, 04 Nov 2026 14:14:32 +0800 (CST)
-X-RM-TRANSID:2ee56aeacd47cf2-161b3
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	yana06070@163.com
-Subject: [PATCH net-next v2] ipv4/ipv6: preserve multicast filters after a failed source leave
-Date: Wed,  4 Nov 2026 14:14:19 +0800
-Message-ID: <20261104061419.87989-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TF8/FEuy
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793773013; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=ic+f8fAiF3rnn/6l8bF3oaVZtUIPePP4Mud6dITzj/k=;
+	b=TF8/FEuyUSEjyjFrAPHdh7Z00uJZJV3g3Ii1S7XAAJ+6B4wbzjes5gPYSoL3RJAw9v9J9kr3e0UK2oVd+BPb2T+kKwxV1AKcUMOPyGzVthuS2Xo8TnWN3OCrpTVro/GXPmY1qkpAbjY9q4e6M4Z4WcYjkNk6moO6cTikqQbdapI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R701e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XE4qK9Q_1793773004;
+Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XE4qK9Q_1793773004 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 14:16:53 +0800
+From: Weilin Tong <tongweilin@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Hildenbrand <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] tools/mm/thpmaps: handle carriage returns and non-UTF-8 filenames
+Date: Wed,  4 Nov 2026 14:16:41 +0800
+Message-ID: <20261104061641.1115805-1-tongweilin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,112 +62,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-After joining a group with IP_ADD_MEMBERSHIP or IPV6_JOIN_GROUP,
-MCAST_LEAVE_SOURCE_GROUP for an unjoined source returns EADDRNOTAVAIL
-but switches the socket's filter mode, so the existing membership stops
-receiving. Leaving and rejoining the group restores reception.
-IP_DROP_SOURCE_MEMBERSHIP has the same problem.
+VMAList opens smaps with universal newline handling and strict decoding.
+A carriage return in a mapped filename can split a header into multiple
+records, while non-UTF-8 bytes cause UnicodeDecodeError.
 
-ip_mc_source() and ip6_mc_source() allow an empty-filter mode switch before
-checking whether a source list exists for deletion. The failed request
-changes EXCLUDE {} to INCLUDE {}, so the socket no longer accepts packets
-from any source.
+Read LF-terminated records and use surrogateescape to preserve filename
+bytes. Escape filename characters that stdout cannot encode to avoid
+UnicodeEncodeError when printing mapping names.
 
-Check for a missing source list before changing the filter mode. Preserve
-EADDRNOTAVAIL for the rejected deletion and keep mode switches for valid
-source additions.
-
-Found while reviewing the error paths of ip_mc_source() and
-ip6_mc_source().
-The reproducer uses socket calls without kernel changes or fault injection.
-
-Tested with a UDP socket reproducer under UML using the IPv4 generic and
-legacy APIs and the IPv6 generic API. All three paths lose reception
-before this change and keep receiving with the fix. Source joins and
-leaves, block/unblock, last-source leave, and ordinary leave/rejoin also
-pass.
-
-W=1 x86_64 builds with derived allmodconfig and allyesconfig configurations
-also pass, with no changes to the warning sets.
-
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Fixes: 2444172cfde4 ("tools/mm: add thpmaps script to dump THP usage info")
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Link: https://lore.kernel.org/linux-mm/20261101211644.c63a2028bbede0f763f41f80@linux-foundation.org/
+Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
 ---
-
 Changes in v2:
-- Target net-next and drop the Fixes and stable tags, as requested by
-  Ido Schimmel.
-- No code changes.
+- Escape unencodable mapping names in vma_print() (Sashiko).
+- Rebase onto mm-new.
 
-v1: https://lore.kernel.org/netdev/20261030063603.697510-1-yanxia@cmss.chinamobile.com/
+Link to v1: https://lore.kernel.org/linux-mm/20261102085419.696232-1-tongweilin@linux.alibaba.com/
 
-Validation was performed for v1 on net fcc00b15cb21a6de76826e5012b2c758505f5e65.
-The two modified files are identical at the net-next base commit.
-For the x86_64 builds, the derived configurations disable WERROR and
-KASAN; the derived allyesconfig also disables KUNIT_ALL_TESTS. The complete
-before/after warning sets are identical for each configuration.
+ tools/mm/thpmaps | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
- net/ipv4/igmp.c  | 7 ++++---
- net/ipv6/mcast.c | 7 ++++---
- 2 files changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-index 144fca1..9c38045 100644
---- a/net/ipv4/igmp.c
-+++ b/net/ipv4/igmp.c
-@@ -2520,6 +2520,10 @@ int ip_mc_source(int add, int omode, struct sock *sk, struct
- 		err = -EINVAL;
- 		goto done;
- 	}
-+	psl = rtnl_dereference(pmc->sflist);
-+	if (!add && !psl)
-+		goto done;	/* err = -EADDRNOTAVAIL */
-+
- 	/* if a source filter was set, must be the same mode as before */
- 	if (pmc->sflist) {
- 		if (pmc->sfmode != omode) {
-@@ -2534,10 +2538,7 @@ int ip_mc_source(int add, int omode, struct sock *sk, struct
- 		pmc->sfmode = omode;
- 	}
+diff --git a/tools/mm/thpmaps b/tools/mm/thpmaps
+index a1a9bc30514f..0e17723515cd 100644
+--- a/tools/mm/thpmaps
++++ b/tools/mm/thpmaps
+@@ -196,7 +196,8 @@ class VMAList:
+     # instance to receive VMAs.
+     def __init__(self, pid='self', stats=[]):
+         self.vmas = []
+-        with open(f'/proc/{pid}/smaps', 'r') as file:
++        with open(f'/proc/{pid}/smaps', 'r', newline='\n',
++                  errors='surrogateescape') as file:
+             for line in file:
+                 elements = line.rstrip('\n').split(maxsplit=5)
+                 if '-' in elements[0]:
+@@ -363,12 +364,14 @@ def cont_parse(vma, order, ranges, anons, heads):
+ def vma_print(vma, pid):
+     # Prints a VMA instance in a format similar to smaps. The main difference is
+     # that the pid is included as the first value.
++    name = vma.name.encode(sys.stdout.encoding, errors='backslashreplace')
++    name = name.decode(sys.stdout.encoding)
+     print("{:010d}: {:016x}-{:016x} {}{}{}{} {:08x} {:02x}:{:02x} {:08x} {}"
+         .format(
+             pid, vma.start, vma.end,
+             'r' if vma.read else '-', 'w' if vma.write else '-',
+             'x' if vma.execute else '-', 'p' if vma.private else 's',
+-            vma.pgoff, vma.major, vma.minor, vma.inode, vma.name
++            vma.pgoff, vma.major, vma.minor, vma.inode, name
+         ))
  
--	psl = rtnl_dereference(pmc->sflist);
- 	if (!add) {
--		if (!psl)
--			goto done;	/* err = -EADDRNOTAVAIL */
- 		rv = !0;
- 		for (i = 0; i < psl->sl_count; i++) {
- 			rv = memcmp(&psl->sl_addr[i], &mreqs->imr_sourceaddr,
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index ecef55f..2ade335 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -395,6 +395,10 @@ int ip6_mc_source(int add, int omode, struct sock *sk,
- 		err = -EINVAL;
- 		goto done;
- 	}
-+	psl = sock_dereference(pmc->sflist, sk);
-+	if (!add && !psl)
-+		goto done;	/* err = -EADDRNOTAVAIL */
-+
- 	/* if a source filter was set, must be the same mode as before */
- 	if (rcu_access_pointer(pmc->sflist)) {
- 		if (pmc->sfmode != omode) {
-@@ -408,10 +412,7 @@ int ip6_mc_source(int add, int omode, struct sock *sk,
- 		pmc->sfmode = omode;
- 	}
  
--	psl = sock_dereference(pmc->sflist, sk);
- 	if (!add) {
--		if (!psl)
--			goto done;	/* err = -EADDRNOTAVAIL */
- 		for (i = 0; i < psl->sl_count; i++) {
- 			if (ipv6_addr_equal(&psl->sl_addr[i], source))
- 				break;
 
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
--- 
-2.39.0.windows.2
-
-
-
+base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
