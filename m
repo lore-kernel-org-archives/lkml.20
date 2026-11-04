@@ -1,110 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818308;
-	b=fnWvO7joETLA7pPGixcz5YMqptOWg9kKmEjawC4KJ9IwM6breJLiV5wI3gXdf8okdarH
-	 LAI3pbp/3bQiO0jzJb0s9Kaz4dwijWbI6qCzoSSXkREokxmFz9z3SaRgXENvteTo7Jb8y
-	 dNHxIbh8/fxxfguM3XQh0XKyuurG3oxIvjDH7T9WNSOFTvefpjHiqY/0MV6ZzjLthmie3
-	 h96ceKzBMteBq5R2/iKdc+6tBf1bemr2SK50FYrYsy53EdfyGMRBZ3T0q62o2Bban2psv
-	 C5+845kB6JeoJ62vY8jNQjdJXynKKjJRoaFcbMoB8cHlWMTayI36plkXOq8ujZIEfCw==
+	t=1793818306;
+	b=QVwkm23QMwl1JwsdZFcsOa/mjUi1oTFqlhCrUGTnvQpSQFFA3a7zJvLcuAnWV0lLstWX
+	 Txslo1P4e2fuXnemmZ9FIqo6dj7SX1BXfyff0CPHTLY0o08wxZsvLwhLFLBjYEMK+Cf1o
+	 qG9zvJs+LAzZ4SzuhFe1MczvTe+EKy6mpGA8oeBYl+NAqsm1GyFvNW9y8+dlmpj4wEDF1
+	 VQ5POP9KBh8Wh1UZbI5XFuCD6aGH+RidtPNtLVvJXz+8LVPf0vk/Vq7npHImHkP68KVEG
+	 NTU41o9YiPfrX4+mXkl+ACo8Ji9s9Y0TQcT2DbGdtaG1cp2cZ7fOQjoMNN/C2ncHVpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818306;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FR9ISTDLDcSmV8QN0XnoAmz6g1DwpZqiIgX15CQUaGg=;
-	b=zcHhtvuIy23wch/2AT/Omu3tcO+su0HlLHKrjiXQ5GlH1C0LuWqP0MQn82AIS8RDiRkN
-	 zyJHQAqDgQ3ojy/CXnwuLl81FNbuQV6dTgSR9S+n16SwmXSGmNJJgvB34QFbTplmOgx5U
-	 vhwsTHMqSDlrT/9ojPywT87j9h/2BSLxTbN/JiYJcCG7SAaO8WbtsEXV2C5QaiziopVKZ
-	 PNyVKosgcOvrRQnHOgsgZu2Zgnoz2GrC7RJoKtPt9zFw2IHRB6wpbRp+90dr94r1kavye
-	 9xSyUgDpHItT7nWC9opnZTXkgqKNp71Fo5VtTJ9caBx0CTMuWCE/oAeObnUBZnwsc1g==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=GxOsG1FNuod9bXhFvzMNlfoNfXOWS5qMBH+q+vk1SoE=;
+	b=i2euA1NBP8yN6GY33nNOSVi0H4LJ7xPnRlT4SnfR4ck+UpMLX2C3kuIyk4PCkpXbtvmP
+	 zpjGAqmjFT0lwI4Wx3Bq6XqGD4R1WJR1QmUt0SVc8vXvrAWR1S+lj9kRiAy+i855qhs+L
+	 72uXPNUz7xT+VIJddrmHOQb5l8QlwN9N8XDa8X/4oo6NWlvrlsggz12Ai1sT/0ccYemA/
+	 YL6Gzfyz4CnVxgaQQjtcdsKPkJUS7lGNuxcpS9xwHmR+i65vpm3NWga2VMgpX9KnUbIR5
+	 ExcxnjEcS6Tg6NPE3+KHWKd3E4L4Gcpgt4wAK+le7WtkhWGkoVxpSl/PJxsFVVq8bMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crusoe.ai;
-	spf=pass smtp.mailfrom=crusoe.ai;
-	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=aXZc4RUt;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VEq8MWFn;
+	arc=none smtp.remote-ip=209.85.167.174
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA618606EE87
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:51:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA618606EE87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C14606D80A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C14606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=aXZc4RUt
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so1912475eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:51:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VEq8MWFn
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4f66bb2ab57so400978b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:51:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1793818307; x=1794423107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FR9ISTDLDcSmV8QN0XnoAmz6g1DwpZqiIgX15CQUaGg=;
-        b=aXZc4RUt+X6JLu/yab1RJ4ui6uxGuurah/MuZQ2E8AB82pImMo512+wmAYfQytCWox
-         aq+acp0ro43dxgAh8SQt0EuqzHdVrZ5oVwCOMuOhoZglZBH6893xIb/tczwV8UrUlqFy
-         9C9QRDuayn1MAsQ318jYS+iEXm6PHdOARh46+LFrXSLgYNb/StSHhum9c+8bwyWP1qVn
-         VHoZAvLLzPa6iw2eEWn41OT+B3pcdvcMyqtmHoYe0folbB27uIXZgPSfFoP6AlsZq2zP
-         +Y0wNZ982HQnjz7H97oDPDvF2fnARaURqusezb9+gLXnqA1uU//CZ4J2EOMinq6gz2CU
-         3z3Q==
+        d=gmail.com; s=20260707; t=1793818305; x=1794423105; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GxOsG1FNuod9bXhFvzMNlfoNfXOWS5qMBH+q+vk1SoE=;
+        b=VEq8MWFnZ89eQVqxi2LjalVk93IhZocmtSrtejj054zKt9zA/tuOf12Qe6y3MbR/sV
+         RdlV+tige7q5ICSGHANAV0w2hZVqpnj9x0eEKyHyeFI5e33l+x598EMgs6zQxgigqQaF
+         Sfa3LdhxiJpePdUgluAkxvTZenWktqkM1WY1u/X4EzVh0pwKo/waDHI3wjEbAU56HveF
+         92NC4u1d06GZWKpAxL/6GpzpbFB0JJ4yNXPVw0992YJKgTdI+PRtDGYQPek75nHaS7sJ
+         Nc96bPqYsMzVjdJ9FK1cKlwHSQAyDJsF/RqA2z2UBmI7zNrgqiTFVACJ/J/SThLY5WFy
+         o9xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818307; x=1794423107;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FR9ISTDLDcSmV8QN0XnoAmz6g1DwpZqiIgX15CQUaGg=;
-        b=fbaVIE8O6rziimaxXNqSA2jH3AF0b9BDn4n+3vMM2ae1xjqqnuWi9ZXdaw/ykbPn+g
-         WCvO/nDJSXuN/wa9Fr3imdFsKqMB9OgxUyh+P2UTj3xGn/qTfvRK11QqvM2YmstwEgIX
-         YvenSfEdTr351eKtLjh8RRyyFDbMN1yTuC3foxQiwK41qjt3a3/421Hb1hyj05WxPyYD
-         F17qFZsOSrlvh25A+vhfgz7nwY46PPoXTAeIsD6g+cQMuK8Fx2fW/Fw/3CVwmc64W09n
-         7n1tbWiUSbM1WY5jrWc+oce6yS+54/JKi0Qt3hoQ9aS31dEYiLeEmRXXWEChamGjOzb/
-         hSIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxC089kS+xBwGWaJcol/xlro/c+TGjrDv8XRhd/t0713O1+vAUm8mvtaEtbrPbccxRFRfq91ccmgLTTmTk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/imgOi2fUMvJ3XiZJLVUJcWe5M1Y+OTrMKTCP/D3u7sC8Asbmh
-	F0tvaY+ieidolDkBv6s7ZaAnQJJS+idpT9VIUiloh87BWRac6tVHmCJwkcLrt+WPnbc=
-X-Gm-Gg: AYBFou1f9hQNYimjGKn32EWcxnEgqHLh5VEA1LcxZ2uKNJtZicO2JsXftbqHZFa1VEf
-	aIFgjaQSFRm7p3tZp6oLzHfhQq8lY+epoXA1jFiPfA8eqsB18GiAyFb8S71J4isKSz9khiVDo8A
-	XVfbN0cCfcbX0MJfsmcb0F3NmyX3VXDFwGBpKYsAWbOy5og5aGWHQOziNDAmmyWxRYSbtzXtyWJ
-	IBE6BmSdEt1DUJobbKlOFq4CF1C/RMHObAST3DeZub7jpLVYnjKMQYRybI125c2+qnSGdSLGIZv
-	MsIHkKuHQrychVIHYZR4s2PH83umuYJG8klD5iViND8jqtgnKWWyByfq69FOFATXEqEpGo/S0wk
-	UA4XQ01s1SRolJETulUCGZNlawWeiq96VJlnmMLxSUZTJvKU0hrivhN66u5dcz3mF/bKmACozv9
-	K5yWzFSu6xcOgSVjVdbxW+fJh83lv8YAy3TMHCkcve+XSk4L92BVj+5vsd63nCuPKzxNp+rpvZZ
-	wPoCZrQlAnH+lerASwEtcO2qNOKV9VnLPWYqLs6cKbYBsLmGNBF+nfTt4pj1MPEL2ECnkiEcPiQ
-	5F3Wl3TXlPKckwz7TAWxUFgvNoQVGCT6vJ3cVsyd401mUyf9SjQoVOQIx7jPAbBVsW7gMfVWCwo
-	=
-X-Received: by 2002:a05:7301:6498:b0:36d:bf43:93ee with SMTP id 5a478bee46e88-36dbf52d6cdmr849344eec.28.1793818306527;
-        Wed, 04 Nov 2026 10:51:46 -0800 (PST)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([67.208.231.220])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3966daasm12193389eec.23.2026.11.04.10.51.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 10:51:46 -0800 (PST)
-From: Saravanan D <saravanand@crusoe.ai>
-To: sashiko-reviews@lists.linux.dev
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	sashiko-bot@kernel.org,
-	linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	nilay@linux.ibm.com,
-	dwagner@suse.de,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai,
-	bchen@crusoe.ai
-Subject: Re: [PATCH v7 1/2] nvme: add per-queue sysfs directories
-Date: Wed,  4 Nov 2026 10:51:25 -0800
-Message-ID: <20261104185131.92361-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <sashiko-outbox-197419@kernel.org>
-References: <cover.1793800758.git.saravanand@crusoe.ai> <656dac7329c8452efe786b0c76a3b8c0bbf53159.1793800758.git.saravanand@crusoe.ai> <sashiko-outbox-197419@kernel.org>
+        d=1e100.net; s=20260707; t=1793818305; x=1794423105;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GxOsG1FNuod9bXhFvzMNlfoNfXOWS5qMBH+q+vk1SoE=;
+        b=YqWg3UwKSr0HmshbGx5RUIt1//QbydW4+YmI5dK85mOziud06eU9zVA/zFUMdCbf3n
+         CA5AFmp4eP7FYyuP4fy3fSi4LPyIntJFfU18xRbZZGgk4xgk6tVVMn/WAitQML3pg0dq
+         V5O4hvfibh0pn9EKppRXiS2JKj0eOojEHblRwSUXecK/leaTxSKZWZYznLr1/ihTiiXv
+         V6scWxsEdN5iCwK4C8TfpsDY56TEt+wFIsw/tZZuFuzK65pbLDOlHADc1t/4UzJBx4aE
+         0986oPkWmq8E2/C9ZpD8Z+AScQonI32DSSZ0Hwuu93K5/kanM4dT1d4x8mmOZz879LeM
+         paPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxuFkVHHh3u2U7L9vigwdP0YaJWEeRqP7ZwWN9EL/8AHuLscwzNxm4tD20TLkCVIWWc5rdFE/6X30J+qOw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0PzUehyWuVRH/CSzMu4OpPwE88TRZXMJm/fIcWkB/H+vh2xbs
+	d7I8/zXxg8agciJ5p7RfgGYE8ck7irKNX1f5ZHaDTobQTBWq6D+Emcs1
+X-Gm-Gg: AYBFou20xmACc5KjxEnQsLHY2lPg+yJ2sA4x/uVpuyjtmZWJ1w5O3CzCfWB/lSv1AKo
+	zM0NI75YApu2vuZ/s9liH6wn30irT9oZF5O/kX1qpVGO0mKfzuvhxryDdPZw1NRMxF5MQCT1xNd
+	2f4pcnxKMuwRFoRl6fSn8y7GYueYXcxXHFGfo3lop1ygqRK2no0WfjbuenQ9PjGqvYtOQkoVCo0
+	RfxkS83keQ6UOHzFD1+ElFdb/h3+nGPevcjH4BNscghdclZ6oHPBbcWmMP7Ze+K/0RvF5NUcn2N
+	x6t+ThUndEK+JU0kXG0aLsjDJJznlggFdJaXjMNe51YifXAIQ8x0aL6Y5aQ4Y2AV8CFeR4TS0/r
+	CecAnUrIdv9yqKuscCrl653U0533Dz6Lw+QTJSmq4kql1Bi1eyRnRLWnfeVxPXTJnUtkxjqRKJ7
+	PyC3lE4/XHKb6tIqEVkhw7zW2Yz7xqd3G8WaUCOY4wA1zbYmrqumkcK5hdFXJrf45R61fkcR6Ne
+	oljIajVDif3NozjsTdlZTGA3FMth+VKg6MOoLNYlyn6g+BlPL7ylNK00kYuF4GCKOpUcS3hZb4W
+	dWEbuhF3E0tY42wpm7mJxcb1dbVVSD9VxRSzONno8+RwrkZvdt/4sCbw7TkBIxetWHi5Jy9jewg
+	pZujeZ+UAJSLvbhl6wikWQa6I41/PC2Q9FgD47Ci2Pv66S8y2cumh3Hyzej3/ULqoOVu6dgZECS
+	BotMhqnceLSB0H7DLOiYtiASEx+zYqIaYFdCE+W+8kl9J57AlNYZvc
+X-Received: by 2002:a05:6808:1b0a:b0:500:5e36:3a9d with SMTP id 5614622812f47-5640de79ad3mr10612422b6e.30.1793818304721;
+        Wed, 04 Nov 2026 10:51:44 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdebe2sm2316003b6e.16.2026.11.04.10.51.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:51:44 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 04 Nov 2026 11:51:41 -0700
+Subject: [PATCH net v2] net: stmmac: rebuild VLAN priority steering when
+ filters change
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,36 +93,338 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-submit-stmmac-vlan-prio-v1-v2-1-6cfc71e636ad@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ7CIBREr2L+WgxgLY0r72G6oPjbflOgASSap
+ neX1guYzGYmkzezQMRAGOF6WCBgpkjeFSOPBzCjdgMyehQPkstaCC5ZfHWWEovJWm1YnrRjcyD
+ PsmANXvpaVb2QXEABzAF7eu/wOzhM0P7CgniiSRt2q40Ukw+f/UIWe/mftSLBZHdWqlZYIW9ug
+ 9U0nYy30K7r+gWYNtDX2wAAAA==
+X-Change-ID: 20261102-submit-stmmac-vlan-prio-v1-8e5f674f1201
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Piotr Wejman <piotrwejman90@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Wed, Nov 04, 2026 at 02:17:33PM +0000, sashiko-bot@kernel.org wrote:
-[...]
-> [Severity: Medium]
-> If sysfs_create_groups() fails in nvme_add_queue_info() after
-> kobject_init_and_add() has already published qinfo->kobj in sysfs,
-> should the error path call kobject_del(&qinfo->kobj) before
-> kobject_put(&qinfo->kobj), just like nvme_remove_queue_info() does?
+The RX queue priority callbacks preserve previously assigned priorities.
+Passing zero from tc_del_vlan_flow() therefore leaves the deleted rule's
+priority mapped to its RX queue. Clearing the whole queue instead would
+also remove priorities belonging to other installed rules.
 
-I'm surprised this sequence went unnoticed in the previous versions of
-this patch, since the error path has not changed since v5. My fault
-injection runs used DEBUG_KOBJECT_RELEASE, which would have exposed the
-directory left behind, but they set fail-nth on the task writing to
-/dev/nvme-fabrics, and fail-nth only fails allocations made by that
-task. nvme_tcp_setup_io_queues() starts each I/O queue from an async
-worker, so nvme_add_queue_info() runs in a different task and none of
-its allocations failed.
+Save each VLAN rule's priority and rebuild the complete per-queue masks
+after insertion and deletion, starting from the platform assignments.
+Resolve overlapping platform masks with the same last-queue-wins ordering
+used during initialization.
 
-I will send a v8 that calls kobject_del() before kobject_put() once
-kobject_init_and_add() has succeeded, so a failed sysfs_create_groups()
-unlinks the <qid> directory before nvme_add_queue_info() returns, the
-same way nvme_remove_queue_info() does.
+Make the GMAC4 and XGMAC callbacks replace the target queue's mask while
+retaining their exclusion of its priorities from other queues. Program a
+priority's new destination before clearing its previous assignment.
 
-I have also extended my own testing with a run that uses the failslab
-stack filter to fail each allocation under nvme_add_queue_info() in
-turn, including those made from the async workers. It checks that a
-failed add leaves no queues/<qid> directory behind and that a controller
-reset can add the same qid again. It fails on v7 and passes with the
-fix.
+Keep VLAN rules in programming order. Flower installs a replacement under
+a new cookie before deleting the old one, so the newer assignment must
+remain effective while both are present, including when an earlier array
+slot is reused. Removing a rejected replacement restores the older rule,
+and removing the last override restores the platform assignment.
 
-Thanks,
-Saravanan D.
+VLAN and EtherType rules share the RFS array. Preserve an existing cookie's
+steering type and reuse its entry without incrementing the rule count, so
+replaying a rule cannot unlink an EtherType entry or leave a retyped VLAN
+entry on the list.
+
+Validate the selected RX queue before indexing the masks:
+tc_classid_to_hwtc() checks the number of traffic classes, which can exceed
+the number of RX queues. When rebuilding the masks, skip rules whose RX
+queue was removed by ethtool so they cannot suppress the platform
+assignment or an older rule targeting an active queue.
+
+Found by code inspection while working on STMMAC reset/recovery fixes.
+Host-side tests exercising the driver's VLAN rule handlers and priority
+callbacks with mocked MMIO reproduce the stale mapping after deletion
+and pass with this fix. No hardware testing was performed.
+
+Fixes: b3da86d432b7 ("net: stmmac: fix rx queue priority assignment")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- Preserve RFS entry types on replay in both the VLAN and EtherType
+  handlers, keeping only VLAN entries on the priority list.
+- Reuse installed EtherType entries without counting them again or
+  rejecting them against their own capacity limit.
+- Skip removed RX queues when rebuilding masks, retaining active
+  platform assignments and older valid rules.
+- Rebase onto net at 03897066069f.
+- Link to v1: https://patch.msgid.link/20261102-submit-stmmac-vlan-prio-v1-v1-1-2b37767e4e08@gmail.com
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  2 +
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  2 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  4 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    | 97 ++++++++++++++++------
+ 4 files changed, 81 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index 259e2ebed8c1..efbe2ec4c213 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -126,6 +126,7 @@ static void dwmac4_rx_queue_priority(struct mac_device_info *hw,
+ 	 * clear them from others queues
+ 	 */
+ 	if (queue < 4) {
++		ctrl2 &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
+ 		ctrl2 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
+ 						GMAC_RXQCTRL_PSRQX_MASK(queue);
+ 
+@@ -134,6 +135,7 @@ static void dwmac4_rx_queue_priority(struct mac_device_info *hw,
+ 	} else {
+ 		queue -= 4;
+ 
++		ctrl3 &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
+ 		ctrl3 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
+ 						GMAC_RXQCTRL_PSRQX_MASK(queue);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 1a88cbaed70c..7ad08651675e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -119,6 +119,7 @@ static void dwxgmac2_rx_queue_prio(struct mac_device_info *hw, u32 prio,
+ 	 * clear them from others queues
+ 	 */
+ 	if (queue < 4) {
++		ctrl2 &= ~XGMAC_PSRQ(queue);
+ 		ctrl2 |= (prio << XGMAC_PSRQ_SHIFT(queue)) &
+ 						XGMAC_PSRQ(queue);
+ 
+@@ -127,6 +128,7 @@ static void dwxgmac2_rx_queue_prio(struct mac_device_info *hw, u32 prio,
+ 	} else {
+ 		queue -= 4;
+ 
++		ctrl3 &= ~XGMAC_PSRQ(queue);
+ 		ctrl3 |= (prio << XGMAC_PSRQ_SHIFT(queue)) &
+ 						XGMAC_PSRQ(queue);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index b76acfe0d958..fcc395321816 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -14,6 +14,7 @@
+ #include <linux/clk.h>
+ #include <linux/hrtimer.h>
+ #include <linux/if_vlan.h>
++#include <linux/list.h>
+ #include <linux/stmmac.h>
+ #include <linux/phylink.h>
+ #include <linux/pci.h>
+@@ -210,6 +211,8 @@ enum stmmac_rfs_type {
+ struct stmmac_rfs_entry {
+ 	unsigned long cookie;
+ 	u16 etype;
++	u8 vlan_prio;
++	struct list_head vlan_node;
+ 	int in_use;
+ 	int type;
+ 	int tc;
+@@ -382,6 +385,7 @@ struct stmmac_priv {
+ 	unsigned int rfs_entries_cnt[STMMAC_RFS_T_MAX];
+ 	unsigned int rfs_entries_total;
+ 	struct stmmac_rfs_entry *rfs_entries;
++	struct list_head vlan_prio;
+ 
+ 	/* Pulse Per Second output */
+ 	struct stmmac_pps_cfg pps[STMMAC_PPS_MAX];
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 10b61fa2c27c..2ea3f433ff9b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -250,6 +250,8 @@ static int tc_rfs_init(struct stmmac_priv *priv)
+ 	if (!priv->rfs_entries)
+ 		return -ENOMEM;
+ 
++	INIT_LIST_HEAD(&priv->vlan_prio);
++
+ 	dev_info(priv->device, "Enabled RFS Flow TC (entries=%d)\n",
+ 		 priv->rfs_entries_total);
+ 
+@@ -685,6 +687,45 @@ static struct stmmac_rfs_entry *tc_find_rfs(struct stmmac_priv *priv,
+ 
+ #define VLAN_PRIO_FULL_MASK (0x07)
+ 
++static void tc_update_vlan_prio(struct stmmac_priv *priv, u8 prio)
++{
++	u8 prios[MTL_MAX_RX_QUEUES] = {};
++	struct stmmac_rfs_entry *entry;
++	unsigned int queue, i;
++
++	/* Restore platform assignments with the same precedence as setup. */
++	for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++) {
++		if (!priv->plat->rx_queues_cfg[queue].use_prio)
++			continue;
++
++		prios[queue] = priv->plat->rx_queues_cfg[queue].prio;
++		for (i = 0; i < queue; i++)
++			prios[i] &= ~prios[queue];
++	}
++
++	/*
++	 * Flower installs a replacement before destroying the old cookie.
++	 * Preserve the latest assignment while both rules are present.
++	 */
++	list_for_each_entry(entry, &priv->vlan_prio, vlan_node) {
++		/* The RX queue count may have been reduced with ethtool. */
++		if (entry->tc >= priv->plat->rx_queues_to_use)
++			continue;
++
++		for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++)
++			prios[queue] &= ~entry->vlan_prio;
++		prios[entry->tc] |= entry->vlan_prio;
++	}
++
++	/* Install the new assignment before clearing the previous queue. */
++	for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++)
++		if (prios[queue] & prio)
++			stmmac_rx_queue_prio(priv, priv->hw, prios[queue], queue);
++	for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++)
++		if (!(prios[queue] & prio))
++			stmmac_rx_queue_prio(priv, priv->hw, prios[queue], queue);
++}
++
+ static int tc_add_vlan_flow(struct stmmac_priv *priv,
+ 			    struct flow_cls_offload *cls)
+ {
+@@ -694,13 +735,16 @@ static int tc_add_vlan_flow(struct stmmac_priv *priv,
+ 	int tc = tc_classid_to_hwtc(priv->dev, cls->classid);
+ 	struct flow_match_vlan match;
+ 
++	if (entry && entry->in_use && entry->type != STMMAC_RFS_T_VLAN)
++		return -EINVAL;
++
+ 	if (!entry) {
+ 		entry = tc_find_rfs(priv, cls, true);
+ 		if (!entry)
+ 			return -ENOENT;
+ 	}
+ 
+-	if (priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN] >=
++	if (!entry->in_use && priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN] >=
+ 	    priv->rfs_entries_max[STMMAC_RFS_T_VLAN])
+ 		return -ENOENT;
+ 
+@@ -708,7 +752,7 @@ static int tc_add_vlan_flow(struct stmmac_priv *priv,
+ 	if (!dissector_uses_key(dissector, FLOW_DISSECTOR_KEY_VLAN))
+ 		return -EINVAL;
+ 
+-	if (tc < 0) {
++	if (tc < 0 || tc >= priv->plat->rx_queues_to_use) {
+ 		netdev_err(priv->dev, "Invalid traffic class\n");
+ 		return -EINVAL;
+ 	}
+@@ -724,13 +768,18 @@ static int tc_add_vlan_flow(struct stmmac_priv *priv,
+ 		}
+ 
+ 		prio = BIT(match.key->vlan_priority);
+-		stmmac_rx_queue_prio(priv, priv->hw, prio, tc);
++		if (entry->in_use)
++			list_del(&entry->vlan_node);
++		else
++			priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN]++;
+ 
+ 		entry->in_use = true;
+ 		entry->cookie = cls->cookie;
+ 		entry->tc = tc;
+ 		entry->type = STMMAC_RFS_T_VLAN;
+-		priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN]++;
++		entry->vlan_prio = prio;
++		list_add_tail(&entry->vlan_node, &priv->vlan_prio);
++		tc_update_vlan_prio(priv, entry->vlan_prio);
+ 	}
+ 
+ 	return 0;
+@@ -744,14 +793,14 @@ static int tc_del_vlan_flow(struct stmmac_priv *priv,
+ 	if (!entry || !entry->in_use || entry->type != STMMAC_RFS_T_VLAN)
+ 		return -ENOENT;
+ 
+-	stmmac_rx_queue_prio(priv, priv->hw, 0, entry->tc);
+-
++	list_del(&entry->vlan_node);
+ 	entry->in_use = false;
+ 	entry->cookie = 0;
+ 	entry->tc = 0;
+ 	entry->type = 0;
+ 
+ 	priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN]--;
++	tc_update_vlan_prio(priv, entry->vlan_prio);
+ 
+ 	return 0;
+ }
+@@ -784,6 +833,8 @@ static int tc_add_ethtype_flow(struct stmmac_priv *priv,
+ 
+ 	if (match.mask->n_proto) {
+ 		u16 etype = ntohs(match.key->n_proto);
++		enum stmmac_rfs_type type;
++		u8 packet;
+ 
+ 		if (match.mask->n_proto != ETHER_TYPE_FULL_MASK) {
+ 			netdev_err(priv->dev, "Only full mask is supported for EthType filter");
+@@ -791,32 +842,30 @@ static int tc_add_ethtype_flow(struct stmmac_priv *priv,
+ 		}
+ 		switch (etype) {
+ 		case ETH_P_LLDP:
+-			if (priv->rfs_entries_cnt[STMMAC_RFS_T_LLDP] >=
+-			    priv->rfs_entries_max[STMMAC_RFS_T_LLDP])
+-				return -ENOENT;
+-
+-			entry->type = STMMAC_RFS_T_LLDP;
+-			priv->rfs_entries_cnt[STMMAC_RFS_T_LLDP]++;
+-
+-			stmmac_rx_queue_routing(priv, priv->hw,
+-						PACKET_DCBCPQ, tc);
++			type = STMMAC_RFS_T_LLDP;
++			packet = PACKET_DCBCPQ;
+ 			break;
+ 		case ETH_P_1588:
+-			if (priv->rfs_entries_cnt[STMMAC_RFS_T_1588] >=
+-			    priv->rfs_entries_max[STMMAC_RFS_T_1588])
+-				return -ENOENT;
+-
+-			entry->type = STMMAC_RFS_T_1588;
+-			priv->rfs_entries_cnt[STMMAC_RFS_T_1588]++;
+-
+-			stmmac_rx_queue_routing(priv, priv->hw,
+-						PACKET_PTPQ, tc);
++			type = STMMAC_RFS_T_1588;
++			packet = PACKET_PTPQ;
+ 			break;
+ 		default:
+ 			netdev_err(priv->dev, "EthType(0x%x) is not supported", etype);
+ 			return -EINVAL;
+ 		}
+ 
++		/* Replaying a cookie must preserve its steering type. */
++		if (entry->in_use) {
++			if (entry->type != type)
++				return -EINVAL;
++		} else {
++			if (priv->rfs_entries_cnt[type] >= priv->rfs_entries_max[type])
++				return -ENOENT;
++			priv->rfs_entries_cnt[type]++;
++		}
++
++		stmmac_rx_queue_routing(priv, priv->hw, packet, tc);
++		entry->type = type;
+ 		entry->in_use = true;
+ 		entry->cookie = cls->cookie;
+ 		entry->tc = tc;
+
+---
+base-commit: 03897066069fd47caf2908183edf3b22b822ea73
+change-id: 20261102-submit-stmmac-vlan-prio-v1-8e5f674f1201
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
