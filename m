@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827774;
-	b=c+L6AadBfEeJ9nDscYST0cNmNyh6Nmvd1bfuR3ag4R0OFe6n9ORK7wuYXLLi5A/ITtip
-	 KHCU7eBAQ4a+WBarD8BQIlYMyiS43LYecItBm7ef39WFzCvXrbx3u7f3EfUNUk0edcT0n
-	 gWz6Gw2BgrgICQ5rEutS9kA6CtcxbCIx7zVrgOA6GdejQyDTaCfvCxR7JNXoyj0yrFhCM
-	 PWWxqUjsQHcvrJpqcFmfjGmwPlkudUmOhZdH62UAcXoo2okfZPfFfnenOnc1g+NpTxajO
-	 vG6dgiD3enhAFlhI5WIT9GL7cfWZTtXHK32hHoBNiQT9oPxh32dCDPC+OWKwyEMfUAw==
+	t=1793827817;
+	b=lVotiXSMeSbhCLH5I/MHWpt2MedlJuoLOErTujv+aWND4CR+x4XfazK7HQ5wpFKgZ1Uv
+	 XvYxRmMIzkz8il81w6hbN/v/5zLvTmscePyLZKtZPVSVOnqQxW/LOjHLEnmBv4gvX8E51
+	 pCVTiWwEd1eeAdNwJs8DrblGuloicZGbyCgSiXISG5Og7W5FW+CUM0t9yxXB6hmhbEM/l
+	 BuDTD+5IzmbVJ/l/360vCiS0w9drR0xptNipdk5NjxnP3dl1OeYIfmVoo1wZM0o6MS2tt
+	 iZBiBz7pKAvGZ09v58vgqr/KrUV2asdfI/q/JdM9emytmoalJrog1Q/SkiTnMWBhN/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827774;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=+5fG09BaCpZZnYtMPZoRGCaZIyFAQL/UuYrKy2roHhQ=;
-	b=IdgLQ6UNCC1/MTZ+6/4vqi369/aUy8BiNGkTAHsQmWZT0SJop/6qXPdQaOjFLSyR5egn
-	 YeH+QwH1pKXwi7yE/6aEivGzq5JacJi/oqCQDs45tGtvueGu9+45F92r7lvPFPTAvvoTc
-	 ttBy+N3c5sKkZlCioOYWK04GdknNpafWPPopCmVgresBho8Xp0wpgzRHEWlI3o53X9ZO2
-	 niH68kCPF7fsXEvLWrHYCV7UisGhHM8U/OkDpfO8XQ/EkI488H/jJs4fByvkIyaS+vL0n
-	 S2UI/MxEuYHkV92dQi9rX3I1Z3l5xPQyijeaKpzACQzjyfuCndufXtMaM7rDkrVaW8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827817;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=xS8E5Xjbml3R5zZBxPCvPqXCNF7w1EP6L2oody/G3yg=;
+	b=apiM7YNsnvsVx5uD1SxCk3tt12f+aXp0XX5Hdz8nP8WN87KMSghYN71uDEi68hDzs1SW
+	 qrgP/RiAS1bpOuDp4i9CEzz3hlTqBqoXcpeLABwU0mm320KYJ/BU7u5JM7fbxQgGkM8yj
+	 Pthi+V2FYebkgIDaxYaVtMVUMBjRxEWeXJuHCQydvV7dZKjGjmW8Wf14RU9CJTU3jKrqR
+	 JFUk6W97phgxnPI9q5TJGBdSr7ODdey+lZCWZrcuBu2FYaBGXVW/gdvlgbDTL+qK8IKg6
+	 2j8m4XTr7D2tixx+p3RKCuDmZju4Fbb8uio4BHLpCkcyOlylmnN6hPHZoa89aWn+0GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cNsEsLM3;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ezSKGxoX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AB1606BA3D;
-	Wed,  4 Nov 2026 21:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19AB1606BA3D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF736606C92C;
+	Wed,  4 Nov 2026 21:30:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cNsEsLM3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793827775; x=1825363775;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ER+AFJf30F+dN3H3UfwCZrOzwmylYesX3P33tOo15ss=;
-  b=cNsEsLM3yeUzX3tE4C9kj6ODkdshgQhpTNdZipEAQqWNtdO7IlcZjbUg
-   JPackwxJNvwL8Fn67efyb8zU1pKojSfRyeCMKUDyLxj6wjQS4K4SbwJhW
-   zPBM95UuGPKMf2MltlbMOYvDyesyy1liJq9uy+Cw+PEWOSp5UEctHcsJS
-   z9oyJpnDdFzovHJQiGDM2jfdlkwb0NR/f1cKzowes6Jxi2MNGR0ktSjfv
-   On6c+kfu4Q73VCHYkE7McYynXV46j7edRiUlGVvpG8e4p/5uOl5EmOn9z
-   fNFB3oRnprPEkO3jKSXu1uX4s3/H3XnYSUISACuhmYEujFXeOMqQJ6lD4
-   Q==;
-X-CSE-ConnectionGUID: /tJYaEe1Ru6hvAik4pz47Q==
-X-CSE-MsgGUID: /40e0bWaRx6w/Gg6VgI9FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2702882"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2702882"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:29:33 -0800
-X-CSE-ConnectionGUID: Nd+WyEeZSaukMzaT453Xmw==
-X-CSE-MsgGUID: dTZse/3PQTWZ5DIwf9UDng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6881907"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:29:28 -0800
-Date: Wed, 4 Nov 2026 23:29:25 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 2/4] software node: use kobject_get_unless_zero() in
- software_node_find_by_name()
-Message-ID: <auujtfVvejcsyums@ashevche-desk.local>
-References: <20261104-swnode-race-v1-v1-0-9406a67e25be@nxp.com>
- <20261104-swnode-race-v1-v1-2-9406a67e25be@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ezSKGxoX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4962C1F000C1;
+	Wed,  4 Nov 2026 21:30:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793827816;
+	bh=xS8E5Xjbml3R5zZBxPCvPqXCNF7w1EP6L2oody/G3yg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ezSKGxoX8mJh1PQJY1WVorcLp/yVHuGqHB2b2Fe4rTtXzNrqhcv2BJT3BxWN5Tjml
+	 KA22jmRBKJN9Sp0UqxS8RHOw1OruzjEDtWDZ6PqkwQBp0MyiGeJldqS9ANypwIFuTf
+	 uKxFpyy8/FcGPa4z5Fjg2ng/+ub0FlDMZh2pM6i4IzTimdPoyAj6FMTuR4rbbzt3kz
+	 5eNZKdXwXJ/j6HXThSO6ZZWXQeL1zGDE/0pdgppae8VxJyvPnfKHtwOekHfeDiYF3j
+	 G5taiErNUZAZDVKH9VOAuUZ/yGe+S6+PmbxAIQsblNv4btrgNDOPCL3diXspBkvrJE
+	 dOo7EOgTqTH4g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4017438003C5;
+	Wed,  4 Nov 2026 21:30:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,44 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-swnode-race-v1-v1-2-9406a67e25be@nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4 0/2] Fix TCP retransmissions on NS/NSP SoCs
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179382781479.3232389.1538844230446462425.git-patchwork-notify@kernel.org>
+Date: Wed, 04 Nov 2026 21:30:14 +0000
+References: <20261029211540.4123250-1-florian.fainelli@broadcom.com>
+In-Reply-To: <20261029211540.4123250-1-florian.fainelli@broadcom.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, rafal@milecki.pl, bcm-kernel-feedback-list@broadcom.com,
+ jon.mason@broadcom.com, arnd@arndb.de, linux-kernel@vger.kernel.org
 
-On Wed, Nov 04, 2026 at 11:43:14PM +0800, Peng Fan (OSS) wrote:
+Hello:
 
-> software_node_find_by_name() also walks the swnode kset list and takes a
-> reference with swnode_get(). Like the pointer-based lookup, it can
-> encounter an entry whose refcount has already reached zero but which is
-> still linked until its delayed release callback runs.
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Thu, 29 Oct 2026 14:15:38 -0700 you wrote:
+> On Northstar and Northstar Plus SoCs we would see about 1000 TCP
+> retransmissions per second due to a rate mismatch between bgmac and b53,
+> make sure that we run at the same speed on both side to avoid dropping
+> packets on the floor.
 > 
-> Use kobject_get_unless_zero() and continue scanning when the entry is
-> already dying.
+> This issue was found during testing on a Northstar Plus reference board
+> (BCM958625HR) while running iperf3 to a test machine and noticing
+> retranmsisions:
+> 
+> [...]
 
-...
+Here is the summary with links:
+  - [net,v4,1/2] net: ethernet: bgmac: preserve forced 2.5 Gbps link speed
+    https://git.kernel.org/netdev/net/c/d4f3d2c04624
+  - [net,v4,2/2] net: dsa: b53: restore the NSP IMP port 2 Gbps mode
+    https://git.kernel.org/netdev/net/c/41af38324341
 
->  		if (parent == swnode->node->parent && swnode->node->name &&
->  		    !strcmp(name, swnode->node->name)) {
-> -			swnode_get(swnode);
-> -			break;
-> +			if (kobject_get_unless_zero(k))
-> +				break;
-
-Can we rather see even in the previous patch something like
-
-... swnode_get_alive(...)
-{
-	...uses kobject_get_unless_zero()...
-}
-
-?
-
->  		}
-
+You are awesome, thank you!
 -- 
-With Best Regards,
-Andy Shevchenko
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
