@@ -1,59 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825941;
-	b=TT4ArWpG51dObUbEOXDNS+pl6KdsDvfMQP9IcXSXSvIndqwHQcxz/idvmuNJ7XKpyzFF
-	 Dlm8nwFx704mjrrU69R1+gL3+jOHtr59dUyOrXxRf+HlToJBiduvL0Xi6oo4ylpWqrhIL
-	 SN9SYqStcinbE5qee2X5rGbaPBpebrKCD4t+l94zb7y5FGSb3jCjwVk2H1igEV9s7AzPc
-	 7X6gdtw3Hvv1bAYau3lfYsWsYJe9IvA3miAh/1CEs+Qu+bvN5/5SOciDqVRqgCMg/u3Fz
-	 ACBUhfJhXuFrvxQ1B/YpQn5wgTku/7CPB0FHpD2kXpuwdsBrP8+U7wBKl7jReaVTO6Q==
+	t=1793825957;
+	b=n8dW4c99Y9am6fpMw1OJ0ypPwLwDCOW4zrkNwIK/KZlgAXltiYMkaE0jt8byDEM9zksO
+	 OzHK71tlhWmJIjnUUVSZJPIUIJ94/Q0SalbOKo2KPqL4/QTbwl/C83gJ+e4LJhuBvhInI
+	 o2hxoxAPS+xiA/JrBr5/xrSXB4be5E04bOVewHVpIv1TxqZqVG/Acl+vxzTxcbjnRbFpP
+	 YGGdZt4BGvSkSTr7oAw/3tj/yzJRESRrx38JIeUQj2oqYKQiiEYkNazI30eHcd+kP6kQA
+	 0cGVdqNkqtPodOlaFbQ84KtTiW0eB27kcr7bFlszslSe1bdZvTQKsYNNeTxBkXYD5lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825941;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=68FQQXsoJksoeoLSDrKS2zwovVFM1JhIN0EjI4tp+08=;
-	b=wsSGaA3HOGuW3E+Pg1faqjz5Am72Bga/wMc5Db7kwJOgAyrkKYT8Z/kkViqGWhrNQD2Y
-	 bh2JrjvKkFJk5NCqLqE9H/xUH9PVRdEM6zsd57VOWuOOFdVv6Cv/bkPQ009U9x+ROPj5c
-	 6TUBIexlMnuGBKuYlKNPDWvbf5rq3QIpneBQ99r1UEvrs8OOxyiaeh+0tnuHST4zbza5R
-	 /R2qkQjPae5qbffyrc0+B4pIeORvh30/Tq/NARPSep1+YRVpzpJTdxF8hGx3Bz4PtCKMq
-	 8Dqbb3j8XqPFgGL+Hsf/HLNWx87265GzGHuosRMpgCG3rd1O02YDO4EiaiEYWeyT9pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825957;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=pVkLc8xSyhslD11C4DSvZnRo7dsv6FWhh8v0TPGw3qA=;
+	b=dTUUSKS1V7tuqt32nhpjzzkOvha/uBr4kfgjO67+eJTeaupguBDKFtw62H0AsgUT0A12
+	 DeuC0M0g//WsFE08yQUUr/o+OoFr4pCOboee3uuLzbFX23MNFNMk8iNTOveQCrybjcDKt
+	 DnavvIl//lvlPVKFvbsHG/ZQ2zsnMS9IMHg/ZLw84rrxfuclwKfpHmD0d6Y45sQrYmNHP
+	 LKe0yTQvSF1739FIC5WNZn0R+v+K7Ofq+Jy2qoUkOWhMDvAAQWZ10LopNVyGBU4b67dkK
+	 DCMzRoInjbvG4HhSlU9zn4Xv3a952IUf+wn+v5mLr1/Vlm4e1t3lnGkFccuB0fa6wvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRPUjx8Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=l6zFms6C;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8AF606C599;
-	Wed,  4 Nov 2026 20:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F6A609CAE9
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:59:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F6A609CAE9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRPUjx8Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 643811F000C1;
-	Wed,  4 Nov 2026 20:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793825940;
-	bh=68FQQXsoJksoeoLSDrKS2zwovVFM1JhIN0EjI4tp+08=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SRPUjx8Zy48vSwkkaX/POKZ30Re+UiT7fzDFUOg6XDpSdch/779uWITaYR++cIW1t
-	 Yznj4/ZzvtLH3vrEYIF2RFx4aitSQxeYlD2lUaHQft6lRa0zEUiSROPPWGq6sMQ+i7
-	 bzPT33Z5UOQHtpU9RegDhicrFq0frj/EaOP+pp0nr5iG0PyAgn0C52FmXdv/KYRI9J
-	 bNCpdCwj64zRjhZZh7qORt3ph1rsYndYtAWqE1QjKrRJ45qcLIBkds6gz67/irrjAZ
-	 pCdn+yEPv2rBJJHooDTVLQgbo9paAfeD553vL/zGB1k0IspviixUrWCR5BUBMJBmKg
-	 UMTKkG/wnmLmQ==
-Date: Wed, 4 Nov 2026 12:58:58 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Stephen Brennan <stephen.s.brennan@oracle.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, Ian Rogers <irogers@google.com>,
-	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>
-Subject: Re: [PATCH] tools: perf: allow opt-in "no-dso." files in /dev/shm
-Message-ID: <auuckurvVVn0YXSg@google.com>
-References: <20261013213842.1870582-1-stephen.s.brennan@oracle.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=l6zFms6C
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1acbaf81bebso1547902c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:59:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793825957; x=1794430757; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pVkLc8xSyhslD11C4DSvZnRo7dsv6FWhh8v0TPGw3qA=;
+        b=l6zFms6Ci0gFXFw30uQIWUkIkwYmvRxAMdghJhLpZ+go3ISZ7Jniiuzq66BwbUb56I
+         8mb09obnK8YnNHaTkVm31Ea2v0UaaWNRllclxcfvlHrbTKPfpt2mWvOmNcQ2IyIK/0C1
+         DfIhWhoWkiz1+kqpWV16xBvy84wx0BvptX+abXOT++5la9IwOK98ALjhdsIkleO8SRrZ
+         UYTS5A7keueVD43yv1v4Sqo5zLBwYn6V+QQi8m0nH7D7s1TRarej/Z1/EIBqqvUN7kw8
+         x4hVb+3XeIJvkIqd5V38nbi4MullO2BRucBgQ7ojyWt3+6qdewgcbox4mWSTpg4LYNx+
+         Gf0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793825957; x=1794430757;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pVkLc8xSyhslD11C4DSvZnRo7dsv6FWhh8v0TPGw3qA=;
+        b=z9H4e1h5eO7ZRQO6jVPKNJKnhAde2zVi1Mo+y4+fOMmWwTQpbVbxQuw/qzKgj0bmpa
+         wswCPapNgDjROPnvxa3XqteD2bZpIgk7yG+k9NZ9M5YfOz+TA43kySd1IXx6iIVH9YZ1
+         1+siwuGDcawXROwc9+ioCSqgzD7FEsy3Pq4BYXUw8m5bXpvQF+/9TJtPkA9tiTe8IfR5
+         OLDHI5x1h1RQ+aDac/C6om1NF14nTtyip6eA4O/PjlulVpnAmJAF1Ts4FteXWuBaVmn1
+         lXMrGEP3QL2n8mZhAA4VJCIV/DB30Slp+qo9KKzRtUWzsM7l2vptuAzj8fzm6LYyQArF
+         x0Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBwF+Yc+Bhzhd80PqrME5b1JBvhH41TiQrMw3D4Umu5OqdjcGXM23WS+CbhX7UQhtAIMQRxhhX06fzn8OPw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jpPYpv1wkOsfOYSnYx6DfhWKiIDCE+BWiFWWl5OxKSr3ESckO
+	8ZoDghvP5gdL+4jj2JgMaaLHX/OiybYJXo1aHUm3X/19GOU47Xdec9fVuboG2L/46T8Cuexx+QC
+	B+DaLTkljDQ==
+X-Received: from dlbsj3.prod.google.com ([2002:a05:7022:f903:b0:1b0:4179:ee7b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:5f15:b0:16a:f5cd:365
+ with SMTP id a92af1059eb24-1b009604eb1mr18474520c88.5.1793825956090; Wed, 04
+ Nov 2026 12:59:16 -0800 (PST)
+Date: Wed,  4 Nov 2026 12:58:51 -0800
+In-Reply-To: <20261104205909.2078411-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,37 +78,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013213842.1870582-1-stephen.s.brennan@oracle.com>
+Mime-Version: 1.0
+References: <20261104205909.2078411-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261104205909.2078411-2-irogers@google.com>
+Subject: [PATCH v9 01/19] compiler-context-analysis: Avoid unused parameter
+ warning in _context_unsafe_alias()
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com, 
+	james.clark@linaro.org, jolsa@kernel.org, justinstitt@google.com, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	llvm@lists.linux.dev, mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 13, 2026 at 02:38:41PM -0700, Stephen Brennan wrote:
-> Applications can place JIT-compiled code in POSIX shared memory so that
-> multiple processes can execute the same code. On Linux, these shared
-> memory objects appear as file mappings under /dev/shm.
-> 
-> Perf uses /tmp/perf-$pid.map to resolve symbols for executable SysV
-> shared memory mappings, but it treats /dev/shm mappings as ordinary
-> DSOs. As a result, applications which provide perf-map symbols for JIT
-> code in POSIX shared memory don't get those symbols resolved, while they
-> do with SysV shared memory.
-> 
-> It would be incorrect to classify every /dev/shm mapping as no-DSO
-> memory though, because /dev/shm is just a tmpfs mount, and it can
-> contain ELF files.
-> 
-> Add a filename prefix "/dev/shm/no-dso." which is recognized by
-> is_no_dso_memory(). Applications can opt-in by naming their shared
-> memory objects "no-dso.<name>". Executable mappings with this prefix
-> will use the perf-map file, while other /dev/shm mappings will keep the
-> existing behavior. This allows applications that already emit perf maps
-> to use POSIX shared memory for JIT code, without needing to implement
-> jitdump support.
-> 
-> Signed-off-by: Stephen Brennan <stephen.s.brennan@oracle.com>
+_context_unsafe_alias() does not use its parameter 'p', which triggers
+-Wunused-parameter when building code that enables -Wextra (such as
+tools/perf, tools/lib/perf, tools/lib/subcmd, and tools/lib/symbol).
+Explicitly cast 'p' to void to silence the warning, matching
+__assume_ctx_lock() and __assume_shared_ctx_lock().
 
-Applied to perf-tools-next, thanks!
+Reviewed-by: Marco Elver <elver@google.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ include/linux/compiler-context-analysis.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards
-Namhyung
+diff --git a/include/linux/compiler-context-analysis.h b/include/linux/compiler-context-analysis.h
+index 8302ebc2ea8c..024e303188ad 100644
+--- a/include/linux/compiler-context-analysis.h
++++ b/include/linux/compiler-context-analysis.h
+@@ -243,7 +243,7 @@
+  * alias as a function argument).
+  */
+ #define context_unsafe_alias(p) _context_unsafe_alias((void **)&(p))
+-static inline void _context_unsafe_alias(void **p) { }
++static inline void _context_unsafe_alias(void **p) { (void)p; }
+ 
+ /**
+  * token_context_lock() - declare an abstract global context lock instance
+-- 
+2.56.0.455.g6c5a503b38-goog
+
