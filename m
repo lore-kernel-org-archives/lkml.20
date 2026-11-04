@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759623;
-	b=u3M15RWrMl5oxt1KDdKzOdYXaRfexPkGdX/oTcImhwtAgM9UI8gmf4tP/AM1NXJCUOsA
-	 L8G+MYnGOA/E0DAivN8mC4tEaXcc7/dcSCYibfdfvPQyRbcak/f9x59NQ2L9fTtzNXC07
-	 TToGBmH2yZLwEtqBUkoHcf8aXc6epkF1p5hHduETrZiPGa0s45Pic0LT3j9gT785R9Ex2
-	 RBihH6Dks8nZu2AIgYPBCSkISvNyLpJXvF/8Zx7nWwujlvQFlSVr8QlUzTn+gUDyNAtwg
-	 gTmkrKL5LxqpFfeQMiObBZpfE7CHLUYcoJi5QG20kwSjfhSFLNaE5aDt2oykzyn++cw==
+	t=1793759626;
+	b=v5+wZ0XG2RvDiEfnkSsQPxapBfybOBwnLGx8A885lb6ttZAqqnkthzo8vajGYxho7VLW
+	 l68xrru54QFX7BncgnM4yW+VHKzAV/tr97TradI6rHUJxI3om84p4pwkcLUZPvDYmzROY
+	 SXPHDHBjL7fAaiTgwAlnajoBwDKXw9015LpN4ZRx2bjARKRJr4v8jrVIzDrZE/zZwnCYs
+	 G2Hi0UXoRNBG+WE8YSHJ1I94+TKe4IzJnck9u/gu8WHy51T+nqfq2x0eQO9EMoSiWAX/+
+	 Px82FZp6LVZ8jhdcC6YWyRhjAbCp/oWpPqJVPXAUb20hwlfEOMq8+K4yjRXYw+6hQSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759626;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=wHzXUragbJFP4AN2zkeV0NABzfzD7WztD3VyGEjgztA=;
-	b=C6Jhe6T5DxhPDu/Q3qjmUdEyfnsvJBS+K2Dx5WOUgzyDpMi1PJQssf3iMGdpwbobGMf3
-	 15+xgYzd3tW9YyExnCGHvU02NgvFH/KV2hOuL8jfR4W+4W9PyCkpKrryrIxtkzHNQ4bHs
-	 9VphYyRsGChgkylJHVOIVgUwobVJ5Tep4qJ42cx1vsQ8XuXXboJwkW0J7eIQSh+ZqKzWV
-	 o9mDDSREwgSXUkOsU3haXwoSKDfTpWphqmxSDY2IblokO+y3q1euEPiJQq8ukA6F7UxJG
-	 PM8FzqOeaZgYkVWIxERF2s1W42nc1jxP0BgdQWOaGV9q/WOiGTIlB3U+ujdOPdn14mg==
+	bh=BKdCmLx4asAbOBNQcstL1F5GM5V0+1b4YpXSce2bg7M=;
+	b=NEOE1+sXVVsPqp5v12+sN9lMTcIQOB8X3NKeYHRLL7NW/rFifz6mu0hCmH+DVK/ZAgDi
+	 C4nEdny1jhS002wO0j/96McYNJt7dzfEP9iDfS7xU9GphgR79SWVUqp/JRumZS6nkBzDY
+	 HkutNzzaUmojm+7rNDuu/UWfr73axX5RAH28kvBqUd6AOQPGTGI+LOPsQmPqq/kJzmrRJ
+	 TiNCVerW6u119aJKzJqZk2jMWxWBxyTQhmX4zf38IwDDrHOcj6eDTjMN9CP4EejJoD8I4
+	 yJlyBGttvrdTJ5h0yJiYZagKbvaEHAJN11IusbHwfPZPLNJIkf5LoolInRr0Gu/piKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=M8dECHGz;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=S8XK6U7a;
 	arc=none smtp.remote-ip=45.254.49.198
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA05606A329;
-	Wed,  4 Nov 2026 02:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BA05606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F64606A33C;
+	Wed,  4 Nov 2026 02:33:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95F64606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=M8dECHGz
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=S8XK6U7a
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5367d0733;
-	Wed, 4 Nov 2026 10:33:31 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5367d073f;
+	Wed, 4 Nov 2026 10:33:41 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Maxim Levitsky <maximlevitsky@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org,
+	ath10k@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] memstick: ms_block: Fix potential block buffer leak
-Date: Wed,  4 Nov 2026 10:33:30 +0800
-Message-ID: <20261104-db9e3c75b3-memstick-1@mail.sdu.edu.cn>
+Subject: [PATCH] wifi: ath10k: Fix potential CE configuration leaks on PCI probe failure
+Date: Wed,  4 Nov 2026 10:33:40 +0800
+Message-ID: <20261104-db9e3c75b3-wifi-ath10k-1@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,48 +55,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1a4678baa03a1kunm303dd045163690
+X-HM-Tid: 0aa1a467b27403a1kunme6817c2d1636eb
 X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0xPVh0fSUIYH09CTx5MHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUkZVkhJT0pPTRodS0pKSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=M8dECHGzdLcH9vT6wjulSRvYW83/XDbY7za81gxyk2rTYbWqNrJEwwsFilmDKvMMGzz8XxGOapU0lPlABxe5zwcXsXwCuWbdUQgvJ82VFY80BtiAk882vSYEki1NtHt3texaxkvGfoTj2H86GlsZ/wsFmB5Z/JWDyLbHM0f/doE=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=wHzXUragbJFP4AN2zkeV0NABzfzD7WztD3VyGEjgztA=;
+	b=S8XK6U7ajBL35uEiPFwe7Q/3rDmAhG8PB8myWmp9dKaR4MgWGqQ3s+Ojswzcc0U6ApmXmbcBjyKIcB/Ceg09jSqOwJJq54C+1DUyKwtqrPWSflK2lOM2zh3Ey7PJcSV2Zuy+uDylom0XfAZY5UblxhELousNHgGZEEJnnfpOXUU=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=BKdCmLx4asAbOBNQcstL1F5GM5V0+1b4YpXSce2bg7M=;
 	h=date:mime-version:subject:message-id:from;
 
-msb_init_card() allocates a block buffer, but msb_data_clear() does
-not free it. The buffer is leaked on probe failure, removal and
-when discarding the temporary card state used during resume.
+PCI claim, wakeup or IRQ initialization failures bypass
+ath10k_pci_release_resource(), leaking the three configuration arrays
+allocated by ath10k_pci_setup_resource().
 
-Free it with the other allocations in msb_data_clear().
+Free the arrays with the CE pipes on the common unwind path. Keep
+the later hardware cleanup separate so the arrays are freed once.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
+Fixes: 1cfd3426ef98 ("ath10k: Fix NULL pointer dereference in AHB device probe")
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
-Build-tested the changed object with x86_64 GCC W=1, using defconfig
-with the driver dependencies enabled. No hardware/kernel runtime test or full linked-kernel
-build.
+Validation: x86-64 Clang W=1 changed-object builds passed with
+allmodconfig and allyesconfig. No hardware/kernel runtime test or full
+linked-kernel build.
 OpenAI Codex assisted with source review, patch implementation and
 commit-message drafting. The submitter has reviewed the changes.
 
- drivers/memstick/core/ms_block.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/wireless/ath/ath10k/pci.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index cd4ff1b79a6d..d62350f9ef5b 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -1953,6 +1953,7 @@ static void msb_data_clear(struct msb_data *msb)
- 	bitmap_free(msb->erased_blocks_bitmap);
- 	kfree(msb->lba_to_pba_table);
- 	kfree(msb->cache);
-+	kfree(msb->block_buffer);
- 	msb->card = NULL;
- }
+diff --git a/drivers/net/wireless/ath/ath10k/pci.c b/drivers/net/wireless/ath/ath10k/pci.c
+index 335bc7c488e4..f3c4fe13f76b 100644
+--- a/drivers/net/wireless/ath/ath10k/pci.c
++++ b/drivers/net/wireless/ath/ath10k/pci.c
+@@ -3716,7 +3716,9 @@ static int ath10k_pci_probe(struct pci_dev *pdev,
+ 	ath10k_pci_free_irq(ar);
  
+ err_deinit_irq:
+-	ath10k_pci_release_resource(ar);
++	ath10k_pci_rx_retry_sync(ar);
++	netif_napi_del(&ar->napi);
++	ath10k_pci_ce_deinit(ar);
+ 
+ err_sleep:
+ 	ath10k_pci_sleep_sync(ar);
+@@ -3724,6 +3726,9 @@ static int ath10k_pci_probe(struct pci_dev *pdev,
+ 
+ err_free_pipes:
+ 	ath10k_pci_free_pipes(ar);
++	kfree(ar_pci->attr);
++	kfree(ar_pci->pipe_config);
++	kfree(ar_pci->serv_to_pipe);
+ 
+ err_core_destroy:
+ 	ath10k_core_destroy(ar);
 
 base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
