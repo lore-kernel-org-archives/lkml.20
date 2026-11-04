@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787588;
-	b=Ff938nk8M6z4SnI3L70KdWVy5ERWygT8m3TLBlnz6eVuMeAkHM55EaWbYUXxueA8RMTj
-	 zBes9m5/dcae+rjCSiJt6PyizTDZlDAUoA/AB25KSPVMKuYQHDu3nOPI9ge36E7rDo/FX
-	 DJrTbYfk5Za59SbBYvoPPn5O2sPn2zMu6oea3Zk1uouD1cI3GI7TOUJwzqFxwrQFbSGNo
-	 up5UUq2rg+N/sBMq337vI2xEVGkvYQmPNZOcXSf1IwXy+hBRxZk9zEBOVyMBe010SRG5K
-	 BGwfr/rEhCYKYf/pYn/YskDjlHxpSw9eVE6PIajZibYWVv4tMYwOtrjPlI3EiDnHZOw==
+	t=1793787627;
+	b=Xb1xrHN4Heqwg7fq3DpDycPPjXNKAYC5JaJbu8/Cc2mumkbYkWfSXHjSGwXOS6PJuG1G
+	 +T/KklumYU7G4ov7wM7oAND1jkoQ7xHHH1PlIRSfBZS6lmmc/zi8tlQ6TOsOUR1bXBMXM
+	 uZuq+MzTQ00TOwMo8Q9ZBgyVHZ+p0kLcL0vaAytUHSd5FeLsx/w9Zf1aWhPRTwLTwLhj+
+	 6dpq8vaUQF+KTObspPvr9la7W9WwI4QyydLLSYLwu5qhwsAArY1VVr7eIhAQsxsqnA/Py
+	 Ny6qMPjaSO/RP1sh0BP3QqQQBnlPIUlvQZORph6FDXCnmTZWPX5EbOiRix1M5EGkLxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787588;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PxWzH8Eovn3EIZKzbra66MXGEF3/eqT6YOglR5bwhE4=;
-	b=320ST1VQRrvnkeToBH6MF6czzYV96CFwny6Gyl4/lGDvRduza2hGJ8iLTtzA1ABV79np
-	 XhImebV1LeTswg5gLy0EFSuue9GzG3d4xC7eUv1Xi6IuCfvTT3uCyHhLlHuKr3CaATm/Y
-	 15X6C8eqZWQdKleTYn9mPLexZKGZpP2DbXvv6YG8BOEyJK4gpM/tLaSERE9GPcUJ5gZOi
-	 86aTzD9AlJHCvTif7aGm2R3q748v7lMLQ3/UUiI16iklY5R0nl6DHiaQtETJcYZ2Rtug/
-	 HfR1gdGpRYs1Q2IuTgk82tucm0nIZH95OOZT/kPnjOqv/VAme5x/d1fjWu9Yqnd5+4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787627;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=hvy80TOOnpyiMTofQTbLc58BIBQ/JRGZ4BGlqL0QRns=;
+	b=elf4a/jDjX3xtbI91aDgkGhkLfh2lpZov3n5AnItwIPhcGeagpZhV8McLy/8fzlm1Mgd
+	 AQzYHft0ff/kNFOM4NInoiQhQ+7WoTrM73Uu/9e5kN6xU2s9sq+tuLYcfo49GRqloA+nH
+	 cg34IE39ad6GgoTkOMF9fbAUotaErPAXNvVUtCiXMbV605NiiytUYLY0OdVF+9/0zddXU
+	 AMhDBf1p7F50GaOMFRJdruqgUhkarT//utwrLwlNIIDD6LHwb4O5ebZ16gB7DATEvdDnG
+	 P+jQi0/lfSqcr1GVlEaoF6y+XtM4bXu5iSB2sDtRynbssqfmFZHMbWozaPSxABUNM4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Mi5zsXMM;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=iCVp53+P;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0845606A326;
-	Wed,  4 Nov 2026 10:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0845606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9428606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9428606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Mi5zsXMM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793787585;
-	bh=NzNI8VtsA0ljYvXPDaErQQ7OtTTbiLza/hp8LMLP3oI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Mi5zsXMMqj+yrpowR48mCHZcQOmmhenRhsTfiIv+peZ/eCUf2IQBI9ZE80IMT4uBs
-	 HJJ4HN/7yZvOhvJlNmGXIpxH6q5jKEBJ3pSXpXpvj5+JifFSSOfjkr4SoWvZOmolvM
-	 iUiLnGkvT2oPX6qB/aYLLmNwxb2v1jQMs1mVM+uEb0ApTXYk2Jj+V4WAFAML/ipEG4
-	 lYRCA2683iwMUx6llAe/uQTfumomirs7D0eWlRPsOiRDIB9ZTUg6HR6LWo1kjRUM+v
-	 ZUrEbfRAX4UyYZXAkxbtzn99XdZeFYk8l3kiEuZ6Gr4HT/XIeXJMJZwjVPpVEqzp7A
-	 0TJxsRdDCL8NA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E55517E003A;
-	Wed, 04 Nov 2026 11:19:45 +0100 (CET)
-Message-ID: <f29128c6-f4a1-4f06-b82d-8d49713849b0@collabora.com>
-Date: Wed, 4 Nov 2026 11:19:44 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=iCVp53+P
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=hvy80TOOnpyiMTofQTbLc58BIBQ/JRGZ4BGlqL0QRns=;
+	b=iCVp53+PMdGcmkdYpcO3bVWfKMysFB7UfTCvF9AhhprOY6YP9ZbQNo52DutpfypSjv9GmLUmT
+	rxBCaiN2JdcW/iA7Tl+Ayn/Nri5vIHHC/k6wpLTJL6T2I7J520yZ9BfbldWSELl3Z1ERh3wjfL+
+	FyuSWJIzdB9rPk7epfpK41Q=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jKLzb4f7Dz1cySB;
+	Wed,  4 Nov 2026 18:20:11 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id C6D8540561;
+	Wed,  4 Nov 2026 18:20:22 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
+ 2026 18:20:22 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<bp@alien8.de>, <tan.shaopeng@fujitsu.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH] fs/resctrl: Allocate the RMID array with kvzalloc
+Date: Wed, 4 Nov 2026 18:20:04 +0800
+Message-ID: <20261104102004.609259-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,180 +70,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 17/46] drm/mediatek: Add support for hardware
- multi-stage layers
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-18-angelogioacchino.delregno@collabora.com>
- <10e114d1f682a24e5eeb29ef03980762fb9712ba.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <10e114d1f682a24e5eeb29ef03980762fb9712ba.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 11/4/26 10:46, CK Hu (胡俊光) wrote:
-> On Tue, 2026-07-14 at 13:43 +0200, AngeloGioacchino Del Regno wrote:
->> In preparation for adding support for newer, more complex, display
->> controllers like the ones found in the MediaTek Kompanio Ultra and
->> Genio Pro 5100 (MT8196/MT8894), add support for multi-stage layers
->> as in newer hardware, there is a special strategy using multiple
->> hardware components of one (or multiple) display controller(s) to
->> form one single layer.
->>
->> Multi-stage layers are one more step towards extra flexibility of
->> the Display Subsystem, making it possible to change capabilities
->> of Display Controller Pipelines depending on the final application
->> of a board: for example, one board may choose to use fewer layers
->> per pipeline to achieve more pipelines (more concurrent outputs),
->> or more layers to achieve less, but more capable (as in offloading
->> and in achievable bandwidth) concurrent outputs.
->>
->> This currently adds boilerplate to support this hardware, but does
->> not yet implement the IP-specific support for MT8196/8894, which
->> will be done after all preparation is done.
-> 
-> Could you add mt8196 support based on original layer architecture first then introduce this multi-stage architecture?
+setup_rmid_lru_list() sizes rmid_ptrs[] by the whole RMID index space.
+On x86 the index is the RMID, so the array stays small. On MPAM the
+index space is the product of the PARTID and PMG ranges, and with a
+large range the array is megabytes in size.
 
-Unfortunately, no.
+kzalloc() needs a high-order page allocation for it, which fails once
+memory is fragmented, and a size above KMALLOC_MAX_SIZE always fails.
+resctrl then fails to mount.
 
-MT8196 cannot work with the previous code made for the previous display controller
-as it is fundamentally different from the previous ones.
+Use kvzalloc(), which falls back to vmalloc().
 
-This is effectively enabling support for the new MediaTek display controllers.
-Without this, MT8196 would not have layers.
+Fixes: 6791e0ea3071 ("x86/resctrl: Access per-rmid structures by index")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 7.1.x
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Dave Martin <Dave.Martin@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Babu Moger <babu.moger@amd.com>
+---
+ fs/resctrl/monitor.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> This series is so large and I would like to break it into multiple series.
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index f69dbf66f42e..7713aa5d3996 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -1029,7 +1029,7 @@ int setup_rmid_lru_list(void)
+ 		return 0;
+ 
+ 	idx_limit = resctrl_arch_system_num_rmid_idx();
+-	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
++	rmid_ptrs = kvzalloc_objs(struct rmid_entry, idx_limit);
+ 	if (!rmid_ptrs)
+ 		return -ENOMEM;
+ 
+@@ -1125,7 +1125,7 @@ void free_rmid_lru_list(void)
+ 		return;
+ 
+ 	mutex_lock(&rdtgroup_mutex);
+-	kfree(rmid_ptrs);
++	kvfree(rmid_ptrs);
+ 	rmid_ptrs = NULL;
+ 	mutex_unlock(&rdtgroup_mutex);
+ }
+-- 
+2.34.1
 
-I can break it in multiple series, but merging one series and not the other
-would leave you with just dead code (as everything in here is needed to actually
-get the rest to work) in mediatek-drm that would:
-  1. Make no sense; and
-  2. Maybe break before you merge the other series.
-
-This really needs to be one big series and really needs to be merged all together:
-it is restructuring lots of stuff in mediatek-drm, and you can't really merge in a
-partial restructuring, leaving the rest floating, as that would simply create a
-huge mess in the whole driver for literally no reason.
-
-> For other upstreamed SoC, the hardware also has some flexibility to route display pipeline,
-
-This series is already huge, if I start implementing other components for the older
-SoCs, this gets to 100+ commits, and becomes unmanageable.
-
-Honestly, we're carrying this series in our integration kernel, and it's become a
-huge burden for us to rebase it everytime, because it's ... well, again, huge.
-
-> but we still implement the fixed pipeline first.
-
-The spirit of this restructuring is continuing the previous restructuring work that
-I already upstreamed (where I added the OF Graph support): I remind you that the
-target of that one was to remove the fixed pipeline arrays because having board
-specific pipelines as arrays in code is plain wrong.
-
-Unless "we still implement the fixed pipeline first" means "we still have it here
-for the old socs": in this case, well, ABI can't be broken, and if we remove that
-the old SoCs running on old devicetrees will get regressions (as in, display will
-not work anymore).
-
-I'd really like to remove those big senseless arrays but there's no way: past ABI
-related mistakes will always have their ghosts haunting us here, unfortunately...
-...and this is why I added a compat layer, trying to separate those from the main
-mediatek-drm code as much as possible, because then otherwise the alternative would
-have been to clone mediatek-drm to another driver, and freeze this one, which means
-that with the technical debt that this driver has, it'd break in 5 upstream kernel
-versions and old SoCs wouldn't work anymore.
-
-> This suggestion just want to simplify the review process.
-
-I know, and I appreciate your suggestions to allow me to make this as smooth as
-possible - being a maintainer myself I can completely understand you on that, but
-this series is really that big, and really that complicated.
-
-I can try and retry and re-retry again to make things easier for you to review and
-apply, but I don't think there's much more I can do for that.
-
-The only thing that I can tell you here is that we've been carrying this series
-since kernel 7.0.0 (included), rebased on 7.1, 7.2, 7.3, and always checked for
-any regression on Genio boards and Chromebooks (8173, 8183, 8188, 8192, 8195).
-
-All of those are working as expected and good, and have been working great for
-all this time.
-
-Well, including MT8196, of course, and Genio Pro 5100.
-
-Ah, one last thing - this series is part 2: the first one was in soc/mediatek which
-I was able to merge, and then there are another two series that I did *not* send
-yet, adding *full* support for MT8196... so this was already split!! :-)
-
-> 
->>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> ---
-> 
-> [snip]
-> 
->> +static void mtk_crtc_config_layer(struct mtk_crtc *mtk_crtc,
->> +				  struct mtk_plane_state *plane_state,
->> +				  int layer_num, struct cmdq_pkt *cmdq_pkt)
->> +{
->> +	u8 *layer_stages = mtk_crtc->hwlayers[layer_num].layer_stages;
->> +	u8 i = 0;
-> 
-> In mtk_ddp_comp_for_plane(), it consider mt8183 main path which two component has OVL layers: OVL0 and OVL_2L0.
-> That crtc has 6 planes.
-> When calling mtk_ddp_comp_layer_config() with OVL_2L0, the layer_num would be 0 or 1 not 4 or 5.
-> So add this adjustment like mtk_ddp_comp_for_plane().
-
-You didn't understand this code: mt8183 is effectively untouched.
-The OVL_2L0 is not evaluated as a layerstage, but as a layer, exactly like the old
-code was doing.
-
-Seriously, the code that is specific to multi-stage layers is practically doing
-*nothing* for the old display controllers (other than shuffling things around in
-code) and not changing their behavior *at all*.
-
-It's just adding stages for the new controllers, found in MT6991/6993 (where
-8196==6991).
-
-> 
-> I would not review rest part because you may base on a wrong assumption to implement.
-> 
-
-As I explained, I didn't use any wrong assumptions here.
-
-Cheers,
-Angelo
-
-> Regards,
-> CK
-> 
->> +
->> +	do {
->> +		mtk_ddp_comp_layer_config(mtk_crtc->ddp_comp[layer_stages[i]],
->> +					  layer_num, plane_state, cmdq_pkt);
->> +	} while (++i < mtk_crtc->hwlayers[layer_num].layer_stages_nr);
->> +
->> +	return;
->> +}
->> +
