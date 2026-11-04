@@ -1,114 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816485;
-	b=TnIZ/wTGrHMz14NnG/Vlkj5WcMQltJl6z6+v4ga1WLajdfRsr0et9X2h1Sv4wuwsWEZE
-	 BzK4pzMXiWnDwAwZMcLu18wgoo5auS3+3REVEnUxExbPyk3+IDqPbLmX2BEVLzG6b6UfQ
-	 ngvEDoNZcaw2jqjoLri3/0hqHpJzudDBZ5lZv8FhCIY76MH4rph78XrGkDcybaGgdMqt9
-	 /7nuIl8YrJ/yaOIkIs6S0rEg1cmfGA71zEjOZPZ/3J+FGfdIVt5BrU3jjT0Si0qGoZ1u6
-	 v6JFWpzSfaMn831yN2IvxamWkxrlBfQejiBwfwyjEY4Wx/9o0yqKNOtICSRI1/FiY9Q==
+	t=1793816491;
+	b=IHms1WddoTOiCToBkkN0dO9U7vWjqXLl7tyEMerJ03G6dcseziJxxrZB7/w6R6kWGog4
+	 0+MWKmv4bFP0SXiLtsiaDO0izCY7ChCoJVYbsv+JFbWWLCZoviEjIN5lR0ZUn0V0zRXx0
+	 o4b1FLkbMc6UOBEHjXV3lJyLyr9RUSue7REQLULnVSMAah757d0vPGWZHKXzpRz8C90Cr
+	 8ecSNdt+x8+iSWYjrVnb7NaUC6H2J9x0byDiX6/hoedfmowfxM4orgRlNj2ndnbvm6Lf4
+	 H2TM9O9yHj40bgG7dnBHUDPsvyII3BbLHImabRF3REMyp29J+dVgDCr5zmKm8g/9PyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816485;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Mky9j+WOnq3WliGY/AldJ7Jn18rgTtc7t2LkEe9tf5Y=;
-	b=M6ihn6h9snoxBTxd0++DnFkVCGyKYy0EPCaiBnRhLuN600TMujNrwkbD2H0QDYCbLtQJ
-	 gpybS9fISNQuEXEog5D+HVfg/kGmslWkqILIUvShQ/JVzxUxJfnt5fZmi6ojPlKybIWXA
-	 xxLuWIhdTX+YiptMav1APPq5t8ZECoElx6poaOl4CHr2izsKbcDppj31lh46mhZ0dtq5v
-	 PLaWIR/YfpQbPh5nn4MhJTJzjv4HMzfSVWBBWINODCaUtyhbsfjqsS9RYHjMJYblQsOkQ
-	 CSxhDTE+wa0prPBN01EkJHpdzeH2yJRLiEyBcYzHXTwDaqCtEIGNKtsCOqS2UQvHmyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816491;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JePMCfKku9pEUDTHsAhZnlP/cQPhOTSidIJ9IlFtxng=;
+	b=cGhm0u3f3Sgqa/bE6haUqBQAr+yXRh2UldRFhr8bYBBwcIOCvUXVeUoXs0b4hatoY4Sp
+	 iztkB/YjAciYcjLHLB8dNb6+cezpwh3ahehc4WIsq8hrTiakRHkpVzxvJh/3kZ4ZurSGy
+	 Do9YZS4/+rSZMPcjTWpbU47u7g0oRZyq0Kh82ufvHpU0xfSgC512oJb2cVYIlvFQXRUzv
+	 z9IHQaKUL0ADAaBFq+V7+SS10CSB1S4fW4fyPVt7P9AJGVBmWbF1Y/vf+L4KiZ3ANvQuT
+	 Al9AiQI3s+Z0z/HSMEMbGJP/tF2yELqejWdsEEzSnn3XUy559y0izWYfeNNELk/RPCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=el7ZrjEl;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEqSqtuf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB10060A263A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:21:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB10060A263A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BFF607BCA5;
+	Wed,  4 Nov 2026 18:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=el7ZrjEl
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df54150dfso713107f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:21:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793816483; x=1794421283; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mky9j+WOnq3WliGY/AldJ7Jn18rgTtc7t2LkEe9tf5Y=;
-        b=el7ZrjElkjGEwbcTxvHJbqH+Z5l0fG1MWnuGf50FD/jKywrXSo/L9eO78LgbLa8l+H
-         3/T2X05Y5sNOBDN3JakoeF9hmmn9JaguzMNoD7zt/hfAqDYdjOLXnA3fFWNJjxHCUW9j
-         W7dobHmaZyxd43ulo69mZESUlQmXEX7YAUIkZPz5ZcaIxJnilWF5MHV/NPhZAN86U8Y1
-         eMJRfZXerQecCDq8nQ4eqSaXWP4GCeVRhrurAyj8monLRW/CHUHRqIXmh6AC7dQfYeot
-         EE2edhN3LiQadpPN4WyJY2573sF2XuRDDirnfVHyz0cw4aDnK+a4hv5g8UwYMQMGykgr
-         tGGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816483; x=1794421283;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mky9j+WOnq3WliGY/AldJ7Jn18rgTtc7t2LkEe9tf5Y=;
-        b=FuypDOIq96GNj40UYu7fRDJhcb2PfjbfGaHdhaftyrfyKMPhk1qskev0aJmsCoi9ce
-         Yqms4pL6HfQ5/BUmHwKmait7pyGYcr4uZYWHpd7sdGkubKQbjEOXZV0EhQjl88Q1dAL+
-         sC8Qr5pMGUglSqkcOEHrUf6Ifkz1oimDmXY/th2sZRRyCLNArKz331K0bVgO9QG1elgM
-         v4oWbo+gkG1G1hUhpJoz5l00wou8h5oM8vQLE23Q7M2WnCXYm4zr+qfIYXvW9rxIpxbw
-         9shhebR2ybB+uJikcPWo6nGUgtGbHc8lqORBfNoieElqHIckGoPlHju6RLWx23MlJpx2
-         2d+w==
-X-Forwarded-Encrypted: i=1; AKwUvBynCcrIQyg6taITmjYwJrLnRljuVj16yaTRwPztPROgHcmW73Titr/JR24T2oq41tJn4WF+whW3zpjqVsc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4F14bg2VxWz+Nm23KBWC/02C+/yt1LFuYfjLMdd1v9lBhSLJs
-	FcF4YqrlVvdOGxKS5rVF9TPfFzWD/7QhHkVfAHwMm+lJdS1j92KfPDNU
-X-Gm-Gg: AYBFou1HLw0t5GufsyFOP7EiQ9UIEq1gqWIRk5sILh42/0ixmY5FYQepp4l8IrW+ijM
-	YxsHdKSHWpVxEoQWFMbMyfz2Xu25+RIf50bQvybgkntz8cj9uxbAjyxXOuucGoAJUBRhrbNoxzv
-	286wMb8DSxb65ZGrdOsSGELRedP9BkrjMqkWZxcuavkg9DyhuCODSEMlumT2ayx66Zsctsxg23V
-	iKhLMvd3aK9XW34Oh8nuqeU14mTfBSYMAJq3qskMqnVzDGnHIY2Gn0ArEyOPZUsTkHCJyqN4u2t
-	wzLoBQfkic3nutJ84YCsS2ESKjrbvhq+1v8ZrJgP1xBXjj2KpxnRwnmIcYjNHWKgWtnnhxg+Dli
-	51Uuk0LZnA8q60cvzoxGYKFa5HQYfwj4vCrGKPaaK46Tc0ixskQtroDALe5NL5pH8hMDPk9qRJ8
-	1kGcyxkouJ4huMoKymUQVP3TOqQtj1/USLYQuUj3pKfvVsxst34520ON6POyhXmaQqRZsu1kcad
-	PKI+uoe4o8yLcHwTxCS3haa1MKhMzIcT2QtZLESy8YUY2X9pGPfBJWMAZLnweIldSBWYKC4tpGR
-	RqLdSb8GCFaTddZ3cH7gfzR1/jHNabrWAbWRu66F10ODG4TRVXIHctF6eWhYm+dM2bmMa0/A3aL
-	Kt4fkew3yMTgGKJKt1lwMJQyeDCsIJoEf3HJ5+ajTi1FvbxqaEA028xoI/8s=
-X-Received: by 2002:a05:6000:4a19:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-48e6e308b00mr36775005f8f.39.1793816483116;
-        Wed, 04 Nov 2026 10:21:23 -0800 (PST)
-Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:21:22 -0800 (PST)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH net-next v4 12/14] net: dsa: rzn1-a5psw: Add fixed frame length workaround for management port
-Date: Wed,  4 Nov 2026 18:21:00 +0000
-Message-ID: <20261104182105.1102555-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEqSqtuf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B831F0180E;
+	Wed,  4 Nov 2026 18:21:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793816490;
+	bh=JePMCfKku9pEUDTHsAhZnlP/cQPhOTSidIJ9IlFtxng=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=oEqSqtuf3dQOGOF8fH7u936/F2G7Cgctm+FulpT4YWeG09bwZMpVbHKheBVML2qCg
+	 CivgxtItI//tYy8SEMWoJz13mF7ZxJHSJaxvF7x6p8g3eRk2rIy6D+URLkeRCQnNkR
+	 KNkIvppr4B6Y6UoYda6BbXkVlBDgmKM4EgJ7M5RTQGKCoUmHvoiHF2vFE5vee/JZTM
+	 3PTMNnOt6qNHDgCFQ7Zr3oUtwP+PAcE/N1arv3UrAqW+sZbVQNEdj3pvZVZlatjjIX
+	 8ExZfQDbyCr4pqUuyYfLvjjIQ5Gfi/wktxj6IxLJJFj9xR/XVZ3Xm4nHywmI0Z0K5v
+	 puqwUOgEprupA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 04 Nov 2026 18:20:24 +0000
+Subject: [PATCH v5 06/11] objtool: do not hash DWARF relocations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,102 +52,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-build-speedup-v5-6-0f6018be8dae@kernel.org>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+In-Reply-To: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: ljs@kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3375; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=aMXclC3dToXuPw8amRZ/vPdHrAbL7HmKgomYoAoiYOU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJel+fKZkToeSc89FulWqB6tlet4LVrj7hVydopnVH+b
+ +OmfLfvKGVhEONikBVTZHn+RXx/kEjYvM4L/m4wc1iZQIYwcHEKwETYpBj+adX5apU++huh8eDQ
+ idrntcIa/cu3vHJkNNJsz3c5Ocv7GMP/QMe9nRIMtzVqfX6XnSuI5wtkNp++UMq5sm6vqNjZzIv
+ cAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+objtool hashes the relocation of each section so it can find them by
+destination, but DWARF sections are never looked up this way, so there is
+no reason to hash them.
 
-The ETHSW IP used in SoCs such as RZ/T2H and RZ/N2H has a hardware issue
-where the internal mgmt_tag_vld signal is asserted as a level instead of
-a single-cycle pulse. This causes the frame length counter on the
-management (CPU) port to over-increment, so valid frames are falsely
-detected as oversized and dropped.
+With CONFIG_DEBUG_INFO_DWARF5 set a defconfig vmlinux.o has ~22 million
+relocations, 20.5 million of which are .debug_* sections.
 
-The recommended workaround is to program the maximum frame length
-register (FRM_LENGTH) of the management port with a fixed, large value.
+Therefore, don't hash these.
 
-Add a management_port_fixed_frame_len member to struct a5psw_of_data to
-hold the SoC-specific value. When it is set, program A5PSW_FRM_LENGTH
-for the CPU port with this value in a5psw_setup(), and skip updating
-FRM_LENGTH for the CPU port in a5psw_port_change_mtu() so that MTU
-changes do not override the workaround.
+With the same configuration the objtool vmlinux.o link-time run takes ~.5s
+less to complete (2.63s -> 2.14s) and ~130 MiB memory to do it.
 
-No functional change for existing SoCs, which leave the value unset.
+The output remains unchanged.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-v3->v4:
-- No change
+ tools/objtool/elf.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
-v2->v3:
-- Marked of_data as const pointer to avoid build warning
-
-v1->v2:
-- Added info about the IP issue and the workaround.
-- Updated commit message
----
- drivers/net/dsa/rzn1_a5psw.c | 18 +++++++++++++++++-
- drivers/net/dsa/rzn1_a5psw.h |  3 +++
- 2 files changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-index f8fe6f3b8e12..f3eb8646dea5 100644
---- a/drivers/net/dsa/rzn1_a5psw.c
-+++ b/drivers/net/dsa/rzn1_a5psw.c
-@@ -209,8 +209,13 @@ static int a5psw_port_enable(struct dsa_switch *ds, int port,
- static int a5psw_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
+index a791f4ea6ec1..98a110e3e8f5 100644
+--- a/tools/objtool/elf.c
++++ b/tools/objtool/elf.c
+@@ -1071,7 +1071,8 @@ struct reloc *elf_init_reloc(struct elf *elf, struct section *rsec,
+ 	set_reloc_type(elf, reloc, type);
+ 	set_reloc_addend(elf, reloc, addend);
+ 
+-	elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
++	if (!is_dwarf_section(rsec->base))
++		elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
+ 	set_sym_next_reloc(reloc, sym->relocs);
+ 	sym->relocs = reloc;
+ 
+@@ -1125,16 +1126,14 @@ struct reloc *elf_init_reloc_data_sym(struct elf *elf, struct section *sec,
+ 
+ static int read_relocs(struct elf *elf)
  {
- 	struct a5psw *a5psw = ds->priv;
-+	const struct a5psw_of_data *of_data = a5psw->of_data;
-+
-+	if (dsa_is_cpu_port(ds, port) && of_data->management_port_fixed_frame_len)
-+		return 0;
+-	unsigned long nr_reloc, max_reloc = 0;
++	unsigned long nr_reloc, max_reloc = 0, nr_hashed = 0;
+ 	struct section *rsec;
+ 	struct reloc *reloc;
+ 	unsigned int symndx;
+ 	struct symbol *sym;
++	bool hashed;
+ 	int i;
  
- 	new_mtu += ETH_HLEN + A5PSW_EXTRA_MTU_LEN + ETH_FCS_LEN;
-+
- 	a5psw_reg_writel(a5psw, A5PSW_FRM_LENGTH(port), new_mtu);
- 
- 	return 0;
-@@ -990,8 +995,19 @@ static int a5psw_setup(struct dsa_switch *ds)
- 		if (dsa_port_is_unused(dp))
+-	if (!elf_alloc_hash(reloc, elf->num_relocs))
+-		return -1;
+-
+ 	list_for_each_entry(rsec, &elf->sections, list) {
+ 		if (!is_reloc_sec(rsec))
  			continue;
+@@ -1147,6 +1146,23 @@ static int read_relocs(struct elf *elf)
  
--		/* Enable egress flooding and learning for CPU port */
- 		if (dsa_port_is_cpu(dp)) {
-+			/*
-+			 * Workaround for ETHSW IP issue, mgmt_tag_vld is asserted as a level
-+			 * instead of a single-cycle pulse, causing the frame length counter
-+			 * to over-increment and trigger false oversize frame drops.
-+			 * The recommended workaround is to set the maximum frame
-+			 * length on the management port.
-+			 */
-+			if (a5psw->of_data->management_port_fixed_frame_len)
-+				a5psw_reg_writel(a5psw, A5PSW_FRM_LENGTH(port),
-+						 a5psw->of_data->management_port_fixed_frame_len);
+ 		rsec->base->rsec = rsec;
+ 
++		/*
++		 * DWARF relocations are never looked up by destination, they
++		 * only need to be on their symbol's list.
++		 */
++		if (!is_dwarf_section(rsec->base))
++			nr_hashed += sec_num_entries(rsec);
++	}
 +
-+			/* Enable egress flooding and learning for CPU port */
- 			a5psw_flooding_set_resolution(a5psw, port, true);
- 			a5psw_port_learning_set(a5psw, port, true);
- 		}
-diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
-index e952afd95dca..5bec33b23079 100644
---- a/drivers/net/dsa/rzn1_a5psw.h
-+++ b/drivers/net/dsa/rzn1_a5psw.h
-@@ -237,12 +237,15 @@ union lk_data {
-  * @npcs: Number of PCS connected to the switch
-  * @cpu_port: CPU port number
-  * @tag_proto: DSA tag protocol used by the switch
-+ * @management_port_fixed_frame_len: Fixed frame length for the management
-+ *   port to account for the HW issue.
-  */
- struct a5psw_of_data {
- 	unsigned int nports;
- 	unsigned int npcs;
- 	unsigned int cpu_port;
- 	enum dsa_tag_protocol tag_proto;
-+	unsigned int management_port_fixed_frame_len;
- };
++	if (!elf_alloc_hash(reloc, nr_hashed))
++		return -1;
++
++	list_for_each_entry(rsec, &elf->sections, list) {
++		if (!is_reloc_sec(rsec))
++			continue;
++
++		hashed = !is_dwarf_section(rsec->base);
++
+ 		/* nr_alloc_relocs=0: libelf owns d_buf */
+ 		rsec->nr_alloc_relocs = 0;
  
- /**
+@@ -1168,7 +1184,8 @@ static int read_relocs(struct elf *elf)
+ 				return -1;
+ 			}
+ 
+-			elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
++			if (hashed)
++				elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
+ 			set_sym_next_reloc(reloc, sym->relocs);
+ 			sym->relocs = reloc;
+ 
+@@ -1180,6 +1197,7 @@ static int read_relocs(struct elf *elf)
+ 	if (opts.stats) {
+ 		printf("max_reloc: %lu\n", max_reloc);
+ 		printf("num_relocs: %lu\n", elf->num_relocs);
++		printf("num_relocs_hashed: %lu\n", nr_hashed);
+ 		printf("reloc_bits: %d\n", elf->reloc_bits);
+ 	}
+ 
+@@ -1634,7 +1652,7 @@ static int elf_alloc_reloc(struct elf *elf, struct section *rsec)
+ 
+ 	memcpy(new_relocs, old_relocs, nr_relocs_old * sizeof(struct reloc));
+ 
+-	for (int i = 0; i < nr_relocs_old; i++) {
++	for (int i = 0; i < nr_relocs_old && !is_dwarf_section(rsec->base); i++) {
+ 		struct reloc *old = &old_relocs[i];
+ 		struct reloc *new = &new_relocs[i];
+ 		u32 key = reloc_hash(old);
+
 -- 
 2.56.0
 
