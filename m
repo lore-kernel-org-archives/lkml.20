@@ -1,47 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775856;
-	b=NpjsXnshVFrLGCc+13vm8Vq34HAdBjkZeJDJ9XUUatx55eRjqvYO9wPsrE08yc58FQhz
-	 spj3qxthxZp/VhzjosThiGgKFFj/Q48SkxmDvvjYCxh8ArC3RiF4TMK9EZeOt1/gC0X90
-	 v0HiXptcz4Mc2mkVI8CajFX3QyoCFt0MjfN/gvv+xSv5EIE+mQpq5Q6qQOJKnvYu2zaNP
-	 IxpQlnHYgHfIjkJsL+Xdq3HSM5ajLwazSAsXidJUvLmRC2poRj79Uhv5ZkynwzuGOwB43
-	 1kbEP8gGwH0Sw91nwanm5N0eb/UZh+ke7TtbmpAtJ1vAeUT/s0snGIbX+eUh+Fd6NXg==
+	t=1793775919;
+	b=kGcRekmpoSC3TikiWo0P0A9STktHUQ4yGwsh68WfaB+RPDJ3RG1Xq9fTTojQNvLQ2zFT
+	 gvOBp78ZivB8LuyDm97LSjP95PVBX5fn71NfgMrVElJxJLjD5Ztqs12/5Yd2vHDYOgiFC
+	 q3ik6+c22qjytC3yDfHX545QTGA72Kwj90xq50BGu027zQ6ixILYzEJt+/CzIvGx5bFMH
+	 x08yKo1Ov8QEaaTCuGuTVD6I7UHTSuJj5i+1t/H7x9eUnzYnFHagQ6rLRX4tp7N5IZtiq
+	 tYUCnvZXVo15gVJyXRxyqpnEnxnm9y6HRbDZNSs6i+spKw6fZYhLy/pcdDD99ewVMYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775856;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zgYAfbdg4gkU+laTuhVm1gWIbI8SOd67gBl+57GmbVk=;
-	b=hFFDdWM0U9UwGWZmW469Cw/wiPO+rkVoUAlVnr/s1z9zUvf+bJyIv1DLBzf4D8f6/YL2
-	 4IjcKuDMzc08Y2yKWSqMigoF14+6xgOkkcWPfShrrB6hIhv/kfGvcLutaDn01GDcUL8IW
-	 huQs5o4CoKcKvOFhldG1r3wE2bdnuyO/+IX/4FpReMDmmcxcEk2qG7UGzM3Z/ZRwvCP4E
-	 KC0R/d19G1UgJQuBPsCtKZ5cNzQrq4GMq14lUJuA72z4PgSdFtvtczmTZMGENarBEXvyJ
-	 GHROqbBw63lqu2gCyyyEkZHq97rA6kmfaLWYtZKr7ZTVDGBAXngshi9yFe2z2394rYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775919;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=cXRTR6Cd1Y2eTy4MIHECYmjQTfa4P4H4thCUYYRgRZ8=;
+	b=FoarkjD9PX+ERouamzZKT3vJI23NZqqlSl5NlvgDSw+GgPrIcbt+9fokeIRVShH4yuqo
+	 c0jOaZsXYm9jU2ukH030u76UHJ2ssYUApgd6QG25YAwtzEcmYwKldjbRhkrPSYijv5GeB
+	 szRkJi5C0f3R8Ooub0/rQA1rCdlbenwqNTSRTwwnUrYVHlVbouIrMPWie7UrXhUVDlN92
+	 1DyQxtNOeSit3MziLU8v9Lsxm1r9bkC+qHu2Xhdnn/dYSROfLuHSyOLpv2Arj1flaytnY
+	 zkoFTpiHgJdxgK1VmBNy7lh2p+Abs7Uqmk1GBSNUrlWRBy05QCmdnVY6LWQui9nQ6qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbApma9Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	arc=none smtp.remote-ip=95.215.58.52
+Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D9E606A31B;
-	Wed,  4 Nov 2026 07:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbApma9Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A4F1F000C1;
-	Wed,  4 Nov 2026 07:04:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793775855;
-	bh=zgYAfbdg4gkU+laTuhVm1gWIbI8SOd67gBl+57GmbVk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bbApma9YpJHwV5I/a2M4mbwCUN66LE1RDMiX6oB+kfNrxDoDV/Ga621XVPmA/lIAM
-	 7j+4lNL1LpDqQQ+L+c4T38oRBflcc4lh+Z/pmsS8n92Ap894r8FLNU6sjEKS6tNE1t
-	 1hlWOrYY/W73iRq2ymwt57inL7I/DA2IEl6FYRhl1d8BMULWoGvGhRYYsYMN8cRAFg
-	 aSg96HdQvvGuzLyukQcAh6hfXMRAqDAzb7xe3emSHYmQiF6tN4fF7TsTU3epROUxKZ
-	 uI27AKE2ecn8kyoz7rRgb13myYoYy5F3pztmAHQas80mDOvGXj9Wc9GB1G7fOq+vVg
-	 cismcWWMfXT6A==
-Message-ID: <bf838fa6-a175-4514-a496-c6ec9b03ac7c@kernel.org>
-Date: Wed, 4 Nov 2026 08:04:10 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86305606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:05:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86305606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6utNHivWyaA8ZepnyHTTdDHkXVyFNNb5pORoTt6doaQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793775915; v=1; x=1794380715;
+ b=srVG/7Np6E2p6rEBdJz5gHPqqqtAWY2O7kqyCfvCVfrHZNBjk1Cc9YF1MRSwJh6vqA0wDpdV
+ 5pO9IFdGHeYUFWa0IguYG7wwsNi2JkWMVMKRggF0Em1toJ+BwdcG1sI5PEJ5cDbAjkZIcGmJFRs
+ LAV3EiTKJWRpE/eS9DgKlBJnFsvp5nTD5g8JS2uQxBoQyc1gCts/kATARel8Ey7/yDAUyrU4ZoL
+ VsmDh7XSVwb6eRtKUaRzlYSLDKveltKUJiq28v4mCSjms92naqv4EtlYlmogkEbxJ5kOIL8lzOJ
+ rSEaVaucnyeD7Q1yusyTWjYLhnmCW80BMu6EECrnU4ruA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0198b4517bc619b5;
+	Wed, 04 Nov 2026 07:05:14 +0000
+X-Mizu-Trace-ID: 0198b4517bc619b5
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maximilian Luz <luzmaximilian@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org
+Subject: [PATCH 0/5] Add support for the Microsoft Surface Pro X
+Date: Wed,  4 Nov 2026 04:04:31 -0300
+Message-ID: <20261104070441.74127-1-val@packett.cool>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,183 +75,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/code-patching: Flush the patch area TLB entry
- locally
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Hari Bathini <hbathini@linux.ibm.com>, stable@vger.kernel.org,
- Josef Schlehofer <pepe.schlehofer@gmail.com>
-References: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com>
- <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
- <wlqu5lej.ritesh.list@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <wlqu5lej.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The Surface Pro X is a 2019-era tablet powered by the Qualcomm SC8180X SoC,
+released in three variants (SQ1, Wi-Fi, SQ2).
 
+Patches to support it have been around in a downstream tree at
+https://github.com/linux-surface/kernel for a while. Let's upstream it!
 
-Le 03/11/2026 à 10:12, Ritesh Harjani a écrit :
-> "Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
-> 
->> Le 03/11/2026 à 03:54, Ritesh Harjani (IBM) a écrit :
->>> patching functions like patch_mem() and patch_instructions(), maps the
->>> target page at the per-cpu text_poke_area, write it, clear the PTE and
->>> then flushes the tlb using flush_tlb_kernel_range(), with interrupts
->>> disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
->>> based TLB invalidation i.e -
->>>
->>> 	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
->>>
->>> ...which will wait for other CPUs but with interrupts off. This can be
->>> caught by lockdep with the following warning:
->>>
->>>     WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
->>>     CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
->>>     Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
->>>     Call Trace:
->>>     [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
->>>     [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
->>>     [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
->>>     [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
->>>     [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
->>>     ...
->>>     [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
->>>     [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
->>>     ...
->>>     hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
->>>
->>> Josef confirmed that this was causing a hang (deadlock):
->>>       I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
->>>       CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
->>>       fine 9 of 9 times with jump labels off. The hang comes while static
->>>       keys are patched and modules are loaded, nothing is printed and the
->>>       watchdog resets the board. OpenWrt keeps jump labels off on these
->>>       boards for now.
->>>
->>> ...which is possible if both cpus are doing similar operations with interrupts
->>> off and doing TLB invalidation using IPI.
->>>
->>> Broadcast TLB invalidation is not needed here since text_poke_area is
->>> a per-cpu area. It is mapped and unmapped with interrupts disabled by
->>> it's own cpu. The only reason I think, if we would need a broadcast tlb
->>> invalidate is, when we want to prevent a stray or malicious write to
->>> this cpu text_poke_area by another CPU. This generally gets solved with
->>> temporary-mm path like how Radix and even x86 implements. However, booke
->>> doesn't implement that, so for now let's ensure we use local tlb
->>> flushing for correctness.
->>
->> This problem was already discussed one year ago, see
->> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FPA3P192MB2865C07D634E3B775D003C7F8CD7A%40PA3P192MB2865.EURP192.PROD.OUTLOOK.COM%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C94ba9bffb5d647f9790208df398f6ccb%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639292960305489629%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=RgVxRJOlFSWgNsFSKwLDRinx3kaF4LpSiCaTey8xtic%3D&reserved=0
->>
->> See response from Arnd, a stop_machine() should be done for completeness.
->>
-> 
-> I will have to take sometime to go over what ARM does here with
-> stop_machine(). However, either ways I think, we still need this fix,
-> since otherwise P2020 boards gets hung during boot. Thoughts?
+I have permission from Maximilian Luz to use his From/S-o-b with modified
+(squashed, stripped down and split by model variant) patches:
+https://github.com/linux-surface/surface-pro-x/issues/7#issuecomment-6597291831
 
-That's right, it must be fixed. The global TLB flush must likely be 
-changed to a local TLB flush, but that's not enough to get a safe system.
+One aspect that will need some input from people with internal qcom
+docs :) is the PCIe setup. There is sort of a multi PHY or multi
+controller setup, and for now we've been setting up a single
+controller with num-lanes=<2> and it does work, but it's not the
+proper way to do it..
 
-> 
-> 
->>>
->>> Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
->>> Cc: stable@vger.kernel.org
->>> Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
->>> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F20261026195644.16384-1-pepe.schlehofer%40gmail.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C94ba9bffb5d647f9790208df398f6ccb%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639292960305519321%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=A50lEHBZBaX70jGTu38GylmnQvlxVzLalMVXYj2kti0%3D&reserved=0
->>> Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
->>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->>> ---
->>>    arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
->>>    1 file changed, 19 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
->>> index 44ff9f684bef..6351342fa5c3 100644
->>> --- a/arch/powerpc/lib/code-patching.c
->>> +++ b/arch/powerpc/lib/code-patching.c
->>> @@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
->>>    	return err;
->>>    }
->>>
->>> +/*
->>> + * The patch area is per-CPU and only used by its own CPU, with IRQs
->>> + * disabled, so only the local TLB can hold an entry for it.
->>> + *
->>> + * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
->>> + * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
->>> + * flush just the local kernel (PID 0) entry.
->>> + * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
->>> + */
->>> +static void flush_patch_area(unsigned long addr)
->>> +{
->>> +	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
->>
->> CONFIG_PPC_BOOK3S not consistant with commit message. Are you adressing
->> a problem on e500 only ? on all not book3s ? What about book3s/32 ? What
->> about 8xx ? Even for book3s/64, is it correct at all when
->> mm_patch_enabled() returns false ?
->>
-> 
-> No we are addressing the problem on all NOHASH platforms. IIUC, all
-> !BOOK3S are "nohash". Although some of them maybe UP, so it doesn't
-> matter whether a flush_tlb_kernel_range() is called or
-> local_flush_tlb_page() - it wouldn't matter. And on others which are SMP
-> but do not have STRICT_KERNEL_RWX enabled, they will anyway not go
-> through this path - but if they ever do - then we should ensure they too
-> do a local_flush_tlb_range() to avoid the same deadlock.
-> 
-> However, I think, maybe we could use CONFIG_PPC_MMU_NOHASH instead of using
-> CONFIG_PPC_BOOK3S, thoughts?
+Thanks,
+~val
 
-Well they are equivalent, so it doesn't solve the issue I think:
+Maximilian Luz (3):
+  arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro X
+  rtc: Add basic support for RTC via Surface System Aggregator Module
+  platform/surface: aggregator_registry: Add support for Surface Pro X
 
-config PPC_MMU_NOHASH
-	def_bool y
-	depends on !PPC_BOOK3S
+Val Packett (2):
+  dt-bindings: arm: qcom: Document Microsoft Surface Pro X
+  firmware: qcom: scm: Allow QSEECOM on the Surface Pro X
 
-What about book3s/64 in hash mode ? What about book3s/32 ? None of them 
-implement temporary_mm, so are they covered ?
+ .../devicetree/bindings/arm/qcom.yaml         |   4 +-
+ MAINTAINERS                                   |   8 +
+ arch/arm64/boot/dts/qcom/Makefile             |   3 +
+ .../dts/qcom/sc8180x-microsoft-cambria.dts    |  38 +
+ .../dts/qcom/sc8180x-microsoft-carina.dts     |  50 +
+ .../dts/qcom/sc8180x-microsoft-caspar.dts     |  38 +
+ .../qcom/sc8180x-microsoft-surface-pro-x.dtsi | 853 ++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |   3 +
+ .../surface/surface_aggregator_registry.c     |  26 +
+ drivers/rtc/Kconfig                           |   9 +
+ drivers/rtc/Makefile                          |   1 +
+ drivers/rtc/rtc-surface.c                     | 129 +++
+ 12 files changed, 1161 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-cambria.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-caspar.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
+ create mode 100644 drivers/rtc/rtc-surface.c
 
-Christophe
-
-> 
-> 
-> -ritesh
-> 
->>> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
->>> +	else
->>> +		local_flush_tlb_page(NULL, addr);
->>> +}
->>> +
->>>    static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
->>>    {
->>>    	int err;
->>> @@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
->>>    	err = __patch_mem(addr, val, patch_addr, is_dword);
->>>
->>>    	pte_clear(&init_mm, text_poke_addr, pte);
->>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
->>> +	flush_patch_area(text_poke_addr);
->>>
->>>    	return err;
->>>    }
->>> @@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
->>>    	err = __patch_instructions(patch_addr, code, len, repeat_instr);
->>>
->>>    	pte_clear(&init_mm, text_poke_addr, pte);
->>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
->>> +	flush_patch_area(text_poke_addr);
->>>
->>>    	return err;
->>>    }
->>> --
->>> 2.39.5
->>>
-
+-- 
+2.56.0
