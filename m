@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785770;
-	b=eCt17jYeC4Bin7Yja0frJqsozdbUBUjmTH3n1HGe1dlKQ+E6DUbeHJKStJlDGS4MLhU+
-	 G0pXNPnWjpHeOmDfA4hzhnonHFa2KkTHcYqGF4JaD/ObZGUig8Ub7Dch8cK8jSHxd8EpW
-	 3mUNbV8YP4FJZdfGY0evd3EPo4wdvm6KTO5IrpU4FhHp4HhgCqdklJKNAO6eURiZPSdUS
-	 RJyiGtiLBV/cH38KbHZXYwBvQZaSEAWRtEdxwrRgZV1fZQucn9ATWSj65NvTriSd7ODZn
-	 nOjsNzX9wHSStpLEue9cmzdS3hjUwX1xg6ZF0qR+EcLw0tF6Sp4N/6Ebix0PPyjxTWw==
+	t=1793785819;
+	b=SfgDjzQR3zR3dk8eGMHmLxWgugWzVjqDqfk6lWWs5vW9s0r3Hm3p/zce13BCnMRz2bzX
+	 Kzy3Ju/ZiiqIHoqd2GcO71jg9vY+WgK4Kg9uwVfpAFgBMqxQZQ00dFHvYsp4VqHwhfYBR
+	 9IhjCvGfJd4sf0Cahx3IRUhOS1hzpg1dRejtwzwJMrW32T8joui7uEXMr8ZOOSDgXdN+n
+	 txxQVGcJ32ZnkJeMLos7KRRWVzSDGEnIpIzmIZbogHeMiTlM4EYMhrdt3pFnJL+0T/IDU
+	 nDY7MWa/Pn7HobZnI9NeZsUYiaacvz8uZ74WYxUzUTaTUKfCFa7y+Ly+TOmacJVcvSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785770;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=YizUKSZomut51qhv45bLuQBmO4JbaEiPfKxr7sOmo9k=;
-	b=kCXNUWSoMl6V/b8U8MyCtf0gS6r7TsqHcEPubpxfhnQixwzJQLz1kvvfCkYmcrLe1WnF
-	 Z06u5kDZjg4Ib7KUIa9/y+/lL+BjPiMoPEUK49Xbzs2j7QMoIXI6UyE5x8ZvcpDd2mHTR
-	 oQEwkg8XfTI5tMXoYc9DiK2QhNcSnq03Bz5WjZ1OfhEzHZhTQgB22E2VQXirQFMLYdz2b
-	 XZmjZ35TqMDPiL5i9gWro3NtM9YqrVv31ljU0gy107JyrkyLGTxR/qv8Dre9e2Iapaqe4
-	 cG3rORlgDBYozSmAduZcu7JgSKJzMP3macbP2FSnAqdMFtm7Ao9N65tFE0GMqpqW4ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785819;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:Message-ID:To:Cc;
+	bh=z9ahkQoGqY4LXm5ulXS80YZleTn1KGfrTqpEsVzzvjo=;
+	b=zoQ6bEV6SWyQeUR5aVrda5l+MJ4VkMX/tqGSv8kVnOG39xvyeANoPiZUcutYS7AqbBk1
+	 VWGf3/15sCNTcCX099d7JBRV/rrwn6DhrHu9NGHeEzBBjl4DB70OD3sbB/yHe8mCvU2Ae
+	 yXPWdBmrGVJabbbjqKwYDV9ExzCT6iW8T4tcaqXxhU7mQ7y8ztwSU0AQiPbsUQA22NAch
+	 MHm18mnwTbmUiPnig4tNLNY4APq5m2WPGzZDHXVKfPSBlo661oObWcpHYJSiUWMPbXNmU
+	 AMfAEtJaNsmJavRcLbRAVyeYO/xF//GVdGCklm+bpNUYm2ZZMKf5B1pplC+bsTZFCOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ZiQFmtoc;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R7Wx2uuD;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8D3606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:49:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A8D3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BEE606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:50:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12BEE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ZiQFmtoc
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261104094927epoutp031d98578e97e2faac93e959d685910e42~kzqbA1g1V1719517195epoutp03O
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:49:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261104094927epoutp031d98578e97e2faac93e959d685910e42~kzqbA1g1V1719517195epoutp03O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793785767;
-	bh=YizUKSZomut51qhv45bLuQBmO4JbaEiPfKxr7sOmo9k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ZiQFmtocw40VaTyDEpkzebs/eV+fKJIIYzlkfYTNkXrQMyZjh5FRMr71UskutFpYG
-	 2uMvLVFP41086ESc84FSjDLo3+fZvJrl/JdvIkhe5Pr/Ns38lLzw4/SRaj5v09QEub
-	 dd4VLgvF8t550r1rRg+mgD6SYrUtV3U+iEqhtsgM=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261104094926epcas2p2e312fe717dc4185cbfae59229af4ada1~kzqaicL3B0604706047epcas2p2d;
-	Wed,  4 Nov 2026 09:49:26 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.210]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKLJ62Dcyz6B9m7; Wed,  4 Nov
-	2026 09:49:26 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261104094925epcas2p1f25905de00c2548e1e1349fba5f18551~kzqZg4LHj2536525365epcas2p1-;
-	Wed,  4 Nov 2026 09:49:25 +0000 (GMT)
-Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261104094925epsmtip128aee456909e23d6086195d36e01193c~kzqZbUgmM0125501255epsmtip1S;
-	Wed,  4 Nov 2026 09:49:25 +0000 (GMT)
-From: Kiwoong Kim <kwmad.kim@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
-	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
-	cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
-	<kwmad.kim@samsung.com>
-Subject: [PATCH v5 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-Date: Wed,  4 Nov 2026 18:49:14 +0900
-Message-ID: <20261104094914.180788-3-kwmad.kim@samsung.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104094914.180788-1-kwmad.kim@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R7Wx2uuD
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-369f33df08eso840745eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:50:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793785818; x=1794390618; darn=vger.kernel.org;
+        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z9ahkQoGqY4LXm5ulXS80YZleTn1KGfrTqpEsVzzvjo=;
+        b=R7Wx2uuDBgNls+XoNlqzt23IZkEGWU94ycKy8gvIwI2P7FjUK+MliwC8wupB57/+Z6
+         rxW63Y/2vd+FDslj3mXWEG/NS2i4RuWieP1lCxwwlTTlXi8luo7EUzSPzvmWgukGHNre
+         iUOuC0b216RNvkQDZgKhrIkJaxmQLvRmXKaX082SNqWiyXkDFIE3aOZiP6698LOem09T
+         CVjuaPJgXj5XIxn7MwqGT0St47QT8uoDIc5Cq6ZdrWBV/p5LM9zFR+Or3YvapelgtbQL
+         Xz8SypqHeP+IEcgZHTSdyMKDMpV0lfzGqAj095SFAOYDmmmAy6Igqb60WbJPseV7TBQ+
+         INaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793785818; x=1794390618;
+        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z9ahkQoGqY4LXm5ulXS80YZleTn1KGfrTqpEsVzzvjo=;
+        b=izmH3aR2qIaGJdSIoMs8ZMibg11XwooR3W/YV+tBkN1zU4ZlaDH7mcILXu2J4eyxOQ
+         T+0gfFjmSvveB7lszlKBxpxcqqNpvc3x1nGXjrhj1cqcuD8acXdyE6IyGS4FwlsrEVRG
+         ApRLlcqxeCqRaKrjzjoNtQ2mwfm82w1eN2xIeiM4N5IOK3DVd4sUZSxqQ4FCpn+ennjC
+         cD+w+wNbIrURZp9Hb1cRb6n/G3d3HwK8JqH7UZEcVNjEcqw5xMCb6S1TjJ1SXpV5xs3E
+         ZX7DYvzvajdp6CkBICTkMaPmhnEABECd6ynU3yw5iZKdRw1e+Ae0Hc97OcupYQ7F8Tdp
+         gGjw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/KkUMROHKx6kw49WDcgtWJW4rBvnkQmeuB8iy6Mq6l89Z6zKlqr19pC8/Z4CCFMh+VNkNY77WQ03FgTg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88/xixrN6I3Tigf/EfSBfymBABdzF2YVxalosfe28DC9oVx1LQ
+	Ss3JBel2OlXU9eqtoWKBDJ66bkUaPx4ZAgUEO7u/IAwrdmUjnL8OsMXQHEXRVAjmvssOMggz
+X-Gm-Gg: AYBFou2Wpro7MRO0c1eyUCWKrpXr7cr45DhCPrPLa0GzuG0w/TzIPA3gX/Jq9DQogF+
+	JAmUXlYnwnI6lItlOLedUTnT6YxsvslW30+3BMRITXcPpBIMHOMdUGbQZeOPxBPKA76OZzx/dT2
+	zOYy9EimsOUf/1O23EyEoLjCKFmfIpnGlIpIJIZit4ZDMumRMOaTHULTGnJhXTHX5amIyP2055i
+	7L+Lo3OtAKAZAoSzemM7Z/BNL02PpMcbBSIYb1OkwVOXyfOLAl9YI1GOetEX7r9oCUfEzuDAKqq
+	KMvfMzF2kV9WUPVsr6xRBIQURP6Qg8zqzWvhq0DA+nnFmzN8FnE/h4Q9JALCIZ4Hl5di/BzG0pP
+	iy5gcKPr3LNfbaI7tJm/xNuwJEZ8OfTdpFfaJOeXgz/BaeQd9ygyAQjnpcOlTgYSl3bW2BKLa64
+	+LMZT22tFsuIDBXkKRHhs+LSBYQKnEX0ZmJImJTqZgucsPdBKzcfpTLwkf/H4zSdfe46oZMkWF4
+	DaQc9karBin5F17EhBfRbIBdI1Fb0/2175yNzJ5yZlKlG4LSx9XnvMDawB9Ulze0wk71ezJrlyM
+	3zvCjBaMldNAGcRvyQWJDfmekDJrd74P/mEX/EDaqKetQIOp6LIrVYnSIw07jkRl+IROVF2rozA
+	eEEVv3bp8LYO8
+X-Received: by 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr22929780eec.7.1793785817978;
+        Wed, 04 Nov 2026 01:50:17 -0800 (PST)
+Received: from [127.0.1.1] ([23.247.137.158])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca362f38asm7068083eec.0.2026.11.04.01.50.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:50:17 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+Date: Wed, 04 Nov 2026 17:50:01 +0800
+Subject: [PATCH] iio: buffer: hold a reference while DMA-BUF is attached
+Message-ID: <179378580164.73301.2666197876060323279@gmail.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ paul@crapouillou.net, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,98 +91,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261104094925epcas2p1f25905de00c2548e1e1349fba5f18551
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261104094925epcas2p1f25905de00c2548e1e1349fba5f18551
-References: <20261104094914.180788-1-kwmad.kim@samsung.com>
-	<CGME20261104094925epcas2p1f25905de00c2548e1e1349fba5f18551@epcas2p1.samsung.com>
 
-Extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the UTRD of a
-device management command after a successful SQ_CUS poll. UFSHCI does not
-specify the order between the OCS update and the SQ_CUS update, so OCS may
-still be stale when cleanup returns. Without this poll, a late response to
-a timed-out query can arrive while a retry is already in flight, leaving
-the host with two query contexts and raising IS.UTPES.
+iio_buffer_attach_dmabuf() stores an IIO buffer pointer in the DMA-BUF
+attachment without taking a buffer reference. A delayed DMA fence
+completion can release the attachment after the IIO device has been
+unbound and its buffer freed. The release callback then dereferences
+the stale buffer while detaching the DMA-BUF.
 
-The poll is limited to device management commands because
-ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-them. For SCSI commands, the OCS in the UTRD stays
-OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+Take a reference when storing the buffer in the attachment, and drop
+it after the final detach or when the attach operation fails. This
+keeps the buffer alive for the asynchronous completion path.
 
-The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-OCS_ABORTED reported by the host controller for the cleaned-up request,
-means the cleanup has completed.
+A KASAN-enabled test with a DMA-BUF-capable IIO test device reproduced
+the use-after-free on the unmodified kernel. The same delayed
+completion sequence produced no report with the change applied.
 
-Here is the timeline of an actual case for this that happened with kernel 6.18.
-1. The host sent a query but the device didn't respond with it for a long time.
-
-[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-2. So after the query was timed out, the driver did SQ cleanup.
-Then the host updated CQ update and raised IS.CQES,
-Unfortunately, complete() was called the driver's ISR afterward.
-
-3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
-Then the driver didn't wait for completion due to the previous complete() call,
-and just checked OCS.
-
-[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
-
-4. The driver retried the query again, but the device didn't return anything,
-so the query was also timed-out.
-
-[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-5. A few seconds later, the device returned the response of the 1st query,
-but since the host was holding two query contexts and couldn't handle it,
-it raised IS.UTPES.
-
-Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ abort")
-Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+Fixes: 3e26d9f08fbe0 ("iio: core: Add new DMABUF interface infrastructure")
+Assisted-by: ZCode:GLM-4
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
- drivers/ufs/core/ufs-mcq.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/iio/industrialio-buffer.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 8106d55f4041..100295d02c62 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -609,6 +609,24 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
- 			 __func__, id,
- 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index 4294101810fd7..bfa6d19471126 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -1597,6 +1597,8 @@ static void iio_buffer_dmabuf_release(struct kref *ref)
  
+ 	buffer->access->detach_dmabuf(buffer, priv->block);
+ 
++	iio_buffer_put(buffer);
++
+ 	dma_buf_detach(attach->dmabuf, attach);
+ 	dma_buf_put(dmabuf);
+ 	kfree(priv);
+@@ -1741,7 +1743,13 @@ static int iio_buffer_attach_dmabuf(struct iio_dev_buffer_pair *ib,
+ 	}
+ 
+ 	kref_init(&priv->ref);
+-	priv->buffer = buffer;
 +	/*
-+	 * For device management commands, there is no order guaranteed between
-+	 * OCS update and CUS update, which is why we need to wait here. SCSI
-+	 * commands are excluded because the OCS in their UTRD is not updated
-+	 * from the CQE.
++	 * Hold a reference for the asynchronous dmabuf completion path
++	 * (iio_buffer_cleanup() -> iio_buffer_dmabuf_put() may run from a
++	 * work item after the device has been unbound); released in
++	 * iio_buffer_dmabuf_release().
 +	 */
-+	if (!err && blk_mq_is_reserved_rq(rq)) {
-+		enum utp_ocs ocs;
-+
-+		err = read_poll_timeout(READ_ONCE, ocs,
-+					ocs != OCS_INVALID_COMMAND_STATUS, 20,
-+					MCQ_POLL_US, false,
-+					lrbp->utr_descriptor_ptr->header.ocs);
-+		if (err)
-+			dev_err(hba->dev, "%s: OCS not updated. hwq=%d, tag=%d err=%d\n",
-+				__func__, id, task_tag, err);
-+	}
-+
- 	if (ufshcd_mcq_sq_start(hba, hwq))
- 		err = -ETIMEDOUT;
++	priv->buffer = iio_buffer_get(buffer);
+ 	priv->attach = attach;
+ 	attach->importer_priv = priv;
  
+@@ -1789,6 +1797,7 @@ static int iio_buffer_attach_dmabuf(struct iio_dev_buffer_pair *ib,
+ err_dmabuf_put:
+ 	dma_buf_put(dmabuf);
+ err_free_priv:
++	iio_buffer_put(priv->buffer);
+ 	kfree(priv);
+ 
+ 	return err;
 -- 
-2.43.0
+2.34.1
 
