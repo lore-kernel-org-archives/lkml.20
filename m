@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.212
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805388;
-	b=JNQOSqW3oybzl0hkRtyTdD/1x5YPJoIulnHDUN/99fkKo7LjFTbrO01Eava31SIVnpvy
-	 bdF6KsdHIjw9q0VH44O7H8rakIz4UW7tRsKERpWzsXMOOloQb0RZQEpckyeS30QbDb7fi
-	 7WmYTKqb0jqQ1YT1C7/Z3Tf+vDWYrB6xgMYxBp7auzVLiGvMHwqXykEzMqrDzydJljS8U
-	 iRc80VmMpWP+IoZG9SmTz7LjqYoeAGWTUthI5fqJGU7cPIZ74Rb18RYzKKgVLWtGVOAEd
-	 ybNRa9hYbLvQqTiqPk3qdzR8IID2B9JmDgtCGj0TWQ86oQcxc3gzAkP4QNHcn8hPXNg==
+	t=1793805376;
+	b=t7lsUlUWQc0qk1UNlydyRQJkmQQbDWcOEBPv167unzUXNztv/thIoX1x6WyhdPJ0h70q
+	 HUAkjI6hMLEwAn5jbMkM7sWJcaCEcbQoCro5sfYHTVzG/axmstCocFC6eaK1MVgJxL6e4
+	 9PYkQOHjHJ2U8PttF3OXmKiyA6pxtvFHqmbwkqTuujCfcHF4kc86kosnZrf5b3kmcYC0f
+	 LKZ2K5X1cG1Cdm9h2FCBGSTZ9Xe4FbmbqCZI8q6rf+vspk0ZUNlnZ4QVnXnZ/sg8SYTfO
+	 cUtbKSfexXfXTep4l3Mi9NEuKGqAfwepjh9zFsF5BAQiaJQpXPnl17yc0vFHQ8pJzZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805388;
-	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=tK4WO8RFEoNS1ga9RZ95cCtBCfELU8c+BU3u4jgcp0w=;
-	b=cQ92xybyIXKmIgdmDM9y6MDX7zLlgkfGxqIBW5EW0THxheftZu9jJHxmswVI9JSJdG8M
-	 yyKm+PJ6pA0tk0RhT7tnSQ4x5ItGTUdSn1BsJ5IM8KhLyTp0CNDzymHtA3+URyjn4w4IM
-	 184JlDxxkYKvYh7hHfU86VbXbBlRYQgL4w8H2TEllGYF172eJS7smAzUpOO38QLYSRYVl
-	 2Iwmzu6xceSsQ0EFC/34NVQnLxWh/7dqknb2EPhf067wM+KEsplrUhy4y2ARSLit6eKTx
-	 WJ1/Z3MKvRw8puMYOYVV750HrLXPZSZ0G775m56WleQdryRjQJRgZ4YSGa890DcpNig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805376;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=2QP5qMLgCjzR3Vq+1R7yHnSJoapXAZoBlu3K14T4Qag=;
+	b=luFtIxUb2932dXZkMV0k9AI0BSXHygbN71gKfyPhaSVyh/jiXmG9q7Ww2h2cBkIZyTCe
+	 RspzPTRgyfAjDMXxV8G7HvY54xjNvGQDGot5JgQHP4Qgw+9M2b5wIBWNZgvW1VKkQn9th
+	 I2QmM7kLQ6cqa2HlEcCyd1LCyCJGDM/buhp6T3F1mEuSePWKAQ4D6ItowgHfziP2zx650
+	 ZYX2q1fRPpa75E7NSbFJLG+1la1XqWvyFAKLhSnxFt2cj9BhKmr6YRtI95QOuhPCBQplU
+	 xsXgi0tosL8chuCEsooXLPikToyWYs1YuviM14LGfn4MGeKxSMSVyTu3NbteEfSfk3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=xg5j83mw;
-	arc=none smtp.remote-ip=91.216.248.212
-Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de [91.216.248.212])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FQ2cWk5C;
+	arc=none smtp.remote-ip=95.215.58.10
+Received: from mta1.migadu.com (out-10.mta1.migadu.com [95.215.58.10])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C430060A260B;
-	Wed,  4 Nov 2026 15:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C430060A260B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4325A6082BE7
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4325A6082BE7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=xg5j83mw
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 80f10075-a08a-45f6-bd1e-c54cfaf5e701
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793805386;
-	bh=/9NnRqmUpo7wLKprQ06hWRRjaRbSc981GH8qIDJFSUU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=xg5j83mwGVcD41YcDXmvOjrLjqZiSpEqgXX39J3lPy19JqdQ/Q4kEEXH2MWkMWsa5
-	 99X5VRxGzWiHNCZh/7u45tSGUva1bvGNOpeI3vfh6gyiXEn2BOTfj8DczQKsUp6YGD
-	 RW4MA8FDTtneAjkkoPoxe2aZfsHo8QCLi8tA/j8hG5a0jJV92f9F5ICZkq281x1ucy
-	 PoNg9lBUZsn+xGHYbLr+EfftYFVTP1UMfl0BMZCWi9WGsmaGsmcgsq5u4s/vJndazp
-	 CfTvP4ADScoUFp7oOdBo+VTW+FaYiAgBK5jWHf56VBun7p0Y+70e0tkqxsaHLo+YD+
-	 PtCTpcpNtOQqA==
-To: arend.vanspriel@broadcom.com
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>,
-	Yossef Osman <Yossef.Osman@proton.me>,
-	Aditya Garg <aditya.garg@linux.dev>
-Subject: [PATCH] wifi: brcmfmac: disable TX beamforming on BCM4364
-Date: Wed,  4 Nov 2026 16:16:23 +0100
-Message-ID: <20261104151623.70695-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FQ2cWk5C
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Y5MODlRDl3QiqtxOx5uVZzRjMa3zrlbQrFa1R/TJtnc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793805367; v=1; x=1794410167;
+ b=FQ2cWk5C6jC5vxZjcu5BEuEjr54C1fyCvGh7wCHiYqYjB3tbdTzP0fCrA/NKAmu4l3AIlOVX
+ jnP20quZYAv7pErqzQKZArdXkC9Lmr590U5BGTI8mNbpSwPmHK+cMXuNFmnGXC1d91yE6zi9WaO
+ 6JLp2lQMfmBBSOaeyAvtAV2M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b99bb3eec717c0ce;
+	Wed, 04 Nov 2026 15:16:07 +0000
+X-Mizu-Trace-ID: b99bb3eec717c0ce
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bb136360-bbeb-41e2-9dc3-96d783e6dc81@linux.dev>
+Date: Wed, 4 Nov 2026 23:15:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,57 +58,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 43/47] mm/huge_memory: split huge PUDs when adjusting
+ VMA boundaries
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
+ kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org,
+ peterz@infradead.org, jannh@google.com, pfalcato@suse.de, hughd@google.com,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, willy@infradead.org,
+ jack@suse.cz, ziy@nvidia.com, riel@surriel.com, harry@kernel.org,
+ apopple@nvidia.com, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org,
+ matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com,
+ will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
+ osalvador@suse.de, minchan@kernel.org, muchun.song@linux.dev,
+ xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
+ shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
+ gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org, usama.anjum@arm.com
+References: <20261031-fixes_core-v3-43-d6437171ecc3@kernel.org>
+ <20261104031245.9524-1-lance.yang@linux.dev>
+ <45508a75-7549-40e2-a71a-807a824ea026@kernel.org>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <45508a75-7549-40e2-a71a-807a824ea026@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-With "txbf" enabled, the BCM4364 firmware (9.30.514.0.32.5.94, as shipped
-by Apple for the MacBookPro15,1) transmits a single beamformed spatial
-stream (nrate VHT MCS9 NSS1 TXBF) towards a two stream AP. With "txbf"
-cleared it picks two streams (VHT MCS9 NSS2) on its own. The firmware
-enables "txbf" by default, so the driver has to clear it.
 
-Measured with iperf3 against a wired server on the same AP:
 
-  0.5 m from the AP, -36 dBm:  351 -> 623 Mbit/s uplink
-  -70 dBm:                      96-130 -> 149-175 Mbit/s uplink
+On 2026/11/4 17:11, David Hildenbrand (Arm) wrote:
+> 
+> Thanks for the review! Please do keep reviewing, but note that more trailers
+> (including this one) will likely not make it upstream as I am about to prepare
+> the PR to get most of these things here upstream.
 
-Downlink and latency are unchanged. I did not notice any refression.
+All good, no big deal :D
 
-Tested-by: Yossef Osman <Yossef.Osman@proton.me>
-Tested-by: Aditya Garg <aditya.garg@linux.dev>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
-The KaiT2en community runs this patch with its kernels, no regression
-was reported.
-
- .../net/wireless/broadcom/brcm80211/brcmfmac/common.c    | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c
-index b6027d83e6a..b09abd5fee3 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c
-@@ -10,6 +10,7 @@
- #include <linux/firmware.h>
- #include <brcmu_wifi.h>
- #include <brcmu_utils.h>
-+#include <brcm_hw_ids.h>
- #include "core.h"
- #include "bus.h"
- #include "debug.h"
-@@ -450,8 +451,12 @@ int brcmf_c_preinit_dcmds(struct brcmf_if *ifp)
- 		goto done;
- 	}
- 
--	/* Enable tx beamforming, errors can be ignored (not supported) */
--	(void)brcmf_fil_iovar_int_set(ifp, "txbf", 1);
-+	/* Enable tx beamforming, errors can be ignored (not supported).
-+	 * BCM4364 firmware enables it by default and then transmits a single
-+	 * beamformed stream instead of two, halving its uplink throughput.
-+	 */
-+	(void)brcmf_fil_iovar_int_set(ifp, "txbf",
-+				      drvr->bus_if->chip != BRCM_CC_4364_CHIP_ID);
- done:
- 	return err;
- }
-
-base-commit: 991a73f4909f1348ffb4b38765cdb522a775e4c2
+Cheers, Lance
