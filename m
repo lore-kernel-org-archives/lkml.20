@@ -1,80 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825571;
-	b=eRrLV0A3gn2x/a0IxET6SD4vZ/1RShHyujbBcaM/pAU2TP7e8ex1N421XMcfQSrRO2hX
-	 E6+jJreee6pe09et/S5JAuk2LKPl3GqVC2kHUGSgyyi67bmP7hprwF39Gy3vwErcNYqDB
-	 HlNTaAZIbghQnl8T4Jpw01IC3w+erUX8AIUdPU0IJHYIQqvGK0YHqVuUj32brWSEYilen
-	 b7q0VX2vrydb4gypah2miHaJQ6buXUlluklo6hiIZ14i8+8KJFK9davU8wfWkhMD93EJv
-	 3AyMQMdJqM7bjFfme4mOc5x0y8sOJJortWuC2l0gLA3pmJMiVlqn4FRvJOakkn4izLQ==
+	t=1793825634;
+	b=F8O56CQ1Ntv+T0TDSlsszUQtMtCuirn9xUNgoY4yt3fj9ZIzkCuqbJT8AT9CrHfGQw6d
+	 gfh9wAF1uYd2FgNomka9i2VYlKqUbfuf4OjQDvqEFphiT1qHtfEkC5wNC9c90jQ88ImYT
+	 aZOviLxOHh5ulc3i6ksKvlMJJZqeXM2mMe0X5/7fsu4BBG/0cYQ5bGdExsbapJuzn5qjy
+	 WphDCp34S7Jmb2wd7bl7I/APsBcBA5GAR7bm9A9TDnYjZKtX6RGhr5Gqy8kCeA6BK5NV+
+	 E6H75mYqlb7z0QGMd9ofuE3RMQ77+U1Br6NIfx+ej7IJyDfGgzaemE5lYzyF+1CAjhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825571;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=by0TTOhREx0lRbBk/oQ/Ej/jEAipb/X4kMNCqNYKWqA=;
-	b=pAas5y6ZxHxHl5K4buHdmlTL/3roN66jsy1KnvqgHKLrFu7aTWFO7ve/RziPILSYzc4u
-	 31XLATRNScYUvjkDbRgYLe9DrJtILNhXfJwn9K1pTPlPZ2tNHHPkjHuq6Z57HNNWAg3DK
-	 nu1e7Vb+LLd55ybCYA5D1RVMc/X9urN5Gnq4S/JX+ZxUBJdc6cRqzHGhC/x4DleHJCLlR
-	 d6VxGHFPQt3tS1dBEnJKrOYw1dLTf09S3ZJApCM1lhz0bij9bpu7uHaVtKl2AmuB8HYhI
-	 u7eLBs5GqdjKzvw/cEYx7RCqu1Fhzj2hIk6zw6cT3+Uk3EGJGd2P5yUigmTcAE+gmyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825634;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Y+PC7jHTM1E8Vn7cVLdmAfNEOuE8u386qwA62Ju0uyI=;
+	b=3FIuAKEJL1RtntGNuKhIJdEl5Zw1+f0CgDRttBrsbGccEEmC2XM62N8HpahVol7y9k61
+	 MVJTAReHL5DCx8hr+6kV86z2u6tem8M6WgSYaPLx1BBNXcxHHAFBNW6pEVnPr4plFxspM
+	 JgZLNp80ONoumcn7BIZcISpD85ywNN4bl2ZjEgksnquteJFMG6+kpcijlT57Ayr7gqzc3
+	 Dwj4QFmTjzLl0sQXPs86tZjiWYRCVXehXbmKOMv0NMj8zNhy4y3Cr7Ss326juosIpwbv0
+	 FIJ94DiaKBK/l9vBUrXQWdRm1/cnCRzpl3ljYaMM8GF8sUaE3Oicwn1HWkNg5kojigg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="PBk/SYYV";
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Sb+q5FLD;
+	arc=none smtp.remote-ip=91.218.175.136
+Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C00606C5AD;
-	Wed,  4 Nov 2026 20:52:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C00606C5AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1481606C59F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:53:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1481606C59F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PBk/SYYV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793825570; x=1825361570;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WzwyEroXyQLX1aiBmh1BYTANO+65G443XLW1AglKKtk=;
-  b=PBk/SYYVl35WL16i/mI1gND3BVSv4pFTvJtpO+4b6lF+b0wOtbC2Dswf
-   0PFkySONliuujS/dEuxFlY1icgGK+SrBEmR351EA3azzAvYUPVaWfIfKc
-   THgiUP366ReZqO0YQk1U5ekMwDG53c2Vf9abWsdmakjB4ObTjQFbApke+
-   n0mapslU9RU8292PfxFdCVu8V6tYU+CA+XtsErj+R+jH2JJXV20IydFpQ
-   /jo3FpMwyQrhMnzlXQW8pKg2bhjGnHe0tfDvPYH3OvDHYNN8CPqXgPtir
-   Eq7rBsgAZqewcV7hOO1e8+/yr8czp6McQMkOIc9Wupb6ebwDUEeSWvNUO
-   Q==;
-X-CSE-ConnectionGUID: Yf6Af77/RtqFnfcYviNiEQ==
-X-CSE-MsgGUID: waqQ4yz7Si+VABcipHYnAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2611228"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2611228"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:52:50 -0800
-X-CSE-ConnectionGUID: AZUKDBAmR520v0iNlPXQcw==
-X-CSE-MsgGUID: zqFgrJkDRd6Ocq+YGh2VWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6943135"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:52:48 -0800
-Date: Wed, 4 Nov 2026 22:52:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-	imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 2/2] tty: serial: 8250: replace chan->device->dev with
- dmaengine_get_provider_device()
-Message-ID: <auubHaqIJXDKxRAC@ashevche-desk.local>
-References: <20261104145211.3209669-1-Frank.Li@oss.nxp.com>
- <20261104145211.3209669-2-Frank.Li@oss.nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Sb+q5FLD
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2eu3NaYFL+BtaLJBYIyCWYYqp3hmqybleGi1ZXsiZxA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793825630; v=1; x=1794430430;
+ b=Sb+q5FLDG5lfdr3gkjg+cdm9VO9nU24kfKoqEa+tr2kwaitFJyDrj3nvrm8qGMmIyZn1XzK9
+ cUIUfO1pB7o44aZI5JDu9QXb9Bfn+tZeb/BTqX7Dk7dM4wDlP6k/iNfqdDep+wBnxZZTweq61CO
+ iSKzKsKTzDAxbJaA6bJl/4IQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ef2066239f9c474a;
+	Wed, 04 Nov 2026 20:53:50 +0000
+X-Mizu-Trace-ID: ef2066239f9c474a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <efda3685-8a09-48b2-9592-7a74fdd3238f@linux.dev>
+Date: Wed, 4 Nov 2026 12:53:46 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,38 +58,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104145211.3209669-2-Frank.Li@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v3 01/12] bpf: Keep the 32-bit range across a
+ sign extension that cannot change it
+To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+ <20261020161907.2115379-2-vineet.gupta@linux.dev>
+ <9720ed1ff19dea17a1b379c02d7dd52ae886d807.camel@gmail.com>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <9720ed1ff19dea17a1b379c02d7dd52ae886d807.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 09:52:07AM -0500, Frank.Li@oss.nxp.com wrote:
+Hi Eduard,
 
-> Use the dmaengine_get_provider_device() API instead of directly
-> accessing chan->device->dev to get the DMA provider device.
-> 
-> No functional change. Prepare make to struct dma_device private to the DMA
-> engine.
+Thx for taking the time to review.
 
-...
+On 10/29/26 3:30 PM, Eduard Zingerman wrote:
+> On Tue, 2026-10-20 at 09:18 -0700, Vineet Gupta wrote:
+>
+> ...
+>
+>> @@ -6192,6 +6193,27 @@ static void coerce_subreg_to_size_sx(struct bpf_reg_state *reg, int size)
+>>   	if (reg_umax(reg) < (1ULL << (num_bits - 1)))
+>>   		return;
+>>   
+>> +	if (size == 1) {
+>> +		field_smin = S8_MIN;
+>> +		field_smax = S8_MAX;
+>> +	} else {
+>> +		/* size == 2 */
+>> +		field_smin = S16_MIN;
+>> +		field_smax = S16_MAX;
+>> +	}
+>> +
+>> +	/*
+>> +	 * The range already fits the field, so (sN)v == v for every value the
+>> +	 * register can hold and the sign extension changes nothing. The test
+>> +	 * above misses this once the range straddles zero: it only looks at
+>> +	 * reg_umax(), which a negative smin makes huge.
+> The `if (reg_umax(reg) < (1ULL << (num_bits - 1))) return` check is no
+> longer necessary, the new check below subsumes it.
+> Please drop it, otherwise commit lgtm.
 
-> -	if (s->dma_dev != chan->device->dev || s->chan_id != chan->chan_id)
-> +	if (s->dma_dev != dmaengine_get_provider_device(chan) || s->chan_id != chan->chan_id)
+Agree. Dropped in v4.
 
-Now it's better to wrap (I think the file doesn't really use relaxed limit of
-100 characters per line).
+Thx,
+-Vineet
 
-	if (s->dma_dev != dmaengine_get_provider_device(chan) ||
-	    s->chan_id != chan->chan_id)
-
->  		return false;
-
-But TBH I don't care much, so
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+>
+>> +	 * This has to precede reg_step_reset() below: the extension is a noop,
+>> +	 * so the base/step line still holds and there is nothing to discard.
+>> +	 */
+>> +	if (reg_s32_min(reg) >= field_smin && reg_s32_max(reg) <= field_smax)
+>> +		return;
+>> +
+>>   	/* See comment at reg_step_check_unsigned(). */
+>>   	reg_step_reset(reg);
+>>   
 
