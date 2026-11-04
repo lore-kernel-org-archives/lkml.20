@@ -1,71 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793789495;
-	b=EEPP8Z2UUjv0u5wOYtgI5pXya5/AbfXuEBN1cfyNKDrGYJIxHwyNh/qRgTL84CaY0FTC
-	 M/ucYZAwWDT9iH1EozJDxtWQZYlNJ2cbIt4J3R2Crn8fA52eRjJbGADg6BP0kBYXkdwdp
-	 Aq/QJqGOlnOqEB4ichPn0QXbGRgnBPh+FSd54ggF0qsb3g9eOwnNgS+x1DJozsLndxv9+
-	 ahipYgnE72gMy9Y/TR/rMZ0OGYqqR1rb5WvgkD4W5XmcWpjQu5IUUVnm9hvnVoW/KuuEC
-	 hAc10GNgSh+EVjJVrTqBu9PwJdwK3bFjWzTU8pD83+uafsi2hj43ymGmY+8H2PedkWQ==
+	b=4+AV6Zpm08qLULwfLZ6jyn4P5+1T+AJjO4QBPtHV1DTGlgS7e6NqqlZMxpYum2555LEY
+	 IKWC8y637d/86IdkxUeC6YFZpfX68FbNn5hAhxr0GqzBYaumd2thwyuNixOpf5Vn3PP8i
+	 /s23qFOlZXKN2GACOVC+MiVOHQJQYwFPam6i0DvdOqPUoqkclY2F7lmmj6a2KIYpLAaFb
+	 rQbuyoGPHu9RE6TB34xNc4eCwNbTxpX5F1qKWjbhKa6XIqEPvExBnN6uxhuUky8l5StZD
+	 fJkjFbz+EAB6qWa/wPv1/Z3FFxLmG6Z1I9dsOy56Pta+m1r6kGlEyMKvqkEjPha9lZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793789495;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=HCD4dUkOzOdn3Q0dQ9RVWupPj4W1Yw0m8drPOHzGd5M=;
-	b=CMumQj7SsI5CCWHXHvFPWWPyIklQ4r1lzF1/HrlAO7JCz9Sjtff/192cj2h40Mr7dJek
-	 Y2PChkYEpJ9eYGeAsNOgA1RkjQAlwm39IfZt/A2v7sfY9tP1upQImgfACKSwSE86Dh8X9
-	 0zT7Q4XEDP0U+ZsfvOZvkDmBnk4vu+aK/BdnY4olz4cpfk/LH506TIeWs1Ukb/258TG2o
-	 qQtLFY5CRnkEqrTBuPyHYQNE/75IeXa3Cy5KBDQeVBmHNZmcyF9PtNFHdQmlLhor98677
-	 tm16tGjH8vuW9TbB94xYHWZlMSNYe858dM5h2iDLIae7zD5kJeP+x4Hu6vRa1TjdIgw==
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HXDgHwIg8m4DwtOhwv+ZFMPIRE8BcYqQdrGKa3M5Pbs=;
+	b=wNwN/YInuDTu/mZdqk2RK2AXFDrRCcVD+zWkQPbjcS4doVUrODb3ABY4sUua7/HBK852
+	 49lvaIOVmR7RRf3JpDvsCeR6uU2B1knqHplzjUcfNTw0v/DqDoB9pZobg3asRvt5jOl+l
+	 Sq1xBBZ8mA/Rtn4zErfCrJE7kGAlvANhp0+xmJEV3HxSXbJI/CSmA0EINUhcHrnpYWfO+
+	 3ud8kEWsHmsI+eXnxDcAvS0TqE4fXHVqklTWf/2G5uI6/gnvhOkMcNKxljwn3oVhKRahH
+	 aJWP3GCopuN75mAcf8PbyYYErbOWjq8ZuNOc31JW3m8IO/ZD/TZZa1iQzFhJgogahYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="WsRYA/NC";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KfPQTe+Z;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC47606A332
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:51:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC47606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GHFQHyoD;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DABF606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DABF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WsRYA/NC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KfPQTe+Z
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793789492;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HCD4dUkOzOdn3Q0dQ9RVWupPj4W1Yw0m8drPOHzGd5M=;
-	b=WsRYA/NCtFMjf6hHwve2jKBC7YDaB9NQmzOsC/XFAQQP0agHLzIhg2918Gn0AZC1uBU5rh
-	Y4eriENy6a/q93FgwsciFgNyc6ErSrg0JDowQ+s3k1dIv5RkyVJAl2uOXMHtMZTWBAoFMT
-	GXqZ/OSEDfgdIECH1G9zT9pJtcJC3or7/AAzsf+dLDqfgF7mVBbrOkCk5XHziYQdJRYIxC
-	RsuHnbf41ywGup608jam4y1GbcLdsdeGV3+MlYdH4sp5FY0ea5RTky4V0ItsNPidSyeNv7
-	X0wooghY7iNW1eyDhsomiKU+h8CSk8+mBJppoGPmHoy7MEFFIvzUcksecblgvQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793789492;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HCD4dUkOzOdn3Q0dQ9RVWupPj4W1Yw0m8drPOHzGd5M=;
-	b=KfPQTe+ZYz+Khxlsv/xSOitTbzedMCidIzV65cuVrulZCE3dIOp6qjONy6VTrgrqHOxhg6
-	dtCsjxt9KqHPdDBQ==
-To: Breno Leitao <leitao@debian.org>, Marco Elver <elver@google.com>, Petr
- Mladek <pmladek@suse.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long
- <longman@redhat.com>, Dmitry Vyukov <dvyukov@google.com>,
- linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH] kcsan: Don't flush the consoles while holding report_lock
-In-Reply-To: <20261103-kcsan-irqtrace-emergency-v1-1-162288205435@debian.org>
-References: <20261103-kcsan-irqtrace-emergency-v1-1-162288205435@debian.org>
-Date: Wed, 04 Nov 2026 11:57:32 +0106
-Message-ID: <875wycc1jf.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GHFQHyoD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 410352247;
+	Wed,  4 Nov 2026 02:51:31 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D4D63F628;
+	Wed,  4 Nov 2026 02:51:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793789494; bh=aDq3A0xHGBXoAmwsG8E6qJPjO2aDOH/ROmFDF348ug4=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=GHFQHyoDS3/7ZGobLiPRAROn6IMSSLdC5HWD+VfwMHO89GcuouzLbz7SYD1ktTpKf
+	 w2V/XqQy7f25Se5LdBQUWjjwCK75sf23IO5xbKoqj7Y0IZoeAklgHshi/w2gf4lIHn
+	 zBPgaWfM1kTR1P6/DHhrTLd8/Q2MGJtS4W1YzVQs=
+Message-ID: <8a543030-d0c1-416f-8747-6cd599ad6a90@arm.com>
+Date: Wed, 4 Nov 2026 10:51:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,27 +53,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/resctrl: Allocate the RMID array with kvzalloc
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, bp@alien8.de, tan.shaopeng@fujitsu.com, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261104102004.609259-1-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261104102004.609259-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-03, Breno Leitao <leitao@debian.org> wrote:
-> Since commit 59cd94ef8009 ("lockdep: Mark emergency sections in lockdep
-> splats"), print_irqtrace_events() runs inside an nbcon emergency
-> section. In an emergency section, every printk() flushes all pending
-> records to the nbcon consoles from the calling context (instead of the
-> printk thread).
->
-> With CONFIG_KCSAN_VERBOSE, print_report() calls print_irqtrace_events()
-> while holding the raw report_lock with interrupts disabled, so every
-> verbose report writes out the whole console backlog under report_lock,
-> as consoles/UARTs are usually slow, this is not good.
+Hi Jinjie,
 
-I am fine with this patch, but am not happy about the motivation. You
-are right that it is "not good", but it is "not good" because the CPU is
-being put into an emergency state when it is not really an
-emergency. Even if the report_lock was not being held, this patch would
-be equally valid.
+On 04/11/2026 10:20, Jinjie Ruan wrote:
+> setup_rmid_lru_list() sizes rmid_ptrs[] by the whole RMID index space.
+> On x86 the index is the RMID, so the array stays small. On MPAM the
+> index space is the product of the PARTID and PMG ranges, and with a
+> large range the array is megabytes in size.
+> 
+> kzalloc() needs a high-order page allocation for it, which fails once
+> memory is fragmented, and a size above KMALLOC_MAX_SIZE always fails.
+> resctrl then fails to mount.
+> 
+> Use kvzalloc(), which falls back to vmalloc().
 
-I would even say this patch fixes 59cd94ef8009 because
-print_irqtrace_events() is not exclusively used for lockdep splats.
+Yep, I ran into this too when experimenting with large PARTID counts on the FVP model. I have the
+same patch here [1] and plan to repost soon with some more related kmalloc to kvmalloc changes.
 
-John
+[1] https://lore.kernel.org/lkml/20260911160608.1091121-1-ben.horgan@arm.com/
+
+Thanks,
+
+Ben
+
+> 
+> Fixes: 6791e0ea3071 ("x86/resctrl: Access per-rmid structures by index")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: <stable@vger.kernel.org> # 7.1.x
+> Cc: Tony Luck <tony.luck@intel.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Dave Martin <Dave.Martin@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Babu Moger <babu.moger@amd.com>
+> ---
+>  fs/resctrl/monitor.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index f69dbf66f42e..7713aa5d3996 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -1029,7 +1029,7 @@ int setup_rmid_lru_list(void)
+>  		return 0;
+>  
+>  	idx_limit = resctrl_arch_system_num_rmid_idx();
+> -	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
+> +	rmid_ptrs = kvzalloc_objs(struct rmid_entry, idx_limit);
+>  	if (!rmid_ptrs)
+>  		return -ENOMEM;
+>  
+> @@ -1125,7 +1125,7 @@ void free_rmid_lru_list(void)
+>  		return;
+>  
+>  	mutex_lock(&rdtgroup_mutex);
+> -	kfree(rmid_ptrs);
+> +	kvfree(rmid_ptrs);
+>  	rmid_ptrs = NULL;
+>  	mutex_unlock(&rdtgroup_mutex);
+>  }
+
