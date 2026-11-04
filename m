@@ -1,78 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804968;
-	b=yPh57KOuqMBS2g2pULQ4lpufN5Sl/eltLgk/s/Hcpe77FoQc15oFNRqywnjqrkrFNaKX
-	 3XnIifUW+8r32Wz+2WM2Ymit/DGpYgL3SOSUhGWSx5W6KVuktsiD7aCUAQLwZCX01rnlO
-	 Kge82kdPUhC6M7KvDBWDAPYrIJYpHHd8Qu4ah4l4Zm4wEEOTBJhqzjwi6czXDcWuRxuNK
-	 jrYpieqXyM7sWHmLaIBdmm2RDvTgcRrazNLEiSCGGigmu7TO1NxibfzBEVlEXwozKVgZK
-	 rJ8oeakuPjaB511M6kV2gd/zrS61MZEYXhmGkCTpiZX6Vh46d4Zu0E69FMdr4u6Y+Cg==
+	t=1793804971;
+	b=V8jUgUNwrMOhdHIMP6SJ/Gvfe1U/NHx9qfXah/VutMt6xXH2vmWJAUTh5a/WmVhEbata
+	 lYCDD0YJBR/Tj5q4cpCjZ01lOevx+oHBRmO268bcKoSeEjvqIUqc81lnJbp0rXbe14rJO
+	 DhZeqcYTeArO55Lxj1mjAfmBY0TLOiIlClLvCzrrH0frP3cpuF5sZsIhnERPpFdYsOST4
+	 mtcS8IPPitBXnn9RC/qyMlOsFC7nwQmNF5hsLa48K0zU5DIE07pfqnbmKuYd2o23D53pl
+	 bQZZ2teMW0khK7DV74W+aFBoA8MYLK+3hvXE00XIE7MOySEvRs6bDmCH7NS/KrbQD6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804968;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 X-Mailer:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pYaBYvyHGfqovA0PmSh49RnZhLfxkHCuFby1QxWDzbg=;
-	b=J25fAuCulyXTm/CWsTerLkqJ7Q/fUms3wDnMnO1ejWAglysvm9sAj3DKvGG7FwAwUX+V
-	 x6I4r9br4ji/QpDiAj5d1ER2yRg1r0T37Fbg2XXYA8UKwAb7SVXdTmNX05tFTVHr0Zk5G
-	 qyi3GKgh0uh28az+qBAMENCNVWSua02xKFZO0gmv1DymWasO6b4Nf727p69eKPXAb+XAw
-	 AWJGKONLookoJNC7R2ZbUQdGnx0Pjy8thZQs2bST/51IXOckgQbQb9F7gTpqcpQr7wSZf
-	 W9LKk5H/0aWRVPMWfW9M1pDPT8wsVFKfhoncyNhoOqGCCSdkYS38tSik/phlkRA0mnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804971;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BFGjOyP5UIQiJBxM/VFU684BMQoEd0KQaBTYoIf/jec=;
+	b=rmC2amJBZ+bTELzX+RyzfGdC4CNhAXg8155IB58bGnuQUeH81gUJe3rUfXo/MQdSJ4Ut
+	 ClEKhkcz0HyyyawppoDSeIb3hnCVoopTZimwbJfcjVW5utFa5K8CawijsmdkC7SUmUulA
+	 T12LicSo2O58CYfQfgxXimrTVlDw7FLdsOIPX5p379D6uP78fdd5jtAe6ZuLgnoCNhk4O
+	 3plkBiqZhG09LwGIin0dV04RLv8tlRwkgHPxrDob3WxSKqs7KWqVP9rdCheHjzaTzzlRn
+	 2sfMAMelLIxDzmcKvVdCEASKNdzJDkaE1XjmFinzNviZt+yyRWm7Stt2l+ewmQhIFvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Eoph5MmI;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57D4B606A330;
-	Wed,  4 Nov 2026 15:09:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D4B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MikdqmwL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C2B606A335;
+	Wed,  4 Nov 2026 15:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Eoph5MmI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Eoph5MmIPb0ytWXb28Qha0xneV1DCdjoeQyjfxrtu/kLsQfit7nTuPtfPSt6RToq6z9kFDIuCwIMk
-	 CRlsXd1GyEVEUfxCUYvMNpGv05RZuqVz2NoE/Sku81Ly8H7Nrpu6vFvRRxGJKVmXAKBWy+xQgK4VGO
-	 ESGYG48D8O3F0xYU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aeb4a90177-6a51c;
-	Wed, 04 Nov 2026 23:09:11 +0800 (CST)
-X-RM-TRANSID:2ee36aeb4a90177-6a51c
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[112.23.104.16])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36aeb4a95cdd-21ec0;
-	Wed, 04 Nov 2026 23:09:11 +0800 (CST)
-X-RM-TRANSID:2ee36aeb4a95cdd-21ec0
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kuniyu@google.com,
-	xeb@mail.ru,
-	yana06070@163.com
-Subject: Re: [PATCH net] ip6_gre: fix changelink conflict checks for L2 tunnels
-Date: Wed,  4 Nov 2026 23:08:59 +0800
-Message-ID: <20261104150330.70978-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179353522212.3131.3721818848581323546@kernel.org>
-References: <20261028115710.27806-1-yanxia@cmss.chinamobile.com> <179353522212.3131.3721818848581323546@kernel.org>
-X-Mailer: git-send-email 2.43.0
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MikdqmwL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CDA1F00A02;
+	Wed,  4 Nov 2026 15:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793804970;
+	bh=BFGjOyP5UIQiJBxM/VFU684BMQoEd0KQaBTYoIf/jec=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MikdqmwL0zghAEx2caid1swCm7g3GXwsdv3H7ISWA6PMwbbp18mgRC71GTVXDaZdp
+	 Exq1UpQ2I5D35E9K9/i5jEsZiRyjQIAufLiJqfUcJfGZelAI8H2IwcwK6rcav4yw+s
+	 6SJzuQcTygDY66L5tYG6ssqTjXgPz1rXTO+TEM94=
+Date: Wed, 4 Nov 2026 16:09:29 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [BUMP] [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
+Message-ID: <2026110454-conjure-unfasten-1fe3@gregkh>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <80b69632-dbe1-405b-910a-c17a943d8fc2@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,27 +66,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <80b69632-dbe1-405b-910a-c17a943d8fc2@arm.com>
 
-Hi,
+On Wed, Nov 04, 2026 at 02:41:59PM +0000, Ryan Roberts wrote:
+> Hi All,
+> 
+> Just a polite bump; now that -rc1 is out, if anyone can spare any time to cast
+> an eye and offer opinions, I'd be grateful. At this point, I'm most interested
+> in feedback on the arm64 integration aspect; If you see blockers I'd like to
+> discuss early.
 
-The collect_md case is valid. I reproduced it with v1 under UML for all
-four ip6gretap/ip6erspan combinations. Without the metadata tunnel, the
-update succeeds; with it, v1 returns EEXIST. The revised lookup skips
-collect_md entries and keeps walking the bucket, so a real ordinary
-duplicate behind a metadata entry is still rejected.
+We are _drowning_ in real patches right now, RFC ones go to the bottom
+of the pile.  Please work to make this good enough that you feel it is
+no longer a RFC and submit it that way.
 
-The revised patch passes those cases and the existing namespace tests.
-I am sending v2 to net-next with the Fixes and stable tags removed, as
-requested by Ido Schimmel.
+thanks,
 
-The encapsulation setup runs before the lookup in the existing code.
-That rollback issue needs a separate change.
-
-Thanks,
-Xia
-
-pw-bot: cr
-
-
+greg k-h
