@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793793378;
-	b=HJ08J3RLv8oix2Iwgs9aizhKeF6lqTe7NCrXehKjf1Ep6OLkijjiEkiXQPZ99pwnmuWV
-	 Blz0cigj+MceaM1OeMyphfGgcRjgCBPN0UlyK7PzLnFPmySU4iSoPvRPWvOa5rJ3i4crQ
-	 j2VfIErXnMSG93FFDUezxjJ2e3OkvQbZIxhcM2lXpNAilRcq5ABQqBbSHQCoJiS7PiFe+
-	 IQ5ATaaQrf4gTdDxGKUCV3Bz6JARH5/9gKRnxqs2zcUUWDMeOG+Ux3zyTZYSYG4dltwbI
-	 Orhc2qF6ClQJoXuUjNIouIkKLtH+bOOLgeLxM7DmjP3O+7cdcgoGoKmozfX84SqzXbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793378;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=22hsY3mSlPmFJL5zvtz3fqQcrSsDAItDsPdBqGXiKRk=;
-	b=mSgYNP7d5G32vx47CKCVUJ2cRz/gvnZ+nZWr8ETxVyjZzmAj/XYnzpnCivGRs44F0v5b
-	 aa/9oolPKA9PDWGPGq0o352Dd55K4ivJ3tYqb73iha+QLMjmIw/sDx6g+DabS4gBqWljQ
-	 8X+b/Yl5QPujXgIdAlB9m5M6DAmAc8y0bHNum+2N+qnH3rV+gaAFlfQsdF2dVN4bpdjrU
-	 8DOcPnfRh8OcmvRVfszAn1T2G26I3HsPG+a4lDPzDh9Eyw0+Ik3e95rf89GIcbDGx3QIW
-	 jXjW+8U9YZ3aP0z1WfHGiuunu/TKuuG42iWvBtUIvhH7W0RhXtXwB6cva8JWWXTh6Og==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkVDl1GA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D1F606A32E;
-	Wed,  4 Nov 2026 11:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkVDl1GA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793793377;
-	b=ZqXDA5Ytc0+JruPm/CzL2pzYlqkw7xevCfy9tCyewbPOA0GSMHBtsT/jEbon8gMhRvuG
-	 oigvWREpwtcUdkWs1sYjI7FyAV8Ee7vXjyCE3Fg0mXhiDRGBI9HE1hStoLSMeiDU6JtO3
-	 W0dRAifnulGgQjzcBXA9p/hj0jh2yOEINFsQjSvVIfApJ5N6II6brgoILnL9cLIHLKGJ2
-	 gZ5kqkjSI0x7oMvjpDqa2hXM1Q3svlB5SZDG+GkN2zM7y5sZ32cbjsuBb/KOnOuOsDN+t
-	 xpLFX/28V5a6nv/yhzPJpkuYg47+HjvZ8EKTmEsQ4znXwpwBxmLYw2y1yUD8fyk0SHg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793793377;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=22hsY3mSlPmFJL5zvtz3fqQcrSsDAItDsPdBqGXiKRk=;
-	b=WdhMrJF93iy+e7Ur6IiOr24sE0EIUpYpNU/Ov9H4G47NWQWwfF2kOKqAANYAIUoXbb+y
-	 AUImwztrU5Y35Czjkq+jRKLFNijV4pl5YB/XcJiCPpG9cSfjXYHKfIXPk8w0go3Q8ZZgH
-	 1pwAJeJFIxekXSQccppbM+7vAHHyC1jf8kN76+ANqFLI5D0M52kuSItUlGcGXHESFH8Sa
-	 oVjwUolz6Bdu1r0/82X+gWmgTiqKiwyVYS8mx8HP5FTGSGeokWjuyKWQ2B5pOR43nAUkn
-	 kf6aDTdfTKR7xf87vA+mLCNp4xbHFYR5SYYeE5g0ylPxZe86rYo5vfN0P5EliVeYZ7g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793793461;
+	b=O5sbSfhb578D2riWIHJGdSfcHkce7OMG1QqxzJ0uFj2AIAECOYFLNiNEpKMXze49NtZH
+	 4MVZ+gLb3Ql58lB2kjsws74tHJptPkA2LcPzHzTL6b631JJJOVhGX6XanV3foyTpGzw6A
+	 cKH5YOF8Ou5hga34nDF7uRw0EBCb/Z+feNheYEX+zqDhaide0jxXXhs47lVDcpEsx/+oq
+	 RbIoFGetqH+7aHsHiHAQEsONHzYWJO8zU/fKdEXzvASuHm0prsTNrO1wa49p5MStgYblP
+	 c9GttDTdhWAMYaCze3aqKzTkO6l9pajh1D6M2BXPLpSo09DAekL7QrFc/8QU8zaI5VQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793461;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
+	b=AnR9AAfpYeL3vAiEDBNqWmWjtBaEIveEwz8qMqJwgCwXBex9UrG66ZC/SN9gt+wDzofs
+	 o/yH1su56m+YOQl/w1ifIQjLoUDJBrGc62qB3SsGEdKBezJQnlIvyMr/BZEs7N/t79Xi3
+	 lwtIlmiu+yLzAVjrDVlxs9jy049pwWSrQt0sMHCnVk/Ih0xp8vJ9+ldsoJolBvXSKOjDU
+	 v+KlPPRmrg+4Bcb6oKElXPpQx/DGqNSQMOimsvRADXWeNOvwm86aNl86dRBXAzZCN9CU9
+	 AIvtVm72x2KHlOlBQMW8y87JiPOkm32zeHC5J0ZVYVOsh0jPBWk9loZy2GwAnFUAvrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="fy2ko+/0";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="fy2ko+/0";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4630C1F0093A;
-	Wed,  4 Nov 2026 11:56:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793793377;
-	bh=22hsY3mSlPmFJL5zvtz3fqQcrSsDAItDsPdBqGXiKRk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=KkVDl1GAKw0B9iNSHmTVJu7yt6rwyil+K22E+HDGROdR2GRYVwisJyW3jiCAijSlJ
-	 YR2iujFfq6MZ5FoasscSXm10Gvs2aMvVP3HlvQhORZaXiFtyC8HKPPi4w1iWeQq5mr
-	 JQ63QHT5Y/bp1ObF5gsJlO8dWoNCfQ1/sP/X3vNe+PCR92+DkfEcE/C5Z6MA2oOJ2o
-	 aHEkVDVhs4U4tCgVTk5W0Z0IJi1BNpyhP9d9Q7fJCPn9m/KnO1jAf/Si7V72xQXypJ
-	 LBe2E8lS3tdZ2KLUYJXEavOaXoI8khIflhkSZqX9cv0EbGJXDpSrEaBu/Koqi/OLm9
-	 1LYK1HA4FXoOQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BB72E46E06;
-	Wed,  4 Nov 2026 11:56:15 +0000 (UTC)
-From: orkunsari via B4 Relay <devnull+sariorkunemin.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 14:56:16 +0300
-Subject: [PATCH 2/2] nfsd: check access to the export being entered when
- crossing mounts
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB15606A31B;
+	Wed,  4 Nov 2026 11:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB15606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fy2ko+/0;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fy2ko+/0;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kLN+Zm+G
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6B1131F7B0;
+	Wed,  4 Nov 2026 11:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793793459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
+	b=fy2ko+/0ozIyB3q5s1uUqEpVwnWUMej8/uCnv72PKBECMQziYobfMfkgZJnziOgYNg3dM8
+	A5HDIT7ZR7CHYeiJWOdEq5LqDc0xqfsu3uokHefPpQ+Tl1Uf5NhrUM+cMvxTTSzcgs8y1L
+	HXGQGTUYpkj3RmyBhEazvvf3rhDnhZ0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793793459;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
+	b=kLN+Zm+Gxs3JqSjmXH3tgisagn/MTlDuir+JU00r6OsUmaTBNDsC6Xg0AFvQMX/ZKxrkQT
+	qR27tUOPLZQTaQDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793793459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
+	b=fy2ko+/0ozIyB3q5s1uUqEpVwnWUMej8/uCnv72PKBECMQziYobfMfkgZJnziOgYNg3dM8
+	A5HDIT7ZR7CHYeiJWOdEq5LqDc0xqfsu3uokHefPpQ+Tl1Uf5NhrUM+cMvxTTSzcgs8y1L
+	HXGQGTUYpkj3RmyBhEazvvf3rhDnhZ0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793793459;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rHluHhAO0xC/KF78ZIKkidib22uHHwF0MmD/UX1TZas=;
+	b=kLN+Zm+Gxs3JqSjmXH3tgisagn/MTlDuir+JU00r6OsUmaTBNDsC6Xg0AFvQMX/ZKxrkQT
+	qR27tUOPLZQTaQDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3F47E134F0;
+	Wed,  4 Nov 2026 11:57:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id S2RxB7Md62olTwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 11:57:39 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id C285BB336; Wed, 04 Nov 2026 12:57:38 +0100 (CET)
+Date: Wed, 4 Nov 2026 12:57:38 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
+	lczerner@redhat.com, tytso@mit.edu, hughd@google.com, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: skip empty finite ranges in truncate_pagecache_range
+Message-ID: <l53ckhx3h6jyt7bnosdycttcesuyt2jxvspnhs3gdftrxuj67y@djj4esw62ht7>
+References: <20261027211505.22044-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,161 +110,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-nfsd-cross-mnt-v1-2-5ec5fca0a553@gmail.com>
-References: <20261104-nfsd-cross-mnt-v1-0-5ec5fca0a553@gmail.com>
-In-Reply-To: <20261104-nfsd-cross-mnt-v1-0-5ec5fca0a553@gmail.com>
-To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- orkunsari <sariorkunemin@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793793374; l=4976;
- i=sariorkunemin@gmail.com; s=20261103; h=from:subject:message-id;
- bh=JlWr15lM/B/AmdFzx3FSapRze7rNKJEt/9Zsci6sgU0=;
- b=YJyABjfSPK9rruPjbLFt30iEZsCIOr0gOH9Qzat7to+VEsfM3NIvmIF/FHx+KujSavlypCIq2
- 6fSTm6RDwq3DHf2hEVfxGKU7AhbowuxcpBT5TNqI/dWOI/wk3yKWGOv
-X-Developer-Key: i=sariorkunemin@gmail.com; a=ed25519;
- pk=MJ3Y3somkGDQVAXOSR189QAqWOcfzYCRkL1cSQgJXnE=
-X-Endpoint-Received: by B4 Relay for sariorkunemin@gmail.com/20261103 with
- auth_id=1408
-X-Original-From: orkunsari <sariorkunemin@gmail.com>
-Reply-To: sariorkunemin@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027211505.22044-1-dennylin0707@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
 
-From: orkunsari <sariorkunemin@gmail.com>
+On Tue 27-10-26 21:15:05, Hungyu Lin wrote:
+> For a finite range ending before the first page boundary,
+> truncate_pagecache_range() calculates unmap_end as -1. The unsigned
+> comparison then treats the empty full-page interval as nonempty.
+> 
+> For example, lstart == 0 and lend == 0 cause unmap_mapping_range() to be
+> called with a zero length, meaning unmap to EOF. Punching one byte at
+> offset zero in a mapped FUSE file can therefore remove mappings outside
+> the hole, causing unnecessary page-table work and subsequent faults.
+> 
+> Compare the exclusive rounded end against the rounded start, while
+> explicitly preserving lend == -1 as the EOF sentinel. Perform the
+> addition after converting to u64 so the largest inclusive end does not
+> introduce a signed overflow in the comparison.
+> 
+> Fixes: 5a7203947a1d ("mm: teach truncate_inode_pages_range() to handle non page aligned ranges")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Commit f0d6ad5a2f67 ("nfsd: move check_nfsd_access() call into
-nfsd_cross_mnt()") moved the check_nfsd_access() calls from
-nfsd_lookup() and the NFSv4 READDIR encoder into nfsd_cross_mnt().  The
-moved call checks @exp, the export being left, which the caller has
-already verified, rather than @exp2, the export being entered.  The
-sec= and xprtsec= settings of a crossmnt/nohide child export are
-therefore no longer applied when LOOKUP or READDIR returns its root
-filehandle and attributes.  Later operations on that filehandle are
-still checked by fh_verify().
+Hum, so I agree about the problem but the rounding logic in
+truncate_pagecache_range() has more flaws AFAICS. For example if lend ==
+LLONG_MAX, then unmap_end with overflow to huge negative value. So maybe
+let's fix it all at once. Maybe something like:
 
-The same commit also removed the check that nfsd_lookup() applied after
-a ".." lookup steps up into a parent export via nfsd_lookup_parent().
+	if (lend == -1 || lend == LLONG_MAX)
+		unmap_end = LLONG_MAX;
+	else if (lend < PAGE_SIZE - 1)
+		unmap_end = 0;
+	else
+		unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;
 
-Simply checking @exp2 instead is not enough: nfsd_lookup_dentry() also
-serves SECINFO, which must not fail with NFS4ERR_WRONGSEC (RFC 8881,
-section 2.6.3.1.1.5) and did not check the target export before.
+And then you can leave the condition checking whether to call
+unmap_mapping_range() untouched.
 
-Split the crossing into __nfsd_cross_mnt(), which checks @exp2 before
-switching to it only when asked to.  nfsd_cross_mnt() keeps checking,
-for READDIR and the CREATE paths, while nfsd_lookup_dentry() does not.
-nfsd_lookup() checks the resulting export whenever it differs from the
-directory's, which covers both mount crossings and "..", as it did
-before.
+								Honza
 
-This was found by AI-assisted code review (Claude Code).  The fix has
-been build-tested with W=1 only; no reproducer was run.
-
-Fixes: f0d6ad5a2f67 ("nfsd: move check_nfsd_access() call into nfsd_cross_mnt()")
-Signed-off-by: orkunsari <sariorkunemin@gmail.com>
----
- fs/nfsd/vfs.c | 46 +++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 7 deletions(-)
-
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index 56c49b5bc5..2df2df5aaf 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -120,14 +120,16 @@ nfserrno(int errno)
- }
- 
- /*
-- * Called from nfsd_lookup and encode_dirent. Check if we have crossed
-- * a mount point.
-+ * Check if we have crossed a mount point.  If @check_access is set, the
-+ * export being entered must also pass check_nfsd_access().
-+ * nfsd_lookup_dentry() passes false, as it also serves SECINFO; its
-+ * other users check the resulting export themselves.
-  * Returns an nfs error leaving *dpp and *expp unchanged,
-  *  or nfs_ok having possibly changed *dpp and *expp
-  */
--__be32
--nfsd_cross_mnt(struct svc_rqst *rqstp, struct dentry **dpp,
--	       struct svc_export **expp)
-+static __be32
-+__nfsd_cross_mnt(struct svc_rqst *rqstp, struct dentry **dpp,
-+		 struct svc_export **expp, bool check_access)
- {
- 	struct svc_export *exp = *expp, *exp2 = NULL;
- 	struct dentry *dentry = *dpp;
-@@ -165,7 +167,8 @@ nfsd_cross_mnt(struct svc_rqst *rqstp, struct dentry **dpp,
- 			err = 0;
- 	} else if (nfsd_v4client(rqstp) ||
- 		(exp->ex_flags & NFSEXP_CROSSMOUNT) || EX_NOHIDE(exp2)) {
--		nfserr = check_nfsd_access(exp, rqstp);
-+		if (check_access)
-+			nfserr = check_nfsd_access(exp2, rqstp);
- 		if (nfserr == nfs_ok) {
- 			/* successfully crossed mount point */
- 			/*
-@@ -189,6 +192,20 @@ nfsd_cross_mnt(struct svc_rqst *rqstp, struct dentry **dpp,
- 	return nfserrno(err);
- }
- 
-+/*
-+ * Called from encode_dirent and the CREATE procedures. Check if we have
-+ * crossed a mount point, and if so whether the client may access the
-+ * export being entered.
-+ * Returns an nfs error leaving *dpp and *expp unchanged,
-+ *  or nfs_ok having possibly changed *dpp and *expp
-+ */
-+__be32
-+nfsd_cross_mnt(struct svc_rqst *rqstp, struct dentry **dpp,
-+	       struct svc_export **expp)
-+{
-+	return __nfsd_cross_mnt(rqstp, dpp, expp, true);
-+}
-+
- static void follow_to_parent(struct path *path)
- {
- 	struct dentry *dp;
-@@ -284,7 +301,12 @@ nfsd_lookup_dentry(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 		if (IS_ERR(dentry))
- 			goto out_nfserr;
- 		if (nfsd_mountpoint(dentry, exp)) {
--			__be32 nfserr = nfsd_cross_mnt(rqstp, &dentry, &exp);
-+			/*
-+			 * Access to the new export is checked by the caller
-+			 * where needed; SECINFO must not fail with WRONGSEC.
-+			 */
-+			__be32 nfserr = __nfsd_cross_mnt(rqstp, &dentry, &exp,
-+							 false);
- 
- 			if (nfserr) {
- 				dput(dentry);
-@@ -336,6 +358,15 @@ nfsd_lookup(struct svc_rqst *rqstp, struct svc_fh *fhp, const char *name,
- 	err = nfsd_lookup_dentry(rqstp, fhp, name, len, &exp, &dentry);
- 	if (err)
- 		return err;
-+	/*
-+	 * The lookup may have crossed into another export, either down
-+	 * through a mount point or up through "..".
-+	 */
-+	if (exp != fhp->fh_export) {
-+		err = check_nfsd_access(exp, rqstp);
-+		if (err)
-+			goto out;
-+	}
- 	/*
- 	 * Note: we compose the file handle now, but as the
- 	 * dentry may be negative, it may need to be updated.
-@@ -344,6 +375,7 @@ nfsd_lookup(struct svc_rqst *rqstp, struct svc_fh *fhp, const char *name,
- 	if (!err && d_really_is_negative(dentry))
- 		err = nfserr_noent;
- 
-+out:
- 	dput(dentry);
- 	exp_put(exp);
- 	return err;
-
+> ---
+>  mm/truncate.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index b58ba940be47..43c6cf99027f 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -919,7 +919,7 @@ void truncate_pagecache_range(struct inode *inode, loff_t lstart, loff_t lend)
+>  	 * once (before truncating pagecache), and without "even_cows" flag:
+>  	 * hole-punching should not remove private COWed pages from the hole.
+>  	 */
+> -	if ((u64)unmap_end > (u64)unmap_start)
+> +	if (lend == -1 || (u64)unmap_end + 1 > (u64)unmap_start)
+>  		unmap_mapping_range(mapping, unmap_start,
+>  				    1 + unmap_end - unmap_start, 0);
+>  	truncate_inode_pages_range(mapping, lstart, lend);
+> -- 
+> 2.43.0
+> 
 -- 
-2.56.0
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
