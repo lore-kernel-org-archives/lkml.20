@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783704;
-	b=HaX8GYHJa2ZPn9xZaaVQVzBYeEPOop5G4pIGmnxGdzvzPWHMscSwaUuM0X+F4qvih9y5
-	 JUvBv3qOsR+mYoqqKCr9Q+e3kVMV4qB9Fxx3Xg/QeEa9acQiajQLVDELZs2HrwkWDEUGc
-	 3WrFdksSsqkET5/RKdpDRMIe6ZR6MkxeyaGK9oACS5qOAYH3MnVtIkk59e0ueAIoNAOg0
-	 4WH1FWGgwwUdgsL4g40IoKi9rTrbU7mGiYUYAEG17FN9YKUm6M51Xlyx5nam0ZAI+UV/j
-	 RkrNntq0f4mxUG4ZFnJxZZNgusRyszELxInOgbGEOSBw14r0jLvS6chfiMNZumfAdxQ==
+	t=1793783714;
+	b=QC61tCnQIf7jQFCSJEsH1GM7CvGGih0gpchBXaxS5yQI1vGklGpXIzDMlKYAEJmWZjD8
+	 yICg8jRpIG1gPyknZXl9kQl2rDlDwNOiJdwMkU0udOn2+If+OrCAP3zoTNuj2lZx+IQE1
+	 bCBK06kZmMqjrvfGteqUDLIpDUF4PiwzvHhmVcR2jQ0Vh5aT28Gab/Uloju0/umZj1qmJ
+	 lO2JWxU8lyvrTB0NpjrvjyqLGX2h3yZ048O1/gHDpydG9jrFwLUr8oxb/boYTtM6YEJDd
+	 soRWuWdVeW9p5QQhRsdKn7bQ49jx+3KG5DiZMhN/s71QbbSBqqwq/eqxFCnQY0KUTxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783704;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783714;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zCFfm843u8/elBaIEdb8AzgdS0+hlymbLUHyiHn895g=;
-	b=a4wiJduvCRF4k5DcvsPPEmY1MAbCTOtr2Ug3FsfmptU08gzeyLuq4R2ERNW8JNopjWn+
-	 Y89vclGIRtB9gmaOAkSoFSpFhieonfY2aNJpupTtqe3fAuczvTqCoWMbGuocc5neus43R
-	 iIysQcdgKyDTGUNflenQIPB6t465wpOIWTV7pBu8hicuEDlFnTvOuFfP7kgs5oX1ZlumN
-	 NnYH9vP6sjnFxAKsG4PVaJIamTs89qjdcb3anpBgeuoXLXGgv8+IaFre9I7hb/7LBQUxa
-	 V+J6nazggm1Dtj1qjO34KJRRlXKn8R0Gr/TVuD79Xe04CfsFj3lOj0S5cGdN5T5nL8Q==
+	bh=wozQOH0rL+df2ESKnkoR9U756io00+MftNixJAyhy9s=;
+	b=VnR4O7aCwwBMjjp9YP/QE8doJaqK31sXMFRbkDy9nOppAjv12jkSyLYFiiKt7CX10RYT
+	 2pDFOymbi2JfhzN2wnqr77O9G/8rPTJGYDc/vBNmgf920svl2rQN7mQMgE8NxvmpcSgsO
+	 YyX7XOFkOCiKXFVjG7Ok7EuXE42+tJKzVPbHd60UmnYZ8USfHxAA9D5C81g6xTU1KzwnQ
+	 Iiwy44cUveW+eYODF+4kCiQbN3OCFCDtfjfyGibiK+F0WNqXFGMxOuAPZmOZj0cKlxHCl
+	 yfhC6tWsuYKzIAKCuRvUn4fdt0ynpIZdGo6YRZbVmIznhnAF5q/+yODnqQJd3OiZzHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2VyHUmX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjA2xqeY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B4F606A32C;
-	Wed,  4 Nov 2026 09:15:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C101606A328;
+	Wed,  4 Nov 2026 09:15:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2VyHUmX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072401F0093A;
-	Wed,  4 Nov 2026 09:15:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjA2xqeY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53D41F00919;
+	Wed,  4 Nov 2026 09:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783704;
-	bh=zCFfm843u8/elBaIEdb8AzgdS0+hlymbLUHyiHn895g=;
+	s=k20260515; t=1793783713;
+	bh=wozQOH0rL+df2ESKnkoR9U756io00+MftNixJAyhy9s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P2VyHUmXOTKNccAWnsWQzGG4kjE2tHG11Fb3k5VTve3RIeyUyrwUL6y/DUqe2KhQ/
-	 qrdaEjdMIbUev3XrFs+Ls+dcv7bDqqET0CWUGdq/PmXijGJQq5eGEBsqUFp7f4O3FF
-	 zkyaL6jGtaLRL1x1xmXnnAxmpV30wJdXL4j2Wf6q6nw3Y6o5RWboW6zeaQVeNsJpnE
-	 Au61t1i1IcpHhkQnpCSZ7l++U97L6h/DZiEvqExZdwhTGZk5z6xJoYaMNmSXL0FeUK
-	 QxXsgpg9iBETtbilcbZd5els7i48g2auyc00OUb6m5WFc0k0/IJbg2ClCjAlasEjB+
-	 jMKZz7T9gjomA==
-Date: Wed, 4 Nov 2026 10:14:57 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>, Sashiko <sashiko-bot@kernel.org>,
-	linux-mm@kvack.org, loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm/hugetlb: fix validation of unsupported HugeTLB
- orders
-Message-ID: <aur3kWpnFAOaX8nE@localhost.localdomain>
-References: <20261104071858.757793-1-songmuchun@bytedance.com>
+	b=UjA2xqeYEK80i7Ppq03lQvL9aj7w7aCpnwjVlKlY4qACwWrO1xNZH7fqcg0/XQYXd
+	 0XIL1G57zMHPcLqouikUAlFkvwGNnm8TEe+24IPTE2jQRZRI+rAZV8LmaK1RNpS6CY
+	 VgMsB/z+HEkEgNNiR4S3FJ+IcrvX5Lhj9lHuDF3O1rEdd9gcSgRk2fkShoJcQeaK1R
+	 G8h5IWb1O1KAkMem6coEO1PTX2M3tQxZGkQyvjwPTBLfv46F0G9+q8RqQrcNpjeHNM
+	 I2ikync2oN5s0Hu/SoQvjlVGu0ChAoqqCFzQdaQFzUwb8DVF/4rYw9Mm9jkHtbz6Ug
+	 g1OvXpMbmC3ow==
+Date: Wed, 4 Nov 2026 09:15:06 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Rheinsberg <david@readahead.eu>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, stable@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH 1/2] mm/memfd: handle GUP pins more reliably when
+ write-sealing
+Message-ID: <aur3R_3_oz4Isjr4@gremlin>
+References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
+ <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,74 +66,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104071858.757793-1-songmuchun@bytedance.com>
+In-Reply-To: <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
 
-On Wed, Nov 04, 2026 at 03:18:57PM +0800, Muchun Song wrote:
-> Commit 7ce6048d3a7d ("loongarch: drop ranges for definition of
-> ARCH_FORCE_MAX_ORDER") removed the ARCH_FORCE_MAX_ORDER ranges for
-> LoongArch. Besides dropping unreasonable upper limits, this allowed
-> values below the architecture defaults.
-> 
-> With 16KB pages, LoongArch defaults ARCH_FORCE_MAX_ORDER to 11,
-> matching HUGETLB_PAGE_ORDER. Forcing it to 10 while enabling HugeTLB
-> permits order-11 HugeTLB folios even though MAX_FOLIO_ORDER is 10.
-> LoongArch does not select ARCH_HAS_GIGANTIC_PAGE, so this violates the
-> generic MM assumption that folios cannot exceed MAX_PAGE_ORDER.
-> 
-> This invalid configuration is accepted by Kconfig.
-> BUILD_BUG_ON_INVALID() does not reject it either because it only checks
-> whether the expression is valid and never evaluates the comparison.
-> Detection is left to the runtime warning in hugetlb_add_hstate(), after
-> earlier boot paths may already have used the invalid configuration.
-> 
-> When an invalid HugeTLB order can be identified at build time, reject it
-> there. Otherwise, reject it at runtime before the mismatch propagates
-> further. Use MAYBE_BUILD_BUG_ON() so constant violations fail the build
-> while dynamically determined orders are checked at runtime.
-> 
-> Fixes: 7ce6048d3a7d ("loongarch: drop ranges for definition of ARCH_FORCE_MAX_ORDER")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/sashiko-outbox-192874@kernel.org/
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Suggested-by: Huacai Chen <chenhuacai@kernel.org>
+On Tue, Nov 03, 2026 at 07:31:44PM +0100, David Hildenbrand (Arm) wrote:
+> memfd_wait_for_pins() detects GUP references by comparing a folio's
+> actual refcount with its expected refcount. As spelled out by
+> folio_expected_ref_count(), obtaining the expected refcount when there
+> can be concurrent folio (un)mapping is racy.
+>
+> So it is possible that a changing folio mapcount can race with our
+> check for GUP references, and F_SEAL_WRITE might succeed even if there
+> are some, allowing file contents to be modified after sealing.
+>
+> For folios with a reliable pincount, detect FOLL_PIN references using
+> folio_maybe_dma_pinned() before falling back to the refcount comparison.
+> For small folios without that, the 1024 pinning BIAS makes it very hard
+> (although not impossible) to misguide the refcount comparison.
+>
+> This improves FOLL_PIN detection for folios with a pincount. Handling
+> FOLL_GET and small folios requires a more fundamental change.
+>
+> Fortunately, most interfaces that allow for GUP'ing such pages use
+> FOLL_PIN, in particular interfaces using FOLL_LONGTERM. However, we
+> still have some FOLL_GET leftovers ...
+>
+> Fixes: 05f65b5c7090 ("shm: wait for pins to be released when sealing")
+> Cc: stable@vger.kernel.org
+> Cc: Chris Mason <mason@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Acked-by: Oscar Salvador <osalvador@suse.de>
+All very delicate stuff, I wonder if we could somehow make the logic here
+generalised in a follow-up?
+
+Anyway seems reasonable to me so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
-> v2:
-> - Move the order check after hugepages_supported() to avoid a false
->   PowerPC BUG_ON() (suggested by Sashiko)
-> ---
->  mm/hugetlb.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 779b1de33c78..b49130eb7ad8 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -4197,7 +4197,6 @@ static int __init hugetlb_init(void)
->  
->  	BUILD_BUG_ON(sizeof_field(struct page, private) * BITS_PER_BYTE <
->  			__NR_HPAGEFLAGS);
-> -	BUILD_BUG_ON_INVALID(HUGETLB_PAGE_ORDER > MAX_FOLIO_ORDER);
->  
->  	if (!hugepages_supported()) {
->  		if (hugetlb_max_hstate || default_hstate_max_huge_pages)
-> @@ -4205,6 +4204,8 @@ static int __init hugetlb_init(void)
->  		return 0;
->  	}
->  
-> +	MAYBE_BUILD_BUG_ON(HUGETLB_PAGE_ORDER > MAX_FOLIO_ORDER);
+>  mm/memfd.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/mm/memfd.c b/mm/memfd.c
+> index 0f6fff004f5e4..9eda4c3eeaca5 100644
+> --- a/mm/memfd.c
+> +++ b/mm/memfd.c
+> @@ -32,6 +32,13 @@
+>
+>  static bool memfd_folio_has_extra_refs(struct folio *folio)
+>  {
+> +	/*
+> +	 * Use the precise pincount where available to avoid racy refcount
+> +	 * comparisons.
+> +	 */
+> +	if (folio_has_pincount(folio) && folio_maybe_dma_pinned(folio))
+> +		return true;
 > +
->  	/*
->  	 * Make sure HPAGE_SIZE (HUGETLB_PAGE_ORDER) hstate exists.  Some
->  	 * architectures depend on setup being done here.
-> 
-> base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
-> -- 
-> 2.54.0
-> 
+>  	return folio_ref_count(folio) != folio_expected_ref_count(folio);
+>  }
+>
+>
+> --
+> 2.43.0
+>
 
--- 
-Oscar Salvador
-SUSE Labs
+--
+Cheers, Lorenzo
