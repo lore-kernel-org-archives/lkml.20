@@ -1,49 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805819;
-	b=zhyDd8YYAqXv79AQGEoT756YGncU2AVGNRpG+T+w1FMK0d9k9hNBeTbWar29c1IS1feA
-	 E5yBWiqNePQy4+24ZzhtlU4s2MwirZydOcnuaQuAGWnvZdnIlr8iaLup5onBa7HZ1XfGM
-	 8hQZn0rjr7n7VCRKBlS2VnuLXVJSE1YTE3OLbdXL6rmf5/UwjlS7iboEx2mv2RtGWBwYs
-	 t9apr3JyEsLmUPUAy6ovpGsb0hCgg8NMz7NCQEcBVpKM/MrhaUnFD7uefUCbQ5bhwfRfE
-	 1tYb0Q40Df4y/aQzgBs1ATas0mqUZ6p88mK3ckYEFEpkUHmjKO0W1zEojZ3c5SGbQpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805819;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=iUXqvzkKt0TEjOV9qKAXA2QTquoTPDsStlpxMcQn3lY=;
-	b=kY69cqjyCy6ZdJCVvW3vEG/0FV5ih1eqcXQeiFZyqkwMsPa4feOVwkGpEpTGCHHAG64U
-	 YgRo09vM11cmDo/PmK6UpYRjbQY6qosWQVrYZQodeshrWZJwV87xKYTxC5Z6dRwcvYp3C
-	 k72DAdSKz0oZb6kaF0T5raxGCX4pvVJM/AzIz2ehVBeDu0b8ETaNIQBRGDSNH3xO8l642
-	 kLPOJDRkJUI5nnt9dmdO+rcX7RrCownoACFM0Qe6Tu8mwntlc3+QQdnixm257KqQp/6aP
-	 r022tfeY73XMFIwPf846sFAtFVTXONV8ei5/s7PrKdU8hFqRNzq5gZWxL6301pggghA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OsmJDae5;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F9E4606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:23:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F9E4606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793805852;
+	b=b5FRQRUYUhmZeWlNh8cFU1mSCsYnjFryaWZiR5zdsrF3tKCD128zY09XgpAkfd3BHne1
+	 HSdVAffGQWA45RdPhW3sLEB14+BI3WNLSTvF8hMYp6OKS2Miu6kpbl2V/aVnNQt6pFgK4
+	 vxkF0ShYvxe5X9peXcvb5tBJoXkDdQ5uOVx8k7oJN/cJEv8q0/BYo31IdbafyBZ7lEjqn
+	 DmTCeR6Kdihel91UnkEl7m6m7Y0wg20V0d7pYhseDEBUvT1LVAVenuis0w6Jm7dAKFCIs
+	 YYEX6luWkK6LbAJakhdzrIHGh5yRjB/LEiOeUlgC4jg8k0UWkR0va35aG6WjUsMpgeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805852;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Reason;
+	bh=3W95A5jeKjwn+pgkmtLTXn9deLfTD8GPcWArOrOzMVo=;
+	b=iJc0HggxBTHSiyoG14M94W6YGIH7slQb+1vevCm9uywbqthWiGLFNnA5gEq2QWEc3isR
+	 NVgCoRPvBbVDpNCMiB3t2eFdosHiXZbWjaRC2Bt3+qMKvJelwip1mHK0v2fYaIFNju/3y
+	 FUkQ56JUuDUfOb9TPTg2U1/5Dldl7Yt61MnZalkerphY0C3ul0bTPfy59elBhM5+iTDny
+	 m5MIMeB/VZOuf4AhycNHfScm4RAQLTgGzo8ecOgtEEzbqLuAPzXOvNvhrtr9VEP7jK5rV
+	 VclJqkW7lJsxjJNiBrMnesTod1kRx3vPI0lR4rrmCarn5n9kRrgCyntT9oSM/htSaVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=QyTqxoay;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=BBCPj3e7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EDB606A31B;
+	Wed,  4 Nov 2026 15:24:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97EDB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OsmJDae5
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EEA251595;
-	Wed,  4 Nov 2026 07:23:34 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6E923F632;
-	Wed,  4 Nov 2026 07:23:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793805818; bh=hTP7FhBkZEB6EoF3t+8xbFMg1uD94SfziksV1UIfrrI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OsmJDae5CsMe2IuAc64xpm5Dzenn/yZ7TGQJDQIzbpJwB9LL/PBQqXDkWqvIimWfC
-	 5hmz+rBkYLKOFT1EIGoB+nu4rTOw+hvKMTpsCyTakbycyIkocsj1xLpeVPPTJlUd+g
-	 1ZatZUjOwjB5PkX1xwwwGWXT5ADEUsJ7j38/kTV8=
-Message-ID: <293d0352-7a5d-4b8a-b004-277cd8a81902@arm.com>
-Date: Wed, 4 Nov 2026 15:23:34 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=QyTqxoay;
+	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=BBCPj3e7
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4F7kZL3607450;
+	Wed, 4 Nov 2026 09:24:09 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=3W95A5jeKjwn+pgk
+	mtLTXn9deLfTD8GPcWArOrOzMVo=; b=QyTqxoayclUNbdZh5l4clVzEXTmPthDR
+	/XdVvx77Jo4d081xJE96ns08hKXPOR0qk9e4zKw0OoYjYJMMbj8Vi34GS+cD3/7h
+	nogDQNhJGzn/SNB48CkvPs9E32MJJXno8hyl7eBrUA6Q896NsQv2VHLXaYt4siEb
+	G1KItzXTOeZkIF2vSVjmToIYYVUTGD+Za5Pi0gODMk1Qz0C8Wcy7s9AETKVBLxfc
+	FYuG6fLtSNzW9YOGGwg8mEpk8zB2byxeVOHLdbPQU9l4NctD2nA4t3lffGiYEk06
+	wpS36Rtcic9lG9pS/b36wrq13E0x4RIkJPlozPqDweW01WoBoiAXTQ==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022072.outbound.protection.outlook.com [40.107.209.72])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hndrfdfta-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 09:24:09 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jaHq15jt9YK1F0FH7PiddZFj1t/QIdl1mh9UTHJkGBZE5SqjbIGgrw9PAGrtO3PkHjnipYRqaXWc9q0IoZU51C3QH7CcwM3WY77iWIM6Bb8TLApIfbZ/nllngYyaadbptkgVltcRFCOuM4kb1gBVVkT0pJdxGmyH//FxTp5yEFiDqEIHcN4oqV9els8cfbIfBo353lhzGrAMl3jhmGSDker7v/2FIeMKc0kAKEbDRCm5zIVG2CV7FWj0n/PRMwjpAs8l1u5OqJ1CcsYnrh2caLYbUy1n9m6ecPFibOG39JKmeWcgLY/fbVGeQ4TvrbqToVlEnC98V2lkzoolcI1MlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3W95A5jeKjwn+pgkmtLTXn9deLfTD8GPcWArOrOzMVo=;
+ b=I5oHpNz+acGQ1S1oRZsCIhIB+1J7jt7d6MwHyyeGkOf4m1z1il9Ewsir8I0Pt9Nn9/v/8JQFdiaOrdR4PWUaaUgWOa0tB241Kcc4ln7OW49FcsEc0laDjWfRiWEf/1PIjscsjK8Yo1Rd+P3x2LBFofsmtYKbgTadacJyu4NwPcLwQ3MaD08HuLVtQZnT3PCjd2mcxHsqpys8Ndot9LYn8at6UodCzi0UZxPDvFGlVd8aRAsXVZtQZWNhzV7oz+3njx5A1TmLBrVL6yvZmX/O98KjtNas27b29ShWxpJPLBL0knxLhjRfLAOIuvFPJCcQXu4jJekp7Q+H7nKGUhieJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3W95A5jeKjwn+pgkmtLTXn9deLfTD8GPcWArOrOzMVo=;
+ b=BBCPj3e7hjer2mnfdzZKjW1J2bf3zfeaHkUrsnGVtuvDPbt1crkbtjZbBGdSomrtRUMgt7oRTDj7VWQ7LNKGLE6hI8CBD06OlQ+8B8T6Xd1Ms3zmraPR5gvpHszVri9QlQqPyKyQm8lJtV6r4X9CrdugfXoy605UR2Vg3LhRyqA=
+Received: from BN9PR03CA0636.namprd03.prod.outlook.com (2603:10b6:408:13b::11)
+ by CH4PR19MB813067.namprd19.prod.outlook.com (2603:10b6:610:506::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 15:24:05 +0000
+Received: from BN7PEPF0000009C.namprd04.prod.outlook.com
+ (2603:10b6:408:13b:cafe::88) by BN9PR03CA0636.outlook.office365.com
+ (2603:10b6:408:13b::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
+ Nov 2026 15:24:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ BN7PEPF0000009C.mail.protection.outlook.com (10.167.248.148) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5
+ via Frontend Transport; Wed, 4 Nov 2026 15:24:03 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id D4E81406544;
+	Wed,  4 Nov 2026 15:24:02 +0000 (UTC)
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id C642F82026C;
+	Wed,  4 Nov 2026 15:24:02 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: broonie@kernel.org
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+Subject: [PATCH] firmware: cs_dsp: Fix memory leak on cs_dsp_power_up() error path
+Date: Wed,  4 Nov 2026 15:24:02 +0000
+Message-ID: <20261104152402.1153795-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,416 +129,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 06/24] arm,x86,fs/resctrl: Replace architecture
- capability helpers with generic versions
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
- Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>,
- Dave Martin <Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>,
- David E Box <david.e.box@intel.com>, x86@kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev
-References: <20261019205031.16977-1-tony.luck@intel.com>
- <20261019205031.16977-7-tony.luck@intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261019205031.16977-7-tony.luck@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|CH4PR19MB813067:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 5d8a2b29-21c6-435c-f644-08df3a87a8fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|61400799027|36860700016|82310400026|11063799006|261021121427099003|261009223027099003|56012099006|261028144727099003|261022105027099003|261102123227099003|261026140227099003|10067099003|18002099003|16102099003;
+X-Microsoft-Antispam-Message-Info:
+	WN5+HQRtSn0co3N8ecYZUfTMeJoA/xY49O6tAJHdHxVtcSIL28bhaxIIgVaLIIc07oqpoYPLBwh/xC8d7+4ybvJ4rouuIACqeNwxknIe76QP8fvNy7aXKE9/Y1j/m8vkV8iZDTUNwbRhBxd+QotXreoWVLYz9u/CapslN95e/y+r/DMAX4vfkkCoDQ309qT4/NC1ygefZ7vY2n8HmH40jfFS3+sgxWv5iMqxCcgzOWJOPxzJXvhcq2iYoeDWrKwwk6VDCmXZPhgfovpQTR9nvBFvmehu/pDXf1/eukGn86/3zuUlQFREOcmm5P+n7Iqao/1YfdP4JMk7vOrr7qqB7ffHAFrVy70uJ8lo3WV4KDXOrjevW6mOIDbVUxmAB9n4ZTfsZJsrW6vUNlzTPqQJZP70C0WpEYIQEPL2v4V81B9pd4cgsi2IuLK0XdCB5kdVVzkdV49MHHZ5Sm/qvjUbhQHeSnazPJXfSf+4Bftvd9WYkPffIF8bRU91rrae4fIfwMbFH6eogcioyX5dSGxZ50ktQsCD2aUMReQ3lDcv6wpvetNm2chZceg6QhXZPKsOgBKYROvvF3G05kGQf0C21OG3s3D+TfpXopf1bTyQu/QWFkB43tlPHg/wE5bS4CNcjNweg3k9uJMFWMiXcl8JmSnTszDeuV0qwFmuONkNeQt7tirr2jWWxTCFrfSrxP9jX3k2JX1hM+7P8m3OkuoAuQ==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(61400799027)(36860700016)(82310400026)(11063799006)(261021121427099003)(261009223027099003)(56012099006)(261028144727099003)(261022105027099003)(261102123227099003)(261026140227099003)(10067099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lfy/OVrPWGxAIxKv82mPaG0e3JpxHOV/LA88Qi7ddIHuYhhpQ5HenxLd0noMAjkIv1uJ7yGulRHEdekRmqMPmxJGmeFnzaY7DgwiBMqTV2Z6hbuYFuY3s2zBlcbbh68kyV0ZZp9nR0OU+SszZBCwLmZBdq1ovOKtVOXdwANhlbngpZa1Od37at4BWYgknFlhExM0XCCceZZ5fulAwucxW4HiXBi71jKem8sb1lU72YsSmk67v74n90wDhgYjSqwbkgu00+cGKhkeHik2KoPCbhaNEtQAAKnFkXGsj9rSndOQiGEhHw4glcc4UARPCOeP4PZ9sFn+lhnIgBjd20NCRi1jTGbFxNaZ2/fMMsKOmeFU+qc23ghHySybu4e59kZhyuWJKZ69nlcKKjiqxnt37sDS12zhs4RdNywxk8VXzaINDzrBNWTqZfn93EXxb/he
+X-Exchange-RoutingPolicyChecked:
+	Bza71QwM3ylO5c+7Vm7l+h8dQwbP8aYWQyN4b+46upT/YqdvCDNqvjNrROlQ1JgUymKg2tI3omCkR5QK4zbuiqMy15HSAFH9y2c+62FEAqL43peq7efxLhDIQrAKkubk/HDGJLD0JN/1IUVrJKtBzFmh3BmxjAjopJCF3pRek/9bbzBl+XiGhCq5SvEzL9ux+6zmJOtB64wIGX7VUj6f1klN49TmDwo/Djwx3kEiqau8vRNwiMwUPfk+qbDyaJPgCAB6XmLfydN9J5SuzHKbx6mi48+xy/IEdZ1j6QKLYkl7Da4rSWIY+HsL8J/ecX9Ik4+EustiSo0jmCvbx+BGXg==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:24:03.7782
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d8a2b29-21c6-435c-f644-08df3a87a8fa
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN7PEPF0000009C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR19MB813067
+X-Proofpoint-GUID: xuje7uME3PXQQ_U0FZD-5riLOFYmp4vN
+X-Authority-Analysis: v=2.4 cv=HMRWhYtv c=1 sm=1 tr=0 ts=6aeb4e19 cx=c_pps
+ a=8rtS5N/ibwcsmpvebatIkg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=w1d2syhTAAAA:8 a=EuiA1CtSSRQH3ZlJBMgA:9
+X-Proofpoint-ORIG-GUID: xuje7uME3PXQQ_U0FZD-5riLOFYmp4vN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MSBTYWx0ZWRfXxmwT9LR3dVfq
+ SJa8x7S5f8s93DrOCMirfhGI9q1HX1FVVzTWX5qqcvOl1Nxb2EJsHn02a3SnmgG4BAVrHdXFxsn
+ Yv56T57ISgLhies+m5tilsRd1Ctz5ALfsAK0X7Y5o3Xj+pZBEplVWmve521wP9ArYjiwavLJHQC
+ xdOXzK/FF40fbBpGrc+8ei+SD+1eKGaBuB9NS1ueSLANMD6kB2DDWWJymUZPI5ivXwPmcJ+71C0
+ RnOuVSU1tcoGoe09mPV4p6gNf95BA+WM7UnrOgcXrH8P/4nU+/9KDtRNVOLYp+qGh4wh+9yjBxH
+ FBn9vN4RsCB8Iwc8UOw7G/99dxrlqAoF+B1IZc/YliucQ/QwKaQpyb4WMQNoz6MKH03qXo2LHUs
+ 0D7KcBWp8UkJEQwcwkFufBUqQn8EX/AJ/o1DG6qMJ/UVpAXPBuN49Fl/AsGfZz/gCDfhbgQ7NWA
+ WAoQjR7CW9hYPTNlrVQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MSBTYWx0ZWRfX8t/9ClDnByAO
+ yzKvNslKIxQDIb5+AwTbWHCapRFHimyRj+RsheZy+/1n58n/vLD4rNOavkePTuXoh+DJB7/KV4d
+ bkFY4BkbPyWfWZa9/JTtvR92cQrne4Q=
+X-Proofpoint-Spam-Reason: safe
 
-Hi Tony,
+If cs_dsp_power_up() fails on or after cs_dsp_load() mark the controls
+disabled and free the alg regions.
 
-On 19/10/2026 21:50, Tony Luck wrote:
-> resctrl supports allocation or monitoring if any resource is capable of
-> it. Each architecture answers this via resctrl_arch_alloc_capable() and
-> resctrl_arch_mon_capable(). x86 maintains global flags for this in
-> addition to the per-resource flags and must keep both in sync. MPAM
-> derives the answer from its per-resource flags.
-> 
-> The per-resource flags are part of the resource description that the file
-> system already has, so the architecture helpers duplicate information
-> available to the file system.
-> 
-> Define resctrl_alloc_capable() and resctrl_mon_capable() in the file system
-> based on the per-resource flags and remove the architecture helpers, in
-> preparation for removing the x86 global flags. The result is unchanged for
-> MPAM, which presents all monitors on the L3 resource.
-> 
-> Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
+Fixes: f6bc909e7673c ("firmware: cs_dsp: add driver to support firmware loading on Cirrus Logic DSPs")
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ drivers/firmware/cirrus/cs_dsp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Looks good to me. For the MPAM parts:
-
-Acked-by: Ben Horgan <ben.horgan@arm.com>
-
-Thanks,
-
-Ben
-
-> ---
-> v14:
-> 	New Subject: without {alloc,mon}
-> 	New commit message in context, problem, solution format
-> 	Did not apply Reinette RB tag because of commit message rewrite.
-> ---
->  include/linux/arm_mpam.h       |  3 ---
->  include/linux/resctrl.h        | 30 ++++++++++++++++++++++++++++
->  arch/x86/include/asm/resctrl.h | 10 ----------
->  drivers/resctrl/mpam_resctrl.c | 26 ++----------------------
->  fs/resctrl/monitor.c           | 10 +++++-----
->  fs/resctrl/pseudo_lock.c       |  6 +++---
->  fs/resctrl/rdtgroup.c          | 36 +++++++++++++++++-----------------
->  7 files changed, 58 insertions(+), 63 deletions(-)
-> 
-> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
-> index f92a36187a52..ba4131048260 100644
-> --- a/include/linux/arm_mpam.h
-> +++ b/include/linux/arm_mpam.h
-> @@ -50,9 +50,6 @@ static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->  }
->  #endif
->  
-> -bool resctrl_arch_alloc_capable(void);
-> -bool resctrl_arch_mon_capable(void);
-> -
->  void resctrl_arch_set_cpu_default_closid(int cpu, u32 closid);
->  void resctrl_arch_set_closid_rmid(struct task_struct *tsk, u32 closid, u32 rmid);
->  void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 rmid);
-> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-> index 10dfdca7f4bf..0e7fce070fde 100644
-> --- a/include/linux/resctrl.h
-> +++ b/include/linux/resctrl.h
-> @@ -346,6 +346,36 @@ struct rdt_resource {
->   */
->  struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l);
->  
-> +/*
-> + * resctrl_alloc_capable - Are any allocation resources enabled?
-> + */
-> +static inline bool resctrl_alloc_capable(void)
-> +{
-> +	struct rdt_resource *r;
-> +
-> +	for_each_rdt_resource(r) {
-> +		if (r->alloc_capable)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/*
-> + * resctrl_mon_capable - Are any monitor resources enabled?
-> + */
-> +static inline bool resctrl_mon_capable(void)
-> +{
-> +	struct rdt_resource *r;
-> +
-> +	for_each_rdt_resource(r) {
-> +		if (r->mon_capable)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  /**
->   * struct resctrl_schema - configuration abilities of a resource presented to
->   *			   user-space
-> diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-> index 2031b30ff25b..9c44a7766631 100644
-> --- a/arch/x86/include/asm/resctrl.h
-> +++ b/arch/x86/include/asm/resctrl.h
-> @@ -50,11 +50,6 @@ DECLARE_STATIC_KEY_FALSE(rdt_enable_key);
->  DECLARE_STATIC_KEY_FALSE(rdt_alloc_enable_key);
->  DECLARE_STATIC_KEY_FALSE(rdt_mon_enable_key);
->  
-> -static inline bool resctrl_arch_alloc_capable(void)
-> -{
-> -	return rdt_alloc_capable;
-> -}
-> -
->  static inline void resctrl_arch_enable_alloc(void)
->  {
->  	static_branch_enable_cpuslocked(&rdt_alloc_enable_key);
-> @@ -67,11 +62,6 @@ static inline void resctrl_arch_disable_alloc(void)
->  	static_branch_dec_cpuslocked(&rdt_enable_key);
->  }
->  
-> -static inline bool resctrl_arch_mon_capable(void)
-> -{
-> -	return rdt_mon_capable;
-> -}
-> -
->  static inline void resctrl_arch_enable_mon(void)
->  {
->  	static_branch_enable_cpuslocked(&rdt_mon_enable_key);
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index f2c651e9f6ea..7ddee8f5162f 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -75,28 +75,6 @@ static DECLARE_WAIT_QUEUE_HEAD(wait_cacheinfo_ready);
->   */
->  static bool resctrl_enabled;
->  
-> -bool resctrl_arch_alloc_capable(void)
-> -{
-> -	struct mpam_resctrl_res *res;
-> -	enum resctrl_res_level rid;
-> -
-> -	for_each_mpam_resctrl_control(res, rid) {
-> -		if (res->resctrl_res.alloc_capable)
-> -			return true;
-> -	}
-> -
-> -	return false;
-> -}
-> -
-> -bool resctrl_arch_mon_capable(void)
-> -{
-> -	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
-> -	struct rdt_resource *l3 = &res->resctrl_res;
-> -
-> -	/* All monitors are presented as being on the L3 cache */
-> -	return l3->mon_capable;
-> -}
-> -
->  bool resctrl_arch_is_evt_configurable(enum resctrl_event_id evt)
->  {
->  	return false;
-> @@ -1902,9 +1880,9 @@ int mpam_resctrl_setup(void)
->  
->  	cpus_read_unlock();
->  
-> -	if (!resctrl_arch_alloc_capable() && !resctrl_arch_mon_capable()) {
-> +	if (!resctrl_alloc_capable() && !resctrl_mon_capable()) {
->  		pr_debug("No alloc(%u) or monitor(%u) found - resctrl not supported\n",
-> -			 resctrl_arch_alloc_capable(), resctrl_arch_mon_capable());
-> +			 resctrl_alloc_capable(), resctrl_mon_capable());
->  		return -EOPNOTSUPP;
->  	}
->  
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index 04e4ea612b7c..cb34d3637ee5 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -338,7 +338,7 @@ void free_rmid(u32 closid, u32 rmid)
->  	 * allows architectures that ignore the closid parameter to avoid an
->  	 * unnecessary check.
->  	 */
-> -	if (!resctrl_arch_mon_capable() ||
-> +	if (!resctrl_mon_capable() ||
->  	    idx == resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
->  						RESCTRL_RESERVED_RMID))
->  		return;
-> @@ -888,7 +888,7 @@ void mbm_handle_overflow(struct work_struct *work)
->  	 * If the filesystem has been unmounted this work no longer needs to
->  	 * run.
->  	 */
-> -	if (!resctrl_mounted || !resctrl_arch_mon_capable())
-> +	if (!resctrl_mounted || !resctrl_mon_capable())
->  		goto out_unlock;
->  
->  	/*
-> @@ -950,7 +950,7 @@ void mbm_setup_overflow_handler(struct rdt_l3_mon_domain *dom, unsigned long del
->  	 * When a domain comes online there is no guarantee the filesystem is
->  	 * mounted. If not, there is no need to catch counter overflow.
->  	 */
-> -	if (!resctrl_mounted || !resctrl_arch_mon_capable())
-> +	if (!resctrl_mounted || !resctrl_mon_capable())
->  		return;
->  	cpu = cpumask_any_housekeeping(&dom->hdr.cpu_mask, exclude_cpu);
->  	dom->mbm_work_cpu = cpu;
-> @@ -966,7 +966,7 @@ int setup_rmid_lru_list(void)
->  	u32 idx;
->  	int i;
->  
-> -	if (!resctrl_arch_mon_capable())
-> +	if (!resctrl_mon_capable())
->  		return 0;
->  
->  	/*
-> @@ -1006,7 +1006,7 @@ int setup_rmid_lru_list(void)
->  
->  void free_rmid_lru_list(void)
->  {
-> -	if (!resctrl_arch_mon_capable())
-> +	if (!resctrl_mon_capable())
->  		return;
->  
->  	mutex_lock(&rdtgroup_mutex);
-> diff --git a/fs/resctrl/pseudo_lock.c b/fs/resctrl/pseudo_lock.c
-> index 56ab63f19bad..3d831227a42f 100644
-> --- a/fs/resctrl/pseudo_lock.c
-> +++ b/fs/resctrl/pseudo_lock.c
-> @@ -383,7 +383,7 @@ static int rdtgroup_locksetup_user_restrict(struct rdtgroup *rdtgrp)
->  	if (ret)
->  		goto err_cpus;
->  
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		ret = rdtgroup_kn_mode_restrict(rdtgrp, "mon_groups");
->  		if (ret)
->  			goto err_cpus_list;
-> @@ -430,7 +430,7 @@ static int rdtgroup_locksetup_user_restore(struct rdtgroup *rdtgrp)
->  	if (ret)
->  		goto err_cpus;
->  
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		ret = rdtgroup_kn_mode_restore(rdtgrp, "mon_groups", 0777);
->  		if (ret)
->  			goto err_cpus_list;
-> @@ -577,7 +577,7 @@ int rdtgroup_locksetup_exit(struct rdtgroup *rdtgrp)
->  {
->  	int ret;
->  
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		ret = alloc_rmid(rdtgrp->closid);
->  		if (ret < 0) {
->  			rdt_last_cmd_puts("Out of RMIDs\n");
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 57ab090072c2..96a4978ce6b6 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-> @@ -691,7 +691,7 @@ static bool is_closid_match(struct task_struct *t, struct rdtgroup *r)
->  
->  static bool is_rmid_match(struct task_struct *t, struct rdtgroup *r)
->  {
-> -	return (resctrl_arch_mon_capable() && (r->type == RDTMON_GROUP) &&
-> +	return (resctrl_mon_capable() && (r->type == RDTMON_GROUP) &&
->  		resctrl_arch_match_rmid(t, r->mon.parent->closid,
->  					r->mon.rmid));
->  }
-> @@ -3157,9 +3157,9 @@ static void resctrl_unmount(void)
->  		resctrl_arch_reset_all_ctrls(r);
->  
->  	resctrl_fs_teardown();
-> -	if (resctrl_arch_alloc_capable())
-> +	if (resctrl_alloc_capable())
->  		resctrl_arch_disable_alloc();
-> -	if (resctrl_arch_mon_capable())
-> +	if (resctrl_mon_capable())
->  		resctrl_arch_disable_mon();
->  	resctrl_mounted = false;
->  	mutex_unlock(&rdtgroup_mutex);
-> @@ -3213,7 +3213,7 @@ static int rdt_get_tree(struct fs_context *fc)
->  	if (ret)
->  		goto out_schemata_free;
->  
-> -	if (resctrl_arch_mon_capable())
-> +	if (resctrl_mon_capable())
->  		flags |= RFTYPE_MON;
->  
->  	ret = rdtgroup_add_files(rdtgroup_default.kn, flags);
-> @@ -3226,7 +3226,7 @@ static int rdt_get_tree(struct fs_context *fc)
->  	if (ret < 0)
->  		goto out_closid_exit;
->  
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		ret = mongroup_create_dir(rdtgroup_default.kn,
->  					  &rdtgroup_default, "mon_groups",
->  					  &kn_mongrp);
-> @@ -3246,12 +3246,12 @@ static int rdt_get_tree(struct fs_context *fc)
->  	if (ret)
->  		goto out_mondata;
->  
-> -	if (resctrl_arch_alloc_capable())
-> +	if (resctrl_alloc_capable())
->  		resctrl_arch_enable_alloc();
-> -	if (resctrl_arch_mon_capable())
-> +	if (resctrl_mon_capable())
->  		resctrl_arch_enable_mon();
->  
-> -	if (resctrl_arch_alloc_capable() || resctrl_arch_mon_capable())
-> +	if (resctrl_alloc_capable() || resctrl_mon_capable())
->  		resctrl_mounted = true;
->  
->  	if (resctrl_is_mbm_enabled()) {
-> @@ -3294,10 +3294,10 @@ static int rdt_get_tree(struct fs_context *fc)
->  	return ret;
->  
->  out_mondata:
-> -	if (resctrl_arch_mon_capable())
-> +	if (resctrl_mon_capable())
->  		kernfs_remove(kn_mondata);
->  out_mongrp:
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		mon_put_kn_priv();
->  		rdtgroup_unassign_cntrs(&rdtgroup_default);
->  		kernfs_remove(kn_mongrp);
-> @@ -3886,7 +3886,7 @@ static int mkdir_rdt_prepare_rmid_alloc(struct rdtgroup *rdtgrp)
->  {
->  	int ret;
->  
-> -	if (!resctrl_arch_mon_capable())
-> +	if (!resctrl_mon_capable())
->  		return 0;
->  
->  	ret = alloc_rmid(rdtgrp->closid);
-> @@ -3911,7 +3911,7 @@ static int mkdir_rdt_prepare_rmid_alloc(struct rdtgroup *rdtgrp)
->  
->  static void mkdir_rdt_prepare_rmid_free(struct rdtgroup *rgrp)
->  {
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		rdtgroup_unassign_cntrs(rgrp);
->  		free_rmid(rgrp->closid, rgrp->mon.rmid);
->  	}
-> @@ -4002,7 +4002,7 @@ static int mkdir_rdt_prepare(struct kernfs_node *parent_kn,
->  
->  	if (rtype == RDTCTRL_GROUP) {
->  		files = RFTYPE_BASE | RFTYPE_CTRL;
-> -		if (resctrl_arch_mon_capable())
-> +		if (resctrl_mon_capable())
->  			files |= RFTYPE_MON;
->  	} else {
->  		files = RFTYPE_BASE | RFTYPE_MON;
-> @@ -4111,7 +4111,7 @@ static int rdtgroup_mkdir_ctrl_mon(struct kernfs_node *parent_kn,
->  
->  	list_add(&rdtgrp->rdtgroup_list, &rdt_all_groups);
->  
-> -	if (resctrl_arch_mon_capable()) {
-> +	if (resctrl_mon_capable()) {
->  		/*
->  		 * Create an empty mon_groups directory to hold the subset
->  		 * of tasks and cpus to monitor.
-> @@ -4152,11 +4152,11 @@ static int rdtgroup_mkdir(struct kernfs_node *parent_kn, const char *name,
->  	 * allocation is supported, add a control and monitoring
->  	 * subdirectory
->  	 */
-> -	if (resctrl_arch_alloc_capable() && parent_kn == rdtgroup_default.kn)
-> +	if (resctrl_alloc_capable() && parent_kn == rdtgroup_default.kn)
->  		return rdtgroup_mkdir_ctrl_mon(parent_kn, name, mode);
->  
->  	/* Else, attempt to add a monitoring subdirectory. */
-> -	if (resctrl_arch_mon_capable())
-> +	if (resctrl_mon_capable())
->  		return rdtgroup_mkdir_mon(parent_kn, name, mode);
->  
->  	return -EPERM;
-> @@ -4571,7 +4571,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
->  	 * If resctrl is mounted, remove all the
->  	 * per domain monitor data directories.
->  	 */
-> -	if (resctrl_mounted && resctrl_arch_mon_capable())
-> +	if (resctrl_mounted && resctrl_mon_capable())
->  		rmdir_mondata_subdir_allrdtgrp(r, hdr);
->  
->  	if (r->rid != RDT_RESOURCE_L3)
-> @@ -4708,7 +4708,7 @@ int resctrl_online_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *hdr
->  	 * by rdt_get_tree() calling mkdir_mondata_all().
->  	 * If resctrl is mounted, add per domain monitor data directories.
->  	 */
-> -	if (resctrl_mounted && resctrl_arch_mon_capable())
-> +	if (resctrl_mounted && resctrl_mon_capable())
->  		mkdir_mondata_subdir_allrdtgrp(r, hdr);
->  
->  out_unlock:
+diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
+index 844c68036975f..4dcce87685d33 100644
+--- a/drivers/firmware/cirrus/cs_dsp.c
++++ b/drivers/firmware/cirrus/cs_dsp.c
+@@ -2793,6 +2793,7 @@ int cs_dsp_power_up(struct cs_dsp *dsp,
+ 		    const struct firmware *coeff_firmware, const char *coeff_filename,
+ 		    const char *fw_name)
+ {
++	struct cs_dsp_coeff_ctl *ctl;
+ 	int ret;
+ 
+ 	mutex_lock(&dsp->pwr_lock);
+@@ -2838,6 +2839,11 @@ int cs_dsp_power_up(struct cs_dsp *dsp,
+ 
+ 	return 0;
+ err_ena:
++	list_for_each_entry(ctl, &dsp->ctl_list, list)
++		ctl->enabled = 0;
++
++	cs_dsp_free_alg_regions(dsp);
++
+ 	if (dsp->ops->disable_core)
+ 		dsp->ops->disable_core(dsp);
+ err_mem:
+-- 
+2.47.3
 
