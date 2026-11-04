@@ -1,56 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758905;
-	b=1gNB4b5jhoONKQQxqgGgRv9NdjfhF//rR1A/93mr+oxM83Gj1NgrQEnJvmqOrlHxg2X2
-	 tILxeifuYRdorDdDEAicp3uNyonrPmfcgghh01IqwZ1ASAKpFrH6hFZI6sfvFpWQFLxQw
-	 qQIFEw3oJ/FTflGXcyhWop/53hyiF6kULcjmGEoTluHDWdWlC2zPSTCvROuLFRu7RHDOx
-	 nkpjn1bZRnu6bmT/MWJWnd6LwGhVkaB7NSpNB0HODfSzON9qbw4aFz7uPlbdPrGAVXM+v
-	 fAnplNfJL/xJsq3Ha+TmId7MO1OGtZqUnMnEssjXLq3TMw+CXN4wV60zTU85RflwzJw==
+	t=1793758919;
+	b=iqBqnI0LWYALEWieMAbnkErdtTcXuktK2pI++pz7lQexZeFTb+YsqlCXKwj41H0NkOG3
+	 xqyhuwdWD89dW35/PoSrKowUXXWe833UnT5G0c0OPAYoDtOH/XJeIHZVnABcb9sGPQWa0
+	 +UacMLoGAzhPJkSnG2bHiLFd6lZxtRl0twcs+NugaP7gCbG7jgbAkjVo7qPx7qgSuQQWX
+	 BUetDEFV1CoCcReX5w4cv30R5mOlnzLZGPGCNC+DiH8SsuCzIrlNU53MRrLW4OJ/vkvuJ
+	 2x7jBmcMrHNaMcyCD0U6biZfrmwedd2HVcxOMgo2t6lFjmtY/f+eMbKln9z6VrU1KJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758905;
-	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:User-Agent:
-	 X-Original-From:X-Lms-Return-Path:Cc:Date:Mime-Version:To:From:
-	 References:Content-Type:Content-Transfer-Encoding:In-Reply-To;
-	bh=No6e7FX1QyMHXiq5uSkrdQU3PoMJKwFtYVvKfbAY2G0=;
-	b=PM0OVJUK6c3O+7NkzC0crBkrftKYxY8uboPNIunq6YhlvXkdFMlEYMNfCcqpF9WVtDWb
-	 MctMuj4GBjU6slGu7ecRcvVpIrCXjfBxRvTHtB3l/k+tYeS5K8SfyG4HIOEDcU9QsD1hD
-	 SsLbWs3Oj5UUnOeg1EXVTMxx3GFE+hhKvKBW47QcJ2FSDXPspP2vDCRt0MQmSl4zJU2hG
-	 Kem/sDIbCQMOMNb17poR0iw65QjOwo/UDbq2qEUKnhuCR7alUsGLYCKJBUhEjR6feaNLC
-	 SCHLomYakezWkHwjQj30BVqLhTxqYd1LS6+mzIdKlxqteuTPgFqU5OsichMe9juP12w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758919;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=u4yw3l82lo/qw9Xch78qs4CtwiYh979ZqWvUHiECqdA=;
+	b=O806GRzwx9DeZ8L14CHsGpCbl2RAiekEu32PMKXKfHvT5RRgWarQ0INabzfL4aIuPHDV
+	 r1HQEqcg4OyktLicLPlcHJsNlNMU3YuFbjm1bHhjJ3XoyEO4JsQ9yC/2iNNdbArEFX4xc
+	 Wn/d1yBlmkM0liBwgk1sMhrgfYI5KHSud4uGN4jy3Czi36KOJZWQFHWwuNs7AakeneQ+y
+	 /0YYDVsdjagJtDfqMpflFvJ8RFJvrUee74flSW1pYCs+6kKMOf4lWmYIEc2yZyIG9hlOI
+	 Vl1hYeBvOZXx5FXgyXsKkWgQsOCFi+0ncvP28qTAKkMNACwHa/vI4eCSNMx9IiiryVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AfRgpS1b;
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CC1606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67CC1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AfRgpS1b
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793758899; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=No6e7FX1QyMHXiq5uSkrdQU3PoMJKwFtYVvKfbAY2G0=;
- b=AfRgpS1bnIQW2x4jiAUjh8Zh2/fcYgU7xYeZpJKEwAQSOPhObCagEaIT4YK9SQ7NOmGOAJ
- 88h2qDnnpwBcM4dltjgF/C0HZC3JPB3hfK+XKETsl6hakGuqJWHOF4kR94b1GIkwamrZOX
- fzgONbX9d/lCYkU49iwMh/e2jx/R91Auboh+Lb1arCz8d5vXLHGG7ecob0lkaFHAM9lRI+
- 0Y8NwZnuo6o1Y68VxJ8WrG28nA32Lcz+h7syyi3z60dOp/i3n3denoYIW3UQpWLT1lKnLO
- +971rSQK608SCrI4HaI9k6ui6e0b1TSlSlGfwFzdI67DdsU8ayt/JRRqbZdJGA==
-Subject: Re: [PATCH] arm64: mm: validate /dev/mem mmap ranges without overflow
-Message-Id: <3d26a89a-7fa2-4daa-a919-82708410d104@bytedance.com>
-User-Agent: Mozilla Thunderbird
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26aea96b1+d22491+vger.kernel.org+zhaogongyi@bytedance.com>
-Cc: "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 4 Nov 2026 10:21:24 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CD5606A326;
+	Wed,  4 Nov 2026 02:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51CD5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7eb6f7e8d7f611f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e6526285-5a69-4b83-abb3-10aa8636b0be,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:d7bc93536e094912c4711bd5aaf8c940,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7eb6f7e8d7f611f19a56ed5b684f684d-20261104
+X-User: chenchangcheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <chenchangcheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 103575154; Wed, 04 Nov 2026 10:21:51 +0800
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen Changcheng <chenchangcheng@kylinos.cn>
+Subject: [PATCH] media: uvcvideo: Fail probe when no video device is registered
+Date: Wed,  4 Nov 2026 10:21:46 +0800
+Message-Id: <20261104022146.42954-1-chenchangcheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,35 +69,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-To: "Catalin Marinas" <catalin.marinas@arm.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-References: <20261101171030.87343-1-zhaogongyi@bytedance.com> <aun4-MXVMZNrmvGr@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <aun4-MXVMZNrmvGr@arm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Catalin,
+When a UVC device is unbound while userspace still holds the video
+device open, the VS interface claims are released only after the last
+file descriptor is closed.  Rebinding before that fails to claim the VS
+interfaces, leaving the VC interface bound without a usable video
+device:
 
-On 11/3/26 11:08 PM, Catalin Marinas wrote:
-> 
-> Can we write this as:
-> 
-> int valid_mmap_phys_addr_range(unsigned long pfn, size_t size)
-> {
->          phys_addr_t limit = PHYS_MASK + 1;
-> 
->          return size <= limit && pfn <= (limit - size) >> PAGE_SHIFT;
-> }
-> 
-> It would resemble the generic __access_ok() better where we need to
-> check for similar overflow. I find it easier to read.
-> 
-> (happy to make the change when applying)
-> 
+  [ 3229.189556] uvcvideo: Probing generic UVC device 1
+  [ 3229.190496] uvcvideo: device 2 interface 1 is already claimed
+  ...
+  [ 3229.193758] uvcvideo: Scanning UVC chain: OT 4 <- XU 3 <- PU 2 <- IT 1
+  [ 3229.193766] uvcvideo: Found a valid video chain (1 -> 4).
+  [ 3229.193771] usb 9-1: No streaming interface found for terminal 4.
 
-Thanks, your version is clearer. Please feel free to make the change 
-when applying.
+Check after registering all video chains that at least one video device
+was registered, and fail the probe with -ENODEV otherwise.
 
-Thanks,
-Gongyi
+Devices with no usable streaming interface at all will now also stay
+unbound instead of being bound without any video device.
+
+Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
+---
+ drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..0943db4eae07 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -2156,6 +2156,19 @@ static int uvc_register_terms(struct uvc_device *dev,
+ 	return 0;
+ }
+ 
++static int uvc_has_video_node(struct uvc_device *dev)
++{
++	struct uvc_streaming *stream;
++
++	list_for_each_entry(stream, &dev->streams, list)
++		if (video_is_registered(&stream->queue.vdev))
++			return 0;
++
++	dev_info(&dev->intf->dev,
++		 "No usable streaming interface found\n");
++	return -ENODEV;
++}
++
+ static int uvc_register_chains(struct uvc_device *dev)
+ {
+ 	struct uvc_video_chain *chain;
+@@ -2174,7 +2187,7 @@ static int uvc_register_chains(struct uvc_device *dev)
+ #endif
+ 	}
+ 
+-	return 0;
++	return uvc_has_video_node(dev);
+ }
+ 
+ /* ------------------------------------------------------------------------
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.25.1
+
