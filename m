@@ -1,86 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755051;
-	b=5f0bnNVMqJSNny73q7sUrMYRvJFKlMcW6iJXL8UVdR15sNc3tDAUoSG+rmSBNdxdvitM
-	 occGdFnBpbgoPai/xvZzH2q40iolk8uR2eQI+sPCzJgd8pFA0sH8gQI4+c4xCNBBIDtUQ
-	 Qd+XCpMM+piPYtss2ldB9TgaaTyWpltMggsz0pTSeo8yLby0QnUKY7l/oBXRygEqkWLXf
-	 O38wo5MhnLixeO9911z9b0sGW5FpUWn8p7m0D5frqtvK3SPAVzIK4WMTdjaLLh7RbPt4t
-	 nMFGm4eR52zWFaFMhQZVe6IBfnzGKPTDX6QjKnMj8Tk6ng6Ih/1SidLk8VyZr68H2EA==
+	t=1793755312;
+	b=rKPjd0uyW2fXLnszvS1zjXNd1sV9/tAzlxlmtdlGfxe93bHWVNDe6tMpNuPZHNqiVYrr
+	 KH4C1qfAsMTO9mvL9Jr6rGlFR+2hRiujtIHv4OZLs9GUSvePtkUiJIXkMxe0ZCqxzgOVB
+	 Gg1XwB/Ao15IDcEg+TI2BXdZzV/bAv0nOLE0803Pm8SxxWY7oxzffKs4QY+MwsZhN3KcA
+	 ud2OjdXkc3wydqUj9sdY0ZMRaLkyDsNknlj68Vgp3vE3DK7cIOmWkpcBUT0DYVq+GZWi8
+	 4+D4UGthCbB785pXS8OfZCs0+iIQvR8CNKqN4+8WKdgqBuko2rErS/Vs9jlgSOK/GmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755051;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=cm1ZQLsGovKO+P8QmmyFaPVIQNh00JlvvBw/TqlEjIs=;
-	b=PFr1+KJniCsuA3SLoOedIYaKltgJBcsTPBrLfIvTry9Z60Y+OBFWsiwYdG1p1yioNEY7
-	 Y8y44ljkctoy/jrzlAM9CRARCqI8YG4LfqVTa0pCQENdyPcDo7GcVKt78PGlAuDGL5jlR
-	 wPXIO5ACKA6FdW+35X26A5aGAV0EcZkNrclObGu+t+9sh2XAdiNetF9UtSCVU1qVwhb25
-	 b2aboIU7zxuMjPz0MDISORwV8V3kO3CN4XZH8fM+h2Rh22mPwiutLPi1sVS95pWPF8T2B
-	 ZeqXtX33TPvKFkVjtSZVaj9/UrFxrePjKVI1/4bDuOZjLiLBlXzZkIrKLu7DYUMO2iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793755312;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3Q5/n+lMO8hXflt+/fw8C33ZJeW4TIpqo/+mXVJXPEc=;
+	b=cg2V35Yp1iGJsTknFAuOPgzi96t44Iw5q5fDcFIuu+o/EwcWGPlRiCQmhZ9BgTKQDcFs
+	 xub/RIYUnALA2lDSWr3HQC8RwHrJwc+HDND+iyU8mfDSOFNzwjBtqOH2dnh26UNRQBAOD
+	 uhvlnEyYoQpHjcTYDMqETBtg0VhHNrW8Xs3aauMTLluOXTbUqJ0JxmC3fNOBBqy8vA5XJ
+	 tvhZY6aGsrWghuhrXTsCCxXwmt6h5sb2t0UmW6lsCI0s7KY/1iMqfETGHseDXOgt67aUy
+	 3BBW0BxE3HXtGnJppzOQTaDFI6UUG2WqTkkEMf3nmLFfvtrhR7QxuHm6jyFYa/bzSyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r4+C74hN;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UjGpG3oB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8355606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:17:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8355606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7E1606A31B;
+	Wed,  4 Nov 2026 01:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r4+C74hN
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9d7791b00so1184395ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:17:30 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UjGpG3oB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914531F000C1;
+	Wed,  4 Nov 2026 01:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793755050; x=1794359850; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cm1ZQLsGovKO+P8QmmyFaPVIQNh00JlvvBw/TqlEjIs=;
-        b=r4+C74hNy2J107k8QWxXCv3v3lNRX1ZF7IkvLyMlO5Sw3gCYbneWz4mJmQDKQNGeYB
-         216tGkq3KEO+o6nCrAW0KCFPNw9CXClLhlM/OwSGi4laDFWTkLR5G8KmagtrrAAAhu58
-         1dM4r/hjrdrL0TE+sTf2XEODhKDlexutW2kYpIFp3ULoGQJzGShf87DihBIaApiRiAaX
-         LgbLu8K8bxUAaIkZ7YPUmtTqn3egH+G06cvvg0O/JYUlF/vK2E5hLlXAiuZ0jIiRYEse
-         j7y8SwgpMveSTsr5WIZEreyVwz2EG4V/yyZMRioc7oOFOzV2bhI6rCxcRymJp6FtQUYT
-         Hq6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793755050; x=1794359850;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cm1ZQLsGovKO+P8QmmyFaPVIQNh00JlvvBw/TqlEjIs=;
-        b=qnaOxoGxR+LoZZmqLYTJXudmIff+sXoPTRgbjwkfrB/ZRoKnKx27jrj6SjSKXT7iZA
-         YMVIuS+1pdEzfhtaNYLzW7ozNMHhyxlyXycy90aLX8OFn4Rq8xcd+XOT/K2Wb44ObJfB
-         MOB5AeW95RZ0V0bHrMMNZ+EuYS1rjlJ+++wE3IHfWT/Q15SU5PgLCeG6mH1IxOIK2O0D
-         /GRlSiacSj3+ZOXLVR74gFZk55GsGz84o/GuEzA6qgwcZXGpD7A28u5P6AbxL94KVb8J
-         Yq6VFtwQhlBJkkPhSAeGo40R1FEIC60VIbq5p53D3qIoH6urxHq/NgL8ZE5nnWS0fIDQ
-         cWGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwK1slN/Ndyc/LMnCgKi/NNQpDnaMwvGXSxRJOoBrt+z1z+bEFiImjATznXc5b8u8+N5QYjxrOtf14YhA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/syqt9EpsWP4M749UGfQt91rbTNC4ifk/uuuxdfj39N009eF9h
-	BRXIV6M5d+5NnNqXnSBzJ5cfqPeK+eeS3W/1uHXeWWf5H6crbmnG6mrp
-X-Gm-Gg: AYBFou2mLC0mukpGrqH7+7p+21hZm0ElL7WAMvnUYdnegQSPbjvsNCYe+8R1HdeHp1s
-	FWdMLwSXwdKHBYC+nTm0YzMxKP6AggoEqzWZ3FFcuLvFks379GKxIoVq7chrwGJW5EWvMcvDGVg
-	dd2EwfUwm7Qtz7se5bsDVAt/GhZ60YgTIAEHc0KczEbtAmxeqzOZRL70xHgvY3+48Bf9zNmAJgo
-	wQF8JNd6d/hoIETVvz7DZEE1uMESfv/jdIT+KC0NCR0RO7dtU4cwpz6AOXrqqD5ZBoogugpgUdd
-	AHKxtHijj2n4k8IKz+9dM5GazIKUWyeiePCouussLSWttGEdxeO1frJgZNqICXzpy7FxeJmkhG4
-	+f+FZUTCKdtgyLFinTqaI/pLrYHBG/g9i9d0tB8xaoCrUWMROJuYHiQ1TjS0uqll0FLjkoKr37E
-	HwaX88TTD+waojzGbfufKiuj3MuvRW6Om6ZyB0g5D+ch+f9V3LMmLEc6bdNvum3hoF8/H6OCv1O
-	nxX+ukBa5E7MBXWGkOUzA6lkNOYmrOCYoKwtk+aHgskY1XcWNITwRN79Tvcf9TQCSLdpHjcjnXy
-	uT2fq6o4QHApDcIi8639E+DNuCnDDvMrh+iGySCu300=
-X-Received: by 2002:a17:902:ec85:b0:2e9:6788:937e with SMTP id d9443c01a7336-2eb364d1716mr124879085ad.42.1793755049997;
-        Tue, 03 Nov 2026 17:17:29 -0800 (PST)
-Received: from [192.168.52.49] ([2406:da14:ac0:7d00:a5cf:b1b:97dc:3084])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed091ce09fsm741905ad.68.2026.11.03.17.17.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 17:17:29 -0800 (PST)
-Message-ID: <9bb64032-09ce-4ddf-81cb-206bb85b9be3@gmail.com>
-Date: Wed, 4 Nov 2026 09:17:24 +0800
+	d=linux-foundation.org; s=korg; t=1793755311;
+	bh=3Q5/n+lMO8hXflt+/fw8C33ZJeW4TIpqo/+mXVJXPEc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UjGpG3oBmG7swsK9ZzyPdqaDfK2bSJXx673GJ32yahnXtcyErEZd5uEkYt1QyYNJb
+	 dupMFGFBaex2t7vP8gfvw5utKKJTtTzI3wtIt7K8G9XXC3hsWIWTgSCioRoPJ7PYv8
+	 HL95CDgWBQrE0B3pFRJgpmGyFguBp5Pq+B2LuOIo=
+Date: Tue, 3 Nov 2026 17:21:50 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, David
+ Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan
+ <shuah@kernel.org>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] selftests/mm: fix pointer width warnings on 32-bit
+ architectures
+Message-Id: <20261103172150.3753dfa00f3106b6014e4d2c@linux-foundation.org>
+In-Reply-To: <20261103212805.1537354-1-sashal@kernel.org>
+References: <20261103212805.1537354-1-sashal@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,77 +61,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/damon/core: reject empty access pattern intervals on
- scheme commit
-To: SJ Park <sj@kernel.org>, jm5905938@gmail.com
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- error27@gmail.com, damon@lists.linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "Liam R. Howlett" <liam@infradead.org>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Vlastimil Babka <vbabka@kernel.org>
-References: <20261103145319.88120-1-sj@kernel.org>
-From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-In-Reply-To: <20261103145319.88120-1-sj@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi SeongJae and Aveline
+On Tue,  3 Nov 2026 16:28:05 -0500 Sasha Levin <sashal@kernel.org> wrote:
 
-  Thank you both for the careful review.
+> Several mm tests convert between pointers and 64-bit integers with a
+> plain cast, which warns on 32-bit architectures, and hugetlb-mremap
+> passes 47-bit mmap() hints that don't fit in an unsigned long:
+> 
+>   uffd-unit-tests.c:344:31: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+> 
+> Add ptr_to_u64() and u64_to_ptr() to vm_util.h, which cast through
+> uintptr_t, and use them where pointers meet the 64-bit UAPI fields and
+> the 64-bit address arithmetic in mremap_test. The hugetlb-mremap hints
+> don't fit in a 32-bit address space, so only pass them when long is 64
+> bits.
 
-I appreciate the clarification that DAMON simply executes what
+lgtm, thanks.  I used this as the first test case for my shiny new
+kernel testing bunnybot,
 
-  the user configured, and that this is more of an input validation
+Turns out, you accidentally fixed a bug!
 
-improvement than a bug fix. Perhaps I was too aggressive in framing
+: I compiled all six affected C files with GCC 13.3 for i386 and x86-64.
+: The patch eliminated all 40 targeted warnings on i386. In a Debian VM,
+: both ABIs passed checks for pointer round trips and high-bit addresses.
+: All three hugepage mmap hints were NULL on i386 and retained their
+: requested values on x86-64.
+: 
+: There's also a runtime fix worth mentioning in the changelog. In the
+: unpatched i386 wp-unpopulated test, UFFDIO_REGISTER successfully
+: registered 0xf3f7a000. The test then passed the sign-extended address
+: 0xfffffffff3f7a000 to UFFDIO_WRITEPROTECT and got EINVAL. With the
+: cast through uintptr_t, wp-unpopulated passed on every run.
+: 
+: With userfaultfd enabled, hugetlb-mremap and the userfaultfd case in
+: mremap_test passed on both ABIs, with and without the patch.
+: 
+: Separately, mremap_test cases 10-13 failed with EINVAL on i386 both
+: before and after the patch. Each tries to move a 2 GiB mapping from a
+: 1 GiB-aligned source to a nonoverlapping destination. Only the
+: destination alignment varies: 4 KiB, 1 MiB, 2 MiB or 1 GiB. The two
+: ranges alone would fill a 32-bit address space. As a follow-up, I'd
+: make these four cases report SKIP for 32-bit userspace and keep the
+: existing coverage on 64-bit.
+: 
+: Tested-by: Andrew Morton <akpm@linux-foundation.org>
 
-it as a bug.
 
-thanks
+By my count, we have 15 implementations of ptr_to_u64() splattered all
+over the tree. 
 
-xiaolei
+> --- a/tools/testing/selftests/mm/vm_util.h
+> +++ b/tools/testing/selftests/mm/vm_util.h
+> @@ -59,6 +59,16 @@ static inline unsigned int pshift(void)
+>  	return __page_shift;
+>  }
+>  
+> +static inline uint64_t ptr_to_u64(const void *ptr)
+> +{
+> +	return (uintptr_t)ptr;
+> +}
 
-在 2026/11/3 22:53, SJ Park 写道:
-> On Tue,  3 Nov 2026 18:54:18 +0800 "Xiaolei Wang (Kaihong)" <xiaoleiwangxiaolei@gmail.com> wrote:
->
->> DAMOS schemes accept access pattern bounds with min > max (e.g.
->> min_sz_region > max_sz_region).  No input path validates the bounds:
->> damon_new_scheme() stores the pattern as is, and the sysfs ul_range
->> stores are plain kstrtoul().
->>
->> At runtime __damos_valid_target() evaluates "min <= x <= max" for each
->> of the three pattern dimensions.  A reversed interval is an empty set,
->> so every region fails the check and the scheme silently never matches
->> anything: nr_tried stays zero forever while the kdamond keeps running
->> normally.
->>
->> With such a reversed interval, damo starts normally (rc=0, kdamond
->> state=on), but nr_tried and nr_applied stay zero forever and the target
->> RSS does not drop.
->>
->> The same holds for the watermarks thresholds, which must be monotonic
->> (low <= mid <= high).
->>
->> Validate the access pattern and watermarks at the beginning of
->> damos_commit(), through which both new schemes (damo start) and online
->> updates (damo tune) pass.
-> The documentation is not explicitly mentioning about the inputs (min > max and
-> non-monotonic watermarks).  But I was thinking it is not really difficult to
-> infer this behavior based on the existing document.
->
-> If my understanding of the documentation is not wrong, I find no problem at
-> accepting the inputs and just behave as documented.  It might look silly, but
-> who knows the users have a creative reason to do that?  As long as it is not
-> causing a harm, just supporting it is better for both users and code
-> maintainability, in my humble opinion.
->
-> Pleae let me know if I am missing something.
->
->
-> Thanks,
-> SJ
->
-> [...]
+16!
+
+
