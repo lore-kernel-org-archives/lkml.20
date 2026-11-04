@@ -1,77 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830587;
-	b=yWggCdq31JmEZaxfm/1OgsEcMD/6ImJ2fn6y+HcFZhFbBkj6MtTDK46p1Mt2BcSrttTK
-	 RlGDWDIqq1b59HKbZ94cUThhuwNUsNcr3+d7Lx/AaoKejKiYx62VUnObj/c6fXvy7Sfbj
-	 Fh7fkFvW4KYkWudMPQQxhY+Zk2Nuqu36aZ8kpitIKZW/0FG1bJLuLN6hXqlRC1BmxfWM/
-	 ymvd8h8ljVRArFepDlhezXskFPCrslju6vHh/Xy2q+iQm4aypcGGr+PSR0ntah28hLK95
-	 1xxRXWIYUL6wSgkUvOHZF63IVRshvlr5Gkczz8Uq8NViOrCjeY/3mNiJGGFUDwUu4tA==
+	t=1793830623;
+	b=0HVspKGEGJnMnV/wVZhcFIAQwi0qi4u71Dm9uzXDAeupa77NG9tMagS0oMe4AFjybzYX
+	 nP/L4O/D71llTQAOT00vL0byiG3lwRsDbviwgj6TIW8AKHVp+b/Nn5Bq+wnDdO+aGAxED
+	 O7bF2f2LIfrIFMoFmA0500Xf9olGbe/FE6Wcx/SDRytMDDjsD4vRSIe9zZleZRsAjk8wB
+	 wUz8MRQzMpqHOndEn3UBkazTwUt2J5/X7J3mPEZ0U5RhacRNQ+GIG7YzWG8MKB+bR8wuX
+	 vOWsXofjJDxb11N2W8tScxDS9UMyGLo1iew8luFnicIFvoEvJ8Msqu1FJB33EnngU7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830587;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=4dUj7qtlv87aoaokSVHZlryaRSMAw8BaqO13OeSv3d8=;
-	b=sEC/0zJNXghwUtEiZHfuz9zv6vx+7ywkPSsb+sGyl0nVXE7QxGwqSpemFzP7s3CW5vDF
-	 it3cZD5zwNJWtHX9yUEMstDWV2PfIEjaRdjBRjrxhXwZwPtzXP3cP9x98iqgiuovV0//O
-	 AauFhud9g/6kPtdohYUVAIK7ur3tXoW5GdZ3j0pbderC8AzoQnF2wi6CLbIwqcutKHIwT
-	 jrdxBmO1qXIAgUeQJutUBP2fwIM5YB6gQX3xPMyANoNYD954Vi7YExb+j1HlGc15l+pTg
-	 T2/gH/jyEH7Vm5qJ1lw+gEJvv6ljfENT8kq8bm8mV4GZjBi1WXEscAWB7MoSuHMZ44g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830623;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AoRyT2gWGztVgBxsNZy1AlqhQ+YolidchQOTos+xRqQ=;
+	b=m3IjT+P2OVniHnsLZFmE6TXazht80it65zxa8LhtxjQ+QhBWt/SJxrQTGc5yzDhCcnIM
+	 i1nyIyODe3gHyz+uUhkbSPfRGLayr9vzgesTjSiBNTF5WXrqPyVevSPYQ1hU1IWwqotbH
+	 Le26DMcA2AZuPn2tcqd82BIENMohPE4m1fH42OKiLFURq2/mQottQmzDVJNiQvsigJX5H
+	 UYkJ2RManoqu5b3dkmqbGBFIF8NB2GErnbtr+SD/s7TbruFmjc6ccfzDqhXbEb3tma8tM
+	 D96/3I01Axtp7mgDRi/VLi9NFvUKYE7nOykrxsfJFBqXp+hShQ9vO/m6k4xD5x9gNVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nv+wxk8b;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DF66072659
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15DF66072659
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C1D606A33E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42C1D606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so36457a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:16:26 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nv+wxk8b
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso5848715e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:17:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793830622; x=1794435422; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AoRyT2gWGztVgBxsNZy1AlqhQ+YolidchQOTos+xRqQ=;
+        b=nv+wxk8bo0FBisbVMgm2EZrUnD9aCrSBU6snx1ttPufjnNqrQ0wuZ84LLHCmCMyeO0
+         h9mkD73Mer74oVO59Qy8p11Cwvh/bMwIu0Gs0u4jLC5QEHApDWzFeJTVY7DIK8s8Oue3
+         lcCaVKG8aHb5xBnfCyoK/Nbnq4fJMTUFtBw9pKzh89Jsd/te3e9LXeio/KY0LhCMzt+d
+         iOmdCmPpJh3ExKuipURvMSLSnku0yyGoBVc5WcQl3uKFvOwoMIfrjklEPuBIualrAJFA
+         4yaXV8VNnToGJFw9lXWdELhx/L0QuCh3WbB82S06IqlM1WqNDM/HpuMumR3PEM84Alq7
+         HAoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793830586; x=1794435386;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4dUj7qtlv87aoaokSVHZlryaRSMAw8BaqO13OeSv3d8=;
-        b=fsUCO5rHhkKmpcDxQLUU+rFUj5ezLieKpcV7YVXWkvKW5lCsuoxEBzBf3rwzLjHLCY
-         mFmD2uy0wzuqM/E2ZAkHZxIk5oKjBkZHiS2H5P976XXCS3UZHMufP1RZevd/pJqGBSPi
-         DUO4v4yVDyJFt3TByVLYbjEjyi10br6+IdGGI8CK87cLcNTfgDwmL9zS/Ix1UjgevdIo
-         CgENLqZCyKIVJEsj9OpSIZ9TGzJ9nj84RVdylyw1tTi0CFgAle7H6hf0JVbd5giBf44o
-         74k0C+3OlxCPcLnSR0WpIOu36Hy7tzb2ItMpQeug4F0B2ro8axw9uqoFANSu0tBJ/Uy7
-         vliQ==
-X-Forwarded-Encrypted: i=1; AKwUvByvKj1PRQabxrVO/9HtaTVtDjTBrpgkmjcHx2r59ZvM/eJsanELp6TNC0Rp7TZMuTsF5ENkQKR3IckaT6I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WwKlPTZTpLrZbzYi6t9fbNT5r1mstNJHUz1hHv3lu/plSBHMk
-	Jacb+ciGRhFQqsuppiL1qijEPDC1bIm/+rt9jhct3p5jroEeT5GLiyN2WYCEcg==
-X-Gm-Gg: AYBFou07UQSyboOV6XFSzL5UretkHghJuwNxO0KMJR5qGRHzUW9amJrYdoK19x2NaSl
-	Np4U19RGdo5T6Ropw+UTMEYMoxJvHlGlYn7q00ofTM308YZ9GT6jEidiyi3Inu/pNUZvgtFlSnD
-	BqcoovLYvF32vkEkunUOpxm6JHdDzFXuI0S80ri5rMZaNDuQg2f30uc6EZanTVJTrmts+1RSS+T
-	lfS6mvUUO0867AZT+BLdhzOAFiy4lvdv8EH+m52ZcuImWiBT9/cCGE6bV1XWaO6+bPPBmI1ifpF
-	Bf42GvEuniyvLHVlkhxoPGPLaszzYR/Nrgk4awWNuDWsGJdjIVE5wof1nuSTQ6w+xwldzmXXp6b
-	8eG3HwIEuaJU37AFollSB2q3b3mTT/cedRNvBe6MbwA29ckux89qIlaIugvP6Gc4eNatD9V3SHo
-	YKOwSM9GLicSvj4AKace8XUdvRz5eUwSsd1wwZ7LOYqOS7ePDinY6kBLSfHOnjekg20OwYuad1O
-	T3yx08DfpbWtOvfc8qCo/Gg2d9aVhCkuBDhCbmL5WOXTQkPCXwTcOyaCq6GNb8fDpaKfzGiH6Ot
-	0fIXGr5TYWioh0D6cMZNbKvrKLgOxNSwraUdIN5AJ9qc/9sfwljyjQEV2JEM+4cPP9/gclfazZ/
-	2Xo5eihD9kuZMcyiqTxVR0DJn0B2Wv+am
-X-Received: by 2002:a17:90b:54ce:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3b0afc5aa58mr376784a91.25.1793830586448;
-        Wed, 04 Nov 2026 14:16:26 -0800 (PST)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31d4bf1sm695176a91.16.2026.11.04.14.16.26
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1793830622; x=1794435422;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AoRyT2gWGztVgBxsNZy1AlqhQ+YolidchQOTos+xRqQ=;
+        b=ESRqhortjo6w/LOlI007Fp5B/PYJf/SlmMbTrfGHEw/oFAbdORNUSh1tyfzKdVREMz
+         caZ5MaYpBbW4jU1s0e5nwpavrH7Jqen/0knoLyDzA428VzaMqmBLgvm4EnIe02uhqTeB
+         2fMxu6pXh48hs/0ZmB9+FPGTSuCJsMOcCuFapDUXPZ9zgJDamHogNPE/9KazG85fgGG/
+         0ek+lIhhb98ZG7u1fTQoeu/BQkXUgzs7Ft9YPoJH2bvgt2SKD6uJ+ABS/GhtecXpPqbS
+         5vp6bnC7Htkv75nvI1vyn3V1kuQntcygLYfCnlG1i6Kwld+GD/rHP98qI4p9fnIAGbc7
+         2Ctg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkN+BSpMUjQAaZVzyhQRivWXOwJk8bMvSwQIUq3ikEWe3zjhhyImFfCGLQ1bSNJ10GXd4mxCBmpKaSggU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4NVQX9rFuGQ5GZQZhEejx5C23vA04rzaFF+GE8U7Jxu26WKuU
+	1Hwkg4IeYT9KctakTrDaclbHNdY/sf3UD4cS7bxOuAZHuL9Pp2ZwrMbc
+X-Gm-Gg: AYBFou1ENkL+V68SqYfKAXTYK0zf6reUSkqI/W0WMhxXA+2zqmjv9qo4NdEUi94mv26
+	6/1A2uJk08bhGxPdmZKz4ayM95b2Mqg0nodzPB9v2kOFUVgNeGxgc4wS719oShUVVM9/byulBgC
+	Ai9NqdPhC0w9bQ3woX+AAYtG3BNdnG6qXKf95Sc1getg9zD4PB5/+ITS5tHEtPmT82mDsMoe/lG
+	SkjuuvGNFrSLAogVGD2DcT5weU6eo9gfmhcwec5HQT11asyJZYBOqZAkMIGuY4sgrO2OwdIvWzO
+	Ynh3M6OCyLc14ibWZdjls59tl9ykeglBVEAGJy/psw2lj5SLad0s/vzeV/G5LBEwSFVQ4T/MrPc
+	yPLTGzHXtCBET9VIAXKuHSHDeMhZ5SM5ScSVrOINQ1RtF1MfOF06FcGLa3vX1afW1jcOioqxHdj
+	N0zbKXbhkpQwlkOtGWXR0ilrfATIrjBpDnaAd2H+jHS2mPi8PeEKkG48qlB20/orJP63GYj5yA6
+	rq2JxniUQiEdixNbLrvhi10/hVJ/2n69pAV0TWdRYBHv5eDZ2qHWdwsdlv4jkuvQC4nyK7ok/YF
+	VbZW4/AEU32pkp8XndBx1do=
+X-Received: by 2002:a05:600c:e548:20b0:4ac:86c9:b09c with SMTP id 5b1f17b1804b1-4ac86c9b146mr248866895e9.13.1793830621562;
+        Wed, 04 Nov 2026 14:17:01 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ef2e968sm16301645e9.8.2026.11.04.14.17.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:16:26 -0800 (PST)
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36c9a93a1abso69410eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:16:26 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxjYrmGTBLAcSnsXOUiDAsAf13BA479DIgW9yMcUn5qWihzZo7A1PIJZYG/RTB1exHwBgbVerkVICJZ7Tg=@vger.kernel.org
-X-Received: by 2002:a05:693c:80da:b0:368:2c6d:ddfe with SMTP id
- 5a478bee46e88-36de5f6f030mr1017112eec.9.1793830585474; Wed, 04 Nov 2026
- 14:16:25 -0800 (PST)
+        Wed, 04 Nov 2026 14:17:01 -0800 (PST)
+Message-ID: <be34e0ca-4706-44a8-8264-3b9827829e9b@gmail.com>
+Date: Wed, 4 Nov 2026 23:17:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,53 +92,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
- <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
-In-Reply-To: <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 17:16:14 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
-X-Gm-Features: AclHuK9-UnITn3qNlxFDVEt7-zpIej_-hzEuMRZnZQ7mZri5SrN5fWqpIt5XJGI
-Message-ID: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] kho: skip zero-sized lowmem and global bootmem
+ areas
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
+ Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
+ <20261104-kho-bootmem-sizing-v2-2-b0d1a834780f@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261104-kho-bootmem-sizing-v2-2-b0d1a834780f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Please add minimum, and multipleOf.
->
-> I've not looked at the code yet, but default: 0 would also be good.
+On 11/4/26 5:50 PM, Mike Rapoport (Microsoft) wrote:
+> The lowmem and the global bootmem areas can have zero size, for example
+> when none or all of the memory is below ARCH_LOW_ADDRESS_LIMIT, or when
+> either of those areas is explicitly set to zero with kho_bootmem=.
+> 
+> For a zero-sized allocation memblock returns an address without reserving
+> anything, and that empty area is recorded in kho_bootmem. If there is no
+> memory below ARCH_LOW_ADDRESS_LIMIT, allocation of the empty lowmem area
+> fails and KHO gets disabled.
+> 
+> Extract a helper that checks for zero size and allocates memory from
+> memblock, and use it to skip empty areas the same way as empty per-node
+> areas are skipped.
+> 
+> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+> Reported-by: Chen Pei <cp0613@linux.alibaba.com>
+> Closes: https://lore.kernel.org/all/20261026131851.9942-1-cp0613@linux.alibaba.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Will do: minimum 0, multipleOf 55 and default 0.
-
-> These values are odd. The RGMII standard says 2ns is required. Where
-> is the rest coming from.
-
-They are the values the vendor bootloader programs, and I checked them
-against the hardware. Sweeping each delay over its 256 steps at
-1000 Mb/s, TX works from 0 to about 2.8 ns and RX from 0 to about
-1.5 ns; 935 and 550 ps sit inside both windows, and a 2 ns RX delay in
-the MAC fails.
-
-The rest of the skew is not programmed anywhere: the switch's PCDU
-register for this port reads back 0, and with the MAC's delays at 0 as
-well the link still passes traffic. So it comes from the board routing
-or the chips themselves, which I can't separate from software.
-
-If you'd rather see this described another way in the DT, I'm happy to
-change it for v2.
-
-> Does this mean there is a switch on the other end? Maybe look at what
-> the switch is doing for RGMII delays.
-
-Yes, a MaxLinear GSW150 on its CPU port, with phy-mode "rgmii-id" and no
-*-internal-delay-ps. As above, its delays read back as 0.
+-- 
+cheers,
+jose a. p-a
