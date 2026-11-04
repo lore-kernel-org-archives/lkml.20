@@ -1,87 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806619;
-	b=RkgtDhk5o42kXXYRFhdrfhzRjfPvUQIDJ+0ZmtyhQfdK7gibDpHSH2I4gfzsUTqnfe3r
-	 jgcPrTUdjokPJUDNAS4F0ZJe5Wqs20yV2S/Ve09iwzswOHcnABIM16LVLzXqJNIWahdA6
-	 RjRgAQajta2qS/rPjlFkFdlGHsVhN+hgBTQoGcdfKtbnH7t+TVeGt56aCcF7jKzupxx0c
-	 tijHFkttUpNAeapeFXL9Urk6bgEUxE0aRKy0B9kQwURdbfMh1sU8u59wsD1gYlSel1yL4
-	 oCX5htc/7A/SaEID0YV/n1pPKVBdsoXEB6745IpjCyp3UEar49+kg7DFtwZZjBo3NOQ==
+	t=1793806630;
+	b=U38q9ZYVP5QE/PawccX5zHeDX7ikD0tL8QXwV4coXZYmI5eWUNk07kZOB1NMaGBDkjjC
+	 K8Rc97n1sTOOCVCUIAHuYAYaTC5oUQ2XnOe6wB6X9rfUQhJsluV5NhUDVV9cfYFvyK+IC
+	 sDYOsVZipxdXQWEtA49rQT+ZXOtCH0kTG/DBGZKSQQ509KT3SvLiCE8QXkio0J6ROwd3J
+	 /KgScaDwZBUSiaj6h2VD0Ciif4VQbgYeVTTKdjJUptk8ZumqoMD76s+ut8fCQ1yzLVbu0
+	 U5EmgYYxdVXFv9tuFMxX5g8JSw8X3CT0q1eE2J4j+t20TXst87PyHCGV1SOHT/1oE1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806619;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=3fjvYxL1CcyYarRBHj/5LrpmgJVswx2GaGjokKiBvVE=;
-	b=hsTZnWLh3oD627OxnpnmMQBFiqw5OQeVOUXriLpTT9tnmImCCKzcs5sbKOFz4NoOVolN
-	 YLBuqr9EQgShz7/SBTIv0bEVEi7Pqj86c7U4kNTVi7yM2NMluGfewuBJShW3r4ZFtZtI4
-	 ad97jFbR8PMCxTY5kppF+754xsVDSRYXKBhPa4cq3sfkWPG6I2y6KZmlVucSwhtD/++T1
-	 OiVqrrscxB5bGNiT11UbDa6slR59tUvVrlwZJWX1K+WcxjSqO2km+Ffvvhx3TkzBoE2FF
-	 p9eGGKANMb4KZ67mV+/X29hS0nWtfOZ2GhEmWBpy6/WY+UYkX/1m+2+EuMnqBl0DStw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806630;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zXzTtaOCtLwpMu2nfLPEBmFlSmy77XKHrQHcJsbYxxA=;
+	b=n6xaXqth5/ozFIqTBWcdoO7N8lxatTx9/L7ufKHVRMIiCDPsDrrIbzWIc7kyFklnuz0y
+	 PM7/dCG546256xI8cSIpg9oqU4e8AYH8pXb1PaRDRN6txlXE6bfQpx/lvl+wafz6/zSeY
+	 jSo7TxU6PLxc871EenPSWjH2KjUGszimOQIUGUkNBylBccqHQ5WcZnY8+A+RBnqqp1voS
+	 WU6RtCzk4gkM+M2OaLGw34KPcS84URWhx2JP6FbRr6rOxEVbcOLON8DQrPkU0X81TlTJz
+	 AuQyQDwv0TLFnJe1TsfY4TPf7Ie+Q1ZVl3N+gmgk2Ip8H2F+gps2yN4XitxyUTQvGHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UA3gnVfc;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=erQUU0Hx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="B/y2wEnF";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AAD606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:36:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8AAD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BA66083611
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4BA66083611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UA3gnVfc
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso7815155e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:36:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=erQUU0Hx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B/y2wEnF
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Ba8eJ1700598
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 15:37:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zXzTtaOCtLwpMu2nfLPEBmFlSmy77XKHrQHcJsbYxxA=; b=erQUU0HxwSJ+wfTB
+	Qb8UeVAdx5TvYgIaJtYJKY32GU45UEhFs23/NDrnCeQmwwi7/chRSXSUkRv49czJ
+	9OKLbSnFSDAYkhzRnuXdTSx5WJof4JwYvThWxBa3M0e8qyK1SoghwSXRUNfkrM7o
+	xsWNvsDb9bcAEsvthWc1Kmw6UD+/36Jk9Q5Fz9dyos6ZYUmVOMZetLpehexm4TVg
+	CK5SyhnGXcTpEpIpapqSSB5LkNk2OgVzcg8rpx1Vq4JRyG3ArjBooLBiJMT56Akd
+	V733e30gykILt98wZJGRct6dFFSQAx1g/ptmYMdSKM5CJ8klx34hayipf7JXtL/m
+	rbaKeg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr3pyh0vr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:37:08 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-944138ed63fso162096085a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:37:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793806617; x=1794411417; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793806628; x=1794411428; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3fjvYxL1CcyYarRBHj/5LrpmgJVswx2GaGjokKiBvVE=;
-        b=UA3gnVfccpmDJ4IhOE3O8EPsf4KwA2QPM1zCqGSmWaHc7OYNkbweR4Aiq/HwSDNN3u
-         ZxkpQ7IGLDJ4jkkBaixnNuIrc/PoJDCQcmegonek33fbvJmHnjjSsvZQd2pumy2CQ6K8
-         fuFxkXTENjjdRE5QfHg4DlHFJfHok/FXKfSWnl5RyEP40VOIB3QvDqEdTp33CtvW/oZ8
-         YffxWE+7GyONzMKCLrpPM7fqX8f6G+YjmQT8jhyp7GAXyt75y2ek9Hoq9Lrl0CC+2dQk
-         joJDGs7Oyn7/wV/TwpvAPyuJeAS8jJj40R2OU1aJWqifMnm2gttyjKsrChCBzg8+FMXB
-         2rxg==
+        bh=zXzTtaOCtLwpMu2nfLPEBmFlSmy77XKHrQHcJsbYxxA=;
+        b=B/y2wEnFYo1/QvOXp9MQm/BWsuvqggoPwMCdpfS7OlZVGENX4RiEwUcpojUzPfSr7a
+         UNixYNFHjH/hSeAqRASOavv9Nf4ozB8xHZV9XDjA+CWdGBrDYQp3OUHyETnQnbXqAk7B
+         S19ZGFpqnYC0nbTt0eTDf41hd0aE7vzEECvV2zKrCbTlYZDT+j+dNvNOLagLWBAvvNru
+         hijKPYQlSKr3PlVVWdGYgyHG3K6J7JITbhdFhtJFUQ4sUGk826TZpRblGISJCs5KNVHb
+         7y4LneVMVtw3BT7fKGxsqUEF1966zKgoWZfLZH+Rqzx+0dN7esVWuDQSsmUQRBci7ZCP
+         EmYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793806617; x=1794411417;
+        d=1e100.net; s=20260707; t=1793806628; x=1794411428;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3fjvYxL1CcyYarRBHj/5LrpmgJVswx2GaGjokKiBvVE=;
-        b=Gdd3VaQV01VxItxTZaWAeTZC7XbpI+3dJp44R8Ep45tgf5hPPWPKGsqR/e1vqTWP2z
-         7W9bEsbut6M57XHKLC6Rm1H7wn1goFXXhsq479SE2cykWqNjQC3PDj/zYxI5sXiO1O7+
-         CfFUEH28kzPg3IhFY9m0SwJb9o3N+rQjrnVdR9cakPuPBxSurt1rMCIYgGDoKE6nbrpR
-         lmDWOGMni313d8DetOGcniv1JrefPxg/fZodletzgGUtBDPO+X4SiaaNgkSMgP9Lhm/c
-         QxpbYOtDAOSNAn9kjFaR7AamxNmxlPYt61dd7GMW0g+7T31oGjU/13THJ52YdqytSxx+
-         slvw==
-X-Forwarded-Encrypted: i=1; AKwUvByaOwNMWxS941cVa5V9pbVHFtQ4hp4y18fJ/TN/IB1IOEJioxyiBVy89YPoFisQIfp068Vco8KSsv3HKcs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+Q5U4BdgmzAjQbmWX4rRBjaIrxqxCJKJYCRnLzVBdNQwZPW08
-	NwFAvR1XeEDutDiVYAdvdgGkUGcXEChXy0mIF+m0ecQT2TbInH/KIRCZNpOTg3jZos4=
-X-Gm-Gg: AYBFou3u3FhnMhpskJNkMfdZrSOIY4Dt0POd+5Nooq6Bv8oV2BG7d48Lku4X0Le6SAn
-	FhqmmrhGqUZ/vzCEM4wN8XTDtlUjB452PWk4/iaqSeA1p7pfYmqkTGjMe30eiLoAL6IR4rX1nsR
-	YnkNjf4R2r4is4LifiUADV+vt52pEUbRF8Tzu4Z/xpybDBPJh4vAiAj2SNy70qwauxbA2wTJZHn
-	o03tvj+b7P33ual868/8KzLfSD0RUJX+bRwLZn2gmPvj6vUp1U740L4y6UQSV5wURhVW78pd+R/
-	4gnfnwQFRjqENvNvcmdA4160rHRblrq7LLjBg8e4rHQfeXRzAkdiGAYFDf57h62R3G8NrANuIei
-	HP6OSxf64AjbbVzkfb2Urz4MMKnLJabfdKSzST1QY03+xL5VYckSdbU5+qAA7qQt4DQ2dwI3r4n
-	NTTG2VmOEz6wtb6tI4iaq7x4c1+hQDO6uKYAv3CJpR5OvI5pyMXUvz07N2jwWGB08LV4ybPZAF2
-	Hm8oIFZSXSaC7sWg3lF6FjXPHhboaFCwx4zyfpEHzXe/DMsUj9E5PeMEB/aIZcZhSmEkdSsAWtJ
-	wIyXFl9zsoPxdVHWPutkHgLapZl/lcoj
-X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr382209415e9.4.1793806617228;
-        Wed, 04 Nov 2026 07:36:57 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43d4c9d4csm82566395e9.12.2026.11.04.07.36.56
+        bh=zXzTtaOCtLwpMu2nfLPEBmFlSmy77XKHrQHcJsbYxxA=;
+        b=hpqQ8CNAMGg5mzQF5Xycubeue/BIvrevTfHwVcR2n1EHR2FSiqofcJDLRHro2xDz4x
+         1QpZA89kG+WHdWzVuP2mU6Sjk3Wn9K5bvQl4xEd+LzpznFbdHTSBHLFrg8cppmI5SoJw
+         lH1Ctz2OnpAVHivQaAnyJg9lgWh3WCpcCWlYErVPccWWc1lBI5R0ggEMWZd/QsZsDaRu
+         9hhwGcfDecCmaMJJE9STVmiBPkVyHXPVHQ/jNwtQ7AiddEX70fg509BoVhxzCThOinOf
+         uXZOKADz8VNoa5VEc+tD9xLIbOhA94a2SQtw3hKn4QehPwG6ymPR+KLog/zQ5KXt35wv
+         +n9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxm4LyuMSzSaqVehp0hvGVz7HRerLm767ShIneSymzunipU/iq0lqADW6vhdk1pQSKHPziA3/Lkgnak5yE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++SQB6W5ZHBYubrqJtfq/vzYUYfabLc7sgfXHlBaoRzhd+2RXz
+	KmXL9T57EKY7TIpabuBgn79h9gtWLHdywd2qbVvaqdm6hmRdpE+1JU1jCVRoAGKSSpe1YmAltS5
+	nFZ7m1NAMo6iIIBTTPhCb4s61W5ARIjwGJ3o4tQ2cVrsbBCv+QSYzRRXHARDlZGMZW6I=
+X-Gm-Gg: AYBFou1AHtt2jwv8BYa7nfKNnjdP09fx524QoaJDn3H2LQktoqdZXHPqWThGDiVaDPk
+	27WaVxFiFD+bKr7eQlF5wWr6NZ7EquQnb04+wy4WkWWDS6EuUnXeqSnIUrQut4s+EMTb688LBO+
+	MX5O8y4UVqRc8Ty/Kx3zj4D+H3pT3Cz7svBH6r+1tRhkWhd5h659FHDGg94Jx54o4akU8C+YxU+
+	erB7xcYX+LDv81GbGI3no4hrY+XVvcDxtO5EUBoniVohzKeVNrXHsZVPU7ih30lFTC0tx1UP4R3
+	diPq8MbzR191zDjj1R+YxD7EriOy2+FVP6DTretJT1RvaoRUDP9QVzCzBNLMq0vdV2Fu+84X3kw
+	7H1BurCPSWO7vGaetMWv1tPd4gYgs5h8LmOWmK0WF2gQpB3bQ4EjWNuEtIMHcO6UGlRw73MO2ai
+	uE9g==
+X-Received: by 2002:a05:620a:461e:b0:93f:34c9:925e with SMTP id af79cd13be357-944217196d3mr2861392385a.19.1793806627688;
+        Wed, 04 Nov 2026 07:37:07 -0800 (PST)
+X-Received: by 2002:a05:620a:461e:b0:93f:34c9:925e with SMTP id af79cd13be357-944217196d3mr2861385885a.19.1793806627029;
+        Wed, 04 Nov 2026 07:37:07 -0800 (PST)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4107b7198sm30388825e9.0.2026.11.04.07.37.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:36:56 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Wed, 04 Nov 2026 15:36:32 +0000
-Subject: [PATCH v2 1/9] coresight: etm-perf: Serialize AUX topology access
+        Wed, 04 Nov 2026 07:37:05 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Wed, 04 Nov 2026 16:36:58 +0100
+Subject: [PATCH 3/5] gpiolib: provide gpiod_update_flags()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,191 +118,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-james-cs-sashiko-easy-fixes-1-v2-1-410c03941267@linaro.org>
-References: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
-In-Reply-To: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
- Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Message-Id: <20261104-gpio-desc-flags-atomic-v1-3-e23cedf619ba@oss.qualcomm.com>
+References: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
+In-Reply-To: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Kent Gibson <warthog618@gmail.com>,
+        Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1973;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=gMaar67/Jp8JT14Swvsq/07I0D7mbru8BTz3VlwrS9Q=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq61Ebil7c+OCZ0mKRDoJ6P4GXDNcHFhRecUbY8
+ CmxIyweQcqJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCautRGwAKCRAFnS7L/zaE
+ wzl8D/4la3DvdX0Kf0+iDQ8elVg5vFPSevySeKyLcBNf+/4U373SAslEK8RKWtiUuQMhl2G9flZ
+ 8j6wWk5uOk60rWwY1JGBwJ1wjucvvftUpCaydzTM/rTLjPQkQlrd6+ydqxRcYuS2nNBqpJQgrZv
+ Tc7ws/nXAvJl2PcQMB2vowjo8aWdhINB2NuLVF0WU20E35Sj6VK4HqcAnfx6Hkm85hSYh8lRCUu
+ w+oQ1ayrl5LrpwrbNbzfutUkDLdi1jvl4S1H+f/rdRNyDoojnFU3UAx8w959SKt5dMMivT1gyyz
+ zA1jI2gIIit+TQ9dgUJsOWFegAfuf5FfBzxagrO90iILDTVDOvaPTu3Td4kQdyM3wxois07UtkU
+ fF1TjJ1JEQFMoEGB5plLOWlZeh2FJ8Jts02M8WQLn40EnldpSmCnZulgxFITlg4eM3vyIBc0pWe
+ 0DjvEZpCdO5n3sU0o19rbiph5A30ZMn08OUpSlIDNS5HbZteBPu9Glb1MQ4t3gPh1Qwga0uyR4Q
+ TM3NmhWvyQEPbhO6QKNpbv+r6ft6Q+mc2Y1EGHVdXh2Xhc/qSdpQJr3FCHa42KMF6+ETAJ0cXJl
+ cFZJTh+Mfm4aoXYQz1WwjduBOJBR5InaGLX+hg1SqFPei57iZcDWueFNNNL1KcWo9y5XO7u4udW
+ WUi4w49YOht5yXA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=ZbmIpcVA c=1 sm=1 tr=0 ts=6aeb5124 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=77EATsSd_-lqbsRuZBwA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MiBTYWx0ZWRfX/Bvm/RRibl2L
+ SIExea/oczFfDQ0uz38n5A8Fk/dikXEqb8QRUKkKf89fl0Cu3g1kM8Za4JrGgcwxXKbNb+D2hx3
+ 58teoyqjkKsMvc2wbGXX6f65gFKWM9Ci6o5eMOz+lcLdgii+0UJEuH2ak8dLXYh2VFt8eHLm/dV
+ M2HsZCdM5CWe9rA04XpChvzYIUXSg0mNJG422jCOSz+xaoOyK61xQ/LaaCusPLIqPeP9DP+tzB/
+ IUhVneEMzXAo/UVREPNAwr892G1xLUcY1WvwyyemXHgCAn+Qg/BkNQTgYm2w/U83pBtTys76Hte
+ LuFniX3mFG+EF4m0AtxouBNsed/rrnH6tu7iFSheBOJLk8PAgmK28z4fIRocLziwD5NuVo5VEaR
+ Y+JAxxVhov0m5KGOk6WJmkFzEGLktjgZ68kFqtN/FvX9oAXWL6rPXIef6YJPLWg5pBD22VCP7iJ
+ GZKvF6gQyI48mkplPOA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MiBTYWx0ZWRfX5Dl7aO3NGGhu
+ 2awgTFgqaYpi8UNjbBem0t0uopSgTUaJOsQ1y35xD4RfrLvwQE5xEWEJxgem/Spoym7D31w2LWe
+ N7wrOov4eQpuf1F8oo6Qux2ruGzwhJQ=
+X-Proofpoint-ORIG-GUID: 21xMrZpxWssEP0JdTQ2pp9hszT7ynv1f
+X-Proofpoint-GUID: 21xMrZpxWssEP0JdTQ2pp9hszT7ynv1f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 suspectscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040062
 
-Perf AUX setup walks the CoreSight connections to select a sink, build
-paths and acquire references to the devices and their helpers. Unlike
-sysfs tracing, it does not hold coresight_mutex. Driver registration and
-removal can therefore change or free connections while setup walks them.
-Adding a CTI helper can also reallocate an existing device's output
-connection array even when the device is already referenced by a path.
+We have several places in GPIO core where we copy the desc->flags field,
+change several bits in the copy and write back the whole word with
+WRITE_ONCE(). Concurrent updates of flags that modify other bits are
+lost.
 
-Hold coresight_mutex from sink selection through buffer allocation.
-The allocation must also be protected because ETR buffers can look up a
-connected CATU. Release the mutex before calling etm_free_aux() on error.
+Add gpiod_update_flags() - it replaces a masked set of bits with
+try_cmpxchg() loop. All bits are updated in one atomic step so no other
+thread can observe it half-done. Unmasked bits are not rewritten with
+stale values.
 
-AUX cleanup walks helper connections again when releasing paths. Add a
-locking coresight_release_path() wrapper and use
-coresight_release_path_locked() for sysfs and setup error paths which
-already hold the mutex. Leave sink buffer freeing and configuration
-deactivation outside the mutex. AUX cleanup runs in sleepable context
-following the preceding workqueue removal.
-
-Add lockdep assertions to path construction and release to document the
-existing sysfs locking contract and enforce it for perf as well. This
-protects sleepable AUX topology walks; connection reads in atomic path
-enable/disable callbacks need a separate solution.
-
-Fixes: 0bcbf2e30ff2 ("coresight: etm-perf: new PMU driver for ETM tracers")
-Signed-off-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/hwtracing/coresight/coresight-core.c     | 20 ++++++++++++++++----
- drivers/hwtracing/coresight/coresight-etm-perf.c | 11 +++++++----
- drivers/hwtracing/coresight/coresight-priv.h     |  1 +
- drivers/hwtracing/coresight/coresight-sysfs.c    |  4 ++--
- 4 files changed, 26 insertions(+), 10 deletions(-)
+ drivers/gpio/gpiolib.h | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index d2f9c1fb77d9..c05d657cde73 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -30,8 +30,8 @@
- #include "coresight-trace-id.h"
+diff --git a/drivers/gpio/gpiolib.h b/drivers/gpio/gpiolib.h
+index 650a702741dfb938fbdf11db65a46ac85b6af512..10659ffcf2baef9d4a7584858cda1849b26c12e8 100644
+--- a/drivers/gpio/gpiolib.h
++++ b/drivers/gpio/gpiolib.h
+@@ -9,6 +9,7 @@
+ #ifndef GPIOLIB_H
+ #define GPIOLIB_H
  
- /*
-- * Mutex used to lock all sysfs enable and disable actions and loading and
-- * unloading devices by the Coresight core.
-+ * Mutex used to serialize device registration and removal, sysfs enable and
-+ * disable actions, and perf AUX setup and path release.
-  */
- DEFINE_MUTEX(coresight_mutex);
- static DEFINE_PER_CPU(struct coresight_device *, csdev_sink);
-@@ -910,6 +910,8 @@ static void coresight_drop_device(struct coresight_device *csdev)
- {
- 	int i;
++#include <linux/atomic.h>
+ #include <linux/cdev.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+@@ -223,6 +224,26 @@ struct gpio_desc {
+ #endif
+ };
  
-+	lockdep_assert_held(&coresight_mutex);
-+
- 	coresight_put_ref(csdev);
- 	for (i = 0; i < csdev->pdata->nr_outconns; i++) {
- 		struct coresight_device *child;
-@@ -1046,6 +1048,8 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
- 	struct coresight_path *path;
- 	int rc;
- 
-+	lockdep_assert_held(&coresight_mutex);
-+
- 	if (!sink)
- 		return ERR_PTR(-EINVAL);
- 
-@@ -1065,17 +1069,19 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
- }
- 
- /**
-- * coresight_release_path - release a previously built path.
-+ * coresight_release_path_locked - release a path with coresight_mutex held.
-  * @path:	the path to release.
-  *
-  * Go through all the elements of a path and 1) removed it from the list and
-  * 2) free the memory allocated for each node.
-  */
--void coresight_release_path(struct coresight_path *path)
-+void coresight_release_path_locked(struct coresight_path *path)
- {
- 	struct coresight_device *csdev;
- 	struct coresight_node *nd, *next;
- 
-+	lockdep_assert_held(&coresight_mutex);
-+
- 	list_for_each_entry_safe(nd, next, &path->path_list, link) {
- 		csdev = nd->csdev;
- 
-@@ -1087,6 +1093,12 @@ void coresight_release_path(struct coresight_path *path)
- 	kfree(path);
- }
- 
-+void coresight_release_path(struct coresight_path *path)
++/**
++ * gpiod_update_flags() - Atomically update several descriptor flags at once
++ * @desc: GPIO descriptor to update.
++ * @mask: Bits (not bit numbers) to modify.
++ * @val: New values for the bits selected by @mask.
++ *
++ * Replace the bits in @mask with the corresponding bits of @val in a single
++ * atomic step, so that no other context can observe a half-updated state of
++ * these bits. Bits outside of @mask are never rewritten with stale values, so
++ * concurrent atomic bit operations on them are preserved.
++ */
++static inline void gpiod_update_flags(struct gpio_desc *desc,
++				      unsigned long mask, unsigned long val)
 +{
-+	guard(mutex)(&coresight_mutex);
-+	coresight_release_path_locked(path);
++	unsigned long old = READ_ONCE(desc->flags);
++
++	while (!try_cmpxchg(&desc->flags, &old, (old & ~mask) | (val & mask)))
++		;
 +}
 +
- /* return true if the device is a suitable type for a default sink */
- static bool coresight_is_def_sink_type(struct coresight_device *csdev)
- {
-diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-index 09b21a711a87..86ec4708b7e4 100644
---- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-+++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-@@ -411,7 +411,7 @@ etm_event_build_path(struct perf_event *event, int cpu,
- 	/* ensure we can allocate a trace ID for this CPU */
- 	ret = coresight_path_assign_trace_id(path, CS_MODE_PERF);
- 	if (ret) {
--		coresight_release_path(path);
-+		coresight_release_path_locked(path);
- 		path = NULL;
- 		goto out;
- 	}
-@@ -438,6 +438,9 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
- 		return NULL;
- 	INIT_WORK(&event_data->work, free_event_data);
+ #define gpiod_not_found(desc)		(IS_ERR(desc) && PTR_ERR(desc) == -ENOENT)
  
-+	/* Protect sink selection, path construction and buffer allocation. */
-+	mutex_lock(&coresight_mutex);
-+
- 	/* First get the selected sink from user space. */
- 	sink_hash = ATTR_CFG_GET_FLD(&event->attr, sinkid);
- 	if (sink_hash)
-@@ -508,13 +511,13 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
- 	if (!event_data->snk_config)
- 		goto err;
- 
--out:
-+	mutex_unlock(&coresight_mutex);
- 	return event_data;
- 
- err:
-+	mutex_unlock(&coresight_mutex);
- 	etm_free_aux(event_data);
--	event_data = NULL;
--	goto out;
-+	return NULL;
- }
- 
- static int etm_event_resume(struct coresight_path *path)
-diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-index dddac946659f..edec5a7d2be3 100644
---- a/drivers/hwtracing/coresight/coresight-priv.h
-+++ b/drivers/hwtracing/coresight/coresight-priv.h
-@@ -143,6 +143,7 @@ coresight_find_default_sink(struct coresight_device *csdev);
- struct coresight_path *coresight_build_path(struct coresight_device *csdev,
- 					    struct coresight_device *sink);
- void coresight_release_path(struct coresight_path *path);
-+void coresight_release_path_locked(struct coresight_path *path);
- int coresight_add_sysfs_link(struct coresight_sysfs_link *info);
- void coresight_remove_sysfs_link(struct coresight_sysfs_link *info);
- int coresight_create_conns_sysfs_group(struct coresight_device *csdev);
-diff --git a/drivers/hwtracing/coresight/coresight-sysfs.c b/drivers/hwtracing/coresight/coresight-sysfs.c
-index 75000fe64fda..5dd4e9b0426e 100644
---- a/drivers/hwtracing/coresight/coresight-sysfs.c
-+++ b/drivers/hwtracing/coresight/coresight-sysfs.c
-@@ -230,7 +230,7 @@ int coresight_enable_sysfs(struct coresight_device *csdev)
- 	coresight_disable_path(path);
- 
- err_path:
--	coresight_release_path(path);
-+	coresight_release_path_locked(path);
- 	goto out;
- }
- EXPORT_SYMBOL_GPL(coresight_enable_sysfs);
-@@ -256,7 +256,7 @@ void coresight_disable_sysfs(struct coresight_device *csdev)
- 		goto out;
- 
- 	coresight_disable_path(path);
--	coresight_release_path(path);
-+	coresight_release_path_locked(path);
- 
- out:
- 	mutex_unlock(&coresight_mutex);
+ struct gpio_chip_guard {
 
 -- 
-2.43.0
+2.47.3
 
