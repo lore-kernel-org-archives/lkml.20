@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805368;
-	b=xeeKkB2ghvzZg94+rqb377wZMFCIQSBiia26D7S/wExm2Pny7c7DNMCoVrWsQHjUiyBP
-	 J9O1icsMajXw3z+6gm/7mAg+/DM9/+T0b8HSLuQGJfbatOkVykGbUQwI2CoWd7//JunNC
-	 7UXPmfgosmRIwYY8S4XT9nY4+MIQ5z6HgMSj+7uMnqf7op/r/nJk7irgbxjIW4amHwUhm
-	 Jge0xabueFtUDaFpyB4/k34QwVnTzuFTtn6st3N+fX9qq72GihWs28fl+vv/uU0CV6Gn2
-	 HKG5o2Ml2g4JuLbUU0S3hKVY53cEQWZWeo/+mzNLbYnPkoyHXB2hGfGQqojE78lxKdg==
+	t=1793805371;
+	b=KnnIScQMnxFc6mi65hkPvDfwx7ifvAxRXVRMtRCE0OUPFCbSUNZAOemSKyDPlp9JOjtc
+	 2V8rWC00WY2QKDkK0zmSbAy+ofMyuMBkngI6iitscSBe3Ba59so2gTVwiLcxUosGEQBIN
+	 cHRV0ZyKhrxZn6XmkxFb3cSc/1bqeKJgBEHLo0Wv3x1RHdEa7Ye9riFS0k8EMYWTNk856
+	 dei7PE9JderYiC5b5//U/KxNguJlRHut8zr6nJO5zTnl6NvWNaKb8hOLoMJyXiwriw7J3
+	 Y3NUFHf6wCHoFoCkGLfdmHEGTlsH249GRIpSuzcEcX5Ch2WbYI/CMlIbXaxvN42gBOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805368;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Zo/ZSBpcBdhIVA/EGNB9CYzgyHmYrZqeXL0ijjbAo/w=;
-	b=KvarG6Gxwf+0jU6NCjBSi/98c88PiF/ZHxAzZkVJmtXTZouArP03v8HFg+Im1F0tKYKL
-	 AIezwAQ5mAiq8DnO8mmV3fAuqNKPVDdmwptZ64wEEqU2fmAE7xy56ZbxtPwCV7S5FATkf
-	 um8Bc2OKMkGnEfpHkz7rqVlYZYFbMdNQ6wW74QpiO5YMo208bA6gTKzIPeFIgoVfNWe9c
-	 R1gjY7cI9QiI9jJVzvxAiYZDsH3S0Q7L86kkmZPNFPYP17Gvu5Rrzr7A4hy45I6tSEt6w
-	 ocoh6P2Nab1hluBT1AUvAclqMCrmy//UnagsRpbU7XFVZtBTvrKgQabquFNcjTb0KVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805371;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=6BzJTf+9zOj6b1DI2tW45vlOMvFFlfpqxjqXrxOY85Q=;
+	b=RPdaGs6hf237UiFI5b55rY+rFlHHi84FoEAsbLub1MMOGdUUA3aPUgoo69mvhxzLWofm
+	 amC40KRp/t99Kkegwf2k735GYilCePCnwsLj0iuN2IeHkuLZi/gymi7NVqTMMGhPtUpyQ
+	 cL+FEeE+d3dcBscGclxEjGCWXqEFuz66LzzXxGeglfrcivNs9rHCEwdFm9aMJHCJDM9oM
+	 mJ6uscfZSEqEUqByX5wuNUNednfuUQuYXKQm/noqA6TNiOqTQTPikfVTNO4YMkrK/fEOG
+	 QDgta259uSoEo4JydRicnQ1+b/DgqZXMn4l8VRJEYQCQXX1mpyqd0sy5KxuemmjrtLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=a81qSXq3;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A849606D835;
-	Wed,  4 Nov 2026 15:16:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A849606D835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e0fUJcYt;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 653B86082BE9;
+	Wed,  4 Nov 2026 15:16:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 653B86082BE9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=a81qSXq3
-From: Andre Eikmeyer <dev@deq.rocks>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793805359;
-	bh=lHNz8INaz9viL2EIDg4LYaFK+qSG6jmKH5pPjqcvHJo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=a81qSXq38NBberCXFv+KkIAn2yfo+VfznKxtqz7/UHDGnKiVKn/jfnaMq71XrvcCY
-	 fj6GiITpANw22JxlK101AYeUbneiO/EIebK5VtzV1KWJ3MLQN14Eaf3/Afl0/GxpkK
-	 yD//82EAoUtQ2vYqvGyTuSmDYc1i5DiBGt3yVv9qourtqyojUFx5wVEeELcGuTRxRi
-	 AdrBJWAG2D5iN4Du9Zs0/HozQ+DHcx8GpjSulWArVRfx0V0LEVq+qAfgNSj/Dhnln0
-	 WEe5pT8UoGzRi09pcifbCBY6jRcu6dVwFrm6k28R6bPEwKKqlECW5q4rFy7mQtFTtX
-	 MAtMV8HlbuJow==
-To: arend.vanspriel@broadcom.com
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>,
-	Yossef Osman <Yossef.Osman@proton.me>,
-	Aditya Garg <aditya.garg@linux.dev>
-Subject: [PATCH 6/7] wifi: brcmfmac: add vendor commands for AWDL
-Date: Wed,  4 Nov 2026 16:15:46 +0100
-Message-ID: <20261104151547.70333-7-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104151547.70333-1-dev@deq.rocks>
-References: <20261104151547.70333-1-dev@deq.rocks>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e0fUJcYt
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 63D131576;
+	Wed,  4 Nov 2026 07:16:06 -0800 (PST)
+Received: from [10.0.130.179] (e127648.arm.com [10.0.130.179])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4722F3F632;
+	Wed,  4 Nov 2026 07:16:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793805369; bh=R3BE3Js5qTxa0hvvmDnseDfPGZ0ejh2HVouUW0zy5/c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=e0fUJcYt12inwf8RZGmraI6jvQ2p7fdaOI9jFqHE181GTnyzQdb7oO9dLU0znMeZO
+	 ZzkX5lVQC4u7kbxEBBMtIDtGV0RkGwbP/yrcLNB4yirnvz1CueIrDPnvIFYOO2s80n
+	 Wvk2JrbqAYwCRNLIsaiOC2Zc4NRwbv60Xmt2Vqck=
+Message-ID: <79700c48-e031-422a-a6b6-8c4118131e98@arm.com>
+Date: Wed, 4 Nov 2026 15:16:02 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,1004 +53,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/3] cpufreq: CPPC: Reflect the OSPM nominal in boost
+ and limits
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org, pierre.gondois@arm.com, ionela.voinescu@arm.com,
+ zhenglifeng1@huawei.com, zhanjie9@hisilicon.com, lenb@kernel.org,
+ mario.limonciello@amd.com, maciej.wieczor-retman@intel.com,
+ pawel.chmielewski@intel.com, linux-pm@vger.kernel.org,
+ linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
+ vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com,
+ mochs@nvidia.com, bbasu@nvidia.com
+References: <20261030172745.2045743-1-sumitg@nvidia.com>
+ <20261030172745.2045743-4-sumitg@nvidia.com>
+ <6392b2cb-0cbf-455a-8c05-c273535b2c10@arm.com>
+ <4d9aa879-316c-4188-bc5a-71e3b65e8a3b@nvidia.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <4d9aa879-316c-4188-bc5a-71e3b65e8a3b@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-AWDL election, peer discovery and services run in user space. The
-firmware sends and receives the AWDL frames and the data once the host
-has set its AWDL parameters. Add vendor commands of the Broadcom OUI on
-the primary interface for that:
+On 11/4/26 15:08, Sumit Gupta wrote:
+> Hi Christian,
+> 
+> 
+> On 03/11/26 22:42, Christian Loehle wrote:
+>> External email: Use caution opening links or attachments
+>>
+>>
+>> On 10/30/26 17:27, Sumit Gupta wrote:
+>>> Boost is the performance range above nominal, so lowering the OSPM
+>>> Nominal Performance enlarges the boost range and drops the non-boost
+>>> ceiling. Keep the policy limits consistent with the register.
+>>>
+>>> Add cppc_cpufreq_effective_nominal(), which returns the OSPM Nominal
+>>> Performance when set and the platform nominal otherwise. Use it for the
+>>> non-boost ceiling in set_boost(), and to update the policy limits when
+>>> ospm_nominal_freq is written.
+>>>
+>>> The cpufreq core caps scaling_max_freq with a per-policy QoS request,
+>>> boost_freq_req, that it sets to cpuinfo.max_freq and refreshes only when
+>>> boost is toggled. A write to ospm_nominal_freq changes cpuinfo.max_freq
+>>> without toggling boost, so cppc_cpufreq_update_nominal_limits() updates
+>>> the request itself, rather than leaving scaling_max_freq at the old
+>>> nominal.
+>>>
+>>> When boost is enabled the ceiling is highest_perf, not the nominal, so
+>>> the update is skipped. set_boost() applies the new nominal when boost is
+>>> turned off.
+>>>
+>>> A platform with highest_perf == nominal_perf has no boost range at boot.
+>>> Lowering the OSPM nominal from sysfs can create one. The core, however,
+>>> adds its boost FREQ_QOS_MAX request only at policy setup, and only if
+>>> boost_supported is already set. Set boost_supported in init() when the
+>>> OSPM register is supported and highest_perf > lowest_perf. Boost can
+>>> then be enabled after the nominal is lowered.
+>>>
+>>> Suggested-by: Pierre Gondois <pierre.gondois@arm.com>
+>>> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+>>
+>> Thinking out loud here:
+>> I'm curious if there's actually a use-case for this, presumably once we
+>> let userspace effectively dictate boost allocation, we practically expect
+>> userspace to sort out scheduling, too (e.g. by pinning?) and therefore this
+>> becomes largely irrelevant?
+>>
+> 
+> I think it is still needed. Lowering the OSPM nominal puts the levels
+> between it and the platform nominal into the boost range.
+> Without this patch, boost=0 still allows those levels. Userspace would
+> then need an extra frequency cap to stay out of boost. This patch makes
+> boost=0 cap the policy at the OSPM nominal.
 
-- AWDL_START creates the AWDL interface with the given MAC address and
-  starts AWDL with the given TLVs. AWDL_STOP stops it and removes the
-  interface. Registering and unregistering the network device needs
-  RTNL, vendor commands run with the wiphy lock only. Both commands
-  therefore run in a work item and report their result with the vendor
-  events AWDL_STARTED and AWDL_STOPPED.
-- AWDL_SET_FRAMES replaces the TLVs the firmware sends, the TLVs of
-  awdl_payload and awdl_oob_af_auto. The driver adds the headers.
-- AWDL_SET_SYNC sets the master to synchronize to, with its metric and
-  the distance to it. Leaving out the master makes the device its own
-  master.
-- AWDL_PEER_ADD and AWDL_PEER_DEL add and remove a peer data frames go
-  to. AWDL_PEER_ADD takes the HT and VHT capabilities elements of the
-  peer, which macOS builds from the AWDL TLVs of the peer and passes in
-  awdl_peer_op.
+Duh of course, I was somehow too focused on the cpufreq capacity pressure
+to not see the obvious one, nevermind and sorry for the noise.
 
-The other firmware parameters of AWDL are set by the driver in the
-order and with the values macOS 15.4.1 sets on the BCM4377 of a
-MacBookAir9,1. The BCM4364 gets slot_bss without SDB,
-its firmware traps with the SDB form while the station is on 5 GHz.
-Some parameters change 500 ms and 5 s after the start.
+Reviewed-by: Christian Loehle <christian.loehle@arm.com>
 
-The AWDL interface is removed before system sleep with an AWDL_STOPPED
-event.
-
-Tested-by: Yossef Osman <Yossef.Osman@proton.me>
-Tested-by: Aditya Garg <aditya.garg@linux.dev>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- .../broadcom/brcm80211/brcmfmac/awdl.c        | 586 +++++++++++++++++-
- .../broadcom/brcm80211/brcmfmac/awdl.h        |  53 ++
- .../broadcom/brcm80211/brcmfmac/cfg80211.c    |   5 +-
- .../broadcom/brcm80211/brcmfmac/vendor.c      |  78 +++
- .../broadcom/brcm80211/brcmfmac/vendor.h      |  86 +++
- 5 files changed, 804 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-index 95619283471..7df77a7fdf4 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-@@ -27,13 +27,18 @@
- #include <linux/rtnetlink.h>
- #include <linux/skbuff.h>
- #include <linux/unaligned.h>
-+#include <net/netlink.h>
-+#include <brcm_hw_ids.h>
- 
- #include "core.h"
- #include "debug.h"
- #include "feature.h"
- #include "fwil.h"
- #include "fwil_types.h"
-+#include "bus.h"
- #include "proto.h"
-+#include "cfg80211.h"
-+#include "vendor.h"
- #include "awdl.h"
- 
- /* The firmware interface index of the AWDL interface */
-@@ -53,10 +58,123 @@ static const u8 brcmf_awdl_bssid[ETH_ALEN] = {
- 	0x00, 0x25, 0x00, 0xff, 0x94, 0x73,
- };
- 
-+/*
-+ * Firmware parameters the host sets for AWDL. The values are the ones the
-+ * firmware takes from the host it was made for. Their fields are not known
-+ * beyond what the comments say.
-+ */
-+#define BRCMF_AWDL_CONFIG_START		0x83
-+#define BRCMF_AWDL_CONFIG_SETTLED	0x73
-+#define BRCMF_AWDL_PRESENCEMODE		4
-+#define BRCMF_AWDL_OSOC_CHAN		44
-+#define BRCMF_AWDL_AFTX_DELAY		msecs_to_jiffies(500)
-+#define BRCMF_AWDL_SETTLE_DELAY		msecs_to_jiffies(5000)
-+#define BRCMF_AWDL_TLV_MAX		2048
-+
-+static const u8 brcmf_awdl_sync_params[] = {
-+	0x00, 0x24, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00,
-+	0x10, 0x00, 0x6e, 0x00, 0x00, 0x00, 0x10, 0x00,
-+	0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00,
-+};
-+
-+static const u8 brcmf_awdl_psf_dwell[] = {
-+	0x00, 0x00, 0x00, 0x00, 0x6e, 0x00, 0x6e, 0x00,
-+};
-+
-+/* Header of awdl_oob_af_auto, the AWDL BSSID at 8, followed by the TLV length */
-+static const u8 brcmf_awdl_oob_hdr[] = {
-+	0xff, 0xff, 0xff, 0xff, 0xd8, 0x40, 0x00, 0x00,
-+	0x00, 0x25, 0x00, 0xff, 0x94, 0x73, 0xff, 0xff,
-+	0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00,
-+};
-+
-+/* awdl_opmode: byte 1 the role, 2 master and 0 slave, 4 to 9 the master */
-+#define BRCMF_AWDL_OPMODE_ROLE		1
-+#define BRCMF_AWDL_OPMODE_ROLE_MASTER	2
-+#define BRCMF_AWDL_OPMODE_ROLE_SLAVE	0
-+#define BRCMF_AWDL_OPMODE_ADDR		4
-+static const u8 brcmf_awdl_opmode[] = {
-+	0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00,
-+};
-+
-+/* awdl_election_tree: the master at 0x0f, its metric at 0x15, distance 0x19 */
-+#define BRCMF_AWDL_ELECTION_ADDR	0x0f
-+#define BRCMF_AWDL_ELECTION_METRIC	0x15
-+#define BRCMF_AWDL_ELECTION_DISTANCE	0x19
-+static const u8 brcmf_awdl_election_tree[] = {
-+	0x00, 0x00, 0x00, 0x41, 0x00, 0x00, 0x00, 0x00,
-+	0x05, 0xba, 0x00, 0x00, 0x01, 0x03, 0x04, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x41, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00,
-+};
-+
-+/*
-+ * slot_bss with the chanspecs of slice 0 at 0x4c and of slice 1 at 0x78, 16
-+ * each. Chips without SDB get 9 at 0x0c and all chanspecs in slice 0.
-+ */
-+#define BRCMF_AWDL_SLOT_SDB		0x0c
-+#define BRCMF_AWDL_SLOT_SDB_OFF		9
-+#define BRCMF_AWDL_SLOT_SLICE0		0x4c
-+#define BRCMF_AWDL_SLOT_SLICE1		0x78
-+#define BRCMF_AWDL_SLOTS		16
-+static const u8 brcmf_awdl_slot_bss[] = {
-+	0x00, 0x80, 0x01, 0x01, 0x01, 0x00, 0x90, 0x00,
-+	0x01, 0x00, 0x00, 0x00, 0x04, 0x03, 0x00, 0x00,
-+	0x01, 0x00, 0x2a, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x0f, 0x02, 0x00, 0x03, 0xff, 0xff, 0xe2, 0x2a,
-+	0xe2, 0x2a, 0xe2, 0x2a, 0xe2, 0x2a, 0xe2, 0x2a,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x06,
-+	0xe2, 0x2a, 0xe2, 0x2a, 0xe2, 0x2a, 0xe2, 0x2a,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x02, 0x00, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x10, 0x02, 0x00, 0xe2, 0x2a, 0xe2, 0x2a,
-+	0xe2, 0x2a, 0xe2, 0x2a, 0xe2, 0x2a, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe2, 0x2a,
-+	0xe2, 0x2a, 0xe2, 0x2a, 0xe2, 0x2a, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x28, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x01, 0x10, 0x02, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x10, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+};
-+
-+/*
-+ * awdl_peer_op: byte 1 the operation, 2 to 7 the peer, 8 the flags, from 9
-+ * the HT and VHT capabilities elements of the peer. An add without them is
-+ * 0x25 bytes long.
-+ */
-+#define BRCMF_AWDL_PEER_OP_ADD		0
-+#define BRCMF_AWDL_PEER_OP_DEL		1
-+#define BRCMF_AWDL_PEER_OP_HDR_LEN	9
-+#define BRCMF_AWDL_PEER_OP_ADD_LEN	0x25
-+#define BRCMF_AWDL_PEER_IES_MAX		128
-+
-+static void brcmf_awdl_ctrl_work(struct work_struct *work);
-+static void brcmf_awdl_aftx_work(struct wiphy *wiphy, struct wiphy_work *work);
-+static void brcmf_awdl_settle_work(struct wiphy *wiphy,
-+				   struct wiphy_work *work);
-+
- void brcmf_awdl_attach(struct brcmf_pub *drvr)
- {
--	spin_lock_init(&drvr->awdl.lock);
--	init_completion(&drvr->awdl.if_event);
-+	struct brcmf_awdl *awdl = &drvr->awdl;
-+
-+	spin_lock_init(&awdl->lock);
-+	init_completion(&awdl->if_event);
-+	INIT_WORK(&awdl->ctrl_work, brcmf_awdl_ctrl_work);
-+	wiphy_delayed_work_init(&awdl->aftx_work, brcmf_awdl_aftx_work);
-+	wiphy_delayed_work_init(&awdl->settle_work, brcmf_awdl_settle_work);
- }
- 
- /*
-@@ -248,6 +366,8 @@ int brcmf_awdl_del(struct brcmf_pub *drvr)
- 	if (!ifp)
- 		return -ENOENT;
- 
-+	wiphy_delayed_work_cancel(drvr->wiphy, &awdl->aftx_work);
-+	wiphy_delayed_work_cancel(drvr->wiphy, &awdl->settle_work);
- 	netif_tx_disable(ifp->ndev);
- 	/* Deletes the flowrings of all peers */
- 	brcmf_proto_configure_addr_mode(drvr, ifp->ifidx, ADDR_INDIRECT);
-@@ -335,6 +455,461 @@ int brcmf_awdl_decap(struct sk_buff *skb)
- 	return 0;
- }
- 
-+/* Sets a firmware parameter of the AWDL interface, errors are only logged */
-+static void brcmf_awdl_set(struct brcmf_if *ifp, const char *name,
-+			   const void *data, u32 len)
-+{
-+	int err;
-+
-+	err = brcmf_fil_iovar_data_set(ifp, name, data, len);
-+	if (err)
-+		brcmf_dbg(INFO, "AWDL %s: %d\n", name, err);
-+}
-+
-+static void brcmf_awdl_set_u32(struct brcmf_if *ifp, const char *name,
-+			       u32 val)
-+{
-+	__le32 data = cpu_to_le32(val);
-+
-+	brcmf_awdl_set(ifp, name, &data, sizeof(data));
-+}
-+
-+static void brcmf_awdl_free_frames(struct brcmf_awdl *awdl)
-+{
-+	kfree(awdl->payload);
-+	kfree(awdl->oob);
-+	awdl->payload = NULL;
-+	awdl->oob = NULL;
-+	awdl->payload_len = 0;
-+	awdl->oob_len = 0;
-+}
-+
-+/* Builds awdl_payload and awdl_oob_af_auto around the TLVs of user space */
-+static int brcmf_awdl_store_frames(struct brcmf_awdl *awdl,
-+				   const struct nlattr *payload,
-+				   const struct nlattr *oob)
-+{
-+	u32 plen = nla_len(payload), olen = nla_len(oob);
-+	u8 *p, *o;
-+
-+	p = kmalloc(2 + plen, GFP_KERNEL);
-+	o = kmalloc(sizeof(brcmf_awdl_oob_hdr) + 2 + olen, GFP_KERNEL);
-+	if (!p || !o) {
-+		kfree(p);
-+		kfree(o);
-+		return -ENOMEM;
-+	}
-+	put_unaligned_le16(plen, p);
-+	memcpy(p + 2, nla_data(payload), plen);
-+	memcpy(o, brcmf_awdl_oob_hdr, sizeof(brcmf_awdl_oob_hdr));
-+	put_unaligned_le16(olen, o + sizeof(brcmf_awdl_oob_hdr));
-+	memcpy(o + sizeof(brcmf_awdl_oob_hdr) + 2, nla_data(oob), olen);
-+
-+	brcmf_awdl_free_frames(awdl);
-+	awdl->payload = p;
-+	awdl->payload_len = 2 + plen;
-+	awdl->oob = o;
-+	awdl->oob_len = sizeof(brcmf_awdl_oob_hdr) + 2 + olen;
-+	return 0;
-+}
-+
-+static void brcmf_awdl_set_payload(struct brcmf_awdl *awdl)
-+{
-+	brcmf_awdl_set(awdl->ifp, "awdl_payload", awdl->payload,
-+		       awdl->payload_len);
-+}
-+
-+static void brcmf_awdl_set_opmode(struct brcmf_awdl *awdl)
-+{
-+	u8 buf[sizeof(brcmf_awdl_opmode)];
-+
-+	memcpy(buf, brcmf_awdl_opmode, sizeof(buf));
-+	if (awdl->has_master) {
-+		buf[BRCMF_AWDL_OPMODE_ROLE] = BRCMF_AWDL_OPMODE_ROLE_SLAVE;
-+		ether_addr_copy(buf + BRCMF_AWDL_OPMODE_ADDR, awdl->master);
-+	} else {
-+		buf[BRCMF_AWDL_OPMODE_ROLE] = BRCMF_AWDL_OPMODE_ROLE_MASTER;
-+		ether_addr_copy(buf + BRCMF_AWDL_OPMODE_ADDR, awdl->mac);
-+	}
-+	brcmf_awdl_set(awdl->ifp, "awdl_opmode", buf, sizeof(buf));
-+}
-+
-+static void brcmf_awdl_set_election(struct brcmf_awdl *awdl)
-+{
-+	u8 buf[sizeof(brcmf_awdl_election_tree)];
-+
-+	memcpy(buf, brcmf_awdl_election_tree, sizeof(buf));
-+	if (awdl->has_master) {
-+		ether_addr_copy(buf + BRCMF_AWDL_ELECTION_ADDR, awdl->master);
-+		put_unaligned_le32(awdl->master_metric,
-+				   buf + BRCMF_AWDL_ELECTION_METRIC);
-+		buf[BRCMF_AWDL_ELECTION_DISTANCE] = awdl->master_distance;
-+	} else {
-+		ether_addr_copy(buf + BRCMF_AWDL_ELECTION_ADDR, awdl->mac);
-+	}
-+	brcmf_awdl_set(awdl->ifp, "awdl_election_tree", buf, sizeof(buf));
-+}
-+
-+static void brcmf_awdl_set_slots(struct brcmf_pub *drvr)
-+{
-+	u8 buf[sizeof(brcmf_awdl_slot_bss)];
-+	u8 *s0, *s1;
-+	int i;
-+
-+	memcpy(buf, brcmf_awdl_slot_bss, sizeof(buf));
-+	/* The BCM4364 firmware traps with the SDB form while the station is
-+	 * on 5 GHz
-+	 */
-+	if (drvr->bus_if->chip == BRCM_CC_4364_CHIP_ID) {
-+		buf[BRCMF_AWDL_SLOT_SDB] = BRCMF_AWDL_SLOT_SDB_OFF;
-+		for (i = 0; i < BRCMF_AWDL_SLOTS; i++) {
-+			s0 = buf + BRCMF_AWDL_SLOT_SLICE0 + 2 * i;
-+			s1 = buf + BRCMF_AWDL_SLOT_SLICE1 + 2 * i;
-+			if (!get_unaligned_le16(s0))
-+				memcpy(s0, s1, 2);
-+			memset(s1, 0, 2);
-+		}
-+	}
-+	brcmf_awdl_set(drvr->awdl.ifp, "slot_bss", buf, sizeof(buf));
-+}
-+
-+/* Sends the frames and the synchronization state again */
-+static void brcmf_awdl_refresh(struct brcmf_awdl *awdl)
-+{
-+	brcmf_awdl_set(awdl->ifp, "awdl_oob_af_auto", awdl->oob,
-+		       awdl->oob_len);
-+	brcmf_awdl_set_payload(awdl);
-+	brcmf_awdl_set(awdl->ifp, "awdl_sync_params", brcmf_awdl_sync_params,
-+		       sizeof(brcmf_awdl_sync_params));
-+	brcmf_awdl_set_opmode(awdl);
-+	brcmf_awdl_set_election(awdl);
-+	brcmf_awdl_set(awdl->ifp, "awdl_sync_params", brcmf_awdl_sync_params,
-+		       sizeof(brcmf_awdl_sync_params));
-+}
-+
-+/* Starts AWDL on the AWDL interface, the firmware expects this order */
-+static void brcmf_awdl_enable(struct brcmf_pub *drvr)
-+{
-+	struct brcmf_awdl *awdl = &drvr->awdl;
-+	struct brcmf_if *ifp = awdl->ifp;
-+
-+	brcmf_awdl_set_payload(awdl);
-+	brcmf_awdl_set_u32(ifp, "awdl_aftxmode", 0);
-+	brcmf_awdl_set(ifp, "awdl_sync_params", brcmf_awdl_sync_params,
-+		       sizeof(brcmf_awdl_sync_params));
-+	brcmf_awdl_set_u32(ifp, "awdl_osoc_chan", 0);
-+	brcmf_awdl_set_u32(ifp, "awdl_config", BRCMF_AWDL_CONFIG_START);
-+	brcmf_awdl_set(ifp, "awdl_psf_dwell", brcmf_awdl_psf_dwell,
-+		       sizeof(brcmf_awdl_psf_dwell));
-+	brcmf_awdl_set_slots(drvr);
-+	brcmf_awdl_set_payload(awdl);
-+	brcmf_awdl_set_election(awdl);
-+	brcmf_awdl_set_u32(ifp, "awdl", 1);
-+	brcmf_awdl_set_u32(ifp, "awdl_presencemode", BRCMF_AWDL_PRESENCEMODE);
-+	brcmf_awdl_set_slots(drvr);
-+	brcmf_awdl_refresh(awdl);
-+	wiphy_delayed_work_queue(drvr->wiphy, &awdl->aftx_work,
-+				 BRCMF_AWDL_AFTX_DELAY);
-+	wiphy_delayed_work_queue(drvr->wiphy, &awdl->settle_work,
-+				 BRCMF_AWDL_SETTLE_DELAY);
-+}
-+
-+static void brcmf_awdl_aftx_work(struct wiphy *wiphy, struct wiphy_work *work)
-+{
-+	struct brcmf_awdl *awdl = container_of(work, struct brcmf_awdl,
-+					       aftx_work.work);
-+
-+	if (!awdl->ifp)
-+		return;
-+	brcmf_awdl_set_u32(awdl->ifp, "awdl_aftxmode", 0);
-+	brcmf_awdl_set_u32(awdl->ifp, "awdl_osoc_chan", BRCMF_AWDL_OSOC_CHAN);
-+}
-+
-+static void brcmf_awdl_settle_work(struct wiphy *wiphy,
-+				   struct wiphy_work *work)
-+{
-+	struct brcmf_awdl *awdl = container_of(work, struct brcmf_awdl,
-+					       settle_work.work);
-+	static const u8 dwell_off[sizeof(brcmf_awdl_psf_dwell)];
-+
-+	if (!awdl->ifp)
-+		return;
-+	brcmf_awdl_set_u32(awdl->ifp, "awdl_config", BRCMF_AWDL_CONFIG_SETTLED);
-+	brcmf_awdl_set(awdl->ifp, "awdl_psf_dwell", dwell_off,
-+		       sizeof(dwell_off));
-+}
-+
-+static void brcmf_awdl_send_result(struct brcmf_pub *drvr, int event,
-+				   int status, struct net_device *ndev)
-+{
-+	struct brcmf_if *pri = brcmf_get_ifp(drvr, 0);
-+	struct sk_buff *skb;
-+
-+	skb = cfg80211_vendor_event_alloc(drvr->wiphy,
-+					  pri && pri->vif ? &pri->vif->wdev :
-+							    NULL,
-+					  NLMSG_DEFAULT_SIZE, event,
-+					  GFP_KERNEL);
-+	if (!skb)
-+		return;
-+	if (nla_put_s32(skb, BRCMF_AWDL_ATTR_STATUS, status) ||
-+	    (ndev && nla_put_u32(skb, BRCMF_AWDL_ATTR_IFINDEX,
-+				 ndev->ifindex))) {
-+		kfree_skb(skb);
-+		return;
-+	}
-+	cfg80211_vendor_event(skb, GFP_KERNEL);
-+}
-+
-+/* Runs the AWDL_START and AWDL_STOP vendor commands with RTNL */
-+static void brcmf_awdl_ctrl_work(struct work_struct *work)
-+{
-+	struct brcmf_awdl *awdl = container_of(work, struct brcmf_awdl,
-+					       ctrl_work);
-+	struct brcmf_pub *drvr = container_of(awdl, struct brcmf_pub, awdl);
-+	struct net_device *ndev = NULL;
-+	enum brcmf_awdl_op op;
-+	int err;
-+
-+	rtnl_lock();
-+	wiphy_lock(drvr->wiphy);
-+	spin_lock(&awdl->lock);
-+	op = awdl->op;
-+	awdl->op = BRCMF_AWDL_OP_NONE;
-+	spin_unlock(&awdl->lock);
-+
-+	switch (op) {
-+	case BRCMF_AWDL_OP_START:
-+		err = brcmf_awdl_add(drvr, awdl->start_mac, &ndev);
-+		if (!err) {
-+			awdl->has_master = false;
-+			brcmf_awdl_enable(drvr);
-+		}
-+		brcmf_awdl_send_result(drvr, BRCMF_VNDR_EVTS_AWDL_STARTED, err,
-+				       ndev);
-+		break;
-+	case BRCMF_AWDL_OP_STOP:
-+		err = brcmf_awdl_del(drvr);
-+		brcmf_awdl_send_result(drvr, BRCMF_VNDR_EVTS_AWDL_STOPPED, err,
-+				       NULL);
-+		break;
-+	default:
-+		break;
-+	}
-+	wiphy_unlock(drvr->wiphy);
-+	rtnl_unlock();
-+}
-+
-+/*
-+ * Removes the AWDL interface before system sleep, with RTNL and the wiphy
-+ * mutex held, while the firmware still takes commands. A queued operation is
-+ * dropped.
-+ */
-+void brcmf_awdl_suspend(struct brcmf_pub *drvr)
-+{
-+	struct brcmf_awdl *awdl = &drvr->awdl;
-+	int err;
-+
-+	spin_lock(&awdl->lock);
-+	awdl->op = BRCMF_AWDL_OP_NONE;
-+	spin_unlock(&awdl->lock);
-+	if (!awdl->ifp)
-+		return;
-+	err = brcmf_awdl_del(drvr);
-+	brcmf_awdl_send_result(drvr, BRCMF_VNDR_EVTS_AWDL_STOPPED, err, NULL);
-+}
-+
-+const struct nla_policy brcmf_awdl_vndr_policy[BRCMF_AWDL_ATTR_MAX + 1] = {
-+	[BRCMF_AWDL_ATTR_ADDR] = NLA_POLICY_ETH_ADDR,
-+	[BRCMF_AWDL_ATTR_PAYLOAD] = { .type = NLA_BINARY,
-+				      .len = BRCMF_AWDL_TLV_MAX },
-+	[BRCMF_AWDL_ATTR_OOB] = { .type = NLA_BINARY,
-+				  .len = BRCMF_AWDL_TLV_MAX },
-+	[BRCMF_AWDL_ATTR_MASTER] = NLA_POLICY_ETH_ADDR,
-+	[BRCMF_AWDL_ATTR_MASTER_METRIC] = { .type = NLA_U32 },
-+	[BRCMF_AWDL_ATTR_MASTER_DISTANCE] = { .type = NLA_U8 },
-+	[BRCMF_AWDL_ATTR_STATUS] = { .type = NLA_REJECT },
-+	[BRCMF_AWDL_ATTR_IFINDEX] = { .type = NLA_REJECT },
-+	[BRCMF_AWDL_ATTR_PEER_IES] = { .type = NLA_BINARY,
-+				       .len = BRCMF_AWDL_PEER_IES_MAX },
-+};
-+
-+/* The device of a vendor command and its parsed attributes */
-+static struct brcmf_pub *brcmf_awdl_vndr_parse(struct wiphy *wiphy,
-+					       const void *data, int len,
-+					       struct nlattr **tb)
-+{
-+	struct brcmf_cfg80211_info *cfg = wiphy_to_cfg(wiphy);
-+	struct brcmf_pub *drvr = cfg->pub;
-+	struct brcmf_if *pri = brcmf_get_ifp(drvr, 0);
-+	int err;
-+
-+	if (!pri || !brcmf_feat_is_enabled(pri, BRCMF_FEAT_AWDL))
-+		return ERR_PTR(-EOPNOTSUPP);
-+	err = nla_parse(tb, BRCMF_AWDL_ATTR_MAX, data, len,
-+			brcmf_awdl_vndr_policy, NULL);
-+	if (err)
-+		return ERR_PTR(err);
-+	return drvr;
-+}
-+
-+int brcmf_awdl_vndr_start(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			  const void *data, int len)
-+{
-+	struct nlattr *tb[BRCMF_AWDL_ATTR_MAX + 1];
-+	struct brcmf_pub *drvr;
-+	struct brcmf_awdl *awdl;
-+	int err;
-+
-+	drvr = brcmf_awdl_vndr_parse(wiphy, data, len, tb);
-+	if (IS_ERR(drvr))
-+		return PTR_ERR(drvr);
-+	awdl = &drvr->awdl;
-+	if (!tb[BRCMF_AWDL_ATTR_ADDR] || !tb[BRCMF_AWDL_ATTR_PAYLOAD] ||
-+	    !tb[BRCMF_AWDL_ATTR_OOB])
-+		return -EINVAL;
-+	if (!is_valid_ether_addr(nla_data(tb[BRCMF_AWDL_ATTR_ADDR])))
-+		return -EINVAL;
-+	if (awdl->detached)
-+		return -ENODEV;
-+	if (awdl->ifp || awdl->op != BRCMF_AWDL_OP_NONE)
-+		return -EBUSY;
-+
-+	err = brcmf_awdl_store_frames(awdl, tb[BRCMF_AWDL_ATTR_PAYLOAD],
-+				      tb[BRCMF_AWDL_ATTR_OOB]);
-+	if (err)
-+		return err;
-+	ether_addr_copy(awdl->start_mac, nla_data(tb[BRCMF_AWDL_ATTR_ADDR]));
-+	spin_lock(&awdl->lock);
-+	awdl->op = BRCMF_AWDL_OP_START;
-+	spin_unlock(&awdl->lock);
-+	schedule_work(&awdl->ctrl_work);
-+	return 0;
-+}
-+
-+int brcmf_awdl_vndr_stop(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			 const void *data, int len)
-+{
-+	struct nlattr *tb[BRCMF_AWDL_ATTR_MAX + 1];
-+	struct brcmf_pub *drvr;
-+	struct brcmf_awdl *awdl;
-+
-+	drvr = brcmf_awdl_vndr_parse(wiphy, data, len, tb);
-+	if (IS_ERR(drvr))
-+		return PTR_ERR(drvr);
-+	awdl = &drvr->awdl;
-+	if (awdl->detached)
-+		return -ENODEV;
-+	if (!awdl->ifp && awdl->op != BRCMF_AWDL_OP_START)
-+		return -ENOENT;
-+
-+	spin_lock(&awdl->lock);
-+	awdl->op = BRCMF_AWDL_OP_STOP;
-+	spin_unlock(&awdl->lock);
-+	schedule_work(&awdl->ctrl_work);
-+	return 0;
-+}
-+
-+int brcmf_awdl_vndr_set_frames(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			       const void *data, int len)
-+{
-+	struct nlattr *tb[BRCMF_AWDL_ATTR_MAX + 1];
-+	struct brcmf_pub *drvr;
-+	int err;
-+
-+	drvr = brcmf_awdl_vndr_parse(wiphy, data, len, tb);
-+	if (IS_ERR(drvr))
-+		return PTR_ERR(drvr);
-+	if (!tb[BRCMF_AWDL_ATTR_PAYLOAD] || !tb[BRCMF_AWDL_ATTR_OOB])
-+		return -EINVAL;
-+	if (!drvr->awdl.ifp)
-+		return -ENOENT;
-+
-+	err = brcmf_awdl_store_frames(&drvr->awdl, tb[BRCMF_AWDL_ATTR_PAYLOAD],
-+				      tb[BRCMF_AWDL_ATTR_OOB]);
-+	if (err)
-+		return err;
-+	brcmf_awdl_refresh(&drvr->awdl);
-+	return 0;
-+}
-+
-+int brcmf_awdl_vndr_set_sync(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			     const void *data, int len)
-+{
-+	struct nlattr *tb[BRCMF_AWDL_ATTR_MAX + 1];
-+	struct brcmf_pub *drvr;
-+	struct brcmf_awdl *awdl;
-+
-+	drvr = brcmf_awdl_vndr_parse(wiphy, data, len, tb);
-+	if (IS_ERR(drvr))
-+		return PTR_ERR(drvr);
-+	awdl = &drvr->awdl;
-+	if (!awdl->ifp)
-+		return -ENOENT;
-+
-+	if (tb[BRCMF_AWDL_ATTR_MASTER]) {
-+		if (!tb[BRCMF_AWDL_ATTR_MASTER_METRIC] ||
-+		    !tb[BRCMF_AWDL_ATTR_MASTER_DISTANCE])
-+			return -EINVAL;
-+		awdl->has_master = true;
-+		ether_addr_copy(awdl->master,
-+				nla_data(tb[BRCMF_AWDL_ATTR_MASTER]));
-+		awdl->master_metric =
-+			nla_get_u32(tb[BRCMF_AWDL_ATTR_MASTER_METRIC]);
-+		awdl->master_distance =
-+			nla_get_u8(tb[BRCMF_AWDL_ATTR_MASTER_DISTANCE]);
-+	} else {
-+		awdl->has_master = false;
-+	}
-+	brcmf_awdl_refresh(awdl);
-+	return 0;
-+}
-+
-+static int brcmf_awdl_peer_op(struct wiphy *wiphy, const void *data, int len,
-+			      bool add)
-+{
-+	u8 op[BRCMF_AWDL_PEER_OP_HDR_LEN + BRCMF_AWDL_PEER_IES_MAX] = {};
-+	struct nlattr *tb[BRCMF_AWDL_ATTR_MAX + 1];
-+	u32 op_len = BRCMF_AWDL_PEER_OP_HDR_LEN;
-+	struct brcmf_pub *drvr;
-+	struct nlattr *ies;
-+
-+	drvr = brcmf_awdl_vndr_parse(wiphy, data, len, tb);
-+	if (IS_ERR(drvr))
-+		return PTR_ERR(drvr);
-+	if (!tb[BRCMF_AWDL_ATTR_ADDR])
-+		return -EINVAL;
-+	if (!drvr->awdl.ifp)
-+		return -ENOENT;
-+
-+	op[1] = add ? BRCMF_AWDL_PEER_OP_ADD : BRCMF_AWDL_PEER_OP_DEL;
-+	ether_addr_copy(op + 2, nla_data(tb[BRCMF_AWDL_ATTR_ADDR]));
-+	op[8] = add;
-+	if (add) {
-+		ies = tb[BRCMF_AWDL_ATTR_PEER_IES];
-+		if (ies) {
-+			memcpy(op + BRCMF_AWDL_PEER_OP_HDR_LEN, nla_data(ies),
-+			       nla_len(ies));
-+			op_len += nla_len(ies);
-+		}
-+		op_len = max_t(u32, op_len, BRCMF_AWDL_PEER_OP_ADD_LEN);
-+	}
-+	return brcmf_fil_iovar_data_set(drvr->awdl.ifp, "awdl_peer_op", op,
-+					op_len);
-+}
-+
-+int brcmf_awdl_vndr_peer_add(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			     const void *data, int len)
-+{
-+	return brcmf_awdl_peer_op(wiphy, data, len, true);
-+}
-+
-+int brcmf_awdl_vndr_peer_del(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			     const void *data, int len)
-+{
-+	return brcmf_awdl_peer_op(wiphy, data, len, false);
-+}
-+
- /* Called before the interfaces of the device are removed */
- void brcmf_awdl_detach(struct brcmf_pub *drvr)
- {
-@@ -342,10 +917,17 @@ void brcmf_awdl_detach(struct brcmf_pub *drvr)
- 
- 	rtnl_lock();
- 	wiphy_lock(drvr->wiphy);
-+	wiphy_delayed_work_cancel(drvr->wiphy, &awdl->aftx_work);
-+	wiphy_delayed_work_cancel(drvr->wiphy, &awdl->settle_work);
- 	spin_lock(&awdl->lock);
- 	awdl->detached = true;
-+	awdl->op = BRCMF_AWDL_OP_NONE;
- 	awdl->ifp = NULL;
- 	spin_unlock(&awdl->lock);
-+	brcmf_awdl_free_frames(awdl);
- 	wiphy_unlock(drvr->wiphy);
- 	rtnl_unlock();
-+
-+	/* A queued operation finds the device detached */
-+	cancel_work_sync(&awdl->ctrl_work);
- }
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-index 3edc0e96bb9..63030221dea 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-@@ -10,12 +10,21 @@
- #include <linux/completion.h>
- #include <linux/if_ether.h>
- #include <linux/spinlock.h>
-+#include <linux/workqueue.h>
-+#include <net/cfg80211.h>
-+#include <net/netlink.h>
- 
- struct brcmf_pub;
- struct brcmf_if;
- struct net_device;
- struct sk_buff;
- 
-+enum brcmf_awdl_op {
-+	BRCMF_AWDL_OP_NONE,
-+	BRCMF_AWDL_OP_START,
-+	BRCMF_AWDL_OP_STOP,
-+};
-+
- /**
-  * struct brcmf_awdl - AWDL interface of a device.
-  *
-@@ -28,6 +37,22 @@ struct sk_buff;
-  * @detached: the device goes away, no new AWDL interface is created.
-  * @ifp: the AWDL interface, NULL when there is none.
-  * @tx_seq: sequence number of the next data frame sent.
-+ * @ctrl_work: creates or removes the AWDL interface for the vendor commands,
-+ *	which run without RTNL.
-+ * @op: operation of @ctrl_work, under @lock.
-+ * @start_mac: MAC address for %BRCMF_AWDL_OP_START.
-+ * @payload: awdl_payload with the TLVs of user space.
-+ * @payload_len: length of @payload.
-+ * @oob: awdl_oob_af_auto with the TLVs of user space.
-+ * @oob_len: length of @oob.
-+ * @has_master: another device is the master.
-+ * @master: MAC address of the master.
-+ * @master_metric: metric of the master.
-+ * @master_distance: hops to the master.
-+ * @aftx_work: changes the firmware parameters 500 ms after the start.
-+ * @settle_work: changes the firmware parameters 5 s after the start.
-+ *
-+ * The members from @start_mac on are protected by the wiphy mutex.
-  */
- struct brcmf_awdl {
- 	spinlock_t lock; /* AWDL state against the event worker */
-@@ -38,6 +63,19 @@ struct brcmf_awdl {
- 	bool detached;
- 	struct brcmf_if *ifp;
- 	u16 tx_seq;
-+	struct work_struct ctrl_work;
-+	enum brcmf_awdl_op op;
-+	u8 start_mac[ETH_ALEN];
-+	u8 *payload;
-+	u32 payload_len;
-+	u8 *oob;
-+	u32 oob_len;
-+	bool has_master;
-+	u8 master[ETH_ALEN];
-+	u32 master_metric;
-+	u8 master_distance;
-+	struct wiphy_delayed_work aftx_work;
-+	struct wiphy_delayed_work settle_work;
- };
- 
- /* Length of the LLC/SNAP and AWDL data header of AWDL data frames */
-@@ -48,9 +86,24 @@ void brcmf_awdl_detach(struct brcmf_pub *drvr);
- int brcmf_awdl_add(struct brcmf_pub *drvr, const u8 *mac,
- 		   struct net_device **ndev);
- int brcmf_awdl_del(struct brcmf_pub *drvr);
-+void brcmf_awdl_suspend(struct brcmf_pub *drvr);
- bool brcmf_awdl_if_added(struct brcmf_pub *drvr, struct brcmf_if *ifp);
- bool brcmf_awdl_if_removed(struct brcmf_pub *drvr, struct brcmf_if *ifp);
- int brcmf_awdl_encap(struct brcmf_if *ifp, struct sk_buff *skb);
- int brcmf_awdl_decap(struct sk_buff *skb);
- 
-+extern const struct nla_policy brcmf_awdl_vndr_policy[];
-+int brcmf_awdl_vndr_start(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			  const void *data, int len);
-+int brcmf_awdl_vndr_stop(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			 const void *data, int len);
-+int brcmf_awdl_vndr_set_frames(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			       const void *data, int len);
-+int brcmf_awdl_vndr_set_sync(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			     const void *data, int len);
-+int brcmf_awdl_vndr_peer_add(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			     const void *data, int len);
-+int brcmf_awdl_vndr_peer_del(struct wiphy *wiphy, struct wireless_dev *wdev,
-+			     const void *data, int len);
-+
- #endif /* BRCMFMAC_AWDL_H */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 4f35dbef082..41ea0481cf1 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -4282,8 +4282,7 @@ static s32 brcmf_cfg80211_suspend(struct wiphy *wiphy,
- 	/* The AWDL interface does not survive sleep, the firmware still
- 	 * takes commands here. User space creates it again after resume.
- 	 */
--	if (cfg->pub->awdl.ifp)
--		brcmf_awdl_del(cfg->pub);
-+	brcmf_awdl_suspend(cfg->pub);
- 
- 	/* if the primary net_device is not READY there is nothing
- 	 * we can do but pray resume goes smoothly.
-@@ -7901,6 +7900,8 @@ static int brcmf_setup_wiphy(struct wiphy *wiphy, struct brcmf_if *ifp)
- 	/* vendor commands/events support */
- 	wiphy->vendor_commands = brcmf_vendor_cmds;
- 	wiphy->n_vendor_commands = BRCMF_VNDR_CMDS_LAST - 1;
-+	wiphy->vendor_events = brcmf_vendor_events;
-+	wiphy->n_vendor_events = BRCMF_VNDR_EVTS_LAST;
- 
- 	if (brcmf_feat_is_enabled(ifp, BRCMF_FEAT_WOWL))
- 		brcmf_wiphy_wowl_params(wiphy, ifp);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c
-index d07e7c7355d..5e7de07c995 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c
-@@ -15,6 +15,7 @@
- #include "cfg80211.h"
- #include "vendor.h"
- #include "fwil.h"
-+#include "awdl.h"
- 
- static int brcmf_cfg80211_vndr_cmds_dcmd_handler(struct wiphy *wiphy,
- 						 struct wireless_dev *wdev,
-@@ -115,4 +116,81 @@ const struct wiphy_vendor_command brcmf_vendor_cmds[] = {
- 		.policy = VENDOR_CMD_RAW_DATA,
- 		.doit = brcmf_cfg80211_vndr_cmds_dcmd_handler
- 	},
-+	{
-+		{
-+			.vendor_id = BROADCOM_OUI,
-+			.subcmd = BRCMF_VNDR_CMDS_AWDL_START
-+		},
-+		.flags = WIPHY_VENDOR_CMD_NEED_WDEV |
-+			 WIPHY_VENDOR_CMD_NEED_NETDEV,
-+		.policy = brcmf_awdl_vndr_policy,
-+		.maxattr = BRCMF_AWDL_ATTR_MAX,
-+		.doit = brcmf_awdl_vndr_start
-+	},
-+	{
-+		{
-+			.vendor_id = BROADCOM_OUI,
-+			.subcmd = BRCMF_VNDR_CMDS_AWDL_STOP
-+		},
-+		.flags = WIPHY_VENDOR_CMD_NEED_WDEV |
-+			 WIPHY_VENDOR_CMD_NEED_NETDEV,
-+		.policy = brcmf_awdl_vndr_policy,
-+		.maxattr = BRCMF_AWDL_ATTR_MAX,
-+		.doit = brcmf_awdl_vndr_stop
-+	},
-+	{
-+		{
-+			.vendor_id = BROADCOM_OUI,
-+			.subcmd = BRCMF_VNDR_CMDS_AWDL_SET_FRAMES
-+		},
-+		.flags = WIPHY_VENDOR_CMD_NEED_WDEV |
-+			 WIPHY_VENDOR_CMD_NEED_NETDEV,
-+		.policy = brcmf_awdl_vndr_policy,
-+		.maxattr = BRCMF_AWDL_ATTR_MAX,
-+		.doit = brcmf_awdl_vndr_set_frames
-+	},
-+	{
-+		{
-+			.vendor_id = BROADCOM_OUI,
-+			.subcmd = BRCMF_VNDR_CMDS_AWDL_SET_SYNC
-+		},
-+		.flags = WIPHY_VENDOR_CMD_NEED_WDEV |
-+			 WIPHY_VENDOR_CMD_NEED_NETDEV,
-+		.policy = brcmf_awdl_vndr_policy,
-+		.maxattr = BRCMF_AWDL_ATTR_MAX,
-+		.doit = brcmf_awdl_vndr_set_sync
-+	},
-+	{
-+		{
-+			.vendor_id = BROADCOM_OUI,
-+			.subcmd = BRCMF_VNDR_CMDS_AWDL_PEER_ADD
-+		},
-+		.flags = WIPHY_VENDOR_CMD_NEED_WDEV |
-+			 WIPHY_VENDOR_CMD_NEED_NETDEV,
-+		.policy = brcmf_awdl_vndr_policy,
-+		.maxattr = BRCMF_AWDL_ATTR_MAX,
-+		.doit = brcmf_awdl_vndr_peer_add
-+	},
-+	{
-+		{
-+			.vendor_id = BROADCOM_OUI,
-+			.subcmd = BRCMF_VNDR_CMDS_AWDL_PEER_DEL
-+		},
-+		.flags = WIPHY_VENDOR_CMD_NEED_WDEV |
-+			 WIPHY_VENDOR_CMD_NEED_NETDEV,
-+		.policy = brcmf_awdl_vndr_policy,
-+		.maxattr = BRCMF_AWDL_ATTR_MAX,
-+		.doit = brcmf_awdl_vndr_peer_del
-+	},
-+};
-+
-+const struct nl80211_vendor_cmd_info brcmf_vendor_events[] = {
-+	[BRCMF_VNDR_EVTS_AWDL_STARTED] = {
-+		.vendor_id = BROADCOM_OUI,
-+		.subcmd = BRCMF_VNDR_EVTS_AWDL_STARTED
-+	},
-+	[BRCMF_VNDR_EVTS_AWDL_STOPPED] = {
-+		.vendor_id = BROADCOM_OUI,
-+		.subcmd = BRCMF_VNDR_EVTS_AWDL_STOPPED
-+	},
- };
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h
-index 418f33ea6fd..ce7f7c46710 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h
-@@ -8,12 +8,97 @@
- 
- #define BROADCOM_OUI	0x001018
- 
-+/**
-+ * enum brcmf_vndr_cmds - vendor commands of the Broadcom OUI
-+ *
-+ * @BRCMF_VNDR_CMDS_DCMD: firmware command, see struct brcmf_vndr_dcmd_hdr.
-+ * @BRCMF_VNDR_CMDS_AWDL_START: create the AWDL interface with
-+ *	%BRCMF_AWDL_ATTR_ADDR and start AWDL with the TLVs of
-+ *	%BRCMF_AWDL_ATTR_PAYLOAD and %BRCMF_AWDL_ATTR_OOB. Runs asynchronously,
-+ *	the result comes with %BRCMF_VNDR_EVTS_AWDL_STARTED.
-+ * @BRCMF_VNDR_CMDS_AWDL_STOP: stop AWDL and remove the AWDL interface. Runs
-+ *	asynchronously, the result comes with %BRCMF_VNDR_EVTS_AWDL_STOPPED.
-+ * @BRCMF_VNDR_CMDS_AWDL_SET_FRAMES: replace the TLVs of
-+ *	%BRCMF_AWDL_ATTR_PAYLOAD and %BRCMF_AWDL_ATTR_OOB.
-+ * @BRCMF_VNDR_CMDS_AWDL_SET_SYNC: synchronize to the master of
-+ *	%BRCMF_AWDL_ATTR_MASTER, %BRCMF_AWDL_ATTR_MASTER_METRIC and
-+ *	%BRCMF_AWDL_ATTR_MASTER_DISTANCE. Without %BRCMF_AWDL_ATTR_MASTER the
-+ *	device is its own master.
-+ * @BRCMF_VNDR_CMDS_AWDL_PEER_ADD: add the peer %BRCMF_AWDL_ATTR_ADDR, data
-+ *	frames to it are sent from then on. %BRCMF_AWDL_ATTR_PEER_IES gives its
-+ *	HT and VHT capabilities, sent again it updates them.
-+ * @BRCMF_VNDR_CMDS_AWDL_PEER_DEL: remove the peer %BRCMF_AWDL_ATTR_ADDR.
-+ * @BRCMF_VNDR_CMDS_LAST: number of vendor commands plus one.
-+ *
-+ * The AWDL commands are sent to the primary interface. Election, peer
-+ * discovery and services are left to user space, the firmware sends and
-+ * receives the AWDL frames and data.
-+ */
- enum brcmf_vndr_cmds {
- 	BRCMF_VNDR_CMDS_UNSPEC,
- 	BRCMF_VNDR_CMDS_DCMD,
-+	BRCMF_VNDR_CMDS_AWDL_START,
-+	BRCMF_VNDR_CMDS_AWDL_STOP,
-+	BRCMF_VNDR_CMDS_AWDL_SET_FRAMES,
-+	BRCMF_VNDR_CMDS_AWDL_SET_SYNC,
-+	BRCMF_VNDR_CMDS_AWDL_PEER_ADD,
-+	BRCMF_VNDR_CMDS_AWDL_PEER_DEL,
- 	BRCMF_VNDR_CMDS_LAST
- };
- 
-+/**
-+ * enum brcmf_vndr_evts - vendor events of the Broadcom OUI
-+ *
-+ * @BRCMF_VNDR_EVTS_AWDL_STARTED: result of %BRCMF_VNDR_CMDS_AWDL_START with
-+ *	%BRCMF_AWDL_ATTR_STATUS and, on success, %BRCMF_AWDL_ATTR_IFINDEX.
-+ * @BRCMF_VNDR_EVTS_AWDL_STOPPED: the AWDL interface was removed, after
-+ *	%BRCMF_VNDR_CMDS_AWDL_STOP or before system sleep, with
-+ *	%BRCMF_AWDL_ATTR_STATUS.
-+ * @BRCMF_VNDR_EVTS_LAST: number of vendor events.
-+ *
-+ * The value of an event is its index in the vendor events and its vendor
-+ * subcommand.
-+ */
-+enum brcmf_vndr_evts {
-+	BRCMF_VNDR_EVTS_AWDL_STARTED,
-+	BRCMF_VNDR_EVTS_AWDL_STOPPED,
-+	BRCMF_VNDR_EVTS_LAST
-+};
-+
-+/**
-+ * enum brcmf_awdl_attrs - attributes of the AWDL vendor commands and events
-+ *
-+ * @BRCMF_AWDL_ATTR_ADDR: MAC address, of the AWDL interface or of a peer.
-+ * @BRCMF_AWDL_ATTR_PAYLOAD: AWDL TLVs for the firmware parameter
-+ *	awdl_payload.
-+ * @BRCMF_AWDL_ATTR_OOB: AWDL TLVs for the firmware parameter
-+ *	awdl_oob_af_auto.
-+ * @BRCMF_AWDL_ATTR_MASTER: MAC address of the master (u8[6]).
-+ * @BRCMF_AWDL_ATTR_MASTER_METRIC: metric of the master (u32).
-+ * @BRCMF_AWDL_ATTR_MASTER_DISTANCE: hops from this device to the master (u8).
-+ * @BRCMF_AWDL_ATTR_STATUS: 0 or a negative error code (s32).
-+ * @BRCMF_AWDL_ATTR_IFINDEX: interface index of the AWDL interface (u32).
-+ * @BRCMF_AWDL_ATTR_PEER_IES: HT and VHT capabilities elements of a peer,
-+ *	built from the AWDL TLVs it sends, as macOS passes them.
-+ * @BRCMF_AWDL_ATTR_MAX: highest attribute.
-+ */
-+enum brcmf_awdl_attrs {
-+	BRCMF_AWDL_ATTR_UNSPEC,
-+
-+	BRCMF_AWDL_ATTR_ADDR,
-+	BRCMF_AWDL_ATTR_PAYLOAD,
-+	BRCMF_AWDL_ATTR_OOB,
-+	BRCMF_AWDL_ATTR_MASTER,
-+	BRCMF_AWDL_ATTR_MASTER_METRIC,
-+	BRCMF_AWDL_ATTR_MASTER_DISTANCE,
-+	BRCMF_AWDL_ATTR_STATUS,
-+	BRCMF_AWDL_ATTR_IFINDEX,
-+	BRCMF_AWDL_ATTR_PEER_IES,
-+
-+	__BRCMF_AWDL_ATTR_AFTER_LAST,
-+	BRCMF_AWDL_ATTR_MAX = __BRCMF_AWDL_ATTR_AFTER_LAST - 1
-+};
-+
- /**
-  * enum brcmf_nlattrs - nl80211 message attributes
-  *
-@@ -49,5 +134,6 @@ struct brcmf_vndr_dcmd_hdr {
- };
- 
- extern const struct wiphy_vendor_command brcmf_vendor_cmds[];
-+extern const struct nl80211_vendor_cmd_info brcmf_vendor_events[];
- 
- #endif /* _vendor_h_ */
