@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793760604;
-	b=2NkLnJEIzeNNA9Vpe83ja6O0PZoHiQkdOeATqn1R0xwIu07OEhgQ9komoe3Rn0T+UXMb
-	 mwjYQf38WAsHsPC246pM+NXBYrNP7EhpAcLGA11FytlA2sI6Ie7VmxxzrpqdKMccOg0PV
-	 3mxhOGpj0Zh4XQOetIhOksDurELODmMIS3Hd3M6Ce1A+rfpFOGUaG2jlHfoMQGo/oP1Vb
-	 vkJcI9/96li+ACZ75cM2T//DlN3W3AbZlrtbZkf9gQX9Ih82CfIxBc1wGJvyZ8xW2WOkC
-	 /1VED9JTMmmqZb0Ee/Xk3m0kCaNuNJntNEoyl2skLZiwvukzdbeQ1N1EwXeDYqeBCzw==
+	b=b7QaJUbg1c1uAPtoIOxVRlmWhGXyyan6R+rYJ2ZinhIVkrq82jUY7QdKszSt2nOCUPzg
+	 sjbRhYHgLh3LOYERsuXHurXLBBFwLxMlqn5H8UDaIsfM2zN6FjZ8nv4kqiKBEioBTDnlj
+	 S7cRPXbyhm/GTlvVdsDTh7Il7mn1H811Xy0qT4wbi8PyD1rKeFQDONVSBPWjGQ1HxO05M
+	 9ywjSCMI0QhvBlTPjwUi+/Z0BKRcDAErDLMAytZD+FIj6wdVRnCXy/IkBYfqZyL50ZPoR
+	 EX9HLMWOLfppZGdlOC2YMWqZsNvRTasEzbviRfj9chx8/l1Bt+3DXM8c3L+kHXvPOsw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793760604;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=abDkj90NJiD8l8l0zAUvwFxe1kTltejS2SG5NFKFw0M=;
-	b=D5bqOGVpnsyNTAjpVcW59A5Va/KiAaNSmduu9r7J3e/Akc1IxgHfmLegya6EOXr2ytEV
-	 1cYvnJkgLfVa92qjwa+AhqouUFLyRo1r+nhHuKOnRoYq99rUnkSwdM26wwtbgHUWGikxu
-	 DHJpJyLq15wtfetBdvHDg1WA58YT+rtO4qqoZ3aoKb7gf/Fserg47/l5LEYHwnUro0OsU
-	 DYgOz9BYKl6JnR04RZpDNIyIHaG6AsnH19PX0ltRMDBLL+m1IJZJMs80WBJ4EpVbcZfU8
-	 4Cj6k21Sb4BGsljQjCwyDZKFBguPgVbDN+yMNTJoNVA+eud1H9FXohA+UYlPEAIP4yw==
+	bh=UG+jbvPjXUmrsRpl/vei6M3UPhoSxLuxyhfY4Evfnjs=;
+	b=Xb46wiV9L7mYtXa8U/OLiXoNhKxGHsmyTzPoOKcNdEhHnd9ks2ZIb1gcAyDEb/tYL22B
+	 fEGuqECfpzJmoBBfAxApNJM+6bMXFrnc7J6ENq6+tyrjfQAnNiF1eXRpx/wfasy9RF6+k
+	 U0RcamsoC1/QymfVT3Vecm3Wcwn0ve8R8SK1hknxlSv6DlDk4qpSEGClfN3IeoXAkobWB
+	 0K4PzymrlPWxoLJQjR+Td10uOyJcIesXrEi6TwNOMASFOvr86EUa31a7nywXDGLT08M5w
+	 S4VaZE7++nE2LSsRbATQbTsFQ8gUZlAAd9AJleyay/7owvsW6dUL0Bl7VMfC6sKbkeQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ScdDhyL6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AljjXN2i;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96B0606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9641606A31B;
 	Wed,  4 Nov 2026 02:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ScdDhyL6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AljjXN2i
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793760603;
-	b=tkr5BtCL5hyTQYIjvee3GBMeh0bzADo+A5jr1kof2zX3+mx8nsTEOTvbEsMQiWPDSzNz
-	 FLvOgD68Tg6ALuyi1qkRKxLCioGkS6F82RXZ7XJ/f2MOcJsqVXadVfKPWMIBb96xDnlUY
-	 AVfOVlG0djnYQaATxZZP4uV2tU1Jrz//cgf3Gkp3FTNL/JpEIPSIrAhgeF/oxEAjq+xUL
-	 7yO3BvncLNV8TCskhskXCJbvuojAaCqN/ND/AcdLB/EEUPMc87gp+/NDaUEfdDMDMefRY
-	 Xzw1Dms6+EFQcJLio1LKiaZ19toYqwxZ2FjE+wwyyvHC0+gVWA0xQVtJekr4TAoT02w==
+	b=n5U5bJF2jHxmllJw96YdqUL+gltCbDZedPaOVcxbFe5gU8QamKgmeTqmj0/RWlo1uZ59
+	 eUcys9skdZQOqAyX8Db7+06gVLzUz3p4TBzsfiJNGPauxbHDG1KZxN+BCecxO2G2sE16v
+	 4H8ILyT0wtxYGm2bJRJoZcpYEZSMQ6MYWuaQexJtKCPpNQldddTDbyjfYB6V3kQ35bBS7
+	 euzCX833mNfCM6a8ypkreF1CO0dx5lg7Now43EnpTxnWw9lI+qTy5a+lPJpERrDVtoqw7
+	 t7DNnFoVhBNtoHjKOYXQA+qPN2qjtx85TPjRAX1SeO2UL0K0lk/MXvpKhvDgqS1IL5A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793760603;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=abDkj90NJiD8l8l0zAUvwFxe1kTltejS2SG5NFKFw0M=;
-	b=zLVAwFa+EQUHTP/32tnU6rJM78H3c9DHkPUIN2VEVlrmcLN5XxwZ/r+TmSwtrw1YWX2T
-	 X2i/cvDeiWqX+8wz+WYU0pREs+YpZIjbYF7AUt9MK9u/VtEtUfftOcehYegtxjwC9pkEM
-	 w6bUkeVg1oSbLT8VLHXuKlD9ByYc/tdwyazk2dP5yZ3zJmZg2wrKE1w81AQ58oEnyq60M
-	 qYEnxEIa0Z/M5fxStyIKsFJPTBK3l0uhCQb3eWTUSj+xr8ptXWwdCWc8gcW5Qb8iLU+By
-	 meNouSOOXXU3wxL3QOAbRfBU5gfG6sYf4FvSC6BiJkiO+WKBrOKeTk5iEHuJZ3PkC5A==
+	bh=UG+jbvPjXUmrsRpl/vei6M3UPhoSxLuxyhfY4Evfnjs=;
+	b=uTPdVmcuFHjVPjASnM2L7CLzKEOoDs4SR51lt3GOPBzMtPR6E6TCbLi/mQfWE6qqnd8T
+	 nTN+TUfN5pBmv3Byrrl0caXKL/2s09UYSFA1xsQDqrrpYy9tQ1GlV3fLCn39vJbgGTolj
+	 8QtDBP27BX10d+eerxIpwS1lWhMircZQrzr8igfak35HHHTvL9gXHvRqjo5kJgvxRQxpL
+	 rUP8lQOJ4qkaIlcGyUD890QAGLRDFEsNwASFvsdPpA1dsqTrSUWXmX6ov8LS2Um317QMe
+	 m7Y4pwvF5SdSkEvfxSYpyhpth1r53jRarfxXeTSpzMM3EzHk1F3fZpqznBz0yJFriyw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D57151F0093A;
+	by smtp.kernel.org (Postfix) with ESMTPS id D541A1F000C1;
 	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793760603;
-	bh=abDkj90NJiD8l8l0zAUvwFxe1kTltejS2SG5NFKFw0M=;
+	bh=UG+jbvPjXUmrsRpl/vei6M3UPhoSxLuxyhfY4Evfnjs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ScdDhyL61GkX4nSv8WNp927gmGegANO0uI6zlVZ2Q2Xp3A/Dni19MvFpdKKUN4Bj5
-	 VLkooMwh1sFKuyvunDE3KDfeFb9JXCgYG4B0BhtWX208EQivnqCbdqDGbI/Z53ASzC
-	 rtk9Ejv+6LlHKILZXy7kC8RYF5/58oNUSCwdM0xaP8mBsmdmXV5iFD0kXrqEUWpyVS
-	 iiNQTXWRgKuwA+bS6UzjJbuKzmeXDp3dG8jbvWs5Ck2p53hhni7GS7t0MnMe2B/yZ/
-	 +kOp80QDNc31TiHrOoeDvpsxOq0MpuXauq5dd6LZh7D7Sc82uqFHtUj/ITVUKqXKgs
-	 uTh2bXPYg4hcw==
+	b=AljjXN2iY+eopP6gSfpce/8PzlWCxuG1kDx8NMlNKVqmKSblUm+6Mkc42iDOQ+2/o
+	 bF8FpirvBiSXCzleURAnG4OVzirAURPLt0KbxV7w4AVaaaISNT+Om78wXkD2PhgdMM
+	 6fzyz05yVDBxeTWCx6ARrPnLF8xCmPgCTIy9qxyO0CSRgkPfzyXUGC+OA/gRLGuhKo
+	 xEtm9fhMDuSsDTnwp+VVTIPrPftZQLmEvGMTL3LhD1BmWGndEA2YsCDz2GbUL7Y8+z
+	 DE3mGDB0N0QTOnnoiK1P3rQsoKwoo6mH21BCWQM9fxuRWJ22Rq4mONOYBZ/oflc7lB
+	 NDBzl+qG1UPwQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4CB6446BFB;
+	by lkml.kernel.org (Postfix) with ESMTP id 40A6946BF9;
 	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
 From: Nathan Lynch via B4 Relay <devnull+nathan.lynch.amd.com@kernel.org>
-Date: Tue, 03 Nov 2026 20:49:43 -0600
-Subject: [PATCH v4 02/25] MAINTAINERS: Add entry for SDXI driver
+Date: Tue, 03 Nov 2026 20:49:42 -0600
+Subject: [PATCH v4 01/25] PCI: Add SNIA SDXI accelerator sub-class
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-sdxi-base-v4-2-3668ccc7aab8@amd.com>
+Message-Id: <20261103-sdxi-base-v4-1-3668ccc7aab8@amd.com>
 References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 In-Reply-To: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
@@ -97,11 +97,11 @@ Cc: Bjorn Helgaas <bhelgaas@google.com>,
  dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-pci@vger.kernel.org, Nathan Lynch <nathan.lynch@amd.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=957;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=1441;
  i=nathan.lynch@amd.com; s=20260722; h=from:subject:message-id;
- bh=QzMadJVmuUJo4TNmWXrHY24R0Uh6rkcQVfp+/UUrz6I=;
- b=elxBEGJUVTadQeEHCPFE3sgcwAMkwFMb49z1+xPlPBjDeY2rns5t3mOv8GxN3cZE7CbKddfMF
- 1liLmfVafgPC70viPc/0oVlHVGNzXJBHTYYiSvy7JRr7p31G8EeZoPN
+ bh=HRHBHsVrsPkhfleJt5OBxEfrKMfiC19WMsFKZuGKy20=;
+ b=m5f++TxThWkgV2jkX4Aooxp6TSW96jcTFHmilmjD+IKhFsRoC3Q82tlJBBwMlU8WU8prKM6Ql
+ sq2uuAVvLYPBTdJFVPu3wQcJvxw2nSchc8jt1eu1Usd9LuG47WXLqZr
 X-Developer-Key: i=nathan.lynch@amd.com; a=ed25519;
  pk=pO5+BCw/TENGLvwX5NYZOZmZihcxjkxeFSMuk47erps=
 X-Endpoint-Received: by B4 Relay for nathan.lynch@amd.com/20260722 with
@@ -112,38 +112,43 @@ Content-Transfer-Encoding: 7bit
 
 From: Nathan Lynch <nathan.lynch@amd.com>
 
-Add an entry for the SDXI driver to MAINTAINERS. Wei and I will
-maintain the driver.
+Make the class code for SNIA Smart Data Accelerator Interface (SDXI)
+functions available to both C and Rust code.
 
-The SDXI specification and other materials may be found at:
-
-  https://www.snia.org/sdxi
+See PCI Code and ID Assignment spec r1.14, sec 1.19.
 
 Co-developed-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Wei Huang <wei.huang2@amd.com>
 Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/pci_ids.h | 1 +
+ rust/kernel/pci/id.rs   | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..721f06446435 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25281,6 +25281,13 @@ L:	sdricohcs-devel@lists.sourceforge.net (subscribers-only)
- S:	Maintained
- F:	drivers/mmc/host/sdricoh_cs.c
+diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+index 030c86dd6d67..dcb26f52b5a1 100644
+--- a/include/linux/pci_ids.h
++++ b/include/linux/pci_ids.h
+@@ -154,6 +154,7 @@
  
-+SDXI (Smart Data Accelerator Interface) DRIVER
-+M:	Nathan Lynch <nathan.lynch@amd.com>
-+M:	Wei Huang <wei.huang2@amd.com>
-+L:	dmaengine@vger.kernel.org
-+S:	Supported
-+F:	drivers/dma/sdxi/
-+
- SECO BOARDS CEC DRIVER
- M:	Ettore Chimenti <ek5.chimenti@gmail.com>
- S:	Maintained
+ #define PCI_BASE_CLASS_ACCELERATOR	0x12
+ #define PCI_CLASS_ACCELERATOR_PROCESSING	0x1200
++#define PCI_CLASS_ACCELERATOR_SDXI		0x120100
+ 
+ #define PCI_CLASS_OTHERS		0xff
+ 
+diff --git a/rust/kernel/pci/id.rs b/rust/kernel/pci/id.rs
+index dbaf301666e7..d714e4b83852 100644
+--- a/rust/kernel/pci/id.rs
++++ b/rust/kernel/pci/id.rs
+@@ -292,6 +292,7 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+     SP_OTHER                   = bindings::PCI_CLASS_SP_OTHER,                   // 0x118000
+ 
+     ACCELERATOR_PROCESSING     = bindings::PCI_CLASS_ACCELERATOR_PROCESSING,     // 0x120000
++    ACCELERATOR_SDXI           = bindings::PCI_CLASS_ACCELERATOR_SDXI,           // 0x120100
+ 
+     OTHERS                     = bindings::PCI_CLASS_OTHERS,                     // 0xff0000
+ }
 
 -- 
 2.56.0
