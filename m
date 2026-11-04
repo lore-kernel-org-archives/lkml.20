@@ -1,111 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835870;
-	b=YsBcvV1fdVbBYDI4UAI1dGoFKOEsrxf+m7JohjU1jY0rIbQL9YYH8zL3nleA5Zmmqmkv
-	 ntpmaeAMuPtZigkPwihNLcO1ShvfT7XQgYzvsYZfSi3Vg2wjpJAPV62ZLSyQ4PM9kzHmm
-	 sxEYPpVS4mqZ+QWPFTVxmR5NtvdvFbWw2QC6p6uLQRge/Is2sUHqLD2VC+5i+WhaqwzTj
-	 +pAnXvru2j49vG44w9TDHG8QNhpA95BSItgAj8Q3zxNbHJi423rTs9F6xypWUeNZo4wZo
-	 IdrbMP1TIQm3yIU1uohP9iWTZ5bz8YmERnRXRKoySPcGFFpTKfHjJjhK2Qlbfkt00qA==
+	t=1793835883;
+	b=pB7NXFq9rWji2ejZ7pkCl2TYSXRFQeHa46flhr8XkiogkL0bbgREE0hYfVG1Y/PvLmHY
+	 ke6cwwuYvnSuggcABbI7g0h0BVbLXlI41f67oyVsJr/Xkp7FquNcPbXJplhfL6ZwJDNrg
+	 +lzEXWGrTcQPmod521trtGkdLHP7xBguJBinN0puAn4H39i+ogm4mkz/j9COy17Gfi8Ce
+	 j1FSXIwpjX7TzJVpzvc6I1RxJ/Nye5qb4uuW2PYD+pTrZ1bcp2YJgYrxNUBJhv1fRHj5M
+	 clql6HhV53ZS5FbG4+AqSThm6RJ81vtX84HVkVG/BmgYEjJb2NHJUGjCFlhPo0AgC6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835870;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:Subject:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JSn6tGbEe2l/YwyMHe7oKDNEM47p+rgBBvGJghBcSp8=;
-	b=CtXJVCMESLGtxX8N3NdjUtH0fuVgvUb9DdWXJhvGr2v0CP2cX6a2CBxFu6HRnkY2oSFy
-	 yB9mwQS8/CitoRL4hnjLUYsrNXbwr2sULmhKZggTg5H3lTy2xMNFRqyr18xAu13Rm65/+
-	 1Y+fVM8QaHPUB0tMo3g4SlxtX/5CzxIUuHbWTn9XtfEYpmr3YDCpE6ThSLsWijbpF/eKe
-	 ECepaoJXey4XvapgzbJTmKFz34Jvew2KlI1ut9leopQC6y+yJx39Ve040ZTdEfqnZeMu6
-	 fH5AMCnNkJjLDHKb/OnORVYNQ8reYcThDOL/rPeGaX1CW72PkdhKrG6/waG4UvndVtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835883;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dm6QP+G8YaY/c3dC6XOZVyZ2/2/A8/3XTwxU4Pcnwos=;
+	b=bs29jRf2+8ewNxq5l+0YqnuwYa4yOqNKA4I7tsRK1np1rO/6ActDLnZ775LcCpQefoaH
+	 noZFY76gprBGdwn52CxCCrv4BVkU0oz6KYCMwez0irFR9fFpFGbD55mNKKV1SAE/P2edu
+	 cDN9VlHOWZt4K+eGw9bZcDOjxcwrVBO8usN+F58CCj+HF8FEXZ+wKAjJMaZJhtA8ZfhiR
+	 X8Tg042CS3tj2BFsLizhE5FggZSa7/vM8yNyGFowCbaiwLlRztwrDhOLaepQXjSFI84+v
+	 1VGWrXHqYIJ+PFACCVDWOgJpMvB9tlNY7/tOut4P2LM2TQA2IMhkNJi0RvcfXe3+WXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=johnericson.me;
-	spf=pass smtp.mailfrom=johnericson.me;
-	dkim=pass header.d=johnericson.me header.i=@johnericson.me header.a=rsa-sha256 header.s=fm2 header.b=hztbExy5;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rFvJDc+v;
-	arc=none smtp.remote-ip=202.12.124.148
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRV9Kd1r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD725606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD725606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=johnericson.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=johnericson.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E635F606A326;
+	Wed,  4 Nov 2026 23:44:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=johnericson.me header.i=@johnericson.me header.a=rsa-sha256 header.s=fm2 header.b=hztbExy5;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rFvJDc+v
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 383601D001BF
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:44:28 -0500 (EST)
-Received: from phl-imap-16 ([10.202.2.88])
-  by phl-compute-05.internal (MEProxy); Wed, 04 Nov 2026 18:44:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=johnericson.me;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to; s=fm2; t=
-	1793835866; x=1793922266; bh=JSn6tGbEe2l/YwyMHe7oKDNEM47p+rgBBvG
-	JghBcSp8=; b=hztbExy5VtfW+SIcUUiS8g67kpv1wJ+7Tcw5jU0fmQjUpbAIOmE
-	gBbcswuOemelVa/OEoRCJxbaTBl+N3zq3d25mEEM9vNCTMYXgi+pPQZYJYv3FQAx
-	FsyNMWpA6szlHmzPsZXq+2h+b+spXAWlu9aXzlvUBIeSLW+J4eor6bEMu0w/LP5k
-	8qQdV9vYoncxfZtGEJNA2vB3rtX3CoTuHA0d/afGvRiHO5l74vO/yEk+GDe5AxZy
-	v+kBrPqimqQoXrmuxFxK3JNa83cw1sAqhCrg2iN85FKHBMPzays10h/kTcT6+n+b
-	TiSZLz2v+9+BWnN606Sue5Izbi59Qi4FOng==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1793835866; x=1793922266; bh=J
-	Sn6tGbEe2l/YwyMHe7oKDNEM47p+rgBBvGJghBcSp8=; b=rFvJDc+viVQL5qGJA
-	wYQiDTGtCDHPjDX5cvmHMZQ7vTkeqVaZodHBmUWCLoYq3msHtF33QAROM3dg/OgN
-	mmQnLeqDS7M/xU4t/u6i5xNQDHhQw+BeHK9OvXRE1SJQy0B47D7ojYQG4b0koGPT
-	+ALoKsYBtrkDKopov+kM/Y2MwRygdLDvjYrIZfcy+Ko38BGD6+IGi7SXrnw4cvTv
-	SZndc+j3p9K63/vHwMZd8Eb9wsrxiJn3G8Ne1bk3EoNt8+wuNrHVgp5+TrZymtkH
-	F4emXuqdtr9GYP5rsa1mSmkDQew8Y0aqDqyz2R7Ylog+OmfFzdSKHzxul1qlEq/J
-	hRkzA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=johnericson.me a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793835866; d=johnericson.me;
-	mf=PG1haWxAam9obmVyaWNzb24ubWU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:NLSjKmj/iwN7TQ0sBR5fPCAl2L7OIPL8/h9cvnXgoYqGrmt
-	Qtd6ft7K4d9IhxWV/bmbvNwADywRBOTceqDRvJ9TzkrlMNZuC8jvHyEWg+4jWL41
-	MHWPPBB8zU/MsLhoB7J/7XwBctsVX0jOH9DzM0aoHXdLlukGNViUPa5JGk2GO9bi
-	nnLeP8ZoUtXRCZC7Zul/xNhDL1RapTLZRkvuG/jKziKKinBvhcsAgLq5FNSd6I3J
-	Rp5hojAXmyNeW5fE1rel+4K0PqrE3spLeciZUQzxOL5S5h+HqUYby7bxXxb+KUZg
-	Y5MWJpPmuscRc5pXmCPMU99FuQQVdPb3Cr75n3Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:e9bONw3MRf9SzX06zssGZu9oETjbbTvInwt0yOfdmtg=:JSn6tGbEe2l/YwyMHe7oKDNEM47p+rgBBvGJghBcSp8=;
-X-ME-Sender: <xms:WsPrapFBcuZNzbW7_q2GEcohMWvE_0vsKO_Hoy6UB1DAEuBW6j7Dag>
-    <xme:WsPrapIEydC03wZCtaIJmuHHtrvP9ptIA12diz4HFT7sM5_SgExth3jogCuHYLu19
-    AyA04sxZLiupfyGmT6IVi0X4FuZKsm9ydSOX8-RaiR9MdWMo78dljo>
-X-ME-Proxy-Cause: dmFkZTGmBhiTB6NW2pRO4Oy23IbcsNWJSLAy/B9oFNmJXBTspDmHHO5IVR4fWN8elj7VvZ
-    9BksVcd7rCrGKpGDyrC9B82MdgT3l7QKffuaH4J+zdjAvULxx/nvX3FPEo9g26FKlAjlZ8
-    hyNvjMi99gnzYH6L9l3rhyTw/J7awpaPDi2dpoDn6n3PRF5w4seoxZ4BA2M6HrvL17vsPh
-    88t+8l1EEbvg3s4a0wYR6UnFGW1qtOPOnQyqJ0j6HWPPzY84jsOqehts0mzzlLLSYshItM
-    sLQIOWy2fioZNy79079jZt1zfLBVr7Gk2NSaPipYJ6Fx1jm9bt4lyJ8Jx/lrvW3NqEZTit
-    Eit3x/IaXPNTFe30Yso1GvByekA3GyV5xyPLh9q/GlItEpUurmGDdh7S+hl64aU/D9DTBk
-    QMNPq6ELkl8ApANuz+guc29p50D6Y6dEu6oNFQuSJBsiC9eeovpoctC91v1QVT8MNehBEk
-    /EoGXEDqpgXfOkUgG5heBJVSpjW/CyTezdzKfDyp7A9/xDLw2JBy2HnorUI+WOTDZYgiRA
-    3L2QWozzeXa8h3EgyaWdDa6Mz32zK7hfvxY00bdDuEmXH7G99vgtCXl0LTJFwV2N0Wbpjq
-    OI2tTad1ZktaIYRjIQBKgGnXcfzfeC030pJM0P7oupUqajMNZBTNBuaF3SVQ
-X-ME-Proxy: <xmx:WsPramCSgVQjfz3zBmYCgdQw9gRLM8-dLODCBCuAJURWOY9Zollg4Q>
-    <xmx:WsPralvarcWoQh95dhRMxz6_syqgll5p2knZdi55xL9p6RObb2Hxrw>
-    <xmx:WsPras9CgrJOw8aLHkfoXgn6HQ_6d5Oz2dUaghYReGFD64QSct_R1A>
-    <xmx:WsPrakSrbsAgb7IyuPl0CPzKgKGBtYYdkwf0_YPT7aKc0J9mcr4bfg>
-    <xmx:WsPralNawoNkqGZ8fgkJ5IjOXFk5sBTNKaLgpnDelKRjXm2U-FrOUyYw>
-Feedback-ID: ieb4144f1:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 0EB7A2CC0083; Wed,  4 Nov 2026 18:44:26 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRV9Kd1r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2E91F000C1;
+	Wed,  4 Nov 2026 23:44:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793835882;
+	bh=dm6QP+G8YaY/c3dC6XOZVyZ2/2/A8/3XTwxU4Pcnwos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GRV9Kd1rEsEfAQ2Kfe2peTMHKixUpD0Ori31y5YzsqVoT4P2WLRH8rnVhNC6Xyk29
+	 v6YIsfMvm/ZB4AdasbzkGk8QeG1n7W3FFSBj0vTFTxDUI4Jn+C4xvtWVkA71egVeh8
+	 kib0ml8hASIq675H42fflpQcJztCXuhT0MJkLTYefQwkvflVfmLiL6+2boJHVzz5u6
+	 MEDv0up8aG8FnSD761ItpDhTkIUoqdbf6aoIeKigx3ebZ1K8jYGEQm7OKgVkL2EGiC
+	 GvMjcMhD5x5QQpuWNl0O2h1olz7by54ZkT/UDQxQ0+Jyk/pwzbDp03XilCFqkvAPO6
+	 iiKGUc92HI91Q==
+Date: Wed, 4 Nov 2026 23:44:37 +0000
+From: Conor Dooley <conor@kernel.org>
+To: joseph@telaak.dev
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: phy: Add Siflower SF19A2890 USB 2.0 PHY
+Message-ID: <20261104-unscented-armory-4dc756ab95cb@spud>
+References: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
+ <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,26 +65,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 04 Nov 2026 18:44:05 -0500
-From: "John Ericson" <mail@johnericson.me>
-To: jkoolstra@xs4all.nl
-Cc: amir73il@gmail.com, brauner@kernel.org, cyphar@cyphar.com,
- gregkh@linuxfoundation.org, jack@suse.cz, jlayton@kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, neil@brown.name,
- shakeel.butt@linux.dev, tj@kernel.org, viro@zeniv.linux.org.uk
-Message-Id: <4cd50893-5d70-4a2d-bdf8-63d3913fd398@app.fastmail.com>
-In-Reply-To: <20261024213539.1307600-1-jkoolstra@xs4all.nl>
-Subject: Re: [PATCH v8 00/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="A3EGkJjMaBMSuLcm"
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev>
 
-Hi,
+--A3EGkJjMaBMSuLcm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I am chiming in belatedly, I see, after the concept is well-approved.
-But I just wanted to add anyway that that this would be great for Nix.
-See https://github.com/NixOS/nix/pull/15244#discussion_r4474714305
-where I was just happy to first learn that this was in flight.
+On Wed, Nov 04, 2026 at 02:21:52AM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
+>=20
+> The USB 2.0 PHY of the Siflower SF19A2890 serves its DWC2 controller.
+> It takes a reference clock and two resets, power-on and PHY, from the
+> USB block's clock and reset manager.
+>=20
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../bindings/phy/siflower,sf19a2890-usb-phy.yaml   | 58 ++++++++++++++++=
+++++++
+>  1 file changed, 58 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/phy/siflower,sf19a2890-usb=
+-phy.yaml b/Documentation/devicetree/bindings/phy/siflower,sf19a2890-usb-ph=
+y.yaml
+> new file mode 100644
+> index 000000000..77b8e35d8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/siflower,sf19a2890-usb-phy.ya=
+ml
+> @@ -0,0 +1,58 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/siflower,sf19a2890-usb-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Siflower SF19A2890 USB 2.0 PHY
+> +
+> +maintainers:
+> +  - Joseph Telaak <joseph@telaak.dev>
+> +
+> +description:
+> +  The USB 2.0 PHY of the Siflower SF19A2890, used by its DWC2 controller.
+> +
+> +properties:
+> +  compatible:
+> +    const: siflower,sf19a2890-usb-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: PHY reference clock
+> +
+> +  resets:
+> +    items:
+> +      - description: power-on reset
+> +      - description: PHY reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: por
+> +      - const: phy
+> +
+> +  "#phy-cells":
+> +    const: 0
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - resets
+> +  - reset-names
+> +  - "#phy-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    usb-phy@19e0c040 {
+> +        compatible =3D "siflower,sf19a2890-usb-phy";
+> +        reg =3D <0x19e0c040 0x60>;
 
-Cheers, and good luck getting it across the finish line,
+That's a weird offset and size.
+What lies in the regions around this device?
 
-John
+> +        clocks =3D <&usb_crm 2>;
+> +        resets =3D <&usb_crm 1>, <&usb_crm 2>;
+> +        reset-names =3D "por", "phy";
+> +        #phy-cells =3D <0>;
+> +    };
+>=20
+> --=20
+> Git-155)
+>=20
+>=20
+
+--A3EGkJjMaBMSuLcm
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvDZQAKCRB4tDGHoIJi
+0go4AP9IBByfY+ZrsMHhRJn/BNGZDtuBmhwUV9BLaN5/9qNPCAEAkk741BcvYirR
+jopiYYHvRgcXyohEzT8v2FZsEeU13gc=
+=X0p7
+-----END PGP SIGNATURE-----
+
+--A3EGkJjMaBMSuLcm--
