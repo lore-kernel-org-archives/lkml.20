@@ -1,115 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785368;
-	b=3DavsEViFDo3yMD0XZrx3CBkMF/RvAL+fSvyIsgVyLn8hB5Ffx8fqFX7Bjv8CWE4H8WQ
-	 mAUVQQa6if9E0wtLBcGsAKV7+ZYI/LWA3eIlUX/XWxQd08vByrUYLwUshNvLDrLeESNCn
-	 KHA6cMP7SRUl7NXhOORLV4GlrY8oHfSkPdbquUUkNzQSyBYrjmDj598Iosi8yjzQRWZBD
-	 1A4E3syAEaVjLdupCKCJobkcnXLlMWd5Yb9KSOUEwnkpfprzEDszjRwm/mWs3stVAE7vy
-	 cOoMmQYV1YhpPubHxUm/UYj4X/RbT+TD6AF4QbYuEvX3XZZHYNfAvfZGbB2L20wOiBA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785368;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MZsEByVFetaWVfcIa8bmUSPeNNMI6WT6JYcjMZoscw0=;
-	b=JLR8lwatyaLciFILqzD8DUg8Q+i4PfYhcA7EGpiZGw80bxAdoI1jMj3ZxqBLm1sJC8qq
-	 Q1L4xIdk1VEFYtXwg5PIAm9KhsynYaLE5KBkzOkwMkX29HRB++C5tLXDX3hafeORGyAIc
-	 Ecq+zfCmeSivF7WOqwIuHgk38+so3phsX5D1PUYxZPBNsQWw8IRMFslqXNEleaogtk6aX
-	 9TKzqUXN4Bz30cJdg6p8W+YtaOz0WCGSpqNNJLAetTggAoZ/M5l083y+vn6hbChuSpoUn
-	 AH5mAcuv4pcfLvsVe1rfuB+CiVjT1dxFjYk6xSQnw2nMvU2+mgekoVHp4r8RsYmSu5w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aXJafjbT;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VLcMq8w7;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793785379;
+	b=dcpL3MWeuzOS8LZ1gDZVikwIXAcHofUtB++Bz/htDDs9cpz/PYKy/rnSVgwUa2D76IRS
+	 nQRIluR66xZ+kAz15sQNx0jJBWNoCu3cBi+3FhN9EDFJsZBNEKRgFDyOKr/SUM6+EemSH
+	 2alKq6SEqrDCIIQEV1u1hBsXaojI5CwxUAfkOd/IXS8yBvUp9ciuGhHAjTbfr5D0bwmi3
+	 OH5u8/Oa0XOB0UvdXdssgFbjDU2Ot4E6GIVC2QWHgQQjLDMcHDMMGWtPjfpOyPWqkwPms
+	 w0mTJYCjtw0r3uniFihVam/7QwD85bj4PWM8HJlAq06650u2KsLY27HcpfrRhgP93tw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785379;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
+	b=0TjnscymCigAWs2FrElIPtJqOrEeT8pKkOGBw0uY0KxZmM9W3X7iXIdswXVkfZ/Dn6cO
+	 Qo4jinP9afu7abWtwK+LXniW3CtmJck07hOMsIQf4sztsAUmctUy18n9OHiPtJEY6hzaF
+	 Oy4hWdpF8uXivcNRA/21ySOnk1gG7HOj17DFGDA5JY0EsgRNVg+3mFEneY9DIAqo7CSkc
+	 VqjiQkBh6mna1v7Km/LQTN+K9MNTLpPGHacUg57m9AyxtLxYJ9gavJorT58lAd6PTafw/
+	 MsAkSqS3fwBsdFHIy/cFVOsl8N90vAiJ74XKOd8FElKE8/BUeyHqb9x/TwVS5t4nRYg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyOU2HOu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE8F606A32D;
+	Wed,  4 Nov 2026 09:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyOU2HOu
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793785378;
+	b=0f/RMo1CuCXB0nldvUsfiJ2C39ZsLz8PyO0X21Ojh9GIgqbWSTdoRBPDSW+TdzjBJakp
+	 bGhbcPJ2DrEGcKIzfq9t5vimmQi2eOg9FNaUar9Yrl3asj70G/nTyq9py9ADmrufHy6PG
+	 gJlECU60cAEW81hSGxOYXI6n8sywHXnyRcA+HG/WxfYS1bVw90gWAGvv9xaKE3RXT4AMl
+	 a4K3cOFsAQstKAP2UqOg9pWbzYIEcpikpDmycVnRjQrWCU7bl5UinO0gH+iTcVKHuVmra
+	 zOL13sUOwmlnrMyu/gbbHD40Ek8XZAPTB8NoR3oDLXQCAvCyoZa8DSZsHqdytzPy48A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793785378;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
+	b=SSJ0lfMsgoNfkOv0sz8h3FXcb4NKpEWR7mq4oTsxNXAYWW5fRXameS+b8yUwK3s+MHvc
+	 k0Gv1P9K0U2SjjeM12r2WCaLMH7yFVvnqPDF6bqCSKTRX+Ri7cMmLDn3prLCCxlcZY7Yr
+	 RVuQrPt7WFAY7EbOio72TfxRqbXHYD00ynPdYrfWMg0Ra3WCq56brh2gdkYPHYVTeLsHW
+	 cyShmZF/Evt+63uooOd2Ojfgc0EqKcBThdSGwgTDTZlO+vSjp33E4pinY24E7zBahOQSK
+	 zojNopBNO5eMKpKFlcGWzp//YBcYHU/ESPwWLTGzzrgEKEGHj9npyn0Osm0aWqdfs9A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35036606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35036606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aXJafjbT;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VLcMq8w7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793785367;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MZsEByVFetaWVfcIa8bmUSPeNNMI6WT6JYcjMZoscw0=;
-	b=aXJafjbT7H4OqzEMgsF1+yzcsgWy5doA494RWx0/MZN6rVyZ627kSbteQzoUbj1LGKZ1ZB
-	GyMK1Yyc3d3QNeqs77H49a6hGNntABHrQgH0SIPrcbz4rc2R14r9Un/NhOuTm5cyKMos3I
-	84AWRdkaSXPh0VwF0daByu3xyY8UjXw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-317-P72op14hPCiEmrL8F02vWA-1; Wed, 04 Nov 2026 04:42:45 -0500
-X-MC-Unique: P72op14hPCiEmrL8F02vWA-1
-X-Mimecast-MFC-AGG-ID: P72op14hPCiEmrL8F02vWA_1793785365
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a9d51dc486so10312185e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:42:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793785365; x=1794390165; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MZsEByVFetaWVfcIa8bmUSPeNNMI6WT6JYcjMZoscw0=;
-        b=VLcMq8w7NjA2seEl+JweYwYbf3dFqMh5ATN+rXrN1ocdvXoR+o9tOUiTCIf1sDgJbe
-         0ZLgwNVv+cM4P7T8o/rWL90k7KUO96QvBSkJMsHsSzy+s/QKEx5p05PXiR9E7Hzb02j8
-         0cZA7Fx4oe8weJJy6MLMtw46lzRnGNYN8rv86oQZnVVCe1FN/V6Dv6Bdm/W+SLwOfyHs
-         6dwvyDNHpBSyPgZM1yyKhaxbzOsMJ34b/A4gqpBqDFYeffHXvEgxLH4IjGeNqHHs6R7/
-         JdzxUOJ7bQaIxaRllZtcdFynh/cugCIMqnXB/ZUyCmDN4ujkN+EULfjHwJfardfLm9wp
-         QzYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793785365; x=1794390165;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MZsEByVFetaWVfcIa8bmUSPeNNMI6WT6JYcjMZoscw0=;
-        b=FkN/MoEO0Is4NxLisHUdozVn7/N+AYeh2P3s/DGcbYZv0jml+/D942kiuAWhSc0P3D
-         /LvTtTBz3Bbp+UbEA0c3aYOABCz2yMvsNDllJ1q6g3oT+HmKWxY9JhFpa1CNv5/XzEV9
-         f/3QeoIDHMnfe80Lnbh6PvrT3Zr7HsMZlTJEJMCT5qjq9TKVS7HMqgj1znlM7s2sTWeF
-         wW/qkTaIBW4hwe1I+T4p6EXeluAyw4JZFh5D+Dd329E7ricWWWM4vM4J73U/5aaWuvVf
-         XMfjtsZR2CV7qv0XXw2+doSLQo4YvcZSYvfgRY0AwMpISnFyGWu6LvqOrnKG6ae4Fr8g
-         pPcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsySm+/j5/cmiPISvE1x4bKX8f2eSbsx1awt6NX51rEiCHgZrjNbb5aYdqyTe9O+JG2pQIB+anfxp1paw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pCfKM0DOwo+XDSRRzr6QBIke4LENappLNXegTzaVHpwCF/DkW
-	Vd12DOMpKe2y4TJfwq9YWsxhvgBqklAZ5tpWI39Z6tVe/2ewReVnQffijbCZdqWAdYM9kDI8isa
-	o8JjsGv4mrYrNnL2J/Wxs9XB7PWQVHpUFOvm47Tcd28HVPUrKiMi9eLlTG7+rE2QV3g==
-X-Gm-Gg: AYBFou0YDanTsDB5JOTpHnky7x7KjGhWcI7kHkJN52G8lqo3d0AT91Zv3Y7PFBql1Od
-	YfQqfQ6J6Ij3j9ETfTTD2ejR84foAqI13mqNRPwZXcSABzNEzmjhI3Unk93QsfKxWHjC09inESc
-	5R7+g4An+xpevLGQ7xMNich5T6AQ+A89Fbo+yXdGc4dOKiJIf11cidfPbQ8JstBuWkzUUBUKmTN
-	IPzMzrk6/Aa/Ko+FPkh6aP6DKHhw9+5i1gWbq5bZAMGVcZatn+PbwwBaP2AcgXZSOmixayGqZbT
-	g0yS9ft10z2k0ex4rd2sCbi9NF271rdIhS96CFZsZEaSkioawwfbpMzN5U+9l92yhHdRwL7Wr1P
-	wCqU0r8wvqooZ0FBnfIZxy8H32vCdsulqiocmvR10dnjs18+Fn5Pg
-X-Received: by 2002:a05:600c:37c8:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4ac16acd93cmr363922285e9.6.1793785364752;
-        Wed, 04 Nov 2026 01:42:44 -0800 (PST)
-X-Received: by 2002:a05:600c:37c8:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4ac16acd93cmr363921935e9.6.1793785364240;
-        Wed, 04 Nov 2026 01:42:44 -0800 (PST)
-Received: from sgarzare-redhat ([80.116.143.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9faff90sm144133585e9.5.2026.11.04.01.42.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:42:43 -0800 (PST)
-Date: Wed, 4 Nov 2026 10:42:39 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	Bobby Eshleman <bobby.eshleman@bytedance.com>, "David S . Miller" <davem@davemloft.net>, 
-	Will Deacon <will@kernel.org>, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] vhost/vsock: size receive SKBs from declared
- payload
-Message-ID: <aur96eHKMVO5zMml@sgarzare-redhat>
-References: <20261004235101.1464007-1-4ncienth@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 7B6CE1F00A16;
+	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793785378;
+	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=YyOU2HOuWxksK/VM+JYCjj8GgC3NmpSgveHx8Z++PFBGD/Po7FJpIeCAxuda8Y8rR
+	 35U3IuccZD0lKEi2qoJbyJm9GMhb1USbfYWosGBb8jiTT+LL7qgiEPN+3sXqnawKpP
+	 xjb2qu2HRuaxityzZcwy/z7lX917C8tSLUEYxEJ0JOwpCH45QBdvcUvEqhWYpS1qiQ
+	 fsh7wsPU0IWTNqm5vEuqhDDmtwWp9vY7LgaY5fJfqL3QM7TKE6SDdIy1+cG0J7OHt2
+	 e2LHmifGNd6hrV9wOTx1Ti4vPC1zMybXgTOFmrax/yEl7/8HoYjmgLWoya00u8WuaR
+	 E3JIn+uewxAdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 03E9646D85;
+	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
+From: Babis Danias via B4 Relay <devnull+b.danias.tutamail.com@kernel.org>
+Date: Wed, 04 Nov 2026 11:42:49 +0200
+Subject: [PATCH 3/3] media: i2c: ov8856: Power off the sensor during system
+ suspend
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,41 +83,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261004235101.1464007-1-4ncienth@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
+References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Serin Yeh <serin.yeh@intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Babis Danias <b.danias@tutamail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793785376; l=2806;
+ i=b.danias@tutamail.com; s=20261103; h=from:subject:message-id;
+ bh=D6TzCaSHwO5sxfGpSVeAfyeQYpOZbznZnsTWQvfOylA=;
+ b=RaX+DSEFW0zQSOLC+4Irzx1Rw9oIY89rIlVs810BM1jeOii2AqSXcbpcaJcKLy6AviB3b1Sd5
+ ItiBQ2Jm82EA5myR/D/Lq7D0r/+A5uGsqms2TaXMz1eXkbmzvbn04JC
+X-Developer-Key: i=b.danias@tutamail.com; a=ed25519;
+ pk=6DWeigdk0D3JwBjwvmxo9RW8cG8S1Eku42cb9PP+ghk=
+X-Endpoint-Received: by B4 Relay for b.danias@tutamail.com/20261103 with
+ auth_id=1406
+X-Original-From: Babis Danias <b.danias@tutamail.com>
+Reply-To: b.danias@tutamail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 08:51:01AM +0900, Daehyeon Ko wrote:
->vhost_vsock_alloc_skb() sizes the skb from iov_length(), the total guest
->descriptor length.  virtio_transport_inc_rx_pkt() instead adds hdr->len to
->rx_bytes and buf_used, and budgets each queued skb as SKB_TRUESIZE(0).  The
->guest controls the descriptor length and hdr->len independently.
->
->A guest can therefore provide a 64 KiB descriptor while declaring a zero
->payload.  The descriptor-sized skb remains queued, rx_bytes and buf_used
->remain unchanged, and only the fixed queue-entry budget limits retention.
->This is not a lifetime leak: the skb is freed when dequeued or at socket
->teardown.  Repeating this across connections can nevertheless exhaust host
->memory.  On Linux v7.2, 455 such descriptors retained 30,255,680 bytes for
->a 262,144-byte receive buffer; a full-payload control retained 265,984
->bytes.
->
->Vhost previously read hdr->len and allocated pkt->buf from that value.  The
->conversion from virtio_vsock_pkt to sk_buff instead allocated receive skbs
->from the descriptor length, introducing the allocation-accounting mismatch.
->
->Copy the header into a stack object and validate hdr->len before allocating
->the skb.  Size the allocation as sizeof(hdr) + payload_len so descriptor
->capacity no longer determines queued memory.  Check payload_len against
->len - sizeof(hdr) to avoid addition overflow on 32-bit hosts.
->
->Fixes: 71dc9ec9ac7d ("virtio/vsock: replace virtio_vsock_pkt with sk_buff")
->Cc: stable@vger.kernel.org
->Assisted-by: LLM
->Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
->---
+From: Babis Danias <b.danias@tutamail.com>
 
-Oooops, I missed this, LGTM, thanks for the fix!
+On a Dell Latitude 7320 Detachable, the rear OV8856 stays powered for
+the whole of s2idle once the dw9714 VCM driver is bound, even with the
+camera idle. Tracing a 20 second suspend shows the sensor's clock and
+regulators enabled about 0.5 s after "PM: suspend entry", and disabled
+only just before "PM: suspend exit". Without the VCM driver bound, they
+stay off.
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+ipu-bridge links the VCM to the sensor with a runtime PM device link,
+which makes the sensor a supplier of the VCM. The dw9714 driver has
+system sleep callbacks, so the VCM can't use direct-complete, and
+dpm_clear_superiors_direct_complete() then clears direct_complete for
+the sensor as well. The sensor goes through the full system suspend
+path, where acpi_subsys_suspend() runtime-resumes it before calling the
+driver's suspend callback. But ov8856 has had no system sleep callbacks
+since commit 19ae6ba57f88 ("media: i2c: ov8856: Drop system suspend and
+resume handlers"), so nothing powers the sensor off again.
+
+This matters since commit 609a71568664 ("media: i2c: ov8856 : remove
+ACPI node bypass mechanism") made the runtime PM callbacks control the
+sensor's power on ACPI systems.
+
+Use DEFINE_RUNTIME_DEV_PM_OPS(), so that pm_runtime_force_suspend()
+powers the sensor off during system suspend, and
+pm_runtime_force_resume() powers it on again only if it was in use. With
+this, the sensor is off for the whole suspend. It is still powered up
+for a few milliseconds at suspend entry, by acpi_subsys_suspend().
+
+The problem was found, and this patch written, with the help of an AI
+coding assistant (Claude Opus 5.5). See the cover letter for details.
+
+Fixes: 609a71568664 ("media: i2c: ov8856 : remove ACPI node bypass mechanism")
+Cc: stable@vger.kernel.org
+Signed-off-by: Babis Danias <b.danias@tutamail.com>
+---
+ drivers/media/i2c/ov8856.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+index f9bcdd412..848e981ff 100644
+--- a/drivers/media/i2c/ov8856.c
++++ b/drivers/media/i2c/ov8856.c
+@@ -2462,9 +2462,8 @@ static int ov8856_probe(struct i2c_client *client)
+ 	return ret;
+ }
+ 
+-static const struct dev_pm_ops ov8856_pm_ops = {
+-	SET_RUNTIME_PM_OPS(ov8856_power_off, ov8856_power_on, NULL)
+-};
++static DEFINE_RUNTIME_DEV_PM_OPS(ov8856_pm_ops, ov8856_power_off,
++				 ov8856_power_on, NULL);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id ov8856_acpi_ids[] = {
+@@ -2484,7 +2483,7 @@ MODULE_DEVICE_TABLE(of, ov8856_of_match);
+ static struct i2c_driver ov8856_i2c_driver = {
+ 	.driver = {
+ 		.name = "ov8856",
+-		.pm = &ov8856_pm_ops,
++		.pm = pm_ptr(&ov8856_pm_ops),
+ 		.acpi_match_table = ACPI_PTR(ov8856_acpi_ids),
+ 		.of_match_table = ov8856_of_match,
+ 	},
+
+-- 
+2.56.0
+
 
