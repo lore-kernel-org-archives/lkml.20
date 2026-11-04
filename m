@@ -1,56 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812071;
-	b=fvM9SW91rN2RUdHrEtepFfTky2ih6PhfWNNtNeZ7FgHmIRvdmx6atKRK2IgasTWtZjXb
-	 tXVxAYMP/ggOBen47x38/du7w/BWfWW2l+Se+s9ObdPGnk8+Hmt8KSQ/2s/uRrKfVnNLC
-	 r8PpnEwbYwLqLRBC//7WBddjXQ+DFkGDDdOR+nfM0+SdSiYfF6WL3dHnGiD7v2txEnRA/
-	 wIXk7wXXS+Qu5pfJuPOzwBq6GwM+yvCZWYN6wGTYfGphke9IBIjAl+Y7dlqeYNTp9xTEh
-	 2ngf5YDUF5vUqzOi9ZuF5FFh84Sbx6srqjT2K1o4BuhWqav+sxTfeJaTlL7ozfo8WGQ==
+	t=1793812104;
+	b=AFWybBOVCbIFHGFTO9yX16msq7/YVQe4I7egcVlUenFJuGY643VGZm3yeyQKwUmzsLoR
+	 Du3so27Kjc5xRXNZqHpiryRF3xyyzGWQbT8Z2Cupbe9xn+H9nl92PBRIAqtdgiSOUTMN/
+	 +LFAQEuNNBB5sDiaMO6tkrFd6ajx+R3o9d1S+ZDd1GJHxWkPGnZZfX5qlj3UYrunwOHr+
+	 iC/QmpPuqHPD8uISrQvKpkHj0rgP3DUIgtzQWID6u1RngQqMlVdRn3at9G2lotxTBpt08
+	 SdlctDowiSODkObt4yJ951tBWlDBvFw8thrGTP3l5DXry/Ei8oOZ0MDBFmfsEzzt3OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812071;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:From:
-	 Subject:Cc:X-Mailer:References:In-Reply-To:
-	 X-Last-TLS-Session-Version;
-	bh=XGTKa+A0EJ4L1pLNTThftimEUnixWjJ49siVoGkapLY=;
-	b=dy4JsGcXmi/U8cEWXy4uyaY6RHZxKd+Do4D60YryxctJK0E688W5o2mwUyJ0tEX7A0nd
-	 BiBzyAIR+uzgiEtaj/vDzUHtUse2uWRutB89+ll9BZC5xEhYdEg1d3CvB93FqUnWJCZYN
-	 ZHrxH9L0eb2t2NlK/8vdkJ2rm1TCqHBUD7/m57V5ikNXOfnWRI4jW5+Dyei3Jzlaii3Zo
-	 Dyv+ZdtvBdOI5IvlwRiDqhNiPjZvDHVWEz+vpwvUcw3tIqtdadL9QoUjJWxANZ9cf7/5X
-	 Sn4iDhcKRc6WnjGuvcdSAVzv88qJvdnvBTli5mQF5tLuwHV0sPQPL7tHVV5wl/OQQig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Cd/4uVL9g1Nhrnk0AsW+3azM4Op/nEC3bPpOibZ+Gdk=;
+	b=cjRBE+cIcdzVyfLj0uMghAZvUpm9eHqd+Xtog6LojUElKO1a9+KfPqzx3rmkWQo0WFn7
+	 m0ez/P+53IiZNumzlOMgCU3Kr/p7Q3W7PqIkJb7VRbWWyMjSmpWSR1I0+4Ei6JGRAaWBj
+	 Z007JEKcdCTfL2BiZsTiWDXz1sfN3vZYKiDAp5NDChtMzURtuVzs8w2tbjyNy4YArR5/Y
+	 CSfx3LK2yFwNvyFtofWn5kZG6VEPOeE9Pw6eJ4cZfL6Fq5dma/i8ldWVe5+R+MWe34//C
+	 /5gaRX8cl1sNTd9n91JnbQLpfiJbrFLu+dVpzTsb7oXmyvvlJc2YRY+TgV7LDoSUsmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kpW9EzxD;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=eGRuSzim;
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2193606A31B;
-	Wed,  4 Nov 2026 17:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2193606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0991606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0991606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kpW9EzxD
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 54F1E4E4140B;
-	Wed,  4 Nov 2026 17:07:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1EBE760772;
-	Wed,  4 Nov 2026 17:07:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 82B7610329251;
-	Wed,  4 Nov 2026 18:07:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793812059; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=XGTKa+A0EJ4L1pLNTThftimEUnixWjJ49siVoGkapLY=;
-	b=kpW9EzxDmdwtKwJxISj/gutIXqyN7MmDRignbWZN1ektWTrrUIPrzso7gUlAIzRlYfmlqW
-	wBKlXNUQhCfopQRniPYcBz+T3i6olaSdwJWoGYq/d1bCvLPhFP25igvjueEGcFOAbK2C+g
-	lOlAG7F4VENL7Shxg3rR1VCK0QcwJEj51ZVM4g87fG/ThwFB2lU6YrCm+VpFntbpEluzhB
-	BIvWkeRvI9t8CN65COyeHnV708XPaCXT8itYVl+McadgV2i2dutDVKHVPTlYkR75obUlkZ
-	aOVlJuGAspv0NyRdMHKWaxq4ALVvic2JukDp9T7B6la1y8qyGG6ZYjuBUnDOVA==
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=eGRuSzim
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93cc1ab5f6cso107202285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:08:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793812097; x=1794416897; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Cd/4uVL9g1Nhrnk0AsW+3azM4Op/nEC3bPpOibZ+Gdk=;
+        b=eGRuSzimVkRdthVIwZ8j4V5/X1jU2H86/SOE6oD6/Q7NP4cLiSqGfJgp7mTdA8poXQ
+         Ts8BLSn06r486J2kiI3LSH2Su7b7ls9A7Xd9I4I/5dgh7f99Vftn1ES0gg+KDm5HAu3m
+         8qhGzCV9GbR6gt+jqkZJdyvBGGVnepD7TLWBpWnWovNEPiKSh9jtwTPXzFEUmU2s5ynn
+         bgHm8kXq77T/HGgjG6aK4vEYlDsp29ORryNE8bv5wmogxGrWwLnqHfJKYZ61HgXLfO+U
+         bsKNswZ80FHq12CBn1lO1iQEpBkx8eF0adXetWs1C2BDIRRqw4Rb/pLyja83jYGYb5wc
+         117Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793812097; x=1794416897;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cd/4uVL9g1Nhrnk0AsW+3azM4Op/nEC3bPpOibZ+Gdk=;
+        b=XOPdBrO0Uf0XrAeOG0dsVRgxg6h84s5qDACEE6DzN5G/OHmT5C3ri6wd+RVbnRkb1e
+         dgsm4wFKSGVi+KluHdwLxKR+cn1X3dgog1PIsxhoQ6dCXqvFglJ48SoaNpGNYljXPW8k
+         7CGHzcu4VdD9WxZbde9JqnoWMaTToDmLNshntzvjCGh/8OowSfAiaffg4Sw9Yk4TrWgz
+         EPLVh9d21GsK0Q6LVP2osW3UhzTemjs+Eu8xZG+XebjJBuP1sucma3S+hOWAzmUX8ock
+         3wa877gWWhwhRn2Kd14tRrQ9gAOC+2gbnWlN8BIzl6GnpMCbNzybi43gTWyEpdR19J5A
+         8kaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqtLSQunooq82Kvs1eJaaksm65dqYTf3U91zsOJ2i4ICs4fV9YUpnSV0pkoBYKGLdouuaDijiA9O7Pj6U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99IQd7PENqz7n5TvigmlpZP4wPspFBFHTHYX73+hsND51MMcmB
+	IBcvmSYci9QDtgR4+fNXQTGKnymBsxpP0KY+I0rcHd0IxmOVf/DWDcLq2HIZeCBdrN0=
+X-Gm-Gg: AYBFou3f3miQI7adXQRFIVThVDIfEDp6A12t/eEnirDx7iSTEM6sfqWnMk8i/rIObPO
+	DrBP1kf1RtwoopF4h+lkj3Wa9rs9ZIobxhoAS8uTY7E9pGykAyKCUx8lu79tKuqnUB86R+jtEG7
+	JfVBT4zZ7WLXGguZqHeRlLEyvT67hIRrFpV0At6AEt0V0e51jc1hCcKKxkcD5e9C30RhUDrO36I
+	zX7J8zhO12Ay6HWhNor1uytBcndwx31uaEFZ7RC1aAnk+ql5W0xYaFoA2aT4SZklYNFsJezMhGv
+	BexiQQ5wcIZ+/r8g09l8vrX3ZdH9vZcAMrkwAxsLvtyTERsXCg/MX2vrgLiqeGTfLS41pAs4YkN
+	8t3lvbPf6z3+cixGxdbI6cPzyxoDyL5ToNa06k5Ar2ta4xDQ/PvPnERx/wNDQEV5e1Q5rY1NMQz
+	hL4NaSvjjMZZDn9H2vQNam0dfwxOZM2bTqhRBDHBYgAVh2mlC7CyAL5jxN57b6tYvhWwaVG4CN9
+	WquycddbkN21KvDJ5WOHEU6G/1Eh2wKIq9AVBctMcQRHrTCYKFauburO04Aq96RfJSTGOor8Z7f
+	n2fmnrC1NJhLTul/V/nipa9vrdah6WDAA1gAd5grcLZxSESK5AJmQWey2OkoOl95GMQepOzMtky
+	xRdRFSkjESw==
+X-Received: by 2002:a05:620a:4014:b0:944:dbd:831b with SMTP id af79cd13be357-944216dbfc3mr2925762185a.51.1793812097533;
+        Wed, 04 Nov 2026 09:08:17 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d482eb96sm247450485a.23.2026.11.04.09.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 09:08:16 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xOeTA-0000000GghE-1hbL;
+	Wed, 04 Nov 2026 13:08:16 -0400
+Date: Wed, 4 Nov 2026 13:08:16 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: Jacob Pan <jacob.pan@linux.microsoft.com>, iommu@lists.linux.dev,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Wei Liu <wei.liu@kernel.org>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+	linux-hyperv@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Mukesh Rathor <mukeshrathor@microsoft.com>,
+	John Starks <John.Starks@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <eahariha@linux.microsoft.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: Re: [PATCH RFC 1/9] iommu: Introduce external attach domain type
+Message-ID: <20261104170816.GS3889730@ziepe.ca>
+References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
+ <20260925190742.1575380-2-jacob.pan@linux.microsoft.com>
+ <atiakDqtuED2cTM5@google.com>
+ <20261026161003.00003b71@linux.microsoft.com>
+ <ausIn5Txiy1uRjkY@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,95 +120,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:07:11 +0100
-Message-Id: <DMMLAMPXDLC2.3SN65B5N7R4M5@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 02/35] drm/panel: remove the unused struct panel_bridge
-Cc: "Douglas Anderson" <dianders@chromium.org>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jyri
- Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Laurent
- Pinchart" <laurent.pinchart+renesas@ideasonboard.com>, "Tomi Valkeinen"
- <tomi.valkeinen+renesas@ideasonboard.com>, "Kieran Bingham"
- <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Biju
- Das" <biju.das.jz@bp.renesas.com>, "Linus Walleij" <linusw@kernel.org>,
- "Sandy Huang" <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, "Andy Yan" <andy.yan@rock-chips.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap"
- <rdunlap@infradead.org>, "Inki Dae" <inki.dae@samsung.com>, "Seung-Woo Kim"
- <sw0312.kim@samsung.com>, "Kyungmin Park" <kyungmin.park@samsung.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>,
- "Alison Wang" <alison.wang@nxp.com>, "Paul Kocialkowski"
- <paulk@sys-base.io>, "Yannick Fertre" <yannick.fertre@foss.st.com>,
- "Raphael Gallais-Pou" <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
- <philippe.cornu@foss.st.com>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Samuel
- Holland" <samuel@sholland.org>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Jagan Teki"
- <jagan@amarulasolutions.com>, "Ondrej Jirman" <megi@xff.cz>, "Javier
- Martinez Canillas" <javierm@redhat.com>, "Igor Reznichenko"
- <igor@reznichenko.net>, "Michael Walle" <mwalle@kernel.org>, "Dario
- Binacchi" <dario.binacchi@amarulasolutions.com>, "Jagan Teki"
- <jagan@edgeble.ai>, "Jianhua Lu" <lujianhua000@gmail.com>,
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, "Purism Kernel Team"
- <kernel@puri.sm>, "Jerry Han" <hanxu5@huaqin.corp-partner.google.com>,
- "Joel Selvaraj" <jo@jsfamily.in>, "Icenowy Zheng" <icenowy@aosc.io>,
- "Michael Trimarchi" <michael@amarulasolutions.com>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, "Casey Connolly" <casey.connolly@linaro.org>,
- "Michael Tretter" <m.tretter@pengutronix.de>, "Cristian Cozzolino"
- <cristian_ci@protonmail.com>, "Junjie Cao" <junjie.cao@linux.dev>, "Ryan
- Brue" <ryanbrue.dev@gmail.com>, "Nickolay Goppen" <setotau@mainlining.org>,
- "Stefan Mavrodiev" <stefan@olimex.com>, "Florian Fainelli"
- <florian.fainelli@broadcom.com>, "Broadcom internal kernel review list"
- <bcm-kernel-feedback-list@broadcom.com>, "Robert Chiras"
- <robert.chiras@nxp.com>, "Alexander Koskovich" <akoskovich@pm.me>, "Markuss
- Broks" <markuss.broks@gmail.com>, "Artur Weber" <aweber.kernel@gmail.com>,
- "David Heidelberg" <david@ixit.cz>, "Dzmitry Sankouski"
- <dsankouski@gmail.com>, "Yedaya Katsman" <yedaya.ka@gmail.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-mips@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-renesas-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-doc@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <linux-sunxi@lists.linux.dev>,
- <linux-tegra@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>
-X-Mailer: aerc 0.22.0
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-2-5e3070a3478f@oss.qualcomm.com>
- <179338130510.3009485.7743956655769667889.b4-review@b4>
-In-Reply-To: <179338130510.3009485.7743956655769667889.b4-review@b4>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ausIn5Txiy1uRjkY@google.com>
 
-On Fri Oct 30, 2026 at 6:28 PM CET, Luca Ceresoli wrote:
-> On Mon, 26 Oct 2026 13:09:51 +0200, Dmitry Baryshkov <dmitry.baryshkov@os=
-s.qualcomm.com> wrote:
->> The bridge is embedded into struct drm_panel now, nothing uses the
->> separate wrapper struct any more.
->
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Wed, Nov 04, 2026 at 10:27:43AM +0000, Mostafa Saleh wrote:
+> On Mon, Oct 26, 2026 at 04:10:03PM -0700, Jacob Pan wrote:
+> > Hi Mostafa,
+> > 
+> > On Wed, 21 Oct 2026 10:57:20 +0000
+> > Mostafa Saleh <smostafa@google.com> wrote:
+> > 
+> > > On Fri, Sep 25, 2026 at 12:07:34PM -0700, Jacob Pan wrote:
+> > > > Add IOMMU_DOMAIN_EXTERNAL for externally managed domains that move
+> > > > or attach devices to another VM address space provisioned by an
+> > > > external owner, such as a type 1 hypervisor.
+> > > > 
+> > > > This is not a paging domain and is not sysfs-selectable as a default
+> > > > domain type. It requires external owner context, such as a vIOMMU.
+> > > >   
+> > > 
+> > > Can't we use a IOMMU_DOMAIN_BLOCKED domain for that, AFAIU, the host
+> > > never inserts any mapping?
+> > Right, the host does not own or install any mappings.
+> > 
+> > The external domain type is nevertheless useful for two reasons:
+> > 
+> > 1. It allows the pvIOMMU driver's domain ops to do the MSHV & Xen attach
+> > and detach hypercalls 
+> > 2. It allows an externally managed device to leverage the normal IOMMUFD
+> > device-to-HWPT attachment interface: VFIO_DEVICE_ATTACH_IOMMUFD_PT
+> > No new ioctls.
+> > 
+> > It also makes the lifetime and ownership clear for IOMMUFD and
+> > hypervisor, the device can be returned back to host iommufd owned
+> > domains once detached.
+> > 
+> > In pKVM case, my understanding is that you have a emulated root SMMU
+> > which does not do hypercalls obviously. Then the external attach
+> > is done via an "out of tree uAPI through KVM/VFIO bridge IOCTLs that
+> > proxies those hypercalls."
+> > 
+> > Therefore, if we were to park the device in blocking domain while doing
+> > external attach (as you suggested), this requires a new PV only uAPI
+> > that must support pkvm, MSHV, and Xen. So it does not fit in the flow
+> > supported by PV IOMMU root driver.
+> 
+> I am not sure I understand this, how can the domain type change the
+> uAPI? can you please point to what breaks in the code if a blocking
+> domain was used?
 
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Yeah me too.. The plan for the CC side with TDX/RMM is to not have a
+S2 domain in the viommu side at all. It should not be uapi brealing in
+the sense that nothing using mshv viommu exists today.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+In mshv case the iommu drivers are telling the hypervisor what to do,
+so they have to effectively see a change in translation. But maybe
+this can be managed internally to the driver by annotating the
+blocking domain attachment?
+
+Jason
