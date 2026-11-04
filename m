@@ -1,70 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779336;
-	b=vq+x/O5usm9VhbvA8nViJSW+gsR4ZjknIxux3hpUy2uLj7UOd7ZIQD0XS2mtbiblwz/y
-	 5umExIP914/4OWTr99gk2shiwd5Kwv5i/o2xT3U8MdMRwHb9vDgg+CwEhjn2A2jhCti6N
-	 BdUzv0UO3ESsGl5nHa1pGQAuyZ6RepE+ZwR+K+ZetChbubRelKx90v5CgdHHWSSqoqLG2
-	 vj8vT1hySvD8P4HsMAEFnUHxP1KHkSlUpavgkMupGVtluUpRjNCvwK5p8ZztEiOqnLXwg
-	 HZMOCqIk+E+4cjsmQ9GaSWZJNbBPReahn6ZTlDapo/H5u7gD8nDNeG2l28jNs62lkUg==
+	t=1793779341;
+	b=LWeTOf4ZGZCbtJAMHygKVt+qQ8eCQOgbDLXj1eGPbzOfT1LKnPjrALCQ7NpuqQQWGHrK
+	 T56PJphcY/PEyvFWrZNU7WwRAOpe7FbRCKt5EOkYL+c6L66nc6Qx6SG5vTU0OCkvonU3Z
+	 IvTbCw/FkRSuieBzp8YUGt/OanKDoI7MAmSRdxHxiw1qH6dzmjJTHZVJWCSVBXSsyrVuX
+	 qmqhrO7vzcSL+n0zhnDg1NIW4e1dNIfNZGhD6Mw7dsjvo33KXUj+ZvCYr5KnRgJqZrLa3
+	 WKI2hMaprmN8n41YonnRak3NNJ6X32VnllmxHmgcuHfIHcMlWRxRtDtr9vllJTr0ndw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779341;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=lLRxe+WRL5Tt1qmEfe063UHbl97ZvSjHDmgU7Zlb114=;
-	b=ePLMeoolL/d0wnxWhAj2coHmMFz0q/JM52QehG2UbR4U4ymY2UeIyacDFITLBQFqEVDf
-	 muq+ut7KzpEbq88J7plcE4epovOLAvWkd2mAAqCx+mX7SjXeWHTEzeVAd1wNlCJXlLFp0
-	 QyX4NT0f7GuWGdlfl8L6zoRKUVWhG+vWF7jBjKGzdBXpG9Nlg9DDPIOTtjF9uZ+tRpQ5J
-	 ZhF8Y0dVZ+Irif4IIoiEe8JRZ//lvq9xHX8MHOYNEJNFjozpWIxqX3L9fNh7p++RdPRyK
-	 UfvfQR/oUytUly24SkhJ0x5lo9sY93Zt2bIREawJqs8NITKZEimWRa8vNS+H7ARWRLw==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=t8uP9Ly29iloNSXoPoKSZxb5cyB9+X0Nbm/O6FRZ1K8=;
+	b=fOhbtFgtjHeQsBuHpVoEZAlONdbOKa93FOEfZ6NNFfFfxuBXY2Yfz4esQAHtdtEY9z8+
+	 NpbqYqL+JHJT4T2WcJavJNbgZoctC0WzyLIWwI4Tur1f9B0u/U6fft1nN8Hgyhl89v7iS
+	 mOs/V+Lwbsmaz5GnegtjOraqhhvMtEwEP4OkR0M5WAeym2iXPaC7AeApdF/mBjot7joME
+	 AYvfNa3ox3vieSaXBuJtT4TIimE0FrmEjE7Fx1VG+8NfyjTE4dqmBvOQKB6naKm1Oth7b
+	 Q7DMQbwoSG7XLKR75yN6n75c8VTFzjOBDcr5oyYP/d0dxgPqz7XRLhrVQKAvO9OlonA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=packett.cool;
 	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=q4tf6nTD;
-	arc=none smtp.remote-ip=95.215.58.54
-Received: from mta1.migadu.com (out-54.mta1.migadu.com [95.215.58.54])
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=cSsaQ2ml;
+	arc=none smtp.remote-ip=91.218.175.202
+Received: from mta0.migadu.com (out-202.mta0.migadu.com [91.218.175.202])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABC5606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:02:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BABC5606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A38B606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A38B606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=q4tf6nTD
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=cSsaQ2ml
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yrO/dcuuSf7cIbw7Ajuoa3PoxR9KFe3FZf8RGEdAbUk=;
+DKIM-Signature: a=rsa-sha256; bh=ZlrHENQm7ZQStJytmobgsP2mX//JSNUxTzz4cjrG2JU=;
  c=simple/simple; d=packett.cool;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793779333; v=1; x=1794384133;
- b=q4tf6nTDwvOMi1q8W5irOS7aG7pQt+D3kqMFhHq++M/a6PbT3SIPIFvjZ8G7XVzO8LbJ8vZI
- E+BtEhFcHoWYgQW62cC9jyQk6GdS0+jpp3OCEhAQFV8SldxSixueETdOch1P5oH1ODxKvH5Shn2
- yllLRFo9NdBks7MLEt1M283uAS+Fuvzhz7oSMZYCNJULn8dybnPwatbC/Qmyhi7g6XJBBftkTt6
- 4CTMH2Okt+ejsvdWphRO0vHp1oLKb9qdUBbuIp/RDDJ2swcHzIlH8mfnbz5baB49Stcn5X4gIac
- IRZpTbz2Jr4D893RKbsrrO+720PmZAE0mnl8VZjC6/lnA==
+ t=1793779338; v=1; x=1794384138;
+ b=cSsaQ2ml9zSzb/3UkFLpUz/LAyJWdM/8EkI2w4iYup+fDE5UMmCm+cT2j0Yvr48Hf2inC1DZ
+ hkEVLInA3jD/Z40fBRsSAcJdgtscwupxrih4iYKBWGRoU50rtvc9M8iW/LRbW82eUu1NRapUYia
+ Jtg6/TY8jbTxDmQAIL12LOr6j9otWcMbGkh9IooglkpEQH3K037V3vHupEXJlNb2nj2ntPZUnnz
+ E0WdGhmEgLNCKhzqMPouFCWzUZvPd0IN3DE1lLG9A2XqN8753OMz4kwDQ2miOpVNN6B32i7DAFh
+ i4LcZUU0ATJYLAfAXM1N84FyFEXsIEqMFHTKJIo6Qh+yQ==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9f16b7435e8cfdb5;
-	Wed, 04 Nov 2026 08:02:12 +0000
-X-Mizu-Trace-ID: 9f16b7435e8cfdb5
+Received: by smtp.migadu.com with ESMTPS id 1f6a471c368c48bd;
+	Wed, 04 Nov 2026 08:02:18 +0000
+X-Mizu-Trace-ID: 1f6a471c368c48bd
 X-Migadu-Flow: FLOW_OUT
 From: Val Packett <val@packett.cool>
 To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Val Packett <val@packett.cool>,
 	Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-remoteproc@vger.kernel.org
-Subject: [PATCH v2 1/2] arm64: dts: qcom: sc8180x: Add SLPI remoteproc node
-Date: Wed,  4 Nov 2026 05:01:40 -0300
-Message-ID: <20261104080200.135431-1-val@packett.cool>
+Subject: [PATCH v2 2/2] remoteproc: qcom: pas: Add SC8180X SLPI compatible
+Date: Wed,  4 Nov 2026 05:01:41 -0300
+Message-ID: <20261104080200.135431-2-val@packett.cool>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104080200.135431-1-val@packett.cool>
+References: <20261104080200.135431-1-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,100 +79,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Sensors Low-Power Island remoteproc hosts the Sensor Hub firmware
-that Linux userspace (hexagonrpcd) can talk to.
-
-Describe the SLPI node for the SC8180X SoC.
+The SLPI on the SC8180X is identical to the one on SM8150, reuse the
+same data SM8150 (and SDM845) uses.
 
 Signed-off-by: Val Packett <val@packett.cool>
 ---
-v2: use single compatible and add it to the driver to match bindings
-v1: https://lore.kernel.org/all/20261104074200.123842-1-val@packett.cool/
+ drivers/remoteproc/qcom_q6v5_pas.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Forgor about committing and sending this while submitting the Surface
-Pro X series v1..
-
-Since this is independent and simple while that series is waiting for
-comments about the multi-PCIe situation, let's get this in first?
-
-Thanks,
-~val
----
- arch/arm64/boot/dts/qcom/sc8180x.dtsi | 61 +++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-index a85e3211958d..ee1a83a58997 100644
---- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-@@ -2259,6 +2259,67 @@ tcsr_mutex: hwlock@1f40000 {
- 			#hwlock-cells = <1>;
- 		};
- 
-+		remoteproc_slpi: remoteproc@2400000 {
-+			compatible = "qcom,sc8180x-slpi-pas";
-+			reg = <0x0 0x02400000 0x0 0x4040>;
-+
-+			interrupts-extended = <&intc GIC_SPI 494 IRQ_TYPE_EDGE_RISING>,
-+					      <&slpi_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
-+					      <&slpi_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
-+					      <&slpi_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-+					      <&slpi_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "wdog", "fatal", "ready",
-+					  "handover", "stop-ack";
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>;
-+			clock-names = "xo";
-+
-+			power-domains = <&rpmhpd SC8180X_LCX>,
-+					<&rpmhpd SC8180X_LMX>;
-+			power-domain-names = "lcx", "lmx";
-+
-+			qcom,qmp = <&aoss_qmp>;
-+
-+			qcom,smem-states = <&slpi_smp2p_out 0>;
-+			qcom,smem-state-names = "stop";
-+
-+			status = "disabled";
-+
-+			glink-edge {
-+				interrupts = <GIC_SPI 170 IRQ_TYPE_EDGE_RISING>;
-+				label = "dsps";
-+				qcom,remote-pid = <3>;
-+				mboxes = <&apss_shared 24>;
-+
-+				fastrpc {
-+					compatible = "qcom,fastrpc";
-+					qcom,glink-channels = "fastrpcglink-apps-dsp";
-+					label = "sdsp";
-+					qcom,non-secure-domain;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					compute-cb@1 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <1>;
-+						iommus = <&apps_smmu 0x05a1 0x0>;
-+					};
-+
-+					compute-cb@2 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <2>;
-+						iommus = <&apps_smmu 0x05a2 0x0>;
-+					};
-+
-+					compute-cb@3 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <3>;
-+						iommus = <&apps_smmu 0x05a3 0x0>;
-+					};
-+				};
-+			};
-+		};
-+
- 		gpu: gpu@2c00000 {
- 			compatible = "qcom,adreno-680.1", "qcom,adreno";
- 
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index cefbe8931407..775a522f6a3b 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -2042,6 +2042,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
+ 	{ .compatible = "qcom,sc8180x-adsp-pas", .data = &sm8150_adsp_resource },
+ 	{ .compatible = "qcom,sc8180x-cdsp-pas", .data = &sm8150_cdsp_resource },
+ 	{ .compatible = "qcom,sc8180x-mpss-pas", .data = &sc8180x_mpss_resource },
++	{ .compatible = "qcom,sc8180x-slpi-pas", .data = &sdm845_slpi_resource_init },
+ 	{ .compatible = "qcom,sc8280xp-adsp-pas", .data = &sm8250_adsp_resource },
+ 	{ .compatible = "qcom,sc8280xp-nsp0-pas", .data = &sc8280xp_nsp0_resource },
+ 	{ .compatible = "qcom,sc8280xp-nsp1-pas", .data = &sc8280xp_nsp1_resource },
 -- 
 2.56.0
 
