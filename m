@@ -1,92 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816925;
-	b=Lo/YdlP26M7UHAqvQfvGsuV+r3hQDFDzZZu3YVN3UYq/YszhK5FNVZHOweaRgKAKP2ta
-	 ojt5rhGzKtqEqTSsVFGPM4ThG8mAb9iJ9cV+yE0wTPQChBwjeliRogyCzvOy82zth3YPl
-	 kICNhY3MjD/VAbH+f3r8zcGTAqQIsA19dodYinA2bJ2iOcIGEbjIyrcEl1pZiA73mLdMT
-	 L/M4TWxy0XD8y65+Szooh41+UBJ9LqK6I656NdrzaFsu6OLyBstrD7WWsyQfbyqCHI9PU
-	 2tmCp/5/MYIrbu7KPDJH2xeM9qLh7wNuPdZRwPdQV/JYBVACRid3NXFJNH5OJA4uamQ==
+	t=1793816930;
+	b=0PorklmDreSfFBds+o8WCrl4IJcnw5MLwelgKJ93V632osZrQF/yjs36BfqytRZ7kp+u
+	 4V42O9cNZ+qP+jVIU1OSiIJ5Y3AHXqlsFOJVt8y+g6i3MrwDagYj0PQR4ng84EzT3C7Or
+	 /cyVYBEgyejEXAktaOLvkhSKv73Q6b3AvqHJ54MQmV79Ldw/isTSNHkwZt/N8ujL6gP5U
+	 r5GqJ61UN5XQgWeDaEUp08YrpQfukzdGxD2UbwAyWFMnhdznGTfT9y3jaePZ4ivoiVfub
+	 PVsmABnCEyovo/fw9dpGBMPfpbc9MT+I4l/cKjPVkxank3D93OgKuB8tWBXqqpL9rfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816930;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RmHpo3+pR2s5ML5HiGnTikUyVxsXw4licnGddfMA2fg=;
-	b=QTBKfH+aPTgvsi1yZW0IK4T+s3AbbDkrskL2HgbodUOq/iDsNvu9XhWdqWt12UIN78Wz
-	 PfAvzFfCu0gBEO/LquxPDymxJtvw/VaABMJfDD4Q1XFX3J4cIHe2GmjLS9FYQ4HoBliF8
-	 RGfg3Fl87k1eG7Zlzhqncam+f8LUoqXPC2RNnaA07YYuVBtqtBSivTIZtLjPZmLqJFHiE
-	 5CCBgQH5VTj+YVDVHhDRWagGVDWwRJinN04mqC9DWRfxIKl5f7n6j479+JCFIImuEsBgc
-	 F+SdCSePIa25DbNFLHKy3aGew/yIXJXYEUwAzTMxTnJXrCxLERXfsih1yq2LEIp08QQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZfV/MIPNusOwxGNpLw6806W5l7124cFpZSpiDn2muzo=;
+	b=lHezdeuuWa8hcEfWKrpkLCWuTI3Hv6BscFI/kCjO+N9wsjr0Hi//R/XceAWF0oD6nO0I
+	 XNtO4IkjX4V/LiC3Yo4UGUyi8mraPcj2+8lN7hE/Wk2Qqx7/F22jqbRwjOnOQ/um6OIG4
+	 8XcQcYawi2zuO1GO2HyrgZ1YE2JbW0lYloss7ibELEgS04kBm6gSuclHnfXpo4eTQ/e0a
+	 35kcz0Uc/UMAnIyVf5ShZz8uJoKD6TcCUA5QM9Px2UJkoQsLzjHRG8LuwZJX4fFtHspWc
+	 Dj/inwjsYkKIPi9+HAD7XHwhQqtoc6heFXzRryTV3SgYVPjU4kZ+AKNHKrseJQc9SXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bnhuRls2;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKijh+zr;
+	arc=none smtp.remote-ip=74.125.224.138
+Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD2F606A32E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:28:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAD2F606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E16606A8D2
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:28:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1E16606A8D2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bnhuRls2
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36cedf1bd63so1084805eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:28:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKijh+zr
+Received: by mail-yx2-f10.google.com with SMTP id 00721157ae682-8b2ff7cb617so2970727b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:28:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793816924; x=1794421724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RmHpo3+pR2s5ML5HiGnTikUyVxsXw4licnGddfMA2fg=;
-        b=bnhuRls22bPr1CgblNs2CholbSpN0yqFa50f5qD2aA2WkZVca94r9QS42VwXkcYAZo
-         My/elqfe0kiSvN071wEeMoeLihKJbWpGZol76RSeN+C46JbO9iWfHPaTjQD8zqy7mxqY
-         KFvf3ASdU7UUXszVU29ZtjF/bf966F+ZRvUgYCJQoSCvHuk2xYdeArZL8Q8DosBJvXhp
-         Kaj8KTas80UdcMQX/N6ssYOYuMtNM3EADY21ZGzlTSICyR9feHDuqOkUGU9252Q4HdWc
-         0qNOqijNlGJyTTBUXNOpqLFZ+gx5XRDKBf14QiAMNHNbxfsvyLfR/FZ3KeXRbbvAmC4Q
-         eJPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816924; x=1794421724;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793816929; x=1794421729; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RmHpo3+pR2s5ML5HiGnTikUyVxsXw4licnGddfMA2fg=;
-        b=bIOLZIyDG49l6Tay6LB7EiN8dEGs7bPKBmMqq0b4+G4iJTcLFzdJ6OBZc+0v06ZxBQ
-         4LCBHtW1JhXRB8+GlQ3HAE3OfPVnQFKUOetNFVYhTE50Tx9ezVLZyshq/Bz6qEHBxOUT
-         Ttqk+8cEIsyJ7Uaz6iQl9yFjBb9+hwAqWf8M01RmyF0OyrnLZQIkuwGuFGi2pHanM9zQ
-         rNvf9zfpepISYvzqVyNeTle6uwhnuYWoFDvWuLgq6DHv2knrdciwVZj9AzW426uNPZDJ
-         7BDxK3gQDsIuccKnZPqa5HKC+hdGBf9OyDjtAIkSKARBJwxH0t1UKDTdeGY1bIus8lx9
-         z+OQ==
-X-Forwarded-Encrypted: i=1; AKwUvByPAut1D97CkYdk3U64Ym0UYmcGYplQ4QDayQNJowgrA8N6rwqoXxSJ1G7nPhswsdQrCamGTiNoRFqOzN0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VHz36CApa8NWLJGq4TB4Pgcrpgtxtqs3xbqD9pN96PJ+GOTX7
-	3oFAAOdZ5p2nCvONm4LeM/RSU1d06Wdjz2XPo/w7GV5kkQPmioj4nMDvb22W3YA=
-X-Gm-Gg: AYBFou3bW7LVEBgA/JOaTdcytgPh5U9nzfdo/xXpNJFesiHlMqXqAcWZCDoWEiNMngJ
-	mUuB/Q43FQBSM3uclSUy9g6bRJ1AtETIf5QcRTCjjuxC1CzRE4mdCoOPRYonvrCpWUHPRuPZGtc
-	kKy9V1Zh4PLNDhT2i2Xb/5EaYdFoIFwXUFQp8HjjEH3rTmP9KkrUJfOy/RcXJLTpfejzA8UUSRp
-	w1vKXUQTiQxVwbZqpmfKH+rvKJGGhUT+J0c030/gkzKdwPrB/e8EBtH5u5LdryAc5Zy/WFEvuqV
-	Xa8EPIIugojlT8Ehy3CoojxdHuNqDMM9XA0ab5TdiPN+PgoTfY/ZXqQL73LB7Ki3fXb0+pcv6VR
-	ZCA0E8zf2dnnT/7LUqd7tneF6VgbM8MVBvxODRi9dNl01Bn+wh1syiEQDm9UQfPAzNjj7tmw1IG
-	MLwRb3hQbiIQ7FYU490kdoLVbRbB3ewIGrT15kt2RaWA7IriivK2rJKwNiBSMwv66ayXeIoq0tD
-	87aBkBO/ryUXZ9Np8ChdVx8RALHi1NAkWopw0kmHfcXuC9AKodbfTR7VWFYF0DN0/cAQzqDbnrr
-	uzpQKRoMCH4wjTLXnyYb4CswN9vbPqSmop/DTvZDepgt0rkSAl1aAbu6E7sgXlviIg73
-X-Received: by 2002:a05:701b:450e:10b0:1ad:1574:aa9d with SMTP id a92af1059eb24-1b24f2b4bfemr377336c88.0.1793816923539;
-        Wed, 04 Nov 2026 10:28:43 -0800 (PST)
-Received: from localhost.localdomain ([2406:3003:2002:639c:a599:d119:deec:193f])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c127sm9412265c88.6.2026.11.04.10.28.41
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 10:28:43 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: musb: tusb6010: retain and unregister the generic PHY
-Date: Thu,  5 Nov 2026 02:28:37 +0800
-Message-ID: <rc-review-20261103-35-b81ec08fb02e@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=ZfV/MIPNusOwxGNpLw6806W5l7124cFpZSpiDn2muzo=;
+        b=LKijh+zrxR0KzT3Pe3wS3BowJWj1KgLj1Jlrj+30oyYQ9jT1KGrjNromsNrgcSmVSj
+         9UFypbc7r5t2JPM6byoH7E0yC3plnVagYffApOuCITZ7O5ewBrIxfgusuP7Ew6FiBXls
+         YT7v6aCHXThL0OH5hTa0VoKfs+e9GJM5kLUYgwSgDp+MyR4azScvffbSXz+8ECVfuwdc
+         PZ0t9qVL3e5J2WYKqGUmowb5656ZbDERDcV6GF2741KeeK7XHt3s3bCuJybO2Kkd9/TN
+         9Mk7pcRg3h5aREBYU7MuOmFXdw1zj/aV9XBdPy3T4mogxUupwxFalplpTrIxz1MfYKq3
+         c4eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793816929; x=1794421729;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZfV/MIPNusOwxGNpLw6806W5l7124cFpZSpiDn2muzo=;
+        b=SOkwFAOYGr9z9WLNOvzFHdpHRlm1Hw8jD71GpXAja9bXygEo7w3s4D8l3si/vdXPfw
+         mHsYJ0fwjZwUtuPDWALmu+dz7xqGVsPr2KyZUhehHRMHxpRpOaWtydsQSMeAlbIorKRc
+         8Z7+ds/ymPloMBNKPY1MwJwpFZgklgsH+7+h/mIep4u0vaC7PAz5DfY5MhS+DEROL98P
+         bQN4A5kqhpAdOahiBpsNTPm+oRdtaSnezofZv6Rkkfrm4KLqDM7eTrVvBph5tn784XaB
+         6YQ7TGPQvyQ5KlvwE+Xou4MdfGtSOQZTV0eg4faOQ6Oopj0gfrD0X58ipku0uGY+nv2T
+         9+Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBxqo8N69QER0lmfCtXQpz8QlO9sc3sHUiGt/Sn6LtaFk9VEZIT+mH+69gxcwQSotidyUaHT3pAE7fDU0LQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OFy/mQnNCo4NkTPgXUEBXqqOR7t9UWzUSkJCOqz/ve/5lTidh
+	u2l+GSZQdneGDBholYo7yK0w75EADc0v6t9KNTEyNO63rNPmB83GyiNLoJaMolP2opw=
+X-Gm-Gg: AYBFou3rw5BdRp4xChC1wERng6EeZrvAPqwJ8jA+Suxc7FYIswL1QC9QT0ujroJn+NB
+	692T+X6PbiXWqQG8JQ0qMKKqoHso9eYjRn2dGnVjUKk6oMt9kwMpyq3POIC1sjAIgfqWaKPByCK
+	1gRLJRj1wSjp+l9YbFMvIXiUvWZf0pEmX7gP6WElqZmHnL2IA2YgQ1yYfo+oHKoXly2l66CPd01
+	1CqszPWEOAqy7o9o2NbmdZmlFr5tbrhwumHAaTt5Da5+vXJrq/mSNKiwStSLNva18jcdYbgPDK+
+	t8oSjEhThiBkRQsNmYWSPONZoywbfcJOOEbDxvwMFRTK3xdwByMCvKsx4d0e9iDCdiOfFP/UAkO
+	3o7bJecpyFt36chYIK+6inHnZ5bsP9pOrFvM7WaqlI7o53jFpUDiJk9n783L0sRT5dvPqLWsJif
+	0myIf8iqgdJFSY5CKq7wEHvrmdEI9FE/VlASHxzp0OniS1FWCIYRtHAEJCh82Id0Kl+YinC3UFI
+	RglZzbCqv1YMPDRmw/0RJg7OcDGBUW5qVaZZvWoD7PGhIu7aXMbE+fsTGKmSu5C9ss+5059u7PN
+	FBFvCbJ7b6LG3W5aQJryntb5iGX3+dz1fN3I4psC80BPoXIF2b5ZTNji/9d4BlFTPuLxAuhi3b+
+	H9LgxpNGXuoAMv6Q2oVMl5ADMSyUZ3MTWpqxAjrLLHgfC77hbjpjtpLVaYA8=
+X-Received: by 2002:a05:690c:8f:b0:8b0:acc6:8e89 with SMTP id 00721157ae682-8b2b66ce839mr104568597b3.11.1793816928629;
+        Wed, 04 Nov 2026 10:28:48 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3099291d7sm24336017b3.16.2026.11.04.10.28.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:28:47 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: willy@infradead.org
+Cc: jack@suse.cz,
+	akpm@linux-foundation.org,
+	lczerner@redhat.com,
+	tytso@mit.edu,
+	hughd@google.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v2] mm: skip empty finite ranges in truncate_pagecache_range
+Date: Wed,  4 Nov 2026 18:27:00 +0000
+Message-ID: <20261104182700.88789-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027211505.22044-1-dennylin0707@gmail.com>
+References: <20261027211505.22044-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,56 +107,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usb_phy_generic_register() returns the newly registered PHY platform
-device, but tusb_probe() discards that pointer. The zero-initialized
-glue->phy is later passed to usb_phy_generic_unregister(), leaving the
-actual registered device behind.
+For a finite range ending before the first page boundary,
+truncate_pagecache_range() calculates unmap_end as -1. The unsigned
+comparison then treats the empty full-page interval as nonempty.
 
-Store the returned device in glue->phy and stop probe if registration
-fails. If registering the MUSB child subsequently fails, unregister
-the PHY before returning the error. Normal removal already unregisters
-the MUSB child first and can now pass the saved PHY to its cleanup.
+For example, lstart == 0 and lend == 0 cause unmap_mapping_range() to be
+called with a zero length, meaning unmap to EOF. Punching one byte at
+offset zero in a mapped FUSE file can therefore remove mappings outside
+the hole, causing unnecessary page-table work and subsequent faults.
 
-Fixes: 2f36ff6915c6 ("usb: phy: generic: allow multiples calls to usb_phy_generic_register()")
-Assisted-by: LLM
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+Set unmap_end to zero for these small finite ranges so that the existing
+unsigned comparison skips the empty interval. Explicitly handle lend ==
+-1 and lend == LLONG_MAX with LLONG_MAX, preserving EOF handling and
+avoiding wrapping in the endpoint calculation at the largest inclusive
+end.
+
+Suggested-by: Jan Kara <jack@suse.cz>
+Fixes: 5a7203947a1d ("mm: teach truncate_inode_pages_range() to handle non page aligned ranges")
+Link: https://lore.kernel.org/r/20261027211505.22044-1-dennylin0707@gmail.com
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
-Based on linux-next next-20261102 (2637bdec0535).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-COMPILE_TEST=y.
-Baseline and patched target objects built from this exact base.
-No full kernel/module-link, hardware or runtime test was performed.
-AI assistance: Codex (LLM) for ownership analysis, code and changelog.
+Changes in v2:
+- Compute unmap_end directly as suggested by Jan Kara, keeping the
+  original condition for calling unmap_mapping_range().
+- Handle the EOF sentinel and LLONG_MAX explicitly.
 
-The N800/N810 registration path remains in this base. The proposed
-OMAP24xx removal affects its future use; please advise on the target tree.
-https://lore.kernel.org/all/20260914140821.1805449-1-arnd@kernel.org/
+ mm/truncate.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
- drivers/usb/musb/tusb6010.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 733d2713a87..2c1f4a6c336 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -945,7 +945,15 @@ void truncate_pagecache_range(struct inode *inode, loff_t lstart, loff_t lend)
+ {
+ 	struct address_space *mapping = inode->i_mapping;
+ 	loff_t unmap_start = round_up(lstart, PAGE_SIZE);
+-	loff_t unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;
++	loff_t unmap_end;
++
++	if (lend == -1 || lend == LLONG_MAX)
++		unmap_end = LLONG_MAX;
++	else if (lend < PAGE_SIZE - 1)
++		unmap_end = 0;
++	else
++		unmap_end = round_down(1 + lend, PAGE_SIZE) - 1;
++
+ 	/*
+ 	 * This rounding is currently just for example: unmap_mapping_range
+ 	 * expands its hole outwards, whereas we want it to contract the hole
 
-diff --git a/drivers/usb/musb/tusb6010.c b/drivers/usb/musb/tusb6010.c
-index 1d9571f24a56..a7e0c6fabca4 100644
---- a/drivers/usb/musb/tusb6010.c
-+++ b/drivers/usb/musb/tusb6010.c
-@@ -1245,7 +1245,9 @@ static int tusb_probe(struct platform_device *pdev)
- 
- 	pdata->platform_ops		= &tusb_ops;
- 
--	usb_phy_generic_register();
-+	glue->phy = usb_phy_generic_register();
-+	if (IS_ERR(glue->phy))
-+		return PTR_ERR(glue->phy);
- 	platform_set_drvdata(pdev, glue);
- 
- 	memset(musb_resources, 0x00, sizeof(*musb_resources) *
-@@ -1274,6 +1276,7 @@ static int tusb_probe(struct platform_device *pdev)
- 	if (IS_ERR(musb)) {
- 		ret = PTR_ERR(musb);
- 		dev_err(&pdev->dev, "failed to register musb device: %d\n", ret);
-+		usb_phy_generic_unregister(glue->phy);
- 		return ret;
- 	}
- 
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+-- 
+2.50.1 (Apple Git-155)
 
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
