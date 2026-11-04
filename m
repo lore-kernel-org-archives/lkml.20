@@ -1,64 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793824336;
-	b=s56kXZ1I0ZOhexKm8L2KIQbmMt0LmJKSvewelTJnC3qbKKtgLr+N2QGEdWtwTREncjp8
-	 av7Pv58XQ4nDKR4A78P/mOjSHvzNN6H+zlDmfydFMR5sVWcsKhRfWJhYd4Q2ypSfnT96w
-	 E/yYywnc6zwLMeunE/MbwB7lQMG4Ffvvu0aTLUNzUZba/uXmrkWavBdgtCkVVuxDAMy0B
-	 D68ihLuyKLEvrUG8HbW6MinNLQkPpiQ49AhBGhJGYmhO3L2FiP9eCQcl67sAq4P91yseA
-	 8EX3F6GN5t3uO95u90wQcVaZDdY0HE5qJ+S/Qyp96JJ1Z5cN/pe143hXfUb5WiYpdng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824336;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=D8EPv1iZVj0e7JdeDiAc2KXRHYoRaI6ZUJiuMbKDElg=;
-	b=VNclHvydQwJMEbjKWH+EmAhLZxPa7qflsBx8ypnTaEJsuzgROoDY4NxQTRweOzJ3OFWU
-	 lHNrv8lmHqFxcSnF208QgTc8Vcudq9O8Lie6g8jdF8uUGCXz/ZENIV3LuDfQQTco7hw5H
-	 mIx1vJtnXjvVzFyBnHYYKz8Q1RoN977FY/TF4lR5vlqxOgc2PpDBD8nATFp5NVHMoEK9E
-	 3gsb/c0cf60M/HWv2bBaeh7akWAMlBrSRpm6lZ1uPUg6Ud3ZN5agX1Z9hh6JgPJFvg394
-	 Xj+HqyKnLRNTBTJmyOJknMmMqPWVPNNiOm9dDzpl2patCyaJMgJdnIo1pvHVUIsvHzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ph4ntom-rev.uz;
-	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
-	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=u2boLiBe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
-Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793824362;
+	b=sj1kAh2qDVRnOqBQ7wG3dx7JOSO/9XFoy3dIRsF780QBc8XTMyWAXaVeTWZtKizbM/nL
+	 6L+FM3g7614G94aYlro74Khc2ZhnTwLQUfpsdjQPJtyQvTgNdcnnEF184VKEUXhDp0sHx
+	 MQxh0I9FMGRheLjkx7oxcyCPIE9aOGxwltZ9wvOX6Fu6u13jvaclr7LngNSHMlV8EuQpx
+	 QSOxsUvcUqwojojp/xoM8atquu4OxFxoyx110wV4stBN2dENwtZ1u4OaVYmYNjqEeURA0
+	 o/UU+bVGfC/lFZ5iP3erXmRiA9jL74JRRFzKLY8Q7plv7Po1uj2DxesyrF2YTRJQtHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824362;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=/lO0mL+cBkndSMWtbQjIRUpGnu/CrhJuhEAaumulM8U=;
+	b=YVC3Mn/VC7P76FJ15bd2We3Gd6k7YVGKx+NuVKS4Gf4LD01XwHJzBU7q9uZJc8FGkkKd
+	 mS8Ei/PgcbZyF4cIUaMnk3O4x90hZnpkH+5eD2Qhff4g8Q+qeoQiqpRgde5++csGj6dT3
+	 SVkbZMpqdf9sF/5FMqQgMQlssxTlrfd9dk90RtJi/T9k0X+24StqUhFgEQqLJ3DXvyK/e
+	 2HvNUwWSj1z3zzKGOsYZbSzEjBB1nenCTGNFJKyTcrNkzHgGk9ZWVxWfxdjTgDUT1ubaS
+	 NrylY7fDJiZpeCvET0m8GXzNhyfi82su0eRvAV1vaNqe1b04+y9FDog46ckuxMDI7Nw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=azykdYLR;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF18E606A852;
-	Wed,  4 Nov 2026 20:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF18E606A852
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE163606A84E;
+	Wed,  4 Nov 2026 20:32:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE163606A84E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=u2boLiBe
-ARC-Seal: i=1; a=rsa-sha256; t=1793824266; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=los6XWqWlSlswbx/xyWJcSkqnA9Kx2xDrcPMPnH/QN9/wqeWKVE3dIdY07llbIRdfHS48t7mH3ZylvvRdeFRO0EWCgyzGbPPm364xc3H/a/0PX+ooAQYmAk8CGGc0L9lD1Z9DJa+idCHkicsLxtZUwGfhTIxAskTStjF+zBCl0s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793824266; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=D8EPv1iZVj0e7JdeDiAc2KXRHYoRaI6ZUJiuMbKDElg=; 
-	b=bjONy6es/OYGFUa5p0g8TI91cj22A2LjnStUnA1gYnom3e7Dm0edC+mKAbsEkE6bNcLiRAUmrHTJKe5okk3D1qLBwOcJHR+BtsmmzW5OT8dQ8IY16YHwwW1zF0Xj1ABU39xP0/CeXMj2OQD5rtR1dI4TPLyxOhg5C/P5LS1nKds=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ph4ntom-rev.uz;
-	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
-	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
-DKIM-Signature: a=rsa-sha256; b=u2boLiBeGD/mFMlMok0sflPDIyab4X4BGeSXQssFePqXfaJFN/4WxNCS2fbzWbpjVE2wn3Af6980+hdu0QUVvwcOXKdras3X8TRyXXP29XIRv0PqdfQEVkM+ry1BV5Hoz13jlDQUrzaj7r/U88/AH3dNrfGlDOV3dntnRK7FOiQnxuIT/09po23nNwgEHcFfLV/XEkdL8CRqmc2wT5aQAhh9oyZCvDppASgDfP8AVs/A0BtPtnH8PsqpmRuVG2gdVEaycInG0FjDRsdedtEEV/shgYcn5+gy4igUasj/vjqRrbAW31pIOLW1UtcFkaf0Xo0VLMxOJbrU2dDxLT6hkg==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=D8EPv1iZVj0e7JdeDiAc2KXRHYoRaI6ZUJiuMbKDElg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793824265463463.39423035620416;
-	Wed, 4 Nov 2026 12:31:05 -0800 (PST)
-From: Enver <owner@ph4ntom-rev.uz>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com,
-	kvalo@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Enver <owner@ph4ntom-rev.uz>
-Subject: [PATCH v3 3/3] wifi: rtw89: restore channel after monitor interface restart
-Date: Thu,  5 Nov 2026 01:30:51 +0500
-Message-ID: <20261104203051.564-4-owner@ph4ntom-rev.uz>
-X-Mailer: git-send-email 2.56.0.windows.4
-In-Reply-To: <20261104203051.564-1-owner@ph4ntom-rev.uz>
-References: <20261104203051.564-1-owner@ph4ntom-rev.uz>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=azykdYLR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793824362; x=1825360362;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6f8UgVjKpQ2wVNTwKjGWI3IG5kYob1To5ZXvPuHXznw=;
+  b=azykdYLRMV+Zru+0A7b/DkYuNubzZsIpW/0gDE9PhJBscjZ8sZlhtsj3
+   QSkQ+XOSIQbg7vjgJ+33BRRniLnHeWYLHEoaE9wACUvKv5NJPqvkTyM5p
+   Hc1yJrjIP5rHWLT6QrceUqs+NOdL9qk8Kn1EbVREctTyq4JUxn67nKSBx
+   rNmxngRxfJ7OdkgwXr+zXCORu11/VV/Id7JDlhO24Qo+fFg429CxtKopk
+   Elaww18k4nm/RtUKhNfWA8DNxc0Z32200kbc4EJ130OjwTOqiZPdTkhxI
+   02/j9tCw7B2WZjRk+uJWZihEgThCcz1IyHVLsEUz3qy/xM4WniYXhxzGF
+   A==;
+X-CSE-ConnectionGUID: rMJT0IByQKOFP/qWIL8mYA==
+X-CSE-MsgGUID: GDELmCUWSnGbypNy/YupbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2590678"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2590678"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:32:41 -0800
+X-CSE-ConnectionGUID: oeRVokCFTSG70c80N5OpXQ==
+X-CSE-MsgGUID: cq871yY0SA+tQsjaqT4Xmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6690148"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:32:23 -0800
+Date: Wed, 4 Nov 2026 22:32:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Chanh Nguyen <chanh@os.amperecomputing.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Julius Werner <jwerner@chromium.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Ray Jui <ray.jui@broadcom.com>,
+	Scott Branden <scott.branden@broadcom.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sound@vger.kernel.org, linux-input@vger.kernel.org,
+	linux-tegra@vger.kernel.org, mfd@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+Message-ID: <auuWVGsyb3RrOIfh@ashevche-desk.local>
+References: <20261102135330.2493332-1-robh@kernel.org>
+ <20261104-vigorous-flat-dingo-3e5bd2@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,68 +150,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-vigorous-flat-dingo-3e5bd2@quoll>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-After the last monitor interface is removed, the hardware is stopped.
-When monitor_chanreq remains unchanged across the next stop/start cycle,
-mac80211 does not issue IEEE80211_CONF_CHANGE_CHANNEL, so
-rtw89_set_channel() is not called. Hardware initialization completes, but
-monitor-specific channel and RF calibration state is not restored,
-leaving monitor RX and injection unusable.
+On Wed, Nov 04, 2026 at 06:32:43PM +0100, Krzysztof Kozlowski wrote:
+> On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
+> > Unit-addresses by default (and most commonly) are hexadecimal. There's a
+> > number of cases using decimal patterns. Fix all of them, limiting the
+> > pattern to match the 'reg' limits if there are any.
 
-Restore the channel after successful monitor VIF creation, once
-pure_monitor_mode_vif has been published, so RF calibration sees the
-monitor role. If channel restoration fails, disconnect the firmware role,
-clear the pointer and synchronize RCU before unwinding the link. Preserve
-the original error while logging any disconnect failure separately.
+...
 
-Tested on RTL8852AE with 25 monitor delete/recreate cycles, both with and
-without concurrent raw injection. Post-stress RX and injection succeed,
-with no new kernel alerts. A forced -EINVAL test verified the rollback
-sequence and disconnect before link cleanup.
+> > --- a/Documentation/devicetree/bindings/display/xylon,logicvc-display.yaml
+> > +++ b/Documentation/devicetree/bindings/display/xylon,logicvc-display.yaml
+> > @@ -123,7 +123,7 @@ properties:
+> >          const: 0
+> >  
+> >      patternProperties:
+> > -      "^layer@[0-9]+$":
+> > +      "^layer@[0-9a-f]+$":
+> 
+> These two lines are looking good.
+> 
+> Andy, it's okay if I give Rb tag?
 
-Fixes: d9204e99b696 ("wifi: rtw89: do RF calibration once setting channel when running pure monitor mode")
-Signed-off-by: Enver <owner@ph4ntom-rev.uz>
----
- drivers/net/wireless/realtek/rtw89/mac80211.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Yes, again a pointer to 34d1e754155b ("dt-bindings: iio: drop unneeded quotes").
 
-diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c b/drivers/net/wireless/realtek/rtw89/mac80211.c
-index 5404e03..caaf817 100644
---- a/drivers/net/wireless/realtek/rtw89/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
-@@ -189,7 +189,7 @@ static int rtw89_ops_add_interface(struct ieee80211_hw *hw,
- 	struct rtw89_vif *rtwvif = vif_to_rtwvif(vif);
- 	struct rtw89_vif_link *rtwvif_link;
- 	u8 mac_id, port;
--	int ret = 0;
-+	int ret = 0, disconnect_ret;
- 
- 	lockdep_assert_wiphy(hw->wiphy);
- 
-@@ -245,6 +245,9 @@ static int rtw89_ops_add_interface(struct ieee80211_hw *hw,
- 		if (ret)
- 			goto remove_link;
- 		rcu_assign_pointer(rtwdev->pure_monitor_mode_vif, rtwvif);
-+		ret = rtw89_set_channel(rtwdev);
-+		if (ret)
-+			goto remove_monitor;
- 	} else if (rcu_access_pointer(rtwdev->pure_monitor_mode_vif)) {
- 		rcu_assign_pointer(rtwdev->pure_monitor_mode_vif, NULL);
- 		synchronize_rcu();
-@@ -252,6 +255,14 @@ static int rtw89_ops_add_interface(struct ieee80211_hw *hw,
- 	rtw89_recalc_lps(rtwdev);
- 	return 0;
- 
-+remove_monitor:
-+	rcu_assign_pointer(rtwdev->pure_monitor_mode_vif, NULL);
-+	synchronize_rcu();
-+	disconnect_ret = rtw89_fw_h2c_join_info(rtwdev, rtwvif_link, NULL, true);
-+	if (disconnect_ret)
-+		rtw89_warn(rtwdev,
-+			   "failed to disconnect monitor vif during rollback: %d\n",
-+			   disconnect_ret);
- remove_link:
- 	__rtw89_ops_remove_iface_link(rtwdev, rtwvif_link);
- unset_link:
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+I expect to see
+
+ Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> # xylon
+
+or something that matches the piece you reviewed.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
