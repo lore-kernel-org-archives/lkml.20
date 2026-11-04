@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829367;
-	b=YOssontER5B8ySJm/a7Hi8ttEemuxeLDc8O6p272KYkHDZsOOYEe9INlifM2mEHGNH+A
-	 6ydeYIW13KbSaJEcw9SJjg0s22COSwsrjGxy8RdrDrK8k5EcUVdMpHZ35FTh5mnWVR6Je
-	 YRRoDNquEXMEYxMnioALFualmWpDqbwEkGBgjurvGqxtsOg7M/AkZrttyTOwERzVR2sIP
-	 KYiLWjP3NubKes2KvCMlL9IUvqXLVetHMleA61Plo/nHBLJjJzdTbePcThRoiHDgZQsx1
-	 r0FyBPTQAAPvRl03U1ACn437EFblSVA9S+R6qht5blhiabNgBxKgg31Sb57ij1Xq7Dg==
+	t=1793829398;
+	b=vFJmZEwH6xPKDL4R4k4zuXtlFzNEVtq9FVEyMmQKxP300AWaTeywotcFaRT9Ynhliakb
+	 nUqUVIJB6jWUmqO765+9swphKmfitiZt7YXJnRomucAYuHh+FoIMT5UxaIu9XExUE+XWA
+	 K+jhZ5UoH18Dyb5DKRm74w1/07Be5DsQGMR0lXjjskU5Ve9vWu+6blQIo8TXqswNXZ0qK
+	 Yx8ycSDsxFppu8ypXOOJPH1m+6009NRuo39HqGfgBZxV+pkcMWrEi8Fc2Wt4GYknJAtdO
+	 UBLHYqrF1qUBIAdZqVozjaen38hlAe4JhwjIwPKGmkF0qz9LmhRDg+e/Of35DJLc9PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829367;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=D/YsceI1ZD4wK28mfxd3WkKTnNLn9kRMNBo92okJVB8=;
-	b=q8X+pAvViXOBVjOI2mQu7itOL3SCdMB4Vltp4tK5xrU8Q+N8zkeDwMD9Ny9x3BXO/Qhl
-	 onvVuFz87mhuycS1akiYpXK5WYGO5oh7U+gjfGBmB1o69uSfO6eUHsP62wK7eXwdCz28e
-	 Hnkg1ItoEB3UjHIkZFIhRzf24xLmSsCiegqYcU6dqZTfWCsXZTmzR6uPbD4M52PZiw5Ys
-	 4V0g2xZ9ra6s/n42rFo7rcA4c9cX5RXoE17tILLOXRr4c0cOC4AGQWLyY1hAtLSOAsdyM
-	 t2sAJ5VGXPNRxGm35RJKNH4owbojn0/jxuVezkmoz+HKL2tvGbWVes1tqTE/flmgrnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829398;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=lyULvWtDThTQAb1RiR8ZaH27ef9iTlrFyCHnHoMzbvw=;
+	b=yWI6KmeA8FEfyJNK/ZMUvKwM7Bmvrwa/NNm0p2hK+f/VZlmbpEsqcu26A6cjf/ApOYEN
+	 2PkPWKBQ4VsABI5c45EtNcuc/2R1I5WAU4u8JhFQ3Ef4AWy3URHuGyCICIU8HsKy6+neU
+	 l12MV1JW1T3I5c0Lw2WRW6Y/WC3/Wvi7BE0NcB3l7Ve4kpTokYP8pW1aQzzqMJ8IFSgXg
+	 RgDQEZQWzaFmD1po7PPDw6gUUtXKj3mq0552Tpj//8vxvPRUcNXAlfH1ilOv0BnnS0Qc1
+	 wf5Ss1LB7gVQ7j8MCQrNAR6cI8n0nUMHW0LkJazvuV2RReHwiDqXdF4Zn0jEdqbqv+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=XthgSATK;
-	arc=none smtp.remote-ip=79.135.106.27
-Received: from mail-10627.protonmail.ch (mail-10627.protonmail.ch [79.135.106.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWd1FvfF;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3382B60BF2EF
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3382B60BF2EF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45CA606A853;
+	Wed,  4 Nov 2026 21:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A45CA606A853
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=XthgSATK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1793829363; x=1794088563;
-	bh=D/YsceI1ZD4wK28mfxd3WkKTnNLn9kRMNBo92okJVB8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XthgSATKLNfTYP2fx7+VGsIARJIst1MFW/Dfx2t0HwW+OYEXShIuD9XQBFLhIk7ar
-	 GIohrMMj990TKfIy5EcvKYpTLJziMrXVqBzstLjzDb+2KWSDxXcHpXGkWNF73rX4NF
-	 yftMowtzGw77Dt1mQdfeu3KmIUnVeeb2EQOkjQYRCMLr7q/uobSrOSU6tTvRbV7lKI
-	 NIjbuWn9+BQqmO6jSU07bFo7u+3kzDrY6TkUMMZsVRisOXgch2jMYp6PlArzFyRVQz
-	 7qPJsROsMVGwqLUEW94S2+zYWksCZqr1GXhu6of3p1xcSbqZf2b42R9I5moJjfLT7Y
-	 Sqk0VQgKywjwg==
-Date: Wed, 04 Nov 2026 21:55:58 +0000
-To: linux-kernel@vger.kernel.org
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Nick Faro <yux50000@hotmail.com>
-Subject: [RFC PATCH 1/4] debugfs: add debugfs_file_revoked() for debugging aids
-Message-ID: <20261104215546.3990950-2-ca@modelmiser.com>
-In-Reply-To: <20261104215546.3990950-1-ca@modelmiser.com>
-References: <20261104215546.3990950-1-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: f98c9a637ac96e17d79d9b3452736028913ef461
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWd1FvfF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793829397; x=1825365397;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q6fLSk71kNlmRe72jzBR4F8ycctOy8HBQDiLrJKK8DU=;
+  b=LWd1FvfFV0Agn9Tn6oMefj0wGEQEi6Fb9PByJMNyXYUAOHtadf8ZqyoL
+   ZDLkCGgBJjnr4ssOzePzBs8ni8T2y8VGdrlUjiKvHjC2H/iuyqSjkVRhU
+   tCDg69vUsYLjEGXdHNDR7hXn6PvXaphZmHMzvRJfAGuwkqiQkWTxZD5/T
+   mezYxqZzO070fq1TLE4bcpocyE+7Bptmf9/DVNOazqlyF9Muc4KyYT5CY
+   BwLlJLnMHZDIucDucuif3sdpCmkRYIBSfmfC7e1uIAxC+WT5r46901ReY
+   fjQttpOwPVML85/2NbYjKv52HKDDMSbMC/JfFXHYrUeJ1IxCvnahGlEoI
+   A==;
+X-CSE-ConnectionGUID: IHASxW91RRK/YY2EaehIKw==
+X-CSE-MsgGUID: G31o3gQrQoW2qIojai7PHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2635095"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2635095"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:56:36 -0800
+X-CSE-ConnectionGUID: NnQoCZS3Q9qlVLhL5g1zwQ==
+X-CSE-MsgGUID: W6VEmGpQQNa0zpifZ5A40g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6945251"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:56:34 -0800
+Date: Wed, 4 Nov 2026 23:56:31 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: sx9360: use an int array for the
+ sampling frequency range
+Message-ID: <auuqD75_H4OVHqva@ashevche-desk.local>
+References: <20261104175608.205872-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,218 +83,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104175608.205872-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-A debugging aid that finds a stale pointer behind an open debugfs file
-needs to know whether debugfs itself has already cut that file off from
-its driver, and if so which release callback close() will still run.
-That knowledge is debugfs-internal: the proxy file_operations
-identities, the removal state of the dentry, and which of debugfs's own
-_unsafe helpers take the removal guard or copy their data at open.
+On Wed, Nov 04, 2026 at 11:26:04PM +0530, Arnav Kapoor wrote:
+> sx9360_samp_freq_interval[] is an array of struct { int val; int val2; }
+> that read_avail() hands to the IIO core by casting it to int *. That
+> relies on the struct having no padding. Declare it as an array of
+> int[2], like other IIO drivers do for their available ranges, so the
+> layout is plain and the cast no longer drops const.
+> 
+> No functional change.
 
-Add debugfs_file_revoked(), built only with CONFIG_DEBUG_DEVRES_REFS
-(added by the next patch, its only user) and not exported, since that
-user is built in. It returns true for a removed file created through
-the full proxy, the short proxy, or one of debugfs's guarded helpers
-(the DEFINE_DEBUGFS_ATTRIBUTE() family, blobs, bools, strings) or one
-that copies its data at open (u32 arrays), and hands back the
-file_operations whose release callback will still run. A file created
-with an _unsafe variant and the driver's own file_operations gets no
-guard from debugfs, and the function returns false for it.
+LGTM,
 
-Written with Claude (Anthropic) under my direction; see the cover letter
-for the disclosure required by Documentation/process/generated-content.rst.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
----
- fs/debugfs/file.c       | 112 ++++++++++++++++++++++++++++++++++++++++
- include/linux/debugfs.h |  29 +++++++++++
- 2 files changed, 141 insertions(+)
-
-diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
-index 170feb7531..1673fd7e2e 100644
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -11,6 +11,7 @@
-=20
- #include <linux/module.h>
- #include <linux/fs.h>
-+#include <linux/magic.h>
- #include <linux/seq_file.h>
- #include <linux/pagemap.h>
- #include <linux/debugfs.h>
-@@ -1373,3 +1374,114 @@ void debugfs_create_devm_seqfile(struct device *dev=
-, const char *name,
- =09=09=09    &debugfs_devm_entry_ops);
- }
- EXPORT_SYMBOL_GPL(debugfs_create_devm_seqfile);
-+
-+#ifdef CONFIG_DEBUG_DEVRES_REFS
-+/*
-+ * debugfs's own file_operations for _unsafe files on which nothing after
-+ * open can reach the driver's data: either every operation takes the
-+ * removal guard (debugfs_file_get()), or the data is copied at open.
-+ */
-+static bool debugfs_unsafe_fops_safe_after_removal(const struct file_opera=
-tions *fops)
-+{
-+=09if (fops =3D=3D &fops_blob || fops =3D=3D &fops_str ||
-+=09    fops =3D=3D &fops_bool || fops =3D=3D &fops_bool_ro || fops =3D=3D =
-&fops_bool_wo)
-+=09=09return true;
-+=09if (fops =3D=3D &u32_array_fops)=09/* copies the array at open */
-+=09=09return true;
-+=09/*
-+=09 * DEFINE_DEBUGFS_ATTRIBUTE(): read/write go through
-+=09 * debugfs_file_get(), release only frees the simple_attr, and the
-+=09 * macro sets no other operation at all.
-+=09 */
-+=09return fops->read =3D=3D debugfs_attr_read &&
-+=09       (fops->write =3D=3D debugfs_attr_write ||
-+=09=09fops->write =3D=3D debugfs_attr_write_signed) &&
-+=09       fops->release =3D=3D simple_attr_release &&
-+=09       !fops->llseek && !fops->read_iter && !fops->write_iter &&
-+=09       !fops->iopoll && !fops->iterate_shared && !fops->poll &&
-+=09       !fops->unlocked_ioctl && !fops->compat_ioctl && !fops->mmap &&
-+=09       !fops->mmap_prepare && !fops->flush && !fops->fsync &&
-+=09       !fops->fasync && !fops->lock && !fops->get_unmapped_area &&
-+=09       !fops->check_flags && !fops->flock && !fops->splice_write &&
-+=09       !fops->splice_read && !fops->splice_eof && !fops->setlease &&
-+=09       !fops->fallocate && !fops->show_fdinfo &&
-+=09       !fops->copy_file_range && !fops->remap_file_range &&
-+=09       !fops->fadvise && !fops->uring_cmd && !fops->uring_cmd_iopoll &&
-+#ifndef CONFIG_MMU
-+=09       !fops->mmap_capabilities &&
-+#endif
-+=09       !fops->init_dma_buf_io_ctx && !fops->fop_flags;
-+=09/* Keep in step with struct file_operations in include/linux/fs.h. */
-+}
-+
-+/**
-+ * debugfs_file_release_safe - will close() of a removed file leave the
-+ *                             driver's data alone?
-+ * @fops: the file_operations debugfs_file_revoked() handed back, or NULL
-+ *
-+ * Return: true if @fops has no release callback, or one of the generic
-+ * ones that only free what open() allocated (seq_file, simple_attr, u32
-+ * array). A driver's own release may dereference i_private or
-+ * private_data; full_proxy_release() documents that it must not, but
-+ * nothing enforces it.
-+ */
-+bool debugfs_file_release_safe(const struct file_operations *fops)
-+{
-+=09if (!fops || !fops->release)
-+=09=09return true;
-+=09return fops->release =3D=3D single_release ||
-+=09       fops->release =3D=3D seq_release ||
-+=09       fops->release =3D=3D simple_attr_release ||
-+=09       fops->release =3D=3D u32_array_release;
-+}
-+
-+/**
-+ * debugfs_file_revoked - has debugfs cut @file off from its driver?
-+ * @file: an open file, held by the caller
-+ * @real_fops: set to the file_operations close() will still consult, or
-+ *             NULL for a short-fops proxy; callers must still test
-+ *             ->release, which may be NULL
-+ *
-+ * For debugging aids that find a stale pointer behind an open debugfs fil=
-e
-+ * after the file was removed; not for use elsewhere.
-+ *
-+ * Return: true if @file is a removed debugfs file on which no further
-+ * operation can reach the driver's data: one created through the full
-+ * proxy (debugfs_create_file() and the helpers built on it), on which
-+ * read/write/llseek/ioctl fail with -EIO and poll reports EPOLLHUP (see
-+ * __debugfs_file_get()); or one of
-+ * the _unsafe files whose read/write callbacks are debugfs's own guarded
-+ * ones (the DEFINE_DEBUGFS_ATTRIBUTE() family, blobs, bools, strings) or
-+ * which copy their data at open (u32 arrays). close() still runs the real
-+ * release callback on such a file, through full_proxy_release() for
-+ * proxied files and directly otherwise, so @real_fops names it. A file
-+ * created with an _unsafe variant and the driver's own file_operations
-+ * gets no guard from debugfs, and this returns false.
-+ */
-+bool debugfs_file_revoked(const struct file *file,
-+=09=09=09  const struct file_operations **real_fops)
-+{
-+=09const struct debugfs_fsdata *fsd;
-+
-+=09*real_fops =3D NULL;
-+
-+=09if (!d_unlinked(file->f_path.dentry))
-+=09=09return false;
-+
-+=09if (file->f_op =3D=3D &debugfs_full_proxy_file_operations) {
-+=09=09/* Populated by full_proxy_open_regular(), pinned by the file. */
-+=09=09fsd =3D READ_ONCE(file->f_path.dentry->d_fsdata);
-+=09=09if (fsd)
-+=09=09=09*real_fops =3D fsd->real_fops;
-+=09=09return true;
-+=09}
-+=09if (file->f_op =3D=3D &debugfs_full_short_proxy_file_operations)
-+=09=09return true;=09/* short fops: no release callback at all */
-+=09if (file_inode(file)->i_sb->s_magic =3D=3D DEBUGFS_MAGIC &&
-+=09    debugfs_unsafe_fops_safe_after_removal(file->f_op)) {
-+=09=09*real_fops =3D file->f_op;
-+=09=09return true;
-+=09}
-+=09return false;
-+}
-+#endif /* CONFIG_DEBUG_DEVRES_REFS */
-diff --git a/include/linux/debugfs.h b/include/linux/debugfs.h
-index 4177c47382..b2a63037d5 100644
---- a/include/linux/debugfs.h
-+++ b/include/linux/debugfs.h
-@@ -166,6 +166,23 @@ void *debugfs_get_aux(const struct file *file);
-=20
- int debugfs_file_get(struct dentry *dentry);
- void debugfs_file_put(struct dentry *dentry);
-+#ifdef CONFIG_DEBUG_DEVRES_REFS
-+bool debugfs_file_revoked(const struct file *file,
-+=09=09=09  const struct file_operations **real_fops);
-+bool debugfs_file_release_safe(const struct file_operations *fops);
-+#else
-+static inline bool debugfs_file_revoked(const struct file *file,
-+=09=09=09=09=09const struct file_operations **real_fops)
-+{
-+=09*real_fops =3D NULL;
-+=09return false;
-+}
-+
-+static inline bool debugfs_file_release_safe(const struct file_operations =
-*fops)
-+{
-+=09return true;
-+}
-+#endif
-=20
- ssize_t debugfs_attr_read(struct file *file, char __user *buf,
- =09=09=09size_t len, loff_t *ppos);
-@@ -336,6 +353,18 @@ static inline int debugfs_file_get(struct dentry *dent=
-ry)
- static inline void debugfs_file_put(struct dentry *dentry)
- { }
-=20
-+static inline bool debugfs_file_revoked(const struct file *file,
-+=09=09=09=09=09const struct file_operations **real_fops)
-+{
-+=09*real_fops =3D NULL;
-+=09return false;
-+}
-+
-+static inline bool debugfs_file_release_safe(const struct file_operations =
-*fops)
-+{
-+=09return true;
-+}
-+
- static inline ssize_t debugfs_attr_read(struct file *file, char __user *bu=
-f,
- =09=09=09=09=09size_t len, loff_t *ppos)
- {
---=20
-2.43.0
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
