@@ -1,48 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793828746;
-	b=dZiQA/ELuvM4zrlNxSDw4ZZ53D4toS71z+pKA8REhuCT6Sc3wZ6eqar31l05Pyl28rsP
-	 mOhKAicZpsjWgBFUhTpKqgo/j1bVrXT2nFHLSjZTLwzpcb/9JSJiCrVPoGXCrbD9OZzll
-	 cjq7dDmDRi1N27O5m3HK8jwPlcgcOIDdYn5NV2yl1u3o8F/yMFLdN81U06y1FMEBtm3XD
-	 sooZkYloTyRHpAY3Oi15E54N3fyu/vIl0T0FnT7Hp/NvtTRLo73wS2shTYnoxmE1Jqm5s
-	 ZysRxT8+6EfBxhHII/RTvZtw2xEQfRKKaJaSz27Lf1I4ndn3P/cH3nNnX2q+01ewgOA==
+	t=1793828811;
+	b=nL9LlOfU+cVoTkHpnKVhUe3oncF9XJDh6Ni7kFwsVASMuQZdbaX2SZRAL5Myngxr0ccm
+	 brjKFEBxcmeopwBPKz6AWDG+tMxO8BEnibAc9ouGp3MZAJRWRZUacPmu3BmrH71RaBLtt
+	 oWpP9vlYfzpvAao+p4iFt94rcSki1mxLBv4cY7dOjQRb6AxU+nhX8XxMBY/DOhT+aRr3t
+	 zWBu6fYVa3bvwMP8Zf+9OqS5tTC0v2LFpjctj6NEn4Qg47oDZoOlZZDhZWlZxvpEVLyQJ
+	 SrFcIZ/2eW1p2BAN/D98shK5k0yHuZ7ewnp90QJT0HfxH9zU8ryep3GyBLmKsGSTlPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828746;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=lqjLb+mG6Paw67aPWiBPzyeEWmphVu8ONgODVgCa5Sk=;
-	b=qb9709oFa8W+4DKUfilw7pCZkqMeVb3KahbeQ4wP0V5B35WLxXP+FIqQx2D92rxcBDwk
-	 kAWWkceOGLw8Hwrx+Z+opeXhcPPHegdHmzbjukJC/T/v8W97AC/CMJ3ayqrHQfPmlDq+5
-	 RIHVXf+5BZKETT/vS3VSnX85rBk9jqvVHBIW+zUKZDhBC3buIU9ci0WDoG9iJiTGaXPBi
-	 Q8HFow+CIsfg9auFyo/wNVq+LA8K7wvIfkJ4Rd8CyrOVbizPGLR87pqRb21l+upZqHl5B
-	 qmkfLM9E7Dq2pLH95kQiP1QDwVQNF1emQAglPizJ7p/8ccM76LUSy8GOSmnXVsXLXMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828811;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=B/+Tw39nWIip5+PScAXZbdossYLtNBKyZ8Bm07MqdZc=;
+	b=fj8HIcPZEy8n6ah/NmDMZiKiy876uQMOe3oIsJEyIR/4g1X6BQyQIb72K5PcfwNXSuny
+	 s4FWD/ezeBCan/9rX4snw4gZBP+e3rbuUej+M4C0Zb3cIk2l/4LwKYeAVBriTiAXnlD28
+	 /bUGPrkDz9+/rEhfl08orjZysJ5UAjHJ8fpWcEkd665Wbb1jbboH2/fFouowQfGlebNiI
+	 iPnI26q9yL4xR5nRyFgFX7eLnWcTRrn0YHD2pAd0hLVT6IsnyAGsRm3YwjBRmhEMZomIM
+	 oxVy+GMtJ9etQr0pxVN2cSwGV8xdlJL9OTPy/bfhYVRL8etIFPYxfUDbpO8mp1b4B7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBxRSSwD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWcDN+va;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78916606A331;
-	Wed,  4 Nov 2026 21:45:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B84D606A330;
+	Wed,  4 Nov 2026 21:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBxRSSwD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5E71F000C1;
-	Wed,  4 Nov 2026 21:45:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWcDN+va
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E4F1F000C1;
+	Wed,  4 Nov 2026 21:46:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793828746;
-	bh=lqjLb+mG6Paw67aPWiBPzyeEWmphVu8ONgODVgCa5Sk=;
-	h=From:Date:Subject:To:Cc;
-	b=UBxRSSwDd5V0GiU7DpH+nPyMq/Maum4d2vpncqrIBLDu2lUK98IphgRclwl+zGP9k
-	 gEvL2g8aUyHLOmOdUwPUeK2PDLgF2NKyWbjcp/KGXE2+y7vUp9vBavjegYBHng3/Yx
-	 5+a3JMKjU0kka8aXoLwIYEi3IxuGsQyNdgsVD8+JTAJJUZ8T2p5UQiP8ZXuRrRYHcS
-	 pcBPL7s5D7hKET/god8/S1UMhJkew0GHil3YYHiHXepbN1w2wCo0u/OWDjLsUyvhL4
-	 Az8NtbAYfIkmM+HBYZbvXPlqRTS3JJr1dLD1hngK6nKagKN57Oz6wgYgontgVzE4Mr
-	 KNSv+QnjQ4c1g==
-From: Eugen Hristev <ehristev@kernel.org>
-Date: Wed, 04 Nov 2026 23:45:32 +0200
-Subject: [PATCH] dmaengine: pl330: Bound UNTIL loop
+	s=k20260515; t=1793828810;
+	bh=B/+Tw39nWIip5+PScAXZbdossYLtNBKyZ8Bm07MqdZc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IWcDN+vaWTiwJa6L8FJaeo5XfPD0ZTQDqkTwTdnbBMO8u6comfo9C9YCmcT8wttD9
+	 x4ZCDVcQ4cTmcjvgeJDiP6GjeiKF3SdUs4CkqMatnisdjDwiXFYoc9ziBQ/4cfJuWs
+	 /+3YSB792iBITLjuhYnGE5uCKfzW4mPeQ+IGsnkUIcgxw0VRz7KoY/2SHfIEMSVpaF
+	 Qcje2eTQPYNFFAtFfzYgove5iibISSoWY6RHcci/gGDTNzsfGYnxXnRjJwDnmKfnKP
+	 HwMLZ5HV9shJOTN6yW5Rv9G7H3MnlRX/wJ33i+yWVI56H8jDUb5SwUvIxrsBqNVgS+
+	 r31A/QVMnFCUQ==
+Message-ID: <sashiko-outbox-198153@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/21] sched/deadline: Do not divide by zero active
+ CPUs of a root domain
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104211207.1392343-5-mathieu.desnoyers@efficios.com>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-5-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 21:46:49 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,117 +60,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-b4-pl330-until-v1-1-b541929da163@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAHun62oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMT3SQT3YIcY2MD3dK8kswcXYtEIwtzSwvD1BTTFCWgpoKi1LTMCrC
- B0bEQfnFpUlZqcgnIFKXaWgAl+MUdcgAAAA==
-X-Change-ID: 20261104-b4-pl330-until-8a287981ed5d
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Eugen Hristev <ehristev@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2972; i=ehristev@kernel.org;
- h=from:subject:message-id; bh=yBmITGHz7EZUELEqDKOPgjfsBeFhSjNtZTuRzp+q7Eg=;
- b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLJeL2/JcxHPTTqy95HjjaX9n8RaLFVCo9/OOVJ+pOnms
- uzojCUBHaUsDGJcDLJiiizVJv9qhft3uJ90tVSBmcPKBDKEgYtTACbi85Hhv3uF244dV2y99l+e
- 1fp2c9S8601TUr90/L+novLfbMvki74M/4O1Z5hPlWg1qvdzUfkuf3adotNN77jUlRI81Qm386r
- EGQE=
-X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
- fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
 
-Bound UNTIL loop with a timeout.
-It may happen that by accident pl330 will read/write a wrong address
-and generate a bus fault. In such cases it will not complete the
-condition that UNTIL waits for. To have the driver continue and not
-hang, use a timeout.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] sched/deadline: dl_b->total_bw underflow in __dl_sub() and __dl_=
+add()
+--
 
-Assisted-by: Github Copilot
-Signed-off-by: Eugen Hristev <ehristev@kernel.org>
----
- drivers/dma/pl330.c | 36 ++++++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
+commit 1283d9f058013be0f43eec132085929ecd9c1f99
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
-index c2d0b473b8f4..9ced60fef9ff 100644
---- a/drivers/dma/pl330.c
-+++ b/drivers/dma/pl330.c
-@@ -248,8 +248,15 @@ enum pl330_byteswap {
-  */
- #define MCODE_BUFF_PER_REQ	256
- 
--/* Use this _only_ to wait on transient states */
--#define UNTIL(t, s)	while (!(_state(t) & (s))) cpu_relax();
-+/* returns true if state reached within loop budget */
-+#define UNTIL(t, s, loops) \
-+	({ \
-+		unsigned long _l = (loops); \
-+		while (!(_state(t) & (s)) && _l) { \
-+			cpu_relax(); _l--; \
-+		 } \
-+		!!(_state(t) & (s)); \
-+	 })
- 
- #ifdef PL330_DEBUG_MCGEN
- static unsigned cmd_line;
-@@ -979,7 +986,8 @@ static void _stop(struct pl330_thread *thrd)
- 	u32 inten = readl(regs + INTEN);
- 
- 	if (_state(thrd) == PL330_STATE_FAULT_COMPLETING)
--		UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING);
-+		UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING,
-+		      msecs_to_loops(5));
- 
- 	/* Return if nothing needs to be done */
- 	if (_state(thrd) == PL330_STATE_COMPLETING
-@@ -1059,12 +1067,24 @@ static bool _trigger(struct pl330_thread *thrd)
- 
- static bool pl330_start_thread(struct pl330_thread *thrd)
- {
-+	/* msecs_to_loops(5) gives the same budget used by _until_dmac_idle */
-+	const unsigned long tout = msecs_to_loops(5);
-+
- 	switch (_state(thrd)) {
- 	case PL330_STATE_FAULT_COMPLETING:
--		UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING);
-+		if (!UNTIL(thrd, PL330_STATE_FAULTING | PL330_STATE_KILLING,
-+			   tout)) {
-+			dev_err(thrd->dmac->ddma.dev,
-+				"pl330: thread stuck in FAULT_COMPLETING\n");
-+			return false;
-+		}
- 
- 		if (_state(thrd) == PL330_STATE_KILLING)
--			UNTIL(thrd, PL330_STATE_STOPPED)
-+			if (!UNTIL(thrd, PL330_STATE_STOPPED, tout)) {
-+				dev_err(thrd->dmac->ddma.dev,
-+					"pl330: thread stuck KILLING->STOPPED\n");
-+				return false;
-+			}
- 		fallthrough;
- 
- 	case PL330_STATE_FAULTING:
-@@ -1073,7 +1093,11 @@ static bool pl330_start_thread(struct pl330_thread *thrd)
- 
- 	case PL330_STATE_KILLING:
- 	case PL330_STATE_COMPLETING:
--		UNTIL(thrd, PL330_STATE_STOPPED)
-+		if (!UNTIL(thrd, PL330_STATE_STOPPED, tout)) {
-+			dev_err(thrd->dmac->ddma.dev,
-+				"pl330: thread stuck, not reaching STOPPED\n");
-+			return false;
-+		}
- 		fallthrough;
- 
- 	case PL330_STATE_STOPPED:
+sched/deadline: Do not divide by zero active CPUs of a root domain
 
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261104-b4-pl330-until-8a287981ed5d
+This commit guards the calls to __dl_update() in __dl_sub() and __dl_add()
+with a check that cpus is non-zero to avoid dividing by zero when all CPUs =
+in
+a root domain are inactive. When cpus is zero, it leaves the dl_b->total_bw
+updates in place without updating per-CPU extra_bw.
 
-Best regards,
---  
-Eugen Hristev <ehristev@kernel.org>
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 963fda6ddb7f6..dadda1a528ec6 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
+>  	}
+>  }
+> =20
+> +/*
+> + * @cpus is the number of active CPUs of the root domain, whose extra_bw
+> + * shares the change: none once they all went offline, and total_bw alone
+> + * changes then.
+> + */
+>  static inline
+>  void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+>  {
+>  	dl_b->total_bw -=3D tsk_bw;
+> -	__dl_update(dl_b, (s32)tsk_bw / cpus);
+> +	if (cpus)
+> +		__dl_update(dl_b, (s32)tsk_bw / cpus);
+>  }
+> =20
+>  static inline
+>  void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+>  {
+>  	dl_b->total_bw +=3D tsk_bw;
+> -	__dl_update(dl_b, -((s32)tsk_bw / cpus));
+> +	if (cpus)
+> +		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+>  }
 
+[Severity: Medium]
+Can updating dl_b->total_bw when cpus =3D=3D 0 (or on an inactive CPU) unde=
+rflow
+or corrupt dl_b->total_bw in the paths mentioned in the commit message?
+
+During a root-domain rebuild in dl_rebuild_rd_accounting(),
+dl_clear_root_domain() resets rd->dl_bw.total_bw to 0 and dl_server_add_bw()
+only adds server bandwidth back for active CPUs:
+
+kernel/sched/deadline.c:dl_clear_root_domain() {
+	rd->dl_bw.total_bw =3D 0;
+	for_each_cpu(i, rd->span)
+		cpu_rq(i)->dl.extra_bw =3D cpu_rq(i)->dl.max_bw;
+
+	for_each_cpu(i, rd->span)
+		dl_server_add_bw(rd, i);
+}
+
+kernel/sched/deadline.c:dl_server_add_bw() {
+	dl_se =3D &cpu_rq(cpu)->fair_server;
+	if (dl_server(dl_se) && dl_se->dl_bw_attached && cpu_active(cpu))
+		__dl_add(&rd->dl_bw, dl_se->dl_bw, dl_bw_cpus(cpu));
+}
+
+Likewise, __dl_server_attach_bw_locked() and __dl_server_detach_bw_locked()
+only update dl_b->total_bw when cpu_active(cpu_of(rq)) is true, because an
+inactive CPU's server bandwidth is not accounted in dl_b->total_bw.
+
+In dl_server_apply_params(), however, dl_b is updated unconditionally when
+dl_se->dl_bw_attached is set:
+
+kernel/sched/deadline.c:dl_server_apply_params() {
+	if (__dl_overflow(dl_b, cap, old_bw, new_bw))
+		return -EBUSY;
+
+	if (init) {
+		__add_rq_bw(new_bw, &rq->dl);
+		__dl_add(dl_b, new_bw, cpus);
+		dl_se->dl_bw_attached =3D 1;
+	} else if (dl_se->dl_bw_attached) {
+		__dl_sub(dl_b, dl_se->dl_bw, cpus);
+		__dl_add(dl_b, new_bw, cpus);
+
+		dl_rq_change_utilization(rq, dl_se, new_bw);
+	}
+}
+
+While a CPU sits in def_root_domain with !cpu_active(cpu) (between
+sched_cpu_deactivate() and CPU offline, or between CPU online and
+sched_cpu_activate()), its fair_server bandwidth is not in
+def_root_domain.dl_bw.total_bw. If admission control is disabled
+(dl_b->bw =3D=3D -1) and a debugfs write sets new_bw < dl_se->dl_bw,
+__dl_overflow() passes and __dl_sub() followed by __dl_add() subtracts the
+unaccounted dl_se->dl_bw from 0, underflowing def_root_domain.dl_bw.total_b=
+w.
+Even with admission control enabled, if def_root_domain also contains active
+isolated CPUs (cpus > 0), dl_server_apply_params() on the inactive
+hotplugging CPU will subtract unaccounted dl_se->dl_bw and add new_bw to
+def_root_domain.dl_bw.total_bw and the active CPUs' extra_bw. Should
+dl_server_apply_params() gate the __dl_overflow(), __dl_sub(), and __dl_add=
+()
+calls on cpu_active(cpu), matching __dl_server_attach_bw_locked() and
+__dl_server_detach_bw_locked()?
+
+For the task paths mentioned in the commit message, at this commit:
+
+1. In inactive_task_timer() (and task_non_contending()), if a task leaves
+SCHED_DEADLINE or dies before its 0-lag time and task_cpu(p) goes offline
+before the timer fires, the root-domain rebuild has already reset
+def_root_domain.dl_bw.total_bw to 0 without re-adding the departed task:
+
+kernel/sched/deadline.c:inactive_task_timer() {
+	if (!dl_task(p) || READ_ONCE(p->__state) =3D=3D TASK_DEAD) {
+		struct dl_bw *dl_b =3D dl_bw_of(task_cpu(p));
+		...
+		raw_spin_lock(&dl_b->lock);
+		__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
+		raw_spin_unlock(&dl_b->lock);
+}
+
+Calling __dl_sub() with cpus =3D=3D 0 then subtracts p->dl.dl_bw from 0 and
+underflows def_root_domain.dl_bw.total_bw. (A later commit in this series,
+commit 1e8adcf8ed27 ("sched/deadline: Keep departing bandwidth across a root
+domain rebuild"), addresses the rebuild race via dl_departed_list and
+dl_bw_gen.)
+
+2. With admission control off, if sched_setattr() switches a task asleep on
+an offline CPU to SCHED_DEADLINE, sched_dl_overflow() calls __dl_add() on
+def_root_domain (where cpus =3D=3D 0), adding new_bw to
+def_root_domain.dl_bw.total_bw. Subsequent removal in switched_from_dl() or
+set_cpus_allowed_dl() uses dl_task_root_domain_cpu(p) in an active root
+domain, leaving def_root_domain.dl_bw.total_bw elevated and underflowing the
+active root domain's total_bw. (A later commit in this series, commit
+90cd336704a1 ("sched/deadline: Record the root domain holding a task's
+bandwidth"), records dl_bw_cpu on the entity.)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
+343-1-mathieu.desnoyers@efficios.com?part=3D4
