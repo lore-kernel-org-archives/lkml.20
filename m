@@ -1,83 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783077;
-	b=uqZRUWMPOEN9hllw06IlxrkPinUoikTfqzKKZuz4AneVBKDlTRx09/eb6Be/DIdJ4gSL
-	 56azuKO0DokEgVZr3vhmEJXML4uQGAFErQLxm225pyxXst5FSAJKfBumnhtdDvt0L76Lp
-	 8kBTEVeQk2u/ZElKDVSE/KXw27RPln4XDI3QFQDH8U8oJEFvfMRHIQKpUs/JenUPijXHk
-	 WsIdDOFbYYQ7shjeo/Ii9+EJua6H1Nhq6zGiq3LA5TKOIi/MzEXmQ+mfOl9qzoA0Q3ouv
-	 ONHn5ngClndAWDuOrg8zuV6bIbPu7fDycoWAxjWF0wUqeW+pYmRNJG0nAhLBhfJhKuw==
+	t=1793783084;
+	b=CUiBc4H0OPnDRMVm3G4GtsBzVsT0XImC4VVFyL8EuRVEGdeVjNXuA9BhJfpsQwhUdBqK
+	 /Pt5s02amZ05pbYzpj9fJvZZ7yNGOVbPy0q84895cCR/mfMKbAHGOj/84n75Q7Q+BRubc
+	 RDjUzFXtOdPyIBmNoKnHyLA8ELdXuy4XyjrXlnNgog6shhAKJAhm19nWLPyVrExxfhJ38
+	 08mUwQtaF3EY0hSZZcvYGXQj3/rNddVmncH1NrgTBufJoYYcjUfMiqCz3z/H6uPR4WLj/
+	 W9AM+9AqAhq8BHvy3xNahGWwDKFZFTp5/dg0/rmQARj80Kn/k3sFPSa58rumZEgU6uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783077;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Yi6uSUZH/rRvO4dc8qtfm+oA6mubW8QBOCH28tEKExo=;
-	b=iMSDkM5DUP+gtkJz7B7Eix7bfMOJ/9jfS+BneGU87wsA+n6UpDv6n3T7UnmDZyN9/Rc0
-	 PFtgmnL490slxtlVZJ1LhSX8C2Hdl2HJ2WecWoLc53EGCkuHgd5TmfVgCXiG7hNXz83Ih
-	 iy2AQvmACnGEwIs9rzgUWRlk54AvI/M+TWgr+Yjgdz3kncv+x+Bv69QyPqB30UJImyCf0
-	 ZeZxjF3CSYUPVD6KjXp2/djkzsCgpXcyAL0WU3MgZ1JCqpBkVyJ9X0no0/9TJzPfqUcFH
-	 NB+T9cihZ+Uhn/LgUWD9xAA9tVSrxaU8oLt470S1cnwqrzFl7H3OEbuALQ371Mmh+3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=abCJPnZRJTccf2CBVLemfheLgJNapsyRZa2z8kbgwdM=;
+	b=YuregrIT5rn76vy/J3A31728x8XMXlBY6oSBOC7OJC/lkYCg3s4ED2SjEheE9c5MVQdQ
+	 1WRRa3u2hjOXbiXSlyl966e8lY/GN2yFiMnGec77ZSYzxcw9Pp3MrpfuBosmpx+CMBVku
+	 06gQpnqXjb7m2eeFnFHfrCn20XXh3nYENACjRWemHVISGVctJGSOMcCcUwKJL5RH/MNX8
+	 OrXgM14tytvft4dfJ+hkcScAIqhtlhLBi6WoMXc4t8a5O+9Cp07FocFSmAxu12vIQJkJ5
+	 c+J56FX0v5xo8O9E4DVR1CgSnlsJZbzweJAplsFWTZ6+DHMNYNDQW1iWCwsIig8D26w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=klg9zMBD;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gs79E6th;
+	arc=none smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AFA606A328;
-	Wed,  4 Nov 2026 09:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20AFA606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A34606A33F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:04:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A34606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=klg9zMBD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793783077; x=1825319077;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=t8cJaf6alrVXE44hj9mQKJqj29+9TVluofn8Kon4sL8=;
-  b=klg9zMBDxudzSYw8lIkmy1aXwVTaOmfH7gmDwddqZopVRI9kkD4+e6/Z
-   1tgJPT8HqDP+4uVmRH9f83u4HLCou81vIWX99svoveehzQLT+qpxSXec6
-   98/RoAdMGyStaT+WFQv8+dRTva+PZnqrKsdrNDTfntfvok5Lffs/Tla6h
-   k2DyazoX2+cMHCntjeaCdnbrYop6HMb5o3mCXKPjJcW6VbKqmEpEHQQkE
-   YuOQAz4gySlIFRsohxqD6XOfp/lmrHttBG/3KZX9mK/BMQGadC1B/i3cz
-   qBOAOqB6fIu52WYNIOcxbahQN82y5uTuhS3wy/s6fXTLA67xJN1fk8NCd
-   Q==;
-X-CSE-ConnectionGUID: m4FwuLt3RqmuBJQ4wRAWcA==
-X-CSE-MsgGUID: BsRzQy+HR4a7snb/coIbIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2560604"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2560604"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 01:04:36 -0800
-X-CSE-ConnectionGUID: 6qQSRYk2Sl+6FINxHbSa3g==
-X-CSE-MsgGUID: 2sb06OhQSOuQLClbM+8xUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6551391"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 01:04:33 -0800
-Date: Wed, 4 Nov 2026 11:04:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, khtsai@google.com,
-	fangxy@xiaopeng.com, Randy Dunlap <rdunlap@infradead.org>,
-	dbrownell@users.sourceforge.net, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] lib/net_utils: allow mac_pton() to take a custom
- delimiter
-Message-ID: <aur1Hqd53BXKgWQu@ashevche-desk.local>
-References: <20261104025058.2650911-1-liuc63@xiaopeng.com>
- <20261104025058.2650911-2-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gs79E6th
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-677af43eed4so439139d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:04:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793783083; x=1794387883; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=abCJPnZRJTccf2CBVLemfheLgJNapsyRZa2z8kbgwdM=;
+        b=gs79E6thA3kgM6oDsprNfbjRxjwDOdimV5m5dxpy6nnkoyTnCaxm36bTVL4jKtu7QG
+         8U/a3mbtqM9vauAo6IBgnl2s1UtA/flpMpKlV8xNTBvMCmI45PGN/q9RTQgpd4qtNOUn
+         b+4Lck/6cMDEE1dmQq3TkbXCoJQakUKtUiL71KNUsbz3/XMlSejTPBih4EZPquQR9dpP
+         plj8nJ5zBbmSugfbxbPpVLW+JLImaH6B6QK0hUYoU0heGJAiU7A8lLjvvZUGJG68UhDN
+         y2eLtL96yRqWgdt/WbIh+VFLSoU9/wSy8wvWg5N1nkpmseOEyS4E3qyQiNsjqC1GDbcN
+         j4yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793783083; x=1794387883;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=abCJPnZRJTccf2CBVLemfheLgJNapsyRZa2z8kbgwdM=;
+        b=NpRp4husiTC18ausz6zLBUPU/fJYihTgHHWpULOrjVqNdKwTFFHzvhS1NIxTDd3red
+         hhjcQbETTMsGjKm95LcYVepkKor8J9BKGbBVfUtjEc0JZKFQexn+aAx9voz9xuJvHnep
+         XF2ORrLlD/AFdvHKAZrPPX2T9nx4rbIewNoZhmpUzDJh1ORByYiq0Q384B8vzGnLYBJD
+         Ho0ALQO76yloZu4oy6PEyLRGUSUJRebE04CfGGWic0VEXsQFIuVqUURqWpVgb12xaLYG
+         u8U4FzJS9o/p+YPnuonw+LKejVZgDPeeozsLTtSYxjHzhQNUTzOY30ibxOqinPzEtlUy
+         4b1g==
+X-Gm-Message-State: APuU4Z8UHxOHNLFB4934sqkT+BvANAA9osrsd7ZXkYMI8uj0cPlfTwrj
+	PhhiKjWblLKaZXMjT/DNGBEdyI1hIgXlH0jb1wn8wzHd53n50I46eEj/LX6P5oav
+X-Gm-Gg: AYBFou0w9JdmyI8/hOd6rZETrbX08lo0JaOuckUlg7qGwvLP8vxeiXXjY/4GGAeukLm
+	w4/erQd+HQWhjS1lJ3HH2i/3xnkqoIamnIpp5+03nh6hUYnYEHMFy4r1x5Ze4lqyxxt8KrBD3tc
+	dvDYAxqAE+ZaD/7xQug5HXVp2E6UqqkWySPVcVYp5kfLgv5iffy4gP8i7AqTxF97PdNjUKXw+98
+	MYr9j7SCv9c0S1fTPrUN4Pqnn7CLjPaco0h9U9lfT7wsrEm2VWZ9IzOcpEWXM5T20ofrLGB8EUF
+	ZE0a8jFbgRz3+Ndf7Gw+6+HpXqR6kU4Qu+db5ujEEL/2yMBwrBElAwW7VHp6IDnfccdvofgQPwZ
+	KXIHhrCCY45qPFzinyDsRoCzdUeGYDqjdoRS9uulpnrfx1yo1AO09oh4SOZDUx/Pe3NofmHHLiS
+	kFjIAk45uqtlCWvfVbnjeQV24Z/1nZ9BL4oL6CTCYW6u+9Y6D6JdwIhuJUPJE9t44Sj/hx8gaMB
+	9sFrmvWuMe8kkMMnc35gw/8DcXwNcx6XvmycW+mWyjFtRttKhc+kqa8ZME1BqO04y7itjxZKKi9
+	VcCCWK7P4qttGHeRupVTho2EkcxDI/fWGnhBF5E5wCzRRETkdtCe9OcOz4H1mnkKykxZ1vul3Q9
+	2LFIiwcS9DbkzUTrxtyjR61c=
+X-Received: by 2002:a05:690e:bc9:b0:675:a278:10a4 with SMTP id 956f58d0204a3-67ba5071189mr12464797d50.103.1793783083257;
+        Wed, 04 Nov 2026 01:04:43 -0800 (PST)
+Received: from RDEALENC-L01.ad.analog.com (158.95.44.31.netskope-rdns.com. [158.95.44.31])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bbb4f7sm14402517b3.41.2026.11.04.01.04.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:04:42 -0800 (PST)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Wed, 4 Nov 2026 06:04:38 -0300
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH v5 2/7] lib: kstrtox: round to nearest, ties to even in
+ kstrto[u]dec64()
+Message-ID: <7qc3geup2edufde3wbx5wsyhjz6tcnekoa4c4alxudqb7buvmf@lijbrfhachls>
+References: <20261102-e-notation-v5-0-d399e544a982@analog.com>
+ <20261102-e-notation-v5-2-d399e544a982@analog.com>
+ <auof_hMbsbFq3MYj@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,27 +103,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104025058.2650911-2-liuc63@xiaopeng.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <auof_hMbsbFq3MYj@ashevche-desk.local>
 
-On Wed, Nov 04, 2026 at 10:50:57AM +0800, Liu Chao wrote:
-> mac_pton() hardcodes ':' as the only accepted separator, which pushes
-> callers that need a different notation to open-code their own parser.
+On 03/11/26 19:55, Andy Shevchenko wrote:
+> On Mon, Nov 02, 2026 at 07:41:00AM -0300, Rodrigo Alencar via B4 Relay wrote:
 > 
-> Split the body out into parse_mac_pton() taking the set of accepted
-> delimiters as a string, and turn mac_pton() into a static inline wrapper
-> passing ":" so that every existing caller keeps its current behaviour.
-> The strnlen() guard still runs before any delimiter is inspected, so
-> strchr() is never handed a NUL character.
+> > kstrtoudec64() and kstrtodec64() drop the digits beyond the requested
+> > scale, which truncates the result toward zero. The error is up to one
+> > unit in the last place and is always in the same direction.
+> > 
+> > This is easy to hit with values produced by userspace floating point
+> > formatting. Printing 0.3 with "%.17g" gives "0.29999999999999999",
+> > which is parsed as 299999 with a scale of 6 instead of 300000. With E
+> > notation a negative exponent can also drop integer digits, so "19e-1"
+> > with a scale of 0 gives 1 instead of 2.
 > 
-> No functional change intended.
+> To avoid unneeded brain work it would be nice to add an example for negative
+> input, like -19e-01. And I hope (and it seems the case) we have test cases
+> for that.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Exactly what I had in mind, thanks!
+We do have the tests:
+
+	/* E notation: negative exponent rounds integer digits */
+	{"-27e-4",		3,	-3LL},
+	{"-125e-1",		0,	-12LL},
+	{"-135e-1",		0,	-14LL},
+
+> 
+> > Round the result to nearest instead, with ties to even. This is the
+> > IEEE 754 default rounding mode, as used by strtod() and printf(), and it
+> > does not bias results in either direction. The first discarded digit is
+> > known from where parsing stopped, so no extra pass over the string is
+> > needed: the remaining digits are only checked when the first discarded
+> > digit is a 5. Since round-half-even is symmetric, kstrtodec64() keeps
+> > rounding the magnitude and negates it.
+> > 
+> > Inputs that fit within the scale are parsed exactly as before. An input
+> > that rounds up past the type limit, such as "18446744073.7095516155"
+> > with a scale of 9, now returns -ERANGE.
+> > 
+> > Update the existing truncation test cases and add cases for ties and
+> > for rounding at the type limits.
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Kind regards,
 
-
+Rodrigo Alencar
