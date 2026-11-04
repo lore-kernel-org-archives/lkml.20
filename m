@@ -1,94 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793784350;
-	b=3yf+JzPbYCBNwAoOoEZEbv0JdacF0xF+CYJrXhrL694y1UIDAIQBOX6dwAWbHriwC1Yh
-	 ghv8fqhHDEF+mQMFEBv7mLn3KefDtr/Vuh8Dkh7HerDGZ3DjpW/JhjcLCT1ouWe5dtBZP
-	 q/Ug9eks19sKHmt4w8zx1QZVHEwQ4RLqEhrCEaWaXBYi1N5XMw3bYzyr6wOSV2ZPU/W0g
-	 jLqM/Q3S4t6X1D90s3JNZ/yRRzmkgdkKjh2ScSLBKJ8EhS304/D9k3kAgHTKScNgYrH82
-	 IVvM1RI0FYGvtLkcdvMaV3NP5u5N0AOJdDVQRRWCj6Z5gkenZsZNSUwmQuCWO+xSPOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784350;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=w8U74U1rPUCbHA+Z6GbARhQhlRN5MR1VyTlNpkgM6Xw=;
-	b=HS3IFy9MNd23JYu8NEbmGtuvmXU50L5Xw4QpZ6Hc31LHa2Lk/3J5gq+O7GeX7SxizjAJ
-	 18cfIi0mXLFoW7aprnkdgiEDVKdpBWGWHG1VSWIZTaoid1LQAWZmvYKBxLpC/CRTYvlww
-	 shqHt+uHXbCmgjLNm7I1VN1Wpw6GiBrMmfWzEg8f+cMXixFcnUWBrHJzChANl+SI/RSyH
-	 zMzgKCh3kz12laV6ND18kNRWT9zUrC4RsQWIpjZgA2RZ2Lruo6OGyn/fV5TSj5lMFW7CE
-	 CEwZBQfcPXjpCm3mszeHnHa9FsbfM2NaRnkGA3KC+G7UVWOKGXTYMaxJ/ZjfVB5r+rA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GmL0hlzE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793784363;
+	b=dLeDP7tBedFvgikGgCt7fDl+Db/yjDqWuPHj2c2yRNPEYiDbh+amdynuVWKNN1OLLj4r
+	 9oAC7olVKUkg/eq8LmdUqf72SE6ofxh0+tvyukjYZ5qplMaAp6akm9GsGo0KQVwtWSF7w
+	 NdsnNqsOIy8rKTA+6z62E1427EAeoCxzboGyuVd/zWYFMlEXKv+BdzI3ppfrNSFvLEGPa
+	 h5hjqZgagsUNfJ6Zgx8NA0TLtA0svx6afSYcH+F3iFQbxSXn3ZCiW4miwInElSsYhMR/m
+	 M1GFh+w83Ycgbv9GA3eNl9XpyJePjxaDL9tZG7ZhmRnIBEiLRV0kRQrZDAuDQ/hO5dw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784363;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=PFrZ5dbTOXlM0VvYXkehn2Hkl3Ka9277tqCUBifKvOA=;
+	b=wglWET2wc3ofs7J8h5X3f/LHt+DdBwLhii6SEIYfS4Q/Tbf0SPqV5HIbgZblaaNApFNd
+	 ENdFVNjyZjhwWtJZX9unArY574eXu6nwT0gaEmPDNUMQlUX2O22GJXinDvbnYnsP/pauF
+	 n6+eeKiTHpaZ6sz/Ax8jkB5i4Jz/usxPzLDZh6+335qVzjadqEV4Lvcf5Gewg3j/PhMLs
+	 LW9Q8LRruy/dpN+R+iS0pGeVZEZOp/p5zSswi+yZpzfCAIrf5ZnCGLjpgaSbw+tnGA+ex
+	 kGeg5G0gpiGWhzXj8h28WjZ395l7x0Kvr62EZd8wcoNwxxpDsQ/Tcpnou26Faq5WJJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743A5606A328;
-	Wed,  4 Nov 2026 09:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743A5606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GmL0hlzE
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 50C2220109D;
-	Wed, 04 Nov 2026 10:25:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793784346;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w8U74U1rPUCbHA+Z6GbARhQhlRN5MR1VyTlNpkgM6Xw=;
-	b=GmL0hlzEh6/zMrc7BWma8zSUIPrk78do1Ht+dBk2BZLwTFQe23LYDRufaZSjLoY79hb2IO
-	LpU0biM+xAlBhxQMKJUuoERzewEtXeVY6j2u0owQQqeKtOv2TsjZtP/LF8v4zJdBFDl+B2
-	Hh3Agkd1uZXotZjFSzzotEmEQusFhYmjYOS85E+8U/vmlkHfRXCHIrHeYRWQY4HIknNhMI
-	AlS0YUWqrCW9T3ZA/dd7ihmLM735iLBcJz6SjQUU4pKojZVnS2US0Io4ka0+R0Y87ea+uz
-	SAfutint65rU0Yh87s0Zp8+rDeA9jjHcYdB01Wmhfjx8Wz76x4q9qO4cwRbbVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793784346;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w8U74U1rPUCbHA+Z6GbARhQhlRN5MR1VyTlNpkgM6Xw=;
-	b=VSAc9Qd159bqut/xNHfr8zIOeQUfzaz/wFf4SzWXaDxqEB6zoJ/1msq8lqNNfDEeSnLTDq
-	vvvweIeiKL+2e8BAx2P/PUZSDjIpFDKrUiA2ROhuqE19zeCrLn12CSEUNGVJdlblsdbFqR
-	tass/S2FKmyOUcfDNkYplqRtj30IywEVMGBTsBl1e5t8N5qdWDsr1/F9izmz4k1rOfcgSB
-	0BKw3eAJCwK0v6FS3BpdOWjbMRFpNvjKRAQgK1ekO0uQitaeDRJHdIyqLqwF8WBUXkZKBi
-	9lQOD5GJP4GVBnUnVuBid8MOLz3y8qtXQzmA7yFaxHOV5WJu1SMGki6QGRu4uw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793784346; a=rsa-sha256;
-	cv=none;
-	b=Cv7w//ohSIyW8cU/T0syoSW9QWkXrIxqlV0JKIwB9XO58jYOUtbKX0kbEG3dC+ug0iKw4z
-	DdM+c8lsqymz8uA5welyI9jAapN7RLNLvEybCQqPlP0FKuJoq1vJf7mqAh0m2A5jDHNbx6
-	AgHawSinYPc+icgh6EXbv6AfazHLu4cMiydEp6BIl5zSSeHq0VeDYAmH3ZX5YukBa+jAGh
-	m1LtZcnmEbb+NBxjp0trCxfahGdNwsCvXTc6jPGKfZ/BbDyMKRo33MVDpcS4XebKLO8+3D
-	aEMGh8DNMlmL39at/qEcRu9QjKAxLSttGgdhAZ7i2F8GbnDS7FJPTedpDkR61A==
-Message-ID: <e4474a7501c9e2a355dcc80d632bcfa10e1959e8.camel@pengutronix.de>
-Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
- reset manager driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: joseph@telaak.dev, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
- Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley	 <conor+dt@kernel.org>
-Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 04 Nov 2026 10:25:46 +0100
-In-Reply-To: <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
-	 <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AB7606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89AB7606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e937c5bd4fso421292b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:26:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793784362; x=1794389162;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PFrZ5dbTOXlM0VvYXkehn2Hkl3Ka9277tqCUBifKvOA=;
+        b=fulsF4+P7+fsKS3SdmU8/w8lAHrXyYktd8pxsLZIg/y0i28mbrF+vmfW2kKGgApSvy
+         RXZJs//LNsp9ux4K6CJOPdbqsjbZ6X1p3IE1heAhoSL2r7QYK6nmobq0kfp3ta2DV/aF
+         /atH023sWqXmIW0Jx1FUdY3M3ldOG9VabL8Jk071ZpK2aN8sidd1x7OIEgbvoGbSfuY/
+         TSD6jpUqc+XoQXEJdnfQFGoJy699AMY8v6gzTmJeQ+C2/y+osUecsE8MAA+TXQSQ9UmP
+         AUJGViQbpfxtAPe/xrerrFZ8m6THCnCPEzZLEwKTAFayHbflt9TYkZhGr8bb6O1faeAz
+         6RIg==
+X-Gm-Message-State: APuU4Z+buuyV+wHvmvS/Fszff7ZEpG7U3SFHZDxac1vBzhn0ZD6U7Q4Y
+	Wqb3eP5iLnljij3YXwqn2aODmxKVcSBoFiqNKLgSPkgc64cj5mXutbUkJAv6z6iRGY3al/a1NX8
+	wPsXL679btLpRbb+XresDZYVkKtLrxnT2bMFEGiGsui4mPhA0pUfA9hqB/ak=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,81 +57,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:14cf:b0:4cb:d056:b14f with SMTP id
+ 5614622812f47-5640d91b353mr9627782b6e.1.1793784362623; Wed, 04 Nov 2026
+ 01:26:02 -0800 (PST)
+Date: Wed, 04 Nov 2026 01:26:02 -0800
+In-Reply-To: <179378340638.11608.18306459463443605471@cmss.chinamobile.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aeafa2a.bf891901.a11b2.0003.GAE@google.com>
+Subject: Re: [syzbot] [driver-core?] WARNING in firmware_fallback_sysfs (2)
+From: syzbot <syzbot+8f06445357a052a92657@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	xujiahao@cmss.chinamobile.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mi, 2026-11-04 at 02:21 -0500, Joseph Telaak via B4 Relay wrote:
-> From: Chuanhong Guo <gch981213@gmail.com>
->=20
-> Add a platform driver for the peripheral clock and reset manager (CRM)
-> block found on Siflower SF19A2890 and compatible SoCs.
->=20
-> Each CRM block manages a group of APB peripherals through three registers=
-:
-> a reset register, a clock gate register, and a shared Bus Output Enable
-> (BOE) register that must be asserted for any peripheral in the block to
-> respond to bus transactions.
->=20
-> The driver registers a clock gate controller and a reset controller from
-> a single DT node. A shared spinlock protects all read-modify-write
-> accesses across both. BOE is managed automatically: asserted when the
-> first clock gate is enabled and deasserted when the last one is disabled.
->=20
-> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> [jt: from Chuanhong's siflower-7.1 branch; one compatible per block with
->  its gate bits, critical gates and reset masks in tables here instead of
->  the siflower,valid-gates, siflower,critical-gates, siflower,reset-masks
->  and siflower,num-resets properties, gate N parented to input clock N by
->  index instead of by global name, the gate updates under the spinlock too=
-,
->  no separator comments, Kconfig dependencies and help, subject]
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  drivers/clk/siflower/Kconfig                   |  11 +
->  drivers/clk/siflower/Makefile                  |   1 +
->  drivers/clk/siflower/clk-sf19a2890-periphcrm.c | 360 +++++++++++++++++++=
-++++++
->  3 files changed, 372 insertions(+)
->=20
-[...]
-> diff --git a/drivers/clk/siflower/clk-sf19a2890-periphcrm.c b/drivers/clk=
-/siflower/clk-sf19a2890-periphcrm.c
-> new file mode 100644
-> index 000000000..95d4dd449
-> --- /dev/null
-> +++ b/drivers/clk/siflower/clk-sf19a2890-periphcrm.c
-> @@ -0,0 +1,360 @@
-[...]
-> +#define CRM_DATA(_g, _r)						\
-> +	{								\
-> +		.gates =3D sf19a2890_##_g##_gates,			\
-> +		.num_gates =3D ARRAY_SIZE(sf19a2890_##_g##_gates),	\
-> +		.reset_masks =3D sf19a2890_##_r##_resets,			\
-> +		.num_resets =3D ARRAY_SIZE(sf19a2890_##_r##_resets),	\
-> +	}
-> +
-> +static const u32 sf19a2890_single_resets[] =3D { BIT(0) };
-> +
-[...]
-> +
-> +static const u32 sf19a2890_gmac_resets[] =3D { GENMASK(1, 0) };
+Hello,
 
-Are these two bits separate resets? Are they individually controllable?
-Why are they bundled into a single reset_control like this? The commit
-message doesn't explain.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-[...]
-> +static const u32 sf19a2890_wlan_resets[] =3D { GENMASK(2, 0) };
-[...]
-> +static const u32 sf19a2890_usb_resets[] =3D { GENMASK(2, 0), BIT(3), BIT=
-(4) };
-[...]
-> +static const u32 sf19a2890_spi_resets[] =3D { GENMASK(5, 4) };
-[...]
-> +static const u32 sf19a2890_uart_resets[] =3D {
-> +	BIT(0) | BIT(4), BIT(1) | BIT(5), BIT(2) | BIT(6),
-> +};
+Reported-by: syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
+Tested-by: syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
 
-Same question for the other multi-bit masks.
+Tested on:
 
+commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1047668d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea9128325cfe7743
+dashboard link: https://syzkaller.appspot.com/bug?extid=8f06445357a052a92657
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=143035a5580000
 
-regards
-Philipp
+Note: testing is done by a robot and is best-effort only.
