@@ -1,112 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833256;
-	b=B56vPz/8SsjS/Gcf98OrpM6tGCyfcYZwH/2FKiJHfAmMVZ2OZr/KbFD6bojA5j5voKop
-	 +gTS1cBXeVJdCv8VetH0zDE0ydmxJgDGjFhZ/1N/+nTu7MXTA1UDeShYXih4fGGyQdcjA
-	 RuhK+SUetgbOTckWO+rHccMmt/l7aGMWxGx1OidqUQoyfCggkuMe3ZbuOu8KSterZ6vII
-	 pRhQPV9or42wnBEasZyKlnejAI2XTf4PWmGJ6jwsaN2tGDklfMYPhEupUS4tk+DXdSuoS
-	 eVPz/576/mA/QIGg0rnrXQkmxFI9b6Q821MLDt7MD+cTIZ4xBUehS3r8mn7GWX9945g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833256;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IBnwuUwFwWPHj2qGKuZXR/Fn/5DPhnAAWQsAJFP7dnI=;
-	b=1Ccl7H60gGrKR2TrtC6qyByFsVGAvfbWzoWF/tGmRDoCGi6Xw/eDeZelpkvYUCamxH1C
-	 hgfGokerZ3j44Z+j154R9Mi3OKgFgl6R9z9iqnWBSBoXjzo8FCEMzi+XcnEoEniQFSVWi
-	 on4QJ6oU9MHU3P/He9s42bZGYxMMEJ1P6D7UsAteSxDp7crWMtJMKuGEzNYw3sueb8FIV
-	 ppw4BlzYBzjGgDGASJMcuFYHLgUIsjT9IL4S6A+O65TXeOHDcw6uo7eO7pEfsqbP5gVAI
-	 RKbJmGNM8zzXgak+eRU77PJDqDd/yotc/TwfdDA4Ty6uoAm0oMsUg2jU9sG2tIjMbVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="O6BGli/H";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uh12jnc7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793833336;
+	b=2UTQRivyfujrPwmT4d8gZdVXyAlShN5tXgIVTE/AVYTxtX7evQJfFAy8PzvA9j0R9Pl3
+	 4OiF3ntI0LRg3tvM/8CzhLo6NGzaPcnM4Q1Lm4NCR/3wehZyNCnMZlIGdxgljra7XkEne
+	 pBJy6vGbFzRnXm1zdH0EZLoIM1MiNoggEEyDW2BYhvQcvlNwM12+nxlG7e5lxx6EGAnVo
+	 LSg29cSTzqJ0RSPfpMGM08SIuN+kzukJYBVQvLi/symXd8u2ixF5ABEWP0euOZC7w/zBN
+	 0pkU3O80zsCIa726lZt2AVjuWbuh7bsmEjr7y9ZGJtl6Fpkd+qwrjOcF6MgEq4yrVZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833336;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ScB+1RNNN7nrFc24z/jDL9Wx6H4VUx2SuocMwTMSEps=;
+	b=oWVCH3v3jjSfAf3APfdYP5IpCd+C3hPZxKA3e6SZzRhHRm8O/efQfP+CK/Qcj++xshiE
+	 qddjeQlMSJxgmiMrZ33QyXAtW4WFwar8Mi5nncRZ1M6so3DOo5viDVdL1Wsux+aUcJvOz
+	 uKonjFgXo0FBBDFrrcdSFzpGrZAXlKwdf1PKSZMPrpOn3A8oDmxXXOmEgeZ0s0p2Der8/
+	 aTCSgfHEn+dWhgLQDCRrkgQ0wOBSDUyUpywVXZuRxENartE29p1pnUp2pHykRWV4ss3nT
+	 i+C+5YOUfibvln3o6DpT6lJQh3GL/bumdrYYqgFcEX4vqUEo2IJTqOqjHKis5CvXAqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Iq+PXbvP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.48
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73063606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:00:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73063606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8133606A31B;
+	Wed,  4 Nov 2026 23:02:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8133606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O6BGli/H;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uh12jnc7
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Lw2MC2210784
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 23:00:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IBnwuUwFwWPHj2qGKuZXR/Fn/5DPhnAAWQsAJFP7dnI=; b=O6BGli/HIIDofw67
-	rFsGgLtdJRCXoEeKzYo+hW4Hh/+ESmUI/61hl2a32FI3wQo0B204FbGWdZCEgSfx
-	R7Yso3POoccwvj88TwcTNhGbBGLUAcXof+4KaNXqqphJ3LHGU2Jays0rgeHs9QV7
-	jtdag5gRCyqBBYiWubLFbXNkE/Of+86wInhBxp5jq+VzZ0+B+py/7IEoj3AlNUXx
-	/Y2b519enVLbpEYmZzmRnl46NuSEOxvMBqNAhQBp/AWv0HB0LTvZGBX2NscBrXC0
-	pdSgm61w/feHrG6yq/6N5z8UxShVNs3t2scGaKsub1gx3ChDfA0xLA0zp9JO32yN
-	AGHRlw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bdt2nq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:00:54 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30bcb065bfdso2167817eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:00:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793833254; x=1794438054; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IBnwuUwFwWPHj2qGKuZXR/Fn/5DPhnAAWQsAJFP7dnI=;
-        b=Uh12jnc7wEs+c91B6UjpHc+p4kac6FH7u5MnrW9kYD3A/fewYfhx3eBtoSQZac5mrm
-         QYFUZcVv16oMl+t3jCUfQUbY8p6/OmbF723pEvl5uIEqCkbGvUgtHR5HZUUUB7MKN9Mp
-         urpYExmNjHzWkG5Pcgeyfjy+skZF+NDAGTCLMIwR2Er93Jk71IrbY7aXguzsMqoyo359
-         CWvuhZw8CxUIxMCkmlyAbpFSEN0VpILD4lREyerKsrdKQ+C9dIi6cD4lo7KOnFUVOEya
-         DzvldJLQ/oNXYFfEYl99Rr7+Xk8OASoaV8KwkTd6Jyt69+12xcX2w/ujaSmo7UoTS+59
-         HTfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793833254; x=1794438054;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IBnwuUwFwWPHj2qGKuZXR/Fn/5DPhnAAWQsAJFP7dnI=;
-        b=IDNs84TTYysxwzeb7DaZD0kZa6Xsh/y6BPRM9pDR68AB18qOl5Wli1yPHT5wv650/h
-         BS4CfzWd2zyFumXL2m8Ht/xjwSM6VDnO6Ch7kWaCnyziP8fBub828XGapKPEi2xPpZHl
-         x9thhu3dS5dqrP3q7YtnfBkvX0LjxiAZkdlFB6zPzPoX3SQYBbLbN8A6Qa/YkMiOqQK9
-         DChyKirbHSzqtmbd8xkH96XpTiSHiYIoS1xCZ3Wdk+HtGrYnIjz0ShME5czND0ciRXUT
-         bC7Idf4PdoAsb/Jp8LZANzDwXroB81yQm4UFCJgTeA6c4FDB5LopL0ONx3b4pLUsPD/D
-         OAFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxy4TXU78UvLe7jsYjTwAHWftBthFOlrR63EsqUfn0FkUxeeMDiVV7fZtWz9itfxMgEp6blIZmP9zRIhdI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FDq97jRF7OdfWjNc6QQTsUegHhyVRtW1Zu0mNUsjuwIlrzD0F
-	gmi3nnvrN+HDZgOfFMsEkHyKMExxXpuYewAOetlbaU/fUQh+8+JJHCRjTXInWHxatZK6g6cSz7o
-	l8+fvYHE7LX2pkeIl6TI5y1qt9v/SsAogaKfhj11jelNdBsoFx98dnM+o0x+HxYIElDI=
-X-Gm-Gg: AYBFou1wRPxk+RmlLeogCiXZexcoR6JPDJfgoVmsSH+6Suo7iN/6qqqNGyNpKyNZ5EK
-	1M5Nih32XI0iZnXo0H2ZSUlg0jElxRj1iwbj0HiLL1YxL0+MqcM/h7AH73mAkKZlA2A+AgtS5EL
-	CNGZpK+pIn8zqzg+0mqeGBsf7kbm7BThbbQZYizGXHduRrgpUsaDiscqtmapmSO1vA7RimnK6N1
-	yMCvTMQQcXMWF9hbLbowRQXJvjCHbLqtmLrvQ+rUsV+AwNdl5BWM3PYv6zjmrBEltnY01aq2RDH
-	v01b6dzondpOGjx+hUCyFk+brGQHtai5bKkw/286MY3zVFKajww1FutHWqGT01mAy/arGSINiq6
-	WbcWTXNHUG17PD1qD87X1qpZHwiEyhdcLZzzafItF+Qd2ZZhrjILDmFCzvpVOzP4NSnIs0GSveN
-	6PW/EWvnXS+1xKaeGDqsyTqOVk9H95
-X-Received: by 2002:a05:693c:69d5:b0:369:7c:bfce with SMTP id 5a478bee46e88-36a423c6223mr26622418eec.14.1793833253686;
-        Wed, 04 Nov 2026 15:00:53 -0800 (PST)
-X-Received: by 2002:a05:693c:69d5:b0:369:7c:bfce with SMTP id 5a478bee46e88-36a423c6223mr26622351eec.14.1793833252836;
-        Wed, 04 Nov 2026 15:00:52 -0800 (PST)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39972d4sm17734198eec.26.2026.11.04.15.00.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 15:00:52 -0800 (PST)
-Message-ID: <adf77ed5-ecdf-4984-87d4-a7f796b83c2a@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 15:00:51 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Iq+PXbvP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JfZCV5IvCAcL0qHg5YIBCsAdTapUf74IeJaLcO+9fxwzqanLk1Vrbtlaoq+H7FTvyIQ8tr/aiJJ5FO5AINVBeoufT+DS0788bWZKxBm1pY+tx2e0IZpV3QGzF3GOC1A1F49AI7Gg1Tm8UeX4orfLa3WSAbCFlO8ctI4L2mUTlEcXYqvC0I5XBikdLGQKWN5D8vXwcAnKPbdTxjXyjnVpYwyaTyxajgMjP/SYwDxL7sIug31EK9pIqmeciyamSFLxanetoVziOv4ejKqvH7sJLK+e4z7kIvAn1fgshd7DHD9Ah0mbUQq4O32Axnnwc0eY/3t4cd+P1EsahefhMhoUag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ScB+1RNNN7nrFc24z/jDL9Wx6H4VUx2SuocMwTMSEps=;
+ b=UlJ1kL9PHQxvw5YmqwsUL5XGsdE/xfcCSUaj3ijsTsJaGZ0CZaQT0OWBvlSITdnZDPSlWjC8QMe/os/1n/7Bv84q9+2MWjTyn5g+sTdU4MlhqnBYtGwLPer58p7fQWeoyaZjM9GShUjRPJHS0jfBu3tbsTJUqp3v4gdo4P+th1Gd652xUunUiNXEYBLn35vswhHyU9FJb5YPrBe2Yzu7wvN3hyrXqi4E/SCVeJmKXgxtWtTM6nXbIwAzxdIiJaIGvYyWoDxN1y+HNQg6HVYuiM0UEiXnell02w7C7T0ZCC36a5Dk8vwJdClJOTqTaYLcUbRGYDZfqGVE7G3oN4b3Ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ScB+1RNNN7nrFc24z/jDL9Wx6H4VUx2SuocMwTMSEps=;
+ b=Iq+PXbvPi64pXU2YRfsc4s5Wg9TDURj2sxvi0MMvZIFdEcJHdlpSF+dFGuK3YZHg7rhFdPNxlXsW5Yh/ogPUSa3k7eQ8eFAmQan1yxLLe2ZgGUvcYjlWiuqwk3goqH/DFsDgdUarU8eWF8rN8hnVU58RAnwkD9e+71pjrK8EjfEP6rA3K2zd65dLplUVu2eMXKNg7anTT/Pm8rD0XFSl3E1qmG48YSmJBpxuzMpPwBVq4U5tRYbWOD3sQYsKH4kYK3ComBOf0My7oJ5R+bKVln8QnCp5mkW+7dOUFh5Eyt8vKwceZPbNPNhc0LHMsCicSSIDOO4hiJgnKTNTR42GyQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA1PR12MB7687.namprd12.prod.outlook.com (2603:10b6:208:421::11)
+ by SJ0PR12MB6928.namprd12.prod.outlook.com (2603:10b6:a03:47a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 23:02:11 +0000
+Received: from IA1PR12MB7687.namprd12.prod.outlook.com
+ ([fe80::44bd:3118:a52:69d8]) by IA1PR12MB7687.namprd12.prod.outlook.com
+ ([fe80::44bd:3118:a52:69d8%4]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
+ 23:02:10 +0000
+Message-ID: <e5fb0b57-0304-4989-94af-9432115c7cb6@nvidia.com>
+Date: Wed, 4 Nov 2026 15:02:04 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 RESEND 3/6] firmware: smccc: lfa: Register ACPI
+ notification
+Content-Language: en-US
+To: Nirmoy Das <nirmoyd@nvidia.com>, Andre Przywara <andre.przywara@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Salman Nabi <salman.nabi@arm.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261102165421.3651202-1-andre.przywara@arm.com>
+ <20261102165421.3651202-4-andre.przywara@arm.com>
+ <c9f66683-7902-4b5c-9f76-c55b1894ce9c@nvidia.com>
+From: Vedashree Vidwans <vvidwans@nvidia.com>
+In-Reply-To: <c9f66683-7902-4b5c-9f76-c55b1894ce9c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR03CA0344.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::19) To IA1PR12MB7687.namprd12.prod.outlook.com
+ (2603:10b6:208:421::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,150 +107,329 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: lemans: add CSI2 D-PHY
- common-phy providers
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vikram Sharma
- <vikram.sharma@oss.qualcomm.com>,
-        Suresh Vankadara <svankada@qti.qualcomm.com>
-References: <20261103221026.3662383-1-anusha.nandi@oss.qualcomm.com>
- <20261103221026.3662383-2-anusha.nandi@oss.qualcomm.com>
- <72223121-cb42-422f-8ce5-4cf9f41c5aec@oss.qualcomm.com>
-Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <72223121-cb42-422f-8ce5-4cf9f41c5aec@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA5MCBTYWx0ZWRfXyL0oRkm9463G
- DnWVG1VVNz4Q3jk66REO56VuNmdaFhfHul506C3+rr0qyiuJosrCnxuRhZyiiVmFgwETrcoodZD
- kzpgc2ff5H/4JXI0l79kKFRHmjoOPWw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA5MCBTYWx0ZWRfX43H9kjB0/2So
- D2DXD1sefezYJb+1KeAliAGf2UOGmFl8+CC2RxD89iABPQm0REXjZ8qAsEuWPFjE4Its5XjYrie
- iRfLHqBe2G8OzO1c2c4s76Ts20ZMtXZK4xUWgKiG+Rlwh2w9ud0BhMCPzzWjKfnQezT8yO9K+5W
- B24GnDRjzYaUGx0KyUcjPFNuOdJqZpEIwVKMDQWdASdGo/lr+LH5cG38eCfjlUS+suZUxQvTqbD
- b+w/4NprP6quNzEmeCGErZlKATiX5PKT/vfHGLxIUcSS+Ds3xnAIWumtrYno2WeYTeuS6FTJds5
- 0w6griZug331HQ+iQP2KrI0aziGbZVfT6egWR8F/AlOav+dNUTZxp/c1HRqqrn16qQ/tT8kfmPw
- fXlLFS82Ic/vOlz/ndrDKt+SqjkepwMqd1dOlUiGTu877MjPx3Tdwp7i7J+fgvW2XFvB9adjta7
- zk/OwdOCwFS43PKulcw==
-X-Proofpoint-ORIG-GUID: iCvxag__N9yd2LX1f9_okJ-2vlQ8mDYF
-X-Authority-Analysis: v=2.4 cv=D4XSufRj c=1 sm=1 tr=0 ts=6aebb926 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=YzLprhzs-1J5OMutLZIA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: iCvxag__N9yd2LX1f9_okJ-2vlQ8mDYF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040090
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB7687:EE_|SJ0PR12MB6928:EE_
+X-MS-Office365-Filtering-Correlation-Id: fea5c068-1d55-437a-5770-08df3ac7a832
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|22082099003|18002099003|4143699003|261022115727099003|56012099006|11063799006|3023799007|261022075727099003|261026140227099003|261026121527099003|261009223027099003|261028144727099003|261102123227099003|261022105027099003|261021121427099003|261021123027099003|10067099003|5023799004|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	y6P7tRrkFBDKEUs10OaKmjU9PrwH6IVGoIFGaRr2BQBohGc7luRXrUkgF/0EDXujWb64+jYBePr7JFNLG9i9x6XWw4T6hNTOX++Oc6pvTxi/2N1bVJsSH+df+2h1ABATBo8dedK2Ursn3pjVcEbij2CWctpkMTN+SmMzy89qm+M6VoU2Jjps/iN+K1rN/rg3zsE0F5a2vPZvqcp6UoXUpHpoKFUzqZf7OcYfcMPx1DYbLf3MO7/Xsg86Hd1v8WLJlZi5qow4nA4EcH285rIN8k3hDQxoP0+wjEFaWvBQd9XwPSNkOUNgkjz3HpT8tDQnI2xU42ddyOs2sw8xToXuh8W5VDaE5GA1cpPxrxHhyrmiccfNPdwnfHiUvAjxMvsbFaxgRuIT3LXdoQwQYDnxtmbdjolkkn7rjDm8IrbFJVNOlOEr5vneJGatvrmJpO0u/EEZwL2Vcmd/uVOGJ1V4JVampVn4Ke+M28y4vN7kKBqAfGntYmR/6xe+LtAPBu6fKkG43iBqiere9FaBHz0SYojLQgaOmYk/gmQ4rjA6lcOufVqiVFi3+s3LzM6Haj/tjFdatQDLoG64Hk8TjsOMRgJASiY73k3cHxTnLTTExTAyy/bKnz0bCfNVBBr0kAnRIRDfqs71t8b2nUz9hTD0gfz7dQniO+RWP3l8lCPjoiI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7687.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(22082099003)(18002099003)(4143699003)(261022115727099003)(56012099006)(11063799006)(3023799007)(261022075727099003)(261026140227099003)(261026121527099003)(261009223027099003)(261028144727099003)(261102123227099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(5023799004)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RHhOV2tKQ1FIOXVTSTB1ME13c0J5azJ4VXI0Q1dKUy9RYnFSankveURTZWx5?=
+ =?utf-8?B?VHY4UkdlZXpBcFR6UkVjaTNUWkNMelB5VkE0V2YzbzJneGRUQ3ZZK3h5YkFQ?=
+ =?utf-8?B?QXJyaG1WbkVBaWJ4a2ZXT29kaXpTK2tGMkVxaWNDQ01LMG1BVUJmeGZ4Vjkz?=
+ =?utf-8?B?SFd4dytZSUE5V0w3MDBKVEt3cVQrNW1aWVBsTTZhdE1taGh6Wk9XbGZIVW1x?=
+ =?utf-8?B?TTBTMkYveGljZWZMWXExdklWUm13SDRsUE5iZmp2UkdvelpJZ0gycnNQdU9h?=
+ =?utf-8?B?UEFDWFdRT0k1OEdyaUUwdUsreGJIeWxBdHQrN2lmUXdFMHdCanZ6eTN4aGdJ?=
+ =?utf-8?B?Q1VydWFBTTlOSmRmTExmaThlaGtNcHNzYjhxQlJFR3h6VTJEMG9zZGNEOUl4?=
+ =?utf-8?B?MlQ5Ry9zQzlEeTNRc1BKc3Qvd3pQQ095aStuUUgwZnU1TEFoajl1TVNUVmh1?=
+ =?utf-8?B?UDMzUkR0R2ZLc0crbTZORVVwdTBQMXhkbzhhL2dCQ05vUVRNS3czU0lMMjhG?=
+ =?utf-8?B?bmVjRmZrYk1iMFphcGt4QnlpRGhhR3ovenFUYUxXMitRcW5MdGF5aWlad1Jj?=
+ =?utf-8?B?UFMyZDJWTG5GZG5NclpnMTN2MVpLdjNaUnNYOEJYMlJXUXYzN2JxcFhhSTVZ?=
+ =?utf-8?B?dU52Nk9xQ3B6emFTVGlUbGl0UGh4R2VwSmZ5NmFONm5kcnlIdVZsV2tpTTZx?=
+ =?utf-8?B?Yjg0M3dKcEYzbnNockdtdzVqWFdpeWJ1TkdKSzFHSzBNTmJiV3UxQ2xLQTBy?=
+ =?utf-8?B?clQ0a3Jya0VxOHh4WE1PR0k0ZlFJby9jb3oyaE5wekZ5UTloTW1yQVpoRkt6?=
+ =?utf-8?B?cDMzOWhFazBCN2ZZUjFrMHRsVm4ycm50VEpDTTFhRUNVTmtDUU9hZ3ZpSzhO?=
+ =?utf-8?B?N1dKSTdQemIrQ1BWNWRLbXZNOHV5RVdrcmZGK1NGR2RUS0JGaFhOakJGbUdD?=
+ =?utf-8?B?OWdzTXNCZkxBeThaL05YVnJoelQ0aUtvOW85MXpQS3hYaHlKZHZKU2RXTFNh?=
+ =?utf-8?B?VHJHTDRHTmRMazJyMFNZWWRBSWd3T2o0Tnp1b0ZXZ0VFUEd1ZEUrRG9OQi85?=
+ =?utf-8?B?VFJteEJDRWd6MWJIMjgzOVUzSU5JUURiWW83SCtVb0Z6OHpuOXJVZllDUDgx?=
+ =?utf-8?B?VFBaWEVuM0NXbWp4REYxT3BoZnBzeGFJbTBrOFN0eFFWbXpBQTNHU1ZsVlE4?=
+ =?utf-8?B?eFZSdyt0VDhEWW9EbzR0ZmpqeDMxN3hvY2NPR2pjZDE2SEkwVFMzenVIUGRT?=
+ =?utf-8?B?bnFBSEFoQm5yMldtNG1MK0VVZ3VKMUpsZGJqaVZOb0M5RzJwRjNMVnM1UHVa?=
+ =?utf-8?B?Si9vTVBkSUNMUTN5RlBTY0tLNGRZNUllVlhwdnR6dnRmVFpGMVBZU3c3Mk0v?=
+ =?utf-8?B?ZnMvM1JBTzZ3SGRkQWpCUjBFdTBzNDhTRGVsV3F1OTJQSFdrWXhiOXBQTWJi?=
+ =?utf-8?B?ZzAzTnNHYTNSeHg5TC9ldmdIZkUrN1A4c3VXTzJmRXVKOEQ5YzhNWWpSajlo?=
+ =?utf-8?B?ZTJCSDE4VnA5QWdkQm50UjNYVjhPVHFZSmovcGlkeWpremZkYU5TdlVXaXNS?=
+ =?utf-8?B?bEhZWEJYeDNYbVVxRlErNk5MaC9WcjhnM3J2Tm1Bc2hjTVo3MHFKZFZwaHpY?=
+ =?utf-8?B?MWNLSWU1MjdSMnYrZEhSUlp3L1luMWxIUGQvNk8wVVZJWTM2ckVYR21Ha3dm?=
+ =?utf-8?B?cVB3SFZMTmlxMGdSb2NkZUs2MXA2T2toYjB1YmRXUUJNNjFkeDJoQ0FvVldL?=
+ =?utf-8?B?ODI2VFBFdVRUbnVYU3ltbEdBaTBqZUpoNXQ5ZDUxbEEwVXVIZHpLSUl2dFdT?=
+ =?utf-8?B?ZXZ4bGgvS3VTVExyb1k5a2lNcGxhTmQwOFF6NDN4bUtUVzd4c2FUYmpIbHJE?=
+ =?utf-8?B?eG9nSnZzS2RyeUNVNVFoY1JwMlRKLzVsM2YxTjdCTitFYlFERDlWcHh0Tldi?=
+ =?utf-8?B?NmZKSk9OZnVDcDJYMEJzek5wRUx3a3Z2QW1GRGxVYkpQQ3hjUGdjYnhiQjF0?=
+ =?utf-8?B?U29ZK0xRNlp3ZG5McmJ2aWtkVHpRclpwMHc5c3hpeFhXeVV0cDdCVHNPTlVW?=
+ =?utf-8?B?NFY5a1djRCtHZ25rUVZYa3U4WHFjSUFVUUZuYXg5VXdUeW9ycWhMVUtJY3c1?=
+ =?utf-8?B?RnF4NW1lVG9EeVNxSHJuRzlLcUVteGl1RWdYcDZHTDU5SkVMMlQwTU9rcnVP?=
+ =?utf-8?B?dFhMYktiajVwOHc1dlEyMHNSSkFSMVVZalJuS25JbWpPQmQ2Y2hjb0kraDF3?=
+ =?utf-8?B?aEYzb0lSZ2VvRGZZZ2daVWRlM2MwY1BTZEVkMU5YaWV6MFdwaGxSTldPOGZQ?=
+ =?utf-8?B?MVU4ZXJTbzFwWjl3SjFmWHU1cTEzT3FOSVRNQ29HaEVINktyNU9LQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fea5c068-1d55-437a-5770-08df3ac7a832
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7687.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 23:02:10.7651
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0dJPBs9IzwVHoL0EZg6NS31QvTB4eeJWEX6hnu+4gfjVWygsM1qflt0K/+eBPD+TXerMGp6RylvTHAMP7YHuHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6928
 
-Hi Nihal,
+Hi Andre
 
-will drop a new patchset.
-
-Thank you
-Anusha
-On 11/3/2026 8:53 PM, Nihal Kumar Gupta wrote:
-> 
-> 
-> On 04-11-2026 03:40, Anusha Arun Nandi wrote:
->> Expose the four SA8775p CSIPHYs as standalone qcom,sa8775p-csi2-phy
->> generic-PHY provider nodes (csiphy0..3) at their existing register
->> addresses, each with its own OF graph (port@0 sensor-facing, port@1
->> CAMSS-facing) so camss_detect_legacy_phy() picks the non-legacy path
->> once a board wires a sensor through one of them. The camss node's own
->> reg-names/clocks/interrupts for the CSIPHYs are unchanged, so boards
->> that don't use a provider still get the legacy binding.
+On 11/4/26 12:03, Nirmoy Das wrote:
+> Hi Andre
+>
+> On 02.11.26 17:54, Andre Przywara wrote:
+>> From: Vedashree Vidwans <vvidwans@nvidia.com>
 >>
->> The provider nodes are disabled by default; a board or camera overlay
->> enables the one(s) it uses.
+>> The Arm LFA spec describes an ACPI notification mechanism, where the
+>> platform (firmware) can notify an LFA client about newly available
+>> firmware imag updates ("pending images" in LFA terms).
 >>
->> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
->> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+>> Add a faux device after discovering the existence of an LFA agent via
+>> the SMCCC discovery mechnism, and use that device to check for the ACPI
+>> notification description. Register this when one is provided.
+>>
+>> The notification just conveys the fact that at least one firmware image
+>> has now a pending update, it doesn't say which, also there could be more
+>> than one pending. Loop through all images to find every which needs to
+>> be activated, and trigger the activation. We need to do this is a loop,
+>> since an activation might change the number and the status of available
+>> images.
+>>
+>> Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
+>> [Andre: convert from platform driver to smccc bus]
+>> Signed-off-by: Andre Przywara <andre.przywar@arm.com>
 >> ---
->>  arch/arm64/boot/dts/qcom/lemans.dtsi | 140 +++++++++++++++++++++++++++
->>  1 file changed, 140 insertions(+)
+>>   drivers/firmware/smccc/lfa_fw.c | 154 +++++++++++++++++++++++++++++++-
+>>   1 file changed, 153 insertions(+), 1 deletion(-)
 >>
->> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
->> index 1fdb72fa5518..2a30bf1c82af 100644
->> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
->> @@ -5164,6 +5164,146 @@ cci3_i2c1: i2c-bus@1 {
->>  			};
->>  		};
->>  
->> +		csiphy0: phy@ac9c000 {
->> +			compatible = "qcom,sa8775p-csi2-phy";
->> +			reg = <0x0 0x0ac9c000 0x0 0x2000>;
-> ...
-> 
->> +		csiphy3: phy@aca2000 {
->> +			compatible = "qcom,sa8775p-csi2-phy";
-> 
-> phy@ac9c000 through phy@aca2000 nodes precede the existing
-> isp@ac78000 node.
-> Sort CSIPHY nodes by unit-address numerically.
-> 
->> +			reg = <0x0 0x0aca2000 0x0 0x2000>;
+>> diff --git a/drivers/firmware/smccc/lfa_fw.c 
+>> b/drivers/firmware/smccc/lfa_fw.c
+>> index db2a7fe344d5d..4b4daf79611bb 100644
+>> --- a/drivers/firmware/smccc/lfa_fw.c
+>> +++ b/drivers/firmware/smccc/lfa_fw.c
+>> @@ -33,12 +33,14 @@
+>>    * skipped by setting the force_cpu_rendezvous sysfs file to false.
+>>    */
+>>   +#include <linux/acpi.h>
+>>   #include <linux/arm-smccc.h>
+>>   #include <linux/arm-smccc-bus.h>
+>>   #include <linux/array_size.h>
+>>   #include <linux/delay.h>
+>>   #include <linux/fs.h>
+>>   #include <linux/init.h>
+>> +#include <linux/kernel.h>
+>>   #include <linux/kobject.h>
+>>   #include <linux/ktime.h>
+>>   #include <linux/list.h>
+>> @@ -49,11 +51,13 @@
+>>   #include <linux/stop_machine.h>
+>>   #include <linux/string.h>
+>>   #include <linux/sysfs.h>
+>> +#include <linux/types.h>
+>>   #include <linux/uuid.h>
+>>   #include <linux/workqueue.h>
+>>     #include <uapi/linux/psci.h>
+>>   +#define DRIVER_NAME    "ARM_LFA"
+>>   #undef pr_fmt
+>>   #define pr_fmt(fmt) "Arm LFA: " fmt
+>>   @@ -753,6 +757,135 @@ static void clean_fw_components_tree(void)
+>>       }
+>>   }
+>>   +/*
+>> + * Iterate over all FW components and trigger activation of all 
+>> activatible and
+>> + * pending components.
+>> + * Since we would need to re-enumerate the list of all components 
+>> after a
+>> + * successful activation, and this could trigger infinite loops if a 
+>> firmware
+>> + * component still appears as pending, we create an array of update 
+>> candidates
+>> + * first, then activate each one of them.
+>> + */
+>> +static void activate_pending_components(void)
+>> +{
+>> +    struct fw_component **all_comps;
+>> +    struct fw_component *comp;
+>> +    struct kobject *kobj;
+>> +    int nr_comps = 0;
+>> +    int ret, i;
 >> +
->> +			clocks = <&camcc CAM_CC_CSIPHY3_CLK>,
->> +				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>;
->> +			clock-names = "core",
->> +				      "timer";
+>> +    down_read(&smc_lock);
+>> +    spin_lock(&lfa_kset->list_lock);
+>> +    all_comps = kmalloc_array(list_count_nodes(&lfa_kset->list),
+>> +                  sizeof(*all_comps), GFP_NOWAIT);
+>> +    if (!all_comps) {
+>> +        spin_unlock(&lfa_kset->list_lock);
+>> +        up_read(&smc_lock);
+>> +        pr_warn("LFA: automatic activation failed: -ENOMEM\n");
+>> +        return;
+>> +    }
 >> +
->> +			interrupts = <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>;
+>> +    list_for_each_entry(kobj, &lfa_kset->list, entry) {
+>> +        comp = kobj_to_fw_component(kobj);
 >> +
->> +			operating-points-v2 = <&csiphy_opp_table>;
+>> +        if (comp->fw_seq_id == -1)
+>> +            continue; /* Invalid FW component */
 >> +
->> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
->> +			power-domain-names = "top";
+>> +        _update_fw_component_pending(comp);
+>> +        if (comp->activation_capable && comp->activation_pending) {
+>> +            kobject_get(&comp->kobj);
+>> +            all_comps[nr_comps++] = comp;
+>> +        }
+>> +    }
+>> +    spin_unlock(&lfa_kset->list_lock);
+>> +    up_read(&smc_lock);
 >> +
->> +			status = "disabled";
+>> +    for (i = 0; i < nr_comps; i++) {
+>> +        comp = all_comps[i];
 >> +
->> +			ports {
->> +				#address-cells = <1>;
->> +				#size-cells = <0>;
+>> +        ret = prime_fw_component(comp);
+The kobject references protect the snapshot objects from being freed, 
+but do not guarantee that the components remain in the firmware inventory.
+
+For example, the snapshot can contain A and B, and activating A can 
+remove B from the refreshed inventory. The reference keeps B allocated, 
+but its sequence ID becomes `-1`. The subsequent PRIME call does not 
+reject that invalid ID before issuing the SMC.
+
+Could candidates be revalidated under `smc_lock` before issuing 
+component operations? The check needs to cover activation retries too, 
+since inventory can change between calls.
+>> +        if (ret) {
+>> +            pr_warn("LFA: LFA_PRIME failed for component %s\n",
+>> +                kobject_name(&comp->kobj));
+>> +            kobject_put(&comp->kobj);
+>> +            continue;
+>> +        }
 >> +
->> +				port@0 {
->> +					reg = <0>;
->> +				};
+>> +        ret = activate_fw_component(comp);
+>> +        if (ret) {
+>> +            pr_warn("LFA: LFA_ACTIVATE failed for component %s\n",
+>> +                kobject_name(&comp->kobj));
+>> +            kobject_put(&comp->kobj);
+>> +            continue;
+>> +        }
 >> +
->> +				port@1 {
->> +					reg = <1>;
->> +				};
->> +			};
->> +		};
+>> +        pr_info("%s: automatic activation succeeded\n",
+>> +            kobject_name(&comp->kobj));
+>> +        kobject_put(&comp->kobj);
+>> +    }
 >> +
->> +		csiphy_opp_table: opp-table-csiphy {
->> +			compatible = "operating-points-v2";
+>> +    kfree(all_comps);
+>> +}
 >> +
->> +			opp-300000000 {
->> +				opp-hz = /bits/ 64 <300000000>;
->> +			};
+>> +#ifdef CONFIG_ACPI
+>> +static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, 
+>> void *data)
+>> +{
+>> +    /* The spec explicitly mentions 0x80 only for the update event. */
+>> +    if (event != 0x80)
+>> +        return;
 >> +
->> +			opp-400000000 {
->> +				opp-hz = /bits/ 64 <400000000>;
->> +			};
->> +		};
+>> +    activate_pending_components();
+>> +}
 >> +
->>  		camss: isp@ac78000 {
->>  			compatible = "qcom,sa8775p-camss";
->>  
-> 
+>> +static int lfa_register_acpi(struct device *dev)
+>> +{
+>> +    struct acpi_device *acpi_dev;
+>> +    acpi_handle handle;
+>> +    acpi_status status;
+>> +
+>> +    acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
+>> +    if (!acpi_dev)
+>> +        return -ENODEV;
+>> +    handle = acpi_device_handle(acpi_dev);
+>> +    if (!handle) {
+>> +        acpi_dev_put(acpi_dev);
+>> +        return -ENODEV;
+>> +    }
+>> +
+>> +    /* Register notify handler that indicates LFA updates are 
+>> available */
+>> +    status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
+>> +                         lfa_acpi_notify_handler, NULL);
+>> +    if (ACPI_FAILURE(status)) {
+>> +        acpi_dev_put(acpi_dev);
+>> +        return -EIO;
+>> +    }
+>> +
+>> +    ACPI_COMPANION_SET(dev, acpi_dev);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static void lfa_remove_acpi(struct device *dev)
+>> +{
+>> +    struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
+>> +    acpi_handle handle = acpi_device_handle(acpi_dev);
+>> +
+>> +    if (handle)
+>> +        acpi_remove_notify_handler(handle,
+>> +                       ACPI_DEVICE_NOTIFY,
+>> +                       lfa_acpi_notify_handler);
+>> +    acpi_dev_put(acpi_dev);
+>> +}
+>> +#else    /* !CONFIG_ACPI */
+>> +static int lfa_register_acpi(struct device *dev)
+>> +{
+>> +    return -ENODEV;
+>> +}
+>> +
+>> +static void lfa_remove_acpi(struct device *dev)
+>> +{
+>> +}
+>> +#endif
+>> +
+>>   static bool lfa_smccc_has_all_functions(void)
+>>   {
+>>       struct arm_smccc_1_2_regs regs = { 0 }, res;
+>> @@ -813,13 +946,32 @@ static int lfa_smccc_probe(struct 
+>> arm_smccc_device *sdev)
+>>       if (err != 0) {
+>>           kset_unregister(lfa_kset);
+>>           destroy_workqueue(fw_comps_update_wq);
+>> +        return err;
+>> +    }
+>> +
+>> +    if (!acpi_disabled) {
+>> +        err = lfa_register_acpi(&sdev->dev);
+>> +        if (!err)
+>> +            pr_info("registered LFA ACPI notification\n");
+>> +    }
+>> +
+>> +    /*
+>> +     * An ACPI notification or an interrupt are optional, but we must
+>> +     * handle errors that occurred during their setup.
+>> +     */
+>> +    if (err != -ENODEV) {
+>
+> On successful registration, err is zero, so this condition still 
+> unregisters the inventory and destroys the workqueue before returning 
+> success. Should it be:
+>
+> if (err && err != -ENODEV) {
+>
+>
+> Regards,
+>
+> Nirmoy
+>
+>> +        kset_unregister(lfa_kset);
+>> +        destroy_workqueue(fw_comps_update_wq);
+>> +        return err;
+>>       }
+>>   -    return err;
+>> +    return 0;
+>>   }
+>>     static void lfa_smccc_remove(struct arm_smccc_device *sdev)
+>>   {
+>> +    if (!acpi_disabled)
+>> +        lfa_remove_acpi(&sdev->dev);
+>>       clean_fw_components_tree();
+>>       flush_workqueue(fw_comps_update_wq);
+>>       destroy_workqueue(fw_comps_update_wq);
+
+Regards,
+
+Veda
 
