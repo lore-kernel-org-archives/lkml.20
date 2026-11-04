@@ -1,115 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793817478;
-	b=MwTlqIKIbRl6evOXNFQwFF9WHHGwtBFTA83Jwt2aOg2n8OOHU1MnedpWecDCTRdV0sld
-	 plrk9Y8roJLucbO61FsSIQrhO8Qk4EDNMRGSb/Q+8NkO/8mWTI0uHk6MHBvt/rl8UZk4S
-	 JFcTL+5CR2b0oNWiliLG2ucxxCpVvwTjH9700qG9q7RIX9fFHe3C4Wowd8vGrGoaZC31X
-	 l+rnAEU/Vw8bZo5qooNkGP5ipMB9IcTG90oBVfVbQIrC1BfYrJ3BC0dEY4kxtnmy2qTqs
-	 KJaw38kMZxpOoyma2OU5uZ6u8P/Qk9tuuVnh772c6gRu3e5R9OpjofG5bAIgSpIM1tA==
+	t=1793817482;
+	b=G2ivfSDHeZEc7dH+hYWY8APpVHE3Soz5vutN0y1ripKXXo5O5LHw8Q98Ae7VW9GE+XiI
+	 04v1/UPVWGXGVvpaWhOT5XKvwxFxGYX3YqVbwNeAwQatYz3A5jx52t+q2s3ktOBrZCckt
+	 NrnyVxu5L+tbQPdjPC6bPVgehRep2+WLxYQ5ZgSd3/JSCKoowsc4/7NKLaIbqKAnLo6eS
+	 OSlMtg+8ItiQpcg4om1j0SPc/JgsLrnwnx0eqmQuIP4P9ZFEICBsHRG6T3XzKXfyzV75g
+	 BqxaI65EP5oMuRRPRjwkAM8ofXt+KwQW5bo846AVBXS/A6/7ay27M7ZRi4rtVeyBQng==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817478;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=spKCF8v7idcwDq2Wbnn7B+2mcXNQvjRbQ9yB9e4oEGE=;
-	b=5VckKXntOYBtM92VVUp5MRohqREBgDuPyCmN5k0KEsE9d40PgnztrHw2IWY1A6/wpMs5
-	 ACurQHQ+keEeES1yCBISCTQvnIgPWqhm2kYTrHkbWX9cyr7QoJ1Z2UtZFuaYqKsyQdBKR
-	 Q50676zgGt1eIf9SFgn/YyIEUkU86tOUTFYZOrqGXfqBe/aOCUEfUoHK9qaRe22bRgxpD
-	 jUXCcLP0ouNyP4avR8+1/aSFJp9XUIjbsy+SyXgUdoBhJ/3QetAhAdKowWp+6J8YI6bv1
-	 82qgX4UUr+RxCmo9e13LPADj7dFNxdIUqDXeENX5jQZeDpU1TpLbjfmc/C6i04SjEEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=5CJ4YCQzJ9RJKX3QjI84ekC4PN6T/7hvVM512TSC4LE=;
+	b=CWSTTfca4kfsLJCfDxzNDnZ7FOE4ixXDeNbs1KoI8fuIxPkh4AC9QYYvWbijYXFfj21D
+	 a/USF3jCWlzRw3PXBz0Lh+7h2O29nQe0GS1CGUVzYSyNjCMXT4ppDeKREvDCbk00mK2qW
+	 ceOYUVnbhZq+HVIAOruBRRXhXPCpH49FCO6f2qr7fsJ3OpHNPMTm/2CvAoPSb00cl07jo
+	 yOKrSEs/+YCw07GEuQ6j7Zt/lBqCoDCjd5jQj3bE9TBPH/SAl7G8+pz9o6ZkfleoHvfCQ
+	 xdRx0ZszsqYhv2qx13v4MsZGGSVpFS3N5dV+jjbXB3vfTF8bD6K/IItB/fw01TtDtkA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qQdliL8F;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p2SDre4z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593F0606A339;
-	Wed,  4 Nov 2026 18:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 593F0606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1570A606A338
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:38:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1570A606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qQdliL8F
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EnXuel8dgdg5tvZCUjAMGDljmpFzf7mWnEZR9LHjNJ+heqwdZ0hCKINEgT9Cvu9/LBhOUdk3BqttDn0CE7ZjGrv6xg90vs74yxhYKwoLyhJBDLTwZMskGccJ6FVk+Mlom2erw8ZT2/UJpOHg6+r7/PhBqg8/wnoxJ51m0bJ4ejQao/p31BbJvimcm0iJv8Zl/+u94Gd0kSzJXzYYCeOuGyHGqofDsns6kP+0i9E8pyWClsEV+o4T3L5eb3wEpmmSF/l+KJ8OZ10OSe+Xs1BSj2Klv31OfxrXAHzNeZXkkffhVWPqWM8N5fsS7Wk1iFSdYYsaH5DI5lEnriubNrAbvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spKCF8v7idcwDq2Wbnn7B+2mcXNQvjRbQ9yB9e4oEGE=;
- b=Syu5UGHXAlc9izgHjDknEbv8Lg8emhDIn7lelrxYGv5vaFJ4yvq9u72uUTCTFk4yTnn5+e0z087gmQcpdNJyqj43PHZg93cSiA4vJPl6pjW0uHO95hkCB8RR/hWFdQQlrni1N62OpS64+fLUXCI/UbM2iwc/f1KXGOGfdD/yMMQC0xLARlp7IY4HTp6hQreIrdxMYXJoLnrJABjDSJVpkUfvBzcA6v5d6X73LQ472Whm14Ag2Vm1p5G+GUbqoKYaY2bIFmqDkdIx4T9h43aAMDGLVMG3ahy4YxqIUrpHiHkV0ETr5atDe0EcO6doO8oxq0f6nbY8KHkr9/HVexeyYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=spKCF8v7idcwDq2Wbnn7B+2mcXNQvjRbQ9yB9e4oEGE=;
- b=qQdliL8FUvXga/hKIloT8CCEOBb0rjPC22jMp4PksawWxQnKTILMCafZdJBZRP+EdfLaxTzeVUkq5pNcNS4ONALAg977+iYEzmV2wxSFhRPcvQw7/gMn+5mjRbh3BAmPa48ikkdrfu5iTW+cTDMKfsKMMCJ1Z1WcnA/JR/hsYbrb/thDkNkqI6JNGdjgHNlRzGX+kOeXZK8ZJMijhZfbZ7qiSTNXvJC0kkQH8bVIZG9FyC4rlqr8DmHRYzfULWINvOE2Zme2KgVdJx9zTf6PARkD79Wf1O2FxdRApQByhCLOqfDRPyg+itK2ZuRLHsW7OMnHtro5nBcZNnY6a67LUQ==
-Received: from SJ0PR03CA0267.namprd03.prod.outlook.com (2603:10b6:a03:3a0::32)
- by SN7PR12MB7369.namprd12.prod.outlook.com (2603:10b6:806:298::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 18:37:51 +0000
-Received: from PH5PEPF0000002C.namprd04.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::5) by SJ0PR03CA0267.outlook.office365.com
- (2603:10b6:a03:3a0::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 18:37:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- PH5PEPF0000002C.mail.protection.outlook.com (10.167.243.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 18:37:51 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 10:37:29 -0800
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 10:37:29 -0800
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.6)
- with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Wed, 4 Nov
- 2026 10:37:24 -0800
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Alex Lazar <alazar@nvidia.com>, Bernardo Soares <bsoares.it@gmail.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>, Gal Pressman <gal@nvidia.com>, Jianbo Liu
-	<jianbol@nvidia.com>, Leon Romanovsky <leon@kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Maor Dickman
-	<maord@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Roi Dayan
-	<roid@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan
-	<tariqt@nvidia.com>, Vlad Buslov <vladbu@nvidia.com>
-Subject: [PATCH net V2] net/mlx5: Bridge, fix bogus MDB offload errors
-Date: Wed, 4 Nov 2026 20:37:15 +0200
-Message-ID: <20261104183715.771390-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p2SDre4z
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so876127a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:38:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793817481; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k5VzhsnvFOb1x5YSm2xQvnfr3hlv2ZEh/TVmVB2fEnjM9Puyin9eNfXoKkTcfalQlP
+         yBqnciEW+T9I6shhJLcAaW9X41hFUFo935HKHBVqO14KpxS/fVUsQegLhNYdhJqrsYdl
+         vSMVFAkgjF/3gqvMGxDth/mYOSrNFxV/fJsTx09cckgvKBzFauBkR88gYmLUhDEc/tER
+         VipHrhJNl673mY5CrSEPEQmLMTU/5n0mh9e3wByvMvZJaEqRU0h5lETHZAu4nl8Q0EWD
+         qIW5JdLkSMpdMzKkkCPYEs/Eb7K8wbCVBdozs+36+4IEkYBKTVCpcCX626HLWzOMz8e7
+         1frg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=5CJ4YCQzJ9RJKX3QjI84ekC4PN6T/7hvVM512TSC4LE=;
+        fh=NMDmcYV2R//jeezvYCdu/+NJU1Z5k7QilqTXTF2bXNg=;
+        b=T0lcOfQf5SRaDyxv2NybxK/weUora58AZa5wipKKK8ja0AKlyyMp1nvu+SKwMaKxhw
+         /dl/cT0+HhBHnEE0aZkJxTOf0dJ3iV0KEcJWeOPLYfTbrS7t2GJcWMimLTQtLgqksRjs
+         bkpFcWUe3FJYdxLEoHry1Jg+yVmJyRrTZmw7ZxqDxBiP/0uHX9RIZuqiqR5QYhEMqKKz
+         f2hRZxdGZVq5m0jle1QpWB8fqlaHrw7mPKBLPCWNcD65NIG0lvuB9U+rRsLPfsnqfY2C
+         TSCmplhyZd12Shdfc24HkxW/LJ8/vigE77d16KYfalahBWDUQ3uoPa3kz6EDkrV9KLU+
+         QyTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793817481; x=1794422281; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5CJ4YCQzJ9RJKX3QjI84ekC4PN6T/7hvVM512TSC4LE=;
+        b=p2SDre4zCKLU/9FqdVNShdkuXYgmMXvZyeGC+zzNVo9cYVBVDQn0XHoLsqOIO8h+Dh
+         neZ2s1Cs+89Nz9CJ70OdBiCsvPJZGZFY0g91bqYLlZr0rvUvQW3pGGYPzvrEgJ7ETjVP
+         SARbKrb8ic3sH401c0xQhLsbcacnHBnRy0xkALK3J6B7sp2ibAXdakZNEzEjHtvhVK+s
+         5V+MxDfJZKcMrtHsXIdbj33QuO4hK+3H3dqslfsQ4CEoLhA1gfKnIeEwmlY8VWVdyMB8
+         i/nvF8lY6lgVapXxLLRAuky4rVP06jofkJSnsSHk+WuwPFGURZvaJVzRCN4iVhrjFycb
+         AViQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793817481; x=1794422281;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5CJ4YCQzJ9RJKX3QjI84ekC4PN6T/7hvVM512TSC4LE=;
+        b=pzi+xjCmHNNDbEXXotFMd7Os0VHp98UQFDnHDKp9/vj5zlFBfYIqBq5QI7wlFCwYzh
+         6xlb01LptXDJ693ptNxFKVacEPeGWpt5h/cNxboUJ1rmmYehuIBW7VVR3m8ixBqRnTrG
+         HsQVJhtQem2LFvh+K/W5c/x+RW6x6RXqT5dnc0WQ0MX8c7rcjzwrowwXLSgYXcB3kksw
+         Upm46kkf2jeinC+GIp5ysPqruFlOa1ch+Tlf5N1A2lteIW7H71b0o0mJoF/KAC9dEVda
+         hjmPTmyL3G/M6tQdLG8BwknHhOxBmBbr1qupIz2FcecZtwqwqCjXYP/x3bvjdsEuCFO2
+         IM6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByyFsOY7XuYiPp8j9OQ8r09DvU72T6pVN9wh1kAyEjRnX2vunJm/7Ee8rLF/RrnNXdtc3MlP+M3ereaEpc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oJhzpHCPl6EgKblLT5mTSvtd1lOHG/KbcIx0CZ/7xdXfIy+Gr
+	gJf5mHYRIFMWvc5G3fsrK3F5GJ9RUv52y16VZb6xnogmSL08UPSSHmri9YkueVTJjBJJG+wNm+C
+	OaY5bnCfzz6Nv8Cr2fE7ad0YU4H5U9c8=
+X-Gm-Gg: AYBFou3LSHmlOLTvRO4VDhFU19lvrtjaNqAnTjZ1Vxvmkefa/DJO2bnt+BBijhPSAym
+	RfSbEJg+p+Ey4+PrNJsdSRFhWfF+c+1/SEcyqtVaJLaNn0uwq54WEHBujawXAQZQK7r1J6ef8SH
+	cAJWgJYyop9hJNu3b08DWIx3U2Y1zetvP69vF9lJhzISwGjsX7qzJ9fxXYXPg5kNOHkcnH4DD2p
+	rbeULiwRX5R5LLDQYueUWf1eGqjoIavt9vjKf2WLNMbjaFpQNBQeTcIfghdzasA+2JWLxcVlr8O
+	TfH3dbCRXMY7WH3Olxwau6swi795KC1chy5ISyeCVl0l2MMrdeZyLnWWKcp5EgunO8Kh3YAFIVx
+	uUMm3/J5wEmkCXPcw+xoCT+yGg250QO9c8Ly+0bUkxx3W90Nf6kzVL5rqUv5fGwrEn1JT
+X-Received: by 2002:a17:90b:1c10:b0:39e:6a80:b799 with SMTP id
+ 98e67ed59e1d1-3ae89799522mr15326503a91.41.1793817481541; Wed, 04 Nov 2026
+ 10:38:01 -0800 (PST)
+Received: from 511566560828 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 4 Nov 2026 18:38:00 +0000
+Received: from 511566560828 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 4 Nov 2026 18:38:00 +0000
+From: 2-D Godoy <2dgodoy01227@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,138 +106,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH5PEPF0000002C:EE_|SN7PR12MB7369:EE_
-X-MS-Office365-Filtering-Correlation-Id: f60c8687-3121-4ca7-3a55-08df3aa2bb58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|82310400026|23010399003|36860700016|1800799024|261026140227099003|261026121527099003|261028144727099003|261009223027099003|261022105027099003|261102123227099003|261021121427099003|261021123027099003|11063799006|56012099006|6133799003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rjPtolmlmS1FtAJEF9CnOFtn17sNxiGYeF/Es3yli5JB5QyScOvaafYxJwYq4a6OIwdJ/MY8t6VNYnvoODsTs9D3wxoABa472UHV4v6tyyaJjLi/I4qf8RPW3klW83w6h2NpSVz2lAzO6Z7yatKD9z7L9jxRak8bOZjdJpRdJTa1eNq71SNmoyst+xcgTrdU2QCAGYDLItV3HCfAJQ9dPxq2mwYYT2TucEeOiI9mZjH4+95B2IrNI+hewno4rsGu0f1mFyqf4ej5rcHH2Kzt3gd5UJDCVcc+Mg1rpjzq0DUAPnPkXnRR+/Hms/wgWU9UD6Bxbm8q7n71bqfMyBR8BUgdMOeiA8Sd5zCcMh1rojltc4dCpHcY//w0Z9KjFHsYBZA9109/1mMfKrwz/2PWP1Rt/uGWrqGgFfNMgg5PvCRzS1aaXy+B+go44u2bV30QWDUx0dyNh2G//ET1G6PN+apo6MskanE7RX1FsjTxVt3FF1E12s2w4/uMiR1/MJyrVjufSXNg9zTdJX3raze5VphsWEwie5rWGoGbuyclDxBx1i8OcxAZR6FIdQIENN3qJ7JewJwaCO9ETuaK28CEL4/t+YnCSsYbAPEnH3D2fyBkJtUCdzJMasufnoYvhuIZ5RShLiceLWxBWj31EJF3v2ctZ/DB1jqu2RPTibDxNJ+8Gna//mAoFJwB+bOGgd/aksMD19siLvwabgtSDCRMIA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(23010399003)(36860700016)(1800799024)(261026140227099003)(261026121527099003)(261028144727099003)(261009223027099003)(261022105027099003)(261102123227099003)(261021121427099003)(261021123027099003)(11063799006)(56012099006)(6133799003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eqdHTkicBcDC2zTCYE6Ys7f6J6joSeac2HVDRRHzvittvDNNdI+NQoI7tler28INJz4CB++p4Vx8HOXC3sE0dkA2J6OKMkaaCLY4qzGQYep8cA/zXcAEP2aPkghNQufYoT9IRuj0qB/BW8ItjWpi539pLutGA4b7hb9GwcXvZEsrTSxZX+Y3dWbK8MYfXXP9s7z1wz9CyHuuBfK6o8QKG2+Qhw292DVPJCRICbxyXnufL5Yf7HbPQh8uy9F1zuL0twrzLYJC2zN+FByCpXJckMR79TekKK8KV9QC0fietJxYFuJQYovOi0wGpu8Of+SquX9oFbReKuaa3xuMXZEN0OJcEbwZ0n98/tZTp4sRp1koTJjtUBJhZN5n+rUsCNDeiQbSteNlPCe82ShR+JGDOfyumudj/KP43OFq51GvcNtRKKrM4JUGXynbJAUDZuP+
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 18:37:51.0688
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f60c8687-3121-4ca7-3a55-08df3aa2bb58
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH5PEPF0000002C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7369
+Date: Wed, 4 Nov 2026 18:38:00 +0000
+X-Gm-Features: AclHuK_uUvW349hUDFCVLsr_g6yC4UK8HN-OOATBy6dK-CZmFIzlH2g_59RQy8M
+Message-ID: <CAL1HEBDTP=A32fCM-LK_2WKFFJ4inuk7Nt0BPvGTGpgpr0pgxw@mail.gmail.com>
+Subject: [PATCH 3/3] tools/mm: keep the allocator scan inside the record
+To: akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Gal Pressman <gal@nvidia.com>
+get_allocator() looks for the frame above __vmalloc_node_range by walking
+back to the second newline before it, without checking where the buffer
+starts.  When the vmalloc frame is the first stack entry of the record the
+walk leaves the buffer and reads before it:
 
-MDB add operations are queued on the switchdev deferred queue
-(SWITCHDEV_F_DEFER), while vlan object deletions are handled
-synchronously.
-A 'bridge vlan del' can overtake an MDB add that is still queued, and
-the vlan is already gone by the time the driver is called.
+  ERROR: AddressSanitizer: heap-buffer-overflow
+  READ of size 1, 1 byte to the left of a 131072-byte region
+      #0 get_allocator tools/mm/page_owner_sort.c:501
+      #1 add_list tools/mm/page_owner_sort.c:606
 
-The two operations are independent in practice: in my test, the MDB add
-is triggered by assigning the VF an IPv6 address (hence joining a
-solicited-node multicast group), while another process deletes the vlan
-from its representor.
+Remember the beginning of the line and stop at the start of the buffer.
 
-Racing 'bridge mdb add' against concurrent 'bridge vlan del' could
-result in:
-
-[ 5390.967651] mlx5_core 0000:08:00.0: E-Switch: Failed to lookup bridge port vlan metadata (vport=1)
-[ 5390.969120] mlx5_core 0000:08:00.1: E-Switch: Failed to lookup bridge port vlan metadata to create MDB (MAC=33:33:ff:12:00:05,vid=2204,vport=1)
-[ 5390.971676] mlx5_core 0000:08:00.1 eth4: Failed to add Port Multicast Database entry (object id=2) with error: -EINVAL (-22).
-               Failure in updating the port's Multicast Database could lead to
-               multicast forwarding issues.
-
-The error cannot reach anyone that could do anything with it, switchdev
-returned success to the bridge as soon as the MDB object was queued, and
-the errno only flags the entry as offload failed.
-The end result is correct either way, if the MDB has been offloaded
-before the vlan was deleted, mlx5_esw_bridge_port_mdb_vlan_flush() would
-have removed it.
-
-The FDB path already treats this as a harmless race,
-mlx5_esw_bridge_port_vlan_lookup() reports it on 'info' logging level
-and skips the offload. mlxsw did the same in [1].
-
-Skip the MDB offload, report on 'info' logging level and return
--EOPNOTSUPP: switchdev_port_obj_add_deferred() does not log it, and
-br_switchdev_mdb_complete() skips the port group flag update.
-
-[1] Commit 17b334a876fe ("mlxsw: spectrum_switchdev: Don't warn about valid situations")
-
-Fixes: 70f0302b3f20 ("net/mlx5: Bridge, implement mdb offload")
-Signed-off-by: Gal Pressman <gal@nvidia.com>
-Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
-Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Signed-off-by: Henrique Godoy <henrique.godoy@cloudwalk.io>
 ---
- .../ethernet/mellanox/mlx5/core/esw/bridge.c  | 21 ++++++++++---------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ tools/mm/page_owner_sort.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-V2:
-- Skip the MDB offload and return -EOPNOTSUPP instead of 0 when the
-  bridge port or VLAN lookup fails, so the failure is not logged by
-  switchdev_port_obj_add_deferred() and the port group flag update is
-  skipped by br_switchdev_mdb_complete().
-- Added Jianbo Liu's Signed-off-by.
-
-V1:
-https://lore.kernel.org/all/20261021122115.3737284-1-tariqt@nvidia.com/
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c b/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c
-index b4cf3c5ac0dd..9fac6f985a86 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/esw/bridge.c
-@@ -1867,26 +1867,27 @@ int mlx5_esw_bridge_port_mdb_add(struct net_device *dev, u16 vport_num, u16 esw_
- 
- 	port = mlx5_esw_bridge_port_lookup(vport_num, esw_owner_vhca_id, br_offloads);
- 	if (!port) {
--		esw_warn(br_offloads->esw->dev,
-+		/* MDB is added asynchronously from the switchdev deferred
-+		 * queue while port might have been deleted concurrently.
-+		 */
-+		esw_info(br_offloads->esw->dev,
- 			 "Failed to lookup bridge port to add MDB (MAC=%pM,vport=%u)\n",
- 			 addr, vport_num);
--		NL_SET_ERR_MSG_FMT_MOD(extack,
--				       "Failed to lookup bridge port to add MDB (MAC=%pM,vport=%u)",
--				       addr, vport_num);
--		return -EINVAL;
-+		return -EOPNOTSUPP;
+diff --git a/tools/mm/page_owner_sort.c b/tools/mm/page_owner_sort.c
+index e56375f..f978988 100644
+--- a/tools/mm/page_owner_sort.c
++++ b/tools/mm/page_owner_sort.c
+@@ -483,6 +483,18 @@ static int get_arg_type(const char *arg)
  	}
- 
- 	bridge = port->bridge;
- 	if (bridge->flags & MLX5_ESW_BRIDGE_VLAN_FILTERING_FLAG && vid) {
- 		vlan = mlx5_esw_bridge_vlan_lookup(vid, port);
- 		if (!vlan) {
--			esw_warn(br_offloads->esw->dev,
-+			/* MDB is added asynchronously from the switchdev
-+			 * deferred queue while vlan might have been deleted
-+			 * concurrently.
-+			 */
-+			esw_info(br_offloads->esw->dev,
- 				 "Failed to lookup bridge port vlan metadata to create MDB (MAC=%pM,vid=%u,vport=%u)\n",
- 				 addr, vid, vport_num);
--			NL_SET_ERR_MSG_FMT_MOD(extack,
--					       "Failed to lookup vlan metadata for MDB (MAC=%pM,vid=%u,vport=%u)",
--					       addr, vid, vport_num);
--			return -EINVAL;
-+			return -EOPNOTSUPP;
- 		}
- 	}
- 
+ }
 
-base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
++/*
++ * Return the beginning of the line holding @pos, never going back past the
++ * start of the buffer.
++ */
++static char *line_start(const char *buf, char *pos)
++{
++	while (pos > buf && pos[-1] != '\n')
++		pos--;
++
++	return pos;
++}
++
+ static int get_allocator(const char *buf, const char *migrate_info)
+ {
+ 	char *tmp, *first_line, *second_line;
+@@ -495,13 +507,10 @@ static int get_allocator(const char *buf, const
+char *migrate_info)
+ 	tmp = strstr(buf, "__vmalloc_node_range");
+ 	if (tmp) {
+ 		second_line = tmp;
+-		while (*tmp != '\n')
+-			tmp--;
+-		tmp--;
+-		while (*tmp != '\n')
+-			tmp--;
+-		first_line = ++tmp;
+-		tmp = strstr(tmp, "alloc_pages");
++		first_line = line_start(buf, tmp);
++		if (first_line > buf)
++			first_line = line_start(buf, first_line - 1);
++		tmp = strstr(first_line, "alloc_pages");
+ 		if (tmp && first_line <= tmp && tmp < second_line)
+ 			allocator |= ALLOCATOR_VMALLOC;
+ 	}
 -- 
-2.44.0
-
+2.39.5
