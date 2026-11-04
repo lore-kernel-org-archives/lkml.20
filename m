@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793819005;
-	b=MvLnc3t09cZxyNICkTGKgtiLtpD+CLfLJovhVAqsJU/D8j6eoA2d9COhPkA/nF2JaYa2
-	 r0iNdvGP4QdgNagNZNytObx88xwYUujPmPhfsOoRIatc2G1xIHH9D8mYCHZIbEOqtxG1e
-	 e73ltLKPXOHI4GVO+lzeh5rV/qozrnjUgC/9XwTt78TfuQfecafWnUF0mPtnnRyDtk33v
-	 zlt+sqHltuhnsSQmiWHrI+k850cI1SJpZZm5u3EDcB5ILljKZZF+9Jj1GXAl/utnclcyB
-	 LmQKLEzIhKBIPPrpTxJqGLQDrDB/7ht7LS4MsySvABmF9QwFxa3kwzhdzrAafULWu6A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819005;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793819006;
+	b=tY7UUkmnwYKPBVoQcc/PHpKxOPDTlGNMz4dBNDJLqFAfyAUu5UlYw5/2t+ABiTGxhz06
+	 tz7mzoYNbHVyPTWPMEES3Wt24juo1bCDmARcoIAbLN8jaEeblQ4A6PCuZDwYmT2ffVcun
+	 3AqViRf7U0wGSHpLPvUGelWjvJkdKmWdO4plHKwaFg/fOjDeGk+4lG8Aglksw1aCPRna+
+	 /p7ma+janpfIZq08IZ9+LXTEAyYmHgaNLv64PfUKnS01mWprVMdUEa5uxQ4jj0SiD5f+Y
+	 4fyYyHL+kJrUZi7ioHZ8uH/30xXFOyjomeYfOMy3Qp0Kq+h3QKgXyEAavsT7TvmtoHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819006;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XCfh/r1pNC+HkePqhofPM4Oqn3XKbj2GBSYYca0Gv2M=;
-	b=NM1tcs4erhxt+aWEFFJgr5S/KHzT3hD85vG8bXXzDzEPvDfZI7tnYqnvGGCe/KXTLUFb
-	 YFBaXH4faHHC0gMeTfSJiEHpmx9Mci3h2hkMM8GXUfAttTZkfAEn3IIVVci4+Brr1DTCr
-	 J8sA51evw6dPcZNFSo15nXhEXTnb5NQGxxMz4ohfbSaFwgI7g0liB3XV+0VD2yt1OO+Hk
-	 lsmFL/pM6eRVgFkiAzOtVRd1PoHHYdxOMGgnI7UMHVeDLv4kbghzzvSt16AgaH/qXwgHU
-	 lJ7+ZKiyAIxRbinGz5k3vW81/88HVFWPdpW0Scgij5pZ0EWJ9C1SSOFfsC/y4PGJvkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
+	b=bIQqwKFbk0r+3ig1URY7rHLhaUX+/KwPX/qWwyW7sYWbHW0POqYeWLt0Mqj6UMRkhr2H
+	 +NPUc4Ud1e9zEthf4Pozn5xXTRSzYfoeF1Inj6mT4ZhTIixkFzGjlc2PjVYAZ9Qrccwnz
+	 qCIDv0haivatI1D6rLmVeL335YoR0isH3RytDS8EydyG2e0zDgPyLeaf8+xZUyLXB4dBj
+	 bjmvZfZuI79p5yPFFwLNSOaZJAkIXF38lMPOyiyR6A1j99/T25WV8iNGAifiAVnlB1kLG
+	 c5orp2nxeMkutdIkjmCMFM+3Cee7SgWSoUrjeSc1JVWKwIcHnEGKET1JiX7LEpkYL+g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zNJUNa5+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XmlFcXp7;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186DD606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186DD606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98926606A32E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98926606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zNJUNa5+
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1931ff67a29so974275c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:03:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793819004; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N04/VFQEbI1vxOAE32wdSGOQlbM9JUQoQ+a4FwP2kcaVlbsAPvrN6EAKbB4MpvTj8m
-         nbXNsBECyPtxCsO3v0H/n94/xpmyT0xogdrnoUy4g2oUBuIBFjFTBljSnOogz83kIB93
-         zlCjMgADRftASMf8yNsPvCyvMPpHJRtwfBxmdq5wmi1aNJ8zAY5gsEltwY3bOkzYiT4l
-         Pl8uj57eWBDIbQwcktVvZvm6FdD0vesJNRF45/KnIDw0JiPOB0zmiAkwVWHzObT+K/2T
-         LpBso0d5DrgUykYqBzcUCttpwGiDzWEsnUsTtrgRau7/lS4UtWAqrIVZM/lFJD2CUGa5
-         7vtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XCfh/r1pNC+HkePqhofPM4Oqn3XKbj2GBSYYca0Gv2M=;
-        fh=4SOmGcX+Mc0wysl59EiHDQL5jtKfJ7OF6Suduu9HtNc=;
-        b=jd/yw6jpxZ79bdp7r8jNwPz/BbVeYv3Jmnqfm3SCZ8361vCO61BXD5yimeFPKe5LOY
-         NByZ8TsdDWWnO32E3eebbySNAtLkPRiGSLIKIH45Qod7OGh7jPT5bwU57LwTC6xlXg7L
-         3UD5/QwDu5yDXMR/fiys4QrXX0mRPmz1fJSJ/NPZsyTppjKXT5ZwYcm3XdDeXC7esVEM
-         1p+Dtatmh5FQ7Z8k+Olq5I8S853ozUKsaRKf2LXIp6D/R5mR1yedo/31QTyOCMwCJMSn
-         C4lBwkob9DYfMQzUBeW2BkvOVT9WP61sjh0SvJC29BiXvdN5Czntf77oSn8XCn+50D1/
-         Gl9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XmlFcXp7
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so5887895e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:03:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793819004; x=1794423804; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XCfh/r1pNC+HkePqhofPM4Oqn3XKbj2GBSYYca0Gv2M=;
-        b=zNJUNa5+LZP8jhdZzeITjtExZi25kS1D+0da85PEoG4ZDH0NU0CSWyzsH4B9f7CnPR
-         Iuulz455yK2gUbgM+RGHOhd79GDIaVqag+wU7ve8AaSaT/IaJPg27d513U4W+usMPZBP
-         u3lxAWMGdTP79PDUq6QD0E+38O1AZB5pczonbNBkIJUWlK8WmYMMt/9djs82sG1SKKwV
-         WJKbY9YYwoSU9n7EovUYuUv0kj8nJrsAphJov4RJ1+wqEnuaCBhuZ83zTIyMot67kOHw
-         Duff9zjkoH6jNDx3gTfWTU8LthUAJ3dlfUFNCPaBqtcftL6Hw0gK2aP8I72UimZNZHTM
-         sT4g==
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
+        b=XmlFcXp7qE3I0DShuUCDVym5jeQktJM+Xrfy6YmxfY/LJ7aRh17iAAGrZt0GkpCCbE
+         +uwQOHYFb+fvWSwI6riokqatiSUtSWgy4kBCxbX6LoQfM7w22DeWrgEMows4wtZGn7ZL
+         ZDF8pDkM0nDY9M0XBYsicTbM4TI5XWVV3ucqRVyfxZ9RuocSQ+FbnXRVHhY+msL7qPPP
+         Ov9qBen/a9rLavDlkVt/WXAAraZDgTZEpU+Hl7+qsG82y4IhnAQxolQCcrXI8bJ3jJeW
+         XlQLW8ktoWtGh/4QAYPCbV0vqdR18oBtuS8i9s8ceEA79WpClFv3C0CaHvcx4yR28woE
+         qKeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793819004; x=1794423804;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XCfh/r1pNC+HkePqhofPM4Oqn3XKbj2GBSYYca0Gv2M=;
-        b=biNQiwU74esABq1HArgUZwU+UCp1Z+EGVlVqfGD8vQUAdSsZW+jj7P8QThaZY5Lksk
-         xXQgzH1ceL0YK+D9k/0ibQb802dtCr6oVF9r62eUSFtt6JzPflPYQDCFIMGfe5Gmg3M+
-         v+K4ov1eUjkzuc5bPUkbfi28HT8usE38mIPBLkMcxb0HIaMTXAKFumZlguaIJyNQDf1g
-         GB62WSFbR09jj0VmA2EeaMn2KnDy8oaRz5RQGAOYwTVDQpAbhZSyVARmygoRtlfIng7P
-         1b4A3F4RAMeaaZzxf4ONNMWsOOXls63zZdi97ogY0LvG4SrvjzPrFKuXzx7GihxmgBWR
-         ztDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDUUwRLE4s/qSgQ/URxnSvY6rmL9StNKCcbBleVpnWC+/Wz961t561W/iCEJmT5oF4f4hfWOUhkRPYBtc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/do+j0zCKexKw5KzYahohrQHFwtcrat2wveEbCvQKGrxRTvWrY
-	uQ5mBB8S5bsYOCOj4CyKns0swRgGCZOPhH15usCuN3WaiRM4agEeQOnXx3MhG5mXwKJjvi4oQ5j
-	K+t+GamOLA/kQEhxA2wYB5AX/PD6VY3s=
-X-Gm-Gg: AYBFou3Nt8A2gx+HLImwqp1kJ68YhXVqA7i+cwmYIa+OA7TxC3/TTNCf5m6h2bbW1rj
-	AES6FIWT/zhHHPaoiavjMQH+g4uRRA4lhe3kPXX0I4PivKp0V7YDj7YzMAXfJ3zknM0HPVhFvYZ
-	i7qmXBSAbnzRp+me51vlu+cL+n6ThjEN7SEdXhBWFG+5m8/L6CoshsqF1F7JUVj0cjquAvU22aJ
-	LjZbD8a2tHAeha/iBhgMSc4RImo0ajLz1Ia37tSyx4Soy8kV/WszQWszGanW0z4K1fmEm7UbEqM
-	bT3spOWPKYAtLPSkOI1Svxmc1akS1VPLGGK6tAm0GQmLrOrD13ZXV2B3Yg9cOLtFaXEcy5drOG5
-	roz+715P9b60ANscZ6MtQiCGeiJxr9W/HVerRcXqrjuX0m+KPdS2vHxM8GY4u10DBarTd2ArTMh
-	1u+EsrciUqSRqnL/yRhY90eDQWTcmObQk+2OnRJKBd6v7dyVw=
-X-Received: by 2002:a05:693c:8803:20b0:369:f0de:259f with SMTP id
- 5a478bee46e88-36a424085bemr28275060eec.35.1793819003986; Wed, 04 Nov 2026
- 11:03:23 -0800 (PST)
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OLEYM5/Ge5Y+DVw/IRXDnmBgDl4ccX4rWqykyHVmYlQ=;
+        b=Se1TWXQeSVZWdkxA/qywy2XJnFZPoQXt7Av7jgBgdq7X9bVdCWnBIFhKsz82bRg89s
+         tID1uyHyvxoXBPARUgpRz4SMjWE8ch/2yhiNuayCHxohmAh98uIvnMba7U2AY15ORmyT
+         oEQMKfxoAqGIksXw5L1pBHMPULk0e8Ha0/Fluz9OJiz/ktLoG4sS+9jFGFIRPUOVT1Rr
+         IKop6Sa4KACAE9USLDYevMG4mNNxcyhrRoDrvJvlUsFhJ91YUnfBLIJbZtA7H5ABc7Df
+         ZrK//bhD86Vz2PARiZhl1nngCLmrNZw+fT4+gi8vg8a8TnFfl9+qfO3/reb/ROIWsxFj
+         ysLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLrHfnJ062Uvgu5Brfen9wtl4pOzAPMDzuu1wORBjFcvqUMOjur+lwVHUUNcNCtC0Hvk3ZE+QJG0/OQJY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OghtUogrfvYGWCxIwdsb+M5QWdK7X3s13ZtfCNBw21h7ypXmV
+	/+Mr9fH4RreFzayizZWiXajL0Fvy35MIGJn4DE1kvHdYDFmbhu7DGSjf
+X-Gm-Gg: AYBFou2O54zPRh1d16YD9LeEA8sygykDkhMADMsEQc59grne+NUuhlat1MqyIFoGrCR
+	t03lzOxWqRjjdxan5C5Krb+Zw9DRVLLMgraQlDWmOoc9RE7UzzFkUy/ZfBPyJVjTPxMvgupDcnQ
+	IMkF58gkRRfLoVQN+wd3JfIoTCjer18TY31IICQLXR9EdLVFt2JIGYbF4smwqce+B2Di8VW2TbI
+	Kl9Y5cOpidhG18YLMQbbuPk+QlOdm9uSwwefrxV8glNsc3AQLbp/MkvdFoMjakM2prRoy4+bI/F
+	I5NuH4egpUDDnWZYji3MZ4Ua6+/RUHSgyLmz5ArRN69OTRsZdBsg/3zsymlV2oj/Wb0QnZCucpm
+	al+gKthcM8wtRFmVlfuzEpbBsz4rVDYSr/e+2yNEa9RonYDtK3U/YFzEGjahk97aiWvEGd91QJo
+	8/4zLQVlIlooKg5Xdks8T/dhUzkpztbpLS5nqgD8Qf/iIrJNjtURQYBiGIvTCttJScs4GCIwzwW
+	BR7X7+AxC15II9BRF4oT0F6W4ViNg9E2P9B0aGOUQZ4GuXp6GtZQLnAbGB9mBXDwBn8tjiT1uuE
+	9nXMO07X0UVzWtthMDeVD0rN6xmJQUZuUalt77MGzCYxq7sARjoF2+ymerDS6LdHSFxTAwEY84q
+	j1S8=
+X-Received: by 2002:a05:600c:4f0f:b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4ac17b2cde9mr440533985e9.7.1793819003817;
+        Wed, 04 Nov 2026 11:03:23 -0800 (PST)
+Received: from ?IPV6:240e:47e:50a8:5f12:138d:ea9a:7198:b89e? ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b40ff10f88sm54699225e9.0.2026.11.04.11.03.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 11:03:23 -0800 (PST)
+Message-ID: <51a04472-d421-42fa-8552-e94f4743e226@gmail.com>
+Date: Thu, 5 Nov 2026 03:03:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,54 +91,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com> <20261104172140.GB4186782@suse.cz>
-In-Reply-To: <20261104172140.GB4186782@suse.cz>
-From: =?UTF-8?B?0JzQsNGA0Log0JrQvtGA0LXQvdCx0LXRgNCz?= <socketpair@gmail.com>
-Date: Thu, 5 Nov 2026 00:03:12 +0500
-X-Gm-Features: AclHuK9hRBmH4NMhzWAeAAXoaXyP9CCszpmfue4Ccymk-88feTuPzb2KYVZGwTs
-Message-ID: <CAEmTpZGTub1Q-b9G=k4+=+_fG81HitJqFw9kAsBFM6eUoFt8vw@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: tag all metadata I/O with REQ_META
-To: dsterba@suse.cz
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Qu Wenruo <wqu@suse.com>, 
-	Mark Harmstone <mark@harmstone.com>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vkms: clear config->dev when vkms_create() fails
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261101032728.11422-1-yuz08559@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261101032728.11422-1-yuz08559@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 06:21:40PM +0100, David Sterba wrote:
-> Remap tree is experimental feature in btrfs-progs, so you'd have to do
-> custom build with './configure --enable-experimental', then
-> 'mkfs.btrfs -O list-all' will contain 'remapt-ree'.
 
-Thanks, that worked.  I tested the remap part now: btrfs-progs devel
-(4f5956a) with --enable-experimental, kernel with
-CONFIG_BTRFS_EXPERIMENTAL, a 2 GiB filesystem with remap-tree, DUP
-metadata and single data, /usr/include copied in, then "balance -m"
-twice and "balance -d" twice.  kprobes on entry and return of
-copy_remapped_data_io() mark the bios of each copy.
-
-Both callers of copy_remapped_data() are covered: the first balance
-goes through do_remap_reloc_trans(), the second one mostly through
-move_existing_remap().
-
-Copy bios, with REQ_META / without:
-
-                      without the patch     with the patch
-                      run 1      run 2
-  metadata, reads     0 / 56     0 / 74        70 / 0
-  metadata, writes    0 / 112    0 / 148      140 / 0
-  data, reads         0 / 288    0 / 288        0 / 288
-  data, writes        0 / 288    0 / 288        0 / 288
-
-The metadata counts vary from run to run on the same kernel: each
-contiguous range of the block group is copied separately, and how
-fragmented the metadata ends up after the copy depends on the timing
-of the commits.  Writes are twice the reads because of DUP.
-
-btrfs check finds no errors afterwards, no warnings in the log.
-
-One thing on the way: mkfs.btrfs from devel crashes with any
-"-O remap-tree".  create_metadata_block_groups() commits a
-transaction before setup_remap_tree_root() has created the tree, and
-write_ctree_super() then dereferences fs_info->remap_root->node, which
-is still NULL.  For the test I skipped the remap root fields in
-write_ctree_super() while the node is not there yet.
+On 1/1/70 8:00 AM, Oarora Etimis wrote:
+> On Sun, Nov 01, 2026 at 01:27:28PM +1000, Yu Zhang wrote:
+>> The configfs "enabled" store returns the error without marking the
+>> device as enabled, so the next "enabled" write runs
+>> vkms_config_is_valid() again, which uses config->dev to print its
+>> diagnostics and dereferences the freed drm_device.
+> I traced and tested this issue path on drm-misc-next; the dangling pointer is real
+> and the one-line fix is correct.
+>
+> I'd suggest rewording the commit message in two places:
+>
+>   "dereferences the freed drm_device" is only true for one of the two
+>     retry cases.
+>
+>     a) the retry happens with a config that no longer validates: a
+>        validity check takes its failure branch, calls drm_info(), and the
+>        freed memory is read.
+>
+>     b) the retry happens with a still-valid config: vkms_config_is_valid()
+>        returns true at its first check, drm_info() is never called, and
+>        vkms_create() just stores a new pointer.
+>
+>     Only a) triggers. The reason: the stale pointer is dereferenced only by
+>     drm_info() -- __drm_to_dev() loads drm->dev (drm_print.h:608) and
+>     dev_printk() then walks the freed struct device -- and every drm_info()
+>     in vkms_config.c sits in a failure branch of a validity check. The
+>     ternary itself reads nothing: struct drm_device is the first member of
+>     struct vkms_device (vkms_drv.h:252), so
+>     config->dev ? &config->dev->drm : NULL is address arithmetic.
+>
+>> device_enabled_store(), drivers/gpu/drm/vkms/vkms_configfs.c
+>>> 	scoped_guard(mutex, &dev->lock) {
+>>> 		if (!dev->enabled && enabled) {
+>>> 			if (!vkms_config_is_valid(dev->config))
+>>> 				return -EINVAL;
+>>>
+>>> 			ret = vkms_create(dev->config);
+>>> 			if (ret)
+>>> 				return ret;
+>>> 		} else if (dev->enabled && !enabled) {
+>>> 			vkms_destroy(dev->config);
+>>> 		}
+>>>
+>>> 		dev->enabled = enabled;
+>>> 	}
+>     config->dev was introduced by 2df7af93fdad ("drm/vkms: Add vkms_config
+>     type"); at that point nothing read the pointer after a failed create.
+>     The problem was introduced by 13fc9b9745cc, which changed the lifetime:
+>     configfs keeps the config alive across a failed enable, so the pointer
+>     stored in vkms_create() outlives the device and is read again by the
+>     next write. So Fixes: 13fc9b9745cc is the right tag even though the
+>     pointer is older; please keep it, and say so in the message so that it
+>     does not read like a mis-attribution.
+>
+>     Background:
+>
+>     config->dev is the only backpointer from the configfs side to the
+>     drm_device. It is used by the validity diagnostics, by vkms_destroy()
+>     and by the connector hotplug path (vkms_configfs.c:555).
+>
+>     The configfs/drm_device lifetime separation was spelled out when this
+>     design was agreed on:
+>
+>>>> the issue is that configfs and drm_device have independent lifetimes,
+>>>> and we cannot have links between the two. The configfs structures might
+>>>> have shorter lifetime thatn the vkms_device (and there's no refcounting
+>>>> on configfs afaict), which means we cannot have a backpointer from
+>>>> vkms_device to configfs.
+>>>> The vkms_device->configfs backpointer needs to go, it's fundamentally
+>>>> busted.
+>     https://lore.kernel.org/all/ZjCh9DGnh2JQ3vtk@phenom.ffwll.local/
+>
+>     Note that dev->enabled in struct vkms_configfs_device and
+>     config->dev != NULL encode the same state, which is why they can
+>     diverge here in the first place. Dropping the field and passing the
+>     drm_device explicitly to vkms_config_is_valid() is the real fix, but
+>     it changes the signature and the hotplug path, so it belongs with the
+>     vkms_config lifetime rework rather than here. Clearing the pointer on
+>     the error path is the right minimal stopgap.
+>
+> Thanks,
+> Oarora Etimis
