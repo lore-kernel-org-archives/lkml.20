@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780673;
-	b=bdETT/FBIWh+B+nvTdrVV1CpE7Bp1cxRZNl/uMtrR6s9q5Y4qbq8M3frcpsCmGZdGrLh
-	 ro34Ae8atidAFawMznAqagiRxj8jOYUG/hNoTA/96+JTvKTPBddHDZh2gxbsPsH5zVQye
-	 8hDRmkzZMkrdqcodBBzJgJ4I/fY2LcWSZz76igIaDvuPxd4uh5magcOrP9MEa345TWkQr
-	 7+RcZyhWJiGcw6cch4F2+yAq/WPM6oUbmBeuZDuDlaOeJbXrUFC6pyI37rpo6s0VZ7jb5
-	 GMvip3snWuDxuDXfSmBjGpIydpVsEelLJbdd5pMTwiK9FZiL5XLF3nQWXYn3bRU8LUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780673;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8vB0PZ5tIyrqi06oZoeDXV7eNQMFi8LujXvMSkvp01c=;
-	b=mV5r20WIoFNohV88ktUPN3DXGM5kbKfmwatydPQurkdgmC00ew8ddJY+rHsr6cIPGlLO
-	 NkYO6yGs7tgfgirSf3OX6SckTNadX1Ql+2lWR3CW50bNSMpCi73hZ1S4saolRf5N4TbWP
-	 Wl+6qZ0NBVRv2rKg8f8A2D+CsTAhKHlYRxxe0fTwZld+0HU+UeVJ802sXZYihu+8bzJS0
-	 X44/lvrOJ+e8C3EXOfogf/uRRu1j0dfuTBZ2FYctESM3iJ4QN1/LvuC6WkL+3cqXcJhBy
-	 kyJyUqymDsyUQgMfUBpqFxooUp05ZNhi/XPDVUP5FYMxQFdfOpJL19ZIWZ9zi/CRJtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pbpa+2DK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793780688;
+	b=KIkg7rUcPUOla3EJjjCfEaOZBV+Wy1w3G/QACxHtF+Ajelj1bZkpzsx7kEbIbyjKPSDM
+	 ToBf7Y0WV9gKajwjIghpkA0ldP4tPyypVGDvTjLNxY2bbQ9nytg8hOX5o/7M/yOpMQmzD
+	 JapJsBVds8tBnF7WQbnz+7xDhOYFZ8o94MZdr42mCG/NeuPbp6e2Exdrm7/XOGn5ADfJD
+	 jn89ciYtZdA3zZWyC3zosCKe4KuKGuV5Jb7yOKYuKFsCnOe6GSQzpmDx0t/YHDXd+KU0m
+	 Qjet5L0frFofR2fFNS/2u5oDXDf80XwRNXYh2oqKxVNGELPvEbihpu10E0M0KOXpb1A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780688;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
+	b=Vk2NieKI1NsiUrJ+evko1gZfLVTVXfEft+0CFhAH/65tnzYocnhmhrRbticvlem3UihD
+	 8k2zKldHEM4/0yW8TDxLvAEmLXJ0D2/ep+VEihL0uP2i4yL0PnFzhf3LB80qyEc+q9Qg9
+	 gRoKvuUxA5P7RxCBoWD2n02+UT/K/qHseEelDHItwEKBbr0BjL8mQ8HLdny+MmWHzfZjA
+	 dUhCmhzgxoRlyRMrl5eTK6n83l3Le4bIzlH9eCDOtn/s4KnXPKWlPiYnpI9sJQcqr6Htf
+	 9hEca13HYddt2e/R1HwxvkTf6KvJaPD69Np64vhAMw0huQHXgDuyznF+8iLWA8gmdVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dRWBnV3N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0689606A329;
-	Wed,  4 Nov 2026 08:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A2F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6A2F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pbpa+2DK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19731F000C1;
-	Wed,  4 Nov 2026 08:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793780672;
-	bh=8vB0PZ5tIyrqi06oZoeDXV7eNQMFi8LujXvMSkvp01c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Pbpa+2DKJN9odUECxDlScQFXnrbOaBJIUKagi5ayjjpBq7bdmLKwTUIFufIIgI58l
-	 E4E60RP2PCeSibLp0AdQPzrCknnVqvSpYVsQpYM8AaLo87XQOwzONw6VEwCLsfh6f2
-	 Z8udQgVY8UNXJP1fM+jMudkWSlV/KBuK8Y5B8cblI8tLY1zPRpzhqY4U9byO7fQEgA
-	 cbw6GBPcP04JZ+dir+J7rjPWhGLON/Ui7BjbO0ft8rhMgr3eCnBKqyHS9bgdT7RaVM
-	 atFwwAsTQX5icoEp5HHhyE8I9HDvlyfIaI/LrV+/HH8jbDvF9YNe1trEvfctBbtrI5
-	 NmZlXaS8L23fQ==
-Message-ID: <9b99c531-1977-4bc1-8105-bd9c3e129951@kernel.org>
-Date: Wed, 4 Nov 2026 09:24:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dRWBnV3N
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2af2ae1258so7015766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:24:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793780686; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nnmgMKTpYt/jaYi/baTnOnevbHCiHFTJCkrUvgkkpG/WGJgtUnlBhdAhIScix1Tu2X
+         1xz3HJisk4NoqMFs2Y8ijaloVmhSNXnmbrAU8c1d4aXJeERHWpvlXt0sV0HXUUOVlapH
+         oB9+IUYda1BT04Z2yL1TY8TjqWNAVSP21leFES+ISW7sgyJyEn90i2brdN6sCosVTh/4
+         okh/NflNdbldILPiC/CMFh90I/ae8A0WaGwCBFeRaB3F2hspEw5heEYNIAaab/vMlnIO
+         tYkrRkfabk9zFh1POpi44+/4Nv4l8UUQQprqWU4IHCA2QPRBKUljW0F3/WEZLUbbUPLz
+         2CGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
+        fh=krnsLGnRJtr4Xab2YYoaDILmyFn4MHqwKoKwXcWVG84=;
+        b=eCqpR2JnwxI2i5EOQ8Ft7zZOteAYuogCy+Veag3qr5X2f5w8LwALJ1Efab+moE47IC
+         3mB/mI3o9OMeKMwURHgGjBNx2FQ+zCCViHNKG7D9iUkZS6qOZyHJhJdoy5kbxeJlp72/
+         IpIkLnNeqh6Nlxm7e9/R5AQEMPxxJaxfm2oiXu2NOAtwCUUgehAws3L1HBE/w8YPQqZk
+         c4QZw0VzbR823lsdIdr+KEWhUqswTsU4a6j0RBKMUqMt1tS+GPoaVKbyqNBr6trEbs5R
+         m5+Uv0Kj/CALD/ddliEqYgNkKPAJjc1anepVascR+YpkTVgqTdvYg1YAFVlBUeml3S0a
+         68Sg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793780686; x=1794385486; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
+        b=dRWBnV3Nh4PROZw+QpcipQd8jacvXRo2SiAcx9F0GSEdnpef5TLxpdLLHcOI+znKWY
+         BwxU4N5boHG0FVdrA5NGjzperhdOTlthNJYkBKDPeJjJJlK/Xy3MsYjYvou4iiQn/Muy
+         BvW7x+H+H5MtnI3bE5tIcddZ57QmqBsBD+2NLCVJzKJ6QDMyux2+CrZGTOvgnnPATyZd
+         Nyu+PUiRFhobHG+SXMjcb+LWhkhwkxu+zzxw9+wcf9uupVgnMei476FWifQaR6mIKnl+
+         0jZxMPv6CFYG9Zw9OhpWuoGgdqlzXr3zpktswjfN83Ng2hNmXg7+6bcQF6ZJfHo350I6
+         UILA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793780686; x=1794385486;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
+        b=R6d9ZSZ57bLmRv1v5PagTzHrrRAr5L1gu345CHjBLWf3dSKBTokiNqwiaua1A+bEuE
+         bMCQ9gHQKlE6ReLEeMhRzLEAjvzMcNoEij4MooYCFFWr1DuOooVpCXBY4DnqIDdWycca
+         P/R3in//CUxsle4IcZ6aYDCg2TzwMNBjCJjF0CPL5P/sDIs2Si6UbHCUcMQFgjLQc8rR
+         YFX96Yk7jSpMht38Xe/pMujfC+jbN6zLWOF0mrIfMlO2nDwabcWkGaWoZsTla7LI4BJR
+         7OsJpncjKbyjD0VQIVYRqpJZZwkmldM+q7RQWrSZ8/W4dLcoNVs1lD2uyiVRVwsYh1Ln
+         SpqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlAEcXWb+XhgIxQl9WwEJfFcnXgq6Tqmkf/j3UKvrPYK/2rzwquhXQus46FV60nmzpuSHtJ+0kp3JfIns=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WeaOTqHGOsF+tET2Gclfiuh4x7S6VMK0T+5pk5BUaYzZ2VcFN
+	DzRtXK9h+1RDOVlpL0UpOybMrLhNo7hYpcZce8O42OHtUHjRGubT0LC/CFiMRhgk0S3ERozul5R
+	OIBEtD4AuoicIKyFxz3uinLyZ0xSUXWpkcGu7HvIn0g==
+X-Gm-Gg: AYBFou0EzVEol9QPsL+kKQd1Llhj4uydOsmHOI5BAByEdHi4HOcERrrSu1PaEIFxTrq
+	lrJubRcj0izxsr+aB1aEXAn7CZgQ5Rk8KFKJP6inF2PwV8K3tDLVyhzxFK/iUGXyXOmLCRpAuf0
+	n60J0SgdYZADWj+QjpNwDS4jo1/om6+euAcYuCau3WtdkcfiB7RKw2+rEcSV0rTcS5RqQ2o+e0N
+	IFt1RbXUxAgMvN15DIF3msxMMoUS+A0Plm6A1tr2BMIzjEY9c1qr9Je/oGj/pK06FlyWAeEaOKs
+	sg5dDhdbi+O5UTseUc3fYd57vocNK97/YRUvnuswnIokURS9DuaMEse5jiBblKdGsWjzdvFbC2t
+	4mBF8NyHz08/CNA2VLX7c2skKmP42tOP7zCPj8HVDTKNHQzo1jPUGS95JtrwiN8I21/k=
+X-Received: by 2002:a17:906:6411:b0:c42:e6c8:e45a with SMTP id
+ a640c23a62f3a-c4ca7a4c8b9mr1386970366b.3.1793780685708; Wed, 04 Nov 2026
+ 00:24:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,102 +104,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 00/17] riscv: add initial Zhihe A210 support using
- SCMI clocks and resets
-To: Han Gao <gaohan@iscas.ac.cn>, Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
- Jassi Brar <jassisinghbrar@gmail.com>, Linus Walleij <linusw@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Anup Patel
- <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Drew Fustini <fustini@kernel.org>,
- Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>,
- Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org,
- Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
- linux-serial@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <179376960391.50454.8822263457423416137@gmail.com>
+In-Reply-To: <179376960391.50454.8822263457423416137@gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Wed, 4 Nov 2026 16:24:33 +0800
+X-Gm-Features: AclHuK-R2OdQr1K9gGtBoNEjfvIOvN0HOzedAfw3-hfWuJgFyYUBaWV7yfFSPt0
+Message-ID: <CAAo+4rXReQNa8q1_zkHn87thQeSLQHyPhioCrDbT_1K8L=rQSw@mail.gmail.com>
+Subject: Re: [PATCH v6] Bluetooth: hci_conn: hold a reference for LE
+ connection timeout
+To: Yaohan Li <shunsheng1218@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02/11/2026 20:45, Han Gao wrote:
-> This adds initial support for the Zhihe A210 SoC and the Melon Pi V1
-> and V2 boards.
-> 
-> The A210 has four C908V and four C920V2 cores, plus an E902 management
-> core. The E902 firmware handles clocks, resets, power, the PMIC and
-> CPU DVFS, so Linux uses SCMI for clocks and resets. The only new SCMI
-> piece is the mailbox to the E902. [2] explains why I picked SCMI over
-> RPMI.
-> 
-Considering how vulab@iscas.ac.cn is ignoring reviews/comments and spams
-with a lot of unthreaded emails, completely disregarding any tries of
-contact over last 1.5 months, shall we ignore all contributions from
-@iscas.ac.cn?
+Hi Yaohan,
 
-Maybe this will be the only way to actually be heard?
+On Wed, Nov 4, 2026 at 1:20=E2=80=AFPM Yaohan Li <shunsheng1218@gmail.com> =
+wrote:
+>
+> Hello Chengfeng,
+>
+> We independently reproduced the LE connection timeout use-after-free
+> and tested your [PATCH v6] ("Bluetooth: hci_conn: hold a reference
+> for LE connection timeout") on a clean Linux v7.4-rc1 tree
+> (6628e7d4c6b2).
+>
+> Test setup:
+>   - QEMU/KVM, KASAN-enabled kernel, /dev/vhci virtual controller
+>   - Management SET_ADVERTISING and L2CAP LE connection
+>   - Kprobe-assisted timing injection at le_conn_timeout() entry,
+>     50 ms park, with mgmt disconnect at discms=3D2015
+>
+> Results:
+>   - Unpatched v7.4-rc1: 42 slab-use-after-free reports,
+>     with the first relevant frame in hci_conn_failed()
+>   - Your v6 patch applied to the clean tree: 0 KASAN reports,
+>     with 200 confirmed probe hits under the same timing setup
+>   - Control run without injection: 0 KASAN reports
+>
+> This is a test of your posted v6 reference-counting patch, not
+> merely our independently developed fix. The result supports the
+> lifetime fix under the tested interleaving; it does not establish
+> coverage of every Bluetooth shutdown path.
+>
+> I also confirmed your analysis that a naive
+> cancel_delayed_work_sync() replacement is NOT safe: the mgmt
+> disconnect path holds hdev->lock while calling hci_conn_del,
+> which would deadlock against le_conn_timeout's hci_dev_lock
+> acquisition. Your reference-counting approach is the correct
+> solution.
+>
+> Tested-by: Yaohan Li <shunsheng1218@gmail.com>
+
+Thank you for reproducing the issue and testing the v6 patch, the
+detailed results and your confirmation of the locking issue are
+helpful. I also appreciate your Tested-by tag.
+
+> We can provide the full console logs, build configuration, and
+> reproducer details privately if useful. The investigation was
+> AI-assisted, and the patch application and test results were
+> reviewed by the human tester.
+>
+> Best regards,
+> Yaohan Li
 
 Best regards,
-Krzysztof
+Chengfeng
