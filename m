@@ -1,86 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809043;
-	b=snn8aQkSPiuXZ77zFcsky0c/n5YtMlFvV8Ks0GnADQhy/Ol5aGbgOWB6p4LUZUHSsKKj
-	 uoN1KiNgJTud3hP/z4BPOqTgOksqsrheo6jKFND7f0v+03npB9s+Yk1fv+B0oJhsksXX5
-	 iy6ci9hFvmjycSJ6zXNQfJ0N94FVgULM30ffl4QZ7y3eujZfDmlCgEAcOv+kkys6agEnZ
-	 h0sXm8pv8QhHE5M6d4JYQJEI2Cw3SSeCnlR8pOQbqKslOXSwf2jMJVwYcpLLh1HEIT8Ls
-	 QDTY8w0bSm+CUFZegkFh0sODU2qgvwIw0PjVaEeL/ej16U5sTEBf0dCuYEPXls/w7uA==
+	t=1793809033;
+	b=Rp/xDKNSmW3zQ0yI4iG3T9FKJijnTceZQrM/3sUq94u/Iyfoow8PRpkHpyJsm07xKMFL
+	 MvjH0p6gz3dfDy64RavJ2oB0w5YNTn80ui/He7Q9KCgRd4Cn1cHLc5kZqpclGoyR0gg1f
+	 +HezPlYkDOC+6GXejxeVJDZOvBsYll9xJ0HnPYl3LXSYiVtIdbPpvMC2MfBSxhKL0rdQW
+	 X6rGipLg20pqAMot+QZJtgnJ2IngoDr9SfunHfaflKTN701MB8uslZUs9nwqHjB3t+Hp7
+	 IIfamOLMiA+Viymt/NabIutajrAELxGPeMAmGetPK69RnBfZ2v7HVAkEFbz+Gzb0IbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809043;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WGjQzXDbihJeW6cw6LNSbBuxJDvDK/XLahSbUoADWnY=;
-	b=ExUV+6j6bxa5nPVxuKAx2GCN3DMKspRmIjXF3n6vmK9mHNLz7B5MEJ28ZCtqP9lll6ch
-	 FhJ7euxpkzjIXepX2rurytQ9kyIym6sFT4TF95RH3N3YFEwKixz/Td34a8Y1xUV2lN6ox
-	 bxpBJCK6BwdeeAQH5QbjAIfX53I3MGWXsCvuNFaK8jYw2vnakey1jgzxrbF09Z8y+foLM
-	 6bIM1DtSBjSxftE8p1z1pwdSU1Z4ypV5Qv8Q0ewNYItxTT903efofWcqmv0vnkYN4+oBy
-	 WnZe5HV4iIAlo1aC0ZsuJATXFiC1cso3yZsgbGRWbkHbvfp7eOgy+QWIWGclro0DeTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809033;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=fyZRV4J6nax35QOw1ljlSPVHtJnA1c//c2H2SMY2yT0=;
+	b=icTInD49/jOvTWWBVZ2LYgIfQQLB1bcXdVGishjMWEJavhHgXtXQApNgJevg+vsWBKSO
+	 9lEJ1C7CXYNbOvaAFQtvHJeJLjRHikce3Yk0IyN87xYqfwwhaJNa9niB8iaZYJlV1ylAf
+	 0KNwkOY5CDK/Dx1dx54blWhQK3mx7wVMWN5WHYB8rDhgfHhA15ViU58ZeVOoSH8mHsc3n
+	 85F7BL9pFytU7CKm/v75nBotrgOMt9eH9UCv3VUuH/yRIwIPKNUjSZUzkdq4TMWTaycPC
+	 avZ7vRFoWzIaGuAE91wvv5hDfj5cQ+urdvCeG+77ePbL5MDrtmFhhfoRb/nQ73txJsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=raiqF4yg;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFJS4SbE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BC3606D801
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91BC3606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F61606D808;
+	Wed,  4 Nov 2026 16:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=raiqF4yg
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so8094415e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:17:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793809036; x=1794413836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WGjQzXDbihJeW6cw6LNSbBuxJDvDK/XLahSbUoADWnY=;
-        b=raiqF4ygK5JlaCGtO2waCV60lOHlih3bqY/lQOUAr5R3FP/h9GqOq9C9WlKrIiK43p
-         DXycWEIoorIOR+t0tgYbutbTXDTie3myKpP4X/w5OiftollhGD7cR4paG4TEfRddYHv9
-         XXIbRBhINwHfyoqGWrS9Vzfs//UNKLRrC2EWrOL2dcp4OVQSaWoaQWAwyz+o/PMv2ir3
-         pSHwmu64dQI8dodQraZsnCHpfI8Iyysr7ciYmkqsXNvK50Z6BrjiHgO/cUi37Am3CwGN
-         HUsYStNjCWrLTzU8jLkNGuDqPZI8Oqq2d/qm61DK56PrvpeVwwMhLbF+GHtnzFmAgAvJ
-         M9HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793809036; x=1794413836;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WGjQzXDbihJeW6cw6LNSbBuxJDvDK/XLahSbUoADWnY=;
-        b=LCmIDJh0l/n5GZ4UMU2LnyWA9lM9xCHlTxGNUCG6NyABm6Ig8UB/npLwS45UdYS+qn
-         rqXStM2HqWilqOv8k4HCXVO0QYFfOxaYSM4uzvNf2l6rD9y9wI/AVbhE682WPrMP1N/2
-         vgK0+Pz/uxdZgPiao+5MbHf6pjJt2i7huYSGOaln6uSxG9Dr0i3qarYvPL4f5ENusYcp
-         7LZjdEhouIHbn+Awe2LkyO7CM0QIq41ao6WUocwdbZdeIjhDKXQOc/XIAoAbFRKMnMdc
-         e0NM9If7Pmkd9R3QDhWpQI26ZAEUOxOUJR2Qho8UCnDwrG+Gx5LIQ039eCd7nm7pOF+6
-         2CpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9u2N2dn112p/+kt2COhC2qlpNMAXlc8v7sosZD50Wv5xK9lP806D2VgNQW88xRzOclQsnIwNh9jLireM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97uwD6Ecg1l1mxzOi7q6Sp7/RQtvCCMdBB2/4s0RTrjjbZ8XeQ
-	fSesfiK8chFu6En/7jwXacs2JW4Wr03DrT+p4DSucN0m82TOMkXVupwiRG0246odp68=
-X-Gm-Gg: AYBFou0gQ3MhBjiPyblnNICdDVVoRExks7crgvx3SJAQ1RjkfHqe7CU595KGlejGuM4
-	he8e8Y8iH9YYj7Vkx2xXqFZ47uYzyYfxTUaIrhAYIciwcbLfiqOG/Bqc4wdZrJg6x36NEfXWu/G
-	NfQBqM4Ip5lW6rlGtX1QPvEYJD6kHdzEJgPK2y2wDPQuEnUtOPpqqDU3itiJXqFD4k6k30MH1/0
-	nKEnyrpN+k5wlaLtvl51eekaoF1tPtOKi2nNtX0IqLt8Fm3XGKWmJPZ50MlNZihkecskiR4Xf8Z
-	ojUtnkqvuNbW5spnDJ6/mMiWUiRwcvfQ+z5l0oULpPLUiizGnzpjoVnGXuwP9ItyVAKOAtCyPpJ
-	9xKz48EsYWfDCn4JskS3Zf/ZLCpF9eUTsZO5JXeK5rfezme7UIdj6f1Mm97Q7xUay+Lk2tmUzMh
-	LpMeibzMmyFYQDZtWc0YsFwuYr+ACvR8rIxi9jHVM3D4UydrrFaYGDCnmKiayUWcED1o9Ta6pEA
-	v5CqFcwtx5MSUiCrNKIBjcKc1ddJGzRqFZIxfLGAErfCL3MRfEtHFD5oVwsKdhBfMwvk0+k9XrP
-	XiIhLXXCU1Om7xo5Lb1gUgn/ArG+U2I2jy9Eg1+996c=
-X-Received: by 2002:a05:600c:5295:b0:4a1:e92b:ae4a with SMTP id 5b1f17b1804b1-4b3c3545146mr75677375e9.21.1793809035955;
-        Wed, 04 Nov 2026 08:17:15 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.163.117])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9faff90sm169274795e9.5.2026.11.04.08.17.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 08:17:15 -0800 (PST)
-Message-ID: <7acf1f64-a2ac-411d-a235-69ea52231623@linaro.org>
-Date: Wed, 4 Nov 2026 16:17:13 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFJS4SbE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87091F000C1;
+	Wed,  4 Nov 2026 16:17:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809032;
+	bh=fyZRV4J6nax35QOw1ljlSPVHtJnA1c//c2H2SMY2yT0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YFJS4SbEKuKwWiS76FBgOfVN9Pfo2nzfGuDF0zKiZyVtvf6Vuz4FHI2dpsXgHsqo6
+	 KAzYakMrl2inh6VQXAS4AMPEG0Qr5Qr7qG3dEUlNTo98MPyyx3IBe6SaL3nM7ZN2Xu
+	 ct7dEbNT/sqUneuGXFuHKe8JfDyFQ0e57rZT/wvx6yvbk5FfFJupyNX1DZHXP0nBQL
+	 hPxJGbZ4Bl1OxjVL1SS+M7wyoHNFQNeO6s++uVCtlbXo3VHStg528CRGALMW7C7mf9
+	 AlY0Z2fEbET/uz8OfsjXmutVtpIuzje6bxZcwDOfZ6RWWKCyqhYoobZ5/5/PxlyKrK
+	 M/GqFlnhSO4dQ==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v8 02/15] virt: coco: tsm: Remove the device from lookup before PCI teardown
+Date: Wed,  4 Nov 2026 21:46:19 +0530
+Message-ID: <20261104161632.3547423-3-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,69 +86,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
- <fFfGGWaoXA-LdO6s8Xh_kQWQfncXe9YNdpcj2yNkphWHAR_V69LdLOcuhXPsbg8dEUSN4j4yygq4wPre5cz79w==@protonmail.internalid>
- <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
- <5817be6b-7180-407b-acb5-8c5fdef4edfb@kernel.org>
- <73b1f591-69cf-471b-9763-a0b719c74501@oss.qualcomm.com>
- <fac8cd6d-c3f7-4ed3-b0d4-7cb8a7a6f451@linaro.org>
- <d92a8aaa-5cef-4416-b1c9-46ecfc6b2745@oss.qualcomm.com>
- <CAFEp6-3ka3ZKzCoLQ5BNv0YR+yhYXVRwV6G6rM8Lx_9hZ0RqVw@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <CAFEp6-3ka3ZKzCoLQ5BNv0YR+yhYXVRwV6G6rM8Lx_9hZ0RqVw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/11/2026 16:11, Loic Poulain wrote:
->>> We have a series from Antans to address this though.
->>>
->>> We should list the clocks the SoC supports not constrain that list for
->>> one specific sensor on a test-case.
->>>
->>> ---
->>> bod
->> Good to know that Antans has a series addressing this. I agree that we
->> should list all the clock rates supported by the SoC rather than
->> constraining them for a specific sensor.
->>
->> One additional concern: if the clock selection logic still always picks
->> freq[0], listing a lower rate first could leave CAMSS unable to work
->> properly with sensors that need higher bandwidth.
->>
->> Could you please share the link to the series? I'll rebase the next
->> revision on top of it.
-> I don't think Atanas' series targets the CSID clocks, only the VFE
-> clocks. Ideally, we should make similar changes for the CSID clocks as
-> well, but for now they are not being considered here.
-> 
-> Perhaps add a few comments documenting the supported rates and use a
-> single rate for the time being. Once the CSID clock changes land, we
-> should be able to revisit and adapt this accordingly?
+PCI connect looks up a TSM by ID under pci_tsm_rwsem. Previously,
+tsm_unregister() released that lock after tearing down PCI state while
+the TSM was still in the class lookup. A racing connect could then
+attach a new PCI context that the teardown would never see.
 
-Its the same principle though.
+Remove the device from the class lookup first, then take the PCI write
+lock to drain in-flight operations and destroy their contexts. Drop the
+device reference only after PCI teardown completes.
 
-I don't think there's a valid case to exclude clock-rates purely because 
-one sensor requires the higher rate and we aren't willing to do the work 
-to make the clocks smarter.
-
+Fixes: 3225f52cde56 ("PCI/TSM: Establish Secure Sessions and Link Encryption")
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-bod
+ drivers/virt/coco/tsm-core.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/virt/coco/tsm-core.c b/drivers/virt/coco/tsm-core.c
+index e784993353d8..f79135986102 100644
+--- a/drivers/virt/coco/tsm-core.c
++++ b/drivers/virt/coco/tsm-core.c
+@@ -56,26 +56,25 @@ static struct tsm_dev *alloc_tsm_dev(struct device *parent)
+ 	return no_free_ptr(tsm_dev);
+ }
+ 
+-static struct tsm_dev *tsm_register_pci_or_reset(struct tsm_dev *tsm_dev,
+-						 struct pci_tsm_ops *pci_ops)
++static int tsm_register_pci(struct tsm_dev *tsm_dev, struct pci_tsm_ops *pci_ops)
+ {
+ 	int rc;
+ 
+ 	if (!pci_ops)
+-		return tsm_dev;
++		return 0;
+ 
+ 	tsm_dev->pci_ops = pci_ops;
+ 	rc = pci_tsm_register(tsm_dev);
+ 	if (rc) {
++		tsm_dev->pci_ops = NULL;
+ 		dev_err(tsm_dev->dev.parent,
+ 			"PCI/TSM registration failure: %d\n", rc);
+-		device_unregister(&tsm_dev->dev);
+-		return ERR_PTR(rc);
++		return rc;
+ 	}
+ 
+ 	/* Notify TSM userspace that PCI/TSM operations are now possible */
+ 	kobject_uevent(&tsm_dev->dev.kobj, KOBJ_CHANGE);
+-	return tsm_dev;
++	return 0;
+ }
+ 
+ struct tsm_dev *tsm_register(struct device *parent, struct pci_tsm_ops *pci_ops)
+@@ -96,15 +95,22 @@ struct tsm_dev *tsm_register(struct device *parent, struct pci_tsm_ops *pci_ops)
+ 	if (rc)
+ 		return ERR_PTR(rc);
+ 
+-	return tsm_register_pci_or_reset(no_free_ptr(tsm_dev), pci_ops);
++	rc = tsm_register_pci(tsm_dev, pci_ops);
++	if (rc) {
++		device_del(dev);
++		return ERR_PTR(rc);
++	}
++	return no_free_ptr(tsm_dev);
+ }
+ EXPORT_SYMBOL_GPL(tsm_register);
+ 
+ void tsm_unregister(struct tsm_dev *tsm_dev)
+ {
++	/* Remove the class lookup first. */
++	device_del(&tsm_dev->dev);
+ 	if (tsm_dev->pci_ops)
+ 		pci_tsm_unregister(tsm_dev);
+-	device_unregister(&tsm_dev->dev);
++	put_device(&tsm_dev->dev);
+ }
+ EXPORT_SYMBOL_GPL(tsm_unregister);
+ 
+-- 
+2.43.0
+
