@@ -1,221 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=148.163.158.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793759855;
-	b=VuLiSeq4SE0n/FVzlxIzUkpymmSr7epKopBtSnKlnyUj/vsca6SSbhPb6WeId1hhN9Zd
-	 roouZR9Iv5fmp2lQ1ezKMGIzQtE+EeZj0+wCPycfHPFDZqYmPLsqfWK/viLDEhghiMqRr
-	 C5xah3CLvcFzCDRth+BlroPaPWl8OPRHGb+ULj1E3Hi+xU7TNy23lAcmZ2XwAMxFBVyVj
-	 e7sql6N5rr5oNJtco2SaM64qxu2btLvOBM5H5n71lvWcDBlRCPttjMr/c/60bBFaEc4XU
-	 A2oCv+t6SiuwZDzb+wixm97YLT3bItDtOA1F7dC4RoHNCMfrzWN0UGNpPQrcXQhZBOQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759855;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:Received:DKIM-Signature:Received:Received:
-	 X-SNPS-Relay:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=IQZPwWfDufQaY0y0bMNCjKF4tGu6Aj1vpQMdzlW8a2o=;
-	b=Dw/YhkOnM7HDOAZq2q41XPvgQHXNVbYuJSNsq3SNExYPlFYdscv8k6IAKSgzQwyAvixz
-	 IoYvkct+NMWDUSXzmW/wFBaOK6S2qA1AeI+yvbOUeN4yvaqyhlNOxSsvvtrjow5oBi2Fp
-	 +3MoHZLPWAyZkHxfHROty6VN6zIj7xLvG/5H0GlRrpkGGDSvyczCAnPwmJc6MgBSnnFXZ
-	 J+T3xLGJyxjhb6KHSMuayWF4y1RW8gJg/45mYJ8MCDtuNq/iqSDU8QihXJnvSDw7eomZ2
-	 7SSx5n/Duf//GSqW3kDgXpAc5kFQV14XMfFOBzY4Jmrsab7bD0lsGc9qD334DB/CCKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=synopsys.com;
-	spf=pass smtp.mailfrom=synopsys.com;
-	dkim=pass header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=pfptdkimsnps header.b=ujh31bQW;
-	dkim=pass header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=mail header.b=kLa6H8T6;
-	dkim=fail reason="signature verification failed" header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=u5FHqm7c;
-	arc=fail smtp.remote-ip=148.163.158.9
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793759879;
+	b=HLIidXe9oq3f5ziuBlcz02fcQLkq6cb6a83gSlHahEo2nGdBlwkmor2hoSAcvnbsajEQ
+	 fgBF51T0mUiDzwVwQPmBYK8aRJh/Mimx+cDCEJrPf4CwIVMIRWpoPCUOPSqSyYjRUwV91
+	 JUAJT9mqykqNv6hJ3B9NJPFGxyNmgc0yJWVEoEkXAsOZRKSPOJKVPe9wnOoKaiVf4vCaM
+	 mrOVpUMFD6it2GjgVtZOeOuM0vaYE0pF02JhCurstRZhD7uCZq8qcH11JWmSscqgjHXuH
+	 HoadPa8H3oEm2dMT1ZN/t86Y5H3bcvwdQTChprSZdmq89ZT3bVDxXOKjASuhPjxZ8AA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759879;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vIZNNz7Oi3mXtoggzYe/K4bpaj/JBSiTJx0J+y6wn84=;
+	b=mOTDPMtkA2v4efp3Fjyk0o1PMIAeyypO6gb2n6KOoGNd9WzeDqJDaC7I9JE+QS2GJ4Wb
+	 zdgFrrTm9sdWyYWqpDH7FNAYt8YsCyAXUNEwoJrngxrOgnLTbUVp9WACZJlJ3WbPXU8bh
+	 cJQv5hCuiL3WyGb6SmqngUTuoMnCk7SDeh9HdHuSZ4xZQWcLHdbtXuMUQDROxAiaunOmW
+	 3OGbv8n7XAg+T9Azgt+btOt5QoohOCidT2FPBbE6t55Mr43UisFuZENmvRA9xj1GrqQjZ
+	 FOVXwdMaAFeVthfYeBhFWrZNS03gPlfPuG3VDKMEaGzejjFIQgNIp4mFUNLur6CJKqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4C3606A328;
-	Wed,  4 Nov 2026 02:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B4C3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=pfptdkimsnps header.b=ujh31bQW;
-	dkim=pass (2048-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=mail header.b=kLa6H8T6;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=u5FHqm7c
-Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
-	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40SWOs1377443;
-	Tue, 3 Nov 2026 18:37:28 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	pfptdkimsnps; bh=IQZPwWfDufQaY0y0bMNCjKF4tGu6Aj1vpQMdzlW8a2o=; b=
-	ujh31bQW84yVMyc4t0A4yMI0m/3uwZrXULLqfwY0ZTXYENh3LP0lYhh5bnVaL3Tg
-	7yADKY3iezvdlL5Gf3xmVkMDqUoa16SqntCLXETpptxy9/sqgWpK5unIZn8EXmsF
-	yT94AIPfWtSSaFVeGM8NHCpuvGtD+z8/Puu8vfKw1LPdowezdLNxLgF7KevIQFUS
-	/qE5B8V+wr4ZVVAFm5LaebY2y0lCmSb7RbuBCQmKJSRRd4SDBDYXacpaEEyl4C9L
-	N5D4l4IxwNysstFmss5hV1V20LXXszU2WBzFFBz4DDjydXOusZnLyCyUX8DhAxaH
-	Fk5662CFyZmy3QuEIzyEtg==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
-	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4hqctw0a3n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 18:37:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1793759847; bh=IQZPwWfDufQaY0y0bMNCjKF4tGu6Aj1vpQMdzlW8a2o=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=kLa6H8T62IlbZTCURFsw/KRN/IF+VPTqZfpNeGqE7vrKI9BEFSo77BzTUlm+sIdXZ
-	 LtxHk89orxMHuhQ7SaLLO9Sdg6hJ29HDwFX0SG91mgIZYqHkXqRounoEmoKp0V/dB9
-	 Okwc5NhFj82cGKOkRUri7W2SQaN0QKZ3YQd4EpySx+XpVwuNQGw9S0PMz25Ejzo9xY
-	 p5cbel4W6Y86sB/8aeRSV3TNI4ZsBruE7le/VJkMTJUUEbnds8LQUjUL/RdnKBlpuu
-	 GiluppNDrnJWwEtiEoglR9aAtxfXS5315x7QOAjNjhlhuD55BGWCHzDVHJK0kGePVO
-	 Fs5wuD1nZ6d7Q==
-Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com [10.192.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 81B33401F3;
-	Wed,  4 Nov 2026 02:37:27 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay1.synopsys.com [10.4.161.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
-	by mailhost.synopsys.com (Postfix) with ESMTPS id 29651A0068;
-	Wed,  4 Nov 2026 02:37:27 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
-	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=u5FHqm7c;
-	dkim-atps=neutral
-Received: from DM2PR04CU003.outbound.protection.outlook.com (mail-dm2pr04cu00305.outbound.protection.outlook.com [40.93.13.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
-	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
-	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 9298F4010B;
-	Wed,  4 Nov 2026 02:37:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ARP7L8Xye5LFVk2vLm8SRyY+WsrG/pZOYqq4FGRbpt7GAEXcBVW3TidcJfCHpt0GimQjz96OaG9ieL4OGJplkE2IT3UbcXZu3hDTTF7O7mQpG28I0e22XV1rmuZqILIk6XHHDn2vXAMrQz5pz6aW/uYGpXLpyktCYJAhkAl20Ti/8BB5DizkaSPwvGwMKNkQ8v2xwmviKkW6x3W+/cJEOJQff6hQSBYzTdkRQ2dlcxb71U8SX2bLGXsv+kCSe7gRkAvJeNDtGm0BkW24ZPuksaDsMZSxkRa5j65RtSg/z/LiGiwMbDZMN/tv7l8Cfw2eCqogoh229xIYYK4gczJY1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IQZPwWfDufQaY0y0bMNCjKF4tGu6Aj1vpQMdzlW8a2o=;
- b=OF/UgBBouRu35Zsm6yOuCQr9NEnTbYXItMaVC58NC/HbpNDMF6C/fgr+CC3lAc7/Ht6xzIe9jSvfLUDzp4iDK6MiUIC6kVfOdVmAwNKbvLKu0RdebS1Sai8NbPsc8HU9Jud/STNq2IyVGcay4WeQADPFdM7bac/HNxmu4nhohztPeokQe6w6/5eVhSiftWBxo51ylq9SoBmeO+Q5qujnGMoCLLVgwx8gGecNo9I5fjQB6dGNIq0CFbcLrXUiv5n7iBsKplDhflmtich2dzs+DoMNd0+auFjMUYyJ0aEdjzrerMXtcFPzsBnZ9ff1KSuYiRy9lcPs5sMITCQbI4PQTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IQZPwWfDufQaY0y0bMNCjKF4tGu6Aj1vpQMdzlW8a2o=;
- b=u5FHqm7cmGMR2RyD4BmcXu/uFSKK7Mg2LmAlsQOtPWZ9iFXNW157VEvhDlNalblhAOxlEOmcmU1TH/ryfQ1LjdrIoXsOpdBz+GEaMO2KxMTIe9JRxl6BA8iceTpzXjf3233XR1pTUTfN4RRXla/xI1XFuE+KL2kPLMVjWZp8kVI=
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- by PH7PR12MB6657.namprd12.prod.outlook.com (2603:10b6:510:1fe::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 02:37:20 +0000
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 02:37:19 +0000
-X-SNPS-Relay: synopsys.com
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-To: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-CC: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] usb: dwc3: qcom: Defer VBUS override update during
- system suspend
-Thread-Topic: [PATCH v2] usb: dwc3: qcom: Defer VBUS override update during
- system suspend
-Thread-Index: AQHdYnan5UYfhcgHMUWgaIHS0yhDQrcdRcuA
-Date: Wed, 4 Nov 2026 02:37:19 +0000
-Message-ID: <auqXyUxc9cRIuYou@vbox>
-References: <20261022224220.480-1-tvlad744@gmail.com>
-In-Reply-To: <20261022224220.480-1-tvlad744@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=synopsys.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|PH7PR12MB6657:EE_
-x-ms-office365-filtering-correlation-id: b66a15b1-22a0-40b2-860f-08df3a1c8c64
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|38070700021|11063799006|56012099006|261009223027099003|261102123227099003|261021121427099003|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- UQZPJuX3eVu0x49/MvRWjwUljYzAuFKsPr4ekMYA2rgojumcNM7N0jU7f7mD/pIGq01vK9tVlvP8IURL33N9qOUj+mEY9FDG6p/g4+gRdGn8TqC78U1Z8fDPDin6EvxHqn2A6vYqypg0ICs5nKHbIzaAiK/9rTU17oW1XIPKyOsk4ywqyo7UaFiOcN14+9l9CGqnyAS8Y2Y0ypY9w1xcUpWkjn68zWVXjrORudYG5MV121MvcaifWnyVUhGm1Lrn+qezcjFv7cyGnL/stB7egwn7/0uwSP8iNqIqe87r9ISnXLyzKQHORxu8xzrjSCKSCHsAO7+bfw4aOAAkxmvx+0270slc1LNiyYSe5ddvK6sQFmkyeMgTRMdqisR3O2n5+FjhbiA70sdBnYnV4vv9fYr4PtOWLrxoVpmiPRTSvkTmB85V9uLFjcUdsjJfUdhRE0ablfu2BLTTlN/KhPGLVeqKTw2DToaXOhbI1y9OlVPQrFug7FNHxWNmEVWJ127snM2c+8kUJf7tfr0fPshz+5IL9HjHPdcd2I8WbqOhU2NCIWoEFgjbbx8AIVkLF2+Ngr11F2wXE+humhKN/tT/LKSrMCliLWBqizxusFMY173RV/99zk96sA97RI1Qj75Re8G0F5w6fVuE3A22pEOJyiYyITKD7GJ4BlkAZJkiYcQJX07v7hEX4FjcBzVZA8OAIVeOZP++jNc6FGfV9iPrTMiqDegxeShi9oeKsQC+H0c=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(38070700021)(11063799006)(56012099006)(261009223027099003)(261102123227099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?eDhPckNYbElSNWp2UmxpNUdGdUMvdHBLRDVSWFZBcW5RU3VFZndLM1gvWW5w?=
- =?utf-8?B?RlJqVmR0M0pSWVhtYXZweGpZb0tuUjRSYWZlTHoxV0VYR1N5a1U4VFI5amth?=
- =?utf-8?B?VTQ0ZVVDMWpmTXRER0FycWRKZjV0cGJWdTFMYldRTTdhQVQ3bXFleWQrLzls?=
- =?utf-8?B?WXZkci9sVVIzdDFtVElxNmUvUldhbWlPekN3ajBYV2dwakNlVmk0cVlkM0hT?=
- =?utf-8?B?LzNleHBsUjFXU0JyeUlCb0xjMU1aZ0JTR0p1TUk3cm1BSGM5NitMa0E2aFhY?=
- =?utf-8?B?Q1Q0T0pFcW5BaWtCWU5VSFNFOERSVkVLZ0doNzRFVWRBMVRRWHdQTkY5ZE8w?=
- =?utf-8?B?eFlJT1BKZVRyOU9xa3hNZ1VuVUxBZXBCV2UwcDBBcERkWjhSRXNnZzNpcS9L?=
- =?utf-8?B?VUNiUHlHK1Rya1VUWi9KNEU3Z1l4N1ZNbE9KbkN1TS9qeWVKNDF1YTVYWHFy?=
- =?utf-8?B?ZThTZko0enNlNklTSUluTEFBOHB5aFg3ZnlsamF4amlQbW9kVUtiRndGTGVH?=
- =?utf-8?B?czRXVnA1SlNaTzJ4Z3pZRkJONEl0cXNrUHBXT1Ntem8vVTdaVVFLTldONWpx?=
- =?utf-8?B?YmNQRkJiTWN4cm1zRjJvT0xicjZKWmRObGNHZjZSN05lcjFIZzlKV0JvbW1w?=
- =?utf-8?B?R3g4c1IxVFJGYzNlR1JnaUV1WjBaLzVIUVZRZUpKSzA1THo4R3hHbTgvOVE3?=
- =?utf-8?B?Tk1zYXFGSWVocDRDb1Z6RE04d3hCTGt0dGNOY2JwQjNYWTQrNDZBRWRLdHhh?=
- =?utf-8?B?aFREOVJvOVAvYVNKUER4ZWZyQXpZaEdHVERDWUpPTktEekVnNnN1dUV6dzln?=
- =?utf-8?B?QXUyNUhvcXhveFBIUkxHZGlablNSL2FTODdKVG9MZnhBVlE3dzVWUUJhbFpv?=
- =?utf-8?B?enRvU2w4MisxczlSd2NWTHRHUzQvWU9FWHpQNHI1eWZGWlAxUkYweXBJaitQ?=
- =?utf-8?B?RW1BL0lQdGlSNmRkWU9qcEdnSG1RSm1mOExwWVdvRDBmMm1waFlEbUFkczJU?=
- =?utf-8?B?MVpNbjJTM1Fjekl0NHBwNFduS0ZRdTdxSURoUFlBSHNHTEVJY3kzYTFsZGN0?=
- =?utf-8?B?aHZnOVc4NzkwOUdTK2xQMGVhQzhYY2c0QzgvSGw5cktBVk1haTNXL0E1Uzdu?=
- =?utf-8?B?V3NVbUpJVmxhRHhrTm4zS2tPUFYydzZKL1pQc0lLMnlWaFFGS3NGL055QW5F?=
- =?utf-8?B?a0hkVEFPeEFpTWxMWFpRS0tqbzk4TzV5NzVHU1NIc1loSTc2TjVkaWF4ZS94?=
- =?utf-8?B?VUYwYlh1UmdwRUtUUGV4YmZSMGI0NTBwc0ZWVklWT0k4ZkQzSk9lVTg0eXZI?=
- =?utf-8?B?eWk2Mk5nSkE5OUFCNUt3Y2p4QjRMTjlhQmlxZm16SXJNTmlDd0JDelBDQWF0?=
- =?utf-8?B?MXIxTDhaREVBalNGSXMzY1k5M2xtTEM5ZFhKRHdzaUtoeFZpblQ0c2ZQSjl5?=
- =?utf-8?B?WnJKWkludldtMFBGNVZGUmExU1owNTd1R2JiTVR2QzRYMkZydnExdjJNUlB4?=
- =?utf-8?B?WUc4R3QrMEZ3a1YxYzMzM0hOdjNHQVhKdHNVWG1ONy9GaHE2YUxJUzZtWi9m?=
- =?utf-8?B?Mk1PNmloK2FRY1REQitXVkpnRi9BL3I2TzI5andLbC9Pd0dyUTd0ZDhaWUZW?=
- =?utf-8?B?WUdxK3YwZG5oeXQrRDcxYXlKTjkzemN3d2NCODZwTFpWRnp6ZDNzdFZzQ04w?=
- =?utf-8?B?OEZKSnV6ZFZhSE1Gd1FNSW1sZWpldXJvSks0ODM5SVZrMW9PRVNQOXN6bE1S?=
- =?utf-8?B?amtOekRQQ2lqYTVreDYzVEhxOWhJczlXUnFWMk1RNmUvNEhHNDdRMHdvdEpN?=
- =?utf-8?B?R21HU01mcWJ3dExBNGFUZzdDbTlzUmwyZ2lKZXN0MGVYaGV1aHdSdzlVMHh2?=
- =?utf-8?B?TnU0MmJvVCtpcEIraEZKaXdkdWZYejczQW1NMkhGNkdKRW41RlJ1SU5QeFBR?=
- =?utf-8?B?dEtrSUwxMTNRcVRCQkFDcVZleHdxZmw4bVVCaHdEcTBFbjJOUDA1cmdmb1N6?=
- =?utf-8?B?LzZveUxyWFFNZUppVmtFRk9RR28yMVpDbTh2YzZIUm1ndGdDT0ZaclVwZmpX?=
- =?utf-8?B?dWhCWGV4SVNReC9vczZBUlE3ejRsK1FmdDJDRXpYVGd2N1FPSEFxTU1ubUsr?=
- =?utf-8?B?cGpPK0NoNEFkdTc3QXpua1oxZlVLeXVacUV3WE4wYVpKUnZubG1PT1pMaStv?=
- =?utf-8?B?bFgrUklWSnljYXlnbjdVUnA2bzRCMlVFR2RtcXRFelhBYzFtVHpHUHBQT1Ez?=
- =?utf-8?B?bW43NTd2RlNsNVlmMjVjL1cvemplQXMyT0pkbUwzbXh0WXlUdkZScWVpd0hw?=
- =?utf-8?B?RmZzbkN3RFlQUmpDM2dSUStQbG1rc05IemdyOHpEUm96dGNRaUZRUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AB794033171C3D41B52AB2002B72CA8B@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB83606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB83606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-85d502ea62cso299036a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:37:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793759878; x=1794364678;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vIZNNz7Oi3mXtoggzYe/K4bpaj/JBSiTJx0J+y6wn84=;
+        b=LNi4Z5dSkW8mQkJQSY8aAr17cWaCUkqJjU7pHEOkZ0+RpPhk0p7uN4JrlM78VHHEiA
+         RUQ9YSFoa+Movb0GtH9+BVZ1ev/IT8i8ToTGni9OLDBWSlfPxmFsINKIHymlKFQFKHCz
+         70v5uge5/tyxHepGLqLVNI21oDz6I1cxmyJouALOvCTk0lraU1KSEljSHNaKRZbmjIV0
+         I4MtUW55iNkNsW9YlfLKNWfr7xjE3Y48CK0nrbgNXmjfwtx9l+A2uRtNdgAPEnE+evaE
+         tzYBZQpBsfMvbVGdkbtqcUgmdlpqEWwodlhiZQmEQYvoJFphT+k0SN1MmWVHwOnMWqNo
+         dQww==
+X-Gm-Message-State: APuU4Z+ukuNFU3mmLsmTNQUXy6Z3UeZVLajQ+aToa9BTEdvWiGiXp2Ps
+	HRMjsBPqMfwxfARzS0SuZYsCK9UnsgrRbriDcWt9lqqaFStzqz9KaQyGEdnkqW9TDj0dciPTII3
+	Vwmzxy0WR1zC3OAbWpLVzU3vT1O2RHraevrCqjD5Qk1Glrz88ht+oc1j1gKA=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -225,63 +57,266 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	lOuoMF4h+DfCDDXPpmSUNqNfdT5vv38jSvNRp7ZRzf+AMkXiiRhXgBn2Fek3bgiBRMcWj2mcbBur4xYId9v3EVU4quwTHKIS3Xv10OykvMxO5VcWkrvrMmEYWJWcdIxVT+xH3NgZW97ywJoRdMjA5sfcmWu8jmJiuqswEh/RjIkeJ3PBkjMvva26jEzL5al6bK4kwE44LN1ZlgpnDccTnJrcSHTMclmDIaIN9rzkXzAsbOq3EjNQf7b/cu9oX6/3zgpeRn2+dI9AdNQHO8h+ELNeHLOuwo/UtRYfMx7VrkNCl4LTw3SFGIwobk/J9LbWENr9Me2WIdK999ISxT9Ojw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	x094EYSAcdR0e0sv3fxJ63NLjDiT7Aec6zDumXWjO+ZOszJQM10w6ydjU+BEgaoJhcr55HiLh5ADRgvFlfmeGU2d5AYawcPNsgcG3+7cuaL/+oVMQBTOdUnPFdUWFZ5NJ911k+NpdecrWMq/GKdR4BzAb7sSfNldvvTnFUhv1Fms5Og5Aj7NS3cTvCPgvGHAX2nxiq8H6rgZzJHt01toO/5edPnqtUqbAWLdr7syAiCyhcvlWuuhXRY4/HfMDv8Gtv/KiOV4zTEPbO9oLtcV25LKpk9I0/9bYyKHuByZdXIfRDfvnYXDo6HRDRL5C36rvCpmkuuj+LarSmVGVr2S9Jrj0RoeSjTtp0c3tEcfBqhSEY5qJoxK8psHRnrX3A1kQPEjuDYbfuYnNF0ZWzrhmyh+i8zLvjcX66VJ9bV0zecJWr+KcD1en+22n2f1wPvFK6dJKYi6OfHh3KPFuD8+pcUBzZyr60N6QS3XB1eLzsCD/bUgzADGm7Zx0WCFSAcnwSOfpWC0QtYWa22TCz/8iq3kfpihR48mzxOAuFIUzysept/C/3stvlFUrg4gc8XHHg9+NTowCN2g5gAa65vAB1yaeXG0TzLRNSGmQxFhm8MJ3w9Jw5Tu9rTRJDEgCYdAVC5ETDkRwV4CuSMgr9LRhw==
-X-OriginatorOrg: synopsys.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b66a15b1-22a0-40b2-860f-08df3a1c8c64
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 02:37:19.8489
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MsP6wzon/mrg/powh93wewDj9XNUOkcMMOjd1WeLdj90gISaSWD/UsGpPVXF8CFmH8bQFK/JkgR4V8AiqRKHuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6657
-X-Proofpoint-GUID: QcybXDg1v3BHxo6lbXGG27zOSkkcIFwt
-X-Proofpoint-ORIG-GUID: QcybXDg1v3BHxo6lbXGG27zOSkkcIFwt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAxMCBTYWx0ZWRfXxLmoVjvZFNMo
- teXqzw6mCsHLz3xeewTqXHVuw3ZBPJc8sseFD79GrApYPZMlYW/RWxCTZH1o3y0xD6oHpwTLjGs
- Mx4tp0XZKS9dlJ39wlKQhsqdO2Z+8GC7atMrebnjuZm1qqfsv/4A+X4iJRORyS57yGuEG+rFxqy
- JgKTr0LXIHOsFIZGx61/3iyxChW97SXWGbbWtGUolH6bBjYpKUg0qP7RuDNoVtsteSMKbjtCY/E
- v6DLXmCLDbvp+08TUQElkSh08dTs/Gi3EzfPoHtJkvgyui9Y7sxDLwmLrMv6zsudqrUeu53xyqd
- OYfWHPT0XsC71ir1AbrPdJ4hS0FVZnngzluvEKKaNEx7Q4m1smI8ZXx/GyeInayg6yVYMGqv2ZG
- DA1oyyNU+UgEK++ldy1LLSiVGuLolK4/HLwtkZBUt1VkLorGjeparBE1hm20GJnkut3rbj1tatU
- sayEmARXF2Vrl9LCc7w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAxMCBTYWx0ZWRfX0T8Zcg4kc/p8
- d1PjXEbraD9raeiDp7zxf6HQ6cgtkh6489Or+PaNVNrx62sLqjxSGYNufbC7iu+T9sq+x5Xpc9p
- HogEVDp523gGljl08jJLGcZhFd8P384=
-X-Authority-Analysis: v=2.4 cv=ce5HPXDM c=1 sm=1 tr=0 ts=6aea9a68 cx=c_pps
- a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=qPHU084jO2kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22
- a=8KMJXURVOQm1DdvX89kA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 phishscore=0 bulkscore=0 clxscore=1011
- impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2610300000 definitions=main-2611040010
+X-Received: by 2002:a05:6809:278b:10b0:537:3bdb:2d7b with SMTP id
+ 5614622812f47-56410187406mr7378253b6e.11.1793759878041; Tue, 03 Nov 2026
+ 18:37:58 -0800 (PST)
+Date: Tue, 03 Nov 2026 18:37:58 -0800
+In-Reply-To: <000000000000f6bf6d0604af3b95@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aea9a86.bf891901.a11b2.0001.GAE@google.com>
+Subject: Forwarded: [PATCH v2] drm/syncobj: Limit the number of handles and
+ use kvmalloc for user-sized arrays
+From: syzbot <syzbot+95416f957d84e858b377@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gRnJpLCBPY3QgMjMsIDIwMjYsIFZsYWR5c2xhdiBUeW1vc2hjaHVrIHdyb3RlOg0KPiBkd2Mz
-X3Fjb21fc2V0X3JvbGVfbm90aWZpZXIoKSB1cGRhdGVzIHRoZSBWQlVTIG92ZXJyaWRlIGluIFFT
-Q1JBVENIDQo+IHN5bmNocm9ub3VzbHksIGZyb20gdGhlIGNvbnRleHQgb2YgdGhlIHVzYl9yb2xl
-X3N3aXRjaF9zZXRfcm9sZSgpDQo+IGNhbGxlci4gVGhlIGdsdWUgYXNzdW1lcyB0aGF0IHJvbGUg
-c3dpdGNoZXMgb25seSBoYXBwZW4gZnJvbSBhDQo+IGZyZWV6YWJsZSB3b3JrcXVldWUsIGJ1dCB0
-aGF0IGhvbGRzIGZvciB0aGUgZHdjMyBjb3JlJ3MgbW9kZSBzd2l0Y2gsDQo+IG5vdCBmb3IgdGhp
-cyBub3RpZmllcjogdGhlIFVDU0kgY29ubmVjdG9yIHdvcmssIGZvciBvbmUsIHJ1bnMgb24gdGhl
-DQo+IG5vbi1mcmVlemFibGUgc3lzdGVtIHdvcmtxdWV1ZS4NCj4gDQoNCi4uLi4NCg0KR29vZCBj
-YXRjaC4gSG93ZXZlciwgdGhpcyBzaG91bGQgYmUgZml4ZWQgaW4gdGhlIGR3YzMgY29yZS4gVGhl
-DQpwcmVfc2V0X3JvbGUgbm90aWZpZXIgY2FuIGJlIGNhbGxlZCBmcm9tIHRoZSBmcmVlemFibGUg
-X19kd2MzX3NldF9tb2RlKCkNCndvcmsgaW5zdGVhZCBvZiBmcm9tIHRoZSByb2xlIHN3aXRjaCBj
-YWxsZXIuIFRoZW4gZ2x1ZSBkcml2ZXJzIHdvbid0IGJlDQpub3RpZmllZCB3aGlsZSBzdXNwZW5k
-ZWQuIFRoaXMgaXMgc2ltcGxlciBhbmQgYXBwbGllcyB0byBhbGwgZ2x1ZQ0KZHJpdmVycy4NCg0K
-V291bGQgeW91IGxpa2UgdG8gZ2l2ZSB0aGlzIGEgdHJ5IGFuZCBzZW5kIGEgdjM/DQoNClRoYW5r
-cywNClRoaW5o
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+
+***
+
+Subject: [PATCH v2] drm/syncobj: Limit the number of handles and use kvmall=
+oc for user-sized arrays
+Author: fei.yu@intel.com
+
+From: Fei Yu <fei.yu@intel.com>
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git=
+ master
+
+The syncobj ioctls allocate several temporary arrays whose size is taken
+directly from the u32 count_handles provided by userspace:
+
+ - handles and syncobjs in drm_syncobj_array_find()
+ - points and entries in drm_syncobj_array_wait_timeout()
+ - points and chains in drm_syncobj_timeline_signal_ioctl()
+
+These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
+element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
+
+  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:54=
+59
+  Call Trace:
+   __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
+   __do_kmalloc_node mm/slub.c:5519 [inline]
+   __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
+   _kmalloc_noprof include/linux/slab.h:995 [inline]
+   _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
+   drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
+   drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.=
+c:1356
+   drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
+   drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
+
+The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
+KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
+today, with a warning.
+
+Fix this in two parts:
+
+ - Reject more than DRM_SYNCOBJ_MAX_HANDLES handles with -EINVAL in
+   drm_syncobj_array_find(), which every ioctl taking a handle array goes
+   through. The limit is derived from the largest per-handle allocation
+   (the wait entries) and the INT_MAX size limit of kvmalloc(), so none
+   of the allocations above can exceed it. That is about 33M handles on
+   64-bit.
+
+ - Switch the six allocations to kvmalloc(), so that large but valid
+   handle counts no longer depend on physically contiguous memory.
+
+Using kvmalloc() alone is not enough: the reproducer asks for more than
+INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
+instead.
+
+Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
+Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3D95416f957d84e858b377
+Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Signed-off-by: Fei Yu <fei.yu@intel.com>
+---
+v2:
+ - Drop __GFP_NOWARN (Christian).
+ - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
+   arrays to kvmalloc() (Christian).
+ - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.co=
+m/
+
+About the limit: INT_MAX / sizeof(struct syncobj_wait_entry) is about 33M
+handles on 64-bit. It is the largest count for which every allocation stays
+below the kvmalloc() INT_MAX size limit, so it does not add a new policy
+number. Today the real limit is much lower: a wait on more than ~64K
+handles already fails with -ENOMEM (plus the warning), because the wait
+entries are a kmalloc() allocation larger than 4 MiB. If you prefer a lower=
+,
+fixed limit (e.g. SZ_1M) or GFP_KERNEL_ACCOUNT for these arrays, I can
+change it.
+
+Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
+ - syzbot C reproducer: base warns in ___kmalloc_large_node() (size
+   0x100000920), patched is clean, ioctl returns -EINVAL.
+ - wait / timeline_wait / timeline_signal / reset / signal on 200000
+   signaled syncobjs: base fails wait and timeline_wait with -ENOMEM and
+   the same warning; patched all succeed.
+ - count =3D=3D DRM_SYNCOBJ_MAX_HANDLES gets past the check (-EFAULT from t=
+he
+   short user buffer), count =3D=3D DRM_SYNCOBJ_MAX_HANDLES + 1 returns -EI=
+NVAL
+   for wait, reset and timeline_signal.
+ - kmemleak clean, checkpatch --strict clean, W=3D1 clean,
+   DRM KUnit 667/667 passed.
+ - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
+   202/202 subtests pass, same as base.
+
+ drivers/gpu/drm/drm_syncobj.c | 40 ++++++++++++++++++++++-------------
+ 1 file changed, 25 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index f1d4da1685457..c01cf164a4f9e 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -220,6 +220,13 @@ struct syncobj_wait_entry {
+ 	u64    point;
+ };
+=20
++/*
++ * Upper limit for the number of handles passed to a single ioctl. The
++ * largest per-handle allocation is the wait entry array, keep it below th=
+e
++ * INT_MAX size limit of kvmalloc().
++ */
++#define DRM_SYNCOBJ_MAX_HANDLES	(INT_MAX / sizeof(struct syncobj_wait_entr=
+y))
++
+ static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
+ 				      struct syncobj_wait_entry *wait);
+=20
+@@ -1051,7 +1058,7 @@ static signed long drm_syncobj_array_wait_timeout(str=
+uct drm_syncobj **syncobjs,
+ 		lockdep_assert_none_held_once();
+ 	}
+=20
+-	points =3D kmalloc_array(count, sizeof(*points), GFP_KERNEL);
++	points =3D kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
+ 	if (points =3D=3D NULL)
+ 		return -ENOMEM;
+=20
+@@ -1064,7 +1071,7 @@ static signed long drm_syncobj_array_wait_timeout(str=
+uct drm_syncobj **syncobjs,
+ 		goto err_free_points;
+ 	}
+=20
+-	entries =3D kzalloc_objs(*entries, count);
++	entries =3D kvzalloc_objs(*entries, count);
+ 	if (!entries) {
+ 		timeout =3D -ENOMEM;
+ 		goto err_free_points;
+@@ -1185,10 +1192,10 @@ static signed long drm_syncobj_array_wait_timeout(s=
+truct drm_syncobj **syncobjs,
+ 						  &entries[i].fence_cb);
+ 		dma_fence_put(entries[i].fence);
+ 	}
+-	kfree(entries);
++	kvfree(entries);
+=20
+ err_free_points:
+-	kfree(points);
++	kvfree(points);
+=20
+ 	return timeout;
+ }
+@@ -1238,7 +1245,10 @@ static int drm_syncobj_array_find(struct drm_file *f=
+ile_private,
+ 	struct drm_syncobj **syncobjs;
+ 	int ret;
+=20
+-	handles =3D kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
++	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
++		return -EINVAL;
++
++	handles =3D kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+ 	if (handles =3D=3D NULL)
+ 		return -ENOMEM;
+=20
+@@ -1248,7 +1258,7 @@ static int drm_syncobj_array_find(struct drm_file *fi=
+le_private,
+ 		goto err_free_handles;
+ 	}
+=20
+-	syncobjs =3D kmalloc_objs(*syncobjs, count_handles);
++	syncobjs =3D kvmalloc_objs(*syncobjs, count_handles);
+ 	if (syncobjs =3D=3D NULL) {
+ 		ret =3D -ENOMEM;
+ 		goto err_free_handles;
+@@ -1262,16 +1272,16 @@ static int drm_syncobj_array_find(struct drm_file *=
+file_private,
+ 		}
+ 	}
+=20
+-	kfree(handles);
++	kvfree(handles);
+ 	*syncobjs_out =3D syncobjs;
+ 	return 0;
+=20
+ err_put_syncobjs:
+ 	while (i-- > 0)
+ 		drm_syncobj_put(syncobjs[i]);
+-	kfree(syncobjs);
++	kvfree(syncobjs);
+ err_free_handles:
+-	kfree(handles);
++	kvfree(handles);
+=20
+ 	return ret;
+ }
+@@ -1283,7 +1293,7 @@ static void drm_syncobj_array_free(struct drm_syncobj=
+ **syncobjs,
+=20
+ 	for (i =3D 0; i < count; i++)
+ 		drm_syncobj_put(syncobjs[i]);
+-	kfree(syncobjs);
++	kvfree(syncobjs);
+ }
+=20
+ int
+@@ -1572,8 +1582,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *=
+dev, void *data,
+ 	if (ret < 0)
+ 		return ret;
+=20
+-	points =3D kmalloc_array(args->count_handles, sizeof(*points),
+-			       GFP_KERNEL);
++	points =3D kvmalloc_array(args->count_handles, sizeof(*points),
++				GFP_KERNEL);
+ 	if (!points) {
+ 		ret =3D -ENOMEM;
+ 		goto out;
+@@ -1586,7 +1596,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *=
+dev, void *data,
+ 		goto err_points;
+ 	}
+=20
+-	chains =3D kmalloc_objs(*chains, args->count_handles);
++	chains =3D kvmalloc_objs(*chains, args->count_handles);
+ 	if (!chains) {
+ 		ret =3D -ENOMEM;
+ 		goto err_points;
+@@ -1609,9 +1619,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *=
+dev, void *data,
+ 		dma_fence_put(fence);
+ 	}
+ err_chains:
+-	kfree(chains);
++	kvfree(chains);
+ err_points:
+-	kfree(points);
++	kvfree(points);
+ out:
+ 	drm_syncobj_array_free(syncobjs, args->count_handles);
+=20
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.43.0
+
