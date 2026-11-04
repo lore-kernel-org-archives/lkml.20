@@ -1,81 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782633;
-	b=sQze9K7pHgklIP78V/QtmxJTrC57/l2K3zKR/HB6cJuOFGqaywuoDEyb+fY5lIScbmMj
-	 wr/s/gLgog5cBAAaRbpbF08dRKpQXSBu1GkB3YdY7xxidRYhOlynnha5gstAdxeXFEvy7
-	 b+eMUccFg0hFZgNbXqtgbbh/p9bxaDsUxqld4WZMZFWpOl2YLnvwmGZNWrbay3h/WfHu3
-	 SAKZiV8Gz3q6BEJSsTCPqCMI94TLtGm/NUe4xytw63aBzmG10vOep0agob8E+1BzL+uoX
-	 fZQ1rw9K4nhRsKAvDjJiFSiFIqrGdZVYylIi8NgweSVL5txIXcD507Qu7iwO08et9Hg==
+	t=1793782661;
+	b=GebGMPTUTOlINVlEMkGYgKNAzKRPc/nU8uMslgbfdG8eliXQkNLdThRuR63C3sP1zwHE
+	 R42RVmo6OPW45DMS05utECMdG+c7HP8cnefxFOFkkx1Q/JyYm53aoFSINjuO45vVNRAKM
+	 0Ww1Eo6ulEc1LE/Wwqe+Dkd1QjYtbk0gouJfd2ymtGJ6wlmkNMABt3Nz/zth4ljgJrSjs
+	 I1q/y6Sc7Eko2xsrD2apXdIYDDrJeLvP/cYoErTh7YO0UHOklGtcwuLy6QUW3jXNQlcmw
+	 G7+bB/SYXAM2dtv3ciWqzc2xCuVm3IB1Qb1ThoqKIeZAydE4dx2DDN9k46YOGF377aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782633;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=gYu4safrZFRZxRz3PMkEnVIGx9pn9PlCpDYcYD2NAIg=;
-	b=0ba8iMdRX+sU3Nycgnj73P6gz7Tt+kqmIXvjrbGvgguApMMCJJZ1IrJ18oeaE/m4rmNF
-	 UGLeFzNxGXKgGMamGjcL5wMP6Uv6Th91kLnxmVd/EM8zAUEiLThpbI6fT+MQeVpZjOXzA
-	 FBjRyk1Q6r8nZTL1ieI7ZaWPHunKNDtIfhL2cLD2HXR+AE4w4q9rQi0lBw/thUZy7ebBU
-	 nnBJvP3CFi13z76Rq8stmuMe11LH66z95TG3UMFK/uger/TdPm0y9uCVsLA5434ehVhRo
-	 QJI7Z+6Hv0z9flEDgQRGmPVBPoHl6tW8YsC7vH9bfUAMe6C4Ej5xSuwtYQUknYH8dSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782661;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QhWsA6KUNbQJR1l3jYUSHTDtf6TXykLxyo3+xLwgmSY=;
+	b=0ZbBMEfltkQv+Sy1UsFW6XeiKo/BaSBPjcHz3feC0R9a7hqMzE5r1B836pTnWZs2FMt2
+	 Uut1bni/e6fVPvLLuE1QIfl0AMsXMHq4KBc978lb/Xr6hNfFhA3xUSr4RyDA1JlyZa4oX
+	 23mURdvVUAOZyhN9OG/8DVjzW7IqqSsMNWhw2n9kS47MRRwulr5gMB0ZJkizd99N0fOHr
+	 727zH85+1SHMsXzKD36294h6vwNEdVuvuqdGs6gUG8u9TRn7igseXtD0fW6EaTtIDN+N/
+	 h6O2mQAuSXiVnOtykY3vdFVc/4cTxTiZHJEKz+DbLjPoJYd6mpR7Ud+qoLF8RuZnuoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="acu/8cdQ";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC02C606A328;
-	Wed,  4 Nov 2026 08:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC02C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VRaKuVPH;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2359606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2359606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=acu/8cdQ
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48iZvq018674;
-	Wed, 4 Nov 2026 08:56:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=gYu4sa
-	frZFRZxRz3PMkEnVIGx9pn9PlCpDYcYD2NAIg=; b=acu/8cdQTElSAXHjKK3Kmi
-	J8oR+9CUek+J0EBJ3HjStbc7GCefEs+glquVxZ4iGZaS5IFughXOq5edyiwXXaTY
-	8ovS/FB46i7KjaT1HOAwce3OcY0F3r5IIhi7kKMCXSp9YWUNUy6gcG7y8kqWHOmZ
-	lwR5YzZUK5jhcL8ZNYtXN4ldDz/CwIiMDvSyH+1sjQAVCFmUtrOBu3/Kwo+GT64o
-	zWIy2Ub5kyhOoR+YMtpWDYIKBJpu9LwwhbAdqm4vbhGm1GH1f1ZcXXFAL+2QR98O
-	RO7BPNrFiv0hZ/GmMGsDarg/juQRZp0yyo89IoVE3C45h257gZYG2PD6l4n3/TWg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhtqvn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:56:59 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48K3Un2676482;
-	Wed, 4 Nov 2026 08:56:58 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqsf59qkr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:56:58 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A48uu0w50921730
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 08:56:56 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7AF9C20040;
-	Wed,  4 Nov 2026 08:56:56 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A970D2005A;
-	Wed,  4 Nov 2026 08:56:54 +0000 (GMT)
-Received: from [9.123.5.65] (unknown [9.123.5.65])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 08:56:54 +0000 (GMT)
-Message-ID: <5bd7e8e9-3614-4006-a3d7-a51416ba5507@linux.ibm.com>
-Date: Wed, 4 Nov 2026 14:26:53 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=VRaKuVPH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=VRaKuVPHtyF+SUq90ZRWm13D5iHZ89zPZoYo0KRoljG8PmCEYWAhQfpW8tgyBk75XfibZJfxCQGka
+	 xtYol8l1Dve8JUMoAPhJgaPlImSdtwUIamassf/GABtkSA9Uz1YsltWoLnITnzu3VtbdpFjm6026hf
+	 7blJixSZI/+HyFls=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeaf37f540-68d41;
+	Wed, 04 Nov 2026 16:57:38 +0800 (CST)
+X-RM-TRANSID:2ee66aeaf37f540-68d41
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from fedora (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aeaf37cab6-1bfcb;
+	Wed, 04 Nov 2026 16:57:38 +0800 (CST)
+X-RM-TRANSID:2ee56aeaf37cab6-1bfcb
+From: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+To: David Woodhouse <dwmw2@infradead.org>,
+	Richard Weinberger <richard@nod.at>
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	David Howells <dhowells@redhat.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+ae2d1f6d474e1725bdc0@syzkaller.appspotmail.com
+Subject: [PATCH v2] jffs2: fix use-after-free in jffs2_garbage_collect_thread
+Date: Wed,  4 Nov 2026 16:57:25 +0800
+Message-ID: <20261104085725.241655-1-wuyiqing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103090018.157034-1-wuyiqing@cmss.chinamobile.com>
+References: <20261103090018.157034-1-wuyiqing@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,134 +73,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/23] KVM: PPC: Flush/zap all memslots on
- kvm_arch_flush_shadow_all()
-To: Sean Christopherson <seanjc@google.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Paolo Bonzini <pbonzini@redhat.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jim Mattson <jmattson@google.com>,
-        James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
-References: <20261030212112.2598640-1-seanjc@google.com>
- <20261030212112.2598640-4-seanjc@google.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20261030212112.2598640-4-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: D3HtbIrHYhFBVkH1Qk3wWusLux_I87WB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNCBTYWx0ZWRfX+75I8chF9UB1
- cZ5RrnTSgZK+fW7yAb1FBW2kbxEDnxzKKm7KoFykscUKCm96SAL2vDM8XvDhAJsxzUTSFaYQ4uh
- RkruX2BfqtdJJfB503dMEyI5HDd/QU4=
-X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aeaf35b cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=1QS-1g0Vr6wPOSXTiQ0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNCBTYWx0ZWRfX4eN8xeQe6Zf3
- ywbSZRXK9eMRl41agjGOMGmBmcZMIuf1c/GWQqDLHoTCm5GKkwFkjM2+aViHgMBVIGDMXyBt94u
- /5z4DAc3/evePjhod1tLEDxdchMzSy6epOlo+4dKGjO8g88sDgslDYx7lNKts5jO4ZlNdvuaQZP
- waBEWWwaFU8yswTLM4sEdY2DrBobeCJ/fjcIMNT1gjU4BmcRKYrcVlaY8OIg1z2aUfjydnA82AU
- nFIi/RCq4xt6rIPr62l0wWE+NgkO5HyU6aHYIMGwc1oQ1qqKUZQAem7Ugv8ZffPGihxRDTDqdDD
- 89b8ZEX9HB4TDUc3uhY1e+uTIxt13vMvmsAj4JyF+c1gFG9CCCJADpFmxTXkvKvC0rlkodc47BF
- 6c1b/b65727gRzZfde/SwMKxPPDqlfR8uO4R2RTaC+ZtDLPnQmSeZCZ68q5cDy+3mvLGBVv5kqC
- umz9a3kyq1vcMPzuUjg==
-X-Proofpoint-GUID: Ay8acS_dMbzIo1IyKYWuxL5J_zhW18KV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040034
+Content-Transfer-Encoding: 8bit
 
-Hi Sean,
+jffs2_do_remount_fs() decides whether to (re)start the garbage collect
+thread from the requested flags:
 
-On 31/10/26 2:50 AM, Sean Christopherson wrote:
-> Flush/zap every memslot in kvm_arch_flush_shadow_all(), i.e. when the
-> owning userspace process is exiting, as KVM must ensure all associated
-> memory is unmapped from the guest.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->   arch/powerpc/include/asm/kvm_host.h |  1 -
->   arch/powerpc/kvm/powerpc.c          | 11 +++++++++++
->   2 files changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/include/asm/kvm_host.h b/arch/powerpc/include/asm/kvm_host.h
-> index 708a32f89776..50a42f80e5f1 100644
-> --- a/arch/powerpc/include/asm/kvm_host.h
-> +++ b/arch/powerpc/include/asm/kvm_host.h
-> @@ -910,7 +910,6 @@ struct kvm_vcpu_arch {
->   #define __KVM_HAVE_CREATE_DEVICE
->   
->   static inline void kvm_arch_memslots_updated(struct kvm *kvm, u64 gen) {}
-> -static inline void kvm_arch_flush_shadow_all(struct kvm *kvm) {}
->   static inline void kvm_arch_vcpu_blocking(struct kvm_vcpu *vcpu) {}
->   static inline void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu) {}
->   
-> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-> index 9194cf492d1c..9e9d0865c2f6 100644
-> --- a/arch/powerpc/kvm/powerpc.c
-> +++ b/arch/powerpc/kvm/powerpc.c
-> @@ -764,6 +764,17 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
->   	kvmppc_core_commit_memory_region(kvm, old, new, change);
->   }
->   
-> +void kvm_arch_flush_shadow_all(struct kvm *kvm)
-> +{
-> +	struct kvm_memory_slot *slot;
-> +	struct kvm_memslots *slots;
-> +	int bkt;
-> +
-> +	slots = kvm_memslots(kvm);
-> +	kvm_for_each_memslot(slot, bkt, slots)
-> +		kvmppc_core_flush_memslot(kvm, slot);
+	if (!(fc->sb_flags & SB_RDONLY))
+		jffs2_start_garbage_collect_thread(c);
 
-For Book3S HV/hash, I am not sure the existing flush_memslot helper can
-be used on an active memslot like this.
+The flags which actually take effect, however, are computed by
+reconfigure_super() as
 
-The normal memslot invalidation path seems to deliberately establish
-the opposite ordering.  kvm_invalidate_memslot() first installs an
-INVALID slot and makes it active:
+	sb->s_flags = (sb->s_flags & ~fc->sb_flags_mask) |
+		      (fc->sb_flags & fc->sb_flags_mask);
 
-	invalid_slot->flags |= KVM_MEMSLOT_INVALID;
-	kvm_replace_memslot(kvm, old, invalid_slot);
-	kvm_swap_active_memslots(kvm, old->as_id);
-and only then does kvm_arch_flush_shadow_memslot(kvm, old);.
+and fspick(2) creates its reconfiguration context with both sb_flags
+and sb_flags_mask set to zero, i.e. "no change requested".  So after
 
-The comment there explicitly states:
-/*
-  * From this point no new shadow pages pointing to a deleted,
-  * or moved, memslot will be created.
-  */
+	fd = fspick(AT_FDCWD, mnt, 0);
+	fsconfig(fd, FSCONFIG_CMD_RECONFIGURE, NULL, NULL, 0);
 
-Similarly, kvmppc_core_flush_memslot_hv() in
-arch/powerpc/kvm/book3s_64_mmu_hv.c relies on the memslot already being 
-invalid when testing KVMPPC_RMAP_PRESENT without locking, as no new 
-HPTEs can be created.
+on a filesystem which was mounted read-only, jffs2 starts the GC
+thread (because fc->sb_flags carries no SB_RDONLY) while the superblock
+keeps its SB_RDONLY (because fc->sb_flags_mask is zero).  The classic
+mount(2) remount path is not affected: it always passes a full
+MS_RMT_MASK, so the flags it hands to the filesystem do take effect.
 
-However, kvm_arch_flush_shadow_all() in arch/powerpc/kvm/powerpc.c now 
-invokes the same helper while walking active memslots.
+jffs2_kill_sb() then refuses to stop the GC thread for a read-only
+superblock:
 
-Is there any serialization in the mmu_notifier.release() path that 
-provides the same guarantee against new HPTE creation?
+	if (c && !sb_rdonly(sb))
+		jffs2_stop_garbage_collect_thread(c);
+	kill_mtd_super(sb);
+	kfree(c);
 
-Otherwise, couldn't an H_ENTER or fault path create a new HPTE while the 
-rmap is being scanned, or after it has already been examined?
+so at unmount the thread is neither signalled nor waited for, and
+kfree(c) frees the jffs2_sb_info out from under the still-running
+jffs2_gcd_mtd%d kthread.  It dereferences the freed object when it
+wakes up from its 50 ms idle sleep:
 
-> +}
-> +
->   void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
->   				   struct kvm_memory_slot *slot)
->   {
+  BUG: KASAN: slab-use-after-free in rt_spin_lock
+  Read of size 1 at addr ffff88804f2b02c0 by task jffs2_gcd_mtd0/12364
+  Call Trace:
+  rt_spin_lock kernel/locking/spinlock_rt.c:56
+  spin_lock include/linux/spinlock_rt.h:45 [inline]
+  jffs2_garbage_collect_thread fs/jffs2/background.c:94
 
-Thanks,
-Narayana Murty.
+Fix the desynchronisation, and harden the unmount path against it:
+
+  - jffs2_do_remount_fs() now derives the flags which will be in
+    effect after the reconfiguration the same way reconfigure_super()
+    does, and only starts the GC thread if the filesystem will
+    actually be writable.
+
+  - jffs2_kill_sb() unconditionally stops and waits for the GC thread
+    before freeing c.  Without a running GC thread this is a no-op,
+    and the thread can no longer outlive the jffs2_sb_info, no matter
+    which future path manages to start it on a superblock that stays
+    read-only.
+
+Fixes: ec10a24f10c8 ("vfs: Convert jffs2 to use the new mount API")
+Reported-by: syzbot+ae2d1f6d474e1725bdc0@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=ae2d1f6d474e1725bdc0
+Signed-off-by: Yiqing Wu <wuyiqing@cmss.chinamobile.com>
+---
+v2:
+  - jffs2_fill_super() initialises the superblock locks before the
+    rp_size sanity check can fail the mount, so that the now
+    unconditional jffs2_stop_garbage_collect_thread() does not take an
+    uninitialised c->erase_completion_lock when a mount bails out
+    early.  (Read-write mounts with an oversized rp_size already
+    reached that path even before this change.)
+  - v1: https://lore.kernel.org/all/20261103090018.157034-1-wuyiqing@cmss.chinamobile.com/T/
+---
+ fs/jffs2/fs.c    | 13 ++++++++++++-
+ fs/jffs2/super.c | 16 ++++++++++------
+ 2 files changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/fs/jffs2/fs.c b/fs/jffs2/fs.c
+index 05cf860307c7..a124f5309c2b 100644
+--- a/fs/jffs2/fs.c
++++ b/fs/jffs2/fs.c
+@@ -396,6 +396,7 @@ void jffs2_dirty_inode(struct inode *inode, int flags)
+ int jffs2_do_remount_fs(struct super_block *sb, struct fs_context *fc)
+ {
+ 	struct jffs2_sb_info *c = JFFS2_SB_INFO(sb);
++	unsigned int sb_flags;
+ 
+ 	if (c->flags & JFFS2_SB_FLAG_RO && !sb_rdonly(sb))
+ 		return -EROFS;
+@@ -411,7 +412,17 @@ int jffs2_do_remount_fs(struct super_block *sb, struct fs_context *fc)
+ 		mutex_unlock(&c->alloc_sem);
+ 	}
+ 
+-	if (!(fc->sb_flags & SB_RDONLY))
++	/*
++	 * Start the GC thread only if the filesystem will actually be
++	 * writable after the reconfiguration.  Note that reconfigure_super()
++	 * applies the flags as
++	 * (sb->s_flags & ~fc->sb_flags_mask) | (fc->sb_flags & fc->sb_flags_mask),
++	 * so a zero sb_flags_mask (as e.g. used by fspick()) leaves the
++	 * superblock read-only.
++	 */
++	sb_flags = (sb->s_flags & ~fc->sb_flags_mask) |
++		   (fc->sb_flags & fc->sb_flags_mask);
++	if (!(sb_flags & SB_RDONLY))
+ 		jffs2_start_garbage_collect_thread(c);
+ 
+ 	fc->sb_flags |= SB_NOATIME;
+diff --git a/fs/jffs2/super.c b/fs/jffs2/super.c
+index 81396a092ba8..9ac22b6479f7 100644
+--- a/fs/jffs2/super.c
++++ b/fs/jffs2/super.c
+@@ -267,12 +267,12 @@ static int jffs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	c->mtd = sb->s_mtd;
+ 	c->os_priv = sb;
+ 
+-	if (c->mount_opts.rp_size > c->mtd->size)
+-		return invalf(fc, "jffs2: Too large reserve pool specified, max is %llu KB",
+-			      c->mtd->size / 1024);
+-
+ 	/* Initialize JFFS2 superblock locks, the further initialization will
+-	 * be done later */
++	 * be done later.  This must precede any error return: kill_sb() stops
++	 * the GC thread even on mounts which failed before it could start,
++	 * and jffs2_stop_garbage_collect_thread() takes
++	 * c->erase_completion_lock.
++	 */
+ 	mutex_init(&c->alloc_sem);
+ 	mutex_init(&c->erase_free_sem);
+ 	init_waitqueue_head(&c->erase_wait);
+@@ -280,6 +280,10 @@ static int jffs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	spin_lock_init(&c->erase_completion_lock);
+ 	spin_lock_init(&c->inocache_lock);
+ 
++	if (c->mount_opts.rp_size > c->mtd->size)
++		return invalf(fc, "jffs2: Too large reserve pool specified, max is %llu KB",
++			      c->mtd->size / 1024);
++
+ 	sb->s_op = &jffs2_super_operations;
+ 	sb->s_export_op = &jffs2_export_ops;
+ 	sb->s_flags = sb->s_flags | SB_NOATIME;
+@@ -345,7 +349,7 @@ static void jffs2_put_super (struct super_block *sb)
+ static void jffs2_kill_sb(struct super_block *sb)
+ {
+ 	struct jffs2_sb_info *c = JFFS2_SB_INFO(sb);
+-	if (c && !sb_rdonly(sb))
++	if (c)
+ 		jffs2_stop_garbage_collect_thread(c);
+ 	kill_mtd_super(sb);
+ 	kfree(c);
+-- 
+2.56.0
+
+
+
