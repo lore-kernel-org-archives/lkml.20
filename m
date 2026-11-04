@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758673;
-	b=1aSYuvkeho8fNkApILk1OAmfsGF0hjCQECzdj+hjW0YQALNVq5iJPRmYsfmiIZ1lmtAz
-	 UcOepU+29+cLq53xmrRiJe+p27dKZFiR4AeRGY7A5uXrY/Uvl4dhfxtoXsey0xXpQ1++I
-	 4/1J8l2L2XPpzo/kBARMB5cLom1NNTt2sb+wafokLgjh4li91oGYZkQGzXd8PqKeFPNUv
-	 n8Wuv1gWTw3RLA+KqbUmG1/0QWWlZabeaxLkAmQLa7p+pLu05rEXuxerdAiVfuH+BkkUF
-	 W1L/3cWBOnZR4hdkpvsEPcDxzZWKV2AFfXjIDemXGhv8sYIW6gb/oL7eVo7i0rcDCgg==
+	t=1793758681;
+	b=QqGrIftF2BxmSdpE/rjMeM879DlXSF86Br6zbOMEWYUHXDplP/OzBwyjkXx/FfyuUr6e
+	 dzQbIY6LBFmqDDfIy/OyNyToGqlL2k+5zpo3KkX5VSkAVAk0N6nsnqcMtqaQugNlN5NXh
+	 B7u/VdTwE+Ro91Fk/R2nM667vG71RhmUhZnFE7/KSn38IBO/xpt199up76gPvcUEh7rJc
+	 0YqB6poaxwPNBmPAPQbUtLK1/F39BcXCgsC4LsGfmPSw1Q+5wLj4ZAcQgQnTKhwS2BsKD
+	 R6NIGqioHYXlvTH/dRGSsSXNPqunmEzUxcu/5q90EsUZznJ7qlxwYUQi9UyEtUqyKjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758673;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758681;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BSQ05M0oQxNJQnOx02JpbWwvcminebtNWNNkIq7Oztg=;
-	b=2Mp37lJdrLSJLKs1nKu67ZLgrSADFJ1HSl/Pmp6C+73OKbEa7eUrxPvcZO+uI6T4xsA0
-	 KTydnKCIF/dbnJinGWFw8CC88fULPSeNDOzM4wzepFSSvCnL7pUvV3ueMEY2/XcDxmcgs
-	 /rNUfrGq+CgpqK8uRhf6XMLXOBjtfyueY2UebMzs/FL9NiaQxSKoCfPabKiYv2r9L9DDO
-	 8Br3B7A/Ny++IUFY5yEC6vM1XWQ4MGzRVQn4u1VxUjGkTjhxAYlD2lz5HyDOQS9aUdoNs
-	 c78f7L43al0PpArnMdpYSLwFJBuHiKOZ7ysAKTvpu8eGtFLcrbVJIJR/0CcIHXdJ78g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Vq33bnlu/OQ1LhE9PZ9KLC/HSs9IVBdbU21ySq3r478=;
+	b=x8uvGpgmBDe4wHxVbt8QGeA4vwkkZe4HLqQ6ce/OTJ660kgUMM41S1Fc9gh6+FEcWVwk
+	 HtZbIvzyn6qufuumwzm+cItxkAZbonrahMFlGZOh1xQD/LtOKSB36GiVq7WVpeGMys3b0
+	 /1oXgTLYA5AfsKMdgjwAbzVdn24BvxmSmxHCgFvuJRKADh5afMcEjU60s2H/MW5egL0bb
+	 nMjB+as4D6OTAXuG8DjWXBqMVUBlR83c+2GCLhgyTYHNuyHiaL4CpVXO38D4UcHNuWTGC
+	 qiFJ/EjhSQKQoovpiigWZ2xGX8wWXpLVjHpqb0dFAH5hXc8+YKVTKURshju7Tf/s/GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M+EClprh;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvwynNCQ;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7CD606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE7CD606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F824606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:18:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F824606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M+EClprh
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06210b29fso126610b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:17:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvwynNCQ
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a070755c8cso135881b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:18:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793758672; x=1794363472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BSQ05M0oQxNJQnOx02JpbWwvcminebtNWNNkIq7Oztg=;
-        b=M+EClprhYi+x/aX7h9hnE0QRdMZYpjBdbB9//qVL2E/tWcV+hqL7HpUZl4HD/l8fmU
-         yrov/g3eNNWlu9xKNTNXieW9VIWGMGhZgMGE1uohAQiLHZY+8F4QsRuhAU7Q/LSmJAdG
-         gS+v6TPUaKcO/TKH93Af1wtCrKeC/FNbPAwXpwo68vrbw4GB3yYTAIdiFIjCTtht8XJD
-         AsIeNdMHFFcXqjZ2j+Pi9U36TU2kDD7GtzcveINidgfevSfITK6+ew9NbzQKL0cFQdZf
-         BuTvnnQTqHBP91h32T2Y8gkrtlZ19cflNVFD963jajUL8gJsJ7hNMntSxwavec0y6TJD
-         jIlQ==
+        d=gmail.com; s=20260707; t=1793758680; x=1794363480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vq33bnlu/OQ1LhE9PZ9KLC/HSs9IVBdbU21ySq3r478=;
+        b=qvwynNCQWzyzbn44iaEUNn8gNwqbltYPcnY5DD4n6jcmpA2yK1rbj/naHt/mbyUbpt
+         gOOAsmFZ61NojLVWyHKJWJPBL7MI6VcPF2sJMSZ/fga/ETkKImCoe8vAhF3vUEpLxRmn
+         MloxzrC1jDXDmSvYvXGO0IvcTiBgkemKfBJJbYQKt+dt71ueEbE1fBlkpLiNfbbnTzmv
+         uT7Z3uNF9zgnv9bP+VCOSueJZB/dL7eB6Zd3aY73lBttrO/afM2voooiB9NW0+7vDu9Y
+         egfbtkJd6oIO2I1sT0fSRSHYEn7HDxA/knjCRAzOVweubaU6+BU8FnrmYuqqgSUcUeC1
+         LSvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793758672; x=1794363472;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BSQ05M0oQxNJQnOx02JpbWwvcminebtNWNNkIq7Oztg=;
-        b=scHpwtV5ARqYz4xrNXDyxV1kvWHLcFYTZDWpR0FdrLSIWZaxyXnbUultmB/KAQk1VJ
-         vp1ix02ONyrMe3Fw0FHXFZF0xiqIQhXyPmMPW50fdDjy15EC2/FBMPT+xBbXLa/9qiM/
-         rFV3vC+UnFG8HGXDO6yuYz/tcKllFolj7MjppJWOoYWYSEqpaVED1ZXjsGWdDCQjmg1h
-         j5w3TbcPHWe6aR3gx73Ytc2gQpXiyvpmHUFtg3VIinNyxam2Hz0R77U1f3iBC9cIR5Ln
-         hKwZSvo4KjYq5VuErhy/YgVesDCP0VWM4y0Nj+4JiBDw4kHiV8QHiUxu4O6o4lMubWSx
-         /Npg==
-X-Forwarded-Encrypted: i=1; AKwUvBzod5kGTt/c0QiZw7DSvq2sDS2RFDS6HhSMlV2Vo7LtblxLhMVirTYqtixZVcw7D1DhjD0dh97LS2t1T1Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JSYfevJe8oq2KMkIcsGDZZ7VOY2GKTga1XT8NwIz7pEmsHhp4
-	NkXgt+pTcVPPLysZDNh0PeYf89Roc9dMxqb3KJ4u0FRjTCmqB1tJHjU5
-X-Gm-Gg: AYBFou1H0B2JrPr5LZh13BMYHQaVZbsrf3jGXkmZZB+d9xqCM4RbNgfaYM85inYqdOk
-	xa77NxHfWv1yYrkuNwxufem2y1r8WbPn4iMUzwPSWJvMYUMXIC6JjVvXEKDfqtSo4TrOmyfVW/Q
-	gFpEttmsSx3yf+vUzusKHPhZp4C4xPjUIcPd6WzyyQd+I4YQgIKEXcKysHYETKlzSc1nmbJBm5e
-	KMakVaNY8DbTr7rIZZXSRGLEhl/cFHHBKjkhzuGCudhy6hXYf3q/TIWf23WucewSj+lXZ3pSKJV
-	m4eoiE9CXNf/oLZg9l4YBKMsEFaEZvcY8BJCkO/EJgGEayuuaZPEI31rfapNNmY1VS/kJh/gvo1
-	MUbDNlZKYFebdIhMvXContsxJOyfLznZO67dtB8Ewj5lmjFsK+UVBMzTK1AdZWFoJ2Rn7MV3cmd
-	CTgG/9b4Js0xPtdxLVyTskCz5HWdHUpguLOmXMJBgM9HxbEgPsDbOxW85rsG701Y/QWUqwBdfxS
-	F7v+sbfS7Dy9I3NCKzROABZyHezj/itnHZjS/zxVMCyIG/EEZJhBFvilBDJiugiyfWQf3nIyfZS
-	g0GjQDHD0INoVxEjzXWhMPZn57bN4AlRqlVIWBhWKrpOu8Cwi1UHEsYHoiIyZF1+cKRKnQ0+gJR
-	RcCvWoiLE2sjuTBdAre8hpLR1mXdwEZDORUT9f8PqtGwCvYPGeIjhV7GFtIQLsDO1DQDvwQ==
-X-Received: by 2002:a05:6a21:4903:b0:3e2:8fdc:a6c4 with SMTP id adf61e73a8af0-3e928d14803mr13026535637.31.1793758672044;
-        Tue, 03 Nov 2026 18:17:52 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793758680; x=1794363480;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vq33bnlu/OQ1LhE9PZ9KLC/HSs9IVBdbU21ySq3r478=;
+        b=EYSuH/0BL03ewdBVb6IGSxM8POW+R1A9jOkSaUbBgBJQ/h5nc18vqZXphc/HmUBMGq
+         Iwv1zpKhA51vEQcOERJO7EIhxP9fVWmcoDR/LQKnIk+hYWT3qJj/z3J72up2zS5xpG1+
+         fWZHy7ng/WzzPY7E5hywiaIv/g1b2xqJfpcKRspdNksjJnb0rv3IcTc7m1wCoMszolt7
+         NJIioaq/UKwEsZbzk8y4MYZpYpU8wjD3GpSw/F+Ml/dBLHYpwNBYh3C4LKe6jYaTeYF+
+         zR5bravO0qmMtQVBOKCr3JM7Ry6CYBmatbTN5wauLDQdLA5oWvRHQqSp9Yc7Tgib8OmL
+         xDzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKZOOo+PcGqdEr9wfY7kcaDh61U76yPcK8JYxgbb9MBHTPbCerE3qxx6i3ovQJM4nzwbmVRWdcdkRhaIQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KfA60X+xMcdj7Wp14i4uCGWa7tjPojcoktMJ2uv0/gbeks21C
+	MM9VVkEDWoCR7RGoccWgQUnCkhNgKBBwqi9t7DbLBEVDoA+ECdgXQbq3
+X-Gm-Gg: AYBFou1cD7mRp+e7YB/PaxsTSf/ZIZLGt7OaIGp5wXc6+RiIMe5R0vXk17S9SZoHwWt
+	+4I3/i2tYCCv3cReaQvKodYM21QZZrIcxze83dSMpiMMBu/UdGb2BFD9+sndI0leei2uRtCt3Mu
+	yrv+mfmdfrYyGdPLL2wBDSApxC/OmYzzjZzMEKWz8ZhTQEPmSaDUuhiujECVq3Io6/Hl7BJ+Cgv
+	HHHG2O+3Sdw6HdsArU0uElcl7WVYnxU4zQl7ovosijUkcMoykVonHVEhjCVfkIEn/unAZHCxeUk
+	tY1YvceGsVU5E29u8xHRXfr5nya5n0WuyDNrzMc6gXTqueQ4hOWd9YpxA4J6BiuyDiW0I2HIi/v
+	m5BoXCcPvz9dOsG4TgHxjD5Rs84zm9DZGt47tG3BN+JZEt1ObLSObqMvZ2HWrBWuoTfvR5bY1Sx
+	pfiWva6VbKzr5GBlji6+rypS6Km8k7b2LkQBmWjNNPBKg+hPfKtvETg34j5sSH9y/Cb3pYq5qcl
+	cdmWMbwUiMO/XUn4CDpI538oN4bLUD9idfT74XR+xy9XQj5n49jApEAjXgrxsO6cI3V+LI7YmAu
+	YtsBAxXqiLqq9Wra4fPNkKNXnURzwoi8pog/fDekbC59doiAq3ghOX7vQ8THJJFADvU598PzVM6
+	uqxfVwPopcrCXsfCoNYN4g63TBl/55mEVjCn4HoGGFk/11uc=
+X-Received: by 2002:a05:6a21:a103:b0:3de:4fcd:f9a5 with SMTP id adf61e73a8af0-3e928d553c6mr9724186637.41.1793758679552;
+        Tue, 03 Nov 2026 18:17:59 -0800 (PST)
 Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb46326f8bsm346131a12.0.2026.11.03.18.17.48
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb46326f8bsm346131a12.0.2026.11.03.18.17.56
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 18:17:50 -0800 (PST)
+        Tue, 03 Nov 2026 18:17:59 -0800 (PST)
 From: Joonho Lee <mynameisjune111@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: tiwai@suse.com,
@@ -90,11 +90,14 @@ Cc: tiwai@suse.com,
 	corbet@lwn.net,
 	skhan@linuxfoundation.org,
 	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v14 00/12] ALSA: virtio: staged capture recovery and PCM RESET synchronization
-Date: Wed,  4 Nov 2026 11:17:33 +0900
-Message-ID: <20261104021745.57733-1-mynameisjune111@gmail.com>
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v14 02/12] ALSA: pcm: report partial progress under the stream lock
+Date: Wed,  4 Nov 2026 11:17:35 +0900
+Message-ID: <20261104021745.57733-3-mynameisjune111@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261104021745.57733-1-mynameisjune111@gmail.com>
+References: <20261104021745.57733-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,68 +107,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Takashi,
+Staged capture can make readable data available before a complete period
+has elapsed. Skipping notification leaves a blocked reader asleep, while
+using the period-interrupt path for this event can infer a false ring wrap
+when the notification is delayed.
 
-This v14 series replaces v13 and applies as twelve patches to sound.git
-for-next at a4311e9447bbb219044db38897f95be112f46a8a. The patch order places
-the ALSA PCM synchronization prerequisites before the virtio ACK and teardown
-changes, so the driver can keep ACK admission closed while the core resets
-the PCM pointer. Targeting 7.5 or later works for me; I have no urgent
-deadline.
+Add snd_pcm_progress_under_stream_lock() to update the hardware pointer
+through the non-interrupt path and notify readers and fasync listeners.
+It runs under the caller's PCM stream lock and does not tick the PCM timer.
+The driver must release its pointer and trigger locks before calling it.
+Existing period notification callers keep their current behavior.
 
-The changes address the 16 raw Sashiko findings from v13; several findings
-share a fix and its validation. They close ACK admission before teardown
-waits while keeping prepared runtime storage valid until device-owned capture
-requests drain. They prevent event delivery before ALSA objects are ready,
-preserve XRUN state through recovery, and keep capture accounting consistent
-across RESET, short RX completion, sub-byte ACKs and NOMMU post-STOP copies.
-Failed-probe cleanup reclaims event buffers without dispatching them into
-uninitialized ALSA state.
+Atomic and nonatomic synthetic PCM tests reproduced the missing wakeup
+and false-wrap alternatives. The new helper delivered 64 final frames and
+reported four available frames after delayed partial progress without XRUN.
 
-Playback RESET returns -EBUSY while TX requests remain device-owned and leaves
-the pointers unchanged. DROP/PREPARE retires that generation before retrying.
-Linked PCM RESET retains its first-error and partial-completion behavior.
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
-Validation includes 21 selected QEMU runs with expected fixture exit codes,
-module hashes, unchanged inputs, VM cleanup and decoded kernel diagnostics
-checked. The callback boundary suite passed 24 cases; ACK/START failure to
-DROP recovery passed 18 cases; the forced ACK/teardown race passed 12 cases
-under KASAN/lockdep and 12 under KCSAN_STRICT. Fourteen ordinary and staged
-capture segments, totaling 14,208,000 frames, matched the independent sample
-oracle.
+---
+include/sound/pcm.h  |    1 +
+ sound/core/pcm_lib.c |   19 +++++++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-Separately, all twelve ordered v14 stages built, with the recorded source
-hashes matching each stage. Four targeted intermediate-stage QEMU runs matched
-their expected exits, module hashes, unchanged-input checks, VM cleanup and
-quiet decoded KASAN/lockdep logs. The linked-peer checks accepted baseline ACK
-3/3 and rejected candidate ACK with -EBADFD 3/3; three control cases per
-version and six candidate recovery cases passed. The stage-6 event probe
-dispatched one enabled event, blocked pre-init dispatch and passed rebind I/O.
-The stage-7 short-RX case published zero progress, latched XRUN and reopened
-for 96,000 bytes. Capture-stage host checks passed 15 assertions across
-stages 7–9, including the teardown gate's prepared-state lifetime.
-
-Two physical VZ runs used a Samson Go Mic at 48 kHz mono. Each run included a
-70-second capture, three five-second reopen captures, RUNNING and PAUSED
-RESET, and normal shutdown. All recordings had nonzero input and zero XRUN
-errors. These VZ runs used the experimental capture compatibility flags.
-
-The NOMMU post-STOP path passed 22 assertions in an extracted-function host
-shim; no CONFIG_MMU=n kernel or device run was performed. Event admission used
-synthetic events; physical system suspend was not exercised.
-Docker Desktop, other input devices, and broad load or format coverage remain
-outside these results.
-
-LLM assistance was used for review analysis, implementation, fixtures and
-this explanation. The patches carry Assisted-by: LLM.
-
-Previous series:
-https://lore.kernel.org/linux-sound/20261103080821.16983-1-mynameisjune111@gmail.com/T/
-
-Thanks,
-Joonho
-
-base-commit: a4311e9447bbb219044db38897f95be112f46a8a
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -1182,6 +1182,7 @@
+ int snd_pcm_lib_ioctl(struct snd_pcm_substream *substream,
+ 		      unsigned int cmd, void *arg);                      
+ void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substream);
++void snd_pcm_progress_under_stream_lock(struct snd_pcm_substream *substream);
+ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream);
+ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
+ 				     void *buf, bool interleaved,
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -1919,6 +1919,25 @@
+ EXPORT_SYMBOL(snd_pcm_period_elapsed_under_stream_lock);
+ 
+ /**
++ * snd_pcm_progress_under_stream_lock - Report progress without a period IRQ
++ * @substream: PCM substream
++ *
++ * Context: PCM stream lock held, with no driver pointer or trigger locks held.
++ * Updates the pointer and wakes readers for partial-period transfers. Unlike
++ * a period notification, this does not imply an elapsed period or tick the PCM
++ * timer. The same pointer, trigger and timestamp callbacks may be invoked.
++ */
++void snd_pcm_progress_under_stream_lock(struct snd_pcm_substream *substream)
++{
++	if (PCM_RUNTIME_CHECK(substream) || !snd_pcm_running(substream))
++		return;
++	snd_pcm_update_hw_ptr(substream);
++	snd_kill_fasync(substream->runtime->fasync, SIGIO, POLL_IN);
++}
++EXPORT_SYMBOL_GPL(snd_pcm_progress_under_stream_lock);
++
++
++/**
+  * snd_pcm_period_elapsed() - update the status of runtime for the next period by acquiring lock of
+  *			      PCM substream.
+  * @substream: the instance of PCM substream.
