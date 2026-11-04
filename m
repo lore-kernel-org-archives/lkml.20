@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808221;
-	b=RB7sdfBVU+lhNUmU6g64vuUFZYkVMaRUSHOoU+ZGhP9lqaB5Bxv8MK1SDFZK/7kXUccC
-	 +5/oeHjYPWwPI1k4weGUM2PiSe3uYUZXDRfgmDe7bhzEa+WDvunKRYR9mpPHIbMtePTTJ
-	 7rQQKT9jy6bfgatBwZFDkA+bwho8UQqxKLIm2UNnWFy1mZPCnqPuUW9/xchCAMyDn/eOR
-	 Hi/Ak6eMJYbRhWTmXjxcsgb4Xrt9cmqSWfTB8Gdre+fMPQcOSZNC3fSP389O7s/JcV8yp
-	 2njl+TuQM0TCtTW+LRM9l4cGSLs83wVovU+HNFLW0EwpbQUTefRVkpFsyQ5QZZEZJig==
+	t=1793808229;
+	b=DqDHp580h3A0aZDIjI06rVEtKi6Qb6ISArJmNF81AKHaHsQaFAWVCoKT6O0Rzya0YGL+
+	 y8rFnsCJtXKYOim8AGxM/QWy0ye35bN7Qb5Lh+33Ug4PQkovHEGyBWqmziasKCcSNSWPS
+	 FL/jJjiEdAmy3BTiTgk1Nul5kLycR+1vSGjumRlQsJqJdimrZJKnBGJW8AxlZYeXPgimc
+	 0/Ed4nNIhZwrhWJeeMp2+6YaAhfzaTxfiacuGnDnLNOtuzFabPNtxEPUa1APAwEj1wgK5
+	 GUln7FGAXOwPpvpVQHxAn00cHsuxvW6TyTQHbzZSd3z78UkbzXLRiJo6whViYUcPQDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808221;
-	h=DMARC-Filter:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wkqpLMb20RzQErK2xs2bAHys9BIwofJK0FKv2jVLD5I=;
-	b=LvS0UB3OlF0mt31+TGSMcn1M1HSULk8MjxxIPkv7g9ybZzcFmpF1djYK6h351sOp9KEK
-	 AYJsIGewuQr9tx1XPeohMZn9regAMxP37Q9eslfqgtgVx5rf5zMj5qByOiay5uibilVyM
-	 iM1qUb9Tskqoq5AzsKHl9+xW3d/iFTSak0vHY2doiLmDudjCll6UUYF0cYfQ2pxqIszAh
-	 wJofymcyuRPLF/ZODvOlkbvvb4EIbUPFoB5XHRYesTpODiV4DYnp8YEXUF7XEamEDgEs7
-	 u9LbH8eQdhx5m9JfJRHisNXwx5g/Kbt13oOIh++6kt41D5mKpc1vWr8X66AhZeDOtsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808229;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4z0jvqdS/1LMWIjFo97DLyqM1S7YnHqeCK2uONFB0l0=;
+	b=MO83QFkT2YdfJtyKLkx/y023AZAobTdDtkE7doTUWNuxma6dgdWnThWwW3qx2EqNnI85
+	 Jn/ciP63h/cV7Ngbupc3wRSKxJARrtc6lqWEPe1B0VNk+oZDKZJ8qx2sLzxeo8AnRU2u1
+	 B+rRGNSia6VszK44Xnecs3ApB0LtkcKKqXKmGy60id317u9bIWPOq7Ytl6GAP7spkHyMV
+	 O/xI9K7t4rRPiK1VM/F+rlgE7Wpcu93p5K2l34Gxd6vYcML5CNPGVj5mjRAprMPkxyijp
+	 HiR9uzCl82LSSfCoSPtkJESd0dJQ5510lTErnZEsa08ziJIqCQNY67qSFQS637mVlBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b="8wKVX/DC";
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvmssJKq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEA7606A31B;
-	Wed,  4 Nov 2026 16:03:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEEA7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54AC606A337;
+	Wed,  4 Nov 2026 16:03:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=8wKVX/DC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Subject:To:From:Reply-To:Cc:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=wkqpLMb20RzQErK2xs2bAHys9BIwofJK0FKv2jVLD5I=; t=1793808220; x=1795017820; 
-	b=8wKVX/DCDZ2g1+KirpCwbk53rXi25MtD4rbkTEDhMghfetHJzEn/VZLR0bFV431/+IuAIZWY8+P
-	hPAMrLwzmYXOWpavuSbcy9mJpo9iRtqrE58H1V28Et8CnkAvOYbQeWNKcnSiRmMLIvh4lSm24wN2H
-	pFSyvt6sKKsVsKtnOnSXOrBijbLATv+X6b7IwQsED87J+jo1SJenK03BUuVUEUCqzoSR/SLmRxZWc
-	CqfiOAo4j/D47Zou0FB4cIV6SXrsEAG69Fz5nvIM0E0nGOIUcyHFtB9aFkDe9dqsqKyr0rz9no1z5
-	Fp513lP2pq0Xylwr4joFCVToNI92ODRgN8VA==;
-From: Andreas Kemnade <andreas@kemnade.info>
-To: dmitry.torokhov@gmail.com,
-	andreas@kemnade.info,
-	bartosz.golaszewski@oss.qualcomm.com,
-	marco.crivellari@suse.com,
-	arnd@arndb.de,
-	tony@atomide.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	brgl@kernel.org
-Subject: [PATCH] Input: gpio-keys - do not BUG() on requested wakeirqs
-Date: Wed,  4 Nov 2026 17:03:05 +0100
-Message-ID: <20261104160305.2501369-1-andreas@kemnade.info>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvmssJKq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAF61F00A02;
+	Wed,  4 Nov 2026 16:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793808228;
+	bh=4z0jvqdS/1LMWIjFo97DLyqM1S7YnHqeCK2uONFB0l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lvmssJKqKlBB8zb6lcm8q6aHeXG/qCiP+gUjcU9nvF+xGya/hGTMk+h5EqGwaP7Dg
+	 hCEjLaOMvxn99ux2L1vQ1WZcAx2UrUfxZq7tcVAtMx/fDv/Y5cU6wFg00SgqtSbZ+a
+	 /WXDF59xns9xcQX8OTZxjVf71BkxvniIjNyKm58RvBXNg83UcnxxNX2rY1B43JrSuJ
+	 8RqAyPwTf10OjQuQ7aJ8eKOoS80vk/S9VLlqiPDSLY5yZngtZ4hz6g28t2nn+PF25i
+	 8xKOs2XnzNhgBZUBhfQUJEOVMjBCn0dWJFHOAMfzJuGQi9BEpg3Gc3u0bauDSadtxU
+	 b+XunlvXOSbvg==
+Date: Wed, 4 Nov 2026 10:03:46 -0600
+From: Rob Herring <robh@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v6 2/2] of: Add support for "iommu-ranges" on a device
+ node
+Message-ID: <20261104160346.GD3951195-robh@kernel.org>
+References: <20261103-add_iommu_ranges-v6-0-361f3921a133@oss.qualcomm.com>
+ <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,30 +71,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
 
-Having the IRQ handler called when enabled IRQs arrive should be considered
-as a feature not as a bug. So do not BUG() there when this happens.
+On Tue, Nov 03, 2026 at 08:59:33PM +0530, Vikash Garodia wrote:
+> Reserving an IOVA address using "iommu-addresses" requires it to be
+> placed in the reserved-memory node. But when "iommu-addresses" is the
+> only property being described and there is no backing "reg" (i.e. no
+> actual reserved system memory), it does not really belong under
+> /reserved-memory. A device IOVA range is specific to its own address
+> space, and does not describe the system physical memory to make it
+> qualify under reserved-memory. Given this, place "iommu-addresses"
+> inside reserved-memory only when it is paired with a "reg", otherwise,
+> define it within the device own node. It was discussed here:
+> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
+> 
+> Existing "iommu-addresses" property expects a phandle, which does
+> not make sense when the property is defined within the device node.
+> "iommu-ranges" was introduced to specify the device specific IOVA ranges
+> when there is no backing "reg".
+> 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  drivers/iommu/of_iommu.c | 134 +++++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 125 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index 5c266511db78910d6fd221af5437cecff4931c22..0428ceb50dec58f11872b4fb64e283fa8d9046a3 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -185,11 +185,118 @@ iommu_resv_region_get_type(struct device *dev,
+>  	if (start == phys->start && end == phys->end)
+>  		return IOMMU_RESV_DIRECT;
+>  
+> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
+> -		 &start, &end);
+> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
+> +		&start, &end);
+>  	return IOMMU_RESV_RESERVED;
+>  }
+>  
+> +/**
+> + * of_iommu_derive_resv_regions - derive reserved regions which
+> + *                                are outside of iommu-ranges
+> + * @dev: device for which to get reserved regions
+> + * @list: reserved region list
+> + *
+> + * A device can describe its own usable IOVA ranges directly on its node
+> + * via "iommu-ranges". Everything not under those ranges is derived
+> + * as a reserved region so the IOMMU allocator won't use it. Entries may
+> + * appear in any order in the property.
+> + */
+> +#if IS_ENABLED(CONFIG_OF_ADDRESS)
 
-Fixes: 3717194f24922 ("Input: gpio-keys - add system suspend support for dedicated wakeirqs")
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
- drivers/input/keyboard/gpio_keys.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Is this really needed? Assuming CONFIG_OF is enabled, this is only false 
+on Sparc. I don't think Sparc needs anything in this file. There 
+aren't any IOMMU drivers for Sparc unless COMPILE_TEST is enabled. So 
+maybe building of_iommu.c as a whole should depend on CONFIG_OF_ADDRESS?
 
-diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
-index fbc31c5db3db..f1c31c5366f0 100644
---- a/drivers/input/keyboard/gpio_keys.c
-+++ b/drivers/input/keyboard/gpio_keys.c
-@@ -412,7 +412,7 @@ static irqreturn_t gpio_keys_gpio_isr(int irq, void *dev_id)
- {
- 	struct gpio_button_data *bdata = dev_id;
- 
--	BUG_ON(irq != bdata->irq);
-+	BUG_ON((irq != bdata->irq) && (irq != bdata->wakeirq));
- 
- 	if (bdata->button->wakeup) {
- 		const struct gpio_keys_button *button = bdata->button;
--- 
-2.47.3
-
+Rob
