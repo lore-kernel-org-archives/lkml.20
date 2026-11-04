@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789885;
-	b=XrUxITQZha6PfHKXmrfwAIhlGGQL/weagYownRaWrnZJxb8kdYKiE5Ma84Kb1aafk/Lz
-	 7k90WwTSoGNGInVplT/QctSxGwmT0vC73QbTNVb8I8gEWqDS83u1tpwr9fvF0ZMdnwAs/
-	 bXE068BLrpmRgTIYC1wZaT6/TdKt/bbvGDylsEQZGCV70gfeay9ml0Ym2/a+WzbpFi6qg
-	 JzJeSGio561CRCxuzE2gfFyKIdeTb5NZxhAMvWiTfvfpzlR6AqL9rbgGjZ/rGQaMOWA/x
-	 eg3wUvN/sh9+SxEvqgzCnGS4k7xLXAmdsjl3nEi2Bz7ZJNt6c7lTx20If3NHLhzjo4w==
+	t=1793789903;
+	b=J2FI+lt34s3Bv/NA5YlSYwB/i3ca5kmEB1zFx7qDIOccn5uNLhWe0OGa86xBiziv2/zJ
+	 YwPbFjELUnDQdj7NOM2Utrv8ArGhswtxa7Hv1x7z0SDBmKsXO0rMWFviPUvmBMwEPicaP
+	 1GNdBrevmRfynqVIoczWmbRpvnz9MGuMuOhvRAxHrDBSUrDjqoa4b5dK2L76jYsMAkqa3
+	 mebWGgpn+n/Ck6M+ZQIe611vvddwmrTNVBucbyugul0CP6+kzwZXTOfh6TUEuswa5YyFV
+	 jmeQTGzgj6iNduXEPqDPZK8ReajjtUdER5urr7F0BuS3MBMl5Gx3S3COX8KdS+6rEPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789885;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=tlh7smLTj2XLazLcq0xResbpXj4b1ZAUzr/0lOmTKLk=;
-	b=F5lqZB/86Bw9B7OVjG3X1kkseG8HV9jPKXND8aIcQD0CIvUre+WCoqjk5iwO/RNBsJjJ
-	 7lEooaCn5zKW5ZMKUwD9Kubd9vXi3jWif6lLFl8TUgVwjNxc54RcJ4+t6KOpSA9b03QoB
-	 5s7Ez3jVMYsAGHhRRYYThfAllyFMjUrA2b4hBJ10Sc16erXSSEUd9NKMRAKZ6+92z46VE
-	 M9lbmBrvFxz6sW/T2Ys8IJnZf89o0xZRTZq9cJlCuM0jrlyVA8i2lM/XkZ47gg2utX5BO
-	 XoLH8IgQMunciPesjesfNRiBa2F44neJCqmoqx5gtm4XePDINsOJbzAohWebxieXZ2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789903;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=Bn7S5HHmVBVlB37CW8Co6RM2gzOIX/i6AlDIxMv5sVM=;
+	b=aqZYiTPKQ0gQ/hXFCdLfxUXemkB3Xy4it71iIbXqmqwHCSwzVHLGBJUN/65GCRSR4/r/
+	 qq/EqaRvCANgC9TOx498YmqvPi6gHE83E8Zl8563lIsL9OLiLZDRz5EDDBPTXaUKmtZ+f
+	 5u8OyoNJlQEHJa57aZJq28WJBntTmLHU4jQFIxeyW/R6e8W4robepskVRjVv3lWty+dx9
+	 tOfXSq0UyUdjCYXjqx7j/GVCDJzA2x8fPD4gT/UY/1x7VKn87/dbC689u6zxk7pXCZmYV
+	 TQx3TE79WkB38TxF9LfbT+pfW7xrfJycmPlNbXqV6VvDn8FKJPh8EqRSLOr1KgUVaAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=aDkra9DG;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nTqmGzmy;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467DA606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 467DA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D0C606A31B;
+	Wed,  4 Nov 2026 10:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7D0C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=aDkra9DG
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5623DC8F46C;
-	Wed,  4 Nov 2026 10:59:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6316460770;
-	Wed,  4 Nov 2026 10:58:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A13CE103291D2;
-	Wed,  4 Nov 2026 11:57:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793789880; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=tlh7smLTj2XLazLcq0xResbpXj4b1ZAUzr/0lOmTKLk=;
-	b=aDkra9DGoFBO7g3eEfaFzJrcP1KCVRRWmvm+qHRR0gxjUaLwJc9hntUxHL3YmMBh1Wmoil
-	i3Q7gzfbWJpr3cXdD9OKHAW/17OnE8LsODNWJZJ/shPobzDDCGwgU8iWgUTTOQoV5XErkT
-	yQpub/sKDYiaQkhn+r+K9BF+vg7YJkFcDye4cQGeERu3ayRTNXLLTt3qZ5ml1Ph4GfpAbi
-	/vro7GFFzspmlfQkfeKTVvDY3k5HQRJYmnaRfYsWXLtGVRrSVDIxvZYnj19AH3uQsJouk7
-	06aZXObrtpBh/pSCazPouXeiMoY2TOdQuUU1dnEH5rcv4ZyF0JoHYwpkAzxFSQ==
-Message-ID: <4f90c4b1-98d3-4e98-bcfc-d9f2d17b4391@bootlin.com>
-Date: Wed, 4 Nov 2026 11:57:54 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nTqmGzmy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=Bn7S5HHmVBVlB37CW8Co6RM2gzOIX/i6AlDIxMv5sVM=; b=nTqmGzmyYh6xOs1wwqqf1i1/ki
+	kpK/KS4Iqb5bw4lPth0bvDW4sU7NlGEBpLyrkI+mL3C1cIwgTq3iEoo9+mxydeRee3UrE9CK31sTW
+	oRq5hTD0/6tog4Vq2pOh5cxnGOWrInpyRMBFwaO4xOBxjWugMfvqz7k9JboiKFxhjfNAzWhd9xDv0
+	bh2VYQokBsw4+rLWytyXBD5gOqPv1ACOoZBv0JWMpf8HJXIGa+b+OtuiGhkhbC0mnXmCW6Mkvbh+t
+	rLs7/++ssZj/tPgBuN6dEtK+CLyM63s9mnYZIUdH0riXEBhmBN/M5qUAqm51L+qvSXOfaPA6Pb6bK
+	zFZnFsBQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOYh8-007f9J-1K;
+	Wed, 04 Nov 2026 10:58:18 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 04 Nov 2026 02:35:51 -0800
+Subject: [PATCH] serial: amba-pl011: touch the watchdogs in write_atomic()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,151 +62,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] selftests: drv-net: pause: Avoid cleanup failures
- for unsupported link settings
-To: Mohsin Bashir <mohsin.bashr@gmail.com>, netdev@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org
-References: <20261103190622.3981970-1-mohsin.bashr@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261103190622.3981970-1-mohsin.bashr@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20261104-pl011_touch-v1-1-e292bd834e14@debian.org>
+X-B4-Tracking: v=1; b=H4sIAIwK62oC/x3MYQqDMAwG0KuE77eFxOkmvYqMUdo4A0OldSKId
+ xd8B3gHimbTAk8Hsm5WbJ7gSSpCHMP0VWcJnlBz/RThxi0/Fvms8z+OLrE8ujZyaNMLFWHJOth
+ +b/37PC9uHcCCXQAAAA==
+X-Change-ID: 20261104-pl011_touch-d01385c0a5d7
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ John Ogness <john.ogness@linutronix.de>, Petr Mladek <pmladek@suse.com>, 
+ Toshiyuki Sato <fj6611ie@aa.jp.fujitsu.com>, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2087; i=leitao@debian.org;
+ h=from:subject:message-id; bh=0KqdgEajat62QysY4IlhZoEcd4BHBchm7bTEv+3LG4s=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6w/G6SG92rK0Sow+QYO/angzr0E+DRZRVbc/7
+ cwO4mpL1GmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCausPxgAKCRA1o5Of/Hh3
+ bXZUD/4lr5ARtRYm3fN2tXLO98iJyaZtds8qlivX8H0PeXh5A7xm4C6bgAttXptKc92/hXUKp8q
+ fc9KRfcE+/CmfExTuV/6Y11QAvS/++mChnvYYGs2C/7d8kPx3jw/jSPFXptiVwsegb9rZbYKzzn
+ iwUXl9uI1/XuvlGcxRDz6GHP7r1CCzCJ3U1iQ3sUsnGcAohAfC9YAgoeXWs3zIVKy+zuNGQbCs4
+ cXeEjLeggzVpH/txu1hkym6sJ9N4VZQOdQULX/1XQZh004fhCrtIreIrAQPO+8cORL+V4smiiEC
+ 86wpE6flQ7P37OQ2u3ocNxEBG4z/kaf/gSnDNCzja1T/ZtSiUTF6UKWnXMybtbC7RZkn4FR2lz5
+ oWm+p3nvFKAh3klJIg+X04UMq+Pip8+iEoUU4sCjYrPlv1uiJNvAzBNSp9EAUk+5gQF1zZdPpgW
+ r90sVcX0A4awK4udzhmQSkWybETPDLrHqyKDzlaE04O7SL2ZlhK8ZwBmTdWxazE/RIF5BsV04IN
+ IkXay+rX06rYQJQ1Hs/lN5hxsLoqKMPrL7dkiIibFH8wtdw9P7bV9EYKzo17HqwU9L0BTHekY+V
+ W36J417FqkOtgJxbVHwybNsOOoIt5PB1KZ9RGdzOVi9n8x+gxHsDLaOWWeLqFaGToVeRxWHpCWN
+ Sj65oa+gqmcdw3A==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Hi,
+In emergency context, such as WARN(), nbcon prints the pending records
+through write_atomic() with preemption disabled.
 
-On 11/3/26 20:06, Mohsin Bashir wrote:
-> From: Mohsin Bashir <hmohsin@meta.com>
-> 
-> pause_setup() saves the initial link settings and queues a deferred
-> restore. For devices that report forced link settings but do not support
-> changing link settings, this can queue a restore even when setup never
-> changes the link. On fbnic, the deferred restore returns EOPNOTSUPP and
-> turns pause tests that use pause_setup() into cleanup failures.
-> 
-> Fix this by queuing the forced-link restore only after setup successfully
-> enables link autonegotiation. Keep pause_test_support coverage for devices
-> that cannot change link settings by falling back to forced MAC pause on the
-> current link. Run the extra link autoneg on/off checks only when those link
-> setting requests are accepted.
-> 
-> Results on fbnic:
-> 
->   Before: # Totals: pass:0 fail:4 xfail:0 xpass:0 skip:24 error:0
->   After:  # Totals: pass:4 fail:0 xfail:0 xpass:0 skip:24 error:0
-> 
-> Fixes: cbd8a536cd6d ("selftests: drv-net: Introduce a selftest for ethtool flow control")
-> Signed-off-by: Mohsin Bashir <hmohsin@meta.com>
+On arm64, WARN()  can run with IRQs masked, so the whole backlog is
+printed with IRQs off as well.
 
-That looks better, this patch ran on the netdev CI and no regressions on
-stmmac,
+Commit 9bd18e1262c0 ("printk/nbcon: Restore IRQ in atomic flush after
+each emitted record") does not help here, as it only restores the
+caller's IRQ state between records.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+pl011_console_write_atomic() busy-waits on the UART for every
+character, and at 115200 baud it prints about 11.5KB per second.
+Flushing a few hundred kilobytes outlasts the hard lockup threshold
+(10 seconds by default), so the printing CPU is reported, or the
+machine panics with hardlockup_panic set. See [1].
 
-Maxime
+The 8250 driver avoids this by calling touch_nmi_watchdog() while it
+polls the transmitter. Do the same in pl011_console_write_atomic(),
+once per record.
 
-> ---
-> v2:
-> - Drop the require_link_autoneg() approach from v1.
-> - Move the cleanup fix into pause_setup() so all pause tests avoid
->   restoring unchanged forced-link settings.
-> - Keep pause_test_support() coverage on devices without link setting
->   support by falling back to forced MAC pause on the current link.
-> 
-> v1: https://lore.kernel.org/netdev/20261030173516.1002250-1-mohsin.bashr@gmail.com
-> ---
->  .../testing/selftests/drivers/net/hw/pause.py | 40 +++++++++++--------
->  1 file changed, 23 insertions(+), 17 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/drivers/net/hw/pause.py b/tools/testing/selftests/drivers/net/hw/pause.py
-> index ca4a55e59c30..99ce6a59dfcd 100755
-> --- a/tools/testing/selftests/drivers/net/hw/pause.py
-> +++ b/tools/testing/selftests/drivers/net/hw/pause.py
-> @@ -404,14 +404,14 @@ def pause_setup(cfg):
->  
->      if link["auto-negotiation"]:
->          defer(cmd, f"ethtool -s {cfg.ifname} autoneg on")
-> -    elif "speed" in link and "duplex" in link:
-> -        defer(cmd, f"ethtool -s {cfg.ifname} autoneg off speed {link['speed']} "
-> -                   f"duplex {link['duplex'].lower()}")
->  
->      # Local interface admin up, link aneg on
->      ip(f"link set {cfg.ifname} up")
->      if link["supports-auto-negotiation"] and not link["auto-negotiation"]:
->          ethtool(f"-s {cfg.ifname} autoneg on")
-> +        if "speed" in link and "duplex" in link:
-> +            defer(cmd, f"ethtool -s {cfg.ifname} autoneg off speed {link['speed']} "
-> +                       f"duplex {link['duplex'].lower()}")
->  
->      # Get remote pause params
->      ret, params = ethtool_ret(f"-a {cfg.remote_ifname}", host=cfg.remote)
-> @@ -429,15 +429,15 @@ def pause_setup(cfg):
->      if link["auto-negotiation"]:
->          defer(cmd, f"ethtool -s {cfg.remote_ifname} autoneg on",
->                host=cfg.remote)
-> -    elif "speed" in link and "duplex" in link:
-> -        defer(cmd, f"ethtool -s {cfg.remote_ifname} autoneg off "
-> -                   f"speed {link['speed']} duplex {link['duplex'].lower()}",
-> -                   host=cfg.remote)
->  
->      # Remote interface admin up, link aneg on
->      ip(f"link set {cfg.remote_ifname} up", host=cfg.remote)
->      if link["supports-auto-negotiation"] and not link["auto-negotiation"]:
->          ethtool(f"-s {cfg.remote_ifname} autoneg on", host=cfg.remote)
-> +        if "speed" in link and "duplex" in link:
-> +            defer(cmd, f"ethtool -s {cfg.remote_ifname} autoneg off "
-> +                       f"speed {link['speed']} duplex {link['duplex'].lower()}",
-> +                       host=cfg.remote)
->  
->      wait_for_link(cfg)
->  
-> @@ -470,9 +470,12 @@ def pause_test_support(cfg, pauseparams):
->  
->      forced = forced_link_settings(cfg)
->      _, supported = get_local_pause_supported(cfg)
-> +    tested = False
->  
->      # We check that what we can configure in the pause params matches what we
-> -    # support under various contditions : Link aneg on/off, pause aneg on/off
-> +    # support under various conditions: link aneg on/off, and pause aneg
-> +    # on/off. If no link configuration change is supported, fall back to
-> +    # checking forced MAC pause on the current link.
->      ret, _ = ethtool_ret(f"-s {cfg.ifname} autoneg on", is_get = False)
->      if ret != 0:
->          ksft_pr("link autoneg on refused, not tested")
-> @@ -481,18 +484,21 @@ def pause_test_support(cfg, pauseparams):
->                                 "link autoneg on")
->          expect_pauseparams_set(cfg, pauseparams, True, supported,
->                                 "link autoneg on")
-> +        tested = True
->  
->      if not forced:
->          ksft_pr("link speed unknown, the forced link is not tested")
-> -        return
-> -
-> -    ret, _ = ethtool_ret(f"-s {cfg.ifname} autoneg off {forced}", is_get = False)
-> -    if ret != 0:
-> -        ksft_pr(f"link autoneg off {forced} refused, not tested")
-> -        return
-> -
-> -    expect_pauseparams_set(cfg, pauseparams, False, supported, "link autoneg off")
-> -    expect_pauseparams_set(cfg, pauseparams, True, supported, "link autoneg off")
-> +    else:
-> +        ret, _ = ethtool_ret(f"-s {cfg.ifname} autoneg off {forced}", is_get = False)
-> +        if ret != 0:
-> +            ksft_pr(f"link autoneg off {forced} refused, not tested")
-> +        else:
-> +            expect_pauseparams_set(cfg, pauseparams, False, supported, "link autoneg off")
-> +            expect_pauseparams_set(cfg, pauseparams, True, supported, "link autoneg off")
-> +            tested = True
-> +
-> +    if not tested:
-> +        expect_pauseparams_set(cfg, pauseparams, False, supported, "current link")
->  
->  @ksft_variants(pauseparams_variants)
->  @ksft_disruptive
+Suggested-by: John Ogness <john.ogness@linutronix.de>
+Link: https://lore.kernel.org/all/87wlqtxb14.fsf@jogness.linutronix.de/ [1]
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ drivers/tty/serial/amba-pl011.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index e6f652905ca6f1..4fac3bca8f8255 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -41,6 +41,7 @@
+ #include <linux/sizes.h>
+ #include <linux/io.h>
+ #include <linux/acpi.h>
++#include <linux/nmi.h>
+ 
+ #define UART_NR			14
+ 
+@@ -2734,6 +2735,9 @@ pl011_console_write_atomic(struct console *co, struct nbcon_write_context *wctxt
+ 	struct uart_amba_port *uap = amba_ports[co->index];
+ 	unsigned int old_cr = 0;
+ 
++	/* An atomic flush may print a long backlog with IRQs disabled. */
++	touch_nmi_watchdog();
++
+ 	if (!nbcon_enter_unsafe(wctxt))
+ 		return;
+ 
+
+---
+base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261104-pl011_touch-d01385c0a5d7
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
