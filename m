@@ -1,55 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799276;
-	b=H2tb+TUGg3Qa7Hxlq3FKX5gZNenFthW4jvazxBX/qJv3Dzp8bh2RmtI9m3WAG/Z2DzwU
-	 NJ7bkdCKUobcLauW/tSZnWZGH3vzuulQbP5kBIiFCTGzqQwrMmdkLVkNRnON5xJiT/Jbl
-	 6UPdtkVnM5oRxp0Q8RD3+KMWkHqqcSBQ2QVxRJbmKP+HiOjlAtWMDaUDntc3xoKjyKpGB
-	 zLFkt6ne23gsgp/vVjBV0Ec9aSNVrkp/p/u7jSkdFidVFG+QR1GMV/pueJLgQlS9nuDAl
-	 sfqjkq5ERrbFHGpnpkqoKzaY3r6rpKXT2pN/2NA1rU1JGQ0uOC0s1byWEWpyyAJZM2Q==
+	t=1793799301;
+	b=zh0NJG7CkpLJmQSOvX8FsmkN7iSMotOe0IKkxGphC0zebaZtJwKdjdAkz80oQYvQxShY
+	 3CM3BQ9lHzDQC+F5F4QWdiTyQkfRp0ByfWQ7B73CLlX0c4rNV4hUj/rTPkP82RgNkZH3p
+	 QD5qj8UsIhMualO33s25GYnSDQyICWR8H7Kr1iwVKufgg3LcHxNnH6Hqj2z48Xq3KjrpR
+	 oEK/PTaAtom9WDQ+3oA/6d2Ebj6V75J5MU3GpuVTs+BKbQAdHtFXwvO3BvbVJsp5ZgfAl
+	 bHr/OoGyNeiiib1CMbYKQPCOmUmv5Qw+5amM+aNQvR9daYeStnYQMRIWGNMalavz8Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799276;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=a2lfzSJOKyr9RKNMXful/dW4OAQJ/NKssbnEoTBgKj4=;
-	b=IVQuUadcF0rdiDXqiGxEuJsLq49D8n1EMHO8TeqUZS8uV5GHlDDmhTFkBALBLevHTkEk
-	 86NS5AxZDKSS+vOrBdDeROCYF0HDezLx4kMK0NJCmErHbd2tJh5+8dm//IygDYMQHU19t
-	 uB0Yzju298Y52z9+MUGk12DlAPkofI+c5l/yGYcmK5nbK0+lygW+FywfgJCyBVci5uxwF
-	 d8+efZ6j0HR+0jp1/JPcLM4/UOC6paJv0c/NUgyeuh1RB3YCU+DAjwRuwNyNmPdw3gDhc
-	 RgcPqtJafk2EqMiezeOQktn/LBX5Ih6894vfW0aYhrvw9QIDuaXfzhOtcr0JNMA9UaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799301;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=IgL8bbbD5PBuVHx0MhUlHNvCk4KSHKYvUVpt2RQ9QAk=;
+	b=K0oF9MqmNjpeutxyP4+uZcq+FrgObNGYHbftWd2S+Fo1VYD5lFQ1SE+9r3q6Aj1zDHrW
+	 V+SN5zQ1VtVFkWuo6oBAjrO8ylgNnqpxq2gubSpq7MlNolTfz0xhuPU0Ymnw0JuEckA8r
+	 egOBdwzHasatwLH7keoZAvXmGAQDPV/8RYweqrIiZy23t63BwvFWPfQfi+GH4gt0enp3F
+	 pHy6zigjcU5g6ZVd3ZuQuCdpaBFDRJwJG38Rk/twmP1umQIwnU8vss5bzqywkJjtQy1+h
+	 6xU3chzyfqbjTGJk9G0Q1xoqMWIODcnjNKNKO1k62BUVIehzOOF6gZXHu8k+nmoJ/HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6gLz+G8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KIrJ95ZN;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B54606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:34:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982FA606A31B;
+	Wed,  4 Nov 2026 13:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 982FA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6gLz+G8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1081F00919
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793799275;
-	bh=a2lfzSJOKyr9RKNMXful/dW4OAQJ/NKssbnEoTBgKj4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P6gLz+G8i+HOKMo+639r6YKd/rhWNw9rePKfUWgcn98uAsNSl7aiQGXQoc7JLGwPX
-	 SqYTf6NoC4Uhk6VmWGmQpn8FwGrXWPLTx5IxYBF6fucx8LlhfkB0P1oK56kHPV3mTv
-	 2TglHiVre+V9lCVUtyYXbfBMp8uc1ihdKIKRRVCdK5a7b5EkpYXYmrizUpwF949Rh1
-	 mDsIDM2f/U8mK1O4oDIG3cX2rudlO/8luEE8Ua+9rnBujZn5uGM4pGP6C9IPzhI3qc
-	 su/dMlTDZKooYGCzyBdc1mYY6rqpK6BKNtyB07YXHszKZm5clNINueeUmz3Ktwf639
-	 9W+EAklyQ9wWg==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcb1f1358aso517904e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:34:35 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxgXLdu5CxtHftbnvisPn/FwV06Ba7AHnrbFBJ2Atp+yQS+y8DLR1ARdbjJ8028LdHnPM+5a1AwKrZpjvs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/U/JmzqZ4c9EoEo4/k/8JPcnrt/m1uzjf6Gj54JekujADVhKfv
-	9LmZbpl8OCkVVkqoPivFaSPOAMmKyasfPOY+ucASgTZYVmJ/WJZfvGBEkKuYThKHU4bKx7HenN1
-	mwZsGJYt+Oj8O7FFMnr40+oqiIDF3RbE=
-X-Received: by 2002:a05:6512:4607:b0:5bf:dc20:c3e3 with SMTP id
- 2adb3069b0e04-5bfdc300879mr4834513e87.30.1793799274060; Wed, 04 Nov 2026
- 05:34:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KIrJ95ZN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793799298;
+	bh=K4WRmMcozdlmKCpBfUDKJDyfirNWgMEqUfaXcX01+Ck=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=KIrJ95ZNpBYRh5QBfOQ0+BBXOCSnHvrzRI0hhjUocS5n7v939rXfiCeZ072sf0NTd
+	 8zV9WMEzxR2aW1OhrMUxZn6BOZe1Rezl+5YsXwU81FF8OIyGEPrX9J81zueXHpIUJb
+	 IpdFIiP8j024oHzBlG62kkY5gb+q2ey798s7N3lsd+Ove2ST7gFRh8GtibFmWGOBz1
+	 tt+6H653mDg10w1XILDWZhzOZNAJfbeqrSn4mFvLwD09s1ipohxkFrVXovnd7+2dme
+	 UaPAj7KHvzMte9CL8mpqVAq16GLV+Fzu7h1hg2Jm2CV9woOB3iCH8rFQikRxWWiXsZ
+	 BkQ2ca+xy/PkA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C07717E0269;
+	Wed, 04 Nov 2026 14:34:57 +0100 (CET)
+Message-ID: <920015edaef1c92d0b22b9f0eb1a47006f901800.camel@collabora.com>
+Subject: Re: [PATCH] media: verisilicon: postproc: fix the G1 input height
+ extension
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: shomenkow@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
+ <hverkuil@kernel.org>, Hugues Fruchet <hugues.fruchet@foss.st.com>, Heiko
+ Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 08:34:55 -0500
+In-Reply-To: <20261104-b4-hantro-pp-v1-1-1d75e9b225f8@gmail.com>
+References: <20261104-b4-hantro-pp-v1-1-1d75e9b225f8@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-KPft1s7sKlSpjBko+t3L"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,184 +90,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103221717.3840215-1-briannorris@chromium.org> <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
-In-Reply-To: <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 14:34:22 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
-X-Gm-Features: AclHuK-dsyKqzlehLXWkaZgjbnv2J5XTRBwV6lWjoOrFTYLkmg6F7ScIDL-aHzU
-Message-ID: <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent to dependency
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+
+
+--=-KPft1s7sKlSpjBko+t3L
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I should have responded to the v1 of this, but didn't manage to get to
-it.  Sorry about that.
-
-On Tue, Nov 3, 2026 at 11:23=E2=80=AFPM Brian Norris <briannorris@chromium.=
-org> wrote:
->
-> When a child device suspends, it does not update the last_busy timestamp
-> for its parent. If that parent configured autosuspend and didn't
-> otherwise maintain its last_busy timestamp, it may now be immediately
-> eligible to suspend. This is probably not expected -- the parent should
-> wait for its autosuspend delay before suspending.
-
-Let's first talk about what autosuspend is for: My understanding is
-that it is there to avoid incurring the runtime PM suspend and resume
-latency (and cost in terms of energy) in the cases when the device is
-known or at least is expected to be needed in the near future.  IOW,
-we want to defer the runtime suspend of the device because if it
-suspended, it would be resumed shortly thereafter.
-
-I'm not sure if that is always the case when a dependent device
-suspends and its reference to the parent/supplier is dropped.
-
-The core calls pm_runtime_mark_last_busy() for resuming devices under
-the assumption that they are resumed for a reason and so it is likely
-that they will be needed in near future, but I'm not sure if that
-assumption can be extended to a child suspend case.  One might argue
-though that extending it to the child/consumer resume case would make
-sense.
-
-> The effect of this behavior is that a parent device may suspend sooner
-> than its autosuspend delay, simply because its usage was accounted by
-> its children, and not by direct references to the parent device.
-
-The distinction between "direct references to the parent device" and
-"usage accounted for by its children" is not clear to me TBH.
-
-There are references to the parent device in both cases and it is not
-like drivers can always expect all runtime PM references to come from
-specific code paths updating last_busy.  There is at least one
-reference controlled by user space (the "control" attribute in sysfs)
-and dropping it may also cause the device to suspend immediately if
-last_busy has not been updated recently.  How is this situation
-different from the one related to child/consumer suspend?
-
-> This was noticed in several cases, and some have implemented
-> workarounds, such as in commit c537d3457542 ("iio: adc: stm32-adc: fix
-> runtime autosuspend delay when slow polling"). At the same time, Ulf
-> suggested these problems "should be solved in the runtime PM core" [1].
-
-So I need to be explained how commit 9bdbb1139ca1 ("iio: adc:
-stm32-adc: add power management support") works because ATM I don't
-seem to understand it.  It looks to me like the .runtime_idle()
-callback updates last_busy for the device for which it is called, not
-for its parent.
-
-> Instead of working around the problem in drivers, we propagate last_busy
-> timestamps from a dependent device to its dependencies any time it may
-> allow a dependency to suspend -- i.e., when releasing a refcount for its
-> parent or suppliers. We take care to only propagate the timestamp if it
-> is larger than the existing busy timestamp.
-
-I'm not sure why propagating last_busy timestamps when dropping the
-reference to the parent/supplier is a good idea.
-
-Why is the child's last_busy timestamp suitable for the parent in the
-first place?
-
-Why isn't done when dropping the reference?
-
-> Note that this works best if the dependent device is using autosuspend
-> (and therefore updates its last_busy timestamps appropriately), but even
-> for a non-autosuspend child, this is still somewhat useful --
-> non-autosuspend devices still automatically update their last_busy every
-> time they resume.
->
-> Link: https://lore.kernel.org/all/CAPDyKFp=3DKTf8=3DzGBSzPYqhjnZpY8xwvjCe=
-M1e-WTKT1QLSxaDA@mail.gmail.com/ [1]
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
+Le mercredi 04 novembre 2026 =C3=A0 14:27 +0300, Sergei Khomenkov via B4 Re=
+lay a
+=C3=A9crit=C2=A0:
+> From: Sergei Khomenkov <shomenkow@gmail.com>
+>=20
+> The G1 post-processor takes its input size in macroblocks: the low
+> bits in swreg72, the high bits in swreg92 (bits 28:26 for bits 11:9
+> of the width, bits 31:29 for bits 10:8 of the height). This is the
+> VDPU1 layout in Rockchip's MPP library, whose JPEG decoder writes the
+> height extension as ((height / 16) & 0x700) >> 8.
+>=20
+> hantro_postproc_g1_enable() computes the width extension that way but
+> writes the height extension as MB_HEIGHT(height >> 8), shifting lines
+> instead of macroblocks. Every input of 256 to 4080 lines gets an
+> extension of 1 instead of 0, so the post-processor is told it has 256
+> more macroblock rows than it has: 286 instead of 30 for 480 lines,
+> 301 instead of 45 for 720 and 324 instead of 68 for 1080. Inputs
+> below 256 lines are not affected.
+>=20
+> Shift the macroblock count, as is done for the width.
+>=20
+> The problem was found with an LLM coding assistant while porting
+> mainline Linux to a Rockchip RK3026 board; the assistant also drafted
+> this change. Tested on that board (G1, ID 0x6731), decoding H.264
+> (640x480, 854x480, 1280x720) and VP8 (640x480, 1280x720) to YUYV
+> through the post-processor, 241 frames, against a software conversion
+> of the decoder's NV12 output. Without this change only the 4 VP8 key
+> frames match: a few pixels at the bottom left of the last macroblock
+> row differ from run to run, and VP8 inter frames propagate them. With
+> it all 241 frames match. 320x240 is correct either way.
+>=20
+> Fixes: 3f6702e1be8a ("media: verisilicon: postproc: 4K support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 > ---
-> Cc: Ulf Hansson <ulfh@kernel.org>
->
-> Changes in v2:
->  * Update comments to explain when/why rpm_propagate_last_busy()
->    performs the update
->
->  drivers/base/power/runtime.c | 23 ++++++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
-> index 2a117d6a776f..dd306cbabcd3 100644
-> --- a/drivers/base/power/runtime.c
-> +++ b/drivers/base/power/runtime.c
-> @@ -318,6 +318,22 @@ static int rpm_get_suppliers(struct device *dev)
->         return 0;
->  }
->
-> +/*
-> + * Propagate last_busy timestamp from one device to another, typically w=
-hen a
-> + * device (@dev) releases a reference count on a dependency (@target) an=
-d might
-> + * allow it to (auto)suspend. This can, for example, prevent overactive =
-suspend
-> + * when a dependency's usage is primarily driven by one of its dependent=
-s.
+>  drivers/media/platform/verisilicon/hantro_postproc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro_postproc.c b/drive=
+rs/media/platform/verisilicon/hantro_postproc.c
+> index e94d1ba5ef10..ecc6b3137eb0 100644
+> --- a/drivers/media/platform/verisilicon/hantro_postproc.c
+> +++ b/drivers/media/platform/verisilicon/hantro_postproc.c
+> @@ -106,7 +106,7 @@ static void hantro_postproc_g1_enable(struct hantro_c=
+tx *ctx)
+>  	HANTRO_PP_REG_WRITE(vpu, orig_width, MB_WIDTH(ctx->dst_fmt.width));
+>  	HANTRO_PP_REG_WRITE(vpu, display_width, ctx->dst_fmt.width);
+>  	HANTRO_PP_REG_WRITE(vpu, input_width_ext, MB_WIDTH(ctx->dst_fmt.width) =
+>> 9);
+> -	HANTRO_PP_REG_WRITE(vpu, input_height_ext, MB_HEIGHT(ctx->dst_fmt.heigh=
+t >> 8));
+> +	HANTRO_PP_REG_WRITE(vpu, input_height_ext, MB_HEIGHT(ctx->dst_fmt.heigh=
+t) >> 8);
 
-AFAIAC, you need to say much more than this to explain all of it.
+Good catch.
 
-> + */
-> +static void rpm_propagate_last_busy(struct device *dev, struct device *t=
-arget)
-> +{
-> +       s64 busy =3D atomic64_read(&dev->power.last_busy);
-> +       s64 target_busy =3D atomic64_read(&target->power.last_busy);
-> +
-> +       while (target_busy < busy)
-> +               if (atomic64_try_cmpxchg(&target->power.last_busy, &targe=
-t_busy, busy))
-> +                       return;
-> +}
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-And I'd rather not do anything like the above unless absolutely necessary.
+--=-KPft1s7sKlSpjBko+t3L
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-> +
->  /**
->   * pm_runtime_release_supplier - Drop references to device link's suppli=
-er.
->   * @link: Target device link.
-> @@ -348,6 +364,7 @@ static void __rpm_put_suppliers(struct device *dev, b=
-ool try_to_suspend)
->                 if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
->                         continue;
->
-> +               rpm_propagate_last_busy(dev, link->supplier);
->                 pm_runtime_release_supplier(link);
->                 if (try_to_suspend)
->                         pm_request_idle(link->supplier);
-> @@ -710,6 +727,8 @@ static int rpm_suspend(struct device *dev, int rpmfla=
-gs)
->
->         if (dev->parent) {
->                 parent =3D dev->parent;
-> +               if (!parent->power.ignore_children)
-> +                       rpm_propagate_last_busy(dev, parent);
->                 atomic_add_unless(&parent->power.child_count, -1, 0);
->         }
->         wake_up_all(&dev->power.wait_queue);
-> @@ -1368,8 +1387,10 @@ int __pm_runtime_set_status(struct device *dev, un=
-signed int status)
->                 goto out_set;
->
->         if (status =3D=3D RPM_SUSPENDED) {
-> -               atomic_add_unless(&parent->power.child_count, -1, 0);
->                 notify_parent =3D !parent->power.ignore_children;
-> +               if (notify_parent)
-> +                       rpm_propagate_last_busy(dev, parent);
-> +               atomic_add_unless(&parent->power.child_count, -1, 0);
->         } else {
->                 spin_lock_nested(&parent->power.lock, SINGLE_DEPTH_NESTIN=
-G);
->
-> --
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaus0fwAKCRDZQZRRKWBy
+9H3BAQCWA7Qn33zc8a1P66WNwL1GB7N5NWBBSVTGnj8uRpY0awD+INx3885oUsh6
+2rMww8Wio+s/sOVlScbF+QSL6a6ELwA=
+=uHJb
+-----END PGP SIGNATURE-----
+
+--=-KPft1s7sKlSpjBko+t3L--
