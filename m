@@ -1,81 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793792926;
-	b=2O9MKtjHMQRpSbP/5lTCrkYbeEjDYxixg0/qNiANxobsfra0plm86FwshKu8Lw5F2X77
-	 uOp9zM7DkH6nJg26UirjdADpQEezJQARg7BmCovqFLZjd4TqP0RF4FBidJO2m8/eiJyRL
-	 qGpzGhTFYh5eYJPD47iGV8GeCnIR/ADHy5MJLFuQ3Clf0NzlqIBUU8ukfR1tjx2WHrPT+
-	 w+WhfHkuYeTs3ltxn7bZOTmvnBeFG8Ifssr71vYR3K/3hw4hDz1BxAGNtZ/fsHkbNjeT1
-	 iTqju/O9BXeRW15R/2Vw2T+c9hQvgmWpD4Ug+/jqIbF23/8y8gLz97zZwZiXeCTCDgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792926;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=Bz0nqTsX+SVe2yv12UIFCrkUsWFsu0k6BjSN4MdGI4s=;
-	b=TAM20SzpTCvq+Xnt151wZ+Xp5Xo2j0CsGhdmGjWmes/XkpMzL4bXiIw2Au0IzzpL6ant
-	 +K6NbI8HQTUthFycEZEflgBJsrT4SVyHlta7YMIQwYTt2OMnbqRM27TN+kbWWfnc/9zSf
-	 QZ6hRMLzo+D2u0mFX0k6vFnI+QLr55IOHdle8/prMvCabjkikcEO9NaLi01dSMnerUZMr
-	 CpiegBg95RR3LoXh5QZSEDlb8crW2UXBUb3MJ8PYlPJqUzBskz4uOfuNN9tWQHvCMh1iE
-	 dHr8vNl8STLxhJPbQCHk9kjQtSraGs7U1odSprL+WieaSAyc8fjFP9hrTR001jE3UCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GkWVOTo8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793792961;
+	b=RLx5wHspeOVPIXfDCY4quTzpG70uXKUJjPPr82h72ZWm3qZtk2dCvypsh+f/yLp9Ysez
+	 ylAUZHS2phTw50jY95vy8KefTV9ve6fpPKxOdqN1fiwb7Yr8IqCht8bR+avekEdVyz1RZ
+	 leHmK/MGZJrU7cAcRgBWivROzh+KUFSX6soCpouG4RMzn1WzpUKj6elgvOn4eHi064mZ8
+	 x0GWwR4B1DiIAFBB7fkLA/Edh7MYaGEoNYyCZUFTrFq9pYxCyrZjHrAZu5bM72Zi+doLI
+	 HZPsRlVT1jCJVypm5elbc1dOyBw+HrfXdyg43pWWspu4UTWtQOpzvvjTmDttYE3sY2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792961;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
+	 Date:Message-ID:User-Agent;
+	bh=OE7JtArYBg1e9RZUFDN34u6GCF6E+vc5+GFEmwRXSO8=;
+	b=r9O4YewSx7EiMDNJGbRgSss+boQbsUUhP7UePYnKV6Fqx85T4f1ltgquvsda2XZ6CHRl
+	 Ecl8OqHcYsUGoz96oCfbP7NYIzHuiYEOy/TqJ7TUIVvMdVeesMZR5otJalVX0h44SMJjr
+	 z5hmmjHAgiCyEgtvIJxkYiYyjkVhYqSZl6w8fcDtMGFvah4vv10PgML3kYkKypbweZPXN
+	 LIFvNIal3ioHWUo9m5MVHxR3uFfEHV+0+BoJkA9yfUOdPd/XyUiIQUugLQodYxBK16mij
+	 mvubD+anYdhRbJzkpqT0qkNGfqW9ZohyVqFfyQN5TUExt3EOZuTFXdSPyR8JABBJRCg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="vX/IWlPA";
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C247606A32F;
-	Wed,  4 Nov 2026 11:48:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C247606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39F2606A326;
+	Wed,  4 Nov 2026 11:49:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B39F2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GkWVOTo8
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6A08E200AD7;
-	Wed, 04 Nov 2026 12:48:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793792922;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Bz0nqTsX+SVe2yv12UIFCrkUsWFsu0k6BjSN4MdGI4s=;
-	b=GkWVOTo8OA5rO7xbcyNMH/qWLLuB4VwdDDOgj01j1RQkODfmbpDWoTYdAL1A/SmPOycKAe
-	AXdPQC3SjW6SOUyo8NdXYkFJDiHQHFUfMQjziN6Q3W4wC/4gFnnktLZ5so6e3EJvcajXSW
-	SSbhrfjgIc3nskbdHX0Ww1YVTFSP2Oog+zudFGvoKq0RkxrkqgFZ5AiARdTuhfBFyyWCkH
-	Aec60GFra1Va+SshfE2J58w4lQ8uj9PpZcHkAI8/sidE8EwDDefXLGp2HAG5I5F/7LsYYg
-	EbyqmG8RgwvwornTus60kMVLLxsuN5NVgTRjXtoul2Qv8lg1zAgg0PVbBI4b5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793792922;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Bz0nqTsX+SVe2yv12UIFCrkUsWFsu0k6BjSN4MdGI4s=;
-	b=ZDgosKSMs6WZGfTTbKVBwsRlIjEPQAXcbzuE/73mTFoKQqi5DTe7W+gX7IoVkkgkhxKN9l
-	qDO6Ci5957J2Mo1ceftxRnzGR+u0qWM/N5OJKS/5dKcflmOShlljKZdhkvg6KHD2apO2LI
-	ixFHeAgkEvG6rOpHyStCRLiLYTBlJAKvIktBYMAqrjVi8jmOxF9ydGl5XdpSeEhozV/Pma
-	woDAK3l5kWFYdm4/tp1sjMUDkm5y7YIn6r+OzEUMrss5pMq8GIVkQ1E7NAf3zefKCvdpSq
-	PGRC+ijpoR27flwGuaE9YW7NbVEYueoqlbQsb1vwZvjgdnRCNQiaRLv6KkhCMw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793792922; a=rsa-sha256;
-	cv=none;
-	b=MJUDHjRo/STTGox1rBRvqHDg7ia9CbZ44TbLReP5w5cGzT2Vuc5zTCabxzbxlwJQEvC1wx
-	kDx3bOA6ZxESlIkH45vNk2fHa5KIplqS+SWlsoTCl7snofO2kCVRAOd8y0OUtNKhPrqCTd
-	IE023M8eDmwDuAjBS2biP/1PhGQNdAEPn20ZmDOxfo22Tua6C5VSoeDXFTky62pxE35TyU
-	VeRFHJcfXxn2lumy+2XetxbA94dW7BPBy3VwHW/CkzWJhk9KOx/NxHoa/+Zf9OS+qE5yqr
-	aT5LOludc68RK5gs9JjhDRCufRIbnF9unSUxLSTj0r0DmRwOnGN/cY9kRu1YVw==
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 5DD70380600; Wed, 04 Nov 2026 12:48:42 +0100 (CET)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-Subject: [PATCH net-next 0/3] net: dsa: make a shorter bridge ageing time
- take effect
-Date: Wed, 04 Nov 2026 12:48:27 +0100
-Message-Id: <20261104-ksz-stp-ageing-v1-0-2c2bc7217dea@pengutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=vX/IWlPA
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 84D59175;
+	Wed,  4 Nov 2026 12:46:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793792813;
+	bh=VTae0VMPW1Ak7eZVU8tAuemLHpEMDjIcs5D7qQ12cMo=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=vX/IWlPAYV3St+QpTQPokYLS3k1j4wdA3A0PdYo5oP9jNgOk7FhoifUFb4IKgPosa
+	 JTvFD1azG1GkhGkbtUSuE37tfOFIvDMLTxsaygnDCcudyjZhQu168YQArCtB5zwqPb
+	 R6bLDE8GX7KZRNCjy6y+zaTe7jUTFFg0LesQWuq4=
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,129 +53,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIsb62oC/zWM0Q6CMAxFf4X02cZtBhR/xfhQoI7GUMm6ECLh3
- 50mPp7ce84GxknY4FptkHgRk5cW8IcK+pE0MspQGIILjffuhE97o+UZKbJoxLOriZr2ElquoUh
- z4oesv+ANlDMqrxnuZenIGLtE2o/f4EALT/h/HCcShX3/ACoFvTmQAAAA
-X-Change-ID: 20261103-ksz-stp-ageing-705aa69829e5
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, 
- =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?= <jensemil.schulzostergaard@microchip.com>, 
- Oleksij Rempel <o.rempel@pengutronix.de>
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260917-b4-vchiq-isp-v5-1-2d8870add2c0@ideasonboard.com>
+References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com> <20260917-b4-vchiq-isp-v5-1-2d8870add2c0@ideasonboard.com>
+Subject: Re: [PATCH v5 01/10] media: videobuf2-core: Move type check out of vb2_core_expbuf()
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Paul Elder <paul.elder@ideasonboard.com>, Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Florian Fainelli <florian.fainelli@broadcom.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+To: Tomasz Figa <tfiga@chromium.org>, Hans Verkuil <hans@jjverkuil.nl>
+Date: Wed, 04 Nov 2026 17:19:05 +0530
+Message-ID: <179379294564.10051.13070470195541850363@freya>
+User-Agent: alot/0.13.dev199+g9722e8483
 
-With kernel STP, the bridge sets a shorter ageing time during a
-topology change. When the topology change ends, the bridge restores
-the configured ageing time. Without this series, two things go wrong:
+Hi Tomasz, Hans,
 
-- On a KSZ9893, a shorter ageing time does not take effect at once.
-  The new Age Period starts only after the running period ends.
-  Entries already in the table keep their old Age Count (patch 1).
-- On any DSA switch with .set_ageing_time, the restore has no effect.
-  DSA writes the short value to the switch instead of the configured
-  value (patch 2).
+Quoting Jai Luthra (2026-09-17 13:53:07)
+> vb2_core_expbuf() takes the type of the exportbuffer as an argument and
+> checks if it matches the type of the vb2 queue. Move that check to the
+> caller (vb2_expbuf).
+>=20
+> There is only one other user of this, which is dvb-core, where the check
+> was anyway redundant as it passed the vb2 queue type instead. So update
+> it too.
+>=20
 
-A port can also leave the bridge during the topology change (patch 3):
+Are you okay with this change?
 
-- Before this series, DSA kept the short ageing time of that port. DSA
-  uses the smallest ageing time of all ports. While the port stayed out
-  of the bridge, later changes to a longer ageing time still wrote the
-  short value to the switch.
-- With this series, DSA clears the ageing time of the port when the
-  port leaves. As before this series, DSA does not write the ageing
-  time to the switch at that moment. The switch keeps its current value
-  until the next write. The next write comes with the next ageing time
-  change, or when a port in the same DSA tree joins a bridge. Usually,
-  the next ageing time change is the restore at the end of the topology
-  change.
+I see that rest of this series is more-or-less reviewed. I was planning to
+rebase and post a v6 this week.
 
-In a lab test on a KSZ9893 with a redundant path, I cut one path while
-one station sent one-way traffic to another. I ran six setups. With the
-series, the traffic stopped for 12 to 15 s in all six. That is about
-the time STP needed to converge. Without the series, the traffic
-stopped for 24 to 56 s in three setups. The other three failed before
-the cut (see below).
+Thanks,
+    Jai
 
-Without the series, the switch kept the old FDB entry of the receiver.
-The entry pointed to the port on which the traffic came in, so the
-switch dropped the traffic. During the topology change, the switch still
-ran its old, long Age Period. The entry therefore did not age out in
-time (patch 1). The outage ends when the entry ages out or when the
-receiver sends a frame. In one of the three measured setups, the sender
-used normal ARP, so the receiver could answer ARP requests. There, the
-outage was 24 to 46 s. Where the receiver sent no frame that the switch
-could learn from, it was 51 to 56 s. Stations that receive much and send
-little are affected most, for example receivers of a UDP stream or of
-telemetry. I did not test traffic in both directions, such as TCP.
-
-Without the series, the switch also stayed at the short ageing time
-after a topology change ended (patch 2). In this test, the topology
-change when the bridge came up already left the switch at 8 s instead
-of 300 s, before the cut. The short value is twice the forward delay,
-which was 4 s. Entries of stations that send little then
-aged out after a few seconds. In three setups, the switch lost the
-entry of the receiver this way before the cut.
-
-Patches 2 and 3 change the DSA core. They affect every driver that
-implements .set_ageing_time. For this reason, the series targets
-net-next and has no Fixes tags.
-
-To reproduce the restore case (patch 2):
-
-  ip link add br0 type bridge stp_state 0
-  ip link set lan1 master br0
-  ip link set lan2 master br0
-  ip link set br0 up
-  ip link set br0 type bridge ageing_time 1000
-  ip link set br0 type bridge ageing_time 30000
-
-ip link takes centiseconds, so 1000 is 10 s and 30000 is 300 s. Then
-read the ageing time from the switch, for example from the 32-bit
-regmap in debugfs:
-
-  grep -E '^0*310:' /sys/kernel/debug/regmap/<device>-32/registers
-
-The line shows the bytes of registers 0x0310 to 0x0313. Bits 5:3 of
-the first byte are the Age Count. The last byte is the Age Period in
-seconds. The ageing time is Age Count times Age Period. Without the
-series, it is 1 x 10 s = 10 s. With the series, it is 2 x 150 s =
-300 s, so the last byte reads 96.
-
-To test a port that leaves the bridge (patch 3), run "ip link set lan2
-nomaster" between the two ageing_time commands. Without the series,
-and with only patches 1 and 2, the register readback shows 10 s. With
-the whole series, it shows 300 s.
-
-To test patch 1 on a fresh bridge, set the ageing time to 300 s and let
-the switch learn an address on lan1. Then set the ageing time to 10 s
-and watch the "self" entry of that address in "bridge fdb show dev
-lan1". Without the series, the entry stayed in the table for 57 s to
-more than 120 s in my tests on a KSZ9893. With patch 1, the switch
-removes the dynamic entries at once. The switch learns the address
-again from new traffic.
-
-Tested on a KSZ9893. I did not run the forwarding selftests.
-
----
-Oleksij Rempel (3):
-      net: dsa: microchip: ksz9477: apply a shorter ageing time at once
-      net: dsa: store the port ageing time before programming it
-      net: dsa: forget the port ageing time when the port leaves the bridge
-
- drivers/net/dsa/microchip/ksz9477.c | 36 ++++++++++++++++++++++++++++++++----
- net/dsa/port.c                      | 15 +++++++++++----
- 2 files changed, 43 insertions(+), 8 deletions(-)
----
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
-change-id: 20261103-ksz-stp-ageing-705aa69829e5
-
-Best regards,
--- 
-Oleksij Rempel <o.rempel@pengutronix.de>
-
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Link: https://lore.kernel.org/all/20260910150454.GP1892234%40killaraus.id=
+easonboard.com
+> ---
+> Changes in v4:
+> - New patch in v4
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 9 ++-------
+>  drivers/media/common/videobuf2/videobuf2-v4l2.c | 8 ++++++--
+>  drivers/media/dvb-core/dvb_vb2.c                | 3 +--
+>  include/media/videobuf2-core.h                  | 5 ++---
+>  4 files changed, 11 insertions(+), 14 deletions(-)
+>=20
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/me=
+dia/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..5e318165659f 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -2419,8 +2419,8 @@ static int __find_plane_by_offset(struct vb2_queue =
+*q, unsigned long offset,
+>         return 0;
+>  }
+> =20
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -                   struct vb2_buffer *vb, unsigned int plane, unsigned i=
+nt flags)
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
+> +                   unsigned int plane, unsigned int flags)
+>  {
+>         struct vb2_plane *vb_plane;
+>         int ret;
+> @@ -2441,11 +2441,6 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, =
+unsigned int type,
+>                 return -EINVAL;
+>         }
+> =20
+> -       if (type !=3D q->type) {
+> -               dprintk(q, 1, "invalid buffer type\n");
+> -               return -EINVAL;
+> -       }
+> -
+>         if (plane >=3D vb->num_planes) {
+>                 dprintk(q, 1, "buffer plane out of range\n");
+>                 return -EINVAL;
+> diff --git a/drivers/media/common/videobuf2/videobuf2-v4l2.c b/drivers/me=
+dia/common/videobuf2/videobuf2-v4l2.c
+> index 5a1ee5eb9c0f..aee1a9244a7b 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-v4l2.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-v4l2.c
+> @@ -877,14 +877,18 @@ int vb2_expbuf(struct vb2_queue *q, struct v4l2_exp=
+ortbuffer *eb)
+>  {
+>         struct vb2_buffer *vb;
+> =20
+> +       if (eb->type !=3D q->type) {
+> +               dprintk(q, 1, "invalid buffer type\n");
+> +               return -EINVAL;
+> +       }
+> +
+>         vb =3D vb2_get_buffer(q, eb->index);
+>         if (!vb) {
+>                 dprintk(q, 1, "can't find the requested buffer %u\n", eb-=
+>index);
+>                 return -EINVAL;
+>         }
+> =20
+> -       return vb2_core_expbuf(q, &eb->fd, eb->type, vb,
+> -                               eb->plane, eb->flags);
+> +       return vb2_core_expbuf(q, &eb->fd, vb, eb->plane, eb->flags);
+>  }
+>  EXPORT_SYMBOL_GPL(vb2_expbuf);
+> =20
+> diff --git a/drivers/media/dvb-core/dvb_vb2.c b/drivers/media/dvb-core/dv=
+b_vb2.c
+> index 672b0efdca21..fe7a6554b30e 100644
+> --- a/drivers/media/dvb-core/dvb_vb2.c
+> +++ b/drivers/media/dvb-core/dvb_vb2.c
+> @@ -357,8 +357,7 @@ int dvb_vb2_expbuf(struct dvb_vb2_ctx *ctx, struct dm=
+x_exportbuffer *exp)
+>                 return -EINVAL;
+>         }
+> =20
+> -       ret =3D vb2_core_expbuf(&ctx->vb_q, &exp->fd, q->type, vb2,
+> -                             0, exp->flags);
+> +       ret =3D vb2_core_expbuf(&ctx->vb_q, &exp->fd, vb2, 0, exp->flags);
+>         if (ret) {
+>                 dprintk(1, "[%s] index=3D%d errno=3D%d\n", ctx->name,
+>                         exp->index, ret);
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-cor=
+e.h
+> index 4b4f4c15c53a..feda638d0064 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -959,7 +959,6 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned =
+int type);
+>   * @q:         pointer to &struct vb2_queue with videobuf2 queue.
+>   * @fd:                pointer to the file descriptor associated with DM=
+ABUF
+>   *             (set by driver).
+> - * @type:      buffer type.
+>   * @vb:                pointer to struct &vb2_buffer.
+>   * @plane:     index of the plane to be exported, 0 for single plane que=
+ues
+>   * @flags:     file flags for newly created file, as defined at
+> @@ -973,8 +972,8 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned =
+int type);
+>   *
+>   * Return: returns zero on success; an error code otherwise.
+>   */
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -                   struct vb2_buffer *vb, unsigned int plane, unsigned i=
+nt flags);
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
+> +                   unsigned int plane, unsigned int flags);
+> =20
+>  /**
+>   * vb2_core_queue_init() - initialize a videobuf2 queue
+>=20
+> --=20
+> 2.55.0
+>
