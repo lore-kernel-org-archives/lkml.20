@@ -1,49 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758855;
-	b=dvJ8kNO3RhLC0nKDiduIq9YpWUgp5cFL1o3e13D4DxUhHirHz0l3MH7fLHOH2yMvdfMn
-	 gYmS/NwDOyeiJoGpp47Az7W806B7TvDi5d9hoYgPuw+Two/ySJnM7PeZo70Oxo6yLfahT
-	 NNIaOKjfXY8VJ/taj7wtMDmJspwYsOmKwBFT9grbhp8vLIUYbRvzYGsav+B8mgQ7PHkIW
-	 961zUiX62b/HmY+WSs34e+8lTrWBpBtjQOqYiBdeaCF3oGHuEUSi8JNzQDbARLvILzIfb
-	 4+9X+tLwXT2zihtXrrduQyy+bH7/STNl9FQ2Qs51Nkd760VWO80EjLqkPJ4IPUkK4tw==
+	t=1793758873;
+	b=f9zR/v8kPzYV3ZSj55rJ7DDaVsLjsKsFo39D8AJAfR6AHfWRJtM0BCsNuhu/LextlNB/
+	 VV3sIQdaCbpodp6LYEsE2cAvMbh2XQ/THlMUy2WRHaN3eDAho+fQyYzRhpYk72x/O+BJR
+	 E/HDUM3g3eum1CmACj9KtA39f+38cf/LA4Ow/3AXmgsK3VGaycmaAGDJ5qXo5T9/M2H3w
+	 I4mi74okinZUeALjSoJAjeZHQcaAidiFpOKhexK9ypeQMxe/W12VsB+shIahpmvGWy13F
+	 g5dTKs8WOE7veAsZOZZDUUD/m2N1k4262HgFRVSu5KFJGa63fb8jtHJ9L+HlzleuVMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758855;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 DKIM-Signature;
-	bh=8s1UjpddbLRALZnpmVrsyj1H9wxbV0f7gsSAeKON7lE=;
-	b=ZFH/QCrteR++4WkhZewyoDqrJ6qwa/iNpFZB5FZKo4Aofu1fjFf/ed7Fq8h0ukP77N4m
-	 71agd7XVeLuPYIEeOSkDyMxdn6UFTNZ82faShs2eovUH+fWQwxWTnHRrAFYyf3z1LU2Ou
-	 Q5HjTVxno7bSVAZ00iKiZaTHpz/TWMM8RQs0Nrcnd+tSndIlfXhHlNHsJa6Bt5+c5IxJx
-	 P9iCUqCDlKAowID9t609OfZlRR/cxV77CgcOKJMEkHpcJLr6MSYNyVg4AS56k/dTG/ISf
-	 eznLhgffrFea4VqQgNvlr0cvWTfC/vikH51saOlBFC3TCmHDvHXH0neSIHPHG6QjL3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758873;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
+	bh=3kL9nPKcOeNL1nqkLRFVJC2yAbsuis72ch1sU7/sTFE=;
+	b=IPMhAbzl+dZ8Djr6r++1qlY6mcZybEFoq7ARxc+0ul8nlNCH70cnC8Onz3Q5PYyvx9Uy
+	 zDOoGlHVJO5x0ReG8xK2CcHqGiA4w4fAud7FE8PxAaxAw4KTMDmWUX6kKB2rC6Zgy38oX
+	 lwWbpHKB9Su0lm7llMuonePogL8btFtH6Rrd/ZuZ3/9JhfjfQab0gf4+opGHl5vAOnp2n
+	 U6aF1ZBnpe7rsVdNiGBYagSbLkRu/pB+KccKRDD085DGShGw7Nh+IUaOpFxKTb89TQRdk
+	 9fjrDFllFOh5je9K+giHoL0XP1noAqxIO3FG+bkxfQUfex2Jd/ujIhcki2VYrl1Tt9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=jT0CT8BV;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 49ECF606A31B;
-	Wed,  4 Nov 2026 02:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49ECF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ufKTEGLW;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EDE606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:21:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75EDE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=jT0CT8BV
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Li RongQing <lirongqing@baidu.com>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] perf intel-bts: Free the old snapshot reference array after growing it
-Date: Wed, 4 Nov 2026 10:20:42 +0800
-Message-ID: <20261104022042.1894-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ufKTEGLW
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so176995b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:21:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793758873; x=1794363673; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3kL9nPKcOeNL1nqkLRFVJC2yAbsuis72ch1sU7/sTFE=;
+        b=ufKTEGLWP6UzLiCvOprUKER8FGsbqdunjCzIauuX5gywzqqPVl+M04XmyTRhrXyYRY
+         OLHdnvsB2Q3L2/l4WIvSgLWPqGq3jbQBp8VKXEuSKCkxD0svr0yCR4LmWr7yryrJc2bB
+         YeBWHIeqqmDfWaK1aYk2NE/L/4cR3rj5zLhms+3FPKYh3/Ja/uvm0m3HxJeF28j0WRDj
+         DGp9zVTDFdSq2pixbJ67BHxlrsa3M6as7tc/hgtMq2JeTR3ApTTvZjRj3zCN8OhiobmG
+         4Yev4utAiH/WQ44huAkHJDNInnMcXRlSSj98SGnMtvV+DWBAYiyFj1/qP2Mu+J97hzkx
+         Jdmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793758873; x=1794363673;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3kL9nPKcOeNL1nqkLRFVJC2yAbsuis72ch1sU7/sTFE=;
+        b=GNjWW6xA+T7dRMSj/Kb2GlDCS7JOsaXKjJ2CNP4oFcjZUC++2jOBAn8d6t627CmLVA
+         ZYh0YrQFWftEE/rGMvyUqvek7Xla84QnjlyYVZrQwXkVDHtBXrMSGGhOoIQyjeEyNc1Z
+         mSVQY1tGeYHtkcxCntRn79oOyl9UiCpjAB3BKNVB09YFBpS9Mfm5iRQp6Up9DXMP83ll
+         dwqZTmeP2fVDfEsrNRJ7JSLpXpuVw1WwD/RI0pUJ4bAi/OmB38JihOCu1R96YfBaF7ta
+         l9xiovPPEKeKM/icDlKbbSbXHe7/F1LFBZi2U1gh4Xqf0zRwwcE1sL+bn/1ZW46z93g4
+         RqzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5zgN9EfUQyU4Id3Hk38JMe/Ghs/pFn4E2beP2pjsnhUImXxzB9ar2A8W3AQwuYaqeTLqTBJH/YtOOMS8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Rkhm6ziPb++lQD5vd+EDQBg1XimWvPa40Rq3/ISYqjrWovqrq
+	bleYvOmtw2bVqL2X5nPUlDX2CuqfynXrlfYIuYdsIFBrl7a8LorXZNvi
+X-Gm-Gg: AYBFou2mD1NueojrTQPTW8VL80egk1tgI4Af2scfGUy1XmJj61v72Eg2HWBNJux/3gX
+	Jewo9ztkLxje76u+EiMBhwvd4OjD8hYSDZ5p53IYPNGC2xqDhdOhWLN34PfTIfVi5V/3ql8DBon
+	6fvxlPpLVigeVD2xqHWVsbVgfhcwxLM0A/2Wmso4lHSSjPEV0eZ15w0bODP5zwaf3+6mvxVwdnu
+	8gxN8HQUPHRKYgcgVDp+lSdslzj/N1mZ5lq9tX/V7BeLUOwkQhtid/EV9hJfbIa8zVmKj6M0PXN
+	v0KrIGJehEuYFMx/K+q3Ny45TVdnnFoV+jRoWcGOCWcTUycmBwWbEKN/NB5UJwhZK67im/Xwk2z
+	H6wU4rtODIgrZysdDTm74KUImlcM48UkEj5xRrjzZJpEaMzlBEiEsxa2FLXAoacpZCjtgxigg/9
+	X4DWjIBnbNSkORQ4my4XPouQiVmLAudGu9TDtDo8s5T922pu7lzSdl2YQTGr3tUBK3noDKEfJ94
+	sKhDLKNsLN3TNbChRXsNKLrTtH89/HxrWQyFq/smTYc84+CSUouy4+cnwnpQD30ItNvsr/LkG1C
+	2ViPu391NBa9VeCngC7IhnjQiORKYZVC/+JltMooiNU2zMXCUx44DEqsB4XhbhiuW4fWMZVSLSX
+	I7YGsdRv29ZqYADPkCcYdtHlHiI1+CBelgXA=
+X-Received: by 2002:a05:6a00:230b:b0:89f:6989:cb9b with SMTP id d2e1a72fcca58-8a9beb6284emr11317502b3a.27.1793758872638;
+        Tue, 03 Nov 2026 18:21:12 -0800 (PST)
+Received: from localhost ([153.61.198.255])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b470b7esm233999b3a.32.2026.11.03.18.21.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 18:21:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,48 +88,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc4.internal.baidu.com (172.31.50.48) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793758852;
-	bh=8s1UjpddbLRALZnpmVrsyj1H9wxbV0f7gsSAeKON7lE=;
-	h=From:To:Subject:Date:Message-ID:Content-Type;
-	b=jT0CT8BVvBNtOuVfQnQr5j2tVoBN3Ez+T/wSKuvVjRl7iVTs5mdW16QDvIHUY2v5m
-	 z8N7AqTNJaAQvwa5SDs/uTTw+hULi4hrePH2duehSk0qRb6VG82sE67eaXpIvSMSoY
-	 7sCeoUmz8uJxd7V9e5YmoNsnywFsAFeYniaKSFbfYQ6NakafHKaN1tLVm26+HtUJln
-	 S6/w8LZsoqIdYEwEwZGRJUsKsaSUOJkUSCV/ry2e9Xv7ytsMy0F60YRMExUzCDIj2V
-	 W3/Giz6i1oQLoSEMEwLCBWJWhDjX2fegK8fTb0EJ90GrsaIHtAKrk84Viaiu3BiZ6h
-	 CHiQVHDdckATw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 04 Nov 2026 02:21:11 +0000
+Message-Id: <DMM2G9OX9ACV.231CHJEPK0OHU@gmail.com>
+To: "JP Kobryn" <jp.kobryn@linux.dev>, <mikeba@sentinelone.com>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>
+Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song
+ Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
+ Olsa" <jolsa@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Shuah Khan" <shuah@kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption cause false
+ recursion drops in trampoline progs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.20.1-355-gf870624f6c37
+References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com> <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com> <e3f63654-0f7c-462b-b58d-05f3164fe340@linux.dev>
+In-Reply-To: <e3f63654-0f7c-462b-b58d-05f3164fe340@linux.dev>
 
-From: Li RongQing <lirongqing@baidu.com>
+On Tue Nov 3, 2026 at 11:46 PM UTC, JP Kobryn wrote:
+> On 10/30/26 3:22 PM, Alexei Starovoitov wrote:
+>> On Sun, Oct 25, 2026 at 04:02 AM Mike Bazov via B4 Relay <devnull+mikeba=
+.sentinelone.com@kernel.org> wrote:
+>>=20
+>>> Is disabling preemption in __bpf_prog_enter_recur() on !PREEMPT_RT the
+>>> preferred fix for fentry/fexit, or would you prefer a different
+>>> mechanism for reconciling preemptible execution with prog->active and
+>>> the per-CPU private stack?
+>>=20
+>> No.
+>> We cannot disable preemption, since progs are not short
+>> with may_goto they can take 1/4 sec.
+>
+>
+> Seeing this issue as well. This patch opts in ALL non-sleepable programs
+> with trampolines. Alexei, would your thoughts be the same if there was
+> an opt-in approach, like a libbpf annotation "fentry.nonpreempt", for
+> select programs? A patch like this could then check if
+> program->nonpreempt is set.
 
-The snapshot reference array grows when a mapping index exceeds its
-capacity. Its old entries are copied into a new allocation, but the old
-array is abandoned when snapshot_refs is replaced.
-
-Release the old array after copying it so expanding past sixteen
-mappings does not leak it.
-
-Fixes: d0170af7004d ("perf tools: Add Intel BTS support")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- tools/perf/arch/x86/util/intel-bts.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/tools/perf/arch/x86/util/intel-bts.c b/tools/perf/arch/x86/util/intel-bts.c
-index d44d568..9403681 100644
---- a/tools/perf/arch/x86/util/intel-bts.c
-+++ b/tools/perf/arch/x86/util/intel-bts.c
-@@ -299,6 +299,7 @@ static int intel_bts_alloc_snapshot_refs(struct intel_bts_recording *btsr,
- 
- 	memcpy(refs, btsr->snapshot_refs, cnt * sz);
- 
-+	free(btsr->snapshot_refs);
- 	btsr->snapshot_refs = refs;
- 	btsr->snapshot_ref_cnt = new_cnt;
- 
--- 
-2.9.4
-
+I don't think it's a good idea. Try bpf_preemt_disable(), as I mentioned
+in the other reply.
