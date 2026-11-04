@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.146
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786167;
-	b=agUdFJRqIJdkzDPeiNvWe3+NiSM+6VoXel87Nyn+L7JSOAlplex43skfASvUke1Y1QMY
-	 vcG18JLlcfye+Vnsq8BoSlzKIm2n9BIYKOACgDhij32JBfpwCcHbpfoAZyCLCbLeiBRUi
-	 I7F+BkVfofC42KnU4KeEl1oR+o01HWF3Xe5EmJ+7kOQJc6Gi8HGh57ojEDQEvCf+NlH+o
-	 nDdHBYh235FEU7r3ieW0OqzdlRvmxWnsIiASwA5dgDqXN+Ll8Sag5Coe/i3q4RZdPvlmq
-	 RMu3ypa/C9r95zoHxCbqp2NYfN6gRiaU0dRnEfU3WCuuU6Q+WoqPfpqs8p/sJ9fTtww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786167;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=pUBQPp4DgGesu/zc45i1HHgbshamqgArN5rt8GOl5tk=;
-	b=2R1dt5Z28DdPGu+2Rj6mBKRcZFrih1pGhAYuM4fKiWEK4xuj6yjNwQy3dkEUYCvfLB3w
-	 HBsQN34pD50pEK1KnKgGDloD9Chjbn6WHUFeZqgnMFx8KTy6yrlOCXQNVTT697sFjhv6s
-	 BGXCahdkbWlGCTSKZ9wR/rRHTHxKFeOEPB2mK9Jzw0dke6ah2hD8dUrc2WJVM86WQXECw
-	 k+AEvYcLnr5gZBVtGg1drMzE83GPNQT5cKQIvAFERhEdqz2IepX+SL8eVdkwFOmHlPH0N
-	 0cTiKcgaC/EXZAk2Yxj+gB8mo+UUKdAmHYHx/3NGq0Cv0TZIQ+BWBltXT39QQHaWT7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.146
-Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793786187;
+	b=x7Kk/ls8yZqYRmQ9wbqLRtPSDz4Q/hrSn6mF34Y5AlJyJUvlCExLd9u1crwrmrGrvLAq
+	 tJXA/rs3pxHZuDipVHljWz92OEyyCN2o/4NWT5/b798gnmIwsU7+Cmut0t5mTf02aszKo
+	 X5oNKg8jbx068A3CRq91yhxwBOoqR0vxqSfN1849KpFJw2rxF7Povc1pgO/LzCkm09faZ
+	 iR6pNDic5Jw92kSh+E7VhmCVOnN1xGpgK6N+YUVYXJhFK5+q0Mh4oJczLfRPTIW0p3Rsw
+	 WYNMlH4FQpMc66oxddxQD407oBvDrvvCbSDIb0jXVfUIXgFiwT4bIx5dEiqtWr3YZrg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vRF2IRPDKW7IU9GzlHV0/GWISRE9+PInmvf0t89mBAY=;
+	b=z7MREw5ta8gugnnzkYcxqqiVESGSPVYs2G49jzfrsbLuWZhbReKBHKO7WihgG9gJuzmb
+	 9oAAf2ZVUz3exieiuQJ664eGtWn1KEVCREJc1lqlFSUr78PekaoQzurmSSt/B7g9VI25+
+	 /eqL0RUY0D29j/dgLRfZVgNnke0RMpevCkUHueKFO64qjPmseMuIPyD8vIc539XuYsr2i
+	 6QOkBks+/7lxERwGQOzrxc6+LSETmI/XGhTxzLMjkW2sMxHkscchoLxwdeiFHIfKV1b3e
+	 NN2LazqMUAGWk6ExFt5FEZaM9HnCrCnuVMl9vhnVJtzoeXZqO5ynhUVyyVkirVO5eCw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gWZhAgg9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91235606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91235606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pUBQPp4DgGesu/zc45i1HHgbshamqgArN5rt8GOl5tk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793786163; v=1; x=1794390963;
- b=uUMXzD5u9LbfomWLcrC2JIgPQCBBTO3LbzHp+2JUyWLJ6xQdE2ZY1BMAOjdbQnBuSYP1qFjF
- 1kVjlex4v2hhEIm4aXGxezQoohio+Baq+fuznIdzLaWT6CPUvg34hb8PWHYCrHxsPlWU02MiA01
- gVFlQhnLVU61YtHNeRs2gfcA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c43ff3afd577f723;
-	Wed, 04 Nov 2026 09:56:02 +0000
-X-Mizu-Trace-ID: c43ff3afd577f723
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916BF606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 916BF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gWZhAgg9
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so574066a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:56:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793786185; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TVzRqyqMaRGDsEcgnUFJCVNvv8W2MA84IuYmXTZsU/2kZkTXstgQzn63BDjRqxAuoo
+         X9YGJFw0SQiP0roqYZCTcII1DuUHFS4/XgA+4Rs6+MoyFfTKa2/dGOldJc0UMf3Oim7q
+         acimTOCxKuudmZATKuTR4yxYfMC5Phxwru8mIFxHdOxfQds7WFLBLanB7625gFN0UKo9
+         4ZNp8Wl66r5sI0r6UDPzQN3Vi3V9J+sou3ar/9FdM7+ro4bbZzpt3/mtfL+6GHVsmj1O
+         pAnrSUlFjoMBYN6ERNOh6VCnKLqUlmq15KsnBgeLti+Rf+ZWwvZgRofgmRKcjLYv+f9m
+         +YzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vRF2IRPDKW7IU9GzlHV0/GWISRE9+PInmvf0t89mBAY=;
+        fh=11mwesPaEGy79902bFS/9IBm9GXjPYYdcZ3Ge/bKgi8=;
+        b=b3OsHyYbITMU+cMIzeK3h8OTSx0NmwEUs4oUYKmH8P6MIAU2Em2hI9005R9q1wGrR1
+         yZDlc08mDKJvqn6tPhUVH7C/HYMz/R8EIFOiFapU7ZgfD9QKxupRCI2z0H4T+xy9/Eqk
+         igF/vbhJ37/g4Y8hiUx6RRQDpxLcOK5TqmNsBvutKJh+GS+FK26cb+fWwx+9y78tng+0
+         t4rAYlAwiZU3SAabz5DJTgPZTwJtyt/SqRudoTNXuIfPsHdJ8dKjbz0w752fg1T6xk1c
+         Kj/SF2zQbQP57flO58PmM/MLpRdJsby5qdMsGnoEYAOCfMQeV3wlA//0N2YRWX9yLYyu
+         7JOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793786185; x=1794390985; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vRF2IRPDKW7IU9GzlHV0/GWISRE9+PInmvf0t89mBAY=;
+        b=gWZhAgg9YIDgZnOonSXVa2tZ1hGN+OASVp+1ONCoXUnNkQs077OHpb4z4VM4LYwFKP
+         R6Csqs5BBmw9gKruR6j8qPg3ia8pm20lKLdlQMfNK/q9v9dPXdbR1x+WckoqPpsyklvt
+         AyEOFpqNSzuN1tp3aEy9YT959YykKjrJv8WoA4Ig91YIVE/qkURqodbAsz+nLaLEeIvU
+         h6Xl3NcsHXmI/Y4YHK6zXc1gopt77iJnCN05JO5IHdbDnrsvlpIrA52KWgy+d7bklzGF
+         iCydvnDdwy/UG1QT4uLsUZdCkJcojYep8jGV1S0P2LuV2/D/u82cTzgQifTjhtqhJzbw
+         YroA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793786185; x=1794390985;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vRF2IRPDKW7IU9GzlHV0/GWISRE9+PInmvf0t89mBAY=;
+        b=a+uNJZEMjD3JL1IaN6uEiGCjuKHSZsmBXyy6GbMxtQ55zB+QbHvdt28LHEwb4u93Kk
+         hQ9gU4UVNz7zTkRLPMdgHwxtKQ+/SDZYtUYmeiPZuPgfwycwrCmizEjU9mZG0K57sGb/
+         ahqGd8SQ7qUZjvTw0kTPqJfJr+zdWmeJzipnE4KOCdiJLfcbKrbn66RIUX7OCDF1OdEO
+         j+YbU7F+ZacWF5OG3o6zugTr7ytL1dSSGd8XqhCQ5Da8lcjz8rrWOIdwYJX0FhD9FWAJ
+         CzW0mSYNJFC8R4i04SlYKe+ACRUa1VM8nlFovJ4oChvFmhYr+grrQSAUSXs1m2wZt/Xu
+         sG2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAPdiNYwQ2vePmMC/PxlwaAQO5EURz56CzgMpETXHAMNesji5pcBvKkPRMc7XErDRL3lyiC5eY3cS0yfA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QBFZ+oGn54va2rMfm4pQ88HJQKAX8SnesHar1mJCa/8HGv23k
+	zARKld3mtROF4fbbgFvgtwSyC966fBQsvWs8CUcv/AsblZxU0d1JxYloXv3Sw4iWehHI7ATK+zI
+	L6tcbu0X0Dk9264vqk2RAmE7subQUhzZ+8e4u6jjn4V4x9qh19LKa3MoR
+X-Gm-Gg: AYBFou0VvuyQMtAWhU33VWaeSD3NauEBwVZk3biGCDxTMnR7I4TvXz6a2Q4LAUXAFF4
+	npOuZasQMEEvU5GQg1OA9L+8sipWqoOXSwHRtCgrY9bf8DxNMUgKhgiyRbKRRib1mPK5lBAZrQX
+	KqaIIWrvr/b97km0/STpYW9bKnVrZQ/G1IMCAhZajrLiPn4E8ylZw6Sj6pynS5P/QWK0H48H4dh
+	9hanat+evEGewI2KK+80/xSjyy/1Zl/WIF34sjfgXy8ZirXHqBZB7Hx593B4XVXf7p0iTEtQQCR
+	aSrSaJ4WKUGzQVb4pJJxMt5o7JrNVvGmHPeqYKth0HldKW2+pTs1lLXxohQYxxgHchFc4nEXWtk
+	RA92edjlvRshUbNjeGe79DyUwSjHII10u4MW66WKxhv4MogGNyRx5zpLRZ0IRml2yqEoD+yvU0y
+	Ly2QGSSZDvjFL4
+X-Received: by 2002:a05:6402:c50c:20b0:6b3:f05e:fd79 with SMTP id
+ 4fb4d7f45d1cf-6b4d497e5f9mr8204762a12.21.1793786184593; Wed, 04 Nov 2026
+ 01:56:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,95 +104,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 11/15] hugetlbfs: do not grow a sealed file in mmap()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261028-fixes_hugetlb-v1-11-a0a033db180f@kernel.org>
-Date: Wed, 4 Nov 2026 17:55:32 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mel Gorman <mgorman@suse.de>,
- Andy Whitcroft <apw@canonical.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dave Airlie <airlied@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Peter Xu <peterx@redhat.com>,
- Breno Leitao <leitao@debian.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- linux-doc@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-s390@vger.kernel.org,
- Chris Mason <mason@kernel.org>,
- stable@kernel.org
+MIME-Version: 1.0
+References: <20261022-evdev_syndropped_fix-v1-0-b5400740e1f7@google.com>
+ <20261022-evdev_syndropped_fix-v1-1-b5400740e1f7@google.com> <aulT9-9OU5VE_PpL@google.com>
+In-Reply-To: <aulT9-9OU5VE_PpL@google.com>
+From: =?UTF-8?Q?Kornel_Dul=C4=99ba?= <korneld@google.com>
+Date: Wed, 4 Nov 2026 10:56:12 +0100
+X-Gm-Features: AclHuK8jBOCIKnQpO3m0aaz7IJblEPHIyIkKJZfCtJmy3_bgKhSECD37vY3wjso
+Message-ID: <CACF_fqmxJCQCnDXadU2MgEqkrabwNLkMy_ZQ2pdxb+3bfNsu3Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] input: evdev: Always terminate SYN_DROPPED with SYN_REPORT
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <140D6576-3DB1-464D-8934-6857B84EA784@linux.dev>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-11-a0a033db180f@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
+Hey,
 
+On Tue, Nov 3, 2026 at 4:33=E2=80=AFAM Dmitry Torokhov
+<dmitry.torokhov@gmail.com> wrote:
+>
+> Hi Kornel,
+>
+> On Thu, Oct 22, 2026 at 01:39:12PM +0000, Kornel Dul=C4=99ba wrote:
+> > Per Documentation/input/event-codes.rst, on SYN_DROPPED:
+> > "Client should ignore all events up to and including next SYN_REPORT
+> > event and query the device (using EVIOCG* ioctls) to obtain its
+> > current state."
+> >
+> > Currently, __evdev_queue_syn_dropped() queues a standalone SYN_DROPPED
+> > event without a terminating SYN_REPORT. This causes two issues:
+> >
+> > 1. The queued SYN_DROPPED event remains unreadable until the next
+> >    hardware event frame arrives and finishes with SYN_REPORT.
+> > 2. When the next hardware event frame arrives, SYN_DROPPED is prepended
+> >    to it in the same packet. Compliant userspace clients then discard
+> >    the entire hardware event frame up to its SYN_REPORT.
+> >
+> > This was discovered on an Android system with a gpio-keys backed device=
+:
+> > 1. gpio_keys_open() reports the initial state on open().
+> > 2. Android follows open() with EVIOCSCLOCKID.
+> > 3. This creates an unterminated SYN_DROPPED, causing the subsequent
+> >    event to be discarded by userspace.
+> >
+> > Fix this by appending SYN_REPORT after SYN_DROPPED in
+> > __evdev_queue_syn_dropped() and updating client->packet_head
+> > accordingly.
+>
+> I do not think that injecting synthetic SYN_REPORT is a good idea: we do
+> not know at what point the clock change will arrive, it may arrive in a
+> middle of transmitting a packet, and if we discard only half of such
+> packet it will result in incomplete state being presented as complete
+> one.
 
-> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Chris Mason <mason@kernel.org>
->=20
-> hugetlbfs_file_mmap() grows a file when a writable mapping extends =
-beyond
-> EOF. We are missing seal checks similar to hugetlbfs_setattr() and
-> hugetlbfs_fallocate(), allowing a user to grow a file that has =
-F_SEAL_GROW
-> set.
->=20
-> To fix it, skip the resize when F_SEAL_GROW is set; mmap() still =
-succeeds
-> without growing the file.
->=20
-> We currently also allow CoW mappings to grow a file. Disallowing this,
-> maybe even only for read-only file descriptors, could break existing
-> userspace, so we have to be more careful. QEMU's file backend is an
-> example user that might rely on such things, and would suddenly start
-> getting SIGBUS when faulting in memory outside EOF.
->=20
-> So be careful and focus on F_SEAL_GROW for now.
->=20
-> Fix generated by an LLM and sent by Chris Mason in private.
->=20
-> Fixes: ff62a3421044 ("hugetlb: implement memfd sealing")
-> Cc: stable@kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: drop comment; simplify+extend description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+I don't think it's possible to flush the queue in the middle of
+receiving a packet from the input framework. The only callback evdev
+implements for parsing incoming packets is "events," which I believe
+is called only for full, SYN_REPORT-terminated frames.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+The only possible scenario for flushing a partial packet is when
+userspace has read a part of a packet from the queue. In such a
+situation, userspace will only see a single SYN_REPORT, though:
 
-Thanks.
+1. A full packet is written; userspace might have already read a part
+of it. Let's say that the remaining part is: [foo, bar, SYN_REPORT].
+2. An ioctl to change the clock is received. The queue is flushed and
+replaced with: [SYN_DROPPED, SYN_REPORT].
+3. Userspace now sees the part of the packet it managed to read, plus
+the [SYN_DROPPED, SYN_REPORT].
 
+> Compliant userspace should not only discard events until the next
+> SYN_REPORT, but also query state via EVIOCG* to reconstruct full
+> picture. Is it not happening?
 
+Heh, good point. In my case, userspace called EVIOCGKEY(0) and
+EVIOCGSW(0), but it didn't parse the results correctly. I actually
+fixed that too, but for some reason, I didn't realize that it meant
+the kernel patches are no longer needed.
+I'm not sure if this patch is relevant anymore; sorry for the noise.
+BTW, the second patch in this series is only relevant if this one is
+applied. Because of that, I didn't respond to your comments there.
