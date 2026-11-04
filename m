@@ -1,82 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813745;
-	b=tgDtIKyInFbPjoSjT4EgPYTSXUPzFUWJeyNk/qh65MUu+ShT8ZMpfQ22fRiX27s6DBRj
-	 ELe9oLoKWcSpy8i3eYdSQhxQFBJ2EDa1aqTHwUI/2UD0Jr3ZaDF6e5Kpl5khKTkua3ac2
-	 BVsPR+WsmPrSXHV4QtSlz8oyOU0BiaMfi9SiaeaLQNPCkDdPsLIAaQ9+ZCOwIYSAQR91g
-	 mxOpAgNjspDfeVfTiw6YAXpbMaIwEzSPFT6EEY9oIdPgYZJGkbLjnu6iqtI9xqUz9B6P3
-	 umVaS1Ya7qnL9ZvDsPodbmmZpHF480u31jOPkH4cJmcI9dayzYPeaWIbtuwNWRbOF1Q==
+	t=1793813769;
+	b=l2br0Mtr2zJWuPIZTs33+7ZrfyHALYaed5zi+IigBiEaYIoYrHuJjcEDsMh7AlkmIoL9
+	 z08DwiqoqlHs+Khnrux51PJ+OHQaxQ6Ijkw6R6XA70HNmPNv5FcipqaqWO+030RgfikJG
+	 H4xM952cWcxQYp4XzbE8tlkeloSh2lTSx6WhdW0jQXU7a5nPNQtpC9A/X4mhSlMxFNq2A
+	 QvzCMbWd1OHb3kZ2SRbPtGBU6o0qielUrlTUBsEv1iVlHt12DV1fqgsIv3XIRzS3VTtxx
+	 ujYxCeeOp2rzrhs7lLwYd3PGNcITqshw945a2beXogX8fnBVVZ9g9PxC1RSqtYU3DIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813745;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=m06/Z+wSj59Lj3STeXezEGxBP0eygnMgmS4pExrvRFg=;
-	b=PlIEqZ4n4iQN6E66k6Aj4xCb2xjgH2JWe256Mf7MpyciywjjZeO92OXGy3rFQAr7PorA
-	 pqHRZyVhV3gEOmpWqvIAvVFvzglfoTmRcgqcwfaBBIO9MYZw9R+97TNGzxpCgNBYLs0uk
-	 P4GIEDWKd+GVaPwXkTUgkF39zFOSMO1Gyk2tisNxJ8wm6gJdxCoOFdC6P6E52bR6U5WxN
-	 Lhpk87puEOx4Z+jkM1VMZCHQGvft1JzWYWuVxPkl2t9ZqjUciRjk7UEnnA1n8N0nU54Cb
-	 VsFwqjnIepvSncj6tAVILJEQ/vV/JaxJgZPYxsPmLiLDvMbqgYRZ1DtG23bKm9e/D2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813769;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=6zWWmAM/EjSfX+fzNtWWpqxiPfU3InnZ+YWyZ8VpU1Y=;
+	b=DPGt8lJJVOCpbWmfwBvUd9jBSq5/0R8sNEhkmpKW2PaAqoSWkMlstppydOj3D2qTggXr
+	 gMGARu5v3OMfMA61fjccd9K8fXthEHSWUJ3OU1djx8kfRqAm/QpR3YnmbRBN497HWm5Pa
+	 goHMZIYgEWu5sX2APjGYEbdvLdRCbXS5LG3KpAexbEulS8BoxgEXGi3ZfYOZJWJZjWPPd
+	 xpiMRhHaUwY5pErS6zgGCXaIP2gSH3wgK0JLtwDxzeWmUjJi7XeDb6rUVqb4beLlmOlna
+	 rV6kLobyiWY6vRaJvyx7Bmh/ZXzxDmEzOn7VBFkbw6tBKHEOU2tNpwESeXnRqrYKk/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DjXlxgd5;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wufik20/";
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33949606ECCB;
-	Wed,  4 Nov 2026 17:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33949606ECCB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A560606ECC9
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:36:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A560606ECC9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DjXlxgd5
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FiAJD966810;
-	Wed, 4 Nov 2026 17:35:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=m06/Z+
-	wSj59Lj3STeXezEGxBP0eygnMgmS4pExrvRFg=; b=DjXlxgd5MWc41a4+sgXoZu
-	8todMlWfwXpkdM30W1AmcMbcIhlJc0MAgdISIE7vh2Mlf7rBM+7QePhUzJaolCIy
-	2lCJiaCGz/sht0YqGR4voYiVJTQUJqK7Vo26tjJfzcj3eQJblZFOInADce2O6XoN
-	cTSzb50Dj8/pjd79lmZoSz8OFnbcl5zjsyT9EVbqEQGrxKNM2o4V7caIMbzGt3ny
-	egxPiZ947dWQ6bHOVI925c8f+grOsfqaZkSRampTf6UfwxVUE0iTLgzpabGCjhCJ
-	TafzDNhqUBlu/+Hmvw+sclQFUWzj6tsTxWSTJ9DN1awcNbmDHYf1CoJMAo0n312g
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7ys4yvp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 17:35:37 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fnxva204445;
-	Wed, 4 Nov 2026 17:35:36 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqf0geskx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 17:35:36 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4HZY9W52560158
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 17:35:34 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1E8802004D;
-	Wed,  4 Nov 2026 17:35:34 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C8FCA20040;
-	Wed,  4 Nov 2026 17:35:31 +0000 (GMT)
-Received: from [9.39.27.115] (unknown [9.39.27.115])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 17:35:31 +0000 (GMT)
-Message-ID: <54afe357-b6f0-4d72-a2eb-474087aa880c@linux.ibm.com>
-Date: Wed, 4 Nov 2026 23:05:30 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wufik20/
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df4f540ebso523838f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:36:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793813768; x=1794418568; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6zWWmAM/EjSfX+fzNtWWpqxiPfU3InnZ+YWyZ8VpU1Y=;
+        b=wufik20/hF2eGBxiq5EJOIEIs3TvBuHcrkCWZl4iunPIc/jhCgNNuuYqUB/VKoz4nb
+         rdlyC7Q0EPWILdkaRhUzDeEyKof0V28bqH2T0TlHfpRVt1Qe5Baf1lwWsvLU/75RZlbh
+         bqB0ykMxUep4Ur8yvE6fkibug9V5IZpeyAAIDrui3507ekFUacV6zsNvNAAMT3plDzfU
+         264qGYsGhaynzVWx2lPks/HF4qzlYieu62zoC2GL/yrIul+6mlfr4wr5bM1HKLPEqyOl
+         5CCD9HtILxCwa+SUjsFF0ysOHZLYiIna7ALDMU7R2oKtXjqJMScQ4bK1U58WOy0n75d9
+         TakQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793813768; x=1794418568;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6zWWmAM/EjSfX+fzNtWWpqxiPfU3InnZ+YWyZ8VpU1Y=;
+        b=Ry4ZhVCKitVGxwMz1DiBBf7oSnykJFlj3A+EXbOYJvUXlTJKIef/DREpdq11g0OAp3
+         OzDJRKs6gjxIVkfXjHhWOz5mZs1lPm7enVnkENX8ggcKv1Jav5b0PhJuwZA/pROZ9fVN
+         RPd3MFggvDySBEopbOtrECH/UB55dRZvRbJDzcbTUB2wV1uJ4qwl26aQHOsX6E0jf3SI
+         NSikPZCkfqlcKZv6wMc9wwkE7PHu54z0rb0NLMgEVPtpRvGG4EsEvSzEn7wp+9CJvGiO
+         LbuJK2A1sWOCRx+OZIgjmPGoym/u26EODQmGGwvmMXrXAA8usUXgW8HOmAvX+xYrO+Rq
+         eOGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzivimLZaNJe9tBBDUnD/FkwBxEa/ZIUXR7PT4pJvmQe0lZ7gc3qbz44bZN94ZY0GPou9/IFVlOunRlZlE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/mQUGZG5jsgGrJ4rxj/sUoE4M+Mxf994XVn06qutccOJkmPdhH
+	q07XNKTaNb36FdbfQt34lBTB/I+0kMihH3RQHK87IgqNmkB6YBaEg7H1
+X-Gm-Gg: AYBFou2dkiAu/tHrMZfKPNqyTYIV0HQaivEM4PCxK+ZK5TQRzio5LchYpsxJ8y8Egi+
+	mV5DVlxwduUE6HOJUWrrrOOS5ziJhG7hxVLl/oSYSg7dYF1mmLgD1Lcx3Z1tQdn+AMM4Xb5uIOk
+	Pn0D7VMkz6lzIrmA7KUAUVesB03izJ1K1ByeoDWsfCOSvLSd4fJjR34bQLkOTzTu0BpxwUZ/+A3
+	jarwgZBKHpJ1qkhG5usj+qt5/xpzskU3FZRnCW6qHC+KzBMc0z5DotRvPl0lJrFW70ugDm4L3/b
+	DW2a6nJSZNIV8TmkurXGbWtVh1SZ7MHt/aqUboJmvLMZHDUzHTN7+cAs3UP3pTUQVkW6r7tfihO
+	XKWqjVsD3c6xpoE/8kjmt3+I62dLqZhdyn9cZa6ggFh2TPeCGoGERZ54pg3P00z1oG0tQemTa9e
+	RHBNF7v1PB2ntR5NjCUIUlq1vKhsWPURklWTv3esJ/xhW7pK0F09sLt31ZD5fTNL4QngMHPqGJ8
+	WjlhGFwqFjJFEUnbFt31y+aNjPFNFcECQopmSgM8Kv0EsSDnLSkzhVtqB+spmAnOZT+R9kQuZf5
+	GyNotE7ZtR1xJW83kxX6rwYoQxdiGxcWv8g2o7ypEs/ZkxvwEiK7Gv6g/YFb
+X-Received: by 2002:a05:6000:400c:b0:48e:35d4:55b5 with SMTP id ffacd0b85a97d-48e6e518368mr33802651f8f.52.1793813767532;
+        Wed, 04 Nov 2026 09:36:07 -0800 (PST)
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac2772sm4825519f8f.18.2026.11.04.09.36.06
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 04 Nov 2026 09:36:07 -0800 (PST)
+Date: Wed, 4 Nov 2026 18:36:03 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, xuhaiyang5@hisilicon.com, xuetao09@huawei.com,
+ caiyadong@huawei.com, suzhuangluan@hisilicon.com
+Subject: Re: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Message-ID: <20261104183603.17d663ce.michal.pecio@gmail.com>
+In-Reply-To: <b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+	<b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,153 +100,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/23] KVM: PPC: Flush/zap all memslots on
- kvm_arch_flush_shadow_all()
-To: Sean Christopherson <seanjc@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jim Mattson <jmattson@google.com>,
-        James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
-References: <20261030212112.2598640-1-seanjc@google.com>
- <20261030212112.2598640-4-seanjc@google.com>
- <5bd7e8e9-3614-4006-a3d7-a51416ba5507@linux.ibm.com>
- <ausz4VZWa_4Vr03v@google.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <ausz4VZWa_4Vr03v@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Mcr5KJ/f c=1 sm=1 tr=0 ts=6aeb6ce9 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=6Y2wuOs38zrcC-dcLCAA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2OCBTYWx0ZWRfX6zr4fUBHmFzo
- xy+p4saVE8hRJAQb0i89tY29WU0L7JKvwsHhtRfT/ReA/vC8wvXYN+z3T/b7EZw+FkAduyVF9FI
- 15ZYGrzyDLVkU+IIlAG7ofbdzBbxEl4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2OCBTYWx0ZWRfX2oXXojsH1RnK
- DJlJ1/FLSJwZicC1aLKjh1HDAayBinpqsb+pXCc3B0eotXovHOjGKjrYrxaZuqaHmuKBvsj/HYC
- btwqXGZ7x6V02Yb8vThO2rHX5tzmQpqAiqPi+ZjZsyXMMy5UPqRMjxKaVrYzjS5UVc4vcbz3Xix
- iRLXpFpGURIqtFaZZYV7TQgED+HEjFQXAkqFt3hd9JFwFjs9zUdpszo83T6BcZRr9QvehjaNmlf
- NyI35HrHmqqd37dk3aGXGC4SleZN+BFbHYy1EYtlRRzuReRvNvuz2VxRDKegruQnWUHS4YkOZoa
- XS8/BxNMLZ0uLZQbsQNLNEygsaV6r7AKiCDzxW0QV8m08IU5BxTIQnwzRg333CYeCS+E/OAc4Fx
- RBjWFppagwUyLMHqEXt3P0Cr4YrytOu+qZ+ZjIJx3q3tyPres1mFz/ftuANsz4uQZDa1sG0LCqW
- dw2JPcagYbnG+fZBNQA==
-X-Proofpoint-GUID: la8gAgS5o34WXMxf9_vSgnP6iEte2qja
-X-Proofpoint-ORIG-GUID: udZeEeBj7KLIqpRh3DUf2gkqGXZD_-8L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040068
 
-Thanks Sean,
-
-On 04/11/26 7:02 PM, Sean Christopherson wrote:
-> On Wed, Nov 04, 2026, Narayana Murty N wrote:
->> Hi Sean,
->>
->> On 31/10/26 2:50 AM, Sean Christopherson wrote:
->>> Flush/zap every memslot in kvm_arch_flush_shadow_all(), i.e. when the
->>> owning userspace process is exiting, as KVM must ensure all associated
->>> memory is unmapped from the guest.
->>>
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Sean Christopherson <seanjc@google.com>
->>> ---
->>>    arch/powerpc/include/asm/kvm_host.h |  1 -
->>>    arch/powerpc/kvm/powerpc.c          | 11 +++++++++++
->>>    2 files changed, 11 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/arch/powerpc/include/asm/kvm_host.h b/arch/powerpc/include/asm/kvm_host.h
->>> index 708a32f89776..50a42f80e5f1 100644
->>> --- a/arch/powerpc/include/asm/kvm_host.h
->>> +++ b/arch/powerpc/include/asm/kvm_host.h
->>> @@ -910,7 +910,6 @@ struct kvm_vcpu_arch {
->>>    #define __KVM_HAVE_CREATE_DEVICE
->>>    static inline void kvm_arch_memslots_updated(struct kvm *kvm, u64 gen) {}
->>> -static inline void kvm_arch_flush_shadow_all(struct kvm *kvm) {}
->>>    static inline void kvm_arch_vcpu_blocking(struct kvm_vcpu *vcpu) {}
->>>    static inline void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu) {}
->>> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
->>> index 9194cf492d1c..9e9d0865c2f6 100644
->>> --- a/arch/powerpc/kvm/powerpc.c
->>> +++ b/arch/powerpc/kvm/powerpc.c
->>> @@ -764,6 +764,17 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
->>>    	kvmppc_core_commit_memory_region(kvm, old, new, change);
->>>    }
->>> +void kvm_arch_flush_shadow_all(struct kvm *kvm)
->>> +{
->>> +	struct kvm_memory_slot *slot;
->>> +	struct kvm_memslots *slots;
->>> +	int bkt;
->>> +
->>> +	slots = kvm_memslots(kvm);
->>> +	kvm_for_each_memslot(slot, bkt, slots)
->>> +		kvmppc_core_flush_memslot(kvm, slot);
->>
->> For Book3S HV/hash, I am not sure the existing flush_memslot helper can
->> be used on an active memslot like this.
->>
->> The normal memslot invalidation path seems to deliberately establish
->> the opposite ordering.  kvm_invalidate_memslot() first installs an
->> INVALID slot and makes it active:
->>
->> 	invalid_slot->flags |= KVM_MEMSLOT_INVALID;
->> 	kvm_replace_memslot(kvm, old, invalid_slot);
->> 	kvm_swap_active_memslots(kvm, old->as_id);
->> and only then does kvm_arch_flush_shadow_memslot(kvm, old);.
->>
->> The comment there explicitly states:
->> /*
->>   * From this point no new shadow pages pointing to a deleted,
->>   * or moved, memslot will be created.
->>   */
->>
->> Similarly, kvmppc_core_flush_memslot_hv() in
->> arch/powerpc/kvm/book3s_64_mmu_hv.c relies on the memslot already being
->> invalid when testing KVMPPC_RMAP_PRESENT without locking, as no new HPTEs
->> can be created.
->>
->> However, kvm_arch_flush_shadow_all() in arch/powerpc/kvm/powerpc.c now
->> invokes the same helper while walking active memslots.
->>
->> Is there any serialization in the mmu_notifier.release() path that provides
->> the same guarantee against new HPTE creation?
+On Wed, 4 Nov 2026 09:59:24 -0500, Alan Stern wrote:
+> On Wed, Nov 04, 2026 at 08:44:02PM +0800, Pengfei Lv wrote:
+> > Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+> > all device speeds except full-speed devices, where it can be 8, 16,
+> > 32, or 64 bytes and can only be determined by reading the device
+> > descriptor.  During the initial enumeration of a full-speed device,
+> > the USB core guesses 64 bytes (hub_port_init() with initial=true);
+> > after reading the descriptor, the real value (e.g. 8) is stored in
+> > udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
+> > via an Evaluate Context command (xhci_check_maxpacket()).
+> > 
+> > After a port reset (usb_reset_and_verify_device() -> hub_port_init()
+> > with initial=false), the "if (initial)" guard added by commit
+> > ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") skips the ep0 maxpacket
+> > guess block, so udev->ep0.desc.wMaxPacketSize retains the real value
+> > (e.g. 8).  The xHCI Reset Device command preserves the ep0 context
+> > as well, so the xHC ep0 max_packet also stays at 8.
+> > 
+> > When the subsequent re-enumeration then uses the "new scheme" and
+> > issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+> > xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
+> > Context command.  The xHC queues a Data TRB of length 64 but applies
+> > ep0 max_packet=8 for short-packet detection.  
 > 
-> There can't be any outstanding *usable* references to vCPUs at this point.
-> mmu_notifier.release() is only invoked if the process is exiting or the VM is
-> dying (which requires the associated file to have been released).
+> That's exactly what we want it to do.
+
+Should we want it, though?
+
+Were there known devices with bMaxPacketSize0 <= 16 which required the
+whole transfer to complete before they are reset?
+
+That's not what happens in the initial iteration, so it seems any such
+devices would always take two iterations to begin working.
+
+Is this what the only correct Proprietary Operating System does?
+
+> >  If the device's first
+> > data packet is exactly 8 bytes and it sends no ZLP, the xHC does not
+> > recognise a short packet, keeps issuing IN tokens for the remaining
+> > 56 bytes, and the control transfer hangs in the Data stage until URB
+> > timeout.  
 > 
-> If the process is existing, KVM_RUN (and most ioctls) are unreachable due to the
-> "dev->kvm->mm != current->mm" checks.  Not to mention that if the process is
-> exiting, doing anything with a memslot is completely broken because it means
-> things like hva_to_pfn() are somehow operating on the wrong mm.
-> 
-> If the VM is dying, there can't be any references to vCPU FDs, because each vCPU
-> holds a reference to the VM.
-That makes sense.
+> That is the correct behavior.  Indeed, the same issue applies to _any_ 
+> 64-byte transfer (not just control and not just Get-Descriptor) when the 
+> maxpacket value is 8.  If the device sends an 8-byte reply with no ZLP 
+> following, the transfer will hang in the data stage.  That's _supposed_ 
+> to happen.
 
-I was considering the normal memslot invalidation path, where vCPUs
-can still be running, and overlooked the lifecycle guarantees of
-mmu_notifier.release().
+Right, all those details about HC behavior and xHCI internals aren't
+important here. The device is out of spec, apparently expecting the
+host to always use MPS=64 for this particular request. It should send
+the full descriptor in response to further polling.
 
-Given that KVM_RUN cannot be invoked once the owning mm is gone, and
-that VM destruction requires all vCPU references to be dropped, there
-should be no path to create new HPTEs while the flush is in progress.
+More useful would be information about impact: what this abomination
+is, does it always fail to enumerate on the first try and trigger this
+unsuccessful retry, or only in exceptional cases? And of course,
 
-That addresses my concern about the unlocked rmap check.
+> Have you observed this problem in actual testing or is it purely 
+> theoretical?
 
-Thanks,
-Narayana.>
->> Otherwise, couldn't an H_ENTER or fault path create a new HPTE while the
->> rmap is being scanned, or after it has already been examined?
-
+Regards,
+Michal
