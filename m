@@ -1,101 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787467;
-	b=rO7eMrLVPhmPo/nmd1tA0NACAK48PdB0zXvbcCXh7GO4ZMecD6M263Lc1jNbBWEHXer3
-	 RfkcMsrCA8M4Ubn85FhVMnIoAJFeC2f+jVwxpedbdN5En3SC2A7/tQQ+Sd7gIEs+8kTi/
-	 G8NI7orTrQO/u+bbpKZiIiiD3yDGQ10bbOpUCpXnAau2Zm96wDSufVyewvGA6cA+dZ32R
-	 QZoRRel919+hH7ZCo8JmAfnWivz3ZsdLz/iKKm/WMD9gX073R0TPj3I3neC2+3QwvOl7Y
-	 U3fL9dWL49ByZyn8hcn/dcm0udrl8dIvxaFryq21Pk2AqKbca4oJPogbEgDo/+mlb6w==
+	t=1793787475;
+	b=onHUX5Z0peOtYpYi0I4zrJII3rctbagIk1x09rYSbEABIRr69hlnfupaCdkXo5MXHf7V
+	 CWOviRB208YAaCsy7zDme1NCL81YmBdT2cP+0BT96xGIf43DlWQdePe+EwT5Nwig/MK8O
+	 O9r3tiMi68F4lQxXJq1L3NNRm2DgeyYdZem0BrHR17OB6RYBAhWWE8eE6FuiJlUKt1Y5C
+	 waHVExPJZb/XbpIezhqSvbKVnSWoQNFTwCvq3TMrG/Aqwe9Pdj0IxB8I5Cy71X4IuBaMM
+	 rN7aMjq/BG61XB0RooTIyoLHbFDPzwN+xmm8A1+6huUWPQFIl83MTbh2L8KkgCddCpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787467;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nafaEA1OVG7CjcE+9vFCf00bZY6KpgzCNwfvKtVMnW4=;
-	b=VQkmiW6TAis4c+AuNFS5Nk2dFoWuNiPQtjftibAsMIjUZ5IALwYu1Aat+L8nEOL7TnOS
-	 zaDvmPc5yU+YQzJiXMMjaN3DGM1Njlj1HZ8K5wxo5hXp2XiHA5tDqnjfsZEjzluq7ou9d
-	 VY6eAokRM7/91ecZc35sHm3RBFtNWjdppsW0BUUo9f6218pu6pJu4TsfJnc8phMNW8kn8
-	 XpDHDzYEGVnTq1+fU59TSuhu8RER9YURPPPZguHmRN4nUnSr+tjZzR4l16lJBDr9afeNp
-	 zcJpz9BR9RhF+v6ml1/8dM4+jSbKeiptIAAgpMZcQlA9yw9o8o7C9g4FkbUe3C+0P+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787475;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=5ut8NFXKl0VORDomAfnUZx+oz3sFVutLuYOBR9qWWWI=;
+	b=DvDkMweKq2uE6wzfnTQyZjHJqmJJ1Hmn0t9wo/0C+efX3t2Uf8l1feu3v9udCV+jbqYx
+	 MgOYwJB0gbKI/n5KfF7/qJJAwb4Mtb0iro48xLdUYVdKcCECJ6nawuw1UPyyeTOf9xf6z
+	 YGYj2XIRrVeB/i8V5NIVH1sFsAkICXU00jzeI5+Mub6XE8Dzvt3neuNQeOvVCP4I8+1uE
+	 Kr0S3sroSDz5OFialJx9eeI9MEjdBada8yBiw7u4qqqETbFZLJxAJ0xI6tn/KwOhLsUUO
+	 A1vwCfdlLc9ieHHJtnPdkFW0o17PKXCtq528nW1qEEHwHqN+g0oD4R8jdRZMu5ntTqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=eHnPGaGy;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5OIqhcm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B57606A32E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:17:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B57606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94796606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:17:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=eHnPGaGy
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e00eee27dso269468f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:17:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793787465; x=1794392265; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nafaEA1OVG7CjcE+9vFCf00bZY6KpgzCNwfvKtVMnW4=;
-        b=eHnPGaGy9vjCz3endU7ujp9oiZUhTPhQRDiNW3N/hOwyLbS95T+qAJ0YpwEurjgD4h
-         W8PW5edMps4nIXks6isfmzvTgbMPYOe61Q+xtyVIiNv/kxY8yAPP38hl4xgFROOY2FL9
-         pvRFjtaaOel13Fqy/pwiop+UvoLlnaknkrkcE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793787465; x=1794392265;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nafaEA1OVG7CjcE+9vFCf00bZY6KpgzCNwfvKtVMnW4=;
-        b=z9BQg/HgSKjqpLwUP5ceejyKX5PKC3e0d8sP0UtxcVEiy/TrucUWy5aZsbdOu2ka0C
-         /qdQczZdR7QgxL4V5Xv0N/tTNSfhWijC3BFcT1iyqUDM1cge+oraiBOXqZTlnixKpB17
-         ePxfNw7m0HWoL7+PaxOC+MDUfrgp8IdENYqefKU7+naH29olba1GbT+N3CE7JKCSl7+g
-         8+Edl/QKdmzPFTzFLJ3OPnwl9SUFopHj5iFciqQxSYqV0iA0+QYArn6yiwFjhL7x1laK
-         lb3AlnQ0FKtQCzv1MQkF2pi3TUHpso5S1rxlsoYNr5raXTDLtCIWIEdVhzt5nIjgZzfd
-         ySXw==
-X-Gm-Message-State: APuU4Z9hL/nP+nB0yUwjMSwF+FNJBeWFofm/u6hdCHIeFh2EAPfpqYFM
-	ygWHhRVxzfERCyHLCxlebNnzmEPKzaLAAGR9lhAsL2LNX4f1GiEhGYnS9P6jog0w1hFkgEVJW01
-	FCcD6
-X-Gm-Gg: AYBFou24g8iCcl7iGnFy9nMpcS47AoV86//WqJqbSXj1pMeSmG2Ht0LIEgOOo0CSEk0
-	8VggwABFKuulqESaWEK60DE+FKngGqC00P3WNtDEz25fn+MxNOLhCbD6BneXYjx826GhaceOLtu
-	sOa6qTam0Hq7iht+PDg8MGLKBhvWxU4cAZWK9oobcrhWyp0EIuZS2BFJQ7GFLWfUqvQZCVD5spA
-	xK3VEHg+d5eH9I9xwLy8d5kGvFN3eIuMJLU78vrCBNcrpc1dvTR06Ns6RwbfkmWiJGk4NYLE0R3
-	xY1BD1vERLOmgXNVOAONYYrFPk+qMXk4CLVO6alHu5PB+I/1oRvO2EzYDDF0ftX42Bq9GLn+yJC
-	oohlGnI1JPiFnUTLKZbsLcdW2QehJuOBTOQ3YUbNir7zOZnVsJjYt8Y4HIM58zzYFQQynSWV7fj
-	5ifV7+D1eSOINzvugpBT/akeExhi8ht7YwE5+Fc/aZu0Zy+l6Yus1r3EevlVzQrgtiEIhmxzEx3
-	CNcXAGPXCynLQ7iQgSPnsEv7FAD7H0264NPsG92PgA5i3TfEIWoYTgVhqMtPDrbVNLjXc89n0Mn
-	40L/3ojR9rf0PMDtDz4IM9MhOOpB5tzW0OylgE0nmGMXJbO00Gn8f54i+LZzcQjlyO0rJP61h5t
-	p6hIcrFRku2JLXs2xm6XPKALHrB4WHQ+aUB0FEXGwsDPzP264XBoV
-X-Received: by 2002:a5d:5d06:0:b0:48d:ef7a:e59f with SMTP id ffacd0b85a97d-48e6e2fa482mr34138879f8f.17.1793787464715;
-        Wed, 04 Nov 2026 02:17:44 -0800 (PST)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([217.201.213.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb51a9csm3035105f8f.59.2026.11.04.02.17.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:17:44 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v4 1/3] dt-bindings: clock: ti: dpll: deprecate the ti,ssc-* properties
-Date: Wed,  4 Nov 2026 11:16:55 +0100
-Message-ID: <20261104101732.4043372-2-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104101732.4043372-1-dario.binacchi@amarulasolutions.com>
-References: <20261104101732.4043372-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5OIqhcm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700371F00A21;
+	Wed,  4 Nov 2026 10:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793787475;
+	bh=5ut8NFXKl0VORDomAfnUZx+oz3sFVutLuYOBR9qWWWI=;
+	h=From:To:Cc:Subject:Date;
+	b=U5OIqhcmplDBGx9vswk9PzFZlp6UpqvHgTvJJ0hm4ECIb1Q9fUkdB4qjnkZL4EOih
+	 5PtkmXx0Lbgir1/JBrQl9yP9nYEJVF0lXv3AdRCoEtg01IGbpTI/4LG4w5/pzNdUrN
+	 rlgfhZFAFkIyhnHQ4Hv6VoxgZi+72k3WEVn6rzRry8bba69gdVLaGKxmBYgDJl6RyV
+	 TNju47K6xZqj+2W3hz3NFYT1788hvLuzg7HV+sm40y20vxs8gZfeal8AdWoQQk4/VJ
+	 gSOMjtTXeRp+rSzSqeUjF1eyNt6594beL8DxkUZkcnSdKfL866CjkxZ8iOa8d0K09F
+	 ertV/j1THPnFw==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id BC367198003A;
+	Wed,  4 Nov 2026 05:17:51 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 05:17:52 -0500
+X-ME-Sender: <xms:TwbrajJyc_t1RXCW76DvdHvplB0es9N7dYshaKKkqmI5svknOFwKAg>
+    <xme:Twbraq1-ngiZe6P7LsXlbe2DzUFTim9loS1jg6I3Vld4h0lIqNPJfPHeGkgARoL8H
+    -1bkzQ_uSvOrpHNZPKSerRFotCmAKmGVqVMbPGwg0SS7R8KlQkR8rY>
+X-ME-Received: <xmr:TwbrakWrPqa9fs8ZuBtdAb6dnV05Uni52dDBr8XPH6PFRBTlio8wAybRNmc>
+X-ME-Proxy-Cause: dmFkZTERwdTXLLvNujcwJRmJQoRSjUeo7y+uZlkVzWGPKNwqwPt3Do/dFsSwwEGd2cYbU3
+    ZlMRSjp6hREE5FxEap8oN12Q5oo2+mh09XFzv4qg/3iVrUoQu6ls4cVtL27Qbdv5oZsnUG
+    nrDo/2lNW4RophliGyKDS2Fivykj/V+vRC9OVFaVdaB7mipj/KWjTBuGKHKmGc/meKz+Ii
+    uZ1bqBtutznT8LjL5UsprQCTJz2CcYMKICqv6lNQenhHvANlbIXj0zvC7G0KBZ2VPerqG5
+    ASJrFYoDZP5hwVITdNAWMrO90juZA8nBdS0fdVGifTDLzcGh9eU+hOQfwDbj0iFarezsVS
+    NoL/wMGiqePSjUqwjeM4zUJdmRyj3ovSv5KV0NJ96UgaXSnI7b4fQMznc/cq7UCvim7agH
+    6ySTqS+vaAGZoWzPuBatz3eHTnpApJrZT5qXonMTYpvhYrwjv04LY3VQEFa5qraKQaRdn1
+    LDnIeHwUXRkT/hmeoytXNss8bIODaFT7k1xOub8iIhOgFi8NUHwtV7WEHSY+pXn5HFbV+f
+    jk5hCVGOgaLjET6YsKyJDj6qPbPUL2aoXnO6U0naXL9BBRf0+fleGAr3rty5Sasewuqcbc
+    gmzPdEenxf76b3QPAGEcuDvHXJ09hIargW7nFTijod8c42Ew+7xVTlgbFcxw
+X-ME-Proxy: <xmx:TwbratwxqwB5vulkh0Qk4xLFsj7KgC7HFozUsxDavWx_6nRxGbRnRA>
+    <xmx:Twbrarxq6vWDF0pQLDpi9wD7_P3cLMOmrl5pLYlrgbOMrhHWWBqHPw>
+    <xmx:Twbrai2ZIlz-AIwDuR8hp2yxi36KnAsVwDCqi5c4GGDIQZQf7maPJw>
+    <xmx:Twbrapo5UW7BvgfcvtcaG01hIbbkjf-uJ77MPw9MyDtag6nzPcbJLg>
+    <xmx:TwbraoBiLtl3o4BN_BWqL3mWKSUe3qmcKbH5AkeE7ihTAJApj2GclvsY>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 05:17:50 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH] mm/compaction: sample empty pageblocks again from a random offset
+Date: Wed,  4 Nov 2026 10:17:46 +0000
+Message-ID: <20261104101747.2485913-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,49 +97,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The common clock binding provides assigned-clock-sscs to configure
-spread spectrum clocking (SSC), supported by the clock core since commit
-a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Deprecate the
-vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
-properties in favor of it, so that new DTs use a single way to describe
-the same thing.
+Once the free scanner finds pageblocks with nothing to isolate, it checks
+only every stride-th pfn of the next block.  The stride doubles with each
+empty block, up to COMPACT_CLUSTER_MAX, and async compaction starts at
+the maximum.  A block that gives nothing is marked skip, and the cached
+free pfn moves below it.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The samples sit on a fixed power-of-two grid and alias with any layout
+that repeats at a power of two: when the free pages sit off the grid,
+every sample misses them.  With one free page in eight, all at
+pfn % 8 == 4, a stride of eight or more sees no free page at all.  The
+free scanner runs into the migrate scanner, and compaction fails with
+most of the free memory in the zone untouched.
 
+Tasks then stall in direct reclaim, and huge page faults fall back to
+small pages, while gigabytes of memory are free.
+
+Real memory is rarely this regular; the test below builds such a layout
+on purpose.  On a 32G VM it:
+
+  1. fills memory with anonymous pages and pins one of them in every
+     pageblock;
+  2. frees one page in eight, 3.6G in total;
+  3. creates a million files on tmpfs with defrag_mode=1.
+
+Direct reclaim entries (allocstall) and the time to create the files,
+10 runs each:
+
+                           allocstall
+    free pages at          median    max      time, s
+    pfn % 8 == 0                0      0      4.6-4.8
+    pfn % 8 == 4               86   1544      4.8-5.6
+    pfn % 8 == 4, patched       0      1      4.6-4.8
+
+Sparse layouts hit a milder form of the same miss: at async compaction's
+stride, a block with only a few scattered free pages usually yields
+nothing.
+
+Keep the aligned samples: the head of a free page of the stride's size or
+larger is visible only there.  When they find nothing, sample the block
+once more from a random offset.  A random offset is the usual cure for
+aliasing: no fixed layout lines up with it, and one free page in eight is
+found again within about eight blocks on average.
+
+The second pass at most doubles the samples taken from an empty block.
+Pages scanned by the free scanner stay within run-to-run noise, both in
+the test above and in an mTHP fault benchmark.
+
+Fixes: 4fca9730c51d ("mm, compaction: sample pageblocks for free pages")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
+ mm/compaction.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-Changes in v4:
-- Add Reviewed-by tag of Krzysztof Kozlowski
-
-Changes in v3:
-- Deprecate the properties instead of dropping them
-
- Documentation/devicetree/bindings/clock/ti/dpll.txt | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/clock/ti/dpll.txt b/Documentation/devicetree/bindings/clock/ti/dpll.txt
-index 14a1b72c2e71..8759c328e841 100644
---- a/Documentation/devicetree/bindings/clock/ti/dpll.txt
-+++ b/Documentation/devicetree/bindings/clock/ti/dpll.txt
-@@ -57,11 +57,14 @@ Optional properties:
- 	- ti,min-div : the minimum divisor to start from to round the DPLL
- 		       target rate
- 	- ti,ssc-deltam : DPLL supports spread spectrum clocking, frequency
--			  spreading in permille (10th of a percent)
-+			  spreading in permille (10th of a percent).
-+			  Deprecated, use assigned-clock-sscs instead.
- 	- ti,ssc-modfreq-hz : DPLL supports spread spectrum clocking, spread
--			      spectrum modulation frequency
-+			      spectrum modulation frequency.
-+			      Deprecated, use assigned-clock-sscs instead.
- 	- ti,ssc-downspread : DPLL supports spread spectrum clocking, boolean
--			      to enable the downspread feature
-+			      to enable the downspread feature.
-+			      Deprecated, use assigned-clock-sscs instead.
+diff --git a/mm/compaction.c b/mm/compaction.c
+index f1b2060eb201..475b3a645122 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -23,6 +23,7 @@
+ #include <linux/freezer.h>
+ #include <linux/page_owner.h>
+ #include <linux/psi.h>
++#include <linux/random.h>
+ #include <linux/cpuset.h>
+ #include "page_alloc.h"
+ #include "internal.h"
+@@ -1797,6 +1798,26 @@ static void isolate_freepages(struct compact_control *cc)
+ 		nr_isolated = isolate_freepages_block(cc, &isolate_start_pfn,
+ 					block_end_pfn, cc->freepages, stride, false);
  
- Examples:
- 	dpll_core_ck: dpll_core_ck@44e00490 {
++		/*
++		 * Free pages of the stride's size or larger start on a sample,
++		 * but order-0 free pages spaced at a power of two can all fall
++		 * between the samples. Sample a block that gave nothing again
++		 * from a random offset.
++		 */
++		if (!nr_isolated && stride > 1 &&
++		    isolate_start_pfn == block_end_pfn) {
++			unsigned long pfn = block_start_pfn + 1 +
++					    get_random_u32_below(stride - 1);
++
++			/* The block can be shorter than the stride */
++			if (pfn < block_end_pfn) {
++				nr_isolated = isolate_freepages_block(cc, &pfn,
++						block_end_pfn, cc->freepages,
++						stride, false);
++				isolate_start_pfn = pfn;
++			}
++		}
++
+ 		/* Update the skip hint if the full pageblock was scanned */
+ 		if (isolate_start_pfn == block_end_pfn)
+ 			update_pageblock_skip(cc, page, block_start_pfn -
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.54.0
 
