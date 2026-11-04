@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773854;
-	b=CpHb/PLYT4WD6sHTxXcqg6P5HQl5KpIyaTtR3uYwTGqyH6yliao4I00Xj8lH+FoZk3qW
-	 nBd0xtFeYp2u+nugQCmL+D5M073q8sgBg2ha26v0Nqh2bk3rbaoQvu5iBQr4aUcAsP/FF
-	 4UGhubqvDSoGzs89lDDvdwWZjVcukSBEdc10bUtZJoxK7DC4HVDjdZWdMCCFhcZN+T81r
-	 TwXl43dqlRRhX5OfhwXwBAXHVlDnhS8fqREhswIlBjsl4F722vPh8lnCe7tOJG6fDMGBc
-	 CjrDrznarlw10sol3Y3gPVbHaatp6l/0JDaEiuMhs46irVkXlVv2d2vk35dkcZntsHw==
+	t=1793773893;
+	b=x3td6tuLB3sRmZegr5GmD7bs44ZIxol6/pj7u1tSPGhg+eoqVcKr18UPvRfXMAz5Clpj
+	 gnGhWoI+kkBFEG8s8Koxkb3KC46h0ldDM3ANOLapl7FYxl9vKXDfQSRW9Wf70OlnSGy6y
+	 D/ePvOaMnCtfL0v/ZnFHN7hZyhGmy9EEndiNAQTvCILQV2VcGBKlEyw9K0ozpRN9T0eZp
+	 wdvWDgDtMxi89tt25WlKoFfobp8ftdLh/TezNO6iKYGeHDGVgDOTMhMN/cZcVS7cRKizk
+	 ZSPcFtKpf/ZYP0VXsSjRAdfWavfT1pZn90X4HqZVkWhU7EEkAMUBXzFo+tdx/unIgKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773854;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773893;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=nxObPTj/uIUEGHfeQ9adXhEvppId2c7V0+NPSeSoNZI=;
-	b=HcDg17hf5ccZACW/wBtkDQ9TdWD7asoJtdQOyc5QMNVXlMazoezInBxzn0cSy2zDyzYm
-	 4cCA/+R5ii5zZ5LeUVtYKY3Jn1gWInEUKK4c5FX2EU6gzR6OSQqXR507fcZW/QT891S8r
-	 zCI28IkwqMafpV4elysml05XTcXB01X5c32AMqmvCJvIQBK5ftm7nUd/RW+CKuTimoaVy
-	 FnxYU8qfDD4EZisBaTfE++17x4N5fLyQzMSFCbcZwSG0o5c1LI+stHHxZf3otosPZs4WI
-	 ae+HLFIuxHqw7EqDz8232kbnFYNyvOxvtlbSLovNeJVbKg1rkTtcb/Wr0+GZajGNB3w==
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=f6L55/RbaJ3smpt9qLKGW/waSSFGUX0+URTLDC9PQCw=;
+	b=QhQVbVKfy1N/FuGhCPlst/bVZ08MCbzu5s4fWrOq2DbKI/rcRL41Y3br4V+gs3NK3InD
+	 BQRqFWbCjZ1xPsvmoBDxuhgJtUDMQm7nBIltJnMBMXPCDAv5XGxKOHAzEjHv+zbnAd/PR
+	 QpFjRRk9LohUSSSYOKurtE9crzA54/NfqS0YtdSzfbU31I0QaivpbK4RS6/6MTAemTa1p
+	 sUUvfBmO5tw83zPox6fLKJkB6auBOOXNm1EVmQUMhHdJUYw7SpXkhsEptjyPB5DD+od5b
+	 FwZTz3X4bArvfjz1F7Kn7OWApekEPCw8a+3du0/gR6Q+5Ncob8kr3TYAYTuXcQW+xtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ghm/XOD6";
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYL1VtZ2;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E67F606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E67F606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7C3606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7C3606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ghm/XOD6
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b1ce85287aso363059c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:30:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYL1VtZ2
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b244fb7fffso566812c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:31:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793773854; x=1794378654; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nxObPTj/uIUEGHfeQ9adXhEvppId2c7V0+NPSeSoNZI=;
-        b=ghm/XOD6ujPLQihO+KHWRj6ldK8L1dBP5jTWwWS6woQhENxcApbdzhvp1Wj6v4P8om
-         ITut3zVMqYf/Scsl8DFAlm69c9PrwbbrUfBS5OagQizpIzR9yFWKyMlSdd3aoe3msPVf
-         hmX/FVpWr+9H+R7ID7LcY+QjG7UHL1+M3H5joLlYmjXp+lZRoghzdOFCZjlRkGxpQv6z
-         saaKmnrLcxovWeHTUb6OnyZwmto7wFJKnuBGOaDPjz0sXXdzKkrmva+p7P9oEkWN515R
-         ueiPfoGB7EKHqm+o5VE6ROTzqx8YJZRdeEZXLOceE+wjcVc5TIwUbgimyZGfjTwGzysq
-         8O/w==
+        d=gmail.com; s=20260707; t=1793773893; x=1794378693; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=f6L55/RbaJ3smpt9qLKGW/waSSFGUX0+URTLDC9PQCw=;
+        b=GYL1VtZ2V0hBldYCRsaZhHLZ0HPb7eAwAArQeRE1tu1TgLG6Qfq4splnmuNSskKwEQ
+         FeDRcbQprDCENgAVO0Bgpqm0pnTWH73F8lfn+PnNiT9me0h+7c766xFp4xRtF2WTPMXT
+         9k4DSseKLrBy62xYtwWONUeSXx+QGJo2paKxdqn5caKR/nV46TrN9y0zCjoLVLgMeALk
+         z/fTBscw+/q1XxWC153FmdeYl93a2wokPVE7sdDPeNLuPcq3N4YunnX/YVWJ4dYcsTUz
+         GmIS1pYJJ0uy7/hyfg3NZEo5JAdyIJo3eaqHxx0/AH+hgbksNLlC+Q5yYozhhBpgc4uL
+         CPOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793773854; x=1794378654;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nxObPTj/uIUEGHfeQ9adXhEvppId2c7V0+NPSeSoNZI=;
-        b=UpEDc6d5ZhwY2ra9VHSxtfRRHPx3DCaSTrtlEYfITd9pA9ovi0nGABwfeg3aSIRN5Q
-         FwR3K5HizBPA0tOGDOzJuw/dfz3On17eKm5ZKT/NyEz+sYAtZ6NhqECa9y6j/LM42VrQ
-         xOe6Vn1YU15t3Z+0z4PrSyyjFvOD8sExhzCYW/e0b759WIyjxC67tBjA3PEX5S/aRZNE
-         H2qMk8erQZUorObtV33JDc+1RKVJPyI26fzWS3iiLLqzZS+i1yTFJbgJbArTgpjPC7wU
-         6HC1L4iUrLRzFvwDkQmi1XNar/RLqVFSDU0Ys6szzX2ua3ilgQviWxVAFAX7wttbIHQL
-         iddg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQUUoKLKfZ0m8qUlHZqCfsIWbv6pYLqdBYuvYyVjzhrajPYpH6g49oA5VboOVWMrnbd4wFjI/TIVA3r44=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86V3gP9zdxToUGQl5DwwAxfYuY37riZWhz9S5a8gDeYGa3/yFz
-	/LEMQtdH7bNWQNRwlb1+nVvkH7C4tovis0inx2xZOxkdp8JTeZGGrCQD
-X-Gm-Gg: AYBFou0rPCUrcnplly+B6ndNCysrC+rU0HoX+cc4L7hS7OspWrQh7q0Wa0/4qCJf/Eo
-	8+tbTGmIl2hbQtcT/mxu8ZHLFJPvqRAit3Bdj1TcwDvzey6arTl1kjObQSwFCYb9FiDk7EWKoEc
-	VyVlowuWAl8Tic1y40w0clgZVEaINyNmcXjQZ3lZa3QKdc+RV+vXEaMTO6Y0n6ceR0bt1OOxpzJ
-	TNzcpU2Okj8+qMdIbyxaBJ1M8wIWxIPGahUdFvDgtkIokKLnlkyj4kWc1ozEzhHTrctxiuncdk8
-	uYZguYssZPFoaRXTEc/4PfzNtwXBKqTn4yiOz0kZjBz8D+A6ThSowObdcPPos5hozWFiDMvPc+e
-	07Q4ALGJlQVIEk/XzrgZTys2Glz48kfD0JBVCAFxv5nf5bszBJbjdczjvykpGzGMsNs2fZqqW9M
-	fFi5T4oY7uYgcoGVZE58AU1RPWHd8cQzZcmlhgX6N/gm2VVCiZSQo7fcuT0z9A42No3Q36pmloq
-	kE8SR6EA6uMbpZ/CY25YmRD2OOZcLNau8+eWOXdR1BYi8trJnpluxGD1jDSyDFPgqTN0yzaWGbn
-	0ywAL9tdGEDqauvV4jTix4xK
-X-Received: by 2002:a05:701b:455a:10b0:1b2:42ae:94fb with SMTP id a92af1059eb24-1b242ae963dmr4316991c88.37.1793773853561;
-        Tue, 03 Nov 2026 22:30:53 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793773893; x=1794378693;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=f6L55/RbaJ3smpt9qLKGW/waSSFGUX0+URTLDC9PQCw=;
+        b=v3yscWScsQ4A5yVklNKCL73hy+A925k7RjVbCsAek65eEfzo19CWkeZ2fbQeqvzYoD
+         MGlqMltN+kq2nLZM5y6iHatXlpL3MdaRCROuxKphXebmZ196E5Wy0uAo6o+KoXl+UGXk
+         SMbNG0MMgVYlezyH4YlM5tjPHJT+aWB2F6ML5uuclSCIStY5Y5d7TO3uVsxhtJ5Mo8b7
+         Q9DFBwMn3SCH1Os1nsXMP1zzGRqiaAk7oxd7wtqtd6GQ0ec/O14m5Ojex5svHzam6YEd
+         PWwOpG31L6lGuXF2aQpCy4E2xtHXrcN8qF+qXtUC/LRNc71HTazZzRvGDFUC6pY3PNyD
+         j3oA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcoLuWilf5HPDdv1T9bcFj0efgJOvWxc2X5gu94dvwJCCoM0JeFqRWAKhKO2MgxBDtZOCfTacqb6d2asA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91Upy7WRF/pgMrcEFOqzXGCuOQmljxJt9ib9ancrx2w98Uu+Mr
+	GV/Qsd64gGPxQjWRXF1mbvjo++yRuUlZjnPn4g+VTfrEXsXr+b85t2IkHpDOl4S+ohu5bA==
+X-Gm-Gg: AYBFou2YFVpZ5tLPdNC/5WG+Q5/Sz6Edi9zyK8GPWsuAoicOyQixU/cFy79/slvnKM+
+	j9ugx9tvcfl4GsP9HPyhmkcrEi5kDXIZhDt/q0ja7SGX0X2zxC3nvbCV9yoF6iRnRgy/ajo7vfu
+	DCNf0CMnShbzRG6NiB07KkWrLIsY7SBvc0eMwoAY97WFzL0566J6+RLBOo5q/bObhWByEFbDKMy
+	IEFaFezPbnyxEXGKKfwhNAX67QwlDDwR207sv6nVE7DwdifVSRm65J8xtQsia8Qsw0Q9VtaVBZa
+	soWRj3hvjk2Dqxzi0zAfMPGuOeVAw1kPYZ54T6Xuvxgb6BcwHpuGill3TXRiFVe+VJAauCV3fUd
+	R3k5oRn2h4Yr1iW478raWuBuWqW/6T9se1bBfJ+Z/vVc7va0l5LQE3bdZoLuMLgS48+/nTCkjrX
+	kWN/ve+70uxMDn7Iw+RF2/iDsMCPjR/B9mxrHRms28Y2jZtv3VMptTs0gPAHdVij85Do5IkNq8n
+	J/H1QN0OOzPTvBN5XyPC35M0utOhoxGFgELrWsz39HfSKG8RnN1p1KkBTzu+SIs/q8G9/nzmp1X
+	RJTtB9MCSY66mC+gqPmMYiH9
+X-Received: by 2002:a05:701b:4193:10b0:15a:4155:3d9d with SMTP id a92af1059eb24-1ac5da76f61mr23283133c88.31.1793773892649;
+        Tue, 03 Nov 2026 22:31:32 -0800 (PST)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c65194sm4454290c88.19.2026.11.03.22.30.49
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c69c3fsm4558998c88.20.2026.11.03.22.31.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 22:30:53 -0800 (PST)
+        Tue, 03 Nov 2026 22:31:32 -0800 (PST)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Wed, 04 Nov 2026 01:30:39 -0500
-Subject: [PATCH v2 1/2] srcu: Add list_splice_init_srcu()
+Date: Wed, 04 Nov 2026 01:31:28 -0500
+Subject: [PATCH v2] nvmet: drop the extra RCU grace period in
+ nvmet_ns_disable()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,96 +93,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
-References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
-In-Reply-To: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, 
- "Paul E. McKenney" <paulmck@kernel.org>, 
- Josh Triplett <josh@joshtriplett.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Message-Id: <20261104-bug-nvmet-ns-disable-rcu-v2-1-b158a59318ad@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAD/R6moC/3WNQQ6CMBBFr0Jm7RjaIkZX3sOwKGUKk0AhLTQa0
+ rtbSVy6fC/57+8QyDMFuBc7eIoceHYZ5KkAM2jXE3KXGWQpayFKie3Wo4sTregCdhx0OxJ6s6E
+ qqe0sVaKyFvJ88WT5daSfTeaBwzr79/EUxdf+oup/NAoUaO1Vm0st1U2qRz9pHs9mnqBJKX0A4
+ uuLycAAAAA=
+To: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Chaitanya Kulkarni <kch@nvidia.com>
 Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>, 
- stable@vger.kernel.org
+ Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-list_splice_init_rcu() makes a list look empty to new readers, waits for
-the current ones with the given sync function, and only then links the
-entries into the new list. The sync function takes no argument, so it
-can wait for RCU readers but not for the readers of an srcu_struct.
+nvmet_ns_disable() kills the namespace's percpu ref, waits in
+synchronize_rcu() for anyone looking the namespace up under
+rcu_read_lock(), and then waits for the ref to drop to zero.
 
-Passing synchronize_rcu() for a list read under SRCU still builds, but
-leaves SRCU readers on the entries while the last one's next pointer is
-moved onto the new list head. nvme_remove_namespaces() does this today.
+Killing a percpu ref that is still in percpu mode, as the namespace
+ref always is until then, switches it to atomic mode from an RCU
+callback, so the ref can't drop to zero before a grace period has
+passed since the kill. synchronize_rcu() thus adds a second grace
+period in a row, about 4 ms here, and disabling the namespaces of a
+subsystem one by one takes about 9 ms each.
 
-Add list_splice_init_srcu(), which waits for the readers of the given
-srcu_struct instead.
+Drop synchronize_rcu() and rely on the wait for the ref to cover the
+RCU readers as well.
 
-Cc: stable@vger.kernel.org
-Suggested-by: Christoph Hellwig <hch@lst.de>
+Disabling 64 namespaces through configfs, median of 3 runs on each of
+two boots per kernel:
+
+  host connected  before          after
+  none            588 / 590 ms    409 / 409 ms
+  nvme-tcp        617 / 619 ms    542 / 511 ms
+
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+V1 -> V2:
+- Note in the comment that this relies on the ref staying in percpu
+  mode until the kill
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index 1a8a465a5650d..d4dcaeb83e2b6 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -18,6 +18,7 @@
- 
- #include <linux/mutex.h>
- #include <linux/rcupdate.h>
-+#include <linux/rculist.h>
- #include <linux/workqueue.h>
- #include <linux/rcu_segcblist.h>
- 
-@@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
- void synchronize_srcu(struct srcu_struct *ssp);
- void synchronize_srcu_atomic(struct srcu_struct *ssp);
- 
-+/**
-+ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
-+ * @list:	the SRCU-protected list to splice
-+ * @head:	the place in the existing list to splice the first list into
-+ * @ssp:	the srcu_struct that readers of @list use
-+ *
-+ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
-+ * instead of RCU ones, so that none of them can follow a next pointer
-+ * onto @head.
-+ *
-+ * Note that this function blocks, and that the caller must prevent any
-+ * other updates to @list.
-+ */
-+static inline void list_splice_init_srcu(struct list_head *list,
-+					 struct list_head *head,
-+					 struct srcu_struct *ssp)
-+{
-+	struct list_head *first = list->next;
-+	struct list_head *last = list->prev;
-+	struct list_head *next = head->next;
-+
-+	if (list_empty(list))
-+		return;
-+
-+	INIT_LIST_HEAD_RCU(list);
-+	synchronize_srcu(ssp);
-+	ASSERT_EXCLUSIVE_ACCESS(*first);
-+	ASSERT_EXCLUSIVE_ACCESS(*last);
-+
-+	last->next = next;
-+	rcu_assign_pointer(list_next_rcu(head), first);
-+	first->prev = head;
-+	next->prev = last;
-+}
-+
- #define SRCU_GET_STATE_COMPLETED 0x1
- 
- /**
+v1: https://lore.kernel.org/r/20261103-bug-nvmet-ns-disable-rcu-v1-1-ff7ac5623923@gmail.com
+---
+ drivers/nvme/target/core.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index a8171b88035c5..50486fc3cde8b 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -669,13 +669,15 @@ void nvmet_ns_disable(struct nvmet_ns *ns)
+ 	/*
+ 	 * Now that we removed the namespaces from the lookup list, we
+ 	 * can kill the per_cpu ref and wait for any remaining references
+-	 * to be dropped, as well as a RCU grace period for anyone only
+-	 * using the namespace under rcu_read_lock().  Note that we can't
+-	 * use call_rcu here as we need to ensure the namespaces have
+-	 * been fully destroyed before unloading the module.
++	 * to be dropped.  Rely on that wait for anyone only using the
++	 * namespace under rcu_read_lock() too: the ref can't drop to zero
++	 * before an RCU grace period has passed since the kill.  This only
++	 * holds as long as nothing switches the ref to atomic mode before
++	 * the kill; bring back synchronize_rcu() here if that changes.
++	 * Note that we can't use call_rcu here as we need to ensure the
++	 * namespaces have been fully destroyed before unloading the module.
+ 	 */
+ 	percpu_ref_kill(&ns->ref);
+-	synchronize_rcu();
+ 	wait_for_completion(&ns->disable_done);
+ 	percpu_ref_exit(&ns->ref);
+ 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-bug-nvmet-ns-disable-rcu-30ebdfe414ff
+
+Best regards,
 -- 
-2.43.0
+Qiliang Yuan <odys.yuan@gmail.com>
 
