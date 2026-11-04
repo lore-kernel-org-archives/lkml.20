@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776883;
-	b=ePnXdQdSRoqV30wJ+hbIfpA/67muTHyNT6n1RlMQkNrHAGWuGiP68H64mMgtMEIVyUa+
-	 z4x0R/SnkDX3dqTErSqLgVbs98ZtrMFQOzdGABZrXC82AwnwHMMx0NIbP+2i+1AJbtpXS
-	 2TjnAf9TOUYnIHJwXVaAgL0Mbf0+yu997g3cvYWs9UA1yqqEa6ScWtJ2Kuve9YY7M0qQV
-	 n8L2pVe3HCdbfD9az/L4XLsRaDGDkxB6qdaixshoQH8ropDLna7uCgFUHDWFUee3yLHGL
-	 0LE2ws9/mFl3Ps0FGoVVH0UEj0MquoBuTOQJTPOHHrbtBf/+OTmw4jAlceIxScYTOYQ==
+	t=1793776872;
+	b=MLzi/BNOzj3bRDGD8U/zuGw1o2uy8UML+tnXjR8ujbCiuryOaMjH+IE8wwCqgW+kcFg5
+	 L8mF8zj5FF01VXRPKSxGVEb5FLv1822GCFzTKGrOSuAtdBK/aJ2hJFsNDgMcJ04P6CA0N
+	 fqyZBGDMKuz0C4VGlgq+OO77BCm33DQFfszq9d33SauEfMQZnm/RtG2NxTzXA7f4eIji7
+	 rpAnftYhtZhYzEeKCydy8aTBo6OFFyNp4Q4pN1dTHp6l2n19xfkUribZ3otDldFJbulBs
+	 LSa8lPZcH2DwuRq99WPEgXm8F9PCX0rVLeqiJU4s0TeTlZl9QQ5tsmVjEeef3MorZLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776883;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
-	b=Ya33DKoSU96/6m8leTQEa7wd7aaZbZq/suy/d9enp/V8mYBwcGf46oH5XTbZwQrbGpiW
-	 6li+rwoJZzgThIJv8QBiYArxGEOU8SBdOSnTl9xOFnWiOpUTTAKTApQNSeyrxhwWUsfgW
-	 lLeq6yb5peZ08rRsb92Bnwut+gEoY3GigD/yKIjw1XZrBJdqWFlfjQ/+VuRXo/Kc8IroA
-	 /92GQcWl8DGKpfsogTVQzzORgAHjPjxoNW3Wf8x+iiTCcPgDSkJrYqSYjb2jWxdKjdvxU
-	 a3PzMhVyx98xjN85QNlXaK9e698eonD9NKkca95hKLmQjLGAWWjAo2yrU9zveHT5tDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776872;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=P2nVUZgbkko0fSVzH+RCHTPFIPIPFR9Bvrfp4msS4Ts=;
+	b=0+GTB+J6exh71UJ8OGmgDh2r3gU8w+k+o7IWLS3pk0/Kz+xavVq8kXZsZ9liONnHh9Yt
+	 FBTz1f6cXwhOB/HFibmGNKROFt5iiRXbwOdQPenZzwKzg1oiovmDsyWyfvrIbcbjiTM9g
+	 LYVAIp/v6yHS44kkKLd4odYawm6kCffU/JjCFLcZxCVCjhtoYMV8+lRLgv+STCzYr6Kp5
+	 VTpvtaFqI/JAy1fhEo78bLI/tPoeezscm8JHRE9P/Hh3943d81y1SG1FHFH6EYE2S4ZT5
+	 GgxgCQfk5GJVe2VQMvS258jZAgRRX16JbbPiNxJaLha482tuVrHBRa0qfs2DV5M5E4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s04muIap;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acW0eaVv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AEB606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86AEB606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAF5606D815;
+	Wed,  4 Nov 2026 07:21:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s04muIap
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so3823595ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:21:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793776883; x=1794381683; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
-        b=s04muIapcZ9Piy2/cGVdXuDKZlGwmNqHIPw+ja53Na+IyW+ZcXoh8Ae75YcX4BgZgj
-         YaEGSPcLeAruFsHyeaV4PUYw/pKZ4iKUuL7iyUHI3N8fi2HfAy63ylDz9BBkOcGDTdgd
-         5y7JagsYeyCU4x+ifhC0TgesXSH9fXZ7H4CY0Se79aF+aiwKFKRQpXdjVHzZ03+5+rDP
-         KEyIVv6+V3tcjXU1qdJynCrq8uQh00T7nEo1qrStmt0xMufkkb2lVwsLzmyrQt0rSlu5
-         h+myLa/Bt+Rkv/ZsmGjKEJWG96NnkJ4Y8e3ZkfXcy59ve+04qJZO6eIXj2LApM1wG7vD
-         KlIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793776883; x=1794381683;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DWUgScfm6w4+IrfkuhBQdFNaFEhNCbHPUn0mlOI8xXo=;
-        b=gEwHR+rLAbcggmz53BO0WfOiXHrlWl0XBG44GSkCcVt7DklSujWAsqv19WDZBj+ro7
-         cMvGxFIPGIiOgj0yPpNqEpHM1DW3qgNcTKHIXzJPvRDWfXe/bxcODnLRHfYlZPy931k8
-         hSrgSCusvPsIYgzFtWEn/qJEU2eLy92hIqbGiGipLI8IjAXFYeE/sBIks6f3Pmlm+1Kh
-         v/OiUub2A1kaU0LOW7/H57p2NJFGWDkQ9i/81wnp5epwLQoufQ6cG8S7IZcGygGod6Zg
-         kI3hlCMe6vwg98TTHJNEq4GBeERDKDrf1uEvr9PPaJbQ7Dy48NBV2xnNvUU4ckpBy9pi
-         GbFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxr1gm+5qbzGpSadfjo4rvbT7XrcRMjPHRbbURUAT/SGxgKJSVPE1DM1i7o/5zCJ5ZrGMOFe4gUAi/j+HI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+d0qEByKJkJ4Dm3KhAmx6j4Cfd2PMyIjL+7rNQSm67luztiNpi
-	qPo8rgubsos0NqCEnHSxyCpqGL+xC22TMicLo5ZWYHRzS8rdYSHZwro=
-X-Gm-Gg: AYBFou2hxFLqtGIE4xL4E1K7b9lXlPy2I9cN/IWBzSZtHyEHNeuixR6IwkERdukeUKG
-	hxo8nYXk+wZCmOzu7Kni6yNDX9NpW6VtlyANR+4IgE4adtsl2qiVXWGWT8lwUbKyljKgKn6PSaF
-	g1IiV8QV9xsDS+F0X0QQHrMerJE0FGVnEruD9xj4zK7oNwcd96iPqULRYL/LWk4lxUb1lwQN8g9
-	O3VweDb5ctbH+lNvg2SAyi9sop2Fwczzgjiqx1xxhss40JhGqOwvVmmodKOK5bMTMFtzXjbIt8p
-	wxwq4HRIfbTv8y3LmG+BETAkDJdxvIBxWrCW5Babn6KgXe/c3NYxymT2US1b2J5rjC6Si50xhS8
-	lerQibbJkBhmItXpMxqQTq/vgs38Xi8ySaYPkt/Uw82b5e7yow+guQSRuw9E8OmDEVjxm/k5o3v
-	gh6h5Rq9/YG7TfKJNma8wGEaVgJN/KRKkkisTB1NYif6HSv6S7Zx6i8uvtgetifGTGBNh9gVoDt
-	TmZRUqcAYQ4/3Mgw4LBcc02zY/IitSHj8NU1Jz48Y34jfPW83J69MfBg/b+U0e53j7hJsbNdsA3
-	+/jcvRD7OMC2lY5Ca9Sb+y+3XomZujkR8cFM9ZMZ5eFfoVTATAzx5WP935n5RtP5H4nf
-X-Received: by 2002:a17:902:d2cd:b0:2e9:5b4e:b8a7 with SMTP id d9443c01a7336-2eb364f8fe2mr149925825ad.51.1793776882756;
-        Tue, 03 Nov 2026 23:21:22 -0800 (PST)
-Received: from freddie-kane.lan ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0906c514sm3950345ad.29.2026.11.03.23.21.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 23:21:22 -0800 (PST)
-From: Burke Cates <burke.cates@gmail.com>
-To: robin.clark@oss.qualcomm.com,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Xilin Wu <sophon@radxa.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: [PATCH] drm/msm/dp: skip the link teardown after a failed enable
-Date: Tue,  3 Nov 2026 23:20:48 -0800
-Message-ID: <20261104072048.3486286-1-burke.cates@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acW0eaVv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172A81F00A25;
+	Wed,  4 Nov 2026 07:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793776872;
+	bh=P2nVUZgbkko0fSVzH+RCHTPFIPIPFR9Bvrfp4msS4Ts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=acW0eaVv29f8/vEHVW3ogKW6SYjiSGqDTiwnu8MiiQn3/Z8gZCRIWrF3tFbxSF8S3
+	 auEGwRcMbPXlECMkUImCCImJuVvM1q+vM4X880Ab14NNm+QDKCBEHk0CM00A9N5Nxv
+	 7PwdFD8H5rOCRkLQHseT5Ga3SWp/dmokn4XGEsWGyRUKyyclSsI9i1A3+nv7rWfyzR
+	 1cS7y0MwO1//cwzACEPqK1nLYshjNh0tmQeZcMKmc8dmOl17Krb2roJjQ0au4pv8vY
+	 Lfnn5wldrYV0Lj7iR7upSdhM/qUG6rva60Y+Sw9/kRHQS1+s01QLC5GZQTqRrvlxXH
+	 +ySTRLLBF6LXw==
+Message-ID: <94c560c1-b292-417f-adec-700923ebe726@kernel.org>
+Date: Wed, 4 Nov 2026 08:21:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,78 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: exynos4-is: Free control handler if ISP subdev
+ init fails
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103094616.1289357-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103094616.1289357-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit 1bda647ce61b ("drm/msm/dp: move link-level teardown from
-display_disable to display_unprepare") moved msm_dp_ctrl_off_link() and
-the PHY exit into msm_dp_display_unprepare(). Unlike
-msm_dp_display_disable(), that function does not check power_on.
+On 03/11/2026 10:46, Wentao Liang wrote:
+> fimc_isp_subdev_create() initializes isp->ctrls.handler and creates a
+> number of standard controls. If any of them cannot be created,
+> handler->error is set and the function returns after cleaning up the
+> media entity only. The control handler still owns the memory allocated
+> for its buckets and for the controls created before the failure, and
+> neither fimc_isp_subdev_destroy() nor the caller's cleanup runs on this
+> error path, so that memory is leaked.
+> 
+> Free the control handler before returning the error.
+> 
+> Fixes: 9a761e436843 ("[media] exynos4-is: Add Exynos4x12 FIMC-IS driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-When link training fails, msm_dp_ctrl_on_link() has already turned the
-link clocks and the PHY off, and .atomic_enable() returns with power_on
-still false. The next disable now runs msm_dp_ctrl_off_link() anyway,
-which writes REG_DP_MAINLINK_CTRL and pulses DP_SW_RESET with the link
-clocks off. On an ASUS Zenbook A16 (Glymur, eDP) the SoC then resets.
+This is another posting of bot ignoring feedback and probably
+introducing vilnerabilities hidden in big spam posting.
 
-Skip the link teardown when power_on is false, as before that commit,
-but still drop the runtime PM reference.
-
-Tested on the A16 by forcing link training to fail and then blanking
-the display: the SoC reset 2/2 times without this patch and 0/3 with
-it.
-
-Fixes: 1bda647ce61b ("drm/msm/dp: move link-level teardown from display_disable to display_unprepare")
-Signed-off-by: Burke Cates <burke.cates@gmail.com>
----
-
-Notes:
-    Test base: v7.4-rc1 with out-of-tree Glymur platform, board and eDP
-    PHY patches; drivers/gpu/drm/msm/dp as in v7.4-rc1 plus a local
-    knob that fails every training attempt. The reset is silent (no
-    pstore), so which of the two accesses triggers it is not known.
-    
-    As before 1bda647ce61b, a failure after successful training still
-    leaves the link up. Xilin Wu's hdr10 v2 09/20 handles these paths
-    more generally; this is the minimal fix for -rc. Happy to test his
-    approach instead.
-    https://lore.kernel.org/all/20261009-msm-dp-hdr10-v2-9-1835d4966da3@radxa.com/
-    
-    The bug was found and this patch drafted with an AI coding
-    assistant (Claude Code, Claude Opus 5.5); I reviewed it and ran the
-    tests.
-
- drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9299ce616fdb..76784cc45228 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1528,6 +1528,14 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
- {
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
- 
-+	/*
-+	 * Failed link training leaves the link clocks off. Avoid accessing
-+	 * link registers after a failed enable, but still release the
-+	 * runtime-PM reference below.
-+	 */
-+	if (!msm_dp_display->power_on)
-+		goto out;
-+
- 	/* dongle is still connected but sinks are disconnected */
- 	if (dp->link->sink_count == 0)
- 		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
-@@ -1542,6 +1550,7 @@ static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
- 
- 	msm_dp_display->power_on = false;
- 
-+out:
- 	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
- 
- 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.54.0
-
+Best regards,
+Krzysztof
