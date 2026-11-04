@@ -1,83 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789081;
-	b=h1jD3TG3I1Fpf3n52bazLGiELwK0t1a5BnkaDWGYRUjQBPD7gXDUtrr1x8qErzkZb4mn
-	 CbMj8niMpSPC3d0wLTheKPUtWhSEuJuBcEB/y2OuZeqPq2JFhF+VjTAaCCGjalcYnCU7+
-	 7iBnvGh8iVI7eGnHR18+CnkB+yqW2MUujxn2gYh387BAEKCs6boKk3uKkCyVr11o2UdIO
-	 qPa3xv73VeJkUWbDY34I5JKGT2x2PWbfRFDpf/FowyMRw2S6g2+m2PxNHga4/jTdLZ9yW
-	 1Z+O4IHn3ef8x/UakPI5t5FbvKO3b6Hlpj4yQFo0xoWqxJp3C6m3GrcgGusMZAwxzJA==
+	t=1793789150;
+	b=hGJEhc4gDR8Zy0KhHGOdqU9acjpqQH1yyCayn0QP6J34JvdBIKpSAe7NT5zVXHx36k/j
+	 1+lKWnOHXOFLBQoInTqlHtNEqvAjuKqaQoKQ8SxrMZVqHx3FCDnmdJJ+0Q3zxzSxyRY2F
+	 WLyWWR0pCafoeGrAwCE9P3H8KQ1Li9956hQDA02iNJIXaqjy1ePH4XgFcou7eJMNOGuuH
+	 VeoHI93lwr5/Gu9/I+/Oday4Ov9SPysKkcW+MHCn0zPP6aRYzEwh9zLGVn9srTfClEePF
+	 Ja7TjEGRxcVgCVJAeWzqtXfdgisN2JBhGWHkZ2yWe/3dFwSBmQfPsycGWuVg3qypq5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789081;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=g3rGNVvOS1oWZVgZ9/2cJCzlhYQm99f5FRWSO/pleRc=;
-	b=noKln5GGKwOFvQXCDm1sXd26Os3q+AHEtfbmZSziLsogktmqkZUxUv26s2DkajZxFNpM
-	 VWdLR194qX5bOtv0KSwUb9qCDhPNrv+6quid8Sscn8xQljthFWwL2yTpuKr7RxT4+wZpX
-	 SKshqw1a2bEWVhXU3i80tGCzdYJK4Rtwo3MDiWD9nnE3eEtkSbufH7/uAoJOSWeT5ernA
-	 ZSxDQvJ7TricoTziE1ZiUOssNjQqZUqJFKxHKFHNk4bQMZUZz17gT3LGsQNDLA6PlwsBi
-	 FlOBdKBiroKSa+0gZzCYOGWu/CooWomtknFPARXtDAI4ELgWCAjJkZtA584exkmYtQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789150;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References:
+	 MIME-version:Content-type:Content-Transfer-Encoding;
+	bh=eGsTHa5mor1nX7TStszR2xPlHSsRUUzxzbdUmuS4IU4=;
+	b=nqRF6hspWfP/sMFZlsT/OyytSIR0RF9ms3trNezs23Mq6UE4vdlXUYsTzh++AF68h3L+
+	 EQMD/fZCOgZ/+bNkmNXuMe0Zz+izpt19/UCgZHb8VyIGYZ+s27/qUYqwI2v1UoRIdF1tc
+	 y7o0uwIcqXMIq4PMso2fOhcUH0f7N26J6OUpPihknjyO7j749uVM+Wf8sihv/DUUj2GZg
+	 VHWNkGth3ML6+KUURuKvFBpf/0pNVK9xIzhm0FEYrOF87rpr7DmLKb+zND+UbA0FE31Ms
+	 nQNXh0HKTpjVrz89mMFNQ+jaY14O4+rn9h7wnyBXbLyk44DF4UcYy5XC1CN3Xl+cpnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YNG2MirY;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="T7wF+/1B";
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEE9606A326;
-	Wed,  4 Nov 2026 10:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BEE9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B33606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B33606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YNG2MirY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793789081; x=1825325081;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1s955WMmS+XVS3lgkXpO+uhYMyC1nNQN3ehFdSfyEhg=;
-  b=YNG2MirYf7qSh4Hl88ZX0XgRHbvnmVHXJ9eq2npQYZsv3cWJmHYAfXsP
-   /5k9SaeOFZEutVkkw5AaPFqcp4Eh2EBft3VVMMwvjEkXNpmcmGr5xMtJU
-   ulx+BpdMwNA8xAt5zvZtsiYMyFbqxD+jE7Xqqx48hC0q2Uds4ppY1PkcX
-   fVfxgfLkFs9CfVfNGQjb+hyJguuvZDLWKWMEcJwNPZSpjJOZBoxRhTR8Y
-   Kp1bvtQRxQfJpIBYVnnjrYpQgo3gkwtm19gJFMR0S9NOJuMZJoqtnJLk3
-   mei9AKKwoGETnCm2sQcEg+DK9HM/q+WL7TbOdN1d6uxsgLQC1HnICeLe3
-   w==;
-X-CSE-ConnectionGUID: JkLHFZ6BQJ+Y/8cDV8OPKg==
-X-CSE-MsgGUID: XJCUxH/dSKmGARHQ6+ykoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2424432"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2424432"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:44:41 -0800
-X-CSE-ConnectionGUID: M23FiearRYm6Jr0M4io4Ag==
-X-CSE-MsgGUID: 4Gl93YrpTUqFiwP2J50+BQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6542311"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:44:37 -0800
-Date: Wed, 4 Nov 2026 12:44:35 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v7 10/12] serial: 8250_dw: discover Allwinner A523 FIFO
- depths through FCC
-Message-ID: <ausMk21A5PPAaycx@ashevche-desk.local>
-References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
- <20261103-submit-h616-uart-fifo-v1-v7-10-c9e248d685c1@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T7wF+/1B
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35c76e9614aso669521eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:45:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793789148; x=1794393948; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eGsTHa5mor1nX7TStszR2xPlHSsRUUzxzbdUmuS4IU4=;
+        b=T7wF+/1B+eIvp6LDihwSY6DXdarZ4T2M6eBrLuR1jc8SFYCJjjvN5vVHWxhM8zP38A
+         gDEsvAxScDyofSNzBhL1mH+o4CyVh9PYydqzz6czL12iElZMS8WESHRZ/vS5iulrvodV
+         +AQm59oeYFOqi4gccRUWReu7u9Q99JVee0E+LTNwyg4/ae3zikSZEpa8O6BT5FJUM3FR
+         DTFoLfbey7MUv7he0ANWvTEnjy1q/e63koh8mNluNuA97ddRn2wmx2v69241RIQE290P
+         7kGeunqXNt5+o290XdAWOnK39D+diCkIcMBYWjhjdwQ2ovMnKL0iebPCEK9mjmPmdK70
+         YmjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793789148; x=1794393948;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eGsTHa5mor1nX7TStszR2xPlHSsRUUzxzbdUmuS4IU4=;
+        b=yNOqTysc3fL1HOgwbnGt8BHNuJzDghnSiuoqQaTfPlAbuzlA2VH7rpvE/IJtnNcFqC
+         UvxfwAK5oVyauFo39i1sl5hn4dfTKyXFXRtjesBqXi2r14RkDqpBNMIbAd+fys0mJLEQ
+         lE9vGyiDkV9Vr4tgmyhncJjCPBD1s5K042G1vkyJA21VKCzqlVKX64B6jjBwLgxHxaup
+         rTsg0JaWudQle5u4U6Dm14m4VTcyOHGdDJAbMsaRu+xAxHoLiHFcsSFfbPefb+el36if
+         73jRQ6j4HN9ARdLgwdelbCYzkh92pOt1ZwOqzlE6zdfeqZ6Vr4IS1y8gnxnSanHDEHfY
+         Dl8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzFfdMsXlwe2wcSr7USMNWSzmIkO0zr/dqygnrPdy7FOdt7oJm4vh1LBLybp6RFcypRW7JA4wA/sYO68fw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82rKz9LCxvUPHfn/0QDRJOjLEBScXXWOG1rQt2vWIVuh+cm/I0
+	YXv+15U6V7fwKvDUdCokYG/4VAF9dNiPYEg7D68T2/mNVR5ISfcIFtv2
+X-Gm-Gg: AYBFou1TEVX1pOQa9m9XW6UxrZFUwr+CO4rZjdbpxEIK/3aAliIG5lLbmcFgmjyln0E
+	NDGUOTorzXJzDcpxWQbbvzuj/8LcuhEZjTzuOQkgE+w4F6jUel2pGTheoACtpCafQdtOCIHRViE
+	ceZsGrqzZGjKh7j5EqaNxsSeX40UYs3kOV5vWWwmR/L1uXQ5H4tunQpMngnm+dUEgGVUoxKYVrn
+	6+ujQbEW0/Wmxlzs2u4w/dLQmafSn3sRwRa1prfLmCiPkGBE0VsX4bcC7hWseF8ZkrNl/NjH6QB
+	gIzFRmSE4g26CM5pnlMrWFxk2ToBGlSWUJGL8ZREnE+v2MMuhRh5ZGgxhjNernJyh3GWOx8oESK
+	c/PEVUN2ikNKsCshN1sgr2rOraPy12nPswTx6G5jwz/b76heWcf0oiC3GCoclpNLpgHXAT1b9Nd
+	XbD+fWNQpn8nqWZyUCiWn5xioDutaj92EHX8zX834HUQ0Gx78F9ZP31M5M+OhFfC86hAsbGsU1N
+	+rJq+sBo5V3zFRcrIydUw+ekyHXm+qSrfKJKJHrxEMKiFvSj5SgC7B8brvIlre4TlCV+PqSva9r
+	+QZN8FuCidUa5MELT8a8GapuM/k=
+X-Received: by 2002:a05:693c:4009:b0:33b:c24c:d31c with SMTP id 5a478bee46e88-36a42331666mr23336378eec.7.1793789147820;
+        Wed, 04 Nov 2026 02:45:47 -0800 (PST)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca362f38asm7670687eec.0.2026.11.04.02.45.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:45:46 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Hari Bathini <hbathini@linux.ibm.com>, stable@vger.kernel.org, Josef Schlehofer <pepe.schlehofer@gmail.com>
+Subject: Re: [PATCH] powerpc/code-patching: Flush the patch area TLB entry locally
+In-Reply-To: <bf838fa6-a175-4514-a496-c6ec9b03ac7c@kernel.org>
+Date: Wed, 04 Nov 2026 16:07:08 +0530
+Message-ID: <qzh06fxn.ritesh.list@gmail.com>
+References: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com> <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org> <wlqu5lej.ritesh.list@gmail.com> <bf838fa6-a175-4514-a496-c6ec9b03ac7c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,67 +95,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-10-c9e248d685c1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 02:40:03PM -0700, James Hilliard wrote:
-> The A523 UART integration, also used by A527 and T527, has 64-byte FIFOs
-> on UART0 and 128-byte FIFOs on UART1 through UART7. Each controller reports
-> its TX/RX FIFO depth in bits 31:8 of the FIFO Clock Control register at
-> offset 0xf0. The field holds a byte count, not a logarithmic encoding.
-> 
-> Read this field in the sunxi setup callback when platform data does not
-> provide a fixed FIFO size. A fixed size takes precedence, so H616 retains
-> its 256-byte configuration without accessing FCC. The probe has already
-> enabled the clocks and deasserted reset before invoking the callback.
-> Leave the FIFO clock-control bits untouched.
-> 
-> Use the shared DesignWare trigger setup to validate the depth and build
-> the FIFO-relative threshold table. Invalid depths fail probe before
-> registration instead of producing zero or truncated thresholds. The 8250
-> core derives the transmit load from the discovered depth.
-> 
-> Select this setup for the A523 compatible. Like H616, this integration
-> has Allwinner-specific debug-divisor and RS485 registers overlapping the
-> generic DesignWare feature probes. Use the common sunxi PIO setup,
-> BUSY-safe integer divisor programming and software RS485 handling. Keep
-> the APB clock gate enabled during termios updates with SKIP_SET_RATE.
+"Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
 
-...
+> Le 03/11/2026 à 10:12, Ritesh Harjani a écrit :
+>> "Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
+>> 
+>>> Le 03/11/2026 à 03:54, Ritesh Harjani (IBM) a écrit :
+>>>> patching functions like patch_mem() and patch_instructions(), maps the
+>>>> target page at the per-cpu text_poke_area, write it, clear the PTE and
+>>>> then flushes the tlb using flush_tlb_kernel_range(), with interrupts
+>>>> disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
+>>>> based TLB invalidation i.e -
+>>>>
+>>>> 	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
+>>>>
+>>>> ...which will wait for other CPUs but with interrupts off. This can be
+>>>> caught by lockdep with the following warning:
+>>>>
+>>>>     WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
+>>>>     CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
+>>>>     Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
+>>>>     Call Trace:
+>>>>     [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
+>>>>     [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
+>>>>     [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
+>>>>     [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
+>>>>     [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
+>>>>     ...
+>>>>     [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
+>>>>     [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
+>>>>     ...
+>>>>     hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
+>>>>
+>>>> Josef confirmed that this was causing a hang (deadlock):
+>>>>       I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
+>>>>       CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
+>>>>       fine 9 of 9 times with jump labels off. The hang comes while static
+>>>>       keys are patched and modules are loaded, nothing is printed and the
+>>>>       watchdog resets the board. OpenWrt keeps jump labels off on these
+>>>>       boards for now.
+>>>>
+>>>> ...which is possible if both cpus are doing similar operations with interrupts
+>>>> off and doing TLB invalidation using IPI.
+>>>>
+>>>> Broadcast TLB invalidation is not needed here since text_poke_area is
+>>>> a per-cpu area. It is mapped and unmapped with interrupts disabled by
+>>>> it's own cpu. The only reason I think, if we would need a broadcast tlb
+>>>> invalidate is, when we want to prevent a stray or malicious write to
+>>>> this cpu text_poke_area by another CPU. This generally gets solved with
+>>>> temporary-mm path like how Radix and even x86 implements. However, booke
+>>>> doesn't implement that, so for now let's ensure we use local tlb
+>>>> flushing for correctness.
+>>>
+>>> This problem was already discussed one year ago, see
+>>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FPA3P192MB2865C07D634E3B775D003C7F8CD7A%40PA3P192MB2865.EURP192.PROD.OUTLOOK.COM%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C94ba9bffb5d647f9790208df398f6ccb%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639292960305489629%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=RgVxRJOlFSWgNsFSKwLDRinx3kaF4LpSiCaTey8xtic%3D&reserved=0
+>>>
+>>> See response from Arnd, a stop_machine() should be done for completeness.
+>>>
+>> 
+>> I will have to take sometime to go over what ARM does here with
+>> stop_machine(). However, either ways I think, we still need this fix,
+>> since otherwise P2020 boards gets hung during boot. Thoughts?
+>
+> That's right, it must be fixed. The global TLB flush must likely be 
+> changed to a local TLB flush, but that's not enough to get a safe system.
+>
 
->  	p->type = PORT_16550A;
->  	p->flags |= UPF_FIXED_TYPE;
+Ok then, will spend sometime looking at how other archs handles this.
 
-+ Blank line in this patch.
+Although IIUC - even with TLB invalidation using IPI there is a window
+where the remote cpu could use a stale tlb. But the window is too small,
+however, with only local tlb invalidate, if in case the remote cpu has a
+stale TLB, it will never get flushed.
 
-> -	p->fifosize = data->pdata->fifo_size;
+>> 
+>> 
+>>>>
+>>>> Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
+>>>> Cc: stable@vger.kernel.org
+>>>> Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+>>>> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F20261026195644.16384-1-pepe.schlehofer%40gmail.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C94ba9bffb5d647f9790208df398f6ccb%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639292960305519321%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=A50lEHBZBaX70jGTu38GylmnQvlxVzLalMVXYj2kti0%3D&reserved=0
+>>>> Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+>>>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>>>> ---
+>>>>    arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
+>>>>    1 file changed, 19 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
+>>>> index 44ff9f684bef..6351342fa5c3 100644
+>>>> --- a/arch/powerpc/lib/code-patching.c
+>>>> +++ b/arch/powerpc/lib/code-patching.c
+>>>> @@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
+>>>>    	return err;
+>>>>    }
+>>>>
+>>>> +/*
+>>>> + * The patch area is per-CPU and only used by its own CPU, with IRQs
+>>>> + * disabled, so only the local TLB can hold an entry for it.
+>>>> + *
+>>>> + * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
+>>>> + * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
+>>>> + * flush just the local kernel (PID 0) entry.
+>>>> + * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
+>>>> + */
+>>>> +static void flush_patch_area(unsigned long addr)
+>>>> +{
+>>>> +	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
+>>>
+>>> CONFIG_PPC_BOOK3S not consistant with commit message. Are you adressing
+>>> a problem on e500 only ? on all not book3s ? What about book3s/32 ? What
+>>> about 8xx ? Even for book3s/64, is it correct at all when
+>>> mm_patch_enabled() returns false ?
+>>>
+>> 
+>> No we are addressing the problem on all NOHASH platforms. IIUC, all
+>> !BOOK3S are "nohash". Although some of them maybe UP, so it doesn't
+>> matter whether a flush_tlb_kernel_range() is called or
+>> local_flush_tlb_page() - it wouldn't matter. And on others which are SMP
+>> but do not have STRICT_KERNEL_RWX enabled, they will anyway not go
+>> through this path - but if they ever do - then we should ensure they too
+>> do a local_flush_tlb_range() to avoid the same deadlock.
+>> 
+>> However, I think, maybe we could use CONFIG_PPC_MMU_NOHASH instead of using
+>> CONFIG_PPC_BOOK3S, thoughts?
+>
+> Well they are equivalent, so it doesn't solve the issue I think:
+>
+> config PPC_MMU_NOHASH
+> 	def_bool y
+> 	depends on !PPC_BOOK3S
+>
+> What about book3s/64 in hash mode ? What about book3s/32 ? None of them 
+> implement temporary_mm, so are they covered ?
+>
 
-Perhaps a comment here
+They both use TLBIE (global/broadcast TLB invalidation). With that we
+don't need to use IPI for TLB invalidation.
 
-	/* Apply given FIFO size or try to autodetect it */
+> Christophe
+>
 
-> +	if (data->pdata->fifo_size) {
-> +		p->fifosize = data->pdata->fifo_size;
-> +	} else {
-> +		u32 fcc = dw8250_readl_ext(p, SUNXI_UART_FCC);
-> +
-> +		p->fifosize = FIELD_GET(SUNXI_UART_FCC_FIFO_DEPTH, fcc);
-> +	}
+Thanks for the review comments. Let me check on the stop_machine() or
+other alternative to fix the security gap as well. At the moment, I have
+my hands full with couple of other things, but hopefully I can come back
+on this once they are somewhat taken care of.
 
-Add a blank line here in the previous patch.
+-ritesh
 
->  	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
-
-...
-
-Otherwise LGTM.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+>> 
+>> 
+>> -ritesh
+>> 
+>>>> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+>>>> +	else
+>>>> +		local_flush_tlb_page(NULL, addr);
+>>>> +}
+>>>> +
+>>>>    static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+>>>>    {
+>>>>    	int err;
+>>>> @@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+>>>>    	err = __patch_mem(addr, val, patch_addr, is_dword);
+>>>>
+>>>>    	pte_clear(&init_mm, text_poke_addr, pte);
+>>>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
+>>>> +	flush_patch_area(text_poke_addr);
+>>>>
+>>>>    	return err;
+>>>>    }
+>>>> @@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
+>>>>    	err = __patch_instructions(patch_addr, code, len, repeat_instr);
+>>>>
+>>>>    	pte_clear(&init_mm, text_poke_addr, pte);
+>>>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
+>>>> +	flush_patch_area(text_poke_addr);
+>>>>
+>>>>    	return err;
+>>>>    }
+>>>> --
+>>>> 2.39.5
+>>>>
