@@ -1,84 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787730;
-	b=fRJuxDxZO++4JSmkOGfEeRIXHRFw1aLQwUWynY6tveepOPpqk/c6bGG97x1JuZqBuLbD
-	 QuyeJfd1/2Ac6QYlY103lh4szSRex2kW+wb/amgE2xtpuc4++ScgCl4nSwEk2WjvUQd3F
-	 R1JXCF5tZJU+U8EE8dPGd4G9onQ16FuJtyVbOMQBKLVSqgNdq/13+WToMVKwJ6bSBdDuM
-	 L1K5zqS+qTqnbEipkFTLpgoSUoLtrs0BSx6eJOD2YGKJII4H0lu+K/Bvfd2ulGrziLGDu
-	 /Ws/TxqM1LYCf29VzyqZGjCOrAVf282S6eAyMg7cAZdICDaJAEXLdu7X2/pt1VuMkFA==
+	t=1793787742;
+	b=XyaXbqR1uO7hH8ivhluHEtSo/HwGYbLhsuJYcyp3ZvLW5llewvsQbrGYVd0UkWHBiOZA
+	 yvzbE8WfCJVHHh57Eu7qKsCIL9fukSy0f8ZR0XT86AeC++CDKJ5lzGheZrN5pWXPls1BC
+	 I+ObNUImFqNSSob+GNJMWgtatJFh9s0y4n2YgZcK8/i/CsOygNPG4BfbiITAb7Xbgkspc
+	 qPn4tqqorgEkTem7QDqzR1cgAk/1p3n1t+wkYgJV7XSr+gSatp1eOuNdXcVbtDWpz74PB
+	 Eh3b+eqqtVrMyOKLSM+muA5THgbd/g1n1DLqBb4RX2w5e5N8GiZjuu3s2N0yY/TZqbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787730;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=8JlT2WFtQQEPD9bV9vXfzxVqL6Fc5wChqZs3jOCuMA4=;
-	b=PPT+VYol2XMrM6L/m4aVPX8Jco+jc7OKGIGHdJyimc/Xfv40ogKrHST9MX9dnoiTfa4K
-	 ndDzOKqe1dZ49DUZzDCTUw3I0vgnuMOm7lV/1PNWagAVj1p/UHRO0FWklSo62xBuX59GJ
-	 sbHoS+pVxjS7e689pG6d/Qek4QSTMYBhdNuPZPAZKC2ZBhGXniPoNirlNNJbKoshWZY7k
-	 cfVGjZlcQjQa8gq9zeZ2hG76nOFmMuKu6AI49fZmHLwnTCtjeIrVFm0/ZSaNLXGjBbHRu
-	 HVnBPbrGH6eFpGByIASRaiJrew51/BfSPR/28vkKfNquw5ZEik1NSpAlLyg1spqOpjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787742;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=BvEDid5g6QRjHn3Z1Wkrnwm5AtJ8RllZNkH2qZNru5c=;
+	b=Jrx86wTH9LBo7Gw1nZlzdX7xF2nHsKlF0A1fwSeBAGK3OWDwbE8Emq5hjusPLyk4VETK
+	 QQwBEti5xqvyk5qjvNPOBwzaJ3UC7Ax+Jy0dfCyh7mNkATdW8Ck/Wji5HWNEQrXSAKuh1
+	 dVTdT6JIZfu+k423TjjWn5bJHRaeY1FT8+GHKwKcHA8ZcMk153lbdY6dKjm+0daoESDn1
+	 YMV+L3HL51XViL6bzS+xYQzKNxmM7aRaEuK/vqEbzZ7ziALnFaYgLPq3vEvZK7PayPq3/
+	 H+FamnMGScotvfMjMgAnpgRP3fSravHlp+l+fRH1xYX2vuQWspTCGLHCVsU9nK2TiPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=auV8UG5C;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=mnpXecqY;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F52A606A31B;
-	Wed,  4 Nov 2026 10:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F52A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33068606A332;
+	Wed,  4 Nov 2026 10:22:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33068606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=auV8UG5C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793787728; x=1825323728;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=n/3H2j26OWb0nl3FEmMvVsN3VTQcUIyP2j60OWNMrdI=;
-  b=auV8UG5CoD8GWVIUpwU3RVdfkNoPpaeAcPi/2MBbPlWoTtPoEmn7/CXE
-   qH9SkeUVnd0lyXg2Q5bt/RDJGtOCnqntlVLs00v5x1Ov6U16tKMinaMhi
-   W1elvFSpkZxtJXgIlBz5TU3VC8dhtxgWWt0NTWnszfCQE3F0BOpcNfBd4
-   6i2Czhi706YoXbBMxjpAGKRP9DeLvhRIPfRHjk9uXNSpqAmYWlXqwRroN
-   Wv1Bw7oY7Ga6vTJ+0eYXNyRP6TqknKFRUztW+ajsCH7YoAJK+IxjqK9qa
-   xA/eMWMkwezGJblyRt/sEPmwLJKUN7lIiTuLsfNBzU5+8mU6OmE6qpQ7l
-   w==;
-X-CSE-ConnectionGUID: bea7kcOsQwK++7gRfPFfrw==
-X-CSE-MsgGUID: +lprVKMXS5GtzGTd/99Fcg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2631120"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2631120"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:22:08 -0800
-X-CSE-ConnectionGUID: GFWNVOkcTdady7CHAwh0Uw==
-X-CSE-MsgGUID: uUCaORvRTySTCFYXcZlRMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="8452709"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:22:04 -0800
-Date: Wed, 4 Nov 2026 12:22:02 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, khtsai@google.com,
-	fangxy@xiaopeng.com, Randy Dunlap <rdunlap@infradead.org>,
-	dbrownell@users.sourceforge.net, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] usb: gadget: u_ether: fix out-of-bounds read in
- get_ether_addr
-Message-ID: <ausHSm5voXbEoGjL@ashevche-desk.local>
-References: <20261104025058.2650911-1-liuc63@xiaopeng.com>
- <20261104025058.2650911-3-liuc63@xiaopeng.com>
- <ausGsH4Q6IDMMtin@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=mnpXecqY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=BvEDid5g6QRjHn3Z1Wkrnwm5AtJ8RllZNkH2qZNru5c=; b=mnpXecqYVSy9/XQTnCwe/QAZAT
+	oO5u9hSGJdyjtMfzeKLmcnySDE7Pfz7vhog/jVLohqgjCNPJB/gaqxJYvQqOah+IGy7rTskfqua9Z
+	Z71031F7JJC5OpNCUvjRL8w3G8oBL5t8D32sJMZx8fk6wMt83Nubl7nAPZX27fkdWACnPS5NWTCPt
+	C/Lq3OYdR04M2QtVUCc7LoOJboS0YKoelxMlb23u8m6CFaYZT+DtJU3eVSqFbCP83H0lUMHQuCdqU
+	T1Bu3zDGMij+udBlOhcK79QncRyN+sKcZ3uZ/iHhrpUccsz8pfP38qBskRoD1lolhDyy0DYiI1KQJ
+	HDXRPhDg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [PATCH v15 01/15] accel/rocket: request the core clocks by name
+Date: Wed, 04 Nov 2026 11:21:46 +0100
+Message-ID: <2231008.VsPgYW4pTa@diego>
+In-Reply-To: <3188623.WAvfycf1tz@diego>
+References:
+ <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-2-gahing@gahingwoo.com> <3188623.WAvfycf1tz@diego>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,39 +72,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ausGsH4Q6IDMMtin@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Wed, Nov 04, 2026 at 12:19:34PM +0200, Andy Shevchenko wrote:
-> On Wed, Nov 04, 2026 at 10:50:58AM +0800, Liu Chao wrote:
+Am Dienstag, 3. November 2026, 23:42:19 Mitteleurop=C3=A4ische Normalzeit s=
+chrieb Heiko St=C3=BCbner:
+> Am Sonntag, 1. November 2026, 09:22:53 Mitteleurop=C3=A4ische Normalzeit =
+schrieb Jiaxing Hu:
+> > From: Igor Paunovic <royalnet026@gmail.com>
+> >=20
+> > rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
+> > setting the .id members. The rocket_core array is allocated with
+> > devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
+> > .rdev, .dev and .index, so all four clk_bulk_data entries are requested
+> > with a NULL con_id (unlike core->resets, whose ids are set a few lines
+> > above).
+> >=20
+> > clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
+> > of_parse_clkspec() only consults "clock-names" when a name was passed, =
+so
+> > the index stays 0 for all four entries. Every entry therefore ends up
+> > holding a handle to the *first* clock of the DT "clocks" property, i.e.
+> > ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
+> > four different clocks.
+> >=20
+> > The consequence is that rocket_device_runtime_resume() prepares and ena=
+bles
+> > the AXI clock four times, while hclk, pclk and - most importantly - the=
+ NPU
+> > compute clock ("npu", SCMI_CLK_NPU on RK3588) are never prepared or ena=
+bled
+> > by this driver at all. The NPU still works only because the Rockchip
+> > power-domain driver sets GENPD_FLAG_PM_CLK and its attach_dev() callback
+> > walks the device node with of_clk_get() and adds every clock to the pm_=
+clk
+> > list, so genpd happens to keep the remaining clocks running. The bug is
+> > therefore latent today, but it means the driver holds no reference to t=
+he
+> > clock that actually feeds the NPU, which stands in the way of any future
+> > frequency scaling (OPP/devfreq) work.
+> >=20
+> > Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
+> > /sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
+> > handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other=
+ two
+> > cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
+> > "fdab0000.npu" consumer at all - their only consumers are the
+> > "npu@fdab0000" handles created by the power-domain driver via of_clk_ge=
+t().
+> >=20
+> > Set the ids explicitly, in the order mandated by the binding
+> > (Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
+> > aclk, hclk, npu, pclk. After the change the driver holds one handle per
+> > distinct clock and clk_bulk_prepare_enable() covers all four.
+> >=20
+> > Note that this is a user-visible tightening for out-of-tree DTs: the old
+> > NULL-id requests resolved by index and succeeded no matter what
+> > "clock-names" contained, while the named requests fail probe with -ENOE=
+NT
+> > when one of the four names is missing. That is the right outcome for
+> > in-tree users - the binding requires exactly these four clock-names and
+> > rk3588-base.dtsi carries them on all three cores - but a DT that relied=
+ on
+> > the permissive lookup goes from silently running on the wrong clock han=
+dles
+> > to not probing at all, so record the change here where git log will find
+> > it.
+> >=20
+> > Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU=
+")
+> > Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> > Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> > Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS,=
+ NanoPC-T6 Plus
+> > Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
+> > Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+>=20
+> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+>=20
+> nit: the commit description could be way shorter, for that small change.
 
-...
+note-to-self: also part of the DVFS series
 
-> 		bool valid;
-> 
-> 		/* Try standard format of MAC address */
-> 		valid = parse_mac_pton(str, dev_addr, ".:");
-> 		if (valid && is_valid_ether_addr(dev_addr))
->                         return 0;
-> 
-> 		/* Fallback to raw format */
-> 	// check, if it correctly handles the case you want to fix here
-> 	// I believe it does handle it correctly
-> 		if (bin2hex(...) && is_valid_ether_addr(dev_addr))
 
-Of course it should be !bin2hex(dev_addr, str, ETH_ALEN). Alternatively
-
-		valid = bin2hex(dev_addr, str, ETH_ALEN) == 0;
-		if (valid && is_valid_ether_addr(dev_addr))
-			return 0;
-
->                         return 0;
-
--- 
-With Best Regards,
-Andy Shevchenko
 
 
