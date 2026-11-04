@@ -1,125 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781763;
-	b=JF7CqVfzxoBwDJkOL9ShAN7w9Om/u2EXpUrfeKM7qwEnimpcx3WVrkXHv2b0BJSkMa/T
-	 /kYsnk/P5Wpda4DSlDfJRNRs29/S+iJT87TrDHgwhWCnfE5PDjUH+uj/7uFtZaFmzbR+T
-	 plYwca3dStegZA65m7Gr2RyImvkNTGwRz+Z/G/uI+2tBGiwL/efe1FfsWWueZGroWkQjj
-	 TNfgNzdek2X/4649Ew2xC/Nngu8AYR61j+w1RiiLR5YjBDImFthqKDjIVjXtwXLGDMQJw
-	 mzn1LaB4B+JRStf9Ye7al7SvBZ3EDQcTIRcTpWtpcHzedLcW37h+usSTxiLzejbjrGQ==
+	t=1793781821;
+	b=QWSaNjvmDKD66+GUPi5ABsB7D5S0V2Nbtn597/+2hb+oN+9mqFUREJrQ7TKDtY3D68KU
+	 WA+SKa0jrZX4tt6GhGZG++3EJbr8C3YEA7RcECkwNpcxSrPpNZ9XsL90v8kQYOAdAFeBx
+	 3E6MkxJx0uUfQwi1dxVs8DqPRpYAk0lNvaGx5y8NNa5f48fvzQh0NVzqL/b0OW48qf4Ja
+	 CfyiCKrSDqAx2fLfUwjHEWJgGeCijmyOon+WuQ3oxpE4K/LLko082f3izjmLhrtB/VRQZ
+	 hS/LM6OVr488AMTDIO6AG7tMM3wAeAdvpX6GoJsP/j4CfuU4tMqPS2k5ym1woPykGfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781763;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=lw46wr8RFUM11VZcrvo7hsTLHohV5xgIubBnDb9dNrg=;
-	b=aoBX1NE4njEsjXuvjyXWNFAqGSVHZNGie5uCYLam3pTwnAG01fQMZN/4k7r3iEIidwKr
-	 Atr/zTUvYlwDO+BTXJ+6qWXKPVP2olBw9LEzVwfY8hl5Xjo9XN+L5h/ni01Jp/EApgqwB
-	 68VV9pTpYFdnOHp0ptza0c8JsuFyfabNw1AxPAR29NF8sPjbaUlnvg/UTttLYc/mcl5mV
-	 t8TQlaDc+nBN96ag+3ScuYemEIAAS4lyebZfhAjVzxg0ZL0Ojdf2C9bh6SgOMk9qtQeSL
-	 X1NQc24bChUd3AAyKkyYTM/RXSGC3Mvx32dnhgPgZVt66k8WwBww/QXEeDynU9Bxemg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781821;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=f2hk/rNUhdh8MzoGh+JB++bhZwGGGXc0fWWdJjx7Q34=;
+	b=IZlNBJOfjekb6Ar1OmIszrq9kwxsAPCk6Rm4gzBpw+QJPZeIme3/B9S2MoTHUzbeHgYu
+	 y9jNivW+wWgxm0z8RYhg28QqAvs8gXXw6sChktXcfxkagtK+Zkunrvcz23Hn4tuwdmTrw
+	 EiSK23BNT4RTURs16zjfl4mS9+H9qKS83GrVaNWWREyNDUcpGDUi18aUa4T4drWLa4GAR
+	 Q7hjE7AgJm0Wi+azGKMUNiwC4h5c5AruOh+QLLRul3arOWa7b6GArHfwXGjo+3onVM0DW
+	 kp6PhHYH4sUaLVrI4yDlnOFeULjKoT6rr42kVEYm/kwLGULI9Jp3eh241MI1aBj336A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SQWXj3vO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Er7oO4ag;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sp83wNpG;
+	arc=none smtp.remote-ip=91.218.175.97
+Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD39606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:42:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECD39606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C27606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C27606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SQWXj3vO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Er7oO4ag
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48Kfsn175208
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 08:42:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lw46wr8RFUM11VZcrvo7hsTL
-	HohV5xgIubBnDb9dNrg=; b=SQWXj3vOGaHUs3E1t1LtdfjT+Y+Vht8IOWIFNZro
-	jIpCRcWR8St+vS2G37ggadoOdAHaTjjRNmG8Yp0A5xXmtV2UGGAGSlQK/uPLJDJx
-	jrbpNgKwG6MecFYB78dPvarClx9SRaE56QTarE/i2zsaV+ZIOed5Ctedc6V+5A3W
-	Bsewwh0mQ0DAOkuptIhAPA+7YxpGKpM3qm32gTJytzNyLE93w9NVqXt+3uppsCmw
-	grq2hm982V0Bjimen7U4QjogHUx6q5BsN+JekISDQx7mnl/IZhsEZP7rlHLOuhRm
-	VwQVzaN6or/UwGVgKFNKFN7fQeFHgsHtpBXGhCnVS4h0Qg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqmjbu39k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:42:41 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ea381ce04fso6235275ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:42:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793781761; x=1794386561; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lw46wr8RFUM11VZcrvo7hsTLHohV5xgIubBnDb9dNrg=;
-        b=Er7oO4ag+ib81plkmsMXyJwxF76TMTKCmGDg1761CBbWdds4jxmNZKdzvy8czEaJzg
-         hdPP/CPA0X5bBpkmtFfKWbrcoUV+PQBBuACnO+O2R4SnYWKQENWeOuG54fEIOc20oMPU
-         e5ktAQfLVL7m9LohxI0aEGoefTnVfxxJBzvlN1qN4LIbyz1Z8Shuta15Fd2IUUb/HRtY
-         kfQt8qT/Q0Io/J6kv3ICYG7YT0WRIng0RqyihkwbBXpeo6IXmBEIGN7E+Uet5ncVkG38
-         9NgfIJk12NLo7U7nrLaAqA/CXExUPNucBdjumTcl8VtfPKHCcVrtqIzS23PYzWpVz04B
-         SYsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793781761; x=1794386561;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lw46wr8RFUM11VZcrvo7hsTLHohV5xgIubBnDb9dNrg=;
-        b=tfqz/mFf/SGcnsqOZTLVfgZR0IXOSW2KJxBkBeMFPbTtco/p6euK6Tji3YrfaMLrB8
-         R1BPGFe9BCh4wks38R6JwZXsA+mXzgm1E6l8HiYLumyxajAnrM8pJ50uaK2bx1S32xuz
-         DfX53ktUz3zYWSXZ7aWV6KmEBiuKiA26f9ve3yLyl7S0KFQgG7viRmr6p0R1YOWZ7Pua
-         uQGyIDsSYhfGMxz4XuexPhAYiSdXDj1arAGeEzvEsPrv7SciGGJjkMNl32zmg7UMu+Je
-         IOILrudrY8MbqsBGvywgvjsOWmMlDCLBOkUDCdc+g/j5DeGvyw6PNLlfAGcdJsuPzyIe
-         WBbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxe9IS/qLQjJuTI0BR1Eph/a/Ahqn8g9RexYWSRLi+M5D9UAkS5hAO+8UjJUDhPtIe7d5y3IumJLWaSzQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vbkMJnm+GBVlHapsKemu8rjZy0h9/tjrU2zxyok6d5WGSpPOT
-	csL6v8rq8Kc46vD595gnl/Tkf5PiuzzqcklHKFJJUNOF9sL8OpM89/mM3Tvu+5ufHhz3WuvVAEf
-	0aTKQFVjA7qI2djTUv2+TArJPiUQ0F9eiJEu4IHmeFdwY6DfzSotOl8eLYhMtNlwrUjg=
-X-Gm-Gg: AYBFou3YV0sU65t6MaJAM3OkK9drhdu5dC3RdtTI9bfHi30yMy8ayRrw3hy5q7uSx51
-	iHeITT3DfQOvEwyV1zpz/sQ8upJahvz8eb8Mq8/4UjuRqZ3SE0xsTyRCorOU7trnsw0olcSWGkA
-	SRLVIrW6V2FQCYfdZnviFKUpWa5g05GBCa+zbisWvjXoW9tKxfETZvm+8LDA0qGe65E7aUT0f7I
-	iHF4B06eUg8bMU4zuyx/4VWPrfCZUPJXz9mEVPXUieTtqUKtHerdPvhVdExRJujvK/SDZzXWn5H
-	NK70Y943vT6NueSLL8pXhLEJO5lPCCHZCr25Jxcr/at+7zZkodRKWkLDEjb02QeZZOzkKXYko4s
-	CflSdLqCET99LSSBic2yOYmrPswIJ/vQRLQzYd6HKK5IW08Ii5zAF6zh36ryq2zcDcNYW10lNch
-	xEL/9+HY9Bj7M6CQ==
-X-Received: by 2002:a17:903:124a:b0:2ea:238c:4d04 with SMTP id d9443c01a7336-2eb364953c5mr105805685ad.12.1793781760767;
-        Wed, 04 Nov 2026 00:42:40 -0800 (PST)
-X-Received: by 2002:a17:903:124a:b0:2ea:238c:4d04 with SMTP id d9443c01a7336-2eb364953c5mr105805465ad.12.1793781760280;
-        Wed, 04 Nov 2026 00:42:40 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed183dcf6csm126245ad.38.2026.11.04.00.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 00:42:40 -0800 (PST)
-Date: Wed, 4 Nov 2026 16:42:34 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 1/3] arm64: dts: qcom: nord: Add Ethernet support
-Message-ID: <aurv-mqf4MJEiuF1@QCOM-aGQu4IUr3Y>
-References: <20261101080413.1428016-1-shengchao.guo@oss.qualcomm.com>
- <20261101080413.1428016-2-shengchao.guo@oss.qualcomm.com>
- <658a44f3-219e-4810-8931-192a26ebdc3b@oss.qualcomm.com>
- <aurl7S0IEOeNHDo3@QCOM-aGQu4IUr3Y>
- <02ebb6b5-4f74-41a3-b6ba-bd8ff24ef000@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sp83wNpG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=f2hk/rNUhdh8MzoGh+JB++bhZwGGGXc0fWWdJjx7Q34=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793781817; v=1; x=1794386617;
+ b=sp83wNpGcg3gaaZ8Q1xR/9GuIAN39T9nU3daATAk0D3PyazINZZkLbge+C8jvkhlT/l1yMyQ
+ z4PY8O3ch/eBLnfTIKoQOWvUBUqWReMoaFrNfi96CuAqZM2S8rXHR4UmnarPZPvmVgtfzb2K9u1
+ F4JsYvveNIOBOxe1A0qJ86Lg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3c5b907775b29065;
+	Wed, 04 Nov 2026 08:43:36 +0000
+X-Mizu-Trace-ID: 3c5b907775b29065
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	akpm@linux-foundation.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	will@kernel.org,
+	boqun@kernel.org,
+	longman@redhat.com,
+	surenb@google.com,
+	vbabka@kernel.org,
+	shakeel.butt@linux.dev,
+	yonghong.song@linux.dev,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: Re: [PATCH 2/5] mm/khugepaged: scan mm's more efficiently under mmap_lock contention
+Date: Wed,  4 Nov 2026 16:43:26 +0800
+Message-ID: <20261104084326.35457-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261103-khugepaged-latency-fix-v1-2-a07ab16ac860@kernel.org>
+References: <20261103-khugepaged-latency-fix-v1-2-a07ab16ac860@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,70 +98,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <02ebb6b5-4f74-41a3-b6ba-bd8ff24ef000@oss.qualcomm.com>
-X-Proofpoint-GUID: GVlAx78IHCDy57Fm7XTa2f6QfSVy6gA_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNCBTYWx0ZWRfXxEdPEONtm+tg
- 3REatlCRTWYb6HHJBEaSPJT3JrOa25rhahtRmoShSI3TBp6x6o/nJ5iHQ+EjkVJtHCndKrKwGnD
- bkI5S/Hefn8y6oAcy4lXEdO1Uz0z+m1bodLas+RZGWy6CwcVjtZ/PJd7I0VI2bjcszWBcNHiE1H
- ys9itd/Nt9oKa4BcTSJ/APHjYnsp0TarIyn/oeD0RqimG9IhV4YXFllPrDuL1F3o7LAVf36P0eP
- qJpcFdGpcxApFv6tU65vJeS2+6G2DfyY9fJM7rOTvVbLBCS6VHd7it6OGc8mPqI1x6CyUAC0Fom
- x1mda8PkxbvAX8fYbYroktZ4mQoHRFltsPd2Q9vq/h4dkGqTOkcs7JOlFV2NeS9DJ4/ZLs7sEqc
- sxKZLS8sN/Bee6UpJxzTT4JCOLL2d4vx0mwloiVvCWdJMDZ5AjOUdtI9Mwv4h9M3po5ifKWOs4h
- rV2H6v8EiWa4MzDTAzw==
-X-Proofpoint-ORIG-GUID: GVlAx78IHCDy57Fm7XTa2f6QfSVy6gA_
-X-Authority-Analysis: v=2.4 cv=NMhAaE6g c=1 sm=1 tr=0 ts=6aeaf001 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=KAsKvIRJHMjLmqjOIagA:9 a=CjuIK1q_8ugA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNCBTYWx0ZWRfXxiSX7f6EmW+I
- csB33NaVYQv5yor5IkzOz/84F4+RmYZWQf/bl3/qzjDLBvCvJPDMAmANiH+g+8O4o62CH+cdQd9
- 1UfSzYoWOvrBhZfo/F/kyl61aP+ggrc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 phishscore=0 adultscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040034
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 09:04:33AM +0100, Konrad Dybcio wrote:
-> On 11/4/26 8:59 AM, Shawn Guo wrote:
-> > On Mon, Nov 02, 2026 at 04:01:03PM +0100, Konrad Dybcio wrote:
-> >> On 11/1/26 9:04 AM, Shawn Guo wrote:
-> >>> From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> >>>
-> >>> Describe both Nord 10-Gbps Ethernet controllers, including their XPCS and
-> >>> SerDes blocks, clocks, resets, power domains, interconnects, SMMU streams
-> >>> and DMA queues.
-> >>>
-> >>> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> >>> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> >>> ---
-> >>
-> >> [...]
-> >>
-> >>> +	phys = <&serdes0>;
-> >>> +	phy-names = "serdes";
-> >>
-> >> I believe this holds for both GearVM and embedded, so you can move
-> >> it to the common DTSI
-> > 
-> > No, this doesn't apply to GearVM. The SerDes is owned entirely by the SCMI
-> > server firmware for GearVM variant. LDOs, clkref, reset, and the per-speed
-> > PLL/RX/TX programming driven by an SCMI perf domain whose level is
-> > the link speed.
-> 
-> Right, but I meant the assignment to the EMACs specifically
 
-The EMAC0/SerDes0 and EMAC1/SerDes1 pairing is indeed the same on both
-variants. But the serdes nodes only exist in nord-embedded.dtsi, since
-GearVM doesn't expose the PHY to Linux. Or am I missing your point
-completely?
+On Tue, Nov 03, 2026 at 08:27:43AM +0000, Lorenzo Stoakes (ARM) wrote:
+>Ostensibly khugepaged collapse traverses eligible mm's, scanning up to
+>/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan eligible pages
+>at a time, sleeping for /sys/.../scan_sleep_millisecs between each
+>traversal.
+>
+>mm's are scanned in collapse_scan_mm_slot() under the mmap read lock,
+>obtained using mmap_read_trylock(), skipping the mm if there is lock
+>contention, and dropping the lock before allocation.
+>
+>khugepaged will keep scanning the same mm until it is about to be torn
+>down, prctl(PR_SET_THP_DISABLE) disables THP for it, mm->mmap_lock
+>contention occurs, or all its VMAs have been scanned.
+>
+>When any of these occur, khugepaged doesn't keep track of where it left
+>off, as the current address is tracked in
+>khugepaged_scan.address (essentially a global value), which is reset.
+>
+>This is a problem when lock contention occurs, as when the mm is next
+>scanned, it starts from address 0 again.
+>
+>If there's a lot of mmap_lock contention this can significantly slow down
+>collapse later in the mm, since the /sys/.../pages_to_scan budget can run
+>out before the end of the mm is reached.
+>
+>The budget is incremented (as tracked in cc->progress) at a rate of 1 page
+>per ineligible VMA, but the budget is only checked once eligible VMAs are
+>encountered.
+>
+>Then, it only takes the combined total of ineligible VMAs and eligible but
+>non-collapsible pages to exceed the /sys/.../pages_to_scan budget for the
+>rest of the mm to be skipped.
+>
+>For a system with 4 KiB page size and default sysctl settings this only
+>requires 4096 ineligible VMAs/uncollapsible pages to be skipped before this
+>happens.
+>
+>Examples of eligible but uncollapsible ranges are those containing a large
+>number of forked PTE entries (more than /sys/.../max_ptes_shared), swapped
+>out PTE entries (more than /sys/.../max_ptes_swap) or none or zero-page PTE
+>entries (more than /sys/.../max_ptes_none).
+>
+>The latter might seem unlikely to happen given /sys/.../max_ptes_none
+>defaults to HPAGE_PMD_NR - 1 and CONFIG_PT_RECLAIM frees PTE page tables,
+>however CONFIG_PT_RECLAIM only removes the page table if the zapped range
+>spans at least a PMD size (see pte_table_reclaim_possible()).
+>
+>Thus, userland software that applies madvise(..., MADV_DONTNEED) across
+>sub-PMD ranges can thwart this, which is quite feasible for memory
+>allocators and GC heaps, for instance.
+>
+>Resolve the issue by simply tracking the last examined address in the
+>khugepaged_mm_slot object, so when the mm is resumed, the scan starts from
+>where it left off.
+>
+>Additionally, skip to the next candidate if a VMA cannot be collapsed.
+>
+>This issue was noticed during some work in which an mm was instantiated
+>with a large number of small VMAs under significant mmap_lock contention,
+>during which collapse was observed to take 10.8s. With this patch applied
+>it took 3.6s to collapse the same mm.
+>
+>Also, while here, update a couple VM_BUG_ON()'s to VM_WARN_ON_ONCE()'s.
+>
+>This patch is also a pre-requisite for a later patch in this series.
+>
+>Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>---
 
-Shawn
+Looks good on its own, since vmi isn't reset inside the loop yet. Patch
+#05 will need to handle the ALIGN() overflow Sashiko reported before
+adding that reset.
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
