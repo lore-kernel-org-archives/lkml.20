@@ -1,105 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795091;
-	b=SvhUMxYkdhSKwz3XgshzCP2F6/Kja5wLpVFDpTXUqHW1x9+OWJowAS8ERn3r//TJqKeQ
-	 ZuAcG5Lco5fn362Q5q5hkUHDMvhtLHY+vdalP3yDfbh2FNXme9S9q2a1QlSFuyr7drKcL
-	 VJ91VhykSVcAtkm9VTSNDH0lTR1x5ty7kZ8wC1hA3nciwFhyvdetn7V3FzNR4gEJ50HyC
-	 ox6crxq6cupim1b/8JQT/lRJ4a84NWPp9mLx/Rd+NKC4jZx92NjIBFWdNw5R8XgmmFlQ+
-	 oKjga+x17p8rblAP+xAVQpBLNMQS9g/tW/oNi/VLfImk2LhsOhTL48Wv883vsEf9Qxw==
+	t=1793795186;
+	b=GtEWGiqk+F4hvg298/TULhcsVnSAYeLU0MVdo2EmpZfmmiTRTnSWV2ToTm7axHzriPSN
+	 vpfsHvaDdvA23qTRb7qMrhQM+JhaqpHTU+GgyI4cbSxQHXG4XsCIl0Ih0on+mHZCay1Z6
+	 zop5E5P1VgR6x57LJu8paqq2h2EskyN2t5XGr+YrWPTOmLCGtzuUG1Un+OUat3NvP+grw
+	 4ejW4/9eNTqWLT0Nn+EBxV1JghJJqH5vrvRmaFQD0sWWvzVwG8Xw9B7/ZAeJrbB3WSCnz
+	 dT2O65CHw5b8miNmFo9aZN5aZVKhSdtULMJTM3c+i8TI/9hwbKCZ7sduTzQKSpfDKVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795091;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
-	b=g7QrcMwX0Kn5yO4ifHvER16zm48BZzq3gGeg1yr6z/49WPYu7Fbvt/hpT4sV9puKlwUx
-	 eLsIZWWXCfuy4NBgxAG1EXvsnWh0ofO6MtaA7yCC8TiagVewjpr4Pku65zlAfOxLnEei0
-	 mAiyOpMLWFJwB4l+FuPw6R2M8+NyWI6SL3irkKBfkpmtnHUMsOBis4aBlwuyGUbREGqB5
-	 0F461Wru0qWu6So4SDzig73GT3WRp7ENDNU3ajlNgrUgs+ade0kwtrwZlSJsosItimonz
-	 ky0np1mkj1JzR2UwbXhoZzYT0VwhPe1HcK8P298CQhGeeWoxDhCg6utRBI7WuU/XuOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=thomxBGmhlzEQD85NB4cuQLLeHvP2M634LL7QtV22Rw=;
+	b=s1ockvtMxrwH1SMJwhwk/08i5DpDpb5jj3ZqLA9/BtbdSjT2IaXla5P6BPmcX0MVo9OW
+	 +n9xIDcPBunY4fC+y/Dqs/OAmA0b6NJPVCx78VawF+NT0+XqYV1FjUO/1iGYo24udmqmE
+	 vUos9RVMvO4RVQjgqbXOtddhZ7JagHRYE/MX3WGWYVMFsv/lq0tj9oElCPu6zc/J98SqA
+	 JgL/CaznaXiuAdcXU9cKgS4hKQeHH6nlVgneQB7WMcLiE1235szBGyd2/iauVVCp33hlE
+	 TKTrf8Y4tlTc+A3M/XqCYeqIfWe0Ja8pRDL4cBuygS2J/VCugdm79oVwOVw6d0rEutw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B8KWGY3x;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5vTouD4T;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=HgLQC5gs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OdOXGJkj;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HRBcL15j;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2203606A329;
-	Wed,  4 Nov 2026 12:24:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2203606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D463B606A333
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D463B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=B8KWGY3x;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5vTouD4T;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=HgLQC5gs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OdOXGJkj
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E31461F444;
-	Wed,  4 Nov 2026 12:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793795089; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
-	b=B8KWGY3x9w/OD4QG98rL3PWMD5ZUPDfI+tKORnZUlzqldFWrWohOBAyvr7g5GDeZ7+7bOL
-	SDYVLs4uZl1ZWBUsEFaxIBMiA7Wx92nKt6JVn3YecFAy4td//ibZiHOJcnWIA1r5bWsAf8
-	Q+al1C6ZqVTI/Cc4fLDwQhU5kAT5svU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793795089;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
-	b=5vTouD4TXJOt8d+3D4pnInf4aD806DzEFGA6puXemTawLaDBSkpVjn9gMWIIhQkIJG6Ulg
-	ZmlbZei7xhzSCADQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793795088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
-	b=HgLQC5gsVedS0j82/uhuLLWySwJi+GnYvnvJG/SJLuE5KsdY1Rhq6OCEVx7HE5P/5SdYrK
-	otQ4F0UKhS3HRSq/hrPa9dR8ZygzAR+JT+T3AShehkOR6BVb8vdCIyQF5ba5gtj2bkYQVH
-	AmxWEZa8ac+b/fUHHvocBIcHFbcogY0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793795088;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XNmrnQLKNQ/MDoLuIp/7vZYSf99RWekPLj/FzDmiyl0=;
-	b=OdOXGJkjcHKO3Ti5fXUDD/4TMuk7xhhY+2lyzZqKzDLKtH6ovyiCm4umqBK3JrvMLcXfxR
-	o19Oi/LHImCz86CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B1C6D134F0;
-	Wed,  4 Nov 2026 12:24:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vLJ3IhAk62rWawAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 12:24:48 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 37672B368; Wed, 04 Nov 2026 13:24:48 +0100 (CET)
-Date: Wed, 4 Nov 2026 13:24:48 +0100
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.cz, sortie@maxsi.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] isofs: handle Rock Ridge long-form dates before 1900
-Message-ID: <hgfr4dfhp6blqqkdjrmw4uihofgzjljfpks7bumzmizcdt6b2o@sbjhrm6mzx56>
-References: <20261029004902.76944-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HRBcL15j
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so5285575e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:26:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793795184; x=1794399984; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=thomxBGmhlzEQD85NB4cuQLLeHvP2M634LL7QtV22Rw=;
+        b=HRBcL15j+yHMy3baKSzZG+feycDT3bLz/2Py0auzYiUnpUrrwKeNmbv2D93vhW+Y6y
+         4GFqlUTeaAxVs9Ja5WdO7TxR7CuFlucR8E9ngwCf3jN78C+Iad65or/2zRQV5tOXzDdl
+         baL5Y9sPvdHOysZNSsz2mrdqfUY4TPoe8QcRemBMDZAZ9pvOqYezCN3Kt9v01FO2hm7A
+         /vACd1WxhJGMCaIb0SheVEM4alHwz/yJNILaKigsl6JE4hdJGYjj7R7Lx/K6B9+e5f6O
+         A493Gudgn/Ervo4IDnA9vrDfTX28gDzpeqQwRkVCanlMTpy1m2K9BlzF7fOANqCa8C5r
+         ffmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793795184; x=1794399984;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=thomxBGmhlzEQD85NB4cuQLLeHvP2M634LL7QtV22Rw=;
+        b=TeKbpmJGReJ8vtq7SgzAEBlYKUESAGLTe4CL2LG6JG8NG8TTlTDiF1ZtGN5oOUNBNX
+         s0ZmaeGuALDZweYV3ejUzcvqhH7J8MJEuDxNpKfNEcTByIbji0mDmKjbPGUnVW6kCWuV
+         eCpS7FsCMtow7y/eFPesHNqW7gZpMteJgakKjuwLcx4pDRyO3+pa1GrfJjSi2aQ41uWa
+         LkeTFnrYcTRnz3Ks8HSww5R3b9t6cjYBoPExG+maqu5N2jWhKZuvgAPIRo3uFEvmM8vK
+         jtBJJBEf0YdlxPBoq+dr75QdGYQEkmiPlYH/6dSGh6pUlwh8zNgHO4n7oZ450fK5I1xv
+         v3MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0Ws6TGNomB+P53FezxlzhenAqDo2ZUo2fAknSuydbzwH8xbI67VRE+TY+wQeJ0pvGQH9RdE7FV1wQ/Yg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NQ2kGZzXKFOmUV/8kNOkP7e3wuc/gZL1dl/n8jaZD8NFYp8O2
+	td9blaqXKuYHpbiXVXthBYU6dPyzyMc5HaMj/NEs4i7/g7/YXftvhfkL
+X-Gm-Gg: AYBFou07h/y3yEQ2dVVd4KW1ddFYmPBrsn+TWY6mPr/6LZBGY5Z2KNrM7sJyIZ9VA1i
+	MTqyic1Z3UaEjYp9k7jdTqRSaKPV0giq3bG9vhAazFdgrTS0vziXxFu7zqSFfePT+uOE9e92oEk
+	MSS97mM0WI0txHLXfXdEu3oGv1oScC4qTrNvdYlaBmYUOdfmBhGhGbXHYfDklennNGsmKNpgykz
+	HDUZEEzHNVdSl+vVkuytu9gPGccrF6DnbmsEN6QkEzP6arA9fRCGATKUDOZrSCYb/7I38cp0CyH
+	Aq0ra4rhqqhox6QECmaQOr3TF+WoYXVS9YmIrObvH95RdgoCNS42rHYUR/JBrx3n1Ih4+hLyNpD
+	78cMlyw6k06Z8O14D9iH8jO35me9I74XTBNliw0sIIyOUYBOf5tZYkINgS88P4wrqS7bCleC4f/
+	a8rxOMGI+GRVs+WFrLuHbw/mv0dx+CUxELlsbMZCkyReFF9FObD498AQsFhsyLTwAjnuQAfF6vh
+	FFnvYblQdA/CUZViLRSrZXNJL+BxrTOnPm9rw3i2nY6LZF5+8BXtDWEGnPTYmPyns3H9TokMZ9e
+	Z/AHjDv1XFz0CUZAMgGRXYkP+o4S9yzbT0XMs5ZP5k/R6wVhZg==
+X-Received: by 2002:a05:600c:a30a:b0:4ac:b0b2:fa12 with SMTP id 5b1f17b1804b1-4acb0b2fac0mr259956635e9.1.1793795183945;
+        Wed, 04 Nov 2026 04:26:23 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43da9825bsm50492415e9.15.2026.11.04.04.26.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 04:26:23 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Ion Agorria <ion@agorria.com>,
+	=?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+	Florian Krischer <florian.krischer@fkr.dev>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v13 0/7] mfd: Add support for Asus Transformer embedded controller
+Date: Wed,  4 Nov 2026 14:25:59 +0200
+Message-ID: <20261104122606.215629-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,98 +110,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029004902.76944-1-dennylin0707@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -12.80
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu 29-10-26 00:49:02, Hungyu Lin wrote:
-> iso_date() stores the year relative to 1900 and rejects negative values.
-> Rock Ridge LONG_FORM timestamps encode calendar years from 1 to 9999,
-> so valid years before 1900 are returned as seconds since the Unix epoch
-> equal to zero instead of their recorded dates. For example, an 1899
-> timestamp on an image produced by xorriso is reported as 1970 by stat,
-> and cp -p preserves that incorrect time.
-> 
-> Use the calendar year for both timestamp formats and pass it directly
-> to mktime64(). Keep the epoch fallback for year zero, while allowing
-> valid long-form years before 1900. Short-form dates are unchanged.
-> 
-> Fixes: 5ea45f54c8d6 ("isofs: fix Y2038 and Y2156 issues in Rock Ridge TF entry")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Add support for embedded controller used in Asus Transformers for
+managing power and input functions.
 
-Thanks for the fix. I've added it to my tree. I've dropped the CC stable
-since this really isn't a serious issue...
+---
+Changes in v2:
+- converted sysfs debug exports into debugfs
+- added kernel-doc comments for exposed functions
+- fixed minor typos and inconsistencies
 
-								Honza
+Changes in v3:
+- dropped DockRAM commits (both schema and driver)
+- integrated DockRAM functionality directly into the controller driver
+- EC schema moved to embedded controllers folder
+- removed all cell descriptions from the schema
+- removed all compatibles from the cell drivers
+- adjusted naming conventions to better align with the ASUS Transformers
+- defined EC variant sets to provide coverage for all known devices
 
-> ---
->  fs/isofs/util.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/isofs/util.c b/fs/isofs/util.c
-> index 42f479da0b28..6f9a90e58a89 100644
-> --- a/fs/isofs/util.c
-> +++ b/fs/isofs/util.c
-> @@ -25,7 +25,7 @@ struct timespec64 iso_date(u8 *p, int flags)
->  		year = (p[0] - '0') * 1000 +
->  		       (p[1] - '0') * 100 +
->  		       (p[2] - '0') * 10 +
-> -		       (p[3] - '0') - 1900;
-> +		       (p[3] - '0');
->  		month = ((p[4] - '0') * 10 + (p[5] - '0'));
->  		day = ((p[6] - '0') * 10 + (p[7] - '0'));
->  		hour = ((p[8] - '0') * 10 + (p[9] - '0'));
-> @@ -34,7 +34,7 @@ struct timespec64 iso_date(u8 *p, int flags)
->  		ts.tv_nsec = ((p[14] - '0') * 10 + (p[15] - '0')) * 10000000;
->  		tz = p[16];
->  	} else {
-> -		year = p[0];
-> +		year = p[0] + 1900;
->  		month = p[1];
->  		day = p[2];
->  		hour = p[3];
-> @@ -45,10 +45,10 @@ struct timespec64 iso_date(u8 *p, int flags)
->  		tz = flags & ISO_DATE_HIGH_SIERRA ? 0 : p[6];
->  	}
->  
-> -	if (year < 0) {
-> +	if (year < 1) {
->  		ts.tv_sec = 0;
->  	} else {
-> -		ts.tv_sec = mktime64(year+1900, month, day, hour, minute, second);
-> +		ts.tv_sec = mktime64(year, month, day, hour, minute, second);
->  
->  		/* sign extend */
->  		if (tz & 0x80)
-> -- 
-> 2.43.0
-> 
+Changes in v4:
+- grouped known programming models of EC chronologically (both schema
+  and driver)
+- call debugfs init only if CONFIG_DEBUG_FS is enabled
+
+Changes in v5:
+- added asus,tf600t-ec-dock compatible to schema
+- rebased on top of v7.0
+- kzalloc > kzalloc_obj in keys and kbc
+
+Changes in v6:
+- removed asus_ec_handle_smi casting
+- asus_dockram_access_ctl > asus_ec_get_ctl in control_reg_*
+- fixed battery Kconfig description
+
+Changes in v7:
+- added status check of devm_kasprintf where missing
+- devm_asus_ec_register_notifier dropped, added .remove where it was used
+- removed cell_to_ec, asus_dockram_read, asus_dockram_write, asus_ec_* public API
+  asus_ec_i2c_command, devm_asus_ec_register_notifier, asus_ec_read, asus_ec_write
+- renamed asusec_info > asusec_core
+- ec-kbc: added packed size check
+	  ret > error
+	  improved key remap logic
+- ec-keys: improve formatting and comments 
+	   ret > error
+	   switched to dev_err_probe
+- ec-leds: reworked to register both leds via loop
+- ec-mfd: adjusted Kconfig description
+	  fixed smbus operation sizes
+	  fixed saving of EC fw model
+	  adjusted IRQ flags
+	  converted to use definer for set cell composition
+	  added factory mode states enum and handling
+	  defined some "magic" values
+	  self > client, info > ec, ecreq > ecreq_gpio, priv > ddata
+	  asus_ec_chip_data data > asus_ec_chip_info info
+	  ec_data > ec_buf, ctl_data > ctl_buf
+	  added and improved comments, added structure descriptions
+	  asus_ec_magic_debug > asus_ec_susb_on_status
+	  removed all dev_dbg and most of dev_info
+	  pronts with model, fw behavior, factory and susb state preserved
+	  switched to MFD_CELL_* macros
+	  removed debugfs
+- ec-battery: swithced to BIT macro
+	      lock usage moved to asus_ec_battery_get_value
+	      in asus_ec_battery_poll_work fixed possible rescheduling fail
+	      in asus_ec_battery_poll_work fixed missing not charging
+- ec-charger: POWER_SUPPLY_PROP_MODEL_NAME set as the first check
+
+Changes in v8:
+- added MODULE_ALIAS
+- renamed DOCKRAM_* to ASUSEC_*
+- ec-keys: input_handler moved into private structure
+- ec-leds: added brightness_get
+- ec-mdf:  fixed i2c_smbus_* return checks ()
+	   improved model storing
+- ec-batt: added status check of devm_kasprintf
+
+Changes in v9:
+- fixed i2c_smbus_read_i2c_block_data return check
+- blocking_notifier_chain_register moved before serio registration
+- adjusted get_unaligned_le16 bounds check
+- unsigned long long > u64
+- iterator vars made scoped
+- removed "magic" values from ec-mfd
+- simplified logging, detect split into detect and init
+- improved error logs formatting
+- adjusted handler in media keys to connect strictly to dock keyboard
+
+Changes in v10:
+- ec-kbc: fixed possible out of buffer reads
+- ec-kbc: set notifier_call before blocking_notifier_chain_register
+- ec-keys: dropped input_unregister_device which should be handled by devm_input_allocate_device
+
+Changes in v11:
+- applied changes from Florian Krischer (read_size parameterized and fix keyboard response framing)
+- ec-kbc: switch notifier and serio register calls
+- ec-keys: used WRITE_ONCE()/READ_ONCE() for priv->special_key_pressed
+
+Changes in v12:
+- removed unused includes
+- fixed kernel-doc warns
+- added check if dockram client and data are not NULL
+- replaced handler in media keys with Dmitry's implementation
+- calculate battery time props with unsigned value
+
+Changes in v13:
+- switch to PLATFORM_DEVID_AUTO
+- move notifier registration into input device open()/close()
+- remove code check in asus_ec_keys_setup_keymap()
+- register notifier before serio ports
+- wrap mfd and leds at 100 chars
+- moved retry in asus_ec_reset() into loop scope
+- removed asus_ec_leds_data from leds
+- removed platform_set_drvdata form leds probe
+- iterator remains i becuase name led is already taken by struct asus_ec_led pointer
+- unfolded driver struct fill in led platform_driver
+- minor formatting changes in serio and keyboard drivers
+---
+
+Michał Mirosław (6):
+  mfd: Add driver for ASUS Transformer embedded controller
+  input: serio: Add driver for ASUS Transformer dock keyboard and
+    touchpad
+  input: keyboard: Add driver for ASUS Transformer dock multimedia keys
+  leds: Add driver for ASUS Transformer LEDs
+  power: supply: Add driver for ASUS Transformer battery
+  power: supply: Add charger driver for Asus Transformers
+
+Svyatoslav Ryhel (1):
+  dt-bindings: embedded-controller: document ASUS Transformer EC
+
+ .../asus,tf201-ec-pad.yaml                    | 119 ++++
+ drivers/input/keyboard/Kconfig                |  10 +
+ drivers/input/keyboard/Makefile               |   1 +
+ .../input/keyboard/asus-transformer-ec-keys.c | 216 +++++++
+ drivers/input/serio/Kconfig                   |  15 +
+ drivers/input/serio/Makefile                  |   1 +
+ drivers/input/serio/asus-transformer-ec-kbc.c | 258 ++++++++
+ drivers/leds/Kconfig                          |  11 +
+ drivers/leds/Makefile                         |   1 +
+ drivers/leds/leds-asus-transformer-ec.c       | 114 ++++
+ drivers/mfd/Kconfig                           |  16 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/asus-transformer-ec.c             | 551 ++++++++++++++++++
+ drivers/power/supply/Kconfig                  |  22 +
+ drivers/power/supply/Makefile                 |   2 +
+ .../supply/asus-transformer-ec-battery.c      | 289 +++++++++
+ .../supply/asus-transformer-ec-charger.c      | 208 +++++++
+ include/linux/mfd/asus-transformer-ec.h       | 100 ++++
+ 18 files changed, 1935 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/asus,tf201-ec-pad.yaml
+ create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+ create mode 100644 drivers/input/serio/asus-transformer-ec-kbc.c
+ create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+ create mode 100644 drivers/mfd/asus-transformer-ec.c
+ create mode 100644 drivers/power/supply/asus-transformer-ec-battery.c
+ create mode 100644 drivers/power/supply/asus-transformer-ec-charger.c
+ create mode 100644 include/linux/mfd/asus-transformer-ec.h
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
