@@ -1,57 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778663;
-	b=Wjsmad+R6gaOR+vbSAN6TAZsM9YBflbj/Ow6fJHKYdn5u4qXK+Iyhz+DI1Bz/P30gRLf
-	 DY5AjYEfi1xk4vgCp5g7R/E9WXW3nxT7aina3s50P7oI12V/yvv0VThg6TsI+ntotDpSj
-	 1lwxc00xIws9TdqioxImF7ch7uMHXXTfHuZ1FlPB9h5MQRnSNf2pFxV1MJ+NLLB7pQfxz
-	 9rShetV19d8Fbc48pfqhg9qIn7YUUrwCFx+fmGkn+nr7Te9ORAWuVjnvmzWwdPq1F3gDz
-	 LMCUZoe2lyBD9wfO32iTMC9xuNyvQhx3FaSY/Z73F9xWU0NxXZ5QqJDDrVLlDrnj/qg==
+	t=1793778744;
+	b=HFcGd3IlF65iSNwwPpkIEDj2lrukASCUN1vWUzknqSCnLpm85KKC0e5Mj5NUlCOLrJnC
+	 HRrwIX8sFoRk3j5kupzaW/zHuhOJXpN4QEb42Yzjs3CvMTUwCaFpoF+nef5o7uQAN7ut4
+	 YnK677vxZOUizgOaCw16XpG2vNYSLTVlnh6A0dcRqmYRkRTwSMwlCmB+023TfrwMbfNwL
+	 meeTpurntqrU5UL4ai1wYLps0CVULNfbMVDKVWg9+79Z39VNcwFQ6qy2lhb3Uj1dLfVPi
+	 MthUOvM49PEHiYgCfw61pASGyT00rXSzBMVBlK0m7pAh2daRNzi8UhY6T6kMT+gE+Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778663;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=ZnBMVlBZ9FA7vi+t9qEZyDr9qGdnO7eBQQiCUp2N+qs=;
-	b=XLsyl+uYO9bV60Q03hvrWh8Su6/EGe8321gs5J/Dfe5mWx8Y3sZMJ35NToCs7Fk9T/CT
-	 Z4iuzd7N5oho8/a4Ov4wQMqtdjpklC+yNKQT2TQ1VIQJH5KagLnUwgkyxv4ig5jzjFe+d
-	 8W4rb6nv4QNJ6Hjjyy3DR+UK7NmxgHprA6n6mNgyZGaAnc2mn8F5KOD1DiqveNs9CQuyu
-	 hvGleLCgBAX8Eq+OI3Z4FOFRWd+VM3+EqyGXqV97YHBGFWLOregL7aPa8Ol9pS5ru4Qzb
-	 GSlWp1sJ1b40ju26uFJ3IiuxylqrY9SL7WePGICWUiW/W3ggm2D7bCp59zvFHh7L9Lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778744;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=rr2v31AaKAWwYmMIc7r6Adi1RCicIPCQioImctiyPsI=;
+	b=zGBax37O84WHoV4kTtVHEo9GZvRTNYDSSQbV9fnkLCmPQMPqzS+Vl9uzwPUez62okAE6
+	 w8AIdxF7q0D/tdVOUzmadlksY/DUwv25rEUXtPJWHGRJru7Q8rruygCxUDOeTkKosdrcP
+	 YuKnL1TvJVF/2mK8ccU29C3KITQYKD/zZjkq9eHxJoOVnS64JKHMUzWuX+WiBFQibc7+Z
+	 kuoCK86K13SVXEuUCL4+jG+1epDpxHUjqT86NmtCNv0fU9FBpv1idaNj9p7lxhyylmX1n
+	 Zxx0X3z3yHiQdExPfuFVcfFxKCZXpL2UqTdkGCT7prWuXisvfvFE6Zv4zWw9PJicKQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfh2EDLR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=NlzusISO;
+	arc=none smtp.remote-ip=203.205.221.192
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A344606A32E;
-	Wed,  4 Nov 2026 07:51:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3726606A329;
+	Wed,  4 Nov 2026 07:52:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3726606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfh2EDLR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE751F000C1;
-	Wed,  4 Nov 2026 07:51:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778663;
-	bh=ZnBMVlBZ9FA7vi+t9qEZyDr9qGdnO7eBQQiCUp2N+qs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=lfh2EDLRAKl6CugKHqK4Nev4O1PxVPLC9pM581Xp9avVw13KEnVY7BFw8YQm/qKxD
-	 zazub/AMBbFr6vMDGXMsZY3e4qhNFpeelWjx7SZOK3AP28Mt0RAeqyEkJuo3ipidQp
-	 Oz/Yyvq13oCgiU3vmAbSlQfkRFAIz1/Xu+ortNqfrTdd9N4oeUnTipUkUPl4qN0k/t
-	 NHAMK+AI29+U27RtoJy06mr1eStKrrfeiQj4LQSw9TeNHKEKCR8MTQUyCDGDy2Lfxt
-	 zbNxg5aagJwgaQh1gtGZ2SbdPR0BKsyyAhVCyeulo6MFnHxvLYxL9DhQLEUWDJo4Ww
-	 09Bngcb+Ddo9Q==
-From: Leon Romanovsky <leon@kernel.org>
-To: Mustafa Ismail <mustafa.ismail@intel.com>, 
- Shiraz Saleem <shiraz.saleem@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- David Hu <dhu@x6u.co>
-Cc: Jacob Moroni <jmoroni@google.com>, intel-wired-lan@lists.osuosl.org, 
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Hu <xuehaohu@google.com>
-In-Reply-To: <20261030181512.2056056-1-dhu@x6u.co>
-References: <20261030181512.2056056-1-dhu@x6u.co>
-Subject: Re: [PATCH rdma-next v4 0/6] RDMA/irdma: Add support for ioctl
-Message-Id: <179377866057.1745081.14077156608414561671.b4-ty@kernel.org>
-Date: Wed, 04 Nov 2026 02:51:00 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=NlzusISO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793778733; bh=rr2v31AaKAWwYmMIc7r6Adi1RCicIPCQioImctiyPsI=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=NlzusISOe4VyviO+Fh5QTwmSxrxrLtqdqrhxKfDnon8OW6c/9QNr1CsmyY0Wm+UTd
+	 gGAWtRvvKlAotx/iLQNa2SKd37eyEVloK7J9f915e4ZGsBxXcOCCAVydkEwHfdfwpx
+	 zqL+JPmAY4AiiYPQpJ5HgNkRKNkEkXhAKtYs6rYk=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: Ml3saj0rxilewwLbXqRKjCErbc4xuxuyWPmsVBMNNss3RQEAP6yAd1CEVl1F7O
+	 bR6f/5s7YcgQ5cqBNSYf1rOOnHvXyA0G9/TQ/BMPQfStW+NFrSbzmfwfvKuW//fod4aP2qWJSQSqQ
+	 ISA1O0h0AFCQPKed1baTxGlZn/ehdIr+NHT7tUX1ixp+aQh3sLxMql3MBxcSrVMo07XzOis8RlJiX
+	 4ZKXHpFH6/tq9EdGDwAr9oig+AIVYrYtpWzwGOMuWH9tejSa0YS6rK9r/b5Wpl1j4q2aO2U4geLNO
+	 9ASkPSkqQdE/IWsxC6BYW3rV9lIfoX3ZuFTXtU3Tfzs3CZnOJEHoJOjvepkFISq4xK2B2Cyvyu26q
+	 N0aimYeyPjqHgQkZbWEqchA2ZmDYOF4zqxEGiq0eFXa1nFq8mq6RgcKgqb4W++Z+bvPme28MbMGrS
+	 JE6TcVj9aFGxn0CQoYRR4pWvPcQ+GQDefvKgVeXpzMYqEWQmfx9lMgHakL2qzHq/Znxm7MQ8cJx/6
+	 FvPiGPGKxNAbGECmXIe7QCvslhM3GRcpggmpRz0WAyM22nun9RjyeyhaOzm22xIFpKGYsuQ9VdZah
+	 ykKVU5j/IDEa+OtNPQYyUxIJcsup1215kBJdSie8N6YOCUwrTSKfqd2Ybb2KSG48yp8103BHSiJpV
+	 0IAsRLmsfsUD89xvymLhkytcYuESXI6AfIun8lesINyedj6JmQTZh+r5rYz1+D0zr2XcfMs6ME2GO
+	 no8+dqg5LWThs5n7H7f+F7U7A9cBqMSPNVP7nC90/n5PIVyI6DTICU4VwNm2yn/ey08WGL1AYtGKQ
+	 KsDZClpFqTfBKA8BDQ59dTiemuRiV+RhZL+yLvD7slOKZswJPE+aZl/ogYbNfYMJvhrWZlG0PG+Yy
+	 NZmp/TJI5ZilR2HctJ1yJwb7/si/gvl8Q+mWBiyfCaNCs3hPSXouQ4feA+rV9XCJgnJD1+5VJIGUo
+	 5Re2nEnuwlBFN9MWmJcbxUN8rhPoSibRgqHSnjuNphZWU3vIUnegbkPwXWqlkabnP+D+Pmu3Gdn0a
+	 437bc
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, 
+	"=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v6 1/6] can: dev: prevent bus-off recovery when the interface is not running
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,42 +68,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Wed, 4 Nov 2026 15:52:11 +0800
+X-Priority: 3
+Message-ID: <tencent_CD800791DD8FA7E989A65526222168C42605@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261017-rockchip-canfd-restart-close-v6-1-ed605feb4b6e@qq.com>
+	<179237863891.3135.16148468658160918424@kernel.org>
+In-Reply-To: <179237863891.3135.16148468658160918424@kernel.org>
+X-QQ-mid: xmsezb41-0t1793778731ti26akn17
 
-
-On Fri, 30 Oct 2026 18:15:06 +0000, David Hu wrote:
-> From: David Hu <xuehaohu@google.com>
-> 
-> Hello,
-> 
-> This patch series introduces support for uverbs ioctl queue creation
-> (QP, CQ, and SRQ) in the irdma driver. This series makes progress towards
-> modernizing irdma. This enables 1-step queue creation from pinned UMEMs
-> and shared dma-buf heaps (system_cc_shared), providing RDMA support for
-> Confidential Computing (CoCo) guest environments where memory encryption
-> otherwise prevents standard host-VA-based queues from operating.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/6] RDMA/irdma: Plumb uverbs_attr_bundle for QP, SRQ
-      https://git.kernel.org/rdma/rdma/c/18dde0629b58a9
-[2/6] RDMA/irdma: Register irdma UVERBS ioctl namespace
-      https://git.kernel.org/rdma/rdma/c/7a69fd61897e60
-[3/6] RDMA/irdma: Support UMEM attribute for QP creation
-      https://git.kernel.org/rdma/rdma/c/3f68d3e1326882
-[4/6] RDMA/irdma: Split CQ setup to umode and kmode
-      https://git.kernel.org/rdma/rdma/c/d1d5209ec8d49e
-[5/6] RDMA/irdma: Support UMEM attribute for CQ creation
-      https://git.kernel.org/rdma/rdma/c/b6da1bd879f1e7
-[6/6] RDMA/irdma: Support UMEM attribute for SRQ creation
-      https://git.kernel.org/rdma/rdma/c/45ac42ec8a486a
-
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
+SGksCgo+IERvZXMgdGhpcyBjaGVjayBhY3R1YWxseSBjbG9zZSB0aGUgd2luZG93IHRoZSBz
+dWJqZWN0IGxpbmUgZGVzY3JpYmVzPwoKTm8uIFRoZSBjaGVja3MgcmVqZWN0IHJlY292ZXJ5
+IHRoYXQgb2JzZXJ2ZXMgdGhlIGludGVyZmFjZSBkb3duLCBidXQgZG8Kbm90IHNlcmlhbGl6
+ZSByZWNvdmVyeSB3aXRoIGNsb3NlLiBUaGUgRmxleENBTiB0ZWFyZG93biByYWNlIGFuZCB0
+aGUKSEkzMTEwIHN0YWxlLXdvcmsgY2FzZSBhcmUgcmVhbCwgcHJlLWV4aXN0aW5nIGlzc3Vl
+cy4gVGhpcyBwYXRjaCBuYXJyb3dzCnRoZWlyIGVudHJ5IHdpbmRvd3Mgd2l0aG91dCBjbG9z
+aW5nIHRoZW0uIFJvY2tjaGlwJ3MgZWFybHkgY2FuY2VsbGF0aW9uCmFuZCBmaW5hbCBjYW5j
+ZWxsYXRpb24gYWZ0ZXIgSVJRIHRlYXJkb3duIGRvIG5vdCBmaXggb3RoZXIgZHJpdmVycy4K
+Cj4gQ2FuIHJlc3RhcnRfd29yayBzdGlsbCBiZSBxdWV1ZWQgYWZ0ZXIgY2xvc2VfY2FuZGV2
+KCkgYW5kIHRoZW4KPiBvdXRsaXZlIHRoZSBuZXRfZGV2aWNlPwoKWWVzLiBISTMxMTAncyBJ
+UlEgdGhyZWFkIGNhbiByZXRhaW4gYSB0cnVlIHJ1bm5pbmcgc25hcHNob3QgYWNyb3NzIHRo
+ZQpjYW5jZWwsIHRoZW4gcXVldWUgdGhlIGNvcmUgd29yayBiZWZvcmUgZnJlZV9pcnEoKSBm
+aW5pc2hlcy4gUmVtb3ZhbCBoYXMKbm8gbGF0ZXIgY2FuY2VsbGF0aW9uIG9mIHRoYXQgd29y
+ay4gRGVzdHJveWluZyB0aGUgZHJpdmVyJ3MgcHJpdmF0ZQp3b3JrcXVldWUgZG9lcyBub3Qg
+ZHJhaW4gdGhlIGNvcmUgcmVzdGFydCB3b3JrIG9uIHRoZSBzeXN0ZW0gd29ya3F1ZXVlLgpD
+aGVja2luZyBuZXRpZl9ydW5uaW5nKCkgZnJvbSB0aGUgY2FsbGJhY2sgY2Fubm90IHByb3Rl
+Y3QgZnJlZWQgbWVtb3J5LgoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHU=
 
