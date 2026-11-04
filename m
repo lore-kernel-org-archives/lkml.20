@@ -1,100 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780857;
-	b=AjXkOH5tHSraiDHHbNFZMnTAPe4tzTkE6HiDTi1oAMtTTyX3XiO8Tt5WrODiXTa3AIzY
-	 mL0w1LWQD7C5/HSoxBGUQ0zJpjpWLF0mzMkr54zS4sXClv74IxxLqSA034c+T0WBS9JuQ
-	 Vs6wAOjTWuJuazDE/rJsIIEtyxa2eN315frtW54a0woe8X30rSnky2Nki3dPdXshyb3Td
-	 t0uU8c6lVrH6CTu55HFYKKXhizpD0GyJRAd+K2++lJ4M01CuJIkS5oeUUgHCXpHr1qa4i
-	 3qVEn6ecll5o7huMhWiin6RYPoJeWTv7LNINrw4e2QDByw5oRW9k84Bh5dCyPXuv9Eg==
+	t=1793780920;
+	b=IlQCZosAuH7DWgI/ps9qAUZvNxYuCYrNuXC2QXx86Yj8D/Ckus4TxQYoPObm56VgEAxT
+	 TMA19Ggj8OtufxS8ycYwK5yWuNTBeLOZxZkNgsBi5O9Zy8RIPoXAMNkmoyVoSX0AEhk4n
+	 IuNaYcqkRBXrn7ZxRfJXdooOu5c3aMs+sNwqCEVqa29QGb2iL8kCC1ioqMuo/uJfyA2ot
+	 M3WH/pAft4Ns92u2meTOEuhvcqt9ktRE7D2ywo6uvAA19OmXVZGjyoslT38W48BMjj/2B
+	 44s5C3CqFKjd8gDbf3ned+69hu/Cgxo50Hjd9r0OeufpVUlT3MLd5bYMPKaqLjZKXHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780857;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6QO0MituHBPbXZ9pO3H/RBCq81PhFbDCWjFQyhVgxiw=;
-	b=rVoiI0QuQ0n1M+Hz17GH7G7mJ573d93PLVU46MpA3iaUqGQZueZGjqIhT2SnlOto4uG4
-	 lWbD7LNwg5syZTA/sR8/U45lpnk/UDf4wh1jK3VKirsoQP+tUXgV/C3ho8mx684Np8DRp
-	 yw+Y6JPQvmUvScKMSIeDh+UwfkCrpGU2egJRQyfHY9n/YW8foJMy1ZG/Jd754pTenT02Q
-	 lHCNDxfSyz7PfoMb8zKL4pN1kFxiG/ZT8Ab0MIDWB8WafctkKp4oaqozj7RN889/6hnWZ
-	 Y6niHYEDyccLU5RrAM0+4q24C52fRG3WENDr7T8llvs1S0r7mqOyxnZyOWN0U92fo4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780920;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=90tu+K8j6r16cqCpreLay2De8tvqM0wRXCWOZZEYqpg=;
+	b=W7rlJ+P9kJSTTU8QzotrvHGfrPajPwAWHNuvj5o5i/UR0RG25eQxOimKg3V88p9gIcE0
+	 OTgRoaaj8+BDbm9ciVYwDSVCsr9i/ROju7unzWCUbE9QRBr6s+zSOokezZerWZKHj3/DW
+	 sZXcrJMZoyPVttcP7dIoQfhsRlVmtTBhz5TvPWtHAfh/nJqRq+iE4usOkMGEYStjreh8y
+	 a0Fo3vCfjikKT7+AkZc5U/NmvqvCA1X5rOMJExzAjwb5dflHPWlxHXfI6PQHCXAHP34Vi
+	 g5UIVQdfU1CriFGMMWi7KSU75SAhNK0cpQLznCf8Sq+z7C7jAAF3x2mBTXjt35vLe4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I3lpcHtK;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B19606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:27:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B19606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rPOrwuSQ;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 84936606A32C;
+	Wed,  4 Nov 2026 08:28:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84936606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I3lpcHtK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793780857; x=1825316857;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0xz5jXzGFoSmHj7ZdNV+IO9uKEVmCFFdjnZkPW73yiM=;
-  b=I3lpcHtKDjmfGnFVYQO7/3VcLZJCGB1P6xNXkU2P10QZamla1ZIheBNf
-   jh6dAHFuiD3jiiDW3Tbog295GzaSA0KD9S1f3phcCEXxeRMY67TekWUok
-   CcR8NuPGE3nUMjr2kO2cV29mS47V8PtcDkNJkY90MWZj4zJM9xZ7I+mop
-   L8SGeWYDJE085xgYAivL0hbjcICR3eMLq2hBGQJyuYRJtZa/G9WgcOjrv
-   yoPaEQ0iV+QC4ZAM5qaDLhIHSbqVgWo7yfzzbAenk7oD5zY9MNUYm+nL3
-   EhKaCCUJ76rql7hTZsImFrt+VumB2+sAHx4pGOT+x+BxPNJTLFse1/BeJ
-   g==;
-X-CSE-ConnectionGUID: T5JfcORbQJqqXzPXXdDNcw==
-X-CSE-MsgGUID: yRDuSkafRKeSDBKGUFLQIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2423295"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2423295"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:27:36 -0800
-X-CSE-ConnectionGUID: F8aw6Ns1R9yHdFJCOwsoZw==
-X-CSE-MsgGUID: 4TxsQrZHSaWIH2Tro7cJ+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6796737"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa003.fm.intel.com with ESMTP; 04 Nov 2026 00:27:31 -0800
-Date: Wed, 4 Nov 2026 16:20:33 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-Cc: Nikolay Borisov <nik.borisov@suse.com>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-	"jgg@nvidia.com" <jgg@nvidia.com>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
-	"aik@amd.com" <aik@amd.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"Gao, Chao" <chao.gao@intel.com>,
-	"Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Tian, Kevin" <kevin.tian@intel.com>,
-	"Peng, Chao P" <chao.p.peng@intel.com>
-Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Message-ID: <aurq0V5ySfS5pSxx@yilunxu-OptiPlex-7050>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-7-zhenzhong.duan@intel.com>
- <00a4b474-eb13-4caa-90c6-b9cabb1ec621@suse.com>
- <IA3PR11MB9136F32FBA9D830C48EBA968929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <2b73666e-d923-4042-b719-b9bdeca783c8@suse.com>
- <IA3PR11MB91365402E40953E928008DA6929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rPOrwuSQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=rPOrwuSQxi1rQb3+Y5Sd/UrROmlOx+QKopvSf0u70EiaamC8i/DyvMKO3sM9O47S9grtBza1UdVXa
+	 H5dA99tHfyBcMfZG1RRvbW++vjEb/9QUj8T2xeDLIQbWVIjk5udQ291iORd+qqDuTbPdGMIVSpjpJL
+	 TA9Oo6VxWymxwkqE=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26aeaecb32c7-d7c68;
+	Wed, 04 Nov 2026 16:28:36 +0800 (CST)
+X-RM-TRANSID:2ee26aeaecb32c7-d7c68
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from utest (unknown[223.108.79.103])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aeaecb2cc1-1b3fd;
+	Wed, 04 Nov 2026 16:28:36 +0800 (CST)
+X-RM-TRANSID:2ee16aeaecb2cc1-1b3fd
+From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+To: dsterba@suse.com,
+	mason@kernel.org
+Cc: jbacik@fb.com,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+7ec60f4482abeecb0fd8@syzkaller.appspotmail.com
+Subject: [PATCH] btrfs: fix delayed_refs_rsv leak when realloc shrinks an extent
+Date: Wed,  4 Nov 2026 08:28:34 +0000
+Message-ID: <20261104082834.25047-1-shishunbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,43 +70,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <IA3PR11MB91365402E40953E928008DA6929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-> >>>> +	struct tdx_devsec *tdevsec_bind __free(tdx_tdi_unbind_dev) =
-> >>> tdx_tdi_bind_dev(tdevsec);
-> >>>> +	if (IS_ERR(tdevsec_bind))
-> >>>> +		return ERR_CAST(tdevsec_bind);
-> >>>> +
-> >>>> +	ret = tdx_tdi_read_state(tdevsec, &state);
-> >>>> +	if (ret)
-> >>>> +		return ERR_PTR(ret);
-> >>>> +
-> >>>> +	if (state != TDI_STATE_CONFIG_LOCKED)
-> >>>> +		return ERR_PTR(-EIO);
-> >>>
-> >>> While this does seem correct, it's not really following the spec or I'm being too
-> >>> rigid, namely:
-> >>>
-> >>> Since TDI can change the state any time, TD can't fully rely on the Known RUN
-> >>> state in any scenario. However, TD can rely on the Known
-> >>> RUN state after TDG.TDI.START as a confirmation of the Interface Start.
-> >>
-> >> About TDI changing state any time, do you mean host changes TDI state,
-> >> e.g., through TDH.TDI.STOP? Or you mean TDI device goes into TDISP error state
-> >> due to hw error? Can't they happen even after TDG.TDI.START?
-> >
-> >I've taken this verbatim from the latest TDX connect spec, I'd assume
-> >what it refers to is the TDI/device getting into error state because the
-> >DSM deemed so because of whatever reason. I believe there is an inherent
-> >TOCTOU race here, because you can at best get a momentary snapshot of
-> >the state but the DSM, which is inherently an independent entry could
-> >for whatever reason decide to enter in error state (highly unlikely, but
-> >still possible!)
-> 
-> Agreed, it's a best effort check, error state can happen at any time.
+When a data extent is freed and reallocated (with a smaller size)
+before its delayed refs are processed, update_existing_head_ref()
+updates existing->num_bytes to the new size while the extent is
+still in the " csum reservation\ state (total_ref_mod < 0).
 
-I think we don't need this best effort check. The guest would eventually
-verify the states before RUN with the help of TDX module. So to me,
-TDI state read is just a debug interface. For simplicity, drop it.
+The csum space for deleting the checksums was reserved for the
+original size in add_delayed_ref_head():
+
+ pending_csums += head_ref->num_bytes;
+ trans->delayed_ref_csum_deletions += csum_leaves(num_bytes);
+
+but when total_ref_mod later turns non-negative,
+update_existing_head_ref() releases the reservation based on the
+new, smaller num_bytes:
+
+ pending_csums -= existing->num_bytes;
+ btrfs_delayed_refs_rsv_release(fs_info, 0, csum_leaves);
+
+The difference between the old and the new size is never released,
+so delayed_refs_rsv.size (and .reserved) stay above zero forever.
+At unmount this triggers
+
+ WARNING: fs_info->delayed_refs_rsv.reserved > 0
+ at btrfs_release_global_block_rsv
+
+and at runtime the leaked reservation keeps inflating
+space_info->bytes_may_use, which can lead to premature ENOSPC.
+
+Fix this by adjusting the csum accounting to the new size at the
+time existing->num_bytes is updated: if the head is still in the
+reservation state, release the difference in csum leaves (or add
+it, if the extent grew) and update pending_csums accordingly, so
+that the release in the total_ref_mod transition stays symmetric
+with the reservation.
+
+Fixes: ba2c4d4e3bda ("btrfs: introduce delayed_refs_rsv")
+Reported-by: syzbot+7ec60f4482abeecb0fd8@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/linux-btrfs/6ae88b9e.64e51036.15cf6a.0027.GAE@google.com/
+Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+---
+ fs/btrfs/delayed-ref.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/fs/btrfs/delayed-ref.c b/fs/btrfs/delayed-ref.c
+index 8bc1929237f7..a3e32f08dacc 100644
+--- a/fs/btrfs/delayed-ref.c
++++ b/fs/btrfs/delayed-ref.c
+@@ -694,6 +694,34 @@ static noinline void update_existing_head_ref(struct btrfs_trans_handle *trans,
+ 		existing->must_insert_reserved = update->must_insert_reserved;
+ 		existing->owning_root = update->owning_root;
+ 
++		/*
++		 * The extent may have been reallocated with a different
++		 * size before its delayed refs were processed.  The csum
++		 * reservation was made for the old size (see
++		 * add_delayed_ref_head()), so adjust the accounting to the
++		 * new size here; otherwise the release done when
++		 * total_ref_mod turns non-negative below releases less than
++		 * what was reserved and delayed_refs_rsv leaks the
++		 * difference.
++		 */
++		if (existing->is_data && existing->total_ref_mod < 0 &&
++		    existing->num_bytes != update->num_bytes) {
++			u64 old_leaves = btrfs_csum_bytes_to_leaves(fs_info,
++							   existing->num_bytes);
++			u64 new_leaves = btrfs_csum_bytes_to_leaves(fs_info,
++							    update->num_bytes);
++
++			if (new_leaves < old_leaves)
++				btrfs_delayed_refs_rsv_release(fs_info, 0,
++						old_leaves - new_leaves);
++			else if (new_leaves > old_leaves)
++				trans->delayed_ref_csum_deletions +=
++					new_leaves - old_leaves;
++
++			delayed_refs->pending_csums += update->num_bytes;
++			delayed_refs->pending_csums -= existing->num_bytes;
++		}
++
+ 		/*
+ 		 * update the num_bytes so we make sure the accounting
+ 		 * is done correctly
+-- 
+2.53.0
+
+
+
