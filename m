@@ -1,81 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821981;
-	b=DDrmyzD5Ivs/Pdx8Fox7VfAR5ObFNANqLXAjcWc8ueO2Ktv18izEtCsRQvbmfQC0HP2p
-	 ERlxXG+Ri0ZMw8t5ffHr1CVEcrMyl7URod9LyN4HMQfALYbF5w0JkZ0ATlBOwjon48prH
-	 45PSBwRIPVUGomoS8Yxz3o615FaoAjzP9xrntu7HYM7045fUljj/ArdnlMFDst7yXXoE/
-	 F2Y51ukNa/nKyvEmJNn85mmymNhlPBrVuKMZjofLEGU2j5sb5eOVB8gdN5y9+KkbY/5jF
-	 m8VCSxEMbrmr+bPFbFzW/H48AFo1k8e+ZXMTwb+ZauEYk7IYAogBtbZ+vz2g5W9aSgg==
+	t=1793821994;
+	b=pm/m0PfoaOqiYXWm+qyOYtpF6YjspmXuFgvm5glOBPGuXqYDnXrhgakC7dDgfC4Tuy0e
+	 yHBj9S0Bv+6Binosr/Fa44hU5ZHjxWdNZyhqmr0A/9Ke4jpGl3PVuyGwIOpktYMIrPD78
+	 YymxamGFiDSzo0ShSitHxA+vDw1WGv1HIBC2lLAsVfSQdkqsy+MZN20Dqxpe89tLz9Qz+
+	 PIOhylk/Lle1iPHaNLzu28QGEIOJatVgwPBPrS1kbUgck2EUTnIp3W7jvmljbXkLH0ww7
+	 DJoE6KZQKSDwJh621BKhwxJSOX/AZvvptElRIg4BUyN+MwntqWCr2Nf8igFzKsNnDQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821981;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=bjNAE/sqW+6C7Fn4/hwxUDn8yEwHvj++UXJMUvq2N60=;
-	b=Y7vpWoy5+wdnPaSMsoqZzW9KcSXRKIXCFkGQj+3tIovm6miNuqZmAoOng5ZyXTOhKy8E
-	 RfemXw/C0wAIn8oCiKV71oaqZUEDD4FnZuLWgUReOJLeba3bEEd8yp1om107fT8zrcQTd
-	 b6LEC4paSLtgKiULaqSCSYTB2ZJesipzlzD92EXMJd68qCq2XwUhjfwaoj+WSWlMGXRAe
-	 Hmmp49+fnv/UW+R1yvz8BmUIccl8Qz/Np5/M/Bc6zrM0YLlYbPEacAb4Wd4fNX65BFvkS
-	 qHbJU2YcRP3/Y3A2PUtvJJBn1HrLKlNE+eBGoA+rEx6Mvb7lby/6wfI6GyT/r8ZngKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821994;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=DgMXGwoDfcCa/yJ887xjBK4NIqHOZAB7bCFC/enAXGE=;
+	b=COs3txsDOYfFxMkzLdFCOYsqQr3lCDRUiDOzwUPNiH0P4sN9MHo62SUz2L+2+om933XA
+	 RFwO4XQOX0j5TUzAlkhCOxF0VBqCXRuPCZ5ofGwNdKXr020w/mbMFtqMqkWWU7rbCRKy7
+	 fh5tqa49Bq6gArZBAbgIQSStX1bwPilEadFGifbVBjsxPEimQig4cShCYGPXaGFJjZxD5
+	 r+bUHiKr+C3UVhWSUQHij9ZXzkIgfYyV0qWh1rxDwNO/yT7mvmpNue6xogJi+5K5YtxhM
+	 6u+xViqYLTXMAId0uv4Xe2S38+C8tlXOxBwfDeLmlBQMIqd21Svey6yq8YJ4CFt9epg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	arc=none smtp.remote-ip=195.10.208.52
-Received: from mout-b-203.mailbox.org (mout-b-203.mailbox.org [195.10.208.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tBHUKu/L";
+	arc=none smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAEC60960A5;
-	Wed,  4 Nov 2026 19:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EAEC60960A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-b-203.mailbox.org (Postfix) with ESMTPS id 4jKbhD6bLczLmWY;
-	Wed, 04 Nov 2026 20:52:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1793821964;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bjNAE/sqW+6C7Fn4/hwxUDn8yEwHvj++UXJMUvq2N60=;
-	b=yUhujfsOWWBMMBcPYAduvPg6sBeDchIrJo4Lvbu4XcVkfjNv0IIaPRCGRZczweJ679nBiM
-	MMqAF/MSm/NlAGgr3WL1Bmk/v6OVoX3s6zURHcibMxtJASJTgh6GAJ5ipoEs5y4XhTTrYG
-	snqp/i3OYGN5pqOQUIBkJCqg9qUQcTUNXXjlWSmScZymhJ0jcvP80rnCe3m5lu3aXkw/RQ
-	P+xvETRGjGX3GISDOnitTH1mWzZywrrc4jwoTXyCP4QP6IEZdFHtfABBLM8gr1dnDjpuyN
-	qumxqqwKd+eX4GrIIcGJp7MSAeKB0yn6L0OlOMSejWhf1r572KfpwzYAkcByvw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
-From: Antonio Quartulli <antonio@mandelbit.com>
-To: netdev@vger.kernel.org
-Cc: saeedm@nvidia.com,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	leon@kernel.org,
-	dtatulea@nvidia.com,
-	cratiu@nvidia.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	linux-rdma@vger.kernel.org,
-	bpf@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E2060DBA71
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E2060DBA71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tBHUKu/L
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cccb2c96d0so363451137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:53:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793821993; x=1794426793; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DgMXGwoDfcCa/yJ887xjBK4NIqHOZAB7bCFC/enAXGE=;
+        b=tBHUKu/LnasYdYAU1cvEDaQRvA/Z484rVSLtxKLBECgB51adJInJ4xjk7UZDtbOpGl
+         GlOOnYgKZaUk9Qsgd8vxNyJ9s9fQqO1B4uEKW70g865fssUla6aZB8Y+T5VE8h/J0BaW
+         te2GZrXa5037Np8XziK41bhGVsN2epuONd1tRwHmRujGBU7dSmwjkBJsCGwn4OgCQ8xy
+         eAmrkP1eg20lydkOg5bl0AVgqs+LbHWA6IhYhfq+LEzk625Ri1KrYZCCFgIU5DYw+DGT
+         FR2TcoDH1eX+30MkzprEYvVsnW3ZY0cZlnFRV6VbBTu/lESmX+yovd82RB8WPWe7Ccv5
+         CVOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793821993; x=1794426793;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DgMXGwoDfcCa/yJ887xjBK4NIqHOZAB7bCFC/enAXGE=;
+        b=Hx1StV4qNRoGtGYx4MPpnxJ56LS+K08UO4CqokR36QAE5M1ARfsvXRKYiG4u0MZlfC
+         FUJIW8oXPx35jc8Ui/0G5WtPCC2uWMTZw4Y9WnLY7DL4Si7j2unZNqxHD3++lJsbIr+W
+         YcDCE9AzVoFD0H++8khmmhdumQcnZdXdPyz9F/Q/gD0dHLpL5CcVPGOCAlD0t0gjfxzT
+         e7VJHg1J8fagkv6HaEo24x/x2gIIm8O/B1GWldGQS0b7Lg3mIyzrsqV6FLBIimrDEQ13
+         NmzjMCERKHl1YS4Kvk8pO64zBH17UN2oBcaMsIlVf/Xav2b5k8CBGIPrC28MAxSQUB3h
+         QEBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx92byCFTEaC4W4uo/Y7w1Pkfd9wJq1jrfdDH5et2/6EZkIbj8LE3n2YwL02cr8/FqS1skCYGLKcCEfhMY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aoTSaTZ2S9BjPBvR3o8WHCRCPIoYMnX6HcgORNrBvtmqURgOB
+	2kzCfS82J3Y13hOpMABwZjH4rr3qg9AezSxnd8FV62cSwoe/dS+tbj4=
+X-Gm-Gg: AYBFou2fsFZwJooq45wgXij5HXgiMgHVy56FbdjWkOLQ3FQKOKSPDrOoAJvokmKg91Y
+	b44Rub055mspqyG6sFdqggYFezGMhAo9RH8nsmWkboxFEkQiBXRSiwUIfbjR6unx9hSVagPdEwK
+	lusSbavDVr5QD+qMdd9xdUyHuJ7VKw8g2onqu9lmTIdydm4CBnNp6HEjzoza2Uh397SNEP7JRQj
+	9Gci7a2k5kaTEZ7wgl2as7QlBwS6+M4k4gyZj4T0szhUfgVAJmMOfMRbDSTzZMisuuFJCt+aTcC
+	UAO17ynLweMHkVwvSGcFuLgxyu0R6CJPwjH9D3Z990c/+dTXafgBUct22vfx4UtSmfgL6ES0XG1
+	4rXqIkMGuYNIWIAv7UDDD/934SK4Yoe+/wDAVn8W+eoqB00x1zFmmXCEIgoY3yab3q/AGCS03qZ
+	TKBLMfdNN41JM727+2zBe9sRd6TK+wAfEgb74dyOq7unpvTCYSMSDf3Riq2+MH2798PTpCf8W8o
+	0U5CX2srGtXQDLvSl8SUAGnyU6guQMn+y2+IJwS6u9oWU1RZqvWNSwesJXaDStApKjIzOpBUvIC
+	sqIXzMz0m7dZJ05WREzAgRhOJGS7jEIZ8V4AEgNAUWRumHmdBns7qVYlsRUHfni3qMwdluBsOhJ
+	2fTUw
+X-Received: by 2002:a05:6102:5126:b0:7c8:3b8c:82ba with SMTP id ada2fe7eead31-7d072719a25mr5768547137.32.1793821993196;
+        Wed, 04 Nov 2026 11:53:13 -0800 (PST)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d26fd3e101sm2387237137.3.2026.11.04.11.53.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:53:12 -0800 (PST)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Igor Korotin <igor.korotin@linux.dev>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
 	linux-kernel@vger.kernel.org,
-	Antonio Quartulli <antonio@mandelbit.com>
-Subject: [PATCH net-next v2] net/mlx5e: Prefetch the packet a few strides ahead in the linear MPWQE path
-Date: Wed,  4 Nov 2026 20:52:41 +0100
-Message-ID: <20261104195241.1883539-1-antonio@mandelbit.com>
-X-Mailer: git-send-email 2.56.0
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH v2 2/2] rust: platform: remove TryFrom<&Device> implementation for &platform::Device
+Date: Wed,  4 Nov 2026 16:50:15 -0300
+Message-ID: <f5edb8f2f92eff139eeabffe1acbb22354af5137.1793818280.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1793818280.git.nico.antinori.7@gmail.com>
+References: <cover.1793818280.git.nico.antinori.7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,114 +114,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKbhD6bLczLmWY
 
-Without cache injection (DDIO/SDCI), the first accesses to a received
-packet's headers and skb_shared_info are DRAM misses, and the
-net_prefetch() in mlx5e_skb_from_cqe_mpwrq_linear() is too late to hide
-them. This caps the packet rate of a queue.
+Remove the `TryFrom<&device::Device<Ctx>>` implementation for
+`&Device<Ctx>` as it has had no users since its introduction.
 
-In the linear striding RQ path a packet takes one stride and the device
-fills the strides in order, so the packet MLX5E_RX_PREFETCH_DIST (4)
-strides ahead is known without its CQE: prefetch its headers and page,
-and the line its skb_shared_info will use if it has the length of the
-current packet, as in bulk flows. That line matters when every packet
-becomes its own skb: TCP inside an ovpn UDP tunnel gains 34% with it and
-4% without.
+This removal also eliminates a pre-existing lifetime soundness issue:
+the input and output reference lifetimes were independent, allowing the
+conversion of a temporarily borrowed `device::Device` into `&'static
+platform::Device` in safe Rust. Removing the device could leave a
+dangling reference.
 
-AMD Ryzen 9 9950X, ConnectX-5 Ex, one RX queue on a dedicated CPU,
-MTU 1500, mean of 3 runs:
-
-                                   before       after
-  UDP 512B flood, pktgen         2.52 Mpps    3.44 Mpps   +36%
-  TCP, 1 stream                  44.6 Gb/s    48.0 Gb/s    +8%
-    NAPI CPU cycles/packet            1334          715   -46%
-  XDP_DROP reading the packet,
-    NAPI CPU cycles/packet             409          280   -32%
-  XDP_TX, NAPI CPU cycles/packet       829          554   -33%
-
-With the change, the XDP packet rates were limited by the sender, so
-cycles per packet are compared.
-
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+Fixes: a38dfd60fe53 ("rust: platform: impl TryFrom<&Device> for &platform::Device")
+Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Link: https://github.com/Rust-for-Linux/linux/issues/1264
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
-v2:
-- prefetch the packet MLX5E_RX_PREFETCH_DIST strides ahead instead of
-  looking at the CQE ahead (Alexei); no CQE peek, RQ state bit or wq.h
-  helper any more, and it also works with CQE compression (with it on:
-  UDP floods +26%, TCP +6%, where v1 did nothing)
-- also prefetch the skb_shared_info line, guessing the length from the
-  current packet: without it, TCP inside a VPN tunnel (one skb per
-  record) gained 4% instead of 34%
-- XDP numbers added; XDP_DROP without touching the packet is unchanged,
-  and the XDP packet rates were capped by the sender (12-16 Mpps), so
-  cycles per packet are quoted
-v1: https://lore.kernel.org/netdev/20261103235823.536706-1-antonio@openvpn.net/
+ rust/helpers/helpers.c  |  1 -
+ rust/helpers/platform.c |  8 --------
+ rust/kernel/platform.rs | 21 ---------------------
+ 3 files changed, 30 deletions(-)
+ delete mode 100644 rust/helpers/platform.c
 
-Notes:
-- Distance: with v1, 4, 6 and 8 were within 3% of each other.
-- The prefetches are issued before the stride ahead is synced for the
-  CPU; if the device hasn't written it yet (low rate), they are wasted.
-- No prefetch for the first 4 strides of a WQE.
-- Measured on one system only (Zen 5 desktop, no cache injection,
-  CX-5 Ex); numbers from DDIO/SDCI systems and CX-6/CX-7 would be
-  welcome.
-
- .../net/ethernet/mellanox/mlx5/core/en_rx.c   | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-index 22fea4739a2c..57da30b1bffe 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
-@@ -2094,6 +2094,36 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
- 	return skb;
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index d62c7be1ca7b..787dd8ff8c6c 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -82,7 +82,6 @@
+ #include "page.c"
+ #include "pci.c"
+ #include "pid_namespace.c"
+-#include "platform.c"
+ #include "poll.c"
+ #include "processor.c"
+ #include "property.c"
+diff --git a/rust/helpers/platform.c b/rust/helpers/platform.c
+deleted file mode 100644
+index 188b3240f32d..000000000000
+--- a/rust/helpers/platform.c
++++ /dev/null
+@@ -1,8 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-
+-#include <linux/platform_device.h>
+-
+-__rust_helper bool rust_helper_dev_is_platform(const struct device *dev)
+-{
+-	return dev_is_platform(dev);
+-}
+diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
+index ac0a012ae1bb..f49aedcc94b1 100644
+--- a/rust/kernel/platform.rs
++++ b/rust/kernel/platform.rs
+@@ -7,7 +7,6 @@
+ use crate::{
+     acpi,
+     bindings,
+-    container_of,
+     device::{
+         self,
+         Bound, //
+@@ -557,26 +556,6 @@ fn as_ref(&self) -> &device::Device<Ctx> {
+     }
  }
- 
-+#define MLX5E_RX_PREFETCH_DIST	4
-+
-+/* A packet that fits the MTU takes one stride of a linear MPWQE, and the
-+ * device fills the strides in order: prefetch the packet
-+ * MLX5E_RX_PREFETCH_DIST strides ahead, and the line its skb_shared_info
-+ * will use if it has the length of the current one, as in a bulk flow.
-+ */
-+static void mlx5e_mpwrq_linear_prefetch(struct mlx5e_rq *rq,
-+					struct mlx5e_mpw_info *wi,
-+					u32 head_offset, u32 page_idx,
-+					u16 cqe_bcnt)
-+{
-+	struct mlx5e_frag_page *frag_page;
-+	void *va;
-+
-+	head_offset += MLX5E_RX_PREFETCH_DIST << rq->mpwqe.log_stride_sz;
-+	page_idx += head_offset >> rq->mpwqe.page_shift;
-+	if (page_idx >= rq->mpwqe.pages_per_wqe)
-+		return;
-+
-+	head_offset &= (1 << rq->mpwqe.page_shift) - 1;
-+	frag_page = &wi->alloc_units.frag_pages[page_idx];
-+	va = netmem_address(frag_page->netmem) + head_offset;
-+	prefetch(netmem_to_page(frag_page->netmem));
-+	net_prefetch(va + rq->buff.headroom);
-+	/* with XDP the packet may not become an skb */
-+	if (!rcu_access_pointer(rq->xdp_prog))
-+		prefetchw(va + SKB_DATA_ALIGN(rq->buff.headroom + cqe_bcnt));
-+}
-+
- static struct sk_buff *
- mlx5e_skb_from_cqe_mpwrq_linear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *wi,
- 				struct mlx5_cqe64 *cqe, u16 cqe_bcnt, u32 head_offset,
-@@ -2114,6 +2144,8 @@ mlx5e_skb_from_cqe_mpwrq_linear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *wi,
- 		return NULL;
- 	}
- 
-+	mlx5e_mpwrq_linear_prefetch(rq, wi, head_offset, page_idx, cqe_bcnt);
-+
- 	va             = netmem_address(frag_page->netmem) + head_offset;
- 	data           = va + rx_headroom;
- 	frag_size      = MLX5_SKB_FRAG_SZ(rx_headroom + cqe_bcnt);
--- 
-2.56.0
+
+-impl<Ctx: device::DeviceContext> TryFrom<&device::Device<Ctx>> for &Device<Ctx> {
+-    type Error = kernel::error::Error;
+-
+-    fn try_from(dev: &device::Device<Ctx>) -> Result<Self, Self::Error> {
+-        // SAFETY: By the type invariant of `Device`, `dev.as_raw()` is a valid pointer to a
+-        // `struct device`.
+-        if !unsafe { bindings::dev_is_platform(dev.as_raw()) } {
+-            return Err(EINVAL);
+-        }
+-
+-        // SAFETY: We've just verified that the bus type of `dev` equals
+-        // `bindings::platform_bus_type`, hence `dev` must be embedded in a valid
+-        // `struct platform_device` as guaranteed by the corresponding C code.
+-        let pdev = unsafe { container_of!(dev.as_raw(), bindings::platform_device, dev) };
+-
+-        // SAFETY: `pdev` is a valid pointer to a `struct platform_device`.
+-        Ok(unsafe { &*pdev.cast() })
+-    }
+-}
+-
+ // SAFETY: A `Device` is always reference-counted and can be released from any thread.
+ unsafe impl Send for Device {}
+
+--
+2.47.3
 
