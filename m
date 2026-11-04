@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800392;
-	b=vD0wie9u8qdxbzH3DP3ibTTbFLfpnxjflPYeiXbi6w08sMcnE4V7lD5wUebGoE8a9Kqj
-	 NVhyecr8B+k/LRnreyXHYmuhL6lX4iqiJtL5Vv1E3sikXMKn0JNQ3HP6otLzLPRgwsMDv
-	 9KoJxLbM7lLpLumJRy1ZzOmIBRjCyQb3669CoNZ9pbgy5L/ZvUGfSuRYDZhMbbTqxsIaU
-	 XmlEYc732w8KB5Vqs7chrSmhZJ25px0ZmZVx7mnR4R+T7qL7gS6X7yddP7YbAMTvoZhhi
-	 FrdE1HivisRXYqcayDmmiDJbeKFQSN/lvjqDEb3/+LMWRPD2ndxEo4oU3QEvKtZXIIQ==
+	t=1793800400;
+	b=FF63DKD/CFEOWqfrTUbkbFVVarWxC4b+1N2C3i/GiYVAOQ9ywa7WFy1/4bGrQBHGw5qQ
+	 Ahquwcx3HiWKnUTij97SnKxRlh7VsBu6Dv9ZY12OOz9sBOUEPv9C4yn6fzEsq8CEpIL/k
+	 VhHbMBetrwbU8586Lik9Gb0Fpmlv44EUHz9InbM1ShsTpHu+PraqGBtPtQVv9KDaF0NBC
+	 QGHfD0ZhrlVPiy9xDk4SfEWhroMrdHwcnhpToMXue4lkN6dT1cd7j3ouR4z/XtFkjEr5N
+	 sRbJoyjQ/eXHqGpaSaQLYSohizK0vJw38Sbr2vCr2rWmxBUOYXf2vUJkkXytZERqt/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800392;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=TauMCQr5SfziqD6k5VSsvGBJXXxJunQZxGoZnoDMU38=;
-	b=NPcqToqq39T6hslsx5hrc/nrPiapF4zHEzMqP9Kpi5gVI/EXhVElpepG55utelzvBpok
-	 whLTqlzNgHpTZvTdM7In5bzTmURAisHktXpBD/1V7UECFXOSC08li30jxWXaJcKN7moRX
-	 wOB0m2jiLa2puDB8foRIPFKcfm0jGKulsVuZwngMxMsaD1qvzdHslr9BHcDMqOonrs4Fi
-	 eZe2x1QpjyT0PPx41JpA1BHCnI3ObPslq95Kze0xS2/UotMM0uCEyI66NvVCByoqoIQ6c
-	 OWCxkVYyHHfJlQRB6xEI6c64QHWjWKFGLnN5coMADdotMLDtXpLmSHIfVHBAUJ76BFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=u9NTI3wQWhg6Ur7+7Hw2oDzx3iUnpb32rYoJcf5DJsM=;
+	b=zWTAXLgFRgbM9+LAbTP3Wi676WY2IwfavIsu9aGQ4T13YmRSsWrHtwN/U0D12H5Vcizp
+	 IP25g5+IUwjmhLNRS2JymkUPO61GjgWIiJAABKGjJfBIBdJOhP2bH8rne2F0syuq2vy6B
+	 t7Dh5KsHGdLzNTLr7fzgHib6xbp4ZMif/i2zWOwKhTcf7u3XNV7P/ykmsiJgq1VbxkNsm
+	 xlOK5GowjKkPiKQdJ/vmayJiPvjLgDsICVasFcujtL1RBb3uECYhx4XqVnKHo2MuJ8NiQ
+	 91Nxkg7aU2Vlkl8fMl5S6VKpyBUq5o6q2cps2UBxFnnvHT3AMrhkChypAuh8kPc+qNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsBdrZMG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uo+0lmil;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38676606A31B;
-	Wed,  4 Nov 2026 13:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C02A606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:53:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C02A606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsBdrZMG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9791F000C1;
-	Wed,  4 Nov 2026 13:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793800391;
-	bh=TauMCQr5SfziqD6k5VSsvGBJXXxJunQZxGoZnoDMU38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KsBdrZMGYslUlrw159MQZM1yGBRvFOW+mgCwb3GfULU4Vmz/NVXNg7yA004p3o+BW
-	 zRAAn8aQShUwwUG72mVfANjki//iW8YlgOYPC58R/29fyq49qQ80/3uCGtB+iBBwp0
-	 /DNk7x7UztqX0syDNojNaHjGSu7Xv5afPQnSeYEJrw5P/YUP1K8r74UfUyGkBqoPPD
-	 x38+3iKRY8sqn6JiMJr2pFZX+o+dH2g2hOIfAnWO7ctYNy/aX7ajLIqqN9+YftgMhO
-	 9SHsmxPjYvtMlKbpTbSoF/XA+Mdz4cIzTp/ZbS5dBWqm8Aksd3RRvD/k11H+rrv2vp
-	 tyyrDqa6F3tEA==
-Date: Wed, 4 Nov 2026 13:53:08 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] regulator: disable disable_work for good in
- regulator_unregister()
-Message-ID: <5e63dcea-a397-41a4-a647-a356ab67f1a9@sirena.org.uk>
-References: <20261103174911.1600930-1-lui2012qwq@gmail.com>
- <20261104134838.326041-1-lui2012qwq@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uo+0lmil
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso7627275e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:53:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793800399; x=1794405199; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u9NTI3wQWhg6Ur7+7Hw2oDzx3iUnpb32rYoJcf5DJsM=;
+        b=Uo+0lmil8Z3aY+bkjJ4FbHVGMdy2lUTCpIQrUNMI1TGKhOVbFWIrTB3ivU79w2NJSl
+         SRAwOStGrvuPK1bTZY01itsChoe8HIpuaqwj5yzR80bmvxE7T2REafV9f57NOhkj8vK1
+         juGYDHc6G1meB3ybsfoCKvO22Nxhhsr4h/7Z7INLXhIVd9Sck+0I+QBfxU7o3VdmkOBj
+         pGl0UHV4NOIjYK9orlAvJI0O+ah1AJ4mODKEBoNFqzmPtgVaoJqF5/QLhOMHG4n5jAtZ
+         TZirkIt/A6TTbdVrTkOgukkWJX9IXZBYLA0pf47LVU6TskSLiLFF20F+rQj+P0zN1v3W
+         9oLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793800399; x=1794405199;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u9NTI3wQWhg6Ur7+7Hw2oDzx3iUnpb32rYoJcf5DJsM=;
+        b=cJBEpho2UgEAtBci82po91UFwQFDxCCn3AiQhq+A6P7by6+XOZWBclmsNfmqOZCns3
+         Kfb1PlG+jER2Ow9mg19PN3dCtrbuNx8mfBFHRj7cmhYbBqY92get2Sqx3L8FIdJ0KgJt
+         JNAPBLGJwuPls05/vbqhi0Dx8PMS5aFTr6zA8d8tNbeTa1xjvV6taOePIZOZhV/im9Km
+         QGn+8wWYrE0LEwPdp2mSvnVVKthPLAlEz7r8UrXqSyCyvC7TqPE6sNKIJBKgBAU0gScq
+         3CFFoy2RWW0RrTJDSiduOmG1U+/ybUeyVgEJeN8GcOcIIWFJrwF5sYwlhhj4vTO0lTK3
+         KIuw==
+X-Forwarded-Encrypted: i=1; AKwUvBzThj/WZ0ee7/La1sCA7FWOLLf8ia0Scs0WOiKcAJXjAyB39CKBKSz/n6qDC4/mpqAcSkZ4UPNWkAqQpd8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8e5OcTVyQqSEM+KQ/IWkuMQcRvhTlS5EiSyn7rNVFiU7EKJaC/
+	5+JxcVuyJ4xbc2TbveUgtKzfzIaAHUzzwor9lGOVaqC0Befkiu5nqSss
+X-Gm-Gg: AYBFou2RiPs30JoUr+MaeqgqsW/auRGqtTooyvIMgKpk0BAysHSqOc+KPxMfNxLB/G4
+	WJPX2SI1knpmBK2u1mrfLk/LCs3J+eMJQGKp2ZmXJLJavrm2FpUlSk8XolKzxbffQbIbcu5X3di
+	bcmFMgelzyYUv/HL6Z6M2U8gNHdJ8zqsaIMcmSZJEp6NU6nr4Fjc1evnpkWpiwFp4mkMUEhbz4D
+	fUZ5I587dfJjbfem1b7FbclwxQ7zkQTlHdWxmhs4dNElv1BlsAuAoYbL8jnJU2kjBiulrmTeft6
+	8lUDLdgF4W2Em3P8pguOtNMFalYMQdUM/C3uBSPzB9Zn4ttODk1rmrmOF9ztpGGxD979l9VlQzq
+	D6dLGLtDEklQ1x/DzLgugttske1a4QLrlZevCgJGOp0QAVrQ6jV2X/kduqMbV6H21IUeU4PscW4
+	nPdYXxS2JFs1Ha3XUk7Mi9MwQz86SW83AQ4BC9+BWsVw8MCW1hFjqEOdU0KFFAuunzb8KlCTJub
+	N3qMnh3XXpmNZQhCGA+2UwUSAhQeKtq9JDZ2PBefFEd44bpjt+xPDu9tkCWHbZbHD10qigvdhrG
+	PeWUfplEIP151mhb7lqe+KGlN++Y64wcsS8PteLSvZgd78ysxynhTMsrky44qXeLYyZ80PokvOs
+	xT5eD/eNJOxGxg19e/EHr+HV4
+X-Received: by 2002:a05:6000:4914:b0:48c:69b3:610f with SMTP id ffacd0b85a97d-48e6e5008b4mr34049088f8f.26.1793800398437;
+        Wed, 04 Nov 2026 05:53:18 -0800 (PST)
+Received: from kreach.multipass (nat44-21-238.net.ruhr-uni-bochum.de. [134.147.21.238])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d88e1sm4160971f8f.15.2026.11.04.05.53.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 05:53:17 -0800 (PST)
+From: Jude Gyimah <jude.gyimah87@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org
+Cc: linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jude Gyimah <jude.gyimah87@gmail.com>
+Subject: [PATCH] ASoC: sunxi: sun50i-dmic: select REGMAP_MMIO
+Date: Wed,  4 Nov 2026 14:53:00 +0100
+Message-ID: <20261104135300.3723057-1-jude.gyimah87@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,44 +104,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r1mTOHNVXENWSM17"
-Content-Disposition: inline
-In-Reply-To: <20261104134838.326041-1-lui2012qwq@gmail.com>
-X-Cookie: All rights reserved.
+Content-Transfer-Encoding: 8bit
 
+sun50i-dmic calls __devm_regmap_init_mmio_clk, which
+drivers/base/regmap/regmap-mmio.c provides under REGMAP_MMIO.
 
---r1mTOHNVXENWSM17
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+  sun50i-dmic.c:(.text+0x142bce): undefined reference to
+    `__devm_regmap_init_mmio_clk'
 
-On Wed, Nov 04, 2026 at 09:48:38PM +0800, Chengyu Liu wrote:
-> regulator_unregister() stops rdev->disable_work with
-> flush_work(&dw->work), which is a no-op for a delayed_work pending on
-> the timer wheel: flush_work() only waits for a queued or running work
-> item.  A disable deferred by a consumer's regulator_disable_deferred()
-> therefore survives the provider's unbind, and regulator_disable_work()
-> fires after device_unregister() has freed the rdev, dereferencing it
-> via container_of().  Use-after-free.
+The driver can be built into vmlinux while REGMAP_MMIO is a module, in
+which case the symbol is not there at link time.
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+Select rather than depend on: REGMAP_MMIO has no prompt of its own and is
+only ever enabled by a select, so a depends on would leave SND_SUN50I_DMIC
+unselectable.
 
---r1mTOHNVXENWSM17
-Content-Type: application/pgp-signature; name="signature.asc"
+Reproduced on v7.3, x86_64, with CONFIG_SND_SUN50I_DMIC=y and
+CONFIG_REGMAP_MMIO=m.
 
------BEGIN PGP SIGNATURE-----
+Found with kreach, a static check that compares what Kconfig allows
+against the symbols the compiled objects actually reference.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrrOMMACgkQJNaLcl1U
-h9AY6Qf/YDsn3/z3Ip4FsAx/iYVXNkX+Tj59/+U04/uBNX1p4VF8dvobid56hyY/
-4R1d85MsF2sY1AOHuwCdA8TyLoGQJmUISiUIg8mY4clECUjRjpHhMYaFbqlxJujs
-YR47oW6KG+r8VSIG2i47xP+96zzcJEteFyV4T/KJGJEr6qqeOr5wZV1/KwidK8MY
-6EVW+cdRjASoUsKMZEl1BNYO/IyqRfBNQr5WupbD7fp1tOgha8NIFuarOawRdqON
-Vwyy1TlkmTYv9uHkAfoLUD9vNhDqSmT7fDvonrWoV47H381MU5Z73HSHP3gw3jnv
-PFtkjkTYJ1yaIkpjtXnGAWODOsyGPA==
-=kmR9
------END PGP SIGNATURE-----
+Fixes: 9fc2c8ed923d ("ASoC: sunxi: Add Allwinner H6 Digital MIC driver")
+Signed-off-by: Jude Gyimah <jude.gyimah87@gmail.com>
+---
+The checker is at https://github.com/JGyimah/kreach, and the
+reproducer configuration for each finding is published with it
+under results/.
 
---r1mTOHNVXENWSM17--
+ sound/soc/sunxi/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
+index 205f422d9ded..c8a626396e9a 100644
+--- a/sound/soc/sunxi/Kconfig
++++ b/sound/soc/sunxi/Kconfig
+@@ -58,6 +58,7 @@ config SND_SUN4I_SPDIF
+ 
+ config SND_SUN50I_DMIC
+ 	tristate "Allwinner H6 DMIC Support"
++	select REGMAP_MMIO
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
+ 	help
+ 	  Say Y or M to add support for the DMIC audio block in the Allwinner
+-- 
+2.43.0
+
