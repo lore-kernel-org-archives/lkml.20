@@ -1,65 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782839;
-	b=5FcY0UcmvFDbi9MwyNigm9Gx7fTdAZbEXofy+ue8jLloCoITZU+jyyiW2t7Wavkjnkcr
-	 F7dO7KXtRJ8grbrs6MrxIM4N5M2EDiWmk01ZDpb5jQIo/xeUcOEhoUqccPcd/RoAJQ7/a
-	 23HqzzbAcldKXqWSGAVyPcWRTVFmkHoOJUepvYp+yxHJvhXZCRVaFYjCrtvARxGNksRvr
-	 4CxlvsXwWz1NpKSRQOz5T/hBU9r/ZxNinBhzJKA7b8VnWuXq3cz3Twrf9j5m1mN9g49G6
-	 1ylky73AEyDw8+jfuj4brs/ad1IAzx7KFe1/t6bcDiBM1mguRm1YbPRZ22Jp1NNkR9A==
+	t=1793782870;
+	b=aQBLcyZj1ah03GYdlQJjdVIU6a2P51E6KWcCqWNTuE0qt3JAKyUKPPzBkrSfDCsI9gyh
+	 FO13Yz9zbhpvb8b5iqFfUEk5XZzMObaCWB4Xqmdrqe/TJSElr70/Nhgxt5/VBuicMycWu
+	 q02h5xXHG29BjJEl6tkLhoEDsTC2gEj+akrVs5VWuk3dCVjVrjSkzf/2PTED5//EVcDsG
+	 aklXZmjNh0RvUMkbDLU2HJMpuajU0PpAZuIM7ucOnH+zsuhzTOa5L3RSvavVatwX4Y/Gt
+	 vQcFq+K+UrWxqiYgAxDec7+G4weKnXR+mPMlaRgmPMY2O8rlTQbIx7IB5DRaM1k3uZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782839;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=vtX9eU8J3Lmk3qBwxV4wOykn6nF9IeBVyI8Jpue03zQ=;
-	b=LX+JpXcLHS9U8rWQTdwQY3gmneaIhAjbw/21lj4uNw1er2U8vyHUyS2sYl/6plPzXHGo
-	 kiGyIvt6xV2Nlw5wQdfbPe1Ne73fea/ICiNf4lg6/jU5fu213vUiHgFltKTRwd1Ry6Yc3
-	 LiciwwaVK3aoG/bmrXDeukFt9VYmsbT53Voj4WQ8124vgBSO1FKhRXflmm/a6OFbuIyhq
-	 s9j4nywSJR9PFATBfdhpVqp74aaOPycjSloijXL7bJ+WrE/FMgxmmhCKU5vy25nV1b+iS
-	 7WyZwI6JZHHdD3yx/FRM/XyTgJ7MV6tR+47bhL4C66VDhwrIQNwQbKCLE26+EVOci4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782870;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FGCg97yy95ZQI6qLmppFJ/H1F7e4GuIsRRONIaiTYdU=;
+	b=UVwU5IoWAuLrAzY+x0v+7J1LVtNgFpsA57BDS1JB7LTTsBAkgQPTGlEHPwiLmBvQD8KH
+	 TLvuM76TXlzOSRNRbKV901sjrdloj/fU7YglWC42a5WJVAttJXbnX0DgiJ1szZvngNIjR
+	 HGFzfpDiuyBSn3EDONsTIPS5rF//ZaNcZCmMgQsT0XHWdaKojhVa9HjG5pDlczHbjrnJd
+	 sZsgWgWU2QfQ8PAUPmWQf9z1SUQhXp20lm9dGWpA6iVXhpJZ+dH2Cm3wgym/C2xdZHWPF
+	 IzOcelsx4RjAMnprzAv8G5LtLU2CkUqxv3ojWr+wCkbrwMJUevgZ1xw9+1J0TzUxrDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z8N3njDk;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54CD606A328;
-	Wed,  4 Nov 2026 09:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54CD606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z8N3njDk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vt
-	X9eU8J3Lmk3qBwxV4wOykn6nF9IeBVyI8Jpue03zQ=; b=Z8N3njDkiP2htBS7bb
-	wriQDgLiqr4BvEkFrWDySTYVRO+98VECIHKn+p8egmdEiZbBY9JgcC4gdcEzaHwl
-	+VMLq884eeIQUUumMe9xE5Rx+lIRqiofZLj5KS1l/UenaTXMTdnP6p2KtjTsL45q
-	bSr3ndJDwBOyJYYDgquZmZWGw=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgB3LJju8+pqEDm4Dw--.32829S2;
-	Wed, 04 Nov 2026 16:59:27 +0800 (CST)
-From: luoqing <l1138897701@163.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Patrick McHardy <kaber@trash.net>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 1/2] netfilter: conntrack: avoid secs-to-jiffies overflow in SIP helper
-Date: Wed,  4 Nov 2026 16:59:24 +0800
-Message-Id: <20261104085925.773471-1-l1138897701@163.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0D0606A326;
+	Wed,  4 Nov 2026 09:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F0D0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 41e8cf48d82e11f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6e7870b8-ded4-4216-8cd1-5ea337f9cd7f,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:0698f503bc8e9f34a1c55a7ee0b32ff3,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 41e8cf48d82e11f19a56ed5b684f684d-20261104
+X-User: songxiebing@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <songxiebing@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1838893252; Wed, 04 Nov 2026 17:01:01 +0800
+From: songxiebing <songxiebing@kylinos.cn>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	songxiebing@kylinos.cn,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ALSA: hdsp: Validate DDS offset range and propagate errors
+Date: Wed,  4 Nov 2026 17:00:57 +0800
+Message-Id: <20261104090057.2067780-1-songxiebing@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261104083045.1939479-1-songxiebing@kylinos.cn>
+References: <20261104083045.1939479-1-songxiebing@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,77 +73,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgB3LJju8+pqEDm4Dw--.32829S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCr47Zr4rtFyrAF4DCw4xtFb_yoW5WrW5pF
-	Z3t34SyrWxJF4Yya18Cw1kA3Z8Ww4fGa4fWrWYkayrCan8JF1YkFZYgry2qa4kJr4ktr13
-	Za15Wr4jkFn5ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uq-erUUUUU=
-X-CM-SenderInfo: jorrjmiyzxliqr6rljoofrz/xtbC+Q+N0Wrq8+9h1wAA3A
 
-From: Qing Luo <luoqing@kylinos.cn>
+From: Bob Song <songxiebing@kylinos.cn>
 
-refresh_signalling_expectation() converts the expiry from a SIP
-REGISTER 2xx response with "expires * HZ" in 32-bit arithmetic and
-stores it in a u32.  sip_strtouint() only rejects values above
-UINT_MAX, so the answering registrar controls the input.
+hdsp_set_dds_offset() computes the target rate as
+system_sample_rate + offset_hz without validating the result.  A user
+can set the DDS offset to -system_sample_rate through the control API,
+making rate zero and causing div_u64() in hdsp_set_dds_value() to
+divide by zero.  Larger offsets can also overflow the rate calculation
+or push the DDS value out of range.
 
-Expectations are reaped with "(__s32)(exp->timeout - nfct_time_stamp)
-<= 0".  At HZ=1000 an expiry of 2147484 seconds (24.9 days) crosses
-2^31 and the expectation is born expired, while 4294968 seconds wraps
-to 704 jiffies.  Registration refreshes break, or a signalling
-expectation stays pinned for days.
+Validate offset_hz against the [-5000, 5000] range advertised by the
+control, keep the non-positive rate check as a safety net, and
+propagate the error from snd_hdsp_put_dds_offset() instead of
+reporting success.
 
-Add nf_ct_secs_to_jiffies(), which multiplies in u64 and saturates at
-INT_MAX so the signed expiry test stays positive, and use it for the
-SIP expectation refresh.
-
-Sweeping all 2^32-1 inputs at HZ=1000, the helper never wraps, never
-yields a value that reads as expired, and matches the old expression
-up to INT_MAX / HZ.
-
-Fixes: 0f32a40fc91a ("[NETFILTER]: nf_conntrack_sip: create signalling expectations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Fixes: e4b6088c8cf1 ("[ALSA] hdsp - Add support for fine tuning of sample rate support to HDSP 9632")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
 ---
- include/net/netfilter/nf_conntrack.h | 10 ++++++++++
- net/netfilter/nf_conntrack_sip.c     |  3 ++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ sound/pci/rme9652/hdsp.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
-index c39425e54d87..b32716084ea8 100644
---- a/include/net/netfilter/nf_conntrack.h
-+++ b/include/net/netfilter/nf_conntrack.h
-@@ -210,6 +210,16 @@ bool nf_ct_get_tuplepr(const struct sk_buff *skb, unsigned int nhoff,
- void __nf_ct_refresh_acct(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
- 			  u32 extra_jiffies, unsigned int bytes);
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 7dce548b9f36..467121a5fb4f 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -2768,6 +2768,9 @@ static int snd_hdsp_get_adat_sync_check(struct snd_kcontrol *kcontrol, struct sn
+ 	return 0;
+ }
  
-+/* Convert a timeout in seconds to jiffies, saturating at INT_MAX instead of
-+ * wrapping the "secs * HZ" product in u32.
-+ */
-+static inline u32 nf_ct_secs_to_jiffies(u32 secs)
-+{
-+	u64 delta = (u64)secs * HZ;
++#define HDSP_DDS_OFFSET_MIN	-5000
++#define HDSP_DDS_OFFSET_MAX	5000
 +
-+	return delta > INT_MAX ? INT_MAX : (u32)delta;
-+}
+ #define HDSP_DDS_OFFSET(xname, xindex) \
+ { .iface = SNDRV_CTL_ELEM_IFACE_MIXER, \
+   .name = xname, \
+@@ -2801,7 +2804,15 @@ static int hdsp_dds_offset(struct hdsp *hdsp)
+ 
+ static int hdsp_set_dds_offset(struct hdsp *hdsp, int offset_hz)
+ {
+-	int rate = hdsp->system_sample_rate + offset_hz;
++	int rate;
 +
- /* Refresh conntrack for this many jiffies and do accounting */
- static inline void nf_ct_refresh_acct(struct nf_conn *ct,
- 				      enum ip_conntrack_info ctinfo,
-diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
-index 64bc440b1181..e2fd97f53386 100644
---- a/net/netfilter/nf_conntrack_sip.c
-+++ b/net/netfilter/nf_conntrack_sip.c
-@@ -891,7 +891,8 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
- 		    exp->tuple.dst.protonum != proto ||
- 		    exp->tuple.dst.u.udp.port != port)
- 			continue;
--		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
-+		WRITE_ONCE(exp->timeout,
-+			   nfct_time_stamp + nf_ct_secs_to_jiffies(expires));
- 		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
- 		found = 1;
- 		break;
++	if (offset_hz < HDSP_DDS_OFFSET_MIN ||
++	    offset_hz > HDSP_DDS_OFFSET_MAX)
++		return -EINVAL;
++
++	rate = hdsp->system_sample_rate + offset_hz;
++	if (rate <= 0)
++		return -EINVAL;
+ 	hdsp_set_dds_value(hdsp, rate);
+ 	return 0;
+ }
+@@ -2810,8 +2821,8 @@ static int snd_hdsp_info_dds_offset(struct snd_kcontrol *kcontrol, struct snd_ct
+ {
+ 	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
+ 	uinfo->count = 1;
+-	uinfo->value.integer.min = -5000;
+-	uinfo->value.integer.max = 5000;
++	uinfo->value.integer.min = HDSP_DDS_OFFSET_MIN;
++	uinfo->value.integer.max = HDSP_DDS_OFFSET_MAX;
+ 	return 0;
+ }
+ 
+@@ -2833,10 +2844,14 @@ static int snd_hdsp_put_dds_offset(struct snd_kcontrol *kcontrol, struct snd_ctl
+ 		return -EBUSY;
+ 	val = ucontrol->value.integer.value[0];
+ 	guard(spinlock_irq)(&hdsp->lock);
+-	if (val != hdsp_dds_offset(hdsp))
+-		change = (hdsp_set_dds_offset(hdsp, val) == 0) ? 1 : 0;
+-	else
++	if (val != hdsp_dds_offset(hdsp)) {
++		change = hdsp_set_dds_offset(hdsp, val);
++		if (change < 0)
++			return change;
++		change = 1;
++	} else {
+ 		change = 0;
++	}
+ 	return change;
+ }
+ 
 -- 
 2.25.1
 
