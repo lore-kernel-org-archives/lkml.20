@@ -1,54 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793761981;
-	b=WdT6+YmaXJQfs1mfTtE4pWtWY+It5o3FanzBBX624tDFKEmueZurUkez3qPjMgagOdWX
-	 TDvuj7ZF6fKTKPSG84vNR0NWvygMMCPwIsMME1kYf856JoHE6kX21bHE1RPaW87gE2EmX
-	 KbQ/oMxrnAzym7TJrgpWZOv5KNTb13wBCk9UbZW4AITJvXyw8FHu7ovwBY03kuEwi4hv+
-	 hR3uO5IctOF/qun42QpMC9hnP3gTJWzCVtjCGeu/hmNhCgF5aaWHDdKtA2ebgPOr3hCkx
-	 NhbYrdJtPcLxDkBRJU/O2AtYgMUB6/8lVnteCdYIqygbK3KHk7Bb66U72Z9lVyFoBnA==
+	t=1793761975;
+	b=NDK5QqSLK8pS2UmIMtkDYK2FFfhbpJSMj5PLQBpGOon+rjBHXTpTcfTCOAD51+wQlulz
+	 LmmIk50m2h7vgnXATuwIatDlXI2FIP0CFGZfva9kSKpmi7FpMQnjaFhgiIfuHcPlwl1GJ
+	 Fn0kI74Bg7SLVVPQtGSpQx9slzMbnQr0HqORBBUNvgMN9nPZdM28DU6nFSPwsxuLA/JYp
+	 E8BLUmJlRnmAnP1LLD1hOXkTVXcFk07LR8zVQfesoIBt4Ma3qkgsg6cOyZwU8JOiFDXVF
+	 bXe7MfPl4b5Wc8kRBlvqZsUAQPheKjIqhS4KV/mO1VPQwIDtdAAzZ36DtuPrynfG4Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793761981;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793761975;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LveW7nDiawWEYIXu5pfVPlNN/304vQfJ88DUg/zm9Lw=;
-	b=TgyW+MbDL3k7kvnl+OvU3KSBkvJAyrREFh98G+LAfOquMQauVkexvnVahjHHel+Ecavf
-	 +v4WOEPhC1vf7WW9KrjuYQ++RnE+luKtnSt1YHdVRAg/vd/jE2COl22FIi0/7lNTRVdzH
-	 YqrbooL2r61ZG+iBDfMy9B1Flch1pVkVRPhXFw8LCbNqzI8WPnAatv/Z27qY3WEVvYeHd
-	 ybhz77X+yAL8hWE+iP1xMuauiZaiIC6mmdQwoMXJB/2Ho4vShI6ARGCjaqCWCnNKmO1z2
-	 aDHJgjx3WftojqUP7mbMY7robtbCEARpU+FnjedsI5mIj3Gh8ACZMJLwxJdAHn63fbA==
+	bh=BFKdbCnvgEnPUCR+piUdwFlucy5SNy4ZmkD3FremwV0=;
+	b=Wtp0NzHNQMcU2kuDPK5ObiUJCvaJbTrP5Xs+u20vP9ny+UJwNSAHYdAdBh8YjI0Dhiw7
+	 tChRCwbyltRmtOjVjzJEm75dmKmvbyxRIetjpiS/YesOc6i7mbB/IdkN5Ix6jZ6OO1hG6
+	 1uOEOV/JXQSP8YDDeuEFDEy/2N1qD+Yy20syj9Flx3WvjeGJ8kCVMB49x8Jr5BG4SWV66
+	 26/sdfW1NnTAjmoCswLpKdb/bF7ePyAtJLknvPwKUuaeNFnGZTy+EPzY8yPw1PBYDk1ai
+	 nS0AqIkdKllV64+XQgH3hZZ9CHwmsKCdQyUjJB/jqE5vz2jU65lO+chgIwBkHh06o1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="doLWrA/N";
-	arc=none smtp.remote-ip=95.215.58.99
-Received: from mta1.migadu.com (out-99.mta1.migadu.com [95.215.58.99])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MC8VPNm7;
+	arc=none smtp.remote-ip=95.215.58.86
+Received: from mta1.migadu.com (out-86.mta1.migadu.com [95.215.58.86])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73154606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73154606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907F5606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:12:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 907F5606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=doLWrA/N
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MC8VPNm7
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9OEa3fPovPlD+MXI2KeoqPySDCpv+FwfnIb8O3AdQek=;
+DKIM-Signature: a=rsa-sha256; bh=BFKdbCnvgEnPUCR+piUdwFlucy5SNy4ZmkD3FremwV0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793761978; v=1; x=1794366778;
- b=doLWrA/NIRHhmJJQPBEF9xi9oB4Z6q+zIdHcHgpVILcXpSryYLgtLAq/sQ5fHPKSvP4rqua5
- yKeklQ9P7XrD2ri185Mau/iUYSJ2sd7zRVsKoI0bse29ZMKNV3+IQHx18tTS0HCioyHUhUYV/IR
- pbidK5X/k8TMETKPezDUr5ws=
+ t=1793761972; v=1; x=1794366772;
+ b=MC8VPNm74Ok18sfdmxnpsI6xRh7R0Zk5W//KSoh4oQqgT/S/C7qdI564Yzn9q9U82YW5fQUa
+ bHEVLCzq9Vqzf9FcDE7exA0+xlnDu1bTQ6V7pBzRG57qh+3OeK8awrDIx3MWDyYkXpPcFBKY+AD
+ RqEEVje7E40Z3XH7oOIjjkYY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6043c9df7e23f1de;
-	Wed, 04 Nov 2026 03:12:58 +0000
-X-Mizu-Trace-ID: 6043c9df7e23f1de
+Received: by smtp.migadu.com with ESMTPS id 888f0105953f8a83;
+	Wed, 04 Nov 2026 03:12:52 +0000
+X-Mizu-Trace-ID: 888f0105953f8a83
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <b48c1374-0136-4da8-b696-3f31c052dad4@linux.dev>
-Date: Wed, 4 Nov 2026 11:12:44 +0800
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	peterz@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hughd@google.com,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	riel@surriel.com,
+	harry@kernel.org,
+	apopple@nvidia.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	jgg@ziepe.ca,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 43/47] mm/huge_memory: split huge PUDs when adjusting VMA boundaries
+Date: Wed,  4 Nov 2026 11:12:45 +0800
+Message-ID: <20261104031245.9524-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261031-fixes_core-v3-43-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-43-d6437171ecc3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,95 +129,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
- linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com,
- martin.lau@kernel.org, yonghong.song@linux.dev, mason@kernel.org,
- ihor.solodrai@linux.dev
-Subject: Re: [RFC PATCH v12 2/4] blk-iocost: add iocost_ioc_tick tracepoint
- for per-period device summary
-To: bot+bpf-ci@kernel.org, tj@kernel.org, josef@toxicopanda.com,
- axboe@kernel.dk, alexei.starovoitov@gmail.com
-References: <20261103132613.1952975-3-cui.tao@linux.dev>
- <04adc0407868a7876c12e46e0637e13b3bb8f549e6f47a1d0a9bfe29d144e29b@mail.kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <04adc0407868a7876c12e46e0637e13b3bb8f549e6f47a1d0a9bfe29d144e29b@mail.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
 
-在 2026/11/3 22:07, bot+bpf-ci@kernel.org 写道:
->> blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
-> 
-> TL;DR: In iocost_ioc_tick, the tracepoint call sits outside its enabled()
-> check, so a probe attached in between may log a bogus active count of 0, which
-> consumers could read as dormancy.
-Confirmed. `nr_active` is only consumed by this tracepoint, so there
-is no reason for `trace_iocost_ioc_tick()` to sit outside the
-`trace_iocost_ioc_tick_enabled()` block. The split was simply an
-oversight when the active count was made conditional on the tracepoint
-being enabled.
-> 
->> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
->> --- a/block/blk-iocost.c
->> +++ b/block/blk-iocost.c
-> 
-> [ ... ]
-> 
->> @@ -2478,6 +2479,22 @@ static void ioc_timer_fn(struct timer_list *timer)
->>  
->>  	ioc->busy_level = clamp(ioc->busy_level, -1000, 1000);
->>  
->> +	/*
->> +	 * busy_level, cur_period, nr_active and usage_us_sum are complete
->> +	 * here. usage is wall time over wall time, summed over iocgs, and
->> +	 * is not capped at 100. vrate and period_us reflect the current
->> +	 * controller state, which an io.cost.qos write may have changed
->> +	 * mid-period. Emit before the refresh and the period transition.
->> +	 */
->> +	if (trace_iocost_ioc_tick_enabled()) {
->> +		struct ioc_gq *active_iocg;
->> +
->> +		list_for_each_entry(active_iocg, &ioc->active_iocgs,
->> +				     active_list)
->> +			nr_active++;
->> +	}
->> +	trace_iocost_ioc_tick(ioc, &now, nr_active, usage_us_sum);
->> +
-> 
-> Can this record a bogus nr_active of 0?
-> 
-> trace_iocost_ioc_tick() is called outside the
-> trace_iocost_ioc_tick_enabled() block, so the two static key tests are
-> independent.  If a probe is attached on another CPU between them, the first
-> test sees the key disabled and skips the count, while the tracepoint itself
-> then fires with nr_active still 0 even though ioc->active_iocgs is non-empty.
-> 
-> Documentation/trace/tracepoints.rst says the tracepoint call should always
-> be within the block of the if (trace_<tracepoint>_enabled()) check to avoid
-> this race.
-I'll move `trace_iocost_ioc_tick()` inside the enabled() block in the
-next posting.
+On Sat, Oct 31, 2026 at 10:40:12AM +0100, David Hildenbrand (Arm) wrote:
+>PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
+>allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
+>only handles PMDs.
+>
+>After faulting a writable PUD-sized VFIO BAR mapping, changing its first
+>page to read-only with mprotect() makes the PMD walk treat the PUD leaf
+>as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
+>the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
+>
+>Walk the page tables once at each adjusted boundary and split a huge
+>PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
+>PMD-aligned.
+>
+>Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
+>Cc: stable@vger.kernel.org
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-Thanks,
-Tao
-> 
-> Since the commit message describes active=0 as the marker for the transition
-> to dormancy, a consumer could read this spurious record as that transition,
-> alongside a non-zero usage value.
-> 
-> Would moving the trace_iocost_ioc_tick() call inside the enabled block
-> work?  Alternatively, nr_active could be counted in the existing
-> list_for_each_entry() walk over ioc->active_iocgs earlier in
-> ioc_timer_fn().
-> 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41646836440
+Nice work!
 
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
