@@ -1,101 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755448;
-	b=NVgxuuqaZZTfrShe1Hy/r4GwIz/6f3BPrKt3fkjJnrXTkZ8VRCcWFzqkSRyUihUFMHB6
-	 ZqrqRNslcUf++sZvTxV2MsBSW7IrcnEdkUKkqgaCucQAuYogDtXZCOMVMPIQgCSpS8P/4
-	 lahbXK36VM2NlR71GoPPelyTFCWfLUaJYqh95Xb/orsBZuYLUkx5gfoN//4ix2sJV+lDQ
-	 eaDq2JJ4Wa0rQgnWBSP4l5ISBhMUH0Z+o/+TqjWmNxDh/qpGU1z1WhC0LGDkwhgQEjD2V
-	 GrOY7aNXezyBZeAAGkzmc9HmDgpxqDMF+xmPPfsmuxchcbNbot3QXD99uEUntKpJaaA==
+	t=1793755660;
+	b=MUT9Ncw7DnGEnGcNue/0aKPNrN4kS+xsA+vVB4LC0kqRzAWcTLllyybd6ETR27L3iyBQ
+	 22Gc+f0P2oZafu0yN9HLFszmv1d4Vryhch/fhY2POm6vFPjVTdp90EKWNRf71FvTzpHxh
+	 6Ek2/wWL84+EE9Va27HLNlo5EFoGu4yXE3FMRUraYymn7lDzntl+V4a7MPAHPRIWZdVNn
+	 8096XmFNCRLJC+K0WcXCTYwjuJ8ymASUZe8mVTK32Z2mu/8H2I10Q4GkI4FbQj35gyYmw
+	 BRcfIFQOAjrChDyVPX4Ur7O1iOnAQEBjZ2iYxcHvjh7Jriz7Uad1dDlc9QH5hWR8LgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755448;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793755660;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CyEBod8U9yrktbOchdQg2w94UgrKibnqgXSxsY325+s=;
-	b=IfLN3k8HByJ85jUihoFYLRnukVU8NtynKA0J5D+Nc+2bOO41gGXt7vmFo/1AIjlrzZRa
-	 aWVtc1cg86+RrvZ9T7aCd/WVm9+KcVk/2HI1hc5T8Xg+M7t7ybmJMOVoAnga+ohVqqmAP
-	 vNVxrl7O/y7bTQUzRp0KZDpleLHByHTUY13dmRW3Wvqqx1QHL61AaPpwGgylPOzjveMhC
-	 eZJhtZp8By3yLCszlrPZof/OtD5Cv0TdJ16r3dpf4CHrd4vIz4uW64I16junWyNJVzqjM
-	 en6oGWgA+SNBguJEH+jlXBC3Xdhgz1FECxaR2kuQp2Xw61eK4Bzd2Q8j7hur76YSOPQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LcfBCZa5adH08J2gOGj2C4Qobxoxc6wsW6LJTMDHw6Y=;
+	b=JPkQ0opfFgVZ9nwitTsw1IE7In1LygJSBAEqY39sS74oqQM/35UTpeWm0a2WSotyNrmL
+	 8oXMH1MFrYE1Hxs5Jo/lIcVHBPJVbC0jo/+fxGT8VJPzK2OarqSkCHyFH5fxb0Zh30egq
+	 Ttw9M79d+OWpLSNsKfI1lvfGPsnofIafEjH29wMnHaX4WJobFBXoQK2/SVU9hiHhyqGGc
+	 zApyxFcMy3qpwWwhOEFleep0Py5qVDq/1+vhZft0rrmU4ruP+ZioRrD9t/Lp/gatEElq1
+	 Wi/eUrf8cnbbGlfG5NMqRJwFRwSc7/YChGf+cDI42yvrRM7PINVKX4VEuY832KhGZKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ERR3wnij;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gyjMmLt4;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077F4606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:24:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077F4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04EB606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:27:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04EB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ERR3wnij
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89d6bd67045so57429b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:24:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gyjMmLt4
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so80650a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:27:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793755447; x=1794360247; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CyEBod8U9yrktbOchdQg2w94UgrKibnqgXSxsY325+s=;
-        b=ERR3wnijf1jsNe9Qdqkrh2JIJmXEevbKnf+o4/cuu88tzR0YfjP9dSlA4F57zxQb4D
-         QKivwgmy/GbarHTPLM4iSd9WnrR1MwjBJP8Go5n66xS0H6BTDiRl8FmeH4U2j0YIgNs5
-         RAGMiAZMw5EKRNQ+jAayyZSuSwQLTJTXdQtQ0+yxM1BVSy2V7vrx6yGE0Z9iHhLtn2Ly
-         0reh6wCVlx7p4D4JTMBW23HwxJdfvFIs1r83PgfUZqgCK+MmPnIy/SW+WBUDYvUBAyrz
-         qouD5g2fA9eRU+ZgVWGJkX7Ej3TpGus9gKsbG9bCfOLLWinmafn69IlIkNGvsHRxH7rf
-         hh6g==
+        d=gmail.com; s=20260707; t=1793755659; x=1794360459; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LcfBCZa5adH08J2gOGj2C4Qobxoxc6wsW6LJTMDHw6Y=;
+        b=gyjMmLt4u4A5pCxKBpjcV1+7W4eE4pEpOw//Jo0IBR9CJJ0cXZCsimaSkQcfVjNmzt
+         JhIKoYGmCDw9Jyx5LmvtOvt4gh93G05bafAt/lkzpOSEwKpldMveM5k+wy83M7R1F/M2
+         AjBaCXBp1MV9JADZazesyFX8brExYJxWwBO3xs1ECJ1oNX8qWu7M9tp4ooOxvRT5Dcxu
+         czMlAV7tVQ/9cwFJoZKusQFIuVy9amhCFyYoFRbJ3xfJS+Dv74DxVnnkqu/UivFx7l5Z
+         g6H1hknBoF7NzBTiuwiens2zvQA5WbXbxy+SphHR1gzdP6x9dNtBpA+CS6TcEDHbalS9
+         ofLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793755447; x=1794360247;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CyEBod8U9yrktbOchdQg2w94UgrKibnqgXSxsY325+s=;
-        b=Hxrpt0+zRM9iq/MkVaj1FEfcxWlaX1BGr8eIdx6r/bYasDBtldcGhMa1H9aXxJf7Dg
-         S1WYV/RaFczGULZ9Y4T0Lpc5FFsT6ANcoagHa5I8c7ToMblBPNJ2g2K21jBM9Vp8UQto
-         SsY1ukrHil3o8Hn66UDsvQWBikgfdVJDCLqCdmTGs1S59Sj4NXW1m9JKFMsVZ0aG5r9e
-         ijo6dcP78QOp66IH1P/kJx84mJ48rRNpq6IFyQWDDrIykkskLp+yePa+V/U9lrZ+TUK7
-         +NYJIPA4ogHvBaMStrLHXYyPRePs/SpnkCQacLTweMmX5DwNGzTNLyx85z+Qc3uYq4Ve
-         M0dw==
-X-Forwarded-Encrypted: i=1; AKwUvByjMF5/cva0eBUHaJ+PycB8k28/KztAKL5AuEXoGp2G0WvE2WJELx4nJqgMaNiotq5xxil5s4bL2X3T9Qo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5snnR2UAhgYCnzqrbNM1CHksfzTIhxi5sZ5oM9uIWY/lWIbVp
-	WEGJmkHq9VUtwnVI4waQm9/X72mW7I/Tz8Uv53Hb1T/ntG1g2bI6mGjRP+Jdc0/Rido=
-X-Gm-Gg: AYBFou1polQuLbrFAm9X4D265GPrrDmRthSFR0b/bcT/RfU3JRa9qLmbbF3hTOp43rl
-	SIqC8ZVEz9hY3ur7L3d+T/uc0PFuR+AkKjMndNp1ZN+c2Q2Bfw5GfGEG9vIWiQm73mlhGHCZqr+
-	neP1nQKSLG9hcvYDSeSfSenpGgrY45ozcJa2SERIEafUGz96kR+RkAtwPWp9rGzRM6EFsS4OpA+
-	M4DqZt9xd3yjhiP/6k4olVDUs2FJNkMjnuDCVTaxfyxhQOWazV+dwWh1AYhsQ5/SHsH87bbih5F
-	IkYOX/SQPn7EXOQA71PVEK6QnNH11hUVE7WphHSZvxlJK29dfbKCdIi8/3ZdjgEKlXU0y4owY7f
-	wkduy761/8Wx9ByvD63JCNbFCcrpGsFhn0IkHbJDkol9GgxD6tQQIZYQdQCkdduxsJvoWvG15GI
-	7XsxzOM2K93kYjHbk2Mfsy/ga6JLrUDydp8W6iH8PU7x8TfegBBZxIQsBWlnT0WbJWXDrkwcJ+5
-	eJIjW6m5aOPno7NMbcROYs0Vscco/QAEtZH7QYM9soSmkf3pDOa6FjGrfuuG6LNmmLIyJk0Z2tX
-	of4KqYO6piryrVMaWYw6iFMyRNWXHHi/VUDf0Q1OCyZB25PD+m68dYjzk3juR6Fy3zqK+Ex8yZy
-	Ao1zd273OrYIKUBFzu+Z12Y+Xwxn8JsJslhQJ
-X-Received: by 2002:a05:6a00:a256:b0:882:2195:5a73 with SMTP id d2e1a72fcca58-8a9bfde0494mr7910507b3a.29.1793755447467;
-        Tue, 03 Nov 2026 17:24:07 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7cc082sm197577b3a.12.2026.11.03.17.24.04
+        d=1e100.net; s=20260707; t=1793755659; x=1794360459;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LcfBCZa5adH08J2gOGj2C4Qobxoxc6wsW6LJTMDHw6Y=;
+        b=eLEERGPrHJGGdCxEFUAwR6uhGLKsAq37FTwTTwuxhYy5jgKGPYk8wfvedeNVxX2ESr
+         K7PXKr5NEvh1yTRWKoHLAYd7jAzt/q49UotzSaHOaioCVmWf08lVel+J9oK/PC5vMoJr
+         W13IaWUU6Qx/arY16dsaV/FYn+z6iWboqZ52hyxv1mGllV8j+AvWECv+laBodNjbSj40
+         AJI+FnsOzlDGTotsnsgNLgiv0ypeL3tAGeEaQzQUWRyDC6IHoECImQE0LUTOUB2qrzi3
+         xNcVE2cQHTHw/tK8kwU2vNFeWq2TPD946xNeargnimDCO2Lxi9YDyyPcrb9ErQWBa3z2
+         fcJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBIEzrLNomcUbzbIDDXWQElkX3ea7evlWCKLNCAfNb6u2I2ChWFGGMV+j4uqbgoUPg19uMSrTA27k0iAM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iVQYDAfxacST+jAlMPhnh4eAdqNs8Jiax5k/BjsI7wahrU8if
+	xqMYVttlWMT1p1kQ39pQlyB0ziK0LeWCDtIUiaWQbwoAEXtDGA5+pfdO
+X-Gm-Gg: AYBFou0PzUMkVVVqoM8FG1pETRSpDoagNMFbVAz1Lh2HtxiiQifz6RlWCvrKaBEdozt
+	3AWmtL2l+Xgk0WYkAReUUgrDwJJxZuwTFJ6XpcRlFjCDtkOgq0paVuwukGOU10nlVl7At8DWu3X
+	TM1X3UEbMJPMoXmk5rn5FFP2XFURxM36l6VeSdEQJo80ViPxfFz5IlDQIRiDB99ucVbnoGu7QVa
+	gDMW/3fNNrMk7lFTV9q23fOX5DPOk71+0WkCDvwGcdDY3WT5VRonmlJpI1SWoXSHfO6p4Oohm1Q
+	ubWjQCkwQbDsQ7RwIyx6qQ32QwDjFv5nLw6U/cTIT8LiHm8tvN3qo7xFZXoDVBxW/QlEhp9ddtC
+	25eh+8fjZxvxHl+7l5M59QWvzYubDvQ7apSebtVq6InaKjhEOAjjRHj+gZJzRSx4ZWjV+d8AyLy
+	fy+byb3vKa6w1eKXyaMUeNhZA4XjCaXAPjK/mSsEcJp+Z5iNb8x0v9kV0LyGYFdL+S1o5EJhfK8
+	rWn/QMwoVYwPRKUHM+vBIHSEYnfMiNpIxX7+vs0T/X5nf0ufa9U6/aJqjPzllXkewtFS9UYzAA5
+	96NpJ4QLE+iK+eR4uBAH2yFME1nWnj/T4nnow3bsEgCdR5NqNhlbGDyvXV1NZ8RsUVohY+N58zX
+	3viHb
+X-Received: by 2002:a17:90b:3e83:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3ae89855ccbmr12751140a91.65.1793755659155;
+        Tue, 03 Nov 2026 17:27:39 -0800 (PST)
+Received: from evo ([183.171.191.8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm1334902a91.1.2026.11.03.17.27.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 17:24:06 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
+        Tue, 03 Nov 2026 17:27:38 -0800 (PST)
+From: Ambareesh Balaji <ambareeshbalaji@gmail.com>
+To: mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH v6 0/6] IB/isert: fix the device removal use-after-free
-Date: Wed,  4 Nov 2026 10:23:58 +0900
-Message-ID: <20261104012358.1759607-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103223802.1697607-1-yhlee@isslab.korea.ac.kr>
-References: <20261103223802.1697607-1-yhlee@isslab.korea.ac.kr>
+	Ambareesh Balaji <ambareeshbalaji@gmail.com>
+Subject: [PATCH] usb: xhci: Tear down host on Reset Endpoint and Set TR Dequeue timeout
+Date: Wed,  4 Nov 2026 01:27:25 +0000
+Message-ID: <20261104012725.147741-1-ambareeshbalaji@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,8 +99,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series is superseded by v7, which addresses the Sashiko review of
-5/6: isert_remove_one() now sets the removing flag in the same critical
-section that clears the client data.
+When a command times out, xhci_handle_command_timeout() aborts the
+command ring. The aborted command is turned into a No-Op TRB, so its
+completion is handled as a No-Op and the command's own handler never
+runs.
 
-  https://lore.kernel.org/r/20261104012219.1759523-1-yhlee@isslab.korea.ac.kr
+A timed out Stop Endpoint command already halts the host and tears it
+down. Reset Endpoint and Set TR Dequeue Pointer timeouts are not
+handled, so the endpoint stays halted (EP_HALTED or SET_DEQ_PENDING)
+and its cancelled TDs are never given back. A driver waiting for those
+URBs, such as usb_kill_urb() during unbind, then waits forever.
+
+Reset Endpoint and Set TR Dequeue Pointer change endpoint state in the
+host controller only and never talk to the device, so a timeout means
+the host controller is not responding, as with Stop Endpoint. Handle
+them the same way: halt the host and give back all URBs with
+xhci_hc_died(). The endpoint state flags are not cleared here, because
+the endpoint handlers and URB dequeue check XHCI_STATE_DYING first.
+
+The timeout was reproduced on an AMD xHCI controller passed through to a
+QEMU/KVM guest. An endpoint halt was set on a usbhid interrupt IN endpoint
+and the doorbell of the Set TR Dequeue Pointer command queued by the
+usbhid unbind was suppressed with a kprobe, to emulate a host that does
+not answer the command. Without this change the unbind blocks forever in
+usb_kill_urb(). With it the command times out, the host is torn down and
+the unbind completes. Normal unbind and rebind of the same device is
+unaffected.
+
+Fixes: c311e391a7ef ("xhci: rework command timeout and cancellation,")
+Signed-off-by: Ambareesh Balaji <ambareeshbalaji@gmail.com>
+---
+ drivers/usb/host/xhci-ring.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index c23434001e9c..b03ff184c074 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -1755,20 +1755,23 @@ void xhci_handle_command_timeout(struct work_struct *work)
+ 	usbsts = readl(&xhci->op_regs->status);
+ 	xhci_dbg(xhci, "Command timeout, USBSTS:%s\n", xhci_decode_usbsts(str, usbsts));
+ 
+-	/* Bail out and tear down xhci if a stop endpoint command failed */
+-	if (TRB_FIELD_TO_TYPE(cmd_field3) == TRB_STOP_RING) {
+-		struct xhci_virt_ep	*ep;
+-
+-		xhci_warn(xhci, "xHCI host not responding to stop endpoint command\n");
+-
+-		ep = xhci_get_virt_ep(xhci, TRB_TO_SLOT_ID(cmd_field3),
+-				      TRB_TO_EP_INDEX(cmd_field3));
+-		if (ep)
+-			ep->ep_state &= ~EP_STOP_CMD_PENDING;
++	/*
++	 * Bail out and tear down xhci if an endpoint command failed. An aborted
++	 * command is turned into a No-Op, so its handler never runs and the
++	 * cancelled TDs of the endpoint are not given back.
++	 */
++	switch (TRB_FIELD_TO_TYPE(cmd_field3)) {
++	case TRB_STOP_RING:
++	case TRB_RESET_EP:
++	case TRB_SET_DEQ:
++		xhci_warn(xhci, "xHCI host not responding to %s\n",
++			  xhci_trb_type_string(TRB_FIELD_TO_TYPE(cmd_field3)));
+ 
+ 		xhci_halt(xhci);
+ 		xhci_hc_died(xhci);
+ 		goto time_out_completed;
++	default:
++		break;
+ 	}
+ 
+ 	/* mark this command to be cancelled */
+-- 
+2.56.0
+
