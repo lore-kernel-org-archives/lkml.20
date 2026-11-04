@@ -1,94 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=139.138.61.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789252;
-	b=dnqWJZB0tfKzHZWEZGZwKmP7bDYzu8XzYJt+Dt5m0BgMV2BYjHIJhf9MlbrHyO0o8f0r
-	 1M06Q819siVkPqROKQtOhJzGtTr94cRELMUuw2XwzNWVcUL8usM/JcGIN2DxTI46K0FR6
-	 30G0AVIayIMbo4KOPYkqEJg+ZjNrT5AlW3l/V0R7rcG8rcd13lYIdhz42ESvxBTPTxg78
-	 Dr0OOb07Vp0zOangUL2o7L+U89VySAGx6b7zArGN1aN2V7WtZTXDYQfpPOGoKTN4caz8u
-	 ImY1Bfrc1gBK/t/DzhGiWhJPy+lflbKVzN4hwrRTlRlAAxgyCTeD1Oa/Jf8y9QbpX2w==
+	t=1793789293;
+	b=vQxo4+wxOTGjogGKXwE3drLGByTXy3HN/yHtoSMkYmhFDo8SliP3VemAI/boEUt4BXBg
+	 7WjV7tg7f3kdYmG7pBbFkgRC6uFs7NKDOuv0mbSP0JL0dQV3kRiIke8nrtbRKljJid3pZ
+	 oXICmVmfizQL30Cabq2lMXj+V1uBD+5rKGnewraSYpYLMq52ae78cQMW2H7HOEwfBtxIN
+	 yebcSkVLlDFc4C8KWjG4KMbuEZXxpx4ttUGQp6W1rF6pMac8iXxKw4mMernavH8tixgeN
+	 2XyZF56+uZEmvyJ1WB/uR92+EZoe2voEng4rhYJvTPqfX+YkyAmbk2daZLAOnVKlEnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789252;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789293;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=22l6K0vc3gDu3+b6teU5yRSj5i9d0PgiGkuk6VorJmM=;
-	b=gpMD/ykEZ+wiKcd4f1BkGMr/EW69GRU8+JN59ISio8qLaubTt3gXe5HPk3OkuhSLGYmQ
-	 qnVYaj9q5kcj3yYcRXVVt5ux9X5TBCZDXFUNmjuEifdeCfAwLwdyvb3pOcUDq6JcwYwdw
-	 +T0lo9fbSFPo2Ko67VyTfqDG9yqfoVE8/SSAMvJDXnhgK6hfXlQjWL7rbCFPap0hTRMkH
-	 uR//lahZSXzTG/bWEoqh9lRZvphdKxqcwyJnG9UfgPkF3Id9xAOHziYUrykgKxesiAdPC
-	 zk+beBKXJdbz/xWQZE7FWM20UBxo2SsZsElO1QIqUe9Pk38MFl2ToaKWSnkTi2/0nrg==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=jozP82KH6glhGWXgzZRzNLlRupxlnORo/58rZr7qZ9M=;
+	b=KFzIaCCFkgA7zb9McA29wji4nd+R/X5IJLAPq3ZzAgQbtlFD9BKxY3t8TJqJlbM73ieB
+	 S4Pw4ZA8APw2YIsOkmkNm2gkng53yaDeJDmbMxfE8WhQgUdzA7ECy7WpHjiMsEyF2UyYe
+	 CkzY3PIH9iYGdX8AKn1LLkmW5JW0+PSAkGJE11HG9CXCIQq27zcV92TzKKyPiHk1oNaP4
+	 AS0u+I2psXHqNmEdt6vFcFniq7Qn3tQ3U2K5FMgzZ3+NYptGc2eBatIAKDacKlhhKmyZ1
+	 LOYEBLdF6rJj9VkbYcYZRn+yCgbLjUvgMCPucQsClsu/uJ6Tg8zYLEWWpy3V4Xw38bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=OCMRmMCT;
-	arc=none smtp.remote-ip=139.138.61.252
-Received: from esa7.hc1455-7.c3s2.iphmx.com (esa7.hc1455-7.c3s2.iphmx.com [139.138.61.252])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fZownUSi;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B374606A331;
-	Wed,  4 Nov 2026 10:47:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B374606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D720606A31B;
+	Wed,  4 Nov 2026 10:48:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D720606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=OCMRmMCT
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1793789251; x=1825325251;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fZownUSi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793789293; x=1825325293;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=bX+/GudjC/kKj8X2pfBeTqIEajpanRfKGl78WAKq9sc=;
-  b=OCMRmMCTniiJX89CtofPAk1XkvlkxlUlukGasjd5EBvB1EiuNGcdTn10
-   gWTGD3aRoLoLagJDSaKC2d7z78g7RUrVBbYcP8T3FzmGJaJqTsNUK1ko6
-   DMzQn5lNTx9hSstw7cVub+Yli9rV+H6/Gr8T0UjqMtlLi/tTavdJxfGqi
-   mS7P/YKOdNyfZHRKFrrSFAn+7t131Y0cYC0tt5rUSL4kIxRioWNMlD6W6
-   PVvziNp8rZWWoMXCmT49mv++7274fIyfU3YQYb5FzmJzqRO4nSdcHdL22
-   0KmyS98cFYpFMm2EMy/G80JkOqVykgH/I4DPq/Oprgy7qZsy7OWxDpdbN
-   g==;
-X-CSE-ConnectionGUID: 7FHHPqQXTP2joOQKyp/UJw==
-X-CSE-MsgGUID: lqi9HaqMQpa2Cel04XkqhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="239465831"
-X-IronPort-AV: E=Sophos;i="6.27,195,1786978800"; 
-   d="scan'208";a="239465831"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa7.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 19:47:23 +0900
-Received: from az2nlsmgm4.fujitsu.com (unknown [10.150.26.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 9F2AD1C00643;
-	Wed,  4 Nov 2026 10:47:23 +0000 (UTC)
-Received: from az2nlsmom3.fujitsu.com (unknown [10.150.26.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm4.fujitsu.com (Postfix) with ESMTPS id 4DCC01000864;
-	Wed,  4 Nov 2026 10:47:23 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.61.160])
-	by az2nlsmom3.fujitsu.com (Postfix) with SMTP id 246CD100A6C9;
-	Wed,  4 Nov 2026 10:47:13 +0000 (UTC)
-Date: Wed, 4 Nov 2026 19:47:12 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, Catalin Marinas <catalin.marinas@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>, 
-	Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
-	Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: Re: [PATCH 03/11] KVM: arm64: CCA: Check for RMI support at KVM init
-Message-ID: <ausMpjow5k9wnO_Q@FCCLS0092175.localdomain>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-4-steven.price@arm.com>
- <ausEnXB1TE_moI0E@FCCLS0092175.localdomain>
- <ausIgejq7Io9VjZL@FCCLS0092175.localdomain>
- <415f6a96-9ac2-4256-a9b9-e976bd0e73a8@arm.com>
+  bh=9WOXcToYwIQoz7fhImQHKUc1KH3haX4Er1ncPbI21WA=;
+  b=fZownUSiIhWy1NDFoqIJUMDiCpWvxVAKV9TvP1zyL35DDVrVyUv3NqTF
+   k7eAclEu9pQqpNnsBvFTY9cfJNfZ7rBCTBGei803suZ0PnTxsc+6wg5E0
+   r9JQmVIsNvawtxyQ0aVv1qbcZkbqFIN7nDuhjfcyL7pDYgC6O+O4rdLLE
+   FlOIIlOFwBMgTgGN0wWnqr7Tt7hgolVCkizMtKEovLHiG3CIBgnlb3ej7
+   BB1zGqugEXl9WJjGeFjhD/b27uR6gw1NrJaJQ/+49BVWtUI9Tj6jeqXvO
+   qa9VhvgW/lp2sxoFjvvr4c65VducQT9JsGUfa9DubZUKn8KLAfxNoHvcH
+   A==;
+X-CSE-ConnectionGUID: MBCBN/0iTCu/hPZq7aFqwA==
+X-CSE-MsgGUID: L+tbilk2TkuqeH2cFzEhug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2552440"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2552440"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:48:13 -0800
+X-CSE-ConnectionGUID: h8C2zJTFRfq6dw4VZbAfEw==
+X-CSE-MsgGUID: AZLoV3SzT9OTjAmHCmqQ3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="8558196"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:48:09 -0800
+Date: Wed, 4 Nov 2026 12:48:06 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v7 12/12] serial: 8250_dw: configure RX trigger
+ thresholds for Octeon
+Message-ID: <ausNZqZrR3wqQjf7@ashevche-desk.local>
+References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
+ <20261103-submit-h616-uart-fifo-v1-v7-12-c9e248d685c1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,69 +87,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <415f6a96-9ac2-4256-a9b9-e976bd0e73a8@arm.com>
+In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-12-c9e248d685c1@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 11/04 10:39, Suzuki K Poulose wrote:
-> Hi Kohei
+On Tue, Nov 03, 2026 at 02:40:05PM -0700, James Hilliard wrote:
+> Octeon uses the DesignWare receive-trigger mapping with a 64-byte FIFO,
+> giving thresholds of 1, 16, 32 and 62 bytes. Its setup bypasses
+> dw8250_setup_port(), so it does not install the common trigger callbacks.
+> PORT_OCTEON also has no static trigger table, so rx_trig_bytes is not
+> exposed.
 > 
-> On 04/11/2026 10:27, Kohei Enju wrote:
-> > On 11/04 19:23, Kohei Enju wrote:
-> > > Hi Steven,
-> > > 
-> > > On 11/02 14:12, Steven Price wrote:
-> > > > Check if the RMI support is sufficient for using in KVM. Specifically, we
-> > > > will only support creating realm VMs when KVM is set to 'rmm' mode.
-> > > > 
-> > > > Signed-off-by: Steven Price <steven.price@arm.com>
-> > > > ---
-> > > >   arch/arm64/kvm/Kconfig | 1 +
-> > > >   arch/arm64/kvm/rmi.c   | 4 +++-
-> > > >   2 files changed, 4 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
-> > > > index cecea0820e52..d067063a3686 100644
-> > > > --- a/arch/arm64/kvm/Kconfig
-> > > > +++ b/arch/arm64/kvm/Kconfig
-> > > > @@ -34,6 +34,7 @@ menuconfig KVM
-> > > >   	select GUEST_PERF_EVENTS if PERF_EVENTS
-> > > >   	select KVM_GUEST_MEMFD
-> > > >   	select KVM_GENERIC_PRE_FAULT_MEMORY
-> > > > +	select ARM_RMM_RMI
-> > > >   	help
-> > > >   	  Support hosting virtualized guest machines.
-> > > > diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-> > > > index 5ecc8b349869..9d118768550d 100644
-> > > > --- a/arch/arm64/kvm/rmi.c
-> > > > +++ b/arch/arm64/kvm/rmi.c
-> > > > @@ -3,6 +3,7 @@
-> > > >    * Copyright (C) 2023-2026 ARM Ltd.
-> > > >    */
-> > > > +#include <linux/arm-rmi-cmds.h>
-> > > >   #include <linux/kvm_host.h>
-> > > >   #include <asm/virt.h>
-> > > > @@ -12,7 +13,8 @@ void kvm_init_rmi(void)
-> > > >   	if (kvm_get_mode() != KVM_MODE_RMM)
-> > > >   		return;
-> > > > -	/* TODO: Check if the RMI is available */
-> > > > +	if (!is_rmi_available())
-> > > > +		return;
-> > > 
-> > >  From an admin/operator's perspective, kvm_rmi_is_available would
-> > > silently remain FALSE in either of the following cases:
-> > > - kvm-arm.mode=rmm is set, but RMI is not available for some reason.
+> Supply the fixed depth from platform data when firmware has not provided
+> one and initialize the common trigger table before port registration.
+> This makes rx_trig_bytes available while preserving the Octeon port type
+> and register accessors.
 > 
-> We could add a kvm_info() message for this.
-> 
-> > > - RMI is available, but the admin forgot to set kvm-arm.mode=rmm.
-> 
-> But not this one. We are additionally planning to move the RMM
-> activation to gate on kvm-arm.mode=rmm. I will send out a patch
-> soon.
+> Select DMA before filling in the default depth, as before when the 8250
+> core supplied that default during registration. Thus the new trigger
+> setup preserves which ports attach DMA and their existing burst sizes.
 
-I wasn't aware of that plan. In that case, this scenario will be
-unreachable, so I have no concerns.
+...
 
-Thanks,
-Kohei
+> +	if (!p->fifosize)
+> +		p->fifosize = data->pdata->fifo_size;
+
+In this case I would use ternary Elvis:
+
+	p->fifosize = p->fifosize ?: data->pdata->fifo_size;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
