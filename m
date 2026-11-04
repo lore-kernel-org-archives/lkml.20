@@ -1,77 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.234
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782241;
-	b=RdkqJSp2MQmzuL37wAym4cz6oLFMRa8k5lZa60z/paLvww6K6lYqN4fW8zejRUcDQ2ph
-	 W/ZAr1DLelqTvdKlR1teX77BHHv5rz9+RoK2bfcEr2mNYBQFfaC/zBp/7G/KwINDQ2aPq
-	 LrxeWYwoSJjgTtr80psLN0jy+ts1oOB910edcsVaFmkpm6GzB0Sz8ftBDm3XFe354gVVq
-	 mx+L53RO+98UoHG9XiRA27YmKtvKxUTSE/gYxWM8W7MH2UOL4Xz6xR6alc+VLeZLR5ZmU
-	 dIxDuqwLQnqNtpRlZS8wcFe78f8FhzEseAZHbySQ6SI+6ybpbTbqD60qckDiiVZuqVw==
+	t=1793782242;
+	b=QnPISR1tlanfXw4jSda5gzOcd8QWBW2qd4A7MON5sHyDO8RPXaBP/ePdXeK8EgtSZSnP
+	 37SXETQU9LgGOzeRZv6sVrRtB09njeUPMfW17n3X8ZEYvZcr3//TD5AiVB2DUqvO+YtBl
+	 Y7AQbKy2ELMYHQ3Ox210InNVLK/yngn60BtziPJ3Cc//e+0knWtfy9DDUZKMIm3S45SSS
+	 VmQzI1xPUTzuUQvP5PXyLRByJdv/M1f3BpuXP83RtfFZDbEG24DPoJLbzkIfGlNm9nvZ2
+	 Idyk33cguwM2TPhT/hP6/jMZ3V9cm3ufm4ub3TJ9J3khCbYe9Vj3wDG4vT1Eg512DyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782241;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=U2XBWSBfcfQCqve1wrsykzKjay5QUHR6JzVkYSHce1U=;
-	b=vNN8GXSRkkOJUfmxSP7MsSmI82ZJodl3bJtNz/m8/2OYA5W9vnBfIrksMfBFZ/KzRyrx
-	 s2gZvrZGol/PQoWH7rIjsJ0o5pD4ZveDeEmIEXJvHi7fAo+AXunK+zxOsWsdpKi5JMUTt
-	 lqHVDabqYrPzZHkKwUUqhspXPhJSXLPnaTZGAlrm7MU0BjdcRCWsX05gwsnUeTTeSs8lq
-	 AzbkgTVRbfYZFDOb85vZOTr/gDvoNRjnjWCgY4Fxw1WL8LGjBrb7FGVbX43iUo/Kh9vXd
-	 yKzqZzX9XXNUncqcrn7t73M+SBP0sKNNQ92+IMABC+PlEb611nAWsaSdwHhR8as0yDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782242;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SQcKWDtrhSKmiy6sH0JUx7BX4jSdskktbQxCBCAaJ/Q=;
+	b=nc4IwGZUoetQOEKh/3pIHnxLIpcXifKre3EIhqVmprS3wyjIcPqHPYoJugokoWquBcbc
+	 TBKnFZUN9R2rsjwdyDeYajEuUzcpKja6yAlst5iwtVHkQJ/+T/BAmUZkXCgK4KpBd71HF
+	 DbVnm/XNpCI6TGB4rVDBYGQoMRUFqYiqJ4AlZfCI4DClyHEvpFfHZf+BDN+VBKhtDQzP3
+	 2DMZ74V+HNozRvaXzBYeDdqYP2vSMY0a+Xi7QJn/JpacNFgtm207oP731h2hnAoslQuOL
+	 oiM5aa1ZQSK3eDfbBssaKJPVswnR8/nfZx9G4I18Q1jyiwWl6JwdLQoTwCwJLtJN2ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nBZAeV24;
-	arc=none smtp.remote-ip=95.215.58.234
-Received: from mta1.migadu.com (out-234.mta1.migadu.com [95.215.58.234])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCAA606D803
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=GjHSPvXV;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12654606D807
 	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBCAA606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12654606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nBZAeV24
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=p3Len8xL7Q9ENP4Ztv32/RbG11wP2iP1K8oXCC/ZeVA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793782239; v=1; x=1794387039;
- b=nBZAeV24BizL3hYLqFVzpAzWVwpnQB4WFabcCIRe7chyqZnK3StyqxSMjPkeruouE9Extzxl
- ffqHVPU/9Na6LfPt0RrBuq9cytahn1YkUwGzeIqTfs6s82XLrv8PD3c0UegGM1VtimLBkDnMqfP
- d0rljpawOHfN6bS/NtQBdQnI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ad119996fe61293c;
-	Wed, 04 Nov 2026 08:50:39 +0000
-X-Mizu-Trace-ID: ad119996fe61293c
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 15/16] KVM: arm64: selftests: Add pkvm_lifecycle teardown test
-Date: Wed,  4 Nov 2026 08:48:41 +0000
-Message-ID: <20261104084842.132944-16-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
-References: <20261104084842.132944-1-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=GjHSPvXV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=GjHSPvXVK7A94In5L/yZ6RVi2DQcwmrYMSAYiF7Ohj5pF54vxt9gH5VHr46X8sOhqTVpXrhTYBJ0x
+	 kj6j4sRO7ZPgJvIpsFXLyfpM//UtKC9V5ou6DftJjRJeSoaJU322Dyw6eg0HPbC9D/Ahpk+jINHUVK
+	 cZfGn3X5b/26Z1v0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeaf1df403-68c03;
+	Wed, 04 Nov 2026 16:50:39 +0800 (CST)
+X-RM-TRANSID:2ee66aeaf1df403-68c03
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aeaf1dc8a0-1bc0c;
+	Wed, 04 Nov 2026 16:50:39 +0800 (CST)
+X-RM-TRANSID:2ee76aeaf1dc8a0-1bc0c
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Tang Bin <tangbin@cmss.chinamobile.com>
+Subject: [PATCH 1/2] drm/panel: boe-tv101wum-nl6: disable pp3300 on prepare() error paths
+Date: Wed,  4 Nov 2026 16:50:34 +0800
+Message-ID: <20261104085036.1441-2-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <20261104085036.1441-1-tangbin@cmss.chinamobile.com>
+References: <20261104085036.1441-1-tangbin@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,150 +78,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Each protected VM holds an entry in EL2's table of KVM_MAX_PVMS (255)
-VMs until teardown has reclaimed its pages, so if teardown leaks
-entries, KVM_CREATE_VM eventually fails.
+boe_panel_prepare() enables pp3300 first, but every later failing step
+(pp1800/avdd/avee enable, NOP, init) returns or jumps to a cleanup chain
+that disables pp1800/avdd/avee but never pp3300, even though the matching
+unprepare() disables it. The regulator is reference-counted, so on repeated
+prepare failure the pp3300 enable count accumulates (leak). Add a
+poweroff3v3 label that disables pp3300 and route the pp1800-enable failure
+to it; the existing labels fall through.
 
-Create, run and free twice that many VMs, four alive at once and freed
-in random order. Check that each VM's memory survives the others'
-teardown, and that freeing a VM drops the process's locked memory by
-what its runs added.
-
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Fixes: a869b9db7adf ("drm/panel: support for boe tv101wum-nl6 wuxga dsi video mode panel")
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/pkvm_lifecycle.c      | 110 ++++++++++++++++++
- 2 files changed, 111 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_lifecycle.c
+ drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 68bdd01f62270..214f38e3f67a7 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -194,6 +194,7 @@ TEST_GEN_PROGS_arm64 += arm64/pkvm_host_abi
- TEST_GEN_PROGS_arm64 += arm64/pkvm_id_regs
- TEST_GEN_PROGS_arm64 += arm64/pkvm_irq
- TEST_GEN_PROGS_arm64 += arm64/pkvm_isolation
-+TEST_GEN_PROGS_arm64 += arm64/pkvm_lifecycle
- TEST_GEN_PROGS_arm64 += arm64/pkvm_mem_share
- TEST_GEN_PROGS_arm64 += arm64/pkvm_psci
- TEST_GEN_PROGS_arm64 += arm64/pkvm_smccc
-diff --git a/tools/testing/selftests/kvm/arm64/pkvm_lifecycle.c b/tools/testing/selftests/kvm/arm64/pkvm_lifecycle.c
-new file mode 100644
-index 0000000000000..0ee475799abc5
---- /dev/null
-+++ b/tools/testing/selftests/kvm/arm64/pkvm_lifecycle.c
-@@ -0,0 +1,110 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * pkvm_lifecycle - more protected VMs than EL2's VM table holds, freed out of order.
-+ *
-+ * Copyright (C) 2026 Google LLC
-+ * Author: Fuad Tabba <fuad.tabba@linux.dev>
-+ */
-+
-+#include <stdlib.h>
-+
-+#include "kvm_util.h"
-+#include "pkvm.h"
-+#include "processor.h"
-+#include "test_util.h"
-+
-+/* EL2's VM table has KVM_MAX_PVMS entries, and a VM holds one until it's freed. */
-+#define VM_TABLE_SIZE	255
-+/* Enough that leaking the entry of one VM in two fills the table. */
-+#define NR_VMS		(2 * VM_TABLE_SIZE)
-+#define NR_ALIVE	4
-+
-+struct pvm {
-+	struct kvm_vm *vm;
-+	struct kvm_vcpu *vcpu;
-+	u64 tag;
-+	size_t locked;
-+};
-+
-+/* Set in the guest's copy by the host before the first run. */
-+static u64 tag;
-+
-+static void guest_code(void)
-+{
-+	pkvm_guest_init();
-+	for (;;)
-+		GUEST_SYNC(READ_ONCE(tag));
-+}
-+
-+/* The tag comes from the guest's own memory, so the VM must survive the others' teardown. */
-+static void run_vm(struct pvm *p)
-+{
-+	size_t locked = pkvm_host_locked_vm();
-+	struct ucall uc;
-+	u64 cmd;
-+
-+	vcpu_run(p->vcpu);
-+
-+	switch (cmd = get_ucall(p->vcpu, &uc)) {
-+	case UCALL_SYNC:
-+		break;
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+		break;
-+	default:
-+		TEST_FAIL("Unexpected guest exit: ucall %lu", cmd);
-+	}
-+	TEST_ASSERT_EQ(uc.args[1], p->tag);
-+
-+	p->locked += pkvm_host_locked_vm() - locked;
-+}
-+
-+static void create_vm(struct pvm *p, u64 tag_val)
-+{
-+	p->vm = pkvm_vm_create_with_one_vcpu(&p->vcpu, guest_code);
-+	p->tag = tag_val;
-+	p->locked = 0;
-+	write_guest_global(p->vm, tag, tag_val);
-+
-+	run_vm(p);
-+	TEST_ASSERT(p->locked, "VM %lu pinned no memory", tag_val);
-+}
-+
-+static void free_vm(struct pvm *p)
-+{
-+	size_t locked = pkvm_host_locked_vm();
-+
-+	kvm_vm_free(p->vm);
-+	TEST_ASSERT_EQ(locked - pkvm_host_locked_vm(), p->locked);
-+}
-+
-+int main(void)
-+{
-+	struct pvm vms[NR_ALIVE];
-+	int i, j;
-+
-+	TEST_REQUIRE(pkvm_supported());
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+	for (i = 0; i < NR_ALIVE; i++)
-+		create_vm(&vms[i], i + 1);
-+
-+	for (; i < NR_VMS; i++) {
-+		struct pvm *victim = &vms[random() % NR_ALIVE];
-+
-+		for (j = 0; j < NR_ALIVE; j++)
-+			run_vm(&vms[j]);
-+
-+		free_vm(victim);
-+		create_vm(victim, i + 1);
-+	}
-+
-+	for (j = 0; j < NR_ALIVE; j++)
-+		free_vm(&vms[j]);
-+
-+	ksft_test_result_pass("%d VMs, %d alive at once, freed in random order\n",
-+			      NR_VMS, NR_ALIVE);
-+	ksft_finished();
-+}
+diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+index 150dff3ab..25cfd6e30 100644
+--- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
++++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+@@ -1371,7 +1371,7 @@ static int boe_panel_prepare(struct drm_panel *panel)
+ 
+ 	ret = regulator_enable(boe->pp1800);
+ 	if (ret < 0)
+-		return ret;
++		goto poweroff3v3;
+ 
+ 	usleep_range(3000, 5000);
+ 
+@@ -1413,6 +1413,8 @@ static int boe_panel_prepare(struct drm_panel *panel)
+ poweroff1v8:
+ 	usleep_range(5000, 7000);
+ 	regulator_disable(boe->pp1800);
++poweroff3v3:
++	regulator_disable(boe->pp3300);
+ 
+ 	return ret;
+ }
 -- 
-2.47.3
+2.52.0.windows.1
+
+
 
