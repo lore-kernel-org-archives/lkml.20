@@ -1,73 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787429;
-	b=Qqv8S+m5rWsPa3Vmz+iMCOysEIXG7cbevYtjnKCqhU60CeTQegUXf1bPMPwkSHbR8wey
-	 Y7GT5wHwrg1QRvF1y9Ayvl3mqTWpNSvnmnqjAeT9vOd6gE50aWwqCdtee2krtfVIW+APW
-	 V3pcR+x4+qWGjPwlUaCaAUQIgvsOugyeifYQu/PRH1w20zAMTCpJWvI/G2qXTVykTcQAr
-	 mBZubRUGIb94S2zquhHKGwUEt+DKjJfeK55g9xXMPUwU2Liphu3TH3I2BHF1fN2PUrgb0
-	 irQL9hhsFQQViL8F8cuZTDS9g7LekcBiF6zNIECgXv1WcSwnU838e+gKIzE54+48tug==
+	t=1793787464;
+	b=KiMJJ2XA8fHowj07+7YdG8kzF8N6rxgVm/iREWMW+mDKm3zeBj7kIKFhQDc/lMFyCQrm
+	 S4f3i5HT5InoIGPELy67V/sNzlQRCjip87BHASEVPC5Y46adQH2D0JK1x66gM7YT5PFIg
+	 GzJVB1tU2owFxqRmpPesGX/iJt4ow/VeI/Y/QRcS/fB2IZaIWZJrxQ1+/6LaM0rrB0otW
+	 XZSygUfWp5CFXeobss5DDYBErZHTrkXWc272/tXJSUssh1XW3TRejHuudwVm3UY9Gd4aa
+	 DfZ13CxWOgDGNe+ZohUyIJeJnvTZamaSyzbJNCUDMcjb+BSeb/DloecRPgaydtyTvtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787429;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=Al/H5Lk1G7gzp9uPEa2FrG9UA88IUol0MBzQwOwuRLU=;
-	b=y16b9NBj4w/g73/h178yxKNkXjDmLvd7mrypoKu5nt1RmPoZifEXOBr+DdKdbRVzt39F
-	 PB55a7qauD5I5zjQCGlrF8mkdSjaDp2MnT4GI9heA4hTxsOvpqSMClpcMnX6IjkxUPgPJ
-	 Lq5K/y/ffwBDLg8iW76PE+n3XTdxkwJVxXH0ZhtDvInSVJ9OBBk4J5ETg941pZeAs8yf6
-	 ajW/ICjE9hHwLpagv/n1WOeV1dTgL0PNIlGWX7UtjWM/df0QQ/LA/REaG35waXEb5wB0+
-	 qXkPlwpwzDrrwF0C982paIzN8pUlTPZjreQsX1cefySg0Ix/ScAstLhvGHMkDfinHbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787464;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=U9UqJ5usnXoaVC8QtHP+44Z4GZ6155Rmc3hUzLC5hxE=;
+	b=gqC53FTbg1bKBix6onZ2KHcdB6a0431DjFvfxevqBsNwbZ5JFv7vfb8p94OpxugA7svM
+	 uURMOtVdvSworKFfKs4zFHEjD9usuizSytOUPew1IVHKJ/lPGq1uT2ibwGEJTl2ux1hvq
+	 nPjadllurB9fvLfFrphX0pdFxCtaq/JGT39XEDxLhwNtqzDHYSE+4CQ6OnhOXkXzg6hAn
+	 54ruuTA9Fpu5iPHD2gyqZDJaoZ0i7OxuQtK0KvGHulHIWZYtvKnxEIvdvphnc7gxx3I83
+	 WhEULpTsnUpB9q2Duc6LYNGC8PHYCL7fmWo7dOyiDJDSRtWn9FLWl8tQdnL2Yodz/fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=WGvHrFXE;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=jOgHbxoj;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C90A606A328;
-	Wed,  4 Nov 2026 10:17:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C90A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08E5606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:17:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E08E5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=WGvHrFXE
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Al/H5Lk1G7gzp9uPEa2FrG9UA88IUol0MBzQwOwuRLU=; b=WGvHrFXEwU/Gh9gZh5p+vZjFh6
-	o7qoXyG9yVr30Qnm44NsQiMlZJO+uPJGdq7l+uxaE1UfFO8W9HjWoSGqIOsDHCsTC3Z50jnvBtGn4
-	AVG2Qec7tT7h/klfGNH/VUMeALufnDXfTkOXgO4YgochsWvn4fBRQx0hHAY73x7s6+q0vm4tl/vG7
-	/ClWzznW5tEbH4+wxP869vsD8cgsWqeGd333ORjSYHXTdFCB1wk49f/Ily0tVf+UBiw9Pxa936Fb5
-	kkTbA78SjoI0zJQIInJxGYad34XLMJqfEyF75vS67/EyYiDA2AvzTz5SfCDHMSJYFE8jt/zgbmdio
-	CJJakX1g==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOY32-007diH-1U;
-	Wed, 04 Nov 2026 10:16:52 +0000
-Date: Wed, 4 Nov 2026 02:16:46 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Pierre Gondois <pierre.gondois@arm.com>, linux-kernel@vger.kernel.org, 
-	James Morse <james.morse@arm.com>, Mark Brown <broonie@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>, 
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, Pawel Chmielewski <pawel.chmielewski@intel.com>, 
-	Dave Jiang <dave.jiang@intel.com>, "Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>, 
-	Dan Williams <djbw@kernel.org>, Terry Bowman <terry.bowman@amd.com>, 
-	Ard Biesheuvel <ardb@kernel.org>, Morduan Zang <zhangdandan@uniontech.com>, 
-	linux-acpi@vger.kernel.org, linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
-Subject: Re: [PATCH v2 2/6] cper: add Memory Error Section 2 structures
-Message-ID: <ausF958TWhACbL9j@gmail.com>
-References: <20261019203915.2019037-1-pierre.gondois@arm.com>
- <20261019203915.2019037-3-pierre.gondois@arm.com>
- <aunhE1aeSfk6YDgj@gmail.com>
- <20261103130038.00000f77@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=jOgHbxoj
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so4817635e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:17:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1793787462; x=1794392262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U9UqJ5usnXoaVC8QtHP+44Z4GZ6155Rmc3hUzLC5hxE=;
+        b=jOgHbxoj2iLWtbcGzwRxSE0ua0Kttx7nbiqAklxyKq9eijtUnRF7k+BwiNn3oEfVLz
+         bVuDl8AJURHh7GhBaaCcfSNGtmGpngeZMcLzOd9mXmyACHDxXdY6uuZUDguikbQ4AgdM
+         0wsmCxf/PppzCG581cuYvVYtvHSt8MGuAls8s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793787462; x=1794392262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U9UqJ5usnXoaVC8QtHP+44Z4GZ6155Rmc3hUzLC5hxE=;
+        b=dqK4ht9mLAKtmYpVDZylukXloi8pUBrwq6gtCqlGu8cyZh40EJODyQAjMj44rE8twn
+         HBz+X+gxpr4NFtZe5O75iO1M1B4q9iOPVPKEXHEWFvARXvnsaXMWEdp32aqqMTdJ3Zkt
+         9GGIAlV+Go52/ldPtHEPdFtOZQsWO5/3jMUb+j5lvPJ9/XX4Ob1goMpO26QCkkWitHAy
+         znq/OIYC4Sulhd7ixFUw1Rs+8F+fTcTMcdf3HnRcMDKY6zrjikp3jZGsBafB7gIXpKuu
+         SPRk4V+PmkndIVxCS0wbSJ0p+5S9ZV1TeYRWyhyw+l48l0GAAmDKF+I9xfdA4Y4sL/n6
+         1PhQ==
+X-Gm-Message-State: APuU4Z/TGqtXCaMIrbWcfhMPQgmtdX7NMrjLSk53utw4+C7A9o6de7OW
+	GO1vOAnhtOAf26PGEvMWC9+kQm8rFNFd5MTjukj0qPFHLEMTTekX+W6vdg+0vLJpwAe4Y3ld+fq
+	yxfLb
+X-Gm-Gg: AYBFou1k6o6LHuicJF8Ek0Ka7j/c4zWCXI7hvchVXPVSmB6qs/V42HMpNbPY4zuFWIp
+	6cExh/BO3v2gp6QDg0WtAmZjyUfnpod6wGRpznQL3OQ7gJuvNsvVJqzEjpZ2FHj64iP9qlbuUyY
+	IAAelBu08Xi7cmJjXDoPiRleyjAab9iBNvmX1FD6EoWj2bYyrXGzdfcash0vcUq6XsogRCVydB3
+	rgTYqWBKV0FFx/eI4p3RoLLir3drEstofMPiu4qpQtI1DfoJpTwc1p6BZCxyMQUdFW4//3mjBsB
+	LnkGM0Lxgfg5tnQlp0QfZndNA3ov4tChRJKkF2MP4pVc9zXpo6bQXZUZpunTtIB0bozt6unwwCN
+	ylBwWDrmZGU+SqvD80SgIf3mY6xpIdd+l0kj/YGK4kzU0cy3SlxQY3bWPNxGA/NDN+rWGFHkaV0
+	nRXvjCf904Ecvoum4p4zStw/e7gdrQVhY9ximeEYfs1hUgdzP5LoL/g5kvRlioxjFBJFMDjEB+J
+	BzdkmoUTFArDDPQohNi0O8WbGwe0ERZheGMIEWeVjYe+2anqe7WIb8xcjG/Eiu05CqHr5yXNHSR
+	xTDv220T0X/LJoD/6Mf4VIb+7kPWVNLAQomobd2EncuPhhS0x0SI2hYD8zGBOD9KBAHy+7R5Uuo
+	O4HbjT0GUqoFb9/85RS0tQ8URGzSSbnTL9uEybULRMLqQqwAiQLbK
+X-Received: by 2002:a05:600c:34d6:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4ac150b2192mr366110145e9.3.1793787462248;
+        Wed, 04 Nov 2026 02:17:42 -0800 (PST)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([217.201.213.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb51a9csm3035105f8f.59.2026.11.04.02.17.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:17:41 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Tero Kristo <kristo@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-omap@vger.kernel.org
+Subject: [PATCH v4 0/3] clk: ti: dpll: switch spread spectrum to the generic framework
+Date: Wed,  4 Nov 2026 11:16:54 +0100
+Message-ID: <20261104101732.4043372-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,24 +102,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103130038.00000f77@oss.qualcomm.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 01:00:38PM -0800, Jonathan Cameron wrote:
-> On Tue, 3 Nov 2026 05:27:02 -0800
-> Breno Leitao <leitao@debian.org> wrote:
-> 
-> > On Mon, Oct 19, 2026 at 10:38:41PM +0200, Pierre Gondois wrote:
-> > > Add CPER Memory Error Section 2 definitions to the CPER headers.
-> > > 
-> > > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > > Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>  
-> > 
-> > Reviewd-by: Breno Leitao <leitao@debian.org>
-> Typo.  Just in case Pierre is using b4 or other automation!
+The am33xx/am43xx DPLL spread spectrum clocking (SSC) is configured
+through vendor specific DT properties. Since 7.3 the clock framework
+provides a generic API and the assigned-clock-sscs DT property for it,
+so the series moves the TI DPLL to the generic configuration and
+deprecates the vendor specific properties.
 
-Sorry.
+The last patch applies the configuration right away, as the clock
+core skips set_rate() when the requested rate is already the current
+one, e.g. when the bootloader has set it up.
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Tested on a BeagleBone Black with equivalent parameters, set through
+the deprecated properties, assigned-clock-sscs or both. The dpll_disp_ck
+SSC registers are programmed with the same values as before the series.
+
+Changes in v4:
+- Add Reviewed-by tag of Krzysztof Kozlowski
+- Keep the reverse Christmas tree order for the variables list
+- Check the range of the deprecated ti,ssc-deltam property
+- Drop the checks already done by the clock framework
+- Split the already applied check into the disabled and enabled cases
+- Keep the reverse Christmas tree order for the variables list
+
+Changes in v3:
+- Deprecate the properties instead of dropping them
+- Keep parsing the deprecated vendor specific properties
+- Skip reprogramming only if the configuration is already applied
+  to the hardware
+
+Changes in v2:
+- Check the DPLL lock state instead of its parent, as the reference
+  and bypass clocks can be the same clock
+
+Dario Binacchi (3):
+  dt-bindings: clock: ti: dpll: deprecate the ti,ssc-* properties
+  clk: ti: dpll: use the generic spread spectrum configuration
+  clk: ti: dpll: apply the spread spectrum configuration right away
+
+ .../devicetree/bindings/clock/ti/dpll.txt     |  9 +-
+ drivers/clk/ti/clock.h                        |  2 +
+ drivers/clk/ti/dpll.c                         | 21 +++-
+ drivers/clk/ti/dpll3xxx.c                     | 96 +++++++++++++++++--
+ include/linux/clk/ti.h                        |  9 +-
+ 5 files changed, 112 insertions(+), 25 deletions(-)
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+branch: am33xx-assigned-clock-sscs
+
+-- 
+2.43.0
+
