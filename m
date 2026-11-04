@@ -1,98 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780564;
-	b=AsqTpGfdjn3Ycm3DmvvQ8lofc1D5COBTtQazWrKrve9JvRAKfIhQMA4dy8PW09L5nxzO
-	 PgkpXsTmgSLY1bRC6hhFkEzIXAI5S+q1z8nvQJRQDr6iPNmRoHSRxoYYsUdItOlJWc8WZ
-	 fyQ2JcPPwlzSq9HDw6e8Cd0T6TBX4DaQfHmn2A+jqfdbaHGI7TSN4l8la4WYwVDJxJZQI
-	 +1w2CbKtUYx68nk14BSanxb+mHh0t9xmNY+jhyY9lV59WY8xV8XqGHK8WRNFh/OGHlpvb
-	 XluUtg5NsJ7Ed59nEQkbgGJkDjXCOaNFIF5W2FtOujz0h2ZJtxnB8SIFqDq5uOlbgBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780564;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Zx8jHzDvw8va/CX+J+ppLsFj9mBNb+GyOOHFkDmbSlI=;
-	b=tb0WAoJCm1+lRpuC/0fGIoPCLQtZIGxSYJnn/bPLitZQijO32s0ltROymHHH0CEwrg9i
-	 1Y2KkOV3Hwr+TDNRePmPZLLyju/Dg3cdAyRB1tQ+4ZE6ppCft5U68WDdRT6TiHhrIf7HI
-	 rzPkOsXUIWR/Q5wvh7zjAf5NVfmEOPhHgaobp/Pyskinc8+tM0XYh5ik9sbtj7KK258EU
-	 Q21U9qwxR+OLxb7oE5fL5a+5qkzTZVWafmZFbmwDhzImteWPLv4El2fTE/fNmtHb3UmLY
-	 aS6nE8YKXVSQ/uSLNWdPi+a+FrYIxcACOLZ0JhCQBLy5c05PhCGbsSMogPNCDdMaESg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793780593;
+	b=Dg4+/DaU19Ty5E94+xK6bu89Q8GRFxWTfZosvEm4Bd5GjusU1vZOPyDlPpycX8A/ETkG
+	 bfglEtWota8zdhB8ldaBDS/gPEXOOnCV8exwnN1ujG/pj9287U6xVAUKQ9rdl8QXOuamF
+	 QQQ/MWeb5MAMHBXhEtRksZ9pWbCAzkellDRSpOiTwVcwxtVVy/qiwUMVwL3imdg5M9Faq
+	 B3g1AEdTsAt8x7GkXSoQgR4U9+4okiXQyAw3v9SMlSW9VHZwiE1CO+NzuVrrc0BYAPP7P
+	 JoOp35BaFvl7ctxAu+LWDLvJKMpcc0m98iK6pk295BMjFhggG8rtwOTnh9as4/EjxIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780593;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UQDVj9XiQcCABiv3yXPGxcXW7Jhj3NzlOWEBDsB6m+4=;
+	b=xRnw0eAlceAAHlnS8QlN+sy3uFr+7QLczJlExQjzd/ZLrR0wlyPOZUOpl8k3IsDCnSWo
+	 EvfnskylG+X/GD7eVHryQiFBpK9ejVmigMizX9KsbWGBOuVz0WCOz1Vr+ilqiPf7b6HDQ
+	 9BmK2KoRWyazzxeKPP3BckS5nC0z2Z0X7xUZ80uguPY5m7g5apCGGIDclquUa2Ei4tLE5
+	 15K/SUFH0Dj6NYlAc3boQM1dcL4CZuQ5oxbMb5+nfnXHvochx/3CNFsPOw3NLcw0cfDgm
+	 KFTwkV+qUwapfwv2aGNkiGP0YT1GYbij2EMK3swciZ6zB3rg3khmpcftGcM0wcVui/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SJtKhd37;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.5
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011005.outbound.protection.outlook.com [40.93.194.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BF1606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:22:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41BF1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso2333825e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:22:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793780552; x=1794385352; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Zx8jHzDvw8va/CX+J+ppLsFj9mBNb+GyOOHFkDmbSlI=;
-        b=stGCcKR2XDWs2JXEfhtZr7iLAW8lUux9SMxROW6OOCRA1mWbx8OrRo4JMyxUU+27jW
-         8c13+kyddkij1BwcIWUx304IGIDbLM01Ibc2QYWx3RFhyX7gUV0iwPgp0xCFVDf1vyxS
-         PETlqgBra90W+V/xUeB/QKZV9smQJ+N83Bar1G3ihYu5ExGkVz/eUj3qiP1q/iXdAaWO
-         iP95iXIz3iUqNRhfpusCP2d0spZdrly4qJazkBVuuot+aWl5mVhhuL+oA45dVpKNrgNX
-         ae4LyDG/ScCBOiSm9zbGcSHLDVtAEZ/lplpYpBpok5SQLo4JKTsqx5vxTu/N2nZBy+Hq
-         IERg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793780552; x=1794385352;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zx8jHzDvw8va/CX+J+ppLsFj9mBNb+GyOOHFkDmbSlI=;
-        b=GxCjtcPJn5R6L96vfhjnyOGlw0x1Yb6wZuuED78yjf5q0qAdpimXypdRsjZvMXFjex
-         nxa6PAojzfms0JpdgGvUnqrEKCihuqCWsf+GAzUuZGWziXS/QeErSoTTgkRIZ+LX6PPP
-         NLgK0GZ+QPT2F7I1NZW5C9fRE2WZG6fbAeXfXjjnpYaUDT8Ks9/RlQFdOySXt8at1uJW
-         q7xzK5EdOtJid7ch2pnL6FgD0l1phpeMSA4cRkUdxvfwa84JxU60gRAkr5NJkpgohqO7
-         qQFJQHfl0lkpRJ67A0CrjDUtwczH3/9rn6PYDDMcpqSs2t9872q4vhqqagibueJw+PNM
-         0sHw==
-X-Forwarded-Encrypted: i=1; AKwUvBxdAQCDQP7Qpj9sY61f33BqI27eidaowxQRyX5y5scEtkapMLzw1Mrp+ERcFnXOjg9l7Sxt5YUu8kAHzq8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CvIrU3Y20VfttgS6/gb66IKINdJqczzpW4l/ppPZzeghdQEWP
-	PXOAZ8sjjbcsHXoz4misS72pLuzT4D6Lh0PKpkP3QeExQKJrhE/OH1d4HdgzkoI+itA=
-X-Gm-Gg: AYBFou1JqC6xU5lrx2v2QLxMntSV0cdRE5IMf8pHuitsz6Yz6M8BfTwHqWUiDElt88t
-	Eg2art2IOMewb0ACSz678pqogFqwTNuSTU+EWJw3sHGYALuXU/38msY3yOxIOPSFSqsWeR04Zmx
-	UO0Q3EGdo6D4VWVopKaIozw04/1668scytAoR5GHxnFRXCisdSkQCFSNAwA0OfrL/9DjP8aYZSP
-	83ieeKAxcJShEdHOK0gw4c+ZsSvZpoFOMq6P5KnZ3Wegi3mRbT+t0P7nveupUcRI4lsGleynJ6e
-	MJyncrakRptlJpVL9LdLTlRu9bfSNjWLyzKKoJ9kSrBPXrFw9IUHfR4f/qclFfzs61ajENwt/HZ
-	5S8ICEDwNmaUiSQ3QrLECXXEXYrvHvFwOyv5L0f9yw2DHk/3sRQtBJSNjvQZBCKpTUMptnAkypu
-	vOmMYbE7y5U/VC5+PjTm0cGwaAWw/5oomyV23rmrVnFWxTzLZU9keYiJufXxVRD1JiERa8/woM6
-	WVKp60ZozHS9+etn9onmy1BGlGEskbo7xIaE6LuD8Z16N0dYW+vc1/rjYXvKQ9Ol1g7JbnAEiiy
-	WhAlN+sBMTyl5uUgzP47XlCE+6omW4pLa725
-X-Received: by 2002:a05:600c:3554:b0:4a2:267:25b3 with SMTP id 5b1f17b1804b1-4ac18c7461emr379283885e9.35.1793780552290;
-        Wed, 04 Nov 2026 00:22:32 -0800 (PST)
-Received: from localhost ([208.127.45.21])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm2366556f8f.21.2026.11.04.00.22.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 00:22:31 -0800 (PST)
-Date: Wed, 4 Nov 2026 09:22:26 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 15/20] attestation: Prepare provider and instance core
-Message-ID: <aurpges1eUwSJUBE@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-16-jiri@resnulli.us>
- <auOVbGYJjIQTN53z@MjU3Nj>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73626606A31B;
+	Wed,  4 Nov 2026 08:23:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73626606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SJtKhd37
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TSisEOQKHRbC46z+R+AvvHIBdjxGd4KcegBDYisegbetWOoNjZoNci1d0KkhH277QLj3ra1P75jVgtFRz506f0BRd7qP5Sh4YAqMd+u9KvYi0Z93hjosOi1DfSqgMQUVY0Yl6yl1pQmdZpYNLy7k8j8U88fmZ0m1/iP3HsbO+qYKWr0wlIuNNgp4LtIj4l0sSE5OL3mFCktFLXBzh6pwcwBgWVcXmu+wEqUP5AJS5KvZFdULYuGVevWgPAgeuY8/gW9+Qn9I0wVtDFKkhoHzyFtH659Rbkrw5fm0Dp4qyl/XjO+d4DDag7UpU2movU13WC/1+LCwv6rLucDIxgc/XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UQDVj9XiQcCABiv3yXPGxcXW7Jhj3NzlOWEBDsB6m+4=;
+ b=s7yRD7zITmV7IYNJPsu4qe3kxicA3KIRCtKBinBbVZXEq+Y68ximkpytmKQqfnJNk7J8QiDBU8u2iSLo8R23PAA/Iuk/QCP25iHl9KjCAcCVxN+C1UPXqRev4W2ILPzOzcMbqG4YvffzYHEjnZn4C0jyMzHyE56Esyk+pAx8LOCOCfUgtVd5ZflX1WiXOLdPwcDQOmaDUtQLL1BjjJKlukMcQD0T4PvR/xMV4s+1vI9145R0lY9NaC8p/Ne3O+fzSzpIAX0hEYSz7rvZWaAZ9pvnaOlNzLZr1t9S+ww1cdF/p9NUNqaN8jNyYtVbXEJYnPNWg6YHOZT4lNNMHkvwEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UQDVj9XiQcCABiv3yXPGxcXW7Jhj3NzlOWEBDsB6m+4=;
+ b=SJtKhd37SrMHzJ4tHoHX/ne41uVyI5aZgXi2TpvdGpLzbU+jbHh6a2om41/0Dqei0oz/iJ4ax40ehZukqE5BxOgyIqX5K/40U8NZDWXdytkTlbLIXX9y/5t2YpRxYKcabqh/HJJRakkbpAIrwbpOP4sYbuqy/N57EJzrJ16KTu8=
+Received: from PH8PR15CA0001.namprd15.prod.outlook.com (2603:10b6:510:2d2::13)
+ by LV0PR12MB142838.namprd12.prod.outlook.com (2603:10b6:408:3de::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 08:23:09 +0000
+Received: from CY8PEPF00000057.namprd21.prod.outlook.com
+ (2603:10b6:510:2d2:cafe::95) by PH8PR15CA0001.outlook.office365.com
+ (2603:10b6:510:2d2::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
+ Nov 2026 08:23:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY8PEPF00000057.mail.protection.outlook.com (10.167.247.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.2 via Frontend Transport; Wed, 4 Nov 2026 08:23:08 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 02:23:08 -0600
+Received: from xhddevverma40x.xilinx.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Wed, 4 Nov 2026 02:23:05 -0600
+From: Devendra K Verma <devverma@amd.com>
+To: <mani@kernel.org>, <vkoul@kernel.org>, <frank.li@kernel.org>,
+	<den@valinux.co.jp>
+CC: <dmaengine@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>, <devverma@amd.com>
+Subject: [PATCH RESEND v3 1/2] dmaengine: dw-edma: Sort Register Field Macros by Bit Position
+Date: Wed, 4 Nov 2026 13:53:01 +0530
+Message-ID: <20261104082302.3819409-2-devverma@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104082302.3819409-1-devverma@amd.com>
+References: <20261104082302.3819409-1-devverma@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,160 +110,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auOVbGYJjIQTN53z@MjU3Nj>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PEPF00000057:EE_|LV0PR12MB142838:EE_
+X-MS-Office365-Filtering-Correlation-Id: dba39d5a-3697-40b0-183e-08df3a4cdbcb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|18002099003|22082099003|56012099006|11063799006|261102123227099003|261021123027099003|261021121427099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	JE/f6Zhbu8TCZ6NoA3oz76aV/H868PYWybnGnJoN4LM7c5/minKaZ9l4cASO6ABocO4Yo4y4NYbfjHmezeyVrPU5eMgiCKDNNe4QwRFp593S916761QN92it2y8GYvK9cZ7WJUrmGc0MjJDYRy+IT+kFOuDotY2RxTsSwEQbRcQd3x72/zfFD/TYq5F08JyQ5HiT68t/sZIIj9WLLhAmf7Y9CpDbMlfq6wyIGBxrYsGuVS8a6K15LGHtPU/4Pwq39SwsRLxPvhBh6bJHcD6NwU6iuW9DiNoydL9Dc01+J3B407RMm6SGxLG8nX2c51nY3yrqeD7gopeJDfRXbkg9CkSaA1jGTFWDU6X6sKzUPBf3lizYOHKCWsZcoWSCEDg8kSs9zmppgRjXmsp3SkKjEMJ+IU1Zr22yAFiGjsaw1XuGkSGmipsW20jb8hL5M4EMnhoS0YioZux7HS2URADuyci6tY1IuxUVvagNmAJj96oftPqfYn98m+scGCSK1SXVPPhLbHR3S2ByPE5wuOeEiN2fkIYo19CVAeTi2K5ZY5JpP4HIYJjGc658WGWPWYjAZz+/kOqAqhPm1x/u+hghQdZiTluNKh9zGh5BfNP9o98R18dFpbxxNI+4SGrt6PPFRaUapNVEfAPxK+VVSwCbTMBbEIh5Z9TjXPxDf12LAZxtIdvbQbX7S9wcpMt81j0x2Rlbht2LEK7O4r1Svprc7A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261102123227099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IWdYWzdXpLxJhv4QYnHYvyx8Ojhe6XvaM5Y5DdJRCP35aHBGi1lJumC6EJbqqDC0K+WQfZMg9CqsFMJ1PUxh3gcr87AaGHMn9J1sAW3DRAk9it69l8FQNYDl3weL3C3ZeIYY1Ko2yGmT/GIfSoRRYPosjBwWqETm9eFq05GopXyNcSnwUI9xdPnuNkAvVwg6aTsdmjNKShwz2hxClE1DwRokAzTFdtaVVtujuMOYKt4JjlWsRq8Y5Com9VTUEDpi5W6seYqbxMDXQbuM0elqOLHdM2803wUXHgNnZCrTf0tC5zCfnSO1GScLZT39dcFl2sxUvtE6sE0un8oQILAPgNhLVTEvkH1v0QigPKBISGA8yM0oemYUyK+SbZ8ayvpSOc7Or96PqdqiSfX4wNY1tfX6PN/L68FSeTi/Bx+Htf4A3uPRcqlbKeUxXdxVrjGp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 08:23:08.8847
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dba39d5a-3697-40b0-183e-08df3a4cdbcb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY8PEPF00000057.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB142838
 
-Thu, Oct 29, 2026 at 07:50:20PM +0100, sergii.dmytruk@3mdeb.com wrote:
->On Thu, Oct 15, 2026 at 04:50:48PM +0200, Jiri Pirko wrote:
->> From: Jiri Pirko <jiri@nvidia.com>
+Sort register field macros by bit position to improve readability.
+No functional change.
 
-[..]
+Signed-off-by: Devendra K Verma <devverma@amd.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v2:
+  o Rebased to dma/next branch as per reviewer's suggestion
 
->> +/**
->> + * struct attestation_mr_props - Immutable MR properties.
->> + * @id: provider-unique MR ID
->> + * @name: MR name
->> + * @algorithms: ordered hash algorithms
->
->Why do these need to be sorted?  Is it just to make indexing easier?
+Changes in v1:
+  o Corrected heading and body as per reviewer's suggestion
+---
+ drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-They don't. Will lift this limitation.
+diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+index fab4faf68b77..83f8353d89d0 100644
+--- a/drivers/dma/dw-edma/dw-edma-pcie.c
++++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+@@ -31,8 +31,8 @@
+ 
+ #define DW_PCIE_XILINX_MDB_VSEC_DMA_ID		0x6
+ #define DW_PCIE_XILINX_MDB_VSEC_ID		0x20
+-#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
+ #define DW_PCIE_XILINX_MDB_VSEC_DMA_MAP		GENMASK(2, 0)
++#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
+ /* AMD CPM6 (Xilinx) supported cap */
+ #define DW_PCIE_XILINX_CPM6_VSEC_CH_SEP		GENMASK(18, 16)
+ #define DW_PCIE_XILINX_MDB_VSEC_DMA_WR_CH	GENMASK(9, 0)
+-- 
+2.43.0
 
-
->
->I see that the number of algorithms is also checked on extending.  Does
->it mean that a situation when not all PCR banks are extended at the same
->time is considered an invalid one?  That may be a problem at least for
->DRTM which may extend only one bank even if several are active.
-
-Great catch, I missed this usecase. Will allow extension of subset
-of banks.
-
-
->
->> + * @algorithms_count: number of algorithms
->> + * @has_register_index: whether @register_index is valid
->> + * @register_index: native register index
->> + * @readable: MR can be read
->> + * @extendable: MR can be extended
->
->At least with TPMs, whether a PCR can be extended depends on locality,
->so this isn't necessarily a static property.  Is this flag expected to
->always be accurate or it would be OK for a provider to declare an
->extendable MR but then deny doing it?
-
-Okay to declare it and return some appropriate error, like -EPERM. Will
-document it.
-
-
->
->> + */
->> +struct attestation_mr_props {
->> +	unsigned int id;
->> +	const char *name;
->> +	const enum hash_algo *algorithms;
->> +	size_t algorithms_count;
->> +	bool has_register_index;
->> +	unsigned int register_index;
->> +	bool readable;
->> +	bool extendable;
->> +};
->> +
->> +/**
->> + * struct attestation_evidence_supported_object - Evidence output description.
->> + * @format: evidence format name
->> + * @max_length: maximum output bytes
->> + * @binds_mrs: evidence validity depends on MR state
->> + */
->> +struct attestation_evidence_supported_object {
->> +	const char *format;
->> +	size_t max_length;
->> +	bool binds_mrs;
->> +};
->> +
->> +/**
->> + * struct attestation_evidence_caps - Immutable evidence capabilities.
->> + * @min_challenge_length: minimum challenge bytes
->> + * @max_challenge_length: maximum challenge bytes
->> + * @max_total_output_length: maximum bytes across all objects
->> + * @objects: supported evidence objects
->> + * @objects_count: number of objects
->> + */
->> +struct attestation_evidence_caps {
->> +	size_t min_challenge_length;
->> +	size_t max_challenge_length;
->> +	size_t max_total_output_length;
->> +	const struct attestation_evidence_supported_object *objects;
->> +	size_t objects_count;
->> +};
->> +
->> +/**
->> + * struct attestation_evidence_object_request - One resolved output object.
->> + * @supported_object: matching capability entry
->> + * @output: resolved output blob
->> + */
->> +struct attestation_evidence_object_request {
->> +	const struct attestation_evidence_supported_object *supported_object;
->> +	struct ctlv_blob *output;
->> +};
->> +
->> +/**
->> + * struct attestation_evidence_request - Validated evidence request.
->> + * @challenge: challenge bytes
->> + * @challenge_length: challenge length
->> + * @objects: requested output objects
->> + * @objects_count: number of objects
->> + */
->> +struct attestation_evidence_request {
->> +	const u8 *challenge;
->> +	size_t challenge_length;
->> +	const struct attestation_evidence_object_request *objects;
->> +	size_t objects_count;
->> +};
->> +
->> +/**
->> + * struct attestation_evidence_result - Provider evidence result.
->> + * @object_lengths: produced length for every requested object
->> + */
->> +struct attestation_evidence_result {
->> +	size_t *object_lengths;
->
->No number of objects?  That would make this structure more
->self-contained.  Copying `objects` from the request would allow passing
->it around to handle results, but there may not be too much value in
->doing it this way.
-
-Not really needed. This struct is only related got evidence_get cb and
-it is always used alongside with struct attestation_evidence_request
-which has the count. It would be redundant to have it here too.
-
-
->
->> +};
->> +
->> +/**
->> + * struct attestation_provider - Immutable provider operations and properties.
->> + * @evidence_get: produce requested evidence
->> + * @mr_read: read one MR
->> + * @mr_extend: extend one MR
->> + * @evidence_caps: evidence capabilities, or NULL
->> + * @mrs: fixed MR properties
->> + * @mrs_count: number of fixed MRs
->> + */
->> +struct attestation_provider {
->> +	int (*evidence_get)(struct attestation *att,
->> +			    const struct attestation_evidence_request *request,
->> +			    struct attestation_evidence_result *result);
->> +	int (*mr_read)(struct attestation *att, unsigned int mr_id,
->> +		       struct attestation_digest_set *values);
->> +	int (*mr_extend)(struct attestation *att, unsigned int mr_id,
->> +			 const struct attestation_digest_set *values);
->> +	const struct attestation_evidence_caps *evidence_caps;
->> +	const struct attestation_mr_props *mrs;
->> +	size_t mrs_count;
->> +};
->> +
->> +#endif /* _LINUX_ATTESTATION_H */
->> -- 
->> 2.56.0
