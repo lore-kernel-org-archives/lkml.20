@@ -1,125 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793792182;
-	b=jpqoEdAE6AAohnIl+F3hTUG6DkB3ebmfoKQ7yA/FwkLkq2+hu7Vb0T3sXKoZiu9GR3bP
-	 BwpLdipyHcw3BGtr/SWu3qDcuZ8X47ldkvrNrdICbcl2J9jvS4DHIS4lYQMYVlvQKf4Ik
-	 FK+qj1yXQqqWVPvWPnqTCfHnR16TgFvDwl4QZtTTmFejWkGJKODWVmOHc82rC6/pAmW+M
-	 EYYTzJA+w1RXCYbzxiSQDUoq9YA/JRCKIYnjh5gRxcCIj2vPOSwwXHrDIkuSL0sXR8gqr
-	 6NYJ3p0D9vRsArrOKt+TONz78aJc4mfXb/rTxfsCxyk5pKa8qNbLSBRO70OvS11u9cg==
+	t=1793792210;
+	b=t0+6oZ7NibbUiwuiUzKa/GUAor9A2itXzfIUC5FF+IXT4SWlVJ5mqorcYX6RF39Ov5dG
+	 lBTPfX6EvXrwi9/kGvgcFtUXfrxChLfOx6Y71SIpv5s7py2gw9hOruc+p/UdfUq1dzwTB
+	 MfVwOQ3PqE5TJbsr/0zdBUiHqdDbhlGzx/SbuJY5os/5PZgNbHbXF+Eg2pjbffmGditiS
+	 cMpzXc+pTYhn49fsxttdM1xzbMFLCd8EqLpUAK5nu9xMqE4vjiXaqxA3a8394MwBMMSV6
+	 IgN+TUTQmlSEuFF+njFarjrMF/IlIf745vqO9pJpz0Nq8kJ5MYt+oIY7WYjzzeGyWpg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792182;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792210;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Reason;
-	bh=oU8UQFhBMEXKFLdAB3VRH/U9Ph4A06iSurHhTDEUXNA=;
-	b=wKL/2bO+QRs2Y1EENiLoLHV7DNRsgzX+SYlK0wO066/QW8gBveJSaF+IAvARulNJ50hg
-	 Oxy5eOXwI/R3Xm9yY1bZIxHR/pFUA+dBF3V1xCDfwgN8jXQ3p0OsZ3QKLlNmm7fONP4CW
-	 kiuLO8hOoO/qvry4MDLZWlRkjT3txv+P7pz0YWuWRt1HG54rqcMrTyD7DcV9oEkGqMmfr
-	 GedGaWjp73shhxsGgpdq7HSE1H8Hqp+zqpyASywiISzqPcUBU0FelniDA8tNGoEu7TJqK
-	 oJwh8tCHYfQu0GFjmRDbHbd1vyxGaYPYv9V0zydOenR+1/KLMDF2hx4pNcKjthwr2VQ==
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=IDZAFkpNWaQCslMLak6FnX2P04gbpIbOwbL8wNa9kp8=;
+	b=EsvGDJrucJByZad5eDeTf4cCaMfdAvYY/tEpzMHV0EIAXinsksKVDRdiqXluOoOyqzBo
+	 M7oFrMdu8dSvurRFyfip4ZRV17yFfvK3jcTKCvhOgn8daap07qDBVMyxtBxWgMXCvZUoC
+	 eNOHCOgp4VY64FQ+N1PF8EHyQ3ZjuTlY5UJp4VsSxIeSnwMwqdEaVwJnVst31BwrryYJe
+	 u/QeuT9tBrdyf9OQxGqP6VedFehxCC9dy2zapcv3Nfsg1M6KNkOVssponIVJCFcujTpqm
+	 ns2BVy6lgaOsZkO7nSHECX+0hxi3aS9/FezpQIXdj7xiRzAxnyF2SRedyArNMDH9dJA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=fdKiiTtN;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=RuBMTMbP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mx99o4FD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.53
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010053.outbound.protection.outlook.com [52.101.84.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FFA606A31B;
-	Wed,  4 Nov 2026 11:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FFA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A1C606A326;
+	Wed,  4 Nov 2026 11:36:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02A1C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=fdKiiTtN;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=RuBMTMbP
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A43voAR2527180;
-	Wed, 4 Nov 2026 05:36:18 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=oU8UQFhBMEXKFLdA
-	B3VRH/U9Ph4A06iSurHhTDEUXNA=; b=fdKiiTtNs+4+o+kHL8UIJky/Gq4YKiyP
-	O8umBwwhChUpEVBAF0XK2M4eaFBX4FtsLuOb23uITGn6FLqdtpgXWIgqu6HSlzkb
-	FyztmY0ph+mKP8kxTKOD1uL+ObNGRDvWEK7Q8jOa9dBr4LXRK7LvGpa6XZ+FEV7p
-	aIk9Nvikn9v+/gVwRD3fRkatoLkFhuwVNG4ZmO/jy1P2XRGldHK0fCSV5T0ZY1bo
-	qi+v2uTL03/R9xqF0Otzrdfb0WZjkYk8pE9VF8MwmhrgrYrVkuVZYZi9OWvL66m8
-	oP8Rhj1ExmgnZF1g0QozG4STtTLMkvDoNa9rGEOUYdEHWuXOymHThw==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11022134.outbound.protection.outlook.com [52.101.48.134])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hncrfwh8v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 05:36:18 -0600 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mx99o4FD
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VnLh6gEcU0wKBDPhziJrwGgfjPu/wVBUBS6V45Fwph8TUkLYJEgBvSKcmoBDUgt6Sh5jv1aEwkCC8cQuD06+pCWdC/R8eIateE9P5hCVVcmev5ooWwppjrCtg8QJ5OwoQoZF3OCbTTNATaHHztzDlZD2lsDsdYOSVMK8YWQsWD4JRV0O/ZRaa2A6ke4vmCt0hWtb3D3K/0ki7wXBeRvD9KMw4eWZaJz5BMWCAb8bYfCr4a0LX1qUTCi7OCV4WIXBQJ9dKXlpjp/MwB2c6hADJ4rre66MXr4+qQqoxZIUwAq+UREcFsuzpBgGYdP+lT9p4FpwzY+gcuvl+jCRT3VHZA==
+ b=fOi49boszJCe6fcOzDELUvmjoNl5Ip/hVxXLygElAvsKCqN69DCpl6Nu4O1+C4KtV/9d7YHjvP2B2hf4v15xBSY2bTOs4n/sieyTdgE9Genwrl1uwb4pE2gm9n5FprioqoTdgSbcWDmM835H/D3goA8oZCvf5zzXvthEiG5vzmqBQ48uZC8A1GFZvHjPvBag3IA9ojCZ5jL8FgB2wTVTJw1Hj5Tdkh2J8ELD7falbXVeQ3NiMq/jwOWuZ5kyLAVgkWa7Wm9WG4sZs8TkpUtdF0bzavwL+LDwG3ARJBkd67iEoQbee+MPWGeGI3zksiJ+/EWs6hEMm9HVw7IvubeZzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oU8UQFhBMEXKFLdAB3VRH/U9Ph4A06iSurHhTDEUXNA=;
- b=f4QPpu8C4T1wqtimEI0zM6XbFJKpYB2VuXxOVGUu/SdOeWaCryroKGM9jNPVng04opvE5MtwcuwYM7BhvO2T7DsEMb51NuvcTN1uExCp9r9kOgzZyT9Ss7EIm9Zt1fHjie/V3OiFt8WOMAntFyFuh84DiA5NEphyG5+RF5BplJf2A/EXQsTtsszVCz2GXtUzmfkOjHjtqQOlC94ckJp4fVKf2PwLTV/TMgTAq+Qk8TGLAU3CPXmvafcJ6QfbiAom58D5GfEvL4loI74HOuvb0lNUParpYSmNg8Mtdpe5Oiq7YuFr1u8ke8UVsVGReY8yp6nD+gLjJUqwRlR4aR8BVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=IDZAFkpNWaQCslMLak6FnX2P04gbpIbOwbL8wNa9kp8=;
+ b=RmNotyqzC7U7e4dIEIWzvK/Zgv2023odym6h2zrzEouSddyLSt3D29u2QutAhbjXkws0FtIRdWkzW2wHW3TRz1KmKtfcToSTTOztLz5clWPu+joWDNldXWK31HB2AAeNcKwh6P0+liwtYsBKL0E96+4w4gUsXdYxf0eOxc+arWcl0NQK4YsdO0jb7IR0+mravAa2cQ4LPrsFAstPcgG7aHJGVqXIbYyH+HomHf/Ay1DP2GBp1nGm0ow/1UPRYgFt1l/56FZ+EW05ENdKVXu7GuDNmAW8cijXipf/CUGXikW9uQiwS7fb5+MFgsKdwONtNNseYXQXWSHewdnHhqWw9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oU8UQFhBMEXKFLdAB3VRH/U9Ph4A06iSurHhTDEUXNA=;
- b=RuBMTMbP2YoEaapL9aRVKqZt3hE7w43Y7VFiGkI/tYkH7WofaVBl8dT8EA6Q+XbKx/be+Z3A8V7syhbtbGeUR4MG79SAkUyVQnnPbKtnuwlfb3akD197zi72h/5OGTpBUHte0N468bYxwkMF9YVu8awOf0wo3MTyQscuA0iDEqQ=
-Received: from CH0P221CA0035.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11d::22)
- by DM6PR19MB3833.namprd19.prod.outlook.com (2603:10b6:5:22a::21) with
+ bh=IDZAFkpNWaQCslMLak6FnX2P04gbpIbOwbL8wNa9kp8=;
+ b=mx99o4FDKPCUTiYscWcCRIcufP9WPZFWHY3afsMY+vnhqvhIg1s8pOOtsaedXyNWwokXWds5qeLg+iaRKRu8iRtSQ38aDxF4wYr9905IgYn+b7Fb7wmGQYJsG8TmpjvndE7sijnELzhij5ZkEXCH67REDAfeDCbq7TK/pKv2KLrdqSJCD/7WyoyumU4coFtrreATXO1PsDH+oWwk8grkwUY0XymqyTdc4Pn1fLzzbToAUIfnD2A9yPICj3XA1tpTFu2fpMlucJ9k5Ziqz3UPpFImjyog2nOAo3YGuiDf2PXzI868aiSrL6S6iLdHfXLggvcDXMepXZ8sCYz3m97ukA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AS4PR04MB9435.eurprd04.prod.outlook.com (2603:10a6:20b:4eb::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 11:36:14 +0000
-Received: from DM3PEPF000265AF.namprd02.prod.outlook.com
- (2603:10b6:610:11d:cafe::3c) by CH0P221CA0035.outlook.office365.com
- (2603:10b6:610:11d::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 11:36:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- DM3PEPF000265AF.mail.protection.outlook.com (10.167.23.38) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5
- via Frontend Transport; Wed, 4 Nov 2026 11:36:12 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 9F3B4406544;
-	Wed,  4 Nov 2026 11:36:10 +0000 (UTC)
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 8EF71820273;
-	Wed,  4 Nov 2026 11:36:10 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: tiwai@suse.com
-Cc: navonjohnlukose@gmail.com, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-Subject: [PATCH] ALSA: doc: cs35l56: Update calibration write failure message info
-Date: Wed,  4 Nov 2026 11:36:10 +0000
-Message-ID: <20261104113610.1057194-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.47.3
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 11:36:47 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 11:36:47 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: altera-msi: Convert to subsys_platform_driver()
+Date: Wed,  4 Nov 2026 19:32:35 +0800
+Message-ID: <20261104113235.1634024-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0015.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::18) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,118 +98,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265AF:EE_|DM6PR19MB3833:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: d259e0dd-bf18-4d7a-02c8-08df3a67d408
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS4PR04MB9435:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae1ce0f-6028-4be5-13d4-08df3a67c90b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|61400799027|82310400026|36860700016|11063799006|56012099006|261009223027099003|261021123027099003|261021135927099003|261021121427099003|261102123227099003|261022105027099003|261022075727099003|261028144727099003|261026140227099003|261026121527099003|10067099003|18002099003|16102099003;
+	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|10067099003|18002099003|56012099006|11063799006|261022075727099003|261102123227099003|261009221227099003|261021123027099003|261021121427099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	CsRjhdWVy8iUlCuDJVwTqe/haaoUkWO4MFSREQ8nwWFRSc9HZcjSDnq+IZL0CovlWEh3aG+/ccbR5Z00n/lXdqvpr+BwwMiogWgzTDOLJTlsXlaOA6X5BgIsWRdd6OfhYHjUDV14Gz7h20MKo9AmNQ6CAc8goIHVjgjUQD5fjBUDASw7TjleVoaghROUuNxjQwagDatVvF4QPQmPCRaNM0RJJkqm1+LhG+trt5+dwo+VYQ8Tff5WvTD59EvWsLW0xlky9P3ZwwrVgwDXuorEdDYCuZ8DGbJuXK8hd1jDcOLdczPEXTXQnRgrb7EJEUS4CrxLR+8C3GSWHlg1+Nxy70dmhONFhrgN2FvqKPVVEWahR0z5ySB3HKza25BBew8DKQP2uSMNUvjTO1b39sk/fImPcnRb1v+ZvZysbX+JWnR+4BE5vHEMtmZY8J8vWY1c4OyDlj4W42EZtCSb4CmLJRSX2ognG1dYoAAGzoYSZEBdpAhYh2DQfdS1bPqm/lCGuJDCql752RFgVJBCziqDT0H6uBjgmuNBrg8h2gvsKkEvWKUch+Dz7HjpPfKulvdMZWAQ/NDwqas4waAqnftrQZBRRvcHdlzUCFQsMu+3mr85vE59o/zKqGZnCGV7xEwtlNc2zoEIqUPwptE8KTy+BJa/ZomEJJqpPm5B70lEwldU36sHc4qgtmjEfEeOuFVeXRLL7H1Bjbk59Kf1WjcGGQ==
+	ZJ0D6SNotriTI5r6vf/lEW5eTg7vLtE6PycYtAjTOBe5YhXdNcu3BxffVpUvYfQGz+c+xeklHkYJXAzjrr7gq90PDrfsZPLJB0MSctS24s6LAjhWDdc+bjoeNMhqT5Y7Nvbhxp4SBzoAzebkQyPTl8gqx0tABmGYewlewUoE1m+46CamjrgWmB43T7GSWoAlca4r4IDuv3oa2bFmoXud8lTzNX7sjRsrL5Q+v7kKZRJjRg2sbUmqNTrPCACqga64UCBapYx7XCqdH+esNhdtF7LvT5iEM7L9873J76Kuc3Jtb4nvm0EkxTfinXXy/FmaQQDdA0nQhZ7ROiY1Fb2SwNr7wkZco2hl6ngoo6KJxmgEl/zA6MRJ8PGKRpGzuc+rLdVxuMfPESUTdPGqI5twYUJVCH3UhXTk2Pum4Ce/hhfllR0uQC97GBFQBXOjLxq+SKJHnmPRNyBqePu6oCNO+iI1NpVhhD9GpyDGQU89Cp53XuTYtDk0Y0MK3tSA8pFMw1sDC3c8yOmr55LefO61i/C31d27nRV9MpMdHWtVLkU3QiuUDGZqXcNAvtEyzBLRiWv+qWawVT0RjkpbHQKV4BLWQQbG9jXF7YexkQqGki+XRnP/Wa9FBxLjBNmTdjQSP2Vbl4m0RH0dvOUsBZXGSsFGQIDhCV23bHSbXHv+6zw=
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(376014)(61400799027)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(261021123027099003)(261021135927099003)(261021121427099003)(261102123227099003)(261022105027099003)(261022075727099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006)(261022075727099003)(261102123227099003)(261009221227099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	xuhqjDejALvZll5wusIV0TLEQdNKr7FMoREaNTDG+yaxqcUBGknRLiMdrOAioUr9q15vYVKaEoJm2ytod7T45lmpe6//2Npcg9nbKVbe8o7EQCHDW2OJnLD48dL8qrZAQa35lW+gtxzcauwGVk+1l+7ZfrusYEEzJnU1PI11k/pdRWPdwH5iLAVGLQZeGgGWBpZkvncLwUJni0/aPH+rPRylIzYBAy6Knebrf+0RbgI0W+hYZ38UZWBx+1p4jvQAUJKnpkqUnvsQA3qqonfGCNoCCMdXEJ2hjNLSYgslRL8NXLs1SgkjACBHsiO7f0dcRUMrTjiajyJOXn49S9+IO3cG1Nt//X7LByfUmGe8GNTzKooyV3ZB5KblL/Malh9ugcec4wGZp0YupYhO7IpmJBCFKxRKCxbDwjrxkZzJJhoJ7HvX9alznk5aGoDS63x1
-X-Exchange-RoutingPolicyChecked:
-	RdvY/llJCUbgf4elPm0PxgMGVBBDxrVsDnCRf7uX1D4NVw+isBdBiPn9T2Bxey5iJNL6loqOgHSlqMxsMWBI3um2KDCIl6Z1uhTyoagH+mCIydRGKWU27JRk5FeV3HhC39sI3yNrJG14bMVnW2Y0OfE3I8vKP3KuTptnT7rZvH2944WHyGy7YkK6uzo4AK841roEE1+2nhcIsGmnxgZb6kV0Swi2Hstr6PxvIESVTzR56Jd5JwW8S4R8lvVp51p5KIwI0u9MJFhQzXRZ29+vZRtQLOArnD6aBX7HpLediUC15fjGzCR46HGLKppwgKONr25w5F87Yr9VFacTUkOcOg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:36:12.0492
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d259e0dd-bf18-4d7a-02c8-08df3a67d408
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+	=?us-ascii?Q?CW53Z4grS7sNCxgEkyJDSkFVDq4+jICP1a3J72YWLOIaStSbTaf0sHj5rDlE?=
+ =?us-ascii?Q?5GOo+r1i+VCli3JhSqC04s+3Vo/XPCvKljxwkU+StaZRoVXGtuqt1qMgmby1?=
+ =?us-ascii?Q?mCtOCcyALBt4/t1qTb5eONBVjsi3cr3CDwfk+EuDj0swQwJs1+yDB35x1oMj?=
+ =?us-ascii?Q?zKJ8ZEmAXbUI45ZUPn8JB8UJWwSmSkG8ufHM1l4DxTP7kgXxpdlbNotLs0pQ?=
+ =?us-ascii?Q?Mu92WU07DxCrujWF+XV+KJhENqfyXxK90PtryND9fprhhAB4fHIwo3zWTFRZ?=
+ =?us-ascii?Q?NGOnG21IuS6wxh4ggSAf5PLeE3EQuwOd7EjXwyyhNb4gYiLLJfG90okmdL1/?=
+ =?us-ascii?Q?Qy6kmlZyxKgc5c8kcuR+1thX0CnJTiVOdLVq33YcjBKlA1wPu631Crm9NwIm?=
+ =?us-ascii?Q?UL5jiE50+vY4VuAYYTC7aS5WBFigeW08kerb8VHsUwQI7WiATfGXTkMR39Ph?=
+ =?us-ascii?Q?Y6gwCXoLl6+ZxbZ7XZ+apKdIBuorVwC0jwl74LsvY8Ms9iXF7SYXoJe0ARbM?=
+ =?us-ascii?Q?I+iTGjUX7e46YacuA0p9tPQAUHNTPG2fu+nPkUvC7Fi9juAvCI2LJsmm7GdT?=
+ =?us-ascii?Q?mlrGmH3R3utrN4tsqB1tqcZAQ4c9qyS792s/a3wjIi6uwPB14veRJaA1ae3N?=
+ =?us-ascii?Q?FdjAOxUoTEY64dKv9qpyTNPHzaDoJvUoodv0NWRT61WG/EV2AAXiCKFQCgRz?=
+ =?us-ascii?Q?5Cv1i3sgzB5ebOocWST13Cp08BYFJfLokT6Tx9PVZb+Js/tpP1CfLcOQz4Uj?=
+ =?us-ascii?Q?ULN0OA7n3rdBlDZEBaPAupFkmzwbslGHCRJoQPm27fvd/sEHS2EHY+y86U4/?=
+ =?us-ascii?Q?NYmPjvwECaBER98IvCQf7j6a1L3OF1H0S3EUMSNNYyUd1r/qMf7jVNNd0DNC?=
+ =?us-ascii?Q?zmxByxGctAurmw57EM5nN8PgpJniQCNXhgEwYpjPEgfLmVB1xAYIkvdDXOb7?=
+ =?us-ascii?Q?sbo+tSjtL+PqIVRp2Xns5DcOoMeJu9BmnDMZT8YbkkCDGgbLQEZSzFcR6Y02?=
+ =?us-ascii?Q?9Rx0CoRNWj/fDgEHDS2ySSxDKOUPssQWq1+MPzqM0YoFRLP9IL524FgKX7BU?=
+ =?us-ascii?Q?V1Q58Vy4vBa5HkwuBMo/Ex/HsuizjxQPFOcCOj+YfZL/WdqZaD0YefdOFFLb?=
+ =?us-ascii?Q?M6kXmzdAeWTsjs0ySzm3lIsnGAYA4xHA1cKyTPJFJNhcGgw8wkNeekIsK1bH?=
+ =?us-ascii?Q?sB5yG0JEJhaRd26QgGsPYbtZ0Gxl7bHxtTa4LphFVCDBpV7U4bcvg02oUpCe?=
+ =?us-ascii?Q?kNIxaq+lGzsKLSqQZZ0ePOMuLcL3N/v+zOmON5xj+Teei5YCim/mnQCsKdwK?=
+ =?us-ascii?Q?fR9HqPeOpv1+t5hw2yeSeh31/UtycIbsehBtUnciF02vlZA6eEGyimoZ7+8e?=
+ =?us-ascii?Q?G4ZbzpVK/eWzuFl1P+XBsM6sYjMxcSZO2yKtFovYuaSEJPZ1NsL31b23tq5j?=
+ =?us-ascii?Q?GNhEA6Ajbyn55ggk9orEkVs0O/rRs04q+2bsHPacG64EyHgw8RcAaQpUGNXl?=
+ =?us-ascii?Q?AaNuFVv+4+OsEJOyw5VAk7Scqr2hpIsK60aoBor3k8HK1C60LMYcYXPDjC0+?=
+ =?us-ascii?Q?KMwzcRc7wHTNfNpf7sPPkbDfwcEZV+7QZl5F4mcmLv7Lgm6IMTSwtgE5lj8V?=
+ =?us-ascii?Q?HQdgCirPKgb69frHUSkQzFFeu7eDD5MKKzdrfq5gm0d5eI87552gPY1FXDgI?=
+ =?us-ascii?Q?Uer4/b3A5xWjUosOqUp77y8kxujjH2mYKx0Y3rKGbpintusZEj8LhL7Nd6Ix?=
+ =?us-ascii?Q?tqrPuaO1EdboVgSf5RYNXAWCVzF+LmWfWmkwFEKYv2xCTejfhgS4?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae1ce0f-6028-4be5-13d4-08df3a67c90b
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-DM3PEPF000265AF.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR19MB3833
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0NSBTYWx0ZWRfXzjNhFRJkwOmA
- WM3GwuzkUAZJkCWSS+jyQOWchH5Q5eM+qNhWnI7KTpK3ej0YuzdaJb8fUIJkvFNNu24EUhd6AnP
- g10r2vOW75dmu4QzzPgBRtQSZNOdbF042+DOHtVJ3JcHrirmD4XwmnTLW+Tyjb8prbd6GuDYlDZ
- anMffyGk5rYd8hbSTLKuqOFnUqrhqlfptE/jqhpSU+pyh+nRt5gkWF32RVILf2xQRQ13nJtcXVT
- GcrXxOgYdlqErOZmM1hiMzfEoNR60+MJtP4+1E8ob3pLv0XE18NAXLT7mBMnwCklQPejyIZmkIv
- ytQdVMic24GS8ppd/we98a1c/tdve3rN2kpHXJfY6GH4uqF15WsGxlF9bxmXNClnb9Zeim0PD+X
- Ygv8TNGs99B60zWn1IdMgCYFgshUndUMxpCIfKZPo62NT/eWGZfk455EsZh8Z7dEwImz1NXc4Bn
- wSN3ZZRdDZPdlT/XRew==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0NSBTYWx0ZWRfXyYlgls5rT4Dv
- BnkpsaXUDGIpypI4ROENPKb89ORszj/y+72OsEQfpQUAvLDM2IQ1ajDjbRqzsGVf0DPiewF0W1e
- +kONKcCaTflL9EQC4WuV88W4DxLvFxo=
-X-Authority-Analysis: v=2.4 cv=LtgHWXdc c=1 sm=1 tr=0 ts=6aeb18b2 cx=c_pps
- a=xo3zWrN9qLO3Lphhql2lSw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=zJRp6_cAMcgA:10 a=RWc_ulEos4gA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22 a=w1d2syhTAAAA:8
- a=kzKsp2IhnQtnbxZlPUUA:9
-X-Proofpoint-GUID: oaZYMii9XueiTXAwrKAssiF85d650je9
-X-Proofpoint-ORIG-GUID: oaZYMii9XueiTXAwrKAssiF85d650je9
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:35:54.0307
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9mSSodwrweOTOeC5qrX5IMUgTItNVBtXRtZ6dgsI4TKJdIcK28CZtD29AmXj4YcK4Vn1W/IUy2zYWeP/kENsXwz8Ws1xcaXfXwomghj/DfYCz/HpIXMPDqRlTwInZQjl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9435
 
-Update the descriptions of the "Failed to write calibration" and
-"Calibration disabled due to missing firmware controls" error messages.
+From: Peng Fan <peng.fan@nxp.com>
 
-Originally "Failed to write calibration" was described as having the same
-cause as "Calibration disabled due to missing firmware controls". This
-was _typically_ true because the most likely cause of the write failure
-was missing controls (because both messages would be logged in that case).
-But it wasn't clear from the description that this was referring to the
-_typical_ root cause being the same.
+Replace the open-coded subsys_initcall()/module_exit() platform driver
+registration with subsys_platform_driver().
 
-Reword the "Failed to write calibration" info to describe the possible
-other reasons for this error.
+No functional change.
 
-Also slightly reword the description of "Calibration disabled due to
-missing firmware controls" to say "firmware wmfw file" instead of only
-"wmfw" and fix a missing "the" in the second bullet point. Also note
-that this is not necessarily an error, only information.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- Documentation/sound/codecs/cs35l56.rst | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ drivers/pci/controller/pcie-altera-msi.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
 
-diff --git a/Documentation/sound/codecs/cs35l56.rst b/Documentation/sound/codecs/cs35l56.rst
-index b3f8c1c238518..ffbfbaed12714 100644
---- a/Documentation/sound/codecs/cs35l56.rst
-+++ b/Documentation/sound/codecs/cs35l56.rst
-@@ -235,19 +235,28 @@ No %s for algorithm %x
-   HDA driver did not find a .bin file that matches this hardware.
+diff --git a/drivers/pci/controller/pcie-altera-msi.c b/drivers/pci/controller/pcie-altera-msi.c
+index ea2ca2e70f20..8c0696cbd4ae 100644
+--- a/drivers/pci/controller/pcie-altera-msi.c
++++ b/drivers/pci/controller/pcie-altera-msi.c
+@@ -267,18 +267,7 @@ static struct platform_driver altera_msi_driver = {
+ 	.remove = altera_msi_remove,
+ };
  
- Calibration disabled due to missing firmware controls
--  Driver was not able to write EFI calibration data to firmware registers.
--  This typically means that either:
-+  This isn't necessarily an error, only informative. The amplifier can
-+  operate without calibration, as the firmware contains a default
-+  calibration for the speakers, but it will tend to over-protect the
-+  speakers.
- 
--    * The driver did not find a suitable wmfw for this hardware, or
-+  This message typically means that either:
-+    * The driver did not find a suitable firmware .wmfw file for this
-+      hardware, or
-     * The amplifier has already been patched with firmware by something
-       previously, and the driver does not have control of a hard RESET line
-       to be able to reset the amplifier and download the firmware files it
-       found. This situation is indicated by the device identification
--      string in the kernel log shows "(patched=1)"
-+      string in the kernel log showing "(patched=1)"
- 
- Failed to write calibration
--  Same meaning and cause as "Calibration disabled due to missing firmware
--  controls"
-+  If the error code is -2 (ENOENT):
-+    * The driver has been unbound and rebound without reprobing.
-+    * The wrong firmware .wmfw file was loaded for this hardware so the
-+      algorithm IDs in the firmware do not match what the driver is
-+      looking for.
-+
-+  Other error codes likely indicate a problem communicating with the hardware.
- 
- Failed to read calibration data from EFI
-   Factory calibration data in EFI is missing, empty or corrupt.
+-static int __init altera_msi_init(void)
+-{
+-	return platform_driver_register(&altera_msi_driver);
+-}
+-
+-static void __exit altera_msi_exit(void)
+-{
+-	platform_driver_unregister(&altera_msi_driver);
+-}
+-
+-subsys_initcall(altera_msi_init);
++subsys_platform_driver(altera_msi_driver);
+ MODULE_DEVICE_TABLE(of, altera_msi_of_match);
+-module_exit(altera_msi_exit);
+ MODULE_DESCRIPTION("Altera PCIe MSI support driver");
+ MODULE_LICENSE("GPL v2");
 -- 
-2.47.3
+2.51.0
 
