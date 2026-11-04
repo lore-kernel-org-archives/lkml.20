@@ -1,84 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781721;
-	b=fx/YlPGf7uZs8xU3UQ9CNdeq+1LZlubNNkgX0LQikLiiHnbaGr+cXCgDeoO8CNsnHPxb
-	 MHOAY3ZbViyz9erHpijmmINC5ynQEK04K+4+g0CJPC4++as8+TJw+W8MGS2Sb6Ku4p5/f
-	 oN7moNW1cFiEI8emeATvHJuhpmx0JuJmkSO3Lc4xB0tQVp+oyQFMIU2yseuFwRaCvEYaU
-	 zNlQQBC/eiuhdf4+LxHbA1O1Gtpg1rQQwe6F1PItq2JI+CnSRJhNmfAQ5Ih27GdL8Ul7V
-	 CrrPLqfO8tHmy3fsq+PI3N47zROtMUHGffZuPQkUBUwNks4R4UgxvZAFGsonuGdIM7g==
+	t=1793781731;
+	b=UqiHA3n20aE/o+3MiGlAoU3h08NXMdgd7WJTK3JU8cCociIofVGMbMytz/hQl4RiC60h
+	 7/1d3jwxR6MdcP/jl3/RBVUKihNK/ai5CO6+2W7/I3np6j9mpLsmXddIOtPkmRoW8CafU
+	 81qBNXh8YJPdFSzfWR32q+N52dGyvpAP1/xk86JyoB+3EQkpn7pN9To1kSpnWIV3zu0dB
+	 jzHubEy2Z+x90/h/qFJOvj1WrJhFDeoAsJHoeUsKotX8QNUQb6yf0VL1O8pbMhoqqf3Vq
+	 bAKXApzlL+V6g7vzuOkuXupWN4IsFC3xYqkDpZmcrjbW12HT/pO8vb0QJFXKAnrR92w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781721;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=6TALtB+99lw/ARPvnVNmv+T1dMrR3PeZsEge0aWRtII=;
-	b=CTMPRXZEt0ywASRSH9zTUDoPsPDMyV4lymJsSceRq+umWgBOIpr+h3JcrfAIRFU1GHiJ
-	 gaZdpEBZq4q9agUSsSPUMWlUkFbmODhbW5XPcx32KugNzH1HJoFOi7EI10E6NZdwtme5b
-	 JwwVNUImprxdMSruAM6OvGVYs7nwELdB6qyc6JjJwHpLI1kyUCL8WyaWSz+3SpJGmQhht
-	 NtpOX3cTprgexAWJlvplB/MeGglKtBcc0NjmwMl/OX+St6BDJwyohEWmEZruzHXiG2LBP
-	 cVUgduWh0KcjDHk+R2Rr14u6Nt1SFgoT9fIwjHHqMa1fWjMzIF5FU1mW5HdbiQbEPHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781731;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=2tz///C2gLrezRDUfeXviZzznEJy8Ej2BLjvXB/fTks=;
+	b=JCmU+jpo0p1Zv+6eSfj/4OSrMk2O73aAfW2T910iOrqDuzTvxe/otci6g1iS0dzF/Jsk
+	 alKgqN0oTGNn8z17oUT7Uf2mn6Db1TP4tN9nZdMeK+6HJilPKCDUB/yPOpcpB0GHciKaw
+	 YnaqPLuewVrGrkCR1Sf0juCB2xMiDY+Z7gXiHxqITFeOHIsyQ7OE+b9Peeh11Vt9Ad7Yl
+	 fQXcqo0RSAxBq8GVHdr9UBJMDiB03UDc5bTZNITvb9NnQwDOH9g6KsrEkqgUyk7HA2XTc
+	 w5xxpUfbfrswY8nBKUM92wt5xw0jH7D464UwXLy+kdJpQiV+YkS4qQlT5BoSxc3x1OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=tQv2OO4B;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=JVqUcTm3;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DEC606A330;
-	Wed,  4 Nov 2026 08:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5DEC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71B4606A326;
+	Wed,  4 Nov 2026 08:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E71B4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=tQv2OO4B
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=JVqUcTm3
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A09C1415BF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1793781730; bh=2tz///C2gLrezRDUfeXviZzznEJy8Ej2BLjvXB/fTks=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=JVqUcTm32kCikjn0HjOVyu29BnS5QRTxHmUbiftq/kgO4VLeYlVXLQ1IPZx1v2A4m
+	 L0iObdXPiAsYc79GZAD7WkeGtS+N/EKSuWXrwiNI2PUG4sVNHWKMIQEQHVA0n3Lt67
+	 oMSjozm0wtfvyx8PC2TW2v+gpNLq2WHdLP3qeKB2Nq4t6fySSKe4/4BwB1Eh2ZBT99
+	 Y4JlUYvsG4mS49H9jn8cimRG2wG6eSs7zCiGNaDAb8Oxz97OAQL2DSTAY06wrNB2no
+	 iuMm+83AWNUPainrlWXUSpx4nFYUIuwVkf87gprweETRI9k1WRhQoW+YWoE4oKy/4H
+	 zY6XtcYg5lSIw==
+Received: from localhost (mdns.lwn.net [45.79.72.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKJp64C6Jz8vmm;
-	Wed, 04 Nov 2026 09:41:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793781710; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6TALtB+99lw/ARPvnVNmv+T1dMrR3PeZsEge0aWRtII=;
-	b=tQv2OO4BpsXbn/HRi+pbIvy7AgddDYrTzr+gyOXH8aSjGh6czmSN/H0JYZf9QcaWOJlf4r
-	khOcpWP5XY8XgStDuLfTAxk+6e2FtYm9DBfdDQpUILbBjPQIV28PlRh2wFNMiM7ZfU6n7U
-	H9Bt85dnzFeMLmPNH+WNAXL91iGIRbk8bccrxXGIb98r5Vo8WMcJuFcvJfLWc1i0TdaR6u
-	WeqJSBfrvCP6gQkMhw8Jw75QY5haF6Aft4UGHQ66mqJWPXNLd/ZHJTFDia6jAkCBqIdAqQ
-	CzT7RoX+Xyfbml1oOeJXfQp6ViMf8Wv9fa74nGhEuGVsiL7DtuJtZKyt1RSLGA==
-Message-ID: <54d07bbd9e5dbadf4e63c81b88f8d0b41cbb5cf8.camel@mailbox.org>
-Subject: Re: [RFC PATCH v7 8/8] samples: rust: Add JobQueue Tester
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Younes Akhouayri <git@younes.io>, Philipp Stanner <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Alice Ryhl	 <aliceryhl@google.com>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, David Airlie	
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin	
- <tvrtko.ursulin@igalia.com>, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org
-Date: Wed, 04 Nov 2026 09:41:47 +0100
-In-Reply-To: <kw-1793744821.998563484-558346-1@younes.io>
-References: <20261103153138.1087330-2-phasta@kernel.org>
-	 <20261103153138.1087330-10-phasta@kernel.org>
-	 <kw-1793744821.998563484-558346-1@younes.io>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by ms.lwn.net (Postfix) with ESMTPSA id A09C1415BF;
+	Wed,  4 Nov 2026 08:42:09 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Weijie Yuan <wy@wyuan.org>
+Cc: Weijie Yuan <kernel@wyuan.org>, Dongliang Mu <dzm91@hust.edu.cn>, Alex
+ Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: How to attempt to gradually eliminate the compilation output?
+In-Reply-To: <aurpUltnbwWw3eyx@wyuan.org>
+References: <aurU4uKyIUBl9-CJ@wyuan.org> <87y0b99i6p.fsf@trenco.lwn.net>
+ <aurpUltnbwWw3eyx@wyuan.org>
+Date: Wed, 04 Nov 2026 01:42:06 -0700
+Message-ID: <87tslx9ee9.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,54 +69,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 5e1c944c929fa6f27a5
-X-MBO-RS-META: bh8krqkmfn87qwbdxw6c1k48d14wme86
+Content-Type: text/plain
 
-T24gVHVlLCAyMDI2LTExLTAzIGF0IDIyOjI3ICswMDAwLCBZb3VuZXMgQWtob3VheXJpIHdyb3Rl
-Ogo+IE9uIFR1ZSwgMyBOb3YgMjAyNiAxNjozMTozOCArMDEwMCwgUGhpbGlwcCBTdGFubmVyIHdy
-b3RlOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJvcChqcSk7IC8vIFJlbGVhc2UgbG9j
-ay4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFQ6OnJ1bl9qb2Iod29yay5mY3R4LCBydW5u
-YWJsZV9qb2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEgPSB3b3JrLmlubmVyLmxv
-Y2soKTsgLy8gUmV0YWtlIGxvY2suCj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAv
-LyBydW5fam9iKCkgYWJvdmUgbmVlZHMgdG8gYmUgY2FsbGVkIHdpdGhvdXQgbG9jayBwcm90ZWN0
-aW9uLiBUaHVzLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLy8gaXQgaXMgcG9zc2libGUg
-dGhhdCB0aGUgZHJpdmVyIGluc3RydWN0ZWQgY29tcGxldGlvbiByaWdodCBiZWZvcmUKPiA+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHdlIGNvdWxkIHJlLXRha2UgdGhlIGxvY2suCj4gPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBqcS5sYXN0X2NvbXBsZXRlZCA+PSBzZXFubyB7Cj4g
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZlbmNlLnNpZ25hbChPaygoKSkpOwo+
-ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvLyBEcm9wIGhlcmUgZGly
-ZWN0bHkgaWYgcG9zc2libGUuIE90aGVyd2lzZSwgbGV0IHRoZSBEcm9wV29ya2VyCj4gPiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHRha2UgY2FyZSBvZiBpdC4KPiA+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgY29yZTo6bWVtOjpuZWVkc19kcm9wOjo8VDo6
-Sm9iRGF0YVR5cGU+KCkgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGpxLmRyb3BfbGlzdC5wdXNoX2JhY2soam9iKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfSBlbHNlIHsKPiA+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEucnVubmluZ19qb2JzLnB1c2hfYmFjayhq
-b2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+IAo+IEhpIFBoaWxpcCwKCkhlbGxv
-LAoKPiAKPiBJcyB0aGVyZSBhIHJlYXNvbiB0aGUgY3JlZGl0cyBhcmUgbWVhbnQgdG8gc3RheSBj
-b25zdW1lZCBoZXJlLCBvciBzaG91bGQKPiB0aGlzIGJyYW5jaCBkbwo+IAo+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgICpqcS5hc19tdXQoKS5wcm9qZWN0KCkuY2FwYWNpdHkgKz0gdTY0
-Ojpmcm9tKGpvYi5jb3N0KTsKPiAKPiBhcyB3ZWxsPwoKTm9wZSwgdGhhdCdzIHNpbXBseSBhIGJ1
-Zy4gV2VsbCBzZWVuLiBUaGlzIFJGQyBoYXMgb25seSBzZWVuIGJhc2ljCnRlc3Rpbmcgc28gZmFy
-LCBiZWNhdXNlIHdlIHN0aWxsIGhhdmUgdG8gc29sdmUgc29tZSBxdWl0ZSBncm91bmQgbGF5aW5n
-CmRlc2lnbiBxdWVzdGlvbnMgKHNlZSBjb3Zlci1sZXR0ZXIpLiBBbHNvIHRoZSBjcmVkaXQtY291
-bnQgc3lzdGVtIHdhcwpyZS1hZGRlZCByZWxhdGl2ZWx5IHJlY2VudGx5LgoKTmV2ZXJ0aGVsZXNz
-LCBmaXhlZCB0aGlzIG9uZSBsb2NhbGx5LCB0aGFua3MgZm9yIHBvaW50aW5nIGl0IG91dAoKPiAK
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGFzdF9jb21wbGV0ZWQ6IDAsCj4g
-Cj4gRmVuY2VDb250ZXh0OjpuZXcoaW5pdGlhbF9zZXFubywgLi4uKSBoYW5kcyBvdXQgaW5pdGlh
-bF9zZXFubyBhcyB0aGUgZmlyc3QKPiBmZW5jZSBzZXFubywgYW5kIGJvdGggdGhlIGRvYyBleGFt
-cGxlIGFuZCB0aGUgdGVzdGVyIHBhc3MgMC4gRm9yIHRoYXQgZmlyc3QKPiBqb2IgdGhlIGNoZWNr
-IGFib3ZlIGJlY29tZXMgYDAgPj0gMGAsIHNvIHRoZSB3b3JrZXIgc2lnbmFscyB0aGUgZmVuY2Ug
-T2sKPiByaWdodCBhZnRlciBydW5fam9iKCkgcmV0dXJucywgd2hpbGUgdGhlIGhhcmR3YXJlIGlz
-IHN0aWxsIHdvcmtpbmcgb24gaXQuCj4gCj4gU2hvdWxkIGxhc3RfY29tcGxldGVkIHN0YXJ0IGF0
-IGluaXRpYWxfc2Vxbm8ud3JhcHBpbmdfc3ViKDEpLCBvciBpcwo+IGluaXRpYWxfc2Vxbm8gPj0g
-MSBhbiBpbnRlbmRlZCByZXF1aXJlbWVudCB0aGF0IGp1c3QgbmVlZHMgZG9jdW1lbnRpbmc/CgpU
-eXBpY2FsbHkgdGhlIGRyaXZlcnMgd2lsbCB3YW50IHRvIHBhc3MgMSBhcyBpbml0aWFsIHNlcXVl
-bmNlIG51bWJlciwKYmVjYXVzZSB0aGV5IGhhdmUgdGhlIHNhbWUgcHJvYmxlbSB5b3UncmUgZGVz
-Y3JpYmluZywganVzdCBvbiB0aGUKaGFyZHdhcmU6IGl0J3MgaW5pdGlhbGl6ZWQgdG8gMCwgc28g
-dGhlIGZpcnN0IGpvYiB3b3VsZCBiZSBzdWNjZXNzZnVsCmltbWVkaWF0ZWx5LiBTbyB0aGV5IHdh
-bm5hIHN0YXJ0IGF0IDEuCgpOb3Qgc3VyZSBob3cgd2Ugc2hvdWxkIGJlc3QgYWRkcmVzcyB0aGlz
-LgoKQERhbmllbCwgbWF5YmUgd2UgY2FuIGp1c3QgcmVtb3ZlIGBpbml0aWFsX3NlcW5vYCBhbmQg
-YWx3YXlzIHN0YXJ0IGF0CjE/IEknbSBub3Qgc3VyZS4KClRoeCBmb3IgdGhlIHJldmlldywKClAu
-Cg==
+Weijie Yuan <wy@wyuan.org> writes:
 
+> Jonathan Corbet <corbet@lwn.net> writes:
+>
+>> Weijie Yuan <kernel@wyuan.org> writes:
+>> 
+>> > Recently I've sent several patches to fix warnings.  But since I am not
+>> > familiar with the actual codes of theirs, I'm not confident enough to
+>> > touch some parts, but only the most obvious ones.
+>> >
+>> > Since this is a goal that Jon has spent years for, I'm wondering if it's
+>> > possible to periodically send out some email notifications, which will
+>> > use the file paths from the compiled output to find the recipients and
+>> > kindly ask them to to deal with these annoying outputs? Perhaps we could
+>> > use a script to do this.?
+>> 
+>> I think that nagging others to fix warnings is not going to make anybody
+>> happy.
+>
+> That's sure and that wasn't what I intended. 
+>
+> I'd be happy to do the work, but putting myself in their shoes, I worry
+> they might think, "Someone from nowhere, who isn't familiar with our
+> development process/workflow, is sending patches and just adding noise.
+> It would be quicker and easier if they simply pointed out the problems
+> and let us fix them ourselves."
+>
+> For example, last week I was about to send a small patch when,
+> fortunately, I searched lore one more time and found that an equivalent
+> patch had already been posted to their list, but hadn't been merged yet.
+>
+> These warnings span many subsystems, and I worry that sending patches
+> before I understand their respective workflows might come across as a
+> bit impolite: "We already have this fix in our development tree; you
+> should have checked first."
+
+Well-intentioned patches are rarely seen as impolite.
+
+It's always worth looking at linux-next before trying to fix something;
+if there is a fix in their tree, it should really be there as well.
+
+>> Beyond that, it is far better to send a patch than a request for
+>> somebody else to make one.  If nothing else, an incorrect patch is
+>> usually the best way to get somebody else to create a correct one :)
+>
+> Ah yes, true. ;-) So please bear with my poor patches then, low-quality
+> patch is unintentional but inevitable. ;)
+
+Thanks for working to make our documentation better!
+
+jon
