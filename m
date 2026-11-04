@@ -1,102 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818628;
-	b=BLS6rtYkvvR0dklxLyG/LBVBY1+xGPYHxOKFCL9Rl4TgM656URIU3+gBN7IaRlq6qWVV
-	 95cYpg7uzr2iQ4oXUabLrDsEtJQPKcFF/SFk+/LGv7EDvUfK2a6wJHCqAJ1q6Sxw/zMHW
-	 mPL3+f0LuHHJbIIAPxkI5s6xivZ0CFLtOFe19ySg1t86G/e2pqDNyk0QgzCH0d/LPQ0st
-	 WqYzJarbYAo5kslfYbnFrvRSoOyssY7O5SiPTphC89w2mCt2urJkiCouefDDhZoDLJQ/I
-	 VqI3lXuBLm3vFgMAdgQhvzUzAXbwhtzBkg/UGftjew8sKWJENcT6OHXMwaMW1YFyTVg==
+	t=1793818629;
+	b=vN3TaQKQkN5fj/zdh3uCpRbVaBZPv4m/qKAKPunS6JO4Hx1V6lfL1jlrkyj0Mxiilmtm
+	 qTmDiMtXf6m9u2c1wcdS0/pZ9rSx76t165AhtfbV4vwd5Mi6vD0jCd683vpePm2psZDUf
+	 4pARajPMV3PPARjoT9II/ZT5GoAhpQl5Q8+wLPquwvDWOhMs1UUrsmb61haBUpFapK+nK
+	 /60/VcbXhP9nxLYxAqC1oUqja9CQY4Bmm8KZR9Nw+sz0WHEbFEKcR2F04kNVIeyohFdFE
+	 oNFKJej5ZDKtuN/o2ulPJgcTvNgD0FwG9yMlD/DeCoDr9BstA6pMDi56qKzmUVYA2LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818629;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
-	b=LI88ji0bC8LLelLuQJEOuWkEuklCAp8rtVTh2Uz2fHKyRbv43ls+btixomHGnMUVRk42
-	 AE36vIrYPsdSvndOCRkMYsn5ZLDIRtBdV4saLBp1pcUER4VyxwXzGsH29rsYCZIxrDdtF
-	 kNg8ZMRSQ2MNx60jCrwE85fMDfDw32PloNbON+TjNEgOGS6nO6cEvrvYg59lu8bbtEsxa
-	 MlZ7w3d82JD6sEEkHjPTqJ52/7zxU+6KJF7myrHnaHSfAD0UefiICIPgyGrynmCP6iO/w
-	 w4Od8zTVzeWOkO3HN9agt7hXs5SZq1bZZcKK1WFIGRc9R3IGS+e+FHaT7ZsdN0pm5UQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=IZ9VKwNlWQHUSDTdUub0LUYCE8kQAhoKBrGZa45rXWk=;
+	b=xGTwZRBLxPSGQ/PNRbSlMxGSwVgiz+J8z16BZzRdZQ+eT/rixIR6JBNSRd3/3wjWTM5f
+	 w8c2J5gMNSALgid7TOAAEbYnx3imAdLPz206Pnv3BBoqJ0A/NMVIHK0OEi8OA2vC0eEfQ
+	 CBY8dgfJcs6bzCtKvxP/sWKeUnkkx6IoPcyvT0FIuYL/NbzFSpSBDZJCHYB2hx7GETVb5
+	 2Rv/MojPw49Kv3qsvBu5mAxX0bRAez2Wiz0TOEvUmxFaKhpsUPDLRnTSDu3QfZh03Ov7V
+	 Yc5n+YXIMkoamv6OrQU779yP3j7duS3VRoBDTvbwykg21//qiIBYweBliN4ZuDfcnCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ED7xfZRz;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b="XHe+/Z1X";
+	arc=none smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C48D608363D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF0B606D830
 	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:57:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C48D608363D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF0B606D830
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ED7xfZRz
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso934936f8f.2
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=XHe+/Z1X
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7c03744ef27so316682137.1
         for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:57:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818627; x=1794423427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
-        b=ED7xfZRz2lRptejsNyKYEKbA3m1cOzAS3vT0nJOXZPpfcuT4umorUW1Fmb04j4+s6N
-         SuyIA1bw/z8m3lhRNHnfGILlJWkQJ8e07NaHwMU+RbPNF80omtboqeYD6EwSdPk+pqEg
-         KdpDuO0Qgg93CMsfrib+2b+ZN0cNQHNbZa/Q+GC5jyc5AzcJ1DEch2cDoNlWWTMziZr8
-         2fun2oXcFvOVwDaA5LwSX829IEklgimtT4+l/ABoYKr2HBE9+CAxwir7VA4e+pYtM6NK
-         hWBnWB894Dq41P3/Aq/UBaZ112bbq5Ph9E3lbtk1q5qPps8DCRO8ovWgR9ztrKtvseZU
-         VTxQ==
+        d=soleen.com; s=google; t=1793818628; x=1794423428; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IZ9VKwNlWQHUSDTdUub0LUYCE8kQAhoKBrGZa45rXWk=;
+        b=XHe+/Z1XXeMglCcuzLURWowoZhofC+0/u49JTB+vvbU/kYZ81DsPHbMQRWOI1gLE1W
+         0Ajn5G/D+3lsDbC15tNKUlVnDCHZ/GhQYHZu3tGq6taphGW+6Or3tH8l1W2n3NHou1K2
+         c2Eb0270DugjZUhVLHUXAbwLT+vkASJddylrg15tCPop7uzH4NFTJ8FjHV16hxXCYHhJ
+         wUpzF2GBFgqNo9Bp7OzxTUoz3oxDGJQeyPO0Oy1fTSaVvap8fOKVcTttYCbc/AmKJ4kA
+         hE3uCap28ZoZdRAb/ywuVw/cxn9RjCB8uhzi2UhITKIWwSoEhhD2Xw+DkG/ZQjYea6Kl
+         J6DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818627; x=1794423427;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C6QSFeWBFed5RRDCZFUyOzGQ53jm2iRwGaePUB0IWS8=;
-        b=KyWB1C6tUdfF/2qFCHT4VvdJSrFBMGB+YDHHsXgtMbwPyxbPA4RSZ+paJsqmzsvwTA
-         wNOqvKKDIlEsCi/HOuBCT9x+9s3XuGq6q/sA+vLbo/J7h0ltS78Yk3f800JhrCu1iV4u
-         VQQzr2xG3xHeuJ7jS9OLxcIwJdvXk0R6Ff2qm788imeU3DxEcjZdNhiwKjM6LKYumC9V
-         zv9QLWPZLIN6bBQY4+9HOP4Q64/Y0egUdUXd+w9YTkMUfHSS6ddVajdWYVpjOIuAkN6I
-         PJqtU2uV6Xj1z++lp1QsEwoP7hreJLzJm8o2vefS5oH8izh0WI7zQv9w6J/3AVMoX/xh
-         4psw==
-X-Forwarded-Encrypted: i=1; AKwUvBxtVsdQtrVrPIND7cPBizvmNQXQdZF6TJ8YYRH296tL/sOfutb8vIAS7BrwC9KE/WtEh/iev7XqC6SXDWA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YaxHZBwNXHnRWTt9CYvogmf7DBvnu3ryEMgR1yR2fiPlm2WjI
-	kJkAd12UAuXdD10k3zYzla6TJrSYuddOmDhs8RLHeoG8WBZ1BH6H/Qbd
-X-Gm-Gg: AYBFou08V8ct/T6TSNWD8ExZMY6c1Chsyhln5YmwGUrjypaRcSeDn7mnthkz/rJ1OLC
-	N38US1iKvyw7uzSlNPuqsebyf9BP/doe9MyELZRnHlnErNHOUBnP2Swku2FbMI4c1zRNhX2rkqV
-	fZ9cr87oFDOXTMJ8SelJevt70pDWksCa0/52oPs/bLlTepcGU2TLv8/Z/LlWrAbETKgl94nk5p7
-	HSyO6+jWf3aEoFbHperiHF/C7hPyGCKWrJEgudTxM/wg0zy481YThUqQD1i0SOfqMkPnOlkWb7M
-	Yjshp4thSAWnF+bBUSU/q6U7GvhhTOxHcYf+CphWGEIUwT37IdPRM7CqvbIds88MT4MAdt3jBau
-	hlEMDvIktUvZ1l+GXp44jBC6T8e+XgsdFeAH972i57qS9jD8KNv7BaqFJGGGQAny5DcCzHOz5wS
-	0CdWPvc+zlzA+rqpXlXHcQp3Uzh65CCIzEGz1i9objduVk33PWn96G9GVKDRsn0Gi4GNzFPBe2G
-	l8XQJII03DUNE+U4VjF48h1yF9HqYF2Fwi8e50eO1NWVAnFS8MkmPtat1KR3mxdtxkXurk6X9EZ
-	mgDRHtBgqbh+kIU+5COTMocJqCGc5seJ9OYhrxECCgwKZ62LPJdgbT1BqVsTvijpWkGEBrqw53b
-	itIG6FsTlQd9j+oX26lbMk9l1J0CvwUcrC0su8gQ6YhMEogQb9ihwWlsnT4YRqLjDbxGomlvaAg
-	OaiZHvg1bWvgT/Jt5iRdqXLoCTImzii7fCIPcZV9Q+/5DfOfuAg2GDqji3ZrSb+LkNvfd5UsgQL
-	CcJ4GQW/l/RMJhZV4R4dA9MoPxVTNNBdsxa8T06smSCV1nrkzVniawhdypfceFY/Tc=
-X-Received: by 2002:a05:6000:160b:b0:48e:7476:9205 with SMTP id ffacd0b85a97d-48e74769219mr22849870f8f.31.1793818626772;
-        Wed, 04 Nov 2026 10:57:06 -0800 (PST)
-Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed08343dsm5463560f8f.30.2026.11.04.10.57.05
+        d=1e100.net; s=20260707; t=1793818628; x=1794423428;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IZ9VKwNlWQHUSDTdUub0LUYCE8kQAhoKBrGZa45rXWk=;
+        b=uP4OTMARjLot+YKAjuh/Hs0nl1qPKc296O6EM85REcz03IpeHmVtZRHIKKvLpvQo+F
+         yxermhPdq2HtJBZeiaBVy60GnuZZpcTHMuIpacGzTVQWyzD024bylAMW/XyY3DHmNGWo
+         V655/P0GHkoljqpMcMEKPhjC3+qYp5m/Aj9tkTon/qO3PkYvNfpg3P5IBo5aQw62FuiB
+         hb77VQiw7Us5bceQF8sZMKPsY4ZUgBadkFLCtY9UjFPfvqcdI2+PAeXnB599nycwac4I
+         LRnO0JyIzdIC/ZiHRH5CazYlsV08wWP40v8IvTdiRFqnUvlLX5CS968b7xNfl02RmkyQ
+         zhlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDeqzW2pQeigQtD1mPsE4u2HULO3cCTcn+Yx+/jEcvdRK6gWHVCYSlcw6ySHaDRDUU+Vv+8C+2FTo0AZc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/UxLa7JRfLOdnA3F6OVdSV6lMeABVSgHlAlND7ZnELPFeXuwM
+	njcsfzwASMXGrM5k/o71IQKPscU3IDY07FuSweQp6NQZ0MAMsLuh2SK2FTE5N8GWPuw=
+X-Gm-Gg: AYBFou3PYmuQMfcD8cwb1GutTP3luYE88vuQsrNTGLa8dxl5b5195MOegfQoARpZE/I
+	UIstl8P3w6f7DOt6NcJ6WV6wJvnEBhuBz3iNuc8e7Tw9hOknpjD3CpcdXMmYc3q0kdUIn/iwM4b
+	ybmKbQ0RLHjyyIHdHy/iPi5DH3h7a4g3LNsuVFhJay05f1xsFwkzT5VyxYdQTBj1O1JmQ9Yz3PT
+	B0GzahcQXOO7oI2trgSSmgM+r4oBZTpafk9pl/4wvNxzmkHV8gUx1XXoQQkyPRvnoAqlK2BFEko
+	6d5gNjEjUmYPl91y3knjYm/aurGWhNYNkEE/ghyjV3xllFJiP9ecUYNkZ0k5X6n4pT6+m/+jkJo
+	iTTwoZPSEhQ4oN34fjKmJrqbDfjY4VYziyn/34/kTgOHfluIrv0Gzah1W3Nih6yShQdBRpEAV+Z
+	8My+qwpgY+u3oZGL6esYxWJNvd8r8pv7EXBkNE0UtVaJmvK2ux/I30a37qfa6nypgjqnxKP7PFE
+	af5O7Bq1CPVXGPpnpKkS/Cu12OVI9Yp5FU82xUWX0k2dBWUhI1zKBMSkl55RDd295nXvdUOyp3a
+	XhQRYfH9Rzh2hoORZUV4LZ3Nrg37F1eTwr9xmDS9b0traCRaHCL96PmdXsbWPFdGakavwfZYqhb
+	mcSEecbaMYteyXUlky/pjTN0WMaYRETcDZKv0ia4+UuRx
+X-Received: by 2002:a05:6102:6cc:b0:7b5:7cd5:2a1b with SMTP id ada2fe7eead31-7d072634fbamr5914702137.10.1793818627742;
+        Wed, 04 Nov 2026 10:57:07 -0800 (PST)
+Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-999f3006224sm736210241.9.2026.11.04.10.57.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:57:06 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Samuel Holland <samuel@sholland.org>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] drm/sun4i: dw-hdmi: Deinit PHY in bind error path
-Date: Wed,  4 Nov 2026 19:56:59 +0100
-Message-ID: <20261104185659.884455-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Wed, 04 Nov 2026 10:57:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,35 +90,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/3] kho: walk bootmem areas in address order
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>, 
+ Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>, 
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+In-Reply-To: <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
+References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
+ <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
+Date: Wed, 04 Nov 2026 13:57:03 -0500
+Message-Id: <179381862319.2089669.3389816529046759968.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=765;
+ i=pasha.tatashin@soleen.com; h=from:subject:message-id;
+ bh=DDkD8JSCYr5RCeQfuJIIi1Yq5YW3znOE6F47n0yvgis=;
+ b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq64ABQgh991wmWzNfvO9Qyexu0ErvASNIQxj0u
+ FQn5xjnR/WJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCauuAAQAKCRC7dyhM23N6
+ 3lOvD/9RGW9gp0s0uJweY/yummMqVsr2SGqZNj6EGSPHNlXQmnWsxASxm7OJ9Vse40GT49GD+Ln
+ kKoDGlELs1gC/2S+p07IIGWU+YOXN3mdiJ3WDchwha8Pjbw+WkYXrVziUAniPdr2o3/g6tQ3aBO
+ GeeYGRK2ZA+cMpQlrKZ8BD0sI9C4c/Ago5YACznGJWbXdrmP53hL2feaZGuP0e5ZJjL6//yUjQ7
+ UNwj4WA6o/SlAsZHWhPcTCFp2hbVmQ2Jppyvbq+vN+jsCJcAm69GEnQhzNfGOmn70Gsrr0ulGWF
+ Z6nnsfLjpGwca/Ni2NWsl83PcqB88BqIpx7+wTNMQZdRTT2ZFEW3DVt1rsXDqxepV67TiWnREJO
+ 02GhYi3tuXCZTlgrRwyRby9wJbdILAQMEJqzT2wqeLbyRZpjdxhRJAe4srjeidOozyvFc8OGUEJ
+ 9GMxnPDY4/nCZWw4UmRSk+7++9H92jrkQy9circt8AbHQEWOWtlffF/We7VZroa+b2hWnZzHY1A
+ yX+EmUvHDO017w7by5v3DSX34tON7P2hxHBfIo7PeE8S/FDtrt0h3nTn8M0i3ed1yhWAHtvuGbf
+ 7Zjq8sKqzVdT2BLuJiGiKxO939WgyGsZXvEIzBK3cBx0dXE5RnFI0vihWDLWgyJsdQ3+AsmXXIc
+ WYdLSQfHpUQTV3Q==
+X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
+ fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
 
-sun8i_hdmi_phy_init() enables the PHY clocks and deasserts the PHY
-reset. When dw_hdmi_bind() fails afterwards, the error path doesn't
-undo that, so the clocks stay enabled and every further bind attempt
-enables them once more.
+On Wed, 04 Nov 2026 18:50:09 +0200, Mike Rapoport (Microsoft) <rppt@kernel.org> wrote:
+> kexec_add_buffer() users may depend on the order in which memory holes are
+> searched. For instance, arm64 places the kernel bottom-up and then
+> requires the DTB to be above the kernel.
+> 
+> kho_walk_bootmem() walks the bootmem areas in the order they were
+> reserved, so if the kernel lands in a small area at the top of the memory
+> there is no room left for the DTB and kexec fails. For example, on an
+> arm64 VM with 2G of RAM and kho_bootmem=8M,64M,64M, the lowmem area is
+> reserved first at the top of the memory, the kernel image takes most of
+> it and kexec fails with
+> 
+> [...]
 
-Call sun8i_hdmi_phy_deinit() in the error path, like unbind does.
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 
-Fixes: c64c8e04a12e ("drm/sun4i: dw-hdmi: Fix HDMI PHY clock setup")
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-index bd3923ef5a41..983826001f12 100644
---- a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-@@ -209,6 +209,7 @@ static int sun8i_dw_hdmi_bind(struct device *dev, struct device *master,
- 
- cleanup_encoder:
- 	drm_encoder_cleanup(encoder);
-+	sun8i_hdmi_phy_deinit(hdmi->phy);
- err_disable_clk_tmds:
- 	clk_disable_unprepare(hdmi->clk_tmds);
- err_assert_ctrl_reset:
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+Pasha
 
