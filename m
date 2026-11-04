@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757630;
-	b=sxcpx413zCLkRfb2idleXcIFFtmkyi8EjYN53PZEoknpomYkeGnQr6oYUEokNHgzuXYW
-	 a6Qx1tjrFFTz0KqPh4+YYLWl56S1R26ZTa5QkjamaWKA91F/VsT562gTSQpl6HGf2syIm
-	 8O4dqh3VPKJuQUmvvMCwWE+l2I1B9BHiQmMH+iXMcnY5vhQbfZbfAGqPqjVK02DfEz3d+
-	 /rgw3M7781oJYxxOxFHlttZbyU3plt/jxBPwmi6LNT6IoVZn+HPORUIDpCmmZ2ZdmHOHC
-	 JZxYsUrS+nA1UVUSQqx3uLONRO1sXaiB1D3HIz6XasbtumLfTQUo//81y0E3Y4Gbe2w==
+	t=1793757696;
+	b=osX4m+L9bGAdjbTuNC9ggG/4DbFtXRAXTpjLeq8qBQ2TAvCCSv43lkADdBnddyJNS20F
+	 iljA56vfkacvbKcOMA12rI25Ugfu5VHNClUM8WjSLsENY6kFYMRo7FOPCq1hafKZGOV9l
+	 rWsN9aMPqPxvQhisqVX22YOmrydhsz8Lb/BOcVN/Nx8hydtLlvThRrrN/YNsYPkgSLM3k
+	 nHEkw2rrQzTdM4sCNc/H5L6hDU4HcsowT/zQSG9Kg2EmjwgTXoSxZNbFhkxhtLGQGXGr/
+	 ZwcCUxwWV3P3gk7+r6lJYO8l8nn/TJNd/XdCs5HnbXdofqbGlg/JroJhafptc18puvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757630;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 Content-Transfer-Encoding:X-Mailer:References:In-Reply-To:
-	 X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=ID6BIMHIs5dozQ7uo2Zz7lMx53/Uma4fVMefg73C8Wc=;
-	b=XhXLVmvqLhCf12ASWxmqy0Cby0bukb7pohxMnHON/lmtBA7aHtkSJlZ1jYFRmK4zxT3+
-	 xnaeZ3bsZ/pNyv3zep0N5Bp9clOUd4TUjPFMMoBeaZ8Qqe6WZJmx2aJjoi1TkiSJL/M4U
-	 EkHB7enc/AxV/Op6nSqCxpfarycZE4LTZikhuiuigP7WW3PDrvrHvrnfmZQOvVVO8P+8H
-	 CBnm3ogl2wi8lIFoVCJvrnHbn8zzoCi0S6cFM4tZnT1hNusyEanCkbyGyi5DX93PQPOBF
-	 0l+q6uU1Jmd/VV8vPU2RxlDF1xkHRW8OL7HJQrlWJqb4DjUkhcCPpKTM6qB/mppXaCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757696;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=d3tRwg+6kmWQPvDHfDb0iceVZog2ETjF6XYA5PmVuHA=;
+	b=geGYTI07HDzYJTlzgzISiW5iRWsOwVMUNJyNu3TMRYjgGRRbPZDnt59cYNVpur01LISA
+	 qQ8nRQZgNUfx619t6jGP5nXLnIpwayg1K0OexNW1rUV94LtSnnsZgq/7LQDlNljrzOMS7
+	 vyexQngB3BezBfjWAC/AXUC6hAuiGm1F3Hb7PhK36LvIpF/7EcnVMVFXxqXOtnxE+8faJ
+	 dCq3atxYgit9sNnBPZ7e8i/ykrARC9MMI6gANC0wrbGRCQ014Q+nQ0P4LNSZFT3cf1loy
+	 61Gjoh069GbfXkdqzAtfDs+eIbU/O+3WrixR8MN9p/ls1vurgmSSJLseXM7MitOaNNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="NR6/RAAt";
-	arc=none smtp.remote-ip=54.204.34.129
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDP5Vhmb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1A0606A31B;
-	Wed,  4 Nov 2026 02:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A1A0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97E5606A31B;
+	Wed,  4 Nov 2026 02:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=NR6/RAAt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793757606;
-	bh=ID6BIMHIs5dozQ7uo2Zz7lMx53/Uma4fVMefg73C8Wc=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=NR6/RAAtadCxMT4aZNlWPKRVIcS8Uk+8x0Dzwevvs6B9RgwZ7gNVgfqgw2V6jccY2
-	 diZt/zl8uph3tIhysVhM5N/Yu8QvYwWUDPYY1qlQnLcFnuzUtdu8OZw0KH4ezoDL8p
-	 E2DgEks2Bd8LbYe+KH6+erZz2fFcbxQrJtZNGXkc=
-X-QQ-mid: zesmtpsz9t1793757596tb1b7ee28
-X-QQ-Originating-IP: MD06nJQTuVrERiBp4eZOuk/3YdF/RHaLSj82pRQMepc=
-Received: from = ( [58.254.68.27])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 04 Nov 2026 09:59:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13434004078560652839
-EX-QQ-RecipientCnt: 60
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDP5Vhmb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A011F000C1;
+	Wed,  4 Nov 2026 02:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793757695;
+	bh=d3tRwg+6kmWQPvDHfDb0iceVZog2ETjF6XYA5PmVuHA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GDP5VhmbB7nSGwNTGPLEyf3vLI8zxHVVBt1uzi91T/SK6RPMZqyv3oFq9Yq0GzmWh
+	 CxOHnaklmwm8XGgCPNokFjzObbtRBo087K5X+3sZL4H3m1hOUVNanoZ2lkVAGUnAq3
+	 tzgOp6gsDNIr7MSlFMzka493YKmMPnaLo2dXgmxruG4KvnQeeXThqJj44mX+hzrG4r
+	 lP4ZzXQmxSS+SrIENPp5iuB/bWMF8SbNCLSyia5GtFN+OIRbv33L4F+GIL8arz4XfL
+	 e5jigjCUUunBo2uvWCFa3m0K/lSJsxLGzh47m23fPnf/bqWvvMOhVAIi5L+WRp4Syo
+	 trHXvDnQj8sXA==
+Date: Wed, 4 Nov 2026 02:01:27 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com
+Subject: Re: [PATCH v3 2/2] iio: gyro: mpu3050: Fix runtime PM refcount leak
+ in trigger enable path
+Message-ID: <20261104020127.4a9d7a2d@jic23-hlaptop>
+In-Reply-To: <20261103092002.1332-3-laixiangwu@cmss.chinamobile.com>
+References: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
+	<20261103092002.1332-3-laixiangwu@cmss.chinamobile.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,123 +60,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=491fac0dacb0df51633230a215ca837ce7256ffa833a7a70182b3d999b4d;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 04 Nov 2026 09:04:38 +0800
-Message-Id: <DMM0TNL4VAOH.JFJQU10EQHE4@linux.spacemit.com>
-Cc: <vkoul@kernel.org>
-Subject: Re: [PATCH 1/1] spi: use dmaengine_desc_set_callback()
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: <Frank.Li@oss.nxp.com>, "Mark Brown" <broonie@kernel.org>, "Nicolas
- Ferre" <nicolas.ferre@microchip.com>, "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>, "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>, "Radu Pirea" <radu_nicolae.pirea@upb.ro>, "CL
- Wang" <cl634@andestech.com>, "Ryan Wanner" <ryan.wanner@microchip.com>,
- "Florian Fainelli" <florian.fainelli@broadcom.com>, "Ray Jui"
- <rjui@broadcom.com>, "Scott Branden" <sbranden@broadcom.com>, "Broadcom
- internal kernel review list" <bcm-kernel-feedback-list@broadcom.com>,
- "Vladimir Oltean" <olteanv@gmail.com>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Han Xu"
- <han.xu@nxp.com>, "Haibo Chen" <haibo.chen@nxp.com>, "Linus Walleij"
- <linusw@kernel.org>, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Daniel Mack" <daniel@zonque.org>, "Haojian Zhuang"
- <haojian.zhuang@gmail.com>, "Robert Jarzmik" <robert.jarzmik@free.fr>,
- "Heiko Stuebner" <heiko@sntech.de>, "Fabrizio Castro"
- <fabrizio.castro.jz@renesas.com>, "Andi Shyti" <andi.shyti@kernel.org>,
- "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Krzysztof Kozlowski"
- <krzk@kernel.org>, "Peter Griffin" <peter.griffin@linaro.org>, "Alim
- Akhtar" <alim.akhtar@samsung.com>, "Yixun Lan" <dlan@kernel.org>, "Troy
- Mitchell" <troy.mitchell@linux.spacemit.com>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Alain Volmat" <alain.volmat@foss.st.com>,
- "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>, "Laxman
- Dewangan" <ldewangan@nvidia.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Jonathan Hunter" <jonathanh@nvidia.com>,
- "Sowjanya Komatineni" <skomatineni@nvidia.com>, "Kunihiko Hayashi"
- <hayashi.kunihiko@socionext.com>, "Masami Hiramatsu" <mhiramat@kernel.org>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated
- list:ARM/Microchip (AT91) SoC support"
- <linux-arm-kernel@lists.infradead.org>, "open list"
- <linux-kernel@vger.kernel.org>, "moderated list:BROADCOM BCM2711/BCM2835
- ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>, "open
- list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>, "open list:ARM/QUALCOMM
- MAILING LIST" <linux-arm-msm@vger.kernel.org>, "open list:ARM/Rockchip SoC
- support" <linux-rockchip@lists.infradead.org>, "open list:RENESAS RZ/V2H(P)
- RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>, "open list:SAMSUNG SPI
- DRIVERS" <linux-samsung-soc@vger.kernel.org>, "open list:RISC-V SPACEMIT
- SoC Support" <linux-riscv@lists.infradead.org>, "open list:RISC-V SPACEMIT
- SoC Support" <spacemit@lists.linux.dev>, "moderated list:ARM/STM32
- ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, "open
- list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>, "open
- list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NbUg+6sDJYMNBkr7RPGMw9gJVR1hBVris0TKaVpTaTYyOWUOCid/CZ0e
-	ewmMLoQWVMqriHSh05rNNVdhGp6glTGBsIB3pFFM3mry/TO+93T7MjN6tqt53efaBfeREcY
-	/Ly5r6Ta8tQUxmke6C6vi4MPyUoVvFFH8t8StiFG9XmwETB8YtfRxQIxHjgKGF1TkFTLv5L
-	o/HnpwzC+d+r0zG1wI/tAKXXEyr8jdLcs9nOxOo3I2wQE4scoIJhQNiVI1RfpSxszpEQplk
-	0pyO8LpNmYKi/ui9Xe0q0sQDctj+46yJG/E8aMDpWSUy568yzqPWvhUYbtbKL1eoJJQh3dm
-	zIvg/Rucg2A9+fzq2dmOq0khzLFZLjZ1nGmEn5OwAYuwzgJHNLuuxnKfmpwq4/LDnWSnwqo
-	qXg983HYVporMTDKy/EOrdPKnEjCUtmnyj1BXd8Y1Mcn98ij8yUXgkSJrkMuVL7lGK/TK4y
-	rx5R0lvMYOFSrPuSCIrkmLBBted0dcbm/NQp5vyL5N7T7SvVcujByxzQGS1SXFuBN863pQG
-	TuZGb3cbsn0C8AqtjHakmCPZDUSwAOkCjxT67NVu58C9akhy7CfaxS8UEl4UQPDwyteyPYP
-	m59td7YhzdewAMaoFbKNlptfnba34JQhVXAXfyH3wb9r4BVDXFaiLyzKkgkUraebsJMAQb6
-	6md2E45/dylq763+53uqj37YaH6q26GD5rOhdq7RBabsMjO2m4MgWjp5A4nx4sklv8RUj1S
-	E1QK03DznZphP2r++0/Qu+DiGe+1Vkg0iizvQaCXA8IJXBE3qaglmmzn9AoQnCo4JtGZVi/
-	VJYUE8PaOXtlKEbXci+FW+jKhdzNmhV1hqyjb2dGXGvluSPgTXDJF9Wr9vUXOr2fkXEOvGD
-	XmXl0rjJercXo4Q2L8FyYqV3N5wadqT9rrvgMII2x7/HDJnGtmcpGTyXZXGS7UnkES7bdyC
-	iAbZ2kwlVo2oKrFmT905C00hoZgjdI2BMnbttGuhcAWeejHqeCcKbXzx6p8dECsLVXLPwel
-	BlZ1ywg8NPbo3DyHUU2ZTkUWicB+CDpmuBmZAKa/Gus14OMe+KJlz3Zg3rnYIq7gKlIqA0R
-	n+0fQwogXGpz1NhCpf/+hZ4kyfTkYtDRQ==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
---491fac0dacb0df51633230a215ca837ce7256ffa833a7a70182b3d999b4d
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Tue,  3 Nov 2026 17:20:02 +0800
+Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
 
-On Tue Nov 3, 2026 at 1:39 AM +08, Frank.Li wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across SPI bus drivers.
->
-> No functional change intended. Prepare make to struct
-> dma_async_tx_descriptor private to the DMA engine.
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> 
+> mpu3050_drdy_trigger_enable() calls pm_runtime_get_sync() when
+> enabling the data ready trigger, but all five error returns in the
+> enable path return directly without the matching
+> pm_runtime_put_autosuspend(). The disable path, in contrast, drops
+> the reference correctly.
+> 
+> As a result, a failed trigger enable leaves the runtime PM usage
+> counter incremented and the sensor can never runtime suspend. It also
+> leaves hw_irq_trigger set to true, claiming the hardware IRQ is in
+> use when it is not.
+> 
+> Use pm_runtime_resume_and_get(), which does not leave the usage
+> counter incremented when resume fails, and add an error label that
+> drops the runtime PM reference and clears hw_irq_trigger so that a
+> failed enable returns with the device in the same state as before
+> the attempt.
+> 
+> Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
+> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+
+Other than the missing error return I called out in the previous patch this
+looks fine.
+
 > ---
->  drivers/spi/atmel-quadspi.c       | 3 +--
+> 
+> Changes in v3:
+> - none; reposted in a new top-level thread.
+> 
+> Changes in v2:
+> - Rebase the fix on a new precursor patch that splits the enable and
+>   disable paths of mpu3050_drdy_trigger_set_state() into separate
+>   helpers, as suggested by the reviewer, so the error label only
+>   applies to the enable path.
+> - Use pm_runtime_resume_and_get() instead of pm_runtime_get_sync(),
+>   as suggested by the reviewer; it also keeps the usage counter
+>   balanced when the resume fails, so no manual
+>   pm_runtime_put_noidle() is needed in the caller.
+> 
+> Link: https://lore.kernel.org/r/20261101092327.197-3-laixiangwu@cmss.chinamobile.com
+> Link: https://lore.kernel.org/r/20261030084305.1660-1-laixiangwu@cmss.chinamobile.com
+>  drivers/iio/gyro/mpu3050-core.c | 21 +++++++++++++++------
+>  1 file changed, 15 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+> index d966911ab..fc305564d 100644
+> --- a/drivers/iio/gyro/mpu3050-core.c
+> +++ b/drivers/iio/gyro/mpu3050-core.c
+> @@ -957,20 +957,23 @@ static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
+>  	unsigned int val;
+>  	int ret;
+>  
+> -	pm_runtime_get_sync(mpu3050->dev);
+> +	ret = pm_runtime_resume_and_get(mpu3050->dev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	mpu3050->hw_irq_trigger = true;
+>  
+>  	/* Disable all things in the FIFO */
+>  	ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_pm;
+>  
+>  	/* Reset and enable the FIFO */
+>  	ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+>  			      MPU3050_USR_CTRL_FIFO_EN |
+>  			      MPU3050_USR_CTRL_FIFO_RST);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_pm;
+>  
+>  	mpu3050->pending_fifo_footer = false;
+>  
+> @@ -982,12 +985,12 @@ static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
+>  			   MPU3050_FIFO_EN_GYRO_ZOUT |
+>  			   MPU3050_FIFO_EN_FOOTER);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_pm;
+>  
+>  	/* Configure the sample engine */
+>  	ret = mpu3050_start_sampling(mpu3050);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_pm;
+>  
+>  	/* Clear IRQ flag */
+>  	ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> @@ -1006,9 +1009,15 @@ static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
+>  
+>  	ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_pm;
+>  
+>  	return 0;
+> +
+> +err_put_pm:
+> +	pm_runtime_put_autosuspend(mpu3050->dev);
+> +	mpu3050->hw_irq_trigger = false;
+> +
+> +	return ret;
+>  }
+>  
+>  /**
 
-[...]
-
->  drivers/spi/spi-spacemit-k1.c     | 3 +--
-For spi-spacemit-k1.c:
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-
-
---=20
-Troy Mitchell
-
-
---491fac0dacb0df51633230a215ca837ce7256ffa833a7a70182b3d999b4d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIYEABYKAC4WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauqEphAcdHJveUBrZXJu
-ZWwub3JnAAoJEJgJ74D5MzQvbm4A/3HANvkYXGwCFgtSV4A5x/SL0RIfjNSYBzhT
-PnYB++eVAQDPfgYcXc7pJv333Y0YE7vFp8FUIkC1g+Aqf+cidgd9CA==
-=y0Nc
------END PGP SIGNATURE-----
-
---491fac0dacb0df51633230a215ca837ce7256ffa833a7a70182b3d999b4d--
