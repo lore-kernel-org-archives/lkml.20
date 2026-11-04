@@ -1,83 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797571;
-	b=BnPwAwjvcKhx6s/OeoKwyPZLWQxDndcDvvdr1hrTlOW5OhwhQD5od5ODr+bpqR5eJqy5
-	 4QBfwRKDosh5xb4KZqdgs0t0ebSukEW4vjwwgc5neaAgtNlSf1b+pIJuhA/eqk8/BtNZs
-	 8W6EQ0u6IEY/YGBEeQR4+rYFCSyWkOrxvLn0lSu6AphC1shqqZsleKjLE2W08ApGPNwyH
-	 ho726LySkimRkjVewjml2E23CT2ZP+IE8fE4RJjk5jcofHN1/4c72nueR9bU+uecmFSwC
-	 7u7cmCExh2nhE/3rPqVZW71XIP+bDauCUDWFrC214NqjBkIuFMuwSLSkh/Jh2PnCvMA==
+	t=1793797579;
+	b=UPpP5si7B9JH7E2MdhjmjPumgdKxS+ikARVKqCUiDyj+U+Hi0DOQ9lIUyR0qs2qud3RG
+	 6usiYX1UE1ejpyjuoh2dItZlCESGLOjY7cP3stlwybIIrDqhVM7pPFsEf/AvL32sKteNJ
+	 dX8PKbN2FnnLd14bjAlJHwVRmT8fiD6t7am+O4qmvN9amDw9QTNpG7vZdQg3WeBiW5vob
+	 HTMNCzOEZZ4MVpeG+B9W6S7Vu5eNqB7lzBBWiaccc0OARiOt6VE/P0TyI7mQAcZ2kLbg9
+	 7R/JvZfVC23VLNY9rROLN9cpwAv90qR6nRMNND40p/QTjpAJ1piPlGfgh5LFnkokL6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797571;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZzMEbYA4V1ijTINuiBxo7UEs4HRgu3cpEmg+6Wx8grI=;
-	b=p/RMHJKP5mEPRDu1YipnouBXB40NLw+d2qiZAe4IuCegpTXNUlfEaA/redo5JrJG5410
-	 rntZSWeRMZNyD5uH2jV/EKAa6LZltWeMKOC1M/PhyiE2dmwfH8fdfzvlZpJm5Zgi2pXFh
-	 86arIxBn1O3GoZ1JuG5bKV1BtNP5I25SyJ1dC5ji2ud9V217n9QWvb2SIGFokrgeEXdtI
-	 K241hU7aEqGCpW2EFokNhltmyr1BXAeh+UykaRle2vkzrF910OE8a2bCJpEjmd51zfks1
-	 +07Iq4AOfOwz/Y+ZeZiJ5T/WA529ZPdH8TyxeDRMQZnXPFdxjGJyceDcXSe8iawySYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797579;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=t0N3y9MtqQSrXVauEHd0fFtWMbMzBCQaF+BK87D4JBk=;
+	b=1kdbGePPQw4rbs203V9UoBsY109KTB76qgNKXJFOY4d02yl7LT1PODX3xidVDOVlk/C5
+	 L9NqQ8Jva8I0LKoqyXoWqKm0rUxjVmkpyHqKmqUtMLYjVTha8A7GNKE89NLL7Q74j5skG
+	 Dt5EBYkwK6SLbX145nbcIDtnvry0LWVkiKpS5m1CroIcLvfYTUHX50lVauxghXSiszWSk
+	 F6/nbriErYVaEXG2tVWvTCt9v9ueYvdknZc4Po1d2FJ+2S9M5dPj2a+AtA56FSo2scGYW
+	 DE2H2W8StttR52AXklOzEPkpfW3yjRPhzcOB8ccogQ/lBxgphFcFr4Y2jH+ya4gBrng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VzgC/Mj6";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1253A606A31B;
-	Wed,  4 Nov 2026 13:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzgC/Mj6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6D01F000C1;
-	Wed,  4 Nov 2026 13:06:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797570;
-	bh=ZzMEbYA4V1ijTINuiBxo7UEs4HRgu3cpEmg+6Wx8grI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VzgC/Mj6YIWJ0AxGwvOLSwRfM1RU5vzmYnEGDOF8pLHyZ3jGCnImJI4c+DdSGVmTm
-	 uknm6xCaRZYeTPni+axDTJ1Zw52DIRZeNQ+SHcAdAoWtuv9VZW1uCRt/acpNoKtaLB
-	 qzZBje0sw7VHEs3bi+19VrwWDio0bQSVWQEr0pqx9mssqBK/xj0C3oJmACmarrFAfF
-	 KGdVnUe8n5xmRmUrqIUT/2QBbSBYOsqVPCmfVe7QMivCA6N5OMhEFa6MigPM99eHr4
-	 fZfh1y7rNvyNVW3AJSRPNdbj8UnSxnpa6AzzJLC2tKJS4Am01ekEgmm79nj4DvQ3zk
-	 XuX1HtX8+Hp6A==
-Date: Wed, 4 Nov 2026 14:06:08 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Mark Brown <broonie@kernel.org>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Radu Pirea <radu_nicolae.pirea@upb.ro>, 
-	CL Wang <cl634@andestech.com>, Ryan Wanner <ryan.wanner@microchip.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>, Haibo Chen <haibo.chen@nxp.com>, 
-	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
-	Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Yixun Lan <dlan@kernel.org>, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, 
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>, open list <linux-kernel@vger.kernel.org>, 
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>, "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>, 
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>, 
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>, 
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, 
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>, 
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, vkoul@kernel.org
-Subject: Re: [PATCH 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <austohDT6sVqXjmi@orome>
-References: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64CCD606A329;
+	Wed,  4 Nov 2026 13:06:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64CCD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8BxbdLHLetqIEwcAA--.18050S3;
+	Wed, 04 Nov 2026 21:06:15 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJCx9czFLetqql8yAA--.10756S2;
+	Wed, 04 Nov 2026 21:06:14 +0800 (CST)
+Subject: Re: [PATCH v1 1/2] LoongArch: BPF: Make arena support depend on SCQ
+ extension
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102072808.23080-1-yangtiezhu@loongson.cn>
+ <20261102072808.23080-2-yangtiezhu@loongson.cn>
+ <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
+ <8b00e5a7-4e60-19bd-7953-f76dc71e15ec@loongson.cn>
+ <CAAhV-H52bqRD1SyrZsvMkNbCpGiM5DPSGPARiasZ8G3XsE5Tgw@mail.gmail.com>
+ <6446c385-623c-d4cf-5a07-0c2276c6f50c@loongson.cn>
+ <CAAhV-H4m-cokYz19HHAoDeLAjRGp4T=vwDOJaJEcHXZDW15rkQ@mail.gmail.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <64b8f867-029d-3cdb-7896-1229a076e25c@loongson.cn>
+Date: Wed, 4 Nov 2026 21:06:13 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,56 +60,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r47ioco2lojtqtsf"
-Content-Disposition: inline
-In-Reply-To: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <CAAhV-H4m-cokYz19HHAoDeLAjRGp4T=vwDOJaJEcHXZDW15rkQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCx9czFLetqql8yAA--.10756S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXF17Zw1rtry8Cw1xZr13GFX_yoWrJw1xpa
+	yrCr4DKrWjgr4Fy397KFnxuw1UCrsIkrWUWayFkrWkZrn0qw17Gr1Fk3W5ZF4DtrWF93Wj
+	9Fs0y3ZI93WkAagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
+	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+	AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
+	1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+	xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
+	VUUUUUU==
 
+On 11/4/26 5:54 PM, Huacai Chen wrote:
+> On Wed, Nov 4, 2026 at 2:58 PM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
 
---r47ioco2lojtqtsf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/1] spi: use dmaengine_desc_set_callback()
-MIME-Version: 1.0
+...
 
-On Mon, Nov 02, 2026 at 12:39:58PM -0500, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->=20
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across SPI bus drivers.
->=20
-> No functional change intended. Prepare make to struct
-> dma_async_tx_descriptor private to the DMA engine.
->=20
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-[...]
->  drivers/spi/spi-tegra114.c        | 6 ++----
->  drivers/spi/spi-tegra20-slink.c   | 6 ++----
->  drivers/spi/spi-tegra210-quad.c   | 6 ++----
+>> Therefore, using the explicit #ifdef block in the original patch is the
+>> only way to ensure toolchain compatibility and compile-time robustness
+>> here IMO.
+> This is OK:
+> 
+> return cpu_has_scq && __is_defined(system_has_cmpxchg128);
+> 
+> It means two things:
+> 1. CPU supports SC.Q;
+> 2. Kernel defines system_has_cmpxchg128.
+> 
+> Very clear.
 
-Acked-by: Thierry Reding <treding@nvidia.com>
+I tested your suggestion:
+return cpu_has_scq && __is_defined(system_has_cmpxchg128);
 
---r47ioco2lojtqtsf
-Content-Type: application/pgp-signature; name="signature.asc"
+There is no build error. However, this introduces a fatal functional
+bug because __is_defined(system_has_cmpxchg128) is blindly evaluated
+to 0 as a text string token. As a result, the expression is always
+translated into "return cpu_has_scq && 0;", which disables BPF Arena
+support permanently even on the Loongson-3A6000 system with hardware
+SCQ extension and assembler sc.q support.
 
------BEGIN PGP SIGNATURE-----
+I did the following changes:
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrrLb0ACgkQ3SOs138+
-s6Fh4BAArZ9G0J40Sc0WR4narKlfZF1usKqwyjAubLvxVVm1ABcW7HLQy6ojuZU9
-2s3UgBP9rFk8ZULpe+cax4/U3dlMXS8SxfonI4imx86Xn1zGzt4Ge9Ho42p41YyV
-UaGejA2LtHz30dxEMI5SDt5yVg7k7oZLUIoZ7ssr0TAjuP6WPEuw+lx7UZy6OJ95
-VXqb/jpz1fW6OEa1TsacFqqEXIw+JLxeD2WQGm33OMH5tfv53MTgfWHoSP7KF71m
-xbANUfc2+OYcymeBLRMoCVIzv3WVyb5PSMrXrXY6U/mMfUUkC/IMILsDZvQ8wsua
-VWUsj7hLVZlZUjVr2vvSfaiY9tZ6JiocaEs/BiUTGFpPg7GPzgIOvmn9SDgwLN/w
-6nub3ObAvkU2ycqFWDypAOT43Yzqg17PR9L6LUyIB3hs8y8a8Uz74cpV7iMtg13o
-VQ2tjXMJ00/kk45niYAlW18EBsgm4K4OBgplzlHHRQyG8+6PSZi+MJsF2jvy83oI
-as7pTI6gPpNS0hB64ty/bSsQc6wZ1iOK1liQOAkpmV8pBuJzprxI+WCKmlBupJas
-PDZY349C/AVPrK1zF6kum20SrlNPq5fKu45sigiciRrq5bBglX3qLh4Si4/hDIKJ
-DIuO3rNQS6zjLAz1yotoAHOo1xNsr4igGGWmmmn5RGNxY0ZpgnU=
-=N9j3
------END PGP SIGNATURE-----
+```
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index 3ab039d0afb6..b61cca6a8947 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -2489,7 +2489,13 @@ bool bpf_jit_bypass_spec_v4(void)
 
---r47ioco2lojtqtsf--
+  bool bpf_jit_supports_arena(void)
+  {
+-       return true;
++       /*
++        * The arena range tree uses kmalloc_nolock(), which requires 
+128-bit
++        * atomic cmpxchg; this is provided by not only hardware SCQ 
+extension
++        * but also assembler support on LoongArch.
++        */
++       pr_info("__is_defined(system_has_cmpxchg128)=%d\n", 
+__is_defined(system_has_cmpxchg128));
++       return cpu_has_scq && __is_defined(system_has_cmpxchg128);
+  }
+
+  bool bpf_jit_supports_fsession(void)
+```
+
+Here is the test result on the Loongson-3A6000 system with hardware
+SCQ extension and assembler sc.q support:
+
+   $ sudo ./test_progs -a jit_insns/cast_to_user
+   ...
+   libbpf: map 'arena': failed to create: -EOPNOTSUPP
+   run_subtest:FAIL:unexpected_load_failure unexpected error: -95 (errno 95)
+   ...
+   #197/2   jit_insns/cast_to_user:FAIL
+   #197     jit_insns:FAIL
+   Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
+
+   $ dmesg -t | grep system_has_cmpxchg128
+   __is_defined(system_has_cmpxchg128)=0
+
+This is not expected.
+
+AFAICT, there are two viable ways to handle both assembler and runtime
+constraints:
+
+(1)Use system_has_cmpxchg128 at compile-time and run-time. This is
+more aligned with semantic intent, as BPF relies on the generic
+128-bit cmpxchg interface.
+
+```
+bool bpf_jit_supports_arena(void)
+{
+         /*
+          * The arena range tree uses kmalloc_nolock(), which requires 
+128-bit
+          * atomic cmpxchg; this is provided by not only hardware SCQ 
+extension
+          * but also assembler support on LoongArch.
+          */
+#ifdef system_has_cmpxchg128
+         return system_has_cmpxchg128();
+#else
+         return false;
+#endif
+}
+```
+
+(2) Use CONFIG_AS_HAS_SCQ_EXTENSION at compile-time and cpu_has_scq
+at run-time. This is more aligned with kernel coding aesthetics by
+avoiding #ifdef blocks.
+
+```
+bool bpf_jit_supports_arena(void)
+{
+         /*
+          * The arena range tree uses kmalloc_nolock(), which requires 
+128-bit
+          * atomic cmpxchg; this is provided by not only hardware SCQ 
+extension
+          * but also assembler support on LoongArch.
+          */
+         return IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION) && cpu_has_scq;
+}
+```
+
+Since cpu_has_scq and system_has_cmpxchg128() share the exact same
+runtime expansion (cpu_opt(LOONGARCH_CPU_SCQ)), both approaches are
+functionally equivalent and produce identical machine code.
+
+Personally, I feel Approach 1 represents the pure semantic intent
+better, whereas Approach 2 looks more aesthetically pleasing.
+
+Which one do you prefer for the v2 patch?
+
+Thanks,
+Tiezhu
+
