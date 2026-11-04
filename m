@@ -1,62 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808405;
-	b=CMo1PUx5dU+gzBoRTrzEmj+iIUmy7G6ZUyCeackud4EL7MC/oL2vLBIHLD+fE8RgF03O
-	 gwWz8n+hfbSaJIa5VHK21XvanLDs4EnnwonKyhfA5GO8mPQ2UQgRF2tqjJMDuOyqr1Zce
-	 XwkGgoIV9wEtL1gj3p8UliNnueOS3RR+HIGx/Eg+ZKdjQ++XcvKXLdlITykTHvim+vGWr
-	 q1wPZeOa+tiE7/Lo6JY7vmn0VyyRoNojOOdYMUKbxjGjYeyJeC6KVcy5Wlv55/SXSW/sc
-	 CR5kpVz2b6bPpO3jmKcYVVOpfCSl4URPwCtymki64bOjzNVRbk7ESW8GJBjKsMt2oXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808405;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-Id:In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
-	bh=50NH5IHTeSDxkKdlgbYJAePpnzusNm5cVJrN9C4ccN8=;
-	b=xLNzlkYPURiLDVb0x7fOySIqyx5w8LZxnqV36UezanTLP77uKtEext+QvBDT8JcE+arg
-	 QA+XV1WzhziJQKO/TaauaZ76Gyyci7BlxB1FAl9WQQh2CZtqstmODiAZyUDAYjXA1aAIA
-	 vpdxSIvKPPC6IOUVno4MVRgvudCqLm4ukNgTDiYpEYUgfO57JpZ54/FM734/BqjTyPfCy
-	 Dc+WN/8iKxjWO5KOEOLCfsRiPBK9Q9XkHwyzaLoXOOuefQtqnJuZLoxkcKj5ApjpjSHSL
-	 wwE6Y0pjhg+vv93zi/J/bDRowZ/HvpOqQ3g3s22KLg01CPYaCUvwhRB2K6Bnnvq5o5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hugovil.com;
-	spf=pass smtp.mailfrom=hugovil.com;
-	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=nmPweLDU;
-	arc=none smtp.remote-ip=162.243.120.170
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793808439;
+	b=QsYqPsvoWwsulYXOwLgJ602NH6Q32vR/mTyIaOuP+QdFKbYrppnyW6sDnhRaCzdcqcJz
+	 Agrd1rBRdqLb4dzfUrSTOqYhtVXdFbYMeUSeYLsFik2vDO1o4Bz9AKsOjRR4OUNLok4yD
+	 7Vtg/9KZzR7y4umbIl5/g1nv3waELp4vDNUxY44UAvp7pglSBIltqPuJ56u2amtuAx1lT
+	 PygsLKkYae4SAqnmEbNBMsbfjjgvRI6aZgOiurOvWzc4phaHyzX2jdq4l0VMlWLHLCp9a
+	 29SzmAR+Q+7rFDVCfR88wucTxW9wEgjbHNr3Okv517/6YlqPVLomclgK1q06o2XsBmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808439;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=4QVFZPQEhNa9JWXaKDJ0FUgVe8TAGszF0r1b/86iBGk=;
+	b=k6Vt1XD/YWmTFoykvX+YnjGZmeIz4Y0dGLz2cGpfaB1KdN32RgYuW81PeljiWWMDw0Rh
+	 rjHlM5A8z6lNRigNungB6zyVi6itk5VFC/mA8dyMAAqK08sbOHz9tFj7tjZZNVdONwVd2
+	 sJxFGzd5ClzPDuJfGdYErrTPIfJqOfOI0QSwA2xyhsqU6I1E6Rw32FnjIU6Szchdpc09P
+	 OrzWCwFG0XFnWj68gOnvlXLlj2fS5fh2p4Tex6EsBhwmwtB2Wk6ns/Y+LWNEJ6bFUftZ/
+	 j2mfLkLOIDxd4CrxyfATR7lw4Pe38LjizLbrqfiogDPbhZRhr6r/dhqrXVP4bXpa3Xw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=B86oXMqK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDD3606A31B;
-	Wed,  4 Nov 2026 16:06:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EDD3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9841E606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9841E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=nmPweLDU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=50NH5IHTeSDxkKdlgbYJAePpnzusNm5cVJrN9C4ccN8=; b=nmPweLDUyJiQES6k0BU0JSGbdD
-	MyDrrQnEbhpck2sZ2fAWdJqVeefsl9x6Djd9a2L1VPrOkcn/20emhGkF98OkIqYLubVk4MyLUfKVP
-	QKOzRA/sYyCsAOKSA0KI4WBlMegjv7NYSUs3wwC60r7QlWuAB3PtY6xZARLpidHtilmw=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xOdVT-000000001dN-0OgR;
-	Wed, 04 Nov 2026 11:06:35 -0500
-Date: Wed, 4 Nov 2026 11:06:34 -0500
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Hugo Villeneuve <hugo@hugovil.com>
-Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, alan@linux.intel.com,
- gregkh@suse.de, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, "Maciej W. Rozycki"
- <macro@orcam.me.uk>
-Subject: Re: [PATCH 0/5] serial: core: fixes and improvements to
- uart_get_baud_rate()
-Message-Id: <20261104110634.fa87be2fd8953cee05056690@hugovil.com>
-In-Reply-To: <20261020184131.2893575-1-hugo@hugovil.com>
-References: <20261020184131.2893575-1-hugo@hugovil.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=B86oXMqK
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AF88620039D;
+	Wed, 04 Nov 2026 17:07:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793808431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4QVFZPQEhNa9JWXaKDJ0FUgVe8TAGszF0r1b/86iBGk=;
+	b=B86oXMqKc22QOdymVWH0/orpOsV3Hcaic+sukl7l8qlOAuGLZx6KSt3P5BpMWJpyS57oh1
+	49AjLEcdvK8vpSIAr6olIuixDDTh5Md+iXwmMzaJe4yDobo2fVRWvcc0E9e0fJjosb8cv6
+	0af99KgpdGgWi+6L0R5NITGn+o02JUTQJp/cm3loLcMk2OK8hTCHninebO1goTJRBFRGdJ
+	Vcv+7fgsP95bbsFDjiY04HWYsseubvJ5mYC34gNTHzcZ0MjDQdPf+olThWP1dIWh2tClhv
+	6zIXG4pIOvgFUplGKzRVtd2tbVpAnDmjFJ43cNTt5a3KalOfWL5MAIIHq4vv9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793808431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4QVFZPQEhNa9JWXaKDJ0FUgVe8TAGszF0r1b/86iBGk=;
+	b=Ck6/l6pXzBrGvG2b/yPNI4i5dMTenVJM+vkC/DUjSGdbP7iJMzfQlvice1fzcguBBTfG2B
+	k8/ZlRhdICwmh+dRfI2A9dEZtb29I23+U5MRINj2oLA+hE0MCvKN4sW6o+zEaYNbJi6BEe
+	Gp0z7LDAa8SteVgPArRwh9dlW2t9K6hHL8lriR9vdRthSUGxK8WH7f+1y/0Ne9XB8IZ9MA
+	SolLF9WWvfsg0BXUPb11MUVT+sAEGk4p/krQrHTSWRxzP+ckqMbagl+YCoW/sbE6Lwn3VW
+	ZGBqfMvuEzpRTJw54xxEkpITkNSjWPl9ZjrWHuuRiTPRmDchw37I6UqFjNp3iA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793808431; a=rsa-sha256;
+	cv=none;
+	b=QQpU8dZ2jg4dF8E9/UFl5rJxIMmyE7y+QkvFnyAratdheK7EN8DCAgseQnxF0lhpWSRzyc
+	nukxE+ehjcOng/FpQlSJYIHfl3yY3X70y5Fu06HBxXHthH8nHmm/xMQLCSFtY5E/Y5pg4D
+	PWjKZNcii9nBkASU8WIdpqlBiL1rf7u+9GGX8EnDKuSOu8cE87tLxCpTBaPKl+2tvLifDO
+	h2eIrXIOkxRcxh253ByILFaUbqACddAjQ3ZceWXq87On8jjOdUA9XWjLuBijp/RfA1udEa
+	zn9/tcYFKPdoT0XA2KWBLWY8wzut+C9FRwExJjPqGjf1pdgEcWpkr2R3yDNBEA==
+Message-ID: <61a7bf3c6648fac5c43edb272c7e97415ea7aae3.camel@pengutronix.de>
+Subject: Re: [PATCH v3] reset: Add KUnit test cases
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Date: Wed, 04 Nov 2026 17:07:11 +0100
+In-Reply-To: <20261104160123.6784-1-tzungbi@kernel.org>
+References: <20261104160123.6784-1-tzungbi@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,77 +90,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
 
-On Tue, 20 Oct 2026 14:41:16 -0400
-Hugo Villeneuve <hugo@hugovil.com> wrote:
+On Do, 2026-11-05 at 00:01 +0800, Tzung-Bi Shih wrote:
+> Since commit 9035073d0ef1 ("reset: convert reset core to using firmware
+> nodes"), reset suppliers and consumers can be wired up using software
+> nodes without requiring Device Tree or hardware devices.  Leverage this
+> to add KUnit test cases for the reset controller framework.
+>=20
+> The test cases cover the following scenarios:
+>=20
+> - Basic: Verifies that a consumer can acquire a reset control via
+>   fwnode and perform reset, assert, deassert, status, release, and
+>   acquire operations.
+> - Use After Unregister: Verifies that after the supplier unregisters
+>   the reset_controller_dev while a consumer still holds a reset_control
+>   handle, subsequent consumer operations fail safely with -ENODEV.
+> - Concurrent Unregister: Verifies that unregistering the
+>   reset_controller_dev concurrently with an in-flight reset operation
+>   waits for the active operation to complete before returning.
+>=20
+> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
-> From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> 
-> serial: core: fixes and improvements to uart_get_baud_rate()
-> 
-> Hello,
-> this patch series brings fixes and improvements to uart_get_baud_rate()
-> 
-> This is in part based on discussions following Hui patches submission [1]
-> to fix a divide by zero fault originating from uart_get_baud_rate().
-> 
-> Patch 1 is the fix for the above mentioned bug, as suggested by Hui
-> but with much improved comments, bug report and reproduce steps so that is is
-> easier to follow and understand. In original discussion, it was suggested by
-> Ilpo and me that when rate gets lowered, it should alter the termios to prevent
-> what is here seem as "old" having an invalid value. This is not handled by this
-> series at the moment, as this may be more complex than anticipated.
-> 
-> Patch 2 is another fix for a potential divide by zero scenario.
-> 
-> Patch 3 removes any possibility for the function to return zero baud rate
-> if the loop exits without a valid baud rate. History has shown that for
-> this function, there was often unforeseen or unanticipated conditions
-> that made the loop exit unexpectedly with a zero baud rate.
-> 
-> Patch 4 is a small improvement in readability to avoid a redundant baud
-> assignment without any UPF_SPD_* flags. It could be merged with the refactor
-> patch if deemed appropriate.
-> 
-> Patch 5 is a refactoring of uart_get_baud_rate() to make it easier to
-> understand and analyze, and more linear, as with the current loop is is
-> sometimes not easy to fully grasp what is happening. But in the end, I
-> am not sure it is worth it as the loop makes things more efficient and
-> simpler. I include the patch for discussion, but it may be removed from
-> this series.
-> 
-> Tested the changes on a custom board with imx uart and two SC16IS752 DUART
-> over a SPI interface using a Variscite IMX6 SOM.
-> 
-> Link: https://lore.kernel.org/all/20260930125901.778868-1-benquike@gmail.com/ [1]
-> 
-> Thank you.
-> 
-> Hugo Villeneuve (5):
->   serial: core: fix division by zero if old termios is present but has
->     invalid rate
->   serial: core: clip out-of-range baud rate to min/max, not min+1/max-1
->   serial: core: always return in-range baud rate even in case of failure
->   serial: core: avoid redundant baud assignment without any UPF_SPD_*
->     flags
->   serial: core: refactor uart_get_baud_rate() for readability
-> 
->  drivers/tty/serial/serial_core.c | 113 ++++++++++++++++++-------------
->  1 file changed, 65 insertions(+), 48 deletions(-)
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Hi,
-I think this series has some implications for Maciej series "Don't 
-clobber the baud rate on hangup via B0" [1], so this is a small
-ping...
-
-https://lore.kernel.org/all/alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk/raw
-[1]
-
-
--- 
-Hugo Villeneuve
+regards
+Philipp
