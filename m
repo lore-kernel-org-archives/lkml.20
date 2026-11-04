@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787009;
-	b=DtzvRRb6rB9EtX2VW7Qz0v0U2dpeblGWpKYgaORz7mVhCq/DtHKYS7Mhy6WJKALQ8TOD
-	 nvQuIPE/630fw0hjXd4I/9FTRrwnyywOvKKC942xyU2rMQXB7fvXmhMBS4wWzL8oUc82j
-	 oVSCH3WDYuERur1ZvTLZueqldsTJYdLOzHHGn+xlUmGoy+WA7zCMaxjqob1Hgrcj8Rob9
-	 2hNFCnJGDipy4RSEdwBuCViLhWtjECxriZzO3DY55ItFi7XAEWSNaVyl8VJ0QgSOhMMV6
-	 DI0rZolMyCEXd3+vfr768qNdXTnNDBNMa2JF0rxRPT+AQ/1hFWqn8fps74QFLlAtqUQ==
+	t=1793787046;
+	b=VpRXMyGNf4asje1ILWE/NdP9Ig1CyN0H8xAEHdSbTLGwgsyrp0QyQZzSwMURdY+fg+Dn
+	 wXc6FgKvXQHTOhdlbWwNREtnMdPheoOptvhP0UucF+udlyybfGb2894wqVYpSwmvI3YQx
+	 FWD06O9aecU5qbB8FMzvY/q7fATiNbrjHBPyhS+Y3kFQYQMUqmgGnykHVdqZXTP6hX7cw
+	 0EEPyBQGbtsfhijyN9AyB4h52P2JAM5G0CWe/I8ChcJEBuJBYI2/GvXqa+k3ZsePzl0MY
+	 GQet7jlCGsp5pJYNlhGfPOStAShvBG1i1NWtudm5RTKPwZDq3VnJTW5EXt3oRpXbn/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787009;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787046;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bbE/lgR9vBPLVJi5/1KALbz9FtBnYSUeZBwKK9/dS7U=;
-	b=2Cxp2hvqgSuzb/ZNJoshyBPKV28bUD87HilCr49XFrYF4SdSfRIpWBZjNnytDursAZc9
-	 LuKx1bDo/jxEbx1fol6dUVdlE/SrbraEpTR3alLyj7IizrJ7TZPdcfApSDhDxYOxkwdGf
-	 2urnRsNLGXfUaMsp1QzfzzPNRZRi14bA1A8Ni6hL5UPngv/9hcbql1E6hD06E9sKqmpk7
-	 7NwBN1ZFQYkN9DHAozDa3bu95u3Ew8PZMf1aVVZfZjgnErB+D8uO89FyJgqBj0QUY6i16
-	 Xoysr9IztRA7DKmr/2h3usvNpwvm46g0rMvR9p/WULQ6UCRrFNttNImYkNhBJqSFvLQ==
+	bh=gOy7eQpzHFpztlKvyzaiFTVnnLLXz7dkAkgtCzD74wg=;
+	b=KWOiNWy3D43o9PUhSoe8t3BUVupub6HOQJxU+AkKaU1kT2oDDRa0xFboTph5CA0PW5db
+	 v/+V3vg7mCGYGmydCDbx04+elXnMAenE6zfyfsHKpLNhm/qZg544wlaqTi9f8O423UZ/P
+	 GEMWXOeRcPQqPDvvfaB5+ZwqCzRMS+FUfMQNTT7AJojExlntU+M2HCi8vzfvAvnLU40rv
+	 P1U48kLC8QBIjt3slUqIDa+jWo8xcOFaBAOZ0rcRaqgb3qCDUxL11yoQF5Sd78FzC62RE
+	 rRKkv0uglc/vGVCWr753uAdE8M0OTqgcYwWDMc3A+2JsxwTLrapFi2JikKImOIfw8jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=aMlFb3nM;
-	arc=none smtp.remote-ip=109.224.244.20
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YOHwj3ZP;
+	arc=none smtp.remote-ip=203.205.221.245
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854BA606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 854BA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F7C606A329;
+	Wed,  4 Nov 2026 10:10:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F7C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=aMlFb3nM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1793787004; x=1794046204;
-	bh=bbE/lgR9vBPLVJi5/1KALbz9FtBnYSUeZBwKK9/dS7U=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=aMlFb3nMItkEa3XJpm3XcSxSP7RlORBVx04bwGnTaIdQOSnNRgBBW2rkE/EnC2oz0
-	 eLshjsTRlX0zdb0tRcp9v2vze5qwn8wqeXbWd24Bank/ny9lwKriZGobAc3+8l8ck9
-	 EYFN1FnNEJQFTrrpin8iekfhBp2Tkyw51EAUX66Q4+SzLzT+hrYNomzlQjC6cL3OI/
-	 kzbgfXbbZNjBPD74OsrjOPC0tXxV5NLOpo3wV+3VDGgis3Sj9AUyP8LBaWzYze2C1I
-	 x3U9/UQedLY/6oL8vSZ2pywb1Xu0Zs5HnC7h5JU4YsjbQkEFA2xvMj+bCjhA1qzbAm
-	 DSz7Tue3931PQ==
-Date: Wed, 04 Nov 2026 10:10:00 +0000
-To: Bernard Metzler <bernard.metzler@linux.dev>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] RDMA/siw: Fix early peer close handling on listeners
-Message-ID: <20261104100953.125140-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 6a45d80764dce613a8cdea825bddbeff5e30bf9a
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YOHwj3ZP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793787042; bh=gOy7eQpzHFpztlKvyzaiFTVnnLLXz7dkAkgtCzD74wg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YOHwj3ZPYIfVSGTuE7EpjJTzxRdacwiL7q6MD2hyqiXu7l7gMwpylsZzqTb/TXcOv
+	 q1M0G9/XrNl3kjTvQzlRyaoyY1rujff7N7I2WuJ0t5AY59FNjder16zt9Gz2EsTvuf
+	 gIigBDX2ncdl/q0pQPZcADbqF+myh76XEy18PRTU=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 2A6B48B0; Wed, 04 Nov 2026 18:10:38 +0800
+X-QQ-mid: xmsmtpt1793787038t70e1lbkq
+Message-ID: <tencent_4EAEF2024D7BB83D62E41306EED8D2112C08@qq.com>
+X-QQ-XMAILINFO: OIJV+wUmQOUAh1TBMEZac7874ZkPXaV+VLM3riPE8vYa/5fS9TiJRZsW2ue5Z0
+	 UFa5Ss97sjxBePqku8HLxBt3pziFL7SAiRoAodC8iOQHWhZ4Zqh5mVnQnJqLL80ooRsMf6/jwEG8
+	 my4prOG2dvplDauq9Q4xVkf5nJuUbgi8ZBrDesCR+zq3QQp56ACEOkvFuWUmcZh7HPQLT6n2SXWL
+	 VBikY4pNHDTggVpNW/R0oC2t2G7W1W5kHoUo62eGQzzBUEpZZ2br8PeQRtQ+zDw0h9jc8LVzxq8i
+	 oawQCq8OnCUuVAEwSzqzAt/bIQuOQx6GfPhfm2ANve4vUlrqvzdo5wMXzBEUKrouIKEchgctuCui
+	 HL5Ni/v5YJlAwYtouOm8bGVeq9dzx97YvU70V8gX3VoauTBLvotk7hJHwiuxn4zBsRpY6pz5Jij0
+	 AUx2lEOBg7Gh5K1DNBUpo+WtY1kgp0eF/nteZ5irUmNL6og6eMaIEiiT/xenYcvkZ2r2vlP7ZSfW
+	 oM2tPj86tXqbz27FHRaN+IBIpApGDnEpwtq7GCpWIsdgp0sEhTMVoiXKoA4orzPKUEX0s4Yat3V3
+	 ZDR1Ud3Op7DHFZjnZ6wUnXVmCnk9EUK0gR6oAcyAu1sfp0TjjABbjLnAiPnIp8fr1c3H20j4ACSi
+	 WEUyZsxjk/Z1WBlNgx68qZCWq7Gim76JOjO+3rAE3TaLJdRn2gHWcbl54JTiXceP6IKtGu/c9z1r
+	 ECvyC8t8zXqOYOzwYAw9C+c75bmLt+IRft7lVj7FWN29DR78Cg07ixvK5S+TuI5HkE8c9Sz9jhho
+	 j/2BYC2AFfxZSQNPvkY/rr/InPLEO9qQGpgNONq6zw3+iolF4w/mGLDFcmMHEvn/pY9Qj2cGDbjc
+	 dzTM4NPWGyjopFyL1Nu7jSqMWKcQVKK22jrd3zz9lUu+J7jcyr57r1vACAmzSZD4TrF2w/WYDIrD
+	 zS2CjwHvNMY7zAhzr2D1gjg9MVuH9qO08TB9TQNNlo9rIg1XXgQLyeBtyZeiFeDdM9pAuK+CUpgA
+	 d/A+3AKf/feUs7xcp6bKUfsFlupeVeaJ4KH1iDMSj/d4zGkoPi5SykRBgq95g/0P9VhM8CUd6vMy
+	 LlaFi2w6yhBbirNj72j+wp9EjLFPZrLS2euAx0
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5] ext4: fix slab-use-after-free in do_split()
+Date: Wed,  4 Nov 2026 18:10:38 +0800
+X-OQ-MSGID: <20261104101038.743378-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-197027@kernel.org>
+References: <sashiko-outbox-197027@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,96 +90,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-A TCP child socket inherits the listener callbacks and sk_user_data before
-kernel_accept() associates it with a new connection endpoint. If the peer
-closes during this window, siw_cm_llp_state_change() queues a PEER_CLOSE
-work item against the listening endpoint.
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-The worker releases that endpoint without removing it from the listener
-list. A later listener teardown then walks the dangling entry, causing a
-use-after-free in siw_destroy_listen().
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf or as an htree
+index block can still be marked free, so ext4_append() can return that
+same block.  With concurrent operations on such a filesystem (as
+exercised by the syzbot reproducer), the block can even be freed
+between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
+then copies the block onto itself, corrupting directory entries
+mid-copy: a rec_len field can be overwritten with name bytes, so the
+subsequent wipe of the stale entry memset()s a bogus length, causing
+the slab-use-after-free reported by syzbot.
 
-Ignoring close notifications while the endpoint is LISTENING is not
-sufficient. The endpoint remains IDLE for a short interval after listen()
-starts accepting connections, and a close delivered before the accepted
-socket is handed to its new endpoint would otherwise be lost.
+The same aliasing applies to the htree index blocks: if the leaf block
+or the new block aliases any index frame (the parent index block
+frame->bh or one of its ancestors in the frames[] array),
+dx_move_dirents() and dx_pack_dirents() overwrite the index header,
+dx_insert_block() then memmove()s with a corrupted count and writes
+out of bounds, and dx_release() can loop past the frames[] array (or
+leak frames) with a corrupted indirect_levels.
 
-Ignore close notifications from unaccepted child sockets during the IDLE
-interval as well. During accept, serialize the endpoint handoff with TCP
-state changes and reject a child that has already reached TCP_CLOSE or
-TCP_CLOSE_WAIT. Live accepted sockets continue through the normal close
-path.
+Fix this by checking for all of these aliases in do_split() and
+bailing out with -EFSCORRUPTED before any directory block contents are
+modified, reporting the corruption via ext4_error_inode_block().
 
-The issue was found by static analysis. It was reproduced with SIW over
-loopback in an x86_64 QEMU guest. KASAN reported the listener endpoint
-use-after-free on the unpatched kernel. Tests covering RST before accept,
-an MPA request followed by FIN, and an extended post-listen IDLE window
-completed without KASAN or lockdep reports after this change.
-
-Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+Signed-off-by: Shuai Liu <847807867@qq.com>
+Changes in v5:
+  - The v4 posting mistakenly carried the v3 diff (the code changes
+    were left unstaged when the commit was amended), so the code did
+    not match the v4 changelog.  The code now actually implements
+    those changes: do_split() takes the frames[] array and checks *bh
+    and bh2 against all frames[0..level] (spotted by Sashiko)
+
 ---
-Changes in v2:
-- Cover the IDLE interval between listen() and the LISTENING transition.
-- Serialize accepted-socket handoff and reject an already closed child.
+ fs/ext4/namei.c | 39 +++++++++++++++++++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 4 deletions(-)
 
- drivers/infiniband/sw/siw/siw_cm.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw=
-/siw_cm.c
-index ed49818793dde..92fcbcabb5984 100644
---- a/drivers/infiniband/sw/siw/siw_cm.c
-+++ b/drivers/infiniband/sw/siw/siw_cm.c
-@@ -973,6 +973,7 @@ static void siw_accept_newconn(struct siw_cep *cep)
- =09struct socket *s =3D cep->sock;
- =09struct socket *new_s =3D NULL;
- =09struct siw_cep *new_cep =3D NULL;
-+=09bool peer_closed;
- =09int rv =3D 0; /* debug only. should disappear */
-=20
- =09if (cep->state !=3D SIW_EPSTATE_LISTENING)
-@@ -1009,11 +1010,23 @@ static void siw_accept_newconn(struct siw_cep *cep)
- =09}
- =09new_cep->sock =3D new_s;
- =09siw_cep_get(new_cep);
--=09new_s->sk->sk_user_data =3D new_cep;
-=20
- =09if (siw_tcp_nagle =3D=3D false)
- =09=09tcp_sock_set_nodelay(new_s->sk);
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..5f2790a0b8b4 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1903,13 +1903,14 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
+  * Returns pointer to de in block into which the new entry will be inserted.
+  */
+ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+-			struct buffer_head **bh,struct dx_frame *frame,
+-			struct dx_hash_info *hinfo)
++			struct buffer_head **bh, struct dx_frame *frames,
++			struct dx_frame *frame, struct dx_hash_info *hinfo)
+ {
+ 	unsigned blocksize = dir->i_sb->s_blocksize;
+ 	unsigned continued;
+ 	int count;
+ 	struct buffer_head *bh2;
++	struct dx_frame *f;
+ 	ext4_lblk_t newblock;
+ 	u32 hash2;
+ 	struct dx_map_entry *map;
+@@ -1922,12 +1923,42 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	if (ext4_has_feature_metadata_csum(dir->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ 
++	for (f = frames; f <= frame; f++) {
++		if (*bh == f->bh) {
++			ext4_error_inode_block(dir, (*bh)->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			brelse(*bh);
++			*bh = NULL;
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++	}
 +
-+=09lock_sock(new_s->sk);
-+=09write_lock_bh(&new_s->sk->sk_callback_lock);
- =09new_cep->state =3D SIW_EPSTATE_AWAIT_MPAREQ;
-+=09new_s->sk->sk_user_data =3D new_cep;
-+=09peer_closed =3D new_s->sk->sk_state =3D=3D TCP_CLOSE ||
-+=09=09      new_s->sk->sk_state =3D=3D TCP_CLOSE_WAIT;
-+=09write_unlock_bh(&new_s->sk->sk_callback_lock);
-+=09release_sock(new_s->sk);
-+
-+=09if (peer_closed) {
-+=09=09rv =3D -ECONNRESET;
-+=09=09goto error;
-+=09}
-=20
- =09rv =3D siw_cm_queue_work(new_cep, SIW_CM_WORK_MPATIMEOUT);
- =09if (rv)
-@@ -1361,6 +1374,10 @@ static void siw_cm_llp_state_change(struct sock *sk)
-=20
- =09case TCP_CLOSE:
- =09case TCP_CLOSE_WAIT:
-+=09=09if (cep->state =3D=3D SIW_EPSTATE_LISTENING ||
-+=09=09    (cep->state =3D=3D SIW_EPSTATE_IDLE &&
-+=09=09     !READ_ONCE(sk->sk_socket)))
-+=09=09=09break;
- =09=09if (cep->qp)
- =09=09=09cep->qp->tx_ctx.tx_suspend =3D 1;
- =09=09siw_cm_queue_work(cep, SIW_CM_WORK_PEER_CLOSE);
---=20
+ 	bh2 = ext4_append(handle, dir, &newblock);
+ 	if (IS_ERR(bh2)) {
+ 		brelse(*bh);
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++	for (f = frames; f <= frame; f++) {
++		if (bh2 == f->bh) {
++			ext4_error_inode_block(dir, bh2->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			brelse(bh2);
++			brelse(*bh);
++			*bh = NULL;
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+@@ -2325,7 +2356,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 	if (retval)
+ 		goto out_frames;
+ 
+-	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh2, frames, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		retval = PTR_ERR(de);
+ 		goto out_frames;
+@@ -2631,7 +2662,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			goto journal_error;
+ 		}
+ 	}
+-	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh, frames, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		err = PTR_ERR(de);
+ 		goto cleanup;
+-- 
 2.43.0
-
 
