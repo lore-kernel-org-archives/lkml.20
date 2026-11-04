@@ -1,182 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793761285;
-	b=b+CRZd2F/D5tLJnDGy3xvwz9AhrzuzkXe5c91hBjAGxGR9yMaaY/Xzb5KJmn3YhkGhf8
-	 GJI18cAxbqFetYxvugkt6g6ufJE2cj6cfEvk+TWc6YfVn6f7mBQyO/XMHlzChNsAoSLQO
-	 lrsM02I+3uJMWJ/sMTUhaI+VQmEoJIcUjXsqN0vDFYG+gMTGiyA0hpfMNUzrZNA1Td9eJ
-	 kBwMS/x5Sjdzfl2IBSSr6izhD3Xq3qurNuaodS7O2EHttZTq84ZL3EGZNHrB7ZoLKYY4V
-	 uAto94V9w9zQgT+j8U7V+CMNw7Ohh44stw1DDZeQzMksjCJ5qNBrPDn2Y93mNDHhTTQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793761285;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=moz28PuYAVPQkOiuwNgK5QQrlmlqo7bUTLnJA1Cf8ss=;
-	b=vwN9u8xRq9TiqntO4rR14mmurKa/71FX6+IgvV3tZPHlgh1KvqhIJ3zYfOsqLNj/4Bv2
-	 dakEYMGXZenSefcuKk2F63pgcyRwVThVyYqzapM+sR+7rifnFR244Jc5J+dDmF3y02pM7
-	 moX+z4Ym0vREmvMFrpVespBz/QSOi3KchGMKzD1vGHwp7L9g4oIokOqTIyxx958ODd3pe
-	 VWRFDvrC1Jr98Z9gss0hkR7ynkPuNf1v29IZTl5ljanUyYrEdhsmwitsMuZLxmjJ57PR3
-	 IJVEMSBU2vhH9+3rVbz5+MkPmp+E5g2qsXgN0uYWwk90hxSxbxjmTD/F2Z/z0Cro/eg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mZpxVkO1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793761317;
+	b=vCZc94Te/G9lozFew5/67WyJdrmaZiSxq39YSIMbfEgBCNUxzUhKoYeHMOcfCaqoGmjt
+	 Yv2bwWlBhqXBKyvxv+TR/0caURN1aBTFV9pSaTuHqG1iztTKqpCD7Vf70HpSRieJ+fw2J
+	 /cYc6FlRNk7QngcxzjlbqqZS3mQIGpJo9q50xnEWlac/SGmejauhVzS9UGWfMLoROVBKL
+	 Vatbr7CVFR8T+XYSb+YtWtrO9ZWteGmrOB5Ypshgqh73FzpHfGS22Q/Ftf+5BCp7nqvxz
+	 v5AXjViHipssnm3UQsN5W1UD+dUH948waLbvdTZOJfWfmYHCM6LN+spsKDQWvNe7WSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793761317;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YlterDeN6T+DiNtjdG/tEDnVKD1WZhlw9rJO8gzsf8k=;
+	b=BoowLUuJ7NPaRKPW6W/v7kLKwtAJVBA92eqhOi7KMyAIjar6tQU4ojg4yrFcS8/Z4It4
+	 gGJrwwR9dZLQMxzO7HcFYYPc1H0HOBJm7Z+cqIAh0HIr/4pFO74rf1vESmUzlSfLbjxT8
+	 +qamTUELyLu4vUIWIJQsEgJbQkoR/PTwrjSI7e1P2v9MadfA4DcWKDe5mOG8JmNywudgE
+	 7Ntaut0cqHPmVnlledGdvDlA8Oo22/s3YpcpkOML5p7KjLzOycUewhdk0FgX5e3PaVco3
+	 abuaY8F39GZH/QPSrpXtHfxOLhs8LE/ZM+pmPfbiv3bAek5kLH2Z+zYP8wVJ8DUxXnA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIep7yVw;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06212606A326;
-	Wed,  4 Nov 2026 03:01:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06212606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D058606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:01:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D058606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mZpxVkO1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793761284; x=1825297284;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=RDOKx6HlBYVs3y6WKe9NTKBbEZjkmpaKPJvy6HyDhZs=;
-  b=mZpxVkO1LcSdRz4AnikPaclXPT0pXXtBWwlebNQf1YRJCOhKNUdXKh5S
-   6cD4LFipQpflCNCJFpDsh0gaM/bqX7aq1Dy3GxcbV4djsh2dw/K/GEsXw
-   3fBTrLEEMWdnXcB7Kcfwy9w6H/qEmMnTVQARFZk2vLSLvY7ezEWgvkaf1
-   fWY/6e0Mj/Wiqxe4A6VN0I13vqPGdBipvg5W3e2iC+JnohWRFECfoxZRN
-   5hjBakFyeL8WyznpklRjR7dVsUlnHankm1kRptW6+9J0xJB8yn9pmLzeK
-   ahuQOH4d/BfDDjSPwBr0MTz20orV0XNMwJY/e1hhY39Dp9Nftzhz4qq0k
-   Q==;
-X-CSE-ConnectionGUID: nYYePEF/RViLfRtr+l/Qtg==
-X-CSE-MsgGUID: WyKmTEyWS4uixc1XDwA1Vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2400083"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2400083"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 19:01:23 -0800
-X-CSE-ConnectionGUID: 9usr69tdR3WoRQ/tyPnztg==
-X-CSE-MsgGUID: urFhHgLqQl2YB6iw9zK5QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="8383949"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 19:01:22 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 19:01:21 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 19:01:21 -0800
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.46) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 19:01:21 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MkK/RDbMjjrBU0ntZv93svI+Hkm59/dEwMfRuY+zvDbuOXQNx9TlJyI4CVBbQPdYUDPQnCiahIabSKaunidsAZtEucbPNEkbFLDEnD3AL8O04/4yjYL1/SnqJ/A2bbnzuB9XI7oivS6SbtxXoENB8N6IGD/9502/mzlqBQS9gjuTDyrqr6/EYAFturqlm9jY9RGLfoqkzu/W4CKIqxvOcUB552KFkZZSqPi+RkHWdWnIMXDxWk0miDAy7yniReF8z8s8eaC+3c3/xHiioXh6ssSta2pHjIMHrjvTWsWL1J2FJ9YQvZSDPW7+GDS0I3nRjujD1iqzhTqE00V39r3iFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=moz28PuYAVPQkOiuwNgK5QQrlmlqo7bUTLnJA1Cf8ss=;
- b=jwZt7mDCA6DsRqBLhKzqEHPXir9ulAmU0MBHXDafOKgPrBjdx9QlC69VtYTKgcRFFI2Koeaj2MjzO69y1x+eGLMwjTH2q1G6zgRr4C5EI0u2isEqhNTpEtqg7Z12C+uJZW5oZAri3jIw/09ygKgivS4DHRdleFxi55hvzt8l0umy+QSy/aIBpkB0SZ8QOnIUUsvEzrM1ocJWJ10v2jjXGeilvESQgIKNKVe+5/S4iBI3opUnVrdGSqxS8roDGH58Sk8jr7J/ZOVsvW0Ouqus7QFDRrW26IIs+dn066mlsxP1/HXvWfRDPnc7804Ky5HPyPpxDsNI+oGLN1I2GrZGsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ2PR11MB8424.namprd11.prod.outlook.com (2603:10b6:a03:53e::10)
- by DSWPR11MB9763.namprd11.prod.outlook.com (2603:10b6:8:355::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 03:01:14 +0000
-Received: from SJ2PR11MB8424.namprd11.prod.outlook.com
- ([fe80::3df:33f9:59a1:da76]) by SJ2PR11MB8424.namprd11.prod.outlook.com
- ([fe80::3df:33f9:59a1:da76%3]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
- 03:01:14 +0000
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Matthew Schwartz <matthew.schwartz@linux.dev>, "broonie@kernel.org"
-	<broonie@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, "Rojewski, Cezary"
-	<cezary.rojewski@intel.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>, Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 4/5] ASoC: sdw_utils: honor empty DisCo port lists when
- creating DAI links
-Thread-Topic: [PATCH v2 4/5] ASoC: sdw_utils: honor empty DisCo port lists
- when creating DAI links
-Thread-Index: AQHda9Apyuc+r7L/XU2/7XJLGUKEdbcdN/Kw
-Date: Wed, 4 Nov 2026 03:01:14 +0000
-Message-ID: <SJ2PR11MB84245460A5F91603F814E731FF682@SJ2PR11MB8424.namprd11.prod.outlook.com>
-References: <20261103200540.3863272-1-matthew.schwartz@linux.dev>
- <20261103200540.3863272-5-matthew.schwartz@linux.dev>
-In-Reply-To: <20261103200540.3863272-5-matthew.schwartz@linux.dev>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR11MB8424:EE_|DSWPR11MB9763:EE_
-x-ms-office365-filtering-correlation-id: ab2b8480-a37b-4f56-232c-08df3a1fe36e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|6133799003|10067099003|18002099003|22082099003|38070700021|56012099006|4143699003|261022105027099003|11063799006|261028144727099003|261102123227099003|261009223027099003|261026140227099003|261021121427099003;
-x-microsoft-antispam-message-info: W4r4wcfwers6EZiEL8eYx2ZODphInuN/5msS8QV7XBrgkI87gDwI5HP2RXI1oL+KS/qU7c2Wtj9cCNGsVolof8g17kt20g2/wKjq6lTG/65OBmpNaOjPk5/1prdFO/4g9Mhw4RnFi+OFjLwgUZedJfFajpc6YJrMFU30U73DZgGaCxk0Vj0s3xynR7FS5XTaZuA9hSJ6n7NJvN1uTSfMXL9SHQapmimEAyi4VrV3oVKfyQh6sScV7CIYfjzZr0Qzp859B8q2E2jU4DqVl8ZSikcNCeivojLBUdRtoZO3L4zMD/Rasw72E/WfF5gCSsnaRRIpR++wYjAdiAUV/6m9d/DszbHcR9Py18ohAkBTK2zof+SI5RaSaORr9hoGRkRUIoyMyS42zoE25n0Df2VFAR1Mx2jmd5+YVyr9zo/yGlsOIt6fdpUo6xNSd/ooBtSkNrS/LqwePtEKsGDFIgqa88qWid+paov5XErFjM1pq6oFeKAtFHNjaP9XJJYFfshd0kmqDGk2Vr/3awQi+8G4TvTdTtVft1unkqYvwOEucauiR2Cw3jU+EB98doI8AxkHtMBDdwNWGiBsPR/RcwT0rKB5eQyn3TrbTtZKmjwgnpT7MBJ/RanC7ItJNEGz0+1FPl7Ptr8Dthw8Nfmsdpa3tWmiEeX+SJLN2mxhp6oFpgC5GbkIMsZCeSYtqWufAINRv9ldhoJxM5bDihBYijVjFzbGQenZO7JKksHtw+rzvGo=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8424.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(38070700021)(56012099006)(4143699003)(261022105027099003)(11063799006)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(261021121427099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XNAJAO3rHesmBspZktzEmRsRlAaq5l30Dec26mcosgCrUN6OXOKTcl9/szR6?=
- =?us-ascii?Q?n20/fZd9qoDIfKPGUNUQM7zqueIitKnL6Zh/lJOMNOhvp/VUqzOfq59ncHPf?=
- =?us-ascii?Q?hoOZAao2DXt/rP6MFzoJqSYKyV7zZgV1MJh4stxiRmD0eMoZ7+d4mgq1j55h?=
- =?us-ascii?Q?tclKVbgO5VXW4DUND5REaMv5xE/rHP8LcQaJMnnGTZFl0MSMZoTDNeKGtoMG?=
- =?us-ascii?Q?n4R0rnd//x2suGH7jdR8BFt5f9aqyZ6ZWHqQXAbD5S5LpxDWLC1dWABce/HT?=
- =?us-ascii?Q?wnHIVumVccIFEs4v/Y1qPukPl65CfH0rgtynIdRhzU+1BpTprm/mKu8qB5dw?=
- =?us-ascii?Q?5vQf+bEPsvemmDQEFw7gAGPHvpOe6JWXnD/+AKwHi+lHQTDz0s5vcr3oYs/1?=
- =?us-ascii?Q?J8naP2r42xdTrb9FOKHehzOKXGiyJ8pu5lE6HlOjkwNJypegfpKlWfu9T3Pe?=
- =?us-ascii?Q?OPEcqTvo6ZrmNVHQMKYtoi1HtS+mCnXLAFXPaVbNaqnFWqfd0/EJpjB06rdH?=
- =?us-ascii?Q?Pl6tMiaX1T4JpYDsIzc9RF3NpR29RX0t+H8T6lgeAUseUtFwvAmUv0UvCRQp?=
- =?us-ascii?Q?/gMr9ttfJukar+SXI690E+DLlqwZX2d/gNR/g0gaIadG1XRZPc/R5rzOlv7Q?=
- =?us-ascii?Q?691pPzqMzpOob9eDlHh9JzsJ+a/P1Lu9ZogDn3OBQGSYpbPcNleelC02nJkt?=
- =?us-ascii?Q?9LCP93ZW4fX/ob5atl1gDUTNhbVUQFyvhDYLMfT1ryrEKA+0zVZJ8OTTzAwJ?=
- =?us-ascii?Q?39ZCiMrtslZ5tmKvxIraSsunoBJODniFDLiMG2G5ljFBnGaql/UHePS38fc4?=
- =?us-ascii?Q?iDdyeQ8UEVtje2hSdqQ0YyXpoqu7MHMwHkzRB8ugHFUqWcmfLscdZb8U36Et?=
- =?us-ascii?Q?GHVN35VFMchQ1EndY/wxXbQ3FBNycXQG10YZgLrjUGekHSa1tHCbkyrXgiWY?=
- =?us-ascii?Q?BCcJSIiObWd4+FwgwM2JR7ZTdCAJTziwcNKrzsSIhNFVBQfR02vdH3LK/Mt6?=
- =?us-ascii?Q?4a4B81Sj8hrKzuyTtFMGw+lgo+MtTvxpGtMYKAb4M+cv/fWoK2sCbwm/Usjm?=
- =?us-ascii?Q?48weVb+0VItzHJC5jsVD/8InNVRtIiJ9w/QfRYjXl4sf/O9R4xMLBWOYvPFb?=
- =?us-ascii?Q?iZbmUMNarDcRdTLm0Dnj/L2KEnl4qsjOtah+JNAvpcbr1OPUoILYBpv67fS6?=
- =?us-ascii?Q?8aqD+rNCnj4KDimO5KGF0Tcsmy2JnLzxtW1TSiO0AyPsBOucdxfdcEKEKIY5?=
- =?us-ascii?Q?1/2iATFlo/8eRtsovx3ndETaiMyW3BTDUdZ3igYcEjz6P/3Gq/vvFzFCOlpq?=
- =?us-ascii?Q?QzgrIrYP625oC9Xo9kXqBki+rkfNVnc6x+GwQjvRvH894l71wF5eaSZVC1hC?=
- =?us-ascii?Q?elty7SrqXw7+bJ3iTXZbhRceRiTzpIhPuwPQDiGixqq9g4hW8unKYQEOaqlo?=
- =?us-ascii?Q?2xTym2ZzoVjjo9SvPeni280c51VpkyJ7HbyuMzH0Lx1E3+qbJLh77TGCQyGt?=
- =?us-ascii?Q?m9EaPGXASANhCe+SOsgFOle+Ojvc8jSK4WTIF+eGKMFtAyT6RlwQCY7TmMXa?=
- =?us-ascii?Q?7lbMlUwp194xuZxDbPzYzXoUzHuNPvCLI9IeGXoRChswtdhw7wzkztPuq/7J?=
- =?us-ascii?Q?H2h5G7jPgSojpDfzlVjNRkEbsIeP4Hl8zpwUhp751ppBIgL8+BrAF1RMspai?=
- =?us-ascii?Q?u+1xccLpI1RktAKya5jwof3DhQZsHPq/LJWeLEKIwqcxxk5sAKKN8UaGO92v?=
- =?us-ascii?Q?l6FepRHyig=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIep7yVw
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514b90bb89so409270eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:01:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793761315; x=1794366115; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YlterDeN6T+DiNtjdG/tEDnVKD1WZhlw9rJO8gzsf8k=;
+        b=RIep7yVwoDzeBBxgcbtGvwlWBpSX5H1e2N2jeaBtOEl6VxNxmOiZmizOCCtWQC0JIE
+         IuoP/hp4Gnb2kmcoZ/wFoHDoyEBvzHClcePOKyOxhypKzd035JTLc3Wf83BdO9XP+1Ye
+         L1Jpnaxbgb7gjNgN7fGBJiRKdbCx17YOmp6JQb3wj/UK75EJaMJ5J1AWrexy9/14u4m+
+         Gcy/xGPuXx5ZRA95ELCAL99ndeTPdkM7ka93/x/agtvz0NhWnogLby3KuV9azjVB145c
+         JLaQZ/2Qd4PVUE/5R3LcV8oWMBlU1XU9Cmp1duo7kiDQOvlbiv4hC1kJylHCmunDQFYo
+         EARQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793761315; x=1794366115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YlterDeN6T+DiNtjdG/tEDnVKD1WZhlw9rJO8gzsf8k=;
+        b=StJWijFrnLhfIyFkKrQnDFMNRLjQUMRc5jziUbg7UAwei60ZQgc+YqzoJud2Tm3bHO
+         V5IvDjsaoHXHndcYWfu4xu5OTu/2DAa7ZoUdFfXcqePj1cCeMDtNvbBk0eeb0R3SU/WS
+         B51ME/YjSwEnYRkUP2okuv5pyYWgApXSNPGLjCHOgOA6a+X3b4IwbYoXhry+6KPd43Dm
+         m+QrCaxcQkuEOf4koSyujRif05JSajyH0qM2YANTngdOSPk+SALp8nTbsIj9haZLaltJ
+         MlHfKLdQ3BNMAw7M7APoTUkPPYwjuGjV/Wn0Q1iSi7SkWYnlavaOS0Dl/bYeXBtPKAq8
+         2ITw==
+X-Forwarded-Encrypted: i=1; AKwUvByejFR1rx2pfT8iZSfqK5GC9Y9+NnniArGIIp0+sK9l8fNBT1aag+aMQxdFkbOYqAGYKakobSEEmL1TQOI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9g2/N2bMXbgb5iEb4U2kd4Cuw/I7g0vw+2qCU7jscC2zup7r2a
+	ntUf8qMFYCToiD/ceD1FRBXPR1S9wAF6EIUdH7r2QtCWKOPQhk1LPnnk
+X-Gm-Gg: AYBFou2ilkLPU/u79aQ7mbEHix7clOA+HJRzSRtWoG/D5/shSYP4FtT1DJx/wpoZMa2
+	zUf0U0c3a6iHZWVFEocHoR0h+SqnR0FwCzlGJdzJuqDma6CF7aLOnBS3IulqNi8UUkVnTT8t6Bk
+	bQuadHB44veEL/hpUd/fZEmmwrjk4/xprTd4vCQh0yLzDWtNLfRH93EqykhySBr53Rbe4XMh6B0
+	AAHoCJc6U6h3IQ5bimLDTzFt6RxuEUIgrLcbuTmaXozAOrZ4ClLoT80YvO4xPjZlqTXigiHN3Fh
+	oDKRwhhZu6Wire7ePfOeX8DXzA1dN3Ljc11af7zkAds13lGmhwO0Kx0N5MgFNIWnI0pMKd4O0QT
+	6iyjenxM8iGVjm7V1vsbpFvuhPHV9j52bXBoNZcY9uJJqClXQsho1ddrJD8KoOZcNcNRAlc3MnJ
+	ULwFYn4gPVWvgL7hj0FVKkiUNTZAyGAk99Dc3P0khzfWr5XDkWsO56COZEzqKfFUxkI1YsB2UyP
+	vUo8WucOJSw29beYla5WWpSV+yfNWYf/wk9X2yJCgkYt632itLW1UtgO4YX99jcBE8tcf5sSpkE
+	5q9lnCa2nHSf36dUwBiaJLlMzkmJULkPvo8B8kWQ/ziJE50ABlaW4Uw=
+X-Received: by 2002:a05:7300:8813:b0:36c:49a7:86ac with SMTP id 5a478bee46e88-36c49a78c8cmr4600001eec.37.1793761314951;
+        Tue, 03 Nov 2026 19:01:54 -0800 (PST)
+Received: from arm-a100.. ([140.112.28.118])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca392abe4sm2951819eec.19.2026.11.03.19.01.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:01:54 -0800 (PST)
+From: Tzu-Ching Yang <shingekinocore@gmail.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-mips@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] MIPS: Fix genex.S build with LLVM before 21
+Date: Wed,  4 Nov 2026 11:01:47 +0800
+Message-Id: <20261104030147.3117325-1-shingekinocore@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -186,76 +104,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: SkwXRsQ5mB9U4v6stqmQmZ5mIHG9N8uumu+Bm4ZkEwsW0cNxJ+jLd3WlAk0g34B6Q+qHzvUqEMSQsPqPME7z81sxAXo2APzcdASnIYhaQbbd82uVJ1CMiRR1isvBv4BeeyK4w/LN/A1T1PuuoJkxzP1wJ4mMrBCskjSkdmoQShWW5Ji1+4gPPZG9a3daw5MMNOyQWVQLaIFsJX8OREvzCO+GvnkxJOtIFtkBz2ibZJ+Xo21UtnCDX1Qfq4Rjq5arJzxaaIgAo14+A8f/kqBdtF8xG+pH+fhLwFf2iE+0d5NuTCfuvpfcbwVjfsKqlAKy91Nzbn0Jfl1x3DlMonxLDw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab2b8480-a37b-4f56-232c-08df3a1fe36e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 03:01:14.3362
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6w2w68NeDzpUglOvUE+wA6BiobPZlwEeIotUdXN6pOUE/6dclMuyanTxD4cKGzgdkOwdahRjrtMBKncFgRl8rQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9763
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
+Since commit 56651128e2fb ("MIPS: Fix idle VS timer enqueue"),
+BUILD_SKIPOVER_PROLOGUE uses label differences as the immediates of ORI
+and PTR_ADDIU. The LLVM integrated assembler accepts such an immediate
+only from LLVM 21 on, so LLVM=1 builds of every MIPS configuration fail
+with LLVM 17 to 20 unless LLVM_IAS=0 is set:
 
+  <instantiation>:7:11: error: expected an immediate
+   ori $26, r4k_wait_idle_size - 2
+            ^
+  <instantiation>:10:14: error: expected an immediate
+    addiu $26, r4k_wait_exit - r4k_wait_insn + 2
+               ^
 
-> -----Original Message-----
-> From: Matthew Schwartz <matthew.schwartz@linux.dev>
-> Sent: Wednesday, November 4, 2026 4:06 AM
-> To: broonie@kernel.org
-> Cc: Matthew Schwartz <matthew.schwartz@linux.dev>; Liam Girdwood
-> <lgirdwood@gmail.com>; Jaroslav Kysela <perex@perex.cz>; Takashi Iwai
-> <tiwai@suse.com>; Vijendar Mukunda <Vijendar.Mukunda@amd.com>;
-> Venkata Prasad Potturu <venkataprasad.potturu@amd.com>; Rojewski,
-> Cezary <cezary.rojewski@intel.com>; Peter Ujfalusi
-> <peter.ujfalusi@linux.intel.com>; Bard Liao <yung-
-> chuan.liao@linux.intel.com>; Kai Vehmanen <kai.vehmanen@linux.intel.com>;
-> Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>; linux-
-> sound@vger.kernel.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH v2 4/5] ASoC: sdw_utils: honor empty DisCo port lists whe=
-n
-> creating DAI links
->=20
-> The codec_info tables give each DAI a fixed direction, so a TAS2783
-> always gets an amp feedback capture link. The ASUS ROG Xbox Ally X20
-> BIOS declares mipi-sdw-source-port-list as 0 for both of its TAS2783s,
-> so the capture port has no DisCo properties and every open of the
-> SmartAmp capture PCM fails in sdw_program_slave_port_params() with
-> -EINVAL. The PCM is probed at session start, which logs a burst of
-> transport errors on every boot, and the same failure is reported on the
-> ASUS ProArt PX13.
->=20
-> Store the effective direction in each endpoint and, for codecs whose
-> driver takes its ports from the DisCo port lists, drop a direction when
-> the peripheral declares an empty list for it, and skip the endpoint when
-> neither direction is left. Other codecs keep the table direction, as
-> many of their drivers use fixed port masks. Since endpoints in one group
-> can now differ, the machine drivers take the stream name and DAI link ID
-> from an endpoint that is part of the stream, and only count and
-> initialize those endpoints.
->=20
-> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-> ---
-[...]
->  int asoc_sdw_parse_sdw_endpoints(struct device *dev,
->  				 struct asoc_sdw_mc_private *ctx,
->  				 struct snd_soc_aux_dev *soc_aux,
-> @@ -2493,6 +2520,26 @@ int asoc_sdw_parse_sdw_endpoints(struct
-> device *dev,
->=20
->  				adr_end =3D &adr_dev->endpoints[j];
->  				dai_info =3D &codec_info->dais[adr_end->num];
-> +
-> +				if (adr_end->num >=3D codec_info->dai_num) {
-> +					dev_err(dev,
-> +						"%d is too many endpoints for
-> codec: 0x%x\n",
-> +						adr_end->num, codec_info-
-> >part_id);
-> +					return -EINVAL;
-> +				}
+Wrap both expressions in %lo(). For that operator, LLVM 17 to 20
+emit a LO16 fixup instead of rejecting the operand, and resolve it when
+writing the object, since both expressions are constants by then; no
+relocation is left. Both values are between 2 and 30, so %lo() does
+not change them. GNU as and LLVM 21 to 23 emit the same code as
+before, except on microMIPS, where GNU as now uses the 32-bit ADDIU in
+the delay slot instead of the 16-bit one. With GCC, the 2 extra bytes
+replace the 16-bit NOP that padded the end of the prologue, so all
+symbols keep their addresses; with Clang and LLVM_IAS=0, except_vec_vi
+and the code after it, up to nmi_handler, move by 4 bytes.
 
-This bounds check comes after `codec_info->dais[adr_end->num]`.
-Please move it before the array access to validate the index first.
+Fixes: 56651128e2fb ("MIPS: Fix idle VS timer enqueue")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202505071331.Z0N2eSkr-lkp@intel.com/
+Link: https://github.com/llvm/llvm-project/commit/b65e0947cade9bd39036a7700b54c1df4ec00756
+Cc: stable@vger.kernel.org # 6.18.x: 2b6d718c8dbe: MIPS: Fix whitespace damage in r4k_wait from VS timer fix
+Cc: stable@vger.kernel.org # 6.18.x
+Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
+---
+No MIPS hardware here. Against mips-fixes (v7.4-rc1). All builds use
+W=1 and kernel.org toolchains.
+
+- genex.o, before and after, with GCC 8.1 to 16.2 and with LLVM 17 to
+  23, both with the integrated assembler and with LLVM_IAS=0. Configs:
+  64r6el, 32r6el, 64r2el, 32r2el, eyeq5, eyeq6, malta (little and big
+  endian, MIPS32r1, microMIPS little and big endian), ip22, ip27,
+  loongson3 and cavium_octeon.
+  - The objects are byte-identical before and after with GCC, with
+    LLVM_IAS=0 and with LLVM 21 to 23. The only exception is the
+    microMIPS ADDIU above. The 4-byte move with LLVM_IAS=0 is harmless:
+    set_vi_handler() computes the offsets and the length of the vectored
+    handler from symbols before copying it, and ejtag_debug_handler and
+    nmi_handler are only referenced through their symbols.
+  - LLVM 17 to 20 now assemble genex.o for all of these configs except
+    microMIPS and Octeon, which the integrated assembler rejects for
+    other reasons. For malta (little and big endian, MIPS32r1), ip22
+    and ip27, these objects are byte-identical to the LLVM 21 genex.o.
+- vmlinux of 64r2el, 32r2el and malta, built with GCC 8.1 and 16.2,
+  LLVM 17, 20, 21 and 23, and LLVM 17 with LLVM_IAS=0. Where both sides
+  build, vmlinux is byte-identical before and after. With LLVM 17 and
+  20, genex.o was the only object that failed before, and vmlinux links
+  after. No new warnings.
+- The malta kernels built with GCC 8.1 and 16.2, LLVM 17, 20 and 23, and
+  LLVM 17 with LLVM_IAS=0 boot under QEMU 6.2 -cpu 24Kf. That CPU uses
+  r4k_wait(), so interrupts go through skipover_handle_int. Each kernel
+  boots to an init that keeps the CPU going in and out of idle and then
+  reboots; a QEMU trace shows every interrupt that lands in the idle
+  region resuming at r4k_wait_exit. A microMIPS kernel does not boot
+  under QEMU -cpu M14Kc with or without this patch, so the microMIPS
+  change was not run.
+
+In the 2025 thread [2], Nathan suggested requiring LLVM 21 for MIPS in
+min-tool-version.sh, and Maciej an #error for older Clang. Both would
+also stop LLVM 17 to 20 builds with LLVM_IAS=0, which work today, and
+the stable trees would need the same change before 56651128e2fb could
+go back to them.
+
+On 6.18.y, which also allows LLVM 15 and 16, the patch applies after
+2b6d718c8dbe, and LLVM 15 and 16 fail and are fixed the same way.
+
+The 56651128e2fb backport was dropped from the 6.14, 6.12 and 6.6
+stable queues because of this build failure [1], so 6.12.y and 6.6.y
+still lack that fix.
+
+[1] https://lore.kernel.org/r/2025051415-unloader-likely-b0e6@gregkh/
+[2] https://lore.kernel.org/r/20250521224450.GA2412476@ax162/
+
+ arch/mips/kernel/genex.S | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/mips/kernel/genex.S b/arch/mips/kernel/genex.S
+index be1b049d856f..ef27965f6ad9 100644
+--- a/arch/mips/kernel/genex.S
++++ b/arch/mips/kernel/genex.S
+@@ -146,10 +146,10 @@ r4k_wait_exit:
+ 	MFC0	k0, CP0_EPC
+ 	/* Subtract/add 2 to let the ISA bit propagate through the mask.  */
+ 	PTR_LA	k1, r4k_wait_insn - 2
+-	ori	k0, r4k_wait_idle_size - 2
++	ori	k0, %lo(r4k_wait_idle_size - 2)	/* %lo() for LLVM < 21 */
+ 	.set	noreorder
+ 	bne	k0, k1, \handler
+-	 PTR_ADDIU	k0, r4k_wait_exit - r4k_wait_insn + 2
++	 PTR_ADDIU	k0, %lo(r4k_wait_exit - r4k_wait_insn + 2) /* ditto */
+ 	.set	reorder
+ 	MTC0	k0, CP0_EPC
+ 	.set pop
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.34.1
+
