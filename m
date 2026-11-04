@@ -1,93 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793711;
-	b=zyqEdvcoccZZd8yLESvVNPOEgEyz6OWLouNdGj134T58sZTx7e+BQY5Zr7rDXuuox5PY
-	 UduXnVTJPPqNH9vQu9z43FDnShvJAIshex6c+LZrpzCt32//ZvRPue++0NLdXlLXyUSlE
-	 8N/n85/r2NXiLfcGI+7JcRg7jftfNCqAMn3MDCt3XESj5NzQClTPe6wDI2b3C55UEIS2c
-	 801K5cZYJZVZB0CuecrNXYEZ6EeNWPivZ0YNY1Qo67W6hMnMvn8iZ4h10gAPiC6aO0IBJ
-	 gyqz/UBNjsBHN039l7odRoSRwWpocq40hRt4+soICWNkeZ1jGV6bHRkssoIe/hqkESA==
+	t=1793793699;
+	b=2Vo4NAac4OO1Wu6lpZ6U+sDGmKL0pWMbE0CwYyswJs4ShgnoMW2heIh/9PvA2J2VHkDT
+	 PLxuNdj7K7vsIwChmd6fC6pqqf7BjkRoyUNXenwyVvrBx6u87nef0+nmXRkkBFuiDnLcf
+	 xG2Yk39psZ6WhD2N64II7EFHeM1/mTB72yjX9eaypDG0iFHY21wJhJQGlFV15o0z+jUtH
+	 LKuMbAsrrMRZqJ1ZwcZ9m1mkEd7tOgyw2I1xmDGxyBW/JuQKLJQV7cnEg59dQs2K4hAjv
+	 zAsWXfv7NZx8HDHeAKTiWwE7O9WQl4NJCn1/QdOQZSZOtj1Y1cSJwqrYkXhr1VIcBOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793711;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793699;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DLnBS3asSoJkTZbmbelm2y19mDKYNH4MfMGa0K6Aq2Q=;
-	b=UXa02UjrRJ95ijKwjgS+HHncD80lAxGA5RJ+doPwYCIJQtNgT3JZwDNK2+C9T7RYZro2
-	 4rMGPP40zgzpgyf21mgpBDDaK2Iv43AzkPOP/gipVDZGevc5hV1ag58cgipclOVkCTje+
-	 g/j4CdidPPvm3Hph8VTd3jUJPJuUxLJJ3sxVppD9Kg/rOS4TqHsdOg+1QysmSdVH8AEgA
-	 HnS+uUJYzoWTEDcwl5XHGNFP61TUONu5KRggVD2zvQWbR8P/OxGLYUdJIhGrcKcE7ltxB
-	 UpskQ1IvTpsrEPRYQkFg8TzuEk4aHnjyzRPFMGbvP3DtI9fOdeQK0c5BlD5M3/XRDjA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Pj46THSmK3XVIt6CZehlPvClpThRqk1tLW+1q1fbcIo=;
+	b=caLeJSFkIV2bm/rjnFa/6Zb7UvEf3LlB+8lB4rQaHG0ieNJolk5wXNAf54RR7Niy+5y0
+	 RLD3ZSzAA+FR8jNTaHHVDltgcxZngG1B/wsQBFpdcuWoWK1Cs7aAJCiGFMZhXxdzuX6ZY
+	 2zacJFWmy+Jzjtkv/chbzvRlOxNaLRO/Hrl9/7dx7yooQy/wy30975vmhP1QIYVcGHBMU
+	 oR8bWkoVTcAj2/mV5I9CiSzxm03etxxS9EPg/xizy7/YKa9doNXe+N98KI64+Ak2CZhio
+	 oYxFqBfoxiU+AYSTBzeBlAh0/EvTpKj5cnSLlYLthPYgIZ/ajiX7KexBNvWmLoy7R6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNzb9qxh;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jye49RJu;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16FB606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:01:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16FB606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA71606D81A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:01:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA71606D81A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNzb9qxh
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a07078200fso231729b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:01:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jye49RJu
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c445c95d553so84361466b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:01:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793793710; x=1794398510; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DLnBS3asSoJkTZbmbelm2y19mDKYNH4MfMGa0K6Aq2Q=;
-        b=dNzb9qxhI5NeTUc9qb/FdfarDIe0G5CEJ/bU+9pqt6dL2sS4GsN4LnAJNUX/AdeQkR
-         wzTjg26aFyWEfQLJCaT4BwAQm9rVwZd8Sj4EGGRbiYNMz03uaTodvMMcaOROM8rbp+Vj
-         oew6tPPfhn7+mJSNKk8n1kTbREm/9wWSO6+/pZ/WNMu6aFS8CE7zFJpcaUOF58ztvUik
-         Bv5Ti0n7tIW9ySPBj3n4pYfn/2qb7Ybq3O2xAcU8PO6FI8EyYqDungOl/rpp+gUYjDhV
-         yF8fSDJhMotsTunfLSk4R8jd6h3w1v1+oCkC59Qk8IZc8i3optPxrHNn/jh8Dco8I+32
-         Adug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793793710; x=1794398510;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793793698; x=1794398498; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DLnBS3asSoJkTZbmbelm2y19mDKYNH4MfMGa0K6Aq2Q=;
-        b=EwxK20Uar4Xsmh37GtK9N9TCdZ0omUsaA37GD/0yyeu5uWQyOTBNR3l5WpTYk7KNjV
-         jk+kw5vwLuKaFITBY3/v9iEs4nzkvCeU73EEZ812ITvYm+fiP6PGYgqKYu0f61XTPNcK
-         iNvHkbd98ujWz0Sv2P/lR6bUyZNSh51xNjv15tkjsDlj5pl5JPrk07FKWA0i9tqZ4ZCH
-         n1NkNlSHraayH7w3lvy2DhRZjPPjPzul8AmE6k7iN+trxpUdcFLSMdOyUC/udrwyadfr
-         2q0+9sUhkYUDlKOVpZ1RicwH19drlIcpLVvy4IL0PHt1rtXo4gBCqBvUyTP/F8ahri0p
-         LEbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGPc5mZeSP0+Uq8bUG1uiF59nAXfE82aICBF1JYZyt+z5zgYMMUp+y+KTI9XAmC1fINaqpJnm+VPQ7m+Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VEXBB+xGeBxpODKcnyNdd1KavelRzu9TxDMcXP1cL1/ST77yE
-	teLzU+dDAytB/CD2QG+e98sqOiQKZEdijFN38J9aBYdsqP4BI+RInp2m
-X-Gm-Gg: AYBFou0KXfjHhP4PYqOdtUyp4Ioi656lpb/uBV532hhdyOF2jx/UztlzJ/70ZlSzwq5
-	b/hsLDJGibRPLnQ36P3a3IZyrs6QmHzpf2BY4p9eYw83luIg0A1hym5ArPGa+8l7EPGXkveNk2T
-	dhIAcKdtXMgcVyFN3H7aAxfxJoRBmGjvDj/KurzwqBPrQUr8EXzwnbJsePhFAJ+Psapxk7bfY1M
-	4cr5IYiU9RZUsRXUSqidAS/dWXrOBwVbT+MBDNYbY7QUPQmRSDgQGZiiA6G54HnkHn+HPqgb98r
-	A4g+1JVIUgRManAPsexexVZ/yjgxKkwvOY9or0nou2USFgXpI4dn1FKWd98+wfX2+V/P6UjhLYj
-	KDJJvxeRMHbsHhG3v+5KHbCfguPbVSCVTX0cb0j1AiCCHo8zFd0As1vFMVSP9ZXD7eEwEXQjyfG
-	ajU/cquCPVdY1k94Hp47j7mTZJhOd1bhR+KqOdEyraoyuKXWRmQ6H6obSmNOExDPp/FDYRqPbyf
-	UPC+0NMi1IV2D+8qVgut5blvnl0FiA2DNeo9eoLD4fJtiC9yDJWQGYFtSvzYBEOa3y/Zc9PAPO0
-	r4GVQwmtJlVoSd/fo9lqLAwRrfogInFjVj152a9t1pM1rINk59fXtxg2R5UetKIshXFVLiWmE8v
-	6kylP0eSMGq/XQmm3xbhWYjgpARLprPMkuN8kdoQ+l/WL+kWlvpAQo/poiyBuHv/jJpnJCTNHnq
-	8=
-X-Received: by 2002:a05:6a00:1c85:b0:899:74d0:8a72 with SMTP id d2e1a72fcca58-8a9c0b796d7mr12306362b3a.59.1793793709863;
-        Wed, 04 Nov 2026 04:01:49 -0800 (PST)
-Received: from localhost.localdomain ([58.224.60.243])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09af918f2sm787813b3a.23.2026.11.04.04.01.48
+        bh=Pj46THSmK3XVIt6CZehlPvClpThRqk1tLW+1q1fbcIo=;
+        b=jye49RJuZocwZEAZ575Aa1gSX2ycDMU9/pFnLzHIlC1AVD33GD1Fk22NvqOFvRX5Aq
+         afswAdJe4KwshMtCSq+GGqvPnTTVM81asFMVc0Jpw52fNYpncJolxpntPVdgtElrgwz9
+         dIpLTotsSa33nGoVk3KNQTeNy5iZ6iUqZn63u8FAT7wwMcXL1SeEMJ6UbYv2cL4wMAiP
+         SkbHbAfP8+9OBQ6jRMzSNb9rRsscDctjhBA3lR/lOxdGJbtHWajug7d4Ulj4yeV4mfUU
+         +UAIkwv9crXFl6pa4H9YayIaJSBpC9fUyGqX5JwjL9hoBd6jppDLDW5W/sdECWPEuAGs
+         SnQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793793698; x=1794398498;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pj46THSmK3XVIt6CZehlPvClpThRqk1tLW+1q1fbcIo=;
+        b=LH/+zFBb9pDN9x0xuZl0OzAwTiRSMSxTkW/i8y2j1RiKIuI4GbrK3glcDao6yITaOf
+         ELk1E6gaoZ/R8fR73AmyXLCq7/Xp0g8Iqa7KGgsAzucVZC4pe9x6oq/ja6zZieIfqjVQ
+         g3Y1YSz7S/I72ZCg4l3i5rgkuQyPbllrO0GhTw2XbA2S9zR66wF633Tl1M8Eekqt0wyt
+         DM0R7nyVSrDGcyG1kD5uPXW++vrJjNJJrCGNjWcnQDE/f1Iwhmebw7e7Dr1U9ICqh0PS
+         PgInbEAjyMSx3mPjO2VsfnaINyoT2EGyJZmZmW1fKHt1sPqCBP1b/cTBU5LrVChIq4jG
+         2t7Q==
+X-Forwarded-Encrypted: i=1; AKwUvByKmvYLSp3/9por0QVIl4Q7YhQOFPzmrC51TbYAbClKViv/42gGqYDcDWLt2UhFRG5MXCSqnfvmfcrayjk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z83F7WHtS2iUd8AjhjnxBmeLtU75lQ+/7sZwvHHIvucsnSuX2s9
+	kE/Bm/EDvdmlG07Whroi6XBb0f9To66bk1r342i9+nSQxOtBU57H0g0r
+X-Gm-Gg: AYBFou2qmG1dPL+z0zuTxWeJvc1oz6ljhtE2IsaO4tlubu8R0ZCwLmOPRTzRZrsFI5W
+	qtPuEebMCy6I7kSV+ElZ/MfSjtXU1T4y0eqUHQV24neB32Uta/QnbXzLQju88XctB2eyMsPn6Ov
+	mlvWb7xQaluy2BcW9m9VkXpnxt/Jfg9Dz5LpzNimvzKbRPt0jYwn/tePIp9F4Ir9MY4Ey2gTnA4
+	s0I5MF6XNSDZo4iBNDnPaj8pUanXPTejuaEaOfaY+0bOZ0XoRnbFAf8n6646jy7eHiJEHX/KLp6
+	AC7CZtjudt4IbsUKRcnF0RRG55orVH0tHU6g1u/4atzutq+EYBb6vtZK4O8RgukJW4ReHwI8lNI
+	o7pPF4izfWM9iox0SRjinbsa7mcO5YciOXsCiBtzsiRGR2XKPc1O9CX0fHV78hx3Vrddo1p5VZj
+	ri/Dvr17xE4FHGOKDkoo8ngT5/QV+qesjuiCWhqQslrQH6Xr8t9yGd6LucJb3ILtR0BsMc/re4c
+	b3ZThixVXqATKosxJ2Vu5nqKZz5ruE6XI2o1Q5qsRiNj37yQMTiFz1GONzx3D1+I87DYVeI+JKu
+	KBpN0G0wf1xLD0kGjdMozrkIsgGS9i3QN6tcEOQ2rCJgtQkrOY6Mk8vfrHTOlOybtoUxYI2zdzB
+	OhRW8RHEGY3vbNr+vLM3HSFKlSrN7ZVIWAzQTnqATqZDAxHMLdzqa4ysH
+X-Received: by 2002:a17:907:60c8:b0:c49:a4b1:9cb1 with SMTP id a640c23a62f3a-c4ca795fa50mr1804960966b.3.1793793697694;
+        Wed, 04 Nov 2026 04:01:37 -0800 (PST)
+Received: from CCM-PC (83-233-221-133.cust.bredband2.com. [83.233.221.133])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e424f94sm60940966b.24.2026.11.04.04.01.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:01:49 -0800 (PST)
-From: Jinseob Kim <kimjinseob88@gmail.com>
-To: brgl@kernel.org
-Cc: linusw@kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] gpio: kunit: test mixed-polarity multi-line hogs
-Date: Wed,  4 Nov 2026 21:00:55 +0900
-Message-ID: <20261104120055.256-1-kimjinseob88@gmail.com>
-X-Mailer: git-send-email 2.42.0.windows.2
+        Wed, 04 Nov 2026 04:01:37 -0800 (PST)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	Ziyang Huang <hzyitc@outlook.com>,
+	Stanislaw Pal <kuncy7@gmail.com>
+Subject: [PATCH net-next v8 1/2] net: dsa: qca8k: let regmap serialize register access
+Date: Wed,  4 Nov 2026 13:01:28 +0100
+Message-ID: <20261104120130.48455-2-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261104120130.48455-1-yongzhao.derek@gmail.com>
+References: <20261104120130.48455-1-yongzhao.derek@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,134 +111,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A single software-node GPIO hog can describe several lines with different
-polarities. Add a case with alternating active-low and active-high lines
-to verify that lookup flags do not carry over between GPIO specifiers.
-Check both descriptor polarity and the raw output level for a logical
-output-high value.
+From: Stanislaw Pal <kuncy7@gmail.com>
 
-Register the additional provider and hog nodes in the existing hog node
-group and add the case to gpio_swnode_hog_tests. Reuse the existing suite
-lifecycle and test-managed GPIO device reference cleanup.
+The regmap is created with .disable_locking, on the ground that the
+qca8k read and write callbacks do their own locking. They only lock the
+bus transaction, though. Since the driver moved to the regmap
+read/write API, regmap formats the register and parses the value in the
+map's shared work_buf, outside of the callbacks, so two concurrent
+users can swap or corrupt each other's register and value.
 
-Codex assisted with the regression test and commit message.
+Most register access runs under rtnl, but not all of it: phylink's
+resolve work (mac_link_up/down) and the LED class callbacks do not, so
+a link change can race with an ethtool or LED access and write the
+wrong switch register or read back the wrong value.
 
-Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+Let regmap take its own lock. Every user of the map can already sleep,
+on the MDIO bus or on the management frame round trip.
+
+Fixes: c766e077d927 ("net: dsa: qca8k: convert to regmap read/write API")
+Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
+Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
 ---
-Test split from the combined v1 patch, for v7.5:
-- Add the case to the existing gpio-swnode-hog suite and node group.
-- Drop the duplicate suite lifecycle and keep managed reference cleanup.
-- Adapt to gpio/for-next's provider label and existing test helpers.
+ drivers/net/dsa/qca/qca8k-8xxx.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Target: brgl/linux gpio/for-next at d66b6b86d5a6278ca930112c634d03725beb7d9a.
-Dependency: apply the fix-only v2, "gpiolib: reset lookup flags for each
-hogged line", before this test. Without that prerequisite the new test
-is expected to fail. The test itself changes no GPIO implementation.
-The maintainer requested this test for v7.5, separately from the fix.
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index 07227ae8b..1e4f83e9e 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -579,7 +579,6 @@ static const struct regmap_config qca8k_regmap_config = {
+ 	.write = qca8k_bulk_write,
+ 	.reg_update_bits = qca8k_regmap_update_bits,
+ 	.rd_table = &qca8k_readable_table,
+-	.disable_locking = true, /* Locking is handled by qca8k read/write */
+ 	.cache_type = REGCACHE_NONE, /* Explicitly disable CACHE */
+ 	.max_raw_read = 32, /* mgmt eth can read up to 8 registers at time */
+ 	/* ATU regs suffer from a bug where some data are not correctly
+-- 
+2.43.0
 
-Testing on this target: actual UML/KUnit, before 10 pass / 1 fail;
-after 11 pass / 0 fail, with the same config and test source.
-GCC W=1 and Clang W=1/private Sparse C=2 builds completed.
-The mixed-polarity case also passes alone and within the hog suite.
-No physical GPIO or runtime OF hardware validation was performed.
-
-Previous version: https://lore.kernel.org/linux-gpio/20261103224339.1180-1-kimjinseob88@gmail.com/
-Review: https://lore.kernel.org/linux-gpio/qboynvhfmvltsuopwotpf3sqdwho3qobxmw5qldooedjqodfgy@x4l6hscj5unx/
-
- drivers/gpio/gpiolib-kunit.c | 61 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
-
-diff --git a/drivers/gpio/gpiolib-kunit.c b/drivers/gpio/gpiolib-kunit.c
-index 11849aa56..38554280e 100644
---- a/drivers/gpio/gpiolib-kunit.c
-+++ b/drivers/gpio/gpiolib-kunit.c
-@@ -713,11 +713,36 @@ static const struct software_node gpio_hog_input_swnode =
- 	SOFTWARE_NODE("hog-input", gpio_hog_input_properties,
- 		      &gpio_test_provider_swnode);
- 
-+/* A single non-OF hog may describe lines with different polarities. */
-+static const struct software_node gpio_mixed_hog_provider_swnode = {
-+	.name = "gpio-mixed-hog-provider",
-+};
-+
-+static const u32 gpio_mixed_hog_gpios[] = {
-+	0, GPIO_ACTIVE_LOW,
-+	1, GPIO_ACTIVE_HIGH,
-+	2, GPIO_ACTIVE_LOW,
-+	3, GPIO_ACTIVE_HIGH,
-+};
-+
-+static const struct property_entry gpio_mixed_hog_properties[] = {
-+	PROPERTY_ENTRY_U32_ARRAY("gpios", gpio_mixed_hog_gpios),
-+	PROPERTY_ENTRY_BOOL("output-high"),
-+	PROPERTY_ENTRY_BOOL("gpio-hog"),
-+	{ }
-+};
-+
-+static const struct software_node gpio_mixed_hog_swnode =
-+	SOFTWARE_NODE("mixed-hog", gpio_mixed_hog_properties,
-+		      &gpio_mixed_hog_provider_swnode);
-+
- static const struct software_node *const gpio_hog_swnodes[] = {
- 	&gpio_test_provider_swnode,
- 	&gpio_hog_output_high_swnode,
- 	&gpio_hog_output_low_swnode,
- 	&gpio_hog_input_swnode,
-+	&gpio_mixed_hog_provider_swnode,
-+	&gpio_mixed_hog_swnode,
- 	NULL
- };
- 
-@@ -809,6 +834,41 @@ static void gpio_hog_input(struct kunit *test)
- 	gpio_hog_assert(test, GPIO_HOG_INPUT_OFFSET, GPIO_LINE_DIRECTION_IN);
- }
- 
-+static void gpio_hog_mixed_polarities(struct kunit *test)
-+{
-+	struct platform_device_info pdevinfo = {
-+		.name = GPIO_TEST_PROVIDER,
-+		.id = PLATFORM_DEVID_NONE,
-+		.fwnode = software_node_fwnode(&gpio_mixed_hog_provider_swnode),
-+	};
-+	struct platform_device *pdev;
-+	struct gpio_device *gdev;
-+	struct gpio_desc *desc;
-+	bool active_low;
-+	int ret;
-+
-+	pdev = kunit_platform_device_register_full(test, &pdevinfo);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pdev);
-+
-+	wait_for_device_probe();
-+
-+	gdev = gpio_device_find_by_label(GPIO_TEST_PROVIDER);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, gdev);
-+
-+	ret = kunit_add_action_or_reset(test, gpio_device_put_wrapper, gdev);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	for (unsigned int i = 0; i < GPIO_TEST_PROVIDER_NGPIO; i++) {
-+		desc = gpio_device_get_desc(gdev, i);
-+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, desc);
-+
-+		active_low = gpio_mixed_hog_gpios[i * 2 + 1] == GPIO_ACTIVE_LOW;
-+		KUNIT_EXPECT_EQ(test, gpiod_is_active_low(desc), active_low);
-+		/* A logical high must drive the inverse level on active-low lines. */
-+		KUNIT_EXPECT_EQ(test, gpiod_get_raw_value_cansleep(desc), !active_low);
-+	}
-+}
-+
- static int gpio_hog_suite_init(struct kunit_suite *suite)
- {
- 	return software_node_register_node_group(gpio_hog_swnodes);
-@@ -823,6 +883,7 @@ static struct kunit_case gpio_swnode_hog_tests[] = {
- 	KUNIT_CASE(gpio_hog_output_high),
- 	KUNIT_CASE(gpio_hog_output_low),
- 	KUNIT_CASE(gpio_hog_input),
-+	KUNIT_CASE(gpio_hog_mixed_polarities),
- 	{ }
- };
- 
-
-base-commit: d66b6b86d5a6278ca930112c634d03725beb7d9a
-prerequisite-patch-id: 3aa172b6fbd4d7ead61ff22c62c2be020339b988
