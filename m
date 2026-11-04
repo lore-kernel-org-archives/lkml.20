@@ -1,59 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816523;
-	b=uvXDcOkuC1WA1F/EcEtqLq5uQDb9zJ8VAVJTpkJMBO+jFYh4X4ZkLX6+JFv5RJaCWa94
-	 XVd5kNx9cDYpzK6A087w5etjYTBdaaxCcGS6/SgTLz8toPxkg/+8oQd/q0dXyouY0x+9I
-	 7GacP3N6DbToubqO1dB4sdptMr9WpEJgx/IZVSHw6OdzQ4PiBgayMedaoxZIsilLevbHg
-	 9vtCLxsbW8TQ9ARygE+LzT7GL0yCQ2yY9kU8rwCGeesimknK6GPkXVupKg/KESwWQk2h4
-	 yT8kOwm8G8VAcnuCp4AoS8Ba0QJC6roM58pI+dq5Co6SLs5ZA7u/bYnSYAsDQkX4T2A==
+	t=1793816516;
+	b=kj4ParJnd7LQ7VPkXh/N3NT2+38g4r7MuzUHPIXWYcbAX1/TVtVvoRX/Tv19SAOjYv1m
+	 OLVV5WXwtNbfD2Mzf1ZBVG2vcs/iTlLoN05vmZL7KuRGHPLuEx1KquTzq2YgqB+7BTxIu
+	 wkn5P3PFr/K4A5qBFcOEtUCJr3CsabDrUlRZRpVUfjJSIjdJJjAZ0vyaaCjtuyyPHdDBP
+	 b8NSEa+A2b2MY8YGBfbBBXWZGrl3kufZtl/T8pcyA1100pExQ6R+rDh3/51d82XPlxLXa
+	 rchHOXevhq2l+Q1laQH60Ay1pY1VBjzLYUd4nRuIedy7OMUo7xKTrioibPsP2U6p6aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816516;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2Lb0uNXFZKwxApFZZbX7951Z/FqgPJAvA9lFJWo1YIE=;
-	b=jTBSWqLj5ctSbpr02tS31uDpidk+4u41TlrsmnfPYX78TJ8unGybrnt0bf2aWBbU9i/T
-	 OY35skWKyZ24/FCpFxv3vBK0Lj703Blem+32t84lt5A8jBkLPod36uFpemu0zAC/zleyw
-	 lOsVv1kDFCXKq7upJSysqcVGOw2Zlh4entFcFLybNtW11slj7xO8Trx16Db3ZnOeQJVLK
-	 kNqIRkRP5mAqbypDq5/yr/vvvaJQFT53pJWCRTCjjgYxVMP6bdoGH7BBnACC0bmzyinfa
-	 ZUmsRe9rphrmLQuPuIbNKDOzuZN0OnfGYmNv6oFPLctuXk2kIg6oqa7+MuKmuFulgOA==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=k1ZMud2ru8EkHu0dKN3690ViMmseOOoYb0VNfefUgMo=;
+	b=pn2zqvbap1p/F7May6/4NFHXrX9uTUY6xCd53cnFoCYItfqnTu9Mc4X9Xa5r6+ISqmO/
+	 cQjS4nBtWgfb1xb2edymfHbnGb68gh0FSXItkdUVLDVKW4aaMNqfUioVza1Q2ArfUq4AB
+	 RsChPaHNNYrPYDCgz5kNExVV8OVEJ2f3iPHCqcdwBA3zpg7VAYL/blRTJ4+eVUO404g+g
+	 5+QQ21cQz/tH2vtHFRypaUmRA+YrYKv476mxUQVSYTfreguqBa2RmbRGxylEiNCALWco7
+	 E+MCf6XgRW2LFQ4L1aWqTR0tnVB4CBAr8m+1hfIuDwvUNtlqXL7hcghfFvDwKUa+bnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ia1HK0ow;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LyoDgvxA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69023606C464;
-	Wed,  4 Nov 2026 18:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8FF606C444;
+	Wed,  4 Nov 2026 18:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ia1HK0ow
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980691F00919;
-	Wed,  4 Nov 2026 18:22:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LyoDgvxA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6310B1F00A15;
+	Wed,  4 Nov 2026 18:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816522;
-	bh=2Lb0uNXFZKwxApFZZbX7951Z/FqgPJAvA9lFJWo1YIE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ia1HK0ow/x67udk5VYPpnXi4bDg3+tYbm6RZdaoLUnr4gUwMHy0nSL7q2G2bXt7uj
-	 I2JCbXirTWjSZBBYhHYa/EcFCg+KU8ZkQOn2lq64tW7o8Cd42YIM6pXLKjvcTmyzEt
-	 rBIkLu4YnjUO+9/uXS78Q3tYKXFAdj92DFbNikvADgiv0X3x5x2jNcPVfCyTXTseFV
-	 qwNET3qXzV9bCY03aIG6ijEC125pbKJVbrO1uN7otCkOh5WiZVNyXk4X3N9+bDFHQP
-	 XsL8lL+2zhD/C5XSwpIIbfWEkMhSuZ4gAeUsBrDAJxgD8t1SXxMTkM9gyxjezlryNh
-	 ZqVBH6Ji6RqBw==
+	s=k20260515; t=1793816515;
+	bh=k1ZMud2ru8EkHu0dKN3690ViMmseOOoYb0VNfefUgMo=;
+	h=From:To:Cc:Subject:Date;
+	b=LyoDgvxAYlFHEsaQVGXWkDl9VrOFwYWV968c/p1mk2AmHvcD2T2YAMx/ymj8bS6E2
+	 wrK5xS1lJuIozBzYLtj222S2rl50qz8y3+RLDKgJxN5NvgbMWzEuK50h+UW0a7JpDK
+	 JY5ZP4FgSFiJzuiDy24ACo45vQkUzVm+ZphJM/9UX/wiZnKt+GEKd3xwKgjyO0o1i/
+	 4/w+7dGXBTU1xQOhOux5Ud0AQkSNTokEw0DYdN3R3QLj8BZCgrsPq2MPMwKyRzECcz
+	 1eYPVViYWcjMdxwap7RsV4eAp5SJsj2I0jYznEw+5mymwXMXk96iyW1ycaISwK/kjY
+	 IDc+pI/eMBhNA==
 From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jiale Yao <yaojiale02@163.com>,
+To: lee@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
 	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 01/10] regulator: irq_helpers: Clear caller handle in regulator_irq_helper_cancel()
-Date: Wed,  4 Nov 2026 18:20:51 +0000
-Message-ID: <20261104182148.1176116-2-lee@kernel.org>
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	ChiYuan Huang <cy_huang@richtek.com>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Eduardo Candelaria <jedu@slimlogic.co.uk>,
+	Esteban Blanc <eblanc@baylibre.com>,
+	Graeme Gregory <gg@slimlogic.co.uk>,
+	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
+	Jerome Neanne <jneanne@baylibre.com>,
+	Jiale Yao <yaojiale02@163.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Mal Nadar <m.nirmaladevi@ltts.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Stephen Warren <swarren@nvidia.com>,
+	Uday Khare <udaykhare77@gmail.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	linux-gpio@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: [PATCH 00/10] regulator: Fix teardown races, reference counting, and error handling
+Date: Wed,  4 Nov 2026 18:20:50 +0000
+Message-ID: <20261104182148.1176116-1-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-In-Reply-To: <20261104182148.1176116-1-lee@kernel.org>
-References: <20261104182148.1176116-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,36 +80,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-regulator_irq_helper_cancel() is documented as clearing the caller's
-handle pointer upon return, and takes a void **handle parameter for
-that purpose.  Instead, it assigns NULL to the local pointer h before
-returning, leaving the caller with a dangling pointer to freed memory.
+These issues were reported by Sashiko.
 
-Dereference handle to clear the caller's pointer as intended.
+This series addresses ten bugs across the regulator core and regulator
+drivers:
 
-Fixes: 7111c6d1b31b ("regulator: IRQ based event/error notification helpers")
-Closes: https://sashiko.dev/#/bug/linux-5c3d3b21-3823-4654-bf5d-85407c5fd05f
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/regulator/irq_helpers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Clear the caller's handle pointer (*handle = NULL) in
+  regulator_irq_helper_cancel() instead of assigning NULL to the local
+  variable.
+- Remove the redundant arizona_ldo1_remove() callback that caused a
+  premature and double gpiod_put() on config.ena_gpiod (whose lifetime
+  is owned by the regulator core).
+- Flush rdev->disable_work with flush_delayed_work() before releasing
+  rdev->supply in regulator_unregister().
+- Cancel micsupp->check_cp_work on device teardown in arizona-micsupp
+  using devm_work_autocancel().
+- Take a dedicated device reference for rdev->supply in set_supply() and
+  retain the local lookup reference throughout regulator_resolve_supply().
+- Initialise rdev->last_off with ktime_get_boottime() in
+  set_machine_constraints() to match _regulator_do_enable() and
+  _regulator_do_disable().
+- Propagate GPIO lookup errors (such as -EPROBE_DEFER) from
+  bq257xx_reg_dt_parse_gpio() instead of leaving an ERR_PTR in
+  pdata->otg_en_gpio.
+- Fix the LDO4 n_voltages count in tps6594-regulator so selectors 0x3f
+  through 0x74 are reachable.
+- Guard against a NULL idata pointer for BBAT, SDBY, and VRTC in
+  max8907_regulator_probe().
+- Check the pm_runtime_resume_and_get() return value in
+  rt6190_out_enable().
 
-diff --git a/drivers/regulator/irq_helpers.c b/drivers/regulator/irq_helpers.c
-index cdbd170d2b15..7b25eae667e3 100644
---- a/drivers/regulator/irq_helpers.c
-+++ b/drivers/regulator/irq_helpers.c
-@@ -403,7 +403,7 @@ void regulator_irq_helper_cancel(void **handle)
- 				destroy_workqueue(h->wq);
- 		}
- 
--		h = NULL;
-+		*handle = NULL;
- 	}
- }
- EXPORT_SYMBOL_GPL(regulator_irq_helper_cancel);
+Cc: "André Draszik" <andre.draszik@linaro.org>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: ChiYuan Huang <cy_huang@richtek.com>
+Cc: Chris Morgan <macromorgan@hotmail.com>
+Cc: Douglas Anderson <dianders@chromium.org>
+Cc: Eduardo Candelaria <jedu@slimlogic.co.uk>
+Cc: Esteban Blanc <eblanc@baylibre.com>
+Cc: Graeme Gregory <gg@slimlogic.co.uk>
+Cc: Gyungoh Yoo <jack.yoo@maxim-ic.com>
+Cc: Jerome Neanne <jneanne@baylibre.com>
+Cc: Jiale Yao <yaojiale02@163.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Laxman Dewangan <ldewangan@nvidia.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Mal Nadar <m.nirmaladevi@ltts.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Stephen Warren <swarren@nvidia.com>
+Cc: Uday Khare <udaykhare77@gmail.com>
+Cc: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-gpio@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+
+Lee Jones (10):
+  regulator: irq_helpers: Clear caller handle in
+    regulator_irq_helper_cancel()
+  regulator: arizona-ldo1: Avoid double gpiod_put() on enable GPIO
+  regulator: core: Flush delayed disable_work before releasing supply in
+    regulator_unregister()
+  regulator: arizona-micsupp: Cancel check_cp_work on device teardown
+  regulator: core: Hold supply device reference until constraints are
+    resolved in regulator_resolve_supply()
+  regulator: core: Use ktime_get_boottime() in set_machine_constraints()
+  regulator: bq257xx: Propagate GPIO error in
+    bq257xx_reg_dt_parse_gpio()
+  regulator: tps6594-regulator: Fix LDO4 n_voltages in tps6594_ldo_regs
+  regulator: max8907: Avoid NULL idata dereference in
+    max8907_regulator_probe()
+  regulator: rt6190: Check pm_runtime_resume_and_get() return value in
+    rt6190_out_enable()
+
+ drivers/regulator/arizona-ldo1.c      | 16 ----------------
+ drivers/regulator/arizona-micsupp.c   |  6 +++++-
+ drivers/regulator/bq257xx-regulator.c | 20 ++++++++++++--------
+ drivers/regulator/core.c              | 22 ++++++++++++----------
+ drivers/regulator/irq_helpers.c       |  2 +-
+ drivers/regulator/max8907-regulator.c |  3 ++-
+ drivers/regulator/rt6190-regulator.c  |  4 +++-
+ drivers/regulator/tps6594-regulator.c |  2 +-
+ 8 files changed, 36 insertions(+), 39 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.56.0.385.gac671c819a-goog
 
