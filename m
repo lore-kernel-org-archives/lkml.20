@@ -1,94 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804464;
-	b=D0DRF+9mKk06QT1gnVWmx1AJLQZBCM4Snc1ZjMZUp96cHpYZ29YFRvdqSA8JlnluUkxg
-	 G27/eIL5c2L1455xZAIiGCufNMzzh5ML1Vj5kr81LUThSavDwQOvSDsBFq+XqEIxDxBS9
-	 nOiREdTDuQRt+MKA/7nYotiUe2USj/tO2xsXXX5mDWUSejzmqOkyO0eDsMTPxvttlyCBA
-	 Gzuwk/TythxzeTDcii17xmH0g5RXtyLsiks0NooAHrR9jbBLzg4ABqE19oj5KnYeaSyIc
-	 aKlgHF7Rcr7avL49untAh7JTQht0YdeXYe+OyNk05x+XxK4Mrm926I8s9dpVrC9NPcQ==
+	t=1793804480;
+	b=AfZ0Jnbr0YYT8mGEYCLIVKpHHR1mED6s+WT68liolF6Vknt9/eDoIjz/USNdgk3ag522
+	 lu9wALouTiZX1pY0TnO6A9NQRnxES34tnIcMXHFKd59a8z79BviJ4ZNq1dv1+Ji0GbIlb
+	 h9h/NVJirkx0VpReg7PCF63phYAJf8qi672wXYSwqw4Oh/9CdNZuYCwE7L3Wc9rzmtNE3
+	 6bJ0XNuzPm9y3X/aNqfIO3SAdZm9hlNv6YdQoHJ2trQcxC7KY9vp32R9XO5V6D0igydHN
+	 kTUTqyuPAwXYdH0e0CDDzWcWhz3drSxKG37dOSQTe0Fm9ArwGZEwMPNI+xssu6o6DNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804480;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=e81tcatBHOQvCatTtne4Vl4ETpILuAB3x6t6D2nRZLk=;
-	b=tGfq7WfoGcaqOfY5ysLrEcuJiPMUsQsz5A/2sLwC9sCBuvmG3+QrneHsISSnnVzR2tSK
-	 5Cn/H+H+wQ98cObJ4474ZP9fzg3HvixtgKpprPxyp3HUgJX/ZqmJbRv4IBWpViXqyMgEi
-	 X6lKEmk4n6Ssva0Vz1r1iplDbNUuG4iLA5//cA97Mk+O7DTmggIRdwMXa1lulyxb+fU1K
-	 +OMpVySxKH7W9pGCGugQ1NMPENPPtbuTYTAl+qU2zYXpRvXN4V2dSzv9X9K31dT6Gp5aw
-	 AhqwDaY4xGyBfHTxqg+RFAFIB0wVNl0z9aiUrj53xIsDzhwC4YR7h4trgmFGMsDBhAg==
+	bh=RTCWGHjaF/Ld146pWyWxphZf6onDLp8uBS7oOvthXlU=;
+	b=P2GL0kuo+L/T+ePLYytpMuNj+7mLZ9BZjJc7wDP/wjPXQO+9c6olv1cZhKddd7eMho49
+	 AbuviySdHXsdmcQHO7wb0VmnJahYkJeW8o+WmRjHTWB4mbWEfYCUUy6FzRxUOQQuRrqnl
+	 F16HDqJ6KKTPFkXjXthv07sJwGtOL6endxiZcsj/SAFer4feCfnk9USImOi1Ou1hofuzL
+	 sMIy1O3+G2W04Ogb/Z49TQw9iHFEMbX2AsduqOv5KWBAXgwPGrrxOdjsfdZ/ZvM2OPoyX
+	 DHeqcimvmXeJkqBD3GfXFo+FZEnRzOmEzooZgWEoOupbbZm3S18SbR2Biy0TE5oG82w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fzZA7hIw;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=ULGUO+Em;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3B7606A336
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:01:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B3B7606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5689606A31B;
+	Wed,  4 Nov 2026 15:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5689606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fzZA7hIw
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35b2c599f43so1625269eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:01:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793804463; x=1794409263; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e81tcatBHOQvCatTtne4Vl4ETpILuAB3x6t6D2nRZLk=;
-        b=fzZA7hIwTwFCLtV3HBfFHWeAd5CaDykpU2HEZkvxrySCFEBwVxlsb1eyI5C8dI0btQ
-         y0mAt3u0EjX5CHg1SB0EcaMpBEHVM1+hd59xcC5gw5VscTJQklG7JgNAc2uW93pE04Aj
-         tFGABa2fl93KkXxUt9jOCOU60LDZjJebHRINVV7F/saYmetX0EqsGlsr+pI7F0Zaguj1
-         ZDjJ9bLhGzJBf3f9gDuG7EXWHOxGKhbAJha7X3U2zI4ZhuJzhO6OYL4VXmvVEf3D0fqE
-         kNFnHBdaYDPm3O9Vjg3NdIKMsrknnXGY0TDErXA89YQTFYRYQSwwSLXwvEmBjy8g7L7g
-         0P1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793804463; x=1794409263;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e81tcatBHOQvCatTtne4Vl4ETpILuAB3x6t6D2nRZLk=;
-        b=0hVZJmddNpvc2UCs4lFwQPk0+mk5AEPVoyQcyykWpeCJkQRtwCRT+6mGscsHuHQ1gS
-         8h2/0qvgtLEDrxHyq9MMZhFDoG1sHq+tXDmPTIIDrjSvSlYK0YVwwuvq/266lFwz2NRa
-         +Q33ukozABWQPLpWRbfAdG1Q+hcKQwBbcex7oLqsb8i7k2JnEkYUg/Q42D5hCLveY9LH
-         bmrK2LAxYRPPXiRo93ELPWBs8GEWRmJwmkrBIWcT4zr/SEmZtHwPyR0aaVHhhddL3/o+
-         yBA+jisPmoK8B6W904qxW8Or4025O0CO5vpJmjS4JxLn+gGuLqfDQOWx9EUAvTEcDpY8
-         dmqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwyautGnHLUup7w/7ZX2FPW+3FAZJG3wwe5CJ/2Ui9TJccuB6NeWFCgMaErsXy+Kb1B4NzJNmm3EhgQalM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jgX/SW9SF2pcHjIkMkAY3cuf0/x1DGhwKhpxgEL+3ruhN+d1S
-	UUVZkY5TOirpyFTdqFOV7C5i3IUKS/3PX+aEILILJlqPpf661p9+Aj4c
-X-Gm-Gg: AYBFou2kkhYYaRLFBdxHPp4T+tnIosK1zymDQ/soFKxyViJONPei9Ecb4+7el5z7zGp
-	mKvJogY+r8RYc8xk+Sh2qx2FrrKpIdYw4xMMgiLOTKPmUdKIMPogJAR3iLYhjAp4qli/wUEVv/J
-	ZLrlSWaNKNABqBw70Cq6SOFOkD4BPxamgEoTJMqIszjwRXScl/gsAtDvSIHDydl4mUWd0RK5BsG
-	Xu3iVoAlFqNai+DSqmoPjcAK4Dzu/2pkGnSEVg2HaE+nf9AK7bmhtNR70fRCuLDHM9G3t3zW6ri
-	sMXAtFpBJhonHPf1rCYUy+5TGn4nemCVVLtPklXd34BcQ8UHsWq2TE693nkQohwms/KS2pv5Qlh
-	93QZ5xD1Fuzrv+i1EGE3KHUFCsE3KnlFITUoyJYEkqFJ37mJBYR57BeSAbV6B+kuFRSmxqnkthm
-	WTKQBOfdjmTa5SNSu3Ez37uKqQE7SVj31HyLWx+xc8snRy6gYfbg2EFuPFhx4EkcY+B1fknFm6Q
-	MU2w3cvhtdXMx8NRJtSvatDooIwz8VqK6t3my41cevBHxFxejQSyVQsG7b5xU/HFEvro+lm2UsN
-	a4XueXUA1N6m/hb1E8WTnz1uwj/OncIxp/M1QfZye+iA773mZ5vc+yJlwIVzyH/tIutvbvocCFp
-	hv1hiHxI/kiqMYV6wJSjJv0lldp8=
-X-Received: by 2002:a05:693c:6092:b0:369:1084:8ee3 with SMTP id 5a478bee46e88-36a423e52c8mr28908255eec.23.1793804462315;
-        Wed, 04 Nov 2026 07:01:02 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fe477sm7347457eec.17.2026.11.04.07.00.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 07:01:01 -0800 (PST)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Nikolas Koesling <nikolas@koesling.info>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH] HID: pulsar: print the battery error with %pe
-Date: Wed,  4 Nov 2026 20:30:52 +0530
-Message-ID: <20261104150055.33028-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=ULGUO+Em
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References; bh=RTCWGHjaF/Ld146pWyWxphZf6onDLp8uBS7oOvthXlU=; b=UL
+	GUO+EmZTRYo4C619wE8rh7yBIQzPYZztFinuvmsOkxc8BAoJhTFOKpZfNbFxvYtDuLhiuO/4m1CjG
+	bqGE/uRNxixbFfrzEbK+e5vLm0b44b12BzQrzFalUVWvXMFnZI8OfD1WTjDJG0/kpCHi6SviyOX9n
+	LW8XiFlbLgxL+L5VJwr52KZ1BN0xJa5E6B/qSkrrFoHec0NNVdlo0OaIZvbS17b0TpxJy/dJ2XpFO
+	7FXXpD7NdNGwE6y7Mvmwg5AdLoxUpOSNEaLHrB5o00SXcp3BVrCSOf/yl0xXBRndiHz84RuFyee78
+	tIQdHNHmiz8JV7lh2/GPXZX2kNH8aiig==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219] (helo=fangorn)
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xOcUG-00000001zrN-1aX5;
+	Wed, 04 Nov 2026 15:01:16 +0000
+Date: Wed, 4 Nov 2026 10:01:15 -0500
+From: Rik van Riel <riel@surriel.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-xfs@vger.kernel.org, Carlos Maiolino <cem@kernel.org>, "Darrick J.
+ Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ kernel-team@meta.com, Christian Andres Saide <csaide@meta.com>
+Subject: [PATCH] xfs: keep successful near rt allocations
+Message-ID: <20261104100115.36bf7d28@fangorn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,31 +67,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-%pe prints the symbolic errno, which is easier to read than the raw
-number from the PTR_ERR().
+XFS realtime allocations first attempt to allocate space near where
+other parts of a file already are. If that allocation succeeds, it
+does not have to do a global search for free space.
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+Unfortunately, a code cleanup a while ago causes xfs_rtallocate_rtg
+to unconditionally do the global search, even when the search for a
+nearby extent has succeeded.
+
+Fix it by running the global search only when the near search did
+not find available space.
+
+Found by noticing higher kernel CPU use and examining the profile.
+
+Fixes: fd048a1bb391d ("xfs: rework the rtalloc fallback handling")
+Cc: stable@vger.kernel.org # v6.12
+Reported-by: Christian Andres Saide <csaide@meta.com>
+Signed-off-by: Rik van Riel <riel@surriel.com>
 ---
- drivers/hid/hid-pulsar.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/xfs/xfs_rtalloc.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hid/hid-pulsar.c b/drivers/hid/hid-pulsar.c
-index b0b34849f..ba7cc9f65 100644
---- a/drivers/hid/hid-pulsar.c
-+++ b/drivers/hid/hid-pulsar.c
-@@ -615,8 +615,8 @@ static void pulsar_init_work(struct work_struct *work)
- 	    devm_power_supply_register(&hdev->dev, &drvdata->battery.desc,
- 				       &psy_cfg);
- 	if (IS_ERR(drvdata->battery.ps)) {
--		hid_err(hdev, "failed to register battery: %ld\n",
--			PTR_ERR(drvdata->battery.ps));
-+		hid_err(hdev, "failed to register battery: %pe\n",
-+			drvdata->battery.ps);
- 		drvdata->battery.ps = NULL;
- 		return;
+diff --git a/fs/xfs/xfs_rtalloc.c b/fs/xfs/xfs_rtalloc.c
+index 84efe5a8fb11..31d90828b4e9 100644
+--- a/fs/xfs/xfs_rtalloc.c
++++ b/fs/xfs/xfs_rtalloc.c
+@@ -1997,10 +1997,14 @@ xfs_rtallocate_rtg(
+ 		if (error == -ENOSPC) {
+ 			xfs_rtbuf_cache_relse(&args);
+ 			error = 0;
++			start = 0;
+ 		}
+ 	}
+ 
+-	if (!error) {
++	/*
++	 * Global search, runs when the near search did not find space.
++	 */
++	if (!error && !start) {
+ 		error = xfs_rtallocate_extent_size(&args, minlen, maxlen, &len,
+ 				prod, &rtx);
  	}
 -- 
-2.46.0
+2.56.0
+
 
