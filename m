@@ -1,61 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835883;
-	b=pB7NXFq9rWji2ejZ7pkCl2TYSXRFQeHa46flhr8XkiogkL0bbgREE0hYfVG1Y/PvLmHY
-	 ke6cwwuYvnSuggcABbI7g0h0BVbLXlI41f67oyVsJr/Xkp7FquNcPbXJplhfL6ZwJDNrg
-	 +lzEXWGrTcQPmod521trtGkdLHP7xBguJBinN0puAn4H39i+ogm4mkz/j9COy17Gfi8Ce
-	 j1FSXIwpjX7TzJVpzvc6I1RxJ/Nye5qb4uuW2PYD+pTrZ1bcp2YJgYrxNUBJhv1fRHj5M
-	 clql6HhV53ZS5FbG4+AqSThm6RJ81vtX84HVkVG/BmgYEjJb2NHJUGjCFlhPo0AgC6A==
+	t=1793835933;
+	b=k12CjB23pDZsS66+e1rkJ5tHY4dXrdlIpXhkgkBK3DEGEFsCgL7SCZzYdRp+MOByiQiW
+	 NN5zWcKIKZtAj3KoE+gGC1AjJ8J0IM47Ly0HMyg/9DR+ptAB4VUViJu0rQMaePXYf7qov
+	 +58R+VUnKWfxqbvEl1H6GR4lqcHDe4Tv3eBPRn0yDCbGk5lyD5VeNJaK/bBVhdW4NXAgJ
+	 /3K0mNs6OR/QPH/sSYdCMQ5a4wYMLagTQ92glHeWTUmbxsdOjL3IkDWEda32CQgbl7I7T
+	 J5i1kc9u+JXd3qBw0rNqJSWxaYGPDVCKqc4ukzJQrX7Xv0nKhtEly81V4HLYXAsrzlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835883;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dm6QP+G8YaY/c3dC6XOZVyZ2/2/A8/3XTwxU4Pcnwos=;
-	b=bs29jRf2+8ewNxq5l+0YqnuwYa4yOqNKA4I7tsRK1np1rO/6ActDLnZ775LcCpQefoaH
-	 noZFY76gprBGdwn52CxCCrv4BVkU0oz6KYCMwez0irFR9fFpFGbD55mNKKV1SAE/P2edu
-	 cDN9VlHOWZt4K+eGw9bZcDOjxcwrVBO8usN+F58CCj+HF8FEXZ+wKAjJMaZJhtA8ZfhiR
-	 X8Tg042CS3tj2BFsLizhE5FggZSa7/vM8yNyGFowCbaiwLlRztwrDhOLaepQXjSFI84+v
-	 1VGWrXHqYIJ+PFACCVDWOgJpMvB9tlNY7/tOut4P2LM2TQA2IMhkNJi0RvcfXe3+WXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4kXbR01S3M5L+wtam7WkgU+NSUFvLBmF0YPHzpjKWcg=;
+	b=0LT0ulriZ8RzwmksyIQ1npqWF3zdCcAEWlc/xeezO5xDxsyEQWe4oCpFoDxPChbTnETk
+	 renKn4xFG0Z1KCFsygqNLXWOzrSYkHCWISH/SY3GTqsMTsSjoiq/vaiREmleMHQjppxA/
+	 Nk2oCEY4LvQ3hPpa4SoJVST5drw4x2pLyqbl5P7DVlv6ZmjSdRLanJDnki1m6Y9/SEJlp
+	 nhlQ37inJUoV2sSZDFmDRDnbvbhs7L7p/+eM2NMIT1bilZiDmEENOIrlQV0vJXKkptunK
+	 52ZEQGThEg+flrN7kiBo9Kw+SkacHtRTBGpQzbGQpwyCenG7ho1tlpEQbbLH1b3E1uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRV9Kd1r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0vlZURf7;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E635F606A326;
-	Wed,  4 Nov 2026 23:44:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DBE606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:45:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58DBE606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRV9Kd1r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2E91F000C1;
-	Wed,  4 Nov 2026 23:44:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793835882;
-	bh=dm6QP+G8YaY/c3dC6XOZVyZ2/2/A8/3XTwxU4Pcnwos=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GRV9Kd1rEsEfAQ2Kfe2peTMHKixUpD0Ori31y5YzsqVoT4P2WLRH8rnVhNC6Xyk29
-	 v6YIsfMvm/ZB4AdasbzkGk8QeG1n7W3FFSBj0vTFTxDUI4Jn+C4xvtWVkA71egVeh8
-	 kib0ml8hASIq675H42fflpQcJztCXuhT0MJkLTYefQwkvflVfmLiL6+2boJHVzz5u6
-	 MEDv0up8aG8FnSD761ItpDhTkIUoqdbf6aoIeKigx3ebZ1K8jYGEQm7OKgVkL2EGiC
-	 GvMjcMhD5x5QQpuWNl0O2h1olz7by54ZkT/UDQxQ0+Jyk/pwzbDp03XilCFqkvAPO6
-	 iiKGUc92HI91Q==
-Date: Wed, 4 Nov 2026 23:44:37 +0000
-From: Conor Dooley <conor@kernel.org>
-To: joseph@telaak.dev
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: Add Siflower SF19A2890 USB 2.0 PHY
-Message-ID: <20261104-unscented-armory-4dc756ab95cb@spud>
-References: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
- <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0vlZURf7
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2194733eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:45:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793835932; x=1794440732; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4kXbR01S3M5L+wtam7WkgU+NSUFvLBmF0YPHzpjKWcg=;
+        b=0vlZURf7k5QquqgfLumFSqEumWZLZz148w7NNP2RiTozESJ6wZf5/ruRNYPMYYn8oY
+         5XOtsT2C9BJvtIoxTQrIpf7V4LgUBc31QryMJ6dHc6ooH80PZHAau/0Y8q9n9lnHaWAs
+         9+WnUhGfhV4WWLUFanZdJXZzkm2IWmr9GR76/TAicGphHaO/MHSNjrQVYPhP/BzaH+Eo
+         5ze0IH2gUp4UqQieDGpjC0XNrphW7ubrV1pJ4oIjUhr5Xs7vSYlUW6th6R809IT4OAP1
+         Q0/k9TJZwuFSbK4vP9YmSj8TKcxhqbEWQczHlr+OWyKfXG1J3/m9HFj5BPr3CCtoCn6E
+         kx5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793835932; x=1794440732;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4kXbR01S3M5L+wtam7WkgU+NSUFvLBmF0YPHzpjKWcg=;
+        b=Jzdwn+2Ea3XpLaLWtYHWqHwOEINGvqQz5AINOapO6hZ9KHMPAxByE/mb9+pY6UB27Y
+         BMWinR0drlYfkfMSvKG6o8l6JJ/5rJDOmQRxs7HLEP+5wLL4ZU8Na8i5dey1vIq6E33R
+         d8l9ya8bqx9gbvRBDM/DuRCTT/o90CpRbK3VObaxZIyCaPMcghje58rnuI0Zel9P2j8u
+         akpIlgmbotxhYJnYxIIOi/IsnIlaD11hBvNiiLYfL4tCstkD9ZEetLf0i5T2si6eMikR
+         7j43hejK9F4uUgyuJpwiO3QWg56oHddfNSCzdJtgIa0CdfZL588pnvl8xo/yxapJRFx3
+         l4bA==
+X-Forwarded-Encrypted: i=1; AKwUvByZrSBquJ3VJVfnlSi6Z1GEqmcho5CfONCtDx0zl+Myg5OopSck5qAENf4jy3CggIKF4kKJUwCVuGumvTA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DqnYUNRz5AtSVt+H5wgpkEqxyFsa0XMrTz20DFv8fo60rbHRX
+	SMHHNSzUF4CzGZiCyNUW5KQEJEeXj+ZVWWEfKGIQhtJpVHsZn8QMrGnB
+X-Gm-Gg: AYBFou1NcJAoqO5GNoq/3AISlgZpw6gaT08yRnLmUoIvLuJvwIUGMGJIYYJP99MBpWx
+	zzCmfEXSOvzQxqGFvJUBplZVX6co7LiX4qqJVrjrp+cgaj370SrBozxut45Kkfe+P2yrq/c4lHd
+	SoKbaihFpecVuYMut9Z4uL5qQprLjxsPG5GjnZSGoOy8U8kz8GK4Gp7MAKObYR05Udvkz5iacZd
+	5IjK6orAMDHucRLbINPbYVTeoS/vBv/V8ITpdH0Tp2M5YYRLFnOS7IUZLH88qD4reN16UTCJDt2
+	Z1XdjIVQ0jtZFJVKJfMGzqS6W+SnaPxj/yFmd54H08Zo6O58snAcHMP9qLSsTcVBsz7gDBPQy+y
+	cSXH4X3qnA0QPRF6E02B7Iy72FS8agx4p4ZGPDXYA1TQUpEwV7QK150dRd0UibuctDnnohBotTf
+	Dys/Z6np6YN8LtGgvWWdLp+uiqvO3VasARtA0mPZxRFCucwDJOI4ecOqP09qNny4N+2HPtS0XoS
+	9zXt2MXElpREAxReY13rbN4Rk7xtTzu0pU8+7R1+wKPL0QKaNzw7hqguoxFlxG7xZaDwfCjifCK
+	LuaBXQD3naEeLk88mnVXLUD3JgsSyT8BKyyY5GYYUkEMJ0iXtZN6l5RPV3LqZ7IPw3KVS8E=
+X-Received: by 2002:a05:693c:20c5:10b0:36c:da71:37e0 with SMTP id 5a478bee46e88-36cda807b27mr4610132eec.2.1793835932074;
+        Wed, 04 Nov 2026 15:45:32 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39972d4sm18076499eec.26.2026.11.04.15.45.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:45:31 -0800 (PST)
+Date: Wed, 4 Nov 2026 15:45:28 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	liuc63@xiaopeng.com
+Subject: Re: [PATCH v3] Input: joydev - avoid signed overflow in the
+ broken-axis correction
+Message-ID: <auvDldWq6qnN4Hnd@google.com>
+References: <8063a24bb9f75bb9096c947d8ffa7123@gmail.com>
+ <20261104055058.854710-1-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,115 +98,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A3EGkJjMaBMSuLcm"
-Content-Disposition: inline
-In-Reply-To: <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev>
-
---A3EGkJjMaBMSuLcm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261104055058.854710-1-zhugl3@xiaopeng.com>
 
-On Wed, Nov 04, 2026 at 02:21:52AM -0500, Joseph Telaak via B4 Relay wrote:
-> From: Joseph Telaak <joseph@telaak.dev>
->=20
-> The USB 2.0 PHY of the Siflower SF19A2890 serves its DWC2 controller.
-> It takes a reference clock and two resets, power-on and PHY, from the
-> USB block's clock and reset manager.
->=20
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  .../bindings/phy/siflower,sf19a2890-usb-phy.yaml   | 58 ++++++++++++++++=
-++++++
->  1 file changed, 58 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/phy/siflower,sf19a2890-usb=
--phy.yaml b/Documentation/devicetree/bindings/phy/siflower,sf19a2890-usb-ph=
-y.yaml
-> new file mode 100644
-> index 000000000..77b8e35d8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/siflower,sf19a2890-usb-phy.ya=
-ml
-> @@ -0,0 +1,58 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/siflower,sf19a2890-usb-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Siflower SF19A2890 USB 2.0 PHY
-> +
-> +maintainers:
-> +  - Joseph Telaak <joseph@telaak.dev>
-> +
-> +description:
-> +  The USB 2.0 PHY of the Siflower SF19A2890, used by its DWC2 controller.
-> +
-> +properties:
-> +  compatible:
-> +    const: siflower,sf19a2890-usb-phy
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: PHY reference clock
-> +
-> +  resets:
-> +    items:
-> +      - description: power-on reset
-> +      - description: PHY reset
-> +
-> +  reset-names:
-> +    items:
-> +      - const: por
-> +      - const: phy
-> +
-> +  "#phy-cells":
-> +    const: 0
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - resets
-> +  - reset-names
-> +  - "#phy-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    usb-phy@19e0c040 {
-> +        compatible =3D "siflower,sf19a2890-usb-phy";
-> +        reg =3D <0x19e0c040 0x60>;
+On Wed, Nov 04, 2026 at 01:50:58PM +0800, Guanglei Zhu wrote:
+> The JS_CORR_BROKEN correction multiplies two 32-bit values taken
+> from user space via JSIOCSCORR before shifting and clamping:
+> 
+> 	value = value > corr->coef[0] ? (value < corr->coef[1] ? 0 :
+> 			((corr->coef[3] * (value - corr->coef[1])) >> 14)) :
+> 			((corr->coef[2] * (value - corr->coef[0])) >> 14);
+> 
+> Nothing bounds the coefficients, so with large enough values the
+> products wrap around and the correction returns bogus axis values
+> for the rest of the session.
+> 
+> Compute the correction in 64 bits and clamp once, and flatten the
+> nested ternary so the dead zone returns 0 directly.
+> 
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 
-That's a weird offset and size.
-What lies in the regions around this device?
+Applied, thank you.
 
-> +        clocks =3D <&usb_crm 2>;
-> +        resets =3D <&usb_crm 1>, <&usb_crm 2>;
-> +        reset-names =3D "por", "phy";
-> +        #phy-cells =3D <0>;
-> +    };
->=20
-> --=20
-> Git-155)
->=20
->=20
-
---A3EGkJjMaBMSuLcm
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvDZQAKCRB4tDGHoIJi
-0go4AP9IBByfY+ZrsMHhRJn/BNGZDtuBmhwUV9BLaN5/9qNPCAEAkk741BcvYirR
-jopiYYHvRgcXyohEzT8v2FZsEeU13gc=
-=X0p7
------END PGP SIGNATURE-----
-
---A3EGkJjMaBMSuLcm--
+-- 
+Dmitry
