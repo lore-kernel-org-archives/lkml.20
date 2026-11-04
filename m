@@ -1,88 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793771580;
-	b=FVHbrgxskOZbpMdQvqIWVwHmxN7sfiL3jD2Iks5JlaxTIzRvyDcxHF32vs4DJOEZU9Vs
-	 nDxzra2OSkMfH1pBSwQ8weY4vu4lFnJAVRDUQru7mQ7SNtoG65Q9Ya0bfYtgcJ7xhKgSb
-	 sEA8IenCbKjmMsz00Oqcx+5XXM5FE0KK0HLAu7eg7m5cuSldfRZekVSQA0LsvK2w45V8D
-	 rtSRhV0bFt0Bn8cY42YvtfdOAQgbTAXJr07/OF7CqW9uN6wl2l4Yb9S/ZdPPdzumVu0fW
-	 rUVvuf/ISmXovFQAVIHZ82HeC7zl0jVVnf18e+gF45LPLNKlJmrYt1jh5XroYqRysOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793771580;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=PWNzAEUlqUhQhzj1FRIC30hWMwZHJiTM9XF80PR/FEc=;
-	b=o4zoepT2JyVpABbX7OWqRbTIybLrN8RrhaVHrEVZ1z2N6/Ng4F2WBhweESR0iDhDp2dY
-	 oPz4MwlTzFcJHqxqZrifbhdrKANRrV2HX72nqFdN38bGc9LfN/6FQ8f8S13Zkk+kbJfU5
-	 no/jEB4Fnpo+I4oi5y4yk/PYxE7v7SoNOctk9VvgdO8ctX8dtiBRmItiA0UV0EEWPbCUI
-	 L4aF31BDYZki9RjD57gYZABiTz47zXf1nKUBg4WwT+ApIhNtB/l3YkzrGvmrFqeXPvImY
-	 bn7jCvSTdxQRdOriLLq1Pa47OAR8Wf9Z8wxezdrflo6xBgqVDSA3+sjGtmnluub74kA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xxbuhfQU;
-	arc=none smtp.remote-ip=209.85.160.42
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793771625;
+	b=rELT+u63v9Hz53S3s0knUrYo7/TWlNKzO/0f5IAsMqqUu5nydjJqGCkUVfCuIf0bLlVO
+	 T+2tGXQ29Jq4g0C49fLKdz5WhNOmapt3DjjSUDe4cXgNbzJwTXobmQQwU0Rz9H4CebuxL
+	 aTaq7/ldwMlXSlzTueEW4+Tuyn5AcL4736i9r243DMlmysMUdOYSsrrJDlqzH1xvSJMu/
+	 5VPCWwxaEul/w8E7e+aZalXpaS547kR5cOzD0FcVhrQvRjaTEiSCZF775PLQpGSNeF0Wp
+	 ZuT6x9bPp8zJP9attM882NTNVKWA8t14mX0BlMZX8SA3AYXHjwMUpldKf5/XaxzjQ5g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793771625;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BgMbRmHvl2/P80S1zJh93L7i95YaYJcGvwaHIQoOCyo=;
+	b=mcf+vTbe9b+R6kNXHX7hhUBi02AOZFEJvm9bPZQK4rymbC4lxgYj/XrSyo1/Pgx/3zBp
+	 PTaS7F7pFu2R4H9nf71l95YwOGb1pvWuwameIoAxY/AezusaNsnVMuZGYR4crvu1r5mT7
+	 xux2gMqKi/2HTL+ntvzzkNH8lUd9YUus6w3R3y/iNMAMpP59u5AmNVRGWmebhOxEzirWA
+	 BwsY4QPTDgOh/KCyo1I4EOMnGbjITPymAs7MCWUjHo8aLTO7uhfJ2wwUth8C6zldNvZtZ
+	 aUEN0KT7wts32/TZ+GWW76vgSWcH4BAvJJVxhvKveQVRnbc06gKVhoSerQ7X0YaLEeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LZJJmZXz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010056.outbound.protection.outlook.com [40.93.198.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BED606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7BED606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99910606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:53:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99910606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xxbuhfQU
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4932b13c4ccso209495fac.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:52:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793771579; x=1794376379; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PWNzAEUlqUhQhzj1FRIC30hWMwZHJiTM9XF80PR/FEc=;
-        b=xxbuhfQUoV1S+8Jxi9AkRnY/b3415uK7J3qnOL4ZjVIs+g10pb792ugwXBkR48R/rG
-         hm1gevKl+Lly0RT6D8OcHFI/AsgGJeJ18YR3IHqjHalmUkUcuwQA5QwQ6kxLKskhBOpL
-         VxDHK6y6PgoqFu+QQsheSd6SOAXWKE5GI+oabp/UsX3YZ9nUFrTN93oIqjlA/JbNiMLD
-         g7Kgs9Zq1Lu+2glDWO42yDqMPRGvenZ3ktE1OBLNv4txMyHEUosDZkmkMd96QHNQTdsn
-         6sQTam1Ybj9Rq3INus9MffV0Zxyzev8jlqxChdw/SIYLwVtLg9xjoY9RQFmOQN9aXfWy
-         nELQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793771579; x=1794376379;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PWNzAEUlqUhQhzj1FRIC30hWMwZHJiTM9XF80PR/FEc=;
-        b=NrtSzfAI/Yrggxihur6W1YXlEmZACgOJ62uZmUWuHaT/BaO3RhUJGGQnZ4cxbWYlZH
-         bms3Ey22nGb5z7jCJyDcUkv1xjHObvM386pKECxKiBl9WfezcdIQw/eQ6TSdsY9OlY6x
-         utwu7fdDtMQNwoIPltfGwdb7XroAw40W24WoK+Gzd2oZnaTWK+9QqjzkXrmOURVG1gAJ
-         6dw0YSDFlgn5RNDdLo5ZNeHB1CszaR70obzln/PJM/KLqLTb4uyJrtVbWFtKX/peYlmg
-         1p+25zTEyulpBnpNzz/AE0xS9rTwxFdn1SCNDincVASKa+iluZeweKhJ97Q6DE24rhkV
-         PZZA==
-X-Forwarded-Encrypted: i=1; AKwUvBy0IiogwCUxMI6g8pdSXRaOkY6xDTb0xW1759ViDqg7gYnRpyrtV6M23niHK5az47Unm/w9GLpGDjxX60o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83qZmtdQUs1i4ps1ug3i++Nt7UGvldaHqRVPNFDO5YjkuRHd2h
-	MG4xFaRMrBAynRADSKzDChJjIRfCnXIgCfGW+/YdQ1AzSmtVk9MNxlhU
-X-Gm-Gg: AYBFou1v4yxPgn+nkBPAis2eeV7ec9Zx9QIuw41XwlHZVLZhK64P4NEJ41WSIofY3fz
-	UeDJ6f2lPI/2hpV0/sj8K+MN/1BdFwSr/P45HHsUBNM93aEDVQ5041nokbhfqx4ysfEa4RaIIf/
-	qLy2I72tWeB333TfsDdcBjhWCrXunuwmkAoVW032W19JNo/BzdaD3XI3tmHuHXocifqDza/ZkJ5
-	jLVrT/Jwr+9Vu2I0qGeYj+usJv3+QdupfW77lrNSNh6+mBebw8Vp+BJkpAMo1ADtN9LFaW73azl
-	Y2IwUlutnA1gNALMYEi1AYLHBy3ZhBpAWi/3/Q4X9IBq/TbE4Vpztv6KK8RF5n35NaV34HhkCEx
-	5FJgh0UwyyuHXbuhTRIWxvHKq11YoOSW73DhTALbq3FsXKS3lbMKswxpoxGrgWATcaiVFZac8n+
-	hlF7LlDd9qyUifBkiFG5NnAyQxn+8nQ0MyJTIt6oBIeHYipENju45U6rjHa39EgaH2ahbZrvNNa
-	g2Z+Zabi8pcawB4owWe2c8jJncfFoQPchF8FtMRDx+ijV1v3jNvgiIW3pWhoabLw3SVhc6IC4zP
-	3J1ovMnQQ2PoFL6hzJfSowL0Qdonh1yXtD+qIeSHEtZ7OwA+DTrXrbAw5lE6rIOYe00ycLato+2
-	UPv4C5Ysd6uKhN7uK4mJWqa1iWfp5D7dc4Wzi2TZBonffAUozv8GojkCNLAbCoV1ye/ZtqtDIhV
-	Ckna1YaNMNX+isnh1JhKFDDPkGx+wwKNsfpT4qaNQXbqAHG5gf+3hf4lRbJhggomHZzu+a+hGS
-X-Received: by 2002:a05:6871:3a13:b0:48f:e25f:1dcd with SMTP id 586e51a60fabf-4a9077eed93mr9988226fac.61.1793771578554;
-        Tue, 03 Nov 2026 21:52:58 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acd52a6ffcsm1069814fac.1.2026.11.03.21.52.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 21:52:57 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 03 Nov 2026 22:52:39 -0700
-Subject: [PATCH] mtd: rawnand: stop BBT creation when the marker scan fails
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LZJJmZXz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fFra5ECAYsGtOK50eTQIwcjNa/R0Zwetwl+H+wtQaqyEL3TcHp7FDcDxkKeijyReSlO3NXagENKnTA9HAro6dp6XPTwZ/NrNzOGWwJfrvGtnylpQqtpxDSVEPcY+Pt8VpMX/1fSJGNB5k5Tp3hAqDL9qNohlUahctpYDyQ2K77kYzZMM4cHY8a/FCJnf2FjlSIyoT++kS86s4qvgA1Mm8CfTkF6l3CJEbZ8YdjinvsWMm4IFK0IR7FBbdjVFUJV1uon7RYh2H8Jyo7lgj6TY1ZpACMZgoFvYGaBvqrjlBwBwy66TLSRBVRj60Ln8jkz9F0db5SjcrMJx5VDxPAnLYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BgMbRmHvl2/P80S1zJh93L7i95YaYJcGvwaHIQoOCyo=;
+ b=mFRblCC0+dT2jyZg438r7wIpmWMFp8nYenJ8KQwKw3TFsY815BHRXsPXTZ6EdOg9P5sTbDaE/iwZE1QVq/GqOIBB+NU7ahOq/SJ7DNjnsLj7fPT8E0wpaOqizBszclSOUllSk4w7Khu9hNiTQ60uTkXwOriCaLHkenYgwZkwTxTUzaHYqLj9FrlFqoLcZjNBtYH8mDR6yzxgceFF+bFMT2Y5a6AoGz0aIcdUgkOnnmnuxB0ZAx2kZVUyI6T0oZ5O/UF5TrvwVmNEUO/BZV2c8MsgfzNEoTsMK9hxtyT91o6OmFJXzn4GYrw1GlCZhm/Hz3AciLoOEGiyy/S+VAlNZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BgMbRmHvl2/P80S1zJh93L7i95YaYJcGvwaHIQoOCyo=;
+ b=LZJJmZXz5rpAtDSYypZgcz8jq8bGIoYUEhUAcZzxXeWUvMHU21TIHdMLMih4CxX2WAFhNLgXliAIJGvI0D3H8RPjsw2LP3m5AiDf4aQ/wsBPYGPlQcprv+szv4GTN3+AfBZ7BMlt6m4rZ4gjgfBwpiaCNnhcUpEsVyy/yGoHp+0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0SPRMB0124.namprd12.prod.outlook.com (2603:10b6:8:1fa::20) by
+ CY5PR12MB6226.namprd12.prod.outlook.com (2603:10b6:930:22::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.12; Wed, 4 Nov 2026 05:53:41 +0000
+Received: from DS0SPRMB0124.namprd12.prod.outlook.com
+ ([fe80::24e7:97e0:923e:68d6]) by DS0SPRMB0124.namprd12.prod.outlook.com
+ ([fe80::24e7:97e0:923e:68d6%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 05:53:40 +0000
+Message-ID: <15903ed0-d3bd-4cf9-a051-ec663411ae38@amd.com>
+Date: Wed, 4 Nov 2026 11:23:33 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mailbox: zynqmp-ipi: Fix CPU hotplug state cleanup
+To: Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ jassisinghbrar@gmail.com, michal.simek@amd.com, tanmay.shah@amd.com,
+ saeed.nowshadi@amd.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, ssengar@linux.microsoft.com,
+ tgopinath@linux.microsoft.com, srivatsa@csail.mit.edu
+References: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+Content-Language: en-US
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <20261103062051.676519-1-ptsm@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0025.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:26f::7) To DS0SPRMB0124.namprd12.prod.outlook.com
+ (2603:10b6:8:1fa::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,59 +97,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-submit-rawnand-bbt-scan-error-v1-v1-1-0bef8334198c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNTQrCQAxA4auUrA00UyqDVxEX8xM1glNJplUov
- XtHXb7N91YwVmGDU7eC8iImU2lBhw7SPZQbo+TW4Hp3JOoHtDk+paKGdwklY4wVLYWCrDopLoR
- EfsjeE4/RQWNeylf5/Bbny7+b8eBUvy5s2w4KwM/WhAAAAA==
-X-Change-ID: 20261103-submit-rawnand-bbt-scan-error-v1-1183d881e5b2
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Thomas Gleixner <tglx@kernel.org>, 
- "Artem B. Bityuckiy" <dedekind@infradead.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0SPRMB0124:EE_|CY5PR12MB6226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1907e46d-49e0-4e5f-b5fe-08df3a37fa3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|921020|56012099006|11063799006|261102123227099003|261009223027099003|261026121527099003|261028144727099003|261022075727099003|261021123027099003|261022105027099003|261021135927099003|261021121427099003|261026140227099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	vKrZe5wBqyBy9qtqDXhuINdeMFf+DKQn3aLx03/FimirNxroGZvln7Fdb/ssmRrks8+CCiN48+wuEykrO4Ltu3F7z0+mKdK1lAa91ylKpWoLnKgarcuadjHpzN9mDjDa5E5xLG9zjxJDyaELW2hgSPP4Rl5AqHereAomV77TryhJ5Ejx2y156j6oiQ0rsIiYJcsZRj3a+BlZAsHxKv7YrjQm0nlL5BmDmBqtj8ysgJJqfBsmVTSJh87WnT9UEXIVetHGh6o2Sq3o0X20f9d3M2yIOTu7OyNPv8h9T3VSWFKjnQ/uhPdet7TkoQXkgKRerZMj/XU0pKwUOvsJw34EzR6eA5CEM43u11Lb8HvfA4FMrB3ar9Z1+n4Na2WP+/6QxNYDScqpaScMlIFeQ53H5JuhE43ZsNBSAPEBRvy1ZYB3Zdu8o482uHq6Xl1USSNywBbY2Hn+SMbL0b/684y2oBNLKm4YOKTfBOuHIrFvrP0Ll1exNNC3cyffjPHcTGJjM0yJO1xjCQ+AfnDvmAaaIX50iUG1f5huZYHwCOD8D2mXAHizPB7yh872LRwwhHbkI6t50oCcDD7M0fSMc870CnCrJtLK1O0NFHhrSZ4enT1nEyGFmBiYNgGTdisi+NqxKQYakN2lXXxGzzUGgb3Bv6bGmHf33glsMUsECQEoh5s3UdT7JKAGb03WO5Va3sYbrObkbuF2Ig08CcQJgJwR5A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0SPRMB0124.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(261102123227099003)(261009223027099003)(261026121527099003)(261028144727099003)(261022075727099003)(261021123027099003)(261022105027099003)(261021135927099003)(261021121427099003)(261026140227099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K3NwUzN4dmV1OUVNekYxSVJkKzJsZHI5R0gxbHAybTBuZHQ0ek1EY2pwMlFN?=
+ =?utf-8?B?NVYyM0h5NVJqZkdyLzg1VXV2My81MzNxOUI0WXEvSXpYaTQycnovWWE5MFAz?=
+ =?utf-8?B?WG1nZjc0RUgwa21Pc1dhcy9yUFpvT3V5NnZKU3BpaVFneEk2Wm9wdnBlZnRw?=
+ =?utf-8?B?VUJHMk5wOEhYN3JtYTdBRmViSVNMS0hKK2lqQ21rRVR1YVNVOW5IU2hYWjVB?=
+ =?utf-8?B?OE54Q1hGRnFyZlIwVHVIK1lraSs5ZG5PaFRSUytVSDNldkRaK0R1YklqSFlH?=
+ =?utf-8?B?M0hIcHc5eWFOcmFSOFBMR1pIQUxnTGdXdWhZNE1CNkZhMlRmVVNNY0Y5blc1?=
+ =?utf-8?B?ZS9heW9POWN3Tkl1WWh0b0hyaCttQ1NnWjZrdkFuSk5LNWZubEJlWVJ2aHFh?=
+ =?utf-8?B?ekxURkRydEpaUE1aa3BGbUVxMGdiUk5VQWlTL1dxRU14T1phR3JYS0cwdFov?=
+ =?utf-8?B?d1hjZm9DNjZCZlJFb1RlVVY3c28zRHFOUC9ldGxHeWhhbEI4Y3RvdUJEcEtI?=
+ =?utf-8?B?N2FHSVY1OVJUWHRQK01CQTZSV1Z2dlZXQlhSdVRxc2VuTkh1UGhyL3RxTHF1?=
+ =?utf-8?B?NGtKeG1IWHcrRlFmaW9HNEp3bHlJQlhsUlA1V1I1Q3VOSTNMa2g2T1lJdk9t?=
+ =?utf-8?B?WnRzZ0JuNUNSQm45RlNqTjJmWGZ2Sy8xbFhNWTdBVFBnQUFWclVtOGJhK2pB?=
+ =?utf-8?B?N3RSSWlSbnhGNFpMK0xKeEdnN2tsMXBSMVlYOENLNkxPQ3dvSWxQNkY2NDZC?=
+ =?utf-8?B?NnF2OGNLM2RBempFbEZNclB4NElrYnowREJrYWhyN0g1eVBNeW56YlhPRHRW?=
+ =?utf-8?B?RFcyZFFuTGY3QUZkcGZFai9FK1VwSndkUDRlQWJXKzBqTDExTy9OYkdyVTdF?=
+ =?utf-8?B?ZjVjR3VqKytyU3pod21CQ0RlWGg0a1lUYzhrU2JscE1tc0pFb1Q4NXhyQjVF?=
+ =?utf-8?B?YWhIKzNzSEd2YjNMVitodmlVSVpLY0JmTVdma0VlaVY4eXB5VGY5ZW5ZZ0Ew?=
+ =?utf-8?B?R3U1bjV6RFNnYS9KcEYwcExvd280RmczUllTN0ZoM0ZJaGRpTDlkNmo1emlW?=
+ =?utf-8?B?eCtwMW9kUzRUTWVMYXh1WUI1SFNVemIvelY1UXJSblJJcDl5eFVzNmRVWnJD?=
+ =?utf-8?B?RGd5b1liSmpzMVprZjRzczRrOEFaaEhaN1E1S1NIOWlMMEFWMDhtTUs1ZWFh?=
+ =?utf-8?B?SkIrVXVERFpTZW5JSTdLckdYK2I0cUw3ZnloV25zZFVqOXVvTDR0cTlxMXdp?=
+ =?utf-8?B?aHRpVVdwK1VYR0ZJc0lJV2NJd1hveXViZTljRjRKR01rQm9SZkYxVjdYcVB6?=
+ =?utf-8?B?Y3lBNXl5UHBaN29RMWtTK0tSYXZqaVh3OUk4K2FGS0prS0xmYmRqSDZXSmI5?=
+ =?utf-8?B?NGJ0d2lWbDBsdmsveUNOQlNzZEdmRkFGRE1jTmhuSTJSYkpFM0RQdkt2OENN?=
+ =?utf-8?B?Tzl0MTByZTY1S1NZUXVwTjRxMWdJa3huc29UbU5PcVZrR2piQ00wMWljSVdy?=
+ =?utf-8?B?Y3lmeVpNYTU5eHFGUGJrckNmem5Lb1lNdDdSNGhUUFRhWlZWRHRkSXdheFc1?=
+ =?utf-8?B?b1Z4UDlDOXBJK1hFRk04UmI0VE0vUHRpd0dENHdhSGU4cEdMeUtXOVRDVFhH?=
+ =?utf-8?B?YkFOVWdxNWZMU2Jpeng0R3hhVUpGanhwUGRUZ2tVOCs5c2dFZEFPanEzQWNv?=
+ =?utf-8?B?aEFidk1UN1RmUUlBaUhzS1NHMnhUTTROY2c3UjJvNEdNRTJLVXllYzJYMzBs?=
+ =?utf-8?B?cnJ0NW5BRGhiNVIvVURtZkpia0pPL2RWRUhqVHQycjFSWUhnR2ZYc2taS1hU?=
+ =?utf-8?B?YzhBSzd3ZTJGREMrbDd2aUhZc0NsWVIwOHQyR0ZlaVc5S2dPOE9YNEJldTBn?=
+ =?utf-8?B?UU03WUFGTXRUbXRtUW01NlVaU3c2MUxUd1BZKzRWeUw5RzlFSklydnM1TjNh?=
+ =?utf-8?B?cmlzdUpkK0Nwajc2WERWWFhkMmJOekNXZUlKTjYvdGVqU2hIVVlmVktZK0E5?=
+ =?utf-8?B?M1V6YStMNlBnMzdKTWNyS3pHRGREcTFCejRSRnp0ZTNmR2cxNVZRL2QwcFhT?=
+ =?utf-8?B?anQ2dVRPVTQrRFRRN25xaDR2Qi9qREt6azd5SkM1YkppaHEraHRsaWRBN0U4?=
+ =?utf-8?B?L29wWU5hZmF2aTRNeDF1ZDB6OExZS0NPLzEyRHJ1U1RaRTN2bzFsQlF5Mjcy?=
+ =?utf-8?B?Rjk5NFJXZEFmUXhpQVN0OGFGQ0RVMkFlKzI2UkNRczRURm51aWhKc1lCaGFC?=
+ =?utf-8?B?TnJ4L2YxZXV4emJLemQvZGFhQXpFQnRKais2KzhYaVhuK3FuZGpEa0Q0dUJG?=
+ =?utf-8?Q?XdlmA6XJ875pDMt4x+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1907e46d-49e0-4e5f-b5fe-08df3a37fa3a
+X-MS-Exchange-CrossTenant-AuthSource: DS0SPRMB0124.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 05:53:40.7348
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NA/KDy7GaHyyskE827NhClqOGDrkawSo7MQmwU9h76ERfVzDhn8cm3pl1Kbg8qs9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6226
 
-create_bbt() returns an error if reading a bad-block marker fails, but
-check_create() ignores that result. It can assign version 1 to the
-incomplete RAM table and write it to the primary and mirror locations.
-Unscanned factory-bad blocks then appear good in the persisted tables.
+On 11/3/2026 11:50 AM, Prasanna Kumar T S M wrote:
+> On driver removal, the CPUHP_AP_ONLINE_DYN CPU hotplug state is removed
+> instead of the its actual state. This can leave the mailbox driver
+> callbacks dangling. Use the actual CPU hotplug state during driver
+> removal.
+> 
+> Hotplug registration failures are also ignored, allowing probe to
+> succeed without the callbacks needed to enable interrupts on CPUs
+> brought online later.
+> 
+> Fixes: 6ffb1635341be ("mailbox: zynqmp: handle SGI for shared IPI")
 
-Propagate the scan failure before changing table versions or writing
-either copy. Keep explicit NAND_BBT_CREATE_EMPTY initialization unchanged.
+Nit - only first 12 characters of the SHA-1 ID are sufficient.
 
-Fixes: eeada24da8bd ("[MTD] NAND: Read only OOB bytes during bad block scan")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/nand_bbt.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Also describe the failure signature and how the error is reproduced.
 
-diff --git a/drivers/mtd/nand/raw/nand_bbt.c b/drivers/mtd/nand/raw/nand_bbt.c
-index b0e7592a2ab7..db9d6458af51 100644
---- a/drivers/mtd/nand/raw/nand_bbt.c
-+++ b/drivers/mtd/nand/raw/nand_bbt.c
-@@ -1005,8 +1005,11 @@ static int check_create(struct nand_chip *this, uint8_t *buf,
- 				continue;
- 
- 			/* Create the table in memory by scanning the chip(s) */
--			if (!(this->bbt_options & NAND_BBT_CREATE_EMPTY))
--				create_bbt(this, buf, bd, chipsel);
-+			if (!(this->bbt_options & NAND_BBT_CREATE_EMPTY)) {
-+				res = create_bbt(this, buf, bd, chipsel);
-+				if (res)
-+					return res;
-+			}
- 
- 			td->version[i] = 1;
- 			if (md)
 
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261103-submit-rawnand-bbt-scan-error-v1-1183d881e5b2
+> Signed-off-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+> ---
+>   drivers/mailbox/zynqmp-ipi-mailbox.c | 14 +++++++++++---
+>   1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/mailbox/zynqmp-ipi-mailbox.c b/drivers/mailbox/zynqmp-ipi-mailbox.c
+> index 42d2583e44ca..b0643ee75db0 100644
+> --- a/drivers/mailbox/zynqmp-ipi-mailbox.c
+> +++ b/drivers/mailbox/zynqmp-ipi-mailbox.c
+> @@ -136,6 +136,7 @@ struct zynqmp_ipi_pdata {
+>   	unsigned int method;
+>   	u32 local_id;
+>   	int virq_sgi;
+> +	enum cpuhp_state hp_state;
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+Warning: drivers/mailbox/zynqmp-ipi-mailbox.c:141 struct member 
+'hp_state' not described in 'zynqmp_ipi_pdata'
+
+>   	int num_mboxes;
+>   	struct zynqmp_ipi_mbox ipi_mboxes[] __counted_by(num_mboxes);
+>   };
+> @@ -863,15 +864,22 @@ static int xlnx_mbox_init_sgi(struct platform_device *pdev,
+>   	irq_set_status_flags(pdata->virq_sgi, IRQ_PER_CPU);
+>   
+>   	/* Setup function for the CPU hot-plug cases */
+> -	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "mailbox/sgi:starting",
+> -			  xlnx_mbox_cpuhp_start, xlnx_mbox_cpuhp_down);
+> +	pdata->hp_state = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+> +			  "mailbox/sgi:starting", xlnx_mbox_cpuhp_start,
+
+what is :starting here ?
+
+
+> +			  xlnx_mbox_cpuhp_down);
+> +	if (pdata->hp_state < 0) {
+> +		irq_clear_status_flags(pdata->virq_sgi, IRQ_PER_CPU);
+> +		free_percpu_irq(pdata->virq_sgi, &per_cpu_pdata);
+> +		irq_dispose_mapping(pdata->virq_sgi);
+> +		return pdata->hp_state;
+
+  1. The new error path double-frees and then hits BUG().
+Please reconfirm.
+
+zynqmp_ipi_probe() sets pdata->irq_type before calling 
+xlnx_mbox_init_sgi(), and its only error label runs
+   zynqmp_ipi_free_mboxes() → xlnx_mbox_cleanup_sgi() whenever irq_type 
+== IPI_IRQ_TYPE_SGI. So the new unwind runs, then the caller's unwind 
+repeats
+   irq_clear_status_flags(), free_percpu_irq() and 
+irq_dispose_mapping(). Before any of that, cleanup calls 
+cpuhp_remove_state(pdata->hp_state) with the negative errno still in the 
+field, and _cpuhp_remove_state_cpuslocked() opens with 
+BUG_ON(cpuhp_cb_check(state)), which rejects anything <= CPUHP_OFFLINE. 
+A failed hotplug registration now panics instead of failing probe.
+
+
+> +	}
+>   
+>   	return ret;
+>   }
+>   
+>   static void xlnx_mbox_cleanup_sgi(struct zynqmp_ipi_pdata *pdata)
+>   {
+> -	cpuhp_remove_state(CPUHP_AP_ONLINE_DYN);
+> +	cpuhp_remove_state(pdata->hp_state);
+>   
+>   	on_each_cpu(xlnx_disable_percpu_irq, NULL, 1);
+>   
 
