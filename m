@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793754655;
-	b=ogPAukGs8UeCKCHvIXf0tOpCV+iYBa+U34U3Qut3NJnZUy8QDDb6OAz3XNKjwvgp22E1
-	 I0p1juaf0YTF8u7ZE7w3aDaPoNX34AQP8DeHHoBAQirpquFEqMfL9u4xDk+0VTlcTeNh7
-	 3rAZJYgJNK8IYHJU2UtsVygY6hg2353MjRRz0tw614LnMRGykYfHxRDeq1UsZi0BVsQvg
-	 0bvXicGv/kHMdrN+Ib+BQRl/+FuA4R45qXiJenHNfoa10iXkwG17erdKpR7VmDUtHd+lZ
-	 PwAMIR9SIF//irtGFyHMCn5wZy0BN50x0tHiTBauzN0czGDZhFb2pT8K/Je2NBkHRsg==
+	t=1793754659;
+	b=BFrB8XlgapdGugY84HURiR0SYvlTH+8IjsEcOVBaohdA6w1iaDvmlOoXC7ZnMGRigWgu
+	 u+BDd/JoYkZl4i6l1A1cweVdVJPABa753gJrYhg5VmGcyUjXwYwvXH4Q+m6yqW4+XgwOq
+	 IhG1RO9pm9Yl6M0lAViT4VTTEbsMf3vjRut7elrCYNnm7dim/EfDRaLAVY7JSSpCEwnd6
+	 SnfaLpK2kxVC0fNHblKEhbPtAQ1nCtaE1sxQGxF5ARh7UBsq1g2WOVHnEAXL+eHwMvWXL
+	 axloitLswCaOs3xi2pXeraxZMkql6nM26GCIEdjmQnMPOVIKF1qRfMpEHN+P2NTDJ/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793754655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793754659;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
@@ -16,97 +16,97 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
 	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=mL14LNWehxCuNae9DlFtHdzgIir7uUJx/MZpih9Df48=;
-	b=RZJjVRg7NUsJ/C45lIJJ8+zRqnAxC6hwrkzwQ2Jm/oTLZxddvSSDlSBjsrV/12a9vfYF
-	 lEWcNo72l0aLHbQIyV1xE2/LiMnd0XaoYR0cqm2k7PX8670SXyHJay/qxGlJ/1HYTnvd/
-	 EO9gIS48GHGqEI4sLg0Q5FzifUVgo/NKozEv1ke7bSbxbeFcKkF/nXdsjjUVueyKNshpS
-	 mBbyC7YPJ6meeRhbWa/pwBWutsssBpJK4grE+BCOGX5BwwMmLrcvonvLMDovTCRKNPvQm
-	 55lGLoaGezgEbl03oMNC/P8WqIfnz/e8+x0Qs+hcGJ52lRqNdZZ0Ktjfjo+ut7NYP9g==
+	bh=SscCVk8nxupD4V6Cfhds03G/OUwDOCK2+kQxVAgWW28=;
+	b=LcmS8LsG6H26iOin9luCw/+6vzyPUGMN/XqQYXxoqibuqZ0n3QUlPgq60lD33sCK3ERb
+	 swLBSqFhqGC59+XZ0dD+G/q8gHidztYEcf3IrEEJ+ef/fH4XBT3s6I2czyULcO4azQyOQ
+	 zvStZfH4PFOW4Gu/mmTGbe2rrBjtOBFx8wFpTDYkZuNNDLCfryyiwC0BUc+XyiRIgIaIJ
+	 NbUZ+wu3d+YTURIaI0Gs6ZmUgekWiLicjIox+tU5FheB65Fjh5jnqHCeX4VTIY5HXaQwP
+	 +1DUYcgdxTR70Dkd3yLslHBsvavHCdpGJsKg7Q74BNN7NekxSxHgVfnO83lSznPqrXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SJgNINCo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IyGF+xvv;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cd8Khx4q;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GoRbKoco;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E25606D808
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:10:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21E25606D808
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE9B606D83C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE9B606D83C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SJgNINCo;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IyGF+xvv
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cd8Khx4q;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GoRbKoco
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RQIa3335539
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 01:10:54 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RD663335329
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 01:10:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mL14LNWehxCuNae9DlFtHdzgIir7uUJx/MZpih9Df48=; b=SJgNINCozTDPpQNL
-	a9SOujbC0xWVYYR2PXU1t/In1wFnzAu/LXIciLYTVh+kUhpZhq3aQalEjM6pYQCM
-	GwD5P5qOwzocTpA6FVey5meSWz58SrQefh8vuh0jBOBxDDdUwNVqY6xIkLlWborv
-	1ww1NF4GmyJZbc2qZqBunAGErS1PrGFomcV3KvtmCIDk55/n4aQcpiJNbJbz5GiD
-	sPyV3v3jJIZq3Xi9A16vf4e3M7WMmPS1kIS9odnIKx7WqVhe0LUmKga2DQg42Jqj
-	ndkNSUhRWi6vN7aO8Rba9MTqMqcfAtQKc90GrDm6ZuSYs/1dATVrgZ2YTKlnnP8E
-	HvhDWA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqmjbsf9p-1
+	SscCVk8nxupD4V6Cfhds03G/OUwDOCK2+kQxVAgWW28=; b=Cd8Khx4qNrWJpfG5
+	HiXrDUPoMsmGnfls6Xiw5qX/mM2QRKgvoIZiSEkeQw1gHBHlQSodEY2RqvU6SKL1
+	yKx42ZkHG3vShctw9cDp9wbt1J7VyDhO3R4XZqJYL0b2meAVlYvVGA281MTfq7H0
+	H5M+AjAY+rCsgkTZpuVCOUOkSw6ZopUP5yJ5Ih/OfBmHXmDI0ReQToo7DnXTWWak
+	XrnX0F9zCB6pbLzc8c/32J2ZpM4Ho2IP+KKSpWZNjtMQaV3oaumuTaWjVxHklUvp
+	jZd6Ooe/tGUb2+2pL2lRK2orVl2tueiZ+nkc1pfjOkv4URN165u2nXFDQMZ89Lfe
+	LBzg+Q==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqmjbsfa1-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:10:53 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36998507c13so166914eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:10:53 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:10:57 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so313349eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 17:10:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793754653; x=1794359453; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793754656; x=1794359456; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mL14LNWehxCuNae9DlFtHdzgIir7uUJx/MZpih9Df48=;
-        b=IyGF+xvvP/dzPgdemwVPA7kY4dHzYYC/Y91m6rdhWSeR9ry/bf/p8twuPNs57ikILP
-         4lqgbxWWJHiZualEftSeDzFmaUVXb2CdMvXLLG9J764/NrniJv/7BVRGWBM1/XhSGgaL
-         Dr8NBudiinrDuMlWpZqldiGNw0gbz4kynj0xc6rq2wUzDVfu57BtsAPN8/W5HOd9/uF6
-         8EIe0v/iXUcOg7gaEq+BT2WYIeexzzdFNytcMVHMJB02GoncpLQZ536mnCZW5QctHp2W
-         /nubhFTdTp8mlPsPGrF99kU6o3yn0a6JAsqkDk8RmLvXvGE0cKYdZ6S3lXf7x3WWod5V
-         7lLQ==
+        bh=SscCVk8nxupD4V6Cfhds03G/OUwDOCK2+kQxVAgWW28=;
+        b=GoRbKocoieElckuiEqT7leql2h9ZjEllQy+3P2aXrVVZ1rSGK2blkWoXn/zZJ9oMpB
+         /z5NkuZnW4A17NyRFXIJzqmjxQSGb8qONYszW822j32HX+RXWSAV/kzvW1DRFrYJjC58
+         5HFQT0gsqerMJQhzlUHbxmm2Vz2Y5Turj5senwcaUa8sVGCTuOT3ymwHpZx2yzVDpqIY
+         2+PfzHWP+/RH2cmfpY5TqKZkCZ35Q4HlNiSmOvJy+3hxM8sAUnIiVECIoHm3owLQU01P
+         JBgwu78RKdTC/oBnqvfwwR5HS6ulMlkS+qHuRg1szQmMkbqJuJLZNWV3yzRlkwM93T4v
+         D8qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793754653; x=1794359453;
+        d=1e100.net; s=20260707; t=1793754656; x=1794359456;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mL14LNWehxCuNae9DlFtHdzgIir7uUJx/MZpih9Df48=;
-        b=PzcE9nakC4gE1A/reHBs3TuKF6B9z0W8lHxcOb5w0Y88KzYvSns9rqJHRBQF5122EY
-         aBd2gtT0s06m+0LTZ/hBVbZbLNo7HWbJsdiGyBtnCXIAoSSoPOE/yJUyFmDuzGsp1Zb6
-         olzaKMt6eryXJ0ipI/33CZSvKJ9LKUBy4RWSHy8HEXdUIgsXzAYBFGoXCBP1GLwlolWr
-         f+CUlBEXoheq3m4CtbY/Lk9sFyLEO4gEPCiSGWqY91UDP4wDCEonnnLhnBGYoh62kP8k
-         fqGfCEvkBuaQ0wbrhWNvJAU1m/PuDbF/MYSnV1V9A56CD2/9aMG4soZNSRCN6ya0BeZG
-         Y4oA==
-X-Forwarded-Encrypted: i=1; AKwUvBwsMsHIbKsxLtqnct1eCJrdywqKsTTVRq9cyt+lqvCyV3f5stPAKeX+6Lg/MimQklhMQO7vI1HMO+3+aP8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+owdz7VG1pYat0EEch0rWP1nxoqfFzHNg+1anbnMqjg+VAsNxF
-	akCNcCHObxQ7Xa4uHUDkmZJWDyuBalxWe0UMMjzAzGdQeFOgkulbCHEx4V8ZfA/yZcnX+qMySSG
-	pC+FUHqVp9i5qp0pzwsbF5lBaAMwJHSMpTxDj8w148ULwib2Jm34S52WsHK3OisI0gEo=
-X-Gm-Gg: AYBFou1akO3BbZho7WbW0hfFW09nr/7P9LcWl0VldLPejvZAyZ8MvbcQBRKGAgWnhwB
-	zEwmSubQGVeUl+6N3ea7QEWF6juPxf3MXFHxBwTn8ZA7+AJV3/zaEdIBr2mK5P+ph3GYCaIJ2vk
-	MXj7nX9M/faQ+ofZdxAyCcEh2WplAz9+N8w/ntpVJnHaUPyGlPkcWFFZvox0fRmlbop1Ybt2IZk
-	FgyW38t/Og+N/7yXpkc3YnFAHHFdi+QPWUJ7z/K0ShdVIASm5mN2kd0FTnUaNthmxDP+0Eq5tYH
-	Q89IBQRWLlw0E+UMbgxYs4oghu8mt62F28FMmMP+b4P66naTLIqfHfp2Kmr8XhXnRYT0bL0t/Om
-	pAw8Byu5FIOC5vzH3oY4QdQHGrAEZ/adKcTAb0QU1fHV+b8V74YEfJQ+IKI4bCRe8Nt1X1L8IU9
-	j8zGa3nh8ccbR5/U1uqbWRWyjBi1xtzQuYgyO5
-X-Received: by 2002:a05:7300:4719:b0:368:6f29:f26c with SMTP id 5a478bee46e88-36a4221aa0dmr20176238eec.4.1793754652836;
-        Tue, 03 Nov 2026 17:10:52 -0800 (PST)
-X-Received: by 2002:a05:7300:4719:b0:368:6f29:f26c with SMTP id 5a478bee46e88-36a4221aa0dmr20176178eec.4.1793754652061;
-        Tue, 03 Nov 2026 17:10:52 -0800 (PST)
+        bh=SscCVk8nxupD4V6Cfhds03G/OUwDOCK2+kQxVAgWW28=;
+        b=1WmBw27k2dJt2ovyeX7/VoEQBwgkZscGQ3ki7BgJVq0a7OfI2qz0TKQCuJOWJDHOpk
+         NVjzzAPFtH7AoGn0he3flcSP9qQ2Ttd7CBVvQaL+5EBWZWeN17ANya/0i6L+EaXzUEZ+
+         2F/MbXwCeU3GBrOTcgZWiWdp7p6pk0OJXuDnZaMCtwAqfkHG1TGgGpvoLKMBbdK55GWA
+         HeGuW3lK9Me03b1CQPSKRxkpkCRvi8Of0/hjpTzB5zi3vK+27ogQoUB1UOu6ZraiZKKT
+         /Ael70CNrZKwNli8Nt6y2aK7/We/cPizw7SPbEAHDyB7yst/I6eJtzJX3r0PqS5NhSun
+         7d3w==
+X-Forwarded-Encrypted: i=1; AKwUvBz0xxqwcv52/NTP0ZlSUqaasegaGNm8mMb8Y2Rg4UJroJuu3MQrgNn+dBl/B6BlxbVKbaE8tx2U9Ftmbyk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+m+7Gyc6NET50ag3HzaeU6lOEj6a1j9qdllgOuchlElmKCCj6+
+	8ANAH1hdC+uk153OKnqoTAQAEg4O/k7wPRUiu8tAWLkBgFuYD56XICIpp8+Dm5wIq3kpPCujdRn
+	h+MHreG02mbiVoPNh6b+fVYXplUvQ2h+brdQBcwHzLSy+Olxg0SHtfA3UpIA5uXv3xMo=
+X-Gm-Gg: AYBFou1TIK794ASjHQR1tPERPya2k6/SuDjvqKVNwt8X8Ftk+MGF5pgguCmiRhLlCRW
+	iXzmMMr6Vs4E4+I3BQob4l0DIf3Vl79gxfNISDtEcHfG49OQ2P33pnL8u/xvkaksKPtQq45A9VI
+	AMU9I+iuJ1k5F+DYbWBSsk5Ax52bmIxUsAU5VBaAKmKOoruuPfYq54qjsUc4LFyZi0HEwKSYL/v
+	/7UfTkuPfTzISp3L7DGTSQ5lb2h/n1Ik4yPnKIXtx3GiUoi1L3Kv549Lzb1INJtKRTEFhAov7ri
+	qdMG9yS3Rtytca1rDPaPmXAH1sp2qTM/PMh8j4LgAhfEwjCci1JWzBILBRS4tgscUhxoU8PAdG5
+	uknDwVwckhKkcWfvG7I7jQoKCrfJHx/9wdQZUxS+bun9RkGaMdTzd5yqvI9ONxn/IyrNX1Ga1BL
+	VsrHlNTWOBkPgRVxnsVK1ryfg1G5DxKPUFG/7x
+X-Received: by 2002:a05:693c:630c:b0:36c:a360:9c42 with SMTP id 5a478bee46e88-36ca360cda7mr1486120eec.31.1793754656197;
+        Tue, 03 Nov 2026 17:10:56 -0800 (PST)
+X-Received: by 2002:a05:693c:630c:b0:36c:a360:9c42 with SMTP id 5a478bee46e88-36ca360cda7mr1486068eec.31.1793754655599;
+        Tue, 03 Nov 2026 17:10:55 -0800 (PST)
 Received: from ath12k-linux2.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm2288670eec.4.2026.11.03.17.10.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm2288670eec.4.2026.11.03.17.10.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 17:10:51 -0800 (PST)
+        Tue, 03 Nov 2026 17:10:55 -0800 (PST)
 From: Pradeep Kumar Chitrapu <pradeep.chitrapu@oss.qualcomm.com>
-Date: Tue, 03 Nov 2026 17:10:49 -0800
-Subject: [PATCH ath-next v3 06/13] wifi: ath12k: ng: parse 1K REO queue
- statistics
+Date: Tue, 03 Nov 2026 17:10:52 -0800
+Subject: [PATCH ath-next v3 09/13] wifi: ath12k: ng: add REO queue
+ descriptor helpers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-reo-cmd-b4-posting-v3-6-861adf04b516@oss.qualcomm.com>
+Message-Id: <20261103-reo-cmd-b4-posting-v3-9-861adf04b516@oss.qualcomm.com>
 References: <20261103-reo-cmd-b4-posting-v3-0-861adf04b516@oss.qualcomm.com>
 In-Reply-To: <20261103-reo-cmd-b4-posting-v3-0-861adf04b516@oss.qualcomm.com>
 To: Jeff Johnson <jjohnson@kernel.org>, Ripan Deuri <quic_rdeuri@quicinc.com>,
@@ -131,25 +131,25 @@ Cc: Pradeep Kumar Chitrapu <pradeep.chitrapu@oss.qualcomm.com>,
         linux-kernel@vger.kernel.org,
         Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Proofpoint-GUID: kcEU5lw1raq03JkTEm62iMrljueRRv7x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAwNCBTYWx0ZWRfX42At9wjYO3Y2
- PqWOxAgxppV8WWp5nNnE8t9TWaQvq5rmbU0Q9XF86o9pEefoYTka2NwfIvIx4qBy/L4EtgR6AC5
- OWASH6vAPso3fnsi9kLV5uqQIFJfWefbiTQ0lsst0OFvjGrnvRVw4NcarwO2QfaB2UxkbebMUE5
- PgUyBEjJhwRWk1pEn+BEa4Z2lNuasABdHMlaI9fQyDDdWlml2V5EJhXKq79HWz6E0Y7alzWdbIi
- uRkp8/3h5v6n01wzMynJsowLbt9AnsaIU68RmI7Sb92OZhBT4xbvTqwvZH24s3ZOByQIzC6XO/2
- a4VFpW+pkHsfJ9FYHiSGOQQXtAaAG2wFRtMMaOKprJqTB9+TbjGp9FpJxTD3/XGPZKWIiBeVs6O
- Yhg7yCOcdV90c0QrjGMUaLaIykn56wR4mditE9cTCuzJ3zw3PoOXEKNnjvVT7U8w4cFhBSU9l6E
- k3T7y0BroNCapbfKmqQ==
-X-Proofpoint-ORIG-GUID: kcEU5lw1raq03JkTEm62iMrljueRRv7x
-X-Authority-Analysis: v=2.4 cv=NMhAaE6g c=1 sm=1 tr=0 ts=6aea861e cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+X-Proofpoint-GUID: YOUkhU1L82L4UbKm8By0eqC6tViJAFmR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAwNCBTYWx0ZWRfX2ZH0opfUTBgL
+ p/n06wtd+9Ribav0YT289AB9ZReeulBtKmNUCi+Ijwkt4iiNjRivVC/oWzGM6OmamekBBu9rHh0
+ OABvmYuGkQGfpt9TDlolXlEVo6ry0okYgyPWJTlclJ0Fnsi/ArFF3T8BoVrXsKpOPX+O5n2Wjna
+ lrTpibStrU3ncwElBxNoSHqL2+/CxVH1pOfRfeVgIQdikD2SXcxbqKWE+Wu38nzPNLYa+4+nORK
+ sWptudXkuwHgzt/IXDy+3rvQJrlF9Ooh0jz3ANJl3kh60icAIADf8qXXoWrORNToocKnvM1T9UN
+ 5HMohFNZkwwwJ61RHSJohubJXiyBrXrJDxb+LVA2DdNegI1P5At/h7OylOCKsIuAsrPnH5pTDwc
+ 6B27UzYx2/uLWPPOK+lIYMJP6FfQrWY8o1kNw/4Z4MKnMqZEpilupawREPMN8bRc/Wdxswem8oN
+ J+0F5moS8GA89B6mYbA==
+X-Proofpoint-ORIG-GUID: YOUkhU1L82L4UbKm8By0eqC6tViJAFmR
+X-Authority-Analysis: v=2.4 cv=NMhAaE6g c=1 sm=1 tr=0 ts=6aea8621 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=jlw-gz1d5bKLCbeaqcMA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAwNCBTYWx0ZWRfX3RbC9jFh4pcz
- cmbEQGPt8yZ88dLljMhHLiLHN1+uah4X2772Qkec6Oo7UbpjGy32YMeOz59Dj6xxmpBaRffobO+
- w6KIqJije/LMMKEDX3u7xhMh4v4Q8qM=
+ a=EUspDBNiAAAA:8 a=kPHT7MsD_7d9QQ_0F_YA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAwNCBTYWx0ZWRfX/e5mqPjWfNst
+ tOJlDrarSbqwLBxiZ7zhaMUUUHFAkerMJCQdU1clbBZ7TVcRCgJUCImtxf3VTtMODKvuHmO1EWs
+ im4hkQHpU3uwdbFECVEEG4ItIc+7x1w=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
@@ -160,162 +160,301 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
  definitions=main-2611040004
 
-A normal REO queue-statistics status contains the first 288 bits of the
-reorder bitmap. For a receive queue with a larger BlockAck window, the
-hardware sets a follow-up flag and returns bits 288 through 1023 in a
-second status TLV.
+Wi-Fi 8 RX TID setup needs host-created REO queue descriptors so the
+common datapath can program per-TID reorder state without relying on the
+Wi-Fi 7 descriptor layout.
 
-Define the 1K queue-statistics status descriptor and decode its 23
-additional bitmap words. Extend the common queue status with the PN
-encoding, follow-up indication, and wider counters, and store the TLV tag
-so a follow-on datapath patch can distinguish both responses for one
-command number.
-
-This commit only extends Wi-Fi 8 status representation and parsing. It
-does not submit commands or change the Wi-Fi 7 descriptor path.
+Add helpers to size, initialize, and release Wi-Fi 8 REO queue
+descriptors. Keep non-QoS queues simple and allocate extension
+descriptors only for QoS TIDs that can use a larger reorder window.
 
 Tested-on: Compilation only, M=drivers/net/wireless/ath/ath12k
-
 Signed-off-by: Pradeep Kumar Chitrapu <pradeep.chitrapu@oss.qualcomm.com>
 ---
- drivers/net/wireless/ath/ath12k/hal.h            | 15 +++++++++---
- drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h | 10 ++++++++
- drivers/net/wireless/ath/ath12k/wifi8/hal_rx.c   | 30 ++++++++++++++++++++++++
- drivers/net/wireless/ath/ath12k/wifi8/hal_rx.h   |  3 +++
- 4 files changed, 55 insertions(+), 3 deletions(-)
+ drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h |  98 +++++++++++++++++++++
+ drivers/net/wireless/ath/ath12k/wifi8/hal_rx.c   | 106 +++++++++++++++++++++++
+ drivers/net/wireless/ath/ath12k/wifi8/hal_rx.h   |  15 ++++
+ 3 files changed, 219 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath12k/hal.h b/drivers/net/wireless/ath/ath12k/hal.h
-index 9c0d1dfac8d3..6534e11a3378 100644
---- a/drivers/net/wireless/ath/ath12k/hal.h
-+++ b/drivers/net/wireless/ath/ath12k/hal.h
-@@ -1173,6 +1173,9 @@ struct hal_reo_status_queue_stats {
- 	u16 ssn;
- 	u16 curr_idx;
- 	u32 pn[4];
-+	u8 pn_len;
-+	u8 pn_127_48_info;
-+	bool to_follow_1k;
- 	u32 last_rx_queue_ts;
- 	u32 last_rx_dequeue_ts;
- 	u32 rx_bitmap[9];
-@@ -1186,9 +1189,13 @@ struct hal_reo_status_queue_stats {
- 	u32 total_num_processed_byte_cnt;
- 	u32 late_rx_mpdu_cnt;
- 	u32 reorder_hole_cnt;
--	u8 timeout_cnt;
--	u8 bar_rx_cnt;
--	u8 num_window_2k_jump_cnt;
-+	u32 timeout_cnt;
-+	u32 bar_rx_cnt;
-+	u32 num_window_2k_jump_cnt;
-+};
-+
-+struct hal_reo_status_queue_1k_stats {
-+	u32 rx_bitmap[23];
- };
- 
- struct hal_reo_status_flush_queue {
-@@ -1246,8 +1253,10 @@ struct hal_reo_status_desc_thresh_reached {
- struct hal_reo_status {
- 	struct hal_reo_status_header uniform_hdr;
- 	u8 loop_cnt;
-+	u16 tag;
- 	union {
- 		struct hal_reo_status_queue_stats queue_stats;
-+		struct hal_reo_status_queue_1k_stats queue_1k_stats;
- 		struct hal_reo_status_flush_queue flush_queue;
- 		struct hal_reo_status_flush_cache flush_cache;
- 		struct hal_reo_status_unblock_cache unblock_cache;
 diff --git a/drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h b/drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h
-index 691c9866522f..e2947dd112ce 100644
+index e2947dd112ce..a7db304a197c 100644
 --- a/drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h
 +++ b/drivers/net/wireless/ath/ath12k/wifi8/hal_desc.h
-@@ -536,6 +536,15 @@ struct hal_reo_get_queue_stats_status {
- 	__le16 info6;
+@@ -1108,10 +1108,22 @@ struct hal_uniform_tqm_cmd_hdr {
+ #define HAL_TQM_MSDU_RBM_OVERRIDE			GENMASK(23, 20)
+ #define HAL_TQM_MSDU_RESERVED_4				GENMASK(31, 24)
+ 
++#define HAL_DESC_REO_OWNED		4
++#define HAL_DESC_REO_QUEUE_DESC		8
++#define HAL_DESC_REO_QUEUE_EXT_DESC	10
++
++#define HAL_DESC_HDR_INFO0_OWNER	GENMASK(3, 0)
++#define HAL_DESC_HDR_INFO0_BUF_TYPE	GENMASK(7, 4)
++#define HAL_DESC_HDR_INFO0_DBG_RESERVED	GENMASK(31, 8)
++
+ struct hal_desc_header {
+ 	__le32 info0;
  } __packed;
  
-+#define HAL_REO_GET_Q_1K_STATS_STATUS_INFO0_LOOPING_COUNT	GENMASK(15, 12)
-+
-+struct hal_reo_get_queue_1k_stats_status {
-+	struct hal_reo_status_hdr hdr;
-+	__le32 rx_bitmap1023_288[23];
-+	__le16 rsvd0;
-+	__le16 info0;
++struct hal_rx_mpdu_link_ptr {
++	struct ath12k_buffer_addr addr_info;
 +} __packed;
 +
- /* REO command TLV tags */
- #define HAL_REO_GET_QUEUE_STATS			313
- #define HAL_REO_FLUSH_QUEUE			314
-@@ -549,6 +558,7 @@ struct hal_reo_get_queue_stats_status {
- #define HAL_REO_FLUSH_TIMEOUT_LIST_STATUS	338
- #define HAL_REO_DESCRIPTOR_THRESHOLD_REACHED_STATUS	339
- #define HAL_REO_UPDATE_RX_REO_QUEUE		371
-+#define HAL_REO_GET_QUEUE_1K_STATS_STATUS	451
- #define HAL_REO_UPDATE_RX_REO_QUEUE_STATUS	204
+ /* Per-MSDU entry within a Wi-Fi 8 link descriptor. */
+ struct hal_rx_msdu_details {
+ 	struct ath12k_buffer_addr buf_addr_info;
+@@ -1596,6 +1608,92 @@ struct hal_tqm2sw_completion_ring {
+ 	__le32 info4;
+ } __packed;
  
- #define HAL_REO_FLUSH_QUEUE_INFO0_DESC_ADDR_HI		GENMASK(7, 0)
++struct hal_rx_reo_queue_ext {
++	struct hal_desc_header desc_hdr;
++	__le32 rsvd;
++	struct hal_rx_mpdu_link_ptr mpdu_link[31];
++} __packed;
++
++#define HAL_RX_REO_QUEUE_INFO0_VLD					BIT(0)
++#define HAL_RX_REO_QUEUE_INFO0_ASSOCIATED_LINK_DESCRIPTOR_COUNTER	GENMASK(2, 1)
++#define HAL_RX_REO_QUEUE_INFO0_LINK_LIST_TIMER_IDX			GENMASK(8, 5)
++#define HAL_RX_REO_QUEUE_INFO0_RTY					BIT(10)
++#define HAL_RX_REO_QUEUE_INFO0_BA_WINDOW_SIZE				GENMASK(22, 13)
++#define HAL_RX_REO_QUEUE_INFO0_PN_CHECK_NEEDED				BIT(23)
++#define HAL_RX_REO_QUEUE_INFO0_PN_SIZE					GENMASK(28, 27)
++#define HAL_RX_REO_QUEUE_INFO0_IGNORE_AMPDU_FLAG			BIT(29)
++
++#define HAL_RX_REO_QUEUE_INFO1_SVLD					BIT(0)
++#define HAL_RX_REO_QUEUE_INFO1_SSN					GENMASK(12, 1)
++
++#define HAL_RX_REO_QUEUE_INFO2_STATS_ID					GENMASK(10, 0)
++
++struct hal_rx_reo_queue {
++	struct hal_desc_header desc_hdr;
++	__le16 receive_queue_number;
++	__le16 rsvd0;
++	__le32 info0;
++	__le16 info1;
++	__le16 rsvd1;
++	__le32 pn_31_0;
++	__le16 pn_47_32;
++	__le16 rsvd2;
++	__le32 rsvd3[2];
++	__le32 last_rx_enqueue_timestamp;
++	__le32 last_rx_dequeue_timestamp;
++	__le32 ptr_to_next_aging_queue_31_0;
++	__le32 rsvd4;
++	__le32 ptr_to_previous_aging_queue_31_0;
++	__le16 rsvd5;
++	__le16 info2;
++	__le32 rx_bitmap_31_0;
++	__le32 rx_bitmap_63_32;
++	__le32 rx_bitmap_95_64;
++	__le32 rx_bitmap_127_96;
++	__le32 rx_bitmap_159_128;
++	__le32 rx_bitmap_191_160;
++	__le32 rx_bitmap_223_192;
++	__le32 rx_bitmap_255_224;
++	__le32 rx_bitmap_287_256;
++	__le32 rsvd6;
++	__le16 rsvd7;
++	__le16 duplicate_count;
++	__le32 rsvd8;
++	__le32 mpdu_frames_processed_count;
++	__le32 msdu_frames_processed_count;
++	__le32 total_processed_byte_count;
++	__le16 rsvd9;
++	__le16 hole_count;
++	__le16 aging_drop_mpdu_count;
++	__le16 rsvd10;
++	__le32 sawf_dropped_msdu_frames_processed_cnt;
++	__le32 rx_bitmap_319_288;
++	__le32 rx_bitmap_351_320;
++	__le32 rx_bitmap_383_352;
++	__le32 rx_bitmap_415_384;
++	__le32 rx_bitmap_447_416;
++	__le32 rx_bitmap_479_448;
++	__le32 rx_bitmap_511_480;
++	__le32 rx_bitmap_543_512;
++	__le32 rx_bitmap_575_544;
++	__le32 rx_bitmap_607_576;
++	__le32 rx_bitmap_639_608;
++	__le32 rx_bitmap_671_640;
++	__le32 rx_bitmap_703_672;
++	__le32 rx_bitmap_735_704;
++	__le32 rx_bitmap_767_736;
++	__le32 rx_bitmap_799_768;
++	__le32 rx_bitmap_831_800;
++	__le32 rx_bitmap_863_832;
++	__le32 rx_bitmap_895_864;
++	__le32 rx_bitmap_927_896;
++	__le32 rx_bitmap_959_928;
++	__le32 rx_bitmap_991_960;
++	__le32 rx_bitmap_1023_992;
++	__le32 rsvd11[9];
++	struct hal_rx_reo_queue_ext ext_desc[];
++};
++
+ #define HAL_TX_MSDU_EXT_INFO0_BUF_PTR_LO	GENMASK(31, 0)
+ 
+ #define HAL_TX_MSDU_EXT_INFO1_BUF_PTR_HI	GENMASK(7, 0)
 diff --git a/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.c b/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.c
-index 80c2f1202233..d78c178cc70d 100644
+index 12a37c395bb0..ad00c182c2bd 100644
 --- a/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.c
 +++ b/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.c
-@@ -470,6 +470,29 @@ ath12k_wifi8_hal_reo_cmd_update_rx_queue(struct hal_tlv_64_hdr *tlv,
- 	return le16_to_cpu(desc->cmd.reo_cmd_number);
- }
+@@ -9,6 +9,26 @@
+ #include "hal_rx.h"
+ #include "hal.h"
  
-+void ath12k_wifi8_hal_reo_status_queue_1k_stats(struct ath12k_base *ab,
-+						struct hal_tlv_64_hdr *tlv,
-+						struct hal_reo_status *status)
++static void ath12k_wifi8_hal_reo_set_desc_hdr(struct hal_desc_header *hdr,
++					      u8 owner, u8 buffer_type,
++					      u32 magic)
 +{
-+	struct hal_reo_get_queue_1k_stats_status *desc =
-+		(struct hal_reo_get_queue_1k_stats_status *)tlv->value;
-+	u32 *dst = status->u.queue_1k_stats.rx_bitmap;
-+	int i;
-+
-+	status->uniform_hdr.cmd_num = le16_to_cpu(desc->hdr.reo_status_number);
-+	status->uniform_hdr.cmd_status =
-+		le16_get_bits(desc->hdr.info0,
-+			      HAL_REO_STATUS_HDR_INFO0_EXEC_STATUS);
-+	status->uniform_hdr.timestamp = le32_to_cpu(desc->hdr.timestamp);
-+
-+	for (i = 0; i < ARRAY_SIZE(desc->rx_bitmap1023_288); i++)
-+		dst[i] = le32_to_cpu(desc->rx_bitmap1023_288[i]);
-+
-+	status->loop_cnt =
-+		le16_get_bits(desc->info0,
-+			      HAL_REO_GET_Q_1K_STATS_STATUS_INFO0_LOOPING_COUNT);
++	hdr->info0 = le32_encode_bits(owner, HAL_DESC_HDR_INFO0_OWNER) |
++		     le32_encode_bits(buffer_type, HAL_DESC_HDR_INFO0_BUF_TYPE) |
++		     le32_encode_bits(magic, HAL_DESC_HDR_INFO0_DBG_RESERVED);
 +}
 +
- static int ath12k_hal_reo_cmd_flush_queue(struct hal_tlv_64_hdr *tlv,
- 					  struct ath12k_hal_reo_cmd *cmd)
++static u32 ath12k_wifi8_hal_reo_num_ext_desc(u32 ba_window_size)
++{
++	if (ba_window_size <= 217)
++		return 1;
++
++	if (ba_window_size <= 434)
++		return 2;
++
++	return REO_QUEUE_EXT_DESC_MAX;
++}
++
+ static void ath12k_wifi8_reo_dest_ring_ctrl_setup(struct ath12k_base *ab,
+ 						  u32 start, u32 end, u32 reg_add)
  {
-@@ -596,6 +619,13 @@ void ath12k_wifi8_hal_reo_status_queue_stats(struct ath12k_base *ab,
- 		le32_get_bits(desc->info0, HAL_REO_GET_Q_STATS_STATUS_INFO0_CURRENT_INDEX);
- 	status->u.queue_stats.pn[0] = le32_to_cpu(desc->pn_31_0);
- 	status->u.queue_stats.pn[1] = le16_to_cpu(desc->pn_47_32);
-+	status->u.queue_stats.pn_127_48_info =
-+		le16_get_bits(desc->info1, HAL_REO_GET_Q_STATS_STATUS_INFO1_PN_127_48_INFO);
-+	status->u.queue_stats.to_follow_1k =
-+		le32_get_bits(desc->info5,
-+			      HAL_REO_GET_Q_STATS_STATUS_INFO5_GET_Q_1K_SSTAT_FOLLOW);
-+	status->u.queue_stats.pn_len =
-+		(status->u.queue_stats.pn_127_48_info == 0) ? 6 : 16;
- 	status->u.queue_stats.last_rx_queue_ts =
- 		le32_to_cpu(desc->last_rx_enqueue_timestamp);
- 	status->u.queue_stats.last_rx_dequeue_ts =
+@@ -886,3 +906,89 @@ void ath12k_wifi8_hal_reo_update_rx_reo_queue_status(struct ath12k_base *ab,
+ 
+ 	ath12k_wifi8_hal_reo_status_hdr_parse(desc, status);
+ }
++
++u32 ath12k_wifi8_hal_reo_qdesc_size(u32 ba_window_size, u8 tid)
++{
++	u32 num_ext_desc = ath12k_wifi8_hal_reo_num_ext_desc(ba_window_size);
++
++	if (tid != HAL_DESC_REO_NON_QOS_TID)
++		num_ext_desc = REO_QUEUE_EXT_DESC_MAX;
++
++	return sizeof(struct hal_rx_reo_queue) +
++	       num_ext_desc * sizeof(struct hal_rx_reo_queue_ext);
++}
++
++void ath12k_wifi8_hal_reo_qdesc_setup(struct hal_rx_reo_queue *qdesc,
++				      int tid, u32 ba_window_size,
++				      u32 start_seq, enum hal_pn_type type)
++{
++	static const u32 reo_queue_desc_magic[REO_QUEUE_EXT_DESC_MAX] = {
++		REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_1,
++		REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_2,
++		REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_3,
++		REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_4,
++		REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_5,
++	};
++	struct hal_rx_reo_queue_ext *ext_desc;
++	u32 num_ext_desc;
++	int i;
++
++	ath12k_wifi8_hal_reo_set_desc_hdr(&qdesc->desc_hdr,
++					  HAL_DESC_REO_OWNED,
++					  HAL_DESC_REO_QUEUE_DESC,
++					  REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_0);
++
++	qdesc->receive_queue_number = cpu_to_le16(tid);
++
++	qdesc->info0 =
++		le32_encode_bits(1, HAL_RX_REO_QUEUE_INFO0_VLD) |
++		le32_encode_bits(1, HAL_RX_REO_QUEUE_INFO0_ASSOCIATED_LINK_DESCRIPTOR_COUNTER) |
++		le32_encode_bits(ath12k_tid_to_ac(tid), HAL_RX_REO_QUEUE_INFO0_LINK_LIST_TIMER_IDX);
++
++	if (ba_window_size < 1)
++		ba_window_size = 1;
++
++	if (ba_window_size == 1 && tid != HAL_DESC_REO_NON_QOS_TID)
++		ba_window_size++;
++
++	if (ba_window_size == 1)
++		qdesc->info0 |= le32_encode_bits(1, HAL_RX_REO_QUEUE_INFO0_RTY);
++
++	qdesc->info0 |= le32_encode_bits(ba_window_size - 1,
++					 HAL_RX_REO_QUEUE_INFO0_BA_WINDOW_SIZE);
++
++	switch (type) {
++	case HAL_PN_TYPE_NONE:
++	case HAL_PN_TYPE_WAPI_EVEN:
++	case HAL_PN_TYPE_WAPI_UNEVEN:
++		break;
++	case HAL_PN_TYPE_WPA:
++		qdesc->info0 |=
++			le32_encode_bits(1, HAL_RX_REO_QUEUE_INFO0_PN_CHECK_NEEDED) |
++			le32_encode_bits(HAL_RX_REO_QUEUE_PN_SIZE_48,
++					 HAL_RX_REO_QUEUE_INFO0_PN_SIZE);
++		break;
++	}
++
++	qdesc->info0 |= le32_encode_bits(1,
++					 HAL_RX_REO_QUEUE_INFO0_IGNORE_AMPDU_FLAG);
++
++	qdesc->info1 = le16_encode_bits(0, HAL_RX_REO_QUEUE_INFO1_SVLD);
++
++	if (start_seq <= 0xfff)
++		qdesc->info1 = le16_encode_bits(start_seq,
++						HAL_RX_REO_QUEUE_INFO1_SSN);
++
++	if (tid == HAL_DESC_REO_NON_QOS_TID)
++		return;
++
++	ext_desc = qdesc->ext_desc;
++	num_ext_desc = REO_QUEUE_EXT_DESC_MAX;
++
++	memset(ext_desc, 0, num_ext_desc * sizeof(*ext_desc));
++	for (i = 0; i < num_ext_desc; i++)
++		ath12k_wifi8_hal_reo_set_desc_hdr(&ext_desc[i].desc_hdr,
++						  HAL_DESC_REO_OWNED,
++						  HAL_DESC_REO_QUEUE_EXT_DESC,
++						  reo_queue_desc_magic[i]);
++}
 diff --git a/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.h b/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.h
-index d61ca0823b5f..357839c7d9e3 100644
+index 430b0f07563f..94732f82f614 100644
 --- a/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.h
 +++ b/drivers/net/wireless/ath/ath12k/wifi8/hal_rx.h
-@@ -112,6 +112,9 @@ void ath12k_wifi8_hal_reo_hw_setup(struct ath12k_base *ab);
- void ath12k_wifi8_hal_reo_status_queue_stats(struct ath12k_base *ab,
- 					     struct hal_tlv_64_hdr *tlv,
- 					     struct hal_reo_status *status);
-+void ath12k_wifi8_hal_reo_status_queue_1k_stats(struct ath12k_base *ab,
-+						struct hal_tlv_64_hdr *tlv,
-+						struct hal_reo_status *status);
- void ath12k_wifi8_hal_reo_flush_queue_status(struct ath12k_base *ab,
- 					     struct hal_tlv_64_hdr *tlv,
- 					     struct hal_reo_status *status);
+@@ -7,6 +7,9 @@
+ #ifndef ATH12K_HAL_RX_H
+ #define ATH12K_HAL_RX_H
+ 
++#include "hal_desc.h"
++#include "hal.h"
++
+ #define HAL_REO_CMD_FLG_NEED_STATUS		BIT(0)
+ #define HAL_REO_CMD_FLG_STATS_CLEAR		BIT(1)
+ #define HAL_REO_CMD_FLG_FLUSH_BLOCK_LATER	BIT(2)
+@@ -84,6 +87,14 @@
+ /* 8 buffers for max-size SG MPDU + 1 entry to confirm termination */
+ #define HAL_REO_SG_TERMINATION_MIN_ENTRIES 9
+ 
++#define REO_QUEUE_EXT_DESC_MAX 5
++#define REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_0 0xDDBEEF
++#define REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_1 0xADBEEF
++#define REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_2 0xBDBEEF
++#define REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_3 0xCDBEEF
++#define REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_4 0xEDBEEF
++#define REO_QUEUE_DESC_MAGIC_DEBUG_PATTERN_5 0xFDBEEF
++
+ struct ath12k_hal_rx_cmd_ring_param {
+ 	u32 mac_addr_31_0;
+ 	u32 mac_addr_47_32:16,
+@@ -142,4 +153,8 @@ void ath12k_wifi8_hal_reo_desc_thresh_reached_status(struct ath12k_base *ab,
+ void ath12k_wifi8_hal_reo_update_rx_reo_queue_status(struct ath12k_base *ab,
+ 						     struct hal_tlv_64_hdr *tlv,
+ 						     struct hal_reo_status *status);
++u32 ath12k_wifi8_hal_reo_qdesc_size(u32 ba_window_size, u8 tid);
++void ath12k_wifi8_hal_reo_qdesc_setup(struct hal_rx_reo_queue *qdesc,
++				      int tid, u32 ba_window_size,
++				      u32 start_seq, enum hal_pn_type type);
+ #endif
 
 -- 
 2.43.0
