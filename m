@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793815222;
-	b=snNs17ymf7ln+34QZ1Oo7EA6mRvUjp1sImrdXhC4Lx5ATFAG3tm06HgJ2l6RsNSiwWty
-	 B1zlPlc51e7Z8V6Z7+JX5cgetILQrb+z/wDrU9JN1f9ZoRutJhfvUeYqMphrVoQkESvXv
-	 TDptnPkmxpAU6rAm6om9U7ku87HVCLjmuHSgzy2gytTkH5o7U38st733CyeQhb7t0ATp7
-	 rHQJfKqjd/oDzVETwi9TnIwxG/Joml43/P+0Hj60dQyysAmJDzlAHbraWrk4xLZJHojR9
-	 ArOuENz1HgvcL8UO3Ufwjjq1ePFuujGwG6cW6/TpoxuX2ZkRd7crXQQrIq0iLh94L4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=FjH60WOaRK8J4PChV82LXWZ+twOKZNW6Nak1Hi85Xm6C/kfeP/RUTbkaK7J66H+ekR/i
+	 7TltMtVTGyR+D9yWjtvNxbjAoNDjQ5JCVXKtUV4oLvsZlc0nOFXkAfu2DmUjiQkPZ1CXx
+	 7ESxviJf4aUV03q12E15HsK+o0WoLBJ6CSA9Oku1olaDA9U7nAMoDV/Qz5Ncb1RlZuNiV
+	 HjKsnEwcEmeWS825mrvgvbHCflpPTbskx2H+tJgMETZo8Mr0wUEgh2LuWjn2o5QvAZwLP
+	 fCREV7B5HpqNi6CzfticscmH5AMSmSHJHXycKS5IYy7hsczkFmfi7TwLbtHWGHiHQJg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793815222;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=Ji4IfJTnrzjE08ixsCtCfzOo4xSxQ09jGJFLpwyOOVA=;
-	b=o8v/c82K1YRMFmiudvjdTIyiGG0apt65E4S+NZmj8UG4u0qvVo33zwuVqysw36axMeh/
-	 NZ7nWV/ExnrTc2Ox+K7ErqsTy5hIJRGdBxffYOj2JGj1NddL6KqgQFS1SWxDcTfClSIBs
-	 rjVkAYbd+I9/lkgGhzzqlpURRcTp9wiPAVSAUGqg7a0biF1of3bAgY74AxBGN3OF8H/5R
-	 U+m8vw9p6/8Nkwgn+gQjDxeHdbKEmCP83nh79EuIQmsSunInt2UHqvDotNl896mqF7+7t
-	 K71hEAo4wnCkQ/hHAzHKZ7pv9NX9rCy0FWQHwlyITYVxOc0TWp2rk5wuQrhLCLr6MyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFCFEUfN;
-	arc=none smtp.remote-ip=100.103.45.18
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HDJZHnPib4T7PdLyVxZxv1NhSiNDuQYmPM2+9bBYZRw=;
+	b=qFcaod9NX2RPgywxIfPofxxN+iojrifgpqcChfgr49UG2q5kYC1INeTL9FOIJ0xQSUq+
+	 7ghgMB/XqAlzb5Ufcqn5f9FcVNTMTm8BFRE3CxJCEH8ukAC7M6iM7JqyH4iR0pBYHYcjA
+	 fHw4nYxAMTHCVFDaRD4GWcLF0HWfOT+hy9be9a6WINiOQovjceoGaALtPDUoQRW1X+Uo8
+	 QCWHEthAXYNINSkyseXrPTCgO1dRzcwj8cTXkDBIJIQBC7hbYVQBLz9OdLOlwh4RiAEjT
+	 WowrCzBXRnX+Ou1uhVboyupCn7atu4Bm6k8hCLfDr/iXOnnspuxC8xR/FmWzIImf6aw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkNVsDwn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE070606B23D;
-	Wed,  4 Nov 2026 18:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADE5606B233;
+	Wed,  4 Nov 2026 18:00:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFCFEUfN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D37E1F00A17;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkNVsDwn
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793815220;
+	b=G9e52223Ghk1OdbbxR2cQwdffZhXk2Fj9c2A6OyXZ5xYIO1bxOIVmsooeUvPGe891dOR
+	 ykVj5uJORVH0P+mQXCvKDcbZwe3CqrqNGq+/zTlG/Wcp5N9Xf1wRfNbcfdPqBy17ueMtM
+	 2GXNeP97FbmWvgiDoKUT5ldXMHkMMrMPyetNXr9nLg8iwH2fAz/C8oyGXkcAAOzq+x12g
+	 YJdKejYfeiCXUsamwuU95NfJPJ9DFqG9an0j9fvJ0L3yuloawpCCEN4oyy0o6yIPeFDkF
+	 qKqIsjkIs2KT2CL7puUQdxdPQg2Kq1uUdi9AsOGx5SVHFOaKmWm476ahfhx1ER1Ua+g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793815220;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HDJZHnPib4T7PdLyVxZxv1NhSiNDuQYmPM2+9bBYZRw=;
+	b=vNLA6eYeZyH9AAZUEyIBi20PGHeAn08NJ2LMGMZEdWiyYtnOgw3v6XEk5XLVM2keD0CI
+	 NfDfBZ4U20uQU3g270f7cWbFUOzZ23d9nlYeKNmr3/AbycsgcQE8ahHItYFmZCBHauWko
+	 XNyIr3jtGGqIR+dwyhG21bRZCadHTAg6HBTdgfpk0VvKkliIl7fUdsem9wJEq3gsvNLrP
+	 ZXEcxYE9aaDXSU38WM6nygYAd28p7i+kDhTglhdkr0ebKOGh/HlCCu4Ejcfn0iKzAALK/
+	 0NBkvFbomTMQLghtTL7MHv0+BqzDT5+h6NN7XcNVv/POlPWeLrdDDmAnVe0IysP9VEQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2B4E31F00A15;
 	Wed,  4 Nov 2026 18:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793815221;
-	bh=Ji4IfJTnrzjE08ixsCtCfzOo4xSxQ09jGJFLpwyOOVA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YFCFEUfNj72O1vXb/Zw57un/AneRjG7Xj72Ej1t6H2QcoSpXcrb4dVz6aCkM9L9bm
-	 Fvg0BxL97IPS6X6bYiXa+BYYJiVNj/2W/KkTy7T4ynMRl9X4ctGAJxsplRWbEznatX
-	 zSi+oxv/MbN+uIWMfq6ZYcObcW8eWRSguCL5ngeFz+rthYvrkfyLb4bH8wI9ezONK+
-	 HrbcIAGmqa5lm6jCp8L8zDK/eeJteYhMMu6xaAtvqxJMDLWpYiQ1ZuyekBK3XJQBDd
-	 qnB5vyfHQ8fked8LOEVdrd68/Pz0iXgwJtRm4QP+LfIxHFvgblzLUaLnDeGL65OKpU
-	 QLd7m1vr8KGVA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, Riccardo Oliva <oliva.scorza@gmail.com>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261028021556.11988-1-oliva.scorza@gmail.com>
-References: <20261028021556.11988-1-oliva.scorza@gmail.com>
-Subject: Re: (subset) [PATCH v2] mfd: dln2: Clean up
- dln2_unregister_event_cb() loop logic
-Message-Id: <179381522079.1916138.4679305340156782083.b4-ty@b4>
-Date: Wed, 04 Nov 2026 18:00:20 +0000
+	s=k20260515; t=1793815220;
+	bh=HDJZHnPib4T7PdLyVxZxv1NhSiNDuQYmPM2+9bBYZRw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=gkNVsDwneFiu+NMVZeDLkdo4dZyOidOvRvO1usvrNIBgD6khpstw+4SeCoxtkv5cZ
+	 lrcXdtRGU4zeDSFy59Ux1ilsvvK34T4FzyWE3GrOlhpuZ43OSReJTOcl7DSpiJoVYj
+	 UdsyJuex3dNx5o58NU2uCPffonj1Qjy8WDiOgeXgHE4ek3W+qPtTpwTCleZdy5QEqR
+	 9iZVEHVot8VZ86lvAjFKd/V+tig8hIOm4Bar5NCW3TVHQK4t1Q6qYRE9fpS9IEdACv
+	 uss01O6uwjIx06G1QhgH5OlgHuhyxl4iGdzg4OhHnJ1BIF1NQBHeN7a9IkpW1eDPAh
+	 EO1n49zLFqgUQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8F16046ED6;
+	Wed,  4 Nov 2026 18:00:19 +0000 (UTC)
+From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
+Date: Wed, 04 Nov 2026 23:00:19 +0500
+Subject: [PATCH v2 1/2] btrfs: zoned: finish the zones of a relocated block
+ group
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,20 +84,139 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Message-Id: <20261104-btrfs-zoned-active-zone-leak-v2-1-0cee2ef72171@gmail.com>
+References: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
+In-Reply-To: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, stable@vger.kernel.org, 
+ Mark Korenberg <socketpair@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793815218; l=4749;
+ i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
+ bh=gaQLP1Y985cx5GItFHMmB9iX4pBxq93xF+S4CSWbcYE=;
+ b=FdcQYVMwhqgmuO7gDR7Qvzk1Wd9lvERd+SIlrF64oCKvUxnABa6U324HBDzTWM0DOV/s4UN7n
+ 4tXLN1rluagBwyTGw9p5g2PH/WlAAah38fLXozSjBdhqbotAFM9PBB+
+X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
+ pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
+X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
+ auth_id=806
+X-Original-From: Mark Korenberg <socketpair@gmail.com>
+Reply-To: socketpair@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 21:15:56 -0500, Riccardo Oliva wrote:
-> Streamline dln2_unregister_event_cb() by using a dedicated 'entry'
-> pointer to store the matching event callback. This removes the need
-> for the 'found' boolean flag, restricts the iterator scope, and matches
-> the pattern used in dln2_register_event_cb().
+From: Mark Korenberg <socketpair@gmail.com>
 
-Applied, thanks!
+btrfs_relocate_block_group() ignores -EAGAIN from btrfs_zone_finish().
+A metadata or system block group with tree blocks not written yet, or
+the data relocation block group, is then relocated and removed with its
+zone still active: it stays on zone_active_bgs and its share of
+reserved_active_zones is never given back. Repeated balances drive the
+reservation negative, which ends in -ENOSPC and lost data in writeback
+(see the next patch).
 
-[1/1] mfd: dln2: Clean up dln2_unregister_event_cb() loop logic
-      commit: dad66a38052d2481dd5aabad636b05652a328573
+Finish the zone in btrfs_relocate_chunk_finish() before removing the
+block group. Nothing is left to write in it by then: it is read-only
+and empty, and relocate_block_group() has committed the transaction.
+So only wait for extent buffer writeback and finish it as fully
+written. Taking it read-only again, as btrfs_zone_finish() does, can
+allocate a system chunk under ro_block_group_mutex for a system block
+group and take the mutex again to finish another block group. If
+finishing fails, warn and remove the block group as before.
 
---
-Lee Jones [李琼斯]
+Fixes: 7ae9bd18032e ("btrfs: zoned: finish relocating block group")
+Cc: stable@vger.kernel.org # 7.0.x
+Signed-off-by: Mark Korenberg <socketpair@gmail.com>
+---
+ fs/btrfs/volumes.c |  1 +
+ fs/btrfs/zoned.c   | 37 +++++++++++++++++++++++++++++++++++++
+ fs/btrfs/zoned.h   |  3 +++
+ 3 files changed, 41 insertions(+)
+
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 3d4ef6725de0..1547eee60612 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3720,6 +3720,7 @@ static int btrfs_relocate_chunk_finish(struct btrfs_fs_info *fs_info,
+ 
+ 	btrfs_discard_cancel_work(&fs_info->discard_ctl, bg);
+ 	length = bg->length;
++	btrfs_zone_finish_relocated(bg);
+ 	btrfs_put_block_group(bg);
+ 
+ 	/*
+diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+index 3192b86669b9..1d64c6e162ca 100644
+--- a/fs/btrfs/zoned.c
++++ b/fs/btrfs/zoned.c
+@@ -2680,6 +2680,43 @@ int btrfs_zone_finish(struct btrfs_block_group *block_group)
+ 	return do_zone_finish(block_group, false);
+ }
+ 
++/*
++ * Finish the zones of a block group emptied by relocation, before removing it.
++ *
++ * btrfs_relocate_block_group() tries this before relocating, but gets -EAGAIN
++ * while tree blocks allocated in the block group are not written yet, and for
++ * the data relocation block group. If the block group is then removed with its
++ * zones still active, it stays on fs_info->zone_active_bgs and, for metadata
++ * and system, its share of reserved_active_zones is never given back. After a
++ * few balances the reservation is negative and data writeback fails with
++ * -ENOSPC.
++ *
++ * Here nothing is left to write: the block group is read-only and empty,
++ * relocation waited for its reservations and ordered extents, and
++ * relocate_block_group() committed the transaction. So only wait for extent
++ * buffer writeback and finish it as fully written. do_zone_finish(bg, false)
++ * would take it read-only again, which for a system block group can allocate
++ * a system chunk under ro_block_group_mutex and finish another block group to
++ * activate it, taking the mutex again.
++ */
++void btrfs_zone_finish_relocated(struct btrfs_block_group *block_group)
++{
++	struct btrfs_fs_info *fs_info = block_group->fs_info;
++	int ret;
++
++	if (!btrfs_is_zoned(fs_info))
++		return;
++
++	if (block_group->flags & (BTRFS_BLOCK_GROUP_METADATA | BTRFS_BLOCK_GROUP_SYSTEM))
++		wait_eb_writebacks(block_group);
++
++	ret = do_zone_finish(block_group, true);
++	if (ret)
++		btrfs_warn(fs_info,
++			   "failed to finish zones of relocated block group %llu: %d",
++			   block_group->start, ret);
++}
++
+ bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices, u64 flags)
+ {
+ 	struct btrfs_fs_info *fs_info = fs_devices->fs_info;
+diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
+index 8e21a836f858..510e9d118c7c 100644
+--- a/fs/btrfs/zoned.h
++++ b/fs/btrfs/zoned.h
+@@ -82,6 +82,7 @@ int btrfs_sync_zone_write_pointer(struct btrfs_device *tgt_dev, u64 logical,
+ 				  u64 physical_start, u64 physical_pos);
+ bool btrfs_zone_activate(struct btrfs_block_group *block_group);
+ int btrfs_zone_finish(struct btrfs_block_group *block_group);
++void btrfs_zone_finish_relocated(struct btrfs_block_group *block_group);
+ bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices, u64 flags);
+ int btrfs_zone_finish_endio(struct btrfs_fs_info *fs_info, u64 logical,
+ 			     u64 length);
+@@ -238,6 +239,8 @@ static inline int btrfs_zone_finish(struct btrfs_block_group *block_group)
+ 	return 0;
+ }
+ 
++static inline void btrfs_zone_finish_relocated(struct btrfs_block_group *block_group) { }
++
+ static inline bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices,
+ 					   u64 flags)
+ {
+
+-- 
+2.56.0
+
 
