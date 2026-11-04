@@ -1,59 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801262;
-	b=N6O1TsGNnxHhn6cKUInHLTmfrrk6XDwHOQTMb3vBkZPzVPPTOuBqnvCN+Vkn4fgrcbSm
-	 EYiGu+c2EhVo44Myydv2N4lr/AK4SjITf1YJR29Qow9VFneB2SG158OaiJ6SWZu4hKpfo
-	 ABRDCGfMgRaM+A2Ft2pnqLwd6o2RMZuluQ5GjM1uhY6rqQ2mht5TmQkgqrsB7M173l6er
-	 Is9Fj53MpP5gxblWvqtLqfW7zOhDh0YsOorHQIgmFC6Gyd9MVYWFdUflYMQsOW/mEgT7o
-	 ZvCdQ+txalTs7MdQ1NFiGGDfNu1bllFkfoOTSH7x7kNxIcnaG7eDyJKl4A0xMsccnmg==
+	t=1793801266;
+	b=xseK/vFk8XFnNMrJXQq/N67+2laGSiW2ZE00rydC6obROv14OINbvTeQ7QvOeRw2vkVJ
+	 cxS/en4JvkGuMnEvVQJhhGEGwLg8kJ4MpZ/Kfofyg5a2/zBA1aQTlA53R2+XIyBCO6vh0
+	 decRECHuf1uX7MO+5jM372XdyE9n/OkHvkqcqVLLdTbnbjXEi9ZR0ODEAMZcjIa8XJHA7
+	 ml5jwEY4sknOABx0bwt+LO5kCpYbAoB2aA4qqMLrJ8t2fZJ1kPrLgrBGvE+WcsCge6W/S
+	 fL3inVPYjyCpXXNJaauZvPN701aAakYuhiE94F9SiQyxWqI98oAYfbgtQXNr09Adcxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801262;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FL6m0RtLAqJq1qmlWsGMqjCbKXb+q2hr1SV7q87y5tk=;
-	b=1g6053c0MPS4g6boQX18vjPyEwsvuhzbsx13dgEEAfDo+YQj26O+5vZL8wEzBg4Lyk3w
-	 g9m/YrNQZsT63CifCIOzWDvebFg6go0j3cWWs1+qZ5/NeOnUJ663yWUDWGERuYuvs2zNs
-	 0JtMW+KWO5us9FkOba67+u4fPiCRcltTzdjkgM1aSM/mjXFQNpzBcHfqDh30Byx7U30yu
-	 Mv65ffn0Z0msmE5c4zNZJlXLW764Gnrlbd0ZbKME0bXNdO5IEg+3QAwyDw6vdvB1TSkzB
-	 mYZcqaNaxZ7O5+mbVmgHWa2T0HW8vdkIJnAQsnw8WMFEdKdXKBKOwORNpuqrm3G1zyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801266;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
+	b=tsaCSktwO97qPKi9poivPr/bW89+9B8PiYptgPvf/gmhHaBa12afjACHuxVmLgzA4hgO
+	 3kUFWv+gy5irxgafNgnieORxlPEhEp6LHqoUMTmjdxuskfyBvNiAJsOTiRWWEmzchvrza
+	 yNgic1/TDROSYFH5L/xMNjLz5m6BYMbKNIbxW1QwzUqe+8S+H1cqJ6OAquTylxWgVqAur
+	 OwFWJQ0dW2dP71mLVKMlHc1b8Bp40ln61UiHkxa63/ItkOLHL8y7ajUvD95DEvXgTIVic
+	 5eXl2r5O8M9ngs7HKbDNr8W4OFMwKXR37Iuw6FTGL5sXBWuXRmsUQGF2skYcZFR22Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AECCAsZL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQVHLjUU;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 68FE1606A329;
-	Wed,  4 Nov 2026 14:07:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8C8606D81B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C8C8606D81B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AECCAsZL
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2C1441F00919;
-	Wed,  4 Nov 2026 14:07:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801262;
-	bh=FL6m0RtLAqJq1qmlWsGMqjCbKXb+q2hr1SV7q87y5tk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AECCAsZL4gphmtv4Bgo0R5lpISjZoiy2Bo6laSy52d7WH+iup1b+fpOA6Jfex3lgT
-	 SgOTPz1MkSFFRaNCCZxzQQrWZzrnMabflCizdUt/AiHfjaQTrbs2EuIHROwwn7+TZj
-	 4oth8onrwjrS4aBPKD20HeXE2rLFYWVX+rYrci6ZaAVoXwjm8JyVnOQRDlbJ1adx1O
-	 pMPRzL1qR9W6Kn+OVlqJFkjGaW3rilUvcLQIj6h723qgS+u1z9uM58nLX21JYH7GSv
-	 5BbeWPVIKmIvBDqxbh6MKsKIbXxMjvdkmYrxyyB3ZucDhEcM3C9QjpjrQRt2RcZNsY
-	 ee0WvfPVl736g==
-Date: Wed, 4 Nov 2026 15:07:38 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 3/3] gpio: gpio-ltc4283: Add support for the LTC4284 Swap
- Controller
-Message-ID: <qamxos4qxi24qqb3g644fgmap7yksoxlusszwoklmkdgexngtx@xfmd6iemag2h>
-References: <20261104-staging-ltc4284-v1-0-49fce67ebc48@analog.com>
- <20261104-staging-ltc4284-v1-3-49fce67ebc48@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQVHLjUU
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ad47c246f8so71573a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:07:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793801265; x=1794406065; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
+        b=aQVHLjUUvc+RTbCC5A3JUXiBiwuj89jDNl7XoUtPmDn0jR3QO+CGYfAWxmx33xC6lT
+         SkHRx5GXN/ZiWqr/kOLtlLKWp/STozQ7taoj2mLpipxq8M76pGQgaF8Piq7S7+hl/wfB
+         g0aq3MbYxKSXLb0t0Uh1QfVXEgOVMipz9FYfkfc2V6bgPQC3qZgbX7lUk/8IC/5M9Gma
+         lW3ILBx9Aju2wfopx5UYuTXERTto9gc7pRptfiMccEGHrj3AxBEZrq7GTe1d3spvpk/m
+         vkr9web93IX+gdgc4gxXbEzV7zfmYVYeuDiCjOk0FqIr1V51EVDohrdYbBUsaH6EbCkF
+         VShg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793801265; x=1794406065;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
+        b=ZqUDX1WecPPlm1YEjn7gCCnYlyBIkx86cynGLvg4WRiKuIuUFV9U27wocgr7p6GS34
+         3n/lwOnDjI2ZHl3UmQ5LXVIwTqdAPkLBBjA/k4D9laK8EAoNK1NVweqA4AmoAd776E74
+         ZdWs+AjRGxCU8o5cfR+D1ERWDAxqvTLvirWh6+O/LsvArHRZIYAJrzc0A/E8PKl8jh7f
+         Mn8uwxSk9FpGoMVtAcdC+ZGjW01CXVPxtwieSCG2mSbbMfL2LxAkPLlenTPnKwyf1foK
+         E0SY80vV1WFLcNIFWJ41jHQdv0khQ1hLNWjwPEaW4aX4ZqFvYoNQCzmAxbSndmvFF55k
+         EQIA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4dbC3BpiWQkpYEU1gNpCM7rk1ou+SKCtXg/crU55FUbCHDBLiM7kwqyem7ordv+Zh20y7GCfc7iErDHA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ODzK7AvFnHPYzwdDO5PUDelfpi1HS5Gv/zS0iR87/BUdqZ2ER
+	ayXMekGfpLD+uhKN2EbvF7uLk4uEzprDuJ/k/Yhf055+2m8N144XksLU
+X-Gm-Gg: AYBFou0AQryhiiqth4TsFq5bAMYe1VrapV8dNvoXS/hmRFf/Yf7k9RsUT7qfTzw2bwi
+	PU9BvRKk2vkwpTM/sz3Uxbo35csPio3pPjBHPLR/B/1rThKhwWtafs+FJKRYLyIEZlt0NhpaBH5
+	Whucqv/yoHZNKniAg1jJ40f4i76d3UYwRHPPnvH+s9IV1WBRf7jWd8PNEXPEiS0lsCWPw9B5PiE
+	QTLXMCcd3XGe9dUzHY5CAw6GMdGTQoDOx+yUOMy8Bc8SSeJsJWyE9ecax8+v59exh1i1CoEp9om
+	0HQxlRuvKxDgTGnkJ46Mj4XqVYuaeT09xEeMdBIVMrygQGl6zQQfFP85loA2Ya+KET8oD9E8dXc
+	qlUloMyqQfRs0Ux9IPWONHpNfxPz2jg49FqrvliIRj3z/kaKNtcEXluaR1rVXi0+4kt25i0tu15
+	Ay0fIrZ/U78xWgVWoc8lWUKpZah2j7bcoa5N5241S+nlqs70B1KZ7J3YTJHIkSlf+unjWQamunA
+	J0CvCBR4qpk7NLeulvahFQLk9Et6ub6gixriFqA8IxVxVyalSA4qPMGIK0FTW4YznrBLo79Na9N
+	gSVkRiHahP/uubSnX9fHs6vc7BCjhGwc72U0UA8cGQ==
+X-Received: by 2002:a17:90b:3693:b0:3b0:accf:5c65 with SMTP id 98e67ed59e1d1-3b0accf61d8mr241791a91.6.1793801265362;
+        Wed, 04 Nov 2026 06:07:45 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b3b7esm7379556eec.28.2026.11.04.06.07.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:07:44 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chengyu Liu <lui2012qwq@gmail.com>
+Subject: [PATCH v2] regulator: disable disable_work for good in regulator_unregister()
+Date: Wed,  4 Nov 2026 22:07:22 +0800
+Message-Id: <20261104140722.389859-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,43 +96,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-staging-ltc4284-v1-3-49fce67ebc48@analog.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 11:30:02AM +0800, Alexis Czezar Torreno wrote:
-> Similar to LTC4283, LTC4284 has up to 8 pins that can be configured
-> as GPIOs and behaves the same.
-> 
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-> ---
->  drivers/gpio/Kconfig | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 55e4280029d86e7701d9a043c89537f60bb70c6e..de9226619ef2f77fdded123657a14c15cbba07b1 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -1864,11 +1864,11 @@ config GPIO_AD7768
->  	  called gpio-ad7768.
->  
->  config GPIO_LTC4283
-> -	tristate "Analog Devices LTC4283 GPIO support"
-> +	tristate "Analog Devices LTC4283 and similar devices GPIO support"
->  	depends on SENSORS_LTC4283
->  	help
->  	  If you say yes here you want the GPIO function available in Analog
-> -	  Devices LTC4283 Negative Voltage Hot Swap Controller.
-> +	  Devices LTC4283 and similar devices Negative Voltage Hot Swap Controller.
->  
->  	  This driver can also be built as a module. If so, the module will
->  	  be called gpio-ltc4283.
-> 
-> -- 
-> 2.34.1
->
+regulator_unregister() stops rdev->disable_work with
+flush_work(&dw->work), which is a no-op for a delayed_work pending on
+the timer wheel: flush_work() only waits for a queued or running work
+item.  A disable deferred by a consumer's regulator_disable_deferred()
+therefore survives the provider's unbind, and regulator_disable_work()
+fires after device_unregister() has freed the rdev, dereferencing it
+via container_of().  Use-after-free.
 
-Is there something missing from this commit? The commit message suggests
-there would be some code changes?
+The in-tree users are ASoC DAPM regulator widgets with a 20 ms
+power-down delay (sound/soc/soc-dapm.c): the window is the entire
+deferral period, not a race between adjacent instructions.
 
-Bart
+Use disable_delayed_work_sync(): it dequeues a timer-pending instance
+and waits for a running callback, and keeps the work disabled so a
+concurrent regulator_disable_deferred() cannot re-arm it while the
+teardown proceeds.
+
+Found by static analysis.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+v2: switch to disable_delayed_work_sync() (Mark Brown): also keeps the
+    work disabled so nothing can re-arm it past the teardown.
+
+v1: https://lore.kernel.org/r/20261103174911.1600930-1-lui2012qwq@gmail.com
+
+ drivers/regulator/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 6a4008f387b5..4ba0457c4747 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -6300,7 +6300,7 @@ void regulator_unregister(struct regulator_dev *rdev)
+ 		regulator_put(rdev->supply);
+ 	}
+ 
+-	flush_work(&rdev->disable_work.work);
++	disable_delayed_work_sync(&rdev->disable_work);
+ 
+ 	mutex_lock(&regulator_list_mutex);
+ 
+-- 
+2.25.1
+
