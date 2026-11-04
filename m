@@ -1,117 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809607;
-	b=n4jZCqezbGvu74leBs8VrDaIPHrTUxNpmGkYBHx7HoI3Jl0K6y+V4bfSwGquQQXaLpes
-	 1hDTyNZkeBCEWLaBKvbvHFrz0jJnQCndv2u5EZITiuThI2RRdgYDPRBLKuPK+5iE7Eqhy
-	 xiCImmVX6aHfqFDhDKK6AcOPFrMzoQe/CLZXEix1c6tHd0PvrHwj0K9YJ1xNGaOQIBO5j
-	 UEXuf4bIKn1yMrDIxrJeiD40RvLkKNPT7ZNkwh7Cjrqfo0jsuP+XXm/xYQ8Qyy3V6qI0f
-	 htahVPL6vk+m8S9JHyNVE8CJNcCbzkdRNHUOq06/sLphjEsgphqhNMrjZMiye2Tagnw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809607;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6rgO4gTJYE=;
-	b=473MGZUSWoYnyvrbHCaeg9PFuBpavSM2HMHtEW1l5rfU0NmsHxUQq8FX4mjd8dWNr28m
-	 /J6cPJVBpnRw84v38QRihfl7+psT36RMX/XJz5sP5mvrr81nn91xjUGq2rEUL+DhtytNx
-	 yJd1qCT25285gB6siI/XFkvBCLl8q/p2E7mB3vJOuh3lbcfr8wbMm6Gi7cPYbUaZsMqHo
-	 Vm3kg3VD9GcvexrFjfRbQECsp6+gSFxhF9Dct0LBBlPWJp7qDT5fvBt3gHU2byt8m8LBS
-	 g+aXiSyN+NwaB3FyXW319w7wV8GjbQ5Ye5vb1LaLBN/Jr77pxqYpj41U2+4730mCnDw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jua2jF2E;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="J1K/iJK8";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793809605;
+	b=QmwDsYYB7FWzMsY3e4kZgUe6KLJ0OiaXUSt3RB8KjgW6c8OHhhH6/mIHBGB4tKsmajKT
+	 wN2laiSaJixycawP8pS38OLUVMwMDijRl244q8fjvpTOzxgY69feFiQGgJEAvtwhwFPNq
+	 zK4qksoQ9EKCCIBJam0sQjVo/F3wOMT0RL5RCAXZHBG1fAApdFudX1KuldMrcQoAhCixS
+	 +CG6BE4jQBUKLLP0aE4LS9mXrtue+MDoUN88ZbF81bDrnBtmwzs+ujd0SaWVJlocto7FZ
+	 hjZpR12NjqNSjZxvssV+mXfF29nQOV3s5tNebzfXX0mseMOS2TvmyEOsx3q1dbwWuew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809605;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XqcOSoI2kRENMhOfGA/ODIWysXZLeFgrpZu657FzjSs=;
+	b=nppq6DXj9zKyS4PkzVV6eqSBbLQjv6fKGgh09JQmfc3/16KU6MtkaIP0g7eimw+vRJB3
+	 b0EZrAc6waFZr5JlbTJOZynVJeqKqhzzuIp1F0nq5Q5Cd2se+RFhL2Dg28HmTcC/UjriK
+	 ju6hCzlOfXv8JS349Ho23mSM/7CxU0iVbyZegy1F9LuLhiRoM+JK4Jc/5CAfNXlEM3iKW
+	 IgwJ4OLnWVAUm3jGACtS+zq4cWH6Sx9UqRXuO4cd79m4QsnKZjWi5j7ocYBOfMhmfVsGL
+	 hXpoiSBWEN12BS5GgPbeLSV1ah7qwJFBPUvbrnwKYF7fVO+91sBHWWUXA4evAs6JQTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CM13evda;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90486606A326;
+	Wed,  4 Nov 2026 16:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CM13evda
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793809605;
+	b=WxZPwbTLs0KLHl+Y7/bDq5EeiH32pOSyFk4P09lXBH9dF2seUJu44p470se3wsI74tzT
+	 WcrquxfneGGiRT+n8IU1aHg6U1AuCa2emIBcA3cLfdUtaYcw9fpilDTtYTuh+9OnyGr07
+	 EeZb9wpSm3f4TDphS0BMzr3r1Q8i6qZLk3Yjp4Cg4CoCx/5hCML9aHELHpWOmm9a00lZL
+	 j+OBnXWZOUmfGHBgqeQhHUtNoXHRGVsMjy7k05+9m3YtsSsjCD3TOGLQnHUJ7WqIaWTPY
+	 Ex6KQ2cCpp1aTFS9+cMvjDEQEiucO/K2EI6oqsug9RjD9azs3fGXcLRM4EwPLmQUIww==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793809605;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XqcOSoI2kRENMhOfGA/ODIWysXZLeFgrpZu657FzjSs=;
+	b=NNbH7XPwzJfIQjpan58x1x/Hrab8LGKgPFEytOcIfBePGX5XMDMkyMmBBmlKFQs4/+T4
+	 pOtx2a4bvpbVSAN0dzXNJlHzvEHBKnmo9tbmXwoZjYB659YpBmbNMzQZIDm5KBDBSqGWP
+	 BgM/s3udsrf2igTOTUfntD0Rmv7SLiUXLB+Ei5w6X9TlvMCQfEnfbhp7vuoFmhHLMookp
+	 8ZGAn59if6nEwjzxyTC8++mYo3ucsLBmUciRXuqL2Dm7+xFI/MRQXanbIkDM0ZB6xZCMG
+	 gIht11bAi8S7bcfSDb0hTPkzeuMqx5iw9sEkHrNKGho/r2M+zvYb7cRaeik1ksqv6zQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DC2606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:26:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DC2606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jua2jF2E;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J1K/iJK8
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FiwfU2250937
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:26:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6r
-	gO4gTJYE=; b=jua2jF2EPSn+F1gPrl1hsEzTBJ+xWEyGaboYkY3aOnhr04zzOwp
-	dJbhFj8NWi0DNFhsQ1V8Yog9pc5Fg9QKYSDOPnYKcEXyDS22328qNIBdINIcvw51
-	IsIMrwQAe76M40qKtu+qKmi8II4rDE9Kg3rNikBDo3/xgU/YAD1UNmTi/DpdGaK1
-	dK+4VbVOSjSpUysbGLD8ANzkMLpcsh6SMGwxEDXMLfXcNitlUI5/+2hWzxqBETCD
-	mKrcyB5M/Tv35275Yx62m2f5+je68cbLYM+KXwfi0yK6ytocFapI/pTyNbmHFFlq
-	dp4uVhF+FOj4PilKDNYUfI+Y5fcBA3/N61A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr4bn129b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:26:44 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ecdc701a2so135774085a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:26:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793809604; x=1794414404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6rgO4gTJYE=;
-        b=J1K/iJK8/tp6X/UDpnzud4Jbg/XMF6i0skRrVjL3SICCFt5eM+4IF+mFxlXhDBTPCP
-         P3ZPv/izMHeL9JuRC57emurbXei0MjE8jChLXjRDZN2eG7ICaJvSjrKojIwBWXYBRJ32
-         qCQGpczd7/up+na4pi5yeb4s0U7FfALbxZJP0MFGpqTRQSyYOi9rudQJ9w5WNzEhIBRC
-         83X6DyIPA3juKpOLugdbJkQLOnI9uPzs1+9tgcYDT8KqUEPk4SN1pOJ68T8Aj0lVnvPV
-         EZPC1WBW6y022x0lUvcr16Fb7TSbWWXYZjpH6Hb6ta4lHyKWXuWskAvcEkLOmetbM2qN
-         V1Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793809604; x=1794414404;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LWe7LLGWKYiomyjVbfwSVUnBn5B9O2xyF6rgO4gTJYE=;
-        b=Fv5WWDGfb8JququHBqMVuR+Cm8YSJuDyCLHgSSck3M7SsB9AUwsYAD4d/S/2Z3/TKL
-         +RdHN/TGIrmUKfs94wx9YPjWKWH5Gr+NRz6fu0/fy3dVcrAJHzU9Bc5nalCsEYbhdjnV
-         Dy/nR9g+1Q79Bp+NwrC2z2QRHsOTi8/UTxbmQ1tct9GEjF1MeaeQc6bBQfFfhL3mntia
-         Vf1sxf3UuqcoIVTJ+JGOEM/UEpceC1ryRlbHWkPBRtLgLgNHvdt6pEgNSeld9Owvtf/a
-         /CcB/pNo0EpeF6U6SB6dOyN4U7ab0c0FxuCMmCAqv/64wLU/GpCrO/OPeDx3OwIsaIrC
-         bMaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNnyuBGCWSq3bDyqEtaeVvh/UurCQOBEetNxzy/DnveYVVLyww0DuKjrW5zSX+E1I6VMotfxRSKt/EkPU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z942qpl4UbDy6JY6rS8lI2Kr0dqVfNZfqgoSeGNfQso69zgHIAE
-	lMs2zZ5wbwwJg5TxDQXr5nGWViivOUJtdGHwa+uQwirb15pdQxuI4dGl+d+F7X1YmZT7ia3W7SX
-	O6i+U0R3OyuMRUUqt6dYc5qx0GSHtPzBhCl1heMNnnorekHSWByZyOlc+A6EtpiYZC04=
-X-Gm-Gg: AYBFou1S6GG8lPyrvHSmao3aSXxd69ZTm5D5KOJUayJ4ySJRXXEMm9lDOuJgTKUmUqd
-	ur+k5vkieQe26+vNm+0QlG90CHrMran3DoCj8px1wC3agvCTnPiYQcWGKcnHh0DzdBwbAhPF4uk
-	7CF0+8zYQxqJ+lZDrXLO1t8XTZfnB4NXv8CjluTPEpLHoT1guyv1puDuH+CJedhyXzom9t6gC3/
-	/EfhvGdgRhAl4qKMOhIeMYAY0w4GMqnBAV+0qF2X/cgtGFflmJ2kt1tW9Q013PQfS1zLHkSe+Mk
-	p7THvDJWvdYn4KOz0s/rzo10AE3PnNKh0vXKVxvqYSU05binr6HweU9Oa0FwoaXUxbuA4EdLdWH
-	P+StL1nQp+Zu+P69Qh+G+R7UnE9yv1yK0vTJ2/7oGhIpQxdqPScmcvQLzJeHqng==
-X-Received: by 2002:a05:620a:a887:10b0:944:2f1d:950a with SMTP id af79cd13be357-9442f1d9b98mr1690607485a.47.1793809604281;
-        Wed, 04 Nov 2026 08:26:44 -0800 (PST)
-X-Received: by 2002:a05:620a:a887:10b0:944:2f1d:950a with SMTP id af79cd13be357-9442f1d9b98mr1690603085a.47.1793809603746;
-        Wed, 04 Nov 2026 08:26:43 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab010a66sm202596845e9.13.2026.11.04.08.26.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:26:42 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
-        Lina Iyer <ilina@codeaurora.org>, Andy Gross <andy.gross@linaro.org>,
-        Mahesh Sivasubramanian <msivasub@codeaurora.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] soc: qcom: cmd-db: Validate firmware-provided offsets and counts
-Date: Wed,  4 Nov 2026 17:26:37 +0100
-Message-ID: <20261104162636.406949-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.kernel.org (Postfix) with ESMTPS id B45F11F000C1;
+	Wed,  4 Nov 2026 16:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809605;
+	bh=XqcOSoI2kRENMhOfGA/ODIWysXZLeFgrpZu657FzjSs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=CM13evdaMJmOZ/jza3wRt04swqYZGmtAK3y2WcUtsY/MgxRFQVipTGnzvkFwlj1I8
+	 VsU3wwImJsiWAsXZDVB9dUB0ExaApWNna0zqOwUhGmQ18PwDszl1TyaQdRtPucoPt2
+	 HDLXYRPa8fRQOywziLUJZcWGZC7c4mi8Q8tjj9/eis6O7Fwu1nQPfRTLFL8qLocTDM
+	 mjrQRFLg9LxFyjDNX2+SJHm92HHsnFh775dE5sbCE6Jdd5LgA+rIMTTbXN5NQczRmg
+	 1TNWzqMUEmHiJwG2FbVQtLzHEaPEHAUbKMRlPjuKS+5WPOSg9MGYJD+8hCz6TRBCUx
+	 SK4fR2wZOg4Ew==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 13AC946EB7;
+	Wed,  4 Nov 2026 16:26:44 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Wed, 04 Nov 2026 17:26:43 +0100
+Subject: [PATCH net v3] vsock/virtio: clear vqs[] to avoid a UAF on a
+ failed PM restore
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,146 +83,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2844; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=041BNTqVKtRVarLz7gLjBUicIKRSya9ySTIIEff+L4s=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq61y8f5KGGwYdjmdr7UZx5TKiyosF2uyLC0dGc
- YNg71D0nqaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCautcvAAKCRDBN2bmhouD
- 15dGEACY3PqT5ijuNxWF7oBmC+bqcGG2PADfv17EcGYLGIMSweTtp6Nl2C57Ewal4BN+jZDYhM/
- ACjh3y1vXCq7zTNBnvCDAwPmIpfrFlSP9osQd7OnO+Y2l8o7PKpSJZfsm0AWOXaBx5gs2JXdXnq
- HPALFWlHYKcWrEuzEGASjNyIPe8EnYXqAz7kzqcWNQ3cBhPb/sAsG00nW0BopAN0H4/iKH15aRa
- gPV30B/B7yWZeP+i/ncyHe+OGyYjaeDcP3EhO3iiHU+61VYcBbS4OcANKVqlidDOMHR5B0XBqLz
- xJOKmZdRUNEmdFVvXWUxjtBBa9uP+urBIyvgJLrYoT27epGFI48qCyLgyciE258hMPXL07R6Uar
- Ao4lbtgSoB8o0woGLM4KgWuIOfr9S/3huBT4Wi/2DX3jaoFdTWzOrUVEXNrXduAcgcnozi0RrDR
- okPMQRUaS7FgVom7cR3zn/uOLxNZiVrllu4CtdgHlo4YGbUc6P37IgIf24dsjPEmVH0NgBoFg8q
- xNYppMW0i2hOIEvjNBjHu0hyPiEzDKfxoxZEDUkBn+BgGQNgm/igq685/Q49x6Co/kTSINulUxU
- 5Mav7LpbwOmVGJvqitT7i3klgfVG0mfOh0Uq/xNqs0gjtasEQ5NrlF8TOQiDyQdjruxpF7DhNuW +BZVPG70kY7JjGg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NSBTYWx0ZWRfX6YnhWrMJbA6M
- Se5GK8UeBQKQVhsfkpRXsMHZfFmixgTu1JCtylQniumf6nR6I3kGrblg7xHlxJTsitlsDQKz1//
- B4T9xQJVzLQvNLmnzLNa2pBfZD74TMGc37E/7xekXvCdlg+eABQGnrmy5cxJg31Ry974mqYg41+
- sTPC2KUk6fsBsCwJ+3W7BjEDOABZbwLOrWxW5NDPBDZeBsXrypVr2DWEdS1aQ/t3Fs7tjAZLb8b
- tx4EsTV3jy0qCgr+9xesrkSDIR2+QfwQUK7Gbv4bTuQUAQbhzbSepg44ThEyCH/ysZ5LZbWDRXs
- UsxfN4lc93VO19ajIMppVKBxtX2S0d1yvxeZTMkdAH1jdcn2Aj4O7qNHBCFToU2SNc0Q2YZDumq
- /YzwvHZyElABd4nwwVn/Dl2PQj9Xx5ei2X5f+DQ1wnwRYfsq+47Xf/TWk+qj6mFLcR0xu7z4Svu
- DqOoEy6kay9vWgkbBBg==
-X-Proofpoint-GUID: 86udXNpF_QJoAvHBmSKQ3LfMXri8aNxa
-X-Authority-Analysis: v=2.4 cv=IcUSymqa c=1 sm=1 tr=0 ts=6aeb5cc4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JF2_t5xmk2bVYqND0VcA:9
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NSBTYWx0ZWRfX3xAT04hc/DU9
- O7HtP7yajQp4rwuKvX2P++ko/c0Zw6ioTDZa+AOEBjdwNX8/43o/SsSGfXJERM280B1+HZFKu+i
- BXBdgHiDPzf/dVcDi9HbUxJ/z0WBXec=
-X-Proofpoint-ORIG-GUID: 86udXNpF_QJoAvHBmSKQ3LfMXri8aNxa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040065
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNQQ7CIBAF0Ks0sxYD1IK68h7GBYXBooYaaImm6
+ d2luOnGuPyTP+9PEDE4jHCsJgiYXHS9z6HeVKA75a9InMkZOOWCUcpIir2+k4Bx6AOSUVkS0Rv
+ CrJb1QVjFWgP5+RnQuleBz+BxgMv3GMf2hnpYyKXWucV5l/nESvnfUmKEkcYoQa2ksqHihA+jA
+ m4NlpHEVwzf/2R4ZoRslDLCKMl2a2ae5w9qgSuWGgEAAA==
+X-Change-ID: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+To: Stefan Hajnoczi <stefanha@redhat.com>, 
+ Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793809603; l=3366;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=M5xaSNmFTKxhlPUeiNqMrmM7Ti9uva3s+Lictxc3xSk=;
+ b=WiOH3gK7gWMGtImU9UnXdRgEZeOga4gZyBeLDnXYU6u/5UOadx+GaGWSQtbgVTmXTQcBfTXY9
+ PGRLQ/f248gDMYpfGRy39AwTlpbiJWq423G3xb7DftydlGoHe0CV4/S
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 7bit
 
-Validate the data provided by the firmware, before actually trusting
-declared lengths and parsing it.  If a theoretical firmware provided
-malformed data, Linux kernel could read beyond allocated reserved
-memory.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-fc833525-3bf9-4274-8dc7-2cffd5b4338c
-Fixes: 312416d9171a ("drivers: qcom: add command DB driver")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
+pointing at them. If virtio_vsock_restore() then fails, the driver
+stays bound with a dangling vqs[], and the next freeze or unbind
+passes a freed virtqueue to virtqueue_detach_unused_buf():
+
+  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+   virtio_vsock_remove
+  Freed by task ...:
+   vp_del_vqs
+   virtio_vsock_freeze
+
+Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
+early from virtio_vsock_vqs_del() when vqs[] is empty: a second
+del_vqs() would free virtio-mmio's IRQ again ("Trying to free
+already-free IRQ").
+
+Found with the help of Anthropic's Claude and reproduced on virtio-pci
+by failing the restore with failslab; the virtio-mmio IRQ issue was
+found by the netdev Sashiko review. With this patch neither report
+appears on virtio-pci or virtio-mmio guests, and the vsock vmtest.sh
+single-VM tests pass. A find_vqs() failure after some virtqueues were
+set up was not exercised.
+
+Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+---
+Changes in v3:
+- Shorten the commit message (Stefano, Michael).
+- Drop the two comments on clearing vqs[] (Bobby) and shorten the
+  remaining one.
+- Drop the tool note below "---"; it is in the commit message (Stefano).
+- Comment changes only; not rebuilt or retested.
+- Link to v2: https://patch.msgid.link/20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de
+---
+ net/vmw_vsock/virtio_transport.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index 4f9aa9c4c3aa..ffe7cd93463d 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -714,8 +714,10 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+ 	atomic_set(&vsock->queued_replies, 0);
+ 
+ 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+-	if (ret < 0)
++	if (ret < 0) {
++		memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ 		return ret;
++	}
+ 
+ 	virtio_vsock_update_guest_cid(vsock);
+ 
+@@ -781,6 +783,14 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 	 */
+ 	virtio_reset_device(vdev);
+ 
++	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
++
++	/* After a failed restore no virtqueues are live, and a second
++	 * del_vqs() would free virtio-mmio's IRQ again.
++	 */
++	if (!vsock->vqs[VSOCK_VQ_RX])
++		return;
++
+ 	mutex_lock(&vsock->rx_lock);
+ 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+ 		kfree_skb(skb);
+@@ -791,10 +801,10 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 		kfree_skb(skb);
+ 	mutex_unlock(&vsock->tx_lock);
+ 
+-	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+-
+ 	/* Delete virtqueues and flush outstanding callbacks if any */
+ 	vdev->config->del_vqs(vdev);
++
++	memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ }
+ 
+ static int virtio_vsock_probe(struct virtio_device *vdev)
 
 ---
+base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
+change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
 
-Not ccing stable, this is a theoretical bug.
----
- drivers/soc/qcom/cmd-db.c | 50 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-diff --git a/drivers/soc/qcom/cmd-db.c b/drivers/soc/qcom/cmd-db.c
-index 5d303ca0dbd0..c75567cea086 100644
---- a/drivers/soc/qcom/cmd-db.c
-+++ b/drivers/soc/qcom/cmd-db.c
-@@ -338,10 +338,51 @@ static const struct file_operations cmd_db_debugfs_ops = {
- 	.release = single_release,
- };
- 
-+static int cmd_db_validate(struct device *dev,
-+			   const struct cmd_db_header *header, size_t size)
-+{
-+	const struct entry_header *ent;
-+	const struct rsc_hdr *rsc;
-+	size_t data_size, end;
-+	u16 cnt;
-+	int i, j;
-+
-+	data_size = size - sizeof(*header);
-+
-+	for (i = 0; i < MAX_SLV_ID; i++) {
-+		rsc = &header->header[i];
-+		if (!rsc->slv_id)
-+			break;
-+
-+		cnt = le16_to_cpu(rsc->cnt);
-+		end = le16_to_cpu(rsc->header_offset) +
-+		      (size_t)cnt * sizeof(*ent);
-+		if (end > data_size) {
-+			dev_err(dev, "Slave %d entries out of bounds\n", i);
-+			return -EINVAL;
-+		}
-+
-+		ent = (const void *)(header->data +
-+				     le16_to_cpu(rsc->header_offset));
-+		for (j = 0; j < cnt; j++, ent++) {
-+			end = (size_t)le16_to_cpu(rsc->data_offset) +
-+			      le16_to_cpu(ent->offset) + le16_to_cpu(ent->len);
-+			if (end > data_size) {
-+				dev_err(dev, "Slave %d entry %d data out of bounds\n",
-+					i, j);
-+				return -EINVAL;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int cmd_db_dev_probe(struct platform_device *pdev)
- {
- 	struct cmd_db_header *header;
- 	struct reserved_mem *rmem;
-+	int ret;
- 
- 	rmem = of_reserved_mem_lookup(pdev->dev.of_node);
- 	if (!rmem) {
-@@ -349,6 +390,11 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	if (rmem->size < sizeof(*header)) {
-+		dev_err(&pdev->dev, "Command DB memory region too small\n");
-+		return -EINVAL;
-+	}
-+
- 	header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
- 	if (IS_ERR(header))
- 		return PTR_ERR(header);
-@@ -358,6 +404,10 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	ret = cmd_db_validate(&pdev->dev, header, rmem->size);
-+	if (ret)
-+		return ret;
-+
- 	cmd_db_header = header;
- 
- 	debugfs_create_file("cmd-db", 0400, NULL, NULL, &cmd_db_debugfs_ops);
--- 
-2.53.0
 
