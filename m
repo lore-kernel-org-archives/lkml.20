@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.22
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793831215;
-	b=l00D026qxrCpgsm7/iqIKtjRofApdQtdABMmbpPXkjhH5OAQL9bRFkNAJ1gxH2BKtq+J
-	 tekbmvn6845Hbe58REfIxdGiiW41J972Lf2+agrLtjd4Fk1aj3Yz7IHAwPHMT4X4ZuTYa
-	 1qrgmUEJAdZSjvHk4TyOX0HNVlTvOGjc1SXj0/NdfGKvjag0tnpf8KO2LcbPHVKNC0m2h
-	 UuZifHSWo/hNAs+Tg6DoMBGxialt30KKj+ti7eurcEQZLeUyC//Ii+Lo0WenXqsDnFN/b
-	 1qvUT2KWcAAhzB5ijSbOvTfJMr5YfPhTed43VX56h8T7s0bCHTB3EjsxiotmBLaSSJQ==
+	t=1793831265;
+	b=wM0Z36vs3RiMQsYtVutMcHt9tvc2YqcTdVLHxnf6DGRl+0ZOTs4DJQreZ5Wk9Iu3j81w
+	 f4sStdg7DiEQdJ/XClCl1f6mfPDx5nIFON2IHkqp7T9e3jlpMyjSNFiqLMZNccTmlm17Q
+	 nZ23HiECnRZKxiy0JshINyqRNWo0zx01vILIfqES1Un8VXi4ZbygrMVSznDvbPwf+WR8+
+	 k8s5gCWAvU90geUE2goEZTn0cTd5MFI8xpyuv1IlbA2CdnhhQg3rtMoICKiQPMi40IVtD
+	 FnDsl91qAoB9L9MMCaw7DPOGTGkLSgMHEerQlAJV0i8ClFSr7vtLkxK3njXgra2Wedg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831215;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3lHFtNoXN9+qA99ptczfl1VTdL7qOlB4XR0As2iekug=;
-	b=shKM5ix0H1HRWfH6AOv/8lipcQmyWsjHtPpbZM+BYfigu6NUNett+h7OalsWueBfDcj7
-	 5AkyV2Zbb3zlNlFYWQv8yfxPS5Dx5AwkP2hnYQdZT8ob8t37W2CA2/JB7vTAXyDTorrn1
-	 Eo+BH5pE8pRCwkB8cGAIHT72W8fbBvzMNnyLfZ/y4gnCRyAiQrKrXLhW25Nd0zGPEJibB
-	 E5EOGOD7CwnQlkzkzbeoJsm4J9NbWIXSoEmEtFNs8kWFf9RDiep/9YflOp1lGUykMgp2N
-	 XJ1/oN163k/MTPQqFSyqJ+UBsRhCL4TsQ6Cm2E9VpqVVugBUMuBThX9KyHw1fYUnkjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831265;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TQAK8qbp+bqwH/yA/y8zCNOc+K4W78NBGe/TJCEFsJE=;
+	b=EAX68XIzHi5DhhTNlLq9AspR/lkJTbzeRBGE1HEHeXFhLSIbcklJCtDgE/nvCbFwAUwA
+	 5/oGdj/qzQLiflM7eDeDBhs8pgi8fYF5ennf6auI4nJn+ylp0N+qgLvNO4LUOb4M88ZNS
+	 a8oW7E62YMo9l++dJnp6RMjYcMJKfNEMBThg07WboEznCa41KTFMEM7fz6AqeltXXZyxO
+	 j+BKccpErK/oAcEgSc2ohUFVRaljBuUW4vtPE8k2lab9sLHch3HwCSQ4yqbT0ECGDq4BE
+	 m6iyuCJtIXJhATXBayszMUVj/lwXWvn8A+d9Q1xsL2nyBv4r+0ubNVtEWcL+qVfLXRg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ie7kqqyt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.22
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012022.outbound.protection.outlook.com [52.101.66.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z7jFY1dM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2103606AB04;
-	Wed,  4 Nov 2026 22:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2103606AB04
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9869C606A33E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:27:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9869C606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ie7kqqyt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DFY6V5ChVCvgnsi6COtHUmON5LLt3PbhIk3Fus1PEmjYMyl+gTsOohqPf60EO/qzLWlH/9KeFsgmIRb90979kc8KOHm/lcgdc/BbpGoz3JHzy+QwZS7HV1y+6e0oFJmsHbsDJcjvgOHZeq6I38pDopRfYPFugpEZZkp2kP1hFjl+8dvb5LrKrBh7pNRJPBLzpU+kRViRfQDlVZ4L/xTxLbzwO5RgPz7yxp9wVJ7omynhJV39x+JFOVhfcLvS3fT3J5+ihjcuz+5Uw/dk/ci+/zgXR9qWoaU8yXwMuVr83H55AtI77XuzKk9/wfIepkY2Krc+/KniQJRgTchIhS5UKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3lHFtNoXN9+qA99ptczfl1VTdL7qOlB4XR0As2iekug=;
- b=lm5GEXMsNDTdZMMgXhNMdsnz0KW96Fngq6ajFoy6/S+ZLcG28CVlZ51AWsv5aQKYB51fO9HPsKxMhpkVlR4EyyAAHZ69kjuo4VqVnpojslrzxouheZvDcdb2Bg6u1tC++NhZAgsnD41MXGvwNM7/L2Uo3DggWnThFgyyzJVy9artYTfifu1Sh9TPC4ifyfWmxW5Fgyamznalft59MjyNieU0lYr7YADczzPe0pK7hVMExzgQkqiWGTTzFDu2nc1gy4EMOOsOrW6OjYQA84xYkANYmrki7prPMX2u8OOgk9XRz6VpYrE5yTw35ybIH91jj14A35EuTLTouib3wvIbiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3lHFtNoXN9+qA99ptczfl1VTdL7qOlB4XR0As2iekug=;
- b=Ie7kqqyt6FRBsYsdy9eolS0c228WVYUulqnDM3FlkZf/7god0jIdwlijtz7Q/g6JzSZ+DG2lEgcL7KlyAT1eI37jpIq8EQaQlmGEbEWVCtbXKgLmvBEAFPbC0FM7ybdsw0YrDSr8nZXW6W/D6hVXGAW3VxWV0P+GiRtNVSpTMKuliQPhCy6cwpeQAP9RAAGV09EtbCyAsCVqq4bLAK+MF7yAo2jKtLhnfGA2BUWhc8Lt3ckUeZcg0D/MJPYV2ZNpxeUQ+bcFlR39vvvXUBhs2hUtbBscF/nnd46vU+CM8T/MEFrIBQRiwj14Z6jxosfPHsHnhuYnIxQHItaRe3Rd2Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by MI7PR04MB524858.eurprd04.prod.outlook.com (2603:10a6:290:103::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 22:26:52 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 22:26:52 +0000
-From: Frank.Li@oss.nxp.com
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Avi Weiss <thnkslprpt@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	linux-media@vger.kernel.org,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Javier Martin <javier.martin@vista-silicon.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: mx2-emmaprp: return failed buffers on bus errors
-Date: Wed,  4 Nov 2026 17:26:40 -0500
-Message-ID: <179383119778.3940211.930787543638451593.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029144956.1632798-2-thnkslprpt@gmail.com>
-References: <20261029144956.1632798-2-thnkslprpt@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P222CA0003.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z7jFY1dM
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b56221d361so1258562a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:27:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793831262; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j3rd0Lj4oKduP0Us1SHuRkEUjupHxv0idN27XhDd9bEIwWD9LWMisJTYcGdutv/pAU
+         mpoltwU+AsR2q3sblnCzW8UHDF6gkt64PJznfYZ0F8ieaut5Qh8JO6/Qhmmvf9nObKrI
+         qLts8uCcep3B08NuTOVeK+S4lpEOcY1rN8g9I0kzpkOqHJaFviQYptYJsGYLkRLdlciF
+         Rf4DsCciKucwh+9fgoa4irqULPDfaMOUHhnUbnnZHr1GPL2mFDJ0pDRSEjbmlnWoHnTa
+         9X0OeUWxrFsqs3ejSSVbvqKDSA4jOwSYnOlB9VDPofNuco8fRmjMikPO2yN4hBuHgVeR
+         TVFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TQAK8qbp+bqwH/yA/y8zCNOc+K4W78NBGe/TJCEFsJE=;
+        fh=cbe+oZ5UsafynsYdpPT0wEmUpk+I1AT/6pN+8CO9Ra4=;
+        b=WHxs+ftr2uFwUB3XTnj5UddgdkauwBkCo/IgEvaq2AZs5inDtK71fWcSpBYMOSFGOq
+         xk0A8LHk7ASXHYotXDwry9mYH3+KnVuDg75y2z6lUI6LjYIlY4Rz7ewwNMwRVuWzoqr7
+         7xscNN49oQHZK+WGt/mdoD74be7mTVGKTFe/jasjOl455+HppYr4ladUB8U/NT5ZLGrj
+         q0YgfosIdeyh5OxmRWpkveIqP/eoW2xqHAwJ0/TBEt8XkBvw6wa6Zxn/pT+UGJVuUgSw
+         D3h3joDBFj7raPR/Abk6UfnyqvQ6o6miZyMwPgTRYukNnlezISg15cAFWN+T3AqIfK2I
+         mlgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793831262; x=1794436062; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TQAK8qbp+bqwH/yA/y8zCNOc+K4W78NBGe/TJCEFsJE=;
+        b=Z7jFY1dMUytIuSnGvfmRQhJvNM+YMaogwQ3qYtcCFmxsGzexP46W2pqzZE7uPEM8Mq
+         f2yofWN6gBnRqvw9og+QisEgILBgcr+h+Rx8up8quaU1CiBJTYAB7bCubjt5iQ9/D5M3
+         LqZqVdwpePd/HBq180Brbd1S9DYAwX8YZOZ2JVcAFNgvnppKI27JnlOunzT5DjlbsFuP
+         80h8edc1iknyFkl0RTrSIucGRJT/uYkUtkYmOJhqFPD+6CjyXdzDqIemHL8XOm507MZS
+         OE5Odg1n9nWapZfLPaIqhbVjCy5za/cLsfFqtZXmxmkp6IHAMyEJElpR4xKbAMyCNxn5
+         lo4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793831262; x=1794436062;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TQAK8qbp+bqwH/yA/y8zCNOc+K4W78NBGe/TJCEFsJE=;
+        b=0VcPqazl2sziI5+qAV1q/K8D5WGCXwRu1CTQjsv+kkhpQ+3eZ+lTLF6wT3aw2V/3K9
+         CpSmDlm1Z5szwb0f1lsxieYEsU7sTVG5eH2Zgp5QBDZkzswfWTaLf+rqOfqWUv2RAsuZ
+         dLtCj3FkU25a9jPjEPwkS49njcVtwWYGlyv4ZM55iyyEuoAE7llYEQbeCdA3pIRTBzzG
+         pXXT3of+iGvZzvjni1KVUfNg+I3CBvu8ruG2vklDj1YMa1E64bfjG7Ifch/W7ta8TCRx
+         Q/XVhVLmm9g4aP6UDOvEsKfpa6/QZOF/W+nBogXeS622Q84K4GCknqnCelEI5BBGBVA2
+         oWTg==
+X-Forwarded-Encrypted: i=1; AKwUvBwrAsrTaPdsp7DpCKxx/Pa+6BXLhWq/u0BWGgzuHqPcIcd2XR6nvqdAKHTE+XV87vglNxT7VvbAAzBqUcU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+bYjeaJr5/k7b9VRlpS6dLVMOys9foaYwUkYRSGIet9xEJ3PP
+	WYHgfdph3wZHkVrU98pPJnYQD1NwjL7J/D2JTfjRvP6Ud1a2smo1Hj/gMssfHG33FL+cSlxv/C9
+	C0xwk6i3nfQED+66EMfAKH84G3rsU7CjA8JH7Os/agg==
+X-Gm-Gg: AYBFou3MmJmiRNQgEDU6drRw9dU1Qjf0e/+v/Jip8E09xVH5pkXilkSz9bhZ36kxtRr
+	EbYRl3NfscETghA0K09Axh5T4QF77WBxOSU38Dk630+wAqj6JFsiKOpsJxtcg/MnXINeD3KyAuO
+	Y5faCGSx6MeCRh2jnC60eSzTw2YV98o8oWk/dYMFm0xt0Rf1oeE/Qdix9BcGDTf3EAlJLLaPr5d
+	WTo+3kJ4EBEPSKyt7Dxt+aCnQIBCTpLJjixEkkSnRANGDutgzWP3m3InOXekKCxBZ6bo4UH+Fqc
+	+bXvXuzE40RsXroOh3PECcu+GVoW3ufQlr1lh7aerNoTctvE6PNfahebiEn95JmxNANWcHBt8xj
+	3iJcE1RQ1B8OC9JQFgg42CN19lGuXYqrZKICIJpWbOQixK+8uD1XEcMrJRsmEYMVFK2ddPZhDtW
+	5QYPoqmNwKLGB4zJISKAr6AaM=
+X-Received: by 2002:a05:6402:3787:b0:6b5:74dd:37f3 with SMTP id
+ 4fb4d7f45d1cf-6b574dd39aamr1147352a12.38.1793831261972; Wed, 04 Nov 2026
+ 14:27:41 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,90 +105,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MI7PR04MB524858:EE_
-X-MS-Office365-Filtering-Correlation-Id: a105dd21-5ebf-4173-da2e-08df3ac2b964
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|23010399003|10067099003|22082099003|18002099003|56012099006|11063799006|261026140227099003|261022105027099003|261022075727099003|261028144727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	VC4cG0i4ikKscO2+pBuguOKgG6UPM0KS132/MTxIT2KwviiI/SMSAXTTlE3LtdjnqyZoZFUR0Ts3/z8IyEWzd6le3uuSU3uT9ev1BPDlnQ5rYsB4k0rX8j/8ejVXJ4gKuKLPeYTcF5BWBiR+231hbAk3pH5pIo0kYAkD7tf9MDdUCGik4ezxJvQ7HiqQ0cWNGfLMScmfJ+mnVJRFCOwN4EofxZylG53TLCnIAuI/jzzOFy2TTlEPBzbmioTDpF6A3esBGAdtQAbYzmoCIO2wfjhjQYhp+iCeWRdNQX7xBAugKAxDDU/rolHk6R+3NWoYNUZXjbBr1GGD6gZKNB1Y3Ib0f9UUDCQYqjs/uti35b6PURypesYa1RR0vkogEdeuTULbYWpvoPmhxxlKkeHO/3LgjPGmFMv1Cx0iiBrrko/FziVsdyjQWbdJsMHHELLLGMdOoFB2Thty3X+rf1D+ZSqvodpKSKcxg2zHqX28X2BKanYV0Gnz6sAn4XU3p3vIv7LuxON0dzq3MTQEyij/jB8gg5X6j5Kzz5SOAB0Jj9Zph5izpTBuwPdoYinjVV5jFEOmFAW529qpQnyd5xShrEElqjkbubGFK3FKJK+PMVXm+fGTvP7pPoKr2oTi91Qan5u29OpWwkyFb2F4Vk3B/nRdZwZYtapLVtUaR+EKkv4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261026140227099003)(261022105027099003)(261022075727099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bE9TT20wYTFEaDFqRGZ5OXgwV2dYTkZwR3NlS3I1UFpFVUZGald1L3JtdStV?=
- =?utf-8?B?VXFITmFZM3hrZFAvb2o4NEtSSGFreW5EVnZYZHdGakUwcE1VcXE4RXM1d0pk?=
- =?utf-8?B?bFF3S05IY3dMZTZOcE52RGxUcGJOdkxkQndiT3pUV0hIQWl1UFRZaDlsMGFx?=
- =?utf-8?B?dnFLbDB0cndiT1JMRmwxTXFUS0F2Z3ZrYkFuaGUrWEZUSHJNUDRjV0JZN2FJ?=
- =?utf-8?B?aTVIdEdRYk9vSVkvMFlBQ1FaQjZnTmpsVFlDZGpyN3Z0QXZWdkRBODVib1JG?=
- =?utf-8?B?M0NsS0F6QW1EVkVPbjR0OXRkbUk1OTRXb3YxUWkvWDdwVThrd1lkZmQ4OGtY?=
- =?utf-8?B?eWR1NEozNGxQa2grZ1hmdHY5NG9SMWNocXRqdnRzTHRNQ3lHbndTQzA4VFFP?=
- =?utf-8?B?NldQbUJkMVpJTTVZd2l6dnhjYWczRFAvY2NPb2U3SmxSM1prbFRtajFLb2ZQ?=
- =?utf-8?B?aytBN3hJcHJqdCtpaDNXUUdNdG5Ocm5nRHE3UnhVRmRsTzhHbkVHbklkc0E4?=
- =?utf-8?B?WHY5dWpldm1OZjdXSmVyeUpzdDY4WVJiTnVLTnN3ci8rbDdEblZvQnhBdFZI?=
- =?utf-8?B?Q2dWVXd2U0dIaGpTTURRYnQ0anNCWVJieWdKcEswRkluK2NCM0Y1ZVlsczNJ?=
- =?utf-8?B?U2pHUlVWdkZ3UlovUEFDbVNUUVZ5RzV0SjdQL0JkNG5WVzlXNjZpTFdQT2VP?=
- =?utf-8?B?RUlZbTFEZTVzYWl0SU4zVWxTeVpLTml4NWJkZTl0SEpyeXVjR2p0dDA2K0ow?=
- =?utf-8?B?TjRDem5kRzBVdVI2VVlQckdGVG5MaXdYS2lIZTVZVGtBaDBSMEtCdGp0cFFK?=
- =?utf-8?B?TEpKallXRUduQ3JOWnltaUdnWndNTGRpTXZYWjVZNXhocG1JMXJkSHRqK3Ja?=
- =?utf-8?B?aER6UVZQZTZaU0NCcExRaU5kL2lWRkdhRHV4Nkx2NGRXWGh4eFZWbml2Q0hm?=
- =?utf-8?B?b2tseERaRFBMSkpqVjRNUXlwVnJ2TUk1dFdrUkRUdndCcjFnQ3ZtNnVqdjFY?=
- =?utf-8?B?RVliZEdIMTNSenhSQzhDb1dtT3B4cGxaZ2VFZHUxM01NVURkNHVTcmhGYzF5?=
- =?utf-8?B?L2YydmdtblFXZGxuV3RTWHhVS21jRUFPbUpMM0hlZzJnVGVyV2JEcUVvYWY3?=
- =?utf-8?B?MjZHTVUvV2hINXMwOGhTMzAvcHJwUDlzWS84bk52eE9ZbjlPc2FBZDU1M0Jp?=
- =?utf-8?B?dytBQUJ0Q2hHc01RU2hyT3BQM0tZWVZJbDN0cWdWOXk5S2E3VlR4S1dSazVx?=
- =?utf-8?B?dWxRdThpTEVJMXMvOU0zU2c0U2dsMFdRTERzZHpDWGpEdTR3YkpISEtoNHVt?=
- =?utf-8?B?MFVURUU5Q2VWSFNzRUtSNmx2YzZFL1kwaGhkaW94Z2dlWWtHYytoMHI1K0g0?=
- =?utf-8?B?SHFJZEJPQ1c2VEQ5TTRRM0UvNVIzcVZpVWt0L2JzLzhYNTFkZmhqRmFrZTJE?=
- =?utf-8?B?T0xER0xxZitmREZyL05LcFNMR29UNnpYOWtUbWtsVmx2cU52NlIyTnJhTUsz?=
- =?utf-8?B?ODR1ellKYmhncVdVKzk5WGhlSzFza0Z6OW9ZY0E0VDJtRVVPOGk5RG1Lb21i?=
- =?utf-8?B?R0ZuZUVkNlRVckt0SzYzNlE1TXZ4cWhRNW1NU0tFTGxmaTBNUWZjSlRzUStY?=
- =?utf-8?B?M3FXVzdib3VyMjVEbUNSTEFNK3NMZ3poL3YzQUJNRDJVNXB2RHE0cUpGVUVj?=
- =?utf-8?B?VlUyc3NNWDYyUWE4dlJXMFZFWFFneEtVVHlUdkJ5TjBsaStqc3liczNMVURu?=
- =?utf-8?B?VC9VbW5nT2hnSkJtVHR6Nm5pV2VuSWswQ1c2NUM4Ui9VUHA1eFpLUHhZODVN?=
- =?utf-8?B?UlZZT0w4dHRQTkI4KzcvN0lDVitBQzB3QWg2TG1tWmVEV0twTjRSV1VPZnNv?=
- =?utf-8?B?OURjUytnSGx2SVh3QmtSeGZhY2VaVjNLdGhNVFVTdkhGN0p4WlUraStUYWw3?=
- =?utf-8?B?dHZUSWt0ajRMWURBZU1CL1NCV1lTN0M0cU1qWWpwUGJ5T2ZYbEpOUzVGZ0xF?=
- =?utf-8?B?aUxMU1hKa3JXUElSelZDbXV3RlZCbjBQK0NYTmQ4TTFiT3E4dXVzV3RENXlC?=
- =?utf-8?B?SkdIUEFlOG41M2xYTnhmck9CZUZHcm5IejR6MnpJSE9FckpNckhLTzh6bGgz?=
- =?utf-8?B?aFlYeDBmamZ3clFoNklyamVOc3hDai8wSjgzb1pURm1VQUJoZUVmV0xqaktp?=
- =?utf-8?B?QnNlZEdZK0JBQ0UvMGtCM2N5TGhrMkh1QlNIU3h5Z1JSelRrYmVONlZjREEv?=
- =?utf-8?B?Ry9VZS9sL0FMVkVWazNxUjROemZQSEJXVHVsQWY0b3lRcmFnN0ltOXhXeVRk?=
- =?utf-8?B?RjVvYWdhZTQ5VUpzRHhTbkFtYjkzTUtZUkI2WlAzMkVEOTlzNTdsKzV0OHZX?=
- =?utf-8?Q?n54a/j3VYO5YURSlrYlRnplHGcTZq6BTItse0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a105dd21-5ebf-4173-da2e-08df3ac2b964
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:26:51.9233
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xfWUY1p8ARo1vuml8/cb0dyZjxWDbacCeCfQbSz3ImDl7bK8H64+1EK/dWjs/X3jGiGmPqUbwRZoHcKWTvorxNaxrbg+8p6N6+GNG0ck6PaWLxN8ho9ZktFhK4Dvx/iB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR04MB524858
+References: <20261104-perf-alpha-profileme-v4-0-1771ea02950e@gmail.com> <20261104-perf-alpha-profileme-v4-2-1771ea02950e@gmail.com>
+In-Reply-To: <20261104-perf-alpha-profileme-v4-2-1771ea02950e@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 4 Nov 2026 23:27:30 +0100
+X-Gm-Features: AclHuK-E3YidK4R7qpjEd0-aTfWoNyIvFLSGqk_JEj3O4YMcEfJ5h8s_oOS4dx0
+Message-ID: <CA+=Fv5TbocBsz9Esu-ZcEmNkRGBxkQ+enjLUZeqy485JM4Om+g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/3] perf python: Add alpha-profileme.py
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi Matt,
 
+On Wed, Nov 4, 2026 at 7:54=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> perf report shows where Alpha ProfileMe samples land but cannot
+> aggregate the raw status attached to them.
+>
+> Add a standalone script, using the perf Python module, that summarizes
+> it by symbol or, with --pc, by instruction, in the style of DCPI: the
+> fraction of samples killed on a wrong path, not retired, mispredicted,
+> taken or stalled, the mean PCTR1 window count, and trap counts by type.
+> Mispredict and trap types are only counted when I_STAT[TRP] is set
+> and the instruction was not killed before it was mapped, since they are
+> stale otherwise. Redirect traps are counted by their
+> PALcode entry offset in PMPC.
+>
+> Raw data is only read from cpu PMU events, as a tracepoint's payload can
+> pass for ProfileMe status. Rows are kept apart by PCTR_CTL[SL1], as a
+> mean over two things PCTR1 can count means nothing.
+>
+> On an EV7, sampling a loop whose branch tests random data reports that
+> branch mispredicted in 21% of its samples, and 0% with sorted data.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  tools/perf/python/alpha-profileme.py | 178 +++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 178 insertions(+)
+>
+> diff --git a/tools/perf/python/alpha-profileme.py b/tools/perf/python/alp=
+ha-profileme.py
+> new file mode 100755
+> index 000000000000..da374d206187
+> --- /dev/null
+> +++ b/tools/perf/python/alpha-profileme.py
+> @@ -0,0 +1,178 @@
+> +#!/usr/bin/env python3
+> +# SPDX-License-Identifier: GPL-2.0
+> +"""Summarize Alpha ProfileMe samples.
+> +
+> +Aggregates the ProfileMe status that the Alpha cpu PMU attaches to each
+> +sample as PERF_SAMPLE_RAW data, by symbol or, with --pc, by instruction.
+> +
+> +Record with raw data, e.g.:
+> +  perf record -R -e cpu/instructions,profileme/ -- ./workload
+> +A precise event such as instructions:p samples only retired instructions=
+,
+> +so its killed% and invalid% columns read 0.
+> +  alpha-profileme.py [-i perf.data] [--pc] [--top N]
+> +
+> +Columns:
+> +  samples   ProfileMe samples attributed to the row
+> +  killed%   profiled instruction killed before it was mapped (PM_KILLED_=
+BM)
+> +  invalid%  instruction did not trap and did not retire valid (VAL clear=
+)
+> +  mispr%    conditional branch mispredicted (TRP and MIS)
+> +  taken%    TAK set; only meaningful for rows that are conditional branc=
+hes
+> +  stall%    instruction stalled between fetch and map (PM_STALLED)
+> +  pctr1     mean PCTR1 count during the window; what it counts depends o=
+n
+> +            the event: inum retire delay for cycles:p, window cycles for
+> +            instructions:p, Bcache misses for bcache-misses:p and Mbox
+> +            replay traps for cpu/mbox-replay/p
+> +  traps     trap counts by type, only for samples with TRP set
+> +
+> +TRP, and MIS and the trap type with it, are stale for a killed instructi=
+on,
+> +so mispr%, invalid% and traps ignore them there.
+> +
+> +Samples from events that set PCTR1 to count different things are printed
+> +in separate tables, as their means cannot be compared.
+> +"""
+> +from __future__ import annotations
+> +
+> +import argparse
+> +from collections import defaultdict
+> +import struct
+> +import sys
+> +from typing import Optional
+> +import perf
+> +
+> +TRAP_TYPES =3D {
+> +    0: "replay", 2: "dtb2-3l", 3: "dtb2-4l", 4: "fen", 5: "unalign",
+> +    6: "dtb1", 7: "dfault", 8: "opcdec", 10: "mchk", 12: "arith",
+> +    14: "mt_fpcr", 15: "reset",
+> +}
+> +REDIRECTS =3D {0x481: "iacv", 0x581: "itbmiss", 0x681: "intr"}
+> +PCTR1_NAMES =3D ("cycles", "retire delay", "bcache misses", "mbox replay=
+s")
+> +SAMPLE =3D struct.Struct("<IQQQ")
+> +
+> +
+> +class Row:
+> +    """ProfileMe status totals for one symbol or instruction."""
+> +    def __init__(self) -> None:
+> +        self.samples =3D 0
+> +        self.killed =3D 0
+> +        self.invalid =3D 0
+> +        self.mispredict =3D 0
+> +        self.taken =3D 0
+> +        self.stalled =3D 0
+> +        self.pctr1 =3D 0
+> +        self.traps: dict[str, int] =3D defaultdict(int)
+> +
+> +
+> +def pct(n: int, d: int) -> float:
+> +    """Return n as a percentage of d."""
+> +    return 100.0 * n / d if d else 0.0
+> +
+> +
+> +class ProfileMe:
+> +    """Aggregates ProfileMe raw sample data."""
+> +    def __init__(self, by_pc: bool, top: int) -> None:
+> +        self.by_pc =3D by_pc
+> +        self.top =3D top
+> +        # Keyed by PCTR_CTL[SL1], which sets what PCTR1 counts.
+> +        self.tables: dict[int, dict[str, Row]] =3D defaultdict(lambda: d=
+efaultdict(Row))
+> +        self.skipped =3D 0
+> +        self.session: Optional[perf.session] =3D None
+> +
+> +    def process_event(self, sample: perf.sample_event) -> None:
+> +        """Add one sample's ProfileMe status to its row."""
+> +        raw =3D sample.raw_buf
+> +        # Raw data from another PMU or a tracepoint is not ProfileMe sta=
+tus.
+> +        if (sample.evsel.type not in (perf.TYPE_HARDWARE, perf.TYPE_RAW)=
+ or
+> +                not raw or len(raw) < SAMPLE.size):
+> +            self.skipped +=3D 1
+> +            return
+> +        version, pmpc, i_stat, ctl =3D SAMPLE.unpack_from(raw)
+> +        if version < 1:
+> +            self.skipped +=3D 1
+> +            return
+> +
+> +        symbol =3D sample.symbol or "[unknown]"
+> +        if self.by_pc:
+> +            if pmpc & 1:
+> +                key =3D f"PAL+{pmpc & 0x7fff:#x}"
+> +            else:
+> +                key =3D f"{pmpc & ~3:#018x} {symbol}"
+> +        else:
+> +            key =3D f"{sample.dso or '[unknown]'} {symbol}"
+> +
+> +        r =3D self.tables[(ctl >> 2) & 3][key]
+> +        r.samples +=3D 1
+> +        killed =3D (ctl >> 26) & 1
+> +        trp =3D (i_stat >> 39) & 1 and not killed
+> +        if killed:
+> +            r.killed +=3D 1
+> +        if not trp and not (ctl >> 1) & 1:
+> +            r.invalid +=3D 1
+> +        if ctl & 1:
+> +            r.taken +=3D 1
+> +        if (ctl >> 27) & 1:
+> +            r.stalled +=3D 1
+> +        r.pctr1 +=3D (ctl >> 6) & 0xfffff
+> +
+> +        redirect =3D REDIRECTS.get(pmpc & 0x7fff) if pmpc & 1 else None
+> +        if redirect:
+> +            r.traps[redirect] +=3D 1
+> +        elif trp:
+> +            if (i_stat >> 40) & 1:
+> +                r.mispredict +=3D 1
+> +            else:
+> +                tt =3D (i_stat >> 34) & 0xf
+> +                r.traps[TRAP_TYPES.get(tt, "other")] +=3D 1
+> +
+> +    def print_totals(self) -> None:
+> +        """Print the busiest rows of each table."""
+> +        total =3D sum(r.samples for rows in self.tables.values() for r i=
+n rows.values())
+> +        print(f"{total} ProfileMe samples, {self.skipped} without Profil=
+eMe data")
+> +        for sl1, rows in sorted(self.tables.items()):
+> +            print(f"\npctr1 counts {PCTR1_NAMES[sl1]}:")
+> +            self.print_table(rows)
+> +
+> +    def print_table(self, rows: dict[str, Row]) -> None:
+> +        """Print the busiest rows of one table."""
+> +        print(f"{'samples':>8} {'killed%':>7} {'invalid%':>8} {'mispr%':=
+>6} "
+> +              f"{'taken%':>7} {'stall%':>6} {'pctr1':>7}  {'location':<4=
+0} traps")
+> +        ordered =3D sorted(rows.items(), key=3Dlambda kv: kv[1].samples,=
+ reverse=3DTrue)
+> +        for key, r in ordered[:self.top]:
+> +            traps =3D " ".join(f"{k}=3D{v}" for k, v in
+> +                             sorted(r.traps.items(), key=3Dlambda kv: -k=
+v[1]))
+> +            print(f"{r.samples:8d} {pct(r.killed, r.samples):7.1f} "
+> +                  f"{pct(r.invalid, r.samples):8.1f} "
+> +                  f"{pct(r.mispredict, r.samples):6.1f} "
+> +                  f"{pct(r.taken, r.samples):7.1f} "
+> +                  f"{pct(r.stalled, r.samples):6.1f} "
+> +                  f"{r.pctr1 / r.samples:7.1f}  {key:<40} {traps}")
+> +
+> +    def run(self, input_file: str) -> None:
+> +        """Run the session."""
+> +        self.session =3D perf.session(perf.data(input_file), sample=3Dse=
+lf.process_event)
+> +        try:
+> +            self.session.process_events()
+> +        finally:
+> +            # Break the reference cycle between perf.session and self.pr=
+ocess_event
+> +            # because perf.session lacks cyclic GC support (tp_traverse)=
+.
+> +            self.session =3D None
+> +        self.print_totals()
+> +
+> +
+> +def main() -> None:
+> +    """Main function."""
+> +    parser =3D argparse.ArgumentParser(description=3D"Summarize Alpha Pr=
+ofileMe samples")
+> +    parser.add_argument("-i", "--input", default=3D"perf.data", help=3D"=
+Input file")
+> +    parser.add_argument("--pc", action=3D"store_true", help=3D"aggregate=
+ by instruction")
+> +    parser.add_argument("--top", type=3Dint, default=3D30, help=3D"rows =
+to print")
+> +    args =3D parser.parse_args()
+> +
+> +    analyzer =3D ProfileMe(args.pc, args.top)
+> +    try:
+> +        analyzer.run(args.input)
+> +    except IOError as e:
+> +        print(e, file=3Dsys.stderr)
+> +        sys.exit(1)
+> +
+> +
+> +if __name__ =3D=3D "__main__":
+> +    main()
+>
+> --
+> 2.55.0
+>
 
-On Thu, 29 Oct 2026 16:49:57 +0200, Avi Weiss wrote:
-> emmaprp_irq() resets the PrP engine on a read or channel-2 write
-> bus error but leaves the source and destination buffers queued.
-> v4l2_m2m_job_finish() releases the job without returning either
-> buffer, allowing the same pair to be scheduled again.
-> 
-> Complete both buffers with VB2_BUF_STATE_ERROR before finishing
-> the job so userspace can dequeue the failed pair.
-> 
-> [...]
+I checked alpha-profileme.py against the raw fields in recordings from
+my ES40. In the v6 recordings, 644 samples had both PM_KILLED_BM and
+TRP set, including 10 with MIS set. The script correctly ignored those
+stale bits when counting traps and mispredictions.
 
-Applied, thanks!
-
-[1/1] media: mx2-emmaprp: return failed buffers on bus errors
-      commit: 2e0758dcfb305acabbfeb5f38ad1a9f8f874898d
-
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
