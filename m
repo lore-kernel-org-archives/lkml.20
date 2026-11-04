@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794241;
-	b=AMpjecxlOQDKInDk4eRKkG3oVGs5jFq4Vk2O45m634Yi8gGNs+vAUFQ7CDA+RQ1kIdVI
-	 vdjI8wwEu4gErWvWIqcvraMpEcC+L+CICtdtE3Yz1UqmecmgoBKnAbjyYb2HgM0Zkz/jE
-	 oPHS+kNx09jUaNRTj3VdzQmJnCmb5/mmQWL6a6fzDfZpoQzKt3nD1oRg3R7fGDRqyVK38
-	 8rr0bh+A886Jq50wZqeuAqcUxhCks2yLW7QQkPJ4WQbnjuZUxAULku/Wd3LTXKEqBWf7T
-	 SbrZz+5eCB9GMAhi8IIWVQWamsIFyNN0snAoZqYKIS4u7B8UtDoqnhttWfgkYbwZvfw==
+	t=1793794262;
+	b=gbW0mOM/DEecx8M1xwHoeiSvCVXGQlpKw4ZQ/Z6XOUVkIubkgdvAVIHgwCebVp/ejJoM
+	 HOE/ZqfxgE7tTJl6+UnUFUlMtxTmDRcxKZoqkcvBHLrktlrJoBeRIz9cOGiQv6o9jDHgF
+	 YY26O8Z51jOJbxSdoTjFdYal2ZHmjQKQ4mt4NEln8mkO5UFzhEjZ1mURMipKhNZyLiePB
+	 0bu3KqY0xUgnsU3+2feJVvG+XUqh+Ly76sOe21yBHZ3ZFTl+Zj6H9E+bozp4ujPVv1skA
+	 x4TgZnW8V1/L8QegdP48g2SgsnQyMB0Kf7b3IQTWe3LbwTNVjE+creoiIfcxsqQoChQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794241;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=I+hoG80dP7juUZ0U7TfLYO+Op05dGC/6R7pj+CXFi2s=;
-	b=Kbw6pFz094TqnpMNANN+LPlDqfAixD9tiL8tULe5pjdFgmpw7aP00lbg9yh6EfH/NKjq
-	 IQ4vaHLe05OKeBeYXOefm0voQhsCD8QyxoUb9dShZTvUKqCgT2HytoVcVEjg2vbKdgtyB
-	 xcgYqVypAfAWyP28ID3XvG82Zq9iUu4hYX2NZ4MlXnxR8duqwINzYkaTA9b7HvBCcYBj8
-	 jTftbUCFHaLMqdTwtjtn1CYBP48LI49+QdoJX9S0ML00IdqG6EqTuTjN/9gIwJJ9SELP+
-	 H+/DhWYAmadF5pZACKmPlhQdHoNiRe6wdOKUb4fI4/zowrgyQlkImNKx03WbIjjrVQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794262;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 X-Debian-User;
+	bh=PM+1SXBE1tO8IGolYslHAuqq+HDTOKBxAOZ2o3BRaQ0=;
+	b=qAZGTtd6UdXsl5ZypcsskiEF3uG8oTDtHR0ymTCMvEvdhyozv8zbXile9WAfJo9SN6Df
+	 cR9S+YwZCNhB2vPLqDWadhcT0LkofaLglO3tWGbm5f3gTd+mPxHSrLoaELxIZL28irqD9
+	 OPh7RqIz6FCwZ9YZ0AbsAkWCiWlnvWyJsfi2lVf1tNwxNLcvVv4v87lvxeaSjujOi4ef+
+	 iyTIOML8oCStPR+KYooBEQ8IS88nFVAJ1T4VbGTkkwJDwRtzjvO42biFOuoJKUF4aUxfH
+	 IbETd9AwAlh2ChZlaXqbHo9RlyzIT8QYFp490MuDclwk8G6r6pq+ZxHAMnqe3uHQDvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FOtaWm7m;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=DPtVCVe+;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A3D606A328;
-	Wed,  4 Nov 2026 12:10:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9A3D606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB18606A31B;
+	Wed,  4 Nov 2026 12:11:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB18606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FOtaWm7m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793794240; x=1825330240;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YLLolWOuj2zRSp3iYcIk6kE8lMz8IzwzaO3u/mgseyo=;
-  b=FOtaWm7msnavlzszsFaBSTnVzr2/TnX24ePUpqYlEpm7YcpAJgpriMGD
-   q1QJHo8cXcSzPqK/0AWOEOSDY//xId1gm+kfEVFdz0BrXhPf9NUtALh3p
-   pBJh7yJEmeYFcOhL3MM1Qyqm7hCyqyFWrkUC8dXcMkFFqKh/thc4SjxA2
-   k35ekEbipQiSnwylnPf2YF+DsJUM6HKDtcFFnaNKqMwch95zIILQor385
-   WIYRRmKYUc9q3NtOF9EKG2Q2Vr5Eot4d1yuqJxldOIHC1YAnyOpPTHJPi
-   Fl3ZgyFW+X+poDUcHo8HwxbJIV+ueosWrUssr9y69NRv4LDWTbjAluAHy
-   A==;
-X-CSE-ConnectionGUID: IdRJcp9AQzKTUSCBxzdqYQ==
-X-CSE-MsgGUID: vW0pibCzRh++jDf6Wc051A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2551928"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2551928"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:10:40 -0800
-X-CSE-ConnectionGUID: hteDh6E0Tn+AMS0yBQo1Gw==
-X-CSE-MsgGUID: NdCpof97Sbmn37V6DMRMXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6760034"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:10:38 -0800
-Date: Wed, 4 Nov 2026 14:10:35 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] gpiolib: add support for scope-based management
- of GPIO descriptors
-Message-ID: <ausguzNd92tWdASB@ashevche-desk.local>
-References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
- <20261103-b4-gpiolib-free-v2-4-ea46767c9cf8@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=DPtVCVe+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Type:MIME-Version:Message-ID:
+	Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=PM+1SXBE1tO8IGolYslHAuqq+HDTOKBxAOZ2o3BRaQ0=; b=DPtVCVe+pcamCzJc01XI7O4qkX
+	yYweOEk5BL88jVN6149yTUKRNpjMgHL52CAErHZFrEv/+eRNPDatL2ZAn2BmumA9wYAXxfPvPIfnJ
+	RazZoDmf0tVwNNPNcVy5UgOi/LJ3hpwamdFIo5kFwCvOoKe0tYBgWUboFgn97ov7IND0nVMYH9A6C
+	ifQvaYbClrAq5k6AjQFw/r2ulk6HiG/J4++BpWUm6jIgbYtW7TWw4LGVQKRyww+H91BmLEy7JCGKL
+	KA2swXz/S1unrolO/+TY4ic8tp/lb0+zSs27fiVp044phprOel4bGfW3h73sk7d6AWQic9psFni2x
+	ETp4vWCw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOZpS-007hWX-1p;
+	Wed, 04 Nov 2026 12:10:58 +0000
+Date: Wed, 4 Nov 2026 04:10:53 -0800
+From: Breno Leitao <leitao@debian.org>
+To: linux-btrfs@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Qu Wenruo <wqu@suse.com>, linux-kernel@vger.kernel.org, boris@bur.io, jlayton@kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject:  btrfs: bug report: reflink racing with async compression forces
+ read-only
+Message-ID: <ause7k_HjzUWT3D-@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,21 +69,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103-b4-gpiolib-free-v2-4-ea46767c9cf8@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Debian-User: leitao
 
-On Tue, Nov 03, 2026 at 07:40:32PM -0800, Dmitry Torokhov wrote:
-> Add DEFINE_FREE() definitions for gpiod_put and gpiod_put_array to
-> allow using __free(gpiod_put) and __free(gpiod_put_array) for automatic,
-> scope-based cleanup of individual GPIO descriptors and descriptor
-> arrays. Place these definitions after the CONFIG_GPIOLIB check so that
-> they are available regardless of whether CONFIG_GPIOLIB is enabled.
+Hi,
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+We are seeing btrfs go read-only on arm64 production hosts (64K pages,
+4K blocks, compress-force=zstd:3), on 6.16-based kernels and up, still
+being reproduced in linux-next as of today:
 
--- 
-With Best Regards,
-Andy Shevchenko
+  BTRFS warning (device nvme0n1p2): no extent map found for inode ...
+  when unpinning extent range [20480, 24576), generation ...
+  BTRFS: error (device nvme0n1p2 state A) in btrfs_finish_one_ordered:3200:
+  errno=-2 No such entry
+  BTRFS info (device nvme0n1p2 state EA): forced readonly
 
+A quick bissection seems to point to commit 1d2fbb7f1f9e ("btrfs: allow
+compression even if the range is not page aligned")
 
+I've able to come up with a reproducer that hits the issue within
+seconds with 64K pages:
+
+	https://github.com/leitao/btrfs-reflink-async-compress
+
+My robot identified this as the root cause, but I am not smart enough to
+understand: 
+
+A reflink into a range that is still being compressed does not wait
+for it:
+
+1. Another part of the same folio starts writeback first, which clears
+   the folio's dirty tag.
+2. The second filemap_fdatawrite_range() in btrfs_fdatawrite_range()
+   finds folios by that tag, so btrfs_wait_ordered_range() returns
+   before the async extent has an ordered extent.
+3. btrfs_clone() drops or splits the extent map pinned for that extent,
+   and the transaction aborts when it completes. If the clone wins the
+   race instead, the compressed write lands after it and the cloned data
+   is silently lost.
+
+Thanks,
+--breno
