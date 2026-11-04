@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793821948;
-	b=pt+0BsnUX6DOrnO1s4f2UGQiJ/mhVl6B53bHzxPYVmXOS9t2khFQRogoDSEjN4H+RvLn
-	 zeBHqObrTriFpx3AeDbH1VrezrX2j2pAHt7+++/j9+0sInE7ivRB2de2aeYD89CaBk5l8
-	 e5ZJPMs0x7VSirGRBqwTPF87+G4eOBDoAO2KEP0ylTLh/wIEhKMAepd348qYK+QeH3VYm
-	 TgEzeCq/HhpDpgQf92dZkcKwAfyGBDs5/7aZa5nqghnzmRKbsQxXOCtYpOTeqVT68Bc6X
-	 at0hjFB+vLpCHtLUkk1vJCEbWpsLLHGCeD7ztadS/3IhurQMUq4HOR1GbPlCgJYf/sA==
+	t=1793821946;
+	b=mMybk71P2PloG0ejAyVhlCTjVdkOOjOhIuZYwP32QIO2o1G0L+6KuvNQ/LxLqVMTAnk1
+	 zKOoRlis1mfjXWWSBksimYSydiLyQ3mZO01vyS1Dv+vKvXRou1vx1d7LPRFS7gGEFMWY5
+	 RtZFVS3FZVombcA6wwwoLGb74K+w1x/vrmzHZP7Il40WvXlpnnqajpo8ijwWlT0Vc/G00
+	 K7rKxfZbUCJMV7EkEDL8uIE0qELcsvjv0b4fxHqLpHkL2xOe9q35XXqImqodeTdVKmTvF
+	 AHVz+3W9yo1W/LBQHetIEyiVwSNBXLAdx1zM+xCSdX7fFWbMDmuBLJ+kVcFI3gbteQw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821948;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821946;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pLue9x6BWWrzsb2sVe20++4HPjLCp1G2bwj77yogYNk=;
-	b=HRPQY9fdb8XwUWm8OLb0806vV0uVA6SoRnhkSODcAvMx9dZWv8qmi6ZXHF1J5SzqPFwM
-	 Pgw9AMHCTeThJbtoWWlpCdLjaBBtgvlyNmNw9N8tCl2yY01WsFNoEqLgl9XZ2UaWa9B23
-	 dQf1P+R8ImD1+YEu3MstwNU2k1PzaIi+kO2YUbkr424+veOay4l9+KpOoQir84WSntrmH
-	 k6pPcL8FVf6LHEOCn40KqIjSTbx2zVAfcfU5JGpaHtBkc76T/WFZKglEFnpKWJm/et0vN
-	 H11rgY4jZPhvnfJzRAzcFttrC7ILmPMHF4LMYiBNBAmSuPIIvsZzm34mkMO1jy+LTBw==
+	bh=8sxA/Ew+8y+kh+ApHCSaVPuVXPRc9Y/87473zlKJEcg=;
+	b=41ibcKJsu1rIL2L7CucqQTqY203c8Fjwvn5B3D4e3DXSdM296nJxiQyq8Ft+c2tm/fTT
+	 l0mYfDfhaZVSt9nA97sK6FilO8scdjwd6IkufmPxg/0PecjZSjlIphRPDxNQAyzLz+u+3
+	 sOcshVKLq6St3gljOIwz957kdX8wwIqa8ISj42n53SfDJRzD4kUgVfbg8w1FGpo+NpFii
+	 TQD8guApcE50BWxrx3WvNkpopNDtzRIAb0TtfSwiXCfp3iatE6VNfyPStEfQ95F13rmme
+	 StFmd7hsXUSAJmycv2pjDN4lu6s4kGn2m6dpjfCRCrNY0MVejzhuUT+pTmKbqtpX6Ew==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GnDegx9h;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AMzVfm7T;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C27A6076CD3
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:52:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C27A6076CD3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81236076CDC
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:52:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E81236076CDC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GnDegx9h
-ARC-Seal: i=1; a=rsa-sha256; t=1793821935; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AMzVfm7T
+ARC-Seal: i=1; a=rsa-sha256; t=1793821931; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=RL/KiHkn559ARasvWtWE6HMGK5UM02TNgh936ORCMohbt7llHXfHRFpURxYxfABPfdVmjTphkAUTCuap3dQeQ8ieXtQprCyoEa8kFzRX6kkLchsSFR6S0WIAe/kHPQ75nLNVDP8CF9g4uOsS3OLJhTVftZPUB+WqgQ36dlKPJT8=
+	b=MoLHc54x7qGgeme3uIi4vzQxOsXG56m41YDZc5JXxBtcfoEHcVseu1D8Q6saZBGIsis+HUYniq24+DGkUnWdJQ7U9OGvr3Qo+zxj4GA96KMEOR5pLDWqQ/MKDaSfz7eZwzQqkHE8cVeAdqENAuFAUzYOerlh0jNTev00XO1Qotg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793821935; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pLue9x6BWWrzsb2sVe20++4HPjLCp1G2bwj77yogYNk=; 
-	b=I6m9W4kj8tzUh8Qt7+k4pYFBJnCP16dWF+cZWJ7dhhYf2DJqDOnz/cZN2oCKoVLzoo8HvWj9FAsjbXNU8o/u238B4p+0ipiLmPYrbZhwmEeIRleGsYN9Lflk3qvVTuqbGrKk2BfiBYgP+shgP1v+0zTjiwR2QbUDDtUQk2+OKzI=
+	t=1793821931; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8sxA/Ew+8y+kh+ApHCSaVPuVXPRc9Y/87473zlKJEcg=; 
+	b=DVCXHUJ4vWWTEcx2VI5BBE10BBcdHJB9j0JJKoFfnMC9TICghijBpWueJOxsLDjp1ruKjtuEZfSfkWVw8LE6RAG/0gU3Jdg0pRsh4tb2mWkwWP4l6kXv4RmCBayMR+YpvVO+CVajCK2zNFRMQyhaR7LC8NIzUr7/iQ87++fL8TU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=GnDegx9hNjgJ/AZXsiSIo+DayvYw2T7DzFTN6++aWh2kgelLcTVOq4pMIxuixf5U1ruVu3qvmZFodiPylep+EhFn82+Jyr+KN+oyMMEXhU8bvGasPXaq9w6L509HNghkZ9mC8v57NSEfh5680G7v90/q2tWuhu0rEf8vOM7eJO0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=pLue9x6BWWrzsb2sVe20++4HPjLCp1G2bwj77yogYNk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 17938219336521015.0986482478506;
-	Wed, 4 Nov 2026 11:52:13 -0800 (PST)
+DKIM-Signature: a=rsa-sha256; b=AMzVfm7TjGCFuy+liHxGnSX3/jMHnnKs3ADOkLqCkfh3iDas56D5RiUSpJsS7C47ihjD7T3603asn2vqF7xRpuEg41FZnGVbqORVBeAc9dNfD5qhlnqg+CDAIZmOUHZncB9YmAtgFMrH5e4BuzdwMep2n76tSrCXynARADlUHLo=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=8sxA/Ew+8y+kh+ApHCSaVPuVXPRc9Y/87473zlKJEcg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793821929857405.4513400697864;
+	Wed, 4 Nov 2026 11:52:09 -0800 (PST)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 04 Nov 2026 19:51:54 +0000
-Subject: [PATCH v3 2/2] drm/panfrost: Fix race when restoring reset state
- in perfcnt
+Date: Wed, 04 Nov 2026 19:51:53 +0000
+Subject: [PATCH v3 1/2] drm/panfrost: Enable cycle counting when perfcnt is
+ enabled
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-panfrost-reset-races-fixes-v3-2-09868a88c351@collabora.com>
+Message-Id: <20261104-panfrost-reset-races-fixes-v3-1-09868a88c351@collabora.com>
 References: <20261104-panfrost-reset-races-fixes-v3-0-09868a88c351@collabora.com>
 In-Reply-To: <20261104-panfrost-reset-races-fixes-v3-0-09868a88c351@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -73,62 +73,90 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1532;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2744;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=Niu4bMgW+1MSGrBQXh8uM8TErFzdAq3PS8yb+5mB66U=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq64zhpGZx/9rBtHZT2fqIeSEBlY74nT6TzSlmT
- hP9AOmS0t+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCauuM4QAKCRAOJn5M7lND
- PXFDC/0YNCCzhZeDejnz/yP85EVerVP0YdU3RZw8ENA+sDPW9KZH11vHn4lGtX1WabqpqAMsiDl
- k0e5oT+YDcwrwsS8iqiUDSRZ49TEgpwAVneQnaqSGBqJPXfdNg+npYW7f5PkPy7SGUlgHJKmuIS
- v1E5wPwE3g8PeDk2uayDfKf2pfnSsIj5/+yYJrdDLf5HdBNbrgW7Lmb9YQ7O5Duip8L+pAOAgnU
- 8kQor2Yk65WY7iVEgQysLC059lWaj7RIr8xaOOoh9JLWYk9L78ZvKWT8oorWW1ysRQCNcOtai4L
- wIP7z6lnKW7kYH4A32T7ViF1zWWmQFahe/xNbFYPUo03n1+KKsWdyu/03hbLFVK6Wg1I39gh95Z
- vlQtlNjfiS5NWOKcG0U2T/q/NmRGwVwcf9uTGluvCvGLyROUxe+Wr9WjgEOVmpkOgbK32UlJmZV
- 6mLPzlcfwm4/oD4xhOjVRWppZyNAaabafgOJy7kq3msFeAEX95ftsV9t3MS9TVLZi54Wo=
+ bh=EYaOvCu9driwxEg1ovUxjwRxgMl/N3tcKGd7zqJyWX8=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq64zh25mXNlQSAlmlarJgMZGErNmxyJpSQRG84
+ RPbtTGfyoeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCauuM4QAKCRAOJn5M7lND
+ PbsnDAC06UJKySvidbXxD0ZBQcJWlYl0KA7DrOEyYAtVBSPQ50zQFBWm0yY56r5BIPcrpiAD/Cz
+ gS6Rid0v+aOoKicGNcdIbphp+0TvCpoDH1OPoJyAiZZlHLC5pVl8Vtjq6LMX/5J7IKryOE4rst1
+ tiNmUFXCnWuO1NYXshaYhHi7UB3yru/HPAhakVDGgt7km6sX0nOLeLyW8c8+EmKyNPg4UlifT7e
+ H/Snpru1gt9PscYYzsx1dSFghSDXPtuJRJda5mfUGPLBAdx6CTholBaLi6Hptc0quinImjrAZNQ
+ xDjHWxynz4j69kePVS50MzrMVmoJkayqJ8LCaJM2LcKzJUPv++rBQXgFy/dkN7z9BmcZgNkxJUj
+ 2IH5KceHl5GslfSiDU8w46UsFBolfOjQTnPECFK/Y8hjScSU+gS6jozf0V613d8DZDM07OrUux+
+ ndVw7TmgGXzPa58NkUoF3smgKPdiK64COv5lB/cFZ/c+nbdxUPRCjyP8yHJXzsPQe5lXQ=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-struct panfrost_perfcnt::state should always be updated atomically, both
-in the dump ioctl and the reset sequence.
+From: Boris Brezillon <boris.brezillon@collabora.com>
 
-Fixes: 9944dd07f3cf ("drm/panfrost: Fix races between perfcnt and reset sequence")
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+If we don't do that, we end up with invalid timestamps in the block
+headers.
+
+We also need to skip the warning on the cycle counter reference being
+other than 0 during device reset, because of perfcnt's lingering ref.
+
+Ideally this would be dealt with by splitting the reset sequence into
+pre and post stages, so that a hypothetical panfrost_perfcnt_pre_reset()
+would release the cycle counter reference. In the absence thereof, we
+just make do.
+
+Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through unstable ioctls")
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_gpu.c     | 7 +++----
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 3 +++
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+index 6081b27829e1..5c3fee65c9e3 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+@@ -94,11 +94,10 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfdev)
+ 		  GPU_IRQ_CLEAN_CACHES_COMPLETED);
+ 
+ 	/*
+-	 * All in-flight jobs should have released their cycle
+-	 * counter references upon reset, but let us make sure
++	 * Even though all in-flight jobs should have released their cycle counter
++	 * references upon reset, perfcnt's might still hang about.
+ 	 */
+-	if (drm_WARN_ON(&pfdev->base, atomic_read(&pfdev->cycle_counter.use_count) != 0))
+-		atomic_set(&pfdev->cycle_counter.use_count, 0);
++	atomic_set(&pfdev->cycle_counter.use_count, 0);
+ 
+ 	return 0;
+ }
 diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index b26da057a1a0..d50b6cc2ecfa 100644
+index a9def452d5ef..b26da057a1a0 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -148,18 +148,17 @@ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *stat
- 	 */
- 	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
- 							msecs_to_jiffies(1000));
--
- 	if (!ret)
- 		ret = -ETIMEDOUT;
+@@ -17,6 +17,7 @@
+ #include "panfrost_device.h"
+ #include "panfrost_features.h"
+ #include "panfrost_gem.h"
++#include "panfrost_gpu.h"
+ #include "panfrost_issues.h"
+ #include "panfrost_job.h"
+ #include "panfrost_mmu.h"
+@@ -52,6 +53,7 @@ static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
+ 	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
  
--	/* We need to restore perfcnt state so the next successful dump can relay it to UM */
--	if (ret < 0) {
--		perfcnt->state |= *state;
--		*state = 0;
--		return ret;
--	}
--
- 	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		/* Restore perfcnt state so the next successful dump can relay it to UM */
-+		if (ret < 0) {
-+			perfcnt->state |= *state;
-+			*state = 0;
-+			return ret;
-+		}
-+
- 		*state |= perfcnt->state;
+ 	if (perfcnt->owns_as_ref) {
++		panfrost_cycle_counter_put(pfdev);
+ 		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+ 		perfcnt->owns_as_ref = false;
+ 	}
+@@ -84,6 +86,7 @@ static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
+ 		return ret;
  
- 		/* UM must re-enable their session before requesting new dumps. */
+ 	perfcnt->owns_as_ref = true;
++	panfrost_cycle_counter_get(pfdev);
+ 
+ 	as = ret;
+ 	cfg = GPU_PERFCNT_CFG_AS(as) |
 
 -- 
 2.56.0
