@@ -1,108 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793812904;
-	b=QBeifwYiVZa6B7SC5wnUrHUJS+1nXgN3gj3LvIFw8KpxkQt6STvZHUSJnXFjQzXRXUi1
-	 fUzdlFfqug2iv3o/q+t2bVctlnP5rYCZN1fSOnV3OZMioWbVd4ckXrOCLTsx8/Evo6f8w
-	 fIfQ4jFYELC+RO7+pmgn4IScWCFQx+sKK7n1aBpSELfgikMSODHf1wsGIqxtgbKKpYR/e
-	 HinX5m3EpEzNHBfnGp0U4Mw1B7VmSfxI3eYFXjfOsvF6FfU5CaMcb591HqRg0URo0YHkN
-	 sVgZIwU6PoeME/4SdDRBPH3NoIu3XxPRqUgVMORfo6OoqZwZOyWq9nhyo8AmSfsmtnA==
+	b=Diu+1Bq9MN89QoAAbJCU1V7t7zNJ+fvVJ8anLzDl7HEM1NoLO8rX3JM7Fs1nmXQCndsi
+	 hwvm9QlI+PVcWZElUgTCsrJd0mIf/OjxROVnmLIW44BfJJf+dctdp8CtQxVbfH8Fj+XFX
+	 SNZPONOtCXjJyA6xo0kOS832d0qWRSbWN1VKKEw4AD46zjaLqOqsuJpJGthlVaJfG8BuT
+	 ALMashWqVWW0EvkulEMduY8d6Reweh6ne5y3AIFkUgfFmv4DAIVwxRt8ctMpS/I8fI8rA
+	 RSiZyFY5EjiycJz0FB/NJKu8/H3jOAXv+4jVPPkMBwmJ0FHRGbP7Du1gGkYkQrcBVuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793812904;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=98wUAFWsnH7wXRC0JdYUGBPjsM4ozmsKLpTKK79GFcg=;
-	b=W9jAeTj7U+UO1n80Rwuy8mi9GLKf2hnydedExLxVe/0N7snW9X9ykNpd2ezL+aUflscG
-	 FmT+F5nWKtt/1BRmQfzCnPNPxT8E30mXi75Oq2uaPRAXhchWRTi6UxOqTIKyVYWp1ZWqB
-	 dIC/On0COr6spdIclVajzR1jgNRPZoO/swJnAjBwvZfVy75UnW8l/pQDzvzAQDCMGo4w/
-	 XzagmwF0DEaeFC49bs0Nv2wJf3YbiSYBA1vUmHwrfwJpGNeE5aap39dCxI8in3RAJ6/2a
-	 O1h4retKdQcYiV/aPoyeqjCfpEU4e19PhcotFZJM2Z+HAk8mVw8uUIiddFgR0lIH2FA==
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=08rccn60fEOYc981H9C1ltNpnqL6fJwW23BZtUgvjTE=;
+	b=g5h0Le5OiS3unK8ADwayFcb4MpYwGevMPyMVfjLd1Z7kB23svAuY8CVSXEEC6P6cuTxE
+	 Zgz+WppMRrVtmCJ3k5IjsyDjYNXDo7HfGZbPDp2jyWXhW29PE5BdNbjOya0YMYhJP0FVI
+	 Myx4GEaLbZpVp/tUZmOoh/8nDlfz9Q6P/2nGHn7ba01/Rkze9kGGVTOs5MTmaHz71DV/s
+	 hUbaD8wPunJiwyzSOAaLQP4/6dOGSoUD7R8oWvbXUU1y3Je/OW8GMLgyf7d4a0NQ0vkHv
+	 VPuObmtF21ctDPyQ5En07PfVwL65OeSx1BBVzqwEvvxGOk9hXpm5WkjI6+/YKLz3r5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="s/vCsddx";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="YNkKDQx/";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="s/vCsddx";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="YNkKDQx/";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FA3606A326;
-	Wed,  4 Nov 2026 17:21:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02FA3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Fwty6efh;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4B8F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4B8F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=s/vCsddx;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YNkKDQx/;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=s/vCsddx;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YNkKDQx/
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4F87A21E37;
-	Wed,  4 Nov 2026 17:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793812902;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=98wUAFWsnH7wXRC0JdYUGBPjsM4ozmsKLpTKK79GFcg=;
-	b=s/vCsddxWHhCWIgwkhD4iCS0kmH+5sxQaiC5PTsyV5CVIatgCEZY1KTzDiO9iO+Vp7E2ea
-	qZzbuwRlfO/RAQxotdjJ+hymODWBlaqjmxx6PtEBDdE94CzZo+i8O40enPZ6V+e5b0TuJE
-	pL+tnfY0Iu40m0EQrG2HAF4ShpS8iVE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793812902;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=98wUAFWsnH7wXRC0JdYUGBPjsM4ozmsKLpTKK79GFcg=;
-	b=YNkKDQx/7/tVOEE4FRZ2LEdkRrxB0FhfMeslBedN1bJvi1Id3+PlCyMeKZyjSNT+KEzoFX
-	AQ429Pp7vjvf5+AA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793812902;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=98wUAFWsnH7wXRC0JdYUGBPjsM4ozmsKLpTKK79GFcg=;
-	b=s/vCsddxWHhCWIgwkhD4iCS0kmH+5sxQaiC5PTsyV5CVIatgCEZY1KTzDiO9iO+Vp7E2ea
-	qZzbuwRlfO/RAQxotdjJ+hymODWBlaqjmxx6PtEBDdE94CzZo+i8O40enPZ6V+e5b0TuJE
-	pL+tnfY0Iu40m0EQrG2HAF4ShpS8iVE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793812902;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=98wUAFWsnH7wXRC0JdYUGBPjsM4ozmsKLpTKK79GFcg=;
-	b=YNkKDQx/7/tVOEE4FRZ2LEdkRrxB0FhfMeslBedN1bJvi1Id3+PlCyMeKZyjSNT+KEzoFX
-	AQ429Pp7vjvf5+AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0C968134A5;
-	Wed,  4 Nov 2026 17:21:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 45vQM6Vp62rnIwAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Wed, 04 Nov 2026 17:21:42 +0000
-Date: Wed, 4 Nov 2026 18:21:40 +0100
-From: David Sterba <dsterba@suse.cz>
-To: socketpair@gmail.com
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>, Mark Harmstone <mark@harmstone.com>,
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] btrfs: tag all metadata I/O with REQ_META
-Message-ID: <20261104172140.GB4186782@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Fwty6efh
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E2301BB0;
+	Wed,  4 Nov 2026 09:21:40 -0800 (PST)
+Received: from [10.57.90.115] (unknown [10.57.90.115])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CF5A3F673;
+	Wed,  4 Nov 2026 09:21:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793812903; bh=SrqOHDbmlFGl5iJGPMkhsoS6OaPeU5qzTVxZubmsEOk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Fwty6efh0ml2t0oFiC9NHJQBOIP9Z2//15K9Gi44mqkE4wOlF23vPnQ+bb15z5d4k
+	 4xOw2LHT54TLHhxBLFB/bz3Ukf7pdGT8JmPYKXsB4AE4WveGvGeNtMPfldE/IpaPHI
+	 D0VuvEGncIDo7VYX4F14d494BWAEZ1FgiK+Fv+28=
+Message-ID: <09b353d2-3615-4462-abe1-8e3c5a992a67@arm.com>
+Date: Wed, 4 Nov 2026 17:21:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,41 +53,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spamd-Result: default: False [-13.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:replyto]
-X-Spam-Score: -13.00
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/10] irqchip/gic-v5: Clean the allocated linear device
+ table size
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <20261102-host_gicv5_fixes-v1-9-743b61626fc5@arm.com>
+ <auiiK0ksqPMbHAmX@red-moon>
+Content-Language: en-GB
+From: Sascha Bischoff <sascha.bischoff@arm.com>
+In-Reply-To: <auiiK0ksqPMbHAmX@red-moon>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 03:38:13PM +0500, Mark Korenberg via B4 Relay wrote:
-> Not tested: the remap relocation part, btrfs-progs 7.1 here cannot
-> create a remap-tree filesystem.  Mark, could you give it a look?
+On 02/11/2026 14:46, Lorenzo Pieralisi wrote:
+> On Mon, Nov 02, 2026 at 01:33:02PM +0000, Sascha Bischoff wrote:
+>> When the linear device table exceeds the kmalloc limit, the driver
+>> caps the DeviceID width before allocation but keeps the original size
+>> for cache maintenance. On a noncoherent ITS, this cleans beyond the
+>> allocated table.
+>>
+>> Recalculate the size after capping the DeviceID width.
+>>
+>> Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
+>> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+>> ---
+>>   drivers/irqchip/irq-gic-v5-its.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+>> index 4de07bbdc4923..c0f3982229194 100644
+>> --- a/drivers/irqchip/irq-gic-v5-its.c
+>> +++ b/drivers/irqchip/irq-gic-v5-its.c
+>> @@ -601,6 +601,7 @@ static int gicv5_its_alloc_devtab_linear(struct gicv5_its_chip_data *its,
+>>   		pr_warn("Limiting device ID bits from %u to %u\n",
+>>   			device_id_bits, device_id_cap);
+>>   		device_id_bits = device_id_cap;
+>> +		sz = BIT_ULL(device_id_bits) * sizeof(*devtab);
+>>   	}
+>>   
+> 
+> Or sz = KMALLOC_MAX_SIZE;
+> 
+> that's what we are doing after all.
+> 
+> I wonder whether moving:
+> 
+> sz = BIT_ULL(device_id_bits) * sizeof(*devtab);
+> 
+> after the capping out of the if and do:
+> 
+> if (BIT_ULL(device_id_bits) * sizeof(*devtab) > KMALLOC_MAX_SIZE)
+> 
+> to check whether mem alloc should be capped makes this any easier
+> to read.
+> 
+> Regardless, this patch is a fix and it is right to make it as small
+> as possible:
+> 
+> Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> 
 
-Remap tree is experimental feature in btrfs-progs, so you'd have to do
-custom build with './configure --enable-experimental', then
-'mkfs.btrfs -O list-all' will contain 'remapt-ree'.
+I've reworked this a bit to make it clearer. Hence, I've left off your 
+Acked-by tag on v2. I hope that's OK!
+
+Thanks,
+Sascha
+
+>>   	devtab = kcalloc(BIT(device_id_bits), sizeof(*devtab), GFP_KERNEL);
+>>
+>> -- 
+>> 2.34.1
+>>
+
