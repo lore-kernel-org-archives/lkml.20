@@ -1,54 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772457;
-	b=O34aN6KpZPIPhNvVtQQuhz9xRPfKdpHaT91qSqP76MCgx0JN6EsgAXSrBzRG6NhXB1QO
-	 dfSjdOZZFD67OHGirnZ0XXznrcDM0lhQ+fN6aKI40Qco3FIaRIlMs9PRaiT8CA3+Q8vvM
-	 NxGX1dr4yUgo4N+H19snCLr0y3i181fYA/3VbFzmjSD00D1+U7Sc8/TiJTREJMxsqiEyh
-	 uDkEWtjh1t4kqWbIvq+j6z/Ww3ldMvpT6ilRtBjg9NLpIQMKac04HUzgomWMhKgXL78mH
-	 E6cCyKQ2yzazaEFXkRMVXbi1V3B1Vm1dj3JCBRIYT3GPEzT6Av4pQoBVGP5Wzko/3vw==
+	t=1793772503;
+	b=xyBUKguu1vl5tGom8+UPeucdfywHBIqRbwb5U/I5ZrvbutRzpxbbB6OoK21BhFek3464
+	 ahfBH3yQjfBABqpQa7FByWYZHesKbA5P5FeOzkZdQjspitHqhmfdbIcoprtVZ4bNu93A2
+	 wjeToTzCpVAqIJ6+e9YXqvKtUdAfDWL2anYYYsb8JjzGEfQuKWifhAGMx2P+dgKBQkIse
+	 oHLKwPJAI+gcN7svOVJiK2M+vaEPObBJMRqJD90QIO/4Ke23LYWW7caJoNxt5kx/Vw1yK
+	 PbY2OQ222BU88oJYL6t+XgMXE6dOgZ/5U6aP2R5lARrnM9m9UFwAU7JuucPKUk7UHCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772457;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9kJziegiXF9ceVnU6QWNYLm7UZNmpZIr3z6LjOuG5MM=;
-	b=x32we0yZh/8bdFEDYZQVZ41kRTrU/fxRSuqlD7Xq667mSY9CTyBBZSC0P5fnkinCDb2p
-	 LA8JbIl/79m8Onr6y5X3i/Xiah14vOd7uFtItJNfC9QI8oXaPncSYZgQImb043txVV202
-	 ElF8yKsqrf8tkGqMAUCug+c8Fvu+e06wQx/W1mfhxn09nC2N3VOJ5kdqi/sVed9jTHvHw
-	 CXmzsIDC7ncemVsd6V/5DiLhsRui8PfBUvQTwt2S0HgIktMuQPHKo7ByjMfcYQdKzJLir
-	 S7w7WEObHZCMeoT+bnffIcvZe/9RRgdmWs1GUIfx/EnhmDfenNfVvRMfVVxSYPltflA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772503;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=zDtggkZku8PgJt9OARmJv04xDfsbkkp5F4eyRrnZB7M=;
+	b=431ySKIPsE9cluhsu2eRJC748jgMrogG9l7fsYYn0qbPPqUd0/vsPSj1txRvrWrRL0K5
+	 aAbC98peJBVvZWvT5VMn4fhoJ+NKMswqbdeAvnIMx24fncMBOGbvxQl6F2bcN8i4LgiVQ
+	 bepAB95K5sqRjak0sISF+6lq4c0rkrqHhxFRdNob+kLswVu6TBOEsKfJtVoxV8VnoedBf
+	 PKBr1CRidX3riiqGgYtP5BX3iyGJk7Q382Cr9B8SXnmsWZUH9NDYGj1MSw3jp43llHjRo
+	 oTzDzBYiT4lj4YZLzHga4YxtuNfhGkPdU/nbNN4UPTwKxFqTnX8hDlDhkhcMO33+5Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ra+S0X9A;
-	arc=none smtp.remote-ip=95.215.58.45
-Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Se7ovEnL;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09506606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:07:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09506606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C238606A31B;
+	Wed,  4 Nov 2026 06:08:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C238606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ra+S0X9A
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9kJziegiXF9ceVnU6QWNYLm7UZNmpZIr3z6LjOuG5MM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793772455; v=1; x=1794377255;
- b=Ra+S0X9AvaQgofhcyfdRzvUXZFwcBv0tWagajL6DnS/XiOPR1F3E1x7N/DIIVW+GZe8Y23rq
- wbF9jWwFTXwV1Ips5dT+ljSs7OY+IJlz2xSmSa6TSeJcYuC6cg/oRM2dQP3ots/CByWG0reyDgv
- NoQQMZtGs+TkH7JLIcUnNQRc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a8b4b12a133bf9ce;
-	Wed, 04 Nov 2026 06:07:34 +0000
-X-Mizu-Trace-ID: a8b4b12a133bf9ce
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3f0c43dd-532f-4bef-afec-76b2ca6df0a3@linux.dev>
-Date: Wed, 4 Nov 2026 14:07:11 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Se7ovEnL
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A467Y0v83769780, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793772454; bh=zDtggkZku8PgJt9OARmJv04xDfsbkkp5F4eyRrnZB7M=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Se7ovEnLOecaDyUD3iXqu4ZiBrA1AiwbzBm+EZo5g9xGEyoLWuCcIUOTo0P4sq6p7
+	 gjGM2pXhIORx7aYofDar/wrMGPF9uVK0KmpngnO9ayrLIPEP1Jg1eNCqXsRgJ8VXoc
+	 E0PVLVwYRfFPoYbVBkGei3WhXm8oUpIbh0x5uX51v8EGegBxa5me5xAv/tsj1D/+fi
+	 LdY6JI0aH0ezpi1MjXWC7UPZBDXseXanP5j45uO0xtZF7HFfoyV6w/ULFsOX0q9cOe
+	 nhuk0G1tsDrdx6kUSOzyRbtpwQz1AyR7gsXkq8/MMuSFo4KaSvm7PbXeqHODyKokKd
+	 83pxoFmwjP2Lg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A467Y0v83769780
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 4 Nov 2026 14:07:34 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 14:07:34 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 14:07:33 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Wed, 4 Nov 2026 14:07:33 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Lee Jones <lee@kernel.org>, =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?=
+	<james.tai@realtek.com>, =?utf-8?B?QW5kcmVhcyBGw6RyYmVy?=
+	<afaerber@suse.com>, Linus Walleij <linusw@kernel.org>,
+	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH 07/10] pinctrl: realtek: Initialise omitted offset fields
+ to NA in config macros
+Thread-Topic: [PATCH 07/10] pinctrl: realtek: Initialise omitted offset fields
+ to NA in config macros
+Thread-Index: AQHda9qgbhIxCAk+mka0RzFPD9N5YrcdbaGA
+Date: Wed, 4 Nov 2026 06:07:33 +0000
+Message-ID: <c48f0d12ee764bf3bd04b57db9a8b9cb@realtek.com>
+References: <20261103213002.1673560-1-lee@kernel.org>
+ <20261103213002.1673560-8-lee@kernel.org>
+In-Reply-To: <20261103213002.1673560-8-lee@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,64 +95,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 3/7] ipv6: mcast: convert ip6_mc_msfget() to
- sockopt_t
-To: Breno Leitao <leitao@debian.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>,
- Eric Dumazet <edumazet@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- david.laight.linux@gmail.com, kernel-team@meta.com
-References: <20261103-sockopt_expand_out_v2-v4-0-2d36da923578@debian.org>
- <20261103-sockopt_expand_out_v2-v4-3-2d36da923578@debian.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261103-sockopt_expand_out_v2-v4-3-2d36da923578@debian.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-
-On 11/3/26 7:01 PM, Breno Leitao wrote:
-> MCAST_MSFILTER reads its reply through ip6_mc_msfget(), reached from
-> do_ipv6_getsockopt() and from nowhere else. Convert it, and build the
-> sockopt_t at the call site for as long as the caller still carries a
-> sockptr_t pair.
->
-> optlen only has to cover the fixed part, and the real reply size comes
-> from the gf_numsrc field inside it. Userspace relies on that, so
-> sockopt_expand_out() grows optval past optlen, for a user address only
-> and only far enough for the sources the socket has.
->
-> ip6_mc_msfget() now advances over the fixed part and writes the source
-> list through iter_out. Its callers rewind by the reply length they
-> already compute, which is exactly what the callee consumed, and land
-> back where they used to write: offset 0 for the native reply, gf_fmode
-> for the compat one.
->
-> ipv6_get_msfilter() and compat_ipv6_get_msfilter() only store *optlen
-> after their own copy succeeds, so a copy failure can't report a
-> changed length: -EINVAL, -EADDRNOTAVAIL and -EFAULT all leave the
-> caller's optlen word unchanged.
->
-> The old code stored *optlen before writing the fixed part, so an
-> unwritable optlen word stopped the fixed part from being written. Now
-> the fixed part is written first.
->
-> Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-> Acked-by: Ido Schimmel <idosch@nvidia.com>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-
-
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
+PiBUaGUgUmVhbHRlayBwaW5jdHJsIGRyaXZlciB1c2VzIE5BICgweGZmZmZmZmZmKSBhcyB0aGUg
+c2VudGluZWwgZm9yIHVuc3VwcG9ydGVkDQo+IHBpbiBjb25maWd1cmF0aW9uIGZlYXR1cmVzLiAg
+SG93ZXZlciwgUlRLX1BJTl9DT05GSUcgb21pdHMNCj4gaW5wdXRfdm9sdF9vZmZzZXQsIHNsZXdf
+cmF0ZV9vZmZzZXQsIGFuZCBodmlsX29mZnNldCwgYW5kDQo+IFJUS19QSU5fQ09ORklHX1YyIG9t
+aXRzIHNsZXdfcmF0ZV9vZmZzZXQgYW5kIGh2aWxfb2Zmc2V0LiAgQmVjYXVzZSBDOTkNCj4gZGVz
+aWduYXRlZCBpbml0aWFsaXNlcnMgemVyby1pbml0aWFsaXNlIG9taXR0ZWQgbWVtYmVycywgdGhv
+c2UgZmllbGRzIGRlZmF1bHQgdG8gMA0KPiBpbnN0ZWFkIG9mIE5BLCBjYXVzaW5nIHJ0ZF9wY29u
+Zl9wYXJzZV9jb25mKCkgdG8gdHJlYXQgdW5zdXBwb3J0ZWQgZmVhdHVyZXMgYXMNCj4gdmFsaWQg
+YXQgYml0IG9mZnNldCBiYXNlX2JpdCArIDAgYW5kIGNvcnJ1cHQgYWRqYWNlbnQgcmVnaXN0ZXIg
+Yml0cy4NCj4gDQo+IEV4cGxpY2l0bHkgaW5pdGlhbGlzZSB0aGUgb21pdHRlZCBvZmZzZXQgZmll
+bGRzIHRvIE5BIGluIFJUS19QSU5fQ09ORklHIGFuZA0KPiBSVEtfUElOX0NPTkZJR19WMi4NCj4g
+DQo+IEZpeGVzOiBkY2M5MzM0NDM1YjAgKCJwaW5jdHJsOiByZWFsdGVrOiBhZGQgc3VwcG9ydCBm
+b3Igc2xldyByYXRlLCBpbnB1dCB2b2x0YWdlDQo+IGFuZCBoaWdoIFZJTCIpDQoNClRoaXMgc2hv
+dWxkIGJlOg0KRml4ZXM6IGU5OWNlNzgwMzBkYiAoInBpbmN0cmw6IHJlYWx0ZWs6IEFkZCBjb21t
+b24gcGluY3RybCBkcml2ZXIgZm9yIFJlYWx0ZWsNCkRIQyBSVEQgU29DcyIpDQoNCj4gRml4ZXM6
+IGUzMDlkYmQ1MjNiOCAoInBpbmN0cmw6IHJlYWx0ZWs6IGFkZCBydGQxNjI1IHBpbmN0cmwgZHJp
+dmVyIikNCj4gQ2xvc2VzOg0KPiBodHRwczovL3Nhc2hpa28uZGV2LyMvYnVnL2xpbnV4LWZiZDBi
+ZjU0LTZkYmEtNDY1Mi05NDE4LTI3MGIxMWZiNmQ4Yg0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVs
+Lm9yZw0KPiBTaWduZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZUBrZXJuZWwub3JnPg0KDQpPdGhl
+cndpc2UsIGxvb2tzIGdvb2QgdG8gbWUuDQoNClRoYW5rcyBmb3IgdGhlIGZpeGVzLg0KDQpSZXZp
+ZXdlZC1ieTogWXUtQ2h1biBMaW4gPGVsZWFub3IubGluQHJlYWx0ZWsuY29tPg0KDQo+IC0tLQ0K
+PiAgZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsvcGluY3RybC1ydGQuaCB8IDUgKysrKysNCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L3BpbmN0cmwvcmVhbHRlay9waW5jdHJsLXJ0ZC5oDQo+IGIvZHJpdmVycy9waW5jdHJsL3JlYWx0
+ZWsvcGluY3RybC1ydGQuaA0KPiBpbmRleCA3N2MzMGVhNzY0NDMuLjg2ZGI1NGVhM2NlOCAxMDA2
+NDQNCj4gLS0tIGEvZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsvcGluY3RybC1ydGQuaA0KPiArKysg
+Yi9kcml2ZXJzL3BpbmN0cmwvcmVhbHRlay9waW5jdHJsLXJ0ZC5oDQo+IEBAIC05Niw2ICs5Niw5
+IEBAIHN0cnVjdCBydGRfcGluX3JlZ19saXN0IHsNCj4gICAgICAgICAgICAgICAgIC5zbXRfb2Zm
+c2V0ID0gX3NtdF9vZmYsIFwNCj4gICAgICAgICAgICAgICAgIC5wb3dlcl9vZmZzZXQgPSBfcG93
+X29mZiwgXA0KPiAgICAgICAgICAgICAgICAgLmN1cnJfdHlwZSA9IF9jdXJyX3R5cGUsIFwNCj4g
+KyAgICAgICAgICAgICAgIC5pbnB1dF92b2x0X29mZnNldCA9IE5BLCBcDQo+ICsgICAgICAgICAg
+ICAgICAuc2xld19yYXRlX29mZnNldCA9IE5BLCBcDQo+ICsgICAgICAgICAgICAgICAuaHZpbF9v
+ZmZzZXQgPSBOQSwgXA0KPiAgICAgICAgIH0NCj4gDQo+ICAjZGVmaW5lIFJUS19QSU5fQ09ORklH
+X1YyKF9uYW1lLCBfcmVnX29mZiwgX2Jhc2VfYml0LCBfcHVkX2VuX29mZiwgXA0KPiBAQCAtMTEy
+LDYgKzExNSw4IEBAIHN0cnVjdCBydGRfcGluX3JlZ19saXN0IHsNCj4gICAgICAgICAgICAgICAg
+IC5wb3dlcl9vZmZzZXQgPSBfcG93X29mZiwgXA0KPiAgICAgICAgICAgICAgICAgLmlucHV0X3Zv
+bHRfb2Zmc2V0ID0gX2lucHV0X3ZvbHRfb2ZmLCBcDQo+ICAgICAgICAgICAgICAgICAuY3Vycl90
+eXBlID0gX2N1cnJfdHlwZSwgXA0KPiArICAgICAgICAgICAgICAgLnNsZXdfcmF0ZV9vZmZzZXQg
+PSBOQSwgXA0KPiArICAgICAgICAgICAgICAgLmh2aWxfb2Zmc2V0ID0gTkEsIFwNCj4gICAgICAg
+ICB9DQo+IA0KPiAgI2RlZmluZSBSVEtfUElOX0NPTkZJR19JMkMoX25hbWUsIF9yZWdfb2ZmLCBf
+YmFzZV9iaXQsIF9wdWRfZW5fb2ZmLCBcDQo+IC0tDQo+IDIuNTYuMC4zODUuZ2FjNjcxYzgxOWEt
+Z29vZw0K
