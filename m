@@ -1,55 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783333;
-	b=CjPjhNQL8u9oDO3xHoaYf0SObO8+5SFGGjM04aL9Jc+XY1z1PpwHtEPE+zXoLON6EUh7
-	 z7YUek6+yfpTVwTELTC6t5s1NsabX9cCKhQJWwOX0yVFf7rwyB2sdgKD3xN/HH5Hb8SdU
-	 g1zW0TL2AePKFx49zCGA7JtikI4WEcOZCwt9W4TJueVWL7kj5IPNDD6bba/9T3NeD9kFE
-	 BM4IH5L/NhLZgy6fOuJGM5QwmV1xvoOcwHawn95K0cZ5qjgJyRvwePINXUMeA2UuS5/mE
-	 7VqkH5zshzADflqSCzaz7ZqZyNFQlHkbIJEtr1HEE2ZWiuzBJw3tkLvTixERbianqLg==
+	t=1793783344;
+	b=mePlgmKsm6nlnMCEGVplRtVVTST0oEA2oEwm4L4PrrLGr/8MnGUL6garnRplv30Oa6io
+	 SPDcut8d7uL5qabux33OH0VgehOZYYmP/KLKUg4AY0VLd/8Pjc5oDH99nIi4RAZkP9CN6
+	 khhqeeajh8PTLA4TcwSPG+ncWiExPcFUigpf4Wkc6IqSrAny7i+7OhtDgV8Qt0mTkEJMp
+	 BJyl6VI75nq3A1WXJ3LlfPa8SNUB433q8kCb+KFxL5s+a78gJljeaVAoUJgKw6lcG+MjR
+	 Sxrs6WCDHcsWVQSX1hD4owUX5VuwqfuHFFGK1NPDjid/TT7HCHp2Vv1N/KwMBK8p+nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783333;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CwbssC3IcsbRd7BqfSzfMYQRORQNQUvKDFxxlCd3lXw=;
-	b=lzSoHnEi0SXWL2V/6gAqtJNZR63k9S352t3ccj5P7pRgAfa1ubuyhoPvherKgRVWvzsR
-	 Nu08yxVHA7myO/3iuU2XNweDr+hyekHTooUCvDliBlV7LLoPPpotq5ow286ParKkx8tb0
-	 mX9bwMsqHwzpaKdNy4bW2lcPCNF65ADLTM9N4L56ZRShBMTWLJL7+hjI/u+/NHml0Y84i
-	 AKyiI9cXvWyvQIA/usR/waDf1piz6iJPFgyNscPBiQmPu1GOe7W8O+01Sc1FFXXBtquIY
-	 +YmC7pXQ+WioYlRjneNxTudiZKUnQYzJgDzvRuM3MhyzH8yiUtyQkYxh7AU/mC88yEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783344;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=jarkkDe5ANJ4sCXVfgvCOyq/C9SPf+j1gPQF2RpMyHk=;
+	b=0abZYiKUTWR8/xwDy2wY/sk/+S1i1zZrL6G6KNFbd1/aiGsvSpUiQNeHsHREC8t8xr+W
+	 414GemeoxTaNvmN7TeQtt/p3yoPvuVO0R9oLR+TmiMxs+AZWWxcGJwwTj6mTJIOUU17e+
+	 uBiUQHSFl2/rv/dpiKHg+4xT37pH0xI6YL7Krr13xGGfDvfGSBynhvEZ/JJTXm6UGLxGp
+	 dTVkvIlHv3FvVRZ6TmXikMPkoYWD1MGq0IdxH5Xj7gbXovYYznv0Ow8vp0osBWgGol+Ql
+	 F4Hy/fQ5vDSzDAoEVgYoYsN5KEpmOhi1wTkJQfy6tes8JyaDfegLhYPJVW/UfKR5F9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lcmEB/R6";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=ibaDmwJu;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uel8xokL;
+	arc=none smtp.remote-ip=103.168.172.150
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5880606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFEB606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CFEB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lcmEB/R6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D001F000C1
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:08:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783333;
-	bh=CwbssC3IcsbRd7BqfSzfMYQRORQNQUvKDFxxlCd3lXw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lcmEB/R6akcJdDRia+T5rGWp4agY6KiX6qiYpvTJ8Fi4wSGBW+ouMzIM5xhJhtIZc
-	 PQyrh00XtISp6tP5KqjmL/pDsx77Y9YjVQ0kFn7NF253J0OaGT1WoEi3v+p1ujRkn2
-	 ga4TmCjxu6LdUp3QZEVh5/CpXTzkW+bLSzcwn2XnlXUC6Kk0WEBJ48IlxV2S8q6663
-	 n0fHi8hMv9XYd7VYyaHE1tZehMNWE58GKgF4ego9G7B5eXG88JagfLL6trQlQEbiWG
-	 YQXc+0NZsUhcha6BMuUCRFC8IzICG4U0Rmr955GgZspNXBcmXauXEJ6qCHI6wCqs3v
-	 bg3pzAcT+tlxQ==
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so323142e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:08:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByjcpn/wadOzTYiHmZ/B5uvk4EVxZS+FEydXU33N425Jre3IO9TCB6Nim1J9Am30tJAUF4VgT45U4d2dmk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9w0Q9b99tih/K8ZTJ1iYRlC6oafvIc6ZFRpjGsNPD4RS5NiSuQ
-	/bBcxrxdOd/X/fmiUdyxay4RDPGn4b6ZcF1Y/JbcsCw03pSWWpM2Nkt4+WGHCkE9LncO2lmooGA
-	gQYbX0bYvt9YuviO6SpFJNcO5UzYXeSg=
-X-Received: by 2002:a05:6122:3108:b0:5e7:8bd1:731f with SMTP id
- 71dfb90a1353d-5ec6897757amr6563644e0c.10.1793783332317; Wed, 04 Nov 2026
- 01:08:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=ibaDmwJu;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uel8xokL
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 3C126EC0255
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:09:03 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 04:09:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793783342;
+	 x=1793869742; bh=jarkkDe5ANJ4sCXVfgvCOyq/C9SPf+j1gPQF2RpMyHk=; b=
+	ibaDmwJuVTHRtIVUBaAe/7ez2m8kPZXB/9T3LTJd3IK6FsenL3t1f42KqHR7SAnc
+	x4nTFVZpq44cKuX3nMehfC3ysrHlNrjEG0XS9WHAEWr0KPNztTvfPfbic6r47nt+
+	OEpg1Kemu4koV+qQKUu4j6qxVr+nbCN/LUyi03OXk39NjrdedQtFGYbRkjrmG3Eh
+	bWTvfVh9SzO8TrEcOfl7JRRJKXXycqmpthsh43KUm7H92rnyjUD2XYip7IYx7ogS
+	PTkYaB4VedgkvwjmNop9KFfUgp40B+Gam2GBMho3hXIQRAzRj6nBnwyi8QKVSWUw
+	XKIqG0HDKz55i3STjwznpA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793783342; x=
+	1793869742; bh=jarkkDe5ANJ4sCXVfgvCOyq/C9SPf+j1gPQF2RpMyHk=; b=u
+	el8xokLzRGyQLAw7GmEmopXfnpq0ucZxqwovQqBLXFpdEIrpRLxrPmj1euSAuFtr
+	FWpwkwwwdBeoumXe4Jr2U3c8+Y+drb6Zu6pPsfdnewuR3oURDPcWDmedn9mi0y4N
+	/lZtriRpplhafxQJXed5/FmOvbW0uceyUQ4LbtA9D7qmhEWUBCMPfQNvP8KHHXoh
+	lVAKfzVv4EHeRvTw6FQRV7x/dT7lUnuA6adQI5cuxxJznmTyFqGckGo+ZD0Uw+Q5
+	/imTaKozE11CDVGjWbfUIBWpWMFsANhn9R/EmS6sk1njcEN0S37qZLYvjtqpmlXR
+	LAFrfHrViH9+sCvSmqPjQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793783342; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:p1N0O9cHWOH1O4CQknOh0R0ooQsXEO0QeO8m4aWcRI/gNni
+	IBfIglSboOqgCSTZAUIzoV9zA40q8dFg7xfet5Eu2KPRb3E9JDtCr4nwHtiBfDPs
+	MOQRsEDpMZE70PNamf8gZ6/0iGSx2e5AoC7xgyx6Sg0JjJkUVPCoQpw1L2zIYC9c
+	cEZYM3YA+XhQBsApLm6oFqcbAoLAmWUD4r0Qcjzqo2LGW0AObZvbVLAeg6pjzKSq
+	Kg3BUXd4RxywGhF/mwVMKxgst5zPJxhzHUtrAaX9gJcZQ2dfSk3Qbbsgd2C8QsKh
+	FfEWb7Iug6X8gxCcOVl2pwyZurWZPz7EI0VLMEg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:SenFEhNEliwTzCny7iuI/XxNEaVdXN5fPEoIwegYFnI=:jarkkDe5ANJ4sCXVfgvCOyq/C9SPf+j1gPQF2RpMyHk=;
+X-ME-Sender: <xms:LvbqahfpcbjEoB0p4azJZkP7zUjM_Gxw18YJM7wa_MO_GhNemFDTDg>
+    <xme:Lvbqagia8FA8Oy-xu6hhe9SnwD_AYJHxATW7xJRkSpeoRfrAo63kGtvGS1Hi3z7I6
+    1UxZZBEEkIPH65XPDxK2hnC6d7jUvuvzEt2EGXsG8aMWy7gLahd03o>
+X-ME-Received: <xmr:LvbqavLJYyt0-Y2nWlV7JoUeu3glLTYTIuvJYaEJqKHfU4WJxpIgMMe3tr9ysb4LnyxS2CqT-FizqfXsiZpUBwPJ>
+X-ME-Proxy-Cause: dmFkZTGWfYb466dxfyMOhh3rYSxzB4P3W4jlwofjBAYgI9vDWioa1Gi09+ryhkE1pE2LXi
+    EYLBA9vxir40Zu07wDqa64Wz9QmhVMZLQkXRddi3guJqNX92R/WkPJ25umBecu9SovLN5Q
+    AidGV3HsnoTSEJPO7APwTNwmpA4iIciL60IJ38FQx1cDYATM6v+jvZkBfwRCO2md+1mwGE
+    QOzqt4r8YmGdB018cAL3ryVWZk5AtpTuIGWKx1TzE+6CU7nYsQfWgEbMkAOOb6gBC7YNeq
+    fHKaAQthQMN+OdsDo/O8KXCEbbzFOoT9M9+f5YUcv5dG3nFnXJgqP7sgjfrK0qCUld6OVV
+    ItoZ7SPnZjKnjb/jC5UDt33vMO+k+rxTNdT3WGMUYKDqaRITayUF6nwI6WVK6505+CT8OM
+    TcGFewNJBspgXqXd/QoXHypFWTsYyEbDbRX8qzSVo5SQiYiFTz55tie/SsS/AcOQlEyDWU
+    bdaLwygTuUDZSWMjjDT1asPYu3ijPgafHopfROY+xnAfsOQoYFnlSgZU1o1OkQCFZkNChF
+    pU41PpLZnnt/Ush1xTtirVK1rClWiC2wsqj7OiHXQF6ZqAFhiz7pp2sZF3Kz+V8+29KJnH
+    W7S5+AQVfAA4L8OYejH0GA7FGf9Q5iYl62/wN0bQdWV44uJXEJnAOHcSUMNw
+X-ME-Proxy: <xmx:LvbqatoPwNKUqEG2nqsoHd3rXRIRi9_Qftug0A2dodDjdsaKCCO5Bg>
+    <xmx:Lvbqako5IjmcfsnT9hz2anJCHyrucM13VJjFWSGwpzeJdypxSKobyA>
+    <xmx:LvbqarGnrypERZsjTzFhEHTGu82hrMdnnDhBmMk6iq9EGS4l1OvJrw>
+    <xmx:LvbqauqvXedbBYGtCbr8niir-Cu4egG0r3gtXXZfSdrKHZIPSuPTYQ>
+    <xmx:Lvbqanqj8g2BHGksRCzKvB0wihdbIk4jx6lZwdUeQTLLsYASey7-AQRJ>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 04:08:57 -0500 (EST)
+Date: Wed, 04 Nov 2026 18:08:54 +0900 (JST)
+Message-Id: <20261104.180854.547774168466136920.tomo@flapping.org>
+To: a.hindborg@kernel.org
+Cc: fujita.tomonori@gmail.com, frederic@kernel.org, lyude@redhat.com,
+ tglx@kernel.org, anna-maria@linutronix.de, jstultz@google.com,
+ sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, boqun@kernel.org,
+ daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
+ work@onurozkan.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] rust: time: implement `Display` for `Delta`
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20261103-time-delta-display-v2-1-b01b1fe9ff9f@kernel.org>
+References: <20261103-time-delta-display-v2-1-b01b1fe9ff9f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,115 +129,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261103113711.1832834-1-max.kellermann@ionos.com>
- <20261103113711.1832834-5-max.kellermann@ionos.com> <CAGsJ_4wpd-e+xjm5KwihVziAeVnQp3XYG=+-BKmx0SVEhmyqqw@mail.gmail.com>
- <CAKPOu+9textOydxZYng=Bo9Sf91Wq_7rv5r2pBrhXOfiex=qGA@mail.gmail.com>
-In-Reply-To: <CAKPOu+9textOydxZYng=Bo9Sf91Wq_7rv5r2pBrhXOfiex=qGA@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 4 Nov 2026 17:08:40 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zzZZSaAwG=VLhuMvoD0YcAFdqyUr-8zRSibNw28j8wzQ@mail.gmail.com>
-X-Gm-Features: AclHuK8306bVpFSltXAI1ZXaA68bWTketiXOy1YGPxl8Unk8QhQOKTXLATnYAlc
-Message-ID: <CAGsJ_4zzZZSaAwG=VLhuMvoD0YcAFdqyUr-8zRSibNw28j8wzQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] mm/mglru: avoid redundant rotations of young memcgs
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 4, 2026 at 4:27=E2=80=AFPM Max Kellermann <max.kellermann@ionos=
-.com> wrote:
->
-> On Wed, Nov 4, 2026 at 6:18=E2=80=AFAM Barry Song <baohua@kernel.org> wro=
-te:
-> > > In my micro benchmark, this increases the request rate by 36% and
-> > > reduces the average duration of each write request by 27%.
-> >
-> > Could you share your microbenchmark somewhere (or post it here
-> > if it's not too lengthy), perhaps on GitHub, so others can
-> > reproduce it? You could then refer to it in your changelog.
->
-> Will do.  A note of warning: it's ugly LLM slop, and if I had written
-> it manually, probably 99% of it could be removed because it's
-> pointless garbage.  The LLM wrote it for me before I had any clue
-> where the problem could be.  It helped me find the problem, but
-> uploading this garbage triggers a bit of shame in me ;-)
+On Tue, 03 Nov 2026 16:23:40 +0100
+Andreas Hindborg <a.hindborg@kernel.org> wrote:
 
-Thanks!
+> Implement the `Display` trait for `Delta` so that it can be displayed by a
+> formatter.
 
->
-> > I think this is a correct change. I wonder if we can
-> > reproduce the issue even without concurrent reclaimers.
-> > In other words, can a single thread running in a
-> > memory-limited memcg trigger it as well?
->
-> Your question is not really related to this [4/5] patch, is it?
-> Because this one is just an incremental optimization on top of the
-> real linked list scalability issue.
+[...]
 
-I think it is related. Although lock contention isn't a concern
-with a single thread, the early goto unlock could still save
-some CPU cycles.
+> - Drop the `rnull` user, which will call `Delta::as_nanos` instead (Gary).
 
-I can imagine a scenario on a system with a large amount
-of memory, where a single memcg (e.g. one running a kernel
-build) is limited to 1 GB. If this is the only memcg
-constantly being aged and rotated, it should remain in
-YOUNG most of the time.
+Now that the rnull user has been dropped, I wonder if we need this
+now.
 
-We could still skip things like:
+If we want a readable format with a unit, Debug might be a better fit.
+core::time::Duration implements only Debug, not Display, and its Debug
+output includes the unit (e.g. 1.5s). Debug output is not expected to
+be stable, so we could change the format later. Users that need a
+fixed format can use as_nanos(), like rnull does.
 
-        hlist_nulls_del_rcu(&lruvec->lrugen.list);
-        hlist_nulls_add_tail_rcu(&lruvec->lrugen.list,
-&pgdat->memcg_lru.fifo[new][bin]);
-
->
-> A single thread means there is no spinlock contention and the linked
-> list is only walked once.  I don't think the problem is visible then.
->
-> > One thing I noticed is that you may not need to call
-> > get_random_u32_below(MEMCG_NR_BINS) upfront. Could you
-> > defer generating the random number until you actually need
-> > to rotate the memcg? I wonder if this could further improve
-> > your microbenchmark results.
->
-> Good idea, optimization added for the v3 patch.  I don't think it
-> makes much of a difference, but it really makes sense.
->
-> (And I still hate that the Linux coding style requires having all
-> variable declarations at the top.  Code would be simpler by
-> declaring+initializing variables where you need them, and additionally
-> it opens more opportunities for compiler optimizations, but... it's
-> the way it is.)
->
-> > Anyway, the compiler might be able to defer it for you.
-> > I'm not sure, though. Could you take a look?
->
-> The compiler is not allowed to because it is not allowed to make
-> assumptions on what get_random_u8() does, therefore it must not
-> reorder the call.
->
-> (I wish C had a way to express a promise like "this function call
-> won't modify global state reachable by the caller's pointers", there's
-> just GCC's "pure" attribute which is too strong here.)
->
-> Minor note: deferring the PRNG call will move it inside spinlock
-> protection.  I think that's okay, but it can theoretically have a
-> performance impact, and I'm not expert enough on this part of the
-> kernel.
-
-Thanks for pointing this out. I missed it.
-
-It might be a problem, as it could increase lock contention
-by holding the spinlock for longer.
-Only testing can tell for sure. If it does increase lock
-contention, I think we can simply keep the redundant
-random number generation.
-
-Best,
-Barry
+What do you think?
