@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836509;
-	b=kJCi/pcv6lFnssR9+rU+wyWYmOd1FvL/2bGKRMB62M5rbemNB9jP1E2S+fpEq5D8AKzt
-	 wLxWZQvjOke8nY/5h91yWR0t/IagceChsxAXmf1tgAIlHqfsKTkJRN5IGYwi/ezbXZuUd
-	 Zd6j+z4at/hSwfnBTSMQnjDsPVgn7ej1cvww2zNgjyB5Sp8BQhQxmWwTG+lksgKw1CFMd
-	 hYfIruG4xLNU7tWMj94tL3v2h47/zag2egl2PUMtyYiwIVgYTniEdEpL9rY5KJN3kBcTw
-	 I5SPJLIUyuw2nuqL+bVWSGI2xPnTvj/XKvylXmAGGmgAvEuu+wlwuaFPkPda3pnXxHA==
+	t=1793836515;
+	b=YQSQQXJIsLWP/2lUVr7toJ2E9Ao6T4z/Fj52S7AORgclLzEvo7lVqOT3T+W85d6PpHQg
+	 A5HNBR6tGAtejOPQyrVbp893gtj/DV+8nIazqT4gnKl5n/9IqUmJ9osX2J4C5UPPyQWPN
+	 Dxolro4DkGDetavVxiTKSua3dLM8WqiCle4CzPWMp68gerNjbpwmWoYCE2aMNc/YmCgZU
+	 EOnpweYrKCFPfF9mG+cWVOJf3oHioTeYuEGl2s1sL7tAvUw6vFJesVFFZr1ZzfvyV+hOA
+	 V2k/8aHS5rrCamEZYKCpgBIZR64gwycZ0SegLNKkETb/WsxgbaBI6GoW/8kS5HA2Zhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836509;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836515;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
 	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yYM7ejxsK/WekSQzcvpWlw+4AYB+YcCjwMSG/SOGOJk=;
-	b=tiYBJkq7bKPhMzAeBnS5KnLd7BK4PP6rIwn+68Z1f7p9DYa5gQ/KLknm3R4aM/gUfVVd
-	 VS0Ko5MqnQOwf+QSfqzFtD1mITlariV4S1wgbF+v0ki2Saa6YDxGSITc2zVMcF1p/MFfp
-	 dsCJgetfNaxEVv5ScOpR3w4+i1UH6c8uRaQfoTNZCv/Oq5EznyuI+OKQM2b0kjDRPytuV
-	 sPHP621QPghIAXv6Nw6laIT5U+6Edo7dvpxH49tJsOvhx0U3yetqBTdZItAuhdf+sB3nl
-	 kuPgOiMotMGUHKC1C5vCvbIKKquyGunHr/GXNav1ZMwC/v2iXzxk4B8i9nFk4iAGRiA==
+	bh=xyvNsYmFNsUNSiZ3/Smohdj7Psl5Ao/dpxmOcpWvGGs=;
+	b=1+Bvxv4rx4xYBRmgLHZXaDfp9MCRyz5go1h/Q1uhlJ7f911v7U+n5WJL6btrcYN7G0Xh
+	 adbsusfzDn8jt0r10zIpKCA8JCSkfFBqGrndPXHlrPatAXjBVZyMGg0YYb1ZGz0oo84ZA
+	 W/PsMaDWhuh7mg6sMG2G5LP79R6XYve9O67UjJGx1EP8Xe34wM+Qk5KpwKb1RMevoQbNR
+	 vEFj5UkWajHTxdVUni8b8Yui8NZbRQnLDICan1wLFumigosrpMXAlBGrhzrgp3FSWpFK0
+	 sW6+L78Y5GT1P8zt375LrPE0ktrFAKFO5sqrdQCvcTUAbVLyr9xgwSLOg92/YJI05BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=shazbot.org;
 	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b="CechH/Am";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jm9pkgSM;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=ra4LhgH+;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4jePVdpi;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2962A606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2962A606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCB1606EE87
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:55:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DCB1606EE87
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=CechH/Am;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jm9pkgSM
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.phl.internal (Postfix) with ESMTP id 53DF5EC017A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:55:02 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=ra4LhgH+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4jePVdpi
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BBB3C14001D0
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:55:13 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Wed, 04 Nov 2026 18:55:02 -0500
+  by phl-compute-07.internal (MEProxy); Wed, 04 Nov 2026 18:55:13 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793836501;
-	 x=1793922901; bh=yYM7ejxsK/WekSQzcvpWlw+4AYB+YcCjwMSG/SOGOJk=; b=
-	CechH/Am7FoRjL0s4MQIPtlPmsahLDjvlrMmgnylMpORnFSGFm6QBvmBxtPZySgG
-	5g3vuQnca2BTHdxRX8WoP9uNMWrIbYxB/NfSDq0XV1CvS/xGPKIbKuHojZ3liuUN
-	R8aY98SsIC6L1mVzG5ARFqyso80Wc6TGxMD2htqBEhcmmT7U8m+8fQVTliwO86kU
-	io5IqQeLsSJ53PTeikCmC9VHMjOUS0MHkXD474uVP4WwsxUkFfhlofA/flVPpTAL
-	UrsM/CkecqPBuTL9xF6jBoTx15g4kkGaHWBJ0+3h+YXHUvzhSuH7fqsrlQ+Jr6VB
-	4O3QofpFDFInoL3VCKAsLg==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793836513;
+	 x=1793922913; bh=xyvNsYmFNsUNSiZ3/Smohdj7Psl5Ao/dpxmOcpWvGGs=; b=
+	ra4LhgH+nnm9HL0r4Kq59C62hb3VYK40doxbMOXHOEKcj7TDDYwyaz3Dy4hPg37o
+	Yv/0FIWZjqiMNhwkSth9pPFPd1TGgknkeStau0MmW3Fz7lOut6SKdogCHQEngGBi
+	VxSPpQlXm7ZwitmMSLfj/dRFXLAu4ghaoEbPw6+hTaSNTe+c+USqeAZKb1QzfYZ+
+	2qIBBeyPQV+1/yEBJTpt8uLK6PtkFztkST1foKlZEV5+sitVMCHlZDgg7dcrqqPm
+	0bVmLJayHbl3FChqVlRMUXdt+IFBPB4a0FX+l2mE2QosfNZdJnvIXR6q3jQ3435K
+	fVZn+xPyXxvAgYUoOZS9Zg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793836501; x=
-	1793922901; bh=yYM7ejxsK/WekSQzcvpWlw+4AYB+YcCjwMSG/SOGOJk=; b=j
-	m9pkgSMCZAnwJ7WUUj3QPVLCsZhrNGwDk4+KboSBhan/8J3/0DGcQ82IEvFqyahD
-	qzOWhrOodXPyl/+42BtfTyrzxqsPG87R80gVMeoWEr8hOfMqYFl/l0tWrJdUy27T
-	hqzW3rwIV/eR42qnCB1/CMZ8YXrG+rsoWqosDF07mPpyyMXedKoniqksHTzAl3bC
-	Y+F29UDYh4DKcrDcSoIYhBxBhnx3sQGfpy7tnlp60DLFKcX/8hAx5BDdgzxjHTgU
-	g2tGRzxO0AQJF4xeLWkQv46DMEdlbsREaxWD29uuGDHySPgN8+qGxmU8puHFmsjJ
-	bj/N2fQ7kQdqK8eXAlbrA==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793836513; x=
+	1793922913; bh=xyvNsYmFNsUNSiZ3/Smohdj7Psl5Ao/dpxmOcpWvGGs=; b=4
+	jePVdpiHXZ+OlWMIA/eiDp2le+x9kR18UoXQigTFASWeLiktFCWP1YsTW93/ZYmk
+	Kj7N+6owOSq+oEW5ydT8FI1TPwp4n6ci3iuuycuWkPOPbooTnyNDVpdRYv7ubN4G
+	YPjYzWke6LFCxtA5b1SAsRLn3y1QB3OLTmIa6+r+s2UJWV3i1V/JMgW/A21sMiLZ
+	UU+ut/kjoW20xPNqb6e+wUbe5RpdqgJLNxp/o/z3PNZtled6HXnUqs75srlYny2l
+	CnK/tWQvkFaqeizZBu+obABK1zuLeMg1TKpNzeIEnZ1wm6DAxNcbhFW2Sw0ASCG7
+	fM3eiGp9hc/mqUueHpT1w==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793836501; d=shazbot.org;
+DKIM2-Signature: i=1; m=1; t=1793836513; d=shazbot.org;
 	mf=PGFsZXhAc2hhemJvdC5vcmc+;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:IvekKoXs3FzSfiBX3jMTVtCrov6BB2wW7RUK7pE3Vkd0XNK
-	z582ja+5V6IUE57+F2RMZmlg7DQW+gwqcKAkyvVngPLiL6V0vTuTlqv0bnXaoG+b
-	SJHjxad8Rq4OH8Js+20yzVL9QowigxHLpjsYBjXmlznP8Dr5zuAFeGfBz1DtGCpP
-	IHWsl9xb08GdcXjtTKnFCpjhwPOlOBictUxR+nLwsRp9es8/ueiQjTuDMYty520i
-	cYCdPn/gkPuTeLn4M1CkHtgWi444iy/jdly93INjbVYZcPkPzAa5IB8R6CrYU4og
-	YwIzKe642XquLSa2YhHY/FsgiwU1CvPH0wDJTDQ==;
+	s=fm2:rsa-sha256:X5tSPXzJMu2x4YN292AHa/6vqgsGGiTmerdQK+4asdSiXmI
+	urPdy/xGdLIx0W6pRdUx1lY3/v/U/1JGiDf0gj9h4uOHDIfpzhhE0CriOgnGffpp
+	vqYhB70BLEPtU2Ddg0s7ouOo3TrBk40roJ14MmfCDFrIBfdVZGUsE8Xx3A3FudjZ
+	9rN6YQ9a51+fLHp9ZyEEaDS8zcsY5IHlUzJmjr5C1Bd05gYgfXn4AVNS7mPBk2AZ
+	puNKZ0zcrsDHsXA6msxV07Hm7QTK1EuGxJpL9d32GxC7cdQOb3McT7jdvyGAGDHd
+	E97Gow1x3+w6g0dIHfFeK0zCXEmFxtXGsu3yBsw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:XZas14fJoJ1GP6E/uNaTPdeSvxw2wWI9h3CPHCvWWR8=:glQ7Lw/gMt67x2C7GFcaTEl3b0L1F8vJEOkBxaYyLpI=;
-X-ME-Sender: <xms:1cXrarJrMFrUU34H3NjrnCkJMQ94i5U7a1IsV8BqNGbV7vu8OTCZJQ>
-    <xme:1cXrap9YsFpu6Ce5a92UyAUpRWUwmwiVfI3UTadwdBiuOh0yfbp_KFZnPPERorxgJ
-    V7PjR1EQppOyGt8tO-dZQm6RTs95vgoFp8lYMwDaWQGeKaS52AOeA>
-X-ME-Received: <xmr:1cXrah9icHMuvkOp3VTQmbl3dpPlFAMRufuMA59CUB2XuwY7PokrZchNmSc6Tw>
-X-ME-Proxy-Cause: dmFkZTFQmWAuqahbE0pU7ZTuuJsHZIRhSQMEWivxEPlFlpH9LDKL3f0KHYwWm3kkDEpyFe
-    KrIpKhUJTT2veHkpGFwVlM0pHfrWR0W9oVTzRZOZhTl7xOES5AScVhzhYSfOhTXEQpAvcc
-    qFWu/7yePZhpK3pLZNTeU21i45lZxc6ABrLUppX5Dl0BPjv1g4FHppts7mHirAQjCqicuS
-    1dSg04ZjaiY87o4eBXyi9RkMV3jelgo6DKAvjm0R8Yo7AWD2LTJTSUYXEHvlVEvxPj+q5E
-    aAtjYzpXQH3pIzygvZV8igknQwVvYdr2BJKiGXvDF2ux0t+g2WGM8+h4kCcKHaf+nBzbBp
-    4/bOPxUPQElsv129anOgUcprtNLOzbjljvlRWdj1SZ6RIVbkePH9msVAyM/X4759JoSnDq
-    VuXRlqNBxGBUDSTsroAze7586O3OB+eCBIcMbd+pCw97RgW9KgsgzCptPM9zvavG3hefzy
-    RhCim3U3NDJKn4zTq/tIHljflyZnOfslnwspXio0gARRk0kom6S+44nEV/4IsBuy1ctDyW
-    Nv5iz1bSWzUfqAUAJwfmZ/PD3YH6p01llbA7O/uH2YKHRSd4bJGpQTvkKWcu0Dpa6Euwup
-    m2uq4Xt7a05KzPJjLb/NfPnWhz2RA88B1oklFS/+7VxfxWtiZmvty74OMOQg
-X-ME-Proxy: <xmx:1cXraj9ZfX8n_0WBfKQGhRpa41x7B03iiq2kK7TzmD1Sd3tJ-SfhXw>
-    <xmx:1cXrasIaMbJSxUWqY6u-zb67BIGbMGM1HvlDUCwKcfN-aB3fEAUNdQ>
-    <xmx:1cXraoT7qO4xVFDOm-ECa2kTLKUEElip1_31VYLYKloVfXyzBESYXg>
-    <xmx:1cXral_L8II1rVgDAJeThLDDOs3Wu8-c2Hnrs5jN-YvGPF2HTNoIrQ>
-    <xmx:1cXravI-7dLaK3o5ritzLvtvUHF_8HQOjVFfBcYTyA2jpcJNFHZstyoZ>
+Message-Instance: m=1; h=sha256:BFA6DzJRVbejRPsMtMGO7th9U5+CnPb9AdCAKmA81Dw=:eDJ673P+K7pXjeoYHUiCjGcd3eSJ7KyiyH+Qd3kASlc=;
+X-ME-Sender: <xms:4cXramENO_fsgYYYuY_qLyUUCvMfItdpol56Z9DQ6pn6-t-lwWCyQw>
+    <xme:4cXrak-TNRM0gzoJSsjhoeDIxvP3k6c_EJQWi3yais9qouyMO8zYSFi1X4avJTB8-
+    BeQo7b4sWOG9dd_LxXVlkiYsgiRB7vsZuATwHlT7ntY_ZMa0n6c2Q>
+X-ME-Received: <xmr:4cXranhENW5uJ8QSrF27bPfQ1FQsp2rAm8A1EQcCEa0KOhW8my2EzRWOc1BBvQ>
+X-ME-Proxy-Cause: dmFkZTEUHmheM4TcN+Ui8oQAaPhaKxerACcrI4xYNFFZjMdVkcrl+kfgjT+qjdO+axagJl
+    de8mhNEJkxV2kzZBLKbQndIfVb5IFJ/p6vurCUW/JOVryts3u07cSI8Gb/5xUPlmB1m/YV
+    4K9RW+A4z0s1YhrvlG7ljI0lSgm6afsSqoALqBtHK4gkQg0hCi50liWNSoS/3Ck7T5mFCy
+    r1UCn0YFuxZx8X7Od33cVvVcSc9v8K1ilBB81b/UpFkHTQ1ZoBceS3Zjt8L+EzU7VUYIWD
+    GrEoDZTARxtu0PWDLP8UjMDxfvkZ1iJrKvbH20hKIKapvnjQJUBDfz0t3IV0KAHcwHnqTA
+    pe33gmFL0p+HSniZZd7T4wQmk81p5kyxFaBQ/As17Tzx9CFPdnhtFVilc95eWQCz6AqULE
+    +3XQpVAHWG1hL0L4LBSmI4h+01J5odaMpMjj9YNtaemeWO/o/nfNh99Gjs1D2GqM4fXLqr
+    2S8oTnLqX7jnyMF4Rei1eMsELeE94SiCAnjjkg1B8CLaCTcZMW0oChMgE+5RHuL6ddphea
+    d3z3zpmBkYCX0D2feByiU9aTqZtST65+BO4RQ8IUg15G2d+UbHYLYzGFPfWWd4tCRED3aF
+    fk37t7mZA2uf9NbuBMqudK4/ZduN64NoO9BNU9+Ud5+uzXxFLPmn63G1opjQ
+X-ME-Proxy: <xmx:4cXraoTD-cidcQ4ZNNowVdLS6QAn67oi4M4wfCaE2bRi8MpUOr4yOg>
+    <xmx:4cXrakCPmLdRtZHG_FdxG2UvyRII_KGk59zo2FUobaau1Gih13NsKw>
+    <xmx:4cXrai__N69Pv4ISasF0w9Wg3JOmJgvCbgoJhZH5kqXh9-u3Ou0pfQ>
+    <xmx:4cXrau0rTvb7Ilg2MEaHZpImAWPvETHvaV5sYW6_C1TLKK-j4oR6cg>
+    <xmx:4cXragMf-31R0NJ7Mlj8baVQS7eamMC_96fwP5v6eWAMW8nxsj8M9kbj>
 Feedback-ID: i03f14258:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 18:54:58 -0500 (EST)
-Date: Wed, 4 Nov 2026 16:52:56 -0700
+ 4 Nov 2026 18:55:10 -0500 (EST)
+Date: Wed, 4 Nov 2026 16:53:04 -0700
 From: Alex Williamson <alex@shazbot.org>
 To: <mhonap@nvidia.com>
 Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
@@ -122,12 +122,12 @@ Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
  <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
  <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
  alex@shazbot.org
-Subject: Re: [PATCH v6 03/31] cxl: Move component register defines to
- uapi/cxl/cxl_regs.h
-Message-ID: <20261104165256.09860477@shazbot.org>
-In-Reply-To: <20261016161839.2765592-4-mhonap@nvidia.com>
+Subject: Re: [PATCH v6 07/31] vfio/pci: Detect CXL devices and load the CXL
+ provider on demand
+Message-ID: <20261104165304.2563f4ae@shazbot.org>
+In-Reply-To: <20261016161839.2765592-8-mhonap@nvidia.com>
 References: <20261016161839.2765592-1-mhonap@nvidia.com>
-	<20261016161839.2765592-4-mhonap@nvidia.com>
+	<20261016161839.2765592-8-mhonap@nvidia.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -141,37 +141,254 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 16 Oct 2026 21:48:10 +0530
+On Fri, 16 Oct 2026 21:48:14 +0530
 <mhonap@nvidia.com> wrote:
-> diff --git a/include/uapi/cxl/cxl_regs.h b/include/uapi/cxl/cxl_regs.h
-> new file mode 100644
-> index 000000000000..276f9361c840
-> --- /dev/null
-> +++ b/include/uapi/cxl/cxl_regs.h
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-> +/* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
-> +
-> +#ifndef _UAPI_CXL_REGS_H_
-> +#define _UAPI_CXL_REGS_H_
-> +
-> +#include <linux/bits.h>
-> +#include <linux/const.h>
-> +
-> +/* CXL r4.0 sec 8.2.3 Component Register Layout and Definition */
-> +#define CXL_COMPONENT_REG_BLOCK_SIZE 0x10000
-> +
-> +/* CXL r4.0 sec 8.2.4 CXL.cache and CXL.mem Registers */
-> +#define CXL_CM_OFFSET 0x1000
-> +#define CXL_CM_CAP_HDR_OFFSET 0x0
-> +#define   CXL_CM_CAP_HDR_ID_MASK __GENMASK(15, 0)
 
-A local sashiko review asks if this new uapi header should include
-asm/bitsperlong.h since __GENMASK requires __BITS_PER_LONG.  We include
-the other two header dependencies, but not this one, so it's a bit
-self-inconsistent.
+> From: Manish Honap <mhonap@nvidia.com>
+> 
+> A CXL device needs the vfio-cxl callbacks, but pulling vfio-cxl and the
+> CXL core in unconditionally would bloat every vfio-pci setup. Detect a
+> CXL Type-2 device at bind and request_module("vfio-cxl") only then, then
+> hand the device to the registered ops.
+> 
+> Each bound CXL device pins the provider through
+> vfio_pci_get_cxl_ops() (try_module_get) and drops it with
+> vfio_pci_put_cxl_ops() at release, so vfio-cxl can unload once no CXL
+> device is bound.
+> 
+> If the provider is absent the device is bound without the CXL
+> extensions. A built-in provider whose initcall has not run yet is waited
+> for with -EPROBE_DEFER; the deferred-probe machinery will retry the bind
+> once the provider registers.
+> 
+> The provider .init() can return -EPROBE_DEFER when the device is not
+> ready yet, for example when its CXL port has not enumerated. Propagate
+> it so the bind is retried later. Any other init failure is non-fatal: a
+> CXL Type-2 device is also a valid vfio-pci device, so log the error, drop
+> the provider reference, leave cxl_ops NULL and continue without CXL
+> support.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_core.c | 101 +++++++++++++++++++++++++++++++
+>  include/linux/vfio_pci_core.h    |   3 +
+>  2 files changed, 104 insertions(+)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index 2cc5dd20396c..e50b36751d9a 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -2202,6 +2202,101 @@ void vfio_pci_core_unregister_cxl_ops(const struct vfio_cxl_ops *ops)
+>  }
+>  EXPORT_SYMBOL_GPL(vfio_pci_core_unregister_cxl_ops);
+>  
+> +static const struct vfio_cxl_ops *vfio_pci_get_cxl_ops(void)
+> +{
+> +	guard(rwsem_read)(&vfio_pci_cxl_ops_rwsem);
+> +
+> +	if (vfio_pci_cxl_ops && try_module_get(vfio_pci_cxl_ops->owner))
+> +		return vfio_pci_cxl_ops;
+> +
+> +	return NULL;
+> +}
+> +
+> +static void vfio_pci_put_cxl_ops(const struct vfio_cxl_ops *ops)
+> +{
+> +	module_put(ops->owner);
+> +}
+> +
+> +/*
+> + * A CXL Type-2 device advertises both CXL.cache and CXL.mem in its CXL DVSEC.
+> + * pcie_is_cxl() is also true for Type-1 (cache only) and Type-3 (mem only)
+> + * devices, which the vfio-cxl provider does not handle, so confirm the Type-2
+> + * identity before engaging it.
+> + */
 
-BTW, current guidance on the Assisted-by tag: 1e035297ffda ("docs:
-remove Assisted-by references").  Thanks,
+Probably another AI comment, it's only describing what the function is
+obviously doing.  Drop it.
+
+> +static bool vfio_pci_is_cxl_type2(struct pci_dev *pdev)
+> +{
+> +	u16 dvsec, cap;
+> +
+> +	if (!pcie_is_cxl(pdev))
+> +		return false;
+> +
+> +	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
+> +					  PCI_DVSEC_CXL_DEVICE);
+> +	if (!dvsec)
+> +		return false;
+> +
+> +	if (pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CAP, &cap))
+> +		return false;
+> +
+> +	return (cap & PCI_DVSEC_CXL_CACHE_CAPABLE) &&
+> +		(cap & PCI_DVSEC_CXL_MEM_CAPABLE);
+> +}
+> +
+> +/*
+> + * Load vfio-cxl on demand for a CXL Type-2 device and hand the device to its
+> + * ops. If the provider is absent the device is bound without the CXL
+> + * extensions; a built-in provider whose initcall has not run yet is waited for with
+> + * -EPROBE_DEFER.
+> + */
+> +static int vfio_pci_core_cxl_init(struct vfio_pci_core_device *vdev)
+> +{
+> +	const struct vfio_cxl_ops *ops;
+> +	int ret;
+> +
+> +	if (!vfio_pci_is_cxl_type2(vdev->pdev))
+> +		return 0;
+> +
+> +	request_module("vfio-cxl");
+
+A local sashiko run questions:
+---
+[Severity: High]
+Could request_module() in vfio_pci_core_cxl_init(), in
+ drivers/vfio/pci/vfio_pci_core.c, deadlock when a matching Type-2 device
+is probed asynchronously and vfio-cxl is an unloaded module whose own
+async_probe setting remains false?
+
+Asynchronous probing can be selected with vfio-pci's async_probe=1 module
+argument or driver_async_probe=vfio-pci. The resulting wait cycle is:
+
+    __driver_attach_async_helper()
+        vfio_pci_core_cxl_init()
+            request_module("vfio-cxl")
+                waits for modprobe to exit
+
+    do_init_module() for vfio-cxl
+        async_synchronize_full()
+            waits for the outstanding vfio-pci probe
+
+In kernel/module/main.c, do_init_module() performs this synchronization
+after the provider initializer returns. Successfully registering the
+operations therefore does not break the cycle. The provider's async_probe
+setting is independent of vfio-pci's setting.
+
+The warning in __request_module(), in kernel/module/kmod.c, does not
+abort loading. Dispatch through pci_call_probe(), in
+ drivers/pci/pci-driver.c, also preserves the cycle because the originating
+async callback waits in flush_work(). The global async wait has no timeout.
+
+The final series retains this synchronous request. Could provider loading
+be moved outside the outstanding async probe, with binding deferred until
+the operations are available?
+---
+
+AIUI, this could be resolved if we do the request_module() on bind and
+the CXL init on open, but CXL expects that we use the devm interfaces
+that have a bind->release lifetime.  But then...
+
+> +	ops = vfio_pci_get_cxl_ops();
+> +	if (!ops)
+> +		return IS_BUILTIN(CONFIG_VFIO_CXL) ? -EPROBE_DEFER : 0;
+> +
+> +	ret = ops->init(vdev);
+> +	/*
+> +	 * A provider that is not ready yet (for example its CXL port has not
+> +	 * enumerated) returns -EPROBE_DEFER. Propagate it so the bind retries
+> +	 * rather than continuing without CXL support.
+> +	 */
+> +	if (ret == -EPROBE_DEFER) {
+> +		vfio_pci_put_cxl_ops(ops);
+> +		return ret;
+> +	}
+> +	/*
+> +	 * Any other failure is non-fatal: a CXL device that cannot be brought
+> +	 * up as Type-2 still works without the CXL extensions, so log and
+> +	 * continue rather than failing the bind.
+> +	 */
+> +	if (ret) {
+> +		pci_warn(vdev->pdev,
+> +			 "CXL init failed (%d), continuing without CXL support\n",
+> +			 ret);
+> +		vfio_pci_put_cxl_ops(ops);
+> +		return 0;
+> +	}
+> +
+> +	vdev->cxl_ops = ops;
+> +	return 0;
+> +}
+> +
+> +static void vfio_pci_core_cxl_release(struct vfio_pci_core_device *vdev)
+> +{
+> +	if (!vdev->cxl_ops)
+> +		return;
+> +
+> +	vdev->cxl_ops->release(vdev);
+> +	vfio_pci_put_cxl_ops(vdev->cxl_ops);
+> +}
+> +
+>  int vfio_pci_core_init_dev(struct vfio_device *core_vdev)
+>  {
+>  	struct vfio_pci_core_device *vdev =
+> @@ -2223,6 +2318,10 @@ int vfio_pci_core_init_dev(struct vfio_device *core_vdev)
+>  	init_rwsem(&vdev->memory_lock);
+>  	xa_init(&vdev->ctx);
+>  
+> +	ret = vfio_pci_core_cxl_init(vdev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(vfio_pci_core_init_dev);
+> @@ -2232,6 +2331,8 @@ void vfio_pci_core_release_dev(struct vfio_device *core_vdev)
+>  	struct vfio_pci_core_device *vdev =
+>  		container_of(core_vdev, struct vfio_pci_core_device, vdev);
+>  
+> +	vfio_pci_core_cxl_release(vdev);
+
+Sashiko has a doozy regarding the resulting lifecycle teardown:
+
+---
+[Severity: Critical]
+Can vfio_pci_core_release_dev(), in drivers/vfio/pci/vfio_pci_core.c,
+invoke provider teardown after device-managed cleanup has freed vdev->cxl
+when final object destruction is delayed during unbind?
+
+In the final series, vfio_cxl_create_memdev(), in
+ drivers/vfio/pci/cxl/vfio_cxl_core.c, allocates the provider state through
+devm_cxl_dev_state_create() against pdev->dev. This release hook instead
+runs at final vfio object destruction, which can follow driver removal
+and device-managed cleanup.
+
+Device-cdev close and unbind can interleave as follows:
+
+    vfio_device_fops_release()
+        drops the last registration reference
+        completes the unregister wait
+
+    vfio_pci_remove()
+        finishes unregistering
+        drops its vfio device reference
+        returns while the cdev still retains the vfio object
+
+    device_unbind_cleanup()
+        devres_release_all() frees the provider state
+
+    __fput()
+        cdev_put() drops the remaining parent reference
+        vfio_pci_core_release_dev() calls provider teardown
+
+Enabling delayed kobject release provides another path without an open
+file. The module pin preserves the provider callback text, but does not
+preserve its device-managed state.
+
+vfio_cxl_release_device(), in drivers/vfio/pci/cxl/vfio_cxl_core.c, then
+reads the freed cxl->hpa_range and cxl->hdm to release the reservation and
+free the decoder snapshot. Reuse of that allocation can cause an incorrect
+reservation release or an invalid free. The final series retains both the
+managed allocation and this final-release hook.
+
+Could provider teardown run before device-managed cleanup, or could the
+provider state remain allocated through final vfio release?
+---
+
+So perhaps trying to shoehorn CXL's devm lifecycle into vfio-pci is
+biting us anyway.  Thanks,
 
 Alex
