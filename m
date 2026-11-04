@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801080;
-	b=luvBWzhX3dQkGO2jdtIZIa4FpskX0MYtZboNhJBszweVJ+zrv1MRpUN6sX6rplaRrWu6
-	 4UnbBB6VY7Q4jfrC/0pd7/rhj/ngErhJakfUrdk22Da5gqc8w3KvaJizYgEVpLOUI4jZV
-	 zzzOa4NPOQdQmOIJxMhPlCsSX6VoRIhomD8jPR++s5TiVbsUKQrVSF5J9jkh1SLtMVGDn
-	 9OnD/WusUk57r/eEG3p6BX/5O2lNyl3qTsu1W26qkgN1IJFspfSb9oVa43Rd45fzR97It
-	 0kgNZk5wbPwY3hTHKwKXuYPHU+RBRGNs9YgJHcMDim/riGYYTb4Pu+6krF4zSmugHfw==
+	t=1793801077;
+	b=5bpiyrTxxZvo5KqXoX+UaA+8wVNy7ks0haKnLu+QDqci0QhVr6c5iiQ5gaFU+K7WIcZI
+	 cTYbK4MY0jVZGdXjR8wupcc7hlyygfBz6Xk1+MqPsymkUK18wgh2pd49jPkKpPhE6eIqO
+	 ZPrCSvav/H4lLrfUydPh5jCJev6BEaX8pLXK9G+A+LNd56A3dBzz7dFhZ4g+JJo0h1D9e
+	 G79+sbpFSUPhPWm0nL9dyPbQVTq65tF/oMXVEH8S8tP0H0G9qRjAjCOBMubyuPAju0Wop
+	 5t0iWVKvI6ob3+jAl+KC4pXe+BAdjcb2kE84VgZ2KunYnMYAcOGF1GZ+QqQd6jKfV2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801080;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=b/1VQLOCie0uhZiFGY89y4fe8klAFzMb6jcobyf/7DM=;
-	b=lgG6ofqjfUBPBSUDhKbcc8iAg5kKWmNW7ElVmAjDEZOjbLL7Ym/z5YUVRdwDy4531YmX
-	 l9cFNSgdlYJKWzEYRC1jyjftklu1SbimOVpgjuNY8IdADEK8Esh77mawwmg1v4N2Onkf5
-	 U4jM//WRtg4f+Xbos+P/99QNbb/OQ6RjZkRaDznzG14lTMRf6btx6Y14Q+skFiOYHIlwH
-	 VpZcrC1cAHicKdRVePyZJgr+tSn9sd6EN8r7UUUmZhXWDAShHZq8r2mGCYqfB391sYvaA
-	 0T3ctsrIzLT090Q9WnHUZn6PH095YjTPfILFybZ1lQKJjvqLkElX724MIst7N4fxyuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801077;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Q+j0w6ajOyPB3jD/rih0h/NMdkOlRGOguGnwdiyJXsw=;
+	b=LXOkPo8bME4WrkGkeg5CMMMB3DdYU0Bizej+9IirkbC5NH/j0uMJbFHMU7wLqeM0++Gi
+	 zIbjKIid71C91aiwXzi4iZRI7I5cruAMF3cVATMdL0LKdWiaffyImTgJpNjYUqYD/fuUn
+	 bbJWo31AI7qm+Vav2wk4sL7jwTr7ANgHkY92utKAmVUAs15yW4NgxTrHHqbFkWAAm2C68
+	 6zelp/K75M2iJ2JFOcJKfE37D8wK4QyZuH+xWo6aOtICjdNeLXtZfWj1yt1Z+tMnYOq1S
+	 UaBDYUWzglv/4PjdOPdnoiTJAi7HYT28CgXzdbd8jalf5MZYsbEXdMZQu4tU7F7JPpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qulqA3ab;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=innora.ai;
+	spf=pass smtp.mailfrom=innora.ai;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF76606EEB6
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qulqA3ab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D401F0157D;
-	Wed,  4 Nov 2026 14:04:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801079;
-	bh=b/1VQLOCie0uhZiFGY89y4fe8klAFzMb6jcobyf/7DM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=qulqA3abyMOE5LyPQqK6sbQV8VEjh9ugTENeoLecI0rV7uIHEDb4VgWwsHz/jtiGB
-	 y5Jt4h5EezqZToAk+6u4Y06XaokOC5ilod/frhHliJfiMnsxk4ONqUAfUCpRywGmo4
-	 ibW7+pqtYyCziNG4I2iim4t2c0HMnvkdhd5ixHzQ=
-Date: Wed, 4 Nov 2026 15:04:37 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ian Abbott <abbotti@mev.co.uk>
-Cc: linux-kernel@vger.kernel.org,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] comedi: comedi_bond: Fix leak of opened device references
-Message-ID: <2026110417-quickness-embattled-7482@gregkh>
-References: <20261103173610.89687-1-abbotti@mev.co.uk>
- <2026110414-conjuror-squid-2777@gregkh>
- <f6c42bba-e4c7-494e-b22a-a56ce153d71d@mev.co.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEA3606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:04:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEA3606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
+	s=protonmail3; t=1793801073; x=1794060273;
+	bh=Q+j0w6ajOyPB3jD/rih0h/NMdkOlRGOguGnwdiyJXsw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=lpViz+t9kVbQWUd5rZldLkKtBKd1ACpQazUWDmKWA3Hueteye7bIvZZfMVDyVSscy
+	 tW79nEn1lzxTkYtyUGTzNw08dDS37qtMRyMJQJAVJESMzPYaeZv+5V73FDOlh1wOEd
+	 fJwk6WxjefHXbgTJ3mEwX2Mf7m3TP7ao6FM9WZZgOGIKek5FZv/PuMKtjYVkooY+Po
+	 KVd2KdQOZS3l3jc2aeUTcNaZoOlF16HJwqIH2QJnRXMO1OQivBkjJlcJYWPXkjGUk6
+	 DT0KMgpczJNklTY539bRQKsQsmBeL7PkjKAvIF4gabQRfOdJBSdJvMKFyUo9w4rrYH
+	 ZZHaBr3cuKaFg==
+Date: Wed, 04 Nov 2026 14:04:29 +0000
+To: gregkh@linuxfoundation.org
+From: Feng Ning <feng@innora.ai>
+Cc: linux-staging@lists.linux.dev, linux-wireless@vger.kernel.org, luka.gejak@linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Feng Ning <feng@innora.ai>
+Subject: [RFC PATCH v7] staging: rtl8723bs: fix heap buffer overflow in cfg80211_rtw_add_key()
+Message-ID: <20261104220347.ccc09fa4-1-feng@innora.ai>
+In-Reply-To: <2026050458-numbness-haven-1ae4@gregkh>
+References: <20260413113224.5201-1-feng@innora.ai> <2026042626-tabloid-suitor-33c5@gregkh> <20260427111738.33069-1-feng@innora.ai> <2026050417-monkhood-backless-4c3e@gregkh> <20260504154823.52057-1-feng@innora.ai> <2026050458-numbness-haven-1ae4@gregkh>
+Feedback-ID: 140578448:user:proton
+X-Pm-Message-ID: b23681433844d943cff66205ae382c2b33bbff42
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,43 +61,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f6c42bba-e4c7-494e-b22a-a56ce153d71d@mev.co.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 02:00:17PM +0000, Ian Abbott wrote:
-> On 04/11/2026 12:59, Greg Kroah-Hartman wrote:
-> > On Tue, Nov 03, 2026 at 05:36:10PM +0000, Ian Abbott wrote:
-> > > bonding_attach() calls do_dev_config() to open other comedi devices
-> > > specified by the user and tries to make use of them as part of the
-> > > 'bonding' device.  If it successfully opens the other device but cannot
-> > > use it (either because it does not any subdevices of a type the
-> > > 'bonding' device can use, or because of some error that occurs while
-> > > dealing with its subdevices) then it is left in the open state and the
-> > > fact that it is open does not get recorded by the 'bonding' device, so
-> > > the reference to the opened device gets lost.  Fix it by closing the
-> > > opened device if it could not be bound to the 'bonding' device.
-> > > 
-> > > To match previous behavior, if the opened device is unsuitable then
-> > > ignore it (after closing it).  The opened devices recorded by the
-> > > 'bonding' device will eventually get closed by bonding_detach() even if
-> > > bonding_attach() returns an error.
-> > > 
-> > > Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
-> > > Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-> > 
-> > This is a known bot.  I'll be glad to take this patch if you redo it
-> > from you and that you take the authorship.  As-is, I can't take it from
-> > this fake "author", sorry.
-> > 
-> > greg k-h
-> 
-> Actually, I did redo it in a completely different way to the original patch.
-> I just used the original patch as a bug report.  Should I remove just the
-> "Reported-by:" line, or should I also remove the "Link:" to the original
-> patch from the bot?
+The cfg80211 framework allows userspace to specify a key sequence
+counter (NL80211_KEY_SEQ) of up to 16 bytes via NL80211_CMD_NEW_KEY
+netlink messages, but ieee_param.crypt.seq is a fixed 8-byte buffer.
+When cfg80211_rtw_add_key() copies the sequence counter via memcpy()
+without checking seq_len, a heap buffer overflow of up to 8 bytes
+occurs, overwriting bytes following seq within the same ieee_param
+structure (key_len and the trailing key[] flexible array).
 
-Ah crap, I missed that this was reported-by and not the author.  I'll go
-take this as-is, my fault, sorry for the noise.
+Reject sequence counters longer than the destination buffer with
+-EINVAL instead of copying them, as discussed during review of v6.
 
-greg k-h
+This is sent as an RFC because it still lacks a Tested-by from real
+hardware.  A userspace trigger program for the overflow (libnl-based,
+NL80211_CMD_NEW_KEY with a 16-byte NL80211_ATTR_KEY_SEQ) follows in
+a reply to this thread; anyone with an rtl8723bs device who can run
+it against this patch would help unblock the fix.
+
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Feng Ning <feng@innora.ai>
+---
+Changes v6 -> v7:
+  - Replace silent min_t() truncation with an explicit -EINVAL when
+    seq_len exceeds sizeof(param->u.crypt.seq), per review feedback
+    (Greg KH, Sashiko automated review)
+  - Use the existing addkey_end cleanup path so param is freed on
+    the new error return
+  - Sent as RFC: code is complete but awaits a Tested-by from real
+    rtl8723bs hardware
+
+Changes v5 -> v6:
+  - Restore the changelog that was lost in v5 (per Greg KH feedback)
+  - Add Cc: stable@vger.kernel.org (user-reachable heap overflow)
+  - No code changes from v5
+
+ drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/st=
+aging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 7cb0c6f22..000000000 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -896,8 +896,10 @@ static int cfg80211_rtw_add_key(struct wiphy *wiphy, s=
+truct net_device *ndev,
+
+ =09param->u.crypt.idx =3D key_index;
+
+-=09if (params->seq_len && params->seq)
+-=09=09memcpy(param->u.crypt.seq, (u8 *)params->seq, params->seq_len);
++=09if (params->seq_len > sizeof(param->u.crypt.seq)) {
++=09=09ret =3D -EINVAL;
++=09=09goto addkey_end;
++=09}
++
++=09if (params->seq_len && params->seq)
++=09=09memcpy(param->u.crypt.seq, (u8 *)params->seq, params->seq_len);
+
+ =09if (params->key_len && params->key) {
+ =09=09param->u.crypt.key_len =3D params->key_len;
+--
+2.43.0
+
