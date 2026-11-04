@@ -1,60 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793762821;
-	b=SQZAe+cmVqal9zKUv2gP4RhA2yZ2gxD8FXxUV3/EoI0Tt6LwQ31DWnlRadB7ovD0yvjI
-	 z/Sl5E/lgYEaeiEeXQvBNlobcnAzE6fviNz5eX2Ups4q1wssOzRqJdwKnhIwf8bHFUViL
-	 8lp4cA45NkmELyLD8XNRKTWf35NXhs/83J8Y4AcSJdW5fEWVRIOe5mBO/8x/MEj2P/vFj
-	 wL/WZIZFfudYZMh0ZE/W43xkTyc+klD983WmOkjMln6kET9Co4fG14rdBGFXnwBq/yodq
-	 ssWgfJRmFxhYYXGQqmgo5KuuHkFMDCf2B1bJwLs2cZnGH63lDoGLiSe+lyIIcIzTJbw==
+	t=1793762843;
+	b=I2+XW8HM1Xqj9jxcqnMD/wPrxpbZUm+JiuW2B9c/sbDRTD0tjYZ7SuNNRDkY0HICRxVy
+	 8m+65N5qH89LchqUusueZfaeQVr4m4G/dG2LoefJJ2leV3JKZDKo8ymgHrcTTB6pH6sBX
+	 3p00rCjbOuvU6pmm4+rNV+Wdx8A+Lap+PGS6Ouqr0aq4nHRhLWlqy2iuF1GX+6xhGcIDH
+	 ZcwvTyWwHKdafF9ZdbuJTcjrQou0PQjQF+5PTtqlF/lylMGPxgw0qkQpvzGWi0DjQIeoI
+	 CnoQre1BpTShKtELTIBOnC6XFvcUbxxdkcmevIJm8qe+3OmGAwTnZU5UrN1JOYVSEMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762821;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=zMixK3dgHkfJXLQEzBu/EjJno14izQhyCOF4QZyViR8=;
-	b=kvwYTMxQMOyrsl4HacE4g9yYlp5aDxjtVMUgWBc/Ad/1tABPlfkm9s9b2XvxXR/AAOa6
-	 yQ5R6rIOSmDBFscM3G4DytAW3fS6KmMCnklkNeSDDiJEfVKTrLd2JWuZ8cznY1jWa/2/I
-	 WcvItd5IARK3+/39ZsuDDqQaxHdUzEBhERWVmmDw4tk7TbcMiWFcY5L7SHuCtSy5zgFMA
-	 ++QVkPzsAuWaSRhZRVri6ng9wf5XuEDse/q2gp4Z6JYr0zihzGxPWcZWqJ3krJ2hy4RXP
-	 7sn3YJMTE7dWxvTii8wTcqDPevvnS2r6F9Yne88XoYQURZL5KdkBQ0UKoFr2EZCoO+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762843;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BFr+2EFgu1Nhb0O0fEPP4E9HWvVTMR4rapiR13PNnbM=;
+	b=Pu5eMTu04RCY103PAwPlblr3EUS+B/DYCOV5sD1w9faamTJpuVN/oveB7FiCVnU8qo9g
+	 vUOQySoQkE3Vk+mMg+497M8qRpGn1WYmjlnjX4Pad0Kh82TiklKX+ZPvUQ8/zwLd8IjVb
+	 Ud8qFXQo2OjQFOheoxsjGhZ6VR9nCm6J4pxHiYWcmByERGbfLeHEktElmmlix3Itn7eOP
+	 9PnnJXMA7TMN+dMlFAs8MbtznjZT6x7NFk017VNYX7t5RjpbxiHD7vgZSBh4TNkiZiIL7
+	 70peAExJMhDEqaB59t0DKAlmFHnCiT0CfG+SADyGgOc6KJ/mwBwcuTyUDxe7SmWspsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="h/mc7YOq";
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BDCB606A326;
-	Wed,  4 Nov 2026 03:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BDCB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPkM8k9+;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C4C606D80F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:27:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C4C606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=h/mc7YOq
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPkM8k9+
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso111850eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:27:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=zMixK3dgHk
-	fJXLQEzBu/EjJno14izQhyCOF4QZyViR8=; b=h/mc7YOq0D7EhW/6uurXzk54QP
-	4aRcGKIcA2Hn5kHScazqwNIumDRLXTG8w+JX8uUYv9yDjpeN+N2T/vcqxlZiUPQ7
-	RxpL/EX+YoZT4f7ZQXMMD97O5YIYyz9d2NZUy+13zsbk509ebyZEWEcTDHLT9jM1
-	a3DXUk+0GkE7cOhJE=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.194.56])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXnUH4pepqKzSAAA--.3770S2;
-	Wed, 04 Nov 2026 11:26:48 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1793762842; x=1794367642; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BFr+2EFgu1Nhb0O0fEPP4E9HWvVTMR4rapiR13PNnbM=;
+        b=TPkM8k9+c67hAid6Zd+6QpWcr2wBU43iV09DyDAJjer2cCS1BBUg8u4DYr3EIiihVq
+         LyltlVq3FNxn69cYkcbTZfbl2IXcxwzmOEzr/6ld4+daTSaC7e6U5KDBpQUZmBhVWhV2
+         YantVUmta5PgKluUMCOVjJHrvIJZbXvmBvFa+HatSLo+NoQ41G/jDUB6TaYfcL95C/J2
+         YOp97EfwGUn9J6N0ikEstVZ4eJoJERg8RwJ/zu0Ftkfy9hQU5Jj6U1EJ4zitujOFAgzM
+         lbGKIMOxgc5tGW8hSVSJo1oEjioTOohBb0/wCeDDw6aA78Ddu1OsWd4KTOlws8miYld1
+         DShA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793762842; x=1794367642;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BFr+2EFgu1Nhb0O0fEPP4E9HWvVTMR4rapiR13PNnbM=;
+        b=aAhcQksfj2aEFaWF68ea9VcNYtYM5nXOjpwUx1AFW/NQZLHBJWhIkuPKFLLa4YtRwb
+         qgJ+7emwJi7ZlDSgfzWgHnT8XKcBbyWKTU60xR9PnV4k6U1uH1riII1yLCxu+J1RuOMb
+         nCcB8YRjPD9WXHyvV/MhYWgFdXhT3r0EfdmnPIcrhiWBplSEcwC4+ejrzkQHylVH4i9n
+         mmB8x4i7xpN2OdXtSTEP7edqlwnM/uJ5Qrw9JFJZcSa5/B9YMikx2W99VnSNpQdlG5WM
+         E5M9aLkIormcPKq2rbr8aLMHgaGEDgj8UOPeDNC6Qt/vWUliLcZ6TzIZzx9DDJq82jMd
+         s89A==
+X-Forwarded-Encrypted: i=1; AKwUvBwdkvHJ/SW5WE65f4ENmPVcmRy7HMFTW8DZ1TndzMjEEYSAaOyJfz9tKyrURHu9tNVsI6YlvHSgHV/8TwU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NjuzUKHyR/IJID/OVMEw+2CfFRfH4dh0K00no4j3Aaopuw4n+
+	7Ztrhp46nztOmPIyM79bmowvLbEHrlnzEO7Ou9JQJsRUAsLei09Ydu9X
+X-Gm-Gg: AYBFou1Y5splrstYpzDIjQPSWRR6jX9VqPn+66Eydi2t11q08vJaZTPaNtyjicc2iIX
+	zETGwqfdfnvLjdw+tg5Pq1VPlLC4x24geVJENIbSNWS0zsAUKtSCCTtjxmHO+fm0J6GL3GQoUBQ
+	hU+OBDMUtHayYwqsOG8JiGxp+9a2MG/yRp1QiFWM5Gigz1qeTfDMHD0GlOGpq02xJwEcjqlWqcL
+	HXyI7Icxuc7BOwx7bKWwFVPLOmFfGzHU7y0kLU7qvgoSxsHQXvFbrXxzJu8Q6QRFWM0lk8oTKah
+	ukScfaKyuhl5B4XRfHeLuzG2b75damZIZdGJoyzpaP/+xxh9PJ/Fw4A3iaZHmR0ISvgDp6NCpPS
+	x8kKVbCXzX4KovKkZ8IMQGbeHIKAi6hXtFrYqUmfGHE5Z4qzSuiUaufMPq4lbJPV4e+DgwBkW2p
+	GK9Ff2nHmBQXXY9/csF4ZKj/FrvexwPmAa4w/zqik9QR4/tapipDmu2H/9n2Qy+Ksfeavf2v9Uq
+	E6lrtCRZs622jhaCzopFpc13fvut4W8f/bptjd8WthqgsP5M6vp8StWBqAhG8ZcvQGsO5hKLbqN
+	oSt24SieSn62+HDiMcxKVncR9ULqyeRnrPfeZqbwsybxv7vUdXCKGTu1dFP8sLgyIgYJmoyyotU
+	0QmOvHm5ZQhD2j141Epduw7V8aIS3plFqQHH/IQ==
+X-Received: by 2002:a05:701b:2806:b0:159:2c6d:fcc3 with SMTP id a92af1059eb24-1ac5d2c5b1cmr22007721c88.33.1793762841634;
+        Tue, 03 Nov 2026 19:27:21 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c127sm3574613c88.6.2026.11.03.19.27.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:27:21 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: ast@kernel.org,
+	bpf@vger.kernel.org
+Cc: daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v6 0/5] regulator: add the Will Semiconductor WL2868C camera PMIC
-Date: Wed,  4 Nov 2026 11:26:43 +0800
-Message-ID: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH bpf-next] bpf: Use 64-bit writes when inlining bpf_loop
+Date: Wed,  4 Nov 2026 03:27:00 +0000
+Message-ID: <20261104032700.55296-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,124 +109,115 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAXnUH4pepqKzSAAA--.3770S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3WF1ftF4rGF1DAr4UGr17Wrg_yoW7Xw48pF
-	ZIvrZxCr4kKryIqw4Sgw1I9a43Zan3J398CFyUK3yUAw45ZF1Iqrsayw15Za4UCrykW3W2
-	vF9093WUCF1kZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY
-	04v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8GwCF04k20xvY0x0EwIxGrwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr
-	0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5GksPUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2rqNlcjBwAcsP
 
-This series was drafted with AI assistance; I reviewed and edited every
-line myself, and I am responsible for its content, measurements and
-decisions.  The commands behind the verification claims below are listed
-in the series README that accompanies this posting.
+The error path in inline_bpf_loop() writes -E2BIG with BPF_MOV32_IMM(),
+zero-extending it to 0x00000000fffffff9 instead of the 64-bit negative
+value returned by the helper. A caller keeping the result in a long
+therefore misses the error when testing ret < 0.
 
-The WL2868C is the camera PMIC on the Lenovo Legion Tab (TB322FC,
-SM8750); its seven LDOs feed the rear camera, the front camera and the
-VCM on i2c10.
+Use BPF_MOV64_IMM() for the error return and loop-counter initialization.
+Neither write needs truncation, and this avoids the extra zero extensions
+required by the s390 and RISC-V JITs.
 
-Changes in v6:
+Keep the helper result in a long before checking it in the existing
+bpf_loop test, so its over-limit case catches the wrong upper bits.
+Drop the now redundant architecture-specific expectations from
+patch_list_insert_in_front().
 
- - Rebased onto current mainline (v7.3-20183-g05441d697f7f, tip of
-   master on 2026-11-03).  v5 no longer applied: the board patch anchors
-   its arch/arm64/boot/dts/qcom/Makefile hunk on the sm8650-qrd.dtb line,
-   and sm8650-valve-deckard.dtb was inserted right there in between, so
-   git am stopped on that file (Mark Brown: "This doesn't apply against
-   current code, please check and resend").  v6 applies cleanly on the
-   new base.
+Fixes: 1ade23711971 ("bpf: Inline calls to bpf_loop when callback is known")
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Link: https://lore.kernel.org/bpf/DMM0E6AA3KB6.28SYB9X6ZYIHL@gmail.com/
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ kernel/bpf/fixups.c                            |  4 ++--
+ tools/testing/selftests/bpf/progs/bpf_loop.c   |  8 +++++---
+ .../selftests/bpf/progs/verifier_patch_list.c  | 18 ------------------
+ 3 files changed, 7 insertions(+), 23 deletions(-)
 
- - The SM8750 CCI patch is gone.  There is an identical CCI series in
-   flight from Hangxiang Ma (Konrad: "There's an identical patchset in
-   flight, please don't send competing series without a clear reason"),
-   so this series no longer competes for those nodes.  The two
-   observations sashiko made on the CCI patch (cci2 is not described; the
-   sleep states change the pin function to gpio instead of keeping
-   cci_i2c_sda/scl) belong to that series as well and are not addressed
-   here.
+diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
+index 6b719a28be68..321624a4b2b3 100644
+--- a/kernel/bpf/fixups.c
++++ b/kernel/bpf/fixups.c
+@@ -2783,7 +2783,7 @@ static int inline_bpf_loop(struct bpf_verifier_env *env, int position,
+ 	 * expected number of iterations is too big.
+ 	 */
+ 	insn_buf[cnt++] = BPF_JMP_IMM(BPF_JLE, BPF_REG_1, BPF_MAX_LOOPS, 2);
+-	insn_buf[cnt++] = BPF_MOV32_IMM(BPF_REG_0, -E2BIG);
++	insn_buf[cnt++] = BPF_MOV64_IMM(BPF_REG_0, -E2BIG);
+ 	insn_buf[cnt++] = BPF_JMP_IMM(BPF_JA, 0, 0, 16);
+ 	/* spill R6, R7, R8 to use these as loop vars */
+ 	insn_buf[cnt++] = BPF_STX_MEM(BPF_DW, BPF_REG_10, BPF_REG_6, r6_offset);
+@@ -2791,7 +2791,7 @@ static int inline_bpf_loop(struct bpf_verifier_env *env, int position,
+ 	insn_buf[cnt++] = BPF_STX_MEM(BPF_DW, BPF_REG_10, BPF_REG_8, r8_offset);
+ 	/* initialize loop vars */
+ 	insn_buf[cnt++] = BPF_MOV64_REG(reg_loop_max, BPF_REG_1);
+-	insn_buf[cnt++] = BPF_MOV32_IMM(reg_loop_cnt, 0);
++	insn_buf[cnt++] = BPF_MOV64_IMM(reg_loop_cnt, 0);
+ 	insn_buf[cnt++] = BPF_MOV64_REG(reg_loop_ctx, BPF_REG_3);
+ 	/* loop header,
+ 	 * if reg_loop_cnt >= reg_loop_max skip the loop body
+diff --git a/tools/testing/selftests/bpf/progs/bpf_loop.c b/tools/testing/selftests/bpf/progs/bpf_loop.c
+index 1d194455b109..7a8ae1110c0a 100644
+--- a/tools/testing/selftests/bpf/progs/bpf_loop.c
++++ b/tools/testing/selftests/bpf/progs/bpf_loop.c
+@@ -66,14 +66,16 @@ SEC("fentry/" SYS_PREFIX "sys_nanosleep")
+ int test_prog(void *ctx)
+ {
+ 	struct callback_ctx data = {};
++	long ret;
+ 
+ 	if (bpf_get_current_pid_tgid() >> 32 != pid)
+ 		return 0;
+ 
+-	nr_loops_returned = bpf_loop(nr_loops, callback, &data, 0);
++	ret = bpf_loop(nr_loops, callback, &data, 0);
++	nr_loops_returned = ret;
+ 
+-	if (nr_loops_returned < 0)
+-		err = nr_loops_returned;
++	if (ret < 0)
++		err = ret;
+ 	else
+ 		g_output = data.output;
+ 
+diff --git a/tools/testing/selftests/bpf/progs/verifier_patch_list.c b/tools/testing/selftests/bpf/progs/verifier_patch_list.c
+index a9ad1dc56c3a..581b75b7b5c5 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_patch_list.c
++++ b/tools/testing/selftests/bpf/progs/verifier_patch_list.c
+@@ -298,23 +298,6 @@ __arch_arm64
+ __arch_riscv64
+ __arch_loongarch
+ __success
+-/* The verifier adds two zero extensions for these JITs. */
+-#if defined(__TARGET_ARCH_s390) || defined(__TARGET_ARCH_riscv)
+-__xlated("25: call pc+7")
+-__xlated("...")
+-__xlated("32: exit")
+-__xlated("33: r0 = ")
+-__xlated("35: r0 = &(void __percpu *)(r0)")
+-__xlated("36: r0 = *(u64 *)(r0 +0)")
+-__xlated("37: if r0 != 0x0 goto pc+2")
+-__xlated("38: r0 = 1")
+-__xlated("39: exit")
+-__xlated("40: r1 += -1")
+-__xlated("...")
+-__xlated("51: if r1 != 0x0 goto pc-12")
+-__xlated("52: r0 = 0")
+-__xlated("53: exit")
+-#else
+ __xlated("23: call pc+7")
+ __xlated("...")
+ __xlated("30: exit")
+@@ -329,7 +312,6 @@ __xlated("...")
+ __xlated("49: if r1 != 0x0 goto pc-12")
+ __xlated("50: r0 = 0")
+ __xlated("51: exit")
+-#endif
+ __naked void patch_list_insert_in_front(void)
+ {
+ 	asm volatile (
 
- - The board compatible in arm/qcom.yaml is now a patch of its own
-   instead of riding along with another binding (Conor asked for the
-   split; checkpatch wants the same).
-
- - regulator binding: the paragraph that described which board supply
-   comes from which LDO is gone from the binding description, it belongs
-   to the board patch (Conor).  vsys-supply is added and at least one of
-   vin7-supply and vsys-supply is now required, because both feed the
-   internal control logic, which is powered from the higher of the two
-   (Conor: "the higher of the two powers the internal control logic").
-   The other inputs stay optional: they only feed LDOs, so an input may
-   be left unconnected on a board that does not use those outputs, which
-   the description now says.
-
- - driver: the enable register is written as a whole instead of doing a
-   read-modify-write of SYS_EN plus one LDO bit.  The per-LDO bits can be
-   preset by the firmware while SYS_EN is clear, so setting SYS_EN and
-   the requested bit would switch the preset outputs on as well
-   (sashiko, Medium).  The driver keeps the set of LDOs that consumers
-   enabled and writes exactly those bits, so enabling one output cannot
-   power another one.
-
- - The board DTS is split in two: a skeleton patch (compatible, chassis
-   type, reserved GPIOs, board clocks) and the WL2868C regulators.  The
-   rear sensor and its VCM are gone from this series together with the
-   CCI controllers they hang off; they follow with the camera series
-   that depends on the CCI nodes.  The board clocks stay: they are the
-   XO, sleep and divided CXO clocks that sm8750.dtsi consumes, so every
-   SM8750 board file has to provide them (Konrad asked why the board
-   repeats what the binding example has; the binding example contains no
-   clock, and these four are consumed by the SoC dtsi, as on
-   sm8750-mtp.dts).
-
- - The VSYS input is described as a fixed regulator, as it is the
-   always-on system rail.  VIN12, VIN34, VIN5 and VIN7 are fed by SPMI
-   PMIC rails that this series does not describe yet, so they are left
-   out and follow with the board series that adds those PMICs.
-
-Verification, host-side only: every patch passes checkpatch.pl --strict
-with 0 errors (the only two warnings are "MAINTAINERS need updating" for
-the two new files, one of them being the driver's own entry added in
-2/5); the series replays with plain git am on a pristine checkout of the
-base commit, 5/5, and the result is the same tree as the branch it is
-generated from; drivers/regulator/ builds with W=1 without warnings;
-sm8750-lenovo-elden.dtb builds and dt-validate has nothing to report on
-it; dt_binding_check passes for the new binding.
-
-The regulators are still not exercised on hardware: the i2c10 probe, the
-regulator registration and the LDO voltages come from our own downstream
-board DTS, not from a measured boot of this series.
-
-Qianhui Xu (5):
-  regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-  regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
-  dt-bindings: arm: qcom: document the Lenovo Legion Y700 Gen4
-  arm64: dts: qcom: sm8750-lenovo-elden: add the Lenovo Legion Y700 Gen4
-  arm64: dts: qcom: sm8750-lenovo-elden: describe the WL2868C regulators
-
- .../devicetree/bindings/arm/qcom.yaml         |   1 +
- .../bindings/regulator/willsemi,wl2868c.yaml  | 104 +++++++++
- MAINTAINERS                                   |   7 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 129 +++++++++++
- drivers/regulator/Kconfig                     |  11 +
- drivers/regulator/Makefile                    |   1 +
- drivers/regulator/wl2868c-regulator.c         | 212 ++++++++++++++++++
- 8 files changed, 466 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
- create mode 100644 arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
- create mode 100644 drivers/regulator/wl2868c-regulator.c
-
+base-commit: 8fb43ffc3327d12d57d3fbe6f4820b5a522de0d1
 -- 
-2.53.0
+2.43.0
 
