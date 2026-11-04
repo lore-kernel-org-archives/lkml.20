@@ -1,59 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821374;
-	b=qpenGW3hBNgj1LC5dmGAplNh3vI3tKAz7CsqjV3HCGljRtv3B59HMrEPvA/Rtz3Q9v/4
-	 5UWTmb9t74696oI+hZ64dUOzHZCWLA73CwA+h3qVanZnv4OdQuxTSsefYfmHVBrcfeXR8
-	 Ptul1nRU8VrQCsd+w8gRp++yHkQHu+GAJUD+EGwrtkNGSBJkDU9yM+CxL2Fhj8zqG1rZj
-	 oRN54G39o8Q0gwVUHYl98m0VveRGM3hitgO5DYGuNHe7kcP2+xMX7Wul00rB+IRFQvekN
-	 FdQT+SzmwHYeGp8+d1r+N2mp7n/wgSX/bdgoknuALT6mT3XjdfuaXgPIl4tWZpmnH4w==
+	t=1793821376;
+	b=HUAlik21N8TPO9UUDMEVO23m72AWqxBFthd881PlyvqCM1/FjG1n+ffi0mrNsamLsxnE
+	 n+snk67OLYW0u7+BZYQizmxfkvbLouzyhhgfsqxd5mRmKi46InuizOVDqdfw9UCiuZ0cd
+	 s6tXovcFSck2ZjctfoHERI9Wa6IHts+tbFzdbC+/OPlmA5hOpVGEYOvo5Zwa5JPlGzJbZ
+	 nFSlDOYP5dR0vporaaCWHWGnUxN+u7AQULWaHhOY7hh9xzIFTtNXDs04eDBZvt6a3yxVK
+	 Go+92rbCPhGd4TazwqdyDI8wHsqVk+CoJ6PesJ8My6JOGt4H4Nmmm0jG27a1InXQMfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821374;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=m+S9j1fc7QzaKSoehi2h1oJPGRZU9IfVV4cj6FL3ldc=;
-	b=EMNxRzsVJjsA+7sF8x42FvuSRgpHX6w4di9FiizScYdbhWFn43LxPlGk2bFcDGPkoz3n
-	 UamryCGYV0qNUOB72xN+3a6PDx2kg9/V35CyPTs5Jg85clbR9W/liQBd02lmNPETti+gL
-	 POcjheJD2sLeUExYP+ZQroeU8hjNokjZ/sANV/ckgs+4r1T2uCOu7Dj317jzKtQBPAjoM
-	 FcBCXQQJk/3O+Ebz1iqGbFC8zyGfH2h1Y+6P6xxhduP36Jpwa1EWLRTIZ4HdS3KDO/d7a
-	 YzYAbvsq8bqJv0WqVzhgJ4i9V7JWpC7EYexPCu8DZ9LZtAW2OEwAE+xLDS0fWJ6Rf3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821376;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=rahx1hspTnUUAQKpjFRic8Zz7t4Brzv8z/TuH1t1gO8=;
+	b=dmeOD7ftfyWo/RvKYFJeGm8VoKNU34p2TnkUIDEsYgHHND9+/7U9kZa9p0MXk8hb/5kP
+	 LKoI51lMaSGuLWRRgnijkVM5y8Lsf0AZe+NH2cUoYZ6+TxhHC/jvtuSip2nkgYoZGTOvp
+	 WNmh1rSEVB6Zjo/k5G7qVO5Gh2Z1P0bBQnLTkuAnHL/Ee7I3q9Bz2kaexx2X0UIZrTTlt
+	 xTZGRj1CCoap+Co8XODVCmTUlW54prHvUpCEXrayB0o84pWJQm5UBAVPT5M68ovZhowAC
+	 fnT9S687mz9GMBgB5vGeTQ+EOApCGkpPyneMGaz9GsJD5ewnQTQKxcYST7BINTAQ0aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ZGy8vRik;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+v8MGUB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9531E6087D31
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:42:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9531E6087D31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9DB6072F88;
+	Wed,  4 Nov 2026 19:42:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ZGy8vRik
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=m+S9
-	j1fc7QzaKSoehi2h1oJPGRZU9IfVV4cj6FL3ldc=; b=ZGy8vRikaM9exXQQzPqt
-	PEwMUORsezmRH8lXJfCpy8QVPmUhgCwVjFrMKaIYHVFfJVBmMXZNbUr0L+L1/6ZK
-	6Zxep9gBRLxTQUU5cq0wZl1866GeLWHqCxHQa9U3L4OT+pOkgYR9g9Me0PDgYTkp
-	sReiPcNYpE05WEHk069ZT2a7sAaLU52a1wk0HUo5SeLY+5xJGFVZPGNHt2ifhPCh
-	GIzogiopVLAO/pghQ52twipxYzsBBjSFMfinQ+ki19feLfezzRWsf4iInPDyRvld
-	XDY48LFRfAHa0D1txgR0c1Adwe30GG2iI25LneY6UWjwD0oQZak3rtrwOyzWK9iD
-	0g==
-Received: (qmail 839364 invoked from network); 4 Nov 2026 20:42:50 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Nov 2026 20:42:50 +0100
-X-UD-Smtp-Session: l3s3148p1@gzWIlXhfdKvAwtcC
-Date: Wed, 4 Nov 2026 21:42:49 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
-Subject: Re: [PATCH v2 0/3] i2c: dev: fix blocked adapter deregistration
-Message-ID: <auuKuSVcFC6lVgGU@shikoro>
-References: <20260827102043.673273-1-johan@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+v8MGUB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDECB1F00A1C;
+	Wed,  4 Nov 2026 19:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793821376;
+	bh=rahx1hspTnUUAQKpjFRic8Zz7t4Brzv8z/TuH1t1gO8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L+v8MGUBoH1X/DvXSD0FceOQi/7/9SNVN/Ty1A0Db3pP2tRHNvduiU+oluwXEpYIv
+	 vBloEcY3uuuLcYM/xkh9Q3Ii2iBnjyZbDio64xuo+SFrAPccC7M1STU5AfhNZaWOa5
+	 +nP2mu+sMxiVgQETEU4GnEEdQBOVRnqy1LIn5OIvtUx8y3NHNRNYHmSudIvZhlAsk3
+	 OeFfLyoqwVLhzDi55Du9gghVSwsVXKB+q9IGj4gdTIup4tw4O6Yjot81gM8SBfXGlP
+	 DerjiZ0JrNRX2zN8YxL3cqjnpijuu2TiisPtmqNQmMQzMS3akxk6dzKVcJZYEqbHRC
+	 UCnxPV/KjlSKw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 02/26] zorro: let procfs copy out reads
+Date: Wed,  4 Nov 2026 20:42:41 +0100
+Message-ID: <20261104-work-procfs-drivers-v2-2-245e54e87116@kernel.org>
+In-Reply-To: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
+References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,52 +114,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QA3Hpr92Br5cZit3"
-Content-Disposition: inline
-In-Reply-To: <20260827102043.673273-1-johan@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1540; i=brauner@kernel.org; h=from:subject:message-id; bh=dTcni+P8tIxBcivisIxgfSpNG7N2UBKEyjWqJewPrL0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97iqNXrF3deYLX61HjldsFnR/fLzW4ucS7htqmRfnb lp9iV3QsKOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiHkkMfziO9O96MiXH7oKe 3ttd/GcsTDguvkv8x6Mk19PlFNXPtoiRYf6v1T5HznUdqLi4/U2FCv/VOxZvpb9rrKvZvX3xnf1 XX/ICAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
---QA3Hpr92Br5cZit3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Implement ->proc_read_buf() so procfs copies what is read from
+/proc/bus/zorro/<slot> to userspace after it unpinned the entry.
 
-On Thu, Aug 27, 2026 at 12:20:40PM +0200, Johan Hovold wrote:
-> As part of addressing I2C lifetime issues, this series fixes an issue
-> which may actually matter to some people, at least if they are playing
-> around with USB attached I2C controllers, and whose fix does not depend
-> on any larger rework.
->  =20
-> This could possibly go into 7.3, but can also wait for 7.4 as the
-> impact of the issue (both in terms of number of affected users and
-> symptoms) should be limited.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/zorro/proc.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Oh wow, I completely missed this for some reason :( Just discovered it
-while digging around in patchwork.
+diff --git a/drivers/zorro/proc.c b/drivers/zorro/proc.c
+index 4c6f8f1c4d71..99a8b478192d 100644
+--- a/drivers/zorro/proc.c
++++ b/drivers/zorro/proc.c
+@@ -28,7 +28,7 @@ proc_bus_zorro_lseek(struct file *file, loff_t off, int whence)
+ }
+ 
+ static ssize_t
+-proc_bus_zorro_read(struct file *file, char __user *buf, size_t nbytes, loff_t *ppos)
++proc_bus_zorro_read(struct file *file, char *buf, size_t nbytes, loff_t *ppos)
+ {
+ 	struct zorro_dev *z = pde_data(file_inode(file));
+ 	struct ConfigDev cd;
+@@ -49,8 +49,7 @@ proc_bus_zorro_read(struct file *file, char __user *buf, size_t nbytes, loff_t *
+ 	cd.cd_BoardAddr = cpu_to_be32(zorro_resource_start(z));
+ 	cd.cd_BoardSize = cpu_to_be32(zorro_resource_len(z));
+ 
+-	if (copy_to_user(buf, (void *)&cd + pos, nbytes))
+-		return -EFAULT;
++	memcpy(buf, (void *)&cd + pos, nbytes);
+ 	*ppos += nbytes;
+ 
+ 	return nbytes;
+@@ -58,7 +57,7 @@ proc_bus_zorro_read(struct file *file, char __user *buf, size_t nbytes, loff_t *
+ 
+ static const struct proc_ops bus_zorro_proc_ops = {
+ 	.proc_lseek	= proc_bus_zorro_lseek,
+-	.proc_read	= proc_bus_zorro_read,
++	.proc_read_buf	= proc_bus_zorro_read,
+ };
+ 
+ static void * zorro_seq_start(struct seq_file *m, loff_t *pos)
 
-I will try to find some time soon, so we can have it at least in 7.5.
+-- 
+2.53.0
 
-Adding Bart to CC, maybe he is interested.
-
-
---QA3Hpr92Br5cZit3
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrrirkACgkQFA3kzBSg
-KbbtAQ//VmURoKTvNHxu/U5xogAuzFrVAYE2VRLPAjeRBPlW8lSnNNoXfpgMxUrA
-kGm65qwpzjl8vwgvOeM40REpy8sE4/1/kO7OJPbfSB9+oz8nt3HDdnmaoiwn1a0F
-YhX5NbSEmit0uHNI0Pl5NliPvLJ9nGqcKSy6LabPFGaXGYIveoYYlfgnR+RCHPBg
-OI5qEdrPQJX4Akpy8DiRgy+OnZY4gexkkCq+YRU1fxvHy5gKgG1nKXUwpXm7Cpw3
-l3qyxDu4YTfN9M2UH6SIKMW8Lc7pe2tBLiJCWZc2ACwJAyV1cyFbFKAl5As7zVtv
-4ufr4dy3L7x3YZzHjC5i3mV++ZQLZUmlbirE9j92uBBbHpLMqGPH4Hl9w+avyZXl
-hYFQlBelJjCqqJJ3dNZuYFQJoCw6CwxQu1bxImaQvjwf3z1+g2uf2ajISvJyqEbc
-KS2pbZlSQYrzaPGAkcYGNGzyVzdh0RUlw0db2TKlHHubtywb5hrzBZ7krknBYwug
-OYp1I5wU9d7sTuxBdh5QnFB/0dgppBEHGxQl7mWid5XgyZVBf2IpCrI6fecNEbvK
-Tsm9hcxYscL64jnXfBye+JfPOyD5HhMyx+XUIoXCxIT2boU6598DlEMV0SBfFFOe
-YQUkQK+ZWTschNZZURdLa6JiaeUfKtjZJhUFvVDY3eg8XPk43io=
-=S4xH
------END PGP SIGNATURE-----
-
---QA3Hpr92Br5cZit3--
