@@ -1,86 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832119;
-	b=V2hLXPow0WZRpglHRCZeho58/2KFOnolvZxMCXB6e2cmoubdRhquGKwXaAcDGOPHJzNR
-	 7nalsxr3VBKprI0fAQMCjETyROXh0U133EuVU+RK0TQnA1Trcg5Gb6fWVZt7Jn31GsWB8
-	 ATDl6WzNtW5Jvg5l7Fs0dzTJih/UepqnnhVG37LfEg4SidlSMKu3GVUEeA/Ff/kHBhcLA
-	 MAJGpkoBGHIHV7ndlwpbBPAsyMc5FiGapcVuGVjoPqUyO5v9bvwyrFdexj8TTPSN1wJX4
-	 iGXkEI1ng1M87EdpVfnEaDd8vzBVAOp5SeYZmsFPqC+j5sdREhlkwWGNh14+aYU5kAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832119;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793832120;
+	b=tEMgbIspFzN8RRk99wtRhK7+iPJicv+43IKUvcx1dXLdQKk4m5ntXHGypG7JL1ZRCj8M
+	 jCscZhgT1Lj3bp6HmWTUDvx3sAkwotumqJG4r01nKX6KK0p1OyVIf7rI5DfieVyPILLp6
+	 S0MRRSH2vrr+/urSNfBSbgFu8JlS0vkikqSUlPgDvTjHyeEueWosWTxJ6r+XLC8t3F/O3
+	 zYdHHT6WvpnN6J6sXTk8vzpyYvvz2znP4cZR6N697SJ9gt/9JrP0tMotfY/rdBadUYIAa
+	 dCyosQrg4BlihXCmFx5EKWyke+XajY9k3/tLc9fX11Iljogds/TQX7VwSWoBBkddThA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832120;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=7JJZFX7GjlSxlyM1xt2ZPMCBId8gHLPODjL1RlXKQBc=;
-	b=kHuIl1PmwpDWbfhaebyPDpMBdoMY5HKWBgF7YFVTy2zqVeUdEBImDnCW7ny9eUypAoCL
-	 2AcmT9drWOlzOC9t1I7Yh2hQ2j6xZOPxdcnet6CjjMbIv9WLuXDYQFgp3mtRLhmC5Jv2p
-	 0n48N2nWVOJMeXxFRFz1Q6jTPQ5BTAQAWfZe+VM+gDWOG9TpSUs8isOsapYx+bNjphxOD
-	 XO/Rw5ifhB1Tj20wV+EA2QLtTGEnoy9onqyGFw8jf63ZjSnMmXeRPxXMPrv9AT3XHfxkb
-	 pYMhLWS4F/2JQ+Cb+QSALF7vshDfnbM9tidBa2TCmBcULcTM889R36BC9PO1XrhP/CA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:X-Mailer:In-Reply-To:References:MIME-Version:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
+	b=WzDznE8XSNVNRiUoooVh3/jXsiydwpY4+/0qB/G2HbqcN/Dp9dL5fTeyEcMKHd5A4pEP
+	 6IrJH1jC/cf1dV1SZ32vziaqIvi8ehnqCe9xbjQPc+XwDIx+LCyxLcMce3OfpbamWCdLJ
+	 T5texEG7abI6ARUMKEPfPRRCSbQmBte/+b3pVl0smevt7YcdrNrgEwvnpc0OlUhsPkBd8
+	 0Yo7w9yI06RxEa6nCcttlScWNSGwKlYSY9kZhvjjl+ts3t+/Bb1+4cnOkPAv/fpyS/eRO
+	 CZw42ukX6rvgm8cuxN3Qdx6OdY42SVcvttxbcfhdI/3HJrZZe8Vq5tgkdy/tKwALx3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFbWW6xx;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nrJYosoc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECD1606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1335606A335
 	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ECD1606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1335606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fFbWW6xx
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so14478565e9.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nrJYosoc
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49de8ea072cso517072fac.3
         for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:41:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793832119; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eXNHtK6etZddwQMjkX/AaMBH2PABhvRwGPyr/o8j/WD0PXGsiLR7vdwH43DoF8Eot2
+         F7ypDGLkSTJoJJtBtysrHuanhsjo6ANnqRCFho60/Rs3dKY1MmRg6fcaBS5795CVo1/+
+         j9xjUDOVr2/oABHfpat4tzJWOoQzIADdpqP7BPTyf4phWG4t496NsrYmPXLNpobvjaDw
+         w2LGRusIKxkYYOOuzqMNrhuowBzb9XktKYo2IodEA5IXDmZ8rWMvtZ3Nj2oewpwzTunf
+         jLu46jVoz2IGrt0pwEZC/TqeR8Qpp/mv7IhLAYIACw9SDyeiPeupqRDyEkzUsg9z0jIr
+         DPYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
+        fh=1/w2MFVGVyjm0ehMdOBNf8Gwh6dtwiFwXp2wqPm8GZ8=;
+        b=a82SnXf6Tj1HL3M/6N9S2WqkKE+aT3vyQHpebDjxnPf8NoXopzXBiBtrlFFr9xG1KN
+         7gHULh7CPk5MrTvJqW1RXSYqtOFFFp4gvrmzKM+KEHzxXuq02eK8wpIQ30H3GN/2tuMx
+         npHtBubxgq/knfcJQ35ScvkCx0aOw7F/3Nre1zTXSQsTLj6bKJNMQa6UAMUeuA5j7GBO
+         b2fFVAFmYkwCDcveFmrgsolZ5NAxHKTQHUEyc6gv/Wd6FyDZphC3aobPGYrMprkQZeOj
+         MviDqGOjq/GziqD1Yejsy2+DmmcLCMaoGsszrD5VNVuCrJgEQYz0jRjBdGb1hrMgZLay
+         fyww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793832118; x=1794436918; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793832119; x=1794436919; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7JJZFX7GjlSxlyM1xt2ZPMCBId8gHLPODjL1RlXKQBc=;
-        b=fFbWW6xxpsEYD3oBRYSPO2sNLgd6voHxFWw6v27R9u4eGWHvAoWP028d3VlkW5ygPd
-         o6GkD3FEd33GcyZ07604PYcoZhlGTKyi7yTV+yZaP3etjwvjRsXrfxPOwNLEcC/CLi4l
-         Y2wbsIk0WLLhjn2NNPIcvBBwlZV7sB3fV4JuG8oEUfVV/SoLzgEv8ZRbuyQqjkhFABkL
-         2uDqksTjbc4/Pz7HYCQudk4MYdBrxqB/+jOlKncdPyKaxwEY06P/2uRiX5WUJhlAUsPC
-         l3xvkUW1p7Q6CBtjRtHmYNEEYsoLoaNbbRp3/Csi0TcnfFU+Ub69W6XxG6U/kumHoFLd
-         RvQQ==
+        bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
+        b=nrJYosocl6Cgj7UFFT0f3IuLJLZzbYzD8JYNSuLY6nmx6k5rAOOgl2sLqWZ53No5/G
+         Rdwgc4zwNZgKbtUafDAnG+ZpNXst8rD7tdmbm/leDSJoCGsRpdF59y6I2T+X866kCWUQ
+         gMJFpRJa+VqueDUAdLZR/p6wg2YvL3lL/GJXgvkqPY5fL9077zgHllbNAGUkTZovF5WI
+         oT7gNX0nM9TiDgVqdjD7UYJqsgJ9enHGPJgUsN2cv523Dace9Vew8fHiEavqXIc/sV1l
+         z6D4n++vCwDwiZ9SAXtNqNneVD3ocOr40GtT8M/eKeZFotnjKKk2WK3XnOjAMGcEzR+V
+         psfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793832118; x=1794436918;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793832119; x=1794436919;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7JJZFX7GjlSxlyM1xt2ZPMCBId8gHLPODjL1RlXKQBc=;
-        b=PFaireUjD5A5L/gsH3it14qalcYIvGJz9mYr1HK/fU8fpFZXjhSbEcsiXlgKeI42h0
-         6ks2p0Km4yyDDFKQ+umjCKkKtOPnQ4wd2RczxOCWnPL9n8i4DIr92lqUCm1HjF/YsLbw
-         TReDD1uymBhyK+XPXzRWglBZIwBqA/nnzxp/sgtWhVQPFu3itu5f26gdodnLqDfeb03a
-         QonsPWHhUiAWxPR4OhnqKUeid3o1WYkztDpxeh3dccC0kB02ROCgny71mDEU30GLInVN
-         vfwbG46EHKDYW8LmzPTVD3pX7y5JPiq2AejX4L7cW5dciWUef+rM/W0X3BLOp7620Rmv
-         5d2A==
-X-Gm-Message-State: APuU4Z/fYLiYvvvelzp0BGki+y3AmI7zCKZz3Uv/EU4qjQwslt5AT9wr
-	Y+NQbR05CU/Rb8scKkk3/zVfhytq+1xFQY2y7zw6uOtiSLT/OQIYSnx5
-X-Gm-Gg: AYBFou3U3w0G7t7yfkqWDSlBjWjW+ICWH/EwYZBht6w7Ps1ah9s69W0M2BUTAV9YRFU
-	RZGFjNbFYYwvwcBO7WpmX9fofSHKdyA94JNUwvXi2s9+8IUs/E3emplfE8FR64Fu4G4oQ0ExyDC
-	3FBGfukzvVTifUQ1G3VWDG13uZbvuya8oJ3dV4uWh28tJVjXwvNnrbI4aGKluoi84XrNJCVx2zx
-	PhpoIOQmf2bshZMuLVb1WdMLQ8ix6+mk0plz8t5LHYtmhbnYSCeR4rNbXLlDiYHUPqZ4UoaxeC7
-	w9VGQB1B+21bWs0LzR6LWZhxDWIgI7Na0BiXxW3nm8SppywvPBBwIxiubQGad4KnHYwjU9VoTUs
-	Q8BLTCqVawhLwawfOeJHOPDUl3jZEei/nbxJmSOxmAsygvad4rvxQ/pJ+yCXEQjynGCf4jSV8oD
-	J+qlS6c0TQzqv6R7mwUN2NuT/Md3w6fRyFOMeu8BrKLWkBkac/sV8lQrB+wdv1h5keM2coIPCBk
-	HEoijhwc0M0MB7C41E5AOxRsQfjaqUwIZc+dHQC/RwkEiaCZq9is/tAFQMWx7tYeb5SNWgf6SLe
-	UzIHXvkQtwUAIW9Bffa0dU4=
-X-Received: by 2002:a05:600c:4e50:b0:4a9:2a92:231f with SMTP id 5b1f17b1804b1-4ac16bc461emr393154585e9.7.1793832117676;
-        Wed, 04 Nov 2026 14:41:57 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed551dbasm6018773f8f.37.2026.11.04.14.41.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:41:57 -0800 (PST)
-Message-ID: <d4b5e996-e718-452c-afa9-e9d9e08712c2@gmail.com>
-Date: Wed, 4 Nov 2026 23:41:55 +0100
+        bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
+        b=j2QpJqFRPiAWjtLEXGyhNXpqLpYGzs3Uli/2QboMF0tj1rdDi5ML5FPWMNJDIx3RvS
+         C4GhXEKaVx4R7x6KfpROXiZhKtEHLyDhOlfIM/MilpLDet8U++4cmdxheM59m03vPDZ3
+         SOA+V0yjRyt2WLvd5HtgxRVA2D4ykr01p5X/y2IqvPlKez66Jsx0E3BPWXeRVZQ6+8y2
+         MffQcomNoLgcrpxImg7IZ0izUwR0SRS4gqEmd/TiWhiTPH6k1X9nZOxez1zzJMwTripv
+         xH2rytPha2gz2+yy+08N7AGHZ2wQGhedmHDrWzX55T2acEKHT88RUpa+M7kFFHYcSjlT
+         kcwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGPwYj5ArYrbKevyX65hPSDOcYBmFE6Fp43U+PiS2NLVDkfSUk0LnT8jvtTV3viqe8SemDSwTXw39BKPg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CAphf0a+7NvKsdYuXYfinynQDRW9VxbVTm5Oro53YAHklhT3w
+	c3wSmsUw1ixyeC9uWPMwdWwPwkCBX9J4N52PHdusexGcbB8PArzJuMQQe5ZiiNpz9cdAyuSvVvJ
+	b9uLWvjvFQjYQ2SOserstTDCAzsROUH4=
+X-Gm-Gg: AYBFou3r6qB/Vdzlt5A7p/ep3v+s5NLofM4Uh4sFlo4lQq3g8mFsjz192AmQvbunVgm
+	/5SNoHRrYDqjr9/nJYLImUl6ZFieZCYpeMqxI6zBNguECm+VWHXJeCQgtwMGw/BzVM31zpDVDHD
+	ZAFvHJmoMEuYTdmDOLXaoaEorf/qtUtPeLl3TyFUY99LzmwO96294iiKRZIw1kC23oha7LSoyvB
+	HiYkTr3CRbSZZF0eokkG7Q+Ml70Ep9mH3E+zfN3+Z4ka/uwepMCSzTrARwCo1tsEEyuzgetqunk
+	hIJlMRJufW3Fs2MriXsVAg9tCjK/R7sU4yzMrRSTEjkCsSk5azu71gfciDz3TPz5W3KZZKJFUkZ
+	FlVC+6Xd3OH4O37qA/YBrXe91iCx64FgKv0xjWPab4iQ4JFgGMas/yoKpDKoMnd2F6ywD7ss=
+X-Received: by 2002:a05:6808:3a13:b0:540:5827:6d8a with SMTP id
+ 5614622812f47-5640de8d663mr11690958b6e.66.1793832118868; Wed, 04 Nov 2026
+ 14:41:58 -0800 (PST)
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 4 Nov 2026 22:41:57 +0000
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 4 Nov 2026 22:41:57 +0000
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <CADZg-m1A5qKMfXGtQw_s9-tYDL-NinDX8bNAxurFkrWRRq7ZeA@mail.gmail.com>
+References: <CADZg-m1A5qKMfXGtQw_s9-tYDL-NinDX8bNAxurFkrWRRq7ZeA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,58 +111,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: split out memory-failure declarations from internal.h
-To: Breno Leitao <leitao@debian.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin@linux.dev>,
- Chengming Zhou <chengming.zhou@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-cxl@vger.kernel.org, kernel-team@meta.com
-References: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 4 Nov 2026 22:41:57 +0000
+X-Gm-Features: AclHuK8G_S36ePhSP8ix8BUldjXx979HTJRdUgyJDXB9GJjPu8eEhpUl8IqLEfM
+Message-ID: <CADZg-m06Zf1c63em8uJaDKVQu68sHbdBi1oZw7JAbhUtvk5nXQ@mail.gmail.com>
+Subject: [PATCH v2] dm: Reject table setup after queue or disk teardown
+To: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com, 
+	bmarzins@redhat.com
+Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, 
+	syzbot+5307e3bcacec2ce4c2f0@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/4/26 5:45 PM, Breno Leitao wrote:
-> mm/internal.h carries the memory failure declarations, but only seven
-> of the 81 .c files that include it use them.
-> 
-> Move memory failure declarations to a new mm/memory-failure.h and
-> include that from those seven files that need them.
-> 
-> Move the block as is, including take_page_off_buddy(),
-> put_page_back_buddy() and page_mapped_in_vma(): they live in
-> page_alloc.c and page_vma_mapped.c, but are built only for
-> CONFIG_MEMORY_FAILURE and called only from memory-failure.c.
-> 
-> Keep the declarations private to mm/.
-> 
-> No functional change.
-> 
-> Suggested-by: Mike Rapoport <rppt@kernel.org>
-> Link: https://lore.kernel.org/all/aumt-4kfGGtoXuh-@kernel.org/
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+A failed table load can leave a mapped device in a state where its
+queue has already been initialized or its disk has been removed, while
+md->type is still DM_TYPE_NONE. A later table load then calls
+blk_mq_init_allocated_queue() on the same queue. If del_gendisk() exited
+the old hardware contexts, blk_mq_exit_hctx() dereferences their cleared
+flush queue pointer.
 
-LGTM:
+Reject setup attempts after queue initialization or disk removal. A
+failed request queue initialization still leaves md->tag_set NULL and
+can be retried. Set the request-based disk operations only after that
+initialization succeeds, so an unsuccessful attempt cannot leave a
+bio-based retry with request-based operations.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reported-by: syzbot+5307e3bcacec2ce4c2f0@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5307e3bcacec2ce4c2f0
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+---
+Changes in v2:
+- Resend as plain text after the previous mail client reformatted the diff.
 
--- 
-cheers,
-jose a. p-a
+ drivers/md/dm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 1881d86..2f3f1ec 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -2606,13 +2606,17 @@ int dm_setup_md_queue(struct mapped_device
+*md, struct dm_table *t)
+
+ 	WARN_ON_ONCE(type == DM_TYPE_NONE);
+
++	/* A failed setup may have left the queue initialized or the disk dead. */
++	if (md->tag_set || test_bit(GD_DEAD, &md->disk->state))
++		return -ENODEV;
++
+ 	if (type == DM_TYPE_REQUEST_BASED) {
+-		md->disk->fops = &dm_rq_blk_dops;
+ 		r = dm_mq_init_request_queue(md, t);
+ 		if (r) {
+ 			DMERR("Cannot initialize queue for request-based dm mapped device");
+ 			return r;
+ 		}
++		md->disk->fops = &dm_rq_blk_dops;
+ 	}
+
+ 	r = dm_calculate_queue_limits(t, &limits);
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
