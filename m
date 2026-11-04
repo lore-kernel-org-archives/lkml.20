@@ -1,53 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801334;
-	b=KQguwf7fxXqMhw46lpRnQu7N/rx1BWonc5+14nqrO3EGhOsgnhgc/NmusQvykPNAUvF0
-	 4HRI01Jkb7h9XcxuTToRkY0y7lOKjjJM6A+6BY/arzeEb7nT31Q9DjRZO4R4kXh4QPdC8
-	 dxWE51cGToym/otvZudvsmpqh8sKfuUcdDCoo7ChKu+az7VcN8WUExwraoVTxhUvmj31g
-	 0NSG5lbo8gmpn8Ay/nOTl1RCt7IbxdSlXc8iLgAsz1LUsD48OoUqpfX77pMWABLcUpMu9
-	 nEvvaGGASUu5rPa6CToSM1b/ubmMyTmVChhuX/xlwzGKPAYerq4kqioL+KZKVf1QI3A==
+	t=1793801338;
+	b=Z6lGxzOvGToblLFTDeS24ajJMNKU3/NpDjzWQEyefvTrx5c61U6snnw3RjIfKVnxGafg
+	 aN/zFhBEBbMfV75MLWrhdu0M09LqyRTgyT1Z0wn3HvbOd7MqL5MeU54vr2MEH21ezCyc0
+	 kb+v4mKQlQ0nItYfiZZEylkeFcbDEBatvtnMxRNmw3dGEHCHMbCzEsWcgo1mOWiPiOsO1
+	 5anUnexbfPs1DBHw/FbBvI1iUERBFVc2KOwhAd30jkbHlYWzsAXlUNnbeHWNMCkfjsyBW
+	 jtJY4B8gTXYYmA3BwZGKWXphH5/sP1xh0z5cpzFpHL7FDHeHB+PztovaH7dMd/VPEeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801334;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=3mjuh8CzJvv3A5SO7dPmFQ8pnk8Ii5U4CXPIduE7Fj4=;
-	b=rF7A4aRhpGjd0YILpJjRUs2qc6Qcbw5/yQTz9bzAERk/YZa5OLYZrgu19d/4FAyWQrwc
-	 LIacgyWSeqPztgIbLooAmV+KbVNP6PC8xkKaosHIw+TBMVfhu3+T0Kvuot0FrSa1misAc
-	 5NYTnAogr4wmIlYmNuWa63kbYN2ujgPQMTmRJOBYhMYsNtonei9XENOTlFfR/Ga7Vm93T
-	 N7KxqkHQvdcRvtJeAA+/aQgq6tlBk10Xaz23zgvgMTN2SncV7SgtrH0GLR7LBhVynOi+Q
-	 yVS2h6trhxEh/vOvNAgOH6Lrl5Pfd/NqbODW4IxONEPLcX1SAX6gHu6CWjkzoezLhOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801338;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ECQTKAjZ9Np9eYCJw+nsz0GV09F+1r+fPvzJLI4eMC0=;
+	b=NV43XRoj7j40Y58y95xDGK/sdyfdF9qO4utjz2TlyBjoTEMxl57mdhTFQ71mGQuNFuii
+	 tSw1zlyLqWOKq+jZnHpDyXHZjC8Ztk04xqLUrY4uOhoei+hlnhfaHJfCc8VQ9HShmEm2l
+	 E+frXJqt4OouGGwA9/1nXjcLamueDNnejoR1XMnudR+TlzcbLPjUDO5HGuz32sddrmBoz
+	 ZCGq3W4ANJxcSIjF3Jcl78aEuXTsS5DXNNcON3d4A16Dw0Hm/G2kLTG9MkgI2YziUKXmz
+	 XyD0SUyngeoNE3tQ91YuDNJyq5D6U3LM2NB0bDIn9psbCUesmY8WR+0OfWgNinZFUQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L3Ni/6Jd";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A929606D80B;
-	Wed,  4 Nov 2026 14:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A929606D80B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jKS3L3bjbz57HS1;
-	Wed, 04 Nov 2026 22:08:46 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6A4E8T4I019770;
-	Wed, 4 Nov 2026 22:08:29 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 22:08:32 +0800 (CST)
-X-Zmail-TransId: 2afa6aeb3c600bd-34fa7
-X-Mailer: Zmail v1.0
-Message-ID: <20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn>
-Date: Wed, 4 Nov 2026 22:08:32 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727F8606A31B;
+	Wed,  4 Nov 2026 14:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3Ni/6Jd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDBA1F00A1E;
+	Wed,  4 Nov 2026 14:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801338;
+	bh=ECQTKAjZ9Np9eYCJw+nsz0GV09F+1r+fPvzJLI4eMC0=;
+	h=From:To:Cc:Subject:Date;
+	b=L3Ni/6JdXLXkmWuWZP2wBbTTZHR/OlEjjRFmeW0CyvG2837XjCGJGlpU3pl6wCru7
+	 0TdQTSg+pf2PLQ6BWMHJTZWZR5pQlQSJml4Mm4OKNgiD1fRlynLwpk4yn8Kc+s9r1b
+	 sEvAVELNzytolETzkviGZuuZaT4t+vZvMvbjTYPF7U10kvTILRA0qcZKbacJvMc13z
+	 5tH993qxLyTdviQi+jynYW6QMlF33FEPyEAnP4U7Twgm1jzcJyFz0RDUgrW8UfRmOi
+	 5iepJcgHwBGQMxgvtpEv1s4+2mmkJ2vN3bdVD1huS+PJZkjwz60Ao6ZAWr65TEG2PC
+	 pzwHVnPEg2AXQ==
+From: Alexander Sverdlin <asv@kernel.org>
+To: linux-gpio@vger.kernel.org
+Cc: Alexander Sverdlin <asv@kernel.org>,
+	Lokesh Vutla <lokeshvutla@ti.com>,
+	Nishanth Menon <nm@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tony Lindgren <tony@atomide.com>,
+	Haojian Zhuang <haojian.zhuang@linaro.org>,
+	Linus Walleij <linusw@kernel.org>
+Subject: [PATCH] MAINTAINERS: pinctrl-single: Add Alexander Sverdlin
+Date: Wed,  4 Nov 2026 15:08:03 +0100
+Message-ID: <20261104140820.65243-1-asv@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,42 +63,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvM10gYXRhOiBsaWJhdGEtc2NzaTogZml4IEFUQSBQQVNTLVRIUk9VR0goMzIpIGhhbmRsaW5n?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A4E8T4I019770
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 22:08:46 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEB3C6E.001/4jKS3L3bjbz57HS1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-ATA PASS-THROUGH(32) uses the variable length CDB opcode 7Fh with
-service action 1FF0h.  Commit b1ffbf854e08 added support for it, but
-three paths still use the offsets of the 12- and 16-byte CDBs, or do
-not recognize the 32-byte form at all.
+Add myself as a co-maintainer of pinctrl-single driver.
 
-Patch 1 fixes the PIO multi-sector sanity check and the multi_count
-computation, which read cdb[1] instead of cdb[1 + cdb_offset], and
-reports the field pointer for the same byte.
-
-Patch 2 makes an unsupported service action fail with INVALID FIELD IN
-CDB.  It currently returns 1 without setting sense data, so the command
-completes with SAM_STAT_GOOD even though no ATA command was issued.
-
-Patch 3 teaches the completion path to recognize ATA PASS-THROUGH(32)
-and to read CK_COND from byte 11.  Without it, CK_COND is ignored and
-the ATA Status Return sense descriptor is not built.
-
-The three patches are independent and can be applied in any order.  All
-were tested with a 32-byte CDB sent through SG_IO to a QEMU IDE disk;
-the per-patch test descriptions are included after the --- line.
-
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Link: https://lore.kernel.org/all/CAD++jLn8yxh3LmUzbb2vZfJFJB=_mCZ+VeQhnZktfmuMiv5uEg@mail.gmail.com/
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Haojian Zhuang <haojian.zhuang@linaro.org>
+Cc: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Alexander Sverdlin <asv@kernel.org>
 ---
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e42edddf8f0db..2dcf454589726 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20386,6 +20386,7 @@ F:	drivers/pinctrl/samsung/
+ PIN CONTROLLER - SINGLE
+ M:	Tony Lindgren <tony@atomide.com>
+ M:	Haojian Zhuang <haojian.zhuang@linaro.org>
++M:	Alexander Sverdlin <asv@kernel.org>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ L:	linux-omap@vger.kernel.org
+ S:	Maintained
+-- 
+2.56.0
+
