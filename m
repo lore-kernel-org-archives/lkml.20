@@ -1,47 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790181;
-	b=lszE6PbnCzn8eNf7htB1+FG2YG2UqR8qQ4/ezl+VMeHxrxvgzeRK7QgRdn7f6W8lRhP2
-	 q/2gLf9gPjwqTCs6wTSfMI6C2bUzbP1AY9a9plvYPqVrxZ2za+rpV2iro43ctLEPLPVKA
-	 GxvtShULdlkgp6veF7QOJKf/UKn/ox4FlrIxlnu3o1mGjXPIEATBWczOGoJjBWyjnqMF7
-	 LC60z8NqDG6tyLLhazNKt2KHad0d25Li2oXTZ0TjdGjlxXudskzdrnr6pTAGsM/VnLlEi
-	 57LtyAEEk0PmQrtQJGUJN0yesBOjbmTVZ6nA5kqbess8FvBAc2RbtFwJnNMR9jUurig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790181;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MmAAu5i6ADNm9DWcT6htUpjVYsuBgc5FPA1Ofa2D4uU=;
-	b=BE1ah5/b9qzi95J4YsS3I1/KXVNoIfNGmas8vMS5UV2js9mF1lVfda8oEqIZ73CkbJ0P
-	 rhSMc/UrUVaaGOOS0BrXoxWjpNDpGwkfbcnU7VWQg31Xj2mNd2Ig8REOBMIewVNPSDnTa
-	 YtBbcRSl/Rj8XkwGz1OiHaY24+flz9oJ0LpCnaYN3PGQd04GHt20Pn+5e+SCxgdv0sYpW
-	 hhOczsgRXt9xhl5HuOVebqMHRczUYw5WzpDd3ljapyTZjbLATQ/JB6r63zu3amOBCeloi
-	 Z9nNxXY7q2EwTPoeJi+nSstpwtDfBmWrmk1ojk0npLF/V8DjSrIqjcoVwZ/hlRGL75g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUzV4Hv2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793790209;
+	b=YZdOOZHzkhHWvaA6a0SjW9YIOiTKiD9at3VKVumWcbaGYwXH+ml8He0hyccb1CmUcOSb
+	 6HBP33CrhZdw0c2S39y8QZFIiCH1v2yUm0n956OAlKl5G1r7wvguzsyX0gy8MplLJbV9s
+	 UUJsCKWZTgQt4cOsDwwu152MVZ5QNDH5WydBspNzGM/FNeadx0LlNpndl8HcN4Li08Yxi
+	 Cf+Yzla/hsHVnhSz4ho/zF3LM/wzZGFzuFPrFPu4JYQJK0ViLGxwi4ujxqqcXRXN5ubbv
+	 KkBXUBRPBbSdYmZUcyw/N71R+rDqo7qd6D0bKwfHZo9aGAte2cBS3jPWZUJzG2ClB9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790209;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=qdhY1e8I9Jc14rbguEsTrJ/gz2O3WFLt1vbqMY/V0N4=;
+	b=QsYQ0Xa5gDPX7FGG38nmd1tl1ecQOCENYyTzwQF9OCwGUUKiJDXI9epM3j/pru6Snb2+
+	 ung89p3ZTc/WqLZKWbRvMQWdDRed1Ruhl/aDGZU7O+1jR9oJHsVraA3DCu/+5f60lxuue
+	 lVJdzohUCIxmzw7o1IOHP/1GcHrOSXYHKPLDqwlkFkG6S6vRDjAJV4tXHAI4842BRwSut
+	 U5kaBlE56793z435LEUCx/4He685Iao/GcUGo8bFs7AaICAoNYyLBpkuFpkMyKyb7jUuW
+	 ufUCQczvZvsgUOFZ7x9kvkomsepmbWmPtCaFsov+OZpc1iiHiRbeaJVkxuTl+Jmu9jA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=J8U3SKmW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D34606A31B;
-	Wed,  4 Nov 2026 11:03:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F085606A326;
+	Wed,  4 Nov 2026 11:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F085606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUzV4Hv2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98D11F000C1;
-	Wed,  4 Nov 2026 11:02:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793790180;
-	bh=MmAAu5i6ADNm9DWcT6htUpjVYsuBgc5FPA1Ofa2D4uU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SUzV4Hv2uoryb9Q24Qln7PLzOfILm3kcqdwfobU3M4CtRlVN+xvpdBz65WTxlF/gG
-	 8zP5EQSJRfHEWirYplJxgwJ29EazRs1Mtzvxmn9j/5BRuUCriKNjEQ6vWa85IZ7zvE
-	 WuILPXj4mRjIbJhGR3aqB1qDZw9j/RFjbb8AafNxTetksy2ejxRbqHLTQ4RvqYD9jb
-	 O6hf0LTX03ok0deyQOvKIkyVnEJ0dhPdL49nmq+b6ZSKK7ln/bUJ6qWmoIrk5VacIF
-	 naGDLX+xTp/LHq6a1qbMWKniZntZ//3XK//oLTIAOMcf6eoMlnZhva7GG2ft0UJFOs
-	 uJq1G/yQE/gmg==
-Message-ID: <b181dade-ffa1-4b58-9927-8a2429a59ac1@kernel.org>
-Date: Wed, 4 Nov 2026 12:02:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=J8U3SKmW
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: lst@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5AE0A2000A8;
+	Wed, 04 Nov 2026 12:03:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793790205;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qdhY1e8I9Jc14rbguEsTrJ/gz2O3WFLt1vbqMY/V0N4=;
+	b=J8U3SKmWWxVCZ9ri9MgTERn6+2G+RR+s/tg6Q9IZNrju32WRUDKt710/4LdzjX+CBOXV0t
+	jY1ooIwG53Dwn298lur7/fP0dnjKvzqf5VEK5VYB4icXGb5Mat5SEOjhVcA3wKiBoiNTtL
+	qXpZxmI021zJE1ED89itFtTUXMmHBiSDwjHoSYsmOKXOs0Mtl1LonK5qsvyJw1kC4qFY2y
+	x6DdpsVP0IE4tEEUiiiYiAVDt1pECwx2BUQ1he2pe1V/LxS8h6e39AK8DNHqkbifxdnyZ6
+	Z1Fte+FtHdojA8QYjKB/PShPtV3beWQvP/9t2Zyx5SmQN+roc+/YPWaClX100w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793790205;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qdhY1e8I9Jc14rbguEsTrJ/gz2O3WFLt1vbqMY/V0N4=;
+	b=Re5hC0QPlRzDDIn4XsPZF7CKDEs4ZEMdfq6s0nMc8BnbczBE60Dh1h45hOF9PU7m5bK+zJ
+	/4jF2oC39hcK3v3WqSVN7xbNwzREamMwCOpcBS/HyyCD7Zx54cmqu1SJRJwfat3L6leqUO
+	xeIAnMy1qqcCbcSiZX0SCh9enTSntpMkk/sDE5pnKGULm0vnOoWemhQbub4UZPfvBXE0/o
+	neC+703xUUuiM2CTN2887xtXir56eb2bJ1cmTOOmZCXn5ravuLb9HnXMToPCXrLu/O/Rj9
+	dFEWtN22qzho14EtO3jVAEStCkSmT9I1mS1vYWngN5AnYaF4YrJ/UIsIknVOOg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793790205; a=rsa-sha256;
+	cv=none;
+	b=HTlahCmCz6KxpBbT3+fqOF29RC63BIcEg5TwpomsuD+FWXhFk75zagc4MHw1KsVlstXqzl
+	hRHbmpXzvNwgndiqw6wxWN/sp7oubj2nynypkc1OLLm04IlgDty9AGDmUbopssh38HSJax
+	ghD/7hhp6Vol9Owk6HYTKaSxsVsfRAeXwQAsU4vFP5tuQ02f7ihHY8Zu5FhRYle2RBr43s
+	J6TX3BOrGNPl3/uYZuzGqdPjyN94xKJqFbObLMHWO/hZBw4+r0KfPp1grLwh8eTk10azAE
+	m+1erqsZ/pzaebzGjhiiuiTzqDDPEX4WCAFEgdxnqLQmPOprJ0vsMEgydoSuXw==
+Message-ID: <bf6acbfabf47de84243495f564865db19d44e184.camel@pengutronix.de>
+Subject: Re: [PATCH] drm/etnaviv: Flush the tile status cache through both
+ the PE and BLT
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King
+	 <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
+	stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 12:03:25 +0100
+In-Reply-To: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
+References: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,165 +96,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-next-fixes v2 1/5] mm/memcontrol: defer
- obj_cgroup_release() to irq_work
-Content-Language: en-US
-To: "Harry Yoo (Meta)" <harry@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: kernel-team@meta.com, cgroups@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
- <20261103-kmalloc-nolock-fixes-v2-1-19167cfe4779@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261103-kmalloc-nolock-fixes-v2-1-19167cfe4779@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/3/26 15:47, Harry Yoo (Meta) wrote:
-> obj_cgroup_put() can be called from any context.
-> __memcg_slab_free_hook() puts a per-object reference on
-> every accounted free, and draining a per-cpu objcg stock slot puts
-> the cached reference. When it drops the last reference,
-> obj_cgroup_release() takes objcg_lock, frees percpu memory
-> (pcpu_lock, via percpu_ref_exit()) and calls kfree_rcu(). Each of
-> these can deadlock when the current context interrupted a holder of
-> the respective lock.
-> 
-> Defer the release to irq_work. llist_add() and irq_work_queue() are
-> NMI-safe, and the irq_work runs in a context where acquiring a
-> spinlock is allowed.
-> 
-> Add a separate llist_node instead of reusing the list/rcu union
-> because the list stays linked until the deferred release. struct
-> obj_cgroup grows from 56 to 64 bytes, but both are served from
-> kmalloc-64, so no memory is additionally consumed.
-> 
-> Closes: https://lore.kernel.org/20261001044056.75079-3-kmehltretter@gmail.com
-> Fixes: af92793e52c3 ("slab: Introduce kmalloc_nolock() and kfree_nolock().")
-> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+Am Montag, dem 02.11.2026 um 11:18 +0100 schrieb Christian Gmeiner:
+> From: Christian Gmeiner <cgmeiner@igalia.com>
+>=20
+> Since commit f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs
+> with BLT engine"), jobs on GPUs with a BLT engine use a BLT command to
+> flush the tile status cache instead of TS_FLUSH_CACHE, which is broken
+> on most of these GPUs.
+>=20
+> GC7000 r6008/r6009 and GC8200 r6401 are the other way around:
+> TS_FLUSH_CACHE works, but the BLT command does not flush the cache.
+> The vendor driver handles these GPUs using TS_FLUSH_CACHE, but the
+> etnaviv kernel driver has no way to identify them.
+>=20
+> As a result, dirty tile status cache lines survive the end of a job.
+> They are written back by the next cache flush, using the page table of
+> the job issuing it. If that job belongs to another process, the write
+> goes to the wrong address space.
+>=20
+> On GC7000 r6009 this causes MMU faults and GPU recoveries blamed on an
+> innocent process. I see around 1100 per run of a multisample
+> depth/stencil test running alongside two other GPU clients.
+>=20
+> Emit both flushes at the end of every job on GPUs with a BLT engine.
+> Whichever does not work on a given GPU is a no-op. Since dirty lines
+> are only written back once, this costs one additional state load per
+> job.
+>=20
+> Fixes: f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs with BLT=
+ engine")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 
-I guess releasing objcg isn't too frequent, so it won't matter that we make
-all cases use the defered work instead of somehow trying to do that only in
-contexts that would really need it.
-
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-since memcg tree will be used from the next cycle, we can just keep this as
-part of the series in the slab tree?
+Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
 
 > ---
->  include/linux/memcontrol.h |  2 ++
->  mm/memcontrol.c            | 27 ++++++++++++++++++++++++---
->  2 files changed, 26 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index 69e1bcc67c58..4d5c634daef8 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -185,6 +185,8 @@ struct obj_cgroup {
->  		struct list_head list; /* protected by objcg_lock */
->  		struct rcu_head rcu;
->  	};
-> +	/* Used to defer obj_cgroup_release() to irq_work */
-> +	struct llist_node release_node;
->  	bool is_root;
->  };
->  
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index a05d9a8baa1b..c53147a88580 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -147,9 +147,8 @@ static void memcg_uncharge_kmem(struct mem_cgroup *memcg, unsigned int nr_pages)
->  		memcg_uncharge(memcg, nr_pages);
+>  drivers/gpu/drm/etnaviv/etnaviv_buffer.c | 40 ++++++++++++++------------=
+------
+>  1 file changed, 18 insertions(+), 22 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c b/drivers/gpu/drm/e=
+tnaviv/etnaviv_buffer.c
+> index 03b2576af67f..99c91a9eecf1 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
+> @@ -168,6 +168,17 @@ u16 etnaviv_buffer_config_pta(struct etnaviv_gpu *gp=
+u, unsigned short id)
+>  	return buffer->user_size / 8;
 >  }
->  
-> -static void obj_cgroup_release(struct percpu_ref *ref)
-> +static void __obj_cgroup_release(struct obj_cgroup *objcg)
->  {
-> -	struct obj_cgroup *objcg = container_of(ref, struct obj_cgroup, refcnt);
->  	unsigned int nr_bytes;
->  	unsigned int nr_pages;
->  	unsigned long flags;
-> @@ -190,10 +189,32 @@ static void obj_cgroup_release(struct percpu_ref *ref)
->  	list_del(&objcg->list);
->  	spin_unlock_irqrestore(&objcg_lock, flags);
->  
-> -	percpu_ref_exit(ref);
-> +	percpu_ref_exit(&objcg->refcnt);
->  	kfree_rcu(objcg, rcu);
->  }
->  
-> +static LLIST_HEAD(objcg_release_llist);
-> +
-> +static void objcg_release_workfn(struct irq_work *work)
+> =20
+> +static void etnaviv_cmd_flush_ts(struct etnaviv_cmdbuf *buffer, bool has=
+_blt)
 > +{
-> +	struct llist_node *head = llist_del_all(&objcg_release_llist);
-> +	struct obj_cgroup *objcg, *tmp;
+> +	CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE, VIVS_TS_FLUSH_CACHE_FLUSH);
 > +
-> +	llist_for_each_entry_safe(objcg, tmp, head, release_node)
-> +		__obj_cgroup_release(objcg);
+> +	if (has_blt) {
+> +		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+> +		CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+> +		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+> +	}
 > +}
 > +
-> +static DEFINE_IRQ_WORK(objcg_release_work, objcg_release_workfn);
-> +
-> +static void obj_cgroup_release(struct percpu_ref *ref)
-> +{
-> +	struct obj_cgroup *objcg = container_of(ref, struct obj_cgroup, refcnt);
-> +
-> +	/* The last put may come from a context that cannot take spinlocks */
-> +	if (llist_add(&objcg->release_node, &objcg_release_llist))
-> +		irq_work_queue(&objcg_release_work);
-> +}
-> +
->  static struct obj_cgroup *obj_cgroup_alloc(void)
+>  void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
 >  {
->  	struct obj_cgroup *objcg;
-> 
-
+>  	struct etnaviv_cmdbuf *buffer =3D &gpu->buffer;
+> @@ -191,7 +202,7 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+>  		unsigned int dwords =3D 7;
+> =20
+>  		if (has_blt)
+> -			dwords +=3D 10;
+> +			dwords +=3D 11;
+> =20
+>  		link_target =3D etnaviv_buffer_reserve(gpu, buffer, dwords);
+> =20
+> @@ -204,16 +215,8 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+>  			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+>  		}
+>  		CMD_LOAD_STATE(buffer, VIVS_GL_FLUSH_CACHE, flush);
+> -		if (gpu->exec_state =3D=3D ETNA_PIPE_3D) {
+> -			if (has_blt) {
+> -				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+> -				CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+> -				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+> -			} else {
+> -				CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
+> -					       VIVS_TS_FLUSH_CACHE_FLUSH);
+> -			}
+> -		}
+> +		if (gpu->exec_state =3D=3D ETNA_PIPE_3D)
+> +			etnaviv_cmd_flush_ts(buffer, has_blt);
+>  		CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+>  		CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+>  		if (has_blt) {
+> @@ -400,12 +403,12 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, =
+u32 exec_state,
+>  	return_dwords =3D 7;
+> =20
+>  	/*
+> -	 * When the BLT engine is present we need 6 more dwords in the return
+> +	 * When the BLT engine is present we need 7 more dwords in the return
+>  	 * target: 3 enable/flush/disable + 4 enable/semaphore stall/disable,
+> -	 * but we don't need the normal TS flush state.
+> +	 * on top of the normal TS flush state.
+>  	 */
+>  	if (has_blt)
+> -		return_dwords +=3D 6;
+> +		return_dwords +=3D 7;
+> =20
+>  	return_target =3D etnaviv_buffer_reserve(gpu, buffer, return_dwords);
+>  	CMD_LINK(cmdbuf, return_dwords, return_target);
+> @@ -422,14 +425,7 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u=
+32 exec_state,
+>  				       VIVS_GL_FLUSH_CACHE_DEPTH |
+>  				       VIVS_GL_FLUSH_CACHE_COLOR |
+>  				       VIVS_GL_FLUSH_CACHE_SHADER_L1);
+> -		if (has_blt) {
+> -			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+> -			CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+> -			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+> -		} else {
+> -			CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
+> -					       VIVS_TS_FLUSH_CACHE_FLUSH);
+> -		}
+> +		etnaviv_cmd_flush_ts(buffer, has_blt);
+>  	}
+>  	CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+>  	CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+>=20
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261102-etna-pe-ts-flush-ffa01363b98c
+>=20
+> Best regards,
