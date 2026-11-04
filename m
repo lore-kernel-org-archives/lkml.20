@@ -1,72 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834453;
-	b=YchvOcT0/MzP6uJmQN0ldiKTZV6Bte7ZdIOia7OaR9A+eNWfUrLdIKnE3SnXQP+gGkMG
-	 21YeicNjvBPJvav6YXC3BkoIGuxOrQSzLf1aqYgi6sOk+GB6Sm6xsiFIic/Lb+siUVcOS
-	 RQkr27rBViq4NpgHloY93k/Mk4OD/iTacwJuA+AbMETUuVmYfLX77WI1LI1Cu9vGdeaU9
-	 355kczI+ZF7Cy4hWpaVsOj9TkTVYTcMA8O8RexQlRW5eDUhpmvLEyLViNa0dP2En7rHUl
-	 iHFkzPztPMJc1zs2B5GC72d1dGQxB4CnCPmFIuIyGrUracThs5iZKmg8m6hKzYgprtA==
+	t=1793834457;
+	b=Ukg5riLecp56php2ItVHS/3KWUBNXgX7ithzkuz4KzNeFaQm9AeTcl8u41QMu0bJ/gx2
+	 PxV1iIgRcVqYtDijh1saF6vG2FnmnFg/2t3J0UZE6pCkPXASa0pHms6r30vfm87X8k31a
+	 N5OUoQJvqh3rmQSe3nTBTCYW/LFK11fSLw0LVvk67WEqDv0Xhpee7NQAvqu7ohgkuJao4
+	 DqbIzA9yFRZ8Mptiexn5fmHATrltCMENzxVHXS3jXhI6jJHmuYu/d3k4ZLJNNJzH5MeWw
+	 6nS+3CA/xFEMK3fkya4KW2AA9LWvar2siGSjjVGKt9EhyykpSdw+SsGED04tXfvMNBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834453;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=8ioPBLXoKsZSCxTIuHLWWhHJhXU/FTy/hw4maw0vQoQ=;
-	b=FCq3treg2P81PjzCFWgcBpGiVVNpSS1Nb97RbUP8T/NzEgUy/z5FU6eKms1hFMB1rLKp
-	 Vs2XaTRKz1Yr5lSXzbDuiI0+n1DcAEROQKrB6EE0jeg0nUE/3ptWRvrOmGOL8/4pD1G6i
-	 N6gHckW6thQ6faJjJVJe9LC9FdyLC0UIxfPdlSElWu3RJmq5mj7P+Q1GqbfQm+kl58sjL
-	 8fg7QpL3mhq7KyV5pkiRNd5aK1rmNZc3WmyZ/U3DZp2DVwESRlp37i2IJ5Vn7ipTjVHBt
-	 FUwCOzmeViN0OaxCQnWxhdF1pwiIuXZoj5g44bQjzkpGboFNdFTxZRAOn/aQAGNbivA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834457;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6pcpvaSe9ElEJt/G5lEejZAQ2sl+Ux6mleZlCU2LO+0=;
+	b=M6q6Y/X0hXN1vnTvzaQE9g9Da3UfXHdnCMi1hOy0FMgt4OyuQ0Az7jm3fIAC/E6C3Oje
+	 33If1nDWSphYW6m97PWEuo8CEcMGU9+ez0nadxKYxunRgoMwS0bl5H2lsVM/dt4yZ+pQN
+	 waR+kTs4178AuBko6IP1eR/yN8jTDj/9E3q8iEXWYvtgvoJPAuzpHZHWxnfeVl/tTIdu3
+	 RdgahhI/AQExfKeCdT7yWR8uMjM7TMEXVOe1c9Z5Ox4OxURd/zL7aoc9Bl5D22IRGfRcb
+	 cyf6XJ1LMMZys55vklAA3YFQ/bG8va1c7k2FZ+fjmss01RGnKwsYIjj9BDDkI2qTPcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gn1xrYC2;
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="D/kVshHl";
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD09C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:20:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD09C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A400606A32E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:20:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A400606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gn1xrYC2
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id OcT5xjVl8OOJnOkHjxUvZZ; Wed, 04 Nov 2026 23:20:51 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id OkHixPysiPdvCOkHjx3OqV; Wed, 04 Nov 2026 23:20:51 +0000
-X-Authority-Analysis: v=2.4 cv=ZYIdNtVA c=1 sm=1 tr=0 ts=6aebbdd3
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=ICjA5wv23ds22tp88nIA:9 a=QEXdDO2ut3YA:10 a=oR4HUqRzxioTCyxudRYx:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=8ioPBLXoKsZSCxTIuHLWWhHJhXU/FTy/hw4maw0vQoQ=; b=Gn1xrYC2uGjp
-	bqKKFTTS4WIXZgyiBILwrchjjx89kZxtorGqvtK/hStfakwqaVudE41JTRjB4g3SA1qvneppQfLNw
-	TqMWK5rNQklxO0MdL/aLjLlQCjtEzPUtGMZKNi+LfTExisDKZwCtRE4cZzK1IwbmktM7K611RF75y
-	h+mwkHDyW+0jxeYNKa6c8o54eomgotSugnh6Nt58/JMDKKptbeZKKaJvr9XDhZ8kr0V0tyipopDbL
-	ej7jFEIo813V4HqI2kd+5XpC+IiO6C+luzBeSRzk1oN9kSnxnUgUOQkD4jHoVKuMUGo3R7oRIpdkG
-	H7/wNGD19k0em/wdBzSf4w==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:60068)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOkHi-00000001byH-28C7;
-	Thu, 05 Nov 2026 04:50:50 +0530
-Message-ID: <5612f56c-fec6-47fd-b2d1-9d21bcf56124@roeck-us.net>
-Date: Wed, 4 Nov 2026 15:20:49 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D/kVshHl
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so821338a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:20:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793834456; x=1794439256; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6pcpvaSe9ElEJt/G5lEejZAQ2sl+Ux6mleZlCU2LO+0=;
+        b=D/kVshHlSztePvRdaME0VrDfCaifENALUV5qVvoTlOqwXmIOoRDvM8d+e2KtZbsp6n
+         MM4W7BmOwFnTIQTJV5mH+nKzcfaDfcklz4psWGxjZ5qxFEwt2QZ7sKJVdw0UY3jZj2fv
+         WvZCJQucY/GpO87C1GyoYqwyZoalSi4YsUwRR7pRgN5NQNV5NvdT5ApTpBg7QTjAyf2N
+         CEJOh5k2RQxA/sIUZLzpy+JXq+tcwClbhZFcrLP53Ro/1nbmU9majZlr+vxKyDkQdDoX
+         9ETPZ59lJPc8f9CcQ896HXzsNXUi3iujx/RpI2lBDkkIfSc0xdCdEVdycQERgRylhmwP
+         9vkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793834456; x=1794439256;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6pcpvaSe9ElEJt/G5lEejZAQ2sl+Ux6mleZlCU2LO+0=;
+        b=R4ZczF8y1b+4nt6k/w44eRhMf+C6CUjXWUxWy5AdkLMYdbOb7LKhHa+LyRA+TwQ/kZ
+         vzaDP328q5kw2BnLi1omLZkPcRhW1FyKryb00gf54hsca39oo6+4A/OiSQzPmo+QQrQ3
+         g+O0saUENSXYAK4nKmcfug7MH/CbY33IHn3uZcskz+NiuBkx5N37H73iF24D0nyvvNpU
+         iOjE3MhXMPekzBtaW5AD8e7KdbfvrGWgVjKYIj5+Vpkzpg8qcZnqsR++M5Y2hnduFBWk
+         AruRyQkQRb9TSoNO+Sbgw0T28vB9juWZqQslvoE/M3nS3KbunY0OVgJYzGchNSSBpNMi
+         R6wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ9MV4n3DXzm8s2GCQPHgprYDbx3M7W8O4slUP0GFTMhc2RBEbYc8Qsl3hfkTmlISzMpK3qDMD71cGih8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Y9GsbPkUkf7H0wuDamM/TS2ycocLHY9QqHcRLYzrMb7BrY9HN
+	QEWkVLglNfLp49J5ZgDsBAv6p0ayOZ7bOEI/dMnd4ycKnstDbJnDM3Ch
+X-Gm-Gg: AYBFou3uJlgEoLxRkSyqjmRHYHCzy4O7QeBRIGT525CHmaoaUGZSApAXXXu1dLa5Lmi
+	Mqiknv2+5lz5R8W07qY6gysQqjSFXjuzTOhADFSp5IIohmhtslwoTuHosaVi5F0YRUpaOqiIDAL
+	3/vn97jkZW7AAiapPo+Shoj5BJXRNRpJa1euCrwM6jzyBR5Z95KKmRDdTMUkMvM07yXKu5WK+W/
+	fcOZRgda855ocwzjO3Nt96Bu2SY9cos4fqOalzdogmUP1afPmJRaW2X+jHoOWp8YVe9/8nyMXxw
+	8YfsSJlus1rSG2juFxAn+8VZTWmibX1CWEkkYQSca8QJaEHSvDnf++zmrQ/oC4Y1990ma280GKJ
+	y2OP+waBHcjzyD+G/gh/0dBxpygWWnuDWZXIBel4o3tlC8lORxyOwxtII0FsnuuZsih9LVZmkkU
+	VegMGU0ijIbGG6eLfA5jCjomsJ/n3fmPhZRaPsHkSDg7w81ISPm5ulyP/bT4FnNNjgaFawSzrIw
+	VJcMqCduPq6WJAy6J2m6ifN/BrlBBUwGO0AczMxcm7l37cvz/yPGAwcNMRyNxMILHSRBgGFtpme
+	hNbBVLVrk/9hNeUvG880YQsPAQ8n
+X-Received: by 2002:a17:90b:3811:b0:3b0:adba:45e9 with SMTP id 98e67ed59e1d1-3b0adc98d2emr1040635a91.58.1793834456448;
+        Wed, 04 Nov 2026 15:20:56 -0800 (PST)
+Received: from localhost ([182.216.53.174])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094dec0e3sm2551500a91.1.2026.11.04.15.20.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:20:55 -0800 (PST)
+From: Jaewon Jung <jaewon8868@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: sashiko-bot@kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH v3] tracing: Keep copying markers when one instance is stopped
+Date: Thu,  5 Nov 2026 08:19:26 +0900
+Message-ID: <20261104232046.32519-1-jaewon8868@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104085715.5838b869@gandalf.local.home>
+References: <20261103005219.3236380-1-jaewon8868@gmail.com> <sashiko-outbox-194417@kernel.org> <20261103095019.6a88e783@gandalf.local.home> <20261104063552.28094-1-jaewon8868@gmail.com> <20261104085715.5838b869@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,147 +101,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] hwmon: pwm-fan: use managed timer shutdown
-To: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
- Hans de Goede <hansg@kernel.org>
-Cc: Matti Vaittinen <mazziesaccount@gmail.com>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261105-kasync-devm-timer-1-kirtiar15502@gmail.com>
- <CADZg-m3OJAhUi8EzBeMQbcKKVTkBBN70mnkGmJzkj2t54xFxDQ@mail.gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CADZg-m3OJAhUi8EzBeMQbcKKVTkBBN70mnkGmJzkj2t54xFxDQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOkHi-00000001byH-28C7
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:60068
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 4
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOJRVI7nhWogGL7NEBG3FbmWzchGzbQU5hYkN666X099R1ycy5YO1SMyvcnc8LpIy7p+Q1KqvbCGhTGGDxiNJ+0pvuo/ZSPY2OmiciLAgkjkBIunmP0q
- EgKxdkYoE1C4aTWMvfqRWGXsQV7KnZd+H06Pmw6whVbnGVHCIWHpuGnkDjgPvZV4cebrxstwGEWnm14Uc8+gnOUFpOANJyItL8d8iA1kBPcCDNjYDcqNCg0+
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 15:03, Kirtikumar Anandrao Ramchandani wrote:
-> Replace the private devres timer cleanup action with
-> devm_timer_autoshutdown(). Keep initialization and action registration at
-> their existing positions, preserving the cleanup order. The system
-> shutdown path continues to call timer_shutdown_sync() directly.
-> 
-> Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+When several instances enable copy_trace_marker, stopping one instance
+can prevent the remaining buffers from receiving markers.
 
-I fail to see how this would improve the code. This looks like just
-a random change to me with no real benefit. It just replaces
-devm_add_action_or_reset() with devm_timer_autoshutdown().
+Continue copying text and raw markers even if one copy fails. Return the
+largest successful write length, or -ENODEV if no write succeeds.
 
-It also seems logically wrong: devm functions should be associated with
-some initialization or action (such as devm_kzalloc -> kfree), and not
-require a separate cleanup. I'd expect to see a devm_timer_setup()
-or similar instead, if at all.
+Fixes: 7b382efd5e8a ("tracing: Allow the top level trace_marker to write into another instances")
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
+---
+Changes in v3:
+- Return the largest successful write length, as suggested by Steven.
 
-Guenter
+Tested on x86_64 QEMU:
+- Before: A failed copy prevents writes to later live buffers.
+- After: All buffers are tried, and the largest successful write length
+  is returned. If no write succeeds, ENODEV is returned.
+- Existing text/raw marker and instance selftests: 6 PASS.
 
-> ---
->   drivers/hwmon/pwm-fan.c | 12 +++---------
->   1 file changed, 3 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-> index 9cabbe9f8..6b02c2687 100644
-> --- a/drivers/hwmon/pwm-fan.c
-> +++ b/drivers/hwmon/pwm-fan.c
-> @@ -8,6 +8,7 @@
->    */
-> 
->   #include <linux/delay.h>
-> +#include <linux/devm-helpers.h>
->   #include <linux/hwmon.h>
->   #include <linux/interrupt.h>
->   #include <linux/module.h>
-> @@ -493,13 +494,6 @@ static void pwm_fan_cleanup(void *__ctx)
->   	}
->   }
-> 
-> -static void pwm_fan_timer_cleanup(void *__ctx)
-> -{
-> -	struct pwm_fan_ctx *ctx = __ctx;
-> -
-> -	timer_shutdown_sync(&ctx->rpm_timer);
-> -}
-> -
->   static int pwm_fan_probe(struct platform_device *pdev)
->   {
->   	struct thermal_cooling_device *cdev;
-> @@ -650,7 +644,7 @@ static int pwm_fan_probe(struct platform_device *pdev)
->   	}
-> 
->   	if (ctx->tach_count > 0) {
-> -		ret = devm_add_action_or_reset(dev, pwm_fan_timer_cleanup, ctx);
-> +		ret = devm_timer_autoshutdown(dev, &ctx->rpm_timer);
->   		if (ret)
->   			return ret;
-> 
-> @@ -710,7 +704,7 @@ static void pwm_fan_shutdown(struct platform_device *pdev)
->   {
->   	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
-> 
-> -	pwm_fan_timer_cleanup(ctx);
-> +	timer_shutdown_sync(&ctx->rpm_timer);
->   	pwm_fan_cleanup(ctx);
->   }
+ kernel/trace/trace.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 08614af8fad1..164da1ea5e73 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -6329,9 +6329,10 @@ tracing_mark_write(struct file *filp, const char __user *ubuf,
+ 	if (tr == &global_trace) {
+ 		guard(rcu)();
+ 		list_for_each_entry_rcu(tr, &marker_copies, marker_list) {
+-			written = write_marker_to_buffer(tr, buf, cnt, ip);
+-			if (written < 0)
+-				break;
++			ssize_t w = write_marker_to_buffer(tr, buf, cnt, ip);
++
++			if (w >= 0 && w > written)
++				written = w;
+ 		}
+ 	} else {
+ 		written = write_marker_to_buffer(tr, buf, cnt, ip);
+@@ -6408,9 +6409,10 @@ tracing_mark_raw_write(struct file *filp, const char __user *ubuf,
+ 	if (tr == &global_trace) {
+ 		guard(rcu)();
+ 		list_for_each_entry_rcu(tr, &marker_copies, marker_list) {
+-			written = write_raw_marker_to_buffer(tr, buf, cnt);
+-			if (written < 0)
+-				break;
++			ssize_t w = write_raw_marker_to_buffer(tr, buf, cnt);
++
++			if (w >= 0 && w > written)
++				written = w;
+ 		}
+ 	} else {
+ 		written = write_raw_marker_to_buffer(tr, buf, cnt);
+
+base-commit: d7ff48d92a0f28bc0612da47c054efbc28c19562
+-- 
+2.43.0
 
