@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789570;
-	b=ZpT09LF1tB6/s//Y4LjNR8MAEQKBpE8VdDxpJ8o4E2DnW1JyGcJQRfaCcUJsiqAr2tEv
-	 P6C1eqS5w/YrhHSu+hr0Xt8gz3St8uanJCLppOM+ApYvJwmNiRUlQ4ejOlAz+A9q3uZrc
-	 sl2xP2E/MgW3VxUpEOfNTb7TPmjS5avR6JYov5FL0WWXd57WP/m9E4/BXnLhjLSxHibV/
-	 UF1FaowO9vzikDt4BmBws7+5ecNtxgCeeLa+sO86WnqpdrZPwwamdhsbr7Xqk9kkmoo9s
-	 FoG+zP7bBHMAnpFSNktgWkRLw1A8tLs0qTad0BqCRoDJ6eI8r7e97CKF2XYF6RUtnEA==
+	t=1793789580;
+	b=AM8I1FixgKSY4bowAaCp4BuKf+buzCYlK7etkCJ/Cq1AlJfQc9XLdcn8GDUDTRTdpCEt
+	 wUPXp1fYO+RVijOU7tb/5n++vr1WrkBEmqujFjgCuGZczDSZeJQJV1vJIfp64ii6C/qf4
+	 EwvthtjrbSkNSXuqDnrFMZHAEKWHAN+ESBejGFPD318b57bujX79BoRcjYnmaFSdFU9Fx
+	 2E1zoohjjWWdSXWn1ub/H+NJg/T2cQv/iPGHJVjaEjeMSv+lawIC6QwPL8INa56zNCR+S
+	 0VlimfgDl7bRZBx3wuSBqxl/GLZpuSaX7+WK/1qLzTtZJQHcNHcQKQhQ7AzSuECzhYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789570;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789580;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=V9NHiJRKdLmwoeHiLsEZLLQBVcbAZsdM/sy0puVsYyA=;
-	b=hVWJg/uXEGraIsEHArtZWeffDn0LMVUfvnWduCqvUihKJOjTUtbcnWuFkfSWrF1PcVR9
-	 UqmDFNAbG1yO+ieQr8bOTW19wOJexDKt2/sJRit5T1QMKPq/HCZjOoEb/eT5yWWTllENn
-	 7quDb+ySxIliff9fUtnApSEqBlygPxEg9Yd4s1bo3LgOUeDFlxWTT1YF1/vx5Uv57H040
-	 kkBsyKhiBGCawdzslnIrSjCI53PsQqmiuwcmadMb9KWS5fhWU14Na13GiiwcobcrD+McB
-	 1tTtQmOQSbzl2OOCo0epi2K9Skcu+gK/SAZ7gFpFJx71xThLUiuf0pLwG+Pspy/tbyQ==
+	bh=GimgcPXH2fNoHOLDkivcT6L2F+6r2bGEOK3CclBJHEE=;
+	b=X0CbF/NnCbA8n6o7RgC2vzeMhpdA120a8Oa7uq1vqBXtSvU8UOikOAPTqbMsmERY3jcv
+	 CEkutlj4zJcJm0DGjCTQi0lMuKQb8mu61R2e777YMSQKXvjBM4NhjOs5TWkoAjWFpuiGG
+	 zSVsO6WCcgCei3hKIKbtAdHyxqwpIWwDCe0f+rS8lX0dvmIoXtmsc8EXWCAGB7YD1jb7b
+	 hOy/n43Rx/kAP21ygaluUFgvJYSQsDzofNK9fXlVTvhJdj1pPwgY+xnOO7zL7Ig1BMzbd
+	 e9g6svq/ow7zk9Z2BVTnL4WCBNDnhOgN0RdznQnC3Qj5Gb9EA3CJo0n7Fy/9IplpWwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQGvO+vp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="JzGU/S5R";
+	arc=none smtp.remote-ip=185.70.43.100
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8B7606A32E;
-	Wed,  4 Nov 2026 10:52:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39961606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:53:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39961606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQGvO+vp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F67B1F000C1;
-	Wed,  4 Nov 2026 10:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793789570;
-	bh=V9NHiJRKdLmwoeHiLsEZLLQBVcbAZsdM/sy0puVsYyA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=AQGvO+vpUCKw4iG1OppNQR8+Q0/kGeVa7rf7nhi8vio63i0CMtDwG23/RZA7puzaw
-	 Uy9XzbOCI/TYnjQHHNVkn34UgzKufH8jU3UkMIbOJj9Cg4toOjHTIUcX8eQvkkW4az
-	 M3myT80wy4LZbPoC3zw1Yfe4tBwZ7ceGNCWHenLByu2PkNbJVrbNyuXC9KZJ91L4P3
-	 0C9wLyxLRSzzNCCBubgEMUGnYldQNXGhA5X96aABF+9I60qToQl3mQ5qB/pC2MEig3
-	 UnXOzzplXHLtjdEuUHgzamMTHnMEN/ZklAXDvevaK1BnMohBdCYTEXt1Zt4osO3YDH
-	 CFS1HGTVArRuQ==
-Message-ID: <f25646e3-d80e-4b26-b869-42608c89e665@kernel.org>
-Date: Wed, 4 Nov 2026 11:52:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JzGU/S5R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793789578; x=1794048778;
+	bh=GimgcPXH2fNoHOLDkivcT6L2F+6r2bGEOK3CclBJHEE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=JzGU/S5RVygaOe8FMojJxUCsVBL7E7/XsSh395fO6shr6D2yu1uFTNpoTxNFVuh5U
+	 iZNN5cHZbaKFar+uMz2gkdHHHc1n97zLAjvC6V1u8Pw3yXwSFwvYnW4Tt4w1TUoHQJ
+	 94P5NCVnVJ9EPfi1KbkjWWsNpvwgHlp9hkgq8tL0G54i9U+p0GqSyHX+r/rAvQHq61
+	 5YZNy0uzcJCWsFoHQbLZUBGgpMdLqnYsKC8qwb0vqS5yJzupH2ZU8xhokB1p6vX4Su
+	 5cfU/dUIiuelFxwFnBgOJ1FjnUEeHkRUIsypIAENBZ/G4QNy/VMY4n/B6lTs0q9jEq
+	 kLseACskaee4w==
+Date: Wed, 04 Nov 2026 10:52:55 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v3 2/2] ALSA: usx2y: Guard the playback copy
+Message-ID: <20261104105228.1124-3-enscrpt@pm.me>
+In-Reply-To: <20261104105228.1124-1-enscrpt@pm.me>
+References: <20261104105228.1124-1-enscrpt@pm.me>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: 6f257916e3e14e150a1c466d7fb4812cb07fc0e7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,112 +64,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/22] ASoC: dt-bindings: cs42l42: Allow referenced
- dai-common properties
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-2-637484efe46d@gmail.com>
- <20261104-strict-precise-mouflon-85cbad@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261104-strict-precise-mouflon-85cbad@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 04/11/2026 11:49, Krzysztof Kozlowski wrote:
-> On Tue, Nov 03, 2026 at 05:39:50PM +1000, James Calligeros wrote:
->> We may need to define both #sound-dai-cells and sound-name-prefix on some
->> machines where this codec is part of a simple DAI. Allow this by refrencing
->> dai-common.yaml and allowing its properties to be used.
->>
->> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
->> ---
->>  Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
->> index ab4c7d22dc0e..4ac0af34c464 100644
->> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
->> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
->> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L42 audio CODEC
->>  maintainers:
->>    - patches@opensource.cirrus.com
->>  
->> +allOf:
->> +  - $ref: dai-common.yaml#
->> +
->>  description:
->>    The CS42L42 is a low-power audio codec designed for portable applications.
->>    It provides a high-dynamic range, stereo DAC for audio playback and a mono
->> @@ -193,7 +196,7 @@ required:
->>    - VL-supply
->>    - VA-supply
-> 
-> Missing dai-cells constraint
+usx2y_urb_play_prepare() sums the packet lengths of a whole URB, copies
+that many frames with a single wrap, and sizes each playback packet from
+the capture packet's actual_length. Two assumptions are unchecked: that
+the URB fits in the ring buffer, and that a packet fits in the playback
+endpoint's maxpacksize, from which tmpbuf is allocated.
 
-Heh, I already asked for this two weeks ago.
+Return -EPIPE, as the existing packet-size check does, when the URB is
+larger than the buffer or a packet is larger than maxpacksize. The first
+case is prevented by the buffer bound in the previous patch and this is
+the guard for it; the second depends only on the device.
 
-I do not see how you responded to my comment, dropping everything from
-DT patchwork.
+The first case is reachable on the unpatched driver with ordinary
+packets: on 7.3-rc7, a USB/IP device presenting the US-122 interface
+layout and sending 48-frame packets, with a 100-frame playback buffer
+(two 50-frame periods, inside the stock constraints), KASAN reports:
 
-Best regards,
-Krzysztof
+  BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x79b/0x1ac0
+  Read of size 18446744073709551280 at addr ffff88800e6b02e0 by task vhci_r=
+x/80
+
+With both patches, the same device and a 200-frame playback buffer is
+refused at hw_params with EINVAL, and a 400-frame buffer plays for 30 s
+with the position advancing inside the buffer, no KASAN report and
+neither guard message. The maxpacksize check is not exercised: the
+emulated device reports the same wMaxPacketSize on both endpoints.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+---
+v3: new patch, split out of the v3 draft; the review of v2 found both
+unchecked assumptions. The buffer case is confirmed on the unpatched
+driver and the guards tested on 7.3-rc7, see above.
+
+ sound/usb/usx2y/usbusx2yaudio.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudi=
+o.c
+index ee224b4dfb0..5f241d45401 100644
+--- a/sound/usb/usx2y/usbusx2yaudio.c
++++ b/sound/usb/usx2y/usbusx2yaudio.c
+@@ -112,7 +112,8 @@ static int usx2y_urb_play_prepare(struct snd_usx2y_subs=
+tream *subs,
+ =09=09/* calculate the size of a packet */
+ =09=09counts =3D cap_urb->iso_frame_desc[pack].actual_length / usx2y->stri=
+de;
+ =09=09count +=3D counts;
+-=09=09if (counts < 43 || counts > 50) {
++=09=09if (counts < 43 || counts > 50 ||
++=09=09    counts * usx2y->stride > subs->maxpacksize) {
+ =09=09=09dev_err(&usx2y->dev->dev, "%s: should not be here with counts=3D%=
+i\n",
+ =09=09=09=09__func__, counts);
+ =09=09=09return -EPIPE;
+@@ -125,6 +126,16 @@ static int usx2y_urb_play_prepare(struct snd_usx2y_sub=
+stream *subs,
+ =09=09urb->iso_frame_desc[pack].length =3D cap_urb->iso_frame_desc[pack].a=
+ctual_length;
+ =09}
+ =09if (atomic_read(&subs->state) >=3D STATE_PRERUNNING) {
++=09=09/*
++=09=09 * The copy below wraps once, which needs count <=3D buffer_size.
++=09=09 * snd_usx2y_pcm_open() guarantees it; guard anyway.
++=09=09 */
++=09=09if (unlikely(count > runtime->buffer_size)) {
++=09=09=09dev_err_ratelimited(&usx2y->dev->dev,
++=09=09=09=09=09    "%s: URB of %i frames exceeds %lu-frame buffer\n",
++=09=09=09=09=09    __func__, count, runtime->buffer_size);
++=09=09=09return -EPIPE;
++=09=09}
+ =09=09if (subs->hwptr + count > runtime->buffer_size) {
+ =09=09=09/* err, the transferred area goes over buffer boundary.
+ =09=09=09 * copy the data to the temp buffer.
+--=20
+2.56.0
+
