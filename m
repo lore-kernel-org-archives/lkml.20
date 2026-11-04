@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808967;
-	b=TpXqDcbBvjA4gOlNoaMvkr5a+fCPPQ+ktnCfpLGdZp0wJnyxLlSrTRVsjEMi6goJ5pt3
-	 Mf4VTgw4wHo7HPzY11kszJDU/BpsyduFDOlm627pkyHf21aawda2ZZo8jCfehMGINPEVu
-	 bdmsuMYhL4gEGJaEEfnyAtT5K6QgfQgWrUCkBc+OwTkSbTguce8LcoI5BS/dZSC3cNRkN
-	 Cd4v8uXbDeoc3dRMX0H6llXzvvt7ZxXu3I3rAGYmYvRAlA2y8v4kYA2iycRa6jRYtLBpK
-	 UymTRfUAMMHFHy2F0o2K7mUX19NMmkHSc81F71+TGpIhqNl84xH7ON1D960N7PStPsQ==
+	t=1793808975;
+	b=M32b74P/C/sFUGLAok75Upy5qdL9Q84CiWd3PsUM+mahIossO7kD/ryE5Gi1Mb2udw43
+	 /scVrUaDwbl+SUE2q6Nm0l2FrcUe4eanJpWC3dZ9+I0tbQNBRLva2ddawTJVHV6H/evfJ
+	 Deu3tJeplpDjnD9xq3g1satNu8tUr0DpscX3XRz/IxriVbN3wFnNzxTNN2eXLBK6N1NbY
+	 xfsZhYqPWeNHDia6h/1zn0KxMAr8lUhBk1o/q2iW9giczrfHiq5AuRDq4QLwWNtd4fiAD
+	 YNJ/liKGKJwuAgggE6GVmcBDOjn4U8BQGh37xyyqihdAamYyvj6C921qCv5QfSjg0xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808967;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808975;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=uSL4WCFdu/8AH47XVLkok2dck+ry3uGzMw20szqHJBM=;
-	b=4DpFD3fiHstED7unPSOBs9TS0e9UTC65qY50GzLLcS+NEtWHw3pX0IjiNucYSnSWG8hG
-	 i0bG2d0YtVZ/nGskcorg42NLazWYvJ7HMiOChjF4qT1Mcm+R2LJyKClOe7BoQaLb5xy5T
-	 1E0HZcE94BbjXOSjQJisu9FIm56FyYVzAac0oAZeFI6EgB/fUAqwyfFsPw682sdNkEf2i
-	 WvxKf7w7tn5F0VW0hpkLXIAio3uDyDsI44Jma1z7ieOps2/2fR0yBopPWbxgiBFMhcGru
-	 UJyzUtDeHsJY07KSR7A8++F/v3S2v28URk3vEsHmVcZqqYTS3M9l/8rBKIpacgNKGnQ==
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HJM7/PuFDUDOwqvZxCE1CMPyZQc4Y2DCZuVTcSLNH0M=;
+	b=VHn20dgMSXFMOSC1MF+/UEVI0BOguwPd8bYdy21YBrNIBXEph5ligledUGl79/Za3FbL
+	 PYSVLnuTgq2rkhLObpWo+15joKDXYtg1KblJXfqPT+l75vKzXErM+FDu6ZDHHN5PTrreD
+	 u7AZh++5A3ZeezSQ6lz9880K0AVx7SX9vutpkKDVTgwjoqW2N/Yab2NeLpfLncfGEXt2t
+	 GG4AHBdl7p83GQehtQ2owrj0hf3tyOTladh4uX9kSKY6KwNDxVXlJ0tqws8cSeeM/V+n0
+	 h6uRanWYYB6oIhvpyVkxfAKlN+fAs2JyiocXJV1drnAwViSzvsm2BZ61FpoY1/4bJyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=jx7AZzau;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=bWYCGMD0;
+	arc=none smtp.remote-ip=185.67.36.65
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9973E606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9973E606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D80606D835
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:16:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D80606D835
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=jx7AZzau
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=bWYCGMD0
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 8160F240101
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:16:03 +0100 (CET)
+	by mout01.posteo.de (Postfix) with ESMTPS id AC44824002A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:16:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793808963;
-	bh=uSL4WCFdu/8AH47XVLkok2dck+ry3uGzMw20szqHJBM=;
+	s=1984.8680eb; t=1793808972;
+	bh=HJM7/PuFDUDOwqvZxCE1CMPyZQc4Y2DCZuVTcSLNH0M=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=jx7AZzauITfBef6KYUAEf6GHPCWor4fyfgidwB+08Cc/9M2rKbMEedBDWBNCOQ+a5
-	 uxCIUFJbyKDA0M72lUY/FXyq/miyk6yFZ3E0j3xxUojrtkOHZn2Tcv44DCtQGHJ97H
-	 GHtt6ohVFl14a5eYc4nqTXX70bVyzH8bRbJfb7O7Tpu5KyXq9MLYP3a1WwE8ZX6Yx8
-	 BryyChw3QaG95eW7bJI4tNzI3WhHWsGRX2YhPufltmJV9gZ0koOjhAhfOO0jIchDeq
-	 c/yYGWSUKc6uLTUYCLZTAd76GHIA5ukKhpDHRH7xVWM/NEWtr8w44n0O2BKMmGcxkV
-	 +D7CPHPffigEw==
+	b=bWYCGMD0qJP+YwmDPWOA+XFnLEjJLabifZ/qVezj8x28+07HdAXuPlPE38aNz0+Es
+	 njakRp7uW8MqLGLcvdXB8uIThbmyIkcX5Df9ndhLj5vTVPwr9X2Lz3HEzXURpdcP/T
+	 lK2k7L1yud5POYULLH4HMcXeHF/1ARE07+i9veXB1QLLCOmKQKFiuzlWtSoCV2/I+v
+	 ZmbpobO6RvHSXp+6E4qX+VEfcU6Gd93blhbP7LqznnUnTNXHaTcoY89s3RtZJwvt9j
+	 85C1jM3CpNGEZgjREDgOv/O7tL7oPPrpIpYiN841dMwOR2sdHCy266bwcozhMtMx7t
+	 FrjRqsA2QY2qA==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKVt83CGdz6twJ;
-	Wed,  4 Nov 2026 17:16:00 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jKVtG5m16z6tyK;
+	Wed,  4 Nov 2026 17:16:06 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>,
@@ -67,9 +68,11 @@ Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/3] watchdog: arm_smc_wdt: allow a list of SMC function ids
-Date: Wed, 04 Nov 2026 16:16:02 +0000
-Message-ID: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+Subject: [RFC PATCH 3/3] arm64: dts: st: list both watchdog SMC ids on stm32mp23 and stm32mp25
+Date: Wed, 04 Nov 2026 16:16:08 +0000
+Message-ID: <20261104161553.30115-4-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,68 +84,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id of the SMC watchdog
+on stm32mp2") changed the watchdog SMC id from 0xb200005a to
+0xbc000000, the OP-TEE default for the platform. That fixed the watchdog
+with such firmware but broke it on boards whose firmware still uses
+0xb200005a. List both ids, the driver takes the first one the firmware
+accepts. Kernels that read a single id keep using 0xbc000000.
 
-this follows up on Marek's report about the stm32mp2 watchdog [1].
+Fixes: ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id of the SMC watchdog on stm32mp2")
+Reported-by: Marek Vasut <marex@nabladev.com>
+Closes: https://lore.kernel.org/all/1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com/
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 2 +-
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-A quick recap: the arm,smc-wdt driver talks to the firmware through one
-SMC function id that it reads from the device tree, and there is no way
-to ask the firmware which id it uses. On the STM32MP2 SoCs that id
-changed over time. ST's OP-TEE from ecosystem v5 expects 0xb200005a,
-their 4.0.0 fork accepts both, and the 4.8.0 fork as well as upstream
-OP-TEE only accept 0xbc000000.
-
-My earlier patch, commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id
-of the SMC watchdog on stm32mp2"), switched the dtsi to 0xbc000000. That
-made the watchdog work with current OP-TEE, but it broke boards that run
-the older firmware. So today 6.18.y uses one id and 7.4 the other. When
-the kernel and the firmware disagree, nobody pets the watchdog that the
-bootloader started, and the board resets after 32 seconds. Marek hit
-this even with a recovery kernel, which is about the worst place for it.
-
-The idea from that thread: let arm,smc-id be a list. The driver tries
-the ids one by one and keeps the first one the firmware accepts. Older
-kernels only read the first cell, so they behave exactly as they do
-now. For stm32mp2 the list is <0xbc000000 0xb200005a>. Calling an id
-that belongs to some other firmware service would be bad, so the
-binding says the list may only hold ids known to be this watchdog.
-
-Why RFC: arm,smc-id already exists in firmware/arm,scmi.yaml as a plain
-uint32, and dt_binding_check complains when another binding turns it
-into an array:
-
-  arm-smc-wdt.yaml: arm,smc-id: multiple incompatible types: uint32-array
-  arm,scmi.yaml: arm,smc-id: multiple incompatible types: uint32
-
-DT folks, is there a way to keep the list in arm,smc-id that you would
-be fine with? If not, I can move the extra ids into a new property,
-something like:
-
-  arm,smc-id = <0xbc000000>;
-  arm,smc-alt-ids = <0xb200005a>;
-
-The driver side would stay the same, it would just read the fallback
-ids from the other property.
-
-One more question: should patches 2 and 3 go to stable as well? Then
-6.18.y would also work with both firmware generations. The 6.18.y
-version of patch 3 would turn its 0xb200005a into the same list.
-
-[1] https://lore.kernel.org/all/1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com/
-
-Mateusz Nowicki (3):
-  dt-bindings: watchdog: arm-smc-wdt: allow a list of SMC ids
-  watchdog: arm_smc_wdt: try every id of arm,smc-id
-  arm64: dts: st: list both watchdog SMC ids on stm32mp23 and stm32mp25
-
- .../bindings/watchdog/arm-smc-wdt.yaml         |  9 +++++++--
- arch/arm64/boot/dts/st/stm32mp231.dtsi         |  2 +-
- arch/arm64/boot/dts/st/stm32mp251.dtsi         |  2 +-
- drivers/watchdog/arm_smc_wdt.c                 | 18 ++++++++++++------
- 4 files changed, 21 insertions(+), 10 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index fefbf6f4f153..7526e86f5a1d 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -35,7 +35,7 @@ arm-pmu {
+ 
+ 	arm_wdt: watchdog {
+ 		compatible = "arm,smc-wdt";
+-		arm,smc-id = <0xbc000000>;
++		arm,smc-id = <0xbc000000 0xb200005a>;
+ 		status = "disabled";
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index dac3d2d23ff0..143d83216530 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -36,7 +36,7 @@ arm-pmu {
+ 
+ 	arm_wdt: watchdog {
+ 		compatible = "arm,smc-wdt";
+-		arm,smc-id = <0xbc000000>;
++		arm,smc-id = <0xbc000000 0xb200005a>;
+ 		status = "disabled";
+ 	};
+ 
 -- 
 2.56.0
 
