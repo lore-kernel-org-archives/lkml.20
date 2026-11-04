@@ -1,88 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833768;
-	b=LRW/toc2QrYQofSMetUTavJCXSCqNGquCbDhGCASk7zuejxL9wXv0RLFuaYnNbxwPkBr
-	 JZ9AguqWcGq3AFLHSAV3mqjxlOwIE1OvgM9NySsmoW4HMnum8Z/wwlhNI3y9G1VcmKNf5
-	 vKBEY1p4Yw+Z/fpOYh2BVDz9hlXbZDHhXCwMr6Lf4BChmZ4ra5Ct9WoYl+kEdB3ztSTuI
-	 +cvERi5R7xjMk2OfPWm8nStp8peJ1oDlu0yUL9PJ9bwm4NdGg8nFzaxmKJvkM/4sYpCaw
-	 E3ehBvM+51fBItPvsh6DdSfSMAdLh/eh3sP2Q9X0fAHFCOqYITNpUvVvpgKRe8KXWDA==
+	t=1793833853;
+	b=GZZJeyxt5u8gDxiLj60l3fUqo8OVW935HRjOXe7jFmPZOxEeWcjNaxvtiV+JSWDsBWn4
+	 jEp6c9uNoklirIREUpKXOCZjHtIp4nQ5Bugl9Gqt+pFnW0zDnkX7doH0djYoEDVzRetKx
+	 Fj8c9gCL4USiqFWdOxpcv7GZpgC4/XYlWrRiB5yNJTIH/Q/DDpIBMcU257OUc5CifCQwE
+	 I0jTIaYzE2U+ZTnu3HKVFktre0uF6/DuHaIWdque9mXREz/lZGo2O4mx6hCZylD0ChuLx
+	 bwSwNl5IhBhhY+byFrIi3vqr7J6uk2pltUe7XLHh6dXQyJ6AIoLu8jS4u3d7wGBH7SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833853;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=QJ44xLdhQI1uBh7xxp/N2gaMNtMNeyLEDRfUNR/7E78=;
-	b=2S1sNRcjUyuryN4e4CcboNNyjnHNtv4KMH8XszVSb8HRX/b7mnOF6Do9xj3j4DDrgu3J
-	 NkGLglxDokCymIGbBfX+BLK3JeKfMFTDpGKCDh9UMzmxlAPffTKx8/36v5oWktRuBz10Z
-	 ZC9V0x7roQf5VbGWr4CxpODCs+r/u4XUPeBLYhd6T9Jd5x5bQ0ZBTadSjwsBKyjQwi20Q
-	 b7eKqSbzSqVQeLyucBGPsiYP2JnqZF04/0rZGdUIHgP/b2UXIjF+yz2O0H4iEj3tzqWxF
-	 3QcPkoH1aMvdmv1K5qugc+/LsI9IRdXrtUw8DTMzavoY+MN79gfHgG4SrrMHwmo40eg==
+	bh=9lJTku6tZLx6gKrffgVjANOZdcGCC7AXBaK81+9zGYE=;
+	b=APQm65LQUzsUyuoL0zJNLAuIO4dJJpw2oLpZqPySb51q8B+3EzO/wukGLZgP4r9wUUtR
+	 lugcD74Bg/koykMXzPq7U7+y/jMt9RIcP/q7y//0GthGwKeDWgq3drELilnHpOE8eyznb
+	 gGMwybAUM9+4YhLFhcAaW9ffE1zr23QBAM+ZT+qWwImhkc4V3ZXloprv0XjMwkQax4LaH
+	 ynZLe2AqVSSXA28byzhnJWKh7014P3Lj2NtxHch7vqOPzdK/i3fiK/FPeU4Bzdb5mlEwG
+	 FNhUn2gzuVvzOHdpH0Xo6N4/j15ES8Vdho07ce7ZLZYfTBjdQod46x2VDUpEpUCljJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wjPH+Yne;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peNOYkXB;
+	arc=none smtp.remote-ip=209.85.167.172
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E72606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:09:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5E72606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60F6606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60F6606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wjPH+Yne
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso9819085e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:09:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peNOYkXB
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-53aa0802881so605798b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:10:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793833766; x=1794438566; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QJ44xLdhQI1uBh7xxp/N2gaMNtMNeyLEDRfUNR/7E78=;
-        b=wjPH+YnexCxHCatAS+O3CqB/uti+0YeZ1zpXdmwJfGvl18ME2cwPE17tj9l8RL6zKG
-         4YD+rNP0FbGe1DApbRxNUKKDQxKiWWyJsEsiIeD5m3R1WFqh5uyBi5/u3mZOh93btlba
-         3eNdOhcnOs7Rz8iwRjpkdDIuKPNF5iof1aLQiDacU5C4shWTx6C57mU+9gbm2GGZcfBA
-         p5pZk14nucF2DgMpHAyDsRhrYK1h49CfvSIS462o++nOlfmXwYGmg6Vlq1VcyCgAzpCN
-         hIQfwykB+Z6qGuAShuE0FkkN5trrXYAempNz1eSEyLl34fNFWujFVUwcAFwoGY/0fLOu
-         XYqg==
+        d=gmail.com; s=20260707; t=1793833852; x=1794438652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9lJTku6tZLx6gKrffgVjANOZdcGCC7AXBaK81+9zGYE=;
+        b=peNOYkXBykh5hzcRhdfilpYXoUuuRG3sK0s9aagDiqbAuXWBhH9lXpDftM39uVsKUn
+         nLDBR0fRDWcwO9MpLkFRWNe3KuJbrlG6lmb9FugsGCH6hkb40P6tqMLoTYOj7gdWGj5k
+         +5Mlrqz5MBqpTd7Cmb1HdJN7jZn4a6dZmhe0aAbme7UhTBN9rN7SVV5K4D66jtkcG93m
+         iL2UtG1Zl5aMbYxD4i2sW9LXZ+uve/DnCQfv/Il2Awcc2sdsNM/jVPFEvDxktUoeRcQM
+         uHiI/XCUazDziJdVkzmYwgYvqp3+zkzlQE7c19xvz26VU1wojYm5JQFCM+/wew2CD06F
+         ovOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793833766; x=1794438566;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QJ44xLdhQI1uBh7xxp/N2gaMNtMNeyLEDRfUNR/7E78=;
-        b=VaOwF0I2gB4cj8j55SqFH+P7vtTPMWrhdU0P7+QdvAQRKTMnJH+Dzs9gD+/dAfzBBS
-         3uz+1HhiPTCziyO8VXsCZodjDCibqyUVgEk4Is0/F8KIlu4+qywN6qfwRPXE2y1N10PW
-         IBZ/W4qldj90Sm1jdMGLq4hs7wnkF1W2X1bpQQJpstcPnEwG3C+2JugJtbXSk2BAj43F
-         JDkokhbYWz3oWmR3YjRYA2JWW+QCEzVSGB1F/XvkQEbwoF4pH1KLtSokWLvUPqkAsr52
-         WkRG4qxm9mBM/pxK95M1XGSiu8Ssh5VgulPEzYisHHJhswfeZoYUBSCetrG1TI1/I/fj
-         kkoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxT244AW0p5FDhnBuvFajyD9kgQFUb/Go7qu5lr672RIMdH9CGyXaYKNiyo9vm+MO6K3mHxgLwMemBQSjc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Um0OCfEqieiy280iYn5jgTp1QnQGf/pHF15c2NURgtXPYxZRF
-	+ye6vTuh+6QB5NpoTl1FezBsqiux2pSRKndRYwYQxGcuUNvpZiF1bEri
-X-Gm-Gg: AYBFou332t1hJe3xpyUyWQJ2jOOxBjYAXW6Z82/nDcbZode1iIoGK+aMpR6VV+i/fgZ
-	gAEfVPw5VzQRkxie7gfxVjTbrrrxxZFsNeRUEyE7ZDJ+jArwjgIojP5MySZpcFwX8bdVXj53/XD
-	0U+kVDzsC2VcRPJhdlgDECCw/bJ26cmO9at6vVToAGOmUQL8/likeeBTmT6nI/xb5txlagCe33/
-	OFee/uqdOrfbOIxk6lmmCyZalj85Hh4w7u+sK2TpXayOSjbWTgoTd9JVRmoDv7JdLxBjGQM7+4b
-	+KkiLvueQ2beHx/aniEdfZ7fTaPRSunxSIPQIu0uOVfRuFkqCBcMrWwOgTkdVWgen7izx05Lk4D
-	QsTKpglrUJJa3xifBve7ttD/KBzyXomav0JNE/ap215yuaLcQWxTtLMqkJfy+ihZBn7b7hiSaMv
-	Td+bS45poNnRvYxrkLQ9UK+th+VogFZ6NzCBsc5J1m/0LBJDTnqig5oVguRjkV+Gcy5rK218rkR
-	nc2bXdHAVOb99HIGIS0iGrzh2l65pl1LL5ez82Sgruwkgr9ImyVaCa8gjA0N9CqFAEipPLuy7nJ
-	Q+Vd/4h2hCLPHGSnFuM6IBU=
-X-Received: by 2002:a05:600c:3b88:b0:4a1:cf60:dcc3 with SMTP id 5b1f17b1804b1-4ac187a6ffcmr414345865e9.29.1793833766131;
-        Wed, 04 Nov 2026 15:09:26 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae73csm18115315e9.1.2026.11.04.15.09.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 15:09:25 -0800 (PST)
-Message-ID: <a9ed4146-691d-4a35-9b82-e60329688277@gmail.com>
-Date: Thu, 5 Nov 2026 00:09:22 +0100
+        d=1e100.net; s=20260707; t=1793833852; x=1794438652;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9lJTku6tZLx6gKrffgVjANOZdcGCC7AXBaK81+9zGYE=;
+        b=1due2h15RuovuyAglstGOatLQl5/RZb/9S8vxCpDRhgIJF/6qFooU2EgcqcuJZvg2+
+         C6hnOEbb6oquKvaQndCiSA7d+NTDLHpMNPaN9FAFu0sTTpL5XCkpOUTFzNT1ODlA8Ge2
+         o/o3wdiRormhisuJEd8kv9bpw139JzHwhf+b5nlO1Ythfz2yeKzUljggSnRW/hJISMR9
+         hOCGzBwyWJX80UBF0C/fXfIjnY7TeDj3mBhED7jzqbdgyiyaqP5TKM1cr3f07qI/0Ijf
+         2e+vIsvxtxj2e6bOgTQwrnwJ/lCjfdY0Lk+iVSuKTOSpgdOdhbrfG9NjolhqjHuR10mA
+         tbug==
+X-Forwarded-Encrypted: i=1; AKwUvBxuo+tUE8Ub+U27dzj5AMpEMOG/cLF00EUHvy1P95XZ4JrbqDja4qyzODuRHXWZZMGD2Fm7EpsEXuq2P5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8We7oRupKr5rNMiZuVbzOyv3MTZDtElSERzZGNqvbS4t4E+sQT
+	l17x8+YamdzUVAiqJNhd2iqIfyQtcWCDuyF0OMR2AerORpDUsdHEBuw3RPgWK7u/
+X-Gm-Gg: AYBFou1cfVjjLO2uYGtX8VesJwDyRBPykpDqbcV5hGeGBxQhCFaBNRyYya483STBnff
+	jAs81UV/Sep8+MaNK6vmlXAa23nAZh5+wL6PohYJy4miHyjaYkyrRA8XkBSzYJZiMxUTbOkQatE
+	4Xk48R8uklNw1ZztQJYqyohdJsE/TgVnH1fMZamZijX8D8ZK+y9Y8pMclfZv/50Eq0V/wq2nMgN
+	IbBp9vpmVJLdwKqyfECVBeADLouop1mn5uBfP1qvAo2wuvl31RhMCtvJtR65YmfPuE1EJylync9
+	Zb1a8DTGrWwo6qHdCATGkKc7rzdxrs9Rct1AaMFFntjTcDIesykYGffqeGy6qWpOEvsKf/bnUr/
+	3B96Dh5+r0NI4Mhtc0+mNJdFcZxRMcKrwZAlJC4TGJm9LvlXSkCVbHXxwhQq45P6Of+sZLTrxIH
+	MVOkA0OSU/GtNiUCpgQqo9+hW6qPk82TEVGlw6fwir6+Wr9raUsnZNYHk/pUqofRfVLPpIdMUKz
+	UCnJXcVGroa3UNKLX5ncWDPRpymmizbkfZUFBGFR78MsOBO2LikGYskZoVsisFQoFYV48HloQqD
+	vXqtTaJt3VgZHN2s7scL/bDbhZwY9A==
+X-Received: by 2002:a17:902:dacf:b0:2e2:dfe4:adab with SMTP id d9443c01a7336-2eb36426d08mr166711845ad.10.1793833384590;
+        Wed, 04 Nov 2026 15:03:04 -0800 (PST)
+Received: from cxlqual.. ([220.120.90.131])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0908587dsm10999175ad.36.2026.11.04.15.03.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:03:04 -0800 (PST)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+To: linux-cxl@vger.kernel.org
+Cc: nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ira Weiny <iweiny@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Fan Ni <nifan.cxl@gmail.com>,
+	Li Ming <ming.li@zohomail.com>,
+	Benjamin Cheatham <benjamin.cheatham@amd.com>,
+	Gregory Price <gourry@gourry.net>,
+	Richard Cheng <icheng@nvidia.com>,
+	Anisa Su <anisa.su@samsung.com>
+Subject: [PATCH v1 10/14] cxl/extent: Enforce cross-region tag uniqueness
+Date: Thu,  5 Nov 2026 08:02:34 +0900
+Message-ID: <20261104230445.66625-11-anisa.su@samsung.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104230445.66625-1-anisa.su@samsung.com>
+References: <20261104230445.66625-1-anisa.su@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,82 +112,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] mm/huge_memory: read a special PMD under the lock
- in copy_huge_pmd()
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
- <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
-> copy_huge_pmd() reads a special PMD without the page table lock and
-> copies that value to the child. The mmap write lock held by fork does
-> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
-> lock.
-> 
-> The zap visits the parent VMA before the child's, as dup_mmap() links
-> the child right after the parent in i_mmap. If it clears the parent PMD
-> after fork has read it, and passes the child before fork copies it, the
-> child keeps a mapping the driver has revoked, for example:
-> 
-> - vfio-pci: the child reaches the BAR after the device memory was
->   disabled or the device was reset, instead of getting SIGBUS;
-> - panthor: the child maps the pages of an evicted buffer object after
->   the driver has released them.
-> 
-> The same branch deposits no page table under the copy. ppc64 in hash
-> mode keeps the hash slot array of every huge PMD in that table, so the
-> child dereferences a NULL table on the first hash fault, in
-> __hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
-> 
-> Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
-> from a folio under them, as copy_present_ptes() does with
-> vm_normal_page(). The zap clears the parent PMD under the same lock, so
-> either fork finds it none and skips it, or the copy is in place before
-> the zap reaches the child.
-> 
-> The copy of a PFN mapping then goes through the same tail as a folio:
-> 
-> - it gets a page table where the architecture needs one;
-> - in a shared mapping it is marked clean in the child, as a PTE is;
-> - in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
->   protected instead of a warning being printed.
-> 
-> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-> Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-LGTM:
+A tag uuid identifies one allocation across all regions and memdevs,
+but nothing checks a new group's tag against the allocations already
+live on the host: cxlr_add_extent() only compares it with the chain
+group being assembled.  The orchestrator owns tag allocation and is
+responsible for global uniqueness, but if a firmware bug or other issue
+causes a repeated tag, the kernel should also reject it.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Add a host-wide list of live tag groups with non-null uuids.  Null uuids
+are skipped because untagged extents are not associated with a single
+logical allocation.
 
+Check the list during tag group validation and return -EEXIST if the tag
+is already live on the host via cxl_tag_already_committed().  New tags
+are inserted to the list via cxl_tag_register(), which inserts atomically
+under cxl_tag_lock.
+
+Signed-off-by: Anisa Su <anisa.su@samsung.com>
+Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+Tested-by: Junhee Park <jh9934.park@samsung.com>
+Tested-by: Heesoo Kim <habil.kim@samsung.com>
+---
+ drivers/cxl/core/core.h   |  6 +++++
+ drivers/cxl/core/extent.c | 56 +++++++++++++++++++++++++++++++++++++++
+ drivers/cxl/core/mbox.c   | 16 +++++++++++
+ drivers/cxl/cxl.h         |  3 +++
+ 4 files changed, 81 insertions(+)
+
+diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+index 528eec2a1cc3..b7f8886db498 100644
+--- a/drivers/cxl/core/core.h
++++ b/drivers/cxl/core/core.h
+@@ -79,6 +79,7 @@ void kill_regions(struct cxl_root_decoder *cxlrd);
+ 
+ int cxl_add_extent(struct cxl_memdev_state *mds, struct cxl_extent *extent,
+ 		   u16 seq_num);
++bool cxl_tag_already_committed(const uuid_t *tag);
+ int online_tag_group(struct cxl_dc_tag_group *group);
+ bool rm_tag_group(struct cxl_dc_tag_group *group);
+ void discard_tag_group(struct cxl_dc_tag_group *group);
+@@ -117,6 +118,11 @@ static inline int cxl_dax_untagged_add(struct cxl_dax_region *cxlr_dax)
+ 	return 0;
+ }
+ 
++static inline bool cxl_tag_already_committed(const uuid_t *tag)
++{
++	return false;
++}
++
+ static inline
+ struct cxl_region *cxl_dpa_to_region(const struct cxl_memdev *cxlmd, u64 dpa,
+ 				     struct cxl_endpoint_decoder **cxled)
+diff --git a/drivers/cxl/core/extent.c b/drivers/cxl/core/extent.c
+index 334a97ab583d..4a59db823af4 100644
+--- a/drivers/cxl/core/extent.c
++++ b/drivers/cxl/core/extent.c
+@@ -6,6 +6,54 @@
+ 
+ #include "core.h"
+ 
++/*
++ * Host-wide list of live tag groups with non-null uuids: a tag uuid
++ * identifies exactly one allocation across all regions and memdevs.
++ * The orchestrator owns tag allocation; this rejects a repeated tag
++ * from a firmware bug or other issue.  Untagged (null uuid) extents are
++ * not tracked: they are not associated with a single allocation.
++ */
++static DEFINE_MUTEX(cxl_tag_lock);
++static LIST_HEAD(cxl_tag_groups);
++
++static int cxl_tag_register(struct cxl_dc_tag_group *grp)
++{
++	struct cxl_dc_tag_group *g;
++
++	if (uuid_is_null(&grp->uuid))
++		return 0;
++
++	guard(mutex)(&cxl_tag_lock);
++	list_for_each_entry(g, &cxl_tag_groups, registry_node)
++		if (uuid_equal(&g->uuid, &grp->uuid))
++			return -EBUSY;
++	list_add_tail(&grp->registry_node, &cxl_tag_groups);
++	return 0;
++}
++
++static void cxl_tag_unregister(struct cxl_dc_tag_group *grp)
++{
++	if (uuid_is_null(&grp->uuid))
++		return;
++
++	guard(mutex)(&cxl_tag_lock);
++	list_del(&grp->registry_node);
++}
++
++bool cxl_tag_already_committed(const uuid_t *tag)
++{
++	struct cxl_dc_tag_group *g;
++
++	if (uuid_is_null(tag))
++		return false;
++
++	guard(mutex)(&cxl_tag_lock);
++	list_for_each_entry(g, &cxl_tag_groups, registry_node)
++		if (uuid_equal(&g->uuid, tag))
++			return true;
++	return false;
++}
++
+ static struct cxl_dc_tag_group *to_dc_tag_group(struct device *dev)
+ {
+ 	return container_of(dev, struct cxl_dc_tag_group, dev);
+@@ -15,6 +63,7 @@ static void dc_tag_group_release(struct device *dev)
+ {
+ 	struct cxl_dc_tag_group *group = to_dc_tag_group(dev);
+ 
++	cxl_tag_unregister(group);
+ 	xa_destroy(&group->dc_extents);
+ 	/* Drop the pin taken in alloc_tag_group(). */
+ 	put_device(&group->cxlr_dax->dev);
+@@ -93,12 +142,19 @@ static struct cxl_dc_tag_group *
+ alloc_tag_group(struct cxl_dax_region *cxlr_dax, uuid_t *uuid)
+ {
+ 	struct cxl_dc_tag_group *group __free(kfree) = kzalloc_obj(*group);
++	int rc;
++
+ 	if (!group)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	group->cxlr_dax = cxlr_dax;
+ 	uuid_copy(&group->uuid, uuid);
+ 	xa_init(&group->dc_extents);
++	INIT_LIST_HEAD(&group->registry_node);
++
++	rc = cxl_tag_register(group);
++	if (rc)
++		return ERR_PTR(rc);
+ 
+ 	/*
+ 	 * Pin cxlr_dax: it is used after cxl_rwsem.region is dropped, so a
+diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+index a1d3e04a1e1b..0fa501f5800c 100644
+--- a/drivers/cxl/core/mbox.c
++++ b/drivers/cxl/core/mbox.c
+@@ -1640,6 +1640,22 @@ static int cxl_validate_group(struct cxl_memdev_state *mds, const uuid_t *tag,
+ 	struct device *dev = mds->cxlds.dev;
+ 	struct cxl_extent_list_node *pos;
+ 
++	/*
++	 * Cross-More-chain uniqueness.  A non-null tag seen in this group must
++	 * not already correspond to a committed tag group anywhere on this
++	 * host.  More=0 was supposed to close that allocation, and tag uuids
++	 * must be unique across all regions and memdevs (the orchestrator owns
++	 * assignment per spec).  Either constraint failing — same chain
++	 * redelivered, or two distinct allocations colliding on the same uuid —
++	 * is a firmware/orchestrator bug; reject the whole group.
++	 */
++	if (cxl_tag_already_committed(tag)) {
++		dev_warn_ratelimited(dev,
++				     "Tag %pUb: dropping group, tag already committed (firmware/orchestrator bug)\n",
++				     tag);
++		return -EEXIST;
++	}
++
+ 	/* Sequence-number integrity */
+ 	if (cxl_check_group_seq(dev, tag, group, shareable))
+ 		return -EINVAL;
+diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+index f7d7749d704c..79f5773f8f81 100644
+--- a/drivers/cxl/cxl.h
++++ b/drivers/cxl/cxl.h
+@@ -642,6 +642,8 @@ struct cxl_dax_region {
+  *		allocations.
+  * @nr_extents: live count of dc_extents in the group; the group is freed
+  *		when the last dc_extent device is released.
++ * @registry_node: anchor in the host-wide non-null-tag registry that
++ *		enforces tag uuid uniqueness across all regions and memdevs.
+  */
+ struct cxl_dc_tag_group {
+ 	struct device dev;
+@@ -649,6 +651,7 @@ struct cxl_dc_tag_group {
+ 	uuid_t uuid;
+ 	struct xarray dc_extents;
+ 	unsigned int nr_extents;
++	struct list_head registry_node;
+ };
+ 
+ bool is_dc_extent(struct device *dev);
 -- 
-cheers,
-jose a. p-a
+2.43.0
+
