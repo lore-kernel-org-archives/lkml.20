@@ -1,51 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813075;
-	b=P9QUqsxVtgUiF9Ea5LDBAVpAcECSOGb+UEFQKglnPZ8dpyHuZkbMmU+aQTk/ws350mO4
-	 tDOV0+hdz+lRA/SZJbxcf+g1Ks7IxEQ6fWztcTXV6e7orbjFlySmQh4KfzQ5vAp1egQs8
-	 1yJ4/7VRnUWkJF3qlVCmTxnINdFyp5LzE2+O1VyzK3HR0bM4ImBXiUmSKV4kAV6uIqzNJ
-	 QR61OstRQkYWL4aiYsc6zPC6g6zWrp39Lg9fzkmHjuAHWeyXXuf1IJ+pdWLqmv1tvAfCy
-	 I4G9JwnUayEooKu+Vz3g1ZMHD+sQFwMwe1w+rV7jA5+REF+CdwAeVmpg1UJviqGCc7Q==
+	t=1793813139;
+	b=u8u4E+54Mq+NVAJE9PtR8UpyuM6XHN0+/iOgBGXpqfvmx8dMu5k5QuCpwncewcxncIwq
+	 BB+hHmIOjsj7fU6peo1MM0Ze84hkPRTw17tPLIpSty76vIK0zn734+u5/8+OzQeM8uODX
+	 +EWK6Lar7nyru0orqbyexR/YZY+235VY00ThvH+ILJBB/CPl3T6BdQY7DvGINqY1GG7Mj
+	 mkSuquiUYBlxmJNr4oq4hL15vavq46L7jcpOOyY+zI4keAR25jgksQswC9J9R4YyjuQuv
+	 Ux7AAqceheQalMLJdriC/6rwt/4BNVrOA0kENwFs3k19hc/4Guf/29CJ1Tfqmzq5WAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813075;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc;
-	bh=FmFhmHqchVrqj+0DB2A1OfSUsKoVGkJJrNsEk9xPgCc=;
-	b=n8/yM1ckHf/3a9OoPAS/5ud31bRX/7cMsAS6n6Uu242s5olv7LevnESr8WKYjwEOISHL
-	 5oyjvfoJtqMmhFC1NqCf96G4atYuzdrDEXy03XrwvSIu1ZRScvijOFiRe51pU43vzguol
-	 0yK8DFU8pb0xQwzjozlu/pDwcBQmZHtOh7iEc51dkbuXbjheYD//XWPtCM2MIdSbi6wWz
-	 7EtmB2SLJe88ZBgWZHqrthm3+pd+H+5GK0h3cbyuv9MXCGVSrzs9VuhVoLZXVjwnLq5lL
-	 xfTEwos9s+NUBrq1iuHpnIoROBQbcQlimVBA7Wvs7wV3GVKIOVfEKVTbWFu5LwEyetw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813139;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=JR9FR7Y8ZGIM/Kx586GDDxG8hubel43MCCYiHjjhwQc=;
+	b=zOyAKoPiAZO9GHXX4v/yzHA5CAOw4oHYoMU/SjGfNXSq88a1iwPsGHZP1BxkHnZjGR6L
+	 FIRGXqNlAJgw3ym3j0f4R7xM79phCfNp3URk9a4RiVR9HBcM9ORC8lGR/72PV1l4Vbtvg
+	 BnH2152++ovqaW7SydeohrtzixgR+wacHXHmgnS8xOExHAkEKQlhLjrRxKOHX0v0E3l7T
+	 QtdQFp3++w05PDlVr81RICliB9fFYsJvlkBTyPjKHezpxl4CjGdvex/OQ1BoHqzXSa3AN
+	 hkEJSU0fDM1grf1XJ3+dKBMF06/XAryJmDoQyqeN71qT1nz5DI2ThHWV+ES8UG7abnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=KIFHrY5F;
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NCGyZFH2;
+	arc=none smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532A3606D81E;
-	Wed,  4 Nov 2026 17:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 532A3606D81E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E6606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:25:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24E6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=KIFHrY5F
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793813072;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FmFhmHqchVrqj+0DB2A1OfSUsKoVGkJJrNsEk9xPgCc=;
-	b=KIFHrY5FiYi8bvIaolJ5AS8FMJspLVlXsDCYqmOpfCtNny4JpvVkkuegokYuOuuD+A9e/6
-	IbofpO/vCoiSHenbzAhmN6eXbYUEN/ci4lSQ6qD/0nWh8ZvX701rTLtMD19aldWoLrETS8
-	4PCE9ZoXc/sPXMvezsYhTIPNdHTNF7Y=
-Date: Wed, 04 Nov 2026 18:24:21 +0100
-Subject: [PATCH v2 8/9] dt-bindings: arm: apple: Add M5 based devices
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NCGyZFH2
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4a76f63b243so1607102fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:25:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793813132; x=1794417932; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JR9FR7Y8ZGIM/Kx586GDDxG8hubel43MCCYiHjjhwQc=;
+        b=NCGyZFH2OA5UEgQGPZeCcVQnIxXDqUKyCRP8vcTEEjFX8UIJgPxXKWQl3TC8FiHyNl
+         G5t+7XlvglJwVoIAVubQAw9fnMlTFXrGdXNHoV103fff2zlMD8Gsg+Yk0AjWjCSlfcxS
+         RG/u+z1rcQLchR8mnITnmChHIgVGYeeSN6TKktGvd5wV/IMtFc6Bp6ariSgCaAXqdCf/
+         dJ+BkUrRBLn7hNDnjTYu6j/12twMRpkOiJQQHTWDWH+oOaOeAr3Mwluga5UEVfqTLLg2
+         vTYHKBGp5slMNzzoAwIZ3TZISOxOfcHoAp6JUasw6FidWAPe7V/ZEAQsbWHAQVnj/c7M
+         gAWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793813132; x=1794417932;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JR9FR7Y8ZGIM/Kx586GDDxG8hubel43MCCYiHjjhwQc=;
+        b=uZsMvha7AMKWlxQ2vSbNiYYvfUR4VhWowV1q6Zp4aDkekIXAki6OFeEVYoW29x5KZ7
+         pABpvFFAJsCMBs8rajvxRR7t4STj2E2etHW29PtqqS9TljpiNkuvHpppxnTtZFkQY9p7
+         usTu0tsh1+qGAiC5cMPz9JkrsxgGKYw6v2Fvn/inShvBrCG8rdSDI63VHchYsIqPIsh0
+         1i0+KKJfxgF7XUGMEm0KY2dPYXWqyGvzwSj+3/udal7aeOh+QiKg+XSwK+i/IoAkbIJU
+         I+xuTtaT7ADu3ofXTkOuywJYCo/sozAh4eTkWwJ6sdY2Cb2Wt/4L3gwk++5QS0gY1uH6
+         fJuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwryJSpsSrbmpzkB7lwI38K1qeM8ULS0DbR67RK91WZT0TbUz3nBmOMsAopiGpptMt8D4XLlKkwVWJ1pUE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qHtQoEM8/ru1elq2KNfUrcNDIBdNvCDyoB8c4R4vpIIbg5fYx
+	yC6X49g/Iaf4Mw4igJkXiQgGHa1v9MplW+DZ3FkWQfVHEFoMLcEB7gIjMikmNpF8TW8=
+X-Gm-Gg: AYBFou3WCWE4LNSwHVn47J/xPMqbAIg2ygaraifVzx9dB6KZc2mJB4w6X+cPBnnmg/F
+	u/1xhHNP+P2dXL/aSLI32FYbua6cmwrXoBpFqGjzPvdqi2IME7NOguYMGuCkqTCGtavoxdp0f/5
+	99/G4yaVKB7iMLxNen+7lsVYLGy/cbMt0sdnRd6I/+VhUBmyyV6irCWqOxgxhlXhG+y3Quj5fRq
+	t6Gigwzsejc/8JSt/XCwhve6oMBnM0HYS2SxspW/eFkAdtpfhzSvpzQGlQpYOfTD72N/pK0sElg
+	KkRogccwJanEcP2i5EiKIfoN5Xq+QCH7ft2FDVzu69utNszsJaUtMmjGQTsyqjWKJrhgj8bwBJe
+	tXV3zcQDdx5h/KThMtIvnqve3cUaU3suISGl/jaX82QVgtKMnLjfH6x4OjVwQAVBRzhvosn+80M
+	Uic/kj5TL/fV4B4UeH71iKzip2ZHeM9ac+8VCk5vSqlH5a3f451aLMbL6/xG/BPT/5P05hOEAzr
+	8f/MwspPWRM3n0bmwkaF2Xkb59YToW4gHt2AoJ8HiuFRypRLexo+BWckGlmqaSvCTYqO12uGSIm
+	1jnAU9lEJhX46TRWZAEgRM+vEqe28YMFaObiqTVJ47YgeiLPRK52OIMO0qNButLOFNiNKQWgD09
+	uoEFZYiNlRNw=
+X-Received: by 2002:a05:6808:bc5:b0:55c:88c:dbf0 with SMTP id 5614622812f47-567be5fc06bmr85940b6e.28.1793813131875;
+        Wed, 04 Nov 2026 09:25:31 -0800 (PST)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567ab6a5270sm1979485b6e.0.2026.11.04.09.25.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 09:25:30 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104-io-uring-wait-inflight-v2-1-f38f29fe8018@gmail.com>
+References: <20261104-io-uring-wait-inflight-v2-1-f38f29fe8018@gmail.com>
+Subject: Re: [PATCH v2] io_uring: only wait for in-flight requests if the
+ closing task uses the ring
+Message-Id: <179381312996.4111762.12728825247345389604.b4-ty@b4>
+Date: Wed, 04 Nov 2026 10:25:29 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,68 +99,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-apple-m5-initial-devicetrees-v2-8-fd727a82d380@cyberchaos.dev>
-References: <20261104-apple-m5-initial-devicetrees-v2-0-fd727a82d380@cyberchaos.dev>
-In-Reply-To: <20261104-apple-m5-initial-devicetrees-v2-0-fd727a82d380@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hector Martin <marcan@marcan.st>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
- Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Yureka Lilian <yureka@cyberchaos.dev>, asahi@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-Only the MacBook Pro (14-inch) and MacBook Air (13/15-inch) were offered
-with the M5 (t8142) SoC. Add the corresponding compatibles.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- Documentation/devicetree/bindings/arm/apple.yaml | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+On Wed, 04 Nov 2026 19:51:42 +0300, Orkun Emin Sarı wrote:
+> Since commit 13d3783a55b7 ("io_uring: wait for in-flight requests on
+> ring release"), the task dropping the last reference to a ring waits
+> for every request on it to complete. A process that only received the
+> ring fd, e.g. over a UNIX socket, can then block in close(2) on
+> requests owned by other tasks, such as a read from an unresponsive
+> FUSE server.
+> 
+> [...]
 
-diff --git a/Documentation/devicetree/bindings/arm/apple.yaml b/Documentation/devicetree/bindings/arm/apple.yaml
-index da6f043ad07a..f78c89780355 100644
---- a/Documentation/devicetree/bindings/arm/apple.yaml
-+++ b/Documentation/devicetree/bindings/arm/apple.yaml
-@@ -116,6 +116,12 @@ description: |
-   - MacBook Air (15-inch, M4, 2025)
-   - Mac mini (M4, 2024)
- 
-+  Devices based on the "M5" SoC:
-+
-+  - MacBook Pro (14-inch, M5, 2026)
-+  - MacBook Air (13-inch, M5, 2026)
-+  - MacBook Air (15-inch, M5, 2026)
-+
-   Devices based on the "M1 Pro", "M1 Max" and "M1 Ultra" SoCs:
- 
-   - MacBook Pro (14-inch, M1 Pro, 2021)
-@@ -364,6 +370,15 @@ properties:
-           - const: apple,t8132
-           - const: apple,arm-platform
- 
-+      - description: Apple M5 SoC based platforms
-+        items:
-+          - enum:
-+              - apple,j704  # MacBook Pro (14-inch, M5, 2025)
-+              - apple,j813  # MacBook Air (13-inch, M5, 2026)
-+              - apple,j815  # MacBook Air (15-inch, M5, 2026)
-+          - const: apple,t8142
-+          - const: apple,arm-platform
-+
-       - description: Apple M1 Pro SoC based platforms
-         items:
-           - enum:
+Applied, thanks!
 
+[1/1] io_uring: only wait for in-flight requests if the closing task uses the ring
+      commit: cf6542493e35ab9e72ac07da10a178ac78db5a16
+
+Best regards,
 -- 
-2.56.0
+Jens Axboe
+
+
 
