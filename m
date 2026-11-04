@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805376;
-	b=t7lsUlUWQc0qk1UNlydyRQJkmQQbDWcOEBPv167unzUXNztv/thIoX1x6WyhdPJ0h70q
-	 HUAkjI6hMLEwAn5jbMkM7sWJcaCEcbQoCro5sfYHTVzG/axmstCocFC6eaK1MVgJxL6e4
-	 9PYkQOHjHJ2U8PttF3OXmKiyA6pxtvFHqmbwkqTuujCfcHF4kc86kosnZrf5b3kmcYC0f
-	 LKZ2K5X1cG1Cdm9h2FCBGSTZ9Xe4FbmbqCZI8q6rf+vspk0ZUNlnZ4QVnXnZ/sg8SYTfO
-	 cUtbKSfexXfXTep4l3Mi9NEuKGqAfwepjh9zFsF5BAQiaJQpXPnl17yc0vFHQ8pJzZA==
+	t=1793805382;
+	b=qSLbxjCP9IHTbgIsffnvYYXHMTPBNkTueJ58mKtXqxzMCvZO9qjgcAs3SBAJ9pSlebYK
+	 wjF7NpbQnQ672Yep36xHaTMXcUx0wuu9BVzJCv0z+aPNsH+ooCR0H4ohVd4T32VomHrr/
+	 VhjnXVPRTlHBtwFnrV1JNXtZF0C8gSbPi1tWpylWIMI4bBW//qHfoEkfaLJeSioLjg04N
+	 jeyc+WUFtWat3SEWs0kFdQZ9c3Vz2/D/2Y0zflmCFsHLek9vdlSm8ekBuGPTZCab8d9KE
+	 tysTKQBjfLTRTSB2Q9fqYQFIFYBGfKLME90kGQwhRAjeq4lZfmye9EQU/zZwP8WPb3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805376;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2QP5qMLgCjzR3Vq+1R7yHnSJoapXAZoBlu3K14T4Qag=;
-	b=luFtIxUb2932dXZkMV0k9AI0BSXHygbN71gKfyPhaSVyh/jiXmG9q7Ww2h2cBkIZyTCe
-	 RspzPTRgyfAjDMXxV8G7HvY54xjNvGQDGot5JgQHP4Qgw+9M2b5wIBWNZgvW1VKkQn9th
-	 I2QmM7kLQ6cqa2HlEcCyd1LCyCJGDM/buhp6T3F1mEuSePWKAQ4D6ItowgHfziP2zx650
-	 ZYX2q1fRPpa75E7NSbFJLG+1la1XqWvyFAKLhSnxFt2cj9BhKmr6YRtI95QOuhPCBQplU
-	 xsXgi0tosL8chuCEsooXLPikToyWYs1YuviM14LGfn4MGeKxSMSVyTu3NbteEfSfk3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805382;
+	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Gg0GU7y4BpX9CjOw9wkYKSPmsxYAjtxr8SHUj4VlaIg=;
+	b=OEnRX/8yUok1OhW+SvAN5eH4nwRayDqC3zKKC+JRXwgYnoTCxqEUQRnE0EoXAMifgRxn
+	 08acqj98BI3nEmgszYbuCj4Ge5MEXHDjKm7LjOqwGvAyMcP4bGNDuIPkxRZKmtm0A6EU3
+	 Ax2yVFii6Huo9dNkRwtc7Pj1sfFjklm7OHEMTdjmiYN2H6XRHfzv7NC0/90Ciwyd9cjD5
+	 yjO/LrwATpX2EpVAC9N31JtdLt514CbNRES+LUAlNbasLFpGNN3w4+nvkyfzTg42spSmr
+	 luAZVxbZY3BsqrMpbw/8A1HX6hLgmtZsOSjPJCLb14j4ZryD+HIq1/QDAj/8uPtooVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FQ2cWk5C;
-	arc=none smtp.remote-ip=95.215.58.10
-Received: from mta1.migadu.com (out-10.mta1.migadu.com [95.215.58.10])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=deq.rocks;
+	spf=none smtp.mailfrom=deq.rocks;
+	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=gfHTlQyZ;
+	arc=none smtp.remote-ip=91.216.248.212
+Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de [91.216.248.212])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4325A6082BE7
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4325A6082BE7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8863160A380C;
+	Wed,  4 Nov 2026 15:16:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8863160A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FQ2cWk5C
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Y5MODlRDl3QiqtxOx5uVZzRjMa3zrlbQrFa1R/TJtnc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793805367; v=1; x=1794410167;
- b=FQ2cWk5C6jC5vxZjcu5BEuEjr54C1fyCvGh7wCHiYqYjB3tbdTzP0fCrA/NKAmu4l3AIlOVX
- jnP20quZYAv7pErqzQKZArdXkC9Lmr590U5BGTI8mNbpSwPmHK+cMXuNFmnGXC1d91yE6zi9WaO
- 6JLp2lQMfmBBSOaeyAvtAV2M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b99bb3eec717c0ce;
-	Wed, 04 Nov 2026 15:16:07 +0000
-X-Mizu-Trace-ID: b99bb3eec717c0ce
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bb136360-bbeb-41e2-9dc3-96d783e6dc81@linux.dev>
-Date: Wed, 4 Nov 2026 23:15:36 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=gfHTlQyZ
+From: Andre Eikmeyer <dev@deq.rocks>
+X-Lima-ML-UUID: 71c5472f-e6c5-4240-a477-5538a226664e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+	s=securedbylima-20251205; t=1793805379;
+	bh=wIWsTUIttos50AavwboYoSeCnvp4m0UJ5HE+oI0n2sw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=gfHTlQyZ4XOYpvHZHkiXr9fKptLI0kFAdGHiDchXtH255P8qlD+5qvNjKhHDu02dl
+	 IVcGk2BuIezHAWQYBHq+eMASh7zzQhIFOyWmGXH7gEI6UPPNXCD0nJPrjbj99BXPKK
+	 pVZPMx9z1er4Ja5dx+7o9SyUmgF6jHe+YB6I5BIAgAxPS5uoldFPDkHXtQ7N41VJUD
+	 sZhdqjJP8V1VQ15A/Ej/mqv11YhPmfok/RPJhmltLI3QJ0WAHuLLbnFKlTT9v2hoO2
+	 Mbhjqcoey7/29wSvGNrea8b3LrdQYvJ8U19a92QWEXcrJJgPm+myQkoe+Ow1O7BE2n
+	 5vvIuhZ288vkQ==
+To: arend.vanspriel@broadcom.com
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	sebastian.reichel@collabora.com,
+	Andre Eikmeyer <dev@deq.rocks>,
+	Lukas Klizas <lukas@klizas.lt>,
+	Yossef Osman <Yossef.Osman@proton.me>,
+	Aditya Garg <aditya.garg@linux.dev>
+Subject: [PATCH] wifi: brcmfmac: reload the firmware after a missing D3 ACK
+Date: Wed,  4 Nov 2026 16:16:16 +0100
+Message-ID: <20261104151616.70623-1-dev@deq.rocks>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,48 +67,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 43/47] mm/huge_memory: split huge PUDs when adjusting
- VMA boundaries
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
- qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
- kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
- baolin.wang@linux.alibaba.com, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org,
- peterz@infradead.org, jannh@google.com, pfalcato@suse.de, hughd@google.com,
- pasha.tatashin@soleen.com, pratyush@kernel.org, willy@infradead.org,
- jack@suse.cz, ziy@nvidia.com, riel@surriel.com, harry@kernel.org,
- apopple@nvidia.com, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org,
- matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com,
- will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
- osalvador@suse.de, minchan@kernel.org, muchun.song@linux.dev,
- xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
- gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org, usama.anjum@arm.com
-References: <20261031-fixes_core-v3-43-d6437171ecc3@kernel.org>
- <20261104031245.9524-1-lance.yang@linux.dev>
- <45508a75-7549-40e2-a71a-807a824ea026@kernel.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <45508a75-7549-40e2-a71a-807a824ea026@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Since commit 6f88e6ebdc1a ("wifi: brcmfmac: Improve D3 substate entering
+timeout handling") system suspend goes on after a missing D3 ACK when
+WoWL is off. On resume brcmf_pcie_pm_leave_D3() still takes the hot
+resume path when the INTMASK register reads back nonzero. Firmware that
+did not answer D3_INFORM can do that and stays dead afterwards. On the
+BCM4364 in the MacBookPro16,1 the association and DHCP came back while
+the data path was dead. On the MacBookPro15,1 every firmware command
+timed out after such a resume and each further suspend failed.
 
+Record the missing ACK and force the remove and re-probe path on the
+next resume so the firmware is loaded again.
 
-On 2026/11/4 17:11, David Hildenbrand (Arm) wrote:
-> 
-> Thanks for the review! Please do keep reviewing, but note that more trailers
-> (including this one) will likely not make it upstream as I am about to prepare
-> the PR to get most of these things here upstream.
+brcmf_msgbuf_delete_flowring() waits for outstanding tx status before
+it checks the bus state. Check the bus first and stop waiting when it
+goes down, since the firmware does not report tx status then.
 
-All good, no big deal :D
+Fixes: 6f88e6ebdc1a ("wifi: brcmfmac: Improve D3 substate entering timeout handling")
+Link: https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/issues/174
+Co-developed-by: Lukas Klizas <lukas@klizas.lt>
+Signed-off-by: Lukas Klizas <lukas@klizas.lt>
+Tested-by: Yossef Osman <Yossef.Osman@proton.me>
+Tested-by: Aditya Garg <aditya.garg@linux.dev>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+---
+The KaiT2en community runs this patch with its kernels, no regression
+was reported.
 
-Cheers, Lance
+This replaces "wifi: brcmfmac: handle missing D3 ACK on BCM4377 T2 Macs"
+(v2). Commit 6f88e6ebdc1a covers its suspend part for all chips, this
+patch handles the resume after it:
+
+  https://lore.kernel.org/all/20261001085308.1688049-1-dev@deq.rocks/
+
+ .../broadcom/brcm80211/brcmfmac/msgbuf.c      | 22 ++++++++++++-------
+ .../broadcom/brcm80211/brcmfmac/pcie.c        | 16 ++++++++++++++
+ 2 files changed, 30 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+index 069ba701665..f002eda5171 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+@@ -1445,13 +1445,26 @@ void brcmf_msgbuf_delete_flowring(struct brcmf_pub *drvr, u16 flowid)
+ 	int err;
+ 	int retry = BRCMF_MAX_TXSTATUS_WAIT_RETRIES;
+ 
++	/* no need to wait or submit if firmware can not be reached */
++	if (drvr->bus_if->state != BRCMF_BUS_UP) {
++		brcmf_dbg(MSGBUF, "bus down, flowring will be removed\n");
++		brcmf_msgbuf_remove_flowring(msgbuf, flowid);
++		return;
++	}
++
+ 	/* make sure it is not in txflow */
+ 	brcmf_commonring_lock(commonring_del);
+ 	flow->rings[flowid]->status = RING_CLOSING;
+ 	brcmf_commonring_unlock(commonring_del);
+ 
+-	/* wait for commonring txflow finished */
++	/* wait for commonring txflow finished, but bail if bus goes down */
+ 	while (retry && atomic_read(&commonring_del->outstanding_tx)) {
++		if (drvr->bus_if->state != BRCMF_BUS_UP) {
++			brcmf_dbg(MSGBUF, "bus went down, aborting wait\n");
++			atomic_set(&commonring_del->outstanding_tx, 0);
++			brcmf_msgbuf_remove_flowring(msgbuf, flowid);
++			return;
++		}
+ 		usleep_range(5000, 10000);
+ 		retry--;
+ 	}
+@@ -1460,13 +1473,6 @@ void brcmf_msgbuf_delete_flowring(struct brcmf_pub *drvr, u16 flowid)
+ 		atomic_set(&commonring_del->outstanding_tx, 0);
+ 	}
+ 
+-	/* no need to submit if firmware can not be reached */
+-	if (drvr->bus_if->state != BRCMF_BUS_UP) {
+-		brcmf_dbg(MSGBUF, "bus down, flowring will be removed\n");
+-		brcmf_msgbuf_remove_flowring(msgbuf, flowid);
+-		return;
+-	}
+-
+ 	commonring = msgbuf->commonrings[BRCMF_H2D_MSGRING_CONTROL_SUBMIT];
+ 	brcmf_commonring_lock(commonring);
+ 	ret_ptr = brcmf_commonring_reserve_for_write(commonring);
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+index 17bae04c14b..21bf3168df3 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+@@ -346,6 +346,7 @@ struct brcmf_pciedev_info {
+ 	struct brcmf_pcie_shared_info shared;
+ 	wait_queue_head_t mbdata_resp_wait;
+ 	bool mbdata_completed;
++	bool d3_ack_timeout;
+ 	bool irq_allocated;
+ 	bool wowl_enabled;
+ 	u8 dma_idx_sz;
+@@ -2659,6 +2660,10 @@ static int brcmf_pcie_pm_enter_D3(struct device *dev)
+ 		}
+ 
+ 		brcmf_dbg(PCIE, "No D3 ACK, continuing to power the device off\n");
++		/* Remember that firmware is unresponsive so resume skips the
++		 * hot-resume path and does a full remove + re-probe.
++		 */
++		devinfo->d3_ack_timeout = true;
+ 	}
+ 
+ 	devinfo->state = BRCMFMAC_PCIE_STATE_DOWN;
+@@ -2680,6 +2685,17 @@ static int brcmf_pcie_pm_leave_D3(struct device *dev)
+ 	devinfo = bus->bus_priv.pcie->devinfo;
+ 	brcmf_dbg(PCIE, "Enter, dev=%p, bus=%p\n", dev, bus);
+ 
++	/* Firmware that failed to ACK D3_INFORM at suspend cannot be
++	 * trusted even if its registers still read back sanely: it may
++	 * keep the association up while the data path is dead. Skip the
++	 * hot-resume path and force a full re-probe to reload it.
++	 */
++	if (devinfo->d3_ack_timeout) {
++		devinfo->d3_ack_timeout = false;
++		brcmf_err(bus, "Firmware was unresponsive at suspend, reloading\n");
++		goto cleanup;
++	}
++
+ 	/* Check if device is still up and running, if so we are ready */
+ 	if (brcmf_pcie_read_reg32(devinfo, devinfo->reginfo->intmask) != 0) {
+ 		brcmf_dbg(PCIE, "Try to wakeup device....\n");
+
+base-commit: 991a73f4909f1348ffb4b38765cdb522a775e4c2
