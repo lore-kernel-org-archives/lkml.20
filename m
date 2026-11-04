@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793809075;
-	b=krW6GhiVtUwWbifREYI6J3IxocB4FILJa8hfPdTkO8OdI12qrKDQQYXbaGHLmym9uKlx
-	 ADvkdcEIL/NFYdOxJOnptJ0iZRBS7PyN3W4J8QkZVSA4XDlfzpxCmD0VHODMSiTi67nOt
-	 W0OFDSitwdt6UGXXLdEWnmeIk0tx5u33P2lhwAi7QjYO8wp3lcalDgOcFH6k+5LqJDteh
-	 IaFPsR6a304V8pSxeeU+v+e9oPO/JJ0IpYwnag+uiBGQlkgLnTRDJug3AEjWw53d0mq5Z
-	 kBzYiUToBLBJT13yVJFGF1DQO676cZ5WIAbQ+g3ti+coKiIGHzO8gy/M6blS32Z/2jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809075;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=MvI0Lx6fgE4q900gNWp80qFr2w8VWPFjdRdBExRimwg=;
-	b=QfRo8t3qo6KuOkgkP+LT+4/nmfq/2/zq7zZ55RLlKqT5QAnqexrPIIK5wWMc4dOYkGC+
-	 K9cCpgLbHEJbIllubqlTiY3L+McbbEVrBOQpy/Zj7Ort/eqEXL6u85ydpVc46A5JzQTSH
-	 zdU1jU/cVU/Aun9r+FhZ1kQp+p9stIdKEMzr1wxEK6fwoBPjBIEGbdLQM1I4SZ5Syjswp
-	 yXAXFKqTU6WDilevNrFeItdWijpgmvXdH8QeLWUmQpEqKAJon/dBQjOFqX4ap+9gDl+K0
-	 Rrj4vBsLsm1fHgZCVqVFRcNhgm8lYfCHy/T/4kPwDvOIzFSWQN0NC1VY91+sS76NW/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Do9Ux5SX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793809121;
+	b=5e3nBFLZO0v2T/cWMeDWCrqJk3+tMDmY5sFBZe4hYWrXWczDyZNv5k5ZL1zoefnwFTIV
+	 J3+s0H8qykQ0cXBXj9a4fX0i57cozVFQQoinFYYWgh4j3GhqB+DX0ENflTJp0Q6NNjscG
+	 GHFgPoxrv2mu3ep3u8W5J7D3nl5smEftad3j//omaaTfS+qGjZC5OE+za6WUUCS1UJaql
+	 VpOJFJDYsXwmVs2OFCUQf87cI/mdjUfsl43LPZfzVEahOEgj7Gssyj7GzenCTh0KOKkWc
+	 ih4QXVTpvuhQ22g0tZ12ryciNlwqnxdiXxEjf0/N8b4bDkjD3GRajJNpSwoIix/jAmw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809121;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=bfAHBzUXhXik2habMhjKUCSOYxYzooGJpNvGLBisxrs=;
+	b=grnRvgiQ1ZVt3qhUdJ84WxaQ18WUCKZ3ASXYLj2+Cz952VeFZyLMHB+5Wqaww1j5KMRF
+	 106vOFoGRpapA5/zxa+iD7vlE4uop9+FJs5gH8ql58xSkVpctht/zM2j2WeZ8RfuhJ/zO
+	 LuhofAL2+701QYll6gezUK3WmaPctnPp7hLAOVCgeFVuOtXpEMHmhhMhTvzApJ/RpXMtD
+	 MHjPJQAEwHJZR100rK7D1USaydWOV/QMZ39MAezGttfn5o6GFqpYilNQq/U+SeypvYsHV
+	 RbAfR7KxqVVGHv4o1rGP0/RGhVsdbliF99H74p22jZA/REFKWcz6GqozahkdMS1jJIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHcZZLin;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6469A6082BC2;
-	Wed,  4 Nov 2026 16:17:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6469A6082BC2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F121B60A3810;
+	Wed,  4 Nov 2026 16:18:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Do9Ux5SX
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
-	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A5F18202BBC;
-	Wed, 04 Nov 2026 17:17:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793809067;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MvI0Lx6fgE4q900gNWp80qFr2w8VWPFjdRdBExRimwg=;
-	b=Do9Ux5SXgLdC/9Bs5k3ZH1KX2Roxq6lnBY0d5M3JAOtGuqxi/Khk5sicdcBuHI1oLKPlYf
-	McQN8kwZVu+c54fjN/D68DsqQsPcLrP51OH0zfJvWXs8OA9jedoyvAzM/lL2eVC4KPgxmL
-	UUa4ouXqHVrUK2f8HYRxdJnxyQsDxKzB3yykS/h8N7WXvTOoLN9n7RzK2xSsffXu19duFS
-	aYrqngVJ+lp7xqMQe7astdrX5vnQdvolCyPEivTvh+9M6YSQsBfTt39qf6LyDQhIFSKGKg
-	2ihNQy0xqdjNStHKmm23Y4EjQiGQWMv6MQYNOz6hla8ZJ/XY/I5+dk/W4L2Q5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793809067;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MvI0Lx6fgE4q900gNWp80qFr2w8VWPFjdRdBExRimwg=;
-	b=CuGRuffFznzSMgLxpSnE9HHogMMdoR1/TqEHlWNUb2uK44WvBWK8Klb7F1quPrWyQ27SN0
-	SgZVCULNO2kfEwoosWN3xsYDDcWzChSILpCR8MsjZ43OX7WI90LqmyYixpZdAWkj87UX4H
-	NcX2QoCUi8B1q/7gkHN0lgNws7fmsWhEkpLJnsBV9GCqQxN/yMJxdYd/aps+veMswiFn2C
-	Lf7SSDJz55+wWCmdeo4X3MgLxhZOePDB0ohk9ZDQ2Gy1+dMDkqjbB7YL3GLeW8ba9X7ug8
-	cY965RDWRd19PehYb0b/IwlTD0WYUe9vfR4y27KfAPAtrwJxwukrdy0rGngs0g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793809067; a=rsa-sha256;
-	cv=none;
-	b=aB8zsjUpArqWYnn2kfF41hynlQYp54yd2NXr49vVqnL+4S3gBnH97TUCCB4uNbDivej384
-	y6CVlzWgqrEf/u8f+67Lx49DIlz1god768L3EihKWsSmXEB5CKGr0YoGUCLJT17WiPnw1/
-	y48h6PuQmr8txu+5TF2XoME59FWkMNNzpuoL07dHfcorNN8BSf3eeQLb6U3yh+MulYYc8n
-	972/HT9Cie84ym5ou4aC9lp5ljrVVH1pgLx0C4Poj1TtmCAuCu573NwmI09/+ozZPQZtxu
-	EnkeLJeAUsPqm2lQmnRQFUvchbO8LilPyl+QuQBAgk9EzqjnM2wX/Axvfyvufw==
-Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 55571380C49; Wed, 04 Nov 2026 17:17:43 +0100 (CET)
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Wed, 04 Nov 2026 17:17:21 +0100
-Subject: [PATCH can-next v2 6/9] selftests: can: add J1939 wire-format
- tests against CAN_RAW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHcZZLin
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941EB1F000C1;
+	Wed,  4 Nov 2026 16:18:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809120;
+	bh=bfAHBzUXhXik2habMhjKUCSOYxYzooGJpNvGLBisxrs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HHcZZLinwbgGk2N6B1Jds/wFBQcsXsn4ctKgQUOJhJDkfbWHIvw526/8yGKsdg8VK
+	 EsecuQgErCdctzu+fEKGLlBgsXENED6a8XNYDNisTrKzOJ1akBWJ+0Dq5KkFiOne63
+	 8KxH09XPug8P3eFyUFFlsBoh+rgeAZksLO5t45EL5+b615HRycLmaT+Ft5tK7XE5Ih
+	 q6tZKt29UCqlNFYs1UABoawSrRSZ1QmKe4M//c8iBq8lt8YBtTvV33S5u0haor7DAv
+	 Gbhsx6KO7EBk9qI0oDG7SW2l7GUSb9oVbEpepAkMeJzkhXrLuzPguXz+6HzYAG0hOo
+	 a1tK5+nuN8UTw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v8 11/15] iommufd/viommu: Select vIOMMU operations before allocation
+Date: Wed,  4 Nov 2026 21:46:28 +0530
+Message-ID: <20261104161632.3547423-12-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,288 +86,595 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-j1939-selftests-v2-6-cf797c83317b@pengutronix.de>
-References: <20261104-j1939-selftests-v2-0-cf797c83317b@pengutronix.de>
-In-Reply-To: <20261104-j1939-selftests-v2-0-cf797c83317b@pengutronix.de>
-To: Robin van der Gracht <robin@protonic.nl>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- Marc Kleine-Budde <mkl@pengutronix.de>, Shuah Khan <shuah@kernel.org>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Felix Maurer <fmaurer@redhat.com>, Vincent Mailhol <mailhol@kernel.org>, 
- =?utf-8?q?Alexander_H=C3=B6lzl?= <alexander.hoelzl@gmx.net>, 
- Quchaosheng <quchaosheng000406@163.com>, 
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, 
- Oleksij Rempel <o.rempel@pengutronix.de>
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-Check J1939 single frames against a CAN_RAW socket in both directions,
-for PDU1 (with the DP bit set) and PDU2: the CAN id and payload of a
-J1939 send, and the payload, source address and PGN that the J1939
-socket gets for an injected frame.
+Physical IOMMU drivers currently provide the vIOMMU size and
+initialization callbacks through iommu_ops. The initialization callback
+then selects and installs the corresponding iommufd_viommu_ops.
 
-The base test sends between two J1939 sockets, so a CAN id encoding bug
-and a matching decoding bug in the kernel cancel out there. CAN_RAW does
-not use the J1939 code, so it checks each direction on its own.
+Add iommu_ops::get_viommu_ops() to select the operations from the
+physical device and requested vIOMMU type before allocation. Move the
+size and initialization callbacks into iommufd_viommu_ops. The core can
+then validate the selected operations, allocate the driver structure,
+initialize it, and install the operations.
 
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Convert AMD, Arm SMMUv3, Tegra CMDQV, and the selftest backend to the
+new interface.
+
+Selecting the operations early allows subsequent changes to use
+implementation-specific vIOMMU properties, including when validating the
+parent HWPT.
+
+Temporarily disable AMD vIOMMU allocation by returning NULL from
+amd_iommufd_get_viommu_ops() while the vIOMMU interfaces are being
+updated.
+
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Cc: Vasant Hegde <vasant.hegde@amd.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>
+Cc: Krishna Reddy <vdumpa@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-tegra@vger.kernel.org
+Based on original patch by Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
-Q (sashiko): does the test check the priority of a received frame, or
-the SCM_J1939_PRIO cmsg?
-A: Neither. It checks the priority of sent frames only; the cmsg
-metadata of received messages is not tested yet.
+ drivers/iommu/amd/iommu.c                     |  3 +-
+ drivers/iommu/amd/iommufd.c                   | 18 ++++++---
+ drivers/iommu/amd/iommufd.h                   | 11 ++++--
+ drivers/iommu/amd/nested.c                    |  4 +-
+ .../arm/arm-smmu-v3/arm-smmu-v3-iommufd.c     | 37 +++++++++++--------
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   |  7 ++--
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   | 16 ++++----
+ .../iommu/arm/arm-smmu-v3/tegra241-cmdqv.c    | 24 ++++++++----
+ drivers/iommu/iommufd/selftest.c              | 31 +++++++++++-----
+ drivers/iommu/iommufd/viommu.c                | 32 ++++++++--------
+ include/linux/iommu.h                         | 20 +++-------
+ include/linux/iommufd.h                       | 14 +++++++
+ 12 files changed, 129 insertions(+), 88 deletions(-)
 
-Q (sashiko): can the TX tests see a frame from another node?
-A: No. They still read the first frame, but j1939_lib.sh runs them
-only on a vcan it creates, where no other node sends.
-
-Changes in v2:
-- drop the Assisted-by trailer; the cover letter says how an LLM was used
-- wrap at 80 columns and fix the checkpatch warnings (Marc)
-- name all constants, avoid casts, return bool from helpers named
-  *_ok() and fill test payloads with fill_pattern()
-- check that a sent frame is an extended data frame (sashiko, Marc)
-- check the full PGN of a sent frame (sashiko); use a PDU1 PGN with DP
-  set
-- check the source address and PGN of a received frame (sashiko)
-- say in the commit message what CAN_RAW checks that the base test
-  cannot (sashiko)
-- keep the Makefile and .gitignore lists sorted; the wrapper no longer
-  sets J1939_TEST_PROG
----
- tools/testing/selftests/net/can/.gitignore         |   1 +
- tools/testing/selftests/net/can/Makefile           |   1 +
- tools/testing/selftests/net/can/test_j1939_wire.c  | 186 +++++++++++++++++++++
- tools/testing/selftests/net/can/test_j1939_wire.sh |   4 +
- 4 files changed, 192 insertions(+)
-
-diff --git a/tools/testing/selftests/net/can/.gitignore b/tools/testing/selftests/net/can/.gitignore
-index c9b50d4865c4a1f7523b96516669d7fc6e0d151c..d83fd28a50766c25069c60d10deb76e5722bba5b 100644
---- a/tools/testing/selftests/net/can/.gitignore
-+++ b/tools/testing/selftests/net/can/.gitignore
-@@ -2,4 +2,5 @@
- test_j1939_addr
- test_j1939_base
- test_j1939_opts
-+test_j1939_wire
- test_raw_filter
-diff --git a/tools/testing/selftests/net/can/Makefile b/tools/testing/selftests/net/can/Makefile
-index d72095ad7d849d8a35c20e9c5bdaa81bc194bc64..5262f0b8f73f80f524c32665c1fc08a7a0ec7e78 100644
---- a/tools/testing/selftests/net/can/Makefile
-+++ b/tools/testing/selftests/net/can/Makefile
-@@ -10,6 +10,7 @@ TEST_PROGS := \
- 	test_j1939_addr.sh \
- 	test_j1939_base.sh \
- 	test_j1939_opts.sh \
-+	test_j1939_wire.sh \
- 	test_raw_filter.sh \
- # end of TEST_PROGS
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 960e1dc05ec6..91c5a67e278f 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -3442,8 +3442,7 @@ const struct iommu_ops amd_iommu_ops = {
+ 	.is_attach_deferred = amd_iommu_is_attach_deferred,
+ 	.def_domain_type = amd_iommu_def_domain_type,
+ 	.page_response = amd_iommu_page_response,
+-	.get_viommu_size = amd_iommufd_get_viommu_size,
+-	.viommu_init = amd_iommufd_viommu_init,
++	.get_viommu_ops = amd_iommufd_get_viommu_ops,
+ };
  
-diff --git a/tools/testing/selftests/net/can/test_j1939_wire.c b/tools/testing/selftests/net/can/test_j1939_wire.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..ad542ed241c0b0e59c40cc49bccc418031273002
---- /dev/null
-+++ b/tools/testing/selftests/net/can/test_j1939_wire.c
-@@ -0,0 +1,186 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * J1939 wire-format selftests: a J1939 socket against CAN_RAW.
-+ *
-+ * Run by test_j1939_wire.sh, see j1939_tests.h.
-+ */
-+#include <errno.h>
-+
-+#include "kselftest_harness.h"
-+#include "j1939_tests.h"
-+
-+/* arbitrary addresses and PGNs; only PDU class and DP bit matter */
-+#define SA_LOCAL		0x90	/* the J1939 socket under test */
-+#define SA_PEER			0x20	/* the CAN_RAW peer */
-+/* a destination-specific PGN with DP set, and a broadcast PGN */
-+#define PGN_PDU1		(J1939_PGN_DP | 0x0ab00)
-+#define PGN_PDU2		0x0feee
-+_Static_assert(J1939_IS_PDU1(PGN_PDU1) && !J1939_IS_PDU1(PGN_PDU2),
-+	       "PGN_PDU1 must be PDU1 and PGN_PDU2 must be PDU2");
-+
-+#define PRIO			J1939_PRIO_DEFAULT
-+
-+FIXTURE(j1939_wire)
+ #ifdef CONFIG_IRQ_REMAP
+diff --git a/drivers/iommu/amd/iommufd.c b/drivers/iommu/amd/iommufd.c
+index 52300b867c1f..dcbe80fcb8c7 100644
+--- a/drivers/iommu/amd/iommufd.c
++++ b/drivers/iommu/amd/iommufd.c
+@@ -32,13 +32,21 @@ void *amd_iommufd_hw_info(struct device *dev, u32 *length, enum iommu_hw_info_ty
+ 	return hwinfo;
+ }
+ 
+-size_t amd_iommufd_get_viommu_size(struct device *dev, enum iommu_viommu_type viommu_type)
++static size_t amd_iommufd_get_viommu_size(struct device *dev,
++		enum iommu_viommu_type viommu_type)
+ {
+ 	return VIOMMU_STRUCT_SIZE(struct amd_iommu_viommu, core);
+ }
+ 
+-int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *parent,
+-			    const struct iommu_user_data *user_data)
++const struct iommufd_viommu_ops *
++amd_iommufd_get_viommu_ops(struct device *dev, enum iommu_viommu_type viommu_type)
 +{
-+	int ifindex;
-+	int j1939;
-+	int raw;
-+};
-+
-+FIXTURE_SETUP(j1939_wire)
-+{
-+	self->j1939 = -1;
-+	self->raw = -1;
-+
-+	J1939_SETUP_IFINDEX(self);
-+
-+	J1939_SETUP_RAW(self, J1939_RAW_RCVBUF_DEFAULT);
++	return NULL;
 +}
 +
-+FIXTURE_TEARDOWN(j1939_wire)
++int amd_iommufd_viommu_init(struct iommufd_viommu *viommu,
++		struct device *dev, struct iommu_domain *parent,
++		const struct iommu_user_data *user_data)
+ {
+ 	unsigned long flags;
+ 	struct protection_domain *pdom = to_pdomain(parent);
+@@ -47,8 +55,6 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
+ 	xa_init_flags(&aviommu->gdomid_array, XA_FLAGS_ALLOC1);
+ 	aviommu->parent = pdom;
+ 
+-	viommu->ops = &amd_viommu_ops;
+-
+ 	spin_lock_irqsave(&pdom->lock, flags);
+ 	list_add(&aviommu->pdom_list, &pdom->viommu_list);
+ 	spin_unlock_irqrestore(&pdom->lock, flags);
+@@ -73,5 +79,7 @@ static void amd_iommufd_viommu_destroy(struct iommufd_viommu *viommu)
+  * struct iommufd_viommu_ops - vIOMMU specific operations
+  */
+ static const struct iommufd_viommu_ops amd_viommu_ops = {
++	.get_viommu_size = amd_iommufd_get_viommu_size,
++	.viommu_init = amd_iommufd_viommu_init,
+ 	.destroy = amd_iommufd_viommu_destroy,
+ };
+diff --git a/drivers/iommu/amd/iommufd.h b/drivers/iommu/amd/iommufd.h
+index 62e9e1bebfbe..0d8e7c0902cf 100644
+--- a/drivers/iommu/amd/iommufd.h
++++ b/drivers/iommu/amd/iommufd.h
+@@ -8,13 +8,16 @@
+ 
+ #if IS_ENABLED(CONFIG_AMD_IOMMU_IOMMUFD)
+ void *amd_iommufd_hw_info(struct device *dev, u32 *length, enum iommu_hw_info_type *type);
+-size_t amd_iommufd_get_viommu_size(struct device *dev, enum iommu_viommu_type viommu_type);
+-int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *parent,
+-			    const struct iommu_user_data *user_data);
++const struct iommufd_viommu_ops *
++amd_iommufd_get_viommu_ops(struct device *dev,
++		enum iommu_viommu_type viommu_type);
++int amd_iommufd_viommu_init(struct iommufd_viommu *viommu,
++		struct device *dev, struct iommu_domain *parent,
++		const struct iommu_user_data *user_data);
+ #else
+ #define amd_iommufd_hw_info NULL
+ #define amd_iommufd_viommu_init NULL
+-#define amd_iommufd_get_viommu_size NULL
++#define amd_iommufd_get_viommu_ops NULL
+ #endif /* CONFIG_AMD_IOMMU_IOMMUFD */
+ 
+ #endif /* AMD_IOMMUFD_H */
+diff --git a/drivers/iommu/amd/nested.c b/drivers/iommu/amd/nested.c
+index f1c7987fc585..5b07136e7cd9 100644
+--- a/drivers/iommu/amd/nested.c
++++ b/drivers/iommu/amd/nested.c
+@@ -90,7 +90,7 @@ static void *gdom_info_load_or_alloc_locked(struct xarray *xa,
+ 
+ /*
+  * This function is assigned to struct iommufd_viommu_ops.alloc_domain_nested()
+- * during the call to struct iommu_ops.viommu_init().
++ * when the vIOMMU operations are selected.
+  */
+ struct iommu_domain *
+ amd_iommu_alloc_domain_nested(struct iommufd_viommu *viommu, u32 flags,
+@@ -198,7 +198,7 @@ static void set_dte_nested(struct amd_iommu *iommu, struct iommu_domain *dom,
+ 
+ 	/*
+ 	 * The nest parent domain is attached during the call to the
+-	 * struct iommu_ops.viommu_init(), which will be stored as part
++	 * struct iommufd_viommu_ops.viommu_init(), which will be stored as part
+ 	 * of the struct amd_iommu_viommu.parent.
+ 	 */
+ 	if (WARN_ON(!ndom->viommu || !ndom->viommu->parent))
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
+index e68b46485095..d8c837df9f47 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
+@@ -533,20 +533,29 @@ int arm_vsmmu_cache_invalidate(struct iommufd_viommu *viommu,
+ 	return ret;
+ }
+ 
++static size_t arm_vsmmu_get_size(struct device *dev,
++				 enum iommu_viommu_type viommu_type)
 +{
-+	if (self->j1939 >= 0)
-+		close(self->j1939);
-+	if (self->raw >= 0)
-+		close(self->raw);
++	return VIOMMU_STRUCT_SIZE(struct arm_vsmmu, core);
 +}
 +
-+/*
-+ * Inject one CAN frame from the raw peer and check that the J1939 socket
-+ * receives the same CAN_MAX_DLEN-byte payload, from SA_PEER and with PGN @pgn.
-+ * Opens the J1939 RX socket into self->j1939 (the fixture teardown closes it).
-+ * @bcast selects a broadcast (PDU2) socket and frame; @pgn and @da address the
-+ * injected frame.
-+ */
-+static bool rx_single_frame_ok(FIXTURE_DATA(j1939_wire) *self, bool bcast,
-+			       pgn_t pgn, uint8_t da,
-+			       const uint8_t payload[CAN_MAX_DLEN])
+ static const struct iommufd_viommu_ops arm_vsmmu_ops = {
++	.get_viommu_size = arm_vsmmu_get_size,
++	.viommu_init = arm_vsmmu_init,
+ 	.alloc_domain_nested = arm_vsmmu_alloc_domain_nested,
+ 	.cache_invalidate = arm_vsmmu_cache_invalidate,
+ 	.vdevice_init = arm_vsmmu_vdevice_init,
+ };
+ 
+-size_t arm_smmu_get_viommu_size(struct device *dev,
+-				enum iommu_viommu_type viommu_type)
++const struct iommufd_viommu_ops *
++arm_smmu_get_viommu_ops(struct device *dev,
++		enum iommu_viommu_type viommu_type)
+ {
+ 	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
+ 	struct arm_smmu_device *smmu = master->smmu;
+ 
+ 	if (!(smmu->features & ARM_SMMU_FEAT_NESTING))
+-		return 0;
++		return NULL;
+ 
+ 	/*
+ 	 * FORCE_SYNC is not set with FEAT_NESTING. Some study of the exact HW
+@@ -554,7 +563,7 @@ size_t arm_smmu_get_viommu_size(struct device *dev,
+ 	 * any change to remove this.
+ 	 */
+ 	if (WARN_ON(smmu->options & ARM_SMMU_OPT_CMDQ_FORCE_SYNC))
+-		return 0;
++		return NULL;
+ 
+ 	/*
+ 	 * Must support some way to prevent the VM from bypassing the cache
+@@ -566,19 +575,19 @@ size_t arm_smmu_get_viommu_size(struct device *dev,
+ 	 */
+ 	if (!arm_smmu_master_canwbs(master) &&
+ 	    !(smmu->features & ARM_SMMU_FEAT_S2FWB))
+-		return 0;
++		return NULL;
+ 
+ 	if (viommu_type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3)
+-		return VIOMMU_STRUCT_SIZE(struct arm_vsmmu, core);
++		return &arm_vsmmu_ops;
+ 
+-	if (!smmu->impl_ops || !smmu->impl_ops->get_viommu_size)
+-		return 0;
+-	return smmu->impl_ops->get_viommu_size(viommu_type);
++	if (!smmu->impl_ops || !smmu->impl_ops->get_viommu_ops)
++		return NULL;
++	return smmu->impl_ops->get_viommu_ops(viommu_type);
+ }
+ 
+-int arm_vsmmu_init(struct iommufd_viommu *viommu,
+-		   struct iommu_domain *parent_domain,
+-		   const struct iommu_user_data *user_data)
++int arm_vsmmu_init(struct iommufd_viommu *viommu, struct device *dev,
++		struct iommu_domain *parent_domain,
++		const struct iommu_user_data *user_data)
+ {
+ 	struct arm_vsmmu *vsmmu = container_of(viommu, struct arm_vsmmu, core);
+ 	struct arm_smmu_device *smmu =
+@@ -593,10 +602,8 @@ int arm_vsmmu_init(struct iommufd_viommu *viommu,
+ 	/* FIXME Move VMID allocation from the S2 domain allocation to here */
+ 	vsmmu->vmid = s2_parent->s2_cfg.vmid;
+ 
+-	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
+-		viommu->ops = &arm_vsmmu_ops;
++	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3)
+ 		return 0;
+-	}
+ 
+ 	return smmu->impl_ops->vsmmu_init(vsmmu, user_data);
+ }
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index 6d4520c47308..666ab782d3a0 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -4597,8 +4597,7 @@ static const struct iommu_ops arm_smmu_ops = {
+ 	.get_resv_regions	= arm_smmu_get_resv_regions,
+ 	.page_response		= arm_smmu_page_response,
+ 	.def_domain_type	= arm_smmu_def_domain_type,
+-	.get_viommu_size	= arm_smmu_get_viommu_size,
+-	.viommu_init		= arm_vsmmu_init,
++	.get_viommu_ops	= arm_smmu_get_viommu_ops,
+ 	.user_pasid_table	= 1,
+ 	.owner			= THIS_MODULE,
+ 	.default_domain_ops = &(const struct iommu_domain_ops) {
+@@ -5761,8 +5760,8 @@ static struct arm_smmu_device *arm_smmu_impl_probe(struct arm_smmu_device *smmu)
+ 
+ 	ops = new_smmu->impl_ops;
+ 	if (ops) {
+-		/* get_viommu_size and vsmmu_init ops must be paired */
+-		if (WARN_ON(!ops->get_viommu_size != !ops->vsmmu_init)) {
++		/* get_viommu_ops and vsmmu_init ops must be paired */
++		if (WARN_ON(!ops->get_viommu_ops != !ops->vsmmu_init)) {
+ 			ret = -EINVAL;
+ 			goto err_remove;
+ 		}
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+index bb048e08d613..d93388e8eefb 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+@@ -931,7 +931,8 @@ struct arm_smmu_impl_ops {
+ 	 */
+ 	void *(*hw_info)(struct arm_smmu_device *smmu, u32 *length,
+ 			 enum iommu_hw_info_type *type);
+-	size_t (*get_viommu_size)(enum iommu_viommu_type viommu_type);
++	const struct iommufd_viommu_ops *(*get_viommu_ops)(
++		enum iommu_viommu_type viommu_type);
+ 	int (*vsmmu_init)(struct arm_vsmmu *vsmmu,
+ 			  const struct iommu_user_data *user_data);
+ };
+@@ -1321,11 +1322,12 @@ struct arm_vsmmu {
+ #if IS_ENABLED(CONFIG_ARM_SMMU_V3_IOMMUFD)
+ void *arm_smmu_hw_info(struct device *dev, u32 *length,
+ 		       enum iommu_hw_info_type *type);
+-size_t arm_smmu_get_viommu_size(struct device *dev,
+-				enum iommu_viommu_type viommu_type);
+-int arm_vsmmu_init(struct iommufd_viommu *viommu,
+-		   struct iommu_domain *parent_domain,
+-		   const struct iommu_user_data *user_data);
++const struct iommufd_viommu_ops *
++arm_smmu_get_viommu_ops(struct device *dev,
++		enum iommu_viommu_type viommu_type);
++int arm_vsmmu_init(struct iommufd_viommu *viommu, struct device *dev,
++		struct iommu_domain *parent_domain,
++		const struct iommu_user_data *user_data);
+ int arm_smmu_attach_prepare_vmaster(struct arm_smmu_attach_state *state,
+ 				    struct arm_smmu_nested_domain *nested_domain);
+ void arm_smmu_attach_commit_vmaster(struct arm_smmu_attach_state *state);
+@@ -1337,7 +1339,7 @@ arm_vsmmu_alloc_domain_nested(struct iommufd_viommu *viommu, u32 flags,
+ int arm_vsmmu_cache_invalidate(struct iommufd_viommu *viommu,
+ 			       struct iommu_user_data_array *array);
+ #else
+-#define arm_smmu_get_viommu_size NULL
++#define arm_smmu_get_viommu_ops NULL
+ #define arm_smmu_hw_info NULL
+ #define arm_vsmmu_init NULL
+ #define arm_vsmmu_alloc_domain_nested NULL
+diff --git a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
+index 710a4c694b94..b48306b67ac2 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
++++ b/drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c
+@@ -892,11 +892,14 @@ static void *tegra241_cmdqv_hw_info(struct arm_smmu_device *smmu, u32 *length,
+ 	return info;
+ }
+ 
+-static size_t tegra241_cmdqv_get_vintf_size(enum iommu_viommu_type viommu_type)
++static const struct iommufd_viommu_ops tegra241_cmdqv_viommu_ops;
++
++static const struct iommufd_viommu_ops *
++tegra241_cmdqv_get_viommu_ops(enum iommu_viommu_type viommu_type)
+ {
+ 	if (viommu_type != IOMMU_VIOMMU_TYPE_TEGRA241_CMDQV)
+-		return 0;
+-	return VIOMMU_STRUCT_SIZE(struct tegra241_vintf, vsmmu.core);
++		return NULL;
++	return &tegra241_cmdqv_viommu_ops;
+ }
+ 
+ static struct arm_smmu_impl_ops tegra241_cmdqv_impl_ops = {
+@@ -907,7 +910,7 @@ static struct arm_smmu_impl_ops tegra241_cmdqv_impl_ops = {
+ 	.device_remove = tegra241_cmdqv_remove,
+ 	/* For user-space use */
+ 	.hw_info = tegra241_cmdqv_hw_info,
+-	.get_viommu_size = tegra241_cmdqv_get_vintf_size,
++	.get_viommu_ops = tegra241_cmdqv_get_viommu_ops,
+ 	.vsmmu_init = tegra241_cmdqv_init_vintf_user,
+ };
+ 
+@@ -1289,7 +1292,15 @@ static int tegra241_vintf_init_vsid(struct iommufd_vdevice *vdev)
+ 	return 0;
+ }
+ 
+-static struct iommufd_viommu_ops tegra241_cmdqv_viommu_ops = {
++static size_t tegra241_cmdqv_get_vintf_size(struct device *dev,
++					    enum iommu_viommu_type viommu_type)
 +{
-+	struct sockaddr_can src;
++	return VIOMMU_STRUCT_SIZE(struct tegra241_vintf, vsmmu.core);
++}
 +
-+	if (bcast)
-+		self->j1939 = j1939_open_flags(self->ifindex, J1939_NO_NAME,
-+					       SA_LOCAL, pgn, J1939_OPEN_BCAST);
-+	else
-+		self->j1939 = j1939_open(self->ifindex, SA_LOCAL, pgn);
-+	if (self->j1939 < 0)
-+		return false;
++static const struct iommufd_viommu_ops tegra241_cmdqv_viommu_ops = {
++	.get_viommu_size = tegra241_cmdqv_get_vintf_size,
++	.viommu_init = arm_vsmmu_init,
+ 	.destroy = tegra241_cmdqv_destroy_vintf_user,
+ 	.alloc_domain_nested = arm_vsmmu_alloc_domain_nested,
+ 	/* Non-accelerated commands will be still handled by the kernel */
+@@ -1312,7 +1323,7 @@ tegra241_cmdqv_init_vintf_user(struct arm_vsmmu *vsmmu,
+ 	int ret;
+ 
+ 	/*
+-	 * Unsupported type should be rejected by tegra241_cmdqv_get_vintf_size.
++	 * Unsupported type should be rejected by tegra241_cmdqv_get_viommu_ops.
+ 	 * Seeing one here indicates a kernel bug or some data corruption.
+ 	 */
+ 	if (WARN_ON(vsmmu->core.type != IOMMU_VIOMMU_TYPE_TEGRA241_CMDQV))
+@@ -1364,7 +1375,6 @@ tegra241_cmdqv_init_vintf_user(struct arm_vsmmu *vsmmu,
+ 	dev_dbg(cmdqv->dev, "VINTF%u: allocated with vmid (%d)\n", vintf->idx,
+ 		vintf->vsmmu.vmid);
+ 
+-	vsmmu->core.ops = &tegra241_cmdqv_viommu_ops;
+ 	return 0;
+ 
+ free_mmap:
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index b17cca7096b6..09d1b0f8f1da 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -767,7 +767,19 @@ static int mock_hw_queue_init_phys(struct iommufd_hw_queue *hw_queue, u32 index,
+ 	return rc;
+ }
+ 
+-static struct iommufd_viommu_ops mock_viommu_ops = {
++static int mock_viommu_init(struct iommufd_viommu *viommu, struct device *dev,
++		struct iommu_domain *parent_domain,
++		const struct iommu_user_data *user_data);
 +
-+	if (!send_raw8_ok(self->raw, PRIO, pgn, da, SA_PEER, payload))
-+		return false;
++static size_t mock_get_viommu_size(struct device *dev,
++				   enum iommu_viommu_type viommu_type)
++{
++	return VIOMMU_STRUCT_SIZE(struct mock_viommu, core);
++}
 +
-+	if (!recvfrom_verify_ok(self->j1939, payload, CAN_MAX_DLEN,
-+				J1939_RECV_TIMEOUT_MS, &src)) {
-+		fprintf(stderr, "# payload missing or not the one sent\n");
-+		return false;
++static const struct iommufd_viommu_ops mock_viommu_ops = {
++	.get_viommu_size = mock_get_viommu_size,
++	.viommu_init = mock_viommu_init,
+ 	.destroy = mock_viommu_destroy,
+ 	.alloc_domain_nested = mock_viommu_alloc_domain_nested,
+ 	.cache_invalidate = mock_viommu_cache_invalidate,
+@@ -775,17 +787,18 @@ static struct iommufd_viommu_ops mock_viommu_ops = {
+ 	.hw_queue_init_phys = mock_hw_queue_init_phys,
+ };
+ 
+-static size_t mock_get_viommu_size(struct device *dev,
+-				   enum iommu_viommu_type viommu_type)
++static const struct iommufd_viommu_ops *
++mock_get_viommu_ops(struct device *dev,
++		enum iommu_viommu_type viommu_type)
+ {
+ 	if (viommu_type != IOMMU_VIOMMU_TYPE_SELFTEST)
+-		return 0;
+-	return VIOMMU_STRUCT_SIZE(struct mock_viommu, core);
++		return NULL;
++	return &mock_viommu_ops;
+ }
+ 
+ static int mock_viommu_init(struct iommufd_viommu *viommu,
+-			    struct iommu_domain *parent_domain,
+-			    const struct iommu_user_data *user_data)
++		struct device *dev, struct iommu_domain *parent_domain,
++		const struct iommu_user_data *user_data)
+ {
+ 	struct mock_iommu_device *mock_iommu = container_of(
+ 		viommu->iommu_dev, struct mock_iommu_device, iommu_dev);
+@@ -827,7 +840,6 @@ static int mock_viommu_init(struct iommufd_viommu *viommu,
+ 	mutex_init(&mock_viommu->queue_mutex);
+ 	mock_viommu->s2_parent = to_mock_domain(parent_domain);
+ 
+-	viommu->ops = &mock_viommu_ops;
+ 	return 0;
+ 
+ err_destroy_mmap:
+@@ -854,8 +866,7 @@ static const struct iommu_ops mock_ops = {
+ 	.probe_device = mock_probe_device,
+ 	.page_response = mock_domain_page_response,
+ 	.user_pasid_table = true,
+-	.get_viommu_size = mock_get_viommu_size,
+-	.viommu_init = mock_viommu_init,
++	.get_viommu_ops = mock_get_viommu_ops,
+ };
+ 
+ static void mock_domain_free_nested(struct iommu_domain *domain)
+diff --git a/drivers/iommu/iommufd/viommu.c b/drivers/iommu/iommufd/viommu.c
+index cdbb597f3588..16e8b6421f1f 100644
+--- a/drivers/iommu/iommufd/viommu.c
++++ b/drivers/iommu/iommufd/viommu.c
+@@ -33,7 +33,7 @@ int iommufd_viommu_alloc_ioctl(struct iommufd_ucmd *ucmd)
+ 	struct iommufd_viommu *viommu;
+ 	struct iommufd_device *idev;
+ 	struct iommu_device *iommu_dev;
+-	const struct iommu_ops *ops;
++	const struct iommufd_viommu_ops *ops;
+ 	size_t viommu_size;
+ 	int rc;
+ 
+@@ -49,23 +49,25 @@ int iommufd_viommu_alloc_ioctl(struct iommufd_ucmd *ucmd)
+ 		rc = -EOPNOTSUPP;
+ 		goto out_put_idev;
+ 	}
+-	ops = iommu_dev->ops;
+-	if (!ops->get_viommu_size || !ops->viommu_init) {
++	if (!iommu_dev->ops->get_viommu_ops) {
+ 		rc = -EOPNOTSUPP;
+ 		goto out_put_idev;
+ 	}
+-
+-	viommu_size = ops->get_viommu_size(idev->dev, cmd->type);
+-	if (!viommu_size) {
++	ops = iommu_dev->ops->get_viommu_ops(idev->dev, cmd->type);
++	if (!ops) {
+ 		rc = -EOPNOTSUPP;
+ 		goto out_put_idev;
+ 	}
+-
+ 	/*
+-	 * It is a driver bug for providing a viommu_size smaller than the core
+-	 * vIOMMU structure size
++	 * It is a driver bug to omit the required operations or provide a size
++	 * smaller than the core vIOMMU structure.
+ 	 */
+-	if (WARN_ON_ONCE(viommu_size < sizeof(*viommu))) {
++	if (WARN_ON_ONCE(!ops->get_viommu_size || !ops->viommu_init)) {
++		rc = -EOPNOTSUPP;
++		goto out_put_idev;
 +	}
-+
-+	if (src.can_addr.j1939.addr != SA_PEER ||
-+	    src.can_addr.j1939.pgn != pgn) {
-+		fprintf(stderr,
-+			"# from SA 0x%02x PGN 0x%05x, want 0x%02x 0x%05x\n",
-+			src.can_addr.j1939.addr, src.can_addr.j1939.pgn,
-+			SA_PEER, pgn);
-+		return false;
-+	}
-+	return true;
-+}
-+
-+/*
-+ * Send one CAN_MAX_DLEN-byte payload from the J1939 socket to the raw peer and
-+ * return the CAN frame seen on the wire via *frame, so each caller can assert
-+ * the id fields it cares about. Opens the J1939 TX socket into self->j1939
-+ * (the fixture teardown closes it) and connects it to (@da, @pgn); @bcast
-+ * opens a broadcast (PDU2) socket.
-+ */
-+static bool tx_to_raw_send_recv_ok(FIXTURE_DATA(j1939_wire) *self, bool bcast,
-+				   pgn_t pgn, uint8_t da,
-+				   const uint8_t payload[CAN_MAX_DLEN],
-+				   struct can_frame *frame)
-+{
-+	if (bcast)
-+		self->j1939 = j1939_open_flags(self->ifindex, J1939_NO_NAME,
-+					       SA_LOCAL, J1939_NO_PGN,
-+					       J1939_OPEN_BCAST);
-+	else
-+		self->j1939 = j1939_open(self->ifindex, SA_LOCAL, J1939_NO_PGN);
-+	if (self->j1939 < 0)
-+		return false;
-+
-+	if (!j1939_connect_ok(self->j1939, self->ifindex, da, pgn))
-+		return false;
-+
-+	if (!send_all_ok(self->j1939, payload, CAN_MAX_DLEN))
-+		return false;
-+
-+	return recv_frame_ok(self->raw, frame, J1939_RECV_TIMEOUT_MS);
-+}
-+
-+/* J1939 TX -> CAN_RAW: destination-specific (PDU1) single frame. */
-+TEST_F(j1939_wire, tx_pdu1_to_raw)
-+{
-+	uint8_t payload[CAN_MAX_DLEN];
-+	struct can_frame frame;
-+
-+	fill_pattern(payload, sizeof(payload));
-+	ASSERT_TRUE(tx_to_raw_send_recv_ok(self, false, PGN_PDU1, SA_PEER,
-+					   payload, &frame));
-+	ASSERT_TRUE(j1939_is_data_frame(frame.can_id))
-+		TH_LOG("CAN id 0x%08x is not a 29-bit data frame",
-+		       frame.can_id);
-+
-+	EXPECT_EQ(j1939_id_prio(frame.can_id), PRIO);
-+	EXPECT_EQ(j1939_id_sa(frame.can_id), SA_LOCAL);
-+	EXPECT_EQ(j1939_id_ps(frame.can_id), SA_PEER);
-+	/* PGN, with the PS (the destination) masked off */
-+	EXPECT_EQ(j1939_id_pgn(frame.can_id) & J1939_PGN_PDU1_MAX, PGN_PDU1);
-+
-+	ASSERT_EQ(frame.can_dlc, sizeof(payload));
-+	EXPECT_EQ(memcmp(frame.data, payload, sizeof(payload)), 0);
-+}
-+
-+/* CAN_RAW -> J1939 RX: destination-specific (PDU1) single frame. */
-+TEST_F(j1939_wire, rx_pdu1_from_raw)
-+{
-+	uint8_t payload[CAN_MAX_DLEN];
-+
-+	fill_pattern(payload, sizeof(payload));
-+	ASSERT_TRUE(rx_single_frame_ok(self, false, PGN_PDU1, SA_LOCAL,
-+				       payload));
-+}
-+
-+/* J1939 TX -> CAN_RAW: broadcast (PDU2) single frame. */
-+TEST_F(j1939_wire, tx_pdu2_to_raw)
-+{
-+	uint8_t payload[CAN_MAX_DLEN];
-+	struct can_frame frame;
-+
-+	fill_pattern(payload, sizeof(payload));
-+	ASSERT_TRUE(tx_to_raw_send_recv_ok(self, true, PGN_PDU2, J1939_NO_ADDR,
-+					   payload, &frame));
-+	ASSERT_TRUE(j1939_is_data_frame(frame.can_id))
-+		TH_LOG("CAN id 0x%08x is not a 29-bit data frame",
-+		       frame.can_id);
-+
-+	EXPECT_EQ(j1939_id_prio(frame.can_id), PRIO);
-+	EXPECT_EQ(j1939_id_sa(frame.can_id), SA_LOCAL);
-+	EXPECT_EQ(j1939_id_pgn(frame.can_id), PGN_PDU2);
-+
-+	ASSERT_EQ(frame.can_dlc, sizeof(payload));
-+	EXPECT_EQ(memcmp(frame.data, payload, sizeof(payload)), 0);
-+}
-+
-+/* CAN_RAW -> J1939 RX: broadcast (PDU2) single frame. */
-+TEST_F(j1939_wire, rx_pdu2_from_raw)
-+{
-+	uint8_t payload[CAN_MAX_DLEN];
-+
-+	fill_pattern(payload, sizeof(payload));
-+	ASSERT_TRUE(rx_single_frame_ok(self, true, PGN_PDU2, J1939_NO_ADDR,
-+				       payload));
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	return j1939_test_main(argc, argv);
-+}
-diff --git a/tools/testing/selftests/net/can/test_j1939_wire.sh b/tools/testing/selftests/net/can/test_j1939_wire.sh
-new file mode 100755
-index 0000000000000000000000000000000000000000..61f65365ec568f928b58bc4f892f97e9ec887027
---- /dev/null
-+++ b/tools/testing/selftests/net/can/test_j1939_wire.sh
-@@ -0,0 +1,4 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+
-+source "$(dirname "$0")/j1939_lib.sh"
-
++	viommu_size = ops->get_viommu_size(idev->dev, cmd->type);
++	if (!viommu_size || WARN_ON_ONCE(viommu_size < sizeof(*viommu))) {
+ 		rc = -EOPNOTSUPP;
+ 		goto out_put_idev;
+ 	}
+@@ -104,16 +106,12 @@ int iommufd_viommu_alloc_ioctl(struct iommufd_ucmd *ucmd)
+ 	 */
+ 	viommu->iommu_dev = iommu_dev;
+ 
+-	rc = ops->viommu_init(viommu, hwpt_paging->common.domain,
++	rc = ops->viommu_init(viommu, idev->dev,
++			      hwpt_paging->common.domain,
+ 			      user_data.len ? &user_data : NULL);
+ 	if (rc)
+ 		goto out_put_hwpt;
+-
+-	/* It is a driver bug that viommu->ops isn't filled */
+-	if (WARN_ON_ONCE(!viommu->ops)) {
+-		rc = -EOPNOTSUPP;
+-		goto out_put_hwpt;
+-	}
++	viommu->ops = ops;
+ 
+ 	cmd->out_viommu_id = viommu->obj.id;
+ 	rc = iommufd_ucmd_respond(ucmd, sizeof(*cmd));
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index ef5043752a36..f27064917df7 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -46,6 +46,7 @@ struct iommu_dma_msi_cookie;
+ struct iommu_fault_param;
+ struct iommufd_ctx;
+ struct iommufd_viommu;
++struct iommufd_viommu_ops;
+ struct msi_desc;
+ struct msi_msg;
+ 
+@@ -669,16 +670,8 @@ __iommu_copy_struct_to_user(const struct iommu_user_data *dst_data,
+  *		- IOMMU_DOMAIN_DMA: must use a dma domain
+  *		- 0: use the default setting
+  * @default_domain_ops: the default ops for domains
+- * @get_viommu_size: Get the size of a driver-level vIOMMU structure for a given
+- *                   @dev corresponding to @viommu_type. Driver should return 0
+- *                   if vIOMMU isn't supported accordingly. It is required for
+- *                   driver to use the VIOMMU_STRUCT_SIZE macro to sanitize the
+- *                   driver-level vIOMMU structure related to the core one
+- * @viommu_init: Init the driver-level struct of an iommufd_viommu on a physical
+- *               IOMMU instance @viommu->iommu_dev, as the set of virtualization
+- *               resources shared/passed to user space IOMMU instance. Associate
+- *               it with a nesting @parent_domain. It is required for driver to
+- *               set @viommu->ops pointing to its own viommu_ops
++ * @get_viommu_ops: Return the vIOMMU operations supported by @dev for a type.
++ *                  Return NULL if the type is unsupported.
+  * @owner: Driver module providing these ops
+  * @identity_domain: An always available, always attachable identity
+  *                   translation.
+@@ -729,11 +722,8 @@ struct iommu_ops {
+ 
+ 	int (*def_domain_type)(struct device *dev);
+ 
+-	size_t (*get_viommu_size)(struct device *dev,
+-				  enum iommu_viommu_type viommu_type);
+-	int (*viommu_init)(struct iommufd_viommu *viommu,
+-			   struct iommu_domain *parent_domain,
+-			   const struct iommu_user_data *user_data);
++	const struct iommufd_viommu_ops *(*get_viommu_ops)(
++		struct device *dev, enum iommu_viommu_type viommu_type);
+ 
+ 	const struct iommu_domain_ops *default_domain_ops;
+ 	struct module *owner;
+diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+index d1fd7888fc91..5f5c67b24134 100644
+--- a/include/linux/iommufd.h
++++ b/include/linux/iommufd.h
+@@ -148,6 +148,15 @@ struct iommufd_hw_queue {
+ 
+ /**
+  * struct iommufd_viommu_ops - vIOMMU specific operations
++ * @get_viommu_size: Get the size of a driver-level vIOMMU structure for a given
++ *                   @dev corresponding to @viommu_type. Driver should return 0
++ *                   if vIOMMU isn't supported accordingly. It is required for
++ *                   driver to use the VIOMMU_STRUCT_SIZE macro to sanitize the
++ *                   driver-level vIOMMU structure related to the core one
++ * @viommu_init: Init the driver-level struct of an iommufd_viommu on a physical
++ *               IOMMU instance @viommu->iommu_dev, as the set of virtualization
++ *               resources shared/passed to user space IOMMU instance. Associate
++ *               it with a nesting @parent_domain.
+  * @destroy: Clean up all driver-specific parts of an iommufd_viommu. The memory
+  *           of the vIOMMU will be free-ed by iommufd core after calling this op
+  * @alloc_domain_nested: Allocate a IOMMU_DOMAIN_NESTED on a vIOMMU that holds a
+@@ -190,6 +199,11 @@ struct iommufd_hw_queue {
+  *                      does, it should set it to the @hw_queue->destroy pointer
+  */
+ struct iommufd_viommu_ops {
++	size_t (*get_viommu_size)(struct device *dev,
++		enum iommu_viommu_type type);
++	int (*viommu_init)(struct iommufd_viommu *viommu, struct device *dev,
++		struct iommu_domain *parent_domain,
++		const struct iommu_user_data *user_data);
+ 	void (*destroy)(struct iommufd_viommu *viommu);
+ 	struct iommu_domain *(*alloc_domain_nested)(
+ 		struct iommufd_viommu *viommu, u32 flags,
 -- 
-2.47.3
+2.43.0
 
