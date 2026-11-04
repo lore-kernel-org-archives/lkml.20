@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818250;
-	b=x84fGy56HS+ybyRjhQYCe5K5w07rpNpMT/H1zYLCz0SMzRSU85FbvDiDYr6GHYN+QpH9
-	 rmZJKO2EVtmRdhn8k8qtp1vyyrrldL1ewKMTrvfLo3BsZ1IeFyLW/x2Z75IwjyUpYPyQo
-	 0MjA7PddLmP/2t14rzrIhf08z2TgsRdbeg5L1BiipGOBkU2J8INXY86eg2/T9rgqdznSn
-	 VMuAa5VSKMsuS3Cbz2A2oHZ7wsGFz/1mZnFRwhYJRZV+NdWDIQn1WQO19Mmow/EcMpNM3
-	 f6FkiqyX1djSkSXvfNbPRK3M4UhGKow4vjrV0gslPloJNsLtWoPb3p2o2538ViPzTyg==
+	t=1793818252;
+	b=j/QZAuJsloM6b35h0oliIOupe0Uq9o61joBfpDQJhePSv/4yvlnK5JwljXMKEadZm5Ew
+	 wSo0ximpEyaD4kn6Qyn68G1jFnLlMY++9GcZkmb8VzYac6qee5NyJ2Ekw4UB4/HSK2kx9
+	 PFlXuUqRLo1BGei1z7q5laCFl3d/u0VW0eBjH9GszxGVAsd08ny/HuOUz2dhvL8H4XyEv
+	 XQXcnpQDd8/Gn3b9Q+0fw7/Hm/AMFuaCghOb1vxNdA8jQ9ZfDW4Mfe9lp8xMzA8vwcTZ1
+	 ZTQ4GE7vQ6MY8eEtHdSYfMFXdWrJ8z5bR31fNGPjd7+5lxsZBhT1QrxZKythE0FcmZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818250;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818252;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=KYk/rYVUH9sKkLHkXPaswMG89OcnV7lqE2vPN5adjK0=;
-	b=wbwUhqi7DDkD1EJwe2Cl2w7DxCMINt8d1O+HB5wXcDjGa857MO2KCAJXD/Vljyzq7+fC
-	 s76ttVEzfstg6Oi1wRz+TcILqBM4CC/4y0MlQ6INZ9FE9ueTCsH2ATMc6bcE71m3fGDVf
-	 /Zey9pEtxtZ+eKE39i6upN79pnp0t/wT7MXNQahtckWRBitxxu6D4P4+f639qC4YGxoSV
-	 Jl0SGORjdo65c8Tu/qG6EkWV12NpZWCu55h6ZmNdVJL4R3QWDirg45boVosCnBwAoYBUV
-	 nqA7I/e60ZuB+Er6E1uhh3CoCXxeGtRZImgU4fRyD4sN1thU6YfeB24rKAUEcU/7Ycw==
+	bh=2C1T18cLayh6MkUq4urEFqvGOruStImJc3zJPEGMROE=;
+	b=h4+OqDuGlXRXuGRapaKF5aI8wYG7jqcJWymxZbzH+JdPKPHJDChLBqEMA6hO9Sdul9La
+	 mre9tiD80oMXl86lV0Ep4dZm2JU0uvvEFJGaZJPrKXHH3j4SxLEFhG6d3JmY4dSwGMaF+
+	 2W/MX5X3WSQOD9y3NW6ixSKtRuXvf9a9EkMphOR0/AF2bpjcPtF9cJ7GF/QBr5AyYPQtC
+	 +iB0orSwfPPtvPO6wP3OCbKR6pM0UnQb0wBntGsYWVzomgBwfeASqJ6afwtxDCuSiBVIf
+	 9a8iy//VGjutUegEbV3yDs1K3yJEc1evMnNRKIEy2no2gEsNy2tG6mLXaOwFJ2JWDLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QU9y9kYT;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K9LglIkV;
 	arc=none smtp.remote-ip=198.175.65.9
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644546083617
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:50:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 644546083617
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4AE60A3816
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A4AE60A3816
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QU9y9kYT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K9LglIkV
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793818248; x=1825354248;
+  t=1793818251; x=1825354251;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=hkqOPs0MryBzncER5OPywGYkljtuY5Bq5ZseL6rJ+pc=;
-  b=QU9y9kYTUMs703VklfKhZqnOsEzEDS6pRDCOsCYUFuy45BWu8TS1kNy8
-   vpGPPNv0tLOUovqOPbE4F8f0c/kYoqg7bl725gBDEHXPeSo8mCDAw3/Ld
-   eqOKVFvb6opyPLkpkpWlU07pFacwb5WT7OwbgPjBDnjiv0QnDlsOC67ZU
-   ueWvUKBPoki+vXeMdKr8/lo0hhW00+OAsKdaeaToMPWenxGy7Hw6BmADu
-   FaT7QFl+aO4rGL88pNYrhFIC31jBNV+1itzO+HyjpVzDZH2X0ASAxSoC7
-   U2/8gXjZ5kJCq+ERYc1jI+442Y94sPv04IY3Oh+FQ6BaJvFF4lbkSl427
-   g==;
-X-CSE-ConnectionGUID: ja58wX0dSbeMSz38ofHwow==
-X-CSE-MsgGUID: jaWsQyZNTw61duh+QFu/Cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2485021"
+  bh=6oZQq8996xljqWZUlK8oc4H+5r8Y/uidc7WKYKuDj14=;
+  b=K9LglIkVHooEaLAGnA4G+f2KyedY1CVtKdqH7qA2z7TQS6UrNSXNU4sy
+   ODEtpV4BFUV8CHDfRERAY6gLiSdDQ9jkqs4Kqx0mdPlGq6xQYf6qI2Ail
+   OxsgszUKzgFgBh3O0/6tQjSOEBCvCKAUMk+f0h44RD9Vylzx+VLlKEsVC
+   OYMLX2mbTlCSlNTMFa/igp/3P1xrx6g+tvAgnKDAdBpNQGoiyExejND2k
+   b/BetghZb1HXJQ8YIyBKXARC/2SA9iuW/Ow5cwCQD7s41+fUYczdSudtN
+   RKRH+rarpwXnIAuabPjmN43HfCeQh50TozGV5XYFDIjd0e6oNSHaUhJ0/
+   A==;
+X-CSE-ConnectionGUID: t+c0wCy8RKWCcXa4DrZGgg==
+X-CSE-MsgGUID: jiNousw2TdqmggWtH511Qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2485034"
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2485021"
+   d="scan'208";a="2485034"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:50:48 -0800
-X-CSE-ConnectionGUID: lvbRNwOcRfm7M5Jodr2Bcw==
-X-CSE-MsgGUID: jK5s4yuTSN29JLxrgzf3dQ==
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:50:49 -0800
+X-CSE-ConnectionGUID: 3pSH8W6tRVanfPU2uFeQ6w==
+X-CSE-MsgGUID: fz3rmjzOTuiCfPHOuUCfSQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7336772"
+   d="scan'208";a="7336777"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by fmviesa010.fm.intel.com with ESMTP; 04 Nov 2026 10:50:48 -0800
+  by fmviesa010.fm.intel.com with ESMTP; 04 Nov 2026 10:50:50 -0800
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -71,9 +71,9 @@ Cc: x86@kernel.org,
 	peterz@infradead.org,
 	david.kaplan@amd.com,
 	chang.seok.bae@intel.com
-Subject: [PATCH v4 3/9] stop_machine: Introduce stop_machine_nmi_cpuslocked()
-Date: Wed,  4 Nov 2026 18:23:16 +0000
-Message-ID: <20261104182322.578066-4-chang.seok.bae@intel.com>
+Subject: [PATCH v4 4/9] x86/apic: Implement self-NMI support
+Date: Wed,  4 Nov 2026 18:23:17 +0000
+Message-ID: <20261104182322.578066-5-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104182322.578066-1-chang.seok.bae@intel.com>
 References: <20261104182322.578066-1-chang.seok.bae@intel.com>
@@ -88,118 +88,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With the NMI control logic in place, introduce an API to run the target
-function from NMI context.
+From: David Kaplan <david.kaplan@amd.com>
 
-Originally-by: David Kaplan <david.kaplan@amd.com>
-Suggested-by: Borislav Petkov <bp@alien8.de>
+Add a function to send an NMI-to-self which is needed for stop-machine
+NMI facility. Note that __apic_send_IPI_self() cannot be used to send an
+NMI so __apic_send_IPI() is used.
+
+Signed-off-by: David Kaplan <david.kaplan@amd.com>
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Link: https://lore.kernel.org/lkml/20260202105411.GVaYCCUygtEUNrMUtG@fat_crate.local
 ---
-V3 -> V4: Remove the fallback prototype
+ arch/x86/kernel/apic/ipi.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-  Tracking back the previous feedback on V1,
-	  https://lore.kernel.org/lkml/87wm0zl8p2.ffs@tglx
-  tglx gave this comment "That function should not be exposed at all when
-  the config switch is off."
-
-  So, the x86 microcode loader is the only user and the callsite should be
-  compiled out when CONFIG_STOP_MACHINE_NMI=n.
----
- include/linux/stop_machine.h | 22 +++++++++++++++++
- kernel/stop_machine.c        | 46 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 68 insertions(+)
-
-diff --git a/include/linux/stop_machine.h b/include/linux/stop_machine.h
-index b53b028296e0..af3218987f53 100644
---- a/include/linux/stop_machine.h
-+++ b/include/linux/stop_machine.h
-@@ -198,6 +198,28 @@ stop_machine_from_inactive_cpu(cpu_stop_fn_t fn, void *data,
- void arch_send_self_nmi(void);
- bool noinstr stop_machine_nmi_handler(void);
+diff --git a/arch/x86/kernel/apic/ipi.c b/arch/x86/kernel/apic/ipi.c
+index c627bee3b14f..2bb70db5ee27 100644
+--- a/arch/x86/kernel/apic/ipi.c
++++ b/arch/x86/kernel/apic/ipi.c
+@@ -4,6 +4,7 @@
+ #include <linux/delay.h>
+ #include <linux/smp.h>
+ #include <linux/string_choices.h>
++#include <linux/stop_machine.h>
  
-+/**
-+ * stop_machine_nmi_cpuslocked() - Freeze CPUs and run a function in NMI context
-+ *
-+ * @nmisafe_fn:	The function to run
-+ * @data:	The data pointer for @nmisafe_fn()
-+ * @cpus:	The CPUs to run @nmisafe_fn() on (NULL = one unspecified online CPU)
-+ *
-+ * Description: This stop_machine() variant runs @nmisafe_fn() from NMI context
-+ * to prevent preemption by other NMIs. The callback must be built with noinstr.
-+ * Other than that, the semantics match stop_machine_cpuslocked().
-+ *
-+ * Context: Must be called from within a cpus_read_lock() protected region.
-+ * Avoid nested calls to cpus_read_lock().
-+ *
-+ * Return: 0 if all invocations of @nmisafe_fn return zero, -ENOMEM if cpumask
-+ * allocation fails, -EINVAL if not initialized yet or any target CPU failed to
-+ * receive NMI. Otherwise, the value returned by an arbitrarily chosen member of
-+ * the set of calls to @nmisafe_fn that returned non-zero.
-+ */
-+int stop_machine_nmi_cpuslocked(cpu_stop_nmisafe_fn_t nmisafe_fn, void *data,
-+				const struct cpumask *cpus);
-+
- #else
- static inline bool stop_machine_nmi_handler(void) { return false; }
- #endif /* CONFIG_STOP_MACHINE_NMI */
-diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
-index ad01b7c5266c..2f3fe13cd3aa 100644
---- a/kernel/stop_machine.c
-+++ b/kernel/stop_machine.c
-@@ -802,6 +802,52 @@ static int multi_stop_run(struct multi_stop_data *msdata)
- 	return msdata->use_nmi ? nmi_stop_run(msdata) : msdata->fn(msdata->data);
+ #include <asm/io_apic.h>
+ 
+@@ -248,6 +249,15 @@ void default_send_IPI_self(int vector)
+ 	__default_send_IPI_shortcut(APIC_DEST_SELF, vector);
  }
  
-+int stop_machine_nmi_cpuslocked(cpu_stop_nmisafe_fn_t nmisafe_fn, void *data,
-+				const struct cpumask *cpus)
++#ifdef CONFIG_STOP_MACHINE_NMI
++
++void arch_send_self_nmi(void)
 +{
-+	struct multi_stop_data msdata = {
-+		.nmisafe_fn	= nmisafe_fn,
-+		.data		= data,
-+		.num_threads	= num_online_cpus(),
-+		.active_cpus	= cpus,
-+		.use_nmi	= true,
-+	};
-+	int ret;
-+
-+	if (!stop_machine_initialized)
-+		return -EINVAL;
-+
-+	if (!zalloc_cpumask_var(&msdata.nmi_cpus, GFP_KERNEL))
-+		return -ENOMEM;
-+
-+	/*
-+	 * NMI CPUs should be exactly those 'active' CPUs executing the
-+	 * stop function. Follow the selection logic in multi_cpu_stop()
-+	 * if not provided.
-+	 */
-+	if (!msdata.active_cpus)
-+		cpumask_set_cpu(cpumask_first(cpu_online_mask), msdata.nmi_cpus);
-+	else
-+		cpumask_and(msdata.nmi_cpus, msdata.active_cpus, cpu_online_mask);
-+
-+	lockdep_assert_cpus_held();
-+
-+	ret = stop_multi_cpus(&msdata);
-+
-+	/*
-+	 * The NMI handler clears each CPU bit. If any of those NMIs were
-+	 * ever missed out, return error clearly.
-+	 */
-+	if (!cpumask_empty(msdata.nmi_cpus)) {
-+		pr_err("CPUs %*pbl didn't run the stop_machine NMI handler.\n",
-+		       cpumask_pr_args(msdata.nmi_cpus));
-+		ret = -EINVAL;
-+	}
-+
-+	free_cpumask_var(msdata.nmi_cpus);
-+	return ret;
++	__apic_send_IPI(smp_processor_id(), NMI_VECTOR);
 +}
 +
- #else
- 
- static int multi_stop_run(struct multi_stop_data *msdata)
++#endif
++
+ #ifdef CONFIG_X86_32
+ void default_send_IPI_mask_sequence_logical(const struct cpumask *mask, int vector)
+ {
 -- 
 2.53.0
 
