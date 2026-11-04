@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756478;
-	b=2odLwnMNp1CoKGvZNIpBj4C8SsPDGjAblmjCWbtKhKBs007hZMlO6m81+Gq6OQbcV+Tp
-	 VAf9GP2PBwNJZpltnihoHRtbXYl/50pRz5mY3kJAukR3wVYs0iRQRK5QqrK8gbifyDlUy
-	 fb86u1bT5mMb1ZnBnz2Lrf2M6U/PbaIrcinbXT5laS+8LEusksPSDKnOQ6Rqhd0eQjllJ
-	 7RsSEqLINhC+MVvvU7eMP2VfPt+aLDqAn6pTFN5N2gqlMU02gJSQSGuNpLEY6meJoaBfV
-	 wXm/JzD7UlzOdd9fouSzx/rD/gpbg/v7z9nwOHIuAUDbuaPtzGV5FNu+IJ0jvcerBMA==
+	t=1793756475;
+	b=XddpQVXXwWjZIX1o8/ZEm70/IH/gIedMgtIRRBdRGZk6YqWBYkIzYgNcqWx4YrDIJWw5
+	 Vo++aV5VppnQo+3gAVgqHWaUkfZKHF+k/yDGQp+yuH0GOabjoN15657fuulfp1nGFd/Zu
+	 QiXxZTrRnDBnwrjsl9OiHtXaU6C6Cib+WWguNIhXftbtI355utbatFvbhDVMtZWVWPemb
+	 z03cCF5l1qsIXRx+i7SF2zTqUN1taphHZv6LmQC1v9VhH3HpIWOFEagR+tKHQkcMbn5k6
+	 nPvv6cwSZPtygl5JkoVn0Qz7HYRa0v+XUa5GwoypB1gxVh2akCOkA6nS6Co+wEDZiig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756475;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=w402ERI6QvAyJCRY+YfgkKyPrDT1mp6Hkttm7k2WWik=;
-	b=aXeL7aQmhovrvDj5/2s/CXTleDPBHRojY4iPzUuo6c/6DxLCDU0qxIg68FV/k1xFGXKx
-	 Rx1u3yIh13Vc8cBPduQWJiVs3iV1Jnj7cPlRoBYc4TZr1VUSPCGwFRvXaXDEq3tJcgT57
-	 H6RUUEXUpVgwl2rVV9Z5CQlPVn8w2Rl2e8/IqH4O4ojXdlNf8jK3WsKCf3gGb6xRIDQFB
-	 P4PgsapwFJMPpUqXYC4wpf7UasXJnxxUmyMelrb7bTMSaMiWaALYWIdfVZ8MD1EFDtEan
-	 RCIFMVT+kTkWYzVrRmJ7VhK7PTMmh/eVPVEQjG9/riCWFhtmACOXhapNUUxDYrhslwg==
+	bh=9w/Yln54A/frCAd54jSWe6NvWFm98+G3W06jEUBfoHg=;
+	b=2iIGa7X2hSvuHQHMZ8xHzQ7dgcOjGJirjLMuvl06s2I7D3IU2AE9kefz7IgeRp+fpiR/
+	 DRNxh3d4ofTlnhBoAb7WB8h6OHJNQa0laIKeiruVw/iLRduBZ2csPF0sGGF0tAW9ZVFyG
+	 OOLMoB6nK1cRA46+kZPPm86vMXwWG7gpuJCm9bvMwp0sRNa50z3RyIxwVCDzRnRYhkyUu
+	 +ujknP+StGYea8XO7+ycGZjKeyUdzK7h6EQr3Qs9aW1oWa3Xh8AbRBihX5USNv+8vQIhH
+	 w9pirudRG0ojNy5F6muKxuOrlSV9X99muHqyC95GLN/HINwGRPYzDrhQspPqIwRoOjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wVB4iXvp;
-	arc=none smtp.remote-ip=95.215.58.195
-Received: from mta1.migadu.com (out-195.mta1.migadu.com [95.215.58.195])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="i+/Agwe7";
+	arc=none smtp.remote-ip=91.218.175.243
+Received: from mta0.migadu.com (out-243.mta0.migadu.com [91.218.175.243])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6FF606A33F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB6FF606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FC2606A333
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05FC2606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wVB4iXvp
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i+/Agwe7
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BSWCfUAGI4MWAyT3uOOkojUdPY8mFawlg/RiR1coDxQ=;
+DKIM-Signature: a=rsa-sha256; bh=QTVM9JuDhnfLec5WodYpi++Qw4YzpjrdRVrgs+18KMQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793756476; v=1; x=1794361276;
- b=wVB4iXvpHYrN1JYBn0ULaW4/g909xdjzVdRlYa2yNIb8+fwDuLls15YspYD6PAGXwW4hP+Zj
- FSPVVFfkD2ih2CqR5gJpT4omCxB+VXOMKHKbmLU80D+heFFjp1ywezOHuzqu2SPOZ9RVUV0hlxt
- q4jEm18Xj/kmIlO3hkykyfsg=
+ t=1793756473; v=1; x=1794361273;
+ b=i+/Agwe7mVnuD/LKsny4g4ZXWWm0bMi82ODsvGUVCuZjmll/W3gFeVsvD7jlMOmGAaFNoYao
+ sjExxHF/L5Coe1UdYJXH1/g3BqMT93OwkC+cG/ta2FkGszawQlnHLnf2nXoj/dsUq9+mzJhy5Rx
+ MNZJhkUHvMTG1hxbCFGdC2RI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e0539b7733880583;
-	Wed, 04 Nov 2026 01:41:15 +0000
-X-Mizu-Trace-ID: e0539b7733880583
+Received: by smtp.migadu.com with ESMTPS id 1af45fa842846c92;
+	Wed, 04 Nov 2026 01:41:13 +0000
+X-Mizu-Trace-ID: 1af45fa842846c92
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -68,9 +68,9 @@ Cc: platform-driver-x86@vger.kernel.org,
 	"Hans de Goede" <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v13 10/18] HID: asus: add support for gamepad mode
-Date: Wed,  4 Nov 2026 01:39:27 +0000
-Message-ID: <20261104013935.512713-11-denis.benato@linux.dev>
+Subject: [PATCH v13 09/18] HID: asus: add support to force feedback
+Date: Wed,  4 Nov 2026 01:39:26 +0000
+Message-ID: <20261104013935.512713-10-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261104013935.512713-1-denis.benato@linux.dev>
 References: <20261104013935.512713-1-denis.benato@linux.dev>
@@ -85,189 +85,254 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ROG Ally devices can emulate either a mouse+keyboard (desktop mode)
-or an gamepad device (xbox360 controller in ROG ally and a custom
-DInput device on newer models): add support for switching the current
-controller mode via the gamepad_mode sysfs property.
+Unlike ROG ally the X version and following ones uses DInput protocol
+and the force feedback needs to be implemented as its protocol is
+vendor-specific, therefore add support for FF_RUMBLE with magnitude
+scaling on a work-queue based approach to avoid using possibly
+sleeping calls in atomic context.
 
-Also list available models with gamepad_mode_index to align with
-other handheld drivers.
-
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Signed-off-by: Khamunetri Clark <khamunetriclark@gmail.com>
 Co-developed-by: Luke Jones <luke@ljones.dev>
 Signed-off-by: Luke Jones <luke@ljones.dev>
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
 ---
- drivers/hid/hid-asus.c | 130 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 129 insertions(+), 1 deletion(-)
+ drivers/hid/Kconfig    |   1 +
+ drivers/hid/hid-asus.c | 142 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 143 insertions(+)
 
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 2481bc01c435..dd411f6eff4f 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -189,6 +189,7 @@ config HID_ASUS
+ 	depends on USB_HID
+ 	depends on LEDS_CLASS
+ 	depends on ASUS_WMI || ASUS_WMI=n
++	select INPUT_FF_MEMLESS
+ 	select POWER_SUPPLY
+ 	help
+ 	Support for Asus notebook built-in keyboard and touchpad via i2c, and
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index 9c9ed75b98a4..d3dbeba529c1 100644
+index b55fe10826a5..9c9ed75b98a4 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
-@@ -368,6 +368,20 @@ enum ally_command_codes {
+@@ -22,6 +22,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/cleanup.h>
++#include <linux/compiler.h>
+ #include <linux/compiler_attributes.h>
+ #include <linux/container_of.h>
+ #include <linux/ctype.h>
+@@ -30,6 +31,7 @@
+ #include <linux/hid.h>
+ #include <linux/jiffies.h>
+ #include <linux/kstrtox.h>
++#include <linux/limits.h>
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+@@ -219,6 +221,23 @@ struct asus_touchpad_info {
+ 	int report_size;
+ };
+ 
++/* Output report 0x0D on the gamepad interface. */
++struct ally_ff_data {
++	u8 enable;
++	u8 magnitude_left;
++	u8 magnitude_right;
++	u8 magnitude_strong;
++	u8 magnitude_weak;
++	u8 pulse_sustain_10ms;
++	u8 pulse_release_10ms;
++	u8 loop_count;
++} __packed;
++
++struct ally_ff_report {
++	u8 report_id;
++	struct ally_ff_data ff;
++} __packed;
++
+ struct ally_intf {
+ 	struct hid_device *hdev;
+ 	/* HID-core evdev of this interface. Reports for it land here. */
+@@ -235,6 +254,14 @@ struct ally_intf {
+ 	 */
+ 	bool sysfs_live;
+ 	bool cal_sysfs_live;
++	struct {
++		/* Guards live, update, and packet. */
++		spinlock_t lock;
++		bool live;
++		bool update;
++		struct ally_ff_report packet;
++		struct work_struct work;
++	} ff;
+ };
+ 
+ struct asus_drvdata {
+@@ -341,10 +368,15 @@ enum ally_command_codes {
  	CMD_SET_ANTI_DEADZONE           = 0x18,
  };
  
-+enum ally_gamepad_mode_index {
-+	ALLY_GAMEPAD_MODE_GAMEPAD = 0x01,
-+	ALLY_GAMEPAD_MODE_KEYBOARD = 0x02,
-+};
++/* Rumble magnitudes use the hardware's 0..100 intensity range. */
++#define ALLY_FF_MAX_INTENSITY 100
 +
-+static const char *const ally_gamepad_mode_text[] = {
-+	"gamepad", "desktop"
-+};
-+
-+static const u8 ally_gamepad_mode_value[] = {
-+	ALLY_GAMEPAD_MODE_GAMEPAD,
-+	ALLY_GAMEPAD_MODE_KEYBOARD
-+};
-+
- /* Rumble magnitudes use the hardware's 0..100 intensity range. */
- #define ALLY_FF_MAX_INTENSITY 100
+ static const u8 ally_force_feedback_off[] = {
+ 	0x0D, 0x0F, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xEB
+ };
  
-@@ -1371,6 +1385,112 @@ static struct device_attribute dev_attr_right_joystick_outer_threshold =
- static struct device_attribute dev_attr_right_joystick_outer_threshold_range =
- 	__ATTR(outer_threshold_range, 0444, right_joystick_outer_threshold_range_show, NULL);
++static_assert(sizeof(struct ally_ff_report) == sizeof(ally_force_feedback_off));
++
+ /*
+  * Each Ally interface owns its own ally_intf. A report is delivered on the
+  * evdev of the interface that received it. Nothing here points at another
+@@ -2217,6 +2249,84 @@ static struct input_dev *ally_x_alloc_input_dev(struct hid_device *hdev,
+ 	return input_dev;
+ }
  
-+/**
-+ * ally_set_gamepad_mode() - Set the gamepad operating mode
-+ * @hdev: HID device the command packet is sent on
-+ * @mode: %ALLY_GAMEPAD_MODE_GAMEPAD or %ALLY_GAMEPAD_MODE_KEYBOARD
-+ *
-+ * Context: Caller holds ally_prefs.lock.
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+static int ally_set_gamepad_mode(struct hid_device *hdev, u8 mode)
++static int ally_ff_output(struct hid_device *hdev, const void *buf, size_t len)
 +{
-+	const u8 payload[] = { mode };
-+	size_t buf_len;
-+	int ret;
++	u8 *dmabuf __free(kfree) = kmemdup(buf, len, GFP_KERNEL);
 +
-+	if (mode < ALLY_GAMEPAD_MODE_GAMEPAD || mode > ALLY_GAMEPAD_MODE_KEYBOARD) {
-+		hid_err(hdev, "Invalid gamepad mode: %u\n", mode);
-+		return -EINVAL;
-+	}
-+
-+	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_GAMEPAD_MODE,
-+					       payload, sizeof(payload),
-+					       &buf_len);
-+	if (!buf)
++	if (!dmabuf)
 +		return -ENOMEM;
 +
-+	ret = ally_gamepad_send_packet(hdev, buf, buf_len);
-+	if (ret < 0) {
-+		hid_err(hdev, "Failed to set gamepad mode: %d\n", ret);
-+		return ret;
++	return hid_hw_output_report(hdev, dmabuf, len);
++}
++
++static int ally_ff_off(struct hid_device *hdev)
++{
++	return ally_ff_output(hdev, ally_force_feedback_off,
++			      sizeof(ally_force_feedback_off));
++}
++
++static void ally_ff_work_fn(struct work_struct *work)
++{
++	struct ally_intf *intf = container_of(work, struct ally_intf, ff.work);
++	struct ally_ff_report report;
++	bool update = false;
++	int ret;
++
++	scoped_guard(spinlock_irqsave, &intf->ff.lock) {
++		if (!intf->ff.update)
++			break;
++
++		report = intf->ff.packet;
++		intf->ff.update = false;
++		update = true;
 +	}
 +
++	if (!update)
++		return;
++
++	ret = ally_ff_output(intf->hdev, &report, sizeof(report));
++	if (ret < 0)
++		hid_err(intf->hdev, "Failed to send force-feedback: %d\n", ret);
++}
++
++static int ally_ff_play(struct input_dev *idev, void *data, struct ff_effect *effect)
++{
++	struct ally_intf *intf = input_get_drvdata(idev);
++
++	if (effect->type != FF_RUMBLE)
++		return 0;
++
++	guard(spinlock_irqsave)(&intf->ff.lock);
++
++	if (!intf->ff.live)
++		return 0;
++
++	intf->ff.packet.ff.magnitude_strong =
++		effect->u.rumble.strong_magnitude * ALLY_FF_MAX_INTENSITY / U16_MAX;
++	intf->ff.packet.ff.magnitude_weak =
++		effect->u.rumble.weak_magnitude * ALLY_FF_MAX_INTENSITY / U16_MAX;
++	intf->ff.update = true;
++	schedule_work(&intf->ff.work);
 +	return 0;
 +}
 +
-+static ssize_t gamepad_mode_show(struct device *dev, struct device_attribute *attr,
-+				 char *buf)
++static void ally_ff_quiesce(struct ally_intf *intf)
 +{
-+	u8 mode_byte;
-+	int i;
++	int ret;
 +
-+	guard(mutex)(&ally_prefs.lock);
++	if (!intf || !intf->gamepad)
++		return;
 +
-+	mode_byte = ally_prefs.gamepad_mode;
-+	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode_value); i++) {
-+		if (ally_gamepad_mode_value[i] == mode_byte)
-+			return sysfs_emit(buf, "%s\n", ally_gamepad_mode_text[i]);
-+	}
++	scoped_guard(spinlock_irqsave, &intf->ff.lock)
++		intf->ff.live = false;
 +
-+	/*
-+	 * The recorded mode only comes from the table above: an unknown
-+	 * byte means memory corruption, not a userspace-visible value.
-+	 */
-+	return -EIO;
++	cancel_work_sync(&intf->ff.work);
++
++	ret = ally_ff_off(intf->hdev);
++	if (ret < 0)
++		hid_warn(intf->hdev, "Failed to stop force-feedback\n");
 +}
 +
-+static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
-+				  const char *buf, size_t count)
-+{
-+	struct hid_device *hdev = to_hid_device(dev);
-+	u8 mode_byte;
-+	int mode, ret;
+ static int ally_x_setup_input(struct hid_device *hdev, struct ally_intf *intf)
+ {
+ 	struct input_dev *input = ally_x_alloc_input_dev(hdev, intf);
+@@ -2245,8 +2355,24 @@ static int ally_x_setup_input(struct hid_device *hdev, struct ally_intf *intf)
+ 	input_set_capability(input, EV_KEY, BTN_THUMBL);
+ 	input_set_capability(input, EV_KEY, BTN_THUMBR);
+ 
++	spin_lock_init(&intf->ff.lock);
++	INIT_WORK(&intf->ff.work, ally_ff_work_fn);
++	memcpy(&intf->ff.packet, ally_force_feedback_off, sizeof(intf->ff.packet));
++	intf->ff.update = false;
++	intf->ff.live = false;
 +
-+	mode = sysfs_match_string(ally_gamepad_mode_text, buf);
-+	if (mode < 0)
-+		return mode;
-+
-+	/* The text index maps to the byte the MCU accepts. */
-+	mode_byte = ally_gamepad_mode_value[mode];
-+
-+	scoped_guard(mutex, &ally_prefs.lock) {
-+		ret = ally_set_gamepad_mode(hdev, mode_byte);
-+		if (ret < 0)
-+			return ret;
-+
-+		ally_prefs.gamepad_mode = mode_byte;
++	input_set_capability(input, EV_FF, FF_RUMBLE);
++	ret = input_ff_create_memless(input, NULL, ally_ff_play);
++	if (ret) {
++		hid_err(hdev, "Failed to create force-feedback: %d\n", ret);
++		input_free_device(input);
++		return ret;
 +	}
 +
-+	hid_dbg(hdev, "Set gamepad mode to %s\n", ally_gamepad_mode_text[mode]);
-+	sysfs_notify(&dev->kobj, NULL, "gamepad_mode");
-+
-+	return count;
-+}
-+
-+static ssize_t gamepad_mode_index_show(struct device *dev,
-+					   struct device_attribute *attr, char *buf)
-+{
-+	ssize_t len = 0;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode_text); i++) {
-+		if (!ally_gamepad_mode_text[i] || ally_gamepad_mode_text[i][0] == '\0')
-+			continue;
-+
-+		len += sysfs_emit_at(buf, len, "%s ", ally_gamepad_mode_text[i]);
-+	}
-+
-+	/* Replace the last space with a newline. */
-+	if (len > 0)
-+		buf[len - 1] = '\n';
-+
-+	return len;
-+}
-+
-+static DEVICE_ATTR_RW(gamepad_mode);
-+static DEVICE_ATTR_RO(gamepad_mode_index);
-+
- /**
-  * ally_set_anti_deadzone() - Send the joystick anti-deadzone values to the device
-  * @hdev: HID device the packet is sent on
-@@ -1993,6 +2113,8 @@ static const struct attribute_group *const ally_cal_attr_groups[] = {
- 
- static struct attribute *ally_config_attrs[] = {
- 	&dev_attr_xbox_controller.attr,
-+	&dev_attr_gamepad_mode.attr,
-+	&dev_attr_gamepad_mode_index.attr,
- 	NULL
- };
- 
-@@ -2026,7 +2148,7 @@ static int ally_prefs_setup(struct hid_device *hdev, struct ally_intf *intf)
- 
- 	scoped_guard(mutex, &ally_prefs.lock) {
- 		if (!ally_prefs.initialized) {
--			ally_prefs.gamepad_mode = 0x01;
-+			ally_prefs.gamepad_mode = ALLY_GAMEPAD_MODE_GAMEPAD;
- 			ally_prefs.xbox_controller_enabled = true;
- 			ally_prefs.initialized = true;
++	intf->ff.live = true;
+ 	ret = input_register_device(input);
+ 	if (ret) {
++		intf->ff.live = false;
+ 		hid_err(hdev, "Failed to register Ally X gamepad device: %d\n", ret);
+ 		input_free_device(input);
+ 		return ret;
+@@ -2437,6 +2563,14 @@ static struct ally_intf *hid_asus_ally_probe(struct hid_device *hdev)
+ 			hid_err(hdev, "Failed to create Ally X gamepad device.\n");
+ 			return ERR_PTR(ret);
  		}
-@@ -2455,6 +2577,12 @@ static int hid_asus_ally_init(struct hid_device *hdev)
- 			hid_warn(hdev, "Failed to restore right response curve: %d\n", ret);
- 	}
- 
-+	if (ally_prefs.initialized) {
-+		ret = ally_set_gamepad_mode(hdev, ally_prefs.gamepad_mode);
++
++		/*
++		 * This is the interface that owns the rumble output report.
++		 * Failure to silence it is not fatal.
++		 */
++		ret = ally_ff_off(hdev);
 +		if (ret < 0)
-+			hid_warn(hdev, "Failed to restore gamepad mode: %d\n", ret);
++			hid_warn(hdev, "Failed to disable force-feedback: %d\n", ret);
+ 		break;
+ 	case HID_ALLY_INTF_KEYBOARD_IN:
+ 		break;
+@@ -2459,6 +2593,13 @@ static int hid_asus_ally_reset_resume(struct hid_device *hdev, struct ally_intf
+ 		return 0;
+ 
+ 	ep = ally_get_endpoint_address(hdev);
++	if (ep == HID_ALLY_X_INTF_IN) {
++		ret = ally_ff_off(hdev);
++		if (ret < 0)
++			hid_warn(hdev, "Failed to disable force-feedback: %d\n", ret);
++		return 0;
 +	}
 +
- 	return 0;
- }
+ 	if (ep != HID_ALLY_INTF_CFG_IN)
+ 		return 0;
+ 
+@@ -2487,6 +2628,7 @@ static struct ally_intf *hid_asus_ally_terminate(struct asus_drvdata *drvdata)
+ 	smp_store_release(&drvdata->ally, NULL);
+ 
+ 	ally_quiesce(ally);
++	ally_ff_quiesce(ally);
+ 	ally_unregister_gamepad(ally);
+ 	ally_sysfs_remove(drvdata->hdev, ally);
  
 -- 
 2.47.3
