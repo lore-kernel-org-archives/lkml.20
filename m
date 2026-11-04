@@ -1,123 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811413;
-	b=TaeutPC3Smuxhj9FTgv9yKG5fNNDMlAomH37bIwfC/6nHkmeUbsNj/UvgmAOyD8b7OOU
-	 WCslP0X4VeLSrGDU0UBsIB3lwFoLT7V7CfboW9bIN0u7Km4mZxvA9YGuDjlYHXifCaytc
-	 JgDolkcu8Xmixl+u+JL6le/qBTYyT6kCqMQ/KkmfI89ILfToYrKuW147M0pAmfcEdcQxd
-	 5kMNMDTXO26y6287zGLCyFs8RHllSGpTor7aLVCkOZVVR2lZK4wSoZ43iAFslnKNBcUq0
-	 GCi/Y9Cte2muSJ9pDROh0fFjlIqwNN3okuJKuk3RKt8hrxP0AlnjjKkEVZ+2Gx0rE6w==
+	t=1793811411;
+	b=tB0E/JLKheOElIrsYEiB4J7d6sEzYDLpe1HJrQjUNZT9JkZRqXVZOFEuSsar7aIBcl50
+	 RNyDhWy72DAG0U9cOfqvpGUwSZoNkz040i17OCa983uAmBA0akLumuGvoRqrsvtR/6dV5
+	 4CB7jh5gG3VPCj0AREhdaJ65q5Elyx10D9x38xPaR4CFdl4eAtHkljEidnvBR2ArF6YsY
+	 btBb+cHejc7FNmIO1RHAKk2Ulh5HsKF+vBt53mokyF5BfIXnaCalCaJ6v2tZHkc/zAWgZ
+	 iyWIgCmKkWLg2UjUSQqzORjI2ggtHBuzl4NiC8ErJJOP1OkeVhop2aoYw3FIBTKpH4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811413;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Gn7Vn4SwsVH+p5VUqdHL4flc2b/Z4fswSqRV+byEjsE=;
-	b=RMziB5QtWQaQg9ASOeC4NgXdZdvrU0p/i+/Rxt7+FVh4jkj+phc6bZ1fYtk53Wdv0q+L
-	 l64h+lTurA+aFvOx/1EK2kmSmh9anmV8Uqoh0JIyAwUDBAEVzNFu3e86MsZqElguGhcLr
-	 46xCk30STQTbcs+T0MVVXiek6RLw6X+nlGHC0aIx5PW5vdTCWjCAgsA8AcXfMroHNJHDN
-	 K3BXB8dY/ZgNFE8aAL+1IXBjy7vdFYnwaSz3d/a8jqcyBNC0HjbqHBi14fICsSbhO0J2N
-	 lQSo+8TFXqJngrvLJIH43WzP6/6jQ7N8gzqkY8OLh+bBQsANtFGf48m3QAKSgFs0wHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811411;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7oCUzc0IQ+/X/VuHpS7xyE9gBpY1n2hc0ad7jzb6Ehw=;
+	b=JqeMU1HbckVczoRcweA15kajEGoDWhEZ6j9/88qR0S1aPmtI0VF07jpFdCO4p5E1Zfzk
+	 kLB/j0jQtXrXbcFZBO2j0a2feEwKUOZeB+A2puavJUUkygtTKjDA/R0lk/SjjNbRT9ftE
+	 yh1CzIsnH908RpU1f+B/Q/gwdVmyCJuaH1gSouLX+oq9FErGUfIetnxX4D7WOZo/wUJGx
+	 a3IZwrlO1yW3uuYwrTLZ/hubqRwN8cVHrANWzf/nAw1gUk/WQFf2yk1vWOo0tWl3Yitph
+	 zMX8ekZPc3Xs2TKr2eEN1NI1o3Zm2uB+uvfJDmSvtIdFSIT6oS8iZCaki4jzLQCLZ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kCP9s8Vr;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mqOaBcjR;
+	arc=none smtp.remote-ip=115.124.30.131
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27C6606D811
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:56:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D27C6606D811
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3BB606A329;
+	Wed,  4 Nov 2026 16:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC3BB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kCP9s8Vr
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1532018eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:56:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793811412; x=1794416212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gn7Vn4SwsVH+p5VUqdHL4flc2b/Z4fswSqRV+byEjsE=;
-        b=kCP9s8VrCg/13i0ZvqMzZuUmktyH+GlFZ2KrzEozRxYNjxwtUFfqQ4YcRch8Qeyk6u
-         Hyn0u3av8Oq/ekitd88yUopP0KS5X3nfx5bJN9XLDCihsS9/B+LmIOjoIg8kMGHp55AA
-         itpmpYPOnoIXeErCCDxkUnG9ddysA9lPc9P+UN27efB2O7duIM4/z/uptdK27yKrupJl
-         wGzjO2kl3X2ToG59tSS1CSXqYjRi2kMx/7bC8MIgy1Ghv4RO4R5aSoIy5zr5UcYM7Z0f
-         APMXkid8qQKM47Pb5yXyT1eLecZbbRtPU2rV+l7kFLzHqUXv5g7AxolJjZR1ODawytlm
-         oxsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793811412; x=1794416212;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gn7Vn4SwsVH+p5VUqdHL4flc2b/Z4fswSqRV+byEjsE=;
-        b=vkqkLkndxUwBhsVUxO4GPJ2YbvZ45gJTuMlEXv82++YwxkaUpTLb7IcNQ3NIu0r5t6
-         BsfjJeUldjSavoxFNJ5mmr3rLhc2OSSie15PO5Badf3mY9STgqBdKtZJE/zunIY+DRyV
-         v3KCp/QM5AEwKO6iTyXDOQ2iItETBnfRRg/dR3nG+6ZJTpPZ6dNLv023vvSfHgnJPZxu
-         Nv9hz8nxj+gVCq/n/0em0C4VSnQcNOTR7VZFcniSMKvoI1lA+QOzs80W5IwMPTEQkFFi
-         S/V8yBzadVPqtCnXvv662zR736KlrUn+QXb7WrVeiul9Hc3ffdePKmzPw6JbOLQFsrYV
-         i2eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/Px6C5uqff/imgVv2xnH6ZnD8Pv+hVQFS/qrVD+B1OBI/OIn73M3pmcl/hr94ZpR3h3FfFlOOlK2Ut+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85lKzKMbyX6JWsVLBPbnKLKdaxqJYnTiwZOepX5Clr/QNOaF9z
-	YhNHR8c3MMpV4m6105voEoXTNBzX4y/qArPauf+dZegnpbgNkQWD2Fa3
-X-Gm-Gg: AYBFou1SIWerh0fX8edvWENbb3IAz4dABLhqHB9e+lFEnI9E5lRf7VfwuKp9q3SaLmB
-	NuPW/LWxsY9FDeqIE1n/tNlNhJQu7Vs16qCojvgwcTnNBT6XRa7AZOw5JZSh3QqVtfDvqXAjivH
-	oNmZy1/hYCHUKXxZypbUQ24+FVXXOmN/VVo8HwCXAXkavykBgU2EGgrVrFc64fEitVaEP+TkKFz
-	W0g5Mv4ODRCFrBQPWaQegJnNVqUKRAqTMqG0a1Sa/7CXjO6LK4QFfu7M4ggrbexd7kaYL/skGKb
-	jEkRGwfQMYdd/xBBL5GDlIpnN6DqcAXdFnQrF4xXekrYxd0okcv6CHmqvIRS0jE8BKD51/hYi2U
-	IHzELSXkm0LQbkBzAcc1uiyoR0YAPTDg43k9trnhtC7zWMS1dHTcGmNhoqZoXBIloDfhD4nFThH
-	Z+0sPiWyzmeYNtg/OaYoXnC2avwv7nh8SHxRvCsWSfqAaRn5+gZElldaCPTo1lJhqumRA2cXvFW
-	7rFCyKZIhp/J76uZNWjRToKJUqkJmmT3c+ZgtQ8nw9+vjn/kzT0chbFevHxb+2QNUOlCZKZJ9wu
-	2Q2M8IMVNlMAIu2LYodJCD9vy347z2YX6YIGRbM=
-X-Received: by 2002:a05:693c:88d6:20b0:35f:8c5d:5928 with SMTP id 5a478bee46e88-36a4244db5emr23827711eec.30.1793811411412;
-        Wed, 04 Nov 2026 08:56:51 -0800 (PST)
-Received: from kernel.. ([216.195.201.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d46fcsm9019567eec.13.2026.11.04.08.56.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:56:51 -0800 (PST)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	boqun@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 10/28] hazptrtorture: Add 128- and 256-CPU configs
-Date: Thu,  5 Nov 2026 00:54:28 +0800
-Message-ID: <20261104165504.2430480-11-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104165504.2430480-1-kunwu.chan@gmail.com>
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mqOaBcjR
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793811401; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=7oCUzc0IQ+/X/VuHpS7xyE9gBpY1n2hc0ad7jzb6Ehw=;
+	b=mqOaBcjRpqGpjCGLVzSSRUeVouDO/Ewh7UfRw6Wwf+fNKP31s1voVAX4AQofQ2zLAm0XXJbmrLtGePnFwmq4ixu32m2FLvUxD/S59b3s6Q9nUTmgOC4RMk7Xxnf74VoEeGqQkE2nuThQXQThuDEJcWHJ4Rh6DLoCJhq6GHggoak=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XE6Ix9y_1793811400;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XE6Ix9y_1793811400 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 00:56:40 +0800
+Date: Thu, 5 Nov 2026 00:56:40 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Paolo Abeni <pabeni@redhat.com>,
+	Bryam Vargas <hexlabsecurity@proton.me>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>
+Cc: linux-s390@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	linux-rdma@vger.kernel.org, Tony Lu <tonylu@linux.alibaba.com>,
+	Wenjia Zhang <wenjia@linux.ibm.com>, netdev@vger.kernel.org,
+	Stefan Raspl <raspl@linux.ibm.com>,
+	Hidayath Khan <hidayath@linux.ibm.com>,
+	Simon Horman <horms@kernel.org>,
+	Ursula Braun <ubraun@linux.ibm.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net/smc: don't spin in smc_rx_recvmsg() while a
+ pipe holds spliced data
+Message-ID: <autjyLEDJ_quR4Nm@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20261029-b4-disp-da7f8e6a-v2-1-9052904adf72@proton.me>
+ <4d97a782-8d88-4dd0-b819-fb704582f2ec@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,82 +74,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4d97a782-8d88-4dd0-b819-fb704582f2ec@redhat.com>
 
-Add CPU128 and CPU256 configs for hazptr-stack torture testing.
-These configs exercise the shared-scan path at larger CPU counts.
+On 2026-11-03 15:18:36, Paolo Abeni wrote:
+>On 10/29/26 09:03, Bryam Vargas wrote:
+>> While bytes spliced off the RMB are still in a pipe, recvmsg() waits
+>> for the pipe to release them before it copies the data behind them.
+>> The path to that wait skips the timeout and signal checks, and
+>> smc_rx_wait() returns at once on RCV_SHUTDOWN. With a signal pending,
+>> after SHUT_RD, or once the peer closes or shuts down writing,
+>> recvmsg() spins on a CPU until the pipe is drained, and SIGKILL cannot
+>> stop it. MSG_DONTWAIT and an expired SO_RCVTIMEO wait there too
+>> instead of returning -EAGAIN.
+>> 
+>> Check the timeout and signals before that wait, and end it when the
+>> pipe releases the data or the connection is killed, not on RCV_SHUTDOWN.
+>> A zero-length read returns 0 without waiting for the pipe; a
+>> non-blocking one returns -EAGAIN while poll() still reports the socket
+>> readable (splice() can still take those bytes).
+>
+>@SMC experts, please review. IMHO the above trade-off sounds like a better
+>solution is needed.
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-Acked-by: Bradley Morgan <brads@mainlining.org>
----
- .../selftests/rcutorture/configs/hazptr/CPU128   | 16 ++++++++++++++++
- .../rcutorture/configs/hazptr/CPU128.boot        |  1 +
- .../selftests/rcutorture/configs/hazptr/CPU256   | 16 ++++++++++++++++
- .../rcutorture/configs/hazptr/CPU256.boot        |  1 +
- 4 files changed, 34 insertions(+)
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
+Hi Bryam, Paolo,
 
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
-new file mode 100644
-index 000000000000..079b463607e8
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
-@@ -0,0 +1,16 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=128
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
-new file mode 100644
-index 000000000000..1d09a6446080
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
-@@ -0,0 +1 @@
-+hazptrtorture.torture_type=hazptr-stack
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
-new file mode 100644
-index 000000000000..b00a984977f3
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
-@@ -0,0 +1,16 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=256
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-new file mode 100644
-index 000000000000..1d09a6446080
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-@@ -0,0 +1 @@
-+hazptrtorture.torture_type=hazptr-stack
--- 
-2.43.0
+Yes, I agree this is a trade-off. But I think this was not introduced by
+this patch; rather, it is a pre-existing bug. And sadly, I don't have a
+good solution to solve it yet.
 
+So for now, I prefer to accept this as a stable fix.
+
+As for the long-term fix: the follow-up I have in mind is to remove the
+zero-copy mode for splice in SMC, which will simplify things a lot.
+Since splice doesn't map easily to a ring buffer like SMC's, and this is
+not a very common path as we have seen, falling back to copy is
+acceptable IMO.
+
+Happy to hear if anyone has better ideas.
+
+Best regards,
+Dust
