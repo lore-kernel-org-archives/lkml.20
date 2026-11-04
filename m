@@ -1,93 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793804786;
-	b=232quQePs14L9FynzNQpWqFYyFNzJKp4Md9l88S8PqAVTRpRxI74Fjaa7BOUIqZmfaPh
-	 y+/FUKqxSugNkcb4kXkYQcuJ2AQ/y/9tMdWE0+X4AN2W1q+uUZ2ECl8nSqfnyETazb22F
-	 cPKn91T9C4XpdhxPUuiOpVIRADNOWsKj7wgNUT2WXIWe+bgfEzW82zW2Natt2ZdH0b29k
-	 WickiGGDc8u57LqZ6MjFIgtJ5s0ukzjTyVRKm9ZZ56pqJM5j2i+onjd4pXLdW33fL2cze
-	 +UTD9lbD49+eON1rpkSwB5n3t/QovDpFE8lGRdWIdPtgdrjTWKcC8+FHVx+8t2x8hxw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804786;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HHs2Mol2JA6MuHFu3mHss7iLnCnmNRxGBe2b6ph8QZc=;
-	b=BwRuWvDs2Dh6w2A5MA8mVxMGoCI2hVUG+G7hEywq9H8tYqDfvdzmiPiCvr0ia7rH9dMi
-	 78qyuuUp2l6UBvXxyZcSkB85ru6Dbctx04MTViBxeSLNUIwPofSWKC7r8OxrJ6jVn5LLY
-	 9W+lyh1Qa3+z5EfZhKjlGrnhfBMTgfjLELyYH3Uw9tE1atasBaYEyJSr25qi3zwhR2gBz
-	 IVBKf17dewQoQDOi1rP9sAMD+Q49EKC6sgOpMrM+Ygz4ZovAy3EHCe5tXx+ulwcq8RHjM
-	 74xduhipIOKbXI1ru6ARvm5lz8BC/KZWMT1WK01zYiMR4VG5NZROqZkcsjD6z3A0LPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oRaHo03v;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.59
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011059.outbound.protection.outlook.com [52.101.65.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793804802;
+	b=k/T+ccKuhdIW8I/52JuEfjD/0LtVRZgzXeoxjfypfbRT2o0bP+g86F3kIti8dA/a5HRb
+	 wGwckMGL9DN/wb6BkQtQECbZvNrkv2P+SxWE1969r8WMTm9dPA89Bk/Glksz2AUAqSHZf
+	 elrPPNxovFuRFJNTYJI6mFS4wUwY92Bv3middpYE/A0NRm2J5QWWc+Lmfmb0Ykhu/LkyL
+	 KHsuF6heOB9dqYAPuWp0SEgjjJMxL1r4X/lntmrKZLp/iERlhKN3b9+HGCdIeOHBOJdrw
+	 wtu9dtvhEJPPX/Kpf8gX0iknppf1/B5w1nyCZO6fGn3Pqg7Jg81+IFOZxCma9OVWvcA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XWmzhsNQRB07nNAqARUA25IM06jzZZBNn2XShTl+N+4=;
+	b=rRSFzrZl5tm5h7vVcFlidwdN9eVX/6MnE4fQrGEkrkcB4UzRRl3YHrHSzWLvORcXiaJe
+	 xt7cT2SVizbe5Ibyy7W9JOeFhy1MLuNiVtlpS6TjwLIuBgAa6TkN8H9bEx57GC/vTs0sD
+	 oPJi4CEp+WOaOBLqrZuA0WbcLrd9FV1ldwUbwbP9O/dMFpua/EVjyp59EVBAjXgHB2Mzw
+	 GRFMk9yt5RqL9CFQtM2GO9QEPo3NEEd+0OIYGkuWHiHk5KDPhglTkQIWhUPUwCFvrxcvA
+	 dCO2+CA3TT3QYHTjwyN9HHwocQRMu1xL7g7Xhm65CfndLUyccKh5hlb6IcalAmft7rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vR32a8jp;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2E1606A328;
-	Wed,  4 Nov 2026 15:06:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A2E1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F0A606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:06:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F0A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oRaHo03v
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=unuKfaEcnJXXLgLcxWEhnXaiR4tb/paPcCijHKHXpxwyYGaJv2VlFs5rGCIPfKLuOedbqGphjYtvRSA4PU6NHYLPaagZUXGw0BIZs8C3x/WNYyVoKqvj/UlVQrJ9+lcMkeGo/LB5u9M6+m/7ChRqoNGdiC5RtsDoZFHd3eLPl2R0tvqc2g2S+X2kvOd0xJtYUnCxbRL4afA8oMeTjcnhGnEaMWDjk3zmVqpa/TZaiypgP1/mv1gGaI6S0wRcM25QLQ/G0KtVlPToBWxArOe6bZhGPhVaYdnzHnnGvSRJZglBUfwilLatV1egUQMgfNGsw6XBmOY+wQlndTJeutsfvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HHs2Mol2JA6MuHFu3mHss7iLnCnmNRxGBe2b6ph8QZc=;
- b=WNBNF2Co84fSaVDj8ijktLRseAOJ0ysJs3Wou2/4UQZYBPDjHf/3CIpF8IpeDC0n4w7FgGeOoszwZHBQ3cyMLpD1M0gryGDnanIhsoBN228H5Ol/tOneZ2MDI0JdREKQp2+uswj/FftAZ5kIGVHgn5fS2Qbim62MB6dVPq0uE4220fgRi9ojBKbOpwZZXG2yAffQ3zWhYzacmnJFEW9ulOVuTwC3i+e2ISMaKr8aJflBfaNAlF41iPwoNc1Xps5WdP71A2QcXCylNz9ENDMsiCfPSmttDHwcxAtIP9OJxPbzSecBJzwgk+A28wgqkZAyOmb0EQl3tvC913L9AkvQKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HHs2Mol2JA6MuHFu3mHss7iLnCnmNRxGBe2b6ph8QZc=;
- b=oRaHo03vQRU9DjwuSejhEOqN3LLACerRkizOnDRBvvcDonrvwsFLmG+7h5yPC+lBWh8nVdqaQma3uoKDRGyAKjkGQ2nxq1ZsbvLy6BoyR2SPLyk7MLOV2rg9vwhv9tECU6bYeXwUIq71/Z5IWcElzvY5T0fdzU/eLIg6qnD15uvRxYVOVYfoLVU/r+vTDK4JOpGzfAi+7FQGrMa8Rv7tziSMpeoiyLoqyiBrrfPtD4ajWobKjeOOv5aelp9AKvQe1EMzdEH+sxK7KQfgAyEvIQpSCkAhaIxXteGcAqpLRoSyMgUNX3uvjz79YT+OYOcSm9RpQRFDj3Pe+9ZqtVTUpQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DBBPR04MB7913.eurprd04.prod.outlook.com (2603:10a6:10:1ee::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 15:06:21 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 15:06:21 +0000
-From: Frank.Li@oss.nxp.com
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v2 1/1] ata: sata_dwc_460ex: replace chan->device->dev with dmaengine_get_provider_device()
-Date: Wed,  4 Nov 2026 10:06:13 -0500
-Message-ID: <20261104150614.3231589-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH1PEPF0001330F.namprd07.prod.outlook.com
- (2603:10b6:518:1::a) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vR32a8jp
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so1506787eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:06:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793804801; x=1794409601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XWmzhsNQRB07nNAqARUA25IM06jzZZBNn2XShTl+N+4=;
+        b=vR32a8jphko+yyZHUjg/kud6h0iiFJzxvhA4qixz2iO6jGtHJhACUXddwUjgoY3j/L
+         UUKF5usDES2+9NJ7/v1PyZAyt6NfWvVMuFPVg+GW+PiM92OIQDyi4v+tEjnfQ8xgasj9
+         m7CKGI5ws/wrF5TFX+iLEyYI6P6wJP8//M3IrAEAHABL+Fth+Vhu328bYHdlTBMY+NnM
+         zTHOkYhT9298ZhXbbdbDRBO2dTxM9qJK4qU6rAUKoobTUYDkmaHDv8IY2Zl3IYJJT2Br
+         0nW6x7YCI3IGD98Nptxgs84lVioKB/gtBqm2rJKbhGU6jPQbMKpx7/lwYGGeZK6iSZpD
+         7c2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804801; x=1794409601;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XWmzhsNQRB07nNAqARUA25IM06jzZZBNn2XShTl+N+4=;
+        b=KD9pM3KXn7QH6UyfAicNOKp/5JUulSWtxZ625b4sRCyfr3fkU8l9IkZpd5rJ88+SVe
+         0/z9aTEa9KIeb3Ab9fJlwZhCOwej9c5otUAis1KxS0pgw7mSCCxWukwf9NqdD52bNICm
+         iwer2uePTRkVbDHhpNJPgpBXG6TAMuMWwiTm1Om06DynyO0E5BzlyPbiJ4C5ePeN8k8K
+         Gy/d83fdZOXr2mKll6JEFhkJ+bUF33/8lVX6OaX/r4oqNrKtGHSnRBo4/Fs1DmP1NreD
+         nzlFROrW6fL4rw0ObXiW5jGve8ZoBSur0fdWF594KTp1tkmc79MsoBBV9x21JqCN8lg4
+         fMBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYR90p+q7vL4NjbDx/is5faiK0YoiZo+I3ny37lpSEwbSP7urMGnTFplpMwrlITh0ZG+CtMOSpgXwc8P8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80nQGoPG1L+UlCJ5ZSq3C1jyyhHHHrPBala9EwzTz7bOIjRQZq
+	4WOgnsTpOnvbh46MS0LXpUSliDGF9gYdl0NMEB8PoVZxyPX8veF2Z6uC
+X-Gm-Gg: AYBFou0rpR66t6ZoNs3wkCQHwDrA5/Tokz6zB8flJKZ+LouCX60ipfk4tuthIRjszNy
+	buCq57+W13Bu+xygPEqcJIWuhHo6b6QwTjMykRYAGOBYMwQkosC2UtGNSGYO//Xn8tKmyEEMPul
+	Bb+wS5mVH8E6TAnTcaKEJ0gIWHxqAV3yn/KZZqEwMqTY0GpH5uCZP5GbFGlcqXtRE8Nd39wOtoQ
+	CxCMKxOBi69P/MRd+yWkvMtHuza5EZBsWajPqRYIb9/SwImRRGosWKtiKyoY8EjFFwA2mmP3aJA
+	A6MEqExZy+rqsVJuGEfXbJvQiWHFVBJu6WBbjbaMsnY2vSpLbc9/zyjfxcQyO8obzDXuHCnoR3i
+	y+b4M7aDyEe6hWZO60BXchXgEJzyo+QlYZjLvwxbcBp7iLynZtJBwEvrEKG3WQTQMjI//sFomMC
+	kwooU/TYjrUuUIUZ7v29aANtTXb7+PH97YW0N2vBJIruISrNoDBTd506+O0WIgXqvCPj391/2HF
+	/XxN2khOFmHgZBKpXewWXR98ppPstdpM25qWVADv3txzMhSnw0f3/G1JyjAl0DzRyD0MxMYq6zh
+	WOWkJue7TqZUC6wgUiC1UhFhv858v0obP6kdU2goZLVySY8Apt9dQ5gfm0yziiQuaKgO123Dal9
+	R/em3AtRDknOCJFEZdBdBdQsmeSIJ
+X-Received: by 2002:a05:693c:42cd:b0:34d:755b:d60b with SMTP id 5a478bee46e88-36a42435386mr23523976eec.34.1793804800593;
+        Wed, 04 Nov 2026 07:06:40 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36db94376b1sm527287eec.10.2026.11.04.07.06.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 07:06:39 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH 1/2] drm/amdgpu: fix kernel-doc in amdgpu_ualink.c
+Date: Wed,  4 Nov 2026 20:36:22 +0530
+Message-ID: <20261104150632.33843-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,93 +101,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBBPR04MB7913:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e1221c2-43f5-4bd5-abc8-08df3a852f5c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|376014|23010399003|366016|10067099003|18002099003|56012099006|11063799006|261102123227099003|261022105027099003|261026140227099003|261028144727099003|261021123027099003|261009223027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	2o/hnlLis7EsOU7ixkCxjHfJDnVf7wXtMu8cj/scKh9rmCfYhOcqOPoM+fvY1oEKZ4VFSwQdiUlpZ+WTfYyPeS5qKvOelzNn1raySN87c0CbfFpl+8S7I8Zjhpp1SfwoiTsxxf886Z4A6Kbw6Pk2D7ZU+4gxj+GYRdRXR3Jlqvp4JxMUehQw1zmwc6lVXZCfH3/wmyxVMsmW5z+fzs/fttqrunBQMIKZlBP7m5sJaC6kg7O9N+t3EYq4zRv9dQUM6a+LdWqasJ0Vv4HFp0Vp1CvlJZ5PtiBMl2uY19hey0amugrWHE0Lul8yxgDlSR4LGLHLbY4YD/X0LR8sUF0zvwxVeUGjKQbGPIKEZtBAYy7wEImoKFZsihxMJQXJSacMyryaMIUvL0/oWEEuDkQihwnZevJLwoQ0SdoP2OjlnxqNZJKynZ3K8kSBoFvK6AhdwaN8+EDPH60UepO3CL+Cuv+KEoJ9xNcHt7nvVXS22rDCafdhuigAt8Hf3eW0WvKB2FTGxARg3oWxfOuMDpo85f5npCuHDAfvVcADZSWLPtwsVpUo92gUbMORfgq2tyW0aFJcC062x1o45WkgTgRb+DEB0G5CiPoINoQkU8MULGvbwe6QYlSCB4a2o7t4V04TOVF9SDWdKHHO7C61uImuEXNEmOKfkee/bYLVGK/9Nn4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(23010399003)(366016)(10067099003)(18002099003)(56012099006)(11063799006)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021123027099003)(261009223027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dwB9SCvPgqMnv3I3HzPNmtMFrmpEskL6Q+ytRe7nIFay/owvc+aF5RzNxMN+?=
- =?us-ascii?Q?vIPtxpg8O/epBpIom73e6fOM4f1dT9da0CvjjG2NyRCrx3bFnoSW6KAgIbhg?=
- =?us-ascii?Q?o0zk6CxBB5LudKqIvxLLlkuEdYUgUCyFrqC6GwJXtmauLCw0ladCAw7XQhFN?=
- =?us-ascii?Q?fW2Swbt1RpmJRxVvcquLZ4UnA+Az5SbJTlM2FoBR3PISxTD3Ca5KyUWzcw4x?=
- =?us-ascii?Q?in38eweW2GMFGXgEzQd5t464NycF46dumPzz9LWnJf9j/GWe3Azo//wJaOEX?=
- =?us-ascii?Q?69jB4afi4Tq9qE0k88pp6Ik3+bk0LGDeaOT+O/6d0ctL8dOTqJrCIjQhMnZW?=
- =?us-ascii?Q?/mmk/EKmFsrA1i6KZTm0tHj2eLJ+8GgYWVKrq2810UCVFBcBsKSUlX6wp3Zs?=
- =?us-ascii?Q?PqYanDw5esZk0QJfEvNhHiBt/EN6NMQzyHu28eltm6AAtHM2/IZKr0TImZ+N?=
- =?us-ascii?Q?tbj0hq2vDzuMklAaDjp1OqUtZsljx88m0zSzPNDY62tZjEJoO5vjf3N+VaUj?=
- =?us-ascii?Q?oPvRMH7aGMvUT5uMSgFjMjXoL45wxLaIJBDxaMRMjugAWAMqcvBHOnRUTzSg?=
- =?us-ascii?Q?9N3RW/iME92YFdTovYK646Znn3ARthIP7d9YPYJr1LuHIZe7cTOCpHDTJoKb?=
- =?us-ascii?Q?gZboWv7mVOnX393CzgdKwcQIb+RBIX5QMS8v0Ge5EcWd/nh0LJde+ddCFXlW?=
- =?us-ascii?Q?ezmCLUbge9CWHYi2phcVKWo12VN+kKC/Wk1Qj/kgh2aVdepj63Xuz9xrgQy3?=
- =?us-ascii?Q?3eLkW4fCdgX1BUDi0E4+lR67q3xAi9X/eCuLaoa6iG1tuBPHBhznYSlUQ077?=
- =?us-ascii?Q?aFMYgWEjixAH4fScmh/kheFLx4NdW/VtXD0+9793kqPJcylmIf1H9kIWtxXD?=
- =?us-ascii?Q?rt/TwHPN7cd6EmXdyA3WqvTNmanzf9TdY5lBEvNAvYJSlc4RbJjerxUd/B4q?=
- =?us-ascii?Q?mu1zwrLRi5B8G+6Cm2syHvw32IGWW+D1Op/dwhBUuoOM/3xSJfp6jeng7qiH?=
- =?us-ascii?Q?MKVK5O1iQqpU1yQ/3olwyJDpa2V0fRMZ7Ra4FlAkppqTLmZJ+XkOIPbSCxPW?=
- =?us-ascii?Q?/ZCr9KUSV2rN6BNJmLEQTba2N1VFHInvawxA8QIUoLrzbviCsxXiXmOUkQ6d?=
- =?us-ascii?Q?nVRLfagmixgbQgAz2PspuzZLlBKb3WqxdxzlBhvgZEzbKzwrNwOUzFALCw0M?=
- =?us-ascii?Q?TnN7TG1KScmBXEGxofXUPdK01SH7roaQXW2nT6s8KqQbgEKaKeYeSYPei9uX?=
- =?us-ascii?Q?oKUrxDoRYYwAtRNo238oekbH1do9XaTIJz0Kui6VnJ3d0Bqrs5+t8/Be5ejR?=
- =?us-ascii?Q?Cw9B1ClSL2AqumjCRE9LfhPxTNjs9DqPg2GLW7ejGy6fjakTwrohJMUnsqBw?=
- =?us-ascii?Q?7PvLgUZ/cfm2rMd+mZngUi0izndyGhYkhDlx3xOHGP3N4PVS+0Ewehz04ahx?=
- =?us-ascii?Q?9vwCJzK8KLJehCaBjqmN0p6dzRUSnb7/EVM3LOXLLkGy63cYEqskio6bkLcO?=
- =?us-ascii?Q?YaVBI03tGhsmUsHFwqiG8v4DQ0rDyVnaDB3BPJMcQz7aaH8MUFMAoB1Jt38J?=
- =?us-ascii?Q?tpRKovaamMvHkj2V36KM0NRB6xGOmBHvln9JsLG3Wpf8RWxK6QGdq1lKwcq3?=
- =?us-ascii?Q?lvk3HvMhbLtNaFbaLKEuSuE+bCQK1UBtWu6N1c861mgmBrwAD3XMm6cdEPxw?=
- =?us-ascii?Q?0eOLSVJ8zm4Om+kxkyaFMm82R75ftX0GXF/YX+V3K/kAlTe3VZnSRkM+9iqk?=
- =?us-ascii?Q?SMvkiHoWDuPgvLJttDz88yINnJkvnNHxeLisk3IMGYxV1WrYlKy0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e1221c2-43f5-4bd5-abc8-08df3a852f5c
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:06:21.0246
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Qqt7tsYaMlEBU/vFIscaYL0LnHEjDqKgWoRlpzj9M2f2vEOmmX72+84HQaWOL6L3r0h56B4L3QhKwbLlmWid1GXK5fYsbOjPIRVkkRN3BJ3W6LkqFOTMSe6v6TQIBYf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7913
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+The two comments do not describe what follows them. The one above
+amdgpu_ualink_npa_vm_unmap_range() is missing the ualink prefix, and the other one for amdgpu_ualink_gart_npa_addr() sits above two defines instead of the function, so kernel-doc attaches it to the first defined one.
 
-Use the dmaengine_get_provider_device() API instead of directly
-accessing chan->device->dev to get the DMA provider device.
+hence, Move the defines up and fix the name.
+The description also had a stray blank line splitting it in two and said dst_accid_id where it meant dst_accel_id, so join & fix it back up.
 
-No functional change intended. Prepare make to struct dma_device private
-to the DMA engine.
-
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202609241952.zFr1FYRB-lkp@intel.com/
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
-change in v2
-- collect  Damien Le Moal review tags
-- add sata_dwc_460ex in subject
-- remove assisted-by: llm
----
- drivers/ata/sata_dwc_460ex.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/ata/sata_dwc_460ex.c b/drivers/ata/sata_dwc_460ex.c
-index 93a7651ec672d..5bfad9a8c8162 100644
---- a/drivers/ata/sata_dwc_460ex.c
-+++ b/drivers/ata/sata_dwc_460ex.c
-@@ -192,7 +192,7 @@ static bool sata_dwc_dma_filter(struct dma_chan *chan, void *param)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index 6cd3927a7..f875209e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -4631,7 +4631,7 @@ static int amdgpu_ualink_npa_vm_map_range(struct amdgpu_device *adev, struct amd
+ }
+ 
+ /**
+- * amdgpu_npa_vm_unmap_range - Unmap a range from the NPA VM
++ * amdgpu_ualink_npa_vm_unmap_range - Unmap a range from the NPA VM
+  * @adev: amdgpu device pointer
+  * @bo: buffer object backing the mapping
+  * @pte_flags: page table entry flags
+@@ -4727,6 +4727,9 @@ static u64 amdgpu_ualink_npa_addr(struct amdgpu_device *adev, u32 type,
+ 	return npa;
+ }
+ 
++#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT		41
++#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_MASK		GENMASK_ULL(50, 41)
++
+ /**
+  * amdgpu_ualink_gart_npa_addr - Get GART-mapped NPA address for ring buffer
+  * @adev: amdgpu device pointer
+@@ -4734,18 +4737,12 @@ static u64 amdgpu_ualink_npa_addr(struct amdgpu_device *adev, u32 type,
+  * @src_accel_id: Source accelerator ID
+  * @dst_accel_id: Destination accelerator ID
+  *
+- * Computes the NPA address suitable for GART mapping by adding dst_accid_id to
+- * NPA address to access remote by SDMA.
+-
+- * clears the source GPU ID bits from the NPA address which is set for
+- * address-identification mode.
++ * Computes the NPA address suitable for GART mapping by adding dst_accel_id to
++ * NPA address to access remote by SDMA. It also clears the source GPU ID bits
++ * from the NPA address which is set for address-identification mode.
+  *
+  * Return: NPA address adjusted for GART mapping
+  */
+-
+-#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT		41
+-#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_MASK		GENMASK_ULL(50, 41)
+-
+ static u64 amdgpu_ualink_gart_npa_addr(struct amdgpu_device *adev, u32 type,
+ 					u32 src_accel_id, u32 dst_accel_id)
  {
- 	struct dw_dma_slave *dws = &sata_dwc_dma_dws;
- 
--	if (dws->dma_dev != chan->device->dev)
-+	if (dws->dma_dev != dmaengine_get_provider_device(chan))
- 		return false;
- 
- 	chan->private = dws;
 -- 
-2.43.0
+2.46.0
 
