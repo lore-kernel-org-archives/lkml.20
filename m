@@ -1,95 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779987;
-	b=q/VmxkFbhxEPFq8v2GBoVw88oNunP6n0SabFehS/9bcHSOu/Zg4TGK7Sx4j5GhQZm7HW
-	 5Vse5iBAyhyO/FGr/ZKKwokzJpMfvcqXQN8Ll6eO9KOGexxFbZ+UnjFA6HOJLJ5zThyaI
-	 Yhdh/kR3T0QxyDg2BUUuNCMxw8HoZxM3j6Jo+I1o6DITeNchJ2LGkEtnbB7fWkMNxp2hs
-	 ajCEyj81wF6wX/JeRXu085JbSVP7RJu2xgPaSC82jdM2IcRv89WzpWubr0clGFrRcpXGs
-	 4QyHHenMpZMs8BZuiQmy/lWE9VXLVns3igMyrEjDaajsAXlp0XuU0wMuRTZrF4qu2OQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779987;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MAAONbLFFv6aSYl2s8jr/4VRt0DVnf2M9sQY30h8Jr8=;
-	b=G37ExxLole4PPQxbO//xz+sxIlm+TUv9qpiFnXRKNEXB48/v0Ez5gh/YsNis0DUNahOO
-	 hvx7UGYtdM/2yDyK/vago2sqbwq7L2xnoHPrQ9B0yskfeGZVT4CLZP2dT9p3AYqqzE7y0
-	 ts8inBsS9l6ct0tJ5SMd/UneZnppUg4DUnzBYlhwoZqs4/z2nh0glQqloQbNlBC+huJbw
-	 Bj7QkfloE32SzT87PVCihmdaJ489uBq6M+Zv1OivNBnPhzW4DFrzn8TcZtTFffnEp5kNL
-	 ZurgnOO0E+TADzwGbsZdDVirVebT88dpxMHSvIPpPeq23eZ9SqiIcRymzHzon8wP1/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HUXwul5V;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793779962;
+	b=nxUdgLwpqRZfofbDmmFIQXj14j20loPpwX3dma8/T2XcWvZH9osG5nup9+7ttikgu4tN
+	 z34ttC28eCNiTMZ0c3W2hGHthYAVkwqUXtUclh2ckRJrOZQ/z3HCMfn9VcRc5xccSa3E1
+	 2se/2Wn/s0eWH2rGKpr6wCwAGiIwLOmU9pbAEmbdlFLYP56mwgflzuTLN6QhwQKLtKxFj
+	 cnvzYPCZrcpg9vyZkTHY2NCdetvj6yvlx46xr7p4X9gwEij+qjoYAnnHFS7PrWXT3Hbjz
+	 tw3j2Sg6HOiCsWrLIyGG1b4q8sVcgeBM7TQiCL07Z0RcmC9tpd6J8HSZwn9yI+0ywnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779962;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sf3dt81KgF4dIVTtzIECPw73AtQuWlZSqAxfOxxLm/Y=;
+	b=NbicsT/9e7wKrrZkeQHGzaTGS2N90ay1d0CrLy74YuKC2iRBiMXXv8tIqQhNLMg1C/Pb
+	 aH2uHLk17SmZF8/KBlOZdDamqCCEJe0zt4VaToAFWVzY/3DGmCKkphJjmbk2jibrMOZ6A
+	 5wHTq4E9jaOizHXygJHPczVb5uMK4FXdx/be4tnS06LUkVLw3y4HEPwBwSsXja615qqIk
+	 v6iN4Vy9/476jx3t+8D2jUb29iFHg7VB1d0lL5NoEW+x3uCDXKBUymyehxgPpM/zhERfg
+	 /bT0JYv+axfK/nsrMMf46bx4bvJY+UCy+8H+AuiMiHI/3rLf89eYBdyvgIt5zjhFolw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=VnwLWyDu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.8
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011008.outbound.protection.outlook.com [40.107.208.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D814606A31B;
-	Wed,  4 Nov 2026 08:13:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D814606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C42C606A330;
+	Wed,  4 Nov 2026 08:12:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C42C606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HUXwul5V
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40j2CA3561532;
-	Wed, 4 Nov 2026 08:13:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=MAAONbLFFv6aSYl2s8jr/4VRt0DVnf
-	2M9sQY30h8Jr8=; b=HUXwul5VbqQGiwkM6yOtnysZWhTPOLXSAlqWA3qQBARg1S
-	KaZ+rxBpR2y4WDQmKwdSmm718cgyo1tMv6P+e6kZBrqIsd8R5yOylfa+BbdOT0F2
-	HQzcVkkrZkEm4IcQMmFs6vNgfzTlgaNlkBvgCl8Tl6EIbiCD+XIa0FlbgZR4yTSA
-	LljgG65HFUIcm49Pqt9UCvJzb9/8sXbMpy+SWtC2yFR+aOcPaRJouOezImbArn7E
-	4pBwzZ69MPTsws5cgCnGT2HzBZ3w71lKwA/lUHMX8wuWcFQJJ7xElasGeSYt3soa
-	NHnvIVQXwfqyn9VvvPuzd1cNeTKARxQ+Qbv8Sw+A==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u3jqa1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:13:04 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A45MScX2167360;
-	Wed, 4 Nov 2026 08:13:03 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqsf59kef-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:13:03 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A48Cx5e9961756
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 08:12:59 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B03F62004B;
-	Wed,  4 Nov 2026 08:12:59 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9099F20040;
-	Wed,  4 Nov 2026 08:12:59 +0000 (GMT)
-Received: from localhost (unknown [9.111.93.238])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 08:12:59 +0000 (GMT)
-Date: Wed, 4 Nov 2026 09:12:59 +0100
-From: Andreas Grapentin <gra@linux.ibm.com>
-To: Steffen Eiden <seiden@linux.ibm.com>, Marc Zyngier <maz@kernel.org>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>
-Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] KVM: s390: arm64: Turn vcpu->arch.pause into a
- counter
-Message-ID: <aurovf0ywffRX4z6@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
-References: <20261103-s390_arm64_kvm_fixups-v1-0-21c36fedd878@linux.ibm.com>
- <20261103-s390_arm64_kvm_fixups-v1-1-21c36fedd878@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=VnwLWyDu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mDiEdJj/StnXeI8YZO+m7JLP0ryyk3DPwQpj1F5ojFW3Z+CIJ0hPmLdGRZyDYfN1UxBT5l+fquZfE+Mks5V08hhP3cgP60xaeXpX4sU/0jGTg5duV0FfN0iefWQHLFYLSZwxPlcM4lGaRZIN6yGn2FC60Bzmv9VDjMfq/R3iQJgxgS0c68AXnZc7+u5+ZmiMtSzEtSMU1sj8j92LhwRZV1h56Z9eFj+0xyw83jbTQPkg6xFEqopQAjmaBZBWhB6zFEiGVXbYZ3TzmE42zIc8iRigBN88XmltKBPXfYWvstDzmy2vxIOl4DWxzj02UfT4Z5vJf4VE+aJrT0ya56goPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sf3dt81KgF4dIVTtzIECPw73AtQuWlZSqAxfOxxLm/Y=;
+ b=sarCfqVFJ/NVoQSFMxyhZDJKLS1r3iW1hKHesubNFR0/C0tUCk9tna4ZfYrZE1Vdf6Ytl+2WrG1xcvK+48PFgvy8pkhypZgSes1ZOyxczsr6/gZlPihh9KwW+M/yBzfSoQ4qwpOTiKxbVcrbNPwJNuwVTeD2c7i1tZ2ye1X6ZrbS6ICl2BXxPbO25fDgTSmaml264exFVzt3aMENk16yFPc7E81YutT9PreZwoe0/KtwolpFX33eo+X+aFXQ3A8c1Ki9uBziixk4FnZ4S1cIWpf9g+UnqoqDccGHcFnmOAvfrJWHwJcAcrGPyaQpHwbQk33rNQYKONI1+ftKD+yeCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sf3dt81KgF4dIVTtzIECPw73AtQuWlZSqAxfOxxLm/Y=;
+ b=VnwLWyDuKnhGDcwYdfMTcOewcDOdGKWBZkzJ3PuAYyvUebdZs0QwoCjruJXBzGzr3m7CrzU4emy9Dn1Sgy9ud8ijfndGjokC8u7Vjtx6cChX1mOwz7TdWaYAZGxMvNHidT0KwO1bStgUg4iw4cOMSXF+8QvKQOyJVAd6lCrJt/7R+JAjZfEAB8X2z9I+ZGUR0tOuIApmDju0ldPIYjeUnM5z9vdoh2UdUZ5f4q6rH0QBJ2OWn/lkd49ji4W02/ebxvUjyvgyVJiOdAgLLaJt6Goe7rGPz20ouzYdIZFXrYHIK6YDlXYm5sFaFy1zdu5d9rnRhJDauppPXb6PiMNlDg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by LV1PR03MB989626.namprd03.prod.outlook.com (2603:10b6:408:3f8::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 08:12:39 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0569.010; Wed, 4 Nov 2026
+ 08:12:38 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: netdev@vger.kernel.org
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Rohan G Thomas <rohan.g.thomas@altera.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3 2/2] net: stmmac: fpe: Move fprq configuration to stmmac_fpe_configure_pmac()
+Date: Wed,  4 Nov 2026 00:12:34 -0800
+Message-ID: <20261104081234.10153-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261104081234.10153-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References: <20261104081234.10153-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0034.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::9) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,81 +108,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-s390_arm64_kvm_fixups-v1-1-21c36fedd878@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6aeae910 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=lmcJkAaRRjC2wQrgi-sA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: w-_bEPiha6HAiSq2Astn33aQGzOvTxJv
-X-Proofpoint-GUID: w-_bEPiha6HAiSq2Astn33aQGzOvTxJv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzMCBTYWx0ZWRfXzXlVoF1FlSXY
- gnN0kQ8hA1mjUMcftYX2/A1eCLyaLhCa/N968r6ChgLMnIadwuoY3zLE6PB6XDnDKYoHZmPcLH1
- 0HKC1fz7s937zk34K4OD70c23o0FTrHvCcJYf78AqeDRuIDIp9KUvRuAPEslKUYP9+FY5MmXuBh
- Dt1JZUVJsAE92Vjw9JMIv0Sj7Hm/qjOkUzC1IajP+2DlUHWVD8wJ1PdtCoazWnNfffjj+3PjO9c
- 7Yh8G/zgSADVn7P/RwRiUpqhzHnd9Rl4OiWK73z8ry7n7Z2/w7tflwmAHBq6PHlV/agXOJ3O21J
- IlY/vULPifaxS3tP7V6uv6hALs0Ur7F61S7T0y+iKgGWCflBKwzpleOgwBokKCgWM/Sf48zFyyg
- O5MnxdhgV4hgjwMyDCCxNAWUUvG+feHY4Chspm6BVHb4u3gprmNb5RcE9XYJys+nWArlq35vEZ3
- w3r+YI75bJ8OxEYr0pg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzMCBTYWx0ZWRfXwu2CBz9Rzphg
- AItga5ODDBB3JbStrrzG+wRHPmZ02unWMb001oMnnbKfGotvsMHv6qpu+XsSre0oChmkodjx7YU
- JWmaBIWqV+pcNY5QzoGIpebDJN6H/0s=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040030
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|LV1PR03MB989626:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8ee7434-15e5-4b28-3aa9-08df3a4b6407
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|6133799003|10067099003|22082099003|18002099003|55112099003|56012099006|11063799006|261021123027099003|261022075727099003|261022105027099003|261102123227099003|261026140227099003|261021121427099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	VYqCxc4D9ZCifZJc6KUQad1Hp5uY26E1pLh04fEDfSimzgIyjxZMQgMCmrCWqR2id+AmTeAz5XVktOayjHIhztm0IF++DCXog3nYSJ6ddbRtq3COSkRYzjmOuw5JSN6W8WkXIxU5x3crLNNvf9JQprGeoxi6VYoQA7fLl2HwnY3t4kKFYEMVZBjeSDWaR0p3ZdMkRv9FlIS1XYNkP0l2NbsTjW0e1PUWWK8hjvZNcYdRqTlmj7vuUKZoONirG5eFlQOdmZnVwP1HNCEUqzbJ95Wah2NCtkJLRGQ5BOEm0cV3YXCnIeblDe8dCICXOsbNMQzRvcJsn+n1qkB+E/ZV0Uv39tsTor47tz90aEY1SwpMz9hhk7sSuYnHvwbUGtVQonyaPDTxgu3ISxPA09A1/Al39J0cxTwfSUjXb5uktjSWgIVo9cu/Ssq3wPsOCyWswxuweRtqLDPEOTAtGHUaDtwhd0/LUMYY9ubHpVZJY5J1f2cLPJ6BREKtqD1o6t8WxjptHpSu92V5Irr4iTR4AtFqOepwT2DVSnd6ziwBrCE4sh0hCjFaicp7vJxNYps6yq+U5LKKXrung/Q1bhblEpGgRbml8gx1WEJlGmxg7lFrUg5M/laS7gUEw22mvnlGzVST105lHTLIzdwET53CHsas7CNQMqFw4Phx2xbyGXo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(6133799003)(10067099003)(22082099003)(18002099003)(55112099003)(56012099006)(11063799006)(261021123027099003)(261022075727099003)(261022105027099003)(261102123227099003)(261026140227099003)(261021121427099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ufXmzo3Htd57Koaf1+EKBaZA9seo9buBgx/Jm9eEx+vizJlHCw6Xv46vm6AR?=
+ =?us-ascii?Q?jdLMVUOKT9UAd7xJuNbraL8NYNDhSbu07GFG2Yw3n5h1x1ZhAwTvmxNEUedY?=
+ =?us-ascii?Q?o1XTe6Ihc7kbSldCi2FStpmrFxsEQ8gGm7AwdTa/UbVpIGOYGlDOuAl8PaWV?=
+ =?us-ascii?Q?wf3j4zja2oEUQ99VVfNCa+MV80tYOrNYf7u5LS6A08drI76V3EXK4Faonv/L?=
+ =?us-ascii?Q?q5YtgR/MUznlcsEtAnki2NGSHYMLVos0MJMNKo0UkCR4DdrAJ0fKjgQ1hJvN?=
+ =?us-ascii?Q?WNZctIOu/IbRgl5ILwFSqJ/i9BLjx7KviiXjv7yJSmzQPPy5lRUquE04kJT/?=
+ =?us-ascii?Q?YBIm0+ohhT8KrR8xec7CdzDSPk/XnfqGcIvOt5RYQ/XzkWJKtd/8PRj1qxwp?=
+ =?us-ascii?Q?a60nQmum2uCHmOTTpjCtZr0lwYL2jozcptu2LMkYEK0jydO4aevhZcL1/rSH?=
+ =?us-ascii?Q?09toAu/nLovdUwqmPQUtzH3v3/zAXwThUyPH4CQfST9oVAmOga6KfCBFk2kS?=
+ =?us-ascii?Q?EOgWjqGoreaT1PeenXquDpP/atV8AJz489Lpjcmgi2w/rwHcV2thvhicszF9?=
+ =?us-ascii?Q?MJVbreJ5Qmy3GI8OyqqCq4TMHaNSHB0XVTjPsOKjaICPs0c9SbyJJvgr1DLf?=
+ =?us-ascii?Q?Kx+dZ5aVfyaavIF5Q2O2UKLzu+tPLZVPERFiIAUnaYBMG0U/ki7nKz4Ex4hJ?=
+ =?us-ascii?Q?A9uh62h8hBX8/pBj1nL1iLl3X/okPq1xaV7X430A7JhUUMsuColzUdYmMagW?=
+ =?us-ascii?Q?nY5StEPxuOxJ9CrwgHiz4icGTp5mnk1AgnXkaIYHekVFtZa87CUEwREs3Obn?=
+ =?us-ascii?Q?SQgpqv3YqTtUoZki+HwT/EE2mgYTyD8Tyk6MfhKT6PG/DTPNK5ICVyDwJF87?=
+ =?us-ascii?Q?fTTP6d9mVSUm+quMsbWMzkmHWPeYIrWqcCNzj9ZqMSJZwxfvakj9YrMpRjhr?=
+ =?us-ascii?Q?PFJJpLpvNfBPo16yN5gBzNC5lUT0ih0+zuQtZGwaVUS5Q0qHnSvJ4BXSQieM?=
+ =?us-ascii?Q?j1opxwGrCD23rS6QFp1y+a7YnbUBhhOb9hMCEg3kkuEOPdzPpNdcZYRUZ4Tj?=
+ =?us-ascii?Q?34TWen/rkhsChIIWMwC0YzUAY2Gq0zhu1FWUXiUPOmnk8GYQeae+MeAdbkPk?=
+ =?us-ascii?Q?oiMbaWTu0OgQscAGJtU2R3qzQ1t6v4RFZ3YLZNrfekjhX+KY0gskP5kCbuTI?=
+ =?us-ascii?Q?tWpQu9dWSaH2jbBFyMSChCSSrvF2SyNe6ilglxw09lG9BVFbZmo235yJ59R1?=
+ =?us-ascii?Q?cHKHFFA2qDKElwa/KmreTKI3S+mmf+qPiagum9OQpm/ZcHW8FgS5ILF+7GCz?=
+ =?us-ascii?Q?skvynXG6azItNZhAAbQ6ogHH9OB95PyFGVnvj1la4YhvpgNpzd9qIWmMvGCk?=
+ =?us-ascii?Q?3taXOKYo+LtFls5DX1+4qScXn+jhF8Rso5R7bET7dCwIPNyYZ67wnyQ/d6kF?=
+ =?us-ascii?Q?PS+4fFoxBlt9TYzqEll2zSwVUSfAacenYFsIAfMB7IhCFrkONftFnqKd1olI?=
+ =?us-ascii?Q?2WRpAukyB+QCN14CFA7GyGLUaj5WlAuYxbRZz5pTev+yk3bunJbfxMe1uujr?=
+ =?us-ascii?Q?Qp428tNAP9p2LuzmefGpWRZ7zSs51g6feuI3JoKypo/a3w66qlLS6gvapsBW?=
+ =?us-ascii?Q?xFWs+lHLbcPcdd1/CJAet2vc+uvbHj6uBabQDhly0EmIhkdAQ/EaVN4DhTTn?=
+ =?us-ascii?Q?eCRLYmhAHXI/lQ8w3GqBc6jD//LMx98ReWw2BNHJcNNhY6ikFZw1/acplnVh?=
+ =?us-ascii?Q?4+rgYUdR2pYZQ/DG6kGYLercGQmck9AukEDlW/ixMoIcESkwRNOvn1UXTNdP?=
+X-MS-Exchange-AntiSpam-MessageData-1: TmmfBve00KixAw==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8ee7434-15e5-4b28-3aa9-08df3a4b6407
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 08:12:38.8302
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sOoVXFEKky5GNF9cbHi58K6gmtDWACo0JwFcL0IWMFPVvGU7GiThrSLQsZQixENGO0xKWpd558Nt8lCXDIssNNf4KtHxpFCrwaycITvJ7plbb4fTbBKQbwWvWsfyKH/aeWOEm6fjZ4MseKNMyFsCvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR03MB989626
 
-On Nov 03 26, Andreas Grapentin wrote:
-> From: Steffen Eiden <seiden@linux.ibm.com>
-> 
-> The s390 arm64 vcpu struct mirrors arm64's kvm_vcpu_arch. When commit
-> e64309198eda2 ("KVM: arm64: Turn vcpu->arch.pause into a counter")
-> changed the type of kvm_vcpu_arch.pause from bool to atomic_t, the merge
-> into this tree missed the s390 copy, leaving it out of sync.
-> 
-> Nothing on the s390 side accesses vcpu->arch.pause yet, so this has
-> no functional effect. Align the type to keep the mirror identical to
-> its arm64 counterpart.
-> 
-> Fixes: e6c329180d1d ("KVM: s390: arm64: Introduce host definitions")
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> ---
->  arch/s390/include/asm/kvm_host_arm64.h | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/s390/include/asm/kvm_host_arm64.h b/arch/s390/include/asm/kvm_host_arm64.h
-> index 82343e723ebf..a3e40650d75d 100644
-> --- a/arch/s390/include/asm/kvm_host_arm64.h
-> +++ b/arch/s390/include/asm/kvm_host_arm64.h
-> @@ -63,11 +63,10 @@ struct kvm_vcpu_arch {
->  	/*
->  	 * Don't run the guest (internal implementation need).
->  	 *
-> -	 * Contrary to the flags above, this is set/cleared outside of
-> -	 * a vcpu context, and thus cannot be mixed with the flags
-> -	 * themselves (or the flag accesses need to be made atomic).
-> +	 * Contrary to the flags above, this is updated outside of
-> +	 * a vcpu context, and thus cannot be mixed with the flags.
->  	 */
-> -	bool pause;
-> +	atomic_t pause;
->  
->  	/* vcpu power state */
->  	struct kvm_mp_state mp_state;
-> 
-> -- 
-> 2.55.0
-> 
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-Reviewed-by: Andreas Grapentin <gra@linux.ibm.com>
+The Frame Preemption Residue Queue (fprq) controls which Rx queue
+receives residual preemptive mPackets from the pmac. This is a pmac
+concern, not a TX concern, so move its configuration from
+stmmac_fpe_configure_tx() to stmmac_fpe_configure_pmac() where it
+logically belongs.
 
-Best,
--A
+Keep the open-coded mask/shift update rather than u32_replace_bits(),
+since fprq_mask is not a compile-time constant.
+
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+v3: No changes. Was patch 3/3 in v2.
+v2: Drop u32_replace_bits(); fprq_mask is not a compile-time constant and
+    triggered a __bad_mask build error on x86. Keep the open-coded
+    mask/shift update instead, per Maxime Chevallier and Jakub Kicinski.
+
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 24 ++++++++++---------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+index 2607e29930b7..cb153857077f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+@@ -47,20 +47,13 @@ static void stmmac_fpe_configure_tx(struct ethtool_mmsv *mmsv, bool tx_enable)
+ 	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
+ 	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
+ 	const struct stmmac_fpe_reg *reg = cfg->reg;
+-	u32 num_rxq = priv->plat->rx_queues_to_use;
+ 	void __iomem *ioaddr = priv->ioaddr;
+-	u32 value;
+ 
+-	if (tx_enable) {
++	if (tx_enable)
+ 		cfg->fpe_csr = STMMAC_MAC_FPE_CTRL_STS_EFPE;
+-		value = readl(ioaddr + reg->rxq_ctrl1_reg);
+-		value &= ~reg->fprq_mask;
+-		/* Keep this SHIFT, FIELD_PREP() expects a constant mask :-/ */
+-		value |= (num_rxq - 1) << __ffs(reg->fprq_mask);
+-		writel(value, ioaddr + reg->rxq_ctrl1_reg);
+-	} else {
++	else
+ 		cfg->fpe_csr = 0;
+-	}
++
+ 	writel(cfg->fpe_csr, ioaddr + reg->mac_fpe_reg);
+ }
+ 
+@@ -68,10 +61,11 @@ static void stmmac_fpe_configure_pmac(struct ethtool_mmsv *mmsv, bool pmac_enabl
+ {
+ 	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
+ 	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
++	u32 num_rxq = priv->plat->rx_queues_to_use;
+ 	const struct stmmac_fpe_reg *reg = cfg->reg;
+ 	void __iomem *ioaddr = priv->ioaddr;
+ 	unsigned long flags;
+-	u32 value;
++	u32 value, value_2;
+ 
+ 	spin_lock_irqsave(&priv->hw->irq_ctrl_lock, flags);
+ 	value = readl(ioaddr + reg->int_en_reg);
+@@ -83,6 +77,14 @@ static void stmmac_fpe_configure_pmac(struct ethtool_mmsv *mmsv, bool pmac_enabl
+ 
+ 			value |= reg->int_en_bit;
+ 		}
++		/* Frame Preemption Residue Queue is the Rx Queue to which
++		 * residual preemptive mPackets must be forwarded from the pmac.
++		 */
++		value_2 = readl(ioaddr + reg->rxq_ctrl1_reg);
++		value_2 &= ~reg->fprq_mask;
++		/* Keep this SHIFT, FIELD_PREP() expects a constant mask :-/ */
++		value_2 |= (num_rxq - 1) << __ffs(reg->fprq_mask);
++		writel(value_2, ioaddr + reg->rxq_ctrl1_reg);
+ 	} else {
+ 		value &= ~reg->int_en_bit;
+ 	}
+-- 
+2.43.7
+
