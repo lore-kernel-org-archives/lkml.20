@@ -1,109 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803317;
-	b=xp3yOQxFrPaiZ36LtdU/UQPop4mFtQ5CVesWnHjiMbCl1jgWwssZRqPyFQn+KN3baaUu
-	 RLYk7dpDmUx/q1jO9xvk5g+M8wQEQPBKSy5JHkfZQHBboH+e7nYJfadVIhOzpTDxGqF+x
-	 axqZplV3STkCCF5M1YI33C37kVD3qnU5dvN6ycrnHDSnLfsQ6tVJsJDLQBx0tQhHNQdME
-	 dhGJwHsX4ofU3iUK4PIJvEDKYHnh6hoRjMOaW0GTtOrwP1hIP8dGIL2x+rEq4NdID5UnV
-	 RIPBrmGaiOuMzRXY70ZR2rm3qVhCiMKTFBzPbcbWrHJrLmrjjexgwnt4Or4btbGFdbQ==
+	t=1793803326;
+	b=ErP0x+1z1uKNirj+4xW0lDGK6h/JSxTr66S4LFRBMHzzyF7D7Rjfsy0bR6VmMmrysDG+
+	 fzvyQukWUZ/IDDx/tvobL03Sg0ZD4O5AAWN95sTJ0dVqTdr8I+aEoynyVSqni6JrXmgUX
+	 5uU9U8/C4q5BMR824xSJqFfyzLXQ8/nNSscr+DKOXF5mM4olJCLtumol5IzGupdOoaEdu
+	 HBPXzu6vROHDeQOFT2cpr3m+4QFAzA4o1C6x0Rqm6oF6zRxRblivH2KIGSGCBIXDJY7Vq
+	 S2w5KPdxf5uXOPIkYDjLwQZD+gzQ1g2fMVsTlje1BviaFz9gkHt+yn60Rjb2f/29odw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803317;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=OlAtB6wp4Rxg9m5TZVPBBQubE31obnHvFW2n9aoXtc0=;
-	b=uSuVHEjbxC1jufPjZdYWVWzHXwTOqpa4ATsofmAu5V935Bm5nCOXIuD4+59Q4E27eirZ
-	 fC6xyNnjw0AvafUpc+JIk3dSO8qNjnL1v/0APFJovAjD+LSEC3drK2s8v2ci4vLmNzUlm
-	 1x4dWISyItrJ4GOfAaCQSqFFKsLUMaWYsfns9+A9IOXtNF007oGppijXlAaW1SSLblVUV
-	 tDU4cZY349i0uoI2Co2ipjQGbnr0xdzavof4JAcX+bY0q7YYuILDkA5DZxaxjBUtv5woD
-	 8e/wJGnT0syEueZriNI1vZOvF1S0NHX25dRIHMeoPP1G6VQC33OyvU8UX0oZ71UMwVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803326;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=yEXOiGhgbR5kbYCDmjXy0GbChNz5nYoCzDv/8cG/g+Y=;
+	b=SVzgyNHoa005arGi9X1JZrh5aFxqwi+nCBm/i68DIKMkHuzNQXzn2ct9/zq/FT1S9B2e
+	 KyTJ22mjRHpUzswZCFN586Kl/NGFM/G2UCKcDDDKLz2b2/znXwlM/EAK3lk9cTxR49I/w
+	 GgWBOM9pQU9zrkVoArdQdlncX4Ok1KVdz8SENeIaaC0YFJVVyISsgXDFp3HJeIKyTT0vE
+	 Bqf6dydlTxQ0KOqme2MTOIh0GYPuIJ0r+KDwrI0LV/QDydCZFzwCMfrzQSKmr3iMuHxfn
+	 rnXlNL4cfB8ogiAq8oajL1vGBwI1f5eLv/EjyiWG1uW5FUv+jMk6A0ZInygHj2VXD1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AKbhyIDy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Bu6W5BCe;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="l/qI6CXm";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UMxra7va;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE3E606A328;
-	Wed,  4 Nov 2026 14:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE3E606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 528C3606A336;
+	Wed,  4 Nov 2026 14:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528C3606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AKbhyIDy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Bu6W5BCe;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=l/qI6CXm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UMxra7va
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4761F21EB3;
-	Wed,  4 Nov 2026 14:41:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793803315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlAtB6wp4Rxg9m5TZVPBBQubE31obnHvFW2n9aoXtc0=;
-	b=AKbhyIDyHgGo91GC3dXwslkq9tS0ZQtkg01wK+MfVqKuuJQLfh0B3INdFkS8ytdjtzykuX
-	bYopyHrewCgQJ2RHZwQcEThjh6TsSTA6DWwntYOGe9zmFa29nXzAvmDDwg4FxdCx38IFzs
-	iPZ01U9f83Na03Z+tzYvckAnaHcR8M0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793803315;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlAtB6wp4Rxg9m5TZVPBBQubE31obnHvFW2n9aoXtc0=;
-	b=Bu6W5BCe/JFSAecVZKVJeHALwVRCwqiH0lns4oyJ7dj2tee/xSYw/mKLM11BPpXD9A/YR6
-	QCDcS3KIwEWrA9Bg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793803314; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlAtB6wp4Rxg9m5TZVPBBQubE31obnHvFW2n9aoXtc0=;
-	b=l/qI6CXmCutpQP8eED8mBKo4QtvY3EXMN/aHUyokASYshw5Eibc9rIr5p0oFfjoQr7ObQx
-	gfx+zGU46y0Sev5cCrYgHdBesuUNid7w7FEFpzAH5IHRPx+0Gb4lCkr7bomigdlipTXbEU
-	sr3GfFnm30M1F8JUuBS39zmBUjSRbD8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793803314;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlAtB6wp4Rxg9m5TZVPBBQubE31obnHvFW2n9aoXtc0=;
-	b=UMxra7va6xYAZJdrkNU+Nm6OD9DncwPjLsVC/NmGzB6fK0L6WciX+yObhnKKf9mEPGbufk
-	lIVZVK3jeAIM7JDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EB584134F0;
-	Wed,  4 Nov 2026 14:41:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id k5wHMDFE62oBfAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 14:41:53 +0000
-Date: Wed, 04 Nov 2026 15:41:53 +0100
-Message-ID: <87zevou09a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zhang Heng <zhangheng@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	kailang@realtek.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Roman Maidanovych via B4 Relay <devnull+devuarpd.gmail.com@kernel.org>
-Subject: Re: [PATCH 1/3] ALSA: hda/realtek: Fix DAC binding for Lenovo Legion Pro 7 16ARX8H
-In-Reply-To: <20261104100427.474270-1-zhangheng@kylinos.cn>
-References: <20261104100427.474270-1-zhangheng@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F5F31476;
+	Wed,  4 Nov 2026 06:42:01 -0800 (PST)
+Received: from [10.57.65.23] (unknown [10.57.65.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DF6933F673;
+	Wed,  4 Nov 2026 06:42:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793803324; bh=OQ+6GXsnzNtECacWk2BjiQr1Za6EzTRmQxCpvw/0bo8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=luId+KEomiCYTx0zsDXfLF0NiGSbVJSZAawz5X649BNQCNK5aIrov6r7jQPa5f5G1
+	 /y7/Z1tTcJswVlprth41Zn/4fMIj1S2AkxetBjIo4WJhSSAHooaIdF0oJpfr07XKSr
+	 mYYkWIizutTHBEivTMuSApJZfPh5pMdZsop7CXg0=
+Message-ID: <80b69632-dbe1-405b-910a-c17a943d8fc2@arm.com>
+Date: Wed, 4 Nov 2026 14:41:59 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,51 +52,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[devuarpd.gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -10.80
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: [BUMP] [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 04 Nov 2026 11:04:25 +0100,
-Zhang Heng wrote:
+Hi All,
+
+Just a polite bump; now that -rc1 is out, if anyone can spare any time to cast
+an eye and offer opinions, I'd be grateful. At this point, I'm most interested
+in feedback on the arm64 integration aspect; If you see blockers I'd like to
+discuss early.
+
+Thanks,
+Ryan
+
+
+On 15/10/2026 15:25, Ryan Roberts wrote:
+> Hi All,
 > 
-> The Lenovo Legion Pro 7 16ARX8H (SSID 17aa:38a7) uses the TAS2781
-> I2C DAC. The generic ALC287_FIXUP_TAS2781_I2C quirk assumes two
-> speakers (0x14 and 0x17). It forcibly binds 0x14 to DAC 0x02, and
-> binds 0x17 and 0x21 to DAC 0x03.
+> This is v2 of an RFC to introduce a driver for the Arm Core Local Accelerator
+> (CLA), a CPU-local interface for programming attached accelerators. While the
+> interface is agnostic to the accelerator type, the initial (and currently only)
+> target is a compute engine.
 > 
-> However, this machine only has 0x17 as the speaker and lacks 0x14,
-> which leads to incorrect DAC binding. To fix this, chain the
-> alc295_fixup_asus_dacs() fixup before the generic quirk to ensure
-> the correct DAC routing for this hardware layout.
+> The RFC aims to engage the community and get feedback on some key aspects. This
+> will help plan our approach for eventual upstreaming. Based on feedback from
+> Will and Marc in RFCv1, the driver now supports both bare metal and virtualized
+> environments. I also have commitments to publish the CLA spec, a supporting FVP
+> and a representaive user space, all to support upstreaming the driver, as per
+> Will's feedback.
 > 
-> Tested-by: Roman Maidanovych via B4 Relay <devnull+devuarpd.gmail.com@kernel.org>
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=221735
-> Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+> For now you can find documentation included with patch 1, which describes the HW
+> and driver design. Note that the CLA is not part of the Arm Architecture.
+> 
+> Patch 1 documents the hardware and driver design, and adds a driver skeleton.
+> Patches 2-5 initialize and probe the device. Patches 6-9 add context management
+> for switching the device between different users. Patches 10-12 add some (small)
+> changes to KVM and VFIO, which then enables patches 13-15 to expose the HW for
+> device assignment into a VM.
+> 
+> Aspects I'm seeking feedback for:
+> 
+> * The general structure of the driver: The current shape addresses the
+>   performance requirements we have for the use cases, and is therefore our
+>   preferred approach. But there are some unusual aspects due to the HW design.
+> 
+> * Driver interaction with architectural support: I've opted to treat the CLA as
+>   a device rather than a CPU extension, so it's implemented as a (mostly)
+>   self-contained driver. It has some unavoidable coupling to the arch code since
+>   it needs to share page tables and ASIDs/VMIDs. All arm64 arch interaction is
+>   contained in cla-mtc.c.
+> 
+> * The location of the driver: although most accelerators will likely be compute
+>   ones, CLA is a generic MMIO interface that could handle any kind of
+>   accelerator. It's currently implemented as a misc driver. accel is another
+>   potential option, but given the current SVA approach, we would not use any of
+>   the services (memory-management or otherwise) that accel provides.
+> 
+> * Virtualization support: since the HW uses the CPU's MMU, we introduced a new
+>   VFIO_CPU_MMU group type, and added the kvm_arch_[get|put]_guest_mmu() API to
+>   KVM/arm64 so that the CLA can share the stage2 pgtables and VMID. The CPU
+>   pinning problem remains unsolved; the vCPU must be pinned to the pCPU that
+>   owns the CLA in order to access it. If the pCPU goes offline or the vCPU is
+>   otherwise unpinned, it would look to the guest like the HW is faulty. This
+>   issue is therefore contained to the guest. I've additionally improved the
+>   robustness of the core driver to deal with this eventuality gracefully.
+> 
+> I consider the core driver to be well tested and robust. The virtualization
+> portion is prototype and has known issues that would be addressed assuming the
+> approach gets positive feedback.
+> 
+> Changes since RFCv1 [1]
+> =======================
+> 
+>  - Added KVM guest support through VFIO mdev, including exclusive domain
+>    assignment, stage-2 memory translation and VMID pinning
+>  - Changed the userspace ABI to expose one `/dev/cla/<class-id>` device per
+>    accelerator class; `ARM_CLA_PARAM_DEV_ACCELS` now reports only accelerators
+>    belonging to the opened class (per Arnd)
+>  - Removed `ARM_CLA_UABI_VERSION` and the `ARM_CLA_PARAM_UABI_VERSION` query
+>    (per Arnd)
+>  - Various driver bug fixes and robustness improvements
+> 
+> 
+> Source, along with some tests, is available at [2]. Patches based on v7.3-rc5.
+> 
+> [1] https://lore.kernel.org/all/20260717104759.123203-1-ryan.roberts@arm.com/
+> [2] https://gitlab.arm.com/linux-arm/linux-rr/-/tree/features/cla-driver-v2-rfc-tests
+> 
+> Thanks,
+> Ryan
+> 
+> 
+> Jean-Philippe Brucker (10):
+>   misc/arm-cla: Add driver skeleton and documentation
+>   misc/arm-cla: Add launch operation helpers
+>   misc/arm-cla: Probe firmware-described devices
+>   misc/arm-cla: Initialize devices on CPU bringup
+>   misc/arm-cla: Accelerator context save and restore
+>   KVM: arm64: Export stage-2 MMU config
+>   vfio: Support VFIO devices that access the CPU MMU
+>   misc/arm-cla: Add stage-2 MTC and VM context switch
+>   misc/arm-cla: Support exclusive context assignment
+>   misc/arm-cla: Add vfio-mdev user interface
+> 
+> Ryan Roberts (4):
+>   dt-bindings: misc: Add Arm Core Local Accelerator
+>   misc/arm-cla: Set up memory translation context
+>   misc/arm-cla: Manage domain contexts
+>   misc/arm-cla: Add userspace interface
+> 
+> Shameer Kolothum (1):
+>   KVM: arm64: Introduce support to pin VMIDs
+> 
+>  .../devicetree/bindings/misc/arm,cla.yaml     |  77 +++
+>  Documentation/misc-devices/arm-cla.rst        | 217 +++++++
+>  Documentation/misc-devices/index.rst          |   1 +
+>  MAINTAINERS                                   |   9 +
+>  arch/arm64/include/asm/kvm_host.h             |  14 +
+>  arch/arm64/include/asm/kvm_mmu.h              |   1 +
+>  arch/arm64/kvm/mmu.c                          | 102 ++++
+>  arch/arm64/kvm/sys_regs.c                     |  14 +-
+>  arch/arm64/kvm/vmid.c                         |  77 ++-
+>  drivers/misc/Kconfig                          |   1 +
+>  drivers/misc/Makefile                         |   1 +
+>  drivers/misc/arm-cla/Kconfig                  |  26 +
+>  drivers/misc/arm-cla/Makefile                 |  15 +
+>  drivers/misc/arm-cla/arm-cla-regs.h           | 192 ++++++
+>  drivers/misc/arm-cla/arm-cla.h                | 393 ++++++++++++
+>  drivers/misc/arm-cla/cla-ctx.c                | 229 +++++++
+>  drivers/misc/arm-cla/cla-init.c               | 562 ++++++++++++++++++
+>  drivers/misc/arm-cla/cla-mdev.c               | 469 +++++++++++++++
+>  drivers/misc/arm-cla/cla-mtc.c                | 335 +++++++++++
+>  drivers/misc/arm-cla/cla-ops.c                | 417 +++++++++++++
+>  drivers/misc/arm-cla/cla-regs.c               | 370 ++++++++++++
+>  drivers/misc/arm-cla/cla-sched.c              | 474 +++++++++++++++
+>  drivers/misc/arm-cla/cla-topology.c           | 202 +++++++
+>  drivers/misc/arm-cla/cla-user.c               | 541 +++++++++++++++++
+>  drivers/vfio/group.c                          |  37 +-
+>  drivers/vfio/vfio.h                           |   5 +
+>  drivers/vfio/vfio_main.c                      |  16 +-
+>  include/linux/vfio.h                          |   1 +
+>  include/uapi/linux/arm-cla.h                  | 198 ++++++
+>  29 files changed, 4969 insertions(+), 27 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/misc/arm,cla.yaml
+>  create mode 100644 Documentation/misc-devices/arm-cla.rst
+>  create mode 100644 drivers/misc/arm-cla/Kconfig
+>  create mode 100644 drivers/misc/arm-cla/Makefile
+>  create mode 100644 drivers/misc/arm-cla/arm-cla-regs.h
+>  create mode 100644 drivers/misc/arm-cla/arm-cla.h
+>  create mode 100644 drivers/misc/arm-cla/cla-ctx.c
+>  create mode 100644 drivers/misc/arm-cla/cla-init.c
+>  create mode 100644 drivers/misc/arm-cla/cla-mdev.c
+>  create mode 100644 drivers/misc/arm-cla/cla-mtc.c
+>  create mode 100644 drivers/misc/arm-cla/cla-ops.c
+>  create mode 100644 drivers/misc/arm-cla/cla-regs.c
+>  create mode 100644 drivers/misc/arm-cla/cla-sched.c
+>  create mode 100644 drivers/misc/arm-cla/cla-topology.c
+>  create mode 100644 drivers/misc/arm-cla/cla-user.c
+>  create mode 100644 include/uapi/linux/arm-cla.h
+> 
+> --
+> 2.43.0
+> 
 
-Applied all three patches now.  Thanks.
-
-
-Takashi
