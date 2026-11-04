@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816529;
-	b=XvYfDLYf5skGdNJC8ql/zwNYQGOC1X938KI4ARI4N7PqbGy4p2aSnbT8KxWUmnE6gkj0
-	 cVTR6xydivSduNFwT86/0XA14S3CCf9YRGVdP8Pv7QuPM4YGDvqwXKNpDJjqGoKw61Qjw
-	 9PNeyUosVbzyqjTE1NZcZ51elDE9sck5xpoFaLKzIklEYyfAADfSYt1s0xPlpabWCdpPZ
-	 FTemyI1fonhrvTI1aTrphkuUtk4ORekxj2HppE4rFNa9ML8GaOGZqOMIqp/ooQ6l59mAM
-	 r6+UJEdCJA4z4MHIo0LhttHsN+JNMu+uH6+4TucOebzLNZAuAshWYvyJHx7gOMAV1UA==
+	t=1793816528;
+	b=qP6KopehnuyTE+kbGr2p5ZSnkt3BtR7McNDj2vdOIGzoXb7rvNfy1ejXJ9EwwBf+g/T/
+	 7Mj82dW7HMvTHKbxeufBy54IKSNL1MhxbW7AeDoP/nuzLipPxBJS8ffVgXIpMCTb7Zq3a
+	 Ak5kgWxH6fYJff1On4dkiQ2nP9qwzn0mEfOT6ilOvUy6yXJ7m/ggZ2gMSpQ88cZ9Q39/q
+	 zNTILsisRGzQ9crov8o/vQdS421GLaDCuRco+TrTZA6+YYMXoJ27RO0KTWbvSWGa0OeYy
+	 BC6aerYdvNx09kbPYr/YuNnLgzEBW10Tm9YFnb3SKV4MbafLx2/VJpMcF8aVROE5FOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816529;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tKZ99yrY5MwjJg6mbBHdYITDM8HO7rTF9ZUJ5jgSrtE=;
-	b=EywvljzzKkEqimYoR+6Rq8rDjhYOo+zCOS7IHGkWTVvydpkVehQCi35CXM9APTXOt8sI
-	 2LXwxl0QXpwdXSwNfswFax0RMW8OxJzH3LYJF8asXkI4FxpbtbqJG8g5ex7huhIcusmxh
-	 mGeIwr2o9jTMk8mtg2j/oRx24KmuBV1JadxCmX2WVMkjBPK0s3u+VzgazH9T8SmFkvxnB
-	 Rn4VCI6reUs7qPza9YfWUpEvxSA3w5MgUg7/ks6cYuEqm+Tocmpimbsf6FZztsbCHz4KK
-	 /tFb4Y1w/UVi6LVHyCwaLgske2mZCAwPMklXbBegkLY7MVpt8ORchiJ/gk0OzY4+ocw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816528;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=JNs0M1imMEHipxcpvSbptLi3SJicLaqdT0Bu4i3250I=;
+	b=1zYQKYJXvKbNGBO2wSg2ZjYODvnH8KDpBL2j3yRsBazBEXBf6sxOhFiS6Muhacfgj2WI
+	 xEjckkA+adimuWtZwJx5sGhcM+Ep2qyfbzvDgOXiGcS2DWn/IgsrZVDTKBXVxVZm4dTlH
+	 61YBKIbnCbx1zBMNamo9sUxRotg0IAHo3T/hAnIVr2wlWpW4PdG7ues44D2Dbg1z+q2TQ
+	 qJcxjb/a7h4fqiA3w24QHoQPfFEVwexSaJVsIuk+S5G4ZtUJ3hp1kNs+np+H70aXYigaV
+	 1RydMAD8YgZFwGFCm71ih03DFGwwvwTPNKq/2rN0WD45IBYV9P/T6MiIjq6B5Ii4uXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkFlMoZa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ0KZ36u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79496083613;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685866082BC2;
 	Wed,  4 Nov 2026 18:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkFlMoZa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8A61F0093A;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ0KZ36u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C001E1F000C1;
 	Wed,  4 Nov 2026 18:22:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793816528;
-	bh=tKZ99yrY5MwjJg6mbBHdYITDM8HO7rTF9ZUJ5jgSrtE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TkFlMoZakaOAg8ky4ucULLy9xFmOWcZnDHOV2mS3j5XC0wUC1q/PoCV++kMnfkOEQ
-	 TUqS2Dw5zrSNBAgL44c5nR7fb/rlwVn/crSMgqEogrQqnGyWBP1dKzg06JKNs8yDU7
-	 0huHLzjp6YLouavcfQg2jc4ib3CV0pmBkRw6FsrgoI91LsR2ekKVsJUbqLgkHmaS6P
-	 pb+hBlpEU61GTKahFiI0hOYyfcMf9+2Rh5gltvGMqDMFazpBt1s5PkIi/Dw0FYlJQ0
-	 xlL1WTndlGPwQmz+9BMkyI6nqSfZQV4NaF3gm2FEz42XeclJkV4XEVIeSz3qeY5lqe
-	 kKnoFe4jXg9SA==
+	bh=JNs0M1imMEHipxcpvSbptLi3SJicLaqdT0Bu4i3250I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BJ0KZ36ua1ERZAwaHDvovWlKa7f23khTkrQPL5k65bz6FSIoYbbmapOy9lqzOn2f7
+	 WfqR+GsMWTtjK8jLPpjGjTQdgKgnI2RPmQBfsjX1DXIO+yfk9QaAV2/Xgv5bT1sR5l
+	 rjx6U9XKQHzOvWXPLmSiD7XBtuaFotfj7gR8rCQ1EXB5WNsIEbqDT/KqL0gJ6aHsZ5
+	 sXD96zRFMmGlHWmQ3nDXwisZUEI7zSoIG2qvt7hVYV3sf4APwjKTDrm6V34AmLHmgh
+	 3netpB9dPGr9eATxIJ5UxUxAFkUDmvgsBx7WzIlm6WBc0KtMkq1KaVgrcU7mlVktLH
+	 WpsvQrZFA8grQ==
+Date: Wed, 4 Nov 2026 18:22:04 +0000
 From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 02/10] regulator: arizona-ldo1: Avoid double gpiod_put() on enable GPIO
-Date: Wed,  4 Nov 2026 18:20:52 +0000
-Message-ID: <20261104182148.1176116-3-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-In-Reply-To: <20261104182148.1176116-1-lee@kernel.org>
-References: <20261104182148.1176116-1-lee@kernel.org>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, Andrew Davis <afd@ti.com>,
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] leds: tca6507: Fix use-after-free on unbind
+Message-ID: <179370065155.793788.12273630752864277064@kernel.org>
+References: <20261028174348.64014-1-danishkhateeb03@gmail.com>
+ <20261028174348.64014-2-danishkhateeb03@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,89 +59,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028174348.64014-2-danishkhateeb03@gmail.com>
+X-AI-Review-Draft: <20261028174348.64014-2-danishkhateeb03@gmail.com>
 
-Passing config.ena_gpiod to devm_regulator_register() transfers ownership
-of the GPIO descriptor to the regulator core, which releases it via
-gpiod_put() in regulator_ena_gpio_free() upon registration failure or
-when devres unregisters the regulator.
+On Wed, 28 Oct 2026, Danish Khateeb wrote:
 
-Calling gpiod_put(ldo1->ena_gpiod) in arizona_ldo1_remove() prematurely
-frees the enable GPIO while the regulator is still registered and causes
-a second gpiod_put() when devm_rdev_release() runs.  Drop the redundant
-remove callback and ena_gpiod field so the regulator core manages the
-descriptor lifetime exclusively.
+> Since the LEDs are registered with devm_led_classdev_register(), they
+> are unregistered only after tca6507_remove() has cancelled the work.
+> Unregistering an LED that is on turns it off, which queues the work
+> again from led_assign(), and the work then runs after devres has freed
+> the chip:
+>
+>   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
+>   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
+>   ...
+>   Last potentially related work creation:
+>    ...
+>    queue_work_on+0xb6/0xc0
+>    led_assign+0x223/0x340 [leds_tca6507]
+>    led_classdev_unregister+0x26b/0x340
+>    release_nodes+0xb3/0x140
+>    devres_release_group+0x247/0x470
+>    i2c_device_remove+0xbf/0x1b0
+>
+> Set up the work with devm_work_autocancel() before the LEDs are
+> registered, so that devres cancels it after they are gone, and drop
+> tca6507_remove().
+>
+> Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
+> Cc: stable@vger.kernel.org
+> Acked-by: Andrew Davis <afd@ti.com>
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> ---
+>  drivers/leds/leds-tca6507.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
+> index 9afe2722986c..0f987e551f03 100644
+> --- a/drivers/leds/leds-tca6507.c
+> +++ b/drivers/leds/leds-tca6507.c
+> @@ -71,6 +71,7 @@
+>   * not recognised when matching.
+>   */
+>
+> +#include <linux/devm-helpers.h>
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+>  #include <linux/leds.h>
+> @@ -735,9 +736,11 @@ static int tca6507_probe(struct i2c_client *client)
+>  		return -ENOMEM;
+>
+>  	tca->client = client;
+> -	INIT_WORK(&tca->work, tca6507_work);
+>  	spin_lock_init(&tca->lock);
+> -	i2c_set_clientdata(client, tca);
+> +
+> +	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
+> +	if (err)
+> +		return err;
 
-Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
-Closes: https://sashiko.dev/#/bug/linux-7988402e-ca08-4bd3-9488-5779d6da0450
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/regulator/arizona-ldo1.c | 16 ----------------
- 1 file changed, 16 deletions(-)
+This is replaced in patch 2.  I'm not sure I see the point.
 
-diff --git a/drivers/regulator/arizona-ldo1.c b/drivers/regulator/arizona-ldo1.c
-index 501843996faa..981e047167ea 100644
---- a/drivers/regulator/arizona-ldo1.c
-+++ b/drivers/regulator/arizona-ldo1.c
-@@ -35,8 +35,6 @@ struct arizona_ldo1 {
- 
- 	struct regulator_consumer_supply supply;
- 	struct regulator_init_data init_data;
--
--	struct gpio_desc *ena_gpiod;
- };
- 
- static int arizona_ldo1_hc_set_voltage_sel(struct regulator_dev *rdev,
-@@ -262,8 +260,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
- 	if (IS_ERR(config.ena_gpiod))
- 		return PTR_ERR(config.ena_gpiod);
- 
--	ldo1->ena_gpiod = config.ena_gpiod;
--
- 	if (pdata->init_data)
- 		config.init_data = pdata->init_data;
- 	else
-@@ -287,8 +283,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
- 		return ret;
- 	}
- 
--	platform_set_drvdata(pdev, ldo1);
--
- 	return 0;
- }
- 
-@@ -339,14 +333,6 @@ static int arizona_ldo1_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static void arizona_ldo1_remove(struct platform_device *pdev)
--{
--	struct arizona_ldo1 *ldo1 = platform_get_drvdata(pdev);
--
--	if (ldo1->ena_gpiod)
--		gpiod_put(ldo1->ena_gpiod);
--}
--
- static int madera_ldo1_probe(struct platform_device *pdev)
- {
- 	struct madera *madera = dev_get_drvdata(pdev->dev.parent);
-@@ -375,7 +361,6 @@ static int madera_ldo1_probe(struct platform_device *pdev)
- 
- static struct platform_driver arizona_ldo1_driver = {
- 	.probe = arizona_ldo1_probe,
--	.remove = arizona_ldo1_remove,
- 	.driver = {
- 		.name = "arizona-ldo1",
- 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
-@@ -384,7 +369,6 @@ static struct platform_driver arizona_ldo1_driver = {
- 
- static struct platform_driver madera_ldo1_driver = {
- 	.probe = madera_ldo1_probe,
--	.remove = arizona_ldo1_remove,
- 	.driver = {
- 		.name = "madera-ldo1",
- 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
+Why not do everything at once?
+
+>  	for (i = 0; i < NUM_LEDS; i++) {
+>  		struct tca6507_led *l = tca->leds + i;
+> @@ -766,20 +769,12 @@ static int tca6507_probe(struct i2c_client *client)
+>  	return 0;
+>  }
+>
+> -static void tca6507_remove(struct i2c_client *client)
+> -{
+> -	struct tca6507_chip *tca = i2c_get_clientdata(client);
+> -
+> -	cancel_work_sync(&tca->work);
+> -}
+> -
+>  static struct i2c_driver tca6507_driver = {
+>  	.driver   = {
+>  		.name    = "leds-tca6507",
+>  		.of_match_table = of_match_ptr(of_tca6507_leds_match),
+>  	},
+>  	.probe    = tca6507_probe,
+> -	.remove   = tca6507_remove,
+>  	.id_table = tca6507_id,
+>  };
+>
+> -- 
+> 2.56.0
+>
+
 -- 
-2.56.0.385.gac671c819a-goog
-
+Lee Jones
