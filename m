@@ -1,77 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782222;
-	b=Py79tWI5OYLiCeW27tr/+dL9Bvwh6jehlXxLOinNbqc+idWmflVj79U694XDlZdLzgxO
-	 Vw5y0lHAAlARrAUIJXj+URPKR0ZjubC3Is3TkCHU+MYXecJGkssk3f0399bkR5GeRcFY4
-	 VFOTIfziAI7/PxNQkj6J1EIc++h2+1AXj0CDA1esKuoNb+TCOWccd/SlLBNKsKv8Mea3f
-	 PpY/BRoIwCUI7hFBvuCy/A79fc6DuYM3lZjhoC4h7bbCG4OVqzrvGGrKP73WJn2pTdT7u
-	 PeioWX72TtI6SQj7+etRfqNf0LWPfu+0bFBlhpRAmFxn4wYSbL3RjjAD85gFDzgjuQg==
+	t=1793782238;
+	b=eAwRn3spqsoWlU+y9ualSLJSPFlgMYUwWcQfkJAoaa7e+sWi9MUXdXzTb2x37HLMNwqw
+	 nC74SyFfn4EGhIKvkkeHmgvcSv8j1sWpLIDufer5P8alc7Pv8Po4DcX5Y3KnvOpLZ+W6r
+	 ED02+F16Xd14wUzvTygNPvT5BNJLVIQA4oOSJsCKgk0YrHfjIwlac3CvUv9VVPDI0PDnz
+	 NHRJIlpj9SKwCtKxqAO2N9OPUAsC5MlnSQVT/fidsveBaav9At48rBO3ZugwC8n6LkQrQ
+	 /VYAayLRejoRR7vmkgY21SHV909PN4Hc10hcJRJ5EIFVna8I5TPn5xbQ/10qMtO7qVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782222;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t+dNl0XBfefdZ7Aqs3DQ8OFFEYE7S1iwmTRbK1dZAOc=;
-	b=sXXq2HoJb/ygwMHl1Z2DbIDOueHvupRmtcqbBGw4voBdWb2sVLb6l61YQDe5+LTzpTWu
-	 hgXIRpYM15yPilLxD8mMhmHA6A8+xzjYMq6PuZhPGwArC1qeY+1Hj9utxk0wdy/xRL/yK
-	 mIzpjLWSYSXj06B8+ahC7Rl7N2BXgrDXyfjG+o9wYN3PbXgcUCwY9UMHolzwd4SdRA9U2
-	 VWqDQIFVFipafJD2UJmWwj+56fEJHdchTo2iwDji6Bo4o+Bm9f/eBcdGWz3WE1f6tQycl
-	 WK8Pb14nXxLwcBW1H6AJXf2wsTUEW9nJMZNGUjYYB0VAKnWCqbmjm7einb/G9XogVhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782238;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=c/7fexNl7s80SzWj4K2ndKBWVJpy6wm9DpcfZBzaNlU=;
+	b=nhzwDODDfXjYloyhRX3GvDsYRWyH93AhfzI1TvEpCDyEh0WEnPPmOCIOBcKUOK/8uYm1
+	 QMDXXNLxUWXEaAucgeDieSGpfLZ7h/Wvmu+5Ra+8b5iQe7820CnjnzEnb9XuLr3B3yJTq
+	 A5peI1k3F0yTor4yk60AwyeXmzu1wtXhDA18Ho3sw7UloS6zUzf7zmJj2EyMzra1PY0Jh
+	 b8Pay75lWUzOGURD20iM4cHRhw8Y4q7bIVFN+2/3z9bdJ64OrVNHenaOs0D+Qn3uUEQfI
+	 gzwWdBGsGobGYOdtb5QT/QsU/5PGdeYH3eWUOHf7HXQE74TDRa2lein4tP/zhgrkL6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZyNsb4Wy;
-	arc=none smtp.remote-ip=95.215.58.210
-Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BeGuGwgx;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25918606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:50:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25918606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37A7606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C37A7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZyNsb4Wy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E2iiyXnW3jbLG37lTxvcZlTYNjiFz2VI30yMsrKtJSk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793782219; v=1; x=1794387019;
- b=ZyNsb4WyZIjkA2/8sHAO0rMC0KYvxzNMiQi45nWuBaXRDjJ7oy7unXs9rUEqboN+v2pUEWXU
- NPJ36A4EgcOMjhu2rUmKRNCDJui5o/T7gzlHfXjZIyAI6Zspas57IKZ9Z2qe6IviTHQ2Eouo7TS
- bFJF80hmN+f89NP3/gFaAJJ0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 29e6b45fb9ddb737;
-	Wed, 04 Nov 2026 08:50:16 +0000
-X-Mizu-Trace-ID: 29e6b45fb9ddb737
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 14/16] KVM: arm64: selftests: Add pkvm_isolation host-access test
-Date: Wed,  4 Nov 2026 08:48:40 +0000
-Message-ID: <20261104084842.132944-15-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
-References: <20261104084842.132944-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BeGuGwgx
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3acd239776cso4123451fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:50:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793782231; x=1794387031; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c/7fexNl7s80SzWj4K2ndKBWVJpy6wm9DpcfZBzaNlU=;
+        b=BeGuGwgx4Rt87ZlwOx/3AgYM5Q+NiOd8+GRccRF0FlCMrtzc/x8taqLQSg4KpGaFcW
+         HgXjPMzoEtBeUJrJfyGki5vj42BcCyW6KuzYGXmKgKsyQdhx/1YqynSk8SkoZjYTqGsG
+         kmJnggFJovR02NygTlrcWhWf0lZ39nxvFPuZtvGmWPkrTlPi2XqgbFTdDGngKh2Z4KNT
+         cTiQYEX7+c+hx99SZcocOoLEW5nVULFDjHc3EUR44oXYQPDqVQ/RcGn9u+NnhrlR4fnK
+         9uXPpNhVdaseLgNSTovn1tSJPvHbL4tY144qOx9rJLcOu+xL+S9EBRK3GtOzgeJOl1/b
+         6AUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793782231; x=1794387031;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c/7fexNl7s80SzWj4K2ndKBWVJpy6wm9DpcfZBzaNlU=;
+        b=ktr704PlnVbysT/ClI4PG5w/F60hj1+kWNd2B9ieLoOYYWMoAlAniK5/kpKwu127zT
+         pM2B5qlyKgy3rxJCSuWrsDgUxqi9zMUQ6r49lkxMLHtBzkOx84gHcmQhMcMbsnyzfOMt
+         mgYNJputsQ+FuaNukiyDs0fKuObtipgMv2xWF+O0KllapHxPpIi6DtP9F0EH7if7VVlb
+         EKlAvZhmucI/Yfxb0PV0502AFHkKLM3BfvaQZla7QgE3Humg7C7HdeI4Me4ndGxmLRG6
+         OgVn59detEJz1ZU9aHWQaUNIX6Nwt3FQxL1kyl9a0YOblelRVIig3OPluiUsmR4FoGDR
+         I+AA==
+X-Forwarded-Encrypted: i=1; AKwUvBylOckDj7Rnv2O0Jf42imF9GB5wFGxloAasoz5VmZRRut6UVEa0i8AgY1KVLRG5R5b3SR4zgcZPqizjSDo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QIjrxLxcS1ra+bpd1mw0He1nxSDJzUpyTtLHQzNGq1UR5ZFYI
+	9+AdLRkm2qJQohMBSqzuxhauatoOoZFIxRbEE8LhXE7aTc1dME0N0nw6bkV/mLsodD8=
+X-Gm-Gg: AYBFou3oYcspIx7rqzsl7RYvc4NPbYgm/6cqBFUOVLSTeYAyHkSiTMd54Tbe5lA/XSw
+	d99kyEVXzLhswyzsLDGnqGK7z6oUwb9tVgHPBV4XY83BECpZJXZU8dPxGuA/D137xa9H/pXzNcV
+	jvEUIunDRDQt5OBd12svOb77JhRYEyaVHDdyFzy0kI0xdACiNRSib96IGzjk31AKnyqVfKHWVcm
+	mG3q2gHjLHi1xJCb3cyImzUtuPx1Dnyc++zX4/3g7gtF9Ydxu5qnYNPoVTQPL5wNrYKpl/Z31iq
+	5/TmIDmTZqSwL5rYHjXqejIc+RJXHkKOxWNIdxeOp43V0d/Yv6fhO7QD7ahQAfoef6H3YE/uw1n
+	JZ+T6NG883GzYpDGhrn4Uy+13Fs8rhGouFe07TdogFhh7Kf/EZ3l1bT25M5Kyaft7Ujq9So1UvA
+	HV6pyXayeGA54+wLXXujgEA65UutfDRWi3F7q9SkjXUkDQORshQ0mMLTquNL+CKw8lFpTHFh0J5
+	XLAXGmtU5pN3QH6wZ7ODceTiO9L+nfIMpyDxJ4IcmkB7tDI5iaSE+p3Eb0WSmOGBqSQ8qG9oum8
+	Mbbz22SUG6CCslthE10pcsME/bAKTWlumYNprlP2p2BlLVqTdE1ILLE=
+X-Received: by 2002:a05:6512:2250:b0:5bf:a12b:9ba8 with SMTP id 2adb3069b0e04-5bfd957cd8dmr5159537e87.65.1793782230950;
+        Wed, 04 Nov 2026 00:50:30 -0800 (PST)
+Received: from nuoska (78-27-71-225.bb.dnainternet.fi. [78.27.71.225])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff384c97csm278483e87.5.2026.11.04.00.50.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 00:50:30 -0800 (PST)
+Date: Wed, 4 Nov 2026 10:50:28 +0200
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-yocto@lists.yoctoproject.org,
+	Bruce Ashfield <bruce.ashfield@gmail.com>
+Subject: Re: Kconfig dependency loop LEDS_CLASS -> EC_ASUS_GLYMUR -> THERMAL
+ -> POWER_SUPPLY -> HID_NVIDIA_SHIELD -> LEDS_CLASS (was Re: [PATCH v4 2/4]
+ platform: arm64: Add a driver for the EC found on ASUS Glymur machines )
+Message-ID: <aurx1DKC9JQcO94B@nuoska>
+References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
+ <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com>
+ <aursRfQRr0AOL1Oi@nuoska>
+ <a759d346-3fea-4a01-a80f-de354746a288@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,272 +112,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a759d346-3fea-4a01-a80f-de354746a288@oss.qualcomm.com>
 
-When a protected guest faults its memory in, the host donates its
-pages through EL2 and keeps its userspace mapping of them. Nothing the
-host does through that mapping exposes the guest's data. The host
-kernel's copy_to_user() and copy_from_user() on that mapping fail. When
-the host kernel pins such a page and accesses it through its own
-mapping, as process_vm_readv() does, EL2 reclaims the page instead. EL2
-zeroes the page before giving it back, and the guest loses it.
+Hi,
 
-Test that the host kernel's copies to and from that memory fail with
-EFAULT, that process_vm_readv() of it reads zeros and KVM_RUN then fails
-at the guest's next access to the page, that MADV_DONTNEED and munmap()
-leave the guest's pages pinned and accounted, and that a normal VM's
-fault on them fails.
+On Wed, Nov 04, 2026 at 09:37:27AM +0100, Konrad Dybcio wrote:
+> On 11/4/26 9:26 AM, Mikko Rapeli wrote:
+> > (Adding linux-kbuild@vger.kernel.org, linux-yocto@lists.yoctoproject.org and
+> > yocto kernel maintainer Bruce)
+> 
+> [...]
+> 
+> > With this new EC_ASUS_GLYMUR driver in 7.4-rc1 there now exists a kconfig dependency loop
+> > in arm64 builds:
+> > 
+> > LEDS_CLASS -> EC_ASUS_GLYMUR -> THERMAL -> POWER_SUPPLY -> HID_NVIDIA_SHIELD -> LEDS_CLASS
+> > 
+> > In Yocto distro we use additional tools[1] to check that kconfig elements in fragments actually
+> > get applied in the final .config etc and one of the checks is for dependency loops which now
+> > fails with 7.4-rc1, full log below[2].
+> > 
+> > To me it looks like EC_ASUS_GLYMUR correctly depends on LEDS_CLASS and that enabling this
+> > driver by default on arm64 with LEDS_CLASS is correct. And also HID_NVIDIA_SHIELD correctly
+> > depends on LEDS_CLASS. Thus I don't think the drivers are doing anything wrong and thus
+> > on the Yocto kernel QA check side the dependency loop check should be relaxed since they
+> > now can exists in the kernel tree.
+> > 
+> > Do you agree to this or is there maybe some way to remove the kernel side kconfig dependency
+> > loop to and from LEDS_CLASS?
+> 
+> https://lore.kernel.org/lkml/20261029021330.460192-1-haiyuewa@163.com/
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/pkvm_isolation.c      | 225 ++++++++++++++++++
- 2 files changed, 226 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_isolation.c
+Ah, excellent! Fix is coming soon then.
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 13998964facd5..68bdd01f62270 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -193,6 +193,7 @@ TEST_GEN_PROGS_arm64 += arm64/page_fault_test
- TEST_GEN_PROGS_arm64 += arm64/pkvm_host_abi
- TEST_GEN_PROGS_arm64 += arm64/pkvm_id_regs
- TEST_GEN_PROGS_arm64 += arm64/pkvm_irq
-+TEST_GEN_PROGS_arm64 += arm64/pkvm_isolation
- TEST_GEN_PROGS_arm64 += arm64/pkvm_mem_share
- TEST_GEN_PROGS_arm64 += arm64/pkvm_psci
- TEST_GEN_PROGS_arm64 += arm64/pkvm_smccc
-diff --git a/tools/testing/selftests/kvm/arm64/pkvm_isolation.c b/tools/testing/selftests/kvm/arm64/pkvm_isolation.c
-new file mode 100644
-index 0000000000000..fd59e5c6e473c
---- /dev/null
-+++ b/tools/testing/selftests/kvm/arm64/pkvm_isolation.c
-@@ -0,0 +1,225 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * pkvm_isolation - what the host can and can't do with a protected VM's memory.
-+ *
-+ * Copyright (C) 2026 Google LLC
-+ * Author: Fuad Tabba <fuad.tabba@linux.dev>
-+ */
-+
-+#include <errno.h>
-+#include <sys/mman.h>
-+#include <sys/uio.h>
-+#include <unistd.h>
-+
-+#include "kvm_util.h"
-+#include "pkvm.h"
-+#include "processor.h"
-+#include "test_util.h"
-+
-+#define DATA_MEMSLOT	(PKVM_IDMAP_MEMSLOT + 1)
-+#define DATA_GPA	BIT_ULL(30)
-+#define DATA_PAGES	16
-+#define DATA_SIZE	((size_t)DATA_PAGES * MIN_PAGE_SIZE)
-+
-+#define GUEST_VAL	0x0badf00ddeadbeefUL
-+#define HOST_VAL	0x0123456789abcdefUL
-+
-+static volatile u64 *page_va(int idx)
-+{
-+	return (volatile u64 *)(DATA_GPA + (u64)idx * MIN_PAGE_SIZE);
-+}
-+
-+/* The host acts on the guest's memory at the sync, then the guest checks it. */
-+static void guest_code(void)
-+{
-+	int i;
-+
-+	pkvm_guest_init();
-+
-+	for (i = 0; i < DATA_PAGES; i++)
-+		*page_va(i) = GUEST_VAL + i;
-+
-+	GUEST_SYNC(0);
-+
-+	for (i = 0; i < DATA_PAGES; i++)
-+		GUEST_ASSERT_EQ(*page_va(i), GUEST_VAL + i);
-+
-+	GUEST_DONE();
-+}
-+
-+static void guest_np_read(void)
-+{
-+	*page_va(0);
-+	GUEST_DONE();
-+}
-+
-+/* The host kernel's copy to or from private memory faults, and the uaccess fixup fails it. */
-+static void host_write_from_private(void *hva)
-+{
-+	ssize_t ret;
-+	int fds[2];
-+
-+	TEST_ASSERT(!pipe(fds), "pipe: errno %d", errno);
-+
-+	ret = write(fds[1], hva, MIN_PAGE_SIZE);
-+	TEST_ASSERT(ret == -1 && errno == EFAULT,
-+		    "write() from private memory: rc %zd errno %d", ret, errno);
-+
-+	close(fds[0]);
-+	close(fds[1]);
-+}
-+
-+static void host_read_into_private(void *hva)
-+{
-+	u64 val = HOST_VAL;
-+	ssize_t ret;
-+	int fds[2];
-+
-+	TEST_ASSERT(!pipe(fds), "pipe: errno %d", errno);
-+	TEST_ASSERT_EQ(write(fds[1], &val, sizeof(val)), sizeof(val));
-+
-+	ret = read(fds[0], hva, sizeof(val));
-+	TEST_ASSERT(ret == -1 && errno == EFAULT,
-+		    "read() into private memory: rc %zd errno %d", ret, errno);
-+
-+	close(fds[0]);
-+	close(fds[1]);
-+}
-+
-+/* The host's long-term pins keep the guest's pages and their locked-memory accounting. */
-+static void host_dontneed(void *hva)
-+{
-+	size_t locked = pkvm_host_locked_vm();
-+
-+	TEST_ASSERT(!madvise(hva, DATA_SIZE, MADV_DONTNEED), "madvise: errno %d", errno);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), locked);
-+
-+	/* The host's mapping now has a new page, which the guest doesn't see. */
-+	TEST_ASSERT_EQ(*(u64 *)hva, 0);
-+	*(u64 *)hva = HOST_VAL;
-+}
-+
-+static void host_munmap(void *hva)
-+{
-+	size_t locked = pkvm_host_locked_vm();
-+
-+	TEST_ASSERT(!munmap(hva, DATA_SIZE), "munmap: errno %d", errno);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), locked);
-+}
-+
-+/* A normal VM's fault on private memory fails, and the protected guest keeps its data. */
-+static void host_np_vm_on_private(void *hva)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	int ret;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_np_read);
-+	vm_set_user_memory_region(vm, DATA_MEMSLOT, 0, DATA_GPA, getpagesize(), hva);
-+	virt_map(vm, DATA_GPA, DATA_GPA, 1);
-+
-+	ret = _vcpu_run(vcpu);
-+	TEST_ASSERT(ret == -1 && errno == EPERM,
-+		    "normal VM's fault on private memory: rc %d errno %d", ret, errno);
-+
-+	kvm_vm_free(vm);
-+}
-+
-+static void (*host_action)(void *hva);
-+
-+static void on_sync(struct kvm_vcpu *vcpu, struct ucall *uc)
-+{
-+	host_action(addr_gpa2hva(vcpu->vm, DATA_GPA));
-+}
-+
-+static struct kvm_vm *vm_create_with_data(struct kvm_vcpu **vcpu)
-+{
-+	struct kvm_vm *vm = pkvm_vm_create_with_one_vcpu(vcpu, guest_code);
-+
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, DATA_GPA, DATA_MEMSLOT,
-+				    DATA_PAGES, 0);
-+	virt_map(vm, DATA_GPA, DATA_GPA, DATA_PAGES);
-+	return vm;
-+}
-+
-+static void test_host_access(void (*action)(void *hva), const char *name)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vm = vm_create_with_data(&vcpu);
-+
-+	host_action = action;
-+	pkvm_run_loop(vcpu, on_sync);
-+
-+	kvm_vm_free(vm);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), 0);
-+
-+	ksft_test_result_pass("%s\n", name);
-+}
-+
-+/*
-+ * The host never reads the guest's data: a kernel copy from private memory
-+ * reads zeros, and the guest's next access to the page fails.
-+ */
-+static void test_process_vm_readv(void)
-+{
-+	u64 buf[2] = { HOST_VAL, HOST_VAL };
-+	struct iovec local = { .iov_base = buf, .iov_len = sizeof(buf) };
-+	struct kvm_vcpu *vcpu;
-+	struct iovec remote;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+	ssize_t ret;
-+	int i;
-+
-+	vm = vm_create_with_data(&vcpu);
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_EQ(get_ucall(vcpu, &uc), UCALL_SYNC);
-+
-+	remote = (struct iovec){ .iov_base = addr_gpa2hva(vm, DATA_GPA), .iov_len = sizeof(buf) };
-+	ret = process_vm_readv(getpid(), &local, 1, &remote, 1, 0);
-+	TEST_ASSERT_EQ(ret, sizeof(buf));
-+	for (i = 0; i < ARRAY_SIZE(buf); i++)
-+		TEST_ASSERT(!buf[i], "process_vm_readv() of private memory read 0x%lx", buf[i]);
-+
-+	/* The guest's next access is its read of that page. */
-+	ret = _vcpu_run(vcpu);
-+	TEST_ASSERT(ret == -1 && errno == EFAULT,
-+		    "guest access after process_vm_readv(): rc %zd errno %d", ret, errno);
-+
-+	kvm_vm_free(vm);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), 0);
-+
-+	ksft_test_result_pass("process_vm_readv() of private memory reads no guest data\n");
-+}
-+
-+static const struct {
-+	void (*action)(void *hva);
-+	const char *name;
-+} host_accesses[] = {
-+	{ host_write_from_private, "write() from private memory fails with EFAULT" },
-+	{ host_read_into_private, "read() into private memory fails with EFAULT" },
-+	{ host_dontneed, "MADV_DONTNEED of private memory leaves the guest's data" },
-+	{ host_munmap, "munmap() of private memory leaves the guest's data" },
-+};
-+
-+int main(void)
-+{
-+	const char *np_vm = "a normal VM's fault on private memory fails with EPERM";
-+	int i;
-+
-+	TEST_REQUIRE(pkvm_supported());
-+
-+	ksft_print_header();
-+	ksft_set_plan(ARRAY_SIZE(host_accesses) + 2);
-+
-+	for (i = 0; i < ARRAY_SIZE(host_accesses); i++)
-+		test_host_access(host_accesses[i].action, host_accesses[i].name);
-+
-+	test_process_vm_readv();
-+
-+	test_host_access(host_np_vm_on_private, np_vm);
-+
-+	ksft_finished();
-+}
--- 
-2.47.3
+Cheers,
 
+-Mikko
