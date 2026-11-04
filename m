@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789660;
-	b=5Yk6rFMS+mjZz/EChnxG1lJof+j/uXtbvP+ik3UJaJ0Y4a/kVDSsyDlubJCcc0iBSf8s
-	 Z6V/ehZi023K7/JJSFu+uEklTaZa0AFLyUaJE5uLyCbVsryGSHU+B5a8MAEpmBOU9ya1m
-	 npwipClI/YjfKJocXjJheErsu+I3Oq53Z3dhUINwrk/ff7fV2sZpZJcyhtVuv27rpynxU
-	 SGe3v3GSjI9Ta35PhxuyIkMGQcDBSn5hUoHq55+moJDGNxtfCgywEFG5XjKZJPuvH7Dl1
-	 7OHeGSw1t/ks26kYW594JCdNESk5OBXhdBIZ7YsOt/k3vxOCtrhZoOYOBSmYSOsDJtA==
+	t=1793789658;
+	b=PwR4xFrteePbFcgQ2X9TP9q5u7tEeurwmH6oRVh8tr5iIQmwnVEFZ+m4EmLTdI/sNIld
+	 ZJjXooOIvamXtUfJSuqIKiVnilig+IVm6s6qEc35atQuGAmPnpVJGmc9ON4SZGJJ37D7Q
+	 9wrajRmtVO23+ugRp0TnGyfqwvHVt8fE9wx3uZKg2mijiz8IcMYhJS2KKuThZTUIiXKiX
+	 +2hTSz5pkusP/C68i5lDkxkpfGUVHDo3rVOqcRtTOHwraL0RpyU9J4lxmWGsERFaJqJd3
+	 2sYcJPW5ntaPHnGnTW0iXyo2Qh2T5c9haauSfE4ojCe9OVv3+hcrTIiRWCm62xJynrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789660;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=q1WatbcgkUw8K3+oMM+B9PLqn14NjJO7D6DOhhw+67c=;
-	b=p/ho5B4oO0J8ytVLuZeGRBxsN36VR0Cd+lFFe/Qvin1ZPNUt9zNzaLH04FY43RHTzm2u
-	 xE0MOF+xPz75tVmgLBFizGqMpaObvpDq9NyOdii7V5hl6idH7ULC8nlFmSsLPIlGSpUim
-	 /coXdDxkJypi5f3FsGdnPpKu9MaK/vqnNNJGvm+bEMEGOoeyfi/70URW7/3ta/LAJdZGG
-	 MtHn4X8zr4gBAVvRsuPOEV4QTd2zvNNz32FFbDpjOh0qVlk0oJO27GNZuVdEtCHRpu4Hw
-	 9f46tAA5FeB0oZPICHwal7izZLstv0DOa0BVaWO65y/5hINj1A/uBf+/B/OHmvnC90Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789658;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=advfz8qU7dnMlSXaKuDgnefU48uHbLndv3sHhQbWPMw=;
+	b=w4wS4iZPbxUe0z76vtRiXfkOtruBmwD6I66ZDZ5ddUzMoi02mKZZhR+5DRELqElx8iUr
+	 Kjn2wfifBtMvOE7Yh26Ob3c9OFKn2sihqc9mBFfZNhRW5ADi9ANHbpde8OZF74yhR177i
+	 c1z6O2aVHGfctQeNFzFa1qjqK5diKcf/OhWwpje4626gm3f67lvZuT2FwOsV/9NOaRk3W
+	 P4CfUDrrfw7KhSS7wD2NTyjyMRQPu4OmagHPO4tH5yArVTRuwmUrt8B7ZpzHQY2NNr/fx
+	 ubgoFiAD3rerj14NTorycfHfb1jLdNmvf2t1O27BusptjYGt3NMY07afk9+cF84HH2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5JLGxhF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zdYbA7OO;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC2A606A328;
-	Wed,  4 Nov 2026 10:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68033606A326;
+	Wed,  4 Nov 2026 10:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68033606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5JLGxhF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DD2D1F000C1;
-	Wed,  4 Nov 2026 10:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793789659;
-	bh=q1WatbcgkUw8K3+oMM+B9PLqn14NjJO7D6DOhhw+67c=;
-	h=From:To:Cc:Subject:Date;
-	b=E5JLGxhFshDJsH7jtdhBf7Q09tJ70fjxu/TJdoeOyy47tA+x92PQGVxmIWH013sTg
-	 K4Tj+bJ87bdXAh2fC3PLPk1xYaMn/7EJ+0oP6HxdADwTV7ZVIM0teDQTVUomziuLkT
-	 KjfJCP+Uq781fJA1IXxmPmG5Jx4SS54y8MB//p7fwdnomhKVQzc3AZYRIMH/URFBMv
-	 vYocFAj8rj/qgko9XtavbvYgo3+5W/5IIv9luH4h35b8bwyEBl6Xz0YHMwj7ihIBMm
-	 JR3ff4Gn7d0kaLjhL6uIwtlfnwYOQ6nHGJ0ulNiiJHg1Rwk7z+Mj9UILA4//67HSB7
-	 nOJ1v1cI4pB0g==
-From: Imre Kaloz <kaloz@kernel.org>
-To: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH] sparc64: replace move_pte() with a D-cache flush in flush_cache_range()
-Date: Wed,  4 Nov 2026 11:52:58 +0100
-Message-ID: <20261104105300.16260-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zdYbA7OO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=advfz8qU7dnMlSXaKuDgnefU48uHbLndv3sHhQbWPMw=; b=zdYbA7OObWwvo7rs7AE3iCVGzj
+	BDWigqB1/746eJLXXkDf5qazrTOAWtpR6IXVUy5F4lAy5LRoWZzSvOuDDxhuxlWORs7Qh69SwEZHc
+	/9XupRpbA4WLdDHRfdMCjKF3Z6gu12ueLkcIdQmUVPxsP9aWKjSFXTyd9KVC5arkHdNzBjEbyymlN
+	BWkvNbJCMZ/yMIKfdw/XZIRe7TItZc9UJTFoBH0IcZQYPT5jLnIgAPXCbtTEVaKoSrJRTb8+SKCSY
+	LbXBS/G7gGrWxExn6fTQEFPtVasKqtTGmql2SVnWJq0h+v6qQkSjC7PI+cWefytkCnlECJnArTLKw
+	e6i1O+cQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>, chaoyi.chen@rock-chips.com
+Subject:
+ Re: [PATCH v15 14/15] arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+Date: Wed, 04 Nov 2026 11:53:47 +0100
+Message-ID: <2915499.MsWZr2WtbB@diego>
+In-Reply-To: <20261101082307.151957-15-gahing@gahingwoo.com>
+References:
+ <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-15-gahing@gahingwoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,140 +73,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-mremap() can move a page to an address of the other D-cache color,
-leaving lines of the old color in the virtually indexed D-cache of
-Spitfire and Cheetah CPUs.  move_pte() flushed the page for each PTE
-moved, which is only correct while move_ptes() handles one PTE at a
-time.
+Am Sonntag, 1. November 2026, 09:23:06 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> Add the two RKNN cores and their IOMMUs, disabled, and label PD_NPU so a
+> board can give it the NPU rail. Each core lists both core domains, its own
+> first, as tested.
+>=20
+> Assign CLK_RKNN_DSU0 594 MHz. Nothing in mainline sets its rate or the NPU
+> rail, and at the 786 MHz it comes up at, on the 750 mV a ROCK 4D boots
+> with, two cores running together write wrong words, 11 to 25 in each pass
+> of 5400 rows. 594 MHz is clean, and Rockchip's OPP table asks only 725 mV
+> of its 500 and 600 MHz steps.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 74 +++++++++++++++++++++++-
+>  1 file changed, 73 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3576.dtsi
+> index ea9229b6e6f5..80943d748bfa 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1057,7 +1057,7 @@ power: power-controller {
+>  				#address-cells =3D <1>;
+>  				#size-cells =3D <0>;
+> =20
+> -				power-domain@RK3576_PD_NPU {
+> +				pd_npu: power-domain@RK3576_PD_NPU {
+>  					reg =3D <RK3576_PD_NPU>;
+>  					#power-domain-cells =3D <1>;
+>  					#address-cells =3D <1>;
+> @@ -1284,6 +1284,78 @@ power-domain@RK3576_PD_VO1 {
+>  			};
+>  		};
+> =20
+> +		rknn_core_0: npu@27700000 {
+> +			compatible =3D "rockchip,rk3576-rknn-core";
+> +			reg =3D <0x0 0x27700000 0x0 0x1000>,
+> +			      <0x0 0x27701000 0x0 0x1000>,
+> +			      <0x0 0x27703000 0x0 0x1000>;
+> +			reg-names =3D "pc", "cna", "core";
+> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
+> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
+> +				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
+> +			clock-names =3D "aclk", "hclk", "npu", "pclk",
+> +				      "aclk_cbuf", "hclk_cbuf";
+> +			assigned-clocks =3D <&cru CLK_RKNN_DSU0>;
+> +			assigned-clock-rates =3D <594000000>;
+> +			resets =3D <&cru SRST_A_RKNN0>;
+> +			reset-names =3D "srst_a";
+> +			power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
 
-Drop move_pte(), which no other architecture defines, and flush the
-whole D-cache in flush_cache_range(), which mremap() calls on the old
-range before moving the PTEs.  This keeps the fix in sparc64 without
-a page table walk.
+Why do you need both power-domains here?
+The naming does suggest each belongs to one core - similar to the rk3588?
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://lore.kernel.org/all/409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org/
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
-Andreas asked for this as a separate patch once the merge window was
-over [1]. It applies on top of sparc for-next.
+If each core really needs both domains, please state this explicitly.
 
-[1] https://lore.kernel.org/all/4fba060e-c4f4-4d73-8efe-dbed0b5a7bc3@gaisler.com/
+Rockchip sadly does not provide RKNN documentation the first
+two parts of the TRM.
 
- arch/sparc/include/asm/cacheflush_64.h |  4 ++--
- arch/sparc/include/asm/pgtable_64.h    | 21 ---------------------
- arch/sparc/mm/init_64.c                | 18 ++++++++++++++++++
- include/linux/pgtable.h                |  4 ----
- mm/mremap.c                            |  1 -
- 5 files changed, 20 insertions(+), 28 deletions(-)
 
-diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-index 54a2d37008e6..1a116b288816 100644
---- a/arch/sparc/include/asm/cacheflush_64.h
-+++ b/arch/sparc/include/asm/cacheflush_64.h
-@@ -21,8 +21,8 @@ void __flushw_user(void);
- #define flush_cache_mm(__mm) \
- 	do { if ((__mm) == current->mm) flushw_user(); } while(0)
- #define flush_cache_dup_mm(mm) flush_cache_mm(mm)
--#define flush_cache_range(vma, start, end) \
--	flush_cache_mm((vma)->vm_mm)
-+void flush_cache_range(struct vm_area_struct *vma, unsigned long start,
-+		       unsigned long end);
- #define flush_cache_page(vma, page, pfn) \
- 	flush_cache_mm((vma)->vm_mm)
- 
-diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-index c26f2888aa18..310b66459521 100644
---- a/arch/sparc/include/asm/pgtable_64.h
-+++ b/arch/sparc/include/asm/pgtable_64.h
-@@ -935,27 +935,6 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
- #define pte_clear(mm,addr,ptep)		\
- 	set_pte_at((mm), (addr), (ptep), __pte(0UL))
- 
--#ifdef DCACHE_ALIASING_POSSIBLE
--/* This flushes only the page the PTE maps, so it relies on move_ptes()
-- * calling it for one PTE at a time, which the default pte_batch_hint()
-- * guarantees.
-- */
--#define __HAVE_ARCH_MOVE_PTE
--#define move_pte(pte, old_addr, new_addr)				\
--({									\
--	pte_t newpte = (pte);						\
--	if (tlb_type != hypervisor && pte_present(pte)) {		\
--		unsigned long this_pfn = pte_pfn(pte);			\
--									\
--		if (pfn_valid(this_pfn) &&				\
--		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
--			flush_dcache_page_all(current->mm,		\
--					      pfn_to_page(this_pfn));	\
--	}								\
--	newpte;								\
--})
--#endif
--
- extern pgd_t swapper_pg_dir[PTRS_PER_PGD];
- 
- void paging_init(void);
-diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-index 6a0ba9a01a21..a1ab1eacbf33 100644
---- a/arch/sparc/mm/init_64.c
-+++ b/arch/sparc/mm/init_64.c
-@@ -3115,6 +3115,24 @@ void flush_cache_vmap(unsigned long start, unsigned long end)
- #endif
- }
- 
-+/*
-+ * mremap() moves the PTEs of [start, end) to addresses that may have the
-+ * other color, and calls this on the old range first.  Flush the whole
-+ * D-cache so no line of the old color outlives the move.
-+ */
-+void flush_cache_range(struct vm_area_struct *vma, unsigned long start,
-+		       unsigned long end)
-+{
-+	/* flush_cache_mm() spills the user register windows. */
-+	flush_cache_mm(vma->vm_mm);
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+	/* The D-cache is virtually indexed on Spitfire and Cheetah. */
-+	if (tlb_type == spitfire || tlb_type == cheetah ||
-+	    tlb_type == cheetah_plus)
-+		flush_dcache_all();
-+#endif
-+}
-+
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
- 	if (start < HI_OBP_ADDRESS && end > LOW_OBP_ADDRESS) {
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index 780fe849ff8b..c729c3cc8bda 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -1470,10 +1470,6 @@ static inline void arch_swap_restore(swp_entry_t entry, struct folio *folio)
- }
- #endif
- 
--#ifndef __HAVE_ARCH_MOVE_PTE
--#define move_pte(pte, old_addr, new_addr)	(pte)
--#endif
--
- #ifndef pte_accessible
- # define pte_accessible(mm, pte)	((void)(pte), 1)
- #endif
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 0d06d7f37f19..87cb15027bfd 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -289,7 +289,6 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 			force_flush = true;
- 		}
- 		pte = get_and_clear_ptes(mm, old_addr, old_ptep, nr_ptes);
--		pte = move_pte(pte, old_addr, new_addr);
- 		pte = move_soft_dirty_pte(pte);
- 
- 		if (need_clear_uffd_wp && pte_is_uffd_wp_marker(pte))
+Heiko
 
-base-commit: c95443b98771a74c6689f5e7bbc56794fe95f550
--- 
-2.47.3
+
 
