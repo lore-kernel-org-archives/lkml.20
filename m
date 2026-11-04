@@ -1,94 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835801;
-	b=OsT6N90hOgpSKkZUqgiVLl99hDQvelQbH9w/NhpN5Xm9NX67FejZzg3hEstOojYwSdrN
-	 uRw2U7ALOwqK5QvydD5lqnz7PHdiWicNf3RNsUCguwYbDGZ5sqgQZWD3i4hDmwnqI9tM0
-	 lFqNS2Kc1Ol2E7r9vAiLA9chyd27IgdHNVeSfKlvWNEv+Anfyn40aTdDWJPSRnO6pHaIt
-	 3wU2KFXWRfLN36CezuSCLNBqRuuSl1wNwE0aM6blZRTyT3uBr/905ag4Y1TeQMybaU8z4
-	 KTdaceh7tFPGwVawyk7irzQJ0PPexidXZ64WPhZXiuSoTq97RgzPnpIw1JZz0W+PoWA==
+	t=1793835810;
+	b=uZ7Bk78K5VmZA0s2h0aeHhCggHXlHyOozl9PumJvddr9R0OsZ52sAglY2T2EllWmUjT7
+	 qTrv3tiDAhtgNbjzI9cPEo4Indw5zMDzI+cuZvuC1JOKsQzjZAhtVNNeAWPhBXJTcXMzk
+	 P3SNIsr61/zk6AN9nDaJ6PeLr/3EdMRP+9hVpBr8vqwaO5o/XRIYsPm/HsrBaWKVfz+w5
+	 S/3MkAI4BLRuQgsCx3OEUdJjWokESn0TAnrdcpVafLE9sg/4nXgZdbLAinvK48j1QFN81
+	 WGovqkhxCVwqXC/lbalaj04vCnyQ613riovdJ/yrAOB9Nl1IXO06DMhO6MtzN5tHKKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835801;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5nFrUseiN9YOf0OgZ2S8yogfl08qqWr5d0TY5rbXHDg=;
-	b=WGTJC3eHaQmOpsWRIxAff2eIsuqV41D8r/Ey6o2Z0tc8VLWd15K5iDcjL8t35utCk0Pw
-	 zQYdhySmPtWu0HCeDuQ12ucKrAEj/GFl1r6LXd4vKBo684MPof1bKMSSIcgQPEqWj0h09
-	 SZbv0cywLs05+ube9llv7OC0Uhjj59W64UXsmSGaRHXUepi2RcHqmysHaQDV8nJlIQF+U
-	 sK3TxT0FKL4/4eJTQRiy/4jX2pjraBYC/LZsaODmPAJtzVNabuXj2fui0Km5Qy7K1gA7w
-	 RJ3CdKG7OBq7Rnh1/NVLnPWchgC/NMhtfyOmdq+5flP3m5XSObOklYfesQeZxjjxOUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835810;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yXrtMh8cggIlOAb8hgX0MxUrZKo24LH39nkcwcdme8g=;
+	b=IaLNVU1XaIXPt+rpesssE8bjF2LGxKuLDdQV/k2gwsT7NnAze0r5jFYSInOX7gntrM0M
+	 1OtJj3ihdGBRqRqDTWvOCFqjyuP6MBDbdaaKi4ZgFpao2ANZ0DGVWYv21I0t9LrAFDQyU
+	 WKvyWcHHKwz818Sb7S8yZRNRIImD0c/h2g/pONTIz/+8cY5oZf7r8arMn6yGhGj4cMYb3
+	 Ms2lYGSHfZHp3GylFhHKPQcL6T4ZohmUHSi64HQqEP8FS+RLFQeIbHgWfqGt+qeQY84mi
+	 6Hqd2vRJRM8kVLQ5WukyDv7NyoYCGJRnZDnyyUWelHbZ0idy2cEEXeMsIeChoW0FeFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fTUWy8jM;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="p/6u85hd";
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=9RoHZ0kd;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38C3606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:43:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E38C3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07D4606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B07D4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fTUWy8jM
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so2376774eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:43:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793835800; x=1794440600; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5nFrUseiN9YOf0OgZ2S8yogfl08qqWr5d0TY5rbXHDg=;
-        b=fTUWy8jM1PsytsBsChYqVoszYkib2vcZrvOgSPKUcKRvOR2J5KlKs9FxUqVw8q8iFH
-         Bc+DyvtMrivviUhsJf6HrM086DGRaC5KbowncGQ0/M1apkBieWLL4XEYGda4IKzCkmJ2
-         9tgEdaQrKAJOCBGJVguKlOnY6y+l2arA7bXhdD70ekFiZVw+fh+PCR3KJK+teTgWZsx3
-         Iex+BPdW4t5+1bylYB+A8YBcnddCBGtf4ZdVm56baw+25ZpVvLrU3v4bmPyA7c14pL8V
-         9lJaNEMZH6a9oYqTug2PXqB86vxJCcWAXonEuz9BAviQY67Uf4ME4EEbBGhTn4ua5j8m
-         gkDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793835800; x=1794440600;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5nFrUseiN9YOf0OgZ2S8yogfl08qqWr5d0TY5rbXHDg=;
-        b=kvRhx9ckCzRlVm15EV8ZObqxZteNDpdDVPkzCjKkrVsAZ7gakDaRuzyQUJ89NyJGd0
-         7I2qS4SRzkkO0O9tsRu0lLjM671RHC7YzQUl9A2fK3+EpsLeAaFqHTS0ygovO50F8uoG
-         MNUUtu16vvWiBiAkmdwsZQrTnx/Jep3YhCM7rDb/84aowFOJGBL/BTyJjxd81B434x+n
-         zFRwidpsEXR26/wnvrp0ORXV6EcCnyprNdnJEQe82vOeFeAAbaR6cnlV7RKaAlxu33ug
-         GpF/QZCXIP5XVKcnvbK65il/0ADUurodU29y75nrXtAmbA9uLnKkWP7eeAH+bM3cbUpH
-         /a0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwGasnh0LZ18xUCcjsmmabWQzTwaczUcPEUFa4D1MVs8hH8DbKLbvZ+BijLaMAkyK9MJ0up54A1nztqRRE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pzadSWcS954vQCCYYTjQSaZWRN6dTt6dkkdB1zmAtlGGqKz1r
-	QsXQEbpdb/boKwZrS2rqArgA8ZY4lBA41+CwNCzL3qIVANUo+VvlJZMEBWEPbg==
-X-Gm-Gg: AYBFou2HFIHb5GyADbnFBq7rIbEdlHSoMXWxOtxS0Bfueow6IdCHEKDeO4C0jhR8RA1
-	38BYBGA5Ww9vhEj7VmvVnZlvdformY+K4osJVr5g3WvXPcwZgwMwweZaeruv/tRy0H14dg/QO06
-	htlwJmwiwgdKWgp4FPdAHs67WswHBQjwC753oS61RKstW9NSfufj1Nyqp3iZotIUnZtG3fpnXvs
-	MwkAF4hTHpVkmJKi7P0dPXb49lEAhVjV+iQUkaMsgTu1bG80RMXZexBo80IoW3HR3jGkcpV5MBX
-	M5SM4bI4wCxNPSQ8P4BZlrFxCcpBxT8ZhJpDNoVpI+TDFRGVcAHjBbgsS4465LyBIGiZNu/mqCP
-	ESy7tv9Hnjdp0zsMoJjX56fhFFX/TvODN1UW6NXQUsb/q32dHTV6ZO3auyNWngfUL0bJprIABip
-	Ensz7vGMi5gLL43+Sas0fnLeXRMVoN5qbIB2UnlzUa7f4plmX7wWSl1bWMcfHZ06LRW/52p3Ntx
-	G9TfooTCnmDrHvkwJvIPf5u4l3TC69XygcZQs25jdSDNxy6bQf9ISV3+UUlXDNpTyK4ZkTCsYFj
-	+0I/0u3cLlCYHAb7sDaTiFGbUm1hR6xoDq3/1qz7j0P5wb4VlRv08cT+PzjQ4S4YTpmU9A==
-X-Received: by 2002:a05:7022:b053:10b0:190:da74:2c89 with SMTP id a92af1059eb24-1ac5bda4447mr27386294c88.21.1793835799860;
-        Wed, 04 Nov 2026 15:43:19 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm12650219eec.12.2026.11.04.15.43.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 15:43:19 -0800 (PST)
-Date: Wed, 4 Nov 2026 15:43:15 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: arnd@arndb.de, marco.crivellari@suse.com, 
-	bartosz.golaszewski@oss.qualcomm.com, tony@atomide.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, brgl@kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH] Input: gpio-keys - do not rely on debouncing
- capabilities of dedicated irqs
-Message-ID: <auvDDyECLJsQdIu9@google.com>
-References: <20261104185044.2551808-1-andreas@kemnade.info>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=p/6u85hd;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=9RoHZ0kd
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793835739; bh=yXrtMh8cggIlOAb8hgX0MxU
+	rZKo24LH39nkcwcdme8g=; b=p/6u85hdrWtekdU7mgQOVIvJ84m6HGiJOGOPpM30JTL9duDyXY
+	s3N6D23lLoDuK2werlgVmmy5DafQgZfVrAbuPFhEtISTBFuOSbGT+NPbUBwEAnTtxGr73QLYzj6
+	gLcsuehbtjGo3qmJ1AZtumDHUwTUU/RqwevdV59ne5WLzAThNOQtKm9uxh+hUj/2Wta5yjzY9un
+	9AyNptyyeTqhJQgnFk+C7NSeFP3qZ53aOG5lh0IyrTdbBdZJS75mjq8rr+gUSe4oVVpsoqBkENL
+	HOAeqiO4WrHU+AfUokUHy8kCGkHlevxcf/IIMWxmam/m4Bdb46gmPhzrqALh1p35Jzg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793835739; bh=yXrtMh8cggIlOAb8hgX0MxU
+	rZKo24LH39nkcwcdme8g=; b=9RoHZ0kd27RUfOtE3ySUdGyUxa7lO3h/m3UGEN1CekByN0+Zr7
+	S56PnF2QldWG6mhN3D+J3Y08iXmLP3j3GzDw==;
+Date: Wed, 04 Nov 2026 23:42:20 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: Usama Arif <usama.arif@linux.dev>
+CC: akpm@linux-foundation.org, baoquan.he@linux.dev, david@kernel.org,
+ hannes@cmpxchg.org, hbathini@linux.ibm.com, jbohac@suse.cz, kas@kernel.org,
+ kernel-team@meta.com, kexec@lists.infradead.org, leitao@debian.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, pasha.tatashin@soleen.com,
+ pratyush@kernel.org, riel@surriel.com, rppt@kernel.org,
+ ruirui.yang@linux.dev, shakeel.butt@linux.dev
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_crash=3A_keep_crashkernel_C?=
+ =?US-ASCII?Q?_MA_pages_reserved_if_activation_fails?=
+In-Reply-To: <20261104215237.203332-1-usama.arif@linux.dev>
+References:  <20261104215237.203332-1-usama.arif@linux.dev>
+Message-ID: <415B6D73-FB20-41A7-AB8D-E5F548003290@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,19 +69,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104185044.2551808-1-andreas@kemnade.info>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 07:50:44PM +0100, Andreas Kemnade wrote:
-> If no GPIO interrupts are used, these IRQs are unlikely subject to the same
-> debouncing mechanisms as a GPIO interrupt would be, so stick to software
-> debouncing. Experienced on OMAP4 using pinctrl IRQs.
-> 
-> Fixes: 3717194f2492 ("Input: gpio-keys - add system suspend support for dedicated wakeirqs")
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+On 4 November 2026 21:52:36 GMT, Usama Arif <usama.arif@linux.dev> wrote:
+>On Wed, 04 Nov 2026 19:16:42 +0000 Bradley Morgan <brads@mainlining.org>
+>wrote:
+>
+>> On 4 November 2026 14:56:00 GMT, Usama Arif <usama.arif@linux.dev>
+>wrote:
+>> >reserve_crashkernel_cma() adds each crashkernel CMA area to
+>> >crashk_cma_ranges[] as soon as it is declared. If the area later fails
+>> >activation, e.g. because movablecore= put the ZONE_MOVABLE boundary
+>> >inside it, cma_activate_area() releases the pages to the buddy
+>allocator
+>> >as ordinary memory. The range is still handed to the crash kernel and
+>> >excluded from the vmcore, so kernel data that lands there is
+>overwritten
+>> >by the crash kernel and missing from the dump.
+>> >
+>> >Mark the areas with cma_reserve_pages_on_error(), so that a failed
+>> >activation leaves the pages reserved: lost to the first kernel, but
+>safe
+>> >for the crash kernel to use.
+>> >
+>> >Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
+>> >Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> >---
+>> > kernel/crash_reserve.c | 1 +
+>> > 1 file changed, 1 insertion(+)
+>> >
+>> >diff --git a/kernel/crash_reserve.c b/kernel/crash_reserve.c
+>> >index a03f0a4305a4e..a4b616ed49482 100644
+>> >--- a/kernel/crash_reserve.c
+>> >+++ b/kernel/crash_reserve.c
+>> >@@ -498,6 +498,7 @@ void __init reserve_crashkernel_cma(unsigned long
+>long cma_size)
+>> > 			continue;
+>> > 		}
+>> > 
+>> >+		cma_reserve_pages_on_error(res);
+>> 
+>> You do know that this will activate under every bitmap_zalloc() failure,
+>> right? Is that accounted for?
+>
+>Yes, that's intended. By the time cma_activate_area() runs, the range is
+>already in crashk_cma_ranges[], so the crash kernel will use it no matter
+>why activation failed. Keeping the pages reserved is the only way to make
+>sure the first kernel has nothing there that gets overwritten or goes
+>missing from the vmcore; the area then behaves like a regular
+>crashkernel= reservation of the same size.
+>
+>fadump made the same choice; it is what cma_reserve_pages_on_error() was
+>added for in commit 27d121d0ec6d ("mm/cma: provide option to opt out
+>from exposing pages on activation failure").
+>
+>The bitmap is one bit per page (32 KiB per GiB with 4K pages) and is
+>allocated at core_initcall, so a failure there is very unlikely.
+>
+>The alternative is to give the memory back and to drop the
+>range from crashk_cma_ranges[] when activation fails, leaving the crash
+>kernel with less memory than requested. I do think that is acceptable as
+>well. But we do need either whats done in this patch or give the memory
+>back. Happy to send the alternative as v2 is everyone thinks that the
+>better way forward.
 
-Applied, thank you.
+Hmm. No approach at the moment is the "perfect" approach so far.
 
--- 
-Dmitry
+>
+>> 
+>> > 		crashk_cma_ranges[crashk_cma_cnt].start = cma_get_base(res);
+>> > 		crashk_cma_ranges[crashk_cma_cnt].end =
+>> > 			crashk_cma_ranges[crashk_cma_cnt].start +
+>> >
+>> 
+>> --- Thanks!
+>> 
+
+--- Thanks!
