@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834186;
-	b=N9H/R9JClNnSoR0Bn31yCA+v2rJE2uTY7Uzjwp0ID/CU7Q4vWnMUfa/hb/Z8wv7zgSww
-	 EdGUej0gkLAHGp0wi+bS6xkDceK9/4/wIdzI0+Zk9bSI930Je6rEYNAW1Ht2KN+f65vUB
-	 H4RZ9CkbPPXZeDbP743/mEqpv5OAa5/Kfw2zbwTVGJ7afKtveO3zOl5qE7RvTod0k5WHp
-	 wgoBVHgBWwMF0EAQKZObkwhMfDAkRBtODMt9K6ufRLL4fwvY+odzU9bBcW51RhGaPysP0
-	 UpcU9MS1l1FhouXpWJ7WsG7q99JzmeyNw5Fw/Y5yR4/0PG6zuPQIIUWBDhLSt3e1mtA==
+	t=1793834247;
+	b=m5hQHkSm/dtHh+SuQdg+atA5f93/8MwiqB0S0G5MSgLzmMq8F0cJhjHolJRkjj7yijS9
+	 9TgMSXfa+a3R/sM7W8BmIkZ8fWl//egDYVl9rJ3XAd+wtrDuwLopVLmk/id+QAyf+aTY4
+	 9I/WPazcKpE8wMm5vdGI9H9VD5jNPnZYIICSpbIIcpKE76gF/yZGztcR37RaLcHIdcRxI
+	 HPNAqi3dNI5L5x3oobiqx17wFaFabEd3v0MI0GtQQPGI4QqwiRnZLSaKCMwFiOR7FJKJm
+	 R+ah67FHjN1SGqeeI+yPoLbRmq4SnrsbBvgfcHLZbOw/8kUSTwGINlfDCZBiT9fknVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834186;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ue6ML+1SvncZBAJ+sN2E+IJ82CpxtcWqGNhb7YHpnH8=;
-	b=234J8YCpqBvrVmJP9CyDOW9HfBFed5pdC6/We2p/kVKrUOrnIrtnYgyNA03C4iynRnam
-	 CeNMBd6uuc0CTepD3vF6iyfLQNznQqe6eCGtpn9cfx7namgjjrxbxqFopgrs3JZrEJwmp
-	 hB/Q8WwuEY0ZrFXxXtKnO5TOXjmfFcY6S79GCTxwy1IRXF7JEYVoDLlEdukyBF4Y9auGC
-	 VvtmkgugYE2iK1qAib5EHO0clpvnGjoH/YQ/ngg2rA5PxbpbqZS3n9rr8zP0ZVPW16Lmy
-	 fM+7dUagFAkksdri+uXUjoQfBg8XkmZ53nVnpfAPhT8GlQ8WqDiGzQQ7mqLDEOC3WVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834247;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=EUNPXgVS4+pPl4o6fy0hi9HXzpCvpznpRLhaacvk77s=;
+	b=v3j1GYUPsq97f2EyDGlUjeleYS6bLzqrRG3GYXPR6pmRO0XiVxVJy2wT7Dq1g5K00qay
+	 ztVaCS8kU3If7Mf5d99Xv97Fl0w/5KzoknqiET+mPeBy/yXg0Tqlepr/kp5xjfAKGzfzs
+	 SxoDfwre7Tj9j7Z9xg/rGJZnHBUqhuCFF89shwBUxtueYNNtVw3003wrr6TIzBd8bvM9T
+	 Bu/W8e9wK3yj5bmmoBGZuZTdW+eWF96NhQQjS9vioIWI9W9NA/cXVbkjSSDyO3auqizc2
+	 qYNeyF+AQ9hs8w8CztOgnsF8HQ1ZlJC8rGL1R41KiuDa8Eem9Ni52eUc2cpfscHnwYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=r16oclpY;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090F5606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 090F5606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=r16oclpY
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-19305bcb72cso1189858c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:16:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793834185; x=1794438985; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ue6ML+1SvncZBAJ+sN2E+IJ82CpxtcWqGNhb7YHpnH8=;
-        b=r16oclpYEo6XTfbnRu7h/BXhJwPzxPpPQO3jSOGl+p5eik8iE5oyAaaA7QfvUO9rNP
-         Rjauqa+gpyyzC4Nf9ys1iBfYNr2WDF+aJS4rO3jUy373VBCcKL13RFLY7Dj8P7nrdDL6
-         S5xdY3f+evirG1owUtJfUYuPms+Hc5hUsdF+EDG1VqCCWo4ILhWkrGQumGE/FA/2RB8O
-         EC0BHOIyAsjRQ+/mM7ei3iNmapc1Macoq8ZfIg5j17KlezcldjuPSdo5tbm3q+EjE1mI
-         iP47D1jYAUp5oMd8/l8kUz6z/vmdBHUSt7fLvs0kAQaLTrWmqJTJr5e2OMbZBlIsPLMQ
-         B5Aw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B202606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:17:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B202606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-5587351d419so975057b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:17:26 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793834185; x=1794438985;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ue6ML+1SvncZBAJ+sN2E+IJ82CpxtcWqGNhb7YHpnH8=;
-        b=ID7pC/fteMZnC6VH1uuA+dv2OKXC4epo+JJqQCc5VGmCZEi3qHgL0qKESjRvElrL8b
-         YY8ElOvrP/nFh7OiXRp7Ztg9dPnvAab6yERlqVh3T7UHq9d1TeWp4nGWWYWPhBjNIngr
-         9aVwn31AiUUcpBBszkQu50+EMUnwNTlPfFhEwDoqy85ZHjzA3CFpL3aYSWQwK0eOtUeT
-         c4N85buudz44/Mlx3h7OR+P85Sn1Zgk1Jm/UNMTlpGgO6kblPTRT2A6scLrtxgWwnqD0
-         YViIio0JeQlPvIjctmKzUUkau5t9hAr2/tUvQnlmL4yhYrHKnz9lJJcW1BwbVV8R62cN
-         nHQA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8FTulX9OBzFqcfhdSn/z5aWCa8qqXljgvfe2EeKWeEI77m55Lj+ag7hAZTRuvOFo/PYVRLrojHIlgs+4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2rkD/48s8DSWXs3oGN3pHDCTZDTkpQUyUs1A0ydlwQ3dsBf4Y
-	vuTl9Y55VI+8IIRkRiBQ0aaP/X0HUU2WAXedASI2rUqqxs+VnfnKsm9lePGRnCz2mg==
-X-Gm-Gg: AYBFou33hUA04Nw00QtileOLSHUxIfWJZXbPdrMehCNOe/arKmWue5jWNU5DJXwOSSe
-	jsUdeYti13Hw78fvYsREumAaiLyNViZrCIjPL0aZ/JrDRnJ5NrbscZQgrCuoEZCLge+sYnI0rMd
-	WxygNt6AOdGFA0wnUqVTbEoMVn28RSVn7h3xH24mWMueZLuh+PBczR8cbuPxo30C4Gxaz1hawIQ
-	xgwvmq/73w9o7sgG/keY/VnIDHd7emIv6ps2W69QMgv0T3urxRC2kDuZEL8EsqgaPqCSsI5QInC
-	8MXZFebZTG6iWozXaahfuIkHqusP5T+bJFju4yosHLrnAatnGf60uYvXAtrxH6VgxsjCsRj96wT
-	nQkaLbg7R4CdZF0XBzi6TUlFGKTBT22OeQAQY9Y5UmJ98Ca1tIwbW1A+yzNSevBOYM4MjglraPh
-	TduRAQgOyfxUKIP9KL4IHD16IfBFRlQaWx2b2EkCKcTY6ijHXOZK9r7pR5Hy2wjO+jS5lGpNU3T
-	fD1KAFgPSp//Lbcnji7j6kdaxusa4YJv5n8NAg+KmZKylDNNqL+HvPlgIbJE7w4JZl6beHZngjs
-	I3Y5vK1p1Zl6mBi0suAoHOTW6zl72Zc7YVv1
-X-Received: by 2002:a05:7022:eb42:20b0:190:3950:43e2 with SMTP id a92af1059eb24-1ac5a0b8867mr26010887c88.8.1793834184834;
-        Wed, 04 Nov 2026 15:16:24 -0800 (PST)
-Received: from localhost.localdomain ([206.206.222.26])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fe477sm9667826eec.17.2026.11.04.15.16.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 15:16:24 -0800 (PST)
-From: Siddharth Mishra <smish149@asu.edu>
-To: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Cc: dsterba@suse.com,
-	wqu@suse.com,
-	boris@bur.io,
-	josef@toxicpanda.com,
-	fdmanana@suse.com,
-	mason@kernel.org,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] btrfs: owner refs and tree blocks
-Date: Wed,  4 Nov 2026 16:16:22 -0700
-Message-ID: <20261104231622.3492838-1-smish149@asu.edu>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <9de049c9-429b-46f8-90e7-02b30d2e91ee@gmx.com>
-References: <20261104102323.4090290-1-smish149@asu.edu> <9de049c9-429b-46f8-90e7-02b30d2e91ee@gmx.com>
+        d=1e100.net; s=20260707; t=1793834246; x=1794439046;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EUNPXgVS4+pPl4o6fy0hi9HXzpCvpznpRLhaacvk77s=;
+        b=ucrp9MdXydb/7ED6OzvJHXWN2tDsp8E8bIsf8AirqdBELewNF0DvhfK/zimwE15Jt1
+         qQROz8q/j+Btb1gNCizmzvD8ALAq/Spl05KjY/PuTk3Du50FE9tU5grbv76egsESPSdF
+         pJ/RGx0EjtsWHoO6QiXRdwhiOmI+d2iEj/nhj3WMzx+4xmbFdLjykOj22SBbEP0CT7mN
+         bHxoM/j3Mqt7nxp62kVoV78bLALBHup/vWvbDlzNhCHXsffQdgUBPUA9dTQx3aQYtKzC
+         aRdyxVbjwTu6w1j7a+m9Lv7HegXg7Q2Oihtoi/HJ0R8mjRi5VvRQjH0sWhHvAY7vWzjF
+         U5Ng==
+X-Forwarded-Encrypted: i=1; AKwUvBx5uXPF8ogMTvrsiAGccDBIpVqWHMlQORCjgFrgFFMFqLPaueSoeuAAaKZoMRtG39XI1FLpCYGb5Z8c+RE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+e3OOLToVRw67mZH/cVu/NOV6EF3Mp3H3f9Gqgc1L2ex4lhuva
+	RPq8BAkh61y1QVxKurnhbfr7UeIqSpZCsOQMqr9oL274EYO8k15ct51d7lEC+PL6ARzY0iVg5hD
+	V58KxpsxGTP0mY61cQdYcooUtS0O42vLbotmgzNiw7Rcn96ffXAl6khvVvt8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,21 +58,272 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:3c49:b0:55c:928:6a0f with SMTP id
+ 5614622812f47-5640ddd105cmr12069524b6e.52.1793834246093; Wed, 04 Nov 2026
+ 15:17:26 -0800 (PST)
+Date: Wed, 04 Nov 2026 15:17:26 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aebbd06.21d05368.325ed5.0000.GAE@google.com>
+Subject: [syzbot] [btrfs?] [ext4?] [ntfs3?] memory leak in __pcs_replace_full_main
+From: syzbot <syzbot+4d078516add5f4f12cea@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, dsterba@suse.com, hpa@zytor.com, 
+	linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mingo@redhat.com, ntfs3@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 05, 2026 at 09:20:51AM +1030, Qu Wenruo wrote:
-> > Siddharth Mishra (5):
-> >    btrfs: skip tree blocks in btrfs_get_extent_owner_root()
-> >    btrfs: tree-checker: reject inline refs not matching the extent type
-> >    btrfs: tree-checker: reject keyed refs not matching the extent type
-> >    btrfs-progs: check: count non-skinny tree blocks in simple quotas
-> >    btrfs-progs: tune: do not remove owner refs from tree blocks
->
-> Please, never mixed progs and kernel patches in one series.
->
-> Send them out separately.
+Hello,
 
-Noted, I will send kernel and btrfs-progs patches in separate series
-from next time.
+syzbot found the following issue on:
 
-Should I resend the two btrfs-progs patches as a separate series now?
+HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14e205f1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=afcef595c54d5d11
+dashboard link: https://syzkaller.appspot.com/bug?extid=4d078516add5f4f12cea
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12e205f1580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/67a38cdd86cf/disk-36aad21d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7b8834e6d3d5/vmlinux-36aad21d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/9103be67c72d/bzImage-36aad21d.xz
+mounted in repro #1: https://storage.googleapis.com/syzbot-assets/a661f7a0d152/mount_0.gz
+  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=130fea8d580000)
+mounted in repro #2: https://storage.googleapis.com/syzbot-assets/5aa6292982d9/mount_13.gz
+mounted in repro #3: https://storage.googleapis.com/syzbot-assets/5bf87b41f4ce/mount_16.gz
+  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=13558981580000)
+
+AI-generated root cause summary:
+The SLUB allocator's sheaf caching layer allocates 'struct slab_sheaf' objects
+via kmalloc_flags(), which registers them with kmemleak for leak tracking. When
+full RCU sheaves are retired in __kfree_rcu_sheaf(), they are queued into RCU
+via call_rcu(&rcu_sheaf->rcu_head, rcu_free_sheaf). While pending in RCU's
+singly-linked callback list, if any preceding callback resides in memory
+untracked or ignored by kmemleak (such as struct slab from
+call_rcu(&slab->rcu_head, rcu_free_slab)), kmemleak cannot traverse the chain to
+reach subsequent callbacks. Because __alloc_empty_sheaf() does not mark the
+sheaf with kmemleak_not_leak() (which marks the metadata grey so it is not
+reported as a leak while still scanning its cached objects), kmemleak falsely
+flags pending RCU sheaves as unreferenced memory leaks.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=4d078516add5f4f12cea
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4d078516add5f4f12cea@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff8881009d4e00 (size 512):
+  comm "kworker/0:1", pid 10, jiffies 4294937433
+  hex dump (first 32 bytes):
+    b0 7e 81 2d 81 88 ff ff 60 bd b3 81 ff ff ff ff  .~.-....`.......
+    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
+  backtrace (crc 91d5a5d8):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
+    _kmalloc_flags_noprof mm/slab.h:55 [inline]
+    __alloc_empty_sheaf mm/slub.c:2854 [inline]
+    alloc_empty_sheaf mm/slub.c:2874 [inline]
+    __pcs_replace_full_main+0xf7/0x330 mm/slub.c:6094
+    free_to_pcs mm/slub.c:6147 [inline]
+    slab_free mm/slub.c:6633 [inline]
+    kfree+0x353/0x390 mm/slub.c:6923
+    vfree mm/vmalloc.c:3549 [inline]
+    vfree+0xa8/0x390 mm/vmalloc.c:3521
+    delayed_vfree_work+0x29/0x40 mm/vmalloc.c:3451
+    process_one_work+0x2b7/0x5c0 kernel/workqueue.c:3495
+    process_scheduled_works kernel/workqueue.c:3578 [inline]
+    worker_thread+0x255/0x4a0 kernel/workqueue.c:3659
+    kthread+0x150/0x1a0 kernel/kthread.c:436
+    ret_from_fork+0x219/0x490 arch/x86/kernel/process.c:158
+    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+BUG: memory leak
+unreferenced object 0xffff888102382600 (size 512):
+  comm "kworker/u8:6", pid 403, jiffies 4294937442
+  hex dump (first 32 bytes):
+    10 45 0c 2d 81 88 ff ff 60 bd b3 81 ff ff ff ff  .E.-....`.......
+    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
+  backtrace (crc 2d83b05a):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
+    _kmalloc_flags_noprof mm/slab.h:55 [inline]
+    __alloc_empty_sheaf mm/slub.c:2854 [inline]
+    alloc_empty_sheaf mm/slub.c:2874 [inline]
+    __pcs_replace_full_main+0xf7/0x330 mm/slub.c:6094
+    free_to_pcs mm/slub.c:6147 [inline]
+    slab_free mm/slub.c:6633 [inline]
+    kfree+0x353/0x390 mm/slub.c:6923
+    call_usermodehelper_freeinfo kernel/umh.c:43 [inline]
+    umh_complete kernel/umh.c:57 [inline]
+    call_usermodehelper_exec_async+0x1c7/0x1f0 kernel/umh.c:117
+    ret_from_fork+0x219/0x490 arch/x86/kernel/process.c:158
+    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+BUG: memory leak
+unreferenced object 0xffff8881009e5600 (size 512):
+  comm "softirq", pid 0, jiffies 4294937452
+  hex dump (first 32 bytes):
+    10 25 4b 2c 81 88 ff ff 60 bd b3 81 ff ff ff ff  .%K,....`.......
+    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
+  backtrace (crc 9cf07d25):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
+    _kmalloc_flags_noprof mm/slab.h:55 [inline]
+    __alloc_empty_sheaf mm/slub.c:2854 [inline]
+    alloc_empty_sheaf mm/slub.c:2874 [inline]
+    __pcs_replace_full_main+0xf7/0x330 mm/slub.c:6094
+    free_to_pcs mm/slub.c:6147 [inline]
+    slab_free mm/slub.c:6633 [inline]
+    kfree+0x353/0x390 mm/slub.c:6923
+    security_task_free+0x6e/0x130 security/security.c:2827
+    __put_task_struct+0x9f/0x260 kernel/fork.c:792
+    rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+    rcu_core+0x269/0x720 kernel/rcu/tree.c:2919
+    handle_softirqs+0x114/0x330 kernel/softirq.c:669
+    run_ksoftirqd kernel/softirq.c:1133 [inline]
+    run_ksoftirqd+0x20/0x30 kernel/softirq.c:1125
+    smpboot_thread_fn+0x1f5/0x430 kernel/smpboot.c:162
+    kthread+0x150/0x1a0 kernel/kthread.c:436
+    ret_from_fork+0x219/0x490 arch/x86/kernel/process.c:158
+    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+BUG: memory leak
+unreferenced object 0xffff888109c00000 (size 512):
+  comm "udevadm", pid 4995, jiffies 4294938376
+  hex dump (first 32 bytes):
+    00 3e 67 26 81 88 ff ff 60 bd b3 81 ff ff ff ff  .>g&....`.......
+    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
+  backtrace (crc acde3b3b):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
+    _kmalloc_flags_noprof mm/slab.h:55 [inline]
+    __alloc_empty_sheaf mm/slub.c:2854 [inline]
+    alloc_empty_sheaf mm/slub.c:2874 [inline]
+    __pcs_replace_empty_main+0x260/0x2e0 mm/slub.c:4806
+    alloc_from_pcs mm/slub.c:4887 [inline]
+    slab_alloc_node mm/slub.c:5021 [inline]
+    __kmalloc_cache_noprof+0x370/0x3f0 mm/slub.c:5676
+    _kmalloc_noprof include/linux/slab.h:991 [inline]
+    _kzalloc_noprof include/linux/slab.h:1312 [inline]
+    kernfs_get_open_node fs/kernfs/file.c:537 [inline]
+    kernfs_fop_open+0x523/0x620 fs/kernfs/file.c:725
+    do_dentry_open+0x1d9/0x7e0 fs/open.c:1000
+    vfs_open_consume+0x4e/0x1c0 fs/open.c:1131
+    do_open fs/namei.c:4851 [inline]
+    path_openat+0xb90/0x1250 fs/namei.c:5016
+    do_file_open+0x121/0x200 fs/namei.c:5045
+    do_sys_openat2+0xd9/0x140 fs/open.c:1442
+    do_sys_open fs/open.c:1448 [inline]
+    __do_sys_openat fs/open.c:1464 [inline]
+    __se_sys_openat fs/open.c:1459 [inline]
+    __x64_sys_openat+0x82/0xf0 fs/open.c:1459
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888109bff800 (size 512):
+  comm "udevd", pid 4994, jiffies 4294938441
+  hex dump (first 32 bytes):
+    70 76 fd 26 81 88 ff ff 60 bd b3 81 ff ff ff ff  pv.&....`.......
+    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
+  backtrace (crc 1107e34f):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
+    _kmalloc_flags_noprof mm/slab.h:55 [inline]
+    __alloc_empty_sheaf mm/slub.c:2854 [inline]
+    alloc_empty_sheaf mm/slub.c:2874 [inline]
+    __kfree_rcu_sheaf+0x1aa/0x2d0 mm/slub.c:6282
+    kfree_rcu_sheaf mm/slab_common.c:1689 [inline]
+    kvfree_call_rcu+0x1ef/0x3a0 mm/slab_common.c:2044
+    kernfs_unlink_open_file+0x18f/0x1a0 fs/kernfs/file.c:611
+    kernfs_fop_release+0x55/0x110 fs/kernfs/file.c:790
+    __fput+0x1a6/0x4f0 fs/file_table.c:512
+    fput_close_sync+0x67/0x130 fs/file_table.c:618
+    filp_close_sync fs/open.c:1573 [inline]
+    __do_sys_close fs/open.c:1596 [inline]
+    __se_sys_close fs/open.c:1583 [inline]
+    __x64_sys_close+0x4a/0xc0 fs/open.c:1583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff88810a9dae00 (size 512):
+  comm "sshd", pid 5384, jiffies 4294938845
+  hex dump (first 32 bytes):
+    00 7e 05 26 81 88 ff ff 60 bd b3 81 ff ff ff ff  .~.&....`.......
+    00 4a 04 00 81 88 ff ff 20 00 00 00 00 00 00 00  .J...... .......
+  backtrace (crc b8bd2d90):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
+    _kmalloc_flags_noprof mm/slab.h:55 [inline]
+    __alloc_empty_sheaf mm/slub.c:2854 [inline]
+    alloc_empty_sheaf mm/slub.c:2874 [inline]
+    kmem_cache_prefill_sheaf+0x1a2/0x2d0 mm/slub.c:5279
+    mt_get_sheaf lib/maple_tree.c:154 [inline]
+    mas_alloc_nodes lib/maple_tree.c:1079 [inline]
+    mas_preallocate+0x3fb/0x6f0 lib/maple_tree.c:5016
+    vma_iter_prealloc mm/vma.h:698 [inline]
+    __mmap_new_vma mm/vma.c:2713 [inline]
+    __mmap_region+0xd92/0x1be0 mm/vma.c:3054
+    mmap_region+0x19c/0x2a0 mm/vma.c:3136
+    do_mmap+0x950/0xdf0 mm/mmap.c:573
+    vm_mmap_pgoff+0x195/0x310 mm/util.c:581
+    ksys_mmap_pgoff+0x89/0x2e0 mm/mmap.c:619
+    __do_sys_mmap arch/x86/kernel/sys_x86_64.c:96 [inline]
+    __se_sys_mmap arch/x86/kernel/sys_x86_64.c:89 [inline]
+    __x64_sys_mmap+0x6f/0xa0 arch/x86/kernel/sys_x86_64.c:89
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+** replaying previous printk message **
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
