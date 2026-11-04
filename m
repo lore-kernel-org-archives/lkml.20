@@ -1,98 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793771936;
-	b=ELCkcp4BM5GUBQpDe3sVjOHARpxIfiHhW/NIUq8V5XI2qdjMQGrAWMx5QsrtPwBBnh69
-	 2sV2uKsRAwrCxtk4cvNDHnE1QoKHm+FfbSAUuU4wvC0NIu0NdWCLvDAw2VbEPiW5Mvnbk
-	 qc9Dcy6Hq0+b0Ise4wqaUiUWRsfEAj/D/C2/dIdlsHfcOhHRTGPZM4EIAHfrU/us8b+D5
-	 SE+mRw+hDCdiTJOnrXm+daQq4Pj9R2ZuNnKlDO64byTEQ76sJVoFIi4c6DeOXGIeev9cL
-	 WE9Xk55Z+7srQNhTscjpHoDngJXMYH6etdTEkg5GjcyjVH4xECydxmtGZNTamIJm/vA==
+	t=1793771931;
+	b=db1R8r264vWuWhVjDuZFjmiBxp+BkaeAw7sAKa6+KL48FiP5SyAhAw34p+s1reKbkVvq
+	 aharSxKKCd2C/V0v/8vaG0cNEqGPsZ43pKU07uPR3ySpGnauUFaFoYA+3hB6ZlaUqvgRd
+	 08vsZ9hQtuxeVK74vWhoLbG6vdxpc6MdbvnIFKf98PUpP5El7s5qnQpBCuacdCfgAOPwk
+	 SsXC0Lgxvx71MFUAnalDbClMTy16puYd2i85SrPNLmgF4zXtoz/l4fZDmodKM6hAcOp+e
+	 aqN7HparGFE27AbyOhiXeWXtPSQ7GHDnJta1UbQj/D+wMw1snxa6zQ4Lddr+SZG2x6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793771936;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9xIvMSl489GZfxwmphM8YUW4yrYariUf7f4sziVKnos=;
-	b=hGeJznrIIcyX7UZKcqCeHX+xvl9rHgVfd1vtMxXTctf19Z2+i2EV8wSXFaac7/F0NKBF
-	 ecexb7RVfDCpk83LswKh34nU3xETDE2IjYK2xQ4Ur91rO75paaKkReyVvf1LBUdHRwCcs
-	 riePFvqKikNEmUDvYyYgMYtytal3N1Xq0Ra5Fif1wuOvfrbiXiBOP07epLx2q5O8jEPIm
-	 BIPlcR6q9b+cahfTsbXxDGv3Q4WO6HUrhiPei4XEbSxNxJrUVUMc2rqWB0WChV6EcvHNS
-	 0vyq5vkmn4192LLgFFr/P7obZnscEjNEviK7t0DMqJ/sq0tP3TRlqg9drOLoCUGQBQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793771931;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=m/OJaXcbh0A/OGTREdwWFahC1oeqC+Z50vcwN4FBE1Y=;
+	b=LQH4KK0jvknhkd8ZZBIQe3ploA1FhL19sIJQ7fGQWhgVFJdG3ByQ8YOu7XM9isEEINiy
+	 xvlI0zQ586yB053+do+MOMpcEqGLJXVlouDMXGcV2qWfsaLzCsTQ0SkCZN++fsK3q5W6E
+	 YbiP4Bk/Cxvk9YMf+mEtU6jObFVP6l2Fet8FUfM6Seujc9oesTFSAkJhhLm9vOkM5VPku
+	 OoAFeiCaVN5TKm22Z2KK4Ure/U3Ec8q0iLsv+CaI6/zUWGGWldOE73pZtkWTTpEeyswkw
+	 igFjzpL5rqNUJ8p7Rpdfljk3XflJQjFfxHVdMozwa9vN2rtIM05I+gLOBbHOGcr6ntA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J8aLuJtt;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ew+EDxDL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hfzkbx8z;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA68606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:58:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACA68606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A979F606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:58:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A979F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J8aLuJtt
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so199309a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:58:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ew+EDxDL;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hfzkbx8z
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RNPf194059
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 05:58:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	m/OJaXcbh0A/OGTREdwWFahC1oeqC+Z50vcwN4FBE1Y=; b=Ew+EDxDLSs8kDC0E
+	FvrugefWxrjX8yDUUL65XV9mRHQ0diHUk9CZHfya/zYWk1EF7B6QnLOnsUxihepa
+	4YehPZuY3lsSt+UKY3IvqeGtm33HZhKfBa/aZYwjmfitQi30ia2zS0TlqZ4yLdIg
+	7/6rkaoUo30T7X/DvZOMGQ4yldP2i9b2KYv8hYPWUD4PEZfTY7pvyA3cEzRpIFir
+	sCZK8c9x1eZSDJx3tWMbR/Q1L2DYbJ991vHMTGOofOC7ps/q/7688WHGlzTIYKIq
+	yVSsvBSmnFw2zXEmtiSd+iriesWL64soXRs86KHy4JZYNip3/lGHxWiCHwHoYBVx
+	eG1QHA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8nj6xd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:58:49 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36d1353fdcdso539811eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 21:58:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793771935; x=1794376735; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9xIvMSl489GZfxwmphM8YUW4yrYariUf7f4sziVKnos=;
-        b=J8aLuJttePqvSGqoTtP1+p1z2IPE1DvFVdTunuPA2iw1VGMGh6t9sc7CQsJ8iMR6vA
-         wyTmTQ3jWAhV51uB7jclKCs4WhNNSbpPJX0VLcEfYUSgm8h4WqF2W4rlCGimATh5KLpy
-         FacvMpAMOx36KEre6UONSpxtmTSvko6Wpzf/syW18/pqfcN7t448/DtZNxuDmfJtX/go
-         hZ4syqNqw66Guk6J8GGOC+wSPXvE4buhzzfqGxn+inHzd+F9oGoSA2QDLsaJejiLnl3W
-         /mdfVocrBCmLJdcs8jA/17X0++i5bDiei7jWyDgJaRn1lMX98ETHRf/8obeVxExvaG1M
-         rUBg==
+        d=oss.qualcomm.com; s=google; t=1793771929; x=1794376729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m/OJaXcbh0A/OGTREdwWFahC1oeqC+Z50vcwN4FBE1Y=;
+        b=hfzkbx8zgVOT5plQBFrLAlDlJDvcPZ1KuG7TYd971IKg7eXEq+h0h4AH1A4NDT1E5J
+         FSnsy19nzZnELcXpr8UTEFPkoG1NvDXcssPbs0Mubi+OKSfuiHm4r1T4SihqZ/2imeWl
+         bF7yO2ZfE8vHbE+U0hV9HW+2EcmPpAp/P6HEZV8KmZuPxoZ39XfLXjtS4/28r43FWIk7
+         mlBQiNDtunWf8e9OdOMBjrFGVcgKuKvduWrVsisr6cW9fuLZmB4jhs2KiKNksRGnpm9p
+         XbRfIAfMeB6moJVoZ1XO/IcaVi2rwGGcs6ON0jhd4XqzjZQvOMctnS5L5pJWzt5VnB4B
+         fGlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793771935; x=1794376735;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793771929; x=1794376729;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9xIvMSl489GZfxwmphM8YUW4yrYariUf7f4sziVKnos=;
-        b=Kx5y4TXqUZDUIslBAC2jdhv/VT78ZLtVnEncR4EuXHlEA1lTH1bjXERqo105UbOdqj
-         IrDll5JtATwgesQcLxGpiD0FluBkFPNdrIxpd1gieSsgAgLNb97HnydEmUv/ESKYaCpT
-         XONwM9EZ0/RxwpvyvOBW3tmUOFVEKG6x4wraoTiyojODsB3ix4FmvovjdsNFoZ4w6zGo
-         fjOHVFudpfBn0gWArqszuvrZ3i+YQn/6LxzVZgTxNblyyTXd8hhKd0nxesBSUPYGi6SQ
-         n6PHg6A3Gb7f8+tVmH3std43XPBmQgtwQEgzl0aw/j6j96rvaaOS9jlFmQbAB063MYJP
-         Harg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2r0BXOoB9qTesTAFibWurxW725nD+erkfTLCtxpu0No6jXxZoPjXj2+SiP+BFyC+COxxQQgeJ1gEsCg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fEDo0QRVqdasCjV3+gwnp92WWBhsxwi6HYE60dgfF0UHFZJ9j
-	DzW1cfBsfkb6wNuIBt1xg3PRtjiBcyt3RVFMdkHB3KKtXwJ8XOqkHBvX
-X-Gm-Gg: AYBFou1JWMh/mPD5RAFm1D5m/R7HVh6oadzs5RcwiW7/LcFj1kGyz3+VeGXgz8AAzn8
-	8DG7zFMVatAJdFjZ/Pd471I+LJJnWQSvNp+Di7p3h50fwjDYvV3PAMAkGN9aHMEHn6jFzliYE3r
-	b+h2P1RNwxAVXbZ7WwusX304XLpGXruFzwiYk0CvWxonn9t3r9+OK8M0nHhw/sw9JRUz/bJTAi7
-	OelpGerhSZUSKqfPZMK7/784Lzz3lBVTb2H4s4uO+nht/gjHCTPvXuMDa63rTlraiPDDkYZugig
-	SKcIM786JJena6w3L+zI/bnWlDBZMAPtE+3gstE3n/axlTjqIxtY27sL6NPmqBt6AHVnAraIOM2
-	cU1KMm5lRdZgiNIEewcfexifoUI3kdfwfBIz4g+qOC4K8vvluTmmDAf5UqEFMxrHGiG7/26ieVi
-	WYiHp33BSoCjCCqdN1HrDv15dUgM4tblh/7tJXSbhT4DGHnoEj1Slr06sDpZ2MHOg5+xsFiqBbj
-	cRVxubNxiL+OEx9qwrYzTltCAeKo1kqfUtACMQlcC6f8iHX50szXds2OX+4bxyu/Sq3QS2R6CBz
-	W6+Xo45Q8OrzftwKxHbxnBY9yuR0voe1Qait1U3StjyxxULeSnRq7TY+i4EplLsBrtrOK6lx2AV
-	ouRFr9Gx/8kM9G+AmhwmYy1xMOP7WrhXrQGOUNPauYaTC1ZX9pIsHI06HO9Z7lo88xkmgWr2UPj
-	p9Bg==
-X-Received: by 2002:a17:90b:58e3:b0:3ac:80dc:f40c with SMTP id 98e67ed59e1d1-3ae897cca98mr12127224a91.14.1793771934974;
-        Tue, 03 Nov 2026 21:58:54 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9928c4sm7840110a91.15.2026.11.03.21.58.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 21:58:54 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-mips@vger.kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Alban Bedel <albeu@free.fr>,
-	Antony Pavlov <antonynpavlov@gmail.com>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK)
-Subject: [PATCH 0/8] clk: ath79: move the PLL clock driver to drivers/clk
-Date: Tue,  3 Nov 2026 21:58:44 -0800
-Message-ID: <20261104055852.152340-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=m/OJaXcbh0A/OGTREdwWFahC1oeqC+Z50vcwN4FBE1Y=;
+        b=ns1mM2uIm58gHFEpVfRpLS0YMP2WCoQvQUZAY8J2zfdnB5RdUpSyQRWMDEJ26OJq6y
+         a9nSjlI1pjcAYIuBG9+ykrQMgmvnDhEiX/vEC7H10MWfnHDe7RZJV+6qz44OcXdiCdP1
+         47cNQtBJ/RthrsuitouDTxMbNtrbR3r5590FbetVqzJ6cRrgaqkr8SBbL+7n63vyCorK
+         3IOt2supCmtqlKoGZusQ+Io4USBbEyJw0x5VFtq2yHPpYdUhwaKLZ+/dWT6u66zoeM7Z
+         LOCgJLAcNKqekGju0XfGWR6D6XQkL/4nBcMeRIEFMYe22sdt8rxNHq88Tz66dKVJTbG1
+         CoTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVPRmTPDyu4SkbIJhwFBwUgyoHSrBHBNeGOJMBj9J2L0lojo+1Vi4l5o5wvHKonVX/+DYEd4Kr+fN6wt0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KZMbiHgw4FNmQ2jNlAtYBBWlG6V57pKOyHjI17L07CIT8FKb0
+	g/xCXDZzROEjwJbtAVgHP0ni/MZ6v+0+xaqiMVZGSke+bgtbsgsqEH2xtYpzgHTQBH49DIEvio3
+	IivEZ4elmEEgzP3x2V/ItwltKdczivJJ1saTzt5pCNENm5uW5CTjckhTn2w4ZSisCSK0=
+X-Gm-Gg: AYBFou0HZKINqo8WQVkn5IumpUUiBknqarqWjvtu5Ix5YGU1gRLm7UvsArAet7DHrnP
+	bS9f5n4ulDH36xXjSVAcSdc7OyKGIIeUUMOHMFvi8wjYTBdGyxg+iIHMz2178wcUzEfkogJqzJb
+	vYWixseijWqdPZ8neyC9ABimy/soZJaUOfY23vB+OwlVA4U0C2y7mxdMJhazY52uy5f6w7zW9Vz
+	s3/7z39+gkK8FGcUG2LHVgcQr3TbaF2ge/PEsC0Bws8fRW30s3LXj3u6jiT/neFijgfeMc9jJ2m
+	9jZGkvQfbW0LZldib94BH1pgFfFoWpmvzh7F9qtR/JPBsUNPw6BEGuFsip4EwxWjEAfcjzUpNTH
+	Ek3LJWHECvu6xhnvSPZFuQkOffXktSSvWnygAelRB85b+kElRfbHPzR21lKqJ7I90iFUgwWYwlp
+	sG
+X-Received: by 2002:a05:693c:4084:b0:36c:9c64:c547 with SMTP id 5a478bee46e88-36c9c64d2ffmr5341844eec.26.1793771929166;
+        Tue, 03 Nov 2026 21:58:49 -0800 (PST)
+X-Received: by 2002:a05:693c:4084:b0:36c:9c64:c547 with SMTP id 5a478bee46e88-36c9c64d2ffmr5341810eec.26.1793771928636;
+        Tue, 03 Nov 2026 21:58:48 -0800 (PST)
+Received: from [10.216.40.83] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36besm6269224eec.11.2026.11.03.21.58.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 21:58:48 -0800 (PST)
+Message-ID: <f8327c0e-ff47-4e67-a37c-9b636758f83b@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 11:28:40 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,79 +114,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Subject: Re: [PATCH v4 7/7] usb: dwc3: qcom: Enable VBUS override at probe for
+ default peripheral role
+To: Peter Chen <peter.chen@oss.qualcomm.com>
+Cc: linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
+ <3c1778a36380bb6d9123c3791f15cc3656b80145.1793212717.git.faisal.hassan@oss.qualcomm.com>
+ <augvX4NwBcJot_AF@hu-petche-lv.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <augvX4NwBcJot_AF@hu-petche-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAyMyBTYWx0ZWRfX1Edhui1YnoyI
+ LwV1HUhSgLzBxaJ0Vi7i5yjwJ7J1ah5snUPr6OiFlJ25+fo9bFQHX6hsd5Gk0nPAslD4YKGakKt
+ ivgqxp52WDUgimtYB+9ZkKdWBA6qQCLyNP6pIW4JQx6jzcaNosVNOLFThBdJ8VJ7vwdztVsHfAX
+ qRw/QNNEVk9VxR0YBNMFK+UxEqmuripvZBrNYQQM4M1uPxqI+rfQQpRxjhZvoCyclLf2rORTuoX
+ B8snS1tDXqxzpHRImO80V4GfCEGZq325ftfjznzu+NT5XzEvWrXouiNVDwjEr7Al6/8vCV3Dc/I
+ wKRFbBOyFXLi9PrlG5DSl4JLEi2pxC4I9T54EETAvyGsfRIFSDAOzRt4gIrjN7L17jbDSdVGo+o
+ XAzZ904NbvhHsuPYMGEjd8hiA+DPJLc2Ye10UPdDvwpfoN/OlB7mTrbQzg9w1FP6Fbt01OuDLXX
+ pXO3jQ+Uyn2XM6rCHUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAyMyBTYWx0ZWRfX2V2ArbFHYwbv
+ IorYaknGTRKLTCaAueWxoN2UY8ZgDPGh+wsWVWkJ8d3YRkxqAcW79VMyebBoojHtTRUNbYqP4qg
+ qc7jgN2bZcbAknXvl3YNh2asiI0XtSE=
+X-Proofpoint-GUID: DwRvI97xSv8DUFq_KmJauXHGfIuP44SB
+X-Proofpoint-ORIG-GUID: DwRvI97xSv8DUFq_KmJauXHGfIuP44SB
+X-Authority-Analysis: v=2.4 cv=As17T+9P c=1 sm=1 tr=0 ts=6aeac999 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=VcVH6SLggcOI8xUk3fAA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040023
 
-The ath79 PLL clock code lives in arch/mips/ath79/clock.c and uses the
-arch headers and ath79_reset_base. This series makes it a normal clk
-driver in drivers/clk and then cleans it up.
+On 02-11-2026 12:06 pm, Peter Chen wrote:
+> On 26-10-29 00:29:37, Faisal Hassan wrote:
+>> When the controller is in OTG mode with usb-role-switch and
+>> role-switch-default-mode set to peripheral, the role notifier never sees
+>> a transition at probe, so the QSCRATCH VBUS override is not programmed
+>> and the device never gets a session-valid indication.
+>>
+>> Enable the VBUS override at probe whenever the initial role is
+>> USB_ROLE_DEVICE.
+>>
+>> Validated on SA8255P with an HS host attached: 20 unbind/bind and 20
+>> suspend/resume iterations completed with no failures.
+>>
+>> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+>> ---
+>>   drivers/usb/dwc3/dwc3-qcom.c | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+>> index 0896a323bdda..92f1223f7b21 100644
+>> --- a/drivers/usb/dwc3/dwc3-qcom.c
+>> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+>> @@ -953,10 +953,12 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>>   		dwc3_qcom_vbus_override_enable(qcom, true);
+> 
+> ....
+> 
+>>   	} else {
+>>   		if ((device_property_read_bool(dev, "usb-role-switch")) &&
+>> -		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST))
+>> +		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST)) {
+>>   			qcom->current_role = USB_ROLE_HOST;
+>> -		else
+>> +		} else {
+>>   			qcom->current_role = USB_ROLE_DEVICE;
+>> +			dwc3_qcom_vbus_override_enable(qcom, true);
+>> +		}
 
-Patches 1-2 remove what ties it to the arch code. The QCA956x timer
-interrupt workaround moves to plat_time_init(), and so does reading the
-reference clock rate from the bootstrap pins, for boards whose device
-tree leaves the rate out. The arch code also warns when a rate in the
-device tree disagrees with the pins.
+Hi Peter,
 
-Patch 3 moves the driver, with copies of the PLL register definitions it
-uses, and adds a MAINTAINERS entry from the qca,ath79-pll binding. It
-stays a CLK_OF_DECLARE driver, as the MIPS timer needs the CPU clock.
+Thanks for the review.
+> 
+> How about move it and above [....] under device role, let above code purely determine current_role:
+> 	if (qcom->current_role == USB_ROLE_DEVICE)
+> 		dwc3_qcom_vbus_override_enable(qcom, true);
+> 
+> Peter
+> 
 
-Patches 4-8 clean it up:
-- 4: use GENMASK() and FIELD_GET() for the register fields (the
-  generated code is unchanged)
-- 5: convert to clk_hw. This also fixes the AR724x and AR933x clocks,
-  whose parent was looked up by the name "ref", so they were orphans
-  when the device tree's reference clock node has a different name.
-- 6: fix the error handling: an unchecked ioremap(), clk_put() of an
-  error pointer, and panics or BUG_ON() where an error return will do
-- 7: one init function per compatible instead of re-matching it
-- 8: share the fractional PLL calculation, using 64-bit maths. This
-  fixes a 32-bit overflow of the QCA955x DDR PLL rate whenever its
-  NFRAC is above 107 with a 40 MHz reference clock, or above 171 with
-  25 MHz.
+Ok, I will make the mode and role-switch code only determine 
+current_role, and enable the VBUS override once afterwards when 
+current_role is USB_ROLE_DEVICE.
 
-The series touches both arch/mips and drivers/clk. Patches 3-8 depend on
-1-2, so it would be easiest to take it all through one tree with an ack
-from the other maintainer.
-
-Not addressed: the QCA956x PLL formula. It ignores the NFRAC_H field
-("hfrac >> 13" of a 13-bit field is always 0) and divides NFRAC_L by
-25 << 13 instead of 2^18. Mainline U-Boot has the same code, so it is
-no independent check. I left it unchanged until it can be checked
-against register values from a QCA956x board.
-
-Tool use, per Documentation/process/generated-content.rst: this series
-was developed with Claude Code (Claude Opus 5.5). It wrote most of the
-code changes and changelogs in patches 3-8, following my review of the
-driver and my requests, and reviewed patches 1-2. It also wrote the
-user space harness used to test patch 8, and it fetched and compared
-the U-Boot sources for the QCA956x formula. I reviewed and tested all
-of it and take responsibility for it.
-
-Rosen Penev (8):
-  MIPS: ath79: apply the QCA956x timer workaround in setup
-  MIPS: ath79: move the bootstrap reference clock to setup
-  clk: ath79: move the ath79 clock driver to drivers/clk
-  clk: ath79: use FIELD_GET() for the PLL register fields
-  clk: ath79: convert to clk_hw based registration
-  clk: ath79: fix the error handling
-  clk: ath79: give each compatible its own init function
-  clk: ath79: share the fractional PLL calculation
-
- MAINTAINERS              |   8 +
- arch/mips/ath79/Makefile |   2 +-
- arch/mips/ath79/clock.c  | 673 ---------------------------------------
- arch/mips/ath79/setup.c  | 100 ++++++
- drivers/clk/Kconfig      |  12 +
- drivers/clk/Makefile     |   1 +
- drivers/clk/clk-ath79.c  | 593 ++++++++++++++++++++++++++++++++++
- drivers/clk/clk-ath79.h  | 140 ++++++++
- 8 files changed, 855 insertions(+), 674 deletions(-)
- delete mode 100644 arch/mips/ath79/clock.c
- create mode 100644 drivers/clk/clk-ath79.c
- create mode 100644 drivers/clk/clk-ath79.h
-
-
-base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
--- 
-2.56.0
-
+Thanks,
+Faisal
