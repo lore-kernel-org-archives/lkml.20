@@ -1,49 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789495;
-	b=4+AV6Zpm08qLULwfLZ6jyn4P5+1T+AJjO4QBPtHV1DTGlgS7e6NqqlZMxpYum2555LEY
-	 IKWC8y637d/86IdkxUeC6YFZpfX68FbNn5hAhxr0GqzBYaumd2thwyuNixOpf5Vn3PP8i
-	 /s23qFOlZXKN2GACOVC+MiVOHQJQYwFPam6i0DvdOqPUoqkclY2F7lmmj6a2KIYpLAaFb
-	 rQbuyoGPHu9RE6TB34xNc4eCwNbTxpX5F1qKWjbhKa6XIqEPvExBnN6uxhuUky8l5StZD
-	 fJkjFbz+EAB6qWa/wPv1/Z3FFxLmG6Z1I9dsOy56Pta+m1r6kGlEyMKvqkEjPha9lZA==
+	t=1793789527;
+	b=J6HRpsd5Yi/4vYqOqguVS79YL9xuA2nmW9kZxex0ka8AFShuztNxiLCcOSh6SH+i+bYy
+	 OeUCwoTVPdf/5tsL/STk8BhM/wXBLTPLtwUkMOG8LPYgLIqWpP40UVBi1Dis8HxczhFwX
+	 sTU2s52u/rUphoDIMvW5dw5f6LTTyFgr2zJI+E63Eqm5suW5B6trLsTrXuPqLSiJnSs95
+	 HR2CzTKh46mlwo4UE0sm4qTJvr/LXGMih+ziA5GBnWXByiZ7aOyiHn5i8uF4cKtzAf79L
+	 Ii/DtEhoIaVOBgIZEzFwheI+4zPwbEB7zs3iy/B+CVT1o3+avsk+FkghhR+wSIeWBZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789495;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HXDgHwIg8m4DwtOhwv+ZFMPIRE8BcYqQdrGKa3M5Pbs=;
-	b=wNwN/YInuDTu/mZdqk2RK2AXFDrRCcVD+zWkQPbjcS4doVUrODb3ABY4sUua7/HBK852
-	 49lvaIOVmR7RRf3JpDvsCeR6uU2B1knqHplzjUcfNTw0v/DqDoB9pZobg3asRvt5jOl+l
-	 Sq1xBBZ8mA/Rtn4zErfCrJE7kGAlvANhp0+xmJEV3HxSXbJI/CSmA0EINUhcHrnpYWfO+
-	 3ud8kEWsHmsI+eXnxDcAvS0TqE4fXHVqklTWf/2G5uI6/gnvhOkMcNKxljwn3oVhKRahH
-	 aJWP3GCopuN75mAcf8PbyYYErbOWjq8ZuNOc31JW3m8IO/ZD/TZZa1iQzFhJgogahYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789527;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=AdvHJTj8LMaNorLOD4U2KXWBTBRYScoC0HXmNvOUUM8=;
+	b=F9zqZvtbNBycNKfTcjy3YXWyl9I8uAkMk3bEuwLsbqNnTaqzUYKwiVNFig9o5AO28Z38
+	 V4sJqa4dUr10WHUan9qZ4ihNEO44oz/TFNA0ItBXiw4rBYpkBfekR5VDDFa9XXZlIxa+I
+	 JDdM19ErXlNsNLxqwGs9VOExmBvp/oF3iLyLgQRcmwxuZDQBdbaHD6UMQOEfgpTne6DD0
+	 E6vuv3Vg/tguOrN5UCY0J/nA/O/NNaOXA7BX8/GlZepirXZRQvx2lH3chI+iAkPrDmO4H
+	 ystDJ9Z5/seC3UA5iqlbf+Z/esAdwd0mpvcqCuEOAqBpESDpxA78xRS4XsCkR6Nd1dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GHFQHyoD;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DABF606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DABF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=kEVFXjeK;
+	arc=none smtp.remote-ip=62.149.156.161
+Received: from smtpcmd14161.aruba.it (smtpcmd14161.aruba.it [62.149.156.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F30606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:52:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1F30606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GHFQHyoD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 410352247;
-	Wed,  4 Nov 2026 02:51:31 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D4D63F628;
-	Wed,  4 Nov 2026 02:51:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793789494; bh=aDq3A0xHGBXoAmwsG8E6qJPjO2aDOH/ROmFDF348ug4=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=GHFQHyoDS3/7ZGobLiPRAROn6IMSSLdC5HWD+VfwMHO89GcuouzLbz7SYD1ktTpKf
-	 w2V/XqQy7f25Se5LdBQUWjjwCK75sf23IO5xbKoqj7Y0IZoeAklgHshi/w2gf4lIHn
-	 zBPgaWfM1kTR1P6/DHhrTLd8/Q2MGJtS4W1YzVQs=
-Message-ID: <8a543030-d0c1-416f-8747-6cd599ad6a90@arm.com>
-Date: Wed, 4 Nov 2026 10:51:30 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=kEVFXjeK
+Received: from DELL-MOBILE03.ad.smart.it ([77.89.54.34])
+	by Aruba SMTP with ESMTPSA
+	id OYaxxFepQTDqGOYaxx2VHi; Wed, 04 Nov 2026 11:51:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793789516; bh=wNgqLILEOdHZXc13SFI3Wdpijs6INKgpdd3ZJUwhMRQ=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=kEVFXjeKWgFRCLUsBEgY4ZGfFbKIDB1CMgEcfc6B2ttE396UoFHe2qo3OOP9xbYeJ
+	 eFu9ltG4xxmnsx/iLrzSvMe4f2OTY2k1swvnTXncwfPqKJU+8NR6MdCQHAXU3dsOpt
+	 ts4lfp3v5ab6ZhApBaeAtwaftlM0v+PrwU9coREL7rfTgOHK/u2Iewpt9CMDh6V/vL
+	 SoCigMxY3uPZh9tVraz5iXSyutvPQqiWIuA5Rr/BBGToYp9ivoquldY7eLCvzaGtmb
+	 ONPyb9lh+bCSm2/3jlM+DAoxF4y3Q494adD//i/PouRhb3cY6w3wz1MiK2pzD7sm3+
+	 0WLmFbISedgYw==
+Date: Wed, 4 Nov 2026 11:51:47 +0100
+From: Alessio Ferri <alessio.ferri@mythread.it>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?UmFm?=
+ =?UTF-8?B?YcWCIE1pxYJlY2tp?=	 <zajec5@gmail.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer	
+ <tsbogend@alpha.franken.de>, Jonas Gorski <jonas.gorski@gmail.com>,
+ linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] bcma: add host driver for the BCM6362 integrated
+ WLAN backplane
+Message-ID: <20261104115147.4c0e518c@DELL-MOBILE03.ad.smart.it>
+In-Reply-To: <dd321689f566e687914908974bbe4c27ce2b587e.camel@pengutronix.de>
+References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
+	<20261104-bcm6362-wlan-v3-4-e46562b2ac12@mythread.it>
+	<dd321689f566e687914908974bbe4c27ce2b587e.camel@pengutronix.de>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,75 +73,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/resctrl: Allocate the RMID array with kvzalloc
-To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
- reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, bp@alien8.de, tan.shaopeng@fujitsu.com, x86@kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104102004.609259-1-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261104102004.609259-1-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfBaJse0+xjGdcVDK3RvXo6oxSNpNRuykK7O/ESaYWKhzMNSrvI/64/mXjtKF06aFYhoTTCX8gaiOp58kcVGvaiRTAh3KRpOGUs+F+7Trz1WopqX93MsS
+ B1iZ5FU8iRYnUqca6REnLxlyFQ2R08ou464NjJo/ThBsoerTEuaVbAn67H59IlKmF3KPVoi1dikZZSwTsoHu61YVXsP0MpeFsJkjRU5aMRP8N2b+wiqLdv0/
+ 0cS/6/M2WNUlr82W48id9O5FOraIRJ1e3tIQzi2Z/Cx7B3AaUMKWg1wN8gksQM1u5fQCwGFAsYvIXXddPFkXyfmplTESYwChMEQSortmOxbcJYIz4Zm3iuJ3
+ ccFskl3AcYL6k+f4M5glvYCfM5fGACHS9UtxrjOC/6YWvlC25YdQxRM75xV2GXR+SVR6yQYEz5C92T0dw3XaPugVGiwMH/RrRoMbzpBMWCF4GjftclY2Sq4h
+ vZuHmgk0BH4lh0rmNlJKCg/BltdT0ltJVzV9ufDoYRNdLj2Jzd0eBM3tfvl4J+u/WqA3nnYu8vfzE3EsSGMaOL/PyIxw/2madZPubeQlWGADgF0ZmcObay5G
+ c/iPCWg0VumMYNfyiSkFRM8bykwZ6fUfOKjFRKRd0kngB1H3l7u9lq7Dam5hvfQodf8=
 
-Hi Jinjie,
+On Wed, 04 Nov 2026 10:55:40 +0100
+Philipp Zabel <p.zabel@pengutronix.de> wrote:
 
-On 04/11/2026 10:20, Jinjie Ruan wrote:
-> setup_rmid_lru_list() sizes rmid_ptrs[] by the whole RMID index space.
-> On x86 the index is the RMID, so the array stays small. On MPAM the
-> index space is the product of the PARTID and PMG ranges, and with a
-> large range the array is megabytes in size.
+> On Mi, 2026-11-04 at 00:31 +0100, Alessio Ferri wrote:
+> > The BCM6362 integrates a WLAN macro on a dedicated bcma backplane.
+> > CFE leaves the macro clock gated and in reset, the backplane is
+> > a big-endian peripheral, and none of the cores has a wrapper:
+> > gating and reset of ChipCommon and of the 802.11 core go through
+> > per-core control registers in a separate WLAN control block.
+> > 
+> > Add a host driver for it that:
+> > 
+> >   - maps the ChipCommon and WLAN control register blocks;
+> >   - enables the clock, cycles the WLAN and WLAN UBUS resets and
+> > runs the macro enable sequence bcma touches the backplane;
+> >   - provides big-endian register and block I/O ops;
+> >   - emulates BCMA_IOCTL, BCMA_IOST, BCMA_RESET_CTL and BCMA_RESET_ST
+> >     on top of the per-core control registers. The PHY bits of
+> >     BCMA_IOST report what b43 needs to hear;
+> >   - sets the big_endian and wrapperless bus flags before scanning.
+> > 
+> > As for the PCI and generic SoC hosts, the driver is linked into
+> > bcma.ko and registered from bcma_modinit().
+> > 
+> > Add a MAINTAINERS entry for the driver and its binding.
+> > 
+> > The 802.11 core (rev 0x16) is handled by b43 once a SPROM is
+> > available; on this SoC it is not stored on the chip and has to be
+> > provided. In openwrt i use 6362-sprom plus fixups.
+> > 
+> > Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+> > ---
+> >  MAINTAINERS                     |   7 +
+> >  drivers/bcma/Kconfig            |  12 ++
+> >  drivers/bcma/Makefile           |   1 +
+> >  drivers/bcma/bcma_private.h     |  15 ++
+> >  drivers/bcma/host_soc_bcm6362.c | 419
+> > ++++++++++++++++++++++++++++++++++++++++ drivers/bcma/main.c
+> >      |   6 + 6 files changed, 460 insertions(+)
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index f53047aa8d3c..00d964829db5 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -5235,6 +5235,13 @@ S:	Maintained
+> >  F:	arch/arm/boot/dts/broadcom/bcm47189*
+> >  F:	arch/arm/boot/dts/broadcom/bcm53573*
+> >  
+> > +BROADCOM BCM6362 WLAN BCMA HOST DRIVER
+> > +M:	Alessio Ferri <alessio.ferri@mythread.it>
+> > +L:	linux-wireless@vger.kernel.org
+> > +S:	Maintained
+> > +F:
+> > Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > +F:	drivers/bcma/host_soc_bcm6362.c +
+> >  BROADCOM BCM63XX/BCM33XX UDC DRIVER
+> >  M:	Kevin Cernekee <cernekee@gmail.com>
+> >  L:	linux-usb@vger.kernel.org
+> > diff --git a/drivers/bcma/Kconfig b/drivers/bcma/Kconfig
+> > index b9558ff20830..ef0c461bdf90 100644
+> > --- a/drivers/bcma/Kconfig
+> > +++ b/drivers/bcma/Kconfig
+> > @@ -38,6 +38,18 @@ config BCMA_HOST_SOC
+> >  
+> >  	  If unsure, say N
+> >  
+> > +config BCMA_HOST_SOC_BCM6362
+> > +	bool "Support for the BCM6362 integrated WLAN backplane"
+> > +	depends on BMIPS_GENERIC || COMPILE_TEST
+> > +	depends on OF
+> > +	help
+> > +	  Host driver for the bcma backplane of the WLAN macro
+> > +	  integrated in the Broadcom BCM6362 SoC. It powers the
+> > macro on
+> > +	  and lets bcma enumerate the backplane, so that the
+> > 802.11 core
+> > +	  can be driven by b43.
+> > +
+> > +	  If unsure, say N
+> > +
+> >  config BCMA_DRIVER_PCI
+> >  	bool "BCMA Broadcom PCI core driver"
+> >  	depends on PCI
+> > diff --git a/drivers/bcma/Makefile b/drivers/bcma/Makefile
+> > index f8c37de35da2..3ff93990ecbb 100644
+> > --- a/drivers/bcma/Makefile
+> > +++ b/drivers/bcma/Makefile
+> > @@ -13,6 +13,7 @@ bcma-$(CONFIG_BCMA_DRIVER_GMAC_CMN)	+=
+> > driver_gmac_cmn.o bcma-$(CONFIG_BCMA_DRIVER_GPIO)		+=
+> > driver_gpio.o bcma-$(CONFIG_BCMA_HOST_PCI)		+=
+> > host_pci.o bcma-$(CONFIG_BCMA_HOST_SOC)		+= host_soc.o
+> > +bcma-$(CONFIG_BCMA_HOST_SOC_BCM6362)	+= host_soc_bcm6362.o
+> >  obj-$(CONFIG_BCMA)			+= bcma.o
+> >  
+> >  ccflags-$(CONFIG_BCMA_DEBUG)		:= -DDEBUG
+> > diff --git a/drivers/bcma/bcma_private.h
+> > b/drivers/bcma/bcma_private.h index 6eded32d1aac..931a0ca0aea3
+> > 100644 --- a/drivers/bcma/bcma_private.h
+> > +++ b/drivers/bcma/bcma_private.h
+> > @@ -118,6 +118,21 @@ static inline void __exit
+> > bcma_host_soc_unregister_driver(void) }
+> >  #endif /* CONFIG_BCMA_HOST_SOC && CONFIG_OF */
+> >  
+> > +/* host_soc_bcm6362.c */
+> > +#ifdef CONFIG_BCMA_HOST_SOC_BCM6362
+> > +int __init bcma_host_soc_bcm6362_register_driver(void);
+> > +void __exit bcma_host_soc_bcm6362_unregister_driver(void);
+> > +#else
+> > +static inline int __init
+> > bcma_host_soc_bcm6362_register_driver(void) +{
+> > +	return 0;
+> > +}
+> > +
+> > +static inline void __exit
+> > bcma_host_soc_bcm6362_unregister_driver(void) +{
+> > +}
+> > +#endif /* CONFIG_BCMA_HOST_SOC_BCM6362 */
+> > +
+> >  /* driver_pci.c */
+> >  #ifdef CONFIG_BCMA_DRIVER_PCI
+> >  u32 bcma_pcie_read(struct bcma_drv_pci *pc, u32 address);
+> > diff --git a/drivers/bcma/host_soc_bcm6362.c
+> > b/drivers/bcma/host_soc_bcm6362.c new file mode 100644
+> > index 000000000000..5a4fa6a63411
+> > --- /dev/null
+> > +++ b/drivers/bcma/host_soc_bcm6362.c
+> > @@ -0,0 +1,419 @@  
+> [...]
+> > +struct bcma_host_soc_bcm6362 {  
+> [...]
+> > +	struct reset_control	*rst_wlan;
+> > +	struct reset_control	*rst_wlan_ubus;
+> > +};  
+> [...]
+> > +/*
+> > + * Macro enable sequence from the Broadcom board support code:
+> > with the
+> > + * clock forced on and the macro in soft reset, enable the 802.11
+> > core
+> > + * clock with force gated clock set, then release the soft reset
+> > and the
+> > + * forces.
+> > + */
+> > +static int bcma_host_soc_bcm6362_power_on(struct
+> > bcma_host_soc_bcm6362 *host) +{  
+> [...]
+> > +	reset_control_assert(host->rst_wlan_ubus);
+> > +	reset_control_assert(host->rst_wlan);  
 > 
-> kzalloc() needs a high-order page allocation for it, which fails once
-> memory is fragmented, and a size above KMALLOC_MAX_SIZE always fails.
-> resctrl then fails to mount.
+> These are asserted in different order than in
+> bcma_host_soc_bcm6362_power_off(). Is this on purpose?
 > 
-> Use kvzalloc(), which falls back to vmalloc().
-
-Yep, I ran into this too when experimenting with large PARTID counts on the FVP model. I have the
-same patch here [1] and plan to repost soon with some more related kmalloc to kvmalloc changes.
-
-[1] https://lore.kernel.org/lkml/20260911160608.1091121-1-ben.horgan@arm.com/
-
-Thanks,
-
-Ben
-
+> If the order can be switched here, you can use the reset_control_bulk
+> API.
 > 
-> Fixes: 6791e0ea3071 ("x86/resctrl: Access per-rmid structures by index")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> Cc: Tony Luck <tony.luck@intel.com>
-> Cc: Reinette Chatre <reinette.chatre@intel.com>
-> Cc: Dave Martin <Dave.Martin@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Babu Moger <babu.moger@amd.com>
-> ---
->  fs/resctrl/monitor.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index f69dbf66f42e..7713aa5d3996 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -1029,7 +1029,7 @@ int setup_rmid_lru_list(void)
->  		return 0;
->  
->  	idx_limit = resctrl_arch_system_num_rmid_idx();
-> -	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
-> +	rmid_ptrs = kvzalloc_objs(struct rmid_entry, idx_limit);
->  	if (!rmid_ptrs)
->  		return -ENOMEM;
->  
-> @@ -1125,7 +1125,7 @@ void free_rmid_lru_list(void)
->  		return;
->  
->  	mutex_lock(&rdtgroup_mutex);
-> -	kfree(rmid_ptrs);
-> +	kvfree(rmid_ptrs);
->  	rmid_ptrs = NULL;
->  	mutex_unlock(&rdtgroup_mutex);
->  }
 
+No particular purpose, will do in v4.
+
+> > +	fsleep(1000);
+> > +	reset_control_deassert(host->rst_wlan_ubus);
+> > +	reset_control_deassert(host->rst_wlan);
+> > +	fsleep(1000);  
+> [...]
+> > +}
+> > +
+> > +static void bcma_host_soc_bcm6362_power_off(struct
+> > bcma_host_soc_bcm6362 *host) +{  
+> [...]
+> > +	reset_control_assert(host->rst_wlan);
+> > +	reset_control_assert(host->rst_wlan_ubus);  
+> 
+> [...]
+> > +static int bcma_host_soc_bcm6362_probe(struct platform_device
+> > *pdev) +{  
+> [...]
+> > +	host->rst_wlan = devm_reset_control_get_exclusive(dev,
+> > "wlan");
+> > +	if (IS_ERR(host->rst_wlan))
+> > +		return dev_err_probe(dev, PTR_ERR(host->rst_wlan),
+> > +				     "failed to get wlan reset\n");
+> > +
+> > +	host->rst_wlan_ubus =
+> > devm_reset_control_get_exclusive(dev, "wlan-ubus");
+> > +	if (IS_ERR(host->rst_wlan_ubus))
+> > +		return dev_err_probe(dev,
+> > PTR_ERR(host->rst_wlan_ubus),
+> > +				     "failed to get wlan-ubus
+> > reset\n");  
+> [...]
+> > +}  
+> 
+> regards
+> Philipp
+
+Thank you
+Alessio
