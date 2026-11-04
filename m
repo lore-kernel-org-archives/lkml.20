@@ -1,103 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786387;
-	b=v54SQuhkgPgaA/B4DWzl7r8gm653dq+ewa26gaWvluoChI24C6bW0rJ16G7TfY88Exd8
-	 0HWOKhZiE7mxUQT6Qq/OnUPD5kAIRwBDFXBsvu5YDLRbSjD57HdQZGcelPCBkfTeNBoxG
-	 /PStKEzx1Li1zsTbnECtDmMT5r/6orETzdPlxn3tsq7i9Xm9xkNUKBAZnpZMdKf4Vd7cU
-	 rU7DBEUAmFPMyO7pb7QHfH7egRQM4KGIXiMS6g59wGwmWY1ICvwF7dKUekVfMHqeUL2s+
-	 w2sjOkU8H6KJZoCoKw3b9qab2FzD/eTsTJZs8TLP6GHwT1RBM0elDHCpMSD5B8OyWvw==
+	t=1793786395;
+	b=casUHhQx9dy7UC0xrdalqyAc3XjBndKI2XqZR8SvWedMiyE8dWKKOTt9Re2lC5DUBd1l
+	 AWc2vKsp0wjw6/c46WmyoS38+38pfncN+DfnPS4RVzxSl3BAFgt3bs/H5H8moKAxpDOK6
+	 Gyb5yHrFnLuFxlHqXvAV/ZY6wz5pAzMaKQ1e2KYy6CFFvLncqhPsieW74OzjDdEb+ZZal
+	 iJn5X0tiCCEUHP5pik8wnENiQywmpmiDM28hxJsb+pHJuxkrt9qMnom88DooXyI1dPWbe
+	 JL13AagsbUGmo1qsHGV9ErKDrVJqRSi5EP8I2TlJzeJjjCRHgR5WqtlbL5TcF9KwC/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kVV+NwTV+9ZC8EqM9XWPxOExxnVbvCg7pip7E4xE4dU=;
-	b=sXPRh+uiYip7vyeN7LqKSti3IErKMREuxNVKejrH1dub9Vgn8J1XT0sTzeIoxHWIx+bc
-	 TsPe89u/13wZnpEgBqaa164GqCR31HkKknTcuJWQfSsCNfm0nVnpjVCAMv+ko1r4q4GqI
-	 ef8l00fFpWhXHnZf/fsFATA06OUdJ6F5oogdvPSPWkJFklZwJzoQyKEXBxeYE8JsBWG2Y
-	 VSGXudv9hdR/nUxHtnTEcBOwIUIy7+tSLmgVn72nLSK/1Ugr89+an9dPQR4/4XlJO0jth
-	 cf+hPRHIkBVicnyeGNRUe9X6zXkIVDtfPSc0kIRQ3KTfX0Z8C9AjgIMg6WR66aJ7vHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786395;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=y4W1eE8E1/91FCr6e2Z/bZGYHOBtRy+Y9cuTbiFyZt4=;
+	b=sq7jDGInrdLDknLJhWZRKyoap3kv8tLQEfa7DgafTE7oEeSSVqTqFAzS0ZvcTZDNCheZ
+	 IBBpeO59VeAjwk0zFtD+dtrks0SQQYU1mphoWlWBOJXO+EYLCu2dqvqkzn/QIaMpQlkoK
+	 q8kHs2AO+GOdU1VKQ+3ZT8AYOPum6GevBJ4VcE8fkzTGmcG4z+9rqxaTWY4sgW+1Y68wI
+	 6kB3VzRFTE1sH+tJ55qtWz/v6v3m4RsLoXNIQvMEt1ZX2FbmxCd1oINUbx366S1GXUGGA
+	 avO1PsQEOgHjEVQEfI4mmfyPctRwRuSmZfO4x4EuxWZlcyY9Rv5NvyJOh8vMdEAOjRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="by0c4k/G";
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oTuG6hva;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A33606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A33606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C74B606A31B;
+	Wed,  4 Nov 2026 09:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C74B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=by0c4k/G
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1adbf62dd31so731893c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:59:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793786385; x=1794391185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kVV+NwTV+9ZC8EqM9XWPxOExxnVbvCg7pip7E4xE4dU=;
-        b=by0c4k/G8PDiSTyd8V8QTZUxGYbRRFcRKl82h5qnXoTgfKo0vA+mUDh6kR5bVxygZ/
-         bv9B2U0ziou9pEVt2+CcJXB946+SaYN1P/l0s6+O6e6SyXdgKZbXjeVACwDb3tgMXG8Y
-         DqxoDy2h+bywhFbX5P6j6cLTaYXpPfZz0uDPfzT8mpoZfVjK8ZXegEgQ6maa71AiCxg+
-         ZcakC+uC2+gVBHZEJhVw/d408RRh0mANBEyXuLqZDK3dUtO4SUVgdGi6DU0Qk99rldiL
-         R6P6+vSoXRgCiLlWN2nk46QewI41qbNS7S9eaCZegKyIFwyZoUO1rHRcf1WKhzgn1tW3
-         en2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793786385; x=1794391185;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kVV+NwTV+9ZC8EqM9XWPxOExxnVbvCg7pip7E4xE4dU=;
-        b=zQcsdhDX65IPkwquYcVTsgPPaeeGubnBZkD30NIH5OYgBI/FOMdLeT+yhKM/MqEnMe
-         bkPVmDgi7Hl3R8pfEC0U13Q29tAs3sy0JHRvoM4fOKzMA2pz3bGDKLTr0CyhdZlKKWDI
-         wMuy9aclJHwtWGsqhvI4TRHa3WISoCpqDyhlVx1KM+gb+X6clc4dT/lRZTIqcX+iZD0t
-         pGsPG1NA4wClTd7XXsprF/gUkfm7Nic7LlbCp1183uRW5LrRDscMceB9b8jy3E11M/mQ
-         8fKAKxZt7Qv0MlFXXXR4l7Y/X6yDER/4uT+nzJnUcr8dxM/J3S4jWRHBZNoJ0cYXzR5p
-         PalA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0BY90WmiOX4rEr4XGGtHwHqA5N4dkK/cBn2RIr6YWWXxaIoeFSUuBUrpqplMs01Pp1TwbTrF2sPrQG6s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KUdsq14naUsOxKj2azZQ2DMVEsrD2rKGc+TJLOoJ4XM6d0soK
-	wnXzp0e3ONsyVLskSUme8GluccqxnafyGp6hmn2/fooIpg6gWL5jSlRt
-X-Gm-Gg: AYBFou0WnOMrkES58NjM2GMMpgji731jKcRS85xSpzGqKLF+lboVdb3X9oPlpdcehgQ
-	UWBY9BICNRJbJZ1P6lSwDorLS5JAO4voCuaW99Fi0+244HMwWyCYkkv8ORn57gubD7iZBJkmz0l
-	5XYS+QYv0V9CUiCt3gBuzoq5x3qxpxqcfEvb/TavRBVObxZgCb52Wg3sMuuvWTj9a++iBFTtvPl
-	+IdB0ADoMkdGRVSj0JYQOIKzFEeRBzf64/1avtZc+XfjGFvcnH4p9dlxo56tjxgIT12QRhLENg8
-	1iKo2tOVc+NH1fRX1Ac4jCl5vbo7U+tWtjH5g4rgHDROnM1MIWT9G8obYUU1eJItF4DgVt0MMjW
-	XZJdq60tdRhNwA294ZDroVeT2yEAPjbfTUZiE+MuUNcxNNd2ElTVMf9MiAsP+bg9eQB5wLPfBz0
-	JcwaswQkkz5llkpoQqxy1eZN9uKaaIbKjw3C3zvtD/aW/YzhIAhlSy5XoA9ifcNXpBFqzhg5IhO
-	ABpqp5c7QNaQcLz1oEA8jp9VxusmUknIlyyvJSIz+u2Jt1DN4vewDD590byPNbwn4djTOsITP3O
-	wHI3x23PwsHmnEjlXqCEE1rFRhTbtPRie8kOI67NLvePFSU=
-X-Received: by 2002:a05:7022:ea56:10b0:176:a225:e364 with SMTP id a92af1059eb24-1ac5de547afmr23249910c88.35.1793786385435;
-        Wed, 04 Nov 2026 01:59:45 -0800 (PST)
-Received: from localhost.localdomain ([121.101.131.247])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm6318999c88.3.2026.11.04.01.59.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:59:45 -0800 (PST)
-From: Amir Hanip <killdeath104@gmail.com>
-To: barnabas.czeman@mainlining.org
-Cc: a39skl@gmail.com,
-	abelvesa@kernel.org,
-	andersson@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	killdeath104@gmail.com,
-	konrad.dybcio@oss.qualcomm.com,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
-Date: Wed,  4 Nov 2026 16:58:06 +0700
-Message-ID: <20261104095806.18945-1-killdeath104@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <3ec43b1b00bca7506c1ca678c118f8c2@mainlining.org>
-References: <3ec43b1b00bca7506c1ca678c118f8c2@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oTuG6hva
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 924304E413F7;
+	Wed,  4 Nov 2026 09:59:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 57CC760770;
+	Wed,  4 Nov 2026 09:59:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D1C8103291CE;
+	Wed,  4 Nov 2026 10:59:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793786388; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=y4W1eE8E1/91FCr6e2Z/bZGYHOBtRy+Y9cuTbiFyZt4=;
+	b=oTuG6hva+dMWSHf42Vh9nNdVHHDPqd/uQJarO+o6MJbQe7Y4hdi10We0KJ8Cz0dt9YblEl
+	BHbPitgMJ3mdZafKt4RYrZnobKnGm3O7GfHMaF7isrrsudiwjfZc/uDMMYvhC1gmhiNegT
+	8glTxmSqzTtIndmQogvkAXJMiLx0QYQ1Dp+QWnK51gNtPKSctMHtAdaTu1QeQrKFs3+33G
+	QW2WpcegVaua5FJnJIgQiWEwd6YAeH8Tzfz0we3X77GpUpD0gfLHLTCFfujfiCZnL08JCU
+	hUf0xz9rVdHQBHptwnKfyzbnFsTbtqS3crdy7Iefj1x6tVFIR4wbEuqMRVqBLg==
+From: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
+Date: Wed, 04 Nov 2026 10:59:33 +0100
+Subject: [PATCH bpf-next v2] selftests/bpf: port test_ftrace.sh to
+ test_progs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,20 +63,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261104-ftrace_in_test_progs-v2-1-45363230d228@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OzQqDMBCEX6XsuSlJxAo99T2KSNxsdEubSJKKR
+ Xz3+nPtcZj5ZmaGRJEpwe00Q6SREwe/Cn0+AfbGdyTYrhq01FcldSVcjgapYd9kSrkZYuiSsKW
+ rpNFFIQ3Cig6RHE977QPawQlPU4b6cNKnfRLmrXXL9pxyiN/9wah24hgr5P+xUQkpjCklltYqR
+ Ly3IeQX+wuGN9TLsvwASOD9mtYAAAA=
+X-Change-ID: 20261027-ftrace_in_test_progs-d5f70a2330ac
+To: ebpf@linuxfoundation.org, 
+ Bastien Curutchet <bastien.curutchet@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 02 Nov 2026 21:11:33 +0100, Barnabas Czeman wrote:
-> I have checked it seems lemon have same adsp region like citrus.
-> `pil_adsp_region@53800000`
+Commit ff205766dbbe ("ftrace: Fix function_graph tracer interaction with
+BPF trampoline") made sure that trampolines generated for tracing
+programs did not collide with the function graph when we are returning
+from the hooked function. The series bringing this commit also came with
+a new test ensuring that the kernel does not crash when executing BPF
+programs handled by trampolines while the function graph trace is
+enabled, but this test is a standalone shell script, hence not executed
+in CI.
 
-Thanks for checking, Barnabas. Where did you see it for lemon, in a
-downstream DT or in the stock firmware? If lemon's stock layout also
-starts at 0x53800000, the 0x53400000/0x2600000 in the lemon DTS may
-be worth rechecking.
+Convert the script to the test_progs runner so it can be executed
+automatically by the CI infrastructure. There are two main options to
+port this test:
+  - just enable ftrace during some existing trampoline-related tests
+    (eg: fentry/fexit tests)
+  - create a dedicated, minimal test with function graph
 
-I will keep the ADSP carve-out per variant in v3, since I cannot test
-lemon. Adam, if you can try lemon with 0x53800000/0x2200000, the node
-could move to the common dtsi in a follow-up.
+The new test adopts the latter approach, with a smaller scope to keep
+execution time reasonable, while reusing an existing
+fentry/fexit/fmod_ret test. Despite the few asserts in the new test, the
+actual goal is to make sure that the kernel does not crash because of
+some incorrect stack frame skipping when both the function graph and
+tracing programs are running.
 
-Thanks,
-Amir
+ftrace is configured through a dedicated ftrace instance which is
+dropped at the end of the test.
+
+With the new test integrated into test_progs, drop test_ftrace.sh.
+
+Signed-off-by: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
+---
+Hello,
+this is v2 of a small series aiming to port the test_ftrace.sh script
+(testing that trampolines and function graph behave correctly when both
+are enabled) into the test_progs framework. The test is heavily
+simplified following Alexei's review and suggestions.
+---
+Changes in v2:
+- use a ftrace instance rather than global ftrace
+- drop fgraph filters
+- drop custom ftrace helpers in favor of direct manipulation in test
+- drop custom bpf prog, reuse test_modify_return directly
+- move test in existing test file (modify_return.c)
+- make the test parallel (drop serial_)
+- Link to v1: https://patch.msgid.link/20261030-ftrace_in_test_progs-v1-0-aa50c5dd1ccc@bootlin.com
+
+To: Andrii Nakryiko <andrii@kernel.org>
+To: Eduard Zingerman <eddyz87@gmail.com>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+To: Martin KaFai Lau <martin.lau@linux.dev>
+To: Song Liu <song@kernel.org>
+To: Yonghong Song <yonghong.song@linux.dev>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Emil Tsalapatis <emil@etsalapatis.com>
+To: Shuah Khan <shuah@kernel.org>
+Cc: ebpf@linuxfoundation.org
+Cc: Bastien Curutchet <bastien.curutchet@bootlin.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+---
+ .../selftests/bpf/prog_tests/modify_return.c       | 32 ++++++++++++++++
+ tools/testing/selftests/bpf/test_ftrace.sh         | 44 ----------------------
+ 2 files changed, 32 insertions(+), 44 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/modify_return.c b/tools/testing/selftests/bpf/prog_tests/modify_return.c
+index 4661d77ebdfc..15681b49f86f 100644
+--- a/tools/testing/selftests/bpf/prog_tests/modify_return.c
++++ b/tools/testing/selftests/bpf/prog_tests/modify_return.c
+@@ -11,6 +11,10 @@
+ #define LOWER(x) ((x) & 0xffff)
+ #define UPPER(x) ((x) >> 16)
+ 
++#define MAX_INSTANCE_PATH_LEN	128
++#define TRACEFS_DEFAULT		"/sys/kernel/tracing"
++#define TRACEFS_IN_DEBUGFS	"/sys/kernel/debug/tracing"
++#define TRACE_FTRACE_DEFAULT	TRACEFS_DEFAULT "/trace"
+ 
+ static void run_test(__u32 input_retval, __u16 want_side_effect, __s16 want_ret)
+ {
+@@ -61,3 +65,31 @@ void test_modify_return(void)
+ 		 0 /* want_side_effect */,
+ 		 -EINVAL * 2 /* want_ret */);
+ }
++
++void test_modify_return_graph(void)
++{
++	char instance[MAX_INSTANCE_PATH_LEN];
++	char *ftrace_dir;
++	int ret;
++
++	ftrace_dir = access(TRACE_FTRACE_DEFAULT, F_OK) ? TRACEFS_IN_DEBUGFS :
++							  TRACEFS_DEFAULT;
++
++	ret = snprintf(instance, MAX_INSTANCE_PATH_LEN,
++		       "%s/instances/bpf-XXXXXX", ftrace_dir);
++	if (ret < 0)
++		return;
++
++	if (!ASSERT_OK_PTR(mkdtemp(instance), "mkdtemp"))
++		return;
++
++	SYS(out, "echo 'bpf_modify_return_test*' > %s/set_ftrace_filter",
++	    instance);
++	SYS(out, "echo function_graph > %s/current_tracer", instance);
++
++	test_modify_return();
++
++	SYS(out, "grep -q bpf_modify_return_test2 %s/trace", instance);
++out:
++	ASSERT_OK(rmdir(instance), "rmdir");
++}
+diff --git a/tools/testing/selftests/bpf/test_ftrace.sh b/tools/testing/selftests/bpf/test_ftrace.sh
+deleted file mode 100755
+index f5109eb0e951..000000000000
+--- a/tools/testing/selftests/bpf/test_ftrace.sh
++++ /dev/null
+@@ -1,44 +0,0 @@
+-#!/bin/bash
+-
+-if [[ -e /sys/kernel/tracing/trace ]]; then
+-    TR=/sys/kernel/tracing/
+-else
+-    TR=/sys/kernel/debug/tracing/
+-fi
+-
+-clear_trace() { # reset trace output
+-    echo > $TR/trace
+-}
+-
+-disable_tracing() { # stop trace recording
+-    echo 0 > $TR/tracing_on
+-}
+-
+-enable_tracing() { # start trace recording
+-    echo 1 > $TR/tracing_on
+-}
+-
+-reset_tracer() { # reset the current tracer
+-    echo nop > $TR/current_tracer
+-}
+-
+-disable_tracing
+-clear_trace
+-
+-echo "" > $TR/set_ftrace_filter
+-echo '*printk* *console* *wake* *serial* *lock*' > $TR/set_ftrace_notrace
+-
+-echo "bpf_prog_test*" > $TR/set_graph_function
+-echo "" > $TR/set_graph_notrace
+-
+-echo function_graph > $TR/current_tracer
+-
+-enable_tracing
+-./test_progs -t fentry
+-./test_progs -t fexit
+-disable_tracing
+-clear_trace
+-
+-reset_tracer
+-
+-exit 0
+
+---
+base-commit: b0e67f50519538b1b4c6364edc7811f482703f75
+change-id: 20261027-ftrace_in_test_progs-d5f70a2330ac
+
+Best regards,
+--  
+Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
+
