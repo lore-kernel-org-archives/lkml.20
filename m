@@ -1,81 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812444;
-	b=4uVmwnuu44hSmd0u4NsDH7j9acKSvL2mJnGpIAzWe01H5RfpeQcSe3cpiyp//KTXBnm8
-	 kNtkvrwDoH9s7fgIYoyWb/l/W8bsFHVszLKOajM5XHVRrxZUSXbRFfvBf1+02NyyyhEGJ
-	 VwEH38NgoJkFb9ugHqkyG9zQCAJG6f+4ufVWDhsGo0FD2gV7hi3J/A2uBecN13PBqylmv
-	 QZ/0HCI9HwiuRFzEtiIpMob0I3CKS46ps1Se4vWv3PlZgIBf9Swb1K2bke43P0C8ak2uT
-	 TIVUlnEZBiOc62Ca7eldK52rkLOStHLgTxinSKz9/e5cqOrhZ5/Os+Px6Ws3lc8+4AA==
+	t=1793812453;
+	b=u3c/bVjgRqtUIN1+cCvFXUPWlrWwhyinlyzESGK/qID0TM36rYDpLRTFvlzTWbWJ5i24
+	 7tavyyt6HZ9EPbQSIwLjFuzMs/N7CLhgFOUoLoWHiwkGl5vu+NA1FM8giW2fWc2ipcTXo
+	 YFOZCk2dgjGPjwpGsDLYQ5JgzXWaON63lbETPsZe03ZSlqXFnnNcspopejdLsQAQDqyVh
+	 OzdbIGG5JJK4m8IeB3UZ22Ab28QXt5tC7F8a5SAu8bDSYQBBkHFZ/SFFZgvmKf9xXVZKt
+	 B5Qoecaj7TqfPbnjvd1mT9/iIAwRLBibds5b9fwyyxZXriX4hnw5cCPHwe9HP2VH/Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812444;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+oa80km94hmaMeq/3OIriRDTZZb4ODl9Ey/VzJCTaIE=;
-	b=o+1WgeFDs23Aj2KQA0IbfomqsroTcdcmIz6dM8HqxAgm8efrr3PABcLF/tR4O/kq4DMd
-	 sHtmkcHRPyHMTYqaf06CZut43J3ATzb3jabCqxmcxgjEhaNL/kg04IcgV0ESFCDGXGe4h
-	 Uuc9K9qKbkTwkWxynFmgVJSLf1Uc9e5uTQcYkyCFeBjva4sBiXA0IauH3JnKJVILmfiLZ
-	 AF8m/pOeWBth/VxFZDFQ6iQxaoYXpUgWkiDS2he2yGCDeWm6/ROH+iKaQtlEFaNk1iFjF
-	 LmQAFFaDSyeSvDB7UA6ppMNgCqRpAOAIhpW2Ljx2mYFHhkNnLJDksKR34iwteBAZWmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812453;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=UoFgbUFr390e5Xu0VCDxVTfIqMC+VP5cBukPS2Qt+oc=;
+	b=B7+W5dh7dXdCGVIXW3/w99iKV1nQjJUL0rLw4XLikGA07zhmnmR7dbiXNHBBQavQXdSc
+	 bILdlRpWOwDtGvUwFKsu/czAyZjTTw0Oodl+SmHW0zL+I+scr2bXG6+NBHuflxjWLFvBo
+	 RsF9LusNEUcEtuIRHfeQF+QCSc1hDm5cqnWCMsDukkrAjUJIEf9wHuIzm2syCyyFPzwPR
+	 Kah9GIr0yGRYZvn/a184PGPwH4x1Vqi/170Wd8OkszPzCAgl0KNMGJloSxpvOlrgg6a74
+	 V1jcVGMxIum5TlcFgSQKO3TEh96O5Q95IBvf2SIlZlnUQLVCpuRbU5/774AP6NsHPrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qkknJySG;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQh2M+72;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52341606A326;
-	Wed,  4 Nov 2026 17:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52341606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D653606A31B;
+	Wed,  4 Nov 2026 17:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qkknJySG
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fi2TX959075;
-	Wed, 4 Nov 2026 17:13:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=+oa80k
-	m94hmaMeq/3OIriRDTZZb4ODl9Ey/VzJCTaIE=; b=qkknJySG/0ltIHzczrI5cM
-	d76ZlbL6GdOHAvrjl8TFsWZoU/5SBDOlzF7QNPxvxcSTYyYJcw/QXn9mwptXF8wh
-	+ssMFRbvNEzatoLvC5PuCVaAOCJkD0gkQ7Ucg5KUGAzgNaaa7+r+w5Det43I4QTb
-	Ycja1Ct0zrnfEy3kOpCVTvK4At/HSHm0nHDlYcwS1X8bIhXSu3EKVzEP+/FDThJR
-	mcVDyKQkmThgn8ZhdAHcb4k9Era0LHrPq6/hN87CAjuWIKq+IC+nHJp4CTZl8HPr
-	uLJkhYxynhS3FRYgcA8t2L8bzvCohwgwJtAKCz5sTIXE5/7QOBPa+axe5ZO/m/Ow
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826w6mb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 17:13:53 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FnxmJ204445;
-	Wed, 4 Nov 2026 17:13:52 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqf0gen63-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 17:13:52 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4HDnKZ52035964
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 17:13:49 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EEFE32005A;
-	Wed,  4 Nov 2026 17:13:48 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C43202004B;
-	Wed,  4 Nov 2026 17:13:48 +0000 (GMT)
-Received: from [9.68.29.38] (unknown [9.68.29.38])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 17:13:48 +0000 (GMT)
-Message-ID: <0551c1e6-f456-42d1-b3ea-ce22fd9bd5ee@linux.ibm.com>
-Date: Wed, 4 Nov 2026 18:13:48 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQh2M+72
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499331F0093A;
+	Wed,  4 Nov 2026 17:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793812453;
+	bh=UoFgbUFr390e5Xu0VCDxVTfIqMC+VP5cBukPS2Qt+oc=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=oQh2M+72G011a64t1DPXJOY1n2qjCueRpbSlNGk381Yw80jocTqJFuwhNo1od1Hpr
+	 aAt3mHZXGj4EKpHai9EZCvyS1ifQtjXR9gXvNouxi4xF/T5ASBDOJjXIQ1tGjNp27f
+	 zaLEEK2T/X9tvVigRBPwxf43vVqmrwHICQN+k7PMan+PuA/4/wCv+E7rZQjmDpMnYA
+	 kvjlwA6h90nrEIuZW/nIYZoIFY09sT7SfbJKXqqaA0Vh+sBwY5vnwyAluPB3VLIQ83
+	 1+eMz/zGaa77SNGlqVVv0xnlsUDbag2kLBgrphuLaNfW0r3CUAjqydvCTxH3DJfDHn
+	 2PAeDwDzVrO2g==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 03788CE091F; Wed,  4 Nov 2026 09:14:13 -0800 (PST)
+Date: Wed, 4 Nov 2026 09:14:12 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] srcu: Add list_splice_init_srcu()
+Message-ID: <9f8c94ff-29e3-4ea5-b9ec-b04b2bc21b1c@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
+ <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,117 +68,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/2] net/iucv: do not count the SHT frame against
- the receive window
-To: hexlabsecurity@proton.me, Thorsten Winkler <twinkler@linux.ibm.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: linux-s390@vger.kernel.org, Nagamani PV <nagamani@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        Hidayath Khan <hidayath@linux.ibm.com>,
-        Simon Horman <horms@kernel.org>
-References: <20261028-b4-disp-dd3e4ebb-v2-0-3747658d59bd@proton.me>
- <20261028-b4-disp-dd3e4ebb-v2-2-3747658d59bd@proton.me>
-Content-Language: en-US
-From: Alexandra Winter <wintera@linux.ibm.com>
-In-Reply-To: <20261028-b4-disp-dd3e4ebb-v2-2-3747658d59bd@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: MbLNqIDSx1KRLp7c3dLDbLtkC7omfo3e
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2OCBTYWx0ZWRfXyeqbxfpWA1mY
- YWCKxJcuR6RsS/c5PgZdRXVayoFBIr/TCaUKjznxLp6bYRXs/Hw+c3LaIT4LCxzCOV9z9mFbLmA
- I+1vy3fjpbGyd257s+Vr9Q2ZbqCR2RtQnuLSZzbMJHp1pugH0PClsgH1fuoZQvNzbv5wwKd18fm
- EXUOiMNRjb4tkUsMrxJc2u2oHwmtAn9TRLQwkmV68uIx8XTr5Cu3cRnBIFxfGb794PcOqVoHO3d
- RufX/2BXSYrblMA9PBtwpetSu+bwH9HVYVnKDALBJMmGg9EdP1FJPUZ5YsusILmD3w2+e4ToNBD
- ZdLyUB34lXaNYUZ1IkEsk5Tcf4iim+3MAaSdZAh/xfGterO9niof7PxLxHJ759V/Ek+BO94Kkr0
- ysprhcIRc3UgI251fOGApeMoRnBZE9C5eDM6enISoyGVv1HsKSIHW/t1Wy+lyLVHqrzPmXdf7GV
- TQEBsK/7yhTmMWHGkJQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2OCBTYWx0ZWRfX8Du7jndDImgJ
- ysrR862IiCfIPAr9+j6WsbHLngtU+no7kbfFHrMlq/amJHuPgMB0gtslievO05l0Cg7UCTJ6DVa
- zgs71mhrrzxUyOzLfw86+1FuS6qvYpA=
-X-Proofpoint-GUID: MbLNqIDSx1KRLp7c3dLDbLtkC7omfo3e
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aeb67d1 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=mUOIDo_B9oOLisAdC-oA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
 
-
-
-On 29.10.26 05:46, Bryam Vargas via B4 Relay wrote:
-> From: Bryam Vargas <hexlabsecurity@proton.me>
+On Wed, Nov 04, 2026 at 01:30:39AM -0500, Qiliang Yuan wrote:
+> list_splice_init_rcu() makes a list look empty to new readers, waits for
+> the current ones with the given sync function, and only then links the
+> entries into the new list. The sync function takes no argument, so it
+> can wait for RCU readers but not for the readers of an srcu_struct.
 > 
-> iucv_sock_recvmsg() counts every HiperSockets frame it consumes in
-> msg_recv, the SHT's empty one included, while the peer counts only what
-> sendmsg() sends against the window it was granted; the SHT goes out
-> through iucv_send_ctrl() uncounted, one per shutdown(SHUT_WR) call. The
-> next window update zeroes msg_recv and takes the surplus with it, but
-> recvmsg() sends none while frames wait in backlog_skb_q, and an SHT read
-> in that state pushes msg_recv past msglimit: WARN_ON(1) fires, the socket
-> is closed and the reader gets -EFAULT instead of EOF. A peer that sends
-> past its window reaches the same WARN from the network; with
-> panic_on_warn that is a remote panic. The SHT frame dates from
-> 82492a355fac, the WARN and the close from 800c5eb7b5eb.
-
-I agree with the ananlysis, at least the WARN_ON needs to go away.
-I will try to reproduce it.
-
-
+> Passing synchronize_rcu() for a list read under SRCU still builds, but
+> leaves SRCU readers on the entries while the last one's next pointer is
+> moved onto the new list head. nvme_remove_namespaces() does this today.
 > 
-> The SHT reaches recvmsg() as a zero-length frame, like a zero-length
-> data frame, so test the length: count only frames that still carry
-> data when the read consumes them (rlen; a partial SOCK_STREAM read
-> requeues above this point, so each data frame counts once), and close a
-> socket over the window without the WARN; -EFAULT is kept and nothing is
-> logged. 
-
-I understand that after this patch this path can only be reached /
-reproduced by a modified sender?
-
-A zero-length data frame that reaches recvmsg() sets
-> RCV_SHUTDOWN, after which afiucv_hs_callback_rx() drops every later
-> data frame uncounted; the one slot this patch no longer credits for it
-> is lost like the slots of the frames dropped after it.
+> Add list_splice_init_srcu(), which waits for the readers of the given
+> srcu_struct instead.
 > 
-> The close over the window purges backlog_skb_q, not sk_receive_queue,
-> and nothing resets msg_recv; once empty frames are not counted, a read
-> of an empty frame from that queue after the close would skip the
-> -EFAULT branch and reach the window update, where iucv_send_ctrl()
-> sizes the skb through the cleared hs_dev. Send the update only while
-> the socket is connected.
+> Cc: stable@vger.kernel.org
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-Shouldn't the 'HiperSockets receive path with the socket lock'
-prevent this?
+I am not inalterably opposed to adding a list_splice_init_srcu(),
+especially if quite a few more users show up, but here is what I was
+expecting people to do:
 
-[...]
->  			}
-> @@ -1357,7 +1360,11 @@ static int iucv_sock_recvmsg(struct socket *sock, struct msghdr *msg,
->  		}
->  		spin_unlock_bh(&iucv->message_q.lock);
+	static void synchronize_my_srcu(void)
+	{
+		synchronize_srcu(&my_srcu);
+	}
+
+	...
+
+	list_splice_init_rcu(l, h, synchronize_my_srcu);
+
+We need at least six uses of the above idiom to break even on the line
+of code required for introducing a list_splice_init_srcu().
+
+							Thanx, Paul
+
+> ---
+>  include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+> index 1a8a465a5650d..d4dcaeb83e2b6 100644
+> --- a/include/linux/srcu.h
+> +++ b/include/linux/srcu.h
+> @@ -18,6 +18,7 @@
 >  
-> -		if (send_win) {
-> +		/* iucv_sock_close() clears hs_dev but leaves sk_receive_queue
-> +		 * readable: a frame read after the over-window close must not
-> +		 * send a window update.
-> +		 */
-> +		if (send_win && sk->sk_state == IUCV_CONNECTED) {
-
-without the socket lock, this can be false the next cycle, right?
-
->  			err = iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
->  			if (err) {
->  				sk->sk_state = IUCV_DISCONN;
+>  #include <linux/mutex.h>
+>  #include <linux/rcupdate.h>
+> +#include <linux/rculist.h>
+>  #include <linux/workqueue.h>
+>  #include <linux/rcu_segcblist.h>
+>  
+> @@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
+>  void synchronize_srcu(struct srcu_struct *ssp);
+>  void synchronize_srcu_atomic(struct srcu_struct *ssp);
+>  
+> +/**
+> + * list_splice_init_srcu - splice an SRCU-protected list into an existing list
+> + * @list:	the SRCU-protected list to splice
+> + * @head:	the place in the existing list to splice the first list into
+> + * @ssp:	the srcu_struct that readers of @list use
+> + *
+> + * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
+> + * instead of RCU ones, so that none of them can follow a next pointer
+> + * onto @head.
+> + *
+> + * Note that this function blocks, and that the caller must prevent any
+> + * other updates to @list.
+> + */
+> +static inline void list_splice_init_srcu(struct list_head *list,
+> +					 struct list_head *head,
+> +					 struct srcu_struct *ssp)
+> +{
+> +	struct list_head *first = list->next;
+> +	struct list_head *last = list->prev;
+> +	struct list_head *next = head->next;
+> +
+> +	if (list_empty(list))
+> +		return;
+> +
+> +	INIT_LIST_HEAD_RCU(list);
+> +	synchronize_srcu(ssp);
+> +	ASSERT_EXCLUSIVE_ACCESS(*first);
+> +	ASSERT_EXCLUSIVE_ACCESS(*last);
+> +
+> +	last->next = next;
+> +	rcu_assign_pointer(list_next_rcu(head), first);
+> +	first->prev = head;
+> +	next->prev = last;
+> +}
+> +
+>  #define SRCU_GET_STATE_COMPLETED 0x1
+>  
+>  /**
 > 
-
+> -- 
+> 2.43.0
+> 
