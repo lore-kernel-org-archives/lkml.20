@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784989;
-	b=QnTGzu9lL45uP/47MAcXrIPzdN6+72/fDYDb39LdwMXbyLxiVSSd4UNriuKD460TtjLv
-	 fmDyC0qxnsezjfCkMwK+Ah7aAJP36zqoWuyZ9gG7DFSaYO+PybHbt3Y7DER7OENPnHDGx
-	 XzWhULcPZhfnl4aCogvgXb41BcdeviiP2W89k7UZ9ahDq6MtbMoa+ud78++6K1M+vhIhM
-	 MrEqbwMQ01YxXRhW9BT0MFJm9VCTV4zTorwCefpzDqGKUprUgXvkoQnolY3kOkJeKxES2
-	 hSNyZahN3t+mXpeCztquP/QZBS5thQLeVQYt0uR/FiNFaOzmZ6QK+9ZASYedQVOTyaA==
+	t=1793784997;
+	b=VgSsQ/MmStIi+gEKS1mIcQiFbeiRpVkCozDXd+2rI8sA8xInCop06rgVzR9w6Wf7tAQJ
+	 h2iEAbvIGT9QfZRjSEzvnQUGyP3SIWsnJjqhnipGj+SwGV82k5PySSST6XJYQAitl+Wpj
+	 vGBLancum3shdTCLjbhOG6GI2Vo4TebyxqgtZXbcT/Re4de4B3OtM2/Zp2IGX96IdSuiy
+	 JGwVcn56SFoWHYW/nw0auvxn4YU7vU95l3/QXr0u8CogkzEFhUuyoiy/z7aCiNiQSvqam
+	 fuHsO/dvd1x9x6SNKAvWOqIjef9BZI9TjG70JUUR1tXt9K4BP31eLz9Qxu9k7UfRFlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784997;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=lTXUcqEXN9fhbWBTgpN5+0qokRh4JVbIacGfVHJnplQ=;
-	b=2BNGW7fcr2SriIKtCOgei7Hd2EkIZuNKyEBkQ0FCNFuoh4A+DMBo5/F1o9mMDbZfq5zX
-	 N++yGSSuhJljHIJokH3NZmQa/lkzQYOvMDBXaudAiyzA+Z7E84gnOIQ72zbraIoHZxo30
-	 wtzogRbCccYWjQzmS7VBfdorQvtONTHfOXlVxQUCWk222rjGUAiBogAc6MBmRAmBzbKIV
-	 K6IIXSDvpvm1y1yNAZbxGkYgB2OSyx/G1ZV88NlxrhwngE4xhkQBzKDu5TgA1KL0bIWlm
-	 8He7P8dMYXZaxXV6awKW5BJxqfU+BaBrNkrnyLmg6zUVwU33ulDdu2ppZTeIOihBHlg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JsLxVuR1g1JSvibC9g9YzUf7PO6/MZgJEB3OXBOD4y4=;
+	b=JFhCqahkdWrLIXphhYyviOCY+uBlXOTGFbtswZcrS+zeLytvyrDHgAjcR8r7CoLwAz72
+	 3e20GTrSS8QxYlcxlmRJNhpALcHdJu2Np5hHttZqnv8R768Be8bHZN16Z1eWWvMXtfGh2
+	 5Z+0EQlZ00NSSTjvi8HF7+PaO2PDYeFR138rO9R0Z5R5eJ7L+eAV1XnLCLvBdrNjTY8gY
+	 HiXbRZUCQL9Ecm9HC+6qbdxYhneXGOFZkiwOJXeMUY3Ge8VjMTJfKxX7kHNW3YB3zvmSv
+	 NwRtWNgpcH07XL341aVEWf6S/f0Lv1zLEx6s9B+HCfPBpf/8XT3G1vFY9GuS8BUID4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GmGCxF+s;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stuoRtoR;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030C4606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:36:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 030C4606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C81606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31C81606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GmGCxF+s
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so345035a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:36:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stuoRtoR
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso198386a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:36:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793784988; x=1794389788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lTXUcqEXN9fhbWBTgpN5+0qokRh4JVbIacGfVHJnplQ=;
-        b=GmGCxF+sHS82Xh/DPYUY5pfW0A39hyNAQWMZR3S11K6S959NrAiKn5Gvj8B/SUSnxV
-         mauKncLIoCa/dTNCYroUkf9L1fq1lSvXHibiZVCT3CPMr5a57LrKFvLvxWKSK0LenaP3
-         l5ZAGP6tXncoBnKeYMDAHuVEvVTcVRD8Ac+0zfaYf1toBl3j4UKp+CAEVpuhSE+YBw4M
-         qrQ+9OqHbc7RJhCMAPIIrnbnq2t3pDzUm3VijPuGxR7zntnfv0X4pFpTsxUq4ABKTlrl
-         ckJqwld9+PfhNeSHBFvKkDzOSncU0XZTBYXrS0xqpdgTKXEeatgsPMZHSD4TwJtu+ojq
-         eVnw==
+        d=gmail.com; s=20260707; t=1793784996; x=1794389796; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JsLxVuR1g1JSvibC9g9YzUf7PO6/MZgJEB3OXBOD4y4=;
+        b=stuoRtoRidGUEY/NHOH/VkhsNHY7nu3HMo3pbT7UcNI9Ohmpgu9UEEOR5dYfwWVoIK
+         asJQn+ju/y/hp6GKiUnWsd4jDFlyNfyJJ1xhQrXMEkut1r+G0VUJjCdKHQrXBQVdUQTm
+         RCGuOjVlPXySS3wYhL/aIud3d6oOivlTqYlQ20AgFej+g4nfpOilVKbCNk10LdCeb268
+         hp4AZ2QhkH2UAlddVkjD2T+bHQcFASyZkIHqvfRLEqgurtzx/o8GYhmfEA3DCcDPxzxS
+         /cjPToH18Y3bg5j0QILen2C3d8KRDl9Y2nkRRwKcDKrN+LrBd4W3h6fIHa1Qj1bdeF03
+         MyDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784988; x=1794389788;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lTXUcqEXN9fhbWBTgpN5+0qokRh4JVbIacGfVHJnplQ=;
-        b=nYVeGQwF/ByBXO+qxpoHLMQ5riqOTPGey0oPGBQTbxMfbrgFN4FVkmXzOaEWg1bygX
-         nsGc7LpPQ2cqGw+QGfPtvVDthUYFT8yQFjJnPgCq0L2gj3KktgXK2DEFpqesNFTcH8X6
-         EysrIWmiFjatlBpSFkF8mYRdBduyIFC2Up5ghoxU8zKzvhskBGeI6TlXy6kOdW5l+L4L
-         rj9ojerMY3fKI/jPpcBH0c8JI4O7OtV/GOIT1C+3iw6BQCo7JGssKftlBHV/InADjC5b
-         ywGIsnVMz5csTkO2cGX53wmai48mPB4zI7O64f/E6k4IAv9utaRk76MHzN8t46sYkAN1
-         SBaA==
-X-Forwarded-Encrypted: i=1; AKwUvByMrPzGiTQV3wN1eS1OYvyiEOhLzAfoBJOIFWn+3YdhDoHlz/FJyVm5RZG2QrtkgHZzXfuhKcHYOiuBrng=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KM33o+bio9BBC7rDFkDPvcZpbIzFK6oxB6i9MlJcOYNQ546fH
-	4tnWkWJmwZ8oaLGh5aXJou4hXXtrmPel5xBjecTW9dP/AtRvfeWiUV86
-X-Gm-Gg: AYBFou0Z8gKvvs4nau0NcvgRIma+YXMoZpOO6A1I9/isZSJ5TjoPqymdoY6gogZbilx
-	LolEOWLBALGjuMW2W6gWzSbJOOnSbjMaQIx8TOY14oZru1QxoLxXQiTITvcNeqDdqIbWah1+Zyj
-	3W+C7UchxHIXmfQR6IPpsRGzLdFWSa1wgSLNnbEOSxWdVHEe5FG9NKYHbUJpmGNxNEYSVE+pifO
-	3zXBnMJPeUF567uS1qYk6AokYygry0aNlML0YSWcFk061Mh3J6U6O5+oLAAkEWD2L6r+nCTOkAo
-	sw/o2Z+8p8UByxCEHRZUdVaYZi8goeDbne6ioKTzhNeY3zUkPg7WueQFPUryaPPNvyTs2ZrF1cg
-	OAH8+YRpSMrYGO7fRsPNkslm+Len8qGotq0p8JnsThJeXrzPbSAlEuLOcxlVG9o4Y+U4480ZZCh
-	uoKedN0rqPJFoidEgimuoyCDVtuaCW0d1Whrsuo/BDm4Gq8PDORf0rF5uKEMGkqkMyBgVrpAHhT
-	h8337xpTkFMEI52irKg/bleIjAS5gR8RSWXVtvWJdiXGPg11HnWprJKClrkmiAhkz/qWjvMxxNY
-	qy7DJRWJzRMLf+QUXLWWOnZeNFoxTQ9ShuD2ah5cF/sWwwZxtWWAMQc4AwPaSaELKyTJU/Nt/ct
-	u/B9x
-X-Received: by 2002:a17:90b:2742:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ae897158ddmr13702795a91.14.1793784988126;
-        Wed, 04 Nov 2026 01:36:28 -0800 (PST)
-Received: from evo ([183.171.191.8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944fd80bsm3149967a91.16.2026.11.04.01.36.25
+        d=1e100.net; s=20260707; t=1793784996; x=1794389796;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JsLxVuR1g1JSvibC9g9YzUf7PO6/MZgJEB3OXBOD4y4=;
+        b=H5NNVNmIQ+5d7G6Dfdq5jZiS1oAOx1A4qi59Qe2scr3HI1EM5lPDAYqRodYpMtnShd
+         IoU82qnsAaU4GRPFxPeCJmhCkSbtapO15+QFBB2RdR8C30oKNBJ7RlPvlFRuHfj8JMs3
+         tZPRruiV6tFcJLPWvQ0PHxP0ABkKjorvExLJe7htOFa3yhK8Q/5oTX8AIAZCmogaWfFY
+         uJOUCnvUHeJp7dIzk9zHQbIo/5z746WE6QmYPja0ejHqbdVRbOmJLqL1xG47Jm5UvKxD
+         +5N5j64fMdgrkXwHhTNiE0YMhGWdNxFVpsovkVKcelenateJchc4ia5brUeXsOED7ysU
+         LyIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIHxKxezHKUVVD/LzND7q+LweaGaM/ruW25qi8RLrZqJDQ0v6LKGlqhX9CDZZBawtkp9OfFbozI/MPVi8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jlTvmBO8ikpHGJxH56mx0HsgJ0DcyCPiNpbJVvaRIGeMC3RS+
+	ukGr7mZux6DchFOiq4tzxhK3gyRwIyUaTRz+KJcXZVYwa48rViKtTiT2
+X-Gm-Gg: AYBFou2l620oEMa53aa/rqxrQ56DYBGjNvEA6qg6FuS+vZLXJr4+ozXuBIgzzae2PoH
+	aqC5RA6XVYOcDKx7PumEG0dmh2v4J35b8cVriZ+gy7EMwhIwz/XL763c58RWkUT0sJm+8f5sfqB
+	yyumW5HDMy7sC3G1RHOILiKbzlRAJp9UxMCo3MT/ZnDxvK/kUyUSfNsck1wz22MR+aaPwDjQtp5
+	PYlUPGk/LV5wevqJdjHFK07tVTr2+OmBs0g61VfMIf6t3i4L4e76aJy849YeVfbS7Zlta16+Tko
+	73jfNQRtv3MnkaAJnyedCRK3gG1NDQuVEuPku3k8vaQ9bRfqQ9on+gWwU4RnRALzrKJsxSNvIu0
+	9OCLoVAyfDPAfIwYKQsyXGRlgtrW3FqDsk9GKOqVxgIoxWqbGJKm11h7UMEHvTlCwJxFHHqeapi
+	2uHymXem9CfPrR4OhBQws6+N0SpvoHeeeD05s+1/R6QMONwrKsAkA2WJhzp7UkMqDKewrFoNRVe
+	s9gHvoQyD/+F81l66tnXgVLgW4jl2KZtjPUeEt6zh4ogo6tZ+k1e4htlvHlKjvivd7fEUqrEaLs
+	Qaih5eazDtUHA4l7p3PSkPmQfOsLCpdLuuqXnVcFI7DIMubnPx71UGpw4LKf4bTwzi07Pk21OA=
+	=
+X-Received: by 2002:a17:90b:4f8a:b0:3a4:ca46:840f with SMTP id 98e67ed59e1d1-3ae896f8655mr12708132a91.8.1793784996534;
+        Wed, 04 Nov 2026 01:36:36 -0800 (PST)
+Received: from umang-Inspiron-3501 ([2401:4900:1c60:e7b2:951d:848a:7f25:3900])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7e087csm8569454a91.4.2026.11.04.01.36.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:36:27 -0800 (PST)
-From: Ambareesh Balaji <ambareeshbalaji@gmail.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: xhci: Tear down host on Reset Endpoint and Set TR Dequeue timeout
-Date: Wed,  4 Nov 2026 09:36:08 +0000
-Message-ID: <20261104093608.2642748-1-ambareeshbalaji@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104101506.5ae19157.michal.pecio@gmail.com>
-References: <20261104012725.147741-1-ambareeshbalaji@gmail.com> <20261104101506.5ae19157.michal.pecio@gmail.com>
+        Wed, 04 Nov 2026 01:36:36 -0800 (PST)
+From: Umang Pokhriyal <umangpokhriyall@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Umang Pokhriyal <umangpokhriyall@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] userfaultfd: validate the whole range before changing write protection
+Date: Wed,  4 Nov 2026 15:04:57 +0530
+Message-ID: <20261104093457.152245-1-umangpokhriyall@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,51 +107,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Michal,
+mwriteprotect_range() checks each VMA as it walks the range.  When a later
+VMA is not registered for write protection, or is a hugetlb VMA the range
+is not aligned to, the call fails after the earlier VMAs were already
+changed.  When unprotecting, userfaultfd_writeprotect() then skips
+wake_userfault(), so threads blocked on those pages are not woken although
+the pages are writable again.
 
-Thanks for the review.
+An unprivileged process can trigger this with a range that spans an
+unregistered VMA.  It hasn't been seen in practice; it was found while
+reviewing the userfaultfd range ioctls with an LLM.
 
-On Wed, 4 Nov 2026 10:15:06 +0100, Michal Pecio wrote:
-> I have long wondered if we shouldn't simply halt the HC on every
-> command timeout other than Address Device. Commands shouldn't be
-> taking 5 seconds to complete. When they do, something unexpected
-> must be going on and it's unclear if the HC is still usable or
-> capable of recovering cleanly when we abort the command.
+Validate the whole range first, as mrwprotect_range() already does.
 
-Your approach is better than mine, which only covers Reset Endpoint
-and Set TR Dequeue Pointer. I am happy to drop my patch in favour of
-yours for 7.5, and agree it should not have Fixes: or Cc: stable. I
-will test your patch once it is posted.
+Fixes: a1b92a3f1498 ("mm/userfaultfd: support WP on multiple VMAs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+---
+v2:
+- drop the redundant error assignments in the validation loop (Mike)
+- drop the selftest (Mike)
 
-> I haven't seen cases when Reset EP or Set TR Dequeue hang but other
-> commands still work.
+v1: https://lore.kernel.org/all/20261102103621.156928-1-umangpokhriyall@gmail.com/
 
-I can't show that these timeouts happen on real hardware yet. What I
-have is:
+ mm/userfaultfd.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-1) A fault injection reproducer. On an AMD xHCI (1022:1587) passed
-through to a QEMU guest, I halt a usbhid interrupt IN endpoint with a
-real SET_FEATURE(ENDPOINT_HALT), then suppress the doorbell of the Set
-TR Dequeue Pointer command queued by the usbhid unbind. Without a fix
-the unbind blocks forever in usb_kill_urb(). With my patch the command
-times out, the host is torn down and the unbind completes. Normal
-unbind and rebind of the same device is unaffected. I can send the
-injection module and test script if you want to run it against your
-patch.
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 87da92526..1b7320d0a 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1105,21 +1105,26 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
+ 	if (atomic_read(&ctx->mmap_changing))
+ 		goto out_unlock;
+ 
++	/*
++	 * Validate every spanned VMA before changing any of them, so an
++	 * invalid range is rejected without changing part of it.
++	 */
+ 	err = -ENOENT;
+ 	for_each_vma_range(vmi, dst_vma, end) {
+-
+-		if (!userfaultfd_wp(dst_vma)) {
+-			err = -ENOENT;
+-			break;
+-		}
++		if (!userfaultfd_wp(dst_vma))
++			goto out_unlock;
+ 
+ 		if (vma_is_hugetlb(dst_vma)) {
+-			err = -EINVAL;
+ 			page_mask = vma_kernel_pagesize(dst_vma) - 1;
+-			if ((start & page_mask) || (len & page_mask))
+-				break;
++			if ((start & page_mask) || (len & page_mask)) {
++				err = -EINVAL;
++				goto out_unlock;
++			}
+ 		}
++	}
+ 
++	vma_iter_set(&vmi, start);
++	for_each_vma_range(vmi, dst_vma, end) {
+ 		_start = max(dst_vma->vm_start, start);
+ 		_end = min(dst_vma->vm_end, end);
+ 
 
-2) One real hang with the same symptom on the same controller type
-(kernel 7.3.1, tainted by out-of-tree DKMS modules). After a Focusrite
-Scarlett Solo logged "USB disconnect", usb_hub_wq stayed in D state
-for over 4 minutes in usb_kill_urb(), called from
-scarlett2_private_free() on the disconnect path. Nothing recovered it
-and only a reboot helped. There was no "xHCI host not responding to
-stop endpoint command" in the log.
+base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
+-- 
+2.53.0
 
-Reset Endpoint and Set TR Dequeue Pointer timeouts are only reported
-through xhci_dbg(), so the missing message does not rule them out,
-but it does not confirm them either. I see USB audio hangs like this
-once or twice a month. I have enabled xHCI dynamic debug and tracing
-and will send what I capture if it happens again.
-
-Regards,
-Ambareesh
