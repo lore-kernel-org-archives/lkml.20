@@ -1,55 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793762551;
-	b=edrMIgsEvpj9k2R0Vi4jrxRQCp4szXYpp4JPQmKhKsavSmump2jCS8CC7/6uc0SXv/GF
-	 EPHYZFwkrYwCFouXtutBt5fF5JQnQjxjhmeEi8H6SB4N7nNc6Y91QPP1BIxqJqyzwV5Wf
-	 mNxR3IH3lV2vzzNIkHa2pCSGXe4PXDuvlVh+zyfa2IA2bNHDUgpiI4sUdEahr7AdEPuR9
-	 Nn/O5Z0DnouvcPelQQod/ZPfek9PwF3FOlwAFwda9S77RwtoOiR1ySJVKJuxmUm9k5qqh
-	 Nkw0I7Hj203/bkzjrheORjsAqsBWDaSxearw2VhkYK/jLuFThWraGI9qcB231b9m25Q==
+	t=1793762698;
+	b=QWAt8Mz33DuXwCvQf3p6TqYQ92kqOOJ419RO+sWT++HZeMtyTecVOd1qkH2pKLNYf/sn
+	 h6Vtl0loDCBHqq0MJ58ykQ3Cr9i3fNNXD82nC606shmISKy2KsJilf2df58FK3+F/KIhc
+	 DQsYCw84kEiZIwhyoYNE9LnmYgUfC9wgevBZH/8Uugoq16QzVvxIP2CaRsMKQ/sPSiMHg
+	 fvcX8C53mIR3CgYc7tZAJRikpw7UyacqF7ZzLdlr2D0paFHgH5+qn72T4CAJpdsLgjxyy
+	 vdIh/R6UGCdPPt5Rq6uP8SPgBmqRqwKIhmHWynGPWI7iiFH/NcIAOlP1+MTp5gfGv6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762551;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qWCFdcjUisnGbX9eq6UHrpBovt78PAdZKtud0fjPZzU=;
-	b=hs8EOObByT975CTxTsnL1ZULEWFLxjz6fU/ph3xsrOAr5+tfJkSQcIMQofUle3zreQ9z
-	 U1NBA74HRMIkvM7ocDmFDHu/4WKL68iL1aLbcBEoIeGdxjta54fU2fYhZeMdsWsTfuOaV
-	 Ysaft7xIEuwAQsZFjk9KoGKloLFhEcKumL9WD2e0A/CygounAjRn6ZJ7wX+zURIlmcMyQ
-	 4eIIFxdBSOiZhTCJZSUexoMeMQ5cjKVQQecTvBmxA1dzSgBuLxbsqxgvgNp46Nzki5ZCD
-	 czKUEyC4iZig35JNyPFxg1mS3BIB1DBx9YJaWdNuvaoLGtClgVsG1EfaCKTaXjheGLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762698;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=AHVLeFCIAjPF0ZWVLuwnrV2ro0VsDuR9khR1+pmV1R8=;
+	b=Kbq0XZkfqe833ancaVyr8zNZvscjT1+907T4bkrkF+sdHuzToM2c/nccRnzVvr9dWCao
+	 Lp5KRyzlShB6ecWe0fuit/SxtD8SEYV7EhXNdamZ5ltnsB49gTyqKgzhbg9x+nLsjuIvr
+	 4Wr0vVEkV1ZdQd3XoHspniNRsOXWMAsMRzErDLgu8se7nQVFno8mDxCutFYB1qTja52z2
+	 RUbWzduNGbJ5l1zisqdhJL9+bYCq7fMc+rcc8ES3un/K01B0XRN+1Rr8OsIqqSGVan66n
+	 vK/vLDrPDtI5e0XrIo1EfLDCAcu95k8VpFAb147qNdfmRWokSZAPI4QL02A8sVExUCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjGBnRmG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49549606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjGBnRmG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE661F00A15
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793762551;
-	bh=qWCFdcjUisnGbX9eq6UHrpBovt78PAdZKtud0fjPZzU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IjGBnRmGd0Psv4Oxiitvn5hWzbqI/Gne8mGS0/DxI28rXk8jiE1FfHATd+Kl0mHZg
-	 k+FLLbAGkjLwxKilBKcMuQu70IL7TNHuHgErTAWngbhbtNxCnaDpR7dvDDUkUHjVuY
-	 xeUI2Rru2/SbYeYsP/dOL6y6inqTcz23NXoPCaqIwZz7vuUywF90kWEaQ3zM7rfutc
-	 i3KsMA/LvH94BfPH7z4Dvh89lbniYOzO7mcKiEu+RFUJdhsc5IsVpqfcq2T29TPDY5
-	 VQFdIPUy+m9Hkw1HxqxfCzbI8IzFtGiMa/4lnmiqYdlZ6qC7gxdRY74kHg8yPj21SP
-	 bYJh3UxrEXYcQ==
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f1e5d7450so29538685a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:22:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw5w61QH2AMaqgY99I2SMQMNJ0z1IJtDZp1436jplw6yaIS7hXsyfC4q04mha3TYZcI/O4n7xWDTDYtUQw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/EeUYI8gG9E6xaqYtVCYs5wU4lWGK+JCZGe+gnLZNbraz4MO2Y
-	5RAbyIUDaWIJyZP4mbyy4sZnTz/JnEcxw8ota0uBfxbTeV5PDGLqEpbGzDVn45S9EnLUH2mMwWT
-	FfrMsJLDtJ26pCTKnPjl1QNIY8OYE/LY=
-X-Received: by 2002:a05:620a:6495:b0:93f:571b:c733 with SMTP id
- af79cd13be357-944216f2a98mr2641078985a.13.1793762550012; Tue, 03 Nov 2026
- 19:22:30 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AC2606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1AC2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowABnVf+Epepq9TI_AA--.27975S2;
+	Wed, 04 Nov 2026 11:24:52 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: 
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] dca: unregister the provider when domain allocation fails
+Date: Wed,  4 Nov 2026 03:25:01 +0000
+Message-Id: <20261104032501.1554137-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,100 +49,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103113711.1832834-1-max.kellermann@ionos.com> <20261103113711.1832834-3-max.kellermann@ionos.com>
-In-Reply-To: <20261103113711.1832834-3-max.kellermann@ionos.com>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 4 Nov 2026 11:22:18 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wYYiHvDj4Bqbp_hg1H9-WsZvEBJ9h5eNdX-Kuib_f3DQ@mail.gmail.com>
-X-Gm-Features: AclHuK-AvYEfhHjWxuMhWnm_a9S3p2tuGRCOJc6VKi5CiT9DNeNzN9Ic67jOPpM
-Message-ID: <CAGsJ_4wYYiHvDj4Bqbp_hg1H9-WsZvEBJ9h5eNdX-Kuib_f3DQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] mm/vmscan: move code to lru_gen_{add,del}_memcg()
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowABnVf+Epepq9TI_AA--.27975S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFWfCw1fZryrWF1UZw45Awb_yoW8Xr1DpF
+	48JFyYk3yqqw4UJwsFg3WkWFW5G3Wft348uFW8G3s09395WFy0gry8XFy8urWvvFn5GF4S
+	vFy8tFyrCry5AFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Sb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
+	v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xf
+	McIj6xIIjxv20xvE14v26rWY6Fy7McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1l42xK82IY
+	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
+	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+	1VAFwI0_Jr0_Jrylx4CE04Ijxs4lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JV
+	W7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
+	xdYxBIdaVFxhVjvjDU0xZFpf9x07bihFsUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYBA2rqpP0CHAAAsE
 
-On Tue, Nov 3, 2026 at 7:37=E2=80=AFPM Max Kellermann <max.kellermann@ionos=
-.com> wrote:
->
-> Preparation for the following patch that adds tail caching.
->
-> For simplicity, hlist_nulls_del_init_rcu() is now always used, which
-> is also valid during rotation, because the entry is immediately
-> reinserted under `memcg_lru.lock`.
->
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  mm/vmscan.c | 36 ++++++++++++++++++++++++++++--------
->  1 file changed, 28 insertions(+), 8 deletions(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 9959ca158ce8..aed56d452881 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4556,6 +4556,29 @@ enum {
->         MEMCG_LRU_YOUNG,
->  };
->
-> +static void lru_gen_add_memcg(struct lru_gen_memcg *memcg_lru,
-> +                             struct lru_gen_folio *lrugen,
-> +                             int gen, int bin, bool at_head)
-> +{
-> +       struct hlist_nulls_head *head =3D &memcg_lru->fifo[gen][bin];
-> +
-> +       lockdep_assert_held(&memcg_lru->lock);
-> +
-> +       if (at_head)
-> +               hlist_nulls_add_head_rcu(&lrugen->list, head);
-> +       else
-> +               hlist_nulls_add_tail_rcu(&lrugen->list, head);
+register_dca_provider() registers the provider in sysfs and in the
+provider IDR before it tries to create a new domain.  If the domain
+allocation fails, the function returns -ENODEV without calling
+dca_sysfs_remove_provider(), so the IDR entry and the sysfs device stay
+registered while the caller frees the provider, leaving a dangling
+pointer behind that a later lookup can dereference.
 
-T.J. 's patch[1] has actually removed the needs for hlist_nulls_add_head_rc=
-u
-and it has been in mm-new branch.
+Remove the sysfs and IDR registration before bailing out, matching what
+the adjacent error path already does.
 
-> +}
-> +
-> +static void lru_gen_del_memcg(struct lru_gen_memcg *memcg_lru,
-> +                             struct lru_gen_folio *lrugen,
-> +                             int gen)
-> +{
-> +       lockdep_assert_held(&memcg_lru->lock);
-> +
-> +       hlist_nulls_del_init_rcu(&lrugen->list);
-> +}
-> +
->  static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
->  {
->         int seg;
-> @@ -4584,12 +4607,9 @@ static void lru_gen_rotate_memcg(struct lruvec *lr=
-uvec, int op)
->         WRITE_ONCE(lruvec->lrugen.seg, seg);
->         WRITE_ONCE(lruvec->lrugen.gen, new);
->
-> -       hlist_nulls_del_rcu(&lruvec->lrugen.list);
-> -
-> -       if (op =3D=3D MEMCG_LRU_OLD)
-> -               hlist_nulls_add_head_rcu(&lruvec->lrugen.list, &pgdat->me=
-mcg_lru.fifo[new][bin]);
-> -       else
-> -               hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->me=
-mcg_lru.fifo[new][bin]);
-> +       lru_gen_del_memcg(&pgdat->memcg_lru, &lruvec->lrugen, old);
-> +       lru_gen_add_memcg(&pgdat->memcg_lru, &lruvec->lrugen, new, bin,
-> +                         op =3D=3D MEMCG_LRU_OLD);
+Fixes: a1741e7fcbc1 ("locking, drivers/dca: Annotate dca_lock as raw")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/dca/dca-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Also, MEMCG_LRU_OLD has been removed as I replied to you in v1[2]
+diff --git a/drivers/dca/dca-core.c b/drivers/dca/dca-core.c
+index 583510850fad..e08f8894d7e9 100644
+--- a/drivers/dca/dca-core.c
++++ b/drivers/dca/dca-core.c
+@@ -368,8 +368,10 @@ int register_dca_provider(struct dca_provider *dca, struct device *dev)
+ 		raw_spin_unlock_irqrestore(&dca_lock, flags);
+ 		rc = dca_pci_rc_from_dev(dev);
+ 		newdomain = dca_allocate_domain(rc);
+-		if (!newdomain)
++		if (!newdomain) {
++			dca_sysfs_remove_provider(dca);
+ 			return -ENODEV;
++		}
+ 		raw_spin_lock_irqsave(&dca_lock, flags);
+ 		/* Recheck, we might have raced after dropping the lock */
+ 		domain = dca_get_domain(dev);
+-- 
+2.34.1
 
-[1]  https://lore.kernel.org/linux-mm/20261028010611.3929937-3-tjmercier@go=
-ogle.com/
-[2]  https://lore.kernel.org/linux-mm/CAGsJ_4zQh9HrvgaqD32_A=3DbSdqmPqP4oV_=
-SxMXMEDBrHe4jjhg@mail.gmail.com/
-
-Best,
-Barry
