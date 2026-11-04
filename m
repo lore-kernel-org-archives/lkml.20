@@ -1,109 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802861;
-	b=1lMqHzOiwvU/8BX21xCmctAUNkM/repRHQeCVmTH1eOJVfxa4L9HKE+mfLSUGsbtydSz
-	 In+DLFyvA49gYlCsiI7sRV2DXxCfzY64tCbIkSqlQH0ZBH0wzLHJtigawq15cl3Aqgllg
-	 qlh3hoSmK1wI+Ty2m9YOusjPnWOGdcShENc6BqPuI2jaGKARcPduRomr0C44cyNe+vKpL
-	 engtpMGH/yCQgRsf2xHfZgOIWO/x/OtvQueryzC4kir4le0mI+bDzutPw+CIbZrwjY0AP
-	 OVqT5ocBCF4IjBiKfyJmvZinLvea5PY7mS8+P6LNlCY6Tl/6mlBBbUk91srn8WDYgHg==
+	t=1793802883;
+	b=sWuOhEdSFuwaV33UZ4G78VmrzDY4ANBygs4TASm55kPE7K0zOM0r3vlkZz3PahLDc70e
+	 cLnYgeecTuPgqZ0H60xkSuFd9vEEKWSMW4j/xus+uvmvnhimSBSWJGWyJgjindxxl+GRp
+	 fYWfNmnqgPUfDT/zWc4WNQXpEHTHsh+7ihwIhoriAUuKPRxRRnYwOkPp/GxIqeF/splCz
+	 pBBbX364XNsLSkW0Halex7L2ZuUDHVGxXVpRIKhEvF6DvaS8rSE8+Xdt3FOsJAB8Afn6E
+	 0oPkmWu3YQcm9obWd5o5OS2ZZMYEWOqDyEuLXjULVFvqfI29MqjMmT5dwvNg4UFu4Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802861;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=/mAJgnoT3FJd0HHsIGGz7fx8i9cIF4iDh8jpAcj72so=;
-	b=d4IcpSe0YWeF+32UImOoNgqaI3ocvsmsNvHTis8aK2vQUzpwhC+tqUy29/CnyKBesK72
-	 LWW0qlBLE4d0Z3KFdP8fCmRa3wUDZ23QvHItlkRVR2lIF9AVu1kt35Vv+bmNDw5KhuOYL
-	 9BgFF9Dldxh6W03snJZI+92bdZiETt6pDa2G0zOjkrVhePxSQdTWF2QWfwFrzpjV2NXQv
-	 Dq3KQnCUcubJjpxEQ+zx1NqbIOPQKYsXdjYryGvyTwmrZHoDzlABwFPm61P/byqaKZjIz
-	 IBTZGw12l4LkRVgVKX6uSSfF3Qv6E/c8DdlMMD7iTPUnfQIJyszZ6i1CoqDYFaDsxTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802883;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=miceYdDB+7PLPC/J0qgYQmDdAc3qF6Ff3jq4UUQkwZY=;
+	b=IVqpLwlDEeSNlEbg+p6nyOspnibnNGfhytIxfdrF7scV6hs957AsQ4h/uQyxvUkVj1B3
+	 5nCfAmAW3HTGbwFJ8iEreFoETThqnnq0P0JjiyVZRB4QOd8jTjNCeF+f/GrKRRGllwhZG
+	 bak1Xh5ywdYA9iu/MIgtmYHiSIGOVAeBOjAFDBEY3VO98el5SQdsqC1lJiZ1gyyOG0UeA
+	 g0i8mxgkCHsMGW1oJUJ29HL50XIil4mlTZ3fzUPsuD3YI/C0k/OMUD7M5b4Wc2TR1qiQ4
+	 z1m1vm14qwmZSe9mD0S//VpnLeVJF02uiEAMjBoHpnKDBXNy4mvWdFaQCKZp6gil/Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vUDbEE8D;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AO9NVNWt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Jaj+Akk9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jn2wQIf1;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCQew7J4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7348A606A31B;
-	Wed,  4 Nov 2026 14:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7348A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AAA606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vUDbEE8D;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AO9NVNWt;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Jaj+Akk9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jn2wQIf1
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 755C11F7DF;
-	Wed,  4 Nov 2026 14:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793802858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/mAJgnoT3FJd0HHsIGGz7fx8i9cIF4iDh8jpAcj72so=;
-	b=vUDbEE8DSRrChBseVk2ztWuTt98j6JK6fjSsjZM5aOZgffUPZ29oVQU0+ebo18U2S0IKjm
-	40E+d7KOTRkTDEgwbDAI8QK9Jupvm6Ojz6L7MG3XT9d0Y9ab+fZV4eyS4RTmWJKtMG130D
-	olLb/J597WqHml0dN0u6ByzBDdt4vy4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793802858;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/mAJgnoT3FJd0HHsIGGz7fx8i9cIF4iDh8jpAcj72so=;
-	b=AO9NVNWt1bPi/yDBoRZL9wfBmd++djGaeFInq3/IxQQKtksBtgLUsUHCO1RRTSKF1huHKj
-	QcNlugjb4+Qx1dAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Jaj+Akk9;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jn2wQIf1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793802857; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/mAJgnoT3FJd0HHsIGGz7fx8i9cIF4iDh8jpAcj72so=;
-	b=Jaj+Akk9ReCj8qzOnPrkHgwVDyIzzeSENMVcHtWhbPqYY4tW42CJ/FrF+ioHI3ftlHsdv4
-	5Go8EcFvd9f9jWzxwvssu7uW3ZWiHG9kg8p2jAq61UXfwIfkgF/nKSChujbVE8ypQYXe50
-	NAJJqY9Ezjt0PiX1WZJfaMF6pC9krN0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793802857;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/mAJgnoT3FJd0HHsIGGz7fx8i9cIF4iDh8jpAcj72so=;
-	b=jn2wQIf1C0cCvGpoRmKKpLh/m1g+t8Jc8VIxoXelz+JiyNhQMTwnd9nYDsduvy+LhOR4NZ
-	BEvERpJlb8bjJXBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28422134F0;
-	Wed,  4 Nov 2026 14:34:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id KMpjOGhC62rmcwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 14:34:17 +0000
-Date: Wed, 04 Nov 2026 15:34:16 +0100
-Message-ID: <874idwvf6f.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: songxiebing <songxiebing@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: mixer: oss: Fix uninitialized index in recsrc ioctls
-In-Reply-To: <20261104075642.1790966-1-songxiebing@kylinos.cn>
-References: <20261104075642.1790966-1-songxiebing@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCQew7J4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7E31F000C1
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793802882;
+	bh=miceYdDB+7PLPC/J0qgYQmDdAc3qF6Ff3jq4UUQkwZY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZCQew7J4C0cPbpFciKAO29xWInbT/Z9mDi4MngzVubYoiE/NbzT2woeIcapJeMO1d
+	 rOxhLT3GseRScwA22F7gUErzJFnWneWR8ELJ4/+aPneT3avjJDYLsymfA0og2a61Aw
+	 Td+crMWeYN2V0NTkV/ksXQvBalTAv6ZQDIpc32Z7ZlILQ7DaeMklE5gyS51OD4Ffqv
+	 y9ubd4J1tRS6KMYaJyiqAp1Nqd9tnk5Ly2DkSshSP5pAirdKjminDIUmG61Qar+l0w
+	 olOrzA9NoVYOWDFEIRj32Zj7BhbgBwa6xveznllTlS8//zKtVwUNIXIkBjzvW439Hr
+	 8pm9c2skhrRpg==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso644970e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:34:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByU0d3Lz6PjSKitYzEo53ALfAlMzL7y0ky6I1qdciZEu+CLiNQmwQ0NaHvaoHeEg6TelTQb7ojXDD3J7aI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5HJdKf5k2TWrBlXKPxT32isFmGo43msqYsWxBgsit7Fh5rXaQ
+	iuW/+33T14+sAbM291g4fLCSDKs9vYlHmBwoJIhGZw0g6TLhfzWK6nD6vroPvHKPWzxrjBQGIWH
+	lPrTiHQC7x/n7yy3z0LNNC0rP1gk+I4Q=
+X-Received: by 2002:ac2:4c4e:0:b0:5be:605c:fca2 with SMTP id
+ 2adb3069b0e04-5bfd954bf17mr5907232e87.4.1793802880980; Wed, 04 Nov 2026
+ 06:34:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,62 +58,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 755C11F7DF
+MIME-Version: 1.0
+References: <20261104112744.1630864-1-stanleyjhu@google.com>
+In-Reply-To: <20261104112744.1630864-1-stanleyjhu@google.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 4 Nov 2026 15:34:28 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gWGVXeN9nq=cUe=ufeX5jC3oWpdms-2Eus13dFNxqxAw@mail.gmail.com>
+X-Gm-Features: AclHuK8_mlawzHb7grWA4pMsKYYbWB0rPIQSUSQOlRdZy4jfzqgdM01VFchXEqs
+Message-ID: <CAJZ5v0gWGVXeN9nq=cUe=ufeX5jC3oWpdms-2Eus13dFNxqxAw@mail.gmail.com>
+Subject: Re: [PATCH v2] block: Keep RPM_ACTIVE in blk_pre_runtime_resume()
+ when already active
+To: Stanley Jhu <stanleyjhu@google.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Bart Van Assche <bvanassche@acm.org>, 
+	Brian Norris <briannorris@chromium.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, Alan Stern <stern@rowland.harvard.edu>, 
+	linux-block@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 04 Nov 2026 08:56:42 +0100,
-songxiebing wrote:
-> 
-> From: Bob Song <songxiebing@kylinos.cn>
-> 
-> snd_mixer_oss_get_recsrc2() returns success without setting active_index
-> when the current Capture Source does not match any OSS mixer slot.
-> snd_mixer_oss_get_recsrc() then uses that uninitialized index for
-> "1 << index", and snd_mixer_oss_set_recsrc() does the same while ignoring
-> the callback's return value.
-> 
-> Make get_recsrc2() return -ENOENT if no slot matches, only use the
-> returned index in set_recsrc() when the lookup succeeds, and initialize
-> the index variables as a defensive measure.
-> 
-> Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+On Wed, Nov 4, 2026 at 12:27=E2=80=AFPM Stanley Jhu <stanleyjhu@google.com>=
+ wrote:
+>
+> Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
+> suspend callback failures"), a failed runtime resume leaves
+> dev->power.runtime_error at 0 with runtime_status set to RPM_SUSPENDED,
+> so later runtime resume requests run sdev_runtime_resume() again:
+>
+> 1. A runtime suspend increments q->pm_only from 0 to 1 and sets
+>    q->rpm_status to RPM_SUSPENDED.
+> 2. The first runtime resume fails in the driver callback, and
+>    blk_post_runtime_resume() sets q->rpm_status to RPM_ACTIVE and calls
+>    blk_clear_pm_only(), decrementing q->pm_only from 1 to 0 so recovery
+>    commands can enter the queue (intended since
+>    commit 6e1fcab00a23 ("scsi: block: pm: Always set request queue
+>    runtime active in blk_post_runtime_resume()")).
+> 3. A retried runtime resume calls blk_pre_runtime_resume(), which
+>    overwrites q->rpm_status from RPM_ACTIVE to RPM_RESUMING, so
+>    blk_post_runtime_resume() sees old_status !=3D RPM_ACTIVE and calls
+>    blk_clear_pm_only() a second time without a matching
+>    blk_set_pm_only().
+> 4. q->pm_only underflows from 0 to -1 (triggering WARN_ON_ONCE in
+>    blk_clear_pm_only()), blocking non-PM requests in blk_queue_enter()
+>    and __bio_queue_enter() while the device is RPM_ACTIVE, and the next
+>    runtime suspend increments q->pm_only from -1 to 0, letting non-PM
+>    requests dispatch while RPM_SUSPENDED. This hits the UFS device
+>    well-known LUN by default and SCSI disks with
+>    manage_runtime_start_stop enabled (ATA and FireWire sbp2 defaults).
+>
+> Transition q->rpm_status to RPM_RESUMING in blk_pre_runtime_resume()
+> only when it is RPM_SUSPENDED, and call blk_clear_pm_only() in
+> blk_post_runtime_resume() only when old_status is RPM_RESUMING, pairing
+> each clear with a completed runtime suspend.
+>
+> Tested on QEMU ARM64 UFS in SDB and MCQ modes by injecting
+> runtime-resume START STOP UNIT failures on the UFS device well-known
+> LUN, confirming zero pm_only underflows and balanced runtime PM cycles.
+>
+> Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend call=
+back failures")
+> Cc: stable@vger.kernel.org # v7.3+
+> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-I guess that the error is rather hypothetical and not triggered by the
-current use case?
+LGTM
 
-As it doesn't look like an urgent fix, I applied to for-next branch
-now.  Thanks.
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-
-Takashi
+> ---
+> Differences from v1:
+> - Move SUSPENDED -> RESUMING explicitly in blk_pre_runtime_resume() and
+>   clear pm_only only for RPM_RESUMING in blk_post_runtime_resume()
+> - Describe the QEMU UFS test coverage in the commit message
+> - Link to v1: https://lore.kernel.org/r/20261029040001.2100001-1-stanleyj=
+hu@google.com
+>
+>  block/blk-pm.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+>
+> diff --git a/block/blk-pm.c b/block/blk-pm.c
+> index 8d3e052f91da..34cc7c5ca04e 100644
+> --- a/block/blk-pm.c
+> +++ b/block/blk-pm.c
+> @@ -142,7 +142,8 @@ EXPORT_SYMBOL(blk_post_runtime_suspend);
+>   *
+>   * Description:
+>   *    Update the queue's runtime status to RESUMING in preparation for t=
+he
+> - *    runtime resume of the device.
+> + *    runtime resume of the device if the queue is runtime suspended, or=
+ keep
+> + *    RPM_ACTIVE if a previous failed runtime resume already reactivated=
+ it.
+>   *
+>   *    This function should be called near the start of the device's
+>   *    runtime_resume callback.
+> @@ -153,7 +154,9 @@ void blk_pre_runtime_resume(struct request_queue *q)
+>                 return;
+>
+>         spin_lock_irq(&q->queue_lock);
+> -       q->rpm_status =3D RPM_RESUMING;
+> +       /* Keep RPM_ACTIVE if a prior failed resume reactivated the queue=
+. */
+> +       if (q->rpm_status =3D=3D RPM_SUSPENDED)
+> +               q->rpm_status =3D RPM_RESUMING;
+>         spin_unlock_irq(&q->queue_lock);
+>  }
+>  EXPORT_SYMBOL(blk_pre_runtime_resume);
+> @@ -168,8 +171,8 @@ EXPORT_SYMBOL(blk_pre_runtime_resume);
+>   *    driver or error handler will need to communicate with the device.
+>   *
+>   *    This function should be called near the end of the device's
+> - *    runtime_resume callback to correct queue runtime PM status and re-=
+enable
+> - *    peeking requests from the queue.
+> + *    runtime_resume callback to mark the queue runtime active and clear
+> + *    pm_only if the queue was resuming.
+>   */
+>  void blk_post_runtime_resume(struct request_queue *q)
+>  {
+> @@ -185,7 +188,7 @@ void blk_post_runtime_resume(struct request_queue *q)
+>         pm_request_autosuspend(q->dev);
+>         spin_unlock_irq(&q->queue_lock);
+>
+> -       if (old_status !=3D RPM_ACTIVE)
+> +       if (old_status =3D=3D RPM_RESUMING)
+>                 blk_clear_pm_only(q);
+>  }
+>  EXPORT_SYMBOL(blk_post_runtime_resume);
+> --
+> 2.56.0.385.gac671c819a-goog
+>
