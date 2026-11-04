@@ -1,61 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831422;
-	b=JskW4FuKnVoG1sUQfjXi1tYQU5ne4daU95svk7iy2W93DGS9UavQD+R8VkNaHGJim6VH
-	 S6Wd/M1G2vvuIGW3jPx3G0GvVTSAKvUB+8kqG3CjDXSn3v968pPP0JZgctOmQ1pjzB27V
-	 qbrmqK1jtfzp4wjpeCKKyJqP6JWXegVRAnO/VQMYUq9D75PSTexgstSJjQwSDmqUeT5C7
-	 J9l5c22C6iMMYsL/hTkhu3wkQHpQlL0NtudasPyJULx7qpMafJOcJy88t9LSpUZJG02ZE
-	 3TbFhI83OPfj3rCso1k1BAInQag2M+vsl3mYnDzs8iqXjFRhYZkQ62HYX1IpkY7LyiA==
+	t=1793831432;
+	b=eFJdeZ8O/d44ZrgU1MkBhO+GQZzNvvzfnxLqJBnR6B4thzURa0WiTARhTM/N0PKqH/99
+	 OrLKPaMqh1xCEwj2QpwpEX/UTb1Oi2zcmZ8DYjdNhLvu4WX1lo8sS3DSbcj7v/V/MwFm0
+	 OV715FE/vIicG+Xiv7hXzxdyoYeVnTccM1kXEzKki8JXU961PGOqApgwGmtYgWTXdI6KR
+	 qKogIN6bjFlJMi1Qu2DgX88oznPMGPOX/Zu954tUKUo/gHk4uI2GSjm2ysk2HzKBRCxoX
+	 gfR8WB00svP89d9uU4zVpjWru91LiGkuWGKXj+sLgNq3Ilrpp5ZZQQsI0PnfsXyINEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831422;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=3mri/QZEgpm6PEQDC7RLq6cQ/hDLdWlk+7v76qgnP6c=;
-	b=ubDbqhGKzrUw3Xb8eP91ddj8gqP3+y4jmw7DGeiQMKSsUV4PBls49mtRCH0eGjD4P46A
-	 pxS27LC/HSeTAnNddMhfx1tpWOoXQ7N7ochthJELcG9ZlncIdS7H23VZDKQUaHmh4AkCi
-	 2l6hXc/3qorDLRGP9YINWNeu9t8PW+CqkmwtPxmoQ9Vem3a2s4DCVmdFMv+UxIJaZdg5G
-	 P2FPQj/5b0K75V+ss+F462T6wZlalg7rA6jpC4OwCihZZcNZlwftev+vH4F7zZhxdAAQq
-	 zFYyUdfZFClH52bEvl+s2KxO4fhybWqlEA6w6U8AVgrK99tpy1aTqpY6VNaHcWAgWVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831432;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=45IHMvHuNfQHmQp3e/l7ZQyBPSv/bWU1s+/SnIhe5+k=;
+	b=E0Q5d2T4xaDVCzTlSSBxy4Ja9FxcEoLsu4Nc/HTWxn2DFRuGWihGX8pzamAI8t9C9dLo
+	 LGtYMnDWg9hRbnylvODM5B3okNENWOcb1YazVpl+gL0rH1seCCrPjdtAvqq1GrIkuc0Bk
+	 jsQR6Mi/SK5grEcpyuHzoRAbX26a9p/RO0s4Q/l2ujSKy1tFxPPtq/pauE3diL4yByxpH
+	 NXMWE+/dD5/GFrIN0wbALIwUUhel1nI1zKpYckJzHvXQT9dHeh+fOmYtonGs1OpoNOIK7
+	 alorYGMoyrTPSmtveXmUuJKhN/bUwlojp3Q4aM4dsm2vXrraLpTtUTmCbCDf9Ne8MWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFq+3dDH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VmCDTdmf;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE50D606AB31;
-	Wed,  4 Nov 2026 22:30:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B0A606B385
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:30:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B0A606B385
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFq+3dDH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2F51F0093A;
-	Wed,  4 Nov 2026 22:30:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793831421;
-	bh=3mri/QZEgpm6PEQDC7RLq6cQ/hDLdWlk+7v76qgnP6c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=VFq+3dDHC4imojbcXXhl8reeTOTwtvGzur9ckCYanXyxSIeqKe7vEMqnSPfh2Ppq7
-	 Wc2/PVHekSuQkMDTpT90ETHtvDP6LyLH2WH5UNtuBbFJw8pOZRVdSHj/+4QhWjq0s9
-	 IKQrqIPZE+mQ1skl8cTkV4JvkQ9R7oGBYhc1Oohjse/tHNAcHo+Wi5wnCs1MpEvslg
-	 HTfJU6/ZYfxdOcJ0AMDV1ify3r4nLPBZeHbov+FAzUj/PxpaBv+Lewx9Ro6wRI+SDg
-	 IufT+mNYbXYTVnGJ1wNM4kW0LJ6ZWttk/9T3mM+iPrMV9l/ujVS0J6ii/MXWzOB4gW
-	 QJfTsLnZNLB8A==
-From: Brian Masney <masneyb@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: linux-clk@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <20261020-ups_mp13_clk_spi-v1-0-6c00730945c7@foss.st.com>
-References: <20261020-ups_mp13_clk_spi-v1-0-6c00730945c7@foss.st.com>
-Subject: Re: [PATCH 0/3] clk: stm32mp13: add the SPI1 to SPI5 bus clocks
-Message-Id: <179383141362.620422.9540521231939469885.b4-ty@b4>
-Date: Wed, 04 Nov 2026 17:30:13 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VmCDTdmf
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso665859a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:30:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793831432; x=1794436232; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=45IHMvHuNfQHmQp3e/l7ZQyBPSv/bWU1s+/SnIhe5+k=;
+        b=VmCDTdmfDiEtr9yM2FdmWCc4yMP/1y8DakkQBlW45XJJe9w+jmKxKqWx4N4uoWJW4N
+         PFBX2dF3I+8GWGgm6IMacs6RY5sGxuYFaH0QAgqo0mK53bpzKMXunQ9id5HxqTpbOs5b
+         VU5noO1GKyjU9lMcQwcxSupOZiF7GwtdckoYSJyXREY8s+YeNEHkgptPyTvPQi26P5dD
+         CXBXYBmWj/xyW3H2FrfElD4s7U2eZUu3T46zVK3b4XsLLAUNzFBCOd8MArf15SVBCcB8
+         AmTF1a+80XpZ1vAccIK0mKyOSg8ZONEP2q0MWLQ2bTUtAU18LViRqzWzDXzepgYN06Hj
+         4aFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793831432; x=1794436232;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=45IHMvHuNfQHmQp3e/l7ZQyBPSv/bWU1s+/SnIhe5+k=;
+        b=H3yzaChrzFpTb2ycZiZWA7iFXR7uAdNzxmc1ny+9AdivdJTWrmOR+fmDkL9avBkSVq
+         3U/r/RUzc0NXV8YvOOP/YxyqrThr9IKRtK9paqTRT6y+eeur6PgcWRyjaDwHI3OmFUGr
+         UrknBqszNBNrbgAzaedK8gvJPhdK+rYMyZhW5Hcc+uLayW0+6JAv2qeDkihE/HLNxkd5
+         idWZwyfL/rB8MZicrn5szvS8nwzqRFOWpM+xuOFATIg8GH+l5BvZ0O1QUR17t9bOmDBy
+         Ku4PxD/JSfrRGdJU+1TiSyWCRegJd4+rM+yQzkDT3aDwWgLFEc+Rlj/a+jI27SJID5zr
+         KgTg==
+X-Forwarded-Encrypted: i=1; AKwUvBzd+k7AbBO4p0wVPkmK6SaHMSTa4OqSrB2pcPqwZmfxKp/NnduLrIzn7Y/qyk2625M6Palj8PKa0wn+PjU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82bfI7lLqahOam2bBVT4PzPSxEdOTP3iJ84McbHzb1SQsLM3cb
+	a5scu1Vjfbtbx4QJQGPtrdH+KGAV58SqhW91koqSLIJHhUdjw3OaOKaZZtceCv0QZA==
+X-Gm-Gg: AYBFou1SD5iIH8CyQFWNM7zejmvPRva2bhVYCoCcNVyp0wRBsnIXOAQ9xkW2gR9Mjry
+	84DNZ1NFmWmtfwPtMl2ZD/saAE2kXU5IH9RECkyao27UxiUhxsmeBZ5aKlHW7ojeHrFOfxMOMUm
+	LaGiyTqd8W7UxfQtaRp6N3DHur/jqKvNzPpnxiGsrEdPePuzbVCdi2yIBgL/iVGic7CTxUQ1PSZ
+	r9dMlxQjE+ZrORP6m4f+oP/T/AEVg7zDqz6eRMq9ibEu/jeQESCz/ECcwL3D/J2Cr4ExDuNGUg6
+	gwcsEhSdu+4ArKjVdWqsQsDBx77Bnbj3MtmZWFNAQcDx1H2OBNzhjnGOKPa+ISPj5ynoJP0XlVQ
+	HTvLJcWsinmm8cZninjCvPdQ7bhHH60lXvUt9ry0/gcqdEeWn/qvVOdFSZeJHyUvbRhuRSyFqYq
+	ZNWkr9bbZECE9YZ4iV8vAroYMjoQpNl8uDln7MQocTY98lqQm3LSnEzGSG9HuEFPZx09Wy4HW3C
+	+7EAWhVwJQoUrEjEgx5HHl8i/77tGePRBY9XBM5nEqZ8oK329b3yzEKeOHCF9kL3S3dSknvrhAW
+	4cYaynUbwAvGoxFxO5r8hMrd5J6flW7YPOVu/U8+G/I96DEpy18MEH46t4/97xHh
+X-Received: by 2002:a17:90b:3d8e:b0:3ac:8897:7baa with SMTP id 98e67ed59e1d1-3ae8979a140mr13152373a91.40.1793831430846;
+        Wed, 04 Nov 2026 14:30:30 -0800 (PST)
+Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31638fdsm743618a91.8.2026.11.04.14.30.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 14:30:29 -0800 (PST)
+Date: Wed, 4 Nov 2026 22:30:26 +0000
+From: David Matlack <dmatlack@google.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org, Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v3 07/10] mm/shmem_luo: Retrieve tmpfs files onto a tmpfs
+ mount chosen by userspace
+Message-ID: <auuyAseOISaOWwbO@google.com>
+References: <20261103010216.3447716-1-dmatlack@google.com>
+ <20261103010216.3447716-8-dmatlack@google.com>
+ <2vxzecd0k1dg.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,40 +114,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=847; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=d67aLjjx5NPzRK8+TYg7tarnAbqEZJwNtwj/735hMts=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJeb/xukcty9GAY+47rdo4TBJy6cs0yvu6zffbZx0Iw2
- 4q5qEqso5SFQYyLQVZMkWVJrlFBROoq23t3NFlg5rAygQxh4OIUgIkcD2f4X3rjvX+6AHfajQ+Z
- V/fX2366c9rNQ3q1Nod7mt/y2L3WBYwMi3/NLmr1fLbdqvO5HEuzzobIJx3Kk7/+P5Vn6q51aL4
- QMwA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2vxzecd0k1dg.fsf@kernel.org>
 
+On 2026-11-04 05:27 PM, Pratyush Yadav wrote:
 
-On Tue, 20 Oct 2026 10:31:06 +0200, Gabriel Fernandez wrote:
-> clk: stm32mp13: add the SPI1 to SPI5 bus clocks
+> > + * If @flags contains unknown flags or O_PATH, if @mode contains unknown mode
+> > + * bits, or if @dirfd is not on a tmpfs mount, the retrieve fails with -EINVAL.
+> > + * If the file can't be created, the retrieve fails with the same errors as
+> > + * open(). A retrieve that fails before the preserved contents are restored can
+> > + * be retried.
 > 
-> The STM32MP13 RCC provides the kernel clocks of the SPI/I2S instances
-> (SPIx_K) but not their bus interface clocks, whereas the STM32 I2S binding
-> requires one as its "pclk" clock (the I2S driver gets it with
-> devm_clk_get(dev, "pclk")). The STM32MP15 RCC already exposes them.
-> 
-> [...]
+> How is userspace supposed to tell if preserved contents were restored?
 
-Applied, thanks!
+Through the error code, like Pasha said on patch 3. I'll reword this in
+v4 in terms of errors instead of kernel internals: errors from checking
+the argument and creating the file, e.g. -EINVAL, -EBADF and the errors
+that open() returns, can be retried after fixing the argument. Errors
+while restoring the contents, e.g. -ENOMEM, or -ENOSPC when the contents
+don't fit on the mount, are permanent, and retrieving the token again
+returns the same error.
 
-[1/3] clk: stm32mp13: define the number of clocks in the driver
-      https://git.kernel.org/clk/linux/c/eec8af6e2558
-[2/3] dt-bindings: clock: stm32mp13: add SPI1 to SPI5 bus clocks
-      https://git.kernel.org/clk/linux/c/110cc8efcacc
-[3/3] clk: stm32mp13: add the SPI1 to SPI5 bus clocks
-      https://git.kernel.org/clk/linux/c/6140e27299bf
-
-Best regards,
--- 
-Brian Masney <masneyb@kernel.org>
-
+Thanks for the review. I'll address the rest in v4.
