@@ -1,134 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793753482;
-	b=aP+SkUi+LXYJSZ0aZvUvsCSnJob2pZJHcVHwHLqKqI7Z17TrdDSNT0JlvxGZdW2EOjtO
-	 9uOikQuHQ3Kg9Pf/PPwhzaJVDvg4vSPRsdTc8CeAHLQVJvv/DL2YCK+Oij0ML4q43C0gl
-	 gEJbDD+UXbDxBNP9JBSQQx9UzOU6e6TCwFQdiqixHjXN+W9LZKwzS2Vvb/R6T7t/FIC4u
-	 PMYNs70IC1vgMS7qLwr9SuP3NQB/7v4C+qr/rwwM4JvuPVnlY190BfaM/0X2VhoeV0s33
-	 jzTy9jb2aJMn2U9cehnR4eLWDaPaiWIEpYz+F/25ZxVG7p96mddMWN7PURw3/V1EW5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753482;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=d+VNjbqnIdkPj+Dr8BYT+E+/EzP+AzKN2YbQGjScHUU=;
-	b=D82kD2PWVqzFkN+M8Xag5JjC6BDJfOZdKb6zRUPjuxdDzIsHY5O0rmmXbX30uDu93Sy7
-	 YS8jCYvqEK1evFVJoS2tDQjukEexNOsxnuo7zimyVyvAE/xeWtY3LXPJkkkgLuKwiBteH
-	 2gdvLBQN1yXoQxkElfxM1Ff2KRhYL+zhZzXxNmAHO6F5GBD8VJtzm3viLlPVqF/0ze0up
-	 vNjAFL/d1NFQHAynep9aqNFnaZhOAfCFJ4BT0Uk7XIMgrun4s9Wx/y17a1MFA6FibROsE
-	 c62plfJUEqBbumIeaZBLt/f60j5JvD1JeKl3E+74zsncjy5rUjrPghePkn+IOgQQzGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZxtVug9g;
-	arc=fail smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793753614;
+	b=v/oWv+wdYF4bI9pCGnjJkLAQme7mYlbIf0hnx6EVvXHSmaVXRN6FekrHJLDvQtIZ3yxB
+	 v6WWvZ5MCJtW4FSNq8t+CUMybhtDxuXBJipb+it07+chmhKPLYw5IWxb7GAfDuBc4a7bo
+	 A+/iOtJclpDcnlidekdvcYNJsXog0Xf4LLCiN45x8+aPSEBJnXCP1qovW4qibuQkws3ci
+	 WO2CdkKpnHZEQIs6fg7M4wdai8AI+g5KIqVsL+4BiYhBmXdH6YYe6y1Qh7sqBaR6MA+uE
+	 02hko1VI8xbSobXWWvrxE77R/DG6YyK2fqBkQ6fawo2DfkeA3h7czdfXIb2fCS7yeMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753614;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=S1SsyVWmFN/K3FnAnSvhcSztrShloDWtZn+HQ2qgOL8=;
+	b=riNDjD0Yp16uKMyOyHHIqswda9e1zCqgZUDqhCW0PsL9pOppPSTO004VhF8VteJpbqPI
+	 Ii6pLSWf9u+WTvt5EbXEyHnGfoqMbdv0AcO1Ii3T45JLbMIIfVxPxW0UlaEAdTsUIl4TH
+	 w+Yl9GljI9PqPzyiUAaZdDtsj9wGUswtKSreXWTVbw/L6tq78UOSlvx43F+QxMzBpnZcz
+	 P1PJ05lcXd/J4V6CGHwvtUoAmoH1yGwxKRVXNW2cKrBLKy+UtAoWWnDty7JHSrsHSz+LS
+	 x8GC3mi78S10VesJj4pTw1/xNpkEHvCnXvfsX/udY+0pvTbuiepHe+kN0JEhuQDXUFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpZWTHSp;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F44606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94F44606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F289E606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F289E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZxtVug9g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793753481; x=1825289481;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=O8L+ZN7/jI5iHUoSXwoBUtJLA35YErXgaoYdC6VgQ6A=;
-  b=ZxtVug9gy02Wmt5KJJ8a5fWSjX/aTti/DNao9ZWgrJ6AXMRIrVxjg+ir
-   rF5zhhahVgbcza+EqdYhCbQ51XAEKf+hbjGZ+yhviNvihxHZ0NK/NDUWi
-   VVDAX2WCnmtsy+4xUQRto8TpZBfmjD05l05mSbBBwiE50z5tZfi9oZqzS
-   wJiwnIgB2l97xSybmbTcIaz+65s5TYv/gK8DXnbtg+ECmZQGx4dbc4JEP
-   4xwx4G1C9WSYAPDePob/qgCJZr/xQBKhXV8jzCdioZCr9hXnNb5TT18xE
-   MKBJp6sM0mPRPoZfvz4N8L1d9RYov0XwMssl++7V3P+3ig/XDMfQn0TV1
-   w==;
-X-CSE-ConnectionGUID: VX4otZVDShaKd1oZggQVGA==
-X-CSE-MsgGUID: unEHnFdLRDG5tdYo8+6RTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2373816"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2373816"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 16:51:19 -0800
-X-CSE-ConnectionGUID: Ej4ZTV8MRnGGaEU8ZSn/6g==
-X-CSE-MsgGUID: OE2xKcy6QH6qlex0dhdZ3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6584690"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 16:51:19 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 16:51:16 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 16:51:16 -0800
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.53) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 16:51:16 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ye80B+z0FteHpJfVTA0p4+EMFYAhA4N/CLLpUUHq8Uz5OIO61RSBb23a0JZunLTSCy7j4yDUZrs8iPtf89jYsY/6LGsq0TRYl/Erz8XEpoHBY37uocFBf/dRQQQZrAAmpHrOERYyTQQpUjz1xHzdP+fb0PxFmZnJ5zkPrVRKqcsDw5wU+O9M6al9HKRZcz1tj0mFHnN0TYLqvlxrfjsHkGG485IcV+YAFvqe9nNJVFW2NQKw6pw2QLQI+v8hht0MBHkF4mQr+fMRQ3nJuE5Lh+oWVmmdGCqVs4yCo5PV7+nz7SPjTgdbSzwzy3G6ZDWfjayDmkfCtoxuWvhsOzbxWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d+VNjbqnIdkPj+Dr8BYT+E+/EzP+AzKN2YbQGjScHUU=;
- b=F+ENbfwY5Kr8BQGWt+vZHD3O9Qmt+iEVUqcZKZMpUD7/+tc+3q0yGq0B3ED3wJchGsm8XtCtiyRuJ8Z6KVI0HY4uh0xONFl1lVGQRdX+CfnBVt7/wlG+POeREJgdorr51xJSu9yLgTCMnKC+DXqGKpjhIl/9GMbp4irCqdNMlLv6aTHTw/WLOUPiq2Vhu88on88ftHS6HahIgGaAzv/tvOA8F0W/9PVY1QC7lsnt8wfGI2nfxT2U8QAZYlZR2MVVdcq26l/VULZRWlWbCZDsF1tvWq3m5/26WQ1LOlr09mfSpHN7ISy4Mx/rLzE1OHjoGHg/NWdOEOysHDgBO/3jKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by CH3PR11MB525758.namprd11.prod.outlook.com (2603:10b6:610:34d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 00:51:14 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
- 00:51:14 +0000
-Message-ID: <56d16560-51ca-4a73-a376-b897bb77e612@intel.com>
-Date: Tue, 3 Nov 2026 16:51:12 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 10/10] arm_mpam: resctrl: Update the comment on
- monitoring domain setup
-To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
-	<Dave.Martin@arm.com>, <fenghuay@nvidia.com>
-CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
-	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1792443633.git.reinette.chatre@intel.com>
- <f6080eca2696f4a06777725854447a563aa29696.1792443633.git.reinette.chatre@intel.com>
- <c7f180d1-f81e-495e-91be-b76a4c4df21d@arm.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <c7f180d1-f81e-495e-91be-b76a4c4df21d@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW3PR06CA0020.namprd06.prod.outlook.com
- (2603:10b6:303:2a::25) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TpZWTHSp
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so1452305e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:53:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793753612; x=1794358412; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S1SsyVWmFN/K3FnAnSvhcSztrShloDWtZn+HQ2qgOL8=;
+        b=TpZWTHSp3XI2HlV5SyPj702wB3fTkW5MoFJcmd3OwxRVxd5x+fnWfkQYGk7jGXrh4U
+         LYDX9f/LcVtY3i5adkOhw0DJ2h7+p3bI8jxmh9p+FQnRejjtNa6drOPtf8VitgdEtbos
+         Dog5iOXEYcYmE/O1IMhgaxe/Knm0NP9ry5WU0woP0DMXuEUPteDeSV7MDqaodonxMIdo
+         F7F19GbBl6UqYo0iuaKrCJ+9oCJ9SWYoou5St0p4kuI5/u4CfgZLDy8tW94GjH3k9xPf
+         bnjYiGtPTQzCBmp1ouVs7cBeFIY8r7geyHbt5ycGwhGBrjCmtx/c95B92R+p+VzvSKQe
+         PdWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793753612; x=1794358412;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S1SsyVWmFN/K3FnAnSvhcSztrShloDWtZn+HQ2qgOL8=;
+        b=HyYttO2Bq/peYepLLb4jIXElMequDSBggTfAJ0A/JvR7LIsAgspNAaiU5bSOJNJg7V
+         dFxeblniUFrRHUiRubOJtQgD2j95yUnstch6rfD4l+Zo3hIGh7//tHY0AaU9JCevulvr
+         OT+JQ7KdaNGWajwL2iETwcVOZmrcC/RFaXpxf9YvJ5QJ07i0eS5pMkDmfOl5KppYcWBP
+         2l1wJ0FioKZI8njTxaZvKhjkmS8PeeJH1jlGZPkUWepXUMwtVf/RXTO+eu77Tc+uPXgE
+         1AvUuMilA54LK806KbPuzDGkmQbbtouQlA6M2hi8Gg0QSxwrmU77nEWTmINfvQ0Jmvhg
+         7AHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzytcJH/fhFAW6CsWOesMwOImg+MlO6s/QPBtgUt11hDgoZVvkiNXT59KMki9J6A7/2AU0V2GkrHePgSfg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LgpHOIX1hTcgvo8vdttoKltFaNA1NQvSdx1kH3PfKwiI2PAqo
+	vH5aXZkPBll3o5ldrGw2NqTBJOi389m6sNm3Yet4D6tXx+u7c3Xidg3+
+X-Gm-Gg: AYBFou2SMKzUsGM0eHIncr7GnRGqn/13DdXanOJlm23RT6yX9tSJovshCqjGgNvR3h0
+	FO+5JvTuZLmxFUi0n8pvcvnJ3wRtc0N1LSSm1WxWRABy2TJ0KGBMBntq8rGE4orp1yAaAFKzIn3
+	m8CmvJvY/tnhPcpnSnsxlQiVyJkURJAHiK9WvGkWWZbstJaSwhTZOLfwUV/OyNLIKimJSxWEHWq
+	LCJsrMzW+MGJaeVWYuAAFcPON+CI1y1wTVryUVkek0tZaf08r/RviY3yTEMGrs6qd7HJecAGUM0
+	msayPxyV6F3uImnkepv0GXIA7Ue8fMvPA2HGnh6HYLFc6cjJOiN1w4lQz6Y1VwlDvVPyNZtXKSL
+	cH28AxU347lvFLjrx9yqiWncgn4xC/IQ4eQH7fOOG5oBZfZk7ZMBLhuTQRsW9QYg5IZg68u4O4B
+	933DHjQbgW9PzIqIVmO/BHFzm0yE3BULUPmvytbdd+17X5D4eNtFmawFttjpKT3JcSnaBuOrids
+	P+/7rG0PFfjuhx8+nBB//RnX+WKUmxkM/dM13nTeR9mqRDtnrTiPeYwPV7AEvH44YPyEZ5RseaX
+	KQ+R6K1Tz9Hv6lQg/3hdv8+JcRb0cyUg2g2J1GVrC0jokaqI8kAKZveAhzF19IyC7XVXCghgF4Y
+	Gj2NZFxoJi9/0N1Fk5hqt5+X0POqpABdZrsL/w7SHWHp84y3Qym4U5l+CeGpdjCSWnQ==
+X-Received: by 2002:a05:600c:609a:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4ac1709aa77mr317867705e9.16.1793753612056;
+        Tue, 03 Nov 2026 16:53:32 -0800 (PST)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ed95sm11899275e9.4.2026.11.03.16.53.31
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 03 Nov 2026 16:53:31 -0800 (PST)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Mushahid Hussain <hmushi@amazon.co.uk>,
+	James Houghton <jthoughton@google.com>,
+	nh-open-source@amazon.com,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/5] KVM: x86/mmu: Allocate memslot rmaps on demand
+Date: Wed,  4 Nov 2026 00:53:26 +0000
+Message-ID: <20261104005331.50600-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,114 +99,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|CH3PR11MB525758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e827c39-8a07-4813-dec7-08df3a0dba58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|11063799006|4143699003|261028144727099003|261009223027099003|261026140227099003|261022105027099003|56012099006|261026121527099003|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: Zkh7lLt6kuKvdhfAK23gtCQfSm+pcPvGSoqaeJtDuJFZpsG6j+1JRNGM9+/Q8W21RO/TWDrS0Bo+OSgXN6mgOzrrYH1QdvItNUxihwR9RC9NrQRcvcnW3FNOU0SfDSJXt6giiliBzaFouL16QZVQISVZmVAecHMusBFPWU2rBk+6jzgKDSwo7bUF1/PjgDG49pgFDutwVbOGEeWh5eYs0nxQabsaY9DkIb8CsidHlEd7EHKlQEVO5ealrlMX/tv6G0ZUpfh6ZNieB8tG6OCxseamHivd1NGZghLzBhFQNM0UbEcuzEvA1yvCz19e/eoNMK9/6vTh+Rj05MyLEshRlDo1sFX4tz7OloTTvj2tpDQFWXQhm0RfBFvREkKg9+lh3jdXer6b1nPQiGppTIkBN8b8V6+jlSMK9tn1nVmyt3phh+Vp69+Evhq3F6UlaRveCIhUyTJ+UsLnxlPIQGVJdBdBOCFSx1Qsiw7hrJmZmyH7Yn1avbTMZJ0sdZq0+nmD6PfNWE5gY9VwpNamLwlqUzd3HNnyZgLI/s2ERnakvpx/hrFtM2hlXAy8+UtlqHKx7gXLSGN6Vw7nuFYvh9E8ZT7GuUwvjR3d28siOiRmTLWttuv/gl2qUUZrElxJqAR/WHQH7TWIplBKT3/bHNJwaSbToil/AtwGOEvimb4YUQY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(11063799006)(4143699003)(261028144727099003)(261009223027099003)(261026140227099003)(261022105027099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnljWFdTUXpxMXlaR2NldmJTdkl2SGM5bTZ6YXAyUy9MTW5NTmt3SlNFaC9M?=
- =?utf-8?B?K1lJR1lKYllqSzNxSy9pV3ZIV2VYNTJtMlZwamRwK3puVFpVODFsVU9lajFi?=
- =?utf-8?B?emVJUmMzT1hjY1JaeS9rWURSYVF4S1hXMm5kSVgyZStPNkpUQVJIWDVrazl3?=
- =?utf-8?B?L0xMdVQrZEViUE5Xb3J2RjdtTzVlWXRsb0hYeG1Bcit0SHNqTi9BNm5VcURw?=
- =?utf-8?B?akQ5Q2ltY2oveXdvTmRSUUlSby9tZlJUNU9WMlFXd2xHSGVucmRBV3QyMDkz?=
- =?utf-8?B?R0Q3VHFhenVtNEFCTlFwMDdiWVN2V21MZGZUL3ZrQlNWRmc3T3p1Q014bTB0?=
- =?utf-8?B?dmVwQ2c2Wlo2Sk1sQ2FINGlTdm5xRU4zTFZ1WjBkeGthYStSQU1EWmVyckg2?=
- =?utf-8?B?SXJiNitadVh1akhoNWgwd2NCNE4zK0dmcDlOck5YMHNXQTJveHZtWHZpKzRW?=
- =?utf-8?B?UUFqSDVwa205bUM3ZFpMRUdTdFJtYnhBa25seUpJNUdqcWFETTFONjVGZmxh?=
- =?utf-8?B?UjgwNnBvY3lGUHAzSDk5T2U5cjRGTGdyVkduaFpoK2Q5alo4MGp2UW5CNlZa?=
- =?utf-8?B?bGY0L2Rzb2hFQk8xdVIwSjdpOEFrTUI1Mlk0OEN1YUpSL3AvYys2NzVtNzFv?=
- =?utf-8?B?TSs4SS9xdHhCZHJyUzloQldTa215Z3d6VGhJUmg0WUs5a2l5cjR0dHo2aVJ3?=
- =?utf-8?B?RlRXTEdUdlZETFd5YTRXQWh4ekZZaUZIYjN6MXBvK0VSbmVuQTJkdW9saGMw?=
- =?utf-8?B?TXRLK3kwOTI5eTVlMlhkNFVjdkMxM1ZRVVNEYWdoNFJrYytSSGNmS3QxWmpR?=
- =?utf-8?B?RWZ0S0g5WEZPblBqNnQ4ek1HUnMrS0RUYVkxUmhvU1pOKzMzZ0dGQWYwcHBh?=
- =?utf-8?B?M0QwM2ZBM0pwL21lNVhyZlRweWFCVWJpT3dZMVdObWUwVC84NEttUHR1cG9s?=
- =?utf-8?B?dXNuaC9yWEwrTTVJZUhoRFUzU1d2ZjYvQ3lkMHdQY3B6U1JDVmc4ZW5nNjJX?=
- =?utf-8?B?dlJCYW9OT294UnpZbU5md1ZucTJrMEV6NEFRVmZ6S1c1b2ZQYmtJS2hpM2VI?=
- =?utf-8?B?aTJDTHl3WDhEYUhLVm14cnczTEpXM1NXeWJzWUJRQndhSVh1c2VRSzN3Z0pN?=
- =?utf-8?B?TVIrZXczRFJSTloxS2ViZ25lQjJqQlRES3MyeFVrWTZaeSs3MW5QZmJXTEtv?=
- =?utf-8?B?enlHeUJYRTY0UjIwV2o4Z3pMRWFWRXJsVlNxam04d1RBR1JqelBzZ3ByL1RM?=
- =?utf-8?B?S0o0d01rZThhcTBxQkFwNEtEbTcveitCVnpEdkRqazdTbTA4S2xsZjF3dXN4?=
- =?utf-8?B?T05CZ3JFYThHaERvb0ovaHl0UTlyNW91TExJVkd3MEx2OGdyUEdyNzdWdGNP?=
- =?utf-8?B?SHA2Rkw3THc4UHI3NkhHL3Z6YTFSd2VaZk1CeXEzT1dBQXdqNEhFVWNlU1JE?=
- =?utf-8?B?NkZpTVcxQkd1WWR4MHd2VFcyZklQMGtoY3BTekxSMWhqQkFRVHdPdlpiUzAx?=
- =?utf-8?B?ODNMcFdKR3owR2pXd01NUjJXSzA2bnFSc2lyWUIwZURWTlFPV2l0TEw3Y1Fa?=
- =?utf-8?B?cFEvVVBGWUo1WXhSeStQeUlXdVFqU0lwL3hjd0NJUyt2eExFd0FUclBSN3Yr?=
- =?utf-8?B?KzRZUXM2Z01NSmJSZWhTdmZaYklIY3NwQk80MTVFZVdSayt6U3NaUDZ2Rnlw?=
- =?utf-8?B?YVdkOGgydEsrRkxFSERtQ0xCd1Vab2Y2ang3TGw2MXFuMVBHL3YrNnVCbGNo?=
- =?utf-8?B?V1VsWkRtT1piMkRHOGJUTmt4eGZ2SkN5QW1MNFJLZnpTN3VxdzJDbDIrOVVv?=
- =?utf-8?B?aVMrSFJCdzFmMDd3OHFhc1pPbjIwMFpPeU9PeXhJM1RtY2hGL2Uvd3kyYTZo?=
- =?utf-8?B?ZElpcGdrb2ZnQk4vZzhQVGNpK0xkaUtOMzZycW4veEtMWHErWUhqM01YWkFY?=
- =?utf-8?B?MklobUhXZzlOb1o2MFZGc29WMTBLNkg4S1NhOUVvZ1NkVVNCZnppblJNWmtN?=
- =?utf-8?B?VFVWY200azZHdkhLY2hMOFVlbERvZkVPRGJheVgvWmRpdWpWZGNqVGxzZitm?=
- =?utf-8?B?WVUyc1l6cVY2aEdEQTIxTVZYdnFDcW5uY0JhdWUzeEVtbXFOakIwOWw1OS82?=
- =?utf-8?B?aEowcmxDT2VnbE5hOGtndXdESTVwaU5zWGhObGpMRC9sRE0yai9zODFPR29j?=
- =?utf-8?B?R1p6bDhiZUdIMkhjekMrL1VkR2tDYkUvbVZhdkVtWDVyeFhHclV2MnVSWEN1?=
- =?utf-8?B?eFpDdWxnOFo4Y1pBUUt1d0k0NjRDSmRZZXM0anhhWFBaOTFWVXJlb3ZGaFFQ?=
- =?utf-8?B?czM1RmdsWmorM1NvM1RJcmhXSjlpUmV4UEdGb1E5cERFSmpSdGpxQXdDbXlT?=
- =?utf-8?Q?3lHjFiy+qya7VR8Y=3D?=
-X-Exchange-RoutingPolicyChecked: ttcULE750DTr88+OTFv+0n9jFEY3WRqXRgWNqdKZhQyJ/DC/JwA1mxUGkj0r6rtZ0LolBxxDkN/UVowLEhQLSrmCc2h36W20CPZN88VE/vi2TzhaSnQbb3su1gQ9rvCLJVBI68F7h/2VVGWFid8TU3nu3UFldqRMl0U8C8YarTTsLxwKLlM74uRcnpiw1/4d+2a9S6EDL2SvhDIaUNBNPA7kKf59Mm3kS7J9M1qZxYXr9APVlJw49NT2tyd0GYO9t7Xlp6TwblbDhMTWki0G8cuEs9XXSyaVatUOMXcGg/chYwYPJXH2s7aczFo1orkLwbUZS3X1x+NsunxFROyONA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e827c39-8a07-4813-dec7-08df3a0dba58
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 00:51:14.6705
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /bh6WKNfsPGHGi9+0VxxBvjIiCfFwH/tR6iCb5Q18aUlX/RP6y4BILVuBFyOWvBbADl2de5Z4kXi2h0lhKCZz/XJ81GGad4z6AlNyGej+YA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB525758
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-Hi Ben,
+From: Fred Griffoul <fgriffo@amazon.co.uk>
 
-On 11/3/26 8:27 AM, Ben Horgan wrote:
-> On 19/10/2026 23:07, Reinette Chatre wrote:
->> The comment in mpam_resctrl_setup_mon_domain() explains that the L3
->> component IDs need to be used for a monitoring domain because there may
->> be no control component for the L3. It also describes searching each
->> event's class for a component with overlapping CPUs.
->>
->> Neither matches the code. The monitoring domain has its own structure
->> and is set up independently of the control domain, so whether a control
->> component exists has no bearing on it. Each event's class must have a
->> component that contains the CPU, and all components of the domain must
->> cover the same CPUs, which is stricter than overlapping.
->>
->> Rewrite the comment to say where the domain's ID comes from and what is
->> required of the components that back the domain's events.
->>
->> No functional change.
->>
->> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
->> ---
->> Note to maintainers: This comment update is kept as a separate patch to
->> make it easy to review. It can be folded into "arm_mpam: resctrl: Give
->> the monitoring domain its own structure" and "arm_mpam: resctrl: Require
->> monitoring components to cover the same CPUs" if preferred.
-> 
-> Yes, I think squashing those 3 patches together would be good.
-> 
-Done. Since "arm_mpam: resctrl: Require monitoring components to cover the same CPUs"
-depends on "arm_mpam: resctrl: Require a component for each monitoring event" for
-which you provided RB separately I re-ordered "arm_mpam: resctrl: Require a component
-for each monitoring event" to be before "arm_mpam: resctrl: Give the monitoring domain
-its own structure" to support this squash.
+When an L1 guest runs a nested guest, KVM allocates rmaps for all of
+L1's memory the first time it creates a shadow root, one 8-byte head
+per 4 KiB page. For an L1 with 4 TiB of memory that is 8 GiB, allocated
+at once on the first nested VM-Enter, whether L2 maps 1% or all of L1's
+memory. Sean pointed at this cost on Mushahid's lpage_info patch [1].
 
-At this point the next version of this series looks like:
-	arm_mpam: resctrl: Add a helper to find the component counting an event
-	arm_mpam: resctrl: Use find_component() when allocating a domain
-	arm_mpam: resctrl: Rename ctrl_comp in mpam_resctrl_alloc_domain()
-	arm_mpam: resctrl: Do not fail CPU online when domain setup fails
-	arm_mpam: resctrl: Split control and monitoring domain setup into helpers
-	arm_mpam: resctrl: Require a component for each monitoring event
-	arm_mpam: resctrl: Give the monitoring domain its own structure
-	arm_mpam: resctrl: Rename struct mpam_resctrl_dom to mpam_resctrl_ctrl_dom
+This RFC allocates rmaps in page-sized chunks instead, when the first
+SPTE in a chunk's range is added. Each memslot keeps a per-level
+directory of chunks, 8 bytes per 2 MiB at the 4 KiB level, so the 4 TiB
+L1 above allocates 16 MiB on the first nested VM-Enter. A missing chunk
+reads as empty rmaps and slot walks skip it. When L2 maps every gfn,
+rmaps cost what they did before plus the directory.
 
-Thank you very much for your review. Unless something shows up I plan to send the
-next version next week.
+Patches 1 and 2 prepare the slot walk and the debugfs rmap statistics,
+with no functional change. Patch 3 does the chunking. Patches 4 and 5
+add a selftest in which L2 writes pages around chunk boundaries and
+checks the dirty log after the memslot is write-protected, including
+eager splitting of nested huge pages.
 
-Reinette
+I would like feedback on:
+  - The data structure. A directory of page-sized chunks keeps lookups
+    to one extra load. An xarray would be simpler to grow but adds a
+    tree walk to every rmap lookup.
+  - Freeing chunks once they are empty. That would let the shadow MMU
+    page limit bound rmap memory too, but lockless aging reads chunks
+    without mmu_lock, so freeing needs an RCU grace period. I left it
+    out of this RFC.
+  - Doing the same for gfn_write_track, 2 bytes per 4 KiB page, which
+    is still allocated for every memslot on the first shadow root.
+
+Limitations:
+  - Chunks are only freed with the memslot.
+  - Eager page splitting on dirty-log enable splits L2's huge mappings,
+    so every 2 MiB that L2 mapped with a huge page then gets a chunk.
+
+The series is based on kvm.git next.
+
+[1] https://lore.kernel.org/all/arr1VgGZmgUmY4hc@google.com/
+
+Fred
+
+
+Fred Griffoul (5):
+  KVM: x86/mmu: Walk memslot rmaps by index
+  KVM: x86: Count rmaps per level in a debugfs helper
+  KVM: x86/mmu: Allocate memslot rmaps in on-demand chunks
+  KVM: selftests: Declare __tdp_map() in the x86 processor header
+  KVM: selftests: Test dirty logging of sparse nested mappings
+
+ arch/x86/include/asm/kvm_host.h               |  22 +-
+ arch/x86/kvm/debugfs.c                        |  46 ++-
+ arch/x86/kvm/mmu/mmu.c                        | 126 +++++++-
+ arch/x86/kvm/x86.c                            |  22 +-
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/include/x86/processor.h     |   1 +
+ .../kvm/x86/nested_dirty_log_sparse_test.c    | 275 ++++++++++++++++++
+ 7 files changed, 460 insertions(+), 33 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/nested_dirty_log_sparse_test.c
+
+
+base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+-- 
+2.47.3
+
