@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.99.196.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825790;
-	b=SC6PF71jdOlpKDuZ9tSonpWnpqB73bUttLb/rF527DEyzlrXiP4aJ+JRHCia/+wZkfnP
-	 qhyi4kUaTuzwgEauh8fVPcH6t7rcpnQ08ZTYfAFFV7i7wSOE97Cpyp+9FpG8GlGUfKElS
-	 2fCe08Mj/wSwQOnmx4XMLAZ4ymqVJIw6UFziZUmQJtzpf+5759fNkLc7CT3Yy+hMNn6FZ
-	 UneUfCKYk1AxuWH+fmXU5Ce7ubeRiQToQ7iEZFmznQ98DtJ4CR88V01bHiPC36BPL59gc
-	 C9NBK/m3UjypeS1DOjYprxvwBHj6w+SkMcT1r8u/anxjd92aGobeBDn8pPfLFmfazbA==
+	t=1793825793;
+	b=Tm9PwF9UkjA5ln58HaiQ3xZ9VE1IDMlMqDewqsfR0fAhrqBI99k3BEe478Im87RX/4LG
+	 wGxUDHy1RqWnajNAhI+oOfUuaotW2okPdo7ThNzGjWUZopAs2HH2JaTW792HOlACpc753
+	 SJnDUqAZnAD9ayAJEGUEP47lliY4YzZvyCudkEleMXnHwKilQbSEMyiHq80g70gZIGdJg
+	 jEQUNElVgr4QvGBjyjVJQw4iEXbqihPEHcHqx3Yc3xXigfmejOXrvnwZk7bV1pyARixhw
+	 V3/GY7QCbY88VtP/0OcXI16McUVbZ2nckUB7bRTReFtZ5LW0pSxsrDA3CuwObBG+Ndg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825790;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=osWOTOTQBxibmdk7vYQvxdot4PKbfhI2tgBU79UNrUk=;
-	b=gk01B6MeLKjua+4Ul3xt+SPiE3+R/EhDE5xya2Jv8N8Emg/kkIHczi+PRizW9Cf8/3yG
-	 a1PCjThMxRJOsi2CwJ2ZX2fe41aePvZnRaf5XLKJBNsGgiag0eG/pc14wf5rUI585dbD8
-	 UVP17tOA/KBiPWbopAi5to8v0lJPCXRSG7VzXk9Wxs/TGW/Fj3D+Ik/W1bQfQ6n7CYhZI
-	 gA+LHT9hyRnRrib7lRfiskywK2heYg43bjUYZYB0wMTMiHlCD0p7ESM+VGFlMCaai8S82
-	 BHQNzNBB4xhlwbNBApjF+I0CJ7dn5KeO+drnCMxpi5JpEm4IqTSK+S+BH5W2HB/barQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825793;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=r9IWTbinFgSI8L8vSkLCZ6LMICNrRt0MnbRpvugkNWM=;
+	b=h0VrWwgoTG0bPlqfjqyHY51jrY1KmWf9hAGsCry4OPwDPdq0jOq5hWLIrsnlg3fPLb/f
+	 JvcbrBYAXS2Cg9IO8GOWzdsNsJo0eK5+/ojPni2yOCuBw0K5ogSPfoxY3RahX/qvKt0Lq
+	 TcFqOLdbBjZaz1pwX7KA3kN189009O4msd/m0edxn6z3s4PUmPUWpZSJ6dJDBsHrjXD0W
+	 ZtmRpG6OVcuPHVk+C3oh0JUcGUjZKEP2/52F+nksWLK3k7MAO3NLVozS5Oh+yTxkKKaPl
+	 DYgetH8sDQq369SAies8ykA2u6uEDIqDO6gD70PMLACCY+GIPSt6K6tMixJOeay9CSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KazNcZp6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=namei.org;
+	spf=pass smtp.mailfrom=namei.org;
+	dkim=pass header.d=namei.org header.i=@namei.org header.a=rsa-sha256 header.s=2 header.b=3Ha+DR6u;
+	arc=none smtp.remote-ip=65.99.196.166
+Received: from mail.namei.org (namei.org [65.99.196.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AAA606B2E9
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:56:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C59609C04E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20C59609C04E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=namei.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=namei.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KazNcZp6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD001F00A16
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:56:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793825789;
-	bh=osWOTOTQBxibmdk7vYQvxdot4PKbfhI2tgBU79UNrUk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KazNcZp6qfpRdpx0Oe5j+F8/M9LJGR2nQOeCHm5RYvPEKVOnFU9V9UfLJR1KMsW9B
-	 bJvBnjkwNdj2C8cn/tLvyj7KgG3kxBlB5vj+bmXwEQ7TrHN8Myj4tDSEODHN6kEV6z
-	 RZP1RffojHsRoeuIK4m6s85Vaw8N4qWOXCeeSBydy+CXMxnmJxxtnhokkSPrVawA0u
-	 zULvzQrlmtRimkxL4Cxcdep7XIoTUK4+YtoP/PoJX1/E/eEsnrR1VAuUL19Bz8bped
-	 Q4MiiD80HzVkRzPSl44k0WY/HWUP0E5kYcf3ARkXoastBoOSwUY0xhempTBPZstDJi
-	 NNw3Jlt/v4jyw==
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eae12762c9so421925e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:56:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxAquGKrRJMjsOv38atO4HLPEmA2T5X3RO3KLKgebnn+r0+ge7bDmX+5ZGOPc5egGLwYJ5rdDSnfrKfZ2Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/R32O3TUy1eI3gMKyEmITdoq3KgtnSX5NwKTF14P0a6RrOT129
-	w/dlNZcFuqexQ+TiN+VUdvfanYFc7txMaqiKilPVx6brifkCN8eUZkVz0hXB6uxioR7FG8GFIyc
-	guIpCRTldTRNGzv1lnnt75713DnJ18RA=
-X-Received: by 2002:a05:6122:32d5:b0:5e9:6d96:a910 with SMTP id
- 71dfb90a1353d-5ec6850f9a8mr7100215e0c.3.1793825788528; Wed, 04 Nov 2026
- 12:56:28 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=namei.org header.i=@namei.org header.a=rsa-sha256 header.s=2 header.b=3Ha+DR6u
+Received: from localhost (localhost [127.0.0.1])
+	by mail.namei.org (Postfix) with ESMTPS id 6D85C308;
+	Wed,  4 Nov 2026 20:56:30 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.namei.org 6D85C308
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=namei.org; s=2;
+	t=1793825790; bh=r9IWTbinFgSI8L8vSkLCZ6LMICNrRt0MnbRpvugkNWM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=3Ha+DR6ulnNA5oSJkf06/5lnacjzXpGvMLUSK7XyaK9lrUD/ZJrSgJ9vgaE0AhDZa
+	 4YZzgBNBIJXoHUH0cdKHLU0n9Ckepu0yKq2n/9nHlPUFV/g+BLbgRVQz43uwkyRUCz
+	 l+8TDGokejleDAG7r2cYBZ1zcFFzm+v8HgwgQKUw=
+Date: Wed, 4 Nov 2026 12:56:30 -0800 (PST)
+From: James Morris <jmorris@namei.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+cc: Christian Brauner <brauner@kernel.org>, 
+    Julia Lawall <julia.lawall@inria.fr>, Greg KH <greg@kroah.com>, 
+    gmonaco@redhat.com, ojeda@kernel.org, aliceryhl@google.com, 
+    gary@garyguo.net, namcao@linutronix.de, sashal@kernel.org, 
+    natalie.klaus@runtimeverification.com, willy@infradead.org, 
+    linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>, 
+    tytso@mit.edu, keisuke.nishimura@inria.fr, jean-pierre.lozi@inria.fr, 
+    ejratl@gmail.com, corinn_tiffany@alumni.brown.edu, kate.stewart@att.net
+Subject: Re: Kernel formal methods mailing list?
+In-Reply-To: <4ea0f231-eec4-4f41-bd2c-e5484c0535de@paulmck-laptop>
+Message-ID: <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
+References: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org> <4ea0f231-eec4-4f41-bd2c-e5484c0535de@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,167 +66,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104130817.849089-1-ridong.chen@linux.dev> <20261104130817.849089-8-ridong.chen@linux.dev>
-In-Reply-To: <20261104130817.849089-8-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 5 Nov 2026 04:56:17 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y_Ay0mYO3ic72oepjtW6KYf2sKRXEHb3Ff8uwKrOJZjQ@mail.gmail.com>
-X-Gm-Features: AclHuK83pxTrPui2NSL2YizsStHa_eD5Qfiw1-w_RlgnlnIfhF0-PgLrUc5Gd7I
-Message-ID: <CAGsJ_4y_Ay0mYO3ic72oepjtW6KYf2sKRXEHb3Ff8uwKrOJZjQ@mail.gmail.com>
-Subject: Re: [PATCH v7 7/7] mm/mglru: add tracepoint for aging
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Dave Chinner <david@fromorbit.com>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-trace-kernel@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
-	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>, Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Nov 4, 2026 at 9:10=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev> =
-wrote:
->
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> Aging in MGLRU advances max_seq to create a new youngest generation.
-> It is triggered from try_to_shrink_lruvec() when should_run_aging()
-> finds that eviction is no longer possible, or that it would be better
-> to age first at the current priority. There is currently no tracepoint
-> on this path, so it cannot be observed when and why aging is needed.
->
-> Add mm_mglru_aging, emitted in try_to_shrink_lruvec() right before
-> try_to_inc_max_seq(), with the node id, memcg id, sc->priority,
-> swappiness, max_seq, the anon and file min_seq, and the number of pages
-> in each generation for both types, as computed by lruvec_gen_size().
->
-> The reason for aging is not reported explicitly, as the logic in
-> should_run_aging() may change, e.g. for imbalance-based aging. It can
-> be derived from the generation window and the per-generation sizes,
-> which are taken before aging, so the youngest generation is populated
-> as well.
->
-> The nr_anon/nr_file arrays are ordered by seq rather than by generation
-> slot: entry i holds the generation max_seq - MAX_NR_GENS + 1 + i, i.e.
-> they go from the oldest generation to the newest, the same order as the
-> debugfs lru_gen file, so the output can be read directly without mapping
-> slots back to seqs. The arrays are printed with __print_array(), so the
-> output is hex and its length follows MAX_NR_GENS automatically.
->
-> Only the lruvec, sc and swappiness are passed in; everything else,
-> including max_seq, is read in TP_fast_assign(), so try_to_shrink_lruvec()
-> does no extra work when the event is disabled. Reading max_seq there
-> rather than using the caller's copy keeps the window consistent with
-> the per-generation sizes read right after it, should another reclaimer
-> age the lruvec in between.
->
-> The event marks the aging decision, not its result: the following
-> try_to_inc_max_seq() may find that aging is already in progress or
-> done by another reclaimer, so concurrent reclaimers can each emit it
-> for the same max_seq. Whether max_seq was advanced can be seen from the
-> following mm_mglru_scan_folios.
->
-> Suggested-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
+On Wed, 4 Nov 2026, Paul E. McKenney wrote:
 
-Much better now:
+> > Thoughts? Would it be worth setting up a mailing list?
+> 
+> We do have (low-traffic) lkmm@lists.linux.dev, though that was intended to
+> be specific to the Linux kernel memory model and its formal-verification
+> tooling.
 
-~ # echo 1 > /sys/kernel/tracing/events/vmscan/mm_mglru_aging/enable
-~ # ./a.out
-Mapped 400 MB at 0xffff98a00000
-^C
-~ # cat /sys/kernel/tracing/trace | grep mglru_aging
-         kswapd0-49      [001] .....   104.277689: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D6 swappiness=3D60 max_seq=3D3 anon_min_seq=
-=3D2
-file_min_seq=3D1 nr_anon=3D{0x0,0x0,0xd360,0x0}
-nr_file=3D{0x0,0x23e2,0x0,0x0}
-         kswapd0-49      [001] .....   104.536448: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D3 swappiness=3D60 max_seq=3D4 anon_min_seq=
-=3D2
-file_min_seq=3D2 nr_anon=3D{0x0,0x20,0xf8bc,0x0}
-nr_file=3D{0x0,0x91a,0xbd,0x0}
-           a.out-79      [000] .....   104.689518: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D4 swappiness=3D60 max_seq=3D5 anon_min_seq=
-=3D3
-file_min_seq=3D4 nr_anon=3D{0x0,0xf8a0,0x1188,0x0}
-nr_file=3D{0x0,0x0,0x2,0x7}
-         kswapd0-49      [001] .....   107.282038: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D2 swappiness=3D60 max_seq=3D6 anon_min_seq=
-=3D4
-file_min_seq=3D5 nr_anon=3D{0x0,0x6c50,0xa168,0x605}
-nr_file=3D{0x0,0x0,0x98,0x18}
-         kswapd0-49      [001] .....   107.812598: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D1 swappiness=3D60 max_seq=3D7 anon_min_seq=
-=3D5
-file_min_seq=3D6 nr_anon=3D{0x0,0xfe10,0x1721,0x54}
-nr_file=3D{0x0,0x0,0x1a,0x3}
-           a.out-79      [000] .....   108.936872: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D2 swappiness=3D60 max_seq=3D8 anon_min_seq=
-=3D6
-file_min_seq=3D7 nr_anon=3D{0x8,0x7d29,0x8c54,0xc90}
-nr_file=3D{0x0,0x0,0x4,0x2}
-         kswapd0-49      [001] .....   108.937115: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D2 swappiness=3D60 max_seq=3D8 anon_min_seq=
-=3D6
-file_min_seq=3D7 nr_anon=3D{0x0,0x7d15,0x8c94,0xcac}
-nr_file=3D{0x0,0x0,0x4,0x2}
-         kswapd0-49      [001] .....   109.425258: mm_mglru_aging:
-nid=3D0 memcg_id=3D1 priority=3D1 swappiness=3D60 max_seq=3D9 anon_min_seq=
-=3D7
-file_min_seq=3D8 nr_anon=3D{0x0,0xed69,0x24bc,0x488}
-nr_file=3D{0x0,0x0,0x3,0x3}
+That's a possibility. Would the mm folk there would want to keep it domain-focused?
 
-One thing that looks a bit weird, though. For example:
 
-max_seq=3D3 anon_min_seq=3D2
+-- 
+James Morris
+<jmorris@namei.org>
 
-We have only two generations for anon, but we print four:
-
-nr_anon=3D{0x0,0x0,0xd360,0x0}
-
-The two oldest generations don't actually exist. Ideally,
-we would print only the two existing generations:
-
-nr_anon=3D{0xd360,0x0}
-
-you should be able to fix it by:
-
-__print_array(__entry->nr_anon, __entry->max_seq -
-__entry->anon_min_seq + 1 , sizeof(unsigned long)),
-__print_array(__entry->nr_file, __entry->max_seq -
-__entry->file_min_seq + 1, sizeof(unsigned long)))
-
-But I guess it's fine, since the two extra entries are both
-zero.
-
-And, I personally prefer the youngest-to-oldest order,
-as we usually have:
-
-head ---------- tail
-
-where head is young and tail is old.
-
-Your output uses:
-
-tail ---------- head
-
-But anyway, I guess this is just a matter of whether we
-read it from left to right or right to left. Personally, I
-find it more natural to read from youngest to oldest.
-
-If you're not tired of working on this and would like to make
-a few more improvements, you could address the two issues
-above. But it is up to you.
-
-For the patch,
-
-Reviewed-by: Barry Song <baohua@kernel.org>
