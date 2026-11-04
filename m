@@ -1,45 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793762698;
-	b=QWAt8Mz33DuXwCvQf3p6TqYQ92kqOOJ419RO+sWT++HZeMtyTecVOd1qkH2pKLNYf/sn
-	 h6Vtl0loDCBHqq0MJ58ykQ3Cr9i3fNNXD82nC606shmISKy2KsJilf2df58FK3+F/KIhc
-	 DQsYCw84kEiZIwhyoYNE9LnmYgUfC9wgevBZH/8Uugoq16QzVvxIP2CaRsMKQ/sPSiMHg
-	 fvcX8C53mIR3CgYc7tZAJRikpw7UyacqF7ZzLdlr2D0paFHgH5+qn72T4CAJpdsLgjxyy
-	 vdIh/R6UGCdPPt5Rq6uP8SPgBmqRqwKIhmHWynGPWI7iiFH/NcIAOlP1+MTp5gfGv6g==
+	t=1793762753;
+	b=Lr7nkBuKGeUG7uPnip03qQWmaZjcaJeBwJUacBhskck8lAd5B5iIu6Cs3YdC24oLpVv9
+	 ZNvNtiSeCf/WDtw43KfMI6LVF28Tig6S4FMqGSAkjLzBYxXCfM//YW8jvC5axeq2ij2Db
+	 KnULgcb95Zc73Kf1sjYR0J+gTg1xOnXvo/mcSU6inFops1GokqjYhFIW3DGWijS0mjpRr
+	 HJBmFO8612Fc5mA9HXJeRUDct9RYt70+hbKkTPa9FAdTRc9wmCAohV1MW+mnvyuJRCcCk
+	 0hEgS0z6rpeBZuDeEuEpU6bD+ZmB8x3lNbWjaigdRkFNAFT7iHMNAZyYuRO4NbMtuxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762698;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=AHVLeFCIAjPF0ZWVLuwnrV2ro0VsDuR9khR1+pmV1R8=;
-	b=Kbq0XZkfqe833ancaVyr8zNZvscjT1+907T4bkrkF+sdHuzToM2c/nccRnzVvr9dWCao
-	 Lp5KRyzlShB6ecWe0fuit/SxtD8SEYV7EhXNdamZ5ltnsB49gTyqKgzhbg9x+nLsjuIvr
-	 4Wr0vVEkV1ZdQd3XoHspniNRsOXWMAsMRzErDLgu8se7nQVFno8mDxCutFYB1qTja52z2
-	 RUbWzduNGbJ5l1zisqdhJL9+bYCq7fMc+rcc8ES3un/K01B0XRN+1Rr8OsIqqSGVan66n
-	 vK/vLDrPDtI5e0XrIo1EfLDCAcu95k8VpFAb147qNdfmRWokSZAPI4QL02A8sVExUCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762753;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FiR8bNJz68wyQ94GkBHZoR3YiuS4hpz+FXLXPKGN9Lk=;
+	b=HhgTAGoTqf5t+zStJkWpd2x2dR4P4fLiFI7wjCrMgEQ8oAmfCXqGPVVmuHHGZaDY0x54
+	 azErTtysd61bn+GUeUX5j1ROLh9rM1HcCtXlU36CjKEdSJSnQ+vl3HpxHnODFvQHn/Kal
+	 V442h2WR7R5zhyFfUmMWxVIIKSupN2Lmx6uVNkfx+RiyBVh7tloQX/gEUD0HKhD8cXLf7
+	 fSAU2idhXZxF9TIW32QTGPBMZ+ziZ3JwNBHhVq94gEory1n2k5uKeQ2ospbwFxIRpNz0h
+	 QgbfPxFEjRPbQqrkETzArMui0W4lrdX8Pudzr8zs+EeiKWMMnTlrYFqc/kCQ8aTBpCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5IOzblz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AC2606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1AC2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowABnVf+Epepq9TI_AA--.27975S2;
-	Wed, 04 Nov 2026 11:24:52 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] dca: unregister the provider when domain allocation fails
-Date: Wed,  4 Nov 2026 03:25:01 +0000
-Message-Id: <20261104032501.1554137-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB315606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:25:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5IOzblz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BF61F00A1B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793762752;
+	bh=FiR8bNJz68wyQ94GkBHZoR3YiuS4hpz+FXLXPKGN9Lk=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=F5IOzblzVMFI6Zx8tG7Yt2TBiGdnoDbxyv6HGYRoDScDZEGta3FVGaKpN2Hcktbky
+	 GJJcGsjqbGIFO5FcXmWnYbabSnO95o+H9/OQ7rnY/jsNjOGn8jlo8ycg09LL6MzQmB
+	 zz1LAG9JD4KqD+QXvLSyHu33uMeCJJVcsfHP1ajPTp0lmtY3n6A7CBY34quq7LQnN7
+	 F10HywVMTczJoShhzWDLzAOPWhTw+15r99gmxX1euVy3mprMVQNeXr3wYkmlWNHvNO
+	 1SgVdJF5S5dJKlheJwUe4LCwDl79onScy96ySFZNqKlOD5hdsHxe2tXCYJIeO2zXV/
+	 C64WEZT6EKL/w==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ab46699a09so2115411fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:25:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxJmWv0b5LNxgpd8J1QGFwj1Tfsru84i5+ulba5smtqkpONNq6USpsy//AgvuvBe+2G/nBY34kVk/WhxAk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YgjfCUXGZ3DPdgRv5jBdycErEqiC4U+tcYWHJKDApbig+HeHn
+	F1EUyCaK2iN8q0iAjv34Apnrp80mXgQRvujqwDXXijwAKEHFbyuzYP9veKNLbOn0Uvu8L33r8fb
+	5tqIXZQSypRgKKdfxiWjCRfbckxTtd5Q=
+X-Received: by 2002:a05:651c:b11:b0:3ab:4ab5:56ce with SMTP id
+ 38308e7fff4ca-3acb7b4edb0mr35654131fa.28.1793762750881; Tue, 03 Nov 2026
+ 19:25:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,60 +59,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABnVf+Epepq9TI_AA--.27975S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFWfCw1fZryrWF1UZw45Awb_yoW8Xr1DpF
-	48JFyYk3yqqw4UJwsFg3WkWFW5G3Wft348uFW8G3s09395WFy0gry8XFy8urWvvFn5GF4S
-	vFy8tFyrCry5AFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Sb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
-	v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xf
-	McIj6xIIjxv20xvE14v26rWY6Fy7McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7x
-	kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1l42xK82IY
-	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jr0_Jrylx4CE04Ijxs4lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JV
-	W7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x07bihFsUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYBA2rqpP0CHAAAsE
+References: <aupKBdon3N4Kpnkt@daniel-HP-Stream-Laptop-14>
+In-Reply-To: <aupKBdon3N4Kpnkt@daniel-HP-Stream-Laptop-14>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 4 Nov 2026 11:25:38 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65DdCiWrEOefDGUjYtT2=tcxQ+VW3vfcHVUAUgcEtEfwQ@mail.gmail.com>
+X-Gm-Features: AclHuK_5Y2MLhaVY7HfmVbOKOfX5_2eeteHh2sW4OTC1OnqSFna6GnQ5i2y_CDY
+Message-ID: <CAGb2v65DdCiWrEOefDGUjYtT2=tcxQ+VW3vfcHVUAUgcEtEfwQ@mail.gmail.com>
+Subject: Re: [PATCH] drivers: staging: media: sunxi: cedrus: spelling correction
+To: Daniel West <daniel.west.dev@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-register_dca_provider() registers the provider in sysfs and in the
-provider IDR before it tries to create a new domain.  If the domain
-allocation fails, the function returns -ENODEV without calling
-dca_sysfs_remove_provider(), so the IDR entry and the sysfs device stay
-registered while the caller frees the provider, leaving a dangling
-pointer behind that a later lookup can dereference.
+On Wed, Nov 4, 2026 at 4:54=E2=80=AFAM Daniel West <daniel.west.dev@gmail.c=
+om> wrote:
+>
+> Correct spelling in comment.
+>
+> Signed-off-by: Daniel West <daniel.west.dev@gmail.com>
 
-Remove the sysfs and IDR registration before bailing out, matching what
-the adjacent error path already does.
+Acked-by: Chen-Yu Tsai <wens@kernel.org>
 
-Fixes: a1741e7fcbc1 ("locking, drivers/dca: Annotate dca_lock as raw")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/dca/dca-core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dca/dca-core.c b/drivers/dca/dca-core.c
-index 583510850fad..e08f8894d7e9 100644
---- a/drivers/dca/dca-core.c
-+++ b/drivers/dca/dca-core.c
-@@ -368,8 +368,10 @@ int register_dca_provider(struct dca_provider *dca, struct device *dev)
- 		raw_spin_unlock_irqrestore(&dca_lock, flags);
- 		rc = dca_pci_rc_from_dev(dev);
- 		newdomain = dca_allocate_domain(rc);
--		if (!newdomain)
-+		if (!newdomain) {
-+			dca_sysfs_remove_provider(dca);
- 			return -ENODEV;
-+		}
- 		raw_spin_lock_irqsave(&dca_lock, flags);
- 		/* Recheck, we might have raced after dropping the lock */
- 		domain = dca_get_domain(dev);
--- 
-2.34.1
-
+> ---
+>  drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/s=
+taging/media/sunxi/cedrus/cedrus_h265.c
+> index 780da4a8b5af..f57642c0d8fa 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+> @@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, =
+struct cedrus_run *run)
+>         }
+>         cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
+>
+> -       /* Neightbor information address. */
+> +       /* Neighbor information address. */
+>         reg =3D VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neigh=
+bor_info_buf_addr);
+>         cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
+>
+> --
+> 2.51.0
+>
