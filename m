@@ -1,88 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826557;
-	b=wtV4VrQmMh5V2c1CzQWJ3Wjfq4sqKKuKGP2839swG0BSqg303Y6b5J9TW26DD3NFCYgA
-	 dqoxgvetYgKptrhOKGO33Pk2IlB/Atmb8mH/Qsi896d7GDyXW95g6J1J/6XEV6Z9Ywwyp
-	 oe8oAi1jUQkdcdG3ruZ7kzO0Zcnfwe9fhxbhsCez/SLo1vdymT92UfY+JdoikLxKRrk5n
-	 L0Emf7ByZiAHC4pk+GdDnS1RmouDaulhW2CvKd238juPPchIuAeACBjuToVAZFWKsgA8L
-	 zo+yHG3u3qbvRSy8GjbOHPWESgkCgWq4WMcy4Tdc3Kv0MA1XN2YPwHlGhiAdpiT6ggw==
+	t=1793826548;
+	b=xnhdxLN9lCmW4W7GnU2tLsafXxGgi2LFBlut2DuMYSISy15NLg+1jcAXFW8SeF3nhoxt
+	 4jaOhuJy0QoDZjnxBy4pgfhFev8M6kLOLbvRKwhJG7H3TthmmlA0t5hygR3+KX9vVZcTr
+	 co8kvnN1WrAOvTZqoFwH18VJmbHdocdic8JnV3Q+pZmvh8d4TEFUrT8aOjRGJhvFBnKXZ
+	 7n9Z4L3TZD6Vgx1qofo4P41PUVZ+VaBlWS81+u3H9QCQvwgRj66iX/NsyLiSqOUbbSaxW
+	 a8SYASvLS251cIniK3Ri++1o+iyScmqP57/qNNXLOhRpTPy2DXaedzp+ysrG7a3kKAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826557;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=3n62GMqbOAMsMIZCGoM3LvCpYu2DKdAMPg4G3hiu3CA=;
-	b=fqwsZmvyWkBJUD26xrjp3LpZ1CAbEWZFrocsUDtXLU72xedrRlea882MFFlOBKehkjry
-	 YjWCKTGI2lVxQX2E+noC0NeCGJ8uS0sy6u3WDvUnsZA4LegSfIVZJ9NRUpkz+o3i66Mmh
-	 jXDhNj7ptEKkZ0K173O/tYBgWXTQwrnBQ8BNlWf+gTivnOGK/QbsjXMnZbur7OUhCST8+
-	 YsIitKKZja3WgVC/ZjyKzMCpoHILlLWhqTKIKsRlbMZoE1STLC/gjp1bdKp29y389rDrk
-	 9gyBDDctEplfUAEoEBFfU8kd9CPlA68fu0x0WcatqDNZo+bXRnYelPhknQfC2saR//Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826548;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=JoLaVO0t2M4whSRJ4oFfITG85nuCxR3a2DUqsaJwp/U=;
+	b=rnXox+3uY4tZO/QgqjbeMypUMyJAkpH8MFZvW5SI6iJPSvqxcEd7Y/wfd6atR0rXWbAx
+	 6eynpFk/b+JHozxj/l4Q/oM4ydwVT+zOKScjvH8RyNAjYCPtOALTiS4OS4aiuNiURi9pb
+	 C+6AQqusFCC4qeUQC0U4d2bhHteVYFRuzhlwLEg1Jy+maHS6lu1e8qafhb2QE8M2JDE3E
+	 YHXyK6+k5iD3+gAFvT+xb5A3/zJUHtpLiQMlUzbyVUsstVtxNsihl0JiXyliCCSJ3vyFw
+	 fEZ74Htw1YwrblxXOoaR/PXkm1GDFMvCaXSwwlwOmFTHNOUS4WsZ+EEOfqK3LV7qOrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tA6T845Z;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bM+Y4qli;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376D8609CAFB
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 376D8609CAFB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE417607E723;
+	Wed,  4 Nov 2026 21:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tA6T845Z
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so7611515e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793826555; x=1794431355; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3n62GMqbOAMsMIZCGoM3LvCpYu2DKdAMPg4G3hiu3CA=;
-        b=tA6T845Zst8zvZj0crLmvmoReAYgyg53vGvAmCFoy//XDngreZDSwBi3wTCNgRw+TN
-         wsSpBLGxuNXt95/BAWP/4ctH4keF9mZWwPjYuj+8poKFkj/uB+fmgrA0DluRQby9eXOy
-         KyHxc4Iw/K8u/LxUVfpDwFqDotGnKP4jHTWp75jPZS65jp/lAJDlBVnKsTim+yn/C5yq
-         TgCbEe6c8PLnKubSrbRXmbRaSfbGlaoktiXcOdg+j22dMlYyGk0k8bW8IrKdL/UF/Mk0
-         /gbvWh2OuR3FkCetwF/Xo1dqp5zqyg7lbgsykNTOSokXmUW2e+DSkmwdUaZWN6AMoive
-         zLug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793826555; x=1794431355;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3n62GMqbOAMsMIZCGoM3LvCpYu2DKdAMPg4G3hiu3CA=;
-        b=mnwoW5p8EtnKZe81fPYHEwG1ZZNHyEnc9X2T9oYSceAzgTIoHhbT5tBRoXMuz6Sa2G
-         Y7dXUTuhMW85P7j6uZnai9FVINTOabKNnSJYRyXIDmRtLbLvKrB/ZaNf0KzS4CEY+7i8
-         I4wxWiSlY1SpA/ZVCQkV9nyxZRroFzGgrJaMHp0eHUN8RqBWvgYEFur48LjTmv9UPyV5
-         s60J+6lK29CX7TtPkgt/PY6CecB5q2WX6OwQ5OAJkByfzHgpvrRVUNCGk+f/MS7HZ4DA
-         1Gnw5CSUHJ2vf/Zf7WX7v7ZUwKwr9OdbEwCW3VMANtznI/T5NzvqrFzJN/Lj22+2Ni3S
-         RH5g==
-X-Forwarded-Encrypted: i=1; AKwUvBzwWHEC5x2Ad06LBg7Cr4z2zwBqOPPnyjsJ7Tf8pgIN1O+wxn21gAj78xlgkqnMj2txb+u6vZGZIO1Jygc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EbzpqXXuqSebcXFeezpzJfx8r/v+WevPLMwQetd72u1G/W5gl
-	jprUuUTFvYd7/HH19He15WTyRA3wzidDxkEShmA51S/2gyOoA13JaaBc3Cs0rpOx
-X-Gm-Gg: AYBFou1cXlkf98+Qp9DFXLZghkz2R5SSqC1/pdvfoGNdtVzdzRxWOWEPVMroAXSp2Lf
-	FRXJnLTU/+IDLdxAK3U6Tbi3yiezw74c5y+Zd7iM/fZRZN/2std6AC/6yiiVVm/00/Hs51r37Nh
-	Wliu+yicH5yVG8fBRvyTNOoiyi16bcr1QO8ajFr/RWDetpN4YHnZoSJd7EgD2VkZKu9WcL+e7MC
-	RXaDBNvKFIvmcpqyKsjfZKRaQBhQRI+qLsZ8DBGIZ8hVt6FAhhlKejFiZp4WPMt7I+a32RWl71I
-	QevamkSmHSDB9OL8p15Z/d8qA0is6IJbONgTVbwDdJOUjyMy3QbCW1y3M2bkQ0nsUggC2sTl9zQ
-	qolUg2QO8KSpKwmcPMd2E8vry2gAgnARs9azrddCjslykgAzVGa486ZnpW/7YrnCSoV83Y2ZIlW
-	FSK/fKJFIzJMiVnhkAQvDD2Ho1wk8Z4vIJ5kdgWVc7DPIomR2yK5V6Utv9dcYr+cgVcWJlrglk2
-	nijxEdHy4gFSm9FCs3P0lBTu4ahjL4+kWNyyy3Z0nenF216Hwb3t7P5gWhVmFxRY/Esremef3JU
-	PWxffqPwNcT+WAIHJxV6ZQXdaP4AhgCPc7IfeggbJBQiHdHrGz/gwA==
-X-Received: by 2002:a05:600c:800c:b0:4a2:d99:3171 with SMTP id 5b1f17b1804b1-4ac17753c13mr410685195e9.23.1793826554340;
-        Wed, 04 Nov 2026 13:09:14 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4532916f2sm84694645e9.5.2026.11.04.13.09.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:09:13 -0800 (PST)
-From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Wed, 04 Nov 2026 22:08:58 +0100
-Subject: [PATCH v2 12/27] selftests/landlock: Assert audit_count_records()
- before using its result
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bM+Y4qli
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909FF1F00A16;
+	Wed,  4 Nov 2026 21:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793826547;
+	bh=JoLaVO0t2M4whSRJ4oFfITG85nuCxR3a2DUqsaJwp/U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bM+Y4qlivWXD/hbfUoQSOt6jdxvDIO6vVwYBUAaJcXZWGokJR9RMVEqU+eeSbz7fF
+	 hnfFB7Cx3gT3WkY8xzaq/MCyhCJkV5UJGtdTkTkh1nrmWsQdMxjOQKNLV03ezcTScE
+	 EBTyPlSpWX6nZUZnU4EdS8yJ05D0YPHiv7Hv/QQQ3ekdPm1e8WAwNCCwl88A/78S0j
+	 py+1+NpkcoBS45ikGR8nZZWI2/S0j7QuoKlp6Wj37uZsciPsY8Rlj1iA35502NnDzA
+	 iyjhQ9TFmgqpttvWp2BLes5zSmzGdMnwzfJpr+N+wi0ae+TcS5tYlV2QuS5mjybTLB
+	 x9ljrlBzgibzg==
+Subject: Re: [PATCH net v3] gve: leave refcount headroom in the RX page bias
+From: netdev-bot+sashiko@kernel.org
+To: amaan.cheval@gmail.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com,
+ przemyslaw.kitszel@intel.com, pkaligineedi@google.com, maolson@google.com,
+ csully@google.com, willemb@google.com, yangchun@google.com, npl@google.com,
+ awogbemila@google.com, shailend@google.com, nktgrg@google.com,
+ maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com,
+ hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 21:09:05 +0000
+Message-ID: <179382654505.488856.2284543045939069308@kernel.org>
+In-Reply-To: <20261103090651.35399-1-amaan.cheval@gmail.com>
+References: <20261103090651.35399-1-amaan.cheval@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,874 +68,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-selftests-refactor-v2-12-c52f23f7ce33@gmail.com>
-References: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
-In-Reply-To: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
- =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-X-Mailer: b4 0.15.2
 
-audit_count_records() fills in the record counts that are checked right
-after it, but its return value is checked with EXPECT.  On failure, the
-counts may be left uninitialized and the following checks are
-meaningless.  Use ASSERT instead.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- tools/testing/selftests/landlock/audit_test.c      | 20 ++---
- tools/testing/selftests/landlock/cap_test.c        | 16 ++--
- tools/testing/selftests/landlock/fs_test.c         | 86 +++++++++++-----------
- tools/testing/selftests/landlock/net_test.c        | 22 +++---
- tools/testing/selftests/landlock/ns_test.c         | 26 +++----
- tools/testing/selftests/landlock/ptrace_test.c     |  6 +-
- .../selftests/landlock/scoped_abstract_unix_test.c |  4 +-
- 7 files changed, 90 insertions(+), 90 deletions(-)
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
 
-diff --git a/tools/testing/selftests/landlock/audit_test.c b/tools/testing/selftests/landlock/audit_test.c
-index 63b1b2a04eee..325fbb9ca297 100644
---- a/tools/testing/selftests/landlock/audit_test.c
-+++ b/tools/testing/selftests/landlock/audit_test.c
-@@ -329,7 +329,7 @@ TEST_F(audit, log_subdomains_off_fork)
- 					NULL));
- 
- 	/* Drains any remaining records (e.g. domain allocation). */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 
- 	/*
- 	 * Mutes subdomain logs without creating a domain.  The parent's
-@@ -361,7 +361,7 @@ TEST_F(audit, log_subdomains_off_fork)
- 	EXPECT_EQ(-EAGAIN, matches_log_signal(_metadata, self->audit_fd,
- 					      getpid(), NULL));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	EXPECT_EQ(0, close(ruleset_fd));
-@@ -487,7 +487,7 @@ TEST_F(audit, log_subdomains_off_tsync)
- 					child_data.parent_pid, NULL));
- 
- 	/* Drains any remaining records (e.g. domain allocation). */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 
- 	/*
- 	 * Mutes subdomain logs and propagates to the sibling thread via TSYNC,
-@@ -509,7 +509,7 @@ TEST_F(audit, log_subdomains_off_tsync)
- 	EXPECT_EQ(-EAGAIN, matches_log_signal(_metadata, self->audit_fd,
- 					      child_data.parent_pid, NULL));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	EXPECT_EQ(0, close(pipe_child[0]));
-@@ -571,7 +571,7 @@ TEST_F(audit, tsync_override_log_subdomains_off)
- 					      child_data.parent_pid, NULL));
- 
- 	/* Drains any remaining records. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	/*
-@@ -740,7 +740,7 @@ TEST_F(audit_flags, signal)
- 		EXPECT_EQ(EPERM, errno);
- 
- 		/* Makes sure there is no superfluous logged records. */
--		EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+		ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 		if (!expect_audit) {
- 			EXPECT_EQ(0, records.access);
- 		} else {
-@@ -929,7 +929,7 @@ TEST_F(audit_exec, signal_and_open)
- 	EXPECT_EQ(1, read(pipe_child[0], &buf_parent, 1));
- 
- 	/* Tests that there was no denial until now. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-@@ -948,7 +948,7 @@ TEST_F(audit_exec, signal_and_open)
- 	}
- 
- 	/* Checks that we didn't miss anything. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	/*
-@@ -972,7 +972,7 @@ TEST_F(audit_exec, signal_and_open)
- 	}
- 
- 	/* Checks that we didn't miss anything. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	/* Waits for the child to terminate. */
-@@ -995,7 +995,7 @@ TEST_F(audit_exec, signal_and_open)
- 	}
- 
- 	/* Checks that we didn't miss anything. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-diff --git a/tools/testing/selftests/landlock/cap_test.c b/tools/testing/selftests/landlock/cap_test.c
-index 7b3b724e4406..5a7dbd26f92f 100644
---- a/tools/testing/selftests/landlock/cap_test.c
-+++ b/tools/testing/selftests/landlock/cap_test.c
-@@ -823,7 +823,7 @@ TEST_F(cap_audit, denied)
- 	 */
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -846,7 +846,7 @@ TEST_F(cap_audit, allowed)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
- 	/* No records: allowed operations never trigger audit logging. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -872,7 +872,7 @@ TEST_F(cap_audit, allow_and_quiet_same_member)
- 	/*
- 	 * Quiet is inert for the allowed member: nothing is denied or logged.
- 	 */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -916,7 +916,7 @@ TEST_F(cap_audit, quieted)
- 	EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_SYS_ADMIN));
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -962,7 +962,7 @@ TEST_F(cap_audit, quiet_youngest_layer_wins)
- 	EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_SYS_CHROOT));
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -994,7 +994,7 @@ TEST_F(cap_audit, quiet_unknown_bit_no_effect)
- 	EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_SYS_CHROOT));
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -1051,7 +1051,7 @@ TEST_F(cap_audit, noaudit_probe_not_logged)
- 	EXPECT_EQ(0, close(fd));
- 
- 	/* The denied noaudit probe leaves no audit record nor denial. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	/*
-@@ -1066,7 +1066,7 @@ TEST_F(cap_audit, noaudit_probe_not_logged)
- 	EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_SYS_ADMIN));
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 7ff94755b029..100ef02b5d1a 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -7534,7 +7534,7 @@ TEST_F(audit_layout1, execute_make)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.execute",
- 				    file1_s1d1));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7565,7 +7565,7 @@ TEST_F(audit_layout1, execute_read)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.execute,fs\\.read_file", file1_s1d1));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7580,7 +7580,7 @@ TEST_F(audit_layout1, write_file)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.write_file", file1_s1d1));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7595,7 +7595,7 @@ TEST_F(audit_layout1, read_file)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.read_file",
- 				    file1_s1d1));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7610,7 +7610,7 @@ TEST_F(audit_layout1, read_dir)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.read_dir",
- 				    dir_s1d1));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7634,7 +7634,7 @@ TEST_F(audit_layout1, remove_dir)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.remove_dir", dir_s1d2));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7650,7 +7650,7 @@ TEST_F(audit_layout1, remove_file)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.remove_file", dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7668,7 +7668,7 @@ TEST_F(audit_layout1, make_char)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_char",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7687,7 +7687,7 @@ TEST_F(audit_layout1, make_whiteout)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_reg",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7705,7 +7705,7 @@ TEST_F(audit_layout1, make_dir)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_dir",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7723,7 +7723,7 @@ TEST_F(audit_layout1, make_reg)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_reg",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7741,7 +7741,7 @@ TEST_F(audit_layout1, make_sock)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_sock",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7759,7 +7759,7 @@ TEST_F(audit_layout1, make_fifo)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_fifo",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7777,7 +7777,7 @@ TEST_F(audit_layout1, make_block)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.make_block", dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7795,7 +7795,7 @@ TEST_F(audit_layout1, make_sym)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_sym",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7817,7 +7817,7 @@ TEST_F(audit_layout1, refer_handled)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.refer",
- 				    dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7839,7 +7839,7 @@ TEST_F(audit_layout1, refer_make)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.make_reg,fs\\.refer", dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7859,7 +7859,7 @@ TEST_F(audit_layout1, refer_rename)
- 				    "fs\\.remove_file,fs\\.make_reg,fs\\.refer",
- 				    dir_s2d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7884,7 +7884,7 @@ TEST_F(audit_layout1, refer_exchange)
- 				    "fs\\.remove_file,fs\\.make_reg,fs\\.refer",
- 				    dir_s2d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -7918,7 +7918,7 @@ TEST_F(audit_layout1, refer_rename_half)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.refer",
- 				    dir_s1d1));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7934,7 +7934,7 @@ TEST_F(audit_layout1, truncate)
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.truncate",
- 				    file1_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7954,7 +7954,7 @@ TEST_F(audit_layout1, ioctl_dev)
- 					  "fs\\.ioctl_dev", "/dev/null",
- 					  " ioctlcmd=0xc00ffeee"));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -7989,7 +7989,7 @@ TEST_F(audit_layout1, resolve_unix)
- 	EXPECT_EQ(0, matches_log_fs_extra(_metadata, self->audit_fd,
- 					  "fs\\.resolve_unix", path, NULL));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- 
-@@ -8008,7 +8008,7 @@ TEST_F(audit_layout1, mount)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.change_topology", dir_s3d2));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- }
-@@ -8250,7 +8250,7 @@ void audit_quiet_layout1_test_body(struct __test_metadata *const _metadata,
- 						    blocker, target->target));
- 
- 		/* Check that we see no (other) logs. */
--		EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+		ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 		ASSERT_EQ(0, records.access);
- 
- 		if (target->expect_open_success && fd >= 0) {
-@@ -8294,7 +8294,7 @@ void audit_quiet_layout1_test_body(struct __test_metadata *const _metadata,
- 						     " ioctlcmd=0x541b\\+"));
- 
- 			/* Check that we see no other logs. */
--			EXPECT_EQ(0, audit_count_records(self->audit_fd,
-+			ASSERT_EQ(0, audit_count_records(self->audit_fd,
- 							 &records));
- 			ASSERT_EQ(0, records.access);
- 			ASSERT_EQ(0, close(fd));
-@@ -9695,7 +9695,7 @@ static void simple_quiet_rename(struct __test_metadata *const _metadata,
- 	 * No other logs. records.domain not checked per reasoning in
- 	 * audit_quiet_layout1_test_body.
- 	 */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -9814,7 +9814,7 @@ TEST_F(audit_quiet_rename, handle_all_deny_quiet_refer)
- 	ASSERT_EQ(EXDEV, errno);
- 
- 	/* No logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -9855,7 +9855,7 @@ TEST_F(audit_quiet_rename, handle_all_deny_not_quiet_refer)
- 				    dir_s2d1));
- 
- 	/* No other logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -9894,7 +9894,7 @@ TEST_F(audit_quiet_rename, handle_all_deny_refer_quiet_source_not_quiet_dest)
- 				    dir_s2d1));
- 
- 	/* No other logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -9921,7 +9921,7 @@ TEST_F(audit_quiet_rename, quiet_same_dir)
- 	ASSERT_EQ(-1, renameat(AT_FDCWD, file1_s1d1, AT_FDCWD, file2_s1d1));
- 	ASSERT_EQ(EACCES, errno);
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -9961,7 +9961,7 @@ TEST_F(audit_quiet_rename, quiet_flag_on_file_ignored)
- 				    dir_s2d1));
- 
- 	/* No other logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -9998,7 +9998,7 @@ TEST_F(audit_quiet_rename, quiet_flag_on_file_ignored_same_dir)
- 				 "fs\\.remove_file,fs\\.make_reg", dir_s1d1));
- 
- 	/* No other logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10056,7 +10056,7 @@ TEST_F(audit_quiet_rename, two_layers_different_quiet1)
- 	ASSERT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.remove_file,fs\\.refer", dir_s1d1));
- 	/* No other logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10111,7 +10111,7 @@ TEST_F(audit_quiet_rename, two_layers_different_quiet2)
- 	 * The youngest denial will be layer 2, but refer is quieted (and that
- 	 * layer does not handle any other accesses).
- 	 */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10165,7 +10165,7 @@ TEST_F(audit_quiet_rename, two_layers_different_quiet3)
- 	/*
- 	 * The youngest denial will be layer 2, in which everything is quieted.
- 	 */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10211,7 +10211,7 @@ TEST_F(audit_quiet_rename,
- 	ASSERT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.make_reg,fs\\.refer", dir_s2d1));
- 	/* No other logs. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10262,7 +10262,7 @@ TEST_F(audit_quiet_rename,
- 	ASSERT_EQ(0, matches_log_fs(_metadata, self->audit_fd,
- 				    "fs\\.make_reg,fs\\.refer", dir_s2d1));
- 	/* No other logs. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10295,7 +10295,7 @@ TEST_F(audit_quiet_rename, rename_xchg)
- 				RENAME_EXCHANGE));
- 	ASSERT_EQ(EACCES, errno);
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10324,7 +10324,7 @@ TEST_F(audit_quiet_rename, quiet_on_parent_mount)
- 			       bind_file2_s1d3));
- 	ASSERT_EQ(EACCES, errno);
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10356,7 +10356,7 @@ TEST_F(audit_quiet_rename, quiet_behind_mountpoint_ignored)
- 				    "fs\\.remove_file,fs\\.make_reg",
- 				    bind_dir_s1d3));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10394,7 +10394,7 @@ TEST_F(audit_quiet_rename, quiet_on_parent_mount_disconnected)
- 		  renameat(bind_s1d3_fd, file1_name, bind_s1d3_fd, file2_name));
- 	ASSERT_EQ(EACCES, errno);
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-@@ -10432,7 +10432,7 @@ TEST_F(audit_quiet_rename, quiet_behind_mountpoint_disconnected)
- 		  renameat(bind_s1d3_fd, file1_name, bind_s1d3_fd, file2_name));
- 	ASSERT_EQ(EACCES, errno);
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	ASSERT_EQ(0, records.access);
- }
- 
-diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
-index c1b6e288c965..563e2214390b 100644
---- a/tools/testing/selftests/landlock/net_test.c
-+++ b/tools/testing/selftests/landlock/net_test.c
-@@ -3004,7 +3004,7 @@ TEST_F(audit, bind)
- 	EXPECT_EQ(0, matches_auditlog(self->audit_fd, audit_evt, "saddr",
- 				      variant->addr, "src", self->srv0.port));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- 
-@@ -3015,7 +3015,7 @@ TEST_F(audit, bind)
- 	ASSERT_LE(0, sock_fd);
- 	EXPECT_EQ(-EACCES, bind_variant(sock_fd, &self->srv2));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-@@ -3065,7 +3065,7 @@ TEST_F(audit, connect)
- 	EXPECT_EQ(0, matches_auditlog(self->audit_fd, audit_evt, "daddr",
- 				      variant->addr, "dest", self->srv0.port));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- 
-@@ -3075,7 +3075,7 @@ TEST_F(audit, connect)
- 
- 		EXPECT_EQ(0, matches_auditlog(self->audit_fd, "net\\.bind_udp",
- 					      NULL, NULL, NULL, 0));
--		EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+		ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 		EXPECT_EQ(0, records.access);
- 		EXPECT_EQ(0, records.domain);
- 	}
-@@ -3087,7 +3087,7 @@ TEST_F(audit, connect)
- 	ASSERT_LE(0, sock_fd);
- 	EXPECT_EQ(-EACCES, connect_variant(sock_fd, &self->srv2));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-@@ -3136,7 +3136,7 @@ TEST_F(audit, connect_quiet_bind)
- 	EXPECT_EQ(0, matches_auditlog(self->audit_fd, audit_evt, "daddr",
- 				      variant->addr, "dest", self->srv2.port));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	EXPECT_EQ(0, close(sock_fd));
-@@ -3155,7 +3155,7 @@ TEST_F(audit, connect_quiet_bind)
- 	EXPECT_EQ(-EACCES, connect_variant(sock_fd, &self->srv2));
- 
- 	/* Quieted - no logs expected. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	EXPECT_EQ(0, close(sock_fd));
-@@ -3226,7 +3226,7 @@ TEST_F(audit, connect_bound)
- 					       variant->addr, self->srv0.port,
- 					       srv_remote.port));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- 
-@@ -3266,7 +3266,7 @@ TEST_F(audit, sendmsg)
- 				      "daddr", variant->addr, "dest",
- 				      self->srv0.port));
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(1, records.domain);
- 
-@@ -3274,7 +3274,7 @@ TEST_F(audit, sendmsg)
- 	EXPECT_EQ(-EACCES, sendto_variant(sock_fd, &self->srv1, "A", 1, 0));
- 	EXPECT_EQ(0, matches_auditlog(self->audit_fd, "net\\.bind_udp", NULL,
- 				      NULL, NULL, 0));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-@@ -3282,7 +3282,7 @@ TEST_F(audit, sendmsg)
- 		  sendto_variant(sock_fd, &self->unspec_srv0, "B", 1, 0));
- 	EXPECT_EQ(0, matches_auditlog(self->audit_fd, "net\\.connect_send_udp",
- 				      "daddr", NULL, "dest", 0));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-diff --git a/tools/testing/selftests/landlock/ns_test.c b/tools/testing/selftests/landlock/ns_test.c
-index 6491b53742f1..57d03233bf6d 100644
---- a/tools/testing/selftests/landlock/ns_test.c
-+++ b/tools/testing/selftests/landlock/ns_test.c
-@@ -1984,7 +1984,7 @@ TEST_F(ns_audit, create_denied)
- 	 */
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -2005,7 +2005,7 @@ TEST_F(ns_audit, create_allowed)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
- 	/* No records: allowed operations never trigger audit logging. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2030,7 +2030,7 @@ TEST_F(ns_audit, setns_allowed)
- 	EXPECT_EQ(0, close(ns_fd));
- 
- 	/* No records: allowed setns never triggers audit logging. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2068,7 +2068,7 @@ TEST_F(ns_audit, setns_denied)
- 	 */
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -2094,7 +2094,7 @@ TEST_F(ns_audit, create_quieted)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
- 	/* The denial is suppressed: no access record. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2123,7 +2123,7 @@ TEST_F(ns_audit, setns_quieted)
- 	EXPECT_EQ(0, close(ns_fd));
- 
- 	/* The denial is suppressed: no access record. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2155,7 +2155,7 @@ TEST_F(ns_audit, quiet_is_per_member)
- 	EXPECT_EQ(0, matches_log_ns_create(self->audit_fd, CLONE_NEWUTS));
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -2187,7 +2187,7 @@ TEST_F(ns_audit, quiet_unknown_bit_no_effect)
- 	EXPECT_EQ(0, matches_log_ns_create(self->audit_fd, CLONE_NEWUTS));
- 	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
- 						  &domain_id));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-@@ -2212,7 +2212,7 @@ TEST_F(ns_audit, allow_and_quiet)
- 	EXPECT_EQ(EPERM, errno);
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2238,7 +2238,7 @@ TEST_F(ns_audit, allow_and_quiet_same_member)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
- 	/* Nothing denied, nothing logged. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2272,7 +2272,7 @@ TEST_F(ns_audit, quiet_youngest_layer_wins)
- 
- 	/* The child layer denies and does not quiet: logged. */
- 	EXPECT_EQ(0, matches_log_ns_create(self->audit_fd, CLONE_NEWUTS));
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2307,7 +2307,7 @@ TEST_F(ns_audit, quiet_parent_only_denying_layer)
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
- 	/* The parent quiets and is the youngest denying layer: suppressed. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- }
- 
-@@ -2638,7 +2638,7 @@ TEST_F(ns_proc_open, open_unrestricted)
- 	}
- 
- 	/* No Landlock denial. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	EXPECT_EQ(0, close(fd));
-diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
-index b951889cd6ca..eb36d4d1ceaf 100644
---- a/tools/testing/selftests/landlock/ptrace_test.c
-+++ b/tools/testing/selftests/landlock/ptrace_test.c
-@@ -343,7 +343,7 @@ TEST_F(audit, trace)
- 	struct audit_records records;
- 
- 	/* Makes sure there is no superfluous logged records. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-@@ -381,7 +381,7 @@ TEST_F(audit, trace)
- 		EXPECT_EQ(0, matches_log_ptrace(_metadata, self->audit_fd,
- 						getpid()));
- 
--		EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+		ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 		EXPECT_EQ(0, records.access);
- 		/* Checks for a domain creation. */
- 		EXPECT_EQ(1, records.domain);
-@@ -428,7 +428,7 @@ TEST_F(audit, trace)
- 		_metadata->exit_code = KSFT_FAIL;
- 
- 	/* Makes sure there is no superfluous logged records. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- }
-diff --git a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-index 55a1599819c8..67fcc3380238 100644
---- a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-+++ b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-@@ -360,7 +360,7 @@ TEST_F(scoped_audit, connect_to_child)
- 		!(variant->quiet_scoped & LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET);
- 
- 	/* Makes sure there is no superfluous logged records. */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 	EXPECT_EQ(0, records.domain);
- 
-@@ -429,7 +429,7 @@ TEST_F(scoped_audit, connect_to_child)
- 	}
- 
- 	/* No other logs */
--	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	ASSERT_EQ(0, audit_count_records(self->audit_fd, &records));
- 	EXPECT_EQ(0, records.access);
- 
- 	ASSERT_EQ(1, write(pipe_parent[1], ".", 1));
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] This patch refills the bias only after
+  gve_dec_pagecnt_bias() reaches 0, and it lowers the per-page bias from…
+
+--
+
+gve: leave refcount headroom in the RX page bias
+
+This patch lowers the gve RX page refcount bias from INT_MAX to USHRT_MAX
+and stores it in a u16. This leaves page_count() room for references the
+stack takes with get_page(), such as splice() and tee(). When the bias
+reaches 0, it is refilled with a fixed batch of GVE_PAGECNT_BIAS.
+
+Link: https://github.com/amaanc/kernel-bias
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
+> index caed38cd5f2b3..cb6fba3122d5b 100644
+> --- a/drivers/net/ethernet/google/gve/gve_utils.c
+> +++ b/drivers/net/ethernet/google/gve/gve_utils.c
+> @@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+>  {
+>  	page_info->pagecnt_bias--;
+>  	if (page_info->pagecnt_bias == 0) {
+> -		int pagecount = page_count(page_info->page);
+> -
+> -		/* If we have run out of bias - set it back up to INT_MAX
+> -		 * minus the existing refs.
+> -		 */
+> -		page_info->pagecnt_bias = INT_MAX - pagecount;
+> -
+> -		/* Set pagecount back up to max. */
+> -		page_ref_add(page_info->page, INT_MAX - pagecount);
+> +		/* Out of bias: take another batch of references. */
+> +		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+> +		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
+>  	}
+>  }
+
+[Severity: Critical]
+
+Can this free a DQO-QPL RX page that is still registered with the device?
+
+Because the refill happens only at 0, the 1 -> 0 transition hands the
+driver's last reference to the consumer. With INT_MAX a page needed about
+2^31 handoffs to get there. With GVE_PAGECNT_BIAS it happens every 65534
+handoffs.
+
+On DQO-QPL, gve_xdp_done_dqo() redirects the buffer before it touches the
+bias:
+
+	case XDP_REDIRECT:
+		err = xdp_do_redirect(priv->dev, xdp, xprog);
+		if (unlikely(err))
+			goto err;
+		gve_reuse_buffer(rx, buf_state);
+
+gve_reg_xdp_info() registers QPL rings as MEM_TYPE_PAGE_SHARED. If the
+redirect target is an AF_XDP socket in copy mode, the page is released
+synchronously:
+
+xdp_do_redirect()
+  xsk_rcv()
+    xdp_return_buff()
+      __xdp_return()
+        page_frag_free()
+          put_page_testzero()
+          free_frozen_pages()
+
+Suppose the page is at pagecnt_bias == 1 and page_count == 1. That is the
+normal recyclable state once all earlier consumers have released their
+references. The QPL page then goes back to the buddy allocator while it is
+still DMA mapped, registered in the QPL and owned by the buf_state.
+
+After that, gve_reuse_buffer()->gve_dec_pagecnt_bias() calls
+page_ref_add(page, GVE_PAGECNT_BIAS) on the freed page.
+gve_try_recycle_buf() then sees page_count - bias == 0 and posts the page
+back to the NIC. Could the device then DMA packet data into memory that
+has already been handed to another user?
+
+The v3 notes say XDP on DQO-QPL "will be blocked explicitly in a separate
+patch". In this tree, gve_xdp(), gve_verify_xdp_configuration() and
+gve_set_xdp() do not check queue_format.
+
+gve_set_netdev_xdp_features() sets xdp_features = 0 for DQO-QPL, but
+nothing on the attach path enforces it. xp_assign_dev() also falls back to
+copy mode when NETDEV_XDP_ACT_XSK is missing.
+
+That note is below the --- line, so it will not be in the applied commit.
+The patch is also tagged for stable without naming the prerequisite.
+
+The commit message also says:
+
+  Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do
+
+Those drivers refill at bias == 1, so they always keep a reference. For
+example, igb_can_reuse_rx_page() does:
+
+	if (unlikely(pagecnt_bias == 1)) {
+		page_ref_add(page, USHRT_MAX - 1);
+		rx_buffer->pagecnt_bias = USHRT_MAX;
+	}
+
+Would it be safer to refill at 1 here, as v2 did, so the driver never
+gives up its last reference on a QPL page?
 
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103090651.35399-1-amaan.cheval%40gmail.com
