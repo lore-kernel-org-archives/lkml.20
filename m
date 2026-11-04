@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801543;
-	b=xMJlgzF6isE6XMhh1hwywm/XnU4iE/EB7nwagcN3J/axHCQXCXIX4SUeHZUsGIkWhKt1
-	 o7qmw4DKAx3cetgehFyPk3vRKAS7TgqSi4Y+fe3hSWycvuYmVXL1yHSj60gjHtLC0hurb
-	 uqcBTLzmS4PxNTcsCirJTYIx5uD676JWFa9ihOrojxHe3K9Z6BxEoM7EwVkyOIZPf6yBA
-	 HigW1281S1m7Veblx9mO9RNDli4mVi7+pFHue8fMIaZvHxR3ncB7kABkmhkdhky/uBtPW
-	 N07q350wyg3bzA95b3dHO6fZjjRs1iGGxGSZ/yfVRzxIGhHVdsZnnV/X8gOBmv4g0cw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801543;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=qt8pYHnyAZsiOolx0cEcvSp4N3W6vYqWJkMHRpqOlXc=;
-	b=4y7deYml1yd+l5/YI/rORm2AYxBjpPwLqFq23KO6UiLlBpjj3FF7Zle+WB44UL8hiruq
-	 mxgLyEwy9Nr34qHvwjtRxMcj36OkoOWoVFqlfwDrwR/jY/acrACjVBkPcjDEvZf77bgan
-	 vEYqfoReEfHp9bvFMO5A4pr+stFnCoiO7ltGHvYJEiJAaWEvDJv+TY/E292uEJAh4fsX1
-	 45EILPk6fEAOo8/iHoGTwh/ME698LFwqii5ZRUe2QxWPe1J6nr0nKnPlpKlIsZHHMw5eN
-	 fSdLk7y7rizO8jxRD3wXsVRHeV5juF4VPPQKmzNCfACH5NhaVHmGno9fSRRv3X7fpHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fj2rZQhy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801552;
+	b=RW/LktQKImQiWoZd5k6+YVdx0altHAIRtV/49yRKD7XV3LzyMeauywuZyUlArCdoSp3X
+	 WGTRHdL9qGTfZ0w11sGul50Ycv4JsAbgCorq57TzaSsGsJYReDPuMKBJf87sn0cm9HJ6v
+	 Vb0jDks6z9cTmxH1og8NAkMj0LjDpsIcs7TYwEYpXvOyy7CHx4PBzDLgIJJUyrSXkRw2f
+	 YPd2G0lrUGOzZu4n1UbSgLJawsXUpeXfUGhXV2S7y8uXGdVUjGAQVRxeFv1h2uPACYDkv
+	 y4LoNQU5lytvIaNU/Bm15LjL5ii1wPdiozIMGNxiOUGrZ+/Pro71Ks5el3v8Rt7JUxA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801552;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=onQfzVmJC7HohmP0cLeGwtdRODbHCJknVIWGqjziqDY=;
+	b=MklAjtYLmFkyuSMC1Nu8bY43xFgYegx+8MZy36up3IWo9laU9jyYlyxgJqojHWuXCERW
+	 x7F7fZnsAKAcW/xWpo9KLFbM0tIRR4miE2cUJP096MmRsfe20N/EFYE5N33It8E/P8bB0
+	 qP24MOr7TUy9ExzADWYxUALbZ06sY9IJiWgvx19dyfshhDxnM9+jBALGwWQEuOuCDIh6R
+	 iFKXU/L8ypLnpCJNAANA8mTLyGJdVmyosCy6LCVH3hFPouVYTW79EoxLseqMwjxVUpGww
+	 R3t/gbW2st8amTfIP8mm+d5YjRj0u7YwIJQQK/r6AB2FsU5SEQZJ6febzRorRu75OkQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL0mHBdN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA175606A335;
-	Wed,  4 Nov 2026 14:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA175606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA8E606D80F;
+	Wed,  4 Nov 2026 14:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fj2rZQhy
-ARC-Seal: i=1; a=rsa-sha256; t=1793801495; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gpQx703hJQlp5rl0ZOVzEgqbS5E0x99CANbAmQSF3a2Iit6649AW2SOps7qWpQLEEPNrM6fYlmuiQKDBQAblmayjyxGTq4WU9fKjwTqoxTZTR246fDW1ob+AZtYmh7L4L+wOuwfOO/LmotfnUmtybErLzZJx2BLMPLr+5+p/vDE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801495; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qt8pYHnyAZsiOolx0cEcvSp4N3W6vYqWJkMHRpqOlXc=; 
-	b=TGKc1rCzQ1GDRG4g9rOzIdpTo7WGlX+ledGN2lLQklwuNfZc475xRBV1nAgYnbCXuu8HhXzaytHUbQ64RpPb8k85+Ys8HiOmYOSP/6Adoj8R50bTfnIFGNBH9cwgUvOq4HUdn7/j1tuJ9zQLo2O+GKeVvaqTpDRxiO3ncevpHsM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=fj2rZQhyPJLdwKUfVjmn6zqd/uKdqw4eje2Zj9dh+IcuSu6VI/YkM3jritetmyGtuti/xFllyo9k8VO4aEuHhkmGuCAkiAPPp2DKiq8tDKDp8rujbsQsL4GxiMqDZ50SOeyizgAhVGoqQXsC9opprvJOEak4HR6v6plx5ZUCKis=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=qt8pYHnyAZsiOolx0cEcvSp4N3W6vYqWJkMHRpqOlXc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793801491817146.82438902791648;
-	Wed, 4 Nov 2026 06:11:31 -0800 (PST)
-Message-ID: <657ea8a3-2cfd-4c90-b672-84c78acee181@collabora.com>
-Date: Wed, 4 Nov 2026 17:11:25 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL0mHBdN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432C31F0093A;
+	Wed,  4 Nov 2026 14:12:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801552;
+	bh=onQfzVmJC7HohmP0cLeGwtdRODbHCJknVIWGqjziqDY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=YL0mHBdNDiunlG8rrAEkkTaGCj1hrgX75U4z1Ml7hTgNdeY1G7/Lqev+aLVQR+Qpn
+	 TdKK4Vzx6TtBRwXZ0bt3OeqzYSVcAzAuv0DOqjLJZibnLWMQIU/66PYdTMkEiIBUUg
+	 oj0qzD5GM57Kb7BUN+tcdPhyVuRQ5maPjgC4q1aYirAW4HGo5HdtYvdCLd2VdgR5bZ
+	 xrKT2Zx3kw/mDTMaP3mQK8OQ527/ncS5Cy74zMQDkUzrend2XgDr7ldd3EqnS2iipS
+	 eCkX7zd4zq9sxqWgYQwz2VRR/vrIFIjwhVNMy7fdS2JG63WulEzNoe96K2ooNFMRV5
+	 mw0Ektf6TZZCQ==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org,  linux-doc@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,
+  linux-mm@kvack.org,  Alexander Graf <graf@amazon.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Christian Brauner <brauner@kernel.org>,  David Hildenbrand
+ <david@kernel.org>,  Hugh Dickins <hughd@google.com>,  Jonathan Corbet
+ <corbet@lwn.net>,  "Liam R. Howlett" <liam@infradead.org>,  Lorenzo
+ Stoakes <ljs@kernel.org>,  Michal Hocko <mhocko@suse.com>,  Mike Rapoport
+ <rppt@kernel.org>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
+ Yadav <pratyush@kernel.org>,  Randy Dunlap <rdunlap@infradead.org>,
+  Samiullah Khawaja <skhawaja@google.com>,  Shuah Khan
+ <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
+  Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v3 03/10] liveupdate: Allow file handlers to mark
+ retrieve failures as retryable
+In-Reply-To: <20261103010216.3447716-4-dmatlack@google.com> (David Matlack's
+	message of "Tue, 3 Nov 2026 01:02:09 +0000")
+References: <20261103010216.3447716-1-dmatlack@google.com>
+	<20261103010216.3447716-4-dmatlack@google.com>
+Date: Wed, 04 Nov 2026 15:12:26 +0100
+Message-ID: <2vxzv76ck7n9.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,86 +72,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/10] media: synopsys: hdmirx: add media device
- infrastructure
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-2-71a11a2e3e76@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-2-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain
 
-On 10/5/26 16:28, Sascha Hauer wrote:
-> From: Gerald Loacker <gerald.loacker@wolfvision.net>
-> 
-> Initialize the media device to enable integration with HDMI bridge
-> devices in the video capture pipeline. This provides the foundation
-> for representing the hardware topology through the media controller
-> framework.
-> 
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->   drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index bc541431638e7..8b04c84be75ec 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -31,6 +31,7 @@
->   #include <linux/workqueue.h>
->   
->   #include <media/cec.h>
-> +#include <media/media-device.h>
->   #include <media/v4l2-common.h>
->   #include <media/v4l2-ctrls.h>
->   #include <media/v4l2-device.h>
-> @@ -123,6 +124,7 @@ struct snps_hdmirx_dev {
->   	struct device *dev;
->   	struct hdmirx_stream stream;
->   	struct v4l2_device v4l2_dev;
-> +	struct media_device mdev;
->   	struct v4l2_ctrl_handler hdl;
->   	struct v4l2_ctrl *detect_tx_5v_ctrl;
->   	struct v4l2_ctrl *rgb_range;
-> @@ -2649,6 +2651,7 @@ static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
->   		container_of(v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
->   
->   	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
-> +	media_device_cleanup(&hdmirx_dev->mdev);
->   	kfree(hdmirx_dev);
->   }
->   
-> @@ -2751,6 +2754,11 @@ static int hdmirx_probe(struct platform_device *pdev)
->   		goto err_pm;
->   	}
->   
-> +	hdmirx_dev->mdev.dev = dev;
-> +	strscpy(hdmirx_dev->mdev.model, "snps-hdmirx", sizeof(hdmirx_dev->mdev.model));
-> +	media_device_init(&hdmirx_dev->mdev);
-> +	hdmirx_dev->v4l2_dev.mdev = &hdmirx_dev->mdev;
-> +
->   	stream = &hdmirx_dev->stream;
->   	stream->hdmirx_dev = hdmirx_dev;
->   	ret = hdmirx_register_stream_vdev(stream);
-> 
+On Tue, Nov 03 2026, David Matlack wrote:
 
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> From: Pasha Tatashin <pasha.tatashin@soleen.com>
+>
+> When luo_retrieve_file() invokes a handler's .retrieve() callback and it
+> returns an error, LUO currently records the error in
+> luo_file->retrieve_status and blocks any subsequent retrieve attempts.
+> This is necessary when the handler has already partially consumed or
+> freed the preserved KHO state.
+>
+> However, with user arguments passed to .retrieve(), a handler may fail
+> early while validating caller-supplied parameters (such as a missing
+> argument, an invalid or read-only target file descriptor, or a non-empty
+> target file) before touching any preserved KHO state. In such cases,
+> userspace should be able to fix the argument and retry
+> LIVEUPDATE_SESSION_RETRIEVE_FD, and if the file is never retrieved,
+> .finish() must still run to release the preserved KHO state.
+>
+> Add a retryable output flag to struct liveupdate_file_op_args. When a
+> handler sets args->retryable = true on error, luo_retrieve_file() leaves
+> luo_file->retrieve_status at 0 so the retrieve operation can be retried
+> and .finish() will still clean up the unconsumed preserved state if the
+> session is finished without retrieving the file.
+
+Should we give some sort of signal to userspace whether the error is
+retriable or not? How would it know it can or should try again?
+
+>
+> Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Signed-off-by: David Matlack <dmatlack@google.com>
+[...]
 
 -- 
-Best regards,
-Dmitry
+Regards,
+Pratyush Yadav
