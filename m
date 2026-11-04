@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836425;
-	b=OclzvJWnNK9Zwu3HsShTFfdVcI9FoDnzMK469zISARG0/138Le3Zn7xmwguRYiHxSQjO
-	 7gMpxECUqV4mM7i0BtA7uDPynr7C6zssxMpVnSzwx/ZG+nzX+7j32I0U7UagZSncgfoSh
-	 lRiSdW3xXNDnEwFLMRPYVUwDWT1e3yBZK61dvgLQ9iUpq8F50ZE/D2pVME8poewWOYOqR
-	 5hfrkL3amdMeXyKJryXkacesQ7LJ9gRY6/iOe2TJmkwPvmiGwQwuFPz6fCmYixX6r412g
-	 qAbl0xMGhmHzOfFKXZnprnNDwbBSu2ooqY558Hg/B6DU649QWETFS6055FgVBlq4VRw==
+	t=1793836456;
+	b=luqg7pkci8XZR3Y2DjrgKwYABaS7wKW2ScmjsQME4BqSdgBnwG/xRtKsUBZFtWHgutK4
+	 WwdevusHHcDL8/VMRC+A+dWE1rprH3PqIBCkAXaHrxtB5BB3UIPL856+k9I3YpALdYv5X
+	 F7Wi6Vt5rud464vBGt5T8pMpqwxx6py6qmbtY9njez1H7We1tibrEQUQrn0YHDz7s4MNW
+	 AQ8ybSwRjNmJoOViu7bzETdZO5bNu3JTBr6Q+qV9cD55ShK7G41GHxO2IyQ4qc2Oyc9HO
+	 rgrRnUX5XCnnC0yrQj6YIg0daURVG9PYwchw7XQ6CdfEtm85dfIAFxYzcEdrWke734w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836425;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VeugssPejjBkQOyMsLtKvGKvGDEUMxXJxO+Iqcxug8w=;
-	b=ApKCfgpB70o6JkoVgEgr8h6omNTbsH6VwCclF0XMOwI21Rdes7sE/T4bQR3frUzlh/lV
-	 dSakdASmBoapzwzlSuo8/F6DipEiIsJjBP9oelzZAA33ZayUZ3j0UMXB8udmhRgIX/K6S
-	 wwuYDQww8YyH14Wc9sETClr3qjq763ayFGyfsWdnTilz/cUlEsUumZNhIoevXosHmlWbM
-	 7S9SOG7CX7x1VZSQkmg0FLagEW3sikm92DLMLZn4ltKcYsN1fuLe52914+esom4bW4FOW
-	 kOr4lNN0KLcZhhOBYvXHORwLFEdrOJnwK7xymS34cv93tnr04ACNtsbkOVVX9br/k2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836456;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=04usRo0p49e4xN5z8BV5OvbA00WkHq0yeYyd9e555E8=;
+	b=3JzPSFYRGGs5yfC+wUeNk9xoxssDWZ6s7n835kAc1b6lIngDfNYxoRbBqzuE8cD1aIDD
+	 7DfIZzspbG1w/YQ5HiVwslHqfuz8iWK4Fp3VJDgs/FhK5z1lPex/8H4FwdIhkl9DlEOyx
+	 k/egzMZT+JMbw1YflbZGrP2N1OFzKTL8ZAa5NS3cGE7wu+skN+iM3H0fyLKmD9MuDBDj/
+	 j/+S4oSIkZvw4jY0lPKIP1tcy3nUuDO8a5UHATWh7+RVdZXwtT8GfSFmapzDkZ66G0z+U
+	 PuzpR9Jy9g5aSqK3F0+fe3ZcKcP+ei2NQxEw7Jhb2zYY2FX4d0T8S0J5UjfmL4Hyx8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=RZ9+qesf;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=rkoyF7VN;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mse1He3b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9640E606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:53:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9640E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2539606A326;
+	Wed,  4 Nov 2026 23:54:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=RZ9+qesf;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=rkoyF7VN
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793836404; bh=VeugssPejjBkQOyMsLtKvGK
-	vGDEUMxXJxO+Iqcxug8w=; b=RZ9+qesfVBDkqxuqrNL7G2bQYpsmzx5f0moFTNygOWtxBOe8ic
-	brMFHPlQ40yvj5RZ0w4irOt+I4gFA7XWBIXWIHYxT37yc+UQ7mJAGCQkZguzyzegHnk3r/Qc+7M
-	IgLPfqNbcvllh53c20vxPThEDBF1Lh68mAnLbzhjRxnGr7Zqndspayrk2P3/kqumVAle4IRrPHa
-	5R21Nt8j+gZaSgDga5lT1hiJM8p0+rAGsAcprHvzcaj5htUFNiXV/xnhU/aKToljL01fmXjnDm1
-	F3z6bHANvI0AxJ3UjIap7C4PxcmwdW20z6sL/SVrN6OFfAmncLvVNMr1yZz85LEMBMg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793836404; bh=VeugssPejjBkQOyMsLtKvGK
-	vGDEUMxXJxO+Iqcxug8w=; b=rkoyF7VNvlmbD8NL0WhYJM/SNoWD2TrQssUMkDcFdAE8F+XtjW
-	k9mYeZKK15PkI7GIviD6lnBQjsvI5lFXTIDg==;
-Date: Wed, 04 Nov 2026 23:53:25 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: devnull+mt4022.columbia.edu@kernel.org
-CC: bigeasy@linutronix.de, linux-kernel@vger.kernel.org, mt4022@columbia.edu,
- peterz@infradead.org, tglx@kernel.org, tz2294@columbia.edu
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_smpboot=3A_Run_the_thre?=
- =?US-ASCII?Q?ad_function_only_once_before_parking?=
-In-Reply-To: <20261104-smpboot-park-once-v2-1-ea28ec9fd85e@columbia.edu>
-Message-ID: <8F051E1B-268D-417E-B1E1-4ECA2046E0F8@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mse1He3b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36801F000C1;
+	Wed,  4 Nov 2026 23:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793836455;
+	bh=04usRo0p49e4xN5z8BV5OvbA00WkHq0yeYyd9e555E8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mse1He3bUoT86UfMRRBd8ZbS1HTVq9lfaIofv1y6s3vQ5naFNU+VD/dgd+0QraQOC
+	 A570DM+2UcClbev/G/+m+v7aamThIZzFcGraumDPtKtkZeY0oWEkvhQbKWV1uZ8DBA
+	 syVsH9Nh93UkWfgev4xB2BPK1hXgyeRJSVCUMqkxPFyAN6WUqviP/hpvWScPsxyi5P
+	 pv0nQLkqCJbCErswqACbIkD9tOTHQ55K+fhOY0NjZtELMHQxR+gy/gb5stXng5Fd8l
+	 G5ODjv6f15p3W9SY288gSn15EJKtruKUalgstWbMJPfN9+P3eB1RU0yupnJDr85THM
+	 tNjplY3/TsOMg==
+Date: Wed, 4 Nov 2026 23:54:11 +0000
+From: Conor Dooley <conor@kernel.org>
+To: joseph@telaak.dev
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
+Message-ID: <20261104-geiger-handler-f6688647819c@spud>
+References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
+ <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,329 +61,394 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BcSoKk5UO7VHsm1e"
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
 
-On 4 November 2026 21:58:09 GMT, Mani Tofigh <mt4022@columbia.edu> wrote:
->Since commit 4a3b51aab6e2 ("smpboot: Don't park the thread if work is
->pending"), smpboot_thread_fn() parks only once thread_should_run() is
->false.  CPU offline waits for that with no timeout and with
->cpu_hotplug_lock held for write.
->
->When the outgoing CPU keeps receiving more packets than it can process,
->ksoftirqd always has NET_RX pending and never parks.  The offline then
->waits for as long as the packets keep coming and everything that takes
->cpus_read_lock() waits with it:
->
->  [   41.469979] INFO: task kworker/0:1:10 blocked for more than 20 seconds.
->  [   41.470020] task:kworker/0:1     state:D stack:28392 pid:10    tgid:10    ppid:2      task_flags:0x4208060 flags:0x00080000
->  [   41.470055] Workqueue: events vmstat_shepherd
->  [   41.470077] Call Trace:
->  [   41.470082]  <TASK>
->  [   41.470091]  __schedule+0x10f1/0x4760
->  [   41.470175]  schedule+0xd7/0x2c0
->  [   41.470189]  percpu_rwsem_wait+0x1f8/0x4e0
->  [   41.470269]  __percpu_down_read+0x11f/0x3e0
->  [   41.470287]  cpus_read_lock+0xc1/0xd0
->  [   41.470301]  vmstat_shepherd+0x22/0x2a0
->  [   41.470315]  process_one_work+0x92b/0x16d0
->  [   41.470393]  worker_thread+0x4e6/0xd60
->  [   41.470507]  kthread+0x300/0x3e0
->  [   41.470542]  ret_from_fork+0x4f0/0x6f0
->  [   41.470597]  ret_from_fork_asm+0x1a/0x30
->  [   41.470623]  </TASK>
->  [   41.470635] INFO: task cpuhp/3:33 blocked for more than 20 seconds.
->  [   41.470653] task:cpuhp/3         state:D stack:27976 pid:33    tgid:33    ppid:2      task_flags:0x4208040 flags:0x00080000
->  [   41.470678] Call Trace:
->  [   41.470682]  <TASK>
->  [   41.470690]  __schedule+0x10f1/0x4760
->  [   41.470753]  schedule+0xd7/0x2c0
->  [   41.470766]  schedule_timeout+0x176/0x250
->  [   41.470849]  wait_for_completion+0x169/0x3b0
->  [   41.470918]  kthread_park+0xff/0x180
->  [   41.470934]  smpboot_park_threads+0xd5/0x160
->  [   41.470959]  cpuhp_invoke_callback+0x2b0/0x1190
->  [   41.470995]  cpuhp_thread_fun+0x2f8/0x6d0
->  [   41.471027]  smpboot_thread_fn+0x2fb/0x8a0
->  [   41.471051]  kthread+0x300/0x3e0
->  [   41.471083]  ret_from_fork+0x4f0/0x6f0
->  [   41.471132]  ret_from_fork_asm+0x1a/0x30
->  [   41.471154]  </TASK>
->
->That commit only needs the work queued before the park request to run
->once on its own CPU.  Softirqs left pending are taken over by the
->dead-CPU callbacks as before.  So on a park request, run the thread
->function once if there is work and then park.  With the fix, the
->offline finishes under the same load.
->
->This bug was identified and confirmed with the help of a deterministic
->hypervisor currently under development.  The C reproducer below however
->hits it within about 25s.
->
->Fixes: 4a3b51aab6e2 ("smpboot: Don't park the thread if work is pending")
->Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
->---
->Changes in v2:
->- Use Sebastian's comment above the thread function call
->- Link to v1: https://lore.kernel.org/all/20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu/
->
->Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/ksoftpark.c
+--BcSoKk5UO7VHsm1e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-You sent two V2s, what?
+On Wed, Nov 04, 2026 at 02:21:18AM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
+>=20
+> Add a driver for the pin controller of the Siflower SF19A2890. Each pin
+> is a group of its own. The functions are named after the peripheral
+> they connect, and each lists the pins it can use with the mux mode that
+> selects it there. The function tables cover what the vendor firmware and
+> the OpenWrt port use; the rest of the modes are undocumented.
+>=20
+> Based on the OpenWrt driver by Chuanhong Guo, which exposed the mux
+> modes as functions "func0" to "func3". That driver was itself based on
+> the BCM2835 pin controller driver.
+>=20
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  drivers/pinctrl/Kconfig             |  14 +
+>  drivers/pinctrl/Makefile            |   1 +
+>  drivers/pinctrl/pinctrl-sf19a2890.c | 536 ++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 551 insertions(+)
+>=20
+> diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
+> index dc7138302..1321eb679 100644
+> --- a/drivers/pinctrl/Kconfig
+> +++ b/drivers/pinctrl/Kconfig
+> @@ -562,6 +562,20 @@ config PINCTRL_SCMI
+>  	  It uses SCMI Message Protocol to interact with the
+>  	  firmware providing all the pinctrl controls.
+> =20
+> +config PINCTRL_SF19A2890
+> +	tristate "Siflower SF19A2890 pin controller"
+> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
+> +	depends on OF
+> +	default MACH_SIFLOWER_MIPS
+> +	select PINMUX
+> +	select PINCONF
+> +	select GENERIC_PINCONF
+> +	help
+> +	  Support for the pin controller of the Siflower SF19A2890 SoC. It
+> +	  selects the function of each pin and sets its bias, input enable,
+> +	  Schmitt trigger and drive strength. The SoC's GPIO controller uses
+> +	  it to switch pins to GPIO.
+> +
+>  config PINCTRL_SINGLE
+>  	tristate "One-register-per-pin type device tree based pinctrl driver"
+>  	depends on OF
+> diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
+> index ce0825f4f..2cb2c229c 100644
+> --- a/drivers/pinctrl/Makefile
+> +++ b/drivers/pinctrl/Makefile
+> @@ -57,6 +57,7 @@ obj-$(CONFIG_PINCTRL_RK805)	+=3D pinctrl-rk805.o
+>  obj-$(CONFIG_PINCTRL_ROCKCHIP)	+=3D pinctrl-rockchip.o
+>  obj-$(CONFIG_PINCTRL_RP1)       +=3D pinctrl-rp1.o
+>  obj-$(CONFIG_PINCTRL_SCMI)	+=3D pinctrl-scmi.o
+> +obj-$(CONFIG_PINCTRL_SF19A2890)	+=3D pinctrl-sf19a2890.o
+>  obj-$(CONFIG_PINCTRL_SINGLE)	+=3D pinctrl-single.o
+>  obj-$(CONFIG_PINCTRL_ST) 	+=3D pinctrl-st.o
+>  obj-$(CONFIG_PINCTRL_STMFX) 	+=3D pinctrl-stmfx.o
+> diff --git a/drivers/pinctrl/pinctrl-sf19a2890.c b/drivers/pinctrl/pinctr=
+l-sf19a2890.c
+> new file mode 100644
+> index 000000000..dbc8ac34b
+> --- /dev/null
+> +++ b/drivers/pinctrl/pinctrl-sf19a2890.c
+> @@ -0,0 +1,536 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Siflower SF19A2890 pin controller
+> + *
+> + * Based on the OpenWrt driver by Chuanhong Guo <gch981213@gmail.com>,
+> + * which was based on the Broadcom BCM2835 GPIO unit driver:
+> + * Copyright (C) 2012 Chris Boot, Simon Arlott, Stephen Warren
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/io.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/seq_file.h>
+> +
+> +#include <linux/pinctrl/pinconf-generic.h>
+> +#include <linux/pinctrl/pinconf.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +#include <linux/pinctrl/pinmux.h>
+> +
+> +#define SF19A2890_NUM_PINS	49
+> +
+> +/* Pad configuration */
+> +#define REG_PC(pin)		((pin) * 0x8)
+> +#define  PC_OEN			BIT(7)
+> +#define  PC_ST			BIT(6)
+> +#define  PC_IE			BIT(5)
+> +#define  PC_PD			BIT(4)
+> +#define  PC_PU			BIT(3)
+> +#define  PC_DS			GENMASK(2, 0)
+> +
+> +#define DRIVE_MIN_MA		6
+> +#define DRIVE_STEP_MA		3
+> +
+> +/*
+> + * Pin mux. With FUNC_SW clear, the pad's output enable is forced by
+> + * PC_OEN; with it set, the GPIO or the function drives it. FMUX_SEL pic=
+ks
+> + * the GPIO, and MODE the function, when FMUX_SEL is clear.
+> + */
+> +#define REG_PMX(pin)		((pin) * 0x8 + 0x4)
+> +#define  PMX_FUNC_SW		BIT(3)
+> +#define  PMX_FMUX_SEL		BIT(2)
+> +#define  PMX_MODE		GENMASK(1, 0)
+> +
+> +struct sf19a2890_pinctrl {
+> +	struct device *dev;
+> +	void __iomem *base;
+> +	struct pinctrl_dev *pctl;
+> +};
+> +
+> +static const struct pinctrl_pin_desc sf19a2890_pins[] =3D {
+> +	PINCTRL_PIN(0, "JTAG_TDO"),
+> +	PINCTRL_PIN(1, "JTAG_TDI"),
+> +	PINCTRL_PIN(2, "JTAG_TMS"),
+> +	PINCTRL_PIN(3, "JTAG_TCK"),
+> +	PINCTRL_PIN(4, "JTAG_RST"),
+> +	PINCTRL_PIN(5, "SPI_TXD"),
+> +	PINCTRL_PIN(6, "SPI_RXD"),
+> +	PINCTRL_PIN(7, "SPI_CLK"),
+> +	PINCTRL_PIN(8, "SPI_CSN"),
+> +	PINCTRL_PIN(9, "UART_TX"),
+> +	PINCTRL_PIN(10, "UART_RX"),
+> +	PINCTRL_PIN(11, "I2C_DAT"),
+> +	PINCTRL_PIN(12, "I2C_CLK"),
+> +	PINCTRL_PIN(13, "RGMII_GTX_CLK"),
+> +	PINCTRL_PIN(14, "RGMII_TXCLK"),
+> +	PINCTRL_PIN(15, "RGMII_TXD0"),
+> +	PINCTRL_PIN(16, "RGMII_TXD1"),
+> +	PINCTRL_PIN(17, "RGMII_TXD2"),
+> +	PINCTRL_PIN(18, "RGMII_TXD3"),
+> +	PINCTRL_PIN(19, "RGMII_TXCTL"),
+> +	PINCTRL_PIN(20, "RGMII_RXCLK"),
+> +	PINCTRL_PIN(21, "RGMII_RXD0"),
+> +	PINCTRL_PIN(22, "RGMII_RXD1"),
+> +	PINCTRL_PIN(23, "RGMII_RXD2"),
+> +	PINCTRL_PIN(24, "RGMII_RXD3"),
+> +	PINCTRL_PIN(25, "RGMII_RXCTL"),
+> +	PINCTRL_PIN(26, "RGMII_COL"),
+> +	PINCTRL_PIN(27, "RGMII_CRS"),
+> +	PINCTRL_PIN(28, "RGMII_MDC"),
+> +	PINCTRL_PIN(29, "RGMII_MDIO"),
+> +	PINCTRL_PIN(30, "HB0_PA_EN"),
+> +	PINCTRL_PIN(31, "HB0_LNA_EN"),
+> +	PINCTRL_PIN(32, "HB0_SW_CTRL0"),
+> +	PINCTRL_PIN(33, "HB0_SW_CTRL1"),
+> +	PINCTRL_PIN(34, "HB1_PA_EN"),
+> +	PINCTRL_PIN(35, "HB1_LNA_EN"),
+> +	PINCTRL_PIN(36, "HB1_SW_CTRL0"),
+> +	PINCTRL_PIN(37, "HB1_SW_CTRL1"),
+> +	PINCTRL_PIN(38, "LB0_PA_EN"),
+> +	PINCTRL_PIN(39, "LB0_LNA_EN"),
+> +	PINCTRL_PIN(40, "LB0_SW_CTRL0"),
+> +	PINCTRL_PIN(41, "LB0_SW_CTRL1"),
+> +	PINCTRL_PIN(42, "LB1_PA_EN"),
+> +	PINCTRL_PIN(43, "LB1_LNA_EN"),
+> +	PINCTRL_PIN(44, "LB1_SW_CTRL0"),
+> +	PINCTRL_PIN(45, "LB1_SW_CTRL1"),
+> +	PINCTRL_PIN(46, "CLK_OUT"),
+> +	PINCTRL_PIN(47, "EXT_CLK_IN"),
+> +	PINCTRL_PIN(48, "DRVVBUS0"),
+> +};
+> +
+> +static_assert(ARRAY_SIZE(sf19a2890_pins) =3D=3D SF19A2890_NUM_PINS);
+> +
+> +/* A pin that a function can use, and the mux mode that selects it */
+> +struct sf19a2890_func_pin {
+> +	unsigned int pin;
+> +	u8 mode;
+> +};
+> +
+> +struct sf19a2890_function {
+> +	const char *name;
+> +	const char * const *groups;
+> +	const struct sf19a2890_func_pin *pins;
+> +	unsigned int npins;
+> +};
+> +
+> +/*
+> + * Each pin is a group of its own, named after the pin. A function's gro=
+up
+> + * list names the pins it can use, in the same order as its pin table.
+> + */
+> +#define SF19A2890_FUNCTION(_name, ...)					\
+> +	static const struct sf19a2890_func_pin sf19a2890_##_name##_pins[] =3D {=
+ \
+> +		__VA_ARGS__						\
+> +	}
+> +
+> +#define PIN_MODE(_pin, _mode)	{ .pin =3D (_pin), .mode =3D (_mode) }
+> +
+> +SF19A2890_FUNCTION(jtag, PIN_MODE(0, 0), PIN_MODE(1, 0), PIN_MODE(2, 0),
+> +		   PIN_MODE(3, 0), PIN_MODE(4, 0));
+> +static const char * const sf19a2890_jtag_groups[] =3D {
+> +	"JTAG_TDO", "JTAG_TDI", "JTAG_TMS", "JTAG_TCK", "JTAG_RST",
+> +};
+> +
+> +SF19A2890_FUNCTION(uart1, PIN_MODE(0, 1), PIN_MODE(1, 1), PIN_MODE(2, 1),
+> +		   PIN_MODE(3, 1));
+> +static const char * const sf19a2890_uart1_groups[] =3D {
+> +	"JTAG_TDO", "JTAG_TDI", "JTAG_TMS", "JTAG_TCK",
+> +};
+> +
+> +SF19A2890_FUNCTION(pwm0, PIN_MODE(3, 3));
+> +static const char * const sf19a2890_pwm0_groups[] =3D { "JTAG_TCK" };
+> +
+> +SF19A2890_FUNCTION(pwm1, PIN_MODE(4, 2));
+> +static const char * const sf19a2890_pwm1_groups[] =3D { "JTAG_RST" };
+> +
+> +SF19A2890_FUNCTION(spi, PIN_MODE(5, 0), PIN_MODE(6, 0), PIN_MODE(7, 0),
+> +		   PIN_MODE(8, 0));
+> +static const char * const sf19a2890_spi_groups[] =3D {
+> +	"SPI_TXD", "SPI_RXD", "SPI_CLK", "SPI_CSN",
+> +};
+> +
+> +/* UART0's CTS and RTS are on the I2C pins */
+> +SF19A2890_FUNCTION(uart0, PIN_MODE(9, 0), PIN_MODE(10, 0), PIN_MODE(11, =
+0),
+> +		   PIN_MODE(12, 0));
+> +static const char * const sf19a2890_uart0_groups[] =3D {
+> +	"UART_TX", "UART_RX", "I2C_DAT", "I2C_CLK",
+> +};
+> +
+> +SF19A2890_FUNCTION(uart2, PIN_MODE(11, 1), PIN_MODE(12, 1));
+> +static const char * const sf19a2890_uart2_groups[] =3D { "I2C_DAT", "I2C=
+_CLK" };
+> +
+> +SF19A2890_FUNCTION(i2c0, PIN_MODE(11, 2), PIN_MODE(12, 2));
+> +static const char * const sf19a2890_i2c0_groups[] =3D { "I2C_DAT", "I2C_=
+CLK" };
+> +
+> +SF19A2890_FUNCTION(rgmii, PIN_MODE(14, 0), PIN_MODE(15, 0), PIN_MODE(16,=
+ 0),
+> +		   PIN_MODE(17, 0), PIN_MODE(18, 0), PIN_MODE(19, 0),
+> +		   PIN_MODE(20, 0), PIN_MODE(21, 0), PIN_MODE(22, 0),
+> +		   PIN_MODE(23, 0), PIN_MODE(24, 0), PIN_MODE(25, 0));
+> +static const char * const sf19a2890_rgmii_groups[] =3D {
+> +	"RGMII_TXCLK", "RGMII_TXD0", "RGMII_TXD1", "RGMII_TXD2",
+> +	"RGMII_TXD3", "RGMII_TXCTL", "RGMII_RXCLK", "RGMII_RXD0",
+> +	"RGMII_RXD1", "RGMII_RXD2", "RGMII_RXD3", "RGMII_RXCTL",
+> +};
+> +
+> +SF19A2890_FUNCTION(mdio, PIN_MODE(28, 0), PIN_MODE(29, 0));
+> +static const char * const sf19a2890_mdio_groups[] =3D {
+> +	"RGMII_MDC", "RGMII_MDIO",
+> +};
+> +
+> +/* The power amplifier, LNA and antenna switch controls of the radios */
+> +SF19A2890_FUNCTION(wlan, PIN_MODE(30, 0), PIN_MODE(31, 0), PIN_MODE(32, =
+0),
+> +		   PIN_MODE(33, 0), PIN_MODE(34, 0), PIN_MODE(35, 0),
+> +		   PIN_MODE(36, 0), PIN_MODE(37, 0), PIN_MODE(38, 0),
+> +		   PIN_MODE(39, 0), PIN_MODE(40, 0), PIN_MODE(41, 0),
+> +		   PIN_MODE(42, 0), PIN_MODE(43, 0), PIN_MODE(44, 0),
+> +		   PIN_MODE(45, 0));
+> +static const char * const sf19a2890_wlan_groups[] =3D {
+> +	"HB0_PA_EN", "HB0_LNA_EN", "HB0_SW_CTRL0", "HB0_SW_CTRL1",
+> +	"HB1_PA_EN", "HB1_LNA_EN", "HB1_SW_CTRL0", "HB1_SW_CTRL1",
+> +	"LB0_PA_EN", "LB0_LNA_EN", "LB0_SW_CTRL0", "LB0_SW_CTRL1",
+> +	"LB1_PA_EN", "LB1_LNA_EN", "LB1_SW_CTRL0", "LB1_SW_CTRL1",
+> +};
+> +
+> +#define FUNCTION(_name)							\
+> +	{								\
+> +		.name =3D #_name,						\
+> +		.groups =3D sf19a2890_##_name##_groups,			\
+> +		.pins =3D sf19a2890_##_name##_pins,			\
+> +		.npins =3D ARRAY_SIZE(sf19a2890_##_name##_pins),		\
+> +	}
+> +
+> +static const struct sf19a2890_function sf19a2890_functions[] =3D {
+> +	FUNCTION(i2c0),
+> +	FUNCTION(jtag),
+> +	FUNCTION(mdio),
+> +	FUNCTION(pwm0),
+> +	FUNCTION(pwm1),
+> +	FUNCTION(rgmii),
+> +	FUNCTION(spi),
+> +	FUNCTION(uart0),
+> +	FUNCTION(uart1),
+> +	FUNCTION(uart2),
+> +	FUNCTION(wlan),
+> +};
+> +
+> +static u32 sf19a2890_pinctrl_read(struct sf19a2890_pinctrl *pc, u32 reg)
+> +{
+> +	return readl(pc->base + reg);
+> +}
+> +
+> +static void sf19a2890_pinctrl_write(struct sf19a2890_pinctrl *pc, u32 re=
+g,
+> +				    u32 val)
+> +{
+> +	writel(val, pc->base + reg);
+> +}
+> +
+> +static void sf19a2890_pinctrl_rmw(struct sf19a2890_pinctrl *pc, u32 reg,
+> +				  u32 clr, u32 set)
+> +{
+> +	u32 val =3D sf19a2890_pinctrl_read(pc, reg);
+> +
+> +	sf19a2890_pinctrl_write(pc, reg, (val & ~clr) | set);
+> +}
+> +
+> +static int sf19a2890_get_groups_count(struct pinctrl_dev *pctldev)
+> +{
+> +	return SF19A2890_NUM_PINS;
+> +}
+> +
+> +static const char *sf19a2890_get_group_name(struct pinctrl_dev *pctldev,
+> +					    unsigned int selector)
+> +{
+> +	return sf19a2890_pins[selector].name;
+> +}
+> +
+> +static int sf19a2890_get_group_pins(struct pinctrl_dev *pctldev,
+> +				    unsigned int selector,
+> +				    const unsigned int **pins,
+> +				    unsigned int *num_pins)
+> +{
+> +	*pins =3D &sf19a2890_pins[selector].number;
+> +	*num_pins =3D 1;
+> +
+> +	return 0;
+> +}
+> +
+> +static void sf19a2890_pin_dbg_show(struct pinctrl_dev *pctldev,
+> +				   struct seq_file *s, unsigned int offset)
+> +{
+> +	struct sf19a2890_pinctrl *pc =3D pinctrl_dev_get_drvdata(pctldev);
+> +	u32 conf =3D sf19a2890_pinctrl_read(pc, REG_PC(offset));
+> +	u32 mux =3D sf19a2890_pinctrl_read(pc, REG_PMX(offset));
+> +
+> +	if (!(mux & PMX_FUNC_SW))
+> +		seq_printf(s, "forced %s", conf & PC_OEN ? "input" : "output");
+> +	else if (mux & PMX_FMUX_SEL)
+> +		seq_puts(s, "gpio");
+> +	else
+> +		seq_printf(s, "mode %lu", FIELD_GET(PMX_MODE, mux));
+> +
+> +	seq_printf(s, "%s%s%s%s drive %lu mA",
+> +		   conf & PC_IE ? " input" : "",
+> +		   conf & PC_ST ? " schmitt" : "",
+> +		   conf & PC_PU ? " pull-up" : "",
+> +		   conf & PC_PD ? " pull-down" : "",
+> +		   DRIVE_MIN_MA + FIELD_GET(PC_DS, conf) * DRIVE_STEP_MA);
+> +}
+> +
+> +static const struct pinctrl_ops sf19a2890_pctl_ops =3D {
+> +	.get_groups_count =3D sf19a2890_get_groups_count,
+> +	.get_group_name =3D sf19a2890_get_group_name,
+> +	.get_group_pins =3D sf19a2890_get_group_pins,
+> +	.pin_dbg_show =3D sf19a2890_pin_dbg_show,
+> +	.dt_node_to_map =3D pinconf_generic_dt_node_to_map_all,
+> +	.dt_free_map =3D pinconf_generic_dt_free_map,
+> +};
 
->---
-> kernel/smpboot.c | 10 +++++++++-
-> 1 file changed, 9 insertions(+), 1 deletion(-)
->
->diff --git a/kernel/smpboot.c b/kernel/smpboot.c
->index 3f60e8c6dd30..b477267903d7 100644
->--- a/kernel/smpboot.c
->+++ b/kernel/smpboot.c
->@@ -119,9 +119,17 @@ static int smpboot_thread_fn(void *data)
-> 		}
-> 
-> 		should_run = td->status == HP_THREAD_ACTIVE && ht->thread_should_run(td->cpu);
->-		if (kthread_should_park() && !should_run) {
->+		if (kthread_should_park()) {
-> 			__set_current_state(TASK_RUNNING);
-> 			preempt_enable();
->+			/*
->+			 * Run pending work once to handle queued work prior the
->+			 * parking request. Don't try to process everything in case
->+			 * new work continues to come and the handler has a hotplug
->+			 * notifier for everything that was enqueued later.
->+			 */
->+			if (should_run)
->+				ht->thread_fn(td->cpu);
-> 			if (ht->park && td->status == HP_THREAD_ACTIVE) {
-> 				BUG_ON(td->cpu != smp_processor_id());
-> 				ht->park(td->cpu);
->
->---
->base-commit: a2b67e904401858d9f0ff6a0485c2fab506cc1bf
->change-id: 20261102-smpboot-park-once-9607f8e7703d
->
->Best regards,
->--  
->Mani Tofigh <mt4022@columbia.edu>
->
->
->From mboxrd@z Thu Jan  1 00:00:00 1970
->Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
->ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
->	t=1793829490;
->	b=lDM8XgrK+tdPKwn+T2gaas8kg/ZvKIX46skmH9bcvHI8mkQNWmt3enwliQeCpqLRkZ7m
->	 RZ8+M7tJoV356aWxXWoxvod1aPnHHJTKazudj6fxP8CKKnsZrH4BNloByqnLMge20XWON
->	 GP2xAttG21+l5/sDIvQnnZRlh3LCmPRvdgUilIbEWhksPpBSCIs5Lyh7vzxNrbDU6dUkq
->	 W7KKtoX3IyHc/PybUwN8AAhDYvz6uTlPOllyB4kdE7h1iHx08oqt/kvcrS3WzkHlZD91m
->	 rT4pSAAIzhK2B7mGLmciFRCOuiMk7EvGpMUSJ2M860IFnfRoPzaIABCNr7nUVV9C+jg==
->ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
->	a=rsa-sha256; c=relaxed/relaxed; t=1793829490;
->	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
->	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
->	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
->	 X-Original-From:Reply-To:Content-Transfer-Encoding;
->	bh=IjVws6NdOXZamYoE9YsCdkzyOUuQjtHci0qOQtNo5Cs=;
->	b=T21HsQBpEy2KFi8zoGiP8w7/zvTemvK68Qvv4YAdTIH4zzyREa3EL+v68/2lBPt+ZhX4
->	 BbKJXo0tauq4pwNt6Ugwg+N0APRDBCX0VqSZWKk8nRDoLvrt7+iLqNKrqWb3gIsmprCZo
->	 jbp3Fhz68tGWjF0i0rpexS920ODMYJStcpEi37jIG8Iu3EU9PLDDlArhpoqdRwFUOOpx9
->	 W+zLwM+QG7xlZtLXHC7bYVFkGZhFsojg0aPOVjx+B7LOS9+bEIkaNVPdRVIJayoiBWMWM
->	 8vIZW3g6qxtsQIHXb9Kbe/bzG0GT7b0Du7jokoCbQ7t+FlA7Wi/njSsYHqPoybXcyRA==
->ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
->	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBGpwSNh;
->	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
->Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
->	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
->	 key-exchange X25519 server-signature ECDSA (prime256v1))
->	(No client certificate requested)
->	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5952D606A878
->	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:58:10 +0000 (UTC)
->Authentication-Results: smtp.subspace.kernel.org;
->	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBGpwSNh
->Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
->ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
->	t=1793829490;
->	b=ZVXfluaOAHmpMN9JdWl57MJY+ajzNhzl++y8x+rPWkWmpp30tKSwiVdaDgTQ1IQLk+/e
->	 WJnI5X3I0OPIQ02uUOBT1QpE63ThGM0VxCN0+kRw209inC+pIuwvBq63xxPq7dPtZRMZA
->	 2/Wb2DmRa9705zLfGKBzhZ+YDfX33encF4OM0mzt06Q11/wPOE7UFUgZkUlxAjRqdmbzR
->	 RMDCgFhPaM6jZFJMO6KRmlf+Az7wQz3T/J1AorY27ZHg5z4gWvpEqs6g8Md9bnGmERnHQ
->	 cLtjiWg7pIB6NgXAIbviBiez5z5Y8iSj+yeuw2yksqRSCjO3+y9KsF30vwBW68kro0w==
->ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
->	c=relaxed/relaxed; t=1793829490;
->	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
->	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
->	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
->	 X-Original-From:Reply-To:Content-Transfer-Encoding;
->	bh=IjVws6NdOXZamYoE9YsCdkzyOUuQjtHci0qOQtNo5Cs=;
->	b=tXYyAlT+6v6UOPyfZeQydSdVLnD/uax/9QhUfMAmxfqMufh8lBMBbjp7LHKjL7WgPAab
->	 8mmrB5qVH/Jxm/nAq3t7LfFz6FZjZUoEUAHrfp0DqY8ViepY62piVezkyWlAKGOURA3K0
->	 4Q2/YJr4LoN104bt/LkrtRzhACX3eAJbNVyB3MYqv2iyBnQeHfJJkqRn/bD5ACVnUKrDd
->	 Z7JbMsUauS8JyvVcjhDMvqV355gFmhSQ8i2S3TWOfhLiQoqUGrbm4MGuvQTNx4myFHL5i
->	 8Vgf1xqqDIg8EoY8KyKT0k3p5jsDdj1oJ8bnMD9fhHkqorSU5YK9tCCNe575DO7uwJA==
->ARC-Authentication-Results: i=1; smtp.kernel.org; 
->	arc=none smtp.remote-ip=100.80.115.77
->Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
->	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
->	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
->	(No client certificate requested)
->	by smtp.kernel.org (Postfix) with ESMTPS id 883F81F0093A;
->	Wed,  4 Nov 2026 21:58:09 +0000 (UTC)
->DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
->	s=k20260515; t=1793829490;
->	bh=IjVws6NdOXZamYoE9YsCdkzyOUuQjtHci0qOQtNo5Cs=;
->	h=From:Date:Subject:To:Cc:Reply-To;
->	b=MBGpwSNhXqeek2yJZLXNWtr+UOY1I05TmdWKjhxcCUSWNg44JMIDyyp+5ZNbW4bIz
->	 xKaOgqZMMqgbYerTH+wfgjW1as+Y04aKFBCMbhDMoZK/fuwEfml9bkIShI6PwFv/k+
->	 PCbPa+FIpOTI8WIO1CNhGrf/yxXbf6+FjPEcpah3wh47o1OaO8iMSvLdJtf89Uipfm
->	 uMoa5eiei886f8qjQmv+To/jPN5mrzIyClQPbc5hFO+rr0hAwKKEoci9THCKBH67Ss
->	 /w/DpEFod81raG+HnD9MsBDTteF7y9SwlXcpcUvYIsFtvTf0z3JLGbkvltEtL7GBvZ
->	 conz2Q9CMDCpg==
->Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
->	by lkml.kernel.org (Postfix) with ESMTP id DA72346FCD;
->	Wed,  4 Nov 2026 21:58:08 +0000 (UTC)
->From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
->Date: Wed, 04 Nov 2026 16:58:09 -0500
->Subject: [PATCH v2] smpboot: Run the thread function only once before
-> parking
->X-Mailing-List: linux-kernel@vger.kernel.org
->List-Id: <linux-kernel.vger.kernel.org>
->List-Post: <mailto:linux-kernel@vger.kernel.org>
->List-Help: <mailto:linux-kernel+help@vger.kernel.org>
->List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
->List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
->List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
->Precedence: list
->MIME-Version: 1.0
->Content-Type: text/plain; charset="utf-8"
->Message-Id: <20261104-smpboot-park-once-v2-1-ea28ec9fd85e@columbia.edu>
->X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4XM2jFtiTxc8R+GBbSDjEpLWiAaw
-> r9bcO/yJOeeu0IgzxTgmqzgaeHAzkZQpwR039g7IZvIoITKpBQKwzC2zk04Nv6JzmrCMhN5V1C
-> ei9RA3I2eOn4fzVv94zC3D9LTHtqNnsPk/Oc4XeTu/esvEiWWUShUll6MEpV2r3louTmTmaHet
-> u0LG6ZDX8cAAAA=
->X-Change-ID: 20261102-smpboot-park-once-9607f8e7703d
->To: Thomas Gleixner <tglx@kernel.org>, 
-> Peter Zijlstra <peterz@infradead.org>
->Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-> linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
-> Mani Tofigh <mt4022@columbia.edu>
->X-Mailer: b4 0.16.0
->X-Developer-Signature: v=1; a=ed25519-sha256; t=1793829488; l=4201;
-> i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
-> bh=QJGwfQcO8wqq1GxIL5UPd4JWg89kSii0cXanOGd1Z2g=;
-> b=jvY6vvbvK02lMFAnkeDHsYc4Qi9sCaqv1F4RgTQMoxrH/twR3LBqFzch6rLOUtn6fGVnP3M4B
-> g6RTc6PQ8yKAp8o0T6mQOSHkdfw9zn3AtalX33GqV5qZ3tSBlSk2inx
->X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
-> pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
->X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
-> auth_id=1322
->X-Original-From: Mani Tofigh <mt4022@columbia.edu>
->Reply-To: mt4022@columbia.edu
->Content-Transfer-Encoding: 7bit
->
->From: Mani Tofigh <mt4022@columbia.edu>
->
->Since commit 4a3b51aab6e2 ("smpboot: Don't park the thread if work is
->pending"), smpboot_thread_fn() parks only once thread_should_run() is
->false.  CPU offline waits for that with no timeout and with
->cpu_hotplug_lock held for write.
->
->When the outgoing CPU keeps receiving more packets than it can process,
->ksoftirqd always has NET_RX pending and never parks.  The offline then
->waits for as long as the packets keep coming and everything that takes
->cpus_read_lock() waits with it:
->
->  [   41.469979] INFO: task kworker/0:1:10 blocked for more than 20 seconds.
->  [   41.470020] task:kworker/0:1     state:D stack:28392 pid:10    tgid:10    ppid:2      task_flags:0x4208060 flags:0x00080000
->  [   41.470055] Workqueue: events vmstat_shepherd
->  [   41.470077] Call Trace:
->  [   41.470082]  <TASK>
->  [   41.470091]  __schedule+0x10f1/0x4760
->  [   41.470175]  schedule+0xd7/0x2c0
->  [   41.470189]  percpu_rwsem_wait+0x1f8/0x4e0
->  [   41.470269]  __percpu_down_read+0x11f/0x3e0
->  [   41.470287]  cpus_read_lock+0xc1/0xd0
->  [   41.470301]  vmstat_shepherd+0x22/0x2a0
->  [   41.470315]  process_one_work+0x92b/0x16d0
->  [   41.470393]  worker_thread+0x4e6/0xd60
->  [   41.470507]  kthread+0x300/0x3e0
->  [   41.470542]  ret_from_fork+0x4f0/0x6f0
->  [   41.470597]  ret_from_fork_asm+0x1a/0x30
->  [   41.470623]  </TASK>
->  [   41.470635] INFO: task cpuhp/3:33 blocked for more than 20 seconds.
->  [   41.470653] task:cpuhp/3         state:D stack:27976 pid:33    tgid:33    ppid:2      task_flags:0x4208040 flags:0x00080000
->  [   41.470678] Call Trace:
->  [   41.470682]  <TASK>
->  [   41.470690]  __schedule+0x10f1/0x4760
->  [   41.470753]  schedule+0xd7/0x2c0
->  [   41.470766]  schedule_timeout+0x176/0x250
->  [   41.470849]  wait_for_completion+0x169/0x3b0
->  [   41.470918]  kthread_park+0xff/0x180
->  [   41.470934]  smpboot_park_threads+0xd5/0x160
->  [   41.470959]  cpuhp_invoke_callback+0x2b0/0x1190
->  [   41.470995]  cpuhp_thread_fun+0x2f8/0x6d0
->  [   41.471027]  smpboot_thread_fn+0x2fb/0x8a0
->  [   41.471051]  kthread+0x300/0x3e0
->  [   41.471083]  ret_from_fork+0x4f0/0x6f0
->  [   41.471132]  ret_from_fork_asm+0x1a/0x30
->  [   41.471154]  </TASK>
->
->That commit only needs the work queued before the park request to run
->once on its own CPU.  Softirqs left pending are taken over by the
->dead-CPU callbacks as before.  So on a park request, run the thread
->function once if there is work and then park.  With the fix, the
->offline finishes under the same load.
->
->This bug was identified and confirmed with the help of a deterministic
->hypervisor currently under development.  The C reproducer below however
->hits it within about 25s.
->
->Fixes: 4a3b51aab6e2 ("smpboot: Don't park the thread if work is pending")
->Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
->---
->Changes in v2:
->- Use Sebastian's comment above the thread function call
->- Link to v1: https://lore.kernel.org/all/20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu/
->
->Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/ksoftpark.c
->---
-> kernel/smpboot.c | 10 +++++++++-
-> 1 file changed, 9 insertions(+), 1 deletion(-)
->
->diff --git a/kernel/smpboot.c b/kernel/smpboot.c
->index 3f60e8c6dd30..b477267903d7 100644
->--- a/kernel/smpboot.c
->+++ b/kernel/smpboot.c
->@@ -119,9 +119,17 @@ static int smpboot_thread_fn(void *data)
-> 		}
-> 
-> 		should_run = td->status == HP_THREAD_ACTIVE && ht->thread_should_run(td->cpu);
->-		if (kthread_should_park() && !should_run) {
->+		if (kthread_should_park()) {
-> 			__set_current_state(TASK_RUNNING);
-> 			preempt_enable();
->+			/*
->+			 * Run pending work once to handle queued work prior the
->+			 * parking request. Don't try to process everything in case
->+			 * new work continues to come and the handler has a hotplug
->+			 * notifier for everything that was enqueued later.
->+			 */
->+			if (should_run)
->+				ht->thread_fn(td->cpu);
-> 			if (ht->park && td->status == HP_THREAD_ACTIVE) {
-> 				BUG_ON(td->cpu != smp_processor_id());
-> 				ht->park(td->cpu);
->
->---
->base-commit: a2b67e904401858d9f0ff6a0485c2fab506cc1bf
->change-id: 20261102-smpboot-park-once-9607f8e7703d
->
->Best regards,
->--  
->Mani Tofigh <mt4022@columbia.edu>
->
->
->
->
+Can you just use pinctrl_generic_pins_function_dt_node_to_map here and
+dynamically create the groups at runtime (and also make use of the
+generic get_groups_* implementations)?
 
---- Thanks!
+--BcSoKk5UO7VHsm1e
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvFowAKCRB4tDGHoIJi
+0o0DAQCiMejiCw3pagDiI5Ajn4H28DJQ/+flLq13G9hW22+NLAEAsjGgjKLZqkvL
+Exk1AS9yzT3O13WBHuNbrApCsa6EHgI=
+=cQCD
+-----END PGP SIGNATURE-----
+
+--BcSoKk5UO7VHsm1e--
