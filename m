@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797813;
-	b=zB/9uWePppAVswPV3Yz5VepBCSxCkmPJWCYMK44etGV6jDu6x/ugw02Vxdav9gn3hNJm
-	 52Kl76Av+mp7xn+8DYRjGTky9AwcN4p2CKOVHmupX2K+6/BCaPlSZj4WLYF+aB+JFqy8o
-	 t9bhaDnnfl3O+zq/4vab06ndJjVQcoOqFFEf6l4oRDqWgapAo13cGdwI/h/Bnj/Dpxtu8
-	 xSpVtQZofljwzuewGNIFv130VXp4buHEsXbV9neX07XQUUhfbRIFNTTxecitpuH0Fkrfs
-	 AJ/9SHViAgC2jl+8JsZohomG8NdQGVDIG8treZNY5+JiOlcx7Bcoy7teGsKldx83SwQ==
+	t=1793797951;
+	b=uKQscNCwe3Qd42Szv37J0M9i0Hv05Rk+ZGRUWmhooTNvfnlZEs6Zc+QspkOitEM5F2yX
+	 B3PMonWeIvvd5Kf4ddZQma4iMBFncFGdfOcPU205NHRvNzv1rL0/ReH5SbShdCwdaD41X
+	 EpPxqP6rCadkZZthJrpeCmmSlvlsoKfrBTV3iJBNsGzmhnnAm0m9h5f4nYyWcTFGZxNFN
+	 Jn6jm7LdvgfajdjUF2A4XXk17dXiKxXmdxmgAsn/ujhdRjs/qvVJD64at6EZb5FiCQ1ST
+	 kFQ4dceuajrA6bQ0qFZpTnk8jC6wBIiEzz3itNe8Ss6ijvVuZ7mhrKQUyEaTLHVxTVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797951;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EaXRoxZs9PRx2wo2tzSq0ef3gNUQ37to3HPL9EgpspY=;
-	b=UzsuQOYE9wywmhLLhBK9jLwTVPPojBBh6HPUMi8E1MO98ob67n5hCacU6YrAGpuv9ilM
-	 tt6zJz7q/dmQ7DvBom9dnRG1wRDHvpYO6eLlVtp1EoLts9w3QdFXXrE1B33XzpPo8454M
-	 smra1ce8tU9LrRiMGS7ktjj7npWLTfn5UkrksntNZ4of7CdPMALY1wSPAtb4SR7pUsO4A
-	 xwRIkt9oam3eaNZmyviRUmtsQCNTLvyBdmsnuTEAMDddwbXyDDXJplkE0fG/1/EyTtGzB
-	 bK2JcccIYWan61Q0GLxblBsrggNJ4/qOuTNAJyGsKHTWZzdkCDY7OERAScMPg1DRxLw==
+	bh=igfYjZBC1z7oz2tB7LOGKxebDo1zSqF72VL8oFRUUWs=;
+	b=Zxlrc2pzMMmTBux0rNGd0QZpQectG6+9ruv61mTDn9zgUHVgoJRtMzWxnSHijuOhthei
+	 vQlASwiCWg07H01/BJFXQXrvDrc9jqfsEyaqWGYJFvjihQgzOUDmcAbbuOq6H3ZUBKE+1
+	 9PZeGieTf1CWhEfe+XoqXr5IpCU8C/hX/VQOPY4L+uBOQpZAdriJz6oOvdy7n/LcITYzW
+	 wr5c9P4dR6FbX0AQb5StQHGZg/U9KO9+TM7R4XdBZCWxPUlDO6QrgYJwBla6EZEzzEeq0
+	 gefAB5eCttpklG+abkC+iqTAQ6H8P9Yl+Lb/r/qi/E1oaNn/B6+7QPOdyJ7k2TDo43Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k+5OJid/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YszLrDm7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9125606A31B;
-	Wed,  4 Nov 2026 13:10:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6E8606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+5OJid/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE8B1F00919;
-	Wed,  4 Nov 2026 13:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YszLrDm7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EFD1F000C1;
+	Wed,  4 Nov 2026 13:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797812;
-	bh=EaXRoxZs9PRx2wo2tzSq0ef3gNUQ37to3HPL9EgpspY=;
+	s=k20260515; t=1793797951;
+	bh=igfYjZBC1z7oz2tB7LOGKxebDo1zSqF72VL8oFRUUWs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k+5OJid/VkQ3swVXuHLrFLBfnJA0PGG4Zhrv9HJAGwkQmMgt/6YaCL5KMQvwLXSTF
-	 O9yMB5ZVpxaDNFY4Gz5VlJRtuFBs8Spl04eVXVRaHh4A/crCFbpkkZwaFg+TBJbMPY
-	 vG3hd8gbd64DkQGvbZH/qqqZoliTbayqqN5ENZvW84oEUeDAiEibS//xfiPUMi/WgJ
-	 bjjMPfdSoFojto5KvVbOrF/ct72w7DU7ipswheAm3qrSYvTB7QTCFe5XPOIFWv4RDg
-	 CeUYyoRMyVEz+VmfdJaGKIhmqsxD8HhL+5loiTZuLac9VHAJTmxp9qev2Bn/My2oSb
-	 juzgE1wLbSUZA==
-Date: Wed, 4 Nov 2026 14:10:08 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Xing Zheng <zhengxing@rock-chips.com>
-Cc: broonie@kernel.org, heiko@sntech.de, linux-sound@vger.kernel.org, 
-	luca.ceresoli@bootlin.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, huangtao@rock-chips.com, sugar.zhang@rock-chips.com, 
-	lxt@rock-chips.com, xing.zheng@rock-chips.com
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: rk3308-codec: describe
- detection and ADC routing
-Message-ID: <20261104-russet-stingray-of-penetration-fef32e@quoll>
-References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-2-zhengxing@rock-chips.com>
+	b=YszLrDm7E5X0ADtQEhQGrD8z6v6psWNerL88xMg8+OZgSubLYs+KtG+zHHUvooDMn
+	 fDKL3vykaKW73ZG1MvhZXoYqBdoQN5Hyh1pkcN2rU/3ea6OrS7zJNnUTcsYV48Kd8T
+	 a5iAa4my1Ew1KgtPhAnFG1sBdglz05Su+rkKtDaaXO7pXob0H/+FQYW6eYK4qi5gew
+	 q070O9r7GI852zLWju7c6fFaH6Oi7jWjy/9r4/psGpCdtSjImn9MgDndpN6Tjxeikk
+	 d4I6KL3r5dCjxaLbLtWxp+MuVm3jvoZveGlXI5uKgL2Ft6bnDsb3iPWPREl7JdRj9v
+	 eTiX1I3yQB1xA==
+Date: Wed, 4 Nov 2026 14:12:25 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	James Houghton <jthoughton@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 10/12] mm: hugetlb_vmemmap: make vmemmap restoration
+ folio-oriented
+Message-ID: <ausvOSLonALVM62h@localhost.localdomain>
+References: <20261104023510.260766-1-songmuchun@bytedance.com>
+ <20261104023510.260766-11-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,103 +64,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261101044149.2018744-2-zhengxing@rock-chips.com>
+In-Reply-To: <20261104023510.260766-11-songmuchun@bytedance.com>
 
-On Sun, Nov 01, 2026 at 12:41:47PM +0800, Xing Zheng wrote:
-> Describe the optional detect-GRF phandle and named interrupt resources
-> used by the B/C headphone detector. Retain the legacy interrupt order
-> and index-based lookup when names are absent. Document the detector
-> disable and reversed-jack properties and their resource dependencies.
+On Wed, Nov 04, 2026 at 10:35:08AM +0800, Muchun Song wrote:
+> Like optimization, vmemmap restoration operates on one folio at a time,
+> but the current interface exposes a raw address range and requires the
+> HugeTLB caller to prepare part of the operation.  This splits the common
+> mechanism across layers and obscures its natural unit of work.
 > 
-> Describe the ADC stereo-group routing consumed by the codec driver.
-> Require four unique group IDs in the range 0-3, in I2S2 SDI order,
-> matching the driver's validation. Leave GRF routing unchanged when
-> the property is absent.
+> Make the folio the unit of vmemmap restoration and move the common
+> mechanics behind a folio-oriented interface.  This keeps HugeTLB-specific
+> eligibility and state in the caller and gives both directions of HVO
+> consistent folio-level interfaces.
 > 
-> Extend the example with headphone-detection resources and ADC routing.
-> Keep machine-driver amplifier GPIOs and debug interfaces outside this
-> codec binding.
+> No functional change intended.
 > 
-> Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
-> ---
-> Changes in v2:
-> - Retain the original detection descriptions and legacy IRQ ordering.
-> - Keep the binding change in its own patch before the codec change.
-> 
->  .../bindings/sound/rockchip,rk3308-codec.yaml | 55 +++++++++++++++++++
->  1 file changed, 55 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
-> index 2cf229a076f0..60c6140dc5df 100644
-> --- a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
-> +++ b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
-> @@ -36,6 +36,49 @@ properties:
->      description:
->        Phandle to the General Register Files (GRF)
->  
-> +  rockchip,detect-grf:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the detection GRF used for headphone insertion and
-> +      removal interrupts on codec revisions B and C.
-> +
-> +  interrupts:
-> +    description:
-> +      Keep the legacy interrupt order. If interrupt-names is omitted,
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-What is legacy interrupt order? There are no interrupts here, so how
-could there be anything legacy?
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 
-> +      the driver uses the second interrupt for B/C headphone detection.
-> +    items:
-> +      - description: Legacy codec headphone detection interrupt
-> +      - description: Detection GRF headphone interrupt for revisions B and C
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: codec
-> +      - const: hpdet
+ 
 
-Why same device has both GRF to detect headphones and interrupts?
-
-> +
-> +  rockchip,no-hp-det:
-> +    type: boolean
-> +    description: Disable the internal headphone detector.
-> +
-> +  rockchip,hp-jack-reversed:
-> +    type: boolean
-> +    description: Reverse the headphone detection polarity.
-> +
-> +  rockchip,adc-grps-route:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description: |
-> +      ADC stereo-group mapping to the four I2S2 SDI inputs. Each entry
-> +      selects the ADC group connected to the corresponding SDI input,
-> +      in SDI0 through SDI3 order. Group IDs 0 through 3 represent
-> +      MIC1/MIC2, MIC3/MIC4, MIC5/MIC6 and MIC7/MIC8 respectively.
-> +      All four groups must appear exactly once. For example, <1 2 3 0>
-> +      connects groups 1, 2, 3 and 0 to SDI0, SDI1, SDI2 and SDI3.
-> +      If omitted, the GRF routing is left unchanged.
-> +    minItems: 4
-> +    maxItems: 4
-> +    uniqueItems: true
-> +    items:
-> +      enum: [ 0, 1, 2, 3 ]
-
-Why are all the rockchip properties before clocks, not next to other
-rockchip properties? What logic drives this placement?
-
-> +
->    clocks:
->      items:
->        - description: clock for TX
-> @@ -72,6 +115,12 @@ properties:
->  
->      enum: [ 50, 55, 60, 65, 70, 75, 80, 85 ]
-
-Best regards,
-Krzysztof
-
+-- 
+Oscar Salvador
+SUSE Labs
