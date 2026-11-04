@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783995;
-	b=i90PbGT4vQ2PRqVqtnOIdUlIKFzUf0cPRB/rta3bxthzJyTmt+3GAHvPkU99MtGulgMS
-	 VvPO2/oyWsa/XETc5VPR0GExlhzXqvS9qF8xGcB0LBi8tGrhKcECB+P5JeobdaA9B/wQv
-	 8R+yd+0MI+EGnw8Lhl/VR9jNJvX9AenYirX1vf4l+pZ0jYchx0i8RWkHTSC6LWCtTKUxE
-	 j2woWuq0BGrdjz1UiJ+QIjNjdoox2P8OexFvZGTE1AjOSykJvhpangQL0Nl4sEksVVXra
-	 FO1ZZbeOyuzLqKTx9q7rhhXjX2oYlNKavVv1WyMW8nAwTg9gJT/2nR0YOk/eox2myqw==
+	t=1793783985;
+	b=phK2Il5MA5mnvloa7AFLMlYRg5A4Mtkuxjw0jhULMyWwJxoJlSQjAXm7INsbfCHQWyoi
+	 oTdh+ZhAFIBAnuBipltpUuln7sWYokQx9ql0D2fxp2b8ui5RpMhutHZwcD4zovE4J/4sL
+	 OYD8/2yBOqDbhuA4s+Ra3uoWVh7aosowXgPdXNq5fa8n/uysQrqn5OFdjI8szuOqSIiGM
+	 eng/gjQcrgLDYgu2qypbBMohA5zPx1AvQeIdaDnHvExaeRwLugAPnXBq+LSychk9fMazf
+	 I6+si+lSon8+m/hgWVIPNfoelDYP3bHiA4cHF2DtbYbGEJdRCM1Ot5CGTRDY5n6q7fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783985;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3wi9u/eNIRBlM7umBIrwlsoKNh7GC57CM/HYHoRIVHc=;
-	b=QjzjbiD030pd9CgzusV3l9thLk8m2Fnqpb1NLrDLwdVtJiWRI8F4QgrkG0og8vTYybNE
-	 5Q56k7w4kzHGJqaPbKJKQhaWube5oZay90OjUDC6Univl99Sg3EJFyr1FfuKWpGsNud2S
-	 tYdrWYshQCYRLMlHV5DNIiR4yBfbYsh7vrsQkrZ9n/hDsVZRwP4EhQ/ktx3RXS+bZkW6+
-	 tqr5XA2KOrm2KRfJSwUUUHkzrpS9rTAnMnce1baiFS+LZ2NZ7DHFBXSxxLIM0rYLLz+BV
-	 JKoMhtNex5xawqtJnjsT43tGBTQ6zFoFtEzwutrJ3Qx9GUh30J1xxPHS2iv2VCruOXg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Yvthss1FZeqCIQjhmXOlwbHPhSn4bLFrdViNSfOo4xU=;
+	b=BqnvpwG0QAj4vXYMnluYW6PeqItYAW0aDTLrWU9kxnPHbTX0Brm0pYDdyWWQon6jrWdc
+	 1ouEN+B9sQpUn5UsO1Y60KG0VM/h/MvkiymdQgs4UorMg+fBRlXjGpsnzNhcQ8tOEYErp
+	 sojzhlOnh3xdESuG8aRgmz7PO0sT+0QBVGGjun7rAK1U80+XkjeLSW1WjLHmNFo2vcPG2
+	 cC6E2Ie5QyS3aRA7CH/1dNhtJ4ZEbtjDBeWZDhyNWTyP24L2/0vlUrxBDIFt1vcq45CpP
+	 WYRybLjzCjtVRDodXtr6fz463kGIdEkPmJsZFybD8FVgXL9MI7ACQq4SH0TxgL0R6SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qb7dKu04;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=LVX6uB0U;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFF7606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:19:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFF7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDD3606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BDD3606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qb7dKu04
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48df160bb9cso24106f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:19:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=LVX6uB0U
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e0d1da913so275057f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:19:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793783993; x=1794388793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3wi9u/eNIRBlM7umBIrwlsoKNh7GC57CM/HYHoRIVHc=;
-        b=Qb7dKu04/rfXYFJB9h1+I83jaG8W95u36dD98yda3f1SRixyn1nPlYwS6XLyUCvlk/
-         vTrjID03LALoWoYJbS3NyVS3RnYMp5mg9oaaJ2Exp+iWy9RcjNUy23dIcd4yzwGIPbZ1
-         SSTSFmzjnW7LRvYvcWHkWBaFycF7R+MJtmHmwZ69d8Ly3Xs+yNaoEze6IRGUNnSaMDKy
-         YPn/k9uXZ3xKMu4muI76Gqd+TSDBfRQpWcPYdDtgE4Xord27hzchDSvljDlzeCNdN/XH
-         QSlIKN0aHMCgqrDDvLPyUsC01g3DCASpZEhSoKhXlP3hOW88kMklJ9wXCoxeod15/Kef
-         9MGg==
+        d=suse.com; s=google; t=1793783983; x=1794388783; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yvthss1FZeqCIQjhmXOlwbHPhSn4bLFrdViNSfOo4xU=;
+        b=LVX6uB0UN29QGoJeeILMlfSf4xkWp9eJHzmH8AL68jmVRQQ6penYb2AEn3/UC7h6Bi
+         s1y3to3xsoZYyRLQZsgqwdriHzemIN75tVrdwGLHZlcCCe1l5fV0CdopkX/Ugb+86sds
+         vWMcJ8HwkUUm6IMJmfyFjdlgCmEUfCdw8TfPgaOAyghjsCBl7RY6RsfjAMZawyWZgsuR
+         eXKw8E+uuRChm7/+7RbMt4JHdFW+cTPWpMM/4s0777SwK245T2hdro1k7wc1dcLC7F1+
+         JMGh2/1p9i//YE602wFMmPAcHwvOrhohz7tsmps2c/6JUXmxzBpEWlMpOSthufxSKbiZ
+         76ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793783993; x=1794388793;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3wi9u/eNIRBlM7umBIrwlsoKNh7GC57CM/HYHoRIVHc=;
-        b=zm9yiZIX0ZXBjRhQXY1JWcl1jQIts+Nhigx/8ywAiA93clKMVo7YT3bfWKCt1RqzH8
-         mLNC+A7m87zXida1khDwaRzPfrqxwaCfxJ1AapNMWU/w270wQOGCaumez2rmVWloikwh
-         xLCj48kYRv/3xOEu3PXufe0fZTQ78zCQWkvSGTzSv84hAIl1GOsSEHc+kz93WdrYLrrg
-         /syTH47xpZHGly8QzhTz7VWEXo2bDhhAt5Lj8LA1o/410PQyFi8IbNI2JQswjRH3BkHg
-         ngYm6U5GEFrIbCrY/9hbaAaXOQ35xBe4tOHlhtbKjkJ8tqm2u7AkqA1hCKwgV0tQeP6d
-         +0Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3EtrU0mfpZ5kyFWCDUuCiuy6Q5COSFieQMEA2tS0OyODtdjps+h9NpeJMwpXVNcGw4SWzsfASagvHlyM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mVIDYSPFaS0hmHCeCU6gTar8UnIEzJr79j8bASW5JT2aNUdDc
-	ovkdklZu1bEIBTOic2Hb6YgXch6ElNjV1cUJyLDUd6SnxEd/ir2zPLEk
-X-Gm-Gg: AYBFou0x7i3JNEdh82EyBCioezXECp88y+u0jycsI1k6xMVa2k3mquvmW0ip/AEht2o
-	wICCdhcyN20U53femzfXuEL9IQoQi7O36n28IUB0+bFQXTDem9oWJAoKj4GZMFn7akRZmWtv2YQ
-	HlZ3mCeUAQK4YRhB9WApp5t8nYdMXU51cBwHasZfxJFE8hSXg+Qmp8RB07Yj1jFkUi62AhAwm6W
-	5oWf9IZtMFHRTB5hr/v7J5RbrwaTasiW+lkeW9FpqTtrYbnTd7Ze6jpTeJHshso0+afOQwSoRTH
-	SItjBvkwzLLT8sgAC394j4a1++be+k6fmNHCM/jQR9b6n9TLz83rJyrl6VzpuyrP/PJwazwKOKK
-	i7t7W2cW0roDadU1CPJGe9F9a1ZMgR3GGJ6OEX4Bvztgt8BwPrRwpnj+gEeZoIrtgimPO+V+mPe
-	uxjexzZ/1KPi6dk+m2hPRrKneq4ez7iePHHl4+GJwLUck4g9M4rhUCo9c5Tr0PncQmcgWMLdPCk
-	9RAo7yX1iLQoXymZI9v4xHCWK30hlaqAW9OHGb7xfUjId8myRdNw4cVG5xg8vzqjf1lKc8vq52K
-	vruP70DWQcDhf+5i5O8z6vExK/bpx5v+YET99fotbXHhkg9NaYpoY8KxtgKhiLMxAcKlKHhzkQQ
-	SZFuvw7WS2AL7L3xTNLajx/xyiFovafoY3lHlyIsu
-X-Received: by 2002:a5d:5f48:0:b0:48e:6ff2:606a with SMTP id ffacd0b85a97d-48e6ff2609dmr38662659f8f.6.1793783992626;
-        Wed, 04 Nov 2026 01:19:52 -0800 (PST)
-Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-006.paris.inria.fr. [128.93.83.6])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fea18175bsm2720804f8f.7.2026.11.04.01.19.51
+        d=1e100.net; s=20260707; t=1793783983; x=1794388783;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yvthss1FZeqCIQjhmXOlwbHPhSn4bLFrdViNSfOo4xU=;
+        b=G1ggi+91H15oGSFipDyI95ASX6mI9nX/YVNOdvXRFzidmZCU+ctYFJUEtbU6ONMyY3
+         I85I2eqAj/4/oaNF2FRIBxGM0IcMLiyv23zr0UxmdhtRrzmlSWjZ/skmOXSwXb0nGRC2
+         CUdJgKRNXCWA+pAgB87DO5LDMKCKEkaFR6pM5ga+OfsnexYogzw8G6iUfT1ws7oRmhmV
+         npQp8+mo41O3c1ZB0gAwgRFxNjQfZlh+Ivem+9gsm8LtAip41ZoxDNnrpfYwC+JFm5x8
+         zg/o308OQ0ssC7kU/ltIq200pipS09iaV+e0UqbiN5fW7Tkxreq9jmARgXcDrfcVSubm
+         7kQA==
+X-Forwarded-Encrypted: i=1; AKwUvByEKisa+Gsive1iouMufoTYzYiIEdj8D2Pnybrp0nx3fqP0pxm+pzY7qEkteLIcVNwkNytnQ4xDJhAY18I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DBoFdcud/IjsmOxNQmMFHwS3DG2RwjPkWx/Wx9PkVjitV0AY6
+	Ua6IDvqLH+NS6QtBG5Iki1Rh83PTJqIb6HYo9cHRUXlN0Rsk+xqu6ktzeZIKvFZyJ1g=
+X-Gm-Gg: AYBFou2NHGw4cT5PqCyKS4SCLHEOkNHIzATyOY7hp+ctjiYCRKyF1sV/OobYy3Rr9nw
+	3dCUhyYVrOseSDslCwl+CcSNoDwfu2uigTRY8rY0Y47QeTS4TYi2hYxx+kvbQvP309csku8wl2/
+	P5+ALdNrGOB2fRyShx6zN6HTXC8JGfewxjVSrKOaKrmdhj1n2UIX5ArpJHPnZfYjMbp70V5U10U
+	U6SWeG1QJ6aCHOnAOIxvv0QeL3RATg6yfYOlMwjelfifV5HKuYafhvJBA5f5YAaFit3wM0+S4u8
+	IzrXyubohH47mZ+CLnxj1iWWtlUWvR5Yv/uTnWWe/UTdDpwgErAIMshhISNqvIH7f4lrjfcO1HY
+	6LqSMrx3zzluuI+6Harmdch7n1dPeCv6r3WBuZU9FdA/xwofK6hiReyxSYbISreLyoeEHYeUYUO
+	bQjR8qPrYNIPd79ifyN4KtsTqc/3fV97H9dc1FRfxS+z23P12on/MWN8wCN9hGeMrEmKNxfpTwO
+	VBrrw5PIB5nQFmtsMVraUYV8+vV/aMeGNpvu4RGajTDGPZCSwqAQz2W63Cfsc0RsYvXMZVzXt08
+	V3n8CYp5TpYuEt+FOlHLQhpPkRBSusr9vM91IpkSRB9G
+X-Received: by 2002:a05:6000:3106:b0:48f:bbea:1a93 with SMTP id ffacd0b85a97d-48fbbea1c39mr8637656f8f.15.1793783983526;
+        Wed, 04 Nov 2026 01:19:43 -0800 (PST)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea1811c4sm2887982f8f.3.2026.11.04.01.19.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:19:52 -0800 (PST)
-From: Thomas Fourier <fourier.thomas@gmail.com>
-To: 
-Cc: Thomas Fourier <fourier.thomas@gmail.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Yifei Gao <gyf161023@gmail.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
+        Wed, 04 Nov 2026 01:19:43 -0800 (PST)
+Date: Wed, 4 Nov 2026 10:19:41 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Breno Leitao <leitao@debian.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mmc@vger.kernel.org (open list:SONY MEMORYSTICK SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] memstick: ms_block: fix double free in msb_ftl_initialize() error path
-Date: Wed,  4 Nov 2026 10:17:25 +0100
-Message-ID: <20261104091731.16500-3-fourier.thomas@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>, kasan-dev@googlegroups.com,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, Toshiyuki Sato <fj6611ie@aa.jp.fujitsu.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] stackdepot: don't WARN when the depot runs out of pools
+Message-ID: <aur4rU-I1BhxrxYK@pathway.suse.cz>
+References: <20261103-stackdepot-full-warn-v1-1-41f1fc651b64@debian.org>
+ <87wlqtxb14.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,43 +106,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87wlqtxb14.fsf@jogness.linutronix.de>
 
-When one of the allocations in msb_ftl_initialize() fails, the function
-frees msb->used_blocks_bitmap, msb->erased_blocks_bitmap and
-msb->lba_to_pba_table but leaves the pointers set. The caller
-msb_init_card() fails and both of its callers (msb_probe() and
-msb_resume()) call msb_data_clear(), which frees the same three pointers
-again.
+On Wed 2026-11-04 09:26:55, John Ogness wrote:
+> On 2026-11-03, Breno Leitao <leitao@debian.org> wrote:
+> > That deferral only applies to legacy consoles. ON nbcon WARN() puts the
+> > CPU in emergency mode, and in emergency mode printk() flushes all
+> > pending records to the nbcon consoles from the calling context.
+> 
+> Yes. WARN() is supposed to be for critical issues.
 
-Do not free them in msb_ftl_initialize().
+I thought whether it is fine that NBCON consoles ignored printk
+deferred context. I could imagine that WARN() is used just to
+generate the backtrace but the message itself is not that critical.
 
-This bug was found statically and is theoretical.
+Well, it was added to the stackdepot code by the commit a914d8d6cf204287aa
+("lib/stackdepot: add printk_deferred_enter/exit guards"). And the
+reason was to avoid deadlocks in the console code. And the deadlock
+is prevented in the NBCON code by using try_lock approach. So that
+NBCON consoles do not need to be deferred to prevent deadlocks.
 
-Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
----
- drivers/memstick/core/ms_block.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+And if anyone wants a less critical backtrace then we should introduce
+another API for this, e.g. INFO().
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index cd4ff1b79a6d..26a04cecd94b 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -1351,12 +1351,8 @@ static int msb_ftl_initialize(struct msb_data *msb)
- 			      GFP_KERNEL);
- 
- 	if (!msb->used_blocks_bitmap || !msb->lba_to_pba_table ||
--						!msb->erased_blocks_bitmap) {
--		bitmap_free(msb->used_blocks_bitmap);
--		bitmap_free(msb->erased_blocks_bitmap);
--		kfree(msb->lba_to_pba_table);
-+						!msb->erased_blocks_bitmap)
- 		return -ENOMEM;
--	}
- 
- 	for (i = 0; i < msb->zone_count; i++)
- 		msb->free_block_count[i] = MS_BLOCKS_IN_ZONE;
--- 
-2.53.0
+> > With
+> > a slow serial console (pl011 is an nbcon console) and a backlog of
+> > messages, that flush can outlast the hard lockup threshold, all of it
+> > with pool_lock held and IRQs disabled, while every other CPU that needs
+> > to save a new stack trace spins on pool_lock.
+> 
+> Several serial drivers call touch_nmi_watchdog() (such as 8250) to avoid
+> this issue. Perhaps the pl011 should be doing this as well (at least for
+> the write_atomic() path)?
 
+I agree that it would make sense.
+
+> > Running out of depot space is an expected condition under heavy debug
+> > load, not a kernel bug, so report it with pr_warn_once() instead.
+> 
+> This is the key takeaway. WARN() is not appropriate here.
+
+I agree:
+
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+
+Best Regards,
+Petr
