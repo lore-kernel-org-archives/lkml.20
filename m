@@ -1,108 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777483;
-	b=uhbzOvXxWJMMBmqBUI5rtYfyNWXXdyrsHd+8sfDiDDcyejZ3lYMP0n2sPTG3QqDjrz+I
-	 W/i7RPRJjXIgEe6uf3Nj/kU4TqQ3aSqdES+mlhXgWQG1JMlZk2+0VgfjidyYYmeTuhoXV
-	 /2Uz2DQtFQIODTzHNcOCh+HEfn60eosRN/RhjG1YdJmDwyAMFzdBpmDuocqHKGwD29LCX
-	 x/IZ5BH8EP4hzRjGtiIkOtPuS1Y1KNIbJIO5i9f5/LtXwBAtdrC6HmgRhBlaz0WyX8L24
-	 W4EIMEQ7n1/ZwumBoe0PJZ5wyrcw72oB7QJUY3nwQFLSSo3VVMmkFVqeHIksHjbm1Ng==
+	t=1793777544;
+	b=qVOITaQnjH+yu9iELyvsGDOgHfGmlWdkc2CrGo0XN/81nDir9Sit+0C6F5ujf/esiV6f
+	 /7701Keh12NBp9P0vKIg3OYjfBqKUzgCPqtCn4LjlMhKACQwf/YS7mKQO789igQARjBtr
+	 0ah7VPgirErwW1P5Sihf39wIzgHEWoCL0dD2I8WYi2VGpztZH77wLGpWX+vDcG0sAQfuR
+	 wNk0n1CdXu3nNE1phM0wtMyZ+bt26nzsn9XByDgYP2bYJJfob2PXn4MrR+cngFeLT9ntD
+	 HtDmA+AvCTx8HxMqo+MTWX8KVr9dppVYPQhD7R8bPYnNzOKgw7BDdxGCeVgMLL32eZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777483;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Gf1SJ60wh6rt1cgDzJ1XsuN+6DsStx0G3H1EPBnHUrc=;
-	b=31mgfGH4FCDS3e4oQlEs4MSmUdnJj8tCV5o6ts+HdS/5X6xbHdR/5zWsiTkUOtNeYPqB
-	 Sy9Y9pAtr8prOvWS+KLDwSyz7SjfzQzEfDG9KA9Sda4p+44Kq1umKJjLczJLLSjlNVaVH
-	 td5fh+sxCWxqLImb1dT3lIR5X1o7Hr44MFA+7dZgghsbH4GxuqNQ/04KKQc07mMgD5vN8
-	 wLcpRDSozAPoJv5Xnmsquo9nKjFWWpMUo1NEX4USAJHVLBGNEOaG+zwKyZIb9DXDT2fc7
-	 GrInDLNj/g9Xi1MD92+f/TwxiBaZFD0ZF0ScE76Xsd/GCzaDr5mK6GqnWlWxJicnJtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777544;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=FTuoz+Tu1ZqVAmMASax5Vg8xqu9+VRz2AqfqKkE/of8=;
+	b=Q6reKC51RMVxFu3o6feLMVvqgg3Hcib7B4QR/7nnGvYXzD8mH46bb84PMg85zQ9zCRg2
+	 +XGYdPuz9NSGGTrJdI2p9TBQpGE0FtikA4UFYldDFAKf79GDWR2TSG6laQE+MQC9xJUhp
+	 ggOdpndWMdnHpYxD844Dy05nQKqw7HzzShRp3F+vxScpETAoQe5wrx6oD9RUs4jf0VfEk
+	 b67PqoLtyNX6smdHHpxoyZGgDO2w/diRcg6ZclkbT+rhjiFom96BRJnd8jqJw96gY1bds
+	 uIY3FhUz5lKrtMLJG5WV0ODS09467voPiwTAedkuxNkQ1k8jspkoXCV5n6YBMGHi50g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bHveVmbM;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qPyUMYEP;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=XH3LXEsZ;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=VAkr93B+;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBA1606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:31:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEBA1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8DE606A326;
+	Wed,  4 Nov 2026 07:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D8DE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bHveVmbM;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qPyUMYEP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793777481;
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=XH3LXEsZ;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=VAkr93B+
+Date: Wed, 4 Nov 2026 08:32:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793777542;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Gf1SJ60wh6rt1cgDzJ1XsuN+6DsStx0G3H1EPBnHUrc=;
-	b=bHveVmbMboFoyV/JO0zO4CZHk0sykT/qOL2/fszQ0zblTFn2wFfP1dTCXlbULjVWuiQ6lA
-	hkIAVs4LrV6RSWBM7l4BxUVp6sN22wBPRZbykFsWabZRsqW5MC/L5EyhBomu7kdPVQkQ++
-	he3m5V8F58tqHZzmi38LORtin1KHjfY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-221-Fm9KMm0OPzOc7yZU2atncg-1; Wed, 04 Nov 2026 02:31:20 -0500
-X-MC-Unique: Fm9KMm0OPzOc7yZU2atncg-1
-X-Mimecast-MFC-AGG-ID: Fm9KMm0OPzOc7yZU2atncg_1793777479
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a2063be141so3763365e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:31:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793777479; x=1794382279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gf1SJ60wh6rt1cgDzJ1XsuN+6DsStx0G3H1EPBnHUrc=;
-        b=qPyUMYEPu6QMDw+ynFBXj+Jukdd/b7kY/MwSzggCPBbpqxVgSSKgaPVvCXHszLHMco
-         DlChHW+HSdOND+z92arp08ItIKAl5SBxI6sb508qvBIMVvrx5D+CCApcPJ6w2U8LroJm
-         r4b2JM0Z5YGcJCNO5bJoyhZPF2SGZUAU5HamlEA3FNIx58qghw1wsKgWyPu6gXbmqnQN
-         E+gOashfTRRTa6fbRRxM9NEUCG+fzcXqMLRRTDR5xfCivw/vR7Iab+z/LJZmmRbcob58
-         7nPyMK1EcwD+cvreIfJGyM9HJYnIuzgjJgn3rUsVj/grOtz2KJY44lsvT26XeYlcUWSR
-         WrDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793777479; x=1794382279;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gf1SJ60wh6rt1cgDzJ1XsuN+6DsStx0G3H1EPBnHUrc=;
-        b=by/O9N7IC/iMqEQAKFzH9pwDaFDJGGlCc4eVHhQG4Nr00MOV9LNJMipndGrWGXAQYM
-         LrIqrYtayHzlOFEuOml37TofDJ83UxuzN+2RVnjNxhISLendCAQ7P8gMIrayj1JZfjso
-         sbkMIIJNUTyY2OkniLR62wSDb8w0PX7e1Q7f0DNL16ZiD7p081z1i6ZD8MyrbgjYS83t
-         aZYoZz21LJnbEiUlYOmco3fV9lt3yihWuT5Q3w6+t/1lJXRpcYRTnItveYZrHwb5Tm//
-         p4wn6D+XjWZVypGVheZ+cabCtit+EBj7lD9VCUqgFdQIon7cegN2HhxbTqkCzQHyrVKC
-         8sjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByb8Atit9XVauP6SyFGJAhxiMbJvk9+3r8DpfjCPOvgOSlHI6Enc2Ly9mG53IdBhZ7Vjl0Nf6IdjYHIKU8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Jv8S57ME5IlZacFUWGSCNtlvCmnIU1HHTcEVdDp4YE1JPagvr
-	+QOEHl8s9JQY3xmtycsJ02zdaELfRvEohhFQfXb3rJ/QHP1jSNH+YT4OixfK0HWf84pTaPfhbHZ
-	4c4qiadsu69lYj8c+bk/aEk7KYzTuDZNcAByelqWZ1FfHMq/OzFEBd45v5O3+5Vzaag==
-X-Gm-Gg: AYBFou2uf2Zn6jsNzOWls6aNU8LUeAiWqM+TcL+xf61xYIu1jl7jeYceeYsWsRJ8y+G
-	mzz0iiNDa0EAgsB4jAvWprEgCb3tHiBNkiSPrEBIM1S8PclwVY7DOtsoyjyVaOiuAqASrhLoivd
-	DBoTfZ6EQr7EJGynMAym7WcYHG1epUXX/onPmW5IfSM2CtGUklmvkE0l4dnOpKyJhAOSEv2DvJ8
-	a8wuZ72I8Mn045TOjR9Rvw42OTrpAhJxaJDEsHHF/bU52xl7/gEHxLu2k98aYztVRvIgmsxL+PC
-	r/wov6Uo2wjpvDi4GBp7lhw/0tGulG41mAOnllNOrR9GPmsXHitjGOKuK4MKONrMXNbNJG0f1vP
-	GH5h6PySPAZnNf5VfyMkkRUdhFYbLEUlddNLGSIKvmlK+XtXLRqYwatBi1B0DfFYgvQ7KCErugQ
-	3kk3K/S51WMEnxeU/7aM6hh0FT7bJzJQPVwpS9gNcJZeE=
-X-Received: by 2002:a05:600c:19c9:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4ac182dcb6fmr342501295e9.13.1793777479224;
-        Tue, 03 Nov 2026 23:31:19 -0800 (PST)
-X-Received: by 2002:a05:600c:19c9:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4ac182dcb6fmr342500785e9.13.1793777478812;
-        Tue, 03 Nov 2026 23:31:18 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4532916f2sm29117235e9.5.2026.11.03.23.31.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 23:31:18 -0800 (PST)
-Message-ID: <a323799f-a817-4022-96dd-e6f376fb4d03@redhat.com>
-Date: Wed, 4 Nov 2026 08:31:17 +0100
+	bh=FTuoz+Tu1ZqVAmMASax5Vg8xqu9+VRz2AqfqKkE/of8=;
+	b=XH3LXEsZmyZjYlk3Ntq6SZFFLSphhKRezZCOR9FpoOpYqKxDRBAqPylJyxHoxidC/fat4d
+	JM+AnI3UvD310wrBCL8hOKotKn8QjJsgAJrA4Tqs1GSmi6qcqfKMYx2fW7f+bsbor/oLfA
+	Tb9WKo6i6aHUQSXOyqej6WkFiMYEfC/AvqB9K41Gea0XSHyTJQsqQiXY8ApoGuE2VvfPue
+	pJenrF+P4Isat0Y1/FRNpwSpknoN8oGKMjk2C+cMqRqf6d/VzoVu4Rm9Iqh5xoa2f9ZXmh
+	OcHlmOzs/Iktr46mlx+LmhWb+HeW2uG6GsNiofui7oMkZcmrorIJnLGblkR9/Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793777542;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FTuoz+Tu1ZqVAmMASax5Vg8xqu9+VRz2AqfqKkE/of8=;
+	b=VAkr93B+pVAxcXeHVdFUneBrvYF2MbIFQ9wvH5xIKwwRBbzMqLFo2lozUkzIu8R+I8XHqK
+	IfvDtLfCkuzJg5Bw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH 1/6] irq_work: Re-raise pending irq_work after system
+ resume
+Message-ID: <20261104073220.Hgq4chT1@linutronix.de>
+References: <20261102074039.26983-1-adrian.hunter@intel.com>
+ <20261102074039.26983-2-adrian.hunter@intel.com>
+ <20261102090604.GR1779021@noisy.programming.kicks-ass.net>
+ <74511f6b-f5ff-498f-bf97-ebdc86c43d24@intel.com>
+ <20261102163937.KwllF-Pg@linutronix.de>
+ <2d6105b4-bd75-41b5-a7b2-da91bda31350@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,36 +97,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] netlink: add an optional per-netns ROUTE
- multicast index
-To: patrick <work_patrick@qq.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- horms@kernel.org, corbet@lwn.net, rdunlap@infradead.org,
- linux-doc@vger.kernel.org, skhan@linuxfoundation.org,
- linux-kselftest@vger.kernel.org, linux-api@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104033526.2917590-1-work_patrick@qq.com>
- <tencent_1E208C03035DF063166FD46C1DA1978F6306@qq.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <tencent_1E208C03035DF063166FD46C1DA1978F6306@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2d6105b4-bd75-41b5-a7b2-da91bda31350@intel.com>
 
-On 11/4/26 04:35, patrick wrote:
-> diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
-> index fe43e8595..0cda347ed 100644
-> --- a/Documentation/admin-guide/sysctl/net.rst
-> +++ b/Documentation/admin-guide/sysctl/net.rst
-> @@ -280,6 +280,33 @@ checksums.
->   These messages are now emitted at KERN_DEBUG and can generally be enabled
->   and controlled by the dynamic_debug facility.
->   
-> +netlink_route_mc_index
-> +---------------------
+On 2026-11-03 17:46:32 [+0200], Adrian Hunter wrote:
+> On 02/11/2026 18:39, Sebastian Andrzej Siewior wrote:
+> > On 2026-11-02 12:54:22 [+0200], Adrian Hunter wrote:
+> >>
+> >> Yes CPUs remain online for suspend2idle, but currently the choice between
+> >> suspend2idle and "deep" (S3) suspend is a user space choice,
+> >> refer /sys/power/mem_sleep.  Many modern systems do not support S3
+> >> anymore, but it has not gone away.
+> >>
+> >>>
+> >>> Anyway, I'm torn; I would much rather make this trigger a WARN and have
+> >>
+> >> AI now also identifies ftrace, BPF, GHES NMI, and #MC as possible causes,
+> >> not just perf.  I haven't tried to confirm any of those.
+> >>
+> >> And, belatedly, AI is now saying an irq_work raised before lapic_resume()
+> >> might result in #GP if the APIC is left in xAPIC mode at resume.  Also
+> >> not confirmed.
+> > 
+> > Could we flush this before similarly to what happens during CPU-hotplug.
+> > The question is if this event can stay enqueued during suspend (and
+> > handled on resume) or should be taken care before entering suspend.
+> 
+> WRT "might result in #GP if the APIC is left in xAPIC mode at resume",
+> the systems I have checked restore the APIC in x2APIC mode, so the
+> issue is theoretical at this point, although I can get "unchecked MSR
+> access error: WRMSR to 0x83f" if I deliberately add code to change
+> x2APIC to xAPIC early in S3 wake (in x86_acpi_suspend_lowlevel()),
+> and then do:
+> 
+>   perf record -e power:suspend_resume --filter 'action == "machine_suspend" && start == 0' --no-buffering -C 0 -o /tmp/x.data &
+>   rtcwake -m mem -s 10
+> 
+> The error can be avoided with:
 
-The above breaks kdoc
+I meant flush it via irq_work_run_cpu() like in smpcfd_dead_cpu() (the
+CPU-hotplug path) and not go via APIC. You should do it late once the
+interrupts are disabled so no new irq-work can be enqueued.
 
-/P
-
+Sebastian
