@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816533;
-	b=Vd5Cv3zXXzfCNSdEwKSqbrfjj+yr9kbG/FEsCgoPe178RuN2Vj5M2qglG9Yhw/sqPNCb
-	 elSFmKMMY1IjSscW08EtfmFN7TXldv9cMx/sK1Bm3soc3Zcl11ku37BoEWdShlkIcHwHe
-	 TIT02TFfVzEzCWr1HqP4KYVuzB6Fx2gft02tV5jnEU2cskDFMfE19ryNc0xi+CrPZf/K2
-	 +BWI63ugtRnIjmhyJMmZv1HPQCkxJNVx7CIJSPwYCR7+xuB+JnKbtUNxHLusubMISuXPh
-	 Yo3/KDuvT9MzJX4hIM6/HoRaAwexLazlCOvmVMTbHoUVhVC4Cc1xKK+XxYAnisPitnQ==
+	t=1793816529;
+	b=XvYfDLYf5skGdNJC8ql/zwNYQGOC1X938KI4ARI4N7PqbGy4p2aSnbT8KxWUmnE6gkj0
+	 cVTR6xydivSduNFwT86/0XA14S3CCf9YRGVdP8Pv7QuPM4YGDvqwXKNpDJjqGoKw61Qjw
+	 9PNeyUosVbzyqjTE1NZcZ51elDE9sck5xpoFaLKzIklEYyfAADfSYt1s0xPlpabWCdpPZ
+	 FTemyI1fonhrvTI1aTrphkuUtk4ORekxj2HppE4rFNa9ML8GaOGZqOMIqp/ooQ6l59mAM
+	 r6+UJEdCJA4z4MHIo0LhttHsN+JNMu+uH6+4TucOebzLNZAuAshWYvyJHx7gOMAV1UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816533;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Ae44f96zItRoMnEuDxqCncdEeGbSJAWzgR3XJgNUP70=;
-	b=46m2GwE2YtzGbwajKu8FMdTZ6tODjMhI8qhwYdSSPdBWfzbFZ8L9gGoAxjrNl/H805pD
-	 JAhDTfse08X/559MJsqZTdl4RMa085XuSfwbsiDzpciXxGDatwQybhF8B24XsaFKfxvVW
-	 U2KWyVwHajlAUOeCkpdU5CBa22VgMZZzhLuP3gg+GO/xtTqJtzG3XCkRMaq91ttHAy73a
-	 YTnhbL9WoQEMpOsZX8JaW8MGs6/zsGjIk8rVLiiok/6yrDjI8EaHidaDulU7mT2ZWZ8Q3
-	 KGt3SuCJhrDatxLA16uVT6x8G4tb+df0e05llILngj5e+UgSgXfOBji0ILq0wznJKng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816529;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=tKZ99yrY5MwjJg6mbBHdYITDM8HO7rTF9ZUJ5jgSrtE=;
+	b=EywvljzzKkEqimYoR+6Rq8rDjhYOo+zCOS7IHGkWTVvydpkVehQCi35CXM9APTXOt8sI
+	 2LXwxl0QXpwdXSwNfswFax0RMW8OxJzH3LYJF8asXkI4FxpbtbqJG8g5ex7huhIcusmxh
+	 mGeIwr2o9jTMk8mtg2j/oRx24KmuBV1JadxCmX2WVMkjBPK0s3u+VzgazH9T8SmFkvxnB
+	 Rn4VCI6reUs7qPza9YfWUpEvxSA3w5MgUg7/ks6cYuEqm+Tocmpimbsf6FZztsbCHz4KK
+	 /tFb4Y1w/UVi6LVHyCwaLgske2mZCAwPMklXbBegkLY7MVpt8ORchiJ/gk0OzY4+ocw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs59Teb0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkFlMoZa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFFB606D2E3;
-	Wed,  4 Nov 2026 18:22:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79496083613;
+	Wed,  4 Nov 2026 18:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs59Teb0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D60F31F00919;
-	Wed,  4 Nov 2026 18:22:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkFlMoZa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8A61F0093A;
+	Wed,  4 Nov 2026 18:22:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816532;
-	bh=Ae44f96zItRoMnEuDxqCncdEeGbSJAWzgR3XJgNUP70=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hs59Teb0yhtPbZ/h74PFv9MW9QEiSmAVJZFS1FTYTU7wnnWhQ+xAbwgVbAYow8NOK
-	 kNm7m5LEEPXZwIL3/mFGDobzskJxK93M/N0b/q2Ca8BpaZt//spk3eeIvY9G++OZcw
-	 4rpVhepNM/4W5zzyt6cV96z1fU2SOzl5M4QgB3PJpff+AVM3eg5Xw1WjNf33AkG6Wv
-	 nv0dT4p3APoOknaWM0NYIgd5mwZPN4gfBuBv83NtoAIOe+pzo09qaH2QvYZh6he+yY
-	 CUfaQFr7NBy1yH99osmwcdRkn/gfT+i+2lUCsssJUpEWPGgVLdD010bnqXQANuhAI5
-	 agXgV8P4XmsUQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 04 Nov 2026 18:20:29 +0000
-Subject: [PATCH v5 11/11] kbuild: build rust crates in parallel with the
- rest of the build
+	s=k20260515; t=1793816528;
+	bh=tKZ99yrY5MwjJg6mbBHdYITDM8HO7rTF9ZUJ5jgSrtE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TkFlMoZakaOAg8ky4ucULLy9xFmOWcZnDHOV2mS3j5XC0wUC1q/PoCV++kMnfkOEQ
+	 TUqS2Dw5zrSNBAgL44c5nR7fb/rlwVn/crSMgqEogrQqnGyWBP1dKzg06JKNs8yDU7
+	 0huHLzjp6YLouavcfQg2jc4ib3CV0pmBkRw6FsrgoI91LsR2ekKVsJUbqLgkHmaS6P
+	 pb+hBlpEU61GTKahFiI0hOYyfcMf9+2Rh5gltvGMqDMFazpBt1s5PkIi/Dw0FYlJQ0
+	 xlL1WTndlGPwQmz+9BMkyI6nqSfZQV4NaF3gm2FEz42XeclJkV4XEVIeSz3qeY5lqe
+	 kKnoFe4jXg9SA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 02/10] regulator: arizona-ldo1: Avoid double gpiod_put() on enable GPIO
+Date: Wed,  4 Nov 2026 18:20:52 +0000
+Message-ID: <20261104182148.1176116-3-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+In-Reply-To: <20261104182148.1176116-1-lee@kernel.org>
+References: <20261104182148.1176116-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,175 +65,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-build-speedup-v5-11-0f6018be8dae@kernel.org>
-References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
-In-Reply-To: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: ljs@kernel.org, linux-kbuild@vger.kernel.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
- rust-for-linux@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4608; i=ljs@kernel.org;
- h=from:subject:message-id; bh=FgSgFDAAcTPCFUAL+8odpu2fPm2OKUlCsBm/ENgnc8s=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJel+dt0LuyaXfbNOY9pR3zHT59b3wuq7N+5vIGXd416
- /y27p2zsqOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQAT0bnPyPDKR156gdy8xyn+
- XOs3/2qaNFnmS1Okr+/+sssq67LnHuxj+Kfd4V8/8eaSHOESDtVr3Llfb9WalTZuZey8J2rfyPJ
- Thg0A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-When CONFIG_RUST is specified make prepare builds all of the rust
-components before descending into the tree.
+Passing config.ena_gpiod to devm_regulator_register() transfers ownership
+of the GPIO descriptor to the regulator core, which releases it via
+gpiod_put() in regulator_ena_gpio_free() upon registration failure or
+when devres unregisters the regulator.
 
-This means nothing can be done until all of these are compiled, resulting
-in a stall at the start of every clean CONFIG_RUST build.
+Calling gpiod_put(ldo1->ena_gpiod) in arizona_ldo1_remove() prematurely
+frees the enable GPIO while the regulator is still registered and causes
+a second gpiod_put() when devm_rdev_release() runs.  Drop the redundant
+remove callback and ena_gpiod field so the regulator core manages the
+descriptor lifetime exclusively.
 
-This also implicitly slows down every rust-capable LLVM allmodconfig build
-as this enables the CONFIG_RUST option.
-
-Fix this by allowing rust crates to be built alongside the C code.
-
-Remove the rust build from the make prepare step, then establish a
-dependency between rust code located elsewhere in the tree upon rust
-components contained in rust/.
-
-Do this by establishing a top-level list of directories containing rust
-code, KBUILD_RUST_DIRS, upon which the dependency is expressed.
-
-Finally, ensure that no rust code is located elsewhere and fail the build
-if any is found to ensure that nothing is missed in future.
-
-Care is taken to ensure the rust/ dependency is also established for any
-module being built to account for external rust modules which rely upon it,
-and that only one rust/ build will be performed at any one time.
-
-External rust modules builds are unaffected - make modules_prepare ...
-(where ... are other goals) will build rust/ first.
-
-The rustdoc and rusttest goals invoke rust/ directly rather than via
-Kbuild, so build rust/ first there too.
-
-Every Rust and C object was confirmed to be byte-for-byte identical after
-this change.
-
-Whole build, 128-thread Threadripper 9980X, best of N runs:
-
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig+RUST, clean                36.5s    32.6s     -3.9s (-11%)
-  x86 allmodconfig, clean                 297.0s   278.3s    -18.7s (-6%)
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
+Closes: https://sashiko.dev/#/bug/linux-7988402e-ca08-4bd3-9488-5779d6da0450
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- Kbuild                 |  5 +++++
- Makefile               | 17 ++++++++++++++++-
- scripts/Makefile.build |  5 ++++-
- 3 files changed, 25 insertions(+), 2 deletions(-)
+ drivers/regulator/arizona-ldo1.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-diff --git a/Kbuild b/Kbuild
-index a6a0192dea08..9670556059dd 100644
---- a/Kbuild
-+++ b/Kbuild
-@@ -115,3 +115,8 @@ obj-$(CONFIG_NET)	+= net/
- obj-y			+= virt/
- obj-y			+= $(ARCH_DRIVERS)
- obj-$(CONFIG_DRM_HEADER_TEST)	+= include/
-+
-+# Rust code elsewhere in the tree depends upon rust/.
-+ifdef CONFIG_RUST
-+$(KBUILD_RUST_DIRS): | rust
-+endif
-diff --git a/Makefile b/Makefile
-index 7c254b8657a3..de4cc052af03 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1416,11 +1416,14 @@ prepare0: archprepare
- 	$(Q)$(MAKE) $(build)=. prepare
- 	$(Q)$(MAKE) $(build)=scripts/mod
+diff --git a/drivers/regulator/arizona-ldo1.c b/drivers/regulator/arizona-ldo1.c
+index 501843996faa..981e047167ea 100644
+--- a/drivers/regulator/arizona-ldo1.c
++++ b/drivers/regulator/arizona-ldo1.c
+@@ -35,8 +35,6 @@ struct arizona_ldo1 {
  
-+ifdef CONFIG_RUST
-+export KBUILD_RUST_DIRS := drivers lib mm samples
-+endif
-+
- # All the preparing..
- prepare: prepare0
- ifdef CONFIG_RUST
- 	+$(Q)$(CONFIG_SHELL) $(srctree)/scripts/rust_is_available.sh
--	$(Q)$(MAKE) $(build)=rust
- endif
+ 	struct regulator_consumer_supply supply;
+ 	struct regulator_init_data init_data;
+-
+-	struct gpio_desc *ena_gpiod;
+ };
  
- PHONY += remove-stale-files
-@@ -1767,6 +1770,14 @@ modules: modules_prepare
- # Target to prepare building external modules
- modules_prepare: prepare
- 	$(Q)$(MAKE) $(build)=scripts scripts/module.lds
-+ifdef CONFIG_RUST
-+# Avoid two instances of rust/ being built at any one time.
-+ifneq ($(filter modules_prepare,$(MAKECMDGOALS)),)
-+ifeq ($(filter all vmlinux modules %Image% dtbs rustdoc rusttest,$(MAKECMDGOALS)),)
-+	$(Q)$(MAKE) $(build)=rust
-+endif
-+endif
-+endif
+ static int arizona_ldo1_hc_set_voltage_sel(struct regulator_dev *rdev,
+@@ -262,8 +260,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
+ 	if (IS_ERR(config.ena_gpiod))
+ 		return PTR_ERR(config.ena_gpiod);
  
- endif # CONFIG_MODULES
+-	ldo1->ena_gpiod = config.ena_gpiod;
+-
+ 	if (pdata->init_data)
+ 		config.init_data = pdata->init_data;
+ 	else
+@@ -287,8 +283,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
+ 		return ret;
+ 	}
  
-@@ -2035,13 +2046,17 @@ rustavailable:
- # Documentation target
- #
- # Using the singular to avoid running afoul of `no-dot-config-targets`.
-+#
-+# rust/ is built alongside the rest of the tree, so must be built first here.
- PHONY += rustdoc
- rustdoc: prepare
-+	$(Q)$(MAKE) $(build)=rust
- 	$(Q)$(MAKE) $(build)=rust $@
+-	platform_set_drvdata(pdev, ldo1);
+-
+ 	return 0;
+ }
  
- # Testing target
- PHONY += rusttest
- rusttest: prepare
-+	$(Q)$(MAKE) $(build)=rust
- 	$(Q)$(MAKE) $(build)=rust $@
+@@ -339,14 +333,6 @@ static int arizona_ldo1_probe(struct platform_device *pdev)
+ 	return ret;
+ }
  
- # Formatting targets
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 7b652f169a8f..ec4e220d6831 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -381,8 +381,11 @@ quiet_cmd_rustc_o_rs = $(RUSTC_OR_CLIPPY_QUIET) $(quiet_modtag) $@
- 		$(cmd_ld_single)) \
- 	$(cmd_objtool)
+-static void arizona_ldo1_remove(struct platform_device *pdev)
+-{
+-	struct arizona_ldo1 *ldo1 = platform_get_drvdata(pdev);
+-
+-	if (ldo1->ena_gpiod)
+-		gpiod_put(ldo1->ena_gpiod);
+-}
+-
+ static int madera_ldo1_probe(struct platform_device *pdev)
+ {
+ 	struct madera *madera = dev_get_drvdata(pdev->dev.parent);
+@@ -375,7 +361,6 @@ static int madera_ldo1_probe(struct platform_device *pdev)
  
-+rust-dir-ok = $(or $(KBUILD_EXTMOD),$(filter rust $(KBUILD_RUST_DIRS),$(firstword $(subst /, ,$@))))
-+
-+# Ensure that any rust code located elsewhere from rust/ is listed in KBUILD_RUST_DIRS.
- define rule_rustc_o_rs
--	$(call cmd_and_fixdep,rustc_o_rs)
-+	$(if $(rust-dir-ok),,$(error $@: Rust code in a directory not listed in KBUILD_RUST_DIRS, see the top Makefile))$(call cmd_and_fixdep,rustc_o_rs)
- 	$(call cmd,gen_objtooldep)
- endef
+ static struct platform_driver arizona_ldo1_driver = {
+ 	.probe = arizona_ldo1_probe,
+-	.remove = arizona_ldo1_remove,
+ 	.driver = {
+ 		.name = "arizona-ldo1",
+ 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
+@@ -384,7 +369,6 @@ static struct platform_driver arizona_ldo1_driver = {
  
-
+ static struct platform_driver madera_ldo1_driver = {
+ 	.probe = madera_ldo1_probe,
+-	.remove = arizona_ldo1_remove,
+ 	.driver = {
+ 		.name = "madera-ldo1",
+ 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
 -- 
-2.56.0
+2.56.0.385.gac671c819a-goog
 
