@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793762753;
-	b=Lr7nkBuKGeUG7uPnip03qQWmaZjcaJeBwJUacBhskck8lAd5B5iIu6Cs3YdC24oLpVv9
-	 ZNvNtiSeCf/WDtw43KfMI6LVF28Tig6S4FMqGSAkjLzBYxXCfM//YW8jvC5axeq2ij2Db
-	 KnULgcb95Zc73Kf1sjYR0J+gTg1xOnXvo/mcSU6inFops1GokqjYhFIW3DGWijS0mjpRr
-	 HJBmFO8612Fc5mA9HXJeRUDct9RYt70+hbKkTPa9FAdTRc9wmCAohV1MW+mnvyuJRCcCk
-	 0hEgS0z6rpeBZuDeEuEpU6bD+ZmB8x3lNbWjaigdRkFNAFT7iHMNAZyYuRO4NbMtuxw==
+	t=1793762822;
+	b=T2swqWUPXSXpXV7QrJ1LaxFA6nu9u7stLm2zV+B00ntJ56GpwJeEEcGo49d61yHQ4HBq
+	 Ozd7cDHC1PJ6LtV1gNEuKmwzz/HtJWLWIJeq8OQ0/8oz3hxzOnDScsufxjwpcvZjU7rme
+	 5LdWLft4ic1UW6yxhCLBFYKxSjbFzKM67NMJkinupDz/w9X/Kj3e4UtImIemDgjNPScE6
+	 eCXp4b0G2AlXEGpQBl6zozlNiycGdm7NlXX8PcPcAbyB9YpRW4zSfktoRrE+kITa3tA4i
+	 ZDpLSqFBz+HQLaqBtdpoSIszntWwa+ZRFTk+mqBeIfs4gjOGPsNhVHb20vNTKbDmnYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762753;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FiR8bNJz68wyQ94GkBHZoR3YiuS4hpz+FXLXPKGN9Lk=;
-	b=HhgTAGoTqf5t+zStJkWpd2x2dR4P4fLiFI7wjCrMgEQ8oAmfCXqGPVVmuHHGZaDY0x54
-	 azErTtysd61bn+GUeUX5j1ROLh9rM1HcCtXlU36CjKEdSJSnQ+vl3HpxHnODFvQHn/Kal
-	 V442h2WR7R5zhyFfUmMWxVIIKSupN2Lmx6uVNkfx+RiyBVh7tloQX/gEUD0HKhD8cXLf7
-	 fSAU2idhXZxF9TIW32QTGPBMZ+ziZ3JwNBHhVq94gEory1n2k5uKeQ2ospbwFxIRpNz0h
-	 QgbfPxFEjRPbQqrkETzArMui0W4lrdX8Pudzr8zs+EeiKWMMnTlrYFqc/kCQ8aTBpCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762822;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=B9B3FNQjMSXeLDrpaplOz7Hf5ldnMqGVp7cTjZ4hcFs=;
+	b=RYhncfSa42tB+I4Q9bjNsm0Ms0G69Ox6Bll4LkNjNeIOH55p6Rt24wCC/a1LOB9+GJMU
+	 F0DWnpxq6WWY/KhbgZ65U9ajEmu0tgUfRwWKo3GFrN/RtuixGlh9Rwb8xNh6339v127Do
+	 RPW4u8uNX0Ul0Wul8/oLAsCHBz9ReAalbQGCBsoDw7+EX4YZWgr/UoSRGZJXWW39/qeke
+	 vUrMJcIRYsyTUDx5o8qfrgBZbVrCX0QNah/07Klwv7hUKqicT6mo6iM+LMUuSmKptHfze
+	 QAtLaA0eNw0UoyfLIyd4BjGawrNRohrRo+ThCggg2XicI/a0lC/KlvJXEmLgzKRnWjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5IOzblz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB315606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:25:52 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=lQNLr1yb;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 688C4606A328;
+	Wed,  4 Nov 2026 03:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 688C4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5IOzblz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BF61F00A1B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793762752;
-	bh=FiR8bNJz68wyQ94GkBHZoR3YiuS4hpz+FXLXPKGN9Lk=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=F5IOzblzVMFI6Zx8tG7Yt2TBiGdnoDbxyv6HGYRoDScDZEGta3FVGaKpN2Hcktbky
-	 GJJcGsjqbGIFO5FcXmWnYbabSnO95o+H9/OQ7rnY/jsNjOGn8jlo8ycg09LL6MzQmB
-	 zz1LAG9JD4KqD+QXvLSyHu33uMeCJJVcsfHP1ajPTp0lmtY3n6A7CBY34quq7LQnN7
-	 F10HywVMTczJoShhzWDLzAOPWhTw+15r99gmxX1euVy3mprMVQNeXr3wYkmlWNHvNO
-	 1SgVdJF5S5dJKlheJwUe4LCwDl79onScy96ySFZNqKlOD5hdsHxe2tXCYJIeO2zXV/
-	 C64WEZT6EKL/w==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ab46699a09so2115411fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:25:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxJmWv0b5LNxgpd8J1QGFwj1Tfsru84i5+ulba5smtqkpONNq6USpsy//AgvuvBe+2G/nBY34kVk/WhxAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YgjfCUXGZ3DPdgRv5jBdycErEqiC4U+tcYWHJKDApbig+HeHn
-	F1EUyCaK2iN8q0iAjv34Apnrp80mXgQRvujqwDXXijwAKEHFbyuzYP9veKNLbOn0Uvu8L33r8fb
-	5tqIXZQSypRgKKdfxiWjCRfbckxTtd5Q=
-X-Received: by 2002:a05:651c:b11:b0:3ab:4ab5:56ce with SMTP id
- 38308e7fff4ca-3acb7b4edb0mr35654131fa.28.1793762750881; Tue, 03 Nov 2026
- 19:25:50 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=lQNLr1yb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=B9B3FNQjMSXeLDrpaplOz7Hf5ldnMqGVp7
+	cTjZ4hcFs=; b=lQNLr1ybdBsa0Xvv5fVyt3xcZAoQSeNEQ8ifbki6wtJ2KUIwl9
+	wAW7BqkQgTB4cE6/we82WPZqWp+1p9t0AJAq1NdgY2aWXQZk+s9+ryXcXFINCdx+
+	XLRvnS1/MTEUg8wnislKvtp5nKxclZ1Xnv4/U08t8jEoRalkQnGirSlBk=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.194.56])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXnUH4pepqKzSAAA--.3770S6;
+	Wed, 04 Nov 2026 11:26:55 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v6 4/5] arm64: dts: qcom: sm8750-lenovo-elden: add the Lenovo Legion Y700 Gen4
+Date: Wed,  4 Nov 2026 11:26:47 +0800
+Message-ID: <20261104032648.209747-5-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,54 +67,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <aupKBdon3N4Kpnkt@daniel-HP-Stream-Laptop-14>
-In-Reply-To: <aupKBdon3N4Kpnkt@daniel-HP-Stream-Laptop-14>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Wed, 4 Nov 2026 11:25:38 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65DdCiWrEOefDGUjYtT2=tcxQ+VW3vfcHVUAUgcEtEfwQ@mail.gmail.com>
-X-Gm-Features: AclHuK_5Y2MLhaVY7HfmVbOKOfX5_2eeteHh2sW4OTC1OnqSFna6GnQ5i2y_CDY
-Message-ID: <CAGb2v65DdCiWrEOefDGUjYtT2=tcxQ+VW3vfcHVUAUgcEtEfwQ@mail.gmail.com>
-Subject: Re: [PATCH] drivers: staging: media: sunxi: cedrus: spelling correction
-To: Daniel West <daniel.west.dev@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgAXnUH4pepqKzSAAA--.3770S6
+X-Coremail-Antispam: 1UD129KBjvJXoWxGFyrAr4rGw4fZryDZw17trb_yoW5XF17pF
+	nrCr4rGryv9F1a9FsaqFW0ga93uan5GFW8KrnrWFyjkryrtrykKF4agwnxJFy8JrW3Xw40
+	vFn3Zr9akF1xAw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmGb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU00oGPUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2rqNlcjBwAgsz
 
-On Wed, Nov 4, 2026 at 4:54=E2=80=AFAM Daniel West <daniel.west.dev@gmail.c=
-om> wrote:
->
-> Correct spelling in comment.
->
-> Signed-off-by: Daniel West <daniel.west.dev@gmail.com>
+The Lenovo Legion Y700 Gen4 (TB322FC) is an SM8750 tablet. Add a board
+devicetree with the board compatible, the chassis type, the GPIOs the
+boot firmware reserves and the board clocks, which the SM8750 dtsi
+consumes: the XO and sleep clocks and the two divided CXO derivatives,
+as on the other SM8750 boards.
 
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
+The rest of the board enablement (SPMI PMICs, console and storage)
+cannot be validated on hardware yet and is left to a separate board
+series. The camera PMIC and the regulators it provides follow in the
+next patch.
 
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/s=
-taging/media/sunxi/cedrus/cedrus_h265.c
-> index 780da4a8b5af..f57642c0d8fa 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-> @@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->         }
->         cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
->
-> -       /* Neightbor information address. */
-> +       /* Neighbor information address. */
->         reg =3D VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neigh=
-bor_info_buf_addr);
->         cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
->
-> --
-> 2.51.0
->
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ arch/arm64/boot/dts/qcom/Makefile             |  1 +
+ .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 50 +++++++++++++++++++
+ 2 files changed, 51 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00..e0b65a36c5 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -453,6 +453,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+new file mode 100644
+index 0000000000..821950715c
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+@@ -0,0 +1,50 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++ */
++
++/dts-v1/;
++
++#include "sm8750.dtsi"
++
++/ {
++	model = "Lenovo Legion Y700 Gen4";
++	compatible = "lenovo,elden", "qcom,sm8750";
++	chassis-type = "tablet";
++
++	clocks {
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <76800000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
++
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++
++		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <39 1>, <74 1>;
++};
+-- 
+2.53.0
+
