@@ -1,77 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838900;
-	b=Q9zv+96kIy8vvkG+QQCx3mEV7Ivz+oasjJfqY1WLD8C4nmw65S9d5a5DixkI4d14XEBr
-	 1uXBkQscjjxJWCr8YZ0U8Lq5KP68CEHbGfGPXGOlf0dk99S/HUZLZ0W/KwrttBmrbmyng
-	 4QLZ18nAyoQp8qbudFtjaE23eToxzsH3+2KlVGqHWg9Wuf16APUnQjWmIzj1fOIZ2NS6W
-	 4npu4E37K1WkqVzyta3ajGKqTaE1RCKKQ8HCsH25nW5xIoyH+4qbZOV1j83qeJFAMyvNv
-	 y48Pl5d2RIKPottNI5Oocejw+UVvpuuMvLRlnuc5sZKwUqiipSpYEWJQLKRM/T/b5RA==
+	t=1793838894;
+	b=L4DTfTphroH6x2mhVcvnDsj3LMun4S8Xuwpz3fybFuuRYQ3zXpS/9Jx59L8eNJCgI6nL
+	 gkjXsL4aja/5qP4OhB67vMWBxqIAJixMSEFl0QjLood0eGr53Ol/ZKYgIwCMRSHsPdwzL
+	 HQ+gFX0NhrN/rlU6RqYkUQ0J/9YUw5k0H/MLGydHT1vd4LMJeRA3GKRTwuTgu6pLZAa+9
+	 0pUka9IzjmjpNMYuAJJFeGvOHq8dpOOieVLvV0lGPKBPPNnupKH7W00gQgkMgTf3V/9Si
+	 j71BxCaMXDXCoNgDX/QyboiclCnIm1BN2BgyxcgWHGWeobpUF4MC3H6ciORSQRfZEAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838900;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=B55JhhT59YGsjYWJgV+XXad7EG0ayDNShVoZf8DxBWQ=;
-	b=Lhzssh23a5HVL4vMQyC8CxBxRVMcfiNHc4hBAYSc9PmJ8AkqmGBy4CvZUGwl2NCyu4ak
-	 H2q/K4Mtg383HR9IDQQ/NaO+ujZNu6Tuchx7uUGHGKIXaU0hJnQPqNG8hkVxjowNQbq2Y
-	 kRnL46QaoPEKfqDJSQi0ipmCd+iV1eEBqcD7Z/QsQAdEDW94f2H3auD8t1rakzgbx0CKV
-	 8K2WS5mOEcGWkKBat2J7Zu1nFbarKMiOQRTFfISZAboB4wFpUOl0fXI9oQraKFvpphfHh
-	 yfKE3KLak2pkkCNfLLzjaWP0SqMwKiEjEeicsUvE19f75fog4gaFFE0U7CO0WCgddrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838894;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=1hNeofC6CYWxQvsjGCSYjmci92xlsWhOuFkDA76tl0o=;
+	b=kc9k98u6gff2cRo9sxLur2QHtHYoTYL+1ZYV1xdnPlofazbtLGAoUlIh4GKO7lDPirpJ
+	 ktZBh2fWSKH1nN1u9+2dZmkLsoWRdkvmWroGMyeYFaNBl4AAmXDqxLgda1O6D6NAAmnCl
+	 6G4KzhN9v8MTDpmQcWLOIgxs68TZXcSXPUjihjn1m0Ywj96wBpKz9T5V68/mQUP//g3Eb
+	 1gdQ4Uba5Dz/W3AJ/jB+QOCJeik1HyRpKIGyZbehyvYzwEnGYtNHXGWYha2hLWK5jnFO3
+	 GD2kBc8U71qURXFhUKXrTSRzY6UhK7COVCRNIBwKVQONM2xti4RKg16dJZsb3N8cekQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnSmeitP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60B8606A339
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E60B8606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso705157a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:34:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793838899; x=1794443699;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=B55JhhT59YGsjYWJgV+XXad7EG0ayDNShVoZf8DxBWQ=;
-        b=ZVGNAQiDrdg1OTJpDlQZlKbj0zzi6votkMD3sWb8CHz2yRT4vRI2dAGD3AQmg6oU8v
-         DR4XaMKrrMIV2w+in78Z6VfMfTuG6L81QBKBwzoLwWkJmizospZW4vd+fHlf7oY5JLFs
-         LAUD+wSJOxe9AnlN2juxqHBg6ZK0VM5FEWfQxUQ8nCLwJhtWuJ0T1Ix3emNC/lMeh4vP
-         T7XVXwtz+E+8A4vFFyeC4yn6a/Y9L5J0unhjkf9N1M1DJt9Eu0kjpqjafleyEV+nhR9z
-         ZlMQ2uYjWlq+yXErGJmcEoyPp6FD5b9poOg8D0FWEHw6cCe2/S5SyEZjU1sYfKLGgQRv
-         spgg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWZJHgjllbWVeU36/lhi70j+mupr9eJ1ULrxbDyK7NXi1q1dplixguwAT7F2OFO3E+8g0wSZHVKURSuqA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EYc4dPM72Z09kY2xWq7L7kkUFDi6+WRqU/9M8TUgFAX3hIzwf
-	w8hWaty1IllqtZxJwCgH8EiVrkRlgofG/pSk6mwwfDbAaPtKFlryHxlCRXrW+m4Z
-X-Gm-Gg: AYBFou1UudduWCgxjU7vHdCzDlcIjJmjcI9JAFOuLM+pNOyiSXZHq8AYlEpMWQYTXgc
-	PBQeDDJKmQh53ASpFTMeH+fGUrXeIprGgvcN5jJJP+hSGjDXItjQkcQX4lRbVZoaE8+zzXcMQho
-	24WSlyhRrrWRAKIfPxs1rQRxSA04+N7f00h5EtQrYdABGZEqEiLYgMj4ovMnca+Ti/Co4Hswl3f
-	8qGd0TJKh4pn0+bE/BAMDrDsFsgWNl+RSLQqy4jYq2kIC9iOzEA4rIl7POR4P0fzUfwQtXncN5i
-	awaB853tDKxBRrUyjzDiFvFNEB32Mr8/BRN0/olnt5gy+vRaCkxcHylR9NNrmP9OT+i3iUV0ZHE
-	HFG3WibpBqv/amZT9mEvIxLOBhy3Mt4EgwvLIG4Gyfy7/mxgls7b/owSMT0yWsskw9dLGBefH+Y
-	jWMFZ+C6/mCbBsiS4ez3QA4fah3rOLUTr4EUoVW+9fQrpMVUW9YRKUJlesiZMuY8SnH5UObwABp
-	HrpjHMvJfUIFtXturWz5KxwhNZfqwADQK7Vv1CmL3iTaEVgSLvFs1MBZScPmYRBywxX2ompn0ix
-	3UlURxvvCwXWLSZOTarzGExCPgKsD9zS+fDEGgpfxSLHdAtYdmwO4/iPwcSzQuzAiTXvpanomvz
-	/9eeO0EIEesT63+2QOaIjY5q6FirLxBS2JyeUS4u85nn5tjuVUbpvQbyyCPDdBkua
-X-Received: by 2002:a17:90a:e7d2:b0:3ad:47ce:3876 with SMTP id 98e67ed59e1d1-3ae89869ff7mr14648956a91.61.1793838899194;
-        Wed, 04 Nov 2026 16:34:59 -0800 (PST)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com. [74.125.82.175])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb467f665dsm1579101a12.7.2026.11.04.16.34.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 16:34:58 -0800 (PST)
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3550c917fd3so1943092eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:34:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByr6Y/NypHuRRv4mtBtwVon2QIVUoO10tDsBHF1Ya2wTOamI2Q1csS29sZxz3etigbdoVtU+IfjB2dCHvE=@vger.kernel.org
-X-Received: by 2002:a05:693c:42d3:b0:36a:1452:8dad with SMTP id
- 5a478bee46e88-36a4244dbfcmr25290212eec.20.1793838896251; Wed, 04 Nov 2026
- 16:34:56 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30342606A31B;
+	Thu,  5 Nov 2026 00:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnSmeitP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE2B91F000C1;
+	Thu,  5 Nov 2026 00:34:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793838893;
+	bh=1hNeofC6CYWxQvsjGCSYjmci92xlsWhOuFkDA76tl0o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=TnSmeitPUF6orFBe0OkfoNDbLhP/Yb3hlXS7e2ay/aKrnnJ0Xtb9WFiPwZ6tKatU6
+	 ox3qQpdXCn5minUg84P1/p8vx023x22sCTSUQdQ43iGl9MgKdW2DKqro0I6P2fUw16
+	 5SmrOhiV61Jzl0hrpF5NYFbkBb529gD0LCvaooKNu9tvLsbtbEM3xQ2roQCGo1wxwh
+	 T7zeAn49prnvxDP0754q6GyXF1z1z1ShoJi3/oyoQwzBg/3Czk6QUqCxKgIOLwzXOV
+	 snQbgyhXklwxBnR73bYwS5hwWL/ZCjGqdcjPwFH5uwxPl64gA7YnzlPACfUKcvmoLa
+	 S4ozk5GEewmvg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 9CEBA26DF5D8;
+	Thu, 05 Nov 2026 00:34:51 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20261104133322.1085061-1-rf@opensource.cirrus.com>
+References: <20261104133322.1085061-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: wm_adsp: Prevent negative string length in
+ wm_adsp_control_add()
+Message-Id: <179382078808.2456854.1438608478800868665.b4-ty@b4>
+Date: Wed, 04 Nov 2026 19:33:08 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,32 +63,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
- <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
- <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
-In-Reply-To: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 19:34:44 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4RRuZcsObkF5r_bDacR3d0yjP4e6GWESksDPKHxK2u2g@mail.gmail.com>
-X-Gm-Features: AclHuK-1vO168WRWmJd07mz7tA0jKpT7PGyfi_yQuj1AayEjOBkR4gYRSMoaS_A
-Message-ID: <CAPY4CJ4RRuZcsObkF5r_bDacR3d0yjP4e6GWESksDPKHxK2u2g@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=6c5BgDfBvCzuLkMhi6liTwHOkvTKv2XER678wtE6eSY=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJen9d2arr7/tsXN1EJpelXApecubVZ85P4qkX2j8xkX
+ nC7ztg9uaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQAT6bzHyLDc6vgThRfT9J86
+ z1+ZpG1/K1inPcI4orh2v25IaPqf/c8YGR4taLuV91RWsFGmLadq/o4VH56WLDr6aceeypjdiUV
+ Z57kB
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> They are the values the vendor bootloader programs, and I checked them
-> against the hardware.
+On Wed, 04 Nov 2026 13:33:22 +0000, Richard Fitzgerald wrote:
+> ASoC: wm_adsp: Prevent negative string length in wm_adsp_control_add()
 
-Correction: they are the board's factory calibration, stored in its
-factory partition as 17 and 10 steps; the vendor bootloader leaves 23
-steps in both, also inside the measured windows. The rest stands.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/1] ASoC: wm_adsp: Prevent negative string length in wm_adsp_control_add()
+      https://git.kernel.org/broonie/sound/c/4d07af76ca41
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
