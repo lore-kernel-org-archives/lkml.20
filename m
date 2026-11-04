@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793802019;
-	b=XjEFMKMIU45FOntSIiyB39tUodNFekhC45VOjiUO1TGKuRt7v5ziM0nJPVbXPey600xq
-	 7gaIJCGTjWJiCjPDOu3nQN3DpTqlWcLH0Vyn4bpJUSN/J27tm/hY7iZX1mHenRG5AyH31
-	 l0d7BWCa3qnKE1kYgjj2+hesOhHSXtFXzBbk43rJP4DlRlbQmS+IBbWxUl6UW5nnMMFM8
-	 8oYs4pSwEiIkjxb5685TpsHf17OVSXTnEZ5XjrNyMoMD3vp9p1ZLga5UMmPjDLQwOLuo0
-	 suyaDE1T+HCGa+miRc8te1iZeLqbCqX2yWLj3zpzbpECbuc1VEpg08NKYk76kaXs2uA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802019;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cTFlIKCtY2beSm3M+7wixuQ4NtEsFsbXStwjOBxwJrc=;
-	b=fCLwPZb70hUN7bj7JWQGN3A+cZOPzPPdSI/ZOAq5nSvn+Gp9hjv3yx+/7lnSMeBS6zK7
-	 2YomL81ImR5Yw5l9Ayzkn6En7mXU7jBjreK2zCkTpoC4cx9VqpPqD/DWf8RtQ4MZZ8eUv
-	 60BbKljrM+48UFuy1n6/JXFY5VsFJJtnLrB6oXWsmVmtUTFJSN7Clni6CnLxqBH8ZXl9I
-	 XBERK4LcOra3lQwuSzZ5hkuAFskKgIyx/zoNylL6B0HVMSGKYzlt2Si3BpMNbMTiCppTR
-	 FxN12zxft8PbF1g2JhM4laryqv9Sq3G6QD4O0is6NWK512hZ/NZ3Gmbbi63BRXrfaPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wetterwald.eu;
-	spf=pass smtp.mailfrom=wetterwald.eu;
-	dkim=pass header.d=wetterwald.eu header.i=@wetterwald.eu header.a=rsa-sha256 header.s=wetter header.b=afNJZ2rQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.95
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793802028;
+	b=Hopce10hrArfLsQFczCm7btjANbMnmjeZ+kmR64H8aDbGvq5qvgLg8O2zKdIWehxutl3
+	 Wm/23sSZ1IJUk8AEzXMJbeTqXEVEOG8jGETJSnxWvL6HfEXO/8WVLdjlQ6CYetd0ZmjUc
+	 Ub3P08sz6HnZ6WMLRzcflSjdbb+VCUj3nhV6fWyLumiu7C5F0IN6N9/ZAzmC70HjbGcA4
+	 FvIvEXK/b/sAx/1DT68hZ5woeg9zAzniKipcn4jJDM2UbQbgxUUJx3MqgSejad51WQExd
+	 LA18MsIc9ngjYJt0kvJUEuwTm84VevgmyiCQ1CnSLx3aQFnVESa29v4bc/xWt471Gew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802028;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Content-Transfer-Encoding:
+	 From:Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:
+	 To:X-Mailer;
+	bh=m/NZtHpS1SjJGqrEJRDxwvaLB3PXvzyilEksZKPIUz0=;
+	b=KQySlABgI1nMBVMg3O5puqVWYYMmpauXH+2Zm3luCrR9H3zu7nxI26dL8ZnKKG6CNq3l
+	 ekdBbWZCdZNhAXhKV6M+vWW5ps8iYsHi5J62Jtsz7M08Fnm8Zr/v3By9xpMEJf5YPi5pI
+	 UAH19J0cScT2YNYS7xjtQczjqDpADEcwW2VngyfZbt9UcA2rmIJ8tmqEf3P8ZjyMzg5Hy
+	 4gDK0ZEVwunSKjfrd0s8vU0fbhzc8XN6R9KQyprxECr+kKip+rUvffjFRzT5Rd5P4bJly
+	 xT7kF4vcoeLil6I3cwjNCm1pfZR/LkEHvP4lB3Z8bEaGEiClPBci2Eq+XgTaUrwjzBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jGv9fWpQ;
+	arc=none smtp.remote-ip=95.215.58.95
+Received: from mta1.migadu.com (out-95.mta1.migadu.com [95.215.58.95])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170B2606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:20:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 170B2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wetterwald.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D3D606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D3D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wetterwald.eu header.i=@wetterwald.eu header.a=rsa-sha256 header.s=wetter header.b=afNJZ2rQ
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bfc9154ceaso572323e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:20:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793802012; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lRybPkIwxdddb7AmWgPC3r1uAlmwv+eEVSvu6ACyp5HG9B2P8S/oc0PwDc49+mgFfV
-         JTG38VgRXyMzqzU+rTJj4SLU9VxuJVOPHJZ3tojbz6pOq2+5Hdf4ugMtn65WE4zg2nFF
-         NBr/AONzQVULV5phYLrcc/hr939zteEKvZ82n0/CLW10zdn6fekyAUOtKgXj0XnirSEl
-         8/Ol2RWYGSptGcmnEnW7AA5JdWDendPOfc4KZlT8pdUBm0AlItLnc+/LLc28pEsEDjhI
-         Hny178YKjTysRBCggHrjnEQy1e+jcyT0GkFQAF4kYMj1ypS/P5aBp2cxQ7Y5wsaQ/qcn
-         Elyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cTFlIKCtY2beSm3M+7wixuQ4NtEsFsbXStwjOBxwJrc=;
-        fh=QDpEJeRlzqEiDdvEuopF6I7inlJTCzGlulorDCPqAzQ=;
-        b=mHaNSSteSbm/Ww7XlKZbcfdD/C2075drMfPt8ASnMyNNIQe94WVOQSme+AUlfE7/wK
-         rtqWMFr6QDT/0XUyzHOdEtPN99ylWBdyRxVLOjN405Wp1GWBM+GXeFlKxHi3Fkpuc90M
-         oBH0dqA6o0rl7Ms16Aq2SQI7bfk9ZOUITcrtRHesTx5QZ6/7D1cw4zwHtEiTw4Gaz0j6
-         Ovz7BiboOGCjmwP1E+DHB5+u6+PccKszH1F6RSL4QwWzBaDI/YTPmfcIroRyhrXeZMW3
-         42slF3iku9vGcBlfubeWQdB0h1hha22EEyyOKoQ6F88TTJd500EHVkhmOvQwIxYspkdl
-         dmWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wetterwald.eu; s=wetter; t=1793802012; x=1794406812; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cTFlIKCtY2beSm3M+7wixuQ4NtEsFsbXStwjOBxwJrc=;
-        b=afNJZ2rQ9qQx3O7VuiyticCj5W73O+b40pJ8tAqtJqKTnZf+HIFcvIaIhERaunY0ll
-         X7O28RnugQ7xeeqcTBPmQ+EZbBuAEMDFhHiEwLMOtPJU+w+omIvBijQpW7bpogOj3pgN
-         2si4gMc1LFGsCjcSYoIqIs3z+KwdxMfysLKoy9Bf9v6S/ahsksgkcj+wAOU04HNApQnO
-         SzKu+8MGTXpZgT+seFRmamyo60bik8Xg/UW09rC3S2CwwPEGC4Nmr6YEyJkPXbjPpnfW
-         rAuJ/P+zH8WZpwWW3Xz61PDUCVDsFnmckTUe32JB4irknwd3VKx/3YsX+V1C9f5gQx8c
-         zCxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793802012; x=1794406812;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cTFlIKCtY2beSm3M+7wixuQ4NtEsFsbXStwjOBxwJrc=;
-        b=pqQLehRjZ+G/q45zEP/7Dwdue/sEDjwSDr2p8zPIndrSl/TyTFgi5sm1VMegq6rIx+
-         v/rmIJPYQtUYTVDN7ndHWaGNwDYHhzBU+SKUlxEacimtossI7aQuDtxvSGWywSLIjyPi
-         3lpyvZtRWrNGIIOxI7EnKWV+S0h8FYOOWyJK67Q4FI5eqW7/3sRB4/3hrCN6ulVqM4KH
-         JaLiWWvD63ZD5b4F/XqqclVji164A+M6a6SAjE6LiNdtANGtLcM5kkpNFz9berG5bZ39
-         8MCmLfOJs7PWidWeO5uKt3fm2dS1K7UaspR5jgTJvNeB+jQIrGF0rFL6Vo3ivnLSA4vl
-         Ba7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxz1ZVaYzbYFNfAIUqU6CJJvbXZeXqzsW7CiUlqQqNWA9mjM9ukY+m4KGdnjQF1cGoF6MN0mcAXNbQEseU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/joIrA470vRFK6zFbg4ykTgzaqhwATRdUQ731a4H+muIW6OD/T
-	XBnmrKEeBNMp6Q4QqaeSbXI86jk3bjSwKIY3Yqb+ho6qq2Hfu5lcZH4bW4gvOQ20SxXnA0mWzXh
-	czCK2FT8gye+90QXAt9/Fz+XuqPF1OrrZ0w+xgvWMXw==
-X-Gm-Gg: AYBFou0gq8yzwmQlasgFikI1nDLjhTaKN6syR4CnNo4FYEeGUmam7Vvq1eIknVs5KMP
-	wmC5TxlRamvaAzKQ1SEPHH0etyclfyIUvXWIVVRMOh+y5uzzHnpmgmFohuvL9M3IqoTb9sFSTf/
-	uj0RYCxKufvOENj02zPIigPT4obZisQBoKjolv59mKBV6G6T/V0dSMoXfqUDHSIDsrt4pSUwu3A
-	L3B2s/7THXPW8KBAN8Y9krsJ6sFyvTO9py6wD0am0O87zNSZhOkM+nyAb0tK/vD1IfzC2/Fl6eS
-	vr+yTbCEBpG+/CsH4mTkZ4RJUU0o7M1tdGLk6ryd3ieNhBwwqEI1xLIcr0WFwkXBjHVuYJMTrA/
-	Ntw21C1NV3TyZgQpaf2aDL+cICzz2fvudzPAWGfZfzdcLZpyxYKQk5SgLCEbKZF3jlBYc
-X-Received: by 2002:a05:6512:1394:b0:5bf:d1e5:6533 with SMTP id
- 2adb3069b0e04-5bfd951f9a1mr5985954e87.4.1793802012004; Wed, 04 Nov 2026
- 06:20:12 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jGv9fWpQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=m/NZtHpS1SjJGqrEJRDxwvaLB3PXvzyilEksZKPIUz0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793802025; v=1; x=1794406825;
+ b=jGv9fWpQmTdYWYoxQBN7ogkIaGZJPDvSguBCljUwRGytolBnLPSp3IxKlrqeQCk4MkCu+niW
+ 5B3o+LgPTiPxBk4q/HoZkU6fIvC+9bdK/tLJimgG853R2fenIA9gEnD7wlJoB2IrZF3tyOxY4NW
+ qKKSh7G6qnfAatipvVihy7uM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id d550583e712d362a;
+	Wed, 04 Nov 2026 14:20:23 +0000
+X-Mizu-Trace-ID: d550583e712d362a
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Aditya Garg <aditya.garg@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,48 +58,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
- <20261022082927.59030-1-martin@wetterwald.eu> <2026102218-vowel-plutonium-629e@gregkh>
-In-Reply-To: <2026102218-vowel-plutonium-629e@gregkh>
-From: Martin Wetterwald <martin@wetterwald.eu>
-Date: Wed, 4 Nov 2026 15:20:00 +0100
-X-Gm-Features: AclHuK_I0DmQgyoOW_ayNCdieQ-bUqhZ24CNIegOfCwJ565mihqQwxeJ6QVlwrY
-Message-ID: <CAFERDQ1GeAwFGBQ09eu8p69c_b3_CzAeEfTwiEaVCG_22RQdtQ@mail.gmail.com>
-Subject: Re: [PATCH v2] platform/raspberrypi: vchiq: register bus at subsys_initcall
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Gaston Gonzalez <gascoar@gmail.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Stefan Wahren <wahrenst@gmx.net>, 
-	Phil Elwell <phil@raspberrypi.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Umang Jain <uajain@igalia.com>, Kees Cook <kees@kernel.org>, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Date: Wed, 4 Nov 2026 19:50:05 +0530
+Message-Id: <BA55AB79-324D-4CED-8957-3940BD77C541@linux.dev>
+References: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
+Cc: Ed Schofield <ed@charmerstraining.com>,
+ atharvatiwarilinuxdev@gmail.com, dev@deq.rocks, alexander.deucher@amd.com,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+X-Mailer: iPad Mail (24B119)
 
-On Thu, Oct 22, 2026 at 3:31=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Oct 22, 2026 at 10:29:24AM +0200, Martin Wetterwald wrote:
-> > Hi Greg,
-> > this is a regression introduced by aa125180c673 (via your tree) in
-> > 6.19-rc1 and present in 6.19.y through 7.3.y. If the staging pull for
-> > 7.4-rc1 has not been sent yet, could you take it there? Otherwise,
-> > staging-linus would be great. Thanks!
->
-> This is not a staging driver anymore, please route it through the proper
-> tree after -rc1 is out.
->
-> thanks,
->
-> greg k-h
 
-Hi Florian,
-Now that -rc1 is out, could you take the patch?
 
-I've checked 7.4-rc1 and I confirm the issue is still present.
+> On 4 Nov 2026, at 7:37=E2=80=AFPM, Alex Deucher <alexdeucher@gmail.com> wr=
+ote:
+>=20
+> =EF=BB=BFOn Wed, Nov 4, 2026 at 7:52=E2=80=AFAM Ed Schofield <ed@charmerst=
+raining.com> wrote:
+>>=20
+>> Hi Alex, hi Atharva, hi all,
+>>=20
+>> Alex, I'd like to withdraw my September v4 submission. I also don't suppo=
+rt
+>> applying v5 as posted or the simplified patch you attached later in this
+>> thread. Please remove my Co-developed-by and Signed-off-by tags from both=
 
-Thanks!
-Martin
+>> versions. I no longer think deferring UCLK is the right approach for the i=
+Macs.
+>>=20
+>> I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a t=
+ester
+>> found that with deferred UCLK it still hung after login, as it does witho=
+ut the
+>> patch [1], which seems to fit Andr=C3=A9's PPTable diagnosis.
+>>=20
+>> Since then, I've been working with Atharva to get his native-5K iMac supp=
+ort
+>> upstream. His patch initializes the display before the SMU, which has als=
+o
+>> prevented the boot failures without deferring UCLK. On my iMac20,1 (0218)=
+, 13
+>> of 20 warm boots failed with the upstream order; with display first, all 4=
+0
+>> boots passed [4]. Another tester reported one warm and one cold boot, bot=
+h
+>> successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
+>> initialization order improved warm boot success from 11 out of 20 to 100 o=
+ut of
+>> 100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn=
+'t fix
+>> the 16,1 either.
+>>=20
+>> I don't think the iMacs and the MacBookPro16,1 have the same problem. The=
+
+>> iMacs fail while amdgpu is loading: the SMU stops responding to
+>> EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
+>> display initialized first, the same message succeeds with UCLK included,
+>> and the iMac boots normally. The 16,1 loads amdgpu without errors and han=
+gs
+>> later, after login, with or without deferred UCLK [1]. So deferring UCLK
+>> seems to help the iMacs only because it moves the enable after display
+>> init, and it doesn't help the MacBookPro16,1.
+>>=20
+>> I have prepared a draft patch with Atharva as author and me as co-develop=
+er,
+>> incorporating his review feedback. It combines display-first initializati=
+on and
+>> native 5120x2880 support through two tiled connectors with suspend/resume=
+ and
+>> display power-management changes. The current draft is here:
+>>=20
+>> https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371=
+e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+>>=20
+>> This has passed some initial automated testing on my iMac20,1 but I need t=
+o do
+>> more testing and get Atharva's final review and sign-off.
+>=20
+> There are already patches on the list to support the 5K Macs:
+> https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html=
+
+
+Those patches are for older non T2 iMacs. We are discussing iMac20,1 and 20,=
+2 which are T2 Macs.
+>=20
+> Alex
+>=20
+>>=20
+>> Alex, thanks for following up on the boot issue and checking with the Win=
+dows
+>> team.
+>>=20
+>> Best regards,
+>> Ed
+>>=20
+>> [1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
+139127
+>> [2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
+>> [3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
+>> [4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
