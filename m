@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809300;
-	b=TCoQpg5gRgzp2IY8uiBUK8s7MvVZP31fTv1olm48jJBOfu11X8ywQw1RG14fJofk/igT
-	 Wa/2EicSRC5hSsjwoi9u1UaPa0Cx9OhB0dxhRGjFJRtTo4eqUETiWbaS4bS0qs9ehMwI+
-	 Vb9DGt6GgQ+rsYJzy/FByBb7jcoO5nZtK5nPtV6NRACaL1/hwdYRvY/YIHBM5auYcIkS/
-	 oXQOyNw4y/t4y7KvAc9tODXIeH5aOF96W1SwW/pbkA7LapK0zYOZOtDgH6eCfQ9g22HVA
-	 iPQcUDWtxTfcfybX4CKjWy0j8ocfQo2eXOvBXrmTE+/HmGzk+yNDWeYLLccAfVepS1A==
+	t=1793809347;
+	b=nLMi88ZqJ0JoNYn01T/jpgud5pXGcyeWQ2FWweEnYGTomSjPDDXpZrITDzgvXZDlVW3F
+	 jRrCTt17mWDtCEwnOOFPTtF+hqM6e9hPQJw7w1vQF26GRaghbjN+J8XrQoejAXnTameyl
+	 fHp/MZi15gt06RK72rt70vE9/qrw9yENyF8qHneDia0e/DC0MyWpz07VckmBdL+tlcO5l
+	 K00iyLp89sj6L7IwNLat+a8yij8sPLk+ABHX5JI29hLLgUmDLGiCdKgVy7xfo6KLYY6S1
+	 ce9+vCsId3L/AifGjSHMA2zto/4iyyC4XTH/BQxXzlkhZQRoEltJi7xsPoinj7XLbCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809300;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=w7eVaBDWu9R5hyOQNNOzwUd3G/ydsQa1JR0D6yp/m6Q=;
-	b=TZSzFwJPJ9KopVW9IwPyHd8pUhqDwCMUFy16+a6qQQgHIcGMyLhXeA7565+dfKiCFJ7c
-	 i4yilJ9ccEcwbd5CNrWF0MphkaDb65vSTduvmEHYFKPehS6wRUz4A+5QlP3crPE6Pn3c4
-	 42nCfdpUeYCmcPh4J4KcuExDJugbNYUzjxx6VPKjxpm9hXdTuHKAm7370b45U8XGTc88f
-	 B69FQIBlHh4VCxXAcjhKi+UT8FMsEO2UQgoPpHjhkKMNg622Brr0An2BvEJ792Oo8MzWY
-	 h2C5CLtYXMYVuwI6lC9ICtApP3G9JNnohLdmINuU5XOX/j5FHx2dRbGdqXHBIHjOZeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809347;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-Cookie;
+	bh=9U0/oc9XJY+Xacm4T/vZDVqd4pBBW7XgYn3Q3DVvguY=;
+	b=QJN7u8TOTejKG7fevgJ5FGVerJpQ6c+srJ5S5WthKIETBzcxbOZfnKwStCtZb5dlDLIt
+	 GLnjVFWO3zB0NYkz4ZzdKZ7ZfRRfN1aptgUCc+i02Y6gmukvg8ejkh7yrLjtJCn0+eND+
+	 /0NEZjPJpMi+N2M3NMi1SX0dWPdzeMI9MMjvJt6Vyej5miTyOhQXvJz7FBb0E/Z3xMOD/
+	 JWpwIpqfkUJfP2qqsUE63wNwM5nxlnS3kDsTsjIpuveCAnCMvdMNSZAj2SE7usD/J4+z1
+	 hnNFtPPlxWWo+xoqtgO7JMAs6UU8R3ytTAei9x3CgC+nuTdx/Yme0DCTyYrbh+eaPVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNkwtak4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911DB606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNkwtak4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427BF1F0093A;
-	Wed,  4 Nov 2026 16:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793809300;
-	bh=w7eVaBDWu9R5hyOQNNOzwUd3G/ydsQa1JR0D6yp/m6Q=;
-	h=From:To:Cc:Subject:Date;
-	b=MNkwtak4tH/qjUIiqUrxN7aarJldGaUsW0ZRvtsqymwIv9ztH+DJzqQHfDue9e4RL
-	 Su5YiSibc1FoGnziiSZR1vA95Y9bJGZyiRuC+n0HaGqz4K6KVUXVyMk2rVU7yWoAb9
-	 X49fHGI0ShX9GVE9cq1+9+vKaK/dtTt6179spM8Gq/nI8b4zJJDpGVqnKgi+2+nnTk
-	 oPrf7zEQguYjWuRrUpWnVF8TMLJJaJ8olfA1QqYXUyuWabHZfe3SRbxgbrahcnISx/
-	 ustmiYpIugr56iAP9v96FCjrESiLCG98ILhd3uon00L9hlOm/u2VsDDveZviT3am8Z
-	 ehSFvnGv5qq4g==
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	tzungbi@kernel.org
-Subject: [PATCH v2 0/2] reset: Fix issues reported by Sashiko
-Date: Thu,  5 Nov 2026 00:20:36 +0800
-Message-ID: <20261104162038.48622-1-tzungbi@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D2C606AAC1;
+	Wed,  4 Nov 2026 16:22:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68B71F000C1;
+	Wed,  4 Nov 2026 16:22:22 +0000 (UTC)
+Date: Wed, 4 Nov 2026 16:22:20 +0000
+From: Mark Brown <broonie@debian.org>
+To: Pierre Gondois <pierre.gondois@arm.com>
+Cc: linux-kernel@vger.kernel.org, James Morse <james.morse@arm.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Breno Leitao <leitao@debian.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Dan Williams <djbw@kernel.org>, Terry Bowman <terry.bowman@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Morduan Zang <zhangdandan@uniontech.com>,
+	linux-acpi@vger.kernel.org, linux-edac@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: Re: [PATCH v3 1/7] cper: use BIT_ULL() for processor and memory
+ validation bits
+Message-ID: <6d03947b-a5ba-4b06-88aa-98b277f87b8f@sirena.org.uk>
+References: <20261104110355.1437249-1-pierre.gondois@arm.com>
+ <20261104110355.1437249-2-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,30 +60,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jzUhbb9OnNJAWSS4"
+Content-Disposition: inline
+In-Reply-To: <20261104110355.1437249-2-pierre.gondois@arm.com>
+X-Cookie: All rights reserved.
 
-This series fixes two issues in the reset controller unregistration path
-reported by Sashiko:
 
-- Patch 1 fixes a reset_control leak when reset_control_put() is called
-  after reset_controller_unregister().
-- Patch 2 fixes a circular locking dependency between `rcdev->lock` and
-  `rstc->srcu` in reset_controller_unregister().
----
-v2:
-- Address review comments on reset_controller_unregister() cleanup and
-  teardown ordering.
+--jzUhbb9OnNJAWSS4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-v1: https://lore.kernel.org/all/20261102155840.20376-1-tzungbi@kernel.org
+On Wed, Nov 04, 2026 at 12:03:09PM +0100, Pierre Gondois wrote:
+> Use the BIT_ULL() macro to describe flag bits instead of
+> hexadecimal values which are harder to read.
 
-Tzung-Bi Shih (2):
-  reset: Fix reset_control leak when put after controller unregister
-  reset: Fix circular locking dependency in
-    reset_controller_unregister()
+This should explicitly incldue linux/bits.h - we're getting it via
+implicit inclusion at the minute.
 
- drivers/reset/core.c | 69 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 52 insertions(+), 17 deletions(-)
+--jzUhbb9OnNJAWSS4
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-2.53.0
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrrW7sACgkQJNaLcl1U
+h9Az4wf/WivK4KDFJ0wch956/CEIh+bACDWA56wnmvVsoE/J/nn8c1ukSvxYsDFq
+zi6R9dtsLogp2aiwgQYzjNG/Jbh/j/p1X8z11U3yz9FlSuuqMKfP17PFfIc5ztaU
+MWdIHm0Us70USugN9Ztj1rPwZn/cB2TTjs6eFOq2W/281453JX3q9vFkYueRCxnq
+uxJeqTS0dXGI8DaGr9Gq7hmFWjXpFMxa3rWh6kiV6hBXKrA0VMRLPJrE0PWABAO9
+Q18g2O0KzAQTQAGYAT7NvaqOfdSZtDBlzhLDdFQjrTaQY9xBpfGPcrriciZh+QYS
+UzHOjdz9sF6BbDVrGvUmTWWyXCN9VQ==
+=rQbU
+-----END PGP SIGNATURE-----
+
+--jzUhbb9OnNJAWSS4--
