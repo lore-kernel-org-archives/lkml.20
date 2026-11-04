@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773341;
-	b=UTj/RGNNh9W9ek9aSfgI2LaP5qYZzAWV2zR+aD2xW3J/Odcgpr1ibKQGjLXX3Z7ov4l4
-	 hSZI4t3DoxzIHa5DEnzxOHUXRZwgI+Cy4qRWp/tL4QkjNu5mJBYBVrmuMch7PZ1lxtyrd
-	 sVPg0aF/qaxB+VlvULxVYIVA40PKe9TDeMLYhCn+a/VD/umL7I/KHBQdizDRMPjSzYudj
-	 queFlnCMkasR39TvoI6Viz1wH5cgPp74kpCTOJsXZpmNBo2uCB2/CgqLgvOcvTo+Pub56
-	 yQ9t6nL7QNDXKBH5Rtz8hi38dBue9CIxvfViHPsI7JNQruFOpq8ztqTTZz4A3ynVCaQ==
+	t=1793773343;
+	b=3VOx0D834tGwPAqerFN0v8I7aV1XOU6NqOb4k8spgHigdKiaaaTJoSDdsg1nW/wpgj0z
+	 TB3kyopZWidFmV1xPiRSrXl7VvDlIPqgRcqNGe4FqgP+BpaCk/ef5+8EXgrigG3SienHx
+	 udiMsXEZRdpx2PiastMom5ZlRWQUm4PQYNa67IplHX6ECCF9S0LYqvwGnktj3dyMKYcKW
+	 SbFH7wuhDK8C8c0CkTJOFgL9bCSk4tlACcs0/DyzGWU5v2gn7Hl84Z2QmzkVYKcbIDvdM
+	 uO7zrPbBtjdwGHoqCdJdpgKXNqG/zb7YrTFDucma2lrLGcIczzObq6kQZDn3gEtzWIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773343;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=9PKHtdpFEFOH9mE7ZMeSyTP1BlMEKj3lvBaNGnj2fkc=;
-	b=KQRR0cHfYlnWQ6fnZD9KUOtM28JL3rtNS3vFPpa7Gdye/nGIxI6hwVfuIP2ND3Nc46Bh
-	 Gdt63X+ObIK0NTytiOjDlpRKu+k6PLVdo7U5aZTAe/Lk5gDM43vRrtTS2rE+Qmjlnre7E
-	 1LhNIp4xAnoc6zc/LR5xIWgoe0Xy8wh5NvY3R7RS9YM4EWOXrDepXC00jZF6eqWOLHMzc
-	 4V4wT2oRa11aDR7082RRM09D1U4bDXWVDd4QZgMA5asPvwNZEcXyNVLYJqFAk0g7ldRO+
-	 5+95Zq+hGJoVNYBEe/JKH7db06iOXLOcsaQtxhg9JrQQqNKyXugZ/kRye94MvDS/wHA==
+	bh=RS8HQHUDLvu3L0nrb3s/fU2QFoH0d0vm0L4FG+93668=;
+	b=v6GdtIv31EaBVI+n5d0LWQm3GwRZTy6ems9yKxfagTgM5/xv2un+OI2Yi7LjM3TsHGdx
+	 O5z8yrMIKcq470bW0JzOZj1i1NhZMSdbgrTyot9b9YRP150ptQcCDbYWykFOHSy57U0wz
+	 GAqOBn+G1Pr1gwksA0aMy0dDRfpFnUdXGkx0xHhGOIHLoeZF3LK74cPDE+TBzwahSOm1Z
+	 wZOwMBPKz2H3+CNs7D++DlSf+sseB4xGeOmrpQ+moY3tKIfKID+JkeyypAyek4aaX5lrB
+	 ExYrgNl/wyoGE96BwKFpRbHaKsmqTGRwLorfxT7q8V0CHZX8KMfxcBq9UXDNheCwnMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=linux.spacemit.com;
 	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Qxwxw7ua;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=kyBSu8eO;
+	arc=none smtp.remote-ip=54.207.22.56
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666CB606A328;
-	Wed,  4 Nov 2026 06:22:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 666CB606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C70F606A336;
+	Wed,  4 Nov 2026 06:22:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C70F606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Qxwxw7ua
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=kyBSu8eO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793773329;
-	bh=9PKHtdpFEFOH9mE7ZMeSyTP1BlMEKj3lvBaNGnj2fkc=;
+	s=mxsw2412; t=1793773325;
+	bh=RS8HQHUDLvu3L0nrb3s/fU2QFoH0d0vm0L4FG+93668=;
 	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=Qxwxw7uaBiKsCVnHeh7+lAfJzKSVMPA9c6REXnvPeUQlh/l7T3OUwrFtavVl7AGgk
-	 wAYJYNoure1YGWoa6Vsx/EwAwGKOUbrHESFPkEswHJ/Jr5g9TlEk2vgdLdXZzAd1KT
-	 TcQNwHp++HTZXeH5cIkX9CN1n4CZUCHvkg8a16ys=
-X-QQ-mid: zesmtpsz5t1793773328t132ddf6f
-X-QQ-Originating-IP: 8CaA/fdFjmQn/Wma+2pUZUIypAHN9+lMxI7DmPHCLJw=
+	b=kyBSu8eOnUa/hchg0kPrXLwxS8MMab20i7KIlv0tUDph3ub2RHaQqo4EzNr3rC6gk
+	 6Kyua+09/U9NnzhEShVsckw5Brel3qRaxKhGaze5wFDRcyl2AxrO55oNQybNIIj86g
+	 d8pdboCXPiBzEstF43JyppSGEPS4XwGvvf6tWCEQ=
+X-QQ-mid: zesmtpsz8t1793773324t7b13cf52
+X-QQ-Originating-IP: dr7aZKcoVFwVL1+V7P+P4KXa9jl1lrdr29Yc0oryszw=
 Received: from = ( [183.48.245.66])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 04 Nov 2026 14:22:05 +0800 (CST)
+	id ; Wed, 04 Nov 2026 14:22:01 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 16598904818912466911
+X-BIZMAIL-ID: 12024928077256599196
 EX-QQ-RecipientCnt: 15
 From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Wed, 04 Nov 2026 06:21:51 +0000
-Subject: [PATCH 2/2] riscv: dts: spacemit: Add K3 BS01DCMA support
+Date: Wed, 04 Nov 2026 06:21:50 +0000
+Subject: [PATCH 1/2] dt-bindings: riscv: spacemit: Add K3 BS01DCMA
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-k3-bs01dcma-v1-2-794025247e4a@linux.spacemit.com>
+Message-Id: <20261104-k3-bs01dcma-v1-1-794025247e4a@linux.spacemit.com>
 References: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
 In-Reply-To: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -77,334 +77,57 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6940;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=805;
  i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=4JHu1HEc/BfR9PcAoEAwhMMbAz5mXB+iuDd66YkyMQU=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFmvzrOcefbOe0dfw9o/SsEmjwwjRN1SI5O1fJ9z+EesP
- Kfw4YViRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwETK9zP8d3rFbRbvW3ZQOWpN
- ru57h5L02VtmhNgmqq4/6Xjvj6mLF8NPxuiCpZzLu48vKbgQvds0YztDM+ey4+W/M9rTd/MFe7j
- zAwA=
+ bh=ghUSxoaLZNOHu0bC2sc85BOdFzkkpY7rTBR2ijIXN9s=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFmvzrOkpwVlnbM4/vUeF8PfiuOPbm8Ii78qo2rGe2qSx
+ oLDvVY/OkpZGMS4GGTFFFm6H/BsK/CJsi0QKPSFmcPKBDKEgYtTACaiy8Lw3+elvNzu0+yn7z7a
+ 8T+VtXEKa0/e2Sd6/V2XAv+6nd4YJ8vIcITn1d0FupuOVfmvPHfyl9W1T8ud7josD/r6zehuYma
+ GBTsA
 X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NikuFQrTsu3BRSYAov1/McXdKxb8EIzkR7h8vGrsi83BuV5LP5zfllpQ
-	896NraERGA74lenNX5wIfNtzbB+M35Ka4S0RVUDlhe/7je8YH19FTMFEcA3zEZL4pKIO4o1
-	PiRvX17uMDxvLexVSErfcyKvCGSX47qEnNYUmCImJZs/EPlzWATtaC8vol7MBr1Vn6A1X0F
-	G/BPANeDqyJ7Smh4sl4BotOVtVLL/3xzYaFJnM0AQe4XazfVC5WbzjRfHCelXSu2z1woh0+
-	zkKE77gg5KqjYiRZY9v6ro8RP32I0Xo5lglv3e0kXpiEy29HKRUiJKZoHH8RwmgGijjOhFC
-	6N93/al2725rVJTG8DGl03Nh9F2C9NXEAXuOUBIbLYMFHHnK9uAuuo++vVNcJERGtTh4W2E
-	5L8Js5T6n4vs7K7jaNW2iTYTxhQ2ftkA+MRqdQAxEdkn/RstyjOGGiy64VCzVT7oyp6OyhX
-	a9OuEGCMlfywDQvUTmSN5ZZkNhbxYCqSVCXRLWGQIflpBaq40nG9SfZtlq27WBdSIGmjRg4
-	MIu5sCJOLw6pK0fRIPBlv3xrul7v/BkD9s4+GM39IZwOGhHixOkciCd4YuM+81DD61A01/n
-	ZBygGDJW9LN7+LLhWTJ+m3eVWMROqYRLJuAC+up4smC7Ge2CHFJDsglYrS+ACFLHQSokjiz
-	MZqY+DACA2l+GGIh7l5s/Mov3RPUke+gIhqLzs40S8L4nA1Eljsvuk6iGbOISKHOKuqg/I7
-	G8bBJ9URrLPefieCKOvsC2LnT/A3pmyvLKVSv8kVTh4JXvNlVEdYvGEIrdFm3ze9bWk5+Oo
-	YcGyf2JVpIiNY0ifeHkbMDmfERog1AN/sHBI4abhQAHui9r05QapC7ooLD6n+7DFA6CkUFP
-	gK7bqddXDlwJ/FtZ+JTzYEhS8G3Qg/MVwfU7HbknvW5zK4HeO4zU7R2b8eYl4XFaCPXbhUn
-	ifto7xX6+tsYWh/R7JX5YSR1smszbm6z+B5T7CbPw7jeQQCleCqUwXka8ftlLzUS37b24Wd
-	8YhXpZkXZOgli3VrNxJvIrTDlghmk+Omn7tVHW/wGyKQ2D1C4NspGwIzIJ0Ihys37RY/slq
-	9VcqdHNWjt34KqJ/okrf0JMn/0d4etqIp6zqqS2QwIIosqjWrUb6GHbRN9+YFfv64s1Zqhe
-	h7CPeoOTwM+IHjEKa1d5Rj0mxA==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: NlrfLQhmr2s5GmGI1P9u1XcYpYiSJDqxyLJA39CXWppOHgImOOKYAVwh
+	X0/1rtS1zTOWrB41BxfxK+cq5JBsNRb08WVXeanwn5NqlZAI5RM9diI8EuJGg8Q5i5VTMca
+	KpUZBZtRqJMgVpbuRzaeket6qV7RS/xIoigyIOzpRBhdx0uOcidBysw1G9qiF/eeDkuiYbj
+	/sZX6lwIVsiGMNFY9izq0cA5aLKKv5ih5A4XSxcp+W5ah7t4q4OLf800EGWS6YuLie03YVJ
+	WpKwUyuSox+eGu9LQtODLFCleqRe8a2lvXAj0faCxRXuUmIWkMXhi4pVmwpJTIrIE14t7d5
+	dkB1CF8HxU4IgST+Mb/KHWRraL638fIA0/djH0QOWxtB58STaCKE1IrbjisNiDGLr9+nmoo
+	YKL84I+YjIMFVhEDCFZ2lYyWtYLf1vvKNO1s2C7Rx+2GNjy+HiJ/SeccssEB/Pw8ng1hR0I
+	pLsnDu1TyGFbAU8p5HackXvVDm3npFMgkEIuGK7/F5sL1LBoh0WNDPnZbZ3tXREMX+W5Vva
+	6fHyornakBMe89wSMExUauXvrTQ+xK+IrqBOtbyXbqoWHnFMwnNcPMS6dWnOwpMsWugq4SP
+	Ow5yKOVGusMkuvP1EOVlYZib6R6+L22fyPONcbl+lv0aG3bjFmfcGleBJvBzhx6FcZK6AvE
+	NSPt1VuHqPpJzILj0XCyN5XReJJenj7YoMonVAkmUiVoDVKGgUv6vM7NLB7azkionwE34nb
+	h7bqM3Tj71ropa5VVBZnRr28QhIIOdjB33ifGrD60fCkqHG2O9DTrdHo7zUcSvklXnequHR
+	1seSqLVWCWl8qlWBRz48+y2B72j0rwuGmgfQTCyrfxUKbsq8kZImIKMtWYNRNA+dLoKbh9p
+	3Y51jmCo3sfiPgRgj8JL6XYWfSvItY7W+21NkFNm6F8KC2XOUb5+fuKHqLKDbFX5s0c7uf4
+	9xmXqj4jo4LwkMz8GUrkMmw8EvKpFRGh2B+4bH1pc6jmKjMn6HhwJAYfyceMzt+EZNechH7
+	poTH1B4mwUW2qTrxelKEUPy6XJomW+iV8a/G2dxM/hrb9xclV5Wn4DtNxRpRpAmaXrAcG+l
+	15fsjONEOkX5vtrl5RiNJeKplQYaL4R37uIaNBkXfi1pi5HFNMq49W9E+ZRP1z8bw==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
 X-QQ-RECHKSPAM: 0
 
-K3 BS01DCMA is a board equipped with a SpacemiT K3 SoC, 16 GiB of LPDDR5
-memory, a P1 PMIC, an EEPROM and QSPI NOR flash.
-
-Add initial support for the serial console, EEPROM, PMIC and QSPI NOR
-flash.
+BS01DCMA is a board based on the SpacemiT K3 SoC. Add its compatible
+with the K3 SoC fallback.
 
 Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 ---
- arch/riscv/boot/dts/spacemit/Makefile        |   1 +
- arch/riscv/boot/dts/spacemit/k3-bs01dcma.dts | 266 +++++++++++++++++++++++++++
- 2 files changed, 267 insertions(+)
+ Documentation/devicetree/bindings/riscv/spacemit.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index 851b701e5da4..09d17fef995d 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -5,6 +5,7 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-milkv-jupiter.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-r2s.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
-+dtb-$(CONFIG_ARCH_SPACEMIT) += k3-bs01dcma.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-com260-ifx.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/k3-bs01dcma.dts b/arch/riscv/boot/dts/spacemit/k3-bs01dcma.dts
-new file mode 100644
-index 000000000000..0c3b4ccd105c
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-bs01dcma.dts
-@@ -0,0 +1,266 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-+ */
-+
-+#include "k3.dtsi"
-+#include "k3-pinctrl.dtsi"
-+
-+/ {
-+	model = "SpacemiT K3 BS01DCMA";
-+	compatible = "spacemit,k3-bs01dcma", "spacemit,k3";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@100000000 {
-+		device_type = "memory";
-+		reg = <0x1 0x00000000 0x4 0x00000000>;
-+	};
-+
-+	reg_5v_sys: regulator-5v-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "P5V0_SYS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_1_cfg>;
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c02";
-+		reg = <0x50>;
-+		pagesize = <8>;
-+		read-only;
-+		size = <256>;
-+		status = "okay";
-+
-+		nvmem-layout {
-+			compatible = "onie,tlv-layout";
-+
-+			mac-address {
-+				#nvmem-cell-cells = <1>;
-+			};
-+
-+			num-macs {
-+			};
-+
-+			product-name {
-+			};
-+
-+			serial-number {
-+			};
-+		};
-+	};
-+};
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
-+		vin1-supply = <&reg_5v_sys>;
-+		vin2-supply = <&reg_5v_sys>;
-+		vin3-supply = <&reg_5v_sys>;
-+		vin4-supply = <&reg_5v_sys>;
-+		vin5-supply = <&reg_5v_sys>;
-+		vin6-supply = <&reg_5v_sys>;
-+		aldoin-supply = <&reg_5v_sys>;
-+		dldoin1-supply = <&buck4>;
-+		dldoin2-supply = <&buck4>;
-+
-+		regulators {
-+			buck1: buck1 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2: buck2 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3: buck3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4: buck4 {
-+				regulator-min-microvolt = <2100000>;
-+				regulator-max-microvolt = <2100000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6: buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <500000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2: aldo2 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo3: aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4: aldo4 {
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1: dldo1 {
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2: dldo2 {
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo3: dldo3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4: dldo4 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo5: dldo5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo6: dldo6 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo7: dldo7 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+		};
-+	};
-+};
-+
-+&qspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&qspi_cfg>;
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <26500000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <4>;
-+		m25p,fast-read;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			bootinfo@0 {
-+				reg = <0x0 0x20000>;
-+			};
-+
-+			fsbl@20000 {
-+				reg = <0x20000 0x80000>;
-+			};
-+
-+			env@a0000 {
-+				reg = <0xa0000 0x10000>;
-+			};
-+
-+			esos@b0000 {
-+				reg = <0xb0000 0x100000>;
-+			};
-+
-+			opensbi@1b0000 {
-+				reg = <0x1b0000 0x60000>;
-+			};
-+
-+			uboot@210000 {
-+				reg = <0x210000 0x5f0000>;
-+			};
-+		};
-+	};
-+};
-+
-+&qspi_cfg {
-+	qspi-pins {
-+		power-source = <1800>;
-+	};
-+
-+	qspi-cs0-pins {
-+		power-source = <1800>;
-+	};
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_0_cfg>;
-+	status = "okay";
-+};
+diff --git a/Documentation/devicetree/bindings/riscv/spacemit.yaml b/Documentation/devicetree/bindings/riscv/spacemit.yaml
+index 4ee9c88984b4..5023093ca2eb 100644
+--- a/Documentation/devicetree/bindings/riscv/spacemit.yaml
++++ b/Documentation/devicetree/bindings/riscv/spacemit.yaml
+@@ -35,6 +35,7 @@ properties:
+       - items:
+           - enum:
+               - deepcomputing,fml13v05
++              - spacemit,k3-bs01dcma
+               - spacemit,k3-pico-itx
+           - const: spacemit,k3
+       - items:
 
 -- 
 2.56.0
