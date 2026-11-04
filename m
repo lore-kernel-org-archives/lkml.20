@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793810772;
-	b=j0rlMqh94EBnzEAQAzO4pkNk4ej1jONS2+leUZibrB44Ig2z97A6RFzVnklHN51YykAP
-	 TNvlnKDwHuX5/ASIiwb0D2CbP2AER7b1FaSi8BK2j9hpkmqz76Xm5if7qabSG2I217V0o
-	 g3gnh+Omv/tk2tUJJjw+Q/C9McpXUsZZtDsU++zqGFqZQGdfeXoVTpcSCZ/oDZMEeRWeo
-	 wXeJPprEWGlp5VN9yulu6c+Ge/74r9agzlrRN41YY/hb0npxM8lbqARTVDoKZFfi+DEWR
-	 u1k8jXU+cA/Mj8hYfX5/zShMtG7IkAUNNRpMwdA1O8IyiLK15G+HLFtJAMBVp95z8FA==
+	t=1793810771;
+	b=iMrUKn9cMIERAeIQOk+DtwHCz49MUR6Rl1aHkuzxc97bkzdv1UP22EKMdINE1ZmrjHUk
+	 XvLPn6j511KwmSfh5acnRRiXeqvJpmWLllgLtlYvrxyPorvWx6NDChuUyd4b2gRyJ4Kug
+	 F5NRFLVPbOdf/JPVMl6cdm7Wd68PsGR2ng2MhhDzDf+ttZQ6SMxgvDDrkTAHTCPj59jBp
+	 PmNZcLvkNUIOF9egUCeO0YywkgtW+LkhdBG4ld/tFmWxUEfewfZiqVp8mQCzA41D69OlW
+	 STZFWw4DcCNgYhsqf/CKo2+WicRUjv7r2nSs3EQvDvLvvF8WsxbadsdgQYMLAG6Ro9w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810772;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810771;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lXC/bDKgvZAq8xaE8sidEO6SzUhZpkifQG9ccrdjriU=;
-	b=qlyPhauwa1ifJqlsMeXVAf+QTT1XCMUPcUBvwkDfGv7fTtp4N7be29dfVXXL9+HA0AwM
-	 UF8EnkR1+nXIxoHl+IaRQlaHL4PpuPzsHEvZ6zevDpJTpaGDdQ7HYlMYF3PIEgvoupqAs
-	 oWcUKXqPBAijU1gIMhrhq4uUZbKKziwhsz73XoM/mef2SwwStK2P9nbe1k7Qudl6Yvl/8
-	 o8i5Jti9bKzyZUHwQCdWcza6neGqOYvJwn/HE6l/Vah/zeDLKQCj+tm/TzD85MoopU3Av
-	 UK6Uelkr3Id70mA6ZS1CrxkR9QWDkNEMEha0Fe89T1aWckkG94YH5RG/4A5IYP3luDg==
+	bh=1AvE0qmPTLYEQNW/JzGmdacSOhBtwOVKmHVIwVQeERQ=;
+	b=nC/9spASWQIWrDXtiDk8+zfppH7icUI1cYSa3kUa5zQLMzvMZoV79OPcRh9SOZ8wn6eZ
+	 QPvF8SBq12FxQPhySkJ0E0jo8IfbawxuOipcCiohxni1iI5w2B11zRMQQiHQ10mQ/soDY
+	 nb86aco5b4RENcB87Lx3yY7UzJQbigApr7G1u3EwTV9M6Xl8CmGv2Uew4kaCSlU/sL0A+
+	 6q96g4/2TLGh6Rnb2G8L1EnnGpIMM7U684Kwql5V/Q/y+OgAogdDevTNe3zaH1KCKgNq0
+	 jWRZg8k5w074t/JDUVjti6q2Ta+PHLBzIvdHw82KGL3FESLwXefOb2s1slzDe/db5xA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lm4a0+Y5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mPAopgw/";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847FB606D819;
-	Wed,  4 Nov 2026 16:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB153606A32D;
+	Wed,  4 Nov 2026 16:46:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lm4a0+Y5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPAopgw/
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793810772;
-	b=w31vBUzygulAJ0E1m/kwBoB65WZiniio5usWDPIpKOQj8owd7AkRaqLOsuPqeZH+9qHg
-	 RfGYl1OiGHOtTIx4DvtoTcW0xWLkkSHxM9/X5tuxcPGNyorEGqOTjbbOZLQg3Vnqs5dYM
-	 kLpSMxYiJuhilXPr86Wzvl1SU0SD6uk5gLHu+0DbKcJCD/h/5ag6qrGJXQl8fYdAI7zCN
-	 94efNXSF1ygH/IQm2B7iIRoy1/7VNoqtNlZeKO8yiUaBc0Ws53r5RhxRE4LuI74XbGRNK
-	 JrjMOAYB87UnkS64lg+laP6Z2tZlM9p35a/ISdkMO97lollZdDyq+KQKIb4nTH80udw==
+	t=1793810770;
+	b=eB4tcH4DbWD4aV4Gp1k+9MPh3SScZeN0kab7+r+hKfY+00/ZHcGQFcPFcDfR+HCf3Rny
+	 6pbgvty6+pl4lHsMJzg89DmKufAmRGTc7nFNJ1cwaUZb+VTRIr9ZSdINwo/poER82B6+5
+	 tpA04cjjx0JH34j1cthRxcnyYh3rU6+6NfUSZW1C+GiMVnrVUrTFjcgFGy5yD6sW7hoAH
+	 Z9mp4m5vUj+X+vOgXqLJLV0eITSIyCoeYwh4d5vREGWkiL5K2II8wguAkx2+UDB9QLNjK
+	 rgewnoUb9JFHpJiI6F5sKou/cJNrzVypFlIVzTnAVEh/sM2ri14vGXGi5fR0/736vlg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793810772;
+	c=relaxed/relaxed; t=1793810770;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lXC/bDKgvZAq8xaE8sidEO6SzUhZpkifQG9ccrdjriU=;
-	b=kxMSp2iDthB0HRD001RVjXpJ+NxBE0xh3Cg3DZ3w8irRE73PHWlbzm3kQJo0NNijFmjP
-	 EL2BFpHTUb5glJbkqN9KA1ebJruOhXr0deLNu9KVQMbSgz92vSayxdV4Ne3H8oOFSlDNw
-	 wc5l+yvGu5b7C+rwn8xygqRp650NMgDDV/pOozxMtvRfDTUiKfi6AhA/uMrgyQA+pr14t
-	 r4zN94IXTfHRE6LWnsWT4iJrEoXJOQhPlqqsFovvtDw3nWB2PKsqKNC/ux509Lg0Hvkri
-	 vmKnvSs8tSLAYnyr7LGv2m+IF3tub8VGrT950H22MmFfRo35zpt0E0r5JH3oRGhwz2Q==
+	bh=1AvE0qmPTLYEQNW/JzGmdacSOhBtwOVKmHVIwVQeERQ=;
+	b=OsVpvIYiGWSYzRVXYi0I3lto0vf2Un5gwviVo5qGl4Qr19r7enxdnDEJgba2UMQI9Hwb
+	 /5KY1N6RL+r9sdntsssI092Sz/ZwDPtO4/pDdlKtACNECRfj5f5sJVshw2C+6zDHWpWxP
+	 L0O0EkkLTw3Ai9F7pOgac5QzX3MdDvSGrV9iW/e7SmqJLzmvkHWuHc53FwECgMoVdNS81
+	 XxnBMQ+/SFw8SxSSgAl3zSqyDpFxPJQ9l3+lFE6eTLe6uCgwzUwCXdwcKwZ26/l5EM7JG
+	 xGP1Q07S7aBBWUGtIc5G7WIZxpw+If1ZwhnkSLVOrHmMru3NJUUWZ4c+QCUSoY0d0Cw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0BC251F00A17;
-	Wed,  4 Nov 2026 16:46:10 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E92C21F00A1A;
+	Wed,  4 Nov 2026 16:46:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793810772;
-	bh=lXC/bDKgvZAq8xaE8sidEO6SzUhZpkifQG9ccrdjriU=;
+	s=k20260515; t=1793810770;
+	bh=1AvE0qmPTLYEQNW/JzGmdacSOhBtwOVKmHVIwVQeERQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Lm4a0+Y5wbyRqtEWBJPzJ9K3eZAFIhVBud7e2d4r11RIze3Gn2zYHSR7+JIt2247F
-	 0Ima9QEd2gtTD9I6A8vT819cXz8nM6ZCEwmjlx0nnyTkzImGAFAFGCuhpqX02HOk5N
-	 bXzwgXQZ82NJBX5M0UD8An7+KUBYKU2n20cm6Mgt5+x7wSqCqO64nz3vb3WqkPvb4g
-	 wFnxsKu1qeQdI/C9GLFEbGecJYANRDSWB4f3ofdjRhQgb8oijLRuRNaxLnQmPMaa/9
-	 fQn1owF1AJWlUN5Hp+m45AP4I4iFoN7RmKW+Dx2dFfA5kF5NK3jYjkhs62ev5Vsvvu
-	 g0uU1ZQG1O49Q==
+	b=mPAopgw/Cg/ftiWOv66+NnNXIgp+4kvxzaxY8+WTj7c/kpqIeYbtAdCVjOOw7crNF
+	 a1bLkglDWQvLVZgyGvJIx11UVMpQAN93MKJPLD/h8oM9KhBZz9mTUYa0TKb4O9iKjI
+	 FNBYUdUOFH8txXzhH0eYg/+T5MAqWeKwbNRzl3gnLeXDhlrd7fU6+ktkFKA6TuKboC
+	 0+F7GY+fWSB/qSugrHYFYgFZeZUjGsYwI9uznraQVhjuS7y7BvumE9srLfMqRvl6YO
+	 XdGyI91wsoxzTB+GCdBwd2W/cFuft4fqwOcdxXh35j1LpJJNR1hBE7/yUeh95VlYpW
+	 o3M7a0Fn+VfkQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8A26346ED6;
+	by lkml.kernel.org (Postfix) with ESMTP id 6B0BA46ECE;
 	Wed,  4 Nov 2026 16:46:09 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Wed, 04 Nov 2026 08:46:04 -0800
-Subject: [PATCH net-next v5 4/4] wifi: ath12k: Connect to the QMI server
- belonging to the device owned by this driver
+Date: Wed, 04 Nov 2026 08:46:02 -0800
+Subject: [PATCH net-next v5 2/4] net: qrtr: Assign unique node id for MHI
+ endpoints
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-qrtr-multi-ep-v5-4-4cdb2b4f1920@oss.qualcomm.com>
+Message-Id: <20261104-qrtr-multi-ep-v5-2-4cdb2b4f1920@oss.qualcomm.com>
 References: <20261104-qrtr-multi-ep-v5-0-4cdb2b4f1920@oss.qualcomm.com>
 In-Reply-To: <20261104-qrtr-multi-ep-v5-0-4cdb2b4f1920@oss.qualcomm.com>
 To: Manivannan Sadhasivam <mani@kernel.org>, 
@@ -101,20 +101,18 @@ Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
  Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, 
  Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
  Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Daizhuang Bai <daizhuang.bai@oss.qualcomm.com>, 
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4724;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4010;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=mhErcsLQdS5uRROGeaSOA51h7VNX0VQpNNW/OtbOflM=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq62FQQ+e73zlMkQF+JuIZ6XZ0mdAZt9RxUsC4F
- GjvsyPFLMiJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauthUAAKCRBVnxHm/pHO
- 9evWB/9/LYxl9U54MCxD1UJD42IV/qA1YSt+cs8LuG7azAex5n1APg9aQgiYrPk5tKnCO45v8G7
- IAcrCUVEg1X1f1XMJ2wppe/3TUTDcSZYmnwUabbwqH1p6q5TcGCyaiuvmKWPw4MafFaoaeFVW4m
- X0BJhGecv0n875+Jblcgvak15aZ/TS9DjE8qcT3gJZjNAvFAegC1R/bNoSGONrNRTklr5ncoUFP
- eFnILIAfHr1Zyk8dx/ypg8ggoRIPeUc8O/eDoZkJSK/Y7Qb4GP28Epwvb4T8OjuEH2RV1WTpzUs
- LYkrZ/mdRA/m7kVqRAnUWZ2R8OnO+ffcYE84aJmLeeLeRUD8
+ bh=H0EhOTeuguMjwzlWxiNEAiptD2hqK51M5K4T4n4KhQY=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq62FPzegVaTTaIYEmlqTf1i1XwQs2eDOwgYn5L
+ iTv8vNrkjOJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauthTwAKCRBVnxHm/pHO
+ 9cpnB/wIfv7gXHw090GbwPR/AiMkzKW/gaLUdnrfR112PCA4/edrZOfIWKVk5UuMnI2JcCgsctn
+ 3lnK4dgFhTZRLX5DIsiWJJ2Cv6f9XVAVGnUcEQBubruQqA/o3T95KUe8xH69+xrXk12WKeC90yK
+ XBblZ7chZJA00aXpm5wIgEWfhb3M0Ch3QsPiVeKvCxg1AYLvImlgKkJpSXLqZjWbmy0fwvnzKHq
+ o1zBh53vWFdYG7uhYWoA5f3Fq8Xf9Unni10mcH6YDc9jkWGRc2wPxg80IxBqqtDoD5Le9IARmIb
+ Y8WMkPoZfqVrRTEYwtHECLMKsrR6c+nHA7eZgJ44wtG4v/W5
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -125,124 +123,127 @@ Content-Transfer-Encoding: 7bit
 
 From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-When two identical ath12k PCIe devices are connected to the same host, both
-advertise the WLFW service with the same service and instance id. The QMI
-lookup reports both servers to each device, so a device may connect to the
-firmware running on the other device.
+Now that the QRTR driver allows using the unique node id for each device,
+which is different from the node id received from the remote node, compute
+a unique node id using a new API, qrtr_host_node_id().
 
-But now, QRTR provides each MHI endpoint a unique node id which is
-different from the node id announced by the device. So use the same id to
-pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-the node id derived from the MHI controller index and zero for transports
-that do not assign one. In the new_server callback, reject any service
-whose node id does not match. A node id of zero disables the check, so
-transports that do not assign one keep their current behavior.
+This API takes the 'index' parameter and adds it to QRTR_NODE_HOST_BASE.
+The base is chosen well above the node ids in use by the remote nodes, so
+that the host assigned ids never collide with the pre-existing ones.
 
-Tested-on: 2x WCN7850 hw2.0 WLAN.IOE_HMT.1.1-00018-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1
-Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00277-QCACOLSWPL_V1_TO_SILICONZ-1
+Since the ids at and above the base now belong to the host, reject any
+packet carrying one as the source node id or as the node id of an
+announced server in qrtr_endpoint_post().
+
+Finally, call the new API from MHI endpoint driver by passing the MHI
+controller index as the parameter. The MHI controller index is unique for
+each controller, thereby for each MHI endpoint device.
 
 Reviewed-by: Simon Horman <horms@kernel.org>
-Tested-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-Tested-by: Daizhuang Bai <daizhuang.bai@oss.qualcomm.com>
-Acked-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- drivers/net/wireless/ath/ath12k/hif.h |  9 +++++++++
- drivers/net/wireless/ath/ath12k/pci.c |  9 +++++++++
- drivers/net/wireless/ath/ath12k/qmi.c | 12 ++++++++++++
- 3 files changed, 30 insertions(+)
+ MAINTAINERS        |  1 +
+ include/net/qrtr.h | 22 ++++++++++++++++++++++
+ net/qrtr/af_qrtr.c |  9 +++++++++
+ net/qrtr/mhi.c     |  4 +++-
+ 4 files changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ath/ath12k/hif.h b/drivers/net/wireless/ath/ath12k/hif.h
-index aecdb0c5f285..c2cfe9a75493 100644
---- a/drivers/net/wireless/ath/ath12k/hif.h
-+++ b/drivers/net/wireless/ath/ath12k/hif.h
-@@ -31,6 +31,7 @@ struct ath12k_hif_ops {
- 	void (*ce_irq_disable)(struct ath12k_base *ab);
- 	void (*get_ce_msi_idx)(struct ath12k_base *ab, u32 ce_id, u32 *msi_idx);
- 	void (*coredump_download)(struct ath12k_base *ab);
-+	unsigned int (*get_qrtr_node_id)(struct ath12k_base *ab);
- };
- 
- static inline int ath12k_hif_map_service_to_pipe(struct ath12k_base *ab, u16 service_id,
-@@ -153,4 +154,12 @@ static inline void ath12k_hif_coredump_download(struct ath12k_base *ab)
- 	if (ab->hif.ops->coredump_download)
- 		ab->hif.ops->coredump_download(ab);
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 09713dc4c6a7..79ccd2ec2bf7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22992,6 +22992,7 @@ QUALCOMM IPC ROUTER (QRTR) DRIVER
+ M:	Manivannan Sadhasivam <mani@kernel.org>
+ L:	linux-arm-msm@vger.kernel.org
+ S:	Maintained
++F:	include/net/qrtr.h
+ F:	include/trace/events/qrtr.h
+ F:	include/uapi/linux/qrtr.h
+ F:	net/qrtr/
+diff --git a/include/net/qrtr.h b/include/net/qrtr.h
+new file mode 100644
+index 000000000000..6beefe89943b
+--- /dev/null
++++ b/include/net/qrtr.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0 */
 +
-+static inline unsigned int ath12k_hif_get_qrtr_node_id(struct ath12k_base *ab)
++#ifndef _NET_QRTR_H
++#define _NET_QRTR_H
++
++#include <linux/types.h>
++
++/* Node ids at and above this base are reserved for the host and are never
++ * accepted from an endpoint. The base is well above the ids used by the
++ * remote nodes, so that pre-existing node ids stay untouched.
++ */
++#define QRTR_NODE_HOST_BASE 0x10000u
++
++/* Compute host node id from a per-device index. The index must be unique
++ * among the host assigned endpoints and smaller than QRTR_NODE_HOST_BASE.
++ */
++static inline unsigned int qrtr_host_node_id(unsigned int index)
 +{
-+	if (!ab->hif.ops->get_qrtr_node_id)
-+		return 0;
-+
-+	return ab->hif.ops->get_qrtr_node_id(ab);
++	return QRTR_NODE_HOST_BASE + index;
 +}
- #endif /* ATH12K_HIF_H */
-diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
-index 12bbb75570f1..e56f2f9d721e 100644
---- a/drivers/net/wireless/ath/ath12k/pci.c
-+++ b/drivers/net/wireless/ath/ath12k/pci.c
-@@ -10,6 +10,7 @@
- #include <linux/pci.h>
- #include <linux/time.h>
- #include <linux/vmalloc.h>
++
++#endif /* _NET_QRTR_H */
+diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+index b95ffb98ec23..33df07fb836e 100644
+--- a/net/qrtr/af_qrtr.c
++++ b/net/qrtr/af_qrtr.c
+@@ -11,6 +11,7 @@
+ #include <linux/wait.h>
+ #include <linux/workqueue.h>
+ 
 +#include <net/qrtr.h>
+ #include <net/sock.h>
  
- #include "pci.h"
- #include "core.h"
-@@ -1493,6 +1494,13 @@ void ath12k_pci_power_down(struct ath12k_base *ab, bool is_suspend)
- 	ath12k_pci_sw_reset(ab_pci->ab, false);
- }
+ #include "qrtr.h"
+@@ -590,6 +591,12 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
+ 	    cb->type != QRTR_TYPE_RESUME_TX)
+ 		goto err;
  
-+static unsigned int ath12k_pci_get_qrtr_node_id(struct ath12k_base *ab)
-+{
-+	struct ath12k_pci *ab_pci = ath12k_pci_priv(ab);
-+
-+	return qrtr_host_node_id(ab_pci->mhi_ctrl->index);
-+}
-+
- static const struct ath12k_hif_ops ath12k_pci_hif_ops = {
- 	.start = ath12k_pci_start,
- 	.stop = ath12k_pci_stop,
-@@ -1513,6 +1521,7 @@ static const struct ath12k_hif_ops ath12k_pci_hif_ops = {
- #ifdef CONFIG_ATH12K_COREDUMP
- 	.coredump_download = ath12k_pci_coredump_download,
- #endif
-+	.get_qrtr_node_id = ath12k_pci_get_qrtr_node_id,
- };
- 
- static enum ath12k_device_family
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-index 817bd820623d..86ec7f2431e2 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.c
-+++ b/drivers/net/wireless/ath/ath12k/qmi.c
-@@ -9,6 +9,7 @@
- #include "qmi.h"
- #include "core.h"
- #include "debug.h"
-+#include "hif.h"
- #include <linux/of.h>
- #include <linux/firmware.h>
- #include <linux/of_address.h>
-@@ -3992,8 +3993,19 @@ static int ath12k_qmi_ops_new_server(struct qmi_handle *qmi_hdl,
- 	struct ath12k_qmi *qmi = container_of(qmi_hdl, struct ath12k_qmi, handle);
- 	struct ath12k_base *ab = qmi->ab;
- 	struct sockaddr_qrtr *sq = &qmi->sq;
-+	unsigned int node_id;
- 	int ret;
- 
-+	/*
-+	 * Identical devices advertise the same QMI services, so connect only
-+	 * to the QMI server on this device's node. A node id of 0 means the
-+	 * transport has not assigned a unique node id, so accept the server
-+	 * unfiltered.
++	/* Host assigned node ids are not supposed to overlap with
++	 * remote node ids
 +	 */
-+	node_id = ath12k_hif_get_qrtr_node_id(ab);
-+	if (node_id && service->node != node_id)
-+		return -EINVAL;
++	if (cb->src_node >= QRTR_NODE_HOST_BASE)
++		goto err;
 +
- 	sq->sq_family = AF_QIPCRTR;
- 	sq->sq_node = service->node;
- 	sq->sq_port = service->port;
+ 	skb_put_data(skb, data + hdrlen, size);
+ 
+ 	nid = cb->src_node;
+@@ -615,6 +622,8 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
+ 		const struct qrtr_ctrl_pkt *pkt = data + hdrlen;
+ 
+ 		nid = le32_to_cpu(pkt->server.node);
++		if (nid >= QRTR_NODE_HOST_BASE)
++			goto err;
+ 
+ 		if (nid != READ_ONCE(node->ep_nid)) {
+ 			rc = qrtr_node_assign(node, nid);
+diff --git a/net/qrtr/mhi.c b/net/qrtr/mhi.c
+index e9a4bb92ce76..b464231fa0c6 100644
+--- a/net/qrtr/mhi.c
++++ b/net/qrtr/mhi.c
+@@ -6,6 +6,7 @@
+ #include <linux/mhi.h>
+ #include <linux/module.h>
+ #include <linux/skbuff.h>
++#include <net/qrtr.h>
+ #include <net/sock.h>
+ 
+ #include "qrtr.h"
+@@ -127,7 +128,8 @@ static int qcom_mhi_qrtr_probe(struct mhi_device *mhi_dev,
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = qrtr_endpoint_register(&qdev->ep, QRTR_EP_NID_AUTO);
++	rc = qrtr_endpoint_register(&qdev->ep,
++				    qrtr_host_node_id(mhi_dev->mhi_cntrl->index));
+ 	if (rc)
+ 		goto err_unprepare;
+ 
 
 -- 
 2.43.0
