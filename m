@@ -1,109 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796644;
-	b=iBLpiAMD4IY/Jrytb/7wpo6NIAEWZ28Ov9DMVV3SJVHSyUqJ+V/90X0N8IxtJfv+RAaE
-	 Wt6YjNYZdDoH2xgjvF6v93bvIYwTgj6KPchfI4cjLIOsla9+jP1WIHg6sEiHEQU2vDWE6
-	 KaQUfRmj7lQ+jB/Qi6xlAR0uk9p835tIzJ2vpqyThwXJLvemjTfQjigw2sfrSlc8isdXs
-	 QWN3hKExu9acJAP6nMjslufNcbMFD/+FA/6up2bi/qu6QTCj5HjFDpZwTaAoriQU+CzQa
-	 46XxLmcE/ryPG6cHuAYZE8IjzYd7FAlAeEYrn/B7dupbET9Ly3UP/81psJmKVLctrbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796644;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
-	b=VXfr7yMwk3wWHRmkNNRYl1MVhydmdYSiY+GVkSLjmyaSOcpBfLWwGI2iAvV3PuHAibsK
-	 vwV46GFuXWP90Wa3LtPP5AAxu2ZXRXro5m36gCq6jxDEkCJA8fde8lzyyfA5IyDVqQ6Lb
-	 4Q23mMzWdXfaMglTfC32xo8R/UHVMuiAPcP01CNPKnyAxmESpQ8QVrv0Lm2EgreLHZvq3
-	 KE1KsZ45siSHJ86/0i2i5lk8uHhU68wyNpdCql4chdf1pADAm43Jy8vqM6jrE63fYkwOz
-	 dmlpUzqYX221SykNTSgYmyWd+sEnX+XrYJQg7xK0Rlsu/oGr2bZmfl5/vvJ7pvFU6gg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMFbhM2y;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.86
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793796627;
+	b=hd2WzNXCJLOO/igtVGjRU37SYUv/snI16T45Hv7s3tA6PZvPzNToP0ukrg0WfJN6Wqj/
+	 GO+krnG7VkcfhX+5KfW6ypmdClkbaPSY9JBXj27z6G8Dp7dTGKc5sb/u+ngbvaAZMnjAG
+	 FV9CwOUrq9c695F3WEyBtGUJ3MoTGP4b5dRzjtE7gT8yKDZaPr28N+y3D3jSN9Bc+ahef
+	 8c00dwwv+HKrOPbMRwK0XRyNu4w/ehJOZFnrm9oMcJiCh3qVyqs8J6xg+6il/amiO9AFI
+	 Pcj5s1gPma1wUbEZC4ubWSocErpyRs07KLZWu4oA2INTHK/GPSzvemJTd5i0Iqgepfg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796627;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=yDZPcnE1uFPGSiI0MS8aKMlU2GHR0GHCdoJTfCo3Xdg=;
+	b=jzj7LxsBCNpwXKVhV/TTTJxW3QSec6HRN+vdJMO3y/Mqf7VXTqCNbmQVNhKZ80axZpUh
+	 /5Dlz2VtMMhP05xHIB35wUy6NphiEbbGvA5PspdKBG0oy6J09vPIsEGrXtbBfV61ne6lC
+	 TWkF7q17EOK8lETgQqKXCAxb518Laq24n/ngJMHpmBua35c6J+BAuLgG1gNGsfn8mvljX
+	 clyQ3Rkq+SbuZQrrLmuQ+UGRcv5h3ZVJcGyBUq8ccoXMshhhQjD3CPmwneIg6lAbdd+Fe
+	 5oCAbQybixvDGX4h3xMq7CJlNY51wiuvv/u7PtLTSm41wSZTXXY/+7futskUo1oZWKg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.86
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022086.outbound.protection.outlook.com [52.101.126.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E96B606D801
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E96B606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMFbhM2y
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so391262a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:50:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793796643; x=1794401443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
-        b=sMFbhM2yZqNp1QsenblfNuflgzQqV1qIObFqoNvDmLTQFwizMshMoTwqd8c4j1nWgZ
-         9Gp9IJfRt46fUxRXrTIak+2sUq4S47NY9nxJfxRMpK8imKTNijaiNhaw+2yJMJOEsZFd
-         VUawj8RRrkmetGzGGDk0flaVR2vTq6H2HA78cfwxkFN1qycwxpZ2YFu7VgMZpiQKyaiD
-         ILfLXOB9ZC92ffaonCtnpKqFmonnZonmbaFltOqJfl7BZKMCRQlkb0rXVLgbLWizU0K/
-         Dv3V41nHfiKuMxTcoPr6OH3+53EAvEPhOwTuWXayNZRvm0Kca6vSCVav8JoPO+45nmhZ
-         pw9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793796643; x=1794401443;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
-        b=Id2ffo4bfp0ryiEZg2z5ru9xVnhtZhWgrNZF2ber60t26S/UqOC1U+AB2uRtLBYtKR
-         9EMcOq3XXYAdSgKa0WElycuQQTtEDCe8Qe8rqgdXWDkpdQCyWgs0qPCis6svCnzVdc5o
-         g2NNIRvlxQc2RlSGdvdxByO5buRWTDEy5RgW2C1tPbKdzFlBGBkjD6e0IwpPq2J50nhc
-         /luNZ+Gy/do6/Rs4SXg+cMcQyxYTq/BX/fSZfKa6UgUhYAENaOn2bXgyZr6Ik139klJI
-         NwwFcIegUNhrA7EB7VG8J3rGvB0nXXy6mt5+qNLYTZW5v90FrEPBAXvhOYyyVxLT1WIq
-         09Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKWRLu/Xu3r40WCI8XIxu8u6E7eKCidGIDfr/PTPbVvHVoPvTVfGUfBQPpkdeNJcCzlZQsceEvTqKh+2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Gr1XrAC3md52sdT5IvA03lSpl9DKesMstByQ93ZV5J7qKytX+
-	N3aPOa2OTW0TSItYt/cZtgGjCJ+r0oSvG2njhXmcaq9h9n2FZb+BGVbE
-X-Gm-Gg: AYBFou0AMZ6WMqJwCIF+AEuN8baorpHmIk/7Qj1qC5yhs6aJ1tbrir7AW5Y/P8RGbOo
-	weQwKVDVcmK6zbutXiyXbI98PUKKHLratPk5mDLD4MXAGJq92DwGYe1hX3ry/LXvGnIoXCRPHWy
-	DC+/EHIeIRmfYnnaAeASZrQ/CdQ9s/3gRT8nj2L9GCbugDNdlcUH8rdTPa7zPz43DipXlvMTAeG
-	gAN4eGR50Rm73BDtX91FqDkL1hEwCRk8crLZt2bsQ5b9gtSlVGmjDw0czJ1P/LXD2iYQrEs13PU
-	orW7Qtoeiqn5W5haQPoerir/y4mSgN2/V/1kJU800Phms1smvY4FuTKbHmU7mofLyUIuHGA5yvl
-	cI/tWMR4yZ5Hyeid0lU66VRCnZmg37K6J5cOnKdPO/cFp+dt7bayBYTwSaKOFesWlSxK+y134V7
-	uxDj77VfFyswitGzc+T6uFw0H/z4h8D8JSGZyvEtOq1APs9B/vKHuSngqFxD2tS5kMBUISoVKbP
-	IMtauLS4LsKzNzyqzmOoTSA2ZeqNh8gV+zfZ6lg2UktCP/Ih6VtknpRoBaVqzv5+eutvRoHxQpS
-	g7TSf77VBXjUpbQyksHPAMla6P1N
-X-Received: by 2002:a17:90b:17cd:b0:3ac:9e5e:d195 with SMTP id 98e67ed59e1d1-3ae89851212mr12650512a91.61.1793796642926;
-        Wed, 04 Nov 2026 04:50:42 -0800 (PST)
-Received: from server227.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09449bff2sm3920799a91.9.2026.11.04.04.50.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:50:42 -0800 (PST)
-From: Zxyan Zhu <zxyan0222@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	maxime.chevallier@bootlin.com
-Cc: mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	richardcochran@gmail.com,
-	muhammad.nazim.amirul.nazle.asmade@altera.com,
-	rohan.g.thomas@altera.com,
-	o.rempel@pengutronix.de,
-	wojciech.drewek@intel.com,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC3B606A336;
+	Wed,  4 Nov 2026 12:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC3B606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xgn12F3J9jNMrtTqITPxFo1mrHXRFJWDan+PcWCpvdHYyGpt0FMpZYyhwjg3720JSLHosMD7BiD35YtwjCsMvDRODVS5M9IHt9hp+EYDoR7Yeif+zSB6cLNyEnLY+9woWu3On6F6Ht1ONbCv9snGVOZ30bQdnl9yfwd3lpIPE+8QZqR/VhW+MHR7/3N2bgYH7Xk05ezorndEvtqBd9POCgGIY6AGhD32EH3DQ40lDPtRKxuJA+lcZdh7ax+qrhUGt9WBuZibsv56F09hSf+OX9ZXcM35eNZwezk8kpx4tqI1F9+2vgmzpgzhybAyuBS+yyNZj+7B32tj5AYSBA8Ehw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yDZPcnE1uFPGSiI0MS8aKMlU2GHR0GHCdoJTfCo3Xdg=;
+ b=kr4eJGH2iZtdFE2HxhnXb+E0r3jv/Y0sKXKu6mGaWc7dPrQIRKZcNrUX/ryy6cLL/J7Lw++7mpNluYGPLE+IXqEeWt6FhQYBqyN1WSR9CimRoQEeW0KtQcldOaiN4Dd7/gyDbwHXxiLZQl7Qj+S9dHZAj7BvDlWAYUZsms2WoGKycvd2hcWQQSI+kAdf5Y/l3atfUeUODvBpPaT3Lxhjo/3m/vTiQLCBTLKIa3oacDPOtK/LVeTg9xxRvoh80TZhZY/darV8SZe0d58LUBjHuAZ81Zp3MFWgNfV4RyD7oy8oHveGtHmcSb0m58mJc6TO/vvVIp/rD0j8JOdmKsFoog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR01CA0046.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::18) by SEZPR06MB6551.apcprd06.prod.outlook.com
+ (2603:1096:101:187::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 12:50:23 +0000
+Received: from SG1PEPF000082E2.apcprd02.prod.outlook.com
+ (2603:1096:4:193:cafe::f) by SI2PR01CA0046.outlook.office365.com
+ (2603:1096:4:193::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
+ Nov 2026 12:50:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E2.mail.protection.outlook.com (10.167.240.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 12:50:22 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 574F140920F9;
+	Wed,  4 Nov 2026 20:44:39 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Zxyan Zhu <zxyan0222@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net-next v9 1/3] net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
-Date: Wed,  4 Nov 2026 20:50:28 +0800
-Message-Id: <20261104125030.1183146-2-zxyan0222@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104125030.1183146-1-zxyan0222@gmail.com>
-References: <20261104125030.1183146-1-zxyan0222@gmail.com>
+	Jelly.Jia@cixtech.com,
+	linux-clk@vger.kernel.org,
+	joakim.zhang@cixtech.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 3/5] dt-bindings: dma: arm,dma-350: Document dma-channel-mask
+Date: Wed,  4 Nov 2026 20:44:35 +0800
+Message-ID: <20261104124437.296753-4-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104124437.296753-1-Jelly.Jia@cixtech.com>
+References: <20261104124437.296753-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,135 +113,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E2:EE_|SEZPR06MB6551:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 1acc1b6d-6825-4287-ee5d-08df3a7230a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|7416014|82310400026|1800799024|376014|261021121427099003|261009223027099003|261026121527099003|18002099003|22082099003|261102123227099003|6133799003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	SMX9AAg5w0R6PUmCeND/FGWLycm0wjDzmAlvT3+/foUnmdFwuC5KZQDF6zZpdj1Wdlb2gmMxeAjAECgBdhwwEQQbw6/BcIfs2PiVe4vncdCxFK7/9YyiXLQS/Q2EUooR+c5vsjYsSU0jMVLzS8muWbwBvjwjI+BWZOaW8O3bphiIPi2gw2TQTFugXloX+oCFr5Rz10+NzOQuUepdr+vRAG+HdD6r79meZGMHP1vH1/llcCZ/vrkbkCyhPP6k4oimMiEHjAJvG2V2MIFt9oebOcn6XkoZE8AB0QRJyICOhc1KdrMpnBoaBywZZ8cWVIEtxOBqw/1uFC5mPG1vh6Eg4G88Bo/50wdgfXatpO0TbUJ+8etBQxXh4g4YkaeiY5apAvmeJfoCBRCVQ4iPn3Im72YURVk2c1X0bKirZ8echJT+BcIXbMfd5MTDDOsVIdl/ug4mJQLQVz+jtjm6RCnlhpTvCbpshTsITvl3zpsCJLD1jDQMV2MfprXwCuSx99WvX3o8dIZRXdVU4PJZ7ji4ib/dPFSOlF1a/N/OHfZxGBvgBaPXD7yUfoXfF9DE6MyxFTLRBjziJHDxTTiTB4ig0Qzz704PwZni2lJePq+dFvH3FZTpeh0/6qbo4sNK/mceyBVLsJS460bzNDViD9qzwk6Tf0Mo5C22RWwNOST1ymOCVP8fNKz6uEchrG1aC5THrOtubAd44FUhdjF6TGmVgQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(7416014)(82310400026)(1800799024)(376014)(261021121427099003)(261009223027099003)(261026121527099003)(18002099003)(22082099003)(261102123227099003)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kwoGkAftb+tBTlsg+aM0p59u4QNwNL9fU7IFULVuWgLLjjCySf5QKLWf51OU98F7fjOncDQfeuOHFS93U0u1pYXLfR4ZuBjqlOew6CSj8JA1+Yj16y7BwOwO1kZ+KXgwvG+StaBosoWagYRSB0HuF7XNg2y6SlNWc3etesyrTOM+LgwJmhcDYxRYdLnuvVkwDOCudM/9pdgTxqbHq+3tJHNZTpajVMsKmxZhNY1LIj7riN8tlmxy6fEe+th2ukTdqX2WycNmMFu2Y9ntKEHmZ9HsAQOSK9WDizde8k6cihNZwpLxSwBl9sG0qyiIyWWzYPTc3ZaoEyM9rF0PobntkeD3XCQ9SZEdSsew6WdGNg4On2E+57A3Clq8tXt+vK4JSdw/guq4aQoHymu0cK+BPJePHx8Yvc6x6azypcrK3lDh06HSzBBfQhKC2gqpNv+i
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:50:22.1725
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1acc1b6d-6825-4287-ee5d-08df3a7230a2
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E2.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6551
 
-The Agilex5 smtg_crosststamp() handler polls XGMAC_INT_STATUS for TSIS
-to learn that the auxiliary snapshot is latched.  TSIS is a transient,
-read-to-clear status bit, so the poll is racy in two ways: a stale TSIS
-from an unrelated event satisfies it before the snapshot is latched,
-leaving *device unwritten while the call reports success, and a
-concurrent reader of XGMAC_TIMESTAMP_STATUS can clear it and make the
-poll time out.
+Some DMA-350 integrations reserve channels for firmware or another
+processor. Allow the standard dma-channel-mask property so firmware can
+describe which channels Linux may use.
 
-The FIFO level is also reported by the ATSNS count in
-XGMAC_TIMESTAMP_STATUS, which reading the register does not disturb.
-Poll ATSNS instead of TSIS, after waiting for the PTP_ACR_ATSFC FIFO
-clear, so a stale ATSNS cannot satisfy the poll before the new snapshot
-is latched.
+DMA-350 implements at most eight channels, so one 32-bit cell is enough;
+limit the property to a single cell.
 
-Hold aux_ts_lock across the whole sequence, and refuse the request
-with -EBUSY while a channel is enabled, so the PTP_ACR mask
-programming cannot disarm it and a concurrent request cannot flush the
-FIFO between the poll and the drain loop.  The lock is held across the
-SMTG register reads as well, so a concurrent PTP_SYS_OFFSET_PRECISE
-cannot retrigger GPO0 while they run.  The internal snapshot trigger
-is disarmed on the way out, including the error paths, so it does not
-stay armed in PTP_ACR after the cross-timestamp.
-
-Fixes: fd8c4f645496 ("net: stmmac: socfpga: Add hardware supported cross-timestamp")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
 ---
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 52 +++++++++++++++----
- 1 file changed, 41 insertions(+), 11 deletions(-)
+ Documentation/devicetree/bindings/dma/arm,dma-350.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 6d4bc1fe8f75..2d3c6702e203 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -304,13 +304,15 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
- 	int i, ret;
- 	u32 v;
+diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+index 43279878207c..98e7bb651210 100644
+--- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
++++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+@@ -43,6 +43,9 @@ properties:
+     description:
+       Optional reset line, where the integration exposes one.
  
-+	mutex_lock(&priv->aux_ts_lock);
- 	/* Both internal crosstimestamping and external triggered event
--	 * timestamping cannot be run concurrently.
-+	 * timestamping cannot be run concurrently: the PTP_ACR mask
-+	 * programming below would disarm an external channel.
- 	 */
--	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
-+	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN) {
-+		mutex_unlock(&priv->aux_ts_lock);
- 		return -EBUSY;
--
--	mutex_lock(&priv->aux_ts_lock);
-+	}
- 	/* Enable Internal snapshot trigger */
- 	acr_value = readl(ptpaddr + PTP_ACR);
- 	acr_value &= ~PTP_ACR_MASK;
-@@ -337,8 +339,21 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
- 	acr_value = readl(ptpaddr + PTP_ACR);
- 	acr_value |= PTP_ACR_ATSFC;
- 	writel(acr_value, ptpaddr + PTP_ACR);
--	/* Release the mutex */
--	mutex_unlock(&priv->aux_ts_lock);
++  dma-channel-mask:
++    maxItems: 1
 +
-+	/* Wait for the FIFO clear, so the poll only sees snapshots from
-+	 * this trigger.
-+	 */
-+	ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
-+				 !(acr_value & PTP_ACR_ATSFC), 10, 10000);
-+	if (ret) {
-+		acr_value = readl(ptpaddr + PTP_ACR);
-+		acr_value &= ~PTP_ACR_MASK;
-+		writel(acr_value, ptpaddr + PTP_ACR);
-+		mutex_unlock(&priv->aux_ts_lock);
-+		netdev_err(priv->dev, "%s: Failed to clear snapshot FIFO\n",
-+			   __func__);
-+		return ret;
-+	}
- 
- 	/* Trigger Internal snapshot signal. Create a rising edge by just toggle
- 	 * the GPO0 to low and back to high.
-@@ -349,10 +364,17 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
- 	gpio_value |= XGMAC_GPIO_GPO0;
- 	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
- 
--	/* Poll for time sync operation done */
--	ret = readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
--				 (v & XGMAC_INT_TSIS), 100, 10000);
-+	/* Poll ATSNS instead of the transient TSIS: the ATSNS count is
-+	 * the FIFO level and is not cleared by reading the register.
-+	 */
-+	ret = readl_poll_timeout(ioaddr + XGMAC_TIMESTAMP_STATUS, v,
-+				 FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v),
-+				 100, 10000);
- 	if (ret) {
-+		acr_value = readl(ptpaddr + PTP_ACR);
-+		acr_value &= ~PTP_ACR_MASK;
-+		writel(acr_value, ptpaddr + PTP_ACR);
-+		mutex_unlock(&priv->aux_ts_lock);
- 		netdev_err(priv->dev, "%s: Wait for time sync operation timeout\n",
- 			   __func__);
- 		return ret;
-@@ -364,8 +386,7 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
- 		.use_nsecs = false,
- 	};
- 
--	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK,
--				 readl(ioaddr + XGMAC_TIMESTAMP_STATUS));
-+	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v);
- 
- 	/* Repeat until the timestamps are from the FIFO last segment */
- 	for (i = 0; i < num_snapshot; i++) {
-@@ -375,9 +396,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
- 		read_unlock_irqrestore(&priv->ptp_lock, flags);
- 	}
- 
-+	/* Disarm the internal snapshot trigger, so the PTP_ACR mask does
-+	 * not stay armed behind the software state.
-+	 */
-+	acr_value = readl(ptpaddr + PTP_ACR);
-+	acr_value &= ~PTP_ACR_MASK;
-+	writel(acr_value, ptpaddr + PTP_ACR);
-+
- 	get_smtgtime(priv->mii, SMTG_MDIO_ADDR, &smtg_time);
- 	system->cycles = smtg_time;
- 
-+	mutex_unlock(&priv->aux_ts_lock);
-+
- 	return 0;
- }
- 
+ required:
+   - compatible
+   - reg
 -- 
-2.34.1
+2.54.0
 
