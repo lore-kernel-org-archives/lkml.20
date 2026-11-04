@@ -1,49 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.62
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782206;
-	b=bswj9y0IOQkY3CYQUGRhp10DKQTFAu9Q1RKs8gRF0yj2FU7zxws39oknfsZMXQra36/D
-	 UL3vSx72ChFFVGedV9SB+nv1cH3HHX0jylZoFiVBKs/xxyLCKAo3hqvyAQOMyqFeA+2pu
-	 Wl849avflI82uG/JXAhOMrZFutPgz8Cehi2hkuoFFqLNiFG9doYim0kICGRENN40fiJY8
-	 3NMggfUR+mTr+1PHnHEI8+R+/u03afMuQXzpr1DPOj6nYu+6OkVEQeshGemTp4+BRSGB5
-	 OjmWkTPdJOqMcie6NzJfzuovoZZbwVkVHDMbFYsGsCgu4dlB4VtPxEvUjXtiD2u54vw==
+	t=1793782214;
+	b=O18TOg1ONmtxgnrm3sKkC6P7/w2SW7fiDa4rTab1yiR5HFXLHWSj2bAtKhmiWldqT83R
+	 X7AJ2FEy0gq3taVj3mJRViwownUFzCERxR7s8bs5371AOaYGB6WaXikGUz+C8YJsoXQ2N
+	 j/b9bfiA7tGGWwO1FlLqImqDhWfD+Tw0ORNvPuGyO1IKM1DH+nl3EG8bDfWXfqWK7khhm
+	 vwCJLMfIpwqTAZDijzVu5rNA5Ae4PbUwt3/vyIwnKHLLR0Ib4RKt6CkC7fTa2+bXYzsUQ
+	 3GCFCmKdzqPDt2ovLbxoTgIjSK4pS0fAJo/GjB5Gz+djNT+JIwc/vFzY65hgR9xhD8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782206;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=xKIT5AnHvOC2Lq1rnaaDNMEiSnphfcClcEUHVht/kc4=;
-	b=NRmdDf9oKAYSAKC0fv/PYK+1m1uniHQjX+SHREfe1ZmDfiqjwZlsuLLJKAhu5siDhs0V
-	 P5MnZ0AM7Go4ebd7Zd1BKDz5gcL4MPBMWx1ckj1V6ZsKf4JUpFR5Oflqpe/UxRb6MtVe4
-	 5Ds6Pr30AqWnwiBk1eEY+RPS0bIkSqg2g8Xv/1GE8fh6GEPuv8v3FmrVK+ETNahb0Mua0
-	 f1+6COdF/Vo5G7H5HThq5S5GG5fZe+MP2O/dR7Xci4uGOjvWPhc7m/LOTEFCRC9sUUZ2s
-	 tnBbq6YRbps93fTaXU55Ev0aBaFgVsneLYw8zNymjN/Yn6JZJFj7d5FNm2FZkv56waA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782214;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=44WKpqgrFdLEL9GuqH5PMLy72/pUh8BtalbLo2yFAVM=;
+	b=wTOty61iybtt5EwOUQaS8pJg6fFHwgDrkiaDDzj3mRnq10Y5Gxw7i2p2X4vxZoAmtvvv
+	 f2h3by1W3AD+rbZYRtxLssjj2cNcVzdRFQkUKK6h8V3ziTKzPsPIeR+f/q6E8JaXdsxJR
+	 +O60djVfQI0aZDpDLxs8ZHpx8Ye/cD/irXfPeykau0uiN31Q8c+ysx6VzyQHl+0Xj/tp8
+	 sKcx3zrk68F7gpsblbBgYUoS79xdeEKrbzllCwKsbJY47py/j/FLdIkh43Z4ZxLAXq/li
+	 R6pyAaM+xp1LIXvTP3LNzRStuIYk2iYDyFldQud6oXAxjdBGZEbDmhTy2P/P02JlT3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PyVB+fdu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BiVZo+4A;
+	arc=none smtp.remote-ip=91.218.175.62
+Received: from mta0.migadu.com (out-62.mta0.migadu.com [91.218.175.62])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DA9606A32F;
-	Wed,  4 Nov 2026 08:50:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3C1606A339
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB3C1606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PyVB+fdu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125611F00A02;
-	Wed,  4 Nov 2026 08:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793782206;
-	bh=xKIT5AnHvOC2Lq1rnaaDNMEiSnphfcClcEUHVht/kc4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=PyVB+fduDkjM0JbBw4bbd+hjQIl1IrL+3xsARvUt2XgCUx9uqVZhSAbLvZYvBp5Ho
-	 ULIeC3p3GisANv3QFIoZ1cZdzlN8JFs5b7i5tE+TNkjC3WhnmTDVN2V4QfAYJJSK/3
-	 PA55L3tx3C06yrOT0nJzWVbGqUK6O7EBVwp7/8KncsG57DRYj8vgy1FM4uaz65YAdk
-	 KVZ+VoV3dFZdbN10fzW7kfLnGuh0fePQbkyAttwJTZIk9DsT5P2hpU3xxA7Tgk2BPO
-	 pn7zk2GHWlrQSI+rh+BVeGi8mGujjKFmNv7nCl8YP6hN/218SCZhzJfgcgMQuYulrr
-	 P84fjKrEmFaSw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0347139D5FF1;
-	Wed,  4 Nov 2026 08:50:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BiVZo+4A
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y++5vhdL2/2OzYXnicYCmmSOYmYiyr2DmySOj3znlY0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793782212; v=1; x=1794387012;
+ b=BiVZo+4A09nO1tjogIwspEq8mvX/VqNTaolEdUDREW8/d3dBouCBnG6NwJOZzRYDtIrAomBW
+ o+jvxraT+yuKnIJ+EwHE9jZH48GceCdctNLiXsKE3rXCNFL9bu67X0YdXxjDqEmlSrlNNGbe9uW
+ xY1UkFWjmG3UvommoM0wNsNQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2b83dab08b6094b9;
+	Wed, 04 Nov 2026 08:50:10 +0000
+X-Mizu-Trace-ID: 2b83dab08b6094b9
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 13/16] KVM: arm64: selftests: Add pkvm_irq interrupt test
+Date: Wed,  4 Nov 2026 08:48:39 +0000
+Message-ID: <20261104084842.132944-14-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104084842.132944-1-fuad.tabba@linux.dev>
+References: <20261104084842.132944-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,46 +82,311 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v7] net: stop defer_count outliving the deferred-free
- list
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179378220480.2190307.9887596616909426835.git-patchwork-notify@kernel.org>
-Date: Wed, 04 Nov 2026 08:50:04 +0000
-References: <20261029211101.2089535-1-jkain@nuro.ai>
-In-Reply-To: <20261029211101.2089535-1-jkain@nuro.ai>
-To: Joseph Kain <jkain@nuro.ai>
-Cc: edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, netdev@vger.kernel.org, horms@kernel.org,
- kuniyu@google.com, sdf.kernel@gmail.com, kerneljasonxing@gmail.com,
- willemb@google.com, almasrymina@google.com, mkarsten@uwaterloo.ca,
- jiayuan.chen@linux.dev, linux-kernel@vger.kernel.org
 
-Hello:
+The host emulates a protected guest's vGIC, so the list registers are
+copied between the host and EL2 each time the host runs the vCPU. If the
+copy back is lost, the host never sees the guest's EOI and presents the
+interrupt again. EL2 keeps its own copy of the guest's virtual timer
+state, which the host can't change, and restores it each time the host
+runs the vCPU.
 
-This patch was applied to netdev/net.git (main)
-by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
+Check that the virtual timer's PPI arrives exactly once, with CVAL and
+CTL kept across exits before and while it's pending, that SGIs pass
+between two vCPUs, and that the timer wakes a vCPU in WFI.
 
-On Thu, 29 Oct 2026 14:11:01 -0700 you wrote:
-> After the llist conversion, rejected frees retain their counter
-> increments. A producer racing the counter reset and list detach can
-> also leave a count for an skb already drained. Deferred freeing can
-> then remain disabled while the list is empty.
-> 
-> Undo rejected reservations and subtract only the number of skbs
-> drained. Allow admission up to the configured limit. Retain the
-> halfway notification and also notify when the reserved count reaches
-> the limit, covering reservations published after an earlier purge.
-> 
-> [...]
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ tools/testing/selftests/kvm/Makefile.kvm     |   1 +
+ tools/testing/selftests/kvm/arm64/pkvm_irq.c | 268 +++++++++++++++++++
+ 2 files changed, 269 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_irq.c
 
-Here is the summary with links:
-  - [net,v7] net: stop defer_count outliving the deferred-free list
-    https://git.kernel.org/netdev/net/c/241dec6f9ab7
-
-You are awesome, thank you!
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 1e40e793aa6f3..13998964facd5 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -192,6 +192,7 @@ TEST_GEN_PROGS_arm64 += arm64/mmio_sign_ext
+ TEST_GEN_PROGS_arm64 += arm64/page_fault_test
+ TEST_GEN_PROGS_arm64 += arm64/pkvm_host_abi
+ TEST_GEN_PROGS_arm64 += arm64/pkvm_id_regs
++TEST_GEN_PROGS_arm64 += arm64/pkvm_irq
+ TEST_GEN_PROGS_arm64 += arm64/pkvm_mem_share
+ TEST_GEN_PROGS_arm64 += arm64/pkvm_psci
+ TEST_GEN_PROGS_arm64 += arm64/pkvm_smccc
+diff --git a/tools/testing/selftests/kvm/arm64/pkvm_irq.c b/tools/testing/selftests/kvm/arm64/pkvm_irq.c
+new file mode 100644
+index 0000000000000..f92fa6f0de8de
+--- /dev/null
++++ b/tools/testing/selftests/kvm/arm64/pkvm_irq.c
+@@ -0,0 +1,268 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * pkvm_irq - the virtual timer's PPI and SGIs in a protected VM.
++ *
++ * Copyright (C) 2026 Google LLC
++ * Author: Fuad Tabba <fuad.tabba@linux.dev>
++ */
++
++#include <pthread.h>
++
++#include <linux/bitfield.h>
++#include <linux/psci.h>
++#include <asm/cputype.h>
++
++#include "arch_timer.h"
++#include "gic.h"
++#include "gic_v3.h"
++#include "kvm_util.h"
++#include "pkvm.h"
++#include "processor.h"
++#include "test_util.h"
++
++#define TIMER_MS	10
++#define WAIT_MS		30000
++#define NR_EXITS	16
++#define SGI_ROUNDS	16
++
++#define SGI_PING	1
++#define SGI_PONG	2
++
++/* Set in the guest's copy by the host before the first run. */
++static u32 vtimer_irq;
++static u64 boot_entry;
++static u64 vcpu_mpidr[2];
++static u64 vcpu_ctx[2];
++
++static u32 irqs[2];
++static u32 last_intid[2];
++static u32 ready;
++
++#define wait_until(cond)							\
++do {										\
++	u64 __end = timer_get_cntct(VIRTUAL) + msec_to_cycles(WAIT_MS);	\
++										\
++	while (!(cond))								\
++		__GUEST_ASSERT(timer_get_cntct(VIRTUAL) < __end,		\
++			       "timed out waiting for %s", #cond);		\
++} while (0)
++
++static void guest_irq_handler(struct ex_regs *regs)
++{
++	u32 intid = gic_get_and_ack_irq();
++	u32 cpu = guest_get_vcpuid();
++
++	if (intid == IAR_SPURIOUS)
++		return;
++
++	if (intid == vtimer_irq) {
++		__GUEST_ASSERT(timer_get_ctl(VIRTUAL) & CTL_ISTATUS, "CNTV_CTL 0x%x",
++			       timer_get_ctl(VIRTUAL));
++		GUEST_ASSERT(timer_get_cntct(VIRTUAL) >= timer_get_cval(VIRTUAL));
++		/* Mask the timer before the EOI, or its level-sensitive PPI is taken again. */
++		timer_set_ctl(VIRTUAL, CTL_IMASK);
++	}
++
++	WRITE_ONCE(last_intid[cpu], intid);
++	gic_set_eoi(intid);
++	WRITE_ONCE(irqs[cpu], irqs[cpu] + 1);
++}
++
++static void guest_irq_init(unsigned int nr_cpus)
++{
++	local_irq_disable();
++	pkvm_guest_init();
++	gic_init(GIC_V3, nr_cpus);
++}
++
++static u64 start_vtimer(void)
++{
++	u64 cval = timer_get_cntct(VIRTUAL) + msec_to_cycles(TIMER_MS);
++
++	gic_irq_enable(vtimer_irq);
++	timer_set_cval(VIRTUAL, cval);
++	timer_set_ctl(VIRTUAL, CTL_ENABLE);
++	return cval;
++}
++
++static void guest_vtimer(void)
++{
++	u64 cval;
++	int i;
++
++	guest_irq_init(1);
++	cval = start_vtimer();
++
++	/* Exits before the timer fires, then with its interrupt pending but masked. */
++	for (i = 0; i < NR_EXITS; i++)
++		GUEST_SYNC(i);
++	wait_until(timer_get_ctl(VIRTUAL) & CTL_ISTATUS);
++	for (i = 0; i < NR_EXITS; i++)
++		GUEST_SYNC(i);
++
++	GUEST_ASSERT_EQ(timer_get_cval(VIRTUAL), cval);
++	GUEST_ASSERT_EQ(timer_get_ctl(VIRTUAL), CTL_ENABLE | CTL_ISTATUS);
++	GUEST_ASSERT_EQ(READ_ONCE(irqs[0]), 0);
++
++	local_irq_enable();
++	wait_until(READ_ONCE(irqs[0]));
++
++	/* The EOI must reach the host, or it presents the interrupt again. */
++	for (i = 0; i < NR_EXITS; i++)
++		GUEST_SYNC(i);
++	local_irq_disable();
++
++	GUEST_ASSERT_EQ(READ_ONCE(irqs[0]), 1);
++	GUEST_ASSERT_EQ(READ_ONCE(last_intid[0]), vtimer_irq);
++	GUEST_DONE();
++}
++
++static void send_sgi(int id, u32 intid)
++{
++	u64 mpidr = vcpu_mpidr[id];
++
++	/* The target reads this vCPU's counters once it has taken the SGI. */
++	dsb(ishst);
++	write_sysreg_s(FIELD_PREP(ICC_SGI1R_SGI_ID_MASK, intid) |
++		       FIELD_PREP(ICC_SGI1R_AFFINITY_1_MASK, MPIDR_AFFINITY_LEVEL(mpidr, 1)) |
++		       FIELD_PREP(ICC_SGI1R_TARGET_LIST_MASK, BIT(MPIDR_AFFINITY_LEVEL(mpidr, 0))),
++		       SYS_ICC_SGI1R_EL1);
++	isb();
++}
++
++static void guest_sgi_primary(void)
++{
++	u32 k;
++
++	guest_irq_init(2);
++	gic_irq_enable(SGI_PONG);
++
++	GUEST_ASSERT_EQ(pkvm_hvc(PSCI_0_2_FN64_CPU_ON, vcpu_mpidr[1], boot_entry, vcpu_ctx[1]),
++			PSCI_RET_SUCCESS);
++	wait_until(READ_ONCE(ready));
++
++	local_irq_enable();
++	for (k = 1; k <= SGI_ROUNDS; k++) {
++		send_sgi(1, SGI_PING);
++
++		/* vCPU 1 sends PONG only once it has taken PING, so neither is in flight. */
++		wait_until(READ_ONCE(irqs[0]) >= k);
++		GUEST_ASSERT_EQ(READ_ONCE(irqs[0]), k);
++		GUEST_ASSERT_EQ(READ_ONCE(irqs[1]), k);
++		GUEST_ASSERT_EQ(READ_ONCE(last_intid[0]), SGI_PONG);
++		GUEST_ASSERT_EQ(READ_ONCE(last_intid[1]), SGI_PING);
++	}
++	local_irq_disable();
++
++	GUEST_DONE();
++}
++
++/* The primary's guest_irq_init() set up ucall and the distributor. */
++static void guest_sgi_secondary(void)
++{
++	u32 k;
++
++	gic_init(GIC_V3, 2);
++	gic_irq_enable(SGI_PING);
++	local_irq_enable();
++	WRITE_ONCE(ready, 1);
++
++	for (k = 1; k <= SGI_ROUNDS; k++) {
++		wait_until(READ_ONCE(irqs[1]) >= k);
++		send_sgi(0, SGI_PONG);
++	}
++	local_irq_disable();
++
++	GUEST_DONE();
++}
++
++static void guest_wfi(void)
++{
++	guest_irq_init(1);
++	start_vtimer();
++
++	/* WFI can complete before the timer fires, so wait in it until the handler has run. */
++	while (!READ_ONCE(irqs[0])) {
++		wfi();
++		local_irq_enable();
++		isb(); /* handle IRQ */
++		local_irq_disable();
++	}
++
++	GUEST_ASSERT_EQ(READ_ONCE(irqs[0]), 1);
++	GUEST_ASSERT_EQ(READ_ONCE(last_intid[0]), vtimer_irq);
++	GUEST_DONE();
++}
++
++static void irq_vm_setup(struct kvm_vm *vm, struct kvm_vcpu *vcpu)
++{
++	vm_install_exception_handler(vm, VECTOR_IRQ_CURRENT, guest_irq_handler);
++	write_guest_global(vm, vtimer_irq, vcpu_get_vtimer_irq(vcpu));
++}
++
++static void test_one_vcpu(void *guest_code)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++
++	vm = pkvm_vm_create_with_one_vcpu(&vcpu, guest_code);
++	irq_vm_setup(vm, vcpu);
++
++	pkvm_run_loop(vcpu, NULL);
++
++	kvm_vm_free(vm);
++}
++
++static void wire_mpidr(struct kvm_vm *vm, struct kvm_vcpu *vcpu)
++{
++	u64 mpidr = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_MPIDR_EL1));
++
++	write_guest_global(vm, vcpu_mpidr[vcpu->id], mpidr & MPIDR_HWID_BITMASK);
++}
++
++static void *vcpu_thread(void *vcpu)
++{
++	pkvm_run_loop(vcpu, NULL);
++	return NULL;
++}
++
++static void test_sgi(void)
++{
++	struct kvm_vcpu *vcpus[2];
++	pthread_t thread;
++	struct kvm_vm *vm;
++	gpa_t ctx;
++
++	vm = pkvm_vm_create(2, 0, vcpus);
++	irq_vm_setup(vm, vcpus[0]);
++
++	pkvm_vcpu_setup_boot(vcpus[0], guest_sgi_primary);
++	wire_mpidr(vm, vcpus[0]);
++	wire_mpidr(vm, vcpus[1]);
++	write_guest_global(vm, boot_entry, pkvm_idmap_gpa(vm));
++	ctx = pkvm_vcpu_setup_boot_secondary(vcpus[1], guest_sgi_secondary);
++	write_guest_global(vm, vcpu_ctx[1], ctx);
++
++	pthread_create(&thread, NULL, vcpu_thread, vcpus[1]);
++	pkvm_run_loop(vcpus[0], NULL);
++	pthread_join(thread, NULL);
++
++	kvm_vm_free(vm);
++}
++
++int main(void)
++{
++	TEST_REQUIRE(pkvm_supported());
++
++	ksft_print_header();
++	ksft_set_plan(3);
++
++	test_one_vcpu(guest_vtimer);
++	ksft_test_result_pass("virtual timer PPI across exits\n");
++	test_sgi();
++	ksft_test_result_pass("SGIs between two vCPUs: %d rounds\n", SGI_ROUNDS);
++	test_one_vcpu(guest_wfi);
++	ksft_test_result_pass("the virtual timer wakes a vCPU waiting in WFI\n");
++
++	ksft_finished();
++}
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.47.3
 
