@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793799450;
-	b=U6PvZfRapAVSlfsHQ+HxJblgssqtlobPYCMSoY06jnTd1bU3lcZb/DuRj9NlGZAPEGME
-	 SWNrlCm80U/JYuegqAWpkMceivJFPyyGC5RGvtJ/wSM0N+Ohy6Lp2zfauGX5TztAhGIHk
-	 HbipiKlFcbDaWkKbVVK+YMahfQ8fyMnvJkPvM1cEz29jgOzWN+v2yK9zlEspTvrEdfBmb
-	 jMehA3ozfdVybMm/YJl+6R/umVhuoWjkXzV6Gfr78X8YtY67x4f1TgwsH43Saf3Drn1ET
-	 dRP/kUq6sLOSJlO2cPlUcgNRkxlon5wL8h3bVGKewlWmcFIPXN44gxwoNbCijMTcNqw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dTyqhH9cJxVsqLc2y1LUsJWE4gN77K97C9Wv2c9HyzE=;
-	b=G2vlzWIhcUZcEjqs39DE7lNQRImAtFhNbuxlib+8YmFW4YTnOASnr4fu0PW8LQc3hpoK
-	 s5Fzmjt8+YJUjvnj4zQjitEqtndbEL7c05BlGbJW7Ycmh0ZB9Wm1d2dyysYr9hDTNU3bQ
-	 U2lTlTh0klXIcSXBkGxujegnCF6eJT6NaVDs93kY2SYXMCu3vOwMtTSHI1sO02q7upleV
-	 shDgwi9WPBs3O9+/K53uWJWprZyUV4T0Bk0zoXxRDn2YzEnI7jDxu0J0+tRSMp8EKbXxl
-	 wsxSbrTxAqNes1esAr7JlBThNL/NOGuY6KfqiB1ins1LcwFwHVeAdOsbzy4ReC1Z0/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HbJKKYLo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.48
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793799470;
+	b=rAufqo4Ya69KUUWEnGfYNlq1s3EFqPLY7Mql32sVDP49GsEg35U2khlCTF7U85RgaL75
+	 PtFyax/R0lCM6vPQWCgHlUFeEKdTKMKsV+xrgJSspFMXa8VTcaMBuiZw6/P6rWj1fiGyW
+	 8pwXhM0c98sD/HwTm8q35U2CpWtQ6VycYygSzgj2Pv3BdcoDNc5IxRVk0PtppSalIkOoJ
+	 QoJT7XApVNy/tGgr70LFiosn5hDM3s30dklHOWR5N/p73E0genHRdqzn3siOx1nEuUUzu
+	 /UNEIwyt84gV3hMCR4EF1Pjk8LtGd68F7NK9I79WvNt/Is4myp3uXNCvs3934mfUMVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799470;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=QIRwlWq1POK80nPhJP4wZpDMtEESF+NRtsJgzdhVq2Q=;
+	b=YtUaxtFsJ329dOHKfFzeeS8tRzd6zDIWXCdh8gaMtqsvmZKQdC6Ls+QbZ8GiWEmVqp0h
+	 e2Dp059MWEq6O3RozNQI6rD2NLeQfD25i6hRMpmr4NxLR+savwcuZNi881+DWAEnmN1x0
+	 34e7dXCGcvQPBcLqwMFidlazFLI1K+oGagZL+2jj9tG1FsRr3/WGPC5IKLiLFmGPJE64A
+	 /gVV8/0ICjFOoJ7z9aPqFzBj/G7BlS3gQaAz+1PxxsgnA2G6K7x2fO0x90WhELYo+znAc
+	 ql4OOSuyLgbw0FeJqhNlX0BOr6s16xts33LTkUZFxZI2eIwBRv8HyELxC+w0e86lf1Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwqHozyI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEAC606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBEAC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E66606A32F;
+	Wed,  4 Nov 2026 13:37:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HbJKKYLo
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-82380b0f55dso294886a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:37:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793799449; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EU1WFiJZMGSvHT6+p/yCqcMsOCo7gjLccXC1XHQAVKG1hgcNHKF8YTLVSibvQyT2b1
-         wpbERFCOAiceUehDD937i7fakpmLzOlsbqvf+lNzQD1+BZruqqviGmNjoAPpEOKK2L32
-         T7fbQRg+YyuCwJ/DEBUCOb8PTpbUo5k24Wgk6Cczg181hOHwWFu4MtJLOWBMlQ9j6Xix
-         JOsr7RvYcut7iy7FQZyptwdbrCn9EO31jsKiSEfKyTcRVrfsEqenaSUkuQzx9+TIYccI
-         NAy5fRvpvs2jXoH15XRtNUfXbko6IGbqRLRZJ2oHW2n+VV+am44Z7rxjyhQiQVIsFOvZ
-         CX7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dTyqhH9cJxVsqLc2y1LUsJWE4gN77K97C9Wv2c9HyzE=;
-        fh=yVrQbj03ylc+Wvs+8K1I8WnrfR8ArGhTV07uzRaZ3tY=;
-        b=SJtq3a1EuR47UF2FmNRr/GDvcHMJnKtIpvJBGhMzy5mMf82Y0+R1BnoZ+ZaR/bJX3w
-         cs5Snopxih99yZXJ9P9tlDm0m08CmM9RuguIelJMPPh5wDjqYOSOhdOscwHzp4ybhqHC
-         9ahfSx2bCYexQhl6JJ1NUiCXgjqvXeZxPy+yDgAxLrCRYxPZteeQg3hffmQTQByj7dTP
-         F185ng48P6lOQ5pS27hihXOggm45/BDM0FF/mxjRf4gtwRBTaR9kVomSQdgNID8Cphgw
-         v8fWY4addtU10GxAaHBcffuQZEPMWBFz4MOmwzjZvkKmJeQXWnNj7J3IC1oOcEl/vCho
-         5PMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793799449; x=1794404249; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dTyqhH9cJxVsqLc2y1LUsJWE4gN77K97C9Wv2c9HyzE=;
-        b=HbJKKYLoRFTbv88+u68atuiDsGsfEkhGD9eTclvuReNcQP7HDpMEPxVstZpud3wUT6
-         md2aFf7Jl64Aqg2kr+73B+6+DSf7K3bLWhJo2zrkqk3pqlIOsIe9A5YSq6/f+UixpVjh
-         VRGj/VMu4gDKqlk+/zOSkVxDRi+cM3RrjL8MChQV+8pukxf7tOoKwoPrgN0KaLN3/Xqh
-         kq6Z4jqJwJb44vLVtS61kwDPbUN62SiGYDeByPHe4MWzzGtGKyBbmt1WBYpY8S8p/OSP
-         kyeRQA0DrCZ2eFtyujgQ1eNKJGAaCSgkM9/8eaW/Sa5cyU8h/0N2xH4wH1qcQKuV0PSu
-         uM5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793799449; x=1794404249;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dTyqhH9cJxVsqLc2y1LUsJWE4gN77K97C9Wv2c9HyzE=;
-        b=CwYHuEuTJdQkzqet2BIuUwAY5X076o+AP3HunlkclrDzj8mnj5VcxUBTExwJX8LlUS
-         UKl8pur4690NlQ15HXRv5Ojf3Km+dtae+tfpxX0e+8QPGcjHfu6xTC6em5ewbISrDRif
-         Pr7LxKqmInKb/mi9F+oMr+pxdTwc3BEaprEZUb5zq/NH5H16EStrOtvInL5l99insILK
-         pt2S+WGYoUhiL2bv0OEzZ9qOUl66Xeiatx7o+NzJqRUgCQdZAAwiR/+FsxyvhcETWmkt
-         wRcIP77b3SUrEyC+kRPOxbWYmd+jhJGs6p9xkxUPRTvRmzlQ6htYscLxpbrtp16+Nved
-         0OkQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZNTnV7RCv2roaHsKDgDUVzhmsUi+72RtMRP2adGcVBXwqx8TVpaCDmJbCvFHPzKSC7Tqh+iiGlCWwYag=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+MSAnl0rMfrEBaNEkTya6dJIcuYNq//rG57chVV/EaAp+Bb/i
-	E6BviB+RO2XXFvy5uhla8C8dO3zWkLOx7FwNKhqDQkU1C0Lrcdobhok0TYsBr0lKvDNUuhI1Dgf
-	lwGgfN+nlaswX3nGJE/4pjuQy5Ap8L9MR7yQ5
-X-Gm-Gg: AYBFou3pjJquxC5nFnXKg3ja3Jy6+YdWnjARqYBmELTKGtU8pNdayNyP+ZxPBNh3fRv
-	GQw0zqLLIZsX3cg2u1uw4KzveSJjRQCDefVmDgDd19ZVnpjirxrEzihCZKkYUEEKueNo8cKCfMC
-	HlHQOopgH2JLVkN+tPz4wKvmxdHB7JJ2KKKADb2k5SO/5dyF8cU4570KJbreZYonU832ryGl73R
-	5kTIhY26K9QCjhovG19nuApoPfwa5F7sXnJsI4AxexOoVXc5irwboiKsxFlU5VEimggbOtnTOF9
-	Z8ttXZKYUuduD6zP511i7s2VUYAY+PMTtMLL+7OqOvOPeCFXY5iIwmxvXKLfJAS0jjURT09TTCD
-	TXmmHr1/BlHry8XARboPZ0Q7AjckljyyWrNuA9kiv0kfUnunKbqHxh6zep2Nvcc7ksMmHHpZHnI
-	rSiVKc
-X-Received: by 2002:a05:6830:2a8e:b0:843:ed9d:1535 with SMTP id
- 46e09a7af769-85eeebf194dmr2565221a34.19.1793799448718; Wed, 04 Nov 2026
- 05:37:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwqHozyI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9751F000C1;
+	Wed,  4 Nov 2026 13:37:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793799470;
+	bh=QIRwlWq1POK80nPhJP4wZpDMtEESF+NRtsJgzdhVq2Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cwqHozyI+ycDGjqocXr3v7WBJevddi1Lm+mvjsW4ZILeiZFcOYgijmp3MZGE4bA7w
+	 mQzS3/yVPBzmu5AotQVz4CKV6CUpIpSE+gU0tDzS93Am231SM9Qgr0eUwqpaqunlhX
+	 SA3Z5OfMOWVo7ICFutTgALLBphPSNbZjPFeZBqpCX5tGlrkLW7+zyyGEjl/jaGFNC/
+	 ilywGHugTe77QeQUPBE0unTEsNcljWGsqcKgPv0sJ2gXZUkJDitaRDKL1S/u/Ckrge
+	 r97Ci+PXClHHhoby5wgFqej4yypQ9CR0Iov1FgLSmPzVeJ5j8IniLSI0Km9XEZrXvn
+	 YmI95RfThFacw==
+Message-ID: <287698ab-76dc-4aee-8e6c-db1f5d18974c@kernel.org>
+Date: Wed, 4 Nov 2026 14:37:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +51,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev> <e4474a7501c9e2a355dcc80d632bcfa10e1959e8.camel@pengutronix.de>
-In-Reply-To: <e4474a7501c9e2a355dcc80d632bcfa10e1959e8.camel@pengutronix.de>
-From: Chuanhong Guo <gch981213@gmail.com>
-Date: Wed, 4 Nov 2026 21:37:17 +0800
-X-Gm-Features: AclHuK8-JeRODUOUq-HqZqaALo40tyoUFGXYArDC07Ims6VRBqfkF1PB6rfGKec
-Message-ID: <CAJsYDV+PSoAU9qNyRoEKuFoc4oeBkw8b=vdcCap4Mx3dCA1kAw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
- reset manager driver
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: joseph@telaak.dev, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yao Zi <me@ziyao.cc>, linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] mm/rmap: use release ordering for small-folio
+ mapcount removal
+To: Pranith Kumar <bobby.prani@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Richard Cochran <richardcochran@gmail.com>,
+ "open list:MEMORY MANAGEMENT - CORE" <linux-mm@kvack.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:PTP HARDWARE CLOCK SUPPORT:Keyword:(?:b|_)ptp(?:b|_)"
+ <netdev@vger.kernel.org>
+References: <20261104013139.1341582-1-bobby.prani@gmail.com>
+ <750560f3-4c5a-44fe-b72a-0611be383f32@kernel.org>
+ <CAJhHMCCu8ehOU37_4UpExNO3U8YPygjnht+2S+axkxTwY8bx2w@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAJhHMCCu8ehOU37_4UpExNO3U8YPygjnht+2S+axkxTwY8bx2w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi!
+On 11/4/26 10:46, Pranith Kumar wrote:
+> Hi David,
+> 
+> Thank you for looking at the patch.
+> 
+> On Wed, Nov 4, 2026 at 1:16 AM David Hildenbrand (Arm) <david@kernel.org> wrote:
+>>
+>>
+>>> In an arm64 page map/unmap microbenchmark with 20,480 minor
+>>> faults, simulated cycles fell by 1.54%.
+>>
+>> Thanks for the patch.
+>>
+>> While I see value, I am not convinced this is the right time for this
+>> micro-optimization while we are busy with other things.
+>>
+>> This needs a better evaluation: 1.54% in a micro-benchmark without knowing the
+>> stddev isn't particularly helpful.
+>>
+> 
+> This result is from a deterministic simulation, hence no stddev.
 
-On Wed, Nov 4, 2026 at 5:25=E2=80=AFPM Philipp Zabel <p.zabel@pengutronix.d=
-e> wrote:
-> [...]
-> > +
-> > +static const u32 sf19a2890_gmac_resets[] =3D { GENMASK(1, 0) };
->
-> Are these two bits separate resets? Are they individually controllable?
-> Why are they bundled into a single reset_control like this? The commit
-> message doesn't explain.
+Ah, I'd assume even a deterministic simulator would have some variance due to
+preemption, TLB flushes etc.
 
-These are reset lines from the same IP block for different clock domains.
-They have to be asserted together even though there are two lines.
-See nUARTRST in [1] for an example of PL011.
-The gmac lines are for two sides of the same async axi bridge.
-Asserting them separately causes a bus lockup.
+But the bigger question is: which arm64 variant is simulated? I'd assume it
+might vary heavily no?
 
-[1] https://support.arm.com/documentation/ddi0183/g/signal-descriptions/on-=
-chip-signals
---=20
-Regards,
-Chuanhong Guo
+-- 
+Cheers,
+
+David
