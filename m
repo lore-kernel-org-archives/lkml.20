@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826552;
-	b=lx4JQCxR0Bb0BlCn6IHyer7JFR73oTytlhksk6OpZXFk4jKjflEBTD47p7KcTcuXnXHp
-	 TDnp2845lgmhCpKA67MokbdLpIIBrhgLGatfBRwLe3GT8cWjvh2uesvRyT2+n0JnTMHFy
-	 uCRWrEKE+mgQuW58Fp2gLa2oyiGRUW/Yv/B0m45jWXIYAq6yfvO0sgnsvuxRuDq9r+bdv
-	 dH2PWpw4RL7omLB+McZJSQylcB6k7JGxM9DCe/+FcJ1Dgj4fJsD4LXuW4+xqG3UKfIxWo
-	 CikIfwP+5NLNnSj4P/gxVVnPCTnf438X8U2ZeOcMAJ3Ep2t9to4+N78dQvksVyyQjRQ==
+	t=1793826547;
+	b=28YrTADxKN0I4MNNkNTWxWrNyeSMwU9qKkf7+ErWTFcaRY0D9ruiPwkkPdT5JMO/9SOD
+	 MV79NJVtyeRWYWC/ExdV0VP/NhapvqglU1HMcOZbopuOLVp8apyEQ10yU2pcyhZok6K89
+	 3nD5d11mFGLoaLgkqU53rWptOyKkz+3pDEfNuFY5Gq5LXsCd0lc+OAyVU8+Loi6Tfa59x
+	 scu13ZjW6FDpzafdayozmRCcltnYWYw8SH5dyZSx8RLmYaGA2QpqdbFTn8+DHYjn12QCG
+	 6wzWH80PuIeuC35JGVLdrIK51jUbLJ/EiqCJsLnoXuTDqdpWe1dFT+DMMWbKQiVZlGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826547;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=b1Up/mMzU2bQ97X/Wz1u2XktmxWFj0hsGQ/HEaQOHnM=;
-	b=A3wj5QZQ2fI0tvQsiD/gq+zP5bfu9NbTyMqEvP1PISOYe1btp+PbflA8xe/cp42sT5A/
-	 16CJ8OiYQdehCiWpvBAg/JOPsvJZmFRNVjHdDLmMkeVJ24dSAlHh5m1s7K7HNwhP/rwsx
-	 YU8MQBH1EKTyeBXZRhCZLRrjPppz8V/ZfahaZlXjdhPT39JQxHmxVTGl38nSZ4Pr+Vijg
-	 dCkGJCo3M353CUywW4tBYrVRUqV8UBsnSo+bFWKWGpiOW8D3GFLDnHdCx3sCvskF6Hp2H
-	 fhXPBMUiDX98Vve62koNfwcZHfsjF+rq7fbH1nCVjrOJUz3ItEjnymow8Ibg0ybIOAA==
+	bh=irqZ6/3MyiMekC4JKIQxGO3/LPhRZcckOlSBTK+F8dQ=;
+	b=yEff0p5/BJNu2d5JyN6cQRCNsTrWbd7LZvfhUBiCip3lm2eMXxsAOC5mGP+hczOZaBWS
+	 x84ONCTZeDXY/twe43TIxjW13CCjUwtRP5JL/EFM77FZe+Dr1tmKT4BNNECke6c3HsDD0
+	 EWXW1dBvZDEszhQKNCHW0Y9sE7g0MGtJCHNr6Jz+gN7dV1ThZqE2J9uZb/ns0/SR51bRP
+	 VXAzx7KP1Mw9e01SoIr8yjX4h8rIDETEE/cO6LHdTHz9w1L1OcKm3KehedqfrrgczbNU1
+	 l6iM/BK8on/kiJlGRnskZMhjXaW3GVaUnjh96un83Xmwra4FqeE2FHP+tZsY18RLimQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="UGesA/Sj";
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UEg7oruh;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704D7607E923
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 704D7607E923
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813E7609CAFB
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 813E7609CAFB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UGesA/Sj
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so764916f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UEg7oruh
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso10351005e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793826551; x=1794431351; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793826546; x=1794431346; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b1Up/mMzU2bQ97X/Wz1u2XktmxWFj0hsGQ/HEaQOHnM=;
-        b=UGesA/SjsBHV1YCg+eVe/7SygDEICH4UvK00QL9E1FyrZnIUwnnKCC5tMUui9k16vR
-         5lBqhLtNhGFMto7U8ZVmB02PLNY9h9xqYYwJE2rUcy4QJmsBwt7k4CRJ4GXoiZrXZnvd
-         iBMV6fehEYxjQMLCYoZM6BysJRaiBb2qLUF3z25l+U5JTEO4f4/Ge2jjOUsNGpTptJ9i
-         TS98mWg5pooEBey6PVgGjt+LHXElHbIJfTNTcAHjKjRQKPvB4xnB0dDNjXB5ri0KaaRe
-         fuKJKrsdB36NbQ01dTwgH8Z+BSGg0clVVdKf8HECboHuinyUzoFa+z0H/I6QEZ2RiiVa
-         YCOA==
+        bh=irqZ6/3MyiMekC4JKIQxGO3/LPhRZcckOlSBTK+F8dQ=;
+        b=UEg7oruhJEBaj6ZB2neW6iSWvxxOKi0Wv37wuZBin/3EppB4M0EOSjSnRf5+lMJzSF
+         X3P0nqm/4cMEfx0KlrClvKbM/Br7UFji3TzrxtfCC6Sf9mx1UcopnkK728VVYbQ7l7OX
+         STE6EC0EJCt/njfoPJMnCO4ZZfskJpaN+ztgkQ7RBbF0WND7fy88qzn8aFXXW6EvyQ0n
+         8HXhyxkVdFJVfOo6DuR/NPDbLrepl6n3wm155kLXN1VajbJvz4Jbtbk6i1DsW+G/WlYx
+         m9IiGgWz/pn+oFCfwTzgKhP/zqzUvvajiIth+ab3ZxiZki6c7lvTaDKWuEfwHw0Axw0A
+         D6NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793826551; x=1794431351;
+        d=1e100.net; s=20260707; t=1793826546; x=1794431346;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=b1Up/mMzU2bQ97X/Wz1u2XktmxWFj0hsGQ/HEaQOHnM=;
-        b=NdcCn67mouN1pDjSV/zYvmPfwUWekG4gCrIcjptbAd3tGe8lLCN3Kl6DSaEOkksLD+
-         z1AaNWe6QTb7wNDM2fjEaeXSaPVLPsr0lT9sQM0hg9+2TqSdm1PkROxjt/ULIIaxLvJb
-         DmJilHKoLKv0YaMYG8q7NfsMIMnMyrMEdtbu4U9y+237CDjasRVpe9SuH4YS5IL5fTJF
-         v/EvZmaJaIQI0lPzBzPJb2zGtcp6mkVlElE6matmWnfmucAFcmEadECgPnMRfno8q7iF
-         Ubm5ak6rihfO7XyZR7q/hgUFzJ6MEDxGOl2YgQHyMTpXBts5/zuBvk5atdgP7BssyevE
-         vu8w==
-X-Forwarded-Encrypted: i=1; AKwUvByJOWC3t3Enu08W8MVy8giDb9wHvdyywtJcU6e5D5+TP6fdGvihe2lzXfTcvyne20W3dU2oJ0exy4buwQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BQKaqu9LNwHrgnearGafISImLqJYa97s081y+vYMQrIypKTgC
-	tlehNUSChu35zqZabLCXeDrjz9FnXPGGT0N424LjcklerGhctNn5MLVh
-X-Gm-Gg: AYBFou0kYdK78wFlMoXj+t8NS4W6W0LYW6W9l1fpQtijTag8m2f/mMGIcj3v+EOxZuc
-	J4IXkuCN5EPBNS9fYhOQhc3an6edZy9gPhznnzYrNhWuYJ4hiXHMCGkLqEHYrCMZs7xBp7bwhT/
-	sdrw82CZJVI0ynvaHo4IZmqyqU2AAAPCLdagA78LLsezsTpAw7wYRjcQKYbQ0Gybw8RIZgnZcax
-	XErqpjtOz+89ZvettWMJo2n5H/dsgUdlCx96FfU/+XzDANs2x3x91iwD6a9ztXW5zehWoRE2abt
-	cqmA4/PrEZikQ2B4LpZEkL8AnBVO7B9rQRszaC/PHb1Qmii2z1n7sEuO9J7y1sY+djlXWPx9nrg
-	GInKCGwRv6U1nUx9O2X3KJlrrz/E43PYrRfk8QdlchT6tFjxF5vQDfMypUZpLxdS5GCR7pUpBK7
-	vReB12aChuhnVWncaSGu7Y5PH4I8K3+ybgQCS3TL03RN8K/TVZ6gsCUGZpBcY2ieDQU0BBDSERu
-	0A/UYO9vsrB8E4MzI/bpYRqvg0wFP4hRnxosbXzGUDiAAhu6S12gnZV9Z5QF3n1besSUBN9mMQB
-	4nUGwRG5Hjsqvh780BKV7wzDajfBc9vtqFh4a9E+egS6vgwSQdGDCQ==
-X-Received: by 2002:a5d:5f41:0:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-48e6e2eb83emr40887465f8f.16.1793826550673;
-        Wed, 04 Nov 2026 13:09:10 -0800 (PST)
+        bh=irqZ6/3MyiMekC4JKIQxGO3/LPhRZcckOlSBTK+F8dQ=;
+        b=duKSQOkErhTHo5Mkrw0iGjvV5Og5VvWRXnk5vXWpXtXz/GzTXNGQAv9AFqXZyMMgKp
+         Wfiw1AH5uPglrUCTEI0eO4N7w+DR+1aWMaLylqBc2P40s4YmpCX9Ds2XlEovi3jFqbF1
+         HukCCU2DJ9+oTvIZzuajxaP5sOdvZUXyMvNM09gSHQilmAVKExxsTX2rERKg38x4Sp6k
+         AmIzemQZOhyr1BiZS3WDI6d7c+GnJ4uQDSlqum3MTfPIiaqb1ExOAYokK4eTcOECEtIJ
+         HqxI4Rmqc2xFY0PjDsEU8qXoTFaKYCUspJaguTO+ZdZ16s3jIGldtYIRWdDwY3XStF4K
+         eXyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwg75IdRp+kUu3lkar57iZbSktmSX3X6r9SYxLmf3I4HjvmNvL3zSzsVry6s41Z9vIP5g6jchDtWtM6AaY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/plVnPOqpNCnUfer++c6hIH/TZc0+0vsEpf2QU5iaHGVFunHuE
+	1inFQGRsupBs1fwNIlOmIDE3sP+02m42qxLOoqSvzpnMLTGUXCZdKQ0e
+X-Gm-Gg: AYBFou2LaYu3/GRSO+a7I9g6fb11VuKIP52v7Ucl1AJ+p6WPVDLtxdRsIToUR5oIsnX
+	gkQEudAhUAhHLdOoVTBDNvhP1OGdLn0pG7rIxlpy3j/b6GerfZhGg3sf1yXLWbwAqQpAcG0ZVYM
+	yLONvm5ZTUnevKFB49AYDX9tqqGKnUtcc8J5lNtpmSkQXiitWThf6sbCJOgsJlbZy4cGdjJcDkE
+	4s98oOjiBFXPn+hvmImhSbFIhUTRDODjHvhSOi5qeJ+0MusYtbHTooisa9wIJqkqSF5/aR7EBhd
+	V9R5E3NMPXWsiCFLLwu9v7XmxsG94fp0YMHXv8+trjeuVKAVQzvPFoplrjQfJOhW0FHrJQ9/O6z
+	OKQBs3Khel0nhP56LdIL9nzIrKxe0v+fJ5fN51/W2yOjNbnnGmCCHXRL7GmNc9mAv/eZai9jvd2
+	YXJIS9dVMhU6/2NmpJBJ0PpIZeF3VRqNVEuPpxw6moNpuMyhyW+APrTqC1+IwTBMo/7QUyw3uNX
+	lr+Yc0tOKkZMMTxcZGv+N7lOwPMFDULuLGsfCrXzne6PQ8U9gC0wUed8nJoWpQxcBh4SJYpjWSJ
+	jRHmf6FxUkuIiU3e2r9vC7K/S4Fno6LE3SWzBjdO4f/kvklJZMwHQQ==
+X-Received: by 2002:a05:600c:1d07:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4ac150b229cmr403893635e9.2.1793826545784;
+        Wed, 04 Nov 2026 13:09:05 -0800 (PST)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm5719865f8f.21.2026.11.04.13.09.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm70399275e9.3.2026.11.04.13.09.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:09:10 -0800 (PST)
+        Wed, 04 Nov 2026 13:09:05 -0800 (PST)
 From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Wed, 04 Nov 2026 22:08:56 +0100
-Subject: [PATCH v2 10/27] selftests/landlock: Assert audit initialization
- in fixture setups
+Date: Wed, 04 Nov 2026 22:08:53 +0100
+Subject: [PATCH v2 07/27] selftests/landlock: Fix the ruleset_fd check in
+ empty_or_same_ruleset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-selftests-refactor-v2-10-c52f23f7ce33@gmail.com>
+Message-Id: <20261104-selftests-refactor-v2-7-c52f23f7ce33@gmail.com>
 References: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
 In-Reply-To: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
 To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
@@ -105,170 +105,28 @@ Cc: linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
  =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
 X-Mailer: b4 0.15.2
 
-The audit fixtures check the result of audit_init_with_exe_filter() and
-audit_init() with EXPECT_LE() and continue with a negative audit FD
-when the initialization fails, e.g. when auditd holds the audit socket.
-Every following audit check then fails with a less useful message.
-
-Use ASSERT_*() for the audit FD and for the audit_exec filter
-initialization, whose result is used by the following calls.
+ASSERT_LE(-1, ruleset_fd) is always true, so the test does not check
+that creating a ruleset with an empty handled_access_fs fails.  Check
+for -1 instead.
 
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- tools/testing/selftests/landlock/audit_test.c                | 8 ++++----
- tools/testing/selftests/landlock/cap_test.c                  | 2 +-
- tools/testing/selftests/landlock/fs_test.c                   | 6 +++---
- tools/testing/selftests/landlock/net_test.c                  | 2 +-
- tools/testing/selftests/landlock/ns_test.c                   | 4 ++--
- tools/testing/selftests/landlock/ptrace_test.c               | 2 +-
- tools/testing/selftests/landlock/scoped_abstract_unix_test.c | 2 +-
- 7 files changed, 13 insertions(+), 13 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/landlock/audit_test.c b/tools/testing/selftests/landlock/audit_test.c
-index 81cb31aa32ad..63b1b2a04eee 100644
---- a/tools/testing/selftests/landlock/audit_test.c
-+++ b/tools/testing/selftests/landlock/audit_test.c
-@@ -49,7 +49,7 @@ FIXTURE_SETUP(audit)
- 	disable_caps(_metadata);
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd)
-+	ASSERT_LE(0, self->audit_fd)
- 	{
- 		const char *error_msg;
- 
-@@ -652,7 +652,7 @@ FIXTURE_SETUP(audit_flags)
- 	disable_caps(_metadata);
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd)
-+	ASSERT_LE(0, self->audit_fd)
- 	{
- 		const char *error_msg;
- 
-@@ -841,7 +841,7 @@ FIXTURE_SETUP(audit_exec)
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 
- 	self->audit_fd = audit_init();
--	EXPECT_LE(0, self->audit_fd)
-+	ASSERT_LE(0, self->audit_fd)
- 	{
- 		const char *error_msg;
- 
-@@ -854,7 +854,7 @@ FIXTURE_SETUP(audit_exec)
- 	}
- 
- 	/* Applies test filter for the bin_wait_pipe_sandbox program. */
--	EXPECT_EQ(0, audit_init_filter_exe(&self->audit_filter,
-+	ASSERT_EQ(0, audit_init_filter_exe(&self->audit_filter,
- 					   bin_wait_pipe_sandbox));
- 	EXPECT_EQ(0, audit_filter_exe(self->audit_fd, &self->audit_filter,
- 				      AUDIT_ADD_RULE));
-diff --git a/tools/testing/selftests/landlock/cap_test.c b/tools/testing/selftests/landlock/cap_test.c
-index 3d7fd02e21ed..7b3b724e4406 100644
---- a/tools/testing/selftests/landlock/cap_test.c
-+++ b/tools/testing/selftests/landlock/cap_test.c
-@@ -775,7 +775,7 @@ FIXTURE_SETUP(cap_audit)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
- }
- 
 diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 7d399c097c93..7ff94755b029 100644
+index f725882fa4a7..7d399c097c93 100644
 --- a/tools/testing/selftests/landlock/fs_test.c
 +++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -7504,7 +7504,7 @@ FIXTURE_SETUP(audit_layout1)
+@@ -1456,7 +1456,7 @@ TEST_F_FORK(layout1, empty_or_same_ruleset)
+ 	/* Tests empty handled_access_fs. */
+ 	ruleset_fd =
+ 		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
+-	ASSERT_LE(-1, ruleset_fd);
++	ASSERT_EQ(-1, ruleset_fd);
+ 	ASSERT_EQ(ENOMSG, errno);
  
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	disable_caps(_metadata);
- }
- 
-@@ -8028,7 +8028,7 @@ FIXTURE_SETUP(audit_quiet_layout1)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
- 
- 	if (getenv("DEBUG_QUIET_TESTS"))
-@@ -9605,7 +9605,7 @@ FIXTURE_SETUP(audit_quiet_rename)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
- 
- 	if (getenv("DEBUG_QUIET_TESTS"))
-diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
-index 50b637354b51..c1b6e288c965 100644
---- a/tools/testing/selftests/landlock/net_test.c
-+++ b/tools/testing/selftests/landlock/net_test.c
-@@ -2957,7 +2957,7 @@ FIXTURE_SETUP(audit)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	disable_caps(_metadata);
- };
- 
-diff --git a/tools/testing/selftests/landlock/ns_test.c b/tools/testing/selftests/landlock/ns_test.c
-index f5d4b86edd30..6491b53742f1 100644
---- a/tools/testing/selftests/landlock/ns_test.c
-+++ b/tools/testing/selftests/landlock/ns_test.c
-@@ -1944,7 +1944,7 @@ FIXTURE_SETUP(ns_audit)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
- }
- 
-@@ -2596,7 +2596,7 @@ FIXTURE_SETUP(ns_proc_open)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
- }
- 
-diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
-index e0e7f95e889b..10371c1830ad 100644
---- a/tools/testing/selftests/landlock/ptrace_test.c
-+++ b/tools/testing/selftests/landlock/ptrace_test.c
-@@ -323,7 +323,7 @@ FIXTURE_SETUP(audit)
- 	disable_caps(_metadata);
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
- }
- 
-diff --git a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-index e006dba61652..5e8224623780 100644
---- a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-+++ b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-@@ -288,7 +288,7 @@ FIXTURE_SETUP(scoped_audit)
- 
- 	set_cap(_metadata, CAP_AUDIT_CONTROL);
- 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
--	EXPECT_LE(0, self->audit_fd);
-+	ASSERT_LE(0, self->audit_fd);
- 	drop_caps(_metadata);
- }
- 
+ 	/* Enforces policy which denies read access to all files. */
 
 -- 
 2.56.0
