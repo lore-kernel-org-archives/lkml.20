@@ -1,96 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758804;
-	b=j/coQZuECYBxFZsGbX7WD7DfNosSLWGAXMLYCKP5DSaHvDCS0cMBQ9qhspMbGEC9c3vk
-	 Gkm5IzhufYZrI3DEBPlLd1O+j/g76M7/DrCEJ2rrUoXDmcZSvnhptWHD3CxuRaHtYNYyw
-	 NyuPP1pWYyP8IlvKUCFoq6XEb4njuHF8z8kWoMNG4LQXWnSTbU3+hSWrsS1+NFMZ8Vr9B
-	 PBVP1fU11fJGy1t0eZe6rJ6GPN5nlFYFDSeJZnhiLEhqQdnHYhJZxLPXWpag7m8XyO0kR
-	 U614SejHDbp+VGQikVAT5Qpng8FdL9IDcqU6vdaZPgCoF322WrBA3m0V+0R3GS2bDQw==
+	t=1793758807;
+	b=BsNAMQ1BvdsuOdw4rW2VVHp+uXtdmaoUWnzSKBuq9XjPFKT1l2B95TMHmuEuSmG5AltE
+	 EByWHfIwS1OfGKuhwqyDJuaWVruDxhtwLBe1JBziPpWvX7RoKC9R8g6rYq2rtVOvoeFfp
+	 vcz/dABSG9PhA2WqsaUtVfHuuLbIvKtdGOR23dnG9TbClZbbRk/tJI3WvmCF8CXUWXzY9
+	 MmrmpsXQdLLsgco87jzJBzWTUW4vPSR6GPhc2xmbOi9+oebpiPBNdGbpBCkDoTiYFbFse
+	 AKssjrA5qawHjlmMSKsVNiL80eMHdM2QQc6j5JM9eot7ogw246Aquk6Fr+MQXxhEWJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=rXti7mY5F0P/rsGwIECfqLmvwSGUaMqT4P5dq57Cx/E=;
-	b=sS50VPbYMeHuagWqlJXhTwAPagLTUHyHF+r9/Jssbu2FJ0i7fW38oo8iWeA3qGIjtH+0
-	 oTfEBDmoqBD5VSyePHwrJQUHDHIyosz/Knw91fv0MLkXmcsrw9rs1s0G8m1Srv/jvXlPP
-	 5dhvwQzLNBD9LEyuHSvL5AlGbp2fsX1cKq6OrdeZdMK1VTaJqF0SwsnNG6M73PeSbQiJY
-	 H6c1n6hU24vZRuCmy1UlolXF2ZB1Qv2rbfwdWRiWatSNM4BVGLJU7ItMCdsIk3usZGd+E
-	 nJv/gosjniXYVivgY9KR5HMxdJZUsy5Zs0zPZQbjQ6cYWAd5t8szVFR4pzU1VpMYEiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758807;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 DKIM-Signature;
+	bh=rHf127pk9WGdSZi9BQIix2hNk6XvY8AkvT6osPYX0a4=;
+	b=bD8hl87D5xouf7Diaf5m8AJqL/A/b1xZueQSW6HclPLizYQ3QGuRI+AdheVtbR5Io9vo
+	 ObUebY3BcIsu/nnhiEWkkemAX21eWB7E6eEuFY4575Wia916BGh+7Ba3uw+5Qt950FdrR
+	 leBJKB/Qn8kXxUsCxnYM12c3dRLVy/YveIUBgQVVMvpxurTouo0IBcPolK+U/8E9bLDCM
+	 zMGcwIW1TBGiTj35i47tnnYrzLKeGEI1EvBZkIeaIDbztq1ykGrK8FbmuhI+2uHzINUDd
+	 5L6x3mRyhfDPKRONxr9OtzfoxqZSJX76LNWnaLJBzNYVTb62ORKFtxk6zvsMILlsW+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PBzi9TIP;
-	arc=none smtp.remote-ip=209.85.221.173
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F42606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:20:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F42606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PBzi9TIP
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eaabf28c06so132214e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:20:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793758802; x=1794363602; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rXti7mY5F0P/rsGwIECfqLmvwSGUaMqT4P5dq57Cx/E=;
-        b=PBzi9TIPsFLl2TMl7s8o/VQCNOJaYL9ZQIfaatArXX0Yipg0kgF/Q22Qxg0e3TPsPj
-         G7J5AJvAyRg+QuPemaLMBmz6UI38bZuLnlIfZYYpFqa5YR1W6GxX+JipDVu1Xaryz7Jp
-         k2+Gl5Ck3VPZOS86WtvarxWRgseghf/K5zcs1wx8wzvPIWVHkTsFgg2rCb90zdrXX5i8
-         Ds3R7tBrV4eXU4udYmaeWPJijUI4+OoqZkO1SCRkivf4ScPXBZaw7j5L9EvUJv4VQsk4
-         2ntuTVc8jkaDg/zQ90kByToA9Q/IyV3j59zMBVNp6RnNa3aOIQnzIXfu3Vcq26X2VFqq
-         usRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793758802; x=1794363602;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rXti7mY5F0P/rsGwIECfqLmvwSGUaMqT4P5dq57Cx/E=;
-        b=RxVFIGgQK1fqbgGQdxL/7fe6GWYiv8hKpJKXmVUX5lvwtufc3yFiBAgtjJsGDY9RKv
-         MAeJoKniiXZmBdw6FfqohyHC96GjeXKLhjZZvX75P7bKaFr/FP0GP+GSoBp65nvhqKub
-         hushM7Tp5/TgFDdcIXWjfSQQvPIbQHJQfv7wW+BnzdLj2fFOICRr0ixKMKIsSZJYL5f3
-         2v6PZbs8IFXpo7VEqJT5sokSpnK4/i8H0rAVi3GxJcCkrRX0Fa3xJ65JILD8uWgZw0gZ
-         yQ2rtvm7HXZr1nHxJ8KaD1JXQ9CPMy2Li140jRhy12bo+nocZHCcJkUaN+Pf1ii2243M
-         DQVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpR1ICNxvhM4OMDSCqQoyc+B9mXIBrkdLVrvxwQBAMcxkPHbzu6I/Cht8pHHNLpWZCzfawmJXWQx11X7Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9uAV6BroXAQRBVv1n3BnCvdfNIFdwrNnyLneZpC0JvYwWDB2J
-	hl8QPw++mO/SW/VVcntRDbylCqtfWOfrD6LZrr6vRTLCThCNb9TrqacVpk3xwiwNKbE=
-X-Gm-Gg: AYBFou2yEcTtxBxco/scmA8ZpA7OrYPL3aQDcUjIodKiQ07SInOJjuJRPrOLmMRTpnK
-	QVdqU+XA1AO8Hy+CtwKkfPzH7ibO1E7DDVSkoAOdGv6TJ1fQL5xpCfXEMBu948lcJBrJjGDBuce
-	2iP9xRqCY0QS3rTNHFNROgeJOyJBR4mYHvrahC4rBw0b1geqq0OAx9GQ8EW8T6e7phl6UeMSoT7
-	QNJYSQgSj2VFyklLzWOndrcOZW6lVF0SoYLzGgxOxbDIb1p4pVvh+a2qMurh7ADFc8LoqTUBYym
-	xyHU1JSqdLWtb1ohaaA+jDyS1bP8FlO+4FBKkiIlFQa0kxPMOwnO1ZqHkcZtluZtpPDLsnnxIon
-	M6qH3rSx94UrvpWUSh40KGOpXlBpgqL49VJyfeeqxu23fcOR9r4Pt8vbBA6vtg3HbJmZVUaJHzV
-	ooGr0D4vkwMdlVGTPzZinpJHw/dFTmO2bAZIGNxZeK7oQnpz+f64uke7+Wx3ZweuWuxoGaaUh+9
-	1hWujiENXEtGoBaoV1ANngUo/jZyI9j+9OlLpIRvpLyH3jr7wCGegyxTtdOn32ySAf9HTYKEB07
-	uLb9OjRxNDGcb7Xn2oKw63f90JVsDQrnzWLDOdOnPzkGEXGOMemXPUE+BrzSvMbJGdZsiIh6WcQ
-	d2QGY31PV3qz1NDad+MCIVQgLBCk7pILClFStC+1vJOP6
-X-Received: by 2002:a05:6122:130e:b0:5ca:f811:25ac with SMTP id 71dfb90a1353d-5ec6895c285mr6125913e0c.14.1793758802245;
-        Tue, 03 Nov 2026 18:20:02 -0800 (PST)
-Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca89b6568sm658959e0c.1.2026.11.03.18.20.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 18:20:01 -0800 (PST)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: rppt@kernel.org, pratyush@kernel.org, shuah@kernel.org, 
- George Guo <dongtai.guo@linux.dev>
-Cc: guodongtai@kylinos.cn, kexec@lists.infradead.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261029090542.13283-1-dongtai.guo@linux.dev>
-References: <20261029090542.13283-1-dongtai.guo@linux.dev>
-Subject: Re: [PATCH] selftests/liveupdate: Preserve VM workspaces with
- run-vmtests.sh -k
-Message-Id: <179375880152.1029434.132459394322366594.b4-ty@b4>
-Date: Tue, 03 Nov 2026 21:20:01 -0500
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id BF860606A32E;
+	Wed,  4 Nov 2026 02:20:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF860606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Li RongQing <lirongqing@baidu.com>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] perf intel-pt: Free the old snapshot reference array after growing it
+Date: Wed, 4 Nov 2026 10:19:51 +0800
+Message-ID: <20261104021951.1779-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,29 +50,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc4.internal.baidu.com (172.31.50.48) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1793758802;
+	bh=rHf127pk9WGdSZi9BQIix2hNk6XvY8AkvT6osPYX0a4=;
+	h=From:To:Subject:Date:Message-ID:Content-Type;
+	b=WpVLBf8QNKnCziaRfjIk8RJRi7bm1jLz58Jwt+O3g49QeYh96BVX29P6N7TPdKddM
+	 9b+jo1Z3S0GxOPvfSxYlI2V/n8qMR7lykeiFEI2U6j/fsveyPGCGNo/9sqcROveOf/
+	 NfFSrrcw6aHwn1CZtXPvBBqQBjxImvkUVpvRKtY1qYYgjp2pXpnHjCVKNtHZ6yqeLF
+	 5cLTRUnRv3j2yCzcW5RcEtK8c0fIs7vj70jX/LQliWF7t/CkbimJJmZTDUjo5fhFoI
+	 H62NJO7S57/b1CbuKvXMdiKerZOjSZdGH5/9cqoY8C/WVVa6HTzqRwBGl4yKPaMQaY
+	 3XQRAw0Z+bWJg==
 
-On Thu, 29 Oct 2026 18:05:42 +0900, George Guo wrote:
-> run-vmtests.sh -k keeps the test output logs, but vmtest.sh still
-> removes its workspace and qemu.serial, losing the guest output needed
-> to debug failures.
-> 
-> Forward -k to vmtest.sh when keeping logs and update the help texts to
-> match.
-> 
-> [...]
+From: Li RongQing <lirongqing@baidu.com>
 
-Applied, thanks!
+Growing snapshot_refs allocates a new array and copies the old entries,
+then overwrites the only pointer to the old array. Snapshot recording
+with more than sixteen AUX mappings leaks that allocation on expansion.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git/log/?h=fixes
+Free the old array after copying its entries. The reference buffers are
+still owned by the entries copied into the replacement array.
 
-[1/1] selftests/liveupdate: Preserve VM workspaces with run-vmtests.sh -k
-      commit: 654efa9a6c4c455aca6f034f321c013f5b784157
+Fixes: 90e457f7be08 ("perf tools: Add Intel PT support")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+ tools/perf/arch/x86/util/intel-pt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Best regards,
+diff --git a/tools/perf/arch/x86/util/intel-pt.c b/tools/perf/arch/x86/util/intel-pt.c
+index 5e38b9c..f034e3d 100644
+--- a/tools/perf/arch/x86/util/intel-pt.c
++++ b/tools/perf/arch/x86/util/intel-pt.c
+@@ -941,6 +941,7 @@ static int intel_pt_alloc_snapshot_refs(struct intel_pt_recording *ptr, int idx)
+ 
+ 	memcpy(refs, ptr->snapshot_refs, cnt * sz);
+ 
++	free(ptr->snapshot_refs);
+ 	ptr->snapshot_refs = refs;
+ 	ptr->snapshot_ref_cnt = new_cnt;
+ 
 -- 
-Pasha
-
+2.9.4
 
