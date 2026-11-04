@@ -1,72 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804331;
-	b=zyHLGv7u0+oRjSLdxcuSVi2uDckCNgbUx5dLCjGERiR6ihgeCde8zxmvCflygYjfVZZS
-	 ycTADyMCergobYqndOMRhsTbKmUGwfQimcUlGtSIoxxAkjUcxvuIsWP2DCmKnCb8CnOuc
-	 /OER6Rk+n6dPyCCUmdzAxLDRN9kKe/kcnShWMUlb8imfx1SxA4AAjt4PmhhMa1kEpfvEM
-	 uoTCpTwk/OFbAZ8hb5+5aPO+Zvw3FVjCd37coO07cCg/ndyC6PPXQEpesyCYzhCF1MohE
-	 YPYORoWVh8+NH1fnxnq6/o8ODtKRSY0KKCcN0j9/7nECBU/8vxhNF7ynbx6ZoQOF4+w==
+	t=1793804337;
+	b=JqFYdmX5twVxkA6S4A4UUqN8lFU2gBWR1AkenlIzPk9HGkIffnQz0C+THHndku8R0PjD
+	 +xkxl/jy+S9lB8hZ7eFnjBBmuaAAb9C2APrunv6CxURXY41OyQwm/Z404rJjnp0VbQ3XA
+	 1miC1QXi3GCrultenVmqiSBPmA2IjCBLab3ud5IkfxS8+zxzdoaZ7LGYe4ArUDz0DXM0Z
+	 Ax+XE4LAvZXMKnrr0BVnwM0cvaIVhR3CIGnZO3krsbpf0kowknKFq3KBfJkGeY+snzKwz
+	 raJCEtFP/tYxWZoyHK7CIVe1zCgVaBr/znrn0Z6v3hC6KQ8wQeV/Q0PdDgiyitpySbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804331;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=vSlxbr4GF5WlUvrPQl/wTkSFn8CEifE58HoPh8KxRvg=;
-	b=q5LRA60UULgqENpIBgokE6tLVLlgNWChpUV1fIQ7HvSqGy0Cz/NFJ152hEgY+dBbJxsy
-	 FTgFAlUR32TzZZMc2R4IOBAmQT05kiWtajcrJXvl4cO3c/XvdnLsRv/LPf8FobHclxEs7
-	 P+F/8BSmVnEuyRrbq+ZZbHnZc0GZy/J0Vj6FCeCymbqRfRd70GqQFvFfwbws5BriQ7Slp
-	 fct4PDDdxjlLHSdkPQyIvtXNQx4mHhrRPE0Cgg+UtfK+UV69BIpGBoOl80Q1GMzb3+X6O
-	 3PRIsAHWtAP2ENB17ZKmVru/hFlsxF+AzagtZRJKlP7OIi8KjcND1JZ3yxCPHuZgdIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804337;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZlCHGoRtMbV0sOxoCDUMJOhQ5x4ULZVSAr4XX4def2o=;
+	b=VfaIY81Bjx7RCjrk7VVEIeRijdECqf3csh4bb9UwJFxMDDgp1pjkH0/Kgd/VJDoO6ykc
+	 8dY/jBcNPCj9d/59OVXEQb0tWVcn1/4FiPzorPJ7FaobMusGqUz27WenYKE+crYzvWX8+
+	 IxL0N2WsLQCXy+7Tc8ePJhgwKgY3FlHMnTPZwpkBj86vLwMBqeLMwWQ4XrTndoRWjqdxx
+	 NZDxZgQq02jmyi80H1hsM0p3zGANr4KLkUaqrAAXJnyDZqDkeLkbfN7A/pF/JU2UT9ueX
+	 t7zwR3rmA/kg3cbXR6YqYrV5ENZGGdzwApU4P348wnYKKB1rLjwZQrFe54kJSTgQKhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=C2POBDOK;
-	arc=none smtp.remote-ip=95.215.58.232
-Received: from mta1.migadu.com (out-232.mta1.migadu.com [95.215.58.232])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RTBZu8tc;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253F2606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 253F2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F117D606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:58:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F117D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=C2POBDOK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Jn/8vTEJX1I2SwihyhQq3RXByamjm0Fz9Z+/g9/Qa7s=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793804326; v=1; x=1794409126;
- b=C2POBDOKvdsDrIiMpJ4cb/4qb3WSTWh7VlzJdzUbGrpAHPGXhgJuDa9wsFA18JWNrvjM+BC2
- M3i2y8PoY8mjZqA5n3UktgtHZwJwyTct2zoZpiz1T5KWdelUfRFhx60G2coXV3K4RwrMBQzvkut
- 5hpWsAD6fS7xRPPVQcvkd/fJn4PcqI1pJp1xE0TJvwVCFClA/dsxpjV5nJB/ELShtyGQz7ILbgK
- EuspWr6xQLShBDVcpm+quHbUUShRYxw3vUXcu8NNjNPJBTykQr4gsooLwtcwz1lqdf/kOzdyoQz
- iNOa1T4of13WXrKR+JJEeIrJ+jiVqQHXS68wnbeiPv4Gg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8fb22803a417594f;
-	Wed, 04 Nov 2026 14:58:45 +0000
-X-Mizu-Trace-ID: 8fb22803a417594f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 4 Nov 2026 22:58:36 +0800
-From: Weijie Yuan <kernel@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: =?iso-8859-1?Q?R=E9nich_Bon_=B4Ciri=B4c?= <renich@evalinux.com>,
-	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bagas Sanjaya <bagasdotme@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs/zh_CN: fix stale :Original: reference in
- xfrm_proc.rst
-Message-ID: <autIHApRGasgTCXO@wyuan.org>
-References: <20260920073144.546566-1-renich@evalinux.com>
- <78d0a4ea-d621-4408-8efd-d8c9bb1f6841@hust.edu.cn>
- <autEFEW15g5I0oVT@wyuan.org>
- <a4e6c559-5e7a-4c7e-8475-6f1970d8f3bc@hust.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RTBZu8tc
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso552940a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:58:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793804336; x=1794409136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZlCHGoRtMbV0sOxoCDUMJOhQ5x4ULZVSAr4XX4def2o=;
+        b=RTBZu8tc9ZTv6AtCaet4trrXcWvfn1A+8EG4XmeivJYuWzW3XEQjCw8R1vBs/cRUjT
+         Nxudl+1aCdsh49Hzj9MzoiTIXZCBpXQXxQDncIY62iCBpuRTra91eTSRBQ4G2c4Ymu0x
+         kxoj9k4VfGCbHMscGnF14gPILbFhYNw5cTek1KnnD6bSCkagg30ey+rJrHeaw8X+ap4C
+         x7jBBZqxkVmKfxIEiLemu/uvnS6Szid7oPCyAoNBCbpPurjBkEwExk345aHTYZZYFAiI
+         tKnmKFBdTkLTTn5+VDS4ClAIDADuYuXtwPOfco2D8S1P8vsqrPOigtVs50PQ1DR58xAt
+         evsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804336; x=1794409136;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZlCHGoRtMbV0sOxoCDUMJOhQ5x4ULZVSAr4XX4def2o=;
+        b=XcP2oK7CAYR7eTdvRVlQQQPVPkLVBuxLk/6gCcpJyVJTvdV9h7SYNpXM/brx4dHJXQ
+         MOtA+NMWcKiVtpRfB8HyN58LP06qViVU3hM+eQlqNLGOZBO9ksIxLfdLfjKzCwvS9efi
+         zqcSHJNBNaVM1AGnkssd/bLh2qzMyvynFdlP5gVwfEuoglWExdp0BgwJI0bJVoUGfh51
+         fQxPVGrifGv+8MGTQ7La/maUTGWsMWobLAKsApWp/qY6V5S9dX/ozg9/TiFatTGhKmDk
+         nvLSSXY5Q8VhKAf/qPpsX3i1M91jxIKLb5wcupJHI9pkPLRDFFilHPN7pnVNr/yNGdFO
+         FpDA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUTveb5mfniCXWq8SyYXPBs/PEUqiZA+ZvltLSK+8tkEfHD0USuY7RkOQfsh1OtTtq+QV6s1OCOkIciJ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SBJY6CDE6x40H9Ch7AZY0rXbLVJaS8ZyNqYww/ZuKylNKDIda
+	9T4KT8e5XmR8PDeJ0W0BwWM4zX5TkdY5Uevf5YZSQt15ZGoYukJgeNWY
+X-Gm-Gg: AYBFou3dnE2xG1AqNpO8g1YdZYv7QCFd84ux3IHdIO1XMvLDxCaKyNqg65l6SEhQJLO
+	/wIZCTVuGTWBe9KrsH5bIHSULmB2OuTxsPr1LfbOA+Wz0mdUyGHkER7td08hqIytGlMvtXYGMHY
+	/TD7r/3nsMIRvWc4VqxPuoKstBerDw+1qOV7YLqzUHJKx3hFZtQ5ZTSiE+rZTlXqYtdp7+xLGX4
+	zY4L9GXTcv53NmKgCG7U5txgbUiw+3BBPHWkrBc9qkGZ4eyPhlV09IJkebSHSj+XKyIdXr3jho2
+	ZVjNCOoWtMOBumNRNX+W24/CdvNKKtswZFwMIrw9bzWDZdIRRgGFSn+OgbuWvrTc9ptIXD0dpcS
+	3YIDQaSzSWuPc1h8kMdEGTRmbceTgw3DDxaaJswmc/cC/Qj2m5KQEOItUvOf4u4Xi2eK8+dQmCO
+	DjMS9iEndlDicZS3ylbm/YdXEA9w/OTW7m8BvhaAVYmI7zDzQQ5oBMObKq4nyFeuglBQVWExkA9
+	K1GGvSwsF9jzS+Lmj7k+gAlUXKkYhcofq24L1UIp9KKkZhvy1xyrWg9Lh3fHJ88Jm8/GzhcdlTb
+	ULUHkqiAosL9MVku6UQInrtIFTjG3PkrQEqQMRhDGbErzE7k7Jj5fyr0aUGQkIJn8zXkxz94hli
+	6FAu1GIBcP4X1tihyB3Ppk3xaxh62
+X-Received: by 2002:a17:902:cf0b:b0:2e9:4175:3077 with SMTP id d9443c01a7336-2eb364962bamr175279525ad.15.1793804336225;
+        Wed, 04 Nov 2026 06:58:56 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08bd596asm9269185ad.1.2026.11.04.06.58.51
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 06:58:54 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-rtc@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] rtc: raspberrypi: do not mark the file comment as kernel-doc
+Date: Wed,  4 Nov 2026 20:28:30 +0530
+Message-ID: <20261104145844.32361-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,78 +100,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a4e6c559-5e7a-4c7e-8475-6f1970d8f3bc@hust.edu.cn>
 
-On Wed, Nov 04, 2026 at 10:46:19PM +0800, Dongliang Mu wrote:
-> 
-> On 11/4/26 10:41 PM, Weijie Yuan wrote:
-> > On Wed, Nov 04, 2026 at 10:32:43PM +0800, Dongliang Mu wrote:
-> > > On 9/20/26 3:31 PM, Rénich Bon ´Ciri´c wrote:
-> > > > Commit 03e23b18c720 ("net: Move XFRM documentation into its own
-> > > > subdirectory") relocated Documentation/networking/xfrm_proc.rst to
-> > > > Documentation/networking/xfrm/xfrm_proc.rst.
-> > > > 
-> > > > The Simplified Chinese translation was not updated accordingly,
-> > > > leaving its :Original: tag pointing to a nonexistent file and causing
-> > > > tools/docs/documentation-file-ref-check to report an invalid reference.
-> > > > 
-> > > > Update the :Original: path to point to the new location.
-> > > > 
-> > > > Fixes: 03e23b18c720 ("net: Move XFRM documentation into its own subdirectory")
-> > > > Signed-off-by: Rénich Bon ´Ciri´c <renich@evalinux.com>
-> > > Hi Rénich Bon ´Ciri,
-> > > 
-> > > I have proposed a patchset to revise all the inconsistency between the path
-> > > of Chinese translation and English documentation and these invalid original
-> > > fields.
-> > > 
-> > > Please refer to this patch - [PATCH v3 8/9] docs/zh_CN: update
-> > > networking/xfrm/xfrm_proc.rst translation
-> > > 
-> > > https://lore.kernel.org/all/c641a11c-39c8-40c4-b162-10f3a3db57ff@linux.dev/
-> > Ah, I haven't had a chance to look carefully at your series yet. Then
-> > this patch can be discarded in what's-cooking.
-> 
-> Haha, what's-cooking is really a good place for me to catch up all my
-> missing patches.
+The file header opens with /** but is not kernel-doc, so kernel-doc tries
+to attach it to the RTC_TIME define below and warns about it. Instead use a plain comment.
 
-Thank you!
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ drivers/rtc/rtc-raspberrypi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-https://buding.wyuan.org/ is an experimental dashboard for us which is
-made weeks ago, but obviously it is very rough. So now I feel that
-what's cooking is somehow enough for us, as it seems more robust than
-web app. ;-)
+diff --git a/drivers/rtc/rtc-raspberrypi.c b/drivers/rtc/rtc-raspberrypi.c
+index 0547a96c6..657734b96 100644
+--- a/drivers/rtc/rtc-raspberrypi.c
++++ b/drivers/rtc/rtc-raspberrypi.c
+@@ -1,5 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+-/**
++/*
+  * rtc-raspberrypi.c
+  *
+  * RTC driver using firmware mailbox
+-- 
+2.46.0
 
-> It seems all patches are reviewed, but some are waiting for the authors to
-> revise.
-
-Yes, thanks for your work!
-
-Oh, btw two of my rerolled series are waiting for your review, but I
-think they are both good to go, while I'm certainly biased. ;-)
-
-* Weijie Yuan 2026-09-05
-  [PATCH v2 0/2] docs/zh_CN: update maintainer/configure-git.rst
-  [PATCH v2 1/2] docs/zh_CN: sync maintainer/configure-git with upstream
-  [PATCH v2 2/2] docs/zh_CN: improve maintainer/pull-requests translation
-
-  Needs review.
-  source: <20260905-configure-git-v2-0-ab194db8c6b9@wyuan.org>
-
-* Weijie Yuan 2026-08-23
-  [PATCH v2 0/5] Update maintainer-pgp-guide.rst Chinese translation
-  [PATCH v2 1/5] docs/zh_CN: update maintainer-pgp-guide translation Weijie Yuan
-  [PATCH v2 2/5] docs/zh_CN: clarify free Nitrokey requirements Weijie Yuan
-  [PATCH v2 3/5] docs/zh_CN: update maintainer-pgp-guide kernel.org link Weijie Yuan
-  [PATCH v2 4/5] docs/zh_CN: add kernel.org trust repository reference Weijie Yuan
-  [PATCH v2 5/5] docs/zh_CN: remove empty proofreader field from maintainer PGP guide
-
-  Needs review.
-  source: <20260823-maintainer-pgp-guide-v2-0-bea33b2ece54@wyuan.org>
-
-They are revised per your guidance.
-
-Thanks!
