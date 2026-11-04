@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763981;
-	b=l2yP62ZcgWErQHN5vzIwq4xSVa0o1AkUXGuaPx2OGpSAsiVFhFCwSq6IURc8BmcmGrcl
-	 V6JslPtkniWIhtf6R91pOcg8ILsOsvsXwS5QAF2tbm1+mk/P41OAzinW4veeH7v2QbSpc
-	 kkrslgsuYH/fU8tpXkaajCdWzxuZrQCH/ngWFvDtWmtayAkLAhe3rVVsZfuDGJteb5pHW
-	 IiTDt+dhnalE4jakwXbw4YVbHonJPpS8TMlm5S50Ju9lJHKyq11FYhaHDd85t7Nbru7ae
-	 xNrZHEI9iAFD0GDBx3kBg5ScXHe2bisTNWRjoRocoF9yALtTVxBg3xSBzGYTFZT6HHA==
+	t=1793763986;
+	b=xo9dGnHwn7Z0Z3uLp6hS/aczKRnWrAFuBODkDXcCunaX3X+8aVGQfaw1AiR6Wq+LKYti
+	 E+GFaMrwqOjR6XZIo+cRdNjZw7w2NRWhYeo3XpChf20JvQUINj+biGQPwcg6QRFbD0atf
+	 AtVobz3vZIUUuUvACLw5ODfwub6+/JdNeYRmqFVl3CXCLOcN3zcRJfVWL5UwrPxYRfkB+
+	 jNtg2SneopgKJZquzW6tQCIp0BlD/9NdjRKfpL1CdyuGcUcXHu7RDqB2bzdvguecRrA7m
+	 W9A39U62yLhvAin+dYs5ySdmMuwa9CiDFz5eN0+54jMNwJFKl/sNQyEWSJXpuoyLoJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763981;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763986;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vxJLmV6OXCoxa83sUUnlyhlj59SW1UTBuaKREwaI5xs=;
-	b=biPCzvaKuMIQR8vieIVy4t91jXUZiaJ/4zflJD2naOQl8+OhUW17PiO1+aTTC5YBT210
-	 Vu5xLrnNj9gvBltDovTzdV4AIRU+mLqfdCB18IHoDeMTfYKCEFLy/31Q+eBikOq1tQ27o
-	 vpY807WtkwwCialJsy0x86P7GXP82dyrOMnS6xdLRkKqSLdsqCsIe3l6PSNOSThA6BO8L
-	 H2HPmgqJN7xaER3etVjmioPnvBHHFZge/BJsAQ8QKliTaIIOcbHKx4YS4W3rim5rhW0TZ
-	 AsN3+s4awa+BFS1X/mOK5duX0MDqTocGPeh926ESKR3B6iNQbyrtuQELpSPaUoFUqFg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cPyjzrLxXwGGm06CwHQCWWTm8AUJ7SVjwiiyoo6HSCE=;
+	b=iiJIXbFQRSpscmlElQRM+USzSTb31YlyVUGQv8VYxLndmeH3/UhRBhTJbdXTmHMKXYa5
+	 Zw9/u3utUCD/4Vlv/Tld5ndOxzoRfcnbJvycutYg/J7NmqrjVygoTvhiBX9oETGpTIGnC
+	 AwXssFDrYiaHBfZB+sl5eOEgxgjockJVrc4QgWGcaNsXBtmOelAm4OGMVRq2kN/pBvqA2
+	 Gy17bux8ZN/h9pW+xdQeuTNQIOHnvaT+eJ5HLRI4sOT129kX/6OJGcygncUTr9YKb5R6K
+	 9c3/YqiGbNyzLMxlfe5mlHQ4cXmusiSsbhMbRmYBvUl0zzSqw5dr0KfU7S7t0GpNUcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dubeyko.com;
 	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eCwPBjAb;
-	arc=none smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n+KRKiLF;
+	arc=none smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6F7606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A6F7606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA6E606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:46:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBA6E606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eCwPBjAb
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b312be5de8so1609557b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:46:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n+KRKiLF
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b118bea471so1979267b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:46:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793763979; x=1794368779; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vxJLmV6OXCoxa83sUUnlyhlj59SW1UTBuaKREwaI5xs=;
-        b=eCwPBjAb3NxMDUZxnVXXHzzGe4OTamvDv7DRDfxO0hxmggqPvc7mx1hkEjLlr6Q78s
-         0BEGtP1o8tbCe8p69PZg47w1P9iYgQXt8vzkc+SZAHzqIaK3ut8DwDAvulLH2FMbsH+V
-         Icf0ezrtQMZjUQys1GhKiCWG4/szbEM6jhepnfyuymF23Qb8HyerfvuwbDPo+s3PDcnw
-         kg7iAXWgMQsXNbCGF5mJFg3vVlXx0UBPcbcQjG4Ue4gQg2e0gf6qQmG6sKUwwn3UAyPY
-         vAolazpUjoi0rxlsyAf9WXnJ4N8PcI0VpmQGBVi3K3jm2cvrfYsOhoA8pbuXH5or3Z9z
-         n1aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793763979; x=1794368779;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793763985; x=1794368785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vxJLmV6OXCoxa83sUUnlyhlj59SW1UTBuaKREwaI5xs=;
-        b=PJbKmOdU3Af6FpPy1sS+kaTztj5Gj1ySYJXocWFBtCu2PwYkXtLbMrVAzHe1OH7inY
-         g8YuwJno0TBtZjLDCCfMNM8g224UefzZSrz9ayU+MRFDRuDs4BzenI3AK63e988JVE15
-         Nz28ZkeogUxFX0PHhUB/y0qKX4uWb8zL44l8CtQA04IgzigPOOVa5G+JDkmfpLLZkDRe
-         0jiIOqwQ3+ZP8QHn+hAVNsHYFl4GgOIZSpFlsMcr20uJlznUsKRy/nJNadO6lfluwSBy
-         ejWxvG1M4Ul/c5Hph5q/KVO1nFUifQ4qJGrbtcSt/zhI213ksU2OOr3StkAHmnFcc5Mn
-         nwQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcdIfcSmIVBQgngg/xWUsohYpBVuqtbC8E6oqPHDZEPAlUQ4/MJBrCRSpt4iEGw+FhTqszZyv7xpUQN2s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5Bae7FeMVeYkefFImnsuHdrmCdCm9NbMgYusxdXcPahkpQRwC
-	Vbqr7xkPLSYcc1GvsppstGdiuiqzJXWIBWieMuzIDYSWf0+BoEEwH8Y7dlpR3xM6CEs=
-X-Gm-Gg: AYBFou00x+TLDUpPZMyzdVusAyuuZefJ152PNgcxpN67q9NBmSQaR6CYWWOPiXltUI9
-	qwZJ2bbaoy3DUN6kKORlIXyE4TXLvyunGklDI1VOoLEcghwu+PIa56xcBkncM8981oh6M0H+wc1
-	m0P5dNtV0BPV2ULHRBvYcAe1M/Y4GU68x/rKJvvjj2ovlLfZ/+G7B0fgl5bnXTV4iF2TQUvf7Sh
-	KTgLHZfSOSRX17cByoo9aQs5MGaXzmeQeOFqaIHZLWc0FbebYd43gT5e8AedjztR5Ics7QoDWl+
-	yR9x24V19RVBP0Twr73C7Z8kYpExRK50GURSri1Ws8qlfwB4b/dfqbh/dClJBibbkliKPk60760
-	dap2l+c99HjknA21BDdYX5k2JKJU4wjaZ+WS8E2eWJ0KFIyB35WdSWriynvnyBBdpm8j9OQfwMP
-	i+tsTjeSkM4WV91kPOHXUZt7ndOawJ87jxraguigDBeE25y5XY8dq0Y+gCTK5vEjr2//FV7RP/X
-	vXxbdaZdxRC+tL5k02jWZOnwrNKEusHu6E0vXvDKiISKy1X3Z952VSGEjP8lEBTUlDsK5svKNhl
-	wPS1fNPTL07zVEtFGZ4Zl1HYLbSPmc/ZeEvxaMVhwC4Wyupfgs+9ffabu7oS3dAIheG0QClYb3z
-	dqpQOCtXPJjgTKVk3p2iwTyR7HF/BO+s7XT56dimV59RGRGUkJQePCRGKvdWKxCtkbAUITqd+PU
-	bKWN0l
-X-Received: by 2002:a05:690c:e3eb:b0:8ae:9448:14c2 with SMTP id 00721157ae682-8b2b67dad22mr93460477b3.99.1793763978973;
-        Tue, 03 Nov 2026 19:46:18 -0800 (PST)
+        bh=cPyjzrLxXwGGm06CwHQCWWTm8AUJ7SVjwiiyoo6HSCE=;
+        b=n+KRKiLFVw3fuxocD3w8AwP09lJ+LToZY7bcpUPR0+BUnATJSm3lD72izayogPqpPM
+         zw9hmjFl8mJg9fNJ3Bvv+PCIAqaMzYKLXsMOadyxt0/XTHkBgVeGqpv7V+ccSEnEnXUj
+         uqs/hUzb0uVEfWK1XVfgOM8x8lDeGW9cB6bIK6WjUaWJ6oCDtoyhzWxiYKv4SXt24A9n
+         k0wx1aeFHq0RsQqBWaT9Q54QKBl/rS4+ecJc7PFYUANKd6JHIfpcGeuvXW5L15uuTpVA
+         OdMs3CTOms3jd8NwjR8zNnFf4aarX3bYvaiFKtvpRYD/nfeiW2z+3oBP7IP+qAc3dWCa
+         FesA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793763985; x=1794368785;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cPyjzrLxXwGGm06CwHQCWWTm8AUJ7SVjwiiyoo6HSCE=;
+        b=C0s6xGJPe9X850XAdGbEeFCaX56ZpPGp/klxOa1yeJriEiALP2C6bmBl2vVqN79zvr
+         6+ECQ6w1ozS0hqLbj7cBRZSCRFpSNuwiZ21FT8ItfqiLKfPKnbJON5nHzlStekZ7pmO7
+         PL3Q26u5sXRzQTv4DtWB9hPhx/WlbvYDxPu4rIMF9AYIhJK7wYIl6FR8wR1jJdpNaaKX
+         nmiwz7cx8xGp0h4oQI/zp7FnhjilW5mysPC085XtoUVJJiGaR3b4R2tccKE7NWtlqrPV
+         oJQzJqc9RuYEGpiak8aW/iQ4HD7LRyd+ePGToGK9/iyEFz00ymU7+//cSpTwI/0K4YPv
+         w8FQ==
+X-Forwarded-Encrypted: i=1; AKwUvByiYxhpTjrmNeDtS6uNHrjtgUF71JQxShNDaYfc63PBORajYOgfobZPFSFKBPYfPJdIuvWxa/FMQzjyS6E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//huAvaf4aKGEx9ax5+yuQBdKFCYhS74HTYV7wnz/bPSoMg0BK
+	GJDCSmbi4ULK6ecu3Qq5dv/dc2vLZlR7Ulhw62UmoBtVeZP3IGbciVXO3Bm1eeVCGRY=
+X-Gm-Gg: AYBFou0g6d0pGYg/66/3w+6AtqDUPuF4l5jUbjQclZre7rg43lTljmYSbq3J6LBDwEa
+	zYxY0rlYIvZR8bxNnuxBxa6LrbVi/8p8DN+bAwzuKsAPjcgN6BO3v6L8Mq7qtnTnMVQ3yjzroct
+	St/B32C26GYdlaxSE05CvZ2EZm9EZzSWxmb8VcbsMhmm/lp1NuoYlDtTA/cMim2V4gurwOjgerh
+	paTaZZ5ist9X8OL1bqZrIY3DzYMCwEH6pcEnbTP+cYw/rwRi+en6/lKEvRqnp906aOZ/51yGkkk
+	JYdMXCaRo1wKd8QklqioQ5Fn9h8+CV18vr9vhoVfRRX3J/QzY3vk871HsEurFZFgR8UM8BhUY1P
+	Yio1wh6cLSbqY9OMYumAGAqfnlgUZhKlUNozBsw8ckOMTmQ/u5TyqK89gvzEgp7ci9/Q+5GwECt
+	lNdbc2ThwehbGP7qW4w0O5aDcn3Kth5ulbS9ctBGyHOq4wtWlgiVONhii537EVA1urxWIfy0qs6
+	9g9b5ewQjHewP+XGxWFRKXvCVHt83Vgvextz1Degk0PgVEsbaEeLqCf8QRv7UUUYlX2aZbVfrFc
+	nW1F/tTgIEtKXqxU44W4qwdDp/whjbm3OvNk1m08Ne6cdC68t91cq032b8CIp4tT5ROHPsSIbNC
+	KhD3UHtnPxsm4C49pyB2w3Ce2NxpohfWFhiTGNAVhdTFUfQjSw7pYU7rznxk=
+X-Received: by 2002:a05:690c:c513:b0:8b0:a857:654f with SMTP id 00721157ae682-8b2b67b73cemr101835337b3.63.1793763984905;
+        Tue, 03 Nov 2026 19:46:24 -0800 (PST)
 Received: from pop-os.attlocal.net ([2600:1700:6476:1430:1921:d22d:3124:a258])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309711412sm10918117b3.3.2026.11.03.19.46.15
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309711412sm10918117b3.3.2026.11.03.19.46.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 19:46:18 -0800 (PST)
+        Tue, 03 Nov 2026 19:46:24 -0800 (PST)
 From: Viacheslav Dubeyko <slava@dubeyko.com>
 To: glaubitz@physik.fu-berlin.de,
 	frank.li@vivo.com
@@ -86,10 +86,12 @@ Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	vdubeyko@coreweave.com,
 	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 0/2] hfsplus: make hidden directory name independent from nls
-Date: Tue,  3 Nov 2026 19:46:03 -0800
-Message-ID: <20261104034605.1582293-1-slava@dubeyko.com>
+Subject: [PATCH 2/2] hfsplus: add KUnit check for hidden directory name
+Date: Tue,  3 Nov 2026 19:46:05 -0800
+Message-ID: <20261104034605.1582293-3-slava@dubeyko.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104034605.1582293-1-slava@dubeyko.com>
+References: <20261104034605.1582293-1-slava@dubeyko.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,46 +103,141 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-HFS+ keeps the indirect node files of hard links in the hidden
-directory of the root folder. On disk, its name is four U+0000 (NUL)
-characters followed by "HFS+ Private Data". Currently, the catalog key
-of this directory is built from the UTF-8 string HFSP_HIDDENDIR_NAME
-by means of the nls table of the mount. hfsplus_fill_super() works
-around it by temporarily replacing sbi->nls with utf8 table, but
-hfsplus_reconfigure() creates the hidden directory on remount
-read-write with the mount's nls table. As a result, with nls=cp437,
-for example, the hidden directory is created with garbled name that
-neither macOS nor the next mount recognizes.
-
-At first, define the on-disk name of the hidden directory as
-constant UTF-16 string hfsplus_hidden_dir_name_utf16, introduces
-hfsplus_create_cat_uni() that creates catalog records for already
-converted name, and removes the temporary nls replacement from
-hfsplus_fill_super(). The length of the name is calculated from named
-constants, and the UTF-8 and UTF-16 representations of the name are
-distinguished by the HFSP_HIDDENDIR_NAME_UTF8* and
-HFSP_HIDDENDIR_NAME_UTF16_LEN macros.
-
-Secondly, add KUnit test that checks that hfsplus_asc2uni()
+The hidden directory is created and looked up by means of
+precomputed UTF-16 name hfsplus_hidden_dir_name_utf16, while its
+Linux representation HFSP_HIDDENDIR_NAME_UTF8 is still used
+elsewhere. Add regression test that checks that hfsplus_asc2uni()
 converts HFSP_HIDDENDIR_NAME_UTF8 with utf8 nls table into exactly
-hfsplus_hidden_dir_name_utf16, with decomposition enabled and
-disabled.
+the same UTF-16 string, with decomposition enabled and disabled.
+In particular, it checks that every U+2400 (SYMBOL FOR NULL) of
+HFSP_HIDDENDIR_NAME_UTF8 is stored as U+0000 (NUL), as macOS
+expects, and that the length of the converted name is
+HFSP_HIDDENDIR_NAME_UTF16_LEN.
 
-The hfsplus_unicode KUnit suite passes (35 tests) under UML.
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+cc: Yangtao Li <frank.li@vivo.com>
+cc: linux-fsdevel@vger.kernel.org
+---
+ fs/hfsplus/hfsplus_fs.h   |  1 +
+ fs/hfsplus/super.c        |  4 ++-
+ fs/hfsplus/unicode_test.c | 55 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 59 insertions(+), 1 deletion(-)
 
-Viacheslav Dubeyko (2):
-  hfsplus: make hidden directory name independent from mount's nls
-  hfsplus: add KUnit check for hidden directory name
-
- fs/hfsplus/catalog.c       | 83 ++++++++++++++++++++++++++++++--------
- fs/hfsplus/hfsplus_fs.h    |  6 +++
- fs/hfsplus/super.c         | 68 +++++++++++++++++--------------
- fs/hfsplus/unicode_test.c  | 55 +++++++++++++++++++++++++
- include/linux/hfs_common.h | 20 ++++++++-
- 5 files changed, 182 insertions(+), 50 deletions(-)
-
-
-base-commit: 71d5a8a05c83b61bce1884905c192eed34ed3069
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index e2d3f488142b..dd88053cc9b3 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -487,6 +487,7 @@ int hfs_part_find(struct super_block *sb, sector_t *part_start,
+ 		  sector_t *part_size);
+ 
+ /* super.c */
++extern const struct hfsplus_unistr hfsplus_hidden_dir_name_utf16;
+ struct inode *hfsplus_iget(struct super_block *sb, unsigned long ino);
+ void hfsplus_mark_mdb_dirty(struct super_block *sb);
+ void hfsplus_prepare_volume_header_for_commit(struct hfsplus_vh *vhdr);
+diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+index 57858d8685ff..4e878641fb59 100644
+--- a/fs/hfsplus/super.c
++++ b/fs/hfsplus/super.c
+@@ -18,6 +18,7 @@
+ #include <linux/slab.h>
+ #include <linux/vfs.h>
+ #include <linux/nls.h>
++#include <kunit/visibility.h>
+ 
+ static struct inode *hfsplus_alloc_inode(struct super_block *sb);
+ static void hfsplus_free_inode(struct inode *inode);
+@@ -406,7 +407,7 @@ static int hfsplus_statfs(struct dentry *dentry, struct kstatfs *buf)
+  * by U+2400 (SYMBOL FOR NULL). The catalog key of the hidden directory
+  * must not depend on the nls table of the mount.
+  */
+-static const struct hfsplus_unistr hfsplus_hidden_dir_name_utf16 = {
++const struct hfsplus_unistr hfsplus_hidden_dir_name_utf16 = {
+ 	.length = cpu_to_be16(HFSP_HIDDENDIR_NAME_UTF16_LEN),
+ 	.unicode = {
+ 		/* unicode[0 .. HFSP_HIDDENDIR_NUL_COUNT - 1] are U+0000 */
+@@ -420,6 +421,7 @@ static const struct hfsplus_unistr hfsplus_hidden_dir_name_utf16 = {
+ 		cpu_to_be16('a'),
+ 	},
+ };
++EXPORT_SYMBOL_IF_KUNIT(hfsplus_hidden_dir_name_utf16);
+ 
+ /*
+  * Create the hidden directory that keeps the indirect node files
+diff --git a/fs/hfsplus/unicode_test.c b/fs/hfsplus/unicode_test.c
+index a683c6d5fc22..cb237a40c0c3 100644
+--- a/fs/hfsplus/unicode_test.c
++++ b/fs/hfsplus/unicode_test.c
+@@ -1165,6 +1165,60 @@ static void hfsplus_asc2uni_legacy_seq_fixup_test(struct kunit *test)
+ 	free_mock_sb(mock_sb);
+ }
+ 
++/*
++ * Test that the precomputed Unicode name of the hidden directory is
++ * exactly what hfsplus_asc2uni() produces from HFSP_HIDDENDIR_NAME_UTF8
++ * with utf8 nls table. Otherwise, the catalog key of the hidden
++ * directory created or looked up by the driver will not match the key
++ * that macOS (and older versions of the driver) uses for this folder.
++ * The result must not depend on the decomposition setting either.
++ */
++static void hfsplus_hidden_dir_name_test(struct kunit *test)
++{
++	struct test_mock_sb *mock_sb;
++	struct hfsplus_unistr ustr;
++	const struct hfsplus_unistr *expected = &hfsplus_hidden_dir_name_utf16;
++	u16 len = be16_to_cpu(expected->length);
++	int result;
++
++	mock_sb = setup_mock_sb();
++	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
++
++	mock_sb->nls.char2uni = test_char2uni_utf8;
++
++	KUNIT_EXPECT_EQ(test, HFSP_HIDDENDIR_NAME_UTF16_LEN, len);
++
++	/* Decomposition is enabled by default */
++	memset(&ustr, 0, sizeof(ustr));
++	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
++				 HFSP_HIDDENDIR_NAME_UTF8,
++				 HFSP_HIDDENDIR_NAME_UTF8_LEN,
++				 HFS_REGULAR_NAME);
++
++	KUNIT_EXPECT_EQ(test, 0, result);
++	KUNIT_EXPECT_EQ(test, len, be16_to_cpu(ustr.length));
++	KUNIT_EXPECT_MEMEQ(test, expected->unicode, ustr.unicode,
++			   len * sizeof(ustr.unicode[0]));
++	KUNIT_EXPECT_EQ(test, 0, hfsplus_strcmp(expected, &ustr));
++
++	/* The same name with disabled decomposition */
++	set_bit(HFSPLUS_SB_NODECOMPOSE, &mock_sb->sb_info.flags);
++
++	memset(&ustr, 0, sizeof(ustr));
++	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
++				 HFSP_HIDDENDIR_NAME_UTF8,
++				 HFSP_HIDDENDIR_NAME_UTF8_LEN,
++				 HFS_REGULAR_NAME);
++
++	KUNIT_EXPECT_EQ(test, 0, result);
++	KUNIT_EXPECT_EQ(test, len, be16_to_cpu(ustr.length));
++	KUNIT_EXPECT_MEMEQ(test, expected->unicode, ustr.unicode,
++			   len * sizeof(ustr.unicode[0]));
++	KUNIT_EXPECT_EQ(test, 0, hfsplus_strcmp(expected, &ustr));
++
++	free_mock_sb(mock_sb);
++}
++
+ /* Mock dentry for testing hfsplus_hash_dentry */
+ static struct dentry test_dentry;
+ 
+@@ -1873,6 +1927,7 @@ static struct kunit_case hfsplus_unicode_test_cases[] = {
+ 	KUNIT_CASE(hfsplus_unicode_combining_reorder_roundtrip_test),
+ 	KUNIT_CASE(hfsplus_asc2uni_legacy_decomp_test),
+ 	KUNIT_CASE(hfsplus_asc2uni_legacy_seq_fixup_test),
++	KUNIT_CASE(hfsplus_hidden_dir_name_test),
+ 	KUNIT_CASE(hfsplus_hash_dentry_basic_test),
+ 	KUNIT_CASE(hfsplus_hash_dentry_casefold_test),
+ 	KUNIT_CASE(hfsplus_hash_dentry_special_chars_test),
 -- 
 2.43.0
 
