@@ -1,110 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820616;
-	b=qB+qtQ89FxpzP/vADP12n+BlctH7MoKizuIAfaiHQloklFOS0oW1otMqb1FbEAcUfxHq
-	 rAz7YQuIR+caMYO0GnfFHBcQMuWJ1sT2+Wdq5lXLw4TOWLV55kpXk/gipfNX5DeCh/7T5
-	 uU2VY9vPMmHwV4LvYL3sjWiLUMymccgRLpqYsfHkk8xjoLbqGXjMwtEM5T7wAjyu2BB70
-	 wdeXl8NsLzsP8DpSeJ0xv31yPC/lxuCp9jaCxbAlZU/gP8WE6Ln97UxaXAVV/DOTn92qU
-	 nyQh/5CQeBgqdlk/WQhsrCZJhUUHfpmG+PON8r4VPaukhopNc95qLl6Ff7+vcJKgbSQ==
+	t=1793820642;
+	b=APLPBarypkmZ3sSnkilQQ7bxKkK+80wTVDh6Lfc1TZyNbL0E0X7UqULLphdbJdSnDjZS
+	 +0wn1VmC0q4dRMVa/bYGv39DgRDMjEXuTPhTf5KCqH7Ajabsx3ikixySDI+fQ1IJmi+98
+	 dASDUsokgZbflwGpsqERcTr/SawQRatH3eycwFVlsDMwwtzl5YqJRoioT0hqo4Mx54Qdn
+	 CKr+YV0D8tYm2PVdC3WYR9BTsEik6uzVnFG+BxzR6IwW4Qdo9IzPQsWpBEICk/TGaNR8u
+	 QJe02pOQ5X5hulP62EEWym9r+fNLen2JINPXJ001YiC3D2PI8ViOit6cysg4h1YN+BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820616;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=wXVlMWiDTu+69WMCdmpXWiSSm+c28yN85IUhl+IubT8=;
-	b=H5Mdy7Uuukscocv+TsvTE+Ex1srBMbzUx3KXUxrVlfrFwmRwOhkoGgkGO6JB2yf3FUAC
-	 a/ltam8bUknm7Sx1MdrUZo7lDc9EgWoiy9e5ud1UvPSC5TWgn/WwEs4oY8cfoBWaC8Nd4
-	 RsXE78TT5BO+G8UrIUnIN1pgBFdHSD6+dzXveD4mUKkKG0oc6wHq2M4jCxwSf8A6S5BcQ
-	 evtADxkvQDitICpk7JdPszQ95Rh/EQq3f5WgZDOWuE5VeY49evS5ZSeBgtbKcfPeWjgMn
-	 DJHOAPLZ22J7+7ywRsVdpAf+dShj43pxonu9iQkRF8tMHu6hnlUfQnRcD+iUxam6e4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820642;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3at1T5Y3NkxHZArmAf/Wyx+q3DAsNgKKHj/Uc4gaVrA=;
+	b=e8srAE8BYGdPnhrxkJNybtMp2Bssu2rPjcH3+btBb/slnPq+7rwpeMAgXfIMhHvybrpk
+	 1ZcE4448uX1p9BSQg43IKwWRc7cKGzSatVavQZOtsvS7w+6jX7AmamvD32nzsc1bbg/Td
+	 dlDkmdL6qczbIYKxB6y7hN2TfOJ1MjkI6IRA0ZfChzMvNbQjFhRhs4bC4iKIdq3J/+wV0
+	 2zICW7BsLxWbteY3RgUCBSdMjTGKITsiFTheOPyoeNxJHuwL84CCSyEEqXtRexkSe6d+S
+	 56cTpmTOOIUJRoHku1KOX4J3V1A7omfKBJrEHbBMVaH/yY5fBg6mjI0E4DSUNVvtbYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erxYLb1X;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a5TQ7dJv;
+	arc=none smtp.remote-ip=209.85.210.42
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B266076CD9;
-	Wed,  4 Nov 2026 19:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50949606C587
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:30:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50949606C587
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erxYLb1X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DD31F00919;
-	Wed,  4 Nov 2026 19:30:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820615;
-	bh=wXVlMWiDTu+69WMCdmpXWiSSm+c28yN85IUhl+IubT8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=erxYLb1X2DHiu8zWp8v0jRYZ5UGBGh+M5ta+MA4icX/zIpChkASF4X68Jon0h6gUC
-	 8nuq0rsoqvadx2nDVRRlBP2aj3ufS3vatM8TDiMeFwvrDbjUNZAnA9ofhKM5FJ6XdR
-	 sKm5V0II55oa6/vNBFqcvr+LbWPRO0kbZer+mED55WXozLJTUJG12joB4mMb5qG9J7
-	 VpqXXHbX8Uyy3Hnr9YOzD5moscAo3/2JptEeVKryH7YO1wOoswN1+5wJ5ax5tGm2mR
-	 +F9oKHdKLr81Lnpvjj/9p5jcmbN338nH1sT0ofHVHFecyj5pPtazwCt2Ap7nkxjs5Q
-	 Nyh8bzuW3jflg==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a5TQ7dJv
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-846566246e8so1037538a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:30:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793820641; x=1794425441; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3at1T5Y3NkxHZArmAf/Wyx+q3DAsNgKKHj/Uc4gaVrA=;
+        b=a5TQ7dJv2Q8yNW9kFRS0c6hHEyDGSH0UpHFfuS115vtOJ6fLBlOX4RhN54HWkAGDlI
+         N9PbT6hfdGZoy77XMwJNDQQdOGEP4XPu2lDttzbHwVmtKnZBfEAa8O/7nNRMx85uyAJM
+         LK0rrhtIf8701DxXoQH6hXxrr8WWRIqTbxkc8xcYkf0kcXu90tj8fQ+QWFUmMzsTikwr
+         W+Y674kZHB/kEpXccuP0JS80f4jZhEVk3pPbDQm/wTvybAxLs0QLYUkn5ogSW3jH9/ht
+         /AvkQ2oKeeJhmku/wJ5xcll2/IsRRIL5hyEBtJvUQ6+JoUVUyh4wt7DlXx0eEEvBtfz0
+         Rzyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793820641; x=1794425441;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3at1T5Y3NkxHZArmAf/Wyx+q3DAsNgKKHj/Uc4gaVrA=;
+        b=lehRC459RT52j2tG+0anZA+P8WM7+3KvpDxmAYjlihb1EMwD7IpfZzh2OZpU2ua84a
+         4MXFZJUhCeHF3dLFb+O6GRFeFnzwyeCKPjATkXXIQmexz+gqW64ONlCSH0oru6qBTZ81
+         NEbLlEA/uUiyrcQh78xHKtNFWIOnNLMWo542L3lIf4wDDSe1Sa9Hld7tlK5/KescxMi7
+         42CF24FG0Ofg0VLCOUKv4R38nJkAye0ZSQVY7Ja8sxfahPGfrYstoFmVUGUsZS9fwza8
+         Yve5Lta8d2EMR0Bey6oL2DLRv+3wMH7Dued9LwfH640YvcSHMKvHc4SEDBMYMA669T2y
+         KPng==
+X-Forwarded-Encrypted: i=1; AKwUvBw1Eev2y0yr4kGRqJ6kYUbklinmN/t8glT4DLs1I+y17Wqgj53LMv0zGgx6mbKLNqd2Om93GhVpwLtNHKg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7bDw69MhM8VFx7g53iSXUm+cLC8tf8TOAwaxhzVElLPUbESLP
+	25+7gGyCjtXGZgkmXByhvHYG9MzBormz8PpWda7LpcvJmTA+YjT/fW4W
+X-Gm-Gg: AYBFou3Z+Oc1sc78jA5m2tKoLKsLcU07xwzOexoTu+/80fOBjwNVZXAYaVsACoDK7X6
+	/JhsLw79WCA9X8V6PZnzmQ2jeQj5UNBetu2Gurt2bMCrMIOqI/nCvMy4NQwO5sux0RFTSo429ET
+	GCc6lvnxlC6G0Qmblrm+E57zUddwg8FTHrh314fD5Jqrmkc2r26VTy8Yo6iVSZJfDO9vkkFqCHi
+	+91y3XvP94WmhkwYENxt3bvYZB+lVfhsb8GgUGfJ7StuDnfbLW2QR6UFV0M/aOtSe8lvq6ET0eF
+	QIsoXi+L2oK6Q7BhcpqSGZ4DBpayHmb1RxH6oHx9UigrmWym1L8x6ABonGlyAg0OvvhJBRn8CJe
+	oaO1Jejd++aWoYigWdaL9PODnWt8cs845XL81OLvrhfugK7ge2ZJKGqwtm/a17xs81NUf05i1YR
+	+IeHNT5TfxPVEgDVnuXtqNhaG1tz2eV2AT4UwX5eKGvl7qNUJdUpd976PE6MTMKfAU3qz+rUbFE
+	6491y1qYoW5BbniPLLla4EjO8YkU61/yYzApC6FZPelbkALuKC3Dr6M9eOd7+ozsiQw6hHIuKrK
+	nwz3F7D8xvn8Eub2E7ey0o3V1o3vPMZRgtL61vdu1WwDUTmJ2eQWt5fRrjZUWq6JtiGOiiE=
+X-Received: by 2002:a05:6830:6412:b0:81d:9acd:ee04 with SMTP id 46e09a7af769-85f0528fe51mr386304a34.0.1793820641158;
+        Wed, 04 Nov 2026 11:30:41 -0800 (PST)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e55906sm2577422a34.18.2026.11.04.11.30.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:30:40 -0800 (PST)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: Andrew Davis <afd@ti.com>,
+	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 03/23] proc: share the readdir cursor with sysctl
-Date: Wed,  4 Nov 2026 20:30:01 +0100
-Message-ID: <20261104-work-procfs-core-v2-3-76ace653a773@kernel.org>
-In-Reply-To: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
-References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] leds: tca6507: Fix use-after-free on unbind
+Date: Wed,  4 Nov 2026 13:30:38 -0600
+Message-ID: <20261104193038.91614-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,226 +98,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7727; i=brauner@kernel.org; h=from:subject:message-id; bh=T1jO1APZ3j3BQHDjVCpmuxMpr8V+h+I2OmQhvzCN9EY=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bi+58GPL4mlqj67P2u71ltNkzqaV66omL9vzZbrTm 6qaruBg345SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJLKxl+GfMdq5+mWH0iYYW pjurF5RIvVivMn2Ztpzp+jttleeahF4x/C9dvn1KMM+3u+sn3VvOYpmaw5XlpZepdd7umWXjkTf LRFkB
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-proc_readdir_de() and proc_sys_readdir() both resume a listing after
-the last entry it emitted and each remembers that entry in the open
-file with a cursor of its own: the same struct, the same way of
-setting it, the same release. Keep one in generic.c and let sysctl
-use it.
+Since the LEDs are registered with devm_led_classdev_register(), they
+are unregistered only after tca6507_remove() has cancelled the work.
+Unregistering an LED that is on turns it off, which queues the work
+again from led_assign(), and the work then runs after devres has freed
+the chip:
 
-No functional changes.
+  BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
+  Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
+  ...
+  Last potentially related work creation:
+   ...
+   queue_work_on+0xb6/0xc0
+   led_assign+0x223/0x340 [leds_tca6507]
+   led_classdev_unregister+0x26b/0x340
+   release_nodes+0xb3/0x140
+   devres_release_group+0x247/0x470
+   i2c_device_remove+0xbf/0x1b0
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Initialise the work before the LEDs are registered and flush it from a
+devres action, which then runs after the LEDs are gone and before the
+chip is freed, and drop tca6507_remove(). Flushing instead of cancelling
+also makes sure that the queued writes reach the chip, so the LEDs are
+really turned off. By the time the action runs, the LEDs and the GPIO
+chip have been unregistered, and the work does not queue itself, so
+nothing can queue it again.
+
+Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- fs/proc/generic.c     | 29 ++++++++++++-----------------
- fs/proc/internal.h    | 25 +++++++++++++++++++++++++
- fs/proc/proc_sysctl.c | 45 +++++----------------------------------------
- 3 files changed, 42 insertions(+), 57 deletions(-)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index e7264f0cf5ab..f6d620a5c3d2 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -301,22 +301,16 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
- }
+Notes:
+    Changes in v4:
+    - Squash the two v3 patches into one, flushing the work from the start (Lee)
+    - Drop Andrew's Acked-by, since the code is now different from the
+      version he acked
+    - Rebase on for-leds-next
+    - Link to v3: https://lore.kernel.org/all/20261028174348.64014-1-danishkhateeb03@gmail.com/
+    
+    Tested in QEMU on a next-20260930 KASAN kernel, with the driver built as
+    a module and a test-only module that adds a fake I2C adapter, logs the
+    register writes and adds a software node for a TCA6507 with two LEDs.
+    Without this patch, unbinding with the LEDs on hits the report above
+    (39 reports in 20 unbind/bind cycles). With it there are no reports in
+    20 cycles or on unload, and every unbind ends with a write that turns
+    both LEDs off (with v2's cancel, 7 of 20 unbinds left an LED on). A W=1
+    build with GPIOLIB is clean. The code is the same as v3 with both
+    patches applied.
+    
+    An LLM was used to help with this patch.
+
+ drivers/leds/leds-tca6507.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
+index 9afe2722986c..ffad476af625 100644
+--- a/drivers/leds/leds-tca6507.c
++++ b/drivers/leds/leds-tca6507.c
+@@ -711,6 +711,11 @@ static const struct of_device_id __maybe_unused of_tca6507_leds_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, of_tca6507_leds_match);
  
- /*
-- * Where the next readdir resumes. The entries are counted, so one that is
-- * added or removed in front of the position would shift what the next call
-- * returns. The name of the last entry emitted doesn't move.
-+ * Remember @name as the entry the listing is behind at @pos. If this can't
-+ * the next call counts from the start.
-  */
--struct proc_dir_cursor {
--	loff_t pos;			/* the position behind the entry */
--	unsigned int len;
--	char name[NAME_MAX + 1];
--};
--
--/* If this can't remember the entry the next call counts from the start. */
--static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry *de,
--				loff_t pos)
-+void proc_dir_cursor_set(struct file *file, const char *name, unsigned int len,
-+			 loff_t pos)
- {
- 	struct proc_dir_cursor *cursor = file->private_data;
- 
-+	if (len > NAME_MAX)
-+		return;
- 	if (!cursor) {
- 		cursor = kmalloc(sizeof(*cursor), GFP_KERNEL);
- 		if (!cursor)
-@@ -324,8 +318,8 @@ static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry *de,
- 		file->private_data = cursor;
- 	}
- 	cursor->pos = pos;
--	cursor->len = de->namelen;
--	memcpy(cursor->name, de->name, de->namelen);
-+	cursor->len = len;
-+	memcpy(cursor->name, name, len);
- }
- 
- int proc_dir_release(struct inode *inode, struct file *file)
-@@ -346,7 +340,7 @@ int proc_dir_release(struct inode *inode, struct file *file)
- int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 		    struct proc_dir_entry *de)
- {
--	struct proc_dir_cursor *cursor = file->private_data;
-+	const struct proc_dir_cursor *cursor;
- 	struct proc_dir_entry *dir = de;
- 	int i;
- 
-@@ -354,7 +348,8 @@ int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 		return 0;
- 
- 	read_lock(&proc_subdir_lock);
--	if (cursor && cursor->pos == ctx->pos) {
-+	cursor = proc_dir_cursor_at(file, ctx->pos);
-+	if (cursor) {
- 		/* Resume after the last entry emitted, wherever it is now. */
- 		de = pde_subdir_after(dir, cursor->name, cursor->len);
- 	} else {
-@@ -378,7 +373,7 @@ int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 			return 0;
- 		}
- 		ctx->pos++;
--		proc_dir_cursor_set(file, de, ctx->pos);
-+		proc_dir_cursor_set(file, de->name, de->namelen, ctx->pos);
- 		read_lock(&proc_subdir_lock);
- 		/* Removed in the meantime, go on after its name. */
- 		if (RB_EMPTY_NODE(&de->subdir_node))
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index 268a0523be12..6b61d09ac5e5 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -278,6 +278,31 @@ extern struct dentry *proc_lookup(struct inode *, struct dentry *, unsigned int)
- struct dentry *proc_lookup_de(struct inode *, struct dentry *, struct proc_dir_entry *);
- extern int proc_readdir(struct file *, struct dir_context *);
- int proc_readdir_de(struct file *, struct dir_context *, struct proc_dir_entry *);
-+
-+/*
-+ * Where the next readdir resumes. The entries are counted, so one that is
-+ * added or removed in front of the position would shift what the next call
-+ * returns. The name of the last entry emitted doesn't move. The directory's
-+ * file keeps it, see proc_dir_release().
-+ */
-+struct proc_dir_cursor {
-+	loff_t pos;			/* the position behind the entry */
-+	unsigned int len;
-+	char name[NAME_MAX + 1];
-+};
-+
-+/* The entry to resume after, if the position is still the one behind it. */
-+static inline const struct proc_dir_cursor *
-+proc_dir_cursor_at(struct file *file, loff_t pos)
++static void tca6507_flush_work(void *work)
 +{
-+	const struct proc_dir_cursor *cursor = file->private_data;
-+
-+	if (cursor && cursor->pos == pos)
-+		return cursor;
-+	return NULL;
++	flush_work(work);
 +}
-+void proc_dir_cursor_set(struct file *file, const char *name, unsigned int len,
-+			 loff_t pos);
- int proc_dir_release(struct inode *, struct file *);
++
+ static int tca6507_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -735,9 +740,12 @@ static int tca6507_probe(struct i2c_client *client)
+ 		return -ENOMEM;
  
- static inline void pde_get(struct proc_dir_entry *pde)
-diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-index 6a92c33db9b5..c1e41a3f8f6b 100644
---- a/fs/proc/proc_sysctl.c
-+++ b/fs/proc/proc_sysctl.c
-@@ -787,36 +787,6 @@ out:
- 	return ret;
+ 	tca->client = client;
+-	INIT_WORK(&tca->work, tca6507_work);
+ 	spin_lock_init(&tca->lock);
+-	i2c_set_clientdata(client, tca);
++
++	INIT_WORK(&tca->work, tca6507_work);
++	err = devm_add_action_or_reset(dev, tca6507_flush_work, &tca->work);
++	if (err)
++		return err;
+ 
+ 	for (i = 0; i < NUM_LEDS; i++) {
+ 		struct tca6507_led *l = tca->leds + i;
+@@ -766,20 +774,12 @@ static int tca6507_probe(struct i2c_client *client)
+ 	return 0;
  }
  
--/*
-- * Where the next readdir resumes. The entries are counted, so one that is
-- * registered or unregistered in front of the position would shift what
-- * the next call returns. The name of the last entry emitted doesn't move.
-- */
--struct sysctl_cursor {
--	loff_t pos;			/* the position behind the entry */
--	int len;
--	char name[NAME_MAX + 1];
--};
--
--/* If this can't remember the entry the next call counts from the start. */
--static void sysctl_cursor_set(struct file *file, const char *name, int len,
--			      loff_t pos)
+-static void tca6507_remove(struct i2c_client *client)
 -{
--	struct sysctl_cursor *cursor = file->private_data;
+-	struct tca6507_chip *tca = i2c_get_clientdata(client);
 -
--	if (len > NAME_MAX)
--		return;
--	if (!cursor) {
--		cursor = kmalloc(sizeof(*cursor), GFP_KERNEL);
--		if (!cursor)
--			return;
--		file->private_data = cursor;
--	}
--	cursor->pos = pos;
--	cursor->len = len;
--	memcpy(cursor->name, name, len);
+-	cancel_work_sync(&tca->work);
 -}
 -
- /*
-  * The inode number and type of the entry @d holds, instantiating its dentry
-  * if there is none. Needs the header pinned, proc_sys_make_inode() checks
-@@ -871,7 +841,7 @@ static int proc_sys_fill_dirent(struct file *file, struct sysctl_dirent *d)
- static int proc_sys_readdir(struct file *file, struct dir_context *ctx)
- {
- 	struct ctl_table_header *head = PROC_I(file_inode(file))->sysctl;
--	struct sysctl_cursor *cursor = file->private_data;
-+	const struct proc_dir_cursor *cursor;
- 	struct sysctl_dirent d = {};
- 	struct ctl_dir *ctl_dir;
- 	int err;
-@@ -888,7 +858,8 @@ static int proc_sys_readdir(struct file *file, struct dir_context *ctx)
- 	 * that moved the position away from it counts from the start, like
- 	 * seeking to an arbitrary position always did.
- 	 */
--	if (cursor && cursor->pos == ctx->pos) {
-+	cursor = proc_dir_cursor_at(file, ctx->pos);
-+	if (cursor) {
- 		err = sysctl_dir_next(ctl_dir, &d, cursor->name, cursor->len);
- 	} else {
- 		loff_t pos = 2;
-@@ -910,19 +881,13 @@ static int proc_sys_readdir(struct file *file, struct dir_context *ctx)
- 				break;
- 		}
- 		ctx->pos++;
--		sysctl_cursor_set(file, d.name, d.len, ctx->pos);
-+		proc_dir_cursor_set(file, d.name, d.len, ctx->pos);
- 		err = sysctl_dir_next(ctl_dir, &d, d.name, d.len);
- 	}
- 	sysctl_dir_done(&d);
- 	return err;
- }
- 
--static int proc_sys_dir_release(struct inode *inode, struct file *file)
--{
--	kfree(file->private_data);
--	return 0;
--}
--
- static int proc_sys_permission(const struct mnt_idmap *idmap,
- 			       struct inode *inode, int mask)
- {
-@@ -1002,7 +967,7 @@ static const struct file_operations proc_sys_dir_file_operations = {
- 	.read		= generic_read_dir,
- 	.iterate_shared	= proc_sys_readdir,
- 	.llseek		= generic_file_llseek,
--	.release	= proc_sys_dir_release,
-+	.release	= proc_dir_release,
+ static struct i2c_driver tca6507_driver = {
+ 	.driver   = {
+ 		.name    = "leds-tca6507",
+ 		.of_match_table = of_match_ptr(of_tca6507_leds_match),
+ 	},
+ 	.probe    = tca6507_probe,
+-	.remove   = tca6507_remove,
+ 	.id_table = tca6507_id,
  };
  
- static const struct inode_operations proc_sys_inode_operations = {
 
+base-commit: fb511964723311e9a7223e424d725c58dde8307a
 -- 
-2.53.0
+2.56.0
 
