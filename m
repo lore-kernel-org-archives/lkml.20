@@ -1,48 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816465;
-	b=UnxRa4D/ZCiZAdtUCX1J+ld3UjoSLokKh/OPJ49++kLofiSgf9bBts/dJsHoUhqquIkx
-	 0Yvttl+2D65JjlNhA5Sv8oXzQ/MZrf8+ra2n0lhP5vkW9SHnASJNEqPY2qd8ahxbmul9u
-	 n9Po3iO3g1OIn5i8wTlQWIzIhIKQ39A3vnFphzyw9Nl2X2u7RcXo3DYNU3Nl2zK0kwAm4
-	 EifAQuWnDig9Jde30ESXsAmCl/3rdalv3hmVDGRZvaScaCQmW1qGq+sN4vkknkKFghxH/
-	 ergwnP8acOBC4SUhvZNVZIBM3qaAgTEcMiwSupaEguTsB2ZKQiuaUSe2WrAoxgXdBuA==
+	t=1793816475;
+	b=Zvjl/0zGYNGhksiEjvTQ597ihojIrMj08x1kucealVAYC0tDcb6SH/kyZkt9jprbacKP
+	 yGC13LbDvGNtKzhCQUnCq081IHGDcRWn0fFYOJpD97uqsQxpJLG+1qX6mLvxb+B0wMnUa
+	 BM0Mioq7CycWtTt7jCifgC6ve1CBW7V7UNBb0/fV23wDarNoWM2cfFzVadWIh9Hz30HIF
+	 dHkLd5KwVOMxKvTa7FwAQJmtzPnA1J5dkrX6Jpy2MXI7IW9fHziO3y9FZbHfDzqWAZhaZ
+	 svq+T6NIXEE4uqLWoccmOOdehLJCIg6h+zKm7YeQu4KldCJh8uFMXixodgpGB0urKyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816465;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=k23jnzEAH2UILXVsfgxxO7I2t5cymKKqXKa+Py+jLNQ=;
-	b=I9fxS4B/cybsZeevAagxwpLWqfuE7toInteEblN4fhggVNj91yFnkgRpmvnLaWNOnVYy
-	 /g31d58Zl1vP1rVcqlRLBXGtBjxv6I/N31dofZMUFjfs1fRTXxWC4eTm46RVMqpUhAdlu
-	 UKI+kiembz5VyIqukIyL1DJLqHSq1nX1OqhooqavkEBFMHObmejbCwe+pyAHYCf99Uh/N
-	 SJ4KAyn4jRfHARA+f9ndAQVvkSzZRLq9tkOBxkd6Ug4njLiZ/Q72sWpc15xacMNlNJVUW
-	 2gaywlly8dSZ1Nkc4hGaJrGfx1nz7TXcbAAOo0N0ZNjeEp8kAhBVdNOsOADRc+q79sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816475;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Sv7soWA+8vLeAn0vUqDVEp1NS4DBCssklLnyMqiia/U=;
+	b=rmwtSQMja7WCVYnCleEcS5MqV1s8lqJuJD0gNmGWxxx+NdfuHlu6KQID19xoc6RC41Mf
+	 7XMqf5m9zni6WwYO+rW/Ix9KMpDRaYrxPKuzW51uRqRiAzCjHgFpD78k4X+8jgJExQVmm
+	 Hh9212+38x9ecGO1YUaBJRJy4awVrvDel6UhnUB1Y0j91Ch5Y6+HuoRUdiOPSt9JchvPt
+	 1y2uCQwgRCHAt/n5cyi34hKX3RGx+zLsj84hPZgY3FtLJVAWQgEr2ixRPX+oiXHNZEsBR
+	 jFTnbL+4D9xiAcclPodLMJi9hSxweW9XdCeySiCNcjh0YrU4KRJaqJQWmIqW5338EyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKGvCxUn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O3Sohw3y;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB232606A326;
-	Wed,  4 Nov 2026 18:21:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1BD606EEA3
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:21:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1BD606EEA3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKGvCxUn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7801F00A16;
-	Wed,  4 Nov 2026 18:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816464;
-	bh=k23jnzEAH2UILXVsfgxxO7I2t5cymKKqXKa+Py+jLNQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=EKGvCxUnpWYjM/xDVbe5TrdjkdrFwalBGkCcDE4pEKVicVzlgiRQQyTg6zNq2v1uB
-	 WnbPljRtNGOWEtnFDnLj4XrbfY986LuIt4fF+rqhT0D2p70XDDTa2bjCz4PTaMAamb
-	 kvq6w4llCVjm/9HK9z08R/wBdpjYPWrxCCSu6QGJaLWMIuhYiwOdXFbxpXD5FVIFnL
-	 qMP+njD6VP09kktsRRhdhqBwx8hLVL5ya8l3AzeKfxhX/eL/eX0w8yAhS3OgiSUzMc
-	 kBe7tE9XlhUuhHb90RJ49objFBmAD0IbVtKVk3IDbLBwxYjk4P5h3tkdYn1ea4eD5/
-	 63JM9OrxmzQNg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 04 Nov 2026 18:20:21 +0000
-Subject: [PATCH v5 03/11] modpost: cache section relocation mismatch state
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O3Sohw3y
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so6719075e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:21:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793816473; x=1794421273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sv7soWA+8vLeAn0vUqDVEp1NS4DBCssklLnyMqiia/U=;
+        b=O3Sohw3yzUnp1cPk11pPogSUPf+c4hJme185SYfrLMi+sl3AKe6jlw9KxOarWHn0Gx
+         hpPslQKPEdIIc2QgtL1Y4lg5jllxWaVf4qIXQnXY4D1TBcy6zWXfWeuTSiNrhV6BY5AW
+         qrdJUP4yoc/gIb95ngj+ec6RkTqDDhgNIVQUZeIB8Z9bAbaKuqcINPdw8E7V6abveKXA
+         RGLLSJSsEJROukYT0znjZEPnAPkfA9R1dTL3vn4rBIOCph11YqOpkTFzxfGAszmdPdpQ
+         sbiH1tnJDfekZmBtIeSrJGaoAz3vP+MoMtR9u+8laFqXjk3a3JfMPcJcImIGP+/2ZTIK
+         grYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793816473; x=1794421273;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sv7soWA+8vLeAn0vUqDVEp1NS4DBCssklLnyMqiia/U=;
+        b=BSWKuXoaF3v/+yEjPZwzxNgMx9zsqJHc1SbLM11QVPfT8+dwcl/jBtiBqFUuJvTNRd
+         GJgcP6brGsobbgib8lr5RPMp7IUkBrvy9c4Nz5IqsBu4fJsVMv1Ta6c4Il5whKdYp783
+         boNo8WuKo6Oa92LWpbiD4GIQ/dlX7NWAhvK81DZAnnpklJYS+ZxuHFBhUo17fwQcjACn
+         SyZkZz1R6iU45kLnIwHvE1gowddYzekPNP9IsD+bE0dikDEHSOD/OuVp0d7QRvf5EhJK
+         dmZGqs6TzLLGFjSXHjoxoLUr+V38SMqCAULgEPE4obczGSCN0BCyQ39c0BpJCKzDL/Zn
+         Q+IA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFTUpDhxFVdnTz4GWLk1uuX/H6bQ4s4cyf8hSzsOzkh3w+s0nWf5B31nhKcWAJJkcQAeVSyotf0DDVyjE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rpmltWPtaQdGWSdvX2ZnnrChSOzl/Z9cQOxFnLL9thQNl/NVP
+	D5jgnPwIpnHr+Pw7FarVykqVdj24f8eNWHiQmz1emvbNJUALG1jOqrfd
+X-Gm-Gg: AYBFou0BfbwVs6YDDys+9FuKMZppvh2LTgLpfLKn6/UJu/L/lla5vN2Ke0CUm9N8gWo
+	d3e4ReDLDlSnBf3EuJ28I4dIoKhmNdnZXwd8r4ibNLoFAmmqPsVgljn4RG5YOabD7/mfuJC4Tvn
+	JGDAioc5V4lHQyIRnsNrnwqevtbQuxzGd7oIXharSJMfMnwB/kha/S0BefoOVKydtVBChVlv0R2
+	ETO5FmQxHjYka1hhGBx4vmnuA+G2enwAJEQ9+WcjRK+YD59/uvtIa/Qb57u+if8tBW4ncDmfSH8
+	L1Q1gb4SKrE+AXzPOmc06OBtI86BOwlf5NSb3MqA9eNQCAfrv93ZmorpxhZ7MwVpdWxirck3HMf
+	0+FTPzH244Pk7Jpojq/gHUAvLRaxjfO6N4t3mXJJdl4l7YuABL8mSAc50XcnL93tIwHu5Qe4V1A
+	qBiTu/m0ww5ZWah1821bf+/ymIpLohZKbBEr1BjmoGcAy75soDSYWONFNO0q/PoZI9DMLeoHwyN
+	e/sHNOjV5Uj8sVWEjjleQ/SKJx0EgiOSQVdeyKbZ/ZDrR1gCvT6uTjExdxhTNYVz2Un4M8wmOpM
+	HE0w34ZtspxFPrwYpySojTl32Q5E+i+AmGCt3OMz0utF7PjqdXJX+/FcJ8LFKsmDnAWczwpZUHL
+	xfN/Y0xKbCYIIRc91+K0wirXaRqxg1dcZmdgIeEClKJFgpfCaWtLF+5VxPak=
+X-Received: by 2002:a05:600c:a012:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4ac17b2ce18mr370321105e9.27.1793816473362;
+        Wed, 04 Nov 2026 10:21:13 -0800 (PST)
+Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:21:12 -0800 (PST)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH net-next v4 02/14] net: dsa: tag_rzn1_a5psw: Add RZ/T2H ETHSW tag protocol support
+Date: Wed,  4 Nov 2026 18:20:50 +0000
+Message-ID: <20261104182105.1102555-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,205 +118,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-build-speedup-v5-3-0f6018be8dae@kernel.org>
-References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
-In-Reply-To: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: ljs@kernel.org, linux-kbuild@vger.kernel.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
- rust-for-linux@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5220; i=ljs@kernel.org;
- h=from:subject:message-id; bh=zDINJIogk6QGvycSCwNzQWD05voJbxr9kxI5NtLaVCc=;
- b=kA0DAAoWz53NioHifxQByyZiAGrrd2yjo0pmOmrqxETitsl+57qve3F/oepdB2idVVeTZ34j2
- Ih1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmrrd2wACgkQz53NioHifxROyAD8D6bA
- 8au8a5BN9l6h4Pa6FJTK0zT4q8MlxZBEb2oJWgIBAJjrZ60U1zn0ORrNSJdbtnV0VRh7UFRtIAY
- +Kef9f5cK
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-For every relocation modpost invokes check_section_mismatch() to determine
-whether there is any kind of mismatch between the source and destination,
-and if so which classification applies.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Each time it does this it invokes section_mismatch() which iterates
-through the sectioncheck[] array every time it's called.
+Add a distinct DSA tag protocol for the RZ/T2H ETHSW to separate its
+semantics from the RZ/N1 A5PSW, even though both use the same tagged
+frame structure. The on wire layout is identical, but the ControlData
+bit assignments differ between the two switch families.
 
-When walked a relocation section the source is fixed and there aren't many
-targets, so the same names are looked up over and over again.
+The common tagged frame format is:
 
-Therefore cache not only mismatch categorisation but also whether a
-mismatch even exists for a given section and look up the sections in the
-cache.
+  +----------------------+-------------------------------+
+  | Field                | Size (octets)                 |
+  +----------------------+-------------------------------+
+  | Preamble             | 7                             |
+  | SFD                  | 1                             |
+  | Destination Address  | 6                             |
+  | Source Address       | 6                             |
+  | ControlTag (0xE001)  | 2                             |
+  | ControlData          | 2                             |
+  | ControlData2         | 4 (timestamp, portmask)       |
+  | Type/Length          | 2                             |
+  | Payload              | 0..1500 / 0..9000             |
+  | Pad                  | 0..42                         |
+  | FCS                  | 4                             |
+  +----------------------+-------------------------------+
 
-Special indices (undefined, absolute, common) take the uncached path as
-before.
+The differences arise in the ControlData interpretation:
 
-This results in very significant speed ups for allmodconfig incremental
-builds.
+  ControlData field (bits):
+    +---------+-----------------------------+
+    | SoC     | Meaning                     |
+    +---------+-----------------------------+
+    | RZ/N1   | [0-3]: ingress port         |
+    |         | [4-15]: reserved            |
+    +---------+-----------------------------+
+    | RZ/T2H  | [0-3]: ingress port         |
+    |         | [4]: timestamp timer select |
+    |         | [5]: reserved               |
+    |         | [6]: RED period indicator   |
+    |         | [7-15]: reserved            |
+    +---------+-----------------------------+
 
-modpost is on the serial tail of every build that links vmlinux.
+Because these semantics diverge, register a new
+DSA_TAG_PROTO_RZT2H_ETHSW protocol and corresponding tag driver.
 
-Whole build, 128-thread Threadripper 9980X, best of N runs:
-
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig, touch mm/vma.c, gcc        8.5s     8.3s    -0.14s (-2%)
-  x86 defconfig, touch mm/vma.c, clang      7.7s     7.6s    -0.13s (-2%)
-  x86 allmodconfig, touch mm/vma.c, gcc    33.9s    29.4s     -4.5s (-13%)
-  x86 allmodconfig, touch mm/vma.c, clang  31.9s    27.9s     -4.0s (-13%)
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- scripts/mod/modpost.c | 61 +++++++++++++++++++++++++++++++++++++++++++++++++--
- scripts/mod/modpost.h |  8 +++++++
- 2 files changed, 67 insertions(+), 2 deletions(-)
+v3->v4:
+- No change
 
-diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index 75374c64b8cc..83caf29b4bf2 100644
---- a/scripts/mod/modpost.c
-+++ b/scripts/mod/modpost.c
-@@ -1155,12 +1155,62 @@ static void check_export_symbol(struct module *mod, struct elf_info *elf,
- 			 name);
- }
+v2->v3:
+- No change
+
+v1->v2:
+- Updated commit message
+---
+ include/net/dsa.h             |  2 ++
+ include/uapi/linux/if_ether.h |  2 +-
+ net/dsa/tag_rzn1_a5psw.c      | 21 +++++++++++++++++++--
+ 3 files changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..57143cf52f89 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -62,6 +62,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_KSZ8463_VALUE		34
+ #define DSA_TAG_PROTO_MT7628_VALUE		35
+ #define DSA_TAG_PROTO_KS8995_VALUE		36
++#define DSA_TAG_PROTO_RZT2H_ETHSW_VALUE		37
  
-+static void init_mismatch_cache(struct elf_info *elf)
-+{
-+	elf->mismatch_cache = xcalloc(elf->num_sections,
-+				      sizeof(*elf->mismatch_cache));
-+}
-+
-+static void reset_mismatch_cache(struct elf_info *elf)
-+{
-+	memset(elf->mismatch_cache, 0,
-+	       elf->num_sections * sizeof(*elf->mismatch_cache));
-+}
-+
-+static void free_mismatch_cache(struct elf_info *elf)
-+{
-+	free(elf->mismatch_cache);
-+	elf->mismatch_cache = NULL;
-+}
-+
-+static const struct sectioncheck
-+*cache_mismatch(const struct elf_info *elf, unsigned int to_secndx,
-+		const struct sectioncheck *mismatch)
-+{
-+	if (!mismatch) {
-+		elf->mismatch_cache[to_secndx] = -1;
-+		return NULL;
-+	}
-+
-+	elf->mismatch_cache[to_secndx] = (mismatch - sectioncheck) + 1;
-+	return mismatch;
-+}
-+
-+static const struct sectioncheck *get_section_mismatch(const struct elf_info *elf,
-+		const char *fromsec, unsigned int to_secndx)
-+{
-+	int cached;
-+
-+	if (to_secndx >= elf->num_sections)
-+		return section_mismatch(fromsec, sec_name(elf, to_secndx));
-+
-+	cached = elf->mismatch_cache[to_secndx];
-+	if (cached < 0)
-+		return NULL;
-+	if (cached > 0)
-+		return &sectioncheck[cached - 1];
-+
-+	return cache_mismatch(elf, to_secndx,
-+			      section_mismatch(fromsec, sec_name(elf, to_secndx)));
-+}
-+
- static void check_section_mismatch(struct module *mod, struct elf_info *elf,
- 				   Elf_Sym *sym,
- 				   unsigned int fsecndx, const char *fromsec,
- 				   Elf_Addr faddr, Elf_Addr taddr)
- {
--	const char *tosec = sec_name(elf, get_secindex(elf, sym));
-+	unsigned int to_secndx = get_secindex(elf, sym);
-+	const char *tosec = sec_name(elf, to_secndx);
- 	const struct sectioncheck *mismatch;
- 
- 	if (module_enabled && elf->export_symbol_secndx == fsecndx) {
-@@ -1168,7 +1218,7 @@ static void check_section_mismatch(struct module *mod, struct elf_info *elf,
- 		return;
- 	}
- 
--	mismatch = section_mismatch(fromsec, tosec);
-+	mismatch = get_section_mismatch(elf, fromsec, to_secndx);
- 	if (!mismatch)
- 		return;
- 
-@@ -1445,6 +1495,8 @@ static void check_sec_ref(struct module *mod, struct elf_info *elf)
- {
- 	int i;
- 
-+	init_mismatch_cache(elf);
-+
- 	/* Walk through all sections */
- 	for (i = 0; i < elf->num_sections; i++) {
- 		Elf_Shdr *sechdr = &elf->sechdrs[i];
-@@ -1461,6 +1513,9 @@ static void check_sec_ref(struct module *mod, struct elf_info *elf)
- 			if (match(secname, section_white_list))
- 				continue;
- 
-+			/* Reset cache per-section. */
-+			reset_mismatch_cache(elf);
-+
- 			start = sym_get_data_by_offset(elf, i, 0);
- 			stop = start + sechdr->sh_size;
- 
-@@ -1472,6 +1527,8 @@ static void check_sec_ref(struct module *mod, struct elf_info *elf)
- 					    start, stop);
- 		}
- 	}
-+
-+	free_mismatch_cache(elf);
- }
- 
- static char *remove_dot(char *s)
-diff --git a/scripts/mod/modpost.h b/scripts/mod/modpost.h
-index 666beca685e4..7ba64fd894ef 100644
---- a/scripts/mod/modpost.h
-+++ b/scripts/mod/modpost.h
-@@ -160,6 +160,14 @@ struct elf_info {
- 	Elf32_Word   *symtab_shndx_stop;
- 
- 	struct symsearch *symsearch;
-+
-+	/*
-+	 * Section mismatch cache, indexed by destination section:
-+	 *   0 - uncached.
-+	 *  -1 - no mismatch.
-+	 *  >0 - mismatch index + 1.
-+	 */
-+	int *mismatch_cache;
+ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
+@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
+ 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
+ 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
++	DSA_TAG_PROTO_RZT2H_ETHSW	= DSA_TAG_PROTO_RZT2H_ETHSW_VALUE,
  };
  
- /* Accessor for sym->st_shndx, hides ugliness of "64k sections" */
-
+ struct dsa_switch;
+diff --git a/include/uapi/linux/if_ether.h b/include/uapi/linux/if_ether.h
+index 1ffac52c39df..9fd25c5d96c9 100644
+--- a/include/uapi/linux/if_ether.h
++++ b/include/uapi/linux/if_ether.h
+@@ -121,7 +121,7 @@
+ #define ETH_P_YT921X	0x9988		/* Motorcomm YT921x DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_EDSA	0xDADA		/* Ethertype DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_DSA_8021Q	0xDADB		/* Fake VLAN Header for DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+-#define ETH_P_DSA_A5PSW	0xE001		/* A5PSW Tag Value [ NOT AN OFFICIALLY REGISTERED ID ] */
++#define ETH_P_DSA_A5PSW	0xE001		/* A5PSW/ETHSW Tag Value [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_IFE	0xED3E		/* ForCES inter-FE LFB type */
+ #define ETH_P_AF_IUCV   0xFBFB		/* IBM af_iucv [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_NXP_NETC  0xFD3A		/* NXP NETC DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+diff --git a/net/dsa/tag_rzn1_a5psw.c b/net/dsa/tag_rzn1_a5psw.c
+index aab0ec143c77..3dff661fa58c 100644
+--- a/net/dsa/tag_rzn1_a5psw.c
++++ b/net/dsa/tag_rzn1_a5psw.c
+@@ -23,6 +23,7 @@
+  */
+ 
+ #define A5PSW_NAME			"a5psw"
++#define ETHSW_NAME			"ethsw"
+ 
+ #define A5PSW_TAG_LEN			8
+ #define A5PSW_CTRL_DATA_FORCE_FORWARD	BIT(0)
+@@ -111,8 +112,24 @@ static const struct dsa_device_ops a5psw_netdev_ops = {
+ 	.rcv	= a5psw_tag_rcv,
+ 	.needed_headroom = A5PSW_TAG_LEN,
+ };
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_A5PSW, A5PSW_NAME);
++DSA_TAG_DRIVER(a5psw_netdev_ops);
++
++static const struct dsa_device_ops ethsw_netdev_ops = {
++	.name	= ETHSW_NAME,
++	.proto	= DSA_TAG_PROTO_RZT2H_ETHSW,
++	.xmit	= a5psw_tag_xmit,
++	.rcv	= a5psw_tag_rcv,
++	.needed_headroom = A5PSW_TAG_LEN,
++};
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_RZT2H_ETHSW, ETHSW_NAME);
++DSA_TAG_DRIVER(ethsw_netdev_ops);
++
++static struct dsa_tag_driver *dsa_tag_driver_array[] = {
++	&DSA_TAG_DRIVER_NAME(a5psw_netdev_ops),
++	&DSA_TAG_DRIVER_NAME(ethsw_netdev_ops),
++};
++module_dsa_tag_drivers(dsa_tag_driver_array);
+ 
+ MODULE_DESCRIPTION("DSA tag driver for Renesas RZ/N1 A5PSW switch");
+ MODULE_LICENSE("GPL v2");
+-MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_A5PSW, A5PSW_NAME);
+-module_dsa_tag_driver(a5psw_netdev_ops);
 -- 
 2.56.0
 
