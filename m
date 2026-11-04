@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794930;
-	b=F0dSm5/e4NLVytcHB3pos1T5Epgp6gHeQwMuCAN2MZy/WrIpI+yxM7J+euhpmWQXF4EW
-	 LSfS60pLSi3QONXlVOQjbmI/T4jl6pSb/trTwrJtqE/v6kZwOIlC79iY8oxTYS98gskkN
-	 Jgcv4oCjJHQgo0zDJ2CUX2mm1uKy2tSdwBhCUBD3J+4eLWbPT+JJiBWKlEc41xejTYVaX
-	 3zRnm9M3iR9LzjZK7hA5eU88XB0G/vRx950X5uZDKZzLJMJLxYnF5AMdUdN212UTYSbEd
-	 YQeheU4HrJ2IF6GruVUWBZMEDS/lUhqBqIxVbPLPfZodEUgGw/KcYqSGGY3iX62YlyQ==
+	t=1793794942;
+	b=VUVofnGUg50/pcfid4Shi/5RF4ONt3FwlD7Zm8qIdQ1+eBMBTBRZWu7f/vXCIF65ipVZ
+	 XLnMWOfRRQ7G2em6UBwdHZB1g+TRBkPfvrp38rJboxrpuxOmaJrJf18yFJkMVX5id1Dnf
+	 fYvdmE0MmfFWXYqmbjEGzPH1qVxMKEraIgAcZ4Sr9isFRPGvbMS6164FXHJ9fyterJLRV
+	 entvBtUDXqasNsFOmcFaQQDvMjczs+nwOR309yLlwuIo16Ca4zdxtZnJ+8Z+2C9hQgeOc
+	 Vie6UbHfNBXccgqcOow6m6WsM0G0dJfIFQHBw+SkRv/pUVoQiQ6r98CUmqV7rBNbSQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794930;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794942;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=1VRHBV0Vi6lcFS6X07earnXeCOVYmYuBX2CJ9LanzrM=;
-	b=kX5jyJyXDdbeR9GFAgeZxxyIgbc0I8iIyGeVG1lrYh+e+i+3NpIH8zeqp+JENht1WO89
-	 MjMMxc4DIsxOjLs3GMkTy3cwrHR0Rlw4sKlnzEWCRl4ZdGB+ZJexTdcROqKThPJviQpa6
-	 nUvYLvsDoozCIONW1OIo9JyOH5I5z+FUlhijZKRXgBoh7cSq7KCbmhQTbBhJL0/DogwKB
-	 vOHmB+PUug9OdLaGMmau7MXlsOZ7bQUbQX9YDh7q1nGQv6xFdFnwR4NLvZcD8RwhhWL64
-	 vMARlz/Seb0Yn52knQ1yKNq3+hnlCgrzWMEj2upPmrOVHtDR0XClwvXWalAuOSpF7pA==
+	bh=Zo2+gLD8pfBov0OudSqlLbK6r8C1tWN7SGDrWJ9JvmM=;
+	b=y5qI9lyZKCXRwj+bJYRnzf4zO3ar2QXBGDeo4Qcdt08kB6eZ2BwNhnl+fncx5m+Ah4Q3
+	 X/OzecPPRmKgtcWTHcloY6EqvwFZECUhiIqj1Bdufoj5Wo2Yq0GmxWI8XWz/RJ3gnyUXl
+	 0AElsV6vgBgtUelRDqgucJfODh2CV4e/dy/z2jyrBwbn43mXzNVFn+8FaIEX84ZPGM9RA
+	 uyVnSm5DvilY2ixyLXOG21w597kYmhrfmQazdChF3k4QG07UBC2GWWdJBeI2UcXNXAq78
+	 uklsQTtO1CNE4xcZ4qfqE++yj4u5JWwaqiTKpVZowYLroiQ2ko0Lhhz+Cx2JC7JSpxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Av+rzeCN;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJbB314h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735AE606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:22:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 735AE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD71606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:22:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Av+rzeCN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793794927; x=1794054127;
-	bh=1VRHBV0Vi6lcFS6X07earnXeCOVYmYuBX2CJ9LanzrM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Av+rzeCNyk0HPev1VhXkgLnD2VHnha7GXmXz/RPAgyASSdQUWdf1P7Wo+kfd4HaLL
-	 TRWFGMpnWbmuW37Dv7j/9ZXRyDW0VkSrV3FyGDCBEpN5rl7j6/zOUyeSPHr+odYSv2
-	 m8Pvpak2MI9+RBl7BAovdw7SrMp/HtNNYVVXWLn7PWE5gMlFMgAh+VVZ0NSd+fz9uX
-	 ew4S2iwyuGKNgvsd/78MCmR9WVGNKh3mGb49yGBElbLFo1S7O72V7iTp7P8+zkJSaQ
-	 ZgZV1f0QdlUh8ilMVSYVQBrloxf2auNreLm3dVoVzsu/hR0EchxObQrn6l/rUpcXBj
-	 TwArMVu0Z67cQ==
-Date: Wed, 04 Nov 2026 12:22:03 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v4 2/2] ALSA: usx2y: Guard the playback copy
-Message-ID: <20261104122136.1518-3-enscrpt@pm.me>
-In-Reply-To: <20261104122136.1518-1-enscrpt@pm.me>
-References: <20261104122136.1518-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: c65bdafba056a5aa7f65a001c8ab584f50cb00e9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJbB314h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45CA31F00A02;
+	Wed,  4 Nov 2026 12:22:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793794942;
+	bh=Zo2+gLD8pfBov0OudSqlLbK6r8C1tWN7SGDrWJ9JvmM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TJbB314hjpmiG81ojBKpiMCI1TnK0HjV/yh/+nSvrenWOODSzY7vrTUdmMrhyNFon
+	 qmhV/nnl9kwZdS756A1APIm1U0LzdKOHVAWYRQICqAoy3Ua0LuFIUwSd1boEd/FMD6
+	 ho9/PaN/zywGu6PEW17N4CuZrxDxoaLeaIEKE9CMBZex+Cr2ULc7bDzKzjA6iEbYDI
+	 ZezbWG5+gT3CRgWidYRVoqPGsXoFDeenlK+bpJ93N/L+27TysiCPD5wTqLhkaKzJBz
+	 pcPwkPziRWdpNeaOjHDIa9mMhBM3qZrbcL1pwgVznA1Rtb5ajVxsvv+MeAnYPHwCFU
+	 URz1OEELbqXCw==
+Message-ID: <96fdaca6-5918-41b2-9ec3-c69ba6da24ba@kernel.org>
+Date: Wed, 4 Nov 2026 13:22:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,107 +51,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] ARM: configs: multi_v7: Enable the TEO cpuidle
+ governor
+To: Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261104-multi-timers-cpufreq-cpuidle-v1-0-c7fd14706715@kernel.org>
+ <20261104-multi-timers-cpufreq-cpuidle-v1-2-c7fd14706715@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261104-multi-timers-cpufreq-cpuidle-v1-2-c7fd14706715@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-usx2y_urb_play_prepare() sums the packet lengths of a whole URB, copies
-that many frames with a single wrap, and sizes each playback packet from
-the capture packet's actual_length. Three things are unchecked: that the
-URB fits in the ring buffer, that a packet fits in the playback
-endpoint's maxpacksize, from which tmpbuf is allocated, and that
-actual_length is a whole number of frames. The ISO descriptors take the
-raw actual_length while transfer_buffer_length and the copies take
-count * stride, so a packet that is not a multiple of the stride makes
-the descriptors add up to more than the buffer, by up to stride - 1
-bytes per packet.
+On 04/11/2026 13:15, Linus Walleij wrote:
+> The multi_v7 defconfig already enables cpuidle and idle dynticks.
+> Select TEO to use it as the default cpuidle governor instead of menu.
 
-Return -EPIPE, as the existing packet-size check does, when the URB is
-larger than the buffer or a packet is larger than maxpacksize, and size
-each descriptor from whole frames, so the descriptors add up to
-transfer_buffer_length and each stays within maxpacksize. The buffer
-case is prevented by the previous patch and this is the guard for it;
-the other two depend only on the device.
+But why? Commit msg misses the main point here.
 
-The first case is reachable on the unpatched driver with ordinary
-packets: on 7.3-rc7, a USB/IP device presenting the US-122 interface
-layout and sending 48-frame packets, with a 100-frame playback buffer
-(two 50-frame periods, inside the stock constraints), KASAN reports:
-
-  BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x79b/0x1ac0
-  Read of size 18446744073709551280 at addr ffff88800e6b02e0 by task vhci_r=
-x/80
-
-With both patches, the same device and a 200-frame playback buffer is
-refused at hw_params with EINVAL, and a 400-frame buffer plays for 30 s
-with the position advancing inside the buffer, no KASAN report and
-neither guard message. The maxpacksize check is not exercised: the
-emulated device reports the same wMaxPacketSize on both endpoints.
-
-The descriptor case is visible with capture packets of 195 bytes at
-stride 4 (48 frames and 3 bytes): without this change the four
-descriptors add up to 780 bytes for 768 bytes of data, and USB/IP's
-completion check refuses the URB ("total length of iso packets 780 not
-equal to actual length of buffer 768", -EPROTO), after which the driver
-stops the streams. With this patch every descriptor is 192 bytes, the
-descriptors add up to the data in every URB for 30 s, the position
-advances inside the buffer and KASAN reports nothing. The 48-frame
-playback run above is unchanged.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
----
-v4: size the ISO descriptors from whole frames, so they add up to
-transfer_buffer_length (review of v3); the maxpacksize check has its own
-ratelimited message. Regenerated on top of 1/2.
-v3: new patch, split out of the v3 draft; the review of v2 found both
-unchecked assumptions. The buffer case is confirmed on the unpatched
-driver and the guards tested on 7.3-rc7, see above.
-
- sound/usb/usx2y/usbusx2yaudio.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudi=
-o.c
-index 1e1d0cfbd16..798c9bb5386 100644
---- a/sound/usb/usx2y/usbusx2yaudio.c
-+++ b/sound/usb/usx2y/usbusx2yaudio.c
-@@ -118,14 +118,31 @@ static int usx2y_urb_play_prepare(struct snd_usx2y_su=
-bstream *subs,
- =09=09=09=09__func__, counts);
- =09=09=09return -EPIPE;
- =09=09}
-+=09=09if (counts * usx2y->stride > subs->maxpacksize) {
-+=09=09=09dev_err_ratelimited(&usx2y->dev->dev,
-+=09=09=09=09=09    "%s: packet of %i bytes exceeds maxpacksize %u\n",
-+=09=09=09=09=09    __func__, counts * usx2y->stride,
-+=09=09=09=09=09    subs->maxpacksize);
-+=09=09=09return -EPIPE;
-+=09=09}
- =09=09/* set up descriptor */
- =09=09urb->iso_frame_desc[pack].offset =3D pack ?
- =09=09=09urb->iso_frame_desc[pack - 1].offset +
- =09=09=09urb->iso_frame_desc[pack - 1].length :
- =09=09=090;
--=09=09urb->iso_frame_desc[pack].length =3D cap_urb->iso_frame_desc[pack].a=
-ctual_length;
-+=09=09urb->iso_frame_desc[pack].length =3D counts * usx2y->stride;
- =09}
- =09if (atomic_read(&subs->state) >=3D STATE_PRERUNNING) {
-+=09=09/*
-+=09=09 * The copy below wraps once, which needs count <=3D buffer_size.
-+=09=09 * snd_usx2y_pcm_open() guarantees it; guard anyway.
-+=09=09 */
-+=09=09if (unlikely(count > runtime->buffer_size)) {
-+=09=09=09dev_err_ratelimited(&usx2y->dev->dev,
-+=09=09=09=09=09    "%s: URB of %i frames exceeds %lu-frame buffer, stoppin=
-g\n",
-+=09=09=09=09=09    __func__, count, runtime->buffer_size);
-+=09=09=09return -EPIPE;
-+=09=09}
- =09=09if (subs->hwptr + count > runtime->buffer_size) {
- =09=09=09/* err, the transferred area goes over buffer boundary.
- =09=09=09 * copy the data to the temp buffer.
---=20
-2.56.0
-
+Best regards,
+Krzysztof
