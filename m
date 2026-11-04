@@ -1,96 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822987;
-	b=ecFTVy2/elZLy68W06u4qgnQUIIo26Xppm/iWX526v00JgMpl3Tc/MJ48ku2EFeA6BV3
-	 qjY8S3+jVdzXf2tmRQNc7NcvAF4S9dG+4HSWiaKFLLWoQ8cgRyhUNrEg/40dQN3qQPtet
-	 lcQH0Tp0gJ0UDo96jK9IMIh7A6aCEomGyTi4xIIWfJp0S06NkxQHrqwRa52iJNkKgQQdz
-	 WR8I7/xi6/MNL7AcYEI16ZHGbFHk0zUd3jlrtRbl6mme7loy8Hz50bxYkQckxyBDvNRf1
-	 HB7jdOaP8iH5RDbe9hjzypK1mmCobP3wJ8I40sraJ1YvgxNrNG+UCsRFlQ5J0MB+X8A==
+	t=1793823006;
+	b=KjU1FDReMSgwLBcSoJ4wBGPSFQKFmVH1I2R/3+c/ebrl8XRr7dImLnPDlL6X0op1VM5b
+	 eybzui/mo7+KV1D7sTD5iyo8bk2Jcku+y1xWW687SQoki5tOpSoJYsHielOkBRcKgcPi5
+	 c5UQJaF8OjG8QGw8H8kBsJ3G5oEYl6BWZbErYNj08T0LyqaVf/bwHXTJKrDY8Jv8AWswV
+	 69+LI4wHDQ6OnernF2fMkjI0KL3uBwh3NicKAWAuACgGhpsgVflzdD1ZCWGHB1q67y4KX
+	 KzDBy75pO52bNqfuzgk12daUJrXqdW6/ArapqT9xTKSr9SWCnO7vf3m5R8ZFZ3fPnNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822987;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823006;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=7PJM4PbhJHpLhbWOLitVKtM/DyGHKxiR5hSKnNJAjXU=;
-	b=XY+PNvwpE3sJ6Bci6/HmKfmxBKTG2YlzSTgQ1J8HdFKTCCPR8/fWZY98MTj0xB05oazs
-	 210xtlJQOv6TtF81SW3LxFrRIJqs3VYJCnPB+bN723rHiE6tRVSIoim1/mtqhkrdnOFnv
-	 dH0HGDucR5bgxT+G9zSh05FHtRjjWnFQ2XSlB2IF/zuOUrPF0wiaNfIRKo5cpi1VoKj4f
-	 AeExDTYw2fweUZyDN86wm/U9Z9Pvvy8CBycika9zu9IzkOzlLKd63ZbeMgW8RsLaUcKzi
-	 mTgAU6bJIFDl1/VQui84Bkdleq3/KdgwAzWZXlrB+CJoLdgSMMgzlDZy3vHXeUF67Sg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pbB/h7OcDLTENZAMlqrgPHDqleGuLS+XSh/+4bmYjVo=;
+	b=qPPnY5l5Y2Lmm17I2XCDxRX+KL+wtIokKS6EtcJ2RrnvOUtEjcZSRpiKnOzKyzMj1n4Y
+	 p18XpVljZTIlDLk20Lf4VHGCNK2LmcEru1cGACj5XnTW++EE2QJJTPA7ZI4Rw1X1mVRAe
+	 VQO9PkfoRJ4LDGCZckCI5FRNuySGiH6Q50F3syDjtbkSg3Nw70w6sJ556HHbgRd+ORfbJ
+	 eHdrcpFrK3kY3gMIc6E9ccM1PGGlLP4hBeDuXzSORCJAwt4bSLLpAHRjJ0lizLnqQO24d
+	 4dtad6KWK8m/dKijbME6ibBvrZSY02/LzGRjvH4sytsJKNPpkfnSbjfy4BegXV6TkGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a45YS1Xc;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pAmB6tB5;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65E36070F36
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D65E36070F36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5268E6070F39
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:10:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5268E6070F39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a45YS1Xc
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1898318eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:09:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pAmB6tB5
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so12224965e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:10:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793822986; x=1794427786; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7PJM4PbhJHpLhbWOLitVKtM/DyGHKxiR5hSKnNJAjXU=;
-        b=a45YS1XcZYiSvN/+A0jIa3rWTLWJ/IzdfxjgeD9DUHE8RI1ig8G9b042/i5LxmkJrc
-         ePRtaEVDBQbEPe4UjVMYQYg45+/fX8F4w+AdddwlOc1vZWjJc2e+TlVcthwliZBLx04M
-         HCCnJttpgVSL6bzW8ECkMho1UciQkxFw8ZCWp6RM3b115fv7iSkWJkEG2Zak+k3oo3Yx
-         IY4h/I2pbdrlJJJHsCQpUOSKHoH0t4WnR+oTm51TT9Cd8xyGn1zSXYVhfvaifLVH4rf0
-         vdeRYsqcn3MqktNQR2vEcQk5FvZFlyS69S/a0oiE3bSsIqhADGPf2HrAwArqIKMOk9mS
-         WqlQ==
+        d=gmail.com; s=20260707; t=1793823005; x=1794427805; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pbB/h7OcDLTENZAMlqrgPHDqleGuLS+XSh/+4bmYjVo=;
+        b=pAmB6tB5L5Q0sXbpgw5MAvTI4uEVXOApuJPbfWOIyoio0S+Pk3ev+Xx+LtSaVDmZTb
+         UtFs6xBq+HXY5ygUQ+qI7ayP+uN7rCJtM8Qo9UVtZesPJVPeKvFlcvws5jR2/iHFxv8Y
+         veQ4oIX5N8YmBuVrhiXgkHYskpbffM0MwfPIRXC7NJyGDG5PAu/N2qWJVRrIBA6aDEf6
+         liZndmGbC429jfE5e+Md/TpWVIyFUGja7Frb7Z1IKMKT4ruePVenI36Bw6OzDbXmKqlY
+         AfTex7dzu322hFIm/ozi7mn3h55E6OP8ewbasszG/05oRQBr6/fSrgczdbozEEt+dWBj
+         iLGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793822986; x=1794427786;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7PJM4PbhJHpLhbWOLitVKtM/DyGHKxiR5hSKnNJAjXU=;
-        b=fMIy29G5HELLBe7d6Ewy/dC1nNSLBattKeYiPR8Ot1fVnPwxdhe0Pt5Fz5WyIQrEki
-         22BfzjKIql2nGNu1dB0V82E15QC2OMjOFn0xDa5OlmfGvhgjXTw3kjYjc8Tf7yxPUtA+
-         sAW39ftMBpCk4tvyIjmUbxnUvgaK7m0eILErFvxezUU00QLhGaGhbeGAxXFw6mwh2nAq
-         61pbjiqCruaK8oLMW4+8LT6ohUkI4WFkbRLZepkym8svvqYV2oF+Itn95ISEVr5GfmSQ
-         GgzzDV0YhY++XcMs0orwz/MbTaOMWWpTzsekLU2eQzQrDLsMz4NwZuiXi+em3b0+E5OF
-         bzjA==
-X-Forwarded-Encrypted: i=1; AKwUvBywHspAjN4CFDBA8GcRUy+vz1PisvYDPD7G2NlDlM4SZgrSUiYyK83049Ic7Ccg7M6aPa5kztic9wm8W/w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Y5jHApfzyyBpfCsdyhzyzABun2eLXX6bvNiVxoxKQA9X8Ns38
-	xu7K2av61qB3yBQTSq9JYJZhLRB5rlCeY1PQ1uWKLfq9GTb0BsXX7b8R
-X-Gm-Gg: AYBFou0VYGaij6E06QnFT/OHxajvTqnHLHiunkF5eWqpyHkxiG+7payO5RnbbTWWfpF
-	8wJzEnSC/aQy82ZecNJp13dYNWlkvZUboM7NTjzJfhAhqshO0y4n11s3bQSL0Fxk9P44tY0t1WF
-	37USYkEKDugXOQR/VNJyL8dqpBFVuGj4fPOejS+ZanZK46YiWPrm8/5Rf1KsB0PVIyp/nht4AEo
-	3aC/TRyCcvV5M4SrAjGCbiioI62C3/592mKkj6yfNz9zeJ9pm3S3Y4w1Yw4aA15PfUapdQvn6Fx
-	rqyvFSbAMNDt1Mk45AeX458MXW0e3jgdPqQ3wn1LPZusWPPK4e+AE0+4mDcMA5igERVshbkSBgV
-	1grtza+rSnGRIJ9yrl7IFflBOnjCqKOmh9clxxsnRn6uVY8wNGZVYQUQ/fQ4Yu7kGxn8uDP49dm
-	MNqQ0kkH3w0dBC49fm1QSb/Kfmj2vao+vn/vUadICHRzyju/B8dnOwDmhcyZXHjMujx7o1zSaWb
-	KtQNokHZMwmCsk7yacIVV5OqIftaXK5UPTVq3kUWkW3N8JPnmKsWZRtLEllz509kqyvXRBnr6aA
-	O76rCnvs+WTjF6ihsAm4pNkzeCk1+HoPVwH6COS3QFTkbh54FD4a7qbsfNMXVyUKFzWTAg==
-X-Received: by 2002:a05:7022:3a8c:b0:14b:cf58:ce5e with SMTP id a92af1059eb24-1ac4fa14bc6mr29667079c88.0.1793822985762;
-        Wed, 04 Nov 2026 12:09:45 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:920a:44a8:6f02:232e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm12494370c88.15.2026.11.04.12.09.44
+        d=1e100.net; s=20260707; t=1793823005; x=1794427805;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pbB/h7OcDLTENZAMlqrgPHDqleGuLS+XSh/+4bmYjVo=;
+        b=Xaj5JR51JmOimIABORIT5YsKn/BAB+dxImdFRo6zMvcdxDNW2TudckpdaX/U62VUG6
+         +bnWt9jHIMe17B+kxefAR0a+RZLL1kyDhf3ZQrnlDz10mUvCT/3DKzObKZ3+Bcq2GrnS
+         m24RxZiOGdN5K39O1g2fsnxB7XGv3PA/ThWTII6eXi0BCAMGu1w6kb73l8Y/NQ98aS4m
+         u3mvOtpEZct9N4dAFpR+8qscfE4cV5QzCT/K5os7hcX1jw0HYmTp+rCzxaKxjgiyCw5p
+         O7FTd3DaR1xGtE/U94hTARLMfHBMPbGe7Zv9fahY7aqIi0bWbG8DAilvcT9T7c1W7pUz
+         25mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmOcwBgqSD58IeTHInb/FVyVpAqxFSo5vAvbE4NikXlKXQNURrhzvpz/n8XIfKXZNYw2RqRmL0bQLqpz4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/aLh4CGv/pydP3uzeBL7543U60DFgVcr0ZJQ4LUisoWn3+jetG
+	vyOflHgy2b4+KjOgKuMm/HQMuZo1dNScAIvyHDtMkFnYqXxtukrTSsOy
+X-Gm-Gg: AYBFou2vCGYb+6hJ+KrUwa5+KtyUHjdOGSUpWScQlX3JV8SmzhEIRHIBzcOiymOeUN+
+	4duCRHAypE9rcfzw7z345sV8homvOJhUCDp7w13JhbbFuG9lQ4ols5B9WFYq9HN6nc7xNIMKqnz
+	MQwQFEh1yYskM+Bfq28OCIXkxg9VsFkAQR/mBLSOisjAgwnNjzpvUViUxZuF9EZd42St8wkhGVn
+	WdkKF+HmRv0pYMtHMlxh+STEySd42llNPTjWp9dEgdCIMkf6PejMWyGvRrOpFOVENknQQUwdA0j
+	AWgQ8Hd5qPNO8KfJd/UR4zmKSngMrNQtjlvTORlPWxJGJTmR4z0SUFkXU1JUE9LY5L9PV1TKS9n
+	sbezZhOQjzxL1U6tu5Cglk+jElAFnSxSJtdeaWQuJOCtAmmJnlzVmFCwD7qCt0fH23l6Qk1x9mU
+	Phd0IGQbyQjY6fmWE30DPZD42mLEcn7Ep3uhu7wSuL/krUZ+6wqV8Vf/Zd+gvg92LiF/ZAZXeZE
+	h5OzxPWF0BGi969SOLZ4VU+aOAvbkKSi/N3tS203O0rqbwvY0gmDJ8CRnR0sC41OfW6HUF8uQsR
+	j6+Q9dznb36H7I49zldXLfpDY4QqD/fdSvnm7OOzFnFLh0RRtZmK17xR5ox25WWdP+3dcJoAZYH
+	nxJ9VfmsRyIDLUtRdb7SUPZu8BRnBN5LrzwYNXK9wg9j191s=
+X-Received: by 2002:a05:600c:6216:b0:4a3:5aea:21e5 with SMTP id 5b1f17b1804b1-4ac1737c533mr377961885e9.9.1793823004484;
+        Wed, 04 Nov 2026 12:10:04 -0800 (PST)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56eb4da1esm15954045e9.6.2026.11.04.12.10.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:09:44 -0800 (PST)
-Date: Wed, 04 Nov 2026 12:09:43 -0800
-Message-ID: <14c52f5f176b8fc6aadaa31c9f4715c0@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org,
+        Wed, 04 Nov 2026 12:10:03 -0800 (PST)
+From: Orgad Shaneh <orgads@gmail.com>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] Input: cyapa_gen3 - clamp the reported finger count to the array
-In-Reply-To: <20261103084135.426629-8-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-1-zhugl3@xiaopeng.com> <20261103084135.426629-8-zhugl3@xiaopeng.com>
+	Wei Hu <weh@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Muhammad Falak R Wani <falakreyaz@gmail.com>,
+	Jesse Brandeburg <jbrandeb@kernel.org>
+Subject: Re: [PATCH net] net: mana: fix XDP_REDIRECT of pre-allocated RX buffers
+Date: Wed,  4 Nov 2026 20:10:02 +0000
+Message-ID: <20261104201002.2215474-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <autbwKmZPPWEj0Dq@boxer>
+References: <20261102064324.806414-1-orgads@gmail.com> <autbwKmZPPWEj0Dq@boxer>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,65 +123,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Guanglei,
-
-On Tue, Nov 03, 2026 at 04:41:35PM +0800, Guanglei Zhu wrote:
-> The finger count is taken from the top nibble of a status byte the
-> trackpad firmware fills in, and used to walk the touch array:
+On Wed, Nov 04, 2026 at 05:22:24PM +0100, Maciej Fijalkowski wrote:
+> On Mon, Nov 02, 2026 at 06:43:24AM +0000, Orgad Shaneh wrote:
+[...]
+> > -	act = mana_run_xdp(ndev, rxq, &xdp, buf_va, pkt_len);
+> > +	act = mana_run_xdp(ndev, rxq, &xdp, buf_va, from_pool, pkt_len);
 >
-> 	num_fingers = (data->finger_btn >> 4) & 0x0f;
-> 	for (i = 0; i < num_fingers; i++) {
-> 		const struct cyapa_touch *touch = &data->touches[i];
->
-> The nibble allows up to fifteen fingers, but the array holds the
-> five touches the chip is documented to report, so a firmware that
-> counts beyond that makes the driver report coordinates read from
-> the stack past the register block.
->
-> Clamp the finger count to the size of the array.
->
-> Fixes: 9f1cd857518f ("Input: cyapa - re-design driver to support multi-trackpad in one driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> ---
->  drivers/input/mouse/cyapa_gen3.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/input/mouse/cyapa_gen3.c b/drivers/input/mouse/cyapa_gen3.c
-> index fc3fb954523b..fda807a4c141 100644
-> --- a/drivers/input/mouse/cyapa_gen3.c
-> +++ b/drivers/input/mouse/cyapa_gen3.c
-> @@ -1149,7 +1149,8 @@ static int cyapa_gen3_event_process(struct cyapa *cyapa,
->  	int num_fingers;
->  	int i;
->  
-> -	num_fingers = (data->finger_btn >> 4) & 0x0f;
-> +	num_fingers = min((data->finger_btn >> 4) & 0x0f,
-> +			  ARRAY_SIZE(data->touches));
->  	for (i = 0; i < num_fingers; i++) {
->  		const struct cyapa_touch *touch = &data->touches[i];
->  		/* Note: touch->id range is 1 to 15; slots are 0 to 14. */
+> I wonder if it wouldn't be better to work with rxoob objects which seem to
+> carry the from_pool setting?
 
-If the packet reports more than 5 fingers (for example, if an I2C read
-glitches and returns 0xff bytes, which would otherwise pass the bit
-checks for OP_STATUS_SRC, CYAPA_DEV_NORMAL, and OP_DATA_VALID), the
-packet is corrupted and we should not clamp the count and report 5 bogus
-touches to userspace.
+Thanks for the review.
 
-Instead, please reject packets reporting more than GEN3_MAX_FINGERS
-with -EINVAL during the header validation in cyapa_gen3_irq_handler()
-and cyapa_gen3_try_poll_handler() (or in cyapa_gen3_event_process()),
-so the driver treats it as an invalid state and reinitializes the
-device. While at it, please also use GEN3_MAX_FINGERS to size
-data->touches[] in struct cyapa_reg_data, and either fix
-GEN3_FINGER_NUM() to mask with 0x0f and use it, or drop the unused
-macro.
+The rxoob no longer describes this buffer when XDP runs.
+mana_process_one_rx_pkt() calls mana_refill_rx_oob() before
+mana_rx_skb(), and the refill puts the new buffer into the same rxoob:
 
-Thanks.
+	*old_buf = rxoob->buf_va;
+	*old_fp = rxoob->from_pool;
 
--- 
-Dmitry
+	rxoob->buf_va = va;
+	...
+	rxoob->from_pool = from_pool;
+
+So by the time mana_run_xdp() runs, rxoob->from_pool is the flag of the
+replacement buffer. The flag of the received buffer survives only as
+old_fp, which is what mana_rx_skb() already gets as its from_pool
+argument and uses to free the buffer on PASS/TX/DROP. The patch passes
+that same value one call further down, to mana_run_xdp().
+
+The two can differ. Refills come from the page pool (or from
+xdp_save_va, which only holds non-pool buffers), so on the first pass
+over a ring of pre-allocated buffers XDP gets a buffer with
+from_pool == false while its rxoob already says true. That first pass
+is exactly where the bug shows.
+
+Using the rxoob would mean moving the refill after XDP, which changes
+what happens when a refill fails: today the packet is dropped and its
+buffer stays in the ring. I preferred not to touch that in a fix.
+
+If you would rather mana_run_xdp() take something other than a bool,
+I can pass the xdp_rxq_info to use instead, chosen in mana_rx_skb().
+
+Orgad
