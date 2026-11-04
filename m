@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786873;
-	b=KYXJYJL3i+I80SK7jcreb6ZLfc40Il7GWYYeORlGkSpqHG5zJb4JLwLGMD9AWAseQU0k
-	 4t6S1bQrOZae083FWNk+Ed27S5WuDRW0ti5haFc4scjvp/CaSfYr7OYe9il6TKRHtcweN
-	 72rvOWlzCyJR0X+VP6+LvM3oMp57JqWL7xW61xRwP3Uo9zIr7dWg5W4Z1+YRicO9jTyVt
-	 49kpnJWicpzyWfpT9zKwIl4EL73b1jaoZhzqNSAhEAxRUQNSnU5VikCGZzNXkbAVfUXh7
-	 vCLrVi7MDoaaEAU0bODA+0o1+a8v06J7njivD36RJ7OYJmvVNhOyBfCF/8k24bk0tpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786873;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9hueydKPHbwqRHr29tjXZcE3MJ9mKdeb8gNayc7RByM=;
-	b=d6pQwLyibv4+dO6n+LtCm2oN2TSy2jyT4pR3gEWBcjeimLg2Yy2Hj+34yjmB/PzO+m3Q
-	 gyV+IslA5mBWzhoSzMxSEs024B3xqBnMbYm9KzX68cUjIsJy3XDsfOXbbNUCbLIAfEJoL
-	 vEPv8TiALOAtg4t6TIRaq2Bjxf6miNuMi23w5erWEXsqc+XjcSvVYDDZ1giX/QWsUIzN+
-	 uRIAYt3HSI1w9pqr6qtwTKbg5JZFBu2fIa2IO3CfjBxizxQoftQiTcf7Mmgda1Puhq3+a
-	 dwdXC6go6wBfwxAv/iuDtmBNThwNYosnzziEsvcEzSvYRoM+pPUtO/8ROzhIMe+l58A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3nlOY1Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793786984;
+	b=pbqFr8WZGVZS9REa1YzZdlhJ6Novk6B/ZuUZVRJ9u/SakhNNorpSZ+A6zyjYlQaEf6Rf
+	 +g6tbFJI1mWeFso5Ze9VqpP2X8xkX9ez1oIz9dxLzUqAeGDqJw5VAVSqr0JYookF6FyfE
+	 1nx4pbbur3StO6TwEX6ZjY/s9KLcD4tt2cLnecRNuwr0fw8fudzWAorWVVGB6oOeaTmZq
+	 vCn9L1C3DNB0Wd4bTCNmynEUB11KVLMHMOrngozk+6qph5PyICBssuaqd+OR/cWRkBQ7U
+	 JCLqMPL+oO2oOeZ2hmnTCwIjfzNVQWzbf1njDiPHkLav1kidFqzheftDA7511vMORtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786984;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+	b=GQtRpo5Ja48N+g37vHnSO5hJ/5T3poMbEiw88VJp+C9jI8BfvnvhquNvzKA0vsSHdjl8
+	 08t5uAcC+1FMrQFF4WR2YI8FHUXiEwx5HviY7jiFPaodHgoqYz3RHjDtfMNmSP8JawriW
+	 FDop2GO6ociRHG7BBhTF8DqLlqVmQdxN/DJokjjDQEgVI8zI+EJLCGDJQColCFapnGZ3U
+	 TmjJJzE8lXqPRJYrhR94++kXG8kphLpDMffsYYxVPFS8xrI8cmvczoYUaNVkr1dYs4Dsb
+	 vg8mURBYZbJu01rffePKu8Wu3shdBgduDLJauZi6xCqfeMkEB2zmUPnqdKKmMcO85hw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=tomeuvizoso.net;
+	spf=pass smtp.mailfrom=tomeuvizoso.net;
+	dkim=pass header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UcHCwjZk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EABB606A326;
-	Wed,  4 Nov 2026 10:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D50606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:09:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D50606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3nlOY1Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6E11F00919;
-	Wed,  4 Nov 2026 10:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793786871;
-	bh=9hueydKPHbwqRHr29tjXZcE3MJ9mKdeb8gNayc7RByM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=o3nlOY1Qhr6Bk6bjbuvjzB1VBZMnZo43ALULab1PPD2ywwLWmblgaREyNW770dp86
-	 oVEFIfskshqiU6I2sDYsCkn5Kh0pZ+uA43xqXaCnIetBcahxXCfzu1hEu64HIe4oKW
-	 7IaJxxvHd0VkSHdIeabQYZAfmuTh2yxVTQezyuwxPyupwkFX/t+I/6Z1NKoBnnn7Nq
-	 em4KWN3srnOWFwPKpO1cUh+pP1AncQwN9bzS52P+wOREFruti5UpYVSRLTCMIsf0Yt
-	 yGc1QrHAjwpMEGKK43m5g+Q+Fw49ciBm7bt6S5WkyF4mbPQfR/Z/jhQVYbdSDcfFWg
-	 6HUqJIGQc1JfA==
-Date: Wed, 4 Nov 2026 12:07:47 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: 0z5a <dezhen.lu@student.uni-tuebingen.de>
-Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation
- for pages >= 4G
-Message-ID: <20261104100747.GD478286@unreal>
-References: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UcHCwjZk
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e6eb77f0bso61147085a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:09:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793786977; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mmC0sEzzWVBSO5aju/4HoWZ6csPw1PwBlosYlwlYkKVvlkGN21vCGT8lucZ4yM8TFv
+         b08RMpT3SHCb2iJ17utOWjFSiVKrrsBsvsDnKqr+j1I2uVFsv6TnArCSMxq6R1VL1o94
+         4WQczzVd9cUCPc1+MOp790EcPFwECsbQxNDoKbGkpfathzhbJ/zY1BSR9eNAZGF6BMM8
+         HDexi229pekkMLftIMjNBGRqvfxZ4qVoCW+uJUOJr0ZV2x5pUbLyaibzvIs8ZNg8lT0O
+         w+fXJTq761cQaYQfwj3sbKmK9y9Dx7qlvcXRjSwiFrfEsaqvM1qHVmh/97SlblJvS1oo
+         GqzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+        fh=nTEgCRJoIh8qKNinYFjLM2lLbMGuqQbjuixM5mdTvRY=;
+        b=HIAhvtv385BRFO+eP3PaQfkp24jyIU0GVO9GbYJSbczQAzICDtXZKcjIoDsrJjMTPx
+         ojOaS675BNHR5ZoMG751g0Uu2USrY56XHRDjCP1jL/ncWOmq+BUwZzFfy/Kz7VoQwEhj
+         Sqxs9qk2PcqQhQVhM43Ut258yn4VikGMMB+TZxqmDqI6xZ35UFXMsjYG9LGLFrDsEgwR
+         ksSbhL/YZKePMJhSM/QkO9dEm+U+jleOJlimS/v3KFc7xmFsiRyhl3vYl+FGDm3rfOyd
+         HIa2vZ9wVIBPPhsT83d5TK9ANjBYbdtLjmw9EQYPG48NX9iYcwpjWhhh+DMkPqUFvb40
+         EkZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1793786977; x=1794391777; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+        b=UcHCwjZkxJdU7FrRZcBt1CxKGPzG2AJoKdOEXy6bT0/6tI1dlsBE9UxkNQCTTl9iFg
+         CzZsbKtm2Zhe8y6Iek5l+jWdVirGy65os5o0NtAw6vLC1uBwHyEz4DFZmAz9vXWKRjFA
+         FyJ0geUDEQnCktWcgRKGpHC5iCBkdyErjWGE7xcafrhlinEyZSdvmGyMbMt14g/ishMR
+         7aP+AcCLRYYxfJUen7AxTSj5XlIcIcy2Y4Oy1G37/F5M2NJirI03RNV9XL6KI1+WF1dP
+         e/vZncP8FzVcOBM8lQiXqWisOGl+f+l9GXvsQbpEn30kZ99OtKtdpyJju075XZ2QyLUF
+         sKyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793786977; x=1794391777;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GRB1e0g/RzNosgVh22Q4nbJS5JXGJ4/s7oJ6tqlGbYg=;
+        b=eZi+gvCMofSc/HGsmKRFRskFlxFWMDqUuTqliT7E4B85k8035p9Jx4oBugPR5P+u9S
+         R6sD0oHVQTD2+DDTehKRPBlx49pti/szenRIxW4rXqCVrnmVTJc6OmdLkY0jfy0U6IYH
+         X5XPmyrvq4yaBzuvtn1fAxUWHaEzT3F5quNjvledJl1bc+JX1FtlZWRs5AumPTjjkZ2o
+         Ac/pI1Wd7ZYFdg47SCWBJltddv5tgVpzp+sCtaM+U/lZj5FzEYuAg8zKcfidJvQguQin
+         lPNnK0xcExnq4Ak/cBlZC8mjahVhpBOsnldqKGZAeRelbzwxNumX+zPGBK8/MI8AchHU
+         AgPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwV5lXK7kGl5O0wXfZyf+eTwRthd2Yfg0QWKMR6Dcun4o06sCEZYxvO10XlkKqZ2sXWQ9lJTYP4B6uDMXk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yK/Kzj7aWh52xAqIIMRT3mb4UGqc64UECYuCq+MdBI62I0GPB
+	Tatkue5v37RELIArEE4QVOgIMmEYt14WfZW3j4q/Z5PA7UNmELRh9Sg3DPjH7E94VV9TKtm8f3T
+	tfnTDu7sYjCMvc10ukyAUFYX7diprkvhrdt6BaYuigw==
+X-Gm-Gg: AYBFou0KQ0X47GMJvVMlCWOg6iD0QfTpFYszc4Vv9dOJvK49AKfgTiWLH4IbrVO+dRO
+	RqSkbB8fFNa8qOf/QyEiwApptmQq9eGvfIwWa4bnPl4loeTWJbGaX401zTT29psB/SwqQYoHfPy
+	YP0U3LaGW3JRemRGNXRKHrWtUubiZ7TnNFK9MoLxnTJWucscnddtficXutYN+0g9esWPTnS0Qgr
+	cEHamLeG3gjFrtgSvxNt8iexMNsJ3iMng8guAHrwxvUEYK4vTpkARD0cumNTgBRu84rMrKVKf8s
+	/J+A4A5JwgBfjfvaQxn6LDkU+IQNiU8IfNAXfk8yIc7nKd+bvkwrJK7ZtNOM8pRWHywAvw6PN/I
+	p6LoA5EMMIfeuamTGBoX1QKHPj7f0y36ADInMJM7ci8IH0/iAj2fBmNOpr4+8vrAeLJq6PLkiZb
+	VV/TCStrM9f7svpeM86ZI=
+X-Received: by 2002:a05:620a:460b:b0:937:6de8:b40 with SMTP id
+ af79cd13be357-944217194b4mr2663985585a.15.1793786977174; Wed, 04 Nov 2026
+ 02:09:37 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,97 +105,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Wed, 4 Nov 2026 11:09:25 +0100
+X-Gm-Features: AclHuK8sSyrPUh77ae7umfCvxuLdQ-s4Z2b2nFvZD8O11RHz5Wmhve3hcOyzmnA
+Message-ID: <CAPsqS2SOj-+VQxsFvMQ1Hqcep55J0yT++76QZ8or4a9kmF7Bdw@mail.gmail.com>
+Subject: Re: [PATCH v15 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org, 
+	p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com, 
+	royalnet026@gmail.com, abel.vesa@oss.qualcomm.com, 
+	sebastian.reichel@collabora.com, sidong.yang@furiosa.ai, 
+	u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com, 
+	diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl, 
+	jeff.hugo@oss.qualcomm.com, rfoss@kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 03:28:04PM +0100, 0z5a wrote:
-> From: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
-> 
-> devx_umem_find_best_pgsize() computes the page size in an unsigned long
-> but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
-> in an unsigned int. When the DMA mapping of the umem is contiguous and
-> aligned to 4 GiB or more, and the umem length is a multiple of that
-> size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
-> value is a power of two, the truncation turns it into 0 and the
-> registration fails with -EINVAL.
-> 
-> The umem log_page_size field is 5 bits wide on top of
-> MLX5_ADAPTER_PAGE_SHIFT, so the command can encode these page sizes.
-> 
-> Seen on two GH200 nodes (ConnectX-7, firmware 32.38.3056 and
-> 32.43.1014) with a dma-buf exported from cudaMalloc memory: registering
-> 4 GiB or 8 GiB umems at 4 GiB-aligned offsets of the dma-buf fails with
-> EINVAL every time, while 2 GiB umems at the same offsets and
-> ibv_reg_dmabuf_mr() of the same ranges succeed. Restricting the user
-> pgsz_bitmap to <= 2 GiB makes all of them succeed.
-> 
-> Other large physically contiguous buffers, such as a 16 GiB hugetlb
-> page on an arm64 kernel with 64K base pages, should hit the same path.
-> 
-> Use unsigned long for the page size, as commit f0c2427412b4
-> ("RDMA/mlx5: Fix page_size variable overflow") already did for the MR
-> paths.
-> 
-> The bug was found by an AI coding assistant (Claude Opus 5.5, Anthropic)
-> during an audit of 32-bit truncations of page sizes and offsets in
-> drivers/infiniband/core and drivers/infiniband/hw/mlx5. The assistant
-> also wrote the reproducer and this patch. The reproducer was run on the
-> GH200 nodes described above.
-> 
-> Fixes: 7610ab57de56 ("RDMA/mlx5: Allow larger pages in DevX umem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
-> ---
-> 
-> Notes:
->     Testing notes:
->     - The failures above were reproduced with the DOCA-OFED 26.01 mlx5_ib,
->       whose devx_umem_find_best_pgsize() is identical to upstream; I do not
->       have root on these hosts, so I could not load a patched module.
->     - So I have not verified that CREATE_UMEM accepts log_page_size values
->       for pages >= 4 GiB. If it does not, capping pgsz_bitmap at 2^31 in
->       devx_umem_find_best_pgsize() is the alternative fix.
->     - Compile-tested on v7.4-rc1 (arm64 defconfig + MLX5_INFINIBAND, W=1).
->     - A standalone reproducer (dma-buf from cuMemGetHandleForAddressRange()
->       plus mlx5dv_devx_umem_reg_ex(), sweeping offsets) is available on
->       request.
+On Sun, Nov 1, 2026 at 9:31=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> wr=
+ote:
+>
+> This adds the RK3576 NPU to accel/rocket.
+>
+> v15 is v14 rebased onto next-20261030. v14's 12/15 no longer applied
+> there, because Sidong Yang's regcmd validation added two defines in the
+> spot where 12/15 adds its own. Nothing else changed, and the tags carry
+> over.
+>
+> Leonard Lausen has the series running on a NanoPi M5 and posted a board
+> patch on top of it:
+> https://lore.kernel.org/all/20261019090348.378183-2-leonard@lausen.nl/
+>
+> On Sashiko's two points about v14 9/15, I measured a CM5-IO. U-Boot
+> hands over with the NPU domains on, and the power domain driver still
+> probes. The NPU QoS is saved before its first power-on, so it is not
+> zeroed. The domain whose QoS does get zeroed is the GPU, on mainline
+> without this series, and that fix went out on its own:
+> https://lore.kernel.org/all/20261101055633.101309-1-gahing@gahingwoo.com/
+>
+> 1/15 is the patch that carries Igor Paunovic's name. It is also part
+> of his DVFS series, so whichever lands first, the other drops it.
+>
+> Ulf offered to take 7, 9 and 10. 1 to 5, 11 and 12 go through accel,
+> and 13 to 15 through rockchip. 15/15 needs 9, 10 and 12 to 14 first.
+> Without 9, 10 and 13, the ROCK 4D takes an SError at boot when the NPU
+> domain powers on.
+>
+> Link to v14: https://lore.kernel.org/all/20260924102135.92217-1-gahing@ga=
+hingwoo.com/
 
+Hi,
 
-Isn't this fix enough?
-https://patch.msgid.link/r/1-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
-15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
+Could you please add a GET_PARAM IOCTL to this series for userspace to
+query the hardware version? I think I would return an enum that
+matches the NPU DT compatibles one to one. Then userspace can have a
+hardware database indexed by that value with sram, register map, etc.
 
-Thanks
+Regards,
 
-> 
->  drivers/infiniband/hw/mlx5/devx.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
-> index fc6f793dc..2277160d9 100644
-> --- a/drivers/infiniband/hw/mlx5/devx.c
-> +++ b/drivers/infiniband/hw/mlx5/devx.c
-> @@ -2294,8 +2294,8 @@ static int devx_umem_get(struct mlx5_ib_dev *dev, struct ib_ucontext *ucontext,
->  	return 0;
->  }
->  
-> -static unsigned int devx_umem_find_best_pgsize(struct ib_umem *umem,
-> -					       unsigned long pgsz_bitmap)
-> +static unsigned long devx_umem_find_best_pgsize(struct ib_umem *umem,
-> +						unsigned long pgsz_bitmap)
->  {
->  	unsigned long page_size;
->  
-> @@ -2333,7 +2333,7 @@ static int devx_umem_reg_cmd_alloc(struct mlx5_ib_dev *dev,
->  				   int access)
->  {
->  	unsigned long pgsz_bitmap;
-> -	unsigned int page_size;
-> +	unsigned long page_size;
->  	__be64 *mtt;
->  	void *umem;
->  	int ret;
-> -- 
+Tomeu
+
+> Igor Paunovic (1):
+>   accel/rocket: request the core clocks by name
+>
+> Jiaxing Hu (14):
+>   accel/rocket: take the completion register writes under job_lock
+>   accel/rocket: wait for a running IRQ handler before resetting a core
+>   accel/rocket: let the core suspend after a reset
+>   accel/rocket: factor the completion tail out of the IRQ handler
+>   dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+>   dt-bindings: power: rockchip: allow resets in a power domain node
+>   dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+>   pmdomain: rockchip: add optional per-domain power-on settle delay
+>   pmdomain: rockchip: cycle an optional power-domain reset on power-on
+>   accel/rocket: select the per-core clock and reset counts from match
+>     data
+>   accel/rocket: add RK3576 NPU (RKNN) support
+>   arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+>   arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+>   arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+>
+>  .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+>  .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+>  .../power/rockchip,power-controller.yaml      |   8 +
+>  .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 +++++++++-
+>  drivers/accel/rocket/rocket_core.c            |  32 +++-
+>  drivers/accel/rocket/rocket_core.h            |  11 +-
+>  drivers/accel/rocket/rocket_device.c          |   7 +-
+>  drivers/accel/rocket/rocket_drv.c             |  42 ++++-
+>  drivers/accel/rocket/rocket_drv.h             |   2 +
+>  drivers/accel/rocket/rocket_job.c             | 157 +++++++++++++++---
+>  drivers/pmdomain/rockchip/pm-domains.c        |  89 +++++++---
+>  12 files changed, 467 insertions(+), 64 deletions(-)
+>
+>
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> --
 > 2.43.0
-> 
+>
