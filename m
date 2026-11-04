@@ -1,108 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833853;
-	b=GZZJeyxt5u8gDxiLj60l3fUqo8OVW935HRjOXe7jFmPZOxEeWcjNaxvtiV+JSWDsBWn4
-	 jEp6c9uNoklirIREUpKXOCZjHtIp4nQ5Bugl9Gqt+pFnW0zDnkX7doH0djYoEDVzRetKx
-	 Fj8c9gCL4USiqFWdOxpcv7GZpgC4/XYlWrRiB5yNJTIH/Q/DDpIBMcU257OUc5CifCQwE
-	 I0jTIaYzE2U+ZTnu3HKVFktre0uF6/DuHaIWdque9mXREz/lZGo2O4mx6hCZylD0ChuLx
-	 bwSwNl5IhBhhY+byFrIi3vqr7J6uk2pltUe7XLHh6dXQyJ6AIoLu8jS4u3d7wGBH7SA==
+	t=1793833858;
+	b=qiAN5cyR/O3U9vr84Ldmsq50yBa0BUOL1TtxDHjk5Vq23vNli+YmfXNYNVpIDpBAonWN
+	 QnRSxCA8ArxBvHbburPvSFoVkOcWgkLIi56XRTMSP1iL1j0/F4A4luWX3HuwmWdQE5qqP
+	 5ydhj/Tt87gRkqQWIk76I3J4d2Clw5EICkzyEGX3NlmfUG1TnlG8lJsGHahyf/h9aW/ne
+	 nFkqNFcb5O4N3GmfvWNdszVqTylcWRTUgOMxg1M4nZiRDzDG88IFHR+t9MPZ+b/oUAkIz
+	 nO4+JCNPDpnH9fY3k/6737e4KY6GC+0Fk2sQ2wR+0mFtq5njYnIWcIldBLsNgmlOxhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833858;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9lJTku6tZLx6gKrffgVjANOZdcGCC7AXBaK81+9zGYE=;
-	b=APQm65LQUzsUyuoL0zJNLAuIO4dJJpw2oLpZqPySb51q8B+3EzO/wukGLZgP4r9wUUtR
-	 lugcD74Bg/koykMXzPq7U7+y/jMt9RIcP/q7y//0GthGwKeDWgq3drELilnHpOE8eyznb
-	 gGMwybAUM9+4YhLFhcAaW9ffE1zr23QBAM+ZT+qWwImhkc4V3ZXloprv0XjMwkQax4LaH
-	 ynZLe2AqVSSXA28byzhnJWKh7014P3Lj2NtxHch7vqOPzdK/i3fiK/FPeU4Bzdb5mlEwG
-	 FNhUn2gzuVvzOHdpH0Xo6N4/j15ES8Vdho07ce7ZLZYfTBjdQod46x2VDUpEpUCljJA==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=L2ngttll2ZfRB1yOGTWYBs11RUTV7CaPsssPY7ZPsJ0=;
+	b=Q2S+KFuNxPe9SC+lMARpj81tucMgc+QKGvv0ULhynWBeUxyDq1DR0cWMH91PK87AF/mb
+	 mERFjTE5a5sI3kcO8e3Uw/hR97oFEhoXqoLyL3q5YI5WcCyzRStH0K3Ye4AEb+vRteW3F
+	 BH4bWpr+agUnZZxfM8VTOJbbTqgvZNCpzob2ZJR94Ak3uBlaUYFPbpuq6E6e+hS6Le+Ah
+	 w8oU3MOQfzyDjC+L7ZCE5vV/m23f+PWCajImTGpinmdBF9bVWk990jV622oHbv57Phese
+	 oM4EPbRSM+/6Go3EbaJUi/jeSTnmyv2V1oVSxepR7RP9m/GmrXSYi21Hna4H9YZ/Xlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peNOYkXB;
-	arc=none smtp.remote-ip=209.85.167.172
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VPeUnHJl;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60F6606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60F6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D31606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D31606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peNOYkXB
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-53aa0802881so605798b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:10:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VPeUnHJl
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso9823885e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:10:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793833852; x=1794438652; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793833856; x=1794438656; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=9lJTku6tZLx6gKrffgVjANOZdcGCC7AXBaK81+9zGYE=;
-        b=peNOYkXBykh5hzcRhdfilpYXoUuuRG3sK0s9aagDiqbAuXWBhH9lXpDftM39uVsKUn
-         nLDBR0fRDWcwO9MpLkFRWNe3KuJbrlG6lmb9FugsGCH6hkb40P6tqMLoTYOj7gdWGj5k
-         +5Mlrqz5MBqpTd7Cmb1HdJN7jZn4a6dZmhe0aAbme7UhTBN9rN7SVV5K4D66jtkcG93m
-         iL2UtG1Zl5aMbYxD4i2sW9LXZ+uve/DnCQfv/Il2Awcc2sdsNM/jVPFEvDxktUoeRcQM
-         uHiI/XCUazDziJdVkzmYwgYvqp3+zkzlQE7c19xvz26VU1wojYm5JQFCM+/wew2CD06F
-         ovOA==
+        bh=L2ngttll2ZfRB1yOGTWYBs11RUTV7CaPsssPY7ZPsJ0=;
+        b=VPeUnHJlodJgGXyskeDaB33g6nEXrva2NNxzBrVb74wXzoWpbrsh0hEGsT/kwrqejQ
+         6eHU/VuQiSGjbyOWeTqPwzONyTJ0PKY2osaawEYceMnGwIXR70+pCXzfPabUFyjSs+2r
+         taK6DmEZBKjtMrerLreARwg8HcsX59JZmGTTM6R5EePr4ox2rY7biFcbtx7LMjroKt4+
+         UDjPoPT1ISvSajE++5bQKm8/nkehBoLNUx/CCCpPxbQUs/TXC9w3gWgI34LAS1VG0W2T
+         gtvdv/L6Puy8FinqAZkRFGCBW1axWjoHSt8WVhQfBTQ9AJwYhaccoXeMiKj2mhVBmnhe
+         9HUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793833852; x=1794438652;
+        d=1e100.net; s=20260707; t=1793833856; x=1794438656;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9lJTku6tZLx6gKrffgVjANOZdcGCC7AXBaK81+9zGYE=;
-        b=1due2h15RuovuyAglstGOatLQl5/RZb/9S8vxCpDRhgIJF/6qFooU2EgcqcuJZvg2+
-         C6hnOEbb6oquKvaQndCiSA7d+NTDLHpMNPaN9FAFu0sTTpL5XCkpOUTFzNT1ODlA8Ge2
-         o/o3wdiRormhisuJEd8kv9bpw139JzHwhf+b5nlO1Ythfz2yeKzUljggSnRW/hJISMR9
-         hOCGzBwyWJX80UBF0C/fXfIjnY7TeDj3mBhED7jzqbdgyiyaqP5TKM1cr3f07qI/0Ijf
-         2e+vIsvxtxj2e6bOgTQwrnwJ/lCjfdY0Lk+iVSuKTOSpgdOdhbrfG9NjolhqjHuR10mA
-         tbug==
-X-Forwarded-Encrypted: i=1; AKwUvBxuo+tUE8Ub+U27dzj5AMpEMOG/cLF00EUHvy1P95XZ4JrbqDja4qyzODuRHXWZZMGD2Fm7EpsEXuq2P5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8We7oRupKr5rNMiZuVbzOyv3MTZDtElSERzZGNqvbS4t4E+sQT
-	l17x8+YamdzUVAiqJNhd2iqIfyQtcWCDuyF0OMR2AerORpDUsdHEBuw3RPgWK7u/
-X-Gm-Gg: AYBFou1cfVjjLO2uYGtX8VesJwDyRBPykpDqbcV5hGeGBxQhCFaBNRyYya483STBnff
-	jAs81UV/Sep8+MaNK6vmlXAa23nAZh5+wL6PohYJy4miHyjaYkyrRA8XkBSzYJZiMxUTbOkQatE
-	4Xk48R8uklNw1ZztQJYqyohdJsE/TgVnH1fMZamZijX8D8ZK+y9Y8pMclfZv/50Eq0V/wq2nMgN
-	IbBp9vpmVJLdwKqyfECVBeADLouop1mn5uBfP1qvAo2wuvl31RhMCtvJtR65YmfPuE1EJylync9
-	Zb1a8DTGrWwo6qHdCATGkKc7rzdxrs9Rct1AaMFFntjTcDIesykYGffqeGy6qWpOEvsKf/bnUr/
-	3B96Dh5+r0NI4Mhtc0+mNJdFcZxRMcKrwZAlJC4TGJm9LvlXSkCVbHXxwhQq45P6Of+sZLTrxIH
-	MVOkA0OSU/GtNiUCpgQqo9+hW6qPk82TEVGlw6fwir6+Wr9raUsnZNYHk/pUqofRfVLPpIdMUKz
-	UCnJXcVGroa3UNKLX5ncWDPRpymmizbkfZUFBGFR78MsOBO2LikGYskZoVsisFQoFYV48HloQqD
-	vXqtTaJt3VgZHN2s7scL/bDbhZwY9A==
-X-Received: by 2002:a17:902:dacf:b0:2e2:dfe4:adab with SMTP id d9443c01a7336-2eb36426d08mr166711845ad.10.1793833384590;
-        Wed, 04 Nov 2026 15:03:04 -0800 (PST)
-Received: from cxlqual.. ([220.120.90.131])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0908587dsm10999175ad.36.2026.11.04.15.03.01
+        bh=L2ngttll2ZfRB1yOGTWYBs11RUTV7CaPsssPY7ZPsJ0=;
+        b=JcqPt92sNyl86QQDkwkY5dN3tPV/LWUynUx1NB305PQD8/VGr7wViMO3P7Mup+539l
+         SkhQF2qJCQmV/I7s07Fgeb0/xFk6XhIHj4W5DvH+pfCJShCaeSteCwvT75Dd1DzCOnVV
+         Db5bq3T4bWB7vmmic/ChoCn32MGsasJ9OilWKAY9sr5LaLiDl3ANIDJjNbraC4BZpafc
+         mPj9BIGkCYfWTzIYsSQ47atyzqDowU7Ula+zPNuBHmK9kOULJPzNOm89nZDWUd0kN3iH
+         aBOl43MihOR5KJ4fZQqQ0fczi6CqxhAXZwEr+9wYxhfB5oTm+/L0y577ncRQ5FsJVym3
+         ySEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpDOCpWuVzxHhpDdP8hDX/n6YbWTkd2YLdzdnwVR55d0fOWg7gYKB0Gqg2DcwavVF9MsnejiKGNVi/L6o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8w3N9Ryq1c89U9zWCmCnSRCVR7oQYR8XEW2yLUCYtQ2ThLTUkO
+	pgWE7SNlNiBhpoSlGTu6L4mKYNFQm14wPewJROD5nDKeCQzGC0lgyDMK
+X-Gm-Gg: AYBFou3dXzobw2fQbdWrqr1lN2eDv4jeKbhUymGQJbERgOt/DkrW/oEAJHCNWVA36TL
+	jjQg+DRPIwzLld9iKwrF2Oy3y9w+/N6JuE+sqP3pB83bK94vE7CcDqclC+Rt7sAq21rOV6UDurb
+	kMDAzwJC40bOMzrgIsFbtDfCiZ1htO1hvj9Rz3GcBG1vLV8OTWjkwEKoNZYMwsDxikkm9AzCk+t
+	CuNpytIqRJS+D6VOnAk67MApXWLk5lE599sa0Gz8wVPKjEC2psz1VL1g5Kgxop+UGpt4qWIcqV2
+	aJsBjLLre/gQPfo5rxsQVVKuMZZbz015uaKOdgWyVquqb0xMdFNW7n9HWAofjuq5p9nn9z33EB4
+	SxnKH4g7pS2T8WtC1PTvP+8ZyYO0YM2pjMy0FhSr9BgBg9tMq6xB2DUQ8XiZXJQBmCCyX5KNMYD
+	fkcv86lPlBVWqu7ha+nFlrc6WpzyesfUEHODP8TyMjyky6jNFpMVBIicqsv6kzAl80a+vAcmo9r
+	uIhPIOaju9w8ovDLIwwsqucQUpuy6JXUdUQN4EHYq2jj+T+u2pV3hZjcf2a5Lkp6orkq0O7n134
+	GnN8ESXlKBv5N0K3usZa2vSoHHVudSG+lIMylY3bobd0kB/xkF1Z510qHivZ7kIP
+X-Received: by 2002:a05:600c:524c:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4ac17470f97mr396694935e9.10.1793833856460;
+        Wed, 04 Nov 2026 15:10:56 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8748sm6355951f8f.16.2026.11.04.15.10.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 15:03:04 -0800 (PST)
-From: Anisa Su <anisa.su887@gmail.com>
-X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
-To: linux-cxl@vger.kernel.org
-Cc: nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Ira Weiny <iweiny@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Fan Ni <nifan.cxl@gmail.com>,
-	Li Ming <ming.li@zohomail.com>,
-	Benjamin Cheatham <benjamin.cheatham@amd.com>,
-	Gregory Price <gourry@gourry.net>,
-	Richard Cheng <icheng@nvidia.com>,
-	Anisa Su <anisa.su@samsung.com>
-Subject: [PATCH v1 10/14] cxl/extent: Enforce cross-region tag uniqueness
-Date: Thu,  5 Nov 2026 08:02:34 +0900
-Message-ID: <20261104230445.66625-11-anisa.su@samsung.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104230445.66625-1-anisa.su@samsung.com>
-References: <20261104230445.66625-1-anisa.su@samsung.com>
+        Wed, 04 Nov 2026 15:10:56 -0800 (PST)
+Date: Wed, 4 Nov 2026 23:10:55 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Brian Masney <masneyb@kernel.org>
+Cc: Carlo Caione <ccaione@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Brian Norris <computersforpeace@gmail.com>,
+ Brian Norris <briannorris@chromium.org>, Sebastian Reichel
+ <sebastian.reichel@collabora.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stephen Boyd <sboyd@codeaurora.org>
+Subject: Re: [PATCH 1/2] clk: divider: Fix the divisor for rates above 4.29
+ GHz
+Message-ID: <20261104231055.5b566adb@pumpkin>
+In-Reply-To: <179382912410.620422.14715602424648962218.b4-review@b4>
+References: <20261102-upstream-clk-divider-large-rates-v1-0-eb17035bfad2@baylibre.com>
+	<20261102-upstream-clk-divider-large-rates-v1-1-eb17035bfad2@baylibre.com>
+	<179382912410.620422.14715602424648962218.b4-review@b4>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,195 +105,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-A tag uuid identifies one allocation across all regions and memdevs,
-but nothing checks a new group's tag against the allocations already
-live on the host: cxlr_add_extent() only compares it with the chain
-group being assembled.  The orchestrator owns tag allocation and is
-responsible for global uniqueness, but if a firmware bug or other issue
-causes a repeated tag, the kernel should also reject it.
+On Wed, 04 Nov 2026 16:52:04 -0500
+Brian Masney <masneyb@kernel.org> wrote:
 
-Add a host-wide list of live tag groups with non-null uuids.  Null uuids
-are skipped because untagged extents are not associated with a single
-logical allocation.
+> > DIV_ROUND_UP_ULL() takes a 32-bit divisor, so on 64-bit platforms a
+> > requested rate above 4.29 GHz is truncated. A divider fed by a 5.94 GHz
+> > PLL then computes a divisor of 7, not 1, for 5.94 GHz.
+> > 
+> > Use DIV64_U64_ROUND_UP(), which takes a 64-bit divisor.
+> > 
+> > Fixes: 9556f9dad8f5 ("clk: divider: handle integer overflow when dividing large clock rates")
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > Signed-off-by: Carlo Caione <ccaione@baylibre.com>  
+> 
+> Reviewed-by: Brian Masney <masneyb@kernel.org>
+> 
+> Since this is a core change to the framework, I'd also like to see what
+> Jerome thinks before we merge this.
 
-Check the list during tag group validation and return -EEXIST if the tag
-is already live on the host via cxl_tag_already_committed().  New tags
-are inserted to the list via cxl_tag_register(), which inserts atomically
-under cxl_tag_lock.
+I've wondered about whether using 'unsigned long' for clock frequencies
+was ever right.
+Clearly the type should be the same size for 32 bit and 64 bit, and I'm
+pretty sure the choice of long predates 64bit (I guess someone was worried
+'int' might only be 16 bits?).
 
-Signed-off-by: Anisa Su <anisa.su@samsung.com>
-Tested-by: Wonjae Lee <wj28.lee@samsung.com>
-Tested-by: Junhee Park <jh9934.park@samsung.com>
-Tested-by: Heesoo Kim <habil.kim@samsung.com>
----
- drivers/cxl/core/core.h   |  6 +++++
- drivers/cxl/core/extent.c | 56 +++++++++++++++++++++++++++++++++++++++
- drivers/cxl/core/mbox.c   | 16 +++++++++++
- drivers/cxl/cxl.h         |  3 +++
- 4 files changed, 81 insertions(+)
+But if frequencies can be over 4GHz (which no one would have imagined a few
+years back) they can be that high on 32 bit systems as well as 64bit ones.
+So there is a big 'bag of worms' being opened.
 
-diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-index 528eec2a1cc3..b7f8886db498 100644
---- a/drivers/cxl/core/core.h
-+++ b/drivers/cxl/core/core.h
-@@ -79,6 +79,7 @@ void kill_regions(struct cxl_root_decoder *cxlrd);
- 
- int cxl_add_extent(struct cxl_memdev_state *mds, struct cxl_extent *extent,
- 		   u16 seq_num);
-+bool cxl_tag_already_committed(const uuid_t *tag);
- int online_tag_group(struct cxl_dc_tag_group *group);
- bool rm_tag_group(struct cxl_dc_tag_group *group);
- void discard_tag_group(struct cxl_dc_tag_group *group);
-@@ -117,6 +118,11 @@ static inline int cxl_dax_untagged_add(struct cxl_dax_region *cxlr_dax)
- 	return 0;
- }
- 
-+static inline bool cxl_tag_already_committed(const uuid_t *tag)
-+{
-+	return false;
-+}
-+
- static inline
- struct cxl_region *cxl_dpa_to_region(const struct cxl_memdev *cxlmd, u64 dpa,
- 				     struct cxl_endpoint_decoder **cxled)
-diff --git a/drivers/cxl/core/extent.c b/drivers/cxl/core/extent.c
-index 334a97ab583d..4a59db823af4 100644
---- a/drivers/cxl/core/extent.c
-+++ b/drivers/cxl/core/extent.c
-@@ -6,6 +6,54 @@
- 
- #include "core.h"
- 
-+/*
-+ * Host-wide list of live tag groups with non-null uuids: a tag uuid
-+ * identifies exactly one allocation across all regions and memdevs.
-+ * The orchestrator owns tag allocation; this rejects a repeated tag
-+ * from a firmware bug or other issue.  Untagged (null uuid) extents are
-+ * not tracked: they are not associated with a single allocation.
-+ */
-+static DEFINE_MUTEX(cxl_tag_lock);
-+static LIST_HEAD(cxl_tag_groups);
-+
-+static int cxl_tag_register(struct cxl_dc_tag_group *grp)
-+{
-+	struct cxl_dc_tag_group *g;
-+
-+	if (uuid_is_null(&grp->uuid))
-+		return 0;
-+
-+	guard(mutex)(&cxl_tag_lock);
-+	list_for_each_entry(g, &cxl_tag_groups, registry_node)
-+		if (uuid_equal(&g->uuid, &grp->uuid))
-+			return -EBUSY;
-+	list_add_tail(&grp->registry_node, &cxl_tag_groups);
-+	return 0;
-+}
-+
-+static void cxl_tag_unregister(struct cxl_dc_tag_group *grp)
-+{
-+	if (uuid_is_null(&grp->uuid))
-+		return;
-+
-+	guard(mutex)(&cxl_tag_lock);
-+	list_del(&grp->registry_node);
-+}
-+
-+bool cxl_tag_already_committed(const uuid_t *tag)
-+{
-+	struct cxl_dc_tag_group *g;
-+
-+	if (uuid_is_null(tag))
-+		return false;
-+
-+	guard(mutex)(&cxl_tag_lock);
-+	list_for_each_entry(g, &cxl_tag_groups, registry_node)
-+		if (uuid_equal(&g->uuid, tag))
-+			return true;
-+	return false;
-+}
-+
- static struct cxl_dc_tag_group *to_dc_tag_group(struct device *dev)
- {
- 	return container_of(dev, struct cxl_dc_tag_group, dev);
-@@ -15,6 +63,7 @@ static void dc_tag_group_release(struct device *dev)
- {
- 	struct cxl_dc_tag_group *group = to_dc_tag_group(dev);
- 
-+	cxl_tag_unregister(group);
- 	xa_destroy(&group->dc_extents);
- 	/* Drop the pin taken in alloc_tag_group(). */
- 	put_device(&group->cxlr_dax->dev);
-@@ -93,12 +142,19 @@ static struct cxl_dc_tag_group *
- alloc_tag_group(struct cxl_dax_region *cxlr_dax, uuid_t *uuid)
- {
- 	struct cxl_dc_tag_group *group __free(kfree) = kzalloc_obj(*group);
-+	int rc;
-+
- 	if (!group)
- 		return ERR_PTR(-ENOMEM);
- 
- 	group->cxlr_dax = cxlr_dax;
- 	uuid_copy(&group->uuid, uuid);
- 	xa_init(&group->dc_extents);
-+	INIT_LIST_HEAD(&group->registry_node);
-+
-+	rc = cxl_tag_register(group);
-+	if (rc)
-+		return ERR_PTR(rc);
- 
- 	/*
- 	 * Pin cxlr_dax: it is used after cxl_rwsem.region is dropped, so a
-diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-index a1d3e04a1e1b..0fa501f5800c 100644
---- a/drivers/cxl/core/mbox.c
-+++ b/drivers/cxl/core/mbox.c
-@@ -1640,6 +1640,22 @@ static int cxl_validate_group(struct cxl_memdev_state *mds, const uuid_t *tag,
- 	struct device *dev = mds->cxlds.dev;
- 	struct cxl_extent_list_node *pos;
- 
-+	/*
-+	 * Cross-More-chain uniqueness.  A non-null tag seen in this group must
-+	 * not already correspond to a committed tag group anywhere on this
-+	 * host.  More=0 was supposed to close that allocation, and tag uuids
-+	 * must be unique across all regions and memdevs (the orchestrator owns
-+	 * assignment per spec).  Either constraint failing — same chain
-+	 * redelivered, or two distinct allocations colliding on the same uuid —
-+	 * is a firmware/orchestrator bug; reject the whole group.
-+	 */
-+	if (cxl_tag_already_committed(tag)) {
-+		dev_warn_ratelimited(dev,
-+				     "Tag %pUb: dropping group, tag already committed (firmware/orchestrator bug)\n",
-+				     tag);
-+		return -EEXIST;
-+	}
-+
- 	/* Sequence-number integrity */
- 	if (cxl_check_group_seq(dev, tag, group, shareable))
- 		return -EINVAL;
-diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-index f7d7749d704c..79f5773f8f81 100644
---- a/drivers/cxl/cxl.h
-+++ b/drivers/cxl/cxl.h
-@@ -642,6 +642,8 @@ struct cxl_dax_region {
-  *		allocations.
-  * @nr_extents: live count of dc_extents in the group; the group is freed
-  *		when the last dc_extent device is released.
-+ * @registry_node: anchor in the host-wide non-null-tag registry that
-+ *		enforces tag uuid uniqueness across all regions and memdevs.
-  */
- struct cxl_dc_tag_group {
- 	struct device dev;
-@@ -649,6 +651,7 @@ struct cxl_dc_tag_group {
- 	uuid_t uuid;
- 	struct xarray dc_extents;
- 	unsigned int nr_extents;
-+	struct list_head registry_node;
- };
- 
- bool is_dc_extent(struct device *dev);
--- 
-2.43.0
+Changing the type to 64 bits is hard to check (unless you manage to build
+a kernel with the value embedded in a structure using accessor functions)
+and will be a lot of bloat for most uses on 32 bit.
+Alternatively you enforce a different api for clocks that might exceed 4GHz.
+
+David
+
+> 
+> Brian
+> 
 
