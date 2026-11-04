@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801556;
-	b=GFhUXs0Bh2222jbVf8F9K6oV0vgEIAx78VgL14R9aWgAsjBun/haBi8OGjifNo6Dj3TV
-	 T1TFL45wEILUokifnxH+kG0NWxTelYNbdxWcuS6P7HECrdDu9QHjaIIYsy8QAaoEZWqMR
-	 Ap5H04meVahLhjUxooM8PcgTOD7JDbAK9AkmmKrt90q6Q1qnAiiJ2F6T2UT8ssElfoMaD
-	 imi4cIzUMZDZkb8dp1onkBJ9blG9jpev7cxV4vnaArEu8oh/E0RkgkR1u7OXE4rzg5X3+
-	 HJEnax4n6lgL40SqTQnB/kL0ZZn1vmAXsvQJ4uq6U/0ClIIg21bWZcuBzwM81doz24A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801556;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=YvS6ooKVwKypkaolFvHXqoO8MqX5BzI/xKvJfWr51T8=;
-	b=WcYO7ABNcVEWJosEYMu0G3cnByj1qui1yBH7DNhwm6TuHm/92iMjxtkstt9yOmoD5CFX
-	 R9hx29+otcw/CeNwBhSv9XK4uXn9oEs0l9CRQVAACK6AgcwrqwzuMuDWi5lFzW/zPH0Qj
-	 1lJy6EQKOgkM/j150AxTInFRh5VB6QO0rlwA2NPPdKMkTXjNMqEKfj6MJL6uBx0GiPmac
-	 wY2bHG7FqhZIYDyJ6dVIwHEgBA/xE6Ceu4SvplMUKMWrwJwD3FW7O52dCzQF5EjIyhHU2
-	 kHXf3RxtjLwSeAe7q6P4wtIAFOual5X+WdO1DFALHK6mRFT2EpOUMyMmbuMrKkoyCWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=OeMDIkmI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801560;
+	b=l0M3dfOOBNnjXlkQppd7vkBVa/PFtn4eYUmF3lM5m9ZnwA4txe8ks/I8yUCmN3gV5gy5
+	 Sx1zFORBusZF0Rk5Jy9CYx71+0G23xMq7P9ULJqaNk4W8qBKIyLi4/7Hdmw1CcRqBkwda
+	 IekO24YQ/+xbJ/6pupLx9ckcSHlOW6YAZpnm5P8TBay1kpptnFclx+v4Nq2pZUXVJr2Q7
+	 THTxY7dSPvHuz77f3p5bkg2euDE4SZb7drMSa7D2Yd5odgwnphbaK+ZJsUJ0ppRLMPTrq
+	 LdOm88Mt3TuNxXUYfrSx1hQksQg36KWKiaPb/K/AqgpPBgm4RHVXAIkBRg2TkOA0+6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801560;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HTROKWbLtBdwvAccLPzBB3mIAmFWbuKi2E0W50i4Av8=;
+	b=hFaf62WDLiQbBmKu2//+SX+MoHsozUsdK3gIOBBqQjkAFj6VkxIS9h2waCCS1ivDwqFd
+	 4+4sRMSQcGI7SVvHeSuAhYc1KXiIhUBY1WiHePLP+Ne3HKwRVN8le14sHr0AHf19g32sw
+	 iS2VnjUiWO7Oo8SEfWYaoHCg5q+kDhGZVzKox4iRDGratG3wOodmcxRs8v5Mg5bH3V+EY
+	 dHP9hTF7enhxy1YJ3QPhT6Mwqkk1cenqaU9W1SLPu7lUSmr5NaCjWLGMxLlz+vrxmYpEI
+	 iULBdSG4ps/xwds/wbQG6ijeYOPbXI3Cm91/ritldKjkNkBZHRI3uVp4nzGh1gU5eNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c04mG+z7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F8C606EE84;
-	Wed,  4 Nov 2026 14:12:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F8C606EE84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3118D606EE8C;
+	Wed,  4 Nov 2026 14:12:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=OeMDIkmI
-ARC-Seal: i=1; a=rsa-sha256; t=1793801509; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=T1jilRb5wucUxZzsiUHWFXU3QP8gWP4Jxbqx77jnO9LDy3ZSAES1TBG22meFsALSAZK++CUEtm95mlpfKOblP6cWrAwzUIVEkkNXeVaCt/qhQBT4r8AwMqeDp7ec+zVehZeA3Q5KiRgkEvCwIAXXKbDPIKgyKy9HeYC1cHrRko8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801509; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YvS6ooKVwKypkaolFvHXqoO8MqX5BzI/xKvJfWr51T8=; 
-	b=mTmYMnIK6OBW+AI3irWk9JuYEadnmcVGSn/LBXiV6KAQsTVdlNhdnGtsCHjRJr6WivzBo6c+WWGGVksyxB/gWAX9O7FsPPhfCn6YdOLWc1DC2H3cu5z57/860kmql+Ts4RQWMzIGNr5jG1jAB8+TToJlyesEXqmSssCOEWelfh8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=OeMDIkmIGVzsQFWqiBBZMVjQasmnyeiE1zY+UwBvVUrgqEphJo29TwTp+bf5IqU89A+7dgQzSBu2kOaQaDy1Q/2e8kxnoMp5cSBVIWugQrtyAskGHHrfqgkKeSdZHWPJP2sHYPnRFapB0br5mT2n0+WynU2mBBE56cx9aulffEE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=YvS6ooKVwKypkaolFvHXqoO8MqX5BzI/xKvJfWr51T8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179380150728514.866978180500155;
-	Wed, 4 Nov 2026 06:11:47 -0800 (PST)
-Message-ID: <12f1f67a-9855-4765-9f3c-5f30853df76b@collabora.com>
-Date: Wed, 4 Nov 2026 17:11:42 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c04mG+z7
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 20AB11F00A18;
+	Wed,  4 Nov 2026 14:12:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801560;
+	bh=HTROKWbLtBdwvAccLPzBB3mIAmFWbuKi2E0W50i4Av8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c04mG+z7Tvxwuog+3MwAz7NyM157MLbgxK6l3hP4aNOxO37ZtJxONtEa5g4WLW/D8
+	 mkJKc3mx8IdLcYlJQsZlkZhGwarMF/UVKt0ZHLiSQD/uycFGvvZczhfO/hKWTaw2q+
+	 U9pz9EB9xt9jIQyKMclc5cJcekeNiSakjKTMS4o0X5qhUYZvmlxFAnx7yPd48kTxZF
+	 1bX8ZDk6vw6oL120IIrQzcS//P6jxvS+N9Bz99YF83pivDsdgRO+4L3ZDdyyYYjwtr
+	 feXSXw4LCqX9WplGWCzrr9y0nupqiVg+v3zhsU/KShHt0kV68ye0ArYWcADFWwpvnS
+	 NOLaJNZbgkUkA==
+Date: Wed, 4 Nov 2026 15:12:35 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Michael Walle <mwalle@kernel.org>, longzhao@ambarella.com, 
+	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Mika Westerberg <westeri@kernel.org>, linux-acpi@vger.kernel.org, devicetree@vger.kernel.org, 
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v13 08/13] gpio: regmap: remove gpiochip before tearing
+ down irqchip
+Message-ID: <awdvsfanqmvivihwhaik4atseyty3rwk2dytf4yihwvnbcj47l@ejipwyffq25k>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+ <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
+ <DMKL43ZCOSQ3.3TAJL8BRQ6ZTH@kernel.org>
+ <auoeysEHqGemmuhO@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,122 +64,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/10] media: synopsys: hdmirx: add media entity for
- video capture device
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-3-71a11a2e3e76@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-3-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auoeysEHqGemmuhO@ashevche-desk.local>
 
-On 10/5/26 16:28, Sascha Hauer wrote:
-> From: Gerald Loacker <gerald.loacker@wolfvision.net>
+On Tue, Nov 03, 2026 at 07:50:02PM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 02, 2026 at 09:33:20AM +0100, Michael Walle wrote:
+> > On Mon Nov 2, 2026 at 7:46 AM CET, Long Zhao via B4 Relay wrote:
+> > >
+> > > gpio_regmap_unregister() currently calls regmap_del_irq_chip() before
+> > > gpiochip_remove(). That disposes the mapped virtual IRQs and frees the
+> > > irq_domain while ACPI GPIO-signaled events may still be requested and
+> > > while gpiod_free_irqs() still needs gc->irq.domain.
+> > 
+> > Maybe Andy have an opinion here. But that deviated from the usual
+> > cleanup in the reverse order and at least deserves a comment in the
+> > code.
 > 
-> Register the video device as a media entity with a sink pad to integrate
-> it into the media controller topology. This allows the capture device to
-> be properly represented in the media graph and enables userspace to
-> discover the device capabilities through the MC API.
+> Yeah, this is unfortunate. I think to make it work as proposed the IRQ domain
+> handling in GPIOLIB should be revisited. So, at least a good comment is a must,
+> indeed.
 > 
-> The sink pad indicates that this entity receives data (HDMI video stream)
-> which is then made available through the V4L2 video capture interface.
+> > > Remove the gpio_chip first so ACPI teardown and USED_AS_IRQ cleanup run
+> > > against a live domain, then delete the regmap irqchip. Use the same
+> > > order on the registration error path, which previously leaked the
+> > > irqchip when gpiochip_irqchip_add_domain() failed after
+> > > regmap_add_irq_chip_fwnode().
+> > 
+> > This should be split into a seperate patch with a Fixes: tag.
 > 
-> Initialize the pad before registering the video device. The previous patch
-> gave v4l2_dev an mdev, so video_register_device() already registers the
-> entity, and doing it the other way round would hand
-> media_device_register_entity() an entity with no pads yet.
-> 
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 26 ++++++++++++++++++++--
->   1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index 8b04c84be75ec..9891e0f3874ea 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -125,6 +125,7 @@ struct snps_hdmirx_dev {
->   	struct hdmirx_stream stream;
->   	struct v4l2_device v4l2_dev;
->   	struct media_device mdev;
-> +	struct media_pad pad;
->   	struct v4l2_ctrl_handler hdl;
->   	struct v4l2_ctrl *detect_tx_5v_ctrl;
->   	struct v4l2_ctrl *rgb_range;
-> @@ -2761,15 +2762,29 @@ static int hdmirx_probe(struct platform_device *pdev)
->   
->   	stream = &hdmirx_dev->stream;
->   	stream->hdmirx_dev = hdmirx_dev;
-> +
-> +	hdmirx_dev->pad.flags = MEDIA_PAD_FL_SINK;
-> +	ret = media_entity_pads_init(&stream->vdev.entity, 1, &hdmirx_dev->pad);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "media entity pads initialization failed\n");
-> +		goto err_unreg_v4l2_dev;
-> +	}
-> +
->   	ret = hdmirx_register_stream_vdev(stream);
->   	if (ret < 0) {
->   		dev_err_probe(dev, ret, "video device registration failed\n");
-> -		goto err_unreg_v4l2_dev;
-> +		goto err_cleanup_entity;
-> +	}
-> +
-> +	ret = media_device_register(&hdmirx_dev->mdev);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "media device registration failed\n");
-> +		goto err_unreg_video_dev;
->   	}
->   
->   	ret = hdmirx_register_cec(hdmirx_dev, pdev);
->   	if (ret)
-> -		goto err_unreg_video_dev;
-> +		goto err_unreg_media;
->   
->   	hdmirx_load_default_edid(hdmirx_dev);
->   
-> @@ -2784,8 +2799,12 @@ static int hdmirx_probe(struct platform_device *pdev)
->   
->   	return 0;
->   
-> +err_unreg_media:
-> +	media_device_unregister(&hdmirx_dev->mdev);
->   err_unreg_video_dev:
->   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
-> +err_cleanup_entity:
-> +	media_entity_cleanup(&hdmirx_dev->stream.vdev.entity);
->   err_unreg_v4l2_dev:
->   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->   	hdmirx_disable(dev);
-> @@ -2814,7 +2833,10 @@ static void hdmirx_remove(struct platform_device *pdev)
->   
->   	hdmirx_disable_irq(dev);
->   
-> +	media_device_unregister(&hdmirx_dev->mdev);
-> +
->   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
-> +	media_entity_cleanup(&hdmirx_dev->stream.vdev.entity);
->   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->   
->   	hdmirx_disable(dev);
-> 
+> Not sure if we need a separate change here as two are coupled.
+> I leave it to Bart to decide.
+>
 
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Rule of thumb: can we have a smaller fix that can go in first and be
+backported? If so: Split. Otherwise let's leave it as is.
 
--- 
-Best regards,
-Dmitry
+Bart
