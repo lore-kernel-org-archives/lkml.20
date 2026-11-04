@@ -1,58 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791368;
-	b=IlI4V8sYW2U2U8TNKa54P9M9PvA/6QJeN5NYkrbDQy7gRYdg/u5KBkJrQBDfZ3R+xi2N
-	 6LEDo9SURrvnrB3ssl3yI/9+HXYyCZy/di1zynqN9wNdfBlww0FmnyhBGH3/seFHj4eHx
-	 2SxeXt178Iqx2g/OF6AwPQcDv/45G2TIDET6GxTe/2XKJTdQ2XpiS39YuxlBP2bXKAi6Q
-	 y51lsqt1/alnJRxjrkBzPZaKFd+Lkxa+he/HVYLa2NHb3Qz0Kz7IumLzOAagJUSwp5Nvj
-	 rWVLUng2eTakKWf38i7ASz3KD/I/vdMgw9z8idw4LxKHOunS7tf86IbzkshRG7V5lCA==
+	t=1793791382;
+	b=z06kq5I7D1Y8KR3ASH0svkUVtq6JQwJi+X3GHBZLqatyOJF4iWwvnDDqps6w4iIcJDCQ
+	 eBR4trllZVWWVEn0pUaglI0knMOcA759fqJO6WW+FodRNoHJUwptU/tqX/nOjdWeUynt0
+	 sDDuu1IHb3TPRkbuwrX5+hoxVhVqvfYNLcr7gNIj3Kb/HsHUnFT3orQ57drShBw1jMZUX
+	 WsGFeoeJm7wnCntrNnLFbE/Y0e9XFo0A8cv9cUt6ui9pHEtvjLCYu7g0AdGJXfaBCKQG7
+	 5fEH+J8Snj86/qyCTzsoiEWJcP46B8fb+3UA5lItW1All8YMkC1J036wWQZWhkX/zOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791368;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=azj6je3Tauy8PqvAOV9GF0M1ghGb3gi86TBsOZQKuHI=;
-	b=smA8py+LBVnuZDfzeo7uEatXlB0MQylTOH8TksP1nq+wDBqs2SInVyFDRHWhl0SykOo4
-	 p8JuJEFKQokk+tUBV9EgohMIouynLOFACunCE0phboCXIdTZfNkbilggo8s64DamVXwdv
-	 purN0q96Bl+WtmV6/t1Z3GH39owPo1kspzvhN9p7AG5IXlRucqkt7VE8sbwmCR0f3Ve6Q
-	 R0s3q/MTLtY5lXbu+i9Nnv7QcVPbDtd7nJ7Omc0y38NeHqqDLulM9fhVMRCQBOWRim1dM
-	 MUOSQ5h5Ts+OkgENP6xPAEPVg0Qe/6uaS9s6Lsy5Im1qmEL7OZO8JhhELx8clu3AGkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791382;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=SnHo2u9kIasWx9hfw1cGrJ/JFwdeMAcsODx6Pj+X94k=;
+	b=HRbKlkrAD++hXN5J7KKBZj08IOQADZcbfhUOYWQm4UdPzC/mGWe+PODJgvh9zHcl1etR
+	 wdHe2cqHHW2+PJWbPx/xLItph/HPl8FHxKUrzkY9aB7S/5bCTlhSGKF9MVThPyeMKYZLs
+	 x00ohgtFtQ10KP9cPre/EQjE6Bt4Iw/mO0XoNy7GQEm3ByFxafXMePZZkzsvIi5dMSStV
+	 qKYcxpmL3PPR8Lnjb92fTwsLF/F52N/d0n3j9L7UUyGLUvqvknwwWOxQ1Khk4d4K9CKXU
+	 k+ro/4belbOuW6liuMUY06cQAhZNC2PK/xV5co0TU3Iy+wqJVOu1T72Eh5Uu92sD51Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dR6JifXy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y7fFzXdc;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ltE1QQtZ;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A56606A33C;
-	Wed,  4 Nov 2026 11:22:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB1F606A31B;
+	Wed,  4 Nov 2026 11:23:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECB1F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dR6JifXy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47121F00A16;
-	Wed,  4 Nov 2026 11:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793791367;
-	bh=azj6je3Tauy8PqvAOV9GF0M1ghGb3gi86TBsOZQKuHI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=dR6JifXyfU9+Y+e04PesO3E++kcxRx69CrNmSGquGaUV1ySlmdnmSjlqY9OoxG/Hj
-	 mWtZzk0cQfCdyaCV7O57wwJFeE/6sw35rZkll+/dLiMvNg1o6olImYUvB634Fu24fM
-	 vQsqA5hyNW2hwx64i7HsIWjT2Uk+K7hl1Zite2vL4n6u3fwysMo6BWn6W2UIReJH03
-	 dqq11TVUEGjAa76UN06pRnWl63W3cAfo37m2dC+Rs6cmHHd79pjHnxAWeCj+f7l/cm
-	 26bUN7KDFrYjBKzRa/AEFxTLNLKE7q5WCZNfD6gJTFb8OgCjQY+cwegiLR4LZnOhOI
-	 +b1S8pxaSiP+Q==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Bart Van Assche <bvanassche@acm.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Mark Brown <broonie@kernel.org>, mfd@lists.linux.dev, 
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <8aec913c6a80c26c4cf5a1ce590f8439c997dafc.1793044546.git.bvanassche@acm.org>
-References: <8aec913c6a80c26c4cf5a1ce590f8439c997dafc.1793044546.git.bvanassche@acm.org>
-Subject: Re: (subset) [PATCH] mfd: twl4030-irq: Fix a lock leak in
- twl4030_sih_bus_sync_unlock()
-Message-Id: <179379136541.1658386.17812950773017437620.b4-ty@b4>
-Date: Wed, 04 Nov 2026 11:22:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y7fFzXdc;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ltE1QQtZ
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793791379;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SnHo2u9kIasWx9hfw1cGrJ/JFwdeMAcsODx6Pj+X94k=;
+	b=y7fFzXdcFhh7qcukk7/4l36Dauvnb0J2Bo/9fNFsGcqQSfU/+qIziaNPnsihGv7aNiVrqq
+	sm6Bg4vsfZ9EYpZneTNGz0gYrQ5DK16r5g/PrGdIPgcVASF65BSgM2td7oQmI1nzgOXBRa
+	ZnQ4BtgwyxyNe65aD3Wqh6Mxa8jMOHFhvFATTUPXBCFSbVRIhNh6nG6ifZ4JjtTgTwAlqC
+	q1ymuk5GWs4t+p45Z4r9yp+ZZhCbqVssTkHQQB2VWe1wfAfLWExmPiA57UFKQAfFkFwEb/
+	NkmUOV/0FNmMqmCbNypHoZ7eZRrplnmxDnsw1Nv8oyJ5vtVHcTztTZtddaSm2A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793791379;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SnHo2u9kIasWx9hfw1cGrJ/JFwdeMAcsODx6Pj+X94k=;
+	b=ltE1QQtZbUydL7Sm/Vy82I9DN8kuW5KtLu+1++esE9JMjf8+Yu8ymgM4HjLzO2Z/7h+Xyo
+	1qVASUzehN0YVcDQ==
+To: Breno Leitao <leitao@debian.org>, Russell King <linux@armlinux.org.uk>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, Petr Mladek
+ <pmladek@suse.com>, Toshiyuki Sato <fj6611ie@aa.jp.fujitsu.com>,
+ kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH] serial: amba-pl011: touch the watchdogs in write_atomic()
+In-Reply-To: <20261104-pl011_touch-v1-1-e292bd834e14@debian.org>
+References: <20261104-pl011_touch-v1-1-e292bd834e14@debian.org>
+Date: Wed, 04 Nov 2026 12:28:59 +0106
+Message-ID: <87zevoalik.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,21 +74,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain
 
-On Mon, 26 Oct 2026 12:55:46 -0700, Bart Van Assche wrote:
-> If reading the EDR registers fails, twl4030_sih_bus_sync_unlock()
-> returns without unlocking agent->irq_lock. Fix this by jumping to a new
-> label in front of the mutex_unlock() call. This bug has been detected by
-> the Clang thread-safety analyzer.
+On 2026-11-04, Breno Leitao <leitao@debian.org> wrote:
+> In emergency context, such as WARN(), nbcon prints the pending records
+> through write_atomic() with preemption disabled.
+>
+> On arm64, WARN()  can run with IRQs masked, so the whole backlog is
+> printed with IRQs off as well.
+>
+> Commit 9bd18e1262c0 ("printk/nbcon: Restore IRQ in atomic flush after
+> each emitted record") does not help here, as it only restores the
+> caller's IRQ state between records.
+>
+> pl011_console_write_atomic() busy-waits on the UART for every
+> character, and at 115200 baud it prints about 11.5KB per second.
+> Flushing a few hundred kilobytes outlasts the hard lockup threshold
+> (10 seconds by default), so the printing CPU is reported, or the
+> machine panics with hardlockup_panic set. See [1].
+>
+> The 8250 driver avoids this by calling touch_nmi_watchdog() while it
+> polls the transmitter. Do the same in pl011_console_write_atomic(),
+> once per record.
+>
+> Suggested-by: John Ogness <john.ogness@linutronix.de>
+> Link: https://lore.kernel.org/all/87wlqtxb14.fsf@jogness.linutronix.de/ [1]
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Applied, thanks!
-
-[1/1] mfd: twl4030-irq: Fix a lock leak in twl4030_sih_bus_sync_unlock()
-      commit: aed393ea3707fd3573b78449037e2749e9b30245
-
---
-Lee Jones [李琼斯]
-
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
