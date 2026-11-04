@@ -1,77 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781883;
-	b=ubFLObhPdChSkOSKrcD2i6Ez9zP0bZV5F+IKge0zz6Y95m/dd9hDoOHbjbK7QOV2Df9K
-	 nAL39HSnJEVjhDEVNNpwxJu+LAIqoo+Cn4Iz3+1YDtKpopwvhtN3O8p+odqEiQPNrvYyj
-	 LRKmasy+frnS3x3l/ltrR5f6ZufenRwUgeGJgIPNS95nqV+zL7qQ8pl6qhBX4dktjJUwi
-	 FfCWBJxuHVFIo1KYOH2VG9lzKt6sH7LvsRG7EZbRVxg/BNWZpTBJNZ+mJ/rcuePIQPFQ2
-	 8iUJg2IrmkvHB4mOrj4vpsV9Q2NuR4irXwg5xGUYl3MaPof3bdjwhxcR5mOv9rvWMOQ==
+	t=1793781893;
+	b=A9tUTiBz2SxEvtGTWSGH/jeNx/Bt1pXol9pFKiTkvghlU+Avnhr4j19SDEsFxbyJ2o5b
+	 iGGj4h5S5wRlA4uxhi6Y/Ko+ZOYh1O4lH3i5uNItbRnpDoo62VeY3xU17HX0cYH6vJPsa
+	 0r6O18pMJfU1+H7F8I3zDKpupoQPaTq25p5LSx2qglGp2fJ8B+alndGjOdLZL7+HIpuhH
+	 ZRO6YlP0/LH2FVfuPj6i1fbdMfXSkUrTyh/MNHwIv0zNswWdSmKd29mDLwu2QlJBdVEAo
+	 bSBa5NgGcaP3h+6fVoEvahmcyNcURGgCjx4CHO48ALqCSmj9iXG+k5Z4T1oF3ZOceLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781883;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=yUcMHykGBsdlMngLe5E8c5GRiAK228iYooBSZKs6auk=;
-	b=zRtqSlX3Z4W2f2yR53XCE5Ru2sOjTDMSoncei71jsBp2E8OA2jyUGv+rEqyhqzccM4bc
-	 Cjwdv2oX6Xyys9zH3bhEX+e5ZkLfc+Eu1o2gKHAr5gNTHBpwooBXaueq+obHzFmnqEDGE
-	 SZIUJ+8kbhIFnnATaXHT2zc+IZhRgUcUbkBp1jn7g7PDzlHO7a4Cm8V3L0AHuMqFxtN84
-	 96Oq7kNzzyKt5LaR54ysLPwCVEN2PkaIye0BMispP4luptEY346d22vU+dX3mmp+DOmsX
-	 xsmPAO8CJgLEpdMlGmvHJB8M/rc8XaSD3QcwAB9bCXtQ70zjoAJdh/6WXma8W1uXsGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781893;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=ctB5Vq7rzRA1tmvwFfYQJUZK4yutrxijqadyX44J5Ow=;
+	b=uIRrRKIqITMLDiEidOrA1LJy5clWY92OIoaDEvshuj6ujCvXo/FzNt3Lq+ROo12k9Hjs
+	 z84kzGZPO6IZrY3z89+OnTtz/0NrcIAHDo8LtNzEA5HFHAe8gjJr/tPv1ocfNtHDrvZaW
+	 dGcVLQalH1Bc8nAyNpM+VSRWqVPLc4GB6FNV8NpXemdtVc8GAt6uUvYUkuRJRLEAy8E4F
+	 elGzB+h2BuCnB414l7BOP++Wmw1PwgKI2ge2GBbEvCBF0mw2353i86R/tH3M6ZhGBIdsk
+	 lM6UjzSdUpKmOR1+Q0O7/jD1sTe3Sl3A6IX8q31fqoj3L4wVRFOzFs9rF3mM8Z82V0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B18606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0B18606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso1000189a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:44:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793781882; x=1794386682;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yUcMHykGBsdlMngLe5E8c5GRiAK228iYooBSZKs6auk=;
-        b=OtshT1JAitrDXS6HfYozdHTnAGKLZ5cfzF5jyiOrfkMSoJ+EQnUHSJeojFAYEZSMER
-         lre4CLHbtYXAKqiM4jFS8+s7NQXRUEkbu8pv9JcsJclcWFPc2vQCXu6+sAJ/ZYnK4iPm
-         P6OCCC7d2HEkDP7NClItvX6RwPmnBLUYCul+TNU32M65itEZKT2/CVnfbvVzwftHT8fS
-         sIbG650rf3aNgvGWlTZ3oXuRWJ5YyE/aZfJPskma9oRDQ4JZVcQva3F0hTEiGsZxVt6+
-         XIQUmN/Zq0vFP4ty6XQANlHtw0ouWrdvc37RoCgfF3OoJca3ZV+wsf/nIOsHFE8LysOh
-         so3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxtNt340EQhNqE7v8yN0rP8ZyaLeQtV+M6V72mlXyO1E1rYRS4kBK6RlNQm5r453nMWEouX0J74UQXpgz4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zSbhJc7aVWSMz4KmHlF1fR9cb1a8KcanJbvc+aPykXKM5yJRz
-	P0NKeQF7vzrX8ECSzAvr10PKmozvRic+ggCjo7LPtohtgQHZSZTOr5tc/B8qxA==
-X-Gm-Gg: AYBFou0TgQsKOG4FgCzW26ur8BNTLv1Zva6TgE/HX0+AdU6TOEYt1278AR0ulk1rvOx
-	rkGJNshyFzQTvfT08pBAJxAD1JTbJYToMaoFw9IvJ7yEkqtIZW/tmJnXO0w1ly7cIvLpl/O3HIU
-	Y3bjP71uEQjxYjqUFuZc9Mw2yEI/qPLMxsq/GHmhJz6wrr8gXzurh1d4ibPWeo66JhyuE3ra18u
-	vB6V+gTElZvjAHrNKEOnzun7gqcvANRbDps4mgN4OEnrGCsfwUjJRdNij1/NeK4HiC4hAGwxqRF
-	2SrJve/6kK5Nuda00fVYLoZnZ0k4LFNB23L6deffkllvE+yKCi6z9keIyoAQaNANTgp+Pzexi6r
-	2/TvknbtbLJokXjCExiIqO3YtpH3Je0RINotMA+s+aRZpLLZGIHkTXJYyxZNK3AH1l/FYNEjaSq
-	7j4XogJcxPS+y28JeGA32/9lpv0f/jbK9WKtNxu2XPD2t5D9hHDE8s2AvMWIIT7MY+wBoXp6lVc
-	putXcSEJZFKhS90ZMOUMsF4C/s3uZOt91QD48XLMS7E1cgnvQF4P1uIJDdumIUn8pmhROZwGqv1
-	vwNnxqruJ8TBSR420d56uSDR8qo3sFgFrayKlcofEWW2PdoWhi/qfpY0WbO6XCOM1/joCv20qK7
-	gzs0kK/mYxjMdD7O9pPCysity+nb7Ly9R
-X-Received: by 2002:a17:90b:2f0f:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3ae896d7af2mr8262147a91.8.1793781882345;
-        Wed, 04 Nov 2026 00:44:42 -0800 (PST)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com. [74.125.82.181])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09369c638sm3054125a91.0.2026.11.04.00.44.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 00:44:42 -0800 (PST)
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a315ed211so399179eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:44:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBy4H6NCmF+pGsJc2/UUSTQpfKV1SZyhpFE3A/JTeierrqr3NRo7A7hhU6soOJq1k8Wp7VNagf0ppshNv68=@vger.kernel.org
-X-Received: by 2002:a05:7300:c5a7:b0:36c:a1bc:6102 with SMTP id
- 5a478bee46e88-36ca1bc68a8mr2873501eec.0.1793781881630; Wed, 04 Nov 2026
- 00:44:41 -0800 (PST)
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AE57606A31B;
+	Wed,  4 Nov 2026 08:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE57606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 9144B92009E; Wed,  4 Nov 2026 09:44:50 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 8A1FB92009C;
+	Wed,  4 Nov 2026 08:44:50 +0000 (GMT)
+Date: Wed, 4 Nov 2026 08:44:50 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Tzu-Ching Yang <shingekinocore@gmail.com>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    Marco Crivellari <marco.crivellari@suse.com>, 
+    Frederic Weisbecker <frederic@kernel.org>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    Nick Desaulniers <ndesaulniers@google.com>, 
+    Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+    linux-mips@vger.kernel.org, llvm@lists.linux.dev, 
+    linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] MIPS: Fix genex.S build with LLVM before 21
+In-Reply-To: <20261104030147.3117325-1-shingekinocore@gmail.com>
+Message-ID: <alpine.DEB.2.21.2611040746160.6502@angie.orcam.me.uk>
+References: <20261104030147.3117325-1-shingekinocore@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,32 +57,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
- <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev> <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
-In-Reply-To: <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 03:44:30 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com>
-X-Gm-Features: AclHuK9nnsy6U4khk5cNnlQ4F7O21MbUU3fY_2pf7x3dkjkCudC-yc-EGP9flSY
-Message-ID: <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com>
-Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-> Drop.
->
-> Please run scripts/checkpatch.pl on the patches and fix reported
-> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-> patches and (probably) fix more warnings.
+On Wed, 4 Nov 2026, Tzu-Ching Yang wrote:
 
-Thanks, v2 drops it, and the series is clean with checkpatch and
-checkpatch --strict.
+> Wrap both expressions in %lo(). For that operator, LLVM 17 to 20
+> emit a LO16 fixup instead of rejecting the operand, and resolve it when
+> writing the object, since both expressions are constants by then; no
+> relocation is left. Both values are between 2 and 30, so %lo() does
+> not change them. 
+
+ Seems fair.
+
+>   - The objects are byte-identical before and after with GCC, with
+>     LLVM_IAS=0 and with LLVM 21 to 23. The only exception is the
+>     microMIPS ADDIU above. The 4-byte move with LLVM_IAS=0 is harmless:
+>     set_vi_handler() computes the offsets and the length of the vectored
+>     handler from symbols before copying it, and ejtag_debug_handler and
+>     nmi_handler are only referenced through their symbols.
+
+ I would be tempted to accept the GAS microMIPS code size regression as a 
+missed optimisation.  This is a general issue with forward references and 
+%lo() calculation is only one example: we're missing microMIPS relaxation 
+for 16-bit vs 32-bit instruction encodings, except for branches.  We only 
+do it for MIPS16 code.
+
+> - The malta kernels built with GCC 8.1 and 16.2, LLVM 17, 20 and 23, and
+>   LLVM 17 with LLVM_IAS=0 boot under QEMU 6.2 -cpu 24Kf. That CPU uses
+>   r4k_wait(), so interrupts go through skipover_handle_int. Each kernel
+>   boots to an init that keeps the CPU going in and out of idle and then
+>   reboots; a QEMU trace shows every interrupt that lands in the idle
+>   region resuming at r4k_wait_exit. A microMIPS kernel does not boot
+>   under QEMU -cpu M14Kc with or without this patch, so the microMIPS
+>   change was not run.
+
+ I wouldn't be surprised with a microMIPS kernel not booting.  Support was 
+messy right from the beginning and despite my opposition it was merged as 
+it stood.  Maybe one of the fragile assumptions broke here or there.  Or 
+it could be a QEMU emulation bug too; it doesn't seem too stable compared 
+to actual hardware, microMIPS or not.  I could try bisecting it sometime 
+as I do have an otherwise working microMIPS QEMU setup; sadly no actual 
+microMIPS hardware.
+
+> On 6.18.y, which also allows LLVM 15 and 16, the patch applies after
+> 2b6d718c8dbe, and LLVM 15 and 16 fail and are fixed the same way.
+> 
+> The 56651128e2fb backport was dropped from the 6.14, 6.12 and 6.6
+> stable queues because of this build failure [1], so 6.12.y and 6.6.y
+> still lack that fix.
+
+ Shouldn't this use:
+
+Cc: <stable@vger.kernel.org> # 6.6.x: 56651128e2fb: MIPS: Fix idle VS timer enqueue
+Cc: <stable@vger.kernel.org> # 6.6.x: 2b6d718c8dbe: MIPS: Fix whitespace damage in r4k_wait from VS timer fix
+Cc: <stable@vger.kernel.org> # 6.6.x
+
+then to get this all picked up?  Or is it unsupported annotation syntax 
+where a prerequisite matches a Fixes: tag?
+
+  Maciej
