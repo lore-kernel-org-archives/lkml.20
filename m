@@ -1,111 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820303;
-	b=HM3dHblq8X9vJ+zjynIvNU8FB4Tc/YHUlPaTCultAL7Rm/3FuohnC57gsYuXnYmxi9c+
-	 fhedPV2oM+JOQAnywpOA6ibH6337WbbxxIeTAst89/oKB9YwH+kQGysmXQcvtfnUdO3J/
-	 8E9ijTv6dHZ315muc+Y9tpMViouI1VauCBZLGnjzSbxqUXg26cM1zp4OLyPeJEdq6wzvR
-	 43wniRfbdmpl8W3JM2V49HZfAwD15QG1dVuITVGjR+AJesYfagH7FSydFYj0FK8/ydPBP
-	 I30JI5i4Nj7CNicFb0Pwg1pEG+cJfJjx0NdEa6kNF9opC8ekyrcEInwOMiVwhG5k/cQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820303;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
-	b=GMhTOkKudtWhb2SH7SfztQlvqSzpnB5XAH7uJ025GjNrJ98L+a5ykBeoLxCCoi9xVWDQ
-	 vMkz57B4IfIC5R8T8chcrzpkgFgkKshndAp49ww0q+GmQ1igvkaFbSSzqWv5u+sfTwb02
-	 o0GIcWXPQlDa+EEw2ItnGusB2S8ws4zcDaPXvEy0viH2YzPO4z1qVGrKkF9yOqtXLsMOP
-	 WmW0FPsvWZ9efUBJzcmciyLJ9LZveo7P6uro61c2G3vK4NPnq/+/OvYWpvuFf9uIm4b9b
-	 AAyebH7yQAXrIXMxAp5XzLAO+1O0032uuAPTDiaQBRX3xTA25yCbId0oMReVvHGo2zg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOGtv8Mf;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793820315;
+	b=Sen6Wezikl1jR3taGw1rYx4/R44M7CLfW8MN5mko1TawENQRuncMYxPjQa/j/niajMow
+	 gKws8zB1XM3TYX+3EN5TBOFKb9OqMG9gOM79wwHs0ocmcjqDMW9SkrP3SuZlZETe8lDRl
+	 UvZZDoXbSsF6Vr4D60OVXdU5ZMbL0skRXWq3d6BmzQ6T4kMSodF3lmvX4yTjBc1esGaN0
+	 InSCub8Hg0+ePwEQSipaW3X+/17EAnzjpJt6eIfvTPm9axoYL9VfOT1/VEzSyinqE3l0s
+	 VnKrRIFGtzEgU8pT3QatTE1PEb70xczIMyb/ZZOmCw+cRRA5z5JFZd6mqdBViAGLYFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820315;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=CxaIAJs6w/X8Iq5pOusNCO7dYPXXz9Eag9FYVsxJWoY=;
+	b=qsUwPtmaRX38o3sJ5Mq2ubP92FQcDER3n+k1NYjltEc4a1TkYkkqMA03/7NHYls6VBDB
+	 czNBqpzxF4cLUwXDzT0E1xH9J0Vo4LXc83Sxd2J3UXxXFHeM0RSsL0B0dn0VucjtaoLO1
+	 0kxL4uE819AbZK1tBYQKlLcBGiKjptEU5brAAVt3WsFD/lP7+f2BIb0BOgJ59q7GImZmf
+	 lCdQw6MoVtoFBV5L/vyZo0nu2kbsYWE4P0Uu1HbO0e28k9dw4sY7XroI10E2HOZ95aIH4
+	 a9S6jgciX0ihswpYQpTZ07HM6gurCLEjuFGwOrlC8oXQDTKIPRbHgZ9ENBXRDSCi2rQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbbZJMeF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2E3607E903;
-	Wed,  4 Nov 2026 19:25:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F6C60807AE;
+	Wed,  4 Nov 2026 19:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOGtv8Mf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A96E1F0093A;
-	Wed,  4 Nov 2026 19:24:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbbZJMeF
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793820314;
+	b=ehNBLN1w/3L/hGNmcMbT6C8OkOlvr0ZaVmGzwtShaziPjphoOEs1v2YM/Bt6xMIT8fNS
+	 I+HpYtU86+wFawj6cBBjIr4oWV9f5sOSo0aLNiFWWTKXPnTlpTeSs+cms1KHx0nG7Y0hV
+	 HNRKLzhJw8CYBtm5bnyRuqxfqIv5u+sF90EBx1blzyB0WQA2dlkRUx//jrxtXL7UOEcZ+
+	 BKsVfCsCa/s4NTBegWNjRffywxbof8o5cS30ezcD072h5uTVKb6aqWPCTaAluwV7bRKSv
+	 8LTYN5c+JtLISGnNk4ZIpfjy5n3jsDMM3Lppp3HI2DUKajWeV7T85d72zl6/2vhrAcA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793820314;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=CxaIAJs6w/X8Iq5pOusNCO7dYPXXz9Eag9FYVsxJWoY=;
+	b=xfSgj17ES72g6TPezoKWowioEeu6jz8G2LxMqBzci5cSktW/baQbD4mkDigvrYOUcJwB
+	 0Mek55z+U6TD9Y3HCXxG6Stmt3wYEBu9Hplecw/2jKX0c2SrwzMwNQe3b9/oMJLgfeUs2
+	 wVzsiutv54KoSbIVpy1pZw8F3x6q2XrDjQdfXTt1tPvmhPM1WmOqCNk8GNtyfKgH2sHLu
+	 urNuBFaixxBPwY0JN1hhU7BGqJ0WcHL7lYLRKVKHR2tAcbWDZ8KdtAUTy2h465colRYV3
+	 SRU4cP8BTiN2/YXN3eiCcXGMV1lSPhFIVza4TC5Se7ewJFvk55IybTYxleZp+3xSXLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E23781F00A2A;
+	Wed,  4 Nov 2026 19:25:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820302;
-	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AOGtv8MfSvpV7/N3SPQdxO34HN0jitae0lUNpVEJDAU9XLw0mdF8nEKatSbYah4D4
-	 pJnFyEpZO1zbMa9uji/9OWzr8wEr6lfii12mf0iU2Lh2VjsLavJMVeCqDZp/52sjZ8
-	 3Go4KV6nkkS39oFoJGSvgQnMVnncUKXYL8Mx162m4aQQqRHIlpeUtyYZQRcyHTHG+m
-	 F6SJS7Gx3owS0zf+1GA3KxpXJd3wQWd0E3FPh1GuNLid6UQ0pR28EaGxERe/wN3pMg
-	 +vSX7Zm5D1718tOrlyhaV4OrQ07V2BymOcNC4cPME/yryrTT1k2SVGUu6wuwzfR22j
-	 +9kSochp+NapA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND v2 36/51] proc: don't let NOMMU map procfs files
-Date: Wed,  4 Nov 2026 20:24:48 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-36-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	s=k20260515; t=1793820314;
+	bh=CxaIAJs6w/X8Iq5pOusNCO7dYPXXz9Eag9FYVsxJWoY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AbbZJMeFc4PHrh47U/yNvbWaigx7U6OP/k1jXwX7BlzS+ZZdxDrylVufmFtoeGbvz
+	 XQ/QgQU2sMWWudrkw0KAh8qaaGlbm3KO8Nxw9spaZYhxEFw+mYUW58d4fqqpZZVftc
+	 M7/xSEDew1wmVwkNXD7NcNQcIXGQHcWNLoCMRJPm8Jj1YPU5jZkIu+JmTxn0rkOD6B
+	 cEwUr7AoUB7iwZDoI75qQAHDz/XF7agTHTf0rdLPp/3DzPCCb6ZA0ZQaUu3piHA+kb
+	 cdnj+/7i47glpMDyZKpgHe8Le36hnNJRVUPwLcgt7dL15tSIjA5J0aOl6Unm5cMneF
+	 zO8dPIg2TZikw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3446B46F5E;
+	Wed,  4 Nov 2026 19:25:06 +0000 (UTC)
+From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
+Subject: [PATCH 0/2] ublk: don't let one stuck device block control of all
+ ublk devices
+Date: Thu, 05 Nov 2026 00:25:04 +0500
+Message-Id: <20261105-ublk-del-gendisk-hang-v1-0-913a91a4314d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,112 +85,97 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3847; i=brauner@kernel.org; h=from:subject:message-id; bh=JTUUxaAv8g+OiylD/jB4kSfUdacg86Bjtrwx1fOwQ90=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bvzxcvsOxp23JLZfCWya6MPaPHGnRYPLhkVvf4fHB W9U5hb431HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRyk+MDK+PBU/le8dv0ftD 839XV15oaNPWrTw8hs1fHTLi/wid+Mbwv6CPOeDfzSePDj+a/VD2SORxlTWdy84uUOARvTIlTdD JgRcA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkEtPfSV6JC51mJYKEUQ/T3rO
+ DAzN2RKTBm66oZEJ2feYgFZVzAtY5wJ2RUGJZSRUrR42DWgoxVnio5zwM9Ca5vGa2OU9hpKuyf
+ yfP3ffnieFzecOzVnAAAA
+X-Change-ID: 20261104-ublk-del-gendisk-hang-bb33f56625f5
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ming Lei <ming.lei@redhat.com>, 
+ Mark Korenberg <socketpair@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793820305; l=3412;
+ i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
+ bh=ed+++DV3HtIipUSehjA+fspJo3hIwQmkBnnMsoaxA5M=;
+ b=IRpKMhVeG5cfku6a00obCR56pJkuAzujaK89yVgM4ezrw36H1p/L9VE5WEKVSQ7iEkUZVW/kf
+ Ls89C11kNhtASBn32zNZiGKz3OIhRn7PTHGBmfXdZ8XEZPQNBsywi/o
+X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
+ pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
+X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
+ auth_id=806
+X-Original-From: Mark Korenberg <socketpair@gmail.com>
+Reply-To: socketpair@gmail.com
 
-Every procfs file has a ->mmap since commit 786d7e1612f0 ("Fix
-rmmod/read/write races in /proc entries"), whether the entry has a
-->proc_mmap or not. On NOMMU validate_mmap_request() takes that to mean
-the file can be mapped. procfs has no ->mmap_capabilities so a regular
-file gets NOMMU_MAP_COPY, and a private mapping never calls ->mmap at
-all. Instead do_mmap() takes nommu_region_sem for writing and
-do_mmap_private() reads the file into the copy with kernel_read().
+If the filesystem on a ublk device is stuck, removing that device
+blocks in del_gendisk(), which syncs the filesystem. DEL_DEV holds the
+global ublk_ctl_mutex across the removal, so ADD_DEV and DEL_DEV of
+every other ublk device hang too, until reboot. It doesn't matter
+whether the server is alive: when it dies, the release work does the
+same syncing del_gendisk() under ub->mutex, and DEL_DEV waits for
+ub->mutex holding ublk_ctl_mutex.
 
-Reading /proc/maps takes nommu_region_sem as well:
+I hit it with btrfs on a ublk zoned device whose writeback deadlocked
+on its own (a btrfs bug, handled separately): killing the server as a
+last resort didn't help, and no new ublk device could be created on the
+machine afterwards.
 
-  mmap(NULL, 4096, PROT_READ, MAP_PRIVATE, open("/proc/maps", O_RDONLY), 0)
+Patch 2 removes the global part: DEL_DEV doesn't take ublk_ctl_mutex.
+It relies on patch 1, which fixes an older race the mutex partly hid:
+ADD_DEV makes a new device findable by its id before its char device is
+added, and if adding it fails, a DEL_DEV that found the device removes
+a char device that was never added. With a failure injected into
+ublk_add_chdev() this oopses on master in kill_device() from
+cdev_device_del(); with patch 1, DEL_DEV gets -ENODEV.
 
-  do_mmap()                          // down_write(&nommu_region_sem)
-  -> do_mmap_private()
-     -> kernel_read()
-        -> seq_read_iter()
-           -> nommu_region_list_start()   // down_read()
+Reproducer, without btrfs or zoned: XFS (or ext4) on a ublk loop
+device, its external log (journal) on dm-linear over null_blk:
 
-The task hangs for good, holding nommu_region_sem and its own mmap_lock,
-and every mmap(), munmap() and exit after that hangs behind it.
-/proc/maps is 0444 so any user can do that.
+  dmsetup suspend --nolockfs --noflush <log>
+  write a file; syncfs                  # blocks, as expected
+  kill -9 <ublk server>                 # optional
+  DEL_DEV 0                             # directly, as libublk does
+  ADD_DEV 1                             # null target
+  dmsetup resume <log>                  # everything unwinds
 
-Give the procfs files a ->mmap_capabilities on NOMMU that allows
-nothing. That covers every entry and not just /proc/maps, procfs can't
-know which entry's read takes nommu_region_sem. Mapping a procfs file
-then fails with -ENODEV, like mapping a file without ->mmap did before
-786d7e1612f0. NOMMU never called ->proc_mmap() for a regular file
-anyway, procfs never offered NOMMU_MAP_DIRECT.
+           DEL_DEV 0                         ADD_DEV 1
+  master   D, survives SIGKILL               hangs on ublk_ctl_mutex
+  series   D, survives SIGKILL (see below)   ok
 
-Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 786d7e1612f0 ("Fix rmmod/read/write races in /proc entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+The stuck device itself still can't be stopped or deleted until its
+filesystem moves: its STOP_DEV and DEL_DEV sleep uninterruptibly, in
+del_gendisk() or on ub->mutex. When the server is gone, nothing can be
+written anyway, so that removal should be a surprise one done without
+ub->mutex, but marking the disk dead isn't enough (the filesystem's
+->shutdown() and the writeback flush in bdi_unregister() can block the
+same way), and doing the removal without ub->mutex races with the
+release work, recovery and a new server attaching. I'll send that part
+separately as an RFC.
+
+Tested in a VM with lockdep on top of master c339f4010dea, XFS and ext4,
+with and without the server killed; block for-next has no ublk_drv.c
+changes on top of it. The ublk selftests give the same results with and
+without the series (integrity_01/03 fail on both, no
+CONFIG_BLK_DEV_INTEGRITY here); a stress of DEL_DEV racing ADD_DEV of
+the same id shows no warnings, also with KASAN and KCSAN.
+
+This series was developed with the help of an AI coding assistant
+(Claude); I reviewed and tested the changes and take responsibility
+for them.
+
 ---
- fs/proc/inode.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Mark Korenberg (2):
+      ublk: publish a new device by its id only once it is set up
+      ublk: don't take ublk_ctl_mutex in DEL_DEV
 
-diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-index b7634f975d98..9933f03ab9fb 100644
---- a/fs/proc/inode.c
-+++ b/fs/proc/inode.c
-@@ -466,6 +466,18 @@ proc_reg_get_unmapped_area(struct file *file, unsigned long orig_addr,
- 	return rv;
- }
- 
-+#ifndef CONFIG_MMU
-+/*
-+ * NOMMU never calls ->proc_mmap() for a regular file. It reads the file into
-+ * a private copy instead, with nommu_region_sem held for writing, which
-+ * reading /proc/maps takes as well. Don't map procfs files at all.
-+ */
-+static unsigned int proc_reg_mmap_capabilities(struct file *file)
-+{
-+	return 0;
-+}
-+#endif
-+
- static int proc_reg_open(struct inode *inode, struct file *file)
- {
- 	struct proc_dir_entry *pde = PDE(inode);
-@@ -559,6 +571,9 @@ static const struct file_operations proc_reg_file_ops = {
- 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
-@@ -572,6 +587,9 @@ static const struct file_operations proc_iter_file_ops = {
- 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
-@@ -586,6 +604,9 @@ static const struct file_operations proc_reg_file_ops_compat = {
- 	.compat_ioctl	= proc_reg_compat_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
-@@ -600,6 +621,9 @@ static const struct file_operations proc_iter_file_ops_compat = {
- 	.compat_ioctl	= proc_reg_compat_ioctl,
- 	.mmap		= proc_reg_mmap,
- 	.get_unmapped_area = proc_reg_get_unmapped_area,
-+#ifndef CONFIG_MMU
-+	.mmap_capabilities = proc_reg_mmap_capabilities,
-+#endif
- 	.open		= proc_reg_open,
- 	.release	= proc_reg_release,
- };
+ drivers/block/ublk_drv.c | 60 +++++++++++++++++++++++++++++-------------------
+ 1 file changed, 37 insertions(+), 23 deletions(-)
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261104-ublk-del-gendisk-hang-bb33f56625f5
 
+Best regards,
 -- 
-2.53.0
+Mark Korenberg <socketpair@gmail.com>
+
 
