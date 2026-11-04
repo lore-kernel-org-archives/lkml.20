@@ -1,111 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817443;
-	b=RqacqXcvnrkkNDynQA0t49LBARbhfooBFz620GO7dCfuD/F5/QFj96dbylN7w6i3OSHC
-	 5Oec+7MgMZtgSkifBukDzcnO1J8AOjFyvCzilcltAtMIghbMBZfg3Y/2SObF4nW5QqsNS
-	 qLjdIq4i0t3899rrQcTCBj2AfhGDoRcVp/eHpMXDcBQpHDGHy3qjRpDrGfmzp1gihHbs6
-	 8P/+I4FTv7/eJIo2FmFYQqI80QweS7qZZoPPZCnCYkAUnZ1e+QfpA+D2fiOaOYP8LUP0d
-	 Rfnvmwzn+JB/LaeTRgmw2OfoQH6NHsm4NB4Qt6JN1z97YSNjgVhMkDj5GUYD28Y45ew==
+	t=1793817434;
+	b=WqpeDAZFvSf5+1FZWW0XjE79jUp4W/jw18fM0UiRWfiaVPggnBCSOoOCiNP7Wn5D45m6
+	 AbjUV7ljCTndZGpZGuR28TUGvKyIWk16RVeyrX11TmUCvdBrRvPjQaZkA8usmWkWSLp2Z
+	 C4T70o8bhnLyZJYKx9qoRnb2zdvomBvxc+2KAkLfUxgOD26ToN9Eu9kQv91NRzbXSGObJ
+	 8A5ikptjf7ZhgZ0737jMiWZnqiq5SYmU4BwBGxwP/djP+Q9uFtcI2Ris/Xwq9uPQ0vNe/
+	 55Dkr79AuliUg+mBl0DfBz1ElpGf/y2dIYrMeBqNKYqMnrxmWnbH/lkcZDMY0O9Fh6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817434;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=J9RSXne5mLK1TsmXaxxPwH99U6Wphh2WvdDqDFwp/+A=;
-	b=Nnnb0K3suGjXVibzXzXAPbXExs1ljhnAuIJzgt36sQd9JFujgCGn4PZg/ltd6msNonL+
-	 tZvWy6s1P+9T2i0E4jpQZ54mVc8shHKQ2T5o2Fnuqio3X3dCVWvo2DOGG4v4Q5zOd4jrN
-	 BHpaisN5rvXvGsHa+ms7USk+loqwkvyHW1IGaAqQ1JVGT1tpsUhHWBQIBndUMRP3K9Kez
-	 q0Z6IrYzvVFF5rOn50yHD9BjJ+gwcLcKODqMMOrOK/ejvVKAvu/bFYL1QX2dR0fshL/UX
-	 SN8TLNjicnGcZRMhGL1uSqZFU8h5MlHN4WZIDZpwRMannHx78GKb9oBJZA3F+KrAoGw==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kR9ds4gxs4QnnZayu61PX4mlUkEOr8LJPJJPb9FCbn4=;
+	b=vh53vx/qKHR9eYlM1p4r1TFZEnx7Y4ruvg3Cikij2F3UPzeM3ks+qkXruufeRrzhL7rb
+	 xjxw9x+rPm1r/b+M4Eqv/iueNMGlzz90D+bgvFj3I0buFxmppr2NpbFcEcx9HXFh9pCE1
+	 FCkcANDcbRBni1hq079+FNXJkjhYWY8ls8pMLxKpnq9teJP6IfKb+k+DbOEESt8GYP2fW
+	 32X/9dsaHzawonfK2svQ+RmNejMeXEHNsOegLKaXkc0hTpqPOFWuFAjYW6iIAYVYYD0Ee
+	 QK2RMMCQP6ZILK4uZf20QcZvz9iNMaratI9YePG4mHpncYqO6bFjzwKY+KQJQlSIcpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fastmail.org;
 	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Z1E7dbGH;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=t+dM3ONG;
-	arc=none smtp.remote-ip=103.168.172.159
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=l4zcL94t;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="D+dpq5/+";
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8BA606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B8BA606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1203C606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1203C606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Z1E7dbGH;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=t+dM3ONG
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 84A4C1400170
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:37:21 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=l4zcL94t;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D+dpq5/+
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.phl.internal (Postfix) with ESMTP id 501D3EC2298
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:37:13 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Wed, 04 Nov 2026 13:37:21 -0500
+  by phl-compute-11.internal (MEProxy); Wed, 04 Nov 2026 13:37:13 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
 	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1793817441; x=
-	1793903841; bh=J9RSXne5mLK1TsmXaxxPwH99U6Wphh2WvdDqDFwp/+A=; b=Z
-	1E7dbGHEkJKjjTe2uywmmc5sXNbyz5Ni7LmjFP8T2ZZc77eD9rKR/v/xRlx/yD0D
-	PurQHgEQsVjOKHoeVQXCtODAJIEFnUJyueO1xD82EUCa3cl8t/fNvjjrXvvsAT6a
-	y+6kmBr936ENImxmJ+MObXixe+MnCzQDbxt72nDba3ChvJmHj8KZPR4SJjaz8DO4
-	u6Ah3YFNpfnsZzNca8wL+ZHql5PUZUzGd4WWOUCvovrU7mIHLwlrS6HyAj7J5N0A
-	48Brdbc4NBSvT/eSXANWm0ItnnLeyHX31o0jNLXneCDZzMl1nmC03hhZTWmDFVrs
-	MQ3YM31cndx0qY/NJ/6Bg==
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1793817433; x=1793903833; bh=kR9ds4gxs4QnnZayu61PX
+	4mlUkEOr8LJPJJPb9FCbn4=; b=l4zcL94tPS/8L7LdHwUvFKRPdqpwnnTWXtk2O
+	nN/hkgxANWclns9l5EKVshZ81npmrVlZ39YFDiqKQFRnk/jVvEcNoTib71uaN2Gz
+	d3Jw5CuLehVS0INKXiadtjEfeu9mPA4JTAXnCuiysF7gfDqmw9C/v1/0woxDlSTZ
+	Jen0BsXMaXpoRNgh6IVKJ7W8CCIjw1CQGUpSMaHODiX+fVXpzTUz/j+kXWMFf7H+
+	iU/1HZiD7qzSspZqnFSkHzwGEK6OoaPt3MZV0SZGq+dspdZJq4OtwWH4gnmiaGNP
+	/dYZYHF0uYQf/ZwzdRj4oNvpvbLK8WqKdUTX80QqwkofmWRlw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1793817441; x=1793903841; bh=J
-	9RSXne5mLK1TsmXaxxPwH99U6Wphh2WvdDqDFwp/+A=; b=t+dM3ONGhd14lWLFc
-	KTxh8B9cLrz95Q7rTiUwkaN00Sy3oQ9aMQgNo1FsyIN5MyU93Nh2SK3SOXYDFmJy
-	BEuwtoAKq0ruTm5JdLovXDKAAmr6x7LogA8laHevQCF+uErdU/33YKgWLL7iZe8h
-	hMQGhicxOG6j/vD+dYmHAqAvdHNyiKEaZmOphJyRINa9cMtzgTCxwzlpQ6ypeP3r
-	IzSQhF6iI4twKarrDkArYvwjkpEmRNOcPd36gG/VWt+Q9iv26mn8VVa4b8I+otgP
-	wht1zaHVKlANEhgEleP+s5zhQc+Jdq4HpSkypGZXg/5X7y5eqCCvF1qe4LTba/tT
-	uXpuQ==
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793817433; x=1793903833; bh=kR9ds4gxs4QnnZayu61PX4mlUkEOr8LJPJJ
+	Pb9FCbn4=; b=D+dpq5/+Dgks5PeBPUq4WV2ccxdXZUFwn+KDm3630r4dSden5Z+
+	4wPu1NIvASMLOKX8KTzsNqlb02qyfT4O2eT7Z3iEBkgjkPdtNTcXSTiz9gw93XKG
+	CiY55YtuBy8Pud3038nIgRbLapCWZLDOR5tiFuJiCCiN3jiXOYAtx6dzUI+BWo4o
+	lIloYSQe+dqIAZVmlafwu7pa+XjBWNevzqnv42hRQsuukOlTkdJXfARu+W4I4xV0
+	001fJ0eITbn7z4HzGzoX0D0/qUdCFUUz3PydKMIv6p3koKvXCr/8TMfw0S61nwsN
+	9pA//oluRU9iig3I6lQCN0yrnyXxhCfbRXg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793817441; d=fastmail.org;
+DKIM2-Signature: i=1; m=1; t=1793817433; d=fastmail.org;
 	mf=PGljYkBmYXN0bWFpbC5vcmc+;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:V+optFCBZ06vxfwxSUf7Y9wpwmceEa4vSuh4wKC+iTq7Lnx
-	PgyZQ5kBgOgMHt6UuJq4YhgWZlNF4PjagakXUAijEWVIAbKzJp6kpSO/0Wt50UPJ
-	8YU0OfL6y9C/TzxvF25jcQhEx3FaJUd2gpbOztw0UsjZpz6OcR7MpaMyVzD+yg1p
-	mM+o4F1qD/2rvrvxWSazT0utQERmsFmV93u9g4T+7q7TwDE/uCFj0JHEvHrisu85
-	lM51kVUukOdp5zNsYJgwdz4zIKKvohPGt8vQ74VHjyAQw7TauCzq5Qb3ecqzVCsl
-	nZjzMppurUxB/F39ox20Sy546gK5VNsIxVPl9Nw==;
+	s=fm3:rsa-sha256:vNJ4/xCcer8LRB5x6QW/zwE8bLRDA7DPdQDhxlwnj3MGY3d
+	OYUhX42lmFv/UBXM5khJHKOlqfKS9r1rcpOv2fP+xyMFUsHCvzUJEJX/oig9cD3d
+	Vf2JFwLCY0+jVgUYyfxGiH7t/Z7MBrhkDqI3pkJpmlDpGm1DhWBeeBNZOyhoZ25O
+	Zr2MfTjy3tiKEJ2UYMJyNM3vS2pvFsWOCha659CkutlDziCeIOX9x2vQWjm694zQ
+	1W/arxIdpoFssI1E66Ah9UfVV6Hn9thkmyIdKUpr6nosV5cuUZJKvrI2VC8rVLMG
+	Rg4N30Ioz8Vas66lE9g1bB4XknG+ppgUnA6r73w==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
+	action=mi-m=1; hc=9;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:F+6qjIEd6VQ/JrTiN5yG1kQt/KiBbigczAc75l3FW1A=:aUKlz7v0EWMN5zj3K3EOmXyHVqbh4eHhIKm69NLQ6e4=;
-X-ME-Sender: <xms:YXvrammCeGRcEidaAddy9DQWiXcxIRMRsqWysn9WuIaTxs7K29Ec4Q>
-    <xme:YXvrap3a_TPjDXU355vJuZO6buwMeqdV2rtG_bwSy7uEIjstNr2dEr7-q_MBWNKV_
-    3M_JCS0ms08QblzZbaqk8NLSuPHtsI0k5VPOJFOBTi6vnicugMzYWM>
-X-ME-Received: <xmr:YXvram1z_mYZw7_dRWtLw3S21xP3RI6MkWAlnnWIUyx5g7R5yrRAHg5LgoSMye4T>
-X-ME-Proxy-Cause: dmFkZTEblcHx/HDxFYlMFcbymSWqyds+9SvV1QaPrW0QEo3CjxLejIUk7IoZMnIcIcK09t
-    Sf2DPWxDNGVGfZTEvJSbeR6vwwpsAEP6dBoZF+eYZB/kBLgv+8+qbCiKM2Nje78vp3KEHx
-    wF6XnfC0SMLcn/gNeYt8cZ1zXEu/47jXRWfqT7uBEZOGVFQ9t3lywBMwd8cUYUPfmVOucN
-    pQJBumNoS4lDaYUyss/ZCJHxCr55seI2WewamYMIvpaIRnjWBWAiUYQ3QsSpYCsWmmQ4Pf
-    YC9iNbxaAMc9qav/iJNwWsZnOcuojuf1PmKSHkIfmC9QentwYhBT71RjRhruw5g9bsfdjy
-    9dlm0GVELcIoZ75ZAAf76OzkdELKfHNDGY1ZxUibWkjXOuf++4owZXDkAAkFuBxeoZX4Z/
-    0EdhPdI5rF29+Y/PQk5AzOfb6nEJEsFaXLX9iDfL5BHosuINkCWkOIQnXakn/R0LCiJK/P
-    /JuwTuEzVIogQBCf4R9YhoE/WhPBMxS4yra49FjvOw15Pw65Ktz/jgXmPWtFYLKLyoAfHR
-    xRorRugjQwOzbO1IcPpl75Rzuptks28hcLy/daWkI1qYw2bOyWo4uwgjFj/eEnlBwxXK4x
-    aeOWlZsjnIgeon8jZVeChdL9XxYCDFa9ETsxSmemFul849q94gep9B0cTGaw
-X-ME-Proxy: <xmx:YXvrarrzOpcdpnO59r61ITRZjD5BqL15hYvCYKQjm2M4p4CAxEuEVw>
-    <xmx:YXvraii3qN3HPoy9EfU-UVRzwNtGrg6ntNeO04nuERo8_WoFQR0pGg>
-    <xmx:YXvran-h0IucBhPoIVbrWRoBqo2IC4xvljApoSTmQo4lUfoH_07Zzg>
-    <xmx:YXvrauUMgX0rDjgfgzXlZ5FFk8FDpF1qjHxDkRZ8IS1_EFSkyGqsSg>
-    <xmx:YXvraqt9lMOvpMg9jzKM2UmOu5LTsIip99rs9MpD-hAf60dkW915nVOa>
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:1sKIgHV4eSMTQk4r1axBRwl4+P4NfvxFGc/xm71r4rA=:TUGd7GPPqPNihiBFNeK3H6P0IKEdvfO//O9wkd5/uxg=;
+X-ME-Sender: <xms:WHvrajglk9QzmY-wX3r6yrqT1lQcMKEfVD_PwF3SGUCeiafvefJnXA>
+    <xme:WHvraguXZiS4N1zqGXClhDEK-ZslJxOiiMuUP3c_F3DBDbxoAeNeEyca3QMa7VEGJ
+    zdoN_eSZ6R5EslCk4Y7GmnqCshBM-XPVl4GZH3zMcjvzAyBVLscRNvbig>
+X-ME-Received: <xmr:WHvrahQGO7t3TPi7hOfZuI5WYwV6DNSkU2ra5w0F40rGlrLiyils0DidnCxqZA3y>
+X-ME-Proxy-Cause: dmFkZTGs5LIRwT60gHzi1IkrnGEHtt/rx/Req0MY2hPerlEUBs/Vv+BGOPqdJKDiba94u5
+    /OA/i0vMS/PlEyP3A9APv/ZWx5ADi/ZFkGMN3CzaiXEE+kJ1Kccy+YZAOmYB2ohAHo/AGD
+    sZc52LhUI5A86RsCW7qsYQ9ryu9jFUmtsS3Fv7+ouM899vzK7u+c7QNaaHXy8U5KjXFCRn
+    mlu1BJf7eCjAgMKcWbJ7uSdjW9RpI7ZKHymRxBpEcNx5wG1bcvk1ekRJy7tEbQtTCIIYa0
+    Y1q1kPOqjmppCTfrBH++U2x1GQdmHRETl3ng9oTKdzGsYrQsyyXOiTrvEU6W5GWm93bFUv
+    7tITs3jSXE42fB7yN2QgzksIk52iN8FbBD1e8PfBUvH3Dw/Q0mvKJT+I/KDSRil5yT/EcC
+    qeFftyekaO3ipxjgPMnXiBQlvFwYQ3ADAu2eZr0EE6IwRUUKgKXdhLa0LlI11Saza1OCTU
+    ejX1KUr3HvVP1Acte8glHPvuam2cejHrxdq+hqnWXCeL+nQLkRtBC/aMe/dAGgB4vZAVrO
+    c7cyIU1X+R/tOEZdzZLwvE4Rk1MgouSkAK9x0WLfo65+h8BHdRw7BDuo0L51ZENGMiQ45e
+    qB4udo7s0I6QBtHuG3/0w/kp9G+VDg2clx9GqslRQhz4mG5ch5blQtF0e3Tw
+X-ME-Proxy: <xmx:WHvrak3uVAQSOxKXxCsht9dm__-WWJzvadYn3QZ6lkg3bkTsg43Rug>
+    <xmx:WHvramsAGQ8-L2HeHqyAbfe84Wp2g307TYkeD5B6yZ85Wrtsinkyyg>
+    <xmx:WHvraqhKEp-NoC6FXOJYmylG9lX3VF5VaPWhTfsegpxBIi3erZ2h2g>
+    <xmx:WHvran93SUCw6Y3IBOcbYQVpZEND3mW8pCH-QOIx9_KV76YnezDg2Q>
+    <xmx:WXvraqmeMLi9LPn20tVRnurf1dZxyeLg6SyjPM9XbX4Xkl3ReNmMpo_E>
 Feedback-ID: ib53e4b78:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 13:37:20 -0500 (EST)
+ 4 Nov 2026 13:37:11 -0500 (EST)
 From: Ian Bridges <icb@fastmail.org>
 To: linkinjeon@kernel.org
 Cc: senozhatsky@chromium.org,
@@ -113,14 +111,11 @@ Cc: senozhatsky@chromium.org,
 	chenxiaosong@chenxiaosong.com,
 	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] ksmbd: skip metadata-only stream opens in the delete check
-Date: Wed,  4 Nov 2026 12:37:02 -0600
-Message-ID: <20261104183702.192452-3-icb@fastmail.org>
+	Ian Bridges <icb@fastmail.org>
+Subject: [PATCH 0/2] ksmbd: exclude metadata-only opens from sharing checks
+Date: Wed,  4 Nov 2026 12:37:00 -0600
+Message-ID: <20261104183702.192452-1-icb@fastmail.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104183702.192452-1-icb@fastmail.org>
-References: <20261104183702.192452-1-icb@fastmail.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,56 +127,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A READ_CONTROL open of a named stream without FILE_SHARE_DELETE makes a
-DELETE open of the file fail with STATUS_SHARING_VIOLATION. Setting the
-file delete pending fails the same way.
+A metadata-only open holds none of FILE_EXECUTE, FILE_READ_DATA,
+FILE_WRITE_DATA, FILE_APPEND_DATA and DELETE. An open for READ_CONTROL
+is one example. ksmbd still counts such opens in sharing checks. Held
+without sharing, one blocks later reads, writes and deletes of the file.
+Held on a stream without FILE_SHARE_DELETE, one blocks deleting the
+file.
 
-ksmbd_has_stream_without_delete_share() counts every stream open without
-FILE_SHARE_DELETE, whatever access it holds.
+Patch 1 fixes the general sharing check. Patch 2 fixes the stream
+delete check added in v7.2. They are split so that patch 1 can be
+backported without the v7.2 stream helper.
 
-Count a stream open only when it holds FILE_EXECUTE, FILE_READ_DATA,
-FILE_WRITE_DATA, FILE_APPEND_DATA or DELETE.
+This series was developed with LLM assistance.
 
-Fixes: 19043971c947 ("ksmbd: honor stream delete sharing for base file")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+Ian Bridges (2):
+  ksmbd: skip metadata-only opens in sharing checks
+  ksmbd: skip metadata-only stream opens in the delete check
 
-Notes:
-    Any share with "vfs objects = streams_xattr" is affected. A READ_CONTROL
-    stream open without FILE_SHARE_DELETE blocks every DELETE open of the
-    file and setting it delete pending.
-    
-    Tested on ksmbd-for-next e49296d51ccb with KASAN, with no reports or
-    warnings. In targeted stream tests and a KUnit matrix every changed
-    result removes a sharing violation that MS-FSA does not make.
-    smbtorture gives the same results as on the base.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
+ fs/smb/server/smb_common.c | 9 +++++++++
+ fs/smb/server/smb_common.h | 4 ++++
+ fs/smb/server/vfs_cache.c  | 7 ++++++-
+ 3 files changed, 19 insertions(+), 1 deletion(-)
 
- fs/smb/server/vfs_cache.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index f9079c529d07..6675c6652c13 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -420,7 +420,12 @@ bool ksmbd_has_stream_without_delete_share(struct ksmbd_file *fp)
- 		if (file_inode(fp->filp) != file_inode(prev_fp->filp))
- 			continue;
- 
--		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE)) {
-+		/*
-+		 * A stream open with no right in FILE_SHARE_CHECKED_ACCESS_LE
-+		 * never conflicts
-+		 */
-+		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
-+		    prev_fp->daccess & FILE_SHARE_CHECKED_ACCESS_LE) {
- 			ret = true;
- 			break;
- 		}
+base-commit: e49296d51ccbf2ad0ed0484db1382f1d7217bd6e
 -- 
 2.47.3
 
