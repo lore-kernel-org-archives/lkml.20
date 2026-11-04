@@ -1,102 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793765028;
-	b=uiy0zaBuPlMZCJkg62trk6fRAcxoblxas87z4HfIdh0ZXezhT+lqEbQSK94tbSYSsALc
-	 WCxZjoB4Lx9FmU+ULwGwcxI7OeS6bOYKC+/lkgzXwv+yHq9LpDqfJF5ezFHESBGC1qfxv
-	 H7BkICI7ij43JTM5Q8r3u3WXcOCJNjfwBybM2NqSiOBm54TAQzjLrYrsaj1I/ZFw5aFAF
-	 agA+lK6CDY1rQ1lbpE+Hr8VHVCT+MjT4DrwIWyTYx5i6Xg5hqrrsHgTYFglkADdPnIphY
-	 BeEeUBUo+OT2r46SCjIoT2MzN8Z1H/8cCbHgjVIE1Kz5p2sk8ZSvNEiVf+P8J1fNqBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793765028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7r7ntsGL0qhXgajGalx/+IeSzGK/9oHP89GVUm5LmrY=;
-	b=Irh5oex/81g+U8umMVcZ3OPt4U7rvaT04orKYOwCtoBJTqiguayUa8bHjngKRmtAh4VG
-	 QgSEoxn2BjYH3/xN8c/Jo4c7KSgqARHDms5Cf5OhYyA6MHP+TrmCddWfXL701wY8feppg
-	 ayrUmLZaHdpcNhhaoqiccXAny09PEo3wlvoq6rwPRXsq9ZqEgCtM4EsqAmK0PvEoywFTB
-	 c/F3BM2xCR9w26nQX4oqiktAAbpyFCOSNvhG5Muq/QbmYhl5qU1uNrSwn8hifEUBEgPBF
-	 i/U1k24rMtLHknip4h0YKWmcbUHlsE/j8ifuntDmEqDolrr8ZCeKTwpjDPndtQhTbbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UfImakkD;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793765047;
+	b=b2L/xPemgYLdFjlUSEEUUk4CESYFPqMpTDrv9+bHnldxJyI9xs+/7rROqgc57d4zybiG
+	 OPkIqXIrTyyWVUY8HOBtijAWUESEs+qT2pOKoOj7tyT2YKsxI5CK9ijPyvhrZVSu+kh/0
+	 VCpTjQOYalwHqeyMSwT1WDKCeUfUyYvxVEpk7LGjhw1KXHMfVyC2+qaTXsaFhDYXi7RTN
+	 mWZiqK6yDDdbNfaPNTbgngf9jBPS1pJMXzKwUsrcGOLXVCzjae0u1K3cM10/Up3J2gRwF
+	 nq5iprw0jqVM0sV6FGZeAMM3KXjEyw0MB2HrBsV48iFUaoavkMmYwRTmjejThtJ1vEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793765047;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3yzk+xsycwqWQUXk2+wwOq7x6A13BOmxl2pm1Nq6qA0=;
+	b=cYFp/mbvURBvuE7a1fpyJQkag8yCSpdkFREnTkljc96nklcv/GQunJ7RPTcK2YXXJsi5
+	 Hk5LWRl/fgJ6rEhWLDT8AxGgfMQYvE+AmkaEsOeWA087ZvKp5ROulnkgE6ikJ9ebh/Dkp
+	 jMq6ZzxYF8TCLUtZdgvhc8qT+1X8aaFiz7QfctKLlOSC+x2wNsKGj6G3Sip6aSAisj5Zn
+	 bOuFvIS+g5QSbh8t9JyxZnY3+AFoCHGJBbNb++IGfBam4DLkR11/D7VxTuRr0OI5wCbaz
+	 nhiCgJPhVrS8MSdrbQqZdm3a28eWjbI70zGmKGD1BKS2ssjfKT/6zqRY449JFaOoFRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=DONyP7OL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.24
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010024.outbound.protection.outlook.com [52.101.46.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9703606D801
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:03:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9703606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A8E606A31B;
+	Wed,  4 Nov 2026 04:04:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40A8E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UfImakkD
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so117513a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:03:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793765027; x=1794369827; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7r7ntsGL0qhXgajGalx/+IeSzGK/9oHP89GVUm5LmrY=;
-        b=UfImakkD7cyq3KfkTy0HyX2ms2YCEgVubjsRneTJQhxPKoKl03EO6Eko4RLjppItPs
-         8WIR+/JA4JtuuXqdAqsar7hNxX3EG6DM2mfZ+HIUbZjqvw3Cw1jAcPYOOEOXCPntsgYS
-         uOgtBKz65lmOyy4Ln2zDd3YIilC6MZOyavWzoDotpkq9qDpDvg/iOaxyJGDLrKggvOyH
-         MoxB3K9PyHIEm/Up6bBm4+IDF1bURisM5YhC6qL51MDBuz1cQ0u8lTX53XUsNYPnIYi+
-         2IDnOk2b5sFNBaoRl+ot9l0UEuqc+PYP/HgkwNZnkSoLSmZTE00ETtuxlwydKohUsc91
-         RYrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793765027; x=1794369827;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7r7ntsGL0qhXgajGalx/+IeSzGK/9oHP89GVUm5LmrY=;
-        b=u8I2zp4+awi+uax9F4EW27bhAHPLQWzSrsHPMsfV+jPEV7DEZAOsUdpaSEol8lt1ch
-         eUcQaw/RcLCJqya33xoSoKxufuOR/EGBkySIBrbr2pW5+rGMulyzi5t44r8w2qXNz7hc
-         2QMQ+GObd3c+umcm/XYWu/HmhyOfxPX5ws1RjHzZr9EDeyI2VQL8NC0kDxPo6abX2BUV
-         9H3P+fIipu67gUs9WXzyPTrJ5OrwAMnwRVHiso+8O2V62bi9tGra/yjoa/bGlfOwosEY
-         K+iQZHKO/pJutixW8B+EF+aQAoZAgY2Iz/zvZj+Y/gXoRffpnRp1H3xrRo23+lB4azjh
-         UqWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmHKNLl6qbuEvL5atIHCT0u9QyyMOOKhtTALWf89MiXkuniHx0vWIGCVFOLjYXnMgYOkD0lMoFyTiruYA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XoQqha5osFMIK8pVrCVMTySjKxO/ba95YBdR9xzTRV/W7GnJ6
-	2g9fyR3/fQhfYKRl/LT+4dtjk3Gu9Klp9MjrtCG9h5S5QbyJVLTwIxUZk3piCRqyPQk=
-X-Gm-Gg: AYBFou2Yyzus5uc2zQmg7Pza5gqIMT3RKXxg4cHOG6PAOu/7pOZptKAaM+UKkxmc6/0
-	3wgm4Y03QpLePv9wyoFsCa1z1jNoqzZYv5S+cczR3JRSTrB+MN1+KFIVOgn4cvTGIVoDlPPuXSM
-	SXiLa0sirSTLH9MgP0ReaTCDKSa5gMyl9l5TAXkxeXDIZ/VU9YukC4Ee8z+i12wxwA/j5yqHVb0
-	tjIKJXs5uc3kHQLNjvwXZh4UyCXrL0nQ2vnoUPnl7GLJIal6JcPXL/q6wkQAWlbrINFXyHg7h72
-	whNCP1DAdch7XcG+Oet8Qu1L1iIcAhJko+u9gw3aHwEv3tbzw56PigiljCmJ6i6s1Fhb21XUXv+
-	pVdbrrgBFrb96/iiSkTn0IiJ9gk8r/bidFrNRF6Ox2cnKdbEOppArNkjH44r8vZpWWFcw0JNBcY
-	mblnN6UaGj9IOkVJpCPKIZFVgsQiN/zg0wKpI6pFWF9oooPeuYSNrG6gdqY1hP09cmtbQS+7sfa
-	V0xXfXRY8jVQKWjwXvM8QEcL4O3KKzb/+LmyY58aWCMWOzko9joCpIVtByvF+YKUzkpkgn/nNYX
-	CV7lpP0LTPJVx9QOdEvNus8DaCxNo6CCV14dwYKAXVjAzssjnSVqhQrUubtyRj/nsV72xcZCqai
-	nTLZwLQyowTyZMSsoZ6BVqXIrysazyC5bq1+O
-X-Received: by 2002:a17:90b:2b47:b0:3ac:860e:1af9 with SMTP id 98e67ed59e1d1-3ae897cfe6dmr8834316a91.41.1793765027150;
-        Tue, 03 Nov 2026 20:03:47 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm1817053a91.1.2026.11.03.20.03.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 20:03:46 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v8 6/6] IB/isert: only reinstate a connection that reached full feature phase
-Date: Wed,  4 Nov 2026 13:03:17 +0900
-Message-ID: <20261104040318.1844865-7-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104040318.1844865-1-yhlee@isslab.korea.ac.kr>
-References: <20261104040318.1844865-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=DONyP7OL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VHXKF0GrMdOUDZAEXdqL1HjeJBicwDi2EwhH94PTU9IBQjnrWOjZZlNqrI2cYpEnrkiPDhWUzGRHZ3AA2jY4GRmWvQfAI2edb198l1I9FnV2v+bQIOFlH+6t+RiIjjF51KSm97GiClgw0VUbfrXfgWF1atTa9Wj/FRctbfMURrrQwSBuhyQp+bD2GGx5F3c8zBuYQ9QThmntp/gU34xMXKBOIU3WpqT8yddsqAvPfFnyh1cEXZYStun+uPKQ+azZ5c8UhotPEGHcHmMEzmkIg/X0Aus5pc03Cnq8nrm41i7zZsXyxM7eZ0ksfEZNJfTN4XdL0OdWtR8eKWuzZH2W6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3yzk+xsycwqWQUXk2+wwOq7x6A13BOmxl2pm1Nq6qA0=;
+ b=CSaOBabEWX/D+UUUxehWFxPZSYvSwO6CAuNbeaGPqJZA0nwt0mda7/LdqQIzuR2R0/5pJcM4eVoDI64GNxo/Gq0TITvA/IFL7l6lizmpyA9ZWFr6TmZti3WzYyAXJtU3MHaemK5NwnNhYAaz4sCz4j0noNaS3urqbjxDYSz5Imi8lDAtDxMp1kIZqOn2CnqSdSgrh0j7mtEB5ou5duovhPdnwx22It/I/wK1SvFrsGfoC980N893sbdRR7VYQHGr9wDMB2jhvWexVNCLNEyIHtARqKOhNogxA+ZUpuj3IUW4bN61/H1uGG3JutfdbXJdGRwQMELpD6axfyUSi6mjLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3yzk+xsycwqWQUXk2+wwOq7x6A13BOmxl2pm1Nq6qA0=;
+ b=DONyP7OL61GleUejZHgN5HviALadiMLOtPoW5cJ6ebX/T9DTdv5TQUZQbUWiDNmASxSUyPrHQdqeA2P1kMQPRRkMTrQ/uojAMOyv7j2gzEPy+g6WCxrm1Xq0cYigqKhjr9A8LWio755hdrD9pQGUjRN2oADKMUiBacxnj9CEBRymoKfXrffTUF8HHb7jtzwh5o3rrP6H7lx40vXKcDnh34dUUakZsNUBBL+7pF+DFaxRtpOaeN0kfmJaFuYI2h3QPjjHTnwFc7PDro81YwIFDCssxuYNWAE0ooKCo4KPoxWkVp3Ura4Bt0L5DdaocjkDUWmvw1UCX2FtLeZzPyNFXQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by MN2PR03MB4958.namprd03.prod.outlook.com (2603:10b6:208:1ad::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 04:04:02 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0569.010; Wed, 4 Nov 2026
+ 04:04:01 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: netdev@vger.kernel.org
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/2] net: stmmac: dwmac-socfpga: Add Agilex5 TSN GMAC support
+Date: Tue,  3 Nov 2026 20:03:18 -0800
+Message-ID: <20261104040320.18077-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ2PR07CA0012.namprd07.prod.outlook.com
+ (2603:10b6:a03:505::13) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,162 +109,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|MN2PR03MB4958:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6a5a788-718e-46af-42f7-08df3a28a85b
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|55112099003|56012099006|3023799007|261102123227099003|18002099003|10067099003|261009223027099003|261022113327099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|11063799006|261026121527099003|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	GKuqo/KIQWVZiUFBXJzTVOAw4uYYgk8ez1x6nXTKGGGmd5pr6al+CZjI2AJ4o6X3tQ1D6kbimexcChSJTIP28zdCYX8uCVhzgCLRt4KEUJnXdYm/bZ6IMyPjUvkeUeBqwA3Ukv/uu5MKLeWCxiTbkNCskWyhnqRUVAWxmHnHrvWxM5r79LznpNp40OOfOEnfmHH+YA/MyIq/4A8hFltGH06uBJIO1LbHrCsE6RyzIbGm2EU3ITuviOlc2CZEHZpvLzSDxElxoVfUtHtSIlhZefFM2IfMn105YTW6PVhnSJc7gqD1xF6X9rZki21NXOE6lgvzwikRTFEu4cfHy2OhHJrj9XN9CwdHCQ2OKLoIykLl4s/ELwoNroZhU12UvFF8xRZE7vW5aYqz+5U5Czv8Z3uT8i10zkq/00hozqQpjT2kdZmjcEFr0Q/rdmrPdlO6skeUyJZ/53llr92Ld9riYc54iXwEStvUhtxgvdfMh/iqqij+m4MbwEpRXMdcrtjtp9Tp9SwvzeYtEBhhOBUjBmd476PIkLCm5ak2yZ2A4Z4MZqDtGUm2egpHxWcz8WW2a7Vr7FTAH2G5kNif4n7FMb142f72VaD/BX7/AdVGTyVPMgRmo8+omk9PWarcE+y8
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(55112099003)(56012099006)(3023799007)(261102123227099003)(18002099003)(10067099003)(261009223027099003)(261022113327099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(11063799006)(261026121527099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VtGHjKo/NPrOmbLg//dc2hOlgi2fVDSd1whQ2w3QZ3IoRIBjlYSZYxFcey+w?=
+ =?us-ascii?Q?aW9gQfCeh4jn/Q7dCPQNhs4Nykx7pcIQJhzq3ddEMykNztG0HiAbZ8fFAp1j?=
+ =?us-ascii?Q?hOP6jQn1WYxCNCOAuaVbW1f7fdc8tD6hDJ6poxGMvZuNzDPi5cnChw89dVuo?=
+ =?us-ascii?Q?bSzzVfQ+zpImdI6owPVjauKezFkR5uMsNzgwfS8NHSmkVDQ9jPtL/RuI8QDw?=
+ =?us-ascii?Q?i5ia1Mnsw7F8vpIRu9A1Hz3PAV9tVocgZjMKZZdRf5HhlQebhj5Q+vFxv/nu?=
+ =?us-ascii?Q?vw8XXNqoC+poqy5Xck2wAnCJiEKAbTj3eeVC/h3yd0+DxSxO+ZMXEDRO4rdi?=
+ =?us-ascii?Q?m+WRjg3rZeLlYiIHqP+waoC+ZTBkgEejGNWh1Y5jCH8Ym/sRa27o3gSRRIzd?=
+ =?us-ascii?Q?DkPL+IUaJKLAJsvN0SpfUZOIl41EUyV4TXXLKzuiaj2qUNaOq2OMhAqHdFMn?=
+ =?us-ascii?Q?9alYsSBpzA5JmAW4Y4iGVjAj+mEOdqlKuJhw5QYmYX/Su5vfh81VwP9V1AZT?=
+ =?us-ascii?Q?6hz0UXGGBLi/ZHviXHpGuTAtU6V5RQqdo6L/Cqp8a3AUrtUA4R13swwLoN1F?=
+ =?us-ascii?Q?jK4kTmW6SgPc4bkAZu6X4cpjKbFuzjReGJERs27RZINyRfUDM30OpW68purp?=
+ =?us-ascii?Q?oSGTENQvXNaxnuA2/jbfNahBlYm4M/iVmtibvWy6TUDAOVBvZgFF01KWZmQT?=
+ =?us-ascii?Q?67WAms2EQIYN5/r89yj+kGiTV1hiX9wS3j3It2QtbOc+7Q3cEnYWZzbgDCNH?=
+ =?us-ascii?Q?5xwWlYoJ8Owdq8Z043GL6rDMuoGtalXJ7lWOCGyC1cbvhPEfHTQHtYJFIW0D?=
+ =?us-ascii?Q?R/bmIXEA7qCPztlFXk8tzvkppOzvvigwV5CSgB7Xpj/4AkXsnUi3NINomeLn?=
+ =?us-ascii?Q?7F1QJ7s4hL6Mn3sY7NB2D8ySWI2z0i/2dpaNA+zW0Rn83k/Z72oytX/euhoW?=
+ =?us-ascii?Q?VS05ZVak82kjX4xTUoe19yIwqH6JWNQx+9OpuGp15rz1/Mw5JqxTvWvXxyY9?=
+ =?us-ascii?Q?LaMhAyG9fTRtzyX22Qf1nnQC0FiuT51raGWYWHADDYMOoGIpE/Y4iAvKll8d?=
+ =?us-ascii?Q?2v/6oMIZ4O5bfqvUf3fxhGbxMQ4t2zs8lKFhfwc91AlY5VA25OPEYYQm401J?=
+ =?us-ascii?Q?+0KCmKNpbaAooAePFRY9hocdiH5AskPWV04K9ogcHjf8cKpd5DKfwWvqjdwW?=
+ =?us-ascii?Q?2Gwq/eaKCEH3MzeuPsXX7c270oV/FRFDc3jgZFELUGvZbcbzOVpeV2hHXW1G?=
+ =?us-ascii?Q?dzNbjJAk4pGoRRDQbwuHY2Vk/WWlTD6bPkZJVeoG8+wOvItZNF2n5yFJ+fFG?=
+ =?us-ascii?Q?3Wxe72Zx0b0oZC6eXW5W5WLIj9ZzAiLPwWXJZw4+WgHLL2TI73RgmDudC4Ib?=
+ =?us-ascii?Q?bi5N325VHo4uHbjDte1LvnTswka1VTO4yf1BKzlwRHMYuOGRfPBV0wOOTNvW?=
+ =?us-ascii?Q?/gYzRetiZRUGNvATaD85unRCzw1a3lZozc8TyPdwOjOd9gTbKnkUj9YxPfrY?=
+ =?us-ascii?Q?ieD92vs1nXiFAW7NWKNTXIagea/LPm6Qfth4hva3sOdYTBejQYh5sBuk4xEa?=
+ =?us-ascii?Q?bpIJhOFP5R1BiqEmLTrd1/qesn0I8Ca2W8MkvjNmcjEOao9Q+vbWExxjfnFs?=
+ =?us-ascii?Q?mj6T8qaXziCuqozVDT06Vy94IS8OXaZIqOozz/LCagz4MxKlcdF7tz98aTz7?=
+ =?us-ascii?Q?CxfgnIeGn9PIiUQQ2RynBgCGzUZ3sHNNcaBy0HLEbwLTMbHXRSY7+kjCVT12?=
+ =?us-ascii?Q?g7r+v2osIorJPzUyM1WirduMAJo+wrr8pCaS4ly5/9xvJBwDShb4MuWQlBLx?=
+X-MS-Exchange-AntiSpam-MessageData-1: sLPqIlJSEEd/ww==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6a5a788-718e-46af-42f7-08df3a28a85b
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 04:04:01.5722
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 27h7iHDVwnxMVNd47BkWMK//RgWi/I2cgopZPHjH+Ov2xf2xwwr4K1klLyEaUIKKFCfFcETi3Q5qi6zSRwvIL7+ZXn0MpPBDqBjeHSkDJNIcvWYr/T+mHjhvFSP9/KLnO4WDI164mnUETb1PKXdwWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB4958
 
-isert_teardown_conn() and isert_connect_error() ask iscsi to reinstate the
-connection whenever it is bound, ISER_CONN_BOUND included.  A connection
-stays BOUND from isert_accept_np() until isert_get_rx_pdu(); during the
-final login response the rx thread is already running but still waits for
-its login completion.  iscsit_cause_connection_reinstatement() sends it
-SIGINT, that wait fails, and iscsi_target_rx_thread() returns without the
-connection exit path, so isert_remove_one() waits for ever.
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-Ask for reinstatement only from ISER_CONN_FULL_FEATURE, read under
-isert_conn->mutex.  There the rx thread is inside isert_get_rx_pdu() and
-returns to the exit path, so the signal still helps.  In BOUND terminating
-is enough: if the login completes, isert_get_rx_pdu() sees
-ISER_CONN_TERMINATING and returns; if it fails,
-iscsi_target_login_sess_out() calls isert_wait_conn() and
-isert_free_conn().
+This series adds support for the gmac1 TSN port on the Intel SoCFPGA
+Agilex5 SoCDK TSN Config2 board.
 
-A test-only delay in that gap, with the device deleted inside it,
-reproduced this on all three runs of patches 1 to 5: the rx thread was
-signalled and the delete did not return within 240 seconds.  Three runs
-with this patch signalled nothing and the delete returned in 8 seconds.
+The TSN port (gmac1) connects to its PHY through a GMII-to-RGMII converter
+implemented as FPGA soft IP. This converter provides the RGMII TX/RX clock
+delays, requiring the MAC interface selector to be configured for GMII while
+the PHY-facing interface is configured as RGMII without delay duplication.
 
-  INFO: task rdma:194 blocked for more than 10 seconds.
-        Not tainted 7.4.0-rc1-V7L5-00006-g4f59be58f97a #141
-  "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-  task:rdma            state:D stack:26328 pid:194   tgid:194   ppid:1      task_flags:0x400100 flags:0x00080800
-  Call Trace:
-   <TASK>
-   __schedule+0x180f/0x4bb0
-   ? __pfx___schedule+0x10/0x10
-   ? __pfx_complete_signal+0x10/0x10
-   ? irq_work_queue+0x1c/0xb0
-   schedule+0x70/0x1f0
-   schedule_timeout+0x1cd/0x200
-   ? __pfx_schedule_timeout+0x10/0x10
-   ? vprintk_emit+0x200/0x2f0
-   ? __pfx__raw_spin_lock_irq+0x10/0x10
-   __wait_for_common+0x29e/0x420
-   ? __pfx_schedule_timeout+0x10/0x10
-   ? __pfx___wait_for_common+0x10/0x10
-   ? mutex_lock+0x79/0xd0
-   ? mutex_unlock+0x7b/0xd0
-   ? __pfx_mutex_unlock+0x10/0x10
-   isert_remove_one+0x554/0x740
-   ? xas_load+0x1a/0x250
-   ? __pfx_isert_remove_one+0x10/0x10
-   ? xa_load+0xbf/0x120
-   ? __pfx_xa_load+0x10/0x10
-   ? __pfx_up_read+0x10/0x10
-   remove_client_context+0xa4/0xf0
-   disable_device+0x128/0x240
-   ? __pfx_disable_device+0x10/0x10
-   ? __pfx_mutex_lock+0x10/0x10
-   __ib_unregister_device+0x226/0x3f0
-   ? __pfx_mutex_unlock+0x10/0x10
-   ib_unregister_device_and_put+0x50/0x70
-   nldev_dellink+0x28e/0x3d0
-   ? kernel_text_address+0xa7/0x130
-   ? __pfx_nldev_dellink+0x10/0x10
-   ? __pfx_down_read+0x10/0x10
-   rdma_nl_rcv_msg+0x29c/0x4e0
-   ? __pfx_rdma_nl_rcv_msg+0x10/0x10
-   rdma_nl_rcv_skb.constprop.0.isra.0+0x21d/0x370
-   ? __pfx_rdma_nl_rcv_skb.constprop.0.isra.0+0x10/0x10
-   netlink_unicast+0x68f/0x940
-   ? __pfx_selinux_socket_getpeersec_dgram+0x10/0x10
-   ? __pfx_netlink_unicast+0x10/0x10
-   netlink_sendmsg+0x810/0xf20
-   ? __pfx_netlink_sendmsg+0x10/0x10
-   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-   ? selinux_socket_sendmsg+0x8c/0x270
-   ? __sys_sendto+0x337/0x390
-   __sys_sendto+0x337/0x390
-   ? __pfx___sys_sendto+0x10/0x10
-   ? fdget+0x53/0x3b0
-   __x64_sys_sendto+0xdb/0x1b0
-   ? fpregs_assert_state_consistent+0x56/0xe0
-   do_syscall_64+0xdd/0x4a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  RIP: 0033:0x7f1de13200d7
-  RSP: 002b:00007fff7f1dd9d8 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
-  RAX: ffffffffffffffda RBX: 0000563429332390 RCX: 00007f1de13200d7
-  RDX: 0000000000000018 RSI: 00005634293312a0 RDI: 0000000000000004
-  RBP: 00007fff7f1dda10 R08: 00007f1de1417200 R09: 000000000000000c
-  R10: 0000000000000000 R11: 0000000000000202 R12: 00007fff7f1ddc00
-  R13: 00007fff7f1dd9e4 R14: 00007fff7f1ddc20 R15: 00007fff7f1ddc00
-   </TASK>
+Patch 1 documents the altr,socfpga-stmmac-agilex5-tsn compatible. Patch 2
+adds dedicated match .data ops for the required interface setup.
 
-Fixes: 6d1fba0c2cc7 ("iser-target: Rework connection termination")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/infiniband/ulp/isert/ib_isert.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+The board-level binding and DTS patches will be sent separately to the
+SoCFPGA tree.
 
-diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
-index a9bd2cc786cebb..8989485001fc94 100644
---- a/drivers/infiniband/ulp/isert/ib_isert.c
-+++ b/drivers/infiniband/ulp/isert/ib_isert.c
-@@ -681,14 +681,14 @@ static void
- isert_teardown_conn(struct isert_conn *isert_conn)
- {
- 	struct isert_np *isert_np = isert_conn->np;
--	bool owned = false, bound = false;
-+	bool owned = false, bound = false, full_feature = false;
- 	bool promoted = false, terminated = false;
- 
- 	mutex_lock(&isert_conn->mutex);
- 	mutex_lock(&isert_np->mutex);
- 	if (list_empty(&isert_conn->node)) {
--		bound = isert_conn->state == ISER_CONN_BOUND ||
--			isert_conn->state == ISER_CONN_FULL_FEATURE;
-+		full_feature = isert_conn->state == ISER_CONN_FULL_FEATURE;
-+		bound = full_feature || isert_conn->state == ISER_CONN_BOUND;
- 	} else {
- 		owned = true;
- 		promoted = isert_conn->promoted;
-@@ -700,7 +700,9 @@ isert_teardown_conn(struct isert_conn *isert_conn)
- 		terminated = isert_conn_terminate(isert_conn);
- 	} else if (bound) {
- 		isert_conn_terminate(isert_conn);
--		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
-+		if (full_feature)
-+			iscsit_cause_connection_reinstatement(isert_conn->conn,
-+							      0);
- 	}
- 	mutex_unlock(&isert_conn->mutex);
- 
-@@ -731,12 +733,13 @@ isert_connect_error(struct rdma_cm_id *cma_id)
- 	struct isert_conn *isert_conn = cma_id->qp->qp_context;
- 	struct isert_np *isert_np = cma_id->context;
- 	bool owned = false, bound = false, promoted = false;
-+	bool full_feature = false;
- 
- 	mutex_lock(&isert_conn->mutex);
- 	mutex_lock(&isert_np->mutex);
- 	if (list_empty(&isert_conn->node)) {
--		bound = isert_conn->state == ISER_CONN_BOUND ||
--			isert_conn->state == ISER_CONN_FULL_FEATURE;
-+		full_feature = isert_conn->state == ISER_CONN_FULL_FEATURE;
-+		bound = full_feature || isert_conn->state == ISER_CONN_BOUND;
- 	} else {
- 		owned = true;
- 		promoted = isert_conn->promoted;
-@@ -746,7 +749,9 @@ isert_connect_error(struct rdma_cm_id *cma_id)
- 
- 	if (bound) {
- 		isert_conn_terminate(isert_conn);
--		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
-+		if (full_feature)
-+			iscsit_cause_connection_reinstatement(isert_conn->conn,
-+							      0);
- 	}
- 	mutex_unlock(&isert_conn->mutex);
- 
+This is a reposted version with a fix based on Jakub Kicinski's review:
+https://lore.kernel.org/all/20260928184340.51da489c@kernel.org/
+
+v2:
+  - Extend the interrupt/interrupt-names/dma-coherent allOf conditional in
+    the net binding to match altr,socfpga-stmmac-agilex5-tsn, per Jakub
+    Kicinski / the netdev review bot. The TSN port uses the same
+    DWXGMAC-2.10 core, so it must take the 17-interrupt, dma-coherent
+    branch rather than the single-interrupt else branch.
+
+These two patches were previously posted as patches 3 and 4 of the
+"Add Agilex5 SoCDK TSN Config2 board support" series (up to v6), then
+reposted as a standalone net-next series per Jakub Kicinski's request.
+History from the board series:
+
+v6:
+  - Put altr,socfpga-stmmac-agilex5-tsn in the same compatible enum as
+    altr,socfpga-stmmac-agilex5 in the net binding, per Krzysztof Kozlowski.
+
+v5:
+  - Replace of_device_is_compatible() probe check with dedicated
+    socfpga_agilex5_tsn_gmac_ops via match .data, per Krzysztof Kozlowski
+    and Dinh Nguyen.
+  - Drop altr,socfpga-stmmac-agilex5 fallback from the TSN compatible list
+    and rewrite the net binding commit message to explain the hardware
+    difference, per Krzysztof Kozlowski.
+
+v4:
+  - Add Reviewed-by from Andrew Lunn on the driver patch.
+
+v2 (board series):
+  - Replace mac-mode DT property with compatible string-based detection per
+    Andrew Lunn's feedback.
+  - Use phy-mode = "rgmii-id" to correctly reflect MAC-side delay handling.
+  - Rename compatible string to altr,socfpga-stmmac-agilex5-tsn for
+    consistency with existing altr,socfpga-stmmac-* compatibles.
+  - Add DT binding documentation for new net compatible string (new patch).
+
+Nazim Amirul (2):
+  dt-bindings: net: altr,socfpga-stmmac: Add
+    altr,socfpga-stmmac-agilex5-tsn compatible
+  net: stmmac: dwmac-socfpga: Add support for Agilex5 TSN GMAC with FPGA
+    converter
+
+ .../bindings/net/altr,socfpga-stmmac.yaml     |  9 ++++++--
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 23 ++++++++++++++++++-
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
 -- 
-2.43.0
+2.43.7
 
