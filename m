@@ -1,145 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793822524;
-	b=dY1JyRTVzkJvtcNrrO7ZHnUB9nn54qMW+0f2lHzxxEv4PGI5V617v4DG3ZFGZSgloVUQ
-	 NtuOj/6DFZ1BVzRUARH1m/fBCsYnPcqBGcvboBGT9lRA52bMldzYPhnGh9DJj6+IlRcxT
-	 rjksTSTDx/3mDGWnzAEnJzZgp7vGEavArF6s1F5GdwUSqLtzH+meorfBsRU352Ev1FFdm
-	 wJUv5TblD50rDLeBuqNOp7lUgu1RFa2FwbSowLWUjNBFnlQQdMwXKNk/uxlrFqdZ6gWE1
-	 wsDA7QzogPhCS1NOAr6uW0W7wOFAvOorqwt4xDGh1FYolqcScSmUmtldnsufJu1zWuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822524;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=3TVkV+F01OdzBizTF5MQHebTHfDuzMDa0+diW84FiFc=;
-	b=F2mxDMkREYE7JqGtTwVioChwrjGw4D1Z9i/uDJWq9gKDL9JXZHViiCn16YVhYyjohotn
-	 dUYwK5ZVCLYRzf/oqRwNCgEp8EX4UXWv+BTlXY1+uW630M9qUmy4HUVV06lCBlF9AA3mY
-	 0nnetJr7/9jYfbbR5pU9osEUJqTUrCyWRZalWfsKZu7sv2pYzV/oTmpsaUWotqxxiumr0
-	 eYl3v+xjDfF8vdvKrkbGW2x5m5BQGensme9H2+v4WyYQvGhDvLwwH7MuEIaHHYzrZcURQ
-	 wxvl8macSzKXPHR7e0Eni9y4qtBSyyRLI7G2ZhBcF7miMdVjBoFGtyKvJyMuX9g4uaw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kkNWYlP4;
-	arc=fail smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793822627;
+	b=RGkWGPLyMU614z+mbv3QCBTXrvwtKUCIb1jBbjbawi3XOsHCiuoaM+CI6k8wNSf4/K8c
+	 zIEcL6hBY+bMQPxJ8Oo5P5Ylui1kcs1IOmNDDKnrx/cU8mIg949LjnIjFrZO4ZMln7wbA
+	 KCj3CVbQQ4/khq3FSY+WC5tThTseesryl5QZbuLud6az3fu3lK7Td329njcbMf8O5DDIZ
+	 97XSTZkW7tKWoC3O5spLmnNLzGm9sZhwvRlUtMUTNxz5BUhirJeMl17SJAYnmnScAlDkT
+	 PeTLg0N14GXxmN7fmIDsDTHReKoP0nZ2B2bNbJp/aG2YCKD+gDrWHNHsHmEEXcN5bCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822627;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=6BgNivbmmhoO5tLBQFwSmEVuFg0Qcp+1r+afWMf1Jss=;
+	b=1iE3vBy6hXLrY47i1X97zhuJ0jRCUlbCdH/UR55of738dRUSVdu60Iy7fEcFCFPxaxZz
+	 gFcCQxGQzK3RJmHD84TkTPje1ns85Raw39eFj7bdMOLORb2FzZZRv1Hd+E3IxUj4sMVrU
+	 qf6tVRiry9An791bhqu8KE1zHDg3vQaqfPx4xjta+0TTaVo3Qu/CpoPSVtOri/WRvvyxr
+	 tr1Vnve92vBfTdPeGaf+t2ff9h1Rt7t5uqJmP7/YGUe23g7p9vWw2mpTb3fmYTX88Qpfc
+	 UEGUM3ST5X5ZStu3qRIOXy/v6dtWuJEhUyFLog8/7GB1uLvjqF8k41X1laswxvZmjDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=fvCbpDa6;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582A5606E821;
-	Wed,  4 Nov 2026 20:02:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 582A5606E821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D42606D4D5
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D42606D4D5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kkNWYlP4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793822522; x=1825358522;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=fjvo5+qTSPKTG27phwGt3ngRGsUhKFZyZks5K8KRnTM=;
-  b=kkNWYlP4x5DQdfAPzYV1XmpyKV6A8jVkPRuRB+g1Y9xd4Bdo53YvFbUB
-   YehWrr+UFHeUrp9PglZkQYfRrlkwUqfs1D3BD5xu3OX8Zu7kNCJJ9RQ3w
-   jNfrzjiOV4Pv8v/2iGFxsvWUB5azKbDXaS+msFrQfDxH87DIsY0+4oJsk
-   hPTQ3aOHet0QZqsjYGqmTKk4ahRzdxevMdG40tpJIdC6ERy++q3u+AYaJ
-   Dj0OW/0X22z82FYs4X+/d6oRpejkHXcH27nsviwy5QF/CTuvQAUQitVZd
-   ebJWYAmE3EEymezY2wdYGJG4c9tsvGHSAq3qHgJjl9LUVwVM1sdrN0q5n
-   A==;
-X-CSE-ConnectionGUID: c97x4N6KQN60zPpLjbCEDA==
-X-CSE-MsgGUID: fyINYOvRTRGEvHSLI8iOwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2696503"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2696503"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:01:49 -0800
-X-CSE-ConnectionGUID: DsJaXeOcQsaWSa8i/vLItg==
-X-CSE-MsgGUID: RizodZnPTSqDzpuOrqp+Ug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7144577"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:01:49 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 12:01:48 -0800
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 12:01:48 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.54) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 12:01:48 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SLmkghJItOL7U0TGgJ8VHm2NttFuNRSTg6dmR2teREhJ39U7y/giSnie7AhWTw9hAKRXpAQnG5CrU7Zyzto0dwhwZngx+o97CELw+eKfCt9mYTTsGbGGCkyFhvXBBxkD7QZjAKOOxNy43C3CHqfbrrpTRneP+K87Ys2C+E49e15LIZ/s1vwcr5QAljywx0mdVNxXBYtvLzQeJUKBDl66scEpuCCIS/J4bxcCLCk1vYXfFt6J00aUpEYwlCNOeGdiztvCRZazJ6TEi4rBXYXiisVt9QFtEgsdfZIOb6B8Smlpo//XhphjfUe55sQN1AQjzWtzqWX0JDoW8Wtc+VrTEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3TVkV+F01OdzBizTF5MQHebTHfDuzMDa0+diW84FiFc=;
- b=om9wUVAKjazFW/Cb+1AB4MCsLytCAgtqssYbJD18GIcFLTZkKKu4bZIto4vwpJi+U/Kvsb82ZwJEFZVntA3kyPgN2VfjUzSKyk9AkNMAPt//M2BHQhTRI0tallZpk6IUthX4X2KQEKSZ+QqeUHiwvMZ6t8YfjTXWfmjhnAI2BAomD1NnF7K75sayot/+OEpJYVmg8o7PDsNlrrdkd72+b98e0X8RiHmwpegdeXu7Z+757fxT/90zoJ+s2KOoSjmYBE/+XnWsQM/54XBIAzBXbUGifkX/9NIrX7YqcdeMPjZxvMIUsT3UGZdvf2+6NtQZnLlZdz8V8P8WIqsd7KuvUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
- by CY8PR11MB7134.namprd11.prod.outlook.com (2603:10b6:930:62::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 20:01:38 +0000
-Received: from CY8PR11MB7846.namprd11.prod.outlook.com
- ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
- ([fe80::cae0:d05c:b2fc:c395%7]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 20:01:38 +0000
-Message-ID: <60f7934b-5271-4207-b071-6240b5d36cc5@intel.com>
-Date: Wed, 4 Nov 2026 12:01:35 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 11/28] KVM: x86: Add a helper to detect if FRED is
- enabled for a vCPU
-To: Binbin Wu <binbin.wu@linux.intel.com>, <kvm@vger.kernel.org>,
-	<x86@kernel.org>
-CC: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
-	<seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, Xin Li
-	<xin@zytor.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
-	<peterz@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Tom
- Lendacky" <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
-	Shivansh Dhiman <shivansh.dhiman@amd.com>, David Woodhouse
-	<dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>, Zhao Liu
-	<zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>, David Matlack
-	<dmatlack@google.com>, <linux-kernel@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <linux-doc@vger.kernel.org>
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-12-sohil.mehta@intel.com>
- <f7f84b44-e2fc-4d8c-b2e5-e5327086d026@linux.intel.com>
-Content-Language: en-US
-From: Sohil Mehta <sohil.mehta@intel.com>
-In-Reply-To: <f7f84b44-e2fc-4d8c-b2e5-e5327086d026@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR05CA0033.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::8) To CY8PR11MB7846.namprd11.prod.outlook.com
- (2603:10b6:930:79::14)
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=fvCbpDa6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+	From:Reply-To; bh=6BgNivbmmhoO5tLBQFwSmEVuFg0Qcp+1r+afWMf1Jss=; t=1793822626;
+	x=2109182626; b=fvCbpDa6qDmek7USHhN+dZtMonfNlnp50iNh3/9uJ4qFczrDWKxxvQuvI9Ktq
+	4npEdLI7HLWC1qeHb8U1Vl1uQi2eArwSL/UYGQyzGbUEIdBOzpIYIthRFJDnFjZHfIG7sP+PUxffo
+	lymjUt+llULIxsxvguucEVrBz52p6ni3VBhart2Rtydbl2bAz9sl9aPibFjlv1S8v5cZ/hBIfCiBa
+	4KvSiRBLRZAIWUtdib45Ly50mYx59a0ki6J+By9EuwleC2sU/Cy1OorJop8+2Xsas4Z10V0Q+suWc
+	DMhJySm4DhB6I0Kh3d3IDr08raPblXn9kQCjevuWExubl2vKJg==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1] helo=quatroqueijos.cascardo.eti.br)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xOhCh-002cQL-Rb; Wed, 04 Nov 2026 21:03:28 +0100
+Date: Wed, 4 Nov 2026 17:03:18 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	JP Kobryn <jp.kobryn@linux.dev>,
+	Frank van der Linden <fvdl@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm, vmscan: make kswapd unreserve highatomic pageblocks
+Message-ID: <auuPhqCcgZBt_lUR@quatroqueijos.cascardo.eti.br>
+References: <20261104-kswapd-highatomic-unreserve-v1-1-38be5106adf5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,136 +77,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|CY8PR11MB7134:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb6393fb-7893-49ca-a523-08df3aae6f94
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|22082099003|18002099003|10067099003|261022105027099003|56012099006|4143699003|11063799006|261028144727099003|261026121527099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: ImHM4wZkouLqCaLeKOAz7TL7iSG47yYI9OcUwhrDIJlxG0UiGUM/CktN1go+sAWJWwwVPun6mG8ICTipjXeNpBGP3QKUpMkb2HJL9p1cp2g6gU2fBLrSp8M5dbSxnVEvcytTxAVpW+Wac0PKXEsatfhkaST0dU5gXOCHXT0Cz6GvDQLZuz00QxeO39b269wfEmxuPIiYLfpK8LxRWjXhw+Mgw+DAd3fG8riodu2g/uZmlWNWC9InelugNipbYbeWTQIxNG3FQtfOLzTNpxcNtyKrAIDQ+2IncshZNjj487ezIXGryftC+dmqVm0IIBJg0augcnq+Dm12dcQaHvuoZrxLZSrTYuDIBSSn0jxNHStUASrF+9Z+qRVdcKqkGCBxb2kYH8gQKdQ0NS/gCQ9k/wgqTYqFZfzJtK7ZkbInYTMD3AqqaJDKj+pSQJ0k0zOSG2Fl8TNQHoZeZ/YKh76iboUq2d9PYI56EZiOqnooKB5B3sPHj5NXgApBTgVe252AEiLkJIAMKDvl8RluO2RcWKDiRLADQDh27gS0q7u/yoTM/y8fR7n4VmcvEkZiYz4cfc8Vb1PyPa5Bg8UFk0h9L8BPrNRlU3FBtYd5sIDKvQg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(10067099003)(261022105027099003)(56012099006)(4143699003)(11063799006)(261028144727099003)(261026121527099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkwyK0tsMUxIQ1JBek9Wek1DNDA4RklESnUyN3BTaDNZeXFidldVbzRQcGFT?=
- =?utf-8?B?emZBNFRsMkd4T0RNcVFZMzV3aVJubkttUWZtdHovcFJCVzc3NmYydFR4aEJI?=
- =?utf-8?B?T2xnVVhoQnVVeE1aSjNYcHk0QUFyUk1xOWtwS0JzV0kweDhQS3BZeTJPdU5B?=
- =?utf-8?B?bkhDclk0cDd4TzdkSi9NMytLYStxVXRXMjJpcEt6UCtmanZoVlZWUjRpZExa?=
- =?utf-8?B?Y3RLZGRST0dhVDA2Y0xxVlE0VkNDTW5MbzJoV3FrTUZ0M2hZL3pvd2xrWER3?=
- =?utf-8?B?WHhFemNMWjY1OFRHTHBDMUI2bHFGeUdKdHhZM3A5c0pSa0RhWlFrSFpCTTlh?=
- =?utf-8?B?cHRNS3cvcW01VXNlK2g5Tm5lN2x5ZHNNWTdCT3JqaE4rUTM1ZDBPamxKT2dx?=
- =?utf-8?B?TkxLZExpNDZaUmM4R0tuemR5TldZZW9jT2lGYTRiVVVnbTErRWhtbmF0WkRt?=
- =?utf-8?B?R3dTVkRvQ2dyNXBzUEl6dXJsa1N0YkFYNUxPbHl3VnhLdExOdzQ3b1ExTHhx?=
- =?utf-8?B?bkNZaEFhd0tHRkkxRDhjc0xJUThXK0hyOWIvRWE2UUxud1MwSDdscjlYQ1c1?=
- =?utf-8?B?QnJSbEdmZ2l0RzEvc1BoZGh3bGtWSFU5ZmFJUDNlN0NzZjFSd1NjQWh0Ympj?=
- =?utf-8?B?aXdLNi80TWo1ZnlXRS9oMElSaUtnKzJ4SUVpRnUxU09zalc1dlMwUVMyYko2?=
- =?utf-8?B?YlBzZDI3U3dSS25MRnJVdktsWk9jNUVkaG1mVWx5OEZKdWVLRWRSSlpwTm9O?=
- =?utf-8?B?UzBtNytMclNUSmdZM3UxRzlsZDdzOWdDQTQwM0wxWkVCWTdQazBmQ3RXOHVi?=
- =?utf-8?B?WStmeEpwZWM0YVQ1KzJPQTlUUVMyVmtNTFFqYjF2OGNOZ09OM0ZzbXRUUExp?=
- =?utf-8?B?NTNtMUF5YlJJV1ZzaHRqMnhNSUZUQyswc1NaVExGK2pJSGN0OCtCTlptSW1l?=
- =?utf-8?B?U09wT3dVcSsyYWxHOHdISHBwZ0VGOFQrYXd0U1lZTTZyQ05TWG92R0MyS0g0?=
- =?utf-8?B?L0JEOXg0WElPTmt6QkRBRkdRMVhCRTE2cG1YdWQxRGxNdFR0b2NYTVFHWklZ?=
- =?utf-8?B?QmQ5a0EySmtGMFVkRXcwNThyeEh3QndyanZwZnUwTXVqVU1hU0hDM1VXWTB6?=
- =?utf-8?B?bEVDb1IyejFuOGZuOVVWNlNZcTVHc0JkWVR0ZEZBZ0daQ1BwY0E0bk5qNHRy?=
- =?utf-8?B?aFR3MEZ6UmxxamZCNkk3NXRHTE40UnBxZHd4aXJRNXJ1aDc0RDVwK3VnRzlx?=
- =?utf-8?B?c1hjWDl4UkxMdVQ0Z1RCQTJXZWt2Zk1Oa3lPMjVPdncyOUo4Y1ZQUjQ3eEMr?=
- =?utf-8?B?SjBLVW9tYlhpNi80ckJveS9MWmt1OHhrUm5FNHlkV0xRc2l1SGJQZHh3SjVR?=
- =?utf-8?B?bmxLb0VsbTFyWDNLWm5vVWdOZVNpZDV6K0NrNTRIZGZuVGZhU0FabW1NdkhE?=
- =?utf-8?B?eVNZL1FISXZrN0tSc25WUUpJZWJBL0djU1FxREd3Sml6MCs4NldmR2gwaVEr?=
- =?utf-8?B?eXdhT0NRRVN1NFhGSFFXM3FtS0VPMDhBNFk2Sm5NU1NVajh4ZGh2djI2elNa?=
- =?utf-8?B?UTlpRmRuay9mNFZYNVZzY3ZIaGxPMm1maTN1cVNuMjlaRkxHM1lZZ1ZSOXBm?=
- =?utf-8?B?YkVVR0lGNnZqZ0JXTlg2SGJzWitxQ2ltb2dTK2tQY1VncnRJbjJUMHBWOTQr?=
- =?utf-8?B?dklRNnoxM3FINmNIcmZtNndGcjlrbTdyVWhzcUdNZStmZTBmczlEdWZKZURS?=
- =?utf-8?B?ajRMTzRtOStWYlRHSE9FY1NNQUhwcjBpMmVEMm84QUV6cUY5TWNkRTJudi9i?=
- =?utf-8?B?NG56TVk5NCt3NnRWUzh5Mnk1YnJFNml5dUpwd2oxbmFrNHlkMzdKRkVwZncy?=
- =?utf-8?B?MTVwM3lEY2tvWnpXQU80Q2RZem5zcE5aTDU1bmF4T1NueXNtSGx5VFdLV1Zk?=
- =?utf-8?B?QnNoWWlGRXFWQkFLMHQyNHBhTW5WZUhNamZzT2pRL05lK1FLaWQ1VzN5TTJo?=
- =?utf-8?B?WFdYMVpVeHRTSjJLNFZ3WHB6OTFtQ1BKN3JzUDNDR0hvVks0WityOXdTNFow?=
- =?utf-8?B?M3IrSWxmRlpjTHdVSzh5cHpTSXgwTzhqUWpJZlBSQU1iU1JOWkJ2dmJvKzQv?=
- =?utf-8?B?amQ3N0ZiY2RFNUpiUGl5SEp4VFp5QmVpVXlGdWtqVlFpMXZhRU5qQlZjQmo5?=
- =?utf-8?B?cC9udkMyOFhnY3M0d0JoRitKaDRNY1dvaC9qZVJlUFRrekluU0QrR0pIQmVM?=
- =?utf-8?B?Zk1HRXRzOHBCU2FhUmVVQ1kzRDhZM3hiZkNyT00welhMTno1MmJOSXM2NmJP?=
- =?utf-8?B?VmhjL2xyNW96NnU0UzJPRmpIU2loRnNFMnl5bUhadVdpZ1lXaTIzUT09?=
-X-Exchange-RoutingPolicyChecked: FDCPeAOl/1pM9LlXxPCkrE9bJaRizNahaRPa9z1HFGY0PzGbmb2CkGf/hPinUdGEUvlnXk1Ch83zSXTIQKRNFyfoqKNVJeetORyrEfxVnZnBSNNh39Uer2OLa+sqn70nQznDiS9a2JHv/OcQvqO7YhQADGqvQQPvQg+n4Y97C+qQsnfiEoGOFah+vzeWYYNNcZPmF0qTE/s42cHH5CiqTmUTxyD6Qz4o4YaG+AfYh3zw1l/yD3TP8kpTIkVf3Hzj+1GSsJHKuG8SZkGhDF5e1hg6KFD8Ky10C+phalKnsjb7LPmKI7lewP8FnHzG1uTtdZxD6Vt/9RWarZEfy+MvsA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb6393fb-7893-49ca-a523-08df3aae6f94
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:01:38.1699
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xLlqyUiU7TWbOyhxxBfAUo3nf1WPeLyjsNf5F9Z61UaaiV+jekWNJ2WJMqxKyM50xlsLEYM8YeH3GnmTTwyLcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7134
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-kswapd-highatomic-unreserve-v1-1-38be5106adf5@kernel.org>
 
-On 10/23/2026 2:21 AM, Binbin Wu wrote:
-> On 9/12/2026 5:36 AM, Sohil Mehta wrote:
->> +/*
->> + * It's enough to check just CR4.FRED (X86_CR4_FRED) to tell if
->> + * a vCPU is running with FRED enabled, because:
->> + * 1) CR4.FRED can be set to 1 only _after_ IA32_EFER.LMA = 1.
->> + * 2) To leave IA-32e mode, CR4.FRED must be cleared first.
+On Wed, Nov 04, 2026 at 07:38:44PM +0100, Vlastimil Babka (SUSE) wrote:
+> A customer has reported excessive reclaim activity despite memory above
+> high watermarks. Analyzing support data (including sar log) revealed the
+> following scenario:
 > 
-> It seems KVM doesn't enforce it in kvm_set_cr0() for 2).
+> - the system has almost all memory reserved as 1G hugepages for kvm
+>   guests, and operates normally
+> - due to a spike of memory pressure from userspace, highatomic
+>   reservations occur (probably due to e.g. concurrent network receive
+>   activity)
+
+I think you might mean 6a204d4b14c9 ("mm/page_alloc: only set
+ALLOC_HIGHATOMIC for __GPF_HIGH allocations") as one of the fixes you
+mention below.
+
+In that case, GFP_NOWAIT (which is typical for network activity, AFAIR)
+would be one candidate that would produce such reservations. But I agree
+that if any other real highatomic allocation burst would happen, it might
+produce such reservations.
+
+> - on one of the 8 NUMA nodes, this creates a situation where free pages
+>   are above high watermark, but when __zone_watermark_unusable_free()
+>   considers highatomic pageblocks, the result appears to be below the
+>   low watermark
+> - pgdat_balanced() is false, kswapd hopelessly keeps trying to balance,
+>   spending cpu time and disrupting the system. It has nothing to reclaim
+>   because the node is filled with hugetlbfs hugepages.
+> - since the overal memory pressure is under control again and there are
+>   no allocations restricted to the affected node, they are satisfied
+>   from other nodes without going through direct reclaim
+> - since direct reclaim is the only code that calls
+>   unreserve_highatomic_pageblock(), this never happens and nothing fixes
+>   the situation
 > 
 
-I think the comment is slightly misleading. The spec doesn't directly
-enforce leaving IA-32e mode with CR4.FRED. It is just expected to be
-unreachable.
+I am trying to understand what is going on here: so allocations on that
+node are only !__GFP_DIRECT_RECLAIM? That would explain the highatomic
+reservations in the presence of the bug just mentioned.
 
-1) Based on FRED spec section 4.2 Enabling in CR4, setting CR4.FRED
-prevents compatibility mode entry while CPL = 0.
-
-2) But leaving IA-32e can only happen when CR0.PG is cleared which can
-only be done in compatibility mode while CPL = 0.
-
-Currently, for KVM, the CPU enforces the first one and the second one is
-enforced by kvm_set_cr0().
-
-Is the suggestion to add an explicit check in kvm_set_cr0() that
-mirrors the PCIDE one? But there isn't a fault specified by the spec for
-this case.
-
-Sean also requested negative tests for things like leaving 64-bit mode
-with FRED=1. But, I am not sure how to test this.
-
-AI tells me such a mode change can happen with emulated far transfer
-through an MMIO far pointer. "em_jmp_far(), em_call_far(), em_ret_far()
-and __load_segment_descriptor() have no FRED checks, so none of them
-raise the #GP that FRED spec 8.2 requires."
-
-Chao had brought up enhancing emulator code and making it FRED aware
-[1]. I am wondering if we should revisit it?
-
-[1]: https://lore.kernel.org/all/aapnI6KN7Flal8kg@intel.com/
-
-Please let me know if I misunderstood something.
-
->> + */
->> +static inline bool is_fred_enabled(struct kvm_vcpu *vcpu)
->> +{
->> +#ifdef CONFIG_X86_64
+> Note this was observed on a 6.4-based kernel and there have been recent
+> fixes upstream limiting the highatomic reservation side, but I don't
+> think they can prevent the same happening in mainline, only perhaps
+> lower the chances. Nothing seems to prevent the issue completely.
 > 
-> Nit:
-> This seems to be unnecessary.
-> X86_CR4_FRED is defined as 0 in non 64-bit build.
+> For example, while we limit the amount of highatomic pageblocks to 1% of
+> the zone, this calculation does not subtract the amount of hugepages or
+> otherwise permanent allocations, so the highatomic pageblocks can end up
+> taking much higher share of actually reclaimable memory.
+> 
+> The most targeted fix thus appears to be to allow kswapd perform the
+> highatomic pageblock unreserve to match direct reclaim. It's also
+> somewhat similar in principle to how kswapd reduces watermark boosting.
+> 
+> Hook this highatomic unreserve to the moment we are increasing kswapd
+> reclaim priority, as that is when kswapd is struggling to make progress
+> and it should roughly match the case of direct reclaim failure.
 > 
 
-Unfortunately, that 0 is exactly why it's needed. kvm_is_cr4_bit_set()
-has
+I tried considering a different approach, making the allocation do the
+unreserve in the absence of __GFP_DIRECT_RECLAIM, but I don't see why not
+let kswapd do it.
 
-	BUILD_BUG_ON(!is_power_of_2(cr4_bit));
+Regards.
+Cascardo.
 
-So, compilation fails on i386 :(
-
-Though, it would be better to get rid of the #ifdef and change it to:
-
-  return IS_ENABLED(CONFIG_X86_64) && kvm_is_cr4_bit_set(vcpu,
-X86_CR4_FRED);
-
->> +	return kvm_is_cr4_bit_set(vcpu, X86_CR4_FRED);
->> +#else
->> +	return false;
->> +#endif
->> +}
->> +
+> The only caveat is that direct reclaim knows which migratetype it wants
+> to allocate and thus changes the highatomic pageblock to. Kswapd doesn't
+> track that, so use MIGRATE_UNMOVABLE. Highatomic allocations usually are
+> not movable, and this will avoid creating nominally movable pageblocks
+> polluted with unmovable pages, so it should be the least problematic
+> default.
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
+> We interrupt the regular stream of AI fixes by something a bit
+> different. RFC to get agreement on the approach. Haven't tried
+> reproducing the issue in mainline, but it seems quite clear to me from
+> the data I've seen.
+> ---
+>  mm/page_alloc.c | 126 +++++++++++++++++++++++++++++---------------------------
+>  mm/page_alloc.h |   3 ++
+>  mm/vmscan.c     |  16 ++++++-
+>  3 files changed, 83 insertions(+), 62 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index a8cac5e01066..785a13570788 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -3476,6 +3476,68 @@ static void reserve_highatomic_pageblock(struct page *page, int order,
+>  	}
+>  }
+>  
+> +bool unreserve_highatomic_pageblock_zone(struct zone *zone, int migratetype,
+> +					 bool force)
+> +{
+> +	/*
+> +	 * Preserve at least one pageblock unless memory pressure
+> +	 * is really high.
+> +	 */
+> +	if (!force && zone->nr_reserved_highatomic <= pageblock_nr_pages)
+> +		return false;
+> +
+> +	guard(spinlock_irqsave)(&zone->lock);
+> +	for (int order = 0; order < NR_PAGE_ORDERS; order++) {
+> +		struct free_area *area = &(zone->free_area[order]);
+> +		unsigned long size;
+> +		struct page *page;
+> +		int ret;
+> +
+> +		page = get_page_from_free_area(area, MIGRATE_HIGHATOMIC);
+> +		if (!page)
+> +			continue;
+> +
+> +		size = max(pageblock_nr_pages, 1UL << order);
+> +		/*
+> +		 * It should never happen but changes to locking could
+> +		 * inadvertently allow a per-cpu drain to add pages to
+> +		 * MIGRATE_HIGHATOMIC while unreserving so be safe and watch for
+> +		 * underflows.
+> +		 */
+> +		if (WARN_ON_ONCE(size > zone->nr_reserved_highatomic))
+> +			size = zone->nr_reserved_highatomic;
+> +		zone->nr_reserved_highatomic -= size;
+> +
+> +		/*
+> +		 * Convert to migratetype and avoid the normal pageblock
+> +		 * stealing heuristics. Minimally, the caller is doing the work
+> +		 * and needs the pages. More importantly, if the block was
+> +		 * always converted to MIGRATE_UNMOVABLE or another type then
+> +		 * the number of pageblocks that cannot be completely freed may
+> +		 * increase.
+> +		 */
+> +		if (order < pageblock_order)
+> +			ret = move_freepages_block(zone, page,
+> +					MIGRATE_HIGHATOMIC, migratetype);
+> +		else {
+> +			move_to_free_list(page, zone, order,
+> +					  MIGRATE_HIGHATOMIC,
+> +					  migratetype);
+> +			change_pageblock_range(page, order, migratetype);
+> +			ret = 1;
+> +		}
+> +		/*
+> +		 * Reserving the block(s) already succeeded,
+> +		 * so this should not fail on zone boundaries.
+> +		 */
+> +		WARN_ON_ONCE(ret == -1);
+> +		if (ret > 0)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  /*
+>   * Used when an allocation is about to fail under memory pressure. This
+>   * potentially hurts the reliability of high-order allocations when under
+> @@ -3491,70 +3553,12 @@ static bool unreserve_highatomic_pageblock(const struct alloc_context *ac,
+>  	struct zonelist *zonelist = ac->zonelist;
+>  	struct zoneref *z;
+>  	struct zone *zone;
+> -	struct page *page;
+> -	int order;
+> -	int ret;
+>  
+>  	for_each_zone_zonelist_nodemask(zone, z, zonelist, ac->highest_zoneidx,
+>  								ac->nodemask) {
+> -		/*
+> -		 * Preserve at least one pageblock unless memory pressure
+> -		 * is really high.
+> -		 */
+> -		if (!force && zone->nr_reserved_highatomic <=
+> -					pageblock_nr_pages)
+> -			continue;
+> -
+> -		guard(spinlock_irqsave)(&zone->lock);
+> -		for (order = 0; order < NR_PAGE_ORDERS; order++) {
+> -			struct free_area *area = &(zone->free_area[order]);
+> -			unsigned long size;
+> -
+> -			page = get_page_from_free_area(area, MIGRATE_HIGHATOMIC);
+> -			if (!page)
+> -				continue;
+> -
+> -			size = max(pageblock_nr_pages, 1UL << order);
+> -			/*
+> -			 * It should never happen but changes to
+> -			 * locking could inadvertently allow a per-cpu
+> -			 * drain to add pages to MIGRATE_HIGHATOMIC
+> -			 * while unreserving so be safe and watch for
+> -			 * underflows.
+> -			 */
+> -			if (WARN_ON_ONCE(size > zone->nr_reserved_highatomic))
+> -				size = zone->nr_reserved_highatomic;
+> -			zone->nr_reserved_highatomic -= size;
+> -
+> -			/*
+> -			 * Convert to ac->migratetype and avoid the normal
+> -			 * pageblock stealing heuristics. Minimally, the caller
+> -			 * is doing the work and needs the pages. More
+> -			 * importantly, if the block was always converted to
+> -			 * MIGRATE_UNMOVABLE or another type then the number
+> -			 * of pageblocks that cannot be completely freed
+> -			 * may increase.
+> -			 */
+> -			if (order < pageblock_order)
+> -				ret = move_freepages_block(zone, page,
+> -							   MIGRATE_HIGHATOMIC,
+> -							   ac->migratetype);
+> -			else {
+> -				move_to_free_list(page, zone, order,
+> -						  MIGRATE_HIGHATOMIC,
+> -						  ac->migratetype);
+> -				change_pageblock_range(page, order,
+> -						       ac->migratetype);
+> -				ret = 1;
+> -			}
+> -			/*
+> -			 * Reserving the block(s) already succeeded,
+> -			 * so this should not fail on zone boundaries.
+> -			 */
+> -			WARN_ON_ONCE(ret == -1);
+> -			if (ret > 0)
+> -				return ret;
+> -		}
+> +		if (unreserve_highatomic_pageblock_zone(zone,
+> +							ac->migratetype, force))
+> +			return true;
+>  	}
+>  
+>  	return false;
+> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+> index e238ee91ed24..9fba6480b18d 100644
+> --- a/mm/page_alloc.h
+> +++ b/mm/page_alloc.h
+> @@ -282,6 +282,9 @@ static inline bool free_area_empty(struct free_area *area, int migratetype)
+>  	return list_empty(&area->free_list[migratetype]);
+>  }
+>  
+> +bool unreserve_highatomic_pageblock_zone(struct zone *zone, int migratetype,
+> +					 bool force);
+> +
+>  /* Convert GFP flags to their corresponding migrate type */
+>  #define GFP_MOVABLE_MASK (__GFP_RECLAIMABLE|__GFP_MOVABLE)
+>  #define GFP_MOVABLE_SHIFT 3
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 9959ca158ce8..91c622068d99 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -7460,8 +7460,22 @@ static int balance_pgdat(pg_data_t *pgdat, int order, int highest_zoneidx)
+>  		if (nr_boost_reclaim && !nr_reclaimed)
+>  			break;
+>  
+> -		if (raise_priority || !nr_reclaimed)
+> +		if (raise_priority || !nr_reclaimed) {
+> +			/*
+> +			 * Similarly to when direct reclaim is retrying, try to
+> +			 * unreserve highatomic pageblocks on the node. Convert
+> +			 * them to movable ones as kswapd doesn't have a target
+> +			 * migratetype, and passing unmovable should lead to
+> +			 * least permanent fragmentation.
+> +			 */
+> +			for (int i = 0; i <= highest_zoneidx; i++) {
+> +				struct zone *zone = pgdat->node_zones + i;
+> +
+> +				unreserve_highatomic_pageblock_zone(zone,
+> +						MIGRATE_UNMOVABLE, false);
+> +			}
+>  			sc.priority--;
+> +		}
+>  	} while (sc.priority >= 1);
+>  
+>  	/*
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261030-kswapd-highatomic-unreserve-7e6629ec65d0
+> 
