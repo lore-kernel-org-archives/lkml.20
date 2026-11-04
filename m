@@ -1,123 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811525;
-	b=nn3jWUJjUSUm8siS9VUjoOEC9UvkOVr0ajNyndLhnP316y0dJhgbiBGrez/Iu/VhshLd
-	 OemUMcM5rle8/gdxTG2trAMgkRpzdufXzOR01hH8YitAtUHz4uH4edFKfsJmbi9D7HIAc
-	 eXQ6tsICPDTpV5Q2qdeiRFKhGK1pTWeOKFXW/JGu16nAdY0xvfXKiantKp0d8S+7UteZW
-	 wklzrjbies4Ai+j37Vs52GuJlGP9p4gGwg8qMGYzlSQvrTUTsIYbeYoPgJ1y+u3xDVYTP
-	 beTer8T7AYoD23cn2yw/AHdjHMW3MVLIZzODINJS2izIBVqqxzQFrchyhXQn0FKvAiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811525;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793811524;
+	b=4VS7yUuaZmbUe/LFvVoUxSlDSb7Wuwo+hWOxY0cDyyK+1xdbm9vZer/Ep9gCVa8+uxRn
+	 iqD1q4D4O6T7DvhyB+eSRSSXq9kh9uoedGpsY0Qc2VfrmmfBMkQC+f3pdFgT8CwM9obDE
+	 t7Ao6hH5zP/pIg4DWg4AZnI3axKHcEyC8T1AkPvTxiyuDfCvKqRdndMldTbzmPe7uZhc4
+	 kJQOKIUQQc+NuOdNbsv3+HRuS0rKceT6sNJtG67/xWilbI9cl2dymPxsqv0ADWWOiOkbg
+	 msR9k8w/z3PkINJ+FfkDFvkLv1+nWJ1POAF2RwrBHdVvxqGyx8OD5P0YMWUfe6oUYhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811524;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LPhJ/LZWrehxYqi2srB7hOfC0/MmzJuEkML/aEZarl0=;
-	b=NZW4Ebw3IUkgE1vuPKkZ9wc1I1GeV2C6FNVmqaHXoI8bKXMGfgaJIQJNtHBcl3Aalogi
-	 YZme+gjFncqmVVE06GQ7JJW0zRC3xaPTfVfq8mCFjLiseIibd8yT9w5unJsN7rZ0qORg5
-	 MUSNYm3poaBmoLS+X/kA4idvhxdRzCeUrSTWEVHfvZyX8RDVu2Fcn5U6Ihpnt5sIzGru7
-	 MYoAPdybX+Ye2jz/SQ3rvVDoDwP4SwyKeJWmIx8FuMbuEN2hJLfrfo9cLjpuQmC3AhUEd
-	 3c2i/BGOo2hDj+raHVa2D5RSBlQG05UNnt4BaVAhu5SvWEVM4dvo7BbYWvfzqq4pe/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mhjJMlL62ST4Y1K7oksITyqF+52RqBDZwT8+hi33/dc=;
+	b=sJGrnP9xAQIfgndz8RABI1pWjSdG4AISIGVZXWHZe6z5bqCHRHzTGUPunaTDS24tmJ68
+	 hSPQ4UqASysdkYmEXezmTEYLg1xunuN2miNeY8azUJpEt/G1i1gfV6XtzpJg/V+EF3AcG
+	 QFUiwJFWXWXXozc/xZEJjaPki/QLzuVrIRc1Ihf722m9OUi5bE/UCqdBAtFR/5NecDK0E
+	 lDwuRUvWuTsKkLCY9XrXFKlO8zbGnMvrCVe5rhagJfkOEbTZQ3EPU2HZngcC04rzrbv/7
+	 NnFG99uEGdiGOi7MdKlLRDYvWYABskvTMHf/JkirHHY2fACVs+j062DJg30wQ8ZjIxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hyt1yD5+;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CU4ReGa0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551E1606A337
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 551E1606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF600606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF600606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hyt1yD5+
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36cad25b8b0so1365200eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:58:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CU4ReGa0
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e503815adso86254885a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:58:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793811523; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RBxeCt8GKDWFnWSWD6ksUtsPUPi3fdj4W5OG8L71ooGGyyJNRgYlonlFE90wWxLADR
+         xTzgC3OKzcSpffBU/k5HpwW2hE1BI/+xGsbkpnJ0+4GdIwPFHVnDJzbcmdDnxRIkQEBD
+         AKw8e/wbV3WkqLY2ieP47Xg4+Wy02Zmcjr1+lEDMbanaKkJ/b/qiMtpxMOo/oZnXKEmb
+         GskJF79gRvPf7NOtE30szQQ3MgnZL+GzbGK7T1/aDmmwQO25gt5b7QuBebI4oPsX96vi
+         BqkSc1gbVGuJZbcU5vqojx0zoOmDKN5BgOuXKFVF0+FkS2qMkRi1gCSppSeL3bQCKOyf
+         1nbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mhjJMlL62ST4Y1K7oksITyqF+52RqBDZwT8+hi33/dc=;
+        fh=DxEss8zrobwSyTvcZxPpbIRG6wiAgF10+V0vOGXJGsg=;
+        b=VDQdOXzWYQYdEnte9NAAWLv7otNEA/rN+H6X/7vWipzuxpnq8/E2r8uVDpen6i5nBY
+         ucL76cbe9HgBEdEwkYW/EVHEGrbhyWnH4m+DpyNjulQJnFW5pNtHaeJAOrb6iz2ce7uk
+         U4jtRPzInmN9HJPwdQsS5JVci3QXam8aEv+DZ8wuo1HnwhbkLEwY4widYs/sNph1YhTA
+         +YpcwO4sHWi0FvOHmOYdRwS2q1c7lyKPi4zmPI6RFpa4BXj41lVPvr2sKovbvWPQH6OB
+         z0O5CgKMSIpiNjlEIbqAHijm/jtxxdtCo1I0mDoxl2CyUqx/pVFwzCXeVdHPvL1ZW+6Y
+         1hpw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793811523; x=1794416323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LPhJ/LZWrehxYqi2srB7hOfC0/MmzJuEkML/aEZarl0=;
-        b=hyt1yD5+jjpEugsWapKyMZusHbyyRtG0Zg8zegaXHJUzLqZqDfJPszfKMwqvjYCetj
-         IrJWMeImtzM7GirY49bM2dx7cObOOL7N5Fnjg+WMtKNow21yslpCrdMmoqyKy1JKYZb7
-         HSBDax1eDx/bfKPiGozjJAiPus92A2h3wak1w5kcJ9XsttzfsGltbO+5rakVtv1JKCCt
-         3YsBqfJApCHWCf8Wtx3EFCczzcK4TrEoAg4a2+CYhPWdSeNB1+RVTbkEmMatwgzNtq9o
-         WU/7ntw/yTf6kZi6In0JDuXse4r6ElsZnVli9DeG6p0sGR9houxwRgcJuDGjgpySqhUP
-         MW6g==
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mhjJMlL62ST4Y1K7oksITyqF+52RqBDZwT8+hi33/dc=;
+        b=CU4ReGa0OxTjAT5Zy3GuPXVhibZpVHRbhSjUfbtQG9FAM2BrEJ6nBNa47zJR4vqx4g
+         qA/25GEU4XBS/xhSTCQPvTn0RSK/3G4tembMeYbEk2E1ytwSVIqU200+q/jARgz0h4Ug
+         v0OpozLUrQ007awUXO8ESIx1x1tBDYAg8HjRhCzVX8l2YDfAiBu4cZ4gs2qnAmRXajr+
+         S8Tb8uEhoLuQcz4VyMdsVmgtAcH/osf8fTc1gVwrO73IuhTgcwjpzhSwCi3oSOK5z0rI
+         y4zuuuzoi2vMR+owoKYNIFnk6sl8HnLt3MkovzwKFYX5r5eavqcfNu0P/4dFFkRQBkM3
+         50pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793811523; x=1794416323;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LPhJ/LZWrehxYqi2srB7hOfC0/MmzJuEkML/aEZarl0=;
-        b=zAzBV+wAWEdsJlAVBdNyusT3UpWPZyfswrYHIJrknUYl5na4VBV5l+sy1dqfpWrqAT
-         6bslhrdTGcZFWCTwrs8sKpqiCaTQ/rMhBZz8ggJcHQ7iKo23UXq74aFT3xMlpi4+/+Ib
-         +Ye8O9gtRfIsNgityCgHQoiTLKe7uZ6bCpdMD6GPOiriHAkLJxm9n5Of1F6/Tm8EdA8k
-         03AWW+r1k7AJuDKePESe3JHyzf7H5kgCTsTqWaE39RncaujMUMcMFPu37Gl9WfmsVb0N
-         0fDd6OgczYB3//DPcd1PMT1txxKUjMJjH595C3Zst+rs5tgaavkyzumA72myviKnOwd1
-         jCUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpQp1aQg4ow65cxlSjj2SQ2zcXQu/UJIX43LJSfxkkD3Arw5aKRqpyC58A6Nk8/KKaGE7dalyNodkV3gs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xGxjepvaksPFrK+NPItHL5y8iX7xslRF6WRxEodqxT3FSBlLN
-	29aHwIZPWhnhlHAoLx184UXFgnibqnCoBNttazN4WXwTF6c2sSnh6Bbm
-X-Gm-Gg: AYBFou1AWvmgSTdgh9pa9Kq11A8NBPqoKO1mOg0VTEFb/yrkH93TxXuEOlslILAd3Ev
-	7jsERCZjRt/vbUsxuYmgCkXpyOJVxvZZwyBSr5K14Vko+iRTk06RoKzzG4k3qoM4KoHZP/kpKss
-	sKYKuFyEvfDdAhq6/2d65yZYkE/jI/Lq7UFAhp0wNUgS4cbjd8pNfAkzncH9OaNLDzQr6/gMJQo
-	W15KNcCc46l9V2qwrRBxK7vdRCA341Z5ULyCLmwOxzcedeELtv3qbddEpYVluUlqgtLTU/az542
-	yQGYSShJ+i+0b/RYeZNWYBJBhBZQVKE9JtKdTcFpSjLQQakaujQF8RTH1DDM3cSeC2TJkRqkZwZ
-	vvG/Lfj+1MOD4M0RMyDK1CNiIplZR+UsCKdLyIxCYMDlW+IqqzE66f7XWS5AAoWOBsU9v093hC4
-	SJOtHZ4XwC/GnLYearPl1c/X76Oo4ra2XP+DLnf2Mm0QCcdDspioA4Ro+Uj3LPYjqcQw2TCV0MN
-	vM31O27oneVc3/53JPRsGsoAkYaMncclVESm7QBaxRIdbErVRmwwIM9bVTMUiFBdXy7uFlIVHTH
-	bPqa7iuq7x4p+pB3OQJC395WGmI0pkbgKmDvIUA=
-X-Received: by 2002:a05:693c:87c9:10b0:360:e2e6:f849 with SMTP id 5a478bee46e88-36a4241985bmr24785233eec.28.1793811522563;
-        Wed, 04 Nov 2026 08:58:42 -0800 (PST)
-Received: from kernel.. ([216.195.201.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d46fcsm9019567eec.13.2026.11.04.08.58.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:58:41 -0800 (PST)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	boqun@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 22/28] hazptrtorture: Add drain fairness rotation scenario
-Date: Thu,  5 Nov 2026 00:54:40 +0800
-Message-ID: <20261104165504.2430480-23-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104165504.2430480-1-kunwu.chan@gmail.com>
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mhjJMlL62ST4Y1K7oksITyqF+52RqBDZwT8+hi33/dc=;
+        b=ve8FtB7vvHFkDph+wTp3UagWaQdmJMaInqyVipxzxugNBkIw13lDRMA92Y8rPGyCvr
+         bGk8s/hIoPCOkQRADgf0b+tWCQSpQiJE99V/8qBQMmEpE+SIUkXKyxcGTpSQJB0bBJDn
+         UrLFtYYQDGiU0oGAiBadG6P+7O4qrI2kPp7/ejGSP4eAbsRLYj3AtFLaCqiOmVDhCOlB
+         PloCJUkCkKNR2MCs/PA60x/auqOAopKJzXiXGUHyJltVp/gzhPu9WbHqTLZ25hSRkZZI
+         nJ6mPHi4Bl00HRD2fgy/IqoAZROfYRaF30ldCKwJ7iK0xYqxNi2wo9EBE15YAvNZ++D4
+         cimQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxuWozRgDPCVxDSxLOdGD6bOUuufwSj5sYKNRFJu3rQ9eLI3oNKJEa4JryhiWBPXY4+CHFcZq1ndCYuC/g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KdeXUShylt+CWc843B3lruNxqzKKmYI4SYg7IMmDKHYMz6HjD
+	UMK01Uv2D/0NMNTp1RgSzsdsdIHxWUyD0KsA4S13RDaDGVlWectoZBmSRmAiNq7BCDDgEQ6LBAe
+	qglTcOp0uNPJ1ERVZANgR5maa5YFbvts=
+X-Gm-Gg: AYBFou0S/NaGtoCiamoZajE3eW+kIK4gjQJR0m2UpWF6hkGJceJIoRF9yD4ZRsE53bD
+	BMB1utX+yuwFi3WzZfbAtkHGJKEgILm6pMz6/9iGCYqD8Knkyzgf3qeBnaBaOIiPVvi7YvFQ1Jb
+	8Tze+EpA8NTE3QsnC8QNwJNbku/qU09G7ERZUE7wjlPUnqJo2v8UrYM393d06ohVmit6FLNgCqy
+	C1v7xOPNQEw8wyu62cEGrozf3p7ogtTO46Uato21a9UbcTmrnb9lrnh4CtXSI3KZtO08m+vsffI
+	F9n14kiTiMUfQlnbP4U2QvnmADFLUKnuWIlNvWJCn+FEAoxGNBUI2y+5PMI9CfaqihyZnsafavz
+	NJNVLtG3R9gq/SMq1DtealJEIwc+ZB5lGXXiw
+X-Received: by 2002:a05:620a:8086:b0:93c:a191:88fe with SMTP id
+ af79cd13be357-9442156a71cmr2529941985a.8.1793811521710; Wed, 04 Nov 2026
+ 08:58:41 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,396 +104,256 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004111353.118025-1-jinmo44.yang@gmail.com>
+ <20261005035912.910925-1-jinmo44.yang@gmail.com> <20261005035912.910925-2-jinmo44.yang@gmail.com>
+In-Reply-To: <20261005035912.910925-2-jinmo44.yang@gmail.com>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Wed, 4 Nov 2026 08:58:30 -0800
+X-Gm-Features: AclHuK-FdP23s5ukabALcToOILc3mh4j7aBgaHe1hYlJbkXDRRrTynEnDPtjRNA
+Message-ID: <CANRwn3TyO9AhEO2j7wNgvZpS+pgPmtLZBsjD0qP1_mHeaL8dyw@mail.gmail.com>
+Subject: Re: [PATCH v2] HID: wacom: serialize mode changes with device removal
+To: Jinmo Yang <jinmo44.yang@gmail.com>
+Cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, jikos@kernel.org, 
+	bentiss@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Two stuck addresses, each held by a dedicated holder for the
-whole observation window (hot_fair_ms), with two sync waiters
-launched back to back.  The first waiter's drain engages and,
-because its holder never releases, must hit the fairness cap;
-the second waiter's counter kept growing, so it gets the next
-drain turn.  Rotation evidence comes from the kernel drain logs:
-distinct addresses in "drain engaged" lines plus at least one
-"drain disengaged (fairness-cap" line.
+On Sun, Oct 4, 2026 at 8:59=E2=80=AFPM Jinmo Yang <jinmo44.yang@gmail.com> =
+wrote:
+>
+> wacom_mode_change_work() takes both siblings' struct wacom out of
+> wacom_shared and tears down and rebuilds them, holding no reference to
+> either. wacom_remove() cancels only the work owned by the device being
+> removed, so a worker owned by the other sibling keeps using this device
+> after its remove callback returns, and hid_device_remove() then frees
+> struct wacom along with the driver's devres group.
+>
+> Reproduced under KASAN on hid.git master, 10 boots out of 10:
+>
+>   BUG: KASAN: slab-use-after-free in wacom_parse_and_register+0x4fa8/0x58=
+e0
+>   Read of size 8 at addr ffff88800be431f8 by task kworker/0:2/75
+>   Workqueue: events wacom_mode_change_work
+>    wacom_parse_and_register+0x4fa8/0x58e0
+>    wacom_mode_change_work+0x333/0x7e0
+>    process_one_work+0xa3b/0x19b0
+>   Allocated by task 11:  devm_kmalloc <- wacom_probe
+>   Freed by task 82:      devres_release_group <- hid_device_remove,
+>                          under uhid_char_release <- __x64_sys_close
+>
+> The same object is also written: wacom_feature_mapping() stores
+> features->touch_max into it, four bytes at a fixed offset, with the value
+> taken from a feature report. Closing one sibling's /dev/uhid descriptor i=
+s
+> all it takes, with no privilege, and a reference on the hid_device would
+> not help: struct wacom is devm_kzalloc() on &hdev->dev.
+>
+> Serialize mode-change workers with wacom_remove() using a driver-wide
+> mutex, held across the whole teardown. Any step left outside it is undone
+> by a sibling worker and never repeated, because such a worker brings the
+> device back up through wacom_parse_and_register(): stopping the hardware
+> outside the mutex leaves hidraw registered on an unbound device, since
+> hidraw_disconnect() is reached only from hid_hw_stop(), and cancelling th=
+e
+> delayed work outside it leaves init_work armed on memory devres is about
+> to free.
+>
+> Cancel this device's own mode-change work before taking the mutex, since =
+a
+> worker blocked on it would deadlock that cancel, and once more after the
+> unlock, because a report processed before hid_hw_stop() can queue it agai=
+n.
+> That worker can only find a NULL wacom_wac.shared and return.
+>
+> Because wacom_add_shared_data() registers its devres action inside the
+> group wacom_parse_and_register() opens, the wacom_release_resources() cal=
+l
+> under the mutex clears this device from the shared pen and touch pointers=
+,
+> so a worker starting after the unlock cannot select it.
+>
+> The worker also snapshots both shared pointers and returns on a NULL
+> wacom_wac.shared, because releasing the first sibling's devres can drop
+> the last reference to the shared data.
+>
+> Fixes: 4082da80f46a ("HID: wacom: generic: add mode change touch key")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+> ---
+>  drivers/hid/wacom_sys.c | 60 ++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 50 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+> index 40770affdbde..092e91ed1c3d 100644
+> --- a/drivers/hid/wacom_sys.c
+> +++ b/drivers/hid/wacom_sys.c
+> @@ -764,6 +764,7 @@ struct wacom_hdev_data {
+>
+>  static LIST_HEAD(wacom_udev_list);
+>  static DEFINE_MUTEX(wacom_udev_list_lock);
+> +static DEFINE_MUTEX(wacom_mode_change_lock);
 
-The module verdict only requires forward progress: after both
-holders release, both syncs must drain within 30 s.  Rotation
-observation is reported via console-log checks in hazptr.sh,
-graded as notes (not errors) when the window is too short for
-the configured HZ.
+I'm not a huge fan of a driver-wide mutexes. An alternative would seem
+to be having both siblings share a common `struct work_struct
+mode_change_work` and then relying on similar on disable_work_sync
+calls inside of wacom_remove to ensure the teardown/recreation fully
+completes regardless of which device gets removed.
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+I asked an LLM for an example of this idea and it requires a bit more
+work (probably too much to backport to stable) but I'd still be
+interested in following up on that path... Maybe submit a two-part
+patch--one that uses this mutex idea and which can be backported to
+stable, and a second that then relaxes the driver-wide mutex into a
+shared mode_change_work. Thoughts?
+
+>
+>  static bool wacom_are_sibling(struct hid_device *hdev,
+>                 struct hid_device *sibling)
+> @@ -2783,22 +2784,32 @@ static void wacom_remote_work(struct work_struct =
+*work)
+>  static void wacom_mode_change_work(struct work_struct *work)
+>  {
+>         struct wacom *wacom =3D container_of(work, struct wacom, mode_cha=
+nge_work);
+> -       struct wacom_shared *shared =3D wacom->wacom_wac.shared;
+> +       struct wacom_shared *shared;
+> +       struct hid_device *pen;
+> +       struct hid_device *touch;
+>         struct wacom *wacom1 =3D NULL;
+>         struct wacom *wacom2 =3D NULL;
+> -       bool is_direct =3D wacom->wacom_wac.is_direct_mode;
+> +       bool is_direct;
+>         int error =3D 0;
+>
+> -       if (shared->pen) {
+> -               wacom1 =3D hid_get_drvdata(shared->pen);
+> +       mutex_lock(&wacom_mode_change_lock);
+> +       shared =3D wacom->wacom_wac.shared;
+> +       if (!shared)
+> +               goto out;
+> +       pen =3D shared->pen;
+> +       touch =3D shared->touch;
+> +       is_direct =3D wacom->wacom_wac.is_direct_mode;
+> +
+> +       if (pen) {
+> +               wacom1 =3D hid_get_drvdata(pen);
+>                 wacom_release_resources(wacom1);
+>                 hid_hw_stop(wacom1->hdev);
+>                 wacom1->wacom_wac.has_mode_change =3D true;
+>                 wacom1->wacom_wac.is_direct_mode =3D is_direct;
+>         }
+>
+> -       if (shared->touch) {
+> -               wacom2 =3D hid_get_drvdata(shared->touch);
+> +       if (touch) {
+> +               wacom2 =3D hid_get_drvdata(touch);
+>                 wacom_release_resources(wacom2);
+>                 hid_hw_stop(wacom2->hdev);
+>                 wacom2->wacom_wac.has_mode_change =3D true;
+> @@ -2808,16 +2819,17 @@ static void wacom_mode_change_work(struct work_st=
+ruct *work)
+>         if (wacom1) {
+>                 error =3D wacom_parse_and_register(wacom1, false);
+>                 if (error)
+> -                       return;
+> +                       goto out;
+>         }
+>
+>         if (wacom2) {
+>                 error =3D wacom_parse_and_register(wacom2, false);
+>                 if (error)
+> -                       return;
+> +                       goto out;
+>         }
+>
+> -       return;
+> +out:
+> +       mutex_unlock(&wacom_mode_change_lock);
+>  }
+>
+>  static int wacom_probe(struct hid_device *hdev,
+> @@ -2905,6 +2917,21 @@ static void wacom_remove(struct hid_device *hdev)
+>         struct wacom_wac *wacom_wac =3D &wacom->wacom_wac;
+>         struct wacom_features *features =3D &wacom_wac->features;
+>
+> +       /*
+> +        * Cancel our own mode-change work first: a worker blocked on the
+> +        * mutex below would deadlock this cancel if the order were rever=
+sed.
+> +        */
+> +       cancel_work_sync(&wacom->mode_change_work);
+
+Regardless of the comments above, I think it makes sense to swap this
+out for a call to 'disable_work_sync' instead. The documentation for
+that indicates that it does the same thing as 'cancel_work_sync' but
+also prevents future attempts to schedule the work (which should let
+you remove the second call to 'cancel_work_sync' at the end of this
+function).
+
+Jason (she/they)
 ---
- kernel/rcu/hazptrtorture.c                    | 211 +++++++++++++++++-
- .../selftests/rcutorture/bin/hazptr.sh        |  51 +++++
- .../rcutorture/configs/hazptr/CFLIST          |   1 +
- .../rcutorture/configs/hazptr/FAIRNESS        |  19 ++
- .../rcutorture/configs/hazptr/FAIRNESS.boot   |   1 +
- 5 files changed, 281 insertions(+), 2 deletions(-)
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS.boot
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
 
-diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-index 5dbe04af7515..787862a4d4eb 100644
---- a/kernel/rcu/hazptrtorture.c
-+++ b/kernel/rcu/hazptrtorture.c
-@@ -64,6 +64,8 @@ torture_param(int, hot_longhold_ms, 0,
- 	      "Long-hold round duration (ms), 0 disables; R0 holds past the stall timeout, no hammer");
- torture_param(bool, starve_expected, false,
- 	      "Starvation episodes are expected (documenting mode)");
-+torture_param(int, hot_fair_ms, 0,
-+	      "Drain fairness rotation window (ms), 0 disables");
- 
- static char *torture_type = "hazptr";
- module_param(torture_type, charp, 0444);
-@@ -93,6 +95,24 @@ static DECLARE_COMPLETION(r0_held);
- static DECLARE_COMPLETION(r0_release);
- static bool hot_hammer_active;
- 
-+/* Fairness rotation scenario: two stuck addresses whose holders
-+ * never release during the observation window.  Two sync waiters
-+ * are launched; the drain fairness cap must rotate the drain
-+ * between the two addresses instead of monopolizing one.
-+ */
-+static int fair_target_a;
-+static int fair_target_b;
-+static void *const fair_addr[2] = { &fair_target_a, &fair_target_b };
-+static struct task_struct *fair_holder_tasks[2];
-+static struct task_struct *fair_stage_task;
-+static struct completion fair_held[2];
-+static struct completion fair_release[2];
-+static struct completion fair_released[2];
-+static struct completion fair_sync_done[2];
-+static atomic_t fair_live_syncs;
-+static atomic_t n_fair_rounds;
-+static atomic_t n_fair_timeout;
-+
- #define HAZPTR_TORTURE_PIPE_LEN 10
- 
- // Update-side data structure used to check RCU readers.
-@@ -707,10 +727,13 @@ hazptr_torture_stats_print(void)
- 		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_defer),
- 		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_undefer),
- 		atomic_read(&n_hazptr_torture_wq_churn));
--	pr_cont(" hotsync: %d hotstarve: %d hotseq: %d",
-+	pr_cont(" hotsync: %d hotstarve: %d hotseq: %d"
-+		" fairrounds: %d fairtimeout: %d",
- 		atomic_read(&n_hot_syncs),
- 		atomic_read(&n_hot_starves),
--		atomic_read(&n_hot_in_seq));
-+		atomic_read(&n_hot_in_seq),
-+		atomic_read(&n_fair_rounds),
-+		atomic_read(&n_fair_timeout));
- 
- 	pr_alert("%s%s ", torture_type, TORTURE_FLAG);
- 	if (i > 1) {
-@@ -1127,6 +1150,152 @@ static int hazptr_torture_hot_stage(void *unused)
- 	return 0;
- }
- 
-+/*
-+ * Fairness rotation scenario --- two stuck addresses, two
-+ * perpetual holders, two sync waiters.
-+ *
-+ *   fair_holder_tasks[2]  each acquires its own address and holds
-+ *                         it until commanded to release; the hold
-+ *                         spans the whole observation window.
-+ *   fair_stage_task       orchestrator: waits for both holds,
-+ *                         launches both sync waiters (address A
-+ *                         first so it is at the head of the
-+ *                         scanning list), waits out the window,
-+ *                         then releases both holders and requires
-+ *                         both syncs to drain.
-+ *
-+ * The window must be long enough for the drain to engage (~100
-+ * scan cycles) and hit the fairness cap (HAZPTR_DRAIN_MAX_CYCLES,
-+ * default 1000) on address A, after which address B's waiter --
-+ * whose re-engage counter kept growing -- gets the next drain
-+ * turn.  Rotation evidence is read from the kernel drain logs
-+ * ("drain engaged" for both addresses, at least one "drain
-+ * disengaged (fairness-cap").
-+ *
-+ * The module verdict (n_hazptr_torture_error) does not depend on
-+ * rotation: it fails only if a sync fails to drain after both
-+ * holders released (a forward-progress regression).
-+ */
-+static int hazptr_torture_fair_holder(void *arg)
-+{
-+	long i = (long)arg;
-+	struct hazptr_ctx ctx;
-+	void *p;
-+
-+	VERBOSE_TOROUT_STRING("fair_holder task started");
-+	p = fair_addr[i];
-+	(void)hazptr_acquire(&ctx, &p);
-+	complete(&fair_held[i]);
-+	while (!wait_for_completion_timeout(&fair_release[i], HZ)) {
-+		if (torture_must_stop())
-+			break;
-+	}
-+	hazptr_release(&ctx, p);
-+	complete(&fair_released[i]);
-+	torture_kthread_stopping("fair_holder");
-+	return 0;
-+}
-+
-+/* Transient per-round sync kthread.  fair_live_syncs is
-+ * incremented by the stage before kthread_run() and decremented
-+ * here at exit, so the count covers the full lifetime including
-+ * the window between thread creation and first execution.
-+ */
-+static int hazptr_torture_fair_do_sync(void *arg)
-+{
-+	long i = (long)arg;
-+
-+	hazptr_synchronize(fair_addr[i]);
-+	complete(&fair_sync_done[i]);
-+	atomic_dec(&fair_live_syncs);
-+	return 0;
-+}
-+
-+static int hazptr_torture_fair_stage(void *unused)
-+{
-+	int i;
-+
-+	VERBOSE_TOROUT_STRING("fair_stage task started");
-+
-+	while (!torture_must_stop() && !rcu_inkernel_boot_has_ended())
-+		schedule_timeout_interruptible(HZ);
-+	{
-+		bool sync_launched[2] = { false, false };
-+
-+	/* Wait for both holders to acquire their addresses. */
-+	for (i = 0; i < 2; i++) {
-+		while (!wait_for_completion_timeout(&fair_held[i], HZ)) {
-+			if (torture_must_stop())
-+				goto out;
-+		}
-+	}
-+
-+	/* Launch both sync waiters; A first so it leads the list. */
-+	for (i = 0; i < 2; i++) {
-+		struct task_struct *t;
-+
-+		atomic_inc(&fair_live_syncs);
-+		t = kthread_run(hazptr_torture_fair_do_sync, (void *)(long)i,
-+				"fair_do_sync");
-+		if (IS_ERR(t)) {
-+			atomic_dec(&fair_live_syncs);
-+			pr_alert("%sfair: sync kthread alloc failed (%d)\n",
-+				 TORTURE_FLAG, i);
-+			atomic_inc(&n_hazptr_torture_error);
-+			goto release;
-+		}
-+		sync_launched[i] = true;
-+	}
-+
-+	/* Observation window: drains rotate via the fairness cap. */
-+	{
-+		unsigned long end = jiffies + msecs_to_jiffies(hot_fair_ms);
-+
-+		while (time_before(jiffies, end) && !torture_must_stop())
-+			schedule_timeout_interruptible(HZ);
-+	}
-+
-+	/* Negative observation: holders still hold, so the syncs
-+	 * must not have completed during the window.
-+	 */
-+	for (i = 0; i < 2; i++) {
-+		if (completion_done(&fair_sync_done[i])) {
-+			pr_alert("%sfair: sync %d completed while holder holds\n",
-+				 TORTURE_FLAG, i);
-+			atomic_inc(&n_hazptr_torture_error);
-+		}
-+	}
-+
-+release:
-+	/* Release both holders; the syncs must now drain. */
-+	for (i = 0; i < 2; i++)
-+		complete(&fair_release[i]);
-+	for (i = 0; i < 2; i++) {
-+		unsigned long deadline = jiffies + 30 * HZ;
-+
-+		if (!sync_launched[i])
-+			continue;
-+		while (!wait_for_completion_timeout(&fair_sync_done[i], HZ)) {
-+			if (torture_must_stop() ||
-+			    time_after(jiffies, deadline)) {
-+				pr_alert("%sfair: sync %d did not drain after release\n",
-+					 TORTURE_FLAG, i);
-+				atomic_inc(&n_hazptr_torture_error);
-+				atomic_inc(&n_fair_timeout);
-+				break;
-+			}
-+		}
-+	}
-+	atomic_inc(&n_fair_rounds);
-+	}
-+out:
-+	/* Unblock holders even on skip paths. */
-+	for (i = 0; i < 2; i++)
-+		complete(&fair_release[i]);
-+	torture_kthread_stopping("fair_stage");
-+	return 0;
-+}
-+
- static void
- hazptr_torture_cleanup(void)
- {
-@@ -1169,6 +1338,24 @@ hazptr_torture_cleanup(void)
- 		unregister_trace_hazptr_waiter_enqueue(hot_probe_enqueue, NULL);
- 	}
- 
-+	if (hot_fair_ms > 0) {
-+		int wait_ms = 5000;
-+
-+		for (i = 0; i < 2; i++)
-+			complete(&fair_release[i]);
-+		for (i = 0; i < 2; i++)
-+			torture_stop_kthread(hazptr_torture_fair_holder,
-+					     fair_holder_tasks[i]);
-+		torture_stop_kthread(hazptr_torture_fair_stage, fair_stage_task);
-+		while (atomic_read(&fair_live_syncs) && wait_ms > 0) {
-+			schedule_timeout_uninterruptible(msecs_to_jiffies(50));
-+			wait_ms -= 50;
-+		}
-+		if (atomic_read(&fair_live_syncs))
-+			pr_alert("%sfair: %d sync kthread(s) still alive at exit\n",
-+				 TORTURE_FLAG, atomic_read(&fair_live_syncs));
-+	}
-+
- 	torture_stop_kthread(hazptr_torture_writer, writer_task);
- 
- 	if (reader_tasks) {
-@@ -1378,6 +1565,26 @@ static int __init hazptr_torture_init(void)
- 		if (torture_init_error(firsterr))
- 			goto unwind;
- 	}
-+	if (hot_fair_ms > 0) {
-+		atomic_set(&fair_live_syncs, 0);
-+		atomic_set(&n_fair_rounds, 0);
-+		atomic_set(&n_fair_timeout, 0);
-+		for (i = 0; i < 2; i++) {
-+			init_completion(&fair_held[i]);
-+			init_completion(&fair_release[i]);
-+			init_completion(&fair_released[i]);
-+			init_completion(&fair_sync_done[i]);
-+			firsterr = torture_create_kthread(
-+				hazptr_torture_fair_holder,
-+				(void *)(long)i, fair_holder_tasks[i]);
-+			if (torture_init_error(firsterr))
-+				goto unwind;
-+		}
-+		firsterr = torture_create_kthread(hazptr_torture_fair_stage,
-+						  NULL, fair_stage_task);
-+		if (torture_init_error(firsterr))
-+			goto unwind;
-+	}
- 
- 	torture_init_end();
- 	return 0;
-diff --git a/tools/testing/selftests/rcutorture/bin/hazptr.sh b/tools/testing/selftests/rcutorture/bin/hazptr.sh
-index d12735ddfefc..8109cb76bf04 100755
---- a/tools/testing/selftests/rcutorture/bin/hazptr.sh
-+++ b/tools/testing/selftests/rcutorture/bin/hazptr.sh
-@@ -297,6 +297,57 @@ else
- 	nerrs=$((nerrs+1))
- fi
- 
-+# FAIRNESS: drain rotation between two stuck addresses.  The
-+# module verdict covers forward progress (syncs drain after
-+# release); rotation itself is observed from the kernel drain
-+# logs.
-+
-+echo "--- hazptr FAIRNESS (drain rotation) ---"
-+if run_kvm fairness FAIRNESS "$cpus" "" "50s"
-+then
-+	resdir="$RCUTORTURE/res/$ds/fairness/FAIRNESS"
-+	console="$resdir/console.log"
-+	fair_err=""
-+	if ! test -f "$console"
-+	then
-+		echo "Missing console.log for FAIRNESS" > "$RCUTORTURE/res/$ds/fairness/kvm.sh.err"
-+		fair_err=1
-+	elif ! grep -q "End of test: SUCCESS" "$console"
-+	then
-+		echo "FAIRNESS: module verdict not SUCCESS" > "$resdir/kvm.sh.err"
-+		fair_err=1
-+	elif ! grep -q "fair_stage task started" "$console"
-+	then
-+		echo "FAIRNESS: scenario did not run" > "$resdir/kvm.sh.err"
-+		fair_err=1
-+	elif grep -q "fair: sync .* did not drain" "$console"
-+	then
-+		echo "FAIRNESS: sync failed to drain after release" > "$resdir/kvm.sh.err"
-+		fair_err=1
-+	fi
-+	if [ -z "$fair_err" ]
-+	then
-+		engages=$(grep -o "drain engaged for [0-9a-f]*" "$console" | sort -u | wc -l)
-+		caps=$(grep -c "drain disengaged (fairness-cap" "$console")
-+		if test "$engages" -ge 2 -a "$caps" -ge 1
-+		then
-+			echo "FAIRNESS: drain rotated between $engages addresses, $caps fairness-cap disengage(s)"
-+		elif test "$caps" -ge 1
-+		then
-+			echo "FAIRNESS note: fairness-cap hit but only $engages address engaged (window may be short)" > "$resdir/kvm.sh.note"
-+		else
-+			echo "FAIRNESS note: no fairness-cap observed (window too short for HZ; consider larger hot_fair_ms)" > "$resdir/kvm.sh.note"
-+		fi
-+	fi
-+	if [ -n "$fair_err" ]
-+	then
-+		nerrs=$((nerrs+1))
-+	fi
-+else
-+	nerrs=$((nerrs+1))
-+fi
-+echo
-+
- # CPU scaling: optionally test at multiple CPU counts
- 
- if test "$allcpus" -ne 0
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-index b3f6137ce8ab..03ce4940ab4a 100644
---- a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-@@ -8,3 +8,4 @@ CPU128
- CPU256
- HOTADDR
- LONGHOLD
-+FAIRNESS
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS b/tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS
-new file mode 100644
-index 000000000000..b81b57307036
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS
-@@ -0,0 +1,19 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=16
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-+CONFIG_HAZPTR_STALL_DETECTOR=y
-+CONFIG_HAZPTR_STALL_TIMEOUT=60000
-+CONFIG_HAZPTR_DRAIN_ASSIST=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS.boot b/tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS.boot
-new file mode 100644
-index 000000000000..ef54cbfc5b50
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/FAIRNESS.boot
-@@ -0,0 +1 @@
-+hazptrtorture.nreaders=0 hazptrtorture.nwriters=0 hazptrtorture.hot_fair_ms=30000 hazptrtorture.shutdown_secs=45
--- 
-2.43.0
 
+> +
+> +       /*
+> +        * A sibling's mode-change work tears this device down and brings=
+ it
+> +        * back up, so hold the mutex across the whole teardown. Stopping=
+ the
+> +        * hardware outside it would let such a worker run hid_hw_start()=
+ for
+> +        * this device afterwards and leave hidraw registered on a device=
+ that
+> +        * is about to be unbound.
+> +        */
+> +       mutex_lock(&wacom_mode_change_lock);
+> +
+>         if (features->device_type & WACOM_DEVICETYPE_WL_MONITOR)
+>                 hid_hw_close(hdev);
+>
+> @@ -2915,7 +2942,6 @@ static void wacom_remove(struct hid_device *hdev)
+>         cancel_work_sync(&wacom->wireless_work);
+>         cancel_work_sync(&wacom->battery_work);
+>         cancel_work_sync(&wacom->remote_work);
+> -       cancel_work_sync(&wacom->mode_change_work);
+>         timer_delete_sync(&wacom->idleprox_timer);
+>         if (hdev->bus =3D=3D BUS_BLUETOOTH)
+>                 device_remove_file(&hdev->dev, &dev_attr_speed);
+> @@ -2923,8 +2949,22 @@ static void wacom_remove(struct hid_device *hdev)
+>         /* make sure we don't trigger the LEDs */
+>         wacom_led_groups_release(wacom);
+>
+> +       /*
+> +        * Releasing our resources runs the wacom_remove_shared_data() de=
+vres
+> +        * action, which clears this device from the shared pen and touch
+> +        * pointers, so no worker started after the unlock can select it.
+> +        */
+>         if (wacom->wacom_wac.features.type !=3D REMOTE)
+>                 wacom_release_resources(wacom);
+> +
+> +       mutex_unlock(&wacom_mode_change_lock);
+> +
+> +       /*
+> +        * A report processed before hid_hw_stop() may have queued our wo=
+rk
+> +        * again. It can only find a NULL wacom_wac.shared and return now=
+, but
+> +        * it must not still be running when devres frees this device.
+> +        */
+> +       cancel_work_sync(&wacom->mode_change_work);
+>  }
+>
+>  static int wacom_resume(struct hid_device *hdev)
+>
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+> --
+> 2.53.0
+>
+>
