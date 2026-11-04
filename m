@@ -1,57 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804405;
-	b=Kn3xpR6jQ0lk8xNDgQnPw75HVx1nI5YdtDxfPw9PIyfmJx+AJr0skRKGo+Hcum/NUKga
-	 eEV6htnWfWfwQyey8eDZ5QtjhwT/reaYyVX+/olvhIY+O1KxbMxBTOZyWqvhmHWGF+pqT
-	 K8Meun6wDc+gGZx10GEmzqCE/7mWvY4eUY98e0GQjmZuuAWbbNs7cf4sYRD3KJp2Jso95
-	 Z4cjR0B49/9Oxc429ZEV79mwISPM/RKvrSQ/c2sd6lHpoYiHUziy70wM6CynoCRef/Mnm
-	 aQDKbXrY5WpREqZpmiK+PfhPwtn4487blcpGfs255kdyxEouLeK19J2j9r0G9KzOmuw==
+	t=1793804407;
+	b=lXJqZesWWEpRknyVwfDWdMnIuCrGoTjK5QFIta1iHdUBaApbhGOpsTkegIwqq5LeZkIc
+	 7MVir3HSsYvDAvbCmCqVtsdtiTtTaGjuoTgvgt7VjvtTMAS0FHNcwt6Aay1YjsQmXDq3J
+	 4ZedB20NIVO3hlrSf7Qv+ZRp6TvQn4SsWBUnOagU0qD+y46qvQ3QvtWRKdknRqFtCMghK
+	 tkd3uqW1dms+60LPn88bRL0fJXP5Oi3sQSZWMxz6LP6yiufutSUzgSyWOnBwl1ZOvcWmZ
+	 IurWkQLP2gqI2H4JE2umjI5bulYOR5jJIz057kHsIQgJkM7vZP6HZ73rLmY96TvK6Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804405;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=j6Lmm1Hn0vVGy1edj0ZEjgYqhILrVPlHvC3oCOWpi7M=;
-	b=BZ1DptbYefzP+bw0qjFpqvBeebD1Jsde+aH0pkfuxE6J2pgSuHT0/2V5uVQ0VNpreEjP
-	 gvsMGQVgDTeILGnZ2yB7z2OCOL2j5RJPGC0sUZQSEdADZTJNm4ug/mz4l1oux294Qfl2B
-	 5EjMn2yNfalEJr2SiDLgjIyURwh8J867DhBC/4gYUwvimcQ01QokwHfR63yRnyKX85AgR
-	 2o7R+pzvQbNAchLqDcV3bwEWPUDpdmOMrZIXscaC2TCJYKsS6weyjnpGlSye28LnfoDfb
-	 Vb2lKGXBjQeK/t4zb1J99yxbpNmR7JJwG9TOwjtNkE5AQmLUH/QbVOumPDTFdKBjY7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=H3zrIwsM5Od3j/ojrupK60k2PACGT3gOchQyhe+f38Y=;
+	b=vu3AVgxTjNOtJQtjW5evpghxL4Nl5Ry/BQn/D6Ie5ZL6DqvI72dGi/soHruFYaNP25ak
+	 8KKUDoWt4vom5AAB+5vdZmm41wl+AeF/ZSy6yyBe8d9+NbZ5/wAjdHnCpQMJgB0GgPsYC
+	 h2vCFRStKB28py5hyu+i8tBwRBN05srv5yXsXi9cpPb9sftsukArwvgmeJ73iLplpr+uy
+	 d9O08qqWzV7PE6TgMH2j6gbskFQWUdhc9eIc18AowXdwik6PY+NhTl4osae5cYnse6j3N
+	 GalPHwrtj75baznD7iUlsL8eY45jM2tkTr8umDMgZGLOjn0O61lPfsJwNbg5GvnIo0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2FfGEza;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HdkH4MMI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F9D606A31B;
-	Wed,  4 Nov 2026 15:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F9C606A330;
+	Wed,  4 Nov 2026 15:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2FfGEza
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC551F000C1;
-	Wed,  4 Nov 2026 15:00:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HdkH4MMI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573E91F00A16;
+	Wed,  4 Nov 2026 15:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804404;
-	bh=j6Lmm1Hn0vVGy1edj0ZEjgYqhILrVPlHvC3oCOWpi7M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=E2FfGEzaY+5pOzHmP/Qxnev2lkJRvRtWfseKPiVnC5SyQQRdX107lcHXaRuDu4dvc
-	 01x9DlOLwXIKCTDZo7U68AomcvrrsY//bJ86MFgKiillsjiABXwMI7n7IlB7Dkc8OT
-	 fCXwaSJndHc3pgqcHQaOmylqRE4z0SgZGiIv8naOuT2dustP7iLQr+CP5qQYmBWPkB
-	 lcxMrqK8T9uAK4dgutBLjd2Omzyhi2j9jNMSmErfYY9mxGylwZGf6bcoOqf357N16Y
-	 kUqaMpic1Jn//qEiji8bHm45Z7AKqdnrmWBoWXNwAPuk+ogVHfhg2fOrq1FT1vBLPt
-	 +diG578y2m8yA==
-From: Brian Masney <masneyb@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <20261104145118.952453-1-robh@kernel.org>
-References: <20261104145118.952453-1-robh@kernel.org>
-Subject: Re: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
-Message-Id: <179380439179.620564.4189393090905207161.b4-ty@b4>
-Date: Wed, 04 Nov 2026 09:59:51 -0500
+	s=k20260515; t=1793804406;
+	bh=H3zrIwsM5Od3j/ojrupK60k2PACGT3gOchQyhe+f38Y=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=HdkH4MMIbxzv2hIRAOO9odLEbDeDKHSz8toPVfBNt1MtbFLccnBUgKS8Eq20/HQA1
+	 4Y7srQbYuqddoczaHFJ1k1UIvoHYRu70CPfsT6KQ2LHzzn29vgpRbQlyyRRQhLcGsl
+	 xFD8ZBnO3DvI1kS8Ox5+wRMsn8hsljEKlGwm8IfQmLbLkC4mjZev/0HT5bgzhB5tgR
+	 2CF61pon1h59Ach8QJhhfr4WbSD94esGYG0F+SGbgVKeal+NChOj3AW9PvnZw5hvD1
+	 JZGvmk/thfPinS0TNzuhcJmz+Vnxgqo6/EKzMUFt4q88JPGzTAG0+l47aHhjI44C3H
+	 oeIpyAO6n+xWg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4024E39E8A48;
+	Wed,  4 Nov 2026 15:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,29 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=290; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=q+c2CJOAfFyU7qIx6L79cH32JQkactqk07DEdp5nXKs=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJee2Szv/AKeLrwtsgit/132dj3u2zzlYuSS55/vbRqn
- vLi5jCdjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACZyn5Xhn7m+GsuxteWiuw99
- 42W7p/tjxb+J25Kt02XfM8i8Ph+kfInhD8+ErlfFiof2qAgJTzX+a1NaqTk95v1qv2fTJHVK98/
- wYgUA
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4] mptcp: do not use Fast Open on MP_JOIN subflows
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179380440480.2875940.5423974447556647917.git-patchwork-notify@kernel.org>
+Date: Wed, 04 Nov 2026 15:00:04 +0000
+References: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
+In-Reply-To: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
+To: Matthieu Baerts <matttbe@kernel.org>
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ cpaasch@openai.com, mason@kernel.org, netdev@vger.kernel.org,
+ mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, yilinzhang@moonshot.ai,
+ stable@vger.kernel.org, bug-report@moonshot.ai, jiayuan.chen@linux.dev
 
+Hello:
 
-On Wed, 04 Nov 2026 08:51:16 -0600, Rob Herring (Arm) wrote:
-> clk: hisilicon: Remove hi3516cv300 driver
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Applied, thanks!
+On Fri, 30 Oct 2026 23:03:51 +0100 you wrote:
+> From: Yilin Zhang <yilinzhang@moonshot.ai>
+> 
+> tcp_fastopen_create_child() hands the SYN packet itself to
+> subflow_syn_recv_sock(). For an MP_JOIN request this takes the
+> fatal fallback: the cloned child is destroyed and handed back with
+> drop_req flagged, but tcp_fastopen_create_child() does not check
+> the flag and queues it, so accept() can expose the freed child.
+> 
+> [...]
 
-[1/1] clk: hisilicon: Remove hi3516cv300 driver
-      https://git.kernel.org/clk/linux/c/3865d0d4439f
+Here is the summary with links:
+  - [net,v4] mptcp: do not use Fast Open on MP_JOIN subflows
+    https://git.kernel.org/netdev/net/c/6d2cf411aba2
 
-Best regards,
+You are awesome, thank you!
 -- 
-Brian Masney <masneyb@kernel.org>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
