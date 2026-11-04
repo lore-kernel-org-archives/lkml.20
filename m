@@ -1,46 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.248.49.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757528;
-	b=QqZ6LcR4WJRhEwy33m+F752VquxlE74RQrzNWGbmLJhulrg+59rAgljvAang05Lcf5ys
-	 0csW4SWIM2XMOcTjZKYLhq8kXqXRyCQ6jUD7iUJqN7i5IUtkFhNz8jPKLY6fozqME9mHN
-	 Q4IJsNyWRt2Wn3jbgA3T2BQMRZ4gYfgy/JDFG9ptNvTlvLw9IQlnygZychUu0pTUNNt6u
-	 MR7Sfqc0X2KZu9t5vrfHVKX5jjohdGBbMvdVx3P6LDY0Vz03l/84EsNKkTTvK9px+9EDY
-	 FA44yxNGC1mOSetxMRFj+OLJFuMTDuuu927dXrrma8iZd9Jkny0GoZkob8nyZW8oPeQ==
+	t=1793757566;
+	b=pKYYkOm9feepK4nygcwEXEvsFuwubAtFUPRTjYW2kV4YiISQLlqHlwqyWLyL+28D7BhY
+	 +ybnOpafjbW2lIkw8u5d8PZswMYi33nZ3cSpfXNUucR/h6lp4wIpXKJ7gXe0ZNWulvpBa
+	 kKcHh91lKW5AK4dskIXsdodmNDKhSdKOEbcjNFrompCTSttfwIBaH58Fd/O8CGDmgri1T
+	 bOf68mC0tk5EqNe8XbbzNs4lZ10gJJuOgsVLe5vnLK7pJmJixH+3jf/use140AdhNlu5M
+	 QU7bemmSFNIQG4G8t8Xq8nZBRYFmuLWK4QX09I+ozq0nl0hRRt4Yi3R1sw0T32upo0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757528;
-	h=DMARC-Filter:X-CSE-ConnectionGUID:X-CSE-MsgGUID:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UvegszKUf4IaIJ/QuCVPEk47kgTcKGMaW+NqPDlxBzk=;
-	b=eKMeEQvxz13xSABE4O9obTi8CTq0HOrVtzX0tSx+UekxwjGwYCGYyBYUsX6OUm2jXk1H
-	 ZE35GLh7hsF2iwpeyUHN5mm2ciM8ZLcf4aBRKkuBs4mQOlPIuy8h0WDv7qj6DLtSykB9g
-	 yAknivbVvbYbu7eaLUwlN/Xl3NbZgNGbU+GYpWWDUFh45aQeZKf68Ru/gdklZ7pawljOq
-	 lP78uzd3UhDzEk0qniAp1/1utJ46n8A9R0W5VPTXthnd1h5LMSe7wj3fi39h3FeKQjK82
-	 GQhkYH3qclTFgBbrLN2zxl/uGekbhAnEmGClT6UejUxb01CYLTqNZjP0c6i+XtczMVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757566;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vtQc/hP3UAI76zkIv9UdY4+7Ue+hQnIdUcRDPGnwDYI=;
+	b=KVfjHVwOY1UxdXqBSkrMl8bQmvpTC62it7iaOsXcT/OLGX0MCb30yvcZ9AVNpXSOp2UH
+	 DxADlTAxXcSYnt0lTKyajPc0l1/4tGUSp8bA5nYMmKkDbxiKnmM+zrf/Ohrm6pxWWEtGI
+	 cB6l2l+lR5VQuwifBiBmk6dwHzFO8HSh5b6i7Dci8OuT7CWCTP0jNJxQUPa0NtNmGJx0E
+	 WoRANZjCTYlF+/UManp01++tyFOEwLEW5QUW1/kbum8RPBQr0R1XmKZo5LyInrN6X5p76
+	 GCs4gww6t7B9Q+T2XghZgE4QxgganrcKKQhaJnW/2FYysQ7ksUZ+ehiO4Fc3rPtHNxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=socionext.com;
-	spf=pass smtp.mailfrom=socionext.com;
-	arc=none smtp.remote-ip=202.248.49.38
-Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEE3A606A32F;
-	Wed,  4 Nov 2026 01:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE3A606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=socionext.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=socionext.com
-X-CSE-ConnectionGUID: slblM3GaRwSFS81cHQZTvA==
-X-CSE-MsgGUID: R3YAIBrWRw6W663eQVcqqQ==
-Received: from unknown (HELO iyokan3-ex.css.socionext.com) ([172.31.9.54])
-  by mx.socionext.com with ESMTP; 04 Nov 2026 10:58:46 +0900
-Received: from mail.mfilter.local (mail-arc02.css.socionext.com [10.213.46.40])
-	by iyokan3-ex.css.socionext.com (Postfix) with ESMTP id A622E2094543;
-	Wed,  4 Nov 2026 10:58:46 +0900 (JST)
-Received: from iyokan3.css.socionext.com ([172.31.9.53]) by m-FILTER with ESMTP; Wed, 4 Nov 2026 10:58:46 +0900
-Received: from [10.212.247.157] (unknown [10.212.247.157])
-	by iyokan3.css.socionext.com (Postfix) with ESMTP id 3244E10FA4D;
-	Wed,  4 Nov 2026 10:58:45 +0900 (JST)
-Message-ID: <3e430c3c-283d-4c1a-97e7-c5de7f8a8c10@socionext.com>
-Date: Wed, 4 Nov 2026 10:58:47 +0900
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A2WVZoGt;
+	arc=none smtp.remote-ip=95.215.58.137
+Received: from mta1.migadu.com (out-137.mta1.migadu.com [95.215.58.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5068F606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:59:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5068F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A2WVZoGt
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dEfpVcqaKwJtgCHoqizd1/ayWuwTWWIsmQKh7kUEEfQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793757562; v=1; x=1794362362;
+ b=A2WVZoGt2KIuU7thWtNqyKE2fIOPMC62rT+8J8Gm3hHFG3vmJoFY1YeHXImUuFBMuCtu3/D1
+ EyhSjAeXA9lNiVQplWoHixIJqTmQE1ogAvL0MndHeR8MWo+bHYggWHkj/YI+Ow9rVGv4KnKuz8l
+ KE8pcze3J6rMj9d/2DD4ekPQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8f7e9dda1911563a;
+	Wed, 04 Nov 2026 01:59:22 +0000
+X-Mizu-Trace-ID: 8f7e9dda1911563a
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 3 Nov 2026 17:59:11 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: "Ababneh, Ehab" <ehab.ababneh@intel.com>, 
+	Barry Song <baohua@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	"ziy@nvidia.com" <ziy@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "buddy.lumpkin@oracle.com" <buddy.lumpkin@oracle.com>, 
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "kasong@tencent.com" <kasong@tencent.com>, 
+	"qi.zheng@linux.dev" <qi.zheng@linux.dev>, "axelrasmussen@google.com" <axelrasmussen@google.com>, 
+	"yuanchu@google.com" <yuanchu@google.com>, "weixugc@google.com" <weixugc@google.com>, 
+	"david@kernel.org" <david@kernel.org>, "ljs@kernel.org" <ljs@kernel.org>, 
+	"liam@infradead.org" <liam@infradead.org>, "vbabka@kernel.org" <vbabka@kernel.org>, 
+	"rppt@kernel.org" <rppt@kernel.org>, "surenb@google.com" <surenb@google.com>, 
+	"mhocko@suse.com" <mhocko@suse.com>, "jackmanb@google.com" <jackmanb@google.com>, 
+	"baoquan.he@linux.dev" <baoquan.he@linux.dev>, "baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>
+Subject: Re: [RFC PATCH v2 0/5] mm/vmscan: adaptive multi-threaded kswapd for
+ NUMA-aware reclaim
+Message-ID: <20261104015214.GA1088663@shakeel.butt@linux.dev>
+References: <SJ1PR11MB6105E073723CFEEE8C8EDBF48C832@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <cover.1791577417.git.ehab.ababneh@intel.com>
+ <CAGsJ_4wmSL7i4EPLWLKhDD6J=1TywBi5EYYDxp=SvOuXdmLGjg@mail.gmail.com>
+ <SJ1PR11MB6105E839E55E9B0BDE183E9D8C9D2@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <SJ1PR11MB6105A05870574FF39B449CE28C692@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <ee9d317a-9829-47c1-81c7-1145304ea484@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,87 +79,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] spi: use dmaengine_desc_set_callback()
-To: Frank.Li@oss.nxp.com
-Cc: vkoul@kernel.org, Mark Brown <broonie@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
- Ryan Wanner <ryan.wanner@microchip.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
- <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
- <tudor.ambarus@linaro.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Laxman Dewangan
- <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
- "moderated list:ARM/Microchip (AT91) SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
- <linux-renesas-soc@vger.kernel.org>,
- "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
- "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
- "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>
-References: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
-Content-Language: en-US
-From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-In-Reply-To: <20261102174005.3933649-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ee9d317a-9829-47c1-81c7-1145304ea484@intel.com>
 
-On 2026/11/03 2:39, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Tue, Nov 03, 2026 at 04:15:44PM -0800, Dave Hansen wrote:
+> On 11/3/26 15:41, Ababneh, Ehab wrote:
+> > I would appreciate your thoughts on how we might achieve a similar
+> > performance improvement without increasing the number of kswapd
+> > threads.
 > 
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across SPI bus drivers.
-> 
-> No functional change intended. Prepare make to struct
-> dma_async_tx_descriptor private to the DMA engine.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> It also just plain doesn't seem like folks are very interested in
+> optimizations in this area at the moment. Feedback that's basically, "go
+> optimize something else" would also be very welcome.
 
-(snip)
+Hi Ehab and Dave,
 
->   drivers/spi/spi-uniphier.c        | 6 ++----
+My appologies for late response. I have not gotten the chance to look
+deeper into the series as I am stuck in something else but I am very
+much interested in this (line of) work.
 
-Reviewed-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+I have discussed with Johannes about multithreaded kswapds but the
+motivation is more about scaling kswapd threads corresponding to the
+number of cores on the node. We are getting CPU with hundred of cores per
+numa code and kswapd is already too late or slow to keep up with
+allocations happening on all of those cores. So, I definitely think we
+need multiple workers doing the background reclaim.
 
-Thank you,
+Please give me sometime, I will organize my thoughts on how we should
+aim to tackle this challenge. I will also ask Johannes to provide his
+take on the issue.
 
----
-Best Regards
-Kunihiko Hayashi
+Thanks for pushing this work.
+Shakeel
