@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793760568;
-	b=RWAFKR22ECHHsPavJCb/Wrzw4/xuPQ9CkVAlnclP0cpSTSP0h01rxGmwUVz//4A1/aeg
-	 wGsnhIq97Mz4PMKgdOkZOAg+iWw+1o9PBGod78ylGc6Ce38qRnPrqg9Iq1X9/gxnDPmNj
-	 EhLMrZfAmsPcNrp4slgqyzXOPkgWf58087H7DMKNL1Q6xVv+WtKdPRwiNtVl3T9SENjFx
-	 C9R9j4cZPAZ5LjeqTrBZ+qtp53Dek+xd8VrNwQfl7VjgSHubY+BVCCvHCtqwxdth8CFdP
-	 Azvwbof/WTINaTuQpGWyKnT/tOgmL2+neMoMLe/PpfNmws48Dq+DyrHRDnJMmrr7Nkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760568;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gCnK9nPza4/U9D5181xx3aS1Ic2EmU8/Mpw9QU8kxuw=;
-	b=p1DbniFAXHs9EHwv83dx+2jk58WO06ys2Uw9vZ/hhwtiKb3qxkmLHxEMkyl8tTn4pYUk
-	 QESYqfxB47tAC4OZiRmAvXOwJITFbC58/62ClDdAAD4T509Fzx6vipzF8W9Qzf4wz74r1
-	 v69LzTYNISq1HGpX6O7yr1SkchjFXVywIoOQLGg4kHL1uak3wKDNgZJ80di8ehDxW9ANW
-	 GMvBpK9tMrraNWLuKyaBuDXrkpjQ2fmpfcIZHFBOLKb6VummNtR5ZxLf8y6D+j5HKFz/f
-	 hAs8Fs20JHQ5vcW5JFBxbEfQgNn4fDM4titV00n1O3J82U9BzJrukwqeNLSL3Dy5d8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBZMDRxa;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793760605;
+	b=4Mp8iWxzmnjfNT5rK5mQL7v8GMI0fgDKz16uUiznxutNN+Ixv211WitcxtqSmqEMWpH2
+	 5x+iuY60qL17Q2vfOtlBog/q9hedKL2zlChX0kjM9nyFuT6B8uZDa/dYYiZZJL6UFQkEt
+	 BoQHqSkRWYXMgPjqCs5Jnp4ma3LdEMKwhImlC/MpSLGST4ZAW9LsKWKKz/aufj2whjuvA
+	 F2zwlRfrdoD+Zmbu+4WJLs/jCWneaw5aIUhls0p4YAJ09WXMJUXNXvEXRex0gw2goCVj8
+	 Xt8Nf1HCFwuTP9tuKWG4UegE+mG29jvqtzkwLsgwXhtJGX7FV4mf8BQBaaaRYIB0gcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760605;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3yD+dcKqmuww3hA1uEpiASBnnVLgbgkRAyQqTjdD8Uc=;
+	b=JGqMfalEk7vbw8UwCQpRvloixrXKlxIlOCIIgEBU2am5vcYkv12nK03PpFIA/shD+4/F
+	 C71wHLhkWEKx9g6/8CZLDmfykcrhRZs2v1p300zZpUFj/rdjo0aoF/2ejNffMS+/TcsF8
+	 BQfXzqab5MuolRMUumGVufWuHdCHwNpoiOPNpeJ/pc7iLkSs/Bzs/eePWSLUGMocGWiFw
+	 IU/KNmvK47q5hvBJpK+PgLlKpmcR/eQDPsHRh2iRiSrhbGB6cAHQXznJ9FGz/afxVbbek
+	 BThVXBhm2e1YsqbAB21IZdtadNOVpLweQ4DzB+TvGGGH/7uHvk16Z5KXqX6vENcFdYg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPwsZCgl;
+	arc=fail smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCA9606A31B;
-	Wed,  4 Nov 2026 02:49:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185BA606A331;
+	Wed,  4 Nov 2026 02:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBZMDRxa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C8B1F00A16;
-	Wed,  4 Nov 2026 02:49:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPwsZCgl
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793760604;
+	b=25UuyUrLPlrfXqBmTJZgcBV07VI5kKKUWUBVAmULlkJQRKfs17vPsc7E2cgYylB2Y8AD
+	 ohkFTQ+YKNBiVX9dllOLF1LQC6hjZ2K78sBGPa+Jx+3bI8PZCz9bNtQgTudJboNsrM76n
+	 IFsuY7UvvMkr26dhOLwgpIeA7Tus4sVklAG3ouskobdNw9JdXHcQkyhSoMR5Vouo/BbQv
+	 IZUu57qzCVQG3XXcmkorak7TLvmoTTmBc+yX3UurcJNSlnhjyrk5x1hV0Ks76dDNJvr+Z
+	 AshBaJgWx5NYRv62wrMdKteUnV7EavTKP9xtCxzt2UqQv3CXrmeiBU20dNAh5/wcICg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793760604;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3yD+dcKqmuww3hA1uEpiASBnnVLgbgkRAyQqTjdD8Uc=;
+	b=z2tyiroUz95jWWNbrgkF38ly85GQSoPX+UgSeDlf4W1cnHTelUPce5+/+Ml86ucGTXqG
+	 iXF3VttTRqlFvEnyDqPi+81x4Y0DTCGDJTw8ZPy/hwM2XQ/jRYQ+8Yt0Y0qxUNQIG6Gux
+	 CdfmboaGrULZjI5++ALWwIdJz9HNjtKwrz/24Hc5RZ0AICXXuYZU38Sa32nzp1QnZHM9r
+	 vKrYwG1V3hp7PE66kaKxwXRyXV2qIAnzEWY8mTCTmKzId8lffZcmEb6X6/QynRRAX9WyI
+	 FyO8mZcOz3H5WUl1xbA3vLZuW6oApTnjH8xkHxVZxxVN899zkDAaPdJ2RxzPCeKX+Og==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D57C71F00A02;
+	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793760568;
-	bh=gCnK9nPza4/U9D5181xx3aS1Ic2EmU8/Mpw9QU8kxuw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hBZMDRxawxfwtuUu0zvh5nNEiW+wegAHtHfUY1dwxHZ5FHfQ3sN8S8Sd9D90J16sx
-	 CBObomvaMLSzpvaKKvg7JNHgsOWiPD5fjKQKYK3Yf0ynAHKWAvulVJH6JAkqfVEOZm
-	 nwWnVy3oxHyKKijx8wPc4rBxmD3uoqFsHj3RtnWEyBWFuDSZC7rdgWivmTIbqQGzJ0
-	 Ppg3LIzjWjpR7t1t6ZlMRhmCeoapXToNEvmu+e1tAZiWGJpYB5pNwYSCDW3Ot7IotA
-	 sdagfYANU6XEJVbOlxi5jwqmkAAaKtIv+L4V8ejbiiZBkoH+fDGGUqDDAs9j0SPn9M
-	 21w3ChMe9Mb9w==
-Message-ID: <sashiko-outbox-196528@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 5/5] panic, crash_core, sys_info: Introduce
- crash_kexec_in_memory_sys_info
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Tomlin" <atomlin@atomlin.com>, pmladek@suse.com, john.ogness@linutronix.de, rostedt@goodmis.org, senozhatsky@chromium.org, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org, anna-maria@linutronix.de, frederic@kernel.org, tglx@kernel.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, bigeasy@linutronix.de, clrkwllms@kernel.org
-Cc: kexec@lists.infradead.org, linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103024453.922373-6-atomlin@atomlin.com>
-References: <20261103024453.922373-1-atomlin@atomlin.com>
- <20261103024453.922373-6-atomlin@atomlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 02:49:25 +0000
+	s=k20260515; t=1793760604;
+	bh=3yD+dcKqmuww3hA1uEpiASBnnVLgbgkRAyQqTjdD8Uc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=HPwsZCglWe7QBZB00ww+0NUHwOIsFUZSg5CuGIY4gshpiw1456G2Qr589eV2D983R
+	 JxE9r2OGIBuPcUDbgXgpDECNDEd7dfwM/6B2l0E7mUNtxPQNn2Qn2o+9Etk748KnlF
+	 tSEbOEh57kCA6Igkjlb2HB2ar+9H0MBhQQPq+qYTrhm3HuasJK63BRuHa+ghRiVOmz
+	 BPS4/hiw1B9JmVggUwDxEkAxR3NNXBfP7u+b31v0L3AX5bEqWzINFgVwP9BULY/wQU
+	 Y4E1l5X8JZ7Qt2nEaQ0wG2tReEeN6DhaquVjtxDWrPRXdLU7AhZTdXBnHhG608Ffx2
+	 EbX/7bDith4RA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 586F746BFF;
+	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
+From: Nathan Lynch via B4 Relay <devnull+nathan.lynch.amd.com@kernel.org>
+Date: Tue, 03 Nov 2026 20:49:44 -0600
+Subject: [PATCH v4 03/25] dmaengine: sdxi: Add PCI initialization
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,215 +81,347 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-sdxi-base-v4-3-3668ccc7aab8@amd.com>
+References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
+In-Reply-To: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+ David Rientjes <rientjes@google.com>, John.Kariuki@amd.com, 
+ Jonathan Cameron <jic23@kernel.org>, Kinsey Ho <kinseyho@google.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ PradeepVineshReddy.Kodamati@amd.com, Shivank Garg <shivankg@amd.com>, 
+ Stephen Bates <Stephen.Bates@amd.com>, Tycho Andersen <tycho@kernel.org>, 
+ Wei Huang <wei.huang2@amd.com>, Wei Xu <weixugc@google.com>, 
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Nathan Lynch <nathan.lynch@amd.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=8624;
+ i=nathan.lynch@amd.com; s=20260722; h=from:subject:message-id;
+ bh=G3UCYR9DSPW94dK47Tyi0Neumr+9wr3rIczfk03MNHk=;
+ b=/OUsknNso5/Vp5Yk26z/FP7pgHYopjFoulaaOvxGn6RFkuh5ZsY26xMyks8yrDUrwcEPwj9KD
+ l5w7Dv3T6WoAYp0F5ixGp3Vq7E1QU4IIKe6vIZkCDL+NyZOhIyb23Ux
+X-Developer-Key: i=nathan.lynch@amd.com; a=ed25519;
+ pk=pO5+BCw/TENGLvwX5NYZOZmZihcxjkxeFSMuk47erps=
+X-Endpoint-Received: by B4 Relay for nathan.lynch@amd.com/20260722 with
+ auth_id=891
+X-Original-From: Nathan Lynch <nathan.lynch@amd.com>
+Reply-To: nathan.lynch@amd.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] crash_core: unconditional printk state reset in __crash_kexec() =
-on failure
-- [Medium] panic: permanent printk_panic_seq pin when die() or oops_end() r=
-eturns
-- [Medium] panic: race in printk_clear_panic_start() unpins active Oops or =
-warning
---
+From: Nathan Lynch <nathan.lynch@amd.com>
 
-commit be914e098a723f2f6a11c63bee2fe8d772bb6b45
-Author: Aaron Tomlin <atomlin@atomlin.com>
+Add enough code to bind a SDXI device via the class code and map its
+control registers and doorbell region.
 
-panic, crash_core, sys_info: Introduce crash_kexec_in_memory_sys_info
+Keep PCI resource setup in pci.c and register devices with the SDXI core
+through bus operations.
 
-This commit introduces the crash_kexec_in_memory_sys_info boot parameter to
-collect sys_info() telemetry into the in-memory printk ring buffer before
-jumping to the kdump kernel, while suppressing console flushing and pinning
-the ring buffer tail at the start of the initial crash message.
+Co-developed-by: Wei Huang <wei.huang2@amd.com>
+Signed-off-by: Wei Huang <wei.huang2@amd.com>
+Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
+---
+ drivers/dma/Kconfig       |   2 +
+ drivers/dma/Makefile      |   1 +
+ drivers/dma/sdxi/Kconfig  |  28 +++++++++++++
+ drivers/dma/sdxi/Makefile |   6 +++
+ drivers/dma/sdxi/device.c |  33 +++++++++++++++
+ drivers/dma/sdxi/mmio.h   |  22 ++++++++++
+ drivers/dma/sdxi/pci.c    | 100 ++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/dma/sdxi/sdxi.h   |  38 ++++++++++++++++++
+ 8 files changed, 230 insertions(+)
 
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index 2b36aa9fade06..27b73b2da3e5a 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -140,9 +140,15 @@ void __noclone __crash_kexec(struct pt_regs *regs)
-> =20
->  			crash_setup_regs(&fixed_regs, regs);
->  			crash_save_vmcoreinfo();
-> +			if (!crash_kexec_post_notifiers)
-> +				panic_in_memory_sys_info();
->  			machine_crash_shutdown(&fixed_regs);
->  			crash_cma_clear_pending_dma();
->  			machine_kexec(kexec_crash_image);
-> +			if (!crash_kexec_post_notifiers) {
-> +				printk_freeze_tail(false);
-> +				printk_suppress_console_flush(false);
-> +			}
+diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
+index 01f96a8257e5..3e3b685895fd 100644
+--- a/drivers/dma/Kconfig
++++ b/drivers/dma/Kconfig
+@@ -772,6 +772,8 @@ source "drivers/dma/lgm/Kconfig"
+ 
+ source "drivers/dma/loongson/Kconfig"
+ 
++source "drivers/dma/sdxi/Kconfig"
++
+ source "drivers/dma/stm32/Kconfig"
+ 
+ # clients
+diff --git a/drivers/dma/Makefile b/drivers/dma/Makefile
+index f62d12b08e15..b375f9df9588 100644
+--- a/drivers/dma/Makefile
++++ b/drivers/dma/Makefile
+@@ -85,6 +85,7 @@ obj-$(CONFIG_XGENE_DMA) += xgene-dma.o
+ obj-$(CONFIG_ST_FDMA) += st_fdma.o
+ obj-$(CONFIG_FSL_DPAA2_QDMA) += fsl-dpaa2-qdma/
+ obj-$(CONFIG_INTEL_LDMA) += lgm/
++obj-$(CONFIG_SDXI_CORE) += sdxi/
+ 
+ obj-y += amd/
+ obj-y += loongson/
+diff --git a/drivers/dma/sdxi/Kconfig b/drivers/dma/sdxi/Kconfig
+new file mode 100644
+index 000000000000..b91b44231a04
+--- /dev/null
++++ b/drivers/dma/sdxi/Kconfig
+@@ -0,0 +1,28 @@
++config SDXI_CORE
++	tristate "SDXI (Smart Data Accelerator Interface) support"
++	# Doorbell updates require naturally-aligned 64-bit writes, per
++	# SDXI 1.0 9 MMIO Control Registers.
++	depends on 64BIT
++	select DMA_ENGINE
++	help
++	  Enable support for Smart Data Accelerator Interface (SDXI)
++	  Platform Data Mover devices. SDXI is a vendor-neutral
++	  standard for a memory-to-memory data mover and acceleration
++	  interface.
++
++	  This option is automatically selected by the SDXI PCI driver.
++	  Enable it manually if you want to build the SDXI core for unit
++	  testing without enabling the PCI driver.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be named "sdxi-core".
++
++config SDXI_PCI
++	tristate "SDXI (Smart Data Accelerator Interface) PCI driver"
++	depends on PCI_MSI && 64BIT
++	select SDXI_CORE
++	help
++	  Enable support for PCI-hosted SDXI devices.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be named "sdxi-pci".
+diff --git a/drivers/dma/sdxi/Makefile b/drivers/dma/sdxi/Makefile
+new file mode 100644
+index 000000000000..0006edf74d86
+--- /dev/null
++++ b/drivers/dma/sdxi/Makefile
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0
++obj-$(CONFIG_SDXI_CORE) += sdxi-core.o
++sdxi-core-y := device.o
++
++obj-$(CONFIG_SDXI_PCI) += sdxi-pci.o
++sdxi-pci-y := pci.o
+diff --git a/drivers/dma/sdxi/device.c b/drivers/dma/sdxi/device.c
+new file mode 100644
+index 000000000000..0974a83bb45c
+--- /dev/null
++++ b/drivers/dma/sdxi/device.c
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * SDXI hardware device driver
++ *
++ * Copyright Advanced Micro Devices, Inc.
++ */
++
++#include <linux/device.h>
++#include <linux/export.h>
++#include <linux/slab.h>
++
++#include "sdxi.h"
++
++int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops)
++{
++	struct sdxi_dev *sdxi;
++
++	sdxi = devm_kzalloc(dev, sizeof(*sdxi), GFP_KERNEL);
++	if (!sdxi)
++		return -ENOMEM;
++
++	sdxi->dev = dev;
++	sdxi->bus_ops = ops;
++	dev_set_drvdata(dev, sdxi);
++
++	return sdxi->bus_ops->init(sdxi);
++}
++EXPORT_SYMBOL_NS_GPL(sdxi_register, "SDXI");
++
++MODULE_AUTHOR("Wei Huang");
++MODULE_AUTHOR("Nathan Lynch");
++MODULE_DESCRIPTION("SDXI core");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/dma/sdxi/mmio.h b/drivers/dma/sdxi/mmio.h
+new file mode 100644
+index 000000000000..2676736f3998
+--- /dev/null
++++ b/drivers/dma/sdxi/mmio.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++/*
++ * SDXI MMIO register offsets and layouts.
++ *
++ * Copyright Advanced Micro Devices, Inc.
++ */
++
++#ifndef DMA_SDXI_MMIO_H
++#define DMA_SDXI_MMIO_H
++
++#include <linux/bits.h>
++
++enum sdxi_reg {
++	/* SDXI 1.0 9.1 General Control and Status Registers */
++	SDXI_MMIO_CAP1       = 0x00208,
++};
++
++/* SDXI 1.0 Table 9-7: MMIO_CAP1 */
++#define SDXI_MMIO_CAP1_MMIO64 BIT_ULL(6)
++
++#endif  /* DMA_SDXI_MMIO_H */
+diff --git a/drivers/dma/sdxi/pci.c b/drivers/dma/sdxi/pci.c
+new file mode 100644
+index 000000000000..0778cde31f14
+--- /dev/null
++++ b/drivers/dma/sdxi/pci.c
+@@ -0,0 +1,100 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * SDXI PCI device code
++ *
++ * Copyright Advanced Micro Devices, Inc.
++ */
++
++#include <linux/bitfield.h>
++#include <linux/dev_printk.h>
++#include <linux/dma-mapping.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <linux/iomap.h>
++#include <linux/module.h>
++#include <linux/pci.h>
++
++#include "mmio.h"
++#include "sdxi.h"
++
++enum sdxi_mmio_bars {
++	SDXI_PCI_BAR_CTL_REGS = 0,
++	SDXI_PCI_BAR_DOORBELL = 2,
++};
++
++static struct pci_dev *sdxi_to_pci_dev(const struct sdxi_dev *sdxi)
++{
++	return to_pci_dev(sdxi->dev);
++}
++
++static int sdxi_pci_init(struct sdxi_dev *sdxi)
++{
++	struct pci_dev *pdev = sdxi_to_pci_dev(sdxi);
++	struct device *dev = &pdev->dev;
++	u64 cap1;
++	int ret;
++
++	ret = pcim_enable_device(pdev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable device\n");
++
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
++
++	sdxi->ctrl_regs = pcim_iomap_region(pdev, SDXI_PCI_BAR_CTL_REGS,
++					    KBUILD_MODNAME);
++	if (IS_ERR(sdxi->ctrl_regs))
++		return dev_err_probe(dev, PTR_ERR(sdxi->ctrl_regs),
++				     "failed to map control registers\n");
++
++	cap1 = readq(sdxi->ctrl_regs + SDXI_MMIO_CAP1);
++	if (!FIELD_GET(SDXI_MMIO_CAP1_MMIO64, cap1))
++		return dev_err_probe(dev, -EOPNOTSUPP,
++				     "64-bit atomic MMIO access required\n");
++
++	sdxi->dbs = pcim_iomap_region(pdev, SDXI_PCI_BAR_DOORBELL,
++				      KBUILD_MODNAME);
++	if (IS_ERR(sdxi->dbs))
++		return dev_err_probe(dev, PTR_ERR(sdxi->dbs),
++				     "failed to map doorbell region\n");
++
++	pci_set_master(pdev);
++	return 0;
++}
++
++static const struct sdxi_bus_ops sdxi_pci_ops = {
++	.init = sdxi_pci_init,
++};
++
++static int sdxi_pci_probe(struct pci_dev *pdev,
++			  const struct pci_device_id *id)
++{
++	return sdxi_register(&pdev->dev, &sdxi_pci_ops);
++}
++
++static void sdxi_pci_remove(struct pci_dev *pdev)
++{
++	pci_disable_sriov(pdev);
++}
++
++static const struct pci_device_id sdxi_id_table[] = {
++	{ PCI_DEVICE_CLASS(PCI_CLASS_ACCELERATOR_SDXI, 0xffffff) },
++	{ }
++};
++MODULE_DEVICE_TABLE(pci, sdxi_id_table);
++
++static struct pci_driver sdxi_driver = {
++	.name = "sdxi",
++	.id_table = sdxi_id_table,
++	.probe = sdxi_pci_probe,
++	.remove = sdxi_pci_remove,
++	.sriov_configure = pci_sriov_configure_simple,
++};
++
++MODULE_IMPORT_NS("SDXI");
++MODULE_AUTHOR("Wei Huang");
++MODULE_AUTHOR("Nathan Lynch");
++MODULE_DESCRIPTION("SDXI PCIe interface driver");
++MODULE_LICENSE("GPL");
++module_pci_driver(sdxi_driver);
+diff --git a/drivers/dma/sdxi/sdxi.h b/drivers/dma/sdxi/sdxi.h
+new file mode 100644
+index 000000000000..d4c61ca2f875
+--- /dev/null
++++ b/drivers/dma/sdxi/sdxi.h
+@@ -0,0 +1,38 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * SDXI device driver header
++ *
++ * Copyright Advanced Micro Devices, Inc.
++ */
++
++#ifndef DMA_SDXI_H
++#define DMA_SDXI_H
++
++#include <linux/compiler_types.h>
++#include <linux/types.h>
++
++struct sdxi_dev;
++
++/**
++ * struct sdxi_bus_ops - Bus-specific methods for SDXI devices.
++ */
++struct sdxi_bus_ops {
++	/**
++	 * @init: Map control registers and doorbell region, allocate
++	 *        IRQ ranges. Invoked before bus-agnostic SDXI
++	 *        function initialization.
++	 */
++	int (*init)(struct sdxi_dev *sdxi);
++};
++
++struct sdxi_dev {
++	struct device *dev;
++	void __iomem *ctrl_regs;	/* virt addr of ctrl registers */
++	void __iomem *dbs;		/* virt addr of doorbells */
++
++	const struct sdxi_bus_ops *bus_ops;
++};
++
++int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops);
++
++#endif /* DMA_SDXI_H */
 
-[Severity: Medium]
-In __crash_kexec(), panic_in_memory_sys_info() only calls
-printk_suppress_console_flush(true) and printk_freeze_tail(true) when
-crash_kexec_in_memory_sys_info is enabled:
+-- 
+2.56.0
 
-kernel/panic.c:panic_in_memory_sys_info()
-    if (!crash_kexec_in_memory_sys_info || panic_sys_info_dumped)
-        return;
-    ...
-    printk_suppress_console_flush(true);
-    printk_freeze_tail(true);
 
-However, if machine_kexec(kexec_crash_image) fails and returns while
-crash_kexec_in_memory_sys_info is disabled (the default), __crash_kexec()
-still unconditionally runs printk_freeze_tail(false) and
-printk_suppress_console_flush(false).
-
-Calling printk_freeze_tail(false) resets printk_panic_seq to U64_MAX,
-discarding the initial Oops start sequence recorded by oops_enter() or
-bust_spinlocks(1), and calling printk_suppress_console_flush(false) invokes
-printk_trigger_flush() and wake_up_klogd() (queuing irq_work after
-machine_crash_shutdown() has already disabled interrupts and APICs) even
-though console flushing was never suppressed.
-
-Should the cleanup after machine_kexec() only run when
-panic_in_memory_sys_info() actually enabled tail freezing and console flush
-suppression?
-
-> diff --git a/kernel/exit.c b/kernel/exit.c
-> index 282328d2b4cf8..25facaf6c6f2c 100644
-> --- a/kernel/exit.c
-> +++ b/kernel/exit.c
-[ ... ]
-> @@ -1075,6 +1077,14 @@ void __noreturn make_task_dead(int signr)
->  	if (atomic_inc_return(&oops_count) >=3D limit && limit)
->  		panic("Oopsed too often (kernel.oops_limit is %d)", limit);
-> =20
-> +	while (tsk->in_oops)
-> +		bust_spinlocks(0);
-> +
-> +	if (!READ_ONCE(oops_in_progress) && !panic_in_progress() &&
-> +	    ((tsk->flags & PF_EXITING) || !is_global_init(tsk) ||
-> +	     atomic_read(&tsk->signal->live) > 1))
-> +		printk_clear_panic_start();
-
-[Severity: Medium]
-On entry to an Oops, oops_enter() in kernel/panic.c and bust_spinlocks(1) in
-lib/bust_spinlocks.c invoke printk_mark_panic_start(), which pins
-printk_panic_seq. Neither bust_spinlocks(0) nor oops_exit() clears
-printk_panic_seq; for Oops paths, printk_clear_panic_start() is only called
-here in make_task_dead().
-
-Across several architectures, when notify_die(DIE_OOPS, ...) returns
-NOTIFY_STOP (for example via a registered die notifier such as KGDB/KDB or
-kprobes), the trap handler finishes bust_spinlocks(0) and oops_exit() and
-returns without calling make_task_dead() or panic():
-
-arch/x86/kernel/dumpstack.c:oops_end()
-    bust_spinlocks(0);
-    ...
-    oops_exit();
-    ...
-    if (!signr)
-        return;
-
-arch/arm64/kernel/traps.c:die()
-    bust_spinlocks(0);
-    oops_exit();
-    ...
-    if (ret !=3D NOTIFY_STOP)
-        make_task_dead(SIGSEGV);
-
-(And similarly in arch/arm/kernel/traps.c:oops_end(),
-arch/riscv/kernel/traps.c:die(), and arch/powerpc/kernel/traps.c:oops_end(),
-while arch/loongarch/kernel/traps.c:die() and
-arch/hexagon/kernel/traps.c:die() return early on NOTIFY_STOP after
-bust_spinlocks(1) without calling bust_spinlocks(0), leaving current->in_oo=
-ps
-and oops_in_progress incremented as well.)
-
-When die() or oops_end() returns without reaching make_task_dead(), won't
-printk_panic_seq remain permanently pinned? Once normal printk activity wra=
-ps
-the ring buffer past that stale sequence number ((u64)panic_seq < first_seq=
-),
-a subsequent panic will clamp printk_panic_seq to first_seq at the current
-ring buffer tail in printk_mark_panic_start(), leaving zero recyclable space
-and causing panic_in_memory_sys_info() to drop all sys_info() output.
-
-> diff --git a/kernel/panic.c b/kernel/panic.c
-> index cda5d954b61f3..01175badaba10 100644
-> --- a/kernel/panic.c
-> +++ b/kernel/panic.c
-[ ... ]
-> @@ -1067,6 +1096,8 @@ void oops_enter(void)
->  	/* can't trust the integrity of the kernel anymore: */
->  	debug_locks_off();
->  	do_oops_enter_exit();
-> +	if (!panic_in_progress())
-> +		printk_mark_panic_start();
-> =20
->  	if (sysctl_oops_all_cpu_backtrace)
->  		trigger_all_cpu_backtrace();
-> @@ -1097,10 +1128,16 @@ struct warn_args {
->  void __warn(const char *file, int line, void *caller, unsigned taint,
->  	    struct pt_regs *regs, struct warn_args *args)
->  {
-> +	bool clear_panic_start =3D false;
-> +
->  	nbcon_cpu_emergency_enter();
-> =20
->  	disable_trace_on_warning();
-> =20
-> +	if (!READ_ONCE(oops_in_progress) && !panic_in_progress() &&
-> +	    printk_mark_panic_start())
-> +		clear_panic_start =3D true;
-[ ... ]
-> @@ -1137,6 +1174,9 @@ void __warn(const char *file, int line, void *calle=
-r, unsigned taint,
->  	/* Just a warning, don't kill lockdep. */
->  	add_taint(taint, LOCKDEP_STILL_OK);
-> =20
-> +	if (clear_panic_start && !READ_ONCE(oops_in_progress) && !panic_in_prog=
-ress())
-> +		printk_clear_panic_start();
-
-[Severity: Medium]
-Can a finishing non-fatal warning in __warn(), warn_slowpath_fmt(), or
-__report_bug() (or a task exiting in make_task_dead()) on one CPU race with=
- a
-fatal Oops or fatal warning on another CPU and unpin printk_panic_seq?
-
-Specifically, oops_in_progress is 0 and panic_in_progress() is false on CPU=
- B
-during three windows before vpanic() sets panic_cpu:
-
-1. In oops_begin() / die(), oops_enter() calls printk_mark_panic_start()
-   before bust_spinlocks(1) increments oops_in_progress.
-
-2. In oops_end() / die(), bust_spinlocks(0) decrements oops_in_progress back
-   to 0 before oops_exit() and before panic() is called for in_interrupt() =
-or
-   panic_on_oops:
-
-   arch/x86/kernel/dumpstack.c:oops_end()
-       bust_spinlocks(0);
-       ...
-       oops_exit();
-       __show_regs(&exec_summary_regs, SHOW_REGS_ALL, KERN_DEFAULT);
-       if (!signr)
-           return;
-       if (in_interrupt())
-           panic("Fatal exception in interrupt");
-       if (panic_on_oops)
-           panic("Fatal exception");
-
-3. During a fatal warning (when panic_on_warn, warn_limit, or panic_on_taint
-   is set), printk_mark_panic_start() is called while oops_in_progress is 0
-   and before check_panic_on_warn() or add_taint() enters panic().
-
-If CPU A finishes a non-fatal warning (having set clear_panic_start =3D true
-just before CPU B started, or while CPU B is in a fatal warning) or runs
-make_task_dead() (which does not check whether current pinned
-printk_panic_seq) during any of those windows on CPU B, CPU A sees
-!READ_ONCE(oops_in_progress) && !panic_in_progress() and calls
-printk_clear_panic_start(). When CPU B then enters vpanic(),
-printk_mark_panic_start() re-pins printk_panic_seq at the panic banner after
-CPU B's Oops or warning output has already been emitted, allowing
-panic_in_memory_sys_info() to overwrite the primary crash context.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103024453.9223=
-73-1-atomlin@atomlin.com?part=3D5
