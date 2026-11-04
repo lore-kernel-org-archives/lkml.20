@@ -1,120 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820096;
-	b=xtYWBWlzWcvBIrW0HYQgfQKWdhiCbmrTQ6cq5Pg0tRJ/H2jycWKcXkmV/7oU4W+OULwV
-	 KuWUaiQGoUWdnjOlFAYBoq2fR5mPlbqlag06dcGQ9sL2AFjdBdZ9wqxyU6NOC0+10/pZY
-	 opLwfY623n8/RI5OE7SmogFLAyCc2dYFNMDOzVzdPpJqS/YNkQayVpQpQ1DYCEGGt+BpE
-	 o8dNHsoQIJO/FiOkRsKjyIKKDmkFqdBsPo82422gWOhKCHnAL2dJGvfJYcaKpEJ1khs2q
-	 eVZ9k1SiqJvumCohl+T3O8VZW4YUdgSyJeJmtfhyFyVbU2vM2Hiz+aGrUXi81AYWqjw==
+	t=1793820080;
+	b=qZR466aMeh4QgRe5q5AXuI8ea9c1oOkWYMscCF1tGopmUnANe4yb97i7yfQain7BE0TZ
+	 AZlCLGTncM2jGlvJKEER++dYD+A28OfJ3qriXmWoAPJpbaAfO1OMb/jdg1JFJgalanolP
+	 yP8WVrAffqnqWvc8qMA8i+RSAS7g1vVQwmYFioMcwxT4zqMk33zXP1aRr9hAPF8wtVKo+
+	 zeDt0yoXAXltTIvIhseW0Fp7upfOoLX0RgE4oVlInbxZKUl0IihMEyp2Z9J88FhZ3zO4T
+	 G9JZyQrTnXiCv0Hlp4K/1jy2WYSJdDnaHKUICOA09zO2RrPX4Rbh7BYRH0guw77u22g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820096;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q1vPwoXxLPvqpt/yG160N1FIY8mZvlrWq8/lCtnF8jM=;
-	b=y4H7NQtNiDDwYv5CUlkgn9BZudouwZDuWV1OxQ1SYIwuHuXifE3AzM6OerWYpA8MYvHQ
-	 7xI1+HEzOv6Wt67JhD0IqI5sKYdNTsU6tR7SVe2+tCF5KfbOSB7fh5w6rQbERnJe9aFkX
-	 jwlRhiAqfcNoD59MwEQHUFfWPT+irJp8zJCH7CWLJ4D2fAXyom+wGih5Qwx3USJe0/mHO
-	 i2n+GTrLDv7kUZXO72cHiqLtJuJZng2D57hwldtl+mptZgZW0A7HF3GdcdNl5L9zU9So+
-	 tcE+v28jyOP14GZSxc3du3mYzMigldOdkzJy2i/hrQEW02DUesW3PVZEZ06DdNcJ5mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820080;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=p9+kMzHwjVYuWJQ2+obB/IGMwn7xV7y09JcSQ7GHv6w=;
+	b=v7KZ1fVRfZO0NSMi3LFU+6KOpuSSJE3JUnEjTIuDakkP8rgVQSQlKIR+LEpoUtYRnsu3
+	 iJRtj3flSKcQpyGhFcK9SFVkoHKPZ4UeuMv9K7e2PcDBaOflGzzwyusd1RVx8ytAmaKA6
+	 n/wSp8jkd9eBqGqhBv45TsAjVFDUKGz/xVDMRzk1SyLFxeG6n9h5CaYBIep/GfRGfsiUe
+	 WPG6ZT8WvNpbh9jqCplYHyVdLlvPGdS9KaaKv/Ti1+Eg/5rd04cxEZaQ5Fz7qIf2/8rNQ
+	 deDXdC+FAN3t12UsopZXxOoNLnDTZG0Y/48XIieJaD+XOZBXizSKjFgHXvjntTkH5Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bur.io;
-	spf=pass smtp.mailfrom=bur.io;
-	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=OEvbcHUL;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mUarms0y;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Da9qhDAh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5C5606A87B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE5C5606A87B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86050606A855;
+	Wed,  4 Nov 2026 19:21:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=OEvbcHUL;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mUarms0y
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1C5CF1D00027
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:21:35 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 04 Nov 2026 14:21:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793820093; x=1793906493; bh=Q1vPwoXxLP
-	vqpt/yG160N1FIY8mZvlrWq8/lCtnF8jM=; b=OEvbcHUL2VIgx8XqAFlceg7WUt
-	g5R4VHY+hxSCJsvHQSUEnoeXCXpaLl31YcRDJ/03OR+j5U3V5tmXVZ0dtcCI1gOo
-	hoEuKm0L5JGO0OTkI5jxtj1Dl1q+qBj5otDWmDolKw+h9kpOkt1RS3UDjTko8KlM
-	RtPTgqhOnRNEGKmDDuA+Pc/yzYDimp/ByT2M7TVlAoOP7h755Uu/0nXRDQcVn33U
-	XTgvjReb1Mb0AlWWbi1uY0Opm/xbhvoJ76yPVIzJI9Dwk+bitfzK+dJumJgsFA82
-	ZajVtJHKrwYXc6hJihjgLNTHKo4S0mIBw4Vr+OjF7ItGO0anmqsYK16MiNWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793820093; x=1793906493; bh=Q1vPwoXxLPvqpt/yG160N1FIY8mZvlrWq8/
-	lCtnF8jM=; b=mUarms0ytOygf25iAj++XmxT06c1Jv4iHpW774H3UV1CAfxTSpd
-	tM0ceqmpOHZlJ+kiBjFXU2K7S078F4STixs4+BH7wzUtHKWBFCWGSYaoB69FH4m2
-	pChjITjqkgIyd/sesSQudUKxh5GArKsOd9vAQqvsLtAVnCkVASj1M/g7cOWlLHvr
-	3kYCBdUJpBDexx43/reHVUZFAyeHW8G8nBLzNfRvrCgwbcZKLOHJyQT4yvQ4prUD
-	9i3JbWeXbPwRLqwZNwFSKkSPwV8jRswC5bP51wYg9x54LIJSpBxlbmc5A8nUGsuz
-	H7yLmrnqVjYTitDISO66/ID3yvwiUDiYKcQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=bur.io a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793820093; d=bur.io;
-	mf=PGJvcmlzQGJ1ci5pbz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:PmqngIj1ZNS8x2ERMoJxeCIvy2GUXRe14xMJNKi26fF9xZ3
-	7GmLHdHPfXCSf18gVWXdcA9IbqDYCJy/j24P5vM/9GwnsCFWZv8odFA25s9POTsk
-	TBzLvXnqz7ulHL/WNh6/NckzTsXlKw+HywbTnhdvI4Oo3Y+GvssQ3K6hvhRcLX5G
-	pmvtTw3oG64MoF1FP5Qu8aDqeOPMEVgiXV58O2P2iapzr+vn8jwi1NWMtsTIV2aJ
-	Mkcwb2tDxJa4ZsHCizE8B1Hac/vgNq6Uf+olNTPxIM+KW/xU9KHXegRrykxF2+mS
-	N71t1CrcnOyZi+Xmbbms9eBgWdEoiacs+dxaLMg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:a6cmgIlVRVP25I65KfkHemtbXK/U87oa85Aur8W2VYw=:QRMSXiCEzW1EelBvEdFDJHL1vgjLvhRKZSkJ/CXCaxM=;
-X-ME-Sender: <xms:vYXravAudD-EerjalZPhDTjOlcs4Rfm0jJEnmF9NW-p0OFu7rl38gA>
-    <xme:vYXravi5zECS6_Ni_lqJsh5FPIf5Ml7P2WWNb8S2N5FAAGxy15foj0X3iYCsfagkt
-    KQOROYAZ4vwHIBKTVh7fYz6xgt2ZK9IUM1XW8-vuevV9kEcewFtnA>
-X-ME-Received: <xmr:vYXrahONHi8AoH4IqxvTwnT3rip_U5i9iRqfrpS-s4Ud0RWW8MNpre0Q>
-X-ME-Proxy-Cause: dmFkZTGy31GP/KduaZWiKYgBvsauRY6luObGFvalVy6nExLlbSWZ6gm4DOjXH52CMooTLU
-    v8znwKbr6Rap9jyw+h2xMJulQMZ7Z8O8ryBgevQHYMP6ujvxlH+195CuN8mUOPkrmkMkUh
-    HwgygnA54qGK2vXhvKp2qcftEoF13cGvGGX9h0+wWuHr5Ym3tQjcyfU1CukrAgRdzmt+Cy
-    Um/nVWsQFtfJHkq76nEX8kA5Dp5i2gVH/Jy0YYF+6+YGujVIbiL29ZJe+MbL+rsNGlAvgC
-    hMLbYGeExM+D7NsL/0t8ukknVCGUVIe4RokuZ3Rt8kqDPOk8NruB1mJ64Qz5IPx59fU8s6
-    1nwWIxubdq5ZeKCm0Y+0hTbZkCDZEKAAKcrWthW4e0dHFqi9ii/39w6SS6S6WT58aF5xXA
-    0crJ3gEHQfeZtuukPQiDPusETssSKm2gc0o1Al41Lv5eItIcgGl/XHLyWbGO7uQxFJjvOj
-    gnm29rpD9BcGYI9mHhZfruglP66KKtdH6bS3yZMTWe7kRkJl6ACxySMTRgF0UQlxt0KJH4
-    j7wcwNzL3AJuP+hiCzYAZQhGlw7P2/6+Wqm8fmAaA+oYFnei5UYDkL74JU9fSYQm1OQOxz
-    6UTWa8b3pvy8V12WQPXowSXHfDM842Jzq6SeZuQrqiCiWPe/hA+OFguaozDg
-X-ME-Proxy: <xmx:vYXrav8g_eo4MPGePD2nR-sa91AqG4hVZF6cUfApQH0wl7wI3gMr9Q>
-    <xmx:vYXraid3Q4lZ_7Fq8IZhzzJfffkR8h8bBFxNqGYJC9nhwpwTsCI28Q>
-    <xmx:vYXrauylbutvgfL6rVWD12-Ju30Al2UkuVtx2N0555zrJCv_8kp2_Q>
-    <xmx:vYXranKC3MuJQgmH6xG0OS1uYpQwuYfuamzERxx4kv6Ymm5w0rMDgg>
-    <xmx:vYXras8WaErX8DIcVjHg_ExEVQh8VOsV5EMtqdHLvEmsEAeW_m-Ep2IY>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 14:21:33 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:21:51 -0800
-From: Boris Burkov <boris@bur.io>
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
-	mason@kernel.org, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] btrfs-progs: check: count non-skinny tree blocks in
- simple quotas
-Message-ID: <20261104192151.GC3301639@zen.localdomain>
-References: <20261104102323.4090290-1-smish149@asu.edu>
- <20261104102323.4090290-5-smish149@asu.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Da9qhDAh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB7D1F000C1;
+	Wed,  4 Nov 2026 19:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820080;
+	bh=p9+kMzHwjVYuWJQ2+obB/IGMwn7xV7y09JcSQ7GHv6w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Da9qhDAhe1gMlC4H3sEx9s8bGAWOfqOAYoq5Ueb9q8Ynl2389Maztmcp2QYHP5RUa
+	 OZi38NVuKARinV0XCKJY4csd2ZWdhTyFIQtFYAj0HTzWZSV2i1vKEm7P7/Pts5FZCn
+	 QcJTzEeOU9QU1jpuc0CN9kj/jSPx/znq777Ooa0/kAzqFdLCFoQLN31MunMZ6V42ul
+	 zYUXtsChACfm6Z+hTrPGrAKTMgQ5FfXYR+IE5qTYw8gsFIqpDD7UrTt1lKIhy24azZ
+	 jz8zin7Ffk74C14OK7JkiGN0Jj9FrbP13tt/L09oeijZ2cBW9SHXjgz22CRX5WoLnO
+	 SiIObxm9KtSIA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 21/51] powerpc/rtasd: zero the error log buffer
+Date: Wed,  4 Nov 2026 20:21:06 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-21-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,66 +115,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104102323.4090290-5-smish149@asu.edu>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1050; i=brauner@kernel.org; h=from:subject:message-id; bh=mkSbMC6ZDV5f4P2v+qDezcMlza9tkw/MXVPMWZSeje8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bnx60+3VpD19ZT+7SySmfPjO+TBTt49lvc0+93eF3 4WPq6Z96ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjIlBCGv0LG0fo2q8pr72Sl RxoY7Psg/0D2YuivaZvXryurm/TnzyVGhuV3JU9sXMk96YvRxJhvUz9Ozgtes07tY8uDXTNaVxx jf8kGAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:23:22AM -0700, Siddharth Mishra wrote:
-> [BUG]
-> On a filesystem without skinny-metadata, mkfs with simple quotas writes
-> a qgroup that does not count the tree block of the fs tree:
-> 
->   $ mkfs.btrfs -O squota,^skinny-metadata $dev
->   $ btrfs inspect-internal dump-tree -t quota $dev
-> 	item 1 key (0 QGROUP_INFO 0/5) itemoff 16203 itemsize 40
-> 		generation 11
-> 		referenced 0 referenced_compressed 0
-> 		^^^^^^^^^^^^
-> 		exclusive 0 exclusive_compressed 0
-> 
-> The kernel then warns about a squota underflow when the block is freed,
-> and "btrfs check" reports no error, because it uses the same code.
-> 
-> [CAUSE]
-> simple_quota_account_extent() treats an extent as a tree block only if
-> its key is METADATA_ITEM. Without skinny-metadata a tree block is an
-> EXTENT_ITEM with the TREE_BLOCK flag, so it is handled like data: its
-> first inline ref is a TREE_BLOCK_REF, not an owner ref, and the block is
-> not counted. mkfs fills the qgroups with the same code.
-> 
-> [FIX]
-> Also treat an extent item with the TREE_BLOCK flag as a tree block, and
-> take its owner from the tree block header.
-> 
-> Fixes: 5bd97022f384 ("btrfs-progs: check: add support for squota")
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-> ---
->  check/qgroup-verify.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/check/qgroup-verify.c b/check/qgroup-verify.c
-> index b58ef366..d6681653 100644
-> --- a/check/qgroup-verify.c
-> +++ b/check/qgroup-verify.c
-> @@ -1046,8 +1046,9 @@ static int simple_quota_account_extent(struct btrfs_fs_info *info,
->  	if (generation < counts.enable_gen)
->  		return 0;
->  
-> -	type = btrfs_extent_inline_ref_type(leaf, iref);
-> -	if (!meta_item) {
-> +	if (!meta_item &&
-> +	    !(btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)) {
+rtas_log_read() hands out a whole slot of the error log but
+pSeries_log_error() only fills in the sequence number and the event,
+which is usually a lot shorter. The rest of the slot is whatever
+vmalloc() left there. Use vzalloc().
 
-I sort of think lifting this higher to make simple_quota_account_extent
-check for "is metadata" vs "is metadata item" makes a bit more sense.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/powerpc/kernel/rtasd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Either way,
-Reviewed-by: Boris Burkov <boris@bur.io>
+diff --git a/arch/powerpc/kernel/rtasd.c b/arch/powerpc/kernel/rtasd.c
+index fd40864bdb70..dd0df5e164a3 100644
+--- a/arch/powerpc/kernel/rtasd.c
++++ b/arch/powerpc/kernel/rtasd.c
+@@ -523,7 +523,7 @@ static int __init rtas_event_scan_init(void)
+ 	rtas_error_log_max = rtas_get_error_log_max();
+ 	rtas_error_log_buffer_max = rtas_error_log_max + sizeof(int);
+ 
+-	rtas_log_buf = vmalloc(array_size(LOG_NUMBER,
++	rtas_log_buf = vzalloc(array_size(LOG_NUMBER,
+ 					  rtas_error_log_buffer_max));
+ 	if (!rtas_log_buf) {
+ 		printk(KERN_ERR "rtasd: no memory\n");
 
-> +		type = btrfs_extent_inline_ref_type(leaf, iref);
->  		if (type == BTRFS_EXTENT_OWNER_REF_KEY) {
->  			struct btrfs_extent_owner_ref *oref;
->  
-> -- 
-> 2.54.0
-> 
+-- 
+2.53.0
+
