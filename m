@@ -1,99 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822214;
-	b=Y9xkFTTm3W9qEl38tecMgQqR8fdohreNdc8rOaAWiP4S8jdQWfmBatjTau1SqicpFXyN
-	 kzU+uwy8oZQYQHtJ5gBLM3waeG///kpsBIdiHuaa8YZJd+ns3hLBGII6PCL+Bfwzo4lA6
-	 NSav5d1PP27Kath9OG5CHZTOF6rzHHGLIzOLpnWjgClxGl2fBJIY5pOsbZl7vZyrkwEbg
-	 aXV8JsDEnIUR3Dn35TocBcAAYnwjkYrA+ve3F0CrFnJWi/4r3bKl1ebEDnRgdsHPz0g2E
-	 xjsHybFuXpis0F4UqgKxyt5FA0Z/dI32rBOeBphtneP+I0IT7ggXjNnpWQ0w6l3VlbQ==
+	t=1793822222;
+	b=wHXDUWJElTCcaBnnqc1c3uIMWY6kga8Ga4J7+NtGs/Pw0L/AMaIO3TVK3m8eNT6NObyG
+	 /6za35WCzWLWP/wzRKqWMlSd/gIcNoqXwX2hQiWIfsMa8VbK6Jn6fhwh9KByhHydZSQx9
+	 ZS0zgEqoeAYEhKSc+nr6MY9H3RiVQtCSs4jV/tSGRfSB0Va6LYH5HQuzygmoUPHRHmz7P
+	 9+xoLRGfMEQoBcAd5/LJe0xQR0DZw2d/8xUsVynkw1zxOS1KeHA09d4eZ4b5rj4sGf1i5
+	 9Vh0YPQ/drlIkvkJluz88WW7Gdu+DcjIseSkL0Aw3stjZQ45UArU5onLp559ztdLdhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822214;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xrKa+VT265YSl+/JqzQSpxcCcwhP8N6auXFpJdA3IgM=;
-	b=GT+mMCT37YdKe/ZJL54BfFFmu5O/cOpZcWg11pkQ8GZJrUtxhrfIucLjHmn8+1TGLwA4
-	 RoFGByoW2PRRD/WMNFN0lRZ3UN8lnmijj1cJF2joiThmP2Kiy+wtk1GQy4CrKDMDlQzlt
-	 BGhiXLmfvWQrwC4o7zQ10aaq73zA1C+/TqnO7Ea/f22jpv+qqo8PEcr/xfHQT3PLWDH43
-	 UDfLyKlO8WOCsY22jBeFUjjgjZbjoZ7U1GOfvf94AkPC9QBIKSxN5I5MCop5Nbc6qvm+d
-	 ERo/zd1h3/eFq/j+6dazOjh/Jy+Zzm2OL314jieEWx0RwcBe8RUqszl0ttHfJkdNp0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822222;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=jhlUxShJ2PAnaFYEGZj/acNyvX4jU2/JMVjl8Ac9zMQ=;
+	b=mkVtQA9DY2FCk61NuO8QrH3mCu9SFO0ux8CUgzYPYjaCF5IdeJEjCfrFNXsIA94S82qy
+	 OYgKKsKWUXU50Wj1COgdP/EoJ79uctD7zV0DLYKAFF/PHpSdzOqK9zXgJ/XduHQNAp0+a
+	 Ebq/dfcRR0LQNBXSrlwF0dD29L3LZASGTa4PVAPNaJ0yDymlfniArcDQrkksc5kbSMUoL
+	 7j6/B5fveMirSG7CGxyP0eQL28p1lXL3a1pHmNWE0TDA1pzvxM/Vw6zmQwL4fPZDwETCx
+	 HZb0nXurbyHTskmgyp8ZFJoZH6xKnDWTmpiR7WNyV5okHCYBiS1+RQ84HuxZOytj7Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=N53fQ7A6;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UG/CjC9R";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B9160E752D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:56:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96B9160E752D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2F5609DCA9;
+	Wed,  4 Nov 2026 19:57:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=N53fQ7A6
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a1947498bso2592315eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:56:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793822213; x=1794427013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xrKa+VT265YSl+/JqzQSpxcCcwhP8N6auXFpJdA3IgM=;
-        b=N53fQ7A6j6zDRf1HvGp2eiK1RyXqfnJynb0VUYXAeNZPhy2b8b5Yt/eQ4IMJWvBHuO
-         rPZSTNLo7fdbmdrIaxiUSLddCNXIQa4oLPJVeOIrdklDjmQAVduoWyS3ktQ0jD0i7pBC
-         rLvloDK1qSYvrAJbiVhgy8SMLD0alUNQbJg5KwfpDQfPbqt+49CbyYzlznWqs8Md/8Dk
-         PBOUx4RQSdCIBT4Vk0Y2q5cW8imS44umvk9MPlj6ISED8H84yKayQr+glentQgUPN75L
-         A3WncJrdc3t+z0fkgRFGu5smxposAYN9RQy7ZF0KPS2gDwLGc+f87PqBfK/Wk9cW2h6p
-         UZ9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793822213; x=1794427013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrKa+VT265YSl+/JqzQSpxcCcwhP8N6auXFpJdA3IgM=;
-        b=oZn4cG0CinfQvGUlCb6H8CvmyuyDZFBkqUkrf/luK0pJXymr83DLUl3qPLmBoAU7/Z
-         t3yEvQBhJoF4wq9j3mC5Cn3fCSrsbNFYj/aiuY947fHfev0DgP0XrUp6Cf1fylJrX+YV
-         5MqQ/1cTbcqNB97WYJ6nUYrF4e3kwNhl6BUygDo3LXZO2an2ujDeWsNlqDNiUo2/yt8R
-         XxLzCgRoWIG0VPplnHU60CBIgMNCTxtNeKeqVs78B+T4pVOM8LrKwgpzEuUtdc9Lt4xQ
-         FHJHReWdrkMgg8ImRKB21ll+U4Wmi1n/PFf/C7GK2/KtWH3LeHU4ulj1Pm46YazxsaK+
-         knHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy8qKQqeE1WnQJWFTnN/waqSAgmkK26h0WfSha5zDquhsg+6aqcOphZ/D+Q7EgauHnWYIBSblnRDYnQfGU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OnVJzt6mGNxHtNdpB647CgLExW9K2HAuQZbeQsOwCEFLL30hu
-	3EdGDTEv8vvHDOR+YBFdb5Utqysmly3VG11dJAc0Sz/lnR/J4z58yejYNMEpUYjPy/+jzKYLwdU
-	I6N9O5w==
-X-Gm-Gg: AYBFou3yrH97g7EdZzFhvg+mWmdWRLzBT6XM9ArFW8LByH6EqBsEwJ9cPPU/4yfNxUd
-	KSKqMyh7MtcZ7Zeo9LPfgWNRVQku2SW4MYqjyAEHCNlQPVpZWW+tXv1UAQwey3UB6oXSzcRdmgW
-	uhBcBCCe15riLp3HTwvVFIoI48s8Q+tM+A1CNoOrxAsXFv1WeMNcR0Hhw2qMYMXW1VTmqOR2E5M
-	X5v4NoSH+ajri/WMuoLsR3AI0aEBm4MfXLznJjj21dwdBUEETE7B5UmerhLgeUjvZvJcmtn7npy
-	lX//2KJK99jFqTjJZJ+IUNu3cxwRegzsA5fuKrggxfqagfAYb8zExtSE1rRR8M2/MDMNGNaMzmW
-	Av/jEXyvHTwGk+HZnAfM/jgJtjV9fBmZvov/e9CSa00GsNONgrWjjLqLCXDMqCgKZJijRgA7qY1
-	bc3zgUspYCl2Uuy+JdjpXRpQXc1V1jMppq7xMZnkJUp/XWg4NkB9C3mEjexzf8l8MZaqNOPAbu3
-	kYg/SIXt0WxyN6Ft7VPupUjw4nVU+9UkhvssgBsRGCpAKnKJSE+/MgB4/4mxsVPQIHka1gaU8xs
-	BL+iy5Zo/QVTI1aVdblRqAFfBTXmSzLlY/Wn
-X-Received: by 2002:a05:693c:8806:10b0:369:f97f:72c1 with SMTP id 5a478bee46e88-36a4241bbd5mr26449643eec.36.1793822212586;
-        Wed, 04 Nov 2026 11:56:52 -0800 (PST)
-Received: from localhost.localdomain ([206.206.222.89])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fe477sm8703069eec.17.2026.11.04.11.56.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:56:51 -0800 (PST)
-From: Siddharth Mishra <smish149@asu.edu>
-To: Boris Burkov <boris@bur.io>
-Cc: dsterba@suse.com,
-	wqu@suse.com,
-	josef@toxicpanda.com,
-	fdmanana@suse.com,
-	mason@kernel.org,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] btrfs: tree-checker: reject inline refs not matching the extent type
-Date: Wed,  4 Nov 2026 12:56:49 -0700
-Message-ID: <20261104195649.2422485-1-smish149@asu.edu>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104192415.GD3301639@zen.localdomain>
-References: <20261104102323.4090290-1-smish149@asu.edu> <20261104102323.4090290-3-smish149@asu.edu> <20261104192415.GD3301639@zen.localdomain>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UG/CjC9R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0749A1F00A16;
+	Wed,  4 Nov 2026 19:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793822221;
+	bh=jhlUxShJ2PAnaFYEGZj/acNyvX4jU2/JMVjl8Ac9zMQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UG/CjC9Rkt2XWe4Y5CTT/ADBXwDaw3htLjr8y5+YgL1YecUa9PaFlx8A+yiHz1SJ8
+	 4p/C+A4TJyThvCbT9oVAs12xUwwZfi3gUSQHEi0+ktGxJApT9TgtkZ7MZMIQb0oT1t
+	 mimm0lfDVOWpZibb2krg3AKjfKsJ/2wyOhrIZ1/2EFinBMslTP/kS+IH84SFmYH5Eg
+	 VqKLbY/k2mFZzsyboc8nkysTN03ogqiKx7Z/2HJ+GsHFrCwFfcOgZMgTbzH7pQ/p84
+	 YjMYmkTsQU68yWG3aWhGtTSWVEK+TsxCMKzZUGUkncRJtgioqc9ZXJzF76qWCzLVHP
+	 f0H0qGfmOj7IQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 29/30] kernel/configs: let procfs copy out reads of /proc/config.gz
+Date: Wed,  4 Nov 2026 20:56:47 +0100
+Message-ID: <20261104-work-procfs-fs-v2-29-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,21 +114,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1297; i=brauner@kernel.org; h=from:subject:message-id; bh=IZ5Jauw3jeCJbbKJV7DoExBPgNJSSia5o6c0KJSA0oY=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97vHLN0r7IJLRr5y0OmX5Xu/U5sWZHm3lBfWGUlk7h XyrbJ52lLIwiHExyIopsji0m4TLLeep2GyUqQEzh5UJZAgDF6cATMRJnZHhUPftBdnFb3hflihK zLy5v/jL7fC/i5gnv7e8XrfJi+OXEyPDxuIwjmsNi4T7HnqwOKu6dClZ31A1+vC+ycV1bYfyKy1 OAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 11:24:15AM -0800, Boris Burkov wrote:
-> > 	item 9 key (30478336 METADATA_ITEM 0) itemoff 3636 itemsize 33
-> > 		refs 1 gen 13 flags TREE_BLOCK
-> > 		tree block skinny level 0
-> > 		(172 0x5) extent owner root 5
-> > 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> >
->
-> I assume this was crafted manually, not via btrfs operations with
-> squotas enabled, right?
+Implement ->proc_read_buf() so procfs copies what is read to userspace
+after it unpinned the entry. Unloading configs.ko then no longer waits
+for a reader that faults on its buffer. /proc/config.gz asks for
+PROC_ENTRY_FULL_READS so that reading all of it at once keeps working.
 
-Right, it is a corrupted image found by fuzzing. I did not find a way
-to get an owner ref on a tree block with normal operations, the kernel
-only adds owner refs to data extents.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ kernel/configs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Thanks for the review.
+diff --git a/kernel/configs.c b/kernel/configs.c
+index a28c79c5f713..05b12c440168 100644
+--- a/kernel/configs.c
++++ b/kernel/configs.c
+@@ -38,17 +38,18 @@ extern char kernel_config_data;
+ extern char kernel_config_data_end;
+ 
+ static ssize_t
+-ikconfig_read_current(struct file *file, char __user *buf,
++ikconfig_read_current(struct file *file, char *buf,
+ 		      size_t len, loff_t * offset)
+ {
+-	return simple_read_from_buffer(buf, len, offset,
++	return memory_read_from_buffer(buf, len, offset,
+ 				       &kernel_config_data,
+ 				       &kernel_config_data_end -
+ 				       &kernel_config_data);
+ }
+ 
+ static const struct proc_ops config_gz_proc_ops = {
+-	.proc_read	= ikconfig_read_current,
++	.proc_flags	= PROC_ENTRY_FULL_READS,
++	.proc_read_buf	= ikconfig_read_current,
+ 	.proc_lseek	= default_llseek,
+ };
+ 
+
+-- 
+2.53.0
+
