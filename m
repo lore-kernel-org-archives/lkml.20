@@ -1,89 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.101
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793810750;
-	b=eGCMXHWPB1mi9JTmdjycCwZ4JRASTUj+AhFstvWE+8vqnIGzdL6PcS9yrLAfWH+636fg
-	 Hl9wvXRm4mI22h6jKgn2crT1AQyUgG3S4170K8Zk0OKb9A39o78XV8JJa7BmhKq7AOGoY
-	 soEq9YzIqiRshja/YPjjDFHN7/SG54NIYw15vggNzQ6aJnnPLVZ13eQz1z2rXPpdyqdBB
-	 bGYSHloIdJmfklUPlSrZ95DpYlbHqPCPtY/ACwjxs6tIpYMs/q8b+i5XquSoe/Tiv5tOT
-	 gQKQ+7pRO1z3tixsqJ854csiKOaGmirhAcyisczKanFPt7Qbs0pWgeqMZMCl06O34ew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810750;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eca9dtOlyWnZT0AuDQHn5+abGsMQZ9bnIPw11JHNJfE=;
-	b=5Rewzd/9NTE5R6eEYOqUiGz0f37ePuT8fIpfU70RnQ1+3DyB2sG/CN5Z4KUMkHAs3/kl
-	 LYkfejYreWi9shBFVX/x8VVC0JG28/TPyvnReP03m78oj+OkhaEeG4vPbgTtSCz0A6dyR
-	 DgERCWeFNwKxNS9ju41kszL145Cj6vBsH9UFyO04xLpRKIduu7ES1HdyZRTnnmaj73+AW
-	 aG+Scn1jGxWXYv0AHVPrAKuSyq1SIx74wnwWIGtuCVZTlZ+hpZssGApOAS3/zlkOf3mKY
-	 e/wf59lUdTjSCqVMCjwQljajf5eecUh+dM17d7D1cxr6BlNrw5zZ1aELl0FH+lVn8eQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.101
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020101.outbound.protection.outlook.com [52.101.196.101])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793810758;
+	b=U/WBs/5Mcg0FXfOtHB98bvBoghhLk2glCK8F4PCHtJgSXbZoPO8qJCqQZvmzfhUijPLn
+	 F9GHIY6mis5nnPaDekqSVcbQFarFtXxELJ02xQFaGYpjC1pj4+Si6ImevvMunV8RFzNEo
+	 D+6LgzE8+zAT+9BQv6dr4LfuNr8l5hg59prszL0yiSk8I7r3n1XLOg5cAQPPvgkjzQhbE
+	 gUwCLvHPilHvtguCYymC2Eln6u26vY1Jdcz9dy4P1gHG8iNOyhePv14/Qc8HM8ry4heCZ
+	 5iPpSQz9bR10S8p9RrLLFbeiXOG3EM2IHe7OVFACRwacrlNFwCsbbRoQKHUG5osDQ7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810758;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=dMRlEbt6cHro/1IG77teEVtLiLDMtq9tpaJD/wmZeq8=;
+	b=z085NtBr3+35rc6SaFSxuLQOj4bB/Tf4DUkxcvZNex+VYZeb38UO95aW3HPh/bOFMXEx
+	 hghHePp+5/5njOHtS/BybsydQoO1x5pf6nDYCMnumBETWcdtQKzEGrQvV2wgqLbGD1XRB
+	 EwAwewM7lXqjJGjHLdWDAIRWg2SUVF3gxVFaEXqwYhOrCJ+wMaXiboxnt73cmRzgZYRlG
+	 p8bFNE4eSPpTvvnW0Ugt+eyeEVj3UMU1bBqbHEc8QutSrn+9cw6GlHUyehLUtpPFK5nOq
+	 q+iPL09rxg9b3DHTXZ53c4LmrQadgXpjik4DMj15nwTZpEjy4S90YQBI9maro1rCP1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvMQyH0f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C4A606A328;
-	Wed,  4 Nov 2026 16:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40C4A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DjY8kRyVtT2/S31R6n8WXJF++NLYIQLouxCGyEFP/dmnAU9roi5EBl5M0zwhnFdJX0YCnk8NfH+6Ky1Ajmj9qSEUgLGyWLYgwkPNpFP7IygGSRpHGroZnEF+PcYKR2hSVRsW57jjlGfkGkmnryrPAaT/kyi0ZE9L0VqhQEANhERKpOr7IKT7t//Qx4yuMddU1udkI7Wu9ArVznywv/sLzbv22OkESZomjkT8LDnDD1YnDNFHCwDfWjaltE4XcSBigQws+nj7A5P66W+7tlSugxRcFZxY5oBcA56cFgq3oPkss0pmM1Xt6i5Uhl85V7uMcQ30sppSuNlPyda0jrffaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=eca9dtOlyWnZT0AuDQHn5+abGsMQZ9bnIPw11JHNJfE=;
- b=PIaGIKEn4kKy5Hd2VxD8mJm0yPAjXhROO2YKJCUCHoQTI1Y1XRsxafFhLWx59D86Yrgmt3mq2THHj9nYoNo+CT/X1iXjZc24xEvFlWMGv/BCG77F/RGqahjcloO/ZsbZg4cOelFoTvOODq7dG6DE6A4RsG2p0Z8MxibyB7398eIfkL1AepsJZmAiy4zKOnQP2hc9McBB2HVqmVl9DCUkND08qVyRApkMBNarsbzc8lpVSmtM+pIs7mzPuwjfiUT+tT2gHEvEh1IY1VRJNUYWISlmpk9sR0L2/O9ouj6zgLl27bAxFXod7f/e0Bfy31uQ0Ojhse5qKkNCqc4UyOkoJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:163::8)
- by CWXP123MB3256.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:3d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 16:45:44 +0000
-Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- ([fe80::f71f:a9f:c4de:687a]) by LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- ([fe80::f71f:a9f:c4de:687a%5]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 16:45:43 +0000
-Date: Wed, 4 Nov 2026 11:45:39 -0500
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
-	irogers@google.com, adrian.hunter@intel.com, chjohnst@mail.com, neelx@suse.com, 
-	sean@ashe.io, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v12 05/10] perf ftrace: Support context
- switch tracking in function graph tracer
-Message-ID: <t4ylcavzix4ultomvslran24alsb3hd56oolwl3wbkpz5gqfbw@p5mirs5xguor>
-References: <20261026025735.546101-1-atomlin@atomlin.com>
- <20261026025735.546101-6-atomlin@atomlin.com>
- <auZlT1eIOjpTnqHZ@z2>
- <qavabkz2qznknyttzymkppwz64ho6hvqeooqn4ktsxpw5hq4t3@4jfxdhl6c2mu>
- <aurh_Uc9loXXZG0O@z2>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aurh_Uc9loXXZG0O@z2>
-X-ClientProxiedBy: BN9P223CA0012.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:408:10b::17) To LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:163::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BED5606D808;
+	Wed,  4 Nov 2026 16:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvMQyH0f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6296E1F00A16;
+	Wed,  4 Nov 2026 16:45:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793810758;
+	bh=dMRlEbt6cHro/1IG77teEVtLiLDMtq9tpaJD/wmZeq8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=IvMQyH0fvGLwwH3rDmeWMLfCLYAGdIbnCG7AOu8FUrXpcI70IKaVwu29p1G8lxanC
+	 qUOeAK2OnjpXBnv2US7vgM90DOjtp52wtMBTd3//9mHUWaamJQGkqBwlP2RBMYmki6
+	 jf1VFR4XDyT+sYFzB9eEt1mMGb/7sXTdpPJoeALrFdo6tMxCoSpD0MGcMLBSF5Oskg
+	 12jrVbegBjbo1u0Xoaa66/zOFOLBdGhyc6qv8S7xo6wIhvUCnvw91utT46e4QcgkAE
+	 sDhLQVOM9U5RvpQ1scMUIV3w11TSDzscUg76rCdIH+1RbNg98eZkKIso3/Sw7tl5Nb
+	 kLzFUfNWcGCug==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org,  linux-doc@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,
+  linux-mm@kvack.org,  Alexander Graf <graf@amazon.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Christian Brauner <brauner@kernel.org>,  David Hildenbrand
+ <david@kernel.org>,  Hugh Dickins <hughd@google.com>,  Jonathan Corbet
+ <corbet@lwn.net>,  "Liam R. Howlett" <liam@infradead.org>,  Lorenzo
+ Stoakes <ljs@kernel.org>,  Michal Hocko <mhocko@suse.com>,  Mike Rapoport
+ <rppt@kernel.org>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
+ Yadav <pratyush@kernel.org>,  Randy Dunlap <rdunlap@infradead.org>,
+  Samiullah Khawaja <skhawaja@google.com>,  Shuah Khan
+ <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
+  Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v3 08/10] mm/shmem_luo: Allow preserving tmpfs files
+ that are still linked
+In-Reply-To: <20261103010216.3447716-9-dmatlack@google.com> (David Matlack's
+	message of "Tue, 3 Nov 2026 01:02:14 +0000")
+References: <20261103010216.3447716-1-dmatlack@google.com>
+	<20261103010216.3447716-9-dmatlack@google.com>
+Date: Wed, 04 Nov 2026 17:45:53 +0100
+Message-ID: <2vxza4nok0ji.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,151 +72,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LO2P123MB4190:EE_|CWXP123MB3256:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a1c5375-1ee0-450e-4e37-08df3a93114e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003|4143699003|18002099003|22082099003|261102123227099003|6133799003|10067099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	RP84S4+AQuV7X5Ordc9g4wU/KUaN2M+2hJKayjNx03bS+2H0Bjihdy0v2KXHSXaF6z+9IwJpRcYB21W467ahwokHsoz5ZleL6a/ybVQYYStFU1sSuuUCgNZodorgsRnpDk2DB4JSaBi06lH+arc1Smo1NyXCUiyPi7YVdQFps0Igl6qllaE6nq7TsQOvadmZgaSfpQC/kheAxIukWoiY5fqY4ZdoMtaJlaTFXOatxBTal2YldEXtF/M6rd3NeF2dy+ti/qK7bqPVjQ2o5AdIZsVGo6C95IeqglAr83hpOb59zIvbi4GSJlO+larAYOnisaaH826Zp6OLrTyB+o9AA6nRZXpHytAdUmBGP1U9upfYlhP5v0qcrWuUObJ+J051VUZ/Sf9LC0UltD3tWyKMB6MaZkxRxex9GNJPrk40GQNkzONED7G0DFS+v2Fl2anBAFFcOBy9nBLd+cwa3Sj4umUjU/PLHc+Gts86B6QKPIEHDmSTU5CHdc6e7r1JZcwbiLK3mSE92zQr8LYTRlEauxktwq45Xt4dCBu/m11uYnuLGKuA/fBefkEcsSsy6BcKv8SARFLodWRKGJpmIC40lSiFokFXl52RCFKx7Rc1E4xkTY+pn8e1ie2Fl3ZNLnhgjbnGvoAs+BjV4EkNFkSgVh/lTaIj1n3G1kNpK/oSIpc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003)(4143699003)(18002099003)(22082099003)(261102123227099003)(6133799003)(10067099003)(56012099006)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QzFlZlNXVWsvV2tJVkJ6QzJRYURsdVp0OHVGK3NBaUJLOSsxcGNJUXFPWTRp?=
- =?utf-8?B?NHhva0dEb1Fnc1JDL3ZSN3FobWlGOXJLVCtPZDY2VEhLTUFNODlqeHpqZ2Ja?=
- =?utf-8?B?bWdoM1VxQmhqWjhkRHg3L3FKOTh6clJmU2gyQmE1UlB3ekRlMklqT3UwQjhJ?=
- =?utf-8?B?VlgzVFA4TFo0S0tpSHpUUi9FcWV5RzhLblREbDlybVJXbVFXRWdxUUVvS24w?=
- =?utf-8?B?QVFBVUk0Z0FQUXRBTjZvYVJWRURKZDNKczBMQkl3ZlFaVlZGdUdGT1BNZ1ZQ?=
- =?utf-8?B?d0JCMS8zU0NaUGxDaW85OWxIQzVyMys0UmtDMHVYbzRCZ3Rpdm1UOGp0dFdn?=
- =?utf-8?B?UzJKbC91c2lmdXBUZ0g4NzZJc1c1K2RVam93bmlBTWRManU3ZjYrUWt4TzJl?=
- =?utf-8?B?ckNJbEFDNWJlQ3FtbkM2RU04VEM4SFhTaHkzS1BuSVZOTWppTWRuZURzd1g3?=
- =?utf-8?B?UmRiM1BESFlqUnlJVkQrYjI2U3g5Q0dVQmMxcDdTQ3FnQmprcUR4N1hGS2Y5?=
- =?utf-8?B?TWVYVEJLQ0ZSZ0h3UER5ZVBWVGprNWNrYXc5d0VLczFOUlVFYkVKRDVaU0Qr?=
- =?utf-8?B?ZndsdHBmeXl3TTNlb25tNXpKVGJlN3dkVnU2eE1wVTVYMTZFMnJqZ2JzRzJs?=
- =?utf-8?B?WEdLUUZqVnVwSlh3bk9tUGJydjBqTmxpT3ZvS2pmbmJSZEdYc0g3bU9DaXUx?=
- =?utf-8?B?N1AybDMzQzBxOFpQNXFUQlZidi9zL0VwMUtHVTVqcVZzallVM09yV3dSMFhz?=
- =?utf-8?B?M0dLS2MyYzBITWkyU1BrZ3F3WW00QnZnZk9qUmFHSHdlOHdLNmJjeWNqUDhZ?=
- =?utf-8?B?QzIvaXpDUmt0ZExLb1BvaWRaVW1NSEoyRXRrNG9qUGhSVEdGODF1SS8wU0FB?=
- =?utf-8?B?NjNOc2pKcllZbHdvK0FuNGR2VFpGWGNudlY0b3ZpdFlkcEhsaitISUMya2Np?=
- =?utf-8?B?T1R1SENlazFRRWZzZE5HS2NyeC9lcGh2NWlwOFdJeG9IYXBSdC9BSWxkN0ox?=
- =?utf-8?B?eXM0NG1wajJEeTZNWkZjTXJTSEV2dnpoL2hmQjcxSWhrRVpXSkFsSjhOc2Ju?=
- =?utf-8?B?UnJSNDJldVNlSEdwenhLd3B6YkZ4ZnYwTmRBdVYwZjEzeHdmajJ1c3ZYemV3?=
- =?utf-8?B?NTAvRzlSdy9mYk15aXJka0RqZ1BLSE9mTEY3VzFwVkFyU1ZoR2Q3YUNjSVFJ?=
- =?utf-8?B?aWdGNisvUFNBSStGUTg2TnBaYVYyZWYzTkp5Y3BKR2xaWUYrRUI1ZFlubmhl?=
- =?utf-8?B?TlhDT2xrYVVQMVA1ZmhwMFRBYjN5cWhJL2g1VWg5V2paakZoQzEySk9tdzFv?=
- =?utf-8?B?d3dpNU10NThVMlJJUDB0S2FpOXFQTHhrL1lPdC9vWjYvK0hrdXVkSjh1YWpU?=
- =?utf-8?B?NThueXRzaDJsSzNhRlB6RXdBZllwZHkwVGhEcHNndHowTTZWVnJoblJnRStP?=
- =?utf-8?B?MnJ0ZVlHVjlseU9pd255dHN3UGhvVzZPWlhhOVdMV252ZDJCNkhrRW1Ca3oy?=
- =?utf-8?B?Z1ZwYTJOZ2FINzJLN2JyZTdURFFoTXlyOWVDSFpSdnJUYU9VZWJ4NnhBRGQ0?=
- =?utf-8?B?OHdPOHA1NkV4UWIyWFhkTnZwdytxUEhNcjJQbnRvNXJ0anI1cGhmSXpiZmtm?=
- =?utf-8?B?OHRsTjB1aHpRSFlkWFhWNkd6b0hRZytsVWtLckhEOTFINGdBMmxUU1dleHVa?=
- =?utf-8?B?N1JTSXVSR1Y4RUNMd1cwMDFWK0VybmFDWWNJMU9jbHV5d3pMelBEekNkWkc2?=
- =?utf-8?B?SmJOK1dSa0dTNDhpekxpSW9COGlza0QzNCtSQmd3UzlVNDdKcGp1RTluTTBq?=
- =?utf-8?B?YnpuaHlLVW5hWEdGWmZZb2tEc3pUL3V3QVdGOGJJZXNqdWlvay9uNlN1Ykla?=
- =?utf-8?B?cnd1NmZLNnk1cEZuYTRCZnRVMnVGWk1HYXNBRGpVQkxsOEQ2VmZ6dVAxaWtz?=
- =?utf-8?B?WkdtUkloOC9NWHV1QkFVenpzcmRac3N3UENwY2JocE8xYjEvOVd2SngwQnBs?=
- =?utf-8?B?bWR2RUZZOXpjbjVuWlJ6a3lYb0tBWmJ6Nm5oSVJobitwR3VYV2pRR1pQQXdF?=
- =?utf-8?B?RmtvSUdYOE9OTjFkRlNrV0xyazFpRlFSQ21UWFkvUE5xMnpFaDROczcva1RK?=
- =?utf-8?B?NTlYRGhBUG9QZ3F5T3JvZXVzSW0xa0Q5V0lITFFKaTRiMVdwTE5LQnZlL2Iw?=
- =?utf-8?B?c0NRbEtUMERVWVRUdElaWW1QdzQ3RGR0SGRtWTdpSGhZZmpMeHh0em1YbVEw?=
- =?utf-8?B?c1JSTkR5MkU3SGM3eWd6NTBPN0FwYWtQd3BxYlZlZllNV3ZMeTdtWjk0UzRN?=
- =?utf-8?B?MS8wTDN0TWFEMEFva0Rqc2dCUFQxYUw4VFF3V2RyVnFCOXpqd2JLdz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a1c5375-1ee0-450e-4e37-08df3a93114e
-X-MS-Exchange-CrossTenant-AuthSource: LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:45:43.7983
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vQ/gjhGsLtPmOwOwKfJO+WnlDhamNQDnSWC5m+LWHV0A7rJhK2U6WuxmMexWD9HOAjGBPjKR1ImlOrHjieCpKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB3256
+Content-Type: text/plain
 
-On Tue, Nov 03, 2026 at 11:42:53PM -0800, Namhyung Kim wrote:
-> On Sun, Nov 01, 2026 at 07:04:17PM -0500, Aaron Tomlin wrote:
-> > On Sat, Oct 31, 2026 at 03:01:51PM -0700, Namhyung Kim wrote:
-> > > On Sun, Oct 25, 2026 at 10:57:30PM -0400, Aaron Tomlin wrote:
-> [SNIP]
-> > > > +
-> > > > +		/*
-> > > > +		 * Prune frames on existing and ts that exited during subsequent
-> > > > +		 * execution recorded on the other state.
-> > > > +		 */
-> > > > +		ftrace_task_state__prune_stack(existing, ts);
-> > > > +		ftrace_task_state__prune_stack(ts, existing);
-> > > 
-> > > I'm not sure about this.  In this context, it knows the 'ts' is uptodate
-> > > and the 'existing' contains the old state.  Does it need to prune the ts
-> > > using the existing?
-> > > 
-> > > IIUC this code assumes either ts or existing may have uptodate state
-> > > like in general cases but it would make the code unnecessarily longer.
-> > 
-> > The reason this handled both directions is due to how trace_pipe merges
-> > per-CPU buffers when a task starts on CPU 0 (unidentified, tracked in ts
-> > under FTRACE_UNKNOWN_PID(0)) and migrates to CPU 1:
-> > 
-> >     1.  Task X starts on CPU 0 before any context switch banner is seen on
-> >         CPU 0, so its initial frames are recorded in ts.
-> > 
-> >     2.  Task X migrates to CPU 1. If CPU 1's incoming banner ("1) idle =>
-> >         X") and subsequent function exits are read from trace_pipe before
-> >         CPU 0's outgoing banner ("0) X => idle") is flushed, existing is
-> >         created on CPU 1 first and actually holds the newer state, while
-> >         ts holds the older pre-migration frames from CPU 0.
-> > 
-> >     3.  Conversely, if Task X was already known on CPU 1 (existing) and
-> >         migrated to an unbannered CPU 0 (ts), then ts holds the newer state
-> >         and existing holds the older state.
-> 
-> IIRC we use the global trace pipe so I expect its output in time order.
-> How can it see CPU 1's sched switch before the CPU 0's?  Maybe some time
-> drifts on each CPU?  Anyway, if that happens in practice, yeah then we
-> can check in both directions.
+Hi David,
 
-Hi Namhyung,
+On Tue, Nov 03 2026, David Matlack wrote:
 
-Yes, global trace_pipe is in timestamp order.
+> Allow preserving tmpfs files that are still linked. To preserve any
+> file, require permission to write to it and the file to be opened for
+> reading, and reject append-only files.
+>
+> shmem_luo already accepts any shmem file without links, which includes
+> unlinked tmpfs files and files created with O_TMPFILE. Accepting linked
+> files means that userspace doesn't have to unlink files to preserve them
+> and can keep using them by path until the live update.
 
-The reason is that function_graph does not emit context-switch banners at
-the time of sched_switch; instead, verif_pid() in
-kernel/trace/trace_functions_graph.c emits "CPU) prev => next" lazily only
-when the next traced function entry/return event is formatted on that CPU.
+No, no. As I wrote in the previous patch too, this is a *bug*, and not
+"supported". Please don't treat it as such. Tell your LLM to also not
+treat it as such ;-)
 
-So if Task X runs traced functions on CPU 0 (i.e. where prev_pid was -1, no
-banner was printed yet) and then schedules out on CPU 0 to an untraced task
-(e.g. under -T|-G filters or idle) before migrating to CPU 1:
+This patch doesn't do "Allow preserving tmpfs files that are still
+linked", it does "Allow preserving tmpfs files".
 
-    - CPU 0 emits no fgraph events while the untraced task runs, so CPU 0's
-      "0) X => ..." banner is not emitted yet
+>
+> The path of the file isn't preserved. Like other files from tmpfs
+> mounts, a linked file is retrieved onto a tmpfs mount chosen by
+> userspace, which can then link it at the path it wants.
+>
+> While a file is preserved, its size is frozen, so truncating it,
+> fallocate() and writes past its end fail with -EPERM. For a linked file,
+> this affects everyone who opens the file by its path, so a caller that
+> can only read the file, e.g. a world-readable file in /dev/shm, could
+> use it to break the owner of the file. So require permission to write to
+> the file to preserve it, for all files. Like FS_IOC_ENABLE_VERITY, don't
 
-    - Task X immediately hits traced functions on CPU 1, which triggers
-      verif_pid() on CPU 1 and emits "1) ... => X" (and subsequent exits)
-      at an earlier timestamp
+That makes sense, but can you do it for memfd as well please, as a
+preparatory patch?
 
-    - Only later, when a task on CPU 0 next hits a traced function, does
-      verif_pid() on CPU 0 emit "0) X => ..."
+> require a file opened for writing, so that binaries that are being
+> executed can still be preserved through read-only fds. Also don't
+> require a writable mount, since preserving a file doesn't write to the
+> filesystem. If the size of the file can't change anyway, because it is
+> immutable or on a read-only superblock, also let its owner preserve it.
+> Don't let others do that, since the size could change again once the
+> file is made writable. Like FS_IOC_ENABLE_VERITY, reject append-only
+> files, since their writers can only append to them, and freezing their
+> size would stop all appends.
+>
+> Also like FS_IOC_ENABLE_VERITY, require the file to be opened for
+> reading. The retrieved file can be read, so otherwise a caller that can
+> only write to a file could preserve it to read its contents.
 
+I've stopped reading it by this point. Sounds too LLM-ey. Please try
+to make this easier to read for humans.
 
-> > That said, I agree that maintaining a dynamic per-task watermarks[] array
-> > for arbitrary multi-hop migrations before the first banner is superfluous.
-> > Replacing the dynamic watermarks array with a single scalar minimum-indent
-> > watermark on struct ftrace_task_state makes this much simpler and removes
-> > ftrace_task_state__record_indent(), ftrace_task_state__min_indent_after(),
-> > and the watermark merge loop in ftrace_task_state__rekey().
-> 
-> Sounds good, thanks!
+For example, why are we even talking about FS_IOC_ENABLE_VERITY? I
+reckon you have it in your chat as an example to draw design from, but
+then LLMs have a tendency to leak those information in patch logs. I
+usually spawn a subagent with clean context and a high level description
+of the goal to review the changes and changelogs, to clean up these
+things, and then of course review everything manually.
 
-Acknowledged!
+Same thing in your comments.
 
-Please ignore my v13. Sashiko found additional valid concerns which I need
-to address first.
+Please clean them up.
 
+>
+> Preserving a file also fills its holes, but don't require any permission
+> for that. Anyone who can read a tmpfs file can already fill its holes by
+> faulting them in through a read-only mapping, also on read-only mounts
+> and for immutable files.
+>
+> Document the frozen size and the permission requirements.
+>
+> Signed-off-by: David Matlack <dmatlack@google.com>
+> ---
+>  mm/shmem_luo.c | 67 +++++++++++++++++++++++++++++++++++++++++++++++---
+>  1 file changed, 64 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/shmem_luo.c b/mm/shmem_luo.c
+> index ecbeb37d33a8..0c012f242fc5 100644
+> --- a/mm/shmem_luo.c
+> +++ b/mm/shmem_luo.c
+> @@ -28,6 +28,24 @@
+>   * the file are preserved. All others are reset to default. The preserved
+>   * properties are described below.
+>   *
+> + * A tmpfs file can be preserved even if it is linked, but its path is not
+> + * preserved. Userspace chooses where to put the file when retrieving it, as
+> + * described in "Retrieving Tmpfs Files" below.
+> + *
+> + * Preserving a file requires it to be opened for reading, since the retrieved
+> + * file can be read. It also requires permission to write to the file, since
+> + * preserving it affects all of its users, as described below. But the file
+> + * doesn't need to be opened for writing. For example, a binary that is being
+> + * executed can be preserved through a read-only file descriptor. The owner of
 
-Thank you,
+Why are you talking about preserving binaries being executed? Seems
+oddly specific. I didn't know that was a use case we cared about.
+
+> + * a file whose size can't change anyway, because it is immutable or on a
+> + * read-only superblock, may also preserve it. The file can be preserved
+> + * through a read-only mount. Append-only files can't be preserved.
+> + *
+> + * While a file is preserved, its size can't change and no holes can be punched
+> + * into it. Truncating the file, ``fallocate()`` and writes past the end of the
+> + * file fail with ``-EPERM``. This applies to all users of the file, including
+> + * users that open it by its path.
+> + *
+>   * .. note::
+>   *    The LUO API is not stabilized yet, so the preserved properties of a memfd
+>   *    or tmpfs file are also not stable and are subject to backwards
+> @@ -298,6 +316,45 @@ static void shmem_luo_unpreserve_folios(struct kho_vmalloc *kho_vmalloc,
+>  	vfree(folios_ser);
+>  }
+>  
+> +/*
+> + * Check whether the caller may preserve @file. The retrieved file can be read,
+> + * so require @file to be opened for reading, like FS_IOC_ENABLE_VERITY does.
+> + *
+> + * Preserving the file freezes its size until it is unpreserved, for all users
+> + * of the file, so require permission to write to the file. Like
+> + * FS_IOC_ENABLE_VERITY, don't require a file opened for writing, so that e.g.
+> + * a binary that is being executed can be preserved. Also don't require a
+> + * writable mount, since preserving the file doesn't write to the filesystem.
+> + * If the size of the file can't change anyway, because it is on a read-only
+> + * superblock or immutable, its owner may also preserve it. The size could only
+> + * change again after the file is made writable, which is up to the owner or
+> + * root. Reject append-only files: Their writers can only append to them, and
+> + * freezing the size would stop all appends.
+> + *
+> + * Preserving the file also fills its holes, but that doesn't need any more
+> + * permission: Anyone who can read the file can fill its holes by faulting
+> + * them in through a read-only mapping.
+
+Please rework this whole block, it's unreadable.
+
+> + */
+> +static int shmem_luo_may_preserve(struct file *file)
+> +{
+> +	struct mnt_idmap *idmap = file_mnt_idmap(file);
+> +	struct inode *inode = file_inode(file);
+> +	int err;
+> +
+> +	if (!(file->f_mode & FMODE_READ))
+> +		return -EBADF;
+> +
+> +	if (IS_APPEND(inode))
+> +		return -EPERM;
+> +
+> +	err = inode_permission(idmap, inode, MAY_WRITE);
+> +	if (err && (sb_rdonly(inode->i_sb) || IS_IMMUTABLE(inode)) &&
+> +	    inode_owner_or_capable(idmap, inode))
+
+Nit: can you move these conditions up, and directly return 0 there? Much
+more readable.
+
+> +		return 0;
+> +
+> +	return err;
+> +}
+> +
+>  static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
+>  {
+>  	struct inode *inode = file_inode(args->file);
+> @@ -307,6 +364,11 @@ static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
+>  	int err = 0, seals;
+>  
+>  	inode_lock(inode);
+> +
+> +	err = shmem_luo_may_preserve(args->file);
+> +	if (err)
+> +		goto err_unlock_inode;
+> +
+>  	shmem_freeze(inode, true);
+>  
+>  	/* Allocate the main serialization structure in preserved memory */
+> @@ -362,6 +424,7 @@ static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
+>  	kho_unpreserve_free(ser);
+>  err_unlock:
+>  	shmem_freeze(inode, false);
+> +err_unlock_inode:
+>  	inode_unlock(inode);
+>  	return err;
+>  }
+> @@ -710,9 +773,7 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
+>  static bool shmem_luo_can_preserve(struct liveupdate_file_handler *handler,
+>  				   struct file *file)
+>  {
+> -	struct inode *inode = file_inode(file);
+> -
+> -	return shmem_file(file) && !inode->i_nlink;
+> +	return shmem_file(file);
+>  }
+>  
+>  static unsigned long shmem_luo_get_id(struct file *file)
+
 -- 
-Aaron Tomlin
+Regards,
+Pratyush Yadav
