@@ -1,66 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.191
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763645;
-	b=PZw+KDHCVRBlYbwxBtVlEjOUxItVs/otpHdyKBFXtcqOnrCSbfH3lGb2qgKlkjsg/qEO
-	 sIzM01gmLU8vTBTVO+YBuiNamUQcwV8YvRDD7r6jneMmfY2xzolkhs4Wei6D96wTcjDBc
-	 HAu0W8tkYKQFKDXefatRIz9cmJV9wHmCIRI1tEdMhJioNPXB4MeCqzef9s2mw9uoQN1kp
-	 q55krYlQCzfTSSMOFevWeG5MSKCr/t7goaN+Wi5ZxkAtOsll8pQJ541v9CX1qrAHDW3XT
-	 DcqPzyApToOXFF/bbnh4ZRhxGRjRjuquXJNbLJR2Xx4sqkwxhX9nVutXFTFvxI7/jzA==
+	t=1793763656;
+	b=H3iyPBUjxdf1o0ziwsMyT35bsc8uSmpyz95eII/WA6sUNQGStj2gd4V6jaSV2sHt7k+C
+	 cfaurVaxti7llHIk/6zZZEZ+OV37coB5m8B9VhJ73F+j72dtjpMl2n0yqbsmSOIba5beq
+	 m6YC7oW2l2VLuSxZstnrSalIgtcwnuOrKLBImtO0BhJ+MdBA9anqBXdq68i3gF/djncMH
+	 mPNCDL9M2whbJ9svaX5wFDcgZ+elRRCOyb0b6ADHdD6dz7mp2Dndmx+AfefsUwiIqg8bi
+	 IdvtKojAr+3tMVyc0YYKixmBs+UZ2WilPzlG9ISTn4IIUUHQHzcu55MNPAgobkm0rsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763645;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=KMGUUx+abGZBetvPn2ZZRhu/i7K4XgWYOdWg5RHIoQ4=;
-	b=VbblUE8jfJWLuGU790BAzTX0mW28BUQngBna9Pc1wozcLoE9LprdILVdflf67Gb5yAAR
-	 gMeIgutE0mVWFhgYrLOzHviVWuJxFh/VdayhsegDnFDY+Uuq5mywPEuMWvdQ2pCNDrTC3
-	 QDTxjMYD2bRVo1JocCXT38PysOos4HktOlVZ4vO2Rc48O5wQtNWKQA5Ft/vIrmWpBpK2g
-	 ZbIaPEipeZveDkQ3MnlSaySolwWaSWq4141f2FZRiQS5B/QkuUgchJBbd6lB6kCSmnZWC
-	 qv7s7heCyd3TbWNrx7TzA/8A8bK6fudTvoP77/bnMarjoBvz6dAb5pv3wnQSOwQCEPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763656;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=XrTiHBjWqhtdr6KbbaJ8xLQ2Sig+fOe3Yn5/6f4R/3U=;
+	b=ybWIcW6A39fJyiuqBdqFZCIQLq9YPbZg3+Py1IXiMiedCMKWdgH9AC8jO++4JViH2aHI
+	 uB0iSoGutoFC5zonyFInWscOah4dXBXZXx1PnZ904TWtdj3ViZzwEww+8nzVJOr9Foiro
+	 tr/w3o5IbPMLIok7ZI65gvGN8pNj/qbcMNtipF4G/cWetVR0jDi4KPQwuv3g925Azu2iS
+	 IYI5E2Dm30lDXlFpO87fZ/vDoB5t4Bpgf234NF3fJQt3o4u3BU66G3kcICLAeDHyJDLqq
+	 QXrJenUVTSGtjeMHunUn3nHQeoneeaY306tFXDjmwBiJb7UCMPlorvqjmQlf2mBCvdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XQ9cNjmi;
-	arc=none smtp.remote-ip=91.218.175.191
-Received: from mta0.migadu.com (out-191.mta0.migadu.com [91.218.175.191])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x7JNLGhh;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B867606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:40:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B867606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90CA606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:40:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C90CA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XQ9cNjmi
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d8q17nt4gg/LWrH+2wR20CZaKMdkDabFkr/xqhI7JQs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793763641; v=1; x=1794368441;
- b=XQ9cNjmiGU/DsNIKUYYj/MArk9+xgeMzGT2vm5U7uybRliZdXKzNflhnKLa2mXy72EukaTBu
- NY95EaqnnDTFwGPUzyYq0Ol0tfl6HmciM2i4HqpAkDzQD5wfTyA+w0/3G645RCv5qQ1iyU4mbS1
- jqhkefo3y3bdT3zA1xQrsgBY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 04e1281942ca9720;
-	Wed, 04 Nov 2026 03:40:35 +0000
-X-Mizu-Trace-ID: 04e1281942ca9720
-X-Migadu-Flow: FLOW_OUT
-From: "Luiz Capitulino (Red Hat)" <luiz.capitulino@linux.dev>
-To: maddy@linux.ibm.com,
-	npiggin@gmail.com,
-	linuxppc-dev@lists.ozlabs.org
-Cc: mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] powerpc/watchdog: disable watchdog when watchdog_thresh=0
-Date: Tue,  3 Nov 2026 22:40:18 -0500
-Message-ID: <20261104034018.2676750-1-luiz.capitulino@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x7JNLGhh
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso368195eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:40:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793763655; x=1794368455; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XrTiHBjWqhtdr6KbbaJ8xLQ2Sig+fOe3Yn5/6f4R/3U=;
+        b=x7JNLGhh9ftIwWOAyLHBIpDKiKqV609DM4CdWkkSL5nD41aLF2vzsOaqkExa9da7E/
+         P2P2AWaFr2pS8ptUb5cxsFYG+fnuMxpk12R2BYmipait8p2AwDHOUUuD1+uITJRhHh1T
+         xOrVMNxyMxEOp7lV3X1ipVWpWko8AbXIO0zf78PO9HveuVso5o8ef8FKEQhptMiNYCF4
+         ai4RTzMSRRs68XMCQgMyYF5ey4/Aj3sgM6WyDovaN17w4sp9BBPJW4I/UpJVtXmBRiNV
+         Vpqo141j5AX0PJfXNcWcz+Dt9nGk8v6aVUUT6a9z2jwankuOwsJEjGsH670pcQFOwXMF
+         RJQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793763655; x=1794368455;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XrTiHBjWqhtdr6KbbaJ8xLQ2Sig+fOe3Yn5/6f4R/3U=;
+        b=zNFxrCEz8H6dOzRbWZjvg/fBk+VvYXLUx86ckuUsNiLrC+60IG8SC22ZrnOfw7tlt1
+         jpM0mQSRPVRQ3g9eP8JrdojuegFNuTVbYKaT2csB6w69hHu/gk2C1sioWx1QkJkodXJ3
+         aLsbS5C3VcJSwZoIUGqDgXiu5aQAnmM1nyKJxQp9L8FhQJWvv4iyMFtW+Aajk3loVFf9
+         CR5D/zdOfj1MkwQyEUcn+PGataNSgBO3gTNQBCjAlTAMK0eIgZqPWHTxstvVpCQzsk+A
+         BEue1QLjSnLxdV1uADgRh/7GroY7U4W1f4CJyl6cTsVScHGo505HtkgDDfWKb1tGMah7
+         mWuA==
+X-Forwarded-Encrypted: i=1; AKwUvByMZhdakN5GDBSRRffuJ/jnsUolvn7sICH7a4LHt0E4HSuwsI3JciQuxGjsM3/AWzCxlNj5vQDViGVLcCc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VnJWJcu5g8tFR7JnOZUBoMUl3jgF6hYmLzeeuBF0mUymhCB3f
+	E9TtCeHoveT6TJQLMbTnlCaNNFnEdbPFfHLLgJUHAx9B3sN0Z0k3O7vL
+X-Gm-Gg: AYBFou3ns33oFZQ9/eGAhDHRzPaRbs0t9CBY/gxqgmHAiMgkdI5j8r6BFJhTScsi31+
+	oJz1m6gcVx+DFRCVVt1BtSUdTpNvjH3Z6SK0KO99nZHMmpf3/Xiaa7y+VcxLWYU7cvAVlC9D2Yr
+	qyuyk2QJHGjLrMkTvJd1sP/JD/nkXRk4IBjmXbFMdc6+cmBSQj0oCeg4w+6pkZKMctpS5nrub1f
+	RchjwbxS4PkTKcD1BAbHB4dDlMqEko+Dl1st+cjhU0KdFLC4VfxTBZvP2CQmmsP1b7379m4zpSd
+	7/6K1oyMvWm21LnaWSw8euZO6fQqGHgF/7Cedh9AUFAu3gazAtDkzReXUrSpfDmmeQW01McbsAA
+	4w74YUUNI5E3Qd+Xs9CGAr0zpEAD/zYnvlEJ9uUM1EKmxuoQkQ4hxf19VKlvYFaE34/+BtxOswJ
+	dgjPetXgaYMH3NwAplAJuUIIiysHBcKrJTNiNeWG4tK8uUeOKOLt9uIzg1sQ55MHcNCdoSJk/cD
+	woshC2RQsczRE18F56UCvUTGO47Rb/69vhs31IB56TwI6cpYpJZm1TCAQE5uinVu0bGzNmfDlDD
+	z1UvgKP4iSo3cOV7K7VGRNgsTSfwXm1LY1wdVkTntEiPX1uLqQfDghREvJe/QR2loKpap9WOTB5
+	v5pQJXqPHxQvzvha3Q9oOWrmf8ez1nAv6HMcl2A==
+X-Received: by 2002:a05:693c:6316:b0:36c:a42d:9bc9 with SMTP id 5a478bee46e88-36ca42dbf31mr1612630eec.25.1793763654739;
+        Tue, 03 Nov 2026 19:40:54 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3784f78sm3528508eec.2.2026.11.03.19.40.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:40:54 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Tue, 03 Nov 2026 19:40:35 -0800
+Subject: [PATCH v2 7/7] gpiolib: use bitmap_zalloc() for fastpath bitmaps
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,93 +92,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-b4-gpiolib-free-v2-7-ea46767c9cf8@gmail.com>
+References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
+In-Reply-To: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>, 
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.17-dev-e56a4
 
-On powerpc, trying to disable the hardlockup detector with:
+Currently, struct gpio_array embeds invert_mask[] as a flexible array
+member, and gpio_descs_alloc() allocates the descriptor array,
+struct gpio_array, and all three fastpath bitmaps in a single kzalloc()
+call using manual BITS_TO_LONGS() calculations and pointer arithmetic.
+This exposes gpiolib to the underlying unsigned long representation
+used by bitmaps rather than respecting the bitmap abstraction.
 
- # echo 0 > /proc/sys/kernel/watchdog_thresh
+Convert invert_mask in struct gpio_array to a pointer and allocate each
+of the three fastpath bitmaps individually via bitmap_zalloc(), freeing
+them via bitmap_free() on fastpath cancellation and array disposal.
 
-causes an immediate and endless hardlockup detection, eventually leading
-to an unusable system (splat example below). This happens because
-watchdog_calc_timeouts() sets wd_timer_period_ms, wd_panic_timeout_tb
-and wd_smp_panic_timeout_tb to zero, but start_watchdog() still starts
-the timer (with expiry=0) in this code path:
+Although this adds three slab allocations when the fastpath is active,
+packing all three masks into a single bitmap_zalloc() call would still
+require rounding the bit count up to BITS_PER_LONG and slicing the
+buffer with unsigned long pointer arithmetic, adding a second
+allocation and extra free paths without achieving bitmap API
+abstraction.
 
-proc_watchdog_thresh()
-  proc_watchdog_update()
-    __lockup_detector_reconfigure()
-      watchdog_hardlockup_start()
-        start_watchdog_on_cpu()
-          start_watchdog()
-            hrtimer_start() /* wd_timer_period_ms=0 */
-
-However, according to Documentation/admin-guide/sysctl/kernel.rst,
-setting watchdog_thresh=0 should disable both the soft and hard lockup
-detectors.
-
-This condition is already checked in __lockup_detector_reconfigure() for
-the soft lockup detector and the arch-independent hardlockup detector,
-what's missing is powerpc performing the same check in start_watchdog().
-
-[  278.110085] watchdog: CPU 0 detected hard LOCKUP on other CPUs 1
-[  278.110086] watchdog: CPU 1 became unstuck TB:33050716089564575
-[  278.110097] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Kdump: loaded Tainted: G            E       7.4.0-rc1 #1 PREEMPT(full)
-[  278.110103] watchdog: CPU 0 TB:33050716089564185, last SMP heartbeat TB:33050716089563885 (0ms ago)
-[  278.110109] Tainted: [E]=UNSIGNED_MODULE
-[  278.110126] Hardware name: IBM,8375-42A POWER9 (architected) 0x4e0202 0xf000005 of:IBM,FW940.00 (VL940_027) hv:phyp pSeries
-[  278.110136] NIP:  c0000000001bd518 LR: c0000000014dedf8 CTR: 0000000000000000
-[  278.110145] REGS: c000000004b17a80 TRAP: 0900   Tainted: G            E        (7.4.0-rc1)
-[  278.110155] MSR:  800000000280b033 <SF,VEC,VSX,EE,FP,ME,IR,DR,RI,LE>  CR: 22000224  XER: 20040004
-[  278.110189] CFAR: 0000000000000000 IRQMASK: 0
-GPR00: 0000000000000000 c000000004b17d20 c000000001c38100 0000000000000000
-GPR04: 000000000000ffff 0000000000000000 0000000000000000 0000000000000000
-GPR08: 0000000000000000 0000000000000080 0000000000000080 ffffffffffffffff
-GPR12: 0000000000000000 c000000017fff300 0000000000000000 000000002ef3d820
-GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000
-GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000001
-GPR24: 0000000000000001 00000040c0a6075e 0000000000000000 0000000000000001
-GPR28: c0000001fdb5b140 0000000000000001 c000000002291968 c000000002291970
-[  278.110306] NIP [c0000000001bd518] plpar_hcall_norets_notrace+0x18/0x2c
-[  278.110319] LR [c0000000014dedf8] check_and_cede_processor+0x48/0x60
-[  278.110333] Call Trace:
-[  278.110338] [c000000004b17d20] [c000000004b17dd0] 0xc000000004b17dd0 (unreliable)
-[  278.110354] [c000000004b17d80] [c0000000014df020] shared_cede_loop+0x70/0x170
-[  278.110367] [c000000004b17dc0] [c0000000014de460] cpuidle_enter_state+0x2f0/0x748
-[  278.110381] [c000000004b17e70] [c000000000fe43b8] cpuidle_enter+0x48/0x70
-[  278.110397] [c000000004b17eb0] [c0000000002cdcf8] call_cpuidle+0x48/0x90
-[  278.110409] [c000000004b17ed0] [c0000000002d6300] cpuidle_idle_call+0x160/0x2d0
-[  278.110422] [c000000004b17f20] [c0000000002d6578] do_idle+0x108/0x1f0
-[  278.110434] [c000000004b17f60] [c0000000002d6938] cpu_startup_entry+0x48/0x50
-[  278.110446] [c000000004b17f90] [c0000000000615c0] start_secondary+0x290/0x2a0
-[  278.110459] [c000000004b17fe0] [c00000000000e258] start_secondary_prolog+0x10/0x14
-
-Fixes: 2104180a5369 ("powerpc/64s: implement arch-specific hardlockup watchdog")
-Cc: stable@vger.kernel.org
-Signed-off-by: Luiz Capitulino (Red Hat) <luiz.capitulino@linux.dev>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-Notes:
-- This issue was not discovered by AI. We have a new test-case in our CI that
-  sets watchdog_thresh=0, when running on powerpc we get the described issue
-- This issue was initially reproduced on Power10, but I developed the fix
-  on Power9 (which is what I have access now)
+ drivers/gpio/gpiolib.c | 47 +++++++++++++++++++++++++++++++++++++----------
+ drivers/gpio/gpiolib.h |  2 +-
+ 2 files changed, 38 insertions(+), 11 deletions(-)
 
- arch/powerpc/kernel/watchdog.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
-index 582ee3fd71c1..44f178e07531 100644
---- a/arch/powerpc/kernel/watchdog.c
-+++ b/arch/powerpc/kernel/watchdog.c
-@@ -487,6 +487,9 @@ static void start_watchdog(void *arg)
- 	if (!(watchdog_enabled & WATCHDOG_HARDLOCKUP_ENABLED))
- 		return;
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index cf311c1a707c..bba4e5bb125f 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -5208,13 +5208,28 @@ static void gpiochip_free_hogs(struct gpio_chip *gc)
+ 		gpiochip_free_own_desc(desc);
+ }
  
-+	if (!watchdog_thresh)
+-static struct gpio_descs *gpio_descs_alloc(unsigned int count, struct gpio_desc *first_desc)
++static void gpio_descs_free_fastpath(struct gpio_descs *descs)
++{
++	struct gpio_array *array_info;
++
++	array_info = descs->info;
++	if (!array_info)
 +		return;
 +
- 	if (!cpumask_test_cpu(cpu, &watchdog_cpumask))
- 		return;
++	bitmap_free(array_info->get_mask);
++	bitmap_free(array_info->set_mask);
++	bitmap_free(array_info->invert_mask);
++	descs->info = NULL;
++}
++
++static struct gpio_descs *gpio_descs_alloc(unsigned int count,
++					   struct gpio_desc *first_desc)
+ {
+ 	struct gpio_device *gdev = gpiod_to_gpio_device(first_desc);
++	struct gpio_descs *descs __free(gpiod_put_array) = NULL;
+ 	struct gpio_array *array_info;
+-	struct gpio_descs *descs;
+ 	size_t descs_size, alloc_size;
+-	unsigned int bitmap_size;
++	unsigned int nbits;
  
+ 	/*
+ 	 * If pin hardware number of array member 0 is also 0, select
+@@ -5224,25 +5239,36 @@ static struct gpio_descs *gpio_descs_alloc(unsigned int count, struct gpio_desc
+ 		return kzalloc_flex(*descs, desc, count);
+ 
+ 	descs_size = struct_size(descs, desc, count);
+-	bitmap_size = BITS_TO_LONGS(max(gdev->ngpio, count));
+-	alloc_size = descs_size + struct_size(array_info, invert_mask, 3 * bitmap_size);
++	alloc_size = descs_size + sizeof(*array_info);
+ 
+ 	descs = kzalloc(alloc_size, GFP_KERNEL);
+ 	if (!descs)
+ 		return NULL;
+ 
+ 	array_info = (void *)descs + descs_size;
+-	array_info->get_mask = array_info->invert_mask + bitmap_size;
+-	array_info->set_mask = array_info->get_mask + bitmap_size;
++	descs->info = array_info;
++
++	nbits = max(gdev->ngpio, count);
++
++	array_info->get_mask = bitmap_zalloc(nbits, GFP_KERNEL);
++	if (!array_info->get_mask)
++		return NULL;
++
++	array_info->set_mask = bitmap_zalloc(nbits, GFP_KERNEL);
++	if (!array_info->set_mask)
++		return NULL;
++
++	array_info->invert_mask = bitmap_zalloc(nbits, GFP_KERNEL);
++	if (!array_info->invert_mask)
++		return NULL;
+ 
+ 	array_info->desc = descs->desc;
+ 	array_info->size = count;
+ 	array_info->gdev = gdev;
+ 	bitmap_set(array_info->get_mask, 0, count);
+ 	bitmap_set(array_info->set_mask, 0, count);
+-	descs->info = array_info;
+ 
+-	return descs;
++	return_ptr(descs);
+ }
+ 
+ static void gpio_descs_check_fastpath(struct gpio_descs *descs,
+@@ -5274,7 +5300,7 @@ static void gpio_descs_check_fastpath(struct gpio_descs *descs,
+ 		 * hardware number is different from its array index.
+ 		 */
+ 		if (bitmap_full(array_info->get_mask, idx)) {
+-			descs->info = NULL;
++			gpio_descs_free_fastpath(descs);
+ 		} else {
+ 			__clear_bit(idx, array_info->get_mask);
+ 			__clear_bit(idx, array_info->set_mask);
+@@ -5397,6 +5423,7 @@ void gpiod_put_array(struct gpio_descs *descs)
+ 	for (i = 0; i < descs->ndescs; i++)
+ 		gpiod_put(descs->desc[i]);
+ 
++	gpio_descs_free_fastpath(descs);
+ 	kfree(descs);
+ }
+ EXPORT_SYMBOL_GPL(gpiod_put_array);
+diff --git a/drivers/gpio/gpiolib.h b/drivers/gpio/gpiolib.h
+index 650a702741df..de1795c9be3d 100644
+--- a/drivers/gpio/gpiolib.h
++++ b/drivers/gpio/gpiolib.h
+@@ -135,7 +135,7 @@ struct gpio_array {
+ 	struct gpio_device	*gdev;
+ 	unsigned long		*get_mask;
+ 	unsigned long		*set_mask;
+-	unsigned long		invert_mask[];
++	unsigned long		*invert_mask;
+ };
+ 
+ #define for_each_gpio_desc(gc, desc)					\
+
 -- 
-2.56.0
+2.56.0.385.gac671c819a-goog
 
