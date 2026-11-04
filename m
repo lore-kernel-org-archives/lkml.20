@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785957;
-	b=DvPxRWz0UlDUeU60ATX2yEsLBj9ZXl3+gNQRaVL/4E0pUVMkmutuHqj0BI26Gec+Lz02
-	 Gd9iIW/hhkyJX7APxAy6wI2HE61xKoNHuwJSDGCPOqy7DVP9WfFi1ZaOZBzLh7RDXCCSF
-	 a/JCxXy3HtfI99i82DN2u4zIQ8FoK7zTqqvHfPkeKxHRjHxVf2FRFx73vW62ks0U0V4i9
-	 MxAu41NbA0mf/XpKKo0FIQ9Xzd0PoPFFT/amj1Y2pfFhb1xS5QYYq9K4a0++YhhNK7D7W
-	 dnbTf9F189fVk9QjxmdjSw4eXjGZiRNIpqS3g2f1mJaclS04u4xYDoGAgoPF4BzZGuA==
+	t=1793785959;
+	b=HPgDDFaYapy/rp+TQ+hihHFZ+knfCphEr7agsZ3edetWKZexZC0/gB9lwKTpoab8v24t
+	 AWciCKJ/JaRKsRuPCTNb9yriWGzDQgtzLBJlF+i+gjmBYehklDeRuZIUxpuRIMKwoo2s8
+	 /njgJuD4MruiyR38wc1FHhffj+bQXNWNvj42pgvOWrKHJhC6iyJnDfgGSB+Su0R+EyDZW
+	 64xenaZLYPmkynUBFlYXxWZdpa8ntq/BkxHJRXQZ5n5V4b6cXkxTkOkh7o1qmi+0gHfKD
+	 Qba6qhjpMOOlI5dCC53+Rc3I/ulvmnRpFAs0d5C8pUVJSqUKqVzl6Rysm4qZiy64zBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785959;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=SEpR6HAHtiDuojNUaGx9ACZETHwn0dP0e3561ou6MhM=;
-	b=oBnWRzU83fUcPQOGB8KdAdZRYJdiI3yc8CF2bayLKgmDxzg7/iWnlWsCMpsIf+tSNdgn
-	 aKVJo4SAB4P1KtMFWFCfLQcJcUVo1SdzfQXOmsnmsC3ixGeRZAnif4xC6YZ5fgH7/zMqW
-	 q6ia6clbV35QCmIbkySqiG6KxnvQ1Wgw4iC7Zvge1Iad/IHgtCsuYhtwy6OAajsl5PQu1
-	 sfrW0U5TaTa8o6h9m2Soj8StM4k6J85oQcS0egW11yX9L6aRhNLPlJP0eOC3dccKDnjZv
-	 xZw43xAl2YZyxIaG4s6Fa1EVBbf+GfZa1jzuCD5LCAUZnTqNaFeGjn8eHP7lGQ5iSpg==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tTkkH+50dWZUwY3TSxmWptcoX8N+xo55pLRLGQOZv2A=;
+	b=ADHkmEvOZx632k4yYhTblo+z/UCRgI9CzDxgQ3IMR6zWu6YSjbr729fdO/NprtfPH8PU
+	 qcsJ9G+969Q5DohDKFsQzDqKs2KmN9OUnDeQe5+2F4bXKW8/xPSF5ZzT9e/AT1T4EV/cA
+	 8XmwFeRGHNoyA2lB6q98ofb53Gl/nEhvyvEitocuVQTYyBR8H700Pv92bUf2hpK0WqQ+M
+	 0gqCtOlDOTV2axm0RktxNxp9vW75KJwoirNcExUXtJ0FNhEJCp6hjRCqx0VVqm/yFk1lu
+	 3LiQxHe62vP+cPn2e1ts9GkUg3tqZ4qN+YSbT879UTfTUvjtBOFCs4wv3FmeNww0nUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=igalia.com;
 	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WNFpsnOu;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=in4v05Eg;
 	arc=none smtp.remote-ip=213.97.179.56
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C744606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:52:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C744606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47A1606D805
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:52:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D47A1606D805
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WNFpsnOu
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=in4v05Eg
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=SEpR6HAHtiDuojNUaGx9ACZETHwn0dP0e3561ou6MhM=;
-	t=1793785955; x=2109145955; b=WNFpsnOuqyIG6vodq/Gkj7aV8YLKtxU9adc2GKag3aqlSZH
-	wJS8DkiiKbSip3Sp0saWgBzmXLNyUorragz7L8ihXgrCMJIWrfPZQij4k4OysdNL3iuHXNDN41yA2
-	p/3z0HJVKUcqQ8GV3HGH1emUTYOpwktXUNYxfQikZegrLorTisCabcyMhJxMYLQo1GeT7AS8IrULt
-	Yqd/eXGxvOeDFxDE4VjaqSufunzIN9ZXlkc9onGpa4F+ChJdWRJunylb/+7RHQhMSid3shGObNqAR
-	DqtzU4kMqqTFrUgNHlVfJVdqycR2BMd27v58C90VxjB1eHrF4AJiDt8aTP0Z/b7Q==;
+	Cc:To:From:From:Reply-To; bh=tTkkH+50dWZUwY3TSxmWptcoX8N+xo55pLRLGQOZv2A=;
+	t=1793785958; x=2109145958; b=in4v05EgxAZBIZ27xC5YEY252WByb+uskFs18/7EZKg0Y8Q
+	4MlVOUlHdMXABgd+mTKrSG21hc6a2usSXGipE//OiZ26XWGjrQf8lGoAf4DVSyuzvEi7vDWXSK3Y6
+	gzA0syM6I2gl1qr5MAt5U1I0rZc32TPU2sKfz74q4TVUBGj2SgYZ+NgNXBrq1qSEmvpZ6Jirt/NKn
+	diPubo06LbTXNbWZF6MeLKDvAumc7rdtoglWCzEhcoBlnm1kQqXL25Bx6+ZZjk0pR1lpTZ/Cj8SqT
+	0JyUMzDE1iEz13+/2j+SCP+9m8bvIHHJLVOX8i4SmWnJ8AKR8RcC9nw3H3G9QqQg==;
 Received: from [81.79.79.1] (helo=localhost)
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xOXfU-00284p-3E; Wed, 04 Nov 2026 10:52:32 +0100
+	id 1xOXfY-00285J-AJ; Wed, 04 Nov 2026 10:52:36 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -55,10 +56,12 @@ Cc: dri-devel@lists.freedesktop.org,
 	Matthew Brost <matthew.brost@intel.com>,
 	Steven Price <steven.price@arm.com>,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH v8 0/6] Realtime workqueues and panthor realtime submission
-Date: Wed,  4 Nov 2026 09:52:19 +0000
-Message-ID: <20261104095225.32654-1-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v8 6/6] drm/panthor: Create per queue priority workqueues
+Date: Wed,  4 Nov 2026 09:52:25 +0000
+Message-ID: <20261104095225.32654-7-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104095225.32654-1-tvrtko.ursulin@igalia.com>
+References: <20261104095225.32654-1-tvrtko.ursulin@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,119 +73,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a continuation of the previous discussion which was here:
-https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
+Split the single workqueue shared between the driver internal logic and
+DRM scheduler use into separate ones, where the DRM scheduler one is
+created per GPU priority level using the appropriate mapping to
+workqueue priorities.
 
-Work is now converted to a much simpler approach by adding real-time scheduling
-workqueues based on Tejun's feedback
+Low and medium GPU priority are served by a normal workqueue,
+high is server by a WQ_HIGHPRI instance, while realtime GPU priority is
+using the newly added WQ_RTPRI flag for lowest possible latency.
 
-To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
-uses workqueues to feed the GPU, and regardless of the GPU rendering context
-priority, or the CPU scheduling priority of the userspace thread itself, the
-use of workqueues can add significant latency to the submit path.
+These workqueues are device global and for all three we set the maximum
+concurrency to two in order to keep the GPU optimally fed with work.
 
-When CPU is busy with enough backround load this translates to severe latency
-spikes measured as time between userspace submitting work and GPU actually being
-given that work to execute.
-
-With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
-priority of the submit thread, the test program from
-https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
-kind of latencies:
-
-         .    N    RT
-    M   27   28    32
-  95%  163  246   809
-  98%  924  991  1882
-
-Legend:
-
-   M = Median submit latency in us
- 95% = Percentile latency in us
-
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
-
-Upgrading the panthor workqueues so that the realtime GPU priority queue uses
-WQ_RT, submit latency becomes completely controlled with the median of 14us and
-95 and 98-th percentiles at 23us and 25us respectively.
-
-[And updated latency measurements from v8:]
-
-        us      7.3.0   WQ_RT   +strict_affinity
-
-       median     30     21           11
-        min        2      3            2
-        max     1038    941          108
-       95pct    2384     49           28
-       98pct    2922     63           51
-
-[/]
-
-Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already requires
-that userspace either has CAP_SYS_NICE, or the DRM master capability. The latter
-can be had by a single DRM client per GPU, usually the compositor since DRM
-master is required to drive the display hardware. It is not possible to have two
-DRM master clients simultaneously.
-
-On the overall this limits the number of userspace threads which can access the
-RT queue - it either has to be a compositor, or a rendering client which was
-explicitly granted CAP_SYS_NICE.
-
-v2:
- * See patch 1 changelog.
-
-v3:
- * See patch 1 changelog + apologies for v3 following so quickly after v2.
-   I have found a race condition as I expanded the testing to a second platform.
-
-v4:
- * See patch 1 changelog.
-
-v5:
- * Rebased on top of tj/for-7.4 branch.
- * New patch in series simplifies unbound sysfs attribute handling.
- * WQ_RTPRI reworked to fold RT marker into attr->nice.
-
-v6:
- * Fixed accidental sysfs attribute rename (patch 1).
- * Various review feedback as per patch 2 changelog.
-
-v7:
- * Describe DRM master in the cover letter.
- * New patch in series to separate attribute sanitizing steps.
- * WQ_RT updated per the respective change log.
-
-v8:
- * Split out the WQ_RT patch into nice to prio conversion and strict CPU
-   affinity as follow up.
- * Added more latency measurements.
- * Dropped bouncing Bradley Morgan's email from cc.
- * Other tweaks as per individual patch change logs.
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Chia-I Wu <olv@google.com>
 Cc: Liviu Dudau <liviu.dudau@arm.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Steven Price <steven.price@arm.com>
 Cc: Tejun Heo <tj@kernel.org>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 37 ++++++++++++++++++++++---
+ 1 file changed, 33 insertions(+), 4 deletions(-)
 
-Tvrtko Ursulin (6):
-  workqueue: Simplify unbound sysfs attribute registration
-  workqueue: Separate sysfs mutable vs immutable wq attribute sanitizing
-  workqueue: Convert nice value tracking to priority based
-  workqueue: Add support for real-time workers
-  workqueue: Imply strict CPU affinity for WQ_RT
-  drm/panthor: Create per queue priority workqueues
-
- Documentation/core-api/workqueue.rst    |   8 +
- drivers/gpu/drm/panthor/panthor_sched.c |  37 +++-
- include/linux/workqueue.h               |   5 +-
- kernel/workqueue.c                      | 238 +++++++++++++++---------
- tools/workqueue/wq_dump.py              |  34 +++-
- 5 files changed, 220 insertions(+), 102 deletions(-)
-
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index a343c5180e01..cbff37e5e1d1 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -153,11 +153,18 @@ struct panthor_scheduler {
+ 	 *
+ 	 * Used for the scheduler tick, group update or other kind of FW
+ 	 * event processing that can't be handled in the threaded interrupt
+-	 * path. Also passed to the drm_gpu_scheduler instances embedded
+-	 * in panthor_queue.
++	 * path.
+ 	 */
+ 	struct workqueue_struct *wq;
+ 
++	/**
++	 * @submit_wq: Per priority workqueues for the DRM scheduler
++	 *
++	 * Passed to the drm_gpu_scheduler instances embedded
++	 * in panthor_queue based on the queue priority.
++	 */
++	struct workqueue_struct *submit_wq[PANTHOR_CSG_PRIORITY_COUNT];
++
+ 	/**
+ 	 * @heap_alloc_wq: Workqueue used to schedule tiler_oom works.
+ 	 *
+@@ -3572,8 +3579,14 @@ group_create_queue(struct panthor_group *group,
+ 		goto err_free_queue;
+ 	}
+ 
++	if (group->priority >= ARRAY_SIZE(group->ptdev->scheduler->submit_wq) ||
++	    !group->ptdev->scheduler->submit_wq[group->priority]) {
++		ret = -EINVAL;
++		goto err_free_queue;
++	}
++
+ 	sched_args.name = queue->name;
+-
++	sched_args.submit_wq = group->ptdev->scheduler->submit_wq[group->priority];
+ 	ret = drm_sched_init(&queue->scheduler, &sched_args);
+ 	if (ret)
+ 		goto err_free_queue;
+@@ -4070,6 +4083,15 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
+ 	if (!sched || !sched->csg_slot_count)
+ 		return;
+ 
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM]);
++
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH]);
++
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_RT])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]);
++
+ 	if (sched->wq)
+ 		destroy_workqueue(sched->wq);
+ 
+@@ -4172,7 +4194,14 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	 */
+ 	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
+ 	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
+-	if (!sched->wq || !sched->heap_alloc_wq) {
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] = alloc_workqueue("panthor-drm", WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_LOW] = sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM];
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] = alloc_workqueue("panthor-drm-high", WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_RT] = alloc_workqueue("panthor-drm-rt", WQ_RT | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	if (!sched->wq || !sched->heap_alloc_wq ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]) {
+ 		panthor_sched_fini(&ptdev->base, sched);
+ 		drm_err(&ptdev->base, "Failed to allocate the workqueues");
+ 		return -ENOMEM;
 -- 
 2.56.0
 
