@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808923;
-	b=TMhjKgoK8PYwEVOwVZJ/QFqkXjhyAwZZx9hPUp/Yc9oWNUDPFTNAC2nPsA4GHL0iZdvs
-	 rZSZ4jyNWUOrtxSPud1oOgAaNh+M1UenHCQbHNe8mbwYYD2EUA4+qly72g5BddfBWeDVS
-	 YDS8Lk3P9ZEjjRJ9cH2bvRazGE+bkos4z6Ix2Ai6fcaslOmWVQfJ3Ff8CLUywQYzEJk0e
-	 Si0GRe1TMYLRUVLsweLG1lIHshn0KB/1E4eHNTYLd68BtYgN1tANDlFHdzBId5OoKD3dP
-	 4kLmt0IsY/TXQRSqp37VRJX1fFdPdV2Rp9r6ID982uCWr/NT3wwnmqBrpVpUbY6/o3w==
+	t=1793808934;
+	b=lviBiZvgl94eBSAEsHU+xPJL9d5DeLR3ccg9sjNX0uzU21hhBzzYytWUZ+Pelzhb7N0q
+	 v1BFOYWYoGh9rMW4UfKQ1YYUoAWrzj1I9DmnIPhvD4KeDKqUmTVdDmja1Gga1L5DE/Wp7
+	 YGX/ztV8LfdXO3qXZ56q6F6nAp2APNzPXlDIfJHD2fwAA3i6PJIu5IEJ3mPw2GFYXtQqD
+	 UtCeYD85bsI5FhK+bA0hYBV+g02xKIo5PzEFka1jdcLRpwvuX3WHutWuOVz/W4HkFn6jR
+	 PhnC7p8B860qoCvgFMHG9RnbFnlI7Vb9HoPpqvZCZDcM7YbEfoGjiyPMGtRZbJEbL9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808923;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=hcY1Uu43KhKPu61zekwZCZY3iUNdgMXeEKBUOnnUUF0=;
-	b=UN1zs2qQlF/1KZOPIgp2LTYFWwH2K+4nGL1UtH0KZfAivRZMSN7ynNkzahGMiFx0RKIM
-	 DrcTL0JdAwBomI8n+0Cs0K9MUmwDZZjnbtYR7UxQ4JhlxomepTRRq6NBJKNJnOVX2n/1V
-	 wq6m1EfQYj82mtAPcp8T8JTTM51lKDtJTUgzp6dpxLR3DNKp84M8q5+yDHRc0G1ZhBBh7
-	 4Kmc/91IBDFDSNgTKpFmcKdUO6y8FJo0iVPHsh4xrVD4eBD4oK9PIrfLBQ6Ru0p0KNEHR
-	 BgkWWy55CA8qEhWVWSsb7R2YVxBGquukLaLM583u6py45g+bRjz0V+HpaRPuMDChZSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808934;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=jVH1WdWwc2cqdtMVBuZBwnu1HjvA+uxsgPvwECRUhpU=;
+	b=qUnPlkIotc2yqjqmOiZfDvhUSeqccYV/8VqQXfZ9IcXCDb9GBvaO8z8Lrf3aTvWtNsDG
+	 RvueWTS6kTjTHRAFsZ3Ev8MjlNEWQlnl9Aa1B+Psa+3H2dJd0mNFLOn9vX0lqhtB7ybc4
+	 G4zACQNlYC+M1MwnDmZ6XxtQUy97euvrl7O7wJJxVPAGEU32fDywhrerKVs3sIeZteLP/
+	 5ybLzFjC/jaXe4ocm0ZT0fOLHWyCIs9wrLwhC30uPQlepXyTw697MGOt7oyKF/iWY9PCt
+	 /Hyb8gBu4uHLACNQ5CanmsA9e9+AwKQskffx491Gk+NbS2WGn0hPtwKVtqii3SUrBlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/pjx6Ot";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fnFXmXXM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992A4606A32D;
-	Wed,  4 Nov 2026 16:15:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EDA606A326;
+	Wed,  4 Nov 2026 16:15:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17EDA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/pjx6Ot
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800151F000C1;
-	Wed,  4 Nov 2026 16:15:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793808923;
-	bh=hcY1Uu43KhKPu61zekwZCZY3iUNdgMXeEKBUOnnUUF0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=M/pjx6Ot04PeKKujgVEQTPsX4KQFiHmCad45q5DnTD7hZzZNgVxrZKoTfhRigtiun
-	 1RFMfP6b/Y8+B9D1ArR9qvnEPJbXqC/epw1/wzFS6tY2N0/G13NN0Svter8QTd6LfX
-	 1qSQgejOjambOYru+xy2DdTICfV/Xw4LMf9xwXbcQw9H0v6dCfpWJEpfSGhvhJDRqD
-	 gKr0LuU5JAYkkKo96e4LqFtbK3fSUKON0l9BVYliepNZOE7wI5SoPj7FV3VYHPPR4J
-	 GyObBtE4UR8ovfZWLBxhCv2P693BWVcMocsPg732c1Ity1mgf5+91t/4yIo9LFItyU
-	 wrxrnn1y9A3Ug==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
- Ben Whitten <ben.whitten@gmail.com>, Bryan Wu <cooloney@gmail.com>, 
- Christian Hitz <christian.hitz@bbv.ch>, 
- Christian Marangi <ansuelsmth@gmail.com>, Daniel Mack <daniel@zonque.org>, 
- Dan Murphy <dmurphy@ti.com>, David Rivshin <drivshin@allworx.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Dmitry Antipov <dmantipov@yandex.ru>, Eddie James <eajames@linux.ibm.com>, 
- Florian Fainelli <ffainelli@freebox.fr>, 
- Jacek Anaszewski <j.anaszewski@samsung.com>, John Lenz <lenz@cs.wisc.edu>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>, linux-leds@vger.kernel.org, 
- Luca Weiss <luca@lucaweiss.eu>, Luis Henriques <lhenriques@suse.com>, 
- Nate Case <ncase@xes-inc.com>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Oliver Jowett <oliver@opencloud.com>, Pavel Machek <pavel@kernel.org>, 
- Richard Purdie <rpurdie@openedhand.com>
-In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
-References: <20261021123406.3163547-1-lee@kernel.org>
-Subject: Re: [PATCH 00/21] leds: Assorted bug fixes across core, flash,
- trigger, and drivers
-Message-Id: <179380891826.1821014.7246973015946975973.b4-ty@b4>
-Date: Wed, 04 Nov 2026 16:15:18 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fnFXmXXM
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fip7C3272812;
+	Wed, 4 Nov 2026 16:15:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=jVH1WdWwc2cqdtMVBuZBwnu1HjvA+uxsgPv
+	wECRUhpU=; b=fnFXmXXMdq3zSC4C1/z2hdl0xwlfzKa4NklsoNHi7Az+RTp+VaH
+	SagXqyFTA+e6UnBA2oRA4WsiO/0OUvM1rlZbCAHnMw8m9Cizu4VzrTRyBJJ1Scjq
+	jqTPmafJ2nKTQZiwr/B1r2+WbCUi1UsojmATfFgfVr3qAfOj313SZZm6xXgeQcwP
+	gNmB5JP616J+H7wx+v3CXwwwQELzMbljV69Nv8ApRk6QrMmQdlo/9ZWJoTJiHnKH
+	r4Tgt96ryftShLVbLKwB11gfyVVM6i8t+DiZX27NrPf7JzzYCDF3DM5qtq7hLObf
+	yfTmfw+NEFs06/5CrVEB2mI5I8Kr1vlvYRA==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bngeye-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 16:15:17 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4GFD7Q3122607;
+	Wed, 4 Nov 2026 16:15:13 GMT
+Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A4GFDi03122590
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 16:15:13 +0000 (GMT)
+Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
+	id 4760222944; Wed,  4 Nov 2026 21:45:13 +0530 (+0530)
+From: Anup Patel <anup.patel@oss.qualcomm.com>
+To: Sunil V L <sunilvl@oss.qualcomm.com>,
+        "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Alexandre Ghiti <alex@ghiti.fr>, Len Brown <lenb@kernel.org>,
+        Atish Patra <atish.patra@linux.dev>, Anup Patel <anup@brainfault.org>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Anup Patel <anup.patel@oss.qualcomm.com>
+Subject: [PATCH v7 0/1] Common csr_read_num() and csr_write_num() for RISC-V
+Date: Wed,  4 Nov 2026 21:45:11 +0530
+Message-ID: <20261104161512.883885-1-anup.patel@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +84,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfXwMYEfbYYzoib
+ W+h30IjHo3dnZrnVT/XF9ew2yAkco9QR85L0BcNfw/N6JNedVcBMyye8b4NhWhRXDImfWSflRiv
+ 2zPiKwtid50WvqJSxLCXW/yDWpnjo+e7i5mb6j1op9YsDM5t0crobsXG+xRDPL62ln4zqU92jNM
+ fol2mrT6pVfEwn+qAir9ChPheAMlPdCoDvIrkIjxFst33GyOfug7S2BcpxETH8dYCVGAPsM1cHX
+ N7Ko+GhMMTY6cgmoAOppTeYqJq5x7a1PEdNEi0qxYhlfW+bNWcyrogPSDNXXqpLUkLEkvnjqMBE
+ RNSxN1KgD2hpqgTCGcOfYV9anPnaSgEU2ioiMWyB1KIW9G6gSfTqeMRi6A5Pm7406xgW0wbzu4Z
+ rSIqBy3Nei1L909fk3yj6s6johG1qVWNbHc1VS/BMXY4JBij4uGJbZ9AJkvdFtmUAWvgzgRc2+K
+ 8nJ9DV0wOjF49+fdfqw==
+X-Authority-Analysis: v=2.4 cv=KLLPn1Fo c=1 sm=1 tr=0 ts=6aeb5a15 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=NEAV23lmAAAA:8 a=97VCTQuGHz7arqyciaAA:9
+X-Proofpoint-ORIG-GUID: JMzeAe4MiFqyn55hnuHbxmeVbb85bzpS
+X-Proofpoint-GUID: JMzeAe4MiFqyn55hnuHbxmeVbb85bzpS
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NCBTYWx0ZWRfXwIYoJ9rJs/kg
+ D2DK2zbs1LT4A1R8BtQR1mgPwI1V/re/cYbFr3j2Tc8SeiU3oKZKF/MsOagfAdl7308NEAAgW+4
+ 7Hsosi0teXdwjWlEbLxT4E87sZHeC48=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1011 phishscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040064
 
-On Wed, 21 Oct 2026 12:32:09 +0000, Lee Jones wrote:
-> These issues were reported by Sashiko.
-> 
-> This series addresses a collection of bugs across the LEDs subsystem,
-> including locking and concurrency fixes, device-tree node reference
-> leaks, out-of-bounds array accesses, divide-by-zero and current-limit
-> clamping issues, and devres lifecycle ordering fixes.
-> 
-> [...]
+Some of the RISC-V drivers (such as RISC-V PMU and ACPI CPPC) need to
+access CSR based on CSR number discovered from somewhere. Add common
+RISC-V csr_read_num() and csr_write_num() functions under arch/riscv
+for such drivers.
 
-Applied, thanks!
+These patches can be found in the riscv_csr_read_num_v7 branch at:
+https://github.com/avpatel/linux.git
 
-[01/21] leds: lm3532: Propagate error from devm_regulator_get()
-        commit: 4caf3517b994ca96a6e69362d58874318e68c066
-[02/21] leds: lm3532: Use dev_err_probe() when lm3532_parse_node() fails
-        commit: f8b582269b52ecc8f80cd81a4e05226775082d38
-[03/21] leds: trigger: netdev: Hold RTNL lock across hw_control_get_device() in activate
-        commit: d6563e5a79bed2e45610b4080d2a185b4426a634
-[04/21] leds: aw2013: Guard LED array index in aw2013_probe_dt()
-        commit: f8df415aa53ac4671c56e83685cf94f498c79776
-[05/21] leds: pca955x: Take a reference on the child firmware node
-        commit: abeb74220fefe28ab68789659f554f49e3b4a51e
-[06/21] leds: lp50xx: Guard sub-LED count in lp50xx_probe_dt()
-        commit: 4160f5a384fdedda2ce534a864bc6eb037042284
-[07/21] leds: trigger: netdev: Serialise work cancellation and state updates
-        commit: d8a052f6ccab98b456de3441432a5adfc143e1a5
-[08/21] leds: sgm3140: Replace powerdown timer with delayed work
-        commit: 162ce6b5029413f06b0e6f05d84baf1c0a294381
-[09/21] leds: sgm3140: Cancel powerdown work via devres after LED unregistration
-        commit: 602c82c086adff666bbec6c133cd4ccea0521a62
-[10/21] leds: class: Initialise trigger_lock before exposing sysfs attributes
-        commit: ee84e0edd891810874d2de481cd8b937302fb2f9
-[11/21] leds: class: Unlock led_access before unregistering device on error
-        commit: 54f4bbd0d38e8b5d56a74d98236373593806c06c
-[12/21] leds: aat1290: Retain child device_node reference for device lifetime
-        commit: 91bf0b65383d14693b5cb1071b341218a7d8b7ce
-[13/21] leds: aat1290: Prevent out-of-bounds read in aat1290_brightness_to_intensity()
-        commit: 4c664a55d4e15ae256350074ea9df1b04f6c31c0
-[14/21] leds: flash: Avoid divide-by-zero in led_clamp_align()
-        commit: 6204d67ea6e0bb3885cc76a1c358fdc8e737e475
-[15/21] leds: lm3532: Validate LED string indices in lm3532_parse_node()
-        commit: eb76e1d62af9376c8656020359cd94e7f7a23284
-[16/21] leds: lm3532: Clamp full-scale current to minimum bound
-        commit: ef0748fd1e5fd0cbc7fa6e0f21ebcafc967152ef
-[17/21] leds: aat1290: Avoid leaking devres pinctrl handles on strobe source changes
-        commit: a57e3e4813e89423931d3242031d87294e6e8deb
-[18/21] leds: aw2013: Unlock chip mutex before registering LEDs
-        commit: e6596ab1148379e9e32efd7a0b5a3ff3bd5f4670
-[19/21] leds: is31fl32xx: Clamp channel current limit in is31fl3293_reset()
-        commit: a0fbf5212e49f9b4f82f24031112d68f2896b188
-[20/21] leds: flash: Terminate sysfs_groups array with NULL
-        commit: dce797d3d7cc059c595548b2401a4aa95f45186a
-[21/21] leds: lm3692x: Use devm_mutex_init() to avoid premature mutex destruction
-        commit: a379f4e0adf2de7b11aa3ef87eeb7d9c838069b3
+Changes since v6:
+ - Rebased on Linux-7.4-rc1
 
---
-Lee Jones [李琼斯]
+Changes since v5:
+ - Rebased on Linux-7.2-rc5
+
+Changes since v4:
+ - Rebased on Linux-6.19-rc6
+
+Changes since v3:
+ - Rebased on Linux-6.18-rc7
+ - Updated commit decription of PATCH1 to reflect the fact that
+   we are removing sanity checks on CSR number which are already
+   taken care by csr_read_num() and csr_write_num().
+
+Changes since v2:
+ - Rebased on Linux-6.18-rc1
+ - Added reviewed-by tags
+
+Changes since v1:
+ - Make "out_err" mandatory for csr_read_num() and csr_write_num()
+   in PATCH2 as suggested by Sunil and Drew. This also helps further
+   simplify csr_read_num() and csr_write_num().
+
+Anup Patel (1):
+  RISC-V: Add common csr_read_num() and csr_write_num() functions
+
+ arch/riscv/include/asm/csr.h |   3 +
+ arch/riscv/kernel/Makefile   |   1 +
+ arch/riscv/kernel/csr.c      | 165 +++++++++++++++++++++++++++++++++++
+ drivers/acpi/riscv/cppc.c    |  17 ++--
+ drivers/perf/riscv_pmu.c     |  54 ++----------
+ 5 files changed, 184 insertions(+), 56 deletions(-)
+ create mode 100644 arch/riscv/kernel/csr.c
+
+-- 
+2.43.0
 
