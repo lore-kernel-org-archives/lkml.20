@@ -1,101 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793786259;
-	b=l2EiU6KaIpvjQHZ6GlnGyqda7N8rnS5ukKA6TQ+4k0lceEpeuhn/+qH5Aw30gWV69HCn
-	 lGWY//AyDTKDXqXGrDYY7ny/PAlOT5gil1ffk5nOk9kiPYQRz24s6jRpK6wvhccm8byT1
-	 HqE7A/vAaB+VQ1YbrdtSDbyH7Vtcx5pHCg8ufDXH3yOW7LKROInlZ867Kve84kYvhvYiM
-	 27XK6dWKNd8YWlgdPGFCp2d5AeQ1toOlCdYxZITe9ZxrclN03B8uKT2EMIP+BiGOJLcw2
-	 b8f/8VuAkwfNeM5Ck/X2pA2ri4JjJ47MZ2jlPDpSLjateGpMiEyRV9RPaPycuKJ9E3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786259;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type;
-	bh=JnpMMMR17dXF17Y49yYY6JNWkoAioE74UmJRR17FwN0=;
-	b=vYv4ZE9nuro/mwttGPIdf0OW8QAet8sgjS6WnPle8XxABQpMvmo5cjRnw1Xc9ICG2UNr
-	 8JKSnb9ATGzA/zNbcTrmZk+1jd42nS5NUKXchjqxOMKwO7Acm1/kxFZipwVbqdQEg/rVv
-	 TKnXILQymPAqcz1E2XgIVHW92/qsVhK6ViFgMjNj5uMokSNZmeJiwZxyLTH4PBWI0FiHg
-	 FoXRK36FNdfPOH0q58P6aSMxYkS7ooKOKHFc0jBDmqdhcfU4XFDITF2saoCCMG1TgxI/c
-	 rJ/IWZbDUE6IJOA4/524WTjEaXQIosF68p4knI8viridWgjk+D9xIPcIrQl4v2YHs/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RzzI8Rux;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793786282;
+	b=iGmadAWTi1eewoMepwl3igaGq7Hsm5ASGARLfhGyUgR3IKbDUqs+3I9ZPEWL+DR+jyFl
+	 1A/pdMMjKv/TngcJlUn3ZVd9LRD0I7XZzFlQz04t1VEfmrgKkdst/y5nJ6QwhJ3qwWSul
+	 5xvtsy+0vw93VaHscDUrHhVzLR02Tqmg7tfMk77JNLjFlOYyQAOivXPeECnsP8qNw4bnJ
+	 3OMEj0wTZkJSAIzlWnAaqpB0UPBBi8LgVtXM3zimLghDFQn5wvo/S3QCCGmdh7AiOCLl+
+	 XifS+NmvVMkbhjsXDp5aNzA/If0URo/hQpyfvSF5X4XSyYRDikO95jS1S/RlQMSAQQA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786282;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=KzJFf2z1UBNxfpF0LvF6/PXDKDiprUd3QNgbgxgbgyc=;
+	b=krCgklIACKpzmAeh3smOwlxqbmONkxD+G01I4Bgk7X0FmcaSLjF+ksglJTaclL7Z7Erd
+	 QYyBEHtHmCkwaOZvs1uEZ01UEfnj/ud/NSACLXcv7R0txdRqtjCsj7fHMxGcHlm2W5Wz3
+	 xrWmst2z1HaLHwJnL1UTqxDWxCxrygCYZBGj52ZAMIaaFC3qnyAR7ZDe83++tNKslU18K
+	 7WOV1SlATdXhWUnmdHJXb9dXfHX4D38+NekaWp8YexeXS2EWEt75H2TVyQXSoppedk0Cv
+	 e7F9wfzRYdkfD77rVcJiuacNJeXjkQz5LExTZePhRmJbOHgiaUjd8cFKpQSGOCThyfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IhOu9jdF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="J/OWq54V";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3EF606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD3EF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2317C606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:58:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2317C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RzzI8Rux
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ed0e2015aaso1617055ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:57:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793786258; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j31g/GCxgZZ9ks97wn/Oh0dtYHqSjtP4cLif5IYZfgcr7A9qisvzQ7mopQE8u/Zbic
-         5gKOgTiZEkEB/0vY2FwzLIRy8oAVzQlHS0Ow6jKZgu7PJsTMhd1oy6Bpc8N2UsoLZycG
-         rQrUi5NRb2Le7ZbOyUDDJUrVBrI+1v7m/Ecu38pKpHlmHsNW911gtgAFdx3MjhRYhTAH
-         PWx0KwwpBAMmjJ6TlSpGhyVUwZlkTTSyg+5fGzD/GCl+FSLKfdE10uModqz9pA7bE+nv
-         ZJFI9DyY9rFOQsq8TPeYw1cUZ6w4rfszoNYWs9+PzbN8z5wkfgzyk84y72600+Rfpkph
-         YbPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=JnpMMMR17dXF17Y49yYY6JNWkoAioE74UmJRR17FwN0=;
-        fh=5wB9xAbJgjS2QvT4L0oRYj2P5mzlwosI/RMmVX0GPx8=;
-        b=g4bKcTdaBkbvs+bL3YriOIriHQo4LAGAiNkP0p6pVwaHlVwrNiVcGpVYJkDc9364kC
-         Qdhx1BxSKb6zrLQacydPKe8XBZwe6owdU/YoVg++X255/maMh6cR/CSwOmxwNyl5dDw8
-         AERafelay/PMGSR5Qu3pfyjIYzIZTpyXqMdqpg20CfoW7pD7LdeLGaxfZlCUnVdTqhjw
-         BaU4WrIJ4cV6mx59sm1tyak+MPkET+bi6cHD34UTTTtsY2HFekqCCQF61ZJLjxHgInei
-         Hm4LeLxdgHxwODaglHH+5oAZYoqF1oYgbTpw8+zsecg6a93cTQz9sRPSeMHID66tlF07
-         Baaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IhOu9jdF;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J/OWq54V
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48KHKY918276
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 09:58:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=KzJFf2z1UBNxfpF0LvF6/P
+	XDKDiprUd3QNgbgxgbgyc=; b=IhOu9jdF9EhFaa69kTt/pFxFwkosmSv0113uUt
+	X3DP/0ikP+ZGQMo9xVb38A5p5d77gu0H1+42tsj+mzXaRXffTF5gXrR/MT0tjhVA
+	Uc0S4gdKScP57EoObAmspiPoBCPz20xvMKFFQhExnaHBNJ7drNYX+SGvaSzj3C06
+	c/uJmb4IoCnxqiRroqllD8knj3jeBtzmgIJuAke189qOS36s7Mt7DTT7nn3LJybt
+	Y+F1sHOv23sgDN5XBBPAxOXlN9RaKf4a65pU4Ag1IDXwVCiBnB3OEKi2R1OunAMB
+	V06ByMmLZkPCAoDFoE/FF1PojRPC94eN/pafrXZI5ZxiAAgQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqvsg9guc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:58:00 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36d2d353a5aso281278eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:58:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793786258; x=1794391058; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JnpMMMR17dXF17Y49yYY6JNWkoAioE74UmJRR17FwN0=;
-        b=RzzI8Rux+5eiyEVle3J0Vcpw1x9TVrFf7+ZnRQSLkHnLLMQHYoww8Ck+fyjwBstzkD
-         KGkb0Hjs+3UsIn8C/Ub0cx4QtutiYk91q2O5yrRT2HToOuucTGdMldejdQRBF/KYyFot
-         bDswNMrWC/WsOXxMLHWubERLELTicEKL+PItPtAlu7gJtAM4YPC0yyLSQ0ZHT61qON9d
-         S+Mff/10JWGCtbp+RdHL674LHAokQPoswTCgwnACU2IM3qEHu7EAYw3TachOt5g+L+ym
-         FjPVYMdliAIMxpl/8B6q6W98G/N4nvjtn46rNaPIhEVrhzXLg5ggob/1scT+Js141AyX
-         kUGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793786258; x=1794391058;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=oss.qualcomm.com; s=google; t=1793786280; x=1794391080; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=JnpMMMR17dXF17Y49yYY6JNWkoAioE74UmJRR17FwN0=;
-        b=CiHg5nkA6OeUxrMqpJ2dt8WRXU7Z19LFNLjbmuahmR0sLfyAr1xgMbXZ4VrmqhD0EK
-         mvNEo8Plfoel3IZBzAFftFjI3GmX7ege463z1V3vhRFs0FcZrDT1zflPnBhp1cY5cE4w
-         5vYqVY3uG6lulQCIftqNIz94khuX+7oG6VfPNpH3aJd86ohmdTgfKLuWLmi5b55EzFS4
-         WGKIqAVTZ/ZHZJr2+mCaY88Bd3iUks9Mfk9kGOzfSN0tf/N9SpjgrHxKxZsnJjtymRS6
-         nl5+/qAbasZvZOsoaF+rT0/15SkvxNaZvXfbZp/JJkn5PodNKy2cJTyXCk8Xj1L6BMG3
-         zhVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzD1728HV2mLD/b6VevujQuCcbqIBoTdJ374p58UorZNIVdGENReaAFCHwviLApo+Gl96Cp0PoeZn8j4N0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/shDvoet9IJM1X6BBL1jCNlj7i9erisjd972LKk+vFwsuHjN4E
-	eDOqjjkmA+ps1gdK+ELB4AGGvE1IAtPRPo3pXqrWQLYIIQipazIfNUuzIuQnkNjFs/AvN3XgyxG
-	UwmKAn+bIYiMVa1Q4FzAbn6NUaNsES7oHzR6y
-X-Gm-Gg: AYBFou1N1IqTbTxOEOrHvFDGz6qjJmdT9jcSycYSqP2W7z9kmRQifqj2fk6+4WctfTT
-	UCDsMvlmFnvezrqexuJRzG96Sd++8uXx65tJB/UMg2bpjuMWpG8A5Hw5ZDrg5isKcwm8Szeq6Ve
-	VinXmn4Gq7KJtFSqe+KGSwCuio502hrYOJnKWAlzrkG3xg96TbtWHFA65ed/ixABm8tpmSJoRdZ
-	m/UnEupInXLo6FQJtjRYZG/HyxbagVmp7aPyGnsJnnm3SwGGJYp+dxw49roH+1jm4s9cbBZUEje
-	0if/y5QkA7oNVltPL4vBC3SOJbiiIjUyTXZc1SRKy7LCiPZcIqgujdiJEH3gCmVbY1lRGWqNGpA
-	7SBt+I9vLNi0E7MwEhvFxowm6JioMHetlRuiJqxk1oFzrJiWzXCx+QD/oHRoihBq6pg==
-X-Received: by 2002:a17:902:d4c3:b0:2e9:5059:4468 with SMTP id
- d9443c01a7336-2eb3640253dmr137219665ad.7.1793786258064; Wed, 04 Nov 2026
- 01:57:38 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 4 Nov 2026 01:57:36 -0800
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 4 Nov 2026 01:57:36 -0800
+        bh=KzJFf2z1UBNxfpF0LvF6/PXDKDiprUd3QNgbgxgbgyc=;
+        b=J/OWq54VLtUqmrKBleM1XNZtaeNqtTtJlWPQDLFq9RKWvxQw/8xuhWmwrbvVNFDHGz
+         nbJOi4UJCXYA7eFCIfLQ/ADC+uVOG+urIGBoOiJvY11mogaQ0syQMBMTMZTXX40Vw5v4
+         zOeaF1cYV/XQRV9/Tm3PzDGaxpaDxLvtEVTgkMHnwpjLkmU2G7F62HlMxUVHaInKCOOv
+         uKyXKv+5tuxsuZb6u4HBKrCecNGrLbs/LT54kgL9ooxwUJQ5oLD1uQJGlnytsRzSZR/E
+         YzcHAYwJQjs/rDM6kULItIzbMjob+rqDlmhBIoCTZortldpGWXFlIeMWvTYSkRfiG9B7
+         cASQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793786280; x=1794391080;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KzJFf2z1UBNxfpF0LvF6/PXDKDiprUd3QNgbgxgbgyc=;
+        b=2w366sLglXNnZy5iS3Gtd80GeicKb8Lsk48Zude/R4ZLU33vnqIbM0M05A2qo6onYK
+         H2rOdRbJbh9pQjoID5n05kJ/ZOAINc8/lPaNq5tUFo65RYhOAZqwMN8pfc9xLHNkwKcH
+         fT8QCQvqhp7Wll5xetcazHJPAcuYPaXeXy9lUUuvGoIGBUzNct7zQItc4AU+Sb5eNw+K
+         gocSdjoxk9gNnEzYAsuDd5BTY7eQX0g76+Cy9CUufq3ylo+jFv50SbjCzPQ70RZl70Yy
+         M/0waBac8+FlkeliqC8/O53Aj6iMrl7OiFoFca6QL3gb9A+G+ADO8xGJrdfok6kPoVWm
+         93Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxH6cWZZlWLHcJ2Kwejy0jrl7YuMIcQ+ouPkIFAx67Zj3ZCxaW7MHyHD7boBS8R11P+UdjZTNLwaYaqNHg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zaTXJnzeRJALr7f1Q19jlKQ/vAS7udG5PNTNCyS//9BERpRsr
+	idbjp87OeiLIGkTi+0t96YWoObycmnd5ZheOphM/JU8/7LVKMhOCeWs4y8X7snIIN+7T8PJSudg
+	FmUTxqMKg46CvAze997J7MvRSDPNpnj8P092ngkq9myuozjmqOgNdnzaiHHDl2xd7i2o=
+X-Gm-Gg: AYBFou1sVMkvRUihahsYEhdbvIqYhuoYLCro8zkS38ruN0vNWNyCEejpuDVO73tjdEF
+	dPnHpoeC38LPawF3a756waC+cEWHpZ2To/KhOL/RC83lsTo9EZcWr20Qyqc8xgj/SfI+v/D6VNv
+	SHh3kZCjI46rUViHAxb5UF7GSFKzLhxSXaB7zm7ehWmSKvATZaFp9puIs5MP6FJK46zu7ax242+
+	tRL6jOkxDMf20MbfetwvGqzxLznQwi4xsFs4jPAzW4JSm6+X7dd9carXXDetlmIV2nXBrB1i0t+
+	YhN025XPR990zifShXmB5bY9eqFPtfecPLV+o66gP3ugSSb/2RljMMNVCBbCxmnzNIhVrNu7R1S
+	rj9WHz4AbxHSrDW0qXbchWIMO+G6pLUkdp5zDtrILxVqveV/U5B/EaxJmBMOFw/KXFxopTu37XA
+	5av4hGq8J3ZuoYEBOTiiqFD8zZWGluzH3Q
+X-Received: by 2002:a05:7300:f293:b0:361:a195:c46e with SMTP id 5a478bee46e88-36a2fd4c964mr27282519eec.1.1793786279563;
+        Wed, 04 Nov 2026 01:57:59 -0800 (PST)
+X-Received: by 2002:a05:7300:f293:b0:361:a195:c46e with SMTP id 5a478bee46e88-36a2fd4c964mr27282481eec.1.1793786278894;
+        Wed, 04 Nov 2026 01:57:58 -0800 (PST)
+Received: from alfred-sh01-lnx.ap.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3788bffsm6141370eec.1.2026.11.04.01.57.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:57:58 -0800 (PST)
+From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+Date: Wed, 04 Nov 2026 17:57:52 +0800
+Subject: [PATCH net-next v5] net: phy: aquantia: Add support for 5GbaseR
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,100 +114,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Pavel Zun <pavel.zun@gmail.com>
-Date: Wed, 4 Nov 2026 01:57:36 -0800
-X-Gm-Features: AclHuK9uXSDqvVProHF1jhv2kQ6yi2-I1MN82vpnyRFmOf5EaIupmEonuz5KmtA
-Message-ID: <CADEvP=3KfP6kUod2u0fbSCW9suoROHj=qxXih+EToRnpbBuNNg@mail.gmail.com>
-Subject: [RFC PATCH RESEND] fs/ntfs3: avoid recursive MFT bitmap locking for
- external attributes
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-aquantia-support-5gbaser-v5-1-9adc0f538d66@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAJ8B62oC/43OS04DMQwG4KtUWZMqz8mEFfdALPJw2iCaDElmV
+ FTN3UkHCbGghY2lX7Y/+4IqlAgVPe4uqMASa8ypB/mwQ+5o0gFw9D0jRthANOPYvM8mtWhwnac
+ pl4blwZqOYFBMUetBh1Gjvj4VCPG80c8oQcMJzg29fHXqbF/Btat8nT3G2nL52L5Y6Lbx98GFY
+ oolV55ra0fH5VOudd+n31w+nfa9bNcW9l+PdU94NWrvGBV0vOHxb48Spu94vHuBBs3FICX35IY
+ nfnic3PFE95QPlrjAyeDhF29d10/6jhfq0wEAAA==
+X-Change-ID: 20260923-aquantia-support-5gbaser-e7271bde9f89
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>,
+        Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793786275; l=4136;
+ i=hongmei.xu@oss.qualcomm.com; s=20260917; h=from:subject:message-id;
+ bh=2qppQJ0GPHZ4fkQmhKmAeoLIuYROcqzgcFnAn6MeoZQ=;
+ b=hZDy2Q9lDQe4wzrnpaJ6IPss7MsA95TIqFzX/hzCOd9xg48Hp/O1BDj/EwbBnyl82EWF0jTbA
+ fab+xlweVARC611M7SNQmgmdzjnF2Xl4uiFxWJ4EGeRku8J7++I7uos
+X-Developer-Key: i=hongmei.xu@oss.qualcomm.com; a=ed25519;
+ pk=8J3IzbyuOOHSwLvktng8AEQIdStEQDAGNCSOlkASmk4=
+X-Authority-Analysis: v=2.4 cv=GtnXaU1C c=1 sm=1 tr=0 ts=6aeb01a8 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=qnKKVoelqm_VwwwT-SgA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: -xZaajSmjSj1QqcCVg7YCLNoMs1O_ln-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzOSBTYWx0ZWRfX35cQ6PGJiH87
+ AZE0V0fbJm7liv9NTiamsoJUkOxBSJabbxsbI+OFhWesK1DLf0q2h0SYNt3SKG/VDCde5Zpxtok
+ QQ9Y8Lzorgk5LDxL5gEhyjylzhQD/vhoTVFQVT4DsZM18VXqp08FDNkbvdjgd0TP181nkARyzTM
+ k58RWb4VwnKE3m5YPzI7FBc+a7b27C4ub+ACrSPJGPA61jw/2JJFkrUeX+6WaQigXtcTXkQSTra
+ tCxMxVX1Pj+hn8KKvX9N1byD5+70T8+ugtxlkx0QGERQK6nVxYALS2zwh8zQ2UkkUzA3eJvUQf4
+ 1BT1uf9B6BHd4E35ROdOBRzS1RWkuwk+SovzrvZurZMNVTTfhDuXjE7zQ5yzi6p+vwPkB1ag3I7
+ U4oXcDXzWYhsCwzJAsAP3qMPu3GMYnK3Lr6n7t9HCNag5gyKLxBPzo9PSpG6vrotTvvtKxY26aE
+ Fk0zoWgR/PGkSIE59Lg==
+X-Proofpoint-GUID: -xZaajSmjSj1QqcCVg7YCLNoMs1O_ln-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzOSBTYWx0ZWRfXzrWgMYpTmnE5
+ wftUPnaqvvMnO2LLE4lmbl0aBYX5RdTI1igMObjeRVhEgN8ZS4emmdWqKxbSKra07o94b3oMj4w
+ +YawCUzUhwmiI2catjA4tJ6Lzpj3Kl8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ spamscore=0 bulkscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040039
 
-ntfs_look_free_mft() holds the MFT bitmap write lock while extending
-$MFT. Growing $MFT::$BITMAP can require an external attribute record,
-which makes ni_ins_attr_ext() call ntfs_look_free_mft() again.
+Aquantia PHYs can operate with a 5G USX interface between the PHY
+and MAC, reported as interface type 12 in the PHYXS vendor interface
+status register (MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G).
 
-ni_ins_attr_ext() passes is_mft_data to the allocator, so the nested
-call for ATTR_BITMAP takes the ordinary-file path and attempts to
-acquire the same rwsem. This leaves the allocating task blocked on
-its own lock and blocks other users of the filesystem behind it.
+Without this change, aqr_gen1_read_status() falls through to the
+default case and sets phydev->link = false when the interface type
+is USX 5G, preventing 5G links from coming up.
 
-The following stack was observed on 7.1.13-2-MANJARO during file
-creation, with the hung-task report identifying the same task as the
-likely rwsem owner:
+Add the missing PHY_INTERFACE_MODE_5GBASER handling in three places:
 
-  down_write
-  ntfs_look_free_mft+0x1e7
-  ni_ins_attr_ext+0x1ac
-  ni_insert_attr
-  ni_insert_nonresident
-  attr_set_size_ex
-  ntfs_extend_mft+0xef
-  ntfs_look_free_mft+0x262
-  ntfs_create_inode
+- aqr_gen1_read_status(): map USX 5G interface type to
+  PHY_INTERFACE_MODE_5GBASER so the link is correctly reported
+- aqr_gen1_config_init(): accept PHY_INTERFACE_MODE_5GBASER as a
+  valid interface mode, otherwise the PHY is rejected with -ENODEV
+- aqr_gen2_get_rate_matching(): return RATE_MATCH_PAUSE for
+  PHY_INTERFACE_MODE_5GBASER, consistent with 10GBASER and 2500BASEX,
+  since the MAC-side interface runs at a fixed rate and the PHY handles
+  rate adaptation via pause frames
 
-Disassembly of the matching ntfs3 module identifies the extension as
-ATTR_BITMAP, not ATTR_DATA.
-
-Pass is_mft instead. This selects the caller-locked, reserved-record
-allocation path for all $MFT attributes, matching ni_create_attr_list()
-and the ntfs_mark_rec_free() error path. Keep is_mft_data for the
-unnamed $DATA bootstrapping constraints, which do not apply to BITMAP.
-
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
+Co-developed-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
 ---
-RFC notes:
+Changes in v5:
+- Repost after net-next reopened; no code changes from v4
+- Link to v4: https://patch.msgid.link/20261030-aquantia-support-5gbaser-v4-1-7dfb0cf306de@oss.qualcomm.com
 
-This is a request for review of the locking/record-allocation fix.
-I have not yet booted a patched kernel or reproduced the original
-failure on a disposable NTFS image. Please do not treat the following
-host-side checks as native filesystem validation.
+Changes in v4:
+- Keep interface modes sorted by speed in aqr_gen1_config_init()
+- Keep rate matching conditions sorted by speed (10G, 5G, 2.5G)
+- Link to v3: https://patch.msgid.link/20261029-aquantia-support-5gbaser-v3-1-f1f9346553d0@oss.qualcomm.com
 
-Validation completed on mainline at
-734bef548a96e8774d6eef5dfa2026c6edc4e80b and stable v7.1.13:
-- Complete fs/ntfs3/ object builds, x86-64 defconfig plus NTFS3,
-  POSIX ACL and LZX/XPRESS, GCC 16.2.1, W=1: no warnings.
-- A host harness compiled the actual ni_ins_attr_ext(),
-  ntfs_look_free_mft() and ntfs_mark_rec_free() functions with
-  instrumented lock/bitmap dependencies. Seven targeted cases detect
-  recursive locking before the change; all 17 scenarios pass after it.
-  Controls cover ordinary allocations, DATA bootstrapping and cleanup.
-- checkpatch --strict --no-signoff: no errors or warnings.
+Changes in v3:
+- Add git tree name net-next to the subject line. [PATCH net-next]
+- Add Co-developer
+- Link to v2: https://patch.msgid.link/20260923-aquantia-support-5gbaser-v2-1-4d789dc21418@oss.qualcomm.com
 
-The affected module's build ID matches the hung-task trace:
-1f6011352f196196d266069023704fdf61030248. Its disassembly maps
-ntfs_extend_mft+0xef to the ATTR_BITMAP resize call, and the inner
-ntfs_look_free_mft+0x1e7 to the repeated write-lock acquisition.
-The original kernel reported taints P W O E.
+Changes in v2:
+- Fix the local variable assignment error in API: aqr_gen1_read_status,
+  should use interface rather than phydev->interface,
+  interface = PHY_INTERFACE_MODE_5GBASER.
+- Link to v1: https://patch.msgid.link/20260923-aquantia-support-5gbaser-v1-1-537d39bb8c35@oss.qualcomm.com
+---
+ drivers/net/phy/aquantia/aquantia_main.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The investigation and patch were prepared with AI assistance.
-The original production volume was not used for experimental testing.
-A detailed report, sanitized trace/disassembly and host harness are
-available for follow-up. This RFC has no DCO sign-off and is for
-technical discussion, not a request to merge as-is.
+diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
+index e95d391a6dc2..dffc81b9eb52 100644
+--- a/drivers/net/phy/aquantia/aquantia_main.c
++++ b/drivers/net/phy/aquantia/aquantia_main.c
+@@ -49,6 +49,7 @@
+ #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_RXAUI	7
+ #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_OFF	9
+ #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII	10
++#define MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G	12
+ 
+ #define MDIO_AN_VEND_PROV			0xc400
+ #define MDIO_AN_VEND_PROV_1000BASET_FULL	BIT(15)
+@@ -582,6 +583,9 @@ static int aqr_gen1_read_status(struct phy_device *phydev)
+ 	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_RXAUI:
+ 		interface = PHY_INTERFACE_MODE_RXAUI;
+ 		break;
++	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G:
++		interface = PHY_INTERFACE_MODE_5GBASER;
++		break;
+ 	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII:
+ 		interface = PHY_INTERFACE_MODE_2500BASEX;
+ 		break;
+@@ -782,6 +786,7 @@ static int aqr_gen1_config_init(struct phy_device *phydev)
+ 	    phydev->interface != PHY_INTERFACE_MODE_2500BASEX &&
+ 	    phydev->interface != PHY_INTERFACE_MODE_XGMII &&
+ 	    phydev->interface != PHY_INTERFACE_MODE_USXGMII &&
++	    phydev->interface != PHY_INTERFACE_MODE_5GBASER &&
+ 	    phydev->interface != PHY_INTERFACE_MODE_10G_QXGMII &&
+ 	    phydev->interface != PHY_INTERFACE_MODE_10GKR &&
+ 	    phydev->interface != PHY_INTERFACE_MODE_10GBASER &&
+@@ -1040,6 +1045,7 @@ static int aqr_gen2_get_rate_matching(struct phy_device *phydev,
+ 				      phy_interface_t iface)
+ {
+ 	if (iface == PHY_INTERFACE_MODE_10GBASER ||
++	    iface == PHY_INTERFACE_MODE_5GBASER ||
+ 	    iface == PHY_INTERFACE_MODE_2500BASEX)
+ 		return RATE_MATCH_PAUSE;
+ 	return RATE_MATCH_NONE;
 
-Does using the existing is_mft allocation path for BITMAP match the
-intended locking/reserved-record contract, or is there another MFT
-attribute path that needs to be handled before this is submitted
-for inclusion?
+---
+base-commit: 944ae66642b726bd6b25ae71b1e9ff88a0e0bdb0
+change-id: 20260923-aquantia-support-5gbaser-e7271bde9f89
 
- fs/ntfs3/frecord.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Best regards,
+--  
+Hongmei Xu <hongmei.xu@oss.qualcomm.com>
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index bead01a95..a4c6fa019 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -1019,7 +1019,7 @@ static int ni_ins_attr_ext(struct ntfs_inode
-*ni, struct ATTR_LIST_ENTRY *le,
-
- insert_ext:
- 	/* We have to allocate a new child subrecord. */
--	err = ntfs_look_free_mft(sbi, &rno, is_mft_data, ni, &mi);
-+	err = ntfs_look_free_mft(sbi, &rno, is_mft, ni, &mi);
- 	if (err)
- 		goto out;
-
--- 
-2.55.0
