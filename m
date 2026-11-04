@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793784858;
-	b=YDp2CgJCgz16VGnUXsbgtb4f8XQEwLZisQToXCeGVginJbnxCPO+X2F2o7oc6AVn/e8z
-	 iTwT+4MwoecQZyV4kT3shVEcGTmEP5csBGsokiVxG81DRa2q0y/3SQ0GaS4zxDqkLF3Z4
-	 ou4aRV/XmZK5gBmpnpM5ahxfLxpWUuImeRmYCj5z8/FlvsWk8xB+/2gtY3fzie5pHuTMR
-	 Hwdofh2oZqR99snUDtCVL6BU/2+VOz5A/SL4ntoIbkY7rmGMzpXMi9yRhWirKGfP1K5+L
-	 2X5c4OAIx6tbV7FU+E5njlvP5/CuYkXuAszOk+tRSoUEllfyLoCaUCj+jsWO/D5fv/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784858;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4ouqrirnO6wNvH7uUDOMKXdd2PKlnxFN0KIseE7tUZ0=;
-	b=qgnLZK3S8oh8O9iVk0ctxZ2plqp94KfIP+zzaorPbLLnRb4CoskF9nEwBtMmQzpb8CUO
-	 tq5R9Cspi5V7vYbBrcKxvpwYIA/MLS/Hh0+49Ht2WyMPMhgaw63L5RyrB8miMGW0HMRF1
-	 3Y25x9NOnkk2mv32pBFB3j+yzeB8iUIlYWjwjbDHsYcBhzA4p3HvcpRp5wOCXrY/SPzS3
-	 +zET6kcbO13eXCoeVyAojLNfTCZdPYxpPesXYX2wGxzYb9FHXOFIBmE6zVxq/V8daZMx4
-	 AMBOAAPF9i6ahU0frKVjYA5L9xWSB3OF2Xm7vhPpFyW8v8NkKN40OEtueEtfmnASH2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Td0a+DCu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.4
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012004.outbound.protection.outlook.com [40.107.209.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793784989;
+	b=QnTGzu9lL45uP/47MAcXrIPzdN6+72/fDYDb39LdwMXbyLxiVSSd4UNriuKD460TtjLv
+	 fmDyC0qxnsezjfCkMwK+Ah7aAJP36zqoWuyZ9gG7DFSaYO+PybHbt3Y7DER7OENPnHDGx
+	 XzWhULcPZhfnl4aCogvgXb41BcdeviiP2W89k7UZ9ahDq6MtbMoa+ud78++6K1M+vhIhM
+	 MrEqbwMQ01YxXRhW9BT0MFJm9VCTV4zTorwCefpzDqGKUprUgXvkoQnolY3kOkJeKxES2
+	 hSNyZahN3t+mXpeCztquP/QZBS5thQLeVQYt0uR/FiNFaOzmZ6QK+9ZASYedQVOTyaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lTXUcqEXN9fhbWBTgpN5+0qokRh4JVbIacGfVHJnplQ=;
+	b=2BNGW7fcr2SriIKtCOgei7Hd2EkIZuNKyEBkQ0FCNFuoh4A+DMBo5/F1o9mMDbZfq5zX
+	 N++yGSSuhJljHIJokH3NZmQa/lkzQYOvMDBXaudAiyzA+Z7E84gnOIQ72zbraIoHZxo30
+	 wtzogRbCccYWjQzmS7VBfdorQvtONTHfOXlVxQUCWk222rjGUAiBogAc6MBmRAmBzbKIV
+	 K6IIXSDvpvm1y1yNAZbxGkYgB2OSyx/G1ZV88NlxrhwngE4xhkQBzKDu5TgA1KL0bIWlm
+	 8He7P8dMYXZaxXV6awKW5BJxqfU+BaBrNkrnyLmg6zUVwU33ulDdu2ppZTeIOihBHlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GmGCxF+s;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB465606A326;
-	Wed,  4 Nov 2026 09:34:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB465606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030C4606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 030C4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Td0a+DCu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g/vUVlqzf2Gz8Z6ppkMsCFOrEaiafDyBAOzPEQ/W+5L/bRvXj4kXpKCy4Hd23kotnGFl7qjngDvTGD6VKdkSesnDZd+avkovJMEdcIONa84m+7wlrMAFUITxBNh0gRhF8KLOoxhVznNPcruIInmiMV1djNRZI3/KB+AVxuTTv5Zm8bqSaNjy09AnGxjDyJi9ayUd+k3jA9gOzwNRUfsBaOvnmmACpLXv9HaW+Kad5v26v6ARGnboRqKXKit2tSaGwbH/fNv64oNAzsobGy06VQ6E5NQSX5CxCkLzGeMzHn7niiiHQtMk23nbhzvpCPm9gKmelSpE4ovcOndRHEtFHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ouqrirnO6wNvH7uUDOMKXdd2PKlnxFN0KIseE7tUZ0=;
- b=Ogzhg41W4dsJba/fW+RlM1fjLdrIxX5gSL28E58Hlc9kIOaZZZiIyUyas7+2nJvRjrbPcQW0xCaXgNoamA6hM9o9/dYWyKn+9xSovOh8RlEoqx419V+2A1YEwuZvBBEcu27M9vCfW96p8w9fwVOv4hQ9dU/dgVkCxtSVmOJJVSD7+Ne4k2YYmkfvNGILWd35YOdSZ1lQO3bAxp9dkthEErQaUi43zjYmHQlZf423XCZDnT2Yb5tBwDrdiQBXllEX4CDGooT2WsHrb7ent2WChwOoBDOaUh+K522a+yhDI0gMa8699ZMWa1RopETRChvMv/fWdTUj51be7f8KQxYC/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ouqrirnO6wNvH7uUDOMKXdd2PKlnxFN0KIseE7tUZ0=;
- b=Td0a+DCu+yAFc7bOH9VfGKO3hzrRcwGPZgRKtFtJdXMoMSZfCsA+X85GXowuuYUz+c8ai1bBkHre1sKcC4xbQVIq4epDL434Wdg/RCRaB/16qnTMzLWYX2x49JfB6QfKxZfauEkAIEM4YUdK/jDezyCdP2Stw14KIXNlF87W2JZsC8qNuqu+dRvtZLBD+15EZkETjogWFR5Z35FEUgUHKsm2PGtBcYbmxczHhB04/MlSGDe2OzeG9AoRzq3X3RmywRK3w1B/BapAF/75AjtW8F8U2BUfsNDHjolrjoyRwPO8u1ppVorS3Kv/L+H+6dcrpgihMOrwxQrBsQUpQg2Z8Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CY0PR12MB154213.namprd12.prod.outlook.com (2603:10b6:930:130::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 09:34:14 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 09:34:14 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:34:11 +0900
-Message-Id: <DMMBNSIC9LDP.1PU47ZXLI3LQ7@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 2/4] gpu: nova-core: gsp: add the GMC API header
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
- <20261103-r000_rebase_on_cmdq-rpc-v1-2-189f9ff3bfd2@nvidia.com>
-In-Reply-To: <20261103-r000_rebase_on_cmdq-rpc-v1-2-189f9ff3bfd2@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0136.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37f::13) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GmGCxF+s
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so345035a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:36:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793784988; x=1794389788; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lTXUcqEXN9fhbWBTgpN5+0qokRh4JVbIacGfVHJnplQ=;
+        b=GmGCxF+sHS82Xh/DPYUY5pfW0A39hyNAQWMZR3S11K6S959NrAiKn5Gvj8B/SUSnxV
+         mauKncLIoCa/dTNCYroUkf9L1fq1lSvXHibiZVCT3CPMr5a57LrKFvLvxWKSK0LenaP3
+         l5ZAGP6tXncoBnKeYMDAHuVEvVTcVRD8Ac+0zfaYf1toBl3j4UKp+CAEVpuhSE+YBw4M
+         qrQ+9OqHbc7RJhCMAPIIrnbnq2t3pDzUm3VijPuGxR7zntnfv0X4pFpTsxUq4ABKTlrl
+         ckJqwld9+PfhNeSHBFvKkDzOSncU0XZTBYXrS0xqpdgTKXEeatgsPMZHSD4TwJtu+ojq
+         eVnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793784988; x=1794389788;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lTXUcqEXN9fhbWBTgpN5+0qokRh4JVbIacGfVHJnplQ=;
+        b=nYVeGQwF/ByBXO+qxpoHLMQ5riqOTPGey0oPGBQTbxMfbrgFN4FVkmXzOaEWg1bygX
+         nsGc7LpPQ2cqGw+QGfPtvVDthUYFT8yQFjJnPgCq0L2gj3KktgXK2DEFpqesNFTcH8X6
+         EysrIWmiFjatlBpSFkF8mYRdBduyIFC2Up5ghoxU8zKzvhskBGeI6TlXy6kOdW5l+L4L
+         rj9ojerMY3fKI/jPpcBH0c8JI4O7OtV/GOIT1C+3iw6BQCo7JGssKftlBHV/InADjC5b
+         ywGIsnVMz5csTkO2cGX53wmai48mPB4zI7O64f/E6k4IAv9utaRk76MHzN8t46sYkAN1
+         SBaA==
+X-Forwarded-Encrypted: i=1; AKwUvByMrPzGiTQV3wN1eS1OYvyiEOhLzAfoBJOIFWn+3YdhDoHlz/FJyVm5RZG2QrtkgHZzXfuhKcHYOiuBrng=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KM33o+bio9BBC7rDFkDPvcZpbIzFK6oxB6i9MlJcOYNQ546fH
+	4tnWkWJmwZ8oaLGh5aXJou4hXXtrmPel5xBjecTW9dP/AtRvfeWiUV86
+X-Gm-Gg: AYBFou0Z8gKvvs4nau0NcvgRIma+YXMoZpOO6A1I9/isZSJ5TjoPqymdoY6gogZbilx
+	LolEOWLBALGjuMW2W6gWzSbJOOnSbjMaQIx8TOY14oZru1QxoLxXQiTITvcNeqDdqIbWah1+Zyj
+	3W+C7UchxHIXmfQR6IPpsRGzLdFWSa1wgSLNnbEOSxWdVHEe5FG9NKYHbUJpmGNxNEYSVE+pifO
+	3zXBnMJPeUF567uS1qYk6AokYygry0aNlML0YSWcFk061Mh3J6U6O5+oLAAkEWD2L6r+nCTOkAo
+	sw/o2Z+8p8UByxCEHRZUdVaYZi8goeDbne6ioKTzhNeY3zUkPg7WueQFPUryaPPNvyTs2ZrF1cg
+	OAH8+YRpSMrYGO7fRsPNkslm+Len8qGotq0p8JnsThJeXrzPbSAlEuLOcxlVG9o4Y+U4480ZZCh
+	uoKedN0rqPJFoidEgimuoyCDVtuaCW0d1Whrsuo/BDm4Gq8PDORf0rF5uKEMGkqkMyBgVrpAHhT
+	h8337xpTkFMEI52irKg/bleIjAS5gR8RSWXVtvWJdiXGPg11HnWprJKClrkmiAhkz/qWjvMxxNY
+	qy7DJRWJzRMLf+QUXLWWOnZeNFoxTQ9ShuD2ah5cF/sWwwZxtWWAMQc4AwPaSaELKyTJU/Nt/ct
+	u/B9x
+X-Received: by 2002:a17:90b:2742:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ae897158ddmr13702795a91.14.1793784988126;
+        Wed, 04 Nov 2026 01:36:28 -0800 (PST)
+Received: from evo ([183.171.191.8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944fd80bsm3149967a91.16.2026.11.04.01.36.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:36:27 -0800 (PST)
+From: Ambareesh Balaji <ambareeshbalaji@gmail.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: xhci: Tear down host on Reset Endpoint and Set TR Dequeue timeout
+Date: Wed,  4 Nov 2026 09:36:08 +0000
+Message-ID: <20261104093608.2642748-1-ambareeshbalaji@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104101506.5ae19157.michal.pecio@gmail.com>
+References: <20261104012725.147741-1-ambareeshbalaji@gmail.com> <20261104101506.5ae19157.michal.pecio@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,127 +100,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY0PR12MB154213:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2ea3e33-acff-49a0-c1fb-08df3a56c9f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|23010399003|366016|1800799024|3023799007|10067099003|18002099003|22082099003|11063799006|4143699003|261102123227099003|56012099006|261021121427099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	SCJDHzQJMKjMr5vWBD/woVnlukHmtxMoy/yqGJNFL4tiztDTEQEm3soU372X5u8B4gI2+h5Dehfp1qH8cCqYTYdPzZfr3B63VV98wxtREWL7FKtydKkcKwxxLfUq+eVJ1L9BGmKorHAf4Fi0G7vnxH2cndAucifC+bTFauV+PQiJaySL/mqD8N97ZwVneo6Vq0tUzikg84YQTYIFm/BsD0dXddpA+DailZ0zvmep0neumr8851/bpc35E34FmOQPLqNEG2ZhoSwj6sxfRGyS6lx7MWZJtbzR+YT4D4p4h4ymQAOqSVZILdZc9MSFzEt9vPyQZcCwgxtRahUDNv2EijND/J8yDQxwuCZwTI0YDJs0xat2PbOwHjKxp4Uu32QYd5xWn+NkoGZTKEuEHpKldvbTJOo9Gfi57appav9/cABtslKRi1fFGiimvS9isibKRuQmuaAKtuFeh5tnbOMUy8om835Tj93LpfomQwfmEIQWifc2w2+XsnUMgjKrXZpjg+0fuVi66loFSz8z9RfYYwipC6IyLpfmnePUldm7N+4HVjJx+qGEdyCiLtLdcTUC/hGSPjogf/6INsAu0QK49Af8ruxLrZlp3jBfK0PB2SdaePB46/8bsUIk3ql76mNmysiClCNB0Q9qhtZe5EjTCKPPWC3qDk0pklfMXAilVII=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(23010399003)(366016)(1800799024)(3023799007)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(261102123227099003)(56012099006)(261021121427099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXB1QVNXdTgyTHZVeWgzNFJ2U0ZrUEtvaElmTk1oeDh0WkFSMWtYOTQzWnYy?=
- =?utf-8?B?YzNQQW5zM01FRW9FdWtvZzl3U25JdnlQaVB0VWV6eU1FVWhJTDVGMFA0UGJE?=
- =?utf-8?B?aHV6aUpna0g4cUx2Y2ltK0ZhRXRpRDlobjlMelNZWE9kdTFhd3RtQzh2NmJT?=
- =?utf-8?B?TGJPNElsRUVKMWl6NE54a3lDc3BwckdKT1dYZUFReWVtQy9Ob0NXSGozQmZN?=
- =?utf-8?B?dlUyM0xvZEF1aE42UkRhM2t3anNXa2VIOGQzTE4xdHJ1RGZKN0RpbDF6TlRs?=
- =?utf-8?B?dDhodjEyN0VYaVNjYUFHQlFJb2h6RjJBV2xJZWQzRXQvUWxLcG00KzlUb29W?=
- =?utf-8?B?cW1aLzlUbGh3MmR4aTJwdkhVWHRiY3Z2cE03cFZPeGJQT09qZ0cxN2Ivc1la?=
- =?utf-8?B?YXZ1ajd1R0VqUUNjV0NhMWZ2ektiMGZjb2wxRXRpZ1FlSlAzN09aV2xtcFAx?=
- =?utf-8?B?SFBzWlBUZW1RK0hmZ1FaeVJXODY4bk1qazFBSHFFeFZoUGpRckhKTTFJTHRv?=
- =?utf-8?B?UmM2c3NrNkQ3QXM4anZMM2lhNUhURDIya3poSDRBNkRCbmNPMHZnMVRMVm5j?=
- =?utf-8?B?d0QrSU1OZUhIbDRzemtTTWR6M1FOazA2alRQZ1Vmbk00dE5XTmw2T21sSjlx?=
- =?utf-8?B?MGxic1I0VkovOHdKWkUrMTRFK0psK0hkYUtkakJ6Zmc5eE5xYmdQMk1qbS9T?=
- =?utf-8?B?b1dkRkNwaUhVVjNxdkJ4WXpacWlvVkJWNktPcFgydmxmb1JuMEZxTVdrSExY?=
- =?utf-8?B?ejhGVllsS1VCdW91YVRZdWlkT2Evdzl6b0ZYcUZ4S1hvTUZxYUVteFNwWEZ5?=
- =?utf-8?B?V203Zkt5OUJmWTNWZGlLNUMwcEtQUGhSdHp3Ykw1bmJURWNTZ0xDSjRBTUJU?=
- =?utf-8?B?Y3JneVYrNVJ6Z2hGR1JqbGt1OVkzUEpMVi90Y2FpQjBjQXhjSEJXOFZIWWZs?=
- =?utf-8?B?YjFNNlFiOTViUmltR1Zjam9QWVI1cWNhQ3dnWmlsVUJzYUdkUzBoUm9PeEVC?=
- =?utf-8?B?NCt5M0VnK1dpOGNzeUxnempqY3lnbW5wZXpmNWRKaFN2djZhLytMWDFaeGFa?=
- =?utf-8?B?WnFmVzRmcnVoeGFqakxCeDN4L2tIWkZIN3JFeFR5Z2RaTG9UUVJWb3E5Y0VW?=
- =?utf-8?B?MWxRSGk3dzBvOEgyWjFSQmRXL0pJaDNFWGh3elFVRHZoNVM4SlZhazVUTzVO?=
- =?utf-8?B?Z1kxM1N4emN5RTBiaUpSQ3lLOUtNcmJlejZCM0E0UHhmNmxmb1ZSQUZyQVdv?=
- =?utf-8?B?YkMrbkR3anAvWm9UUGhTanRjTVR2MHFrdEJsZVJXcytuMWlYV1VheTFqR0cw?=
- =?utf-8?B?bXhjZVoxZXNGK0w2a0U2S0N2dUZSL0pZMEM0Z3hHdWdRU3Fldk4vVXY1L2lw?=
- =?utf-8?B?Z3d2SWFpbVJ5a09CUXBGSm0wNkgrUGR2ME5aT0xCdWl6VksxTW9jMjVaSEZ1?=
- =?utf-8?B?QUFhNW9JbjhmN3NudjFtUWlKQnh1RXZNRnlCb3h4UTYxbEdKdHplVkVlS3ZU?=
- =?utf-8?B?ODdkNXl6QWR5VGs0SEZoRDlEQ1hzdG9QaFVqcklzeGJYaWNIcGpXc0QzZDM5?=
- =?utf-8?B?SmY3OW5pUDVWcXY1Z095RTZCOTRHN0pKeWZOd2RRT0M0eDBwZ01BNCt5VnZm?=
- =?utf-8?B?TkxNNmpLYU1FWTBIY1hJdjBpT0Y5dnpUY2pHSTY2T0g1dUdSUTdGUE9DUUx6?=
- =?utf-8?B?SE9iQ3F3K2VtVERxNVNadk5nYkxlUVM1WVhjbnFmSzU3SVhlT0VQRmw4WkpL?=
- =?utf-8?B?VElzU1FsOENoMXRYTHY1VWYwOHZzVjFCcWs2TXUxc2RaOXd0TDRUTUdTNksx?=
- =?utf-8?B?d0doVldVcU5nRGVqV3F4RXhESXNLL2IraHpTSVZHMnpoSzRYVDlVdkFNa09O?=
- =?utf-8?B?NXpUbmRTQkx5UE1NcWl0R2Npc0xRbWNwUE9GakltckR0cU81cVE5SnhVL05o?=
- =?utf-8?B?UzJ2RlBGSmlmNjFZWEtQSUM3eWczNnlsSUNqRlY4Z3kxaTYvS0w3bit2NE9G?=
- =?utf-8?B?bGpWYjJjVEVRU1RuZFRGY2dyUG9HN3g0UHZ3V0RETmRjZ2dKZmV4V0tKOGgx?=
- =?utf-8?B?ZGhLTTlEMVNkV2lzb1RJTTJ2aXlpN2Q4VDJWa1pUNGI0YVlhSHFVaEZsMzRK?=
- =?utf-8?B?VXUycXNLemE5TmtjT3Y4djY4NUlYS2l5L2h0citsVk0zQ09GcnBQMEU0ZHlC?=
- =?utf-8?B?eXNNb3B3b0Q2M2M3UW43VzBtYjV2bVJUdW5WbkVBS2xUNyszVFB3ZDNCVC83?=
- =?utf-8?B?eDNONnNsQ0FOVTRpT0ZSQkZLSUJVZ2hqT3JGWEFEc2xYbDVKUTVKNGxVa2Jh?=
- =?utf-8?B?UHNWK0hvaTJRa00rSmNmbEZDSi9YV0tBVnFoYk9BQmNwVmEzTk0rNVFRc1BB?=
- =?utf-8?Q?v+qVjlyXuf7uYdbVq6BGSpstrQ5S67efJkxSzpZ/aGRAi?=
-X-MS-Exchange-AntiSpam-MessageData-1: MNK5cO5Ewirbtw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2ea3e33-acff-49a0-c1fb-08df3a56c9f9
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:34:14.2180
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OIPGfza3CBorHOTEaUBK5+ZTypCznqztMPxwPmHu6LOy36Eo8F3chbVgkP1FQsVkVXH1UWcpHeQw53PCPu6Gkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY0PR12MB154213
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 3, 2026 at 9:02 AM JST, Alexandre Courbot wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
->
-> The r000 firmware carries GSP-RM's boot protocol, and its newer
-> interfaces in general, over the GMC (GPU Management Controller) API:
-> messages that follow the queue element header with a GMC API header
-> instead of an RPC header.
->
-> Add the GmcApiHeader type as a newtype over the GMCAPI_HEADER binding,
-> so we can define the GMC send and receive paths in the following
-> patches.
->
-> [ acourbot: wrap the bindings type instead of redefining it; make
->   `status` return an `Option` to avoid returning a value whose semantics
->   are ambiguous.]
->
-> Assisted-by: LLM
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+Hi Michal,
 
-[...]
+Thanks for the review.
 
-> +/// Header of a GMC (GPU Management Controller) API message.
-> +///
-> +/// In a queue element, it follows the queue element header and precedes=
- the payload of the
-> +/// command.
-> +#[repr(transparent)]
-> +#[expect(dead_code)]
+On Wed, 4 Nov 2026 10:15:06 +0100, Michal Pecio wrote:
+> I have long wondered if we shouldn't simply halt the HC on every
+> command timeout other than Address Device. Commands shouldn't be
+> taking 5 seconds to complete. When they do, something unexpected
+> must be going on and it's unclear if the HC is still usable or
+> capable of recovering cleanly when we abort the command.
 
-The build breaks on rust 1.85 here, see rust-lang/rust#154377. I also
-had to work around this in the NVKV series. It's broken in a few other
-places so worth checking each patch on 1.85 imo
+Your approach is better than mine, which only covers Reset Endpoint
+and Set TR Dequeue Pointer. I am happy to drop my patch in favour of
+yours for 7.5, and agree it should not have Fixes: or Cc: stable. I
+will test your patch once it is posted.
 
-> +pub(crate) struct GmcApiHeader {
-> +    inner: r000_00::GMCAPI_HEADER,
-> +}
-> +
-> +#[expect(dead_code)]
-> +impl GmcApiHeader {
-> +    /// Creates the header of a request for `command`, sent with sequenc=
-e number `sequence` and
-> +    /// followed by `payload_size` bytes of payload.
-> +    ///
-> +    /// `max_reply_size` is the largest reply the sender accepts, and ze=
-ro for a request that
-> +    /// GSP-RM does not answer.
+> I haven't seen cases when Reset EP or Set TR Dequeue hang but other
+> commands still work.
 
-This is a bit confusing imo since we have zero reply length commands
-that do get a response. I would just say that commands that do not
-expect a reply or expect an reply with an empty payload (so just for the
-status value) should pass zero here.
+I can't show that these timeouts happen on real hardware yet. What I
+have is:
 
-Otherwise,
+1) A fault injection reproducer. On an AMD xHCI (1022:1587) passed
+through to a QEMU guest, I halt a usbhid interrupt IN endpoint with a
+real SET_FEATURE(ENDPOINT_HALT), then suppress the doorbell of the Set
+TR Dequeue Pointer command queued by the usbhid unbind. Without a fix
+the unbind blocks forever in usb_kill_urb(). With my patch the command
+times out, the host is torn down and the unbind completes. Normal
+unbind and rebind of the same device is unaffected. I can send the
+injection module and test script if you want to run it against your
+patch.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+2) One real hang with the same symptom on the same controller type
+(kernel 7.3.1, tainted by out-of-tree DKMS modules). After a Focusrite
+Scarlett Solo logged "USB disconnect", usb_hub_wq stayed in D state
+for over 4 minutes in usb_kill_urb(), called from
+scarlett2_private_free() on the disconnect path. Nothing recovered it
+and only a reboot helped. There was no "xHCI host not responding to
+stop endpoint command" in the log.
+
+Reset Endpoint and Set TR Dequeue Pointer timeouts are only reported
+through xhci_dbg(), so the missing message does not rule them out,
+but it does not confirm them either. I see USB audio hangs like this
+once or twice a month. I have enabled xHCI dynamic debug and tracing
+and will send what I capture if it happens again.
+
+Regards,
+Ambareesh
