@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.83.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793763240;
-	b=ToBYJ5MkfHdXgTctqW82eNFNPM2pNW3gjgHcGlRKHQJkH2OJWNLHKtimo/j/54XtQBhT
-	 SI4MM1ABkE0Gt7DsjYWXP5e96q1vun+UcD6gGlQ6Qioa6wE6uaf9kqmRxjG8kSPxovHX/
-	 TGk5DbK8Qr5OuzCYI1mI0W7nJpcwg4nzXwjhjs8au5lRSqUInEIRktEAJ79R/iitgD36j
-	 kB0rg+6BE9HOJfhw0OHSCfPdPE4VNIFEuZPImek/BdxSxAi8sDkMdmrHnpJ5vQ5GTLa6m
-	 TupWXiYNJX5U7WuXo1DHyRdM/JdbK+OqmYyCIjU7V4rua/Yry07Coy6hY49OX1+UjpA==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793763337;
+	b=RldJvV9+UWpKHjv7Khe5g7a2WqViuJwCSiYZw0KJcmTj+dlSYgygrPvZdWEqsFDSHSCA
+	 9VkyktCQWfx39njET27dPn0uOnnQd6FsEiMijW+SlvJuxSvk89pwpD2d/Nn3kL9xgsOJa
+	 ZFY5q9+RE6Rj8WzzlZ7elRK8+PU1r9N76Ymzug6TU7uBAGWnX5UUdXqOWqwn/EArs7yuO
+	 Kis0Oz/frqcVSxrwr3HOKz7pboVkQ9tZzTR/XYFLwO6D6FWqFkBdCvT/RmhFqXnRfLSH5
+	 xxwyXO8fawtuIWxK4V8FF0PtJe2YL6HVdK1HI0AH3M1jh3h78FHOkuMl9KmdhkXk1Ow==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763240;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HZpxqQ27CgLlc6gGXPJH+JRCjxgBupNXWZLzMDDqkp0=;
-	b=XRSoPXL5XiIOoB+R0pwN94TsJ0PbGfYzxFbnCkSOrZcSqeIKNZ1bhN1OWmI1GNxk/ZPo
-	 ZIsrRTivoRK/2g6l3EsBmljIRPMhFhNaC3Lk/la28p5V+k4NFkVoDSFppHA0oXl+Urr8s
-	 +/h3mgdRI4FF7pe0QSIt1h5Lb/ea8gTonBVHhfet1NEKbatZIX/BLFF436vWdNkfUpdVC
-	 aXvsp/X9FVFw+nTJOHIgWjQR5HzT8WT3pUBU59ily+5EAASdagNnikRI+Ik+5ZNrhbA/v
-	 b6+r4oeAFqZsFszwh1cQGfbAvOKlrjZAOBNPa8kNRZ4xX69T+8gljQkvexCt39iaZ7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763337;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
+	b=b7ACParg/BAEdU+xwVXBKokQHG+uoUkudOAeZdapJf8mPwtHwxgiwwuSJ4kjxhAm613w
+	 909t5PaxPHGKTCOgql5uUurnXMI8aN3T7GO+qqX5b9d+YuhP1bh+K/jD8TWPmW+Bs9zzj
+	 aP5dsdU3rXbJqC2GTj2b6T5KOFO2vMF5kC3ylSNEgIfrmYOYilDtN5BByOxIbGMVjUc6a
+	 wdI+t4F768EAQtfELh67vAU9lywMHQbSKFw+3dBvA4EtMTg0sbO8+NTmQfQIL5683ey9L
+	 6fC7QDjk8JgXpakf8MHwYZZ7zHJlgXVH/YsH+8GFHL37JwmaRujxL2ujMZQ3R6jQSpw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="GvA7sn/+";
-	arc=fail smtp.remote-ip=52.101.83.71
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013071.outbound.protection.outlook.com [52.101.83.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZM+Bo/NL";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FA1606A31B;
-	Wed,  4 Nov 2026 03:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FA1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77B9606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C77B9606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GvA7sn/+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IySKAncn68ZL8F7+UUn2iYlGuZ8jIL0PjAGfqouuf6hq33813ufrS0C4A3b4mbyiUVGfNmzraNQ+7bqKy7KNXSusmRkkRYO8Oa8gcWiqqFp+hu2UCCYveJC+cZrIszPPMF0EhBAQbz0MJuM+6pikuHqiqctICz7pwv4eOJS96R9wlFznO6lM4eplVsSVfkDlEEvxTEB2KaRuItGaAU02ezf2ij805Xk/1UdbyqEcxS0wz6AzClM0eIi/G7KTjtqlwRnjmLOSV2MeZMUwgCBBFuRT9o0DzuZ92n/gB+Ua+okD/s7QV0t6i774uReYmX8XO1wl0RP4YGyE6yh7PtbunQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HZpxqQ27CgLlc6gGXPJH+JRCjxgBupNXWZLzMDDqkp0=;
- b=BRVSj7TuSbx60OSX8+wsCRzzSVE0sCNOFyL2aF/XQu8aNhJOECNZ0+0/EjQoOID+MLsK4oiu8LoQ+igpGUkINUmrccOBqSy9xxdwLc6NUTpVyeP33SfsWu5cU0hWrIHkNZ0tN3MlLRmvylSij/WpzztEuZiYYUfo6stVon6udJdzaAvJevS5fgQvH0FvN4lb9dyLZi8IdEyMdb9URyY7WYGQa/rGUKNtbY8EZ1rJxgzGVG+NhqPjd1XUTXYFa+2Ui52XIqd7ywTuuSBPpoCWq/8FXTmUUYCvE3XSKZDwcqnC3hMXoeEs4ROjHogosAYv/JX8sEIVojk+TGJ2Kfbz6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HZpxqQ27CgLlc6gGXPJH+JRCjxgBupNXWZLzMDDqkp0=;
- b=GvA7sn/+wjUVF7umaKyYhzB9oZSxmcYVxohpGFzQ/asCtEcLlY1aAmbfcZ+kTP0mo2/KoXts9GmrRNWUtB/4HyvrTjJChUS8Emgh5OWNC3VQrA4xZC7BIISCOdnvGLWrJP0Mm08ZamLI+k5lAFTrbZuJwTK23aHXHj6e+4A6T3clUdVINAiNN11eiT+XuO/nt8FHm5P5DvozQN20X1TNwpxcPI9EHfFCm3D7saFGzFpCloGDS/dGhqwPZfwwABeqOKUQbsrSwAWFKRlHpla+W96PmN8ELtAtn23IPPczZdH+hkze6Y7rZWJgkvNdRHcMCHf3K28uAvm98mQEPRxvBQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DBBPR04MB7868.eurprd04.prod.outlook.com (2603:10a6:10:1f1::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 03:33:56 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 03:33:56 +0000
-Date: Tue, 3 Nov 2026 21:33:46 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: connector: Add fsl,aud-io-slot
- binding
-Message-ID: <auqnmulXoW-iFYJI@SMW015318>
-References: <20261103070433.2307145-1-chancel.liu@oss.nxp.com>
- <20261103070433.2307145-2-chancel.liu@oss.nxp.com>
- <aun9Hj1Ypc_xSYtL@SMW015318>
- <5815460c-f8f7-48d6-a0f2-3ed56e20bba7@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5815460c-f8f7-48d6-a0f2-3ed56e20bba7@oss.nxp.com>
-X-ClientProxiedBy: PH8P221CA0056.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:349::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZM+Bo/NL
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso287131a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:35:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793763335; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qQ9vcMvPNa0jDGtqkPGVNJXDaHL5xwH7cfp7S4PrQg3dDQLlRZKJadf0WT+9Z3SmBr
+         pcH7UBo1cauGNgiHPFhLpCD4sPB7eMHdv4VULKRVECtslPHpnjOKJ3MuiiuQDnSwZiK8
+         CAtj1bs+hyYfbzSc2BLj/D6DRYeJ0mOslZGEyGoq2kb4l4B+iz/sopnBaWzczKVAJ+vw
+         EzpEN9qzutR4BYnjQbk7q2RePfB8bEP0BJARA4QxjCKTFPemCQpFhcwKXFee+rc1xUAS
+         7js3cBBy74yI0B378GxGfiuwketaPOXjsE4mAtHON2qPXFQqY+dmFd4NihSwMcCRQHp6
+         FrRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
+        fh=TP9Xsgu6AodgjvupTcAJwto36z7ggH0lPzY408llw4k=;
+        b=b8DRQbHP3Ij2vJKaF73UxPvt6S6pbaST2Taj6sq+qkDf+zSA7d8IDpAAFKiMMoftqf
+         kQt1bXiUYAYC2Lon9j/NRFkct9pikP8/GFR1JhI5Jp+tcO5Xn7awoTs1TTRNg2bG9cgQ
+         V17mlQQQBHPZEiIpZLc2HNY4/Gj0MA/1EE+y6D7WC1v3s3RDsxoSyJtV7cvhgo0dgrJT
+         oyx/upVXZH7TUA8594wo/WAd57g3GNoOF9xyU6tvN6SkjVfRJfrKzAhCHoJS4xtm5UMr
+         gai7lLLKiDOoNADSgzs/DNhAGeRX26gKgIR710lzUTABRnpt9cKbF4AUo8HFoxah9s1T
+         tjOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793763335; x=1794368135; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
+        b=ZM+Bo/NLHVAIGud/SRt1S82BHSV4Dy3O/1v/XhWAygF4W6LC8LJ4zz5tAHv0DKZISK
+         y99m2Vzu9GwsILtdlsp1jaTwouR/2MYaZmRoQEYGjyc1l9qj+unLS29lF5agI8+M5HLG
+         0zc9jcPKe0IbDIAMcl9xB1IndX3PyX1CtpGmg1HJxmIsKGflGof4vnHMxAw55W1f/Wcy
+         TbkSyTfpug2hmzKDyMDSQkiLuVmmUM8//uoc5GY4fuYPaFwMt86KGBfg6K5Vec6Rgfxj
+         N6E6our0/WG7Rd0Xd5gyJ6hair+/K9LSmfSxXKasKFEs4nwWUykQmzxp5ANZSCoa5RCb
+         IoBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793763335; x=1794368135;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
+        b=sysdhxSwaXR+QdJKdFAdnlkKfQgNehQdfxy5b4l3yuvvVqJCJgTuKTHlGN9GnGreap
+         kN0U+JnjiZa/WC0M/oI5wUjXwhveQYgfYNcDoVp+QY9Ed4rvLyGnqrjxHs5WZttFy2Mr
+         3j/91qHxJcNkBZZMUkdOJN0xJEkpE9TaWByXtKXP7U7GTK+C61i9Fh/qj76obyuSfMEf
+         5j4NhZwXQA2v/dWQviDUjFMAV1QOCYjWUik/XjDR0E9/8xr4MrNUz2eqRzNS1V8WFtSw
+         ovnbHObnKtyIjfP0jZIlq7xyXc9bY1U8SurkEWUyJOeMYff5ycl6MVo3k5qhQrwfSoMA
+         c/Rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEm0++ViuGdo8c0nzk3a7hBTjl7nDxvnuDrXrH0jYYgFXe1Bmus67TyqdWsxhuSDuNxQzZgrlSudnrgf8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FACfiDLbzmio76ycu6Czwoxd3rUWW5Rm1VXnrO/vvYbraoxQ3
+	q1qggMFjSfwxmxkclS9dG0/oVzTnv8w+r3Pbr1ttqs8T3fafobprvSjl/m+U9VK/TRK3w4nQ8ii
+	CZ+lLC+5x2n+p1rmng8BAG7aH/0WqlnDtcFhFV5Ml2A==
+X-Gm-Gg: AYBFou2EbiLycOlVX3qBvCgPHc3Q4ElifM1scyKTJ5s2rIdgaQb0si+rUFywTwldaJG
+	13EKFbu+hKQ7TDG/StU+UNy3RVSvK9BFVErq6l7r0hb8IWh1ZI7f4KX6pJtstNThOJCu90yPVTn
+	4P1c7B+LPPuMhgRWrRVgTVOC8KBhjqva2HM2+q3OMlCD9EGwFLAkJozqyuFpqQoDbkzMNlLX2io
+	e11EunWrxytD/suxXML4uTZJf6ZL0CR++sz8v+ezSD9YZF1bSrzigAAtjWMdSmUEH5sQ24uZEq7
+	VoqK//hEJzhzdZiQ9NDL5LD9N6NxC4h+1IPiXWX7Cz1TOFWqTx1IqTT2W5/G9e10vKyG4R0N3OZ
+	H3Lyg07/cDKli5bk4iMJJTUWcfWltgWFi3piFGUg6ZItIjK9nQZ0JiHGSue6rft2tSa/Z8rxblf
+	w=
+X-Received: by 2002:a17:907:a890:b0:c46:9ca9:f522 with SMTP id
+ a640c23a62f3a-c4ca7a69782mr1214812566b.26.1793763334986; Tue, 03 Nov 2026
+ 19:35:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,192 +105,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBBPR04MB7868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64662fed-f9b7-4583-0185-08df3a247483
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|19092799006|11063799006|4143699003|56012099006|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	3TnPq5X5SiQVvp9Iywv38VrZfrYvpOTUCZGUIQ3DlovCzuYSrVSvSnMITW9Mk2jxJfWH08LUuneRNRpv+3Pb7CmRcTrHkdwRAXyr7yhE5aexjUhylI8h17cL4Q3F/gfWQNwAcC6DBdPgoHS2MkhloG4ru3zImm/A9Lty2q/ehT0vWJJMTu0+NY8MSj93b1UQ24O0uU5MkuRotuwlGHA0T1n6fWToprjZJ8EbN1TVuvgdoPlFKUroDvwcBRwrWEAYhpmi8VYHjYGU8K2Z1kK/iawKz43QYHnKKEbWsu8k3HUz2s3wTB1dF+cTs0s8Q2v/b/gwEZNnJDd9XEwf83URIsU2727dggp32eO8jpnt9799jfkr/d+bFK0Zz2cHHkJJc6Lyi60CsNdAxXw48hNgTc5VMuGV7kA30+8pODLynn1DaU0DWe5Q1TCoY0J7L/2CZ+AJd8jrJFKRLdRSCExGNz+vkW6gYRYQZKvhiHtwpzpdfgAE2eWfqptg/YmRFfyQX8EHtYkw498IciYnxcCoorwVJ7BIIUN8m35Heo+bqI/jEkjHTqHFHnSXHXV8YX4bvFE7oVkuRWZvYBIoXAZAOKcgz6s8Tl0EoI3IU9w7emAgiXvs00b0OAb3FMca4j7z
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(19092799006)(11063799006)(4143699003)(56012099006)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?y7p988niKBm3+s92K28meIirz5OhEc3I4moKSp3V59yJUhgBrZLZKeXOW7m7?=
- =?us-ascii?Q?nHzyh2vwWMEr+A/Eo22BioDoKW3TwcGTSPXCN7tzaJAG3vK3bMHS/ebzbPZ6?=
- =?us-ascii?Q?XSK8Tg/jtVrXpuX2222sfQybBv+3UemZLyD5hHwFpo+Ux6cmlKNmQLkwIr9P?=
- =?us-ascii?Q?n0XHMpkD/fjrrkXpgSDAzhltGcRevqfxMGuinQWn9Z1W1i1NLNlNWcLwlgxw?=
- =?us-ascii?Q?llwk8nYIcefN6Ip6iG8nQCXg/lCaTwjyb7OdE3IH3fMgbY7OQJ+V49A5fnam?=
- =?us-ascii?Q?XMmBEZU37nwh3AMjY3YT+7H9aPpk37x9kbSYO7HvN4sYhffnAhlUSzuBMBA8?=
- =?us-ascii?Q?xSkEOgDitguOW5gRjM5HlZre1V6DR5G8B/y1j0UlPXoQ7vgWDI34hDKW/f3X?=
- =?us-ascii?Q?njAxc8Dc6u2K/+VX2bi3GZLPUBsQHZtq/pg9UK2LMz5KRLx9+cUbsFEx/dLE?=
- =?us-ascii?Q?CpLWyxEUB7wnH72GTNdQ7HiJaT27EyPgGDkqem1UCMp0dkCeWx0c0rTC5qhX?=
- =?us-ascii?Q?NjJC5RaczFdeyqGmDXO/qL+PUsuRPvsIqV8za2ZseRoL1jMYBWr6P6Sht5ev?=
- =?us-ascii?Q?gnY8HtYF/W2PnVsau1R6cSQnhfvx0R5HYeaGAxXU9BLgpR73UKWtrLOlvPFu?=
- =?us-ascii?Q?Mcwa01lBnjczzSdS7/ub3M8FzQuJSEmE8mxm/x4CJ9Nh/bykHcJe+WaXB/Zo?=
- =?us-ascii?Q?4R2DxmR14oBLp/h0eHVGN0oA0grXJNxaxk9zpXksKxJaMCc4JSMokXODuOTu?=
- =?us-ascii?Q?NYYjikzOu+8Zz6RP/u7R2ejj519l7RcfMOOWJPouhIlF/ISexk++Ay7ONY+4?=
- =?us-ascii?Q?b38t1/lBmoQ97JKL0OKOya6unNhtDjMkoPDD22wiGhkNy7lQyVvYbnOgkEfO?=
- =?us-ascii?Q?wlXE7/ObdwvFoU7/gW+/2oz/QL7qkbNDTd62nWUZX0f/0ZB0aH5FI3ryk0Hb?=
- =?us-ascii?Q?2qc/Iz8nnZMfC9RRVePTlLlnkYZk5qDVAzdaeEnistTIuIq3dONH1qY3JZuH?=
- =?us-ascii?Q?B9E5Fsxa3ryH6zSgwatu8StqkpU8vA9+09y9QnCre+lwfJwqGURw05Ps+hVW?=
- =?us-ascii?Q?9o6zn1xaijHLigqjJW8x0uw+h9XbYkTxv1sU+6deMnwwb5GzLfznDvOhBZTq?=
- =?us-ascii?Q?gublEqJk1bUDFANkGgQ/JY5AQXJDar3HC6+ssumk55gJgwkYqr3OSAV6Gu+g?=
- =?us-ascii?Q?VSa8njUN/9K3Y18lResVwDYn4iSdbPvdL2nbOnm5NqJHIRmu8CY71lj2T8IN?=
- =?us-ascii?Q?Aj3y1I5K9m3mNNdKsQjjqs4rG8vF6S46FP14QUCATqBMGukc7Ic5ducbjjAL?=
- =?us-ascii?Q?xrqNaKQ4ClfHEriA6DxDePecQYevI0s7kxUoFNjiuSJmQA73bJy5lE1oVDTm?=
- =?us-ascii?Q?dfJei+/gvxKnqEMsURgQGtWdcuN74URyFg212zYK9v6FVLpE+ABnCrM/GO92?=
- =?us-ascii?Q?CnYqALK05FUy/PdMsP2JoL/2mEmF3MhSdyMrkQqNv59Ydw9mE+Q+qU6/CqaD?=
- =?us-ascii?Q?xt2oSK0RFUrC7ZlivH6W8r0XQdEKTbaGA3djiDgPXRcau0hOVr8AvVeD14n5?=
- =?us-ascii?Q?IZqqYqXXeRt7LRqVr5zXknJC50gJ6TvP3wWw9q8gBnZ+uIkrd0zGZydXZ5r3?=
- =?us-ascii?Q?hb/FBL1EAoUl1nn0Bxukyr6O6w/aRZoGv5T5JkY2Cv7WRyCtBcI/YF3qKRuf?=
- =?us-ascii?Q?oj6mxtXm76yEhGB/k16taQGZ+cBN+lSCzeRzAZLYKYbpMOoZD6+xQ5pOR8QH?=
- =?us-ascii?Q?bOtgZgVmDdfGIWDv3DNCd8olhEHIN5honwsT1ZcUq6Hsv7t1fz6c?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64662fed-f9b7-4583-0185-08df3a247483
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 03:33:55.9977
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +f06lhOZJbJyoVminBGSB62YGTvpVn81RuEVfrEWkjM0xhBdppxfkIG6307ZUw3QEwuJmxa18ChHnXNL2eI60uEcdEVWHdDakgNKow1W8nK4FL4cde64ZfpX061P7Mmj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7868
+References: <179374297269.488856.7749172366095110113@kernel.org> <20261103225321.19288-1-federico@rimpianto.com>
+In-Reply-To: <20261103225321.19288-1-federico@rimpianto.com>
+From: Chris Snook <chris.snook@gmail.com>
+Date: Tue, 3 Nov 2026 22:35:40 -0500
+X-Gm-Features: AclHuK8pgXDdUe8VVPBSwoSm2Xv7dqRRsi3A56cCZ8EmMNgChDd3Wu0uj8DEEoU
+Message-ID: <CAMXMK6uS4-4aq4A3pUMghkt5v3U+NekcCfDa7ytbjLD5ZwG+8g@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: atl1c: free the RX buffer when the descriptor
+ reports an error
+To: Federico Musto <federico@rimpianto.com>
+Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 10:13:30AM +0800, Chancel Liu wrote:
-> >> +properties:
-> >> +  compatible:
-> >> +    oneOf:
-> >> +      - items:
-> >> +          - enum:
-> >> +              - fsl,imx952-evk-aud-io
-> >> +          - const: fsl,imx95-19x19-evk-aud-io
-> >> +      - const: fsl,imx95-19x19-evk-aud-io
-> >> +
-> >> +  gpio-controller: true
-> >
-> > I remember Rob said needn't gpio-controller if gpio-map exist
-> >
+On Tue, Nov 3, 2026 at 5:53=E2=80=AFPM Federico Musto <federico@rimpianto.c=
+om> wrote:
 >
-> gpio-controller is really confusing in such nexus node. However if
-> remove this property, dt_binding_check reports:
-> linux-next/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml:
-> properties: 'gpio-controller' is a dependency of '#gpio-cells'
->         from schema $id: http://devicetree.org/meta-schemas/gpios.yaml#
+> Thank you for the detailed review. The findings on endian decoding,
+> multi-RFD error handling, stale RRDs after reset and missing error-path
+> work accounting were valid and have been addressed in v3.
 >
-> Based on Rob's explanation:
-> https://lore.kernel.org/all/20260918192012.GA1465432-robh@kernel.org/
-> that a controller property and its corresponding map are mutually
-> exclusive, I think interrupt-controller should be dropped as well.
+> The v3 now:
+> - decodes rrs->word0 once in CPU byte order and passes the decoded RFD
+>   index to both the unmap and cleanup paths;
+> - unmaps, frees and recycles every RFD of an errored multi-RFD frame,
+>   with ring wrap;
+> - counts errored descriptors as work so the RX refill runs;
+> - clears the RRD ring on reset, preventing stale error descriptors from
+>   freeing newly reposted buffers.
 >
-> >> +
-> >> +  '#gpio-cells':
-> >> +    const: 2
-> >> +
-> >> +  gpio-map:
-> >> +    minItems: 1
-> >> +    maxItems: 3
-> >> +
-> >> +  gpio-map-mask:
-> >> +    items:
-> >> +      - const: 0xf
-> >> +      - const: 0x0
-> >> +
-> >> +  gpio-map-pass-thru:
-> >> +    items:
-> >> +      - const: 0x0
-> >> +      - const: 0x1
-> >
-> > I think you should pass thru whole u32 0xffffffff in case GPIO add
-> > new flags in future.
-> >
+> The memory-ordering and link-reset/NAPI issues are pre-existing and are
+> left to separate patches rather than expanding this fix.
 >
-> I found this was also been clarified by Rob:
-> https://lore.kernel.org/all/20260918192012.GA1465432-robh@kernel.org/
-> Okay. I will use 0xffffffff to match the GPIO index exactly and to pass
-> through the entire GPIO flags cell.
+> Validation on netdev/net:
+> - scripts/checkpatch.pl: 0 errors, 0 warnings, 0 checks;
+> - baseline and patched W=3D1 + Sparse builds both succeeded;
+> - no new warnings; three endian-related Sparse warnings removed;
+> - git apply --check and git diff --check passed.
 >
-> >> +
-> >> +  '#clock-cells':
-> >> +    const: 1
-> >> +
-> >> +  clock-map:
-> >> +    minItems: 1
-> >> +    maxItems: 2
-> >> +
-> >> +  '#address-cells':
-> >> +    const: 0
-> >
-> > There are not child node, why need #address-cells?
-> >
+> The issues were found by code inspection; no hardware test has been
+> performed.
 >
-> Otherwise:
-> Documentation/devicetree/bindings/connector/fsl,aud-io-slot.example.dts:20.19-32.11:
-> Warning (interrupt_map): /example-0/connector: Missing '#address-cells'
-> in interrupt-map provider
->
-> >> +
-> >> +  interrupt-controller: true
-> >> +
-> >> +  '#interrupt-cells':
-> >> +    const: 2
-> >> +
-> >> +  interrupt-map:
-> >> +    minItems: 1
-> >> +    maxItems: 2
-> >> +
-> >> +  interrupt-map-mask:
-> >> +    items:
-> >> +      - const: 0xf
-> >> +      - const: 0x0
-> >> +
-> >> +allOf:
-> >> +  - $ref: /schemas/gpio/gpio-nexus-node.yaml#
-> >> +  - $ref: /schemas/clock/clock-nexus-node.yaml#
-> >> +
-> >> +required:
-> >> +  - compatible
-> >> +  - gpio-controller
-> >> +  - '#gpio-cells'
-> >> +  - gpio-map
-> >> +  - gpio-map-mask
-> >> +  - gpio-map-pass-thru
-> >> +
-> >> +additionalProperties: false
-> >> +
-> >> +examples:
-> >> +  - |
-> >> +    #include <dt-bindings/interrupt-controller/irq.h>
-> >> +
-> >> +    connector {
-> >> +      compatible = "fsl,imx95-19x19-evk-aud-io";
-> >> +      gpio-controller;
-> >> +      #gpio-cells = <2>;
-> >> +      gpio-map = <0 0 &gpio1 8 1>;
-> >> +      gpio-map-mask = <0xf 0x0>;
-> >> +      gpio-map-pass-thru = <0x0 0x1>;
-> >> +      #clock-cells = <1>;
-> >> +      clock-map = <0 &clk 1>;
-> >> +      #address-cells = <0>;
-> >> +      interrupt-controller;
-> >> +      #interrupt-cells = <2>;
-> >> +      interrupt-map-mask = <0xf 0x0>;
-> >> +      interrupt-map = <0 0 &gpio2 27 IRQ_TYPE_LEVEL_LOW>;
-> >                                                           ^  missed count?
->
-> Sorry I don't understand what you mean by "missed count". With
-> #interrupt-cells = <2>, I understand the two cells before &gpio2 to be
-> the child interrupt specifier, while the two cells after it are the
-> parent interrupt specifier. Could you please clarify which cell is missing?
+> pw-bot: cr
 
-forget it. I confused with msi-map.
+I no longer have working test hardware for atl1c, so I'm unable to
+test this on real hardware. The same is also true of atl1e. There have
+been patches somewhat recently for atl1e that suggested some people
+are still doing work on real hardware for that one, but as far as I
+can tell no one has made new hardware for atl1, atl2, or atl1c in over
+a decade. If anyone is willing to help test patches on this hardware,
+please let me know.
 
-Frank
-
->
-> Regards,
-> Chancel Liu
->
+- Chris
