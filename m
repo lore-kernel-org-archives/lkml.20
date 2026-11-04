@@ -1,86 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797808;
-	b=2hKUisS87SXdk3y+rq0p0SqeaaUkrRcayVvWwyFR8uAawpHaTd8NmcvGbG7mJOkeC/Zd
-	 uHvM7JPjvnHmLz4jH0W1NDwOFHzlAehB0sF1ZHHSfi86bClfHHfvJiz55SzE/BxM7afne
-	 dzH8YSypvUR4cHglHW+HQcnqh90zgslAuN/det7g6ZqNWnNsZHM3zPiV9zSs7wqBzPYEe
-	 BIPjXCVLrUOWiahNVohJ8tqj5/pG2NkZ+TIlTshbiADJDh++uIvFopl0Gm8L46aUeXOwO
-	 R/A0U+UShTNBx731mklop9ge/dNl8/rChFstCEi7R9p2cQNwictsMXSkV1z7j0gN/aw==
+	t=1793797813;
+	b=zB/9uWePppAVswPV3Yz5VepBCSxCkmPJWCYMK44etGV6jDu6x/ugw02Vxdav9gn3hNJm
+	 52Kl76Av+mp7xn+8DYRjGTky9AwcN4p2CKOVHmupX2K+6/BCaPlSZj4WLYF+aB+JFqy8o
+	 t9bhaDnnfl3O+zq/4vab06ndJjVQcoOqFFEf6l4oRDqWgapAo13cGdwI/h/Bnj/Dpxtu8
+	 xSpVtQZofljwzuewGNIFv130VXp4buHEsXbV9neX07XQUUhfbRIFNTTxecitpuH0Fkrfs
+	 AJ/9SHViAgC2jl+8JsZohomG8NdQGVDIG8treZNY5+JiOlcx7Bcoy7teGsKldx83SwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797808;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=feKxj4rUU1agh9cPsbT01Dhq4roHTkxI/CAewLAASlA=;
-	b=1oMOJopqlQKneKDIHbs+kpt+b2C0IkWDbswn8Esm41ofBgwTyK4lUPE2am6q9u8cHQki
-	 axQje/F/RWF6FkwEBbfLoiMVCoq/BPZcpajlZYfMawkgVPhLjecInEN1A+4ODo1ClTsxW
-	 T8IQHDBgTx9aSL/EIAsj+A4iKOlBz2JXSf3iyqEaZnBc98uX/HothBGwNPQRm9JaRTykc
-	 fuPdGA82dOk5Ht8mGqohvYd1aH9zTieZ1ybUXeBKjlS8ZEetXYPzpngbHSZmG+M37wMIC
-	 p8v0bJwBtfmJgUuoopXVbBqYnp7xuobJ299KRnhLHgRNRg+xaluIb4tZUVJA4ova1Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797813;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EaXRoxZs9PRx2wo2tzSq0ef3gNUQ37to3HPL9EgpspY=;
+	b=UzsuQOYE9wywmhLLhBK9jLwTVPPojBBh6HPUMi8E1MO98ob67n5hCacU6YrAGpuv9ilM
+	 tt6zJz7q/dmQ7DvBom9dnRG1wRDHvpYO6eLlVtp1EoLts9w3QdFXXrE1B33XzpPo8454M
+	 smra1ce8tU9LrRiMGS7ktjj7npWLTfn5UkrksntNZ4of7CdPMALY1wSPAtb4SR7pUsO4A
+	 xwRIkt9oam3eaNZmyviRUmtsQCNTLvyBdmsnuTEAMDddwbXyDDXJplkE0fG/1/EyTtGzB
+	 bK2JcccIYWan61Q0GLxblBsrggNJ4/qOuTNAJyGsKHTWZzdkCDY7OERAScMPg1DRxLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uxwrkurz;
-	arc=none smtp.remote-ip=91.218.175.196
-Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k+5OJid/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A56606A333
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1A56606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9125606A31B;
+	Wed,  4 Nov 2026 13:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uxwrkurz
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Aeo6u39n3YW9ht9du79+b0964r+JpKZmsg93cKbtI5s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793797806; v=1; x=1794402606;
- b=uxwrkurzJC3VIKA0//3jcrqAaJb5Hq87ckG3BVWf157gvXIaQnRuCNy7WsucyRdpyGa84Qgb
- mpK8oRZjr7wVfRFCmxr9iOIrA4ZEB57hA9XkPyjKlDNXcAIdrryvh3xiT75R1kW2Xcrg04Im7h1
- l0EJDb7+5Ffab75543BAQ5II=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a6fc3d540e2ed3ed;
-	Wed, 04 Nov 2026 13:10:04 +0000
-X-Mizu-Trace-ID: a6fc3d540e2ed3ed
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Dave Chinner <david@fromorbit.com>
-Cc: David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v7 7/7] mm/mglru: add tracepoint for aging
-Date: Wed,  4 Nov 2026 21:08:17 +0800
-Message-Id: <20261104130817.849089-8-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104130817.849089-1-ridong.chen@linux.dev>
-References: <20261104130817.849089-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+5OJid/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE8B1F00919;
+	Wed,  4 Nov 2026 13:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793797812;
+	bh=EaXRoxZs9PRx2wo2tzSq0ef3gNUQ37to3HPL9EgpspY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k+5OJid/VkQ3swVXuHLrFLBfnJA0PGG4Zhrv9HJAGwkQmMgt/6YaCL5KMQvwLXSTF
+	 O9yMB5ZVpxaDNFY4Gz5VlJRtuFBs8Spl04eVXVRaHh4A/crCFbpkkZwaFg+TBJbMPY
+	 vG3hd8gbd64DkQGvbZH/qqqZoliTbayqqN5ENZvW84oEUeDAiEibS//xfiPUMi/WgJ
+	 bjjMPfdSoFojto5KvVbOrF/ct72w7DU7ipswheAm3qrSYvTB7QTCFe5XPOIFWv4RDg
+	 CeUYyoRMyVEz+VmfdJaGKIhmqsxD8HhL+5loiTZuLac9VHAJTmxp9qev2Bn/My2oSb
+	 juzgE1wLbSUZA==
+Date: Wed, 4 Nov 2026 14:10:08 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Xing Zheng <zhengxing@rock-chips.com>
+Cc: broonie@kernel.org, heiko@sntech.de, linux-sound@vger.kernel.org, 
+	luca.ceresoli@bootlin.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
+	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, huangtao@rock-chips.com, sugar.zhang@rock-chips.com, 
+	lxt@rock-chips.com, xing.zheng@rock-chips.com
+Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: rk3308-codec: describe
+ detection and ADC routing
+Message-ID: <20261104-russet-stingray-of-penetration-fef32e@quoll>
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-2-zhengxing@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,129 +63,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261101044149.2018744-2-zhengxing@rock-chips.com>
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On Sun, Nov 01, 2026 at 12:41:47PM +0800, Xing Zheng wrote:
+> Describe the optional detect-GRF phandle and named interrupt resources
+> used by the B/C headphone detector. Retain the legacy interrupt order
+> and index-based lookup when names are absent. Document the detector
+> disable and reversed-jack properties and their resource dependencies.
+> 
+> Describe the ADC stereo-group routing consumed by the codec driver.
+> Require four unique group IDs in the range 0-3, in I2S2 SDI order,
+> matching the driver's validation. Leave GRF routing unchanged when
+> the property is absent.
+> 
+> Extend the example with headphone-detection resources and ADC routing.
+> Keep machine-driver amplifier GPIOs and debug interfaces outside this
+> codec binding.
+> 
+> Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
+> ---
+> Changes in v2:
+> - Retain the original detection descriptions and legacy IRQ ordering.
+> - Keep the binding change in its own patch before the codec change.
+> 
+>  .../bindings/sound/rockchip,rk3308-codec.yaml | 55 +++++++++++++++++++
+>  1 file changed, 55 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+> index 2cf229a076f0..60c6140dc5df 100644
+> --- a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+> +++ b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+> @@ -36,6 +36,49 @@ properties:
+>      description:
+>        Phandle to the General Register Files (GRF)
+>  
+> +  rockchip,detect-grf:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the detection GRF used for headphone insertion and
+> +      removal interrupts on codec revisions B and C.
+> +
+> +  interrupts:
+> +    description:
+> +      Keep the legacy interrupt order. If interrupt-names is omitted,
 
-Aging in MGLRU advances max_seq to create a new youngest generation.
-It is triggered from try_to_shrink_lruvec() when should_run_aging()
-finds that eviction is no longer possible, or that it would be better
-to age first at the current priority. There is currently no tracepoint
-on this path, so it cannot be observed when and why aging is needed.
+What is legacy interrupt order? There are no interrupts here, so how
+could there be anything legacy?
 
-Add mm_mglru_aging, emitted in try_to_shrink_lruvec() right before
-try_to_inc_max_seq(), with the node id, memcg id, sc->priority,
-swappiness, max_seq, the anon and file min_seq, and the number of pages
-in each generation for both types, as computed by lruvec_gen_size().
+> +      the driver uses the second interrupt for B/C headphone detection.
+> +    items:
+> +      - description: Legacy codec headphone detection interrupt
+> +      - description: Detection GRF headphone interrupt for revisions B and C
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: codec
+> +      - const: hpdet
 
-The reason for aging is not reported explicitly, as the logic in
-should_run_aging() may change, e.g. for imbalance-based aging. It can
-be derived from the generation window and the per-generation sizes,
-which are taken before aging, so the youngest generation is populated
-as well.
+Why same device has both GRF to detect headphones and interrupts?
 
-The nr_anon/nr_file arrays are ordered by seq rather than by generation
-slot: entry i holds the generation max_seq - MAX_NR_GENS + 1 + i, i.e.
-they go from the oldest generation to the newest, the same order as the
-debugfs lru_gen file, so the output can be read directly without mapping
-slots back to seqs. The arrays are printed with __print_array(), so the
-output is hex and its length follows MAX_NR_GENS automatically.
+> +
+> +  rockchip,no-hp-det:
+> +    type: boolean
+> +    description: Disable the internal headphone detector.
+> +
+> +  rockchip,hp-jack-reversed:
+> +    type: boolean
+> +    description: Reverse the headphone detection polarity.
+> +
+> +  rockchip,adc-grps-route:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description: |
+> +      ADC stereo-group mapping to the four I2S2 SDI inputs. Each entry
+> +      selects the ADC group connected to the corresponding SDI input,
+> +      in SDI0 through SDI3 order. Group IDs 0 through 3 represent
+> +      MIC1/MIC2, MIC3/MIC4, MIC5/MIC6 and MIC7/MIC8 respectively.
+> +      All four groups must appear exactly once. For example, <1 2 3 0>
+> +      connects groups 1, 2, 3 and 0 to SDI0, SDI1, SDI2 and SDI3.
+> +      If omitted, the GRF routing is left unchanged.
+> +    minItems: 4
+> +    maxItems: 4
+> +    uniqueItems: true
+> +    items:
+> +      enum: [ 0, 1, 2, 3 ]
 
-Only the lruvec, sc and swappiness are passed in; everything else,
-including max_seq, is read in TP_fast_assign(), so try_to_shrink_lruvec()
-does no extra work when the event is disabled. Reading max_seq there
-rather than using the caller's copy keeps the window consistent with
-the per-generation sizes read right after it, should another reclaimer
-age the lruvec in between.
+Why are all the rockchip properties before clocks, not next to other
+rockchip properties? What logic drives this placement?
 
-The event marks the aging decision, not its result: the following
-try_to_inc_max_seq() may find that aging is already in progress or
-done by another reclaimer, so concurrent reclaimers can each emit it
-for the same max_seq. Whether max_seq was advanced can be seen from the
-following mm_mglru_scan_folios.
+> +
+>    clocks:
+>      items:
+>        - description: clock for TX
+> @@ -72,6 +115,12 @@ properties:
+>  
+>      enum: [ 50, 55, 60, 65, 70, 75, 80, 85 ]
 
-Suggested-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/trace_vmscan.h | 52 +++++++++++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c       |  1 +
- 2 files changed, 53 insertions(+)
-
-diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-index 8148b8224422..565c56428364 100644
---- a/mm/trace_vmscan.h
-+++ b/mm/trace_vmscan.h
-@@ -456,6 +456,58 @@ TRACE_EVENT(mm_mglru_scan_folios,
- 		__entry->min_seq)
- );
- 
-+TRACE_EVENT(mm_mglru_aging,
-+
-+	TP_PROTO(struct lruvec *lruvec, struct scan_control *sc, int swappiness),
-+
-+	TP_ARGS(lruvec, sc, swappiness),
-+
-+	TP_STRUCT__entry(
-+		__field(u64, memcg_id)
-+		__field(unsigned long, max_seq)
-+		__field(unsigned long, anon_min_seq)
-+		__field(unsigned long, file_min_seq)
-+		__array(unsigned long, nr_anon, MAX_NR_GENS)
-+		__array(unsigned long, nr_file, MAX_NR_GENS)
-+		__field(int, nid)
-+		__field(int, priority)
-+		__field(int, swappiness)
-+	),
-+
-+	TP_fast_assign(
-+		struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+		unsigned long max_seq = READ_ONCE(lrugen->max_seq);
-+		int i;
-+
-+		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
-+		__entry->max_seq = max_seq;
-+		__entry->anon_min_seq = READ_ONCE(lrugen->min_seq[LRU_GEN_ANON]);
-+		__entry->file_min_seq = READ_ONCE(lrugen->min_seq[LRU_GEN_FILE]);
-+		/* from the oldest generation to the newest, as debugfs lru_gen does */
-+		for (i = 0; i < MAX_NR_GENS; i++) {
-+			unsigned long seq = max_seq - MAX_NR_GENS + 1 + i;
-+
-+			__entry->nr_anon[i] =
-+				lruvec_gen_size(lrugen, LRU_GEN_ANON, seq);
-+			__entry->nr_file[i] =
-+				lruvec_gen_size(lrugen, LRU_GEN_FILE, seq);
-+		}
-+		__entry->nid = lruvec_pgdat(lruvec)->node_id;
-+		__entry->priority = sc->priority;
-+		__entry->swappiness = swappiness;
-+	),
-+
-+	TP_printk("nid=%d memcg_id=%llu priority=%d swappiness=%d max_seq=%lu anon_min_seq=%lu file_min_seq=%lu nr_anon=%s nr_file=%s",
-+		__entry->nid,
-+		__entry->memcg_id,
-+		__entry->priority,
-+		__entry->swappiness,
-+		__entry->max_seq,
-+		__entry->anon_min_seq,
-+		__entry->file_min_seq,
-+		__print_array(__entry->nr_anon, MAX_NR_GENS, sizeof(unsigned long)),
-+		__print_array(__entry->nr_file, MAX_NR_GENS, sizeof(unsigned long)))
-+);
- #endif /* CONFIG_LRU_GEN */
- 
- TRACE_EVENT(mm_vmscan_write_folio,
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index d05050ac49df..bcb229cc320d 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5098,6 +5098,7 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 		}
- 
- 		if (should_run_aging(lruvec, max_seq, sc, swappiness)) {
-+			trace_mm_mglru_aging(lruvec, sc, swappiness);
- 			if (try_to_inc_max_seq(lruvec, max_seq, swappiness, false))
- 				need_rotate = true;
- 			should_age = true;
--- 
-2.34.1
+Best regards,
+Krzysztof
 
