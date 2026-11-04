@@ -1,71 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.240.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759704;
-	b=0NHA/6xozdNQ0cicL94bf78rwBvp3fzR3n0Ctwer8t4+bicU6yWtehfhZbV931wkmYyh
-	 RCd6bNEHpA4DJ6CGfMBlNomrVCdxcXEv0CX8/yfZMlc+vcfMJoNzDkfjDnqLS7D7ONTp9
-	 fgzldeNj+cnBox2rXe2eXIpcsFr7Y7Mu1cHCuH1eXM9VbHWqHurFkmN7viHyAijoDQCXf
-	 TGTqL2596EGZz2qGXB04ErMk6L7k/OVkqo+IbSrSuEzz4rhsCuedNjj6DGVJgMwEBK5q5
-	 PNlPlR7BHdNVkIAFUPtWCZHJ41BhBTrJ0UEFnlv9jnh36cGLLMmYb4qW7dHp9T+Hdkg==
+	t=1793759731;
+	b=UAD7y95iIwYPhca3RGiiabDXACDwL0tt1b0HC1ImF0hd9H2o2k4feHeI7CLUEdgLbQn4
+	 vogvVBY13rszCGIMWzUtFCTo/yqFW0JkumXr+d+pt+OeKYnO31blCA52kxAiRo4oOSavI
+	 40Y1EqZnlMgNxTDyMeNtgGy2/E6LIjX4ACfVzhfVChDFSl5SKqgHhaS9VmqmFnWyGQYk1
+	 9xzOZBzXFzYnm6EUChL+xtOPNWhmFf5JkA3NSN10KTqH1v+Rli+YrRYPrHs9cC2KOoGb+
+	 EB8NV6E/ED0qxYz0cLofjwWDSABofQJaXDyXvNnkPQOaetmGJxWihkiz5GOod6W9lpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759704;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ZpM2gRFCcHI3bei5VEKrgg4awIGy/+ZVNWzYY+kxMro=;
-	b=rikgKRJv2BQSQTsFx/Fyz0/wDzPGkbX5O47v0s8frX1XfUtXsV1PMllipgdxV6je1pD0
-	 84BQEqoCyEe5ABmua7qOqS/kUVR6M4vTX6clBKSW1mdWaD0LG7CpkVN33qTfBL/POFXg9
-	 fTLmeiZuSudkleG+hW7+aFvZcV1P9CPLFKjX6Ds36BIwXSQgomqonR9XVzZ9lG0tohjQj
-	 AvgAKi4szSDbRS9ED5uisIEH3yFnzDJ6ISpwVVCULtfhzlZaswUNU/kkCzUTXDu2LaAyR
-	 XL+lE1C8gvbrIfLhYBYG5axnjt/LtxttMNByliYy5pyRFfs0iWX+lfXz8ZL4fuNYuig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759731;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Sender;
+	bh=PHP0SwnDSi2ohIR1MvFDZ8aokfn8wXj77+ngpZIAMNk=;
+	b=EM8K9SqwZDEBGa9Vgucb16yGYcaLO4tPULCnOXShJDM2FJ1POiv/tvla1OQyax/9XIc4
+	 DdNRg08M/yvexsOE9UnixlZZIkJ8IrWcgvD8ixLu8GWOSzyVqzxuA7M674e/CM3ml7RcL
+	 yJTNJl7IzKkDGEZc2YICbud0xq0tpV0+AxOpXTfHII8x24yZtpaQaKLPq6MDAHuGoP9De
+	 +QAdKuExiDafbhRkE8QRj7mmCPxg2NMOeBBMrSH+S1bCfr0oPHX2tKrky8S5u7OaaEEMa
+	 c7DZKy5LdLaq7FO6HMi0IpdwcuZgDKo84Hs8IecsMn9OEWDtZQgE1jxDFRRSREwzbqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xk2RSuZD;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=none header.from=sraa.de;
+	spf=pass smtp.mailfrom=sraa.de;
+	arc=none smtp.remote-ip=85.214.240.192
+Received: from sraa.de (sraa.de [85.214.240.192])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0CA606A326;
-	Wed,  4 Nov 2026 02:35:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0CA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xk2RSuZD
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ZpM2gRFCcHI3bei5VEKrgg4awIGy/+ZVNWzYY+kxMro=; b=xk2RSuZDD1bsSm2PYNKuhnOj7w
-	+xZ0o/4Sa6q8Zj3gpiPvAvllwEcheUISSlCRbBkL+p9eJEXG8KRTikVB/X8a8HnWQso1dlz2vdTT9
-	ORYi2uPx/5e9qz0CLpGwUqjL0BCb5ydG3y4Hozd57IVoUf3TIHew0rrhG6h3JkmJAguY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOQpu-00EDna-3g; Wed, 04 Nov 2026 03:34:50 +0100
-Date: Wed, 4 Nov 2026 03:34:50 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Qingfang Deng <dqfext@gmail.com>,
-	SkyLake Huang <SkyLake.Huang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Joris Vaisvila <joey@tinyisr.com>,
-	Ahmed Naseef <naseefkm@gmail.com>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net-next v4 3/6] net: phy: mediatek: generalize cal_cycle
- function for GE SoC
-Message-ID: <d2c421e2-9e16-4f26-84be-06e5fc2c719d@lunn.ch>
-References: <20261103221439.30502-1-ansuelsmth@gmail.com>
- <20261103221439.30502-4-ansuelsmth@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BCA606A332;
+	Wed,  4 Nov 2026 02:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53BCA606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sraa.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sraa.de
+Received: from [161.142.148.162] (helo=localhost.localdomain)
+	by sraa.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <basti@sraa.de>)
+	id 1xOQqT-00Akzf-Pq; Wed, 04 Nov 2026 03:35:26 +0100
+From: Sebastian Raase <linux@sraa.de>
+To: 
+Cc: Hans de Goede <hansg@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Helge Deller <deller@gmx.de>,
+	Sebastian Raase <linux@sraa.de>
+Subject: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document mono format
+Date: Wed,  4 Nov 2026 10:34:50 +0800
+Message-ID: <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1793758480.git.linux@sraa.de>
+References: <cover.1793758480.git.linux@sraa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,17 +66,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103221439.30502-4-ansuelsmth@gmail.com>
+Content-Transfer-Encoding: 8bit
+Sender: basti@sraa.de
 
-On Tue, Nov 03, 2026 at 11:14:34PM +0100, Christian Marangi wrote:
-> In preparation for support of special Software Calibration for Airoha PHY,
-> it's needed to generalize the cal_cycle function as Airoha needs only
-> part of its logic (the wait logic) to complete a calibration cycle.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+This is a 1 bit-per-pixel monochrome format, with 8 pixels/byte.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Sebastian Raase <linux@sraa.de>
+---
+ .../devicetree/bindings/display/simple-framebuffer.yaml         | 2 ++
+ 1 file changed, 2 insertions(+)
 
-    Andrew
+diff --git a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+index 45ffdebc9d86..c627ec088434 100644
+--- a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
++++ b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
+@@ -94,6 +94,7 @@ properties:
+   format:
+     description: >
+       Format of the framebuffer:
++        * `mono` - 1-bit packed pixels, 8 pixels/byte
+         * `a1r5g5b5` - 16-bit pixels, d[15]=a, d[14:10]=r, d[9:5]=g, d[4:0]=b
+         * `a2r10g10b10` - 32-bit pixels, d[31:30]=a, d[29:20]=r, d[19:10]=g, d[9:0]=b
+         * `a8b8g8r8` - 32-bit pixels, d[31:24]=a, d[23:16]=b, d[15:8]=g, d[7:0]=r
+@@ -106,6 +107,7 @@ properties:
+         * `x8r8g8b8` - 32-bit pixels, d[23:16]=r, d[15:8]=g, d[7:0]=b
+         * `x8b8g8r8` - 32-bit pixels, d[23:16]=b, d[15:8]=g, d[7:0]=r
+     enum:
++      - mono
+       - a1r5g5b5
+       - a2r10g10b10
+       - a8b8g8r8
+-- 
+2.47.3
+
