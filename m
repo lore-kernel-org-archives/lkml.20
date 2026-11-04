@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818152;
-	b=FkNoaspyM68m7xiPIlX6sKQFcX/5v5jxgB2KpXTqTSMoj0xKwcVXmCg3GwcpulaU+88o
-	 MZB0MC9TsMcNhRv94dHMCqQ1aDUa+wKUSKS7LfC//X7HxNlIfyiPHDAm9NsnBhfmFHXdn
-	 EWFwhUsGicPLABw2XZDIMF8lwbi2amX+O9qn3KZ8/uZSMS9Ko5jILPmqgCSkcetWU4I8y
-	 EPbBcOF3S7GTgS87ySRgUIDuBi2DA9GPptnDqRcijtsaQSTehCrS4qcP1/tneO4seqU8K
-	 MivyQL8rSEng8A116gEy8ASVywX3TpWy+/7K4UT0FyyJiO0Yy7ajX2P+APhN0uhTc2A==
+	t=1793818163;
+	b=wdRIWvjE1XBTk3CbpqT2ta6edbyS8FUDLqBXJQgIWn9QwfUdHmq25N7bAlQDj4bPCGcr
+	 QCNZUoqvTZhhDnbC03rA+p/pqm8iNDoqB1EFOaMFBwEllY987y8AM+NAAsyWvhK8XomYG
+	 BgwEgzCWtXYJKUQl+Z9buVa0qdSOJ69OIt4qwjaX8PEEkXuQVRZzF/PemyxmgfUF54orA
+	 6BxZzTUKmFXEudZiARt1mMXXtL3VR7GyS2BvMGDKL6VwQyGrrwbkKnx1r9BB+u7B755xp
+	 I2tY33IRez07956YrSLOY7p058qEVN99ndgeYcVvd/cay6VQrvZXXoSFX8rT42q5v3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818163;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=piDg0wkr896rFpc3RMbnDrxXW3s/QWiYNEnX+RIOA/E=;
-	b=ZohL0n4hH2rB+B4B+xO3XTxbXUasGOW6bDE13u6vXh5hV8l/QQ/kL+lBHn3ea7nwWnS4
-	 hZHkkKEZOYudBmSmk3nyn/jR7QR3KwSdMZ9HawI8wxSXs+JxcyFqIspwgudApYdhPzNGZ
-	 1EogqIb8XIQbWuIxhj8nqbXikBpAtS+HSbF5JfX3SBbkQ/nhqcPePF/LVSquW43DMym8G
-	 BJcdvIOPXj9izAYojg4CjzMBPsRy6XblukefacxqTgrJWTOSsG1WEKMSi0uMN3dklyFBB
-	 OO/jnt1nS21+zwSaVsSN38sjck+FiVO2WH/sGvWcywhQt/7PRy7aHcA5lrpi5HpfjPg==
+	bh=humTIxX4TPWI3tOk5+1a6q+LpbefpGEjc8rEG2Ixa2M=;
+	b=Nkt6NB8QMdMcxXPpSTGXxmchQYDsb2sR3UiKmTxZOjMCVvAQmb4VzhlgcM4hyfnTKHDj
+	 u4Ig2drnsbqgoNSWtM/TLXXRmNW+Qv0EbhGIK+poEqPGM1P4Iiy+pX5PRE85kzkuJpekf
+	 Dw/dTr37hHZPoopL01N+LxaZpd1tlWEhj6Zvusvoax37Myaf+FpKdTT9X22xeMNcOTsZX
+	 5Yvq9axmgNqyFU4xLXdRHODVOowbQA8qlzhOXsCf7mc9CFl/MhXeFTK0ilIgasg7iSTXY
+	 faNLn7MwiVjXNuJ+Gkpk1sptbouZsfn01TNvpfczAHKDnGdXA/pzSGYp+KrxUIzxakw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Z5j/iBGv";
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HbPtpFHS;
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D449606D806
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D449606D806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB3C606EE97
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB3C606EE97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z5j/iBGv
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b312be5de8so11538747b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HbPtpFHS
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b10d24345dso10197727b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818151; x=1794422951; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=piDg0wkr896rFpc3RMbnDrxXW3s/QWiYNEnX+RIOA/E=;
-        b=Z5j/iBGvpFBhtcpCy48pscuY8quInxYDiVFLtTwg5BmFWxrIE0y80sw4FIuLEGzklp
-         88XPyfJGGsk9GesPjIIncGgk07ouUBMay5vvfYsT3iyJ9BNw00D/kJyPdE83zKVtgLL6
-         PhNJmRFlwnAiqAKwCz8CIaobdzEL7lPgLaZT3DtlnKeeJe47M6OCZhMlE/1EeeDVbvht
-         iGAgWIhbWxyemyZryo7HQm4aXYYXr4SpqlCNXMCyfvEx/iQS6fVBgF13Os60ILm8RWPr
-         6Jdv9RGNAdcB8h5934NbwjFkDjy+4CywOIjB6JHIk+4o/s7cIIM+6xAjlwQZVOg+ifO0
-         M86Q==
+        d=gmail.com; s=20260707; t=1793818161; x=1794422961; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=humTIxX4TPWI3tOk5+1a6q+LpbefpGEjc8rEG2Ixa2M=;
+        b=HbPtpFHSRh1nYeo/GF+AjWWY8urtvBBI2q3N1d7qap0XGD0G4xW5akYbYMi1fVknHx
+         W+KVM7mdhPdvbDtmctOKgOjFMgRtINKOdPPeMZnS2JsovCPeyKBzqHAG/o94NWJDyhs5
+         rBHt3EaXttU8OKG7SPKyiOJ5XNBgfYIwAC1HCTaylt3zyj5tA5mbYj4GKxjxxOahaueD
+         LDzUIGesYR+4mZTw0EbitwYCP+gAg+kZa1r/Gg5s/D9skoBpOnoBGP4DWCb4ga1WmPsP
+         IG/ac3xspSVyWbGCg54Urod83ueONI8ABI4vGnoynjH7cHG4CetTBvDX8E3/n36CB5M3
+         zshQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818151; x=1794422951;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=piDg0wkr896rFpc3RMbnDrxXW3s/QWiYNEnX+RIOA/E=;
-        b=kUMWNz/dIK8A1u5N1G+MeQpFB7NU7mYvDd5MaXXG5nbIT8snIgjeQExltyg6fZtdJY
-         eGoUWcuZSFCPHtqpwLDOl9RSzL26I4DnzbUSBnr1Hb++Q4sQrHvX+eUzbn0ze1g9M8FX
-         LSMWZQb8EfWW94zKNFnyusq7/hgL8EmX+8bC5Le6e5ENiF18DCvaKTrsy8R8K484OeyH
-         6o6R/FWFZgVzeGce7Vz9lbs823JsuRs+D76tfFvFfKwNCj6RbSoX12Er/mrM0EJmd4qR
-         InTmWemY49ewhw9yva8ysNJnQqCcNXEKJxUe88s5DQPaYAEvAWMZoo32n/DTV0uQMra0
-         XSZg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsLSFW0OBKSjLMfrO5hejaFDu+5e3awAeEyYpJUBQqKe0GbdZgMIT8S/sMntGi49y/z7RNPLBmbtk+43w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ishdI8SYC3Y7LyvVqJWg1qkUqHWSjQcNLiX0U+RacelZIAJTj
-	3MBMmiv6eDETDxlzi6me5hLvHBDxNW7Tycj6PYS7/bvVplSNkWpHVELz8qZmRw==
-X-Gm-Gg: AYBFou1tSfb5AC3FY3iHLgqE0EWrrG4BCWE9WzYRYtBoQfulH6ZcUpitS9Jd6gV0YXx
-	rwtvdPOPBzKODOtfJzZbgYPyFe3McrTa8d6lCbO3ALVC6s5w5LR2SBSaYM+Bdvf9ySQ02+/RYve
-	RidstlsBH21AvgoSL49OtCIIARkeQRes0huJ+eZQuHDrg91oli/XKcPf4jse3G2PRPXky5sM0+n
-	qATkHBj5K0rW53VokJC2YXqlY1CU/Beb5m9VTmMXjs8v0VWSHRpDKd6k9HfIjwWmk80fd9PgnFA
-	9ZzTy0JWq5lFL61p9U3omWmpOcTg+dJVGxAn+3mSOMAufR+Xb3RyCW2tvtmgTVCULVvIc0Sz3VK
-	+7vgb7u4wrFquRtXDoNDPt0mciKDPll8QPwvvgQFjUHqposhcK5KS62g+IDhxlyI4F4Ij8au6QN
-	K31Cas37M4UkkXLGdOTElsStwzpr5pf9RGlGahaYqs9qsrcjQZWeMqWewdYDO5a1vxD8UKe/31I
-	lKTcMGCFSHPuHcchWJut/Dx+N+2FowmNDGQWAA0i1S7wlqgJgEosOHjoiXrTY0yNE8XFkNLcv9j
-	2ShrEW0Y8V03OmxeHS+vZbNdpxXivE+aD2hcnHUeB1sv4zWXK38FzvyypWGN9MF3yoWSwwo81cu
-	gGCDtEtUMzQ==
-X-Received: by 2002:a05:690c:e250:20b0:8aa:dc82:36ad with SMTP id 00721157ae682-8b2b67caa19mr70567167b3.94.1793818151074;
-        Wed, 04 Nov 2026 10:49:11 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793818161; x=1794422961;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=humTIxX4TPWI3tOk5+1a6q+LpbefpGEjc8rEG2Ixa2M=;
+        b=si3OfyEMZphDfuF7EmB8VSYrCS3K8/4sAMFY/e4sOa58YrN/QGB0klPhKUpx0m9KE4
+         9g94spj/rYg1mcRG+XihTcpZomwPKdxnomhF0S/bsZgNZwY90tJ4Yzq3S5Qq5gKwm7sK
+         A+8QEQoqt2C9mWGP4t8SKYkTID3pbJbiSpiHa1vZgU/ApKJnVKUG49o2eQ+04iPewINW
+         0l9wwWynHTL/y24VYi1Fb6H3GubQ4HY7tzIv04n7Vz7tNWp3/ijhekUuj3SaSx8erOhT
+         OZeAQGDJK9rHNc1ROLf3OEQjK8KMCm0HYRyWsMUGc+UfvjmsLUB7tRHnDlF/gdIFnRkL
+         si4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxu61LrBAlJBnuHV5TxGkXGEEWczS9lXAm0OpC1M8i2P7JI5TTr2nynnLFCP2aAvystz7yRWNVkmd/Vg84=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UNHyZmmhdSp01ojXefqF8kuMd2x/rGmrHofaR34o5V2tjKtPL
+	eLZSjf6V97fjdVEnK0URcTo0UGyBO3K20iiJs+Xphg/32IUMufQWm6VHu0Qmeg==
+X-Gm-Gg: AYBFou1GTfbmguMkYNtzSkDStsIEq+xNFpREPjn3kABgA5gr4Cnt4mWOC0XcQ2hxfe5
+	BHGRjwOLSA5kpwIIJkHNxwEPFTr2r6B0QrCSzfvbOs6C0kQICbykie+R3AyKwlzwJTHTbaCtqWC
+	dF5LkFuVvd7hWSH8pEraXs8V0yXZfZWzZEt5hlYpyqm9VY4DSjCSb3OdSaSaa9jb6h5NUcZw+kq
+	5cYeHiJd7kOu2syWSejdGZKOMJHrOz3C42cUewWk6FoAvU51zT4VGO0OO6VE+cCm294II1o7Mdt
+	BEj4KE/zpA34AmNm3EeGg25iU8N6L7z89okFPZRV9sINJgNHtjceUiKpjE80AljtXKhuhs6kGdV
+	9Qb8KChPZdFPkUOP4qww0sVuVG3RPtSO1wgdY8prwZP2hyf/I9kziD5lRpEaYVbfe4dAG0MBU6Y
+	X4xuZZi9+DmQbi97LFY4qmEYLVip6A0A+gKWJKpFPI2tFCxVeHsdN7KQwLQ2De5Ow12H/GSN4DH
+	9Mc7xbc5L/UZzBlnuQGYtsj8kBe+Wy2ACgSyVd/KLLLLMQD6BY4ClXS971SePSjEbM7iLPyeY2q
+	1057pkfHzGMSNyBQmoSq0PVt6kaPqBFhQIHpKfF6OoSxmxo/vKVjrEVutsjmjQFu0988bK30lnr
+	MiPsmWEmanw==
+X-Received: by 2002:a05:690c:ec9:b0:8b0:9e22:2651 with SMTP id 00721157ae682-8b2b65d5bf2mr128910807b3.7.1793818160622;
+        Wed, 04 Nov 2026 10:49:20 -0800 (PST)
 Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3099291d7sm24706727b3.16.2026.11.04.10.49.10
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bae3f4sm24290077b3.39.2026.11.04.10.49.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:49:10 -0800 (PST)
+        Wed, 04 Nov 2026 10:49:19 -0800 (PST)
 From: Matt Turner <mattst88@gmail.com>
-Subject: [PATCH v6 00/13] alpha/perf: add ProfileMe sampling
-Date: Wed, 04 Nov 2026 13:49:07 -0500
-Message-Id: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
+Date: Wed, 04 Nov 2026 13:49:13 -0500
+Subject: [PATCH v6 06/13] alpha/perf: implement ProfileMe sampling
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,12 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNwW6EIBDG8VfZcC7NMIBoT32PZg+Aw0qjq8Gt2
- Wbjuxe3aWrk+CXz+8+DzZQizezt9GCJljjH8ZpH9XJivrPXC/HY5s0QsBKAitt+6iyf0hhiTwP
- xipraNsZ4pxXLakoU4v1Z/Dj/7vnLfZK/bZntoovzbUzfz5eL2O7+6nVRXwQH3irlNLqAGuD9M
- tjYv/pxYFt9wZ2XUHrM3hvAIHyl0eDRy38vQJReZt9gq4Vw2oJSR6/2Hkuvsq8EAQRNorX10eu
- 9l6XX2TtHspEmuCDt3q/r+gN2L1u3wAEAAA==
-X-Change-ID: 20261024-alpha-profileme-6e98a977cb54
+Message-Id: <20261104-alpha-profileme-v6-6-63362e9290a3@gmail.com>
+References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
+In-Reply-To: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
 To: Richard Henderson <richard.henderson@linaro.org>, 
  Magnus Lindholm <linmag7@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
  Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
@@ -112,180 +109,562 @@ To: Richard Henderson <richard.henderson@linaro.org>,
 Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9122; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=pmhGZDVDJCKEuesx0SlMhKrYItLTNfTs1SyhVTCk9PI=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16l8Z9l0cutV12n3dHdURd67Mcc+8d28X6eKL5VuC
- /GP1mAQ6vjIwiDGxTBTTJElbr0iy6y2HUt9Tkv/gpnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
- DIEMHaN4iJweg0ZmcXFpapFuWkGRQ15+SWJJZn5esV5+QWpeQXqBXlpmWklGRn5RcSrQCL281BJ
- TV0c3I0MDE0tHCzMnC0dTE2dnJ0MnN0dHZ1cnI0tzEwNnS0cTV0tzBi5OAZhrQmcxMjxamtzy+m
- bm0+d2Lv/+8SsEpQapNZp0vq7d0vr25nN+rSJGhkPBEj8silftyOXYPq1sspja68URVikrZ4quO
- VDOb86SxAUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=21314; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=C0fXWD8NcLAIbVEqDJNwGwybWsy31qhMyVKa2UKfQy8=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16kmXzvSPK2pYV0S+x4/44/Hnb84BO8N/HJc5sH8n
+ xL1JQG3Oj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
+ U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOaa03GMDPdWCGtl3N
+ nskhgjP++U4drdt04/ufQpLvnr/1cVKotuvnrEyDB9sbSLftEJF1v1pQ/P/Vfd8WG7T613ys25Z
+ jtelBpvjeAHAA==
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-The 21264 from EV67 on, and the 21364, have a second performance counter
-mode, ProfileMe, alongside the Aggregate mode that the driver uses today.
-An Aggregate mode sample reports the PC where the overflow interrupt was
-taken. On an EV7 that is anywhere from 15 instructions before to 12
-after the one that overflowed the counter, which makes perf annotate
-output close to useless. In ProfileMe mode the CPU picks one fetched
-instruction, follows it down the pipeline, and reports its PC along with
-what happened to it: whether it retired, whether it trapped and why,
-whether it was a mispredicted branch, stalled before map, or was killed
-on a wrong path, and what PCTR1 counted while it was in flight.
+The 21264 (EV67 and later) and 21364 have two performance counting modes,
+and the driver only uses Aggregate mode. Its samples report the PC at
+which the counter interrupt was taken, which lands a variable number of
+instructions after the one that overflowed the counter. On an EV7 a
+16-instruction user loop shows up at only 4 PCs, anywhere from 15
+instructions before to 12 after the real one.
 
-Patch 1 fixes a constant passed to the wrong PALcode call, with no
-functional change. Patch 2 adds the sysfs format and event attributes
-the perf tool needs to name raw events. Patch 3 fixes counts lost when
-an event is stopped before its first start, and patch 4 stops reporting
-user registers that the entry code has not saved yet. Patch 5 ignores
-counter interrupts that were pending when the counter was rewritten,
-and stops counting an overflow twice when a read races its interrupt.
-Patch 6 adds ProfileMe sampling, selected with precise_ip or a new
-profileme config bit, so cycles:p and perf record's default event use
-it. Patch 7 attaches the status registers to each sample as
-PERF_SAMPLE_RAW data, and patch 8 adds an option to randomize the
-sampling interval so that it cannot lock onto a loop. Patches 9 and 10
-report what PCTR1 counted as the sample weight and the data source of
-memory accesses, DTB hits and misses. Patch 11 adds filters that keep
-only retired, mispredicted or trapping instructions, and patch 12 makes
-precise events sample only retired ones. Patch 13 lets ProfileMe events
-exclude user or kernel samples, so that perf record works without root
-at the default perf_event_paranoid.
+In ProfileMe mode, the instruction that overflows PCTR0 opens a window
+during which PCTR1 counts, and when it closes PALcode delivers the
+interrupt with that instruction's PC latched in PMPC.
 
-A separate series for perf-tools-next adds a decoder for the raw data
-to perf report -D and perf script -D, and a script that sums the status
-by symbol or by instruction, in the style of DCPI, and a perf mem event.
+Select ProfileMe with the new profileme config bit or with precise_ip,
+since PMPC has no skid. PCTR_CTL[SL0] selects the mode for both
+counters, so a ProfileMe event is scheduled alone and perf core
+multiplexes it with other hardware events. precise_ip 3 is refused, as
+AMD IBS also does: a sample whose PMPC is a PALmode address keeps the
+interrupted PC, so zero skid cannot be promised. perf record falls back
+to 2 when it asks for the most precise level.
 
-The two modes cannot run at the same time, because PCTR_CTL[SL0] sets
-the mode for both counters. A ProfileMe event is scheduled alone, and
-perf multiplexes it with any other hardware events. perf stat does not
-ask for precise events, so it keeps using Aggregate mode.
+The event type chooses the SL1 setting, which decides what PCTR0 samples
+on and what PCTR1 counts in the window:
 
-To try it:
+  event          PCTR0         PCTR1
+  instructions   instructions  cycles
+  bcache-misses  instructions  Bcache misses
+  cycles         cycles        inum retire delay
+  mbox-replay    cycles        Mbox replay traps
 
-  perf record -e cycles:p -- ./workload
-  perf annotate
+Every interrupt rearms both counters, since PCTR0 stops when the window
+closes. The instruction count is corrected by the overcount I_STAT
+reports. The sample is attributed to PMPC. The interrupt can be taken
+in a different mode than the profiled instruction: in an unaligned
+access test on EV7 that was true of three quarters of the samples. When
+the modes match, the PC is set in the interrupt's frame for the overflow
+call and restored afterwards, so perf's mode, register and stack
+sampling all see the same frame. When they differ the registers are not
+available: a kernel instruction whose interrupt is taken after the
+return to user mode has no kernel state left, and a user instruction's
+frame may not be built yet, as the interrupt is often taken on the first
+instruction of the entry code. Those samples use a per-CPU frame holding
+only the PC, and a user instruction's sample reports no registers or
+user stack. PALmode PMPCs are physical addresses, so those samples keep
+the interrupted PC.
 
-I tested this on an AlphaServer ES47 (EV7). Samples from a
-16-instruction loop land on all 16 instructions rather than on 4 PCs.
-DTB misses and unaligned traps are attributed to the faulting load. A
-branch on random data shows up as mispredicted in 21% of its samples,
-and in 0% with sorted data. A 12 minute perf record -a while building
-git took 4.45 million samples with no warnings. Sampling every 10000
-instructions, which used to wedge the CPU, ran 66 times without a hang.
-With precise_ip, killed instructions went from 67% of the samples of a
-mispredicting loop to none. On two CPUs, this version survived 62 runs
-that mix sampling, filters, context switches and multiplexing, with no
-warnings. As a normal user, perf record took 8763 samples, none of them
-in the kernel.
+PCTR0 is left stopped just past overflow at the end of every window,
+which the EV67 PALcode restrictions 32 and 38 warn about: a disabled
+counter near overflow keeps signaling it and blocks all other
+interrupts, and a disabled counter only clears its overflow state when
+written twice. So the counters are written twice when rearmed, and are
+moved away from overflow when a ProfileMe event is stopped or removed
+or a stray interrupt arrives for one that is gone. Without this,
+sampling every 10000 instructions wedged an EV7 in 7 of 16 runs, with
+no console output, until the service processor reset it. With it, 66
+runs passed.
 
+A ProfileMe event lives at index 0, so every interrupt taken while one
+is scheduled goes to it, including one from an Aggregate event on PCTR1
+that was pending when perf multiplexed the ProfileMe event in. That
+interrupt, and one pending from before a ProfileMe event was stopped or
+switched to the other mode, finds PCTR0 short of overflow, and is
+ignored as the previous patch does for Aggregate events.
+
+Three behaviors differ from Aggregate mode. perf record's default event
+is cycles:P, so it now records a ProfileMe profile. In ProfileMe mode
+PCTR0 counts valid fetched instructions rather than retired ones, so the
+instructions count includes the wrong path, squashed NOPs, and both
+halves of each CMOV: on an EV7 loop with a randomly mispredicted branch
+it is about twice the Aggregate count. And instructions killed on a
+wrong path are sampled at their own PC, as ProfileMe defines them.
+
+Suggested-by: Magnus Lindholm <linmag7@gmail.com>
+Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
-Changes in v6:
-- New patch 5: ignore an overflow interrupt for a counter that has not
-  overflowed since it was written, and do not count an overflow twice
-  when a read races its interrupt. Counters are now written at most
-  half their range below overflow, so the two can be told apart.
-  Suggested by Ian Rogers, after Sashiko found that a PCTR1 interrupt
-  pending when a ProfileMe event was scheduled in was taken as a
-  window close.
-- Patch 6: drop the stopped event check and the caveat about stale
-  interrupts, which patch 5 now covers.
-- Patch 10: also report a memory access that retired without a DTB
-  miss trap as a DTB hit, a load into $31 or $f31 as a prefetch, and
-  leave out the ldq_u UNOP. Thanks to Ian Rogers.
-- Patch 12: say in the commit message that the kept samples carry the
-  full period, so the sample rate in frequency mode falls by the
-  killed fraction. Thanks to Ian Rogers.
-- New patch 13: honor exclude_user and exclude_kernel for ProfileMe
-  events by dropping samples, so perf record works without root.
-  Suggested by Ian Rogers.
-- Link to v5: https://patch.msgid.link/20261103-alpha-profileme-v5-0-bbe3937fbf3a@gmail.com
+ arch/alpha/include/asm/wrperfmon.h |  12 ++
+ arch/alpha/kernel/perf_event.c     | 290 +++++++++++++++++++++++++++++++++++--
+ 2 files changed, 290 insertions(+), 12 deletions(-)
 
-Changes in v5:
-- Patch 5: refuse precise_ip 3, as a sample with a PALmode PMPC keeps
-  the interrupted PC. Thanks to Magnus Lindholm.
-- New patches 8 to 11, from Ian Rogers' suggestions: the sample weight,
-  the data source of DTB misses, config1 filters, and retired-only
-  precise samples. The last changes what a default perf record shows.
-- Link to v4: https://patch.msgid.link/20261102-alpha-profileme-v4-0-61e00f5e1da8@gmail.com
+diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/wrperfmon.h
+index 1fa9bc813263..7fbbfd74926a 100644
+--- a/arch/alpha/include/asm/wrperfmon.h
++++ b/arch/alpha/include/asm/wrperfmon.h
+@@ -92,5 +92,17 @@
+ #define EV67_PCTR_CYCLES_UNDEF (1UL<<2)
+ #define EV67_PCTR_INSTR_BCACHEMISS (2UL<<2)
+ #define EV67_PCTR_CYCLES_MBOX (3UL<<2)
++/* In ProfileMe mode, SL1 = 1 makes PCTR1 count the inum retire delay. */
++#define EV67_PCTR_CYCLES_RETIRE_DELAY (1UL<<2)
++/* Set in both SL settings where PCTR0 counts cycles. */
++#define EV67_PCTR_PCTR0_CYCLES (1UL<<2)
++
++/* ProfileMe status, from the EV67/EV68 Hardware Reference Manuals. */
++#define EV67_I_STAT_OVR_SHIFT 30
++#define EV67_I_STAT_OVR_MASK 0x7UL
++
++/* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode address. */
++#define EV67_PMPC_PAL (1UL<<0)
++#define EV67_PMPC_PC_MASK (~3UL)
+ 
+ #endif
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index dd7fc4ac1396..7208d09a32d1 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -16,6 +16,7 @@
+ #include <linux/kdebug.h>
+ #include <linux/mutex.h>
+ #include <linux/init.h>
++#include <linux/sched/task_stack.h>
+ 
+ #include <asm/hwrpb.h>
+ #include <linux/atomic.h>
+@@ -30,8 +31,13 @@
+ #define MAX_HWEVENTS 3
+ #define PMC_NO_INDEX -1
+ 
++/* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs. */
++#define ALPHA_PERF_CONFIG_EVENT		0xffULL
++#define ALPHA_PERF_CONFIG_PROFILEME	BIT_ULL(8)
++
+ /* hw_perf_event.flags */
+ #define ALPHA_PERF_FLAG_WRAPPED		0x1
++#define ALPHA_PERF_FLAG_PROFILEME	0x2
+ 
+ /* For tracking PMCs and the hw events they monitor on each CPU. */
+ struct cpu_hw_events {
+@@ -148,6 +154,19 @@ static const struct ev67_mapping_t ev67_mapping[] = {
+ };
+ 
+ 
++/*
++ * In ProfileMe mode PCTR0 selects the profiled instruction and PCTR1 counts
++ * during its window. PCTR0 counts instructions or cycles, and each choice
++ * pairs with two PCTR1 inputs, so each event type picks one SL1 setting.
++ * Indexed by enum ev67_pmc_event_type.
++ */
++static const unsigned long ev67_profileme_sl1[] = {
++	[EV67_CYCLES]		= EV67_PCTR_CYCLES_RETIRE_DELAY, /* PCTR1: retire delay */
++	[EV67_INSTRUCTIONS]	= EV67_PCTR_INSTR_CYCLES,	/* PCTR1: cycles */
++	[EV67_BCACHEMISS]	= EV67_PCTR_INSTR_BCACHEMISS,	/* PCTR1: Bcache misses */
++	[EV67_MBOXREPLAY]	= EV67_PCTR_CYCLES_MBOX,	/* PCTR1: Mbox replays */
++};
++
+ /*
+  * Check that a group of events can be simultaneously scheduled on to the
+  * EV67 PMU.  Also allocate counter indices and config.
+@@ -155,9 +174,21 @@ static const struct ev67_mapping_t ev67_mapping[] = {
+ static int ev67_check_constraints(struct perf_event **event,
+ 				unsigned long *evtype, int n_ev)
+ {
+-	int idx0;
++	int idx0, j;
+ 	unsigned long config;
+ 
++	/* A ProfileMe event uses both counters, so it must be alone. */
++	for (j = 0; j < n_ev; j++) {
++		if (!(event[j]->hw.flags & ALPHA_PERF_FLAG_PROFILEME))
++			continue;
++		if (n_ev != 1)
++			return -1;
++		event[0]->hw.idx = 0;
++		event[0]->hw.config_base = EV67_PCTR_MODE_PROFILEME |
++					   ev67_profileme_sl1[evtype[0]];
++		return 0;
++	}
++
+ 	idx0 = ev67_mapping[evtype[0]-1].idx;
+ 	config = ev67_mapping[evtype[0]-1].config;
+ 	if (n_ev == 1)
+@@ -216,9 +247,11 @@ static int ev67_raw_event_valid(u64 config)
+ 
+ 
+ PMU_FORMAT_ATTR(event, "config:0-7");
++PMU_FORMAT_ATTR(profileme, "config:8");
+ 
+ static struct attribute *ev67_format_attrs[] = {
+ 	&format_attr_event.attr,
++	&format_attr_profileme.attr,
+ 	NULL,
+ };
+ 
+@@ -279,6 +312,31 @@ static inline void alpha_write_pmc(int idx, unsigned long val)
+ 	wrperfmon(PERFMON_CMD_WRITE, val);
+ }
+ 
++/* Write PCTR0 and clear PCTR1 in one call, as ProfileMe mode requires. */
++static inline void alpha_write_pmc_profileme(unsigned long val)
++{
++	val &= alpha_pmu->pmc_count_mask[0];
++	val <<= alpha_pmu->pmc_count_shift[0];
++	val |= EV67_PCTR_0 | EV67_PCTR_1;
++	/*
++	 * PCTR0 stops when a ProfileMe window closes, and a stopped counter
++	 * only clears its overflow state when written twice (EV67 HRM, PALcode
++	 * restriction 38). A counter left signaling overflow blocks all
++	 * other interrupts (restriction 32).
++	 */
++	wrperfmon(PERFMON_CMD_WRITE, val);
++	wrperfmon(PERFMON_CMD_WRITE, val);
++}
++
++/* The counters an event occupies, for PERFMON_CMD_ENABLE and DISABLE. */
++static inline unsigned long alpha_event_idx_mask(struct hw_perf_event *hwc,
++						 int idx)
++{
++	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
++		return EV67_PCTR_0 | EV67_PCTR_1;
++	return 1UL<<idx;
++}
++
+ static inline unsigned long alpha_read_pmc(int idx)
+ {
+ 	unsigned long val;
+@@ -289,6 +347,26 @@ static inline unsigned long alpha_read_pmc(int idx)
+ 	return val;
+ }
+ 
++/*
++ * Move a stopped ProfileMe counter away from overflow. See
++ * alpha_write_pmc_profileme() for why. The caller has read the count, so
++ * prev_count can be rebased on the value written.
++ *
++ * A pending PMI stays pending, but alpha_perf_event_ovf() ignores it, as
++ * the counter is left no nearer zero than alpha_perf_event_set_period()
++ * would leave it.
++ */
++static void alpha_perf_event_park(struct hw_perf_event *hwc)
++{
++	long left = local64_read(&hwc->period_left);
++
++	left = clamp(left, alpha_pmu->pmc_left[0],
++		     (long)(alpha_pmu->pmc_max_period[0] >> 1));
++	local64_set(&hwc->prev_count, (unsigned long)(-left));
++	hwc->flags &= ~ALPHA_PERF_FLAG_WRAPPED;
++	alpha_write_pmc_profileme((unsigned long)(-left));
++}
++
+ /* Set a new period to sample over */
+ static int alpha_perf_event_set_period(struct perf_event *event,
+ 				struct hw_perf_event *hwc, int idx)
+@@ -329,7 +407,10 @@ static int alpha_perf_event_set_period(struct perf_event *event,
+ 	local64_set(&hwc->prev_count, (unsigned long)(-left));
+ 	hwc->flags &= ~ALPHA_PERF_FLAG_WRAPPED;
+ 
+-	alpha_write_pmc(idx, (unsigned long)(-left));
++	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
++		alpha_write_pmc_profileme((unsigned long)(-left));
++	else
++		alpha_write_pmc(idx, (unsigned long)(-left));
+ 
+ 	perf_event_update_userpage(event);
+ 
+@@ -470,7 +551,8 @@ static void maybe_change_configuration(struct cpu_hw_events *cpuc)
+ 		if (!(hwc->state & PERF_HES_STOPPED)) {
+ 			/* The counter is live, so hwc->prev_count will go stale. */
+ 			hwc->state &= ~PERF_HES_UPTODATE;
+-			cpuc->idx_mask |= (1<<cpuc->current_idx[j]);
++			cpuc->idx_mask |= alpha_event_idx_mask(hwc,
++							cpuc->current_idx[j]);
+ 		}
+ 	}
+ 	cpuc->config = cpuc->event[0]->hw.config_base;
+@@ -562,7 +644,10 @@ static void alpha_pmu_del(struct perf_event *event, int flags)
+ 			alpha_perf_event_update(event, hwc, idx, 0);
+ 			perf_event_update_userpage(event);
+ 
+-			cpuc->idx_mask &= ~(1UL<<idx);
++			if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
++				alpha_perf_event_park(hwc);
++
++			cpuc->idx_mask &= ~alpha_event_idx_mask(hwc, idx);
+ 			cpuc->n_events--;
+ 			break;
+ 		}
+@@ -587,17 +672,22 @@ static void alpha_pmu_stop(struct perf_event *event, int flags)
+ 	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+ 
+ 	if (!(hwc->state & PERF_HES_STOPPED)) {
+-		cpuc->idx_mask &= ~(1UL<<hwc->idx);
++		cpuc->idx_mask &= ~alpha_event_idx_mask(hwc, hwc->idx);
+ 		hwc->state |= PERF_HES_STOPPED;
+ 	}
+ 
+-	if ((flags & PERF_EF_UPDATE) && !(hwc->state & PERF_HES_UPTODATE)) {
++	/* Parking a ProfileMe event overwrites the counter, so read it first. */
++	if (((flags & PERF_EF_UPDATE) || (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)) &&
++	    !(hwc->state & PERF_HES_UPTODATE)) {
+ 		alpha_perf_event_update(event, hwc, hwc->idx, 0);
+ 		hwc->state |= PERF_HES_UPTODATE;
+ 	}
+ 
+ 	if (cpuc->enabled)
+-		wrperfmon(PERFMON_CMD_DISABLE, (1UL<<hwc->idx));
++		wrperfmon(PERFMON_CMD_DISABLE, alpha_event_idx_mask(hwc, hwc->idx));
++
++	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME)
++		alpha_perf_event_park(hwc);
+ }
+ 
+ 
+@@ -616,9 +706,9 @@ static void alpha_pmu_start(struct perf_event *event, int flags)
+ 
+ 	hwc->state = 0;
+ 
+-	cpuc->idx_mask |= 1UL<<hwc->idx;
++	cpuc->idx_mask |= alpha_event_idx_mask(hwc, hwc->idx);
+ 	if (cpuc->enabled)
+-		wrperfmon(PERFMON_CMD_ENABLE, (1UL<<hwc->idx));
++		wrperfmon(PERFMON_CMD_ENABLE, alpha_event_idx_mask(hwc, hwc->idx));
+ }
+ 
+ 
+@@ -658,6 +748,7 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 	struct perf_event *evts[MAX_HWEVENTS];
+ 	unsigned long evtypes[MAX_HWEVENTS];
+ 	int idx_rubbish_bin[MAX_HWEVENTS];
++	bool profileme = false;
+ 	int ev;
+ 	int n;
+ 
+@@ -671,9 +762,13 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 	} else if (attr->type == PERF_TYPE_HW_CACHE) {
+ 		return -EOPNOTSUPP;
+ 	} else if (attr->type == PERF_TYPE_RAW) {
+-		if (!alpha_pmu->raw_event_valid(attr->config))
++		if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
++				     ALPHA_PERF_CONFIG_PROFILEME))
+ 			return -EINVAL;
+-		ev = attr->config;
++		ev = attr->config & ALPHA_PERF_CONFIG_EVENT;
++		if (!alpha_pmu->raw_event_valid(ev))
++			return -EINVAL;
++		profileme = attr->config & ALPHA_PERF_CONFIG_PROFILEME;
+ 	} else {
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -682,6 +777,20 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 		return ev;
+ 	}
+ 
++	/*
++	 * ProfileMe samples report the exact PC of the profiled instruction,
++	 * so it also serves any request for precise samples. It only makes
++	 * sense for sampling events. Level 3 promises no skid at all, but some
++	 * samples keep the interrupted PC; see alpha_perf_event_profileme().
++	 */
++	if (attr->precise_ip > 2)
++		return -EOPNOTSUPP;
++	if (attr->precise_ip)
++		profileme = true;
++	if (profileme && !is_sampling_event(event))
++		return -EINVAL;
++	hwc->flags = profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
++
+ 	/*
+ 	 * We place the event type in event_base here and leave calculation
+ 	 * of the codes to programme the PMU for alpha_pmu_enable() because
+@@ -872,6 +981,147 @@ static long alpha_perf_event_ovf(struct hw_perf_event *hwc, int idx)
+ }
+ 
+ 
++/*
++ * Frame holding only the PC, for a ProfileMe interrupt taken in a different
++ * mode than the profiled instruction. Being off the stack,
++ * perf_reg_value() reports no SP.
++ */
++static DEFINE_PER_CPU(struct pt_regs, alpha_profileme_regs);
++
++/*
++ * Report the sample with none of the given PERF_SAMPLE_REGS_* registers.
++ * Having no user registers also means no user stack.
++ */
++static void alpha_profileme_drop_regs(struct perf_event *event,
++				      struct perf_sample_data *data, u64 which)
++{
++	/* STACK_USER consults regs_user even without REGS_USER. */
++	if (which & PERF_SAMPLE_REGS_USER)
++		data->regs_user = (struct perf_regs){ .abi = PERF_SAMPLE_REGS_ABI_NONE };
++	if (which & PERF_SAMPLE_REGS_INTR)
++		data->regs_intr = (struct perf_regs){ .abi = PERF_SAMPLE_REGS_ABI_NONE };
++	data->sample_flags |= which;
++	/* Only the ABI word is written for each. */
++	data->dyn_size += hweight64(event->attr.sample_type & which) * sizeof(u64);
++}
++
++/* Report the user registers from a frame known to be complete. */
++static void alpha_profileme_set_regs_user(struct perf_event *event,
++					  struct perf_sample_data *data)
++{
++	data->regs_user.regs = task_pt_regs(current);
++	data->regs_user.abi = perf_reg_abi(current);
++	data->sample_flags |= PERF_SAMPLE_REGS_USER;
++	/* STACK_USER consults regs_user even without REGS_USER. */
++	if (event->attr.sample_type & PERF_SAMPLE_REGS_USER)
++		data->dyn_size += (1 + hweight64(event->attr.sample_regs_user)) *
++				  sizeof(u64);
++}
++
++/*
++ * Handle the close of a ProfileMe window on PCTR0.
++ *
++ * PCTR0 stops counting when the window closes and does not start again
++ * until PCTR_CTL is written, so the status must be read first and the
++ * counters then rearmed unconditionally.
++ */
++static void alpha_perf_event_profileme(struct perf_event *event,
++				       struct hw_perf_event *hwc,
++				       struct pt_regs *regs, long ovf)
++{
++	struct perf_sample_data data;
++	struct pt_regs *pm_regs;
++	bool pc_only = false;
++	unsigned long i_stat, pmpc, ovr, pc, saved_pc, saved_ps;
++
++	i_stat = wrperfmon(PERFMON_CMD_I_STAT, 0);
++	pmpc = wrperfmon(PERFMON_CMD_PMPC, 0);
++
++	alpha_perf_event_update(event, hwc, 0, ovf);
++
++	/*
++	 * When PCTR0 counts instructions, up to 7 of them are counted after
++	 * the overflow but before the window opens. I_STAT reports how many.
++	 */
++	if (!(hwc->config_base & EV67_PCTR_PCTR0_CYCLES)) {
++		ovr = (i_stat >> EV67_I_STAT_OVR_SHIFT) & EV67_I_STAT_OVR_MASK;
++		local64_sub(ovr, &event->count);
++		local64_add(ovr, &hwc->period_left);
++	}
++
++	/*
++	 * Attribute the sample to the profiled instruction rather than to
++	 * wherever the interrupt landed. perf takes the sample's mode,
++	 * registers and stack from regs, so:
++	 *
++	 * - Interrupt taken in the same mode: the PC is set in the
++	 *   interrupt's own frame, and restored afterwards.
++	 * - User instruction, interrupt taken in the kernel, typically
++	 *   because the instruction trapped: the frame at task_pt_regs() may
++	 *   not be built yet. The interrupt is often taken on the first
++	 *   instruction of the entry code, and its own frame then overlaps
++	 *   that one. Report the PC alone, in a per-CPU frame.
++	 * - Kernel instruction, interrupt taken just after returning to user
++	 *   mode: the kernel state is gone, so a per-CPU frame that holds only
++	 *   the PC. The user frame in regs is left alone, since perf samples
++	 *   the user registers from it.
++	 *
++	 * A PALmode PMPC is a physical address that perf cannot resolve. That
++	 * happens for ITB miss, Istream access violation and interrupt
++	 * redirects, and for instructions inside PALcode. Keep the
++	 * interrupted PC, which for redirects is the instruction that
++	 * trapped. Do the same for a user PMPC in a kernel thread, which has
++	 * no user frame.
++	 */
++	pm_regs = regs;
++	pc = pmpc & EV67_PMPC_PC_MASK;
++	if (pmpc & EV67_PMPC_PAL) {
++		pc = regs->pc;
++	} else if (pc < TASK_SIZE && !user_mode(regs)) {
++		if (is_user_task(current)) {
++			pc_only = true;
++			pm_regs = this_cpu_ptr(&alpha_profileme_regs);
++			memset(pm_regs, 0, sizeof(*pm_regs));
++			/* PS bit 3 is the mode bit that user_mode() tests. */
++			pm_regs->ps = 8;
++		} else {
++			pc = regs->pc;
++		}
++	} else if (pc >= TASK_SIZE && user_mode(regs)) {
++		pm_regs = this_cpu_ptr(&alpha_profileme_regs);
++		memset(pm_regs, 0, sizeof(*pm_regs));
++	}
++
++	perf_sample_data_init(&data, 0, hwc->last_period);
++	if (pc_only)
++		alpha_profileme_drop_regs(event, &data, PERF_SAMPLE_REGS_USER |
++							PERF_SAMPLE_REGS_INTR);
++	/*
++	 * perf_get_regs_user() has the same check, but it will find the PMPC
++	 * in regs->pc rather than where the interrupt was taken. Decide here
++	 * from the interrupted PC, for either answer that would differ.
++	 */
++	else if (!user_mode(regs) && in_entry_save_code(regs->pc))
++		alpha_profileme_drop_regs(event, &data, PERF_SAMPLE_REGS_USER);
++	else if (in_entry_save_code(pc) && is_user_task(current))
++		alpha_profileme_set_regs_user(event, &data);
++
++	if (!alpha_perf_event_set_period(event, hwc, 0))
++		return;
++
++	saved_pc = pm_regs->pc;
++	saved_ps = pm_regs->ps;
++	pm_regs->pc = pc;
++	/* PS bit 3 is the mode bit that user_mode() tests. */
++	if (pc >= TASK_SIZE)
++		pm_regs->ps &= ~8UL;
++
++	perf_event_overflow(event, &data, pm_regs);
++
++	pm_regs->pc = saved_pc;
++	pm_regs->ps = saved_ps;
++}
++
+ /*
+  * Performance Monitoring Interrupt Service Routine called when a PMC
+  * overflows.  The PMC that overflowed is passed in la_ptr.
+@@ -907,6 +1157,10 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+ 
+ 	idx = la_ptr;
+ 
++	/* A ProfileMe event owns both counters but lives at index 0. */
++	if (cpuc->config & EV67_PCTR_MODE_PROFILEME)
++		idx = 0;
++
+ 	for (j = 0; j < cpuc->n_events; j++) {
+ 		if (cpuc->current_idx[j] == idx)
+ 			break;
+@@ -914,6 +1168,8 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+ 
+ 	if (unlikely(j == cpuc->n_events)) {
+ 		/* This can occur if the event is disabled right on a PMC overflow. */
++		if (cpuc->config & EV67_PCTR_MODE_PROFILEME)
++			alpha_write_pmc_profileme(-alpha_pmu->pmc_max_period[0]);
+ 		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
+ 		return;
+ 	}
+@@ -931,7 +1187,17 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+ 	hwc = &event->hw;
+ 	ovf = alpha_perf_event_ovf(hwc, idx);
+ 	if (ovf < 0) {
+-		/* The interrupt was pending when the counter was written. */
++		/*
++		 * The interrupt was pending when the counter was written, or
++		 * is from PCTR1 and was pending when a ProfileMe event was
++		 * scheduled in.
++		 */
++		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
++		return;
++	}
++
++	if (hwc->flags & ALPHA_PERF_FLAG_PROFILEME) {
++		alpha_perf_event_profileme(event, hwc, regs, ovf);
+ 		wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
+ 		return;
+ 	}
 
-Changes in v4:
-- Patch 4: move __entry_save_end past the r16-r18 stores in entSys,
-  as PAL_callsys does not save them and interrupts are still enabled
-  there.
-- Patch 5: report the user registers when the profiled instruction is
-  in the entry code but the interrupt was taken after it, since
-  perf_get_regs_user() sees the PMPC rather than the interrupted PC.
-- Link to v3: https://patch.msgid.link/20261101-alpha-profileme-v3-0-92d511b5a044@gmail.com
-
-Changes in v3:
-- New patch 3: clear PERF_HES_UPTODATE when an event starts counting,
-  so that a stop before the first start does not lose the count.
-- New patch 4: report no user registers for a sample taken in the entry
-  code, where the frame at task_pt_regs() is not complete. An interrupt
-  nested on one taken there is still not caught.
-- Patch 5: a user instruction whose interrupt is taken in the kernel now
-  reports its PC with no registers or user stack, as the frame at
-  task_pt_regs() may not be built yet. Thanks to Magnus Lindholm for
-  finding this and for the fix.
-- Patch 5: also move the counter away from overflow when a ProfileMe
-  event is removed, or stopped without PERF_EF_UPDATE, as
-  alpha_pmu_del() does not go through alpha_pmu_stop().
-- Patch 5: ignore an interrupt that was pending when the event was
-  stopped. Document that rewriting a counter does not cancel one.
-- Link to v2: https://patch.msgid.link/20261030-alpha-profileme-v2-0-c702f1c65272@gmail.com
-
-Changes in v2:
-- Patch 1: explain why bit 0 clear means all processes, although the
-  Architecture Reference Manual says otherwise.
-- Patch 3: fix a CPU wedge during high-rate ProfileMe sampling. The
-  ProfileMe counters are now written twice, and a stopped counter is
-  moved away from overflow, as EV67 HRM PALcode restrictions 32 and 38
-  require.
-- Patch 3: set the profiled PC in place in the trap frame of the
-  instruction's mode instead of in a pt_regs copy on the stack, so
-  sampled registers and stack values are those of the right frame.
-  A kernel instruction whose interrupt is taken in user mode gets a
-  per-CPU frame holding only its PC, so the user frame is not changed.
-- Patch 4: drop the reserved field and pack the 64-bit fields of
-  struct alpha_profileme_sample, so they are 8-byte aligned in the
-  sample record and the record needs no padding. This changes the raw
-  data layout.
-- Patch 5: compute the jitter with mul_u64_u32_shr() and saturate the
-  sum, so that large periods cannot overflow.
-- Link to v1: https://patch.msgid.link/20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com
-
----
-Matt Turner (13):
-      alpha/perf: pass PERFMON_CMD_LOGGING_ALL to the logging options call
-      alpha/perf: add sysfs format and event attributes
-      alpha/perf: clear PERF_HES_UPTODATE when an event starts counting
-      alpha/perf: do not report user registers from the entry code
-      alpha/perf: ignore overflow interrupts the counter does not account for
-      alpha/perf: implement ProfileMe sampling
-      alpha/perf: attach ProfileMe status as PERF_SAMPLE_RAW data
-      alpha/perf: optionally randomize the ProfileMe sampling interval
-      alpha/perf: report the ProfileMe window count as the sample weight
-      alpha/perf: report the data source of ProfileMe memory accesses
-      alpha/perf: add ProfileMe sample filters
-      alpha/perf: sample only retired instructions for precise events
-      alpha/perf: honor exclude_user and exclude_kernel for ProfileMe events
-
- arch/alpha/include/asm/perf_event.h      |   2 +
- arch/alpha/include/asm/ptrace.h          |  12 +
- arch/alpha/include/asm/wrperfmon.h       |  36 ++
- arch/alpha/include/uapi/asm/perf_event.h |  31 ++
- arch/alpha/kernel/entry.S                |   9 +
- arch/alpha/kernel/perf_event.c           | 660 ++++++++++++++++++++++++++++++-
- arch/alpha/kernel/perf_regs.c            |  13 +
- 7 files changed, 742 insertions(+), 21 deletions(-)
----
-base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
-change-id: 20261024-alpha-profileme-6e98a977cb54
-
-Best regards,
---  
-Matt Turner <mattst88@gmail.com>
+-- 
+2.55.0
 
