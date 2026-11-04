@@ -1,127 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797401;
-	b=vMdESQGPavyUbKvPPvQDBrQo63ip5HeeFj2SknM020oYfjq4WbaQvC2RnM4o4vyabGci
-	 GZCicrOX2H2rv6lxNxyxYOyLu99DgfeHxh3wXlpV9HJBBGJM7+8VeEE/uXPXVcwwvgSyM
-	 dy5fXOle2p39TxQKt25GLnvupgl5hT4YOCzxbTte3B8Gg4zYUP0gw0J4ApYR0o6N4wAyn
-	 jJrWxRSM2UguY6PuI5LKvmR6Fp2krAxxJtL1htBrachO3xcLLhppiU+LdiaqRfyoSl8HD
-	 shRz99l61DXoFlzGzOkY6NBQY4jfhFFSg2cYl5yy5cen5JgkcXMZyuGJlEUj2lh20fQ==
+	t=1793797426;
+	b=RA90PISxfm9WgNWi70LQLansLDdTRORtn33slHG0zBjXb0+yzCmXBM2DhvoHPkVXkI0X
+	 Mg3hdtRjCzxpoiokkY1XRrsaQ7/tOu2rpU8KLXVSaLjHfYSr2vh4XHiostaWtNqGf4VXA
+	 RG7jcS8PmkBzBmthYnKqyXjpv6b5qIoJz16gbI2tUqy4Zb+Fvs5H8yoDkAqoWBlW6TwK3
+	 Y215C17jkc1Z6ZbtVxwtCFwhUkkVaRKgsjDNLBwd5YzOk1ohMRKP3IzGYUkgqwHVyL4Px
+	 iveGTlhgYLCvPxyAElmhXivolWE7tWBpSPRJAfUTmQkesoLOOQ4LkzYiafb5zGkoz/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797401;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n4Lerps2lD0Mw1JlyAS7XwS+swB42xH028WT2k07pwY=;
-	b=FZClmM++3aoceWYwvnd4WMbH5Uvg/3+QdUfju18zvP+kR+j4JQMkfOuMl4+QHWH2jQlV
-	 uJMU720Knh5PFCpSZsPMFIgrEKUSdbekEm11E/zzVnEsVWvKR76761J1nN+71Y6KqpGvS
-	 4m57czPRCcCvYZWP2FZRiKwXJSQHipo4oRFzm3F+C1rlIIy+5I7uUr5WHNjQ6taoTgNKS
-	 5rvcq8R8FkSwfc7uYEr8iawPW2t5iKPSvb/QBr+aYf5As1IDjHSp4GamitxYtR4GlzXYp
-	 wct+Fq7XMYQ/2Yrg/CMnjiXq55fxHeCS82onzF97GSOWcYJTRkfsbMTjH4KXfKMxo6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797426;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=Rk9I/hs0FAD1JpZN3nz0IyElTxou9AIDzVZ41o0WZsY=;
+	b=zwUrmFULcXiY89+Xe4ayfjB/QlDd8ch2anRMtd7BpzVQymGqAKh0/+Mip6995dBaWtHM
+	 socMHcKZUGZjz+LCyefkhRMEjrxN4dKB6lUFzAXx8dzg1+so1/yveqnBNtnE/PvC33HPV
+	 3oMDYYhBLGla9+ohcmy/7hfUZLI8lcOmhekUT/FLRnN+4lngUXGc8O+FbyxSYI/ODNd25
+	 LKDhB/dUeXL8pQg23BoQ2udX+DIHhdayOCaBeD/DCBQsje1n+E0ZDawHLg25blPdkuuO3
+	 rp7K4vrZ3EFGErvHzokwmV7r8IYzbRFzwTdyF8fmic6dqB/qB/eBX0kVUAY/sH00Vjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUNqtVgV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SundMkPA;
+	arc=none smtp.remote-ip=209.85.221.72
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A038F606EEB5
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA122606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:03:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA122606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUNqtVgV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD231F0093A;
-	Wed,  4 Nov 2026 13:03:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797401;
-	bh=n4Lerps2lD0Mw1JlyAS7XwS+swB42xH028WT2k07pwY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eUNqtVgVaqAIUkjZ0JpBpJW9MCVPylBfGSUhDJROeF41H3tkdNH9UTwWC+qk5t57E
-	 Dk/9fLfy+NL92vu52nWtqYsEti8Igd3HpdGuhLaRZrEPrZc7dw/2s32187CbGcBeiS
-	 gh+eNWoRb/OkBHETzyLvqz0UH69jjMnnlUSo2LvRvnuAsZHdRGTNUWR+nS/JYJnLmg
-	 aRypEnc6baTkRVIwOkcbOp3KlYAXnNTKmutAuuQIy0QElBs9AHLHf6qzxw/xl7ff3J
-	 Cv6Ii72BZvAQkYOrLLaf5mfnuIM4nqu6OXwzLFDJ2TsCNVPCjcCKl1rU7sFUgb0R/w
-	 zH65rDCAe/zyQ==
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 5718F1980052;
-	Wed,  4 Nov 2026 08:03:12 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-09.internal (MEProxy); Wed, 04 Nov 2026 08:03:16 -0500
-X-ME-Sender: <xms:Dy3rasvOZLRorb5Y7XVip4fp4u6VdMfGeH3EQ_kRQSi2pTaTi_RLVg>
-    <xme:Dy3rauuBt8SLKdmFox98xDaW_7D3C47nxk6XazFb-E4-bi4XXo2voh0KXBx3tjLjf
-    e2UFTdR3bXItk7AjYufdS1uS9LFOcbSumkWhYR_E8EtbIBA7o71yRCt>
-X-ME-Received: <xmr:Dy3raqbCy1NgIotKuM19qURDgk8WpBrPETTvs04pcj86_qP52HLNaXO8ll0>
-X-ME-Proxy-Cause: dmFkZTEMr2WhNOOY7faPMgOVA86T3X6FAd5Ao5Ndgx8HItBF0IoaqscGd+eHtrr6ZU+W1R
-    wMCQkezO/jqDpIXHtWbk1cX7511CWG9nytvgA72O7/GyWPbnFJH1/KoC1oU4eTzQz4uQU5
-    XlfKyFGwpRspKwzN+UK6QdrS6nHZaHNe/uNaFH4uocVUyYawgtQju2cVEawUWtGw6nseJ9
-    0L4J0ssTWIjAVgg3c4pDpTeUfzUmFwAMWTRVDjkJafKYOQzvk6rFVN4JhIZhnU3qcRTinO
-    hOXkX2soZGBKWYo9BWQOgOkNg7aqmmDYjwTnBv89mK8xPBsHNPD99ZxyAasIZtmzxuPIXi
-    47fzPLe+sdOALN2WIadaz+v0V41yPbH6g7q0GyrIjlQUEVJ6nKkgOeTR/rwyBciFRt7EHH
-    g58VksmLOzWMXLyL3a0htP1FPDOdEr9zZ6g+VxGgoaYryYqBgXtjhUqYvzTZHgcDeIC13f
-    6fQIJ3s9NDwRSOYZtqbqX4JtxvQ5tfpXi1KPsQ2ztE0Zdg6KdQdDxdSQvje5bS/vmKJaa+
-    1CuYd7Bzw9clj+ohoHK43v4Ya9rMycfJibPWMGaiyBlijmK0ODsTQlZWCdqtAldwiFxi5A
-    vR1D9ohmfAuKzdozzhI8WiCVONvLPeLa71yfmZjAYNtPitelHF6AMjM6W0Sg
-X-ME-Proxy: <xmx:Dy3rau4gcuXjmPqROjLhx61d3mx9ZM6ALSf-8-GgsAe8LAQ4yiQ2yQ>
-    <xmx:Dy3ratlnrq_yIUM4B22Y6ZEvT_aAVw1ihqtBIqK5rjKui9KuPcUgeQ>
-    <xmx:Dy3rauo_9K0Jvo6cJMTIlVUVkf2ukYGefcRyY_2y15fuU1AY4ozj_Q>
-    <xmx:Dy3rao-so6FzhzXTdMeiQilkuR46dbGPO5Gjavnvnclyv5K9V9OYhA>
-    <xmx:Dy3ran44aLjryARxqInszue3VlwsFclKt5yec3-daayw4gskEMXGDEAG>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 08:03:11 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Hugh Dickins <hughd@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Harry Yoo <harry@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: [RFC PATCH v2 18/18] mm/filemap: add a debugfs switch for lockless page cache reads
-Date: Wed,  4 Nov 2026 13:01:14 +0000
-Message-ID: <20261104130118.2507513-19-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104130118.2507513-1-kas@kernel.org>
-References: <20261104130118.2507513-1-kas@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SundMkPA
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b027578a4so578177f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:03:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793797424; x=1794402224; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rk9I/hs0FAD1JpZN3nz0IyElTxou9AIDzVZ41o0WZsY=;
+        b=SundMkPAP7nK88QqCodUo6cgiHfwucHJ2BB7s+84UW57L+S2JnswkeV3z5E+jnjjiS
+         uYJbWuy3crTVgS2v9uNU+xMFoBfOXCY/PZhRZVgDcBN8VIj1Y/vxJkjggQcE7XmYbZ2w
+         XgGNoFB2eJzlLFmjeXFS7rrjh4TEnrcWlNJ4k80kYfoIjNxkZ4HXbu9pcdq+dwcIwFlD
+         cG1iX7wjqaqYeca+ffIq1Mad6MkDVd8ccTWW4Zas4vB7KvscYTZY3Mv2oJiHb8uMo899
+         042BMZAOA12jBTu9X6bJR/ScE7SG6+gseXgxLO9FDy7so+xrDHuko5WnFP310QOIOHZz
+         o0sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793797424; x=1794402224;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rk9I/hs0FAD1JpZN3nz0IyElTxou9AIDzVZ41o0WZsY=;
+        b=gxAFKv2K2jwX/lEvkwcceoxwczi/Mqfz6hsTXem6fVeCytXmVi43yV8doUNCmYf/15
+         hIVD4iyyE0Zqt28i64GO2t/CP0txJFq5SgoNdcNoTXZ7LQv/OhnEFEsBXAgIW9sc6C80
+         wkpH6YezYtKvB1VsZWosa7thdMwc46RzHjMVr+qPisE2N0MN0EO5oZr1y0/rz33oawtI
+         +gGPLPbyNaBw8HvBiU+goCKAGAYx0avy9IVBIyDoVlmrXLfzD3e1eH1jJMRPuGLTAV8/
+         MIxqKOh2gecwOdjSxvfGHWI24QRO+lxMa2WF1BQcb9zpPfVc02sKz+O65Fm6TM0eMx3x
+         Z7PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1olxBA5Txo39wIw/WjWWQMQ7Hb3IJEbrYcsGqPH41bsy441zENtALX8CMyBSfUOxqXE6Ekp48dl8zk1g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WXyhhzTmBASzI8SONW48/f/b8dVu7XMNr/zvps+fLFMM2zIEj
+	prXH8Lx4ep1eqtE+29mpmeX5no9FNR/iz4bwKv5n+IQqMv8goyAMV9cyTLzKVzWwVRfyOp6wCCE
+	DOWpDk6B0mrAEerOhpA==
+X-Received: from wror10.prod.google.com ([2002:adf:f10a:0:b0:48a:eea0:bc47])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:29cf:b0:48e:6f76:de9c with SMTP id ffacd0b85a97d-48e6f76f453mr21544509f8f.28.1793797423627;
+ Wed, 04 Nov 2026 05:03:43 -0800 (PST)
+Date: Wed,  4 Nov 2026 13:03:41 +0000
+In-Reply-To: <auixgbeSSfBWwVS9@tardis.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,126 +78,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261102035934.711973-1-tomo@flapping.org> <auixgbeSSfBWwVS9@tardis.local>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261104130342.261593-1-aliceryhl@google.com>
+Subject: Re: [PATCH v9] rust: sync: condvar: use Delta<Jiffy> for timeout and result
+From: Alice Ryhl <aliceryhl@google.com>
+To: Boqun Feng <boqun@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, FUJITA Tomonori <tomo@flapping.org>, arve@android.com, 
+	brauner@kernel.org, cmllamas@google.com, gary@garyguo.net, 
+	gregkh@linuxfoundation.org, ojeda@kernel.org, tkjos@android.com, 
+	a.hindborg@kernel.org, acourbot@nvidia.com, bjorn3_gh@protonmail.com, 
+	dakr@kernel.org, daniel.almeida@collabora.com, lossin@kernel.org, 
+	lyude@redhat.com, tamird@kernel.org, tmgross@umich.edu, work@onurozkan.dev, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	FUJITA Tomonori <fujita.tomonori@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Reading hot folios without a reference defers the free of their memory
-by an RCU grace period.  A workload that loses on that trade, or a bug
-in the lockless read, has no way to turn it off: CONFIG_PAGE_RCU_FREE is
-on in every 64-bit kernel.
+On Mon, Nov 02, 2026 at 07:51:29AM -0800, Boqun Feng wrote:
+> On Mon, Nov 02, 2026 at 12:59:34PM +0900, FUJITA Tomonori wrote:
+> > Update the only user, binder. It now converts the freeze timeout with
+> > Delta::to_jiffies_timeout() instead of msecs_to_jiffies(). Both round
+> > up, so a short timeout does not become zero. They differ only for a
+> > very long timeout. msecs_to_jiffies() returns MAX_JIFFY_OFFSET for
+> > 2^31 ms (about 24.9 days) or more, which means an infinite
+> > timeout. to_jiffies_timeout() has no such special case. It converts
+> > such a value to the matching number of jiffies, so the wait is long
+> > but finite.
+> > 
+> > Reviewed-by: Gary Guo <gary@garyguo.net>
+> > Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+> 
+> Thanks. Alice, any concern regarding the change in binder?
+> 
+> I have some naming suggestion, please see below:
+> 
+> > ---
+> >  drivers/android/binder/process.rs |  7 ++++---
+> >  rust/kernel/sync/condvar.rs       | 31 ++++++++++++++++++++++---------
+> >  2 files changed, 26 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+> > index 1f4cb43f1de6..edde0ea35687 100644
+> > --- a/drivers/android/binder/process.rs
+> > +++ b/drivers/android/binder/process.rs
+> > @@ -1552,8 +1553,8 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
+> >          inner.is_frozen = IsFrozen::InProgress;
+> >  
+> >          if info.timeout_ms > 0 {
+> > -            let mut jiffies = kernel::time::msecs_to_jiffies(info.timeout_ms);
+> > -            while jiffies > 0 {
+> > +            let mut jiffies = Delta::from_millis(info.timeout_ms.into()).to_jiffies_timeout();
+> 
+> I would rename this variable to `timeout`, i.e.
+> 
+> 	let timeout = Delta::from_millis(info.timeout_ms.into()).to_jiffies_timeout();
+> 
+> Thoughts?
 
-Add lockless_page_cache_read to debugfs.  Writing 0 stops filemap_read()
-and shmem_file_read_iter() from setting PG_rcu_free and from copying
-without a reference.  A static key keeps the test off the read path.
-debugfs, not a sysctl: the switch is not ABI and can go once the reads
-have proven themselves.
+No concerns from me; the binder change and your naming suggestions look
+good to me.
 
-Folios that have the flag keep it, and their free stays deferred: a read
-that tested the key before the switch may still be copying from them.
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/Kconfig   |  3 +++
- mm/filemap.c | 51 ++++++++++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 51 insertions(+), 3 deletions(-)
-
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 6e5341b0bf64..768873ebc71c 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -733,6 +733,9 @@ config PAGE_RCU_FREE
- 	  32-bit.  Not on PREEMPT_RT, where expedited grace periods are
- 	  normal ones, so freeing the waiting pages on demand would stall.
- 
-+	  Writing 0 to lockless_page_cache_read in debugfs turns these
-+	  reads off.
-+
- config PHYS_ADDR_T_64BIT
- 	def_bool 64BIT
- 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index e148490db4da..eff29d501f58 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -48,6 +48,7 @@
- #include <linux/rcupdate_wait.h>
- #include <linux/sched/mm.h>
- #include <linux/sysctl.h>
-+#include <linux/debugfs.h>
- #include <linux/pgalloc.h>
- 
- #include <asm/tlbflush.h>
-@@ -2759,6 +2760,50 @@ static inline bool pos_same_folio(loff_t pos1, loff_t pos2, struct folio *folio)
- 	return (pos1 >> shift == pos2 >> shift);
- }
- 
-+#ifdef CONFIG_PAGE_RCU_FREE
-+/* Writing 0 to lockless_page_cache_read in debugfs turns the reads off */
-+static DEFINE_STATIC_KEY_TRUE(lockless_read_key);
-+
-+static bool lockless_read_enabled(void)
-+{
-+	return static_branch_likely(&lockless_read_key);
-+}
-+
-+#ifdef CONFIG_DEBUG_FS
-+static int lockless_read_get(void *data, u64 *val)
-+{
-+	*val = static_key_enabled(&lockless_read_key);
-+	return 0;
-+}
-+
-+static int lockless_read_set(void *data, u64 val)
-+{
-+	if (val > 1)
-+		return -EINVAL;
-+	if (val)
-+		static_branch_enable(&lockless_read_key);
-+	else
-+		static_branch_disable(&lockless_read_key);
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(lockless_read_fops, lockless_read_get,
-+			 lockless_read_set, "%llu\n");
-+
-+static int __init lockless_read_debugfs_init(void)
-+{
-+	debugfs_create_file_unsafe("lockless_page_cache_read", 0644, NULL, NULL,
-+				   &lockless_read_fops);
-+	return 0;
-+}
-+late_initcall(lockless_read_debugfs_init);
-+#endif
-+#else
-+static bool lockless_read_enabled(void)
-+{
-+	return false;
-+}
-+#endif
-+
- /*
-  * Reads keep coming back to @folio: free it only after an RCU grace period
-  * from now on.  Not if its next read needs a reference anyway.  Not if it
-@@ -2769,7 +2814,7 @@ static void filemap_mark_hot(struct folio *folio)
- {
- 	struct address_space *mapping;
- 
--	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
-+	if (!lockless_read_enabled())
- 		return;
- 	if (folio_test_rcu_free(folio) || !folio_test_uptodate(folio) ||
- 	    folio_test_dropbehind(folio) || folio_test_unevictable(folio))
-@@ -3028,8 +3073,8 @@ size_t filemap_read_rcu(struct kiocb *iocb, struct iov_iter *iter,
- 	pgoff_t last_index = (last_pos - 1) >> PAGE_SHIFT;
- 	size_t copied = 0;
- 
--	/* Not on an inode that never had a folio flagged */
--	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE) ||
-+	/* Not when switched off, or on an inode that never had a folio flagged */
-+	if (!lockless_read_enabled() ||
- 	    !mapping_rcu_read(iocb->ki_filp->f_mapping))
- 		return 0;
- 
--- 
-2.54.0
-
+Alice
