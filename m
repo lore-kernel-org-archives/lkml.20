@@ -1,111 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810191;
-	b=M0AONdpmiHdSTjEeGWpJomtFI2WTdt8X/YkW40cv6iFM/Q9COB82g8X8TpW1Y2ZDYThE
-	 f0egqUhdqibdT9gY8sQHWDjbXUn5/871/MSWWRzpUvCs1Wby8XovWcHnnmLFizC9D9BOL
-	 sKMIthGuAtEbk9Mz7VmrDdUjWduqMNGYvoRc0J/9BVKV5eQpgzJLCBpCxrZJElntF66e1
-	 GM7l62kncaLDfdb+fqUUL/yluPLAgu1tMoxe7FURyH0vFVAwsHv+1TG+C25d0gtrUXUT2
-	 F4w+QqixEIyJam95D/KVPp1TXcHsnr/XKP93tD/w5WIXklqiKvSDDWcee6BhbHK262w==
+	t=1793810194;
+	b=j86bMKcmgel6WTCtz6bM+TAZen8kAOnGKB3tF+M5rWxOpuINJtljm71XsYWXz3JPWr3H
+	 mvjKVUHqUqhn0GAmn1Jnv0HF3uaWW7ZyYQnE8gBeWrRc4l3HpTyhH4raud++o4U4UFtlg
+	 H+Nd8hyuu41PGGRWPQwVmcUo9GBd66pqZfjWlxtRbXO5r/uYK7qZ3NC23Fj1MFvSqWLNq
+	 VRReepxZ3KxNd50Ed0uPr2jgUaCo2Gzk/88ZdO/dxde/ANryxmK/i+I4UBtscfX6S+jwo
+	 Sxpk4Asm6xifJ2TDqaTIF2kaiRRYw6MriVr+K2ujddQHaOOum2STcCX93ytq7CpKLHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810194;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=9Q97qnHrubmaTZHUF0bE0edWN/XleOsKgIjXjH28YHU=;
-	b=eBNLd4RCoDp17T/z6Zh7THt6BQ+8XJndUqlZ/GqrnJmTPLyAhgnvRV/bjVlGmlgUzHQ5
-	 1xRby5ATS6GYIsf1d4wtG8WCUYcbtvbjsVqLTAqQcW9S9kDifV4zqcbwNlFeas8jpzTWD
-	 TehOx09HOQiudvIPM5Ku5EqD2Pa/fUs6KTknMPpfMTtQknkWlZzIkUhrYdUvN8NVTq0JO
-	 xapEu2WwYLcBTm+MjmkOY77BGDT+3vtspBOT0I5U/D0L8spa/m9AXeEJPF8J3MmT0GdSv
-	 oOdmawWwtel4/PdQfTeMjMpdGweXRSzJ0dG8lCsB+bUdMqZhr/kZQlXElNHuhZ15kug==
+	bh=ztO2IiT8NvGrwJF6z2M1nRCSIyICFIk6z+9M0AD7JmA=;
+	b=jjGDpX39KzW+/tAv2khproKTdC6/pdRkHoMiPgwarIFa3cQWkYTq3aICHfWd2UWMTtEG
+	 fnh8+LBI/ZjN0ARDc8t/7DWC1SjaUKS8Ijgae9U+1RcIkQTKJDcWo21FkVr8opIQjOEFq
+	 APMrdpqVtwdxxtFGA3KfGS/ANoej9Fu9unHa7mF+0gCqZMbd7Ykjj0r27pNhi0ezCWEt0
+	 PDCUU3cYu0nGvi+Wtr2Iu6Qrh80hwgu5WWlAdyATm7WkzJg3RH6FAGm52tfYylSu4asX2
+	 XhSEhw3fYWZbexh6atqDZURpWUySPZb2F64g1nSqFwUupkVM/hSp2qu9xa/vNgB4i2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ShPH+nR+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dkOHByB0;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UPinxDa4;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yptl6ZB8;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98437606D81B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98437606D81B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59BC606D836
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D59BC606D836
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ShPH+nR+;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dkOHByB0
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FjFXL1692632
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:36:30 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UPinxDa4;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yptl6ZB8
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fisa92210743
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 16:36:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=9Q97qnHrubmaTZHUF0bE0e
-	dWN/XleOsKgIjXjH28YHU=; b=ShPH+nR++KomY5SgjajC/D5f0fxgie58a2bOjo
-	6pmVBhKn4bC2VH5fuEZEfXJk08YRoO9VjBVceiXeaq97T977R5fBWqw8naocWcoG
-	sJdwpdN5yFmHlJgvDnJoP/OyCcQsPyqUp95vkboN7jK7M/8EijXCt8PBSwVjpsZl
-	8zbjodETeI2Y9FNHcs22jgvLOhF2+BN4F2gUmimH3yRaNRZmzcbGnIntrTibI/OK
-	qr/Ky7dGBjp8RbU8deOUb78Ia5wg6q1L3kZqmCLefhe0J/8Mt7lMsw9qqmriv8so
-	AfIX4aV3CVlebJKHjJ5jYzqsuEHg2y3bFfiud5v9oSLrysYw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6br0jj3-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ztO2IiT8NvGrwJF6z2M1nRCSIyICFIk6z+9M0AD7JmA=; b=UPinxDa4Nt2UZpDl
+	TulAVH8nVYovHQv8fzAwCsFuXWeZMNZBhUR08kP3gZo0c0P7cyhzuhQLLTk+nZeU
+	yiZ1LwoNHZJvHqa74xHsBXe8QCAMRcuGRJrK3uY82QAya+vCtBk9bYpBXTBGKmRG
+	UJqnQCcJIQ02x8mF6aj4WSd8c3gPbSRBJNmbeWqiEQp0Eg3I4ZAn3yxPAX0Fn+oK
+	3N8JeOsyhJqlbOrG/0G3o2mfYzxqJHmqC47MhKpPIemBzSuC4w9B8db6YIIUQiQx
+	8UnXCThSmdBDFj/kazThMI+FfKOqbSJ1STJQkW9IcpMM4N6KSwqD3OU7RuBG2wdE
+	cfVasw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bdrjcg-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:36:29 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f26dd2165so292317985a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:36:29 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:36:33 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-944101e6367so140926385a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:36:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793810189; x=1794414989; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9Q97qnHrubmaTZHUF0bE0edWN/XleOsKgIjXjH28YHU=;
-        b=dkOHByB0acCDa17DbFUUlUT0s9sFIFWdICJs+9q4f3Dspze9OKJHqK9LrpN8SkOrDh
-         9xzi2zlUgZniRzeCPMeMlnvgQgdEx/3Vs8+oQbS3Ch9KftNrVrY5HFGscBoZEuHUzff5
-         Xw9lsaAeovLQt6U8e0xUJ9LysXXBWInUwxCBGwbJeqahzK7I772/wTehUXxve5Nl8ews
-         cSLPdOBMf76px4rWW2XeFNHaTxn+jdv7+AyKh/D3x6hJtNTRt8BFdw83TnNzT1sotvO5
-         xjPZrgPMhTvwP1w3tKIX8F/HoSqIlNOh7TddtgPqZgm54jI++B0HAKZ1OaduEOif6ndy
-         59/A==
+        d=oss.qualcomm.com; s=google; t=1793810192; x=1794414992; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ztO2IiT8NvGrwJF6z2M1nRCSIyICFIk6z+9M0AD7JmA=;
+        b=Yptl6ZB8cZpRJli8EqKpUemjXR9ou+Qk1/ebLnrtTxG8c5w9ZgrXp+Fm0QVBdxOItf
+         X6wITRKqm4QVxyIORl1Qh9jl06HL9XO62Jn/kgT1ZtwUuwMB9Ra3I9G5lIv4vaEe4ZBO
+         CLaN1hkFGdlqu/uMwY5FjUkQKUJnmvDh8VANpHh5j5VmfT8Vca0Qq/IKe9ysM2HMVZAJ
+         kawkNsroO/9trdvWyQZomR11HOKNHdGOzaDAyRZQoSGzlbWuHSZ+iZS5v2nzV8V1ugZa
+         emDNxMPWAKnVIBXhcfr+0p2yKNjLi4B58ofhrsFrqF+vmv3OcUgtVCHXZAcL0FvHYb+u
+         o8tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810189; x=1794414989;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9Q97qnHrubmaTZHUF0bE0edWN/XleOsKgIjXjH28YHU=;
-        b=gdDr3vsF6rm7NNt+McJxxoyFjn1d5fODbUXmsvs7ASxlOm8l1Qt5Id2jJEAzODzme+
-         FABP5H/ODim3Rim1QZ6RsWdi7JGPVH+LWE9SkfbzByUTIl/hibiXV8YFfJ8duDBKcWr0
-         xj6h9c4QFFS0G2iHvFUiixsdbjatP5Xft8f4vmQs9fR1BMzewyZJFI6mL0L0yTuGnyCC
-         ZR3RkNiW0xOugoaRP2PaoVvpHnFyqCtJOHAhTP4Kbi/PlR8mUZzLAzioqdx8egI2mt/5
-         qyIVsauJjdS81mah9QV5PPMyaCwIUulV+4APWL9xyihgAvSAUKnU5kH1cuCAY15bX+HM
-         5svA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQhSIwVKDhAAIaETJ6ME2rab39UWJ7ZO2S1ZRQKUdo135I12b5l+rW1cPZ4Z9Ky32hqyJGBZx6G85O32U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Wa687NtLoEnwMlf5PuuzUIoIl3brXtMYBoCSN60Zfmn25dKQQ
-	q6RXlhYXzrObApd9V3lr/dTMKVJPqCg4ZY+5Od/cPaUDHlgr3NAvfUprNCZxLfP85Lp+Os6XQyK
-	gDDrYcsJCnNKrGGr29448ttp4q58zqfLpHkgx9mxYxGWIsQE6hNqgbKIneL6ul2SEiWw=
-X-Gm-Gg: AYBFou0bc2J3cNVAZgGGW7JW9SrpHsPyXG/KLJBCtEEAinHOZAIGqMCjcGi6NXRJqjW
-	LZEL4aRumA2v52NbrtnsR4o38u8lfpNxFcsj6yN2SO7jx5krq2v3YXsSrGApAhKOmoRYY5+QduQ
-	8t4etBYO3x1m0fD+bvV46y6uheItedcLytMOMvhB8uVyqjJ1jRekevpDijl4ImnINur9vZ2gDTO
-	swaatQSfQdhvglCfbpoWkFdYfOiNX9oJf1wfWcSNchy0aXm/S3RK2cpL1PPCIa/0moMRS5qG2FW
-	wW6SEuchd0CxDK7J8NV3iOC2TC9jharq/WcjneSjUDoQ/M5r/8RnmgVr47OsticC+my7A6YobYe
-	4n5FmDfWzL+ZEu310IvPtQsbh43GPCuyIdyCfX6Vg5h5YPNjUWO2nhATdO9rR1pMV8JFJ17FtnH
-	NbXy3uPZ6HhQXrk3i3zu5R8hT6Orp2PRuhS7Nnb3hKq2usMS5vaEZtq1OLYlIzhQ==
-X-Received: by 2002:a05:620a:4043:b0:93f:31f0:6a7f with SMTP id af79cd13be357-9442172a5c1mr3042994885a.69.1793810188448;
-        Wed, 04 Nov 2026 08:36:28 -0800 (PST)
-X-Received: by 2002:a05:620a:4043:b0:93f:31f0:6a7f with SMTP id af79cd13be357-9442172a5c1mr3042988285a.69.1793810187938;
-        Wed, 04 Nov 2026 08:36:27 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793810192; x=1794414992;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ztO2IiT8NvGrwJF6z2M1nRCSIyICFIk6z+9M0AD7JmA=;
+        b=kssnKyVbEn0vnv5v/rb8+y/mw15QzWO65Y4S2+ithC2MjBpNcHmf6CwrLriD1HRsm0
+         v0dhRPMoyrSb3f1M0zF0EE6wfAsxw7riHE8pQGhyvlYPITHv+D8CpOtBT5QVd7XzEoOt
+         nSyT3m56/3YKF4+sM0KuhCS8jFo7MsMyLF5n3rCnA/av/wmDkU6ROYLNtM8JoGoeBHKW
+         TlJcFS/QgVLTPcfatr/aBxLcZOLOtBvL/rRJ2X4nlrgJSqhlqwllGxmIh2G8Pauei5Br
+         2J3LzmaOr2yJ7YHZIQ2uzXaLeRdnkUZ1FR5ldZe3/vAbaJ6Zw67e5KIjNRIUHQRW9oic
+         tSDw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4p1ck1HrzICFFdTuGKFSpJ6c4EFypWkQwAoqHTM8nB90oumXU756WfG7eCSlToQH52GaiG2BstR0hf4w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nlKPg0miVGFh2JeO4by/atP9Qo5qmURYmxXCrkLsgjWEPIXLT
+	M+nBAREHsjJQe2pa5be5aZhDR3Jjp1Msi+Dgm1WSytkSsPpK6qE7SCCY/7MGQkAkAD/2OQ2T/sM
+	FMDX7pbBAvESMSOVkYL1DFMXIpxbxOPkP4KnE/boROMrzHsM6d3fPcUxO8nyPEqq7ccg=
+X-Gm-Gg: AYBFou2N7FVLUn2FneZHV030OscZRWJMD5y299aQQhcJA5FVZeDv4gSX7BfZldGdKbz
+	XOo8S4Ye5YU0VylK4haRDh2pREb2yA0FiJOWgelgqv+QH6AkcxysxELoAwPYkkd5to0IfP8vMHF
+	Z/AlJqqsIFygm8JEUn7KSazDpc8otj4TloNzNwEbnXrDjU6TEiLogCbqIJb4Qs1GaLOM+A6PPnk
+	Cdf+FVbFcoUUSrgtwyA3V5ISQEQ7lvJ/l2u0V3MBOQJZt0FZqOVlbxFiZlkrdPYcu5BbaTe0mkd
+	nz6vSrULbEMykK8gQv1Y13UQBJhZXb/1V/SXA5zrfufnUGhL+C6SWSf4E3HTWKaORJ13+lJikvG
+	gzCe2RXQ3oKV56jAmZEgSDVWKhHExzQYzVbnMRNohruF2JR8BZafOMRz5pBP4eNn3hOtkdOmeNU
+	Y9h6cuh5j2w0LchbXk1P8RZglrwURCK/fUtHmtE7VUV/xGTWRHLsu4CcmjtpZobA==
+X-Received: by 2002:a05:620a:1a0a:b0:93c:65e3:df81 with SMTP id af79cd13be357-945e16a6ebdmr446885a.13.1793810191829;
+        Wed, 04 Nov 2026 08:36:31 -0800 (PST)
+X-Received: by 2002:a05:620a:1a0a:b0:93c:65e3:df81 with SMTP id af79cd13be357-945e16a6ebdmr438885a.13.1793810191159;
+        Wed, 04 Nov 2026 08:36:31 -0800 (PST)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6bed64sm5267191fa.7.2026.11.04.08.36.26
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6bed64sm5267191fa.7.2026.11.04.08.36.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:36:26 -0800 (PST)
+        Wed, 04 Nov 2026 08:36:29 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH 0/7] drm/msm, media: define the UBWC buffer layout
-Date: Wed, 04 Nov 2026 18:36:04 +0200
-Message-Id: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+Date: Wed, 04 Nov 2026 18:36:06 +0200
+Subject: [PATCH 2/7] drm/msm: move the UBWC plane size calculation out of
+ DPU
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,10 +119,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPRe62oC/yXMTQqEMAxA4atI1hNog1icq8gstEaNoJXGPxDvb
- mdm+S3eu0A5Ciu8swsi76IS5gT7ysAP9dwzSpsMZKiwhhxuzeGxC3GqV2yDV3RlTsaVbHNHkLI
- lcifnb1l9/tatGdmv3w/c9wNdQwP8dAAAAA==
-X-Change-ID: 20261027-ubwc-format-docs-7942079e1472
+Message-Id: <20261104-ubwc-format-docs-v1-2-389044012b4e@oss.qualcomm.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+In-Reply-To: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
         Dmitry Baryshkov <lumag@kernel.org>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -142,101 +143,294 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         Robert Mader <robert.mader@collabora.com>,
         Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2859;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8736;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=4SH0JW1dB6WJf33quabAd7eWZqAqkw4IMlKiqa5Y7Dg=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq6173l4RVxdwRlHhknfY4lR4Zsy3zNSfsaf1M2
- G+W9EjzeIyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaute9wAKCRCLPIo+Aiko
- 1QfaB/kBUdmO9yyqMW6ounuavi0h7rwPMCooaVSZ1lAWrvU3DhazqXlPzOzE007FWwQ36OjMeTU
- WcVph6vBSUSFtxdEz4ikzgDuN+b9NUPDF0AkhMR/ch3YJ6sZ46UJM4DHKy+KRo3pnsP6XJ91UuL
- /UZw363rTFmiI/Az5TBj2mEzq5mhxRutwCoAjWwqhWqxShKc2+o5UHkY+COMcEfe7TP52YFeWoH
- 6xUxbFwtPr7EwPuF4ZZBvqQJ0mchfsPR1YWPMEJAo20H7+AmM4I5Nkn7shnMLz35G78lhhTs8kF
- iQwL8udwqPdjUA8GBrxiKHy/MGK7TWD28DmoyHeV98WXTV7A
+ bh=AmdZZg62etbzqZIgQV9PfBSP69nkwN0xIASVNbPOxK8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq617+1qF+R24xmUAxP2TrQLUwrFxFuOgmulHi4
+ q+hyZuqzDOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaute/gAKCRCLPIo+Aiko
+ 1VhKB/407uGmM/srEr7Xg12peHhJqPs7IvflofwSqDUSAHpCjEkv2nnWGoXqOXZ7YKXL8m3F1gS
+ bAxd4PsxhqbAAjs174xGvVx/IS3Vpx0soEM04oSGvToWxLM2T8AAkjDF2rV+f/jrbgIhQiMNiLa
+ zVXlTtX7U/BTu2WmHVdo6HykTJR5BgcL7C/CI/oExjTg1MQgiGJ4J/ZbcZbm8T98WGTbsYPXA6v
+ 92EsAOO5xaC2FjUU5rgsA7Ukjyy5APjya8pPCklsW2TidqrfZm8CcW0ctR5w73TSkIj9k/FmGy8
+ v2N1w8DQHcmyh9+4gSrp3YZ/UU1+ZR/zYI44q65GSHvqy8OU
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX3Zca3Gh68/7W
- RXiC7rHvYR1R3LC6fce4ib5MmlRgenZ/HqH0Srz4r/O0vFrKSLavhd+JCQT1A0CD7XhUxw9ykkD
- QciG4gZYZCkLSkGbVdsS/PSOyF6NtRL0wm9KUGwUE6Fs0QrW8JwH/6zzKX3kWwJkx4bg0Tbb0gV
- TE8/BX9eQCoJ2My/vP3zif+xCsED+qqEaCZhgkXR+ClwTTvAqeDdeSUhmrRXBt9ctv1o4Y8HzZK
- ztEj1t/2LB4E1TrC3dul6GMIHXPXiq8Yx0jNpUxNyJ6AGcLvdzjpNu+G47H74yKLSMOCfcueyIj
- Kd4/dGwoI9rqtWIjEVcHVDhqT5fgeAMbvKO17okFm/Q+XiPmD87ktSlZswS0s50jLPczZSKfPYp
- vMJ7FgjMsz8kGQUTS80vWZ8PXLj92QKO+EDjPmiFZGhDim8hh0sB5OQMw41/bBIK0kjyY+XEQG8
- YviSAyvh7RY7OvNvzIw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX93/JnECTrGcj
- VmlnOe07GJoJ03HWWeZZlfZXx2i6CwObEdTzR/T+vpkRDy5IOo+AkWYNlgmQo21YoDP4Qszo9uy
- 6T1wOjuQQZ6zJmDe7ePJsvzLKYPTamU=
-X-Proofpoint-GUID: c-Hen4in5s-SPqBv3wgTIkQl7Va8cbiv
-X-Proofpoint-ORIG-GUID: c-Hen4in5s-SPqBv3wgTIkQl7Va8cbiv
-X-Authority-Analysis: v=2.4 cv=futJ914f c=1 sm=1 tr=0 ts=6aeb5f0d cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX3EIjD+Foj10l
+ 319/2O68PRVSXS8kJk1SfsRjAlYdVyQL9ACcdzl8KYoohmcLu8uzSH9oVzP4UIGWF5CyYYF2cnM
+ xIATg84ugfasFtI+SpKqEQ6up5Z1Ugs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX1GEii+nzQgNF
+ tVLZ2/1xZFgVBZ3InSt1rkczIRUd5h9jhKY2rbZAUqqRfg1pEX8oLdw//YDgMvc5VbGWP372r0M
+ MfwIZUIRdNjmp1+zc95jg1j7Q5aWuc2d494W47Md6WNFJs+MgVPlBuo2v5X9BddHbBN85yUzGQt
+ ohjT33na05HZvrVBddGpD0PCaRNiiKc9+xU3YMbWaLGFrzcqXoap6a7NWAN1eIW8PJVHBDvrqOg
+ 7n577xuMkc80+OcOhEvzYvCtVUtAFGuY5WoS6nY86spjAM8VeOAj7oD63t7nF3j/ogIVwT5VnfW
+ s/wsWWvTGVwma5hWMUdBalGJbjJSxckQeFpJikbxzmCVBXGATpART6zzArrlA8wOcCjqTMvTcby
+ W2AYFtVNkLygqbGqsU+pdO4KuACiqWxQcsio/TBDbeEzOL3PKpmI/4wPzT3UPXTaIsVOtjqtFO+
+ hddty7nJb9efCSqod9Q==
+X-Proofpoint-ORIG-GUID: i6AYq0ZTPy5ZsULhp_ef8AqFlNuQQtaI
+X-Authority-Analysis: v=2.4 cv=D4XSufRj c=1 sm=1 tr=0 ts=6aeb5f11 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=D__o4bQJyZzLvQ_PEqcA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=iK4Z-rw_lK1HlppuerAA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: i6AYq0ZTPy5ZsULhp_ef8AqFlNuQQtaI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
  definitions=main-2611040066
 
-The layout of UBWC buffers (DRM_FORMAT_MOD_QCOM_COMPRESSED, V4L2 QC08C
-and QC10C) has never been written down. The V4L2 formats are documented
-as opaque with four or eight planes, the DRM modifier as "macrotiles".
-In practice the video decoders, the GPU and the display controller
-exchange these buffers, so each side has to reverse-engineer the layout
-from the other drivers. Nicolas Dufresne asked for a contract to know
-what the V4L2 plugins have to compute when passing decoded frames to
-DRM.
+The layout of a UBWC framebuffer is only known to the DPU, which computes
+it from the framebuffer at atomic check time.  msm_framebuffer_init()
+cannot check such a framebuffer against its layout, so it applies the
+linear size check instead, which neither matches what the DPU fetches
+nor what userspace allocates.
 
-Writing it down showed that the display driver never validated it:
-msm_framebuffer_init() checks UBWC framebuffers as linear ones, so short
-buffers are accepted and the DPU reads past their end. Patch 1 fixes a
-misleading comment in that code, patch 2 moves the layout calculation
-out of DPU, patch 3 checks framebuffers against it.
-
-Patches 4-5 document the layout for DRM and V4L2: metadata followed by
-data in each plane, strides, line counts, tile sizes and alignment,
-with the chroma size rounded up as DPU and the vendor headers do. For
-NV12 the CbCr plane follows the Y plane in the first buffer: DPU has
-always fetched it from there, ignoring offsets[1] and pitches[1], and
-turnip reports offset 0 for both planes, so this is what existing
-userspace relies on.
-
-Patches 6-7 bring Venus and Iris in line with the documented QC10C
-layout: Venus reported a wrong bytesperline, Iris called the format P010.
-
-Mesa 26.3-rc rounds the NV12 chroma size down for odd sizes; that is
-being fixed on the Mesa side, before the layout reaches a release.
+Move the calculation next to mdp_get_format() and make it take the
+format and the image size instead of the framebuffer, so that it can be
+used before the framebuffer is created.  No functional change.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Dmitry Baryshkov (7):
-      drm/msm/dpu: fix the comment on the RGB UBWC plane count
-      drm/msm: move the UBWC plane size calculation out of DPU
-      drm/msm: check UBWC framebuffers against their layout
-      drm/fourcc: describe the Qualcomm UBWC layout
-      media: docs: pixfmt-reserved: describe the QC08C and QC10C layout
-      media: venus: report the QC10C data stride
-      media: qcom: iris: describe QC10C as TP10
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c |  84 ++---------------------
+ drivers/gpu/drm/msm/disp/mdp_format.c       | 100 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.h               |   3 +
+ 3 files changed, 107 insertions(+), 80 deletions(-)
 
- .../userspace-api/media/v4l/pixfmt-reserved.rst    |  63 +++++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        |  84 +----------------
- drivers/gpu/drm/msm/disp/mdp_format.c              | 100 +++++++++++++++++++++
- drivers/gpu/drm/msm/msm_drv.h                      |   3 +
- drivers/gpu/drm/msm/msm_fb.c                       |  39 ++++++--
- drivers/media/platform/qcom/iris/iris_buffer.c     |   2 +-
- drivers/media/platform/qcom/venus/vdec.c           |   5 +-
- include/uapi/drm/drm_fourcc.h                      |  54 +++++++++--
- 8 files changed, 247 insertions(+), 103 deletions(-)
----
-base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-change-id: 20261027-ubwc-format-docs-7942079e1472
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+index a8e9a69834af..06903325e7e7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+@@ -10,8 +10,6 @@
+ #include "dpu_kms.h"
+ #include "dpu_formats.h"
+ 
+-#define DPU_UBWC_PLANE_SIZE_ALIGNMENT	4096
+-
+ /*
+  * struct dpu_media_color_map - maps drm format to media format
+  * @format: DRM base pixel format
+@@ -58,87 +56,13 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+ 		struct drm_framebuffer *fb,
+ 		struct dpu_hw_fmt_layout *layout)
+ {
+-	bool meta = MSM_FORMAT_IS_UBWC(fmt);
+-
+-	if (MSM_FORMAT_IS_YUV(fmt)) {
+-		unsigned int stride, y_sclines, uv_sclines;
+-		unsigned int y_tile_width, y_tile_height;
+-		unsigned int y_meta_stride, y_meta_scanlines;
+-		unsigned int uv_meta_stride, uv_meta_scanlines;
+-
+-		if (MSM_FORMAT_IS_DX(fmt)) {
+-			if (fmt->flags & MSM_FORMAT_FLAG_UNPACK_TIGHT) {
+-				/* can't use round_up() here because 192 is NPoT */
+-				stride = roundup(fb->width, 192);
+-				stride = round_up(stride * 4 / 3, 256);
+-				y_tile_width = 48;
+-			} else {
+-				stride = round_up(fb->width * 2, 256);
+-				y_tile_width = 32;
+-			}
+-
+-			y_sclines = round_up(fb->height, 16);
+-			uv_sclines = round_up((fb->height+1)>>1, 16);
+-			y_tile_height = 4;
+-		} else {
+-			stride = round_up(fb->width, 128);
+-			y_tile_width = 32;
+-
+-			y_sclines = round_up(fb->height, 32);
+-			uv_sclines = round_up((fb->height+1)>>1, 32);
+-			y_tile_height = 8;
+-		}
+-
+-		layout->plane_pitch[0] = stride;
+-		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
+-			y_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+-
+-		layout->plane_pitch[1] = stride;
+-		layout->plane_size[1] = round_up(layout->plane_pitch[1] *
+-			uv_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+-
+-		if (!meta)
+-			return 0;
+-
+-		y_meta_stride = DIV_ROUND_UP(fb->width, y_tile_width);
+-		layout->plane_pitch[2] = round_up(y_meta_stride, 64);
++	mdp_format_ubwc_plane_sizes(fmt, fb->width, fb->height,
++				    layout->plane_pitch, layout->plane_size);
+ 
+-		y_meta_scanlines = DIV_ROUND_UP(fb->height, y_tile_height);
+-		y_meta_scanlines = round_up(y_meta_scanlines, 16);
+-		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
+-			y_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+-
+-		uv_meta_stride = DIV_ROUND_UP((fb->width+1)>>1, y_tile_width / 2);
+-		layout->plane_pitch[3] = round_up(uv_meta_stride, 64);
+-
+-		uv_meta_scanlines = DIV_ROUND_UP((fb->height+1)>>1, y_tile_height);
+-		uv_meta_scanlines = round_up(uv_meta_scanlines, 16);
+-		layout->plane_size[3] = round_up(layout->plane_pitch[3] *
+-			uv_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+-	} else {
+-		unsigned int rgb_scanlines, rgb_meta_scanlines, rgb_meta_stride;
+-
+-		layout->plane_pitch[0] = round_up(fb->width * fmt->bpp, 256);
+-		rgb_scanlines = round_up(fb->height, 16);
+-		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
+-			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+-
+-		if (!meta)
+-			return 0;
+-
+-		/* RGB metadata is fetched through SRC2, SRC1 stays unused */
++	/* RGB metadata is fetched through SRC2, SRC1 stays unused */
++	if (!MSM_FORMAT_IS_YUV(fmt) && MSM_FORMAT_IS_UBWC(fmt))
+ 		layout->num_planes += 1;
+ 
+-		rgb_meta_stride = DIV_ROUND_UP(fb->width, 16);
+-		layout->plane_pitch[2] = round_up(rgb_meta_stride, 64);
+-
+-		rgb_meta_scanlines = DIV_ROUND_UP(fb->height, 4);
+-		rgb_meta_scanlines = round_up(rgb_meta_scanlines, 16);
+-
+-		layout->plane_size[2] = round_up(layout->plane_pitch[2] *
+-			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+-	}
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/disp/mdp_format.c
+index 33da569eae5e..c0121d709110 100644
+--- a/drivers/gpu/drm/msm/disp/mdp_format.c
++++ b/drivers/gpu/drm/msm/disp/mdp_format.c
+@@ -650,6 +650,106 @@ const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format,
+ 	return NULL;
+ }
+ 
++#define MSM_UBWC_PLANE_SIZE_ALIGNMENT	4096
++
++/**
++ * mdp_format_ubwc_plane_sizes - compute the layout of a UBWC or tiled buffer
++ * @fmt: format, which must use MDP_FETCH_UBWC
++ * @width: image width
++ * @height: image height
++ * @pitch: per-plane pitches
++ * @size: per-plane sizes
++ *
++ * Plane indices follow the hardware: 0 is the Y or RGB data, 1 the CbCr data,
++ * 2 the Y or RGB metadata and 3 the CbCr metadata.  Planes not used by the
++ * format are set to zero.
++ */
++void mdp_format_ubwc_plane_sizes(const struct msm_format *fmt,
++				 unsigned int width, unsigned int height,
++				 u32 pitch[4], u32 size[4])
++{
++	bool meta = MSM_FORMAT_IS_UBWC(fmt);
++
++	memset(pitch, 0, 4 * sizeof(*pitch));
++	memset(size, 0, 4 * sizeof(*size));
++
++	if (MSM_FORMAT_IS_YUV(fmt)) {
++		unsigned int stride, y_sclines, uv_sclines;
++		unsigned int y_tile_width, y_tile_height;
++		unsigned int y_meta_stride, y_meta_scanlines;
++		unsigned int uv_meta_stride, uv_meta_scanlines;
++
++		if (MSM_FORMAT_IS_DX(fmt)) {
++			if (fmt->flags & MSM_FORMAT_FLAG_UNPACK_TIGHT) {
++				/* can't use round_up() here because 192 is NPoT */
++				stride = roundup(width, 192);
++				stride = round_up(stride * 4 / 3, 256);
++				y_tile_width = 48;
++			} else {
++				stride = round_up(width * 2, 256);
++				y_tile_width = 32;
++			}
++
++			y_sclines = round_up(height, 16);
++			uv_sclines = round_up((height + 1) >> 1, 16);
++			y_tile_height = 4;
++		} else {
++			stride = round_up(width, 128);
++			y_tile_width = 32;
++
++			y_sclines = round_up(height, 32);
++			uv_sclines = round_up((height + 1) >> 1, 32);
++			y_tile_height = 8;
++		}
++
++		pitch[0] = stride;
++		size[0] = round_up(pitch[0] * y_sclines,
++				   MSM_UBWC_PLANE_SIZE_ALIGNMENT);
++
++		pitch[1] = stride;
++		size[1] = round_up(pitch[1] * uv_sclines,
++				   MSM_UBWC_PLANE_SIZE_ALIGNMENT);
++
++		if (!meta)
++			return;
++
++		y_meta_stride = DIV_ROUND_UP(width, y_tile_width);
++		pitch[2] = round_up(y_meta_stride, 64);
++
++		y_meta_scanlines = DIV_ROUND_UP(height, y_tile_height);
++		y_meta_scanlines = round_up(y_meta_scanlines, 16);
++		size[2] = round_up(pitch[2] * y_meta_scanlines,
++				   MSM_UBWC_PLANE_SIZE_ALIGNMENT);
++
++		uv_meta_stride = DIV_ROUND_UP((width + 1) >> 1, y_tile_width / 2);
++		pitch[3] = round_up(uv_meta_stride, 64);
++
++		uv_meta_scanlines = DIV_ROUND_UP((height + 1) >> 1, y_tile_height);
++		uv_meta_scanlines = round_up(uv_meta_scanlines, 16);
++		size[3] = round_up(pitch[3] * uv_meta_scanlines,
++				   MSM_UBWC_PLANE_SIZE_ALIGNMENT);
++	} else {
++		unsigned int rgb_scanlines, rgb_meta_scanlines, rgb_meta_stride;
++
++		pitch[0] = round_up(width * fmt->bpp, 256);
++		rgb_scanlines = round_up(height, 16);
++		size[0] = round_up(pitch[0] * rgb_scanlines,
++				   MSM_UBWC_PLANE_SIZE_ALIGNMENT);
++
++		if (!meta)
++			return;
++
++		rgb_meta_stride = DIV_ROUND_UP(width, 16);
++		pitch[2] = round_up(rgb_meta_stride, 64);
++
++		rgb_meta_scanlines = DIV_ROUND_UP(height, 4);
++		rgb_meta_scanlines = round_up(rgb_meta_scanlines, 16);
++
++		size[2] = round_up(pitch[2] * rgb_meta_scanlines,
++				   MSM_UBWC_PLANE_SIZE_ALIGNMENT);
++	}
++}
++
+ struct csc_cfg *mdp_get_default_csc_cfg(enum csc_type type)
+ {
+ 	if (WARN_ON(type >= CSC_MAX))
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 2840e8a5052d..02fde07eb6f6 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -204,6 +204,9 @@ struct msm_drm_private {
+ };
+ 
+ const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format, uint64_t modifier);
++void mdp_format_ubwc_plane_sizes(const struct msm_format *fmt,
++				 unsigned int width, unsigned int height,
++				 u32 pitch[4], u32 size[4]);
+ 
+ struct msm_pending_timer;
+ 
 
-Best regards,
---  
-With best wishes
-Dmitry
+-- 
+2.47.3
 
