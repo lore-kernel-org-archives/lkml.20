@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786137;
-	b=AnEi9ALWiAh7eAeRmqX2gewL85DlSjFYMrW7oXJQ8+FKw9EO/1Zr7WEcCdp247ktRwOH
-	 24OdCMOufBfnIuIUEyzry5miLX+tgezAoqRQeviXEzKnRi1s6JoSl7Q+vXPJRiQgLhFc4
-	 s4ClRMhM0rAwX1MemFHKm6D7jaoqD8lSng08B+kZfrZniNzk9mvaZZULrokS6h0YAZFZu
-	 AkU/nCZ+Pznf4v7O59ao/qaWfLQHutgCPVGZ+V7Ba1ov9YxqnnMqdDKDsausGgb6RqEeu
-	 pQlw3TgGOtK02EEkEEiwJ9LI3KG0pHUukw7BhPKVgb2mK4+msmGx6Gy9zHvgVdB6uNg==
+	t=1793786171;
+	b=h/uzRzZmDh2XoiInauVp+cFtv8+U4COyaVQT3cOV4oA7Jkl8+0xypMW9HL6v836bJjZ/
+	 0vipqifqKNMafA6bKOaKIvNm29SPQ5deCt/P0cLnfxKM3Br9HI+GCFH+e/aLaEHU8uV/U
+	 fGdHtiUjqUbKe6T+0FbE5ZFHx7IEC0vC8m5LzxzD/hAc80W5cbiENT0qTRNLv65P15mYu
+	 w4TIyED+P6JYQQYA0RS+LDBQtHtEQJwcqiK7cC5Nvzz4/taQluzqvXG1Af9suFMVVrcZ+
+	 aLuX8YY0w7Y2L9qZ31DoGK1wwaK6vWoTkir5rj/Y/in7GNJJByw5BQh3cm2ImFv5Ocw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786137;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=L9SjIRlN22aEJ/eflOcuaFanjf0EtRwA1GZ/Ili63jY=;
-	b=E7EMNn9ywephiqccP3eHgg9gV9xgDRj9jNTTYWr0v19P3ZdiivjwFQn0TVRhdvdt3XmP
-	 estkFAbLD4vJb/y8m5Lv4n1lSVWpVBndYCJ4HgPwHWTzSa4BkQwM2EUAEJyiDbtVLUXjL
-	 vUJ1u8Jqs0j1mzMpw/FmsJg2WqeEetZHSCGgRMIVL8lpsVR9Wbe9x2JPPRhajwVomN7gz
-	 s6wegG/DQLwCs/xiLprzebZnTcowRijhx/jnpHrTNMre+9u8SQFz3PugGFUrjgLPgJkEX
-	 IwuTKf/7WcroUfrgZBDepgHH2LEuDHgR+lcjEimge9cs/Kf/TXaytmLpP2CY1gkKosg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786171;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lL9qicufT73zVNYG6EGMOjl4Jj5VLL/pZOSn5pB20Ww=;
+	b=xcvGDq30quO7ljVg69AOw+7iRHG2Af0ioEwba3u4C7TiZpyrYpRFPt4Bz5r6F6kZzwXD
+	 YTxyogOWl6RQ3PofkevZbv3cBIqzMAOevnTNFyWAZqvimWWAWoFQJyQK0IR2VL8O+hitJ
+	 YgxejQimYqUOpQqNc/+fQhHztsnP3cf6yjKIcQKKvg+Bs/OjcdLoxfbg2/tW3gYG/ZP3Y
+	 lAtO4LaNshcQSohwjehyRXP7Gc8avcXv8P8eHwHrHbHquEPgzZpzzBHxOY4YEWHUp4Y4v
+	 aPIBntuHbtzAf/8OHk4ENen+KUOwkuUd3uvv5xZOq/exIj2WvYrO0wNs18m17Jy5fSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=St5vZC+e;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYIN5SYK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0EA606D81A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0EA606D81A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409D4606A326;
+	Wed,  4 Nov 2026 09:56:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=St5vZC+e
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKLR31YykzKm4R;
-	Wed, 04 Nov 2026 10:55:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793786127;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L9SjIRlN22aEJ/eflOcuaFanjf0EtRwA1GZ/Ili63jY=;
-	b=St5vZC+e69zF+0QYl7tzsomIn/cBnY9p1wfZrtZVcwtRx7Ww6NJrSKZp/ecvdqBfJzwv1n
-	EdDVz38s/Mhsm1OVk9jDBNhfA70E9ZHLXKxRQrd+r6XlGg5VUv8e/SW0miaCTHCnYK2rvE
-	Zt+4hAlJw10Ywlry7WxvipnAg+K/iDcwQdu1iLZaIMj7tWLvOBhhlqivcEcYw6Mqvncrbs
-	7HcCR+t2OSIe6OwD4TS+Cct7c49nAwUGy3HoBXnXlJZ0t5K4rvwwBLi74bAcNIc8BZC+rP
-	gR1iYqQSoH1Ie2pYUHKczEDdj1GU2FjrUOM02OSLVe4RGbjFeDGhekgiF2FDTg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com,
-	sunpeng.li@amd.com,
-	harry.wentland@amd.com,
-	siqueira@igalia.com,
-	amd-gfx@lists.freedesktop.org
-Cc: Hugo Sales <hugo@hsal.es>,
-	ray.wu@amd.com,
-	simona@ffwll.ch,
-	alex.hung@amd.com,
-	mario.limonciello@amd.com,
-	linux-kernel@vger.kernel.org,
-	lohita.mudimela@amd.com,
-	bhawanpreet.lakha@amd.com,
-	dri-devel@lists.freedesktop.org,
-	roman.li@amd.com,
-	airlied@gmail.com,
-	christian.koenig@amd.com
-Subject: [PATCH RFC RFT 5/8] drm/amd/display: Add KUnit tests for the custom brightness curve
-Date: Wed,  4 Nov 2026 09:55:13 +0000
-Message-ID: <20261103-backlight-curve-rfc-v1-5-6e4813a8f2eb@hsal.es>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
-References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYIN5SYK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4211E1F00A18;
+	Wed,  4 Nov 2026 09:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793786171;
+	bh=lL9qicufT73zVNYG6EGMOjl4Jj5VLL/pZOSn5pB20Ww=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LYIN5SYKVnPEy9D9mVufbbtTbT40tA4eH4/wzRigY7RvSrohXXvsJMI3eNg2Rr9kN
+	 zfSlzULsmZWY/qV7pHwn21i8C6uIqFRZfiw+CYh2ojuQhrvamykDCWOIHvXMninTt1
+	 l14MN3hPpuoBGqjaKn+nKeRMhgNlsqdKyNT+6Hp/arhpwxZgGUN2UsG9rkN7EKNTrR
+	 h+dGInSnQGmE8sjrHzim+ZxbuXx0GLRj0GX13mruUXyw/tDv1Oq4MGucD8AVm4Vnet
+	 Jcx25sRQhTs5gN7lPlvNEjDwoTDa8eNNz/hOjF6MuZIPQ9+IwaX7MVnN+NCiViqD7e
+	 UaOKrlTwztvoA==
+Message-ID: <df1d398c-549f-4556-b683-53fefeaf358c@kernel.org>
+Date: Wed, 4 Nov 2026 10:56:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,312 +51,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13031; i=hugo@hsal.es; h=from:subject:message-id; bh=T/NqxQ3zNHoPNDzc6oEevd6n3mdwS2oL1FfQWjZQ/Ys=; b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRKVfDjKe3cl0omFDWq4j/8R595tZ11Qc4ZhxK WBjXNzJ7R86SlkYxLgYZMUUWXRveDKwTJw8M6fo+RKYOaxMIEMYuDgFYCL3AhkZNoru+qUfEy55 Xa3/cVqJu+WchIayXulbvPfmTP/P89X9IcP/SL0dJswvZdLu71D1jE9LjGLfutm78Lh5tIF65Pf t3S/4ARNqSTY=
-X-Developer-Key: i=hugo@hsal.es; a=openpgp; fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] phy: add support for TH1520 USB PHY
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Wei Fu <wefu@redhat.com>, Drew Fustini <dfustini@tenstorrent.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Han Gao <rabenda.cn@gmail.com>
+References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+ <ee28bd16-11fc-4b78-b1ee-e0e20bb0cfdb@kernel.org>
+ <73fd01b87381e2ed33d52edc4f4bb7ee9ba578d1.camel@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <73fd01b87381e2ed33d52edc4f4bb7ee9ba578d1.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKLR31YykzKm4R
 
-Add KUnit tests for the PWM path, using the curve from the ATIF reply of
-an ASUS ROG Flow X13 GV301QH: minimum 12 and 49 points. They check
-values worked out by hand, and walk every request to check that the
-millipercent never goes down and changes on most steps. Two more curves
-cover points above max_input_signal and a luminance over 100%
+On 04/11/2026 10:01, Icenowy Zheng wrote:
+> 在 2026-11-04三的 09:26 +0100，Krzysztof Kozlowski写道：
+>> On 03/11/2026 09:14, Icenowy Zheng wrote:
+>>> This patchset is split from the "Add TH1520 USB support" patchset,
+>>> with only the PHY binding/driver part.
+>>>
+>>> Icenowy Zheng (2):
+>>>   dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+>>>   phy: add a driver for T-Head TH1520 USB PHY
+>>
+>>
+>> Considering how vulab@iscas.ac.cn is ignoring reviews/comments and
+>> spams
+>> with a lot of unthreaded emails, completely disregarding any tries of
+>> contact over last 1.5 months, shall we ignore all contributions from
+>> @iscas.ac.cn?
+>>
+>> Maybe this will be the only way to actually be heard?
+>>
+>> Icenowy, do you have any possibility to reach to bot spammers from
+>> vulab?
+> 
+> Unfortunately as I am not in Beijing, I am not able to physically reach
+> the persons; I have reported this incident to my supervisor and I am
+> also feeling quite bad on this.
+> 
 
-Export convert_brightness_to_millipercent() when the KUnit tests are
-enabled, so the tests can call it
+Thanks for passing the message further.
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-KUnit on UML with PROVE_LOCKING: amdgpu_dm_backlight passes 74 of 74
-without this patch and 78 of 78 with it. Patch 4 says which of the new
-tests fail without it
-
-The other amdgpu_dm suites behave the same with and without the series.
-Both runs stop in amdgpu_dm_crtc, at the BUG in drm_vblank_restore()
-that dm_test_crtc_enable_vblank_ips_restore hits. With that test
-skipped, the crtc, helpers, quirks and services suites pass
-
-W=1 C=1 on power_abm, amdgpu_dm, amdgpu_dm_backlight,
-amdgpu_dm_connector, amdgpu_dm_services and the backlight and connector
-test objects adds no warnings at any patch, and checkpatch --strict is
-clean
----
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |   7 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   2 +
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 212 +++++++++++++++++++++
- 3 files changed, 219 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 900c17e0285c9..2c1da5cbf5d7f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -178,8 +178,9 @@ static u32 backlight_custom_curve_scale(const struct amdgpu_dm_backlight_caps *c
- 		     output_max);
- }
- 
--static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
--					      u32 user_brightness)
-+STATIC_IFN_KUNIT
-+u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
-+				       u32 user_brightness)
- {
- 	unsigned int user_min, user_max;
- 
-@@ -195,6 +196,8 @@ static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_c
- 					    caps->max_input_signal, 100000);
- }
- 
-+EXPORT_IF_KUNIT(convert_brightness_to_millipercent);
-+
- STATIC_IFN_KUNIT
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
- 			       unsigned int user_max, uint32_t *user_brightness)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index c5400b6c98660..9eec805809158 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -69,6 +69,8 @@ int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 			 unsigned int *user_min, unsigned int *user_max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
- 			       unsigned int user_max, uint32_t *user_brightness);
-+u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_caps *caps,
-+				       u32 user_brightness);
- u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
- 				 uint32_t brightness);
- u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index d38f388961d69..ba8ffb92ae7af 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -1460,6 +1460,214 @@ static void dm_test_brightness_from_user_with_curve(struct kunit *test)
- 	amdgpu_dm_set_dc_debug_mask(saved_mask);
- }
- 
-+/*
-+ * ATIF QBTC reply of an ASUS ROG Flow X13 GV301QH (BIOS 418), with
-+ * min_input_signal 12 and max_input_signal 255
-+ */
-+static const struct amdgpu_dm_luminance_data gv301qh_curve[] = {
-+	{ .input_signal =  14, .luminance =  2 },
-+	{ .input_signal =  16, .luminance =  4 },
-+	{ .input_signal =  18, .luminance =  6 },
-+	{ .input_signal =  21, .luminance =  8 },
-+	{ .input_signal =  23, .luminance = 10 },
-+	{ .input_signal =  26, .luminance = 12 },
-+	{ .input_signal =  29, .luminance = 14 },
-+	{ .input_signal =  32, .luminance = 16 },
-+	{ .input_signal =  35, .luminance = 18 },
-+	{ .input_signal =  38, .luminance = 20 },
-+	{ .input_signal =  41, .luminance = 22 },
-+	{ .input_signal =  44, .luminance = 24 },
-+	{ .input_signal =  48, .luminance = 26 },
-+	{ .input_signal =  52, .luminance = 28 },
-+	{ .input_signal =  55, .luminance = 30 },
-+	{ .input_signal =  59, .luminance = 32 },
-+	{ .input_signal =  62, .luminance = 34 },
-+	{ .input_signal =  67, .luminance = 36 },
-+	{ .input_signal =  71, .luminance = 38 },
-+	{ .input_signal =  75, .luminance = 40 },
-+	{ .input_signal =  80, .luminance = 42 },
-+	{ .input_signal =  84, .luminance = 44 },
-+	{ .input_signal =  88, .luminance = 46 },
-+	{ .input_signal =  93, .luminance = 48 },
-+	{ .input_signal =  98, .luminance = 50 },
-+	{ .input_signal = 103, .luminance = 52 },
-+	{ .input_signal = 108, .luminance = 54 },
-+	{ .input_signal = 113, .luminance = 56 },
-+	{ .input_signal = 118, .luminance = 58 },
-+	{ .input_signal = 123, .luminance = 60 },
-+	{ .input_signal = 129, .luminance = 62 },
-+	{ .input_signal = 135, .luminance = 64 },
-+	{ .input_signal = 140, .luminance = 66 },
-+	{ .input_signal = 146, .luminance = 68 },
-+	{ .input_signal = 152, .luminance = 70 },
-+	{ .input_signal = 158, .luminance = 72 },
-+	{ .input_signal = 164, .luminance = 74 },
-+	{ .input_signal = 171, .luminance = 76 },
-+	{ .input_signal = 177, .luminance = 78 },
-+	{ .input_signal = 183, .luminance = 80 },
-+	{ .input_signal = 190, .luminance = 82 },
-+	{ .input_signal = 197, .luminance = 84 },
-+	{ .input_signal = 204, .luminance = 86 },
-+	{ .input_signal = 211, .luminance = 88 },
-+	{ .input_signal = 218, .luminance = 90 },
-+	{ .input_signal = 225, .luminance = 92 },
-+	{ .input_signal = 232, .luminance = 94 },
-+	{ .input_signal = 240, .luminance = 96 },
-+	{ .input_signal = 247, .luminance = 98 },
-+};
-+
-+static void dm_test_restore_dc_debug_mask(void *data)
-+{
-+	amdgpu_dm_set_dc_debug_mask((uintptr_t)data);
-+}
-+
-+/* Turn the custom curve on, and back off when the test ends, even if it aborts */
-+static void dm_test_enable_custom_curve(struct kunit *test)
-+{
-+	uint mask = amdgpu_dm_get_dc_debug_mask();
-+
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_restore_dc_debug_mask,
-+							(void *)(uintptr_t)mask), 0);
-+	amdgpu_dm_set_dc_debug_mask(mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+}
-+
-+/*
-+ * Over AUX, use the 1..512 nits range amdgpu_dm_backlight falls back to when
-+ * the EDID gives no luminance range
-+ */
-+static void set_gv301qh_caps(struct amdgpu_dm_backlight_caps *caps, bool aux)
-+{
-+	caps->aux_support = aux;
-+	caps->aux_min_input_signal = 1;
-+	caps->aux_max_input_signal = 512;
-+	caps->min_input_signal = 12;
-+	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	caps->data_points = ARRAY_SIZE(gv301qh_curve);
-+	memcpy(caps->luminance_data, gv301qh_curve, sizeof(gv301qh_curve));
-+}
-+
-+/*
-+ * A PWM range of 0..65535 with no minimum, so the result is the curve's
-+ * output on 0..65535
-+ */
-+static void set_custom_curve_caps(struct amdgpu_dm_backlight_caps *caps,
-+				  const struct amdgpu_dm_luminance_data *points,
-+				  int n)
-+{
-+	caps->aux_support = false;
-+	caps->min_input_signal = 0;
-+	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	caps->data_points = n;
-+	memcpy(caps->luminance_data, points, n * sizeof(*points));
-+}
-+
-+/**
-+ * dm_test_brightness_curve_pwm_values - Test PWM millipercent on the GV301QH curve
-+ * @test: The KUnit test context
-+ *
-+ * Worked out by hand on the PWM range of 3084..65535. A request below the
-+ * minimum is raised to 3084, signal 12, which is 12 / 14 of the way to the
-+ * first point (14, 2), so 1714 millipercent. 32000 is signal 124.51,
-+ * between (123, 60) and (129, 62), so 60505. 65535 is 100000
-+ */
-+static void dm_test_brightness_curve_pwm_values(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+
-+	dm_test_enable_custom_curve(test);
-+	set_gv301qh_caps(&caps, false);
-+
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 0), 1714U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 3084), 1714U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 32000), 60505U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 65535), 100000U);
-+}
-+
-+/**
-+ * dm_test_brightness_curve_pwm_steps - Test PWM millipercent never drops and keeps its steps
-+ * @test: The KUnit test context
-+ *
-+ * Walk every request from user_min to user_max. The millipercent must
-+ * never go down, and most requests must change it. There are 62452
-+ * requests and 100001 possible millipercent values, against 101 with
-+ * whole percents
-+ */
-+static void dm_test_brightness_curve_pwm_steps(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int user_min, user_max, user, steps = 0;
-+	u32 prev, cur;
-+
-+	dm_test_enable_custom_curve(test);
-+	set_gv301qh_caps(&caps, false);
-+	get_brightness_range(&caps, &user_min, &user_max);
-+
-+	prev = convert_brightness_to_millipercent(&caps, user_min);
-+	for (user = user_min + 1; user <= user_max; user++) {
-+		cur = convert_brightness_to_millipercent(&caps, user);
-+		if (cur < prev || cur > 100000) {
-+			KUNIT_FAIL(test, "%u gives %u after %u", user, cur, prev);
-+			return;
-+		}
-+		steps += cur != prev;
-+		prev = cur;
-+	}
-+
-+	KUNIT_EXPECT_GT(test, steps, (user_max - user_min) / 2);
-+}
-+
-+/**
-+ * dm_test_brightness_curve_pwm_points_above_max - Test PWM curve points above max_input_signal
-+ * @test: The KUnit test context
-+ *
-+ * With max_input_signal 200 and points (180, 70) and (220, 90), the curve
-+ * still runs between the two points. 42330 is signal 210.003, so 85001
-+ * millipercent. Past the last point the curve runs on to 100% at signal
-+ * 255: 47873 is signal 237.502, so 95001
-+ */
-+static void dm_test_brightness_curve_pwm_points_above_max(struct kunit *test)
-+{
-+	static const struct amdgpu_dm_luminance_data points[] = {
-+		{ .input_signal = 180, .luminance = 70 },
-+		{ .input_signal = 220, .luminance = 90 },
-+	};
-+	struct amdgpu_dm_backlight_caps caps = {};
-+
-+	dm_test_enable_custom_curve(test);
-+	set_custom_curve_caps(&caps, points, ARRAY_SIZE(points));
-+	caps.max_input_signal = 200;
-+
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 42330), 85001U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 47873), 95001U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 0x101 * 200), 100000U);
-+}
-+
-+/**
-+ * dm_test_brightness_curve_pwm_luminance_over_100 - Test PWM with an ATIF luminance over 100%
-+ * @test: The KUnit test context
-+ *
-+ * Points (100, 50), (200, 150) and (250, 120) claim more than 100%. The
-+ * curve uses them as given and caps only the result, as before.
-+ * Level 125 is 50 + 100 * 25 / 100 = 75%, and the curve reaches full
-+ * brightness at level 150, halfway to the second point, and stays there
-+ */
-+static void dm_test_brightness_curve_pwm_luminance_over_100(struct kunit *test)
-+{
-+	static const struct amdgpu_dm_luminance_data points[] = {
-+		{ .input_signal = 100, .luminance = 50 },
-+		{ .input_signal = 200, .luminance = 150 },
-+		{ .input_signal = 250, .luminance = 120 },
-+	};
-+	struct amdgpu_dm_backlight_caps caps = {};
-+
-+	dm_test_enable_custom_curve(test);
-+	set_custom_curve_caps(&caps, points, ARRAY_SIZE(points));
-+
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 125 * 0x101), 75000U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 150 * 0x101), 100000U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(&caps, 225 * 0x101), 100000U);
-+}
-+
- /**
-  * dm_test_brightness_range_zero_signals - Test Brightness range with zero min and max signals
-  * @test: The KUnit test context
-@@ -2018,6 +2226,10 @@ static struct kunit_case dm_backlight_test_cases[] = {
- 	KUNIT_CASE(dm_test_brightness_from_user_midrange),
- 	KUNIT_CASE(dm_test_brightness_from_user_with_curve),
- 	KUNIT_CASE(dm_test_brightness_from_user_curve_min),
-+	KUNIT_CASE(dm_test_brightness_curve_pwm_values),
-+	KUNIT_CASE(dm_test_brightness_curve_pwm_steps),
-+	KUNIT_CASE(dm_test_brightness_curve_pwm_points_above_max),
-+	KUNIT_CASE(dm_test_brightness_curve_pwm_luminance_over_100),
- 	KUNIT_CASE(dm_test_brightness_range_zero_signals),
- 	/* amdgpu_dm_backlight_fill_props */
- 	KUNIT_CASE(dm_test_backlight_fill_props_ac_linear),
-
--- 
-2.56.0
-
+Best regards,
+Krzysztof
