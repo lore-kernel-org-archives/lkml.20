@@ -1,71 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801489;
-	b=AhbW5HqE+y0A6Am42E3NABNWfHWGnAYMJZFSAw3yQX3qHzWAqNABfXMNOIYFdB8/Pdqk
-	 mGHFTTMQJES0Gw0YFJ9Vru7LM4nskzUSOgDO/XrZLjx23/9I5zfC0H5xWdJunMCylikQH
-	 5D+scaOjJw83tbh+qyckApnh/TWFjFlo1Q19wOYWeqoY2bt6C8+TE9AF0xQ/3W57NlW1v
-	 xIoS/T0G6iqRgot82z96ZqLlgkP6ahJuK1c1SKolGsh8qXaIF9BksQ9hJpvr7nhfcwo1z
-	 GRlM9S4a6fa7vdfJI0Yezi3uHHsrbqxwKz6qPoEiIp3hbh7GvPbDvvccRY8AF2tBWrw==
+	t=1793801481;
+	b=O0/vOqNAxLFMrqFf76bT+PHtbuoSC8+Ga4FqA4zmvDbBDt+ZagnukQjA5UFBd3X/x2EK
+	 rgEDL2tkF+iCkcfJRHvvEVcQotWfAEDNX29r5T7ZttgQ4BblEsQMp4FNBI5xhABa/zz6R
+	 IS+MmQ7sKB+9xj5/2aeQd8lc/HnFZxuZuzMO1YBHmEzBGoavROeKSySYJ20zn8tCzTLc1
+	 mPMkDdjg868eAlvf+Ry3oLfh4KjkfUZ0c+GZV8zurLbWcARB3AVVqXHW5IuxFe6f57K65
+	 GoN4l0jJvg3t/5tGWrS6csoRu5LBOyT/tHOBVzYzaMFSk7s/BpUXXKQCkX9jiI28nUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801489;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=WHQ+stWWTtbWZIS/n+mJ3B9CI16/UFSapFUuoOWff+I=;
-	b=hN5uee/UAkg8PAk24lBhaOGy6NOkPNfr/tRgzWC9M6hQzJAdBLHfAsWw4iW8nfC5bPd4
-	 +f1ANli+JHI1spjVBR+RlwsegJeYz8J7evAXHX1vS+JwsyDFM/h6tilEq6L1S/MHihffG
-	 6sColSQO2bOWb85W73Jg6/sJVsbyoyS1LyuC7EAaQIKGhz8a2HvyGkgpcGY4M4pKrsUxY
-	 RuzR0hSONUzkH/kiTCj1pxxG/n1O7TwkfpW4U1kB0gSLUkeMY+1AYOcHCydqzvY49UwO2
-	 hozIk7e8g4q2qdHkkkLI1+fxJzqhsF72NtSSriwsfRZj+gfues/am1yzfL31gEqu44A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801481;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=uF5ryn8Iftp4OJ1P9rbWQ0MW+5o+I98321Jd9dFZUmo=;
+	b=QCmOi98mBfvQfJUuFqxbrKeYydOvINe8EmQy8x7Ztj4FIaH961tyBV0U/RD1sSr8vuDH
+	 qcTHZ6W4RD3zlHPoe578xBQKk8m/41fie4fN3QaS2B70gDmJ/xmIFisxD00a7use/pBO+
+	 SCDK1YSR5O1+cb531vLbaLnMbrDTCoRjL7SraQf/Z9Nu3UAV6w3nOucvBh4oz3/nWmZd/
+	 /xNGMS54iEtbB9G6RintrbzUokfKfnbNPhyOxpQ7II01BiI7sPfu9+5aPPoAQF7IIJekm
+	 2QGmdAlXG1dnkLOeq+z89F+n8BUTOIKGtXADcrLH5JQhBMGvl5Eze7lRlJInbCgkarg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="pv3nu/1z";
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fb1F15OH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kLJpyCFb;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646B7606EEAA
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 646B7606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785B2606D807
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:11:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 785B2606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=pv3nu/1z
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id OVufxWY5NVK9UObhyxEF0T; Wed, 04 Nov 2026 14:11:22 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id ObhxxdEDVxqjjObhxxSA1k; Wed, 04 Nov 2026 14:11:21 +0000
-X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6aeb3d0a
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=dVD4n6GOpQmEW9e-F2wA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=WHQ+stWWTtbWZIS/n+mJ3B9CI16/UFSapFUuoOWff+I=; b=pv3nu/1z3/AG
-	eHAxjNSUg1Q34vPQFYoczUCk6TV4mUHJMnTq7lzOUH/IJh35GZ4HHI294ygjmgpTSapSZfnaoANLh
-	HbLuAOXdAuORq8xGPJZPRINZ5owulsTy5C9tkIFcHFfo9i37C0cIHKmMwKhB8NjuXxqjXiCkJLAzC
-	t5AIvIVbW4QpF0RaAkSe51SfEti2HiWg6RxaTHmybuAO6HHQru7e7DGiBWAn/UTEX+5mtai+kHyik
-	zx3gsihJR/iEE7YitQDapN0MxPPYfX9YgPa4a6rxNs4rEh1r3xD4m33DPMLG6pb3me31m68QCfH9i
-	YdMy/851kkKd9TUHpyTRSA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37168)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xObhw-000000018e7-3nLc;
-	Wed, 04 Nov 2026 19:41:20 +0530
-Message-ID: <3f48f63e-c25b-4361-9ac7-f25cb5082e2c@roeck-us.net>
-Date: Wed, 4 Nov 2026 06:11:16 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fb1F15OH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kLJpyCFb
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Ba8SR2284431
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 14:11:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	uF5ryn8Iftp4OJ1P9rbWQ0MW+5o+I98321Jd9dFZUmo=; b=fb1F15OHIyxjqnI2
+	B1AVC2UzHx49xheCQUsJRjmGX0wCu0DPOG8GDvB/B6ydN+7s0zae9V6p7WgQBGqI
+	SxGsSXZk55rwdjnBvb2epitvOKEGtqAbWytXFne2Dn4OMxyjp0CiB6S5SByuI68u
+	9wRBWvlC/HGhd4HVb/Avs/RCVW09wvRXOSUrxjZnKH3YZkem5hwBYbwQmxdHnszJ
+	OxSjp8DewqEDBScTMQ7mcZOMWbOswTrGio3QrUXHOOUNqp7m1yge7xCF+gFc9ajt
+	pc2y6yZQAQ1j51Ny1DS8MI/r/r8dBwGsQcbTtHkW0xKaZ2YHU7CXzEdzv+DodCaX
+	hZVIMg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr284s14x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:11:14 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e95f8543c9so9367405ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:11:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793801473; x=1794406273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uF5ryn8Iftp4OJ1P9rbWQ0MW+5o+I98321Jd9dFZUmo=;
+        b=kLJpyCFbkNNMBdl/XJl+qxbjwCEesgtdAyEOr9F7oE4LpE9WeRi7jLqoif+C9ZjFIn
+         Q7Zi4wZxt4FGwjUuKc8Ii0ItsYERHLAsIQ27fXm8Jw6/ZC8+skxvFRGNS3c7fxJrvop3
+         Gehy7zuc5cjR0qmc8jUxMaGdGuThtaw4UqA57DbLhqv8xcK6qb/BFKyauhvxBRKGIZk3
+         MZn64Y4Rf/8/zyblMa+CwX+pkw6KMeIGnm4+vQwtXBqKHVODvN3bUSXz+I0OA/9lNmJD
+         pJyaNy1sqidMSVNXLpTB5FAUXfrnmm8W53/UcSU62M+94PO/VBB+JulDjFYOEMa5Ksnt
+         PClQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793801473; x=1794406273;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uF5ryn8Iftp4OJ1P9rbWQ0MW+5o+I98321Jd9dFZUmo=;
+        b=Z/6AlNumPcbiKpKqgH0xOVzRhGkQS+PyG/rso6jl/tgSTwtk/HS+73JSh45U0oMw5o
+         TdZCUY+wCN/Ek1XR2InYJRj1bI/246euMApQwTwZZ772+L27VHB07xGKqkAeB1TiMHML
+         heHCoJYZ3gQ8/wfdTqsHHshgJ76c6jxTGe787ZZD8AXEs81te3a0BFuduPbezZScjdEV
+         8mEfDR3kEKYlH/a6wEibETWxsFxZadevAqDnJ8TxfUp4IwZcWERWAPcgdqH7rXoK711E
+         h/eecVF3Vt4o+cjWQRRP/mccqsYybbmgC6axbQFLhgm9xYevgfQ4He1M/8tdOK9PQDca
+         X3Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxekBzJtxsn/J9/dN5fVUdR6Bk4lz5ov7ubQnqeOqOBcvmRwowA0/dpeZo2MyAjGPKTCH8r3ELigSWq6pI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9mYCndnn4kOgFeGOgMSJvnGkHJx7YeqFim86taSMfMy5iCXnG
+	7kNw6hXYkSKmyqk/GH3EZgaO7m3od3qiBZVTSMaf9Zxp2R05JOX8SJhReMJt6e9Hl/+KWIGC5nR
+	gLJma9ai+qHOZgD/koG1vdJoReyxso1eaisBVqDow2OhEiF20LZUnU5umIPX12H3Turo=
+X-Gm-Gg: AYBFou3JcNfh2HYJ1pLMGPSv09vMgbQgal9pzSuYilAlkX5VMFZQghjq84vCDWfgsyj
+	o0+vEylyBXFr2QK0P/BY8yu04NGGN3TnZYrEE+qK0nOS5/BcTJIkdrCRhejJKE+bTBLHfMbuu5r
+	CxsrebrgtCU2Fo1lNxOhpcZxrs8NWP8B/JxdRkBpd/ZZSz9pMIn8GQUO24vCgnHO5pd6SB573u2
+	CED2zBVFCcYHn82MtfMAEcysxp8RGf0GiY2IyAN8FUHTS8vCcVhQ9enSwxYJJ2CbaBB3KTf9nLF
+	8hTFoiegHVLZINsjBU1foSxHnAizZaLvY3yLP2WKulSLB9dPmUFtp3bYIfZFI+gKBM+AuEhiyHH
+	reV8ep07uMJ2amyP5MaOKkT5Mp+g9KqnNPkxs9J7maa9YTpfXPH4UdVqMd48563TJokWVs9Fzbv
+	KfY953DCuSBsgxXxNr7vrRSg/T5SajHIUsIU+lCGo=
+X-Received: by 2002:a17:902:e5d2:b0:2e7:e73e:7091 with SMTP id d9443c01a7336-2eb364bcec2mr173883075ad.31.1793801473002;
+        Wed, 04 Nov 2026 06:11:13 -0800 (PST)
+X-Received: by 2002:a17:902:e5d2:b0:2e7:e73e:7091 with SMTP id d9443c01a7336-2eb364bcec2mr173882865ad.31.1793801472460;
+        Wed, 04 Nov 2026 06:11:12 -0800 (PST)
+Received: from [192.168.1.2] ([122.177.242.199])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08fe4fc8sm8301675ad.16.2026.11.04.06.11.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 06:11:11 -0800 (PST)
+Message-ID: <52f002c4-9462-479a-b915-149373d6ac46@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 19:41:08 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,126 +115,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_NO_SECONDARY_TEMP_THRESH for WD
- SN740
-To: Christoph Hellwig <hch@lst.de>
-Cc: Robson Cassiano <linux@robsoncassiano.software>, kbusch@kernel.org,
- axboe@kernel.dk, sagi@grimberg.me, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, Alexey.Bogoslavsky@sandisk.com
-References: <WnzOhxjlW7w5jwpSIQmUzrvduOStpoX2h3FS@robsoncassiano.software>
- <20261103075845.GB3882@lst.de>
- <b0824cb9-e678-4bb3-934d-a1743b164ca8@roeck-us.net>
- <20261104090111.GA30750@lst.de>
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH v3] usb: dwc3: core: Fix RAM interface getting stuck
+ during enumeration
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20260929-ram-interface-stuck-v3-v3-1-0d1a54db233c@oss.qualcomm.com>
+ <d45f758a-8d00-4f76-aef9-7364156f4ce3@oss.qualcomm.com>
+ <as7c1LHrOsqAA4Nx@vbox>
+ <94c4056d-7f7e-46ef-97cd-dd12621260bd@oss.qualcomm.com>
+ <atAuSs9VTveGwzpy@vbox>
+ <526b4857-4a4e-4ebc-a367-bdcf9a9c9a53@oss.qualcomm.com>
+ <atgaF8VoapljDa2f@vbox>
+ <138abb5c-b1cb-44e5-a103-dccb022f3102@oss.qualcomm.com>
+ <auksxKbHVZzUd4G5@vbox>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261104090111.GA30750@lst.de>
+In-Reply-To: <auksxKbHVZzUd4G5@vbox>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xObhw-000000018e7-3nLc
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:37168
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 2
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCOJBW1JkX8/O+uBe+pLQinQppVAn2miM3lIMChrjVCO9Ltm+9XUKeSZZhOy3HX7nCq+d/21OKslz7IOGNboI29HCGAvdQxDimNVAJV5j+GqU26ubXaR
- azI4hYCXCs8yePrwnWzPsR6m8xfSj6jLBend31P+Dab7UlvqGrzg6ddiX9QtsJuI8ZNTh3qbsZ0gEGl+85ArtkmW/Qioz1RnEgxrwY+pxY3kAEty/YdLCgYU
+X-Authority-Analysis: v=2.4 cv=JdQpPkKV c=1 sm=1 tr=0 ts=6aeb3d02 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=4cW2FY/XLap1olThQF9nEw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=3YhyyRXw4QUH7AxPMAEA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: OzjxLUtsdfMzx1eqgvo671vQZnjIYuit
+X-Proofpoint-GUID: OzjxLUtsdfMzx1eqgvo671vQZnjIYuit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NiBTYWx0ZWRfX+OHvJWrUeogE
+ gmnk4rbtTT1JbQt7CQknTZZVUiEFDCfo7SM/RjTbbO0FAtO/WwpPbRB/tpxYC44OfpMmaW1LBXp
+ dgIAZ/MpbvGaUoVdhE505i/sdhxwl0YcvVaaw26zPI0A/Ese2PhfDTACHbb4SaQHmqQCAAe68A4
+ kRbAI7qht4PDRS7CamjMWqSBTcd/+vA9ZDzrYtqejVr+GnYUK8u5BavO4sqJCp28orkxENCP5T+
+ DWWHy28JBmZCEN5PCiU25tgMfAYl0lkSxBhKDILSGqZ48ge2s8iLayInCbvxiWxb9ec5zb0ISHd
+ lyEgJkmdIlKJ7bEx/SVjRYAatoFibihf+VhjbyIJp2fKGDVceW6H2DgXORbA8hG+NM5RZfu73Ob
+ tTQA96Lbsap0oSZUvc1N7zQTLBtXqj72F9Jkp0y6PLmsnAuJafPyhtjCc4gXsCpF8ItqVppUmvr
+ GQwxCnP6tXi6h/s10pw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NiBTYWx0ZWRfX8AYwLAbWgU9M
+ ciK8+7vVEawOtmSnWS3lQ5OD0Hg5PWrlenwYHkOKd49Luw8D6nAj8nYj+FA9ZTPAdjJolD3xcXo
+ mDdHJxB0iwP/w5TfxJ2TwXiyW5MaZHY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040056
 
-On 11/4/26 01:01, Christoph Hellwig wrote:
-> On Tue, Nov 03, 2026 at 05:31:29AM -0800, Guenter Roeck wrote:
->>>> Mark the controller with NVME_QUIRK_NO_SECONDARY_TEMP_THRESH so only
->>>> the sensor inputs are exposed.
+
+
+On 11/3/2026 8:41 AM, Thinh Nguyen wrote:
+> Hi,
+> 
+> Sorry for the delay, I was out of office.
+> 
+> On Wed, Oct 28, 2026, Krishna Kurapati wrote:
+>>
+>> On 10/21/2026 7:31 AM, Thinh Nguyen wrote:
 >>>
->>> Given that this is an older device I suspect we're not going to
->>> see firmware fixes for it.  But given that we had quite a few devices
->>> with issues like this, I wonder why nvme-hwmon can't detect these
->>> obviously fake values instead and we could drop the quirk?
+>>> I'd rather not take this without testing. The check adds a register read
+>>> to every endpoint command and implies that CSR timeout is expected
+>>> during command sending, which it shouldn't be. Without confirmation that
+>>> it catches the issue and that recovery works, that cost is not
+>>> justified.
 >>>
 >>
->> Question is if the quirk is really needed. Personally I doubt it.
->> Normally the thresholds are simply not set. I see that with the NVMEs
->> on my system (Samsung SSD 990 PRO) as well. If I set min and max
->> values, they are stored and subsequently displayed correctly.
->> That means, no, the hwmon driver can _not_ detect if those values
->> are fake because it can not distinguish "not set" from "not really
->> supported".
+>> I won't be able to test this in my environment. The only PIPO test that
+>> easily reproduced it easily was with one faulty cable from (IIRC Xiaomi) and
+>> CDP port of AMD based Lenovo laptop (there was a particular variant, I will
+>> find out). I don't have that faulty cable for now, but this issue was
+>> reported even on Kaanapali as well on 6.12 Kernel (mobile build). Not sure
+>> if I can provide this series along with err_recovery_work to OEM and get the
+>> results since this is reproducible with very difficulty on their end too.
 >>
->> I have not seen the patch, but I strongly suspect that it fixes
->> a non-issue, unless it can be shown that writing the values has no
->> effect.
+>> How about we add the Depcmd check and then the GSTS check inside it ? To
+>> avoid checking GSTS always.
 > 
-> So should we drop NVME_QUIRK_NO_SECONDARY_TEMP_THRESH entirely?
+> Your report shows ENDXFER timing out with CMDACT still set, so the
+> DEPCMD read back may not show a mismatch, and GSTS would never be
+> checked. To avoid reading GSTS on every command, we could check it
+> only when the command times out instead.
 > 
+> I'm fine with this approach. Since it's hard to reproduce, please note
+> in the commit message that it's untested against the failure, and add
+> a dev_err when it triggers so we can confirm it when it does happen.
+> 
+>>
+>>> Also, looking at the original report again, the stuck state could start
+>>> without an endpoint command being issued. Unplugging the cable then gave
+>>> no disconnect event, which blocked suspend. A check only in
+>>> dwc3_send_gadget_ep_cmd() wouldn't catch that.
+>>>
+>>
+>> Currently on downstream, the way we work is that if we unplug the cable we
+>> expect the controller enter runtime suspend. If that doesn't happen and the
+>> controller is stuck, we do a "usb_gadget_disconnect(dwc->gadget)" and then
+>> upon re-connect we do a "usb_gadget_connect(dwc->gadget)". So, if upon any
+>> plug-in, if enumeration fails and if we encounter this scenario, we are not
+>> handling this until plug out is done.
+>>
+> 
+> How do you detect that it's stuck? Soft-connect already does a core soft
+> reset, so you could call usb_gadget_connect() right away instead of
+> waiting for re-connect.
+> 
+> Would be great if you have logs showing a consistent symptom (GSTS,
+> DSTS, DEPCMD read back) that we can check for.
 
-No. I checked the commit history. Commit bd375feeaf340 ("nvme-pci: add
-quirk for missing secondary temperature thresholds"), which added
-the quirk, stated that attempts to set the limits on Kingston NVMEs
-failed. That seems to be real.
+Will dig up my mails. I remember having logged the registers when 
+discussing this issue with synopsys.
 
-Commit 340f4fc5508c2 added the quirk for Wodposit WPBSNM8-256GTP.
-That also seems to be real since it reports an actual failure
-when trying to write the limit.
+Regards,
+Krishna,
 
-This patch is different. It does not claim a failure when trying
-to write the limit, or adverse effects when doing it (which might
-be covered by NVME_QUIRK_NO_TEMP_THRESH_CHANGE). It just complains
-about unset limits. I do not know if the submitter actually tried
-to set the limits.
-
-Thanks,
-Guenter
+> 
+> BR,
+> Thinh
 
