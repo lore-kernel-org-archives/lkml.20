@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781959;
-	b=oOK9AcsWBDyR+v1sB+3GXtJRjJo712HktidjJFTLatXtxw3lE4KBD/4d7x21PQXZsPzJ
-	 uKkC1gaE79jioYhOyNBa65UhlSxrTr3+SUTCEIZezQYfp3/RwkINTOHgFOTbrfxQkwOkB
-	 zCwRztMR62N5CMpPYXbLgHbH4Ssopvoi2EZ4UjYjoltZIjEYAwPdN9XdP6FlDqQ48/h/0
-	 GL4eskDp8bsflyTsIYgaZCKEIugFiwA+VJ61aWGODYUGs+Ao3LFUooSab1tEtxRVyM+Fw
-	 4BLLhcvzYfCdUz2V/GKbJGOfw5JOr6MuqREoL6jOyz1RU5CVBCUR0D2GU7pEEP+NZwg==
+	t=1793781969;
+	b=Yik99PYMkEoub17kAS7ChXtZzLfPD1BYyXEtbnX4O1EtiFcMBNGCvSdxC/1JZ4zRhJWp
+	 UMoUGDO16IVXi3UqOsHmIeyEk/meTvb3YW4/R+2Vc3p/QXQt1maZFN6qmlBC67NoF2Gur
+	 Iks+HmX3CY4+v0bjAsL9ygxwFWoAJAGeqWnShAIdVMs5TxL6LkZEvUSk/3FW10/+ww090
+	 Agss9a67ZBmYmkGcW5I90jt5mO3Q/XT2f6MdyhUunA6o0NhUXl7YmS+4r1hKEGGvYcExh
+	 aNAFu5Bhd7QVWYS5Ht8Ro7kOjhRfaFLQQWojILEKwGzHBXeoXSE9NcYb5qD37cdj7nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781959;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kd/11XJESmnoYClx6518f24RJOB+dmaatqOOEga8bOQ=;
-	b=tsgTP5cGHBAcK0shAw6xF6wzpfnc09WrwYhiPcht//pJ7cabwUNLFay1Rla3mmVbVgl1
-	 KbdOJpg37MitLHEQznqt6l3Y3LaKJLoi+ofNKSv4Mao4a1KZbqR2eL0C6TD+tyj/ScJms
-	 KBKIMoirUlR6ChriYCvhGJcZr/WWNslGq0QoT5+mYOrzuG6Ur9y12FdvDZUspnVsHGhyr
-	 /pQlIsmUMOoZYvGfKFOfhW6tupopqfpNTepWNEQP/3rj180YAwNjJNDYS64Pg+NwoUhAx
-	 GZl11oHt9hULrSwc5nKUEzT9MUvC+qQA2hHywEt7zsiVg6zTA0H3RK6QTmAEfJu+jtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781969;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=rPktWRiI/JgjZXOK0VV9UihgCUHb9+RZLQKrRxQgIkQ=;
+	b=m15pkzCsB09CfQEQ8w14KSg8j+PZls5jz/KtmEvGZoWD3M9NZzei0ekkKuBzBhS6QmCp
+	 LAIKWkCg4+Eo8F0HA5P/nibf0pZN5ps71yRiS8nxaQeknDqGb8g4rNV8x0xJCivL6TZkf
+	 fm9QYJ6Z22goga/bAKJb/9bT4HBjT4pm+4ZphGfisNs0j2BOe3IS9dm6H7NCTF2dxiGlN
+	 CFMbsg5S6SmPXgZhX00fKyBCTLDidGfa9qxyGCPtUXR5B4PdNaT2ZCZ2rPI5agrsn77Zo
+	 PqBCQkTz+ivaZML3PAgnHRsPetcpOQi/2md8EzuTUlvHyjKgNsqb2glq7rD29oCb7PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ro5dQBMj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iWWgRzl+;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04662606A31B;
-	Wed,  4 Nov 2026 08:45:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C727606A332;
+	Wed,  4 Nov 2026 08:46:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C727606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ro5dQBMj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD311F000C1;
-	Wed,  4 Nov 2026 08:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793781958;
-	bh=kd/11XJESmnoYClx6518f24RJOB+dmaatqOOEga8bOQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ro5dQBMjOwLw/yDsVSSMI0kDHJQKj0kAyzaaBVli+FkJuFXt6haLuKjhwlhyibnh3
-	 agLrXrCverQu9IRH+fDie8YfQndR6GtX7XJvLPmSenzEODlRadyTs3RMuTysEVUhJG
-	 3cUA8VUElysd874W8x9QEsm5wqOuajVYr4jCFJ4BIjzJ5zTha/tubR88uSLDFuqA9f
-	 cKnpl8QFvvLODcNRqzcMA/eOTe9aQyOpqHVR9ELwz6u+yxFj/4AjxpboeSKyA5ZKwW
-	 cwfwvWC6dbBdRi9mohLmfBJKhxw9m68NJg5g6S3BaIXAyDkYOtDMX4kcdQITQQNLIy
-	 eRuo6aOFHkXHw==
-Message-ID: <4fb6c428-85fd-4674-8480-919191db1277@kernel.org>
-Date: Wed, 4 Nov 2026 09:45:49 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iWWgRzl+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793781968; x=1825317968;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fyw4gM5AV8XJVm/D6q+MVFyu67HewixU8i9L8I15X1c=;
+  b=iWWgRzl+G9UGeLaaOSMKwUkTg0tPIFathBLyox5WuC67tvWB9dNBLxpj
+   /gb+oeiLV300/eeoiT/9u4jsjoAbme2qzeCFw33Pa71aDXVtAqglZxZqM
+   p1yHNgYCRe3eIJzBAKml6LQbe0OVBa/B+HbsW5NKVLfwN3tFzU961whgp
+   eZtLBinlkQCN25xlHz7D0B3WmK4ZqOXriNDgJdcvO9q8rgpOCUBjxiVej
+   k8SvJLa5GCbApCgIy1T3NXo1zDyCGI+9MLOTq8iQCWxRe3ADMfEtBjWs5
+   exd7+80viJXd+9picluUNdgWY3Ju2X0oTzWETCfURR626wr3BM4o0z1ba
+   w==;
+X-CSE-ConnectionGUID: Xry16HfISnaoFYx3QuBkLg==
+X-CSE-MsgGUID: N5kkojMZR7OlZGMY4e04wg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2623322"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2623322"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:46:08 -0800
+X-CSE-ConnectionGUID: DY0+xHzSQB+42gN643B25Q==
+X-CSE-MsgGUID: /SZ9wx83SOqE5CZm7dzfJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="7219588"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:46:05 -0800
+Date: Wed, 4 Nov 2026 10:46:02 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Frank.Li@oss.nxp.com
+Cc: Mark Brown <broonie@kernel.org>, Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:PXA2xx/PXA3xx SUPPORT" <linux-arm-kernel@lists.infradead.org>,
+	imx@lists.linux.dev, vkoul@kernel.org, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] spi: replace chan->device->dev with
+ dmaengine_get_provider_device()
+Message-ID: <aurwylnNpkKi_Bx-@ashevche-desk.local>
+References: <20261103215824.1823272-1-Frank.Li@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,86 +84,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
- <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
- <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
- <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103215824.1823272-1-Frank.Li@oss.nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 04/11/2026 09:44, Joseph Telaak wrote:
->> Drop.
->>
->> Please run scripts/checkpatch.pl on the patches and fix reported
->> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
->> patches and (probably) fix more warnings.
+On Tue, Nov 03, 2026 at 04:58:23PM -0500, Frank.Li@oss.nxp.com wrote:
+
+> Use the dmaengine_get_provider_device() API instead of directly
+> accessing chan->device->dev to get the DMA provider device.
 > 
-> Thanks, v2 drops it, and the series is clean with checkpatch and
-> checkpatch --strict.
+> No functional change. Prepare make to struct dma_device private to the DMA
+> engine.
 
-No, it is not. It has clear and obvious checkpatch warning.
+...
 
-If you claim otherwise, it means you work on some ancient or old tree,
-so anyway this should not be reviewed.
+>  	struct dw_dma_slave *s = param;
+>  
+> -	if (s->dma_dev != chan->device->dev)
+> +	if (s->dma_dev != dmaengine_get_provider_device(chan))
+>  		return false;
 
-Best regards,
-Krzysztof
+It's obvious that we need another helper to match.
+
+// void * and EXPORT to be able to use as filter function
+bool dmaengine_match_provider_device(struct dma_chan *chan, void *dma_dev)
+{
+	return dmaengine_get_provider_device(chan) == dma_dev;
+}
+EXPORT_SYMBOL_GPL(dmaengine_match_provider_device);
+
+...
+
+>  static bool pxa2xx_spi_idma_filter(struct dma_chan *chan, void *param)
+>  {
+> -	return param == chan->device->dev;
+> +	return param == dmaengine_get_provider_device(chan);
+>  }
+
+With that being done this function is gone.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
