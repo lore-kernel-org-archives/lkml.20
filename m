@@ -1,68 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812454;
-	b=5J+U+E6XBrVbppxWIdcU1lUousvXIVYmn1vfPfwkju+FHQ/y+hMu35iQ16Zm9TqhtrhS
-	 FJy5Woodi4jnY7VuWMRFJM4Z/Kz1p3OsOOVil8rzYIfcT9sf8mKhjmPEjXmewRETcRvIW
-	 tL+nBwTBtR8FKMzTeqBnYU2eSMSuDCUEkNckj9g2bzwWt71p5odXmeA8d81P5m3BK8Bc7
-	 zTel3PTtAwgRu0vZBwpD8XhBL+IeQUFdFHDEQCQyD7gcumAc1UAqY29XPm0dsnGyxJ5qg
-	 8+MfRqyleTXZtTy2tWbexw5Mggn9U0e5EQdJt1vhCI8pHJq2+KohazjgroRDhrSosyQ==
+	t=1793812473;
+	b=xxwg1vdkkneLvs2nJFdABe4sLtZUU+urgMSXrfJhtpETVwWbRDTr/Zx7y/xyimrKScPi
+	 i2hXpWjISiPkhLIA1wbg+LzX5Mr81cx/KselNqxyOpFgmY5/Z2yoDLTIeLamxdbKiHvV/
+	 WyHaSJyDYKYbVupUtbRp8/z3zOV5x/TEwOMeqjHW7/Gy91MINc/t1KlCx+CqJZa2hKqAg
+	 EHZmVgjWa62eFYSP+k9HPwgpez6PbLQ96ZCeXcxCsbzRRq7ubsapufkZUpHRcG7q4BShS
+	 MpuDuCu55tlLQxPFGdrQxeKXvuV1YORwoZ+2oXvZ7a/7MWUkDMP2deBcqE3S0nOiTug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812454;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yRj5WHRR9aenXyRIm39ayvCyj4WS0PCwSsf2eEii3y4=;
-	b=Og/655bErGQA6K7cY9zjPg78G50LlM65hJO3gWic0La/83JmrG3kfB5qM1bh1jVEfcZl
-	 XK0Wr3oTrpMxeXk7STsK1juGabOgIIFQMT9Me1pKs2uJKtwEmPVt1rEGhU1R4/X4eXEG8
-	 kaeTpw40XqIyQ4qdY5TAJUMNICV7kQJBd5LGfpo5SMQP4zXlukwEXE//G4IZ/fEH91ziO
-	 RGu+FTvfBYGLtWk01hhbnLvsTvpo8MEX/vvAbtyVWPcDveqtPlWuJZ4hW7uaCYqpd903Z
-	 o/0ykeexjLU7e1+Zhr+uYrul23C9Jaz8obfEag6juAKjYF8N92oZ3Lt9VjTKjbOccfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812473;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=KK3mtgPRaIXVNpLsRScDcf1MaPAwGgkseQZjK/OSWLI=;
+	b=A09hEhVc23L+1gRB6TIQ5BdqtEUfnYUeihR8gaz+Y+ZK2XHZO6l4C6n6PkHo2pwtpve2
+	 vlc8qRDDp2XPFKCPa2Pd6pq4h5qPVxBSgxMbuXrH2whV7kzW4U3bufMHsctYW+vOq560d
+	 9Q4A4s5cAgU8jiuYFEwidI+pZdtw5pU36lbE70wZ+vzmEmzaXlFty4Gl+veGPt+Qlmimu
+	 22TAIwIVjCfZHU0xkTIBl9ugjTFsEVxRge8TWdwyubzazXHdhnGXeoc7rScOxoIpsRQAX
+	 tOrZpFQm+Q9n2hf2Kag7V2ywcaqQyGSqfsyRJrA44N7AgO7G1Ouieu4+Hpxaaw0mmHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MegOdnKy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fou3cc2B;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xbl2hErt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Q1ekp3fV;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Sd5WdOHE;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076D0606A333;
-	Wed,  4 Nov 2026 17:14:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB279606A326;
+	Wed,  4 Nov 2026 17:14:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB279606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MegOdnKy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8F31F00A02;
-	Wed,  4 Nov 2026 17:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793812453;
-	bh=yRj5WHRR9aenXyRIm39ayvCyj4WS0PCwSsf2eEii3y4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=MegOdnKydykexyvjNSUghj/PsKL4AWwXsoL9hALI5tejJXpkO/xsHyu21RDFBo2Ap
-	 g/+z8Huc0yO/L+WHUj72LxQyh5okcc08FsQ10yoO3Px95mA6OktbE6mnVmy/4Cky1L
-	 aAF3DhJr/zKFC01irxMQjmK7n4EaAXSBeDxvk2tN51bMgRg8z2vFkBPB4ub/+Cnthi
-	 lzwlssUrRXqQCCtsPPsnFsuZZ46nLtg4wdEFrdJo+zgdmcl6ju7ExhulS8CBIQJ2xD
-	 Pru/TDbrbCwwj2+/8zZEQZ3tL9L52LeO+6dA4kUjeOk+LIGxfJct3Kt33lcTF9zMcj
-	 /Z/vjBicYWD7Q==
-Date: Wed, 4 Nov 2026 11:14:12 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v12 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261104171412.GA1247928@bhelgaas>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fou3cc2B;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xbl2hErt;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Q1ekp3fV;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Sd5WdOHE
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CFD6521EB2;
+	Wed,  4 Nov 2026 17:14:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793812471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KK3mtgPRaIXVNpLsRScDcf1MaPAwGgkseQZjK/OSWLI=;
+	b=fou3cc2BZobMVUer9udZTpJPe2LlHpHT3Zn3gir5B6vjfflK7S9CKOoAX7VypKIJp8ITU/
+	XQVDCgh3qW4VBaKv+LYV4SjxhCidc8SFvjWBP3xSa7JV7tXNXAN2WiDNO3sW9Er2vrkB90
+	dStjw/DmoySPWvBeEdJzBkav9fQ7Rlk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793812471;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KK3mtgPRaIXVNpLsRScDcf1MaPAwGgkseQZjK/OSWLI=;
+	b=xbl2hErt8EJYShD+c3M7ZUydXHsrKcuEZ59gtGazLcrUqdWjbWo5bLc11PwnbUD7dVE9Mn
+	Uv7EYsJMtBO6ILAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Q1ekp3fV;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Sd5WdOHE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793812470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KK3mtgPRaIXVNpLsRScDcf1MaPAwGgkseQZjK/OSWLI=;
+	b=Q1ekp3fV6x35E/ndrr0YbnuynFTnjU39ZTDjdTc4VcfinvkR1v1+NawPhB+o2Rg/zRMydj
+	rK5DSAVi629ktKcaO8yROCFkUHK0iU2TXwAxSl2pQr3KgGVS9J5hdSHfPBX6dXrAe/hTHn
+	tdOlCmzUeAteXphyQJdIV/y55BuLiAo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793812470;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KK3mtgPRaIXVNpLsRScDcf1MaPAwGgkseQZjK/OSWLI=;
+	b=Sd5WdOHEczI+Lb3bhCQpqszXKphpyQtm0uO+cLD7uhdhFmJs+UMTg2fWDjp4DaQ1/l6jWt
+	BGJnj1X0SdSG+ABw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81835134A5;
+	Wed,  4 Nov 2026 17:14:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hKvLFfZn62ppHAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 17:14:30 +0000
+Date: Wed, 04 Nov 2026 18:14:30 +0100
+Message-ID: <87ecd0tt6x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Deukjung Kim <mentalese@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usb-audio: Add Arturia AudioFuse 48V/Main mute mixer controls
+In-Reply-To: <20261103113138.39209-1-mentalese@gmail.com>
+References: <20261103113138.39209-1-mentalese@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,65 +112,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104084328.GP264423@unreal>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: CFD6521EB2
 
-On Wed, Nov 04, 2026 at 10:43:28AM +0200, Leon Romanovsky wrote:
-> On Tue, Nov 03, 2026 at 05:37:42PM -0600, Bjorn Helgaas wrote:
-> > On Tue, Nov 03, 2026 at 10:29:39AM +0200, Leon Romanovsky wrote:
-> > > PCI P2PDMA applies Request and Completion Redirect throughout
-> > > both paths.  This misclassifies asymmetric and nested switches,
-> > > and reports one answer for every kind of TLP.
-> > > 
-> > > Three ACS controls act on TLP attributes the Requester chooses
-> > > rather than on the topology: Translation Blocking and Direct
-> > > Translated P2P act on a Request's Address Type, and Completion
-> > > Redirect skips Completions carrying Relaxed Ordering.
-> > > 
-> > > Evaluate each direction at the path divergence, decide every
-> > > class from the one walk, and treat a client with ATS enabled as
-> > > translating unless its driver declares per-mapping ATS.
-> > > 
-> > > This completes the P2PDMA side; dma-buf and mlx5 follow
-> > > separately.
-> > 
-> > Is there a one- or two-sentence explainer of why we want this?
-> > I'm thinking in terms of what Linus will want in the merge
-> > request: a fix for something that's broken or some new
-> > functionality.  It sounds like this is solving a problem, but I
-> > don't know enough to translate the nitty-gritty details to the
-> > higher-level user-visible problem or feature.
+On Tue, 03 Nov 2026 12:31:38 +0100,
+Deukjung Kim wrote:
 > 
-> Not AI; these are my own words with grammar fixes from AI:
+>     Add mixer quirk controls for Arturia AudioFuse (0x1c75:0xaf02):
+>      - Input1 48V LED Switch (wValue 0x0001)
+>      - Main Speaker Mute LED Switch (wValue 0x0500)
 > 
-> "The existing implementation of PCI peer-to-peer assumed that all
-> PCI TLPs were the same: ordered and carrying untranslated addresses.
-> It did not account for the variety of traffic types defined by the
-> PCI specification. As a result, only simple systems supported
-> peer-to-peer transfers in the upstream kernel; real-world systems
-> required out-of-tree patches and careful platform design.
-
-Can we be any more specific?  E.g., what makes real-world systems
-different from simple ones?  What does careful platform design mean?
-Something about ordering beyond what PCIe requires?
-
-ACS P2P Completion Redirect affects Relaxed Ordering (RO) Completions.
-Translation Blocking and Direct Translated P2P affect Requests with
-Translated addresses.
-
-So I assume the existing P2P implementation breaks somehow when RO or
-Translated addresses are used?  How does it break?
-
-> The new code will allow peer-to-peer transfers between any two
-> devices, for all types of PCI traffic, as long as the PCI path
-> between them supports peer-to-peer.
+>     Values are written with a class MEM request to entity 0x46 and the
+>     initial state is read from a 178-byte status block of entity 0x47.
+>     Protocol reverse engineered from Arturia AudioFuse Control Center.
 > 
-> This paves the way for PCI peer-to-peer support in VMs, which the
-> upstream kernel does not currently support."
-> 
-> BTW:
-> 1. The patch "PCI/P2PDMA: Document the TLP attribute assumptions"
->    attempts to explain the current situation.
-> 2. The change is too large to present as a fix.
+>     Signed-off-by: Deukjung Kim <mentalese@gmail.com>
+
+The patch description is indented wrongly.
+I guess you didn't produce the patch properly but just pasted git-show
+output?
+
+
+thanks,
+
+Takashi
