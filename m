@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783518;
-	b=JpLkLRGrSoJWZ7AYD2w+eGGhrQKi4eEgE8s1IR/WwduKptNU+13lhcKBe5DFometemwU
-	 a3iUbccwvKzTQsbkCKKW0FhFjI8OdPKaSohrwBzgS72GDHgdZyiI9lbzYMSJGDnBz12hB
-	 vFr7FwChOwtpM99dc1Au1VyMWbsDJU99adq2AK925tM9ObZpXWyNPQPj9VT/29Rs3B+QO
-	 9cPOeVHCmf+UVf5bfgV5d/7F6c1GBLJBbnyz/SBtZ90t129HXmahdCfa1179AFORSuo0D
-	 HF9QJIHUAhm/aSwgquHasfbIVZnNL0xxTYZNjloMGVT2IxS6bN/6+v6QMowBt+qReNA==
+	t=1793783521;
+	b=fEnc0nzril+EayXPfoLsukZTuGFIj0Kx7sKO64bVB4TmGmVZhipNCgQ1vqJj8didwk/0
+	 Ro6z+PTbbnYQjR7+fFb23A7aBLLIIEDk0e7giPCLqoNGqoLbEwE1wbDcjCiVN/OU7HbR3
+	 YwAPvpK7UCCjHEH2FYxGHLAUl7A3xnOXlbFXQCxvGjgI1Ex2QoMariZ81v6trNgQ3auQO
+	 mlg6QQPVVqPmjHtm/m/Sn5CVGPSoWR6Do6WxwHQqKrEHuQflyglPDZ0Bl8QkHYIIqVjJu
+	 5iYhJvFPRgCad1PwL4ZKCLYnbOzBCfqDqQgU/xibeFZdXSuNDOOenu5+SMP8V95vrCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783518;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jhKXBgg1sGJn3Jt16h2wqToqL6AFAOLSOJl/Bs/EcRQ=;
-	b=r8sB3vqbd6ms7G1ZQ87lkTbJPvzPRJ9ql6pGrjix227CsxzqyA/WzusfqCb0p8qZTFqS
-	 F1RZrgvrFv9pYn4p05rqwzpMNlOiMzL9yqqY41hPBIvaNIDeAKq5ku+3MBcZqVF+FfTxl
-	 bZGXn/YtxaLOdRvDSPewPUNjHaM/WL5pLdnQxgx9Rgo2B8j14Ww3p01QUq02pP2Wi71e9
-	 b5FY/b3kA9JECe05nc1yQXfLxsi3bnG/cIK0YAfb5Ji1c8eKZBYMK83/l1DVLI+AkhwR8
-	 O5P9y1wTAXccYQgJ9NYD5Oj/NRKr1mVVO+EJDG008miZ74/eBcIjFSb0LyIjcGgOm1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783521;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fWCd6aPQQe5Uc8iRyEMdNtozTg+e5xvHjtU+V9lBEuY=;
+	b=GLwv88ADIpNu8m/Lt5GS021BDUJJ1OOsXizbV/eR2wZYlOAkuKh0CDFtwx4IjCxlInnf
+	 RaUNM+cv9LenTn9h0U1J2ufavbbYr9E9/ucNAjnH1B3J/yfyy1tuTw27m5wMAXC6a/zvD
+	 xGDIYCcWPYbLaL45BEIP+Kr1crg5p3+FoYOrVJz5lFwnEzyf/Xp3nWViY/v3ocvfZcFGG
+	 tokUk8ppdgYqveWGzoQ0+SYm7jjrgg2f1Lr+zjqxdD6Z0dISQKdrTVdQy/ISO2Vu+VHCt
+	 PH5SEjHb2GkFZCC+yKfBQNVc4MXx9N3fo9dZhuEylVvgQ9KrE6jghFTIVtVzdmehdMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="V+MVO5/H";
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="YQS/z7iv";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Yn/kCN/m";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9975606A33A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9975606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E2E606D806
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E2E606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V+MVO5/H
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso366986a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:11:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YQS/z7iv;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yn/kCN/m
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48L2PF1275087
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 09:11:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fWCd6aPQQe5Uc8iRyEMdNtozTg+e5xvHjtU+V9lBEuY=; b=YQS/z7ivRmx8wgMy
+	9E0aN1mthavk/q1TCntqAlc+PTHLnCuSYLw2m+KUcdpYVOvXcP33FS4UZzZeUwgH
+	1E++9FtB5o2Lp9zK5qkIlCZ2Py63as7bKm5rFgxdhLi8nx73PSWwDQdHo3e4+iES
+	VwHQ/dO4Ma2oE8xdxX0YZ88W/TXr//a1cpDixc8yiEOm9t8q/ULZ14k+1Q6gVeWB
+	OVrS3r8O3mZr2cACjgGV8A8a4cNu4Y/p6uor4sCaVcpPXSL66ILKQ8p7wWjp4dvA
+	IatPum8TnV45XuiLwv3YnarPNjqUvqgLZ8c3txDEBse4XrAn93XtP73WmvmoUD8K
+	uvoedA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqhypm6ys-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:11:59 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b08364cdc7so584673a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:11:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793783517; x=1794388317; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jhKXBgg1sGJn3Jt16h2wqToqL6AFAOLSOJl/Bs/EcRQ=;
-        b=V+MVO5/HOUMXtW+/hWueRfgYYSpNHXYFNqTWJ9hFYaAepDbyaIcWGBP0lq/7ECVyiz
-         pu5ak9PTxbqAGtMCCGCkV4JYyp0LgHh6H2R9nAlPNTTMRRexRBzPpCwFy2cau+8uXLQN
-         TWc4mS0s+LEXUJULMmh3PSj1vKBzFNch0PSuHxECSEMeHRYXAYj+RRi7Co+jurN/OYIG
-         ofNcMpIQYtODaVmYwJiqI/8DxXzF/v3htZX9HjivxERIhYgRr/1lQqzMVk0phwNuPT57
-         Wt4KTLx6AfKCvSr4ZJuRvscVA/B6s++LnOaOiL7sLuNLVSX6oGmu6m03ehWAz3OP8y8D
-         Y4xQ==
+        d=oss.qualcomm.com; s=google; t=1793783518; x=1794388318; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fWCd6aPQQe5Uc8iRyEMdNtozTg+e5xvHjtU+V9lBEuY=;
+        b=Yn/kCN/m+EcQyMAGeR7H0sTXSm52uMHXn21KrpD0KU7IuxLJ8c4aN+sCxjn5qUqfHF
+         dtiL3vUnaU6V8t56Ugow3m+efCFwmYTMT9rP8zbXpVunaxX3fjPGk2RZuWoNr8XA6UFO
+         MMAJXmtieWSgi+BSq1uvsEq00LlhZSfHKjE6GlT7Ajbt4Ki2teoxD7oFyc9fQ3+kb/NP
+         Ef2h+gVkx0YaN5VkdplBJFsjrTcpm2inc4C0xV98A7GBqrfaLoX4J6K/3JVdgfNlsgjw
+         jTkxN+UYsj8LlhfNff9ZPCFu/CfK04j+YOztNv63fRsWttiPtJHq3TFu3Uf4VxInqd8Y
+         gz0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793783517; x=1794388317;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jhKXBgg1sGJn3Jt16h2wqToqL6AFAOLSOJl/Bs/EcRQ=;
-        b=g95DJAXbL4dboA2LTP3+3XbcnsCzVn9C2Wj2kTZyEYAmwtRo/kZaV0wVSEtqLeiINu
-         vCQmGqZAwjQB6oYNvHkHZrfLmRlu6+Opl1o33zT73804KEK5NNUvjXRxj4WkZYlqk/zX
-         0GmB3lt8oXVn8nW1ilTJcskYgEXc7SRIemnSbstFRSyaG7wDDsKAi1kJTrgt3V75dx0D
-         PQT5R+RAeKL7+xgiag2+Y5AjhlaFjscgOmZFx0clrF2bAEPUg2jVfSQ4aEaRnTkOQD7X
-         xdrjud+2AipmFxXGSz304H48NdzSqfLArNBNM3tFaz6rxSGUN1tco53kmleW5QycU4Td
-         UznQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaRGBrFEfDR/ff3xKOYiLaBhZLZ6lioGKDZfVSlJwkpCSMTbhhV9MT8n/d6WC/AjWxoJ0Bstbclki2YU8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rt/M9xSBgvrwdLwgHKhVSjsAz9GDKSGtl++eMJlvFxFzFyydu
-	G9atmw5GTDZaWYE3yvpzzoyACSaLemak/3N9ZCsjVYheYK2hVYob4eEj
-X-Gm-Gg: AYBFou3Jqb4OrR3NFBf6IXFUOe047yc0kNlwj/C5ng5Bwbpl+kAej3XxlOZ4ntJw4Fw
-	Z3FfS64WQk68gljS/kBLn2GM6TcSvAsOwYlCaPyY0ZL3q3Gqx+ljIj6i6e/cgufr6NfAGRXfT7J
-	Ajuin5POcGZh8jf9Z2GYdVGvfvEKaqGJMZMyZoZ4qce+vLa2vhkXYwA38/JL4vs1YjLeGJ4XHNp
-	KNX0/5oG11LV8iFIRx1pUCxU6w1/APYO8KBk6wWNSzpQxUxQkrPfka5/VQ4aeA4s7ryFLgHt8RD
-	b5cUHnjkGf/nn85s5zn3ITn9i6YYAqkD4q8gfxfFJp+/gbRQraaNyAbLNBWxNnakpoivzkXQWP5
-	79Ml3aybiRytyLhHyt3ofVoGe8PEbKXPORiWpU/ZCeHcuelixf3+HBwJzDSDSL01ngQlNNwM+YX
-	inTZSu/w/9iTuG9LTJsdwJXaY9EVq22FW1sW0ApfeLhuakLUQyaueNKoTou+YcBfjiFFzi49l1B
-	e0ZAUtzf+70Y9Z8qyW1wdJ4e2vA/rg9PSjocg+YVzpM2XoEoE4St1pbFJOn9jnX7c2GQami1APy
-	+UDhYXXAl/1pYzRhVrkaBTVxaWKO+CeDDxWJY/P6QkiHmUI5NE1aRUDU0gQ+guWwKupnf0K6bFG
-	LQ0t5MxAvxiv2TN4=
-X-Received: by 2002:a17:90a:e187:b0:3ac:77c8:ac29 with SMTP id 98e67ed59e1d1-3ae896f862emr12115163a91.15.1793783517097;
+        d=1e100.net; s=20260707; t=1793783518; x=1794388318;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fWCd6aPQQe5Uc8iRyEMdNtozTg+e5xvHjtU+V9lBEuY=;
+        b=jTDjOtQM2CIPtoihSYNX4jMVAeDdrgt0avriMpeq1S3vyvQGdCAJTmGJgFaqTHRZA1
+         VbaZnl5E/g0PBbU8YfByLMnh9bkeZcXhrzwVmU7OWHPfV2LBMc86ixZvp3YIhy1tCu5w
+         RDPqUR3HzOB2SH8cjx1MmK9w2NLNOSPSf1EfXWIu8TEGfQ2Tl6WFoukI+17nWH2zRTQE
+         jr9Tlz5pxoGca96/nJenO6j4yvzvooZqUt6PWYhz7a7ysjS6uyUIacTF57BgoYv3gXW1
+         9IaXTX3cUErEFzx5T6ua2/xD/T6YX2NaLj/D97cNNN2bTA470+xnKHK5b7u/63QXvk1N
+         WWXA==
+X-Forwarded-Encrypted: i=1; AKwUvByno4mgyx0XljmVMdpOYCPnegQHqhXTecDUKx2ngUvmrKiTSICWc946H3CY4VnTexLUni8W5G/6Uwi/5yA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+j7AGZSB+hJd71oO8tBy90dk3Tt0NopZx3Y9Rt2IGuVctdKm0c
+	GrCTz+RUU1bHbZxlDQt//e8NIJS6XB6Dmj1J7X24OIPq9B3D+VOAqybu3p3gLB8aRHprRzcfTla
+	3T+5orha8WbmJnTRf9fldhTkAjHJ13UctJ5KQoQ69KFC8L/u3Jn5wwDN9IT5r8pnY/vY=
+X-Gm-Gg: AYBFou1CtJf5RpPiAt2kBc1IHaEHK0jemjyk14eM5zU/7ZSmiVh5rNVw4jrmYczksog
+	Wla0OHA1NdZjhV2nG7/vaZtdBrzDB3OUgdwE7yy01l7T4RH17TrwoMAdsl62MeKhmV0ssJZ8W4B
+	LP1CDhS9U0vhQpN5sd0NngLlNUeK77K65ukH3phlucV9XZf7rSnVQbBiYcqsoDNA2PcZP5jQE6L
+	pWSot5QEi0q37oUoON3yK8nKQTHwXmB+yu+fc8ZcRouz7PC0vNjsvn2kLZWgcsjQaoHtjZrHUs6
+	oSUu1TAgmuB5yb+K4up6WAkJ+l0OWy3SbuNoW/wYLEWVrUexa/WBdPeHpVGTS9fzzcqVPUJ1sIG
+	qUZVO+6z2IV41P33drxFRY0ebuk0lW8pu+cMtaadrKk9YeYlLzT3FuS19mVdG/C8gggoWfpS4in
+	t9lw6nBcCi
+X-Received: by 2002:a17:90b:2711:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3ae89819919mr12545442a91.34.1793783517933;
         Wed, 04 Nov 2026 01:11:57 -0800 (PST)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09369c638sm3167257a91.0.2026.11.04.01.11.53
+X-Received: by 2002:a17:90b:2711:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3ae89819919mr12545422a91.34.1793783517304;
+        Wed, 04 Nov 2026 01:11:57 -0800 (PST)
+Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c896cc6sm8253877a91.9.2026.11.04.01.11.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 04 Nov 2026 01:11:56 -0800 (PST)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: jic23@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v4 0/2] iio: adc: Add Nuvoton MA35D1 EADC support
-Date: Wed,  4 Nov 2026 17:11:34 +0800
-Message-Id: <20261104091136.151269-1-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
+From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Date: Wed, 04 Nov 2026 14:41:37 +0530
+Subject: [PATCH 2/2] drm/panel: Add driver for Novatek NT37802
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,137 +116,679 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
+References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
+In-Reply-To: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jayant Shekhar <jshekhar@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793783500; l=19819;
+ i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
+ bh=jsNsJ8wu4DGIs1bgzdbU1xJUBm3u1le3ghvVll1wnio=;
+ b=8FfcivOd4d1CY/fWyFglNclhvPyCvSXZ2OO+vLtqzESzS57Bkp6Y82/Fg5LOvfqqozMObe8yL
+ wFpqVoMT7QRDMmU6VP3jWLypOU5yeHlL+udO2XseJQpwgNYJQhPfKro
+X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
+ pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNiBTYWx0ZWRfX+R8i6t6XjhQe
+ wY7ZTPrf/0FzcyOtGALqJTo6h2REOhNE85/eedPnOEpO5qKN5Ar+bAx/xQm9CFSQhfKAe6MAR7l
+ BocFj/plPIMRW7DqWqR/cChRTS5HbgU=
+X-Proofpoint-ORIG-GUID: iS8kKJRPED5TfXHTWmxRQ8KXVjTd01Yh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNiBTYWx0ZWRfXzc43uU/RHBSU
+ 0dn1i84zLdT1Srd6h5c3ZV7Y3lbGryXytV4iBnucsg0AmnJJtRQYfFETdTiUBAXyoY93vsboAyp
+ wMbuSpTXz3fBbe+t0NyMlwiVlUauPVDMSIWL6kIbBQkZaGBFiufIYUi9X60tzLBHg0JY2LzCD8A
+ ADHn8Ac0NsuFYvxgKz2V/ViIV9gxooVHLUlLvScEKKn8hvXOf7GVJOa36082TR6RINNilr4yjtj
+ 3q6iZh7gTpD18ARjd9xexT0c2fPTe9hJT1YfU3HTNmoqPYgf32f8NxFqS1CNn3ho0vj6plk8xRr
+ rFOZhyHfge5h0dcDbGDQs3jIg++owDO0sv/qHGSUWmEotz5Y9dIGAvCAauQiPErLu7qKXj9FOI6
+ SYxzehYWEjl/O2/J3ba4us1QyMpkTCYawyT/eaAtuSAfATH+DlELwTgvGG8zcaIm+EIw4MewKUf
+ lay+ZWEyPj37mF4UpgA==
+X-Proofpoint-GUID: iS8kKJRPED5TfXHTWmxRQ8KXVjTd01Yh
+X-Authority-Analysis: v=2.4 cv=T94Z3PKQ c=1 sm=1 tr=0 ts=6aeaf6df cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=Jp0wMGyhIy9Y1b2Y_SgA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040036
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
+Add a DRM panel driver for the Novatek NT37802 AMOLED DSI command-mode
+panel used on the Maili/Pebble platform with a CSOT module.
 
-This series adds IIO support for the Enhanced Analog-to-Digital
-Converter (EADC) found on Nuvoton MA35D1 SoCs.
+The panel runs at 1440x3200@120Hz over four DSI lanes and uses DSC
+1.2 compression. The driver supports a reset GPIO and exposes DCS
+brightness control.
 
-The EADC provides eight external analog inputs which may be used as
-single-ended inputs or as four fixed differential pairs: 0-4, 1-5,
-2-6 and 3-7.
+Enable the driver as a module in the arm64 defconfig.
 
-The initial driver supports direct conversion and triggered buffered
-capture using sample module 0. Although the hardware provides multiple
-sample modules, this version of the driver uses only sample module 0
-and therefore supports one active voltage channel per buffered scan.
+Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+---
+ arch/arm64/configs/defconfig                  |   1 +
+ drivers/gpu/drm/panel/Kconfig                 |  16 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt37802.c | 544 ++++++++++++++++++++++++++
+ 4 files changed, 562 insertions(+)
 
-The series is based on Linux v7.4-rc1.
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 7b4985b29b21..46ae547d3f8f 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1036,6 +1036,7 @@ CONFIG_DRM_PANEL_MANTIX_MLAF057WE51=m
+ CONFIG_DRM_PANEL_NOVATEK_NT36672A=m
+ CONFIG_DRM_PANEL_NOVATEK_NT36672E=m
+ CONFIG_DRM_PANEL_NOVATEK_NT37801=m
++CONFIG_DRM_PANEL_NOVATEK_NT37802=m
+ CONFIG_DRM_PANEL_RAYDIUM_RM67191=m
+ CONFIG_DRM_PANEL_RAYDIUM_RM692E5=m
+ CONFIG_DRM_PANEL_RENESAS_R63419=m
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 7a520b4d60fe..0f94915ee0fd 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -746,6 +746,22 @@ config DRM_PANEL_NOVATEK_NT37801
+ 	  NT37810) AMOLED DSI Video Mode LCD panel module with 1440x3200
+ 	  resolution.
+ 
++config DRM_PANEL_NOVATEK_NT37802
++	tristate "Novatek NT37802 AMOLED DSI command-mode panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on GPIOLIB
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DSC_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_KMS_HELPER
++	help
++	  Say Y here to enable support for the Novatek NT37802 AMOLED
++	  DSI command-mode panel used with the CSOT module on the
++	  Maili/Pebble platform. The panel has a 1440x3200 resolution
++	  and uses DSC 1.2 compression, with DCS brightness control.
++	  To compile this driver as a module, choose M here.
++
+ config DRM_PANEL_NOVATEK_NT39016
+ 	tristate "Novatek NT39016 RGB/SPI panel"
+ 	depends on OF && SPI
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index da5175909d54..b9cbbf5a9184 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -71,6 +71,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
++obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37802) += panel-novatek-nt37802.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT51021) += panel-novatek-nt51021.o
+ obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37802.c b/drivers/gpu/drm/panel/panel-novatek-nt37802.c
+new file mode 100644
+index 000000000000..632520f04ffa
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-novatek-nt37802.c
+@@ -0,0 +1,544 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Novatek NT37802 AMOLED DSI command-mode panel.
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++#include <video/mipi_display.h>
++
++struct nt37802_cmd {
++	u8 len;
++	u8 data[32];
++};
++
++#define NT37802_CMD(...) \
++	{ .len = sizeof((u8[]){ __VA_ARGS__ }), .data = { __VA_ARGS__ } }
++
++struct novatek_nt37802 {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct drm_dsc_config dsc;
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data *supplies;
++	bool prepared;
++	bool enabled;
++};
++
++enum nt37802_supply {
++	NT37802_SUPPLY_VDDIO,
++	NT37802_SUPPLY_VDD,
++	NT37802_SUPPLY_VCI,
++	NT37802_SUPPLY_EXVDD,
++};
++
++static const struct regulator_bulk_data novatek_nt37802_supplies[] = {
++	[NT37802_SUPPLY_VDDIO] = { .supply = "vddio", .init_load_uA = 154000 },
++	[NT37802_SUPPLY_VDD] = { .supply = "vdd", .init_load_uA = 220000 },
++	[NT37802_SUPPLY_VCI] = { .supply = "vci", .init_load_uA = 10000 },
++	[NT37802_SUPPLY_EXVDD] = { .supply = "exvdd" },
++};
++
++static int novatek_nt37802_set_supply_voltages(struct novatek_nt37802 *ctx)
++{
++	int ret;
++
++	ret = regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDDIO].consumer,
++				    1800000, 2000000);
++	if (ret)
++		return ret;
++
++	ret = regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDD].consumer,
++				    1100000, 1950000);
++	if (ret)
++		return ret;
++
++	return regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VCI].consumer,
++				     3000000, 3544000);
++}
++
++static int novatek_nt37802_enable_supplies(struct novatek_nt37802 *ctx)
++{
++	int ret;
++
++	ret = regulator_enable(ctx->supplies[NT37802_SUPPLY_VDDIO].consumer);
++	if (ret)
++		return ret;
++
++	msleep(20);
++
++	ret = regulator_enable(ctx->supplies[NT37802_SUPPLY_VDD].consumer);
++	if (ret)
++		goto disable_vddio;
++
++	ret = regulator_enable(ctx->supplies[NT37802_SUPPLY_VCI].consumer);
++	if (ret)
++		goto disable_vdd;
++
++	ret = regulator_enable(ctx->supplies[NT37802_SUPPLY_EXVDD].consumer);
++	if (ret)
++		goto disable_vci;
++
++	msleep(20);
++
++	return 0;
++
++disable_vci:
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_VCI].consumer);
++disable_vdd:
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_VDD].consumer);
++disable_vddio:
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_VDDIO].consumer);
++
++	return ret;
++}
++
++static void novatek_nt37802_disable_supplies(struct novatek_nt37802 *ctx)
++{
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_EXVDD].consumer);
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_VCI].consumer);
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_VDD].consumer);
++	regulator_disable(ctx->supplies[NT37802_SUPPLY_VDDIO].consumer);
++}
++
++static inline struct novatek_nt37802 *
++to_novatek_nt37802(struct drm_panel *panel)
++{
++	return container_of(panel, struct novatek_nt37802, panel);
++}
++
++static const struct nt37802_cmd nt37802_init_cmds[] = {
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x08),
++	NT37802_CMD(0xc1, 0x8e, 0xff, 0xee, 0xff, 0xff, 0xee, 0xff,
++		    0xff, 0xee, 0xff, 0xff, 0xee, 0xff, 0xff, 0xee,
++		    0xff, 0xff, 0xff, 0x7f, 0xff, 0x0e, 0xff),
++	NT37802_CMD(0x6f, 0x20),
++	NT37802_CMD(0xc1, 0x3f, 0xfd, 0xff),
++	NT37802_CMD(0x6f, 0x23),
++	NT37802_CMD(0xc1, 0x0e, 0xff, 0xee, 0xff, 0xff, 0xee, 0xff,
++		    0xff, 0xee, 0xff, 0xff, 0xee, 0xff, 0xff, 0xee,
++		    0xff, 0xff, 0xdf, 0x7f, 0x11),
++	NT37802_CMD(0x2a, 0x00, 0x00, 0x05, 0x9f),
++	NT37802_CMD(0x2b, 0x00, 0x00, 0x0c, 0x7f),
++	NT37802_CMD(0x90, 0x03, 0x43),
++	NT37802_CMD(0x91, 0xab, 0xa8, 0x00, 0x14, 0xc2, 0x00, 0x02,
++		    0x68, 0x02, 0x2e, 0x00, 0x0a, 0x05, 0x0e, 0x03, 0xd1, 0x10, 0xf0),
++	NT37802_CMD(0x35, 0x00),
++	NT37802_CMD(0x51, 0x0f, 0xff),
++	NT37802_CMD(0x6f, 0x04),
++	NT37802_CMD(0x51, 0x0f, 0xff),
++	NT37802_CMD(0x53, 0x20),
++	NT37802_CMD(0x6f, 0x01),
++	NT37802_CMD(0x8b, 0x00),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x04),
++	NT37802_CMD(0xc0, 0x20),
++	NT37802_CMD(0x8c, 0x00, 0x00, 0x11),
++	NT37802_CMD(0xff, 0xaa, 0x55, 0xa5, 0x81),
++	NT37802_CMD(0x6f, 0x21),
++	NT37802_CMD(0xf5, 0x03),
++	NT37802_CMD(0x6f, 0x43),
++	NT37802_CMD(0xf5, 0x01, 0x02, 0x01, 0x04, 0x00, 0x01, 0x02, 0x00,
++		    0x00, 0x00, 0x43, 0x02, 0x00, 0x00, 0x10, 0x00, 0x00, 0x10,
++		    0x05, 0x00, 0x11, 0x31, 0x12, 0x11),
++	NT37802_CMD(0x6f, 0x1d),
++	NT37802_CMD(0xfb, 0x64, 0x07, 0x80),
++	NT37802_CMD(0x6f, 0x07),
++	NT37802_CMD(0xfc, 0x04),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x01),
++	NT37802_CMD(0x6f, 0x02),
++	NT37802_CMD(0xd6, 0x03),
++	NT37802_CMD(0xff, 0xaa, 0x55, 0xa5, 0x84),
++	NT37802_CMD(0x6f, 0x9a),
++	NT37802_CMD(0xf3, 0x0f),
++	NT37802_CMD(0x6f, 0x02),
++	NT37802_CMD(0x2f, 0x32),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x03),
++	NT37802_CMD(0xc8, 0x01, 0xff, 0xfb),
++	NT37802_CMD(0xff, 0xaa, 0x55, 0xa5, 0x80),
++	NT37802_CMD(0x6f, 0x22),
++	NT37802_CMD(0xfe, 0x06),
++	NT37802_CMD(0x6d, 0x00),
++	NT37802_CMD(0x68, 0x20),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x00),
++	NT37802_CMD(0x6f, 0x31),
++	NT37802_CMD(0xc0, 0x01, 0x00),
++	NT37802_CMD(0x6f, 0x35),
++	NT37802_CMD(0xc0, 0x23, 0x20),
++	NT37802_CMD(0x6f, 0x01),
++	NT37802_CMD(0x5f, 0x40),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x00),
++	NT37802_CMD(0x6f, 0x78),
++	NT37802_CMD(0xb0, 0x11, 0x00, 0x2a, 0x00, 0xc2, 0x01, 0xda, 0x03, 0x7c,
++		    0x05, 0xb1, 0x08, 0x80, 0x0b, 0xee, 0x0f, 0xff,
++		    0x05, 0x55, 0x05, 0x56, 0x05, 0x55),
++	NT37802_CMD(0x6f, 0x6f),
++	NT37802_CMD(0xb0, 0x02, 0xd0, 0x05, 0xa0, 0x02, 0xd0),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x03),
++	NT37802_CMD(0x6f, 0x04),
++	NT37802_CMD(0xc7, 0xfd),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x00),
++	NT37802_CMD(0xc7, 0x33),
++	NT37802_CMD(0xa3, 0x83, 0x01, 0x9b, 0x01, 0x9b, 0x02, 0x00, 0xc0, 0x09, 0x09, 0x00),
++	NT37802_CMD(0x6f, 0x53),
++	NT37802_CMD(0xa3, 0x02, 0x00, 0xc0, 0x09, 0x09, 0x55),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x00),
++	NT37802_CMD(0xb5, 0x80, 0x02, 0x38, 0xc8, 0x00, 0x00, 0xff, 0x0c,
++		    0x60, 0x00, 0x00, 0x00, 0x0c, 0x60, 0x00, 0x00),
++	NT37802_CMD(0x6f, 0x10),
++	NT37802_CMD(0xb5, 0x00, 0x60, 0x60, 0x60, 0x60, 0x60, 0x00, 0x00,
++		    0x11, 0x2b, 0x00, 0x00, 0x00, 0x11, 0x2b, 0x00),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x00),
++	NT37802_CMD(0x6f, 0x08),
++	NT37802_CMD(0xd5, 0x08),
++	NT37802_CMD(0xd5, 0x4e, 0x10),
++	NT37802_CMD(0x6f, 0x02),
++	NT37802_CMD(0xd5, 0x01),
++	NT37802_CMD(0x6f, 0xd9),
++	NT37802_CMD(0xd5, 0x7f, 0x7f),
++	NT37802_CMD(0x6f, 0x4e),
++	NT37802_CMD(0xd5, 0x02),
++	NT37802_CMD(0x6f, 0x4f),
++	NT37802_CMD(0xd5, 0x05, 0x07),
++	NT37802_CMD(0x6f, 0x52),
++	NT37802_CMD(0xd5, 0x11, 0x02),
++	NT37802_CMD(0x6f, 0x55),
++	NT37802_CMD(0xd5, 0x01),
++	NT37802_CMD(0x6f, 0x56),
++	NT37802_CMD(0xd5, 0x07),
++	NT37802_CMD(0x6f, 0x59),
++	NT37802_CMD(0xd5, 0x70),
++	NT37802_CMD(0x6f, 0x5c),
++	NT37802_CMD(0xd5, 0x03),
++	NT37802_CMD(0x6f, 0x5d),
++	NT37802_CMD(0xd5, 0x02, 0x03, 0x07),
++	NT37802_CMD(0x6f, 0x63),
++	NT37802_CMD(0xd5, 0x08, 0x60, 0x07),
++	NT37802_CMD(0x6f, 0x69),
++	NT37802_CMD(0xd5, 0x01),
++	NT37802_CMD(0x6f, 0x6a),
++	NT37802_CMD(0xd5, 0x07),
++	NT37802_CMD(0x6f, 0x70),
++	NT37802_CMD(0xd5, 0x16),
++	NT37802_CMD(0x6f, 0xb8),
++	NT37802_CMD(0xd5, 0x02),
++	NT37802_CMD(0x6f, 0xb9),
++	NT37802_CMD(0xd5, 0x1c, 0x1f),
++	NT37802_CMD(0x6f, 0xbc),
++	NT37802_CMD(0xd5, 0x5d, 0x02),
++	NT37802_CMD(0x6f, 0xbf),
++	NT37802_CMD(0xd5, 0x01),
++	NT37802_CMD(0x6f, 0xc0),
++	NT37802_CMD(0xd5, 0x1f),
++	NT37802_CMD(0x6f, 0xc3),
++	NT37802_CMD(0xd5, 0x00),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x01),
++	NT37802_CMD(0x6f, 0x04),
++	NT37802_CMD(0xb2, 0x30),
++	NT37802_CMD(0x6f, 0x25),
++	NT37802_CMD(0xd8, 0x30),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x00),
++	NT37802_CMD(0x6f, 0xd1),
++	NT37802_CMD(0xd5, 0x13),
++	NT37802_CMD(0x6f, 0xd2),
++	NT37802_CMD(0xd5, 0x56),
++	NT37802_CMD(0x6f, 0x03),
++	NT37802_CMD(0xb5, 0x35),
++	NT37802_CMD(0xf0, 0x55, 0xaa, 0x52, 0x08, 0x01),
++	NT37802_CMD(0x6f, 0x04),
++	NT37802_CMD(0xb2, 0x20),
++};
++
++static void novatek_nt37802_set_reset(struct novatek_nt37802 *ctx, int value)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, value);
++}
++
++static void novatek_nt37802_reset(struct novatek_nt37802 *ctx)
++{
++	novatek_nt37802_set_reset(ctx, 0);
++	usleep_range(10000, 11000);
++	novatek_nt37802_set_reset(ctx, 1);
++	usleep_range(10000, 11000);
++	novatek_nt37802_set_reset(ctx, 0);
++	usleep_range(10000, 11000);
++	/* qcom,platform-reset-gpio-release-delay */
++	msleep(120);
++}
++
++static int novatek_nt37802_write_init(struct novatek_nt37802 *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(nt37802_init_cmds); i++)
++		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx,
++						nt37802_init_cmds[i].data,
++						nt37802_init_cmds[i].len);
++
++	return dsi_ctx.accum_err;
++}
++
++static int novatek_nt37802_prepare(struct drm_panel *panel)
++{
++	struct novatek_nt37802 *ctx = to_novatek_nt37802(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++	struct drm_dsc_picture_parameter_set pps;
++	int ret;
++
++	if (ctx->prepared)
++		return 0;
++
++	ret = novatek_nt37802_enable_supplies(ctx);
++	if (ret)
++		return ret;
++
++	novatek_nt37802_reset(ctx);
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	ret = novatek_nt37802_write_init(ctx);
++	if (ret) {
++		novatek_nt37802_set_reset(ctx, 1);
++		novatek_nt37802_disable_supplies(ctx);
++		return ret;
++	}
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
++	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
++	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
++	if (dsi_ctx.accum_err) {
++		novatek_nt37802_set_reset(ctx, 1);
++		novatek_nt37802_disable_supplies(ctx);
++		return dsi_ctx.accum_err;
++	}
++
++	ctx->prepared = true;
++	return 0;
++}
++
++static int novatek_nt37802_enable(struct drm_panel *panel)
++{
++	struct novatek_nt37802 *ctx = to_novatek_nt37802(panel);
++
++	if (!ctx->prepared)
++		return -EPERM;
++
++	if (ctx->enabled)
++		return 0;
++
++	ctx->enabled = true;
++	return 0;
++}
++
++static int novatek_nt37802_disable(struct drm_panel *panel)
++{
++	struct novatek_nt37802 *ctx = to_novatek_nt37802(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	if (!ctx->enabled)
++		return 0;
++
++	/* The off sequence sends display-off in HS mode, then waits 10 ms. */
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 10);
++
++	ctx->enabled = false;
++	return dsi_ctx.accum_err;
++}
++
++static int novatek_nt37802_unprepare(struct drm_panel *panel)
++{
++	struct novatek_nt37802 *ctx = to_novatek_nt37802(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	if (!ctx->prepared)
++		return 0;
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	/* Assert the active-low reset after the downstream sleep delay. */
++	novatek_nt37802_set_reset(ctx, 1);
++	ctx->prepared = false;
++	novatek_nt37802_disable_supplies(ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static const struct drm_display_mode novatek_nt37802_mode = {
++	/* (1440 + 32 + 16 + 32) * (3200 + 16 + 2 + 48) * 120 Hz */
++	.clock = (1440 + 32 + 16 + 32) * (3200 + 16 + 2 + 48) * 120 / 1000,
++	.hdisplay = 1440,
++	.hsync_start = 1440 + 32,
++	.hsync_end = 1440 + 32 + 16,
++	.htotal = 1440 + 32 + 16 + 32,
++	.vdisplay = 3200,
++	.vsync_start = 3200 + 16,
++	.vsync_end = 3200 + 16 + 2,
++	.vtotal = 3200 + 16 + 2 + 48,
++	.width_mm = 74,
++	.height_mm = 156,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static int novatek_nt37802_get_modes(struct drm_panel *panel,
++				     struct drm_connector *connector)
++{
++	return drm_connector_helper_get_modes_fixed(connector,
++						    &novatek_nt37802_mode);
++}
++
++static const struct drm_panel_funcs novatek_nt37802_panel_funcs = {
++	.prepare = novatek_nt37802_prepare,
++	.enable = novatek_nt37802_enable,
++	.disable = novatek_nt37802_disable,
++	.unprepare = novatek_nt37802_unprepare,
++	.get_modes = novatek_nt37802_get_modes,
++};
++
++static int novatek_nt37802_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++
++	return mipi_dsi_dcs_set_display_brightness_large(dsi,
++							backlight_get_brightness(bl));
++}
++
++static const struct backlight_ops novatek_nt37802_bl_ops = {
++	.update_status = novatek_nt37802_bl_update_status,
++};
++
++static struct backlight_device *
++novatek_nt37802_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 4095,
++		.max_brightness = 4095,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &novatek_nt37802_bl_ops, &props);
++}
++
++static void novatek_nt37802_init_dsc(struct novatek_nt37802 *ctx)
++{
++	struct drm_dsc_config *dsc = &ctx->dsc;
++
++	dsc->dsc_version_major = 1;
++	dsc->dsc_version_minor = 2;
++	dsc->bits_per_component = 8;
++	dsc->bits_per_pixel = 8 << 4;
++	dsc->block_pred_enable = true;
++	dsc->slice_width = 720;
++	dsc->slice_height = 20;
++	dsc->slice_count = 2;
++}
++
++static int novatek_nt37802_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct novatek_nt37802 *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct novatek_nt37802, panel,
++				   &novatek_nt37802_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	ret = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(novatek_nt37802_supplies),
++					    novatek_nt37802_supplies,
++					    &ctx->supplies);
++	if (ret)
++		return ret;
++
++	ret = novatek_nt37802_set_supply_voltages(ctx);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to set regulator voltages\n");
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset GPIO\n");
++
++	novatek_nt37802_init_dsc(ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
++			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++	ctx->panel.prepare_prev_first = true;
++
++	ctx->panel.backlight = novatek_nt37802_create_backlight(dsi);
++	if (IS_ERR(ctx->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++				     "Failed to create backlight\n");
++
++	dsi->dsc = &ctx->dsc;
++	drm_panel_add(&ctx->panel);
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		drm_panel_remove(&ctx->panel);
++		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
++	}
++
++	return 0;
++}
++
++static void novatek_nt37802_remove(struct mipi_dsi_device *dsi)
++{
++	struct novatek_nt37802 *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id novatek_nt37802_of_match[] = {
++	{ .compatible = "novatek,nt37802" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, novatek_nt37802_of_match);
++
++static struct mipi_dsi_driver novatek_nt37802_driver = {
++	.probe = novatek_nt37802_probe,
++	.remove = novatek_nt37802_remove,
++	.driver = {
++		.name = "panel-novatek-nt37802",
++		.of_match_table = novatek_nt37802_of_match,
++	},
++};
++module_mipi_dsi_driver(novatek_nt37802_driver);
++
++MODULE_AUTHOR("Jayant Shekhar <jshekhar@oss.qualcomm.com>");
++MODULE_DESCRIPTION("Panel driver for the Novatek NT37802 AMOLED DSI panel");
++MODULE_LICENSE("GPL");
 
-Changes in v4:
-- Use the common ADC diff-channels property to describe differential
-  inputs and keep reg as the logical channel index.
-- Restrict differential inputs to the four hardware-supported pairs.
-- Restrict channel child nodes to the ADC properties supported by the
-  MA35D1 EADC.
-- Prevent single-channel and diff-channels from being specified
-  together.
-- Document that each single-ended input and differential input pair
-  may be described only once.
-- Remove interrupt-names and simplify the interrupt descriptions.
-- Update the binding example to demonstrate separation of the logical
-  channel index from the physical ADC inputs.
-- Update channel parsing to match the revised binding semantics.
-- Store physical ADC inputs in the IIO channel/channel2 fields and use
-  address for the logical DT channel index.
-- Reject duplicate physical single-ended inputs and differential input
-  pairs.
-- Use the physical positive input when programming the sample-module
-  channel selection and the logical index for firmware-node channel
-  translation.
-- Use interrupt index 0 instead of looking up ADINT0 by name.
-- Add the standard one-hot scan-mask validation callback.
-- Use iio_for_each_active_channel() when selecting the buffered
-  channel.
-- Use a fixed scan structure for the single-channel buffered layout.
-- Limit conversion results to the 12-bit ADC data width.
-- Always report -ETIMEDOUT when a conversion times out.
-- Make timeout recovery best effort so interrupt disable, control reset,
-  IRQ synchronization and stale status cleanup are all attempted even
-  if an earlier recovery step fails.
-- Use devm_regulator_get_enable_read_voltage() for the optional
-  external reference supply.
-- Rework clock management to explicitly balance prepare/enable state
-  across probe, suspend, resume, error paths and driver teardown.
-- Improve suspend and resume error-path handling.
-- Remove the redundant explicit REGCACHE_NONE setting.
-- Split interrupt status read failures from interrupt-source checks and
-  handle failures when clearing the interrupt status.
-- Use symbolic definitions for the ADC resolution and differential
-  scale width.
-- Use cleanup guards for mutex handling in buffered capture and keep
-  trigger notification outside the locked section.
-- Use more specific error codes for channel capacity, duplicate channel
-  definitions and out-of-range physical inputs.
-- Apply the requested regmap, control-flow and coding-style cleanups.
-
-Changes in v3:
-- Document all four ADINT0 through ADINT3 hardware interrupt outputs and
-  add interrupt-names.
-- Document ADINT3 as the shared conversion and result-compare interrupt
-  output.
-- Remove the redundant minItems/maxItems constraints from the fixed
-  interrupts items list.
-- Rework the channel binding for the fixed differential pairs and use
-  single-channel for single-ended inputs.
-- Add #io-channel-cells so the EADC can be referenced by DT IIO
-  consumers, and define the cell as the logical channel index.
-- Add firmware-node channel translation so sparse or reordered channel
-  child nodes are mapped by their logical channel index.
-- Restrict unsupported generic ADC channel properties including bipolar,
-  common-mode-channel, settling-time-us and oversampling-ratio.
-- Explicitly configure INTPOS for end-of-conversion interrupt
-  generation.
-- Explicitly configure the ADINT0 sample-module source and clear unused
-  sample-module routing.
-- Reset the EADC control circuits during hardware initialization and
-  clear inherited ADC interrupt enables, result-compare interrupt
-  enables and sample-module trigger sources.
-- Add timeout recovery using the EADC control-circuit reset, followed by
-  IRQ synchronization and stale status/completion cleanup.
-- Use iio_push_to_buffers_with_ts() for triggered buffered capture.
-- Avoid mixing cleanup guards with goto paths in the trigger handler.
-- Add ARCH_MA35 || COMPILE_TEST and HAS_IOMEM Kconfig dependencies.
-- Drop redundant linux/bitops.h and linux/mod_devicetable.h includes.
-- Use direct regmap helpers, explicit REGCACHE_NONE and
-  regmap_assign_bits() where appropriate.
-- Use fixed-width register offsets and kernel time/unit helpers.
-- Use size_add() for channel array allocation.
-- Request ADINT0 by interrupt name.
-- Improve system suspend and resume handling.
-- Address review comments from Jonathan Cameron, Rob Herring,
-  Andy Shevchenko, Uwe Kleine-König and automated review/testing.
-
-Changes in v2:
-- Reworked the driver to use regmap.
-- Added optional external reference supply support and IIO scale
-  reporting.
-- Added optional reset handling.
-- Added externally triggered buffered capture.
-- Added signed differential conversion handling.
-- Added fixed differential-pair validation.
-- Added system sleep support.
-- Added optional DMA properties to the binding.
-
-Patch 1 adds the devicetree binding.
-Patch 2 adds the IIO driver.
-
-Chi-Wen Weng (2):
-  dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-  iio: adc: Add Nuvoton MA35D1 EADC driver
-
- .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 163 ++++
- drivers/iio/adc/Kconfig                       |  14 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/ma35d1_eadc.c                 | 912 ++++++++++++++++++
- 4 files changed, 1090 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
- create mode 100644 drivers/iio/adc/ma35d1_eadc.c
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.25.1
+2.43.0
 
