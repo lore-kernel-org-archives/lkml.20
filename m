@@ -1,68 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802729;
-	b=I9Thh7UvT8njzFBU/r5Y2QVtYKdGXg++SbzqUd3zpALD9t1SuUGhoifDe6apPnY6cUMs
-	 bFpMFVXUO1XJMZe18TtoXzrbb8Bh1IllBV1ZNvnTVuNu0sGj5lavVXc8K1k3r4OctU4vh
-	 Q+7RWAO6Xxcbz5CF8N3zctx92QUo2/dKSwP36kwKE9JamWwjPxUhttqzkA9Vu0W8+pWPN
-	 3Csm06sWDy29Rh/BwqG2chDghhfIVypkerSPrdroTStQA24dL5mpAznES86U0y9UOxD8n
-	 n1kE39rxPr6nfuSUplZZwLbXTY5Du43O40k+WwhPFYYreoCUGO0s253tZGw34BnvvAQ==
+	t=1793802740;
+	b=ag4rKIi/7eLaYvqOl+rn27tY/HsTt7q1xSWxw6sAGz+L5FE8UCOlwtt0jp4jQX2DB6Ht
+	 WxxiGJq3g2/Z/4K2rKBuf1LugSyHjImuiwtV8KXC2SfpHWm8RRmgJ8rnvI1jKZgnjIb7/
+	 jnFpE6QvvkGWf34rs2Gj9KzWncNPtoFZAesRraKFTg7xXr/Zs5dcxVBCWDL7ULG+sGG4y
+	 ZHuXr1ZxRyAlcBfPLOj5VRRaOiIqGjHrlzPwv+TWDTpDDnRXNjXmFmBXX28mSXIxUJgul
+	 fMeZKKCUA5ahO0O6Exy+UbfxxDkBl9+M1WGgfgAFAQ0j515EoqQ3gm0B2pbF/KADtyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802729;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=ensURHApHSqZx6uOyzhFmn+kTScsXcNRPyYQC1uz1CU=;
-	b=q0Ed9WAg/MWpG5hVIy9VRf0OBT8NpuhMRoAzPk56AE3qKBmTZ9mdGTJoVeraj14GVNvl
-	 tCcj2tdCsVS56l7w/BXRA7bwP84ejOfy0zQXwPYiMuLfjVfdKVI9lR9OGrXfuf/0SD6rP
-	 dyWhsUPb7SILMLj62KE8eF/Ikwdi8HU8Vj795j2K1VRgRH6ry+vYfxP4zqYvpECMWDjMC
-	 lObghlvuZqjIoGyxpea/WFwFGMA6Y83YCwdjrc5lSrAQiDe5P/ubHmWSXuMYs44rjmDf0
-	 lwHCWh7NZLoM7FYXYSNg5IVmAU0uCoad3qmJG1Y/P80FYus05g803GQvKPQ3llmp4Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802740;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=ruu8JrnBwogLTne/D6uuGsufWUgVImMj+eWmulfcz+E=;
+	b=RMSW4ogePJdt5aLCe+UwtRS41mxUGyMLbKxcDXmzs8G+IHkyPcwovnTHm+w8OCl2nxoE
+	 WDR5pAfZV1HwhNw/SjCeVCRRb+t7aB4G7iF8CO/noN0ncZ8CHMM6IWLWT0h05G1Ld49mH
+	 ARmJJAFaAJu8aSBPRbWDbzQqXJms+q4oPQKbgITdZhWl7z42wUJw6W/C3Mp5GZV+3BI7T
+	 wXwMVmzbohl984L2acAZP6/tKnHV2vYn6aUZtTqxKcGNDn31FXFPH+N0ZQwPFS8RfdPfM
+	 NQYytYa3YUnXmiwhyh5sEkDvQSBvE31Zn8/6R5pij1bMWmQazkhifq/JvenlZqaDzYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TcOpgZef;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WPShMz71;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C56606A326;
-	Wed,  4 Nov 2026 14:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16746606A31B;
+	Wed,  4 Nov 2026 14:32:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16746606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TcOpgZef
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753631F000C1;
-	Wed,  4 Nov 2026 14:32:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793802729;
-	bh=ensURHApHSqZx6uOyzhFmn+kTScsXcNRPyYQC1uz1CU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=TcOpgZefoJQDj0LMKZN2iBGkvhXFOXPKKWcv/EELG3wUHGxyUFmCRM1ItUL21vHPU
-	 NL30EdFERhZSC/XY5znlGdQMZm3hLLB8tDKOgM7sntuTcodKpH25Nl4e8MahputugX
-	 iGMxROzfrdCI5MWnXSfHTdb6BnKnjgcxrpA7aF11iws3kFyfpO2J9N2x0jW5LvDTHw
-	 1Las9U1zCRWFyJBh+l9Tz6tJ6e3xFAroBm5WNtxAiFB2PQC4jsJo5mfffKhohxhdco
-	 VgFwwZhMbiGRqPCJ/D1rhtDZiR9/MTBL0jU1idXwszX9SprqNES9MFPDmEX9CyJneA
-	 hXNHIUwLK6FZw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org,  linux-doc@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,
-  linux-mm@kvack.org,  Alexander Graf <graf@amazon.com>,  Andrew Morton
- <akpm@linux-foundation.org>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
-  Christian Brauner <brauner@kernel.org>,  David Hildenbrand
- <david@kernel.org>,  Hugh Dickins <hughd@google.com>,  Jonathan Corbet
- <corbet@lwn.net>,  "Liam R. Howlett" <liam@infradead.org>,  Lorenzo
- Stoakes <ljs@kernel.org>,  Michal Hocko <mhocko@suse.com>,  Mike Rapoport
- <rppt@kernel.org>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
- Yadav <pratyush@kernel.org>,  Randy Dunlap <rdunlap@infradead.org>,
-  Samiullah Khawaja <skhawaja@google.com>,  Shuah Khan
- <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
-  Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v3 05/10] liveupdate: Don't WARN if tracking a retrieved
- file fails
-In-Reply-To: <20261103010216.3447716-6-dmatlack@google.com> (David Matlack's
-	message of "Tue, 3 Nov 2026 01:02:11 +0000")
-References: <20261103010216.3447716-1-dmatlack@google.com>
-	<20261103010216.3447716-6-dmatlack@google.com>
-Date: Wed, 04 Nov 2026 15:32:04 +0100
-Message-ID: <2vxzmrrok6qj.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WPShMz71
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ruu8JrnBwogLTne/D6uuGsufWUgVImMj+eWmulfcz+E=; b=WPShMz71Ub0ru03Q+/16XtsIp3
+	hFwUkwg6C46KgyjigFTJ3sWDX+t8VOtxv9XebZasMzS/SEqjE5XsuSQHHqOo+SVtNX7qrmmNd1D44
+	w0HDiJiRJUKPqPXx3LYdBvWmk+tJfvWU0L1DmaJbPdiQQGpm11EWCRDRo6dz4WdfEcKaV8kLvD3Ib
+	s78Yn32GD37QQrlisZD4u+EHy629/zWbdwVy8IlFBOgeF6u0/eUl4gHkAjbWRUoS1+iLt0ebNvuv/
+	E+0MDABf8vf5iLPZfw7+vpeSTCghHpivz48qTgyV9lwHZbh4CPQUHe2XtlYS01Wll2Qjmgji8JMZ3
+	5DAPZMsQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOc2C-00000009glu-2ihC;
+	Wed, 04 Nov 2026 14:32:16 +0000
+Date: Wed, 4 Nov 2026 14:32:16 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: me@bobcopeland.com, akpm@linux-foundation.org,
+	linux-karma-devel@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] omfs: reject writes starting beyond EOF
+Message-ID: <autB8H-rCbbeTdF0@casper.infradead.org>
+References: <20261104112052.5604-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,70 +65,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104112052.5604-1-dennylin0707@gmail.com>
 
-On Tue, Nov 03 2026, David Matlack wrote:
+On Wed, Nov 04, 2026 at 11:20:52AM +0000, Hungyu Lin wrote:
+> OMFS does not initialize gaps between EOF and a buffered write. When the
+> requested block lies beyond the allocated extents, omfs_get_block() grows
+> the last extent and maps the write to the newly allocated block without
+> accounting for the skipped logical blocks.
+> 
+> A one-byte pwrite() at offset 8192 into an empty file returns success, as
+> does fsync(), but after remounting the byte is at offset 0 and offset 8192
+> reads as zero.
+> 
+> Reject writes starting beyond i_size before block_write_begin() can
+> allocate or map buffers. Overwrites, appends and writes crossing EOF
+> remain allowed. Gap initialization can be implemented separately.
 
-> Handle a failure to add a retrieved file to luo_preserved_files instead
-> of triggering a WARN_ON(). Make the failure permanent, and keep the file
-> until the file set is finished, like any other retrieved file.
->
-> xa_insert() can fail with -ENOMEM, and userspace can trigger that with
-> LIVEUPDATE_SESSION_RETRIEVE_FD, so warning about it lets userspace crash
-> systems with panic_on_warn.
->
-> The handler has already consumed the preserved state when this happens,
-> so the retrieve can't be retried. Keeping the file ensures that its
-> resources are not released before the file set is finished. Finishing
-> the file set then erases the file from luo_preserved_files, which does
-> nothing for a file that was never added.
->
-> Fixes: 00d0b372374f ("liveupdate: prevent double management of files")
-> Signed-off-by: David Matlack <dmatlack@google.com>
-> Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> ---
->  kernel/liveupdate/luo_file.c | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
->
-> diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-> index 908ae124ea5e..5a82e45b9062 100644
-> --- a/kernel/liveupdate/luo_file.c
-> +++ b/kernel/liveupdate/luo_file.c
-> @@ -684,14 +684,25 @@ int luo_retrieve_file(struct luo_file_set *file_set, u64 token, u64 arg,
->  		return err;
->  	}
->  
-> +	err = xa_insert(&luo_preserved_files,
-> +			luo_get_id(luo_file->fh, args.file), args.file,
-> +			GFP_KERNEL);
-> +	if (err) {
+Why don't we just delete omfs?
 
-I think you should do a WARN_ON_ONCE(err == -EBUSY) here. Because if
-someone can somehow retrieve the same file twice, something really bad
-has happened and must be reported.
+          This is the proprietary file system used by the Rio Karma music
+          player and ReplayTV DVR
 
-> +		/*
-> +		 * The handler has consumed the preserved state, so the retrieve
-> +		 * can't be retried. Keep the file until the file set is
-> +		 * finished, so that its resources are released at the same
-> +		 * time as those of other retrieved files.
-> +		 */
-> +		luo_file->file = args.file;
-> +		luo_file->retrieve_status = err;
-> +		return err;
-> +	}
-> +
->  	luo_file->file = args.file;
->  	/* Get reference so we can keep this file in LUO until finish */
->  	get_file(luo_file->file);
->  
-> -	WARN_ON(xa_insert(&luo_preserved_files,
-> -			  luo_get_id(luo_file->fh, luo_file->file),
-> -			  luo_file->file, GFP_KERNEL));
-> -
->  	*filep = luo_file->file;
->  	luo_file->retrieve_status = 1;
-
--- 
-Regards,
-Pratyush Yadav
+Rio Karma and ReplayTV were both EOL in 2005.  Let's just delete this
+filesystem.
