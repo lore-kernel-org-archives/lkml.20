@@ -1,94 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804369;
-	b=OIgzRENM6kLGBqPmAyu5/8an/G7QPcv6BkTh7VBGa34Ui8n8CMkxtQUhsXNXMJJ+pH/d
-	 S8+bOBrF9Eu6yGF7R+Wt3e0ogSH9h3NcRndsz/4IftrXHIny5zLKMG0RngzJ/kXZEbfLM
-	 S7HIpaEhJDtr2XwYSUMP4eWr4H+yjoCZDrFvj829dn3g85jnWk67/it4CQd2njOfgMgxk
-	 AcJ7lTG/DkPhX2+wt/azE6eyBY/+UN3+GJB2jTBeJfe2twoutKzi5EA1gALcCtn4gjueG
-	 lk2XjqwdiDFLkFqivuE1WXf9Q2BI+zLamIIp68lrJkt617uIcWeqvYtL3icBvVPtPfg==
+	t=1793804418;
+	b=DCY3BYUs4LX4vYP2aPvfPCPMPC6gu/Fy3OrU7xcNGu2V+iVQyJM75mcKRi3dCzUusfWo
+	 +sxhFuT32WkCrgiT8MbguyP+WGlC18h+EPqFzLRBG8f5UGpxk0HWuGaBHX8EFi3VEveRU
+	 iHLylwtWl2ZH9qSIlb+cEfyBD5+Ua7CNZk3DxPDu2dIDFbt2s1FxoPK4lHuYfOGZKMoku
+	 7/pf8wi1lJ+J1BlzjphyFVFpHropgw0RDK0exOOOGuivoJzAm5G3cPKwUfTepnW2KHhK6
+	 //kxanqvldIx8nQYcAuvQ8Zd2ihRcrXenkSrs7oovD6WY7gLfod51gfHEQzg65pAirA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804369;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=3/ZyrLpO2YrBePg65ZDHqsYDsU9Sy6HHpGp70pYUFOk=;
-	b=miPBdOFluGYoinT9kr/S4iL+pOnbO/tp5pY7UZqPCbtjiOdY7kkDgklg72I1Giszriv5
-	 QZxwk0Gqxgt7B5O5AqyfkA+8R5UYt+zbchGN5PZtBiM79Pt1H6skLLOzPJR67x9fLjKTz
-	 bTP74RSTIduh7wubC86h3R6roiyTuIILCP9yDb4jLJm9Ur6Ma73TtBUygZy9fGT4G30Rc
-	 BH648sM8ZlJ+gGE/Ymj7zhuAgBg/9mKCJukaLgKz/+ZzzAwXSDPiRZbKRbtkZ2VKC3vAl
-	 SR2wcz+Ehbz2x2cm/ZPDeyeZ+n0ijnbKfe846q/W5n+m8cn3kUt/0E9Q6A7ePG6vs8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804418;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=L2TX4jw8nBgVDDi3cr/Q5stFGHBBLzs3q4obJ5FleF8=;
+	b=B2Kz4S53jjiseXt5ew78SF58uGUWRGnhyg6ehldpHJhwuPzLUwtUMDWuWs/YWwznfcAm
+	 G3Qs+wkOPQ3ezwbTclmrJCALDI4uyxJ7Ola3PANycMZQC/q/oveJE+K8UX2ln/LD5eM/y
+	 EwCO2uxxBCX5FKl6bRHJlCyumEyTcmVNbT+VfeKCksYokg0fY0bGxUrnyzTYcJJqORmiG
+	 ES2bg7UCmM1o9kAIqYLw0IySkQTHm9OyIbYDqylnu8RXoQWs4ISE1GbPEI83F8tGyDbqk
+	 mfJoI8pYvhritTQvN3qkKBjIPWmHUELKJTJ0y98wWGfex6hYKtD9nrLJvneXe4NhwoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=lEq8b60o;
-	arc=none smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mdjSfNjz;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB12606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CB12606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B77606A331;
+	Wed,  4 Nov 2026 15:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B77606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=lEq8b60o
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53669f7b518so7777121cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:59:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793804368; x=1794409168; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3/ZyrLpO2YrBePg65ZDHqsYDsU9Sy6HHpGp70pYUFOk=;
-        b=lEq8b60ocutpLxRGePnCFzYel0RtNnge+x8ga4YH7qzBAawsSbf88qMkorjv7NBzeW
-         pEawZmqa/qmeDH7WxV2HXn0YhTnMFIY3eJm7S8V1UWvTa9oIa1c0ovKxQ7oeIFogcZj5
-         rE7ALhD9m83r1G0NIoGoX0dUSQUNEVFIqovuKzcgH5cTOHKJF+pvd6yGC2vLCnsmdnLE
-         QUp4ushRr4OWRo4VLYhOUqy3o/laCUqBlxavtqowtU6VJJnj5uK6QvWQD9DQHjRgPzXA
-         dBzT3IB8Db55QZZ1nG1myJ8TaJps7VBk49kGMlUmtrLsWWTKM6sXllY4fDfu+vOcebG4
-         jdSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793804368; x=1794409168;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3/ZyrLpO2YrBePg65ZDHqsYDsU9Sy6HHpGp70pYUFOk=;
-        b=NmAsyq06ogu+wilr1GV3CLieLze+Vq/ulNDg6+TgLH2VOKW2TIQ2iAV3zWdhufO22F
-         LqVoDtSfbY2CVRICL6E8M+dr4Tfalhv7PxKUPe8gYDLYGUFJRVDRwoTuVwLVetD8LYEJ
-         r2p/u74W5HgS+CrG6PgUYjST6Nv0YNE1aUj6R5XgbgMmxbtxEmmgzRZGnCCUEMnFyrTt
-         XAPg3o4wFBrjpmgjEOFuBxU/eF2e3zu2wNWkS4wfnGM4kv1Q6QxFEY7uvTDX1/tv13PM
-         PJ7/Oq2CbTNAh/9AcUSYNNMckQx8aGc+R2bDbyMhXUzR+yrKdac81JeiuNP0FXCk4X8i
-         FoxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdj7702I9CDdqBpFDzlFz4wN+T5S7ick02VdEQkeTDDxC60qadcNvO0+pSt7cr94XBBEuCdg0Adsyczrk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84yoJD0pIbETSyt6x4jH10ixR14iRRCRw0VtK+mOwHXE+X0j2J
-	txXrd3iqt5hSFipHLu2ZOx1xJPZT1d9bKemwvYFaim5jzVvfUzwVEH63LDS5rfyuLw==
-X-Gm-Gg: AYBFou04okeW2QqDmrprjaW/+rV/bAfhZxN2y9KL/VRw8wjNOCJz+yD+armDnU2m3KH
-	jSjXkkzTjdr2cX5B13Adu3qR0t/DdcmXM7NgyCrd8WOPehIP1wJnCzSBYqgGzjK7oBecy78Q3FJ
-	4DkwapTO34xfJwuLH9GrB6ctRFNC63fnT6OuRh4eYMR4ojBJYbV0gY5m+bmKEo+ZqAO86DsoiAq
-	PpLWfO79mpyVo1eqgcdheLrfT/2FDDlS9cN3++sUUWyQ9g56EnlL4gj0WYdAS3ctdO33BHDSjMN
-	HHjhfXpTdbdf3QUmUkulsieBFtK65SwD868eskJYWpSyUZMtNquW6rsI+CZBxSCdWbDRSYRLG4e
-	GF+1zUByPB0o2asgxgd9GEhC3JWHfBBzUFGFBuCz5xWVLeW7EHcwkjRwfmOxrcU0C44Tvv3okzp
-	81Qqy+Mzc7vI+R1aG7Hog52c5kmWGrbsfo0OjXaIBjfUwfaRgAByTdkBm6NvrYNYgZzKJ+AnSBH
-	wA16WP+SoxS20jbU30HrmFfcLl9ot+R+xFfMjK4x4ONd8HVSvmYgEQWcvdf4Ftup2gCBHEqyyxy
-	BfhTY2IzCpFF927M89iM6zhoA0Id4Q==
-X-Received: by 2002:a05:622a:54f:b0:536:35e1:b5 with SMTP id d75a77b69052e-542b405b141mr275442201cf.1.1793804367929;
-        Wed, 04 Nov 2026 06:59:27 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10c48591sm25768241cf.18.2026.11.04.06.59.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:59:27 -0800 (PST)
-Date: Wed, 4 Nov 2026 09:59:24 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Pengfei Lv <lvpengfei20@huawei.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	xuhaiyang5@hisilicon.com, xuetao09@huawei.com, caiyadong@huawei.com,
-	suzhuangluan@hisilicon.com
-Subject: Re: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
-Message-ID: <b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
-References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mdjSfNjz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=L2TX4jw8nBgVDDi3cr/Q5stFGHBBLzs3q4obJ5FleF8=; b=mdjSfNjzuysfatSV3UV5aMC+2m
+	LLA4mrTdxlRu5ZW7vy8FnbTi08PDsefTmZsYT4HSI5QmxXr6b9kQ6gwpJoP3w2GNCz+3yIzQClEGW
+	MovEpP2TUpGaakLgsn/Opwmj1HaO62nrediWVdWoN4HdC/txEiq40bsbXLoL5HdKtcv4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOcT0-00EL1c-U5; Wed, 04 Nov 2026 15:59:58 +0100
+Date: Wed, 4 Nov 2026 15:59:58 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Stolniceanu, Iustin" <Iustin.Stolniceanu@analog.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Schmitt, Marcelo" <marcelo.schmitt@analog.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Regus, Ciprian" <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 0/5] net: ethernet: adi: adin1110: Add OPEN
+ Alliance TC6 support
+Message-ID: <c1747691-2c2e-4a7a-af04-92c94cb041b2@lunn.ch>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+ <49b292c4-c0e9-4b19-aa4d-d15dd20d25b6@lunn.ch>
+ <IA3PR03MB8453F2E91946AE59A9818B9AF2682@IA3PR03MB8453.namprd03.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,68 +79,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+In-Reply-To: <IA3PR03MB8453F2E91946AE59A9818B9AF2682@IA3PR03MB8453.namprd03.prod.outlook.com>
 
-On Wed, Nov 04, 2026 at 08:44:02PM +0800, Pengfei Lv wrote:
-> Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
-> all device speeds except full-speed devices, where it can be 8, 16,
-> 32, or 64 bytes and can only be determined by reading the device
-> descriptor.  During the initial enumeration of a full-speed device,
-> the USB core guesses 64 bytes (hub_port_init() with initial=true);
-> after reading the descriptor, the real value (e.g. 8) is stored in
-> udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
-> via an Evaluate Context command (xhci_check_maxpacket()).
+On Wed, Nov 04, 2026 at 08:06:56AM +0000, Stolniceanu, Iustin wrote:
+> On Tue, Nov 03, 2026 at 20:49 UTC, Andrew Lunn wrote:
+> > On Tue, Nov 03, 2026 at 06:09:13PM +0200, Iustin Stolniceanu wrote:
+> > > The ADIN1110 supports two SPI host interface protocols: the generic SPI
+> > > protocol, which the adin1110 driver implements today, and the OPEN
+> > > Alliance TC6 protocol. The protocol is selected by the SPI_CFG1 pin,
+> > > which the device latches when it comes out of reset.
+> >
+> > Is it possible to read the status of this pin from a register?
 > 
-> After a port reset (usb_reset_and_verify_device() -> hub_port_init()
-> with initial=false), the "if (initial)" guard added by commit
-> ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") skips the ep0 maxpacket
-> guess block, so udev->ep0.desc.wMaxPacketSize retains the real value
-> (e.g. 8).  The xHCI Reset Device command preserves the ep0 context
-> as well, so the xHC ep0 max_packet also stays at 8.
+> No, not for SPI_CFG1. The ADIN1110 has no register that reports the 
+> SPI_CFG1 level or the selected host protocol.
+
+Seems like a badly thought out hardware design.
+
+> The only way to detect the mode at runtime would be to probe it:
+> read the PHYID register using one framing and fall back to the
+> other if the value does not match. I have not tried that yet, and I
+> am not sure that clocking a transaction in the wrong framing is
+> harmless for the device, so I went with a DT property describing how
+> the board straps the pin.
 > 
-> When the subsequent re-enumeration then uses the "new scheme" and
-> issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
-> xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
-> Context command.  The xHC queues a Data TRB of length 64 but applies
-> ep0 max_packet=8 for short-packet detection.
+> If you would prefer autodetection, I can try it on hardware for V2.
 
-That's exactly what we want it to do.
+Do you have an reference design using a jumper, so you can try all
+combinations? At minimum, it would be good to probe the chip, print an
+error message, and return ENODEV, if the property and the hardware
+don't match.
 
->  If the device's first
-> data packet is exactly 8 bytes and it sends no ZLP, the xHC does not
-> recognise a short packet, keeps issuing IN tokens for the remaining
-> 56 bytes, and the control transfer hangs in the Data stage until URB
-> timeout.
-
-That is the correct behavior.  Indeed, the same issue applies to _any_ 
-64-byte transfer (not just control and not just Get-Descriptor) when the 
-maxpacket value is 8.  If the device sends an 8-byte reply with no ZLP 
-following, the transfer will hang in the data stage.  That's _supposed_ 
-to happen.
-
->  (A standard 18-byte descriptor returned as 8+8+2 is not
-> affected because the final 2-byte packet is a short packet.)
-
-Quite right.  Why wouldn't the device reply with a standard 18-byte 
-descriptor in this situation?
-
-Have you observed this problem in actual testing or is it purely 
-theoretical?
-
-> Fix this by removing the "if (initial)" guard so that the ep0
-> maxpacket size is re-guessed from udev->speed on every reset.  For
-> full-speed devices this re-establishes the 64-byte guess, which makes
-> xhci_check_maxpacket() issue an Evaluate Context command that brings
-> the xHC ep0 context back to max_packet=64 before the GET_DESCRIPTOR
-> data stage; the data stage then terminates correctly via short-packet
-> detection, and the ep0 maxpacket is subsequently corrected to the
-> real value as usual.
-> 
-> For high-speed, low-speed, and SuperSpeed-or-faster devices the
-> re-guess is a no-op (guessed value equals the fixed real value).
-> The descriptor-immutability checks (!initial && maxp0 !=
-> udev->descriptor.bMaxPacketSize0) remain unchanged.
-
-As far as I can see, there is no need to do this.
-
-Alan Stern
+      Andrew
