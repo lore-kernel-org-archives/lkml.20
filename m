@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793752369;
-	b=j9h0mU/n1az2nABRpPkNjZYQY0lYB2WCVgshTYdMwDDe4SSqORtMRWGdf79Af3nr6R4S
-	 9RWxPtGVV8dAKCwdSxuGa/ghlH+2ujc0LDd/gXIync7AZV+uBVVM1JHCGV0xelM+YrpnB
-	 kcUVKgdY/o76DH/zZyuJnIzU2BVaWTn8w3U0y/H27eqasmBy+dNPxGbiLsEL6jtzcxVob
-	 CIpPQeCnRHOOw8U+zsLZyaMEGtIrI5+UhZhrLPmgLHtbRAFTSCcC97ETkhYEstr7m/Ebl
-	 7UpRMbkpvxjK48/iqM52IX/DL3SDRossicUcgY3cLV7Zski5n1jZDEL3jYftMonVG/Q==
+	t=1793752475;
+	b=0ZmQs60M8cvUKLKj+m3EjY7oKKDq44xV/UT0iwAB1mMjGK9PLqW1aE795UrrC6Ulf7Tj
+	 FWGj00WGxjWJc9VMFqpKofF0CO18xKtmU4NpgagzqpDVLQe8bedpiyA2UXJfMuaQp1+Eb
+	 4kIumE4AIRjX01U+UlReX5kaN1hwY0NDHEfYwjGV+t2duNhJWkqoYQZw0Tt/oO22U4bHl
+	 YejrYyvdVqv9Wa54w3hG0WeJat2kOgM/B+aQ0DYjtiyWOHjNjD40kXdTWadQOcFBuzha3
+	 vssjJEhpNdqNFEpaM28sVWjpR04mQN2YrlpCYFyltrKJqWyTDTc4kOxYZIx+kN1iYXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793752369;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ia3DNRbB3tzN83nGHEc/6FKqQVPdb5ypWXD/ZK/mfh0=;
-	b=toqXLRFE8X98NoZ/m9/39pYpCeYNiwDnsr8D5pMjAAHLNevQR2LoDIoWL6emWXYR5PDT
-	 9esUJ81hpU5RhkdfWX2VVGF7BVqOaPbhnSv0rC4w/KZIy6zhy5A0+Yeun9XjvY4Pt+Bep
-	 /SLmkf1ql5l//zOrAqxY62F8Obb25XyEa0soXHzMyayQhcnwoN7ZcB6yVz3KCHUFIADgo
-	 I8bduPl6loZmogiTmugTyH/1bSEfz0x1hPe6t3DKs1RojpO8TMvn9rEDmYbSzdMDbzCiU
-	 AFxMkFM4Jw43jZBilcmh1mv6THD/OgNQQxHQmsTxEM9/PQIYGRoNOY1ih0YsJeCYBlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793752475;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=S/N+F00fZjYK5bQ5EspDDlJ3W88B+dtGIBUElMlMpkk=;
+	b=wvyLhymMZ4dav3eUBZHoYzIDQGQh18vyXhK+gckAv5kVX3yb+ika8HYiGti33IntF0tK
+	 SUEJ+Vsy4hJYFx3Rw+dofIS7vqw7/ezbUjZZDY7o7EXj7+NARJCEW6BvklmT5UW8Qk5xP
+	 npch7d0E9jug5JEl9sexohxyODiVbeS3UMrfz7utvouBnjNMDoMKzlD3eOmGNsoQRQHBD
+	 K3aL6cnSApawOI8LxDEjRCnTwYRfkhwdffvh3mqdXObollGwZrxILYtxNhz+Sv4rKLmhp
+	 PTfJaszpNSI9lYL5vx0m9O6ZATi+ja+DDMGthozc5QgDHJqPYJcAH8i2xW3aY2mf19g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UP76ig4E;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="F/iDtX73";
+	arc=none smtp.remote-ip=216.40.44.14
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA306606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA306606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95FD0606A31B;
+	Wed,  4 Nov 2026 00:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95FD0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UP76ig4E
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a1947498bso250086eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:32:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793752368; x=1794357168; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ia3DNRbB3tzN83nGHEc/6FKqQVPdb5ypWXD/ZK/mfh0=;
-        b=UP76ig4EnqFwzycYT6Ysj7CrOyM18lSpYenIwGvrudZlVBEYEVOcjL3r2Fc3IJ+6O0
-         eK1EL7REDE8e1jnFX+LCIp0kQj1EQfaFFgaE07aLE6y/U1pQGGTJfXSqZ69VUVRblVK/
-         s9xuSzqVqeaPedgUoM8rrEnltNuZstEvDac7s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793752368; x=1794357168;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ia3DNRbB3tzN83nGHEc/6FKqQVPdb5ypWXD/ZK/mfh0=;
-        b=OlIqthW8suWJuB8nbFfR5F6gIrYBsIOU55qzetLq1HOpwGAl/MtggHOVCbX+ghBL25
-         Gbzj7GohC22tVQMna1e8bYmY3pA3a+k4yxV811PesDXqbNKJhs626iRE7c32uPVlXd7q
-         s/VaYncrW4WLn97lZMeJdlgd7+sFXmrC17gZ9h2YTmWICwEMeZ0TOVUZ/AI3sPx409B8
-         e+S5fq1fm4ki6CFKfYsWjzpYnv65oWO4InFWjl7GDIjd7+0mbQZPdKU48oPhur/x7PDK
-         IshLQYVv3sXaNHfeGZhXSDUu2anqzPJalcY5pbqXlw02G5Y8xA4zE3/cYW8ni4EY7/QQ
-         5yCA==
-X-Forwarded-Encrypted: i=1; AKwUvBxq51uOHYrhuAKXkRVwn5pMjc48wUXP9mkxp/0O353sNgFoB5tt8bTSKLznO0SqwbwE2tez8GS8hZiIMKY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/j45s/m8aM63LdbrNUIWJ+dMGErpukJFk80cnBaAnRqvTxZ+3b
-	JxhgRfB7xS39XvkSO0YJAunmqs8Q2mXpesiRelAi9hHAyOEMeUOnee3KfwHreWxeDA==
-X-Gm-Gg: AYBFou0YDsdCXYPNsc81YMw9ubdUNvt4u3e5j09BWRbvmz9PKJPbp7j8ZmqeoENo4k+
-	86UBoyVuFRlyLWPIsO85qfNMeiwRqkJPYt7CVa3LKEdjE3nd/QCkjhRdIv12o7lex8vZYWCjmGA
-	U6FrS5METr5NlnNmhXUYP7Axp3GuFhYXwnqdgFjM8jwQG+wmGUdALX40yNL2Mdwpwp0duhktybE
-	MuiOIQpuKf878YsD6E/31cNRSwA32EsDGTBQyshEXqyJhqbx7njx76/qora1YXjBRvDkVfR2eZs
-	EJOYudcumPi92ywW9A/yOBpN0nA5xzL8BhoQCkPFPaK61qhEIYjFXcSbTLcTUbeLihGZlsIRju6
-	HfDSgQBoDLASBBC5EuNtoYtDycYnI3pH91NvnHt/3safIy8gxl3ryrMTq+EH0uYnhsyHnL2eD37
-	WmuPtF4XDZJrr2UMcMZ9fJ7MW2VfI3UzlSmaOZBSML2K4RCvHAwFQV+vAT3h7oLsI8maJj/VZ3b
-	bfCTjWKYCqq+op3x+Cg1iJz20dBAR8s/kbEoLgIH2CnhH5tlEl6UxVc9X8m8cKy3/a1xBRmUD7d
-	W8gODprIsGxx1kJMwGDC9Sa6+auDbKVnyYVmRcyc9a2O7AvFYKJNWr/v+coNUmgOYlo=
-X-Received: by 2002:a05:7300:c39f:b0:366:6644:2839 with SMTP id 5a478bee46e88-36a42203e90mr22173192eec.3.1793752367673;
-        Tue, 03 Nov 2026 16:32:47 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36ca38a54ccsm2074587eec.4.2026.11.03.16.32.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 16:32:46 -0800 (PST)
-Date: Tue, 3 Nov 2026 16:32:44 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
- to dependency
-Message-ID: <aup9LKewaLr2B5cR@google.com>
-References: <20261103221717.3840215-1-briannorris@chromium.org>
- <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
- <20261103231719.486a18de@jic23-hlaptop>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=F/iDtX73
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id C76D11405BB;
+	Wed,  4 Nov 2026 00:34:30 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id BE06E2002E;
+	Wed,  4 Nov 2026 00:34:27 +0000 (UTC)
+Date: Tue, 3 Nov 2026 19:34:21 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Li Pengfei <ljdlns1987@gmail.com>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ lkp@intel.com, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, zhangbo56@xiaomi.com,
+ lipengfei28@xiaomi.com
+Subject: Re: [RFC PATCH v7 02/10] trace: use the stackmap from the ftrace
+ stack recording path
+Message-ID: <20261103193421.63f4454a@gandalf.local.home>
+In-Reply-To: <20260912083753.3426176-3-lipengfei28@xiaomi.com>
+References: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
+	<20260912083753.3426176-3-lipengfei28@xiaomi.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,180 +65,606 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103231719.486a18de@jic23-hlaptop>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: BE06E2002E
+X-Stat-Signature: ubbfsuba5xjjds7u9skiqbryrfmxjc39
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18HjDEmAZrCiJFNhjxyKfES+9Y4hyGJnMg=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=S/N+F00fZjYK5bQ5EspDDlJ3W88B+dtGIBUElMlMpkk=; b=F/iDtX73+AV4gHag9EUIZ+cFdQBXNrwXvfO2lTbq1KLtvB2GFAkzUAqDIvDHATVvfkYSQRs5BZDK9m14yiWM+vyiUndv8sFwZZ/cwBLKXrcSaULkpd6MYpxK3dM3sXEpE1f5SFKXmljzT9IBL+4aAFBQ9FULjbOCF/kaZPY89NE=
+X-HE-Tag: 1793752467-576457
+X-HE-Meta: U2FsdGVkX18AfA7zNO2x5s3fK70vx43IefI7lydkcq/8ugq7fmNDYM4YWa7iMXzDsRGOUdqtuU9RsM/fDpAwU5deWhgbqScV3jdUPE7pryer7rOpZjRc0u805JGEKtl3lNV2Tj9ASlXwWD8DpqXPURiuCHm99TTm4Tm4dq8JzimSf2dxTpevqN0GFAKQOiEhdYYGiF/i4tNml0TTWROmfiUC1FqPWQ/puUuDWIpjDLJqmTGU+suAWjGK7a8elJiz7UzIZjiW8mEf98FMUJCZ+lX7m4+yEymfONwU9wBcNP34Cz7j41eKFKlOxpnj95iZqxTMJzsdSAI6o8pHwL1kIlezr3LOyspx/Ictg4RS7n/JVi0yuyyhsQ==
 
-Hi Jonathan,
+On Sat, 12 Sep 2026 16:37:45 +0800
+Li Pengfei <ljdlns1987@gmail.com> wrote:
 
-On Tue, Nov 03, 2026 at 11:17:19PM +0000, Jonathan Cameron wrote:
-> On Tue,  3 Nov 2026 14:14:41 -0800
-> Brian Norris <briannorris@chromium.org> wrote:
+Hi Li,
+
+FYI, the tracing subsystem requires starting subjects with capital letters:
+
+  trace: Use the stackmap from the ftrace stack recording path
+
+Also, did you use AI for this? Most of the comments are useless, and sound
+like they come from AI.
+
+> From: Pengfei Li <lipengfei28@xiaomi.com>
 > 
-> > When a child device suspends, it does not update the last_busy timestamp
-> > for its parent. If that parent configured autosuspend and didn't
-> > otherwise maintain its last_busy timestamp, it may now be immediately
-> > eligible to suspend. This is probably not expected -- the parent should
-> > wait for its autosuspend delay before suspending.
+> Wire ftrace_stackmap into __ftrace_trace_stack(). With 'stackmap' and
+> 'stacktrace' enabled, the recording path tries to place a 4-byte
+> stack_id in the ring buffer and stack_map resolves the id.
 > 
-> So reading this again - I wonder if this text is describing the
-> expected behaviour.
-
-Agreed, this might give the wrong impression, depending on the
-assumptions the reader makes about autosuspend delay. (I think I had a
-particular problem scenario in mind, but didn't translate that properly
-here.)
-
-> If the child is also using autosupend then, in extreme case, that time
-> might be longer than the autosuspend time of the parent.
-> If so it seems odd the parent still waits.
-
-Right, that seems wrong, and indeed that's not what this patch does.
-
-> So most expected to me
-> would be if the parent were to suspend it's autosuspend time after
-> the parent or child was last used for something that indicate a
-> desire not to suspend (that shouldn't include actions the child
-> did whilst suspending).
-
-(Not sure I'm parsing this sentence quite right, but...)
-
-The point is that last_busy should propagate (rather than, say, the
-expiration time). So each device still gets its own-delay-based
-autosuspend timer expiration. That may mean the parent waits longer than
-the child, but it may not, if the child's delay was longer than the
-parent's.
-
-> Maybe there isn't a sensible way to deal with this and what you have here
-> is the best we can do.  Note that this is just commenting on this
-> statement in the commit description.  From what follows I think
-> this is just a commit description thing rather than functional.
-
-If I'm understanding what you're saying correctly: maybe it would be an
-improvement here to say:
-
-  If that parent configured an autosuspend delay longer than its child's
-  and didn't otherwise maintain its last_busy timestamp, it may now be
-  immediately eligible to suspend.
-
-I think that would more accurately describe the target problem, even if
-it doesn't cover all cases (such as when the parent delay is shorter).
-
-> > The effect of this behavior is that a parent device may suspend sooner
-> > than its autosuspend delay, simply because its usage was accounted by
-> > its children, and not by direct references to the parent device.
+> Reserve the stack-id ring-buffer slot before consulting the map. This
+> keeps map records and counters untouched when that reservation fails.
+> If get_id() then fails, discard the reserved slot. Both paths try the
+> existing full-stack fallback, whose own ring-buffer reservation can
+> still fail under normal ring-buffer semantics.
 > 
-> Sooner is indeed bad.
+> Stacks deeper than FTRACE_STACKMAP_MAX_DEPTH bypass the map so a
+> recorded stack is never silently truncated or merged with another stack
+> sharing the same prefix. Other map failures, including capacity,
+> reset, and an unpublished map, also try the full-stack path.
 > 
-> > 
-> > This was noticed in several cases, and some have implemented
-> > workarounds, such as in commit c537d3457542 ("iio: adc: stm32-adc: fix
-> > runtime autosuspend delay when slow polling"). At the same time, Ulf
-> > suggested these problems "should be solved in the runtime PM core" [1].
-> > 
-> > Instead of working around the problem in drivers, we propagate last_busy
-> > timestamps from a dependent device to its dependencies any time it may
-> > allow a dependency to suspend -- i.e., when releasing a refcount for its
-> > parent or suppliers. We take care to only propagate the timestamp if it
-> > is larger than the existing busy timestamp.
+> Confine the option to the global trace instance through
+> TOP_LEVEL_TRACE_FLAGS, ZEROED_TRACE_FLAGS and a set_tracer_flag()
+> check. This also rejects writes through a secondary instance's
+> aggregate trace_options file.
 > 
-> So this sounds fine but I don't think aligns with that first paragraph.
+> Create stack_map before publishing global_trace.stackmap. Boot-time
+> options may be set while initialization is pending; the recording path
+> uses full-stack fallback until publication. A permanent initialization
+> failure clears and rejects the option.
 > 
-> > 
-> > Note that this works best if the dependent device is using autosuspend
-> > (and therefore updates its last_busy timestamps appropriately), but even
-> > for a non-autosuspend child, this is still somewhat useful --
-> > non-autosuspend devices still automatically update their last_busy every
-> > time they resume.
+> Also add TRACE_STACK_ID, its output handler, and validation needed by
+> ftrace startup selftests.
 > 
-> Can we set the last busy on the suspend of child devices that aren't
-> suspending as a result of autosuspend timeout but for other reasons?
-> (may be some fiddly corners!)
-
-Do you have concrete use cases in mind, or do you bring this up simply
-because of my note?
-
-For one, I feel like for devices with power.use_autosuspend==true, it's
-reasonable to expect drivers to use the appropriate helpers to update
-last_busy at the appropriate times, and so any "corner cases" are from
-misuse.
-
-But if you mean non-use_autosuspend devices: I suppose it'd be possible
-but I haven't reasoned through the implementation very far yet. It
-almost seems like we'd need to plumb pm_runtime_mark_last_busy() into
-*all* the put() helpers, including the non-autosuspend ones
-(pm_runtime_put(), pm_runtime_put_sync()). I'm not quite sure if that's
-desirable. But I could try to look a bit more, if you think there are
-important use cases that would need this.
-
-Brian
-
-> > Link: https://lore.kernel.org/all/CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com/ [1]
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > ---
-> > Cc: Ulf Hansson <ulfh@kernel.org>
-> > 
-> > Changes in v2:
-> >  * Update comments to explain when/why rpm_propagate_last_busy()
-> >    performs the update
-> > 
-> >  drivers/base/power/runtime.c | 23 ++++++++++++++++++++++-
-> >  1 file changed, 22 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/base/power/runtime.c b/drivers/base/power/runtime.c
-> > index 2a117d6a776f..dd306cbabcd3 100644
-> > --- a/drivers/base/power/runtime.c
-> > +++ b/drivers/base/power/runtime.c
-> > @@ -318,6 +318,22 @@ static int rpm_get_suppliers(struct device *dev)
-> >  	return 0;
-> >  }
-> >  
-> > +/*
-> > + * Propagate last_busy timestamp from one device to another, typically when a
-> > + * device (@dev) releases a reference count on a dependency (@target) and might
-> > + * allow it to (auto)suspend. This can, for example, prevent overactive suspend
-> > + * when a dependency's usage is primarily driven by one of its dependents.
-> > + */
-> > +static void rpm_propagate_last_busy(struct device *dev, struct device *target)
-> > +{
-> > +	s64 busy = atomic64_read(&dev->power.last_busy);
-> > +	s64 target_busy = atomic64_read(&target->power.last_busy);
-> > +
-> > +	while (target_busy < busy)
-> > +		if (atomic64_try_cmpxchg(&target->power.last_busy, &target_busy, busy))
-> > +			return;
-> > +}
-> > +
-> >  /**
-> >   * pm_runtime_release_supplier - Drop references to device link's supplier.
-> >   * @link: Target device link.
-> > @@ -348,6 +364,7 @@ static void __rpm_put_suppliers(struct device *dev, bool try_to_suspend)
-> >  		if (!device_link_test(link, DL_FLAG_PM_RUNTIME))
-> >  			continue;
-> >  
-> > +		rpm_propagate_last_busy(dev, link->supplier);
-> >  		pm_runtime_release_supplier(link);
-> >  		if (try_to_suspend)
-> >  			pm_request_idle(link->supplier);
-> > @@ -710,6 +727,8 @@ static int rpm_suspend(struct device *dev, int rpmflags)
-> >  
-> >  	if (dev->parent) {
-> >  		parent = dev->parent;
-> > +		if (!parent->power.ignore_children)
-> > +			rpm_propagate_last_busy(dev, parent);
-> >  		atomic_add_unless(&parent->power.child_count, -1, 0);
-> >  	}
-> >  	wake_up_all(&dev->power.wait_queue);
-> > @@ -1368,8 +1387,10 @@ int __pm_runtime_set_status(struct device *dev, unsigned int status)
-> >  		goto out_set;
-> >  
-> >  	if (status == RPM_SUSPENDED) {
-> > -		atomic_add_unless(&parent->power.child_count, -1, 0);
-> >  		notify_parent = !parent->power.ignore_children;
-> > +		if (notify_parent)
-> > +			rpm_propagate_last_busy(dev, parent);
-> > +		atomic_add_unless(&parent->power.child_count, -1, 0);
-> >  	} else {
-> >  		spin_lock_nested(&parent->power.lock, SINGLE_DEPTH_NESTING);
-> >  
+> Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
+> ---
+>  kernel/trace/Kconfig                 |   9 ++
+>  kernel/trace/trace.c                 | 218 ++++++++++++++++++++++++++-
+>  kernel/trace/trace.h                 |  16 ++
+>  kernel/trace/trace_entries.h         |  15 ++
+>  kernel/trace/trace_functions_graph.c |   1 +
+>  kernel/trace/trace_output.c          |  23 +++
+>  kernel/trace/trace_selftest.c        |   1 +
+>  7 files changed, 280 insertions(+), 3 deletions(-)
 > 
+> diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+> index 6c40535a46e1..7001453bbfd3 100644
+> --- a/kernel/trace/Kconfig
+> +++ b/kernel/trace/Kconfig
+> @@ -426,6 +426,15 @@ config FTRACE_STACKMAP
+>  	  significantly reducing trace buffer usage when the same call stacks
+>  	  appear repeatedly.
+>  
+> +	  Automatic per-event stack capture requires the stacktrace option:
+> +
+> +	    echo 1 > /sys/kernel/debug/tracing/options/stacktrace
+> +	    echo 1 > /sys/kernel/debug/tracing/options/stackmap
+> +
+> +	  Explicit stack records requested through tracing APIs are also
+> +	  deduplicated when stackmap is enabled for their trace array. Stackmap
+> +	  is currently available only for the global trace array.
+> +
+>  	  The deduplicated stacks are exported via:
+>  	    /sys/kernel/debug/tracing/stack_map
+>  
+> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+> index 18710c190c92..06ae8ed11475 100644
+> --- a/kernel/trace/trace.c
+> +++ b/kernel/trace/trace.c
+> @@ -57,6 +57,7 @@
+>  
+>  #include "trace.h"
+>  #include "trace_output.h"
+> +#include "trace_stackmap.h"
+>  
+>  #ifdef CONFIG_FTRACE_STARTUP_TEST
+>  /*
+> @@ -509,12 +510,13 @@ EXPORT_SYMBOL_GPL(unregister_ftrace_export);
+>  /* trace_options that are only supported by global_trace */
+>  #define TOP_LEVEL_TRACE_FLAGS (TRACE_ITER(PRINTK) |			\
+>  	       TRACE_ITER(PRINTK_MSGONLY) | TRACE_ITER(RECORD_CMD) |	\
+> -	       TRACE_ITER(PROF_TEXT_OFFSET) | FPROFILE_DEFAULT_FLAGS)
+> +	       TRACE_ITER(PROF_TEXT_OFFSET) | TRACE_ITER(STACKMAP) |	\
+> +	       FPROFILE_DEFAULT_FLAGS)
+>  
+>  /* trace_flags that are default zero for instances */
+>  #define ZEROED_TRACE_FLAGS \
+>  	(TRACE_ITER(EVENT_FORK) | TRACE_ITER(FUNC_FORK) | TRACE_ITER(TRACE_PRINTK) | \
+> -	 TRACE_ITER(COPY_MARKER))
+> +	 TRACE_ITER(COPY_MARKER) | TRACE_ITER(STACKMAP))
+>  
+>  /*
+>   * The global_trace is the descriptor that holds the top-level tracing
+> @@ -2184,6 +2186,76 @@ void __ftrace_trace_stack(struct trace_array *tr,
+>  	}
+>  #endif
+>  
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +	/*
+> +	 * If stackmap dedup is enabled, try to store only the stack_id
+> +	 * in the ring buffer instead of the full stack trace.
+> +	 *
+> +	 * Reserve the TRACE_STACK_ID ring-buffer slot BEFORE calling
+> +	 * get_id(). This guarantees get_id(), and therefore any map mutation
+> +	 * or counter update it performs, is attempted only after the stack-id
+> +	 * reservation succeeds:
+> +	 *   - reservation fails  -> try full-stack fallback, map untouched
+> +	 *   - get_id() fails      -> discard the reserved slot, then try
+> +	 *                            full-stack fallback
+> +	 * A failed stack-id reservation therefore never consumes a map slot
+> +	 * or updates the map counters.
+> +	 */
+
+It's better to turn this into a function, where we have something like this:
+
+#ifdef CONFIG_FTRACE_STACKMAP
+static inline bool
+record_stackmap(struct trace_array *tr, struct trace_buffer *buffer,
+		struct ftrace_stack *fstack, unsigned int nr_entries, unsigned int trace_ctx)
+{
+	[..]
+}
+#else
+static inline bool
+record_stackmap(struct trace_array *tr, struct trace_buffer *buffer,
+		struct ftrace_stack *fstack, unsigned int nr_entries, unsigned int trace_ctx)
+{
+	return false;
+}
+#endif /* CONFIG_FTRACE_STACKMAP */
+
+Where it returns true if it processed the map and false otherwise, that way you can do:
+
+	if (record_stackmap(tr, buffer, fstack, nr_entries, trace_ctx))
+		goto out;
+
+
+> +	if (tr->trace_flags & TRACE_ITER(STACKMAP)) {
+> +		struct ftrace_stackmap *smap;
+> +		struct stack_id_entry *sid_entry;
+> +		int sid;
+> +
+> +		/*
+> +		 * Pairs with the smp_store_release() that publishes the
+> +		 * fully initialized global stackmap at tracefs init.
+> +		 */
+> +		smap = smp_load_acquire(&tr->stackmap);
+> +		if (!smap)
+> +			goto full_stack;
+> +
+> +		/*
+> +		 * The stackmap stores at most FTRACE_STACKMAP_MAX_DEPTH
+> +		 * frames per entry. A deeper trace would be truncated, and
+> +		 * two distinct stacks that share the first MAX_DEPTH frames
+> +		 * would hash and compare equal, silently merging into one
+> +		 * stack_id. Use the conservative full-stack path for deep
+> +		 * traces to avoid truncating or misattributing a recorded stack.
+> +		 * The ring-buffer reservation can still fail.
+
+The above comment really isn't needed here. If the nr_entries is greater
+than the max stackmap then we just don't use stackmap. No need to go into
+details about why. It's explained elsewhere.
+
+> +		 */
+> +		if (nr_entries > FTRACE_STACKMAP_MAX_DEPTH)
+> +			goto full_stack;
+
+Why not do this check before getting smap?
+
+> +
+> +		event = __trace_buffer_lock_reserve(buffer, TRACE_STACK_ID,
+> +						    sizeof(*sid_entry), trace_ctx);
+> +		if (!event)
+> +			goto full_stack;
+> +
+> +		sid = ftrace_stackmap_get_id(smap, fstack->calls, nr_entries);
+> +		if (sid < 0) {
+> +			/*
+> +			 * If get_id() cannot return an ID, discard the reserved
+> +			 * stack_id slot, then try the full-stack fallback. Its
+> +			 * ring-buffer reservation can still fail.
+> +			 */
+> +			__trace_event_discard_commit(buffer, event);
+> +			goto full_stack;
+> +		}
+> +
+> +		sid_entry = ring_buffer_event_data(event);
+> +		sid_entry->stack_id = sid;
+> +		/*
+> +		 * stack_id is a synthetic side-event attached to a
+> +		 * primary trace event that was already subject to
+> +		 * filtering. No per-event filter is defined for
+> +		 * TRACE_STACK_ID, so commit unconditionally.
+> +		 */
+
+You don't need the above comment. The original code does this too without
+the need to comment it here.
+
+> +		__buffer_unlock_commit(buffer, event);
+> +		goto out;
+> +	}
+> +full_stack:
+> +#endif
+> +
+>  	event = __trace_buffer_lock_reserve(buffer, TRACE_STACK,
+>  				    struct_size(entry, caller, nr_entries),
+>  				    trace_ctx);
+> @@ -3976,6 +4048,50 @@ int trace_keep_overwrite(struct tracer *tracer, u64 mask, int set)
+>  	return 0;
+>  }
+>  
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +/*
+> + * Tracks tracefs-time initialization of the global stackmap so that
+> + * set_tracer_flag() can distinguish "not initialized yet" from
+> + * "initialization permanently failed".
+> + *
+> + * Boot-time options (trace_options=stackmap,stacktrace) are applied
+> + * very early, before tracer_init_tracefs() creates and publishes the
+> + * map. We must allow the STACKMAP flag to be set during that window
+> + * (the hot path falls back to a full stack while tr->stackmap is NULL,
+> + * then starts using the map once it is published). We must, however,
+> + * reject the enable once init has *failed*, so options/stackmap never
+> + * reports an enabled no-op.
+> + *
+> + * Written once from the tracefs init work before any concurrent
+> + * userspace writer to trace_options can run, then only read; a plain
+> + * int is therefore sufficient.
+
+The above is way too verbose, and honestly, doesn't even make sense. I need
+to look at the code to determine what it means. If you need to look at the
+code to understand the comments, it means the comments are useless.
+
+> + */
+> +enum {
+
+Name the emum.
+
+> +	STACKMAP_INIT_PENDING,	/* tracer_init_tracefs() not run yet */
+> +	STACKMAP_INIT_DONE,	/* map published, stack_map file created */
+> +	STACKMAP_INIT_FAILED,	/* permanent failure, never available */
+
+The above comments are good though.
+
+> +};
+> +
+> +static int stackmap_init_state = STACKMAP_INIT_PENDING;
+
+This variable should be of that enum type.
+
+> +
+> +/*
+> + * Mark the global stackmap init as permanently failed.
+> + *
+> + * Clears any boot-time STACKMAP flag (trace_options=stackmap applied before
+> + * the map was created) so options/stackmap does not report an enabled no-op
+> + * and later userspace enables return -EINVAL. The flag is cleared under
+> + * trace_types_lock because set_tracer_flag() updates trace_flags under that
+> + * lock; the tracefs init runs in an unlocked workqueue context that can race
+> + * with a concurrent trace_options write.
+> + */
+> +static void __init stackmap_mark_init_failed(void)
+> +{
+> +	guard(mutex)(&trace_types_lock);
+> +	WRITE_ONCE(stackmap_init_state, STACKMAP_INIT_FAILED);
+> +	global_trace.trace_flags &= ~TRACE_ITER(STACKMAP);
+> +}
+> +#endif
+> +
+>  int set_tracer_flag(struct trace_array *tr, u64 mask, int enabled)
+>  {
+>  	switch (mask) {
+> @@ -3990,6 +4106,33 @@ int set_tracer_flag(struct trace_array *tr, u64 mask, int enabled)
+>  	if (!!(tr->trace_flags & mask) == !!enabled)
+>  		return 0;
+>  
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +	/*
+> +	 * STACKMAP is intentionally global-instance-only: the dedup map,
+> +	 * its tracefs files and the lifetime/reset semantics are tied
+> +	 * to the global trace
+> +	 * array. options/stackmap is hidden on secondary instances via
+> +	 * TOP_LEVEL_TRACE_FLAGS, but writes still reach set_tracer_flag()
+> +	 * through the aggregate trace_options file. Reject the enable on
+> +	 * a secondary instance so it cannot be silently accepted and then
+> +	 * become a no-op in the hot path (where tr->stackmap is NULL and
+> +	 * the code falls back to a full stack trace).
+> +	 *
+> +	 * On the global instance, allow the enable while init is still
+> +	 * pending (boot-time trace_options=stackmap is applied before the
+> +	 * tracefs init work creates the map; the hot path falls back
+> +	 * until the map is published). Only reject once init has
+> +	 * permanently failed, so options/stackmap never reports an
+> +	 * enabled no-op. READ_ONCE() suffices: this only inspects the
+> +	 * init state, it does not dereference the map (the hot path uses
+> +	 * smp_load_acquire(&tr->stackmap) for that).
+
+The entire comment above can be replaced with just:
+
+	/* The stack map is only for the top_level trace array. */
+
+The rest is way too verbose. The failed description is obvious and doesn't
+need explaining.
+
+> +	 */
+> +	if (mask == TRACE_ITER(STACKMAP) && enabled &&
+> +	    (tr != &global_trace ||
+> +	     READ_ONCE(stackmap_init_state) == STACKMAP_INIT_FAILED))
+> +		return -EINVAL;
+> +#endif
+> +
+>  	/* Give the tracer a chance to approve the change */
+>  	if (tr->current_trace->flag_changed)
+>  		if (tr->current_trace->flag_changed(tr, mask, !!enabled))
+> @@ -9222,6 +9365,70 @@ static __init void tracer_init_tracefs_work_func(struct work_struct *work)
+>  			NULL, &tracing_dyn_info_fops);
+>  #endif
+>  
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +	{
+
+Do not add anonymous blocks. This should be another helper function that is
+defined in the above #if block that defined the other one I suggested.
+
+> +		struct ftrace_stackmap *smap;
+> +		struct dentry *map_file;
+> +
+> +		smap = ftrace_stackmap_create(&global_trace);
+> +		if (!IS_ERR(smap)) {
+
+If this was a helper function than you can make this into:
+
+		if (IS_ERR(smap)) {
+			pr_warn("ftrace stackmap init failed, dedup disabled\n");
+			stackmap_mark_init_failed();
+			return PTR_ERR(smap);
+		}
+
+And remove the indentation for the rest.
+
+> +			/*
+> +			 * Failure-atomic init: stack_map is the single
+> +			 * required tracefs file (it doubles as the reset
+> +			 * interface and the human-readable resolver). If
+> +			 * we cannot create it, the hot path must not be
+> +			 * able to emit <stack_id N> events that no one can
+> +			 * resolve or clear, so refuse to publish the map
+> +			 * and tear it down.
+> +			 *
+> +			 * Create stack_map BEFORE smp_store_release() so an
+> +			 * observed non-NULL global_trace.stackmap implies
+> +			 * its resolver/reset file exists.
+> +			 */
+
+You know that if this is only for top level trace array, this is done
+before user space starts. The above comment is really useless. Nuke it.
+
+> +			map_file = trace_create_file("stack_map",
+> +						     TRACE_MODE_WRITE, NULL,
+> +						     smap,
+> +						     &ftrace_stackmap_fops);
+> +			if (!map_file) {
+> +				pr_warn("ftrace stackmap init: stack_map create failed, dedup disabled\n");
+> +				ftrace_stackmap_destroy(smap);
+> +				/*
+> +				 * Permanent failure. Record it and clear a
+> +				 * boot-time STACKMAP flag (under
+> +				 * trace_types_lock) so options/stackmap does
+> +				 * not report an enabled no-op and later
+> +				 * userspace enables return -EINVAL.
+> +				 */
+
+Nuke this comment.
+
+> +				stackmap_mark_init_failed();
+> +			} else {
+> +				/*
+> +				 * smp_store_release pairs with the
+> +				 * smp_load_acquire() in
+> +				 * __ftrace_trace_stack(). Publishing only
+> +				 * after the required file exists keeps
+> +				 * "smap visible" => "resolver/reset
+> +				 * available".
+> +				 */
+> +				smp_store_release(&global_trace.stackmap, smap);
+> +				WRITE_ONCE(stackmap_init_state, STACKMAP_INIT_DONE);
+> +			}
+> +		} else {
+> +			pr_warn("ftrace stackmap init failed, dedup disabled\n");
+> +			/*
+> +			 * global_trace is statically defined; its stackmap
+> +			 * field is zero-initialized via BSS, so leaving it
+> +			 * NULL ensures the smp_load_acquire() in
+> +			 * __ftrace_trace_stack() falls back to full stack.
+> +			 * Mark init failed and clear any boot-time STACKMAP
+> +			 * flag so userspace enables are rejected rather than
+> +			 * becoming silent no-ops. Use the helper so the flag
+> +			 * clear happens under trace_types_lock, matching the
+> +			 * stack_map-create failure path above.
+> +			 */
+
+Again. Useless comment. These comments make it harder to understand what is
+happening :-(
+
+> +			stackmap_mark_init_failed();
+> +		}
+> +	}
+> +#endif
+>  	create_trace_instances(NULL);
+>  
+>  	update_tracer_options();
+> @@ -9234,8 +9441,13 @@ static __init int tracer_init_tracefs(void)
+>  	trace_access_lock_init();
+>  
+>  	ret = tracing_init_dentry();
+> -	if (ret)
+> +	if (ret) {
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +		/* No later path can create or publish the global stackmap. */
+
+Obvious comment. Not needed.
+
+> +		stackmap_mark_init_failed();
+
+Get rid of the #ifdef here. When not defined, the above function should be defined as:
+
+static inline void stackmap_mark_init_failed(void) { }
+
+-- Steve
+
+> +#endif
+>  		return 0;
+> +	}
+>  
+>  	if (trace_init_wq) {
+>  		INIT_WORK(&tracerfs_init_work, tracer_init_tracefs_work_func);
+> diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+> index 80fe152af1dd..7e7d5e5a35ff 100644
+> --- a/kernel/trace/trace.h
+> +++ b/kernel/trace/trace.h
+> @@ -57,6 +57,7 @@ enum trace_type {
+>  	TRACE_TIMERLAT,
+>  	TRACE_RAW_DATA,
+>  	TRACE_FUNC_REPEATS,
+> +	TRACE_STACK_ID,
+>  
+>  	__TRACE_LAST_TYPE,
+>  };
+> @@ -453,6 +454,9 @@ struct trace_array {
+>  	struct cond_snapshot	*cond_snapshot;
+>  #endif
+>  	struct trace_func_repeats	__percpu *last_func_repeats;
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +	struct ftrace_stackmap		*stackmap;
+> +#endif
+>  	/*
+>  	 * On boot up, the ring buffer is set to the minimum size, so that
+>  	 * we do not waste memory on systems that are not using tracing.
+> @@ -579,6 +583,8 @@ extern void __ftrace_bad_type(void);
+>  			  TRACE_GRAPH_RET);		\
+>  		IF_ASSIGN(var, ent, struct func_repeats_entry,		\
+>  			  TRACE_FUNC_REPEATS);				\
+> +		IF_ASSIGN(var, ent, struct stack_id_entry,		\
+> +			  TRACE_STACK_ID);				\
+>  		__ftrace_bad_type();					\
+>  	} while (0)
+>  
+> @@ -1449,7 +1455,16 @@ extern int trace_get_user(struct trace_parser *parser, const char __user *ubuf,
+>  # define STACK_FLAGS
+>  #endif
+>  
+> +#ifdef CONFIG_FTRACE_STACKMAP
+> +# define STACKMAP_FLAGS				\
+> +			C(STACKMAP,		"stackmap"),
+> +#else
+> +# define STACKMAP_FLAGS
+> +# define TRACE_ITER_STACKMAP_BIT	-1
+> +#endif
+> +
+>  #ifdef CONFIG_FUNCTION_PROFILER
+> +
+>  # define PROFILER_FLAGS					\
+>  		C(PROF_TEXT_OFFSET,	"prof-text-offset"),
+>  # ifdef CONFIG_FUNCTION_GRAPH_TRACER
+> @@ -1506,6 +1521,7 @@ extern int trace_get_user(struct trace_parser *parser, const char __user *ubuf,
+>  		FUNCTION_FLAGS					\
+>  		FGRAPH_FLAGS					\
+>  		STACK_FLAGS					\
+> +		STACKMAP_FLAGS					\
+>  		BRANCH_FLAGS					\
+>  		PROFILER_FLAGS					\
+>  		FPROFILE_FLAGS
+> diff --git a/kernel/trace/trace_entries.h b/kernel/trace/trace_entries.h
+> index 54417468fdeb..89ed14b7e5fd 100644
+> --- a/kernel/trace/trace_entries.h
+> +++ b/kernel/trace/trace_entries.h
+> @@ -250,6 +250,21 @@ FTRACE_ENTRY(user_stack, userstack_entry,
+>  		 (void *)__entry->caller[6], (void *)__entry->caller[7])
+>  );
+>  
+> +/*
+> + * Stack ID entry - stores only a stack_id referencing the stackmap.
+> + * Used when CONFIG_FTRACE_STACKMAP is enabled to deduplicate stacks.
+> + */
+> +FTRACE_ENTRY(stack_id, stack_id_entry,
+> +
+> +	TRACE_STACK_ID,
+> +
+> +	F_STRUCT(
+> +		__field(	int,		stack_id	)
+> +	),
+> +
+> +	F_printk("<stack_id %d>", __entry->stack_id)
+> +);
+> +
+>  /*
+>   * trace_printk entry:
+>   */
+> diff --git a/kernel/trace/trace_functions_graph.c b/kernel/trace/trace_functions_graph.c
+> index 0d2d3a2ea7dd..0e1a390a6130 100644
+> --- a/kernel/trace/trace_functions_graph.c
+> +++ b/kernel/trace/trace_functions_graph.c
+> @@ -1492,6 +1492,7 @@ print_graph_function_flags(struct trace_iterator *iter, u32 flags)
+>  		return print_graph_return(field, s, entry, iter, flags);
+>  	}
+>  	case TRACE_STACK:
+> +	case TRACE_STACK_ID:
+>  	case TRACE_FN:
+>  		/* dont trace stack and functions as comments */
+>  		return TRACE_TYPE_UNHANDLED;
+> diff --git a/kernel/trace/trace_output.c b/kernel/trace/trace_output.c
+> index a5ad76175d10..68678ea88159 100644
+> --- a/kernel/trace/trace_output.c
+> +++ b/kernel/trace/trace_output.c
+> @@ -1517,6 +1517,28 @@ static struct trace_event trace_user_stack_event = {
+>  	.funcs		= &trace_user_stack_funcs,
+>  };
+>  
+> +/* TRACE_STACK_ID */
+> +static enum print_line_t trace_stack_id_print(struct trace_iterator *iter,
+> +					      int flags, struct trace_event *event)
+> +{
+> +	struct stack_id_entry *field;
+> +	struct trace_seq *s = &iter->seq;
+> +
+> +	trace_assign_type(field, iter->ent);
+> +	trace_seq_printf(s, "<stack_id %d>\n", field->stack_id);
+> +
+> +	return trace_handle_return(s);
+> +}
+> +
+> +static struct trace_event_functions trace_stack_id_funcs = {
+> +	.trace		= trace_stack_id_print,
+> +};
+> +
+> +static struct trace_event trace_stack_id_event = {
+> +	.type		= TRACE_STACK_ID,
+> +	.funcs		= &trace_stack_id_funcs,
+> +};
+> +
+>  /* TRACE_HWLAT */
+>  static enum print_line_t
+>  trace_hwlat_print(struct trace_iterator *iter, int flags,
+> @@ -1908,6 +1930,7 @@ static struct trace_event *events[] __initdata = {
+>  	&trace_wake_event,
+>  	&trace_stack_event,
+>  	&trace_user_stack_event,
+> +	&trace_stack_id_event,
+>  	&trace_bputs_event,
+>  	&trace_bprint_event,
+>  	&trace_print_event,
+> diff --git a/kernel/trace/trace_selftest.c b/kernel/trace/trace_selftest.c
+> index 929c84075315..0c97065b0d68 100644
+> --- a/kernel/trace/trace_selftest.c
+> +++ b/kernel/trace/trace_selftest.c
+> @@ -14,6 +14,7 @@ static inline int trace_valid_entry(struct trace_entry *entry)
+>  	case TRACE_CTX:
+>  	case TRACE_WAKE:
+>  	case TRACE_STACK:
+> +	case TRACE_STACK_ID:
+>  	case TRACE_PRINT:
+>  	case TRACE_BRANCH:
+>  	case TRACE_GRAPH_ENT:
+
