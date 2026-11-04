@@ -1,55 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786104;
-	b=4Ps4DEKAtaZyEFaNuKdyVKCLSDv4UKJ7TXApB1r+GY6AFGT/nScd7a53wBu3KrSDeL3P
-	 qfuwK0OJdNdYjT1OG0laZxNBHReXqQPrOYPU1LwVYbnO2MWYdEtyixUTaUeYmbpfnWXw4
-	 3aMhh0aHfo933/h7oQUjVsO0H4WiRDTwFaV19YL1NTd4dC6Jd0HXNJztUuzy9JSm2Gsrh
-	 lGczooEZy28YkSRSMV2N81Sjq+w/rNpqVbKoA3x51k+ZL5JSj5cTMfe6NGNXS4nIItvjB
-	 idB/0peEW42pgDbKoQQBVVwy0STzXm986ZWUm3gEt75ipzyJglOkbMPF3pLNvXll4bQ==
+	t=1793786124;
+	b=q5onlwxbpOc0tYm/jLk9L2whO0/WaA0EnG/dIFTPcUet1+F1Z0fl2cfVMIzl+iZuVoIV
+	 XV1+ZE+W+4YEMmTgvF0l/MgT+N0VboBpLS0qhKst4kKz2OkaYSZM0F0Sy7puGK4M4xBty
+	 XM5GbOOl8YjxXRuRL4n6AtPo7nBG2aQW9rgjYp5GPBNj0+XCPzMJhDgFJT4ATeY8BY8tb
+	 pmo1uu/2on1CHw0MktldtcAWzwRfhPsbEwErSdQWLbT9hLX+LnFm3oe7adTO93Qau8PX9
+	 7TQtojXzyMf13R6Hc7eWvoZ3aT69FWHX3jJbMWzwZ7ebNzW+ypjse3BxA2AqjFITy6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786104;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7S4gJgJJUabrpB6VRwq4SCe6ojSm3qa1EXPFVgqVgUc=;
-	b=3/kF+ljKL5fUOZ3Wwbz7ssSHPDE3FuxUC7jrGRZeCi6DJDV3viyLHl0gmyjqKuZrhm49
-	 oZ/HSAGU11cP3S1uslJdnpH/FVDE1p5xkQJPUll0a5sGe9d+06dcDSAeBKzUku/c4b6u3
-	 0PFwGah53C+wMpOEyeZkavRbxpfiUu8u4eACElgpRFoqw1ixWOHeMvedL8mlFqhtlUi0V
-	 KmKndCUlPNJxN3o369GCXXM9UOLZqCPa3eEe2uF5wya9f7IhPYAetZW0pw753qTqnED+B
-	 0hCthFJVRqVkAGWs5H/ptV3kuURMWzaVO9EATib8zSuTeIvoaXNd1GSvdMzznUNwkFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786124;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Change-ID:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=tTTrorNZwRFZQ3C5GMIr2j0fiftd0rO3TifOHjXOs+s=;
+	b=0/I+aZ0UZBWUUBwVMDZojoW9TmKrpbMfa9u1gC8phPN7iL7n06yl16kqiF7DudJjBJqD
+	 pteFmgRezudKhJq36RyeLOIQgKTyPJL/W94/GKQfugo7MqMHgH8c47AFNn4VjQTYJF8oL
+	 F9G/awpIt9RN6qv8vlLYFz25jGQh7gFMVOnh/wP2jDKAypDhz2SPLPySltjUDvEnXl7IJ
+	 sOcApqXniGi3e04UjY4ki9RP+qQgxTE1gEcDd+RNyUo/l32mek5M6kWBrerpbWu4/9UQ1
+	 R0RmP7A/GZZW7CHOLgOwLwVmOwvxgBKGM1F2X1+QmLwZ21P83aoaFj8yhk2cReOfv8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3H3whoU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=qG8csFas;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E3E606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DDB606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10DDB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3H3whoU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1E91F000C1
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793786103;
-	bh=7S4gJgJJUabrpB6VRwq4SCe6ojSm3qa1EXPFVgqVgUc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N3H3whoUPIS4XVnOUkJ/nDq0kerw2hmhnX6FZG9zM/0PnnG52q8Y9eUXvk2u6X6Vx
-	 tE6lKwbZuaYis0bcmNrMMz618HT6CaSrhhFRMtfhxEb2OUL5J50tUy7VLE9GqCE1ll
-	 QXSRMqB1a6reS6WaXFxCw5CGUlr3dJo0MKRaIo6HJ8fgwlOJ0vxP/3y6XrJPylHHI3
-	 YOsem5mQqT6tRdEMSYWZ+hvzQ9SSwjNJyyn+rHG7qvizWaSpOSk3WsxfuruMiY6ERG
-	 48hsOCW+Th2qfvd2sACPO69ShOsEetXoY99XA1NB44Qdjc0Yh5YQlG5JFEJaKJbsYK
-	 OKGtAZV7HMqKg==
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b56c428212so1910a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:55:03 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx/Rc44NAnYTwYVShHpxgoZbxH+0+ep4q1gnBB2lB8bJMYeTq+6ebgS0mvd1B7no6gIOCe982sgCKXvOiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FlpJtHYKbBd9ZdxdqJ8viE7yK4KCpqdbWtMqtXZt4YOn3f87w
-	1fqW/D4FsMIBKJNFQjZ3U1spPJ1hL9vUyLYJ98/+Fivm4P9TdpMmJMbUgA1u/AEFd6cNEFHecd0
-	w9RnydTcByPMWp5iNfRlHqVejkkcjXTc=
-X-Received: by 2002:a05:6402:a510:20b0:6b4:201f:17b6 with SMTP id
- 4fb4d7f45d1cf-6b4d3374079mr8567339a12.6.1793786102316; Wed, 04 Nov 2026
- 01:55:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=qG8csFas
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKLQt4xXCz8scv;
+	Wed, 04 Nov 2026 10:55:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793786118;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=tTTrorNZwRFZQ3C5GMIr2j0fiftd0rO3TifOHjXOs+s=;
+	b=qG8csFasliUkjr6qLe1MZJQ0AKgWA8Hq+7uAnAky9SA/5QxEyTkfe2klIrFgjQnswbQHih
+	g2BQ0aha6vbVFlVQQ6ugRYHYGcC7aooELddgR/mX7K9N5N87RCB0IsS8ha5WHoiQMWfe/C
+	/ukb79PeE0eIli1RhIynoxAQTcB3I0e2nf5crOjjSyzmWGLgJpTmAb2gSaUbmZ6WQ4Axb4
+	qvz4+P3h0TSGmFBsMbFdWgdP+xEZPTKNAj2h59gUfDlmoaq5cMbJ8efwDERRsWEmfThBPv
+	Sd7QmBgVmRiLMGAQ2YmJdaBrHBrb0Bad3g/pUOp6t8hytMltlsiGwmdABkP8BQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: alexander.deucher@amd.com,
+	sunpeng.li@amd.com,
+	harry.wentland@amd.com,
+	siqueira@igalia.com,
+	amd-gfx@lists.freedesktop.org
+Cc: Hugo Sales <hugo@hsal.es>,
+	ray.wu@amd.com,
+	simona@ffwll.ch,
+	alex.hung@amd.com,
+	mario.limonciello@amd.com,
+	linux-kernel@vger.kernel.org,
+	lohita.mudimela@amd.com,
+	bhawanpreet.lakha@amd.com,
+	dri-devel@lists.freedesktop.org,
+	roman.li@amd.com,
+	airlied@gmail.com,
+	christian.koenig@amd.com
+Subject: [PATCH RFC RFT 0/8] drm/amd/display: Stop rounding backlight levels to whole percents
+Date: Wed,  4 Nov 2026 09:55:08 +0000
+Message-ID: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,163 +85,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102072808.23080-1-yangtiezhu@loongson.cn>
- <20261102072808.23080-2-yangtiezhu@loongson.cn> <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
- <8b00e5a7-4e60-19bd-7953-f76dc71e15ec@loongson.cn> <CAAhV-H52bqRD1SyrZsvMkNbCpGiM5DPSGPARiasZ8G3XsE5Tgw@mail.gmail.com>
- <6446c385-623c-d4cf-5a07-0c2276c6f50c@loongson.cn>
-In-Reply-To: <6446c385-623c-d4cf-5a07-0c2276c6f50c@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 4 Nov 2026 17:54:50 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4m-cokYz19HHAoDeLAjRGp4T=vwDOJaJEcHXZDW15rkQ@mail.gmail.com>
-X-Gm-Features: AclHuK-tyGt7dKynXW9DKY0ZRtsdV6cnh8v5lndrM8_P4nSQD_OrvjPPBDK8wfA
-Message-ID: <CAAhV-H4m-cokYz19HHAoDeLAjRGp4T=vwDOJaJEcHXZDW15rkQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] LoongArch: BPF: Make arena support depend on SCQ extension
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261102-backlight-curve-rfc-1bb4b6dee24c
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5393; i=hugo@hsal.es; h=from:subject:message-id; bh=PQsx1IGMpofUteuFxti+4cBxlJh3BV6RNADrUVGGk00=; b=kA0DAAoWfQx+r8nYNaAByyZiAGrqDFqiD1U5arqjNLF1t7Ag6L4243Zv09upUqhQQSay70qxM oh1BAAWCgAdFiEELdhJAASRk5lscuekfQx+r8nYNaAFAmrqDFoACgkQfQx+r8nYNaBOIgEA1pRf USzLduOXx5VknDn/4CGSTc9sUZOlqDQnnKXf6lIA/0RZnUq4WkKYzP/nuYMezgAXg3IrREZNWLK 7Ku3tMggO
+X-Developer-Key: i=hugo@hsal.es; a=openpgp; fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jKLQt4xXCz8scv
 
-On Wed, Nov 4, 2026 at 2:58=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn>=
- wrote:
->
-> On 11/4/26 12:29 PM, Huacai Chen wrote:
-> > On Tue, Nov 3, 2026 at 10:24=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongso=
-n.cn> wrote:
->
-> ...
->
-> >> So, the current patch has no problem IMO.
-> > OK, then I think we can use:
-> >
-> > return __is_defined(system_has_cmpxchg128) && system_has_cmpxchg128();
->
-> If CONFIG_AS_HAS_SCQ_EXTENSION is not enabled, system_has_cmpxchg128()
-> is not defined at all. If we change the code to follow your suggestion,
-> something like this:
->
-> ```
-> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-> index b5ed4881d3c0..6f572d24d2c3 100644
-> --- a/arch/loongarch/Kconfig
-> +++ b/arch/loongarch/Kconfig
-> @@ -336,7 +336,7 @@ config AS_HAS_LVZ_EXTENSION
->          def_bool $(as-instr,hvcl 0)
->
->   config AS_HAS_SCQ_EXTENSION
-> -       def_bool $(as-instr,sc.q \$t0$(comma)\$t1$(comma)\$t2)
-> +       def_bool n
->
->   config CC_HAS_ANNOTATE_TABLEJUMP
->          def_bool $(cc-option,-mannotate-tablejump)
-> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-> index d7ea515045ec..d124632b0fa9 100644
-> --- a/arch/loongarch/net/bpf_jit.c
-> +++ b/arch/loongarch/net/bpf_jit.c
-> @@ -2495,11 +2495,7 @@ bool bpf_jit_supports_arena(void)
->           * atomic cmpxchg; this is provided by not only hardware SCQ
-> extension
->           * but also assembler support on LoongArch.
->           */
-> -#ifdef system_has_cmpxchg128
-> -       return system_has_cmpxchg128();
-> -#else
-> -       return false;
-> -#endif
-> +       return __is_defined(system_has_cmpxchg128) &&
-> system_has_cmpxchg128();
->   }
->
->   bool bpf_jit_supports_fsession(void)
-> ```
->
-> We will encounter a fatal build error:
->
->    CC      arch/loongarch/net/bpf_jit.o
-> arch/loongarch/net/bpf_jit.c: In function =E2=80=98bpf_jit_supports_arena=
-=E2=80=99:
-> arch/loongarch/net/bpf_jit.c:2498:55: error: implicit declaration of
-> function =E2=80=98system_has_cmpxchg128=E2=80=99 [-Wimplicit-function-dec=
-laration]
->   2498 |         return __is_defined(system_has_cmpxchg128) &&
-> system_has_cmpxchg128();
->        |
-> ^~~~~~~~~~~~~~~~~~~~~
-> make[5]: *** [scripts/Makefile.build:290: arch/loongarch/net/bpf_jit.o]
-> Error 1
->
-> Even if we change it to use IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION),
-> something like this:
->
-> ```
-> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-> index b5ed4881d3c0..6f572d24d2c3 100644
-> --- a/arch/loongarch/Kconfig
-> +++ b/arch/loongarch/Kconfig
-> @@ -336,7 +336,7 @@ config AS_HAS_LVZ_EXTENSION
->          def_bool $(as-instr,hvcl 0)
->
->   config AS_HAS_SCQ_EXTENSION
-> -       def_bool $(as-instr,sc.q \$t0$(comma)\$t1$(comma)\$t2)
-> +       def_bool n
->
->   config CC_HAS_ANNOTATE_TABLEJUMP
->          def_bool $(cc-option,-mannotate-tablejump)
-> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-> index d7ea515045ec..1b87b1e4262e 100644
-> --- a/arch/loongarch/net/bpf_jit.c
-> +++ b/arch/loongarch/net/bpf_jit.c
-> @@ -2495,11 +2495,7 @@ bool bpf_jit_supports_arena(void)
->           * atomic cmpxchg; this is provided by not only hardware SCQ
-> extension
->           * but also assembler support on LoongArch.
->           */
-> -#ifdef system_has_cmpxchg128
-> -       return system_has_cmpxchg128();
-> -#else
-> -       return false;
-> -#endif
-> +       return IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION) &&
-> system_has_cmpxchg128();
->   }
->
->   bool bpf_jit_supports_fsession(void)
-> ```
->
-> It still fails with the same error due to the macro visibility:
->
->    CC      arch/loongarch/net/bpf_jit.o
-> arch/loongarch/net/bpf_jit.c: In function =E2=80=98bpf_jit_supports_arena=
-=E2=80=99:
-> arch/loongarch/net/bpf_jit.c:2498:59: error: implicit declaration of
-> function =E2=80=98system_has_cmpxchg128=E2=80=99 [-Wimplicit-function-dec=
-laration]
->   2498 |         return IS_ENABLED(CONFIG_AS_HAS_SCQ_EXTENSION) &&
-> system_has_cmpxchg128();
->        |
-> ^~~~~~~~~~~~~~~~~~~~~
-> make[5]: *** [scripts/Makefile.build:290: arch/loongarch/net/bpf_jit.o]
-> Error 1
->
-> Therefore, using the explicit #ifdef block in the original patch is the
-> only way to ensure toolchain compatibility and compile-time robustness
-> here IMO.
-This is OK:
+Both backlight paths in amdgpu_dm_backlight.c map the 16-bit user level
+through the ATIF custom brightness curve, whose points pair an 8-bit
+signal with a whole-percent luminance. Both round the level to one of
+those signals and the luminance to a whole percent first. That hurts
+most at the dim end, where one percent is a large share of the light.
+With the curve of an ASUS ROG Flow X13 GV301QH, minimum 12 and 49
+points:
 
-return cpu_has_scq && __is_defined(system_has_cmpxchg128);
+- On PWM, the lowest level asks for 2% of full brightness, and the
+  first 2% of the scale steps from there to 3%, 4% and 5%. Each step is
+  50%, 33% and 25% brighter than the one before. The bottom 10% of the
+  scale has 18 different brightness values
+- On AUX, with amdgpu.backlight=1 to force the unsupported AUX path,
+  the 1..512 nits fallback range stays at 1 nit for the bottom 6.1% of
+  the scale, and the next steps go to 3, 5 and 7 nits. The bottom 10%
+  of the scale has 4 different values, and the top stops at 496 nits
 
-It means two things:
-1. CPU supports SC.Q;
-2. Kernel defines system_has_cmpxchg128.
+This series interpolates on the unrounded level and rounds once at the
+end. On PWM, the power module also interpolates between its LUT entries
+now, from millipercent to PWM and back. The bottom 10% of the scale then
+has 6018 different values on PWM instead of 18, and 33311 on AUX instead
+of 4. Level 0 still gives the panel's minimum and the top level gives
+its maximum. On AUX only levels 0 and 1 now sit at the minimum, instead
+of the bottom 6.1% of the scale
 
-Very clear.
+- Patch 1 renames the min and max of the user range to user_min and
+  user_max, to avoid confusion with the curve's signal_max and the
+  output_max that patch 4 adds. No functional change
+- Patches 2 and 3 interpolate between the power module's LUT entries,
+  from millipercent to PWM and back
+- Patch 4 stops rounding the PWM path
+- Patches 5 and 6 test the PWM path and the LUT with the GV301QH curve
+- Patch 7 maps AUX through the same curve code as PWM, which reaches
+  max at the top, and removes convert_custom_brightness()
+- Patch 8 tests the AUX path
 
-Huacai
+Patch 7 changes what an AUX panel gets. Until now an AUX level asked for
+the curve's luminance percentage times the level, so the level went in
+twice. Now it asks for min plus that percentage of the range above min,
+the same luminance the PWM path asks the power module for. On the
+fallback range, half the scale goes from 159 nits to 315 nits. I found
+no reason for the old product, but I may be missing the intent. I also
+can't test it meaningfully, as I don't have a panel with an AUX
+backlight
 
->
-> Anyway, I will modify the patch subject, update the commit message
-> and code comment to make it more clear.
->
-> Thanks,
-> Tiezhu
->
+The series applies on top of "drm/amd/display: Fix the doubled AUX
+backlight minimum on the custom curve" [1]. That series fixes the
+minimum going in twice on AUX, and asks whether the ATIF curve is meant
+for AUX at all. Patch 7 keeps applying the curve on AUX, as the code
+always has. Since it changes what AUX panels get, it has no Fixes: tags
+
+One question for you: on PWM, above the last point the curve still runs
+to 100% at max_input_signal, as backlight_signal_to_luminance() did,
+while the level maps to the 0..255 signal scale over the whole user
+range. With max_input_signal below 255 the top of the PWM scale is flat
+at full brightness. AUX keeps ending the curve at 255, as it did
+before. Should PWM end at 255 too?
+
+This is also a request for testing. My laptop drives its panel over PWM,
+and the panel ignores AMD's AUX brightness, so I tested the AUX path
+only with KUnit and with the amdgpu_dm_brightness trace on a forced AUX
+path. If you have a panel with an AUX backlight and an ATIF custom
+curve, a Tested-by on patches 7 and 8 would help. The middle of the
+scale should get brighter, the bottom should no longer sit at the
+minimum and the top should reach full brightness. Patches 1 to 6 don't
+depend on them, so they can go in without the AUX half
+
+[1] https://lore.kernel.org/r/20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es
+
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+Hugo Sales (8):
+      drm/amd/display: Rename the user brightness range to user_min and user_max
+      drm/amd/display: Interpolate between backlight LUT entries
+      drm/amd/display: Interpolate when reading PWM back as a percentage
+      drm/amd/display: Stop rounding PWM brightness to whole percents
+      drm/amd/display: Add KUnit tests for the custom brightness curve
+      drm/amd/display: Add KUnit tests for backlight LUT interpolation
+      drm/amd/display: Map AUX brightness through the custom curve like PWM
+      drm/amd/display: Add KUnit tests for the AUX custom brightness curve
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 218 ++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   6 +-
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 923 +++++++++++++++------
+ .../gpu/drm/amd/display/modules/power/power_abm.c  |  72 +-
+ .../drm/amd/display/modules/power/power_helpers.h  |   4 +
+ 5 files changed, 784 insertions(+), 439 deletions(-)
+---
+base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+change-id: 20261102-backlight-curve-rfc-1bb4b6dee24c
+prerequisite-message-id: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
+prerequisite-patch-id: 0eefd25bf4ad8f6d779c7a0b0a63f84969b67fca
+prerequisite-patch-id: 016515673f79f623de1e50dd513e5440587329b6
+prerequisite-patch-id: ba453baf376b5410d66feacb1956eea933042ae8
+
+Best regards,
+--  
+Hugo Sales <hugo@hsal.es>
+
