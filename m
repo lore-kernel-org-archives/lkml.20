@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793761052;
-	b=SfLeaycTheMGEkf4l4rhyZDBm4ololFnoJ/ujFx9JLEcwRfB1it+8aKlhxTTkphRb9Oz
-	 rMXwAK0rZOLgQR8vPfn22oBCvdx2309TRFlHdD99etbS51vdn7SAWomKmsP4z4C9SzvNd
-	 o5BUDJyhqbxw+3UQPEE5Mjenucp0Mol5H7+tPDOQB6ce70eVD57KLJzX/IeobDKCDc0zR
-	 5M80p+oMcbdobf+BFk6To4DLc/6Kb/Ft7nTClcS4Lj9SfFdidpkUldx1JEXvO2zaYUbGj
-	 6FNVk9tTm0eGXROIIp59SqbBoAqc4jrhPL/APi3Zxg+a+TscKNc/JCbblCY/2XxPUvQ==
+	t=1793761094;
+	b=EbOl+q31U4jagy2lBAWTijMUBEfJIeMkIvumVvi4IrHFdE+hN/DD1saQQ+cDa6hP5/Uk
+	 iEzhvsm52UulCskslglp0VxSEXAmGhxjSWDyXSLbaLWlw3aTQAsqjpBv9VVcnHRqUqkQ4
+	 Uf2QCqO9NLcUP8sPIR7mydGzHo3z/NmhMw/ljOcdLyklWDtH2YSGgb2d8OKGTpaZLCHll
+	 uIiZTxuOpoRX+oIKpApl3r4YXq7vhJgC73FWnOAuhpt4ugVt7tRFB1Dd9MWI57/J3v6FD
+	 QIz9KweglTxN5Ef8qkZE/eBUxHYLowL7YVzgERNkgauGkezVcSP/KqoHz+zyFeshYnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793761052;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=n+hYKtXYSjfXxp3XBT79Gp8/IwQLW8chrV+xSdRgSm8=;
-	b=L2vtL89HqsNj7vk3QH/gizXu2eKCAAqrbajpxbvIhlcIdv6WS2NQTsNZdPjB+JsaLjB8
-	 e00tsY6Bq0Ia8DHJIcguxDrR1P2ZMASYdjtCZAezj40YQcG58RX1QAUIeyiu+yPbzMtEk
-	 VDKiQvlj12HfvKAz0cWLRDk47B0QOcXOzsh7N8tFfyzUVn/Z71VWNwiASuinOMHg23Pvg
-	 o/3plfqAAu0GObgwYdFAkxVK6KB+IkPzzPEND5k/DArnc/bnFz7Sd+uNUhYJi4f1vJYIA
-	 SFbBEdSZ6NCznSouQCcZ/CubJ6eakIIJMXzQvgJO94iVKQ4yN1DfFTR4W2d5l8Z12Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793761094;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6K7mdgwtT1pUptQZb8V/YwrLp8kJMPOp/OKvTUNrc9w=;
+	b=qtZCfpIPLSxbHgXJtKorU0fXyWwa6OShbD5XIrgg3BixY1VJxZL1LW+Jon1sl8hF3cp6
+	 hYfpTbgJ1/+IWCHG92bZi1lezsvodZ8dtbV1ogTmTzPm0+5kwjTexAYhP+EgEcy0v/SnA
+	 RhrvJjUxI13Jgj3cOE+2ctWaRXyBJ6ecPyl1ol8+mBpQtPArCDAsOlDzTQ6ym3lsmjBQK
+	 tIUaaJVbY9s/bWY7ofETSdLC9qofBxC9NoOuNxMBX2aptEPbcvKEOgWtb95c2kvBvWcs1
+	 Q30Q5HgYdqF655sWGvKZBgPD+Rvm5w0nkpdW7Z/lVaXvPMACLu6IMEj67JSSJWs9Aqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=runtimeverification.com;
-	spf=pass smtp.mailfrom=runtimeverification.com;
-	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=jCjcnBpU;
-	arc=none smtp.remote-ip=185.70.43.17
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=KTm+tbmQ;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B325F606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:57:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B325F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12ED5606A31B;
+	Wed,  4 Nov 2026 02:58:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12ED5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=jCjcnBpU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1793761048; x=1794020248;
-	bh=n+hYKtXYSjfXxp3XBT79Gp8/IwQLW8chrV+xSdRgSm8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jCjcnBpUeOVeVGw59pYp/qioNQXGnxLzN0YwcU4rHxH+g62pY2W0/rK72lqp1lpId
-	 skebtWefJZi5ulIx8OTGZcWjk6lbNX5E+DMoBPY5x8SqCijuy3GNG5eWEGYIDUL3r1
-	 TbjA8+/x/2NUqiDCHlEYGLnEOAi2i96lz56UZblaiZsq4O1K7+wc5mnMFVy88GJ/G+
-	 7LPd+Nti3MiQ11fs8lX7oM1GvrRzF/CPUpSUM573/tcBM8kklpotyuQf+HpEOO9bah
-	 mRwH2p1Y2tCAItF6i4qTfywYI9Pg5n+HgfgSRFab+dn69O8q1fEamc2Cq2O+fVvv0g
-	 4f11fNfGyayrQ==
-Date: Wed, 04 Nov 2026 02:57:19 +0000
-To: James Morris <jmorris@namei.org>
-From: Natalie Klaus <natalie.klaus@runtimeverification.com>
-Cc: Christian Brauner <brauner@kernel.org>, Julia Lawall <julia.lawall@inria.fr>, Greg KH <greg@kroah.com>, gmonaco@redhat.com, ojeda@kernel.org, aliceryhl@google.com, gary@garyguo.net, namcao@linutronix.de, sashal@kernel.org, willy@infradead.org, paulmck@kernel.org, corinnt@google.com, stewart@linuxfoundation.org, linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>, tytso@mit.edu, keisuke.nishimura@inria.fr, jean-pierre.lozi@inria.fr, "aklaus.code@gmail.com" <aklaus.code@gmail.com>, "palina@runtimeverification.com" <palina@runtimeverification.com>
-Subject: Re: Kernel formal methods mailing list?
-Message-ID: <9YSGLlcFbkzUCvt-LBQkhT8BI5Y4v8yNQC4bkTK2zxwm5W-gnkX4rL0SRvQrb1bvGNY-dACfKyk3_vwJE_arlXZaXDK1cYdF95SFQNGJASw=@runtimeverification.com>
-In-Reply-To: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org>
-References: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org>
-Feedback-ID: 202241500:user:proton
-X-Pm-Message-ID: 204e5987e599fa885aa1b1918339f8a4f8c0de4c
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=KTm+tbmQ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793761090; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=6K7mdgwtT1pUptQZb8V/YwrLp8kJMPOp/OKvTUNrc9w=;
+	b=KTm+tbmQxOTe/7VPdO3EG+oghYyTmTR40kFWEi+jb5x8tc6EivVlypfVZu1GYUTI22d1GYXiFNIl70ZhqgOZwwC5P3Moy83UGfo08JEwCYk+i9s3TPad8rQgY2e+ntmHXYP1sJX5i4SHRt5AiZwiywQ6n/EgZPm0ioh2GF9nFf8=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.3239649|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.128799-0.138537-0.732665;FP=17242777726901411837|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jwIggha_1793761089;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jwIggha_1793761089 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 10:58:10 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: jarkko@kernel.org
+Cc: peterhuewe@gmx.de,
+	jgg@ziepe.ca,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com
+Subject: Re: [PATCH] tpm: eventlog: check the payload size before reading tag events
+Date: Wed,  4 Nov 2026 10:58:09 +0800
+Message-ID: <20261104025809.787723-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aunbAIcxu8XTW0Ph@kernel.org>
+References: <aunbAIcxu8XTW0Ph@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,69 +64,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------c5235008b61c7347ac5e6db568dfec6e21d0ad9cb5b4dcab80dc092ac1ac4970"; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------c5235008b61c7347ac5e6db568dfec6e21d0ad9cb5b4dcab80dc092ac1ac4970
-Content-Type: multipart/mixed;boundary=---------------------bc90e10ed30151a7d5a88cdb7510edfa
+The legacy PC Client spec defines the EV_EVENT_TAG payload as a
+TCPA_PC_EVENT: event_id, event_size and event-type-specific data.
+A conformant entry carries the 8-byte header, and the hash-type
+ids carry a full digest.
 
------------------------bc90e10ed30151a7d5a88cdb7510edfa
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
-
-Hi James,
-
-Adding Palina Tolmach (CTO, Runtime Verification) and Andrey Klaus
-to Cc.
-
-Great idea, +1 for the mailing list.
-
-We have a prototype deterministic (non-LLM) C to Lean 4 translator
-aimed at low-level C, with the Linux kernel as the main target,
-including threads and mutexes. Andrey Klaus is working on it. The
-generated Lean stays close to the source and is executable. Coverage
-of real-world C is still limited. Proving the translation equivalent
-to the C source should be possible, but is a separate research effort.
-
-We also use a C -> Rust -> Aeneas -> Lean 4 path, checked against the
-C by differential fuzzing. We tried it on UVC [1], Binder [2] and the
-userns ID mapping [3]; the last one produced the uid_map range patch
-Christian applied. On the io_uring cBPF filter validator [4] it found
-a CONNECT filter bypass, fixed in aa5d5f8e5023 [5].
-
-Looking forward to the list.
-
-[1] https://github.com/runtimeverification/kernel-c-to-rust-spike
-    https://runtimeverification.com/blog/hardening-linux-c-code-a-rewrite-=
-and-verify-loop
-[2] https://github.com/runtimeverification/kernel-rust-verification-spike
-[3] https://github.com/runtimeverification/linux-isolation-spike
-[4] https://github.com/runtimeverification/linux-cbpf-spike
-[5] https://lore.kernel.org/io-uring/20261009133807.730724-1-natalie.klaus=
-@runtimeverification.com/
-[6] https://github.com/runtimeverification/kernel-rust-coverage-map
-[7] https://arxiv.org/abs/2605.30106 (AIMACS / CAV 2026)
-
-Natasha
-
------------------------bc90e10ed30151a7d5a88cdb7510edfa--
-
---------c5235008b61c7347ac5e6db568dfec6e21d0ad9cb5b4dcab80dc092ac1ac4970
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmrqnwAJENPUo8p5WGNmRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcme4avFYwWg39IlmtXCO59wfELW5hHC+wvg0S4Ne
-hmx5GRYhBOCRWztRAyANJCJf9NPUo8p5WGNmAAAzZwD/eoXHVVw7dkvcWOGQ
-kGLRYZwfA6bqKzl4UadZjLNDxwYA/AtcrKzU6G0ITE9YBFaKCRuhCy2iB6sn
-wveQTDGLM7QD
-=aPfw
------END PGP SIGNATURE-----
-
-
---------c5235008b61c7347ac5e6db568dfec6e21d0ad9cb5b4dcab80dc092ac1ac4970--
-
+The catch is that the log is an ACPI table the firmware leaves in
+memory: the TPM never measures the log itself, so the kernel cannot
+tell a conformant log from a corrupted one.  The iterators already
+work on that assumption - they stop once the declared event_size
+runs past the buffer end - and this check applies the same rule to
+what the EVENT_TAG branch reads off the payload.
