@@ -1,63 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805363;
-	b=bjv4zMnKIYu9KlJIaSzX4GZA7KFu4ju3d3nBcygAIhUljOD//H7OCvZGuMM/KDsdmRyP
-	 z2Tj3ctp92CSIwODBTigHKhpKoEcxbsfYRWAQa2egSe/ba3z6zBCV1K09ao0WlUjot7Yc
-	 0yA/z0Ovc3y7jasErAC4v6vZc0fCFnsDk3whjXQLCDGqquS6K5igiiJ3uwGUVQwUvAWME
-	 Q/jbuOfygHKA2p4+BGDssOIP1/v7Z+CZ5ZAlq0ijZ7/49egh8SEUDN6hDFAnzf5PZT+1o
-	 LswqsFQHq2kGl2AK/iVzXtRLgbVAjBbIbwGaPo3L55nxZUagkjKW0lvm1ulwZPI1TSQ==
+	t=1793805353;
+	b=H3w7c9jJRveJ8rjeafFmkxNDL1x+ygI4Cp64DIeA48aPf+va1oXoriLTra7VRXoHyp+e
+	 klZJ5tTBWCsH8+tChJUPmTaG1sna3F+brN8VWG+BsijLKemUM8NO4C8jHR3Zno6gMs3Lq
+	 AiBapQkZIMwjZMV1c2o/zuTXrZBKYHsuN/IGMAvKvTIVmNKtwUB19+MZKjuY23wH7X4Ls
+	 suQ5pV98Cn4kOoYzb2efdjOS6r1u76bmq5fMmjq4by2a+8rod9T7avCeYCr4sUAqogWt5
+	 3tbZHxyWk2gifJ164uvocxwEjQOxUSJoztLoHfkKtSNy9jfAnBEV6DuZ1+rsvzvHSDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805363;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FmkxNNy+ToMepP/ABtw7xTjrpXoi59PxFvnFgDXrA8w=;
-	b=Uhjzj2yag0iLakwvJdzRrzTMI0Pl5HEcq5S7/8gqXIw0tLI3ckrV3C6rn9iHvZLHYduB
-	 RZrhg2CGf2xGvi7/2Z2wVMovMuBmgrtonysGufcCDdxpPg0Z0y23ywkvyDzJO43cMmMwB
-	 VfnIx9i/W0K2edrrL1jeQvy7xS2Wq7aczRAM1sICwIWtTW5TXUWu9oV1Vd3D6S1ebNamr
-	 GeN1QJAk6KypWHLdd8zv9ofei4f8Nes8K+rX4LncJsXN0QkYRGBa9FS7L705MEcWH3gjH
-	 qlQVwEFabtlmjEiaz90SrhwDTAA1MJ/3aQ7XIw9D9aUILGBIJKGXQYNLpuS/epBQZPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805353;
+	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=l5ZvKir1PmMvrBXGpjDqb2p+nQANqEfJDu9tgJ2rlR0=;
+	b=fqYEAuOf2K6+Y11g/hql4EH0ZdGij6y3EqXQgd7GiXMoAIs5zfO+qDwfJHk9xx8iSydM
+	 z3XuZppfjaPhXQK2eOCS2tko29F6xwZSnXNza7Er3GlHofSgUBS/A/M9Oi5G3QOmAdUOh
+	 hYnbfdJ6kL44ub1oRvVG461M/VoHOvEftCZqjuB3kxOJkIXc1dJfdVv/urQ2sTNMyHd78
+	 yffPZ/7hLPvI3prNlmPxDFiodQXVKC/d4QGq4DSPtdIh1pzKtOLa8oSdUw9r3+EXbnx2j
+	 KrGq2Kw/z5sNV2wBEHqLQr/69fmm7ahSnjQzKcGEOO8VDDUOj1XVbY58UKNITUp4Ehg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=deq.rocks;
 	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=U94boUCW;
+	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=dDnEilNL;
 	arc=none smtp.remote-ip=91.216.248.207
 Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29865606D834;
-	Wed,  4 Nov 2026 15:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29865606D834
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3387606A329;
+	Wed,  4 Nov 2026 15:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3387606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=U94boUCW
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=dDnEilNL
 From: Andre Eikmeyer <dev@deq.rocks>
+X-Lima-ML-UUID: 6baddc19-b339-4c77-b1fd-c68924115296
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793805361;
-	bh=VmecE7aJ+0JSl/7mJYiBiRErvc45KJfwgo6cIMtg5rI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=U94boUCWddQzLH/dT4/hQ8ADwJK5MmqUzfQO1UGr+aOc2iMfm3pswrOGLKcJkvtwn
-	 Zb1h7xyNFdhwNg9p3onvazGNzx5lx6TKxiI1UWVzR7qca2n6Dw8BWBck+PeWcXHe7T
-	 STrKIdGykk4qzJq3mnbjU2c8bi/VjpxibjhO1sZUKQm66QfNuJYBvUxDS3NHgfXgXK
-	 /CBPlmkMhHgnt8GDI9K9/zTWD/8yCZVibdvDATOwq1MO1v6G6EvgML3qvBd5oy95ei
-	 jUPrJktvcnyY5wVpdv7uB85Ch2ZzPNv36rNfIQiMVzyRr7qfYmBL9ms9k5SSz2F1iE
-	 l/9+0095/AtlQ==
+	s=securedbylima-20251205; t=1793805349;
+	bh=GVCxYChL3bU+vz78JfNb2nU8ExMERnwcgtgty+iaHgI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=dDnEilNLWhknLGdLBCUQpDOYizvdJJPHOVD/JRcrfSskO/fUqjMzeHLQx1XnUTUlB
+	 HK4PxSHkdyt6ppVHD7lYjFujqTIaWxMFg7ecxaKTfbY8vxADkNCjTPjI1cOlPregyC
+	 L3RLdktd5Tu32YfemQzJQg5aoVA3u0TW9H2BPD2GTZkSq7uOHaJ3LXIAOwvCWPTXxc
+	 PkQWGlDLXcXqpgRA6kwho6g6iQrf3Tbju9aL9E3uMztaH2FmmAWhVCUr64Di1jPCd3
+	 OUVEU/zJRg6LIW2OdfCspd2L9yE4TZ8QHwHD34STXA/y6B+UMhPH1pdQ7hal//AN3T
+	 2KVwZWw7b8vjA==
 To: arend.vanspriel@broadcom.com
 Cc: linux-wireless@vger.kernel.org,
 	brcm80211@lists.linux.dev,
 	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>,
-	Yossef Osman <Yossef.Osman@proton.me>,
-	Aditya Garg <aditya.garg@linux.dev>
-Subject: [PATCH 7/7] wifi: brcmfmac: pass AWDL frames and role changes to user space
-Date: Wed,  4 Nov 2026 16:15:47 +0100
-Message-ID: <20261104151547.70333-8-dev@deq.rocks>
+	Andre Eikmeyer <dev@deq.rocks>
+Subject: [PATCH 0/7] wifi: brcmfmac: AWDL for AirDrop on Apple T2 Macs
+Date: Wed,  4 Nov 2026 16:15:40 +0100
+Message-ID: <20261104151547.70333-1-dev@deq.rocks>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104151547.70333-1-dev@deq.rocks>
-References: <20261104151547.70333-1-dev@deq.rocks>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,310 +65,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-User space runs the AWDL election and peer discovery from the AWDL
-action frames other devices send. The firmware reports them with two
-events on the AWDL interface, ACTION_FRAME_RX and AWDL_EVENT (98). A
-header is in front of the frame. Its first 16 bits, high byte first,
-are its version: 1 is struct brcmf_rx_mgmt_data with 16 bytes, 2 has 24
-bytes. Both events come with either version. AWDL_EVENT carries a frame
-only with some of its status values. AWDL_ROLE (97) reports the AWDL
-role of the firmware in its status, 0 slave, 1 master not taking part
-in the election and 2 master.
 
-Register the two AWDL events when the firmware supports AWDL, so the
-event mask includes them. Pass every AWDL action frame (vendor specific
-category, OUI 00:17:f2, type 8) of the two events and the role changes
-to user space as the vendor events AWDL_FRAME and AWDL_ROLE. Other
-events of the AWDL interface are dropped as before.
+This series adds AWDL support to brcmfmac, so Linux on the Apple T2 Macs
+can send and receive files over AirDrop with Macs, iPhones and iPads.
 
-Tested-by: Yossef Osman <Yossef.Osman@proton.me>
-Tested-by: Aditya Garg <aditya.garg@linux.dev>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- .../broadcom/brcm80211/brcmfmac/awdl.c        | 122 +++++++++++++++++-
- .../broadcom/brcm80211/brcmfmac/awdl.h        |   4 +
- .../broadcom/brcm80211/brcmfmac/cfg80211.c    |   1 +
- .../broadcom/brcm80211/brcmfmac/fweh.c        |   8 +-
- .../broadcom/brcm80211/brcmfmac/fweh.h        |   5 +
- .../broadcom/brcm80211/brcmfmac/vendor.c      |   8 ++
- .../broadcom/brcm80211/brcmfmac/vendor.h      |  12 ++
- 7 files changed, 151 insertions(+), 9 deletions(-)
+AirDrop runs over Apple Wireless Direct Link (AWDL). On these Macs the
+Apple firmware runs AWDL itself. The host creates an AWDL interface and
+sets its parameters. From then on the firmware keeps the AWDL schedule,
+sends the AWDL frames it gets from the host and carries data frames to
+and from the peers. Election, peer discovery and AirDrop run in user
+space.
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-index 7df77a7fdf4..c8d92e84c5a 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
-@@ -639,17 +639,125 @@ static void brcmf_awdl_settle_work(struct wiphy *wiphy,
- 		       sizeof(dwell_off));
- }
- 
-+/*
-+ * ACTION_FRAME_RX and AWDL_EVENT put a header in front of a received frame.
-+ * Its first 16 bits, high byte first, are the version: 1 is struct
-+ * brcmf_rx_mgmt_data with 16 bytes, 2 has 24 bytes.
-+ */
-+#define BRCMF_AWDL_RX_HDR_V1_LEN	16
-+#define BRCMF_AWDL_RX_HDR_V2_LEN	24
-+
-+/* AWDL action frame: vendor specific category, Apple OUI, type AWDL */
-+static const u8 brcmf_awdl_af[] = { 0x7f, 0x00, 0x17, 0xf2, 0x08 };
-+
-+static struct sk_buff *brcmf_awdl_event_alloc(struct brcmf_pub *drvr,
-+					      int event, int len)
-+{
-+	struct brcmf_if *pri = brcmf_get_ifp(drvr, 0);
-+
-+	return cfg80211_vendor_event_alloc(drvr->wiphy,
-+					   pri && pri->vif ? &pri->vif->wdev :
-+							     NULL,
-+					   len, event, GFP_KERNEL);
-+}
-+
-+/**
-+ * brcmf_awdl_fweh_event() - pass a firmware event of the AWDL interface on.
-+ *
-+ * @ifp: interface of the event.
-+ * @e: event message.
-+ * @data: event data.
-+ *
-+ * Called from the firmware event worker for the events of the AWDL
-+ * interface, which do not go to the cfg80211 handlers. Received AWDL action
-+ * frames and role changes become vendor events, other events are dropped.
-+ * AWDL_EVENT carries an AWDL action frame with some of its status values.
-+ * Return: 0 or a negative error code.
-+ */
-+int brcmf_awdl_fweh_event(struct brcmf_if *ifp,
-+			  const struct brcmf_event_msg *e, void *data)
-+{
-+	struct brcmf_pub *drvr = ifp->drvr;
-+	struct sk_buff *skb;
-+	u32 hdr;
-+
-+	if (!ifp->awdl)
-+		return 0;
-+
-+	switch (e->event_code) {
-+	case BRCMF_E_ACTION_FRAME_RX:
-+	case BRCMF_E_AWDL_EVENT:
-+		break;
-+	case BRCMF_E_AWDL_ROLE:
-+		skb = brcmf_awdl_event_alloc(drvr, BRCMF_VNDR_EVTS_AWDL_ROLE,
-+					     NLMSG_DEFAULT_SIZE);
-+		if (!skb)
-+			return -ENOMEM;
-+		if (nla_put_u32(skb, BRCMF_AWDL_ATTR_ROLE, e->status)) {
-+			kfree_skb(skb);
-+			return -EMSGSIZE;
-+		}
-+		cfg80211_vendor_event(skb, GFP_KERNEL);
-+		return 0;
-+	default:
-+		return 0;
-+	}
-+
-+	if (e->datalen < 2)
-+		return 0;
-+	switch (get_unaligned_be16(data)) {
-+	case 1:
-+		hdr = BRCMF_AWDL_RX_HDR_V1_LEN;
-+		break;
-+	case 2:
-+		hdr = BRCMF_AWDL_RX_HDR_V2_LEN;
-+		break;
-+	default:
-+		return 0;
-+	}
-+	if (e->datalen < hdr + sizeof(brcmf_awdl_af) ||
-+	    memcmp((u8 *)data + hdr, brcmf_awdl_af, sizeof(brcmf_awdl_af)))
-+		return 0;
-+
-+	skb = brcmf_awdl_event_alloc(drvr, BRCMF_VNDR_EVTS_AWDL_FRAME,
-+				     e->datalen);
-+	if (!skb)
-+		return -ENOMEM;
-+	if (nla_put(skb, BRCMF_AWDL_ATTR_ADDR, ETH_ALEN, e->addr) ||
-+	    nla_put(skb, BRCMF_AWDL_ATTR_FRAME, e->datalen - hdr,
-+		    (u8 *)data + hdr)) {
-+		kfree_skb(skb);
-+		return -EMSGSIZE;
-+	}
-+	cfg80211_vendor_event(skb, GFP_KERNEL);
-+	return 0;
-+}
-+
-+/*
-+ * Registers the firmware events that only the AWDL interface reports, so the
-+ * event mask includes them. The firmware runs AWDL with all of them enabled.
-+ */
-+void brcmf_awdl_register_events(struct brcmf_pub *drvr)
-+{
-+	static const enum brcmf_fweh_event_code events[] = {
-+		BRCMF_E_AWDL_AW, BRCMF_E_AWDL_ROLE, BRCMF_E_AWDL_EVENT,
-+		BRCMF_E_AWDL_STATS, BRCMF_E_SDB_STATE,
-+	};
-+	struct brcmf_if *pri = brcmf_get_ifp(drvr, 0);
-+	int i;
-+
-+	if (!pri || !brcmf_feat_is_enabled(pri, BRCMF_FEAT_AWDL))
-+		return;
-+	for (i = 0; i < ARRAY_SIZE(events); i++)
-+		brcmf_fweh_register(drvr, events[i], brcmf_awdl_fweh_event);
-+}
-+
- static void brcmf_awdl_send_result(struct brcmf_pub *drvr, int event,
- 				   int status, struct net_device *ndev)
- {
--	struct brcmf_if *pri = brcmf_get_ifp(drvr, 0);
- 	struct sk_buff *skb;
- 
--	skb = cfg80211_vendor_event_alloc(drvr->wiphy,
--					  pri && pri->vif ? &pri->vif->wdev :
--							    NULL,
--					  NLMSG_DEFAULT_SIZE, event,
--					  GFP_KERNEL);
-+	skb = brcmf_awdl_event_alloc(drvr, event, NLMSG_DEFAULT_SIZE);
- 	if (!skb)
- 		return;
- 	if (nla_put_s32(skb, BRCMF_AWDL_ATTR_STATUS, status) ||
-@@ -732,6 +840,8 @@ const struct nla_policy brcmf_awdl_vndr_policy[BRCMF_AWDL_ATTR_MAX + 1] = {
- 	[BRCMF_AWDL_ATTR_IFINDEX] = { .type = NLA_REJECT },
- 	[BRCMF_AWDL_ATTR_PEER_IES] = { .type = NLA_BINARY,
- 				       .len = BRCMF_AWDL_PEER_IES_MAX },
-+	[BRCMF_AWDL_ATTR_FRAME] = { .type = NLA_REJECT },
-+	[BRCMF_AWDL_ATTR_ROLE] = { .type = NLA_REJECT },
- };
- 
- /* The device of a vendor command and its parsed attributes */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-index 63030221dea..06c932a3c95 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
-@@ -18,6 +18,7 @@ struct brcmf_pub;
- struct brcmf_if;
- struct net_device;
- struct sk_buff;
-+struct brcmf_event_msg;
- 
- enum brcmf_awdl_op {
- 	BRCMF_AWDL_OP_NONE,
-@@ -87,6 +88,9 @@ int brcmf_awdl_add(struct brcmf_pub *drvr, const u8 *mac,
- 		   struct net_device **ndev);
- int brcmf_awdl_del(struct brcmf_pub *drvr);
- void brcmf_awdl_suspend(struct brcmf_pub *drvr);
-+void brcmf_awdl_register_events(struct brcmf_pub *drvr);
-+int brcmf_awdl_fweh_event(struct brcmf_if *ifp,
-+			  const struct brcmf_event_msg *e, void *data);
- bool brcmf_awdl_if_added(struct brcmf_pub *drvr, struct brcmf_if *ifp);
- bool brcmf_awdl_if_removed(struct brcmf_pub *drvr, struct brcmf_if *ifp);
- int brcmf_awdl_encap(struct brcmf_if *ifp, struct sk_buff *skb);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 41ea0481cf1..cad12496173 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -7045,6 +7045,7 @@ static s32 wl_init_priv(struct brcmf_cfg80211_info *cfg)
- 	if (err)
- 		return err;
- 	brcmf_register_event_handlers(cfg);
-+	brcmf_awdl_register_events(cfg->pub);
- 	mutex_init(&cfg->usr_sync);
- 	brcmf_init_escan(cfg);
- 	brcmf_init_conf(cfg->conf);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c
-index 8c098029104..bd4bf205cc1 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c
-@@ -324,11 +324,13 @@ static void brcmf_fweh_event_worker(struct work_struct *work)
- 			ifp = drvr->iflist[0];
- 		else
- 			ifp = drvr->iflist[emsg.bsscfgidx];
--		/* The AWDL interface has no vif, its events are not for
--		 * the cfg80211 handlers
-+		/* The AWDL interface has no vif, its events go to user
-+		 * space and not to the cfg80211 handlers
- 		 */
--		if (ifp && ifp->awdl)
-+		if (ifp && ifp->awdl) {
-+			brcmf_awdl_fweh_event(ifp, &emsg, event->data);
- 			goto event_free;
-+		}
- 
- 		err = brcmf_fweh_call_event_handler(drvr, ifp, event->code,
- 						    &emsg, event->data);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h
-index e327dd58d29..f8dee73cab1 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h
-@@ -94,7 +94,12 @@ struct brcmf_cfg80211_info;
- 	BRCMF_ENUM_DEF(FIFO_CREDIT_MAP, 74) \
- 	BRCMF_ENUM_DEF(ACTION_FRAME_RX, 75) \
- 	BRCMF_ENUM_DEF(TDLS_PEER_EVENT, 92) \
-+	BRCMF_ENUM_DEF(AWDL_AW, 96) \
-+	BRCMF_ENUM_DEF(AWDL_ROLE, 97) \
-+	BRCMF_ENUM_DEF(AWDL_EVENT, 98) \
- 	BRCMF_ENUM_DEF(BCMC_CREDIT_SUPPORT, 127) \
-+	BRCMF_ENUM_DEF(AWDL_STATS, 150) \
-+	BRCMF_ENUM_DEF(SDB_STATE, 152) \
- 	BRCMF_ABSTRACT_ENUM_DEF(EXT_AUTH_REQ, 0) \
- 	BRCMF_ABSTRACT_ENUM_DEF(EXT_AUTH_FRAME_RX, 1) \
- 	BRCMF_ABSTRACT_ENUM_DEF(MGMT_FRAME_TXSTATUS, 2) \
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c
-index 5e7de07c995..aae9cd75947 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.c
-@@ -193,4 +193,12 @@ const struct nl80211_vendor_cmd_info brcmf_vendor_events[] = {
- 		.vendor_id = BROADCOM_OUI,
- 		.subcmd = BRCMF_VNDR_EVTS_AWDL_STOPPED
- 	},
-+	[BRCMF_VNDR_EVTS_AWDL_FRAME] = {
-+		.vendor_id = BROADCOM_OUI,
-+		.subcmd = BRCMF_VNDR_EVTS_AWDL_FRAME
-+	},
-+	[BRCMF_VNDR_EVTS_AWDL_ROLE] = {
-+		.vendor_id = BROADCOM_OUI,
-+		.subcmd = BRCMF_VNDR_EVTS_AWDL_ROLE
-+	},
- };
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h
-index ce7f7c46710..96009375eb7 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/vendor.h
-@@ -54,6 +54,11 @@ enum brcmf_vndr_cmds {
-  * @BRCMF_VNDR_EVTS_AWDL_STOPPED: the AWDL interface was removed, after
-  *	%BRCMF_VNDR_CMDS_AWDL_STOP or before system sleep, with
-  *	%BRCMF_AWDL_ATTR_STATUS.
-+ * @BRCMF_VNDR_EVTS_AWDL_FRAME: AWDL action frame received from
-+ *	%BRCMF_AWDL_ATTR_ADDR, the frame body from the category on in
-+ *	%BRCMF_AWDL_ATTR_FRAME.
-+ * @BRCMF_VNDR_EVTS_AWDL_ROLE: the firmware changed its AWDL role to
-+ *	%BRCMF_AWDL_ATTR_ROLE.
-  * @BRCMF_VNDR_EVTS_LAST: number of vendor events.
-  *
-  * The value of an event is its index in the vendor events and its vendor
-@@ -62,6 +67,8 @@ enum brcmf_vndr_cmds {
- enum brcmf_vndr_evts {
- 	BRCMF_VNDR_EVTS_AWDL_STARTED,
- 	BRCMF_VNDR_EVTS_AWDL_STOPPED,
-+	BRCMF_VNDR_EVTS_AWDL_FRAME,
-+	BRCMF_VNDR_EVTS_AWDL_ROLE,
- 	BRCMF_VNDR_EVTS_LAST
- };
- 
-@@ -80,6 +87,9 @@ enum brcmf_vndr_evts {
-  * @BRCMF_AWDL_ATTR_IFINDEX: interface index of the AWDL interface (u32).
-  * @BRCMF_AWDL_ATTR_PEER_IES: HT and VHT capabilities elements of a peer,
-  *	built from the AWDL TLVs it sends, as macOS passes them.
-+ * @BRCMF_AWDL_ATTR_FRAME: received action frame body.
-+ * @BRCMF_AWDL_ATTR_ROLE: AWDL role of the firmware (u32), 0 slave, 1 master
-+ *	not taking part in the election, 2 master.
-  * @BRCMF_AWDL_ATTR_MAX: highest attribute.
-  */
- enum brcmf_awdl_attrs {
-@@ -94,6 +104,8 @@ enum brcmf_awdl_attrs {
- 	BRCMF_AWDL_ATTR_STATUS,
- 	BRCMF_AWDL_ATTR_IFINDEX,
- 	BRCMF_AWDL_ATTR_PEER_IES,
-+	BRCMF_AWDL_ATTR_FRAME,
-+	BRCMF_AWDL_ATTR_ROLE,
- 
- 	__BRCMF_AWDL_ATTR_AFTER_LAST,
- 	BRCMF_AWDL_ATTR_MAX = __BRCMF_AWDL_ATTR_AFTER_LAST - 1
+The driver enables AWDL on any firmware that announces "awdl" in its
+capabilities and supports interface_create version 3. The linux-firmware
+image for the BCM4350 (7.35.180.133) on a pre-T2 MacBookPro14,1
+announces "awdl" and answers interface_create with BCME_UNSUPPORTED, so
+it stays without the feature. Other Apple chips, such as the BCM4355,
+are untested.
+
+The KaiT2en community, about 280 members, runs this series with its
+kernels. Users reported it working with the BCM4364 and BCM4377 on the
+MacBookPro15,1, 15,2, 15,3, 15,4, 16,1, 16,4, MacBookAir9,1 and
+iMac20,1, and nobody reported a regression. AirDrop transfers on the
+MacBookPro16,1 and 16,4 are slower than on the other models, the cause
+is still open.
+
+  1    match firmware capabilities as whole words
+  2    move the interface_create definitions to fwil_types.h
+  3    detect AWDL support of the firmware
+  4    create and remove the AWDL interface
+  5    add the AWDL data path
+  6    add vendor commands for AWDL
+  7    pass AWDL frames and role changes to user space
+
+Patch 1 is a fix on its own and carries a Fixes tag. It is here because
+patch 3 adds an entry next to the lines it changes.
+
+The AWDL interface is a network device "awdl%d" outside cfg80211. User
+space talks to the driver through typed vendor commands and events of
+the Broadcom OUI: start, stop, frames, sync, peer add and remove, and
+events for received frames and role changes. Creating the interface
+needs RTNL and vendor commands run with the wiphy lock only, so
+AWDL_START and AWDL_STOP run in a work item and report their result as
+vendor events. The driver sets the firmware parameters itself.
+
+The firmware interface was worked out by tracing. A dtrace script
+recorded the iovar calls macOS 15.4.1 made to the firmware on a
+MacBookAir9,1 (BCM4377) while AirDrop was opened and closed in Finder.
+The other way round, the MacBookAir9,1 was traced as AWDL peer while a
+MacBookPro15,1 (BCM4364) brought AWDL up under Linux, together with the
+AWDL frames macOS received and the console and events of the BCM4364
+firmware. The BCM4364 handling in patch 6 comes from these runs. The
+iovars, their order, their values and the AWDL frames come from these
+traces and from the frames the firmware passes up.
+
+The user space side is t2-drop, part of KaiT2en-Fedora and published
+under the GPL:
+
+  https://github.com/kaiT2en/KaiT2en-Fedora/tree/main/apps/t2-drop
+
+With it, AirDrop works in both directions.
+
+Comments on the vendor command interface are welcome in particular.
+nl80211 has no AWDL interface type, and the AWDL schedule and frame
+exchange run in the firmware here.
+
+Andre Eikmeyer (7):
+  wifi: brcmfmac: match firmware capabilities as whole words
+  wifi: brcmfmac: move the interface_create definitions to fwil_types.h
+  wifi: brcmfmac: detect AWDL support of the firmware
+  wifi: brcmfmac: create and remove the AWDL interface
+  wifi: brcmfmac: add the AWDL data path
+  wifi: brcmfmac: add vendor commands for AWDL
+  wifi: brcmfmac: pass AWDL frames and role changes to user space
+
+ .../broadcom/brcm80211/brcmfmac/Makefile      |    3 +-
+ .../broadcom/brcm80211/brcmfmac/awdl.c        | 1043 +++++++++++++++++
+ .../broadcom/brcm80211/brcmfmac/awdl.h        |  113 ++
+ .../broadcom/brcm80211/brcmfmac/cfg80211.c    |   50 +-
+ .../broadcom/brcm80211/brcmfmac/core.c        |   80 +-
+ .../broadcom/brcm80211/brcmfmac/core.h        |    7 +
+ .../broadcom/brcm80211/brcmfmac/feature.c     |   40 +-
+ .../broadcom/brcm80211/brcmfmac/feature.h     |    3 +-
+ .../broadcom/brcm80211/brcmfmac/fweh.c        |   19 +
+ .../broadcom/brcm80211/brcmfmac/fweh.h        |    5 +
+ .../broadcom/brcm80211/brcmfmac/fwil_types.h  |   46 +
+ .../broadcom/brcm80211/brcmfmac/vendor.c      |   86 ++
+ .../broadcom/brcm80211/brcmfmac/vendor.h      |   98 ++
+ 13 files changed, 1537 insertions(+), 56 deletions(-)
+ create mode 100644 drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.c
+ create mode 100644 drivers/net/wireless/broadcom/brcm80211/brcmfmac/awdl.h
+
+
+base-commit: 991a73f4909f1348ffb4b38765cdb522a775e4c2
