@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801560;
-	b=l0M3dfOOBNnjXlkQppd7vkBVa/PFtn4eYUmF3lM5m9ZnwA4txe8ks/I8yUCmN3gV5gy5
-	 Sx1zFORBusZF0Rk5Jy9CYx71+0G23xMq7P9ULJqaNk4W8qBKIyLi4/7Hdmw1CcRqBkwda
-	 IekO24YQ/+xbJ/6pupLx9ckcSHlOW6YAZpnm5P8TBay1kpptnFclx+v4Nq2pZUXVJr2Q7
-	 THTxY7dSPvHuz77f3p5bkg2euDE4SZb7drMSa7D2Yd5odgwnphbaK+ZJsUJ0ppRLMPTrq
-	 LdOm88Mt3TuNxXUYfrSx1hQksQg36KWKiaPb/K/AqgpPBgm4RHVXAIkBRg2TkOA0+6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801560;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HTROKWbLtBdwvAccLPzBB3mIAmFWbuKi2E0W50i4Av8=;
-	b=hFaf62WDLiQbBmKu2//+SX+MoHsozUsdK3gIOBBqQjkAFj6VkxIS9h2waCCS1ivDwqFd
-	 4+4sRMSQcGI7SVvHeSuAhYc1KXiIhUBY1WiHePLP+Ne3HKwRVN8le14sHr0AHf19g32sw
-	 iS2VnjUiWO7Oo8SEfWYaoHCg5q+kDhGZVzKox4iRDGratG3wOodmcxRs8v5Mg5bH3V+EY
-	 dHP9hTF7enhxy1YJ3QPhT6Mwqkk1cenqaU9W1SLPu7lUSmr5NaCjWLGMxLlz+vrxmYpEI
-	 iULBdSG4ps/xwds/wbQG6ijeYOPbXI3Cm91/ritldKjkNkBZHRI3uVp4nzGh1gU5eNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c04mG+z7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793801564;
+	b=DiWmu1vOcxB0EsdMvdYle7LJmRtjF2pc8dE/iXreI3RUJ+SpLEcXTIIyLfjKTar3xlKr
+	 yup8tuGVa7njxzq5Uk/NpLMMzpU46YYd7dZI4+oM0jNrBVIFsprE/+hdHWrr51XmRUIhU
+	 FsMKrEAIpNrZwEl/KXxpru9NlCvAl20XV2D5K+iuJvP3M6STorH+Jf2b18OKPry1Qy1bv
+	 JuQID7WX6Tj8wg22OR8NfQPvHemIVrLNOFWt6gR02kWc89xi+9shb/Lj0TK/wBisLs/6p
+	 g4gqQpVp0Ne98Ph76+9DWDwcL+xIgK1mtzkGo65R68a6ll9m9Iq5zqF4ghbXdufgYgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801564;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=;
+	b=3dlWoPTLKNRIYDgZaU2L9YJhVWSP1zerGqlpR0tpy7L5NgUIRIT0GCGmMcWip7I9T6Zb
+	 VUZLy4i1Xcv67Exjvu+LFKWc9FRJcYyJJafOzh1GZDq4R1VwUZ5CC1rtD8pTdIdGCowwk
+	 nAshxSMUK/UvkqquTjZ6wJU/5oilx81QlvZLzsuoMJpA5OeUkL00COpTVnqYexM66YU8D
+	 DC3XbAAZ5f7uxuS+n5V1UyTawNljAwGSEUX3WDhUczna/tqf0ZhY1X/BDLqHO7cy8hhWD
+	 RX27vdRFUtlFkItectNHPH2PnHWxUC2FpYL4SIuZgMt4a0pFS/BUK9Fqp/n8I1wTiNg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Y27fbood;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3118D606EE8C;
-	Wed,  4 Nov 2026 14:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A63E606D805;
+	Wed,  4 Nov 2026 14:12:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A63E606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c04mG+z7
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 20AB11F00A18;
-	Wed,  4 Nov 2026 14:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801560;
-	bh=HTROKWbLtBdwvAccLPzBB3mIAmFWbuKi2E0W50i4Av8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c04mG+z7Tvxwuog+3MwAz7NyM157MLbgxK6l3hP4aNOxO37ZtJxONtEa5g4WLW/D8
-	 mkJKc3mx8IdLcYlJQsZlkZhGwarMF/UVKt0ZHLiSQD/uycFGvvZczhfO/hKWTaw2q+
-	 U9pz9EB9xt9jIQyKMclc5cJcekeNiSakjKTMS4o0X5qhUYZvmlxFAnx7yPd48kTxZF
-	 1bX8ZDk6vw6oL120IIrQzcS//P6jxvS+N9Bz99YF83pivDsdgRO+4L3ZDdyyYYjwtr
-	 feXSXw4LCqX9WplGWCzrr9y0nupqiVg+v3zhsU/KShHt0kV68ye0ArYWcADFWwpvnS
-	 NOLaJNZbgkUkA==
-Date: Wed, 4 Nov 2026 15:12:35 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Michael Walle <mwalle@kernel.org>, longzhao@ambarella.com, 
-	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Mika Westerberg <westeri@kernel.org>, linux-acpi@vger.kernel.org, devicetree@vger.kernel.org, 
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 08/13] gpio: regmap: remove gpiochip before tearing
- down irqchip
-Message-ID: <awdvsfanqmvivihwhaik4atseyty3rwk2dytf4yihwvnbcj47l@ejipwyffq25k>
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
- <DMKL43ZCOSQ3.3TAJL8BRQ6ZTH@kernel.org>
- <auoeysEHqGemmuhO@ashevche-desk.local>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Y27fbood
+ARC-Seal: i=1; a=rsa-sha256; t=1793801520; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bQYKs196rSiPGxQeYxLhdcR4wUIngL0f/yXgK54vvVTSezep/ONBq+joeSwvY0aIN6IHtfUdz7QiaVQ1/6fx8Fsr2YMeveTe3TdAMNTw7+DYXD3Rf8LGV3zlvPMeCOnPg59TvNsVRychFnZ766sq1LdaWmnj+EXrRhwqaxAYAoY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793801520; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; 
+	b=Ed3ivu8n0G9LKn/VaFdEtkANv7oOLCWpocC2DzEOf13hHdq5lb6kne5LrTCAkMuANzOfUgRq+Kty7l+2hwGoxyqBEwb9qPymzj2KYBOsZpP1cdq1nQ2WmDRaOjuqe15wbNsk/+8j7VGzLDadjNr8nra0wFyZFfhFvmISmPSGX7U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=Y27fbood1Jniyv7xBGuSLZuTGoPm6SRJ4zpj1RRiD0UfziWrPP8e8/47iJjN3ThiwN6jtIIc6pDWkx57crt/DrtgvUUADfKjKrAVJCQTB+OggOpxRgV6AcDAaG4JwQzzGgd0c/dDYa09v9gK+7W91u0oTuZNQp2pIwhhPXfbmpA=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801515774141.0800348467958;
+	Wed, 4 Nov 2026 06:11:55 -0800 (PST)
+Message-ID: <ef957061-9f29-48c2-9b23-8764a65d7989@collabora.com>
+Date: Wed, 4 Nov 2026 17:11:52 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,40 +58,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auoeysEHqGemmuhO@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/10] dt-bindings: media: snps,dw-hdmi-rx: add a port
+ for a bridge in front
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-4-71a11a2e3e76@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261005-hdmirx-media-v3-4-71a11a2e3e76@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Tue, Nov 03, 2026 at 07:50:02PM +0200, Andy Shevchenko wrote:
-> On Mon, Nov 02, 2026 at 09:33:20AM +0100, Michael Walle wrote:
-> > On Mon Nov 2, 2026 at 7:46 AM CET, Long Zhao via B4 Relay wrote:
-> > >
-> > > gpio_regmap_unregister() currently calls regmap_del_irq_chip() before
-> > > gpiochip_remove(). That disposes the mapped virtual IRQs and frees the
-> > > irq_domain while ACPI GPIO-signaled events may still be requested and
-> > > while gpiod_free_irqs() still needs gc->irq.domain.
-> > 
-> > Maybe Andy have an opinion here. But that deviated from the usual
-> > cleanup in the reverse order and at least deserves a comment in the
-> > code.
+On 10/5/26 16:28, Sascha Hauer wrote:
+> Describe the OF graph port connecting the receiver to an HDMI bridge in
+> front of it. The schema sets additionalProperties: false, so without
+> this a device tree carrying the endpoint does not validate at all.
 > 
-> Yeah, this is unfortunate. I think to make it work as proposed the IRQ domain
-> handling in GPIOLIB should be revisited. So, at least a good comment is a must,
-> indeed.
+> hpd-gpios is the +5V line of the HDMI connector, which the source drives
+> to announce itself. On a board whose HDMI connector belongs to such a
+> bridge, that line goes to the bridge and there is nothing for the
+> receiver to sense, so the property cannot be provided. The name is
+> unfortunate: the hot plug detect line the receiver drives back at the
+> source is a controller register, not this GPIO. Describe what it
+> actually carries.
 > 
-> > > Remove the gpio_chip first so ACPI teardown and USED_AS_IRQ cleanup run
-> > > against a live domain, then delete the regmap irqchip. Use the same
-> > > order on the registration error path, which previously leaked the
-> > > irqchip when gpiochip_irqchip_add_domain() failed after
-> > > regmap_add_irq_chip_fwnode().
-> > 
-> > This should be split into a seperate patch with a Fixes: tag.
+> A board has either the connector wired to the receiver or a bridge in
+> front of it, so require exactly one of hpd-gpios and port.
 > 
-> Not sure if we need a separate change here as two are coupled.
-> I leave it to Bart to decide.
->
+> Assisted-by: LLM
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+>   .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml  | 21 +++++++++++++++++++--
+>   1 file changed, 19 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> index b7f6c87d0e06a..896f8ffbb5bf9 100644
+> --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> @@ -63,9 +63,21 @@ properties:
+>       maxItems: 1
+>   
+>     hpd-gpios:
+> -    description: GPIO specifier for HPD.
+> +    description:
+> +      The +5V line of the HDMI connector, which the source drives to announce
+> +      itself. Despite the name this is an input to the receiver; the hot plug
+> +      detect line the receiver drives back at the source is handled inside the
+> +      controller. Absent when the connector belongs to a bridge in front of
+> +      this receiver rather than to the receiver itself.
+>       maxItems: 1
+>   
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    description:
+> +      Connection to the HDMI source. Present when an HDMI bridge sits in
+> +      front of this receiver instead of the connector being wired straight
+> +      to it.
+> +
+>     rockchip,grf:
+>       $ref: /schemas/types.yaml#/definitions/phandle
+>       description:
+> @@ -88,7 +100,12 @@ required:
+>     - power-domains
+>     - resets
+>     - pinctrl-0
+> -  - hpd-gpios
+> +
+> +oneOf:
+> +  - required:
+> +      - hpd-gpios
+> +  - required:
+> +      - port
+>   
+>   additionalProperties: false
+>   
+> 
 
-Rule of thumb: can we have a smaller fix that can go in first and be
-backported? If so: Split. Otherwise let's leave it as is.
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-Bart
+-- 
+Best regards,
+Dmitry
