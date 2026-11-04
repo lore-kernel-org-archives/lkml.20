@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793816442;
-	b=Z88nR2xXtcPZBhG74mCea32TyconpeoaDwX5WDXq9TBtA+xE8bthUOWXk0B1HcmmfBi1
-	 Xm/voaXti1D43dJDKgHYzdzNF5fIS5Dbqa+0Y6vQaemnNJh43IdFuPITpjV25KlPusMCr
-	 3CeD6rUjTlx5EelfD47SgabhPEH+l0QjmILhBft4MdoG6jSjnEndWsMEP6FpW4tmKbhyK
-	 NdE01OYx+GHgFiWC17Wt5Pe3DNkp9wCRmzjB+pCj2VXt54gR57Or7IA7JuhXsPu5CAOKr
-	 OX9EX2oWYHiQHEHjQ4GoFeENCgYnBB74Uco+K2IMYtJxuJ//BlPh4TBUbDjNsJiJ96A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816442;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qW/uOpHFGEDda3qdjyfj91c1MEcUa2AIk8U2gtEtkv4=;
-	b=Bet3lBO6wDc35OkN69V8BzQyYAiH1MvmE2kGWOE1f0sr3UA1DFLbNEpSWIxq+IXaQviG
-	 WA4CuRNyJbu3x7cJBgpKRT6aced/qk81e6W5oGesYtqWQn93/7ZiNFNn1kKXwdQFmYGxs
-	 05L5284BX5MNwTogMW029U8Y7i9IYIBXRRVExoDxRIwUzceZWaLpanavapYKw9Ky/Tx3E
-	 8iikd0kJPC93UP0bIyQ3ETxmE+20X/UCX9kB4xP0oG7iPkXZEwxs7gMtE5DNEH26PEuVE
-	 P7yWYZNl4b6s9CxH5yITiG75rYVmaq5zWZsPlomMrUXEMFMu8R67z8yww2gtBaKkqhw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNMI8YSV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793816448;
+	b=zfhKWVmYgK29DNhqsqXU+byXzbYt4sAgEnF+a/dbtnRyqefhvH/0xGGyfjD2g1TXdVmh
+	 ErwNZEA1ByMQUbU0znbbSdsAtJz7YeDatYcZK0+HOFpURq95vwPd0UyBMP6+1Il5wB2eM
+	 6R79M0Hlz0PVEatH6xmWbWkkqxZi7U1KxD42NMpM8TS8JoFo0kbJb+o+1xknYNw8Vk5Tg
+	 tfVFTRC5XPOERd4mDhTvRLQojs5Y373xGBGcLFov9nVPREXrrvdAQUn8QVk5KJCKRhKP9
+	 IcRgqpKBTM1dlOGstix+mup7uwvsblgXP0umMGA5Y/ZgxBH/MZimBfVJqu6FDkbkiBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816448;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=6g309lbgrjn1xo7S7Qg30lg+sesaJzFdJJRQn0HeciQ=;
+	b=Cb5ZlXuVwWozftY/E1C/DM68ypIw8ad8y5cYMJkqF9U+dQaFuavamGibfmgsz2DHyZZb
+	 WEEt0HykuYvzXbrt6hzxHxVZS67oOp96dlrStmY9QuIvhnNmZn9+DGsIfBIhbQgDt2OU0
+	 S4L7zEN1Tuk+frp3bOpNV119FNGkHTUhsT6j2qnKYf3CuDLsaOoTrjCXW+d8z/OSljWiG
+	 UUqATqPjQ8pnN6Hb/kGGbivFf3GXK9GzpPI4sTW4VP+hoy+l/hIJm/QvIzWn44n8OEEK/
+	 zkMVsDsWJJq+kweJM+40WEnIMWqZHAPS5zgoHixi2M+s6jeWWRMmpwMjYoMVlm9o7yA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WO9YXiyF;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD666606A333;
-	Wed,  4 Nov 2026 18:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399F8606A32C;
+	Wed,  4 Nov 2026 18:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNMI8YSV
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793816441;
-	b=izDZw9OJw0wqc2/g8JAqCmVdd7INbiip6C8x7lJyqh6vm4IdXsdBB5ib1Yl+lvNe88Nb
-	 En+pkHEHkNYE8ID+k0Ew+1cj7UBJ3QKz3uXuYR1QcauEBvYMoS7pmKyIxN03w9Vkmb689
-	 Lmvkg2WQARh7Bcsu9VmVgwTias+/CPvvZsjudxXTtCZfRmA2bXQaoW29tpY2W7m9LViKk
-	 McrVFJBfJ/tbrMslf1O8TxVyKbjLqn+5piWVHaUnKugjOHCj6IKuGY6AqBTGSXnBr+44I
-	 KQ6pfxBVyzAl8BLluzKryvhwYRuokyepkikAJt49USGMnIyk85vcTTxwUuYlphVyISg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793816441;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qW/uOpHFGEDda3qdjyfj91c1MEcUa2AIk8U2gtEtkv4=;
-	b=msGlhO7xSUhp14ol0LQ/yOMo10wTwZ4+U4szxmPUpNNgn5HXr7tSKpx64d3CucvGz/TQ
-	 mdzfIozA29uCTiku1VKY8bZoHjsY076Ls9HjvG2+8wXdNTjxNACNqBpEMMy/vRTDpypoj
-	 ZnIwj8fLAewpGENP6y+k/P7CL40F/c23UMQnmQOBUxjz+k+UYBFEilD6y3QVskl6nV2TA
-	 tNTBbYR2qlooqJtYHdivww5aUR9oaJyViWA42hny9Mi7RuongK/LDBvfDRnCxm1EkqVF1
-	 Vc8OEmOWZZVc1D0DAU1vD/D8PjfRtKZe2eijdz7U3gyQHU3JGn6hM/YMA1ByKt/o7gw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 85B691F00A16;
-	Wed,  4 Nov 2026 18:20:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816441;
-	bh=qW/uOpHFGEDda3qdjyfj91c1MEcUa2AIk8U2gtEtkv4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=BNMI8YSVMfkyqQjdaqk8U5gGhqr78KsuibubniPTZhUOr3fH3WvcjtcLrM7dHzEEl
-	 AAijTbWu5Bqj+Rm14GG2LGzAbKwJdhV1dph0qlBXAEebWnH4EiCVDG0vuH/82EjLpP
-	 35tPCCc4sA2TPVOyhJNWOS+kmB/4xS3jqwWmwOtbxzCV2oU24GxBYWraGrQ0x+uhKD
-	 jrSqN5QAEoqTIjk+91g5lnmguVBOS6/KTlu8/U6ANB/gyqPtQmWTX2M/b52zJKq1m+
-	 AbEkpisvERxWJJKmLGp4CfWaYLnND9xh9akAYZZyuEco+lfMnuTCqpbS7DXFHMGCYV
-	 i+ieKE3pyFLqg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D7AEE46F05;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WO9YXiyF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76651F00919;
 	Wed,  4 Nov 2026 18:20:39 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 12:19:10 -0600
-Subject: [PATCH v2] doc: process: clarify scope of applying-patches as
- legacy reference
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793816447;
+	bh=6g309lbgrjn1xo7S7Qg30lg+sesaJzFdJJRQn0HeciQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WO9YXiyF9tYltRZHW+0ChWCqG/bjdRvuKguJubpmiRX7latYpOeUWOptwFj27nTx8
+	 fz55YXZOftfJnEQgpn7dBv6wZIkqUJSzH3oLHWe7qUvf2SKDO5LRZfS8OrqJQrimnz
+	 AFFXtYmvlb75LMrGD5P4BY+MxVIWRCcgieq3nnzbX+pIwEIsbE5KNW6xRllAxCzk48
+	 WimC62c5uVhpVXcEe9BPNTMIONtBro4tt5eUFuo/G+ZYADpTmTFCnISkVaTdvl2gqS
+	 WorgASYhze7DJcwhX2ciapWrwixqVJozZLrhSj2Q8wLb050Fj+xkrRTnJ3+caYN2gy
+	 sna5x3I1Jt2sA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 04 Nov 2026 18:20:19 +0000
+Subject: [PATCH v5 01/11] kbuild: calculate list, composite object state
+ per object
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,94 +54,123 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-doc-patch-fix-v2-1-3601fc35c505@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMQQqDMBAAvyJ77hY3pIo99R/FQ9ysulCNJCIt4
- t+beu9xBmZ2SBJVEtyLHaJsmjTMGcylAB7dPAiqzwymNBVRadEHxsWtPGKvbyyNJelEGnOzkJs
- lStbn79lmHjWtIX7O/UY/+++0ERJWVHPX9Ja9rR/D5PR15TBBexzHF5c/gtuqAAAA
-X-Change-ID: 20261104-doc-patch-fix-0241ebee9254
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>, 
- AleSZLucero <aleszlucero@gmail.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-build-speedup-v5-1-0f6018be8dae@kernel.org>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+In-Reply-To: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: ljs@kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Nicolas Schier <n.schier@fritz.com>, 
+ Kees Cook <kees@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793816438; l=2489;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=sMEgG92lV2S8wukRLwczoLII7snNh4u8DlMtfw3Y3JE=;
- b=XSmrTokT80a04Dod8J6Yb+qjh0NhrufV+RdRnf3zjFMN4o3B2ini6YGZX0ZOY44YeixCC8gKV
- YhVQzSOH26wAA6nH4Nc4pZ7TWqOwd2hJNis52Ou3f7zAn7Vzz10Wq2S
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
-Content-Transfer-Encoding: 8bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3555; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=L0mXwIfHKqIgNhyape3/3FrLOaLztN+izspx78XSqYE=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJel+dkL7xqJfv/np4m85Qlwt65HIb+vOpcHUnHWNcbr
+ fxQfEO7o5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABOJNWNkmCIgdNh9Wcbl3teZ
+ gvliunn+RtqSu6pKJX5MOvCsc91Xf0aGy08dslOXOpxn4FjY+6zul8FGgUjuNwWmyWsMr0/6esO
+ cBQA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+When each object's command line is expanded, kbuild has to figure out on
+multiple occasions whether it's built-in or part of a module and which
+composite object it belongs to.
 
-The applying-patches.rst document describes the manual manipulation of
-source trees using the traditional 'patch' and 'diff' utilities. While
-technically accurate for non-Git or constrained environments, it can
-create friction for new contributors seeking the primary Git-based
-workflows.
+This causes the time spent on each directory in the kernel tree to grow
+O(n^2) with its object count, which is especially problematic for instance
+in drivers/gpu/drm/amd/amdgpu with 310 objects.
 
-Update the opening note to explicitly state that this document serves
-as a reference for legacy or constrained workflows. Provide a direct
-cross-reference to howto.rst to steer contributors toward the standard
-Git infrastructure.
+No-op builds (i.e. make -j $(nproc) when nothing has changed) are
+particularly impacted by this.
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Fix the issue by calculating this data once and looking it up thereafter
+instead of recomputing it over and over again.
+
+This has a particularly large impact on allmodconfig builds.
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                         before   after     delta
+                                         -------------------------------
+  x86 defconfig, no-op make, gcc            1.1s     1.1s    -0.02s (-2%)
+  x86 defconfig, no-op make, clang          1.3s     1.3s    -0.01s (-1%)
+  x86 allmodconfig, no-op make, gcc        15.3s    14.5s    -0.83s (-5%)
+  x86 allmodconfig, no-op make, clang      16.2s    15.5s    -0.65s (-4%)
+  x86 allmodconfig, touch mm/vma.c, gcc    35.0s    34.3s    -0.77s (-2%)
+  x86 allmodconfig, touch mm/vma.c, clang  33.7s    33.2s    -0.51s (-2%)
+
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+Reviewed-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-Signed-off-by: AleSZLucero <aleszlucero@gmail.com>
----
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://lore.kernel.org/r/20261104-doc-patch-fix-v1-1-617cb9f4cd47@gmail.com
----
- Documentation/process/applying-patches.rst | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ scripts/Makefile.build | 8 ++++++++
+ scripts/Makefile.lib   | 7 +++----
+ 2 files changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/process/applying-patches.rst b/Documentation/process/applying-patches.rst
-index c269f5e1a0a3..285efb6e2df4 100644
---- a/Documentation/process/applying-patches.rst
-+++ b/Documentation/process/applying-patches.rst
-@@ -8,8 +8,15 @@ Original by:
+diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+index 6127feb970c6..bbe9555c47a8 100644
+--- a/scripts/Makefile.build
++++ b/scripts/Makefile.build
+@@ -122,6 +122,14 @@ multi-obj-m	:= $(addprefix $(obj)/, $(multi-obj-m))
+ subdir-ym	:= $(addprefix $(obj)/, $(subdir-ym))
+ endif
  
- .. note::
- 
--   This document is obsolete.  In most cases, rather than using ``patch``
--   manually, you'll almost certainly want to look at using Git instead.
-+   This document focuses on the legacy method of manually manipulating source 
-+   trees using the traditional ``patch`` and ``diff`` utilities. 
++# Cache which list each object is in and which composite objects it belongs to,
++# once per object for $(part-of-builtin), $(part-of-module) and $(modname-multi).
++$(foreach o, $(real-obj-y) $(lib-y), $(eval part-of-builtin_$o := y))
++$(foreach o, $(real-obj-m), $(eval part-of-module_$o := y))
++$(foreach m, $(multi-obj-ym), \
++	$(foreach o, $(call suffix-search, $m, .o, -objs -y -m), \
++		$(eval modname-multi_$o += $(m:.o=))))
 +
-+   For the standard Git-based workflow used to clone the repository and work 
-+   with kernel patches, please refer to :ref:`howto`.
-+
-+   The information below is maintained as a reference for constrained 
-+   environments or legacy workflows where Git infrastructure is unavailable.
-+
+ ifndef obj
+ $(warning kbuild: Makefile.build is included improperly)
+ endif
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 19e96b30a122..8936925d4d50 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -2,8 +2,7 @@
  
- A frequently asked question on the Linux Kernel Mailing List is how to apply
- a patch to the kernel or, more specifically, what base kernel a patch for
-@@ -20,7 +27,6 @@ In addition to explaining how to apply and revert patches, a brief
- description of the different kernel trees (and examples of how to apply
- their specific patches) is also provided.
+ # Finds the multi-part object the current object will be linked into.
+ # If the object belongs to two or more multi-part objects, list them all.
+-modname-multi = $(sort $(foreach m,$(multi-obj-ym),\
+-		$(if $(filter $*.o, $(call suffix-search, $m, .o, -objs -y -m)),$(m:.o=))))
++modname-multi = $(sort $(modname-multi_$*.o))
  
--
- What is a patch?
- ================
+ __modname = $(or $(modname-multi),$(basetarget))
  
+@@ -149,8 +148,8 @@ endif
+ # If $(is-kernel-object) is 'y', this object will be linked to vmlinux or modules
+ is-kernel-object = $(or $(part-of-builtin),$(part-of-module))
+ 
+-part-of-builtin = $(if $(filter $(basename $@).o, $(real-obj-y) $(lib-y)),y)
+-part-of-module = $(if $(filter $(basename $@).o, $(real-obj-m)),y)
++part-of-builtin = $(part-of-builtin_$(basename $@).o)
++part-of-module = $(part-of-module_$(basename $@).o)
+ quiet_modtag = $(if $(part-of-module),[M],   )
+ 
+ modkern_cflags =                                          \
 
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261104-doc-patch-fix-0241ebee9254
-
-Best regards,
 -- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
+2.56.0
 
