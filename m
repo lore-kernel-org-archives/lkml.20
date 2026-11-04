@@ -1,73 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793469;
-	b=N/uT0+kcUvpprQIV1rN2Kx/pjyfLeIFE15GFcBjG8UDI8d4pwIFZHcIG0ycI4j6Kgl6N
-	 /78/zCn0aFKuBknfffJPEfEV2lECPfmFi9wmbuzTcYj2BLLUMjPnb1EvteA9KC3DuqYE6
-	 q998o9lvPKkByxtI+sgqsaSKYGXhcFY4gjGqbcgy0Ct69cxzxvydIc8osbMlJsVBZz7EX
-	 o5Cv2Q/IQ1dBA+7ukCAc+Hq0nsxyuMoZasoUWVemP3gvrx8lSHtkjxCaNriqMAUFnnIFn
-	 Xe2p/hl5+UpVQcs3iP1qbdFlwzJbO75e7OBQI1TdomeMXUJqEAr5ncNVNvMqmcutsvw==
+	t=1793793512;
+	b=J/rPVNozLRXoQkRHzcQznjC/KhICW6eJ9jpB5XLkonPHkv9v8GyC7V4PF//K9fHUw7lz
+	 BBNq7RLTP3hI0qov4I3W5jRqO+Ub//GnAftyysn3Jn/dYu98Qu7HWL2So1OwEnSCxtZFa
+	 qMHfDaB7fTpB+0udwL+pUJpIIs2mGu42vtEO4xKbqqNUWLuQ3sJ41h1yCe6Im1s8G2FEA
+	 oBZ+5NlATyCXi06rm8OSa4KwPXMG5TCBPVWuY+LcbDk/iBJE1y3PAMamUrwQJQ0LiNoIA
+	 dI+AV5/LFfEUZKNBTYp+g0EHc4EZUfmH53efnG5tNT0uwkQYauB1EHnDpzq1yweYvJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793469;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=STtrZRO2YxEVx3H+ha1sUlpeSWj4yt3rSoZpXoj+5so=;
-	b=kjdKGiZe2VNyeoJExxTSaGt75kED7XVl5lMv7IV6/yEh/NBW0xG9soh8Xuo3gxMNm0Hn
-	 K+djCnfG+TQOnUnpO22eeVjG/l5l9R5PviA1pvhzqEs8DgBJ2SENE5KWkkcbeAOfJqlNC
-	 +3DmBsuIFzeuwkj9APK4dO0ZpVW0A1EPPV4vdxIQNljK4aaxhNmrolxao/1GEPsXQf6Js
-	 gRi7GIGR0eBTOgJJniUMtZkkktVRqdJolt36W95uJU1vUOdBXo6pUAh2LtvZXL/yGIhv3
-	 TfbMwhqfetbQ5LfBCyrEcgBPf640GbEoTSSZrbGzWt29mSVCaSm9WJy/q1gfl8WsywQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793512;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=HSI0Xww2UgPhD6qCDAAZFlGcjtmPKieQAs4A1FJaqGE=;
+	b=FRdjOz2PLou1nhFXFkoXSwKTgq7y8ifIrz0aE/tDamjodMeSs1N601sFl03woqMUJ56S
+	 EMw/DZu3oL14Fwgy/ueAd05MG6j9ZQUrtLmrMMYYndWi9424dmbrk7Ja/iBtvxXAqrnYx
+	 a8sKMJ3LNJWbwfN+qIbuvYngSVXotUPC21Rux/D7d8CGJGsMK5mcb+NMnCy2CAzlbEtSH
+	 MF5zAWa6l2RFKjT8mnXMUhUaExpjHsuKW5M0KlAYlDYWRHEJLymJPxactgxy39U1nHLcY
+	 6q0nQiYZ/d+7ARQt0auaZoornrZjICPYwEDuBDdPx1OC8iMF0HhFPQPHyJ+ygDr+VWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GMfjJGR0;
-	arc=none smtp.remote-ip=91.218.175.216
-Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P4nudwVK;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAECE606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAECE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBD6606A31B;
+	Wed,  4 Nov 2026 11:58:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACBD6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GMfjJGR0
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9ozzZ0J6mwwASk+DJQ5lOt7LdV8xbNav1SzRVl12KLg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793793466; v=1; x=1794398266;
- b=GMfjJGR0lqO4+dJV4F+jBRzqIx9RTGA9JvfN60PEXutxuzEn2uGGj/XmeyddR2cNtloJmS/X
- ErXKQQZLBUrl3vAi7YgGaiCcU1BfLh2JbMaKMxFpb1RDFICy5dTZ4ZOq+9dmK1JVkYCvURheR0q
- kL2POQN8V4HbSVjd0KjM0TFA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8e7a7c0b85afa322;
-	Wed, 04 Nov 2026 11:57:45 +0000
-X-Mizu-Trace-ID: 8e7a7c0b85afa322
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Breno Leitao <leitao@debian.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Joe Damato <joe@dama.to>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Li RongQing <lirongqing@baidu.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: raw: fix ICMP unreachable sent when receive queue is full
-Date: Wed,  4 Nov 2026 19:57:26 +0800
-Message-ID: <20261104115732.322151-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P4nudwVK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793793512; x=1825329512;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WO3KEix7IJnsFekpM/PGTdWDQ9CMyYbj9Dej1ojiGw8=;
+  b=P4nudwVKkwWn1VHrhOTLYR4qGUQq19KdtKJU5ZcYa6joVe9yLCOIdi7W
+   sUXfguCVKNZEFUS/zHjMSfx3SZjMHE1mSVh0xkRXyF3Rp1rvvy8gRkSUh
+   6ON4MG5c+Pu6kIXTeu+aog2EJVgnd/XfSd3uKtNGqODXe5YwSZMW5zsmR
+   SFiplKxuHWR1pwy4puFl7se+kNIgV+Z4ULzLhojuAw5HdiDWhPECglk8T
+   LHk7t1nRcA8KL2r8cNGCDFOQQ78V4GdZKcR5zG1034KNlr2OCy7IJ2Oqs
+   dW9wXGYP66YqtaVnkvc8KqsPmaw9iFIOWEp9CiC13HD4yQTLIXbFwwRYl
+   Q==;
+X-CSE-ConnectionGUID: 7BHvNR2lROGQqb2HcEsuLA==
+X-CSE-MsgGUID: PM7xwYJISaWXcotqmBWWPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2573005"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2573005"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:58:31 -0800
+X-CSE-ConnectionGUID: HQxZ4PyJQw+IrwV8YTVh2Q==
+X-CSE-MsgGUID: WRRryNqJTrmDLhLU/rpu5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6584447"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:58:29 -0800
+Date: Wed, 4 Nov 2026 13:58:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: jic23@kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, andy@kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com
+Subject: Re: [PATCH v4 2/2] iio: gyro: mpu3050: Fix runtime PM refcount leak
+ in trigger enable path
+Message-ID: <ausd4u09AfIcviHI@ashevche-desk.local>
+References: <20261104040008.1458-1-laixiangwu@cmss.chinamobile.com>
+ <20261104040008.1458-3-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,99 +81,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104040008.1458-3-laixiangwu@cmss.chinamobile.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-It's found in a raw socket application. When the application doesn't
-read packets in time, the client receives ICMP Protocol Unreachable,
-which makes the client abort the session.
+On Wed, Nov 04, 2026 at 12:00:07PM +0800, Xiangwu Lai wrote:
 
-The reason is that the server hits the sk_rcvbuf limit, and
-raw_v4_input() skips the socket before setting 'delivered', so it
-returns 0. Then ip_protocol_deliver_rcu() sees 'raw' is 0, thinks no one
-handles this protocol and calls icmp_send() to send ICMP Protocol
-Unreachable.
+> mpu3050_drdy_trigger_enable() calls pm_runtime_get_sync() when
+> enabling the data ready trigger, but all five error returns in the
+> enable path return directly without the matching
+> pm_runtime_put_autosuspend(). The disable path, in contrast, drops
+> the reference correctly.
+> 
+> As a result, a failed trigger enable leaves the runtime PM usage
+> counter incremented and the sensor can never runtime suspend. It also
+> leaves hw_irq_trigger set to true, claiming the hardware IRQ is in
+> use when it is not.
+> 
+> Use pm_runtime_resume_and_get(), which does not leave the usage
+> counter incremented when resume fails, and add an error label that
+> drops the runtime PM reference and clears hw_irq_trigger so that a
+> failed enable returns with the device in the same state as before
+> the attempt.
+> 
+> Also propagate the error from the IRQ status read that clears the
+> data ready flag instead of only printing it, so that a failure
+> anywhere in the enable path consistently rolls the trigger state
+> back.
 
-IPv6 has the same issue, ip6_protocol_deliver_rcu() sends ICMPv6
-Parameter Problem instead.
+...
 
-Also, we'd better run icmp_filter() and ip_mc_sf_allow() (icmpv6_filter()
-for IPv6) before we check sk_rcvbuf, otherwise packets rejected by
-ICMP_FILTER/ICMPV6_FILTER or the multicast filter are counted in
-sk_drops. So move the check right before skb_clone().
+> static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
 
-Fixes: d721812aa875 ("ipv4: raw: check sk->sk_rcvbuf earlier")
-Fixes: 026763ece881 ("ipv6: raw: check sk->sk_rcvbuf earlier")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/ipv4/raw.c | 15 ++++++++-------
- net/ipv6/raw.c | 15 ++++++++-------
- 2 files changed, 16 insertions(+), 14 deletions(-)
+>  	unsigned int val;
+>  	int ret;
+>  
+> -	pm_runtime_get_sync(mpu3050->dev);
+> +	ret = pm_runtime_resume_and_get(mpu3050->dev);
+> +	if (ret)
+> +		return ret;
 
-diff --git a/net/ipv4/raw.c b/net/ipv4/raw.c
-index 9d01006d8189..f33a9dfc5309 100644
---- a/net/ipv4/raw.c
-+++ b/net/ipv4/raw.c
-@@ -182,18 +182,19 @@ static int raw_v4_input(struct net *net, struct sk_buff *skb,
- 				  iph->saddr, iph->daddr, dif, sdif))
- 			continue;
- 
--		if (atomic_read(&sk->sk_rmem_alloc) >=
--		    READ_ONCE(sk->sk_rcvbuf)) {
--			sk_drops_inc(sk);
--			continue;
--		}
--
- 		delivered = 1;
- 		if ((iph->protocol != IPPROTO_ICMP || !icmp_filter(sk, skb)) &&
- 		    ip_mc_sf_allow(sk, iph->daddr, iph->saddr,
- 				   skb->dev->ifindex, sdif)) {
--			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
-+			struct sk_buff *clone;
-+
-+			if (atomic_read(&sk->sk_rmem_alloc) >=
-+			    READ_ONCE(sk->sk_rcvbuf)) {
-+				sk_drops_inc(sk);
-+				continue;
-+			}
- 
-+			clone = skb_clone(skb, GFP_ATOMIC);
- 			/* Not releasing hash table! */
- 			if (clone)
- 				raw_rcv(sk, clone);
-diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-index b965258cf9e5..eb99f4a906ec 100644
---- a/net/ipv6/raw.c
-+++ b/net/ipv6/raw.c
-@@ -160,12 +160,6 @@ static bool ipv6_raw_deliver(struct sk_buff *skb, int nexthdr)
- 				  inet6_iif(skb), inet6_sdif(skb)))
- 			continue;
- 
--		if (atomic_read(&sk->sk_rmem_alloc) >=
--		    READ_ONCE(sk->sk_rcvbuf)) {
--			sk_drops_inc(sk);
--			continue;
--		}
--
- 		delivered = true;
- 		switch (nexthdr) {
- 		case IPPROTO_ICMPV6:
-@@ -197,8 +191,15 @@ static bool ipv6_raw_deliver(struct sk_buff *skb, int nexthdr)
- 		if (filtered < 0)
- 			break;
- 		if (filtered == 0) {
--			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
-+			struct sk_buff *clone;
-+
-+			if (atomic_read(&sk->sk_rmem_alloc) >=
-+			    READ_ONCE(sk->sk_rcvbuf)) {
-+				sk_drops_inc(sk);
-+				continue;
-+			}
- 
-+			clone = skb_clone(skb, GFP_ATOMIC);
- 			/* Not releasing hash table! */
- 			if (clone)
- 				rawv6_rcv(sk, clone);
+Why not PM_RUNTIME_ACQUIRE*()?
+Yes, to make the
+
+	mpu3050->hw_irq_trigger = false;
+
+this needs to be wrapped (two functions, outer one uses PM_RUNTIME_ACQUIRE(),
+and handles the flag).
+
+>  	mpu3050->hw_irq_trigger = true;
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
