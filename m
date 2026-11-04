@@ -1,53 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795624;
-	b=bg7LJ4HkmDEJJ1ePU+dJ5klDZAUjkYZ5IJLvEtVEjrLpaDsLwyd44H52DPPoxgKDXewL
-	 NcqiWk7ZH1mph+/5HFEUPnLWEXm+A13ZwNv5BYA93T7L6ckFse+xX5/R+OAyckKlrv/NC
-	 RCvx7TBAB0Gc2gdHFtPmq7HOTAp7alU5i44v0Th3kZ5pOfV1fmNJv6QqVzAeH0SJkgQfV
-	 qvxpilQa/BdSqXKmCEfegh1OvGLE6UIATaHMN1Wxj7p/RfDWiL6RM+BGMLp9wb7So+UpT
-	 /oUya7nbVdKt4w6ji2ULx97VnRit2NTkCven6tcejb+PCMQ4NNSk16oOo8QjcnRPNKA==
+	t=1793795666;
+	b=Hd+EODyhUvwLtHtTDJftCcQwWAxxybjAa+QImEDqe/s3XwZeq8ucmuIHsX4GoKXSJjhh
+	 B3PLHxcOrmMB6ibd+j8PNqXWymFKU9Oe3h+THENzbXVjbRozq7zc89zURpqA7qaDsSJoX
+	 RPQZh5wNAYZyTx8yk4ZHp9tNkpWYm0rUJHdkt0FeO1XeYu4qlBjSwpX616Itvno3S2aWv
+	 eoZfDAkwtvey0bdrwpl0gghuaCO/r8K1KD9RsYe3wHCtxw0Swwa3zhoUkFe61eEsb7d51
+	 X3pwG3mUPJd13mIA17u/goQDi4nauOTWLQ4P0//JxFp4ULfCCQuApsDbrNBf30KQIfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795624;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=9AR0FOiJM2KreFj6NgsWrS5suCUEQHylQP6yJIgXQu8=;
-	b=1qq8aThf79UmbGsFaTxV9YDlbuW5qQb+zQ95G7JOYDpxWVXXWakF88/zVSXHSuYiUzsK
-	 wxEwM7N+BkhCQNJFKJCZEsL/ZPtnZZwASnjU2tKYvaf9APGAfq1PJFCSQyftGT7Zo9YPH
-	 XLyP+16lXgsv7gtAR4IFJSQ+OLIoQ7PR9tXgAqk5hzsDb9F6/mqJODMJWPu7GesUT9X0A
-	 xnX0hfkI+Omj6jf8IYsbY2OhRjXp+wlFSli+fbgGiOPnUBBmDJ25lfVPeYU8SvOh7KND4
-	 iQhlybETDbLN7HRsdQpKhOelVp6clieN6knrq/aqsoeuk30OjbVxOJ59Y83RZi6WzFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795666;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
+	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=fbDHR1bhb6fo9f6gQs2i+yeEbU4uHrwRuAQ4UhfQaQQ=;
+	b=tBVEV1oJBlLKQolDAitFlGo0cKpVmvXXZFLMxh/iyuT1mwfi76O1b9e2RlqLXH7C2LcI
+	 qRLQP/LS37zMtRz7ZAyW79CHBwQQDalYoX6b46QL3+W8MtGAaRyLNRr9VZF0wTI4LlQRr
+	 3QyrNbpd6t4AaTbDSAlFvfNUkvt2RYvuKFGHKO7a7jQYFQkILPniWsCtUqzXZJraEjQkF
+	 VlDVn7H27xGk9CFfCht5KUhV1FR+TSgyk/E9gXxvmtrgC8okL7FNs344yAMz2mCXZnaoz
+	 sSS4MJrkzbJKyVRBduMUQsECVHoY8Bh5CPhQ1oLAbL4JNl47M7ZjBiwpmLwAN0dC4BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=14.137.139.154
+Received: from frasgout12.his.huawei.com (frasgout12.his.huawei.com [14.137.139.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B9F606D806
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:33:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87B9F606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-547ae874949so931880b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:33:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793795623; x=1794400423;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9AR0FOiJM2KreFj6NgsWrS5suCUEQHylQP6yJIgXQu8=;
-        b=ZBnFJUDy1nInliAE+5Lqr21CCDJiqexbBxiSRY37qEa0EqdwpDCU5ujRjsBXtq8X1g
-         AgZtTSbJjHB4zBncSP0yysSGERhwhZ9UH22aKbjZyiKfr4MHsF5G6+KDZk3NWLPWNdlv
-         I4v5XluQ56xDy5yescLrVpzRCKEW9tK8tbVVPiFgqxPaH05TRG9E05n+O/eTwsrPVPdZ
-         8ILgrCyBDLUGMwCPm5Y3B2mBxXHQBsgKJMy3Webc1+qK6agBhhHJVMLgmuyGkv3zSckt
-         wS6S4jUWyWeAGhD7rekuScbckoSVbGzXdV46OgXt9VMfJo4oyvASe4IMTNOblO9/5Z/7
-         +7Bg==
-X-Gm-Message-State: APuU4Z/I8+iT2s6tdTiwnjt/VCKxiGlGpYR6ZmLiTd7xrxE6nxz8ffXy
-	GzKmpl9eCbGnpF0qMPwVLNnyXLbSc1c6XRU/PPTK39vIAqnUTcyEqPwW0yD6Eq+O06BVq8nzaGX
-	yoPDX6nwnt9i6lF2Oj4JCayWiEofByK+rQloIToqOdXCiAuiFwR4Z50Qr0MQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3735D606A326;
+	Wed,  4 Nov 2026 12:34:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3735D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.235])
+	by frasgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jKPxy1mxrzsklp;
+	Wed,  4 Nov 2026 20:33:58 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.218])
+	by mail.maildlp.com (Postfix) with ESMTP id B17FB4055C;
+	Wed,  4 Nov 2026 20:34:13 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+	by dep2_app2 (Coremail) with UTF8SMTPA id 2hC2B0A2QlA9JutqGi0MAA--.11855S2;
+	Wed, 04 Nov 2026 13:34:13 +0100 (CET)
+Message-ID: <c7c8104ca8734f52a50ac2cfd058d4ce95e1cdbc.camel@huaweicloud.com>
+Subject: Re: [PATCH] ima: hold ima_extend_list_mutex while locating the trim
+ position
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	zohar@linux.ibm.com, roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, 
+	stable@vger.kernel.org, Zhu Guanglei <zhugl3@xiaopeng.com>
+Date: Wed, 04 Nov 2026 13:34:03 +0100
+In-Reply-To: <20261104053705.3967228-1-liuwb@xiaopeng.com>
+References: <20261104053705.3967228-1-liuwb@xiaopeng.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,62 +63,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2218:b0:53c:2a2e:8650 with SMTP id
- 5614622812f47-5640df72f37mr10852091b6e.34.1793795623537; Wed, 04 Nov 2026
- 04:33:43 -0800 (PST)
-Date: Wed, 04 Nov 2026 04:33:43 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aeb2627.92bb9006.66ae5.0001.GAE@google.com>
-Subject: [syzbot] Monthly mmc report (Nov 2026)
-From: syzbot <syzbot+listf70463e198a0b7fdf0d0@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, ulfh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-CM-TRANSID:2hC2B0A2QlA9JutqGi0MAA--.11855S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGFW8JrWfJw4DuFyDWF1xZrb_yoWrKF18pa
+	9a9Fy7Kr1kJrWxtw1xG3WfurWruw4kWFWUJrnrG3WDAFW3Jr1jvr13tw1Y9rn5CrZrtF1r
+	tF4aqrZ8Aa1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyvb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
+	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgANDWrqozefaQAAsg
 
-Hello mmc maintainers/developers,
+On Wed, 2026-11-04 at 13:37 +0800, Weibin Liu wrote:
+> ima_queue_delete_partial() looks up the queue entry at which the
+> measurement list has to be cut without holding ima_extend_list_mutex,
+> and only takes the mutex afterwards for __list_cut_position().  The
+> comment above the cut justifies this with "ima_fs.c enforces
+> single-writer exclusion".
+>=20
+> That exclusion does not cover the write() path.  ima_measure_lock()
+> registers measure_writer at open() time and even lets the same task
+> open the file again by incrementing measure_writer_extra_writes, while
+> _ima_measurements_write() never checks the caller's identity.  A
+> privileged task can therefore open several descriptors for the
+> measurement list and use them concurrently from its own threads.  Each
+> open() creates a separate struct file, so the f_pos_lock taken by
+> fdget_pos() does not serialize these writers (sharing a single
+> descriptor would be serialized there).
 
-This is a 31-day syzbot report for the mmc subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/mmc
+Yes, I assumed the good behavior of the privileged task, but you are
+right that it must be fixed.
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 16 issues are still open and 1 has already been fixed.
-There is also 1 low-priority issue.
+> Two racing writers can then resolve the same, or an overlapping, trim
+> position, and the second one dereferences a queue entry that the first
+> one has already detached and handed to ima_queue_delete().  Depending
+> on the interleaving this corrupts the measurement list, reads freed
+> memory in __list_cut_position(), or frees the same entry twice.
+>=20
+> Reproducer: generate some tens of thousands of measurement records,
+> open() the measurement list for writing several times from one task,
+> then write "20000\n" from that many threads using one descriptor each.
+> KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
+> called from ima_queue_delete_partial().
+>=20
+> Move the lookup into the same critical section as the cut, so that the
+> entry stays valid until it has been detached.  Holding
+> ima_extend_list_mutex also excludes ima_extend_list(), so the plain
+> list_for_each_entry() is sufficient and the RCU variant is no longer
+> needed.  Keep the existing error precedence (a short list returns
+> -ENOENT before the suspended check) and keep ima_queue_delete()
+> outside the mutex, since the trimmed list is already private.
 
-Some of the still happening issues:
+Not enough, it does not protect against the read concurrent with
+replacing/cutting the list (originated from the same writer).
 
-Ref  Crashes Repro Title
-<1>  1156    No    INFO: task hung in mmc_stop_host
-                   https://syzkaller.appspot.com/bug?extid=d0688023306aea3aefdc
-<2>  675     Yes   KASAN: slab-use-after-free Read in rtsx_usb_ms_handle_req
-                   https://syzkaller.appspot.com/bug?extid=3ee5da0319ca17ef1f4e
-<3>  515     No    INFO: task hung in sdio_reset
-                   https://syzkaller.appspot.com/bug?extid=e8678cd3d8b65d1f2c74
-<4>  496     No    WARNING: suspicious RCU usage in cancel_delayed_work_sync
-                   https://syzkaller.appspot.com/bug?extid=9c1988bc953fca2086a3
-<5>  252     No    INFO: task hung in mmc_go_idle
-                   https://syzkaller.appspot.com/bug?extid=bb55e8118af00556efa2
-<6>  110     Yes   WARNING: ODEBUG bug in vub300_disconnect
-                   https://syzkaller.appspot.com/bug?extid=f4a0159ce6802a0a4774
-<7>  109     No    INFO: task hung in mmc_send_if_cond_pcie
-                   https://syzkaller.appspot.com/bug?extid=30341f17551668478919
-<8>  99      No    INFO: task hung in mmc_send_io_op_cond
-                   https://syzkaller.appspot.com/bug?extid=15adedb55f72fa957b00
-<9>  96      No    INFO: task hung in mmc_io_rw_direct_host
-                   https://syzkaller.appspot.com/bug?extid=fd993974345f022e97f2
-<10> 50      No    INFO: task hung in mmc_app_cmd
-                   https://syzkaller.appspot.com/bug?extid=c6d8091b47243f2023b8
+A reasonable way to solve the problem would be to introduce an rwsem,
+and wrap the write, read and lseek operations. This restores the
+assumptions the code was written with.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+We still need the current exclusion to avoid that a process deletes a
+staged list created by another process.
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+Thanks
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
+Roberto
 
-You may send multiple commands in a single email message.
+> Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements re=
+cords")
+> Cc: stable@vger.kernel.org # v7.2+
+> Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+> Reviewed-by: Zhu Guanglei <zhugl3@xiaopeng.com>
+> Assisted-by: LLM
+> ---
+>  security/integrity/ima/ima_queue.c | 20 +++++++++++---------
+>  1 file changed, 11 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/=
+ima_queue.c
+> index 0f1b7e4113c4..cf8c164eea13 100644
+> --- a/security/integrity/ima/ima_queue.c
+> +++ b/security/integrity/ima/ima_queue.c
+> @@ -427,12 +427,16 @@ int ima_queue_delete_partial(unsigned long req_valu=
+e)
+>  	struct ima_queue_entry *qe;
+>  	int ret =3D 0;
+> =20
+> +	mutex_lock(&ima_extend_list_mutex);
+> +
+>  	/*
+> -	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
+> -	 * only list append can happen concurrently. No list replace due to the
+> -	 * staging/delete writers mutual exclusion.
+> +	 * The lookup and the cut have to be atomic with respect to other
+> +	 * writers: ima_fs.c serializes open(), but write() can run
+> +	 * concurrently on independently opened descriptors. Holding
+> +	 * ima_extend_list_mutex also excludes ima_extend_list(), so the
+> +	 * plain list traversal is sufficient.
+>  	 */
+> -	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
+> +	list_for_each_entry(qe, &ima_measurements, later) {
+>  		size_to_remove +=3D get_binary_runtime_size(qe->entry);
+>  		num_to_remove++;
+> =20
+> @@ -441,18 +445,16 @@ int ima_queue_delete_partial(unsigned long req_valu=
+e)
+>  	}
+> =20
+>  	/* Not enough records to delete. */
+> -	if (req_value_copy > 0)
+> +	if (req_value_copy > 0) {
+> +		mutex_unlock(&ima_extend_list_mutex);
+>  		return -ENOENT;
+> +	}
+> =20
+> -	mutex_lock(&ima_extend_list_mutex);
+>  	if (ima_measurements_suspended) {
+>  		mutex_unlock(&ima_extend_list_mutex);
+>  		return -ESTALE;
+>  	}
+> =20
+> -	/*
+> -	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
+> -	 */
+>  	__list_cut_position(&ima_measurements_trim, &ima_measurements,
+>  			    &qe->later);
+> =20
+
