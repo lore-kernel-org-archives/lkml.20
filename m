@@ -1,110 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.130.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831313;
-	b=V3w0sNqxP4N77muURI+brk6q+ggArXi4ZDJoOMKx9dJQDbt5HH00OISbi35PqRM9YBKP
-	 ppdVWkkLq6hLvUIFaTf0ma8gbfxFmkyF3U33oKvfLISyAgsgDKF6xeyo896w3037YwzaM
-	 8AQzi2y0o24HzseN6ERDx5A4gHQdx5o98eofG+hz8hepGJSoO6kOUY/aR1hyD1d+vNI4F
-	 gpzlDEK+5CWi8i0s4lYJFX/UK4mc0REoyumqfHq58BLfB5UcqEVsm1qjI5lA1xwoEK4fV
-	 w133BK4wlQkv2rcU+ZCs/Jus4q1jkbFX8ao+vsehYlXEZmwLTHHhjhO/cmYK0Cw5osA==
+	t=1793831373;
+	b=ds0TZIuX0Yp6kSFedur6qHX+MDgYzP2BJNqWbPA/385xm/lh17CsZulZ/T+QCPFsb24C
+	 snbzc8XC+DrG5wED0ejblPc/JZih4fM/y/tjtvMEf7zKwGSDyrGCHR8lOQ9S7QfVzBOPE
+	 Uye6NHYGqGQTnuLpvT32uq/NLxoRAoIPsRrWwrZH2IDerKq8jrvQFVSykBz8vx90Cz09f
+	 Tp0/K8XnicPjayvhvD+9hXjm6lGTj9px4DXk53wRbsPKiqmVWBLhVBg1pbmld1YMM2Ei/
+	 2ocbEP5OmnSD7m6UO28H0NvENkfaSAlCQipOapLfwf8S/jBJ6rT8jx2hNbbJoo5UYJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831313;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ngSI9f0kiDWl+YO8rRXsU2IRSVNvxIMeC8SrK3o9F8Q=;
-	b=acGZqbqX+0Ur/aqr/caTmFR8TXoS1DR+MznVyNTRpf/EAb4QPYWGT+aZnogZPYb/qB+b
-	 mAySUEOwey8Hg8EWHcjNvmmpPKoQd7cRmHDG8ry3vfbzFWQjpZRSJzt3hKpEae2DHr2xA
-	 7Vu9xwvU4RpGXaFTATmoCS3Cyl+Odmm4+4+rx1jCBQV7Hpzzayu0wy/JsmzJk0WKg+ZFj
-	 Wo80OqQ9PJoF8muVbsMfdfXjJaTSjr88hvNMR1gehF9aljgf8IXTTrsyUBzpIfyMqJ1Bk
-	 xNtWfkBLMIhwEjqY/SWaGNqL2swErXwmGELGl9xVKG/fz3njnTdjm5jak/DPPizAk2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831373;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=bBojCw3PGWuhixTVRZwWSNFJr20HWw9KtfyittN+QcQ=;
+	b=OmtQUEDWuAe0QochQDkX+KnmAiURCsGjV1DTuXpZdok03lI1wrL7o8ZCtX9tT8zd6pC1
+	 xVj5z2M6Zoe8cD8FLILWDz56aTxfiBkVYo0QZgPbiA1SjoD7OJnz+XNY/ZTy5U+sQcHh5
+	 w3yTi/s/cTdohdncbf4MYDktUkIvtt/sbooBEf5NDbC820ZtLV7E/PNjEI7+8p3YkJnZJ
+	 p2/SffLeV9+CVAeBOQo3Fm8YCW0r9Ys8HPCO9oe4bW5GUjdLL0/mIk438YqbUVg++erZn
+	 6cDwLC6+eRy5Iwsnpu2eK60Xb40qXhCEzIRrBCYq/bUlp27PxVz/1LmJMU8Xo+J5AlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q4r8YYWn;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RXcpHjsG;
+	arc=none smtp.remote-ip=74.6.130.41
+Received: from sonic308-2.consmr.mail.bf2.yahoo.com (sonic308-2.consmr.mail.bf2.yahoo.com [74.6.130.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6899A606B3AE
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6899A606B3AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A032606AB14
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A032606AB14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q4r8YYWn
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso223721a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:28:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793831313; x=1794436113; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ngSI9f0kiDWl+YO8rRXsU2IRSVNvxIMeC8SrK3o9F8Q=;
-        b=Q4r8YYWnN8sCaY/ODs1yIT8lq7b5mwAQjudMxrtoqP6vQcq4r+8STrumanbHpf3ain
-         o6PYhcUcEJyR5K9TdjhA0RThU3nkwkKvSPhI1I3sb6m6/bn99QLYDdHOBBgYhIzt/G7S
-         6PEogm7tkiRTcGX6whDNCNlWIqQ4g3wtpZphRlTdhJX0CmT03/EwQAjRVEgRM5xivqIG
-         WPBCZ4DNx4AnZh8vOqJJzXqtusiL9soWcNfDPSbZvbAwqQZiMkXKBmENLW4xUr7syquV
-         2ViGz3ZyZhv+D/9/+6ir2dfvTYhKdqq0CkpekiE/gW0Sj8Lf+WfBG1fxNZHI43AK0A5G
-         EDVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793831313; x=1794436113;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ngSI9f0kiDWl+YO8rRXsU2IRSVNvxIMeC8SrK3o9F8Q=;
-        b=oWY3jpgky0hfXt1Be7EHpP4u0sJ1ZsMOSLFXRuI6/t3+gZ710cHrakOhNNqOqfQuDp
-         rmpycCcFzx8n6mUO6eyn/jSSqUC8UB4C6NZTQ9DQWB5AZDXWsEOVVUwlzgABxQy+C3A4
-         42erhwXBlwxzLjA4fIvEIpGAug7+uB3jmdes8ZBu/grmq1MkCir9TY2oqVh2+ViFmi6O
-         OTEo5JW/e00SRwyfDZcDAvE1pOhzLUNH0iJQHdnEI+LtYQtJWeW5dZ8HqtjreKqNmGNj
-         bJFSN8fhhNl5ANct/c3HWzzmjrHQ20Sg9jmkZELyEGNRarbqcQrJ6et0WBK+GCj5PCzs
-         phoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziBbjWsL+KUaGMLSkx6SK5ZRNlyX3Nuz91y12IrY4R2M6PDlNbGvsrGEUxhgf2hLh2y4Mx0NdlBmC4w/k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dk0Azkk1HdeL0MxL7iwHGXMC+ZL1HsCWu+i/AHZyeVyyxMgyB
-	++YJ3gjoQmaTIsA3SrDVTpBwahk6onlJpMGgHDCWiR5M9AX9u2gvL6oAjaNkd/CvPQ==
-X-Gm-Gg: AYBFou0ERkaFEqnmTC32XgZ2V0Omz5tB7CTIlWhdPO49aZhef39tO8HQpvE5P7xG7rS
-	BZUDjKGkeXO4yC1JZUHKpe/hdfujyiMzPOQPz3tQ4NE/Fiq5t3WdzugQshoAqF+qwd8AuwNgmhn
-	3O/R/b/cozEsYRVxmzjvcfwOOe+du9z5ktqcUQFWUZ558F1mQGuZSA+/uSZmacQISX8e4UvlIJw
-	ZxO8g9/lf/SU2TBWfhSaJ73vLozZ+EtVN4i8RaLUsXnTGTeTDayh2zjyNlcUtSpMm6ZH85MZoy9
-	2KjPv/ib7iVmEc78ann5WI44P8QylVkg5iRmkz+XxCOvCT4DHjArElhx0B2j/SMH2fzHbN2EVfB
-	3l18c7mKvlik2fs5iUj3Ic5H8vouFsCxyIwlwCQirDt8lbuXzDoRImn4S7vK93j9fjAdN2JWRQh
-	KjbJYtOA5rHEvwHxzPTJWGDfUSWkGwVxSyAFwQqrM9WKqoAeGoEbkf96xYEElXC8cktMHpLT5Tn
-	2QNxBRkr9FhCil8aTEmW0caCNnbg+ki8RmKWTwD3q4iU/N0eLyjWUJWAxdC9VWsYbrPRUjM2Gt6
-	sOPzI5mc4kVtgSDViXKu8NbYDlvAjV9gxpVcqJWWc0XI+kdL9rgy6sfaDtli+MY2
-X-Received: by 2002:a17:90b:4c04:b0:3ad:8a14:bc73 with SMTP id 98e67ed59e1d1-3ae897b519bmr13057533a91.50.1793831312185;
-        Wed, 04 Nov 2026 14:28:32 -0800 (PST)
-Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31cf4b6sm710454a91.14.2026.11.04.14.28.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:28:31 -0800 (PST)
-Date: Wed, 4 Nov 2026 22:28:27 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org, Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v3 06/10] mm/shmem_luo: Don't make early retrieve
- failures permanent
-Message-ID: <auuxi10mmCQrq-y2@google.com>
-References: <20261103010216.3447716-1-dmatlack@google.com>
- <20261103010216.3447716-7-dmatlack@google.com>
- <2vxzik2ck5dp.fsf@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RXcpHjsG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793831371; bh=bBojCw3PGWuhixTVRZwWSNFJr20HWw9KtfyittN+QcQ=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=RXcpHjsG6efaiIcOe8MOvjhuQjnVmBM7sKLoUbU7Z3c+novs8Lt7nO4Ju+WyV0E3u3Wanmk4gN+Vke8sz+spnva23LW+n1Tb640G5k0POEqpMk4wg64GKfvKZJwqnrDVw0MTBgAkR73FmQtg2ciMVUzAcWOzSMvn3mY2X/VTRIvtTEPInVQ7TYia/dtlIKQsclljiyxATX08SpLv6ax1d0qaBCaBjtImjH8mNNYG2/JHX/IxZe2xi9sETvp17DK68l4aTpwX6orV3xTVfccjjkEvQKNeIuffYkLTG8gQhxpCiZMlTE9D9Si0IuOtAtT+fuCYw9tYHfGtixsFgOW98Q==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793831371; bh=pZNVIUeMCnItnC8EBiXQoMOiWVfpPAFkMEev/pf4Jiw=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=Eq7xpukqBHd3Kfgb/sRmQaAjT62j7EMlCoeIUb3VNIhM38jeiQz1PT/Fnr5Cq3ULWAwmRz60knvFfPbDhN22X8fYIlBgw4dM2zlyhYaPHBmDu7UbrDnPnTEQXHb5xARl73V9TwYS3vYF2LdB/2dFzuZeEo+LqUyS5+XgbO0OX/Q1/nR5az3R0O+bEgYahD3198+VbGybh2Hmwlvhvm/qS27LrwQ8VSsG+/O1yTeM6Wdzg6K2afnNNl+tKAlZowqXvZvUEKliToFRBOumB8TqvpXy4PlCwEWyCFTFSHRum8x3cVqL81JM1j+n/FPLOX+r2DofweZ1pe0Rg0Cg40kjGA==
+X-YMail-OSG: QFXUqrYVM1mUq8W9BIgFLrYzJSR9rwz7atsrpjHKvvQwadU6N1aNmvV63nKfuYG
+ QeLoQUfoxXNwBRYi5l0KGHEBsnIBJXTXiGcOBY5cEk.bdhnmRNoykl7KBV2JJxtqR8QlYt21CQW1
+ _69nZ.z6LrVN5_o1lbKrHdrFVZqAI2im34HLtFBMniSG_1xfCvQNxYyYy7BBK0lZjJ5KjAgoEczk
+ AK5oPWH1FA96AhT5nQO9Qn6_S1vtZ3dxMODSxvw31iHnsoNHi72.r6gkrcNd5D24sqJZLAZHVofc
+ YizJzvg14B948M9LvO0vjdl_5tWo8mmbycNMeUsKPwGQCManAuizkSjwcGWO5qD_E.LcCiupOY6I
+ EUhSjMSgbtXo3pppxdZ6rn8a476tKA5.34Wu10vb1pMPURuzBmrBJG1TRU6LLdXs474r1WxMC3_1
+ GFank42qCDHXyxb127E4R5uIIdi4Pq5BY7FjNUPNNBbFuSkm0EtcgW33SQA.54OywTp1vOxb1W9.
+ Lb0yLfmSyX2PnUcJiCAOsWrLKeM34_lQs.JwGNP90Je7JYzsho9uWo0aMNRVU9o91WD_tI.HPybd
+ nsimhFIYhHg1tFkBYfPr_sdiAyT4oi4ocd_rG9m5torbpcIChdauYHk63Ys8Jdu6iPW8_8sk495p
+ hkqtiQuph7XQD55.KoP.insYNXqPLpbqOGFYtra_UfUjDk4JYIoLqGu6dl_bqqOYaPiD0VKUbQWN
+ bRCTUmtozwBObe6vNVtuHGs5cKf4KL_HHJXKjp.VeO6TJ2zdYBzT58NH0RO5SBdmIbDD44oODctP
+ 7p8ggBjMZfr90jfXEc7EYhbhZSf59C4DEmLC.GTDqBEGFcVMH_zisJ2_6RMFZJTs1HXoJhvYs7iR
+ BqywzJuGEdSlZPC0I9UsE3Q6.rlz4cs6SspEvo1KaMv1bnvNHHYlQ7pFFhbVEab3xsVY_Et87dc4
+ vWH.3pI2ndOOLPnReVBbbc3Vx74ev_eRjCfemkJywftvXlbg5ALGoD9.FDHb5Plc411B7W9ID9Uk
+ sKzsROuJYQWHY7cNNypTedFavN_TZwsjoiLDrOHxggCCWS00RWT6fnqnS24kIm6bTaXimS8i4N8w
+ UpvPT4kudmjvvn6qhusWfvlMQs_B0v8JuJgTeGbOm7SNwCH2jmCoIJ6CZ8wbUpRcAPcKado1lJEt
+ lMnSwtvHwKlA73ck8nSAH19JujhKSufYWGZfczPVT58Yq88ThF79eNXiRkNmaBJX3BYJD4AwIVZR
+ hDRsM8LpTzMhr6ch92AURMMwJNlVX_SqWSzwoZnzo5wLm5uOvby3q90NP3VZqTii7G6Iw_tlsw2h
+ yg.Zp02TCyatq1nthX1uYxj18pENmdK0tFxGWyMcQ5UvfNCrXp9MFcmWVPTqwyTWADuoeTv9up1z
+ .ei_RgoJlzk1j29CK2D3Sw5s7_j748JpCg68Yo4i_K5FS7rAudb4eveqSvLO0eXRcG0b4WCpqZIC
+ 1vR6dhvff95gnGwzbIs4uyFUUyAiz1GWwhooDJeykkGyQbanjKIB0uO5R5lerI6p3B1dBXsAFZrP
+ joH4jYhkyXA4HOamWfK2RfDgm1ClWgLUumWLtlvsZ8jp5JTCSWUtAz9yZS._epdDCl6cEzaMn6fc
+ YG9i90pZt0vDRyfkwoApK77cm7UsyEcev3xaZnkcVvld5o4gjLm1SB5aG7g7HqLu2jUo2a5K8K.C
+ xPgWyfPHSwqEvphc5bufZ86l1gBFzXPprg.qC8sPm9yZMgYK1eMjyybxyVDK4y39AQ6Thfz77vRR
+ dmHeAEbwdsuiBRibBpRYK5QqQL2aV4PZ3OL9tJe94H8BpZ.YLMguCGrdKGZF5N931NsAKXpzbfV7
+ TZ90Untumg0QbrA3I77PaBZlHf1uhUSxYRVPNk7otMMIQ0QuCFjQ5MDaSTTrZdFo8kFZ3bBrIiAY
+ XIvaDlZIcLMLG4TUb6ODxFMr_15isPb_yISiIcQtxlWJGF7IKaazS2vfOWc4mbnMWZwyiZ.4GOxC
+ 27qlB_t2f994f1Z6KTIc29x1gxzQPIASgNbBbwF63Qc774jE8CtbRf0TeUZ_Qj0mDDWvU7PziChe
+ PyUlSqIfdot5DdCWUz_u3bAeDRRI9c1XYoqIDhKrAMndHhd1XXvFVt38.mHVFsPZDh7mWzDAcYYI
+ ZV4eVPU_gxlgTSkK5jBtuK9qPlHmfQnxAHKzt_6ffMhWiAF3y813o1IrTRF6QO.n6ALk8lcSZzap
+ 57YmNHDpWkkciw9dGd_vI4SmMpDvFvwH9_sILsW5DMlOkodHChvN99_XZMjfOIvEi7gMBP9YyrRH
+ HPY5K1KI.CWuhK9YvJFS0tnMqp1YP5yT4dGvVkGM9Alnq
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: a09a1010-862c-499e-aa65-927325cbad5c
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.bf2.yahoo.com with HTTP; Wed, 4 Nov 2026 22:29:31 +0000
+Received: by hermes--production-ir2-5dd9bf4598-ztwl7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 3b8d832006b22c7ea24550ecffa8253d;
+          Wed, 04 Nov 2026 22:29:27 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Laurian Iacob <laurian.iacob@yahoo.com>
+Subject: [PATCH] media: staging/ipu7: use guard(mutex) and simplify retry loop in buttress
+Date: Thu,  5 Nov 2026 00:28:32 +0200
+Message-ID: <20261104222832.32471-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,43 +93,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2vxzik2ck5dp.fsf@kernel.org>
+Content-Transfer-Encoding: 8bit
+References: <20261104222832.32471-1-laurian.iacob.ref@yahoo.com>
 
-On 2026-11-04 04:01 PM, Pratyush Yadav wrote:
-> On Tue, Nov 03 2026, David Matlack wrote:
-> 
-> > Mark failures in shmem_luo_retrieve() before it starts restoring the
-> > folios as retryable, and return the error without freeing the serialized
-> > state. If no retrieve succeeds, finish() frees the preserved folios,
-> > like it does for a file that was never retrieved.
-> >
-> > Nothing has consumed the preserved state before the folios are
-> > restored, so the retrieve can be tried again.
-> >
-> > This also fixes leaking the preserved folios when one of these early
-> > steps fails, e.g. because the file has seals that this kernel doesn't
-> > support. The retrieve freed the serialized state but not the folios, and
-> > finish() then skipped the file because its retrieve had failed. There is
-> > no Fixes tag, since the fix relies on args->retryable, which was only
-> > added earlier in this series.
-> 
-> If the seals don't match, the retrieve is not retryable. It will always
-> fail.
-> 
-> I think the only retriable part is memfd_alloc_file(), although even
-> that is quite unlikely to fail. But I think that also fits pretty well
-> with the most important type of error you want to retry on, which is bad
-> arguments. In later patches, you check the argument on
-> shmem_luo_create_tmpfs_file() or shmem_luo_create_memfd(), so perhaps
-> set retriable in those functions?
+Use scope-based guard(mutex) from linux/cleanup.h in
+ipu_buttress_ipc_send_msg() and ipu_buttress_authenticate() to simplify
+error handling and remove redundant goto unlock paths.
 
-When retryable is set, LUO leaves the file unretrieved and finish()
-frees the preserved folios. If the seal failure did not set retryable,
-finish() would skip the file and the folios would leak.
+Additionally, replace the backward goto retry label in
+ipu_buttress_ipc_send_msg() with a standard for (;;) loop to improve
+control flow readability.
 
-In v4 I can move the seal checks into shmem_luo_create_memfd() and
-shmem_luo_create_tmpfs_file(), since the valid seals differ between the
-two, and reword the commit message so it doesn't suggest that a bad seal
-can be fixed by retrying.
+Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
+---
+ drivers/staging/media/ipu7/ipu7-buttress.c | 56 ++++++++++------------
+ 1 file changed, 26 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/staging/media/ipu7/ipu7-buttress.c b/drivers/staging/media/ipu7/ipu7-buttress.c
+index 40c6c8473357..7ec8290c4432 100644
+--- a/drivers/staging/media/ipu7/ipu7-buttress.c
++++ b/drivers/staging/media/ipu7/ipu7-buttress.c
+@@ -6,6 +6,7 @@
+ #include <asm/cpu_device_id.h>
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/dma-mapping.h>
+@@ -229,39 +230,39 @@ static int ipu_buttress_ipc_send_msg(struct ipu7_device *isp,
+ 	u32 val;
+ 	int ret;
+ 
+-	mutex_lock(&b->ipc_mutex);
++	guard(mutex)(&b->ipc_mutex);
+ 
+ 	ret = ipu_buttress_ipc_validity_open(isp, ipc);
+ 	if (ret) {
+ 		dev_err(dev, "IPC validity open failed\n");
+-		goto out;
++		return ret;
+ 	}
+ 
+ 	tx_timeout_jiffies = msecs_to_jiffies(BUTTRESS_IPC_TX_TIMEOUT_MS);
+ 	rx_timeout_jiffies = msecs_to_jiffies(BUTTRESS_IPC_RX_TIMEOUT_MS);
+ 
+-try:
+-	reinit_completion(&ipc->send_complete);
+-	if (msg->require_resp)
+-		reinit_completion(&ipc->recv_complete);
++	for (;;) {
++		reinit_completion(&ipc->send_complete);
++		if (msg->require_resp)
++			reinit_completion(&ipc->recv_complete);
+ 
+-	dev_dbg(dev, "IPC command: 0x%x\n", msg->cmd);
+-	writel(msg->cmd, isp->base + ipc->data0_out);
+-	val = BUTTRESS_IU2CSEDB0_BUSY | msg->cmd_size;
+-	writel(val, isp->base + ipc->db0_out);
++		dev_dbg(dev, "IPC command: 0x%x\n", msg->cmd);
++		writel(msg->cmd, isp->base + ipc->data0_out);
++		val = BUTTRESS_IU2CSEDB0_BUSY | msg->cmd_size;
++		writel(val, isp->base + ipc->db0_out);
+ 
+-	tout = wait_for_completion_timeout(&ipc->send_complete,
+-					   tx_timeout_jiffies);
+-	if (!tout) {
++		tout = wait_for_completion_timeout(&ipc->send_complete,
++						   tx_timeout_jiffies);
++		if (tout)
++			break;
+ 		dev_err(dev, "send IPC response timeout\n");
+-		if (!retry--) {
++		if (retry-- == 0) {
+ 			ret = -ETIMEDOUT;
+ 			goto out;
+ 		}
+ 
+ 		/* Try again if CSE is not responding on first try */
+ 		writel(0, isp->base + ipc->db0_out);
+-		goto try;
+ 	}
+ 
+ 	if (!msg->require_resp) {
+@@ -852,11 +853,11 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 		return 0;
+ 	}
+ 
+-	mutex_lock(&b->auth_mutex);
++	guard(mutex)(&b->auth_mutex);
+ 
+ 	if (ipu_buttress_auth_done(isp)) {
+ 		ret = 0;
+-		goto out_unlock;
++		return 0;
+ 	}
+ 
+ 	/*
+@@ -879,7 +880,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				    BUTTRESS_CSE2IUDATA0_IPC_BOOT_LOAD_DONE);
+ 	if (ret) {
+ 		dev_err(dev, "CSE boot_load failed\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	mask = BUTTRESS_SECURITY_CTL_FW_SETUP_MASK;
+@@ -891,13 +892,12 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(dev, "CSE boot_load timeout\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	if ((data & mask) == fail) {
+ 		dev_err(dev, "CSE auth failed\n");
+-		ret = -EINVAL;
+-		goto out_unlock;
++		return -EINVAL;
+ 	}
+ 
+ 	ret = readl_poll_timeout(isp->base + BOOTLOADER_STATUS_OFFSET,
+@@ -905,7 +905,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(dev, "Unexpected magic number 0x%x\n", data);
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	/*
+@@ -919,7 +919,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				    BUTTRESS_CSE2IUDATA0_IPC_AUTH_RUN_DONE);
+ 	if (ret) {
+ 		dev_err(dev, "CSE authenticate_run failed\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	done = BUTTRESS_SECURITY_CTL_AUTH_DONE;
+@@ -929,21 +929,17 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				 BUTTRESS_CSE_AUTHENTICATE_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(dev, "CSE authenticate timeout\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	if ((data & mask) == fail) {
+ 		dev_err(dev, "CSE boot_load failed\n");
+-		ret = -EINVAL;
+-		goto out_unlock;
++		return -EINVAL;
+ 	}
+ 
+ 	dev_info(dev, "CSE authenticate_run done\n");
+ 
+-out_unlock:
+-	mutex_unlock(&b->auth_mutex);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ipu_buttress_send_tsc_request(struct ipu7_device *isp)
+-- 
+2.43.0
+
