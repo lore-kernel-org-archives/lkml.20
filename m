@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825732;
-	b=PTtOqdhTUZvU7bJwdoE0MPmVAvOLT1tQD2EWmt0h1mZIAMoW1AgSt9CZEurMb+FCFLL4
-	 8fb7Yn+Uxpl/zwQirpOcUnqlIucB/qJ895a0sjyumxZxw6ZlOSIVYyvJrmbl+qGWsQ7St
-	 xEtGQcIFcEbs4AhCllZWn3OCvJ0PCl1n0wifP/LyJpwCsQOUSHoLmI8r2qGoE62eVJUWf
-	 fFL/Dw/4fyWU1OZDxBvyCRoBnSim3PEVgmn8dwetdiBP29cZZC/XGKo7D4Bm6NZfA9Mkv
-	 wFI3GoKcuRlAz0sPMn6+qc20UcpvOcTLNmzaLU2YMYjsdGs1+gticNHLPIderi1W3NQ==
+	t=1793825770;
+	b=ZdxLJPlO1IyWx6RyCmpL/UxjrmzSPEXTK+iMLiw6Fit1sB3LXc8U7m2K9te4pqc/WJN9
+	 sBgbDAG3HsV5SVS+OWqludQdD7KZky//rkGhqp3XsteB6/Zvt2hPn71wTuOlOgTj6DD4Q
+	 OcfeoMWn48Mrr3J2MOeWtmD0rDCrexH6baMflHN2YjZrTHEesrp1ckYqCD6Kk9E12+Txq
+	 P7NqSQXiNX82j7bzUQ7qlnrv+o9YI8oWgSLsQSxNoLgFOb7wjAlMos7io2QUZKvREs/P5
+	 ZUA24PjpLApU8al+PKgfo7No2wWRmbJzfKZocuO2Hjs/yHfWyEMBoMtSPzfMfJoweeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
-	b=axOKGFIANdzxXtvntxSo3qDmKBh7Uot6Nt45OfbxohxmRaeZ/JOG63bb7e/ucEh5B8F/
-	 w/A+xRT/gty1RQW1h5OhETt1SwLh1w4054l9trRGhD5WL13N42xcrJA+HOk4jIMr9jAJ2
-	 G1vHlfnu6eiSORSPVa/S3ULV7fWEr1NUxo3RO0jMOj22hAgRykZQ3B6qsJNRKwwbz7L5T
-	 gwArW5qH+wjOfLyzfqO0TVNDgvguha4BtTWGL+HNdzNX4DzW5XwmxhdsC9emkwSeQ4qyP
-	 nFu4bOgWWRphlq34+DOOhujnyAGmUxqqpcWzCJEouUiR6pLayppBJ7bWMWETzP1sGSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825770;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uxSwOQErIZ3I0/QVGsS3gJtYrLgdNJzU2U+0Lm6R/OU=;
+	b=WKZ8wMSDxPgaV3mAN883qy0lBRuSGWG3L2+kRAFAGi6/+g3jpeXh6dcK0xOVPVCeDiI4
+	 vkjP7zDzU8zkwyPoxt2FXEgB/cyOWcw14/9eXngfI6JNxGTG/dw8pNT+QnTAd3JPZOwbb
+	 9VwswROmSPvJmcGzg44Jf6YacImvcQkmrHIc69GChy2Uz0o4GH3Or0+iE1WW8EOnt1ruY
+	 nYD80Z5P91Q6iSafZ89doQyjOg69T5miynq6A1DbPmkl56Ha8xhiAUXcIJbYv0chHUGoe
+	 jif3N6/XSbhuffu2FZodZS5/31kd4JrrI14In+GG+IjmOTtv0wQYgZiMxVgmguvp5kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nv00Ezch;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=npxON8ct;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1E7609A807
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1E7609A807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040DB607870B;
+	Wed,  4 Nov 2026 20:56:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nv00Ezch
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e8e16d22d8so15709835ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:55:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793825730; x=1794430530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
-        b=nv00EzchfADywfLnw8bnPJd54ZSCE5AZp4mq5J7FWO1xpj1EZQPpBgHX56dUDJN2Bq
-         qkGS/iTTaluJq8BvapCO89KLhmGQLgMDho93pxTv6ImxamjecdigipmSJ1SzdLt6WU2h
-         sTlA8mQxSh1p39MoKb/Rw1NGU9nViRsWHViqVqUN7nyiYeOAE1b3bQYXWrzdIgnWbSS6
-         lQG1NFsVQWiCQPZQokw7njfp6NOFZh8kM7AVJLpUV1Wf8gZchQkM21H0VdBgGgsLdHWK
-         zW6aozP+k0Sw+Mv8UsPLrXy7VcBTEwJXCk07KWF1cmU9LEPVLyTIPVaWjLP1Klkv/3cU
-         c0Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793825730; x=1794430530;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
-        b=ue2ZymSjjHlchBiUSOKX3toL9A94BUDYNrF47cbR7FozAjI52fqGXlL5OPQ5igmhLj
-         yoTUWjrts9BVejbY1wqpU14whaHX90KI1xsvjiC5tN8Z3p/NnRqKy/qX/GhurXVzONnC
-         2BG3pS/dXpUV6J7GxXQLIKc7PUKzNjM8tAm8nWYQvdSGPfPa94efIGzlbo8VhQ/zVlUE
-         oG0mWF3DXiq4He3FSyMIjzShAQy1w85q6Rjal51/5e7mS13BHqfrMNd6xHL0u1X0Ztz5
-         lkhlIBmoYfggheV8TY4E7KzV+Sy+eG7FPgo5oAzy4D6QjIXWBZak/ruMvPJzCEDWWvFb
-         aFpA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8WiVsH/1Y7pzZ8ueqGjzG0oTBXjw2IbJxct8XzH8dMbeKr6Ib2OSzsAITLCF+Ioc/4CiTNFvmk+SZGgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QXn12rZ7yLNXbmPDc4ZGgVmNOSYNZNFATwzB1Z2E/6ymJ3hfc
-	tNgGP6PBriUEXG3IqB3n4AFln/VqOeCrqpOtq7JnmX26b7W4Q1rPFe5auiTfbMUDGEAIPrKKqWn
-	107cJKw==
-X-Received: from plbbf12.prod.google.com ([2002:a17:902:b90c:b0:2e9:5442:b91a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:26cf:b0:2e9:b7ca:cd5e
- with SMTP id d9443c01a7336-2eb36523137mr166930145ad.62.1793825730369; Wed, 04
- Nov 2026 12:55:30 -0800 (PST)
-Date: Wed, 4 Nov 2026 12:55:29 -0800
-In-Reply-To: <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=npxON8ct
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0221F000C1;
+	Wed,  4 Nov 2026 20:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793825769;
+	bh=uxSwOQErIZ3I0/QVGsS3gJtYrLgdNJzU2U+0Lm6R/OU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=npxON8ctjayv/xaG/yJuR9cNX8EfIeBxdMK0yWC8rNnFViRoSjgpbMCnj5nbYqymm
+	 dO7o/cR4xnl3TeDQ1NKo4QpZL/iWCK7R4EIuW2RM+xtAAdnUVnlsxldwIvrmbimNZk
+	 ZTxmyWXLBzs2+I8uxVsrG+ndtSDvKpJ7eGLIxqaGAUyI3101wtF2a7bXVKAzDWP7ju
+	 MzSPNjgWX1XY9hVIGe9sS/zWcclo3bVyuHOkkTpuSZFL0Tld9YNyKvi0g8qdpODuqQ
+	 UZqyUYyJyvCH9adn+Qcjw9/CxRIYD3V9N1YxUzop6+Ob3JzWxGiiK5kvcMGBqJAH+r
+	 rdi6sLmyYiyAA==
+Date: Wed, 4 Nov 2026 12:56:07 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Alireza Haghdoost <haghdoost@uber.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] perf symbols/callchain/annotate: Bug fixes from
+ symbol reference counting review
+Message-ID: <auub590i-CGpgjJ6@google.com>
+References: <20261031063549.1281324-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,129 +61,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-2-jmattson@google.com>
- <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
-Message-ID: <auubwbLDZLy8ZkjR@google.com>
-Subject: Re: [PATCH 1/4] KVM: SVM: Always update LBR MSR intercepts on full
- MSR intercept recalc
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031063549.1281324-1-irogers@google.com>
 
-On Tue, Oct 20, 2026, Yosry Ahmed wrote:
-> On Tue, Oct 20, 2026 at 4:45=E2=80=AFPM Jim Mattson <jmattson@google.com>=
- wrote:
-> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> > index fe0cba4731b2..55b3ee840365 100644
-> > --- a/arch/x86/kvm/svm/svm.c
-> > +++ b/arch/x86/kvm/svm/svm.c
-> > @@ -721,14 +721,11 @@ void *svm_alloc_permissions_map(unsigned long siz=
-e, gfp_t gfp_mask)
-> >         return pm;
-> >  }
-> >
-> > -static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-> > +static void svm_set_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-> >  {
-> >         struct vcpu_svm *svm =3D to_svm(vcpu);
-> >         bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_E=
-NABLE_V_LBR);
-> >
-> > -       if (intercept =3D=3D svm->lbr_msrs_intercepted)
-> > -               return;
-> > -
-> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_=
-TYPE_RW, intercept);
-> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHTOIP, MSR_TY=
-PE_RW, intercept);
-> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTINTFROMIP, MSR_TYP=
-E_RW, intercept);
-> > @@ -740,6 +737,22 @@ static void svm_recalc_lbr_msr_intercepts(struct k=
-vm_vcpu *vcpu)
-> >         svm->lbr_msrs_intercepted =3D intercept;
->=20
-> Hmm I was going to ask if we can set svm->lbr_msrs_intercepted based
-> on whether or not svm_set_intercept_for_msr() actually set the
-> intercept, so that it also captures intercepts due to MSR filtering. I
-> assume that we didn't do this because MSR filters can result in
-> different interception status for different LBR MSRs, and we don't
-> want to track them individually?
+On Fri, Oct 30, 2026 at 11:35:46PM -0700, Ian Rogers wrote:
+> While reviewing the v2 symbol reference counting series [1], Alireza
+> Haghdoost identified three existing bugs in callchain merging, ELF
+> zero-size symbol end calculation across .symtab and .dynsym, and basic
+> block range splitting/cleanup in 'perf annotate'.
+> 
+> Pull these three fixes out ahead of v3 of the main series so they can
+> land for the v7.4 merge window:
+> 
+> 1. perf callchain: Fix loss of symbol in merge_chain_branch()
+>    Restore .sym = list->ms.sym when constructing the temporary
+>    struct map_symbol in merge_chain_branch(), fixing missing symbol
+>    names and inlined frames in 'perf report --children'.
+> 
+> 2. perf symbol-elf: Fix zero-size symbol end calculation across .symtab
+>    and .dynsym
+>    Move symbols__fixup_end(), symbols__fixup_duplicate(), and
+>    maps__fixup_end() from dso__load_sym_internal() to dso__load_sym() so
+>    zero-size .symtab symbols do not get extended across following
+>    .dynsym-only functions before .dynsym is loaded, and add a unit test
+>    in 'perf test symbols'.
+> 
+> 3. perf annotate: Fix block_range symbol loss on split and leaks on exit
+>    Preserve .sym = entry->sym when splitting head/tail basic block
+>    ranges in block_range__create(), add block_ranges__exit(), and release
+>    resolved branch_info addr_map_symbol references in
+>    process_branch_stack().
+> 
+> This series was prepared with the assistance of Antigravity and Gemini 4.
+> 
+> Link: https://lore.kernel.org/linux-perf-users/20261027231513.816148-1-irogers@google.com/ [1]
+> Assisted-by: Antigravity:Gemini-4
+> 
+> Ian Rogers (3):
+>   perf callchain: Fix loss of symbol in merge_chain_branch()
+>   perf symbol-elf: Fix zero-size symbol end calculation across .symtab
+>     and .dynsym
+>   perf annotate: Fix block_range symbol loss on split and leaks on exit
 
-NAK.  In the past, KVM had a bitmap to do exactly that, and it was a trainw=
-reck.
+Applied to perf-tools-next, thanks!
 
-> Hmm even if we do track them individually (e.g. as a bitmap), it would
-> add a bit of complexity here because we'll need to plumb that into
-> svm_set_intercept_for_msr(), right?
->=20
-> I suppose if we go with "lbr_msrs_intercepted just means KVM wants to
-> intercept", then we should probably rename it accordingly?
+Best regards
+Namhyung
 
-Probably, but that can be done on top.  And I'd like to change all of these=
- flags
-(all two of them?) to be consistent.
-
-> >  }
-> >
-> > +static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-> > +{
-> > +       struct vcpu_svm *svm =3D to_svm(vcpu);
-> > +       bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_E=
-NABLE_V_LBR);
-
-Eww.  The naming is all kinda of funky, and I strongly dislike the duplicat=
-e code.
-E.g. svm_set_lbr_msr_intercepts() recalcs, it's not a pure "set".  I'd much=
- rather
-pass a @force param, e.g.
-
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index e6b8c0423813..2d70fb37103e 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -728,12 +728,12 @@ void *svm_alloc_permissions_map(unsigned long size, g=
-fp_t gfp_mask)
- 	return pm;
- }
-=20
--static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-+static void __svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu, bool fo=
-rce)
- {
- 	struct vcpu_svm *svm =3D to_svm(vcpu);
- 	bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_ENABLE_V_LB=
-R);
-=20
--	if (intercept =3D=3D svm->lbr_msrs_intercepted)
-+	if (intercept =3D=3D svm->lbr_msrs_intercepted && !force)
- 		return;
-=20
- 	svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_TYPE_RW, i=
-ntercept);
-@@ -747,6 +747,11 @@ static void svm_recalc_lbr_msr_intercepts(struct kvm_v=
-cpu *vcpu)
- 	svm->lbr_msrs_intercepted =3D intercept;
- }
-=20
-+static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-+{
-+	__svm_recalc_lbr_msr_intercepts(vcpu, false);
-+}
-+
- void svm_vcpu_free_msrpm(void *msrpm)
- {
- 	__free_pages(virt_to_page(msrpm), get_order(MSRPM_SIZE));
-@@ -803,7 +808,7 @@ static void svm_recalc_msr_intercepts(struct kvm_vcpu *=
-vcpu)
- #endif
-=20
- 	if (lbrv)
--		svm_recalc_lbr_msr_intercepts(vcpu);
-+		__svm_recalc_lbr_msr_intercepts(vcpu, true);
-=20
- 	if (cpu_feature_enabled(X86_FEATURE_IBPB))
- 		svm_set_intercept_for_msr(vcpu, MSR_IA32_PRED_CMD, MSR_TYPE_W,
