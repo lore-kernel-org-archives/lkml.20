@@ -1,80 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773961;
-	b=e3qW8VXO9JFmCt0jelM9lzO6DzFjJ/1CUf3Pa5VjEKxEYZwVxOUZDa+YzEYBX9LlL54+
-	 /m2sX5JMOEz/UNPva2nrMdrHWfKZOLomMzaUU2035zIYd6elE9DHsqmFx86FFO5lc1kFU
-	 ZfGzvnWClhannyOHHltvuw1AKSsM18hZVr9qNSFoQg/93Cu40Dzp2sDAYfd7S7pEGD2Ux
-	 iksHx+knMjYP2ZXH0WqEYb74giD97IcKaszOhm6GtZBguCEIj5j5R1A9rGYAgq3PT34UL
-	 T4fxOGhGpKSPOn0HE4JGcrtJzdHGxGNiM7ceHHSYNVGB0EdwnHe1hSpDslRM2Py6MgQ==
+	t=1793773965;
+	b=QlgUt2OrZNmCwAz/g90tkVBKEMVadhiAYyo+tNEJvjaPxTO1qyC9D7843Qhw5Zw4fHPv
+	 /uQeWY1BMkjs6u9EK4F8MvGhLn9RRhifwgAiC5mN9fiF7NMaE5TNHIa1OfAeEvsvNXAk5
+	 5kllKxsapD9GwxmKrSJrK1IQpLGlIcjaOeQZKU8MSw7WvMj9KmMQ/wonX76bzbK0gALaz
+	 Yf5vF1emWcRJPxRmlRUT55sQ9N9AuGyUiAsn+tSUpmrP0zb8hX95ZfWtgM0uuCUiRno5K
+	 4Ht4kvrC+o/k17DGoAoZdTo1PDJ5Qg4anN2Cc9vk3ISnVg/xoBnjTyUNH63I5S7SSrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773961;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=FKYnkzUp7dcaKwPjAS6Kzcom3HkwZDiuBk/RNxQ8hl8=;
-	b=ishsjfQiuZgvTTaY8rmcfRUYxiHirzXZEsKPbxXYIrP3qtjg+2ADtUESF90b66PluhM4
-	 gGp6KvklybL2Nri59vIRWBtUuX1t1RrbiWLd6ManGXjbEp8LFvfMvx/avJUERKqRF3Qqi
-	 DSflGmXFVviW4BXY7TAo+g+VC31M2UlJJvp3o+CCN2VSRyUAxRpVNqz6n0D/gphS3uQLv
-	 ygFX8sBRUFariVj13bXzUTiCDJhb+qua7yDcBDVmP9IVIKE+FiV0PnFrwbegXSi37LHl5
-	 xS0ovNge2Z+OEtxfoEAW6eCCN2vtiavvCO8jjvjDjiX5fjzINrfEtRhBT/o4nqWzRmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773965;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=0uLC0HaAr1QkFmkp2tREOWhNfVwNoMBFyxu7npKuUlI=;
+	b=zAnfieD1EV4q0bKKWCW7nQ8Jf7DuKF8om5lMQSb7iqiNpdD7pH1nAcmkpAOf9EZqiyVV
+	 4G5EtUQLm1xwaJhH6gC78nChtY22bQ9g5UOjEQo27I3S9n18EnrzMeUruRURi8/Sp7ppf
+	 vMFU6dcmJJmAfrA7UgU4MWp6HE9cDSAUUen9gZXpZ+pM9xH06NioQaHgMeeH7Q0xMOALg
+	 lohOE1XpfthmYQc9QNynOHqaR7CpIJzRi9TPzgyCL2r3+RyV21tEOPGP4UcwOeZXRewRX
+	 jJ/S6Q4oDgmgCkiQbMBIgv+cR6gn8sIZcXz0RDUFq8PHVXB1t3T54kO1kznd8ZWViLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GSppx/29";
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=HXgOnWcG;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941E0606A326;
-	Wed,  4 Nov 2026 06:32:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 941E0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C9B606A31B;
+	Wed,  4 Nov 2026 06:32:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C9B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GSppx/29
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793773960; x=1825309960;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6sHvxvkTPJCc29XYwbaFpovcVxjYO/xDqLAB4UQVgRw=;
-  b=GSppx/29BTpLIueKK4EnIsSVeyDVh00/aHzVZO4yyBEuqEyqALTZVYsR
-   uRCSbWnCI3rM6xY+DSwXG9if3BbYQ7BlMHuolkzF9g0izZw7MWx9qIz0g
-   hvEB5+4l6rKuUZxZH0h6NIGNwaNgPYTzOED0LfKzF8jM648i4GzjGNq62
-   QN4tCKPUx/P3EZTYgsfOGE0AIer1h/wxvxvjmZ5f9nGb/aXm8qiiY0Ur/
-   6pfyvErZrc7JfHrbF/YvZVj7G3IACDk1mvySgHiPMZz0n7wDEwnS/HYpD
-   G+bKK28o/j2vNFuiNp4z+mEBDDOLXsLVFAcvz40C1JgE6MI7e0V5n3Hao
-   g==;
-X-CSE-ConnectionGUID: +i1hbFZYSkawm4c1J78DuQ==
-X-CSE-MsgGUID: Bn1GLRX7QEeMcDEdDzKjPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2535246"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2535246"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 22:32:40 -0800
-X-CSE-ConnectionGUID: tZmulct4RrC+i109NuwCIA==
-X-CSE-MsgGUID: cn87MhLnRvCLEr+lGQUrCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6539746"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 03 Nov 2026 22:32:38 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOUXz-00000000jsV-1DcR;
-	Wed, 04 Nov 2026 06:32:35 +0000
-Date: Wed, 4 Nov 2026 14:32:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sanjay Govind <sanjay.govind9@gmail.com>, jikos@kernel.org,
-	bentiss@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
-	dmitry.torokhov@gmail.com, linux-kernel@vger.kernel.org,
-	Sanjay Govind <sanjay.govind9@gmail.com>
-Subject: Re: [PATCH v2] HID: santroller: add driver for Santroller controllers
-Message-ID: <202611041409.Y0jPIir1-lkp@intel.com>
-References: <20261103015335.974344-1-sanjay.govind9@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=HXgOnWcG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793773962;
+	bh=0uLC0HaAr1QkFmkp2tREOWhNfVwNoMBFyxu7npKuUlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HXgOnWcGkvr9hGip5zyzLcO+zguxsBD6jrG+2sYoN5UCtCv8jOLMh8y6YjIJRspq6
+	 9MXADVPmlbnPffNHiNxbYtFlO8WFyuZOoHOABu4slOZ6apfyaVXNx8s6G4T+zkuqBu
+	 HfUWMS45hQ/yMAwv3qFnJmAM/6P/+oLxjj1YBcagyxxpSK0khWg1SkJtto5aUOFyPB
+	 1n5X8CPVnJofglcSO3rrW7lzT1h5PlSsp+cS+ruyrO2g5wADT4BULzvODMHsjOB4Qu
+	 NblXEh4EfdcSxWWbX7XSzqML6xJXhwz72hW0t53WfyURgqoStg3zzBuDux+O+LxIWD
+	 o/iBF9urEa7gA==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jKFx663J1z4w9g; Wed, 04 Nov 2026 17:32:42 +1100 (AEDT)
+Date: Wed, 4 Nov 2026 17:29:32 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
+	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Subject: Re: [PATCH v3 08/15] libfdt: overlay: Factor out fixup and fragment
+ path parsing helpers
+Message-ID: <aurQy1f21o1oTMrT@gractus.seuss>
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-9-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,39 +74,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="coXX6PGQLopO7peK"
+Content-Disposition: inline
+In-Reply-To: <20261101220224.1436242-9-dianders@chromium.org>
+
+--coXX6PGQLopO7peK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103015335.974344-1-sanjay.govind9@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sanjay,
+On Sun, Nov 01, 2026 at 02:01:15PM -0800, Douglas Anderson wrote:
+61;8401;1c> In preparation for updating the base device tree's `/__local_fi=
+xups__`
+> node during `fdt_overlay_apply()`, factor out two helper functions in
+> `libfdt/fdt_overlay.c`:
+>=20
+> - Factor out `overlay_parse_fixup_entry()` from
+>   `overlay_fixup_phandle()` to parse `"path:name:offset"` entries in
+>   `/__fixups__` properties.
+> - Factor out `overlay_split_fragment_path()` from
+>   `overlay_symbol_update()` to validate and split
+>   `"/<fragment>/__overlay__[/<rel>]"` paths into the fragment name and
+>   relative subnode path.
+>=20
+> This commit is pure code movement with no functional change.
+>=20
+> Reviewed-by: Simon Glass <sjg@chromium.org>
+> Assisted-by: Gemini:gemini-pro-prerelease
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
 
-kernel test robot noticed the following build errors:
+Patches 8, 9 & 10 are good cleanups regardless of the rest of the
+series, so, merged.
 
-[auto build test ERROR on hid/for-next]
-[also build test ERROR on linus/master next-20261030]
-[cannot apply to v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Sanjay-Govind/HID-santroller-add-driver-for-Santroller-controllers/20261103-145335
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
-patch link:    https://lore.kernel.org/r/20261103015335.974344-1-sanjay.govind9%40gmail.com
-patch subject: [PATCH v2] HID: santroller: add driver for Santroller controllers
-config: sparc64-randconfig-1000-20261104 (https://download.01.org/0day-ci/archive/20261104/202611041409.Y0jPIir1-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261104/202611041409.Y0jPIir1-lkp@intel.com/reproduce)
+--coXX6PGQLopO7peK
+Content-Type: application/pgp-signature; name=signature.asc
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611041409.Y0jPIir1-lkp@intel.com/
+-----BEGIN PGP SIGNATURE-----
 
-All errors (new ones prefixed by >>):
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrq0MsACgkQzQJF27ox
+2GfjbxAAqndQ2o3MCTlJGFgfgpsF9GWSD+adrjWWvFwqKPzkGy20HKmvwuGghih2
+IkQ7r5le/kp51xS2eP3ZHlxSsd69zEMU8z50yv3nLugIwfWgxcoWla2td+D1tQWG
+jj1KRu7kreUtvdsQmkybRX4dpNCm+ksL5nDhNIotKD6+Jd+3QmjVTvNq3PM/cJRZ
+PReTIMxcnjO6EulbmOZkgsCbnQLpv7tzBmIw/z83TAFRgduCfAL9jVKb0U4nnV/z
+RioEX456SenflWWqYsTxZiJVB4hrxwNtv/d5tqeF3OW9xgo7oZO87RonaB676wlf
+IBU19pqt0x0XzldFzxCWLI26EvKQKwdiX67+r+QoaUm+Fbng9QB1B6V+gm0v53tb
+nMya1ayRFXTRsjXQEwy+eRTdLURRQ+QUpeFJg6CU29yAbUNcL+WEtcbaoAQwuqro
+FV44lcwwhmN86NchAMaqip/9rmGGy/26pui0CyRDGgTkvRaasUgE4x+hcLC4MVwI
+rNUn8lu+hN7yAUnzkm/bMsWHGIYYZvaywnngIWOvUaBkgV+hS1aZF1EBT8OeCT6V
+cg3sJx9FXAn56GcSfYoWerXf6YcYaZAlUXmBY8r1HOnV12MxDwBr4s05y8NJ1gdo
+52fFr4rDod6cB4/GohARWX/7hu/giyPfLsHYf5vHF9q7vY+xeS0=
+=zAtL
+-----END PGP SIGNATURE-----
 
-   sparc64-linux-ld: drivers/hid/hid-santroller.o: in function `santroller_probe.part.3':
->> hid-santroller.c:(.text+0x610): undefined reference to `hid_is_usb'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--coXX6PGQLopO7peK--
