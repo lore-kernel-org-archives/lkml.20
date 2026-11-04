@@ -1,85 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797065;
-	b=4nCSEOAAY/ruB6edzh62jCOaHyBXI7ztfYh2ovh8bV7quNncIrt2fNkZB3+tWN7sHUWu
-	 tXpsv/b0PlXICkI/XL7T83tpi3rQRNphSMQcr0DGLaalkIXUdy4lmKz8rQ+2gAXw6ywVc
-	 tXyWKxdW/4GphQuAY24oLM3lqzmnrU9LfPC3LAcgTsy25OhjM8apka6F8RYRI4THRrx1+
-	 AgwF/nM/ajJK+X6rd0wMrSIjPBJzgonxiCtl9ToKSfE1/Do7TReb/oCRMPEXiiP0/VRvB
-	 0Y/ZhpyLiHhqnku3xKyEpMlnqt3HRTEdApQAlTQP66Y0gvT5egd+DuJ2d7SmPt97aEw==
+	t=1793797097;
+	b=vyzvsugKr1dkOp6MU8/JgAOMhuYhBoVbyxNYqNUNGBm7qrMRmTYvKEuYCqPaLgVfbq+k
+	 T8c27baZtmkdm5/OYklPUZL8TqUcM20rRaaVn3/ON2X7XwQDtVe5vyhaHPDlAn+YBmO9i
+	 RglCMMiK8dncfXFRdmJph9LamlghrZ+u6O9Wsv7bGyeSifQwWBcnLLxClEBZO06EP5dQS
+	 9pWvIevYP32pJ3IGI3QmXklkfHGIkPkOyRrOcy+KvIPA9LULL6AF7GOVskwKFW16A/dtS
+	 B2tMVDYxSlAMKrx4El8NQsTk4sLFZhAe8B/yr96v9Kh6Xb3G8KHkl/t1dq8Oqctb+Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797065;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=kf+kzcThdg4e5t4u8o66sWKFVWZINe5nKolNKn0mC/A=;
-	b=itbNX/o1vxzi4hPH9u7OLtv7KSi9fhN9NRpPaUr6J2bWp4WhY7862/qWzc2Fa1XopFJH
-	 7jhf5o2hBLUH7v9vHHEzPQJRtPTmi8KnDkhMkkRLGifPcvQPFJr+gv9YMDnNyM5Sg4p/h
-	 ZClADFjUlBTdXQ+WIaC5b/IB1EDDz8JvAvoYTwsZ97SK5yzHEAOR2d260OXy4NXm0SuJK
-	 wfqGt5cusjj0oQbPgNF4UHNvIeDIshy60tR/9VKW1QB/popGByd6d2P0JXX/iekRHNG9F
-	 WgCbI2BsRELr9ViCUqV2/VgtomXglU/UTTmHCitJ1f5NmTAVVpfM6Sd51Q5b6B640Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797097;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=06M8OqC+3vZou9FRKaJXlEK5ftpTbthLPodwzAfAWwk=;
+	b=x4c2cX4bdNOmO7wKtf4o5Oj8c80wWDh9JS5w1KabYyzSNaiRgiDmiGuQRogpeuO+s2NC
+	 u+eCG37uSsGqrXaT9t8ijjf+WvSmhHE00kmt9NQv04wddIEAOdAgkTJ2nC6lk2q78PWCG
+	 SARJFcHBc8tXnTWAjoGW4R0x1PH6c+nxc+pzNIkBEne9wN8B+Ylrr7KCQiJKSlUa5ZvMp
+	 mrqM0ENOILjVbJy13ms3PJ6fk/SpjEjp87KUwg++AFr0jct0EuHtKKXedNtoIIVqEICBf
+	 yD+D4+1DK/9/z6VbAi4oRuM44/0bLaaIYprbeLxE27qt69bnk0c9JECotx4SV3Ju5sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XkPGJqTO;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=v27gT64T;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B2B606A328;
-	Wed,  4 Nov 2026 12:57:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B2B606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0500B606A32F;
+	Wed,  4 Nov 2026 12:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0500B606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XkPGJqTO
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=v27gT64T
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5EE3B1A145A;
-	Wed,  4 Nov 2026 12:57:43 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 837C94E413FB;
+	Wed,  4 Nov 2026 12:58:15 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B98460770;
-	Wed,  4 Nov 2026 12:57:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4762410329251;
-	Wed,  4 Nov 2026 13:57:39 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 47F0060778;
+	Wed,  4 Nov 2026 12:58:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4172C10329258;
+	Wed,  4 Nov 2026 13:58:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793797061; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=kf+kzcThdg4e5t4u8o66sWKFVWZINe5nKolNKn0mC/A=;
-	b=XkPGJqTOlf3lvJf3PRldZF08/p00Gy+W73wtHLiCGq6wnwc2gzg6eFR5JKHXevm9oPMuZN
-	Xfv4lXUPIA58H9YkgxBy6ZgtJb1ZeUL1sPHWfI3N6RNfEoXFiA3VEbQMntRte719so4WvM
-	KZj1qWseLcDFlUgnJR3PSsGWw9icxXbgWCo8YGYIMu/SjRiHGffYih2XHye4fIctruY20/
-	rl6XKzU5aydAmYqu+aMGYju4/rN8D6EhYPE/nYC6EwnDyg70hwieTiv2R1ze6y4FLMnNsz
-	WwOUPKgYeutj2lBx586UaOc2PYPN9LHzl6aEH16chbUXmjKE8PXXyQF2aNOofw==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz,
-	herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments TLA2528 adc
-Date: Wed,  4 Nov 2026 13:57:25 +0100
-Message-ID: <20261104125726.1754980-3-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
-References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
+	t=1793797093; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=06M8OqC+3vZou9FRKaJXlEK5ftpTbthLPodwzAfAWwk=;
+	b=v27gT64TQ4nLQSrJIi65fpGFmgqDc+QHu+ruZeGNfkGxoK/w3N8z6J25a3dCB/Lbqgwhl9
+	lKS1n/ivyTDsavGSep17boTQB7dQ/wWN5jCM+lqnagMgCyn8P+kmHcsQ6mrUfkwRdLr+sr
+	DsOAqmFd/BghAVqvWP1UrQQqebNP6nIv9VLqA+HoRAj/yGk6jqGG2sbKy6NVALpzVYSjmX
+	iyhPTytf6dhzhr/Dee36XYbaqKs2lDPXcIGMPnDX4cqp314oygb92eku2k0EC30SHHfdK/
+	3Wy+3yvo2HI2HpgAQ69jH6hsG3YPBtlC/DKbHWwDtz5bLCcbQHhbRNrCJ2BAgA==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+Subject: [PATCH v3 0/4] irqchip: add EyeQ5 PCIe MSI controller
+Date: Wed, 04 Nov 2026 13:58:00 +0100
+Message-Id: <20261104-eyeq5_msi-v3-0-2866f732cd38@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,295 +62,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBQFr9KwFgMUEF15D2MMpb8WY4tCJTZN7
+ y7UhZq4nOTNvAkF8BYC2hUT8hBtsK5PUK4KZFrdnwHbOjFihElKmMIwwl2cumCxklrTWmyJVBy
+ l/c1DY59L63B8c3hUFzBDDuRFa8Pg/LicRZp3/7qRYoINl3wjWFMJ0ewr54ar7dfGdSiXI/u4S
+ f52WXK51mVdSqKI5L/uPM8vA5zo9vIAAAA=
+X-Change-ID: 20261028-eyeq5_msi-86aa1d590684
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
+X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
-channels, that can also be configured as 16-bit averaging channels.
+Hello,
 
-This is a very simple driver, allowing reading raw values for each
-channel. GPIO mode isn't supported for now, as well as buffered mode and
-the 16-bit averaging mode.
+This series adds support for the MSI controller present in the
+Mobileye EyeQ5 PCIe ports.
 
-Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
-Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Although the driver uses the standard MSI library, the EyeQ5 hardware
+has several specific features. First, each PCIe port has its own MSI
+controller, which snoops the MSI write TLPs that the port receives. A
+port supports a maximum of 4 MSI vectors, and the memory-region
+property gives the base address of the doorbell window. In addition,
+the GCSR mode selects the role: in root complex mode the driver
+registers a PCI MSI parent, while in endpoint mode it registers a
+platform MSI parent. The last specific point is that the driver uses
+the snooper domain as a chained controller on one GIC interrupt.
+
+The series adds the binding document, the irqchip driver, the EyeQ5
+DTS changes, and the MAINTAINERS entry. In particular, the DTS changes
+add the two MSI controllers to the EyeQ5 SoC.
+
+I tested the series on two EyeQ5 SoCs that have a PCIe link. One SoC
+acted as the host and the other SoC acted as the endpoint. The
+pci_endpoint_test kselftest passed the MSI-X and DOORBELL_TEST cases.
+The MSI test uses one vector because the controller does not support
+standard Multi-MSI. An additional test made sure that each MSI-X vector
+uses its target CPU (using affinity).
+
+This third version is sent shortly after the previous one because all of
+sashiko's review comments made sense. I hope this driver is now in better
+shape and that no issues remain.
+
+As a side note, I am a little annoyed by having to add an empty function
+as an irq_ack callback. I saw that a few other drivers do the same. Could
+we do better?
+First, I was thinking of adding a flag so that in handle_edge_irq() we
+would not try to use the callback if the flag is set. The drawback is
+adding an extra test; I do not know if it is really sensible here.
+At least we could provide this empty function in kernel/irq/chip.c, so
+each driver could use it instead of declaring its own empty function.
+These are just suggestions and they do not affect the current series.
+
+Grégory
+
+Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
 ---
- MAINTAINERS                  |   1 +
- drivers/iio/adc/Kconfig      |  12 ++
- drivers/iio/adc/Makefile     |   1 +
- drivers/iio/adc/ti-tla2528.c | 215 +++++++++++++++++++++++++++++++++++
- 4 files changed, 229 insertions(+)
- create mode 100644 drivers/iio/adc/ti-tla2528.c
+Changes in v3:
+- Address review comments from sashiko.
+- dt-bindings: drop the interrupt-controller, #interrupt-cells and label
+  properties.
+- irqchip: use handle_edge_irq() with an ack callback instead of
+  handle_simple_irq(), so a vector is masked while disabled and a second
+  MSI is not lost while the first is in progress. For this one, I ran
+  some tests to confirm that the issue was real (it was) and that the fix
+  resolves it.
+- irqchip: convert to a platform driver because the node is no longer an
+  interrupt controller and is no longer probed by of_irq_init().
+- irqchip: stop parsing the label property and use the node full name in
+  the boot message.
+- MIPS: dts: update the MSI nodes according to the binding changes.
+- Link to v2: https://patch.msgid.link/20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9ccb33ada3d5..c41db7fa7e26 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27763,6 +27763,7 @@ M:	Maxime Chevallier <maxime.chevallier@bootlin.com>
- L:	linux-iio@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-+F:	drivers/iio/adc/ti-tla2528.c
- 
- TEXAS INSTRUMENTS' TMP117 TEMPERATURE SENSOR DRIVER
- M:	Puranjay Mohan <puranjay@kernel.org>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..8633267d6056 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -2016,6 +2016,18 @@ config TI_LMP92064
- 	  This driver can also be built as a module. If so, the module will be called
- 	  ti-lmp92064.
- 
-+config TI_TLA2528
-+	tristate "Texas Instruments TLA2528 ADC driver"
-+	depends on I2C
-+	select REGMAP_I2C
-+	select IIO_ADC_HELPER
-+	help
-+	  Say yes here to build support for Texas Instruments TLA2528
-+	  12-Bit 8-Channel ADC.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called ti-tla2528.
-+
- config TI_TLC4541
- 	tristate "Texas Instruments TLC4541 ADC driver"
- 	depends on SPI
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 9e82c21dbd37..b98cded4d0c7 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -171,6 +171,7 @@ obj-$(CONFIG_TI_ADS8344) += ti-ads8344.o
- obj-$(CONFIG_TI_ADS8688) += ti-ads8688.o
- obj-$(CONFIG_TI_AM335X_ADC) += ti_am335x_adc.o
- obj-$(CONFIG_TI_LMP92064) += ti-lmp92064.o
-+obj-$(CONFIG_TI_TLA2528) += ti-tla2528.o
- obj-$(CONFIG_TI_TLC4541) += ti-tlc4541.o
- obj-$(CONFIG_TI_TSC2046) += ti-tsc2046.o
- obj-$(CONFIG_TWL4030_MADC) += twl4030-madc.o
-diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
-new file mode 100644
-index 000000000000..ec754ec43d7c
---- /dev/null
-+++ b/drivers/iio/adc/ti-tla2528.c
-@@ -0,0 +1,215 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for Texas Instruments TLA2528 ADC
-+ *
-+ * Copyright (C) 2020-2021 Rodolfo Giometti <giometti@enneenne.com>
-+ * Copyright (C) 2025 Maxime Chevallier <maxime.chevallier@bootlin.com>
-+ * Datasheet: https://www.ti.com/lit/gpn/tla2528
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/adc-helpers.h>
-+#include <linux/iio/iio.h>
-+
-+#define TLA2528_OP_WRITE_REG		0x08
-+#define TLA2528_OP_READ_REG		0x10
-+
-+#define TLA2528_GENERAL_CFG_ADR		0x01
-+#define TLA2528_GENERAL_CFG_RST		BIT(0)
-+#define TLA2528_CHANNEL_SEL_ADR		0x11
-+#define TLA2528_CHANNEL_SEL_MANUAL_CHID	GENMASK(3, 0)
-+#define TLA2528_AUTO_SEQ_CH_SEL_ADR	0x12
-+
-+#define TLA2528_NUM_CHANNELS		8
-+
-+struct tla2528 {
-+	struct i2c_client *client;
-+	struct regmap *regmap;
-+	int vref_mv;
-+
-+	/* Protects manual channel selection */
-+	struct mutex lock;
-+};
-+
-+static bool tla2528_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	return reg == TLA2528_GENERAL_CFG_ADR;
-+}
-+
-+static const struct regmap_config tla2528_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.read_flag_mask = TLA2528_OP_READ_REG,
-+	.write_flag_mask = TLA2528_OP_WRITE_REG,
-+	.max_register = TLA2528_AUTO_SEQ_CH_SEL_ADR,
-+	.volatile_reg = tla2528_volatile_reg,
-+	.cache_type = REGCACHE_MAPLE,
-+};
-+
-+static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-+{
-+	__be16 data;
-+	int ret;
-+
-+	guard(mutex)(&tla2528->lock);
-+
-+	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-+				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-+	if (ret)
-+		return ret;
-+
-+	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
-+	if (ret < 0)
-+		return ret;
-+
-+	*val = be16_to_cpu(data) >> 4;
-+
-+	return 0;
-+}
-+
-+static int tla2528_read_raw(struct iio_dev *indio_dev,
-+			    struct iio_chan_spec const *chan,
-+			    int *val, int *val2, long mask)
-+{
-+	struct tla2528 *tla2528 = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = tla2528_read(tla2528, chan->channel, val);
-+		if (ret < 0)
-+			return ret;
-+
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = tla2528->vref_mv;
-+		*val2 = 12;
-+
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+#define TLA2528_CHAN(chan) {					\
-+	.type = IIO_VOLTAGE,					\
-+	.channel = (chan),					\
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-+	.indexed = 1,						\
-+}
-+
-+static const struct iio_chan_spec tla2528_chan_template = TLA2528_CHAN(0);
-+
-+static const struct iio_info tla2528_info = {
-+	.read_raw = tla2528_read_raw,
-+};
-+
-+static int tla2528_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct iio_chan_spec *channels;
-+	struct iio_dev *indio_dev;
-+	struct tla2528 *tla2528;
-+	int ret;
-+
-+	/*
-+	 * We're reading the data with raw i2c reads, without passing an
-+	 * address like we would for smbus-style accesses.
-+	 */
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -EOPNOTSUPP;
-+
-+	if (i2c_check_quirks(client->adapter, I2C_AQ_NO_CLK_STRETCH))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "adapter does not support clock stretching\n");
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*tla2528));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	tla2528 = iio_priv(indio_dev);
-+	tla2528->client = client;
-+
-+	tla2528->regmap = devm_regmap_init_i2c(client, &tla2528_regmap_config);
-+	if (IS_ERR(tla2528->regmap))
-+		return PTR_ERR(tla2528->regmap);
-+
-+	ret = devm_mutex_init(dev, &tla2528->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_regulator_get_enable(dev, "dvdd");
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
-+	if (ret < 0)
-+		return ret;
-+
-+	tla2528->vref_mv = ret / (MICRO / MILLI);
-+
-+	ret = devm_iio_adc_device_alloc_chaninfo_se(dev, &tla2528_chan_template,
-+						    TLA2528_NUM_CHANNELS - 1,
-+						    &channels);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to get ADC channels\n");
-+
-+	indio_dev->channels = channels;
-+	indio_dev->num_channels = ret;
-+
-+	indio_dev->name = "tla2528";
-+	indio_dev->info = &tla2528_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
-+			   TLA2528_GENERAL_CFG_RST);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(5 * USEC_PER_MSEC);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct i2c_device_id tla2528_id[] = {
-+	{ .name = "tla2528" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, tla2528_id);
-+
-+static const struct of_device_id tla2528_of_match[] = {
-+	{ .compatible = "ti,tla2528" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, tla2528_of_match);
-+
-+static struct i2c_driver tla2528_driver = {
-+	.driver = {
-+		.name = "tla2528",
-+		.of_match_table = tla2528_of_match,
-+	},
-+	.probe = tla2528_probe,
-+	.id_table = tla2528_id,
-+};
-+module_i2c_driver(tla2528_driver);
-+
-+MODULE_AUTHOR("Maxime Chevallier <maxime.chevallier@bootlin.com>");
-+MODULE_AUTHOR("Rodolfo Giometti <giometti@enneenne.com>");
-+MODULE_DESCRIPTION("Texas Instruments TLA2528 ADC driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("IIO_DRIVER");
--- 
-2.56.0
+Changes in v2:
+- Address review comments from Krzysztof Kozlowski, Thomas Gleixner and
+  sashiko.
+- dt-bindings: drop the num-vectors property (all ports have four
+  vectors) and simplify the example.
+- irqchip: use the fixed four-vector count, add lockdep assertions, and
+  dispatch through generic_handle_demux_domain_irq() with a redirect-based
+  irq_set_affinity() callback.
+- irqchip: drop MSI_FLAG_MULTI_PCI_MSI (standard Multi-MSI cannot work
+  with the address-based vector decoding) and MSI_FLAG_NO_AFFINITY; add
+  MSI_FLAG_PCI_MSI_MASK_PARENT.
+- irqchip: keep vectors masked during allocation, mask all vectors and
+  clear pending status before installing the chained handler, and reject
+  of_irq_get() returning 0.
+- MIPS: dts: drop the num-vectors property from both MSI nodes.
+- Reformat the driver for the 100-column limit.
+- Link to v1: https://patch.msgid.link/20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com
+
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+To: Benoît Monin <benoit.monin@bootlin.com>
+To: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Théo Lebrun <theo.lebrun@bootlin.com>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: linux-mips@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Gregory CLEMENT (4):
+      dt-bindings: interrupt-controller: add Mobileye EyeQ5 PCIe MSI controller
+      irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI controller driver
+      MIPS: dts: eyeq5: add MSI controllers
+      MAINTAINERS: add EyeQ5 MSI controller entry
+
+ .../interrupt-controller/mobileye,eyeq5-msi.yaml   |  76 ++++
+ MAINTAINERS                                        |   2 +
+ arch/mips/Kconfig                                  |   1 +
+ arch/mips/boot/dts/mobileye/eyeq5.dtsi             |  22 +
+ drivers/irqchip/Kconfig                            |   5 +
+ drivers/irqchip/Makefile                           |   1 +
+ drivers/irqchip/irq-eyeq5-msi.c                    | 453 +++++++++++++++++++++
+ 7 files changed, 560 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261028-eyeq5_msi-86aa1d590684
+
+Best regards,
+--  
+Grégory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
