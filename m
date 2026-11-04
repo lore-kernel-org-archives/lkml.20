@@ -1,92 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801266;
-	b=xseK/vFk8XFnNMrJXQq/N67+2laGSiW2ZE00rydC6obROv14OINbvTeQ7QvOeRw2vkVJ
-	 cxS/en4JvkGuMnEvVQJhhGEGwLg8kJ4MpZ/Kfofyg5a2/zBA1aQTlA53R2+XIyBCO6vh0
-	 decRECHuf1uX7MO+5jM372XdyE9n/OkHvkqcqVLLdTbnbjXEi9ZR0ODEAMZcjIa8XJHA7
-	 ml5jwEY4sknOABx0bwt+LO5kCpYbAoB2aA4qqMLrJ8t2fZJ1kPrLgrBGvE+WcsCge6W/S
-	 fL3inVPYjyCpXXNJaauZvPN701aAakYuhiE94F9SiQyxWqI98oAYfbgtQXNr09Adcxw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801266;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
-	b=tsaCSktwO97qPKi9poivPr/bW89+9B8PiYptgPvf/gmhHaBa12afjACHuxVmLgzA4hgO
-	 3kUFWv+gy5irxgafNgnieORxlPEhEp6LHqoUMTmjdxuskfyBvNiAJsOTiRWWEmzchvrza
-	 yNgic1/TDROSYFH5L/xMNjLz5m6BYMbKNIbxW1QwzUqe+8S+H1cqJ6OAquTylxWgVqAur
-	 OwFWJQ0dW2dP71mLVKMlHc1b8Bp40ln61UiHkxa63/ItkOLHL8y7ajUvD95DEvXgTIVic
-	 5eXl2r5O8M9ngs7HKbDNr8W4OFMwKXR37Iuw6FTGL5sXBWuXRmsUQGF2skYcZFR22Xw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQVHLjUU;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=67.231.153.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793801270;
+	b=wKCbPhc42IA8oRJWnfl8c0YO/LvHEWR+5PKyttFJtFYCgoRkcO51piARbunRUIhzuhAM
+	 BZxRWfOfTEXkn+OF0RIob4BW5COTCrvlZveoReiEnxj4qzV/Sv9OIWN/Juq8LR8tCgjis
+	 yOI4coD2drRCRYP6h9YUOHoXxJjdT7/G9ZvPlmvrGfLYzB36VRCab84+80LLmOadLNGbF
+	 seTFYf5oPAk33wrkQJzd3GC9tWFcHMEyT/lId5TKFp8wbzep9sIHjrZua0eP3OLiz4Kdj
+	 GcFHVhlu8YErOoESPRVkODGRiCp+oURpe6AxwkCBtOZuj9d+j9l7MwREUZdUyschCzw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801270;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
+	bh=StALzT24QP0y2nM7ZiWwYHN9H78Ev4aIYAoLlcMqH34=;
+	b=NZPIY6x//FJD3brrrZ2VSc9ukePHnEFfxt4BJIMe+NtjJ9c4UX6jdr7oGUHmS8P5on7V
+	 O8NJ8licfVqeElcQifeSYg0guvzJprZQamm3IXGHuz6kKtwdc9KGZ0gsM5p6wLRMxvapY
+	 KsRHRH2S2UvrMXKAGMDUZ60Zn3+C27Z0iy/d77/Ii8FEWH9rA9KPiviwm/Fcb36cdQdmY
+	 7oBQY+o8KI63bsqk4xuux4ShcCRtXYI6LK1gs4cRfbMa3xqNvqxwkfTyaPUxz+I2LnODi
+	 6e5pFu9k+L0NPFbiuTS2Nq9Ek8VQIX4Xtmr9qjtP9rYSsrpYLkAiHuC34XkfXhyqKuA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=fa7C4CtL;
+	arc=fail smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8C8606D81B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C8C8606D81B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6465606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6465606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQVHLjUU
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ad47c246f8so71573a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:07:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793801265; x=1794406065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
-        b=aQVHLjUUvc+RTbCC5A3JUXiBiwuj89jDNl7XoUtPmDn0jR3QO+CGYfAWxmx33xC6lT
-         SkHRx5GXN/ZiWqr/kOLtlLKWp/STozQ7taoj2mLpipxq8M76pGQgaF8Piq7S7+hl/wfB
-         g0aq3MbYxKSXLb0t0Uh1QfVXEgOVMipz9FYfkfc2V6bgPQC3qZgbX7lUk/8IC/5M9Gma
-         lW3ILBx9Aju2wfopx5UYuTXERTto9gc7pRptfiMccEGHrj3AxBEZrq7GTe1d3spvpk/m
-         vkr9web93IX+gdgc4gxXbEzV7zfmYVYeuDiCjOk0FqIr1V51EVDohrdYbBUsaH6EbCkF
-         VShg==
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=fa7C4CtL
+Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BdeTi4089404
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 06:07:48 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=StALzT24QP0y2nM7ZiWwYHN9H78Ev4aIYAoLl
+	cMqH34=; b=fa7C4CtLjbcjLBaRp1kFwGlFvkm8a9/klCNF05YwslLz6lgMrtD+P
+	UUAp2pu8dvgXJhZJJ8y/rMv3FaiuDmTARYEjR3SZUNagIut97wcOWgQHWP2wqkM5
+	ch76lvB0QUHUhp7rr1axC6KC3AWiYTaHpYljLy4aGucqOP0wQJTAtUCLX1inzr1E
+	6tfK5xAulkthrxOHEIsds9kRu1ND3yYwr6UFBn8cH6juEcO74BulCa3CGiGJtDl9
+	BFv1HAi6roBfaGetmc1HapdoFI/0Ks+CxyociHXcMCRsWschcfNXFzk8scpr28Ko
+	vXr5T8o0htuW4894q+QTG6ouYs72mkYPA==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hqhqag423-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:07:48 -0800 (PST)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-679a3664e1fso1248981d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:07:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793801268; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iunokdH/AXv5akCIG1J18bhSMBKO9h0LDzvpaa1gQFatiSyiznjbTHIKK7RvzZGSJE
+         uQuRyZCndz5p97hhm9jd4GazTkSBC8D8rxcObKsXwZWOMRBbf46TTNedJJBv/3W9jjUF
+         hHm/oF3NyDssuWJaI16eflMDC8P5plQS83NK9wudz8uuUEdPxc57I/A1ghIYyTG0Hpdg
+         hwsqkKlL12PV6Jrk3CZQdEVYXtAi+caRXM9ZHN2K0yOZwkuvx/NtsNOlM9RIvGWP1Ux8
+         MnIvE+NuBKSVdI5HfpIIpf1pPjjBhMoTWd7b/31U0u2XG+O7nxOz1BqNN4v5B80j4scW
+         pCOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=aZOMwSWiKC1/xAL/tFc2vX9N5EC5GmGBMCzQuc0a7ug=;
+        fh=9K9p+1QHWKOgVtOiXngDcOKIXj71qplAiMo3rwQLMq8=;
+        b=c4G9+CDNiKv3UQ3OtX82nuwAIaKZbPMzE8JRQebBgoFaHMC5MleGGaHkLC+tM+eYpl
+         5z3csny6JCC0hZWOoQ26i3Z4UMYqv1dOjXUcoubdTYa4z7jMhnNwZ31xrYTN+4cdi58s
+         DU7mGD4iPC/YjJzZPBz83BvHPBqhehkU+vyUfQMt8/MctyEiTmmAPf7peklsY1ZmZV/E
+         EajSf15FL6P6bKM1j174SuXhzN29wzzLq36wSsxkntt2Aa9f4ZYE12DwyVHQuWmN93dx
+         gMq1vv9WmwPJ+/KDhdWRbk5bHYkiCEgp3mbAgagUV3L9OtNff3jF7mJ5hphKgCtMvpnv
+         1Dqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801265; x=1794406065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
-        b=ZqUDX1WecPPlm1YEjn7gCCnYlyBIkx86cynGLvg4WRiKuIuUFV9U27wocgr7p6GS34
-         3n/lwOnDjI2ZHl3UmQ5LXVIwTqdAPkLBBjA/k4D9laK8EAoNK1NVweqA4AmoAd776E74
-         ZdWs+AjRGxCU8o5cfR+D1ERWDAxqvTLvirWh6+O/LsvArHRZIYAJrzc0A/E8PKl8jh7f
-         Mn8uwxSk9FpGoMVtAcdC+ZGjW01CXVPxtwieSCG2mSbbMfL2LxAkPLlenTPnKwyf1foK
-         E0SY80vV1WFLcNIFWJ41jHQdv0khQ1hLNWjwPEaW4aX4ZqFvYoNQCzmAxbSndmvFF55k
-         EQIA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4dbC3BpiWQkpYEU1gNpCM7rk1ou+SKCtXg/crU55FUbCHDBLiM7kwqyem7ordv+Zh20y7GCfc7iErDHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ODzK7AvFnHPYzwdDO5PUDelfpi1HS5Gv/zS0iR87/BUdqZ2ER
-	ayXMekGfpLD+uhKN2EbvF7uLk4uEzprDuJ/k/Yhf055+2m8N144XksLU
-X-Gm-Gg: AYBFou0AQryhiiqth4TsFq5bAMYe1VrapV8dNvoXS/hmRFf/Yf7k9RsUT7qfTzw2bwi
-	PU9BvRKk2vkwpTM/sz3Uxbo35csPio3pPjBHPLR/B/1rThKhwWtafs+FJKRYLyIEZlt0NhpaBH5
-	Whucqv/yoHZNKniAg1jJ40f4i76d3UYwRHPPnvH+s9IV1WBRf7jWd8PNEXPEiS0lsCWPw9B5PiE
-	QTLXMCcd3XGe9dUzHY5CAw6GMdGTQoDOx+yUOMy8Bc8SSeJsJWyE9ecax8+v59exh1i1CoEp9om
-	0HQxlRuvKxDgTGnkJ46Mj4XqVYuaeT09xEeMdBIVMrygQGl6zQQfFP85loA2Ya+KET8oD9E8dXc
-	qlUloMyqQfRs0Ux9IPWONHpNfxPz2jg49FqrvliIRj3z/kaKNtcEXluaR1rVXi0+4kt25i0tu15
-	Ay0fIrZ/U78xWgVWoc8lWUKpZah2j7bcoa5N5241S+nlqs70B1KZ7J3YTJHIkSlf+unjWQamunA
-	J0CvCBR4qpk7NLeulvahFQLk9Et6ub6gixriFqA8IxVxVyalSA4qPMGIK0FTW4YznrBLo79Na9N
-	gSVkRiHahP/uubSnX9fHs6vc7BCjhGwc72U0UA8cGQ==
-X-Received: by 2002:a17:90b:3693:b0:3b0:accf:5c65 with SMTP id 98e67ed59e1d1-3b0accf61d8mr241791a91.6.1793801265362;
-        Wed, 04 Nov 2026 06:07:45 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b3b7esm7379556eec.28.2026.11.04.06.07.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:07:44 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: broonie@kernel.org
-Cc: lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chengyu Liu <lui2012qwq@gmail.com>
-Subject: [PATCH v2] regulator: disable disable_work for good in regulator_unregister()
-Date: Wed,  4 Nov 2026 22:07:22 +0800
-Message-Id: <20261104140722.389859-1-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        d=1e100.net; s=20260707; t=1793801268; x=1794406068;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aZOMwSWiKC1/xAL/tFc2vX9N5EC5GmGBMCzQuc0a7ug=;
+        b=IgoqJXt6JmTp/Wxz3ePrHpK+VWnGUjNshIIFoci3kNsKAAUHhUOUZlxS5t2Cd8sxWU
+         PXqaTwX6tyEQfV4tcn0B3BHHKM6L5ohhzasCoaO2tC0C5mM3sg3TKmX2nkDdxQRlXFAY
+         TyBaC9L/Tqf49aaG7lc5ViGgorQMk8mcCLOsbW4Fug1O4054AULLWmp0BPwl4r2eXf/h
+         7R+oS2O3Ke4JQJyUId9kPx6xLvXu/uAkr+Mdq+SBJJOo9L0ifvhZk79FNfSxxJ2CzoXy
+         lqQULgrNtg4a9N2RzT7vYpnyoSJ2ts3St7ocZyiUKZKErNt1bEQmf5nFLRx11Y64OOFb
+         tp7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw4krUDjOqex1Xm15yU6wMlecWbLwUkmXQwq45KcbhF3fquFSMJiu6NPFHpB3Ql0n+X7fQO1lRdqxFoYDQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HKWl+ScEpN8w2VIXKz3yChasi63hqP0rLHEjgBPt5hq8ZXbtw
+	YI2HG2xt3Aeu/2p+NzHBSFz3pRKNYIB4BMVcMlpCuaJy1JHXe0o+rIgkEhAUzIWIrvkQgHVTu6U
+	+f9N3uLXlZaMoWB2CV9n2FLlhYKu3wBaiZHRpMTBAmBl1hpKAVivyxP4bo9OL/AiAlhu6MqocdQ
+	KpqT/P3zBrGGDOZUIgPLfdmbZh8DRqtoynpnLhDaw=
+X-Gm-Gg: AYBFou3J0wEAAGONTXvhzXKQ2PWvucCZ+DT/QUdfa8kOUXsXCewiOPwWJ5SEDam40+c
+	7FZQrOSQTw/jTKvJchaD8FRTmGBhjQcpBB1q/RJugsLRzjATaDAUgUMBZi4CxsxingwZlEyyS97
+	RAsF8J2iHYk3L/+SLdtz8E1zIuwwl3Z0o7quGYRjgqafctSzleLy0wSmEYYbB/lQEZUiMvs40GT
+	sjY1/jvJhE8Tmzknw==
+X-Received: by 2002:a05:690e:4885:20b0:677:d4b0:47fd with SMTP id 956f58d0204a3-67ba4fa153bmr8030541d50.23.1793801267615;
+        Wed, 04 Nov 2026 06:07:47 -0800 (PST)
+X-Received: by 2002:a05:690e:4885:20b0:677:d4b0:47fd with SMTP id
+ 956f58d0204a3-67ba4fa153bmr8030528d50.23.1793801267013; Wed, 04 Nov 2026
+ 06:07:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,51 +113,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261022145615.2184343-1-alex@ghiti.fr> <CAMgjq7AB4wUzmugV3n4mhWcYqMKmhoZJCDV2uUagFjZXjUUi3A@mail.gmail.com>
+ <CAEmasaXz2GGoy4dyhbo9Em95Cnz6QL3u2fcnAa2=8pJOOJyH8g@mail.gmail.com>
+ <CAMgjq7BjOeboPMP64PfGDoY4yMGq0xR4E4Wa66U0+gsd2tnu+g@mail.gmail.com>
+ <CAEmasaV0D3ezZyWf0k_84qXOa1c5KyUjvX9Jez+RXMDPM7FdBQ@mail.gmail.com> <CAMgjq7BFbXEKEt9faj_rg5AStfLkpJ0j57EQOOJ+L3-w2xRvtg@mail.gmail.com>
+In-Reply-To: <CAMgjq7BFbXEKEt9faj_rg5AStfLkpJ0j57EQOOJ+L3-w2xRvtg@mail.gmail.com>
+From: Alexandre Ghiti <alexghiti@meta.com>
+Date: Wed, 4 Nov 2026 15:07:34 +0100
+X-Gm-Features: AclHuK8gSTKeshg4sibYpQasLMc7p8QuNu_htLWW7wYC0Zzdzry0J3NTMCIAiEM
+Message-ID: <CAEmasaVKxhV1-fsRLuPth2Bw7+x5Re8mTFwMrppAaFOxLNPNbQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] mm/swap: keep reclaim batches contiguous on swap
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Nhat Pham <nphamcs@gmail.com>, Alexandre Ghiti <alex@ghiti.fr>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Barry Song <baohua@kernel.org>, Chris Li <chrisl@kernel.org>,
+        Kemeng Shi <shikemeng@huaweicloud.com>,
+        Baoquan He <baoquan.he@linux.dev>,
+        Youngjun Park <youngjun.park@lge.com>,
+        Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+        Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+        Lorenzo Stoakes <ljs@kernel.org>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX03n0ZK4EHnar
+ igoc5PtBFPuPon7RU/CuWs/SzhOXFKtY25eYX3rBeWnYCyx4myZNWOj/D5mEJDlIXH/q4u6WrQM
+ OlQ/jC3mFD13kkt6ATSTNNYRhIhxV2w=
+X-Proofpoint-ORIG-GUID: bCC3EXQdxLrqm0U4JY0wxKuY-YdmFQJy
+X-Proofpoint-GUID: bCC3EXQdxLrqm0U4JY0wxKuY-YdmFQJy
+X-Authority-Analysis: v=2.4 cv=Mq7HeGae c=1 sm=1 tr=0 ts=6aeb3c34 cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22
+ a=pGLkceISAAAA:8 a=VabnemYjAAAA:8 a=ScCvlEzxO9iafL6ztjAA:9 a=QEXdDO2ut3YA:10
+ a=Epx66wHExT0cjJnnR-oj:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX4DjdGchCbokM
+ NmI8FyPShXT/9vHzRjT0gE/6v1THcIXTJwoqAKmlBaRCs6XyaEJ6OFIJ6Jke6ukZegPQ4umSvx9
+ +WgW+vh5IT6zufxTwTdErvz+Kc0dHXAT+kNl4aJeQUGiCO20WxL95J9VudX7RUP7eXKbQNYgrp2
+ pdV/d3sDdsAirvy/4RttYcYkC0huYsw1WMHTMJrq0mduBw2olA/tgwE4u+MQog6uOtiDT1SIjuM
+ V0C1iNkbz81HosBmsI1wCYjf5EbtWWh3uVbte+9vGhXbtBBV4gUKdUTNVCXv3DsYTDDps9mcJHl
+ r3brDOspDHudZ/nPpzzgMlww4aGD/bVwZjiA8XRy+hHJI83h1HfOqb7szPGmFzkpHazROHWtRpS
+ OBslA4es6/yVWU0qDHLs34a0ftI//xFOmTc/3N0+Ida3j4V5lkxbFUaGEgDcxae2+BDzCO0fi80
+ Yo/IatjTva5WaJFFytQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
 
-regulator_unregister() stops rdev->disable_work with
-flush_work(&dw->work), which is a no-op for a delayed_work pending on
-the timer wheel: flush_work() only waits for a queued or running work
-item.  A disable deferred by a consumer's regulator_disable_deferred()
-therefore survives the provider's unbind, and regulator_disable_work()
-fires after device_unregister() has freed the rdev, dereferencing it
-via container_of().  Use-after-free.
+On Mon, Nov 2, 2026 at 5:20=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrote:
+>
+> >
+> On Mon, Nov 2, 2026 at 5:42=E2=80=AFPM Alexandre Ghiti <alexghiti@meta.co=
+m> wrote:
+> >
+> > Hi Kairui,
+> >
+> > Back from holidays, sorry for the late answer.
+>
+> Hello, hope you had a great holiday :D
+>
+> > On Mon, Oct 26, 2026 at 2:38=E2=80=AFPM Kairui Song <ryncsn@gmail.com> =
+wrote:
+> > >
+> > > >
+> > > On Fri, Oct 23, 2026 at 12:17=E2=80=AFAM Alexandre Ghiti <alexghiti@m=
+eta.com> wrote:
+> > > >
+> > > > Hi Kairui,
+> > > >
+> > > > On Thu, Oct 22, 2026 at 5:27=E2=80=AFPM Kairui Song <ryncsn@gmail.c=
+om> wrote:
+> > > > > Perhaps we should instead always scan the full clusters and revert
+> > > > > that one commit? That commit was only following the idea of keepi=
+ng
+> > > > > the allocation more compacted for that series, it looked good at =
+that
+> > > > > time. Since fragmentation issues can be solved in other ways,
+> > > > > contiguity seems to matter more for large physical swap devices.
+> > > > >
+> > > > Oh, okay. I thought reverting it wasn't an option given the good
+> > > > numbers the patch provides.
+> > >
+> > > That patch is 1/3 of a series, that series yields really nice
+> > > results, but that one patch plays only a small part in them. Or
+> > > perhaps we can limit that to SYNC devices?
+> >
+> > I'm a bit scared it would not help zswap with writeback on, unless you
+> > mean actual SWP_SYNCHRONOUS_IO devices?
+>
+> I mean maybe we can just scan nonfull first for SWP_SYNCHRONOUS_IO
+> devices? These devices are less sensitive to discretely distributed
+> I/O. For other devices we then prefer to keep the IO pattern
+> continuous by using free clusters first.
+>
+> That may just fix the issue you are facing?
+>
+> Or maybe some threshold or quick scan in partial_free_cluster before
+> putting the cluster back to nonfull.?
 
-The in-tree users are ASoC DAPM regulator widgets with a 20 ms
-power-down delay (sound/soc/soc-dapm.c): the window is the entire
-deferral period, not a race between adjacent instructions.
+I can work on that as a follow up if you want, I'll take a look anyway.
 
-Use disable_delayed_work_sync(): it dequeues a timer-pending instance
-and waits for a running callback, and keeps the work disabled so a
-concurrent regulator_disable_deferred() cannot re-arm it while the
-teardown proceeds.
+Thanks again!
 
-Found by static analysis.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
----
-v2: switch to disable_delayed_work_sync() (Mark Brown): also keeps the
-    work disabled so nothing can re-arm it past the teardown.
-
-v1: https://lore.kernel.org/r/20261103174911.1600930-1-lui2012qwq@gmail.com
-
- drivers/regulator/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 6a4008f387b5..4ba0457c4747 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -6300,7 +6300,7 @@ void regulator_unregister(struct regulator_dev *rdev)
- 		regulator_put(rdev->supply);
- 	}
- 
--	flush_work(&rdev->disable_work.work);
-+	disable_delayed_work_sync(&rdev->disable_work);
- 
- 	mutex_lock(&regulator_list_mutex);
- 
--- 
-2.25.1
-
+Alex
