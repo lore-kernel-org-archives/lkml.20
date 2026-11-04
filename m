@@ -1,61 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818263;
-	b=yCGER3MJ38Gf2uB5VnwCr4MEZW6D39KVgfdQgRQgWZ6FxfRO9L0gGIKUJhs3WGeGHnhz
-	 gmp1pNKikD9ZcYKaVI8Fr8jOAhiMU9GZrgXSB96eisHzjnGRtHI9dqR7tbOulXKTCgwJu
-	 3WN0Lu/FjsBw0RaFrKiYDDeB6lXgRqUYu5WXjlai8nCakFNHW8ROuhCiPIa1Nfg5Fu+su
-	 5xQpMJk9QB9q2j04My7sOLIL4c5Zkmz58IA9aB4eisuQ3z0k+5cS263BOa/wT0+jm3BBE
-	 Cq8ZBN0M5I0MwQfyn8fwDfYU95pfRk23p47DQg5rxCOmvurflv/cv4ooxxlToJShPvA==
+	t=1793818268;
+	b=IuMIY8cOngfycfQamoJ5jvh9Gu3vcgJvEBGvrFDS736UrJH6A4wiPxYAl52NXEVJ6V4z
+	 pdTrEWhsLHVcNvW8cfrsbzVnNPCi/Ne2AOpTJoCxu9cQEdNIlhWXWBYtLC5TrhRcgMIai
+	 Iz7gfzP5Jr8gVXpQeJFqbXdFas2m/yxtmlf7W1eReenXOmJP6bXIOUtQ9CzYRhI/5LWzw
+	 s1HJiUxX8xCpZWGf0H2AiTU7t1EV2hyZn+0j8Mv2dYCW0i5g9ChLoYztVHopNPVj0y2U9
+	 nFqcSBdGm9dbwsIsJJ8LLxTX+oF3QvlIT5TKvlJR19ctaHI3T7X2KACxPXWlX91/mdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818263;
-	h=DMARC-Filter:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DG0MNL/YWfSCBlponVS1KPFGxikvqnVYFgKqAIdFbPA=;
-	b=AhjLm/RJYxlxniuOKcvCfPro20t2+A5EWapNtOfP6WgHj0GFI2FBUvPLAxmggd7/P5hZ
-	 aMvbFtAzLRuRGGchC6v5U0BwIJjuJp7GhhO751rQ4tb2zSEKstTiy6US4WPXaHHEysxEj
-	 QWMl4rmuOTqCcb6woMOUZ7KwerHyPENOYIQfx5yl2qtfBcdjQVbSXPijqy8/WfrNI2PCt
-	 hiLTv0sR5cqgIghysFygGnQ+wCK0Vc6Kin6lnh1znJ+KDYiYXdUjCOIIgdMby9Non8HpC
-	 ypRsNWOxS7/xWSX0cdFnSDdc+VxZq+9dNaRxluSAmf9ep3Ol9gXjYkwwrGWGIIkloug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818268;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7/asLL79ciDSBNwCkgM6wu2/QNnE6Kp17gBuAMsKQSM=;
+	b=qVOaR64S6oETppURIiArtphEn1Bj6GNJoif6cE0e4od5dmpUvZXL3ojq7vEJS9Y8HyTS
+	 JZmMbG9Nn5dIgoA+gjMjYBMcS+dnhYw2P5qyKHvDkmIVW9mSwILbQ96UffO/n+I6fRbOS
+	 kRPRFV1kGS3DEdDO0+Xw0pY4Po07xpIhCKeI8MJCUSIR0EPCNDFNC23tiPpPqcYf9jqIj
+	 3/WYvEcoPbwqb6tzRJA3tIXk147OSie6xJXsBfHwmKptSEOJcZ3tZe67zNIaC/ovcGlp1
+	 7V20q/UehYPHqYv2wd2JxjzvUS2kk9r/vI+K4eOSX9aAWbW8JNBP9P/dZESfn434kjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b="iQ/r1zCx";
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="RP7NL/7m";
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5D6606A334;
-	Wed,  4 Nov 2026 18:51:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A5D6606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09907606A33F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:51:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09907606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=iQ/r1zCx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Subject:To:From:Reply-To:Cc:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=DG0MNL/YWfSCBlponVS1KPFGxikvqnVYFgKqAIdFbPA=; t=1793818263; x=1795027863; 
-	b=iQ/r1zCxD6Fxw2RXdy4Mtq4MgGZgbcipvEP7amW2O9GZnL1CgBmC3vKr8gLsRoHelRUax6myJSo
-	P9UALfHIvzbvgeBk14STy1QZ997MRujypF8fHNdbXXzKi1amovvjMIS/QDjmZK6ZrLvEUnMA/d6sV
-	VYOb6jPscx7D5wO7/Kh5JGiNm5TmNL+VlafxcVScPZrmIylnbRkzvlvpUGNIAGkzCAELW3zuuOoLg
-	rkyCBnN7ibT36ZQfYMkcfwhPCpDlks6EmfNwlNdtuh0xhDB7C09oaynimCkWGLCrGAG2L0BUbkGGf
-	CBT9nzmjC58DfLyC3oz3RMZ0SI91hD7LKTqA==;
-From: Andreas Kemnade <andreas@kemnade.info>
-To: dmitry.torokhov@gmail.com,
-	andreas@kemnade.info,
-	arnd@arndb.de,
-	marco.crivellari@suse.com,
-	bartosz.golaszewski@oss.qualcomm.com,
-	tony@atomide.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	brgl@kernel.org,
-	linux-omap@vger.kernel.org
-Subject: [PATCH] Input: gpio-keys - do not rely on debouncing capabilities of dedicated irqs
-Date: Wed,  4 Nov 2026 19:50:44 +0100
-Message-ID: <20261104185044.2551808-1-andreas@kemnade.info>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RP7NL/7m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793818268; x=1825354268;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=tLaogSnFsr/DqqaNJiiTHZTF7alkpKub0uATTjqi4os=;
+  b=RP7NL/7mQM67XvexhsJaXe9kWMjBr+MIuZJdaLeicTTbnoWWOT5830P1
+   FWYaksdzMhKrMQYuXe2vTEkoIwW+Ts+pQ3HOuFxR9hKX017yMiA/nBCX+
+   /lFDltKcL53aA+q3MIfEO2gmQ7XTDjdnisFlnZmp8Spe1Vi3/1K2WAHYi
+   Kpj4Pu5fY7mUUrva/B2+PMScapFn81f2Wlzv14jrvmAsZqLby/BNV3XB7
+   fIpLp4xAt+GrnjFYHR5Dmcwq/+83AsrnOYtVc4yCTOvhhWlpqfLv0l+KY
+   ZlX6I9xCNwmwZsvTIv4FLuuZWS06Td1YUr1Rabn/mxqVdaXPT06ENmH1r
+   g==;
+X-CSE-ConnectionGUID: 4bAMCT1KQ26AqIYxKIkZ6Q==
+X-CSE-MsgGUID: k6PQB9bgR5ed2rXEIz2fvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2485073"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2485073"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 10:50:55 -0800
+X-CSE-ConnectionGUID: swDLoc3YTRaQxB46dZ/KcA==
+X-CSE-MsgGUID: FsXrFrQyQxCs09KauC515w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7336831"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by fmviesa010.fm.intel.com with ESMTP; 04 Nov 2026 10:50:55 -0800
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	peterz@infradead.org,
+	david.kaplan@amd.com,
+	chang.seok.bae@intel.com
+Subject: [PATCH v4 7/9] x86/microcode: Use stop-machine NMI facility
+Date: Wed,  4 Nov 2026 18:23:20 +0000
+Message-ID: <20261104182322.578066-8-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104182322.578066-1-chang.seok.bae@intel.com>
+References: <20261104182322.578066-1-chang.seok.bae@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,42 +88,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If no GPIO interrupts are used, these IRQs are unlikely subject to the same
-debouncing mechanisms as a GPIO interrupt would be, so stick to software
-debouncing. Experienced on OMAP4 using pinctrl IRQs.
+The existing NMI-based loading logic explicitly sends NMIs to online CPUs
+and invokes microcode_update_handler() from the NMI context. The
+stop-machine NMI variant already provides the mechanism on x86.
 
-Fixes: 3717194f2492 ("Input: gpio-keys - add system suspend support for dedicated wakeirqs")
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+Replace the custom NMI control logic with stop_machine_nmi_cpuslocked().
+
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 ---
- drivers/input/keyboard/gpio_keys.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ arch/x86/Kconfig                     |  1 +
+ arch/x86/include/asm/microcode.h     |  1 -
+ arch/x86/kernel/cpu/microcode/core.c | 19 +++----------------
+ arch/x86/kernel/nmi.c                |  3 ---
+ 4 files changed, 4 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
-index f1c31c5366f0..5813a5c82026 100644
---- a/drivers/input/keyboard/gpio_keys.c
-+++ b/drivers/input/keyboard/gpio_keys.c
-@@ -554,12 +554,16 @@ static int gpio_keys_setup_key(struct platform_device *pdev,
- 		bool active_low = gpiod_is_active_low(bdata->gpiod);
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 58dce0b66179..f4bf1fdae6ba 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -1325,6 +1325,7 @@ config MICROCODE_LATE_LOADING
+ 	bool "Late microcode loading (DANGEROUS)"
+ 	default n
+ 	depends on MICROCODE && SMP
++	select STOP_MACHINE_NMI
+ 	help
+ 	  Loading microcode late, when the system is up and executing instructions
+ 	  is a tricky business and should be avoided if possible. Just the sequence
+diff --git a/arch/x86/include/asm/microcode.h b/arch/x86/include/asm/microcode.h
+index 645e65ac1586..e6c09dc48efb 100644
+--- a/arch/x86/include/asm/microcode.h
++++ b/arch/x86/include/asm/microcode.h
+@@ -78,7 +78,6 @@ static inline u32 intel_get_microcode_revision(void)
+ }
+ #endif /* !CONFIG_CPU_SUP_INTEL */
  
- 		if (button->debounce_interval) {
--			error = gpiod_set_debounce(bdata->gpiod,
-+			/* do not rely on non-gpio irqs being subject to debouncing measures */
-+			if ((button->irq || button->wakeirq)) {
-+				bdata->software_debounce = button->debounce_interval;
-+			} else {
-+				error = gpiod_set_debounce(bdata->gpiod,
- 					button->debounce_interval * 1000);
--			/* use timer if gpiolib doesn't provide debounce */
--			if (error < 0)
--				bdata->software_debounce =
--						button->debounce_interval;
-+				/* use timer if gpiolib doesn't provide debounce */
-+				if (error < 0)
-+					bdata->software_debounce = button->debounce_interval;
-+			}
+-bool microcode_nmi_handler(void);
+ void microcode_offline_nmi_handler(void);
  
- 			/*
- 			 * If reading the GPIO won't sleep, we can use a
+ #ifdef CONFIG_MICROCODE_LATE_LOADING
+diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
+index 9c006cc90047..73a46c6c74de 100644
+--- a/arch/x86/kernel/cpu/microcode/core.c
++++ b/arch/x86/kernel/cpu/microcode/core.c
+@@ -562,22 +562,9 @@ static noinstr int microcode_update_handler(void *unused)
+  * path which must be NMI safe until the primary thread completed the
+  * update.
+  */
+-bool noinstr microcode_nmi_handler(void)
++static noinstr int microcode_nmi_handler(void *data)
+ {
+-	if (!raw_cpu_read(ucode_ctrl.nmi_enabled))
+-		return false;
+-
+-	raw_cpu_write(ucode_ctrl.nmi_enabled, false);
+-	return microcode_update_handler(NULL) == 0;
+-}
+-
+-static int stop_cpu_in_nmi(void *unused)
+-{
+-	/* Enable the NMI handler and raise NMI */
+-	this_cpu_write(ucode_ctrl.nmi_enabled, true);
+-	apic->send_IPI(smp_processor_id(), NMI_VECTOR);
+-
+-	return 0;
++	return microcode_update_handler(data);
+ }
+ 
+ static int load_late_stop_cpus(bool is_safe)
+@@ -615,7 +602,7 @@ static int load_late_stop_cpus(bool is_safe)
+ 
+ 	if (microcode_ops->use_nmi) {
+ 		static_branch_enable_cpuslocked(&microcode_nmi_handler_enable);
+-		stop_machine_cpuslocked(stop_cpu_in_nmi, NULL, cpu_online_mask);
++		stop_machine_nmi_cpuslocked(microcode_nmi_handler, NULL, cpu_online_mask);
+ 		static_branch_disable_cpuslocked(&microcode_nmi_handler_enable);
+ 	} else {
+ 		stop_machine_cpuslocked(microcode_update_handler, NULL, cpu_online_mask);
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index 0d426e5e74ee..e3660b8b8f38 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -391,9 +391,6 @@ static noinstr void default_do_nmi(struct pt_regs *regs)
+ 	if (stop_machine_nmi_handler())
+ 		goto out;
+ 
+-	if (microcode_nmi_handler_enabled() && microcode_nmi_handler())
+-		goto out;
+-
+ 	/*
+ 	 * CPU-specific NMI must be processed before non-CPU-specific
+ 	 * NMI, otherwise we may lose it, because the CPU-specific
 -- 
-2.47.3
+2.53.0
 
