@@ -1,89 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803989;
-	b=uN0qhDbLTTvqgp4n3tcP3E6KiIkyA0aKAvyBSxcE2zTyt7edchKyTftZG95F33iuEJoI
-	 M8kv8zWssrtc/yCXN5DFVTrOiYIUbIlTzWOnvKqKzuz/XTbWqB8Op4eMz/Ys6ZCNWf+na
-	 DMMxXWU7aNYb7+gmEDiwGdxI2Q+QdJ9ppZyS+lTNapYyC9zpjK+j1HBGo9iRaIyXsCNbG
-	 tPn1/AUyynd5xqFfbc2zv+fLyi65j/COsHEAZjw2CBlPwiwxuR9c5yPbYiN7ZZzH1Y5Wf
-	 6qULG7qPy98G1v7GONOvsG2U1KWAoiD5r7DdViVfh7SkUIBQ6Cnl4MIDug8mWu4wNkg==
+	t=1793804037;
+	b=TcwD2NG61BPRSDxk5EiYnX77R4syWvcG83vwexuDvOIbtCGyFeFeJgwaXV+iAc1EbWQ+
+	 ihDLrMsmV+nvAH6M/zcHujkunUsP3GwSXl7v4E0RsXbWmUTsGb0mprcm1zvWVzB+ZAnrI
+	 Kumo1Vnu9kjPw4UP1Y3Xfp5WceteqWkRjVr6hJoWvnQ+w1aNej+viZbOVbYyPrPbatAy5
+	 LYhMXoMalL7BoxzebwFWjanjqqXLOxj9gVHITQyHrlJ2/x2GmYfSla11Y7z+FaNdPuW4w
+	 AISJy+T/OIAXp7kWVOf+ZNmKtv5BSCwbIj3DUngAWPpZHDuA9JlE8YzMMPbSUmdR6+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804037;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=dyfF4YBPoL5q5wee8LTCF2WwSqTvhH9a016gXbmqQ6k=;
-	b=gBf7X9NZsdL+RcvsmEd06IgZ0E9OZhgpr79Y6YgX+yNC1oErZyXeopjL4K62ZV8J3C01
-	 LZjWQCaF/mo/RlTyrt3aXHUQmJ/4C8p8UDmMcRUyZohSaL/IAoGWQiDN7IFLfmPM4flyt
-	 o7s3gh4XFhb2mfk39GjniR/ivzYipEj9LkqNjqtgBpFEgwIN9QQs+wSGqjtJ462tf5ZKT
-	 2BqroljDDKJ9tevS/Ghc7OQg38BQ9BvCgLj3Ke6BKwP/KJFIBVsGtRXh2riERJ1SSlqz6
-	 voXMrepJ1h1qTVu0BVk0KHtLyogAnfQYINopTYUlgaMemOjmAHOt7Ei/T+uDLMum2yQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Mg40lROHKMJpuheArNs1FLRBw+BpmUksYbkdM5o4WG8=;
+	b=nVe2836rJkDMqQAN2i0XEQ0aCTDZUpxEBGa801Syf3mFEsSlUxvXH6aA2g6LI/hv3tsV
+	 /60hT0i0USszTFPAZbyBE+jLaN/lJIG++8JCRPv6VthbEeVyIwnqTOUwKY/OJS5ojLu8E
+	 rA/H98GUiVutw2DdDeH9dZNuXIZY89+NhcdBiEjJr37mJ9cHVLPPzCIpPv4ZtBa26oniu
+	 a/+oXAhURYeC7NPUB6ify6CnGOYvIR9w8nEXRfmRFnro9V1CwTxXk1F0YgmRLQo/Xtuyg
+	 bZp3FikfN9w8mfkUqO3y8Z3OSI5cxvYI90OBJfW42CXJRTyYkQrbgQgqlFHhtZQyZ6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Um7xfrUH;
-	arc=none smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KcffofZ3;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5C8606D803
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE5C8606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3AD606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:53:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E3AD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Um7xfrUH
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67c00f291e1so62611d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:53:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KcffofZ3
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so788834b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:53:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793803988; x=1794408788; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dyfF4YBPoL5q5wee8LTCF2WwSqTvhH9a016gXbmqQ6k=;
-        b=Um7xfrUH5mSx1uN03lhpaZnDvaTL+GIA52skHnOwx4ydNDqEnzkgjzlcYf793dlE/R
-         0n8UJBxYiO1eAdsmHGSQHtcJwG8jn4pHS7+30fynjMUcWFYVW7XVl24TCFPzz/GiB30Y
-         v1B7na8MOxBSxgHM80CtPFQnbPfegDJhevh4OMT/JJootan/OPhR22Z/7+1YwP+sT7yv
-         /T1d4H12caNosu16eHDKsV/hNPqdHF5GPTy5wkkMARnlCaHI9xlMAN42LktUPGzq0d+S
-         uZ25OsXpwZFC7PlBugR/lVPznvw3RNmiZEMGXQLrvRNCJC/9wtU98NaWDmLJrN8VAU5Q
-         JLCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793803988; x=1794408788;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793804037; x=1794408837; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dyfF4YBPoL5q5wee8LTCF2WwSqTvhH9a016gXbmqQ6k=;
-        b=Kf+oCdgshthX24o3QdvJaVhCTfN1x2JzS0JE4CS2TMOClMAdanQu6dOhTOcRRJh1po
-         +4bfaBj0LZQfLSgEeM4UFJgrzU2EkbRkNIJSNe/UKHBgs+N9J3rnysDl87v9D71nbEFh
-         4oyj4RbA0wlw7nIZNAnu04qtbWS4aZxP8cpTO6u/1z2JDRHWBshmgTUZ58AQzYGtxD9o
-         y/BeHDxCAALXHxKGSzikubxW7XtQWMbNup1DsXgGdnkXRSE+oi2xjwzK6j750TMd029N
-         0SQ6zT5+hNomLT+oMEH9VHlCKDskAeILCvrgh86REMTU0pNry1Lf54OsRpvNRehWwy2U
-         22yg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ2RtYY4LwRmhAo8ODA3syTSVIsdOu0p5WKZWqE8UJZfL6X7xFmJ5iP4PkLKEd6JyLE6UsRCYeUf3En7E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zOxJIcI15Q/p7nJcWdw8Pe3CkOreEXaL7XJR1yXp62pYLmWGK
-	KW4B2KEYfEa5g/m8oSw0VZRWO/kmA79pLjfB+FeXaQ91NLUUS+QAVNtFvVFTaRlrofbaJqLp0aK
-	Hkj4ucUA=
-X-Gm-Gg: AYBFou1O2L8TX533eFqYcGqRNq144Uc2LtD+NpMJnj+4MnTYaLzGFKoy/ic2d5U+0pp
-	uPPk5xFcqBLUP9wVOkCmS/cU/2f6kDqa67YRdBF4WlE5606Y/qdtQSPXAA+FugNxDLgICYkFpYX
-	T9N0hJ5G1mFHTiR0cfBbnH9TMg/I0acfrPNb0GfdfLwmgduYayBYE3EN7mx2FB9xcnjsdj5k1le
-	7faNmRXkZXHFxICVa+wjBytMBlkAz4T3HEUh944uN4LuVDf/SeXhZvxlCdob/t8IoBQNEpKt5lR
-	t4aQwOvTDiQQFbf8eoYPNrpnshaoBMlPyylqKImpoLhw8ammBkXr4PRyMenANV5Am3hDMoBuBz+
-	ewXkw7DX7DlIhYpFbr2icCTayld+tKT6JqEcm18noQRuLn1YD3XZ/2npsI917hpu8Zk0Q/onIqV
-	W4pwu99wzxXthXRddwJthBHvshoNoa+I/0YaKpKcjrY8JQqgY73/LbUHbX0U5Vquni42o0flkpD
-	Ucd7g7ZrTNJ/NoowN+wFbhDjPm87MYz8fKgK8vCQMkUEyBz3hdhC3K7iqvM6acA8x9/tHK2xlET
-	6ClmZ9F/7egDSFgYmmDf+WBjkIpaufaLpg2uMWotHAxPe2MkcPqF1IpENBTiK7ICF7d3qA==
-X-Received: by 2002:a05:690e:c6:b0:679:a898:7da2 with SMTP id 956f58d0204a3-67ba50e4d9dmr6951996d50.153.1793803987737;
-        Wed, 04 Nov 2026 06:53:07 -0800 (PST)
-Received: from [127.0.1.1] ([2804:14c:4c5:8bf0::33ca])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee24498dsm1569080d50.10.2026.11.04.06.53.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:53:07 -0800 (PST)
-From: Hiago De Franco <hfranco@baylibre.com>
-Date: Wed, 04 Nov 2026 11:52:33 -0300
-Subject: [PATCH v2 1/2] riscv: dts: sophgo: make sg2002-milkv-duo256m-eth
- overlay generic
+        bh=Mg40lROHKMJpuheArNs1FLRBw+BpmUksYbkdM5o4WG8=;
+        b=KcffofZ364WrrhyE6ofKLqmFxmg7CSE9Fzkp3CVK0lCAv7ToKzakKxVlfCn7t5v6+D
+         LqGCMA7pOOgzLJgEUmrAxx5PTHeGfEuxgsXVEGChIFYv+nsEBoIK6Q/LUaWlD2yXlNJI
+         6zq4ydC3SpvhElqcDpD92ccQozcMG9NUKen3POCDbBqICjAUS3sYiCEnu1AYpSRK29ql
+         NAhGevLKC6y5saIcrtxiNDOnH5cGC1SJq0/+T842ohmsU/tpCYVCsirvIoKV5TpmalU2
+         MVu6izFD+BUMwnayWyyPYZ17XjYa/7o5BFYZhgQObtZf1clQq+CTSRcCZTnK4NXhQkhC
+         wkcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804037; x=1794408837;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mg40lROHKMJpuheArNs1FLRBw+BpmUksYbkdM5o4WG8=;
+        b=1INkbo19jtTmVk23pDrWpJFDiRyboVvbZDQIkhpkd/GFXXJTde3jAg5Gw70Hk0UrNd
+         o14evPWlrD+LeCCtxEKBcYp8T3UJIOKfkOXyJrTqMzd3mXPo4E5LklABQG3f3g89cROK
+         6xgD9Tf6C2KF6d1UVu4IFBhQPuM/8kcceOOl/7ZnZUuGOtX6npXfLBkseXptl9tkOzVv
+         Uhj1GEXXKNodUxyNtNy6TQpKkhAiGoRpvfT3z9gYPluEJroApotA3Vn5koN6PO1hQZ6u
+         YLFoRLUk8VkLbVWrT+z0scBAvjwwkQ5UdUWeWhUMALR7q+cZA8grk3miZprABcWe1WUJ
+         QZ8w==
+X-Forwarded-Encrypted: i=1; AKwUvBz5zWJZiWe9KhXTJgUKOsensVHxPtm5/FrHsQYzVfviKcmI/+S4vVhSlqjN4FVKQcmNmKi3s1M5aiZnvow=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+n/3clqDBXPLaQAfj2TecC3BzQeBC+KpaooDK2v5RKmecwPug4
+	G0JLcCmGWbtQoaBwOHhuz4h1SSk36BzVs3qTps8SEF4V1oFYeF6EkX384Tw3wWnTgSL4p9lpnOF
+	8Pqi9EQ==
+X-Received: from pgjy16.prod.google.com ([2002:a63:e250:0:b0:cc7:85ef:361e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:485:b0:3e2:6daf:f7fc
+ with SMTP id adf61e73a8af0-3e928a7c910mr13865633637.4.1793804036471; Wed, 04
+ Nov 2026 06:53:56 -0800 (PST)
+Date: Wed, 4 Nov 2026 06:53:55 -0800
+In-Reply-To: <20261103002205.3348519-6-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,69 +77,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-milkv-duo-eth-overlay-v2-1-e3d2d39cf229@baylibre.com>
-References: <20261104-milkv-duo-eth-overlay-v2-0-e3d2d39cf229@baylibre.com>
-In-Reply-To: <20261104-milkv-duo-eth-overlay-v2-0-e3d2d39cf229@baylibre.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
- Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Chen-Yu Yeh <chenyou910331@gmail.com>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- sophgo@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0
+References: <20261103002205.3348519-1-dmatlack@google.com> <20261103002205.3348519-6-dmatlack@google.com>
+Message-ID: <autHA6aNrg4s5PkV@google.com>
+Subject: Re: [PATCH v2 5/5] KVM: selftests: List the known IOMMU modes in
+ irq_test's help output
+From: Sean Christopherson <seanjc@google.com>
+To: David Matlack <dmatlack@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Alex Williamson <alex@shazbot.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-The overlay only enables gmac0 and the MDIO mux, which are common to the
-CV180x and SG200x SoCs, so it can be reused by other boards such as the
-Milk-V Duo (CV1800B).
+On Tue, Nov 03, 2026, David Matlack wrote:
+> List the names of all known IOMMU modes in the help output for irq_test's
+> -t option, using iommu_mode_names() from the VFIO selftests library, and
+> clarify that the IOMMU mode is auto-detected by default.
+> 
+> The help output currently claims that the only valid modes are
+> vfio_type1_iommu and iommufd, which was never true, and would get stale
+> any time a mode is added to the VFIO selftests library.
+> 
+> Signed-off-by: David Matlack <dmatlack@google.com>
+> ---
+>  tools/testing/selftests/kvm/irq_test.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/irq_test.c b/tools/testing/selftests/kvm/irq_test.c
+> index 8a345472df5f..ef69f9d7ac3d 100644
+> --- a/tools/testing/selftests/kvm/irq_test.c
+> +++ b/tools/testing/selftests/kvm/irq_test.c
+> @@ -159,7 +159,8 @@ static void help(const char *name)
 
-Rename it to cv18xx-eth.dtso.
+If you're going to do s/type/mode below, then the initial help lines should also
+use iommu_mode.
 
-Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
----
- arch/riscv/boot/dts/sophgo/Makefile                                   | 4 ++--
- .../dts/sophgo/{sg2002-milkv-duo256m-eth.dtso => cv18xx-eth.dtso}     | 3 ++-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+>  	printf("-i	The number of IRQs to generate during the test\n");
+>  	printf("-m	Pin target vCPU to random physical CPU before triggering interrupt\n");
+>  	printf("-n	Deliver 50 percent of IRQs as non-maskable interrupts\n");
+> -	printf("-t	Override the IOMMU type to use (vfio_type1_iommu or iommufd)\n");
+> +	printf("-t	Override the IOMMU mode to use instead of auto-detecting it (%s)\n",
 
-diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
-index 49639cb0888b..440acd0aa55a 100644
---- a/arch/riscv/boot/dts/sophgo/Makefile
-+++ b/arch/riscv/boot/dts/sophgo/Makefile
-@@ -1,12 +1,12 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
-+dtb-$(CONFIG_ARCH_SOPHGO) += cv18xx-eth.dtbo
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2000-milkv-duo-s.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m.dtb
--sg2002-milkv-duo256m-eth-dtbs := sg2002-milkv-duo256m.dtb sg2002-milkv-duo256m-eth.dtbo
-+sg2002-milkv-duo256m-eth-dtbs := sg2002-milkv-duo256m.dtb cv18xx-eth.dtbo
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m-eth.dtb
--dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m-eth.dtbo
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-milkv-pioneer.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v1.dtb
- dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v2.dtb
-diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso b/arch/riscv/boot/dts/sophgo/cv18xx-eth.dtso
-similarity index 66%
-rename from arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso
-rename to arch/riscv/boot/dts/sophgo/cv18xx-eth.dtso
-index cc93746d932c..cdb8db063977 100644
---- a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso
-+++ b/arch/riscv/boot/dts/sophgo/cv18xx-eth.dtso
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: (GPL-2.0 OR MIT)
- /*
-- * Enable ethernet on Milk-V Duo 256M with the USB & Ethernet IO board.
-+ * Enable ethernet on boards that use the internal ethernet PHY of the
-+ * CV180x and SG200x SoCs.
-  *
-  * Copyright (c) 2026, Chen-Yu Yeh <chenyou910331@gmail.com>
-  */
+IMO, the "auto-detecting" blurb does more harm than good.  It makes the code harder
+to read, and for me at least it's just extra noise in understanding what the '-t'
+option does.  It also makes the line reaaaaaaally long.
 
--- 
-2.53.0
+I know the parentheses are pre-existing, but that was somewhat ok when there were
+only two options.  With a big list, it's again noisy to reach the end and have to
+think about that the closing ')' is terminating.
 
+What about this?
+
+	printf("-t      Override the IOMMU mode.  Options: %s\n", iommu_mode_names());
+
+To go from:
+
+  -t	Override the IOMMU mode to use instead of auto-detecting it (iommufd, vfio_type1v2_iommu, vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1)
+
+to
+
+  -t	Override the IOMMU mode.  Options: iommufd, vfio_type1v2_iommu, vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1
+
+> +	       iommu_mode_names());
+
+This really should spit out only the available modes.  For the internal assert,
+it makes sense to print all modes since that's just doing a lookup, but it's
+annoying to have to manually probe to see what's available.
+
+Juggling all vs. available is mildly tricky to avoid having to dynamically
+allocate, but not that hard in the end.  And IMO, it's totally ok to print a
+misleading message if a mode becomes (un)available mid-test, especially since
+this helper is unlikely to be used except in terminal situations.
+
+E.g.
+
+static const char *__iommu_mode_names(bool include_unavailable)
+{
+	static char all_names[256];
+	static char avl_names[sizeof(all_names)];
+	char *names = include_unavailable ? all_names : avl_names;
+	int i, len = 0;
+
+	if (names[0])
+		return names;
+
+	for (i = 0; i < ARRAY_SIZE(iommu_modes); i++) {
+		if (!include_unavailable && !iommu_mode_probe(&iommu_modes[i]))
+			continue;
+
+		len += snprintf(names + len, sizeof(all_names) - len, "%s%s",
+				names[0] ? ", " : "", iommu_modes[i].name);
+		VFIO_ASSERT_LT(len, (int)sizeof(all_names));
+	}
+
+	if (!names[0])
+		return NO_IOMMU_MODE_AVAILABLE_MSG;
+
+	return names;
+}
+
+const char *iommu_mode_names(void)
+{
+	return __iommu_mode_names(false);
+}
+
+Side topic, the use of parantheses in iommu_mode_lookup() also yields hard to
+read output.  E.g. if there's a typo in the command line, the error message is
+rather hard to visually parse:
+
+  Unrecognized IOMMU mode: a (known modes: iommufd, vfio_type1v2_iommu, vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1)
+
+Coupled with the above, how about this:
+
+	VFIO_FAIL("Unrecognized IOMMU mode '%s'.  Known modes: %s.\n",
+		  iommu_mode, __iommu_mode_names(true));
+
+to generate:
+
+  Unrecognized IOMMU mode 'a'.  Known modes: iommufd, vfio_type1v2_iommu, vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1.
+
+Which to me makes it much easier to identify the bad input.
+
+>  	printf("-v	Number of vCPUS to run\n");
+>  	printf("-x	Use xAPIC mode instead of x2APIC mode in the guest\n");
+>  	printf("\n");
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
