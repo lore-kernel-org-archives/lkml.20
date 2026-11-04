@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806047;
-	b=EDlgBB24G1LhPtl5hu0uUEbSYpPBi0xwNPb5K0NN0aqaZJW9w6j5JJkSMQLAEG9MQpd0
-	 337Z51x4eOBVo6UNv+dYXJv7VHEqfr/g4aEmUuDzjDW03STBTnPBI5nPLWlwWLV0RvTfJ
-	 VrG0YxjYBpmt4Uii43iUNiM1qRua2n6Sv6xQXeO8vP+QpOQRiC7e5G0sWI6nauyCYIKwe
-	 087i+ylLoJotTzmybfJUZWHd2DoprJ25hu+kCKEC1y4Nt8tv/6j7vPq5nEaCWK7gvJXJN
-	 CKSG9efa4wUFQFmBB5I4JH6z1GudZ8/gbc+Ovl+PDZAz2W7U9pdq9JZNjMavtUVJFjw==
+	t=1793806043;
+	b=cHaJOzNeo3tbq35SCNKPRCFBsTQzzcaqz40Qkd7H9hoP/tBPRg3OIl/LH/cuQsXDjnA8
+	 y9z6U/+U/+dnWJG0465aTQ7+l9BNT1t4KeILeEvAsKsp0BOUmGF0+r+pLthmp9rPeIYdt
+	 JpO6hf2QxcvX0DhjBr4h1D78cuK0K22Eu9SqKCVQQg3isa3Jpy10sWwYIscdeWgvG9ynC
+	 lO6je8e0qnAz3GHz9DrOywNCOtQ22bxzv8Puh29XQh+ds1A+ngug3sOKNHbSFIae2qz3s
+	 vGBF3LMW5wxBfujCn2S3/YQpGISjVpbrjiyvcLFp8uEgWxAq58309BUtmAKgbyZUkPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806043;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Ux6OxlGrhrdw3ZXA1Gnjmo5HO2HQkPqq4M1z1Nbcc0M=;
-	b=MXStUpZF3Rlzb6kN6KAGxAzC7GSVNynTmSEWacq4vz3bEF8R/XLXJLJbTfAu5hhepKR1
-	 xNvloEY65gpTJbqrbmOlYZb7zADvst3ei6defPajTR7hb7TJCAnbp3E53wl7wUkUkGKEl
-	 O/80xqF5AkNxqYm9pluohQu0v8oBvVG/lS1h0RAVV+KePFSSnXEQYS/iKMPEuycXQPwC1
-	 OKTJvPs11bRnhHyUVGhtJ57D3N9lo4MivgnOtK+YUtpM90Udy8CuYeJNtUqoG7VFexAKC
-	 Z9WFK9iw5L/+jjK486ZBA23JkkgQ9g7OLFNs3VWNruvHzYeExVcc3WoVPu29jzl1KLg==
+	bh=SHiodlaN/47Q9sQElac/FcGmKIxlHSOhqHHn7r3qETE=;
+	b=vDnwwYAKVyHJhHZDETrS81u04+gIMHiL+isc0xG/zBjUqm2sxLW5Y4SxIG71KSvRbs10
+	 BT9EEzXa4X7sdZWbcY+FT7GOXePHW1EIfDnHzCSSWjjwmTPyrfjUJ0sQZiCmuOhKuhdP0
+	 VMkEDC+fhsbiRJCNeHtenqNWNDrtpMOxDnKYRaxzn1tQNrgAvbU0WRp1iISmyYS9uklR4
+	 +YbMPgrIfNbUJvJgfDdFe9An4+1B8eKvRuZpQ0+RevlF8KgvgCbMuLr3ODlUC0x4QZ2c7
+	 yjSpOoL3JQgQWL/iVOmZY2xCG/WV/FxuFY42p7oTsd6exa+4ERmlpwr/UF4+i1540Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=F1ZTjfF0;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b="I9KYYC/e";
 	arc=none smtp.remote-ip=185.67.36.66
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34CA606D82C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34CA606D82C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869D6606A334
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:27:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 869D6606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=F1ZTjfF0
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=I9KYYC/e
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 4276224010A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:27:25 +0100 (CET)
+	by mout02.posteo.de (Postfix) with ESMTPS id 2EC5824010D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:27:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793806045;
-	bh=Ux6OxlGrhrdw3ZXA1Gnjmo5HO2HQkPqq4M1z1Nbcc0M=;
+	s=1984.8680eb; t=1793806039;
+	bh=SHiodlaN/47Q9sQElac/FcGmKIxlHSOhqHHn7r3qETE=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=F1ZTjfF0Qv23wFDY+WzM++6mKq+twJgK7DGdhWY91iOsL8kzEt7usdI6NNHy9TEEg
-	 OKcFSMFHRZ60wLbsrMxMct4gSHWJNnsOoxS3vcYbLC48jqy5EV54dLtwvkQQqH5dpe
-	 gzqPf6K3u2SsYQlwJyyX9XNkh+jaWv8FY7Q73ldj+b+R1mU/c/vM1cMgINww6e4QD0
-	 cxtekUtm8UNUKAnB8zH74HATlGeBOTZ/yYZyzmREXSmFAPRlvIuRLHyKd1sbiHfbky
-	 RhiM8sQWrlI/IMcJBED2l7C0GvKel6K2QHR+yAr2b0+hEDdfSIYk5up+fLHpr5HrAo
-	 HozVgvi6ORmvA==
+	b=I9KYYC/e+KLAWDoaHEhgolVvi1RNgS3YAtdQC1WfLWpWwGGVnGU0c2hYOiR/F3zUh
+	 c6wNGyd1wRwKpM0m9UKXbwbk77qsbe6Y3oeWs4fhQu3r7PkWn1Zt5TvljjXmKT9B3L
+	 E5mMDG6V41ORNoxGI+1NelvQ2ciXpdj4QyU7T/V2Xr1am7iMQl2TjfYNzcXHotOe+v
+	 m3Zi8U7TMlGuSKJvr7G8PATKXSWubrPD0HT9dkgORmbY++ozHnYhpHh++TAOF0Zv4W
+	 SrI/w9jp2u6VV8FUxirkB9wr146WqFAohsjQkPPc+uDhnO/iL3mh16IFb6rzU59hNT
+	 sKeTXVvEIn+ng==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKTp30yDcz9rxM;
-	Wed,  4 Nov 2026 16:27:23 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jKTnw7557z9rxV;
+	Wed,  4 Nov 2026 16:27:16 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Ulf Hansson <ulfh@kernel.org>,
 	linux-mmc@vger.kernel.org
@@ -66,10 +66,11 @@ Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
 	devicetree@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/5] arm64: dts: st: remove sdmmc2 pins_b from stm32mp25
-Date: Wed, 04 Nov 2026 15:27:24 +0000
-Message-ID: <20261104152657.14909-6-mateusz.nowicki@posteo.net>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/5] mmc: mmci: do not count a data CRC error as a complete transfer
+Date: Wed, 04 Nov 2026 15:27:18 +0000
+Message-ID: <20261104152657.14909-2-mateusz.nowicki@posteo.net>
 In-Reply-To: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 References: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,92 +84,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sdmmc2 pins_b groups were only added for the eMMC of the
-STM32MP257F-DK, which uses pins_a again. Nothing else references them,
-remove them.
+With datacnt_useless (STM32 variants) success is 0 on a data error and
+a CRC error subtracts one from it. bytes_xfered becomes 0xfffffe00 and
+mmc_blk completes the whole request as successful, although the
+controller stopped at the failing block. Reads return stale data and
+writes are lost without any error.
 
-Suggested-by: Christophe Kerello <christophe.kerello@foss.st.com>
+Tested on the STM32MP257F-DK eMMC in HS200 with a forced bad tuning:
+without this change 5 of 14 reads returned zeros, with it all 10 reads
+were correct.
+
+Fixes: b79220b3e0af ("mmc: mmci: add variant property to not read datacnt")
+Cc: stable@vger.kernel.org
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 58 -------------------
- 1 file changed, 58 deletions(-)
+ drivers/mmc/host/mmci.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index 56c2c99a05d4..75d08fe33ec5 100644
---- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -757,51 +757,6 @@ pins3 {
- 		};
- 	};
- 
--	/omit-if-no-ref/
--	sdmmc2_b4_pins_b: sdmmc2-b4-1 {
--		pins1 {
--			pinmux = <STM32_PINMUX('E', 13, AF12)>, /* SDMMC2_D0 */
--				 <STM32_PINMUX('E', 11, AF12)>, /* SDMMC2_D1 */
--				 <STM32_PINMUX('E', 8, AF12)>, /* SDMMC2_D2 */
--				 <STM32_PINMUX('E', 12, AF12)>, /* SDMMC2_D3 */
--				 <STM32_PINMUX('E', 15, AF12)>; /* SDMMC2_CMD */
--			slew-rate = <2>;
--			drive-push-pull;
--			bias-pull-up;
--		};
--		pins2 {
--			pinmux = <STM32_PINMUX('E', 14, AF12)>; /* SDMMC2_CK */
--			slew-rate = <3>;
--			drive-push-pull;
--			bias-disable;
--		};
--	};
--
--	/omit-if-no-ref/
--	sdmmc2_b4_od_pins_b: sdmmc2-b4-od-1 {
--		pins1 {
--			pinmux = <STM32_PINMUX('E', 13, AF12)>, /* SDMMC2_D0 */
--				 <STM32_PINMUX('E', 11, AF12)>, /* SDMMC2_D1 */
--				 <STM32_PINMUX('E', 8, AF12)>, /* SDMMC2_D2 */
--				 <STM32_PINMUX('E', 12, AF12)>; /* SDMMC2_D3 */
--			slew-rate = <2>;
--			drive-push-pull;
--			bias-pull-up;
--		};
--		pins2 {
--			pinmux = <STM32_PINMUX('E', 14, AF12)>; /* SDMMC2_CK */
--			slew-rate = <3>;
--			drive-push-pull;
--			bias-disable;
--		};
--		pins3 {
--			pinmux = <STM32_PINMUX('E', 15, AF12)>; /* SDMMC2_CMD */
--			slew-rate = <2>;
--			drive-open-drain;
--			bias-pull-up;
--		};
--	};
--
- 	/omit-if-no-ref/
- 	sdmmc2_d47_pins_a: sdmmc2-d47-0 {
- 		pins {
-@@ -914,19 +869,6 @@ pins {
- 		};
- 	};
- 
--	/omit-if-no-ref/
--	sdmmc2_d47_pins_b: sdmmc2-d47-1 {
--		pins {
--			pinmux = <STM32_PINMUX('E', 10, AF12)>, /* SDMMC2_D4 */
--				 <STM32_PINMUX('E', 9, AF12)>, /* SDMMC2_D5 */
--				 <STM32_PINMUX('E', 6, AF12)>, /* SDMMC2_D6 */
--				 <STM32_PINMUX('E', 7, AF12)>; /* SDMMC2_D7 */
--			slew-rate = <2>;
--			drive-push-pull;
--			bias-pull-up;
--		};
--	};
--
- 	/omit-if-no-ref/
- 	spi1_pins_a: spi1-0 {
- 		pins1 {
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 416bdb184ed4..10eb0439fc52 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -1422,8 +1422,9 @@ mmci_data_irq(struct mmci_host *host, struct mmc_data *data,
+ 		dev_dbg(mmc_dev(host->mmc), "MCI ERROR IRQ, status 0x%08x at 0x%08x\n",
+ 			status_err, success);
+ 		if (status_err & MCI_DATACRCFAIL) {
+-			/* Last block was not successful */
+-			success -= 1;
++			/* Last block was not successful, nothing counted when DATACNT is useless */
++			if (success)
++				success -= 1;
+ 			data->error = -EILSEQ;
+ 		} else if (status_err & MCI_DATATIMEOUT) {
+ 			data->error = -ETIMEDOUT;
 -- 
 2.56.0
 
