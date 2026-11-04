@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756498;
-	b=J4NQFZmCJ68q394pt6XXUyn4n2ACI8lVGLNYRUkm0tDOJaxj9QXB6YdAGHSNtfqFKTKK
-	 kmGGLKlx4Le7rwcq/Uuz3UqnAGcDAmK4v+wy+MnAPcMsPRZkTHvanrd2tVmeLZIXKBKgA
-	 jBUWPzGybbHt51NQtPwKR9wuJjHzLGu+Nifv1/FMTCIb74kyN0EZffiy32VV873+sX0bN
-	 F42LpCwKE7Xdayk9RT9++uvwNas0AJPGAHyP0Lv8EdliKOZIoLGipsWYszzaGnuksU75p
-	 N3iBXhug9KZHO7tIX687ZptNTA+RKUc1aS8ZNqgsShiHsmqpl7BxJp+LGhHcrbKBVbQ==
+	t=1793756500;
+	b=tRrwUZfhv8HQgl3XjI9QvG+u7tYevSafKuQxaewZYOyNcnZlLz3mKQwl8Pdc70RXkqUf
+	 tgS3Xxjo0dWOeDTV/KlxyOTzZRtKy9OnvCnrJkVuUaX29DJlHVSOFYrH4693fGt5wNhtc
+	 fS0D2zu1PvRt8C1LHZYUyr0GOghOZVoTAaU2Ff70vVuGkNbCTVZKJF5ZAVGxLSD72dbPu
+	 dA55GHNdYoS4toFYV/XaNqmyxOt5/E2RlDxCaS3CvjJVQ/ViBSAE271kfvNuPT4VhfFe4
+	 ZSnfjdErPLPyUPIMRMfYbq5r//qjyB643pLdkgM0vkmCi2d3Tledvcu4+aRkFHj+3VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756498;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=nrEpzo2FbyYGf4WoydGR8O8NAthTAxRR3fiKImw2LBY=;
-	b=MEudNlKSEYHaTgMBbVZESgpknaRKnN8smMTla0MWSaFewiKvCTzcbzs1cB/nJE+Ee1My
-	 zyCoQfZ6rUjq4LAOZWGVZYFqewFKAjUCuDqdQeSUAXWThse0U6Oo+ysakqpHksBZLatul
-	 oSoz8vvV9Kznwh7nK/m9avT9P2vRvpuQR89wb75FEZz4mc3Xa0+kPRjElvx+zGE13WLRz
-	 3W1c4eoXAMQUcWfrc9EszW44VdSGgQDLgkE4S2my8Z0k6WEkg02SuSmkBKks0KBEPlNQD
-	 Fp6AlgY1sXV/vqodWAMiz8uYp1ZJhYz3dHb/xs3bDfPL+yrHLJpDTm9ZLtQR+DoiF1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756500;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0ZzqJDoeEpW5CfU+Ff49nSju2Ph/tRx20nMXNwS/YtQ=;
+	b=hbt5d85vy8L7R9X+L11yFyuxW8fBCj+3HgkXoMtRiMbqGgEfJ4/KDuBbX1aiE++RPyJy
+	 AzDHltPZq5QpDqOMmOeQo7opXM2h0Qtc5NopJJWW7ZfwEGV3oVs0JnQQhV1GTIvoY+Nb5
+	 HeHan4oKtGnkFtSfgh8EqQsqqrGqrHf+haV4uPCS/FuRarV8MLF0a8k93eQBUA7fivF7M
+	 pSMVZGJhol65it2uP0KBfmwt87RjKiA8b1zsXF+GdNdRkLGKXCoATm1OUmTx+iXWG0Z2O
+	 4rYoa77Ld2PTtWwZgTH3KKZl4qILbh+Gig7649VorhNgmqDA+fdaIHjku3uq+Pl97Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c2KAliKC;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tHO4hhWF;
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFCB606A33A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFCB606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A020F606D80A
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A020F606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c2KAliKC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793756498; x=1825292498;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vDr2JILrP7CXpfLgY8bKxkAuyrvod5DOQU34EM2moew=;
-  b=c2KAliKC7pExndXfYaCKkJIJPiMYnKFyeJN/Y5wtwPxWO/stcOJiix58
-   PbzD4IUAvZCM/DgFjE8PqbYNvuBD1YTJ7Rg2bwhwVY5Vq4sN3fi8QdOzV
-   4AoHvYSxWwyASzX2IkQaWISfug3KK85T+9/MXwA+eus9VjkXDespwGsU+
-   ozpLYYsUSnsO/Jf0TzRVBeWdR7u1XeRCExGA+mnY3ttQJBCKv5him0+0Y
-   KB2DRm0OEejZfaj1ZdeE+tm7aXdwd9Us0bb6Vy8GeXwDKya0xDl20C0At
-   wjeUNrojb97FR/9HGwBU8GSKx/H8tRVbrMAuiqJsZ7s1Ej8d1g/K+9UHW
-   Q==;
-X-CSE-ConnectionGUID: t/h1vc8nSAyNcCyqq461gA==
-X-CSE-MsgGUID: D3acwIt9RiSrjAH+vBa5Cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2509025"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2509025"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:41:37 -0800
-X-CSE-ConnectionGUID: nOdDaauHReGtVTXCAtE9IA==
-X-CSE-MsgGUID: z881yAwyRF2NYDW1Ta5Bng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6912924"
-Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:41:37 -0800
-Date: Tue, 3 Nov 2026 17:41:35 -0800
-From: Andi Kleen <ak@linux.intel.com>
-To: Martin Leitner-Ankerl <martin.ankerl@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Youling Tang <youling.tang@linux.dev>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
-	Nikolay Borisov <nik.borisov@suse.com>
-Subject: Re: [PATCH] x86/cpu: Use prefetcht0 for prefetch() on 64-bit
-Message-ID: <auqNT3yNeA1ujmW3@tassilo>
-References: <20261103060658.696994-1-martin.ankerl@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tHO4hhWF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hhvXy66lGbMj0qrrceqA8gQVJhAYMN9wky8VtEvh6LA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793756497; v=1; x=1794361297;
+ b=tHO4hhWFpBdhBAz/vC3/sO4c//k3HFBaoc5bEUNrbgkvmKYANOW2T0iY1iVg5mFmSn2j8pol
+ qOMR5pilmlkrmMA6uIA6UtJ3u6NniZgxDbRxx6yhQvIJ8bNc4S+jWhW58lhfLZfxaOcVVzEZXla
+ b6+EDaSMxKU8Qyv95t058jL0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bc5bb20736c767dc;
+	Wed, 04 Nov 2026 01:41:37 +0000
+X-Mizu-Trace-ID: bc5bb20736c767dc
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	kernel@lists.opengamingcollective.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	"Jonathan LoBue" <jlobue10@gmail.com>,
+	"Khamunetri Clark" <khamunetriclark@gmail.com>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	"Joshua Leivenzon" <hacker1024@users.sourceforge.net>,
+	"Nathan Chancellor" <nathan@kernel.org>,
+	=?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>,
+	"Ivan Levchenko" <me@livan.pro>,
+	"Corentin Chary" <corentin.chary@gmail.com>,
+	"Hans de Goede" <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Denis Benato <denis.benato@linux.dev>
+Subject: [PATCH v13 16/18] HID: asus: document ROG Ally sysfs attributes
+Date: Wed,  4 Nov 2026 01:39:33 +0000
+Message-ID: <20261104013935.512713-17-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104013935.512713-1-denis.benato@linux.dev>
+References: <20261104013935.512713-1-denis.benato@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,23 +83,421 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103060658.696994-1-martin.ankerl@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> +#ifdef CONFIG_X86_64
-> +/*
-> + * Every x86-64 CPU has prefetcht0. Not __builtin_prefetch(): the kernel
-> + * builds with -mno-sse, and clang then drops the builtin without a warning.
-> + */
-> +static inline void prefetch(const void *x)
-> +{
-> +	asm("prefetcht0 %0" : : "m" (*(const char *)x));
-> +}
-> +#else
+The driver publishes the gamepad configuration of the ROG Ally
+handhelds through sysfs: the controller emulation and the
+operating mode, the per-motor vibration strength, the per-axis
+joystick calibration (dead zone, outer threshold, anti-dead
+zone and response curve), the trigger activation ranges, and
+the per-button mapping, macro and turbo settings.
 
-One thing you should check if the inline assembly pessimizes the code on
-gcc. Normally builtins can be better optimized. Or keep using the builtin
-on gcc to be safe.
+Document each file: where it is created, what a read returns,
+which values a write accepts, and the error returned when the
+controller lacks the capability.
 
--Andi
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+---
+ .../ABI/testing/sysfs-driver-hid-asus         | 389 ++++++++++++++++++
+ 1 file changed, 389 insertions(+)
+
+diff --git a/Documentation/ABI/testing/sysfs-driver-hid-asus b/Documentation/ABI/testing/sysfs-driver-hid-asus
+index 30e0d17d4cec..515eb7c550fc 100644
+--- a/Documentation/ABI/testing/sysfs-driver-hid-asus
++++ b/Documentation/ABI/testing/sysfs-driver-hid-asus
+@@ -93,3 +93,392 @@ Description:
+ 
+ 		Access: Read only
+ 		Valid values: a single line of text
++
++What:		/sys/bus/hid/drivers/asus/<dev>/xbox_controller
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Enable or disable the Xbox controller emulation of the
++		gamepad.
++
++		The file is created on the configuration interface of a
++		bound ASUS ROG Ally or ROG Ally X controller. A read
++		returns 1 when the emulation is enabled and 0 when it
++		is disabled; the emulation is enabled by default.
++
++		Reading and writing return -EOPNOTSUPP when the
++		controller does not report the capability.
++
++		Access: Read/Write
++		Valid values: 0, 1
++
++What:		/sys/bus/hid/drivers/asus/<dev>/gamepad_mode
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Operating mode of the gamepad. In "gamepad" mode the
++		buttons report gamepad codes, in "desktop" mode they
++		report keyboard, mouse and media codes. The default
++		mode is gamepad.
++
++		The file is created on the configuration interface of a
++		bound ASUS ROG Ally or ROG Ally X controller. A switch
++		asks the controller to change mode and resets the
++		recorded button mappings to the firmware defaults of
++		the new mode, so the remap, macro and remap_available
++		files report those defaults afterwards.
++
++		Access: Read/Write
++		Valid values: "gamepad", "desktop"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/gamepad_mode_index
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		List of the operating modes the gamepad_mode file
++		accepts, space separated.
++
++		The file is created on the configuration interface of a
++		bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "gamepad desktop"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_vibration/intensity
++		/sys/bus/hid/drivers/asus/<dev>/right_vibration/intensity
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Strength of the left or the right rumble motor, in
++		percent of the maximum intensity. The controller does
++		not keep the strength across a reset: the driver sends
++		the recorded values again when it re-initializes the
++		controller.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Both
++		motors default to 100 and a write is rejected when the
++		value is above 100.
++
++		Access: Read/Write
++		Valid values: an unsigned number 0..100
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_vibration/intensity_range
++		/sys/bus/hid/drivers/asus/<dev>/right_vibration/intensity_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling intensity file accepts.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "0 100"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/inner_threshold
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/inner_threshold
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Size of the inner dead zone of the joystick, in percent
++		of the axis range. The default is 10.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Reading
++		and writing return -EOPNOTSUPP when the controller does
++		not report user calibration support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 0..50
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/outer_threshold
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/outer_threshold
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Outer threshold of the joystick, in percent of the axis
++		range: at and beyond this deflection the joystick
++		reports full deflection. The default is 90.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Reading
++		and writing return -EOPNOTSUPP when the controller does
++		not report user calibration support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 70..100
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/inner_threshold_range
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/inner_threshold_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling inner_threshold file
++		accepts.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "0 50"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/outer_threshold_range
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/outer_threshold_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling outer_threshold file
++		accepts.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "70 100"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/anti_deadzone
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/anti_deadzone
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Anti-dead zone of the joystick, in percent of the axis
++		range: the deflection the controller applies to
++		counteract the inner dead zone. The default is 0.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Reading
++		and writing return -EOPNOTSUPP when the controller does
++		not report anti-dead zone support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 0..100
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/anti_deadzone_range
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/anti_deadzone_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling anti_deadzone file
++		accepts.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "0 100"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/response_curve
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/response_curve
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Response curve of the joystick, as four points. Each
++		point is a pair: a move percentage, the deflection at
++		which the point is placed, and a response percentage,
++		applied from that point on.
++
++		The write is all-or-nothing: it is rejected when any
++		value is out of range or the move percentages are not
++		strictly increasing, and the recorded curve is left
++		untouched. The default is the linear curve
++		"0 0 33 33 66 66 100 100".
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Reading
++		and writing return -EOPNOTSUPP when the controller does
++		not report response curve support.
++
++		Access: Read/Write
++		Valid values: eight unsigned numbers 0..100, the move
++		ones strictly increasing
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_joystick_axis/response_curve_index
++		/sys/bus/hid/drivers/asus/<dev>/right_joystick_axis/response_curve_index
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Explanation of the format of the sibling response_curve
++		file.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: a single line of text
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_trigger/range_lower_limit
++		/sys/bus/hid/drivers/asus/<dev>/right_trigger/range_lower_limit
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Lower limit of the analog trigger activation range, in
++		percent of the trigger travel: below this deflection
++		the trigger reports zero. The default is 0.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Reading
++		and writing return -EOPNOTSUPP when the controller does
++		not report user calibration support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 0..50
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_trigger/range_upper_limit
++		/sys/bus/hid/drivers/asus/<dev>/right_trigger/range_upper_limit
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Upper limit of the analog trigger activation range, in
++		percent of the trigger travel: at and beyond this
++		deflection the trigger reports full deflection. The
++		default is 100.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller. Reading
++		and writing return -EOPNOTSUPP when the controller does
++		not report user calibration support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 70..100
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_trigger/range_lower_limit_range
++		/sys/bus/hid/drivers/asus/<dev>/right_trigger/range_lower_limit_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling range_lower_limit file
++		accepts.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "0 50"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/left_trigger/range_upper_limit_range
++		/sys/bus/hid/drivers/asus/<dev>/right_trigger/range_upper_limit_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling range_upper_limit file
++		accepts.
++
++		The files are created on the configuration interface of
++		a bound ASUS ROG Ally or ROG Ally X controller.
++
++		Access: Read only
++		Valid values: "70 100"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/remap
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Target the button is remapped to, by name. A write
++		sends the mapping to the controller and is rejected
++		when the name is unknown or not valid for the button
++		in the current mode; the recorded mapping is restored
++		when the controller rejects it.
++
++		"NONE" is always valid. In "gamepad" mode only gamepad
++		codes are valid, in "desktop" mode only keyboard,
++		mouse and media codes are; btn_m1 and btn_m2 accept
++		every code.
++
++		The file is created in one directory per button of the
++		configuration interface of a bound ASUS ROG Ally or
++		ROG Ally X controller. <btn> is one of: btn_a, btn_b,
++		btn_x, btn_y, btn_lb, btn_rb, dpad_up, dpad_down,
++		dpad_left, dpad_right, btn_l3, btn_r3, btn_menu,
++		btn_view, btn_m1 and btn_m2.
++
++		Access: Read/Write
++		Valid values: one name from the sibling
++		remap_available file
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/macro
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Macro target of the button, by name. The macro target
++		is not restricted by the controller mode: every name
++		the controller knows is valid for every button.
++
++		The file is created in the <btn> directories listed
++		for the remap file.
++
++		Access: Read/Write
++		Valid values: one name; the btn_m1 and btn_m2
++		remap_available files list them all
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/remap_available
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Names the remap file of this button accepts in the
++		current mode, space separated. The btn_m1 and btn_m2
++		files list every known name in every mode.
++
++		The file is created in the <btn> directories listed
++		for the remap file.
++
++		Access: Read only
++		Valid values: a single line of text
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/turbo_period
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Repeat period of the turbo function of the button, in
++		firmware units: while turbo is on, the button is
++		automatically pressed again at this period. The period
++		0, the default, disables the function.
++
++		The file is created in the <btn> directories listed
++		for the remap file, only when the controller reports
++		turbo support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 0..20
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/toggle_period
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Toggle period of the turbo function of the button, in
++		firmware units.
++
++		The file is created in the <btn> directories listed
++		for the remap file, only when the controller reports
++		turbo support.
++
++		Access: Read/Write
++		Valid values: an unsigned number 0..255
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/turbo_period_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling turbo_period file
++		accepts.
++
++		The file is created in the <btn> directories listed
++		for the remap file, only when the controller reports
++		turbo support.
++
++		Access: Read only
++		Valid values: "0 20"
++
++What:		/sys/bus/hid/drivers/asus/<dev>/<btn>/toggle_period_range
++Date:		October 2026
++Contact:	linux-input@vger.kernel.org
++Description:
++		Range of the values the sibling toggle_period file
++		accepts.
++
++		The file is created in the <btn> directories listed
++		for the remap file, only when the controller reports
++		turbo support.
++
++		Access: Read only
++		Valid values: "0 255"
+-- 
+2.47.3
+
