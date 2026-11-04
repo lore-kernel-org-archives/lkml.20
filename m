@@ -1,61 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813334;
-	b=z6nP10WyecUcN+24Lo0GICxCHa/JA7iGHpsAAHcJwLo3uMUeky1CowASbWcvkOBtwG89
-	 HLuSLq35LsZkTvM8VkFKhEJMgxHxpHphZFqxt6eHwmuH59ZBDbzu2f0p8Qp50M6WNDmRu
-	 JbOtfpRIqf0UhBU0+2GWWSo7bvAxawDwIFQUpgfYpo1pRYAFCyrpX+oyzAMK0Ldv/t7xl
-	 AIuc6oGqS2pfvuboYnY1xk6cvCYNhnvBcu980nv66YCYWPJCY1nW17dc6uj+79sGxUNnP
-	 r9Dmz57UfSCZYOQLSbiCX3KiqoC3YAPBM/dcWeYsOnYH+IwagT0HTKvPBmm0VUaRm/g==
+	t=1793813352;
+	b=fRVh0sH3QcYM2N3H1PQ6J7p81rIimK3nyzoUp716L1mzJMTEXK9hzgh7ZTlkjQam50Id
+	 vcPhcH1WYKdv1D6GTU/L35wNQl7NJr5YeKms/R3tiJ/RPhCgnBO6Jr+8IcKSzhbC6BjaK
+	 TzeTUm1HHq0t55VRCFeAJvRcMsxF/o9K088NyQdniOZ0Q+rieIKfX0STA2kNhiA8txxOm
+	 Q53AZvUSldd6KbT4fOTirOjJjY/IhHzqREyaC4HElgDzrWyJtsH0jfDwC7xHVT/7x99MT
+	 jQ8qWxYvuFWDeg7HlhhLf2pfVLdhCovO2Ki4AX00Y5BheVTt7brNw1LGZZ9cDb9DimA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813334;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=/2uDJDXzHicGsxbsYEgaBGi/Fbf89CthmN/itDPv2fE=;
-	b=tBeACUQUKZRzaB5em6SdNR/tIuyQaD8S+OWcsIXdD2xkjWIZPLOOuKZ14sSvGLTRtKLz
-	 orsvQ1F8Z5+Cuz4RQDUKY2/1SdgPKtqv2tkbpxxVf71IePquncfuEyXiU+d9KlB6OoZai
-	 asspFsiiMUwG7USen87uwMKEhhleaHADNeSIJFBLgRD7dPySYTqok9H6Yv8IU3h/YmUii
-	 yAxfOMuDutxnz5lr66GQvpEgmQ3SW8TRyERY5CoS0erVpKsghn2gZTLDBdbvbDPdNf0T4
-	 183bBr/uECRoThxewfy9nUEpUh15rTCZvh6a0+Y0+WhKVNMKydHJ3vzPxo5onaTXn3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813352;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To;
+	bh=BBw8pv978i++9C5yzqWVC2xo/MJFHYabt1uQ3NtXX7M=;
+	b=v9fsyK0Uh/UGC6ZBqCUK4uoj0dqFzI2lYltl2vJ75xDR2bAG1njdpPpXNFUV0y1LjnEM
+	 1baIhNm7AuAFFPfXxJQngTU20DhSEfNrZ3YZVS8PmrYv6k8s+u1J4yEoF0QWLFSfA5FuU
+	 ku7Peox/OLLh4eHlrIXXe8kd90CHMhlJ5vaNHaN82axvyXowbkBoZv96DL2Sh6pqpwclw
+	 1NGqHzRihalgVgEgQ6H5dbRk+Edp5NaRVL2XNWYpMuwmzSgLdOBahGR6GPlem4GFWydh1
+	 KtrJWVozEDmQkSm1PPOed3A1j49vxFs1py61WbSES2/WRsdd9rOUc5oZd6cjmG05ZMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SK7izhno;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyEhxh0i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3798B606D81D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E4D606A332;
+	Wed,  4 Nov 2026 17:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SK7izhno
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C891F000C1;
-	Wed,  4 Nov 2026 17:28:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyEhxh0i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121B81F000C1;
+	Wed,  4 Nov 2026 17:29:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793813334;
-	bh=/2uDJDXzHicGsxbsYEgaBGi/Fbf89CthmN/itDPv2fE=;
-	h=From:To:Cc:Subject:Date;
-	b=SK7izhnoe3mmurLolplKYHMvxuZJblKrGR1JL6yCVSRiW3casRTlCR/nX99F7RRR4
-	 xCx/nMtQS8ZRyLJHDsA9ioaVoBmtkouKdLpsI3WJQI4y1+VqsY7Jc2fbSDk/wKuZQz
-	 RG80y08RzwLUmU6699b9rum7MzzOu5RPqMUq6wIZe8MJ3QRiXaSConDF0WevG4rAiI
-	 IzjlaPOadmFKvNv426Ph7YwytWPR11VYIPm2ShrfzBpuf2C/lLQM3KH0geEi3tbrYS
-	 MpkSpo6D5xTRG7XXQLyy/yBX4275tvfrA8amqJjvB7M6cQW9Dh/x27LpXoHcFgKgOI
-	 kNRlZRkBNbzPQ==
-From: Thorsten Blum <blum@kernel.org>
-To: Anatolij Gustschin <agust@denx.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/mpc52xx: Remove redundant 0x prefix in mpc52xx_pci_setup()
-Date: Wed,  4 Nov 2026 18:28:28 +0100
-Message-ID: <20261104172829.231857-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793813351;
+	bh=BBw8pv978i++9C5yzqWVC2xo/MJFHYabt1uQ3NtXX7M=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=HyEhxh0iBGoIeyP/Fo7EH6JIMdoYK3imbV1V8/+yf5yonNlx5K99avg/gljSk2jWU
+	 bE1Kte9Xd/TDA2BEPNmyynaus9m2BgNVBtcyRkfpYEUHPsalnxwE7OkJLyWBPA0RgD
+	 5MAlwTBDgpIDcM8DvNaFpIYqsp1ZiILdZKYaLNYq9t7ztGOFZifG3RSeeZNd/bxxOJ
+	 NLNw0AubbzKxxUmHhZoyw4II6iUcK2+Wch4IjsicvLVe9cijkEV8UcCw7Ov0NhfbDi
+	 ZtRJefVRfhe2b9Fh4YJ+r0HT12ZFolbqs+WfSfvoIIm0R1xlavZLXXjezqzFD7k8ad
+	 3bwWgZGroJZhw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,30 +48,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=962; i=blum@kernel.org; h=from:subject; bh=i2d7EHLyCvvfJEHd6m6HmC1jX0Sr9JHbihHcAYB3m5E=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmvs23D+kONOSq1v6ydlRg9YdIbV77NqW9YKzh4HFleZ Py2SOzsKGVhEONikBVTZHkw68cM39Kayk0mETth5rAygQxh4OIUgIkY3GJk2Ptzfp7HLJuktCin k08SOjNsYxxsn036f0t+Wq7iRu+9tgz/Uz/I3jxioCScVcMtfq5h/eGmHe/X7W5cHqN0XuRmi8M 9JgA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 04 Nov 2026 18:29:02 +0100
+Message-Id: <DMMLRD778LTH.89GHGWLB950B@kernel.org>
+Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <markus.probst@posteo.de>,
+ <jhubbard@nvidia.com>, <apopple@nvidia.com>, <joelagnelf@nvidia.com>,
+ <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+To: "Simon Song" <xinmengs@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v5 5/9] rust: pci: drop driver data before remove
+ returns
+References: <20261030171230.196717-1-xinmengs@nvidia.com>
+ <20261030171230.196717-6-xinmengs@nvidia.com>
+In-Reply-To: <20261030171230.196717-6-xinmengs@nvidia.com>
 
-The %pa format specifier already includes the 0x prefix. Remove the
-redundant prefix to avoid printing 0x0x.
+On Fri Oct 30, 2026 at 6:12 PM CET, Simon Song wrote:
+> From: Zhi Wang <zhiw@nvidia.com>
+>
+> Drop PCI private data before the remove callback returns, so its
+> destructors run within PCI core's removal context.
+>
+> Call unbind while private data remains installed, then take and release
+> the data. Taking it clears drvdata, so post_unbind does not release it
+> again. All borrows must end before the data is removed.
 
-Fixes: 59510820fff7 ("powerpc/mpc52xx: Fix some pr_debug() issues")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/powerpc/platforms/52xx/mpc52xx_pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This should explain the reason this is needed:
 
-diff --git a/arch/powerpc/platforms/52xx/mpc52xx_pci.c b/arch/powerpc/platforms/52xx/mpc52xx_pci.c
-index 0ca4401ba781..a2e53cacd15b 100644
---- a/arch/powerpc/platforms/52xx/mpc52xx_pci.c
-+++ b/arch/powerpc/platforms/52xx/mpc52xx_pci.c
-@@ -288,7 +288,7 @@ mpc52xx_pci_setup(struct pci_controller *hose,
- 		printk(KERN_ERR "%s: Didn't find IO resources\n", __FILE__);
- 		return;
- 	}
--	pr_debug(".io_resource = %pr .io_base_phys=0x%pa\n",
-+	pr_debug(".io_resource = %pr .io_base_phys=%pa\n",
- 		 res, &hose->io_base_phys);
- 	out_be32(&pci_regs->iw2btar,
- 	         MPC52xx_PCI_IWBTAR_TRANSLATION(hose->io_base_phys,
+VF drivers will store a vfio::pci::Registration, which calls
+vfio_pci_core_register_device() when created and
+vfio_pci_core_unregister_device() when destroyed.
+
+Now, vfio_pci_core_unregister_device() expects to be called from PCI's bus
+remove() callback and hence can't be deferred beyond remove() (which also m=
+akes
+it incompatible with devres, i.e a devm_vfio_pci_core_register_device() hel=
+per
+wouldn't work either).
+
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+> Signed-off-by: Simon Song <xinmengs@nvidia.com>
+> ---
+>  rust/kernel/device.rs | 4 ++--
+>  rust/kernel/pci.rs    | 6 ++++++
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
+> index 2291d85b684..1f6bb58396e 100644
+> --- a/rust/kernel/device.rs
+> +++ b/rust/kernel/device.rs
+> @@ -243,8 +243,8 @@ impl<Ctx: InternalBoundContext> Device<Ctx> {
+>      ///
+>      /// # Safety
+>      ///
+> -    /// - Must only be called after a preceding call to [`Device::set_dr=
+vdata`] and before the
+> -    ///   device is fully unbound.
+> +    /// - The data stored by [`Device::set_drvdata`] must still be insta=
+lled and remain valid
+> +    ///   for the returned borrow.
+
+This is what the original comment should have expressed better regardless o=
+f
+this change. Can you please make this a separate commit?
+
+>      /// - The type `T` must match the type of the `ForeignOwnable` previ=
+ously stored by
+>      ///   [`Device::set_drvdata`].
+>      pub unsafe fn drvdata_borrow<T>(&self) -> Pin<&T> {
+> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> index 9e1d02588af..8092f56ee2b 100644
+> --- a/rust/kernel/pci.rs
+> +++ b/rust/kernel/pci.rs
+> @@ -150,6 +150,12 @@ extern "C" fn remove_callback(pdev: *mut bindings::p=
+ci_dev) {
+>          let data =3D unsafe { pdev.as_ref().drvdata_borrow::<T::Data<'_>=
+>() };
+> =20
+>          T::unbind(pdev, data);
+> +
+> +        // SAFETY: The driver's unbind callback has returned, and no cal=
+lbacks retain a borrow.
+> +        let data =3D unsafe { pdev.as_ref().drvdata_obtain::<T::Data<'_>=
+>() };
+> +
+> +        // Drop private data before returning to PCI core, while its rem=
+oval context is valid.
+
+Please add a brief note similar to the above rationale, as I consider this =
+a
+workaround (or special case) for VFIO-PCI.
+
+In general, objects stored in the driver's bus device private data should *=
+not*
+make assumptions about implementation details of the underlying bus and
+therefore require to be dropped from the underlying bus's remove() callback=
+.
+
+Any point between after the driver's remove() callback and before
+devres_release_all() in device_unbind_cleanup() is perfectly sufficient.
+
+> +        drop(data);
+>      }
+>  }
+> =20
+> --=20
+> 2.43.7
+
