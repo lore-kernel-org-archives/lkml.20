@@ -1,54 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820657;
-	b=W83woyq5XX8zb0Lh2CUS47S1z5LM+8yxa+QW151nQjedoj5XGQbK6id/8/ZzF40ES1RS
-	 DDvRXoNgut14+CygztmnDoefm1tOlzXWxSUUs/gPUacl9sN4HUNxBFn0RtwchD7mbhtiF
-	 yZJOGHQJuAfvckZmfYXBZ9OSShURLhZybRrUEVeNwLhE7RutPAD5Ntro8X1FapGkYlr5l
-	 i6UelwQEJlgAu2XdVuD0w6Kyr1V34uO0pIFXMktHQgMeL5YJZeReEZFdFVk6JkMh/vicN
-	 7eVpchG+9ORpVGX5VhMVojILHnONk2/CrAWOH7AjKoJB1OTI5ju0qz3P55TQ5aNxNVg==
+	t=1793820673;
+	b=dteefXCOPRTOFzViYVpUs2qlCXYtMpj3onui88DprISKj4KJyUavTiyX0bwHfGeGh1LP
+	 3qfauKZTDjJC1jj2DkTTomyifhiDPL/QXdcM5uPkzPZPNWRX39deV1NbT3WRKPxbYSUT+
+	 8ZcoCPnlQLI95jCh82PrufCJ14TEyEuI1eY1y6QgCQINaQwiRsZ8CROVEc7nPhBxUUyar
+	 OFKiWRNg5zRe10IY7LD1MaGM6yHloqasPRvHzG1pX03vUc1mw+/SYkVVcQ337rvfHR7l3
+	 +AmAcTmpNOYK3QJ9VDgGItlASQezBKOm16jZfmaatD54Z5cZ5hscUJBcmd+5jWZiD5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820657;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=thk8Et7oR0sCp58Gp3S2j6PvK4lW5VTXKkZS+sjAgPM=;
-	b=VPdCiO4xgk6+TKd2zbgKTGWkxo9XbSxlu5wAUHoOteKMh4hHjUnNqw8ro7ed2z0RB2Dc
-	 /KpMd6hhC/QnL8jUpMMYypD1t0gQFwRw9ym8pK2vui53S2PrZKTl1nOvyAePpauZqEr9D
-	 LAr0A8CTcI6o1kHzArDW36OQddVPUt21gT003oNeAxNVSoPdRKbijsRaFnL8olOOZ55/S
-	 tBiYYtxLNG0BSWkXCfxEBcocQRoiyAgnFSjOCOkJ2I4a+2zuOpHYtWiDk2lHsQfO76qOX
-	 Fm58wc43SohdAbOoywsko5FFwMjoT9oNQWMKs7P7DlA4rJA+0cRAZvKLBmLhIT8NQ/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820673;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=PsYU3gTP7wRg/qADM041CPCqWdlsrAZN9M0Rb8ATmeI=;
+	b=bEcwnojxWd2MqvQIOC8BzrO7eNwcwu0KbecGVhD8q2MxbXtCcQ5vs/PZVisY7wq9DdF6
+	 TBiogMJAwK1sOitXezB4fVVQnoJGCkYoF7gFpFPeWf+bb1HOacNplTVgfrrxQS9g++Ad0
+	 IM9wqDJLLokDYJ9JrRaadl+8ZYEDKYEq0xi/vCqH+yQu/EawkHflSbslntFn1VnT61Yl2
+	 /u/XyDwsTbuEdcfJbocciduQ/lyg/g2KbI65l25s4bNY/PQzM5rsCPfcYPysFYsus3P5v
+	 /8qBgEfvpwqsLFEDTjqQE/EmjZmmAVz74gxRGKKfB7FVm6gaCC0WmxKzsGhZ27+tX+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mythread.it;
-	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=WYP7Zfc8;
-	arc=none smtp.remote-ip=62.149.156.56
-Received: from smtpcmd0756.aruba.it (smtpcmd0756.aruba.it [62.149.156.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U9PU/zDz";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B476A606BA26
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B476A606BA26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E55E607800A;
+	Wed,  4 Nov 2026 19:31:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=WYP7Zfc8
-Received: from [192.168.1.237] ([94.34.125.0])
-	by Aruba SMTP with ESMTPSA
-	id Ogh3xxDlIuuRMOgh5xJX8g; Wed, 04 Nov 2026 20:30:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793820647; bh=B3rOI2mrs8HUMNPJ6C2kOcQaTPhdwO9rBw5N91nvoVw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=WYP7Zfc8F6KfFGp34uVDaEJy9ehGlYs4CxtVfAx0Wl5YJThQ64nWqyhft52bQ2cCB
-	 2wJdbmEWq2kUDPkbybl+Ef767fQtv+6p6Z4YApCTumkoAi0ksmyZGBZj0fErEHvR3J
-	 5qQfb6mUR1dOm9QptMMwJv0g77UJH9oLrLgIfRrN34V3jnKysAygmfsEwUCDg4olNO
-	 BvSZBSPyc5sNNghYClD0M8Ye4/LtFLGrt1txh8F6DW/LHjWGIF0DuHGHD4WeMqetM7
-	 alms2xRtXBbHoWUeY/ILPxx84yY0pBFcpAdkXQ03qBnUejH4FrTYkjwUwfsJajEUI5
-	 5M7dTlsKNTBBA==
-From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Wed, 04 Nov 2026 20:30:47 +0100
-Subject: [PATCH v4 4/5] bcma: add host driver for the BCM6362 integrated
- WLAN backplane
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9PU/zDz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20BEB1F00A1A;
+	Wed,  4 Nov 2026 19:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820672;
+	bh=PsYU3gTP7wRg/qADM041CPCqWdlsrAZN9M0Rb8ATmeI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U9PU/zDzaVAltxYxStqwW8rHvP0jU6OdIi9RBg1wn/JWlBqPV6BYlBzlMWrwMpcJG
+	 3eU+qxUPU0LrZr9SXclOLmfymuCTpBaGHMUvrT5A1+NBX3prA1ghZ3FKndVwGcpNps
+	 KN1G8MNaJ/W/DN5CsbgTFaIRvKcadOCkNRMwaZGsRchdPUi7hYz7whizdtZ5L0z/6w
+	 HHkGlyWCzWRBgJvKrQXQ85V+EgFF3NosOiNXzT2GpDpkYEaE2RDMVF41oo977U2+yQ
+	 3w2KDBa0RmzyTMDJmENPI+Czyfs7FkGe2oaV77JLAINAlrOWELaQ79hR1EMtMGhf9U
+	 F1UghcZpaf7Pg==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 07/23] proc: let procfs own the seq_file of seq_file entries
+Date: Wed,  4 Nov 2026 20:30:58 +0100
+Message-ID: <20261104-work-procfs-core-v2-7-76ace653a773@kernel.org>
+In-Reply-To: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
+References: <20261104-work-procfs-core-v2-0-76ace653a773@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,602 +115,479 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-bcm6362-wlan-v4-4-f001f6d75dc3@mythread.it>
-References: <20261104-bcm6362-wlan-v4-0-f001f6d75dc3@mythread.it>
-In-Reply-To: <20261104-bcm6362-wlan-v4-0-f001f6d75dc3@mythread.it>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Jonas Gorski <jonas.gorski@gmail.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- Alessio Ferri <alessio.ferri@mythread.it>
-X-Mailer: b4 0.14.3
-X-CMAE-Envelope: MS4xfBvkpWepbH7IU9x6gOlcj2XdseRrzIEwzb8aMq9Ie9uZi12I486TIMfZq51vhX63e5Jkoijj9q3DFpapXqB7SAE/cGbhf1JOjRdHXt1KHRrQjv4HvgX7
- a2bhn/2Mt7wiWjSdUPCUJoFsIh0SaMOOmifuPAAnzzPnBpkMCmKv68cj7qByu8X2F7+MAqabVLBdwah15tr9nPXAnZRjBmTNhv3+Q7NYFhYmMhwkYUnuMKsl
- iYt/pKbevs+YSC3tNq/R0Tgo1aY6Q2h47we/NOfJ5gGSitnGVZYyNhD8dNDHbN7UEe3t/onYdmSbeDZY+KBCFNWcc48pKnKBL5KXeiFQN18KgiD/OdOUgMAn
- 30xmGiSOKg/k78firSUfV2VAyeg/UPaPMKk5/57Q51oFqZOUU5Vbiy4pxAoZIwUaFQTU4RbPC0Uy2KCJtOF7C4AkBdzd2sjPuUoRwBJwY4Vs+M/O0iVaylVY
- MUF6kkr0sxPe+2BDqQp3PpNJ9RmSBeDjsC2zoAL8Biw5V1A8fsY6mianKpCFbItWDiZvqPb3esRnpQ52TtOzF5+Av4EPNxA0evbhG8B235dxlbYgNJ0DAImg
- AogSxD7bUubk9Wenez8RMtlZ70BebuhviSzfHzmSnzi+bsKPf4zmDDLzUZ3hWpGVw0uVsN+5qa8hRIsxqA8UUpCkiPiIwzXQpt6ZPo4VJl/dZA==
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16105; i=brauner@kernel.org; h=from:subject:message-id; bh=NknAwwkK4L9ER+HlZOPx363jfWosvwxugcFhrl9okcM=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bq9kjT1hrpD/5WLWx3bW3utVx21MbjYe2n+ry9bk0 It9M1k+d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExETZnhn97P+FShOdXaZ/Y/ qVlvFXBfZsHPBPZdE7fvejeHacKEOwGMDC3dcqlfe8755Ox78fjpdsH/gldmL1dtm/L357mLC9c nzmYAAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-The BCM6362 integrates a WLAN macro on a dedicated bcma backplane.
-CFE leaves the macro clock gated and in reset, the backplane is
-a big-endian peripheral, and none of the cores has a wrapper:
-gating and reset of ChipCommon and of the 802.11 core go through
-per-core control registers in a separate WLAN control block.
+remove_proc_entry() waits until every call into the entry has returned.
+For a seq_file entry that's all of seq_read_iter(), including the copy
+to userspace. A page fault in that copy can be made to take as long as
+the reader wants, e.g. with userfaultfd or by punching holes into a
+memfd over and over. And callers of remove_proc_entry() like to hold
+locks while they wait. xt_hashlimit holds hashlimit_mutex, which all
+network namespaces share, and addrconf holds RTNL.
 
-Add a host driver for it that:
+But the entry's code only runs between ->start() and ->stop() and the
+copies to userspace happen outside of that. So let procfs own the
+seq_file the way kernfs does. An entry declares its seq_operations, or
+just a show function, and the size of its private state in struct
+proc_ops. procfs then opens the seq_file with seq_operations it builds
+for the entry when it is registered: the entry's own ->next() and
+->show() with a ->start() and ->stop() of procfs around them that pin
+the entry and unpin it again. Nothing of procfs runs between the
+records that way. procfs reads and seeks through seq_file directly. The
+copies to userspace happen with the entry unpinned.
 
-  - maps the ChipCommon and WLAN control register blocks;
-  - enables the clock, cycles the WLAN and WLAN UBUS resets and runs the
-    macro enable sequence before bcma touches the backplane;
-  - provides big-endian register and block I/O ops;
-  - emulates BCMA_IOCTL, BCMA_IOST, BCMA_RESET_CTL and BCMA_RESET_ST
-    on top of the per-core control registers. The PHY bits of
-    BCMA_IOST report what b43 expect;
-  - sets the big_endian and wrapperless bus flags before scanning.
+That changes who owns the seq_file. remove_proc_entry() can now finish
+while a reader is still copying out of the buffer, so the seq_file
+can't go away with the entry. procfs frees it once the file is
+released. ->proc_open() finds the seq_file in ->private_data and sets
+up whatever the entry needs and ->proc_release() releases just that. It
+still runs when the entry is removed, or when the file is closed before
+that.
 
-The macro enable sequence comes from the bcm6362 platform setup
-code.
+Since procfs reads these entries through seq_read_iter() itself they
+all have ->splice_read() now, so sendfile(), splice(), aio, the RWF
+flags and kernel_read() work on them, and readv() is one read instead
+of one per segment. Note that a removed entry still hands out what it
+had already formatted and then answers -EIO to reads, and to seeks that
+have to walk the records. Seeking it failed with -EINVAL right away
+before.
 
-As for the PCI and generic SoC hosts, the driver is linked into
-bcma.ko and registered from bcma_modinit().
+For an entry that only has a show function the seq_operations do what
+single_open() does, like kernfs_seq_start(). If the entry can't be
+pinned ->start() fails with -EIO and switches the seq_file to
+seq_operations whose ->stop() doesn't unpin, so the entry's own
+->start() and ->next() can return any error they like. An entry that
+declares a seq_file and also a read or seek method of its own, or one
+that releases the seq_file with seq_release() itself, doesn't make
+sense, procfs reads, seeks and releases the seq_file itself, so
+registering it fails.
 
-Add a MAINTAINERS entry for the driver and its binding.
+No users yet.
 
-The 802.11 core (rev 0x16) is handled by b43 once a SPROM is
-available; on this SoC it is not stored on the chip and has to be
-provided. In openwrt i use 6362-sprom plus fixups.
-
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+Suggested-by: Jann Horn <jannh@google.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- MAINTAINERS                     |   7 +
- drivers/bcma/Kconfig            |  12 ++
- drivers/bcma/Makefile           |   1 +
- drivers/bcma/bcma_private.h     |  15 ++
- drivers/bcma/host_soc_bcm6362.c | 423 ++++++++++++++++++++++++++++++++++++++++
- drivers/bcma/main.c             |   6 +
- 6 files changed, 464 insertions(+)
+ fs/proc/generic.c       |  65 ++++++++++++++++++---
+ fs/proc/inode.c         | 146 +++++++++++++++++++++++++++++++++++++++++++-----
+ fs/proc/internal.h      |  21 +++++++
+ include/linux/proc_fs.h |  22 +++++++-
+ 4 files changed, 231 insertions(+), 23 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..00d964829db5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5235,6 +5235,13 @@ S:	Maintained
- F:	arch/arm/boot/dts/broadcom/bcm47189*
- F:	arch/arm/boot/dts/broadcom/bcm53573*
- 
-+BROADCOM BCM6362 WLAN BCMA HOST DRIVER
-+M:	Alessio Ferri <alessio.ferri@mythread.it>
-+L:	linux-wireless@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
-+F:	drivers/bcma/host_soc_bcm6362.c
-+
- BROADCOM BCM63XX/BCM33XX UDC DRIVER
- M:	Kevin Cernekee <cernekee@gmail.com>
- L:	linux-usb@vger.kernel.org
-diff --git a/drivers/bcma/Kconfig b/drivers/bcma/Kconfig
-index b9558ff20830..ef0c461bdf90 100644
---- a/drivers/bcma/Kconfig
-+++ b/drivers/bcma/Kconfig
-@@ -38,6 +38,18 @@ config BCMA_HOST_SOC
- 
- 	  If unsure, say N
- 
-+config BCMA_HOST_SOC_BCM6362
-+	bool "Support for the BCM6362 integrated WLAN backplane"
-+	depends on BMIPS_GENERIC || COMPILE_TEST
-+	depends on OF
-+	help
-+	  Host driver for the bcma backplane of the WLAN macro
-+	  integrated in the Broadcom BCM6362 SoC. It powers the macro on
-+	  and lets bcma enumerate the backplane, so that the 802.11 core
-+	  can be driven by b43.
-+
-+	  If unsure, say N
-+
- config BCMA_DRIVER_PCI
- 	bool "BCMA Broadcom PCI core driver"
- 	depends on PCI
-diff --git a/drivers/bcma/Makefile b/drivers/bcma/Makefile
-index f8c37de35da2..3ff93990ecbb 100644
---- a/drivers/bcma/Makefile
-+++ b/drivers/bcma/Makefile
-@@ -13,6 +13,7 @@ bcma-$(CONFIG_BCMA_DRIVER_GMAC_CMN)	+= driver_gmac_cmn.o
- bcma-$(CONFIG_BCMA_DRIVER_GPIO)		+= driver_gpio.o
- bcma-$(CONFIG_BCMA_HOST_PCI)		+= host_pci.o
- bcma-$(CONFIG_BCMA_HOST_SOC)		+= host_soc.o
-+bcma-$(CONFIG_BCMA_HOST_SOC_BCM6362)	+= host_soc_bcm6362.o
- obj-$(CONFIG_BCMA)			+= bcma.o
- 
- ccflags-$(CONFIG_BCMA_DEBUG)		:= -DDEBUG
-diff --git a/drivers/bcma/bcma_private.h b/drivers/bcma/bcma_private.h
-index 6eded32d1aac..931a0ca0aea3 100644
---- a/drivers/bcma/bcma_private.h
-+++ b/drivers/bcma/bcma_private.h
-@@ -118,6 +118,21 @@ static inline void __exit bcma_host_soc_unregister_driver(void)
+diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+index 84f064a651e4..59b89e251ba3 100644
+--- a/fs/proc/generic.c
++++ b/fs/proc/generic.c
+@@ -41,6 +41,7 @@ void pde_free(struct proc_dir_entry *pde)
+ 	if (pde->name != pde->inline_name)
+ 		kfree(pde->name);
+ 	kfree(pde->open);
++	kfree(pde->seq_direct);
+ 	kmem_cache_free(proc_dir_entry_cache, pde);
  }
- #endif /* CONFIG_BCMA_HOST_SOC && CONFIG_OF */
  
-+/* host_soc_bcm6362.c */
-+#ifdef CONFIG_BCMA_HOST_SOC_BCM6362
-+int __init bcma_host_soc_bcm6362_register_driver(void);
-+void __exit bcma_host_soc_bcm6362_unregister_driver(void);
-+#else
-+static inline int __init bcma_host_soc_bcm6362_register_driver(void)
+@@ -431,19 +432,41 @@ static const struct inode_operations proc_dir_inode_operations = {
+ 	.setattr	= proc_setattr,
+ };
+ 
+-static void pde_set_flags(struct proc_dir_entry *pde)
++static int pde_set_flags(struct proc_dir_entry *pde)
+ {
+ 	const struct proc_ops *proc_ops = pde->proc_ops;
+ 
+ 	if (!proc_ops)
+-		return;
++		return 0;
+ 
+ 	if (proc_ops->proc_flags & PROC_ENTRY_PERMANENT)
+ 		pde->flags |= PROC_ENTRY_PERMANENT;
+-	if (proc_ops->proc_read_iter)
+-		pde->flags |= PROC_ENTRY_proc_read_iter;
+-	if (proc_ops->proc_lseek)
++	if (proc_ops->proc_seq_ops) {
++		pde->seq_ops = proc_ops->proc_seq_ops;
++		pde->state_size = proc_ops->proc_state_size;
++		pde->flags |= PROC_ENTRY_proc_seq_ops;
++	} else if (proc_ops->proc_show) {
++		pde->single_show = proc_ops->proc_show;
++		pde->flags |= PROC_ENTRY_proc_show;
++	}
++	if (pde_is_seq_file(pde)) {
++		/* procfs reads and seeks through the seq_file itself */
++		if (WARN_ON_ONCE(proc_ops->proc_read || proc_ops->proc_read_iter ||
++				 proc_ops->proc_lseek))
++			return -EINVAL;
++		/* and frees it, see pde_seq_release() */
++		if (WARN_ON_ONCE(proc_ops->proc_release == seq_release ||
++				 proc_ops->proc_release == seq_release_private ||
++				 proc_ops->proc_release == single_release))
++			return -EINVAL;
+ 		pde->flags |= PROC_ENTRY_proc_lseek;
++	} else {
++		if (proc_ops->proc_read_iter)
++			pde->flags |= PROC_ENTRY_proc_read_iter;
++		if (proc_ops->proc_lseek)
++			pde->flags |= PROC_ENTRY_proc_lseek;
++	}
++	return 0;
+ }
+ 
+ /*
+@@ -458,6 +481,32 @@ static bool pde_needs_open_node(const struct proc_dir_entry *pde)
+ 	return pde->proc_ops->proc_release;
+ }
+ 
++/*
++ * The seq_operations of a seq_file entry: procfs's start and stop around the
++ * entry's own next and show, see pde_seq_start().
++ */
++static int pde_init_seq_direct(struct proc_dir_entry *pde)
 +{
++	struct seq_operations *ops;
++
++	if (!pde_is_seq_file(pde))
++		return 0;
++	ops = kmalloc(sizeof(*ops), GFP_KERNEL);
++	if (!ops)
++		return -ENOMEM;
++	ops->start = pde_seq_start;
++	ops->stop = pde_seq_stop;
++	if (pde_has_proc_seq_ops(pde)) {
++		ops->next = pde->seq_ops->next;
++		ops->show = pde->seq_ops->show;
++	} else {
++		ops->next = pde_single_next;
++		ops->show = pde->single_show;
++	}
++	pde->seq_direct = ops;
 +	return 0;
 +}
 +
-+static inline void __exit bcma_host_soc_bcm6362_unregister_driver(void)
-+{
-+}
-+#endif /* CONFIG_BCMA_HOST_SOC_BCM6362 */
-+
- /* driver_pci.c */
- #ifdef CONFIG_BCMA_DRIVER_PCI
- u32 bcma_pcie_read(struct bcma_drv_pci *pc, u32 address);
-diff --git a/drivers/bcma/host_soc_bcm6362.c b/drivers/bcma/host_soc_bcm6362.c
-new file mode 100644
-index 000000000000..e8400cb62448
---- /dev/null
-+++ b/drivers/bcma/host_soc_bcm6362.c
-@@ -0,0 +1,423 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
+ /* returns the registered entry, or frees dp and returns NULL on failure */
+ struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
+ 		struct proc_dir_entry *dp)
+@@ -465,14 +514,16 @@ struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
+ 	if (proc_alloc_inum(&dp->low_ino))
+ 		goto out_free_entry;
+ 
+-	if (!S_ISDIR(dp->mode))
+-		pde_set_flags(dp);
++	if (!S_ISDIR(dp->mode) && pde_set_flags(dp))
++		goto out_free_inum;
+ 	if (pde_needs_open_node(dp)) {
+ 		dp->open = kzalloc(sizeof(*dp->open), GFP_KERNEL);
+ 		if (!dp->open)
+ 			goto out_free_inum;
+ 		INIT_LIST_HEAD(&dp->open->files);
+ 	}
++	if (pde_init_seq_direct(dp))
++		goto out_free_inum;
+ 
+ 	write_lock(&proc_subdir_lock);
+ 	dp->parent = dir;
+diff --git a/fs/proc/inode.c b/fs/proc/inode.c
+index 56eab69e1dcc..d51ab7548b11 100644
+--- a/fs/proc/inode.c
++++ b/fs/proc/inode.c
+@@ -219,6 +219,87 @@ static void pde_unpin(struct proc_dir_entry *pde)
+ 		unuse_pde(pde);
+ }
+ 
 +/*
-+ * Broadcom BCM6362 integrated WLAN backplane host driver
++ * procfs owns the seq_file of a seq_file entry and only calls into the entry
++ * with it pinned. A read copies to userspace without the pin, so a reader
++ * that faults on its buffer doesn't hold up remove_proc_entry().
 + *
-+ * The backplane is a big-endian peripheral. Its cores have no DMP
-+ * wrappers: the agent registers of ChipCommon and of the 802.11 core
-+ * are emulated on top of the per-core control registers of the WLAN
-+ * control block.
++ * The seq_operations the seq_file runs are the entry's own next and show
++ * with procfs's start and stop around them, see pde_init_seq_direct(): the
++ * pin is taken in start and dropped in stop, and nothing sits between the
++ * seq_file and the entry's per record code. An entry that only has a show
++ * function is iterated like single_open() does it.
++ *
++ * If the pin fails start switches the seq_file to seq_operations whose stop
++ * doesn't unpin, so that the entry's own start or next can return any error
++ * they like, ERR_PTR(-EIO) included.
 + */
++static struct proc_dir_entry *seq_pde(struct seq_file *m)
++{
++	return PDE(file_inode(m->file));
++}
 +
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+#include <linux/slab.h>
++static void pde_seq_stop_unpinned(struct seq_file *m, void *v)
++{
++	m->op = seq_pde(m)->seq_direct;
++}
 +
-+#include <linux/bcma/bcma.h>
-+
-+#include "bcma_private.h"
-+
-+#define BCM6362_WLAN_MISC			0x00
-+#define  BCM6362_WLAN_MISC_FORCE_CLK_ON		BIT(2)
-+#define  BCM6362_WLAN_MISC_MACRO_DISABLE	BIT(1)
-+#define  BCM6362_WLAN_MISC_MACRO_SOFT_RESET	BIT(0)
-+#define BCM6362_WLAN_CC_CONTROL			0x08
-+#define BCM6362_WLAN_MAC_CONTROL		0x10
-+#define BCM6362_WLAN_CC_ID_A			0x18
-+#define BCM6362_WLAN_MAC_ID_A			0x24
-+
-+/*
-+ * Per-core control register layout: BCMA_IOCTL in the low 16 bits,
-+ * BCMA_RESET_CTL_RESET in bit 16.
-+ */
-+#define BCM6362_WLAN_CTL_IOCTL			GENMASK(15, 0)
-+#define BCM6362_WLAN_CTL_RESET			BIT(16)
-+
-+#define BCM6362_WLAN_IOST_2G_PHY		BIT(0)
-+#define BCM6362_WLAN_IOST_5G_PHY		BIT(1)
-+
-+struct bcma_host_soc_bcm6362 {
-+	struct bcma_bus		bus;
-+	void __iomem		*wlan_ctrl;
-+	struct clk		*clk;
-+	struct reset_control_bulk_data resets[2];
++static const struct seq_operations pde_seq_ops_unpinned = {
++	.start	= pde_seq_start,
++	.stop	= pde_seq_stop_unpinned,
 +};
 +
-+static struct bcma_host_soc_bcm6362 *to_bcm6362(struct bcma_bus *bus)
++void *pde_seq_start(struct seq_file *m, loff_t *pos)
 +{
-+	return container_of(bus, struct bcma_host_soc_bcm6362, bus);
-+}
++	struct proc_dir_entry *pde = seq_pde(m);
 +
-+static u8 bcma_host_soc_bcm6362_read8(struct bcma_device *core, u16 offset)
-+{
-+	return readb(core->io_addr + offset);
-+}
-+
-+static u16 bcma_host_soc_bcm6362_read16(struct bcma_device *core, u16 offset)
-+{
-+	return ioread16be(core->io_addr + offset);
-+}
-+
-+static u32 bcma_host_soc_bcm6362_read32(struct bcma_device *core, u16 offset)
-+{
-+	return ioread32be(core->io_addr + offset);
-+}
-+
-+static void bcma_host_soc_bcm6362_write8(struct bcma_device *core, u16 offset,
-+					 u8 value)
-+{
-+	writeb(value, core->io_addr + offset);
-+}
-+
-+static void bcma_host_soc_bcm6362_write16(struct bcma_device *core, u16 offset,
-+					  u16 value)
-+{
-+	iowrite16be(value, core->io_addr + offset);
-+}
-+
-+static void bcma_host_soc_bcm6362_write32(struct bcma_device *core, u16 offset,
-+					  u32 value)
-+{
-+	iowrite32be(value, core->io_addr + offset);
-+}
-+
-+#ifdef CONFIG_BCMA_BLOCKIO
-+/* Buffers are kept in bus byte order, so copy them without swapping. */
-+static void bcma_host_soc_bcm6362_block_read(struct bcma_device *core,
-+					     void *buffer, size_t count,
-+					     u16 offset, u8 reg_width)
-+{
-+	void __iomem *addr = core->io_addr + offset;
-+
-+	switch (reg_width) {
-+	case sizeof(u8): {
-+		u8 *buf = buffer;
-+
-+		while (count) {
-+			*buf = __raw_readb(addr);
-+			buf++;
-+			count--;
-+		}
-+		break;
++	if (!pde_pin(pde)) {
++		m->op = &pde_seq_ops_unpinned;
++		return ERR_PTR(-EIO);
 +	}
-+	case sizeof(u16): {
-+		__be16 *buf = buffer;
-+
-+		WARN_ON(count & 1);
-+		while (count) {
-+			*buf = (__force __be16)__raw_readw(addr);
-+			buf++;
-+			count -= 2;
-+		}
-+		break;
-+	}
-+	case sizeof(u32): {
-+		__be32 *buf = buffer;
-+
-+		WARN_ON(count & 3);
-+		while (count) {
-+			*buf = (__force __be32)__raw_readl(addr);
-+			buf++;
-+			count -= 4;
-+		}
-+		break;
-+	}
-+	default:
-+		WARN_ON(1);
-+	}
++	m->op = pde->seq_direct;
++	if (!pde_has_proc_seq_ops(pde))
++		return single_start(m, pos);
++	return pde->seq_ops->start(m, pos);
 +}
 +
-+static void bcma_host_soc_bcm6362_block_write(struct bcma_device *core,
-+					      const void *buffer, size_t count,
-+					      u16 offset, u8 reg_width)
++void pde_seq_stop(struct seq_file *m, void *v)
 +{
-+	void __iomem *addr = core->io_addr + offset;
++	struct proc_dir_entry *pde = seq_pde(m);
 +
-+	switch (reg_width) {
-+	case sizeof(u8): {
-+		const u8 *buf = buffer;
-+
-+		while (count) {
-+			__raw_writeb(*buf, addr);
-+			buf++;
-+			count--;
-+		}
-+		break;
-+	}
-+	case sizeof(u16): {
-+		const __be16 *buf = buffer;
-+
-+		WARN_ON(count & 1);
-+		while (count) {
-+			__raw_writew((__force u16)*buf, addr);
-+			buf++;
-+			count -= 2;
-+		}
-+		break;
-+	}
-+	case sizeof(u32): {
-+		const __be32 *buf = buffer;
-+
-+		WARN_ON(count & 3);
-+		while (count) {
-+			__raw_writel((__force u32)*buf, addr);
-+			buf++;
-+			count -= 4;
-+		}
-+		break;
-+	}
-+	default:
-+		WARN_ON(1);
-+	}
-+}
-+#endif /* CONFIG_BCMA_BLOCKIO */
-+
-+static void __iomem *bcma_host_soc_bcm6362_ctl_reg(struct bcma_device *core)
-+{
-+	struct bcma_host_soc_bcm6362 *host = to_bcm6362(core->bus);
-+
-+	switch (core->id.id) {
-+	case BCMA_CORE_CHIPCOMMON:
-+		return host->wlan_ctrl + BCM6362_WLAN_CC_CONTROL;
-+	case BCMA_CORE_80211:
-+		return host->wlan_ctrl + BCM6362_WLAN_MAC_CONTROL;
-+	default:
-+		return NULL;
-+	}
++	if (pde_has_proc_seq_ops(pde))
++		pde->seq_ops->stop(m, v);
++	pde_unpin(pde);
 +}
 +
-+static u32 bcma_host_soc_bcm6362_aread32(struct bcma_device *core, u16 offset)
++/* what single_open() iterates with, seq_file keeps its own private */
++void *pde_single_next(struct seq_file *m, void *v, loff_t *pos)
 +{
-+	void __iomem *ctl = bcma_host_soc_bcm6362_ctl_reg(core);
-+
-+	switch (offset) {
-+	case BCMA_IOCTL:
-+		if (!ctl)
-+			return BCMA_IOCTL_CLK;
-+		return ioread32be(ctl) & BCM6362_WLAN_CTL_IOCTL;
-+	case BCMA_IOST:
-+		/*
-+		 * The core bits of MacStatus do not reflect the PHY while
-+		 * the 802.11 core is held in reset, so report what the
-+		 * macro supports: a dual-band PHY and 64-bit DMA. The bands
-+		 * actually usable depend on the board antennas.
-+		 */
-+		if (core->id.id == BCMA_CORE_80211)
-+			return BCM6362_WLAN_IOST_2G_PHY |
-+			       BCM6362_WLAN_IOST_5G_PHY | BCMA_IOST_DMA64;
-+		return 0;
-+	case BCMA_RESET_CTL:
-+		if (ctl && (ioread32be(ctl) & BCM6362_WLAN_CTL_RESET))
-+			return BCMA_RESET_CTL_RESET;
-+		return 0;
-+	case BCMA_RESET_ST:
-+		return 0;
-+	default:
-+		dev_warn_once(core->bus->dev,
-+			      "core 0x%03x: unhandled agent read at 0x%03x\n",
-+			      core->id.id, offset);
-+		return 0;
-+	}
++	++*pos;
++	return NULL;
 +}
 +
-+static void bcma_host_soc_bcm6362_awrite32(struct bcma_device *core, u16 offset,
-+					   u32 value)
++static int pde_seq_open(struct proc_dir_entry *pde, struct file *file)
 +{
-+	void __iomem *ctl = bcma_host_soc_bcm6362_ctl_reg(core);
-+	u32 val;
-+
-+	if (!ctl)
-+		goto unhandled;
-+
-+	switch (offset) {
-+	case BCMA_IOCTL:
-+		val = ioread32be(ctl) & BCM6362_WLAN_CTL_RESET;
-+		val |= value & BCM6362_WLAN_CTL_IOCTL;
-+		iowrite32be(val, ctl);
-+		return;
-+	case BCMA_RESET_CTL:
-+		val = ioread32be(ctl);
-+		if (value & BCMA_RESET_CTL_RESET)
-+			val |= BCM6362_WLAN_CTL_RESET;
-+		else
-+			val &= ~BCM6362_WLAN_CTL_RESET;
-+		iowrite32be(val, ctl);
-+		return;
-+	}
-+
-+unhandled:
-+	dev_warn_once(core->bus->dev,
-+		      "core 0x%03x: unhandled agent write 0x%08x at 0x%03x\n",
-+		      core->id.id, value, offset);
-+}
-+
-+static const struct bcma_host_ops bcma_host_soc_bcm6362_ops = {
-+	.read8		= bcma_host_soc_bcm6362_read8,
-+	.read16		= bcma_host_soc_bcm6362_read16,
-+	.read32		= bcma_host_soc_bcm6362_read32,
-+	.write8		= bcma_host_soc_bcm6362_write8,
-+	.write16	= bcma_host_soc_bcm6362_write16,
-+	.write32	= bcma_host_soc_bcm6362_write32,
-+#ifdef CONFIG_BCMA_BLOCKIO
-+	.block_read	= bcma_host_soc_bcm6362_block_read,
-+	.block_write	= bcma_host_soc_bcm6362_block_write,
-+#endif
-+	.aread32	= bcma_host_soc_bcm6362_aread32,
-+	.awrite32	= bcma_host_soc_bcm6362_awrite32,
-+};
-+
-+/*
-+ * Macro enable sequence from the Broadcom board support code: with the
-+ * clock forced on and the macro in soft reset, enable the 802.11 core
-+ * clock with force gated clock set, then release the soft reset and the
-+ * forces.
-+ */
-+static int bcma_host_soc_bcm6362_power_on(struct bcma_host_soc_bcm6362 *host)
-+{
-+	void __iomem *base = host->wlan_ctrl;
 +	int err;
 +
-+	err = clk_prepare_enable(host->clk);
-+	if (err) {
-+		dev_err(host->bus.dev, "failed to enable clock: %d\n", err);
-+		return err;
-+	}
-+	fsleep(10000);
-+
-+	err = reset_control_bulk_assert(ARRAY_SIZE(host->resets), host->resets);
-+	if (err)
-+		goto err_resets;
-+	fsleep(1000);
-+	err = reset_control_bulk_deassert(ARRAY_SIZE(host->resets), host->resets);
-+	if (err)
-+		goto err_resets;
-+	fsleep(1000);
-+
-+	iowrite32be(BCM6362_WLAN_MISC_FORCE_CLK_ON |
-+		    BCM6362_WLAN_MISC_MACRO_SOFT_RESET,
-+		    base + BCM6362_WLAN_MISC);
-+	fsleep(1000);
-+
-+	iowrite32be(BCMA_IOCTL_FGC | BCMA_IOCTL_CLK,
-+		    base + BCM6362_WLAN_MAC_CONTROL);
-+	iowrite32be(BCM6362_WLAN_MISC_FORCE_CLK_ON, base + BCM6362_WLAN_MISC);
-+	iowrite32be(0, base + BCM6362_WLAN_MISC);
-+	iowrite32be(BCMA_IOCTL_CLK, base + BCM6362_WLAN_MAC_CONTROL);
-+
-+	dev_dbg(host->bus.dev, "CC ID A 0x%08x, MAC ID A 0x%08x\n",
-+		ioread32be(base + BCM6362_WLAN_CC_ID_A),
-+		ioread32be(base + BCM6362_WLAN_MAC_ID_A));
-+
-+	return 0;
-+
-+err_resets:
-+	dev_err(host->bus.dev, "failed to cycle resets: %d\n", err);
-+	clk_disable_unprepare(host->clk);
++	if (pde->state_size)
++		return seq_open_private(file, pde->seq_direct, pde->state_size);
++	err = seq_open(file, pde->seq_direct);
++	if (!err && pde_has_proc_show(pde))
++		((struct seq_file *)file->private_data)->private = pde->data;
 +	return err;
 +}
 +
-+static void bcma_host_soc_bcm6362_power_off(struct bcma_host_soc_bcm6362 *host)
++static void pde_seq_release(struct proc_dir_entry *pde, struct inode *inode,
++			    struct file *file)
 +{
-+	void __iomem *base = host->wlan_ctrl;
-+
-+	iowrite32be(0, base + BCM6362_WLAN_MAC_CONTROL);
-+	iowrite32be(BCM6362_WLAN_MISC_MACRO_DISABLE |
-+		    BCM6362_WLAN_MISC_MACRO_SOFT_RESET,
-+		    base + BCM6362_WLAN_MISC);
-+	reset_control_bulk_assert(ARRAY_SIZE(host->resets), host->resets);
-+	clk_disable_unprepare(host->clk);
++	if (pde->state_size)
++		seq_release_private(inode, file);
++	else
++		seq_release(inode, file);
 +}
 +
-+static int bcma_host_soc_bcm6362_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct bcma_host_soc_bcm6362 *host;
-+	struct bcma_bus *bus;
-+	int err;
-+
-+	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
-+	if (!host)
-+		return -ENOMEM;
-+
-+	bus = &host->bus;
-+	bus->dev = dev;
-+
-+	bus->mmio = devm_platform_ioremap_resource_byname(pdev, "chipcommon");
-+	if (IS_ERR(bus->mmio))
-+		return PTR_ERR(bus->mmio);
-+
-+	host->wlan_ctrl = devm_platform_ioremap_resource_byname(pdev, "wlan-ctrl");
-+	if (IS_ERR(host->wlan_ctrl))
-+		return PTR_ERR(host->wlan_ctrl);
-+
-+	host->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(host->clk))
-+		return dev_err_probe(dev, PTR_ERR(host->clk),
-+				     "failed to get clock\n");
-+
-+	host->resets[0].id = "wlan";
-+	host->resets[1].id = "wlan-ubus";
-+	err = devm_reset_control_bulk_get_exclusive(dev, ARRAY_SIZE(host->resets),
-+						    host->resets);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to get resets\n");
-+
-+	err = bcma_host_soc_bcm6362_power_on(host);
-+	if (err)
-+		return err;
-+
-+	bus->hosttype = BCMA_HOSTTYPE_SOC;
-+	bus->ops = &bcma_host_soc_bcm6362_ops;
-+	bus->big_endian = true;
-+	bus->wrapperless = true;
-+
-+	bcma_init_bus(bus);
-+
-+	err = bcma_bus_register(bus);
-+	if (err) {
-+		bcma_host_soc_bcm6362_power_off(host);
-+		return err;
-+	}
-+
-+	platform_set_drvdata(pdev, host);
-+
-+	return 0;
-+}
-+
-+static void bcma_host_soc_bcm6362_remove(struct platform_device *pdev)
-+{
-+	struct bcma_host_soc_bcm6362 *host = platform_get_drvdata(pdev);
-+
-+	bcma_bus_unregister(&host->bus);
-+	bcma_host_soc_bcm6362_power_off(host);
-+}
-+
-+static const struct of_device_id bcma_host_soc_bcm6362_of_match[] = {
-+	{ .compatible = "brcm,bcm6362-wlan-bus-axi" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, bcma_host_soc_bcm6362_of_match);
-+
-+static struct platform_driver bcma_host_soc_bcm6362_driver = {
-+	.driver = {
-+		.name = "bcma-host-soc-bcm6362",
-+		.of_match_table = bcma_host_soc_bcm6362_of_match,
-+	},
-+	.probe		= bcma_host_soc_bcm6362_probe,
-+	.remove		= bcma_host_soc_bcm6362_remove,
-+};
-+
-+int __init bcma_host_soc_bcm6362_register_driver(void)
-+{
-+	return platform_driver_register(&bcma_host_soc_bcm6362_driver);
-+}
-+
-+void __exit bcma_host_soc_bcm6362_unregister_driver(void)
-+{
-+	platform_driver_unregister(&bcma_host_soc_bcm6362_driver);
-+}
-diff --git a/drivers/bcma/main.c b/drivers/bcma/main.c
-index 72f045e6ed51..4ccc9fb98f61 100644
---- a/drivers/bcma/main.c
-+++ b/drivers/bcma/main.c
-@@ -682,6 +682,11 @@ static int __init bcma_modinit(void)
- 		pr_err("SoC host initialization failed\n");
- 		err = 0;
- 	}
-+	err = bcma_host_soc_bcm6362_register_driver();
-+	if (err) {
-+		pr_err("BCM6362 WLAN host initialization failed\n");
-+		err = 0;
-+	}
- #ifdef CONFIG_BCMA_HOST_PCI
- 	err = bcma_host_pci_init();
- 	if (err) {
-@@ -699,6 +704,7 @@ static void __exit bcma_modexit(void)
- #ifdef CONFIG_BCMA_HOST_PCI
- 	bcma_host_pci_exit();
- #endif
-+	bcma_host_soc_bcm6362_unregister_driver();
- 	bcma_host_soc_unregister_driver();
- 	bus_unregister(&bcma_bus_type);
+ /*
+  * At most 2 contexts can enter this function: the one doing the last
+  * close on the descriptor and whoever is deleting PDE itself.
+@@ -474,22 +555,35 @@ static unsigned int proc_reg_mmap_capabilities(struct file *file)
  }
+ #endif
+ 
++static int pde_open(struct proc_dir_entry *pde, struct inode *inode,
++		    struct file *file)
++{
++	const auto open = pde->proc_ops->proc_open;
++	int rv;
++
++	if (!pde_is_seq_file(pde))
++		return open ? open(inode, file) : 0;
++
++	rv = pde_seq_open(pde, file);
++	if (rv || !open)
++		return rv;
++	rv = open(inode, file);
++	if (rv)
++		pde_seq_release(pde, inode, file);
++	return rv;
++}
++
+ static int proc_reg_open(struct inode *inode, struct file *file)
+ {
+ 	struct proc_dir_entry *pde = PDE(inode);
+ 	int rv = 0;
+-	typeof_member(struct proc_ops, proc_open) open;
+ 	struct pde_opener *pdeo;
+ 
+ 	if (!pde_has_proc_lseek(pde))
+ 		file->f_mode &= ~FMODE_LSEEK;
+ 
+-	if (pde_is_permanent(pde)) {
+-		open = pde->proc_ops->proc_open;
+-		if (open)
+-			rv = open(inode, file);
+-		return rv;
+-	}
++	if (pde_is_permanent(pde))
++		return pde_open(pde, inode, file);
+ 
+ 	/*
+ 	 * Ensure that
+@@ -514,9 +608,7 @@ static int proc_reg_open(struct inode *inode, struct file *file)
+ 		}
+ 	}
+ 
+-	open = pde->proc_ops->proc_open;
+-	if (open)
+-		rv = open(inode, file);
++	rv = pde_open(pde, inode, file);
+ 
+ 	if (pde->open) {
+ 		if (rv == 0) {
+@@ -544,23 +636,45 @@ static int proc_reg_release(struct inode *inode, struct file *file)
+ 	if (pde_is_permanent(pde)) {
+ 		const auto release = pde->proc_ops->proc_release;
+ 		if (release)
+-			return release(inode, file);
+-		return 0;
++			release(inode, file);
++		goto out;
+ 	}
+ 
+ 	if (!pde->open)
+-		return 0;
++		goto out;
+ 	spin_lock(&pde->pde_unload_lock);
+ 	list_for_each_entry(pdeo, &pde->open->files, lh) {
+ 		if (pdeo->file == file) {
+ 			close_pdeo(pde, pdeo);
+-			return 0;
++			goto out;
+ 		}
+ 	}
+ 	spin_unlock(&pde->pde_unload_lock);
++out:
++	/* ->proc_release() has run, here or in remove_proc_entry() */
++	if (pde_is_seq_file(pde))
++		pde_seq_release(pde, inode, file);
+ 	return 0;
+ }
+ 
++/* For seq_file entries, see pde_seq_ops. */
++static const struct file_operations proc_seq_file_ops = {
++	.llseek		= seq_lseek,
++	.read_iter	= seq_read_iter,
++	.splice_read	= copy_splice_read,
++	.write		= proc_reg_write,
++	.poll		= proc_reg_poll,
++	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
++	.compat_ioctl	= proc_reg_compat_ioctl,
++	.mmap		= proc_reg_mmap,
++	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
++	.open		= proc_reg_open,
++	.release	= proc_reg_release,
++};
++
+ static const struct file_operations proc_reg_file_ops = {
+ 	.llseek		= proc_reg_llseek,
+ 	.read		= proc_reg_read,
+@@ -644,7 +758,9 @@ struct inode *proc_get_inode(struct super_block *sb, struct proc_dir_entry *de)
+ 
+ 	if (S_ISREG(inode->i_mode)) {
+ 		inode->i_op = de->proc_iops;
+-		if (pde_has_proc_read_iter(de))
++		if (pde_is_seq_file(de))
++			inode->i_fop = &proc_seq_file_ops;
++		else if (pde_has_proc_read_iter(de))
+ 			inode->i_fop = &proc_iter_file_ops;
+ 		else
+ 			inode->i_fop = &proc_reg_file_ops;
+diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+index 7dea0237f08b..674e6b4ed21e 100644
+--- a/fs/proc/internal.h
++++ b/fs/proc/internal.h
+@@ -46,6 +46,8 @@ struct proc_dir_entry {
+ 	};
+ 	/* the open files procfs has to know, see struct pde_open_node */
+ 	struct pde_open_node *open;
++	/* the seq_operations of the seq_file, see pde_init_seq_direct() */
++	struct seq_operations *seq_direct;
+ 	proc_write_t write;
+ 	void *data;
+ 	unsigned int state_size;
+@@ -97,6 +99,22 @@ static inline bool pde_has_proc_lseek(const struct proc_dir_entry *pde)
+ 	return pde->flags & PROC_ENTRY_proc_lseek;
+ }
+ 
++static inline bool pde_has_proc_seq_ops(const struct proc_dir_entry *pde)
++{
++	return pde->flags & PROC_ENTRY_proc_seq_ops;
++}
++
++static inline bool pde_has_proc_show(const struct proc_dir_entry *pde)
++{
++	return pde->flags & PROC_ENTRY_proc_show;
++}
++
++/* procfs owns the seq_file, see pde_seq_start() */
++static inline bool pde_is_seq_file(const struct proc_dir_entry *pde)
++{
++	return pde_has_proc_seq_ops(pde) || pde_has_proc_show(pde);
++}
++
+ extern struct kmem_cache *proc_dir_entry_cache;
+ void pde_free(struct proc_dir_entry *pde);
+ 
+@@ -343,6 +361,9 @@ void proc_init_kmemcache(void);
+ void proc_invalidate_siblings_dcache(struct hlist_head *inodes, spinlock_t *lock);
+ void set_proc_pid_nlink(void);
+ extern struct inode *proc_get_inode(struct super_block *, struct proc_dir_entry *);
++void *pde_seq_start(struct seq_file *m, loff_t *pos);
++void pde_seq_stop(struct seq_file *m, void *v);
++void *pde_single_next(struct seq_file *m, void *v, loff_t *pos);
+ extern void proc_entry_rundown(struct proc_dir_entry *);
+ 
+ /*
+diff --git a/include/linux/proc_fs.h b/include/linux/proc_fs.h
+index 6ad5150020bf..ea55ed85a2d6 100644
+--- a/include/linux/proc_fs.h
++++ b/include/linux/proc_fs.h
+@@ -27,6 +27,8 @@ enum {
+ 
+ 	PROC_ENTRY_proc_read_iter	= 1U << 1,
+ 	PROC_ENTRY_proc_lseek		= 1U << 3,
++	PROC_ENTRY_proc_seq_ops		= 1U << 4,
++	PROC_ENTRY_proc_show		= 1U << 5,
+ 
+ 	PROC_ENTRY_FORCE_LOOKUP		= 1U << 7,
+ };
+@@ -37,7 +39,10 @@ struct proc_ops {
+ 	ssize_t	(*proc_read)(struct file *, char __user *, size_t, loff_t *);
+ 	ssize_t (*proc_read_iter)(struct kiocb *, struct iov_iter *);
+ 	ssize_t	(*proc_write)(struct file *, const char __user *, size_t, loff_t *);
+-	/* mandatory unless nonseekable_open() or equivalent is used */
++	/*
++	 * mandatory unless nonseekable_open() or equivalent is used, procfs
++	 * seeks seq_file entries itself
++	 */
+ 	loff_t	(*proc_lseek)(struct file *, loff_t, int);
+ 	int	(*proc_release)(struct inode *, struct file *);
+ 	__poll_t (*proc_poll)(struct file *, struct poll_table_struct *);
+@@ -47,6 +52,21 @@ struct proc_ops {
+ #endif
+ 	int	(*proc_mmap)(struct file *, struct vm_area_struct *);
+ 	unsigned long (*proc_get_unmapped_area)(struct file *, unsigned long, unsigned long, unsigned long, unsigned long);
++	/*
++	 * For seq_file entries procfs opens the seq_file, reads and seeks
++	 * through it and frees it once the file is released. ->proc_open()
++	 * finds the seq_file in ->private_data and ->proc_release() only
++	 * releases what ->proc_open() set up. It can run while a reader still
++	 * copies out of the seq_file, so it must leave that alone. procfs
++	 * allocates ->proc_state_size bytes of ->private state for
++	 * ->proc_seq_ops and points ->private at the entry's data for
++	 * ->proc_show(). Nothing that runs with the entry pinned may wait for
++	 * something a copy to or from userspace can hold, like the seq_file's
++	 * lock.
++	 */
++	const struct seq_operations *proc_seq_ops;
++	int	(*proc_show)(struct seq_file *, void *);
++	unsigned int proc_state_size;
+ } __randomize_layout;
+ 
+ /* definitions for hide_pid field */
 
 -- 
-2.56.0
+2.53.0
 
