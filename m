@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803065;
-	b=W7ySOdfbwm4FxZ42cbtrZGYjHeGR2yU4GrD23aucURs6W5smyMEWqGGNcI+Y6/1s6AmG
-	 wIxiZ20PShdeuB1p0AQd7d5QivzHb8KIR9KmCQuEKhWAX2afos2FKQRA4NYJP0cU8lumc
-	 3vdX1Ns6g7SlP14bpqv0H88mtxE2DmYZvqU38nIo045a6tsMJ2ZMH9ET3Vl+eYfFuShPj
-	 +uAAi+tUkmiDHC0ogq8MwTXwVoBdSTnmiF23wojyw3CuJaKcnE8Ln7OTsL9XOqRs5alJO
-	 gE0CqVp0th/vJUS9JCUra/BojfMyV/ijMIpp2HD2racDJknYe9kB3/RBirJz/L2D8OQ==
+	t=1793803102;
+	b=VhIGO6cUQxF2XegSLx1lMs2oFY6cp+0g6lG+REzDo8JOqx6F3waXmW8kyhtSVfIQhYhc
+	 vY/e4aFZjHKBhbd3rdZ1iv54QuIY+W4K/5I5M+cL4tq4i2JZoB2w3MF4P7L7FGBd/Wne6
+	 dmYFr8NrhOLwjiRM3zyqBHG7WSKNrvkZChV9OLVud7Cd4+vQnvO4DzUF1w0T57X72vwT3
+	 VM5KQ1596MbzfzoaGEOaeS7HC453PgQr+0b5GlbxHSgbbRG2oHKhA6F8FmXBwmIUMjJF1
+	 tmxhnTr3COsTtY+9v2aBl2hlzPl+0VXJtfCYfjVE3henKZ9qBQQFBW/zFcYXzYs33yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803065;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=0hwVZZz07iUe3KACc8i9KQSWC3eXwm+ao1NTrInwjeI=;
-	b=q79pSSqcK5ex+MRF+Tt7HZKD98vMsM7c+aj6BPoSsD1Kq6LiA97wK6kHWYp3YGtzIFWy
-	 WXbP5pm2rb20rFhl1b3jk8fxj2yJeIigPQJMuV7BzUhbzacZ/1zZQcX7lAF+5pa1LP9jD
-	 CY36y4l2YHZEYA/KjSpuptcLxYi9v22BptxS31sRiaNOkDM7NbMo0lN52KlzgbqaTC6Wn
-	 +RL6GFiEYUOk5Z2R4pHk870FTKt8QF15gC60KlX5+qR4qEj2b3UahlY5hDrnIlRIsg0ea
-	 jiKzBNOdKcgjUslmR7k6XtBkn0s1byXa60k0c7815OnsSL1oZtTeE430s9zissTLQ7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803102;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TQh3NLauPY1iVVeXcuDFWHu+HqpyEZbU2yQkADbmaQs=;
+	b=XlFrRzC/ZToq3ZxGOr0ju1HGrjd+KyMe2mffj7lTr6PMIChLYznR9CUkM4FnBk/GpGjm
+	 pO4xxTTc5dHvRWX9DQ+ICPxELzH7p2sAEG6rdUYY3gBXSud+Wcg8kPvPESEVx8Yh/tw6q
+	 ywwHQGy8VU5I04WLmYeBWH5TK/pCbYskqjMsK5Sl+IcRrNwJcI/ydXReiaqrTn1AxESet
+	 p/HpxYuaIWroh9tDN+wrqiMHQRIuMvvf2sU47hPpOFrqUj4pLpkOl9pT9DJEgqYWOyNaM
+	 cSYPKaKCCxPw0nKDEqQ9AMIrHwJTiWgT1AjWmw2Bjvm79l6Gxy2/3XAIrn2W4jtMbjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfKhKgVm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361C0606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 361C0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-547ae874949so1110765b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:37:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793803064; x=1794407864;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0hwVZZz07iUe3KACc8i9KQSWC3eXwm+ao1NTrInwjeI=;
-        b=e8Jn7IWk+3Gk65CcqN9y/Dv8Reb8NmfDiO/g2g7jIdKKXIXce9fKNepBcQH/UHYFsh
-         NzlcEDLL6XBXV5PFUczokEO+SHAyfgFRb1z41kCQe7yFabuFWMxSRBPZ4c52xZHnlWRR
-         NLI0JQslRkwslHJzzL5JdB6x2XD+PiHrXgB6G2X6FMWBP1kJlKdPz1pmJSXPLhamqYlv
-         Uscz/njpwDbSWD9dnpK5lcmgEEIRVdLfMUEsrYZyo7cvF0mS1UsO7PQEudRTBrSlkPrD
-         dY3q2f8gm1J7vcJUdDzuKUJn6HM0J+2aNSBpH6+I1Y4tBX9u9uAsiy8oVS3gyNAGEGr2
-         Fp/g==
-X-Gm-Message-State: APuU4Z84t6QEysPjBhM1WpuHbEWcLTMagh93LOCKMK0uOFMHPZkRhilo
-	zixGgr0Q/u6/X2ietM6MgJFlYCv47YdXRpI/2OdHuwSN7ogrNDXXZbIR3oSAJ7W1BuEQOHytg5p
-	f+KKyw8NfTWW202yff7n+d4/pyk/4LXGkfMvglBsetjGVp5V3BayU8rF/hMg=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57370606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfKhKgVm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DA51F00A16
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:38:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793803102;
+	bh=TQh3NLauPY1iVVeXcuDFWHu+HqpyEZbU2yQkADbmaQs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VfKhKgVmXvQe2VRewqtDFVT3Z/6Dtd7+1cJreS9lRzXIAAkUnc5H2oJX9ssBZK3JX
+	 AWPrnhiuzCSj2FTM/6tRlbNTnvjd7y7nZk77uv5TZ86dFsccq+SB+0JJ4F2eY+C16m
+	 865v3OcqqLlGqjthBx7950hiNAYoevx/W/cNhXABD4mdfKS7S0OZhjove/5ihzff+J
+	 lhtnksdv0u6LFEafggI/Hmjhpnhph3fBWr4sZL3vCclpGarIsZjOzUZ/PCXSo1TFGy
+	 eva9+D6vDYz2OLgmNcF8TdV3pfHlUPo4GtfA6bjoSj5igS0XuaKDsGjLeuf98FzbyZ
+	 0NYLenDuMIn6w==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso698292e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:38:22 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxhoM5f+woJ0KhS6BMV7mOGvbViVT50mllUvHHYZwDaSrhsQGI54dKMU11NgXrLrE38GA8Q3O4cdQFcwYM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86Kgc/FghusU+Thq50EaXERB0LNRHDMvhSqDFfy7hrlOJOdZMJ
+	8N8WsD/X67+Xn2RSbG4jB0Gd/3Lt7P+vKD2H8qLH8y0lkt6hiRAeZHXQimaWBCEJIQZUqK6aAoz
+	gv9Tne9WxWbWs0jNH2tlmWVx9ys2dcRM=
+X-Received: by 2002:a05:6512:6193:b0:5bf:bf86:d01a with SMTP id
+ 2adb3069b0e04-5bfd9562e8amr5915003e87.17.1793803100471; Wed, 04 Nov 2026
+ 06:38:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,74 +59,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3502:b0:4c3:9892:96fe with SMTP id
- 5614622812f47-5640dbd6783mr12735983b6e.3.1793803064172; Wed, 04 Nov 2026
- 06:37:44 -0800 (PST)
-Date: Wed, 04 Nov 2026 06:37:44 -0800
-In-Reply-To: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aeb4338.3389765f.1918dd.0000.GAE@google.com>
-Subject: Forwarded: [PATCH] net: skbuff: convert BUG_ON to warning and error
- return during linearization
-From: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
+References: <cover.1793715774.git.krystianmkaniewski@gmail.com> <417c773d1719006cc85a3468dc393f5e754bf855.1793715774.git.krystianmkaniewski@gmail.com>
+In-Reply-To: <417c773d1719006cc85a3468dc393f5e754bf855.1793715774.git.krystianmkaniewski@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 4 Nov 2026 15:38:08 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0j-WY=nwVvq6Ck7kDLZ_E6jXGsQHohB5uZtT3uSQ0-6Ng@mail.gmail.com>
+X-Gm-Features: AclHuK9myr72rVuqTOxZAZX_zcmWDtmvlF6GR5rcMcUu0FZVOtDo1SpAWRGZnAQ
+Message-ID: <CAJZ5v0j-WY=nwVvq6Ck7kDLZ_E6jXGsQHohB5uZtT3uSQ0-6Ng@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] PM: hibernate: refuse splice on /sys/power/resume
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Ian Kent <raven@themaw.net>, Danilo Krummrich <dakr@kernel.org>, 
+	Johan Hovold <johan@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, driver-core@lists.linux.dev, 
+	linux-pm@vger.kernel.org, autofs@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Tue, Nov 3, 2026 at 3:57=E2=80=AFPM Krystian Kaniewski
+<krystianmkaniewski@gmail.com> wrote:
+>
+> resume_store() passes the written string to lookup_bdev() before it
+> tries to parse it as a device number, so the string is resolved as a
+> path relative to the current directory of the writer. The syzbot
+> reproducer writes a relative name from the root of an indirect autofs
+> mount. Autofs writes a mount request to its daemon pipe while kernfs
+> holds of->mutex. Together with a splice into a writable kernfs file,
+> which takes of->mutex inside a pipe mutex, lockdep reports
+>
+>   Chain exists of:
+>     &pipe->mutex --> &of->mutex --> &sbi->pipe_mutex
+>
+> A splice from the daemon pipe into /sys/power/resume deadlocks when
+> the written path triggers a mount request. Mark the attribute with
+> SYSFS_LOOKUP so that its writable opens refuse splice and use lockdep
+> classes of their own. Plain read() and write() keep their behavior, and
+> read-only opens retain splice support.
+>
+> Fixes: 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev in resum=
+e_store")
+> Reported-by: syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D002fb7b2d0bc53bf7e75
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Link: https://lore.kernel.org/r/ec0c2add83f18d7a3c726d5d219dfe42@kernel.o=
+rg
+> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 
-***
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-Subject: [PATCH] net: skbuff: convert BUG_ON to warning and error return during linearization
-Author: gowtham398gs@gmail.com
+and I'm expecting this to be routed along with the first patch in the serie=
+s.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+Thanks!
 
-
-When receiving an SCTP packet that is nonlinear (such as an SCTP GSO packet
-constructed with fragments in frag_list), sctp_rcv attempts to linearize
-the packet using skb_linearize() if the sk_buff is cloned (e.g.,
-tapped by a packet socket or shared) or not recognized as GSO. During
-linearization via __skb_linearize() and __pskb_pull_tail(),
-skb_copy_bits() fails with -EFAULT due to a discrepancy in frag_list fragment
-lengths or readable offsets, triggering a BUG_ON assertion failure.
-In production builds, this BUG() results in an invalid opcode oops
-and kernel panic, causing an immediate denial of service.
-
-Fix this issue by removing the fatal BUG_ON() assertion in the core
-network buffer layer (__pskb_pull_tail) when skb_copy_bits() encounters a
-layout or length mismatch. Instead, log a rate-limited error message using
-pr_err_ratelimited() and return NULL.
-
-Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f15a6eff7a53f6eb7dc3
-Fixes: 90017accff61 ("sctp: support GSO")
-
-Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
----
- net/core/skbuff.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 48f676411724..f76fe6972859 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -2900,8 +2900,12 @@ void *__pskb_pull_tail(struct sk_buff *skb, int delta)
- 			return NULL;
- 	}
- 
--	BUG_ON(skb_copy_bits(skb, skb_headlen(skb),
--			     skb_tail_pointer(skb), delta));
-+	if (unlikely((skb_copy_bits(skb, skb_headlen(skb),
-+			     skb_tail_pointer(skb), delta))){
-+		pr_err_ratelimited("skbuff: length discrepancy"
-+				   "detected in %s.\n", __func__);
-+		return NULL;
-+	}
- 
- 	/* Optimization: no fragments, no reasons to preestimate
- 	 * size of pulled pages. Superb.
--- 
-2.56.0
-
+> ---
+> v2:
+> - New patch. Together with patch 1, this replaces the v1 autofs change.
+>
+>  kernel/power/hibernate.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+> index e365e440cd5299..9dc5a27f674fa0 100644
+> --- a/kernel/power/hibernate.c
+> +++ b/kernel/power/hibernate.c
+> @@ -1316,7 +1316,8 @@ static ssize_t resume_store(struct kobject *kobj, s=
+truct kobj_attribute *attr,
+>         return n;
+>  }
+>
+> -power_attr(resume);
+> +static struct kobj_attribute resume_attr =3D
+> +       __ATTR_LOOKUP(resume, 0644, resume_show, resume_store);
+>
+>  static ssize_t resume_offset_show(struct kobject *kobj,
+>                                   struct kobj_attribute *attr, char *buf)
+> --
+> 2.53.0
+>
