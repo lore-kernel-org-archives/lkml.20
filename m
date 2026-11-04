@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778071;
-	b=ve5rrDiY9iU6uaV6SDa1Rwg7t0xbtc4lvgw1Bl8VTmCmNblvb/mgvJOU6JJ/GgjEt4IL
-	 96KkQ4PHVuXdr7VdyiBSc9FAkmFI7mr4FaUKhS4BXJdIasE9RZjFvdDHcgzNN7cRpygOl
-	 tc9yI0eD5N4sWwxtjQX0yDK7EyuoSsJctrrQmnVfv+mlwfnYGX51k1vH0m4l4fN0YgkUr
-	 240oOk2dc3sA+XL45EYiB+Tp0XUcQf243ssLAWfbZGRf7kTo8be9d3T0nQ6xZ0C9N8ovG
-	 ghPEufgZ7mYwaEcOHMkFwaOof7bVdBJ9/IE4yS+7SV3OnmHkUf8xshWMtRL99e/tYBQ==
+	t=1793778067;
+	b=KyJtiy7cPstcM8e2cYlqSAskhR+H6LMI8zxuC6fjffPBO4k9rIaOP15ZPT2Lu2jNY60S
+	 J9Vh4H7PTK74N/RcibqP6og2wU+ebDEBlhPAVZx0hAw/ffOAFPP/Aj64ggYWNGoEXY7l7
+	 8ZoLDGgex7UADdDs8G7MGdyeKEZxPRgafVL0sGDniwWIQYCV7whRz0r/XdeQ23D9RzKIX
+	 fLRfEIbKzbAbBmQ+RQsjbp6toltzgKAsp+UX9wshd58jL5BNENvuFc0WCpvGxeLS9QrnM
+	 ex+pO8vXe4ENGetwN7Lp3i5KAvG08JzFh1TkrK24lQHET0ZpofUS4ILEaMQTSodDhtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778071;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=1P0UdRGesSvRcYWLOcSq2v6TwJ6oFJppYDalpqzJ4qI=;
-	b=E2yWTTryfJKC9TzndKEhFHBRk8KBTv/+HkgpM5p+m0bouvWbUVOLAlC0GnjlD/bYnIB6
-	 U7Y7R15v6oZv+hv9ZiCx7XYCwmXhVvcOhcQk65+WZwzbTjmltFaXtsnekzUrowiPELI9h
-	 P8KACLeHk/k42KGBqcTkgpEPmL5cYVeCtJSm9v6ejp/86xAmA7hG2198uE5EcoE0BMyIG
-	 B1CF47Pj2cMtGh9DzKa7XXi/qN32NnB9p0evOaK8AI/7gejZf62obJl7g8Ir8n+8bXzWd
-	 rM6TnOCaQaMny5sxOj3AB9xMTJyqXNrdhRkeAqCOotRM7gDqpuXcltsrKxMHdiTtWYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778067;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=E6KaVjOzaIihwwkJhtsDrmAppK0b8JAgElFD+J/JyCY=;
+	b=XITin63cZjahGI9TjhXlduyXsqUdUANsP4Yt4zNkKyHfyIYkvzKCLqEfwaNc1395Glqx
+	 6+ac32T3poI3tkgGbCjNhzF8M7+oq8so9/EITKFHKXCbH2BurbGkeBHJVK79qoupC7e5W
+	 pmj2WiYtGZRi4fMGzyhWYw4vJLKLtyYA/uSXO0tV0nmSep0DvqVUFuI8ZaIhIZ6SnctXU
+	 ZcOtFvyw9KjuiGBpO+lN4ok2w6McHnamhC8VBhd2dEMRml1naL0hmubLA9xxiIQQvAW4v
+	 bP0uw6AddEKwsLYMMZwW0yAJJTBDbpL2PxcLBGuSZ2+acrQ+u2e99d+QkNLSvypD+yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b="U7Itfj/R";
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GvkDrN1u;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35251606A328;
-	Wed,  4 Nov 2026 07:41:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35251606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6503606A326;
+	Wed,  4 Nov 2026 07:41:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6503606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=U7Itfj/R
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id ED28021F8C;
-	Wed, 04 Nov 2026 09:41:05 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=1P0UdRGesSvRcYWLOcSq2v6TwJ6oFJppYDalpqzJ4qI=; b=U7Itfj/RWc35
-	3MpdDW+66Nf/QskNbtdt8egnB90PjT0ewOxcpgzWJrpb1nTT7KWzvO5bEAvzFlts
-	YHRxeb/LHIZHALAVy8CifVF3JJpUY3Fkv7jSY1ME6fIFud35+mBk02fPxT3VU5Ug
-	xC2NczTdiMBJ5gfXdkRMYfCkeQq0qXW5r44OJVQ3KXky0Y6DUOc7wBvxRCN7ccqe
-	+dh5UXYaUj+NsmTKPOMNKE2XsJtWC0cQmYxtgO9/OdLQZPF/TOslSio4wO+m/RVu
-	+6lTzP9KE1il2DDhUvc99Lnw72ABmpBdh0waRbvi3LLchmWtPJORTAT5XVU89oYd
-	kjagN4VkZbR5Qm1wqyLL+pOZDa1eQIrmuE74kNiB2VKdKNQybm9/rxqCGP/p+r3D
-	CRAXcPvtKxaGVZlhMTltxM62VD2NkesoKjoE2xzQ8jaT4LRkwWvEgGeW4JbkvB8h
-	UZM4Gj7BdkdwwtqlyMhfRy4N068PvfeELMZaf82IUAhiPrSXCFBqnMs3jFRBHnYv
-	+Bsz2GLIASfYxnsrrLts+zPtkM6TgU5/QOdQ2CyWXbswh3ZClW47U8jyGtJpS6uz
-	8BkcepXJGvIOdmP7tef83Sh1kdo0eH9aurShHBJLU4Mwya2ZYkIWIS1HST1AJW6A
-	8cVFdd3L168F3CsCfrjY9uEk+YSkCuE=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Wed, 04 Nov 2026 09:41:05 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 9032960881;
-	Wed,  4 Nov 2026 09:41:05 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 6A47exSv020371;
-	Wed, 4 Nov 2026 09:40:59 +0200
-Date: Wed, 4 Nov 2026 09:40:59 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yingjie Wang <1075151112@qq.com>
-cc: lvs-devel@vger.kernel.org, netdev@vger.kernel.org, horms@verge.net.au,
-        dsahern@kernel.org, idosch@nvidia.com, pablo@netfilter.org,
-        fw@strlen.de, phil@nwl.cc, davem@davemloft.net, edumazet@kernel.org,
-        kuba@kernel.org, pabeni@redhat.com, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf v2] ipvs: reject negative sync_refresh_period values
-In-Reply-To: <tencent_9109FFF19F0341A556269E694408976E2708@qq.com>
-Message-ID: <6cbe5281-99d0-bc08-6691-0a87f87442d3@ssi.bg>
-References: <tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com> <tencent_9109FFF19F0341A556269E694408976E2708@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GvkDrN1u
+Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 158844DC;
+	Wed,  4 Nov 2026 08:38:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793777927;
+	bh=d3F7JN644RH25JEuxMz+KTJkv/9cp9kRgQkD40SL1r0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GvkDrN1utu2oBvezEkxxaK0592fnKw4aS6BqzEk70CUxu5/FroFba7RlgFv66G41E
+	 w496UmjRegC2MAZ4xVf923+/WEokOxGludtD3lVHbyHjZgasS5IT2vJwE0XzDDRSj9
+	 mukjwWShyCONuseLOfaPBek58yclncxDleIEWV0E=
+Date: Wed, 4 Nov 2026 09:41:03 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Chen Changcheng <chenchangcheng@kylinos.cn>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fail probe when no video device is
+ registered
+Message-ID: <20261104074103.GA3896730@killaraus.ideasonboard.com>
+References: <20261104022146.42954-1-chenchangcheng@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,121 +62,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104022146.42954-1-chenchangcheng@kylinos.cn>
 
-
-	Hello,
-
-On Wed, 4 Nov 2026, Yingjie Wang wrote:
-
-> net.ipv4.vs.sync_refresh_period is documented as an unsigned number of
-> seconds.  proc_dointvec_jiffies() accepts a signed integer and converts
-> it to jiffies before storing it in an unsigned int field.  Consequently,
-> writing -1 stores UINT_MAX - HZ + 1 jiffies and bypasses the finite
-> bound applied to ordinary positive writes.
+On Wed, Nov 04, 2026 at 10:21:46AM +0800, Chen Changcheng wrote:
+> When a UVC device is unbound while userspace still holds the video
+> device open, the VS interface claims are released only after the last
+> file descriptor is closed.  Rebinding before that fails to claim the VS
+> interfaces, leaving the VC interface bound without a usable video
+> device:
 > 
-> This changes the behavior of ip_vs_sync_conn_needed().  With
-> sync_threshold="0 1" (threshold 0, period 1) and
-> sync_refresh_period=-1, only the first of twelve packets requests a
-> sync message; the zero-refresh control requests all twelve.
+>   [ 3229.189556] uvcvideo: Probing generic UVC device 1
+>   [ 3229.190496] uvcvideo: device 2 interface 1 is already claimed
+>   ...
+>   [ 3229.193758] uvcvideo: Scanning UVC chain: OT 4 <- XU 3 <- PU 2 <- IT 1
+>   [ 3229.193766] uvcvideo: Found a valid video chain (1 -> 4).
+>   [ 3229.193771] usb 9-1: No streaming interface found for terminal 4.
 > 
-> Store the value in seconds, as documented, and convert it at the single
-> consumer.  Use proc_douintvec_minmax() to reject negative input.  Cap the
-> value at INT_MAX / HZ to preserve the prior jiffies range and avoid
-> overflow in secs_to_jiffies().
+> Check after registering all video chains that at least one video device
+> was registered, and fail the probe with -ENODEV otherwise.
+
+That's a workaround, it doesn't fix the root cause.
+
+> Devices with no usable streaming interface at all will now also stay
+> unbound instead of being bound without any video device.
 > 
-> The issue was reproduced on an affected 7.0 distribution kernel in a
-> temporary network namespace.  A patched target kernel was built with W=1
-> and exercised in QEMU; -1 is now rejected with EINVAL, zero and positive
-> values retain their behavior, and the HZ=1000 boundary accepts 2147483
-> while rejecting 2147484.
-> 
-> Fixes: 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
-
-	Patch looks good to me, thanks!
-
-Acked-by: Julian Anastasov <ja@ssi.bg>
-
+> Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
 > ---
+>  drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
 > 
-> Notes:
->     Changes since v1:
->     - Drop the unnecessary <linux/jiffies.h> include.
->     - Rebase on current net/main and use the nf target tag.
->     
->     Link: https://lore.kernel.org/r/tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com/
-> 
->  include/net/ip_vs.h            | 6 +++---
->  net/netfilter/ipvs/ip_vs_ctl.c | 8 ++++++--
->  2 files changed, 9 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-> index 9a83bff32569..b6834542489a 100644
-> --- a/include/net/ip_vs.h
-> +++ b/include/net/ip_vs.h
-> @@ -1267,7 +1267,7 @@ struct netns_ipvs {
->  	int			sysctl_sloppy_sctp;
->  	int			sysctl_expire_quiescent_template;
->  	int			sysctl_sync_threshold[2];
-> -	unsigned int		sysctl_sync_refresh_period;
-> +	unsigned int		sysctl_sync_refresh_period; /* seconds */
->  	int			sysctl_sync_retries;
->  	int			sysctl_nat_icmp_send;
->  	int			sysctl_pmtu_disc;
-> @@ -1335,7 +1335,7 @@ struct netns_ipvs {
->  #define DEFAULT_SYNC_VER	1
->  #define DEFAULT_SLOPPY_TCP	0
->  #define DEFAULT_SLOPPY_SCTP	0
-> -#define DEFAULT_SYNC_REFRESH_PERIOD	(0U * HZ)
-> +#define DEFAULT_SYNC_REFRESH_PERIOD	0U
->  #define DEFAULT_SYNC_RETRIES		0
->  #define IPVS_SYNC_WAKEUP_RATE	8
->  #define IPVS_SYNC_QLEN_MAX	(IPVS_SYNC_WAKEUP_RATE * 4)
-> @@ -1363,7 +1363,7 @@ static inline int sysctl_sync_period(struct netns_ipvs *ipvs)
->  
->  static inline unsigned int sysctl_sync_refresh_period(struct netns_ipvs *ipvs)
->  {
-> -	return READ_ONCE(ipvs->sysctl_sync_refresh_period);
-> +	return secs_to_jiffies(READ_ONCE(ipvs->sysctl_sync_refresh_period));
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..0943db4eae07 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -2156,6 +2156,19 @@ static int uvc_register_terms(struct uvc_device *dev,
+>  	return 0;
 >  }
 >  
->  static inline int sysctl_sync_retries(struct netns_ipvs *ipvs)
-> diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-> index ce9fe20d6106..82726b6b5e3a 100644
-> --- a/net/netfilter/ipvs/ip_vs_ctl.c
-> +++ b/net/netfilter/ipvs/ip_vs_ctl.c
-> @@ -2369,6 +2369,8 @@ static int ip_vs_zero_all(struct netns_ipvs *ipvs)
->  
->  #ifdef CONFIG_SYSCTL
->  
-> +static unsigned int sync_refresh_period_max = INT_MAX / HZ;
+> +static int uvc_has_video_node(struct uvc_device *dev)
+> +{
+> +	struct uvc_streaming *stream;
 > +
->  static int
->  proc_do_conn_max(const struct ctl_table *table, int write,
->  		 void *buffer, size_t *lenp, loff_t *ppos)
-> @@ -2824,9 +2826,11 @@ static struct ctl_table vs_vars[] = {
->  	},
->  	{
->  		.procname	= "sync_refresh_period",
-> -		.maxlen		= sizeof(int),
-> +		.maxlen		= sizeof(unsigned int),
->  		.mode		= 0644,
-> -		.proc_handler	= proc_dointvec_jiffies,
-> +		.proc_handler	= proc_douintvec_minmax,
-> +		.extra1		= SYSCTL_ZERO,
-> +		.extra2		= &sync_refresh_period_max,
->  	},
->  	{
->  		.procname	= "sync_retries",
+> +	list_for_each_entry(stream, &dev->streams, list)
+> +		if (video_is_registered(&stream->queue.vdev))
+> +			return 0;
+> +
+> +	dev_info(&dev->intf->dev,
+> +		 "No usable streaming interface found\n");
+> +	return -ENODEV;
+> +}
+> +
+>  static int uvc_register_chains(struct uvc_device *dev)
+>  {
+>  	struct uvc_video_chain *chain;
+> @@ -2174,7 +2187,7 @@ static int uvc_register_chains(struct uvc_device *dev)
+>  #endif
+>  	}
+>  
+> -	return 0;
+> +	return uvc_has_video_node(dev);
+>  }
+>  
+>  /* ------------------------------------------------------------------------
 > 
-> base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
-> -- 
-> 2.43.0
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 
-Regards
+-- 
+Regards,
 
---
-Julian Anastasov <ja@ssi.bg>
-
+Laurent Pinchart
