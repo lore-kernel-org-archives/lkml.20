@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793805149;
-	b=XDu9RRW15Gm5UwxXOO6YN1rtJlY0OtY/3GAlaaTMSM91Y1K1tyCWTjmuvxIQbQS3jrkp
-	 INpXq/JnUQUmdXwzt8a6u3PSVtHMe6e9xqBDOBrmrtce+KKw33iUgktWyNDtVzh1IE2HY
-	 wHBeoAYp7aGf05ZnDBlF+oh1gIk4jhnG1CHhqbIqKCkLcUDkVJ28ETNCx0DA+8rVY1w34
-	 9ubjLSEgyawBKmnMlA+TD/mVblyyM8R7IFzvVuJFUVbK75WJmajL3ZMfFkJZpRUaHtzix
-	 jdDMVvkGDmgyu3CMSFKDBfIB+iJ1tZpJ/XWpoQehbjrxzXIsidpzGyMCQusEmmk1mXg==
+	b=RVsAJLfBmo3Z4IdK5w1hFpkU3ggutg1L50wWJg0SNkm0/us4zEtAkgBfn/PAp5jVUGOx
+	 zsCGIXlXjwGmg1paTof5dlF0WVMcDx2QL8qMFx8q5coxp3qrQiU8Xnj0QcQsGSABtawIc
+	 tbhGkXHvwrEN2rAgva1uhyg+/yar/t44+kEn5dn14ZgJb5FoJPZUpunsrEM3RFB1HExrD
+	 gWcmS7lXN238R4eEVeeXShNPlsqiAEIf8wsTnbGNtR3wk2o5dNC2bU26tyjz7qigowz+E
+	 rjUzPDB2rJ0mPO3daN6AKnQ2haqhx0FkgpfCQemj1PIoEUBN4AyFIXtKIkREq+hIilA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793805149;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=o3Cw2LxQFj/sOcaa0cN2pMz0x6px6mdmeBIG0Gey0zs=;
-	b=ldQQpwESLNUf8G/qcQOBaS5y1zbxdNyuGPoHsG+2dqfnTJWqZ6/eC5abiam5I2U7XDNU
-	 /6OkmSHp+uElQhirIZGkIdlca3qTcBzFKuZnxnweH88NCC2FmWEHKmmKfX567wsTzLFbh
-	 HIFt41w8MRPCUyJ/sYlG0I8ZfftXtvvPZfeAnCcuCg0WFZd+iC/Ii6CJv7pDdGNWcpMwC
-	 e0BeCtzHe6lzyZMbWiTSMYqHyQwaF8FCE80a0DMIAJBoEMaLcmAdcuajQfTvAtpHw+/yx
-	 82k5PtbLtcrM6mywOt4+NS1yZ6LZ150+Fi3go09ngPOCHgwAv/hBvKlA+T24AZPNcig==
+	bh=R/w5ujGIrw6u8hZCPvihsdmDgjiowOcByoqpRDE9Z+Q=;
+	b=LYDkjemd1OOH5I/gFFY1L2N6QnU5SIpivYIY5bNffwMrxMpIVsGFa2Z4pPhaubF1pcsr
+	 Lae5rqpv2qE8U8PuHimwtYHsoqYK2L9o5EXfeCCmCIPj7PI6TzrerTJhNCyppEzY15e6o
+	 9LT9+07LAtPiRvZTmTVVsI8dmg5g6uSV19T3PqGEsT0L4jkMt3hMV1xouTFg9qOMyVFd/
+	 r/unJuTOwgFhtark/YQmA07+/E7Mci33p8rKP1w+uZ4S7HzQyV5eV0+CcmykT6aYVyk2C
+	 wgYHkYYr3+4PwYqedBXXzj1uM7oWiBgs5BkSK2YDE4fvsEDr8Kq74CkP8VAWH9sWe9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b="wgzWSa/s";
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=MGcKx9rg;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D41606A32C;
-	Wed,  4 Nov 2026 15:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D41606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEEFD606D81E;
+	Wed,  4 Nov 2026 15:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEEFD606D81E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=wgzWSa/s
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=MGcKx9rg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1793805140;
-	bh=o3Cw2LxQFj/sOcaa0cN2pMz0x6px6mdmeBIG0Gey0zs=;
+	bh=R/w5ujGIrw6u8hZCPvihsdmDgjiowOcByoqpRDE9Z+Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wgzWSa/s0U/zl/aKzHmYRzgzv+6XVlcMMkphvZpxpp+jiO0P0qVDbKtFoCmWpkrjc
-	 hWWLo4HFyXbAoo80fONtCpn6h3bropcm2S5x73wnWKTZd9vK6t2Rmk0r+RgGOTKZjv
-	 67kcGZUGrp9s27GGMY+Ei7PNtbhjvmLqt6V3Fd7sswIgi8lTCvDh4arS5jAxySaLRm
-	 TWNf8QWxcmHo0EN3Elb3EYrHHYDyJlbYCc06hk8F7/SJ6KlBO7TT/cWZKO923J5kl5
-	 98a3f3CXxfxItMZMqfy8M6hW3VXQ7aEf1AbsQ+qfP5jBPyXsVyvpb/QO0odE2DNgdx
-	 91MDPYBC6lKPw==
+	b=MGcKx9rgbZidwenDUW4puVcyapqupmgFyxuu15WFNOcd3g9zkF6bx3gzVXpsiBDHG
+	 FILYB3U1HjAIEo4okY2ztz5GlMfxMt3PwG8fpVnGE1xWbMtwhaudIPiZO5tQ9ETZlv
+	 nnizI+ruszfzdAKmVI0ftBg91puXV7vbx5YCb2EuYG9t2aNUTdVrYFsCORjR/Ra1xK
+	 InoIyypCmWiylHiwq4eRoIES6Rdzv26bvKgXIgaR7+LzYTOVO9jxXzJXQ3NFVlS2W+
+	 DEg9GAY6DsDaehurgfEq0Sf8RA8Ybclx/omiGWH1p6f9JWMN4wQ/3eQo6SSTi+W1Sh
+	 s/0REhgAMjCoQ==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jKTSh1sNSzKTG;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jKTSh4CxlzL1P;
 	Wed, 04 Nov 2026 10:12:20 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Juri Lelli <juri.lelli@redhat.com>,
@@ -73,9 +73,9 @@ Cc: linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev
-Subject: [PATCH 03/12] sched/deadline: Do not BUG() on a deadline task with no active CPU allowed
-Date: Wed,  4 Nov 2026 10:10:24 -0500
-Message-Id: <9cf4959749b84933fa506de5fc43b2dc0e02cd05.1793804635.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH 05/12] sched/deadline: Do not release a departing sleeper's bandwidth twice
+Date: Wed,  4 Nov 2026 10:10:26 -0500
+Message-Id: <21f538f65f013a71920547ac92c76ca8ba544d19.1793804635.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
 References: <cover.1793804635.git.mathieu.desnoyers@efficios.com>
@@ -90,73 +90,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dl_task_root_domain_cpu() finds the root domain that holds a deadline
-task's bandwidth from the first active CPU of the task's mask, and
-BUG()s when the mask has none. A mask can have none:
+Commit 41a7968022ca ("sched/deadline: Fix total_bw leak when switching
+away from SCHED_DEADLINE while !queued") releases the bandwidth of a
+task that leaves SCHED_DEADLINE asleep with no inactive timer pending.
+Three cases release what the root domain no longer holds, or never held:
 
- - a task boosted into the deadline class by priority inheritance keeps
-   the affinity of its own policy, which may allow one CPU alone, or a
-   cpuset of one. dl_task_needs_bw_move() and set_cpus_allowed_dl()
-   take it for a deadline task, dl_task(p) being true, and look the root
-   domain up from the mask they are replacing, which allows that CPU,
-   inactive by then: the cpuset code updates the masks of a cpuset's
-   tasks once the CPU is inactive, and select_fallback_rq() widens the
-   mask of a task it pushes off that CPU;
- - with admission control off (sched_rt_runtime_us at -1), a deadline
-   task may be pinned to fewer CPUs than its root domain spans, and
-   those may all go offline.
+ - the task keeps its parameters. inactive_task_timer() resets them
+   once it has released the bandwidth (__dl_clear_params()); left in
+   place, task_contending() and task_non_contending() take the task,
+   now of another policy, for one with bandwidth when priority
+   inheritance boosts it into the deadline class, and a deboost while
+   it sleeps releases that bandwidth from total_bw a second time. The
+   root domain then admits deadline tasks beyond its capacity;
+ - a task deboosted from priority inheritance with no parameters of its
+   own, and a special one (SCHED_FLAG_SUGOV), have no bandwidth in
+   total_bw. Releasing 0 changes nothing, and the root domain that
+   dl_task_root_domain_cpu() finds from the task's mask means nothing
+   either: a sleeping task of another policy may have no active CPU in
+   its mask, a CPU it is pinned to having gone offline, until its next
+   wakeup widens it;
+ - migrate_task_rq_dl() clears dl_non_contending when it cannot cancel
+   the inactive timer because its handler runs. That handler, once it
+   takes the task's locks, finds it out of SCHED_DEADLINE and releases
+   total_bw itself.
 
-Both take the kernel down on the first try, in 8-CPU VMs of v7.4-rc1
-with the four deadline fixes of sched/urgent. The priority inheritance
-one, which asks for no unusual configuration, through the wakeup of the
-boosted owner:
+Release for a task with parameters of its own, not special, and reset
+its parameters afterwards, once sub_rq_bw(), which reads its dl_bw, is
+done: a handler that runs late then finds no bandwidth to release. A
+test of hrtimer_active() would not tell that handler apart: it stays
+true after the handler returns, until the hrtimer code clears its
+running state, and the bandwidth of a task switched out meanwhile would
+never be released.
 
-  kernel BUG at kernel/sched/deadline.c:3340!
-  CPU: 7 UID: 0 PID: 0 Comm: swapper/7
-  RIP: 0010:set_cpus_allowed_dl+0xf0/0x100
-  Call Trace:
-   <IRQ>
-   set_cpus_allowed_force+0x9f/0xf0
-   cpuset_cpus_allowed_fallback+0x12b/0x1d0
-   select_fallback_rq+0x238/0x340
-   try_to_wake_up+0x2a0/0xb70
+The deadline_bw_test selftest, added later in this series, reproduces
+the first case as pi_former_owner_asleep: in a one-CPU partition with
+room, the waiter of its second round is refused as a deadline task,
+total_bw having wrapped. The other two were found by reading.
 
-Fall back to the CPU the task last ran on, which these callers used
-before the commit this one fixes. Its root domain may have no active CPU
-left: the previous patch has __dl_sub() and __dl_add() take that. Ten
-rounds of each case leave no warning with it.
-
-Fixes: b4a61fdc19c5 ("sched/deadline: Fix stale root domain in cpuset bandwidth transfer")
+Fixes: 41a7968022ca ("sched/deadline: Fix total_bw leak when switching away from SCHED_DEADLINE while !queued")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ kernel/sched/deadline.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index dadda1a528ec..30a52e42c26d 100644
+index d474fbfd9be6..3c57e5f5fc05 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -3338,13 +3338,19 @@ static void task_woken_dl(struct rq *rq, struct task_struct *p)
-  * current cpus_mask (not yet updated to the new mask) to find the
-  * actual root domain. Use cpus_mask rather than cpus_ptr, which
-  * may be temporarily narrowed by migrate_disable().
-+ *
-+ * The mask has no active CPU left when the CPUs it allows went offline,
-+ * which the affinity of a deadline task allows with admission control
-+ * off, and that of a task boosted into the deadline class by priority
-+ * inheritance always: fall back to the CPU the task last ran on.
-  */
- static unsigned int dl_task_root_domain_cpu(struct task_struct *p)
- {
- 	unsigned int cpu;
+@@ -3567,6 +3567,8 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+ 	dec_dl_tasks_cs(p);
  
- 	cpu = cpumask_first_and(&p->cpus_mask, cpu_active_mask);
--	BUG_ON(cpu >= nr_cpu_ids);
-+	if (cpu >= nr_cpu_ids)
-+		cpu = task_cpu(p);
- 	return cpu;
- }
+ 	if (!task_on_rq_queued(p)) {
++		bool released = false;
++
+ 		if (p->dl.dl_non_contending) {
+ 			/*
+ 			 * Inactive timer is armed. However, p is leaving
+@@ -3579,12 +3581,18 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+ 			 * release total_bw via __dl_sub().
+ 			 */
+ 			sub_running_bw(&p->dl, &rq->dl);
+-		} else {
++		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
+ 			/*
+ 			 * No pending inactive timer: the task never ran as
+ 			 * DEADLINE or the timer already fired while still
+ 			 * DEADLINE (only dropping running_bw at that time).
+ 			 * Nobody else will release total_bw, do it now.
++			 *
++			 * Not for a task without parameters of its own, one
++			 * deboosted from priority inheritance, whose mask may
++			 * have no active CPU for dl_task_root_domain_cpu(),
++			 * nor for a special one: neither has bandwidth in
++			 * total_bw.
+ 			 */
+ 			unsigned int cpu = dl_task_root_domain_cpu(p);
+ 			struct dl_bw *dl_b = &cpu_rq(cpu)->rd->dl_bw;
+@@ -3592,8 +3600,20 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+ 			raw_spin_lock(&dl_b->lock);
+ 			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
+ 			raw_spin_unlock(&dl_b->lock);
++			released = true;
+ 		}
+ 		sub_rq_bw(&p->dl, &rq->dl);
++		/*
++		 * Released: reset the parameters, as inactive_task_timer()
++		 * does. Kept, they would make the task one with bandwidth to
++		 * task_contending() and task_non_contending() once priority
++		 * inheritance boosts it, and a deboost while it sleeps would
++		 * release that bandwidth again. So would the inactive timer's
++		 * handler when it runs late, dl_non_contending cleared under
++		 * it by migrate_task_rq_dl(): it finds !dl_task(p).
++		 */
++		if (released)
++			__dl_clear_params(&p->dl);
+ 	}
  
+ 	/*
 -- 
 2.47.3
 
