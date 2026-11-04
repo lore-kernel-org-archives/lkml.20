@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795448;
-	b=j6EFCSeY77kMZD9TZjdO66GjehHhqLWpupalneh3b0vT6kYoJ61qmPuttwMUWJZ/jIeh
-	 1N6ypxJxdf8iS9gYVLPwbzEpNqBmyLO1xEhQEFisPXY6es4pBqSGoKyn26pP3yh3h1SDi
-	 eQIJ2IFDFiYWdEeIIRZVtmU+1bh1BeMGyweNjkTye5OObw+49WBQLz3ivTYaRguDVUevJ
-	 RSyIpGwXUIwhAAFvfs6LMvFmVeo6hFb1dVOPdePq3fYHLBm8uwpw3HYT6PxjMYDtO4X9Q
-	 H6+a0Jk1dEE+9hfwNLpLngfnqZHxPXCSm60lDBvfjT41INN0gfYmp/74AAdfaMXz5Aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795448;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nLTKrRV7zGj2+I2eiQhkslScmWRTzYP0lSx7u0c6KX0=;
-	b=fM6pzHEs5x0lfe+/q+ou2RpFxyXoobM3H8oP/rQoGlXgf5CT/NYydwf1cRgaQH1DnPiF
-	 NQby2nX7L1/VAkuij1syD6uOMpl4Wyz8DSzIy77cEqNJmfUhzN1b0awl4NDWGtImpvjhH
-	 wT6Wct5C9ECDfiNjXM3h9pkMm6hOV2vZsJC/k/2OTYnTVrGtHj2jbQ5QBplrw9d27N9Hr
-	 ZCUz30INUeCSI7l2GAaHX1Ls7n9pndotwsIkESJfA2vaLozWmAdjJFf3dda4+GLeN/FA/
-	 UF++m3xMZr8y/TJJsYbQWQLjMnePoWv7SZxQFqoX7Gy5nMQSS3Nigx3jThz423FrZ4g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+eOpIVC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793795442;
+	b=MYsc3nN0Ubj2TanIY8rR29BQE/4qVly4/TLgHWfhMgPjvN698Au+hrTKjwOYc8CW/Y2W
+	 MEfCtmhO8K7B6s/XR/prqV21XtS2A+DbOqGkvvzgCmI4YNcbnkquoTRrS5E5dATmf9sOC
+	 3Bffcf7a3U0KfhX63lQ/wJTiQTFzkk2MvChDsldVgNksOhyYbmX8rxLUtwChSulJCVXXW
+	 27Qu28otGMjWuCT4yn3sZo5PFl+f9bZrQ7y0LHDqMzYU3o3zM1LChr31eN5op8I5vyTmf
+	 F7aPZ4Wpocvv/TLdIH4Dno8jn2DeKE01qqKsWnEXu/HwX+vp7b/nhf72p1G8SG4gAug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795442;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hd92GcgT778Yt0B1JwZXuH2F889LDpcB4cZALLNz4n0=;
+	b=oD20DVySv4Q/Plxfw+uof1oroeQkZh5n/tZeiww1yxHpgwgCPMvpS/WIsh6WXK63U0i2
+	 oQMZnRW0O9ABD3hFTWQS4ydzrJoj+Y8OB56FoJHctICsCMUJ1uWuXh6XLGvYDHWTyLN0/
+	 UbFFRbjlrlTeDhvKz1IwrPZQDPK/mowUe6jzD5tz4ILA7I7kZzXcGyH+91qYSZNUoxKRI
+	 asqgNGhbdUYdFA85BHhnfJarLgR04eu4eWHuUEHwL0vmkjn7oOHjLs6SWx/Iy5+z+LfUF
+	 k5MaJCnjPFcF3NaamFwlBpMEXl9P8avfmT+RS49HNLdeZQbmEDYB416PH8vdf+FNauQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Gc7mO5Yb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.9
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010009.outbound.protection.outlook.com [52.101.84.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B601606A32F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:30:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34966606A31B;
+	Wed,  4 Nov 2026 12:30:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34966606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+eOpIVC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241541F00A1D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:30:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793795448;
-	bh=nLTKrRV7zGj2+I2eiQhkslScmWRTzYP0lSx7u0c6KX0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=i+eOpIVCD6c9q3d8U7OaPRj1DAkcCbwKg0e0/FB4gvbWHhi53k/RkjVa0uRQXDCQ1
-	 zAvMD+YbSdnJSgGy25maWzemVTB7PwuC1McmSi1j6y2JieTGBPLJN1h2Z1OLzBVXPg
-	 j48YnItp8Vtjr5vRU1ggfwvm9WN+pdGbfrSw0o+XLh5yr3ygW4Gu+yKjE0BlN9XR5y
-	 uEjIJ0p/MAGSP2G908hwhZduD9zfnPlyPpCVzp4pdXsXiMWLorsj50bnoaX7EhOjjh
-	 Wu54b2wlES4jjZJ41wtWivS0w+8qvi5sNm7SSJtwrhbfe+SsghRpIg3Xir1PcIdSlC
-	 Pnt6va1saxJIQ==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4fea434bso1578760e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:30:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByUe7hCoE1mooYIdLw4fL8Qpzp1fQhk1pWcbi0cC2caMOCoQSHxxvdbN6jLuB2M22VXpWfKct330ZRtN4g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WD+xJ6CsM2rcks8hfIfD0+jdZ0z5FSWzXWVP4CGX6UkHl+hnN
-	KMPi7BjJVt7IFDG0zDpgxQu/aH7iu/02pkBa6sj81kIkCWoSzVvkdFYnN67nVAqPRo/GHZ7a5nh
-	BLnFZdqskMKM0MtpNe98FsKysINcDEYs=
-X-Received: by 2002:a05:6512:a8c:b0:5bf:c97d:d170 with SMTP id
- 2adb3069b0e04-5bfd11f352bmr5131215e87.17.1793795446847; Wed, 04 Nov 2026
- 04:30:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Gc7mO5Yb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rVuTzr9xSSomF59jDZLQpzYWSKdu4vl8ObBUl58B53Q7v91nryZfLMMNH2l6Ou1mziXL/sxknOVbCjMrBP7PQNHnc8rXHFKyDhg0PSftm90CXHTvGEx45F4BSrr3DiLUcQowdQfvD7bm27lUPrJkvrtW1u/IA3Q5Ox2of+GPrKcWNZA283rYrE/NXDY71Kz02SFUOaq7utHDPYRtHVe9dIdTbwxA9Ea+YDJ2P2eZAfCgilp/DWBdd5ktxRNWMIYixjDqReM6J197+waNA02uzLLfrD75EZ+7D7ImVzeN3MHoSG61M40RGLlGjGh+l3aC+g/g590TFYx33h/aJEw2QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hd92GcgT778Yt0B1JwZXuH2F889LDpcB4cZALLNz4n0=;
+ b=hSUDrIEbVg0vkuRCGrRalENwUC+oPlaLn4AgSLRfeU0jLGN6MHRMjYbfV8+Ntvbe7ddxcj82/d9pd8Rc958zdRSasZSvHkmurQz00quqz6DUCIfYLjj0s5YMMioYz7+u2yX8ZfUT0US9b8Czgsp0yW9aTb0KDaR2opE/55Gl9DNVT7Z9iGMHrOpGW4O//0buiibRQJRKg/v2PEL3pMon/u4Yr0XYM8rJsBcYIjMB9OsqF/LzkQ4pRiI/XfPaB44qg1bFCVu4j7qwZ+cFABu52Fcq7gAVJDE3iJegGlDxb81K3xrVhd2cIgxu1jUigSVXFpyfy5tzUgOn9z9B+dn3Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hd92GcgT778Yt0B1JwZXuH2F889LDpcB4cZALLNz4n0=;
+ b=Gc7mO5YbdgY+z+PS8czdbIEn4JpOqCSuEZFZhh8RTbZcXp7jood2qHKzJXtKaYl9UgAfjR6iJRLVuMV3qdpCVPZWHmFDHgNOsKE0gnIzmtpgXdIH4MC8Os6Thdlb3bx7IfjjpMZLduozKLoVlIsZTq0VklSu1R/xAaIXEXwOw0hbT3/m8/p3ZBzpPCAGxONoAjfpk82Ii0eP+7hMs81s8FU+/r2obuZQBDOX8pay8c+kc0w6eWp1SbfqDQDIYHYnGejNEJAPQs50QW7hJgRr9C3b71Blkmb84C22rsz8Ml8nhkgli/l+FKrb5zzOfwwT0sLm5XOGQDRebc7jL2XHMg==
+Received: from VI1PR03CA0068.eurprd03.prod.outlook.com (2603:10a6:803:50::39)
+ by DU0PR10MB6653.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:403::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 12:30:38 +0000
+Received: from MI3PEPF0000848B.eurprd02.prod.outlook.com
+ (2603:10a6:803:50:cafe::9d) by VI1PR03CA0068.outlook.office365.com
+ (2603:10a6:803:50::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 12:30:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF0000848B.mail.protection.outlook.com (10.167.240.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 12:30:37 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
+ 2026 13:31:22 +0100
+Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
+ 2026 13:30:36 +0100
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>, Patrick Delaunay
+	<patrick.delaunay@foss.st.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] arm64: dts: st: add PSCI idle state to STM32MP23 CPU domains
+Date: Wed, 4 Nov 2026 13:30:25 +0100
+Message-ID: <20261104133023.1.If2b6b99285c1e60ca11b6e7fccf7d9b130ca20dd@changeid>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,71 +112,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
-In-Reply-To: <20261001085217.1778645-1-alexander.sverdlin@siemens.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 13:30:34 +0100
-X-Gmail-Original-Message-ID: <CAD++jLn8yxh3LmUzbb2vZfJFJB=_mCZ+VeQhnZktfmuMiv5uEg@mail.gmail.com>
-X-Gm-Features: AclHuK_xh55IfYWDcMEadkkQPRWoFw-pLiRPci8jz0ty-rrKgkyopgwVmzEI3cA
-Message-ID: <CAD++jLn8yxh3LmUzbb2vZfJFJB=_mCZ+VeQhnZktfmuMiv5uEg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] pinctrl: fix group/function table leaks on consumer re-probe
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-Cc: linux-gpio@vger.kernel.org, Tony Lindgren <tony@atomide.com>, 
-	Haojian Zhuang <haojian.zhuang@linaro.org>, Lokesh Vutla <lokeshvutla@ti.com>, 
-	Nishanth Menon <nm@ti.com>, Rob Herring <robh@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000848B:EE_|DU0PR10MB6653:EE_
+X-MS-Office365-Filtering-Correlation-Id: c77cee8d-e871-4870-ab22-08df3a6f6e49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|10067099003|18002099003|11063799006|261102123227099003|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	DtDTCjRjimFGq3qhRmYZhRY06h+v+/RQUsLQSOpLUpRTwRepnHPB+w7xsMgxfm5QkgvHxP8zAf/+hqYuUdNslj43k9cOCSy/b5AjZVYQEpBn7FK7D7RxDyfD0BBBClxUgpfZEaQl6IkFp8dUjlfOiobFMxdF6jWFoaCJ5VZupp5XchyImEbxtIt00wU6g0H0LS7PN2QkPODaztG5AAUUq4UQeabQOiowa5AI1HTz/qTN7lvGyzW5n/3J3mWQTuvtagomEQ15b+YFPtcN9rwqkFF8pdRId1SJUFACalTkXBxC98Y7maoBq7SiLGr0IcuPWXn6QTdPzjT9eovWGuhypiWw0e/eATWSFjMBgi1mygaF66/GOtvhN4z9wjKllqNEJikpY+86Zl9DCzcQJhqwgPtgeROImi41K2BLktAn3HfjbU1BzrlRMNAI2rSoHU9Uh5c8788a1TUBW8DHDGX/AObPGMU3pKAHCr+erNKxM3mqp5IEuWY0kdYrvKJpbwvr9u8BC35YxmimGj/pVAQOB2IGk3dXCOn+KZ0qFx9YMRcQzSpwgny28vq3wz7cqXJT1vShvNdEUtrQmjIuyiUU9ubWNStTdCae75zXU0uljCnyB31gHXGTy7MuijR815/EY3LzWKCQJXMkYfP8Fxm+tvJS1qpZrHiWUzoc5OQIErtdZnTImUiOCvdW9t9fOGk1S/kyFJ4ERzexhbu99wpAww==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(10067099003)(18002099003)(11063799006)(261102123227099003)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PHj0AojaCJlXQSQgNHm9cdSaPKLJFfYCE6u8mQJ0pH3tCTN0iiX1pYwQIjcJhaR/LATnfwFkkZfCvS47x2DGMXFeF5YuuZ/iZmR7mN7uv7mL+jACEwVPB0hHsCw5MaCGQEPluD9S80VR3EmRpU6zPRJntoKSlJkMPi+hk9q7PlQ8POIuGLV5+gsq86M1lPQGjifMLPrmv2W8SukqDsQZ7eAz/9Zps9aWsilbJp8zWw0w1fxtMXVcaxLJtpOku6lL9Qa2u3d1MyPURX3N7dWh8ZQ1ul5nTx3Kxvy+7M8di5UO7mg5L/nqhMkD1OODeI7K5cj0ufkAy1g39XeISSIUnuU6KLhvmsXaHU4LdsiF8VrkEKjaMSl+j7bcPRrOBec8lPB+GGg1tEoHuzaN/qHo4fllxkDom1n1acVYLCzPXe1F/M++DekZjk7VGNn4/gHo
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:30:37.5553
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c77cee8d-e871-4870-ab22-08df3a6f6e49
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000848B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6653
 
-On Thu, Oct 1, 2026 at 10:52=E2=80=AFAM A. Sverdlin
-<alexander.sverdlin@siemens.com> wrote:
+Define a PSCI CPU suspend state and reference it from both STM32MP23
+CPU power domains.
 
-> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
->
-> Pinctrl drivers that create their groups/functions lazily from the
-> consumer's device-tree node in .dt_node_to_map() leak the per-mapping
-> tables when the same node is mapped again. The core deduplicates
-> groups/functions by name and keeps the first instance for the controller'=
-s
-> lifetime, so it silently drops the copies built on every subsequent
-> mapping - e.g. on each re-probe of the consumer device. kmemleak does not
-> flag them because they stay reachable from the controller's devres list.
->
-> Reproducer (patch 1, pinctrl-single) - any board where a device referenci=
-ng
-> a pinctrl-single state is repeatedly re-probed; here an I2C TPM whose nod=
-e
-> has a "default" pinctrl state:
->
->   while modprobe tpm_tis_i2c; do rmmod tpm_tis_i2c; done
->
-> The tables land in a generic kmalloc-N cache (kmalloc-192 on arm64, where
-> ARCH_KMALLOC_MINALIGN pads every devres allocation; the bucket differs by
-> config), so watch it cache-independently by diffing /proc/slabinfo after
-> dropping the reclaimable slab:
->
->   sync; echo 3 > /proc/sys/vm/drop_caches
->   cat /proc/slabinfo | awk 'NR>2{print $1,$2}' | sort > /tmp/a
->   <run N cycles>
->   sync; echo 3 > /proc/sys/vm/drop_caches
->   cat /proc/slabinfo | awk 'NR>2{print $1,$2}' | sort > /tmp/b
->   join /tmp/a /tmp/b | awk '$3>$2{print $1,$3-$2}'
->
-> Patch 1 (pinctrl-single) was found and fixed with the above test on real
-> hardware. Patch 2 (ti-iodelay) has the same bug pattern - plus a missing
-> .dt_free_map that leaks the mapping table as well - but was found by code
-> review only and is compile-tested only; I have no such hardware to
-> reproduce it.
->
-> Alexander Sverdlin (2):
->   pinctrl: single: don't leak group/function tables on consumer re-probe
->   pinctrl: ti-iodelay: fix memory leaks on consumer re-probe
+In OSI mode, PSCI power domains are initialized as off. The idle-state
+allows the CPU power-domain governor to manage them, avoiding probe
+stalls for devices that depend on the cluster power domain, including
+SDMMC1.
 
-I got exactly zero reviews on this patch set from the pinctrl-single
-maintainers, so I have now just applied it.
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+---
 
-Maybe the old maintainers have other things to do, have you considered
-signing up as co-maintainer? You seem to know what you are doing.
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 14 ++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp233.dtsi |  1 +
+ 2 files changed, 15 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index fefbf6f4f153..27231e140fbb 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -24,6 +24,19 @@ cpu0: cpu@0 {
+ 			power-domains = <&cpu0_pd>;
+ 			power-domain-names = "psci";
+ 		};
++
++		idle-states {
++			entry-method = "psci";
++
++			cpu_sleep: cpu-sleep {
++				compatible = "arm,idle-state";
++				arm,psci-suspend-param = <0x00000002>;
++				local-timer-stop;
++				entry-latency-us = <150>;
++				exit-latency-us = <200>;
++				min-residency-us = <1000>;
++			};
++		};
+ 	};
+ 
+ 	arm-pmu {
+@@ -123,6 +136,7 @@ psci {
+ 
+ 		cpu0_pd: power-domain-cpu0 {
+ 			#power-domain-cells = <0>;
++			domain-idle-states = <&cpu_sleep>;
+ 			power-domains = <&cluster_pd>;
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/st/stm32mp233.dtsi b/arch/arm64/boot/dts/st/stm32mp233.dtsi
+index 78f4059fca5d..cebefd99906f 100644
+--- a/arch/arm64/boot/dts/st/stm32mp233.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp233.dtsi
+@@ -26,6 +26,7 @@ arm-pmu {
+ 	psci {
+ 		cpu1_pd: power-domain-cpu1 {
+ 			#power-domain-cells = <0>;
++			domain-idle-states = <&cpu_sleep>;
+ 			power-domains = <&cluster_pd>;
+ 		};
+ 	};
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+branch: master
+
+-- 
+2.43.0
+
