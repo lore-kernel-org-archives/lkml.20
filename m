@@ -1,84 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788833;
-	b=AChHRBJQ9eXHZu44tsnlvP+RZiyJJfo3VUF6K7WAyLcC6h1h/D4EYboyTlYlt2xRt7eA
-	 gnHoH6YwHSVFP2JJC9kD8flJ57dCO0+DYTtanjqoXIK6TmBNc3wyZjQZ1C9uBdG8cFLtJ
-	 4LwsSRKLbXtjqYAvmpBWup/gNTxvnjed4zUVHLHcAZgWUc5jFQLgVqMivN5AD4Cu8kdmY
-	 ZuERU6J+sTFQ6KrvZyLaQJVpYbqn2flrvdtx3R2TinpxZXKIftXEabGypy7VVK6uj9w5C
-	 30H4NP+MJspSzQtz9cb0gJSC7S0Am7ngwjhtMAxo0edXInmi3Vj+nAG8dbqaKnHE78g==
+	t=1793788904;
+	b=0ywKHS8S1NCMIx6S1ONq6H+jf93aNADBPetD0WcTR16OR827yCoTyuRUxa/jBoJHhcSf
+	 sJg4ENY5XG81ctnvg3SiU7xF/eZoCx31vlQh+v4mWR7jSqJawVFBP8ub49n4uoKDLZZEl
+	 Noo7CadRRR+Nfp5TyWbM9qCwIk7F17UcmQ252QZ7Wygb29BbH2Q7aVTFfpfP2aH1xkbZi
+	 Bhj1yJbWNW2JPqSBTTHrw0Hq00e/9f6GPw8BTjRHBI7ecRnjt2eifnJMmi9k9FN7P3Ogs
+	 DCCOTqD6OouzySzR5Rf8w4GSSkl0aVL8TAN4jpVk3dI0JqN0MMFFDRNLNLJYcdTJsjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788904;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OHhrH3mVCZL9F+uul7Pko5LwqezUEkg/0ds9TVqWkW0=;
-	b=5RCWKwpjtnQej81oKuXr8ZjP/iYBhJ+bR/n4dfeV3oC9HScPGN1n+pBg7lwSuqfM268Q
-	 CjiIM2eyt2qlqWTeKcKsj+mBOJzWWSZkTH7mnWd2kHIa50BMOe+nHct7kvhIPx4TRAqRl
-	 G+Bj40VgCgDtrN/gXoMe9m/KqJgOGA63212Crij/2wQCRmTww0Ktr+SlwQXUs8Wuq6prl
-	 gGhUgKTTFaALbD8QyFV+bRNVvFEr/iMauy++nX6dKNH2XDjkCIcp1hkEb6OKeE8+ub4Dr
-	 /0GwkXDi9/qkZM148YVmgeA3HlzQy3k/gYw926fQ0v51ZqgX2vFNE8P0/iMCFIxeuWg==
+	bh=g/M5lTmWZ7ZLfEFYV6/3fxrG4+HGuIIbv/blTWR+kdI=;
+	b=JNUKP8gs21nUqfQ4giswcfMER7zh/PRTnhyI3pkG35DrcDYT1I4Kz3xs52ropLOVK5T2
+	 1tDF02qJwxwuyYETk2UtWVxrIuO3awCrBr+1eIVG2xF3eEZv1Yzw5L/Tyq+0QBbbMks/S
+	 pxr1JM8PGjq0LikqyE0Vogzu19CmDm2b5t1wjLj1CkpR535Fp6bpA/0JKdcrpZsvPk05d
+	 ZK7xnCVM6gY30uU8x+sRSkasANRreLqdFRo4jOIzGOvGm0F+jclFAA5iNPv4aTsRALRby
+	 jrdzVBxOH1+uiwh33NT66eFLCGFLf90/yjoRlFuYjnQtnMvr8mYby6AUJNDetoxVdhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeMZhO8D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lN/JzBSS";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7936606A31B;
-	Wed,  4 Nov 2026 10:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE98606A31B;
+	Wed,  4 Nov 2026 10:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeMZhO8D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962121F000C1;
-	Wed,  4 Nov 2026 10:40:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lN/JzBSS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4084C1F000C1;
+	Wed,  4 Nov 2026 10:41:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788832;
-	bh=OHhrH3mVCZL9F+uul7Pko5LwqezUEkg/0ds9TVqWkW0=;
+	s=k20260515; t=1793788903;
+	bh=g/M5lTmWZ7ZLfEFYV6/3fxrG4+HGuIIbv/blTWR+kdI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EeMZhO8DjG4Z1LNGDG6wdfrR5/jvvahFgvuj3m7HOQrS5HMxi/U+6lT8CdBS1mQBG
-	 IC79mPKN5pooYxKGcfp/3nadOdWf8Fym3XSVAO968hO1SW6hTg6elGvzxmkBPwmNaS
-	 v9T63ChJrQAQbad0an5kGXooCbmvv9MDXmPvDoorGg+XyLiYGBnkViAIHcypGwqbpJ
-	 ppQezfycclcHYH/cH5pj6vY3QPZi1ua1tE+LaTlont55dEIEeB+v8CFlcxuVMlA3hL
-	 myTh9yVFL8UBjo6Snz+ghL8sE2j0/RkU7G36RxL7WrUdRykGnhNHAiwYwIXZ3Ksf2n
-	 rYu3AjolMYkzw==
-Date: Wed, 4 Nov 2026 12:40:16 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	kas@kernel.org, kexec@lists.infradead.org,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	shakeel.butt@linux.dev, linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, rmikey@meta.com,
-	riel@surriel.com, harry@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v6 3/7] mm/memory-failure: add hwpoison_boot_page() to
- flag an inherited frame
-Message-ID: <ausLkNhb8ZPz0ra_@kernel.org>
-References: <20261016-hwpoison-kho-v6-0-f304255147da@debian.org>
- <20261016-hwpoison-kho-v6-3-f304255147da@debian.org>
- <aumt-4kfGGtoXuh-@kernel.org>
- <aumvVjoHo4KeuyEp@gmail.com>
- <auovL7i1rEcXCeGS@kernel.org>
- <auo3ScXy6dk0Gr3-@gmail.com>
+	b=lN/JzBSSe6OsgtYBv24gjKdSML3Zm7sDoeZupAzIsmhc5fvTRjr1C65gCrzFAKLt+
+	 wW55WL6Vb1+i1EFLVY1MQnhhGnRaK7z6Aq/IDQJRort4iDC/JXBZlxAQIUvMtbk1QO
+	 SZB10ftHoeWXV/CHz78I1EBqkVXaquQ3FPIQlk35rlz7uBeT6GbrCZ8b+q9HRQ5REu
+	 z0YiGZgd9K09E1v5ZE8d8bDhRWc9KT/zIgHT+cOekgIsZ72B4egbXbzuB6PaV3XPxl
+	 o0MDbtwQF8lTzC5dVlvT6FY4wL8D2PBPlmRPL5dX3lHoK8ZvDHb/Je1MhJT5/0Puzv
+	 +9ikraKroPphQ==
+Date: Wed, 4 Nov 2026 11:41:40 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Po-Yu Chuang <ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 2/7] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+Message-ID: <20261104-prodigious-ara-of-research-05bf65@quoll>
+References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
+ <20261104-support_ast2700-v5-2-44057f4dde75@aspeedtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,42 +63,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <auo3ScXy6dk0Gr3-@gmail.com>
+In-Reply-To: <20261104-support_ast2700-v5-2-44057f4dde75@aspeedtech.com>
 
-On Tue, Nov 03, 2026 at 11:49:44AM -0800, Breno Leitao wrote:
-> On Tue, Nov 03, 2026 at 08:59:59PM +0200, Mike Rapoport wrote:
-> > On Tue, Nov 03, 2026 at 02:06:17AM -0800, Breno Leitao wrote:
-> > > On Tue, Nov 03, 2026 at 11:48:43AM +0200, Mike Rapoport wrote:
-> > > > > --- a/mm/internal.h
-> > > > > +++ b/mm/internal.h
-> > > > 
-> > > > We've been splitting internal.h to smaller headers, maybe it's time to add
-> > > > "memory-faulure.h"?
-> > > 
-> > > Ack. I'm happy to move the "mm/memory-failure.c" section out of
-> > > mm/internal.h into a new mm/memory-failure.h, as preparation for this
-> > > patch.
-> > > 
-> > > Since this patchset is moving slowly, I'll start the header split in
-> > > parallel as a separate series, and rebase this patchset on top of it
-> > > when I respin. Is it this ok?
-> > 
-> > Sounds good to me.
-> > 
-> > Just be aware that MM folks are knee deep into fixes this cycle, so both
-> > sets could be moving slowly :)
+On Wed, Nov 04, 2026 at 01:13:55PM +0800, Jacky Chou wrote:
+> Add AST2700 to the FTGMAC100 compatible list and document that its
+> RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line
+> for AST2700 as it follows the same reset requirements as AST2600.
 > 
-> Appreciate the heads up. In that case, should I hold off on the header
-> split until the next cycle instead of starting it now?
+> Require "phy-mode" to be present in the device tree when the AST2700
+> compatible is used, matching the driver's probe-time requirement.
+> 
+> Add aspeed,ast2700-mac as a standalone compatible, consistent with
+> the other Aspeed compatibles.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-I believe one header split patch is small enough and not controversial to
-have it this cycle.
- 
-> Thanks,
-> --breno
+Your patch changed substantially, so dropping tag was appropriate.
 
--- 
-Sincerely yours,
-Mike.
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> ---
+>  Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index c870dd0bda7b..0a376b849a91 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -17,6 +17,7 @@ properties:
+>            - aspeed,ast2400-mac
+>            - aspeed,ast2500-mac
+>            - aspeed,ast2600-mac
+> +          - aspeed,ast2700-mac
+>  
+>    reg:
+>      maxItems: 1
+> @@ -28,7 +29,7 @@ properties:
+>      minItems: 1
+>      items:
+>        - description: MAC IP clock
+> -      - description: RMII RCLK gate for AST2500/2600
+> +      - description: RMII RCLK gate for AST2500/2600/2700
+
+So not valid for 2600?
+
+>  
+>    resets:
+>      maxItems: 1
+> @@ -80,12 +81,21 @@ allOf:
+>            contains:
+>              enum:
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>      then:
+>        properties:
+>          resets: true
+>      else:
+>        properties:
+>          resets: false
+
+Blank line here
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: aspeed,ast2700-mac
+> +    then:
+> +      required:
+> +        - phy-mode
+
+Please constrain clocks.
+
+Best regards,
+Krzysztof
+
