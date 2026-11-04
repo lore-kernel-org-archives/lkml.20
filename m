@@ -1,80 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757558;
-	b=PziLzcJuTpmTlzKdhRURZlRRiyagnC9zXO+C8iwkUvfbdtS/KPQUKPgFxR9+P6Jtigwk
-	 FPv2FsO65LQc9KmVBrrKjfJkPRSLlJmgvTMNb2njzkEFi3oMuDdjaGRvNwsMekhsGIow+
-	 iPn64hK3xt4LyBNJczMmPVtsTGecAs58Lvicp1v56WyQ9g/H7fe5Ad5kEFcvrHbv9MNRS
-	 bajc38uDIcxr8RTIp5WruZfL+Qqkpvk1PRZ742iIX91COyucXXvpLWIEQh2h2olBoH7Mg
-	 7gZw6Qb1hpKVWWvNE1TZPVNp72QjJ+TYgojHM2+TzvVseytKNZ65ybQVeTwainvgm5w==
+	t=1793757580;
+	b=A3+rFWIiurMR12qYbz79MjSrWTrI/Jz7ug/aBY93SBvXtWeFtMS1OPe+4C+AXGV0JgT6
+	 W3KwJ2QYQlbk81foge7oK2L5PuBQmwC8Cw3m8cHZtGVDOCR0L6X7PUcIOBsCTIujHsad2
+	 37YbsfAecxJQJVLCzQ5pO49tnhgvLjHYb3w4x+macFRi9cyWEgVZA8/voTNLKbYqZwLBH
+	 xum1qeqk92MXqgNFTgCq2+xMf8QRTcCRY4IHucQDqZ0vxoZAFWofhT/a8AcKIXpbFRkmA
+	 d4EnAr1blG9QIOuRxYNmnVuNpJniScrz4ivcI0NGYeLtcwkUNrLC0r1mhzQsY5CMIZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757558;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=94fP6Ho6+DuYZ0Erkyl8RwrkCAL6tT/V8+5vJIb21o0=;
-	b=XvDOfLKIRCn1bJKbxdBBgwtrxg6t49VxqoToQa3a4k7PlLjBH5UT1wfQXr+0reDG8Nsh
-	 zkAQXusyh+MfilAlpwUoBnH97wCsRg6UXw2P91wjK9cTGrFg5kIOxIXC4QxJYfBekGFUI
-	 EtHt7p+7ft+R/eOtqNx1C+qnhGUSVcyWpaBlJzXcrXBRT+LMMqGg1gzF0NA0d7v9SbwvC
-	 OET1m3AL8jsD8BNq/udFtdWmxbIbFcYaOOwedDqb1Gh+dsIrVFeMdBClcVGyzn88fRFu1
-	 GfvJT/1Hag04D5BrALTwjQx6DhajQpgH7t2mr0Pbn5TVC+0cPlYDSWh9W8l0hWgfspw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757580;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Type:Date:
+	 Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=6g32PsKdkRLeTZ4LSwatErJCU5OnLPMMaSmgKWyS70g=;
+	b=lyieRTuKersNMjkdlRbR/Ru2Tb2RAfkW5ug8DZsGlqD4XawOk/3vbCH9rhDly9BeoNi7
+	 aLAKbAEm0FHG6uxP7Kn+PEri7ZnRTtpwzb3kIkZvoKVBV+im69gDGJjiEBe0dYMwqSiI4
+	 Q/uaBngmCNR3l9EJo3nVyG1cKlMYH27CnKNL89Ya2pgUOIMMCpnIkyMnMYcox6cZQhT77
+	 Gs79T+3sbiGc7WNgowylJwVEbHZdkbrbmkllEO9+VvdevHAbCeK8ViQs27e/bRpcdYNJj
+	 n21aFBpjEKJrRkKpgxDgD8y12ROQunbSSwdNCUrINXxSG3JtCR1uUKcFLJsPeIjYR1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rwe5sfor;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eHQXCE85;
+	arc=none smtp.remote-ip=95.215.58.159
+Received: from mta1.migadu.com (out-159.mta1.migadu.com [95.215.58.159])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240DD606A326;
-	Wed,  4 Nov 2026 01:59:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 240DD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E669D606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E669D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rwe5sfor
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793757558; x=1825293558;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=o+9cRu0WUKk/jyUxqLdHClP4gcQH0YZV/4qZjL8WnVg=;
-  b=Rwe5sforljhGUk4U69kxxfDK22xF+tovVlFeUkMSNulG5233PoeJk7tl
-   23jkX+TurYbjf+sLQxSUjjyHxV6dJR5QYhFjoY2QAEcVoyYDDpOvkm7bW
-   71MuIv/QbtpDnTmfkvPujnxAGxyc56DIG8CNdHz0aAuFadTkg6d6SqBmA
-   Zcp/DoiDOy5ondliWRy7p4+hfp5A8roPM7vJ/bWMQc27ehzO7YMTScuVd
-   5hRHS4U0CYlJqJ7Uh4K3dDTLuMk8QA/AbMi8baFUf72qzU0feMx4/un8m
-   ITbmbK4eeHrREeRiI7j9b3dWjpP55PRUCV1opJPHTaxLChP8bjg/quvhF
-   g==;
-X-CSE-ConnectionGUID: /Uw8w13wRiuFX28xbGUfHw==
-X-CSE-MsgGUID: X8d+8AjmRMCM7okRuAQUjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2378457"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2378457"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:59:17 -0800
-X-CSE-ConnectionGUID: REKVW3YfQfCgwfioqiNxxQ==
-X-CSE-MsgGUID: ww2zn0BRT7msiJezGvul0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6432817"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 03 Nov 2026 17:59:14 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOQHP-00000000jbv-1RMn;
-	Wed, 04 Nov 2026 01:59:11 +0000
-Date: Wed, 4 Nov 2026 09:58:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sanjay Govind <sanjay.govind9@gmail.com>, jikos@kernel.org,
-	bentiss@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
-	dmitry.torokhov@gmail.com, linux-kernel@vger.kernel.org,
-	Sanjay Govind <sanjay.govind9@gmail.com>
-Subject: Re: [PATCH v2] HID: santroller: add driver for Santroller controllers
-Message-ID: <202611040935.jsGsCh4a-lkp@intel.com>
-References: <20261103015335.974344-1-sanjay.govind9@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eHQXCE85
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6g32PsKdkRLeTZ4LSwatErJCU5OnLPMMaSmgKWyS70g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793757577; v=1; x=1794362377;
+ b=eHQXCE855kzvIRygBhdTbO+x9l36+JyQ3R/nHG22HfWrsPpACwN8L/84LNaDu7Ik87f02kmo
+ myQvcEcJRhmLqsrbXGzM0/EEHnmzl1aeriOite4IdkA78HhbBjbWuyPab1f8P1aMA2C7C8bgUdi
+ C5RMzWkRfaBf08da/45Cc+eE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id b85e7a3be548a814;
+	Wed, 04 Nov 2026 01:59:37 +0000
+X-Mizu-Trace-ID: b85e7a3be548a814
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,47 +54,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103015335.974344-1-sanjay.govind9@gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 04 Nov 2026 09:59:30 +0800
+Message-Id: <DMM1ZNXOFC8Q.HXUWNWMD6LKE@linux.dev>
+Cc: "Thomas Gleixner" <tglx@kernel.org>, "Radu Rendec" <radu@rendec.net>,
+ "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams"
+ <clrkwllms@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>,
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>, "Anup Patel"
+ <apatel@ventanamicro.com>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <linux-rt-devel@lists.linux.dev>
+Subject: Re: [PATCH] irqchip/riscv-imsic: Synchronize remote state with IRQ
+ work
+From: "Troy Mitchell" <troy.mitchell@linux.dev>
+To: "Anup Patel" <anup@brainfault.org>, "Troy Mitchell"
+ <troy.mitchell@linux.dev>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261103-imsic-remote-sync-irqwork-v1-1-8b5c951fc62a@linux.dev>
+ <CAAhSdy26R41W6OsTpEjMCf6iQXrtn4WrzziuGg+S9pHOHtM--A@mail.gmail.com>
+In-Reply-To: <CAAhSdy26R41W6OsTpEjMCf6iQXrtn4WrzziuGg+S9pHOHtM--A@mail.gmail.com>
 
-Hi Sanjay,
+--56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-kernel test robot noticed the following build errors:
+On Tue Nov 3, 2026 at 11:52 PM +08, Anup Patel wrote:
+> On Tue, Nov 3, 2026 at 1:34=E2=80=AFPM Troy Mitchell <troy.mitchell@linux=
+.dev> wrote:
+>>
+>> Remote IMSIC state updates are deferred to a timer on the target CPU.
+>> If that CPU has stopped its local clockevent and is waiting for a
+>> broadcast interrupt, enabling the broadcast IRQ can depend on delivery
+>> of that same interrupt. This can stall timer delivery when the broadcast
+>> IRQ is unmasked or moved to another CPU, including during CPU hotplug.
+>>
+>> Queue hard IRQ work to synchronize remote state independently of timer
+>> delivery. Keep synchronous updates on the local CPU and the timer retry
+>> for an unfinished vector move. Hard IRQ work also avoids depending on a
+>> schedulable worker when PREEMPT_RT is enabled.
+>
+> Using timer retry for local CPU and IRQ work queue for remote CPUs looks
+> strange. Why not use IRQ work queue even for local CPU ??
+On the local CPU the sync runs synchronously, so there is nothing to
+queue. The timer only retries an unfinished move, and by then the new
+vector is already enabled, so it cannot stall on the broadcast IRQ.
+Requeueing IRQ work from its own handler would just keep self-IPIing
+until the old CPU catches up.
 
-[auto build test ERROR on hid/for-next]
-[also build test ERROR on linus/master next-20261030]
-[cannot apply to v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+I'll add more comments and modify the commit body.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Sanjay-Govind/HID-santroller-add-driver-for-Santroller-controllers/20261103-145335
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
-patch link:    https://lore.kernel.org/r/20261103015335.974344-1-sanjay.govind9%40gmail.com
-patch subject: [PATCH v2] HID: santroller: add driver for Santroller controllers
-config: xtensa-randconfig-1001-20261104 (https://download.01.org/0day-ci/archive/20261104/202611040935.jsGsCh4a-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 13.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261104/202611040935.jsGsCh4a-lkp@intel.com/reproduce)
+--=20
+Troy Mitchell
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611040935.jsGsCh4a-lkp@intel.com/
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+--56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-   WARNING: modpost: vmlinux: section mismatch in reference: trace_initcall_level+0x60 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
-   WARNING: modpost: vmlinux: section mismatch in reference: trace_define_generic_fields+0x38c (section: .text.unlikely) -> initcall_level_names (section: .init.data)
->> ERROR: modpost: drivers/hid/hid-santroller.ko: symbol 'hid_is_usb' undefined!
+-----BEGIN PGP SIGNATURE-----
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
-   Depends on [n]: PM_GENERIC_DOMAINS [=y] && OF [=n]
-   Selected by [m]:
-   - COMMON_CLK_MT8173_MFGTOP [=m] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=m] && PM [=y]
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauqRgiEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC/RwQEAqJNvz80iRJkb
+Z8Yz+vUyyAzhmceho0CtFhLRHQoE9vYBAOdmpp4WhNu9TMxAAt7VNSpFhr/ABrrn
+evvi3vN5+msG
+=Sb+D
+-----END PGP SIGNATURE-----
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc--
