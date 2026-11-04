@@ -1,101 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793805627;
-	b=hHvsgohqiQV46/+XeuUZx/UKHXNd7MIyYfvEBUOjYem4OATGKfA7hxGrZxbdZ2pCNiQ/
-	 a/3GHn1uiy6nWWqdOegaOXyLhr/fdzCrE5HHzg9RAs0U2rJGRo7qqWCa9j691fms6gZ8f
-	 IPYCAduHQKJp5jfvjlAIUH2AlWqkp5zPe1pba9/mQvYqO39mukyxZ3pX5wSNGnTMGucfE
-	 M96V2J8wHW7PUaio5X0P0sGpLPHUd7HWBq3i80vGhIf+1RW4fWOCe6wBf2eSGKuHP93bw
-	 poMr2922ATVlAEOPcfHKsRp180neTA7X7UbeZuQ9xulTYu924/nzjiMw38rhuqzIqjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805627;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=POGRuviH5TlEzEUjx6xxRrSvo62+D+y2VRA4aXnjt5Q=;
-	b=DVpeJcCpUHrJ3Cw00PA0OjAAr3TjGg4K9IstoSXm5XWS1dqwhAjH5kAJGDlmRrTXQAll
-	 2arc8wUNkwzQt5Vfwad4P/MzxFkEX1Q8xNOoBs2y6lNrxi3z/N7MrmQ5gh+nEPygxq7yT
-	 9OOmPv5v0EYn7Lx6pU5nBncaP5eQggFvj288txq+mqlZr5lFnHJJdy4em4M/DNFBJCR6C
-	 o8U8RMWXwbhxIDVJmfoSyhG1nCtqIRVMEUZdT3gA19P+Cf7mAMMLH90BsMQ/KoDz+re2T
-	 laNg9vF7RMfiXa91MoIqIkdGH5FHf48zeRR/wE4LqkoyiJ/zACsUbuRVScATw3BU0pA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=WZHwpEzL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.36
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011036.outbound.protection.outlook.com [40.107.130.36])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793805658;
+	b=sudbGmd2+jucCb4x9LCKMuyaMwhqbkw9ucPPZOmmIKNetUKcLTfV8OW788TY0LG1xdJu
+	 IwDyVObUTQSHNnDNzATyLg6vSrdfjyB/QVZqNO6Ssmue+Qls9YHe2FcFKEHPBtWK1cgVy
+	 C26gXz+yyWCLIXGrbelUMUSsN/NpyK1pSf5PoqFNY/j6yoP1v0qbEUokgAC+GzliehuC0
+	 yQ3QQ1ANkAyK+iOF/oqS9JVQCF0lIAVkK4zW2If104qFdkcbgasyl7lN8asDCs2qK5PPr
+	 8W0JzeJImDrTccM5w3vug+2BdlT4E71poCi4QPrYfNJM6Z3wK+Nix120vhlszzoCU4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805658;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=kJ//CR0rNJB7v4/EWrk6Rgg5jN7w2KYrl2J7vZDJGZY=;
+	b=0V941sNN8wDQ2b97iQOu1ti/y07+uQB+iglkjSY11vqvxuAprU8sXHHMCHzZuHpTfY9U
+	 9V9bH+yTBcCvgM1R7L/+9gbByGS8ChN/oY9VFrhRsUkr6g2b6PXLxYUOuvxo95Kx2/qaY
+	 wtTT/y9nRKWJ0AniU2y0v4rbTagukSo3MeaJ3VoNh3p0Cdn01Ew5YABfw+J6hEGrDBkKw
+	 dweCy4eCCRCinUuazzBF4pT1ABS9N6pYB4rtJfQ302WEzjsIQY5/tTzFRucqKv6mGNaRn
+	 S4t1nStTLtgyth3PSQvZFFDDb2YPgNjp0ExXJ3nVPKAHhWiyY2AFuEXQWaUEtJSSdEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J04GpwmK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46812606D830;
-	Wed,  4 Nov 2026 15:20:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46812606D830
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5902D606A330
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=WZHwpEzL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iB41VcHsOVygw4LTWS5S0YZGI8rX8tjT4e3iiFxSPq2iJTkJYUXDJeUFrtal/S3YhDcjCZuY+ZTZZUMOUntihnbmogd+4I5V4PjJTwVr7h4YzXONOSRNsGdTDGGdjY2B+eFfRPnUf97JQG98AWHvQIAvGN7Y08Rxn2a7K3Y410NewL61VCABxZybneshSh7RzLNhl0VoxotP3RteD7VAnTeMXYWjFPmTcvOPZonHDkHPaKAP8HjRcSCWXdxhi0IGKIT7dB1xur9YSaG3AWhSjs+VEndNt8VN28kw8clYGScshO9K20C981IsEiQH+qQNXa/pLdnPleOn/lByFM1azg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=POGRuviH5TlEzEUjx6xxRrSvo62+D+y2VRA4aXnjt5Q=;
- b=kfd/DXTUi4kbFdkVOfwbRZTbfnglXtZTmJrE/81XLYdZJIHHTN5W7a62TXAZV6Bu+AcEwkXhUfK4HGzdlUkqCoyXoMR7TMhAhkHCoVacTpBrb3wBReI2Kt5GWbdJ8BoUPRCTyXdQi/YLk1fx3Nz7QocrG2xLTm1KhTq4q/0L/KnU/cyylGKMKbA7el32H6PU3sIOzo6j1KadJkeYdW/5MaD0lSOb2qqTstAUVyA5dO0d7A3YX6s//OXRcX5w2Vz3uwy8dpFqlqvCJ/Tij6RSBq+cyrgJCUSYYxrOjr5elhvW17OZ+3JbQfJdGAVVFOmMJ+Pykf8niv9Z1x6/NwilKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POGRuviH5TlEzEUjx6xxRrSvo62+D+y2VRA4aXnjt5Q=;
- b=WZHwpEzLNfLTzGH5QF/AXdhBnNDUNUfi8ndARm8fc+reDobKHcZbm1zGV1WrmrYpgGtB9WuStqnXjEeP1z0UtQ0rC+SV/6FsvdLPT/EgAMfUqDgVelGebZ5774tpyGlRC5mX7+cq8w7GWDl5rewOTcW8TJQfdE4gwqMO/t1KtbyumweXyNYg7gp41a+uvVRHEVcQSkuUIb0pAA6oLko3uEJGd+HVFO6rpwWY6tCRD+ec3JzJaqJpxMMuneKIALr9XqsYe389uL0tSkX/V3Hpq430zwiJrCyJnyehEcrCtTMAFJFR+wU2vANEjcy0zXrvgX6cUQ7GTzE3QMBCa+kTsg==
-Received: from DUZPR01CA0059.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:469::13) by GV1PR10MB9014.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:150:1d7::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 15:20:21 +0000
-Received: from DB1PEPF000509ED.eurprd03.prod.outlook.com
- (2603:10a6:10:469:cafe::8) by DUZPR01CA0059.outlook.office365.com
- (2603:10a6:10:469::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 15:20:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB1PEPF000509ED.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 15:20:20 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
- 2026 16:21:05 +0100
-Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
- 2026 16:20:20 +0100
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Wed, 4 Nov 2026 16:20:09 +0100
-Subject: [PATCH v4 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
- node for syscon
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J04GpwmK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97921F00919;
+	Wed,  4 Nov 2026 15:20:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793805658;
+	bh=kJ//CR0rNJB7v4/EWrk6Rgg5jN7w2KYrl2J7vZDJGZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J04GpwmKvwAvs5rvSq6YwT5Zq9je2GxUIiTrhVG2nBwZcdPfHjPQfInyEK880+tG1
+	 wfkOfIVxeHWCezi8+24T/FuHWcz/MenvLN1yjdAWCXC2ZrjmfrTiZUJcVWGaYqItqX
+	 HNEvdX6ssO5Bd5Y9pBuoM3uEqEv4B6EB6MR5ozg/OwrjyfE2G6NoaTFenz5GecG1fy
+	 Z3HGwO3J755E9uCjFAWDfqCtB+33seQlaND6Miab8V8rbnvOD7Y3Wq6fC5/3i7/g3y
+	 uy/6Ft2l/oJqLiMSM4D82qyRmP26bj6XroqOSTrEY73f/+vP5RL5C1pDGVj8cb/eaM
+	 DXKMiygT229uQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 577C3198003A;
+	Wed,  4 Nov 2026 10:20:51 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Wed, 04 Nov 2026 10:20:55 -0500
+X-ME-Sender: <xms:Uk3rasYNqcr0e7oX_N81eL0LZXGbBpMgeTVyguwhoWE1deuGbU8VRA>
+    <xme:Uk3raqkRwJA3NCHdCd2e-3d3UsbBBd3_hWmmG-yaagIX-Kj_QLSPl46GRUdZjMXmd
+    9egYpQCqDMYyaNxmKYvMlKUQybVmyetKPdMIXU-MOb4diUc1NZa-UGKAQ>
+X-ME-Received: <xmr:Uk3rajF3y4JOG8Lz_bJnitNrMmWcxB_a1dEiDKLOgwUebEP4zXW8dXTCBG0>
+X-ME-Proxy-Cause: dmFkZTFtxpiu2LP14cIYcyJ7X5qabzm2BzpkyynMyiWriFQOhwO4iOlilGAYuG72swqRJi
+    Bz8ZzcQ02LzCtXShfIs8nQwvr70QyU4BQ3QGSMTor0iqq1/umFVKzuPdZvGyZHpuAWbgUk
+    YtJYpDNQU5eGtxkWAafn6R00XepYhmon5wsUybRAp1fyx25PodgGzm5XnTdaZ8/m/W318m
+    ueFHNJOCuNFrSnRbN0ljsfFnJhIFQ1CTjoWhk+jPLi5y1GCZF4hKgzXGkldAtCAQq2wM97
+    9+7I0RiDOJ1Wn8GcLWLH9LY1cuCc5mxnJslpqjVhHYjF7KE/HVWL6z7MRT7MuPxGnS/eYj
+    T29jPgd4eodMdNH4DcjlWcD14WrHarLiWrEOrqYlYVpu7KKm0ZWeANy+dECylIIuTFu7zy
+    LTGcyz27eAnQByqLr1NdcAwSH4C/6Q4Bw7Ogwvph1gYdZ2MyCiBaNIH6FMK2y3o0f84Q3L
+    p2xKs8qurGukJ22IwBPNoSfbzPpC/KCrGS4y2MDhjbX0uO8R1lWRLw5Qh9VCcyR9s65+qZ
+    4KID4H9Y7zzBUjd4hNNMTPEGBXRHn1y5jVskNGYt0nAzzYpN4X2CTMXrDWclf4ZfOq2tgp
+    viuCv95jefJTx+bdkT9rAn8PUT0PqPIMnfKlV4uWjYXWOLnG2GEbuK84Ba6A
+X-ME-Proxy: <xmx:Uk3rahHKq18GiQZ3nyDskj6S66qC9l5zFlQ6NBrq42V8pWmtDTHxnw>
+    <xmx:Uk3rakxgzWtRN7zjBavMjABxjpDUcgRkOH59QIjhgCPm_pfj6wLIXg>
+    <xmx:Uk3raqTPchiT8nft2yn3Rv82synIhoZ_VU2xumyCcOXC-vhPUYonZQ>
+    <xmx:Uk3raqp12uS3JTOm8qXzawV8IlzevdpwPwxlmD4GdeuBWbxDd4IM1Q>
+    <xmx:Uk3raqvxVr0tfkuHZM52LGQpZuZBFJbugGo5z2yo_9nC6sElCg_8FRO6>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 10:20:50 -0500 (EST)
+Date: Wed, 4 Nov 2026 15:20:49 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, baoquan.he@linux.dev, 
+	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org, 
+	ruirui.yang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, jbohac@suse.cz, 
+	sourabhjain@linux.ibm.com, ruanjinjie@huawei.com, leitao@debian.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-mm@kvack.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm/hugetlb: allow crashkernel to reuse hugetlb CMA memory
+Message-ID: <autMHwldMudQOO3j@thinkstation>
+References: <20261104142727.2894800-1-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,138 +91,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
-References: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
-In-Reply-To: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla
-	<srini@kernel.org>
-CC: Simeon Marijon <simeon.marijon@foss.st.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509ED:EE_|GV1PR10MB9014:EE_
-X-MS-Office365-Filtering-Correlation-Id: be24c895-d017-4096-35ca-08df3a872419
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|11063799006|56012099006|261021121427099003|261009223027099003|261021123027099003|261022105027099003|261026140227099003|261102123227099003|261026121527099003|261028144727099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	xahPxTsDK7Yivu2anUxDOL0J1Z9apYG0qmT+eSPZW8MfdW8N0z0DX3u7kmStxjptUozGhpqsWCtOchDse5qUKEtM9/v99dRU9E5C+ZdzWVRW4u5k6qVdcQLlZBnIkmVWPEVgZD7ctzBH+HRiozL4l/3kbLuUz4h7GG+qp1k6wQnPloZx8aBcZBlkxdctBFd7/dYvGzngeUzur5CamincQDKtZb54tEfpOcPLxT9gQcudZ43JtCuzSqSHFl+Tg+597Jn1kkTgBimzbDG4jONv2wu1/nUO80j62ykK0u6sDNCNcsh8K9Qx9ekEk8tHDi1IJPebQo4ZALV2ojmyoFfntR8akgZ/eSMt1x6mz9sF4y/yQZZQdozrtUPx5C3CU6RcHaMUGDIiv48Gk0O29wt5wglYrg+UXh3Hu1ChLSBegkp4/DrxXoR01adCy1T7nAB8saRzd+pyEbYjaK5g2Ug7tbGZyZqR6HDPySmWaknKNtcRCAkZN8i1DAnz+s/tSRtlp7re78E++CpS5hdI4CnKf2MC3KPu8/MxLyeOxkyh3RWHFdpYpkSeEHK+hghai3xaoGoXlj13PlyBtuXm6sAdd6skjGttYXTVBvdVKnCIafNHjMegx4nBGmDfEoX3MtF/75PvlrxGcF6EU928t3MyG2DQMvYIaQuVsOYpq1GnVxCVdDFRy3FWrNIDBRFll+JszzBB5cObDDvYfmdvmi+x8A==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261022105027099003)(261026140227099003)(261102123227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zBB2b8bE778uPSTjv99bSvJpPxT2NpjIJ++2hBvtJpZlOKQYGKROb1Jk+4yKfnEXw/9YUYJFQK/D2FPqSrvul66PH1rv51rMbEvhZo7amzRt4MeHuLqxwFaJpAO4Evo4z48BVw6/UkLhZrgs9hSFQPE8lFPCCA3BlOGKSdq1xEw18sBGfSXibvEosdyN8FfzFbGGYxLAHZSrTviZzgGTBSM3dVnDxE6Mj4QCsdB7SPG7c8CfxoDyl5m5HleJMQsZLJs4ewlLg9/xGrQKnBdyoQfLGOZyTYSHyNHSYsoY5bU4FBODxDE1iGudD/GNLJxldvtjsir0ETdSLxV4JZcKPPL+xjKpURqvZ7Mkm6kRRr/jRILOiDx1YVSDfDHbOiScLNpjSrTNaVLkeGJXE7FfgRIeasEQvHSilPXYB10ryoEVFW/ughrkOX3LjzaREk4F
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:20:20.9324
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be24c895-d017-4096-35ca-08df3a872419
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509ED.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB9014
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104142727.2894800-1-usama.arif@linux.dev>
 
-The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
-exposes its backup registers through an nvram child node described by
-nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
-"#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
+On Wed, Nov 04, 2026 at 06:27:27AM -0800, Usama Arif wrote:
+> Use a separate suffix to make the exclusion of existing HugeTLB
+> allocations from the vmcore an explicit choice.
 
-st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
-into the DTSI made "make dtbs_check" fail on every STM32MP TAMP node:
+The crashkernel=size,cma documentation already says that pages allocated
+from the range are not in the vmcore and that it should not be used if
+dumping of userspace memory is intended. HugeTLB pages are userspace
+memory. I don't see what a new suffix makes explicit that ",cma" does
+not already.
 
-  tamp@5c00a000 (st,stm32-tamp): 'nvram@5c00a100', 'ranges' do not match
-  any of the regexes: '^pinctrl-[0-9]+$'
+Why not let crashkernel=size,cma take hugetlb CMA first and reserve a
+dedicated area only for what hugetlb CMA does not cover? With
+hugetlb_cma=6G crashkernel=2G,cma there would be no extra CMA at all.
+With hugetlb_cma=2G crashkernel=4G,cma the crash kernel would reuse the
+2G and a dedicated 2G area would be reserved for the rest. Either way,
+nobody has to learn a new option.
 
-Allow the addressing properties and the nvram child, gated on the
-st,stm32-tamp compatible so the other syscon variants stay strict.
-"#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
-(an empty "ranges" requires the node to match its parent) while the
-other STM32MP SoCs use one.
-
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
----
- .../bindings/arm/stm32/st,stm32-syscon.yaml        | 38 ++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-index a559f8b03b84..51cb565e05ed 100644
---- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-@@ -43,13 +43,19 @@ properties:
-     const: 1
- 
-   "#size-cells":
--    const: 1
-+    enum: [1, 2]
-+
-+  ranges: true
- 
- patternProperties:
-   "^phy@2[48]00$":
-     type: object
-     $ref: /schemas/phy/st,stm32-usb2phy.yaml
- 
-+  "^nvram@[0-9a-f]+$":
-+    type: object
-+    $ref: /schemas/nvmem/st,stm32-tamp-nvram.yaml
-+
- required:
-   - compatible
-   - reg
-@@ -84,11 +90,37 @@ allOf:
-         - phy@2800
-     else:
-       properties:
--        '#address-cells': false
-         '#clock-cells': false
--        '#size-cells': false
-         phy@2400: false
-         phy@2800: false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32-tamp
-+    then:
-+      required:
-+        - "#address-cells"
-+        - "#size-cells"
-+        - ranges
-+    else:
-+      properties:
-+        ranges: false
-+      patternProperties:
-+        "^nvram@[0-9a-f]+$": false
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - st,stm32-tamp
-+                - st,stm32mp23-syscfg
-+                - st,stm32mp25-syscfg
-+    then:
-+      properties:
-+        '#address-cells': false
-+        '#size-cells': false
- 
- additionalProperties: false
- 
+The catch is ordering. reserve_crashkernel_cma() runs from setup_arch(),
+but hugetlb_cma_reserve() runs later, from mm_core_init_early(). The arch
+code could record the size and leave the reservation to generic code
+right after hugetlb_cma_reserve(). That is still memblock time, so the
+remainder can be declared there. An early_initcall is too late for that.
 
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
