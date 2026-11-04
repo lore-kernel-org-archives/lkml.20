@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793785819;
-	b=SfgDjzQR3zR3dk8eGMHmLxWgugWzVjqDqfk6lWWs5vW9s0r3Hm3p/zce13BCnMRz2bzX
-	 Kzy3Ju/ZiiqIHoqd2GcO71jg9vY+WgK4Kg9uwVfpAFgBMqxQZQ00dFHvYsp4VqHwhfYBR
-	 9IhjCvGfJd4sf0Cahx3IRUhOS1hzpg1dRejtwzwJMrW32T8joui7uEXMr8ZOOSDgXdN+n
-	 txxQVGcJ32ZnkJeMLos7KRRWVzSDGEnIpIzmIZbogHeMiTlM4EYMhrdt3pFnJL+0T/IDU
-	 nDY7MWa/Pn7HobZnI9NeZsUYiaacvz8uZ74WYxUzUTaTUKfCFa7y+Ly+TOmacJVcvSQ==
+	b=Zd/D9SkTkZLeHdI3KzBxdPg99Pxubljn0cifb6CNcHg5lwojAqS63bh42sVb3oH3l0SL
+	 kB8wPsGt4mQZ6yOfC2K8MtxYCU7QDe88Xo4i1ahX7TbM6fp80qlXfJCnUVPUUkJ8MSd78
+	 UUzgOUMZYNKusrLE9PDS/Sdgut7PrgN3vb5bNDrpWilONqGWNRutC2725JKHZ66eBTdpy
+	 UOngSR6UOylTWbwUbAtZs5glXpkXT9WBdtbzhxBw1ttS9nnw9fWKy0MIKT18qVlAu84qa
+	 LQupGyrZfy8wMvMYLuO6JwxvUrvRK2dl9nnnbeiVmpPBU745qIQIVTMq2PsBglUNuOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793785819;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:Message-ID:To:Cc;
-	bh=z9ahkQoGqY4LXm5ulXS80YZleTn1KGfrTqpEsVzzvjo=;
-	b=zoQ6bEV6SWyQeUR5aVrda5l+MJ4VkMX/tqGSv8kVnOG39xvyeANoPiZUcutYS7AqbBk1
-	 VWGf3/15sCNTcCX099d7JBRV/rrwn6DhrHu9NGHeEzBBjl4DB70OD3sbB/yHe8mCvU2Ae
-	 yXPWdBmrGVJabbbjqKwYDV9ExzCT6iW8T4tcaqXxhU7mQ7y8ztwSU0AQiPbsUQA22NAch
-	 MHm18mnwTbmUiPnig4tNLNY4APq5m2WPGzZDHXVKfPSBlo661oObWcpHYJSiUWMPbXNmU
-	 AMfAEtJaNsmJavRcLbRAVyeYO/xF//GVdGCklm+bpNUYm2ZZMKf5B1pplC+bsTZFCOw==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=t9f+Vk55viv3NpwRqRsDkuFkLcfNYRqwWUiHAW6XHcE=;
+	b=Tdj1Raz1nDT9WvavHva5jmQPKH5ZRy/HKfgpLLtHv5ecnJxdzAMgjp1CpyFlp/naOd4Z
+	 4vrypx5m4nBMg9B5LdY3+jOICpdaUQOFBZHiLJeVXGlP0bGJ6rCfoqaGoaFltS5jB/mWh
+	 7RT26j8a16BAABEvH3WfdIiQGE694/7VXIP/YEuHa+4CugdSiTFpxA6JDJJeJxDDSGyCm
+	 JSJq0fSHvc2xke/3CWTnqSaPL3rcx0bHMUj/Mc80mS8ucx++Z1KyhumJwlwWcaQ0kt6Lz
+	 Q92OAFCrjbTSJThDpD0eu1arMWvXmHOjQjyPJ93r5sgoaT6SAaZyfI9Jb7Bzp1jVCMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R7Wx2uuD;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OwIumg0b;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BEE606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12BEE606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACA0606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:50:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ACA0606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R7Wx2uuD
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-369f33df08eso840745eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:50:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OwIumg0b
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so3476545e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:50:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793785818; x=1794390618; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z9ahkQoGqY4LXm5ulXS80YZleTn1KGfrTqpEsVzzvjo=;
-        b=R7Wx2uuDBgNls+XoNlqzt23IZkEGWU94ycKy8gvIwI2P7FjUK+MliwC8wupB57/+Z6
-         rxW63Y/2vd+FDslj3mXWEG/NS2i4RuWieP1lCxwwlTTlXi8luo7EUzSPzvmWgukGHNre
-         iUOuC0b216RNvkQDZgKhrIkJaxmQLvRmXKaX082SNqWiyXkDFIE3aOZiP6698LOem09T
-         CVjuaPJgXj5XIxn7MwqGT0St47QT8uoDIc5Cq6ZdrWBV/p5LM9zFR+Or3YvapelgtbQL
-         Xz8SypqHeP+IEcgZHTSdyMKDMpV0lfzGqAj095SFAOYDmmmAy6Igqb60WbJPseV7TBQ+
-         INaA==
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t9f+Vk55viv3NpwRqRsDkuFkLcfNYRqwWUiHAW6XHcE=;
+        b=OwIumg0bVI4/nRLmEpLs2ml90PPkrBN9/Y2ceEVRe9kieCjuJVzBse32J5reKiuvXI
+         /wmlo68bF0Bh8oyS3KtQPkFvprWAeMVEJ0KQiLoAnAuiBLhLiWwgQJdf52rbxnmOaHIi
+         N1GBjZANpLAUAUFsA7jAHHHQjKdXUWOXwmdgGHMMHOZAlkRw3vcZBNvAF4LSwSoLA1FO
+         RxHSI6+GSLCqwZoVtCxhcabvBR32mcMwM98sXlV+RL11S2hc+qvhwz3T94DibaVOIJJE
+         NwEUxYl6ewX/GhaFrVXOcmwD9TJqkFUGI1YrkutYDiA6LZ3E2PsaRIgNNEM4jg0dZDKK
+         uAyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793785818; x=1794390618;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z9ahkQoGqY4LXm5ulXS80YZleTn1KGfrTqpEsVzzvjo=;
-        b=izmH3aR2qIaGJdSIoMs8ZMibg11XwooR3W/YV+tBkN1zU4ZlaDH7mcILXu2J4eyxOQ
-         T+0gfFjmSvveB7lszlKBxpxcqqNpvc3x1nGXjrhj1cqcuD8acXdyE6IyGS4FwlsrEVRG
-         ApRLlcqxeCqRaKrjzjoNtQ2mwfm82w1eN2xIeiM4N5IOK3DVd4sUZSxqQ4FCpn+ennjC
-         cD+w+wNbIrURZp9Hb1cRb6n/G3d3HwK8JqH7UZEcVNjEcqw5xMCb6S1TjJ1SXpV5xs3E
-         ZX7DYvzvajdp6CkBICTkMaPmhnEABECd6ynU3yw5iZKdRw1e+Ae0Hc97OcupYQ7F8Tdp
-         gGjw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/KkUMROHKx6kw49WDcgtWJW4rBvnkQmeuB8iy6Mq6l89Z6zKlqr19pC8/Z4CCFMh+VNkNY77WQ03FgTg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88/xixrN6I3Tigf/EfSBfymBABdzF2YVxalosfe28DC9oVx1LQ
-	Ss3JBel2OlXU9eqtoWKBDJ66bkUaPx4ZAgUEO7u/IAwrdmUjnL8OsMXQHEXRVAjmvssOMggz
-X-Gm-Gg: AYBFou2Wpro7MRO0c1eyUCWKrpXr7cr45DhCPrPLa0GzuG0w/TzIPA3gX/Jq9DQogF+
-	JAmUXlYnwnI6lItlOLedUTnT6YxsvslW30+3BMRITXcPpBIMHOMdUGbQZeOPxBPKA76OZzx/dT2
-	zOYy9EimsOUf/1O23EyEoLjCKFmfIpnGlIpIJIZit4ZDMumRMOaTHULTGnJhXTHX5amIyP2055i
-	7L+Lo3OtAKAZAoSzemM7Z/BNL02PpMcbBSIYb1OkwVOXyfOLAl9YI1GOetEX7r9oCUfEzuDAKqq
-	KMvfMzF2kV9WUPVsr6xRBIQURP6Qg8zqzWvhq0DA+nnFmzN8FnE/h4Q9JALCIZ4Hl5di/BzG0pP
-	iy5gcKPr3LNfbaI7tJm/xNuwJEZ8OfTdpFfaJOeXgz/BaeQd9ygyAQjnpcOlTgYSl3bW2BKLa64
-	+LMZT22tFsuIDBXkKRHhs+LSBYQKnEX0ZmJImJTqZgucsPdBKzcfpTLwkf/H4zSdfe46oZMkWF4
-	DaQc9karBin5F17EhBfRbIBdI1Fb0/2175yNzJ5yZlKlG4LSx9XnvMDawB9Ulze0wk71ezJrlyM
-	3zvCjBaMldNAGcRvyQWJDfmekDJrd74P/mEX/EDaqKetQIOp6LIrVYnSIw07jkRl+IROVF2rozA
-	eEEVv3bp8LYO8
-X-Received: by 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr22929780eec.7.1793785817978;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t9f+Vk55viv3NpwRqRsDkuFkLcfNYRqwWUiHAW6XHcE=;
+        b=FKn0SxUnZDNFD8b0SA2NuSiwMiyk3K2SL0fYHBDIxgvxbi05n5/FVNkJAkRTzEULH3
+         4kfs2vlUdQ44T3tt7GB9oW+1+/VwRFWF9MWjwBBI8priUHQ/t5+wip6Q5WTRAzwvZca9
+         Fm1yRP7kBA/1D72LbQBHfx7e7+FLiPQwxJcUfNbblAxrhz+C4Uo+OlegyetG93QKq+ld
+         6zJEvnJ4eylVZUdy6piJwDWcQRTzJ4BLvB0WK8Nh5T8rHrhk6w6p1ch76Am/QTa/AiKc
+         AfQo7OcaJtIxOQ/YEm4pL6iJNnimgv/zBo6pzDA08zjQ/ULcr34X4ZfPlfqExKuYYGc0
+         69Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJQsI6H96FKiFF72qGLDTFcxf3+J1bvoLY5XmsQo2T4Rzr26ZwqX0qpxCnF7kd84fNS4Utarm2Dm5qe80=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/a5+FQTlBhoG7YjiI0YM0IxNnrgH1A1poAd0eEazqHBJVKooUd
+	iyl8MRTTu87h7Z7uwqsF4JudhNALBWc6xpq7A1qjNP5LWfKfLyOyHKolsCunbHPA
+X-Gm-Gg: AYBFou3c1G92waVqGvh1KrveK3ih/xFZK7jc3ogevv05BAgvIMIcEiT7O/hcM586GZn
+	BrAtSxoFE3CNJX1sWWMgGwUu1rYvqo0QX2ab3au6MKtB/rfkEPT6J/MP7KLUHthS74IrlltXPvN
+	XAURsgIgfZemGU4LGWT6k2d5M8kP+wkItpO0Yl4K1Fh+pPjdf3W3eO/nOKsiEF9kLp36a4vrMkJ
+	mGtdcnD05WI+ltgsWtCWuxhZcA2O4LvkcxJG++jHiuYbY/XxQUTa9YnbJI/mIas+33Vz0C+E8tz
+	cW0lauyi1454Siq15RO9gtLDN1oQ5WRpZJtIR7585mrLHOVFrXDQYxTpFMO4hG5DMgPlw3gwBAR
+	2ZFrYxBUyPz3fGJ40edXhFyagvMoHr525Dl22Q4v+cowbVQyRKf02IHMIrHV7rYSKuoiKpke777
+	bW4UJ6xGlRxAIs/Ri5m5NhKNv/sYLcJxM4W4eSln0jpr9rPwev38OqqnfcVRtjWPMB1zqWCvXR4
+	JxbdRZBY/a7ZwO6QJsK9nRb4BCHCu1As8Hh47TIdEjDhCtygsvGrUgbPOdsTE0TGnK2CxsBY68I
+	WCsAZ0UKLZ6sSgdEY9WUEatiyeRkGj9gL6+u9nE=
+X-Received: by 2002:a05:6000:4212:b0:48e:60ed:b012 with SMTP id ffacd0b85a97d-48e6e4f69c7mr35846762f8f.57.1793785817529;
         Wed, 04 Nov 2026 01:50:17 -0800 (PST)
-Received: from [127.0.1.1] ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca362f38asm7068083eec.0.2026.11.04.01.50.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8748sm2917388f8f.16.2026.11.04.01.50.16
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
         Wed, 04 Nov 2026 01:50:17 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-Date: Wed, 04 Nov 2026 17:50:01 +0800
-Subject: [PATCH] iio: buffer: hold a reference while DMA-BUF is attached
-Message-ID: <179378580164.73301.2666197876060323279@gmail.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- paul@crapouillou.net, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 4 Nov 2026 10:50:03 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Ambareesh Balaji <ambareeshbalaji@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: xhci: Tear down host on Reset Endpoint and Set TR
+ Dequeue timeout
+Message-ID: <20261104105003.3ca4a3ac.michal.pecio@gmail.com>
+In-Reply-To: <20261104093608.2642748-1-ambareeshbalaji@gmail.com>
+References: <20261104012725.147741-1-ambareeshbalaji@gmail.com>
+	<20261104101506.5ae19157.michal.pecio@gmail.com>
+	<20261104093608.2642748-1-ambareeshbalaji@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,64 +100,31 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-iio_buffer_attach_dmabuf() stores an IIO buffer pointer in the DMA-BUF
-attachment without taking a buffer reference. A delayed DMA fence
-completion can release the attachment after the IIO device has been
-unbound and its buffer freed. The release callback then dereferences
-the stale buffer while detaching the DMA-BUF.
+On Wed,  4 Nov 2026 09:36:08 +0000, Ambareesh Balaji wrote:
+> 2) One real hang with the same symptom on the same controller type
+> (kernel 7.3.1, tainted by out-of-tree DKMS modules). After a Focusrite
+> Scarlett Solo logged "USB disconnect", usb_hub_wq stayed in D state
+> for over 4 minutes in usb_kill_urb(), called from
+> scarlett2_private_free() on the disconnect path. Nothing recovered it
+> and only a reboot helped. There was no "xHCI host not responding to
+> stop endpoint command" in the log.
+> 
+> Reset Endpoint and Set TR Dequeue Pointer timeouts are only reported
+> through xhci_dbg(), so the missing message does not rule them out,
+> but it does not confirm them either. I see USB audio hangs like this
+> once or twice a month. I have enabled xHCI dynamic debug and tracing
+> and will send what I capture if it happens again.
 
-Take a reference when storing the buffer in the attachment, and drop
-it after the final detach or when the attach operation fails. This
-keeps the buffer alive for the asynchronous completion path.
+If this happens on real HW then it's a different thing. Having logs
+of this anomaly would surely help untangling what happens there.
 
-A KASAN-enabled test with a DMA-BUF-capable IIO test device reproduced
-the use-after-free on the unmodified kernel. The same delayed
-completion sequence produced no report with the change applied.
+Were you seeing these issues before 7.3? That release made changes to
+the handling of URBs on disconnected devices, which caused some people
+problems even in absence of host controller bugs.
 
-Fixes: 3e26d9f08fbe0 ("iio: core: Add new DMABUF interface infrastructure")
-Assisted-by: ZCode:GLM-4
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
- drivers/iio/industrialio-buffer.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
-index 4294101810fd7..bfa6d19471126 100644
---- a/drivers/iio/industrialio-buffer.c
-+++ b/drivers/iio/industrialio-buffer.c
-@@ -1597,6 +1597,8 @@ static void iio_buffer_dmabuf_release(struct kref *ref)
- 
- 	buffer->access->detach_dmabuf(buffer, priv->block);
- 
-+	iio_buffer_put(buffer);
-+
- 	dma_buf_detach(attach->dmabuf, attach);
- 	dma_buf_put(dmabuf);
- 	kfree(priv);
-@@ -1741,7 +1743,13 @@ static int iio_buffer_attach_dmabuf(struct iio_dev_buffer_pair *ib,
- 	}
- 
- 	kref_init(&priv->ref);
--	priv->buffer = buffer;
-+	/*
-+	 * Hold a reference for the asynchronous dmabuf completion path
-+	 * (iio_buffer_cleanup() -> iio_buffer_dmabuf_put() may run from a
-+	 * work item after the device has been unbound); released in
-+	 * iio_buffer_dmabuf_release().
-+	 */
-+	priv->buffer = iio_buffer_get(buffer);
- 	priv->attach = attach;
- 	attach->importer_priv = priv;
- 
-@@ -1789,6 +1797,7 @@ static int iio_buffer_attach_dmabuf(struct iio_dev_buffer_pair *ib,
- err_dmabuf_put:
- 	dma_buf_put(dmabuf);
- err_free_priv:
-+	iio_buffer_put(priv->buffer);
- 	kfree(priv);
- 
- 	return err;
--- 
-2.34.1
-
+Regards,
+Michal
