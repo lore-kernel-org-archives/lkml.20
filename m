@@ -1,123 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798145;
-	b=bpuU/+xFnNStMRM8DcxRKFMHeSCgWLaPbParZwXd6tNeWzm6I00NQDJesbHgz/zMLSne
-	 kmJm1mJ2Eh5S1giIQONBk7fn933MIDfeMC0Lct17MtLa5r3j6dBohc+lLVqC9gjWl1zuu
-	 VUU2x7TcLwNHLBLoBaHjGkuXPawKA21HPGB9FTxVCPtwlS0K0XeYCwtddSKV/NRZdnBL/
-	 WeAoDnhExI8QaOT5sOOdbBaSQ9zPJVeNrsuffH+BXhrwhwsRrhCAl0bBqaal8UxoUG38Y
-	 zGbx+i1l/5WwXsv49oP6gRXSNzZM1gNbcCqCEqlCsxOJAAWNGzWrsej/8o2oRsBnCmg==
+	t=1793798189;
+	b=cK3gB19J9qVU7X5/SLaeC3AB8oUV8+Dyb73w/MsB6QCF3xjJxvSFHEX1QnDKUmxKRJdS
+	 rX2tw2PYTvP3ZGvWVFg0cVM7zSg1YpmWqcKGvSKzz38DfOKAGJ/MjflHqrIZv+bK3DPhI
+	 FoYEH2ho5nk3OW4l6a2elm1P0Sxd6YLNS8rViPQSNF7GuZNMnNOqivLn3aU9krOhoGqkn
+	 XkPi+53cZiSBrPAfB9HwxMehQL7vLy5UUu8tkW9mCkHy2Cry71Pt9gDg0OLNR0BDkS33b
+	 oU1k1nhzpLwCm++yKlKvFUEfPUpnMulFd9wdyZrV24SQYwJ3QanIXfhivMEybP9dnwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798145;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 X-Mutt-Fcc;
-	bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
-	b=Fyh2EJcSiBtcEg/EXKnAGjEt/tDOUrhCnG9pS57vjw88Nhql561UxJkpIhoDyOLFZSTG
-	 ZLPdwCWIUujykN5TSMQnk3pOEUuUqXRw8WETK5ctsPz6YpRlAqAdVF1sqfRKDGFLUS9e4
-	 XfHGddNS+O1iklrGTPeDihtH3N3WnJP0nOLnHZwG5rTj4gbgBmcG20Jsz47Yun8JFPsYI
-	 0O3DTS+cON6HiV48L3QzSHbNlf1McV7aBWscK6bFQHw8fgHpgrGCSSLJuR0H0xf/3kZS3
-	 MoU9EUqvIqYTOvfHXvPIPM4mf3kJ8Dl1XAGr59m1oBxMYwwi9sfYhAhzODkoRuXKLMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798189;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=H9VTlijTFGW2hK1YgmVnrnjy6rcLsJbVdxBVMKqQ5Mk=;
+	b=kIOuaasIO+4GkLt02LjiPauIzK/TanSg38E9Evr5/vtX9gRQgYLc42VQctk+jHuxU/rW
+	 kZf5HRahRkiZa+n6N1JXdAOJ8UiNe4c2xBnm5Y80kKbXZPze/BSMYEKW2P5uQ1jcFgjiZ
+	 QBiW0HhHJ9XJuE6Q5UEcz7T4XTZpsy3VSh/yGGmh10tOVKqss5BAIHXw1DBnBDuZxS0WE
+	 iuhc++SNMtTrGEDML1QuC3XdvdSqiL1nUAMoOCf3NUW4QNzPXM53xkZXWLf1xNXc11FAj
+	 CoCVB1FgLglmibPIX/UwE7YoYviC3motqarqtSY02nSmXxqpGiD5pGegL3MFU8gNfhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GgLJywsR;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VOVSISbG;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anVIaiiw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34D8606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34D8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70EC606A32E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GgLJywsR;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VOVSISbG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793798143;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
-	b=GgLJywsRfjEmFZg0nrxYgcHv0OFI+rdY5f+7mzBbU1QQHYLozfipX/ztwRKvnMFxDQMonH
-	XW/t9c/85/k/swh4l447YMbUfL+8DL8RzmrAGIyhwMaMot/fmzD8ncU5gKcI35C8FKwFdW
-	rfoPBDm+WIsWVALDulKxwCeIHeEEi+c=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-593-M9nVPDmSNAKUy5iTDBr0xQ-1; Wed, 04 Nov 2026 08:15:42 -0500
-X-MC-Unique: M9nVPDmSNAKUy5iTDBr0xQ-1
-X-Mimecast-MFC-AGG-ID: M9nVPDmSNAKUy5iTDBr0xQ_1793798141
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c42f98f3571so93360666b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:15:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793798141; x=1794402941; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
-        b=VOVSISbGoBrQReIGqksyUICgNy+eJf4wMReAqEH46PcS8PAFArdrRqVJ9+kYaebWjk
-         nLcgy/OgDP8pc9BPvjxtKwkVvfEl7E18th6JpsVZtvNJGwO7diitmJzSSdE+ZmumLkqV
-         FXP7VqeijeAN96Zk7UrAAYSCeLaf7Q9jt14waqw160Dx2uu2QsTFb2Ycp6zE6LpuiHSQ
-         Iojgf4t6UtoQycLHDacI4iwEQ7G2E1hPPQrTYdJNje8iUoMm6xiwvDnUJ4v/0aawwuXr
-         obx0SJ9dKCOepT3cgfVjCY+dIcL7xXxRjVy/ntXKofAKG36j+AOM+QPgNZzeh3UpBSS+
-         niQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793798141; x=1794402941;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
-        b=SEEQnMMZEXmJyLTnKy1GayBWHnhSJEG/99YU4S8K/oeEuHTHKbCF94C4MSP4UMlQu1
-         DETvaG6D8B293nOxNOCw0GIG1xuIYJnsZLlrLpxgltQMli25X4SLbhJWFE+8ytRf0qfu
-         0jsHggLKDOTC6ROlS/bBQ+HSpRRPnDfnJ0AA2+i4l4KKAWQUH415epeGf4bMlWMn0X5K
-         GBgS+dVxq5AARoABq9Hm3gvs2E5EJ52t3cXxTAAh/SazsPeqC8HFRBORBNeQW+KNzf7L
-         c//y1sdDuqhNPt+ODNjeLtkYSre+X3fWen2KXlui/fiR0UXfNA8fckJAFZj8iSfhmeA/
-         LUJA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSPN0t1krLdDdQjlPBN7BPH+evi+QWhQEAKquTior/7b81pOT7p/yIyXneaE4IS6aeidIe8aUdZT59ltY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94grEzGiPaU1GvHcDV0swSi7j25JR2w1gJnM9rSbSPZP8OsN22
-	aXmaA8V1EsDQQx74KDibxTA8mPJxLgv0/tVckUDDVWEET0PB/1PzUMLVQGcX3mrFrO8Ug0c/gMd
-	J9o9zhI/Bb3LXD5mV6iY8dhTD4MaYTtWGpKJLtJ3ITEQxZNTAF412cFRv2PBNAGY+Jg==
-X-Gm-Gg: AYBFou1aq+s9OT2qas5Y7q7LGrX70ib12CTpSH36KnwYBoMwr/6atQQ+UoC2JHoZrdU
-	aX+u45d8d8CE4BCWSIrz9lSJixkgnF5L5MZ7jZfjlJqw3i3Co8a3/2ZrRBKwu0Ckuusqi4LbfiU
-	D9cG0iC6McM28tkxZWJUb61cDQaE7qj9ENPDgR5/HkNffFqrHUK2eIJdtMbcDQt/+IJel0X3d2j
-	1jIhIuRdUeQWINl7BCookC3cnubdiVfoSFl7GQgNNb+Ubc5oXwb5vL5p1jqiFGOudnQm1Mw/2m7
-	mhQRIFuT05VTZJ6qSkWa1YEpgd+64geYOyv5qTWLMUomB8eENoISTfY3WHRJSu81CGyUhtRgu4p
-	gKKyda5wkBlb5eVa7+mqOYOzqj3hIc+mz0N6Vzwm5pg==
-X-Received: by 2002:a17:907:96ac:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c4ca7abe67amr1635745366b.43.1793798140911;
-        Wed, 04 Nov 2026 05:15:40 -0800 (PST)
-X-Received: by 2002:a17:907:96ac:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c4ca7abe67amr1635741066b.43.1793798140297;
-        Wed, 04 Nov 2026 05:15:40 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e48d0dcsm68849166b.70.2026.11.04.05.15.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 05:15:39 -0800 (PST)
-Date: Wed, 4 Nov 2026 08:15:35 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux-foundation.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	2312891301@qq.com, blum@kernel.org, co+6dcbccedc9ec6452@bugs.sh,
-	eperezma@redhat.com, fangxy@xiaopeng.com, jasowangio@gmail.com,
-	kmehltretter@gmail.com, linfeng.sun.dev@gmail.com,
-	lirongqing@baidu.com, longpareto@gmail.com, mst@redhat.com,
-	oss.patchbox@gmail.com, p@1g4.org, phx0fer@gmail.com,
-	physicalmtea@gmail.com, sergiiushakov@google.com,
-	shubham@octane.security, stable@vger.kernel.org,
-	stjepan.poljak@gmail.com,
-	syzbot+13df72e0dc4be5c62215@syzkaller.appspotmail.com,
-	tavhadia@gmail.com, tjdqudcks0424@naver.com, tz2294@columbia.edu,
-	xieyongji@bytedance.com, xmei5@asu.edu, yuz08559@gmail.com,
-	zenghui.yu@linux.dev, zhaimingbing@cmss.chinamobile.com,
-	zhangjiao2@cmss.chinamobile.com
-Subject: [GIT PULL] vhost,virtio,vdpa: bugfixes
-Message-ID: <20261104081535-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anVIaiiw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320F71F00ADD
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793798188;
+	bh=H9VTlijTFGW2hK1YgmVnrnjy6rcLsJbVdxBVMKqQ5Mk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=anVIaiiw1pZMJg2YZ1N3c1UamUmvnrrKGQWnO8NEpY87ayerF9aRI865xN7k4arhP
+	 0ora4PhcKUA7tc3gRf5KJPZRLzDlKLUVlUaqjd2AMjgBarla0oTMiSTZyFgbsGYlwY
+	 fsVOjVqGXMbB1lKrRbyHQGM8moEQGCArsVVqCajNxylEETrn8qtM2iWzHaOLT43wdY
+	 9CF1Ojyj4aExSItAwUd/2QmsiJWsZaO/6jXd0s8gtn7I/G6Mjw5g7TIub3bSE58eC8
+	 ii1USs42gD/OF3w97LAp+kC8W3GgxUmmbmvKzN05ws3y5BPE6ZVY/ahrli3ugfB9y1
+	 B7FSo5BHSH9EA==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be42ae8eadso451278e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:16:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxFGsmq47J2fNG98VUFy8HfejV8XJFUQ2P25ME6NN+4nTtJYaxGXjymkPVyeOgwynEedsPLgdDS8+1nfeE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OHs6pMj5dQaU4Rqadjc9hROnupFCZ9uNa5wsRX7QryQ3fmuer
+	1ajN3Tg86ACt66T6qxD09SKtVM8E5bfFcR7/opqx0Blfqx6DiV19GYst4yzCEqnBzBJ+rcZ6YMQ
+	ydYIqWCA3FKRpRfC0PzrxtQ423RRC4hU=
+X-Received: by 2002:a05:6512:6681:20b0:5bf:d9b4:9b48 with SMTP id
+ 2adb3069b0e04-5bfd9b49cfdmr3241637e87.23.1793798186772; Wed, 04 Nov 2026
+ 05:16:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,132 +59,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Mutt-Fcc: =sent
+References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn> <20261103-a210-scmi-v3-7-ee6b31580808@iscas.ac.cn>
+In-Reply-To: <20261103-a210-scmi-v3-7-ee6b31580808@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:16:14 +0100
+X-Gmail-Original-Message-ID: <CAD++jLk_PJu_ViUmKSg19VEhc0=3SoyiqwkSH3vGix1qk7xpDA@mail.gmail.com>
+X-Gm-Features: AclHuK9XaDppXSCtd7Lxt5eqeFEltqu7_7zUAwED7nuqN9o1y9Frwslmkgi1DM8
+Message-ID: <CAD++jLk_PJu_ViUmKSg19VEhc0=3SoyiqwkSH3vGix1qk7xpDA@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 07/17] pinctrl: zhihe: add A210 support
+To: gaohan@iscas.ac.cn
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+	Jassi Brar <jassisinghbrar@gmail.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>, 
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	linux-clk@vger.kernel.org, linux-serial@vger.kernel.org, 
+	Han Gao <rabenda.cn@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+Hi Zhiguo,
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+On Mon, Nov 2, 2026 at 8:45=E2=80=AFPM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
 
-are available in the Git repository at:
+> From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+>
+> Add pin mux and pin configuration support for the AON, PERI1 and PERI2
+> pad controllers of the Zhihe A210. Each pad forms its own group. Drive
+> strength requests are rounded up to the next supported value.
+>
+> Across system suspend, restore only the register fields Linux has
+> programmed and leave the ones set up by firmware alone. Release the
+> optional pad controller reset at probe.
+>
+> Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> Co-developed-by: Han Gao <gaohan@iscas.ac.cn>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost.git tags/for_linus
+This looks good, just waiting for a non-RFC version and review of
+the device tree bindings.
 
-for you to fetch changes up to 1a577f9402c1780cc1e663f48d5dd54c02051b09:
-
-  virtio_pci: don't take the MSI mutex under cpu_hotplug_lock (2026-11-03 07:32:14 -0500)
-
-----------------------------------------------------------------
-vhost,virtio,vdpa: bugfixes
-
-Just a bunch of fixes all over the place.
-
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
-----------------------------------------------------------------
-Dudu Lu (1):
-      vhost/vringh: Fix IOTLB permission in putu16_iotlb()
-
-Eugenio Pérez (1):
-      MAINTAINERS: add missing virtio/vdpa/vduse/vhost headers
-
-Fang Xieyan (4):
-      vringh: bound top-level re-entry into indirect tables
-      vringh: add regression test for cyclic indirect descriptor
-      vringh: reject empty / undersized indirect descriptor tables
-      vhost: fix used ring index wrap in vhost_add_used_n_in_order
-
-Jia Jia (5):
-      vhost-scsi: preserve event ordering
-      vhost-scsi: do not relock event vq mutex on send_evt fallback
-      vduse: avoid infinite loop when no affinity CPU is online
-      vhost-scsi: do not count PI bytes in the data length
-      vhost-scsi: fix page reference leak in misaligned I/O fallback
-
-Karl Mehltretter (1):
-      virtio-spi: Fix virtio_spi_config kernel-doc
-
-Li RongQing (1):
-      virtio_ring: reset IN_ORDER state in virtqueue_init()
-
-Linfeng Sun (8):
-      vdpa_sim: serialize IOTLB updates with dataplane access
-      vdpa: invalidate DMA mappings before releasing memory
-      vhost: fix dirty logging for in-order used ring entries
-      vhost: reject invalid IOTLB update permissions
-      vhost-scsi: validate event queue descriptor direction
-      vhost-scsi: reject delayed virtqueue setup
-      vhost: reject backend enable without a kick file
-      vhost-vdpa: initialize state before publishing cdev
-
-Maoxia (1):
-      virtio_pci: add missing newline to the pmcsr error message
-
-Mingbing Zhai (1):
-      virtio_balloon: initialize wakeup_lock before virtqueues are set up
-
-Sergii Ushakov (1):
-      virtio-blk: clamp max_segments to virtqueue ring size
-
-Shubham Antil (1):
-      vhost-scsi: zero misaligned I/O bounce pages
-
-Tal Zussman (2):
-      vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error path
-      vhost-vdpa: unpin mappings by range
-
-Thorsten Blum (1):
-      hwrng: virtio - prevent use-after-free after a failed restore
-
-Wei-Shuo Chen (1):
-      virtio: use consistent virtqueue terminology
-
-Xiang Mei (1):
-      vdpa: fix double free of the reply skb in vdpa_nl_cmd_dev_config_get_doit()
-
-Yu Zhang (1):
-      vhost-vdpa: drop the parent's vq callback before the call fd is released
-
-Yuho Choi (3):
-      virtio_blk: Reset device on probe error paths after DRIVER_OK
-      iommu/virtio: Reset device before deleting virtqueues on probe failure
-      vdpa/snet: Don't discard the DPU error in snet_send_ctrl_msg()
-
-Zenghui Yu (Huawei) (1):
-      virtio_pci: don't take the MSI mutex under cpu_hotplug_lock
-
-chenglong.ma (1):
-      vduse: fix VA/PA confusion in the coherent page fault path
-
-sungbyeongchan (1):
-      virtio_ring: use shadow flags when detaching split descriptors
-
-zhang jiao (1):
-      virtio_ring: Initialize id field in packed indirect descriptors
-
- MAINTAINERS                          |   4 ++
- drivers/block/virtio_blk.c           |  45 +++++++++++++-
- drivers/char/hw_random/virtio-rng.c  |   7 +++
- drivers/iommu/virtio-iommu.c         |   6 +-
- drivers/vdpa/mlx5/net/mlx5_vnet.c    |  10 ++-
- drivers/vdpa/solidrun/snet_ctrl.c    |   3 +-
- drivers/vdpa/vdpa.c                  |   7 ++-
- drivers/vdpa/vdpa_sim/vdpa_sim.c     |   7 +++
- drivers/vdpa/vdpa_user/iova_domain.c |  11 +++-
- drivers/vdpa/vdpa_user/vduse_dev.c   |  15 +++--
- drivers/vhost/scsi.c                 |  68 +++++++++++++++++----
- drivers/vhost/test.c                 |   4 ++
- drivers/vhost/vdpa.c                 | 115 ++++++++++++++++++++++++-----------
- drivers/vhost/vhost.c                |  36 ++++++++---
- drivers/vhost/vringh.c               |  29 ++++-----
- drivers/virtio/virtio_balloon.c      |   3 +-
- drivers/virtio/virtio_mmio.c         |   2 +-
- drivers/virtio/virtio_pci_common.c   |  12 +++-
- drivers/virtio/virtio_pci_common.h   |   5 +-
- drivers/virtio/virtio_ring.c         |  13 +++-
- include/uapi/linux/virtio_spi.h      |   2 +-
- tools/virtio/vringh_test.c           |  41 +++++++++++++
- 22 files changed, 347 insertions(+), 98 deletions(-)
-
+Yours,
+Linus Walleij
