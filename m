@@ -1,96 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826546;
-	b=UkpGSWYoPj3bemkn8VeLGcQif2vvttPr/ZiBKRSvj9ARCVULdYcyNse5rt6xnisUAwAc
-	 Csya5JUNM8tN0WDD0CBrrgDz26U7jPdD/Hk8ZSzKplaPCSb9g9Inp3rJWYLKnkDe/N8It
-	 PmI1X+hTzsXzw1MxWg3gTNoaNQBsWCkSesXeAonp9cjhjfOU9RBG6bSLfqkwr0rxNhXgM
-	 a40jws0uDjd9xUTO0+FrleInYTZgrJj0zRuCzmNO6iq3JmLPGzQZoATNrYFGiMrYbQMaz
-	 kXXqPk4MtXKaUztpnV5cDQtlq2fOIr2ruCThZIzSdnJMB9/i2lCqVamMyjgNKBkSvhw==
+	t=1793826552;
+	b=lx4JQCxR0Bb0BlCn6IHyer7JFR73oTytlhksk6OpZXFk4jKjflEBTD47p7KcTcuXnXHp
+	 TDnp2845lgmhCpKA67MokbdLpIIBrhgLGatfBRwLe3GT8cWjvh2uesvRyT2+n0JnTMHFy
+	 uCRWrEKE+mgQuW58Fp2gLa2oyiGRUW/Yv/B0m45jWXIYAq6yfvO0sgnsvuxRuDq9r+bdv
+	 dH2PWpw4RL7omLB+McZJSQylcB6k7JGxM9DCe/+FcJ1Dgj4fJsD4LXuW4+xqG3UKfIxWo
+	 CikIfwP+5NLNnSj4P/gxVVnPCTnf438X8U2ZeOcMAJ3Ep2t9to4+N78dQvksVyyQjRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826552;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=yDPvcxyyAFu2o0bBlGBxdTvgOqGA8W9gBnR8fryqjt4=;
-	b=Il9mxQTTXT/8aXMp+oWPxqMMGHyapH0nTVJEcrIW6Ax2pnnURHqQxpZ47p0Gp6NMwqXI
-	 8mxiPSDgIGy5k/AMw2BNyuErUfPl304ig3HCRXElD2EJHWxNZMMnu0swalGm/GeXcvAXX
-	 0yBjHQWu6W7e6UGybnH2i8oscK53UXkEhUKAKaOxiPtpIxpI6+fzDE2f5GpCMixGnVahB
-	 ZiugLLw1Y3ubrQr9Rsa6wT+DdEeQxw3TaIWI8ddXRstdmS48b7Ae15oUj8mt6XP0CXOTP
-	 2BMj4osaiBTWedAqCdTByCqFA5akkmVHDmt+WV8eB31T6XQmlwkTAXj5W/0aFkVOOfg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=b1Up/mMzU2bQ97X/Wz1u2XktmxWFj0hsGQ/HEaQOHnM=;
+	b=A3wj5QZQ2fI0tvQsiD/gq+zP5bfu9NbTyMqEvP1PISOYe1btp+PbflA8xe/cp42sT5A/
+	 16CJ8OiYQdehCiWpvBAg/JOPsvJZmFRNVjHdDLmMkeVJ24dSAlHh5m1s7K7HNwhP/rwsx
+	 YU8MQBH1EKTyeBXZRhCZLRrjPppz8V/ZfahaZlXjdhPT39JQxHmxVTGl38nSZ4Pr+Vijg
+	 dCkGJCo3M353CUywW4tBYrVRUqV8UBsnSo+bFWKWGpiOW8D3GFLDnHdCx3sCvskF6Hp2H
+	 fhXPBMUiDX98Vve62koNfwcZHfsjF+rq7fbH1nCVjrOJUz3ItEjnymow8Ibg0ybIOAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Pr6A0HKM;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="UGesA/Sj";
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7C760A16C7
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B7C760A16C7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704D7607E923
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 704D7607E923
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Pr6A0HKM
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc758830601so862791a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UGesA/Sj
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so764916f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793826546; x=1794431346; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yDPvcxyyAFu2o0bBlGBxdTvgOqGA8W9gBnR8fryqjt4=;
-        b=Pr6A0HKMR+uacVoDnXqObCt7qtZxWvHFtdVrtZp/Hzd2nIVLH9iN4ZoAMZQJx452RL
-         yb1CrGhUxcRSrysdnqKgt+cJcwB1t9GaqEu+plJDv9PLO/k9h6aaFGOb+XpuyMZCmbxz
-         u9tVCymVpq3MZFEfnyb04nwaJd8pMf5vCSIKrzRCh5gl8LPnKig9qdtExSW+JGSavch6
-         SVwYcqt8THLnEU7mpwJPtPzxGwqCkdzVZwBlQx+sIWghElVmdyWN9sa/htWBxJuJAyLr
-         AjI4n96YJJ0FeU6f/5rDHlght4AY5M7c0WHNXkEMeMTW2BYhGAtay3zKpI9aJdNvpjci
-         8njw==
+        d=gmail.com; s=20260707; t=1793826551; x=1794431351; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b1Up/mMzU2bQ97X/Wz1u2XktmxWFj0hsGQ/HEaQOHnM=;
+        b=UGesA/SjsBHV1YCg+eVe/7SygDEICH4UvK00QL9E1FyrZnIUwnnKCC5tMUui9k16vR
+         5lBqhLtNhGFMto7U8ZVmB02PLNY9h9xqYYwJE2rUcy4QJmsBwt7k4CRJ4GXoiZrXZnvd
+         iBMV6fehEYxjQMLCYoZM6BysJRaiBb2qLUF3z25l+U5JTEO4f4/Ge2jjOUsNGpTptJ9i
+         TS98mWg5pooEBey6PVgGjt+LHXElHbIJfTNTcAHjKjRQKPvB4xnB0dDNjXB5ri0KaaRe
+         fuKJKrsdB36NbQ01dTwgH8Z+BSGg0clVVdKf8HECboHuinyUzoFa+z0H/I6QEZ2RiiVa
+         YCOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793826546; x=1794431346;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793826551; x=1794431351;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yDPvcxyyAFu2o0bBlGBxdTvgOqGA8W9gBnR8fryqjt4=;
-        b=XhWwpF9vWJ76F0+lF2LeywMBto+WxnNEW1jikIeUS97xyAl7q1HqMw4zMM+aS6T2Gt
-         XI46LpFwauUJukHVB6ITQYrq6kkvQIQrva+WdvZqRafeRI2xZ5MUtcqLtWXaPJeMWR/E
-         A/wOo58EqRrO7Q7JwTK57T/Nwae8eOMBWtE8uYHWPSzVG35+5DaeRV3WviSCSPItAP+W
-         KCYib9NDGnNwEdQzXA//Et8GBT5g1lzgd7DSxX1HQhv84xMgnY83iwf8ecbsyJYLbP+8
-         TkYJqD9p1AQ0AtnfHn8txbf4TyrgGH0TnbbxHMr9rp4iPsjy47HfbRrnSiBvpq66VXuR
-         0ZXg==
-X-Forwarded-Encrypted: i=1; AKwUvBxy0BVzxEboa1AtJ1Zb89sm7Zr74QKd58Uuw1DzcZuKfOhD5saPpuJ9u3LJgqG11eul0tpCTtiSBzJAqc4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QH4yG83VEJ18goF8AT+QmShyX3+jBIhjUt7NVZfwcncnk1kzE
-	s5ct2eI0DIefH4UfYCIexKLhHS4peR0784PSm27ZkDMgXV+oxCdmomLCsL0+8IjIXg==
-X-Gm-Gg: AYBFou15+p/PYbyAQOf3DQ1Zg6FGxEdCOsWYArY/jf5psp//p+3nWHJ01Nh3b1haFb5
-	7RK/TwXfzusDffPJFhDJgHuLP6PRHctqrbMjd0BmJtrfPG9lfIHr7B/mwl7fu1LRdUzGyiU+Y0d
-	S82M7chM9NeC1qTU7a4X7HRD9AtpNrJmXIOna+w/bB4MYuOPNZZo8Ocac6lyJRODteYN2pR4k68
-	4aqDg5dBH5NhoG/02K2QhTKSXRQAmyIi9Su3T6Le2OnoRSpZcbYBXmZRIF1lUMvKVaJgsh2p8qH
-	QM0z9vQxNpC6v6WjKDuVwO7iF46EkoSj7GujpBR9jav+T1Xo/0JF7SCggzt/w4MNzpqELTfCarb
-	2KcEkMTa71rtx+KyfPrPl9/PViwxYRwFLeRB0gl1yh1W7Pfd+nqaSJr+4QNxg8MFgCbJ6Cq6QHy
-	Y1eHMcI6ZVUhlPlINHk7uvshQva+dXkh0IlY04r7JUV4Y8rdmGHw+cuedN0X0XH48JafupNxqFR
-	4wrV2D9eUV+a7c+BBnLlWuNbuOILPVfRE8rIbgK7OuP0Hcnx1DSs1LYmt+EMs+hDlc5n7t8Fk+R
-	qQUipRLIUAPReV7B96zAPg/7zqmLPbGpxfUWMs+4ruPVLit4b+8rj++0+Sh5nBkF
-X-Received: by 2002:a17:90b:4c81:b0:3ab:188b:c5bf with SMTP id 98e67ed59e1d1-3ae897c85e6mr14503462a91.18.1793826545271;
-        Wed, 04 Nov 2026 13:09:05 -0800 (PST)
-Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312e45dsm668723a91.3.2026.11.04.13.09.04
+        bh=b1Up/mMzU2bQ97X/Wz1u2XktmxWFj0hsGQ/HEaQOHnM=;
+        b=NdcCn67mouN1pDjSV/zYvmPfwUWekG4gCrIcjptbAd3tGe8lLCN3Kl6DSaEOkksLD+
+         z1AaNWe6QTb7wNDM2fjEaeXSaPVLPsr0lT9sQM0hg9+2TqSdm1PkROxjt/ULIIaxLvJb
+         DmJilHKoLKv0YaMYG8q7NfsMIMnMyrMEdtbu4U9y+237CDjasRVpe9SuH4YS5IL5fTJF
+         v/EvZmaJaIQI0lPzBzPJb2zGtcp6mkVlElE6matmWnfmucAFcmEadECgPnMRfno8q7iF
+         Ubm5ak6rihfO7XyZR7q/hgUFzJ6MEDxGOl2YgQHyMTpXBts5/zuBvk5atdgP7BssyevE
+         vu8w==
+X-Forwarded-Encrypted: i=1; AKwUvByJOWC3t3Enu08W8MVy8giDb9wHvdyywtJcU6e5D5+TP6fdGvihe2lzXfTcvyne20W3dU2oJ0exy4buwQE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BQKaqu9LNwHrgnearGafISImLqJYa97s081y+vYMQrIypKTgC
+	tlehNUSChu35zqZabLCXeDrjz9FnXPGGT0N424LjcklerGhctNn5MLVh
+X-Gm-Gg: AYBFou0kYdK78wFlMoXj+t8NS4W6W0LYW6W9l1fpQtijTag8m2f/mMGIcj3v+EOxZuc
+	J4IXkuCN5EPBNS9fYhOQhc3an6edZy9gPhznnzYrNhWuYJ4hiXHMCGkLqEHYrCMZs7xBp7bwhT/
+	sdrw82CZJVI0ynvaHo4IZmqyqU2AAAPCLdagA78LLsezsTpAw7wYRjcQKYbQ0Gybw8RIZgnZcax
+	XErqpjtOz+89ZvettWMJo2n5H/dsgUdlCx96FfU/+XzDANs2x3x91iwD6a9ztXW5zehWoRE2abt
+	cqmA4/PrEZikQ2B4LpZEkL8AnBVO7B9rQRszaC/PHb1Qmii2z1n7sEuO9J7y1sY+djlXWPx9nrg
+	GInKCGwRv6U1nUx9O2X3KJlrrz/E43PYrRfk8QdlchT6tFjxF5vQDfMypUZpLxdS5GCR7pUpBK7
+	vReB12aChuhnVWncaSGu7Y5PH4I8K3+ybgQCS3TL03RN8K/TVZ6gsCUGZpBcY2ieDQU0BBDSERu
+	0A/UYO9vsrB8E4MzI/bpYRqvg0wFP4hRnxosbXzGUDiAAhu6S12gnZV9Z5QF3n1besSUBN9mMQB
+	4nUGwRG5Hjsqvh780BKV7wzDajfBc9vtqFh4a9E+egS6vgwSQdGDCQ==
+X-Received: by 2002:a5d:5f41:0:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-48e6e2eb83emr40887465f8f.16.1793826550673;
+        Wed, 04 Nov 2026 13:09:10 -0800 (PST)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm5719865f8f.21.2026.11.04.13.09.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:09:04 -0800 (PST)
-Date: Wed, 4 Nov 2026 21:09:01 +0000
-From: David Matlack <dmatlack@google.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Alex Williamson <alex@shazbot.org>,
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>
-Subject: Re: [PATCH v2 5/5] KVM: selftests: List the known IOMMU modes in
- irq_test's help output
-Message-ID: <auue7S_vdnGtTM3c@google.com>
-References: <20261103002205.3348519-1-dmatlack@google.com>
- <20261103002205.3348519-6-dmatlack@google.com>
- <autHA6aNrg4s5PkV@google.com>
+        Wed, 04 Nov 2026 13:09:10 -0800 (PST)
+From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+Date: Wed, 04 Nov 2026 22:08:56 +0100
+Subject: [PATCH v2 10/27] selftests/landlock: Assert audit initialization
+ in fixture setups
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,100 +92,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <autHA6aNrg4s5PkV@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261104-selftests-refactor-v2-10-c52f23f7ce33@gmail.com>
+References: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
+In-Reply-To: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
+To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 2026-11-04 06:53 AM, Sean Christopherson wrote:
-> On Tue, Nov 03, 2026, David Matlack wrote:
-> > @@ -159,7 +159,8 @@ static void help(const char *name)
-> 
-> If you're going to do s/type/mode below, then the initial help lines should also
-> use iommu_mode.
+The audit fixtures check the result of audit_init_with_exe_filter() and
+audit_init() with EXPECT_LE() and continue with a negative audit FD
+when the initialization fails, e.g. when auditd holds the audit socket.
+Every following audit check then fails with a less useful message.
 
-Will do. I'll also rename the iommu_type variable in main() to
-iommu_mode.
+Use ASSERT_*() for the audit FD and for the audit_exec filter
+initialization, whose result is used by the following calls.
 
-> > -	printf("-t	Override the IOMMU type to use (vfio_type1_iommu or iommufd)\n");
-> > +	printf("-t	Override the IOMMU mode to use instead of auto-detecting it (%s)\n",
-> 
-> IMO, the "auto-detecting" blurb does more harm than good.  It makes the code harder
-> to read, and for me at least it's just extra noise in understanding what the '-t'
-> option does.  It also makes the line reaaaaaaally long.
-> 
-> I know the parentheses are pre-existing, but that was somewhat ok when there were
-> only two options.  With a big list, it's again noisy to reach the end and have to
-> think about that the closing ')' is terminating.
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ tools/testing/selftests/landlock/audit_test.c                | 8 ++++----
+ tools/testing/selftests/landlock/cap_test.c                  | 2 +-
+ tools/testing/selftests/landlock/fs_test.c                   | 6 +++---
+ tools/testing/selftests/landlock/net_test.c                  | 2 +-
+ tools/testing/selftests/landlock/ns_test.c                   | 4 ++--
+ tools/testing/selftests/landlock/ptrace_test.c               | 2 +-
+ tools/testing/selftests/landlock/scoped_abstract_unix_test.c | 2 +-
+ 7 files changed, 13 insertions(+), 13 deletions(-)
 
-Agreed that the auto-detect blurb and the parentheses are just noise.
-I went with a slight variation, see below.
+diff --git a/tools/testing/selftests/landlock/audit_test.c b/tools/testing/selftests/landlock/audit_test.c
+index 81cb31aa32ad..63b1b2a04eee 100644
+--- a/tools/testing/selftests/landlock/audit_test.c
++++ b/tools/testing/selftests/landlock/audit_test.c
+@@ -49,7 +49,7 @@ FIXTURE_SETUP(audit)
+ 	disable_caps(_metadata);
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd)
++	ASSERT_LE(0, self->audit_fd)
+ 	{
+ 		const char *error_msg;
+ 
+@@ -652,7 +652,7 @@ FIXTURE_SETUP(audit_flags)
+ 	disable_caps(_metadata);
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd)
++	ASSERT_LE(0, self->audit_fd)
+ 	{
+ 		const char *error_msg;
+ 
+@@ -841,7 +841,7 @@ FIXTURE_SETUP(audit_exec)
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 
+ 	self->audit_fd = audit_init();
+-	EXPECT_LE(0, self->audit_fd)
++	ASSERT_LE(0, self->audit_fd)
+ 	{
+ 		const char *error_msg;
+ 
+@@ -854,7 +854,7 @@ FIXTURE_SETUP(audit_exec)
+ 	}
+ 
+ 	/* Applies test filter for the bin_wait_pipe_sandbox program. */
+-	EXPECT_EQ(0, audit_init_filter_exe(&self->audit_filter,
++	ASSERT_EQ(0, audit_init_filter_exe(&self->audit_filter,
+ 					   bin_wait_pipe_sandbox));
+ 	EXPECT_EQ(0, audit_filter_exe(self->audit_fd, &self->audit_filter,
+ 				      AUDIT_ADD_RULE));
+diff --git a/tools/testing/selftests/landlock/cap_test.c b/tools/testing/selftests/landlock/cap_test.c
+index 3d7fd02e21ed..7b3b724e4406 100644
+--- a/tools/testing/selftests/landlock/cap_test.c
++++ b/tools/testing/selftests/landlock/cap_test.c
+@@ -775,7 +775,7 @@ FIXTURE_SETUP(cap_audit)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
+ }
+ 
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 7d399c097c93..7ff94755b029 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -7504,7 +7504,7 @@ FIXTURE_SETUP(audit_layout1)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	disable_caps(_metadata);
+ }
+ 
+@@ -8028,7 +8028,7 @@ FIXTURE_SETUP(audit_quiet_layout1)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
+ 
+ 	if (getenv("DEBUG_QUIET_TESTS"))
+@@ -9605,7 +9605,7 @@ FIXTURE_SETUP(audit_quiet_rename)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
+ 
+ 	if (getenv("DEBUG_QUIET_TESTS"))
+diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
+index 50b637354b51..c1b6e288c965 100644
+--- a/tools/testing/selftests/landlock/net_test.c
++++ b/tools/testing/selftests/landlock/net_test.c
+@@ -2957,7 +2957,7 @@ FIXTURE_SETUP(audit)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	disable_caps(_metadata);
+ };
+ 
+diff --git a/tools/testing/selftests/landlock/ns_test.c b/tools/testing/selftests/landlock/ns_test.c
+index f5d4b86edd30..6491b53742f1 100644
+--- a/tools/testing/selftests/landlock/ns_test.c
++++ b/tools/testing/selftests/landlock/ns_test.c
+@@ -1944,7 +1944,7 @@ FIXTURE_SETUP(ns_audit)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
+ }
+ 
+@@ -2596,7 +2596,7 @@ FIXTURE_SETUP(ns_proc_open)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
+ }
+ 
+diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
+index e0e7f95e889b..10371c1830ad 100644
+--- a/tools/testing/selftests/landlock/ptrace_test.c
++++ b/tools/testing/selftests/landlock/ptrace_test.c
+@@ -323,7 +323,7 @@ FIXTURE_SETUP(audit)
+ 	disable_caps(_metadata);
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	clear_cap(_metadata, CAP_AUDIT_CONTROL);
+ }
+ 
+diff --git a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
+index e006dba61652..5e8224623780 100644
+--- a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
++++ b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
+@@ -288,7 +288,7 @@ FIXTURE_SETUP(scoped_audit)
+ 
+ 	set_cap(_metadata, CAP_AUDIT_CONTROL);
+ 	self->audit_fd = audit_init_with_exe_filter(&self->audit_filter);
+-	EXPECT_LE(0, self->audit_fd);
++	ASSERT_LE(0, self->audit_fd);
+ 	drop_caps(_metadata);
+ }
+ 
 
-> This really should spit out only the available modes.  For the internal assert,
-> it makes sense to print all modes since that's just doing a lookup, but it's
-> annoying to have to manually probe to see what's available.
-> 
-> Juggling all vs. available is mildly tricky to avoid having to dynamically
-> allocate, but not that hard in the end.  And IMO, it's totally ok to print a
-> misleading message if a mode becomes (un)available mid-test, especially since
-> this helper is unlikely to be used except in terminal situations.
-> 
-> E.g.
-> 
-> static const char *__iommu_mode_names(bool include_unavailable)
-> {
-> 	static char all_names[256];
-> 	static char avl_names[sizeof(all_names)];
-> 	char *names = include_unavailable ? all_names : avl_names;
-> 	int i, len = 0;
-> 
-> 	if (names[0])
-> 		return names;
-> 
-> 	for (i = 0; i < ARRAY_SIZE(iommu_modes); i++) {
-> 		if (!include_unavailable && !iommu_mode_probe(&iommu_modes[i]))
-> 			continue;
-> 
-> 		len += snprintf(names + len, sizeof(all_names) - len, "%s%s",
-> 				names[0] ? ", " : "", iommu_modes[i].name);
-> 		VFIO_ASSERT_LT(len, (int)sizeof(all_names));
-> 	}
-> 
-> 	if (!names[0])
-> 		return NO_IOMMU_MODE_AVAILABLE_MSG;
-> 
-> 	return names;
-> }
-> 
-> const char *iommu_mode_names(void)
-> {
-> 	return __iommu_mode_names(false);
-> }
+-- 
+2.56.0
 
-How about listing both? That keeps -h consistent with how other KVM
-selftests list the options for their arguments (e.g. backing_src_help()
-lists every backing src type), while also showing which modes can
-actually be used. e.g. on a system with only the legacy VFIO container:
-
-  # ./irq_test -h
-  ...
-  -t	Override the IOMMU mode to use
-  	Options: iommufd, vfio_type1v2_iommu, vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1
-  	Available: vfio_type1v2_iommu, vfio_type1_iommu
-
-The available modes also get printed when the requested mode is not
-available, i.e. when the __TEST_REQUIRE() fails:
-
-  # ./irq_test -d 0000:01:00.0 -t iommufd
-  1..0 # SKIP - IOMMU mode 'iommufd' is not available.  Available modes: vfio_type1v2_iommu, vfio_type1_iommu.
-
-libvfio exposes iommu_mode_names_all() and iommu_mode_names_available()
-for this, built on your helper for juggling all vs. available.
-
-> Coupled with the above, how about this:
-> 
-> 	VFIO_FAIL("Unrecognized IOMMU mode '%s'.  Known modes: %s.\n",
-> 		  iommu_mode, __iommu_mode_names(true));
-
-Will do.
-
-Thanks!
