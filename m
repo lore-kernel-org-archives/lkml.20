@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790984;
-	b=Mvjz5H+xTfCRuvyfC2obBEB/XAuFKRD/tipqEYXZOZccwBJ6jIQMLDtX7hHQCUkWSps0
-	 j0eAM6G8cO0KBIGfpu2WUNEtcKIwOpFgsSUBvXjDOzbGWE8IF3nFJqW9GA1J9GGWLxOEr
-	 VTXPbulY8M5p2p561OajuzHNR8Tn+FncK0UHzZXl/GcqoFevMrK1+rvl20Fq2pTSYgHdu
-	 mYvqktIGGq7ixFMhKobpcR8L3Qe1fYr41MDHJIp0qtyqnF4iSrVgoyxcFBiedXf96ggR1
-	 mtsNJOYEAtn1050YVRxyKyibYxB/JunzVs2hx1CD3K2addxwFx6f4Kx+MgvSNXQZsGg==
+	t=1793791005;
+	b=sbY3ysmuR2UxLvcM/nst1xzr898TizbD9w6QQuk7+3kCW62LKLhX+2NoWv/h3fdLol2t
+	 k3Saqi8QXVmLUixKo+iW34JcPunFCyopu/8vu0xtCDpal3AeIBs/TjNsbl7H+ngVselA+
+	 QQaUlSs982DGzZdioVSC9GuvKCUQH782d/7Uel9yU3C3Bl/JSRMdHH+s+6JJ37061qRAq
+	 eRgz6Vz6JD0yQpUAkXyrQIXSC4ouQnj0+ff6DXUFWl0kCEZ3xum+rvXr9xzBsCfrpGNAZ
+	 NSfRaFO6bcT29YAx7bj/VgmfprzPQugp9jKcaV3rzMX1NkDbLaXYsXhQbidtdU1IwLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790984;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vWwRvdhui2BuRbjKZxwRjdDIoXbJBDtn2jl2veq8E7Q=;
-	b=p2e5P6ZbcqqlfSnPb2K59Ah8wC/4FRKgGrqT8PV4y1ubzQ/HfpD86szuEJSu//3Tj3kf
-	 ApQdUL5jAcQf6MPaf0tbTNY48L1k0qjpfjf5MQSHLQBXgPTJ/iQCZjnLeF4e/9oOTdYaQ
-	 Ke2Ksg2n6q6Y1JEiIE3s8rkPoFf2LAGiC2by532NRjqpDzKdFEeEzJ6B2DQUmJ1lzPGWI
-	 7ymwCd9sahuNuwMJbojuP4t0eJ8q+oEorch5Zd2Y4LNW45xXli3da2PxQ6XHbolGo5JK2
-	 LF+v2Hkvj6/GeQOpbYoqIaV1YbK9odhPH2THSSAUSEomJK2Qzld2BlIdVv0pzIUvR4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791005;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=EKNkHe58jkoDMKUXvbrXleOxHAGull+uYnWOftiZvcw=;
+	b=dfGUAfKxM9kOIkWd5JciW+z6J2RUY/Mq53Gv25UaUlVnd5GoyY3ynZTo7vo9x7RpxYR4
+	 KjPFH9fJM8Pp/jM0e1gTrV9AcZTZXpH0YfKpTIcOYpQJ3NaTx1fQR5L8nthgI/iiJEvWM
+	 G1nqEfcnIUpzPy3d7Pjp13JzLS8clxwiZz8inJtJvqNQq7mBIP1JFBySYPsbvp+sLDzBH
+	 8S+ofH7/x34GOUEutGuDXdZZSsMmQzSqjzttMhCHR5GHM0IAUoNI/wz5DC9l4zyHruRJI
+	 xeUtYyTT3g3S4JHVWzHoZWP1idRaeXyhJ3dSJxWS6hh2v26kJ6yjOcbHCjLDKCybqmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=zitckMYB;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZhDwHyDb;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3713606A31B;
-	Wed,  4 Nov 2026 11:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3713606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962B1606A31B;
+	Wed,  4 Nov 2026 11:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 962B1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=zitckMYB
-Received: from [IPV6:2a02:21b4:885b:5e00:44b7:d675:5e82:f620] (unknown [IPv6:2a02:21b4:885b:5e00:44b7:d675:5e82:f620])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 9CFCB53401E5;
-	Wed, 04 Nov 2026 12:16:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1793790975;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=vWwRvdhui2BuRbjKZxwRjdDIoXbJBDtn2jl2veq8E7Q=;
-	b=zitckMYB2YR7JjxOSJr8rmJZd2DIdHaPrr7CPcdOPGghcFNw55QGnHKzvgXxqloaf5/UDw
-	tqRxJeGX+i7AX7Pec3gQapHWlZOnALAbgyXm45631GkkLuyEBHgmXHl601z8OqNwm7G7wq
-	gJIIZe4XUEj51j2/tGQBeLKzgdBOOCQ=
-Message-ID: <39f54b47-e21d-41e9-b7a3-12f121517f8d@ixit.cz>
-Date: Wed, 4 Nov 2026 12:16:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZhDwHyDb
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4B5VaO2600273;
+	Wed, 4 Nov 2026 11:16:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=EKNkHe58jko
+	DMKUXvbrXleOxHAGull+uYnWOftiZvcw=; b=ZhDwHyDb59ye51cMKfhgCqe6+wA
+	vn81Zch/4w86yG8DlxY6+ecGLHujRJiEi4jD7ez1yVHJLZp/7nHM4RVlPZw11gtn
+	pIk+0pCv2pKS3Xgu54JuzVBdv0GRv/iumKaGSslMah6O6OazfZBejCdqFPLyhM+v
+	gM3YJ4FbF5nGWO6wsWlWaSfnCOcrTYAEJAzhyhjIigyAkpZ/TZQ6BAkzZTeJq0Cf
+	+EEoN9i8G04Cd6WThbswxsaI3nzh9gGzCTIu7qIcmbiA2ppM/C9hjkEFY+iSbHFH
+	bF2KDQE3XiJ6IoVQXOudUGdP2+eUNgMXvYavB+UosAA/H47a2vSCX/neatw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pkt3x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 11:16:22 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BGKeb2675674;
+	Wed, 4 Nov 2026 11:16:20 GMT
+Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.147.246.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A4BGJkQ2675660
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 11:16:19 +0000 (GMT)
+Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 429934)
+	id AF973216CA; Wed,  4 Nov 2026 16:46:18 +0530 (+0530)
+From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+To: mukesh.savaliya@oss.qualcomm.com, alexandre.belloni@bootlin.com,
+        Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, shubhrajyoti.datta@amd.com,
+        shubhamsanjay.patil@amd.com, adrian.hunter@intel.com,
+        manikanta.guntupalli@amd.com, linux-i3c@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com,
+        wsa+renesas@sang-engineering.com, alok.a.tiwari@oracle.com
+Cc: konrad.dybcio@oss.qualcomm.com, andersson@kernel.org,
+        jyothi.seerapu@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+        aniket.randive@oss.qualcomm.com, praveen.talari@oss.qualcomm.com
+Subject: [PATCH v7 3/3] MAINTAINERS: Add maintainer for Qualcomm's I3C controller driver
+Date: Wed,  4 Nov 2026 16:46:10 +0530
+Message-ID: <20261104111610.3739095-3-mukesh.savaliya@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
+References: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,119 +89,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on
- WCN3990
-To: "Nagashima, Shunsuke" <shunsuke@nagashi.ma>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org,
- ath10k@lists.infradead.org, linux-kernel@vger.kernel.org,
- Fabricio Akio <fabricioakio@gmail.com>,
- Aleksei Kharlamov <aleksei.kharlamov@gmx.de>,
- Conn O'Griofa <connogriofa@gmail.com>,
- phone-devel <phone-devel@vger.kernel.org>
-References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
- <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma>
- <CAFEp6-2xY_gM=FRUp3R30TZ-NgT=-eYnyz_BPE0vxEenv+202w@mail.gmail.com>
- <CACB3TCKq--tdL6j+uGR_dxGdy-gHxQhY8p0h6xxqi_4Fd3VEOQ@mail.gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <CACB3TCKq--tdL6j+uGR_dxGdy-gHxQhY8p0h6xxqi_4Fd3VEOQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfX4b3yMqPucaBU
+ zZYp6XCB9uI4FA9Sy1o8QEuveGBv69jibgks4Ji0U8RpEmL4RkCl9DtLh9TTMo31AjsGHf6CL7V
+ bg08X8KfrgVMgY13FlbfCl8trhCLy1o4gpbE3DeGshqDqSg6YBv/c3L1qpQsyK6YNDM8h6e6EfV
+ GtdAiLctMBDXoN09Iv2Lxja2roz6K1+hnuowhMHk+mgW713OUa+4OZAUcniwXU75yTIy9ue8rrE
+ +XNOwm0j2YIbzTWMAqFTK1lk4vMteKpuMCEyEXOrfcuPHVG5XwbkNsRQhBvAJH8i5A1GYjOHKSJ
+ 9CxCOei9E5V7+lE5H6OlRzUgPq1TnUX2E3G4CzeCkFE5VbpxOOkqyQgqLdFf2dXHxl4XTpznuJW
+ os+61r2mBiGP27gOpLfGsBXlBoYNr6MraeFngqNppNij5UFPFpNPcYVm15YfnyB1RTDU8drQBl0
+ nVlwXeqdrmZtL8YrgFA==
+X-Proofpoint-GUID: DILj6uuxh-N5uuwGQY9ZQyPrOlCmBUCg
+X-Proofpoint-ORIG-GUID: DILj6uuxh-N5uuwGQY9ZQyPrOlCmBUCg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfXzrmUCp2GJfqP
+ KlkLESRRfxgsRhFt7OnIsprOyX/R7WvdXdSNnFeKUjxAbodkEUSWgbX2WnHC5sJctRhQpMnZBJw
+ QpcIRTwk+oA14mhITR6TrdLhiFrS+HY=
+X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeb1406 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=JfrnYn6hAAAA:8 a=VwQbUJbxAAAA:8
+ a=LDBv8-xUAAAA:8 a=yC-0_ovQAAAA:8 a=tiOelxa7q5ZmzYUgxBwA:9
+ a=1CNFftbPRP8L7MoqJWF3:22 a=DZeXCJrVpAJBw65Qk4Ds:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_03,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1011
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040044
 
-On 02/11/2026 23:51, Nagashima, Shunsuke wrote:
-> Hi Loic,
-> 
-> On Mon, Nov 2, 2026 at 12:56 PM Loic Poulain wrote:
->> So why not updating firmware-5.bin file instead?
->>
->> There is a tool available here:
->> https://github.com/qca/qca-swiss-army-knife.git
-> 
-> Thank you for the suggestion and for the pointer to ath10k-fwencoder.
-> 
-> I had tried that first. On my comma four, a local firmware-5.bin with
-> the mfp-support bit set gave the same result as this patch: the
-> protected Deauth carried a live PN, and the next association was not
-> rejected. It is also the file I used for the overnight PMF runs in the
-> notes of patch 3.
-> 
-> I went for a driver change instead for two reasons:
-> 
->   - I was not sure whether it was fine to change a firmware file that
->     Qualcomm provides.
->   - Other devices seemed to have the same problem. No WCN3990
->     firmware-5.bin in linux-firmware sets the bit, including the newest
->     one (shikra), and Aleksei (WCN3988) and Conn (QCA9377) reported the
->     same issue in this thread.
-> 
-> So I'll drop this patch and send a firmware-5.bin update to
-> linux-firmware instead. Patches 2 and 3 do not depend on this one.
-> Should the update change the shared WCN3990/hw1.0/firmware-5.bin, or
-> add a file for one board?
+Add a new entry for the I3C QCOM GENI driver to the MAINTAINERS file.
+This entry includes the maintainer's name and contact information,
+ensuring proper maintainership and communication for the new driver.
 
-ath10k-fwencoder --modify --features=wowlan,mgmt-tx-by-ref,non-bmi,mfp-support 
-firmware-5.bin
+Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+---
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-for the OnePlus 6 (oneplus,enchilada) issue "speed not exceeding 10Mbit issue" 
-on the WPA3 enabled router for too.
-
-David
-
-> 
-> Aleksei, Conn: a firmware file update only helps devices that load that
-> file. If you have time, could you make the same change to the
-> firmware-N.bin your device loads, test it, and send it to
-> linux-firmware?
-> 
-> I worked through this with Claude (AI). English is hard for me, so AI
-> helped write the English. I ran all the device tests myself on my comma
-> four.
-> 
-> Thanks,
-> Shunsuke Nagashima <shunsuke@nagashi.ma>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 46c416cadacd..43c5730dd007 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12637,6 +12637,14 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/i3c/cdns,i3c-master.yaml
+ F:	drivers/i3c/master/i3c-master-cdns.c
+ 
++I3C DRIVER FOR QUALCOMM GENI CONTROLLER IP
++M:	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
++L:	linux-i3c@lists.infradead.org (moderated for non-subscribers)
++L:	linux-arm-msm@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
++F:	drivers/i3c/master/i3c-qcom-geni.c
++
+ I3C DRIVER FOR RENESAS
+ M:	Wolfram Sang <wsa+renesas@sang-engineering.com>
+ M:	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+-- 
+2.43.0
 
