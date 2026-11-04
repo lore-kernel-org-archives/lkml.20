@@ -1,107 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793832120;
-	b=tEMgbIspFzN8RRk99wtRhK7+iPJicv+43IKUvcx1dXLdQKk4m5ntXHGypG7JL1ZRCj8M
-	 jCscZhgT1Lj3bp6HmWTUDvx3sAkwotumqJG4r01nKX6KK0p1OyVIf7rI5DfieVyPILLp6
-	 S0MRRSH2vrr+/urSNfBSbgFu8JlS0vkikqSUlPgDvTjHyeEueWosWTxJ6r+XLC8t3F/O3
-	 zYdHHT6WvpnN6J6sXTk8vzpyYvvz2znP4cZR6N697SJ9gt/9JrP0tMotfY/rdBadUYIAa
-	 dCyosQrg4BlihXCmFx5EKWyke+XajY9k3/tLc9fX11Iljogds/TQX7VwSWoBBkddThA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832120;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:From:X-Mailer:In-Reply-To:References:MIME-Version:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
-	b=WzDznE8XSNVNRiUoooVh3/jXsiydwpY4+/0qB/G2HbqcN/Dp9dL5fTeyEcMKHd5A4pEP
-	 6IrJH1jC/cf1dV1SZ32vziaqIvi8ehnqCe9xbjQPc+XwDIx+LCyxLcMce3OfpbamWCdLJ
-	 T5texEG7abI6ARUMKEPfPRRCSbQmBte/+b3pVl0smevt7YcdrNrgEwvnpc0OlUhsPkBd8
-	 0Yo7w9yI06RxEa6nCcttlScWNSGwKlYSY9kZhvjjl+ts3t+/Bb1+4cnOkPAv/fpyS/eRO
-	 CZw42ukX6rvgm8cuxN3Qdx6OdY42SVcvttxbcfhdI/3HJrZZe8Vq5tgkdy/tKwALx3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nrJYosoc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793832152;
+	b=sgZA0XkrzWnJ6G3wyMeu6mN8OzfYbTEdjUuLSgm+mBcvehG30kkq3Ah/c4n+q0PbKqDr
+	 wuAFKpgbwYj+cimi/fy6MI8wKPR76CX5Hplj45XcBDlq3zw7jIkIrxMBQGRmS4lUNGWmh
+	 6HHdrxY905l7KyhZeAbheq4w5Om5+8n0QNEiriZ6IXW3x576fc2Hg8XObov89/kKmpK3U
+	 RefILRKCzfW48am82HGOJRkyCXfD5iQOdxsPVheWAcGndpxmQZF3F5GPUS5R6cyOCJe7H
+	 kQBGJzFHCicHyO9Bg0Fm5BVY+44g4EfNkqKdZY1Y4nWViT+qLcZID5gXD5Jfuxr9DPw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832152;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wpWkwmVFLtWokZAX7hCdhUBC4VjT9NDRGRupPUibasU=;
+	b=gtwBftZFKdOqDsi3p5NoemsTtskGMoBV38zMWBNQq9mmwjuC+XTiATlYIkVD9Wyv2X7s
+	 OthDPu0caR7Zm3vwVcHigLmvekW2LmXjcGT6QiLmfHiWzsKApKt/qManMHDTbNsenTur7
+	 2YSW89zy2EUJvsTUpSetN21WXKh/HmSZ9TpSyfjHV4RnX+MxP8owq6dIfBy4ek2jLTkrr
+	 smiFhWxsi+QkpYk0UKw8+Izyn/LhH3pLnWt7iNpBLX1I/IL+Py1WhpyiPe5z6AdF6gWkA
+	 BY+Tys966OnrAGy5OQMcU8eEfOiWUst2gahKJxRcXBx2qX3YtxbfObAkLpjXRC7jloA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dR5N/aMC";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1335606A335
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1335606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9B5606A31B;
+	Wed,  4 Nov 2026 22:42:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nrJYosoc
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49de8ea072cso517072fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:41:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793832119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eXNHtK6etZddwQMjkX/AaMBH2PABhvRwGPyr/o8j/WD0PXGsiLR7vdwH43DoF8Eot2
-         F7ypDGLkSTJoJJtBtysrHuanhsjo6ANnqRCFho60/Rs3dKY1MmRg6fcaBS5795CVo1/+
-         j9xjUDOVr2/oABHfpat4tzJWOoQzIADdpqP7BPTyf4phWG4t496NsrYmPXLNpobvjaDw
-         w2LGRusIKxkYYOOuzqMNrhuowBzb9XktKYo2IodEA5IXDmZ8rWMvtZ3Nj2oewpwzTunf
-         jLu46jVoz2IGrt0pwEZC/TqeR8Qpp/mv7IhLAYIACw9SDyeiPeupqRDyEkzUsg9z0jIr
-         DPYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
-        fh=1/w2MFVGVyjm0ehMdOBNf8Gwh6dtwiFwXp2wqPm8GZ8=;
-        b=a82SnXf6Tj1HL3M/6N9S2WqkKE+aT3vyQHpebDjxnPf8NoXopzXBiBtrlFFr9xG1KN
-         7gHULh7CPk5MrTvJqW1RXSYqtOFFFp4gvrmzKM+KEHzxXuq02eK8wpIQ30H3GN/2tuMx
-         npHtBubxgq/knfcJQ35ScvkCx0aOw7F/3Nre1zTXSQsTLj6bKJNMQa6UAMUeuA5j7GBO
-         b2fFVAFmYkwCDcveFmrgsolZ5NAxHKTQHUEyc6gv/Wd6FyDZphC3aobPGYrMprkQZeOj
-         MviDqGOjq/GziqD1Yejsy2+DmmcLCMaoGsszrD5VNVuCrJgEQYz0jRjBdGb1hrMgZLay
-         fyww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793832119; x=1794436919; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
-        b=nrJYosocl6Cgj7UFFT0f3IuLJLZzbYzD8JYNSuLY6nmx6k5rAOOgl2sLqWZ53No5/G
-         Rdwgc4zwNZgKbtUafDAnG+ZpNXst8rD7tdmbm/leDSJoCGsRpdF59y6I2T+X866kCWUQ
-         gMJFpRJa+VqueDUAdLZR/p6wg2YvL3lL/GJXgvkqPY5fL9077zgHllbNAGUkTZovF5WI
-         oT7gNX0nM9TiDgVqdjD7UYJqsgJ9enHGPJgUsN2cv523Dace9Vew8fHiEavqXIc/sV1l
-         z6D4n++vCwDwiZ9SAXtNqNneVD3ocOr40GtT8M/eKeZFotnjKKk2WK3XnOjAMGcEzR+V
-         psfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793832119; x=1794436919;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Le7HKNyvunzvQx/aShnNzGNgI0iOTWFy0ku1BiRO6Xk=;
-        b=j2QpJqFRPiAWjtLEXGyhNXpqLpYGzs3Uli/2QboMF0tj1rdDi5ML5FPWMNJDIx3RvS
-         C4GhXEKaVx4R7x6KfpROXiZhKtEHLyDhOlfIM/MilpLDet8U++4cmdxheM59m03vPDZ3
-         SOA+V0yjRyt2WLvd5HtgxRVA2D4ykr01p5X/y2IqvPlKez66Jsx0E3BPWXeRVZQ6+8y2
-         MffQcomNoLgcrpxImg7IZ0izUwR0SRS4gqEmd/TiWhiTPH6k1X9nZOxez1zzJMwTripv
-         xH2rytPha2gz2+yy+08N7AGHZ2wQGhedmHDrWzX55T2acEKHT88RUpa+M7kFFHYcSjlT
-         kcwA==
-X-Forwarded-Encrypted: i=1; AKwUvBxGPwYj5ArYrbKevyX65hPSDOcYBmFE6Fp43U+PiS2NLVDkfSUk0LnT8jvtTV3viqe8SemDSwTXw39BKPg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CAphf0a+7NvKsdYuXYfinynQDRW9VxbVTm5Oro53YAHklhT3w
-	c3wSmsUw1ixyeC9uWPMwdWwPwkCBX9J4N52PHdusexGcbB8PArzJuMQQe5ZiiNpz9cdAyuSvVvJ
-	b9uLWvjvFQjYQ2SOserstTDCAzsROUH4=
-X-Gm-Gg: AYBFou3r6qB/Vdzlt5A7p/ep3v+s5NLofM4Uh4sFlo4lQq3g8mFsjz192AmQvbunVgm
-	/5SNoHRrYDqjr9/nJYLImUl6ZFieZCYpeMqxI6zBNguECm+VWHXJeCQgtwMGw/BzVM31zpDVDHD
-	ZAFvHJmoMEuYTdmDOLXaoaEorf/qtUtPeLl3TyFUY99LzmwO96294iiKRZIw1kC23oha7LSoyvB
-	HiYkTr3CRbSZZF0eokkG7Q+Ml70Ep9mH3E+zfN3+Z4ka/uwepMCSzTrARwCo1tsEEyuzgetqunk
-	hIJlMRJufW3Fs2MriXsVAg9tCjK/R7sU4yzMrRSTEjkCsSk5azu71gfciDz3TPz5W3KZZKJFUkZ
-	FlVC+6Xd3OH4O37qA/YBrXe91iCx64FgKv0xjWPab4iQ4JFgGMas/yoKpDKoMnd2F6ywD7ss=
-X-Received: by 2002:a05:6808:3a13:b0:540:5827:6d8a with SMTP id
- 5614622812f47-5640de8d663mr11690958b6e.66.1793832118868; Wed, 04 Nov 2026
- 14:41:58 -0800 (PST)
-Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 4 Nov 2026 22:41:57 +0000
-Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 4 Nov 2026 22:41:57 +0000
-From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <CADZg-m1A5qKMfXGtQw_s9-tYDL-NinDX8bNAxurFkrWRRq7ZeA@mail.gmail.com>
-References: <CADZg-m1A5qKMfXGtQw_s9-tYDL-NinDX8bNAxurFkrWRRq7ZeA@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dR5N/aMC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39B11F000C1;
+	Wed,  4 Nov 2026 22:42:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793832151;
+	bh=wpWkwmVFLtWokZAX7hCdhUBC4VjT9NDRGRupPUibasU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dR5N/aMCqO28kHbE7meCsnmz5lRYUVFofuQvRV2dyA1Sgkq5SMGf6DajH9kqZLuVJ
+	 t5iBuAsZl/i2JSPr9DyozcQkOJzKN1m8LbiR6YmkEAAnHo20teYLbec7iP5GRKXBEi
+	 tZIea4nkgnpHSHd672SyxXqFuX5EMWMHNsKXztMk=
+Date: Wed, 4 Nov 2026 17:36:07 -0500
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Adam Simonelli <adamsimonelli@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] USB: visor add vendor/device IDs for PalmSource devices
+ from the PalmUSBD.inf file in Palm Desktop 6.2
+Message-ID: <2026110443-gore-briar-2fa1@gregkh>
+References: <Wihw1vdISi-GVjWnM45KnA@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,63 +54,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 4 Nov 2026 22:41:57 +0000
-X-Gm-Features: AclHuK8G_S36ePhSP8ix8BUldjXx979HTJRdUgyJDXB9GJjPu8eEhpUl8IqLEfM
-Message-ID: <CADZg-m06Zf1c63em8uJaDKVQu68sHbdBi1oZw7JAbhUtvk5nXQ@mail.gmail.com>
-Subject: [PATCH v2] dm: Reject table setup after queue or disk teardown
-To: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com, 
-	bmarzins@redhat.com
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, 
-	syzbot+5307e3bcacec2ce4c2f0@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Wihw1vdISi-GVjWnM45KnA@gmail.com>
 
-A failed table load can leave a mapped device in a state where its
-queue has already been initialized or its disk has been removed, while
-md->type is still DM_TYPE_NONE. A later table load then calls
-blk_mq_init_allocated_queue() on the same queue. If del_gendisk() exited
-the old hardware contexts, blk_mq_exit_hctx() dereferences their cleared
-flush queue pointer.
+On Wed, Nov 04, 2026 at 05:10:46PM -0500, Adam Simonelli wrote:
+> >From fed0bc0868dd1e0dfe98ec84fcd7c1208cb076c3 Mon Sep 17 00:00:00 2001 
+> From: Adam Simonelli <adamsimonelli@gmail.com> 
+> Date: Wed, 4 Nov 2026 16:56:50 -0500 
+> Subject: [PATCH] USB: visor add vendor/device IDs for PalmSource devices from 
+> the PalmUSBD.inf file in Palm Desktop 6.2 
+> --- 
+> drivers/usb/serial/visor.c | 6 ++++++ 
+> drivers/usb/serial/visor.h | 4 ++++ 
+> 2 files changed, 10 insertions(+) 
+> diff --git a/drivers/usb/serial/visor.c b/drivers/usb/serial/visor.c 
+> index 5706c46c49c2..5a289c566ba6 100644 
+> --- a/drivers/usb/serial/visor.c 
+> +++ b/drivers/usb/serial/visor.c 
+> @@ -75,6 +75,10 @@ static const struct usb_device_id id_table[] = { 
+>                .driver_info = (kernel_ulong_t)&palm_os_4_probe }, 
+>        { USB_DEVICE(PALM_VENDOR_ID, PALM_ZIRE_ID), 
+>                .driver_info = (kernel_ulong_t)&palm_os_4_probe }, 
+> +       { USB_DEVICE(PALMSOURCE_VENDOR_ID, PALMSOURCE_DEVICES_1_ID), 
+> +               .driver_info = (kernel_ulong_t)&palm_os_4_probe }, 
+> +       { USB_DEVICE(PALMSOURCE_VENDOR_ID, PALMSOURCE_DEVICES_2_ID), 
+> +               .driver_info = (kernel_ulong_t)&palm_os_4_probe }, 
+>        { USB_DEVICE(SONY_VENDOR_ID, SONY_CLIE_4_0_ID), 
+>                .driver_info = (kernel_ulong_t)&palm_os_4_probe }, 
+>        { USB_DEVICE(SONY_VENDOR_ID, SONY_CLIE_S360_ID), 
+> @@ -133,6 +137,8 @@ static const struct usb_device_id id_table_combined[] = { 
+>        { USB_DEVICE(PALM_VENDOR_ID, PALM_TREO_650) }, 
+>        { USB_DEVICE(PALM_VENDOR_ID, PALM_TUNGSTEN_Z_ID) }, 
+>        { USB_DEVICE(PALM_VENDOR_ID, PALM_ZIRE_ID) }, 
+> +       { USB_DEVICE(PALMSOURCE_VENDOR_ID, PALMSOURCE_DEVICES_1_ID) }, 
+> +       { USB_DEVICE(PALMSOURCE_VENDOR_ID, PALMSOURCE_DEVICES_2_ID) }, 
+>        { USB_DEVICE(SONY_VENDOR_ID, SONY_CLIE_3_5_ID) }, 
+>        { USB_DEVICE(SONY_VENDOR_ID, SONY_CLIE_4_0_ID) }, 
+>        { USB_DEVICE(SONY_VENDOR_ID, SONY_CLIE_S360_ID) }, 
+> diff --git a/drivers/usb/serial/visor.h b/drivers/usb/serial/visor.h 
+> index 622d639ce74e..0f86bd06c4fe 100644 
+> --- a/drivers/usb/serial/visor.h 
+> +++ b/drivers/usb/serial/visor.h 
+> @@ -32,6 +32,10 @@ 
+> #define PALM_ZIRE_ID                   0x0070 
+> #define PALM_M100_ID                   0x0080 
+>  
+> +#define PALMSOURCE_VENDOR_ID           0x13e8 
+> +#define PALMSOURCE_DEVICE_1_ID         0x0600 
+> +#define PALMSOURCE_DEVICE_2_ID         0xff00 
+> + 
+> #define GSPDA_VENDOR_ID                0x115e 
+> #define GSPDA_XPLORE_M68_ID            0xf100 
+>  
+> --  
+> 2.55.0
+> 
 
-Reject setup attempts after queue initialization or disk removal. A
-failed request queue initialization still leaves md->tag_set NULL and
-can be retried. Set the request-based disk operations only after that
-initialization succeeds, so an unsuccessful attempt cannot leave a
-bio-based retry with request-based operations.
+Hi,
 
-Reported-by: syzbot+5307e3bcacec2ce4c2f0@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5307e3bcacec2ce4c2f0
-Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
----
-Changes in v2:
-- Resend as plain text after the previous mail client reformatted the diff.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
- drivers/md/dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 1881d86..2f3f1ec 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2606,13 +2606,17 @@ int dm_setup_md_queue(struct mapped_device
-*md, struct dm_table *t)
+- Your patch is malformed (tabs converted to spaces, linewrapped, etc.)
+  and can not be applied.  Please read the file,
+  Documentation/process/email-clients.rst in order to fix this.
 
- 	WARN_ON_ONCE(type == DM_TYPE_NONE);
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
-+	/* A failed setup may have left the queue initialized or the disk dead. */
-+	if (md->tag_set || test_bit(GD_DEAD, &md->disk->state))
-+		return -ENODEV;
-+
- 	if (type == DM_TYPE_REQUEST_BASED) {
--		md->disk->fops = &dm_rq_blk_dops;
- 		r = dm_mq_init_request_queue(md, t);
- 		if (r) {
- 			DMERR("Cannot initialize queue for request-based dm mapped device");
- 			return r;
- 		}
-+		md->disk->fops = &dm_rq_blk_dops;
- 	}
+thanks,
 
- 	r = dm_calculate_queue_limits(t, &limits);
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+greg k-h's patch email bot
