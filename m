@@ -1,81 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823255;
-	b=lPKqBNPiQ9NfBMqLiNWtkt2lwyfNc/t9baWoLDSWsqe2qKQWQhOSyTJ1QQ1I4ADKrZ6d
-	 vKvVuqgn8ec9Kss1VwcAs2wQje09ixcHrIXcScimPUteDHvnZ/TwSIj6wrK/wOMV5nubN
-	 IllQhytr4yFozibMwF78K8qABmyb7WeILj7BeubfDFtQuNLnKEKiVHXqwCFt2BLi1wRGR
-	 Wb8ZbrtM2BLVz5cBX0qYYP7/6UoHwDxArWpn81gm0RiglHYRgmzgQNh0XWPcyigGoufy9
-	 f1vyrIqynAicWdsbh4jpDzYKHheTqGKF8ZqkIHRiyaRE7k/mE9dpVofMNkMf5wStAZA==
+	t=1793823266;
+	b=gEqLO/AZWGo0ek2/cbpQjyfBnptBIN2W3afWFLl2/G9ccRByRPlEAhka84no75bxhy4N
+	 yNBX0nHB/TRi9Un0p01OdyeB3cjpzpUg+wCdFZRpZE7IKDIi3ERZHlhhhUz8W6O1FtNUj
+	 SbRDVUCBAbjgp8ggTwqUJQ5ZWBm/WBbvJWZScfFs4xl5JjCTYIw2lOQQ1BfLEjxOkU8XO
+	 gNaJejOtBQi+0qHu6y2FArUw72Jx8cecjJYF9wLkIqdQtCf5COc3sAyevEKnf2LfMcLRW
+	 fdgijhy0D+o74HfZM4w4b2kiAz1+BV/4YgYlZUl5KLWthJn5TsLrEgUEBprw/6PNP+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823255;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4PH5m3KVIwIBaRvHWnFW7UIkZKClI0X9XZgk8BD37Mo=;
-	b=qNwtLSTgYIJuri4L+z3XIY7LajEEuIsm1uK13pqN13C9SleY2y9/jidT9Gpi53F8zfk6
-	 OC6YUCIUmtHAm3rWzsUAZz7eniwY121CCkynNyOMA9RfsFHzVq+ubIUKqkv0lQZnvmRxQ
-	 5CFXB4LJ+3l/lv4sL9SoMUTINwqXzIHPNy+yjX5nb/R/irzsJXMOd1q9c3sJZIgqN0khw
-	 4+/5r/C/QbiW2reCUXBd4k11SHep5TwTufXJNkqOCzQ/WgDNbn2lPNVp7XWnY922r+JP5
-	 HG5LWIWUiOqNrVBXZKfQROBiEAaOJghTuq0ETb3pz2HutFReXn/s85joFtHyhpgebgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823266;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=tainVYYnXN43BqeiQHpHR1z/mUbKthabD0UanXKbPoY=;
+	b=fED1p/9Gw97O4ezmgs11lp3yYdbxiiBzIcmz3mu2Voos9x6mf/heTqqac//FAZh2Zw4B
+	 Fm8KnqpP+n8fQMh9MktTsHTTWoIsOqgNp3TOaxS6z1C5Yb/8K+kOXxzflX0nMcLawbmUo
+	 knfH1B6j8h/zCoB/zIRRkW6YRX1wvr8Nf+KSgcIIhxbBHQBIPPsy2N7ov7bmz4tB3FAgF
+	 hGOWOKnzcVCMhD4wOFB2i66sRwmNNmXCC+R5DymTC41+UNz0NhrAlPsU+hJE/GaFfmAhd
+	 OR+30OMTUYOxeAm7ZBH4ItvNz2TXLXC2VxEkHvf+2bptmqsiv0Nhz7IQgWH57+ACnRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GVpdbQVi;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FmP/g+TF";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F316081775;
-	Wed,  4 Nov 2026 20:14:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06F316081775
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6EF608418C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:14:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GVpdbQVi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793823254; x=1825359254;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=mY0OgZkfBn3Rh2ZVN06sX8LX9BZ6W9zKpgjYrPWUHgk=;
-  b=GVpdbQVikY3Pff/7V8lXbjMQXPLV51lsBsm9QEzhZD6ocxAL62/DX1hw
-   bF1oLVMYensOQHK5X8iJhLaA/jFuu4fbj6o3Ypfh8/y9LiPWSEuFb6Via
-   /YC2wavjAxJQnbcbM3Y5yN8WMbXliBhG0LtAhNXrl+VYDRvbOWnszgCx9
-   yhUhsiDAhSQGV5gguoc+EmdPCb0gNG02iJgnRTp19mMeyXqqU3QY+j7gR
-   HvylZDEx0q4W3F5f96qwYnplPM2yHqoDkghpPReu+AXjd6U5GUVVrRrVZ
-   dmGgGcfhkOG6tf7qvG6U1C2VMYUpGQQZKeXxw/8upXrEYZ9euQ3zEUqFn
-   g==;
-X-CSE-ConnectionGUID: zBieSQo+RpqDrWzSvFIYBw==
-X-CSE-MsgGUID: CQWprpL/QcCQcTlt9hHtnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2589123"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2589123"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:14:12 -0800
-X-CSE-ConnectionGUID: sylHUVQSTNCrpKwZ73aa4g==
-X-CSE-MsgGUID: dBfMYtZBQ/mvsZGW6EfsfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6925622"
-Received: from spandruv-desk.jf.intel.com ([10.54.55.20])
-  by orviesa009.jf.intel.com with ESMTP; 04 Nov 2026 12:14:09 -0800
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-To: jikos@kernel.org,
-	jic23@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	simeon@maryasin.name,
-	lixu.zhang@intel.com,
-	crofts@kernel.org,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Subject: [PATCH v2 0/7] HID: sensor: custom: use-after-freec after remove
-Date: Wed,  4 Nov 2026 12:13:56 -0800
-Message-ID: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmP/g+TF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72DA1F00919;
+	Wed,  4 Nov 2026 20:14:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793823266;
+	bh=tainVYYnXN43BqeiQHpHR1z/mUbKthabD0UanXKbPoY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FmP/g+TFmhPeDd4FVsPaEdyCQkltqTwnzuXQm9j7nj51dwhHzbDRk+88HxFJUzQ0/
+	 pJ93GwtTrdvjPErG3/gyWaXWdSQwXD77DNhoM74+k0vrU7m7WpXYHtacJEaD8L9QDE
+	 4n79VbA/KZgRS/670HdPGZ+tYkueeDuJ4kYDrqwOltBgKfEo/QtE1Grf4aLGHjvRvq
+	 Zgx2unF+IOBjkE5AkUIBJ3Py1P1BJOFLrPtijpFZ+8Lk/Sk8RogTXlgwzOdGiNjL8E
+	 0Qy39aQwpyrR+KcQOoqzuuUnOayzPCbCPmVHyn7CUngM7SR0XBrg3gfqooHbImygff
+	 CNKqoC1gF/ZOw==
+Date: Wed, 4 Nov 2026 21:14:19 +0100
+From: Thorsten Blum <blum@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Ahmed S. Darwish" <darwi@linutronix.de>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND] x86/boot: Fix off-by-one error in sme_clear_pgd()
+Message-ID: <auuSG7Bvj4pXPRmP@kernel.org>
+References: <20260918142714.242711-2-blum@kernel.org>
+ <20261030184642.3ec0215c9b47e3f3e0dbdbdd@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,36 +66,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030184642.3ec0215c9b47e3f3e0dbdbdd@linux-foundation.org>
 
-This is v2 for patch " [PATCH] HID: sensor-custom: Synchronize
-misc-device teardown with file lifetime".
+On Fri, Oct 30, 2026 at 06:46:42PM -0700, Andrew Morton wrote:
+> On Fri, 18 Sep 2026 16:27:13 +0200 Thorsten Blum <blum@kernel.org> wrote:
+> 
+> > The mapping helpers __sme_map_range_pmd() and __sme_map_range_pte(), and
+> > therefore sme_encrypt_kernel(), use exclusive end addresses and stop
+> > before vaddr reaches vaddr_end.
+> > 
+> > However, sme_clear_pgd() treats vaddr_end as inclusive when calculating
+> > the last PGD entry to clear. If vaddr_end is PGD-aligned, the first PGD
+> > entry outside the range is cleared too.
+> > 
+> > Use vaddr_end - 1 to calculate the last PGD entry within the range.
+> 
+> When fixing a bug, please always fully describe the worst-case
+> userspace-visible runtime effects of that bug.
+> 
+> I'm guessing "none known, this is from code inspection"?
 
-This patch series is essentially the same version that was sent to
-Семён for testing.
-
-Following a feedback review conducted with various AI models, it was
-suggested to break each change into individual, separate patches. This
-makes perfect sense, which is why this series now contains more patches.
-
-Additionally, these reviews identified issues in the adjacent probe and
-removal code when active sensor instances are present. I have addressed
-those issues in this version as well.
-
-Srinivas Pandruvada (7):
-  HID: sensor: hub: Synchronize callback removal with raw events
-  HID: sensor: custom: Set owner for misc device
-  HID: sensor: custom: Disable sensor before hub close on removal
-  HID: sensor: custom: Fix state lifetime during removal
-  HID: sensor: custom: Serialize misc device reads
-  HID: sensor: custom: Register enable attribute after misc device
-  HID: sensor: hub: Remove clients before stopping hardware
-
- drivers/hid/hid-sensor-custom.c | 121 +++++++++++++++++++++++---------
- drivers/hid/hid-sensor-hub.c    |  27 +++++--
- 2 files changed, 110 insertions(+), 38 deletions(-)
-
--- 
-2.56.0
-
+Correct, this was found by code inspection.
