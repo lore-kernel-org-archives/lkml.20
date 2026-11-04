@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787370;
-	b=4R8nO7AqnuWbjY5c+6RzkpZOD4EuoOqB17wBtPGIFOjhcP8QFAkruehtADDeSaQ1bpCI
-	 qBYdeeg53IhdZvmT9azQ4fUEQIMd9Eib7V3ClH4kKTdMExd1hYolOa+kDrUecWh4nac5x
-	 cS0hE5KE+K585VEKJbfY2F9WryVsGnzN8e7/k2FZTNr35E5U/olQyKTxE5VEOGDafNpfa
-	 Xd1BcH7HYg5utQoQsviN9NZUVMevrIC/wIFc/gZYLkqzZjSKa6Ni75AHqJ8zCVBgeA0tM
-	 ypQCI2VmX3v/uesildY1qonCxgbL31YIo+vcrEnm8SrsBUySBsX7lbIWNs+l4PEhlVw==
+	t=1793787388;
+	b=a9AICkkBmq/OUhp7nxiX/Q1mtV/NLm6rND2oCrLy0D8sxQ5RIi7edJ3dE/n4p0ssbXVn
+	 ZsHaUfM2UHC2v5IVD6OWu25XYMu7sH0rsgqt73Sx9vlHhvbVy+Df5v3ZpvR/xs848x35X
+	 xC782o44lzM7Shn6a/j87XAHxPO63JuL4fN6KPAW+bIa7osK2f9koBKAc5sV35JZSZ1Fl
+	 2ZEiF3RuFUdV6Kjxv0tfJ3++hUu4CHGUSX7m8FMtHZdQNwF1F1dJ3aYMdbfSdgC3BYgxZ
+	 fubYzg8yqZ4dEHXp49JzfS0VrKdiTwuaSaC2+i/WYuB3t0MoWGk9+H4vaXogGhZxYlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787370;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=blji6EsncC02jabiZ6XFQjZLweyuE5ilKCRUIDmsUIk=;
-	b=D35nwBjw84IFMVVmgDnmvDHRjsmhNuwOCmGUrgaHYnW9aIa1iK63cRe61roZ0cCiu2V3
-	 1gzequciS0kCslR2+WWgHvuLJSZONhUmY9yNl6bGXiKJ9SF5QBquNRL520ttJUr7EiQZC
-	 +ghZV60CQI174HpnJ1CqfkaQ+M/tLWS1wxkaTokxD6P60a8ZVB3c9VKckMLkNfA2Rzz3X
-	 mFyJy9PT2lVY0ozGjZQP9D+JwzLMbwJVw/lsfknUykslQCZFnlrTOa9qcc1WBwS0NxP6Y
-	 TJ+rDGZyioScLny6hLjIUWnktkUwnV6hFNdeXS3b3oR9vjLkfShqvh17FfLRlYW6+SA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787388;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=a0MrLLzClOoKowkmFBv+8NUjLdhsm8HzUFCMBywp0oA=;
+	b=tfCB1Fwlj2WZa9d6Rp/lCzlYgOGbGCMW7R2z+268UuJhEL8OgNOviKDDUkca1KH0NTYI
+	 7SAeZE/kGnDE7YpGrD0A8S4NdxW1WjBrMHDL2jt0Jp6LERPzFY3OR3ZsXB3EAV5QHUjjR
+	 q97/cHxy8nymsJyiGZCckyy2NxXWfiEIwpcR+KPmhg6QdGLo5J4JMl3voHKEWATSpRjmd
+	 qke4xaOUxISit5isdXFp4bWBGltT6vVfypmKMad0rYorUyyawJoi5BpsJAY1u8K0pab+Z
+	 KEU6oGHO2Nya/bfBxoRGMCw1PHOx2pLQV4mvVIATdclAK5s6UJBONpLs7dHv/w+nfIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o9xzZVg0;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2T3cugC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BA4606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16BA4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36618606A31B;
+	Wed,  4 Nov 2026 10:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o9xzZVg0
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=blji6EsncC02jabiZ6XFQjZLweyuE5ilKCRUIDmsUIk=;
-	b=o9xzZVg0fOxBJlAD+nBxyvw2tTHS6Skeo/45Cxe4pA078r/AihD17TRdj6Qm1Xax7H+bOedeq
-	vWcbeQY6bJTonQ5DHgg0oC47ip6VNJHqtEERD3jnRCd73gi3uFh1JHm1CXXRtdBp77xJXFDbY1i
-	AeePRK3miMx68nksgLj8ZGs=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jKLtX1ymmzLlXh;
-	Wed,  4 Nov 2026 18:15:48 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 240724055B;
-	Wed,  4 Nov 2026 18:15:59 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
- 2026 18:15:58 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <gshan@redhat.com>, <andre.przywara@arm.com>,
-	<jonathan.cameron@oss.qualcomm.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH] arm_mpam: Restore the cached configuration when a write to an MSC fails
-Date: Wed, 4 Nov 2026 18:15:41 +0800
-Message-ID: <20261104101541.563113-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2T3cugC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D424D1F000C1;
+	Wed,  4 Nov 2026 10:16:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793787387;
+	bh=a0MrLLzClOoKowkmFBv+8NUjLdhsm8HzUFCMBywp0oA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b2T3cugCiBzxVY7kwb4HDdXHNyBglbJhBTSLB40DxmLKxX0jqsgMXaR2sbAkh7x3K
+	 i0KpiYYIkhElBP7Qa1zV5g+MtbExSyrKPOF4KupWwjPeqgS1kcbwkntSOEmytQc1ks
+	 t7HhQf6ybJJVeh9m4kr3nNDFxHwj4JxdM/fB7ocns20AZHFXX7mWDXxj+hNDnX7Ykf
+	 vAwZV+0FDhA0Au3vuklL77RByHJQehhan/CGKagapX04nmkJf5SiERFD7NaEseZ/0c
+	 T3pLxLb6OOUsBUnbMHwGzizZ3EtMB0jdXs4c2eyRhvIfWCWRPvxIqtNMx0a7KX/qCc
+	 0b58DXrKHXl/g==
+Date: Wed, 4 Nov 2026 11:16:24 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 01/10] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+Message-ID: <20261104-inventive-mantis-of-wholeness-ec5af2@quoll>
+References: <cover.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
+ <0b55aa2974382cf6f3a278f4c5f64f0af403bb95.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,52 +64,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0b55aa2974382cf6f3a278f4c5f64f0af403bb95.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
 
-mpam_apply_config() caches the new configuration before writing it to
-the RISes. When mpam_touch_msc() fails, the cache keeps the new values,
-so a retry with the same schemata is skipped as a no-op and never
-reaches the hardware.
+On Fri, Oct 23, 2026 at 06:47:34PM +0200, Tommaso Merciai wrote:
+> The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> Processor (VSPD), and Display Unit (DU).
+> 
+>  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+>  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> 
+> Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> 
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-Restore the cached configuration on failure so the retry writes it to
-the RISes again.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Only arm64 MPAM systems are affected; x86 does not support MPAM.
-
-Fixes: 60e33a1864fd ("arm_mpam: propagate MSC access errors for mpam_reprogram_ris_partid()")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <stable@vger.kernel.org> # 7.4.x
----
- drivers/resctrl/mpam_devices.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index c067b6d57d71..bb667a416660 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -3412,6 +3412,7 @@ static bool mpam_update_config(struct mpam_config *cfg,
- int mpam_apply_config(struct mpam_component *comp, u16 partid,
- 		      struct mpam_config *cfg)
- {
-+	struct mpam_config old_cfg = comp->cfg[partid];
- 	struct mpam_write_config_arg arg;
- 	struct mpam_msc_ris *ris;
- 	struct mpam_vmsc *vmsc;
-@@ -3439,8 +3440,10 @@ int mpam_apply_config(struct mpam_component *comp, u16 partid,
- 					 srcu_read_lock_held(&mpam_srcu)) {
- 			arg.ris = ris;
- 			ret = mpam_touch_msc(msc, __write_config, &arg);
--			if (ret)
-+			if (ret) {
-+				comp->cfg[partid] = old_cfg;
- 				return ret;
-+			}
- 			ris->in_reset_state = false;
- 		}
- 	}
--- 
-2.34.1
+Best regards,
+Krzysztof
 
