@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787817;
-	b=LqRmrR9h2jnM5s2Jyw+2rHIDMHKsWCIohIzeSwl0ZMdRehY6HkWgBOY9oiyBjTlL5Dx3
-	 QosWZkeadVuYkPQphcyl1ilWb+sBvj2C9r7AdBXR7Y38lg4PEXGJqgG2LI3vC4YE01QOB
-	 Wqvdutgs4bkxXgeAV2uyZyd4Dc6rKbLpQRKTFtU42p9fa4ARtSMItSxhW8B29Sagcp29S
-	 g5TvaaVJFeQ4bDKV9x00N5ifVhhE8i83vxvZuYuD2IBsewKp/0VfuRpWMb/FaxWKjIR6v
-	 rdLkghRmjLCGD3RFcq3+yliKcW+9iaidMRYjphc5cky+kxlkdzPHOkOl+23C41osdTQ==
+	t=1793787825;
+	b=xtzSXg9qFm99LDTxXgI/wYhZbfeQetT6qqu5fHM+qh2eib3Ji87L0Cg78rw1kE6NYrSI
+	 isMwAnkUF2STNrnl/vtPq0ZniF+8j0gJiTiX9jVuNjFtAbbtAMt7Iwnqp7LQv9Tmi16uW
+	 WLok6H9qJfABTCEuWaokUmgop1BtCx8Z3lM355RDu8rupxdwxWEQQu99/gRQ75eIrfDIn
+	 HxpzKLKnVzksD+J5EdIsg4qU/EqaziG6rh3vdXsq7dSQqgv+OZYlcrL0EEZde6RH5vn3T
+	 CEPt8bTduQym+my/ecXLSmPvNXM/RXI5PAp7q2Dxzm25Ew+y7g8yKgaCZQmqJEK9Rwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787825;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KGOUq/ZqyVEMWkCsVi5v1gsLOVeCrKZIZ7AvOAwel7E=;
-	b=yBQL3T12eCxmrUck2WMBIDhFCch4O7HBM1g2y6SAgQSsYyIAGY5igVx9nMspIsk0unl0
-	 1Lvtf+iHwRh/ApNAoeMXzxEJZka4PqfHRRYo32EeEj+p9VrVZ6AFYYCShowG/5q/NPNLo
-	 5vmmyoSg3OWiQwrDOfAxRNt4q8UYV6V5hlw6BrrI1T1wlsZuu35m4TDYEAQwC40/pXcZW
-	 INS3Yy8DHMOniY+L5mCf9NVwqbtOrSHcCF/y/iOK+9iQ+qXs9zyODFe69Xtd46DcJ5D3O
-	 qpaYAUwXAnNOHlPxTsRkmECwHCrWbabsZZwPnJi4xDyOPzqfcmQ/0OfY5s8puL5QXSA==
+	bh=uLK6MImajGiIdooVPMrO29/klV59rlibNvUSXvCXNpU=;
+	b=dCpu/+jhaWWoje5nA9CkBJ5Hj9uIrWUz2imtfJBkJiMJ1+GeS/wvQDr9E+ZSnkV9bJBX
+	 ndwMHdBL/rZo1FYN50Wr5jcST/PVITwvy5mzIR0nKVLl8gOOBdwaVRKwOTAnF5xeCd/NG
+	 8/KNM2KvsIPG4ngZXFe0OZTrd2yGJnxrXPShB0EyoVQuau5bqCu0PGLOyat7sRoiUoW9H
+	 XdTMubqy7lVpMrHDj+ktzSfayb/zXQ9zyaw2HvRu7urXo9q3VuhGPkUxBe2AN9BMOEPs3
+	 6GzXPqS64FCaz9RILRDZ5ovQ1quCmjsqRxstkhVoiFCD8Hrl2ygPbrOanvH2/CqMFCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=asu.edu;
 	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=m5AXFCk3;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=NrThgcDm;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BCE606A337
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:23:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1BCE606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2C3606A33E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:23:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2C3606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=m5AXFCk3
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a1947498bso1241110eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:23:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=NrThgcDm
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-353804b591eso971406eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:23:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793787816; x=1794392616; darn=vger.kernel.org;
+        d=asu.edu; s=google; t=1793787812; x=1794392612; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KGOUq/ZqyVEMWkCsVi5v1gsLOVeCrKZIZ7AvOAwel7E=;
-        b=m5AXFCk3PG/vbkuVuK7RU9XAygzIE9Aw/PfApniXxGhtnU7KcC2yjHpB4s6zWt3/vN
-         02JdqtUvgyc59eeGA47UYMtHVaNn5WDcbPsB4VH6O39mFdE+NuNbeXYtkX5cHvJBniOQ
-         vAzcyK7UtOnYU1Pcy7NazkbOc2n1wFiK7XKQUQwtN7IRRTAuePM12VllVNe7tG/H/rK3
-         rItt2feSyFdfDAwaDN5Kqd6F/j3XejIAxSS0cs/yA0iFkN6OJkR96tYMVufiljPu7rFJ
-         d/41txPOGV51+CfTjwnLO7mizRdtUAYX4WNr4NoOrVmtmVK/VPithjnSL5Anus7aMxZa
-         r4QQ==
+        bh=uLK6MImajGiIdooVPMrO29/klV59rlibNvUSXvCXNpU=;
+        b=NrThgcDmeQZgYynvlOumgkO72cQKo79T65Bwe/G2O+PAeyajpbMgFCcUoAphrH+21S
+         MrqXliJPQU9ti92Z4XaP9aBQ1bU9wOZqyohd0vL7apIZRj3GA+Xs+tRKahKU03r/cd/N
+         nEY+lzTRU4dNHp1vN6RL/iTqrfWpRVaxgFc5GMxdAgWnwS9wjujndGpOuCy+P/jz58cn
+         ZT9svNzkxF4pS5okfBQ3+eU6qPsJSk3aW87UhrWpaCfuKAdoXY4k5dlgdpDSWi29MXHm
+         nJrBsrEgKSog7s0trtWMeDO9e3Izv4snYoxIjTvvkwdtLsWgVSa7G12qGpAdfJn67CrC
+         c07g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793787816; x=1794392616;
+        d=1e100.net; s=20260707; t=1793787812; x=1794392612;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KGOUq/ZqyVEMWkCsVi5v1gsLOVeCrKZIZ7AvOAwel7E=;
-        b=ZrEe5CAjAvKDOzyJsaU6Yf4QHOrSQZXy3461U8ncJaviIUN7clQ1DyPkDpBMQ9leCY
-         dI1SaxhQL5H6N90N8pbArtU0CPTFrey9xVw6VQtGCp8luQAP2O+gVqYL5pF6jNcR19lf
-         8iuL4UaZs0gryeniIaLeb+5jaNM7bgwtdYyC01mLCrG7adwGQpK1pdHpxJMNKxbm8sYW
-         iacqIpgzrH8+CVeO+LxQBU9mfV9/qZYQIOsRSbAN+RLia9eudb9GbvsU3f6xdiM+z/ti
-         2Ju6uSUi5V7OB6gC4fVBwzjxssh6uUDBGsf43ZVIBV9wxql88ijDSzbZXAVbukKRlzzk
-         JTlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy8bZNOAlEvaU64z429ABj0UzznOmN0g720Cmwd0ksEM8XckohRXnfP0uZiczeG+HZ8emo9pBDFJBF3Acw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UBKOv08GPuuEyiQnnQTkEuacV7L2OGhQVwJs87zRkVcxtd1Al
-	QvsY6x7lO3TsxREfNKkjpPVE1OIMOF9kcAeOg3Sq7ke8jjIV1VkxA9xygNT1lMl34g==
-X-Gm-Gg: AYBFou2KRtA/yxtKx48URtxGwqrFwTNO659e5Q/IUQAGR+e5q7liOpjR6i9IkDKGPH6
-	n+ml9NCfBMMfde5qkCdWfqMfz5pVfY+CsRElxUalpHEpfTFpGLUo896BvdY9JIf9j9SKLDOThqB
-	PPRxtv75Vy4CJlU118Ov/IAwp207w1YbCoQCDYFW2RgxCBdPhNPn0GQYt0BGrPc8U/N3CdxMqW9
-	FlD8Gr9MMm67++BzJbydXTphAKtAplv4+0EfIRLdlMVpkAwWp/hX9H8jlv9tS/+by5VUYa+wAXd
-	oJJEt7tbmLY/j9zRT/e95dy2tk6FO/lQf6ZR3t5c9SdBPqx0t2qWdILjTjZeO+O9jB+y0sd+NOL
-	E9135cv2T1MohQOqGa2mCruvN6xEt3o9uJUWQ+eVQRi3HI/bOPJw87umllh83iH7R5UO+qgIO8E
-	V1ySpZENDM+YtGQj2ZbX8zru9ponXLnm2ttHnG+twFDiv857IPUUvla5XAt7K9spH3rDZwzhGlv
-	B+JH2TKJygmX08/B2BQKuF+nqjPTzcJjQdUByjbx+RNAPibtvVhn0bokHPS8IbuIke7xOyqv4AC
-	ianRbucKbP+matt/BYT26KfvmIdtn0ZIbUImfIdKIw==
-X-Received: by 2002:a05:7300:c00f:10b0:36a:5207:e58b with SMTP id 5a478bee46e88-36a5207e70fmr22554018eec.27.1793787815847;
-        Wed, 04 Nov 2026 02:23:35 -0800 (PST)
+        bh=uLK6MImajGiIdooVPMrO29/klV59rlibNvUSXvCXNpU=;
+        b=ej6YrZEiBUVO1DAMPVXTJQxg9s614mQWCZew92i84fCiKe11FLrVmLneV/s7U+a65r
+         Sfdu1DzBv9gmx7yAOcnuzuLeih4T4CJAZ81VaHQMX0+j2E2qXWJuno/Vctdaw8DYN6dA
+         AGlzaPjCtZ4/39iax9AA1EEMSx1DBNoN65o4xSeRShL6TrMsq0zWXOtpaz53bhctIVrl
+         mVGZP+0frCjWidZ7idG1xDTLzdCJOhYVwlzZbsY/M6/vBIxx/IbW+16f/vARsH26vf4o
+         H/wsLugGSfU7R1edyCxAxaJcwy2Bt4IBB2859wmmbHheop539zlEdwIXaxxIYufoFSba
+         khWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHRgy2AIe2GKCzP3wlU952TUdwEJ1xTnSqCOvfBcAIsq9MSITSJYqGPKsjUPYUVgAvHC8dh2DSdMdgk7U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8x872Qq+C5kvnam2ncH7SPFYajlZvTM9dj+1ufw/aMvTxO4gTj
+	yfRu04RKrp6vkV81Ufy5dihzYjzVzA+pKIQ1HqAuUIgkvNQxcyzF4BVI7xOla+2lyw==
+X-Gm-Gg: AYBFou0bVajcOA62Pc2eiQCVI9n++MzXbgYx6LBnWeM4rBggfs1i2ZYpTQJ/W6EMTXp
+	0uUqeR2RnIynMcUdxZvWD16AeOzhzmXmCeZP2qfk8t3gOeiklOIdZY12LHzNw25ZbcH+sLl6OYT
+	CsvEO0nfVoYWa5+JO+liAkzW2IyuVAsvkvtCqrSjdkOU1k/FBa7qJ7SFKxR6cd7IAbYxyEqA+uY
+	UK/gZaBSnSwVnZkZB8iGMudACLgr4ckyon3G/xzKuPCmWh8y1sL4GbJJf7v9BCoOFAv+T0f1b7a
+	h2vJpv4GlPTgqfNG++9tZl1TnTZHQNhxOxv4AZeVrRnENiaGcbQtoJaHlTfLfao1GWGSi6Ah+L4
+	lNqplwANVglUvVsBn9q1lxs/XlbYTM3MGk1mo60wV9aEzqFZ1mMPerm+CrZXteg9HKjQGbcWxeM
+	4cGVCEuoJtR7qMs2sTSJR1L6Moqf9qzZaHbv5uyeOXCXMy5IywehlnNKvY7JbuRy/P2eMMxzI3L
+	Hm1I5ZjoJ0J70MFy9Uq7SwaH8pXEGGHNdN6Vx7wZxx2SRPswUHGukPaIgw7Z/uWVIKOLWk1xnlu
+	2p69fxm0Kxt//r+/ImkLCGh3XuTL8WF9SrvjNr57ng==
+X-Received: by 2002:a05:7301:f8b:b0:36a:2383:eb51 with SMTP id 5a478bee46e88-36a423c4070mr21425188eec.26.1793787812061;
+        Wed, 04 Nov 2026 02:23:32 -0800 (PST)
 Received: from localhost.localdomain ([2600:8800:1e00:25f0:ff01:97fc:f9e5:d7e1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm5749086eec.9.2026.11.04.02.23.34
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm5749086eec.9.2026.11.04.02.23.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:23:35 -0800 (PST)
+        Wed, 04 Nov 2026 02:23:31 -0800 (PST)
 From: Siddharth Mishra <smish149@asu.edu>
 To: dsterba@suse.com
 Cc: wqu@suse.com,
@@ -88,9 +88,9 @@ Cc: wqu@suse.com,
 	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Siddharth Mishra <smish149@asu.edu>
-Subject: [PATCH 5/5] btrfs-progs: tune: do not remove owner refs from tree blocks
-Date: Wed,  4 Nov 2026 03:23:23 -0700
-Message-ID: <20261104102323.4090290-6-smish149@asu.edu>
+Subject: [PATCH 2/5] btrfs: tree-checker: reject inline refs not matching the extent type
+Date: Wed,  4 Nov 2026 03:23:20 -0700
+Message-ID: <20261104102323.4090290-3-smish149@asu.edu>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261104102323.4090290-1-smish149@asu.edu>
 References: <20261104102323.4090290-1-smish149@asu.edu>
@@ -105,62 +105,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[BUG]
-On a filesystem without skinny-metadata, "btrfstune --remove-simple-quota"
-can corrupt the extent items of tree blocks:
+[BACKGROUND]
+An extent item is either for a tree block or for data, and each kind
+only gets its own inline ref types:
 
-  before:
-	item 31 key (30756864 EXTENT_ITEM 4096) itemoff 2363 itemsize 51
-		refs 1 gen 6 flags TREE_BLOCK
-		tree block key (940 INODE_ITEM 0) level 0
-		(176 0x5) tree block backref root FS_TREE
-  after:
-	item 31 key (30756864 EXTENT_ITEM 4096) itemoff 2372 itemsize 42
-		refs 1 gen 6 flags TREE_BLOCK
-		tree block key (0 UNKNOWN.0 1456) level 0
-		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  TREE_BLOCK: TREE_BLOCK_REF, SHARED_BLOCK_REF
+  DATA:       EXTENT_OWNER_REF, EXTENT_DATA_REF, SHARED_DATA_REF
 
-and "btrfs check" then reports "backpointer mismatch" for each of them.
+Readers rely on this.  btrfs_get_extent_owner_root() only looks for an
+owner ref on data extents, and btrfs_get_extent_inline_ref_type() warns
+when a caller that expects a tree block ref or a data ref gets the
+other kind.
 
 [CAUSE]
-remove_owner_refs() takes the first inline ref right after the
-btrfs_extent_item of every EXTENT_ITEM. For a tree block without
-skinny-metadata that is the btrfs_tree_block_info. If the lowest byte of
-its first key objectid is BTRFS_EXTENT_OWNER_REF_KEY (172, here inode
-940 = 0x3ac), the tree block info is taken as an owner ref and 9 bytes of
-it are removed.
+check_extent_item() verifies each inline ref on its own, but never
+checks that its type matches the TREE_BLOCK or DATA flag of the extent
+item.  So a data ref or an owner ref on a tree block, or a tree block
+ref on a data extent, passes the tree-checker.  For example this tree
+block has an owner ref instead of its tree block ref:
 
-The check for an extent item without inline refs is also off by one: it
-reads the type byte when ptr == item_end.
+	item 9 key (30478336 METADATA_ITEM 0) itemoff 3636 itemsize 33
+		refs 1 gen 13 flags TREE_BLOCK
+		tree block skinny level 0
+		(172 0x5) extent owner root 5
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[FIX]
-Owner refs are only added to data extents, so skip extent items with the
-TREE_BLOCK flag, and skip the item when ptr >= item_end.
+The leaf is accepted.  When the tree block is freed later,
+lookup_inline_extent_backref() skips the owner ref, finds no tree block
+ref, and the transaction aborts:
 
-Fixes: 2336a7b921ff ("btrfs-progs: btrfstune: add ability to remove squotas")
+  WARNING: fs/btrfs/extent-tree.c:3418 at __btrfs_free_extent
+  BTRFS error (device vda state A): Transaction 14 aborted (-EUCLEAN)
+  BTRFS info (device vda state EA): forced readonly
+
+[ENHANCEMENT]
+Reject an inline ref whose type does not match the extent flags with
+-EUCLEAN, so the leaf is refused when it is read:
+
+  BTRFS critical (device vda): corrupt leaf: block=30441472 slot=9
+  extent bytenr=30478336 len=4096 inline ref type 172 does not match
+  extent flags 0x2
+
 Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
- tune/quota.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/btrfs/tree-checker.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/tune/quota.c b/tune/quota.c
-index a5f7fb40..187ba4f6 100644
---- a/tune/quota.c
-+++ b/tune/quota.c
-@@ -132,10 +132,12 @@ search_slot:
- 		if (found_key.type != BTRFS_EXTENT_ITEM_KEY)
- 			goto next;
- 		ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
-+		if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
-+			goto next;
- 		ptr = (unsigned long)(ei + 1);
- 		item_end = (unsigned long)ei + btrfs_item_size(leaf, slot);
- 		/* No inline extent references; accessing type is invalid. */
--		if (ptr > item_end)
-+		if (ptr >= item_end)
- 			goto next;
- 		iref = (struct btrfs_extent_inline_ref *)ptr;
- 		type = btrfs_extent_inline_ref_type(leaf, iref);
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index f021ac14b..db446c8af 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -1790,6 +1790,14 @@ static int check_extent_item(struct extent_buffer *leaf,
+ 				   inline_type);
+ 			return -EUCLEAN;
+ 		}
++		if (unlikely(is_tree_block !=
++			     (inline_type == BTRFS_TREE_BLOCK_REF_KEY ||
++			      inline_type == BTRFS_SHARED_BLOCK_REF_KEY))) {
++			extent_err(leaf, slot,
++			"inline ref type %u does not match extent flags 0x%llx",
++				   inline_type, flags);
++			return -EUCLEAN;
++		}
+ 		if (unlikely(inline_type < last_type)) {
+ 			extent_err(leaf, slot,
+ 				   "inline ref out-of-order: has type %u, prev type %u",
 -- 
 2.54.0
 
