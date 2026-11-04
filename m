@@ -1,94 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793800616;
-	b=e3UhBeMfoVRGYDDEnOby1gdWzgXnzsK3Digz/LC9ULHmxnCcpw38dyTsO2s+jj23Xe5U
-	 tRUYQkw15d8fmqsPfyzzFVaMMz+SyS/yXI1qW8UYLRyejw3nP0Y0dFLTBYVFMPkH0EPGo
-	 vaM8mhrTMXT8xcOiqYJdatRu3yiJsWJ9LAKTsUDXEHSDHfXcDQYW/ZAP+Kvq5K7as+zp7
-	 8zugoF53+oTirCTt85aomYQZtAgU0DtHwSIvfJif4qA5lTpqV4ifJXdgqQqLBp85NJ5wh
-	 UbAz4xX8NvVE0F7bgZkHp8JxFjrqbKp9xlmRzz9BXEiyowFt0nKNwEnbtHipa9MnFHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800616;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vKic/C72+wqsttWAVuyp/YoaAXXWO+b8jG90BXZi1Zk=;
-	b=Dh+J1AbMRIl5XCRjlc/RtfHS/FU8RkiyUWT2V0w/Mzfkh4xk7/Awh5FcqIVW+4e7RDl6
-	 eWak/lenjrXGYiOt9BClKx7u5ymm2oS8thI3l3yREGD6YD9Hkpm38jWJ1+3vr/DU0WVtZ
-	 h3TJM9F/Du0W4iTIT/gLSMlbJQWbyWC/FTOtSUHOYxGY/3r7sVR4PstmFCbSRBvpRYmLA
-	 DNs+0IA40IdOJ0xKKnHqEZQu2wD5v28IxSSkxMNODSd8DYQXAyvXY3qi4CXg9iRl8hbqc
-	 fTCMxke8x0/fCAwuAwgxCyQM0zyEVLf7KnVAydFsy8IKwqmb3lobEWDssJRlk3ZxR8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbLsPnud;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793800664;
+	b=ZleA5RuS2adOYMHAJFqCBw5VyvTA/IoWroR8kElbrFsjsPrxErs4qN7LMic5+cPn4yIK
+	 mBaLl/8LTek8CQryE14Xk2qc1wBk21H4ZtWyFl539ME692ow9Y5Wxg6BhIhJDIRxp1Ck6
+	 mO9AVbx570Xlt3lJh/OvYKwYrWTxWErzlIEKtO+Vbh0clvdytKBcYXYfUvT4JlL28EsAZ
+	 MU7HWdY8pWdu33Brx87AA/TCkjAPN7S5oskIBjziW2ox6Yd3x5INRnS05Vngk5ATMH7tP
+	 Sqa1XBZKcCQjiVDGCdB4d/gTtb5wFSHM1YXGqWH0GwN5xAGikJEe+8+FFlVy5LmWPVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800664;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=;
+	b=2xpO8v1EcMGmEqJQtKJD4Pu1QW03nP5f7e0wGL8nSWYyBuPG1A5z6/0g0/ZZADh0PgN9
+	 qNjNXdqauPczM2BqDJcFaCEeaMH9phaFjbizCcI7bvU1uA0NAp+WC5jVL/VDDBOOOPjCy
+	 LR27sHtbcg/5/z8QOK4RsNcFcaurIB3ntJFZOTHXxjI5U8DIiMbOhLFjd3fxqHsBp7i2L
+	 xthErrvGJrdiaWzuTJn8qSDOwFrcRA6xr/FmtoPV/QhThlsPobB781Gtx25hbAfLhXfFh
+	 tGedFAQsDdsojgZavaVhog3v7MOXTxbL+XDzom72UhZfe5H/t6XQiFmFijrpuQ0A0Tw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqgyJjOI;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iKmhtW9w;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90504606A31B;
-	Wed,  4 Nov 2026 13:56:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C85606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:57:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1C85606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbLsPnud
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793800616;
-	b=ROACCw/h4Ho02HiQa+WvwTYnDfXCnAoMNjrGzU1oWC+h1QN5vKIvXRbaIvkl3HWxscmj
-	 SSn8OoiQAqkm/Brsst8H4Qm64mDvtsZDMWCye+HogimNi1boq5mTtByv3HgQ5NmCvK6rO
-	 5gaXGAbWgUK2w9H3uwvLaY2pEp1AgG3QtTOZzAbcwjl2YWWm9Nu6Qjfd3qyiuYT5eroAO
-	 76+Uuc+io31WLLE2nVoGHxI80Su12TyZwP4HtE+XUGCTx8EzdIvOVgRQRCjWjssh8HEoO
-	 20ocxXk+v2ogikCd+7+5+hJrP/9SN2ExFm9yK88Zr8SqByN0of/yRobDq2o9aOtOBEA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793800616;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vKic/C72+wqsttWAVuyp/YoaAXXWO+b8jG90BXZi1Zk=;
-	b=Umraio9WGSsS2Keq/gsHyv3UMnueAJ/5lJxL4/LNcsCrXtDJUAR6Hw6jAW/XMZPvAo8Q
-	 1uZZx04GFvpcjnYMMdFiqSO140UNKGhF6owMGpc5P1BnaGSTyR8//zRprLxaW19yIpCyd
-	 TlRCTCSf6e8vSfGHc1voYOtyMpxb6LWaAVQSNBi/9NOOK/y1BOsjEjGMB6HVjXFmtT/Ey
-	 WMFsoIUHtaJ19HJ3H/yByn+MO+84+xx4h8ZTqYPh/KFoK8daVG25JOCM39rJXXq8OM4IJ
-	 tRxiWp9eKYl7/hzfd/DtLtMtMNVRV5UF9G0VgM3R0W2U1VAgVSWqj5U0qP5ggMSwkmQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 683B91F000C1;
-	Wed,  4 Nov 2026 13:56:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793800616;
-	bh=vKic/C72+wqsttWAVuyp/YoaAXXWO+b8jG90BXZi1Zk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IbLsPnud0D1mUXuC/ZBeLR6kvJ93sDofOsrwh1adBZJErGaJpublLSPCSaRj1F0T/
-	 Yi+Box5ThELYqlJNZRqg58LC31uYyNkqlSjjMmU8EgnSfNvrbgQHySvhN4GFXKvMWH
-	 0zo+RB/xUt1Y1btOgD8qNJ4/xpp11aclLSbA1JCYqVYkGtF5KV7F3hnTRJOpdSyDp4
-	 YVAsP/TJfd2AUKuxEzITWS+0lsqc5/mwyWOvl7Neh1JqjcPbCCDMQJU9qK2nRjBA7z
-	 Vpd8piVIPWkg7oX+lB+7T+gUmxocSGqav2Htj8IvnIjSxaNYeoSc39eLMWBxTmWAl2
-	 G+JQQsD6P5zsA==
-Date: Wed, 4 Nov 2026 14:56:41 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti
- Vaittinen <mazziesaccount@gmail.com>, Rodolfo Giometti
- <giometti@enneenne.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>, Angelo Dureghello
- <adureghello@baylibre.com>, Tobias Sperling <tobias.sperling@softing.com>,
- Eason Yang <j2anfernee@gmail.com>, Marilene Andrade Garcia
- <marilene.agarcia@gmail.com>, Cosmin Tanislav
- <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz,
- herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <20261104145641.000070f2@kernel.org>
-In-Reply-To: <20261104125726.1754980-3-maxime.chevallier@bootlin.com>
-References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
-	<20261104125726.1754980-3-maxime.chevallier@bootlin.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqgyJjOI;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iKmhtW9w
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BaBmn2728930
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 13:57:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=; b=OqgyJjOIOi6iq+fd
+	6/3OBwbnpSFHEDMFcK7Im0ACldgSNml8YIy0PJwjZAU1hj2G5fzGu+hHMp8056s7
+	Olncqm0L78ev3PsNmS0/XHdwu61jdjOZEfqcqK4/0x6Y+D/hvNGkv30UNI/jO5y4
+	8A7QyyMBeSaMmEs2VHEnZQo1rRVCZ6ZepqX8m9SCIEmSfeDBz9UA1ipEZo1x3dG9
+	UHkaeWa7OpfFDAWhjEFmCsDrvthSADRAjhDR66qfTf5bH9LgzFQ+qZMryQEH7oPj
+	yAH3gkR4bN1RZKuYPffLbDXg9h5kHvAIGCJd8fmRPWy7yukYEcps+E33R/cXv87T
+	65Zlew==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqpuvbnm9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:57:43 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3425098ae4bso2665587eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:57:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793800663; x=1794405463; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=;
+        b=iKmhtW9wZmHN45O287/KnhiDYIBjv8PNNqn6CK7AKAkJkNN+ycBQZzKEfjz1UC3Vqb
+         /2P4ovSauS6AfbvyuwFtEoMhZG25InJ9gQVqe+eZTgO6xlbMmt+YpnbSi6Dc9HjdEBoJ
+         OMGrZhP//IJZgbNVsMkfSV4TpZro1rwwF8YflXeeVD2hv5sbWX9NtaQdTlpFNmzkQ9Wv
+         VfAsFO2ldbULk7fOJujKPCbwMnhra+YuKLUYHOQlOy8k/bQmX3Eg41UYaztGA28SwVRL
+         T/F7OC+0WH5jQxVd1JJ06BmQ/mN4wtb5EXQndPtQf4a1X9luGr9SRDhY/qaWEopHQoKS
+         HUoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793800663; x=1794405463;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=;
+        b=SFDX9OgWX3QBHn9ZVITB0y6IaoKWJH14OAwGbHKUr6Wkh++uyJJprnak9ELsYTsn2x
+         WNzYUeF2IqtPu3RhKXEG4orK4nlVnd9W6LPhP4Jn4fy5E2+JQcP5NkQsXOl5BFIilr4R
+         iCwluuRn+zbG3DFmB0XEPgbzpmobyvq1+go7ige3Cyz5YRGsnvRMV/E1zV8/IA3HB+1e
+         mRocG8qTyhCl0Esct+MOZGTAK3DZLJLBKZ5C4B7jdBlJoRJGh5iy8IYgQsgFKfyF0xjg
+         Z3a5KK7IEElPbBSxaEKWS4FI7BT89/a5WJH2rxn0jXEzhvbPAkwcOb0u/GECeqKtoI/F
+         Os8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzDUg8qa3xQB8fwCUrvf0dAWsFcK7up3tQZ0Pfn/2rH5y8zMKgq88an3oe5DFrZlmQ+heDEMulSfL6qT1U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/H1D/qiqqLp+DdjzrywoRc5A1BswBsvfx2NzSeDR1SKCxoNGCM
+	/lJSv/3+RQilxoCWZ7NyZkdsQLtqytUwoxpVrYls3lSY/x7WJhTIGgV2529XfSmVgURbPkO5RQO
+	J0jXM13RkiD+MvSfQwGxkUfCWHKEo+dc0SE9gV3RizcJ38HNNykbqiQ6i7fNurwJmzks=
+X-Gm-Gg: AYBFou2rONpOeDbgxlNH7zokGtrmxK4aprVY1qm3eDSMIPv7FyzE6cWXeurFr3koOCd
+	4bOh4L9JPDVmvXx4WeSAJ3FQmilgRVg8IJe0ZK7VGe27Coefu6GMwjOVMDWo6/De33F66q0ThyB
+	qmwRJcaE22li3lntZSC2ft33i1gA1CEEjeYRP1Vc+0laHfUkdNyE1xpneJMytYKeBXWf7L4IYmc
+	bcXMoArmjcCNLmgKXAzDOo3CB5sCGT0ot4yq25K6Pih3SvOQl7+MfTlTFRStbfWihQjqPyIJW1f
+	vNxpSeUHDROIWbJBJ+pzQ6I1feahyE5Uv9waciZPheExyLeh3c6gObfVUcplXnuxsFxE76wE+Cp
+	kr/7kl1TGafaXtQWrSy1aSbchy6cubP+wJ+IsAar9xzFkKrs9jV0kTwkBcaqVehTFuuPqD9HepU
+	vZDWfh1BDzd7BxDSEII3KTGHXIobxvXgneRVOeMbE=
+X-Received: by 2002:a05:7022:eb50:10b0:183:942e:8493 with SMTP id a92af1059eb24-1ac5a67f97bmr24419802c88.11.1793800662363;
+        Wed, 04 Nov 2026 05:57:42 -0800 (PST)
+X-Received: by 2002:a05:7022:eb50:10b0:183:942e:8493 with SMTP id a92af1059eb24-1ac5a67f97bmr24419767c88.11.1793800661636;
+        Wed, 04 Nov 2026 05:57:41 -0800 (PST)
+Received: from [192.168.1.2] ([122.177.242.199])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm7874697c88.3.2026.11.04.05.57.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 05:57:41 -0800 (PST)
+Message-ID: <59c79112-0079-42b0-b6c2-d311f20e0dd2@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 19:27:32 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,98 +116,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/1] usb: dwc3: qcom: Keep wakeup option default off
+To: Peter Chen <peter.chen@oss.qualcomm.com>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Johan Hovold <johan@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
+        Jack Pham <jack.pham@oss.qualcomm.com>,
+        Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
+        Prashanth K <prashanth.k@oss.qualcomm.com>,
+        Elson Serrao <elson.serrao@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261103061401.2942139-1-peter.chen@oss.qualcomm.com>
+ <20261103061401.2942139-2-peter.chen@oss.qualcomm.com>
+Content-Language: en-US
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+In-Reply-To: <20261103061401.2942139-2-peter.chen@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=O6SsLx9W c=1 sm=1 tr=0 ts=6aeb39d7 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=4cW2FY/XLap1olThQF9nEw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=X1iYf39TFmsXOEfCDxQA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: HN0t_Ve_DYrbZa4ztC40c8kdMx7PCB_2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX7TjZ3n99d4rv
+ /htiodvDUMXNC4rLhs6zcf8FX6QLHuCSjggHS4GIPat2/gO9iD9Flj/2I61Mmjl5AJAYiE4pIHW
+ pNvcond3ucnnU7OLYnA0Ykdtl9OUido=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX0GsOxFxzVL/P
+ KXYx+ULW47QEnnjLF4NC2DFt5uWoO3Pxetd9sivjp7fyeCfsRSSGYaPU53ro7x7VKUu1kkMCEJB
+ z/p503jPaMV+RZFfDmxqjVGkAb95b7mtI+eIeoB5yJ5/7VRwnF7lvXldyUjZ8DgkLbrfKCifSG5
+ XDeU2I5zrAGY8dIJiLHs+WCdg1aVBeAuo17xDrjF0wG5lSA7wQu4Uu8FT8snt4KxZ5htKFfdW2w
+ FnEB2GtRAxojrWIxDw28WGB7dJwuWA3E6WOoaWmgJrnL47XbwgAfIKtgZykKsPFihaV3eyyIYpg
+ JpQBL052CL0CqWkrLzTcelPHl7z4SiPqmXARlIBG1rS8meCS0y8P9I8iGJ1q+q+OsGosELIY9dG
+ RcTBDI4wbdJ49Lg95cmK1yPb9xyhmGH46xwzdq8fRtPXfAQsFMmH8YfUkvifphH+ZOd0Y8UhVDO
+ k+X94bPzxdmF/gH+pdw==
+X-Proofpoint-GUID: HN0t_Ve_DYrbZa4ztC40c8kdMx7PCB_2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040055
 
-On Wed,  4 Nov 2026 13:57:25 +0100
-Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
 
-...
 
-> diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
-> new file mode 100644
-> index 000000000000..ec754ec43d7c
-> --- /dev/null
-> +++ b/drivers/iio/adc/ti-tla2528.c
-> @@ -0,0 +1,215 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Driver for Texas Instruments TLA2528 ADC
-> + *
-> + * Copyright (C) 2020-2021 Rodolfo Giometti <giometti@enneenne.com>
-> + * Copyright (C) 2025 Maxime Chevallier <maxime.chevallier@bootlin.com>
-> + * Datasheet: https://www.ti.com/lit/gpn/tla2528
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/mod_devicetable.h>
+On 11/3/2026 11:44 AM, Peter Chen wrote:
+> The "wakeup-source" property, as described in
+> Documentation/devicetree/bindings/power/wakeup-source.txt, only says
+> that a device is capable of waking up the system. Whether wakeup is
+> actually enabled is a policy decision, and drivers use
+> device_may_wakeup() to decide whether to arm the hardware wakeup logic.
+> 
+> Currently dwc3-qcom calls device_init_wakeup(dev, true) when the
+> property is present, so USB wakeup is enabled by default and users who
+> do not want USB activity (e.g. connect/disconnect) to wake up the system
+> may have to disable it through power/wakeup, otherwise, unexpected wakeup
+> may happen.
+> 
+> Having wakeup enabled by default also costs power. In host mode,
+> when device_may_wakeup() is true, system suspend keeps the controller
+> and PHYs powered (dwc3_core_exit() is skipped and the genpd is not
+> powered off) so that the wakeup interrupts can fire, even on systems
+> where USB is never used as a wakeup source and could be fully powered
+> off.
+> 
+> For USB controllers, keep the wakeup option default off and only mark
+> the device as wakeup capable, so that the user decides which USB port
+> is used as a system wakeup source. Users who need it can enable it with:
+> 
+>    echo enabled > /sys/devices/.../<dwc3 device>/power/wakeup
+> 
+> While at it, drop the local wakeup_source variable and use
+> device_property_read_bool() like the other property reads in probe.
+> 
 
-Remove mod_devicetable.h, now i2c.h supplies this. See Uwe Kleine-Konig's
-work on this.
+++cros-qcom-dts-watchers since this is used in chromium userspace and 
+modifications might be needed there as well.
 
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/adc-helpers.h>
-> +#include <linux/iio/iio.h>
-> +
+Regards,
+Krishna,
 
-+ #include <asm/byteorder.h> for be16_to_cpu()
+> Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
+> ---
+>   drivers/usb/dwc3/dwc3-qcom.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index 8116dc94c181..1451b5eaccce 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+> @@ -653,7 +653,6 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>   	struct resource		*r;
+>   	int			ret;
+>   	bool			ignore_pipe_clk;
+> -	bool			wakeup_source;
+>   
+>   	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
+>   	if (!qcom)
+> @@ -757,8 +756,8 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		goto remove_core;
+>   
+> -	wakeup_source = of_property_read_bool(dev->of_node, "wakeup-source");
+> -	device_init_wakeup(&pdev->dev, wakeup_source);
+> +	if (device_property_read_bool(dev, "wakeup-source"))
+> +		device_set_wakeup_capable(dev, true);
+>   
+>   	qcom->is_suspended = false;
+>   
 
-> +#define TLA2528_OP_WRITE_REG		0x08
-> +#define TLA2528_OP_READ_REG		0x10
-> +
-> +#define TLA2528_GENERAL_CFG_ADR		0x01
-> +#define TLA2528_GENERAL_CFG_RST		BIT(0)
-> +#define TLA2528_CHANNEL_SEL_ADR		0x11
-> +#define TLA2528_CHANNEL_SEL_MANUAL_CHID	GENMASK(3, 0)
-> +#define TLA2528_AUTO_SEQ_CH_SEL_ADR	0x12
-> +
-> +#define TLA2528_NUM_CHANNELS		8
-> +
-> +struct tla2528 {
-> +	struct i2c_client *client;
-> +	struct regmap *regmap;
-> +	int vref_mv;
-
-Slight nit, but _mV so we emphasize this is a SI unit.
-
-> +
-> +	/* Protects manual channel selection */
-> +	struct mutex lock;
-> +};
-> +
-
-...
-
-> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-> +{
-> +	__be16 data;
-> +	int ret;
-> +
-> +	guard(mutex)(&tla2528->lock);
-> +
-> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
-> +	if (ret < 0)
-> +		return ret;
->
-
-As rare as short reads may be, perhaps add a check whether the expected amount
-of bits have been returned from the device?
-
--- 
-Kind regards,
-Joshua Crofts
