@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833548;
-	b=vK4xtdUj/H05cUGTMbhWwF7oJET9LSbBJFxtTYllFuerJ6Aoj0TarVufyDvu9NI5vcGa
-	 DHrF5XPaK9LBexOTYAYH+CMf1N8jfUrzhwkxVfPKQ3VLbSSdh4qXGe8+Zk4bB1NZXDytG
-	 WWtUrKkhjKfdL7q9YMQYsvjgP2NthMGLPclVW7O0c2N9/CylhYIq4tNoOsoQs6Ary4C6T
-	 i2W+tbBvuB4shYleH/MF31rNvZ37Qo0HCGtQ+EjLIZxBhgAbxeH+fZ0zgQ+sCRsHLcYVt
-	 HFayoWfPGx3itcc9fZcqgr0cd3KEOzuygeipXdKNJYvVEZca/DcrBBz0rxm3XoqL9dQ==
+	t=1793833554;
+	b=ZaBTn62WTwJ48Nzo+PK3+hZeWAR4KQKcuCVhqiqXiiTBoUrcNtHB5B87Syl3ckBpaqxY
+	 g+orzexRen6y+iAyzS/vg726uRFNFR6W5Olt1hfZhBLCxagiQKHDGA9JJqWC903y0rYjp
+	 AdsqIvGo3RtMmDWOmp3oyES/bYquLdbT9CqHOAvExTY4IcasvkvVboXeUdXJuJu74YUTU
+	 +laZVqHQNNGeHpaMlnexnogGrHCgFoMr1zEUU1kmSNDMOdelD6gY5CxS9hbRVaSJT7NBF
+	 7Tb1VdPw4nCL2ybBwFk1dL7liDhs0dxs30MRZG358dbEfdKWEydqD08JaximRAfRGeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833554;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-MBO-RS-ID:X-MBO-RS-META;
-	bh=+yC63DbCYXk4JGszPuNw+0NZ77PUO/i8/aaLLRlAPDk=;
-	b=ukUSGr+3xa+6epzcV6uscsZapkYHcM1nRRzsMLeNTGswSYtn7NIeAkMGP6aOD5bHz2fn
-	 yIQTerKHiyuSDas7UYVchkx7pW3DT0ntueUSSe4TD7I0g7Ei89PJE4RcW3gPKtFqrIe74
-	 R9N7OMLPuPBcVSXij72CKEk4JbNmHtlja6EPctg5/xchlaPbWDAsxyfBb2yrOe8Je4Kba
-	 i08w7ynNv1QhdXwysSf8cxQVlUHP1AS95sB04ADM7CTGoP4rd1Uo5QVii8eg6PtO5HXqZ
-	 icAi/fYDe2A5zB/HgNcyriVDnq7+ZwFZD7VF6m8tSXkoy7yeuOdXp1Dfbyc4si0iSPg==
+	 X-MBO-RS-META:X-MBO-RS-ID;
+	bh=JYLA0Ke+3sJbrc3iCXNlYk5gEYQZ5rzbc6XZp7sWvhk=;
+	b=RHd4qHPctl6bku0b2p2xWnomsEENFxWeFn+f97W84Hqj/Ut+QGNt2na9q7q6uO4JEBDe
+	 k+Sn1nYaTCs+ef0qy6GrYxB3qo+3Y/7Avwxu2j66wuCZ7Ln3qpnneSWta7+B6xOaumRJ/
+	 nuYfpfvEgmuNolzTIl0LQq+UVHU9wNH8MyJHzncQO9Zqq9nYm/glGEECURU/LbMo/T3xt
+	 AlFcNZLnmk4lWPE1Wca7SqGwWkCC6NEDgmbdMzC+Jai2zp1gFemui2yCIBlbM20Gs+mKQ
+	 kSBn7vwgUGqxzleZwZzFqLYR1iPmbHUfl6QwKowh9tAhzxyJzc201/o5Z8xQe6oMFqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mailbox.org;
 	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=oZZPRH39;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=yfvGoJeb;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8151606D83C;
-	Wed,  4 Nov 2026 23:05:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8151606D83C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA336082BDC;
+	Wed,  4 Nov 2026 23:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA336082BDC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=oZZPRH39
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=yfvGoJeb
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jKgyv3rqHzKmSf;
-	Thu, 05 Nov 2026 00:05:43 +0100 (CET)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKgz22hCmzMlHg;
+	Thu, 05 Nov 2026 00:05:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793833543;
+	t=1793833550;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+yC63DbCYXk4JGszPuNw+0NZ77PUO/i8/aaLLRlAPDk=;
-	b=oZZPRH39PMdKp3im01kDEwBIi6cncmTPIVFwac6mAGY3h8v11MwXAOqbQOG8uhZPf3YJ8S
-	zY/HQH2mUsi2cY8/48O4IzlQ+1y9sVgXhSK9YaC7crS0cI1e0rOL305lsHNMILttA1nRqo
-	y+T4ma5emwMIj6YAEN/ykYM6UkeD+4rdYSDwjOiVUKJfNNdB3Y1XGW8u5jEV5quIT7k0Ss
-	3/FSdexzy6DtTvbQt/KtYuqqBN/YwUMNAKOZSAZfpywBvfXqsTJ5EMq9+n+ht4fHwUGdHu
-	B4AyclJ4nr2tUkfZdUrg+sVLa1KlV35WKKlPIvRHvKthrHlDLCwhjRkE1eZLtQ==
+	bh=JYLA0Ke+3sJbrc3iCXNlYk5gEYQZ5rzbc6XZp7sWvhk=;
+	b=yfvGoJebH28JKMPMQsVH/JCiEMhyoqtPvAY8Gbt8Ga9CNwEzJZKu+MNmnKQj5G4Uz02xJG
+	JjacD4dcIHG5ug7EwdPjkeYTkDYGVRyA/DUzNZg9nvFsaW1Fti2XpJeFXfeYqomMIAefiC
+	sW8ONDdaKtUExhpynpoV1229aprJMmbwzWQW8OtV1zcZcDa1rOo1WGb56zKC+kzp+Z9uRn
+	qqGwYwvHnHavhLPiajHu1iYci6ED1lnPxV5RMJluuyKem57bzWFWjjqK70/tf5Mre5hG1r
+	IZr18GIHxSuJT6yr7IbkffK5IWvm7/H2kdp5W/K7Wyc+elakkZ22ZgZKj7kh0g==
 From: Maurice Hieronymus <mhi@mailbox.org>
-Date: Thu, 05 Nov 2026 00:05:33 +0100
-Subject: [PATCH v4 2/7] rust: pci: rework device enabling API
+Date: Thu, 05 Nov 2026 00:05:37 +0100
+Subject: [PATCH v4 6/7] rust: completion: add complete()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,7 +66,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-rust-pci-edu-driver-v4-2-20ef027bb707@mailbox.org>
+Message-Id: <20261105-b4-rust-pci-edu-driver-v4-6-20ef027bb707@mailbox.org>
 References: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 In-Reply-To: <20261105-b4-rust-pci-edu-driver-v4-0-20ef027bb707@mailbox.org>
 To: Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
@@ -87,121 +87,64 @@ Cc: John Hubbard <jhubbard@nvidia.com>, linux-pci@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Maurice Hieronymus <mhi@mailbox.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=4421;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793833536; l=2193;
  i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
- bh=+JkuZ/ga1FMMCF8Ove/gYwvWq8sU6KyqYp7b7kviRjY=;
- b=ObAfUZLDhiZLstaXWtvfxvPPaXhicsRQqNuNNlFUDfubugKUbHpRJ+dEJt9G15XiLJJlV6zJ+
- 8VlB8N2OyihBRBHKUKDFpIzocO5QvJ09yqmHgxPK2nqyUInokjIerpB
+ bh=MmZZ4ucMvHvyA1WZaAxJGpnj2dLJzfqKfaM3nwSeBm8=;
+ b=pyP/P9+jq21Mv0otrhPZ0DPz3MFyNxl9Rh6bFJWXXhoVdMrdZKY/kGOoGzZo0ZaKrY0g6khwT
+ sVdnHOvErzsCXGCrbB+iv7N6UQIVJXcwWrZ4Azh3Qa4ghCqCHt4f/O0
 X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
  pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
-X-MBO-RS-ID: 615c6a5bc7d246b5e58
-X-MBO-RS-META: 1t65iqmpaax4zbk8bbecwahjqmhw3wby
+X-MBO-RS-META: uaaqrdsaeogp4g9cfjedjanh4h8yuiq3
+X-MBO-RS-ID: 133adf3694a61661133
 
-`enable_device_mem()` wraps the unmanaged `pci_enable_device_mem()` and
-has no disable counterpart, so the enable count is leaked on driver
-unbind and the device does not come back up on a subsequent probe.
+The initial completion abstraction only added `complete_all()` and
+`wait_for_completion()`. `complete_all()` marks the completion permanently
+done, which makes a single `Completion` unsuitable for signalling the same
+event repeatedly: once `complete_all()` has run, every subsequent
+`wait_for_completion()` returns immediately without waiting.
 
-Replace it with `enable_device()`, which wraps `pci_enable_device()`
-and returns a `DeviceEnableGuard<'a>`: dropping the guard runs
-`pci_disable_device()`. The guard borrows the device's bound scope
-(`&'a Device<Bound>`), so it cannot outlive the driver binding, and
-since it is the only way to enable the device from safe code, the
-enable count always stays balanced.
+Add `complete()`, which wakes a single waiter and increments the internal
+counter by one. Paired one-to-one with `wait_for_completion()`, it allows
+the same completion to be reused across multiple cycles, e.g. to wait for
+consecutive DMA transfers to finish.
 
-Obtaining the guard still requires a `&Device<Core>`, i.e. a bus
-callback. Unlike `pci_enable_device_mem()`, `pci_enable_device()`
-enables I/O and memory resources.
-
-Convert nova-core, the only user of `enable_device_mem()`, storing the
-guard as the last field of `NovaCore` so the device is disabled only
-after the GPU teardown.
-
-Link: https://lore.kernel.org/rust-for-linux/DJOEYVBS17MJ.1YD3TNGQBWHNK@kernel.org
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Acked-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
 ---
- drivers/gpu/nova-core/driver.rs |  7 +++++--
- rust/kernel/pci.rs              | 33 ++++++++++++++++++++++++++++++---
- 2 files changed, 35 insertions(+), 5 deletions(-)
+ rust/kernel/sync/completion.rs | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 560a70c4f5a7..f0aebfe705ba 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -38,6 +38,8 @@ pub(crate) struct NovaCore<'bound> {
-     pub(crate) gpu: Gpu<'bound>,
-     bar: pci::Bar<'bound, BAR0_SIZE>,
-     bar1: pci::Bar<'bound>,
-+    // Declared last so the device stays enabled until everything above is torn down.
-+    _enable: pci::DeviceEnableGuard<'bound>,
- }
- 
- pub(crate) struct NovaCoreDriver;
-@@ -103,9 +105,10 @@ fn probe<'bound>(
-         dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
- 
-         try_pin_init!(NovaCore {
--            _: {
--                pdev.enable_device_mem()?;
-+            _enable: {
-+                let enable = pdev.enable_device()?;
-                 pdev.set_master();
-+                enable
-             },
- 
-             bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 769d01d23429..75efd5c5ee97 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -469,6 +469,25 @@ pub fn pci_class(&self) -> Class {
-     }
- }
- 
-+/// A guard that keeps the device's I/O and memory resources enabled.
-+///
-+/// # Invariants
-+///
-+/// The device's enable count was incremented once for this guard; dropping the guard decrements
-+/// it again.
-+#[must_use = "if unused, the device will be immediately disabled"]
-+pub struct DeviceEnableGuard<'a> {
-+    dev: &'a Device<device::Bound>,
-+}
-+
-+impl Drop for DeviceEnableGuard<'_> {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.dev.as_raw()` is a valid pointer to a `struct pci_dev`, and by the type
-+        // invariant this guard holds one increment of the device's enable count.
-+        unsafe { bindings::pci_disable_device(self.dev.as_raw()) };
-+    }
-+}
-+
- impl<'a> Device<device::Core<'a>> {
-     /// Returns the total number of VFs, or [`None`] if SR-IOV is not available.
-     #[inline]
-@@ -482,10 +501,18 @@ pub fn sriov_get_totalvfs(&self) -> Option<NonZero<u16>> {
-         NonZero::new(total_vfs as u16)
+diff --git a/rust/kernel/sync/completion.rs b/rust/kernel/sync/completion.rs
+index 1771bfc0ade2..d8150b7b0acb 100644
+--- a/rust/kernel/sync/completion.rs
++++ b/rust/kernel/sync/completion.rs
+@@ -90,6 +90,17 @@ fn as_raw(&self) -> *mut bindings::completion {
+         self.inner.get()
      }
  
--    /// Enable memory resources for this device.
--    pub fn enable_device_mem(&self) -> Result {
-+    /// Enable I/O and memory resources for this device.
++    /// Signal a single task waiting on this completion.
 +    ///
-+    /// The device stays enabled for the lifetime of the returned guard; dropping the guard
-+    /// disables the device again. The guard borrows the device's bound scope, so it cannot
-+    /// outlive the driver binding.
++    /// This method wakes up a single task waiting on this completion.
++    /// If no task is currently waiting, the next
++    /// [`Completion::wait_for_completion`] returns immediately.
 +    #[inline]
-+    pub fn enable_device(&self) -> Result<DeviceEnableGuard<'_>> {
-         // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
--        to_result(unsafe { bindings::pci_enable_device_mem(self.as_raw()) })
-+        to_result(unsafe { bindings::pci_enable_device(self.as_raw()) })?;
++    pub fn complete(&self) {
++        // SAFETY: `self.as_raw()` is a pointer to a valid `struct completion`.
++        unsafe { bindings::complete(self.as_raw()) };
++    }
 +
-+        // INVARIANT: `pci_enable_device()` succeeded, so the enable count was incremented once.
-+        Ok(DeviceEnableGuard { dev: self })
-     }
- 
-     /// Enable bus-mastering for this device.
+     /// Signal all tasks waiting on this completion.
+     ///
+     /// This method wakes up all tasks waiting on this completion; after this operation the
+@@ -105,7 +116,7 @@ pub fn complete_all(&self) {
+     /// This method waits for the completion of a task; it is not interruptible and there is no
+     /// timeout.
+     ///
+-    /// See also [`Completion::complete_all`].
++    /// See also [`Completion::complete`] and [`Completion::complete_all`].
+     #[inline]
+     pub fn wait_for_completion(&self) {
+         // SAFETY: `self.as_raw()` is a pointer to a valid `struct completion`.
 
 -- 
 2.54.0
