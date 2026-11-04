@@ -1,112 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772723;
-	b=eV0eQoDufTEudsjYcGyBQ95wAzmxZ+ygfNTnTXUZBQPNON1RNiIUV8e0YSiVxbOFh9Wp
-	 9R3CQY27nVdw1aRfba/PDSoON/NHhnwwcWbgB7UU1Juz21k4J/yQ7XQJqFlwgi5fkMY2d
-	 AVEVoB+gmVf+mpYgGdD1UlUyu1eoXHMdR5g35esbJuJsDhDpeNcJv0DNKq1xfz4TMlX7H
-	 0qurjY2bd0I3hS3Fldu+NoFELFNOT+s6UIjN1XlplkWcPmCNOtetMcS1Gl8O38w9LO+j4
-	 Wb8ai23dPD7P1/HeDHWSB84Igi3VNNicqpZfnZrdW+FYc12ONsajyylPi3RQFq8P/Tw==
+	t=1793772802;
+	b=0nsI18zVuRuQPt0dBMziJFU+XaywbVXuPh8qHEl6dW/JlqKkqQi+bYd9wAUr6mFJy5Kp
+	 PPxMdI2DpsebJGje63ZsX7rEIR17/1v4fG8T4+MLPrspg+yYtO/Qrn5hnQyVWGD82MrW4
+	 uAokHqtUGQWoByf7gwZCENLI4v6IE5L8Djg9PUmXS9ZXKmeiDAtq1tqEY5OPPEHwRLY/K
+	 hsGhiHvvEBBZNWSQdr0Fz+WxjTmD1BUS+vBTHY+ZPsoGCmqCgoKxnF9meMZozkPHwzzwe
+	 aiFpXstlj51e9YOit+kfd6OZ0sSLckxYQ/x0HKoUfWw2tLbhghlcXktvzmRMlLPCR4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772723;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=2rWL/C7LmPFzRIy3jqvsgEDQQv3vMaerdjzG8BHe0QI=;
-	b=zr5mqRD3rq2nOypq8JeonjH/Q2qjMjKjpJGLntXgSZyihIQE1B/FD+nxjRWV4R5AdzIj
-	 ANOzVcvchNeTbsXiTCGFQVVaFd2zDmBXxWBX4vcGsqg6BJgsH/nnkPxBgtDgcXDgfgbWh
-	 aqyCxRO+HQXYQdF4uWyCAqu5ig4+SxqFYwNH6VokLcAqyXvoMJrIZ9c6Rm6eu43z9a6zk
-	 pOqOAlJRqg65gPxmFJGVNhJOg0NOI6FTpxBWRuckCPh8dMbqQVw5GK1ElqaAHZmsljpMU
-	 xCMkCFTbjQjF+LlULZ3BYCkWIjBkgxrZ7M5+EHuqRA7sp0UGHfU190pfKuJdgjvWXRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=MVU4a1WbyoYsCog2h+z3lNAS2j7JA65g4JUPcSPW2I4=;
+	b=iDXXzq7x2HVVwMM7sppa7bLstwT7VNQHSvwly0fgp1e1jxm8ZesNZ1VMKCGezuoeDSxA
+	 Cb6DfKrwclMiJKezdagfpNBUY82B/Jb5z//HeuUl38FEyhDi7pTy5FuXdH0+zS5WD6ih7
+	 XKZuTLc9z80yxauOoXoiaaUu8cF39kBFE+7w+kQ3yGhohyVQCt0lamAarjpHfh5a7jUp1
+	 bHuWj8aZOwnUWQmbrTnLM2ffv+AyzOUXwbN9YQfdlkzYMb1Jv2rvwDjCN+DwAjfRXi9nm
+	 JhNfGncTLPO4b/X+KfEGvF3B09kKUeRYC33LVqSFGUnN7CUvaMr6rw9o5JQ6/V0SnpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n+nXXV3G;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FynrFz27;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdbeiIyn;
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2186F606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:12:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2186F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3204E606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:13:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3204E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n+nXXV3G;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FynrFz27
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RKO11191425
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 06:12:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2rWL/C7LmPFzRIy3jqvsgEDQQv3vMaerdjzG8BHe0QI=; b=n+nXXV3GlQtT/i4y
-	quPXl2Pke4TQ97C+eyjpjqQb+wn1NpaccJwz/KJrzBGAyGe2uzBpk/3FO3LMw9hc
-	VsrRmJPWPSdw0n6ydqB7weaqMRRtM3dExE9lJQJQZiS22/sxrt+NwWUusHh2J5fR
-	n4ASZUnis7YHF9kr64dau3guQrxoKl+MGN7EMq7uLU5jlOq6w5a//q/8qLN6Q+lq
-	kMNA7pykdYkA+GHY+daR6s4TPZB1QMc1PgQdZ92E7utIdgXjPQVSmoNLsVDRIo2n
-	htFJrSwnw81w5sf40o9NVxsbfSkR8rECrSEk3MK26aF7mgOnRSuKWBigsgwgm7lw
-	iYGTrQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pjkd5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:12:01 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88c768886a6so359971b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:12:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdbeiIyn
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6df5e315bd1so286532eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:13:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793772721; x=1794377521; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2rWL/C7LmPFzRIy3jqvsgEDQQv3vMaerdjzG8BHe0QI=;
-        b=FynrFz27hf3uIj/IuccXI7UCHpfIFAK61NXQZkrKH4aBw8ZICOqTyD8cpjSjEnfJRv
-         6ylaPH/fM+vyP0We2HC64oNNek9TRor9zLmKcmnWcTjNAxpSpI7iFw8noE6W41gW3Tp2
-         T/TgzMZWH6OJlx5xrl6H0sP63jYqchyBpY6dtRo44/QOztujxPojGTPoll35jMoNSn5k
-         yg1nq+7Xs4DSlLUfseTNK+QyDrxrKEbojCxqXg8h/6X9jmJ1tHwTFi08oPvvp9b6MZEV
-         pirqweZq7ewYptMM208sHB2g5aOx105shS2+iT4uKy+31fSB8NX4BVBIs2q6jbzjb8Xv
-         Qbjg==
+        d=gmail.com; s=20260707; t=1793772801; x=1794377601; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MVU4a1WbyoYsCog2h+z3lNAS2j7JA65g4JUPcSPW2I4=;
+        b=wdbeiIyn6j3DH5A0Ws4xXGIx4FgR6EYvpQeM9HC/9rrrjLTkjYbZ2pNZJIKker9tb/
+         NddYUSdqWUq1dkbmGv8+31jQzNgET8DUborMtOCj0vkL6iPXmLabFmAHCHhDizYQ8irh
+         VqZMKSOY7bqdyZnRNN22xeGq8whMvOnel9jjCSotUTHWRV0CgqNdv0PyLeAxHU6AnLcf
+         /tpSFUbXk45QMwQ0CswgomgOD7wMRAbYvI9NbjKuKZtFtgB/FNQp8D0sAkujKyPncfhU
+         7L9/o3fCLKiYDehekIZnq9TOXHHOXp4A4njhViWZD2ENFk7f+1ODJc5HWSZ0u0jlS6m6
+         jPXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793772721; x=1794377521;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2rWL/C7LmPFzRIy3jqvsgEDQQv3vMaerdjzG8BHe0QI=;
-        b=LAX5N55SAAIdAyl92rgvarmfpRpPmK7kqzA6wfxxrl/aV4+N0zU/ZWejqmArmImAtm
-         Ny3xxLeDROMDiQHCw7OPNKeVMDTg11eeoRqf9oTJE6k2fBSu6Bl+MFrDBKPs0m76J5bR
-         oHmK9U1War/4Tdn6h9cpJEiBD3+KMYYaoM3nOor59pmB0uTXQWQBYbYM6Q9RHInMR4wz
-         ssGj4n8YrKHGP4Pj72hdWJ1f9zXkr6TNcStkjlkAdjtKGaWuSPwy2zVF2OZ0+xLnai8E
-         4CD2uf6fyzYX1/VxGLVCWsW/80ucyKjz+BSbtyCEMO442h7+2grXO/ECa2aOn40RYojv
-         sbzA==
-X-Forwarded-Encrypted: i=1; AKwUvByNKdHPqHAUbVCFTjuxAR+4MpluoG/HsqzDlJPsAD59ww+KtMm8SEOHtfjLCvyJ/HNaCH9L7l9YRyL2iWo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8il6vu+SEN0ap7nZh/bIkaD6IIN/YnI3rgqmEY+LKGHoX8t2b2
-	qgActmC/hsyPTqtiuP/KXKrEZ3RO7h8mSOvFpSvrE9V8IR+0rXKF3NADNUkazPQFuwH1cX6Alg5
-	UykhEFnXVBCK2RKmu2WXpMDIE6DMa1Z0FH09TehY5yDcdPxLL8MP5fRO5iLjY4tg9Slw=
-X-Gm-Gg: AYBFou14KrBbyB9aqKVf+2ouEffZHQs0NFUnQpO+pKCxG4MkBDCz0PjhALvybhsvKKg
-	6irMMUzDb6zMLFs0oPK7PHCNlkU9QtuadfknMj8kSSzYInLl3goYVesHo64N1UvpKkG/ejhfpgg
-	9+eFVrOWVYLjM4U0kGLwGDGIE4YEhP0FlIqhk76WD301STST/jdIgBum3mYLcJRCqh+u0JBMH2W
-	v3wgmFYh+64Rnb0GquW3rri6aBWfIY5Sy7MbV7L6I8KUzkp2Q01/Az2LdqEIHFNOxc0mCmcHl3F
-	qGLRElM44ViOre5NMXjX7Qm3Li7AKP4+jXKAjwUjFqo2xtwL2b+L893r2fI1J3DiedBhBzEe52+
-	Ff/bQv5t8C7k97OIGgIxmkJqEOK/Xi4zBmvC/k9Pp8RsxjqzgNrJMUi5ZZ94wUFq9iDsbMbjdSh
-	cj
-X-Received: by 2002:a05:6a00:18a7:b0:8a0:70ff:ab2c with SMTP id d2e1a72fcca58-8a9bfaf8f64mr12038989b3a.57.1793772720505;
-        Tue, 03 Nov 2026 22:12:00 -0800 (PST)
-X-Received: by 2002:a05:6a00:18a7:b0:8a0:70ff:ab2c with SMTP id d2e1a72fcca58-8a9bfaf8f64mr12038972b3a.57.1793772720003;
-        Tue, 03 Nov 2026 22:12:00 -0800 (PST)
-Received: from [10.217.219.145] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09bc40bbcsm439892b3a.51.2026.11.03.22.11.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 22:11:59 -0800 (PST)
-Message-ID: <5df54e91-8898-4fbf-9aa6-e2202a67823e@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 11:41:56 +0530
+        d=1e100.net; s=20260707; t=1793772801; x=1794377601;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=MVU4a1WbyoYsCog2h+z3lNAS2j7JA65g4JUPcSPW2I4=;
+        b=pHIty2FM2b40BkuRBsE9y8xwX5U8t7/fXs5CfHsjJNJ/L7G9YwxHrOKcEWuMTRShaU
+         D00A07s1vHjCC0UPXS1rZ1ASnyOoLk6/UgEESzV4rKixkeyboV3uzGxksR71QQYaXtAo
+         pLUsMNEAu4h3wS//1qU6HDM8Fee6LSoioXZ1m+o9CxWshtsrm4eoixDQSAW+E9QlG2bc
+         A5DC+kYWqBkNNRlFd49Y3eCcsOEyvALEJDvGGRDDLTJysFUHGCDjXBSRFa0WWgY1icZV
+         zYgluguT45Nif5pV2rbuRoewbDAquFgPoeh7rxMxtp/bq4ji/XR6wF/dV3EAOZIeAGfz
+         ukVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwEzcFDIGoAAwgTGOtutIG2LPhtovbhb4s41Y1bXIwRufmfw8r5qLplvn9L+AXVdxht0TxxYoZx3iFzRc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8GJPISVmW6TDg2jVHrVrR4BVXfM6UUkKQObdV2NqqYE6ln1EC
+	TdfIDP4EDB00SZtGSyn+FyC87WOZK+G8irrLR1xIIF3y+Gs0vVfwC5oA
+X-Gm-Gg: AYBFou2DAfzzinJA9wIxmyaSffnCfFd9YwoViKFcQuEOc41fwDWYaTCmBgUZj7LQ0Da
+	xHurr6E6fmQ1jc58iOrp471jOOfz9JjfCQL6ta2pNuLD6v/QLAh4Wlo4Ii32qKLffK1T9Fd765O
+	GaZBAS8URUW8JBCmi5pgGQ1s0Coz/RYYMvqMqbtf8sJ3zk/aDl8Xb0JP6pUiLsdF7vXcD1OrVlX
+	0KkcHPu9Ui7643w24YaVuo72ZTjSQEB/l9FBQOGS3fRokvdx3UIoTul7Kq7Tf5Aq99RdfoGwRjf
+	ayEo2i0KkQbrQglPwDBh7AUKnEc4D3XUkd85+nT6ac8AYpT0NZkC/xM5jCveBfXzV3ALWCYA7V4
+	AMbMR84kK9g7ciGbIFp3ZRPHRd9BlInwrN/DAEDzfVjqT4244Vqz4GiP98LSeC4pQV+0/ghko4y
+	2w0yY4MPh/3N2rI2VQCKI3ivy3ozkK/aaotTKUcMUcJ4ZC/bLDdjllo4LgKa2WAkzr5cbKzXXJl
+	ra9aSvegvDI0yXGrg9O6BV8liWdjSQlxzUjxWr14Oa89w9B5hyr64Y0/7V+snweJd6nCbd1o6y+
+	HHc+kEmv/xS0+oOjfzz4M7MQhrUt3lzX/iEza/sJLthjRAhbleV4PUu8QX9+b73ly3lyBxPPuN+
+	IHzeBnQpacROdBkdgBIcde19+KRQrb52IDrFFXfnm7agJwNbAbkm++5tJexTNZY7MmR8scyNPH4
+	mFZHFOoYpU9YJi4Rx3/NmJqQbJ+X/bMg1dCFrovD3MVARLkcibtg+C
+X-Received: by 2002:a05:6820:83d9:20b0:70d:d3a7:24d2 with SMTP id 006d021491bc7-714f255ec1bmr6371290eaf.64.1793772801020;
+        Tue, 03 Nov 2026 22:13:21 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c129a718sm1037919eaf.6.2026.11.03.22.13.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 22:13:20 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 03 Nov 2026 23:13:18 -0700
+Subject: [PATCH] mtd: rawnand: propagate timing-mode recovery failures
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,101 +92,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: dwc3: Use the correct PHY mode for USB3 PHY
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261012093704.2762263-1-prashanth.k@oss.qualcomm.com>
- <aup282PqM5c7ks4J@vbox>
-Content-Language: en-US
-From: Prashanth K <prashanth.k@oss.qualcomm.com>
-In-Reply-To: <aup282PqM5c7ks4J@vbox>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAyNCBTYWx0ZWRfX0BhqRkad9cat
- 6TiZru+APZyVx3arICAvR8eyvJ/4u58lEgOVmZabxpfSexJ5jfggbbv8YD+p93bjgKrLAyVVPsZ
- woPeZU3qzZYlLjdx9BsyI3U8il15cF+4vOcdmGo588QzSbm1aAGeu2YgrbLcR12shX6CkdEPAaL
- 5TZWpJjfdTLnEfmnCE4C+NKFFNBtV/Eouft3Kb4dvNKT66MiDvZ6v7apwcqcM3tqag52JgoYbA+
- nDDaol+sPV6E9ZsDKpbl7wQ8K+CKkjT5+4CJ14ibOWX+WAzRL9AfwjnQqTxhFVsrVQTUq8FvQNh
- GBL82tpFyRxzOYtaJ8qKO7Db9hwLrwG9ToUxRXvqVudFt/y8ep9SmFzup0i69N/D8EOKwF2HczH
- d0HvnoBmp+wmsI+IPVKaHr3TUP8BL6Cay584QvywNG50LYPQyU5sA4TjeGAUn8wjrgA9+jPBVTO
- i9HH7kkpyVhaHO8Jmtg==
-X-Proofpoint-GUID: Px0xelWTISjvXCWeuf2YrQ4bFtMKqeWd
-X-Proofpoint-ORIG-GUID: Px0xelWTISjvXCWeuf2YrQ4bFtMKqeWd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAyNCBTYWx0ZWRfXylMOqdMsVBP9
- 7DLU1IDSUB8drRmXGlIyUktPpBckA7BwUI1pkguu3aF838+2g1OjGmWAA7rawKuAj8iy5K9epOB
- 7ryFPqqCiJ6b3t/ZGhrMNeuGTLeC9DQ=
-X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeaccb1 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tbF0VEVlScR4vGo-Y0UA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040024
+Message-Id: <20261103-submit-rawnand-timing-recovery-v1-v1-1-1cc33723e052@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNMQ7CMAxA0atUnrHUJFUGroIYQuoUI9VFTgigq
+ ncntONf3l8hkzJlOHcrKFXOvEgLc+og3oNMhDy2Bttbb0zvML9uMxfU8JYgIxaeWSZUiksl/WI
+ 1GPwwOJusTy5Cc55KiT/743I9uiEPiuUPw7b9ADRS+VWFAAAA
+X-Change-ID: 20261103-submit-rawnand-timing-recovery-v1-a64432f26f3c
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
+When GET_FEATURES succeeds but the chip does not acknowledge the requested
+timing mode, nand_setup_interface() falls back to mode 0. Both the
+controller-interface reset and the NAND RESET command can fail, but their
+return values are discarded. The function then returns the successful
+GET_FEATURES status even though the fallback did not complete.
 
+Check the controller reset before issuing RESET and propagate either
+recovery error when there was no earlier error. Preserve an earlier
+GET_FEATURES failure and keep returning success when a timing mismatch
+is recovered by a successful mode-0 fallback.
 
-On 11/4/2026 5:42 AM, Thinh Nguyen wrote:
-> Hi,
-> 
-> On Mon, Oct 12, 2026, Prashanth K wrote:
->> DWC3 currently configures USB3 PHYs with PHY_MODE_USB_HOST when
->> switching the controller to host mode. Even though usb_add_hcd()
->> sets the flag corrrectly, it gets overwritten in DWC3 layer.
->>
->> Some PHY drivers distinguish between USB2 and SS host modes and
->> expect USB3 PHYs to be configured with PHY_MODE_USB_HOST_SS. Using
->> PHY_MODE_USB_HOST may result in incorrect PHY programming. Fix this
->> by using PHY_MODE_USB_HOST_SS for USB3 PHYs.
->>
->> Signed-off-by: Prashanth K <prashanth.k@oss.qualcomm.com>
->> ---
->>  drivers/usb/dwc3/core.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
->> index fd5c2cd36c59..1bb87a370725 100644
->> --- a/drivers/usb/dwc3/core.c
->> +++ b/drivers/usb/dwc3/core.c
->> @@ -251,7 +251,7 @@ static void __dwc3_set_mode(struct work_struct *work)
->>  			for (i = 0; i < dwc->num_usb2_ports; i++)
->>  				phy_set_mode(dwc->usb2_generic_phy[i], PHY_MODE_USB_HOST);
->>  			for (i = 0; i < dwc->num_usb3_ports; i++)
->> -				phy_set_mode(dwc->usb3_generic_phy[i], PHY_MODE_USB_HOST);
->> +				phy_set_mode(dwc->usb3_generic_phy[i], PHY_MODE_USB_HOST_SS);
->>  
->>  			if (dwc->dis_split_quirk) {
->>  				reg = dwc3_readl(dwc, DWC3_GUCTL3);
->> @@ -1643,7 +1643,7 @@ static int dwc3_core_init_mode(struct dwc3 *dwc)
->>  		for (i = 0; i < dwc->num_usb2_ports; i++)
->>  			phy_set_mode(dwc->usb2_generic_phy[i], PHY_MODE_USB_HOST);
->>  		for (i = 0; i < dwc->num_usb3_ports; i++)
->> -			phy_set_mode(dwc->usb3_generic_phy[i], PHY_MODE_USB_HOST);
->> +			phy_set_mode(dwc->usb3_generic_phy[i], PHY_MODE_USB_HOST_SS);
->>  
->>  		ret = dwc3_host_init(dwc);
->>  		if (ret)
->> -- 
->> 2.34.1
->>
-> 
-> Can you take a look at Sashiko's review comments? I think the points
-> raised there are valid and should be addressed:
-> 
-> https://lore.kernel.org/linux-usb/sashiko-outbox-167906@kernel.org/
+Fixes: 415ae78ffb5d ("mtd: rawnand: check ONFI timings have been acked by the chip")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/mtd/nand/raw/nand_base.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Yes, I was thinking to add a vendor hook for qcom and modify it from
-there, so that other phy drivers wont be affected, will come up with a V2.
+diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
+index a5b278ab9384..cb57a7d81810 100644
+--- a/drivers/mtd/nand/raw/nand_base.c
++++ b/drivers/mtd/nand/raw/nand_base.c
+@@ -840,7 +840,7 @@ static int nand_setup_interface(struct nand_chip *chip, int chipnr)
+ {
+ 	const struct nand_controller_ops *ops = chip->controller->ops;
+ 	u8 tmode_param[ONFI_SUBFEATURE_PARAM_LEN] = { }, request;
+-	int ret;
++	int ret, reset_ret;
+ 
+ 	if (!nand_controller_can_setup_interface(chip))
+ 		return 0;
+@@ -909,12 +909,15 @@ static int nand_setup_interface(struct nand_chip *chip, int chipnr)
+ 	 * Fallback to mode 0 if the chip explicitly did not ack the chosen
+ 	 * timing mode.
+ 	 */
+-	nand_reset_interface(chip, chipnr);
++	reset_ret = nand_reset_interface(chip, chipnr);
++	if (reset_ret)
++		return ret ?: reset_ret;
++
+ 	nand_select_target(chip, chipnr);
+-	nand_reset_op(chip);
++	reset_ret = nand_reset_op(chip);
+ 	nand_deselect_target(chip);
+ 
+-	return ret;
++	return ret ?: reset_ret;
+ }
+ 
+ /**
 
-Thanks,
-Prashanth K
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20261103-submit-rawnand-timing-recovery-v1-a64432f26f3c
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
