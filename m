@@ -1,74 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806882;
-	b=hcR+sogUVmZnhFvDgM4vE6zj1yPd1NGfnH954FUSKUSQhYq1u7YOK8RMRKrL98OCB2s7
-	 wCR6qDbZJCOzvCuvbi8Nsg59u6Ec5gNzUWalKlhvmTkBXhO252+ECQEZehq1YAj4NokG5
-	 c/KT5O2h5QxL8q/Me0LCf08IwZP5pa81cDwVr9dUg+6HrsWFTJnL+iEwj84J3BWusNSQo
-	 6ceFwLiwpvnaZKNUYscH7SNN6350cT80GjtDiop1t/Ay3+JBN5S0KIA7bKi8KWOL5+UEF
-	 tXsMOZghAf//djfq2ntJNHr8vdN0aOam1anBUPBYhUJclW1E6cLfYycddAc0kDSJHPg==
+	t=1793806900;
+	b=VejiqiPLvfp0xwclb4b9/Ia6f2ZaX8nvYk6GbamrPBeosLSHEs3g8hUde7Cgx8VNO65O
+	 xKhN4YEh0229jENhsq3iFUWx9hEceCDsuL2m5j1+78jmaS6KiqLsF3oyCMiFVtJKj01Op
+	 XpxLgn0S2DJIzZUE0fLLNDIE4FSlrVLsNmzGYQNAp624pqkJh5Wm+fOu7uaqbFytVu0Xe
+	 xX5uc/bfNni2ltCozNORsoYMFeBTn8ZYPdeqwrWaEJ0e9ZYv3XHIrDIMkgPqHbRAgw+sZ
+	 djqDCjURZsJN4SEX7QZVQ8PKzkz4RGyRqZ9EPMZ3cqbSl4oX3R8ZuABwFk9LqPsLzDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806882;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:In-Reply-To:
-	 Mime-Version:References:Message-ID:Date:Subject:From:To:Cc:
-	 Content-Type;
-	bh=o/kOhyN2ooFYx8Pst2gddYQu9Aw2TL0sBUfCDuxPOOQ=;
-	b=hh/Px39CJvn9hXbZ8GAqr6C6LLTG8xMAUBDAnuzO5LXjcciVu/LlW7u8u6a8jTrcAJ+M
-	 FWbRTgD/RKbksHYN8tEslJwHc8vxJFyBXAQ4oHBdgA1Ludui2DmcB/l8XqHk+VAsng7N9
-	 LCont5rFv0xcbSNL3nBjfq8Xjh962mqj+DXg4qHJB5QnhUrAGWu3Vw805UiZWX1v8PYR3
-	 /PaHxrQSfCGl8tqGFFa0k7Rj1YVXUYtthal4u9dZDztxAXAMIN3hQHaqnT665o/xFoC1j
-	 dpm0+Gd3KLY+b3SRy6rcMIboA8qSk1l1+Ju42TDoqkFm40seIS8ev1Ouj8O6j8nhIYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806900;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=iphqSsawpRaaen7vANjen5+GcoTtHf3xRM+kRPbqxW0=;
+	b=nCD+CI9v1pOELvjkQcrF9GIHvC+JIf7ZDfzOWxmVXK+etBEPOCdqs+kfWYqqROBdfMVu
+	 ziwzJRjKB8oWMoNuBgwLyUTUa5kGXxFxiYWs6YA9Y5ALCxFrgo1iQDl3LA4nlLl/13Z0p
+	 kS7RN2eotPfHUru3qfpZ6LtVCfvXrLRYukxFTSAWzllUrb1wEZae5+P6azCBsZ/1e4BET
+	 QSPkBY0SL2Ge00rNPh1eAUywhPbTn4XUtfMgdE158dwPK1NAHEjfh2HgSPGf981Yxi4Ys
+	 bV2TXadzIH30S10bs6Ds7xgb7l0qvJi+evbPvhEITLm2cCOFggSeUQBmYTDLcka/XqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HjMV6rni;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fU4ZajU6;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4402A606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4402A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8C4606A331;
+	Wed,  4 Nov 2026 15:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF8C4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HjMV6rni
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36d1353fdcdso2096616eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:41:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793806881; x=1794411681; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :mime-version:in-reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=o/kOhyN2ooFYx8Pst2gddYQu9Aw2TL0sBUfCDuxPOOQ=;
-        b=HjMV6rnirPdJA5id8UtVqWjrEqOxCFYgbInEUndmQBG9IGwqDf4eKd2nUhUcDuBa3W
-         naoBjcrkRW9gQf1MgmsEvth6cdjetKsDsXk5XwDhxNum0s1qFMPG5+ilvaSzEQ+xZYwY
-         Tv84bFqfYa5rKy+gTZBe0bSqag2Uj/m70AJqsib5x6i3m9jVMzOnLwUHLDlB5N/Yy0bM
-         XL/iW1TkDGelxrI33iHoh2+RTycqt68eYKdYqnBam82nBZdAnsI5QqyOYER9lr7Q8Uol
-         5fCr82D46xBT1klUloOTTCg1G6OOxhv2vXv4GNihAsw8nlvpL4SA20uZbSuQ4dPVuriQ
-         4jHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793806881; x=1794411681;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :mime-version:in-reply-to:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o/kOhyN2ooFYx8Pst2gddYQu9Aw2TL0sBUfCDuxPOOQ=;
-        b=WAkH59XOA14MBGRtjiEMiPyzvHWTDrPhmZlqeRsAaGQs35lhOvQRsHKve2dWApKnQl
-         fuP4R5+ybi0niRxLNHg2uXdGmpRblf29nTCyxWxh9O4zJT3MBaFYsXGkI2fyySzs0Ie9
-         duMfQCO7eADU3lqR3Fnm2s/4vZ18FvwLxAgK8BvKP0e01sabTP9pEpkWP37amXiAREoA
-         xkB+6KMmB6Ar5FQFZ8HRnAdG94NnDwJvk5E7jBuwKk+qi1v3EdD3yUUa5qxRZ094Q47z
-         ES//Y1htoXmn/ayh3et7F5tgv6QPYav+2yceDph5WSUTfkB+ugC8buznmRrgdqowUt2m
-         YNbA==
-X-Forwarded-Encrypted: i=1; AKwUvBydYRixK+siDnTDVLFZIci/ZB5WFoy4fYXFWkT9L+IQUq9rOYfbrjwORwkJ11t62zptUTCEKvzdbtwfTqU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/n20qEXPXRYUZuqvqzRvRW3UlwrXzbjv5xeptfi+7k3zzKP6g
-	S3eIUMhckkPdd7hj32Y/4hCVp+ARAGKaWTF1ix7DRLWgTlRouA328qEMbkEknd89uFSvYGnGejI
-	zSG2+fY4408zc1wmlaJ/b/LBpug==
-X-Received: from dycmb18-n2.prod.google.com ([2002:a05:693c:20d2:20b0:359:198a:8046])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:3d06:b0:358:eccb:af7c with SMTP id 5a478bee46e88-36a42404840mr35928950eec.33.1793806880735;
- Wed, 04 Nov 2026 07:41:20 -0800 (PST)
-In-Reply-To: <20261103235152.1904727-5-sdf@fomichev.me>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fU4ZajU6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793806898; x=1825342898;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0locde0rhGayPBqPOc/hjAfG1PM+Mqip+KEGed79GU0=;
+  b=fU4ZajU68sAQqkWF61VeRLTcGLymZIc6QT8PJ/PuLcdvJvu4/KZKUh+a
+   M2opUq0y/wFVrcU0TfWjRJtvrNqtrnCVWTUvjiPKjCCnipmBbkobdNIZx
+   YmP7ccHfZSzQ+NBOdeGc9g18xAVPPMfUiRnwS+mEKTjNyp9rgu04jkfjd
+   nRTd6XRxmp0XXCF7TQCfp9AbC4oKZtI0MoK21X/chPx8c6XSjhAViQBc2
+   N6DiX1LG2wRQdU5C4fwpmFhyYsFNKw0qUAd8Jk7FZBppLCMatD3g3utc9
+   GkzVZl9MLnUo0uTaqJjdPIjPExBn49S8pT9owqvpABcj5dgNtuQwALLmf
+   Q==;
+X-CSE-ConnectionGUID: ZFId9FDWRbOOw9rlB0zUCw==
+X-CSE-MsgGUID: PUqg5a6pRO2QvpKGN9vt0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2560739"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2560739"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:41:37 -0800
+X-CSE-ConnectionGUID: nSTyb77nT0e5ME8AG9dCFA==
+X-CSE-MsgGUID: ENib+KKCQS+GRhxNWFZi5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6895538"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:41:32 -0800
+Date: Wed, 4 Nov 2026 17:41:30 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Joshua Crofts <crofts@kernel.org>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Rodolfo Giometti <giometti@enneenne.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Angelo Dureghello <adureghello@baylibre.com>,
+	Tobias Sperling <tobias.sperling@softing.com>,
+	Eason Yang <j2anfernee@gmail.com>,
+	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	duje@dujemihanovic.xyz, herve.codina@bootlin.com,
+	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <autSKpnh0hORsYT4@ashevche-desk.local>
+References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
+ <20261104125726.1754980-3-maxime.chevallier@bootlin.com>
+ <20261104145641.000070f2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,63 +97,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103235152.1904727-1-sdf@fomichev.me> <20261103235152.1904727-5-sdf@fomichev.me>
-Message-ID: <18e4e1daa184cadc.3137322e32382e36372e3935.ceab9.0000sendgmr@google.com>
-Date: Wed, 04 Nov 2026 15:41:20 +0000
-Subject: Re: [PATCH net-next v2 4/7] net: devmem: add a per-device netmem TX
- frag size limit
-From: Mina Almasry <almasrymina@google.com>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, andrew+netdev@lunn.ch, edumazet@kernel.org, 
-	horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
-	sdf@fomichev.me, almasrymina@google.com, bobbyeshleman@meta.com, 
-	asml.silence@gmail.com, razor@blackwall.org, daniel@iogearbox.net, 
-	leitao@debian.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104145641.000070f2@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 3, 2026 at 3:51 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
->
-> Devmem TX frags are bounded only by the net_iov size, which is about
-> to grow up to 2MB, more than some devices can describe in a single TX
-> descriptor.
->
-> Add netmem_tx_max_frag_size, U32_MAX by default, and cap devmem TX
-> frags to the limit of the device the binding is attached to.
->
-> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
-> ---
->  Documentation/networking/net_cachelines/net_device.rst | 1 +
->  Documentation/networking/netmem.rst                    | 6 ++++++
->  include/linux/netdevice.h                              | 2 ++
->  net/core/datagram.c                                    | 1 +
->  net/core/dev.c                                         | 1 +
->  net/core/devmem.c                                      | 1 +
->  net/core/devmem.h                                      | 1 +
->  7 files changed, 13 insertions(+)
->
+On Wed, Nov 04, 2026 at 02:56:41PM +0100, Joshua Crofts wrote:
+> On Wed,  4 Nov 2026 13:57:25 +0100
+> Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
+
 ...
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 3ac700d37e59..ba2f887dcd39 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -12350,6 +12350,7 @@ struct net_device *alloc_netdev_mqs(int sizeof_priv, const char *name,
->         dev->gro_ipv4_max_size = GRO_LEGACY_MAX_SIZE;
->         dev->tso_max_size = TSO_LEGACY_MAX_SIZE;
->         dev->tso_max_segs = TSO_MAX_SEGS;
-> +       dev->netmem_tx_max_frag_size = U32_MAX;
 
-I wonder if netmem_tx_max_frag_size should default to PAGE_SIZE instead
-of U32_MAX, and have drivers opt in by raising it after verification
-(e.g. SZ_32K for bnxt and U32_MAX for mlx5 in this series)?
+> > +#include <linux/types.h>
+> > +#include <linux/units.h>
+> > +
+> > +#include <linux/iio/adc-helpers.h>
+> > +#include <linux/iio/iio.h>
+> 
+> + #include <asm/byteorder.h> for be16_to_cpu()
 
-With U32_MAX as the default, large frags are enabled on all NETMEM_TX
-drivers unless they opt out. For example, fbnic also has a 16-bit TX
-descriptor length (FBNIC_TWD_LEN_MASK) and only avoids hitting
-dma_error here because its tso_max_size happens to be 64KB today, and
-gve hasn't been tested with >PAGE_SIZE devmem TX frags yet. Defaulting
-to PAGE_SIZE (similar to tso_max_size = TSO_LEGACY_MAX_SIZE above) seems
-safer for existing and future drivers.
+Yep, but please before linux/iio/* block.
+
+...
+
+> > +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+> > +{
+> > +	__be16 data;
+> > +	int ret;
+> > +
+> > +	guard(mutex)(&tla2528->lock);
+> > +
+> > +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+> > +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
+> > +	if (ret < 0)
+> > +		return ret;
+> 
+> As rare as short reads may be, perhaps add a check whether the expected amount
+> of bits have been returned from the device?
+
+Bits? You probably mistyped bytes?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
