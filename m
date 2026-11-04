@@ -1,113 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793818144;
-	b=ihU2pABqPCmiVmTn8hle+Y4Rftwew29a6ZOR6kfnA+8sF6dd7n9bbZXmsUFjF1vkZ+df
-	 OQ+9aupTejSXuOpzcD+8ioID0DnDSaX1qpb37vexnzAjH3+Uxz/waJshyr47eCcVSn+1e
-	 Me8QnsUyhbc8CBm2KBm1v47/eY83C0ffs/KFo/nTYrXRvgrxKOuJjaolnpl2wOWh/J15L
-	 sukAes2KPs6lUXWxc0acu5kW+0WP8/4qoNPQroKt7uG+Ds0TiKCo23WgMT/1CBdbisKxO
-	 p9Us4fo2mTRFAaHYf+Jtpb1Z4G44mtm9oss5HIxndGFzipYbyelFX5WgDTwIViGVtLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818144;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=a5gbFSyoFRK0guk69IMyXpdI0RO3UIBCLkofjUx0efI=;
-	b=Y+CXSGUAmxfpilmV9Rf8cm3sL+LRdMcJVWqsoRTucPYL+Fazp8QZiQLBB68Ry5SfZfN8
-	 nHPrCiIYOS/U1YSIrCRfzMgUWVMCoxcBCP+9+LRr20/AUHLTF3uzjeozd5hiJiw3F/uCg
-	 t2ztsELgmW/iSjafLr7GLOl9FEsPs0Dn/VmJQPCb/tFM7Qbf8UynSmQ8jWA8B0Taom06X
-	 /GBlNN8qKXftzYIbKxt5y7OPbIbESaAoH3al2kXNe4N6n9UNCiClgHkICFJO6eABp50o3
-	 YlAPf5vi3vP29FwmZidZWBMcRLXC2n0ZML+GGMFKKEzEbkrKFodlCFWlcPavhDozqZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OKuZCkv7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.37
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011037.outbound.protection.outlook.com [40.93.194.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793818166;
+	b=mftT8QF8+RDQLffw4t2evQKQwwVXZT/J0tRpiwCGDDRkWIoQeZ9KmppJmuf7vpOvHGTT
+	 ND29MJtCI/6nR0dPSrOBWenLwbrcZsHwOCDjSfJ3HVPAS9aU4+ATz3xLf5pQhFduXIgoB
+	 BLgNjVd0dmHbX/+s1VBr/IoiC4Ngwm0MFh95IT1r7qi8edt/qUNvZrJmddAQwzShFq+Er
+	 gS5ArNhfjDQ5uy4b/QyUOG/G2PmMQ45B7Ej41MFXbmhM1gkji6ZUGq7l6bu8H7Ox8sDQ1
+	 K+u8YYAIRiaFd1jXZznB9khhlEBgW3tXnU0rOZds8OxRTa73ADJugJMeaQQHVnDSbtA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818166;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=fvw5ZdrqgxDo4yVygHiDipEAagbaXxnFCBvwsXPac48=;
+	b=yvTunZO/J9SNBL3CNYvhP2GRzD36sgliuzB359ehh6LzL0jr2Gbw/eJ3IQWESthEFS9d
+	 dT3MbLcW1SygVaB/APIv5lLs4tRCPPeOWnKxz6QilVfz8XIluA0VS5BjUimAbwS6R8sZK
+	 v73D+M4CvxaD/Z/+FExFcepeaLVVVlDUzYG0MqhUj5Xcy+PrVPhc/r855Ede0dMhHy16c
+	 8sFpQMTbL0r36el5EC0X8iihhbOapN9jZ5SNIroWUJlmA6ileI0e8a21WZasoOzngwOxD
+	 hFdVwCVoT4MnvW+Mx6maC6f1c2/0Uu2KhgarFS3W0V5ewL0hO8AYm3T9y6qrIFxP4pw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6rJMl1w;
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AB5606A329;
-	Wed,  4 Nov 2026 18:49:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69AB5606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25E96082BD0
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C25E96082BD0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OKuZCkv7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CWZlILJb1zutWD5vH2Ua16fBw1dsXVS0RLu1mDUB+74V8YVqsrnlzFDo19boQ2xRVNpk9Y3fguAPm3pY3a69SqhMFCGwmiQ5ulZKzF0CTPI5qQb8KozyYx1wAQQ/WKDdkRVbGM/zN7xVUziKWdlbwii6ZDRKb8Rj8cM0mldOrz7da4/XKaqowTXkNCs+T8Xg+zKo4bW3BDQibKGud4sXOZYfOdbv4miUDzy4gIqoId+1h0akKx0rzzV6zT1lLNjPvFPYwc9JoQGmtbYOpypfuwOLVQQODVaZg0v4C/xsrWKqr1g7r71JYHoZc9Og7YEKgONWb3i7Eud8PnX7vXKDtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a5gbFSyoFRK0guk69IMyXpdI0RO3UIBCLkofjUx0efI=;
- b=hF39abDB3uuR3zw7TD7mboKR+opTCp07boq4V5157luttbSAX/omdkTRDFwuAdBed7ojDyykrzFGwYkYD4ClWmLR1qcMSbBqRcQwNo0NOqvs/v6lZ7X/KHb/q/TUUChSs+VQ6ddh76IJeO6G0Cal/9htS4C2zJGK2yu2+jogGPkdV/uZa0YU9FzZroLvCzqe8Z7Np1H2G/6Ay+eS6nRQZtDWvH9CX3yRh4fWAq9oFgsDivLBY9bc10kLglv6KTFhDv/yJEmUl5k3/jNryOV37Avo9oesCiVUz5JMFU5ok144IUIefWL0ri52PQGqVPE579XBlU0vob+8y0wHUpFi6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a5gbFSyoFRK0guk69IMyXpdI0RO3UIBCLkofjUx0efI=;
- b=OKuZCkv7mT/ZlTwHM/YULLnAyyuyxBKwA9l9n/3lg+s0Z7J6+qX+5zKJ9oH0ErgIqqt4WLgY4gWA1aWWVMaG1fdfeFbHmpOolIKo5G9RmVATPg90puMlF0dJblGKYqk2RpagJYq0vzjA2Sxaofbh8eYl0wMfyPP3KQEvu+nFJoZMLoYbtK2uhvr3vvSgrjWo39sEFQkcKmFteFgtcdKVu6LH7ZKKkuc30z+tx5+pmfI4a+WmA7iVYRwL5ulbuKzs30KZOssavnZ8Y8adEfEH7CWYHM6cd2F5ChSnZ6O2P4+vHhTa127IW6RMv551Uj87bKz807Fy0IZMzCyb12tAvA==
-Received: from SJ0PR03CA0066.namprd03.prod.outlook.com (2603:10b6:a03:331::11)
- by CH2PR12MB4167.namprd12.prod.outlook.com (2603:10b6:610:7a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 18:48:57 +0000
-Received: from MW1PEPF00018893.namprd03.prod.outlook.com
- (2603:10b6:a03:331:cafe::4b) by SJ0PR03CA0066.outlook.office365.com
- (2603:10b6:a03:331::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 4
- Nov 2026 18:48:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MW1PEPF00018893.mail.protection.outlook.com (10.167.249.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 18:48:56 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 10:48:32 -0800
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 10:48:31 -0800
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.10)
- with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Wed, 4 Nov
- 2026 10:48:27 -0800
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, "open
- list" <linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark
- Bloch <mbloch@nvidia.com>, Moshe Shemesh <moshe@nvidia.com>, Parav Pandit
-	<parav@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drory
-	<shayd@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
-Subject: [PATCH net] net/mlx5: E-switch, Restore host PF enable for ECPF that isn't E-switch manager
-Date: Wed, 4 Nov 2026 20:47:56 +0200
-Message-ID: <20261104184756.773910-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6rJMl1w
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b305d38bafso11417197b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818165; x=1794422965; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fvw5ZdrqgxDo4yVygHiDipEAagbaXxnFCBvwsXPac48=;
+        b=W6rJMl1wONpkfeZVJgHEnrjv4w3FGvtpZ0L6AWjC6pdQiiredCx02/GAkYnbcjdB29
+         hUdBUgN3FZ4D0jXT5I/S8NiZ9vRelSkTaT3AqD/F3U1Py3lkkQ+CVF8EZ/1rBoHuBfCv
+         22r9ypbb05xhGYQSu2WBydYJO6eyjh77nG3eRA3jMFAu6vcLfS3YoG8byigAq0lKvzbu
+         gIa6llmHKd/RjP1Lo/FleATyLbPP5WBFzDo1u43udtNu24TZ1rW5xGapGph+jqqe1TQX
+         EFWIz93mmWrZvRRCj62T7LsRsWxp0zONUj3l7fRmMcl5u6vTghh5jJITCLUlzU5pggrM
+         2IiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818165; x=1794422965;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fvw5ZdrqgxDo4yVygHiDipEAagbaXxnFCBvwsXPac48=;
+        b=M7jptqvm8yZoDloDiNRjDsNhAYc3aBc8/DYcS2TmjNTHJTleOG3pv2xNg8oMNI21TF
+         zVa/B+tQchCxTzP4/krZU7cHl/RC+kldRJfUkgyD8blRVdhPFNH4q/alu5uKdwj8dktz
+         dB7ZKiAY9+WZqs14nKjUne1/9FhpwHYGuCK40GLMuSN4BldHMkaVB53vnWvZ8p8KmSa3
+         nObxM2uvRM8kSRBnRQvagvkIKYyb3lLQgXTM8vuFhvH1kAymmZwzwoz1uIPIdjboISLx
+         CPniIPIo08DaKEWnDg8uborCVKVc2gXZMYwNt3RRQSdfcCdu63DtWlKeSle9O6NQfLiy
+         Zcrg==
+X-Forwarded-Encrypted: i=1; AKwUvBzbJOaS99B8cN/BlI2r3wvXO5LQFAkyp96IxWXEpCUVX7/sKgSam2O9u+CxTPsqN2tCa/33tR/mKlIOmZg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RWkV6ySdijGtjZj1L32z+yac1UsgF5CLOUDNBwlbTPgsn6KXT
+	vD/yD6GLyhPnJoB3HELdAjGf/veY46QSRTwdRscGXB5qcz744cWiQwdvzEtD6g==
+X-Gm-Gg: AYBFou374CuP1PkUikxDPdfZ03Uqwh4M0W4na2DtccpnMAbzxyUZq55Ovt+a4Yjnq83
+	eaAgq8MRuvchKlmRb60oPp6NMER0Dk379RxY06sWefFtpw3nEeSegUj3PbNxDJOu1AUAhb+rJwr
+	EiMzqLFgCDFlt8phdqIdHAq9DoEuv08eoENe0qJAMwG4hKqThgaSV70Oiw6eqJKcmvKr6ScT8Y9
+	vjs6eaBIItkRK8pAuxpaq5bESC0ZtqANnsnJDwkluaL48omFA82Vig0jESwlrfuEsV5YGY7I3nh
+	GStL7M+6nPAQKAfz2YmALpG7i3j5xNWaOQvUJ+1KMXmLbHUWD5on/wUVIrRnwe6aE10nY+zT7Lh
+	ZEKq3BDs/oAyrSUxVAYQkZve9QAvohcUocGbtJ3pVLSwnhKTtpwaYbRycKgk0Htsf1tXzWXgCjE
+	yn/3tM40vFo3thHzRaBf2N4GxOSyrQ+xfCkvHGW+DENruPBnN2i/rZcbGVrNLc4uSxsHhSUjW/a
+	DpHwx/j2f7/3xRjsn6p98IITWxSVv0oY1FXa0xar0drYjw0ySYqWY+TswTb7HbI9AYh3zf1ngDi
+	TO+1K/uNtRZNITx1RZ+pBq60jM0v2WSmDqQ6m3fSYh+cyW6+Xchye6kB5sEjRszQU2Jqv+dzBNY
+	RiVI9yIY0oA==
+X-Received: by 2002:a05:690c:6e85:b0:88c:b863:e405 with SMTP id 00721157ae682-8b2b6736435mr117440307b3.38.1793818164467;
+        Wed, 04 Nov 2026 10:49:24 -0800 (PST)
+Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3098c313esm24659757b3.15.2026.11.04.10.49.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:49:23 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 04 Nov 2026 13:49:15 -0500
+Subject: [PATCH v6 08/13] alpha/perf: optionally randomize the ProfileMe
+ sampling interval
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,113 +94,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00018893:EE_|CH2PR12MB4167:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72c84c2b-4ae4-4c12-1e93-08df3aa44825
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|261026140227099003|56012099006|261022105027099003|11063799006|261028144727099003|261009223027099003|261021121427099003|261021123027099003|10067099003|18002099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	B2TNSmLTccf3gP6rliElgYbq7uUclRP/UqW9k4JwDAtB8sQpvtoMHf+RqJMsQ7gs3TzHGTt5HMRAK0e1XtIVp4iOU9oRFzhTVTZSCf93lqNaW8UBDO4sSAhrSlL3JL53yq5uWr+yuKExEi3ZvanynX2A2WPFe0xAgUiZbFEDeKdjksJ8kxHr0mfJqZxhAU+BhJKCOeQORGYuCQ3kyX3PdNZh3q7vVjqrypqxrdo4fG/x2Cpro0yUndPkEQfLMzE1R7Qmf/HkSfwlas6m1xhYRSlBHhG/wLbyo/IdbVGFVBqOE0CgIkn0ciTWGy002GZITBJRsIZSDEvj89qTP9mmSH8LDGfNeQjQKk0Otmf0FmXg5AC/eaPyHQfd2nMCVTsgmA4HACiPGefHqhf43IrI27Teik0L5z3mhmOT997mOa/jxMpusnYIm/nG/y1UuQYUjodeVSc6i4/2AEssujmxfaGQw57NkRx7XgNpf4lTvE5a2uYGudiRT7F2x3OvOHnZpbVCtJAM8KRCAIlJEjnfREbcs+w+S4hDTlbW0us1GDnQ2OgP8od/7qBLGR98lRrxAFEAgZU2rtdSjXqyw7m7sMPXiFeJ/yiW3XcfHzw83BfdznhOKaGyuxkKfXRJHWg+Rs2zNZhvfBOREGYmY0QO+4+3ek0h9G8AnehO7n9BIXXpeHuwpv09rBv9GpUMg8lYU2Ok8NDZg0qqRJVDmS+CcA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(261026140227099003)(56012099006)(261022105027099003)(11063799006)(261028144727099003)(261009223027099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	V4WcnZLdeamixGCXOMMZu3BYVEX7tv2IezNYJEfF+lERPacw4mMVG2LQ/sooFQ7+LK33tjAiL8YP8VCHb2JsO8cXKXTbwaPVNZSKTtWf5IMUsrNa4FRgpQvfcCUryO2S4xkXsO+DGNzOvJbQEPLZV08QyKSjWCOHbecS5w4b2w4dMPSdd4aU3yELog2BYxU1stUv5B8zXdqaoczCFn90Prr5X+va6md9ezXy5QxrStzDCq6nrn+DAUMJ+cI7ZJZjfnDaw6EsRj9yjXRQOGUUrbNQZaLtX91t7QHwMO2FTlCywxpApQSVUm9+q+9eUaU3mj8tRamhgP1nkwezfAbqqDhrCR8oU3ylH3J1sMjghCFNifWZIXex2LeNR1Lwa+ozmeL9mtocCNcTHx2cgtQE32d4cJ7KTlVz/oCIiA5LVsqnORDxLG5QllzrRa28PS81
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 18:48:56.8410
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72c84c2b-4ae4-4c12-1e93-08df3aa44825
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF00018893.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4167
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-alpha-profileme-v6-8-63362e9290a3@gmail.com>
+References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
+In-Reply-To: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4553; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=hYabNeE9UaniE1qqxPyCXnHv93dIZeS95X4LQtRwjn8=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16nKXd+h18h46nj/1efiPM25mSemye/9tu7MU6tGD
+ 4F3Zby1HR9ZGMS4GGaKKbLErVdkmdW2Y6nPaelfMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ IZChYxQPkdNj0MgsLi5NLdJNKyhyyMsvSSzJzM8r1ssvSM0rSC/QS8tMK8nIyC8qTgUaoZeXWmL
+ q6uhmZGhgYuloYeZk4Whq4uzsZOjk5ujo7OpkZGluYuBs6WjiamnOwMUpAHONewzD/1Dnb7VtZ1
+ ftvi77/urcrpWzva9m1kYw3P76PGrvwgkPNLwZGX44rnJPnpHw99RqGaFplz9IpJWpvCqL/fOOQ
+ /2KqHz7ZmYA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-From: Shay Drory <shayd@nvidia.com>
+A fixed sampling interval can phase-lock with a loop whose length divides
+it, so that the same few instructions are profiled over and over while
+the rest of the loop is never seen. DCPI avoided this by randomizing the
+interval.
 
-The cited commit breaks host PF enable_hca when the ECPF isn't E-switch
-manager. For example, when the link layer is infiniband, the ECPF isn't
-E-switch manager, so after the cited commit enable_hca is never issued
-for the host PF, it stays in initializing state and fails to probe.
+Add a randomize config bit that varies each interval by up to 1/16 of
+the period in either direction. Only ProfileMe events accept it, since
+Aggregate mode samples already land a variable distance from the
+instruction that overflowed. Counts are unaffected, because prev_count
+already records the value written to the counter. The jitter
+is computed with mul_u64_u32_shr() and the sum saturates, so that a
+period beyond 32 bits cannot overflow.
 
-Fix it by checking esw_allowed() only for vport bookkeeping
+The jitter comes from a per-CPU prandom state rather than
+get_random_u32_below(), which takes the batched entropy local lock and
+triggers an invalid wait context report from lockdep in the PMI.
 
-Fixes: 0e6c95c98829 ("net/mlx5: Support devlink port state for host PF")
-Signed-off-by: Shay Drory <shayd@nvidia.com>
-Reviewed-by: Moshe Shemesh <moshe@nvidia.com>
-Reviewed-by: Mark Bloch <mbloch@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- .../net/ethernet/mellanox/mlx5/core/eswitch.c | 24 +++++++++----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ arch/alpha/kernel/perf_event.c | 37 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
-index 2d289fb1353b..dd7e33a20ab0 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.c
-@@ -1514,13 +1514,9 @@ int mlx5_esw_pf_enable_hca(struct mlx5_core_dev *dev, u16 vport_num)
- 	struct mlx5_vport *vport;
- 	int err;
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index f6546d648133..b33677cc23ca 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -16,6 +16,9 @@
+ #include <linux/kdebug.h>
+ #include <linux/mutex.h>
+ #include <linux/init.h>
++#include <linux/math64.h>
++#include <linux/overflow.h>
++#include <linux/prandom.h>
+ #include <linux/sched/task_stack.h>
  
--	if (!mlx5_core_is_ecpf(dev) || !mlx5_esw_allowed(esw))
-+	if (!mlx5_core_is_ecpf(dev))
- 		return 0;
+ #include <asm/hwrpb.h>
+@@ -34,10 +37,12 @@
+ /* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs. */
+ #define ALPHA_PERF_CONFIG_EVENT		0xffULL
+ #define ALPHA_PERF_CONFIG_PROFILEME	BIT_ULL(8)
++#define ALPHA_PERF_CONFIG_RANDOMIZE	BIT_ULL(9)
  
--	vport = mlx5_eswitch_get_vport(esw, vport_num);
--	if (IS_ERR(vport))
--		return PTR_ERR(vport);
--
- 	/* Once vport and representor are ready, take the PF out of
- 	 * initializing state. Enabling HCA clears the iser->initializing
- 	 * bit and PF driver loading can progress.
-@@ -1529,7 +1525,11 @@ int mlx5_esw_pf_enable_hca(struct mlx5_core_dev *dev, u16 vport_num)
- 	if (err)
- 		return err;
+ /* hw_perf_event.flags */
+ #define ALPHA_PERF_FLAG_WRAPPED		0x1
+ #define ALPHA_PERF_FLAG_PROFILEME	0x2
++#define ALPHA_PERF_FLAG_RANDOMIZE	0x4
  
--	vport->pf_activated = true;
-+	if (mlx5_esw_allowed(esw)) {
-+		vport = mlx5_eswitch_get_vport(esw, vport_num);
-+		if (!IS_ERR(vport))
-+			vport->pf_activated = true;
+ /* For tracking PMCs and the hw events they monitor on each CPU. */
+ struct cpu_hw_events {
+@@ -61,6 +66,9 @@ struct cpu_hw_events {
+ };
+ DEFINE_PER_CPU(struct cpu_hw_events, cpu_hw_events);
+ 
++/* For randomizing sample intervals from the PMI, where locks are not allowed. */
++static DEFINE_PER_CPU(struct rnd_state, alpha_perf_rnd);
++
+ 
+ 
+ /*
+@@ -248,10 +256,12 @@ static int ev67_raw_event_valid(u64 config)
+ 
+ PMU_FORMAT_ATTR(event, "config:0-7");
+ PMU_FORMAT_ATTR(profileme, "config:8");
++PMU_FORMAT_ATTR(randomize, "config:9");
+ 
+ static struct attribute *ev67_format_attrs[] = {
+ 	&format_attr_event.attr,
+ 	&format_attr_profileme.attr,
++	&format_attr_randomize.attr,
+ 	NULL,
+ };
+ 
+@@ -389,6 +399,22 @@ static int alpha_perf_event_set_period(struct perf_event *event,
+ 		ret = 1;
+ 	}
+ 
++	/*
++	 * Vary each new interval by up to 1/16 of the period either way, so
++	 * the samples cannot phase-lock with a loop whose length divides the
++	 * period. The count stays exact because prev_count records the value
++	 * written.
++	 */
++	if (ret && (hwc->flags & ALPHA_PERF_FLAG_RANDOMIZE) && period >= 8) {
++		long jitter = period / 8;
++		u32 r = prandom_u32_state(this_cpu_ptr(&alpha_perf_rnd));
++		long offset = mul_u64_u32_shr(jitter, r, 32) - jitter / 2;
++
++		if (check_add_overflow(left, offset, &left))
++			left = LONG_MAX;
++		local64_set(&hwc->period_left, left);
 +	}
++
+ 	/*
+ 	 * Hardware restrictions require that the counters must not be
+ 	 * written with values that are too close to the maximum period.
+@@ -763,7 +789,8 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 		return -EOPNOTSUPP;
+ 	} else if (attr->type == PERF_TYPE_RAW) {
+ 		if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
+-				     ALPHA_PERF_CONFIG_PROFILEME))
++				     ALPHA_PERF_CONFIG_PROFILEME |
++				     ALPHA_PERF_CONFIG_RANDOMIZE))
+ 			return -EINVAL;
+ 		ev = attr->config & ALPHA_PERF_CONFIG_EVENT;
+ 		if (!alpha_pmu->raw_event_valid(ev))
+@@ -791,6 +818,14 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 		return -EINVAL;
+ 	hwc->flags = profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
  
- 	return 0;
- }
-@@ -1540,18 +1540,18 @@ int mlx5_esw_pf_disable_hca(struct mlx5_core_dev *dev, u16 vport_num)
- 	struct mlx5_vport *vport;
- 	int err;
- 
--	if (!mlx5_core_is_ecpf(dev) || !mlx5_esw_allowed(esw))
-+	if (!mlx5_core_is_ecpf(dev))
- 		return 0;
- 
--	vport = mlx5_eswitch_get_vport(esw, vport_num);
--	if (IS_ERR(vport))
--		return PTR_ERR(vport);
--
- 	err = mlx5_cmd_pf_disable_hca(dev, vport_num);
- 	if (err)
- 		return err;
- 
--	vport->pf_activated = false;
-+	if (mlx5_esw_allowed(esw)) {
-+		vport = mlx5_eswitch_get_vport(esw, vport_num);
-+		if (!IS_ERR(vport))
-+			vport->pf_activated = false;
++	if (attr->type == PERF_TYPE_RAW &&
++	    (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
++		if (!profileme)
++			return -EINVAL;
++		prandom_init_once(&alpha_perf_rnd);
++		hwc->flags |= ALPHA_PERF_FLAG_RANDOMIZE;
 +	}
- 
- 	return 0;
- }
++
+ 	/*
+ 	 * We place the event type in event_base here and leave calculation
+ 	 * of the codes to programme the PMU for alpha_pmu_enable() because
 
-base-commit: 647b81ddefc6364290e67bf33c89d54971f8995e
 -- 
-2.44.0
+2.55.0
 
