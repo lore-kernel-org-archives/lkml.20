@@ -1,89 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763065;
-	b=vqY+dTowO2k7S/OBT0u20sG/mWGsF+8z0g1WgI9ErIkh59lkjL82UR2qN/YvaRVDt+de
-	 XZB8hXeS4awzxkJaW89GaMDGxHuHn2jkc2O+1Ic0OCGW8o+bbHb4CCPvgK81HbaAmyiHe
-	 hs5Jz5T3EDVhqCDx1OvnSjoPjnlT+pi+Wqj+NQN0/4UZH6MzA8l1euxjo+qJgWpwSxxaW
-	 xIMtmuwlWYTZ6EWDvvGUeykcIaVqU57yw2eEZ3ETEh6KxSkPnt8f0cQM4oS4tV+JbBVdJ
-	 3uNLz+SVUwSZDEgFXpvPzgsXKnXYHjUrCqrX1dITjlKn06lAJbxyYm/JViRIXgnanhA==
+	t=1793763076;
+	b=RCF81s9ItDrdfLDolEpz+lhuEuIT0UkZ+nT306SY8op8pYdL/fTKz7tB2ShqUd6a27+O
+	 rdJAL8+Wyzb32X1CIDyg2Ktcb4V9D3OukKLgLGRghLrMOTYbJSjZYloFlXo8k8fOCjGbW
+	 TNM370odlcvisQCdQHAAzafgNZ9nYWlisVKEITKS4fG0DhVqK1iV3QGwJbCE6Oo5gjTeO
+	 5iZJzEjcRHqxwOfdNHsKC//mEE9jBaFHWy5eBkH9B3b1qt87cIO2dqRGDbbXxKESqrt6y
+	 gXPqNZi1gDxwE8mvxxCDowUe1MrEqlypV31xxwVNAeAZl+0ZZ2rc1scDAqvXbyZxZrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763065;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ADIRuleOP-NewSCL:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=gYmfumV77hgTcrnkAYA73Eynhf0dC8zy2SHDeEzL2rc=;
-	b=SvgOZviXdkxPqW2p4cqQw2SXei1IULcyaCYR+0KB7CuEAuUzOzNLXlgJzK7Y0VKV5W7p
-	 kYtuJtXzacMx7QGHGKusMbNkncxAdqIKPXYjI3eCIdQ6W861txjWeAucMnV5Jp9m4kWPK
-	 iQwxA6nAjvDJuXncOImDGzE4KdLe0i6CqwYrsbN4CDb1npY7/6XpHc6XuQrpoWOVNfvU9
-	 by7lPu0PUuDycQj7EeeFIKwjEZ7KasKBQdJPAjsgwKpkWd8qzEhIf5omvgPoEuSNEOyTb
-	 BeCvmu3dkCQ5Thv4AWAwJITg+PoHO879yJgEpmRebiGMUL9nQfdCZJFMVR98OtgqCHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763076;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=Kj38Yl5CIRITnwl0c840BEY5eU5VTEEYN+KugRp93fg=;
+	b=Lwr4R9zlg1B/F6Si3KS8eVGNM3jD2M15y627Uq9rvVjtTwrG0OmqHGrcL7C5vMSq4XK/
+	 N6e1a+l9wmFv1GThTeXs0Pak6KtEtcyBPR7oEu/NqhJB4qz098JdBltfftfVLoNxCIBkQ
+	 qGnC2z74WjRO7DhKojblTS16ydsAAMzSC4d+NOxKEbohFlV1iR+NRSudlUruf0TGzeJCH
+	 VRwgPmeXfHs/WJD4sUXnyRzWg3pigtetQfohxQx/1khIoIFjp6lVVYTkFD43TiiL3kn41
+	 lFM35XHAEDUs64ASn4kXFZBszDsGLg+jqSmqY0MMrtnpcXENKpDjp2tqM6p4Pav1ZPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=jNOY79xH;
-	dkim=temperror header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=xEYgEfII;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ch6Q41G2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48711606A32F;
-	Wed,  4 Nov 2026 03:30:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48711606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45BB606A329;
+	Wed,  4 Nov 2026 03:31:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=jNOY79xH;
-	dkim=temperror header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=xEYgEfII
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A42vx0l581426;
-	Tue, 3 Nov 2026 22:30:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=gYmfumV77hgTcrnkAYA73Eynhf0dC8zy2SHDeEzL2rc=; b=jNOY79x
-	HtJqySNgy5GqZzopjYPb7pRcjqlTHnuMq14b/vQ6rQ16ZtiOMXhjuFVoZ/J5ijRg
-	829AReRml5Ce6Fn0GmXHxxRZWhnM5/YD88H/K/B0rnGfOzJ2FElINlVjNl5KbCq4
-	aTmt61MLsFl4+u3w2xiuhFakeAD7WaBQIsc2Bv5SKoFRvL3EmkFZTXi0DP6HtuA8
-	BSBBiSzrwyS+s8v89JNP8XNayTbSE6mjNcKxHMxynr+YhY7GlrxsYhV+lqbn3Ti8
-	tpDcmvYyeYjaWpTlhrUNRbIb3EZDH/ClACKZXhgfxuT6WpomaxfcuhQa00BmLqCf
-	PDLNCP1GJEo00+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=gYmfu
-	mV77hgTcrnkAYA73Eynhf0dC8zy2SHDeEzL2rc=; b=xEYgEfII3HIXf/fe/OoG8
-	AZwEexdVw2rpwtTpbtS/Ah+uNabnqHCQwKkVCLEeoy+PW8EbYTqDBA6QWmYUvv4F
-	aTP/Q2vBL938Z+ZHFZlYxNQE1QbDJDrlFcUmMZ+zBoOR67z9GET0wil0sX+vzKV1
-	soBEOn6Akeu9L0V9JZJ+oUJsXw7p2b+/e7XAU+KGjYiv9y8k/C03Saf7//PFMSlZ
-	irqHePRYI04tH9pvfReI2N+j3f69zkgihBqXEmK9OI3zlL5cMoZ89v6n5JGP+JQd
-	qQHXLlEPNiM8IDgi2nPZj8cgurxuO546P9cfFwNSC98Di3oRGOu7NkwB8zNWwL9d
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hqk2pu4sa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 22:30:31 -0500 (EST)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6A43UUU0039061
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 22:30:30 -0500
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 3 Nov
- 2026 22:30:30 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 3 Nov 2026 22:30:30 -0500
-Received: from ATORRENO-L02.ad.analog.com ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A43U7Ha022108;
-	Tue, 3 Nov 2026 22:30:21 -0500
-From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Date: Wed, 4 Nov 2026 11:30:00 +0800
-Subject: [PATCH 1/3] dt-bindings: hwmon: ltc4283: add ltc4284
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ch6Q41G2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296441F00A02;
+	Wed,  4 Nov 2026 03:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793763075;
+	bh=Kj38Yl5CIRITnwl0c840BEY5eU5VTEEYN+KugRp93fg=;
+	h=From:To:Cc:Subject:Date;
+	b=Ch6Q41G2CHFwAH52qlGW1TTB3C/dxPQJKGhV6AF1KJi7WlOPuB9vYSi9TVxEllkLs
+	 oXymL033G4awzqMcipuSUn119VdimXqVgLNdm+SKLMBTch4tjD47gR5TY59CTKRoLH
+	 LSMA2HqKVk8xtmJkSndCbIykOirSmTbLP5ZJEv/T7D7mcsUT0QNGUv8Nvzm/vfvDfG
+	 boh32aZyHD+8wrUIFAjnQL4VqS49Nbq0rO190DdV9R4tNaUwDT+YCFRC9tQ6hCHlX9
+	 jZ0py2TnDdsFVTzaWZIR4DnvOGcwbe6qjTIBS13YNtH46vUP0/oUeayz7aBUbRb0T3
+	 3vXBjYWAafa1w==
+From: Kees Cook <kees@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Alejandro Colomar <alx@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bill Wendling <morbo@google.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v3] seq_buf: Mark a seq_buf overflowed when terminating it loses a byte
+Date: Tue,  3 Nov 2026 19:31:13 -0800
+Message-ID: <20261104033110.out.418-kees@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,171 +64,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10113; i=kees@kernel.org; h=from:subject:message-id; bh=AaA3XB7g1wjlPLxdPqpdlLAY8rBei4Wukl4gjEd75VY=; b=owGbwMvMwCVmps19z/KJym7G02pJDFmvljMeaQt78F96durdm3927S6QDfx+u3TC7w2//izu/ 5Zg0Ku/qqOUhUGMi0FWTJElyM49zsXjbXu4+1xFmDmsTCBDGLg4BWAigrmMDI94rvo1KpoemvH2 u+Dd3Zcezl1dI6Nj19b/MPyjEdPjr2cY/gfwrNmvcmuWeKGy0eGz7J+NGrP2xG4wyjyiHiNm8Mt NjRUA
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
-Message-ID: <20261104-staging-ltc4284-v1-1-49fce67ebc48@analog.com>
-References: <20261104-staging-ltc4284-v1-0-49fce67ebc48@analog.com>
-In-Reply-To: <20261104-staging-ltc4284-v1-0-49fce67ebc48@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Guenter Roeck
-	<linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
-	<rdunlap@infradead.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz
- Golaszewski <brgl@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>,
-        Alexis Czezar Torreno
-	<alexisczezar.torreno@analog.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793763007; l=3536;
- i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
- bh=ACu8B+VQwMlj+xO1RLKzl0xgoDpW97SlVRbOYHQd84I=;
- b=w20T5jdj2UqSG/Irhp6w8q5f707t399cv7mbq0iSh49SFSYoOgCctTEjTDqMc/Xvj1wR2f8il
- NhWgxxHnw1yBYm+W7dWSa6u04Pwf/7Tx+x3VOZ2w/XScm2yrvhJAFq0
-X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
- pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: Sx-IsEG8UAdakJt6DgX7PNASqu7bvnZF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAxMyBTYWx0ZWRfX85edNpGHFIyt
- Z4qFC/5RoeoY1XlQwRpOP1rqo3haKGb/aWy746/XHb0sROLIT8rhMcCbzEuLV+9Bt1jNABxzeKA
- msu72ocGbGH5AWLxKn1HbTmQ7p9pI4dXlsm1/wicY+2PoD+Zv5X6
-X-Authority-Analysis: v=2.4 cv=NPlAaE6g c=1 sm=1 tr=0 ts=6aeaa6d7 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
- a=YjxJmSmyZUQDncK08pIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Sx-IsEG8UAdakJt6DgX7PNASqu7bvnZF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAxMyBTYWx0ZWRfX4k7sKCix1qud
- AIEZ+E2BzGu4/ZK6IXHe4fFKkRsl1aeDLh8cidwFR6enYIYkBJ9f1nQRlA/J5zlkfAHNoYGAA3t
- IhsDy3eXBrZZjHwnpPPt0Jbroqwb/WXxlAbdT9qgCAR+vTOhAd3P1OI6+CxI7PjflufR0c7Qt0g
- yDGslHHNZn7SJQtoKG8F814r8iH+50JJspjFZP6WTfbDlV68/EwAZsc8CwTBoeMSTW81IJP/TTX
- qgaZvP4quDHckrLP3NJ8MJo+npP1bVydw0QhncdjS/10/DQoGOQ2bYClwG2iqlnpm6YRyvQvTKk
- p/WD6vX91REHFSc0bvOAZ3csZQGqojPHzQwuWc4ka/rgUEy+P1Ydr9aFihLnCMTNSVkqpFm1RTb
- KBaD+IKSo5aEPa94Is3rRbSGR6ITDE9WT9PCuc0VmP+rNnwmRX0NQ23N4zWSjtNUrAFbNr/bZiq
- Y4F3VnTJkmK0y1S44YA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0 bulkscore=0
- clxscore=1011 priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040013
 
-The LTC4284 is a negative voltage hot swap controller that drives an
-external N-channel MOSFET to allow a board to be safely inserted and
-removed from a live backplane.
+When there is no room after the data for a NUL, __seq_buf_terminate()
+writes the NUL over the last byte of the buffer. An overflowed seq_buf
+has already lost data, but one that is exactly full, as seq_buf_putc(),
+seq_buf_putmem(), and seq_buf_commit() can leave it, has not: the NUL
+replaces the last byte written, and the seq_buf still does not report an
+overflow. seq_buf_str(), seq_buf_strlen(), and seq_buf_terminate() all
+go through it, so each of them can silently truncate what was written,
+and seq_buf_pop() then returns the NUL in place of the byte it replaced.
 
-Note that this device has a MODE pin that is determined by differing
-voltage levels (VEE, VIN, INTVCC, or left open) and cannot be
-controlled via software or GPIO.
+Mark the seq_buf overflowed in that case with seq_buf_set_overflow().
+Nothing is left between "len" and "size" for it to clear there, and
+seq_buf_used() still counts the lost byte. Data that already ends in a
+NUL is left as is.
 
-Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+No current caller checks for overflow after terminating a seq_buf that
+can be left exactly full, so none of them behaves differently.
+
+Add a test that fills a seq_buf exactly and checks that each of the
+three accessors marks it overflowed, that seq_buf_pop() then returns
+-1, and that a seq_buf with room for the NUL is not marked, and another
+that checks the same accessors on data ending in its own NUL. Update the
+existing tests that terminate an exactly full seq_buf to expect it, and
+move the length check in the seq_buf_do_printk() test after the run,
+so that the buffer still reaches seq_buf_do_printk() exactly full.
+
+Tests passed under qemu on ARCH=x86_64 with GCC 16.2.0 and CONFIG_KASAN=y,
+and on big-endian ARCH=s390 with GCC s390x-linux-gnu 16.2.0, and the new
+tests fail with the fix reverted.
+
+Reported-by: Steven Rostedt <rostedt@goodmis.org>
+Closes: https://lore.kernel.org/all/20261016145928.16eddc9a@gandalf.local.home/
+Fixes: f2616c772c768 ("seq_buf: Add seq_buf_terminate() API")
+Signed-off-by: Kees Cook <kees@kernel.org>
 ---
- .../devicetree/bindings/hwmon/adi,ltc4283.yaml     | 57 ++++++++++++++++++++--
- 1 file changed, 53 insertions(+), 4 deletions(-)
+ v3:
+ - Reword comments: "left as is", and no "must" (Steven Rostedt)
+ - Fixes: the bug predates seq_buf_strlen(), back to the addition of
+   seq_buf_terminate() (Alejandro Colomar)
+ v2: https://lore.kernel.org/all/20261030192049.stay.397-kees@kernel.org/
+ v1: https://lore.kernel.org/all/20261029053250.i.220-kees@kernel.org/
 
-diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
-index 05e2132ad4d8621ab76ee89aa166c131fed08e85..c850390ddc4a33ed3fd877bf4620f7f009366ff5 100644
---- a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
-@@ -10,22 +10,42 @@ maintainers:
-   - Nuno Sá <nuno.sa@analog.com>
- 
- description: |
--  The LTC4283 negative voltage hot swap controller drives an external N-channel
--  MOSFET to allow a board to be safely inserted and removed from a live
--  backplane.
-+  The LTC4283 and LTC4284 are negative voltage hot swap controllers that drive
-+  external N-channel MOSFETs to allow a board to be safely inserted and removed
-+  from a live backplane.
-+
-+  The LTC4284 features dual-gate drivers with four operating modes (single
-+  driver, parallel, high stress staged start, and low stress staged start)
-+  configured via the hardware MODE pin. The MODE pin must be connected to the
-+  appropriate voltage level (VEE, VIN, INTVCC, or left open) and cannot be
-+  controlled via software or GPIO.
- 
-   https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4283.pdf
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4284.pdf
- 
- properties:
-   compatible:
-     enum:
-       - adi,ltc4283
-+      - adi,ltc4284
- 
-   reg:
-     maxItems: 1
- 
-   adi,rsense-nano-ohms:
--    description: Value of the sense resistor.
-+    description:
-+      Value of the sense resistor. For LTC4283, this is the resistor connected
-+      between SENSE+/SENSE- pins. For LTC4284, this is the resistor connected
-+      between SENSE1+/SENSE1- pins.
-+
-+  adi,rsense2-nano-ohms:
-+    description:
-+      Value of the SENSE2 current sense resistor. This resistor is connected
-+      between SENSE2+ and SENSE2- pins.
-+
-+  adi,radc-nano-ohms:
-+    description:
-+      Value of the effective resistance seen by the ADC+/ADC- pins.
- 
-   adi,current-limit-sense-microvolt:
-     description:
-@@ -195,6 +215,20 @@ required:
-   - adi,rsense-nano-ohms
- 
- allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: adi,ltc4284
-+    then:
-+      required:
-+        - adi,rsense2-nano-ohms
-+        - adi,radc-nano-ohms
-+    else:
-+      properties:
-+        adi,rsense2-nano-ohms: false
-+        adi,radc-nano-ohms: false
-+
-   - if:
-       properties:
-         adi,pgio1-func:
-@@ -269,4 +303,19 @@ examples:
-             #gpio-cells = <2>;
-         };
-     };
-+
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        swap-controller@20 {
-+            compatible = "adi,ltc4284";
-+            reg = <0x20>;
-+
-+            adi,rsense-nano-ohms = <1000>;
-+            adi,rsense2-nano-ohms = <1000>;
-+            adi,radc-nano-ohms = <500>;
-+        };
-+    };
- ...
+---
+ include/linux/seq_buf.h   | 27 ++++++++++---
+ lib/tests/seq_buf_kunit.c | 84 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 103 insertions(+), 8 deletions(-)
 
+diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+index f006f2654e4c..6b915c67d235 100644
+--- a/include/linux/seq_buf.h
++++ b/include/linux/seq_buf.h
+@@ -128,8 +128,9 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
+ 
+ /*
+  * NUL-terminate the buffer in @s: directly after the data when there is
+- * room for it, otherwise in the last byte of the buffer. @s->size must not
+- * be zero.
++ * room for it, otherwise in the last byte of the buffer, which marks @s as
++ * overflowed. Data that already ends in a NUL is left as is. @s->size must
++ * not be zero.
+  *
+  * Returns: the offset of the NUL.
+  */
+@@ -137,10 +138,20 @@ static inline size_t __seq_buf_terminate(struct seq_buf *s)
+ {
+ 	size_t end;
+ 
+-	if (seq_buf_buffer_left(s))
++	if (seq_buf_buffer_left(s)) {
++		if (s->len && !s->buffer[s->len - 1])
++			return s->len - 1;
+ 		end = s->len;
+-	else
++	} else {
+ 		end = s->size - 1;
++		if (!s->buffer[end])
++			return end;
++		/*
++		 * The last byte of data will be overwritten by a NUL
++		 * character, so mark the seq_buf as overflowed.
++		 */
++		seq_buf_set_overflow(s);
++	}
+ 
+ 	s->buffer[end] = 0;
+ 
+@@ -158,7 +169,9 @@ static inline size_t __seq_buf_terminate(struct seq_buf *s)
+  * the last byte of the buffer is zeroed, and the len will still
+  * point passed it. The same happens when the buffer is exactly
+  * full: the NUL takes the place of the last byte written, which is
+- * lost, though seq_buf_used() still counts it.
++ * lost, so @s is marked as overflowed, though seq_buf_used() still
++ * counts that byte. When that byte is a NUL already, nothing is lost
++ * and @s is left as is.
+  *
+  * A zero-sized seq_buf has nowhere to put a NUL, so the empty string
+  * is returned instead of writing to @s->buffer. Any other seq_buf
+@@ -189,7 +202,9 @@ static inline const char *seq_buf_str(struct seq_buf *s)
+  * without walking it. Unlike seq_buf_used(), this does not count the byte
+  * given up to the NUL when the buffer is full or has overflowed. When the
+  * buffer is exactly full, that byte is the last one written, and calling
+- * either function loses it.
++ * either function loses it and marks @s as overflowed, unless it is a NUL
++ * itself. Data that ends in a NUL is already terminated, so its length
++ * does not count that NUL.
+  *
+  * A zero-sized seq_buf holds no string, so 0 is returned without writing
+  * to @s->buffer, matching what seq_buf_str() returns for one.
+diff --git a/lib/tests/seq_buf_kunit.c b/lib/tests/seq_buf_kunit.c
+index fc53e9ef844c..7f9cd5855922 100644
+--- a/lib/tests/seq_buf_kunit.c
++++ b/lib/tests/seq_buf_kunit.c
+@@ -504,13 +504,13 @@ static void seq_buf_do_printk_test(struct kunit *test)
+ 	seq_buf_putc(&s, '!');
+ 	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&s));
+ 	KUNIT_ASSERT_EQ(test, seq_buf_used(&s), 8);
+-	KUNIT_ASSERT_EQ(test, strlen(seq_buf_str(&s)), 7);
+ 
+ 	seq_buf_printk_run(&capture, &s);
+ 
+ 	/* The one line that was written, and nothing after it. */
+ 	KUNIT_EXPECT_EQ(test, seq_buf_printk_marked, 1);
+ 	KUNIT_EXPECT_EQ(test, seq_buf_printk_empty, 0);
++	KUNIT_EXPECT_EQ(test, strlen(seq_buf_str(&s)), 7);
+ 
+ 	/* Check that lines without a trailing newline are shown. */
+ 	seq_buf_puts(&t, SEQ_BUF_PRINTK_MARKER "\n" SEQ_BUF_PRINTK_MARKER);
+@@ -630,7 +630,8 @@ static void seq_buf_strlen_full_test(struct kunit *test)
+ 	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
+ 	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 4);
+ 	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), 3);
+-	/* seq_buf_strlen() terminates the buffer by itself. */
++	/* seq_buf_strlen() terminates the buffer by itself, losing the 'd'. */
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
+ 	KUNIT_EXPECT_EQ(test, s.buffer[3], '\0');
+ 	KUNIT_EXPECT_EQ(test, strnlen(s.buffer, s.size), 3);
+ 	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "abc");
+@@ -649,6 +650,7 @@ static void seq_buf_strlen_full_test(struct kunit *test)
+ 	seq_buf_commit(&t, len);
+ 	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&t));
+ 	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&t), 7);
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&t));
+ 	KUNIT_EXPECT_EQ(test, t.buffer[7], '\0');
+ 	KUNIT_EXPECT_EQ(test, strnlen(t.buffer, t.size), 7);
+ 	KUNIT_EXPECT_STREQ(test, seq_buf_str(&t), "zzzzzzz");
+@@ -735,6 +737,82 @@ static void seq_buf_terminate_test(struct kunit *test)
+ 	KUNIT_EXPECT_STREQ(test, buf, "untouched");
+ }
+ 
++static void seq_buf_terminate_full_test(struct kunit *test)
++{
++	DECLARE_SEQ_BUF(s, 4);
++	DECLARE_SEQ_BUF(t, 4);
++	DECLARE_SEQ_BUF(u, 4);
++	DECLARE_SEQ_BUF(v, 4);
++
++	/*
++	 * Terminating a buffer that is exactly full puts the NUL over the
++	 * last byte written, so what it holds is truncated, and each of
++	 * seq_buf_str(), seq_buf_strlen() and seq_buf_terminate() must mark
++	 * it overflowed.
++	 */
++	seq_buf_putmem(&s, "abcd", 4);
++	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "abc");
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 4);
++	/* The NUL must not be popped in place of the 'd' it replaced. */
++	KUNIT_EXPECT_EQ(test, seq_buf_pop(&s), -1);
++
++	seq_buf_putmem(&t, "abcd", 4);
++	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&t));
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&t), 3);
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&t));
++
++	seq_buf_putmem(&u, "abcd", 4);
++	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&u));
++	seq_buf_terminate(&u);
++	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&u));
++	KUNIT_EXPECT_STREQ(test, u.buffer, "abc");
++
++	/* With room left for the NUL, nothing is lost. */
++	seq_buf_putmem(&v, "abc", 3);
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&v), "abc");
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&v), 3);
++	seq_buf_terminate(&v);
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&v));
++	KUNIT_EXPECT_EQ(test, seq_buf_pop(&v), 'c');
++}
++
++static void seq_buf_terminate_written_nul_test(struct kunit *test)
++{
++	DECLARE_SEQ_BUF(s, 4);
++	DECLARE_SEQ_BUF(t, 4);
++	DECLARE_SEQ_BUF(u, 4);
++	DECLARE_SEQ_BUF(v, 8);
++
++	/*
++	 * A buffer filled exactly by data that ends in its own NUL is
++	 * already terminated, so nothing written is lost, and none of
++	 * seq_buf_str(), seq_buf_strlen() and seq_buf_terminate() may mark
++	 * it overflowed.
++	 */
++	seq_buf_putmem(&s, "abc", 4);
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "abc");
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
++	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 4);
++
++	seq_buf_putmem(&t, "abc", 4);
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&t), 3);
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&t));
++
++	seq_buf_putmem(&u, "abc", 4);
++	seq_buf_terminate(&u);
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&u));
++	KUNIT_EXPECT_STREQ(test, u.buffer, "abc");
++
++	/* With room left, the length still ends at the NUL that was written. */
++	seq_buf_putmem(&v, "abc", 4);
++	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&v), 3);
++	KUNIT_EXPECT_STREQ(test, seq_buf_str(&v), "abc");
++	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&v));
++	KUNIT_EXPECT_EQ(test, seq_buf_used(&v), 4);
++}
++
+ static struct kunit_case seq_buf_test_cases[] = {
+ 	KUNIT_CASE(seq_buf_init_test),
+ 	KUNIT_CASE(seq_buf_init_append_test),
+@@ -760,6 +838,8 @@ static struct kunit_case seq_buf_test_cases[] = {
+ 	KUNIT_CASE(seq_buf_strlen_embedded_nul_test),
+ 	KUNIT_CASE(seq_buf_strlen_zero_size_test),
+ 	KUNIT_CASE(seq_buf_terminate_test),
++	KUNIT_CASE(seq_buf_terminate_full_test),
++	KUNIT_CASE(seq_buf_terminate_written_nul_test),
+ 	KUNIT_CASE(seq_buf_do_printk_test),
+ 	{}
+ };
 -- 
-2.34.1
+2.55.0
 
