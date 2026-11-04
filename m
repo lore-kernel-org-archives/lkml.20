@@ -1,100 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793780688;
-	b=KIkg7rUcPUOla3EJjjCfEaOZBV+Wy1w3G/QACxHtF+Ajelj1bZkpzsx7kEbIbyjKPSDM
-	 ToBf7Y0WV9gKajwjIghpkA0ldP4tPyypVGDvTjLNxY2bbQ9nytg8hOX5o/7M/yOpMQmzD
-	 JapJsBVds8tBnF7WQbnz+7xDhOYFZ8o94MZdr42mCG/NeuPbp6e2Exdrm7/XOGn5ADfJD
-	 jn89ciYtZdA3zZWyC3zosCKe4KuKGuV5Jb7yOKYuKFsCnOe6GSQzpmDx0t/YHDXd+KU0m
-	 Qjet5L0frFofR2fFNS/2u5oDXDf80XwRNXYh2oqKxVNGELPvEbihpu10E0M0KOXpb1A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780688;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793780734;
+	b=xdL/ZFAYvkpml4N7OgEdqYky8D22p8BsyTBIr8v429GgmOz4UKr0jxtYgczzKGNJrH0Q
+	 EQdOT++TH4i9zxer0EJj/Zg1y3m+GA3StFr3RIAiJGvPxH9p92EXO4H5HGSWfGJLZyKkZ
+	 I1ZIE58c17Nz1qYrT7GSsEenO1WwToJqKCB4DMNhSnoRClQzjzhuoA293uz+yI4fk42eI
+	 jiMtSj2YgfN229VZP0gT+Si6NqxJBbSIeK5sMwsF5ACkaZkYykccVA6hKBQ3TBD+RM8Dp
+	 WzKS4tvUvmvIKdbxfSIePb1NlJ1cik1/paQNBToKxHsBAkKswAy7iBPi/7FvjzA6wAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780734;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
-	b=Vk2NieKI1NsiUrJ+evko1gZfLVTVXfEft+0CFhAH/65tnzYocnhmhrRbticvlem3UihD
-	 8k2zKldHEM4/0yW8TDxLvAEmLXJ0D2/ep+VEihL0uP2i4yL0PnFzhf3LB80qyEc+q9Qg9
-	 gRoKvuUxA5P7RxCBoWD2n02+UT/K/qHseEelDHItwEKBbr0BjL8mQ8HLdny+MmWHzfZjA
-	 dUhCmhzgxoRlyRMrl5eTK6n83l3Le4bIzlH9eCDOtn/s4KnXPKWlPiYnpI9sJQcqr6Htf
-	 9hEca13HYddt2e/R1HwxvkTf6KvJaPD69Np64vhAMw0huQHXgDuyznF+8iLWA8gmdVQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rxxWOir1eLyoN3YvCU9ZlQIZgB4gaoERImUZzmrTYyc=;
+	b=GXAG+epdhciBbAWg+NW3hMGX2OlFg2T6t/gZKSlglkcSx4QsuYifntBYmM/GG/irZL0n
+	 Pw5oS9ohgl5mo2A4sCTYDkyVk8++5/mkp0RzZyD5gmR3y9SwHo2mnjSSznCiQnJgGc0F0
+	 iaTQHa6j/ETGa6iBB6A0+2NuW2LRq2BnQiuDzXL5Qstoc7I9YhUeraJPXDwOMoYJe8v8p
+	 eanUytCJ4YyjTM5LV26UKbTkdNuTPRXLjVr0xeA9BC11dazfqk2T75e2h+8LT/hBJ3ntI
+	 qpxD7g/IA8c2rXy14MjghdZATPaHX8e4J1EpmOz8cKgXIHazYJliKE6Gsbnn6SR8oAg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dRWBnV3N;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wa0rj6lX;
+	arc=none smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A2F606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:24:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6A2F606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E298E606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E298E606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dRWBnV3N
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2af2ae1258so7015766b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:24:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793780686; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nnmgMKTpYt/jaYi/baTnOnevbHCiHFTJCkrUvgkkpG/WGJgtUnlBhdAhIScix1Tu2X
-         1xz3HJisk4NoqMFs2Y8ijaloVmhSNXnmbrAU8c1d4aXJeERHWpvlXt0sV0HXUUOVlapH
-         oB9+IUYda1BT04Z2yL1TY8TjqWNAVSP21leFES+ISW7sgyJyEn90i2brdN6sCosVTh/4
-         okh/NflNdbldILPiC/CMFh90I/ae8A0WaGwCBFeRaB3F2hspEw5heEYNIAaab/vMlnIO
-         tYkrRkfabk9zFh1POpi44+/4Nv4l8UUQQprqWU4IHCA2QPRBKUljW0F3/WEZLUbbUPLz
-         2CGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
-        fh=krnsLGnRJtr4Xab2YYoaDILmyFn4MHqwKoKwXcWVG84=;
-        b=eCqpR2JnwxI2i5EOQ8Ft7zZOteAYuogCy+Veag3qr5X2f5w8LwALJ1Efab+moE47IC
-         3mB/mI3o9OMeKMwURHgGjBNx2FQ+zCCViHNKG7D9iUkZS6qOZyHJhJdoy5kbxeJlp72/
-         IpIkLnNeqh6Nlxm7e9/R5AQEMPxxJaxfm2oiXu2NOAtwCUUgehAws3L1HBE/w8YPQqZk
-         c4QZw0VzbR823lsdIdr+KEWhUqswTsU4a6j0RBKMUqMt1tS+GPoaVKbyqNBr6trEbs5R
-         m5+Uv0Kj/CALD/ddliEqYgNkKPAJjc1anepVascR+YpkTVgqTdvYg1YAFVlBUeml3S0a
-         68Sg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wa0rj6lX
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso853438a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:25:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793780686; x=1794385486; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
-        b=dRWBnV3Nh4PROZw+QpcipQd8jacvXRo2SiAcx9F0GSEdnpef5TLxpdLLHcOI+znKWY
-         BwxU4N5boHG0FVdrA5NGjzperhdOTlthNJYkBKDPeJjJJlK/Xy3MsYjYvou4iiQn/Muy
-         BvW7x+H+H5MtnI3bE5tIcddZ57QmqBsBD+2NLCVJzKJ6QDMyux2+CrZGTOvgnnPATyZd
-         Nyu+PUiRFhobHG+SXMjcb+LWhkhwkxu+zzxw9+wcf9uupVgnMei476FWifQaR6mIKnl+
-         0jZxMPv6CFYG9Zw9OhpWuoGgdqlzXr3zpktswjfN83Ng2hNmXg7+6bcQF6ZJfHo350I6
-         UILA==
+        d=gmail.com; s=20260707; t=1793780732; x=1794385532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rxxWOir1eLyoN3YvCU9ZlQIZgB4gaoERImUZzmrTYyc=;
+        b=wa0rj6lXsIdA+z2Ac9aNZVpvYG/LiC36mJKBmp41iCojudTm2YuCW3EvFA8PdLbIWb
+         ABKLxTd7/n+kh1mSegoGCurrsEwME1cpKZaa/fX2hDbqlHjl2SHkSQd0G4Ip6coO1Ck8
+         tcb3mG6fjOQXNpfafB2bUGwnGPOXIeyvS2XL2/4riPinHUnv5mdTZGk8KFE1HHcVDloh
+         yogmj1a4hAFguXHALo+guHlCxpGm2QRz28a+j90fYmeLuV1nFa8jsoKYxJzYCDQi/WO7
+         zzeUy3Hkyw9oEetFYgSYd/n/QcYwvQjfU3zFOQVMSs/HxGc7tEjHq8NSHSu4fW3Z7dVt
+         YYOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793780686; x=1794385486;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+GDlXWJUsYv47EeExLeI8zNRHRArPEHoLs9WQdDARCo=;
-        b=R6d9ZSZ57bLmRv1v5PagTzHrrRAr5L1gu345CHjBLWf3dSKBTokiNqwiaua1A+bEuE
-         bMCQ9gHQKlE6ReLEeMhRzLEAjvzMcNoEij4MooYCFFWr1DuOooVpCXBY4DnqIDdWycca
-         P/R3in//CUxsle4IcZ6aYDCg2TzwMNBjCJjF0CPL5P/sDIs2Si6UbHCUcMQFgjLQc8rR
-         YFX96Yk7jSpMht38Xe/pMujfC+jbN6zLWOF0mrIfMlO2nDwabcWkGaWoZsTla7LI4BJR
-         7OsJpncjKbyjD0VQIVYRqpJZZwkmldM+q7RQWrSZ8/W4dLcoNVs1lD2uyiVRVwsYh1Ln
-         SpqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlAEcXWb+XhgIxQl9WwEJfFcnXgq6Tqmkf/j3UKvrPYK/2rzwquhXQus46FV60nmzpuSHtJ+0kp3JfIns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WeaOTqHGOsF+tET2Gclfiuh4x7S6VMK0T+5pk5BUaYzZ2VcFN
-	DzRtXK9h+1RDOVlpL0UpOybMrLhNo7hYpcZce8O42OHtUHjRGubT0LC/CFiMRhgk0S3ERozul5R
-	OIBEtD4AuoicIKyFxz3uinLyZ0xSUXWpkcGu7HvIn0g==
-X-Gm-Gg: AYBFou0EzVEol9QPsL+kKQd1Llhj4uydOsmHOI5BAByEdHi4HOcERrrSu1PaEIFxTrq
-	lrJubRcj0izxsr+aB1aEXAn7CZgQ5Rk8KFKJP6inF2PwV8K3tDLVyhzxFK/iUGXyXOmLCRpAuf0
-	n60J0SgdYZADWj+QjpNwDS4jo1/om6+euAcYuCau3WtdkcfiB7RKw2+rEcSV0rTcS5RqQ2o+e0N
-	IFt1RbXUxAgMvN15DIF3msxMMoUS+A0Plm6A1tr2BMIzjEY9c1qr9Je/oGj/pK06FlyWAeEaOKs
-	sg5dDhdbi+O5UTseUc3fYd57vocNK97/YRUvnuswnIokURS9DuaMEse5jiBblKdGsWjzdvFbC2t
-	4mBF8NyHz08/CNA2VLX7c2skKmP42tOP7zCPj8HVDTKNHQzo1jPUGS95JtrwiN8I21/k=
-X-Received: by 2002:a17:906:6411:b0:c42:e6c8:e45a with SMTP id
- a640c23a62f3a-c4ca7a4c8b9mr1386970366b.3.1793780685708; Wed, 04 Nov 2026
- 00:24:45 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793780732; x=1794385532;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rxxWOir1eLyoN3YvCU9ZlQIZgB4gaoERImUZzmrTYyc=;
+        b=UcIPDlhipITcLQgPljLe5vr3vIOYPrcbh41D5/zGK1xkXaEOoE1gdjboaIt+y7gR4w
+         bzThhoAezRdNkJXwHI2flMH2jZbGlQqLNiqdoEOF0rOZUXaqc3BEN4iSWIz4GKXuBFBJ
+         CeVWAjbcBEZ3W+8lhT2I/LHQoiV0x0Fvthn2Oi1/kO9ofQh5LRtRG/C2Yt7CgLgcp59V
+         ++YjVymyWtSJtiNUfesQqBRKdxkNh5WZD0XoYCdNfeexO0fPgB1kq2aTuBacg7S+XE3O
+         qdALPss79p+13yy78vRjU9jOlsHdpViujNxFyohIUMo4RnN5sZm8avncc5VcQIeJcyiO
+         pufA==
+X-Forwarded-Encrypted: i=1; AKwUvByVCKnNoxw3AKElF/K8zV5rTu4UfaiYlIacL7ltimeMXLa4z0EUkoDQO0eeZL0u2QCWxp//D8GKIdXDmlk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9s5ZEOIhQm/uFh82nJ73RPYfPmB9aouvPHNp+b3FuuhiAv2aul
+	HlCfUXv0DgIcATyJWopkjVxuYlJksE6Ku23XC7gijIInz+uAGQleb9vkZoSE/cfg
+X-Gm-Gg: AYBFou0bF8lu0pEX3ronnJkvT7geFonT39hOPTIK5Fs58keAbiV9Bg50ng8V1DQ5lfL
+	kwNUonWmikSvOMpQlslWHTj+N0ypQjX8KfjBGjnfSY08NEan2O34i9R44Y0x4+GifzCUVWAP6mw
+	ROu1L4PWEaEmD+zCrJFRsQEMxb9QZyuNvP7hyK/lPLuFt6tUd8KURa8cB4mCWPaEbR2yIGCCdQw
+	7nAD+d6sRsA2qLi7qtIBELf7hbHjRn2lMhNH3WjJIRGga/rDyrpU2x9wvVPJjeGpVANAhZXYbV8
+	jmQKJBplb67evve/miDZYVN0v6nNy/6g6ro7UuUQFyeajnH8pPzvU3EPnDqJjw1O2AfxFgxaocx
+	5iWW6hbFCZoPFuvtj2tUoWmfFODU9R0nA861e8JHBT1r0ncrfjRhD4stwyfLdN4CmYTSHxD4fGA
+	BkOpgahAYjW/SaI+E7CMZ8jFMnRfkyqD1vF6DwjDxtyc9DqPioVVeiQbX8MEPLhJBYyYj2VFjXX
+	zZGH/kxzROO8vb2afvo2tGkHciomW0hvF1dNGDmwP09JFbH5nKmOlJVAZqnmi5wa03VdeiAXMEh
+	HnvHj5nvcxX1GGHIBRDsBj/StPglBFZ6iajeiApMRLBttJmNeoPM9jDX64YQxUrqUndej92N6pb
+	cXVVq1TNMbUflucxTr8j7W6gHQR83jUjyTNHFxs84AHTSoLH3qBG5L7N+VYTUbBBp9sp8ePK+Xl
+	Vf
+X-Received: by 2002:a05:6402:14c4:b0:6b3:b3f9:c418 with SMTP id 4fb4d7f45d1cf-6b4d428effdmr9322697a12.12.1793780732121;
+        Wed, 04 Nov 2026 00:25:32 -0800 (PST)
+Received: from desktop.home.arpa (2a02-1810-1e16-ac80-48ed-b9ce-6098-90a2.ip6.access.telenet.be. [2a02:1810:1e16:ac80:48ed:b9ce:6098:90a2])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac81386sm483243a12.29.2026.11.04.00.25.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 00:25:31 -0800 (PST)
+From: Stijn Cleynhens <stijncleynhens@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 1/2] net: dsa: realtek: rtl8365mb: use IVL in VLAN 0
+Date: Wed,  4 Nov 2026 09:25:13 +0100
+Message-ID: <20261104082514.2139278-2-stijncleynhens@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104082514.2139278-1-stijncleynhens@gmail.com>
+References: <20261104082514.2139278-1-stijncleynhens@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,70 +108,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179376960391.50454.8822263457423416137@gmail.com>
-In-Reply-To: <179376960391.50454.8822263457423416137@gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Wed, 4 Nov 2026 16:24:33 +0800
-X-Gm-Features: AclHuK-R2OdQr1K9gGtBoNEjfvIOvN0HOzedAfw3-hfWuJgFyYUBaWV7yfFSPt0
-Message-ID: <CAAo+4rXReQNa8q1_zkHn87thQeSLQHyPhioCrDbT_1K8L=rQSw@mail.gmail.com>
-Subject: Re: [PATCH v6] Bluetooth: hci_conn: hold a reference for LE
- connection timeout
-To: Yaohan Li <shunsheng1218@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Yaohan,
+DSA installs the FDB and MDB entries of standalone ports and of
+VLAN-unaware bridges with VID 0, and the driver writes them with
+Independent VLAN Learning. No bridge VLAN sets up the VLAN4k entry of
+VID 0 though, and it defaults to Shared VLAN Learning, so the switch
+looks up and learns frames classified to VID 0 by FID. Lookups never hit
+the IVL-keyed static entries, and a learned entry for the same MAC sits
+alongside the static one.
 
-On Wed, Nov 4, 2026 at 1:20=E2=80=AFPM Yaohan Li <shunsheng1218@gmail.com> =
-wrote:
->
-> Hello Chengfeng,
->
-> We independently reproduced the LE connection timeout use-after-free
-> and tested your [PATCH v6] ("Bluetooth: hci_conn: hold a reference
-> for LE connection timeout") on a clean Linux v7.4-rc1 tree
-> (6628e7d4c6b2).
->
-> Test setup:
->   - QEMU/KVM, KASAN-enabled kernel, /dev/vhci virtual controller
->   - Management SET_ADVERTISING and L2CAP LE connection
->   - Kprobe-assisted timing injection at le_conn_timeout() entry,
->     50 ms park, with mgmt disconnect at discms=3D2015
->
-> Results:
->   - Unpatched v7.4-rc1: 42 slab-use-after-free reports,
->     with the first relevant frame in hci_conn_failed()
->   - Your v6 patch applied to the clean tree: 0 KASAN reports,
->     with 200 confirmed probe hits under the same timing setup
->   - Control run without injection: 0 KASAN reports
->
-> This is a test of your posted v6 reference-counting patch, not
-> merely our independently developed fix. The result supports the
-> lifetime fix under the tested interleaving; it does not establish
-> coverage of every Bluetooth shutdown path.
->
-> I also confirmed your analysis that a naive
-> cancel_delayed_work_sync() replacement is NOT safe: the mgmt
-> disconnect path holds hdev->lock while calling hci_conn_del,
-> which would deadlock against le_conn_timeout's hci_dev_lock
-> acquisition. Your reference-counting approach is the correct
-> solution.
->
-> Tested-by: Yaohan Li <shunsheng1218@gmail.com>
+Set up VID 0 with IVL, like every other VLAN the driver programs.
 
-Thank you for reproducing the issue and testing the v6 patch, the
-detailed results and your confirmation of the locking issue are
-helpful. I also appreciate your Tested-by tag.
+On its own this has no visible effect: standalone ports do not learn and
+the driver does not control host flooding, so the unused static entries
+only meant that traffic was flooded to the CPU. The next patch, which
+moves VLAN-unaware bridges onto VID 0, depends on it.
 
-> We can provide the full console logs, build configuration, and
-> reproducer details privately if useful. The investigation was
-> AI-assisted, and the patch application and test results were
-> reviewed by the human tester.
->
-> Best regards,
-> Yaohan Li
+Fixes: 336e3e4a1ab3 ("net: dsa: realtek: rtl8365mb: add FDB support")
+Signed-off-by: Stijn Cleynhens <stijncleynhens@gmail.com>
+---
+ drivers/net/dsa/realtek/rtl8365mb_main.c |  8 ++++++
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c | 31 ++++++++++++++++++++++++
+ drivers/net/dsa/realtek/rtl8365mb_vlan.h |  1 +
+ 3 files changed, 40 insertions(+)
 
-Best regards,
-Chengfeng
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index da06f952a..b90e46c16 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -2232,6 +2232,14 @@ static int rtl8365mb_vlan_setup(struct dsa_switch *ds)
+ 		}
+ 	}
+ 
++	mutex_lock(&priv->vlan_lock);
++	ret = rtl8365mb_vlan_4k_setup_neutral(priv);
++	mutex_unlock(&priv->vlan_lock);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set up VLAN 0\n");
++		return ret;
++	}
++
+ 	/* VLAN is always enabled. */
+ 	ret = regmap_update_bits(priv->map, RTL8365MB_VLAN_CTRL_REG,
+ 				 RTL8365MB_VLAN_CTRL_EN_MASK,
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+index 8d49ffadc..58948e76f 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+@@ -322,6 +322,37 @@ rtl8365mb_vlan_4k_port_set(struct dsa_switch *ds, int port,
+ 	return 0;
+ }
+ 
++/*
++ * rtl8365mb_vlan_4k_setup_neutral() - Use IVL in the neutral VLAN
++ * @priv: realtek_priv pointer
++ *
++ * Untagged frames of standalone ports and of ports in a VLAN-unaware bridge
++ * are classified to VID 0, the VID of the neutral PVID. No bridge VLAN sets
++ * up its VLAN4k entry, which by default uses Shared VLAN Learning, so the
++ * switch would learn these frames by FID while the driver installs its FDB
++ * and MDB entries for VID 0 with Independent VLAN Learning. Use IVL in VID 0
++ * as in every other VLAN.
++ *
++ * Context: Can sleep. Must be called with &priv->vlan_lock held.
++ * Takes and releases &priv->map_lock.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int rtl8365mb_vlan_4k_setup_neutral(struct realtek_priv *priv)
++{
++	struct rtl8365mb_vlan4k vlan4k = {0};
++	int ret;
++
++	lockdep_assert_held(&priv->vlan_lock);
++
++	ret = rtl8365mb_vlan_4k_read(priv, 0, &vlan4k);
++	if (ret)
++		return ret;
++
++	vlan4k.ivl_en = true;
++
++	return rtl8365mb_vlan_4k_write(priv, &vlan4k);
++}
++
+ /*
+  * rtl8365mb_vlan_4k_port_add() - Add a port to a VLAN 4K table entry
+  * @ds: dsa switch instance
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.h b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+index 27a526b61..809034009 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.h
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+@@ -28,6 +28,7 @@ int
+ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
+ 				    int port,
+ 				    enum rtl8365mb_frame_ingress frame_type);
++int rtl8365mb_vlan_4k_setup_neutral(struct realtek_priv *priv);
+ int rtl8365mb_vlan_4k_port_add(struct dsa_switch *ds, int port,
+ 			       const struct switchdev_obj_port_vlan *vlan,
+ 			       struct netlink_ext_ack *extack);
+-- 
+2.56.0
+
