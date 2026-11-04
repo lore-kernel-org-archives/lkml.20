@@ -1,59 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798126;
-	b=U6F7QcgyyFKmPelyQG/z2hxZ+Lo6up15cQqBgH9YBbX2bKh+Lpv+y/PjdLYt44KIaQjo
-	 MyPPuhZQX+4Bn5UffcBdlF51clF5MQtdnDBrF3rD7J40NaCsIJLMkEPiCudd/b5lr2nd0
-	 Ws07x84ItvozL5kdnazTTENQHI94Fvg01OxtPsJMa8oCkgjKWkyCChYBH3wcZkvYV43ZP
-	 QSQSoWtwdiAm7GVPmehi1W0JAkVUpmgAW2W1A4XA/K961p3WNwbjscoZnTC0l1ljIyLzt
-	 mzQ25jPTF3MLMMUaJHXZxSHvbgj4olM9ks80QIUfKPnbNkyB75TleYQF3ex9N04/sQA==
+	t=1793798145;
+	b=bpuU/+xFnNStMRM8DcxRKFMHeSCgWLaPbParZwXd6tNeWzm6I00NQDJesbHgz/zMLSne
+	 kmJm1mJ2Eh5S1giIQONBk7fn933MIDfeMC0Lct17MtLa5r3j6dBohc+lLVqC9gjWl1zuu
+	 VUU2x7TcLwNHLBLoBaHjGkuXPawKA21HPGB9FTxVCPtwlS0K0XeYCwtddSKV/NRZdnBL/
+	 WeAoDnhExI8QaOT5sOOdbBaSQ9zPJVeNrsuffH+BXhrwhwsRrhCAl0bBqaal8UxoUG38Y
+	 zGbx+i1l/5WwXsv49oP6gRXSNzZM1gNbcCqCEqlCsxOJAAWNGzWrsej/8o2oRsBnCmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798126;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=FYpkozZQqv5x8iGDJjbaY+F1srftlQoPOW5hP9D9X1Y=;
-	b=5Bgfs1TP4WIncoyIZY7dplOSrDWIJQY2mCngNZU/VY1YU/ziw5MrV8msDk/O3TLwsu2+
-	 30D146db/iQI8USqnbDGSqdOX+/511WqA1UuHwhkAtE2i2igp2hjTI0yP37hhwthQ+4wz
-	 tq8DN8jOnRUV6ZF6pNoj2UILMUB4QNJ/e7gQgjxeAXcy1gJdKn/UiRK653zyJh7rM4hjh
-	 MXQYUi9jMpiET27SoOiJBtMqkfO4R3VTqdgTQR6cTwkjbVe/aq+5SiGh2Nvmz5U7XQ+Dp
-	 SgW3Qrw80g16AMD2cJat82Y+asWKNCQpplT9AFesqn8X19nv/REB0gADqNYbd7RzcTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798145;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 X-Mutt-Fcc;
+	bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
+	b=Fyh2EJcSiBtcEg/EXKnAGjEt/tDOUrhCnG9pS57vjw88Nhql561UxJkpIhoDyOLFZSTG
+	 ZLPdwCWIUujykN5TSMQnk3pOEUuUqXRw8WETK5ctsPz6YpRlAqAdVF1sqfRKDGFLUS9e4
+	 XfHGddNS+O1iklrGTPeDihtH3N3WnJP0nOLnHZwG5rTj4gbgBmcG20Jsz47Yun8JFPsYI
+	 0O3DTS+cON6HiV48L3QzSHbNlf1McV7aBWscK6bFQHw8fgHpgrGCSSLJuR0H0xf/3kZS3
+	 MoU9EUqvIqYTOvfHXvPIPM4mf3kJ8Dl1XAGr59m1oBxMYwwi9sfYhAhzODkoRuXKLMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jI6RFciy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GgLJywsR;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VOVSISbG;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2339606A328;
-	Wed,  4 Nov 2026 13:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34D8606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:15:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34D8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jI6RFciy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C1C1F000C1;
-	Wed,  4 Nov 2026 13:15:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793798125;
-	bh=FYpkozZQqv5x8iGDJjbaY+F1srftlQoPOW5hP9D9X1Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jI6RFciyCCWXNetAAeL6LGKusLjRvuvWTJ8+RHwmtT/2IiFX5IfOAy8MSAtkWPUip
-	 GSZqGcD3pCUTusSIts9E5lgJQohwbGovx7ec86EX1qsk5uYKPOtGZcB9NyhLPUdP/a
-	 VBlGa2wJ+JnjogABNC42/9mj93Jp2xqiZKfWakmfQOM8h8vbBqnEGo4t+/nY9beYQ3
-	 5vj8SdWcZo9H+qJEApj2vqBTzm+jl+27bC/LZFAgZhDo1/RDj00IYPrsm0RI0E7EkG
-	 fKa5g4uSBAWXh+8hffpU75CNxhRlQmVN/0+DtNrAQjExQbyQuX+5EsuYDdY52vApuJ
-	 n+EKyQLHrrG8g==
-Date: Wed, 4 Nov 2026 14:15:21 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
-	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, sean@mess.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
-Subject: Re: [PATCH 1/2] dt-bindings: media: amlogic,meson6-ir: allow
- wakeup-source
-Message-ID: <20261104-taupe-eagle-of-experience-d3b6ea@quoll>
-References: <20261025192320.209446-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192320.209446-2-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GgLJywsR;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VOVSISbG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793798143;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
+	b=GgLJywsRfjEmFZg0nrxYgcHv0OFI+rdY5f+7mzBbU1QQHYLozfipX/ztwRKvnMFxDQMonH
+	XW/t9c/85/k/swh4l447YMbUfL+8DL8RzmrAGIyhwMaMot/fmzD8ncU5gKcI35C8FKwFdW
+	rfoPBDm+WIsWVALDulKxwCeIHeEEi+c=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-593-M9nVPDmSNAKUy5iTDBr0xQ-1; Wed, 04 Nov 2026 08:15:42 -0500
+X-MC-Unique: M9nVPDmSNAKUy5iTDBr0xQ-1
+X-Mimecast-MFC-AGG-ID: M9nVPDmSNAKUy5iTDBr0xQ_1793798141
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c42f98f3571so93360666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:15:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793798141; x=1794402941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
+        b=VOVSISbGoBrQReIGqksyUICgNy+eJf4wMReAqEH46PcS8PAFArdrRqVJ9+kYaebWjk
+         nLcgy/OgDP8pc9BPvjxtKwkVvfEl7E18th6JpsVZtvNJGwO7diitmJzSSdE+ZmumLkqV
+         FXP7VqeijeAN96Zk7UrAAYSCeLaf7Q9jt14waqw160Dx2uu2QsTFb2Ycp6zE6LpuiHSQ
+         Iojgf4t6UtoQycLHDacI4iwEQ7G2E1hPPQrTYdJNje8iUoMm6xiwvDnUJ4v/0aawwuXr
+         obx0SJ9dKCOepT3cgfVjCY+dIcL7xXxRjVy/ntXKofAKG36j+AOM+QPgNZzeh3UpBSS+
+         niQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793798141; x=1794402941;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cweYKUfQfPNBI8VU6FrLwRgYq4BFUF09qYh0EQWkf/Y=;
+        b=SEEQnMMZEXmJyLTnKy1GayBWHnhSJEG/99YU4S8K/oeEuHTHKbCF94C4MSP4UMlQu1
+         DETvaG6D8B293nOxNOCw0GIG1xuIYJnsZLlrLpxgltQMli25X4SLbhJWFE+8ytRf0qfu
+         0jsHggLKDOTC6ROlS/bBQ+HSpRRPnDfnJ0AA2+i4l4KKAWQUH415epeGf4bMlWMn0X5K
+         GBgS+dVxq5AARoABq9Hm3gvs2E5EJ52t3cXxTAAh/SazsPeqC8HFRBORBNeQW+KNzf7L
+         c//y1sdDuqhNPt+ODNjeLtkYSre+X3fWen2KXlui/fiR0UXfNA8fckJAFZj8iSfhmeA/
+         LUJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSPN0t1krLdDdQjlPBN7BPH+evi+QWhQEAKquTior/7b81pOT7p/yIyXneaE4IS6aeidIe8aUdZT59ltY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94grEzGiPaU1GvHcDV0swSi7j25JR2w1gJnM9rSbSPZP8OsN22
+	aXmaA8V1EsDQQx74KDibxTA8mPJxLgv0/tVckUDDVWEET0PB/1PzUMLVQGcX3mrFrO8Ug0c/gMd
+	J9o9zhI/Bb3LXD5mV6iY8dhTD4MaYTtWGpKJLtJ3ITEQxZNTAF412cFRv2PBNAGY+Jg==
+X-Gm-Gg: AYBFou1aq+s9OT2qas5Y7q7LGrX70ib12CTpSH36KnwYBoMwr/6atQQ+UoC2JHoZrdU
+	aX+u45d8d8CE4BCWSIrz9lSJixkgnF5L5MZ7jZfjlJqw3i3Co8a3/2ZrRBKwu0Ckuusqi4LbfiU
+	D9cG0iC6McM28tkxZWJUb61cDQaE7qj9ENPDgR5/HkNffFqrHUK2eIJdtMbcDQt/+IJel0X3d2j
+	1jIhIuRdUeQWINl7BCookC3cnubdiVfoSFl7GQgNNb+Ubc5oXwb5vL5p1jqiFGOudnQm1Mw/2m7
+	mhQRIFuT05VTZJ6qSkWa1YEpgd+64geYOyv5qTWLMUomB8eENoISTfY3WHRJSu81CGyUhtRgu4p
+	gKKyda5wkBlb5eVa7+mqOYOzqj3hIc+mz0N6Vzwm5pg==
+X-Received: by 2002:a17:907:96ac:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c4ca7abe67amr1635745366b.43.1793798140911;
+        Wed, 04 Nov 2026 05:15:40 -0800 (PST)
+X-Received: by 2002:a17:907:96ac:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c4ca7abe67amr1635741066b.43.1793798140297;
+        Wed, 04 Nov 2026 05:15:40 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e48d0dcsm68849166b.70.2026.11.04.05.15.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 05:15:39 -0800 (PST)
+Date: Wed, 4 Nov 2026 08:15:35 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux-foundation.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	2312891301@qq.com, blum@kernel.org, co+6dcbccedc9ec6452@bugs.sh,
+	eperezma@redhat.com, fangxy@xiaopeng.com, jasowangio@gmail.com,
+	kmehltretter@gmail.com, linfeng.sun.dev@gmail.com,
+	lirongqing@baidu.com, longpareto@gmail.com, mst@redhat.com,
+	oss.patchbox@gmail.com, p@1g4.org, phx0fer@gmail.com,
+	physicalmtea@gmail.com, sergiiushakov@google.com,
+	shubham@octane.security, stable@vger.kernel.org,
+	stjepan.poljak@gmail.com,
+	syzbot+13df72e0dc4be5c62215@syzkaller.appspotmail.com,
+	tavhadia@gmail.com, tjdqudcks0424@naver.com, tz2294@columbia.edu,
+	xieyongji@bytedance.com, xmei5@asu.edu, yuz08559@gmail.com,
+	zenghui.yu@linux.dev, zhaimingbing@cmss.chinamobile.com,
+	zhangjiao2@cmss.chinamobile.com
+Subject: [GIT PULL] vhost,virtio,vdpa: bugfixes
+Message-ID: <20261104081535-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,24 +129,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261025192320.209446-2-christian.koever-draxl@student.uibk.ac.at>
+Content-Transfer-Encoding: 8bit
+X-Mutt-Fcc: =sent
 
-On Sun, Oct 25, 2026 at 08:23:18PM +0100, christian.koever-draxl@student.ui=
-bk.ac.at wrote:
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->=20
-> The receiver can stay powered across suspend and wake the system when
-> a remote control key is pressed. Allow boards to mark it as a wakeup
-> source.
->=20
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
-> ---
->  Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
-Best regards,
-Krzysztof
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost.git tags/for_linus
+
+for you to fetch changes up to 1a577f9402c1780cc1e663f48d5dd54c02051b09:
+
+  virtio_pci: don't take the MSI mutex under cpu_hotplug_lock (2026-11-03 07:32:14 -0500)
+
+----------------------------------------------------------------
+vhost,virtio,vdpa: bugfixes
+
+Just a bunch of fixes all over the place.
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+
+----------------------------------------------------------------
+Dudu Lu (1):
+      vhost/vringh: Fix IOTLB permission in putu16_iotlb()
+
+Eugenio Pérez (1):
+      MAINTAINERS: add missing virtio/vdpa/vduse/vhost headers
+
+Fang Xieyan (4):
+      vringh: bound top-level re-entry into indirect tables
+      vringh: add regression test for cyclic indirect descriptor
+      vringh: reject empty / undersized indirect descriptor tables
+      vhost: fix used ring index wrap in vhost_add_used_n_in_order
+
+Jia Jia (5):
+      vhost-scsi: preserve event ordering
+      vhost-scsi: do not relock event vq mutex on send_evt fallback
+      vduse: avoid infinite loop when no affinity CPU is online
+      vhost-scsi: do not count PI bytes in the data length
+      vhost-scsi: fix page reference leak in misaligned I/O fallback
+
+Karl Mehltretter (1):
+      virtio-spi: Fix virtio_spi_config kernel-doc
+
+Li RongQing (1):
+      virtio_ring: reset IN_ORDER state in virtqueue_init()
+
+Linfeng Sun (8):
+      vdpa_sim: serialize IOTLB updates with dataplane access
+      vdpa: invalidate DMA mappings before releasing memory
+      vhost: fix dirty logging for in-order used ring entries
+      vhost: reject invalid IOTLB update permissions
+      vhost-scsi: validate event queue descriptor direction
+      vhost-scsi: reject delayed virtqueue setup
+      vhost: reject backend enable without a kick file
+      vhost-vdpa: initialize state before publishing cdev
+
+Maoxia (1):
+      virtio_pci: add missing newline to the pmcsr error message
+
+Mingbing Zhai (1):
+      virtio_balloon: initialize wakeup_lock before virtqueues are set up
+
+Sergii Ushakov (1):
+      virtio-blk: clamp max_segments to virtqueue ring size
+
+Shubham Antil (1):
+      vhost-scsi: zero misaligned I/O bounce pages
+
+Tal Zussman (2):
+      vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error path
+      vhost-vdpa: unpin mappings by range
+
+Thorsten Blum (1):
+      hwrng: virtio - prevent use-after-free after a failed restore
+
+Wei-Shuo Chen (1):
+      virtio: use consistent virtqueue terminology
+
+Xiang Mei (1):
+      vdpa: fix double free of the reply skb in vdpa_nl_cmd_dev_config_get_doit()
+
+Yu Zhang (1):
+      vhost-vdpa: drop the parent's vq callback before the call fd is released
+
+Yuho Choi (3):
+      virtio_blk: Reset device on probe error paths after DRIVER_OK
+      iommu/virtio: Reset device before deleting virtqueues on probe failure
+      vdpa/snet: Don't discard the DPU error in snet_send_ctrl_msg()
+
+Zenghui Yu (Huawei) (1):
+      virtio_pci: don't take the MSI mutex under cpu_hotplug_lock
+
+chenglong.ma (1):
+      vduse: fix VA/PA confusion in the coherent page fault path
+
+sungbyeongchan (1):
+      virtio_ring: use shadow flags when detaching split descriptors
+
+zhang jiao (1):
+      virtio_ring: Initialize id field in packed indirect descriptors
+
+ MAINTAINERS                          |   4 ++
+ drivers/block/virtio_blk.c           |  45 +++++++++++++-
+ drivers/char/hw_random/virtio-rng.c  |   7 +++
+ drivers/iommu/virtio-iommu.c         |   6 +-
+ drivers/vdpa/mlx5/net/mlx5_vnet.c    |  10 ++-
+ drivers/vdpa/solidrun/snet_ctrl.c    |   3 +-
+ drivers/vdpa/vdpa.c                  |   7 ++-
+ drivers/vdpa/vdpa_sim/vdpa_sim.c     |   7 +++
+ drivers/vdpa/vdpa_user/iova_domain.c |  11 +++-
+ drivers/vdpa/vdpa_user/vduse_dev.c   |  15 +++--
+ drivers/vhost/scsi.c                 |  68 +++++++++++++++++----
+ drivers/vhost/test.c                 |   4 ++
+ drivers/vhost/vdpa.c                 | 115 ++++++++++++++++++++++++-----------
+ drivers/vhost/vhost.c                |  36 ++++++++---
+ drivers/vhost/vringh.c               |  29 ++++-----
+ drivers/virtio/virtio_balloon.c      |   3 +-
+ drivers/virtio/virtio_mmio.c         |   2 +-
+ drivers/virtio/virtio_pci_common.c   |  12 +++-
+ drivers/virtio/virtio_pci_common.h   |   5 +-
+ drivers/virtio/virtio_ring.c         |  13 +++-
+ include/uapi/linux/virtio_spi.h      |   2 +-
+ tools/virtio/vringh_test.c           |  41 +++++++++++++
+ 22 files changed, 347 insertions(+), 98 deletions(-)
 
