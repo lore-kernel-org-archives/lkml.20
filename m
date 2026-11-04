@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793793379;
-	b=V8O5OpCqfGJ+SyuA3j02SPnRVM7qJGv9FsCiBnkS42Gyp+F53IiUD3DG/JRBWaojl0Ra
-	 7AhGv4iCxZZpvPGdP1NijYnxwPgrCfuQ0DRttn9SssBl7P6Sx6oTBRIxtDTaz0RlbMiRx
-	 pnD1ogqFWoprM4ZDHtoe8Tkvnc2hNgHeb+oY8pqf2hUF7b7OOqQKDEAOm7rTUYldevAzA
-	 Y8jpfIrbP10hovveAce74ijphFS+Tp1bDWfd57P1Mh4RyslGeIF5S7uiZSH2O+EWi0SY0
-	 Kyg8L7iZYgU9AbfT1jJ5SRPNdBONiZngMRHDu/eD1puJI6uiCY0/9mxVTIdznUi/jCw==
+	t=1793793377;
+	b=pa4vMwl/twrNiMLk5jdvPsl+KJcoe91/i9iWKLG9wAhv1pO7hneg5hInZIwTyAi3babl
+	 LsHOfp0qTtsMEk4Q2o/NgkmJNUofKjNGbuy3duUKZtgXuV9cJ28F0zm/ClkFCLw5bgm2x
+	 0aXHH5tZhE4rUGEKgyIu0tc6aIW/3jz1p/uLBezX6LhSholqzAcqDntM1exaHUJnLDDoN
+	 Qy6k41ZqE8SNRLL7EKQdcZJTQX1RZgUn9IyPiaTTiKEU7rfKq7tnNT7K/vw0GBp0Z9Pa5
+	 6VhKk0+Sugb2l9+1jr4e1q07y9CtuK3FAyQCYFG8M0kdW7tWe1+IuYWq7azivxhuagA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793377;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0FNRQ8vzx8hO9gsNhb2gW3msqRx6v5HSfbK6Brxek5U=;
-	b=BAl6kQ273MxllNvS6qtTX7VNhjIKUyYBePmEcLtZAwHUiNTV+ewmjOaJU9THuFKGMnKz
-	 Xa2IF2gIgZHzLabVhqANYNLVrg/paStMIbbvM/fNDHVOsJUDGEiUzwDhug7U843elKTPU
-	 3WxEfIpKPM2S/q7oEKmwBJpTqljwKlees3/H4Ew+MOlaNGHVmYFKJ534d2U6nzKFvjQEt
-	 LAjgidCq1ONXf8nGYzLUU29Q83Zv3Rhsyi7s36hTQImp/H//OvsiGNvYqul7swson0ny/
-	 4S51s+v5HFIy/0O1nt/34JVerqOFjuhFXPP62+JobidD5PDXctdFRmTM/Rnl7uCWMxQ==
+	bh=cwjArDsmrlzxv8HclYxai8UlPwGNSEHt8ZvB0WFdLkU=;
+	b=eAp1+kFNq0lkgfW6fMiM0mspPb+Fe69cFm1DaWtOq0aM7QhYshrSmtqhS5Oo484H6VKB
+	 +wkti5V1ybX0vpptMWivpiPs0GlEWD9Y4WkYDKcawzdgFkg6Ed4aSH40EWSdybM4SNu3V
+	 AdGt6O4y0lRLG8Z4imswfKwHKJJ3bI7TvPmbdLgwIorABaTU5kNPRH3PKtnQCLCBBUWKg
+	 iE9CA7Ty85eCh9xiYnAFrSddLWEUKI94TRzF8WJR0GSozm3eZOI+RtYWw8r3WzU1DKGPS
+	 aHVjBg4DAT9YZpxTmb+FcVr36Mg5DOCirjkwlFSsX89qi5+MHEXamw5vMzty3kMW11g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdxjwQs6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVO3m4Gn;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A10606A329;
-	Wed,  4 Nov 2026 11:56:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92965606A32C;
+	Wed,  4 Nov 2026 11:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdxjwQs6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVO3m4Gn
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793793378;
-	b=cYDnC23woql2haPUenU7SfNmQiNVQQdBWRGf0OYs9/o99TQMoRmQsE/84OSv+IR6XRBr
-	 uJKDDnXa7CSMUbW73GXl2VC0YImzYJSeArBCUgzrGQO03wE1ZUzxzE65lOu9Lp554PmAh
-	 69izqt3hGClovjK91PFlEfp5kXH0k2AZzlFvEOn/lWZAiZkLX86GklHlu8+sQmUIp9WvL
-	 3lNw6mmB0ZQ8/RUrT7NfQmDZm2KKRDBq85nFs+3smRaZlXKdtpHFPXn5MdilLTDL1gS/S
-	 AkfEZRcdlAImi3VNUNSEAvpa86s4cFkvFXQfDVyjnkwNiFACU4PnaDokP9C19WQ6uIw==
+	t=1793793377;
+	b=VD5GQDPlK2icfAgsZtg2FZ0e1M7kKxaarJEvI2Bdz6qXiLx/SKytZUEIPSkfBO7ct1qg
+	 EXphj666H07v/va/IWxhQueOedhtZp56txl7p5nDUCJxcKyzNxwJV5h4/OOMrcptsqe5U
+	 vmMmI/kd42EThvOVCo0xvChsYXh71LiX1m9B15aiOQmr7GBZ4oKAS/Cs51TfWDQFoTxLh
+	 80wookEj87+mcS3sjg97hJlj22HcxmpOin+mdFCARlCN8P0INQozzUFlLPC5mlQUTDIEK
+	 fsp+enMyOWObQWnWbkvpdly1Bt/GQkdD9rsSTtTX6quKsHjHt704pmJGLsTmicdHbmA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793793378;
+	c=relaxed/relaxed; t=1793793377;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0FNRQ8vzx8hO9gsNhb2gW3msqRx6v5HSfbK6Brxek5U=;
-	b=lo48z4epPf8pEgTBSiUkZ2qP37JDnsMCCKK5PYKcXs8nXiCAjVOHF40nISbgfUm4l1pJ
-	 Cp0pFKMcUo29iUtqZ+MBQOB/lDsIoAcK5qr27nStPcfW5sYDMnpxMWyW1XW6HXjoVTDJn
-	 slWGoInYt53YeH7pQYiCP8mhtUpN+k29mqiRuZJuhoYa9396G8HWEPin7LLd9PUs4UAAC
-	 FCaFQOj/XUOlWPrgDx6/Sc5ePOlNiIdlpOoyGrUdBJsjPZMPvtwVosPcFbRf9C8cH8GqO
-	 Cg03S+5RWJRWA6dfFDyU4dNjeFCKqN/Och+rcIJj50IHjwJCrsJePEyhtgR3xh6kywA==
+	bh=cwjArDsmrlzxv8HclYxai8UlPwGNSEHt8ZvB0WFdLkU=;
+	b=Y3TGVEJqPSPUdNtzep/svxzBDc+5gvhiUwmqB1e59m7iy7ZJx0vFPZYhbfdq4NM719VF
+	 8ZNEDcJa4p9CNViHLBNKxXoSPadgme7hveNfsqnTIlsgnuv+58EelVcCUxxkkNFpp5gcA
+	 k/8JGOONYhcv0qicdqcWTfd786qdC1Fnb7rydloTHjVq9i2SLrha1xgyo6xZj25+Dzytd
+	 b9G4ioMcYPFkDJbyvng3S7FEIYBrv9umao0o1TUrrfMyr4ZaP4ubjz4bK+Xh6b+RKpuHU
+	 SOO1EKkabH9EeB4VxM4Ai87CixjCbLa5FdMSnjLOkl9KtM4oIVjQdr69J5Xt/KFXR3g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1CF361F00A15;
-	Wed,  4 Nov 2026 11:56:18 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 462CD1F00919;
+	Wed,  4 Nov 2026 11:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793793378;
-	bh=0FNRQ8vzx8hO9gsNhb2gW3msqRx6v5HSfbK6Brxek5U=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YdxjwQs6tXcNB20gkMoc2BZ18FWvwc+tqNy6W2bN2JDkYBJsPy6hQ7y3n/7Wa0BHA
-	 FtrlVzWl/3AkT1b4mlOeplIp6Wpy6IwPPpogtylK6jmy3mRoUdzt7CthunvGpli+wg
-	 9049KvTVQ9/geCAYDL4Aawu3A+6aZYD5Gjmh15z9/n5j/NVAnxWexVSDuMtrcA1jJg
-	 iq2JEgfly0E7hgXCGljXtwDUAQ4cWcgjLGhr7MBz5q7q9faZMqKwxYk8ZSPY20su41
-	 38ZgtvujC9+UzUZh6BKa+PJbAU0AASIwK1um5cJnl/7+TYrDR26MfG34FWRnEsWM9Y
-	 FmI9wgx72q01A==
+	s=k20260515; t=1793793377;
+	bh=cwjArDsmrlzxv8HclYxai8UlPwGNSEHt8ZvB0WFdLkU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=PVO3m4GnkSHatao0Aqpnwb2/EsshhMl+eEVVf9r+Tld83KCOCacIKYBr4MDrFnP30
+	 kzCW9/uq20P5d/X/CLcWVnm48KWNRWruVl33P8iEtFkJ1wt/cFg0jV7hZtzFcJkPSX
+	 J6+EysMMIctuLHMIdz/VKQXmjycUkgHhFK6joxWWpZPnDnL63O6c9nafnEWWuTiFI8
+	 yIROgpMHbHSV5MlKLzn4JHmrebmc3hibuu3xgiDMNXX6G+q+JPLjIwf7jeixhNk+UC
+	 cyOualhJcs6z7kQiDnG55Xc26RPKh233hh7nPsVvp+fPR/DrlBrQ+/8LK8g0ivvMw7
+	 d2tNFa0p9ubRw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A03E946DFB;
-	Wed,  4 Nov 2026 11:56:17 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id A8EAD46DFB;
+	Wed,  4 Nov 2026 11:56:15 +0000 (UTC)
 From: orkunsari via B4 Relay <devnull+sariorkunemin.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 14:56:18 +0300
-Subject: [PATCH wireless] wifi: mac80211: check for a NULL link in the MLD
- data RX station loop
+Date: Wed, 04 Nov 2026 14:56:15 +0300
+Subject: [PATCH 1/2] nfsd: unlock the locked parent after crossing a mount
+ in CREATE
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,21 +84,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-mac80211-mld-null-link-v1-1-4cc9a00bbbaa@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBAAv1L27EI2FAl+RTw0yUZX0yjZVgulf
- 2/U4zDMrKBchRVO3QqV36LyLA3o0EG4DeXKKLExWGOPRKbHcQjOWCIcc8Qy54xZygOdTaH3zqe
- YCFr8qpxk+Y3P8JHKmVXh8jc6+zuH6fuFbdsBMF0ghYQAAAA=
-X-Change-ID: 20261104-mac80211-mld-null-link-82fc4b8bfdf1
-To: Johannes Berg <johannes@sipsolutions.net>, 
- Benjamin Berg <benjamin.berg@intel.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+Message-Id: <20261104-nfsd-cross-mnt-v1-1-5ec5fca0a553@gmail.com>
+References: <20261104-nfsd-cross-mnt-v1-0-5ec5fca0a553@gmail.com>
+In-Reply-To: <20261104-nfsd-cross-mnt-v1-0-5ec5fca0a553@gmail.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
  orkunsari <sariorkunemin@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793793377; l=1765;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793793374; l=4017;
  i=sariorkunemin@gmail.com; s=20261103; h=from:subject:message-id;
- bh=R4DVcGmhbdWe+b3QFvbYRb9TQYVI7s9L2sx1d5WG1rQ=;
- b=dMPK1NSn0yZQ9+t4JrJyygrZyb2mRH6moFkv3IhuRP687NJWXba5gz7PtDT1+IIUyfARFQnn2
- TAbL+MUJ0s/ARqo6oNYR5UlPFVn/Y0OlX98CpLyUHeDeP4KWAsmj+qv
+ bh=nmjbVfxD/SAnHRb/TsZON41UIu9qiDUdfa1MwQhC9uA=;
+ b=3QjWHJ3TJ1bU3gFFVufK2ZH1N6D4mdafYiFxclfJcseLecUOAbufSi8HjsL19Ps93KTnCzYcH
+ j45F3HOmc2nARigRDFO3C/M8kN8HsBk2n8X8GbHvJ3CxOqQlBGc7tl8
 X-Developer-Key: i=sariorkunemin@gmail.com; a=ed25519;
  pk=MJ3Y3somkGDQVAXOSR189QAqWOcfzYCRkL1cSQgJXnE=
 X-Endpoint-Received: by B4 Relay for sariorkunemin@gmail.com/20261103 with
@@ -109,51 +108,121 @@ Content-Transfer-Encoding: 7bit
 
 From: orkunsari <sariorkunemin@gmail.com>
 
-Since commit 6d531b9af16e ("wifi: mac80211: rework RX packet
-handling"), the loop over MLD link stations in
-__ieee80211_rx_handle_packet() passes the result of
-rcu_dereference(sdata->link[link_sta->link_id]) straight to
-ieee80211_rx_valid_freq(), which dereferences link->sdata.
+Since commit f58a48389c14 ("nfsd: correctly handle CREATE of mounted-on
+files"), nfsd_proc_create() and nfsd3_create_file() call
+nfsd_cross_mnt() on the dentry returned by start_creating().  When the
+name refers to a file that has something mounted on it,
+nfsd_cross_mnt() replaces that dentry with the root of the mounted
+filesystem and drops its reference to the original one.
 
-ieee80211_vif_update_links() clears sdata->link[] for a removed link
-before ieee80211_sta_remove_link() and sta_info_flush() take the
-corresponding link stations out of the hash table, so a frame received
-from that link's address in between finds a link station whose link
-pointer is NULL.  The management frame path already checks for this.
+The replacement is later passed to end_creating(), which unlocks the
+d_parent of the dentry it is given.  That is the parent of the mount
+source, not the directory start_creating() locked, so the directory
+being created in is left locked and another directory's i_rwsem is
+released without being held.
 
-Skip link stations without a link, as the management path does.
+Do the crossing on a separate reference that is only used for
+fh_compose(), so that the dentry returned by start_creating() is the
+one passed to end_creating().  Only positive regular files are crossed,
+so the later checks on the child dentry give the same result.
 
 This was found by AI-assisted code review (Claude Code).  The fix has
 been build-tested with W=1 only; no reproducer was run.
 
-Fixes: 6d531b9af16e ("wifi: mac80211: rework RX packet handling")
+Fixes: f58a48389c14 ("nfsd: correctly handle CREATE of mounted-on files")
 Signed-off-by: orkunsari <sariorkunemin@gmail.com>
 ---
-Regression in v7.4-rc1 only; released kernels are not affected.
----
- net/mac80211/rx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/nfsd/nfs3proc.c | 14 +++++++++++---
+ fs/nfsd/nfsproc.c  | 14 +++++++++++---
+ 2 files changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
-index ecee9348c7..038bca60a7 100644
---- a/net/mac80211/rx.c
-+++ b/net/mac80211/rx.c
-@@ -5469,7 +5469,7 @@ static void __ieee80211_rx_handle_packet(struct ieee80211_hw *hw,
- 			sdata =	sta->sdata;
- 			link = rcu_dereference(sdata->link[link_sta->link_id]);
+diff --git a/fs/nfsd/nfs3proc.c b/fs/nfsd/nfs3proc.c
+index 60cd01b6a3..0711e93c99 100644
+--- a/fs/nfsd/nfs3proc.c
++++ b/fs/nfsd/nfs3proc.c
+@@ -334,7 +334,7 @@ nfsd3_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 		  struct svc_fh *resfhp, struct nfsd3_createargs *argp)
+ {
+ 	struct iattr *iap = &argp->attrs;
+-	struct dentry *parent, *child;
++	struct dentry *parent, *child, *mnt_child;
+ 	struct nfsd_attrs attrs = {
+ 		.na_iattr	= iap,
+ 	};
+@@ -378,21 +378,29 @@ nfsd3_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	}
  
--			if (!ieee80211_rx_valid_freq(status->freq, link))
-+			if (!link || !ieee80211_rx_valid_freq(status->freq, link))
- 				continue;
+ 	exp = exp_get(fhp->fh_export);
++	/*
++	 * Cross on a separate reference: child must remain the dentry
++	 * start_creating() returned so that end_creating() unlocks the
++	 * right directory.
++	 */
++	mnt_child = dget(child);
+ 	if (argp->createmode == NFS3_CREATE_UNCHECKED) {
+ 		/*
+ 		 * If name is already in dcache we need to check for mountpoints
+ 		 */
+ 		if (d_is_reg(child) &&
+ 		    unlikely(nfsd_mountpoint(child, exp))) {
+-			status = nfsd_cross_mnt(rqstp, &child, &exp);
++			status = nfsd_cross_mnt(rqstp, &mnt_child, &exp);
+ 			if (status != nfs_ok) {
++				dput(mnt_child);
+ 				exp_put(exp);
+ 				goto out;
+ 			}
+ 		}
+ 	}
  
- 			if (rx_data_pending) {
+-	status = fh_compose(resfhp, exp, child, fhp);
++	status = fh_compose(resfhp, exp, mnt_child, fhp);
++	dput(mnt_child);
+ 	exp_put(exp);
+ 	if (status != nfs_ok)
+ 		goto out;
+diff --git a/fs/nfsd/nfsproc.c b/fs/nfsd/nfsproc.c
+index 1f74008bc0..7da653bc0e 100644
+--- a/fs/nfsd/nfsproc.c
++++ b/fs/nfsd/nfsproc.c
+@@ -682,7 +682,7 @@ nfsd_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 		.na_iattr	= attr,
+ 	};
+ 	struct svc_export *exp;
+-	struct dentry *dchild;
++	struct dentry *dchild, *dmnt;
+ 	struct inode *inode;
+ 	int type, mode;
+ 	__be32 status;
+@@ -709,16 +709,24 @@ nfsd_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	 * If name exists we need to check for mountpoints
+ 	 */
+ 	exp = exp_get(fhp->fh_export);
++	/*
++	 * Cross on a separate reference: dchild must remain the dentry
++	 * start_creating() returned so that end_creating() unlocks the
++	 * right directory.
++	 */
++	dmnt = dget(dchild);
+ 	if (d_is_reg(dchild) &&
+ 	    unlikely(nfsd_mountpoint(dchild, exp))) {
+-		status = nfsd_cross_mnt(rqstp, &dchild, &exp);
++		status = nfsd_cross_mnt(rqstp, &dmnt, &exp);
+ 		if (status != nfs_ok) {
++			dput(dmnt);
+ 			exp_put(exp);
+ 			goto out;
+ 		}
+ 	}
+ 
+-	status = fh_compose(resfhp, exp, dchild, fhp);
++	status = fh_compose(resfhp, exp, dmnt, fhp);
++	dput(dmnt);
+ 	exp_put(exp);
+ 	if (!status && d_really_is_negative(dchild))
+ 		status = nfserr_noent;
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261104-mac80211-mld-null-link-82fc4b8bfdf1
-
-Best regards,
---  
-orkunsari <sariorkunemin@gmail.com>
+-- 
+2.56.0
 
 
