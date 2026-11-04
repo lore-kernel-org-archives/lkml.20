@@ -1,99 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811596;
-	b=z+kTua0Wr9FuOIUdxhtj8hHqurzt7eS5o3wYcldmM3ctiM4mgAD7sq5/7IKyu9iA3WBn
-	 PAOhEbXlDqujVUi49fvz3L2u+DYrSMuSPBdd3qzUNq8CUUKEiRAXx6eHKLNPR4+HRbmXw
-	 U3BOOMIGM3QBGZGHKVieDunk9AwnzQH7CSF7Ya5UfAbHpEyAQ4vmiMLcumlwz1WoqyaQl
-	 F7HrdhiYXbJ6O2Zk5WQeB011Duuv3fRkMfDcYtvsvSTYT/Kro9bgmvxxrXFjlLL+8ghP0
-	 fBBe6SFY/netPafrUWtg8IfxJwE6CdGQpEmRpF+LlhULlhKsLbTQN/xTQDfxmMIGB9A==
+	t=1793811615;
+	b=yY3OHpZOzUEmGrq9oA0bOgu5sKYEfXtJ/Snlk51LdHU4OAFMXO8Gz7lnihrMJIZx0t7M
+	 HiN2kX0ah4JvNS8kIQiBhfIyQ47X9n8yYcnZ95klXEAelKD48jXlPb6KHeKgIyTaTqEQV
+	 jmh6PaRvWHF3nhQmIgFXCUW81Z+oLR6PMBImOkMi4uFA2fn5UoouIYTh7dQmFNAoFQIUu
+	 73vynoXPB5v/y2po9j1ZPoenWaA3Q5BSSbBVWs56sIvv105THEocKUIK4pX0CTPoet0DC
+	 dD1anfwm3cQweGfqlqNKTCpg8Tj7FZ9QDlgQ1D/LMzDGefj64m/bwmGgK/UejfzHduA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811596;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3nBmuFFvpK9ZuJMVGhj4Fxmt/qwgnA7lrzzghhGHOis=;
-	b=bntGhtczBhINskDy45imo+KY8KWumZtekGpU4wtb5tB1VJZsDc1TXEe3bSCcjn3qry0w
-	 Sw5O0SVBtdMlEwPluVQlnp5rm9dp8XtszWZ5ljYVn9WHax5V4oOEFzadRySFXYDB6vk5V
-	 1BJ4u5Nr/C55R+ZR8AqwjkRE9cpQ+OHSj3RSCvDtsMY7+Co+v0tMnlZUAoLrdbrYa9K2Z
-	 ij3Nk2Q7mUVrUQwarcj0tNE7Hgs3dDWJef533AJnkPo4iqJh/6bE3uCjg1VHdj3JhgDjj
-	 tZZcVkFu1bx27qIfIaUZbu/FXp1Jjww3L1mE/gYOId0L3OugGae5Y5+mc22eTZUa/6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811615;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=rp3ZfEOvoyj0AGyhtM1kMEKo3y4yYvcAsluSoIw7ejM=;
+	b=aEn1/1ZFyWEpweh/sq7cVxOK/Ya2y5k5J54i+boDF/3EtGx/d3hYKAzR+krwFhYkMirG
+	 4oJ+WuzFTEOULmdIBY4Wpvm6ohx9vLVHSl2tJuuHShmhHp2k5euaE/JrEMJACOLz9tkkf
+	 GfzrImw04RkhloyGd5cIKYb07+ugCcOjcHxNTF3ra1RsgmD9vb0I5ZxsHCCJXSx2bAy/W
+	 KeQmTt9Okr9eSTdkKIRxRu8KhMGJyaIei1tiDd0HMAgL/HLHb4nqBOR1olVVuCbocKKxc
+	 UsVjhDOj011118ybmtR3u5o8ZMVWYcjGRy0e2cm9UFMPl0juFKCm5NurTpKdDaC+jVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCMplPqy;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=BfDMXCKG;
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA8A606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:59:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA8A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A847606A32F;
+	Wed,  4 Nov 2026 17:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A847606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCMplPqy
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4910b863b84so44859f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:59:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793811594; x=1794416394; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3nBmuFFvpK9ZuJMVGhj4Fxmt/qwgnA7lrzzghhGHOis=;
-        b=aCMplPqypvZ02Qbsm7VMD3bTNFEpqoSx1cyTAXBIt7KNVO+q2nAmW/IKy2PuDVXETR
-         WHBjMbNP+1l3BOQE+u2M8lp5zAPtu7PPTazCS0uyJ+nO1RPAr+XWi9bxVx5lKiMH4ywd
-         +Cl4vFbEHFnZywwCIRYqrtTYmdU3bnh3mCcDhDlo/sMJ/pzojDkG8mZuyBddOCPbEs1/
-         B3cj95SagdKjtw5Jj59Uvg7guAwnSBRBknmG6MIYCZSgKK+HbdEsEBaxlK9kZqFlOIq4
-         kY8I5lmO6Lasd2+R8YN3f6/WKzvP6Z2+bgKt+5y4k8aAkZZRNWr6BtFkMTL64VVzFi+q
-         GOzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793811594; x=1794416394;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3nBmuFFvpK9ZuJMVGhj4Fxmt/qwgnA7lrzzghhGHOis=;
-        b=Ak59OXoEwbwQL8rQFI6vP1AWPFtYDW+sgKJy6ALT6oKzyhKEKuR5dtrOuXRquqUZJY
-         ycBssFbnMHy7dFJsM5hpCtvlkyEYl2ghZbJGed/Ji80eTHccNViC1ifeSyFuZJ23Xdtq
-         lIkVq3a/6Zvohala3YdkfxuxzcOan6NbnmjFZSZqyfstsX2dhn4s5yc/TU0xyWtFWeAA
-         mGOI8+vnzBQivwa/rns6nIOPqu3CC/8yG8V4nv/x66toef3BpxdjJaZz5M29nU3y5kDP
-         PDVI52bH148Zupz1SGWqijnrdMyaRpMePSayf+aq1LYBfaYqEyF8gUB8b9FwQacp37Z7
-         iVKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmpSE5YF2qQu2gH3WpsCW97P4AsNnvo+crVD4ZC7ALp5yieqH3FuVrh1gXQkjj81F6U5NJZO4RSAQz4HI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fbnqApOML+/R6FwmrtScrmNRY0uZAxmFdQcMDL64JIZBrlYCC
-	/vbuMe87v6nrMN8oL36dDcUYbbAZBnPBPBSckLtFxtdeoMS+UHAOEZanTWH+GcUz
-X-Gm-Gg: AYBFou27NfCDkCAU/94a09Pnovf6dmtVqxywlTeeObfrr+4fPbQZp6xNIDpBTuNHiOi
-	9eSsnoLHe0np8UAnfsBauXxhmX41FVCdg+wY9qq3lyIaVO90B97dga+nFtK5xuBZsj6Y+uPneav
-	CMnAvaHa3u4JoQZrYXcZDnzqvYC8n36RTq/jh0afxNiY1XVbn3yXUM1C6K01krWh+H8ldY6k53Z
-	oI/VMuH4cg/txZkwZQaGDb3sBEGVHZUyNG0DxJe6nxAREPGudaHUgTLnF7yB50siF8ZVyZ98zU7
-	pii93fOmifJ0fE5uSRxQx6e5dw1VwnimTNSKc2CJoqaX06kJqkdnV4fi90bVH1gxJw0pcCXKhzz
-	sMi4YCIlst0nDtd4fgKw6W+5yOwbQGGYub6f0PmFNTLeVabGcp79HA6J1ylt+P3kc8eCaOKkiBz
-	bulvok8eyVUOVgPxtmTbsprrc9psUnjiNCBhzehrhDiczMYQBufKTID5UYM24BofBWIoG7/xFVr
-	nPjXXneMekvo5U8YlVsEFNE3Et9fNyVmjuADzfK5uzKIvY1YViTKAjTBR+PdX0QbH78wKjbejl4
-	MZPXyDc3Exc8+br4KwB+BnSInfgg4yXLZasQnoFIwFkmMDeG4CYLc8ne8ZD/ow==
-X-Received: by 2002:a05:6000:4804:b0:48e:22fd:1ea3 with SMTP id ffacd0b85a97d-4911aa56dc1mr33104f8f.28.1793811593929;
-        Wed, 04 Nov 2026 08:59:53 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1fb0esm4769440f8f.49.2026.11.04.08.59.52
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 04 Nov 2026 08:59:53 -0800 (PST)
-Date: Wed, 4 Nov 2026 17:59:49 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>, Cheng Wen
- <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v5] usb: xhci: Fix use-after-free race in
- xhci_stop_device()
-Message-ID: <20261104175949.71804650.michal.pecio@gmail.com>
-In-Reply-To: <b8ea2f8f-ff9e-4cc6-853b-114fe51173e6@rowland.harvard.edu>
-References: <20261104000031.679944e7.michal.pecio@gmail.com>
-	<20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
-	<b8ea2f8f-ff9e-4cc6-853b-114fe51173e6@rowland.harvard.edu>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=BfDMXCKG
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793811605; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=rp3ZfEOvoyj0AGyhtM1kMEKo3y4yYvcAsluSoIw7ejM=;
+	b=BfDMXCKGapvcKcVwLRZU7SJJ4SmFMa9bhjrYPlJ/QH1XdVrgH9KxlUvPTbyFheju/x1O6C934rQJZOf0ieH9xeVSWy5GQiYmg+2AuC9oSRfZYxUk6e5N2kMCn/w4pDAQX+3pQOcic0tMSUTm7zh/L6yZ6TLHggbL51/vt2NsGlY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XE6E8un_1793811603;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XE6E8un_1793811603 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 01:00:04 +0800
+Date: Thu, 5 Nov 2026 01:00:03 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: hexlabsecurity@proton.me, "D. Wythe" <alibuda@linux.alibaba.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@kernel.org>
+Cc: linux-s390@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	linux-rdma@vger.kernel.org, Tony Lu <tonylu@linux.alibaba.com>,
+	Wenjia Zhang <wenjia@linux.ibm.com>, netdev@vger.kernel.org,
+	Stefan Raspl <raspl@linux.ibm.com>,
+	Hidayath Khan <hidayath@linux.ibm.com>,
+	Simon Horman <horms@kernel.org>,
+	Ursula Braun <ubraun@linux.ibm.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net/smc: don't spin in smc_rx_recvmsg() while a
+ pipe holds spliced data
+Message-ID: <autkkxC260Mq--dx@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20261029-b4-disp-da7f8e6a-v2-1-9052904adf72@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,76 +71,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-disp-da7f8e6a-v2-1-9052904adf72@proton.me>
 
-On Wed, 4 Nov 2026 10:02:48 -0500, Alan Stern wrote:
-> On Wed, Nov 04, 2026 at 11:56:37AM +0800, YuanZhe Liu wrote:
-> > The port suspend is a hub class SET_FEATURE(PORT_SUSPEND) sent from
-> > userspace through usbfs, and the teardown is userspace releasing the
-> > hub driver interface, which quiesces the hub and disconnects every
-> > child under it.  Neither side takes a per-device reference, and the
-> > usbfs control request is not serialized against the hub driver being
-> > unbound.  That is also why xhci_bus_suspend() 100 ms after a disconnect
-> > looks fine: this is a different entry into xhci_stop_device().
-> > 
-> > CLEAR_FEATURE(PORT_SUSPEND) is the resume direction: in
-> > xhci_hub_control() it ends in xhci_ring_device(), so it cannot produce
-> > this trace.  
-> 
-> > The patch makes xhci_stop_device() re-read xhci->devs[] and the "device
-> > is going away" marker under xhci->lock, and give up with -ENODEV
-> > instead of touching a device that xhci_free_dev() has already detached.
-> > For that check to mean anything, xhci_free_dev() has to clear
-> > virt_dev->udev under the same lock, which is the second hunk.
-> > 
-> > If you think the mutual exclusion belongs higher up instead - do not
-> > let usbfs suspend a port while the hub is being unbound - I am happy to
-> > work on that; from your message it sounds like you would prefer the fix
-> > there.  
-> 
-> Don't know about Michal, but _I_ think the problem should be solved 
-> higher up in the stack.
+On 2026-10-29 03:03:33, Bryam Vargas via B4 Relay wrote:
+>From: Bryam Vargas <hexlabsecurity@proton.me>
+>
+>While bytes spliced off the RMB are still in a pipe, recvmsg() waits
+>for the pipe to release them before it copies the data behind them.
+>The path to that wait skips the timeout and signal checks, and
+>smc_rx_wait() returns at once on RCV_SHUTDOWN. With a signal pending,
+>after SHUT_RD, or once the peer closes or shuts down writing,
+>recvmsg() spins on a CPU until the pipe is drained, and SIGKILL cannot
+>stop it. MSG_DONTWAIT and an expired SO_RCVTIMEO wait there too
+>instead of returning -EAGAIN.
+>
+>Check the timeout and signals before that wait, and end it when the
+>pipe releases the data or the connection is killed, not on RCV_SHUTDOWN.
+>A zero-length read returns 0 without waiting for the pipe; a
+>non-blocking one returns -EAGAIN while poll() still reports the socket
+>readable (splice() can still take those bytes). The wait sets
+>SOCKWQ_ASYNC_WAITDATA like smc_rx_wait(), so a byte arriving behind
+>the pipe raises no SIGIO on a reader already asleep for it, and a full
+>barrier orders its wait queue entry before its read of splice_pending,
+>so no wake is lost.
+>
+>Fixes: 9014db202cb7 ("smc: add support for splice()")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 
-Perhaps in userspace? Or is it expected that root hubs (or other hubs)
-receive random and conflicting requests through USBFS?
+Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
 
-Do we know that the device whose port is being suspended has been
-quiesced? Is its driver even aware of anything?
+Best regards,
+Dust
 
-What I find more disturbing is the existing protection from this race
-added by 88716a93766b - it looks like core was triggering this too.
-I found this usb_disconnect() code suspicious:
-
-        if (port_dev && test_and_clear_bit(port1, hub->child_usage_bits))
-                pm_runtime_put(&port_dev->dev);
-
-        msleep(150);		// my addition
-
-        hub_free_dev(udev);	// this drops xHCI device state
-
-        put_device(&udev->dev);
-
-but it seems that even with the sleep, the bus only gets suspended
-after put_device(). So IDK how that panic was possible in 2016.
-
-> It sounds like the sort of race that could  affect any HCD, not just
-> xhci-hcd.
-
-xhci-hcd is affected because it tracks association between devices
-and ports and accesses devices on port suspend. IDK if others do.
-
-xhci-hcd shouldn't even need to do this, becaues it's pointless if
-devices behind the port have already had their URBs unlinked. Case in
-point, nobody noticed it's only done to the immediate child :)
-
-I would have sent a patch to nuke xhci_stop_device() altogether, if
-there weren't known cases where core leaves URBs on suspended ports.
-That stuff should probably be fixed, it caused problems before.
-
-I recall the main blocker being that core wants to setup wakeups in
-the same call which puts ports to suspend, so it cannot reject ep0
-URBs before doing this call.
-
-Regards,
-Michal
