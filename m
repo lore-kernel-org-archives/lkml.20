@@ -1,104 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782459;
-	b=o4WZUhX6PNn/Mki/IQL2ePHYV19BhO0ugCngI6514QzKTY0L8jWRk3ZN8Q9Q+0KctwtW
-	 ckaVzQG1xKYWMZknskwpgrt4TviUqqcUUifwlNWohSfTwqZ+zezKevrmtoNEtXIBDX6VG
-	 kdfVQLQceunfQa3FiIbiP04KtmYUOoMX49J9WxiftMLVb6GhklR9lrwIdP5OQFGNIfeZK
-	 5GQkwjl1lQQNuvqBrpB5fPrAcozRkDI1SX8kWSXmqdP77/L4qGOGemm10Xpk8RKICi5dL
-	 +iDEou3HMRMvIUGW4pB3ozPtHq5z3/KCtZOPWhqImm9eixeJrFHgjfTv673D9Rikxrw==
+	t=1793782579;
+	b=d/ER+7a3+LkGd+5x41mcgNMNxiHUdst8fxRvAmKpIaEali8QgtOoHFNmwXKXqskGyate
+	 C1bBFIQe/Q0Pw2oYYneVJWrvsamCKHcIbbvIx5m7MIiLfZhSBaiW3pDx5MI5Eb+Lp0kp8
+	 q45KZOndlhlJRBtukfKXnkIMTKrAXJx2D1HbNN/OjZ2khVVNO/XiDgd7KPZDjefrN9rZP
+	 CojTM9QEkkVDX0m0dFD6BPIn94VC9m7QNbno5rRu2Tb/dIvzOozoTP5qQSBCUJtHIOnCx
+	 Jqc9gcZln5vEBjX9YjYs9P9E+IiO99YAo3sq2jXx3bq9XhHYHavxjl0oCo8q3Rdaw9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=995SOgcWBB026Ztcaii7kwHRKn59ipdNGgwbnoFQZH0=;
-	b=ExrAcOqLl4YfTugGGvulaqkt/tJmSEZ3AGgk/wQMPk94Fl7JIhqlS6u0L7bw7L2oJIin
-	 VmgLsXp1sn519Ht6nKA1xC35sBEarjovWcfE6/vr1eXO2J7+f761I7i54StmSQwlPRpCI
-	 ySa6mAy4dMQVQCdJRvJCSYAbKWM2JutHOar9jdbtw4QgnrWWNoCSBwNF5q5kT3zdvAlJa
-	 5bGPkEd3E55N0fgWdS90QHRfzcVIBrryCmjs1BSQjbWtW1EvK5jwvaazPRARxXNFlblzB
-	 3l4B53NGmoI5q9bqlnRY/rXZdWh62KhezWNRdsgYTaMqhlvlHLeE3Th+6H0x7q3q2tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782579;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qQVf7f8PLUUHBAmAuq6jyGQHg8S9QNMMQm8JtMB1S4U=;
+	b=bzJXOklgd1WdV3iRCC0Zphqd+uhLNI9QTb0owJsf9BJ94C+hj1tkvk8+WDFIcywWEAPT
+	 0JiPjDnYfZ58E2MKHoL6RELIsE3FZKBwr4GqhJ9kQElQWCLq7qRO4Rv0Yh3J4e1bPAJmW
+	 fAU/ZpuIR/G9cp7WfwMI395oZhDPcHN6REqQQWPhmVnjneToZna1Enoel/iUb5051eTfQ
+	 uLo3f4mAQqtUII8kBzfTMGQXfUbsFl+xkyvUfBuC/euqwu8xMq2MRzHfRkBczhnwAPfgx
+	 YHeJS4fjHT43YBhDp7lQCDU3VOJAWxoHo6bNPSN0nRsVwRUkkg4WKDK/XF0B2PHCNIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxZ0G9Ms;
-	arc=none smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b="mu/vzX2e";
+	arc=none smtp.remote-ip=95.215.58.246
+Received: from mta1.migadu.com (out-246.mta1.migadu.com [95.215.58.246])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B00606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:54:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27B00606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB54A606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:56:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB54A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxZ0G9Ms
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b0d63f60bcso6641917b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 00:54:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793782458; x=1794387258; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=995SOgcWBB026Ztcaii7kwHRKn59ipdNGgwbnoFQZH0=;
-        b=hxZ0G9Ms2bXEh5gQJZdNqjnx2lpt6R1XWLc8qWOrdhhjkK+LOEjyXqIOolu6ay0jTq
-         GyZrycPkfvSjp3XlXU2LmYduWVgjHEwJfeVAPEtyyGOB6mgJ8UakSs7StUoej6/oZ+6L
-         tGV6+SkSg5NZOvGBXbC5dZQ39prmruKSPmBQX0INnv0KscvaGOSDkkaYre2oZZ+MZ2Is
-         ywu1wQqVelzsnzzG3ZrnvNx59HwAHvMlSvpIniWRyNP/y42RtWYToDxN3KHfao8vzzC9
-         kSX/XpkllP4D7BRvdqFTAqnwzVBatbteWhKGYI2d/7Kyxx9irXthmzRlMFDpycX9jehZ
-         xw7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793782458; x=1794387258;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=995SOgcWBB026Ztcaii7kwHRKn59ipdNGgwbnoFQZH0=;
-        b=AjXjvuxO9CQ2mhKAIlr4SJbaw3UFIhf2F3rDts7/gtHj8+T175Krv34HlOuYTqzbt4
-         FFfOOIPa4v9RzGrsM7v3cKGNNan6D4TkaFXYTt6oZ2UX5AK07uEz04DJpgW/lsFvQFMC
-         YcQkQNj29J+NRAarvJiUaOpMbPM2Z2XN/kx5kBInmOzKyEm1zjOHhm71xZJeWkpJLxsF
-         IuUVw9/gTwsunFCJSDETQWNO+qZG/2MQkfM50buxOnuEiu6EwSF26R2e3dtxM6wRKe0f
-         tRYcGCEDVgJLiDKrDDi6TCLOU4lHzQznqsTjzqbr9UAJStkcTmPg3wl000Mk8q9/X6St
-         XEfw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPIgqRLTIeZgzoXApwJ+pWpecsgYy/nnUNumYQGyXovmlD8DGUXeoYsniQYIusdT38wzSF/bajLR2iOo8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/v0yTBAF+1vo5+TPXKT6148Zs/1gxXpjXZ/eSkNdZAabRio3wj
-	8fSNIcQD9q99R2JV2qOgyDddWg4IT3EpSdgOeeJjG3u+8jrgIZTFrgSj
-X-Gm-Gg: AYBFou3n0/NvUWO4shZQ9es3O+eqGG2VWTCJX7oiFeGxsiCc5WrlIca5gB1t5ziZPWO
-	zM8VnO2qz2pXo9QquNiiBZjeyFTk/2R2vQ4Jnh4HoafZPErkrjemec2Kl7DSWcz9qzrf1QPSdi8
-	Mdg8tzbZJI/IOwlsqu1sngA8AhEqBBttZT0fk0WTf8JZTcDgQPOXagG+PASieUA7u79NfCyp7kB
-	jEIBpW/MUrbqxKcZ0YsxlCeQ3kZjYuGwCBIi+6hHUfwUQN6QWd2QysFNhEjZc42zxAap9rkDhIF
-	vpXXuVQZINylDx1LUkiot/ydS6yEzSpHgtGbDWejFk0zaZ9s6oyktEP+kgegmpopxNuROH79PDY
-	Jw1uWuwiYv3gCSRztH0rVpefRyDCQ0E14GobKkWpnOYg5L+aDGlSY3U8PmZ26/cUfBJY4BKozd6
-	Ab1kXnk8ZgQJNANd+W3QGzH8b6XICEUEBSS2+gnZ92IC4N/RlIeN0oMrg/xpf42qfNLvPaIbakI
-	GlR5cprjE/NkzbTHk7/06HfmaNiKxBRz78HzF7l6ZkQIMaxa4prkNNMsO2/CGdXMQLZjIUsB7wL
-	XdpSPtKUR0P8cLh6Hrm45m1iyN4XVaP8rXoMYuLm20LiW9Yjm/m2qdn+u4MDHCGNEnBZlK5C0v3
-	vx2embfFYCtWRA6urTVCvvTKT
-X-Received: by 2002:a05:690c:dc8:b0:8a8:7fda:15ee with SMTP id 00721157ae682-8b2b676a6e5mr116717537b3.50.1793782458184;
-        Wed, 04 Nov 2026 00:54:18 -0800 (PST)
-Received: from RDEALENC-L01.ad.analog.com (158.95.44.31.netskope-rdns.com. [158.95.44.31])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3098c3174sm14420647b3.12.2026.11.04.00.54.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 00:54:16 -0800 (PST)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Wed, 4 Nov 2026 05:54:07 -0300
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Olivier Moysan <olivier.moysan@foss.st.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v3 01/10] iio: frequency: ad9910: powerdown fix
-Message-ID: <ynwpqktxxbunqm3ee3q7iogrjynlz3egrwryfb33vsp7x6wcqr@uhfsxwrpsyhu>
-References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
- <20261103-ad9910-backend-support-v3-1-0e9224ddf7b7@analog.com>
- <20261104002042.10064e8b@jic23-hlaptop>
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=mu/vzX2e
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SqR9VFOeiKuAqJ+nLJmdz88eGFRmKKQAFSp14MozLnw=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793782575; v=1; x=1794387375;
+ b=mu/vzX2egO4H0XxpgFl7mSyNARjp+fHTHsrx4JNMo2YK8QTutryukhmv1zONKDtiFOe9EV3f
+ qWsS7XHPkZuWsjq37wfTvQKv0CeosFFMq4ounwaa7IaMMTvhaVTbyXXHsIY30U86VExVZ+sPlOb
+ uMtvtTY01LNh5N6t7D7xjmXCKuY0Gjyvebt9P9ei8e5CGHc5r00jga1rDo8vchmJqWRFoHzVS5a
+ 5QmS2ONcim5tk2g6K1t9zLdSqVkWYdt13HDHDu5aUXAuLHkBStoeQQ6dF+uHaqzA71LYWtbXRj4
+ GfsvZDcOJetyCB/A9udH6VpbJXJMeI5d6Ncyu9v4lkZbQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36180429a31982d8;
+	Wed, 04 Nov 2026 08:56:15 +0000
+X-Mizu-Trace-ID: 36180429a31982d8
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 4 Nov 2026 16:56:12 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Weijie Yuan <kernel@wyuan.org>, Dongliang Mu <dzm91@hust.edu.cn>,
+	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: How to attempt to gradually eliminate the compilation output?
+Message-ID: <aurzLOxEnoUWo3Hz@wyuan.org>
+References: <aurU4uKyIUBl9-CJ@wyuan.org>
+ <87y0b99i6p.fsf@trenco.lwn.net>
+ <aurpUltnbwWw3eyx@wyuan.org>
+ <87tslx9ee9.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,35 +72,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104002042.10064e8b@jic23-hlaptop>
+In-Reply-To: <87tslx9ee9.fsf@trenco.lwn.net>
 
-On 04/11/26 00:20, Jonathan Cameron wrote:
-> On Tue, 03 Nov 2026 11:52:57 -0300
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Jonathan Corbet <corbet@lwn.net> writes:
+
+> Weijie Yuan <wy@wyuan.org> writes:
 > 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Enable the software powerdown on all the applicable CFR1 register bits at
-> > once with an IO update.
-> > 
-> > It turns out that DIGITAL and REFCLK_INPUT powerdown do need an IO update
-> > when enabling the powerdown, but that is not the case when powering it up
-> > again. It is an asymmetric behavior, which was observed while profiling
-> > power consumption in the lab.
+> > Jonathan Corbet <corbet@lwn.net> writes:
+> >
+> >> Weijie Yuan <kernel@wyuan.org> writes:
+> >> 
+> >> > Recently I've sent several patches to fix warnings.  But since I am not
+> >> > familiar with the actual codes of theirs, I'm not confident enough to
+> >> > touch some parts, but only the most obvious ones.
+> >> >
+> >> > Since this is a goal that Jon has spent years for, I'm wondering if it's
+> >> > possible to periodically send out some email notifications, which will
+> >> > use the file paths from the compiled output to find the recipients and
+> >> > kindly ask them to to deal with these annoying outputs? Perhaps we could
+> >> > use a script to do this.?
+> >> 
+> >> I think that nagging others to fix warnings is not going to make anybody
+> >> happy.
+> >
+> > That's sure and that wasn't what I intended. 
+> >
+> > I'd be happy to do the work, but putting myself in their shoes, I worry
+> > they might think, "Someone from nowhere, who isn't familiar with our
+> > development process/workflow, is sending patches and just adding noise.
+> > It would be quicker and easier if they simply pointed out the problems
+> > and let us fix them ourselves."
+> >
+> > For example, last week I was about to send a small patch when,
+> > fortunately, I searched lore one more time and found that an equivalent
+> > patch had already been posted to their list, but hadn't been merged yet.
+> >
+> > These warnings span many subsystems, and I worry that sending patches
+> > before I understand their respective workflows might come across as a
+> > bit impolite: "We already have this fix in our development tree; you
+> > should have checked first."
 > 
-> Just to be absolutely sure I understand this right... The bug today
-> wastes power but otherwise doesn't break using the device?
-
-Correct! 
-
+> Well-intentioned patches are rarely seen as impolite.
 > 
-> I'm just trying to judge urgency of applying this. Is it fine
-> to go with the changes that follow later in the series or do
-> I need to rush it in, potentially delaying the rest.
+> It's always worth looking at linux-next before trying to fix something;
+> if there is a fix in their tree, it should really be there as well.
 
-I'd say that there is no rush.
+Thanks, learned a lot indeed. It turns out that what I was worried about
+already had a solution. Will take a look at linux-next each time later.
 
--- 
-Kind regards,
-
-Rodrigo Alencar
+Thanks!
