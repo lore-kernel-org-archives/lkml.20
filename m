@@ -1,94 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781821;
-	b=QWSaNjvmDKD66+GUPi5ABsB7D5S0V2Nbtn597/+2hb+oN+9mqFUREJrQ7TKDtY3D68KU
-	 WA+SKa0jrZX4tt6GhGZG++3EJbr8C3YEA7RcECkwNpcxSrPpNZ9XsL90v8kQYOAdAFeBx
-	 3E6MkxJx0uUfQwi1dxVs8DqPRpYAk0lNvaGx5y8NNa5f48fvzQh0NVzqL/b0OW48qf4Ja
-	 CfyiCKrSDqAx2fLfUwjHEWJgGeCijmyOon+WuQ3oxpE4K/LLko082f3izjmLhrtB/VRQZ
-	 hS/LM6OVr488AMTDIO6AG7tMM3wAeAdvpX6GoJsP/j4CfuU4tMqPS2k5ym1woPykGfA==
+	t=1793781812;
+	b=jMcI174m7pNh7q9xa7hCDc9J3VYz3LDZv1+ywiCu7hL2P3vBjgMpNeuGG8Bc67BC0quc
+	 MDkW+gU/f5mWZL7sum7mMBc+iuc5sLWb59FTjpJEzjkZNVUNoXSsswzUpRbEZ0JFh16Jy
+	 xDnPZ9xqKhI6wfEfnpqFaRcy0bo3HdrG/FngHa4jrw3RiPu1WfW0NDzezZOS4O46giOgx
+	 qqnAR0LJsyD4k2P8PkomNzbt5jxNHOfbdFragNKkfycTx2AFi3DCqVxiko4jc9CYK3CUz
+	 4lLqFXIP3r9heDXsAX3ZUPo+uv9v0ffVmpGSPoDlDAzKSUkTMBRMoKqX+rQxuGy863w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781821;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=f2hk/rNUhdh8MzoGh+JB++bhZwGGGXc0fWWdJjx7Q34=;
-	b=IZlNBJOfjekb6Ar1OmIszrq9kwxsAPCk6Rm4gzBpw+QJPZeIme3/B9S2MoTHUzbeHgYu
-	 y9jNivW+wWgxm0z8RYhg28QqAvs8gXXw6sChktXcfxkagtK+Zkunrvcz23Hn4tuwdmTrw
-	 EiSK23BNT4RTURs16zjfl4mS9+H9qKS83GrVaNWWREyNDUcpGDUi18aUa4T4drWLa4GAR
-	 Q7hjE7AgJm0Wi+azGKMUNiwC4h5c5AruOh+QLLRul3arOWa7b6GArHfwXGjo+3onVM0DW
-	 kp6PhHYH4sUaLVrI4yDlnOFeULjKoT6rr42kVEYm/kwLGULI9Jp3eh241MI1aBj336A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781812;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Xigaf6imL+kX8Ty8pKWbPmcjBYxPKbcCFWKP/SbOV1w=;
+	b=CP8037IFjVT+/rfWzNvY0WmRl60eddDNmMnr6nH/cNLvIdNPtCsoIc960fGO5R2zg3fS
+	 XseCBUH6bOf0MPf23l/PjWogYe5o9EUBZ0wZigmFuk/+ZxdIcAqeLWFTj9E650i1nAxlK
+	 +EitrDzr9ELVRA8pPv9iyzWrGCzu0YjQrbDRrLyB+Wphuj2Y+0K7itRjDTYZutgn0Vb3P
+	 UvcEJIMRCAeLMCHKrzOSi0MOZc9XYumibNFEL62IGAv8/4OIOUMOXABLLXPXOi2ah0HDM
+	 vT8Z0ZevE7G7K7PvJ8CgEgZhjIglaZmIPw1rvBUZjuARhlaAs0VgtGQuRT/LxlwUcbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sp83wNpG;
-	arc=none smtp.remote-ip=91.218.175.97
-Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYR7aZGr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C27606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C27606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82513606A31B;
+	Wed,  4 Nov 2026 08:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sp83wNpG
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=f2hk/rNUhdh8MzoGh+JB++bhZwGGGXc0fWWdJjx7Q34=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793781817; v=1; x=1794386617;
- b=sp83wNpGcg3gaaZ8Q1xR/9GuIAN39T9nU3daATAk0D3PyazINZZkLbge+C8jvkhlT/l1yMyQ
- z4PY8O3ch/eBLnfTIKoQOWvUBUqWReMoaFrNfi96CuAqZM2S8rXHR4UmnarPZPvmVgtfzb2K9u1
- F4JsYvveNIOBOxe1A0qJ86Lg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3c5b907775b29065;
-	Wed, 04 Nov 2026 08:43:36 +0000
-X-Mizu-Trace-ID: 3c5b907775b29065
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	akpm@linux-foundation.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	will@kernel.org,
-	boqun@kernel.org,
-	longman@redhat.com,
-	surenb@google.com,
-	vbabka@kernel.org,
-	shakeel.butt@linux.dev,
-	yonghong.song@linux.dev,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: Re: [PATCH 2/5] mm/khugepaged: scan mm's more efficiently under mmap_lock contention
-Date: Wed,  4 Nov 2026 16:43:26 +0800
-Message-ID: <20261104084326.35457-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261103-khugepaged-latency-fix-v1-2-a07ab16ac860@kernel.org>
-References: <20261103-khugepaged-latency-fix-v1-2-a07ab16ac860@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYR7aZGr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C38B1F000C1;
+	Wed,  4 Nov 2026 08:43:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793781812;
+	bh=Xigaf6imL+kX8Ty8pKWbPmcjBYxPKbcCFWKP/SbOV1w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SYR7aZGruhoHnrfiwYjxfz5dGJoVSDEEik/0zvtgRpyReS9Wbk26VTR5vN0qCQv9W
+	 y5RgeyQPrjeHzKvEKu3Nj6jBffjhDpTmnwyQGZXiRJo7gLVwI59jqv/i+zM+oj6vAv
+	 XCbuh4sq0+rIxSCKsxgyClZj/VKu/TMwKvhA+mlxcgS8e9HDpAfjHFF5N0ch2h4Tc0
+	 91rCYp2anJnZ1Hiuv0L5HqP32okJmg5j6P0tXnAVKH/eX/fag0H8xHDlOK0j49OtPC
+	 UPBAX3K5anx7jwggHKh+KlcKCY13k/bSK1Uxj2oAxM+0aLBf0g1XyGTX6dgAPwD0QJ
+	 dk69OhqIE6k4Q==
+Date: Wed, 4 Nov 2026 10:43:28 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v12 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261104084328.GP264423@unreal>
+References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+ <20261103233742.GA1162403@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,81 +74,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103233742.GA1162403@bhelgaas>
 
+On Tue, Nov 03, 2026 at 05:37:42PM -0600, Bjorn Helgaas wrote:
+> On Tue, Nov 03, 2026 at 10:29:39AM +0200, Leon Romanovsky wrote:
+> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+> > This misclassifies asymmetric and nested switches, and reports one answer
+> > for every kind of TLP.
+> > 
+> > Three ACS controls act on TLP attributes the Requester chooses rather
+> > than on the topology: Translation Blocking and Direct Translated P2P act on
+> > a Request's Address Type, and Completion Redirect skips Completions carrying
+> > Relaxed Ordering.
+> > 
+> > Evaluate each direction at the path divergence, decide every class from the
+> > one walk, and treat a client with ATS enabled as translating unless its
+> > driver declares per-mapping ATS.
+> > 
+> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+> 
+> Is there a one- or two-sentence explainer of why we want this?  I'm
+> thinking in terms of what Linus will want in the merge request: a fix
+> for something that's broken or some new functionality.  It sounds like
+> this is solving a problem, but I don't know enough to translate the
+> nitty-gritty details to the higher-level user-visible problem or
+> feature.
 
-On Tue, Nov 03, 2026 at 08:27:43AM +0000, Lorenzo Stoakes (ARM) wrote:
->Ostensibly khugepaged collapse traverses eligible mm's, scanning up to
->/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan eligible pages
->at a time, sleeping for /sys/.../scan_sleep_millisecs between each
->traversal.
->
->mm's are scanned in collapse_scan_mm_slot() under the mmap read lock,
->obtained using mmap_read_trylock(), skipping the mm if there is lock
->contention, and dropping the lock before allocation.
->
->khugepaged will keep scanning the same mm until it is about to be torn
->down, prctl(PR_SET_THP_DISABLE) disables THP for it, mm->mmap_lock
->contention occurs, or all its VMAs have been scanned.
->
->When any of these occur, khugepaged doesn't keep track of where it left
->off, as the current address is tracked in
->khugepaged_scan.address (essentially a global value), which is reset.
->
->This is a problem when lock contention occurs, as when the mm is next
->scanned, it starts from address 0 again.
->
->If there's a lot of mmap_lock contention this can significantly slow down
->collapse later in the mm, since the /sys/.../pages_to_scan budget can run
->out before the end of the mm is reached.
->
->The budget is incremented (as tracked in cc->progress) at a rate of 1 page
->per ineligible VMA, but the budget is only checked once eligible VMAs are
->encountered.
->
->Then, it only takes the combined total of ineligible VMAs and eligible but
->non-collapsible pages to exceed the /sys/.../pages_to_scan budget for the
->rest of the mm to be skipped.
->
->For a system with 4 KiB page size and default sysctl settings this only
->requires 4096 ineligible VMAs/uncollapsible pages to be skipped before this
->happens.
->
->Examples of eligible but uncollapsible ranges are those containing a large
->number of forked PTE entries (more than /sys/.../max_ptes_shared), swapped
->out PTE entries (more than /sys/.../max_ptes_swap) or none or zero-page PTE
->entries (more than /sys/.../max_ptes_none).
->
->The latter might seem unlikely to happen given /sys/.../max_ptes_none
->defaults to HPAGE_PMD_NR - 1 and CONFIG_PT_RECLAIM frees PTE page tables,
->however CONFIG_PT_RECLAIM only removes the page table if the zapped range
->spans at least a PMD size (see pte_table_reclaim_possible()).
->
->Thus, userland software that applies madvise(..., MADV_DONTNEED) across
->sub-PMD ranges can thwart this, which is quite feasible for memory
->allocators and GC heaps, for instance.
->
->Resolve the issue by simply tracking the last examined address in the
->khugepaged_mm_slot object, so when the mm is resumed, the scan starts from
->where it left off.
->
->Additionally, skip to the next candidate if a VMA cannot be collapsed.
->
->This issue was noticed during some work in which an mm was instantiated
->with a large number of small VMAs under significant mmap_lock contention,
->during which collapse was observed to take 10.8s. With this patch applied
->it took 3.6s to collapse the same mm.
->
->Also, while here, update a couple VM_BUG_ON()'s to VM_WARN_ON_ONCE()'s.
->
->This patch is also a pre-requisite for a later patch in this series.
->
->Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->---
+Not AI; these are my own words with grammar fixes from AI:
 
-Looks good on its own, since vmi isn't reset inside the loop yet. Patch
-#05 will need to handle the ALIGN() overflow Sashiko reported before
-adding that reset.
+"The existing implementation of PCI peer-to-peer assumed that all PCI TLPs were
+the same: ordered and carrying untranslated addresses. It did not account for
+the variety of traffic types defined by the PCI specification. As a result,
+only simple systems supported peer-to-peer transfers in the upstream kernel;
+real-world systems required out-of-tree patches and careful platform design.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+The new code will allow peer-to-peer transfers between any two devices, for all
+types of PCI traffic, as long as the PCI path between them supports
+peer-to-peer.
+
+This paves the way for PCI peer-to-peer support in VMs, which the upstream
+kernel does not currently support."
+
+BTW:
+1. The patch "PCI/P2PDMA: Document the TLP attribute assumptions" attempts to
+   explain the current situation.
+2. The change is too large to present as a fix.
+
+Thanks
