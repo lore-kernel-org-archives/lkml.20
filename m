@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793815790;
-	b=oTnZxRBJu550xhHJYJmFCLtx2O4g6rdSkZqRugsGQSw2iQKW/mdkot7/QFEQ0ZTFR28I
-	 LaM7bjIgitNnHwTu9KBL6nknciQfvfrfHgGQuZo6w34S6wGzAh7h5zmlHHZfZ0TJ7hi/i
-	 J7VqyfoMAmgcEGy4Lu9Z4KPAfR0rMqh/09OJfQVrwvrbh7nEY8TpVbEa4xXFDPU3pVYKP
-	 o+A5BHaJz7CxiDb40r6tSRBANUEeHrffu0+KE8xrj4LS3S7PjJ1F3qESUy3GJX08t+ikV
-	 Xlwig1lX0UYoVtL3Az4ed97xaalaKoWWiMc1/j2iyretq+j3Y8zxrU+PuBteAUibrnQ==
+	t=1793815788;
+	b=Hjwa/GdzcmYzlte3BHM+0s/f9DzRhJ+yshA2FVISCapiaNI+155H8aRg/aofbcVE9rD4
+	 f0X4WLVpWHFNF6zVpl2Q/uxOC/NTITVIosdWr3wbn7Mdxoa8SHfhJQNO5Bfw0W9uL63ys
+	 +xOyWKn0LrmHWi4Nb2ZOQxRf1mQ6ot87IWG+aDcgf/Yz4bzPX/JN9rxjKNB1oB+kYlqhm
+	 2DYDrkoWCBSCNWDRTYlaDE1rmPZaJg2fF1mvXfQjErTlfC+ieornZA+0u7VSvkjJyJe1A
+	 q2wUpauzhZucPujuhUUq4GD4I4yr2YyCzkbr49P6HS13PlwaNNCwNpV+wF+BqKfUyDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815790;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=s8nyuPESILDtZRyHcByevB/pS4xsxVlO2piAttG/xrU=;
-	b=slHs8rLJDL22RxWQqILrRS+gtLPyYHXT2gW4bmpFErtU3h5RzHT0SkKa721jmonoI7Mr
-	 z9arz2li3Puz6BnCEhUuvTgfwtovPvUmQlmdE5/5ebUTJ2Fv+6XxYTH0DHpyu+h164s5m
-	 E18YBVDH6xhPI5cJbbCQL84ASht5U2/GHV7VTsJwsc9JT8O/AYm7x3t37zoWzKRqbKtDD
-	 pKayf5+GbpI/1ep2I8Kv/dvTMAiALqlr7lrV15h+0iMI24xDpd+ed2VhYWf3xcAFxtYDd
-	 nLLK5sY1H5Td0ypFYvB93UK2vH1RHw0aRb1V2WXgW3AVwkzsw9o1xHe9rdMKWV/LTrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815788;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rwYBDK+4X8bpG7lKR/3Gcr7ptsz0LW7lgS/c66cHyr8=;
+	b=V5b81Hra6HEVmBf9H+GAieIB1IqAAqiFnJNj04A0QifWJOcxBcq4ZXbuP9KnNdSKg9t8
+	 B6vKScBp7RBGJ09TsO895EfbiY76vef5Esxdr3H7AlC519Lq/ttMhuurLae6HPvY7gVNb
+	 m0rzUnnsLgpQ17u2K/WFX0hfAofiZRVRyxGpckhA25lp0lt09ZsAImWajpJ4pUAtvbNon
+	 YJ3exDrzBffhqvg7R96radPAOLVvzhavsgONAESl9ai3ZCKLIYm5oKfyRTb3EhxIYw63D
+	 vPnp/Q1MIS8Nyztep2XO+QRGHJeXCXAZbz0h1mB0FcgOoRmaDJQE1lL++d0gHrgr06A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MK1ZTvCv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZzQAqkq2;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C34606BDD0
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:09:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6949D606B230;
+	Wed,  4 Nov 2026 18:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6949D606B230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MK1ZTvCv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482431F00A02;
-	Wed,  4 Nov 2026 18:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793815789;
-	bh=s8nyuPESILDtZRyHcByevB/pS4xsxVlO2piAttG/xrU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MK1ZTvCvGT1jzzWjOMvEL6/llS93M1MMDr5EH5S23Tjdp8n5BAfwhzzV6ekXY1ivn
-	 WcYiIG/39qga1oVftvkIfMQrQIR69w8EsCPtg+UQ7XVu5/ILFRrZK4Fqr9cjGGHaLO
-	 izdCMd59QSIDQUhTnzTUDHuplLAFB6s9un1uKtjPprij9HNwMF+/jYKHnAF4kO+cLL
-	 U0kygyilAHznfTeUz9q+v5WALtMoiMFHTLNG28g/40jmcV8Z6SVbAI9ObXmHxtuhoZ
-	 zxwlDZpj16KxYfVyvNo9MEsfWNARZMOyi4yrGR957XQZGoAmQTiMJO8pPn0JXrpcek
-	 9CL3ZUMxU6saQ==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9D7F4198003A;
-	Wed,  4 Nov 2026 13:09:46 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Wed, 04 Nov 2026 13:09:47 -0500
-X-ME-Sender: <xms:6nTrakR6t-WrIyHfCnMslBF-_aATTkIoO3IC-FljEvuV5jBWH__Pdg>
-    <xme:6nTrahNLD3Fb28CYlkevcSC-NI36mLWDthoGG0T-mCxWecWsKZx3LjxKsD3_bcNT7
-    sLza5_ytQfxCOOEN46HHlQtvxa0bbGghEdl22tdkaFMAvZVRlMc7xQ4>
-X-ME-Received: <xmr:6nTrai4OpSQ4Pi1t9rLnukmoTL1AhN9D-4TKr2PawRNYMZlugUfJNtBxM_0>
-X-ME-Proxy-Cause: dmFkZTGxPnPV7tjFAgTN5ziCectx9w+cnh/2pW+T5vdtufAnROjbmBRi2o4om8fZ99eb/O
-    f0Op14B5vnrw1ktw2vSlvXD3sZMQoAwDJMAOyV1E4cIzEKUTW0wE2r1Bxp4/7PxUsVpP0R
-    aiep1CRAOQ6mFVdfILr5iQ0K7uwetTR1WzpD6jYBl1cnkdIlSpDKtjgQYnE1a823DMb7bz
-    mw1Qqa41iSHx42Mu7olm/tZBpddHgSi7ARZf7yQ9Ip3UhuBcU9Vswrp1hMyDIQuNi6MQY5
-    uPmwor17GnKj7QMC4kFpYGY15FGq7IFmIS9P29r7LNg13aEboLevw6zj+rR2jj3pvD83qN
-    C9dA8fQlHanOrNkWfuSf0qS/citP70dKTTHxAguVmcVUybkW7raaIrhIfrDz8gBlvnJ2wn
-    fY7HK74a422uG2sal5UyVy2L1FKt/4Oax0LC9CGQxwzbMLB8RraHDcNiPoSTeWC/4OpSbO
-    KUdCMLq0ft4SpLmoau/6vAWjDkNvbe7nKQx2u6OX9yRb1L+cJSze2RRGDEbnljLK7BEMrQ
-    WzThhAWd5EMKVbr5cEIxftU4o0Euj62ZKVm31nqvvPw9ojkiogZs4zlEU6UPll8MB6yIaq
-    uKhMRhEvZ3xu82UQFThQGqBtFH/g/BIGnUsn2R6MGEwAPsbBCuF1LGTGYyOA
-X-ME-Proxy: <xmx:6nTrasXQFg8pK-8YwAPbhQ7-N51W1VQED2vGROs2yg399Ju4DpbT-A>
-    <xmx:6nTrahNSx5h3AMCA25_Ow2T-Oyp-JNIys_PdxmYskkXBh8yCUvZEnw>
-    <xmx:6nTrarjTsJoVsmMsQxdwRBPArxs8OaQPpCyDVO3aSejOsgzKHhPJoA>
-    <xmx:6nTrav5_zJPMUeb6COCyAMAD1aMHkXQ2n6INeb5j0R16rIewHkfjMg>
-    <xmx:6nTraqcS7J4gm4HG_Aqh2r_PC2Ga8hEmhVZj3ZYZg3Ct_vPqjUhRB8wX>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 13:09:45 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	James Morse <james.morse@arm.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Doug Anderson <dianders@chromium.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Breno Leitao <leitao@debian.org>,
-	Dawei Li <dawei.li@linux.dev>,
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
-	kernel-team@meta.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] arm64: sdei: Run the event handler on the kernel vectors
-Date: Wed,  4 Nov 2026 18:09:33 +0000
-Message-ID: <20261104180936.2981070-2-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104180936.2981070-1-kas@kernel.org>
-References: <20261104180936.2981070-1-kas@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZzQAqkq2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=rwYBDK+4X8bpG7lKR/3Gcr7ptsz0LW7lgS/c66cHyr8=; b=ZzQAqkq2yZiObVQnLwRq8cx5Fc
+	RwxGUuK0eL+gdfWdD76aayIemTpUSDoPiWWslG6Oy2fmaTGXVlzSbeKtelxeyCSNh+p+GeeD4Ac+T
+	r/apvWWJqcf2kf8Gyck2jbM8d4PO11/+PCR8//n5RcOBzonLUmnYUIK2D8hHBQtmvw5uPbKAfuSyH
+	tGy9O5rEcKfSOPygvNstKk9WlVsXE9B7J0UYFEHP9r5RfIiOwdE5M/bjss+qg/k0/uJiEZvJ/LfKV
+	VXlPe3CYzdj6e5eH690IqqXzeZ7Gx6aQGtlqbrNZcI4U/Y9zW4QpBV8ETEHiXe/7Tg/eqcgwZ9E0D
+	mahHn7KQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOfQg-00000006M9o-3LGl;
+	Wed, 04 Nov 2026 18:09:46 +0000
+Message-ID: <706deeb8-8d19-42db-b6fd-cb37195cce0b@infradead.org>
+Date: Wed, 4 Nov 2026 10:09:45 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,93 +58,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] doc: process: clarify scope of applying-patches as legacy
+ reference
+To: aleszlucero@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261104-doc-patch-fix-v1-1-617cb9f4cd47@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261104-doc-patch-fix-v1-1-617cb9f4cd47@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-With KPTI, VBAR_EL1 holds the trampoline vectors from the return to EL0
-until the next exception from EL0 maps the kernel and installs the
-kernel vectors. The trampoline vectors only handle exceptions from EL0;
-their current-EL half is zero-filled.
 
-An SDEI event is dispatched regardless of PSTATE.DAIF, so it lands there
-whenever the CPU is in user space. The SDEI entry trampoline maps the
-kernel but leaves VBAR_EL1 alone. An exception taken by the handler then
-executes the zeros, takes an undefined instruction exception to the same
-vector, and loops there forever. The event never completes and the CPU
-is lost; RCU stall reports are the first sign of it.
 
-RAS notifications land in user space whenever a task consumes the
-error, and NMI backtraces land wherever the CPU happens to be. The GHES
-handler takes no exception on its own, but any exception in the handler
-path does it: a WARN, a kprobe hit, or a fault fixed up by a _nofault()
-accessor.
+On 11/4/26 5:53 AM, AleSZLucero via B4 Relay wrote:
+> From: AleSZLucero <aleszlucero@gmail.com>
+> 
+> The applying-patches.rst document describes the manual manipulation of
+> source trees using the traditional 'patch' and 'diff' utilities. While
+> technically accurate for non-Git or constrained environments, it can
+> create friction for new contributors seeking the primary Git-based
+> workflows.
+> 
+> Update the opening note to explicitly state that this document serves
+> as a reference for legacy or constrained workflows. Provide direct
+> cross-references to submitting-patches.rst and howto.rst to steer
+> contributors toward the standard Git infrastructure.
+> 
+> Signed-off-by: AleSZLucero <aleszlucero@gmail.com>
+> ---
+>  Documentation/process/applying-patches.rst | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/process/applying-patches.rst b/Documentation/process/applying-patches.rst
+> index c269f5e1a0a3..74af6d8a2249 100644
+> --- a/Documentation/process/applying-patches.rst
+> +++ b/Documentation/process/applying-patches.rst
+> @@ -8,8 +8,15 @@ Original by:
+>  
+>  .. note::
+>  
+> -   This document is obsolete.  In most cases, rather than using ``patch``
+> -   manually, you'll almost certainly want to look at using Git instead.
+> +   This document focuses on the legacy method of manually manipulating source
+> +   trees using the traditional ``patch`` and ``diff`` utilities.
+> +
+> +   For the standard Git-based workflow used in current development, including
+> +   how to format, apply, and send patches via Git, please refer to
+> +   :ref:`submitting_patches` and :ref:`howto`.
+> +
+> +   The information below is maintained as a reference for constrained
+> +   environments or legacy workflows where Git infrastructure is unavailable.
+>  
+>  A frequently asked question on the Linux Kernel Mailing List is how to apply
+>  a patch to the kernel or, more specifically, what base kernel a patch for
 
-Install the kernel vectors in do_sdei_event() when VBAR_EL1 holds the
-trampoline vectors, and restore it before returning to firmware,
-including when the handler fails. The IRQ-like resume into user space
-keeps using the interrupted value, as it must go through the trampoline
-to map the kernel.
+Please test your patches:
 
-Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- arch/arm64/kernel/sdei.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+Documentation/process/applying-patches.rst:14: WARNING: undefined label: 'submitting_patches' [ref.ref]
+Documentation/process/applying-patches.rst:14: WARNING: undefined label: 'howto' [ref.ref]
 
-diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
-index 778f2a1faac8..9fa2a3aeed48 100644
---- a/arch/arm64/kernel/sdei.c
-+++ b/arch/arm64/kernel/sdei.c
-@@ -18,6 +18,7 @@
- #include <asm/sections.h>
- #include <asm/stacktrace.h>
- #include <asm/sysreg.h>
-+#include <asm/vectors.h>
- #include <asm/vmap_stack.h>
- 
- unsigned long sdei_exit_mode;
-@@ -214,6 +215,20 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
- 	if (arm64_kernel_unmapped_at_el0())
- 		clobbered_registers++;
- 
-+	/*
-+	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
-+	 * EL0 until the next exception from EL0 maps the kernel. They only
-+	 * handle exceptions from EL0: an exception taken by the handler would
-+	 * run their empty current-EL half and never come back. Run the handler
-+	 * on the kernel vectors. The IRQ-like resume below keeps using the
-+	 * interrupted VBAR, so it still goes through the trampoline.
-+	 */
-+	if (arm64_kernel_unmapped_at_el0() &&
-+	    vbar == (unsigned long)this_cpu_read(this_cpu_vector)) {
-+		write_sysreg((unsigned long)vectors, vbar_el1);
-+		isb();
-+	}
-+
- 	/* Retrieve the missing registers values */
- 	for (i = 0; i < clobbered_registers; i++) {
- 		/* from within the handler, this call always succeeds */
-@@ -221,8 +236,6 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
- 	}
- 
- 	err = sdei_event_handler(regs, arg);
--	if (err)
--		return SDEI_EV_FAILED;
- 
- 	if (elr != read_sysreg(elr_el1)) {
- 		/*
-@@ -233,6 +246,11 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
- 		pr_warn("unsafe: exception during handler\n");
- 	}
- 
-+	write_sysreg(vbar, vbar_el1);
-+
-+	if (err)
-+		return SDEI_EV_FAILED;
-+
- 	mode = regs->pstate & (PSR_MODE32_BIT | PSR_MODE_MASK);
- 
- 	/*
+Additionally, instead of using :ref:s like that, just use the file name
+and our automarkup will DTRT (do the right thing) with it.
+
 -- 
-2.54.0
+~Randy
 
