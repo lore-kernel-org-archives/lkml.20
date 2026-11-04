@@ -1,80 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776567;
-	b=siKptpaNZ74/+a1LogHSyMjwphHnk90clNqAc9XSgXhoOhgsjF22nQJYfxD4d8eO+2e+
-	 IAz9ImpAi+pQ3VqKHyQAcwgycuS6DVvveozNuT3xsUKSoDBmRpTgVNzOqJwHDd0OeAZhF
-	 08NLuEF5UrWU0JasEvpJvNulPP1XJv5jrQolghyu6vGQxfwhIzKVXhWjFWKKXCvJIGw1a
-	 Fd6KXp1Q/qdIpugrF2XXxESf/EgDj2Rl3gDNFZ93R5aR/olYLw9kp4Z5diKZrOjdnC1X0
-	 I9HZBgsZbPEszz+r1JilYLs0AubZfE0eIPWoIi3N+Hy40MZecnqM1gslZsqxcVFw8sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776567;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=JzJ2sm0HA7zLXXojD+Y1kRVDhkZ262+huPCc7+3eLx0=;
-	b=xUTsqguRlmWNUe92OGzRtv5wjaEmK0FCGUDPStCuWfGkQncw6wB8nlsnbrfzT/dh0GVa
-	 6/pXOjB127KeGzgrjjiOkvved48yY88jxA4DeBCFbSl5yi3t3OWQ9mgnku2KemefneUgw
-	 ie1tyCcPfYn3erfQJeyoBoO//SvHc0SFbbflw3mSufIlthENqbAMd8cMvhq8F9PY8ay+B
-	 kduB6Md43LEBy/QXaNf/ytyrqMI2a3YtoqNbBZUtC/y1Sbp6XkrqFJFKXW4F9V9NuSJhP
-	 ACEMVGU/LoCEBRJYF/ThhTxLLrM6EtDD8LylYe84xuellcNvEt1bu89RMDLH8XACvSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQGvag4+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5122606D802;
-	Wed,  4 Nov 2026 07:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQGvag4+
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776566;
-	b=pYzQf29xVYYd/D1tJtSEO56B0PxEZS1RdqeLYTV27FWq/eSSTJcdv4eImSmdjuYlI78I
-	 8h2lvfaUSQjB2hyn949mUQIVSigWcgVOf1YuhwympQeYnXzQapIVyjUqir2cZvEbgm0ze
-	 hp5v+78OgCPam7N9t1tjZhd88/FvjHSuOooaTP/ZHN2RGauBbozNtAvULpeFEfqDDg9DB
-	 3JsDT4LuVUALc6kCdyWi4kBckky7GRFtY0mLhqN5S1NnS+KgrjwSqftJPHSVHwFPjVoMX
-	 GrssQPCd7ihxchcCWSfugAl2j3HhGamG/YvllsrdhM7nE/W6/3wXUlWZ8JRpIO5GLHA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776566;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=JzJ2sm0HA7zLXXojD+Y1kRVDhkZ262+huPCc7+3eLx0=;
-	b=EP8YHS/gsejHYDMZBC1oov0OcLNVZsLOljwsIlylI2RWAilJ0jcGcr8ocx3FDYv8kidi
-	 WfxP3cu7RTv8RTw/u3wDEW6Vh/+XIlglPM/DdswXau7s7nArK6l92e5X1bEd2KmBzXiRg
-	 XTrRMVrjPO/UPmDvUfFKtYN1RMXgdvesyJdItoykg3rO5H0BG3gB2xQOEdWwwAILshWQs
-	 D3C220ZPo4V6+vQyFM6APEbYLwHZqWim62yU6MiCGDO7Lm51DyIAQDta2Ln5odMR1JbwJ
-	 0jLqgBxill4SsvSrQQEvWN2NqrrByLj6rAGC5JT59yRX2Wh1HsKaNP8n9GkbFWznZ9g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793776583;
+	b=uOJ+/kU1lb+T/aqNFRytMCNd7RgWBHKVKtVPSSleUlTH77pIdOJMi+TlpwDREtWsEGBO
+	 GdZpiMDmbCNKT0BYU1pqUrjFyx5gPvDOWA0SmiuM5cprYAP4OkSd/gQUxqJ5NriX9WMC9
+	 +vxNDMt+A/CoP2DWa26fZ0p2wSoUKnqTRkd0xMpT5IyjY/v/XRHLBpae/anxqAOuOA0yx
+	 cOnoZ2K19E2gY1L7RdV5g6UcmlEhz9hIm2HMDSSFUDUFWKWK4lhXOzGMreAdIxENFFr3h
+	 RUdgxsxj31OztUDURJBg2meqxWJCZ4i+uCJ9lhI8daf6813UW2yNTQh9XX6y87v2RlA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776583;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=sq8GeUPUbWD5/l9webTykYpDaibNcYX0trvCELNClDY=;
+	b=1CYHAmb2sV1JtZ6zmG5oCdChXbXnqf+rHFxeyKO9bf8ezop117B17qyxNgJZEeIaWMAw
+	 GVCE3DJg9H6KRXvc+8f0AnOBUc1cj8cgH4Vh1jBWBak16FYHBqQUnwdg/sTu85bvGLmLw
+	 349IDsvLVY32/1JWrsKCwsMetYQyY0gxj8GcxNRrdEd5RZihXcSByHehM7JJUq9Vas1fE
+	 ACYJUiF/E4C7ZuGwq6lSkIYR8xytj+1PYbf/KnYf2E0kVR8hVudzzDm8ru7x7oqw6wxMo
+	 pji5K8WYYENT0tYiRzDagIUni/IUG5ca4qIYWNa0e5wZDgc+GLFz5b27TDwvN2QNhHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ASCmtkw1;
+	arc=none smtp.remote-ip=91.218.175.37
+Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6DA991F00A18;
-	Wed,  4 Nov 2026 07:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776566;
-	bh=JzJ2sm0HA7zLXXojD+Y1kRVDhkZ262+huPCc7+3eLx0=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=MQGvag4+efWse/63asdymDzI/VQ/GnsoDSAqxmnmlxad/7BsoMk9a1JuntHzmNuWB
-	 7JVRA1elo483WuzpLKtcjQVNDt45hYZ+va93renrUVZQp/Kb61/H7SRfdMZsTrPI5s
-	 GQlqJ1ccI0Yq1AeN9vXD4qAO5SP/TAV9JoGxamnJZJExLROqnwPAuSI5aS8iulXddE
-	 9tG5LlsgR0yvpyJL0fqa5Evxdp2lmBgaIUvbI6Kcz9VTftDtsVUrYWBMW+xWgFfku1
-	 GrfCavJXJd0ot4f3P9bsAoEhujphxm95NTLrDTFleMWHjDLhSPOeMByUQQV+efjGs1
-	 520EMwUbe5CXw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D824046CBB;
-	Wed,  4 Nov 2026 07:16:04 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Subject: [PATCH net-next 0/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-Date: Wed, 04 Nov 2026 02:15:46 -0500
-Message-Id: <20261104-mxl-gsw1xx-reset-v1-0-53839bf5c88e@telaak.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E765E606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:16:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E765E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ASCmtkw1
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0NMn6LfHJXdY0del5TIwB9PNJWC94DBmPcplZLgt9NE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793776580; v=1; x=1794381380;
+ b=ASCmtkw1exsVpYkJRoJjNg4dJnicckKvkH2fYjpv1OQqOu28dB3sx5qYIMPS9Od72Sj5aPDW
+ 0odhTPBfbPSoRST5AEhwSeAbi1oKIVvxrhisrw7ubpXuFGH2B14F1FUpRjqPpyxyPSc0dT4x3jW
+ IP3ZxRAwVye9NoljUFGR/4s4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3f4a2e5a750a33d9;
+	Wed, 04 Nov 2026 07:16:20 +0000
+X-Mizu-Trace-ID: 3f4a2e5a750a33d9
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: longman@redhat.com
+Cc: ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/cpuset: Fail if isolated CPUs don't leave any boot domain housekeeping CPU
+Date: Wed,  4 Nov 2026 15:16:00 +0800
+Message-ID: <20261104071600.474587-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,72 +70,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKLb6moC/yWM0QrCMBAEf6Xcswe9BKr4K+JDG7f1RKPkogZK/
- 72pPg67MzMZksLo2MyU8FHTZ6wgu4bCtY8TWC+VybWuE2kdP8qdJ/tKKZxgyOz3fTj4bvAygqr
- 2Shi1/JInivUQUTKd/4u9hxtC3oq0LCsNFKCWfgAAAA==
-X-Change-ID: 20261102-mxl-gsw1xx-reset-37ac836b31fe
-To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776564; l=1736;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=igALwEyK9Wac7PwuwvoflBG0rSNJJThjoKwT2Oko4+Y=;
- b=wNMJC2Z2oeJ+jBMsYQPSXXLdKSUIRlF3rnM+ntL60bXTQ7yZk3yvsp996s1eeXdU7ZF/c19Pf
- +lPxoUdEpmjDZPLnTCTai8hnYFBtOcJ2ftgtGvU8cw5wX1q+fn5EmF0
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 8bit
 
-The GSW1xx driver never resets the switch, and the MDIO core does not
-handle reset-gpios for non-PHY devices, so the driver works with whatever
-the bootloader configured. On the GL.iNet GL-SFT1200 (SiFlower SF19A2890 +
-GSW150) the bootloader leaves the internal PHYs one MDIO address too high,
-and the WAN port has no PHY.
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Patch 1 allows reset-gpios in the binding for the standalone switches.
-Patch 2 pulses it at probe.
+With the "domain" flag of the isolcpus= boot option, the CPUs isolated
+at boot are excluded from the sched domains and the remaining CPUs
+become the boot domain housekeeping CPUs. An isolated partition is
+allowed to use the boot isolated CPUs, but it must not take over all
+the boot domain housekeeping CPUs.
 
-This is separate from commit 82e2c7db0830 ("net: dsa: mxl-gsw1xx: force
-internal PHYs into a known reset state"), which only programs the PHY
-bits of RST_REQ. On this board that commit is applied, and the PHYs still
-sit at the shifted addresses; only a hardware reset of the switch moves
-them back.
+prstate_housekeeping_conflict() checks that rule for root partitions
+only. The 2nd check covers the nohz_full case as it is gated by
+housekeeping_enabled(HK_TYPE_KERNEL_NOISE) which is not enabled by
+isolcpus=domain. So on an isolcpus=domain,<cpus> boot, an isolated
+partition can claim all the remaining boot domain housekeeping CPUs.
+The state is committed, but the sched domain rebuild at the end of
+the write finds no housekeeping CPU left for the boot domain and
+hits WARNs and an OOPS in partition_sched_domains().
+housekeeping_update() cannot accept the configuration either as it
+cannot empty the boot domain housekeeping mask.
+With an "isolcpus=domain,10-31" boot where CPUs 0-9 are the boot
+domain housekeeping CPUs, for example:
 
-Tested on a GL.iNet GL-SFT1200 (Intel GSW150 / PEB7084 at SMI address
-0x1f, reset on an active-low SoC GPIO), on the 6.18 backport that OpenWrt
-carries: after a warm reboot and after a cold power-on, all three ports
-find their PHYs at addresses 0 to 2 and link at 1 Gbit/s. Without the
-patch, port 0 fails with -ENODEV after every boot.
+  # echo 0-9 > A/cpuset.cpus
+  # echo isolated > A/cpuset.cpus.partition
+  WARNING: kernel/sched/topology.c:3089 at build_sched_domains+...
+  WARNING: kernel/cgroup/cpuset.c:1478 at cpuset_update_sd_hk_unlock+...
+  RIP: 0010:partition_sched_domains+0x3b8
 
-The board's device tree goes to OpenWrt; there is no in-tree user yet.
+Fix that by extending prstate_housekeeping_conflict() to reject an
+isolated partition update that would leave no active boot domain
+housekeeping CPU outside the isolated CPUs. The CPUs released back
+to the boot domain by the same update are taken into account, so
+replacing one of the last housekeeping CPUs with another one in a
+single update remains allowed. The new check is only performed when
+housekeeping_enabled(HK_TYPE_KERNEL_NOISE) is disabled so that the
+existing nohz_full behavior is unchanged.
 
+Add test cases in test_cpuset_prs.sh to verify that taking over all
+the boot domain housekeeping CPUs is rejected while swapping one of
+them with another one is allowed.
+
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 ---
-Joseph Telaak (2):
-      dt-bindings: net: dsa: lantiq,gswip: add reset-gpios
-      net: dsa: mxl-gsw1xx: reset the switch through reset-gpios
+ kernel/cgroup/cpuset.c                        | 36 +++++++++++++++++++
+ .../selftests/cgroup/test_cpuset_prs.sh       | 30 ++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
- .../devicetree/bindings/net/dsa/lantiq,gswip.yaml        |  6 ++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.c                      | 16 ++++++++++++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.h                      |  4 ++++
- 3 files changed, 26 insertions(+)
----
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
-change-id: 20261102-mxl-gsw1xx-reset-37ac836b31fe
-
-Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
-
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 6e136888fc8e..c1ed556ddb1a 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1403,6 +1403,42 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
+ 	if (del_cpus && cpumask_empty(del_cpus))
+ 		del_cpus = NULL;
+ 
++	/*
++	 * With boot time domain isolation (isolcpus= with the domain flag),
++	 * the CPUs that are not isolated at boot become the boot domain
++	 * housekeeping CPUs. An isolated partition must not take over all
++	 * of them. Otherwise housekeeping_update() will fail later when
++	 * the isolated CPUs are handed over, leaving the sched domains in
++	 * an inconsistent state. This case isn't covered by the 2nd check
++	 * below which requires nohz_full to be enabled.
++	 */
++	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) &&
++	    housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ISOLATED)) {
++		cpumask_var_t boot_hk_cpus;
++
++		if (!alloc_cpumask_var(&boot_hk_cpus, GFP_KERNEL))
++			return true;
++
++		/*
++		 * Compute the isolated CPUs after this update: the CPUs
++		 * released by it (@del_cpus) leave the isolated set and
++		 * become available to the boot domain again, unless they
++		 * are returned to an isolated parent instead.
++		 */
++		if (del_cpus && parent_prs != PRS_ISOLATED)
++			cpumask_andnot(boot_hk_cpus, isolated_cpus, del_cpus);
++		else
++			cpumask_copy(boot_hk_cpus, isolated_cpus);
++		cpumask_andnot(boot_hk_cpus,
++			       housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT),
++			       boot_hk_cpus);
++		cpumask_andnot(boot_hk_cpus, boot_hk_cpus, new_cpus);
++		res = !cpumask_intersects(boot_hk_cpus, cpu_active_mask);
++		free_cpumask_var(boot_hk_cpus);
++		if (res)
++			return true;
++	}
++
+ 	/*
+ 	 * Exit 2nd check early and return false if
+ 	 * 1) there is no boot time isolated nohz_full CPU
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index bdca6c471f87..8c7af34b51c8 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -133,6 +133,17 @@ LAST_PRESENT_CPU=$(cat /sys/devices/system/cpu/present | sed -e "s/.*[,-]//")
+ [[ -n "$FIRST_NOHZ_FULL_CPU" && "$FIRST_NOHZ_FULL_CPU" = 8 &&
+    "$LAST_NOHZ_FULL_CPU" = $LAST_PRESENT_CPU ]] && RUN_NOHZ_FULL_TESTS=1
+ 
++# The isolcpus domain test matrix assumes that the boot domain
++# housekeeping CPUs are exactly 0-9, i.e. an
++# "isolcpus=domain,10-<last>" boot.
++RUN_ISOLCPUS_DOMAIN_TESTS=
++if grep -q "isolcpus=.*domain" /proc/cmdline 2>/dev/null &&
++	[[ -z "$(cat /sys/devices/system/cpu/nohz_full 2>/dev/null)" ]]
++then
++	[[ "$(cat /sys/devices/system/cpu/isolated)" = "10-$LAST_PRESENT_CPU" ]] &&
++		RUN_ISOLCPUS_DOMAIN_TESTS=1
++fi
++
+ #
+ # If isolated CPUs have been reserved at boot time (as shown in
+ # /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
+@@ -602,6 +613,24 @@ ISOLCPUS_TEST_MATRIX=(
+ 	" CX1-2,I:X1,I:P1 . .      .     X1,2,I  .      .      .     0 A1:1-2,I|XA1:1-2,I A1:P-1 ."
+ )
+ 
++# Test matrix to be run when the system is booted with
++# "isolcpus=domain,10-<last>" so that CPUs 0-9 are the boot domain
++# housekeeping CPUs.
++ISOLCPUS_DOMAIN_TEST_MATRIX=(
++	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
++	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
++	# Using all the boot domain housekeeping CPUs in an isolated
++	# partition is not allowed
++	" C0-9      .      .      .     P2      .      .      .     0 A1:0-9  A1:P-2  ."
++
++	# Replacing some of the boot domain housekeeping CPUs with other
++	# ones in a single update is allowed
++	" C2-9:P2   .      .      .    C0-4     .      .      .     0 A1:0-4  A1:P2   0-4"
++
++	# Taking over the last housekeeping CPU by an update is not allowed
++	" C0-8:P2   .      .      .    C0-9     .      .      .     0 A1:0-9  A1:P-2  ."
++)
++
+ # Test matrix to be run when boot time nohz_full CPUs cover all CPUs except CPUs 0-7
+ # This also means that CPU 8 is available and is a nohz_full CPU.
+ NOHZ_FULL_TEST_MATRIX=(
+@@ -1472,6 +1501,7 @@ test_inotify()
+ run_state_test TEST_MATRIX
+ run_remote_state_test REMOTE_TEST_MATRIX
+ TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
++[[ -n "$RUN_ISOLCPUS_DOMAIN_TESTS" ]] && run_state_test ISOLCPUS_DOMAIN_TEST_MATRIX
+ [[ -n "$RUN_NOHZ_FULL_TESTS" ]] && run_state_test NOHZ_FULL_TEST_MATRIX
+ test_isolated
+ test_boot_isolated
+-- 
+2.43.0
 
