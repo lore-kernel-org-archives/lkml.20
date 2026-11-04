@@ -1,47 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833362;
-	b=TSH/p1JVJ88AB8MpHboUF0ZBdQ0dSL4HN8KDh7hjVRaIS/UqvBmHx/ZUJdQELVE5zbPw
-	 4rsu7brwfBkAMEB4UPwuIlHLd90uNItx7gQS4AatvXDz4pz4tOLR5Hl8z+nMPFEuVj2i5
-	 Jw6MnmjV7KwOSGVNoIrEigz7+A+C0XSLXA6NzalnXOllNQ/gxYT7ho8lDLIFFhqTp8AKo
-	 6WCDkdhB2JyUyPfM3gP2EBWiFPsC/OLuiuyXIjrgl3kSg9s1ETewdJRUGtFxLCbVS4Rms
-	 LWLBF+InWsX4wafs18GyUZ7UCgOEsISllxe5Z0m2wANf+0YxAna/Htyqxic2zdXgDow==
+	t=1793833368;
+	b=s/eCI+CUMQjfk+PfTNujKoVcABqMKm2yLXpdl+mYJGgVAnU1xB6pt1RH+84qNT06qN8C
+	 WN/MiOsupolDltdXQQFtrJ+Y2xdkjSHnvNa0ThNc8uiWlUyhQSzK0F00Fp81NskBDpjGp
+	 bAni9xuXP6VR0WNwYQx8DvY+NAEKUinaGeUbSSF+2mByvH7eoyrlIpPq+RELe319xiCOM
+	 EYYr7wm6ZlGB1ruvHfue/69WWbKfyum3To8xXgdXBFxtImeBA2Dkw8h8S0GW9AOSaf2dS
+	 yRb+bU5YQ18dlqIKRJd9cjdi/Q61fE4ic7V2TB8cEee8XjmF4yIwZoR3ydIC1bgm1DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833362;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=faVYG+5p25QPZ5jO9MjUiu/Ltiks8UpOg4pXnPN3sY4=;
-	b=llFxx4Utk0W+ZNQGgogqD38jZJIdMF5Bup9tRe2aHw3PFPyJMRqEIyxJltpebMgn9OAY
-	 jTtO+L8IljRTYSeH4oqiDgl9OgMhnxNIJAlgVgwpjVxXQHd3eAFAbdO++HSZJ81BAerUn
-	 P2KxwK/Rw+L1jg+OzeNRMmf+O5H0gmt8eRCY9wo1OFXsFommLCUNBSSu0q1eUdVTD76Mm
-	 AhGnJCSq6FcroLnZ5nZJvXjRuoIoDVpwOtJ6R7xylzbm9Zi8JJmfSFGH+n0OE0VcsU9Pe
-	 U5aW/8ZOuXVnhQfTepIkF7RjpIFYPSSP+3WQ/iviym3ypJaQOV6Crxldmv4ZpqJJzMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833368;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=CNM1EYOlTzyNUEwxlK4YGo2GVC9yeplaVRpTfyoYgug=;
+	b=aq1GMQZZvM2jOuwFUDqD/xxOmMBh55LqQyqNGl4JwyzYabOj5JnKdbVmFQXwj9Kfxlze
+	 lLYLIBJQ3ptGjj9AD8ZzXSnOAsMK3zuBzYNM9JzAxp3ZYbEyujpBq1f+/4JOqIgsIQWyY
+	 K4vutVLqYlfCO+n5AiGmdU6Q0jrZNc50d3gRc+FMCAPC9DsysUUWMB+d9aaG8Ryhu9ptW
+	 GJk9fW6iGuQpmQYVgoEW0Q9QkmlcPPxHmbCl3Yt7mgcDOaMxk7/2PVcFR9VeZ2CLVbZLR
+	 k92hfHhZDW8TpZvYrXpsIM2IfplYyH2ANaKXGqKaAxYzCNnkM9OjhFCkkHvnePyWmsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AffaDmK1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gaLRF7L5;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA909606D831;
-	Wed,  4 Nov 2026 23:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67FF606D80B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:02:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C67FF606D80B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AffaDmK1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCD91F00A18;
-	Wed,  4 Nov 2026 23:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793833361;
-	bh=faVYG+5p25QPZ5jO9MjUiu/Ltiks8UpOg4pXnPN3sY4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AffaDmK1nAJFIZOcKFXhI7ch/PjsnP05KdrAgKQZEp0GZxvC8P8mAoNxhBYDNJjgU
-	 nCAIj5t25AYXI9KGygKBLo5baE4wkhhsoEha81JuexT/xyEi2Zr++TchPgoCymcDef
-	 r3ZZBRICCyliFRdQW/gb90PWic3BEY1oQQr7xnQqhaFHMccTlCBhFJcSbMeieg7HW9
-	 rk8I8oAhTJS7C6RFfg5PrRSiDryhmpg4zNj1rs6IbOuwVLoj/CSHbkdY+4dccrv5ti
-	 SeaN5K5vRzV5lM4KNj4VXdDQKev+Wqm+CphEC4lmHL3H+WC0SN/q5UFVSJBoIGqEPj
-	 WRW4500FxKHNg==
-Message-ID: <fbcb650d-0f60-468d-b1cc-255ea8a93db3@kernel.org>
-Date: Thu, 5 Nov 2026 00:02:21 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gaLRF7L5
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9d7791b00so10735075ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:02:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793833367; x=1794438167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CNM1EYOlTzyNUEwxlK4YGo2GVC9yeplaVRpTfyoYgug=;
+        b=gaLRF7L5Pn9Uc2x+WXg/r17vuVl//0qrT+MvXxXnJ+mNRzTG2cr6PrK9/yQuddIeTU
+         DsJ5EDfxsR5k3gFLkw/LadWhPtpg0D8uZu7RtRv+4nLVHReASjUuXY1CJfbzbik6DqjV
+         qYYAsoV5aGXnBjRMbCL40V9XfFYPlddxvTnYCWSFpbKfNPqBVo+zdYe/GQHVXErST/Xy
+         9B//O5Sz2ADEgpEjg7Ht5MGiji/SUuCAMokd4c+1HhOvgfGGUdW+TNT1iv+8RZgpWpox
+         2Yf8NbEoDAm7sWqIXh1+lwdNmmN0m5rs2dXkWBY8Kh/gtHG5Q5LD4dS4wwVxz1Ll1LYG
+         ckxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793833367; x=1794438167;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CNM1EYOlTzyNUEwxlK4YGo2GVC9yeplaVRpTfyoYgug=;
+        b=qOKdsEs+gxklurzea+KGEpEt/YK9LKTQdQnOJX1FIZdIhCu8Yp8N1DZj8nihdS+XI6
+         UdSa5v+885DUQL0tWM4IzZHa6odEs0rrp87saG8YvaDuGzBArJhjN/kW2q6Ohw2+eVdw
+         UkOIuUQIhaIgIFQ57pp6vIKPcuNXNvDLLE1ZC28VjudaE/4OWtUNxEI9zNd/qq/tNFMT
+         e3SJIxRu4VLSgE/xyqy0TrloHwgwi3COiE3dZrJDmm5ntY4EIKXnaynAZLvJRaIHMrk6
+         rkn/nmFjnbMkyHLW/6HWJn0G9MstS9vZUXgwVtxzNPxdpll3R9u2SDzUS0QkpMl9RQWp
+         fh/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwR95MMd0SCHpwwyRFwyyCMnt0CZigraOCwJFMPbyKUZW8EaXWRs7aSZDPRJeb4VH/7yRv5DnY95teT68k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PIFmUeKmXUd40/KZK3kUrkL39KKhj6TvACRAj6hMC+HLS9o1V
+	cT0l4eak3uupwh7MAcj6EZUWD4sNtFuEyvN3Wvf3ZnSz5ODZY4pfOdQB
+X-Gm-Gg: AYBFou1ulUMHTUjGaVpybl23vby+MA+4zJZtljtpptpGYgGfa0854ehgWRbTF7K9zhg
+	myAbB6F4JoZYT8C4UwXNsFqvguaryLS8G6NQxAJzqfwDmScBBQ7Q7KpYK9tpPb69/omX1Rv55P5
+	dexlnpXxG7ZBNGCvk2LEhSCiq0Q5DAhzfCw6M1whi4DSdbVGNgThJFeQWvNo03rE24SA1XZhcwi
+	mrcTsF6DX17ZkGfn3y46O1oMMAZul/cV4CugQV5lrYCNiipbtl/ZfiowDDgwVG5Qb6Z5bHqAUBS
+	ZJ2hhxKDyB7GzasQJz+/UerxTVXl7EoSCwcLxuzFTSegdIDNtTPa8SLFJncdyZv+V/Cta5PUuv+
+	ag+UGC6WGK2KgMjaDg3/2Hi7XOFS2s27/Ra+B1uTpgkOEBtZaTf1wYm4xGnyBetrVeSOPxObgW4
+	LrzE1y5VWEkSlGglSVpYj+ITY9WZD7pAqPsyEhz/6/g0hCt7RLaMcBmFFo0sAZY2GYjmtvnyGyB
+	r+AmX6MutkHevZPjX6Rv2ngqALbfp+15zXtzOsjVQNxPzVaAAJN4P0LDtV2tqars5MLkPG2S0vg
+	pNNi3bzEBzhLootpBqPfIgWnX9giOQ==
+X-Received: by 2002:a17:902:d505:b0:2ed:29eb:177f with SMTP id d9443c01a7336-2ed29eb17c1mr509575ad.13.1793833366944;
+        Wed, 04 Nov 2026 15:02:46 -0800 (PST)
+Received: from cxlqual.. ([220.120.90.131])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed0908587dsm10999175ad.36.2026.11.04.15.02.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:02:46 -0800 (PST)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+To: linux-cxl@vger.kernel.org
+Cc: nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ira Weiny <iweiny@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Fan Ni <nifan.cxl@gmail.com>,
+	Li Ming <ming.li@zohomail.com>,
+	Benjamin Cheatham <benjamin.cheatham@amd.com>,
+	Gregory Price <gourry@gourry.net>,
+	Richard Cheng <icheng@nvidia.com>,
+	Anisa Su <anisa.su@samsung.com>
+Subject: [PATCH v1 05/14] cxl/mem: Add 20 second timeout for stalled DC event chains
+Date: Thu,  5 Nov 2026 08:02:29 +0900
+Message-ID: <20261104230445.66625-6-anisa.su@samsung.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104230445.66625-1-anisa.su@samsung.com>
+References: <20261104230445.66625-1-anisa.su@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,143 +110,227 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
- Ryan Wanner <ryan.wanner@microchip.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
- <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
- <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Laxman Dewangan
- <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
- "moderated list:ARM/Microchip (AT91) SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
- <linux-renesas-soc@vger.kernel.org>,
- "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
- "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
- "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Thierry Reding <treding@nvidia.com>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <b656861c-a087-4087-952e-91fd15fadd52@kernel.org>
- <auuZHTvr5UI9Q9Q4@ashevche-desk.local>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auuZHTvr5UI9Q9Q4@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/11/2026 21:44, Andy Shevchenko wrote:
->> Andy,
->> These three lines look correct.
->>
->> LGTM:
->>
->> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-> 
-> As
-> 
->   Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org> # atmel-quadspi
-> 
-> Note, it's in your power to ask the author to split out what you maintain
-> to a separate change. So, it's your choice what to do, Ack the full patch,
-> give a partial Rb, ask for a split, ignore reviewing (often means silent
-> agreement when maintainer just applies that kind of a patch)
+A Dynamic Capacity event can span multiple event records grouped
+together by the CXL_DCD_EVENT_MORE flag. Extents are staged in the
+pending list until the last event record ('More'=0) is received, at
+which point the chain is processed. If the device opens such a chain
+(More=1) but never sends the closing record, the staged list sits
+indefinitely.
 
-The "# note" after the tag solves the problem partially, if people were
-actually using it. Solves people looking at the Git commit and being
-mislead by partial review applying to entire commit. Does not solve
-credits, because Rb for three lines is not the same as for 100.
+Add a delayed-work watchdog that drops the chain on timeout: an add
+chain is refused with an empty Add Dynamic Capacity Response (4802h),
+a release chain is left for the device to retry.
 
-From v1 of this patch, four people (Alain, Lab, Troy, Kunihiko) did not
-use it even though reviewing only part. Only Wolfram, so 20% of partial
-reviews, used that syntax. Without that syntax, b4 will pick up Rb tag
-like it was for entire commit.
+The spec sets no limit; 20s is a generous upper bound that may be
+tightened later, and guards against a lost mailbox response or a
+crashed fabric manager.
 
-So I do repeat - if one does not want to use that syntax, then just Ack,
-instead of creating false impression of reviewing everything.
+The deadline is fixed when the chain opens rather than extended per
+record, so a device cannot keep a chain alive, and the staged list
+growing, by streaming More=1 records.
 
-Best regards,
-Krzysztof
+Signed-off-by: Anisa Su <anisa.su@samsung.com>
+Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+Tested-by: Junhee Park <jh9934.park@samsung.com>
+Tested-by: Heesoo Kim <habil.kim@samsung.com>
+---
+ drivers/cxl/core/mbox.c | 84 +++++++++++++++++++++++++++++++++++++++++
+ drivers/cxl/cxlmem.h    | 15 ++++++++
+ 2 files changed, 99 insertions(+)
+
+diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+index 3acf5ace48db..fea910e6c510 100644
+--- a/drivers/cxl/core/mbox.c
++++ b/drivers/cxl/core/mbox.c
+@@ -873,6 +873,8 @@ static const uuid_t log_uuid[] = {
+ 	[VENDOR_DEBUG_UUID] = DEFINE_CXL_VENDOR_DEBUG_UUID,
+ };
+ 
++static void cxl_cancel_dcd_chain_work(void *_mds);
++
+ /**
+  * cxl_enumerate_cmds() - Enumerate commands for a device.
+  * @mds: The driver data for the operation
+@@ -891,6 +893,16 @@ int cxl_enumerate_cmds(struct cxl_memdev_state *mds)
+ 	struct cxl_mem_command *cmd;
+ 	int i, rc;
+ 
++	/*
++	 * The DC chain watchdog sends a mailbox command when it fires.  Register
++	 * its cancellation here, once the mailbox is usable, so devm runs it
++	 * before the mailbox goes away: in cxl_pci the device registers were
++	 * mapped before this point and are unmapped after the cancel.
++	 */
++	rc = devm_add_action_or_reset(dev, cxl_cancel_dcd_chain_work, mds);
++	if (rc)
++		return rc;
++
+ 	gsl = cxl_get_gsl(mds);
+ 	if (IS_ERR(gsl))
+ 		return PTR_ERR(gsl);
+@@ -1198,6 +1210,14 @@ static void clear_pending_extents(void *_mds)
+ 		delete_extent_node(pos);
+ }
+ 
++/*
++ * Bound on how long the host will wait for a device to finish a
++ * multi-record DC event chain (More=1 ... More=0) before refusing the
++ * chain.  The spec sets no limit; 20s is a generous upper bound, the
++ * maximum GPF timeout.
++ */
++#define CXL_DC_CHAIN_TIMEOUT	(20 * HZ)
++
+ static const char *cxl_dcd_evt_type_str(u8 type)
+ {
+ 	switch (type) {
+@@ -1226,6 +1246,11 @@ static void cxl_dc_chain_abort(struct cxl_memdev_state *mds)
+ 	struct cxl_dc_event_chain *chain = &mds->dc_chain;
+ 	struct device *dev = mds->cxlds.dev;
+ 
++	lockdep_assert_held(&chain->lock);
++
++	chain->armed = false;
++	cancel_delayed_work(&chain->timeout_work);
++
+ 	if (chain->event_type == DCD_ADD_CAPACITY &&
+ 	    cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
+ 				 &chain->pending_extents, 0))
+@@ -1234,6 +1259,43 @@ static void cxl_dc_chain_abort(struct cxl_memdev_state *mds)
+ 	clear_pending_extents(mds);
+ }
+ 
++static void cxl_dc_chain_timeout(struct work_struct *work)
++{
++	struct cxl_dc_event_chain *chain = container_of(to_delayed_work(work),
++							struct cxl_dc_event_chain,
++							timeout_work);
++	struct cxl_memdev_state *mds = container_of(chain,
++						    struct cxl_memdev_state,
++						    dc_chain);
++	struct device *dev = mds->cxlds.dev;
++
++	guard(mutex)(&chain->lock);
++
++	/*
++	 * handle_dcd_chain_event() cancels this work non-synchronously (a sync
++	 * cancel would deadlock on @chain->lock, which the chain-close path
++	 * holds), so a callback that already started running can reach here
++	 * after its chain has moved on.  Abort only if a chain is still armed
++	 * AND the timer has not been re-armed since this expiry fired: a new
++	 * chain's queue_delayed_work() makes delayed_work_pending() true,
++	 * meaning this expiry belongs to a superseded deadline and must not
++	 * abort the current chain.
++	 */
++	if (!chain->armed || delayed_work_pending(&chain->timeout_work))
++		return;
++
++	dev_warn(dev, "DC %s chain timed out\n",
++		 cxl_dcd_evt_type_str(chain->event_type));
++	cxl_dc_chain_abort(mds);
++}
++
++static void cxl_cancel_dcd_chain_work(void *_mds)
++{
++	struct cxl_memdev_state *mds = _mds;
++
++	cancel_delayed_work_sync(&mds->dc_chain.timeout_work);
++}
++
+ static int stage_pending_extent(struct list_head *pending,
+ 				struct cxl_extent *to_add)
+ {
+@@ -1260,6 +1322,8 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
+ 	struct device *dev = mds->cxlds.dev;
+ 	int rc;
+ 
++	guard(mutex)(&chain->lock);
++
+ 	/* Chained records share one event type (CXL r4.0 Table 8-229) */
+ 	if (list_empty(&chain->pending_extents)) {
+ 		chain->event_type = event->event_type;
+@@ -1279,9 +1343,22 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
+ 
+ 	if (event->flags & CXL_DCD_EVENT_MORE) {
+ 		dev_dbg(dev, "more bit set; delay processing of extent\n");
++		/* The deadline is fixed when the chain opens, not per record */
++		if (!chain->armed) {
++			queue_delayed_work(system_wq, &chain->timeout_work,
++					   CXL_DC_CHAIN_TIMEOUT);
++			chain->armed = true;
++		}
+ 		return 0;
+ 	}
+ 
++	/*
++	 * Chain is closing.  Disarm before flushing so a pending watchdog
++	 * (queued but blocked on @chain->lock) sees !armed and bails out.
++	 */
++	chain->armed = false;
++	cancel_delayed_work(&chain->timeout_work);
++
+ 	/* Nothing is tracked yet: refuse every add, acknowledge every release */
+ 	if (event->event_type == DCD_ADD_CAPACITY)
+ 		rc = cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
+@@ -2021,7 +2098,14 @@ struct cxl_memdev_state *cxl_memdev_state_create(struct device *dev, u64 serial,
+ 
+ 	mutex_init(&mds->event.log_lock);
+ 	INIT_LIST_HEAD(&mds->dc_chain.pending_extents);
++	mutex_init(&mds->dc_chain.lock);
++	INIT_DELAYED_WORK(&mds->dc_chain.timeout_work, cxl_dc_chain_timeout);
+ 
++	/*
++	 * The watchdog cancel is registered later, by cxl_enumerate_cmds(), so
++	 * devm's reverse-order unwind cancels (and waits for) the watchdog
++	 * before this list cleanup runs.
++	 */
+ 	rc = devm_add_action_or_reset(dev, clear_pending_extents, mds);
+ 	if (rc)
+ 		return ERR_PTR(rc);
+diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+index c88de7cb65d1..52c936ec15a9 100644
+--- a/drivers/cxl/cxlmem.h
++++ b/drivers/cxl/cxlmem.h
+@@ -8,6 +8,8 @@
+ #include <linux/uuid.h>
+ #include <linux/node.h>
+ #include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/workqueue.h>
+ #include <cxl/event.h>
+ #include <cxl/mailbox.h>
+ #include "cxl.h"
+@@ -431,6 +433,11 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
+  * struct cxl_dc_event_chain - staged Dynamic Capacity event chain
+  * @pending_extents: extents received so far; flushed when the chain
+  *		     closes (More=0)
++ * @timeout_work: watchdog that fires if a chain is opened with
++ *		  CXL_DCD_EVENT_MORE but the closing record never arrives
++ * @lock: serialises updates to the chain state against the watchdog
++ * @armed: set when a More=1 chain opens; cleared when the chain closes
++ *	   (More=0), is aborted by cxl_dc_chain_abort(), or times out.
+  * @event_type: DCD event type of the open chain (add or release)
+  *
+  * The records of one Dynamic Capacity operation can be chained by the
+@@ -439,9 +446,17 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
+  * chain is open at a time.  Both Add Capacity and Release Capacity chains
+  * are staged here, @event_type says which.  Records are staged until
+  * More=0, then the chain is processed and responded to as a whole.
++ *
++ * If a chain is opened (More=1) but the device never sends the closing
++ * record, the staged list would otherwise sit indefinitely.  @timeout_work
++ * is a defensive watchdog that drops such a chain: an add is refused with
++ * an empty response, a release is held for the device to retry.
+  */
+ struct cxl_dc_event_chain {
+ 	struct list_head pending_extents;
++	struct delayed_work timeout_work;
++	struct mutex lock;	/* chain state, against the watchdog */
++	bool armed;
+ 	u8 event_type;
+ };
+ 
+-- 
+2.43.0
+
