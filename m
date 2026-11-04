@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827206;
-	b=MN/bZTJmMUMA3tezfnpqxOd6oFRHmGl0WxRGXCswjeWEeZme8dCBw14/AbWeYP7T4fn+
-	 mfuiHxaoJUrtQv3OspXPxM7juEI9TnRal18yYAyTzrDgtzH559srsHszNdsBIDkKlGnx1
-	 mtX+POev2BYX3qPAzRD6OFtblymXAL7XgP7I/SYZy1wkobcnMUmzSbM5jvP2PMIiBpgRo
-	 l8mzd4SI62vvyghhydNdnizGN5HpnzK57RLsacFRQhkDLShCbbl9h6i7Rk0X6J1b9ndDs
-	 9wX72rYiYYFfUtMqTEFe5NTopKlrl9ZMsgzxMIjjiuYnk1pStUrXeMKd9rTG/tyX5qQ==
+	t=1793827225;
+	b=4kSR5TjvVWOlJhQ+AT7E3ORlT+Qy5sv9f8L+289XTCipkogVm0Wz1l2L/Y2xnwDIQ3oU
+	 f7zSU2DFAGEVpBcoAUxiVRctjAM1BU5x/eItXC4Gf9gElVSg/ZSYpBNtCAesINNJggpFv
+	 A5YYqKf4EK2N3YEE66IFjiVHV8RYGjTnbhq1oJBbu2QIBkxyu05W6dJZb4CbzTUIdEJLL
+	 wMqdGMWIKF5mWJI293w4cEnPq64dyocxb4AaZO5dWWozoHsPVmMBN0myvvJe+WuqEidjc
+	 7W6M43KnGXWqP9cOVspk/Kc31qd28sdoUr3K2W1ymk/t7obXVkP3rgVYBqGJzQihQ/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827206;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=UEo2NWoGyE8ES2/cBdC2d8fMHRdabnSxMHMTsK/eZ/c=;
-	b=U3PzhK72lcWOhjptUo0+nqgOGEc75jEqTKGCveUaCJB7GOh2uWDRhnVQCITB+MSycM/S
-	 J9Ca40Y44lhDoZ5RXR5GPw1WbhjHYzat5b1HC0PTzpp6ShyIJvu1hJI1CMntjnvYo/Rqp
-	 50nMD1NgnRJbakiQMVMu4bfoTIFhDSFqliE5AYlrhCyT+6YmQeGPsenIeTDdGWa3M2ahf
-	 pPnkKt3Dxqa9EVfZ9WXDi/KTI/V8mCZzyeqbCJfNVO7VtfDf9BFdF6sCalP4mw1nmcT3I
-	 F3x4rihSN8+j5EfDq7BL+T4/el1veYNn+IuDWKyisx3lcbk2jezxImADYvyYkjzvwaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827225;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=FrGxsTdCdc6qgTFxU8Grw7WOtNLPMD9rEo6YljyHB+s=;
+	b=EKouK8T4PbJemTp454NIBsGapdfQ1NGQL6iBYpDzsm9cFItJaqPR+TmSra0hMWqy4v5V
+	 hcLyAG+ljMwEU9N9g1KKsoxnjoYy3fvRmQv12fL4wx48X1x5gesiHavjONcDn+gbfEKdX
+	 TJJ85b7CN+Azi5icCVPWDz6Bex7m0vHK2ew41AAbX3viYAdAQHC7VP6oxGOWe3ySdlsFt
+	 k9VC0IzQt4wbLtg9s7zhRtmuhddbyK2VqRvOI/sCbC89VWCX53D1mv9enfEOlxL1YG+SQ
+	 C+AD0qddpEDvdnK9WHwukSB+s312xZd6gYPIR0LIYZlaCC7YeVU9bnaClafLe7TNo6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOrx4Aa2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=HeP9FOMs;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC5B606B2C5;
-	Wed,  4 Nov 2026 21:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1250E606B3B7;
+	Wed,  4 Nov 2026 21:20:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1250E606B3B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOrx4Aa2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C78BE1F0093A;
-	Wed,  4 Nov 2026 21:20:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793827205;
-	bh=UEo2NWoGyE8ES2/cBdC2d8fMHRdabnSxMHMTsK/eZ/c=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=fOrx4Aa2LNpVlorhvzEapOUohcPAjK1dCYbxWzBtm+SkxS8CC2YYCh63Ug7ZihNXM
-	 H3qO0jOX4VmS3bHWCLIKIg5kQltwvhZgFvD51Qu6bbDYD/eyLxHr6T34OqK/rEnoUT
-	 WLgFgYAjCuc3x2T7PY+q5zx9CnzRGUAL5EzQnarxFBxstO0T0CsmIGUPNPwPT2cGKd
-	 1bAQ6KNac2QGwGGx+C2PIRP3JyWDekIAs0qMH+EAWaOfWg3K/8vFtaIfD1yhJRAiCG
-	 JSAHLWvOhIFCzqxkG6dljk7zfPJHXbRT+Drx3D50+07l3c7k8d/SnK0tShtqHm5O0h
-	 Lc1lv3w8nvc9Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA342380047F;
-	Wed,  4 Nov 2026 21:20:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=HeP9FOMs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=FrGxsTdCdc6qgTFxU8Grw7WOtNLPMD9rEo6YljyHB+s=; b=HeP9FOMsIlnnGHHsw7JD43qbbu
+	J0BnErIZWlaquTZA0D5oTIOvfjqcim6xuRF645y43YhyparG1rWp9bZP4pb3jx7LojQonCBgs0lEy
+	uBFAvDZxgrUQeMKAdZmbb39QhjxtV5Ks9uSnNO/ksYJ7UfeJjpsVA/JJ4HskyP8utCeM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOiP4-00EOFu-4K; Wed, 04 Nov 2026 22:20:18 +0100
+Date: Wed, 4 Nov 2026 22:20:18 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: BeaCox <0xbeac@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 0/3] net: ethernet: disable async work before teardown
+Message-ID: <d1c79ee3-a0e6-4835-8c0f-88744fe29715@lunn.ch>
+References: <20261104063245.23402-1-0xbeac@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,49 +64,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] l2tp: only return sessions of the given tunnel in
- l2tp_session_get()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179382720463.3223324.16769779750927973517.git-patchwork-notify@kernel.org>
-Date: Wed, 04 Nov 2026 21:20:04 +0000
-References: <20261030032617.4065353-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261030032617.4065353-1-hengyul@cs.unc.edu>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, horms@kernel.org,
- jchapman@katalix.com, tparkin@katalix.com, gnault@redhat.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104063245.23402-1-0xbeac@gmail.com>
 
-Hello:
+On Wed, Nov 04, 2026 at 02:32:42PM +0800, BeaCox wrote:
+> Three Ethernet drivers free the netdev while an asynchronously queued
+> work item can still dereference it.  The queue sites and the handlers
+> differ, but the lifetime rule is the same: stop the producer, drain the
+> work, then free the object.
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+No need for a wall of text nobody is going to read. The commit message
+should be terse. Please tell your LLM that.
 
-On Thu, 29 Oct 2026 23:26:17 -0400 you wrote:
-> Commit 5f77c18ea556 ("l2tp: use IDR for all session lookups") made
-> pppol2tp_connect() and the netlink session commands find sessions with
-> l2tp_session_get(), passing the socket of the tunnel they name.
-> 
-> L2TPv3 session IDs are unique per network namespace, except that
-> sessions carried over UDP are only unique per UDP socket, the socket of
-> their tunnel. However, l2tp_v3_session_get() only checks the socket when
-> another session has the same session ID. Otherwise it returns the
-> session, whichever tunnel it belongs to. As of now, a session command
-> that names the wrong tunnel acts on a session of another tunnel, and a
-> PPPoL2TP socket for a second L2TPv3 tunnel fails with EEXIST, because it
-> finds session 0 of the first tunnel.
-> 
-> [...]
+Do any of these problems bother anybody?
 
-Here is the summary with links:
-  - [net,v2] l2tp: only return sessions of the given tunnel in l2tp_session_get()
-    https://git.kernel.org/netdev/net/c/a75facf4bb3e
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+If not, please target net-next.
 
 
+    Andrew
+
+---
+pw-bot: cr
