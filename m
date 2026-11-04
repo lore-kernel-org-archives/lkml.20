@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785840;
-	b=vmB8QyJiWbp9Szej03wOjtRQ6lAsiwS6/CzTUl/xumj+BcL50pVF7nqszIGLAn+D9ary
-	 jU95PPNL54iwbuQRjlTNK/lONnFpgSlM/CleWvPC3SWuSGo85hG/K0bFnFwo+xzVUaOjX
-	 jzrrjyNuXg6EsTET0vzXWd70Vn/4V4MWDxqti5ACokIhnsYQLaZok5+LfCuZNVXFDrttY
-	 z4PkSUrnkhhNq4DzzUKtgFEUBp8ifmwP9OECR3kb0iDO/zncDZT87xJypgtrBZbxe42ah
-	 4N7S94fjIZN+QWsLn9zq1S1WxbUlVa5EXzgTfxRPSTyI3o5soCIZkdHbz2VnN/Z1liA==
+	t=1793785866;
+	b=i5GoVMY4uz/L6R4MmQ7Jf++skaZgNgNt0rMw61g6vabdH/gwEnMINeH6DVGNWQcj16ui
+	 vK+ZQJTZQC/hCk0oyP0IhG4/r6ZgWC+1gQkp9tzsflFdSd94oFHAOlxks6SVyZqQSj0xZ
+	 7dowsWE/QBu+3AAoCUdapKMjEKP52PDH7CoIrbTq8DGauoRBg/GT9sO/BBINx4o+QKjZb
+	 ZM8Kn7uBESr5qVyssJIBzaLzO0e8Q9ENLgb4bMuU7GiUKmDJDBcaHlUCWC9QYbyZ1n7AP
+	 jLedAzL9R+KBno1UKuFVTMSXmXBdIhEFHeAzca9bJRb8hqPPIq+UEnf9w61cwb5U5NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785840;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=2WqyN61e0h3rhP7eUH1YLO5Fbcnfgh/28o3d/pTv+tQ=;
-	b=a7yj7MRXQrtl63qpQrori6g+LNLC5VpFiWRtws+LRWI7LMBZIXAnkFM+x0RKam48PF0i
-	 4L+V4CtvKUGqGzLfCW6hkYUgOhKyps+5vMLJH3sH4hwS0yjYORrFMpaAyQp9E+wem0lUd
-	 sHl2qxFOOURDUd/Zl7VrkbTMfWz+r7PoxIgjOf/kS/efyPU711TLrQGv76dJF+QGsZJCZ
-	 7ZyWpc+TEE1ejcSRCz31MXSzrIBQUExzO98sAPRO+rZBURzfe9J7emZV4/n7f2ZYxTsc/
-	 SjE1fqGOte3FDIfpqsZrgXPHzrNjxhVzYlqizjmotsng1m376qL6yFGNM7V8fmVKDrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785866;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:Message-ID:To:Cc;
+	bh=iMXe8C7daPiBSG8ju/PNDegLRf9dJOdMxFUB3wDGg24=;
+	b=eJHUGn5FjkENfENHzuBvEtQ/KpC1TgQ7XtIiRdwaX257a08eKS3l1rFDzdsKOQDkkPeN
+	 ObZIifa+O39RweuUgqVtNHqXWhHlGy12I9acfwnE69NdmptvExwf7K8hYNIB5ZZCj0Yzf
+	 VuaA2ngIkjpj/IFh60r4iLEPSC/Zb4oJN1T2f1dqxvfRdckOGKIs/SnzPhkZr50SMBcnE
+	 DE6xuQqku6D2Bdt+RLB4tZUx+bBOvM9xIn4TROQVOeKOhvQ8XsED+RwH4rCsyfnBaMDpV
+	 NwxJGsgwNIf7GBZ3DgswD80RY9KIoljInsZca3ujphYpWkiIppP9U96pYVmQTJf4h1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SUjNUPRf;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A4id2crq;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8954B606A326;
-	Wed,  4 Nov 2026 09:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8954B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A35606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80A35606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SUjNUPRf
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48Ktm3715369;
-	Wed, 4 Nov 2026 09:50:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=2WqyN61e0h3rhP7eUH1YLO5Fbcnfgh/28o3
-	d/pTv+tQ=; b=SUjNUPRfNVnf3ow9ISmJZKlfALSbGWRnAkL1WsqOO3TATzg6ays
-	0XjRoiExo3D+sRZ6n/SwrmeyXUfq5y2gS3cDG6GkAXcOWXl4SuKXu94VRxcXvvtA
-	ugdaVGXmhzsijgVQQ7h9NDoHxHYIAWxR6Yf2JwI38YUePP04AGsNyS1X5PsafMJg
-	hG70F6OcSdLuyY2iogwwRNr4ibhCCmFk4/C4XlNfx7ULQj/jcTOzlKODrvg9mEQO
-	lYpgjXXTsWqJdSU4/U5uFNDbV9HCBIOljC+O6MMV7+WFHDgn5cYX4izB48hKS0Qu
-	9C/SIsRGwLauH9d92GQAbzGLEbBsHnFq6Tg==
-Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8y34a8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 09:50:34 +0000 (GMT)
-Received: from pps.filterd (aptaippmta02.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A49oW1W2779018;
-	Wed, 4 Nov 2026 09:50:32 GMT
-Received: from shuaz-gv.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 6A49oVwR2779009
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 09:50:31 +0000 (GMT)
-Received: by shuaz-gv.ap.qualcomm.com (Postfix, from userid 4467449)
-	id C1AF4693; Wed,  4 Nov 2026 17:50:30 +0800 (CST)
-From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-kernel@vger.kernel.org, cheng.jiang@oss.qualcomm.com,
-        xiuzhuo.shang@oss.qualcomm.com, wei.deng@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-Subject: [PATCH] Bluetooth: hci_qca: WCN3988: Drop baudrate change vendor event
-Date: Wed,  4 Nov 2026 17:50:26 +0800
-Message-Id: <20261104095026.3414666-1-shuai.zhang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A4id2crq
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a3c08d6928so753895c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:51:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793785866; x=1794390666; darn=vger.kernel.org;
+        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iMXe8C7daPiBSG8ju/PNDegLRf9dJOdMxFUB3wDGg24=;
+        b=A4id2crq9enniV0UEe3S9PcM2zqBBo9lolzKRqBxWkkFhSroIRB6fWgZVTnteGNHNi
+         ozVKgo3tKzysoauI2Zxv8cbyxMiSRMwC1xJkBIG5DSJpuumzxgrUXlgD3i+y+dKkiSha
+         pjY+4g62GUY1yiupYvzTn95vOFslgSEVVQMgULbGCYoiLBeZwSwU34HebA9vZ7WYAGcu
+         LvC5cO3kx0Tn52MIdi0YOE1ess7iztzEDapLM017J9LZMaAQARbFyJe4Nqua/sDOkZ/u
+         TVc54KPqUdu/ES3sPg9KOA5K+VxecyTwyXdYvYMiMB9u0XTY2fk+NZZsBOexV/gM1v4U
+         TfUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793785866; x=1794390666;
+        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iMXe8C7daPiBSG8ju/PNDegLRf9dJOdMxFUB3wDGg24=;
+        b=QSmCWruL++gsLajUV9OYsg/aLKDUJ5toXCzIzXLvPCmaLsLugA7BHj79lWNCrHEbRI
+         riXSXdc/N7L3Fkz4iLWGM+hdOH4P0tdANJpp2wSMUx2Uw3DqF98AkO4RY4g5qTZcAMPk
+         4pY0j0YQiArO9Vlv6EivWwR78tImLMXXbTDaOYAZ4PSZI840iJpHQi+ASG6CL8tsz4qE
+         6qtRF8gWu+Eer1qQ0XxJLvUjVw/FV5ArDJj9weeOHAq4DHyuF9I2C0m8aPGvVF6JVlJM
+         Z1bhbLAnZ2LXCBWWqYzuppBC73hOOCr4rJTv0+MfIgLK+4hEBWh6Rv6wJYkwLohhy47H
+         T9Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBzY0l1gpddt7EMclInk8dhH9vJotq2jXxmYrVYJgFIuLpZrqrBwh5/dxau/7zwCx9OAr0dFi+SkZWRM7UQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/J48qIsakTMQAu5yTZhYKtfCRQBvPOyi01QnyFRPbRIwEyuxHt
+	CAjh+Fzce4szqIgwwWKELEmJLOKTp/Q6FSqNK1ld+VUnKMOcbOiYfS9n
+X-Gm-Gg: AYBFou0IR3L0MIAFR9eYpze0KdjucUAmlsp0U0REwjMH3GFmEwdnhmRWKPGz9ROmeTv
+	OjXcBDFB+pOzx7C/Fo7WTwSmsnyBPu4cSMmVR+8/gQGaErjyzMzKLMxHpDlOiKVijcV5/wUVGVn
+	o6q3rPIh3AFUkE6t6hdyvppqrAbwgIHGgf7R0Mu6TnrwhKA1kVbibX5oSPJBgMLHSyC5ErkWkgl
+	78nD9LhffS5USMnxH3Ms+qEvwPDbkjQsxyMX+mP3u7YUit7mYQxGuPA0rCUd2EAFTecMq4fJGW7
+	ef0mthPpmm6YeoXtdfQRjmKARUxXBze45S1fLicWEi8FalqAnk/zTbAxrxNaxmas7y88AIvDyIo
+	cTN8q4t1ubtGXQpLWEPEqDUq74hR9cJgaXYtIWsavaY7EWUAr67c0H0pOTi/zCCSlwzvPjx9Rh8
+	3Nx+CgDb1t1JIM/wCg9ESFsQR6WFl91buCjLJZI+IlHunUwAd91T90yl13ppFoI8iAEWQkVOXE4
+	lyXNMixQdYLOyiI2zhMMykSawzBCobgplFyokCOLZ6E7xXq5sRVrC1JFrw6nryVenHwy/5gI2gm
+	FoSvVvWmv6cu9hWF+qcwK/7WBqCus42lLu1erBqAVw5GB+q/ZRVnxEkL8Ej8YHmjgYw=
+X-Received: by 2002:a05:7022:b047:20b0:16d:dd5c:4261 with SMTP id a92af1059eb24-1ac5e6f4e87mr24922994c88.46.1793785865246;
+        Wed, 04 Nov 2026 01:51:05 -0800 (PST)
+Received: from [127.0.1.1] ([23.247.137.158])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c463e9sm6536137c88.14.2026.11.04.01.51.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:51:04 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+Date: Wed, 04 Nov 2026 17:50:50 +0800
+Subject: [PATCH] media: v4l2-mem2mem: cancel job work before freeing m2m_dev
+Message-ID: <179378585020.73536.6089775766038265997@gmail.com>
+To: mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org, nicolas.dufresne@collabora.com,
+ Frank.Li@nxp.com, ming.qian@oss.nxp.com, dmantipov@yandex.ru,
+ 121811682@qq.com, ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,77 +92,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: eigcZJOtxqXZztVLskJu6sJxQG0FYcNg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzOSBTYWx0ZWRfX1yrag7wsF1jT
- CXQtByrbG3ozc1adaszT3qvQH3S5LqMz0+kAPLQyRU0Byoxg0dMWHRUC51U4bAJeruUVp/joVUH
- guDcugYSJAi+03vhW0pvtpk/YoDXoN46r6+wG64ak93MQvDkASYsE081VHdiRvxBrlzNUOsZ1Xy
- Z6BJSpOVHFq2cjLVMJNAf/PjyvqrtxUSTpGFSPtcsFEz+1j0NY9ATKb19rgtOmRUCQ8vUrXVFXd
- eQhuKh8uvtFb27InfhDpEts2QjH7hTc2hp6F+qybZaMyy5ONOw32MOdR+U0emTBeeNgWvpCGfFT
- B0vxZ3OC1Lm8+lmSiv8HkYLh/9kH9wX1b3I4EtYgOlYIiULnAV9GBoIetq7+Rz9AEsx8azWBxfA
- Va5LrO0NP5KQNguldX7Tl2+srS/1QOGXfzoy40+JUQk/oKwaaivPwpsJJpuCubKya3Ci7c43qDi
- HYarp16GzpUeey+xPWg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzOSBTYWx0ZWRfX5dOFHKn0Ce6D
- XnC8H9KJ1JqKaWdu9F4y+DxbuSkfNBsx8Laln6314yipXG7/XnHkQ9M1CEOPWDjNbJbGtzlnlO8
- qomQXoVaLdYwv9nI/J1UPSSapyXGh5I=
-X-Proofpoint-ORIG-GUID: eigcZJOtxqXZztVLskJu6sJxQG0FYcNg
-X-Authority-Analysis: v=2.4 cv=NP5AaE6g c=1 sm=1 tr=0 ts=6aeaffea cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=QDeELHPiMCJVZ61WT1IA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040039
 
-Firmware download on the WCN3988 sometimes fails and is retried:
+v4l2_m2m_release() frees the mem2mem device without draining its
+embedded job_work. A job completion can queue the work while device
+removal runs, leaving the worker to access a freed m2m_dev.
 
-  Bluetooth: hci0: QCA TLV response size mismatch
-  Bluetooth: hci0: QCA Failed to request file: qca/apbtfw11.tlv (-84)
+Cancel and wait for job_work before freeing the device. This ensures
+that a previously queued or running job worker has completed before
+the memory backing it is released.
 
-The vendor event answering the baudrate change command can arrive late
-and is then taken as the response of the last firmware segment, which
-waits for any vendor event. Its length is 2 instead of the expected 3:
+The use-after-free was reproduced with an in-tree V4L2 test driver
+under KASAN during stream teardown and device unbind; the same
+injected scheduling sequence completed without the report after the
+change.
 
-  < HCI Command: Vendor (0x3f|0x0000) plen 220    (last segment)
-  > HCI Event: Vendor (0xff) plen 2
-          92 01
-
-Drop and wait for this event on the WCN3988.
-
-Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
+Assisted-by: ZCode:GLM-4
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
- drivers/bluetooth/hci_qca.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-index 7089e9b63..4d502ee82 100644
---- a/drivers/bluetooth/hci_qca.c
-+++ b/drivers/bluetooth/hci_qca.c
-@@ -1521,6 +1521,7 @@ static int qca_set_speed(struct hci_uart *hu, enum qca_speed_type speed_type)
- 		}
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe0..c4756e7bb1fb2 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -1207,6 +1207,12 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
  
- 		switch (soc_type) {
-+		case QCA_WCN3988:
- 		case QCA_WCN3990:
- 			reinit_completion(&qca->drop_ev_comp);
- 			set_bit(QCA_DROP_VENDOR_EVENT, &qca->flags);
-@@ -1556,6 +1557,7 @@ static int qca_set_speed(struct hci_uart *hu, enum qca_speed_type speed_type)
- 		}
- 
- 		switch (soc_type) {
-+		case QCA_WCN3988:
- 		case QCA_WCN3990:
- 			/* Wait for the controller to send the vendor event
- 			 * for the baudrate change command.
+ void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+ {
++	/*
++	 * job_work is embedded in m2m_dev and is re-queued unconditionally
++	 * whenever a job finishes; wait for it before freeing the device.
++	 */
++	cancel_work_sync(&m2m_dev->job_work);
++
+ 	kfree(m2m_dev);
+ }
+ EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 -- 
 2.34.1
 
