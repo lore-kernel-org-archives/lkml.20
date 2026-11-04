@@ -1,191 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793783042;
-	b=Oe7o650YYlnfLZ5ke83k6sYwilIYtiOS9FWoTt1MRrejRE0f0G7LS3NgSm4JGnDznAnc
-	 Q2c99nMGq8RIiu7H0D9zkqhyw/3QT8Ij/Os+dceSj1uRjMR3J/xRvVIIjebjOETpXLiNG
-	 vnMuBsrt8offV+VmKBenyuMYqZWpFJMGnXp1shdmQbzUrNxat0Hf/kB5Y3vr1Ro9A2lJJ
-	 +Mhe8CouRi9s51AuLqHe5KvyMiT+XVetcErPIKsYl4fmgP2FL9zG9TFL1Iotkhyjxf/5m
-	 aYjhM5GNrQpTEhGQX8VEbcPQ4dMqQa3H7+iUAYTS+GLDAvC0vU4bcpGc5I/fr9ZXZAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783042;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=sD4pqzlNKG4lY5OmuZJboKbJCO+fBAQR2KODRTVSJAU=;
-	b=3gT928ppl69XSDKtPMxks6D3jgunxBBY+x5S6AQLu8ltSLR6HJ8flC86RgjKzYTY6XQf
-	 771o8rUE8IdSlNUA2L1rX5KpRCNVIGLA23frmpXcbeow3U3E23Ag6cIXB4bQxXNx1gTgG
-	 3j650zB/onD4QS1PQhqQB/oYvTGGGQoSQljrU3O3QiiXjfVLFufYqpNwTPg8qKZqH+yB4
-	 OpTyH7gSjNhnuOZK5sqV/MHF18OVmRy2yK3EpHsVg5JVvGrIhld+r4O4T/ZT7QtYX0qwD
-	 /wdSgeZX9EDEu+2EwFDODLubgSKXqb9RmwX2rBP1BhWkc3WQ4T3QRZuE1mCrhImU8iw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hej5lwDr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793783046;
+	b=J8krjHAhhmC7BD1RjZV35w1ck9kalfXmFbHN8uNCa/f70C1JgYkmWNDnimFP+yMIZXrx
+	 la5/Jl88oVyPPB8ig10q7KcwLlQ5rSqp+B2mqp6lfMG6JWtidwLilsQRe6iXrcCckbYZL
+	 oBNkw0RcOAE7YhNK7hZpdutXppHK/fJScD1qkQxAXUdEUS381QSRp29VX4Gp+i1bjrk7D
+	 rKagQzL99/3m0M8i8j3cleOcGIL7IpJxrL3Qx3sLS7wk7JUaaFWoboTuQffg2rD5b3sEh
+	 WAjucr2lT+ukVyfcIDtE25BT7bMW1MIXlEgFISO87CGoaVrp71Usl18wiZwBrDHr5tg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783046;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=CuQ+B9JkfUcZtLPB3R7ZhcX8YyKLeKZy/lDXJDIS0fs=;
+	b=l0CSPdLtxD0tN+vGLkBJ3RNll6eG+WyMjGBPK4CQplXEeUaGF2i86kxD4btF8xcskgZ/
+	 9p+K4BnU1FsAuXEa1M9SMF+SJeolPFXkAQVdvwJzUMhHno4SLaHITlo5d0dYtTvtC0ZC+
+	 Qa60vR37l13FOvSjrUgeFbkEt0XP0dMV8dP0gFYaLUP/roqDjJSKKUnTncLgrUh0na6SN
+	 EpZYfzrsyscIPYZ0mWG7lkFqk06CqooTmKqJwDxHsfIEZbISeOi47l/Sttj9nHGg/OcWz
+	 QMaBQZ6M18b5IGsYRK+oX+jyfeFlqEAI5wc9wDbyWxtVBSwM7CbzrbXl4ubRSvOX95w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fdr+95ZZ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M5VaYGCt;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ADD606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:04:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8ADD606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5CF606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B5CF606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hej5lwDr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793783042; x=1825319042;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=aiECsqPt1T5sLlHvypW4gLDhrxS8hkxI0eybsHyKT0c=;
-  b=hej5lwDrAREqNSp4oSYciCYOujrc5cF1svthjnpBP2DxnfFCXrnNf29p
-   0e6zrmDlwNaCHT8pBKQ0VfF418UbKLmB/c42P+z3O0nSJE7P2dIrKqxHJ
-   Z7cog5+cArAITKJlMJ0CUX6qbYj9uDemH+OHteG5iW2DtyRnooJqy7Uod
-   B6+dZ3aoMDhSzPigzQTZAERlF2piJU7UrZymkx0P8ybMEdDt9RBdYJ1k8
-   w3GuSLHY3MbPCsfx/u8b6pb1TAOWMpkC9ssrFvyIZdLJWsmcS0xuQBap5
-   WhTjRVDEWPs3mpXg8ZNIXlfVT7GSBmfAXc84iq3QE3943ipSDOFbtrYdM
-   A==;
-X-CSE-ConnectionGUID: 8Qu3/y7VSdGs9BSjKHY+Og==
-X-CSE-MsgGUID: cVb5P1nhS9CwT47gNpx0IA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2560493"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2560493"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 01:04:01 -0800
-X-CSE-ConnectionGUID: Y/lCPQUvToe/W7Qk8lJN6Q==
-X-CSE-MsgGUID: gFb2WVT5THKztqpNGep9uw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6551279"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 01:04:01 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 01:04:00 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 01:04:00 -0800
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.23)
- by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 01:04:00 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KJX6f8rud7O9nEfPDu082sV6P2p/pJdBppgj+yNgLo1d4ydjPWLb6/Q/1yhksnlO+vDIIaSm+VNmopVf7Hxjh70VPuOrUxZtfx2r1JCVUNwcxyRR50oc/+So//pyS7y35INNbNMbPgcUnLzkXWzAYnuJjR3lC0qF6iLhYyUSfjCapfI3ePxxWQyBCGfDklMYXN206cpe+NOmf8n6yjU/mluwqrfPGcf3rIfO/dMGKWkxygiLT2W3kEnu8C0vk5ymx3q2OI2SdTE/tHApZ3xBuJak/mG9ht7R73xJxjZEeFJuSXaAaF3s534ftqn9BmLLKsAQxkfq0z8mXRIOkMmdjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sD4pqzlNKG4lY5OmuZJboKbJCO+fBAQR2KODRTVSJAU=;
- b=LOdQu0H5cegsxVR4Q7kK0NsoMr5X6A8kb9HmTyuztAT5BkonS8iZTHG34OkOqgkXXNrJY62hobUjoGxnQzxhEoieFazZx/LkQs5FS1+4NgQYtECJ0JcjTGrUyIFraVZKY+ILooO7b02UL6Blm6M5NsRomBmXAs1bKhB1dC0IzrbxZBG1yhAJbjUJLKV5HQHc1NhTno4/FSJST2ykZA9m8U9pyeNk0/TmIzRmIb7N+pqKXsNYDCmK/CXLMD3IqHzNw3Mea0pOaLCgVrvlyn1JHw8ub2RkFI9G+wPUyhKqrwCfF3619utweYLm33kDXpGjTv9ePyE1aSpuwY7ddqPi9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
- by IA3PR11MB8895.namprd11.prod.outlook.com (2603:10b6:208:579::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 09:03:58 +0000
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 09:03:58 +0000
-From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-CC: Nikolay Borisov <nik.borisov@suse.com>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "Hansen,
- Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>, "Edgecombe,
- Rick P" <rick.p.edgecombe@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Gao, Chao"
-	<chao.gao@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>, "Li,
- Xiaoyao" <xiaoyao.li@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>, "Peng,
- Chao P" <chao.p.peng@intel.com>
-Subject: RE: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Index: AQHdS9rFOalajx5+oUCDkC5Yzlha8rb7f+SAgADtsWCAAEYrAIAAD4QQgCEPv4CAAAvfsA==
-Date: Wed, 4 Nov 2026 09:03:58 +0000
-Message-ID: <IA3PR11MB9136A0009B97CA34ADF74CF192682@IA3PR11MB9136.namprd11.prod.outlook.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-7-zhenzhong.duan@intel.com>
- <00a4b474-eb13-4caa-90c6-b9cabb1ec621@suse.com>
- <IA3PR11MB9136F32FBA9D830C48EBA968929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <2b73666e-d923-4042-b719-b9bdeca783c8@suse.com>
- <IA3PR11MB91365402E40953E928008DA6929D2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <aurq0V5ySfS5pSxx@yilunxu-OptiPlex-7050>
-In-Reply-To: <aurq0V5ySfS5pSxx@yilunxu-OptiPlex-7050>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|IA3PR11MB8895:EE_
-x-ms-office365-filtering-correlation-id: ed19dc48-fafb-42f8-5498-08df3a528fdc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|10067099003|22082099003|261102123227099003|18002099003|3023799007|38070700021|56012099006|4143699003|11063799006|261022075727099003|261026121527099003|261021121427099003;
-x-microsoft-antispam-message-info: xXzZOVr6uvAI4SiXihEeSe6RFAAtNRY20IEu43kNEZN948mCqI7cThT2pFUvxgyeddOa8wxdSxvGZmCDWxwtw6JsUWfYCJQUAECSZoBfSCBwvkffI1g4yxW3FEkI15a5y5SsyAByOdlW18HouzX3AxyQyOwF8I6evlFg/co53TfCooZBTDUYMsNYfxHJ9QeA6fcEMvZY1a1wnj/UmujIlHjGBpfKNYLL5rNKRU5Zj23FnXLdXIFMkns77Ilek7Q9Q7iK/VEvzMKs+VS7ngEgkDDhRsi6kfZxwDZ5JGiRM/u0mJM7h79gTmxvN7Ne/UFi3277n5BTxAaS7S0pCeS2gmfJKn2r80kDOfDd7AKm9UvxKwLsPFIUv3RJ335XRs5mRGqwgHxwH7aPj+E+HVyCVnMElvkhPyjzFyWH2/CSlInoclBfT8pXD49nFhtwMz4mI4mJFNMFm+p9ZMvQ4AHvDXYi0eeWfS4pfumWKrg/lKOEz2xYkRzJvyIyVWebgOieM/yir/kcm41IDvkBDXj7TUOWFYDRX0HCXwcSWCUhk/r6wK2r1stNciLJu9GO21bX2jX1miJPRnrZsMt0gQB+ON6mllaiH4rzlU5wVc4dbJmuWineBkLMD7nWtdI41+40dXgyLTPw2lgti0QnxD2+EXg2PjaJH3s4LX4BIuKF9qhoHXRMlF808yRSFHF2sHs9LPwRchAPb4AwDxjW04uiDa26BaUX27fh+pIE8DrvPIQ=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(22082099003)(261102123227099003)(18002099003)(3023799007)(38070700021)(56012099006)(4143699003)(11063799006)(261022075727099003)(261026121527099003)(261021121427099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bLltOAae4vn1Zw9EdXxl0uVjuw7NNsrh0EU/jCBLiPXg5+QMnGMFRSuWCiT1?=
- =?us-ascii?Q?3pYyCLlApOl1gwJdQ31NvN1N1CWAxxuy9F+2z/29XAf1sHce4tIVEEw9WcfI?=
- =?us-ascii?Q?kQPR+38zIwO9INbGFAkFmuE6go9WDosUdyHkPtKJvzKG+cYvePxsW/LreZqF?=
- =?us-ascii?Q?VvWTrtu1fPbVRqfK3H/4/bKMSzzuV90Xx3tRxEdoAT7Vc9nqoxUR5VkwEa7t?=
- =?us-ascii?Q?OsUCyzno94557GlGTn9up7HtQNtSvO+fvrGcMz6KsyW14mWZBdK+1k5pxqib?=
- =?us-ascii?Q?te0JM9qhMK+9X05I1gNbx/6Yh5Hc1kYVi/efNUl5PjlOC7aOawfggrbNXQjW?=
- =?us-ascii?Q?0VsXLOGTPn8RO1u4WD6dtvcmLIB9UNHIEe2il+KZ0zvNwX4GUWtV1dcr1y+e?=
- =?us-ascii?Q?ru+OItpo/TRbqAHDztPFpm9dlNbhUEDQoY4fAUJ5jiUzRfnnvm/9sFrQT1w3?=
- =?us-ascii?Q?iqeYjoCuDbsMYCiAlixciRAnIp0FhHMKfrCR9Fokb9N3Rum1ZifcMg79tCZt?=
- =?us-ascii?Q?in/s9IShFj23jkVjmkMb4YsP89XWpwb1TK4KC97K2bzk0jCgTMEJWCFhw4qh?=
- =?us-ascii?Q?IGhliios1vl18LnVMueLLYx2Fz95xN2q+iD1l7Ado4sjET0BkSf9ZmCAJaMd?=
- =?us-ascii?Q?tRC5Y2x9PYGg1kBXGzX6vO5c91XAz52I1aGZT1ybzYRA+Lszk1wrAvnAXxnT?=
- =?us-ascii?Q?1+BAFuKiq6mcSMU1D88NXzKUpfYICql8sL32dnWDsN40EiCtWmfpG7ZyBY9E?=
- =?us-ascii?Q?golqJh6sXImml7m9cL7ia3YWxzSzxCBna7zWzxCGoLqW8sQ8cig5DPLI3qLl?=
- =?us-ascii?Q?So7elRGURy4c+NFzg2DcYNafGLt3EDBQA+trM9pNQ+miDh79DWahk1BawJT9?=
- =?us-ascii?Q?cOoOqV95vZmoIPzf8fvMEriIzXq22VfldEGc3kp9PLyywCOdMUn5uE6RdZuh?=
- =?us-ascii?Q?dM+Yl+SRb6TAWZZVUoJrPgieN3JiZEksaH62OD4FhgHbJIU/xWebn05PT9qS?=
- =?us-ascii?Q?MNDqe/nrZWmYWFHyY9LY2YiC8hAF2bEZWyELfNafPX44jjyH7wHS1W0iAcjp?=
- =?us-ascii?Q?6UD/u8t7GxLHsCBdh+SdGbvIRlSqsfuQ9Tkuj+bU8035KJNpQw03dREPHLxQ?=
- =?us-ascii?Q?RLd9fWPzNTu+UNnUVp+FbJSgp7soo/T+ELhvOWGgGAAsKfkyFyK9yhN4Ns4/?=
- =?us-ascii?Q?+a5zJ0FydRkEagZ0/Fi3urH+slDjDDZoKhyFYuMDEkzKjNYoxbmSkZsAmQZe?=
- =?us-ascii?Q?3+E+vaFIHhu5DVP/LmTayWk6E+as6tf7DkuTrXKLss7XP16C1ZOfrVshAF9O?=
- =?us-ascii?Q?fSvhfxgnY0ns8PUiPFybSL8bs396MOc6dWHu8pwvbRuqdtCeBrR9QheRvp9f?=
- =?us-ascii?Q?CeKmHA1cmq33KCIBwfjeMYPUAhXBK81L0c/lqgE/NHJ8k+9HCXD8lJTvlJ/m?=
- =?us-ascii?Q?KwXODqYx9h42maQahYUCTxTNzlEI4gQE3Dsp/wXub581b6KEEwRBezTt7lhX?=
- =?us-ascii?Q?Qzhv4STEsVCUu2zk+iz7IGJPIHYIVwPBbQvcHWpA7inOuZM+nD8+UxqVbpjt?=
- =?us-ascii?Q?goiWKZIDXLSF389SA/WabP46wzjZCg6Z3c52PLni3fo4GRtGWHYtTZpRUIaS?=
- =?us-ascii?Q?frFx+jIbFuEQajhd1awRf5BKfY65iyjFPxw3FtdW54H9Ua/RdPA1LBXWV96Z?=
- =?us-ascii?Q?wXeboRM63EbZres7kRiwEZq2hMqp9mBv2USLrFZ44C5K0uRYrAK5y1jz8A8w?=
- =?us-ascii?Q?tNc0zffx8w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fdr+95ZZ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M5VaYGCt
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48Kh8L1264042
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 09:04:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CuQ+B9JkfUcZtLPB3R7ZhcX8YyKLeKZy/lDXJDIS0fs=; b=Fdr+95ZZqnMfP/IH
+	BnG2c1HLLaVV+UjNfyYVQdNDDJVIVuHSP8kHyTAdWV1dvmQm64sBl0+QeCq/KitV
+	iGfAmKluAP0UAj8XlFq6Bq1UAYlDVgVwYnqe+bG8ftzd8A4ekcnV6y1tTYoBuVBV
+	jptT0/f5+tNbkf4M/Cru+n9/0Tjj3k4igPUr1AZhnVTB4oEkXWQbe+fgzIll6E65
+	DdWgqD9XajqIG/Zk2eEO4K98VDh81zksl8+aCMSi7AzWbbNXUxX7+37F/gB4Bm54
+	zTdTv8Xnhl3sanaRKg0DkwUfiw9Qrqlh5X5OP3nwCjmRpwUyEfI3pPpRNkJnGEtO
+	aVIIDA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqjubksy5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:04:04 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c99c10e33so1087186d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:04:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793783044; x=1794387844; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CuQ+B9JkfUcZtLPB3R7ZhcX8YyKLeKZy/lDXJDIS0fs=;
+        b=M5VaYGCttqDhVKRGgRw/IRPBFvazkbGGI76EqZ4frYuDVGpMVcv4LHbgzHBdttmHgE
+         5PIuATMJmW0X3jVKATHZLDWyqfAfZK4ke7xNAxCuBlbBZyqdT2eMB7nn1v6Vy3xkx4NW
+         0N+nvZB1LrvqsD3L+ICzlIqQNmIx23+hZN4L5ZIiWj8vM3n5bOCcN7qK2ccfpv9D+9v5
+         yrbceO+QGtmtaSughcXkxLSpPamjmT85Ebmmd+pJhi7ijPaGepCyGBd/b2gTKf47QRmI
+         V97c2LeRxX1JFr55DWgSigvf/+MsGh3Q/V4t49wh3aSPnZESEn3stmlvI0ogiCnREOH7
+         KO5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793783044; x=1794387844;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CuQ+B9JkfUcZtLPB3R7ZhcX8YyKLeKZy/lDXJDIS0fs=;
+        b=nNGA/mNV0z3Z7SYNVSiR/7noziZnW1VTWwz/yN6M4cOPZt3S+jVeDi/tFUq06A44eF
+         c3+au7ZAzO4l4Ftb28Fa7i183KZWCLcdDFMHY3Sk+iJ1S1G1YCBT9prFkOx03AMukvO8
+         wkvkI+n8W09rH0//l0YJE3mlTtuqXiQ+FUIaewKKVRfei0BbuE0Lkuy9VGWRvFVMX5dH
+         kUk1zkZsHP2e+Oww+OVsHf/H5Vj60GsgfwXery/NuH0rNY9cQv6L1eq+rchCNCNtRr59
+         M7SpGUdtjtZwyCkedAblsvfFLiW7SWCzwTcQHug6plrCuv60f+5prIIx/z74ub5leP5r
+         Pffg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRtLhXlcIxzR7HyuNcs/FoQrrkfi63rK4Vv+bZVZ8tQy2lBxl7gUuV9rirXOBOhuObEuoRfjesWeJ+jn8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nBwv77vmkMJ5+6UYC0AYumESeHW8qrdOfY67UWdjCChBna/HB
+	K9EDwogAmgYg7/yHSuCLPvPtivP5QuCgePojX8sPRgbDsRzYz1UrN1i2keo2XgzMnYf2Llyn5Tl
+	U6Nkv3sQIloZXlvW94UzoYd7y6/jE33m37Y3pbu7ltarBUptRvHnPvhaPqmjBBXxKQwM=
+X-Gm-Gg: AYBFou2fpkKzgR+6dHZ6jU7jGcx7jvrJUVBNrUvcwzFaw8DqtgW0U2GXMRW6f5dLlHy
+	RfdCylchKO2AZveqU+w0hOdux+lk09gm3RBYiEJY+kwUKlIwm63HtJ/BqPcidxC8Gsi3CCkc71s
+	8aIGNVqkxPyEyeVJPQdqC5elG/WeC+iaG9+mA+L0Mv8TCl2EQDvNvYInom0xHv7nPGyPq61wDdl
+	ZqucFtvcY2wqcXRQ2CTW920swOtEwWjA1yPEWuPR249fS8gUMRrgDbu4FA8BWGIIgDidZXYhR3n
+	Zxn2OVnRXePsxFof+kCgD8eBIhJQDGvaJx0Q2KTLQOuh8wKTnfQMky5kZQpMy3t5BJYQz95li3H
+	K0YR/TVUfbQZpOrbJQPhRlSm1EEWGpX9xPfr0ApR7U1RFdSa65V6XE8yy4yn4/Pe3JP1V
+X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr2582230485a.1.1793783044299;
+        Wed, 04 Nov 2026 01:04:04 -0800 (PST)
+X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr2582225285a.1.1793783043660;
+        Wed, 04 Nov 2026 01:04:03 -0800 (PST)
+Received: from [192.168.226.1] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac80752sm505660a12.31.2026.11.04.01.04.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 01:04:02 -0800 (PST)
+Message-ID: <26bef7c3-3c5f-4f9d-a9fe-bde9607e532c@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 10:04:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -195,70 +115,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: ki04hT3WXcSH+5Ni16ujDh69oaBs9XFqZrOBhTJ6LZooRvSsegdFSyH9bV99XcaDGQ2K7LI3R0rLhcuH3xgTwL17f+bwIOIcg7pJjSWnRNVDDwUpUuyfx82BneYPU6YtxzTM7jjMeYqoBOARFOl3Ld13ce6wfbxix0juO0fa2i1+0wPjyJnF2bZZBVMf9N45q/aS/k0qWIhceGtMwXi5uNNAKB7FSb5qMwU/7vAJYduv2UAbZ5wMhB4azEMXa2sn8ReutOBliX84cLGcjhJP+M7rABIbuaRgnrEQRjP4Xhj1cYqi6DAwgAsgtxcFrvNE6OBbpvw+CE/wGlJ3Yx7pmQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed19dc48-fafb-42f8-5498-08df3a528fdc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 09:03:58.4846
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 22jc4K/0WmlrwXLbFupK86YfhqoPXBZnkrOK2GbjCBo+FnpQqdrQ60jvkZmyKWwXJ0GfplwWQrYjnnqLObbehciEVY2ZMfdYp0G632YPXl0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8895
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/3] arm64: dts: qcom: nord: Add Ethernet support
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261101080413.1428016-1-shengchao.guo@oss.qualcomm.com>
+ <20261101080413.1428016-2-shengchao.guo@oss.qualcomm.com>
+ <658a44f3-219e-4810-8931-192a26ebdc3b@oss.qualcomm.com>
+ <aurl7S0IEOeNHDo3@QCOM-aGQu4IUr3Y>
+ <02ebb6b5-4f74-41a3-b6ba-bd8ff24ef000@oss.qualcomm.com>
+ <aurv-mqf4MJEiuF1@QCOM-aGQu4IUr3Y>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <aurv-mqf4MJEiuF1@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNSBTYWx0ZWRfX9QBlqoQMY0WK
+ ywAuayFQcQxM0mCt9/Dn0/l+yvXzQncb+uTazBw6XTveETXigCT3GZZFtsst+PNHi49Bsvcy7Oq
+ 5IR3dsAVjNOlCNN49ZO/F17AuIq/FYI=
+X-Authority-Analysis: v=2.4 cv=JeUpPkKV c=1 sm=1 tr=0 ts=6aeaf504 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SrN3rVSTMKwwy_TTx0UA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: R1jLBGWotgcqmS4ZqmIh59bjbUwXveTT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNSBTYWx0ZWRfX0cAYvWP8pKCm
+ iKDRzzJFX0RsM15z/Bj8RESNu1BzqxpftBdNVLafxcn7AhASN4/fhlU6s/qkiMnSLgf3hJ7S4TB
+ dqkqnkkHFkmpa8U7uWkQo3v7hOeUyGuvu3DPaZXvkwc+qfVl3HSjpbWfS2/N3FAQF6fG+v8deLT
+ zy4LEPyZKJsuvvSnP/1N8xCMkND6bspY1UgS3vtNIhSHaJgI+Udef/GxSsmR9l+YVkpuxGBMpeD
+ MzG/5tgjGonWpNDu6Qvyth7jy3CCtZE8Dp5WruuoGEozP3rwQLkIKpxMz8YYDzxucJOuXoqiX9J
+ FQK+mIZDztFav266CaUVgjJ7aToT4kLsYBMtxpjXwT0VpGgT0XqU2yvf+av9cPqZOQE8HpRq0zo
+ oBOp+ToQZfnKbvWkjbZ7gkEQewB1nLeCbHJP3Jbf0MGilILYSZhJEqoF6DKoOLToLXAKLvwSTBU
+ /VrN6mjScZrWkEWfSjQ==
+X-Proofpoint-ORIG-GUID: R1jLBGWotgcqmS4ZqmIh59bjbUwXveTT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 bulkscore=0
+ spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040035
 
-
-
->-----Original Message-----
->From: Xu Yilun <yilun.xu@linux.intel.com>
->Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbin=
-d
->operations
->
->> >>>> +	struct tdx_devsec *tdevsec_bind __free(tdx_tdi_unbind_dev) =3D
->> >>> tdx_tdi_bind_dev(tdevsec);
->> >>>> +	if (IS_ERR(tdevsec_bind))
->> >>>> +		return ERR_CAST(tdevsec_bind);
->> >>>> +
->> >>>> +	ret =3D tdx_tdi_read_state(tdevsec, &state);
->> >>>> +	if (ret)
->> >>>> +		return ERR_PTR(ret);
->> >>>> +
->> >>>> +	if (state !=3D TDI_STATE_CONFIG_LOCKED)
->> >>>> +		return ERR_PTR(-EIO);
->> >>>
->> >>> While this does seem correct, it's not really following the spec or
->I'm being too
->> >>> rigid, namely:
->> >>>
->> >>> Since TDI can change the state any time, TD can't fully rely on the
->Known RUN
->> >>> state in any scenario. However, TD can rely on the Known
->> >>> RUN state after TDG.TDI.START as a confirmation of the Interface
->Start.
->> >>
->> >> About TDI changing state any time, do you mean host changes TDI state=
-,
->> >> e.g., through TDH.TDI.STOP? Or you mean TDI device goes into TDISP
->error state
->> >> due to hw error? Can't they happen even after TDG.TDI.START?
->> >
->> >I've taken this verbatim from the latest TDX connect spec, I'd assume
->> >what it refers to is the TDI/device getting into error state because th=
-e
->> >DSM deemed so because of whatever reason. I believe there is an inheren=
-t
->> >TOCTOU race here, because you can at best get a momentary snapshot of
->> >the state but the DSM, which is inherently an independent entry could
->> >for whatever reason decide to enter in error state (highly unlikely, bu=
-t
->> >still possible!)
+On 11/4/26 9:42 AM, Shawn Guo wrote:
+> On Wed, Nov 04, 2026 at 09:04:33AM +0100, Konrad Dybcio wrote:
+>> On 11/4/26 8:59 AM, Shawn Guo wrote:
+>>> On Mon, Nov 02, 2026 at 04:01:03PM +0100, Konrad Dybcio wrote:
+>>>> On 11/1/26 9:04 AM, Shawn Guo wrote:
+>>>>> From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+>>>>>
+>>>>> Describe both Nord 10-Gbps Ethernet controllers, including their XPCS and
+>>>>> SerDes blocks, clocks, resets, power domains, interconnects, SMMU streams
+>>>>> and DMA queues.
+>>>>>
+>>>>> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+>>>>> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+>>>>> ---
+>>>>
+>>>> [...]
+>>>>
+>>>>> +	phys = <&serdes0>;
+>>>>> +	phy-names = "serdes";
+>>>>
+>>>> I believe this holds for both GearVM and embedded, so you can move
+>>>> it to the common DTSI
+>>>
+>>> No, this doesn't apply to GearVM. The SerDes is owned entirely by the SCMI
+>>> server firmware for GearVM variant. LDOs, clkref, reset, and the per-speed
+>>> PLL/RX/TX programming driven by an SCMI perf domain whose level is
+>>> the link speed.
 >>
->> Agreed, it's a best effort check, error state can happen at any time.
->
->I think we don't need this best effort check. The guest would eventually
->verify the states before RUN with the help of TDX module. So to me,
->TDI state read is just a debug interface. For simplicity, drop it.
+>> Right, but I meant the assignment to the EMACs specifically
+> 
+> The EMAC0/SerDes0 and EMAC1/SerDes1 pairing is indeed the same on both
+> variants. But the serdes nodes only exist in nord-embedded.dtsi, since
+> GearVM doesn't expose the PHY to Linux. Or am I missing your point
+> completely?
 
-OK, will do.
+No, I was just completely sure that the nodes exist in the gvm one too
+because it seems like they do on lemans:
+
+https://lore.kernel.org/linux-arm-msm/20261103-sa8255p-eth-phy-v18-1-b00cc2fa0404@oss.qualcomm.com/
+
+Konrad
