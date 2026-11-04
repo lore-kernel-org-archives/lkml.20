@@ -1,81 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789813;
-	b=tBsunS0WmTnV1ePF8uwatkkg3L69C03qV2CMqKiT7kN/2p4VReqSBRg4BJnNooNBbqUa
-	 jC3YOz9bKh5RnPZQvFNd5Kt5yA6QW2ZY8PKUEmoewmfulEdXpj2eOE4s553WIHmaBcaNv
-	 qglUJokNlic8D+kVVHccFR9TM87GsleF/xnBC8tPtYt0qTxKDrBNzK/vRH+ENKagoQnwj
-	 I4LR0ejZ4haWNnuQkWos4WjzOtgWuMaAY2Y21Vec7Idi3XelFtToScozprOWJVHauLXID
-	 FWlEOv8QO6eyCsEGINwPZ79Zy0xx/q39W3i5CMjDkaDT3jGJahwhQk6z8LJ03g72+fw==
+	t=1793789827;
+	b=BcQzJNgInqxbHH+S0A4vFZsaHbvfKrIs5c9DVBZU5XwengFRkthoSu4GZhQg8ceMkxLB
+	 oj56DslP5+jNqIN9ScPMaRTtOu8252a+lPsVwRUxtPN3Rg36EJjYz0mYQFLvP0HVKRH7D
+	 OUzOleaS6z6wHhQu5grzypenMTByTnHcO6ufZHYtb53WdDiZ83V2vYXwjFyKzGcehPuRw
+	 DkOggASXTh5VPTMoQdcAyVLcewKxR6k+JJVpc2wmOCXJaFB5C7OUCnodCG+7UL01tGnhS
+	 fUvLHCDmnAygTgYn6+tZTiYaPTU6wp9CAZngRoz+NouP2x5PY+3nv1hpZnDVxgPtW7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789813;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=6X8o6iEFFcnsdHbRylyuLRGu+Wz62mnb9O0cwqf8yFk=;
-	b=EB3GH8i5QX51HQ5TOal1x5KKdN4YIlviPBPH+UEISN1NRaK9DUJY+lUfU0q5jlXWngF6
-	 osnxMN6+ISl+qSYB1UwF3ezHjfEhCbG9IwRibBcm9qhXVHN3eGaxnmaJwJOOmUNmdCeqf
-	 i8MZzbc913wuPJEnr3NOPHWQhDW1VpMC5ITQXgOw5MTO/QcCbFMltJdZth8QgWftqg92I
-	 8gyW5cmzk/dij/8izUruW8x3Jqyste9I3Pr4h7BgciiulhbOVKaRGnweg6em6EJlckmAP
-	 4wSoqMuBpwtgm3QEJ0Tpiuw1FoLhJJ9H3sb5TmeDwodk+lEAKWG0dpZfoUJQgsdkcPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789827;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2xX9iJgWUUUQL+Ex8TMZWoceQZkaiq4TOsPi12PIbz8=;
+	b=J3QKgu5MrRptYtLfUFHlWGMYLuPfoTMoVgISq2lnYXWzsnEfiXp3229xEevBdMzyheUA
+	 8M80gyjHiOCPq7NMpLsRpW9qjY4wzPnZO2CbTrgLgIn7fjlfDpyTUnKJinljWPWi1pW7F
+	 bJ6h2DB4DEFppR0T+1GxexoEZS8OLpzIwiamarbE9GzRThUIADjduRZD7voGflT+P/VUj
+	 U5Uv3lwsOWxrY2yPDdAUKLlb3ykHYPS+k5vSz7/ZIbtYFxqOIqqrpnJDNF/rv3I+KNGnM
+	 ewHH9uMqchN+PpNuMs92Oidtm5e39rScy7+YaTSa2hZt2xy8s/vrbwo0B+JSvFTsCRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QS+eyF1U;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6mCxqST;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C8606A31B;
-	Wed,  4 Nov 2026 10:56:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 157C8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2F6606A332;
+	Wed,  4 Nov 2026 10:57:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QS+eyF1U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793789812; x=1825325812;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GXFt87iQcoBIPFau0Ln10BxVNADSYEjW1p+3DmS/GUA=;
-  b=QS+eyF1UMTJub48nUl+RUL2ofTwc5F7di4V2s4B/fwIpwUUJb3qvoFaO
-   ObZ6JvQlUgKEmsCWm2X/xFxdvmevRt1KRhMA8NKq8FquFsG+RvDIYJWWl
-   B3h5uZJImkbC1JfZwgzkTGWgYlV+m+1BV0mBDWshrVZCh6xDC6xF9Y+mB
-   IS4KS6vgjEvn/hQbEEICyoGwCFTNl7CMhR5VtPaucZbN1X/r54SXUrDlZ
-   4WEhym+Wt7Xs+8KXolxpneFJ9HJp4ekJsq/TmabrEvA0mk1ZhiZ9L1Du1
-   UTvS+u60ulztL8kGF54Hnp7TWGExkw6Pka5lzrKkhx+c+rPZxOWCjCsuL
-   g==;
-X-CSE-ConnectionGUID: oS+8Rz0YTMi01ZBnHcaE3Q==
-X-CSE-MsgGUID: NAZYygLKT4m7xR0WTtuCjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2570503"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2570503"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:56:51 -0800
-X-CSE-ConnectionGUID: LsAw7edvR6OqXGBMxL3/MQ==
-X-CSE-MsgGUID: Gv1t+y+nTeqd3rz11tQYGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6695247"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:56:49 -0800
-Date: Wed, 4 Nov 2026 12:56:47 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v5 2/7] lib: kstrtox: round to nearest, ties to even in
- kstrto[u]dec64()
-Message-ID: <ausPb3rf9X4FNHtI@ashevche-desk.local>
-References: <20261102-e-notation-v5-0-d399e544a982@analog.com>
- <20261102-e-notation-v5-2-d399e544a982@analog.com>
- <auof_hMbsbFq3MYj@ashevche-desk.local>
- <7qc3geup2edufde3wbx5wsyhjz6tcnekoa4c4alxudqb7buvmf@lijbrfhachls>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6mCxqST
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE8A1F00A02;
+	Wed,  4 Nov 2026 10:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793789826;
+	bh=2xX9iJgWUUUQL+Ex8TMZWoceQZkaiq4TOsPi12PIbz8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z6mCxqSTqunXa3wblksRl7na80ibmakppv+yxx/tiI6wOK5l6rTFAmDO7Bz79jHXA
+	 4GLIcAg0/WGbOvCGWuIHVi1zInQVtTFYHRpfoIYUZwI73eOeGiPPUtZdb1Yu2/Nq2Y
+	 WazMN+VfYs1j+TUvDG+WelwM7gwdN53OU4WW5WNKWehykINUEkur3l9UIyBzpSAGM1
+	 5TSxKbI4U3aiQvGMSfwJ9PmB9pFZ7NFDD+DQDf+d6R/Yftk4V/zd1A52rfoWQXQK+o
+	 Yt5cQmE8SyPLSeatcguU7zJeaWJ6fNuCvPl5p5t1o0cau8AaXXcQ++E602mBmRFHjC
+	 ewrJd1KX0Q+EQ==
+Date: Wed, 4 Nov 2026 11:57:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Biao Huang <biao.huang@mediatek.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Eric Dumazet <edumazet@kernel.org>, kernel@collabora.com, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next v4 03/10] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
+Message-ID: <20261104-passionate-illegal-wapiti-6591cd@quoll>
+References: <20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com>
+ <20261103-dwmac-mediatek-mt8189-v4-3-c86c14fc50f4@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,57 +67,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <7qc3geup2edufde3wbx5wsyhjz6tcnekoa4c4alxudqb7buvmf@lijbrfhachls>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261103-dwmac-mediatek-mt8189-v4-3-c86c14fc50f4@collabora.com>
 
-On Wed, Nov 04, 2026 at 06:04:38AM -0300, Rodrigo Alencar wrote:
-> On 03/11/26 19:55, Andy Shevchenko wrote:
-> > On Mon, Nov 02, 2026 at 07:41:00AM -0300, Rodrigo Alencar via B4 Relay wrote:
-> > 
-> > > kstrtoudec64() and kstrtodec64() drop the digits beyond the requested
-> > > scale, which truncates the result toward zero. The error is up to one
-> > > unit in the last place and is always in the same direction.
-> > > 
-> > > This is easy to hit with values produced by userspace floating point
-> > > formatting. Printing 0.3 with "%.17g" gives "0.29999999999999999",
-> > > which is parsed as 299999 with a scale of 6 instead of 300000. With E
-> > > notation a negative exponent can also drop integer digits, so "19e-1"
-> > > with a scale of 0 gives 1 instead of 2.
-> > 
-> > To avoid unneeded brain work it would be nice to add an example for negative
-> > input, like -19e-01. And I hope (and it seems the case) we have test cases
-> > for that.
+On Tue, Nov 03, 2026 at 11:12:08AM +0100, Louis-Alexis Eyraud wrote:
+> Add new compatible string and clock definitions for the Ethernet MAC
+> IP found in MT8189 SoC.
 > 
-> We do have the tests:
-> 
-> 	/* E notation: negative exponent rounds integer digits */
-> 	{"-27e-4",		3,	-3LL},
-> 	{"-125e-1",		0,	-12LL},
-> 	{"-135e-1",		0,	-14LL},
+> Regarding the required clocks, the MT8189 datasheets list in the
+> paragraph related to this IP clocks the mac main and ptp reference
+> clocks as the ones to turn on.
 
-Thanks! What I meant is to elaborate in the commit message, that the reader can
-easily understand how it works for either of the sign of a value.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> > > Round the result to nearest instead, with ties to even. This is the
-> > > IEEE 754 default rounding mode, as used by strtod() and printf(), and it
-> > > does not bias results in either direction. The first discarded digit is
-> > > known from where parsing stopped, so no extra pass over the string is
-> > > needed: the remaining digits are only checked when the first discarded
-> > > digit is a 5. Since round-half-even is symmetric, kstrtodec64() keeps
-> > > rounding the magnitude and negates it.
-> > > 
-> > > Inputs that fit within the scale are parsed exactly as before. An input
-> > > that rounds up past the type limit, such as "18446744073.7095516155"
-> > > with a scale of 9, now returns -ERANGE.
-> > > 
-> > > Update the existing truncation test cases and add cases for ties and
-> > > for rounding at the type limits.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
