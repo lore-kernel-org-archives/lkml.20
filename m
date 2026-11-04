@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793763337;
-	b=RldJvV9+UWpKHjv7Khe5g7a2WqViuJwCSiYZw0KJcmTj+dlSYgygrPvZdWEqsFDSHSCA
-	 9VkyktCQWfx39njET27dPn0uOnnQd6FsEiMijW+SlvJuxSvk89pwpD2d/Nn3kL9xgsOJa
-	 ZFY5q9+RE6Rj8WzzlZ7elRK8+PU1r9N76Ymzug6TU7uBAGWnX5UUdXqOWqwn/EArs7yuO
-	 Kis0Oz/frqcVSxrwr3HOKz7pboVkQ9tZzTR/XYFLwO6D6FWqFkBdCvT/RmhFqXnRfLSH5
-	 xxwyXO8fawtuIWxK4V8FF0PtJe2YL6HVdK1HI0AH3M1jh3h78FHOkuMl9KmdhkXk1Ow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763337;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793763351;
+	b=sbtdr2FBiPPmnHVtude331DWlsMNh71DWseTKUhzWoOszOsk2JaUnKYEWdmsbdcuUUPt
+	 Rta8PUgTgyzYfwbYjmoqZe4QblXEoJ0HXo9Nu8AF1IQKG6wHloswYShOSlpfQJOnZWgsl
+	 MbK7WTYRFxVF7kjDLj+3HTv26WGjI77KltakfsPyR3ZTBc4OytXrMmS+xCNVSmBTaC1w/
+	 4K9MK233u5qeneKNCF8r2tfFz++xV3frbnk8jLymFJCdpbh62T+V/HSd1eKe145Mfhf8U
+	 jcgt+T81j2VhWkovgZyI83ccoWknfueArO+UgmlB4H03F8N8sMhxaLivLZvhv3otDYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763351;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-	b=b7ACParg/BAEdU+xwVXBKokQHG+uoUkudOAeZdapJf8mPwtHwxgiwwuSJ4kjxhAm613w
-	 909t5PaxPHGKTCOgql5uUurnXMI8aN3T7GO+qqX5b9d+YuhP1bh+K/jD8TWPmW+Bs9zzj
-	 aP5dsdU3rXbJqC2GTj2b6T5KOFO2vMF5kC3ylSNEgIfrmYOYilDtN5BByOxIbGMVjUc6a
-	 wdI+t4F768EAQtfELh67vAU9lywMHQbSKFw+3dBvA4EtMTg0sbO8+NTmQfQIL5683ey9L
-	 6fC7QDjk8JgXpakf8MHwYZZ7zHJlgXVH/YsH+8GFHL37JwmaRujxL2ujMZQ3R6jQSpw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=hAHLejY9oB/8f/CfT1Y6ivnfaaSpI9Ek0JXQqjTj05U=;
+	b=YbM2pqxrI31WCWWTQxEE+rXKc9wIdSO028h6ldjk35ZpyxVh5rhVJHDMavqPPMxbO9cM
+	 qgIVKEFCseD43rPjRsO/EghGb+79lUTjV6r571WaixCgBtLMXG4Qtlz03WpNTqbgjlPf4
+	 5XcuYvz/wSiQAW6Twi2O18A4UK2ht6nvfEj6M3Wx/scV1ZV8AunmYGDufPfdqKqGBfX40
+	 kSUJhuT+vErYLf4HqoGPi02IglAbY0GsIiYMDF1ycfY/ccjcJUMS6kRe3ZFcVQ++NyO+W
+	 30mipyoF2nx/AdlPDpKFdLX2VHNAGQoBCapGGHKbTj4rEOm6zDp5QR9p5YWuygUMYBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZM+Bo/NL";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HLoyn5F0;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77B9606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:35:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C77B9606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01F2606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:35:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E01F2606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZM+Bo/NL
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso287131a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:35:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793763335; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qQ9vcMvPNa0jDGtqkPGVNJXDaHL5xwH7cfp7S4PrQg3dDQLlRZKJadf0WT+9Z3SmBr
-         pcH7UBo1cauGNgiHPFhLpCD4sPB7eMHdv4VULKRVECtslPHpnjOKJ3MuiiuQDnSwZiK8
-         CAtj1bs+hyYfbzSc2BLj/D6DRYeJ0mOslZGEyGoq2kb4l4B+iz/sopnBaWzczKVAJ+vw
-         EzpEN9qzutR4BYnjQbk7q2RePfB8bEP0BJARA4QxjCKTFPemCQpFhcwKXFee+rc1xUAS
-         7js3cBBy74yI0B378GxGfiuwketaPOXjsE4mAtHON2qPXFQqY+dmFd4NihSwMcCRQHp6
-         FrRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-        fh=TP9Xsgu6AodgjvupTcAJwto36z7ggH0lPzY408llw4k=;
-        b=b8DRQbHP3Ij2vJKaF73UxPvt6S6pbaST2Taj6sq+qkDf+zSA7d8IDpAAFKiMMoftqf
-         kQt1bXiUYAYC2Lon9j/NRFkct9pikP8/GFR1JhI5Jp+tcO5Xn7awoTs1TTRNg2bG9cgQ
-         V17mlQQQBHPZEiIpZLc2HNY4/Gj0MA/1EE+y6D7WC1v3s3RDsxoSyJtV7cvhgo0dgrJT
-         oyx/upVXZH7TUA8594wo/WAd57g3GNoOF9xyU6tvN6SkjVfRJfrKzAhCHoJS4xtm5UMr
-         gai7lLLKiDOoNADSgzs/DNhAGeRX26gKgIR710lzUTABRnpt9cKbF4AUo8HFoxah9s1T
-         tjOg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HLoyn5F0
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8b20a899fso1273095ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:35:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793763335; x=1794368135; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-        b=ZM+Bo/NLHVAIGud/SRt1S82BHSV4Dy3O/1v/XhWAygF4W6LC8LJ4zz5tAHv0DKZISK
-         y99m2Vzu9GwsILtdlsp1jaTwouR/2MYaZmRoQEYGjyc1l9qj+unLS29lF5agI8+M5HLG
-         0zc9jcPKe0IbDIAMcl9xB1IndX3PyX1CtpGmg1HJxmIsKGflGof4vnHMxAw55W1f/Wcy
-         TbkSyTfpug2hmzKDyMDSQkiLuVmmUM8//uoc5GY4fuYPaFwMt86KGBfg6K5Vec6Rgfxj
-         N6E6our0/WG7Rd0Xd5gyJ6hair+/K9LSmfSxXKasKFEs4nwWUykQmzxp5ANZSCoa5RCb
-         IoBg==
+        d=gmail.com; s=20260707; t=1793763350; x=1794368150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hAHLejY9oB/8f/CfT1Y6ivnfaaSpI9Ek0JXQqjTj05U=;
+        b=HLoyn5F0DxNrsAHS8+TfkRmfUbGr6VxTYbCCG9BptYSU79sXh3ZQeB7WHhp/zkC1BP
+         MEZ+rLSLw2ugKprYH8WjTD5pF+7Z8Hz8Gv5fZ621EIF5PM2cLAEwwxLX64HFuJLccRBI
+         dxVePSPgZQPJeTqxTG3UUMjVeROgPoBR65+UD9UOj1/f4wE7/8X/Dn2LnN5pwmLUGopY
+         DuXckwzgYGKHgPvgPu9UQFQ6P8/2nW+DzR40cvf/Da7QGFLwnXEkNku+XfwYFv/Cn3Do
+         BfHZNn92rijfyVqnq3L4TZyTEPStUwvlAakzjtXd4GvoxZ7OYMwcbtxdI9flcSLIq2IJ
+         KFxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793763335; x=1794368135;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-        b=sysdhxSwaXR+QdJKdFAdnlkKfQgNehQdfxy5b4l3yuvvVqJCJgTuKTHlGN9GnGreap
-         kN0U+JnjiZa/WC0M/oI5wUjXwhveQYgfYNcDoVp+QY9Ed4rvLyGnqrjxHs5WZttFy2Mr
-         3j/91qHxJcNkBZZMUkdOJN0xJEkpE9TaWByXtKXP7U7GTK+C61i9Fh/qj76obyuSfMEf
-         5j4NhZwXQA2v/dWQviDUjFMAV1QOCYjWUik/XjDR0E9/8xr4MrNUz2eqRzNS1V8WFtSw
-         ovnbHObnKtyIjfP0jZIlq7xyXc9bY1U8SurkEWUyJOeMYff5ycl6MVo3k5qhQrwfSoMA
-         c/Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEm0++ViuGdo8c0nzk3a7hBTjl7nDxvnuDrXrH0jYYgFXe1Bmus67TyqdWsxhuSDuNxQzZgrlSudnrgf8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FACfiDLbzmio76ycu6Czwoxd3rUWW5Rm1VXnrO/vvYbraoxQ3
-	q1qggMFjSfwxmxkclS9dG0/oVzTnv8w+r3Pbr1ttqs8T3fafobprvSjl/m+U9VK/TRK3w4nQ8ii
-	CZ+lLC+5x2n+p1rmng8BAG7aH/0WqlnDtcFhFV5Ml2A==
-X-Gm-Gg: AYBFou2EbiLycOlVX3qBvCgPHc3Q4ElifM1scyKTJ5s2rIdgaQb0si+rUFywTwldaJG
-	13EKFbu+hKQ7TDG/StU+UNy3RVSvK9BFVErq6l7r0hb8IWh1ZI7f4KX6pJtstNThOJCu90yPVTn
-	4P1c7B+LPPuMhgRWrRVgTVOC8KBhjqva2HM2+q3OMlCD9EGwFLAkJozqyuFpqQoDbkzMNlLX2io
-	e11EunWrxytD/suxXML4uTZJf6ZL0CR++sz8v+ezSD9YZF1bSrzigAAtjWMdSmUEH5sQ24uZEq7
-	VoqK//hEJzhzdZiQ9NDL5LD9N6NxC4h+1IPiXWX7Cz1TOFWqTx1IqTT2W5/G9e10vKyG4R0N3OZ
-	H3Lyg07/cDKli5bk4iMJJTUWcfWltgWFi3piFGUg6ZItIjK9nQZ0JiHGSue6rft2tSa/Z8rxblf
-	w=
-X-Received: by 2002:a17:907:a890:b0:c46:9ca9:f522 with SMTP id
- a640c23a62f3a-c4ca7a69782mr1214812566b.26.1793763334986; Tue, 03 Nov 2026
- 19:35:34 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793763350; x=1794368150;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hAHLejY9oB/8f/CfT1Y6ivnfaaSpI9Ek0JXQqjTj05U=;
+        b=iiylT7qWG6OtPt+mg6J45gDGSV+k6v4nPuc34owt7zjPkfv6Z3Z96ikzFiT8UAJ6ZZ
+         /z1Qf3nwfyCJLpMO2h2eqE7jm2dCzJ7VjRI4VQv97lAezC9VIXOsNv3ihxr4vuH63SUX
+         qsN0ncyVIItRSlYphZ+USd46YUQ6IM0EOTpJFINlC1SYDwqm+ZoknS7eHoqX3z4lj8Ux
+         6KrNcKEwSfx1jo+a4urWvbCuYSb5Ik+82PPBtbhUB1xAsmyBn8+DfW7F07p6bbqJAI6W
+         yyJp7esZb0C9NNtc4IlorS166qyQv69DdrkCOHWnf8FbsUmYrOfe4ZJeeICPaT5u2MTB
+         LC5g==
+X-Gm-Message-State: APuU4Z/zFrsJ4LiQahy1i7Zt2N41wzbOoze+WX+suHcKA/W88ckEf2AQ
+	j65pXQ6n+A8Didn2TkZtrGp0uF2fqSyjzpvz6c3BjLzV6u2Ub5JM9jD+8+rKWFC7TC8=
+X-Gm-Gg: AYBFou2PP9It4VCNmgFNRECQEJhYqO0G6rVXlxBF6ZCWPavvjA8rKUKU9CJMjLj62+j
+	mfCdBwX7OnTYuXJTs6/0gGoXXmDZ5KIRGoWphNJYMoQATZxUOGe2L9IYwKIFnT8w6xIfK83el/Y
+	VEbwRrVXcr6uVJi6prMaukBGt9RvoT/S1DSbUaQfrv7RoFhZ0zeNYGjtJwLvOVk3nKekc8k2MZr
+	aO+dnC38BVprg8UkjCo2eV4VE8xHSCoGqOEa+M1Md+UcJg/AfeGCuKntOrPFlVja/6WAcZvzA33
+	HnE4q0wMIfW0LujhGO6UwiKogXEwRBkbnPM275kKLHKrSIP+uRU2ydoqFe5YZ9FKYzR67fN+Fn5
+	KJ/B65d1f2q3A84NliS0UTl+n/9FSrhgnoMWIUUPYsvpQVPtNtXm5ssvxbTcziRHBxlwaepmvW9
+	CTa3vSxi25HkgXH8hraUE/ktF6+WaGGGv3qEKXrRXqjcks1sl6p1+arUo1/vB+gc6aMII7pEV9e
+	lZZAAXC6g5H+6kXwmvrsLGcdls7j/mzeBzAIO6MlLSUFR7nHwRYs2NB1lJwgeALD1IAHD5bVIzj
+	kot+gPmMu444tL4S6t1js3JUgoekr5XMLYBi7qApQYCe6f8bT4ZFShoPUB4H2oJ7
+X-Received: by 2002:a17:902:c405:b0:2df:8733:f229 with SMTP id d9443c01a7336-2eb3649ebc2mr145706335ad.24.1793763350157;
+        Tue, 03 Nov 2026 19:35:50 -0800 (PST)
+Received: from localhost.localdomain ([14.116.239.40])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08bd50b5sm1555095ad.4.2026.11.03.19.35.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:35:49 -0800 (PST)
+From: Jianping Liu <frankljpliu@gmail.com>
+To: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	frankjpliu@tencent.com,
+	linux-ext4@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ext4: fix soft lockup while shrinking the extent status cache
+Date: Wed,  4 Nov 2026 11:35:39 +0800
+Message-ID: <20261104033539.3031910-1-frankljpliu@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,57 +99,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179374297269.488856.7749172366095110113@kernel.org> <20261103225321.19288-1-federico@rimpianto.com>
-In-Reply-To: <20261103225321.19288-1-federico@rimpianto.com>
-From: Chris Snook <chris.snook@gmail.com>
-Date: Tue, 3 Nov 2026 22:35:40 -0500
-X-Gm-Features: AclHuK8pgXDdUe8VVPBSwoSm2Xv7dqRRsi3A56cCZ8EmMNgChDd3Wu0uj8DEEoU
-Message-ID: <CAMXMK6uS4-4aq4A3pUMghkt5v3U+NekcCfDa7ytbjLD5ZwG+8g@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: atl1c: free the RX buffer when the descriptor
- reports an error
-To: Federico Musto <federico@rimpianto.com>
-Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026 at 5:53=E2=80=AFPM Federico Musto <federico@rimpianto.c=
-om> wrote:
->
-> Thank you for the detailed review. The findings on endian decoding,
-> multi-RFD error handling, stale RRDs after reset and missing error-path
-> work accounting were valid and have been addressed in v3.
->
-> The v3 now:
-> - decodes rrs->word0 once in CPU byte order and passes the decoded RFD
->   index to both the unmap and cleanup paths;
-> - unmaps, frees and recycles every RFD of an errored multi-RFD frame,
->   with ring wrap;
-> - counts errored descriptors as work so the RX refill runs;
-> - clears the RRD ring on reset, preventing stale error descriptors from
->   freeing newly reposted buffers.
->
-> The memory-ordering and link-reset/NAPI issues are pre-existing and are
-> left to separate patches rather than expanding this fix.
->
-> Validation on netdev/net:
-> - scripts/checkpatch.pl: 0 errors, 0 warnings, 0 checks;
-> - baseline and patched W=3D1 + Sparse builds both succeeded;
-> - no new warnings; three endian-related Sparse warnings removed;
-> - git apply --check and git diff --check passed.
->
-> The issues were found by code inspection; no hardware test has been
-> performed.
->
-> pw-bot: cr
+From: Jianping Liu <frankjpliu@tencent.com>
 
-I no longer have working test hardware for atl1c, so I'm unable to
-test this on real hardware. The same is also true of atl1e. There have
-been patches somewhat recently for atl1e that suggested some people
-are still doing work on real hardware for that one, but as far as I
-can tell no one has made new hardware for atl1, atl2, or atl1c in over
-a decade. If anyone is willing to help test patches on this hardware,
-please let me know.
+__es_shrink() walks sbi->s_es_list and reclaims extents from each
+inode. On a non-preemptible kernel that walk never gives up the CPU.
 
-- Chris
+There is a soft lockup report on our company's machine. The machine
+with millions of active inodes, 256 CPUs, and heavy memory pressure,
+concurrent shrinkers run too long.
+
+i_es_lock is dropped after es_reclaim_extents(), and s_es_lock is not
+taken again until the next inode. When nr_to_scan remains, call
+cond_resched_tasks_rcu_qs() before continuing the scan.
+
+cond_resched() does not report the RCU quiescent state needed here.
+It is compiled out when CONFIG_PREEMPTION=y. Otherwise it schedules
+through preempt_schedule(), and RCU records that switch as a
+preemption. An RCU-tasks read-side section ends only at a voluntary
+context switch, cond_resched_tasks_rcu_qs(), idle, or return to
+userspace. The helper reports that voluntary quiescent state and still
+lets a non-preemptible kernel reschedule.
+
+Changes from v1:
+- Delete time out logic.
+- Change "cond_resched" to "cond_resched_tasks_rcu_qs".
+
+Link: https://patchwork.ozlabs.org/project/linux-ext4/patch/20261028061628.1209508-1-frankljpliu@gmail.com/
+Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
+---
+ fs/ext4/extents_status.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 018b6146b9d8..62346eaf4350 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1721,6 +1721,16 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+ 
+ 		if (nr_to_scan <= 0)
+ 			goto out;
++
++		/*
++		 * Report a voluntary RCU-tasks quiescent state before continuing.
++		 * cond_resched() is not enough: it is compiled out under
++		 * CONFIG_PREEMPTION, and otherwise switches via preemption, which
++		 * does not end an RCU-tasks read-side section.
++		 * This also lets a non-preemptible kernel reschedule.
++		 */
++		cond_resched_tasks_rcu_qs();
++
+ 		spin_lock(&sbi->s_es_lock);
+ 	}
+ 	spin_unlock(&sbi->s_es_lock);
+-- 
+2.43.7
+
