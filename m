@@ -1,110 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821941;
-	b=Krhld1d/5QMC4SFD0TLPW7Wd+rJmuTHLyzQgmUgrmGnY3g3nQ9/u2EG/vCI5u99pY5aF
-	 m2ZivemS21N3UvVF97+TI8XRt7eCM5zNM2vFSyMsxYHCkeoWtZHCulJfVSPcY5G+7OXm4
-	 eX961ANve9ZQizx8HeEzlwTublDO109g0hjNFGI8f3ZjB1Vs7LBB//zHHgG0mOMkCtPCG
-	 gDaq4fkPZXAbsC/D2+9UgXGNVMbw/znOimN3c82octETXJuOQBTnOu52cKZ2MKiw3d1Mn
-	 Fzi+CmrF6766a0Hkm6HpI2TEzYkU5hjc1zqbQRRd6/XOs1fLI/b0q7jd6Dlai28fY7g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821941;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=cbUv3n1tBnI1k6VxTZ3ZcHd/CVUe8/cnvkVP6mlO6Yc=;
-	b=R6zqzMdpBDK1jsRwYfffo+o4fsJZh1Yo8HpMeQrujK3BCRfxtg4tE4J0jaBQ7ZU6uUMo
-	 4y1Xjy7ke6HLpndo9qydkvUVQ+kXQGa3QzEQ/JKnMJHzaINN31CfCBFT7XHBViFEo7Xjc
-	 txOjxgFOa64/FyqPjM+q4Ptq+k4un6YGXCFHIVUPSfPVrqSX6wa7A/mgl1UTQAqgvTKif
-	 95e4ZjRFhn6rXXkNkpia5wb7WFuh0zAxoQG91UPnoIzpomwgJTxjliq0com00KW0tpUWF
-	 w0qncbwL2g4Rf53MXtj0vMZs77ruLBL3KhxTORkE0uQ0m306pyXQRsw8UWUMpo9mgmw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4RqvCC3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793821943;
+	b=WrWBaUPDcY1ScyXgQzA/fdkN/Tzjq6g7dBzKGFrl5AHtUvlR5cXe8VCkudInJG7cICcx
+	 +cW1jHucR4AtwnSQ1xFCU+0de9FpzmJze1lo6nvFs4Ewog21tqL5B4+XFmxhEq37Gsdlk
+	 9xjpA9mABjqIrUhTIXZqlUN3/OSs5uZiermUG3cn3qtF2f7yH/akHs7fkNOmtmyU+rdSO
+	 rODE/1IxtJ4UV3e2zMpktLmszx8efcdbgFE4thtRi/Z/iBaSJTNgO4fcZX+w22uHKj6TD
+	 RDA/oYt/1F8516CEfw3ILMVUy9BV/MHq5/2bubUyX0XC2v3nD3SCTWLP/plnZDeev3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821943;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Ki/ozP3RoDXMuAAZKxiy5Y6Gp71eNHZ9dUt1D2IRKgQ=;
+	b=hWsgtJSkKIbG4ZEc43MC4xlNfYGka215B2/xDAklY7UHGLtTbRwa1vTmPkLt5Rf4tIAE
+	 NHeyHrCCp16eVC0A3sB0LuufyaFajpnxrZPg4ugvBF2Cu/gVEY3QVysqLbk7O1aqhfERg
+	 EWQruCBiftxpYKl+EAE+4gJV0itmjyaGn4IrXhckXNcO7aDjsZWZJrdUtK9Ie/S19wQs2
+	 tS8eh50Rk45J6L/d/est1PDPWN/x4aEP1eRV6mEnJ6q0CC2DuIEK++QTMyTDgbKT60zwg
+	 EBKNuJJ72norNZsyg0vnODmIcVXR+9zxctHjioxszB0Ue3+17/Nvk+3MmBTYF7FQMzQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=cOpTf5Us;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F5F609528C;
-	Wed,  4 Nov 2026 19:52:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6956460958D0
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:52:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6956460958D0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4RqvCC3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F8E1F00919;
-	Wed,  4 Nov 2026 19:52:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793821940;
-	bh=cbUv3n1tBnI1k6VxTZ3ZcHd/CVUe8/cnvkVP6mlO6Yc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E4RqvCC33TjJz3vsdxt6gVY1KKu7vjxv4xFkRitk2vuws+TlWcgf7WMt9M4i+MGOG
-	 5RqBFuiDLeSXKpam105hMVUy3rhZtAy4+MdMi+B7rIZnwUE4pEJ3q3s5wEaYNPAvME
-	 KGEwRiAVWj2XYJWhDQNc2XFGUB4R7PXjlOfMJ1Wd48dn4EheS4oMJIcqJ7f5JQYPgB
-	 TSPocNG2UWf2+B18aoxxNlwBlUst0KSwQJOkoIQQZUfrJ7zcLgoYvoDopw5KBBJBn/
-	 8DxYWNnsXOWVRZ4gVxW8YDBrz4dlklthAuCncsHXYWBPclGriCH6RWHTj0lVCLeuJN
-	 1w/HFHcR3YoYQ==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 10/30] genirq/proc: let procfs copy in the affinity masks
-Date: Wed,  4 Nov 2026 20:52:06 +0100
-Message-ID: <20261104-work-procfs-fs-v2-10-319e0f9a8aae@kernel.org>
-In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=cOpTf5Us
+ARC-Seal: i=1; a=rsa-sha256; t=1793821927; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EXNvL60t7UEFw8OuXwv9q7cs4BDaDl4hxq5PcaxJv09OCkdlNfib+6NAQuFc0bkg+QyUh6dPiYFiBm6Ip3WVxr20WN1+Opr/ViaHNa7vwR3YbiFIRoTR1ZZMyAWMUO3wH5RCiu4jkr1ccoNhaE6YUW9KTO9zrT4P8zemIp+Cqas=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793821927; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ki/ozP3RoDXMuAAZKxiy5Y6Gp71eNHZ9dUt1D2IRKgQ=; 
+	b=XfDQ+xshGD6NbUO35SWCMpYAtnWKGQ79KGTxUQVi3RboUHNFqCPyfuDeAuSC9x7z9avBANPsj0Z1QK+r/9RceG0n2y9OaOhaFpBbwgpAGGSN9XvfaaAL5850YbJvAz9tCYn40rtZA3wkDV6IA4jdQY/BzaSccVkuvBJL7pI69so=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=cOpTf5UsAqSKcScBlMrWWR01NwTBfMlfaW3LETKc7MGxoDtILTJuDobAFj9HFFkaWAgVnjLUTSFJVVxhBGnfmC7shPZtXsoOHfH4S4qVd4Mj9EwvndHScJLK9QSdrG92TrbZ9G0tuM1IbBggwgkoFvp9RbMN1esp/F4CsnX61R8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Ki/ozP3RoDXMuAAZKxiy5Y6Gp71eNHZ9dUt1D2IRKgQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179382192565294.53060187105473;
+	Wed, 4 Nov 2026 11:52:05 -0800 (PST)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v3 0/2] Two small perfcnt fixes for Panfrost
+Date: Wed, 04 Nov 2026 19:51:52 +0000
+Message-Id: <20261104-panfrost-reset-races-fixes-v3-0-09868a88c351@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,121 +61,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3770; i=brauner@kernel.org; h=from:subject:message-id; bh=WZPzG5+ElQbjbcTuZJJKbql/hLS5VpybW+Y2WsbSVy8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jFTOsnPsPqVcfq0tE/cqcL/tgpv8fLebHHL7+Kde 1dYK5Ofd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExEejPDf4d249cV1q+X8Xi5 lzKEZHld3P2sJ++tcMq/aU/+3/3eHMjwvy5Y6WGkzT+rx1e/T7mY5upvvFxP0ovZMPeTMvtUxrP urAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ7CIBBFr9KwFgMUWuvKexgXQAeLqaWBSjRN7
+ y7UGBMX3fzkZ/68N6MA3kJAx2JGHqIN1g2plLsC6U4OV8C2TR0xwipKKMejHIx3YcIeAqSUGgI
+ 29pmyMsIwLppWNwolwOhhPaT/8+XTw0PdQE+ZmBedDZPzr9Uead59RWJLFCkmWKmaa1ofKknUS
+ bu+l8p5udfujrIssh+OknITxxKOC85IrWjLofzHLcvyBrg5ko4pAQAA
+X-Change-ID: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2169;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=Y0sDh9Vxfi6xKWYfSk0iWNZD/d7xGKBSB//bMaYYXo8=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq64zbAKNHKtGqcs/jwuntYpHec34HEx4c3xY/7
+ UsI5lqjKwyJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCauuM2wAKCRAOJn5M7lND
+ PcECC/9cFbeqYvc2fVSH3VFenHfGRxeFS95TWW6ZcxiCbSUojX9gNinK39g7RbQ2P3/b48iY40y
+ 56sy2f+3yPEjEQH4wbWuYuUAr8leUSKC9I4piOFp4pqGdGqFoKHuFZ9meiFpDRhY/x71/ln2G7L
+ Iu0zSpF9uRqCmIfku2ktCqGSQXvT2B+cEyilQ0SUwp4GHKDuHqJaLCeHtPv7S5XRdDtkZHgh7GY
+ xqJanTNZ7qklKnF3qi+n7fnKiq7R3KxPzhZFy7SzepHgaRda5R8NkPeyiGDijXF3hlhQ4ZKYKg8
+ YO3OOVRIhkOF3R8DifmqjTYmGyp+uHpDNvHq6Sqmxot3MRPeEjjzaIfBkhrIftV3R22HHWA638N
+ 7ZV3bYsycD9slcABYXodnFVYNIiSn+tdLdOpbVQ6n0iqZGoy89tCwQk+KtXB5+R9eBuYav4xheh
+ /K4x57ZrsGQd6vi6N467+3KvZZl7/UKIy1qt0NuynzNgNiqflu9qHE0ViyCq0vUWoSs+E=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Implement ->proc_write_buf() for smp_affinity, smp_affinity_list and
-default_smp_affinity so procfs copies in what is written before it pins
-the entry, and parse the masks from that copy. A list of CPUs can be
-longer than a page on large machines, so the files take as much as
-memdup_user_nul() could copy in before. Anything larger fails with
--EINVAL instead of -ENOMEM.
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+First fix makes sure cycle counter is enabled when starting a new
+session. This is required by some profiling frameworks like
+Perfetto. Second fix deals with a recently-introduced race condition.
+
 ---
- kernel/irq/proc.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+Changes in v3:
+- Removed atomic-variable non-equality check altogether.
+- Minor commitm messages changes and adding trailers.
+- Link to v2: https://patch.msgid.link/20261103-panfrost-reset-races-fixes-v2-0-454207b1d4e3@collabora.com
 
-diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
-index aa3d5544cfc1..fe683457a088 100644
---- a/kernel/irq/proc.c
-+++ b/kernel/irq/proc.c
-@@ -9,6 +9,7 @@
- #include <linux/gfp.h>
- #include <linux/proc_fs.h>
- #include <linux/seq_file.h>
-+#include <linux/slab.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/kernel_stat.h>
-@@ -134,8 +135,11 @@ static inline int irq_select_affinity_usr(unsigned int irq)
- }
- #endif
- 
-+/* lists of CPUs can outgrow a page, take what memdup_user_nul() took */
-+#define IRQ_AFFINITY_WRITE_SIZE	(KMALLOC_MAX_SIZE - 1)
-+
- static ssize_t write_irq_affinity(int type, struct file *file,
--		const char __user *buffer, size_t count, loff_t *pos)
-+		char *buffer, size_t count, loff_t *pos)
- {
- 	unsigned int irq = (int)(long)pde_data(file_inode(file));
- 	cpumask_var_t new_value;
-@@ -148,9 +152,9 @@ static ssize_t write_irq_affinity(int type, struct file *file,
- 		return -ENOMEM;
- 
- 	if (type)
--		err = cpumask_parselist_user(buffer, count, new_value);
-+		err = cpulist_parse(buffer, new_value);
- 	else
--		err = cpumask_parse_user(buffer, count, new_value);
-+		err = cpumask_parse(buffer, new_value);
- 	if (err)
- 		goto free_cpumask;
- 
-@@ -177,25 +181,27 @@ free_cpumask:
- }
- 
- static ssize_t irq_affinity_proc_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *pos)
-+		char *buffer, size_t count, loff_t *pos)
- {
- 	return write_irq_affinity(0, file, buffer, count, pos);
- }
- 
- static ssize_t irq_affinity_list_proc_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *pos)
-+		char *buffer, size_t count, loff_t *pos)
- {
- 	return write_irq_affinity(1, file, buffer, count, pos);
- }
- 
- static const struct proc_ops irq_affinity_proc_ops = {
- 	.proc_show	= irq_affinity_proc_show,
--	.proc_write	= irq_affinity_proc_write,
-+	.proc_write_buf	= irq_affinity_proc_write,
-+	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
- };
- 
- static const struct proc_ops irq_affinity_list_proc_ops = {
- 	.proc_show	= irq_affinity_list_proc_show,
--	.proc_write	= irq_affinity_list_proc_write,
-+	.proc_write_buf	= irq_affinity_list_proc_write,
-+	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
- };
- 
- #ifdef CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK
-@@ -217,7 +223,7 @@ static int default_affinity_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t default_affinity_write(struct file *file,
--		const char __user *buffer, size_t count, loff_t *ppos)
-+		char *buffer, size_t count, loff_t *ppos)
- {
- 	cpumask_var_t new_value;
- 	int err;
-@@ -225,7 +231,7 @@ static ssize_t default_affinity_write(struct file *file,
- 	if (!zalloc_cpumask_var(&new_value, GFP_KERNEL))
- 		return -ENOMEM;
- 
--	err = cpumask_parse_user(buffer, count, new_value);
-+	err = cpumask_parse(buffer, new_value);
- 	if (err)
- 		goto out;
- 
-@@ -249,7 +255,8 @@ out:
- 
- static const struct proc_ops default_affinity_proc_ops = {
- 	.proc_show	= default_affinity_show,
--	.proc_write	= default_affinity_write,
-+	.proc_write_buf	= default_affinity_write,
-+	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
- };
- 
- static int irq_node_proc_show(struct seq_file *m, void *v)
+Changes in v2:
+- Added review trailers.
+- Removed warning from cycle count reference check.
+- Link to v1: https://patch.msgid.link/20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com
 
--- 
-2.53.0
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Adrián Larumbe (1):
+      drm/panfrost: Fix race when restoring reset state in perfcnt
+
+Boris Brezillon (1):
+      drm/panfrost: Enable cycle counting when perfcnt is enabled
+
+ drivers/gpu/drm/panfrost/panfrost_gpu.c     |  7 +++----
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 18 ++++++++++--------
+ 2 files changed, 13 insertions(+), 12 deletions(-)
+---
+base-commit: 6f7098738fff3ec7393f924343188cb8e6ebc5d2
+change-id: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
