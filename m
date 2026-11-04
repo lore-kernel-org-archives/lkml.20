@@ -1,56 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801196;
-	b=FRtN8qIQY9MgXp+ng3oCGjzQft5CE8qiLOmdSg3z+M8JXx482b8lC9qmGjsKor1IeQvN
-	 3dpD02ZNJJxt/5iUsRqhc5azetCYs8iyJcEWSMpXJAVZhTeXdG/SRQ8ziREiH/nlCbim3
-	 fsHiejn6vdj0XVa84gvdslyMzI14XxmH6SP+o2umysqHIob8AucRCayUZv5HCyqu1EcOq
-	 wC6gCVD9YGA6nlK21s6lcBryZM+e6oWBNLa0BfwQcfSukUx3PtZjFbov5uKZK+42ChJSv
-	 tOqr3xYKSlFZCpg8PYdQPXZENfbVLV1T0fnPj4ByjNavZFdFh89n8inNGE5uyfqq9Ow==
+	t=1793801214;
+	b=vqfEkFhgjRpbEAIICS2nmx9PLk2H9ER4blEWuX+0ttAbpKSMELMCW/d7JnYz18Ths4pZ
+	 B9CSaiwSHDp+nTmDBJy+c5wlYEBejLauyX0z+whSQb0zQiwlzzbwA1iltemRcPANg+8xY
+	 ORjBa2MIxLgQ0cpbqrErPHDYDTd92TKTy3TwfVqy9By/YpRTJQFMqQrflX41EEN0tAiDe
+	 PCGYJqRj+2oa7h92ehojv1biatX6TDbKG3FSulH6GdSoR3Vbg9QdIKX0iR8KnWBZiK9Gi
+	 TGRq8BJSK5X+6ba0Kqu9sTtaKLDtDNiVmOBr4LFUV/IeOlodTZEbjLrJqjuRYh+Jh3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801196;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
-	b=bVQl6nN1aqJpXTKFkiHbqK5BsNQS/0m+t4dxPBzTFUQIz64hjbeb7ZRAw8zssafIF81U
-	 1A4ulSQ6V8Xrq5+c1tWq+qbGiqEc/KyJbiZ+7hrPixdYv5o0Ibmrm6xxAEVa/YDSGHuEf
-	 FOWE0vdqWLBNd2nq5CbqObyWBPjD/Li7uZjqzSZkiO4bwuoVk/pu22NApmYMxpyE9zAmA
-	 uQRe1icaKpH7U0zmLbAW2DSRa2AI5PUl1rWwtobWf+6sOptS7y6iTTXhaPuh1JxILVPWd
-	 tn0ytqs/DDwkrZ5BE/ya5p+XYnY1j2VmWIfVWQt3Ikk5MU420Dk8/SHIVgtIaN7LdkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801214;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=89dq3IDlIOzn8djResfo9bjk5NhtKhFtGgw4OwKNXuU=;
+	b=MPzHbD2M8LUAb1G0d/2LnK3Os8eDCLgePxZG/yfWv8VU+KIGVFSyYD99nSjIxXvGQ9d4
+	 J4VPEXzsdrvGIQegIy8zzFp9qgjMBQ8U078yaR4RPmj5ULL70k9nCG5MbGRtNRuHazRSI
+	 UbHILySQo4fLoKqK9Ls18tMPn9LWeDCUVlL5dzxDUobh2hVoNNLWqNMoHo2CSNlPHozrf
+	 NK3e9rsjrMfOGeLo1m8NRJWxp/DjpAoyWxyOLpg+1GWKvgEmsJ/20luavnn8Ye+d5qYSe
+	 Fy6MzI1WjtPzrJnahq9pF81b3U8xPjs8UuOEMzMneKyP37sjJeB6dHkxMhHC6OZJTcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=crusoe.ai;
+	spf=pass smtp.mailfrom=crusoe.ai;
+	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=SA5biTah;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1B9606A31B;
-	Wed,  4 Nov 2026 14:06:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8262F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8262F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3943A1F00919;
-	Wed,  4 Nov 2026 14:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801195;
-	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bDAinQV78kjJGiRao2RlWwJ7qdRGHIzm8KQao4PrDV/PUop6ZnJhhSCnZ7zWFaZXj
-	 izuvBAY15eKrmx8/0Dg52D3yuOCzfzA47CKA0osbIpS7Jnpu0T+kekKoIm4z1KoT98
-	 8XO41cC7jSYiuEYnKQIKDFs0Y6lx3rxnA3lATzL37Lo5t+seairFqy4rw99vURD6SV
-	 Nl24+LErs1Xhnr1zFtPP/QIW9neMElBYB0zIMokMaU/BGgXzYIvIubR/ok/X1uiimI
-	 Ie7Qffgec1FYRixwAld/q/0zdZy/911jv68Utp9WjeVJBZs4m6krRAQTTp2XnX9EKE
-	 8TnxLsUXIxwIg==
-Date: Wed, 4 Nov 2026 15:06:31 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shan-Chun Hung <shanchun1218@gmail.com>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
-	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-Message-ID: <20261104-airborne-vivid-caterpillar-991425@quoll>
-References: <20261103022202.2139674-1-shanchun1218@gmail.com>
- <20261103022202.2139674-3-shanchun1218@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=SA5biTah
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1a8cc11ac42so927804c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:06:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=crusoe.ai; s=google; t=1793801212; x=1794406012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=89dq3IDlIOzn8djResfo9bjk5NhtKhFtGgw4OwKNXuU=;
+        b=SA5biTahYymNXA/4aEmzwpQ//BHc1oGPa2zz3KBaZORDVhemgrPFMvKRjrEDxAxlxj
+         +OHoelf8mhFQa3SAtZZ+bKZdLnAVXbX5or2/304+ohqs6JYx+9Xn/jhFQb2W7muI4fYg
+         XrJT+RnjF3S0QQaLDGV9KNmfk/jF2BHmVPlq1y3ExGC0QoohC2UmzvrZ2KxxMs2nn+qN
+         uPpIJWzv4yJ0DxYyxpPd0O9rOl7uNYT+gufMJsF160FqVGBF65Q7i8DmfMaEbOavHbsl
+         pE5pQrkEykkQKs8+o/GYvzvVmQljYm/YmxJ2/rNI5pAmVog566MJFGbT+dDVziNL7OaO
+         jgrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793801212; x=1794406012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=89dq3IDlIOzn8djResfo9bjk5NhtKhFtGgw4OwKNXuU=;
+        b=TBqsMuQtm2OlvJygWJQu1xa9+QXzp+13oUUWuaC7+yuX54BQ8sbkksLyHrM7M0+hys
+         GeGdGLlgV/x4PZIkmVhjum8vWvsI/3tpbzJJZnWk/J9NuG7VE9qECfIP2Ih+pxxLLA7r
+         9Nob0VEq/G0Kr9bos8w8ho3xsmz0I1g33KdoMukPkM/xBaw1RGezRhA89Ux3d2HlCJq8
+         mqMIIf6oEhDPAzI0q3ikYg/kKb3obiNL3j7Bb2cnUsWMsAa8lJgyduxpUevbSWzadsj4
+         E94+tOj4+tv126WZvWPX/3Mtn+E3BTGYLXWsO/bUIwCRCXQXWTnXvCBAgX4V5sNvBsTw
+         Xh/A==
+X-Forwarded-Encrypted: i=1; AKwUvBz3HaTtmBUCywZGhkKiNrAvP3Qx0iT7Ts4OwM98US131iBS5j2UW4lWsktis4HYeigHiNNAvblmwp3LLFI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Px2ts9w/q1jimCEp7ImIA/giCZ194I/RfQ74TGC5nGsqOWoZf
+	+00rZFpxfoJ/VnAqAqlkRMlDeWtzlmvvT1WM8meUR4vovrphimeO6j4r9AQfP0k325k=
+X-Gm-Gg: AYBFou3QTnNN5QqxH0ybXvZiJ5sHK04BhtSxzKjALlDeDPbvCZNwrrWiTGjaHp6/isD
+	kEWRGXqO46Ij9/pPUpAIJzWlmbyU+lqRlC4KC7584IOhl0dYoAhnNLXihtmKfYWRL/5yZr8a/8c
+	Vx01NsbrbFmPdJbXMQNRDz9ZIDtzHjTOOJKpC9BsM1ozgg1B+7oa00sGLQpwUZXNFGfpcVRgKEC
+	N/UnSgpxT8ZXQ/gHsykV18MOxHh7smsuDquwP8NHioRLJHzw45uEtpi4g359/D9RKUrp+8CkhU0
+	s5hDRvFnIoCQyqYCzgeLXEv77mfp8xIifkug/46zmOAn0LoGw0UTDjDSudYScS+cyBFh38bG3vJ
+	yeZ3qSDD6ETfemhMZKZs9U4WK++WMcqxVvbcAqzrfOWFgh3JaxyhjCVfqmoH2Z5yPL/ATZw+rBS
+	gm/AXFqXjPJHxwTUyqgg2hM6PH9wxOm7bF2s269TBbWlc+Arci5T0qInGB4Mtf1+/f94C2iR9az
+	8/IaSNOvnlP9PtqsIqTtYeBJwHQgYWqM0bI4Vx3RrhTOo+PR94XgUTNgKk1TAle+ZhJb4BhDEaK
+	hNMgCHvJbSdXTuihaS3/aIFEU7uBSEAQMjEa2UT9T0IzYW2Oee9qyOPkjplFg5ydBpZzdg2Omg=
+	=
+X-Received: by 2002:a05:7022:120c:b0:15a:4155:3d9a with SMTP id a92af1059eb24-1ac609808c6mr21925883c88.47.1793801212374;
+        Wed, 04 Nov 2026 06:06:52 -0800 (PST)
+Received: from MBP-Saravanan-D.civet-hops.ts.net ([71.202.170.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c748eesm7938399c88.23.2026.11.04.06.06.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 06:06:51 -0800 (PST)
+From: Saravanan D <saravanand@crusoe.ai>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	axboe@kernel.dk,
+	nilay@linux.ibm.com,
+	dwagner@suse.de,
+	sgogte@purestorage.com,
+	hare@kernel.org,
+	hare@suse.de,
+	linux-kernel@vger.kernel.org,
+	iyamahata@crusoe.ai,
+	kiyer@crusoe.ai,
+	ganbalagane@crusoe.ai,
+	sjpark@crusoe.ai,
+	bchen@crusoe.ai,
+	Saravanan D <saravanand@crusoe.ai>
+Subject: [PATCH v7 0/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
+Date: Wed,  4 Nov 2026 06:06:28 -0800
+Message-ID: <cover.1793800758.git.saravanand@crusoe.ai>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,215 +109,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103022202.2139674-3-shanchun1218@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
-> +#include <linux/align.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/compiler_types.h>
-> +#include <linux/container_of.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/device.h>
-> +#include <linux/dma-direction.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/dma/ma35d1-pdma.h>
-> +#include <linux/dmaengine.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/gfp_types.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/irqreturn.h>
-> +#include <linux/limits.h>
-> +#include <linux/list.h>
-> +#include <linux/math.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_dma.h>
-> +#include <linux/overflow.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/scatterlist.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/spinlock_types.h>
-> +#include <linux/stddef.h>
-> +#include <linux/string.h>
-> +#include <linux/types.h>
+On hosts that partition their CPUs after connect time, the connect
+time io_cpu selection can place a queue's socket work on CPUs owned by
+another workload. This series lets a control plane set each queue's
+io_cpu through /sys/class/nvme/nvmeX/queues/<qid>/. Patch 1 adds the
+core helpers, patch 2 the nvme-tcp attributes.
 
-Do you use all these defines?
+Changes since v6 [1]:
+- nvme-core now owns the queues directory. A transport lists its queue
+  attributes in the new queue_attr_groups member of struct
+  nvme_ctrl_ops, nvme_add_ctrl() creates the directory for it, and
+  nvme_uninit_ctrl() removes it through the new
+  nvme_queue_dir_destroy() helper (Nilay).
+- Rebased onto the current nvme-7.4.
 
-I don't see usage of header with bindings, though.
+A blktests patch, nvme/077, covers the interface and follows in this
+thread.
 
-> +
-> +#include "dmaengine.h"
-> +#include "virt-dma.h"
-> +
+[1] https://lore.kernel.org/linux-nvme/20261023230426.6425-1-saravanand@crusoe.ai/
 
-...
+Saravanan D (2):
+  nvme: add per-queue sysfs directories
+  nvme-tcp: allow setting per-queue io_cpu through sysfs
 
-> +static int ma35d1_pdma_probe(struct platform_device *pdev)
-> +{
-> +	int i, irq, nr_chans, ret;
-> +	struct clk *pdma_clk;
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *node = dev->of_node;
-> +	struct ma35d1_chan *ch;
-> +	struct ma35d1_pdmadev *pdmadev;
-> +	void __iomem *reg_base;
-> +
-> +	pdma_clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(pdma_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
-> +
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-> +	if (ret)
-> +		return ret;
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	ret = of_property_read_u32(node, "dma-channels", &nr_chans);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get dma-channels\n");
-> +
-> +	if (nr_chans > PDMA_MAX_CHANS) {
-> +		dev_warn(dev, "dma-channels %d exceeds max %d, clamping\n",
-> +			 nr_chans, PDMA_MAX_CHANS);
-> +		nr_chans = PDMA_MAX_CHANS;
-> +	}
-> +
-> +	pdmadev = devm_kzalloc(dev, struct_size(pdmadev, channels, nr_chans), GFP_KERNEL);
-> +	if (!pdmadev)
-> +		return -ENOMEM;
-> +
-> +	pdmadev->nr_chans = nr_chans;
-> +
-> +	reg_base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(reg_base))
-> +		return dev_err_probe(dev, PTR_ERR(reg_base),
-> +				     "Failed to map pdma global registers\n");
-> +
-> +	dma_cap_zero(pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
-> +
-> +	pdmadev->ddev.dev = dev;
-> +	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
-> +	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
-> +	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
-> +	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
-> +	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
-> +	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
-> +	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
-> +	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
-> +	pdmadev->ddev.device_tx_status = ma35d1_tx_status;
-> +	pdmadev->ddev.device_config = ma35d1_slave_config;
-> +	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
-> +	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
-> +
-> +	spin_lock_init(&pdmadev->lock);
-> +	INIT_LIST_HEAD(&pdmadev->ddev.channels);
-> +	for (i = 0; i < nr_chans; i++) {
-> +		ch = &pdmadev->channels[i];
-> +		ch->dev = dev;
-> +		ch->pdmadev = pdmadev;
-> +		ch->id = i;
-> +		ch->base = reg_base;
-> +		ch->vc.desc_free = ma35d1_pdma_desc_free;
-> +		vchan_init(&ch->vc, &pdmadev->ddev);
-> +	}
-> +
-> +	ret = devm_request_irq(dev, irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-> +
-> +	ret = dmaenginem_async_device_register(&pdmadev->ddev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
-> +
-> +	platform_set_drvdata(pdev, pdmadev);
-> +
-> +	return 0;
-> +}
-> +
-> +static void ma35d1_pdma_remove(struct platform_device *pdev)
-> +{
-> +	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
-> +	int i;
-> +
-> +	of_dma_controller_free(pdev->dev.of_node);
-> +	writel(0, pdmadev->channels[0].base + PDMA_INTEN);
-> +
-> +	for (i = 0; i < pdmadev->nr_chans; i++)
-> +		tasklet_kill(&pdmadev->channels[i].vc.task);
-> +}
-> +
-> +static const struct of_device_id ma35d1_pdma_match[] = {
-> +	{ .compatible = "nuvoton,ma35d1-pdma" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
-> +
-> +static struct platform_driver ma35d1_pdma_driver = {
-> +	.probe = ma35d1_pdma_probe,
-> +	.remove = ma35d1_pdma_remove,
-> +	.driver = {
-> +		.name = "ma35d1-pdma",
-> +		.of_match_table = ma35d1_pdma_match,
-> +	},
-> +};
-> +module_platform_driver(ma35d1_pdma_driver);
-> +
-> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
-> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/include/linux/dma/ma35d1-pdma.h b/include/linux/dma/ma35d1-pdma.h
-> new file mode 100644
-> index 000000000000..13f1410d74da
-> --- /dev/null
-> +++ b/include/linux/dma/ma35d1-pdma.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Header file for the MA35D1 PDMA Controller driver
-> + *
-> + * Copyright (C) 2026 Nuvoton Technology Corp.
-> + */
-> +#ifndef _MA35D1_PDMA_H
-> +#define _MA35D1_PDMA_H
-> +
-> +/**
-> + * struct ma35d1_peripheral - PDMA peripheral configuration
-> + * @prescaler: timeout prescaler value
-> + * @counter: timeout counter value
-> + *
-> + * Slave device drivers fill in this structure and pass it via
-> + * dma_slave_config.peripheral_config/peripheral_size to configure
-> + * the MA35D1 PDMA engine's per-channel timeout detection block.
+ Documentation/ABI/stable/sysfs-nvme |  31 ++++++
+ drivers/nvme/host/core.c            |  12 ++
+ drivers/nvme/host/nvme.h            |  25 +++++
+ drivers/nvme/host/sysfs.c           |  88 +++++++++++++++
+ drivers/nvme/host/tcp.c             | 167 ++++++++++++++++++++++++----
+ 5 files changed, 303 insertions(+), 20 deletions(-)
 
-Hm? Confusing, how is it supposed to be used? Do you just reimplement
-board files?
 
-> + */
-> +struct ma35d1_peripheral {
-> +	unsigned int prescaler;
-> +	unsigned int counter;
-> +};
-> +
-> +#endif /* _MA35D1_PDMA_H */
-> --
-> 2.25.1
-> 
+base-commit: ca7e6a9a693240f059a0b47726f64a3f0573011a
+-- 
+2.56.0
+
