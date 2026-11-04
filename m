@@ -1,53 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805417;
-	b=Rhk4yz1Y/dJbNKno6idh0Zdgx6SsK7bgsqnuXHZJm7TvemgCoaxPSt6PiZ7qaTa6aZFE
-	 PuaFfc9EtCKjueZQf1PDpjFo2fCXOTMbln6sXJ4YprB1pF2w0f+s3lmzh6PMkSObpNS9y
-	 AmEOPQkjAEp0F2+77fAjjwpSuXRr8ylb/R6kOmbkxyi8wHQyOiUu2JKF/vkpwfzRKkdWU
-	 H1icjRdiYRds0GMAZa/AGRZhyIIRmVx5l2Wm5wQ+xxWjvWhTp82ovwQnFhtelp13WbNen
-	 Z7Td55HeETPKUW26KKCMDHIbR+35mfDKT5L7iUT+ao5pMsR0o5/YKdnkxZvgysXUE3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805417;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=+ujcZSwz/83lrvr7TwjbA/nnj3jCHCu3CReqCbjjg4k=;
-	b=bueFKtyogFa4VdbGBoR7l8ZJ1jQq4aSH5SWeDIGLPk26Czrk4Nojys828tUWD/Cj4r5C
-	 Tsc4uZsT6r4/rHSu+GlcTDz44tOIIIQk52ppY19ZHSB4tu8K4UTJMFiJJ9lbgGkvd3c5G
-	 /oXHKEyd6PYg3E02jUmWHXW+ucB4StuCImJCkufy8l3vIGAB1DTNWwwWqJJ6H6kz/hjSr
-	 oZUp6aH8qvaRzaPRKpg3SvRdbH4RZL+epqgG2sCAjdJ3xbm7uEkILhpLO7HXh3lY6gtoE
-	 UW4KpFoaRISB4kC1/wO9frzL4csh1vvDpyIWgXgg56UWpjrwJrPt3vEm2DoiZTnu1ZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm5xgmQs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793805513;
+	b=w0kb/j+OIofgDU7WNxmzRewPOc/OBwg+up+N0dadBpqIpXtMr/gq5GR64NkSsh7KQrpq
+	 aGqU4345fkYoaM6xbIyW7iqEDGpNBVikfc+h1sTzFGRdcOb/bp+luPswXuQZfoaFe7qKd
+	 sJFvN4/nMBKbQej9sC0rjB1yhB1Ul6iQyHgrOuL5o0yRQq+wwxOzdBlEB4ri5LHi+wjmX
+	 rQcz9a4vvfydxRbFdXb5QglQpD7KMYcT6syZ8sTMc6fS1FhyS6LxPhVPXtSx4WybHyK87
+	 Lxly3QQnVx+hnoANZ6Q+9J1Y01A5X5n/UY/uPVeyUt95BSzaiCtpGK06cCkzgYnym+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805513;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=85b4qb0k5l+wxRsvgF3PPoa9EpZeNI2UjIuR5x0lcTI=;
+	b=WNiRg03PyDQz7lYbE4Rbu4e9bz8rai0iavypz8wq1RX4y7GahO+a6pdJ+FSzKOS8tBry
+	 Z/TMV+6PboccC/RueMBRb0yEzdjxKuU/uiB2QJHVsq3iSVNOOtU0pL4bpi5vKB1EJ8i9K
+	 LRaQHWdUZkeaFVyiE7R4fVxFuTbVYqnm/MyVhx5oMjeS9AgccddBKqhG4GEtej8oqxGno
+	 nAqw/oTgoneQ0HhCovD5F/LlIS+qAMTRdd1dTyJRHjhhVDowVbiirtecSfOcTgSd+oIdz
+	 PqsWIfluSsKQssuRzhbJWhCa6sLQ5n71Q4AyMms94jdlSRctQ8DwpsHUU2wQ0naP8Bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NlBAKukB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.58
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A536082BCA;
-	Wed,  4 Nov 2026 15:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770AC606A7CD;
+	Wed,  4 Nov 2026 15:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 770AC606A7CD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm5xgmQs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95D11F000C1;
-	Wed,  4 Nov 2026 15:16:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793805416;
-	bh=+ujcZSwz/83lrvr7TwjbA/nnj3jCHCu3CReqCbjjg4k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dm5xgmQs9vbq7KABM0NpP+ZAPLa4DMSzqyEkuaod8cucwB6X9XbLcnMIa0roPCHFz
-	 sT/WbrfWDG6BxHcVATi74iVbVZSvQEdv59vX49p9Th126pTDX1IB3+vnndDkV/R1DC
-	 hTa1kHj3tspFrTDiA4eH12ypLKwAL8eLt0q7EVOecxr9em1O0Qk4FKsZM/nlTbBeaZ
-	 NuqLcukapd9avErN1jWbC66S/aGcyF8YonWIFu7iscB2umKswNJTAQCNRewyrLEqyl
-	 97j3lRwHg+CohE/dpjOgt7pZTXLCTmwgHFPUaWpWVAZwGE1VUNZTRA6njfbiWlX0eZ
-	 sx1DJbSrPwS/w==
-Date: Wed, 4 Nov 2026 15:16:53 +0000
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v4] leds: Add driver for MAX8907 LED cell
-Message-ID: <179318844110.3606039.5801345229436270811@kernel.org>
-References: <20261027115006.86032-1-clamor95@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NlBAKukB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ivtVQsckVY/Ug2gDv3HWA8A4T3+mysyRF+ZUaThjFmgXOZs2tWerQ2eR6XIY+VTZHQn5UlsUDHjWAKXUcfdkCXuDQ94RkOwvA11JUomcPcNIx4w7YbZAQK6PXccWGcK251YYdLeLD1CbtvoaHgeV7y+D0nW+MrFPctDxC+yCUYY+jRntPNp9kCt1NAeDUkcLF5vwOblFyezEW9TXQrUBop/UgAc1LeHnKqSwGbM1x62qYtr6TPEVk8+/cjj5//w/pcyMuCtxjXE2rf+j/OgaDKS2F4aaJKaXEQmTgAuQgppK894J5oxUp7w8Z7dbfqQBiq/h5g0v7UVBRsGxsv01jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=85b4qb0k5l+wxRsvgF3PPoa9EpZeNI2UjIuR5x0lcTI=;
+ b=qTRDazYoFLR8itJp0M84kEqSfFBfXrSEcd+ymeoihTggUdYG5MIaRVb160KRXcrADQsgf7WPRuogEyotlbFokh5eaQols4EG+HE+CyNho/Sa2TBVXzAyQWev9SZmBcTlAKw+L9EXALLSVami2ziORKF06NCO10SYtoBBiEMm+is6/KQ2B9oJtYhv4HOBHIeY6j50Hp5Cnh7BUYDFmjcWgSqKSbiD78DkDBeQPi+W3nRtoqTDI2R+vW3DYetQW3nJSZQMoH/jaEck/Ny2PLX3gf/iBY/+hJZrx7faJ/jcA/gHpynJkUhrGzeSP6JxPGywpOZa11wAWE6AbMQvBGGAMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=85b4qb0k5l+wxRsvgF3PPoa9EpZeNI2UjIuR5x0lcTI=;
+ b=NlBAKukBI1RHl2BBbAwm1L3NKzNuBH8QVTqUsNNdox5maGKiKWfdor+YiobAvlLLPTz5Jtj8/vY7gZh8NcwkUZDYIe421+1O6A+TnaNQiSxP9ErWRurbkmm7ZfSEv2VWKymeYLi8drNY0+aS9XjTNytNxmjVpST16hbPpiLpuFg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ SA3PR12MB8024.namprd12.prod.outlook.com (2603:10b6:806:312::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 15:18:29 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 15:18:29 +0000
+Date: Wed, 4 Nov 2026 10:18:20 -0500
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	xen-devel@lists.xenproject.org,
+	Ariadne Conill <ariadne@ariadne.space>,
+	Sean Christopherson <seanjc@google.com>,
+	Juergen Gross <jgross@suse.com>, stable@vger.kernel.org,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
+Message-ID: <20261104151820.GA716491@yaz-khff2.amd.com>
+References: <20261104013026.185392-1-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
+X-ClientProxiedBy: BL1P222CA0026.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c7::31) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,221 +102,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027115006.86032-1-clamor95@gmail.com>
-X-AI-Review-Draft: <20261027115006.86032-1-clamor95@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|SA3PR12MB8024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4438fe91-8b9b-4d76-1a14-08df3a86e140
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|260925022911599003|260925021911599003|260925021311599003|5023799004|11063799006|56012099006|261021121427099003|261009223027099003|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NG8Zcjr3DlrYJxWdftLf/y3xgxeNkk7BQUqr749vA/LCUfgy5h8aLYSuShhfedQK0nwyi4WcEtPUpOUurIUml39IWtDwivou3lxDSJzWllcAcOSBOJnnhvqviowR1rKlrZBUM9Nmt1TWl6nsT2pcqASWc/MPWHtkZPL+NK1JIOTSFJ6I9VoDKGLcDQjh2o7qedPq0prrm4LB4FL9e9zEFRJ8DkkL28j9v1wo3vILII6zm1FCuRTDal7pCKjvrRJ7mqUYRQPMCeBfwC8cZsNSbGVjjrNIz2AWGUrZK/TJ9nMu1H1AaumGzRqciN3L86iHyHanj2CzVDEYncgbCZMRS8zAeynCmMAHB2sZp7VvRIFH3gT1lpcu9ABcwTFchEBKzJxqA4DBpgWyMYFXLbwN62nm42nQMQe5KuDhQUcrF7o5/cZ14kk0XQLReKcTnvIFbhUaFF4yDgN2F33QgWQq8b4QO4pwiAYY3oaIUrwWByewCCy0U2I8iMg0+lpJbmuNioIsHfQNCKV12Q/y62ABqnmViKuqzEmGH1nJhCvgGCyh1HmBebIXTvaBhYOOfzsEA6LQmA3Bx3RrXfq3gzc6qvPdhZ1HeP6naHJsa4vzTHqjTg84J4GRSYN0Z2gITlqp
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(260925022911599003)(260925021911599003)(260925021311599003)(5023799004)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3MDBuWWJLJGXBrgI7+auT3MsPGkkA8FjIHqKBQYnVdz4Gb4Dz1ePvjt/Gd7w?=
+ =?us-ascii?Q?P1k930asaXEo3pstXTLx75ifsu02gSF4CvwhMn/XGbbhZ4y/LKXIDIjdXREB?=
+ =?us-ascii?Q?QfD4kHp7S1wiwKwXqWjcAsMu2sORNcvQc2XxM0EDtGpAgUk5UT4zhfa/MwN/?=
+ =?us-ascii?Q?sygPalz13gB6haoG4znhWcg/cp0yHqFgccFdplu/3CQEY2/uKatwQxAQ2vg2?=
+ =?us-ascii?Q?brttvUsmxfpOOAPYR+VP3yT3/Ayq1ONqZjq/J2ybaD7Q6yEcyJpgBrcCWNeW?=
+ =?us-ascii?Q?G+Br3OhcV8LM8cg80qz6Gzim/8tL6osjQJUQPCsbWLmzlZw3wYEk0MvgWdYJ?=
+ =?us-ascii?Q?o1BOOx/49iSTsg4zFQfz5bFnLjkPZTQpy/V1B/fOEaYBTkwaVXSLEOhSJacu?=
+ =?us-ascii?Q?aOFi7ZFRBFHA3rTZBsBF+xKm4Q9A7GZU3SqcHTf12izSNSmnuolFuZKOPtl1?=
+ =?us-ascii?Q?vrl243SBtA5ophqrhDsfJDmRkKDSMtK2BR+VbSlxUNHZbJC+73UbVhferoJP?=
+ =?us-ascii?Q?nDHPSBp8LZnuijbPHOVmPyGBfiZM4gXTURPeUrr9HttxFu5gYki7V8eshb9Y?=
+ =?us-ascii?Q?atYzKUSPfA20eP/cGN78mvC1wahRLT8YX/afi6DDXzVFyHgSsE+RRW3d8xD4?=
+ =?us-ascii?Q?zxdae3lHk85b0Q1YwFOlesIUJOgU1fNfj1lj6EYIwSe1bByGPwa+207j4W0O?=
+ =?us-ascii?Q?LJRpZzQdJFnBeHl0qnQRzTt9ieuSITUGzxvxWrb8T78h7V8HTBuduvCO7ZkK?=
+ =?us-ascii?Q?kDnh7n+L4D8OBezLvcmlOIWrFidjZ2AJHxqoWdhQwAh5m44qWYCvP0wrRHbU?=
+ =?us-ascii?Q?4S1C4EAGe0MUKtbOSvBUog7MoT7xYVsYkQqEVf5nRM0bITHBiGg/+0oWZY9d?=
+ =?us-ascii?Q?MLdKdho/0s85VJTZMpl2tzz1i0RftRN0Zxd9OyK8vHaPdVBPlPXWw/32Jz4c?=
+ =?us-ascii?Q?iYJXk3chPMo55bkgya4l9dSKrtgGDydvhObF0YLpkd729nc3LDxZBleppBhx?=
+ =?us-ascii?Q?eSl/VE9oAeRhgl5xO5c6JKXSCT3HdR/bXYQbYu/SNRfrI89OkdSow8oOckPo?=
+ =?us-ascii?Q?eoOlJi2bGyg3BFMAKWLX+w1ayNXB3KV1qyxZ74JI5l4we6OHaz6O/KCaKNJH?=
+ =?us-ascii?Q?Pw6xef5Ys/Osb1+xKN09mQhMMxTY1RvZf2u4/l1nKUY51Yy1sc65P8LmGQ6k?=
+ =?us-ascii?Q?W5GIK5AWowSTl0Osxzlpd6oVj1suNamLI2VZq+WukXSYlbBOlLc7+eEftA8V?=
+ =?us-ascii?Q?m+i+UDVy9kewxNVQY0UAAAZXYdsb9wP3azc7OVqUemvSCKoaTEsUXHC8Ubds?=
+ =?us-ascii?Q?P7d/uQtdj4hVSjx0yVFpBn7acHHX/v6J0hJa++p41tZqSZCD+xzkAEYk4PWI?=
+ =?us-ascii?Q?A4m7OaC1oKwBjiSbY+kPD90JqwCgRE58fFsaR/nbOuqsjZ7P6L41dOb55o3c?=
+ =?us-ascii?Q?7qHm+xT5eF9G9FjvBGtEDJ7vDBtMRj8U/g8uIivj7BcPqBEV1A4TjmX624iG?=
+ =?us-ascii?Q?ujlxo/TJR5txNXOfyojC/1KAMVFFkTSvKav8xJUXd+oSKz6kxVbiCLLTumt+?=
+ =?us-ascii?Q?FMHXYVsIPbHpkeHeBP/mKymPrYxaKWSR1+tH00ia94e62eJs1Oz1pSkRJq4Y?=
+ =?us-ascii?Q?jWUx8BcT2ChDYCXcUIeXR8pmgT5JGV5QrsWnPZmn7h8mTopy+i8vZnf42m9v?=
+ =?us-ascii?Q?fSGXPl2STDKO8Jdox+YYhkdq6z/qH+zofZUQJyR5Wlmg/fSbsNeW9dL1q4Vq?=
+ =?us-ascii?Q?Im0X5buSLQ=3D=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4438fe91-8b9b-4d76-1a14-08df3a86e140
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:18:29.1360
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TwwsL6Tcf3AXpqaPorpMG7ITn5VaGJOIMHt0mlryfOeownrBXNepE4ArkvpmTD1AC2xZvTkB70sGy0ywmKyQjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8024
 
---- checkpatch.pl (1 issue) ---
-Line 38: WARNING: please write a help paragraph that fully describes the config symbol with at least 4 lines
-----------------------------------
-
-On Tue, 27 Oct 2026, Svyatoslav Ryhel wrote:
-
-> Add a small driver to control the LED cell provided by the MAX8907 PMIC.
-> The LED does not require any specific configuration and is folded into the
-> PMIC's node.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On Tue, Nov 03, 2026 at 08:30:25PM -0500, Jason Andryuk wrote:
+> print_s5_reset_status_mmio() expects to read FCH MMIO on baremetal.  VMs
+> don't have emulated FCH registers, so there is nothing to check.  Add an
+> early exit when running on a hypervisor.
+> 
+> The real motivation is Xen PV domUs can't boot on Zen CPUs.  PV domUs
+> PTE contain system physical addresses - they don't have concept of guest
+> physical addresses.  domUs can only map physical addresses they are
+> assigned, so a domU fails to map the FCH MMIO addresses.  However
+> set_pte() does not return failure, so ioremap() returns a pointer while
+> the PTEs are unpopulated.  print_s5_reset_status_mmio() faults when
+> reading through the pointer, breaking the boot.  This change fixes Xen
+> PV domUs booting on Zen CPUs.
+> 
+> dom0 can map the FCH MMIO, but it has X86_FEATURE_HYPERVISOR set.  With
+> this change, it no longer prints the reset reason.
+> 
+> Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Borislav Petkov <bp@alien8.de>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 > ---
-> Changes in v2:
-> - rebased so patch is now applicable to linux/next
->
-> Changes in v3:
-> - added check if led is off for get callback
-> - added dedicated MAX8907_REG_WLED_MODE_ON mask
-> - switched to devm_led_classdev_register_ext
->
-> Changes in v4:
-> - platform_set_drvdata dropped
-> - init_data.devicename dropped
-> - added MODULE_ALIAS
+> dom0 could work, but that would require a xen_initial_domain() check.
+> 
+> I've wondered about a different approach:  We can't directly check for a
+> device for the FCH_PM_BASE memory, but maybe we could check for a PCI
+> ISA Bridge with PCI_VENDOR_ID_AMD.  That might be close enough to
+> indicate real hardware?  But it would still be a heuristic, so I'm not
+> sure how much better that would be.
+
+Maybe, I had an older version that used the smbus device / i2c driver.
+https://lore.kernel.org/all/20230407203720.18184-1-yazen.ghannam@amd.com/
+
+Is this available in dom0?
+
 > ---
->  drivers/leds/Kconfig        |  7 +++
->  drivers/leds/Makefile       |  1 +
->  drivers/leds/leds-max8907.c | 90 +++++++++++++++++++++++++++++++++++++
->  drivers/mfd/max8907.c       |  1 +
->  include/linux/mfd/max8907.h |  2 +-
->  5 files changed, 100 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/leds/leds-max8907.c
->
-> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-> index 788e689fe875c..3796c562919fe 100644
-> --- a/drivers/leds/Kconfig
-> +++ b/drivers/leds/Kconfig
-> @@ -813,6 +813,13 @@ config LEDS_MAX77705
->  	help
->  	  LED driver for MAX77705 PMIC from Maxim Integrated.
->
-> +config LEDS_MAX8907
-> +	tristate "LED support for MAX8907 PMIC"
-> +	depends on LEDS_CLASS && MFD_MAX8907
-> +	help
-> +	  This option enables support for on-chip LED drivers on
-> +	  MAXIM MAX8907 PMIC.
-
-As requested on v3, please expand this help text to at least 4 lines to satisfy
-'checkpatch.pl'.
-
-> +
->  config LEDS_MAX8997
->  	tristate "LED support for MAX8997 PMIC"
->  	depends on LEDS_CLASS && MFD_MAX8997
-> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-> index 3da746279bb81..24efda3fbaa44 100644
-> --- a/drivers/leds/Makefile
-> +++ b/drivers/leds/Makefile
-> @@ -67,6 +67,7 @@ obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
->  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
->  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
->  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-> +obj-$(CONFIG_LEDS_MAX8907)		+= leds-max8907.o
->  obj-$(CONFIG_LEDS_MAX8997)		+= leds-max8997.o
->  obj-$(CONFIG_LEDS_MC13783)		+= leds-mc13783.o
->  obj-$(CONFIG_LEDS_MENF21BMC)		+= leds-menf21bmc.o
-> diff --git a/drivers/leds/leds-max8907.c b/drivers/leds/leds-max8907.c
-> new file mode 100644
-> index 0000000000000..a5c445f75d1b1
-> --- /dev/null
-> +++ b/drivers/leds/leds-max8907.c
-> @@ -0,0 +1,90 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/err.h>
-> +#include <linux/leds.h>
-> +#include <linux/mfd/max8907.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +
-> +#define MAX8907_REG_WLED_MODE_ON	BIT(0)
-> +
-> +struct max8907_led_data {
-> +	struct max8907 *max8907;
-
-As asked on v3, what is 'max8907' used for?
-
-> +	struct regmap *regmap;
-> +	struct led_classdev cdev;
-> +};
-> +
-> +static enum led_brightness max8907_led_get_brightness(struct led_classdev *cdev)
-> +{
-> +	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
-> +	unsigned int brightness_lvl;
-> +	int ret;
-> +
-> +	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL, &brightness_lvl);
-> +	if (ret || !(brightness_lvl & MAX8907_REG_WLED_MODE_ON))
-> +		return LED_OFF;
-> +
-> +	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_CNTL, &brightness_lvl);
-> +	if (ret)
-> +		return LED_OFF;
-> +
-> +	return brightness_lvl;
-> +}
-> +
-> +static int max8907_led_set_brightness(struct led_classdev *cdev,
-> +				      enum led_brightness brightness)
-> +{
-> +	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
-> +	int brightness_lvl, ret;
-> +
-> +	brightness_lvl = clamp(brightness, LED_OFF, LED_FULL);
-> +
-> +	if (brightness_lvl) {
-> +		ret = regmap_write(ddata->regmap, MAX8907_REG_WLED_CNTL, brightness_lvl);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return regmap_update_bits(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL,
-> +				  MAX8907_REG_WLED_MODE_ON,
-> +				  brightness_lvl ? MAX8907_REG_WLED_MODE_ON : 0);
-> +}
-> +
-> +static int max8907_led_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct max8907 *max8907 = dev_get_drvdata(dev->parent);
-> +	struct led_init_data init_data = { };
-> +	struct max8907_led_data *ddata;
-> +
-> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	ddata->max8907 = max8907;
-> +	ddata->regmap = max8907->regmap_gen;
-> +
-> +	init_data.fwnode = dev_fwnode(dev->parent);
-
-This will evaluate to 'pmic'.  The sysfs attribute will be incorrect.
-
-Since there is no child node, why not set 'ddata->cdev.name' directly
-and use 'devm_led_classdev_register()'?
-
-> +
-> +	ddata->cdev.brightness = LED_OFF;
-> +	ddata->cdev.flags = LED_CORE_SUSPENDRESUME;
-> +	ddata->cdev.max_brightness = LED_FULL;
-> +
-> +	ddata->cdev.brightness_get = max8907_led_get_brightness;
-> +	ddata->cdev.brightness_set_blocking = max8907_led_set_brightness;
-> +
-> +	return devm_led_classdev_register_ext(dev, &ddata->cdev, &init_data);
-> +}
-> +
-> +static struct platform_driver max8907_led_driver = {
-> +	.driver.name = "max8907-leds",
-
-Cute.  But please expand.
-
-> +	.probe = max8907_led_probe,
-> +};
-> +module_platform_driver(max8907_led_driver);
-> +
-> +MODULE_ALIAS("platform:max8907-leds");
-> +MODULE_AUTHOR("Svyatolsav Ryhel <clamor95@gmail.com>");
-
-Your name is misspelt here.
-
-> +MODULE_DESCRIPTION("MAX8907 LED driver");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-> index e282dd82ece69..826d7768fd8d0 100644
-> --- a/drivers/mfd/max8907.c
-> +++ b/drivers/mfd/max8907.c
-> @@ -20,6 +20,7 @@
->  #include <linux/slab.h>
->
->  static const struct mfd_cell max8907_cells[] = {
-> +	{ .name = "max8907-leds", },
-
-Separate patch.
-
->  	{ .name = "max8907-regulator", },
->  	{ .name = "max8907-rtc", },
->  };
-> diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
-> index e222250f0cc1e..35b2ede54f856 100644
-> --- a/include/linux/mfd/max8907.h
-> +++ b/include/linux/mfd/max8907.h
-> @@ -112,7 +112,7 @@
->  #define MAX8907_REG_CHG_IRQ2_MASK	0x81
->  #define MAX8907_REG_CHG_STAT		0x82
->  #define MAX8907_REG_WLED_MODE_CNTL	0x84
-> -#define MAX8907_REG_ILED_CNTL		0x84
-> +#define MAX8907_REG_WLED_CNTL		0x85
->  #define MAX8907_REG_II1RR		0x8E
->  #define MAX8907_REG_II2RR		0x8F
->  #define MAX8907_REG_LDOCTL20		0x9C
+>  arch/x86/kernel/cpu/amd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+> index 40463bad1078..580ccc2ce5fc 100644
+> --- a/arch/x86/kernel/cpu/amd.c
+> +++ b/arch/x86/kernel/cpu/amd.c
+> @@ -1357,7 +1357,8 @@ static __init int print_s5_reset_status_mmio(void)
+>  	u32 value;
+>  	int i;
+>  
+> -	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+> +	if (!cpu_feature_enabled(X86_FEATURE_ZEN) ||
+> +	    cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
+>  		return 0;
+>  
+>  	addr = ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(value));
 > -- 
-> 2.53.0
->
->
 
--- 
-Lee Jones
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+
+Thanks,
+Yazen
