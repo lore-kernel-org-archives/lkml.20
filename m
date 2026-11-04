@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775821;
-	b=tY3NMU24dRJsOZ41ENHUHrcrmXxerviv3FqgQaF+vPT9qs50U2Z5l815l7XXVPBB9kKj
-	 Wdx1q0KRVXkrza6PyO1P9la4xWDjc/Nkcihmt74NGRElWphHJqI017/GgFcjvWm2MF1wv
-	 N5hz2Nneh71pPjd9EewDg7rU1MVwzkA4f+FKvpsIZ8sEfPEdXvjaXhHnf4A7oUeRfeH8n
-	 AzA775v+NdO57gisVbi2g3pdqbCM8wLSmnuJ0Ok5JO0Srb7v+QW7TsAFCNpX0HdMjo1au
-	 f3IKakrt+yv1gB90rpF++RwGGmtE2TmQZYj/tJpUCYARsnBXO3bDBc/IUAVThiVExxA==
+	t=1793775856;
+	b=NpjsXnshVFrLGCc+13vm8Vq34HAdBjkZeJDJ9XUUatx55eRjqvYO9wPsrE08yc58FQhz
+	 spj3qxthxZp/VhzjosThiGgKFFj/Q48SkxmDvvjYCxh8ArC3RiF4TMK9EZeOt1/gC0X90
+	 v0HiXptcz4Mc2mkVI8CajFX3QyoCFt0MjfN/gvv+xSv5EIE+mQpq5Q6qQOJKnvYu2zaNP
+	 IxpQlnHYgHfIjkJsL+Xdq3HSM5ajLwazSAsXidJUvLmRC2poRj79Uhv5ZkynwzuGOwB43
+	 1kbEP8gGwH0Sw91nwanm5N0eb/UZh+ke7TtbmpAtJ1vAeUT/s0snGIbX+eUh+Fd6NXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775821;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4imAbvQXvAeBLakV5a+RUTt3Rkpj4AuuW2uTNPIVScE=;
-	b=y+hNJP7HNl1HlXD+iR6lIoNdKUkWZcMDpxF4Zg2EwNspB5xUaG0YoTdi3gKpJb19CwB1
-	 X0G/XFnThg3QjMp3Gzyne4cWzA62ZdbfQ0xEI4ZNscCHhDSd8MgbV5zCf30iCGVLAxyQ9
-	 XU8xjmzesPS+5NJEZr3M9XuNJa6un4m8HW6SdCAtNWBGR0zXftLciammYlaD1vdsxBRwa
-	 AwuyPVXYdGPfNoed0ffiUNe2MyNpipCGnX1JNSNXryqvqizCL4GokBugjGkJLeTaXfHO1
-	 MO0QQRu0PFaBvdC5Ww2bngJqQQK8ZaXtI+6LhHesa46IHn4/6SxCvaXhEK8Lm5XpR+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775856;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zgYAfbdg4gkU+laTuhVm1gWIbI8SOd67gBl+57GmbVk=;
+	b=hFFDdWM0U9UwGWZmW469Cw/wiPO+rkVoUAlVnr/s1z9zUvf+bJyIv1DLBzf4D8f6/YL2
+	 4IjcKuDMzc08Y2yKWSqMigoF14+6xgOkkcWPfShrrB6hIhv/kfGvcLutaDn01GDcUL8IW
+	 huQs5o4CoKcKvOFhldG1r3wE2bdnuyO/+IX/4FpReMDmmcxcEk2qG7UGzM3Z/ZRwvCP4E
+	 KC0R/d19G1UgJQuBPsCtKZ5cNzQrq4GMq14lUJuA72z4PgSdFtvtczmTZMGENarBEXvyJ
+	 GHROqbBw63lqu2gCyyyEkZHq97rA6kmfaLWYtZKr7ZTVDGBAXngshi9yFe2z2394rYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SX245LRS;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbApma9Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87471606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:03:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87471606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D9E606A31B;
+	Wed,  4 Nov 2026 07:04:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SX245LRS
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8b20a899fso2070075ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 23:03:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793775821; x=1794380621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4imAbvQXvAeBLakV5a+RUTt3Rkpj4AuuW2uTNPIVScE=;
-        b=SX245LRS8cR+WKzkfkww1WcpaMU0iICbIxAkh7WTy3OFKNQ8l0Z9Xb0Jw+4h3bKP3Y
-         1jBZ5OooApcAwnuENTSSVg9NPTmRLliNW4BjxjlefpSrbKngZwC9ScCSzVtk7NxhD47T
-         UFSnL+7nYk0EhnXQcmoErlb5qONMJo0C8QilReTT4G+fQ9apS8PuIZQIon5akLRnu3qf
-         fASJ6TYRUfRpu6jr2dBPQgZcc1xiMUUsdSBTGPPI9sUsPdMV7AzmRU5heoLwzEHZZa0Y
-         hHAKkmQAdIFJIwjTYEsF7mwu+2N28KV7+LWGtcVotOprf/gV4csZGTksZjJCGErc2RYZ
-         NxvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793775821; x=1794380621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4imAbvQXvAeBLakV5a+RUTt3Rkpj4AuuW2uTNPIVScE=;
-        b=qDG0n4GBS3OM5HM2WVMMwZTpalXQZQuR6+XwkfqS4xaxrd+EGhspxKGKoIFZvowAhC
-         AGSg9zhXEi8Q34RF79f4bBs55Ajedo5F43UxIOXBZyiPayV+6Lkep5cDutSovTEKwfx+
-         FOadShW8+tuaMzbpcHYbmYK09FO5jvdHhLjkmdr8BuWZLh2kG4r1FQrZwAJsiWfYqXbB
-         yTlefq+sH75yKEbTCYait2yJGua+XmKzy88tPdqcE9oYPpt0LNJcYO83ytVf/mOXOdiY
-         0q88DeeQ+LoxQH2ThmR604J3KYtNce5wttLJ1oaHEMmVAYPsrIsdTWmGfbWsppVCKfwo
-         /Raw==
-X-Forwarded-Encrypted: i=1; AKwUvBwsKYlyVDRX31qrBwg6UwKi8G2ktSaAZe5BM00QGvMVP/qAhBGXC3SsxaXsN2NJc/dvYuZ01ecF6r3zKPY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9r1GYfAvErFcFP0PAmmDuYSWBlkWq2x/EZBj4CzcfSBNy4QXwH
-	mcIfGds54U2LUi1HakIeJ0S7AFmViov/wB8vj/U+DSBWyVJrXxwNiCKqILlLUXHs
-X-Gm-Gg: AYBFou296CVSOS23Rg8t4ZAu5G0lU65KEUuVQxkh3rO1qmzUwPQZPM25wbMB766wea0
-	c3R5nxYyzcP7DHSU/AwdvV6gxfqf/R8zjiShuN8kTEcmGo11zMcThSu7whiNeK1ithtbZQhLMit
-	mxObhEEI4GVUkf/qsys4sGeVgY6iirlL1TsTwKtKvkrLk2ixNqfcE4BIsHaX8XPOhxSlB5ZkpzP
-	gIH5JCzxHScHYgYEYa2GhcVYvXimCcUhGMRzsy34aG5NpJPTsZsApdVDWLl0kheOEvlK74lrl9K
-	algx+lioYJSwVapN6cpP9M88aVbqZ35FqBp6A35ANueE2OmlX45h98NdpGjII0LATDeBEmRaudN
-	ECXBhnLhO5C5qLQ7HFc8L73P7i/0M3leUvzAWUxRnwhoAxkxMqxQO4I/oyap9mSXkaKhA1C+Jyr
-	bA9WxEgo0z7huoNHjJRLzeYBJcDg8fXEVgI2Tj2DQVn+X6mwb+zw8CmegUZDpKk5SVPkYFVDpME
-	g4B7KTHf/MFS3c4nwnSQk/KUpdB0KTn0RgEZsuLY+gEDjn2ykWemZYbNHZZgIrzny+ziECt/19o
-	Vzh9UHkcbxozx46PrOo=
-X-Received: by 2002:a17:903:245:b0:2eb:a1b:e9e5 with SMTP id d9443c01a7336-2eb364e7bfdmr143230035ad.52.1793775820592;
-        Tue, 03 Nov 2026 23:03:40 -0800 (PST)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed090f7313sm3461615ad.45.2026.11.03.23.03.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 23:03:39 -0800 (PST)
-Date: Wed, 4 Nov 2026 16:03:37 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Baolin Liu <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-Subject: Re: [PATCH v2 0/5] ntfs: support O_TMPFILE
-Message-ID: <aurYye6hdEnXqZAa@hyunchul-PC02>
-References: <20261031052857.1542936-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbApma9Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A4F1F000C1;
+	Wed,  4 Nov 2026 07:04:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793775855;
+	bh=zgYAfbdg4gkU+laTuhVm1gWIbI8SOd67gBl+57GmbVk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bbApma9YpJHwV5I/a2M4mbwCUN66LE1RDMiX6oB+kfNrxDoDV/Ga621XVPmA/lIAM
+	 7j+4lNL1LpDqQQ+L+c4T38oRBflcc4lh+Z/pmsS8n92Ap894r8FLNU6sjEKS6tNE1t
+	 1hlWOrYY/W73iRq2ymwt57inL7I/DA2IEl6FYRhl1d8BMULWoGvGhRYYsYMN8cRAFg
+	 aSg96HdQvvGuzLyukQcAh6hfXMRAqDAzb7xe3emSHYmQiF6tN4fF7TsTU3epROUxKZ
+	 uI27AKE2ecn8kyoz7rRgb13myYoYy5F3pztmAHQas80mDOvGXj9Wc9GB1G7fOq+vVg
+	 cismcWWMfXT6A==
+Message-ID: <bf838fa6-a175-4514-a496-c6ec9b03ac7c@kernel.org>
+Date: Wed, 4 Nov 2026 08:04:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,99 +51,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031052857.1542936-1-liubaolin12138@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/code-patching: Flush the patch area TLB entry
+ locally
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Hari Bathini <hbathini@linux.ibm.com>, stable@vger.kernel.org,
+ Josef Schlehofer <pepe.schlehofer@gmail.com>
+References: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com>
+ <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
+ <wlqu5lej.ritesh.list@gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <wlqu5lej.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This series look good to me.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-On Sat, Oct 31, 2026 at 01:28:52PM +0800, Baolin Liu wrote:
-> From: Baolin Liu <liubaolin@kylinos.cn>
+Le 03/11/2026 à 10:12, Ritesh Harjani a écrit :
+> "Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
 > 
-> This series adds O_TMPFILE support to fs/ntfs. Applications can prepare a
-> regular file's contents and metadata before publishing it with linkat().
-> Unpublished files are reclaimed when their last reference is released.
-> O_EXCL prevents publication.
+>> Le 03/11/2026 à 03:54, Ritesh Harjani (IBM) a écrit :
+>>> patching functions like patch_mem() and patch_instructions(), maps the
+>>> target page at the per-cpu text_poke_area, write it, clear the PTE and
+>>> then flushes the tlb using flush_tlb_kernel_range(), with interrupts
+>>> disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
+>>> based TLB invalidation i.e -
+>>>
+>>> 	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
+>>>
+>>> ...which will wait for other CPUs but with interrupts off. This can be
+>>> caught by lockdep with the following warning:
+>>>
+>>>     WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
+>>>     CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
+>>>     Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
+>>>     Call Trace:
+>>>     [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
+>>>     [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
+>>>     [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
+>>>     [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
+>>>     [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
+>>>     ...
+>>>     [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
+>>>     [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
+>>>     ...
+>>>     hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
+>>>
+>>> Josef confirmed that this was causing a hang (deadlock):
+>>>       I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
+>>>       CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
+>>>       fine 9 of 9 times with jump labels off. The hang comes while static
+>>>       keys are patched and modules are loaded, nothing is printed and the
+>>>       watchdog resets the board. OpenWrt keeps jump labels off on these
+>>>       boards for now.
+>>>
+>>> ...which is possible if both cpus are doing similar operations with interrupts
+>>> off and doing TLB invalidation using IPI.
+>>>
+>>> Broadcast TLB invalidation is not needed here since text_poke_area is
+>>> a per-cpu area. It is mapped and unmapped with interrupts disabled by
+>>> it's own cpu. The only reason I think, if we would need a broadcast tlb
+>>> invalidate is, when we want to prevent a stray or malicious write to
+>>> this cpu text_poke_area by another CPU. This generally gets solved with
+>>> temporary-mm path like how Radix and even x86 implements. However, booke
+>>> doesn't implement that, so for now let's ensure we use local tlb
+>>> flushing for correctness.
+>>
+>> This problem was already discussed one year ago, see
+>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FPA3P192MB2865C07D634E3B775D003C7F8CD7A%40PA3P192MB2865.EURP192.PROD.OUTLOOK.COM%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C94ba9bffb5d647f9790208df398f6ccb%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639292960305489629%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=RgVxRJOlFSWgNsFSKwLDRinx3kaF4LpSiCaTey8xtic%3D&reserved=0
+>>
+>> See response from Arnd, a stop_machine() should be done for completeness.
+>>
 > 
-> The series keeps the same five changes and ordering as v1:
-> 
->   1. Initialize inherited ACLs after allocating the new MFT record.
->      Anonymous creation needs its inherited ACL stored before returning.
->   2. Preserve prepared atime and mtime when publishing the inode through
->      the hard-link path.
->   3. Initialize the new FILE_NAME's packed EA size, since a temporary
->      file may already have EAs when it is published.
->   4. Complete unlinked-file attribute writes before dropping the cache,
->      including nonresident EAs prepared before publication.
->   5. Add O_TMPFILE creation and publication support.
-> 
-> As requested in review, patch 2 gives the new FILE_NAME and directory
-> index entry the same ctime as the inode. The inode ctime is updated only
-> after the link succeeds. Patch 1 also initializes a newly created
-> FILE_NAME's ctime after inherited ACL setup, fixing a timestamp mismatch
-> caused by moving ACL initialization later in v1.
-> 
-> While implementing and testing O_TMPFILE, we also found pre-existing
-> NTFS bugs in attribute rollback and ACL lookup. These include stale
-> attribute inodes left cached after failed creation, which can cause
-> subsequent creation to return EIO even after space is freed, incorrect
-> ACL inheritance when the default ACL is not cached, and a fixed-size
-> read buffer that cannot handle larger ACL values. The underlying bugs
-> predate this series.
-> 
-> To keep this series focused on O_TMPFILE support and the v1 review
-> feedback, we are leaving these existing bugs to a separate bug-fix
-> series. We plan to submit those fixes after this series is accepted and
-> merged. These issues remain present with this series applied.
-> 
-> Tested this five-patch series in QEMU with four CPUs, NTFS debug and
-> lockdep enabled. The requested unchanged xfstests generic/004 and
-> generic/389 passed. Tests covered creation, publication, last-reference
-> cleanup, O_EXCL, normal idmapped ownership, named streams, nonresident
-> EAs, direct I/O, mmap, allocation and concurrent publication. Published
-> data and metadata were checked after cache eviction, remount and reboot.
-> Offline inspection compared hard-link ctime in STANDARD_INFORMATION,
-> the new FILE_NAME and the directory index.
-> 
-> Changes in v2:
-> - Update FILE_NAME and index ctime as requested in review.
-> - Set the source inode ctime only after successful hard-link creation.
-> - Initialize creation FILE_NAME ctime after inherited ACL setup.
-> - Run generic/004 and generic/389 on the standalone five-patch series.
-> - Rebase onto ntfs-next commit
->   564c7753647731d19170914c1c637d3b33d88d3b, including the const mnt_idmap
->   tmpfile callback signature and documentation context.
-> - Resolve patch 1 against the updated early ACL error handling in
->   __ntfs_create(); the relocated ACL failure still uses MFT/EA rollback.
-> - Keep the original five-patch scope; submit fixes for the pre-existing
->   attribute rollback and ACL lookup bugs separately after this series
->   is merged.
-> - No functional changes to patches 3 and 4.
-> 
-> Thanks,
-> Baolin
-> 
-> Baolin Liu (2):
->   ntfs: initialize inherited ACLs after allocating the MFT record
->   ntfs: support O_TMPFILE
-> 
-> Xuewen Wang (3):
->   ntfs: preserve timestamps when creating hard links
->   ntfs: initialize packed EA size when creating hard links
->   ntfs: write unlinked file attributes before dropping their cache
-> 
->  Documentation/filesystems/ntfs.rst |  15 ++++
->  fs/ntfs/inode.c                    |   8 ++
->  fs/ntfs/namei.c                    | 140 +++++++++++++++++++++++------
->  3 files changed, 136 insertions(+), 27 deletions(-)
-> 
-> 
-> base-commit: 564c7753647731d19170914c1c637d3b33d88d3b
-> 
-> 
+> I will have to take sometime to go over what ARM does here with
+> stop_machine(). However, either ways I think, we still need this fix,
+> since otherwise P2020 boards gets hung during boot. Thoughts?
 
--- 
-Thanks,
-Hyunchul
+That's right, it must be fixed. The global TLB flush must likely be 
+changed to a local TLB flush, but that's not enough to get a safe system.
+
+> 
+> 
+>>>
+>>> Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
+>>> Cc: stable@vger.kernel.org
+>>> Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+>>> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F20261026195644.16384-1-pepe.schlehofer%40gmail.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C94ba9bffb5d647f9790208df398f6ccb%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639292960305519321%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=A50lEHBZBaX70jGTu38GylmnQvlxVzLalMVXYj2kti0%3D&reserved=0
+>>> Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+>>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>>> ---
+>>>    arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
+>>>    1 file changed, 19 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
+>>> index 44ff9f684bef..6351342fa5c3 100644
+>>> --- a/arch/powerpc/lib/code-patching.c
+>>> +++ b/arch/powerpc/lib/code-patching.c
+>>> @@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
+>>>    	return err;
+>>>    }
+>>>
+>>> +/*
+>>> + * The patch area is per-CPU and only used by its own CPU, with IRQs
+>>> + * disabled, so only the local TLB can hold an entry for it.
+>>> + *
+>>> + * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
+>>> + * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
+>>> + * flush just the local kernel (PID 0) entry.
+>>> + * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
+>>> + */
+>>> +static void flush_patch_area(unsigned long addr)
+>>> +{
+>>> +	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
+>>
+>> CONFIG_PPC_BOOK3S not consistant with commit message. Are you adressing
+>> a problem on e500 only ? on all not book3s ? What about book3s/32 ? What
+>> about 8xx ? Even for book3s/64, is it correct at all when
+>> mm_patch_enabled() returns false ?
+>>
+> 
+> No we are addressing the problem on all NOHASH platforms. IIUC, all
+> !BOOK3S are "nohash". Although some of them maybe UP, so it doesn't
+> matter whether a flush_tlb_kernel_range() is called or
+> local_flush_tlb_page() - it wouldn't matter. And on others which are SMP
+> but do not have STRICT_KERNEL_RWX enabled, they will anyway not go
+> through this path - but if they ever do - then we should ensure they too
+> do a local_flush_tlb_range() to avoid the same deadlock.
+> 
+> However, I think, maybe we could use CONFIG_PPC_MMU_NOHASH instead of using
+> CONFIG_PPC_BOOK3S, thoughts?
+
+Well they are equivalent, so it doesn't solve the issue I think:
+
+config PPC_MMU_NOHASH
+	def_bool y
+	depends on !PPC_BOOK3S
+
+What about book3s/64 in hash mode ? What about book3s/32 ? None of them 
+implement temporary_mm, so are they covered ?
+
+Christophe
+
+> 
+> 
+> -ritesh
+> 
+>>> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
+>>> +	else
+>>> +		local_flush_tlb_page(NULL, addr);
+>>> +}
+>>> +
+>>>    static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+>>>    {
+>>>    	int err;
+>>> @@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+>>>    	err = __patch_mem(addr, val, patch_addr, is_dword);
+>>>
+>>>    	pte_clear(&init_mm, text_poke_addr, pte);
+>>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
+>>> +	flush_patch_area(text_poke_addr);
+>>>
+>>>    	return err;
+>>>    }
+>>> @@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
+>>>    	err = __patch_instructions(patch_addr, code, len, repeat_instr);
+>>>
+>>>    	pte_clear(&init_mm, text_poke_addr, pte);
+>>> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
+>>> +	flush_patch_area(text_poke_addr);
+>>>
+>>>    	return err;
+>>>    }
+>>> --
+>>> 2.39.5
+>>>
+
