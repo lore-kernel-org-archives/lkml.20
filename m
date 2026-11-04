@@ -1,86 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789408;
-	b=40oDa5/mGt5wk2DBpJvpaBv+9RhGgQJfmFSLEbsGfArwqfOC3Fw1pPOt68JwE/FXg/0y
-	 NX8XTozGl8HjARnk+0HOLLMGn46lf+1910NbRaBXisismqTx7gSdOnCSD6gGtlIBg6Nqn
-	 /ZE+frXVIkBsgU0eFkK/RFU41Q7uAiWka+YikGCoZJY4lb3PRD1Bn1/ZVoeLR0qwv6LLE
-	 5rZdOYJlCsRfdBoxrZkDbC+EjEvuVjGDs3dJmCcd3fdjEij/U0EAG/BmHN28505wOLf1A
-	 tmdICIBo+DhQicHgyueH6kJ6ddAAVwJEdx8KBGZ5u4zuiaKbjBM5lz4lp4e/dgh5N+Q==
+	t=1793789492;
+	b=evxaJa7Zym9rij9nGSAFivB6UXdyzAUOosWgo/cr/eKvB9zBgR/dBIdhlQA1NH2OGjI8
+	 HIHDy2//yRLb7PV308RQ+klxU8hfPmqbsxCfWbr/sAfofpsxJmWsvK6+fpnIE+1GyZsgv
+	 7sz58vlNypyA4lvYuNIDrultN4svmqNvjAz41zl4oa5H7J2Ut5O3rsG/oKG7Ugqq8LIY9
+	 a5Nz2WIFE3JK1EWIQAHyLaL37SkVcksU+nStxKLNKop1Lg8BJFmj/pUntSLUAisj8zEW5
+	 Da5y2c3EZlbHVofCfufL8FGwGM10oltzjmNKM3TJ4NUKXvsGY+YNvaQ4/HN69HdJaMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789408;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789492;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=w50lkh7YHn9snryw9lhNLJWggY8UYLvhDaLVNDzLe0c=;
-	b=b4v7qN8vjg/aKlPzAPZekgghV8MrCdezBrcQ+1VOYFpr3fEcCwHX9VVjhAvKkhcl2Osd
-	 UPUGrD4SpIIS2t0l8GWfNYoTvW1FJ6lxPn7Q/0Wjs27Z0RfP3+EyWuGBCVnD9XQ7x6hEc
-	 CIxSbQ3isTode9KwsrCXIICW3YyOqC7rnxHtJ2aSWedylDUPVrfh2I9imuHL0mpUP/N6u
-	 cSFhYajReaQoIzVzR3kQbag6Cs3XVJybkYAT+boP2RC29neJaSX+bkrlQE8WGhm2zCSgC
-	 4dWlDAveLU/D/OzB6rMRCJmhfuEBU0BioK8yRuhGjhGWcHXhYXdGa4jvuG/dz/bwhtw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+E4Nf1Fot6LD9XND0ibhLLdff6atl27lHvMkzff/x1g=;
+	b=TDfBeiYZnYgNpxt8l47uecHwzGirgWOSlTFZyEir4siPzM4O52ce87XGXFkd+mI+skhk
+	 ODx0fYojCTGo4RsuLCBp3zROnmkqJgE4GdDZXKvgkvKRLmmJQLner9CkAcNWusBSXc4Ef
+	 NpvB8JG2CEjwizn4pRsAGnaYqcFmXdvqvv00KyIjiWux4ArEk2S5pf35zsmCNFLaV4H3V
+	 ILFoeiW58+c2QRKxcqKlBr+rQJqoPSDd2tBLuotnWMOYQG/hR2r/mbRVa74o7wk3N8onx
+	 zazt5ESVQ2cdY0xyHkTh3ima/DIcpNppqkJ9nJWtAFxzqFIGxSuhnq/2QND7zlKqFlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o58LIewA;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V1jJmSP1;
+	arc=none smtp.remote-ip=74.125.225.130
+Received: from mail-wm2-f2.google.com (mail-wm2-f2.google.com [74.125.225.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CB4606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85CB4606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2442606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:51:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2442606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o58LIewA
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so5029225e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:50:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V1jJmSP1
+Received: by mail-wm2-f2.google.com with SMTP id 5b1f17b1804b1-4a217e6274cso1991685e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 02:51:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793789406; x=1794394206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w50lkh7YHn9snryw9lhNLJWggY8UYLvhDaLVNDzLe0c=;
-        b=o58LIewAGYiaDgihcQh7ZiCaDAvHmjIHETk/Lgu+Hcz0VsPJP1ZUj7EZTAInf2OrAA
-         bl9dQPkPpoeBrKH9ov9SYm3Cn+8QItK68zDcLQkQ8EnnLxHkYKHCA8L91uYbiiYcHwMx
-         t0OXTjcECPYfsvjIrTkm3KmB2MoXyP+TEkwrT/E9cURt2ZZNm6LnfytqWuKLUswotnUj
-         dBFxwvrPTJI3EhaiWTKdTXvF9rfMJrFtt7iHU0iUt4xU6y5abyDS4KvGJxZm7VouhWOv
-         S8Mo1jnL84OXIjKEPTKvUrx0MbYMpPW28TQuD1abhCQXk6PsAPfcwzx1e776a8Z2HRkV
-         4uRg==
+        d=gmail.com; s=20260707; t=1793789490; x=1794394290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+E4Nf1Fot6LD9XND0ibhLLdff6atl27lHvMkzff/x1g=;
+        b=V1jJmSP1maGDQs0jFp/9pHMnGfOSY7vXYXp3JDGuTEpXb8rnc9ka6ueKu0vfB4HEJN
+         BjNNiBbm69nOW3HNmcDDPvCy8Fpc9tl9Y1pT/EJ+TnEWhIra2qD1DuO3XwSYlQCm55yF
+         BQBkeD33IJQw71y/qpFlic07Js1vDb2VgeP4rrMVzVVnojRge6CNOkhHQ0Croygd0G97
+         uSjbY6+6mELPCtf72+dRACrGwRrUGXCCtvXNW6ubCwQ5xo7f8lynuDiMD7D7PGRrX3jz
+         K9O8TmM9k9PCoPSDwvGBmm8v2iHXB97q/WcH9IIpgUsmZCAhHInMq07vjo2ww+cJuYAB
+         twOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793789406; x=1794394206;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793789490; x=1794394290;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w50lkh7YHn9snryw9lhNLJWggY8UYLvhDaLVNDzLe0c=;
-        b=jYXzLfs5xp69NpjkcGYbQSVNGXenK9Sv++PPi7E1WBEtrAixVKMr06ASYI/sQtwOWT
-         fzRUq1wTo0XgdHoliF+NiYSiGVTVZpETAfGPNnqBbqzDvnhlGE6St8Mp4WWzRHipyI3c
-         l+bWXXpGB7D1XJkJ6If380CEKep6sfXuqOFeLuYHcMDRfX3oNmh5o1zyDs/R2i55nT53
-         /zaFgRAH+iffFEAAYCO4f8fqCGJvBRlX/q87W305H/7cTWRXokOdHcRQydkzbYHQs86L
-         MtirlXdKcVQJ7fy0xPjRJttbzVroxAhTSlHmhdtp8GTpEii3FK+HUNWBUKGyjiYk3lWB
-         1buQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6bscZIUdI4tV3CktR7nms6T+C2uqMq2TkOAF7F1iYj5B+qafQd2fKS3G0moNDejXZLtPAZ3MNaYbEQjc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wpctnbJMcpIWxhlYk0eIv05Li+Wn2a77V7zvG4wZ+jjBGsUF/
-	HrjnOtraqyCP5BzV+Y6a0p0O8B+Ry4bpCk9sWQqpUHg+43DV4oTzqpdR
-X-Gm-Gg: AYBFou0ZvRqacoOjrQV0F+HcEuYSSbgj2i/MBMAkGklPTyunhBpiMrP7wkopFvmLnQ5
-	9bB5/Zo4n54SJiOam7Xh0Nl7EWuOnliwTXHNQKwT3dKNi1nV3eFYbhhDhtPm0RUgEvU2M0ARYaK
-	NzW1aRXqPEtArQArT/6NX/S4NQeox9PfVhnVEFG5pyKOvbBEofQQqztvNavGUN6SxYXMJfRygPy
-	DPjCvu+ORzkfp9yI6HAwvHLn8uczpCPP9p24yTV1rAkWfGevi+AlMENSfFYO7V5N7jWnNOn4IVQ
-	ktinpuguXlrNyO1m/2/QMgYxD9SLLjKd7WyvnDF9TO3kQROuDUNlZuhvoFuImiqruWj61oQmxYW
-	1CR12c9px6ma0p3S4TRGn/KHzhH2SEFJ6Woonx0DHSbIiY/pAq1LRz1yaWWFDVAIy19a4orlcv6
-	Cu6A6MWInyKRQEnXadYgXyjGYDe+x8Rg/EAoIZHrr7KcUnVIPWtxVJz/iwxLfYCl1A1KF/doTeI
-	VR5A4vwvi/Y3EI+BTtVzAgB0ue12EMSTLITB2k5jVRuCkNPdQZlGAPW6X9P+A/2PgqdrhFCJN/y
-	0fIyw6xdlUbTMVh+BmNKq4PYBCZnFXUPVJBbURfXpv/f
-X-Received: by 2002:a05:600c:1909:b0:4a5:26b8:4507 with SMTP id 5b1f17b1804b1-4ac18b7dff9mr356197145e9.21.1793789405877;
-        Wed, 04 Nov 2026 02:50:05 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a555e59dsm145066805e9.0.2026.11.04.02.50.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 02:50:04 -0800 (PST)
-Message-ID: <70686061-787c-4c99-ba5b-ff982c8cc2ad@gmail.com>
-Date: Wed, 4 Nov 2026 11:50:02 +0100
+        bh=+E4Nf1Fot6LD9XND0ibhLLdff6atl27lHvMkzff/x1g=;
+        b=xBDF1UG6wvefKzpMSc2hqerViAOPhPEjThX3H4jKvXNa1t4hKtncNBX1IzWztBlNu8
+         RLabu6Y9hD/tqFCK/y/DIw8VrRp9zqo3QQmVI1pfBmfvnxA+PWe+WkFhDRXNOifaheQI
+         S0Df5PWpvSOm5Zw5j8E+hc2BrbFRzwBI2a/MrGXRkQYsxgVN9Dply3gFs3nph8dERvHW
+         bTzp1dS8ioUBmC4XpoSBI1dofq73tYYkCCxputlMl/GKpRbI8hv8E7Tqh9qBTCWggfMN
+         lIMGSFuXPALL++G6YyuYEr/CKsWD4JU7ivWl8ZcOwU97ZDjI7VKS+MoycZlid4ukSadw
+         xfxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgzTrPW8q6mwgLROZ6JGgIcoB5bDUYFBdM3po8ft2dfscXZ30yaIov5uLA6BywgQqtqX8OOaqmvpSTk44=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OBX4H0Ofvxk6eRwvUxzu2zfzqbiw+b4wf8MEsoe0u+YzXCqYy
+	ckSxNkjCCXNXkf/852V50stvLfk/ytsWlZwNgVUPZfmtyj331nP27CaM
+X-Gm-Gg: AYBFou34pBAkkRgRa2FmdYdNDpyJ/aB0MDiQw0Colybqalgl8/fJHpv8EZPASd0RwzA
+	Qljk9Kx6FQswxwkdJL8kzR4zm+r5EN1jvmOpMXVWtK8OvwznCMPJCYEGvY5ZWJqxSbcKHf+zG1c
+	qFmPoHNCRFrKuXgdrMvGb2JtdM+BeAtjDK8WBE9PJTqregsEvw+LaLzpnCxU8c4SYzDetH70GbJ
+	SAsOAjuS7ysZM2tDiY3cxNCgEJonPxnUgIqmnM5kwpIDDwyKpBra31lnQ8DW1c0AGJa7VYFAAsK
+	olH/yU18i0oEKCUWgcRwsMz1w2lQHsFt6nhBmFO5Enn/v4dX1EprMA1gBHGLpmh1vIIZvp8wN8J
+	e/daG99cfbS9vBPbxS449EdXSH9kb629uVJ9+9hHnX0RLX3n0URVYUMJkrBEDPzQMVwXoDC1GIi
+	ixIxT8lXoJ7ArcQS152jVvwB59ChY6LbiHbBnNJcKVYEyJWTeaJyamf7fO03CIC2MYcMA1fQ7oK
+	OzokdFbpsO5XhZIZH+aVJi4Jogeuxvh4SQfXnu3lKNDWOdMMJ+NNwF69aeXdDFcmBr4dWSrKsfI
+	bzuTAEAszBQKEBUsdG35/diFe9Q=
+X-Received: by 2002:a05:600c:8b06:b0:4a8:9a2f:d27 with SMTP id 5b1f17b1804b1-4ac17b2c907mr346699515e9.25.1793789489826;
+        Wed, 04 Nov 2026 02:51:29 -0800 (PST)
+Received: from 3mk ([50.60.229.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b437864e3fsm43419005e9.0.2026.11.04.02.51.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:51:29 -0800 (PST)
+From: abu mohammed saleh <foroncewillbeproud@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	linux-kernel@vger.kernel.org,
+	syzbot+acd959f649966559199c@syzkaller.appspotmail.com,
+	abu mohammed saleh <foroncewillbeproud@gmail.com>
+Subject: [PATCH RESEND] comedi: give each device's mutex its own lockdep class
+Date: Wed,  4 Nov 2026 13:50:16 +0300
+Message-ID: <20261104105016.8232-1-foroncewillbeproud@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,45 +97,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/2] memblock: keep reserve_mem regions out of KHO
- bootmem
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>,
- Alexander Graf <graf@amazon.com>, Changyuan Lyu <changyuanl@google.com>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Pasha Tatashin <pasha.tatashin@soleen.com>, kexec@lists.infradead.org
-References: <20261021211058.83483-1-azpijr@gmail.com>
- <2vxzqzhhg8l3.fsf@kernel.org>
- <32dd1f28-db55-4674-99bc-74d9d3ab25db@gmail.com>
-Content-Language: en-US
-In-Reply-To: <32dd1f28-db55-4674-99bc-74d9d3ab25db@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/22/26 10:16 PM, Jose A. Perez de Azpillaga wrote:
-> On 10/22/26 3:37 PM, Pratyush Yadav wrote:
->> On Wed, Oct 21 2026, Jose A. Perez de Azpillaga wrote:
->>
->>> On a KHO boot, a reserve_mem= region that can't be revived (new name,
->>> size or alignment) can be allocated from KHO bootmem, which the next
->>> kernel boots out of. With CONFIG_KEXEC_HANDOVER_DEBUG preserving it
->>> fails; without it, the next kernel's memmap ends up on top of it.
->> What's your use-case? Why are you adding new reserve_mem regions after
->> cold boot? I'd rather avoid making purely theoretical fixes.
-> 
-> I don't have one, I found it through the TODO. a different reserve_mem=
-> in the cmdline passed to kexec is enough to hit it.
-> 
-> if it isn't meant to work across a live update, would you rather have
-> reserve_mem() fail on KHO boot when it can't revive the region?
-> 
+The "comedi_bond" driver forwards digital I/O instructions to other
+COMEDI devices via "kcomedilib".  When an INSN_BITS instruction is sent
+to a bonded device, comedi_unlocked_ioctl() holds the bonded device's
+mutex while comedi_do_insn() acquires the mutex of the underlying
+device.  All COMEDI device mutexes are initialized in
+comedi_device_init() and so share a single lockdep class, so lockdep
+reports this as recursive locking:
 
-ping, I can send a v2 either way.
+  WARNING: possible recursive locking detected
+  repro/77 is trying to acquire lock:
+  ffff9d0b41f39cf0 (&dev->mutex#3){+.+.}-{4:4}, at: comedi_do_insn+0x22/0xf0
+  but task is already holding lock:
+  ffff9d0b41f398f0 (&dev->mutex#3){+.+.}-{4:4}, at: comedi_unlocked_ioctl+0x5f/0x1060
 
+The two locks belong to different devices.  Since commits d1b3b9c70e11
+("comedi: kcomedilib: Add loop checking variants of open and close")
+and 2402f958cf3b ("comedi: comedi_bond: Check for loops when bonding
+devices"), comedi_open_from() refuses to open a device if that would
+form a loop of devices opening each other, so this nesting cannot
+deadlock.
+
+Register a dynamic lockdep key for each COMEDI device and use it as the
+class of the device's mutex, unregistering it when the device is freed.
+This silences the false positive while keeping lockdep's ordering checks
+between different devices, which a mutex_lock_nested() annotation in
+comedi_do_insn() would not.  It also handles chains of bonded devices,
+which a single nesting subclass could not.  There are at most
+COMEDI_NUM_BOARD_MINORS devices, so the number of classes is small.
+
+The problem was found by syzbot, which can trigger it as root by
+configuring a "comedi_test" device and a "comedi_bond" device bonding it
+on legacy minors, then issuing INSN_BITS on the bonded device.
+
+Tested on v7.4-rc1 (x86_64 KVM guest, defconfig + kvm_guest.config +
+CONFIG_PROVE_LOCKING, gcc 15.2) with syzbot's C reproducer, booted with
+comedi.comedi_num_legacy_minors=4: unpatched, lockdep reports the splat
+above on every boot; patched, no lockdep reports in three runs.  Also
+built with CONFIG_LOCKDEP disabled and with W=1 without new warnings.
+Not tested with real COMEDI hardware.
+
+This patch was written with the help of an AI coding assistant (Claude
+Opus 5.5, Anthropic), which analyzed the syzbot report, wrote the change
+and ran the tests above under the submitter's direction.
+
+Reported-by: syzbot+acd959f649966559199c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=acd959f649966559199c
+Fixes: 69e2387f3bfd ("staging: comedi: kcomedilib: protect against device detachment")
+Signed-off-by: abu mohammed saleh <foroncewillbeproud@gmail.com>
+Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
+---
+
+Notes:
+    Resend with Ian's Reviewed-by and Greg Kroah-Hartman on Cc, as requested. No code changes.
+
+ drivers/comedi/comedi_fops.c     | 7 +++++++
+ include/linux/comedi/comedidev.h | 5 +++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
+index 05d14839c..a488044d9 100644
+--- a/drivers/comedi/comedi_fops.c
++++ b/drivers/comedi/comedi_fops.c
+@@ -108,6 +108,12 @@ static void comedi_device_init(struct comedi_device *dev)
+ 	kref_init(&dev->refcount);
+ 	spin_lock_init(&dev->spinlock);
+ 	mutex_init(&dev->mutex);
++	/*
++	 * Give each device's mutex its own lockdep class, as one device's
++	 * mutex may be held while acquiring another's via kcomedilib.
++	 */
++	lockdep_register_key(&dev->mutex_key);
++	lockdep_set_class(&dev->mutex, &dev->mutex_key);
+ 	init_rwsem(&dev->attach_lock);
+ 	dev->minor = -1;
+ }
+@@ -118,6 +124,7 @@ static void comedi_dev_kref_release(struct kref *kref)
+ 		container_of(kref, struct comedi_device, refcount);
+ 
+ 	mutex_destroy(&dev->mutex);
++	lockdep_unregister_key(&dev->mutex_key);
+ 	put_device(dev->class_dev);
+ 	kfree(dev);
+ }
+diff --git a/include/linux/comedi/comedidev.h b/include/linux/comedi/comedidev.h
+index 577a08f37..f6d732427 100644
+--- a/include/linux/comedi/comedidev.h
++++ b/include/linux/comedi/comedidev.h
+@@ -489,6 +489,10 @@ struct comedi_driver {
+  *	its regions requested.
+  * @spinlock: Generic spin-lock for use by the low-level driver.
+  * @mutex: Generic mutex for use by the COMEDI core module.
++ * @mutex_key: Lockdep class key for @mutex.  Each COMEDI device has its own
++ *	class because a device's @mutex may be held while the @mutex of another
++ *	COMEDI device is acquired via "kcomedilib" (e.g. by the "comedi_bond"
++ *	driver).  "kcomedilib" refuses to form loops of such devices.
+  * @attach_lock: &struct rw_semaphore used to guard against the COMEDI device
+  *	being detached while an operation is in progress.  The down_write()
+  *	operation is only allowed while @mutex is held and is used when
+@@ -553,6 +557,7 @@ struct comedi_device {
+ 	unsigned int ioenabled:1;
+ 	spinlock_t spinlock;	/* generic spin-lock for low-level driver */
+ 	struct mutex mutex;	/* generic mutex for COMEDI core */
++	struct lock_class_key mutex_key;
+ 	struct rw_semaphore attach_lock;
+ 	struct kref refcount;
+ 
 -- 
-cheers,
-jose a. p-a
+2.53.0
+
