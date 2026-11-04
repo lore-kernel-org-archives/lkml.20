@@ -1,52 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812512;
-	b=wBbFrleZcSsqt7tvN8NOslBQFVhRqSP38+PpFAWA7ePGsLSMJWARpN1ccjnHaiG9HW9G
-	 EzusXyi3FjjqwN1VmTbOrCv7QIMt77KvUerROvovJ9bmT7pFRf7vSV0gHIdW4abG/wd6a
-	 i2BZXJrTCduWg8wML4myeqIEG2IrHKmP4Le8W/9lCRYHXzHekbyvulMkPitq+TaLv8SCL
-	 llKKZBAs6NAoAVTBfsgadvOt7E+tlkBFgW5KGWwpOsZCuoM8icZg/v9IWaHZiym4bTkCr
-	 4jJbj2G32oWXSbev5ojLpDfmc8VZ206RPjDQQpQRDmzhNEltYYggishHHOxaOzuApMQ==
+	t=1793812518;
+	b=ySjwhkdnHE/CYa28yUoSbg3j9Ik9Kp1v/4y/NIFlHIVEbD/55EScWCPlA1ftCPAPIfdN
+	 nGPekiabNJpSHP2ojAuJ1nz7DwYgZzHiX+JsxQfEtWOFWPKpxtmtdmay74Uip1BcEm92e
+	 FNTRrhLqfA5P47gQWplw+ujbJBonR77ReF2qW/Q3AggyCMLzRJE7A5A9fg2Q7Xdd+py+z
+	 u21oVR268kZZq+oFElJ7oUUv4Inqx7K42O6gTw6u1txLA5dbDlcJUeov095tNIh0MGp6/
+	 /ed6zjjNY3t8aJSN1RxPA2kxk0qms4rDJUIgy20ehCu+WMf5WQa46hk0dIJn6FwxKXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812512;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=e0mH8Uvvp1KhH4B0DvL/07BtsFGhDQCfwMueXbsaUKE=;
-	b=Xt+oZLhLmrJyndwxSuM7DTwpLTE1EJ7hdlIh4l8XMLhvrhKotqvLjM2XtdVU7j+Ud7IJ
-	 +3D6zIbpiUx/v7RCPCGaeNinxKadlrSVqT3S4455apD8dPxYoEwJnetVJMAW5QuB0wzIx
-	 3lvDdtHgGbqdIcl42qvr2t2+Xo5Mk7qVJbw/9aVh1YTPgjKvraWj84GthjL5eYF/jWVxJ
-	 rDm7Qfgzij64/gH/3wtqmYaYuDdeWF2Xye8HnZUhYkaSU8SFC1E1pQ4A0ZzvItGSWoqvy
-	 vDe+eqKsoznUhyqCv+7uj64Xxkptuo45gmK0fBMmdtvs/4Ies1Q7qvW2WCIcko9Zegw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812518;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=SYq9+BBr0q0gADHtUh7wcOV25vq3s2GgCZsPxG2VA6Q=;
+	b=WU62wsbLFGbPE3+qdME1HDvH3wqnmvMpvevFoKHY0W388CpuiWXBdJUqa97g1fO8OC8T
+	 za87GaSCXItS92qFWFulPwUP3l83VslavhbGGCgKGC7vCEZZ38Dcspt2W3mCqmgOoxm8c
+	 e342uZTiWeoIWjPuDFrp4NiQy7+mXXRWfut6SwKYLDGt+qwH9p1JX6QgRiHC83ANj/6EJ
+	 yNv1OvhVvW1c0VjQXTi9SwH5gFJ5kPzXDR3Nn/KaZzfKgzNxRKsJMWM8bc6yS0ic136Sq
+	 KHbN7cO8ye4Aiw6zM4NOsuL5xjYPe3hN1JAB9OnBkvTveZhiHUHKHkwEkG5pm844kvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h/WBm7u6";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A55606A329;
-	Wed,  4 Nov 2026 17:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A55606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3BADB4E41404;
-	Wed,  4 Nov 2026 17:14:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E20B260772;
-	Wed,  4 Nov 2026 17:14:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0DD1010329206;
-	Wed,  4 Nov 2026 18:14:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793812488; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=e0mH8Uvvp1KhH4B0DvL/07BtsFGhDQCfwMueXbsaUKE=;
-	b=xh+BIRuKGpdtkDNLcgikfHinfWANO1z+IcUf6KOQmmm6nLiq4T+9VcqbwklXmm8989SILi
-	5RyAu+7NA3jwH0J3EdFZEP5ehJqCBdrvYXzxvvRlNF5v9h9qjTAf2PhXThDGBguYOF4wdN
-	lLj7wyH0fjbSSDT4Tkj3bUh1KTyBdK2ASKx6kiZbP3DaQkxZ4zPneJDOQGL5kEycC6URPs
-	hBKDGU/v318Ig8grBq81dMmBmTLeqnM379TsH+ikY7G0PZwjyaaikbTeeA4PRC2GftHKOh
-	KJjy3TueEHT66xyf7spqWBgQ956dmusKVr/oGs/z3LpP4nj7u1fEvUi0+GtBhg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E40606A32F;
+	Wed,  4 Nov 2026 17:15:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/WBm7u6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3671F00919;
+	Wed,  4 Nov 2026 17:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793812517;
+	bh=SYq9+BBr0q0gADHtUh7wcOV25vq3s2GgCZsPxG2VA6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h/WBm7u6jgGnIGCnazSx+mTpGGIdY44Edu9dfObP1hyHC87oXtWB0MMAm4MFUJJ/u
+	 lBTy/MMP0imnbuTtYVYfUthcWkCCJps5xV7IEhakoied3Y/YAYJ2LCW19zBAqJx4pH
+	 sESid7Gte1+yneVlzgi9FxomuyS5X741ccgnYFFmh/GqG+xRbGnDTzIU15SABc9zUT
+	 En1QWKFCENGlbrm4Vqm2JURpdLhBKzYNmXQLpTfEcInf5v26cvGepdDB33FjMahU29
+	 zYFvvfTS0M08OkXL5giLs6Lh5R2qjGs5WvxH+v452VLnqRD8w0FarnxUqHIsZr2Eln
+	 lZUSab8BSMMHg==
+Date: Wed, 4 Nov 2026 17:15:10 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Pranith Kumar <bobby.prani@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+	Richard Cochran <richardcochran@gmail.com>, "open list:MEMORY MANAGEMENT - CORE" <linux-mm@kvack.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:PTP HARDWARE CLOCK SUPPORT:Keyword:(?:b|_)ptp(?:b|_)" <netdev@vger.kernel.org>
+Subject: Re: [RFC PATCH] mm/rmap: use release ordering for small-folio
+ mapcount removal
+Message-ID: <autmnQwhDvMzqY5E@gremlin>
+References: <20261104013139.1341582-1-bobby.prani@gmail.com>
+ <750560f3-4c5a-44fe-b72a-0611be383f32@kernel.org>
+ <CAJhHMCCu8ehOU37_4UpExNO3U8YPygjnht+2S+axkxTwY8bx2w@mail.gmail.com>
+ <287698ab-76dc-4aee-8e6c-db1f5d18974c@kernel.org>
+ <aus4ag1KxpuBNSP1@gremlin>
+ <CAJhHMCChBTH3QWBFS1Hp17zj5HepN6KFucvG_5tVdpaB4fjCYg@mail.gmail.com>
+ <autkT1eNM7-oSM4F@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,111 +70,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:14:19 +0100
-Message-Id: <DMMLG3KHSTM3.1EATLVDX1MK66@bootlin.com>
-Cc: "Douglas Anderson" <dianders@chromium.org>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jyri
- Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Laurent
- Pinchart" <laurent.pinchart+renesas@ideasonboard.com>, "Tomi Valkeinen"
- <tomi.valkeinen+renesas@ideasonboard.com>, "Kieran Bingham"
- <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Biju
- Das" <biju.das.jz@bp.renesas.com>, "Linus Walleij" <linusw@kernel.org>,
- "Sandy Huang" <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, "Andy Yan" <andy.yan@rock-chips.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap"
- <rdunlap@infradead.org>, "Inki Dae" <inki.dae@samsung.com>, "Seung-Woo Kim"
- <sw0312.kim@samsung.com>, "Kyungmin Park" <kyungmin.park@samsung.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>,
- "Alison Wang" <alison.wang@nxp.com>, "Paul Kocialkowski"
- <paulk@sys-base.io>, "Yannick Fertre" <yannick.fertre@foss.st.com>,
- "Raphael Gallais-Pou" <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
- <philippe.cornu@foss.st.com>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Samuel
- Holland" <samuel@sholland.org>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Jagan Teki"
- <jagan@amarulasolutions.com>, "Ondrej Jirman" <megi@xff.cz>, "Javier
- Martinez Canillas" <javierm@redhat.com>, "Igor Reznichenko"
- <igor@reznichenko.net>, "Michael Walle" <mwalle@kernel.org>, "Dario
- Binacchi" <dario.binacchi@amarulasolutions.com>, "Jagan Teki"
- <jagan@edgeble.ai>, "Jianhua Lu" <lujianhua000@gmail.com>,
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, "Purism Kernel Team"
- <kernel@puri.sm>, "Jerry Han" <hanxu5@huaqin.corp-partner.google.com>,
- "Joel Selvaraj" <jo@jsfamily.in>, "Icenowy Zheng" <icenowy@aosc.io>,
- "Michael Trimarchi" <michael@amarulasolutions.com>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, "Casey Connolly" <casey.connolly@linaro.org>,
- "Michael Tretter" <m.tretter@pengutronix.de>, "Cristian Cozzolino"
- <cristian_ci@protonmail.com>, "Junjie Cao" <junjie.cao@linux.dev>, "Ryan
- Brue" <ryanbrue.dev@gmail.com>, "Nickolay Goppen" <setotau@mainlining.org>,
- "Stefan Mavrodiev" <stefan@olimex.com>, "Florian Fainelli"
- <florian.fainelli@broadcom.com>, "Broadcom internal kernel review list"
- <bcm-kernel-feedback-list@broadcom.com>, "Robert Chiras"
- <robert.chiras@nxp.com>, "Alexander Koskovich" <akoskovich@pm.me>, "Markuss
- Broks" <markuss.broks@gmail.com>, "Artur Weber" <aweber.kernel@gmail.com>,
- "David Heidelberg" <david@ixit.cz>, "Dzmitry Sankouski"
- <dsankouski@gmail.com>, "Yedaya Katsman" <yedaya.ka@gmail.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-mips@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-renesas-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-doc@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <linux-sunxi@lists.linux.dev>,
- <linux-tegra@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 00/35] drm/panel: let the panels use the atomic state
-X-Mailer: aerc 0.22.0
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <cxsgo7u2hfb4jskscqcbeaaneiyfh7bdmlvku2wxwtduekwhxz@3vsizgxvekw7>
- <DMICO60J4G03.1QBH2T9SQ7XEZ@bootlin.com>
- <py3tch5wmx4g2zjpebzbgtpwji4ci3vk5obeuy44fbi4vw2em2@gpjmxyvwpimn>
-In-Reply-To: <py3tch5wmx4g2zjpebzbgtpwji4ci3vk5obeuy44fbi4vw2em2@gpjmxyvwpimn>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <autkT1eNM7-oSM4F@pedro-suse.tail5790ac.ts.net>
 
-Hi Dmitry,
-
-On Sat Oct 31, 2026 at 5:44 PM CET, Dmitry Baryshkov wrote:
-...
->> The first 13~14 patches are nice and fairly independent cleanups. I gues=
-s
->> they can be sent separately, or just be applied. However I'd still want =
-to
->> review patch 14 and do some testing next week before I consider them rea=
-dy
->> for applying.
+On Wed, Nov 04, 2026 at 05:08:10PM +0000, Pedro Falcato wrote:
+> On Wed, Nov 04, 2026 at 08:51:20AM -0800, Pranith Kumar wrote:
+> > Hi Lorenzo,
+> >
+> > On Wed, Nov 4, 2026 at 5:55 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > >
+> > > On Wed, Nov 04, 2026 at 02:37:39PM +0100, David Hildenbrand (Arm) wrote:
+> > >
+> > > I mean 1.54%, theoretically is even less convincing for me :)
+> >
+> > With reducing the strength of one barrier, I think this is a non-trivial gain.
 >
-> Sounds like a plan. Would you ack the patch 14? I'll review and repost
-> patches 15+.
+> Counting cycles on an arm64 simulator for a microbenchmark is completely
+> unconvincing.
 
-Just did that, and also reuntime tested patches 1-14.
+Exactly.
 
-Aren't patches 15-25 another self-contained batch, that might be sent on
-its own?
+>
+> > >
+> > > In any case for something touching a sensitive memory barrier operation to have
+> > > a stronger argument put forward for release ordering being suitable than simply
+> > > stating it's fine in the commit message and updating a comment.
+> > >
+> >
+> > Can you please explain what information is missing? I think the commit
 
-Ah, hopefully if you repost the series without parthes 1-14 (after they are
-applied I mean) this will reduce the Cc list too.
+All of it? Your commit message simply asserts that this is true.
 
-Luca
+> > message has all the details of why release is sufficient instead of
+> > full barrier.
+>
+> rmap is gnarly code and I'm not sure people have an appetite towards weakening
+> random atomic ordering semantics for a virtual 1.54% cycles gain in some
+> microbenchmark, without actually explaining why it is safe. __folio_remove_rmap()
+> has (indirectly) a lot of callers which may subtly expect different semantics.
+
+Exactly. And this patch boldly decides to CHANGE the invariant here without
+evidence for a theorised perf gain.
+
+Sorry we don't have time for this. NAK.
 
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Cheers, Lorenzo
