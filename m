@@ -1,65 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779013;
-	b=aCFXRuYLNDDuH+wu0CrLimdDNHmCSVhn7vwk1oVOJg3D5tqs4PtxtkjEm0fpY9DTiihw
-	 eScc3pJs8mF04MGLcTO8WUPsxEjLahGbHukVKOy3EG1bLGR1MPV79pkx7mH4g2YjfvpUp
-	 dnbAFEfFoYgjLRJ9CLfQpgmg35TlDwrlsf/3uPGRXKQj+ctzCuj6E9c+L41Tl+x6DvlkB
-	 ZlOuYX5CIMF0npu/Cl5VcZZCaXSMKOVKu1IDLLr2Duy4PUOe4Jkrn8VuLoF1R4aN9BrvF
-	 J4cn48GEfwj2N83Sy6X5L4Ma0OaU7CLia8OUVs0JuDnG2e35ZtWUXO1rmerfJZe8dpQ==
+	t=1793779132;
+	b=o38PfHm0yltzqag7toFlcu25+xs9MZORs/DyvJjSAbLAzS6If0HI2+KZYALg3AetpH46
+	 Ud+XSmA4EVtQde1+hS5eECeUMHmAYePhQOSU+0ju7ILtDpmRBdPWFOAafRnIqomDA4Fxo
+	 hj/VZWXqEXD698pNL5mcTuNX7GorHzPTemO/kbWdyY5TKOJiFjp53e+tqs67qnznSbGUs
+	 lmXUiMRY4m+L96oj7U1ce5Z7LBqTcAs/ph9E8eGUClypidY3ZJdbziGAfNzzgmgSQLLyy
+	 TfaaDrFoT8P4vksFAmI7vWWSzihoHfi+Uz53ANaNkJRIXhTPbr045KaHVtj7bguysAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779013;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779132;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=2uOYWGt4AO3+u8u+kd0zrEytZb9XowJ07OqUMUTGZZg=;
-	b=WPzZWVRbMqA/njfAFQc/k62216FPRqut/xwbh0RBtidhNmbIRJi+m/6rZsvXGTAeGTMf
-	 RkA+PVGrgoxgLRJxG4ywfDSlrEnQUfQ8ZuJDd6u7lNwKF+67vTgx4SMIZoWZbeD362LRI
-	 M4c1sw4tPfubUjlUFwkXnlMhu82lofT2dbaaLdcgpORTWZOflgyhRNQjzIdQCPQ9ohyrw
-	 kuC4f6OkZZnJWG4GBl5suGVSvktRrX/bQEIue5sAieRL0PbIF0sC1W7NTHrk7KQk679GL
-	 pBtCVESVMvcE3wNhfYqJH9yK3AxdaogaazRlf7D21FuoctefJspsXU5fow56rSUjePw==
+	bh=2Rg/pVO6rdHzpspUK/8nXdYsvHeWHqEdBoNmkqwWFVM=;
+	b=3I6V8yDBcDIPRB9f/36rlXmpq6MJkadjFAIllMNUEpOq2UpffLmGU+JI3xl6dJ6oEDXB
+	 gGSASBpH+rOvxeN2j18Un0kWvo5k3xKOkTuCAshA+NZCwVP7/eyiwOWvdbS9gtpHtUV7u
+	 57aJcayx+/FYZUp00Y9yVjkCisM3IkgEIqRtCIBLjmFjsqzUnwv0ctBa8UUQojSuFQsrF
+	 rKwzm4g3BoFMQ5fqMsDvgnQ1UiDECYaC0Dd2kEecjnrY71K2sq/krek6wd+tzG+uqbMwp
+	 7xjCbtNRMBedzu44Qux5LwDD/gB9HKI3NbEoIqlAUEnq7/jmWg52fspSFo6usWD3nnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fh5+UQtD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B2606A31B;
-	Wed,  4 Nov 2026 07:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33B2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 486e9bb2d82511f19a56ed5b684f684d-20261104
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:4077d316-8174-4c66-9782-bfd9944b7806,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-20
-X-CID-META: VersionHash:7db8b62,CLOUDID:0d7082b4cebb77ea3168c59fb2ef3cce,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:1|-1
-	00,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 486e9bb2d82511f19a56ed5b684f684d-20261104
-X-User: songxiebing@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <songxiebing@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1742231886; Wed, 04 Nov 2026 15:56:46 +0800
-From: songxiebing <songxiebing@kylinos.cn>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	songxiebing@kylinos.cn
-Subject: [PATCH] ALSA: mixer: oss: Fix uninitialized index in recsrc ioctls
-Date: Wed,  4 Nov 2026 15:56:42 +0800
-Message-Id: <20261104075642.1790966-1-songxiebing@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECCF606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fh5+UQtD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E461F00919;
+	Wed,  4 Nov 2026 07:58:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793779131;
+	bh=2Rg/pVO6rdHzpspUK/8nXdYsvHeWHqEdBoNmkqwWFVM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fh5+UQtDB3snpTjjzDBImW6GKSJzupMMWSk6yvhRmGfZaH1rk/YwMuO8vbuS/VJ1C
+	 XE2ikC7IPFyQRAR6+MsAbcQh4kZWZrVxalyMZWn8HQkFqQ1DPLeHJQHKjqm6aMrCos
+	 dGCEiVtVfMmEn9BfGT0sfP1XzwZlOIakWv9ZbgJM=
+Date: Tue, 3 Nov 2026 23:58:51 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yongxin Yang <yangyongxin@kylinos.cn>
+Cc: Bradley Morgan <include@grrlz.net>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] perf/profile: Remove unused local variable err
+Message-Id: <20261103235851.b6f437ab7e0a82530555ef32@linux-foundation.org>
+In-Reply-To: <20261104071402.1543517-1-yangyongxin@kylinos.cn>
+References: <20260824024251.279751-1-yang_yongxin123@163.com>
+	<20261104071402.1543517-1-yangyongxin@kylinos.cn>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,68 +55,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Bob Song <songxiebing@kylinos.cn>
+On Wed,  4 Nov 2026 15:14:02 +0800 Yongxin Yang <yangyongxin@kylinos.cn> wrote:
 
-snd_mixer_oss_get_recsrc2() returns success without setting active_index
-when the current Capture Source does not match any OSS mixer slot.
-snd_mixer_oss_get_recsrc() then uses that uninitialized index for
-"1 << index", and snd_mixer_oss_set_recsrc() does the same while ignoring
-the callback's return value.
+> In create_proc_profile() the local variable err is only ever assigned 0 and
+> then returned, so it can never hold anything but 0.  Drop it and return 0
+> directly.
+> 
+> No functional change.
+> 
+> ...
+>
+> --- a/kernel/profile.c
+> +++ b/kernel/profile.c
+> @@ -240,7 +240,6 @@ static const struct proc_ops profile_proc_ops = {
+>  int __ref create_proc_profile(void)
+>  {
+>  	struct proc_dir_entry *entry;
+> -	int err = 0;
+>  
+>  	if (!prof_on)
+>  		return 0;
+> @@ -248,7 +247,7 @@ int __ref create_proc_profile(void)
+>  			    NULL, &profile_proc_ops);
+>  	if (entry)
+>  		proc_set_size(entry, (1 + prof_len) * sizeof(atomic_t));
+> -	return err;
+> +	return 0;
+>  }
 
-Make get_recsrc2() return -ENOENT if no slot matches, only use the
-returned index in set_recsrc() when the lookup succeeds, and initialize
-the index variables as a defensive measure.
+Well.  If proc_create() returned error (entry==NULL) then should
+create_proc_profile() just drop that information on the floor and
+pretend that everything worked?
 
-Signed-off-by: Bob Song <songxiebing@kylinos.cn>
----
- sound/core/oss/mixer_oss.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
-index c533d767c29a..6c8ca1d320ac 100644
---- a/sound/core/oss/mixer_oss.c
-+++ b/sound/core/oss/mixer_oss.c
-@@ -185,7 +185,7 @@ static int snd_mixer_oss_get_recsrc(struct snd_mixer_oss_file *fmixer)
- 		return -EIO;
- 	guard(mutex)(&mixer->reg_mutex);
- 	if (mixer->put_recsrc && mixer->get_recsrc) {	/* exclusive */
--		unsigned int index;
-+		unsigned int index = 0;
- 		result = mixer->get_recsrc(fmixer, &index);
- 		if (result < 0)
- 			return result;
-@@ -212,7 +212,7 @@ static int snd_mixer_oss_set_recsrc(struct snd_mixer_oss_file *fmixer, int recsr
- 	struct snd_mixer_oss *mixer = fmixer->mixer;
- 	struct snd_mixer_oss_slot *pslot;
- 	int chn, active;
--	unsigned int index;
-+	unsigned int index = 0;
- 	int result = 0;
- 
- 	if (mixer == NULL)
-@@ -222,8 +222,8 @@ static int snd_mixer_oss_set_recsrc(struct snd_mixer_oss_file *fmixer, int recsr
- 		if (recsrc & ~mixer->oss_recsrc)
- 			recsrc &= ~mixer->oss_recsrc;
- 		mixer->put_recsrc(fmixer, ffz(~recsrc));
--		mixer->get_recsrc(fmixer, &index);
--		result = 1 << index;
-+		if (mixer->get_recsrc(fmixer, &index) == 0)
-+			result = 1 << index;
- 	}
- 	for (chn = 0; chn < 31; chn++) {
- 		pslot = &mixer->slots[chn];
-@@ -826,6 +826,8 @@ static int snd_mixer_oss_get_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
- 			break;
- 		}
- 	}
-+	if (idx == 32)
-+		return -ENOENT;
- 	return 0;
- }
- 
--- 
-2.25.1
+Would it be better to return an error from create_proc_profile() in
+this situation?  Doing that that would require auditing the caller's
+handling of this and hoping that the caller reports the failure in an
+appropriate fashion.  If not then reporting the error from within
+create_proc_profile() would be better than simple silence.
 
