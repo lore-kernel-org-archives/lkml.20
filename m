@@ -1,90 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781641;
-	b=1mOJsnSQxW2s8ga9zAct9e+qMCS8JStAIqCRMD6vFDxGDt0yB8iUXSvTF2N+jnQRzRyB
-	 8FADeMWutivljIJ07QLTDxD0LfoEYuGVZC6YUjW0v5MPm//vVyzfapl4GhM6IcmpXaQ9j
-	 uWYSodd5sulZh5N54RL28R/GY+JU21rpxuZ379aFapsJrLNegyRIzONWNkrY9Zh/Jy6NE
-	 1Ywr69Lje4+cMS2VlA2kk6ObYj/RTnoO0/g5qDPMKElsdbgW5P+tVObiy0NWilEr8tZTu
-	 bLmZIkCM57o17XPGF2NrTv4N4FenJlycmnYAacIUVxLS63V+bKtDp9VBv/dhYMWkINQ==
+	t=1793781721;
+	b=fx/YlPGf7uZs8xU3UQ9CNdeq+1LZlubNNkgX0LQikLiiHnbaGr+cXCgDeoO8CNsnHPxb
+	 MHOAY3ZbViyz9erHpijmmINC5ynQEK04K+4+g0CJPC4++as8+TJw+W8MGS2Sb6Ku4p5/f
+	 oN7moNW1cFiEI8emeATvHJuhpmx0JuJmkSO3Lc4xB0tQVp+oyQFMIU2yseuFwRaCvEYaU
+	 zNlQQBC/eiuhdf4+LxHbA1O1Gtpg1rQQwe6F1PItq2JI+CnSRJhNmfAQ5Ih27GdL8Ul7V
+	 CrrPLqfO8tHmy3fsq+PI3N47zROtMUHGffZuPQkUBUwNks4R4UgxvZAFGsonuGdIM7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781641;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=tfR0FKTN+uU5fcPMsb7pxWzxgjzor2iYbKrTURNoFjA=;
-	b=dOztCC5x50rJVUzTYzEoD5Em+FV5jEw+VIh8jYkvjFteAa6WM4x7C2bFX0zbt6r0rWHM
-	 5VYkFyJdWgpvawJHh/15uKwxrXLZ/3VzIkbixWln48qIevlIFM6dJzADGnyDfBVh6r5SC
-	 /8HmmamNbEuIxhKOoa2Y7CC9LiLBh5jqQ8QxP8osAFvR0Ra8UkpHVGKngGaQE4P/eUBzp
-	 rmstJXQquO4fbrR6y1lFJE7WiMKIEXkaAQrFCSJE0oyPnsjZ7PWFEp6UsDDy6a4AlixdJ
-	 xhxYE3s3I4XH7YTyCkBidLEwwas5l4lM2KBNqAAuQRgZuf1q2SEPPmMOT85FbyNxoZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781721;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=6TALtB+99lw/ARPvnVNmv+T1dMrR3PeZsEge0aWRtII=;
+	b=CTMPRXZEt0ywASRSH9zTUDoPsPDMyV4lymJsSceRq+umWgBOIpr+h3JcrfAIRFU1GHiJ
+	 gaZdpEBZq4q9agUSsSPUMWlUkFbmODhbW5XPcx32KugNzH1HJoFOi7EI10E6NZdwtme5b
+	 JwwVNUImprxdMSruAM6OvGVYs7nwELdB6qyc6JjJwHpLI1kyUCL8WyaWSz+3SpJGmQhht
+	 NtpOX3cTprgexAWJlvplB/MeGglKtBcc0NjmwMl/OX+St6BDJwyohEWmEZruzHXiG2LBP
+	 cVUgduWh0KcjDHk+R2Rr14u6Nt1SFgoT9fIwjHHqMa1fWjMzIF5FU1mW5HdbiQbEPHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WcRMQscY;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=tQv2OO4B;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8EF606A331;
-	Wed,  4 Nov 2026 08:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB8EF606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DEC606A330;
+	Wed,  4 Nov 2026 08:41:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5DEC606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WcRMQscY
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40i7Tc1712601;
-	Wed, 4 Nov 2026 08:40:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=tfR0FKTN+uU5fcPMsb7pxWzxgjzor2
-	iYbKrTURNoFjA=; b=WcRMQscYgLpPCLnNMuZQdUoRtOVZdWP957mZvFjUV1sImm
-	s+HP/gtTEJPdrDWrmUhzw9inS39NKfLr2DssguwAkTv+NV/IbZhIr+c1QZWXhtxf
-	90Q7Kix2Aok+w9GlCWLeSB9SSFm2qTfo0QsPGUqqbRW+257yG6a08QGuGUjRulY0
-	En8km38Lq6uKIjJt8Qr6WYghq+Tunr9zgav8aggTaw2snQphhK4Q+p8H0I/OeQBf
-	d22TM/VRNwHgUVvVc3jhjure43lyt+2UHYXGUMiejMN2Y5E8/aQjXAT+s5XwTizB
-	lTYaTnTBVEHxgYFqksJwdjRz/hbH5tyF0ZOV8TKA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80sts4h-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:40:39 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48K5En3889991;
-	Wed, 4 Nov 2026 08:40:39 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqf0gcpe6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 08:40:38 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A48eZeO46268674
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 08:40:35 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 26DB52004B;
-	Wed,  4 Nov 2026 08:40:35 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F394C20043;
-	Wed,  4 Nov 2026 08:40:34 +0000 (GMT)
-Received: from osiris (unknown [9.68.29.29])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  4 Nov 2026 08:40:34 +0000 (GMT)
-Date: Wed, 4 Nov 2026 09:40:33 +0100
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] s390: Add assembler-level include guard to
- insn-common-asm.h
-Message-ID: <20261104084033.8132-D-seiden@linux.ibm.com>
-References: <20261102-insn-v1-1-df048a0be0d5@linux.ibm.com>
- <9b3348d9-7510-48e4-8be8-31efabbf152c-agordeev@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=tQv2OO4B
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKJp64C6Jz8vmm;
+	Wed, 04 Nov 2026 09:41:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793781710; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6TALtB+99lw/ARPvnVNmv+T1dMrR3PeZsEge0aWRtII=;
+	b=tQv2OO4BpsXbn/HRi+pbIvy7AgddDYrTzr+gyOXH8aSjGh6czmSN/H0JYZf9QcaWOJlf4r
+	khOcpWP5XY8XgStDuLfTAxk+6e2FtYm9DBfdDQpUILbBjPQIV28PlRh2wFNMiM7ZfU6n7U
+	H9Bt85dnzFeMLmPNH+WNAXL91iGIRbk8bccrxXGIb98r5Vo8WMcJuFcvJfLWc1i0TdaR6u
+	WeqJSBfrvCP6gQkMhw8Jw75QY5haF6Aft4UGHQ66mqJWPXNLd/ZHJTFDia6jAkCBqIdAqQ
+	CzT7RoX+Xyfbml1oOeJXfQp6ViMf8Wv9fa74nGhEuGVsiL7DtuJtZKyt1RSLGA==
+Message-ID: <54d07bbd9e5dbadf4e63c81b88f8d0b41cbb5cf8.camel@mailbox.org>
+Subject: Re: [RFC PATCH v7 8/8] samples: rust: Add JobQueue Tester
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Younes Akhouayri <git@younes.io>, Philipp Stanner <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl	 <aliceryhl@google.com>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
+ Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, David Airlie	
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin	
+ <tvrtko.ursulin@igalia.com>, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Date: Wed, 04 Nov 2026 09:41:47 +0100
+In-Reply-To: <kw-1793744821.998563484-558346-1@younes.io>
+References: <20261103153138.1087330-2-phasta@kernel.org>
+	 <20261103153138.1087330-10-phasta@kernel.org>
+	 <kw-1793744821.998563484-558346-1@younes.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,117 +88,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9b3348d9-7510-48e4-8be8-31efabbf152c-agordeev@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: A8jsXwRNkvO_zH-nzuRwptBHxqQDER8h
-X-Proofpoint-ORIG-GUID: A8jsXwRNkvO_zH-nzuRwptBHxqQDER8h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzMiBTYWx0ZWRfX1yoS31jHqXNt
- vmon99VRCKGOaqQZg+qO40cVx64ZK1ufggHwqYoWesLJrB8KANcSYv32S3bkk3yF/MDQtapAv33
- KJv6KG1VQK4VFKLjqiYMjzntJYm328RidUx8dfWnbQZWGpzVPAqBMkXBiHyCMPSp0dAiwdPJzjy
- aobPOHEqfeb0Gm2nLptnOrxnFdSJAfYyDNfJZgV8FrC4a7i6kyMz/uWTNdj7Eo7jc6LlTYCKHPq
- 3iu1RAXuOC0M0185hUMtobChy7DqOMRn8ysmMooXuTzGnYZNtqycQyWwPOR6bll2J6kemmdWWum
- O+T7fOOZfTImdUl/9Yq5wxEJ3yP7pt+oXWim6c9c4LcLf/jLgJOI+wt9hEoQ4gz7kz4gk6gzaVX
- wS/4/OfHCOCgKj0kICFgGf/IPA88MCjZoxa7pv8PflJ421R6Yvk14SSjIDMF+50zFYmzvJq45/J
- MFgdz/W43pdOc8S7fcA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzMiBTYWx0ZWRfX0q4GBphw067t
- zRXk6zl+G+8s5nSdjDSZg2yP3lsZpoqr1cJJxulJA/O5snxGewepN+KYA8+/Cp7eQuYbdDegJqG
- caKoPUmYSvOV4jLA/kb8NFu/QABoyuw=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aeaef87 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=t8eBQLlhE5FaPN_M90QA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040032
+X-MBO-RS-ID: 5e1c944c929fa6f27a5
+X-MBO-RS-META: bh8krqkmfn87qwbdxw6c1k48d14wme86
 
-On Tue, Nov 03, 2026 at 05:39:19PM +0100, Alexander Gordeev wrote:
-> On Mon, Nov 02, 2026 at 05:51:03PM +0100, Steffen Eiden wrote:
-> 
-> Hi Steffen,
-> 
-> > The CPP include guard of insn-common-asm.h is ineffective when the file
-> > is read via a gas-level .include from inline asm. The assembler ignores
-> > all '#' lines, so every .include redefines GR_NUM/VX_NUM and fails with
-> > "Macro was already defined" if a translation unit emits more than one
-> > such include. This is not the case right now but may lead to future
-> > build issues.
-> > 
-> > Add a .ifndef guard with an L-prefixed (local, non-emitted) symbol so
-> > the file can be include multiple times per assembly unit.
-> > 
-> > Fixes: 495bc70aa3225 ("s390/fpu: Move GR_NUM / VX_NUM macros to separate header file")
-> 
-> I have a problem with Fixes here:
-> - as you noted above nothing fails right now
-> - the same behaviour was there before 495bc70aa3225 commit
->
+T24gVHVlLCAyMDI2LTExLTAzIGF0IDIyOjI3ICswMDAwLCBZb3VuZXMgQWtob3VheXJpIHdyb3Rl
+Ogo+IE9uIFR1ZSwgMyBOb3YgMjAyNiAxNjozMTozOCArMDEwMCwgUGhpbGlwcCBTdGFubmVyIHdy
+b3RlOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJvcChqcSk7IC8vIFJlbGVhc2UgbG9j
+ay4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFQ6OnJ1bl9qb2Iod29yay5mY3R4LCBydW5u
+YWJsZV9qb2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEgPSB3b3JrLmlubmVyLmxv
+Y2soKTsgLy8gUmV0YWtlIGxvY2suCj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAv
+LyBydW5fam9iKCkgYWJvdmUgbmVlZHMgdG8gYmUgY2FsbGVkIHdpdGhvdXQgbG9jayBwcm90ZWN0
+aW9uLiBUaHVzLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLy8gaXQgaXMgcG9zc2libGUg
+dGhhdCB0aGUgZHJpdmVyIGluc3RydWN0ZWQgY29tcGxldGlvbiByaWdodCBiZWZvcmUKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHdlIGNvdWxkIHJlLXRha2UgdGhlIGxvY2suCj4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBqcS5sYXN0X2NvbXBsZXRlZCA+PSBzZXFubyB7Cj4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZlbmNlLnNpZ25hbChPaygoKSkpOwo+
+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvLyBEcm9wIGhlcmUgZGly
+ZWN0bHkgaWYgcG9zc2libGUuIE90aGVyd2lzZSwgbGV0IHRoZSBEcm9wV29ya2VyCj4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHRha2UgY2FyZSBvZiBpdC4KPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgY29yZTo6bWVtOjpuZWVkc19kcm9wOjo8VDo6
+Sm9iRGF0YVR5cGU+KCkgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGpxLmRyb3BfbGlzdC5wdXNoX2JhY2soam9iKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfSBlbHNlIHsKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEucnVubmluZ19qb2JzLnB1c2hfYmFjayhq
+b2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+IAo+IEhpIFBoaWxpcCwKCkhlbGxv
+LAoKPiAKPiBJcyB0aGVyZSBhIHJlYXNvbiB0aGUgY3JlZGl0cyBhcmUgbWVhbnQgdG8gc3RheSBj
+b25zdW1lZCBoZXJlLCBvciBzaG91bGQKPiB0aGlzIGJyYW5jaCBkbwo+IAo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgICpqcS5hc19tdXQoKS5wcm9qZWN0KCkuY2FwYWNpdHkgKz0gdTY0
+Ojpmcm9tKGpvYi5jb3N0KTsKPiAKPiBhcyB3ZWxsPwoKTm9wZSwgdGhhdCdzIHNpbXBseSBhIGJ1
+Zy4gV2VsbCBzZWVuLiBUaGlzIFJGQyBoYXMgb25seSBzZWVuIGJhc2ljCnRlc3Rpbmcgc28gZmFy
+LCBiZWNhdXNlIHdlIHN0aWxsIGhhdmUgdG8gc29sdmUgc29tZSBxdWl0ZSBncm91bmQgbGF5aW5n
+CmRlc2lnbiBxdWVzdGlvbnMgKHNlZSBjb3Zlci1sZXR0ZXIpLiBBbHNvIHRoZSBjcmVkaXQtY291
+bnQgc3lzdGVtIHdhcwpyZS1hZGRlZCByZWxhdGl2ZWx5IHJlY2VudGx5LgoKTmV2ZXJ0aGVsZXNz
+LCBmaXhlZCB0aGlzIG9uZSBsb2NhbGx5LCB0aGFua3MgZm9yIHBvaW50aW5nIGl0IG91dAoKPiAK
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGFzdF9jb21wbGV0ZWQ6IDAsCj4g
+Cj4gRmVuY2VDb250ZXh0OjpuZXcoaW5pdGlhbF9zZXFubywgLi4uKSBoYW5kcyBvdXQgaW5pdGlh
+bF9zZXFubyBhcyB0aGUgZmlyc3QKPiBmZW5jZSBzZXFubywgYW5kIGJvdGggdGhlIGRvYyBleGFt
+cGxlIGFuZCB0aGUgdGVzdGVyIHBhc3MgMC4gRm9yIHRoYXQgZmlyc3QKPiBqb2IgdGhlIGNoZWNr
+IGFib3ZlIGJlY29tZXMgYDAgPj0gMGAsIHNvIHRoZSB3b3JrZXIgc2lnbmFscyB0aGUgZmVuY2Ug
+T2sKPiByaWdodCBhZnRlciBydW5fam9iKCkgcmV0dXJucywgd2hpbGUgdGhlIGhhcmR3YXJlIGlz
+IHN0aWxsIHdvcmtpbmcgb24gaXQuCj4gCj4gU2hvdWxkIGxhc3RfY29tcGxldGVkIHN0YXJ0IGF0
+IGluaXRpYWxfc2Vxbm8ud3JhcHBpbmdfc3ViKDEpLCBvciBpcwo+IGluaXRpYWxfc2Vxbm8gPj0g
+MSBhbiBpbnRlbmRlZCByZXF1aXJlbWVudCB0aGF0IGp1c3QgbmVlZHMgZG9jdW1lbnRpbmc/CgpU
+eXBpY2FsbHkgdGhlIGRyaXZlcnMgd2lsbCB3YW50IHRvIHBhc3MgMSBhcyBpbml0aWFsIHNlcXVl
+bmNlIG51bWJlciwKYmVjYXVzZSB0aGV5IGhhdmUgdGhlIHNhbWUgcHJvYmxlbSB5b3UncmUgZGVz
+Y3JpYmluZywganVzdCBvbiB0aGUKaGFyZHdhcmU6IGl0J3MgaW5pdGlhbGl6ZWQgdG8gMCwgc28g
+dGhlIGZpcnN0IGpvYiB3b3VsZCBiZSBzdWNjZXNzZnVsCmltbWVkaWF0ZWx5LiBTbyB0aGV5IHdh
+bm5hIHN0YXJ0IGF0IDEuCgpOb3Qgc3VyZSBob3cgd2Ugc2hvdWxkIGJlc3QgYWRkcmVzcyB0aGlz
+LgoKQERhbmllbCwgbWF5YmUgd2UgY2FuIGp1c3QgcmVtb3ZlIGBpbml0aWFsX3NlcW5vYCBhbmQg
+YWx3YXlzIHN0YXJ0IGF0CjE/IEknbSBub3Qgc3VyZS4KClRoeCBmb3IgdGhlIHJldmlldywKClAu
+Cg==
 
-I have no problem with removing it. You are right this does not fix a
-problem right now but prevents future issues. Let's remove it.
-
-> Is there a real problem this patch fixes?
->
-
-Yes. The second batch of arm-on-s390 patches use the GR_NUM macro as
-well. I'll send an update for this series soon. And it happens that the
-same compilation unit that uses the GR_NUM macro for creating a new
-instruction format (not supported by binutils) also uses some FPU stuff.
-So the asm marco will be defined twice. That's how I found this issue in
-the first place.
-
-I sent this as a separate patch in the hope that this fix gets into 7.4
-
-> Do you happen to know why some other archs use .purgem in similar cases
-> (aka though appears ugly, should not we use .purgem too)?
-> 
-
-.purgem can be used to undefine a macro for when you want to use it once.
-That's how the other arch use it. Define a macro, use it once, purge it.
-All in the same file.
-
-We have a different use case here. We defined a reusable macro in a
-separate header. So if we want to use .purgem instead the users of the
-macro would need to purge it after they used it. This seems to britle
-for me as purging it can be forgotten and the issue can manifest way
-later in a complete separate patch.
-
-	Steffen
-
-> > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> > ---
-> >  arch/s390/include/asm/insn-common-asm.h | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/arch/s390/include/asm/insn-common-asm.h b/arch/s390/include/asm/insn-common-asm.h
-> > index fd9b3cacb7c5..060116719846 100644
-> > --- a/arch/s390/include/asm/insn-common-asm.h
-> > +++ b/arch/s390/include/asm/insn-common-asm.h
-> > @@ -9,6 +9,10 @@
-> >  
-> >  #ifdef __ASSEMBLER__
-> >  
-> > +/* Prevent duplicated GAS macro definitions. CPP guards have no effect for GAS.*/
-> > +.ifndef .Lasm_s390_insn_common_asm_h
-> > +.Lasm_s390_insn_common_asm_h = 1
-> > +
-> >  /*
-> >   * GR_NUM - Retrieve general-purpose register number
-> >   *
-> > @@ -49,5 +53,7 @@
-> >  	.endif
-> >  .endm
-> >  
-> > +.endif	/* .Lasm_s390_insn_common_asm_h */
-> > +
-> >  #endif	/* __ASSEMBLER__ */
-> >  #endif	/* __ASM_S390_INSN_COMMON_ASM_H */
-> 
-> Thanks!
