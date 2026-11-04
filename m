@@ -1,89 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784641;
-	b=0VRsL7nfx5sNCt8TtBQ7maXAb38tjZiYzB7hJD+W8/7OpGxfDZsr32PmQNjDNSWLRcED
-	 AyFQpuJlDt86MFnGxUM3NzHlX+PMkk9hgelIgcGSAvw1AcZswZoq0ADBQAL1xzBUhzto0
-	 KfwiBd+I98NLPiFVQuet8fKTwpUc4Sq/COuFqaJ+pLGTJ/lppABHe98JPngIPXZO3ALP+
-	 coqhbLwkgrQhkv/tS6zinPlKhXJavPwL3qxVO/sDBjRuRZIOeMTHlHxmLO5czh4msiNBV
-	 N9Dk68fyMz5IVIjhKRdrq+vItJ3Gt9INRAN8aU73p/MwE4Xr9Jxy3HStxAL+PAtp3rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784641;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:Message-ID:To:Cc;
-	bh=TNqBnIapzJjAfwRgHqXenkycVjQfCh4gehzS433iHnc=;
-	b=iREKjJ98KHclvjbAARw7tKwAdDV5QQlowH53jeuv6AhM7J8ohw44dxoVjQNVj5rD5F5I
-	 q3zplgoW9L+N5j62wyzUYGziFwelNeEV8peo04w681qgDvCjCl2uh7iGoynLcsn7s5zaI
-	 lC67dLdADv391EBe7DIzQ0JPwiu3xtNjzba1Al4RM7VWW3uMQlpCDekuiBiqHExRmXDRP
-	 YCLVmQ5SjZixJRGgn8MO6pWzIZM6Uh+4At1KYYRI5gEvm2TWr2uiEShVi/opirzeAGoZI
-	 bqABiSJUG4Uw+AUzB5FXM1WGWIGdIwk3W5wqCKDKJhMzUG3wKdQLMGnCgk9XVFoVG5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0JefbuDH;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793784680;
+	b=WjM262B2rR/v4Q1JnrEtH2xlne7x1rriiIFguIKkB2vSXi1WjceKvlsLnS0YT3zey/L9
+	 R57CKMgtkaBcq9KTf2UAmliZRYBs1GI5E7t/xj6PAaA178t6Aass2gKgxeXbilQ6f/Ala
+	 77ngv+MqZFSgSnuUKLiRyQqVVIkXWOyfKRyUsxAMHvCRW8M9KYB1+aWI+Omf3vBbrzDce
+	 AXXpi4hDMwTXTma9TKDuB0wdD/9CzgfE3yRxNjW85yg5lhPkSAGas2jKEFaK1Rj6Gq2pp
+	 hE3REm2ZT5hDBOXOGJq8QGRhBWQmv80w8/JzpWOXCluGWeg3L+qD1jM2O8B7iUUxpqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784680;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tVf955T5phSZ8jA9I3XDgsNPQGBLbJKyj9T8ESNfbYc=;
+	b=UacAIssymLH0RbKz7HZaPllrP2uw9QtuDBWg8kjCrGGy+ZwWZtDN09Q3V1U7/QdgI1u5
+	 CZdqTR6LWPH4tOkzFLJvhth+/JWq8yVzmRvUyzyHXsc2FerjESX2eolMh0JU52Giv2xLL
+	 2Um9hw2CiaoBUvHzkku7LDFmmcLCMzwI+4QpkXt9YlzJ2LX4tJKGw7hw7VHHbHxNF9M68
+	 qTwVy+RLuYrvjdWtPdhfMkc8BF9AgAS68J9wd7iyVY79CIngdzX5Wk7C86ahUQPl/FwZL
+	 us4zd38BNOUL9clzEaX+0/ZBnP/AWAUenKSGI23dZQCt0REFGZSUX2rEHVf1P/uQ1kw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4gkxC1kB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.58
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011058.outbound.protection.outlook.com [52.101.62.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A9F606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8A9F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CAD606A332
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:31:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30CAD606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0JefbuDH
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a058f74a54so166122b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:30:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793784640; x=1794389440; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TNqBnIapzJjAfwRgHqXenkycVjQfCh4gehzS433iHnc=;
-        b=0JefbuDHERZRP7xP8TRinKu6X8xQf3vPYYx84GG5FFvy4Qc6nuQtpVdjvFue/UCSJG
-         1gBso0GLP70pEG0K1vO169WFr+TvKOvT29JdNKseB65ThhLVzrBfj0/mBsdf5fktv9h0
-         17SQBxtbLCkLWOG4vlmC+5tRjP6F+dsYRWY9keglWmb1e9ZJMxri9yAC7wn6KkJLEDYL
-         2d/DZqs/IRy/M+K7wM6tHpAkaB2E1DkM8CB39Ug3ZuCzxUpuWrX2/zLuaJ8uOPFABk8x
-         TK8HHQfDurd3VnbJPTVUsg/kZoi/gmPYMuxuxXnk8JPsA+SCGXr0HysSJ6Nk3kSX2nt7
-         TuQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784640; x=1794389440;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TNqBnIapzJjAfwRgHqXenkycVjQfCh4gehzS433iHnc=;
-        b=1+1TaHuPD5s/OkLFhp/CfBNb9+wUjqPazcKhZgrpmYIaLwNBgsZ4cedPhYN8+5OWxW
-         d2jaWGlYgIAAbyIsK7uYIkZHSFzkfkhLWz8zHZrGxq5wWCmAewlI23leOmfgPWs3Go3M
-         ICR3C4xDvG5FWMr75SdkCsURdk8h1cUF90h8mkTwpJ5DKkEdBLuwOO+wyYIURlZOFUWY
-         ujxYbfUhj8tT1HArrPurT622gRBFn+EsbS4IQHzikTY59jt09Kl8MGd4z5yiAM2ywkJd
-         GevhS6S1pitApS7HH2ipfOYbDzQ66O5CKRMRBDRQIwH6SPsouArmQUdKndtmCbD/H0qL
-         XEhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwcwureT+wWYzYsTgQRNHN0qq2GUSFmqc73ZUyMQjy89KBMo6YgWjQSxHCUNxMhHi4y6+WUf+OYuoR3Raw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rlv52lsM24d2JDld/hYOBVAu03RhXgCReMvIT4OyRbg0MuEXH
-	mWT5RBZ7hFGN4VPJLgtlE5WNA5JzD7DmyEDcWyDPFH+nQER+fn30hlVs
-X-Gm-Gg: AYBFou1ONTIJVOpIP20+uOheBBqjbTnQq/bAnv6aydsFedpjEMfU+rnpJIkVcOYgGki
-	xk3lpyyQCL7JOqF9xIaQi7LVrCEXPfACax34Crm7K+SnXYITEMf9WljKsAx31QSi+jhZcgcvlv7
-	NLdYAEYuyoyCGl3sjcRxvJbv9FePofcPoLzDuia3OitbzWske4x1FFCNRg/O8miwnZsUQDCzF6g
-	o/I4VUoTsopM1Ds7kMUhcNd0pFV1s7fn3Vi5fwHKuUuDuJmYD6/R+IgUx5k8Tn1gcEO+ypcBWns
-	MiGbIdTjmglngtpZ0EmSIOdp4VqsE17G6+BAjyrNStVnZl9UtPAy9pJXZW6Inp7kZnFXEBdO9/W
-	zF3ZkVQzoaZ/g9D820wq8cd+H4aCIJa1c+V71ag67r7d1JzPAryXcOgpVLw++nMAKVgSESFlIhK
-	oFFR/DUqEY+vhAdlUQQvNNPYMe6vYzfwyy+oMK+7FXqpsQiHZfDOuP/hHmaUV+kKFu9ZYQPVak5
-	3xL2oruoKHBh3A7y+xTLwd6dQ3G5/bLG2Xi22ndflcV5D7d8Tyqo73jJBmH6+RYTZQsbtTHDuc1
-	KtsXTHdgczmYpbS3XxKPL+OgOC80Hxn0RW9mJlNVSB27VhfH7bJAkSFf2/Nr3eSTSc0=
-X-Received: by 2002:a05:6a00:4b4f:b0:8a0:7c97:52a1 with SMTP id d2e1a72fcca58-8a9bffd5de5mr13214765b3a.48.1793784639737;
-        Wed, 04 Nov 2026 01:30:39 -0800 (PST)
-Received: from [127.0.1.1] ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b5698a2sm690547b3a.35.2026.11.04.01.30.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:30:39 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-Date: Wed, 04 Nov 2026 17:30:22 +0800
-Subject: [PATCH] media: v4l2-mem2mem: wait for the job-finish scheduling tail
-Message-ID: <179378462223.70003.3811321311940400468@gmail.com>
-To: mchehab@kernel.org
-Cc: hverkuil+cisco@kernel.org, Frank.Li@nxp.com, ming.qian@oss.nxp.com,
- nicolas.dufresne@collabora.com, dmantipov@yandex.ru, 121811682@qq.com,
- ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4gkxC1kB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YUKTi3U48b/9FgMFWaOasVWRupO+v4t80uTKybW2wnw0c6//rwOEWXw4gmxDpCuRbpfPHAlBKOn9FLbOBAFkDo/t9YhDEb1YQHi4LqAx5czBHpbIsaWx/9j9/M9lKecLzq2Pv/d8VLyZmOD8Nya/G5TUmPrw7Iu4ofQfni3R0lmGe8oNHarEU/GBrlh2XlND7NxLLgDBTWmIZ6HRDE2bNze+3m9CpvFR+012aUQCsw3CpJdf5eS/ZDd53w7pphR/YJI3fT+skShwnmcS8T4I/Mg+t9o82HaRDRrbNe8gXY/L2Ssv1BP8fFPFWh3gf+4UamQm6hfn2GSxm1psxQx4LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tVf955T5phSZ8jA9I3XDgsNPQGBLbJKyj9T8ESNfbYc=;
+ b=Rl6PlaqXMvbExt3riSGloiJC3tKCIFndA0TyhAli9cabMAyW4QNVwvlSaB/HWyDpvKI19o6NdWExgyHBIIJeS9nZvYSWd1JQu+Z9rTUmR9FWQ+lZeQ+j/nuG09KdDaaVWKt9JlfOnxccENxOCEUOtTJexJ8T0tzMxS3ns22ICGDOXMJtY3y+euq3wDJ0AzXTs1rSoWuWuHQ0MF2vg1oDSpgRZih5b0elWKFDNHLarJMLzk9LHfXe0xpK/dRcixVgTYWREsnfl/U0fF6Rv4hhGs1N9XweZWvPskgjg83m+M9cs42fleVjxckJrWZnd3KH8K6DLdLV97tW1U85EvWP4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tVf955T5phSZ8jA9I3XDgsNPQGBLbJKyj9T8ESNfbYc=;
+ b=4gkxC1kBj6mZDiAvsBPk3Q3Mc2veJqcv/EsSzxiWsbdTRdxBcvlqSzeQewC9k3Xu5UO5r6M4g2lyfeYZUwPHOJbtcMk+ja7+ImVZP1XnTmyGJt9ryQJRijtxAZUAT5v5+z5mrCy8W25L7cljc4Mruz1taFcYw9xuDmPO0DTx2a8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11) by DS2PR12MB9639.namprd12.prod.outlook.com
+ (2603:10b6:8:27a::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 09:31:16 +0000
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 09:31:15 +0000
+Message-ID: <3f79f22f-a8e9-4fd4-ab78-2403d38b1292@amd.com>
+Date: Wed, 4 Nov 2026 17:31:09 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Don't require DMUB PSR caps before DCN
+ 3.0
+To: Hugo Sales <hugo@hsal.es>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Chenyu Chen <chen-yu.chen@amd.com>, Alex Hung <alex.hung@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
+References: <20261029171219.2842014-1-hugo@hsal.es>
+Content-Language: en-US
+From: Ray Wu <ray.wu@amd.com>
+In-Reply-To: <20261029171219.2842014-1-hugo@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0036.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::8)
+ To CHAPR12MB999225.namprd12.prod.outlook.com (2603:10b6:610:2fe::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,111 +100,196 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|DS2PR12MB9639:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d6c9672-ab69-46a5-1c9c-08df3a565f6d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|261028144727099003|261026121527099003|261026140227099003|261009223027099003|261022075727099003|261022105027099003|261102123227099003|261021123027099003|261021121427099003|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	R217E85dKG8C8LwSOiJEmY9hqZMIcE04UOurLamK4k1DwB3Z5WbAZ9E6bWv08GVhJzSMUCdlYumYk2Kg16u5vrt04YZ7Wx/QLgC9zHXvupjA7DmeLx8eQ5FIPGSbH6Zt2b4n78R6G/sI+8Ro7aH0VmAxDns3PX5X3wmyg9ZwnpSf/6gwT234BriWZ9koSvMbegSWfwsjPfYOzYDd/LdIMNR6ZciClhX+8rrZC4Ex6ERlnXkYffzalZ6EFq0VhEkpK2ZuZF+V7txy7wFBa3FPtnpNsozO3Zt4jHrillVc9BxuMaVIIZdVYEMyVAa1WXFNZv9oLFXLL5gfVyfSKOV6zHRSe4FQ5dp68majdnwQEFl6GpfSYJP/kvJukESIMPmOFU5qpCQWJrGrn/nPG/pSvnc7OQ4ZbqbRRjhNLJcNnAio757OBsLI65PN31KwFx3B3j7p8VPfosEb9HDbba83xoRFwzaozOVLPKDnhhOq7vdx1wycRFWEED8a8H0gK9S1OXr21w/FbkNX4G7W3slQ0HRxLgfQc/OE+khUg7ewAFxDAwdcNa+IXx7H7sIc2h2aFlCgEzXXi891B0czz+9rjzIC1fZcFyO72k+jmdiTW0pFzl/abzDLfPx5OnRypd3b
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999225.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(261028144727099003)(261026121527099003)(261026140227099003)(261009223027099003)(261022075727099003)(261022105027099003)(261102123227099003)(261021123027099003)(261021121427099003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VjBKUlp5UFpmczFxcmdUL1ZoY1NUcVZ2elh2dW8zUXcxcnJvMCtQekF0eE1H?=
+ =?utf-8?B?TFJDUWp4YnlaTVAvWi84YnQ5Tlo0cnBDempnWE9PWVl6RVRaK0Q2M1lWWFFq?=
+ =?utf-8?B?dWh2WTFONEhHWjM3Ti9pVlhvbFQvWWU1M2s3bTlSMEtBVmxpcHBpSDBZei9O?=
+ =?utf-8?B?aHFBdjEyZHRPbHJnaHpQUGFhNC9TekpycHMzRGNzT2JvOW5MdjlJT0VYQzdL?=
+ =?utf-8?B?S253LzBsdWhLNGNxTk11d2R1Tk9kaUFtbU0zb1U3aWlVMDVoYWlNaFk4dm5r?=
+ =?utf-8?B?VXhaZUNxWmpQdnRtdEFRekE0TUN4TXZ1MWFxbXJvaWh4eGxGdkFaUjEzV1NS?=
+ =?utf-8?B?L2psSEVGS1E2L25vcjFaL2ZSOFl0UWNOVVY0TXNza1kzUW1OS2xoamU0YVNT?=
+ =?utf-8?B?S1RBTDVJcXlYZ2phTDR3VnVqc0hyeGpYNFVOZXhuN29qYlcrQ0pZbkh3cHd2?=
+ =?utf-8?B?eFpPN0E0L1ptdFhRejV0L0tsVnNNZW9kMUx2OWVkbStOM1owZzZpdHVQK3Zj?=
+ =?utf-8?B?V2RobURlK0ErMEt2cFVyMlpNTUNNczN4NEtXbGNpYWNLYnN3Rzdab3BkNEdt?=
+ =?utf-8?B?WThBaXFJMlgwUi9heFZJeGxEbnI3UVlrcm1wTDRoOWF0TStXTm0veU9FaGtm?=
+ =?utf-8?B?TUxzTmNvTTEybXpUcTUrRzlRVHB2M20vZlNwN1hicXVXaDNCWEt1RDhSY3Fu?=
+ =?utf-8?B?b1pOM1NCYnYyU2JmYVRVeWtNUk9Xekd3RWhZSjJBMnlSWXNLZlpkOHl6MUtK?=
+ =?utf-8?B?QVhzeWxiUmFpeWxoZDExYUVzK3FobnpwQy9UcU5zNDJ0MEUrRVowYjUzRHky?=
+ =?utf-8?B?NityelFDRklrZmdCVzlwT29IWXVsNmdkZzBiMGYydnVqN0dXaVFWQ1dGM2dD?=
+ =?utf-8?B?RnFrS3BFS09hc0FkWElDT2w5T3lFNTJpaUpXRWN3UjUwaitvQWNrb1ZaR09G?=
+ =?utf-8?B?VWo0ZFpROWFRSFFUNlhnajkyRHgwMVJuVWlHWCtlaHRWK005UFQ1S1ZuUlQx?=
+ =?utf-8?B?SXNWcHJRNzdYdHdsQjJlcXFENXI0U2txcC9YV29IOHFWc1JrOXhvRXlGKzNP?=
+ =?utf-8?B?YkltdEs4aFlPWkFWT1BPWVZheHpzSUozU0owYTVRd05IWTU4Z0s4c2Y0eE0z?=
+ =?utf-8?B?eHRQS0pWaUoybUo5NHlnbEpGWnJoVDhCSTVrSk9hSWMwaWswanB4QjlNL1dM?=
+ =?utf-8?B?RUxOTHpvYTNTOUpvaFJMcUJmVHJXRzZGdjRoSzhvOGxQZDhLWlpFS2xnYkFV?=
+ =?utf-8?B?czU4OEdjTFRUdERycWhUWmUwNkhBcnRiV2VrbGIzbm5xQUlFQ0hhTnVBRjcw?=
+ =?utf-8?B?amFtVEVMZU54TWJtVkxycGF1cUF2VGh3U0N4UnFnbkY5aFFUWnVieTlUVHM4?=
+ =?utf-8?B?dVpIRi9zSUpBVjBxZGltWGhIcHB0aEpHS2JhbVV0aWd4MHFLSEh1UTJvdk8x?=
+ =?utf-8?B?UklTT2RJVC9KOTRaOVkyNmFiVHpXYS91RDI3L2dSRXRMUmJNTytEMjJOUFNi?=
+ =?utf-8?B?UmhCUkxhREdPa01FcXA0QUtJdkt5YTNtd2JqdXdIOHE5enRXMGhXYkZaT3RR?=
+ =?utf-8?B?amoxcmpvK1o2WGZIWXk5RzU2OEsyakhwRmUxdXhHR2hDSS9NSE44cjV5S0pw?=
+ =?utf-8?B?QzZlSHpiRXdkNXZDbkhMbFIyTWR4S3BJZVRtUlFYUkpYS2U5TEJVaHNvRUI0?=
+ =?utf-8?B?NWJ6NWVBQnhBV2t6R3pHRFIwS25qeUxJaTZrekw4VXkrRENpMVIrSWdQa1d0?=
+ =?utf-8?B?RElLWmQydFFrWXhSanVxYVBIdEszMTdQa01hKzdEWWJkODVXV3hLbnc2TndW?=
+ =?utf-8?B?R1hjZFZDbWdkSGU4VVV4OU1rQ3AwQyt2b2xGQkYwM3hESVh4Zys3QlR4Qzk5?=
+ =?utf-8?B?YTV1NjJEVmdUbk9mV2dKUlNlYkhXa1BRUW1FZFpsanQ5Y1I2RTlZRGluSlpO?=
+ =?utf-8?B?d3gzeUJXU2pnTnZNb1Q3R1dvSjdFWkZLUE1qcjBsQjA4VDZLdnFPRE1VZVlp?=
+ =?utf-8?B?cVFCVTZCRll2MUhqNE9tV0hhT3pBcnJEN25YazNNZ2EwUXhOWEEzK2Rqelda?=
+ =?utf-8?B?aVA2NnpwaFdZakwzZ1drWU0zUE1CY29jRjBKRHZ1akc1dzdpRVBaU3MvYm9M?=
+ =?utf-8?B?L2NWajlCeGptcnNzUWRyNmlaeVZJQW5IN3N6SEtkZHhWOUNlNDl4R3dXTVg2?=
+ =?utf-8?B?a20zQUtrMXBTWE5pM1FzUDRjclZQdWpqaDg2UndFVmt4ZmJPS0QxTytIM2VK?=
+ =?utf-8?B?citkdkhKSUVoMnord0tuTk4vU1p4bUZsQUlKYzVjdmZxNEo0cHpWWjBjMzJ4?=
+ =?utf-8?B?UWprQUQ0R25VMUJHbENoNmJWZmNFUWUwRGphYnV3TThCNCt3UCtQQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d6c9672-ab69-46a5-1c9c-08df3a565f6d
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 09:31:15.5151
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tPa0TV8j5IV5v/eKsYGcO9AneetV+GjkxcavqaVO6L6cyUt/UGcyAJv1QhA/v/jjjcob0ARlsrZEGSTWFBnr7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9639
 
-The job-finish path clears TRANS_RUNNING and TRANS_QUEUED before its
-follow-up scheduling tail has finished using the mem2mem context.
-If release races with that tail, v4l2_m2m_cancel_job() can observe no
-running or queued job and allow the context to be freed while the tail
-still accesses it.
+We already have a similar fix internally that is planned for an upcoming DC release:
 
-Track the scheduling tail with a completion and wait for it in the
-cancellation path. Start the completion in the done state so contexts
-that never ran a job do not wait indefinitely, reinitialize it when a
-scheduling tail begins, and complete it after the tail finishes.
+commit: drm/amd/display: Allow DC_PSR_MASK to enable PSR without DMUB PSR cap
 
-The original race was reproduced as a KASAN use-after-free in the
-common mem2mem code using the in-tree vicodec test driver and targeted
-timing injection.
+Could you give it a try and see if it resolves the issue?
 
-Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
-Assisted-by: ZCode:GLM-4
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
- drivers/media/v4l2-core/v4l2-mem2mem.c | 27 ++++++++++++++++++++++++++
- include/media/v4l2-mem2mem.h           |  3 ++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
+Thanks,
+Ray
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..7637a876bb8c3 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -439,6 +439,13 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
- 		/* Do nothing, was not on queue/running */
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 	}
-+
-+	/*
-+	 * A job-finish tail may still walk this instance after
-+	 * TRANS_RUNNING was cleared; wait for it to finish so the caller
-+	 * can safely release the instance.
-+	 */
-+	wait_for_completion(&m2m_ctx->scheduling_done);
- }
- 
- /*
-@@ -460,6 +467,14 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
- 	 * but the job must be run in non-atomic context.
- 	 */
- 	schedule_work(&m2m_dev->job_work);
-+
-+	/*
-+	 * Signal that the scheduling tail is done. complete_all is
-+	 * atomic: once called, all current and future waiters are
-+	 * released, with no lock-free condition window as with
-+	 * wait_event() + a flag bit.
-+	 */
-+	complete_all(&m2m_ctx->scheduling_done);
- }
- 
- /*
-@@ -476,7 +491,14 @@ static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
- 
- 	list_del(&m2m_dev->curr_ctx->queue);
- 	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
-+	/*
-+	 * The follow-up scheduling of the same instance still walks it
-+	 * after the lock is dropped; re-arm the completion so that
-+	 * v4l2_m2m_cancel_job() waits for the tail to finish before
-+	 * releasing the instance.
-+	 */
- 	wake_up(&m2m_dev->curr_ctx->finished);
-+	reinit_completion(&m2m_dev->curr_ctx->scheduling_done);
- 	m2m_dev->curr_ctx = NULL;
- 	return true;
- }
-@@ -1245,6 +1267,11 @@ struct v4l2_m2m_ctx *v4l2_m2m_ctx_init(struct v4l2_m2m_dev *m2m_dev,
- 	m2m_ctx->priv = drv_priv;
- 	m2m_ctx->m2m_dev = m2m_dev;
- 	init_waitqueue_head(&m2m_ctx->finished);
-+	init_completion(&m2m_ctx->scheduling_done);
-+	/* Start as done: a context that never runs a job must not block
-+	 * in v4l2_m2m_cancel_job(). reinit_completion() below re-arms it
-+	 * each time a scheduling tail actually starts. */
-+	complete_all(&m2m_ctx->scheduling_done);
- 
- 	out_q_ctx = &m2m_ctx->out_q_ctx;
- 	cap_q_ctx = &m2m_ctx->cap_q_ctx;
-diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-index 31de25d792b98..89c8f10de67c7 100644
---- a/include/media/v4l2-mem2mem.h
-+++ b/include/media/v4l2-mem2mem.h
-@@ -95,7 +95,7 @@ struct v4l2_m2m_queue_ctx {
-  * @out_q_ctx: Output (input from memory) queue context
-  * @queue: List of memory to memory contexts
-  * @job_flags: Job queue flags, used internally by v4l2-mem2mem.c:
-- *		%TRANS_QUEUED, %TRANS_RUNNING and %TRANS_ABORT.
-+ *		%TRANS_QUEUED, %TRANS_RUNNING, %TRANS_ABORT and %TRANS_SCHEDULING.
-  * @finished: Wait queue used to signalize when a job queue finished.
-  * @priv: Instance private data
-  *
-@@ -125,6 +125,7 @@ struct v4l2_m2m_ctx {
- 	struct list_head		queue;
- 	unsigned long			job_flags;
- 	wait_queue_head_t		finished;
-+	struct completion		scheduling_done;
- 
- 	void				*priv;
- };
--- 
-2.34.1
 
+On 10/30/2026 1:12 AM, Hugo Sales wrote:
+> Commit 3c108046e1d6 ("drm/amd/display: Add power module on Linux") made
+> amdgpu_dm_set_psr_caps() return false unless dc->caps.dmub_caps.psr is
+> set. DC fills dmub_caps from dc_dmub_srv_query_caps_cmd(), which only
+> the DCN 3.0 and later hwseq init calls. On DCN 2.x the flag stays false,
+> so DC_PSR_MASK in amdgpu.dcfeaturemask, the documented way to turn PSR
+> on there, no longer does anything
+>
+> On a Cezanne laptop (DCN 2.1, DMUB firmware 0x0101002B) with
+> amdgpu.dcfeaturemask=0xa, dmesg shows
+> "eDP-1: PSR support 0, DC PSR ver -1, sink PSR ver 1 DPCD caps 0x0",
+> although DC created a dmub_psr for the ASIC
+>
+> Sending the caps query on DCN 2.1 too doesn't help. That firmware
+> answers it without error but reports psr as 0, and with the check
+> skipped it runs PSR 1 fine: psr_state reaches 6 on an idle screen
+>
+> Keep the check only from DCN 3.0 on, where every ASIC with a DMUB PSR
+> engine queries the caps. DCN 3.01 skips the query, but it has no PSR
+> engine either. Before that commit no ASIC needed dmub_caps.psr.
+> edp_setup_psr() already returns false when the ASIC has neither a DMCU
+> nor a DMUB PSR engine
+>
+> This needs "drm/amd/display: Take every stream out of self-refresh
+> before a modeset" first. Without it, turning off or unplugging an
+> external display while the eDP is in PSR hangs DMUB on DCN 2.1
+>
+> Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> ---
+> Depends on:
+>
+>    https://lore.kernel.org/r/20261029165420.2255749-1-hugo@hsal.es
+>
+> Firmware 0x0101002B answers QUERY_FEATURE_CAPS with psr = 0 but still
+> runs PSR 1 without trouble. Is that field just not filled in by the DCN
+> 2.1 firmware, and is there a version from which it can be trusted? If
+> so, I can check the caps there as well
+>
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  8 ++++-
+>   .../amdgpu_dm/tests/amdgpu_dm_psr_test.c      | 35 +++++++++++++++++++
+>   2 files changed, 42 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+> index dbad0a6d3a2b4..be95433624674 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+> @@ -111,7 +111,13 @@ bool amdgpu_dm_set_psr_caps(struct dc_link *link, struct amdgpu_dm_connector *ac
+>   	/* Reset psr version first */
+>   	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
+>   
+> -	if (!dc->caps.dmub_caps.psr)
+> +	/*
+> +	 * Only DCN 3.0 and later ASICs with a DMUB PSR engine query the DMUB
+> +	 * feature caps. Older ASICs drive PSR through DMCU or DMUB without
+> +	 * that query, and edp_setup_psr() already bails out when neither
+> +	 * engine exists
+> +	 */
+> +	if (dc->ctx->dce_version >= DCN_VERSION_3_0 && !dc->caps.dmub_caps.psr)
+>   		return false;
+>   
+>   	if (!(link->connector_signal & SIGNAL_TYPE_EDP))
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+> index 0a484ea7c0e8e..4d23b1234921c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+> @@ -239,6 +239,39 @@ static void dm_test_set_psr_caps_no_dmub_psr(struct kunit *test)
+>   			DC_PSR_VERSION_UNSUPPORTED);
+>   }
+>   
+> +/**
+> + * dm_test_set_psr_caps_pre_dcn30() - DMUB caps are not required before DCN 3.0.
+> + * @test: KUnit test context.
+> + */
+> +static void dm_test_set_psr_caps_pre_dcn30(struct kunit *test)
+> +{
+> +	struct dc_link *link = alloc_test_psr_caps_link(test);
+> +	struct amdgpu_dm_connector *aconnector = alloc_test_aconnector(test);
+> +
+> +	link->ctx->dce_version = DCN_VERSION_2_1;
+> +	link->ctx->dc->caps.dmub_caps.psr = false;
+> +
+> +	KUNIT_EXPECT_TRUE(test, amdgpu_dm_set_psr_caps(link, aconnector));
+> +	KUNIT_EXPECT_EQ(test, link->psr_settings.psr_version, DC_PSR_VERSION_1);
+> +}
+> +
+> +/**
+> + * dm_test_set_psr_caps_dcn30_no_dmub_psr() - DCN 3.0 requires DMUB caps.
+> + * @test: KUnit test context.
+> + */
+> +static void dm_test_set_psr_caps_dcn30_no_dmub_psr(struct kunit *test)
+> +{
+> +	struct dc_link *link = alloc_test_psr_caps_link(test);
+> +	struct amdgpu_dm_connector *aconnector = alloc_test_aconnector(test);
+> +
+> +	link->ctx->dce_version = DCN_VERSION_3_0;
+> +	link->ctx->dc->caps.dmub_caps.psr = false;
+> +
+> +	KUNIT_EXPECT_FALSE(test, amdgpu_dm_set_psr_caps(link, aconnector));
+> +	KUNIT_EXPECT_EQ(test, link->psr_settings.psr_version,
+> +			DC_PSR_VERSION_UNSUPPORTED);
+> +}
+> +
+>   /**
+>    * dm_test_set_psr_caps_non_edp() - Only eDP links can enable PSR.
+>    * @test: KUnit test context.
+> @@ -712,6 +745,8 @@ static struct kunit_case dm_psr_test_cases[] = {
+>   	KUNIT_CASE(dm_test_set_psr_caps_null_link),
+>   	KUNIT_CASE(dm_test_set_psr_caps_null_connector),
+>   	KUNIT_CASE(dm_test_set_psr_caps_no_dmub_psr),
+> +	KUNIT_CASE(dm_test_set_psr_caps_pre_dcn30),
+> +	KUNIT_CASE(dm_test_set_psr_caps_dcn30_no_dmub_psr),
+>   	KUNIT_CASE(dm_test_set_psr_caps_non_edp),
+>   	KUNIT_CASE(dm_test_set_psr_caps_disconnected),
+>   	KUNIT_CASE(dm_test_set_psr_caps_no_dpcd_psr),
+>
+> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> prerequisite-message-id: <20261029165420.2255749-1-hugo@hsal.es>
