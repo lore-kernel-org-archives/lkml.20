@@ -1,106 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821585;
-	b=uLTWTM+ceAtikoF5J9xQ/dYeaC8Z0un6y/uPYeUa4AvhXsaMHTFDletu1W5m0DtLo2NC
-	 kLZxzYDKoaN3tvZBT7UGbA2naqzuG7XvY5tZZRkmfoVGZBEF+zjbjO8Luz21+rjk8klaJ
-	 sBgEr7nUHl9QiOSHpN7a7tuPy/9lVUtQHmUlMA3a7o4Sk/s7bOidC06fRCE9SQpbMK18v
-	 DW/7aANKzBlODUfYjYDqo+oL0d/HCkzHeiqUx5BMNaapDtyxjbr+wjgrJ6Sqmd77+eoSv
-	 xAAN2DejJ7Xke8K6NqlARmf+fc29xWjgrGXJNshkLZ709m3wfle06IU56kpJIO4f31Q==
+	t=1793821589;
+	b=tkm+36NxjzOyDISx/on+yyTtQPx5P+LTnO78IO/liWdIM8I4za+aeKa34GmV/BB9tL5u
+	 0519VXyOERKHsYfUnYaHRQup1yZElZ8sOiPX4uwuJN7Hp6kT5QHJBZgK0hKlVU6QAsrsk
+	 h9whvMUXYi6o4M6x/oFoy+6OcmYZmU4fPfrst1WXxhBx0rrf4eIzksEdWGRxKHCMkPDhM
+	 D4TUARPcKG6Lhm2jHk97mCo1sSeXFHDrssgctBc004VgpvTWSjpaAKdsLqdTbHZXdUUva
+	 t+KbJm7XniV/JAty7jv+uXMFsl25t2A+ac3IUiIRKr9jFZuJmLWhgr+kDCqqHr1Ilkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/iOiQOUFj+ZNXsxkV0W7K4UHGpRKtOzL2hr1OPDdR9w=;
-	b=b9IsQMIyt3qAv0J6TzifXvusEJoGSJavMtU4kBpWOrA7paTka3FE9+eYn+TdXt8rh0FA
-	 k3GzR0aM9XjV28tT8PukoGw9m3gNgv4VIREYf1WUfMrMmrbHMAopvinNRCrCRaca/uXrg
-	 7b0tKT0/68Hf8VVQQTtlpGjm1UrLVMMNRtW8S8vZwTVnEUccuneVwZ+LsmwVeHLDmhKcD
-	 7koePHk0tgSP/liD+5Pg+8V0TDiRjmO7R9+GdY+Qotumh3vN+IvN1gbp9QMrkI074OOTQ
-	 YKNJyYTfMm5E4a/UjiXmZQXMbl8lzmmA7AePAhazC92I//ERb+btFT2naAaX44mmzdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821589;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:MIME-Version:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Report:X-Spam-Score:
+	 X-Spam-Bar:X-Rspamd-Score:X-Rspamd-Action:X-Rspamd-Bar;
+	bh=FepmyHBsJ69d2bGawn41LuG96FhtJK5OYJTHe17LtHk=;
+	b=a0OWHTYbj6RmK/u4FyNw2ulKKARFMQJ9NNTtOaYx/0ha15fd6W/GdnpLaiMVBwVqqZe4
+	 CagSb4yrnqhI3dKqNe/aBeu0q9Ezfb3b6+qpusvN+/InLuSeqk0uIXowyHsYcSo3SLeJb
+	 3envZahLjscCwO//z5nJ99utXWrk1O1JpujNutIgFvBP0SbeuvwHjCMG5TSF7n8ukHSx0
+	 L5jkGO8C4znyQCQ03gNhiqNvvyA+tkLGLmAxfjdwWeJYGL0vh6gT3lI208KXRMVlgK0Wk
+	 t4OQLXu6AunjC9DcQviMOhKVI5rVwUKEqspHWMCsUMl0EchdwdlNIqwTdhmO3Tpn8gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	arc=none smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=HZ2z7fFx;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47326608CABD
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:46:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47326608CABD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5365b48238dso8613581cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:46:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793821584; x=1794426384; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/iOiQOUFj+ZNXsxkV0W7K4UHGpRKtOzL2hr1OPDdR9w=;
-        b=WRBm+GQFrwS5Zas3ZL99mrACnUfCSQ6IoeXlzzeD5KKnBqHHgtxYl2c9wviBwKfOJD
-         qtN+ZFY9uOU0mlzNZCuwr0exw/fYbp1g7ho5/pM/xUO2KAdWMlMV2RV+eo8CzwSP0PK1
-         MgVCvd6blq74OYN7OPzEIJ01+NGUqyNVGsk9oJ9gJnGaU9hlo5GRil1NKdsf3xy0EYAo
-         KWR5bpoPTgSvX2xINyPwl/GgNSWpYL76GMZPxcwzp8e6CZ+A0tOfzm6uN9XILruejEOn
-         jmRIHZ7FemA5lobw30d7bQdTmz2Zgu/15vEm4Imf92NuvMQXWpZlg1Y/yMPrwX5t4FVQ
-         NW8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793821584; x=1794426384;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/iOiQOUFj+ZNXsxkV0W7K4UHGpRKtOzL2hr1OPDdR9w=;
-        b=OoUrUEWrInfbHWHeEkEDn9k+pRyhKZLCmUDC/je9CNJH2fErGlDPguNTD+lu2UxJPB
-         oDjiPoFP5gs7qwuE+vuEFiW301oatzNGWfM9BX6cAFcncrzpWsTkUygQfDu838CFeSbZ
-         ertEavabvvy7KFs+tFbKglxh4U+xfTUuGbV9QFFCcS9jGFTqdp7Gem5oTrPUaafg3VOy
-         CoZ2UggTYjlCSKBVGc30tzqRKihfrgpZnsC7LbwU7UHhE9pPeS0eshg+YnEhvMPfHH4j
-         oyJAsCi99WiZMjrDnFc+UbZ8Wws0NFVlxfg1sMQ8mCu/pyJFHus4LYJB2Jp+wsMH5FC5
-         xyww==
-X-Forwarded-Encrypted: i=1; AKwUvBwmz4ojCZ9xu3ksNZkd1Y/5Z9bzvBjAREHYURsa0UWlAyCXgEbr+O49zSjAoUXpvl4KvNl9Fhu2T4lTaYc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3Rzzfn005X8PAf5YWb5hsNruuXCeb1SZJbBKjxvzPQy1gViX8
-	VXAxI1vWKT/SnSYraZvw9SkOL08N1z76L/zm98DTnhTsalngpSyNknAQJR1R9vzRKN8=
-X-Gm-Gg: AYBFou0sNQFpBWS6WO+HBXMGKCJaGVNvk3Pp+8Ngcb3cw61NuN4HsISL3uqFCtX2OpA
-	mNK0XU98uEr+jgHQwA0WRpZt+Bmgn8aYMotNKpyXlEZDSOocnY0CRrh1dq4rzNY4QoVcL2IYkQQ
-	8s9790Wm/G6JQ+JYevxJxdUQJkZz3D2Jt/pEyKhVimQsMpybNJf4DO3874sr7icn/MbQaDZCctH
-	WL5zzD0RhxcoVGS78kKQpBCztv68ZPKMvM3/XSk8pf1jsr8XdC1NdblUtqWsI8EylcdTIiEIZIY
-	8TEGx1OYHNkIB57sLN/KtvEXkxwbv9s2LMna4vM8CD1o6fzYbnl9dvjdlo2JOn1kAsIwgb1bWKK
-	S3x9wGmXp8SI7pCIQqMfM9Tnv0osszHn6SCQlMmXqVJSxOqhuRSJBMUaN6ElchGQzWLJMUHLWA9
-	HBnjAzoqmVajkJCaHfhGLROcjx2oTl+VW2hvLb2TNwiaf3keVCoo96yho9w9H8UvGlX1lzqcIoZ
-	ywPUrpM3q/Dwm9R7LFFzt1U2OcDrmBROKAh9sCDL48ZTizO1egyzk9Tzufs7XTz1AGNswN0jO0V
-	aYS4eZZJY4Ovt1aohWCNJ0DWQuAEqxq5XvtZKIsofaCBHCHMsbrCa39iKu5PFKvstAFFXatliEq
-	wcM8AeJkM8+q12XV3MW7IYA7j7Q8/jnE=
-X-Received: by 2002:a05:622a:98b:b0:535:be07:f31c with SMTP id d75a77b69052e-542b83f684dmr276665021cf.74.1793821583898;
-        Wed, 04 Nov 2026 11:46:23 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b100aba28sm32315511cf.9.2026.11.04.11.46.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:46:23 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xOgwA-0000000HIFZ-2f1S;
-	Wed, 04 Nov 2026 15:46:22 -0400
-Date: Wed, 4 Nov 2026 15:46:22 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <20261104194622.GC3889730@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-18-jiri@resnulli.us>
- <auuDcABX27EeTApl@e129823.arm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14532608D41F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:46:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14532608D41F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=HZ2z7fFx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
+	:From:Date:MIME-Version:From:Reply-To;
+	bh=FepmyHBsJ69d2bGawn41LuG96FhtJK5OYJTHe17LtHk=; t=1793821587; x=2109181587; 
+	b=HZ2z7fFxCXNdc2HZ7p0zCBeRgoaeX2ND+bYrJWvCPAYIt5ugCwqSGYPPgRjHeGgE5cFm27pf9cI
+	UDozxLziAPSggezZuTHDTfJxbT7J3B45slc2fYfwp9igPZta0qAQxlmbhUjtqJS695So60d7Y32Bd
+	gUPqUB3LRQ91cLC3tNgSuGZhVr0O5Jw2jwkfs50MgkDr6TlcOQ0kW1+fWziTMutH9P/LMPy5Ne+9e
+	AAwAZgwM6xH6dKHtu2qPiQUtQHpu6xp989jwwTZxjHf9BAiYF1FjAAUte5vVaa0oyKQx5gN0eWjYL
+	Hcv1uw5Vq9riaoPF9q+wGAoxQxh8T+1qdNbA==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+	by fanzine2.igalia.com with esmtps 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xOgw0-002bRo-Qx; Wed, 04 Nov 2026 20:46:12 +0100
+Received: from webmail.service.igalia.com ([192.168.21.45])
+	by mail.igalia.com with esmtp (Exim)
+	id 1xOgw0-0000000EahW-0dbT;
+	Wed, 04 Nov 2026 20:46:12 +0100
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+	(envelope-from <mfo@igalia.com>)
+	id 1xOgw0-0000000F9U7-03wW;
+	Wed, 04 Nov 2026 20:46:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,50 +65,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auuDcABX27EeTApl@e129823.arm.com>
+Date: Wed, 04 Nov 2026 16:46:12 -0300
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi
+ Grimberg <sagi@grimberg.me>, Chao Shi <coshi036@gmail.com>,
+ kernel-dev@igalia.com, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvme: reject completions for requests that are not in
+ flight
+In-Reply-To: <auo-v5ZliGbM1Tiz@kbusch-mbp>
+References: <20261103-nvme-double-cmpl-uaf-blk-mq-v1-1-b10fea474423@igalia.com>
+ <auo5a1kRTSWsAYtF@kbusch-mbp> <352cfcec6865cbf636a22442511f16b1@igalia.com>
+ <auo-v5ZliGbM1Tiz@kbusch-mbp>
+Message-ID: <65414ea51d23fdbeb5d8b7bb4bd9d535@igalia.com>
+X-Sender: mfo@igalia.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Report: NO, Score=-4.9, Tests=ALL_TRUSTED=-3,BAYES_00=-1.9,KAM_DMARC_STATUS=0.007
+X-Spam-Score: -48
+X-Spam-Bar: ----
+X-Rspamd-Score: -0.0
+X-Rspamd-Action: no action
+X-Rspamd-Bar: /
 
-On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
-> [..snip..]
+On 2026-11-03 17:06, Keith Busch wrote:
+> On Tue, Nov 03, 2026 at 04:54:27PM -0300, Mauricio Faria de Oliveira wrote:
+>> For the former question, I'd imagine other block drivers might be
+>> subject to a similar issue, under incorrect completions, and can take a
+>> look at this later. I'd appreciate feedback on the points above before
+>> trying to address it generically in the block layer, if at all possible.
 > 
-> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
-> > +					       const struct ctlv_cursor *request,
-> > +					       struct attestation_evidence_request *decoded,
-> > +					       struct attestation_evidence_object_request **objects)
-> > +{
-> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
-> > +	u32 challenge_length;
-> > +
-> > +	decoded->challenge =
-> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
-> > +	decoded->challenge_length = challenge_length;
-> > +	if (challenge_length < caps->min_challenge_length ||
-> > +	    challenge_length > caps->max_challenge_length)
-> 
-> Hmm, I'm not sure whether this check is required for
-> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
-> 
-> for example, if the provider provides two evidence:
->   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
->   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
-> 
-> might challenge is reuiqred for generating the token
-> and this would be marked at min/max_challenge_size in evidence_cap.
-> 
-> However, in case of eventlog, it wouldn't require challenge.
-> for example, TPM event log or CCEL event log.
+> Here's my real concern: the proposal is a race. Another CPU can change
+> the request state to in-flight, and this code will declare it complete
+> before the hardware even saw it. It's a silent data corruption problem
+> that we can't fix because it is impossible to tell the difference
+> between a bogus and a legit completion at that point. This kind of
+> hardware shouldn't be allowed to exist as it can't be used successfully
+> when it behaves this way.
 
-Right
+Could you please clarify? Not that I'm defending the patch; just so I
+understand your point.
 
-> Do we need some field on attestation_evidence_supported_object whether
-> it requires challenge or not and applies this sanity check per the object?
-> 
-> Otherwise, to get eventlog, it would need to send *dummy* challenge
-> always.
+The reason I ask is, IIUIC, if another CPU changes the request state to
+in-flight and wins the race over an incorrect completion that maps to
+that request, the request is declared complete anyway, even without this
+code, no?
+ 
+> [...] It's a silent data corruption problem
+> that we can't fix because it is impossible to tell the difference
+> between a bogus and a legit completion at that point. [...]
 
-I wonder if we should have two interfaces here for signed and unsigned
-evidence? It would be clearer for userspace then when it needs to
-provide a challenge or not.
+Yes, but even though the driver can't tell a bogus completion is
+different, it may tell it is unexpected — at least some times; for
+example, the existing generation-counter (genctr) guard, based on driver
+state [1].
 
-Jason
+> [...] This kind of
+> hardware shouldn't be allowed to exist as it can't be used successfully
+> when it behaves this way.
+
+I agree that a device in this state can't be used successfully, but the
+kernel should, IMHO. 
+Say, in case the device hits this due to firmware which needs an update,
+the kernel crash might prevent the user from applying it, in the first
+place.
+
+Please let me know your thoughts. If there is interest, I'm happy to try
+a different approach.
+
+Thanks,
+
+[1] commit e7006de6c238 ("nvme: code command_id with a genctr for
+use-after-free validation")
+
+-- 
+Mauricio
