@@ -1,78 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794860;
-	b=DFqcCti5E1DuXHdYfGEFmJx23EmbPmpb9UPChs0uYjSE4sXhyDpOVCVSba6oMFRzYT+R
-	 UbL1UskbUqXTYV9KeSubSxvojc8h5ILKKK5uzVfuIBpLT+z09OMwy19oLN5YP9PMvSN3/
-	 oXc2688TCzIJaJFOFpsYpU124cqCDa6OywcO1HS9kF6fEMj5nmtZtMKQzsRZPlMPdAQEg
-	 MY72OheEDN3v07nVM2Pfjo1paqHtCkPMuU0jcSVaWZHN9m6/s39ea4rtTF2XsiyTrWVU4
-	 QmcKCJko6Rc2QpDZex78kAvh0SqP3JKh6Xc18LKDknYmICKOALvc4Q/DAARQNbm9GOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794860;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=R24GRRZu2LF+oL5dCCC8BQMX1wvtB7tGR8sHbNkvTSw=;
-	b=r9auYnCOC2/OVWR0zWGYVGkcAJ0KeGKDgLYXI57wquNlHS1A3xPR5/xszpAbvkyrox1e
-	 ekIHkDukS7oQ3J0g15vbQJwRsyQV3hqGWiSLP2rNFG7n2ZvD5ogRa1WnzYcpCPuo5iJ6a
-	 hwzO2XUmmlas5omMboO7nOs/Oel++OnPkPY+MxykSAwl4V1p3u8YS+sPPu2GFnuX5h9IA
-	 dG/E01PCJZrowKVYrCGHfA3OLIgTeHCF/9HTsFi7E01+Y5/k4fpQHNyTf/wnK38P1tJmo
-	 EHlQJBkSPZtR7sDo4dz+psoYLsGD+GJ/WrTtoFKHNVya4SkQ+IzRhgyCgLTqaIH9xpw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VjxjkGcC;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793794864;
+	b=AGNDVOfeqLnPPGQRYSIVVtnzHDgnkqT56l6AwI4Gi6EER4BjHJosjcOUBQyysqaiBIVP
+	 KIfsP9EOyIDw0/hj5HW8PDMdXcshmZ04+H24OlO6vapRtaRJnr3L9JGpXFWKtOzOvVkLd
+	 50CRLhvknejvfksWi6qz/mzYEgMk2O0OLJ/KwrJ9p+RmB8t1wj1exSLegDxHeqBCvfmE3
+	 BXiV64H/IUsTyRXcLFmz3DcRojGgdd5VQajLjY5gwKtcUlXyGMbvUbQvm/IcVcvGN5UVI
+	 SuiQUdC8oBYd2K+7OQR75maGbTGXzheGUdzYkU+V1ROP/2D/ArKPewUAIeNUwHj7uMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794864;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=zpcmkLvepjbGKQ3ACqSVKunOIWNZQhJb9SW/YrhLa2Q=;
+	b=KPTKLRzTn0ttkJNQ0T2EGIjFhjCbjnj6ukm+P0b6tvrk7qfIlUKvZnSneOaqJHA1Nvss
+	 HaR7DxUpzKFmOGvNKmxHT/TllkUp0ce/4OIe2r8YhElE+XdMxPG2pWVUQvOPiZuEDkOGt
+	 8zDdodHpBO1J7yepDBj6ck3VfYRAcZHfPj2cOMuvhP+6IS3+2HtTkVYoIHb/nl/kk3qt8
+	 xrAhBtCRZvbQr1qOXFX4nnNj93DrGvkLkTLS8dgEJfRFKX3ZELCdxyoiJ2OdjdzpnW0QS
+	 JmuN5GkvioN+2K6EG/veyYNeHw9P5RlahlMKDnyGVS8NJ1eCCDoJYn8HT4FTq6n//Mw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QCA55x4D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18C1606A31B;
-	Wed,  4 Nov 2026 12:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18C1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C82606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:21:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2C82606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VjxjkGcC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793794860; x=1825330860;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yeYq/ODyobia1D69bQ2AZ+dU2Nd8e6D32JryTlAQh+0=;
-  b=VjxjkGcCPDAl+5cXYMM/PWVbXwZefWtuuqQHdE83LIXYtML1RWQjKYht
-   bmCtCedOMVAnkTt7VASjpaocyFBl5IkcnB4qgLdi8id6oy/nkQ01M5VAH
-   GM05hB4pw6jgsKM6MaaYpNhkoXOu/LlBQAGclhGucceG29c+CSD8WP+Ry
-   ohnvZXMLgLxuIzwFP2UnGn+SSz2uLGvqXMp/qYcRa3sRio7u+p7PsIxRd
-   sLBPeCHjnSN/H3REv7sgU1m5y38nGVAquQWZOm+lz+0HrxxGWxWl2nznm
-   J/46QTTJECSNB8kNX3kjPTqKpxzx2/WCI5/U5yfuSU/lls7HJqNwqkNqN
-   Q==;
-X-CSE-ConnectionGUID: gDl3wu1NT1qIB09MIGErpw==
-X-CSE-MsgGUID: UTpXjTD7R0aoITMqgL2L0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2575221"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2575221"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:20:59 -0800
-X-CSE-ConnectionGUID: nFnuP8uNTdCiwy6ZosAOTw==
-X-CSE-MsgGUID: 9e6dJ04kQeG1ediuW4fRHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7022818"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:20:57 -0800
-Date: Wed, 4 Nov 2026 14:20:53 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] gpiolib: avoid krealloc() in gpiod_get_array()
-Message-ID: <ausjJSZkaGKNfykE@ashevche-desk.local>
-References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
- <20261103-b4-gpiolib-free-v2-6-ea46767c9cf8@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QCA55x4D
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ed1f1a7695so5395ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:21:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793794863; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QvqAyIxFxztDlYn2WJqrUod21vToouwKIH5joTsZI/wXdWeMsnARJDTa44771NAy2A
+         Hf5bkbRSG9pWovCSfPAi9PZqf2cv6E2UBxX1VtGW2GNSP1+yHz7/YlPx0InITLeHtey2
+         O33pAVW3tr5pcon9yw2svXKuRsktfi1czo+d42PCmAVwmCKRUaXEDShVUtRHof/CFQPb
+         459rjWlYWMkmjoPp7rTR1JuXnc1+cWSHT3URMjGAWBu/vAmkSkwFcgsZ+AT4XQ8DRUnj
+         keal9+UD3AoeY+fJvNrvQzYQRNJerW1/U291ToV/8iPz54TsdxMXWmsG558aCJBy6g8e
+         9PLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zpcmkLvepjbGKQ3ACqSVKunOIWNZQhJb9SW/YrhLa2Q=;
+        fh=My7T1GpPPMfXDQfMtoOIbYgwzivGFAQbY6puTWkuFj4=;
+        b=MmNXGKybwtQe1PuuavwhTwkMV0DyliXhITPm+8UPFvwEqdCAP97+8Ox57yencyib3Q
+         5X3bm/5QRNw86CSlZhITjTWIPgcyJB/wZJ3y2lzODIhQE5gZ/pEMoetPP8+NLv7Rjw4q
+         G65JpfqcXBeEWY9xKamlkjWvbYGh/lHxdL/CF/3Maejt2mc46msf55UMhPVJAiTVHQVu
+         zwZR0n3YT8cICICABGuHKTfY1PiEiX0Vhw4VeNHxi/Xr7V97Gkg9f1zQTaIRvdyF261V
+         sb1YXOPIK1fc3ewG9pbSOulIdVkR18VfF8yC/MWZmZ63rKSTZa84ityvyLW46H/2GsPf
+         Jtow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793794863; x=1794399663; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zpcmkLvepjbGKQ3ACqSVKunOIWNZQhJb9SW/YrhLa2Q=;
+        b=QCA55x4DMVQpsa4nuGxMFPfFzDhB+DJv6lDYmKzU/yOFbPBpfo1Tnz+n6zfvKL/bmM
+         DA+DIemX6mFMJnvumRP7v/p/+1rWEAeR3gxNFXgLOAWDIsuKowV8fbIbTsGaOmv5x3P1
+         vL0bnRVr13tnd6f2KeMlWBfWebUT+RxooinF8q1HYOcnF1qJuA3i+KZusxOJn5aPlEaR
+         2IGt9aJgdmZZSJOd5241JMU3xM1pEVq+XCtlUNCfPoY85Gh9uXWcTJ8jFnQOAAKe/95D
+         oKHpZqGF5nnmPMaa2zMKztX5fByxKRh7is3XGg+06VcDkV4IdmjxMKtbRixUQzlixzsn
+         DvXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793794863; x=1794399663;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zpcmkLvepjbGKQ3ACqSVKunOIWNZQhJb9SW/YrhLa2Q=;
+        b=0gUf2p/GWBULbHyRJE8FviW+GtYPhdv/OefPBgOXwKEtpJY7fW9ZRj8B8J8dV52WXW
+         Xn2ldfPoQKjIDw++gfaUfMCuwSbSRAQ+9OVVSb9Wc29b8uy3D16nOJKRUJmAoFwd7Va6
+         mYE9nQKe5t4HiHoCytdi23r2sxUBWLo+PYCG04n1mnUWai8p776GyEbA1rldsfTIO220
+         flTKDAen7sLS7kPo6cOthihHLrJB4RQgFG6Ue09xA2Cfa4wBzegV29B1nX1RTnY/hnqZ
+         W2woFNzwP4HAsKrvyzd5rb0wbTnR9L2caiTFyhEEzTZrG6pkUuJH/qO7aZKvIBLNvqT+
+         7XvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpOHmkFyZ0/HZ0FdSflUFRDKtXNXAKClaBOT3tyYlt9jO/zdJYYiyX01rlNpu63fu8pce2UsWvQiThsh8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+x0w6C1K+G9GkskkIzXU3jl45kaN9YGUaXTnUsekYndaJaSAw4
+	4eCkHZgXPNiJpGqs4yk3pOmHONWbSYjuS9SrBHTd0viF6OhKZ1k9oyairD6nPzSF7TG5NZ4pbzE
+	6HSbrJFQveJJOxnsZ9Sq6LGM1fOEuObE=
+X-Gm-Gg: AYBFou3usUWBoMoj1PbwLzWs7oDSG/yg3Vu3eUj+nx4yWG28I4XUlyjDBRHvVdXST7P
+	nyxXAOfiYS2n/SwDmYqDnj2EgVWfwqxBYpWOQXWRF9R06yj8Xk3CnLcCR+rUUtUFU4fIOHIf9N0
+	ISASBP6m5QYjZ8LWmxiZt+NRnDq+JX+kaBPFmloEBWTYuFHJsFkB1bPKhXeBGwTYZPP9SNeK1Ge
+	S7CZbR7NiPquWiuTeUmO29p6+xapm3jygVGpSwCuxrOD6LtVbtTUjylUp9MHlOqsdPaHlTo8l79
+	BT8XFOFIik8Ntzn2KjR0nBSXt8mHdx7X9NM4buVnH0WG4/1spOjVqTNTKEnimOdU+U0yaKhs7Wo
+	FSq72bUfsulWxk5KXZvB1U5UT74wtSbakdk9zVAuM/GItMuc7YKfKqacL6RCd2swZz+SxE6M=
+X-Received: by 2002:a17:902:ef45:b0:2e9:5b20:1c2b with SMTP id
+ d9443c01a7336-2eb36396190mr133772755ad.5.1793794862951; Wed, 04 Nov 2026
+ 04:21:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,83 +103,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-b4-gpiolib-free-v2-6-ea46767c9cf8@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261102-etna-mmuv1-iova-cycle-v1-1-1148f02da254@igalia.com> <eb6dc4502166eac99f1c5f8f579cc4c4fff94ef4.camel@pengutronix.de>
+In-Reply-To: <eb6dc4502166eac99f1c5f8f579cc4c4fff94ef4.camel@pengutronix.de>
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Wed, 4 Nov 2026 13:20:51 +0100
+X-Gm-Features: AclHuK9Q86EuHEL6aid1MOBRmfEEKC9jeoNBaMIn0yDWb2US2IJq23YE1o0-1eg
+Message-ID: <CAH9NwWcGfHZ8jVHdyBoDojs67FuOq6xxLNPnvLhqVUgn89oLPA@mail.gmail.com>
+Subject: Re: [PATCH] drm/etnaviv: Cycle through the MMUv1 address space again
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, etnaviv@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 07:40:34PM -0800, Dmitry Torokhov wrote:
-> Instead of allocating descs before the loop and reallocating it via
-> krealloc() when candidate hardware array matching is detected on the
-> first iteration, defer allocation of descs until the first descriptor
-> is retrieved.
-> 
-> Factor descriptor allocation and fast-path validation into helper
-> functions gpio_descs_alloc() and gpio_descs_check_fastpath(). Inside
-> the loop, acquire the descriptor using __free(gpiod_put), allocate
-> descs once on the first iteration, check fast-path candidate
-> suitability, and transfer descriptor ownership using no_free_ptr().
+Hi Lucas,
 
-...
+> Am Montag, dem 02.11.2026 um 13:22 +0100 schrieb Christian Gmeiner:
+> > From: Christian Gmeiner <cgmeiner@igalia.com>
+> >
+> > On MMUv1, all clients share one address space and the allocator
+> > always picks the lowest free IOVA. When a process frees a range,
+> > it can immediately be reused by another process.
+> >
+> > The GL.FLUSH_MMU write before the next submit does not reliably
+> > invalidate stale TLB entries for that range. The GPU may therefore
+> > continue translating accesses to the old pages. Writes through
+> > these stale entries are lost for the new owner and may corrupt
+> > memory that has already been freed.
+> >
+> > The vendor driver works around this in a similar way. It does not
+> > return freed MMUv1 ranges to its free list until the address space
+> > is exhausted.
+> >
+> Do you have more info on which engine inside the GPU causes those
+> issues? If the TLB flush doesn't work reliably we have a much bigger
+> issue than just address space reuse. If the TLB entries of freed memory
+> are not properly shot down the GPU may write to memory that has been
+> reused for something other than GPU buffers with a malicious command
+> stream. That would be a security issue that is not currently checked by
+> our command stream validation.
+>
+> Can you help me understand this a bit better? Which circumstances do
+> trigger this issue?
+>
 
-> +static struct gpio_descs *gpio_descs_alloc(unsigned int count, struct gpio_desc *first_desc)
-> +{
-> +	struct gpio_device *gdev = gpiod_to_gpio_device(first_desc);
-> +	struct gpio_array *array_info;
-> +	struct gpio_descs *descs;
-> +	size_t descs_size, alloc_size;
-> +	unsigned int bitmap_size;
-> +
-> +	/*
-> +	 * If pin hardware number of array member 0 is also 0, select
-> +	 * its chip as a candidate for fast bitmap processing path.
-> +	 */
-> +	if (gpiod_hwgpio(first_desc) != 0)
-> +		return kzalloc_flex(*descs, desc, count);
-> +
-> +	descs_size = struct_size(descs, desc, count);
-> +	bitmap_size = BITS_TO_LONGS(max(gdev->ngpio, count));
-> +	alloc_size = descs_size + struct_size(array_info, invert_mask, 3 * bitmap_size);
-> +
-> +	descs = kzalloc(alloc_size, GFP_KERNEL);
-> +	if (!descs)
-> +		return NULL;
-> +
-> +	array_info = (void *)descs + descs_size;
-> +	array_info->get_mask = array_info->invert_mask + bitmap_size;
-> +	array_info->set_mask = array_info->get_mask + bitmap_size;
-> +
-> +	array_info->desc = descs->desc;
-> +	array_info->size = count;
-> +	array_info->gdev = gdev;
+I found this while looking into the flaky GC2000 tests in Mesa CI.
 
-> +	bitmap_set(array_info->get_mask, 0, count);
-> +	bitmap_set(array_info->set_mask, 0, count);
+Reproducer: Run piglit "copyteximage RECT" in a loop, one run right
+after the other. 20 out of 21 runs fail. With a 1s pause between
+runs, the GPU goes into runtime suspend and all runs pass. Some of
+the flaky GC2000 dEQP tests (for example fbo.render.color_clear.tex2d_rgb)
+fail for the same reason.
 
-You don't need these, as memory is nullified.
-Also note that we have bitmap_clear() IIRC.
+In the failing runs, the first part of the texture is correct, but
+from some page onwards, all pages still contain their old content.
+The GPU either did not write to them or the writes went somewhere
+else. The border between good and bad data is always on a 4K page
+boundary. The command stream is identical in good and bad runs.
 
-> +	descs->info = array_info;
-> +
-> +	return descs;
-> +}
+The bug only shows up when a new process gets IOVAs that were just
+freed by the previous process. If the allocator does not reuse them
+right away, the failures disappear.
 
-...
+So GL.FLUSH_MMU does not always drop the old translations on this
+GPU. You are right: the GPU can then write to pages that have
+already been freed, and my patch does not fix that. It only makes
+it much less likely to happen.
 
->  		dev_dbg(dev,
->  			"GPIO array info: chip=%s, size=%d, get_mask=%lx, set_mask=%lx, invert_mask=%lx\n",
-> -			array_info->gdev->label, array_info->size,
-> -			*array_info->get_mask, *array_info->set_mask,
-> -			*array_info->invert_mask);
-> +			descs->info->gdev->label, descs->info->size,
-> +			*descs->info->get_mask, *descs->info->set_mask,
-> +			*descs->info->invert_mask);
+Galcore writes GL.FLUSH_MMU in the same way. It does not run into
+this problem because its allocator only reuses freed ranges when
+the address space is full.
 
-Why not using %*pb for masks?
+With this patch, I managed to run 20 rounds of piglit in CI
+successfully, with an empty flakes file:
+
+https://gitlab.freedesktop.org/austriancoder/mesa/-/jobs/113663487
+
+Is this the proper fix? I don't know. Maybe we need some special
+handling for MMUv1 to make the flush work 100%. I could try playing
+with some of the MC_MMU_*_PAGE_TABLE registers to see if
+that helps.
+
+Maybe you have a good idea or a gut feeling about how we could fix
+this?
 
 -- 
-With Best Regards,
-Andy Shevchenko
+greets
+--
+Christian Gmeiner, MSc
 
-
+https://christian-gmeiner.info/privacypolicy
