@@ -1,79 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793853661;
-	b=hW4qrOGBfR/WCx41pCUtUPsFGpvxOXwvAOgeiGhrOJ/TU0rKLKdLS/UzSkFyNaf1G+Zp
-	 3vVhadyFAr8GAgGneMQlFpBIZkZ6+8JZVSur5zYUUcTlbyxFOjs+Hiwsdi9L/EZB866iD
-	 Ds2K1ldZW2AdzK8bvtzC5HPDDXRQC7SPBdZOiDhkVMNQzVDekSvdStp4F3Ze4N9EqLyUq
-	 t/7+w+tSc9ZJc75QIydweFYynSlLNShjCSi5rSfIagMmP57U8CEzkRTqLzrNpOMJcLrNH
-	 fZ9Htyj7/2QhR/TUQFwH0vL/OqcqZ5Yamimyf16mjyloiozVPXopaFgyyJ9lv3zOS1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853661;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=llhJDHVHoisfN0tHe6o8AiZ3pTp0FIou5pivHrQApOg=;
-	b=eWIJADFcF9YjmbNKPfZm5IjCURwff2n88R7/mElUEMwZKNlJXuhPM5cwHNdABIb7LLJm
-	 jm9g28ES6krpwUSsb4j59K/q0HRQctm7EoX0HSjbl7TlQf6RsR6q1aS0Dsr73oR0NHYYc
-	 iiSyGAtfPjmjNWFoXjv9iwi/NC6pkzejGC23tJLI+DDkkHABNTqzwI3X9Of9zVAsP0TRS
-	 2DKRBDmFYG/uA+vsX4wL/eZPO5iE7yJAZ6UT2SmSgasf7RROzyfbAq0svnSQHGQtmTUTe
-	 q68Pb+pM/YWa8NCz3ru1jSSc85x7kutvr7oCI2pi68F9NP3ruMZ1ruZ6+8N5+5vVVAw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGpYxquc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793853655;
+	b=L4Pum+kYW49MrHJUydPVqlsw0HFiy0R8/hF4vJD8HAv1i7ezePvqa+7rhUhiruz1l+6x
+	 L/m0INIbvjqrvHaPt/lKVQSpXqA994lxy4ced0+0ghrxFbmnd1VCHo6HUxjBnIec7Mws1
+	 hBrfA9g53DWtJ0cfEmOhNIUWwHg9IlddnbwD/QiL0gUojcWQfcaBVL7OM8clWE8bT77FN
+	 nAB137GZOOL7k51d9dy99tvhamBSAqg25vICRNon/m3WzeSyUWba5nflolIuknC7RaIKw
+	 2qSjQXARWo2o94X2/jPrNdXHLckspiq/y4B33KgHMi4wnvgaK4mO7ejHlXFZO7maHsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853655;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=CBeoOPO8dQa32q5FSGLVAtCrcM+vnK3M9abEc4Baae0=;
+	b=0QljsOdqTNDNm2PY0PLUx7jPJGoH+qkzlmcokE1TYkWKzN2GDVSHBe8H3+QBC2dwBx3K
+	 X/ET1Dy55/b2tXh31FRj4dz89d2x3vjJGYIf9ViTEj35BmDG4uDGn0EZkKVNLSVPHMzL/
+	 PGFQT6jvkrSZkGmQGCcHB9rNXPUnFOQLgaEsJsStKgmW3Wa3YoM2QNF3xgzm04VzdIIs9
+	 CnkTyB5NoygWy4kJvHMe4e9uP3nxW4MaPC1eeq55122J6YzDS6r8coHgUrJntQmPcuKsh
+	 sk8Ti6rc7YHBjUKFofHMOdm4PoJ5uyqaCg3sZV3Msx5fuDIadLO3eFomuZ4c6AoqIjg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=A1fBFSva;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A41606D81A;
-	Thu,  5 Nov 2026 04:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F92606A326;
+	Thu,  5 Nov 2026 04:40:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49F92606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGpYxquc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793853660;
-	b=A89FxL0cVsscIclqwBNWFofYer3qkwqWHMoPEK/e390or7ZCPa3zN8Ta//5t0948ldTF
-	 Sz0D7NdYsLb875dr9E/M8ZDUCCCB62fSbMuxF9Gv7ZYhyGWNGkJWJpN4w2IJwUcgQ4wRe
-	 sWgOh2S8+RLoYPav5zMSyhWZ1CW8H2gvzdyHTsX/FTQc5rnnCVEhkC1yy44yXP5++6muN
-	 fxTfU6c6rAGf8V5WaArHrKRKGqgidz3H3VX28rLcIJFs66pJYGg7FFhEG5EoifZOMlXOp
-	 1WEqzJoBIArs+o3UYLfO/N5ebAHoy25W5ryjCieAWnUgcSZ/kSxBviQH6LP+VG6eYCA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793853660;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=llhJDHVHoisfN0tHe6o8AiZ3pTp0FIou5pivHrQApOg=;
-	b=0mINOOwxXAFaMKonjWbRHLMWsTzcTZsABQ5ZJCGzJuBs+1Cve4q4FPQtPgrTbSBYEn9Y
-	 qTsC76bym0VsVEDnC97KyhicIVkoCBKjUnPh7czM/6lTwcIWnYMZvivrh1P+mcYQQmnKu
-	 cW0NtVHqH582mPlFneQRoQOJHwNzFd8dyZ5PiRWPqUPOkXdE+1hRache4HXZgWJmHEJZj
-	 /BUlYW0AijIdcopi3XQwh6izmTUp7WItg/xisKHUllQkfsbgbf9PD3WzQD2dc0HWEH+yO
-	 nobZcwt96R08MoyJRJD+Lf9Pj2f+WPYj8Nd/q1E32xm+/QZF20Bs8mybHAHOkVml39A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7F9261F00A1C;
-	Thu,  5 Nov 2026 04:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793853660;
-	bh=llhJDHVHoisfN0tHe6o8AiZ3pTp0FIou5pivHrQApOg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=lGpYxqucer31Q62JUlnGIk3/YOy0dwz4SuRU4P63q0F1SsL6yijEeIfOM1lgAOeke
-	 jUujqqGPLjG4qxADOLOIIB78jkbFarQR7mVu/+j9EXeLwqzlH39X21qe+RVDfQjarp
-	 h/iaf/jnY9Hn85ANiOsEKqE5xrSeA0HOdon30ORBrLJLzMETV5H47MUIuhUoZsF9Xl
-	 XE8Tx8vM2rPKgErHBSnYbof4DNeJrCEoJOkWEKXWnzyiGGW7neQqAWMt55cRhGTDZ1
-	 hFv079HMKfe2v3/luXn3JoreHcZVbvNMEKbD738WLeapOTSZ5M387h97wze/L2WR11
-	 uv/+LdPpvCIgA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 091D2470A3;
-	Thu,  5 Nov 2026 04:40:58 +0000 (UTC)
-From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 22:40:59 -0600
-Subject: [PATCH 4/6] arm64: dts: allwinner: a100: Add A133 speed grade
- efuse cells
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=A1fBFSva
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2AD9C10CB4D;
+	Thu, 05 Nov 2026 05:40:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793853644;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=CBeoOPO8dQa32q5FSGLVAtCrcM+vnK3M9abEc4Baae0=;
+	b=A1fBFSvaKLE0DyT+bxS1Ujpzu4d+5B4Pt4QckCyU1hiNxg0Jlp7tALCny2Hy9XMx1Atdr0
+	AMZat10bqhdZlicSBgsTSXKcMGZTSVecu1xe7J2uPjIQ9oVFzuxPHJWRycEM7TyjHPJrhQ
+	+Bsf2Xqv6bA5mEumyAriNrD6ptMOrg7DCpqY5nggDXyJH6lwZZHj8J0DlFHSctrhkhSgtR
+	AKGznxomoYij6awZBUeXzl//bo/HJIYvZTtb6cTU0OmDJg1Alpv4h/h4r81DPCs+fzIZoh
+	rhoVpOJxdYZ08MB3iGEI4Th/AplO0vttGwdTydwuS2Fg/1LOb/0UVLh8Oqlmcg==
+Message-ID: <14f72896-3c52-45ad-9832-6f33cb4d8c00@nabladev.com>
+Date: Wed, 4 Nov 2026 17:47:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,89 +56,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-a133-series-v1-4-58217cb33a87@gmail.com>
-References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
-In-Reply-To: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
-To: Yangtao Li <tiny.windzz@gmail.com>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Cody Eksal <masterr3c0rd@epochal.quest>, 
- Alexander Sverdlin <alex@sverdlin.org>, 
- Rajan Yadav <rajanyadav0307@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793853656; l=1561;
- i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
- bh=/IybJoRS+RCeafxjvBtCrPNxM5kYK6ctY7B27mLTNVg=;
- b=NgBTLrOPCIZQ/56YuWB9qFnXvWIEKYUbNUchtr1oEcU4Ll5eeGgzPWYJLFIgfVLIeJDA9sL71
- dhuIeKxEsVpC3qoVoVyJ6nEXPP+mXZUgXiMEbe8nOvVpG9YSewD6k5c
-X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
- pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
-X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
- auth_id=1391
-X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Reply-To: rajanyadav0307@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/3] dt-bindings: watchdog: arm-smc-wdt: allow a list
+ of SMC ids
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, linux-watchdog@vger.kernel.org
+Cc: Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Antonio Borneo <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+ <20261104161553.30115-2-mateusz.nowicki@posteo.net>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261104161553.30115-2-mateusz.nowicki@posteo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Rajan Yadav <rajanyadav0307@gmail.com>
-
-The A133 speed grade selection also needs the chip marking ID (SID
-offset 0x00), the word at 0x20, whose low 12 bits the vendor BSP calls
-PCPU, and the word at 0x28 with the bin extension bit. Add nvmem cells
-for them at the offsets the BSP uses. The H616 reads the same kind of
-marking ID at offset 0x00 as its speed grade.
-
-The cells are used by the A133 OPP table added later in this series;
-the A100 OPP table keeps using only the existing 0x1c cell.
-
-Claude Code (Anthropic) drafted this change and its message from the
-vendor BSP device tree; I reviewed it and checked it with dtbs_check.
-
-Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
-index ba6020989ce..d1164f3b549 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
-@@ -176,6 +176,10 @@ efuse@3006000 {
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 
-+			chip_marking: chip-marking@0 {
-+				reg = <0x0 0x2>;
-+			};
-+
- 			ths_calibration: calib@14 {
- 				reg = <0x14 8>;
- 			};
-@@ -183,6 +187,14 @@ ths_calibration: calib@14 {
- 			cpu_speed_grade: cpu-speed-grade@1c {
- 				reg = <0x1c 0x2>;
- 			};
-+
-+			cpu_pcpu: cpu-pcpu@20 {
-+				reg = <0x20 0x2>;
-+			};
-+
-+			cpu_bin_ext: cpu-bin-ext@28 {
-+				reg = <0x28 0x4>;
-+			};
- 		};
- 
- 		watchdog@30090a0 {
-
--- 
-2.34.1
-
-
+On 11/4/26 5:16 PM, Mateusz Nowicki wrote:
+> The SMC function id of the watchdog service is not discoverable and
+> differs between firmware versions for the same SoC. Let arm,smc-id hold
+> a list of ids that the driver tries in order, so a SoC dtsi can name
+> every id used by firmware for that SoC. A single id stays valid.
+> 
+> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+> ---
+>   .../devicetree/bindings/watchdog/arm-smc-wdt.yaml        | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
+> index 8e9d0b7e8244..9844b23ef51c 100644
+> --- a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
+> @@ -18,9 +18,14 @@ properties:
+>         - arm,smc-wdt
+>   
+>     arm,smc-id:
+> -    $ref: /schemas/types.yaml#/definitions/uint32
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 1
+> +    maxItems: 4
+maxItems: 2 ?
