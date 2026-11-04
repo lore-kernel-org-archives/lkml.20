@@ -1,101 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793765126;
-	b=rutMx26MlsmsVXfWaXMj9jEtjsZOn9/Ms8uFRr/zMZmikWnuIR9nDvGtGFWQBVdybO0G
-	 /JeOaXtZmJ5n4ugdFRC28GlEd4suJi8hg64uRGw+3AEuNl196OVf2CBF3A00L/bwZ4ppJ
-	 05Wqg5kJarHJTCIsVHsfliUGIRqpVRZ1ZQ4sNCnVkndYNu6fhDvkrHbow2e8CLRPRZ/kJ
-	 +8W0LRfsLnB7HEoVjgfaPFXwMM7cuFEG36nw2h7eKYxRGXi1MEobv5tTXMyH8MND59qSb
-	 ttOIlkPBT+MCDh7i0aYnePBIYjL5IatYJT5oiGXCwZBYec004D5tvRsIaeMiID6lwSg==
+	t=1793765215;
+	b=SJobi7AXjGdzh8fb10Yk4df/h1JPDDHW2fsotlAoKgVgEobxyrhl+dQwE8/QPZBB5/9M
+	 j28m9rd/1ppWwbTpyKqJaICV3fRfT0SW0ABg+k1+EnhNTOVJzV664ucb9BHaJNkvhUoh4
+	 nOy0GbWpWDpNIo80GDtdRz8b0NkL1IDjK4gwWIAaj6ttEU2fHKM0kkDCpPudx6jz23Q3z
+	 NjKi0lwEc4kTDXok0rnFVDQvj1r4Kn3H7g50MRSMIvG7g5tEs8SzP3P20/FSe8BXRn4yP
+	 vVCuvDLDUVhgpXylD+nFQsbkA/3DlJyALKlCjKu2jXkQStLXSWRMRhC5UM8SFg4uQZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793765126;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=T+j37Bvrvm5b7s/8uMkhPBVmT5+ES/aAdwRW0vQZhyY=;
-	b=FMfyhxibuZlo5AB1NGe6jQOcHVpp1W4qD7AVoajmn6rnAsAhhaoyBCc8U3Iyv9zRX/AG
-	 +XzT+J2SmEUBPyhLEAGtErdk6U1hxVVWe8O/EOotHU+Cbv86DJV1k4JPZnhZ1Kt+U7YDy
-	 U+D68U89mbtyXo+e6ozBDfZWcQmVkmY0PIJ8lEGdrvzXdakxi+MC8xCtM/NpjE74KaoZz
-	 34SJo1mtr5ctrfoK8+OoM9wKsHwZsVoOXrvNWMb5AFQNMvD37QT2FfJb9nanmIVomrYoZ
-	 +0CDX1xzS+LZH4JPpKqbrho9oDsKF3sQOsaI7AJmq4MnzonMs0AMgcmThnL0yDN/upw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793765215;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=oQ27IEgLT2orFZeJPj/4rgrn6HnFwJv883GIVLY4pjA=;
+	b=wiE250RLP/V79EwR7Vg6+AKt6+J+QZiGbgeHagh05cOMrauxoDuQfIwaBlC09NnVhYqM
+	 vNwJ/LLQvlscLi/NmuKuYO2DljHtui1jZ7cl1hfkIoqEuTkrsreoBTzfVCZjYn4azwmfM
+	 k7/RJuEOqP42eBnEeSwEbqRE8Hw1pAy+voqV9+RmO7HTg7nm1IOl9XX7AkOSPZ37VpFAf
+	 3xiFpDIKKhp5jbeeXHU8tkkv+evW8g8299he3w2BpRg52dp3lQp5sTZaIKcIWTSNhdMFQ
+	 YqEru/QtlTZhhVKbvE6DXN3Cnw2JrTkvqAOlxywSqOPYapdCX+rDE1k3tLfvr4miO7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lQgCf8Fk;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IghHfudE;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7F4606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 04:05:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA7F4606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FC9606A328;
+	Wed,  4 Nov 2026 04:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68FC9606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lQgCf8Fk
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e831e86ebfso1663475ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 20:05:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793765125; x=1794369925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T+j37Bvrvm5b7s/8uMkhPBVmT5+ES/aAdwRW0vQZhyY=;
-        b=lQgCf8Fk/W/H1qJuGTKkIbLrlKnXkKqxCXOhS3tV7Eu7U+fVhPo9nb8yLLixdFyQFa
-         LPRjYf4ZjsXpIpV4ekdgLGX/T8O3Zyhjf5iK5Fpc4pt10M74Z0INpZ8EZ5VybwsC3YpE
-         3Tu4T9YBF8xuYsMtzNfC+j+14EuldYyICkcK2qPSEq96RYY53YaNqgLwJL6BjiSLbDza
-         2amGqz1zdXDAOc8/Y6Dtgz+DMNehkJ6zixyw8MsDbYAXMzmYKF3Vp7FLRUuL4/fWKlDk
-         zaPcWvxhgXkRPLivzQlWBAKrfU6Q9lC6MJ11Ri9VMSsHQlmSonWg0NfcG3yz+XaSSRUU
-         Zdag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793765125; x=1794369925;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T+j37Bvrvm5b7s/8uMkhPBVmT5+ES/aAdwRW0vQZhyY=;
-        b=R6LjrBiC09G6QA4rUGDMVhxuwjGg9puuhnXMh8nkzDHlmhxSrrDLmx4Uy+9yOFaRVp
-         H1AJ6ESz+BD/HMEK9PIQi9ONy+Rt6gOENzkwas+t9Ex8jx9Hn6Sz62czckoL4ltRUvh0
-         +BJHwMymcihwCgH+nXiYw/Qcf6qOcKKzJx44yYmiaLP9k/QwesltCMYo5M+sp2TWdiWB
-         UP6ET7m6dKloFbxgCedN/8JQBKiwYFMQkcKH2Y7Cc0VDH2W4lMsnuCkfKkuVbKLMwSvP
-         1bmP/LjZfMcj/929cZYu3ON/NLV3+BGIRFTautQ9GY4uFAuZsDewWhZdoZ8lXHA3Pm4n
-         rzqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfzadxb9mY+y+557Ywmy5rNAANyPbWaTr7DYgKYXBmwaH2PRxMq1OmmEGxWoFIHa0+PpvvVs561YGWaBI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GSm8A7ZJCTdOrU1bFYK+LOBvYGj9oZRcNdIyxY7cysXLqo6W5
-	aJ7Y4LW6HxpJi7At016qbL6gar8lnA7mZXVie0pAzBsIbKEk4SxgFQB5znwiujvg2j8=
-X-Gm-Gg: AYBFou1HKDvRyfJ22HszzH2d0Osfaxf1HX14MgUcEzUZmfwWQXQdUJMonC5L6IIfcU3
-	VhcFKQ4iCNCs4MJJGGUDPQghQ7K1zeWN73NCXszqg0l4J38/gI1OzqpwIHGd0i8pKgBnUp/k/0u
-	xoqfJ7uq4UC4Qnvf0UmeZ87w62Cm6v9WyqzuTJnP8IdjyNAdf59Xc0obulqZlIf2D5ar6ta9Rkx
-	MiOGjku1vLbzxXd2fvQydWpNigCwkJt1li/QBHQr3jnEQmFxnwt11GZuhHq1gPJPzbn2XMqwTUS
-	h/spbws+z6kQ4YWb1MJHzkkkxFQQ5GZEHT7myvd/9cv3AUD24Xp6Vi2A0Fv7Phl+/maEQXTh+eB
-	e0RxG+7xIU7YIaFKN69+DmSlWbgvVI3uHA5oPCz5IobIrPSuuR9Zb1gjabdHjV1hKDyr9L8cIhc
-	XFdM9616Ofr80vPqr8aZccCf4CffOoqXGMc/pDawWhjKX76jF39hVuRcWc4PXWBCOqOkUMsJVWQ
-	swKbdBFU57eTSSVCRC/iupGd9kkq8qVd9B0FRIcWouTaiFOzwrc5YPnHbRfix11yTy1I/AV74pq
-	OFwCvkfC9SauzgFHKI6CubYfi8NS8Vcr+GxnyifJakw9k63rEsWqZUJ8GYUkO41TMVCXBAX5XTP
-	reSdc+oS/qie79ZkcH+0npmWGqyAkXMT5pPa8
-X-Received: by 2002:a17:90b:1a85:b0:39e:6a80:dd9d with SMTP id 98e67ed59e1d1-3ae898194acmr12972752a91.36.1793765124818;
-        Tue, 03 Nov 2026 20:05:24 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094d70a60sm873913a91.1.2026.11.03.20.05.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 20:05:24 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH v7 0/6] IB/isert: fix the device removal use-after-free
-Date: Wed,  4 Nov 2026 13:05:16 +0900
-Message-ID: <20261104040516.1844951-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104012219.1759523-1-yhlee@isslab.korea.ac.kr>
-References: <20261104012219.1759523-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IghHfudE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793765214; x=1825301214;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YMkQOtXosbqEbYC2r15SmEurgxLnD1iFp8vrE1jWeOU=;
+  b=IghHfudElGkApc6N2FCxMUUUgTJ1He4EfnwPCgmODf3G7tz9veP0zw9i
+   oQxwPqnOS/+C6KyUNIpYgof5v4AfQVRkKAU9Nyro8BGCIvAA6KXsEj6m/
+   GHdWW6ipy2XuENk054xaJ9zNaZlJaqs38Zc7cGZiiEEIbq3iuabp3cpjc
+   PUKy+t1FHIoolglPgyGTz8XXtZH9KDcymvcv8c+uxhDtR/kaei2tAbT1P
+   dscSaR9yqq6Fc9xL+uwvc+M4GUcEXY+DqqrOqbg/objjsFqL2W02sBHsc
+   zW0O/ldqqp6Yv82Cn/cdmY20Z6UPiy3GQuNSZoF7q3VGq0oWtTip0f840
+   A==;
+X-CSE-ConnectionGUID: xEtabHALRhKDTSVftfZysA==
+X-CSE-MsgGUID: IyYESo9VQKKWOipa5fjRag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2520894"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2520894"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 20:06:53 -0800
+X-CSE-ConnectionGUID: 0UUEofysSfG6aziW8MQrVg==
+X-CSE-MsgGUID: 8VW0iU9iSvm+kOj7aY664A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6749052"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 03 Nov 2026 20:06:48 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOSGr-00000000jkR-2fLp;
+	Wed, 04 Nov 2026 04:06:45 +0000
+Date: Wed, 4 Nov 2026 12:05:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Jie Zhang <jie.zhang@oss.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 11/15] drm/msm/a8xx: devcoredump state capture support
+Message-ID: <202611041142.JL4qtlIy-lkp@intel.com>
+References: <20261102220405.30730-12-robin.clark@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,10 +96,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102220405.30730-12-robin.clark@oss.qualcomm.com>
 
-This series is superseded by v8, which addresses the two Sashiko
-reviews of v7: 3/6 clears cm_id after ib_drain_qp() again, and 5/6
-looks the isert_device up by ib_device pointer.
+Hi Rob,
 
-  https://lore.kernel.org/r/20261104040318.1844865-1-yhlee@isslab.korea.ac.kr
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on drm-tip/drm-tip linus/master next-20261030]
+[cannot apply to drm-misc/drm-misc-next daeinki-drm-exynos/exynos-drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Rob-Clark/drm-msm-Import-adreno_snapshot-h/20261102-140245
+base:   https://gitlab.freedesktop.org/drm/kernel.git drm-next
+patch link:    https://lore.kernel.org/r/20261102220405.30730-12-robin.clark%40oss.qualcomm.com
+patch subject: [PATCH v5 11/15] drm/msm/a8xx: devcoredump state capture support
+config: mips-allyesconfig (https://download.01.org/0day-ci/archive/20261104/202611041142.JL4qtlIy-lkp@intel.com/config)
+compiler: mips-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261104/202611041142.JL4qtlIy-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611041142.JL4qtlIy-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c:9:
+   drivers/gpu/drm/msm/adreno/adreno_snapshot.h: In function 'CD_WRITE':
+>> drivers/gpu/drm/msm/adreno/adreno_snapshot.h:506:22: error: implicit declaration of function 'FIELD_PREP' [-Wimplicit-function-declaration]
+     506 |         *(p->in++) = FIELD_PREP(GENMASK_U64(63, 44), reg) | BIT(21) | BIT(0);
+         |                      ^~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c: In function 'gen8_dbgc_side_debug_bus_read':
+>> drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c:920:21: error: implicit declaration of function 'FIELD_GET' [-Wimplicit-function-declaration]
+     920 |         side_data = FIELD_GET(GENMASK(27, 24), reg);
+         |                     ^~~~~~~~~
+
+
+vim +/FIELD_PREP +506 drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+
+   502	
+   503	static inline void CD_WRITE(struct cd_script *p, u32 reg, u32 val)
+   504	{
+   505		*(p->in++) = val;
+ > 506		*(p->in++) = FIELD_PREP(GENMASK_U64(63, 44), reg) | BIT(21) | BIT(0);
+   507		__cd_check_overflow(p);
+   508	}
+   509	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
