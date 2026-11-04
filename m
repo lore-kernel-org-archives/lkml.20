@@ -1,58 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791965;
-	b=trkhOI7dKZ3yS2+fA2qvyyn+24kpKruQy0rWBDgh04dgGajK89gfpn3bZTQbaRh5xFVN
-	 6uLqym9CKb0ULxRmS+WicV6QKWl5zvTRaW7r6jNLDcAs/WJnEh52U+GUpZEyG4EypoFlR
-	 AifkHBrutDXf80s3Z7lCK23I4WWHQLDBG4NbycTMPHEXU/cL7RQCJ7hjf6fRvI1ybhe7t
-	 rT8wo/UnCUGqsODfvXrtM/dloyAbtN+cekdxS3X6wVtuKYlDpnldYLMu9Vxf40GFm1jn9
-	 Q0dYo7QMFeGAmaUa0NvxCaivj/kVpcOiF0kr0G9wDX7ScNPjf7NDSGBveKGsO1XO3FA==
+	t=1793791999;
+	b=wNJfOqaE5/wGiU1odrkay58ZFJVXV98mGW2oh/NuNELPZqjpEFhwlDmcS9V1WpgIBrsY
+	 4QQIik4LWynxy2ha1HcR/jTZGOhhD/iuciV8g5SpeU3Ql8ujMLVLwxXyVlHugv7jhXEEG
+	 CzGIkCYg6+hipj6gOMixq599/oha+TI+oA9bhhdzw/o5C0A8oW4WHgsRpSmI6lbnK5g8w
+	 B0sMViu1bZptJVVJcCSwGjPrBA2Ripux9LcFZm0HKIwSAebk47RsRpJuTkYj8oBpAr7bc
+	 UlTTxxoRCji3Qq8pu9bSqyMiSkQtbT6mCYhhbYmlo3SZ3lkPbhEYtwyFpncscWXznsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791965;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=nSAdp7d2w4x8lFKtRcJRBiPEu1Q6p424n1DTy1d1p1c=;
-	b=y4PJorliI+d5XEhGCiXRGH8sy29oUQY3kiG8MGvxGw128nAPj4KHpe0fkTlvPIVaTTgv
-	 ZhxGCFfbLwUwODOU22W4so9jPjkDuBxOc5Bqz29Y6HyqQLpD0Iq6GJkfa+T4OroeT97Jy
-	 4Yyi3HYkRc3zA2CKGh8CC4kOt9rQqEa27eGacmfQpS1WGWflTvxIAZ2rBz2QOUCJjCz7e
-	 5VI64NvpsygRHFeodQkkOTGaA9kS6T+w/U3F+AOZ0M0i41/0axU4UtYswycTItgIYj8Nx
-	 F1zAoHQ1oo/bJsBqissjgaL5G3djwObPtYTYqFej67+O7dvZmOspABZm0sPimXQHZ3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791999;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=DA9gSK8SSw7yCKYFv/FiBrYaS7lH4KCu7a0mok+44Hw=;
+	b=kJMoUqEa/Q4xgUxPU2Plls79+Ez4ZP9hVKEd2WD+bNlizkiQl+SrYimEG8RRYTULR9GB
+	 Aw/6Bb3+s5IMoXPRYH8WHliFatIbEtg9VB8USiWq0ZKTY8n4eU3mPD6fFOSvPvYhMDFHq
+	 qaYES7IApxMoDXMgSt07MtZ5ynWLdJUAg/Wk4zCFNqLo9n4fgKQ/uh2FhtrbB4wvj/WZZ
+	 yssaoVwLwMLB32LhZI/ncJep0iAHxz7buy6esGy6H7lKMSnwcJ/ciqhxFPjOBtXRrVeSw
+	 tpu1j+W5eoGkG0x9XhOAj3loP4GCJLeqirfruAhpldaC9D5lqugiiBWQFFQZ7yAHbsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MvHjrEne;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=K3o9XeQG;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iKx8Vm2z;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=K3o9XeQG;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iKx8Vm2z;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A96D606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A96D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96510606A333
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96510606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MvHjrEne
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 41988C8F46F;
-	Wed,  4 Nov 2026 11:33:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 35DFE60770;
-	Wed,  4 Nov 2026 11:32:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B1DD210329171;
-	Wed,  4 Nov 2026 12:32:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793791961; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=nSAdp7d2w4x8lFKtRcJRBiPEu1Q6p424n1DTy1d1p1c=;
-	b=MvHjrEneFWYCZlFWinNnQWxc2Ej/64pyntWK44iPlXCjj6rUOBf1i/rrTeCrUf9vIy9kB+
-	gK7TMl0m2lYTCKMseG9zh4e3+De0Mo0m7eRyZ9zB2an3rcmntu6mZuiAIvAVLZIZuaaZR9
-	OvHVrMcrONF5rZozO2M5hxT/L0SCnOMf9TnOfYy3uXvEQmPQAVD838DYJiL7uImpaUALvq
-	gQ8f7OWL1NoHXASD9I89dyQPYM1N4qlD9j1o4hZbpfiOe69MGDJ9RgYuPE9AIS9plpEmfR
-	mHoB5pFxaujF4YWP7ZsKG+uR/S4HPqSGWrD1fTzVnA/X8kGxi2nnStBa0oOzEg==
-Message-ID: <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
-Date: Wed, 4 Nov 2026 12:32:34 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=K3o9XeQG;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iKx8Vm2z;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=K3o9XeQG;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iKx8Vm2z
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 531F11F7BE;
+	Wed,  4 Nov 2026 11:33:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793791989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA9gSK8SSw7yCKYFv/FiBrYaS7lH4KCu7a0mok+44Hw=;
+	b=K3o9XeQGzok53jazelgy5Z8SnsmktVuxS3wbnsk4FBgZY8vaU2ERDfvmqskcp7OADTjmSD
+	7vMRvgB54NCDxhOCGQQWABEXjsPqedVgo+2k4J49IjDgOGQr6PwJUAFHoiRb/3/fOfnqaa
+	6ng0oVJWSyZTTMwoupQXzvR3ycJOQko=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793791989;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA9gSK8SSw7yCKYFv/FiBrYaS7lH4KCu7a0mok+44Hw=;
+	b=iKx8Vm2zq+MRBLzn1lzmhQErTr1wbqhMZQ3hZ21ZMNUanlt2beQm0pggIrkeESJufsSQsc
+	aEUK8lRIk5CfdABA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=K3o9XeQG;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=iKx8Vm2z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793791989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA9gSK8SSw7yCKYFv/FiBrYaS7lH4KCu7a0mok+44Hw=;
+	b=K3o9XeQGzok53jazelgy5Z8SnsmktVuxS3wbnsk4FBgZY8vaU2ERDfvmqskcp7OADTjmSD
+	7vMRvgB54NCDxhOCGQQWABEXjsPqedVgo+2k4J49IjDgOGQr6PwJUAFHoiRb/3/fOfnqaa
+	6ng0oVJWSyZTTMwoupQXzvR3ycJOQko=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793791989;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA9gSK8SSw7yCKYFv/FiBrYaS7lH4KCu7a0mok+44Hw=;
+	b=iKx8Vm2zq+MRBLzn1lzmhQErTr1wbqhMZQ3hZ21ZMNUanlt2beQm0pggIrkeESJufsSQsc
+	aEUK8lRIk5CfdABA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29A27134A5;
+	Wed,  4 Nov 2026 11:33:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7RUZAvUX62r4NQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 11:33:09 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id A8A99B325; Wed, 04 Nov 2026 12:33:08 +0100 (CET)
+Date: Wed, 4 Nov 2026 12:33:08 +0100
+From: Jan Kara <jack@suse.cz>
+To: koraynilay <koray.fra@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, David Sterba <dsterba@suse.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Chris Mason <mason@kernel.org>, "Darrick J . Wong" <djwong@kernel.org>, 
+	Sean Smith <defendthedisabled@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] add provenance time (ptime)
+Message-ID: <unzslqbr7karhkgfxrcmjwgtps3byokmsqecyouqlc7aa6cszv@pgup6q2nxwt6>
+References: <20261027220532.736352-1-koray.fra@gmail.com>
+ <upe7qvhod63zd724s7uiql6kanqyrcwplodoavcvqjt35vd4ee@s3iglizxejlr>
+ <DMLN8XHASPL4.1R3MI7CMA5KCD@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,80 +116,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
- global power budget
-To: Jonas Jelonek <jonas@jonasjelonek.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Sander Vanheule <sander@svanheule.net>,
- Russell Senior <russell@personaltelco.net>
-References: <20261103220312.860629-1-jonas@jonasjelonek.de>
- <20261103220312.860629-4-jonas@jonasjelonek.de>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261103220312.860629-4-jonas@jonasjelonek.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMLN8XHASPL4.1R3MI7CMA5KCD@gmail.com>
+X-Rspamd-Queue-Id: 531F11F7BE
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,suse.com,zeniv.linux.org.uk,kernel.org,gmail.com,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Score: -11.51
 
-
-
-On 11/3/26 23:03, Jonas Jelonek wrote:
-> Use the optional VMAIN regulator power budget to configure the MCU's
-> aggregate PoE power limit during probe. Quantize the available budget to
-> the protocol's 100 mW units and reserve exactly that amount through the
-> regulator core.
+On Tue 03-11-26 15:26:20, koraynilay wrote:
+> On Tue Nov 3, 2026 at 2:25 PM CET, Jan Kara wrote:
+> > On Tue 27-10-26 23:05:30, koraynilay wrote:
+> >> This is an initial implementation of a new timestamp to indicate the
+> >> time when a file/directory was initially created.
+> >> 
+> >> This patch series takes inspiration from the one by Sean Smith
+> >> <defendthedisabled@gmail.com> [1], but using
+> >> file_setattr()/file_getattr() as suggested by Darrick J. Wong
+> >> <djwong@kernel.org> in [2].
+> >> 
+> >> The semantics of this new timestamp should be at least these:
+> >> - it should be the same as btime on a newly created file
+> >> - it's user-settable, so it can be preserved for backups, filesystem
+> >>   conversions, archives and any similar operation
+> >> - it should be preserved every time mtime gets preserved
+> >> 
+> >> and the correspondence with the other timestamps is as follows:
+> >> 
+> >> ctime <-> btime
+> >> mtime <-> ptime
+> >
+> > One thing I miss in this series is an explanation what this new timestamp is
+> > good for. Because frankly, I don't miss such timestamp as a Linux user :).
+> >
+> > 								Honza
 > 
-> The regulator budget represents the usable PoE allowance. Program zero
-> reserved power so the previous firmware guard band does not further reduce
-> that allowance.
+> Hello, my concrete use-cases are backups and filesystem conversions.
 > 
-> Require a finite budget of at least one protocol unit when vmain-supply is
-> provided. Program the budget before selecting dynamic power management and
-> ungating the ports, so enforcement starts with the regulator-derived limit.
+> For backups, my setup is btrfs and using btrbk (so btrfs send to my nas
+> with ssh) and the only missing thing from the backup is the timestamp of
+> file creation (which I'm currently working around using xattrs).
 > 
-> Enable VMAIN before hardware initialization and register one managed cleanup
-> action to free any reserved budget and release the enable reference on probe
-> failure and driver removal. Record each successful reservation immediately
-> so subsequent initialization failures are covered by this action.
+> The situation that prompted me to finally start working on this RFC
+> PATCH was when I wanted to merge 2 btrfs FSs and the only way of doing
+> that (AFAIK at least) is using cp/rsync, which can't set the creation
+> time since btime is immutable. The workaround I used was the same as
+> with backups, so with xattrs, but noticed that some files (symlinks)
+> wouldn't accept xattrs, so I looked into it and found out xattrs are
+> only for regular files/dirs.
 > 
-> Read the current budget index before programming the MCU. Retain the
-> programmed MCU limit on probe failure and driver removal, as reducing that
-> limit to zero would interrupt ongoing power delivery.
-> 
-> Boards without vmain-supply retain their existing firmware-managed
-> budget.
-> 
-> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
-> ---
+> (also see https://lore.kernel.org/DMGS4KQLY24Q.14MUTR6U93GIC@gmail.com/)
 
-...
+Ah, OK, I think I finally understand why do you want this. Thanks for
+explanation!
 
->   
-> +static void rtpse_mcu_cleanup_vmain(void *data)
-> +{
-> +	struct rtpse_mcu_ctrl *pse = data;
-> +
-> +	if (pse->requested_budget_mW)
-> +		regulator_free_power_budget(pse->vmain, pse->requested_budget_mW);
-> +	regulator_disable(pse->vmain);
-> +}
-
-Following patch 4 logic, you might not want to disable the PSE 
-controller power supply, this will lead to a power off of all your PIs.
-I think you should still free the power budget, to not allocate it twice 
-if the module is loaded again.
-
-Else is ok to me.
-
+								Honza
 -- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
