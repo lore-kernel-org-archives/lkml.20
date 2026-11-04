@@ -1,91 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820311;
-	b=c+gnUGKaZ9w/ME8zqzG019gLSh36vvmWflYm4Fq42XhN7lIJEe4HuypRyk5UuHKJHSID
-	 NylEktiWdQGKZB/zfX/WIvJvS8Zpr4akPjqDkJwLbfH9CP23hxhBK2m4JQ+ICay95Qchk
-	 GaW9CpSymQWfRpMgs8q8QPG032j0pJVMC2Qb1ewsnybP5LVfBaisuqSw+kAyeiWNdnVoO
-	 +cEYZ76+bz0EQgzPsy1JX7QKcM1csw0rWx/wZfMVZIGIVSV0/YwrtiALBKMTG2FXqWugh
-	 y5YzTPsgPDiNVT+vWQ0lLk+uNBPuMWS2ZYOTeJA6o/81Y+2zHwK/z+vmY1z6smXjIPQ==
+	t=1793820303;
+	b=HM3dHblq8X9vJ+zjynIvNU8FB4Tc/YHUlPaTCultAL7Rm/3FuohnC57gsYuXnYmxi9c+
+	 fhedPV2oM+JOQAnywpOA6ibH6337WbbxxIeTAst89/oKB9YwH+kQGysmXQcvtfnUdO3J/
+	 8E9ijTv6dHZ315muc+Y9tpMViouI1VauCBZLGnjzSbxqUXg26cM1zp4OLyPeJEdq6wzvR
+	 43wniRfbdmpl8W3JM2V49HZfAwD15QG1dVuITVGjR+AJesYfagH7FSydFYj0FK8/ydPBP
+	 I30JI5i4Nj7CNicFb0Pwg1pEG+cJfJjx0NdEa6kNF9opC8ekyrcEInwOMiVwhG5k/cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=M4cUR/bgVx/Ef4Tc/Iqux+0dgmZ5BenjLrR4X+eBZEU=;
-	b=W3zHjiK2Zq2VRo6KxCN8cpEedzihHLKSOcvCbtnKXPtgWWt83ihmVqWtC/uSDigxa2Bk
-	 VxXurZ3SdpgdRRQ778N6GKwwDHIhVrmL2ofEbYyn1+kx+r+S/Vm2Y6MJNTSf8RIZCU+BD
-	 j2xyWqzkP21tQtlT9z3bxbQvvUV4qcw69Jy3QSCyHedXE8vMAVTc+ADiAVkQIVakH2Q/7
-	 MnxaGBMSHmlzxcSULHbwdqvNnRSviS/2R/aqgvdPhAt8PnpqxE/8XYs8lE9UM+coAxFD6
-	 QZwnDe0Mh5Wcuv+AaihawJzKlLrH/pvBTy/kex+FrmphU6xVQqetfhhMhxpisHbaPlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820303;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
+	b=GMhTOkKudtWhb2SH7SfztQlvqSzpnB5XAH7uJ025GjNrJ98L+a5ykBeoLxCCoi9xVWDQ
+	 vMkz57B4IfIC5R8T8chcrzpkgFgkKshndAp49ww0q+GmQ1igvkaFbSSzqWv5u+sfTwb02
+	 o0GIcWXPQlDa+EEw2ItnGusB2S8ws4zcDaPXvEy0viH2YzPO4z1qVGrKkF9yOqtXLsMOP
+	 WmW0FPsvWZ9efUBJzcmciyLJ9LZveo7P6uro61c2G3vK4NPnq/+/OvYWpvuFf9uIm4b9b
+	 AAyebH7yQAXrIXMxAp5XzLAO+1O0032uuAPTDiaQBRX3xTA25yCbId0oMReVvHGo2zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G3d0Ev0P;
-	arc=none smtp.remote-ip=209.85.167.173
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOGtv8Mf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593B26070F1D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:25:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 593B26070F1D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2E3607E903;
+	Wed,  4 Nov 2026 19:25:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G3d0Ev0P
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-5058b105df7so428036b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:25:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793820304; x=1794425104; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M4cUR/bgVx/Ef4Tc/Iqux+0dgmZ5BenjLrR4X+eBZEU=;
-        b=G3d0Ev0PzTKoH9/qkmm1xdyYMItYLtR9472uuxqYDGGE3DTSJDpNdW5KhoxyxluyOn
-         bDJ4RdQtvjttKH/Jbe621LTmeAdFhbfq5FcDRI2p0aBcOl62R2c3QdLw0jIgQFq8BkYa
-         Rw3733tFokoCWR1RpQc6qIPQix/VVjjpj2qYOOfwn24mnZ/6oHTcvUVoWxyp9r3HFDfM
-         khvKJVKxfAdrC2gtj+aFX0JLL+N5mtIOaKAl6tOPQkT3XTwNru6mxU5tsDFZV4NGMFl3
-         TIBDEUtPsj1WwMA8a8H21JNq9F1B/R8FDGAFaPj76P08+TiGta82bulTdIFbVzc2KRgs
-         Rdqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793820304; x=1794425104;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M4cUR/bgVx/Ef4Tc/Iqux+0dgmZ5BenjLrR4X+eBZEU=;
-        b=XESu1ApICIEYRITslvyLBCJLLvh1XxsrsEx7wg+6BqMxdDF5v5q3fc348Q1fwkahkb
-         1Cg4nteoVOvmuokfqCPq4J5EZuKZwaQM3Mp05hwqRiBnkvmj5PaUaQJke232sa9kLuvL
-         0P2lf5v0hhkDWtFPGN0vCkcW0i4CKAl0R2PFwYqhCJXUSmEkqen62Zojo8kHA9ufacT1
-         CPBGcWvWfUhKGhEWsYSw/uDffvi7hS5ChVrNYOTIJFhXafhFv6Yw0S6P9yLjiGSszWx6
-         ol5SqkmoznT4u/62oxVncKvxBOF+uyBzQahYAQDfhGwz75fvJdq30l2ES9HgNMvtGwVl
-         9ybQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8m5nVqduZXMocLaP4fgsKBnLzCh/PWtvMyZVW++j/qc2KLy6cp+wNC+Bw6NzOyBry1awnVyzxVfHGHH0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fyJz5TcXgcPxY01qCamDpIbx75lQz8SFzOXVcDqYho65HmQKm
-	XnULP1aSj+15D5UQjpkCMLEGGLyC79sNjOvjw70xysUBXRxpDTmfzpQruVGvbNx+
-X-Gm-Gg: AYBFou1aBIDJW8yO+zqoZAYwcPLHnNqYOZgsR0uWDfdWRb/WFO27J2dvSSL9DCgGIMd
-	fDamYmhOCzCS1+M2JndlVwvfTUZgspGshQJKLHbH5e1510ryd76yhGo55LyRLyYGxUFpsWLn4OU
-	Nrcm/OtpjgkAGoDClQ5e0wDNfgvD+q4fIXQ3nkzd9TipG2+S1/V0tSFWbxbNFOxkfilt3CdOH1/
-	/msqUciPdUjH4YeYJna1BEhL6UesZNQllEW+m2vbBSd7YXo1nPvT9wex5hRpzL2sfniMa+ndmsj
-	pMYqPXR2gi2YlYpDmOH2Jg8SiLyutNQsguQaETAr8ykmWyfN/9SDTWnKZZvHYzQB5+8/x9ts6jn
-	/MSO0LTdI4n91lVkx1HhfyO6mWbI7q/ZDXAiBV+d7FmVDfyeE1WBhzDohzSGFacffChGtUj1fPK
-	2UjucwrLPbrXzXUdFbdrGxDWkIg6pJSv+oUWEp+ynm6Mte5HS+iJrBSUDU1io85pCekQ3XM5VOt
-	rcCozO2EhKoSiDILZed3dC338TCWh3b4RIa5LKSeoGnkYligTlurW+xPQikVRJh195whyfbvcgI
-	tGXTaLwr7XYMTXj+yv/uDQ/RsvzQrOG1/Q5gKIaod+7jv+7mBfikBEC5Dk4J7X2RZVh963bD4zr
-	Z1Kbq9CSw7XtCQXMobK0aUjsiONcyP7wtS0gzhu4RTLSfnwldq/HwbUeHznY9ROuktAfNQzDOxJ
-	Hph1/60nbCAu6GEW+eCRVwmTM8WL1qflPJwXLdES44NTYZuVtsdWyRoCBN+/TTt0TrSXRgUGsbb
-	V4=
-X-Received: by 2002:a05:6808:50a1:b0:539:596f:6623 with SMTP id 5614622812f47-5640de36536mr13164089b6e.64.1793820304255;
-        Wed, 04 Nov 2026 11:25:04 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9c7bbcesm2328723b6e.1.2026.11.04.11.25.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:25:03 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 04 Nov 2026 12:24:51 -0700
-Subject: [PATCH v12 1/5] dt-bindings: pwm: allwinner: add h616 pwm
- compatible
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOGtv8Mf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A96E1F0093A;
+	Wed,  4 Nov 2026 19:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820302;
+	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AOGtv8MfSvpV7/N3SPQdxO34HN0jitae0lUNpVEJDAU9XLw0mdF8nEKatSbYah4D4
+	 pJnFyEpZO1zbMa9uji/9OWzr8wEr6lfii12mf0iU2Lh2VjsLavJMVeCqDZp/52sjZ8
+	 3Go4KV6nkkS39oFoJGSvgQnMVnncUKXYL8Mx162m4aQQqRHIlpeUtyYZQRcyHTHG+m
+	 F6SJS7Gx3owS0zf+1GA3KxpXJd3wQWd0E3FPh1GuNLid6UQ0pR28EaGxERe/wN3pMg
+	 +vSX7Zm5D1718tOrlyhaV4OrQ07V2BymOcNC4cPME/yryrTT1k2SVGUu6wuwzfR22j
+	 +9kSochp+NapA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 36/51] proc: don't let NOMMU map procfs files
+Date: Wed,  4 Nov 2026 20:24:48 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-36-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,116 +116,111 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-h616-pwm-v8-v12-1-8ed39b0dba69@gmail.com>
-References: <20261104-h616-pwm-v8-v12-0-8ed39b0dba69@gmail.com>
-In-Reply-To: <20261104-h616-pwm-v8-v12-0-8ed39b0dba69@gmail.com>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Richard Genoud <richard.genoud@bootlin.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, 
- bigunclemax@gmail.com, linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.15.2
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3847; i=brauner@kernel.org; h=from:subject:message-id; bh=JTUUxaAv8g+OiylD/jB4kSfUdacg86Bjtrwx1fOwQ90=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bvzxcvsOxp23JLZfCWya6MPaPHGnRYPLhkVvf4fHB W9U5hb431HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRyk+MDK+PBU/le8dv0ftD 839XV15oaNPWrTw8hs1fHTLi/wid+Mbwv6CPOeDfzSePDj+a/VD2SORxlTWdy84uUOARvTIlTdD JgRcA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-From: Richard Genoud <richard.genoud@bootlin.com>
+Every procfs file has a ->mmap since commit 786d7e1612f0 ("Fix
+rmmod/read/write races in /proc entries"), whether the entry has a
+->proc_mmap or not. On NOMMU validate_mmap_request() takes that to mean
+the file can be mapped. procfs has no ->mmap_capabilities so a regular
+file gets NOMMU_MAP_COPY, and a private mapping never calls ->mmap at
+all. Instead do_mmap() takes nommu_region_sem for writing and
+do_mmap_private() reads the file into the copy with kernel_read().
 
-The Allwinner H616 PWM block differs from the A10 and H6 blocks, but it
-uses the same input clocks as H6, so extend the existing Allwinner PWM
-binding.
+Reading /proc/maps takes nommu_region_sem as well:
 
-The block has six channels that can generate PWM waveforms. Each channel
-also has a bypass that turns its output into a clock suitable for consumers
-such as the integrated X-Powers AC200 or AC300 Ethernet PHY.
+  mmap(NULL, 4096, PROT_READ, MAP_PRIVATE, open("/proc/maps", O_RDONLY), 0)
 
-Require #clock-cells for H616 because the bypass clocks are part of its
-provider interface, while continuing to disallow the property for the older
-variants.
+  do_mmap()                          // down_write(&nommu_region_sem)
+  -> do_mmap_private()
+     -> kernel_read()
+        -> seq_read_iter()
+           -> nommu_region_list_start()   // down_read()
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+The task hangs for good, holding nommu_region_sem and its own mmap_lock,
+and every mmap(), munmap() and exit after that hangs behind it.
+/proc/maps is 0444 so any user can do that.
+
+Give the procfs files a ->mmap_capabilities on NOMMU that allows
+nothing. That covers every entry and not just /proc/maps, procfs can't
+know which entry's read takes nommu_region_sem. Mapping a procfs file
+then fails with -ENODEV, like mapping a file without ->mmap did before
+786d7e1612f0. NOMMU never called ->proc_mmap() for a regular file
+anyway, procfs never offered NOMMU_MAP_DIRECT.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: 786d7e1612f0 ("Fix rmmod/read/write races in /proc entries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- .../bindings/pwm/allwinner,sun4i-a10-pwm.yaml      | 33 +++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ fs/proc/inode.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml b/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-index 1197858e431f..3b1819c8630c 100644
---- a/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-+++ b/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-@@ -14,6 +14,13 @@ properties:
-   "#pwm-cells":
-     const: 3
+diff --git a/fs/proc/inode.c b/fs/proc/inode.c
+index b7634f975d98..9933f03ab9fb 100644
+--- a/fs/proc/inode.c
++++ b/fs/proc/inode.c
+@@ -466,6 +466,18 @@ proc_reg_get_unmapped_area(struct file *file, unsigned long orig_addr,
+ 	return rv;
+ }
  
-+  "#clock-cells":
-+    const: 1
-+    description:
-+      The cell selects the PWM channel whose hardware bypass path is exported
-+      as a clock. Its rate follows the selected shared pair source and divider;
-+      the PWM period, duty-cycle and polarity logic is bypassed.
++#ifndef CONFIG_MMU
++/*
++ * NOMMU never calls ->proc_mmap() for a regular file. It reads the file into
++ * a private copy instead, with nommu_region_sem held for writing, which
++ * reading /proc/maps takes as well. Don't map procfs files at all.
++ */
++static unsigned int proc_reg_mmap_capabilities(struct file *file)
++{
++	return 0;
++}
++#endif
 +
-   compatible:
-     oneOf:
-       - const: allwinner,sun4i-a10-pwm
-@@ -36,6 +43,7 @@ properties:
-           - const: allwinner,sun50i-h5-pwm
-           - const: allwinner,sun5i-a13-pwm
-       - const: allwinner,sun50i-h6-pwm
-+      - const: allwinner,sun50i-h616-pwm
- 
-   reg:
-     maxItems: 1
-@@ -62,7 +70,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: allwinner,sun50i-h6-pwm
-+            enum:
-+              - allwinner,sun50i-h6-pwm
-+              - allwinner,sun50i-h616-pwm
- 
-     then:
-       properties:
-@@ -83,6 +93,27 @@ allOf:
-         clocks:
-           maxItems: 1
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: allwinner,sun50i-h616-pwm
-+
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
-+
-+        clock-names:
-+          minItems: 2
-+
-+      required:
-+        - "#clock-cells"
-+
-+    else:
-+      properties:
-+        "#clock-cells": false
-+
- required:
-   - compatible
-   - reg
+ static int proc_reg_open(struct inode *inode, struct file *file)
+ {
+ 	struct proc_dir_entry *pde = PDE(inode);
+@@ -559,6 +571,9 @@ static const struct file_operations proc_reg_file_ops = {
+ 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+@@ -572,6 +587,9 @@ static const struct file_operations proc_iter_file_ops = {
+ 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+@@ -586,6 +604,9 @@ static const struct file_operations proc_reg_file_ops_compat = {
+ 	.compat_ioctl	= proc_reg_compat_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+@@ -600,6 +621,9 @@ static const struct file_operations proc_iter_file_ops_compat = {
+ 	.compat_ioctl	= proc_reg_compat_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
 
 -- 
 2.53.0
