@@ -1,103 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831034;
-	b=5s/N6zGUw1JiP1rx8COSaU9W0MOcbSakEmGXJ3OgClziPex36PcwcLQKaNKGlGIoGRni
-	 Oqow8mukThrn+qNiKIAh/MHRGs8biTr8+eOl33fxA0y9Szy1IBusFDgcHQcm732Opmzoz
-	 KM+zCo6nhSC02iHVWXYn2PEmAcD7Vx1VQqioobJoDIzfCjX6NCCATmJ/cxaNAak6xCqMZ
-	 3SWmUoIs6RtUdpFnL2jXYR/mYJAUlzdNlQHIO4Ed70hFFThDFBHlzIq42GOguQnzwh60w
-	 fIJ0EYsoXH/6K6bOBwf5viuqWxdHL1BTOx+Wp7p7V/kKZM5rUOYEK3ZUBvmhJPIMB1Q==
+	t=1793831156;
+	b=Lra+BvcnSnIVG6AG5zkks9ezol+YkQeSaBgljmxdwDBBSo0dSG4164ZhG+n+aoKlFCKu
+	 FJlSsziFIcNkPNUAT42JNIyuBE25jh0+aqwDLmOASICgoL3E3XCQ86/vUy23cQT9jbuwU
+	 ri4+1KM5kEKqHHMqm7ZgNItzSlraERu2hgu60xIldlGpaCBZ1uNIKNnbwhfTg3FBgJ07V
+	 b1YRIAI6/NJ1IehGUakRKcmOp71hFiEHpvktdlwZodNGiZbOs7cBv8l6XRzx5khb6DPEh
+	 M8IlWS0C8fuCktYbkZQHx+aESQx6ijUHUXMh0yglXCs2BINBMOyiZ16NwHitSV7wQBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831034;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KeZ2aB0X0IqNy32Bwapb83gUzvOHb7jOV5nmidAoLRQ=;
-	b=zhpkZSFXvTUDjSz8we3w6JzAL/mctSq4CvX7CzOyXs2rLoe1ieBL76WmmyzUfwdasCbP
-	 GmD1fvFqbBFOgFyP8Dab23sEjE4zGvV8sg2gH994xoPajHpltqlDGSVRXB2fq+PdDphxo
-	 SI7BIPA6nJTUYVLvRvOvKM3/tXzFuY5jT512d/TO5qmrlmLDxXAaA9nmHFt08mu7/0ami
-	 WtwvSgkD3ZwP20s/kOogIxGe4zdlhlMeqUEakeWMKNeT8lf923BQMkGAr+WvabSLaSFeD
-	 VAiBMhdqRxhRz6np/nvdr+vKnfrfkCkjFaTRSRh++4DIVv/zfJ9UB34KH5INhKHWRDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831156;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=RqrFAViIXrjiourMrnhARQFUmFJOsUN3fk+kD/PpH0c=;
+	b=lxOj9FQwCJUv5j7h39D6S0384QTR3UiXOZcRl1KyCF2QRMmlmpszipYBGq/dwPAGdzf6
+	 O976Tcjtih42Yo4QMLDr4m617oMAchNnOkzonPpEjpxX7GTtAglFWzxsu1IwzYg+PTO8E
+	 m372rMdHyH2QnAxbQAxRn5ajlN6EthQBx/JtGjwPKWxKi9B1BS53uE3NDdnPRZI4X1kd/
+	 TnuJESkF2jJARem404EZACkDrUp38+EmN0KT78IdMQY4QtBAVay130AbLdSUNEng+aTvX
+	 DayNQDpHamDeMzpKTiLtTEM5+06GTNWkK9tS+fUhjOWZMBWBWq+JbR1sorVzhcbjW3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=NcEExbnD;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TictVDzt;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3999606B385
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:23:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3999606B385
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FF3606D82F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:25:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5FF3606D82F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=NcEExbnD
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f20b304c0so116418385a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:23:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793831033; x=1794435833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KeZ2aB0X0IqNy32Bwapb83gUzvOHb7jOV5nmidAoLRQ=;
-        b=NcEExbnDLtiALC276t5kcclQzZoOYloVis0hCWAdB5suqT0QkRwNJ+AFK0XB4NzGVk
-         MBvKf3YK63ail+629aXUNIvCM1WnXnfCIha+DrPSuNj8k3YzkImzwB+xGI2s2y2HBJ5T
-         vvkTuikiQqNxAICkZ4ywv2TcbVVqmFMFp/2B11hfLkRa7xqDvLx4q/6WouEjHlPu8igf
-         zrdHc2HpeafPYSIxUQLBS1un6n7qW3BkOqpkKrUbvRAIFCSnaZItXy7Cg5Cn0kHFlgPO
-         kv82C6T1O0AQD/2BA2RX99j/GbgpjX9B9AtvNADneDIEvKVhq+f3BAJVyYf4DaCus4Kp
-         YwFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793831033; x=1794435833;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KeZ2aB0X0IqNy32Bwapb83gUzvOHb7jOV5nmidAoLRQ=;
-        b=My7T3p/q+nJMfkF2NWJVYE5bBb6ZuDHK3dPHqbxC5up21JfkSGLL4Ts2TTke8PT6xw
-         Hfwe5QFzVjTztIymqDlQ7OzC5IlQ5gXL/B/8ZWSb7j9NX787R+R4UI1vlR3bja1T8+jb
-         /VHfxfcMq6FUXloJMc7FpUhZLl2gf1Drf5L9CBBwygaFrB+EHi5+zBkrKrc7J5BJpN2e
-         CmZUDVebYfz6RyRYbao+XV/U5Fgh6v26gGIszHTsJwXUVl4dajJ384KTKGs0K8705VYk
-         GKD97X5Wu1kw/HOJ4izb21u6dQuPbZzeyKyxckJO+llQZR4XygQ8TNYu34NObqskTX8H
-         dTNA==
-X-Forwarded-Encrypted: i=1; AKwUvByZmCI6yCZUcIIqDM5H4mes40B2p/aesTUkA1TVDfakupW4t2kub1dlAmvTcQ5z5Nelwqp2JYZKMrMnF0U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kSfAWGgVAToEMSTyxEQeVXvuJmd3pun/ynBr85zT5LEOrsR2o
-	zx3AeKrImsbispQh7KXqX0zAo2jrzc9Ttpi8jlrYloUj3muJoJdTE02kgna9V1fZaEw=
-X-Gm-Gg: AYBFou1J+5hvwdu6B3v371HZms7W02cEbWXxFmfB9PmIrUYdJF57Ks0YAhuTHeUd5Bl
-	jMcrUtUDY6mvfCIJgghimEyr6V9cD3NiX8X/6ctC8y6ZrwRytE9I8G7z/H4N2fJ2kONy/LYTnl7
-	e2+0TrgBeU49sUzUEcvOXRMCBWMLfeHqrmeSJ6La+v77g6E4OqiUgfS5BQ8L760GLXeUu7eNXfJ
-	fYEATqEclJOnwItMkKDjKYlhmJ81WxntQqxLWYaz5U1jEi/AonlMge7PSfIe3kNR91sdrE5E8km
-	CIx//7LZM6rfwWbLu3EuDKwfLZxZ3wDCbb/b0bsJpt102GD3eE+Fz51gibXoMnddmNQzlNsHqs5
-	uvpR/W/GuRUErSV7LPuFsFL8xuveg/+Ybr0ipecbx7VVYwyohj+/3TTRj46vug9s/PeAFBaKq2/
-	cRo1sUXNHAuGyxmctGMZp5alSSfrWmQ/YJqiQSeDEQa2er+kCtbHa2yyy4CJk1uoqbqsv7e9I7/
-	iGsgEH2J10Bn91Jsn/vz8puuvCVzrl+weawv/IKonAXWfHb35X30ye93CPAuZFWEebPSzaN824G
-	3OQi5OVhTBZI71MPeMfcwZ/LlcR39XCSOyFnMUjx1fsqVQ==
-X-Received: by 2002:a05:620a:608d:b0:93c:7e9c:3bba with SMTP id af79cd13be357-944216bd4bdmr3093198785a.41.1793831032557;
-        Wed, 04 Nov 2026 14:23:52 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.240])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4691a76sm312610285a.4.2026.11.04.14.23.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:23:51 -0800 (PST)
-Date: Wed, 04 Nov 2026 22:23:51 +0000
-Message-ID: <464ef986eab97abf226791c7e19ad111.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
- Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
- linux-kernel@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-sound@vger.kernel.org, linux-mm@kvack.org,
- Chuck Lever <chuck.lever@oracle.com>, Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH RFC 0/7] proc: move procfs to what kernfs does
-In-Reply-To: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
-References: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TictVDzt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793831154;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RqrFAViIXrjiourMrnhARQFUmFJOsUN3fk+kD/PpH0c=;
+	b=TictVDztzqbzwMYawqLlSMSuZyiXGTGGivT/FxN3wIQBj3kvxllHYuUZK56PNbBvLVsBDq
+	S5wpjRE5mxJ34YqAe4DjZIYSJhGfj2gjfpjTDk0pdQU1Y9BA4ewy/wpg/jsxdnqG9arQX9
+	yHgS5q4aionAJDRXjoA72jMDXRs7Qyo=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-463-ty3QX41dNgqrG3pXvAa2xg-1; Wed,
+ 04 Nov 2026 17:25:51 -0500
+X-MC-Unique: ty3QX41dNgqrG3pXvAa2xg-1
+X-Mimecast-MFC-AGG-ID: ty3QX41dNgqrG3pXvAa2xg_1793831149
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C26C41956041;
+	Wed,  4 Nov 2026 22:25:48 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 904451956087;
+	Wed,  4 Nov 2026 22:25:46 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
+To: njavali@marvell.com,
+	martin.petersen@oracle.com
+Cc: GR-QLogic-Storage-Upstream@marvell.com,
+	James.Bottomley@HansenPartnership.com,
+	kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	mhklinux@outlook.com,
+	sbhat@linux.ibm.com,
+	kmahlkuc@linux.ibm.com,
+	linux-scsi@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] scsi: qla2xxx: Use the real INTx pin for the port number on Hyper-V guests
+Date: Wed,  4 Nov 2026 17:25:41 -0500
+Message-ID: <20261104222541.2675051-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,199 +86,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hey Christian,
+qla2x00_set_isp_flags() derives the physical port number from
+PCI_INTERRUPT_PIN, and the port number selects the per-port VPD, NVRAM,
+NPIV and FCP priority flash regions.
 
-This is a summary of my Claude review of everything.  It didn't find
-anything wrong with the conversions in parts 3 to 6, the findings are in
-part 1 and on the procfs side.  1-3 are reproduced in a VM, 4-6 are from
-reading the code.
+On Hyper-V guests, pci-hyperv returns 0 for byte and word reads of
+PCI_INTERRUPT_PIN since commit fea93a3e5d5e ("PCI: hv: Return zero, not
+garbage, when reading PCI_INTERRUPT_PIN"). Commit 7268e509b43a ("scsi:
+qla2xxx: Handle INTx not connected while passing through") then falls
+back to PCI_FUNC(). With Discrete Device Assignment (DDA), each function
+of a multi-port HBA is presented as function 0 in its own PCI domain, so
+every port gets port_no 0. All ports read port 0's NVRAM, pass the
+checksum and register the same WWPN, and nothing is logged.
 
-1) bugfixes 19/38 ("proc: resume readdir after the last name it
-   returned")
+Without that commit, port_no underflows to 255, no flash region is
+selected and every port fails with "Inconsistent NVRAM checksum" and
+falls back to the default WWPN.
 
-proc_readdir_de() now returns 1 instead of 0 when there's nothing left
-to emit:
+pci-hyperv only zeroes byte and word accesses within 0x3c-0x3d. A dword
+read at PCI_INTERRUPT_LINE reaches the device's config space and returns
+the real pin in bits 15:8. On Hyper-V guests, use that when the byte
+read returns 0, and warn if the pin is still 0 so that duplicate WWPNs
+are not silent. Bare metal, KVM/vfio and other hypervisors are
+unchanged.
 
-	if (!de) {
-		read_unlock(&proc_subdir_lock);
-		return 1;
-	}
+Tested with an equivalent change on a RHEL 9 (5.14-based) guest with a
+dual-port QLE2692 (ISP2261) assigned through DDA (Hyper-V host
+10.0.17763):
 
-proc_root_readdir() needs that to go on to the pids, but proc_readdir()
-and proc_tgid_net_readdir() are also the ->iterate_shared() of every
-other directory, and iterate_dir() hands the value to its caller.
-getdents doesn't look at it, old_readdir() and the compat one do:
+  before: both ports "Inconsistent NVRAM checksum=0xffffffc0 id=NGKP",
+          both WWPN 0x210000e08b1c5586
+  after:  port_no 1 and 0, NVRAM valid, WWPN 0x210034800d7065bd and
+          0x210034800d7065bc, fabric login and FC-NVMe localport
+          registration on both ports
 
-	error = iterate_dir(fd_file(f), &buf.ctx);
-	if (buf.result)
-		error = buf.result;
+Also tested on bare metal (ISP2031): the new path is not taken and port
+numbers and WWPNs are unchanged.
 
-	return error;
+Signed-off-by: Laurence Oberman <loberman@redhat.com>
+---
+RFC: this relies on pci-hyperv not virtualizing dword reads at 0x3c,
+which is an implementation detail rather than an interface. It is posted
+as the smallest working fix and to start the discussion. Feedback wanted
+on cleaner alternatives:
 
-So at the end of the directory readdir(2) returns 1 without having
-written a dirent, and keeps doing that.  This is syscall 89 through
-int $0x80 in a loop on x86_64 with IA32_EMULATION, giving up after
-100000 calls:
+ - Hyper-V (linux-hyperv): could pci-hyperv expose the real
+   PCI_INTERRUPT_PIN, or provide the physical function number, for DDA
+   devices? Some drivers use the pin for port identity, not only for
+   interrupt routing.
 
-	             base, 18/38         19/38, whole series
-	/proc        106 entries, 0      106 entries, 0
-	/proc/fs       4 entries, 0        4 entries, 1 from then on
-	/proc/net     31 entries, 0       31 entries, 1 from then on
-	/proc/sys     10 entries, 0       10 entries, 0
+ - Marvell: is there a firmware or register source for the physical
+   port that does not depend on PCI config space? CSRX_FUNCTION in
+   ctrl_status is a single bit and would not cover quad-port
+   27xx/28xx/29xx.
 
-/proc/bus, driver, irq, tty and self/net do the same as /proc/fs.
-glibc doesn't use that syscall, but this patch is tagged for stable.
+ - The check is x86-only (hypervisor_is_type()). pci-hyperv also
+   supports arm64 guests; a better way to detect a pci-hyperv bus is
+   welcome.
 
-proc_readdir() has to keep returning the 1 for proc_root_readdir(), so
-I think proc_dir_operations and proc_net_operations want a wrapper that
-turns it into 0.  The comment above proc_readdir_de() that says the VFS
-doesn't care about the return value should go as well.
+This has not yet been tested on a 7.3 kernel in the DDA guest; testing
+was on a RHEL 9.8 backport. The upstream behaviour without this patch
+(duplicate WWPNs with no warning) follows from the code and has not yet
+been reproduced on 7.3.
 
-2) cleanup 5/5 ("proc: drop the _buf suffix from the new methods")
+ drivers/scsi/qla2xxx/qla_os.c | 40 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 39 insertions(+), 1 deletion(-)
 
-4/5 renames the old ->proc_read() so that "A module that sets one of
-them doesn't build anymore".  5/5 hands the name to the new method, and
-the old and the new prototype only differ in __user:
+diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
+index 3c412c7fb6fe..4180d3f15231 100644
+--- a/drivers/scsi/qla2xxx/qla_os.c
++++ b/drivers/scsi/qla2xxx/qla_os.c
+@@ -24,6 +24,10 @@
+ #include <scsi/scsi_transport.h>
+ #include <scsi/scsi_transport_fc.h>
+ 
++#ifdef CONFIG_X86
++#include <asm/hypervisor.h>
++#endif
++
+ #include "qla_target.h"
+ 
+ /*
+@@ -2704,6 +2708,40 @@ static struct isp_operations qla29xx_isp_ops = {
+ 	.initialize_adapter	= qla2x00_initialize_adapter,
+ };
+ 
++/*
++ * Read the INTx pin used to derive the physical port number.
++ *
++ * pci-hyperv hard-wires byte and word reads of PCI_INTERRUPT_PIN to zero.
++ * With Hyper-V Discrete Device Assignment every function is also presented
++ * as function 0 in its own PCI domain, so the PCI_FUNC() fallback gives
++ * port 0 for every port and they all report port 0's WWPN. A dword read at
++ * PCI_INTERRUPT_LINE is not virtualized by pci-hyperv and returns the
++ * device's pin in bits 15:8, so use that on Hyper-V guests.
++ */
++static u8
++qla2x00_get_intx_pin(struct qla_hw_data *ha)
++{
++	u8 pin;
++
++	pci_read_config_byte(ha->pdev, PCI_INTERRUPT_PIN, &pin);
++#ifdef CONFIG_X86
++	if (!pin && hypervisor_is_type(X86_HYPER_MS_HYPERV)) {
++		u32 val = 0;
++
++		pci_read_config_dword(ha->pdev, PCI_INTERRUPT_LINE, &val);
++		pin = (val >> 8) & 0xff;
++		if (pin)
++			ql_log_pci(ql_log_info, ha->pdev, 0xffff,
++				   "Hyper-V: INTx pin reads 0, config dword 0x%08x gives pin %u.\n",
++				   val, pin);
++		else
++			ql_log_pci(ql_log_warn, ha->pdev, 0xffff,
++				   "Hyper-V: unable to determine physical port, ports may report duplicate WWPNs.\n");
++	}
++#endif
++	return pin;
++}
++
+ static inline void
+ qla2x00_set_isp_flags(struct qla_hw_data *ha)
+ {
+@@ -2887,7 +2925,7 @@ qla2x00_set_isp_flags(struct qla_hw_data *ha)
+ 		ha->port_no = ha->portnum & 1;
+ 	else {
+ 		/* Get adapter physical port no from interrupt pin register. */
+-		pci_read_config_byte(ha->pdev, PCI_INTERRUPT_PIN, &ha->port_no);
++		ha->port_no = qla2x00_get_intx_pin(ha);
+ 		if (ha->port_no == 0) {
+ 			/* None of INT[A|B|C|D] may be virtualized by vfio */
+ 			ha->port_no = PCI_FUNC(ha->pdev->devfn);
+-- 
+2.56.0
 
-	ssize_t (*proc_read)(struct file *, char __user *, size_t, loff_t *);
-	ssize_t (*proc_read)(struct file *, char *, size_t, loff_t *);
-
-Only sparse sees that.  The compiler does reject an old ->proc_write()
-or ->proc_ioctl() (gcc 13, clang 18), but this
-
-	.proc_open	= foo_open,	/* single_open() */
-	.proc_read	= seq_read,
-	.proc_lseek	= seq_lseek,
-	.proc_release	= single_release,
-
-builds without a warning with W=1.  pde_set_flags() only refuses the
-release helpers for seq_file entries, which this isn't one of, so it
-registers too.  With a module that has exactly that loaded on top of the
-series there's no warning, open() works and every read() fails with
--EFAULT.
-
-The tree had 84 of those at your base.  None are left, but whatever is
-in flight in other trees, gets backported or lives out of tree ends up
-there without anybody noticing.  Either the read method keeps a name of
-its own or pde_set_flags() refuses seq_read, and either way this
-probably wants an entry in porting.rst.
-
-3) bugfixes 38/38 ("selftests/proc: check that a faulting readlink()
-   doesn't hold up removal")
-
-This adds proc-remove-slow-reader to the Makefile and to .gitignore
-along with proc-remove-slow-readlink, but proc-remove-slow-reader.c
-only shows up in core 08/16.  From here up to core 07/16 make says
-
-	make: *** No rule to make target '[...]/proc-remove-slow-reader'.  Stop.
-
-in tools/testing/selftests/proc, so also with part 1 applied on its
-own.  The two lines want to move to core 08/16.
-
-4) core 04/16 ("proc: let procfs own the seq_file of seq_file entries")
-
-pde_seq_start() returns right after it unpinned, pde_seq_next() goes on:
-
-	v = pde->seq_ops->next(m, v, pos);
-	if (v == ERR_PTR(-EIO))
-		pde_seq_stop_pinned(m, v);
-	/* seq_file would blame these seq_operations, blame the entry's */
-	if (*pos == old) {
-		pr_info_ratelimited("buggy .next function %ps did not update position index\n",
-				    pde->seq_ops->next);
-		++*pos;
-	}
-	return v;
-
-core 16/16 documents that next() may return ERR_PTR(-EIO).  A next()
-that does and leaves *pos alone is called buggy for it, and
-pde->seq_ops is read after the unpin, when the module it points into
-can be gone.  Nothing in the tree returns -EIO from next() today.  A
-return v after pde_seq_stop_pinned() takes care of both.
-
-5) bugfixes 35/38 ("proc: sysctl: don't hold the tables while readdir
-   copies to userspace")
-
-	while (err > 0) {
-		if (!d.skip) {
-			err = proc_sys_fill_dirent(file, &d);
-			if (err)
-				break;
-	...
-	sysctl_dir_done(&d);
-	return 0;
-
-sysctl_dir_next() only pins the memory, so the entry can be unregistered
-before proc_sys_make_inode() looks at it and returns -ENOENT.  The loop
-breaks without moving ctx->pos and returns 0.  If that was the first
-entry of the getdents64() call userspace sees the end of the directory
-and loses everything behind it.
-
-The old code bailed out the same way, so it's not a regression, but
-it's the "terminated early" case you set out to fix and these are the
-lines that get rewritten.  Handling -ENOENT like d.skip would carry on
-after that name.  -ENOMEM probably wants to be returned instead of
-turning into EOF.
-
-6) stable tags, bugfixes 34/38 and 37/38
-
-34/38 has no Fixes: or stable tag and says "No functional changes", but
-35/38 is tagged for stable and depends on it.  Without 34/38
-proc_sys_make_inode() reads table->mode and calls ->set_ownership()
-after it dropped sysctl_lock, and the caller 35/38 adds doesn't keep the
-table registered.  35/38 applies cleanly without 34/38, so nothing will
-complain if only the tagged one gets picked up.
-
-37/38 has Fixes: 7e0e953bb0cf, which is 4.0.  "the inode holds a
-reference to the entry" only covers RCU walk since 47458802f660
-("procfs: move dropping pde and pid from ->evict_inode() to
-->free_inode()"), which went into 6.8.  Before that the inode drops the
-entry in ->evict_inode() without a grace period, and the pin is what
-keeps ->data around for a walker that got it from ->get_link().  Which
-stable trees have that commit isn't something I checked.
-
-Smaller stuff:
-
-- The cursors in bugfixes 19/38 and 31/38 hang off an open file and
-  anybody can have as many as they have fds, so GFP_KERNEL_ACCOUNT.
-
-- copy_to_user_fromio() has no callers left after drivers 22/23.
-
-- fs 07/27 says ntfs_set_label() refused a label that's too long with
-  -ENAMETOOLONG or -EFBIG.  It doesn't always, cpu_str.len is a u8 and
-  ntfs_nls_to_utf16() is allowed (PATH_MAX - 2) / 2 here, so 300
-  characters come out as 44 and pass the check.  That's an old ntfs3
-  bug, it's only the sentence in the changelog.
-
-Two more old ones that you might want in part 1, the series doesn't
-change either of them:
-
-- allocinfo can deadlock against a module load.
-  codetag_alloc_module_section() calls reserve_module_tags() with
-  mod_lock held for write, and its three error paths call
-  shutdown_mem_profiling(true) -> remove_proc_entry("allocinfo"), which
-  waits for the readers.  A reader that's pinned and in
-  allocinfo_start() -> codetag_lock_module_list() sits in
-  down_read(mod_lock).  There's no copy to userspace involved, so
-  moving the copies out doesn't help this one.
-
-- snd_info_text_entry_write() allocates the larger buffer and frees the
-  old one without copying what's in it, so a text entry written in
-  pieces loses the start once it crosses a page.  It's been like that
-  since ffb73b08e794.
-
-For what it's worth the end state checks out.  Every proc_ops
-initializer in the tree matches the final struct, the only entries that
-still read straight into userspace are kcore, kmsg, kpagecount,
-kpageflags, kpagecgroup and profile, all built in and never removed, and
-nothing in the tree trips the new checks in pde_set_flags().
-
-This part is me. I have a selftest that my claude wrote to validate #1.
-If you want I can send it along, but we should probably have a test for
-that.
-
-Thanks,
-Josef
