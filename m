@@ -1,110 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.0
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793830559;
-	b=aFmiqn5FP64SzjFUpXEqy5wnGhFFkmCF+AZQmV7JUXNSzLNl/PA4pWoLoOayC+0bOYFX
-	 wxKQl9FSk22Gnkd109aBZKnNcycJpFegLYeAzoJ/8TNfiYo/bKwgPcXNVYP4WKHnYIvBm
-	 uDgzZnwGbuzvQWMocgR8sxSlsM/vKYCOxSxbfzJAdVXOvLbBsLS3RcEaqSf1Ffi0mfY3O
-	 uucn217jfxeVLCV2tDWhOsnswxJd2VbWyDLs3XNnzw25hosuCGpG3hBCKTX5vvjqFJhLc
-	 NeOni7bEAp/8hYklBhcaz1i4xk4U1odJMR7btPPeDvuIRphU+DGRmPMF0cbw7KmPvJg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830559;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XtuEnitAViyPZZvLuUFsPd+dGyroG/JRi4ghERTiCAY=;
-	b=n1nmown4Vm5j8vSAIPaPQ1h6JUCWbvusbQ99F1/jY/vjB6TdRiouZ7GS/I+3lA9CCnVb
-	 DdaEdmsmNCgXMoBFxZWozSZOH7+W4+ytCDHsn9Y2I+6+UmgKzJVhcEPE6UOIqVrf7guex
-	 qCp9Pg/5JSTlq3E2Ho9clxC2hKRZIunOdgX6Q9S39O/rr6h+IDjx4F0ED+VQZkwIGGWR/
-	 fqZxrqj3RcNzOlDqzMmWCgMhMBPdxh6aAQTRcCr4kx47I5gRllPlx2q/QMYi7v5G28sEX
-	 wAfjfBY9MYDFbFPrMaQei6gvkRhILmb98M8Pwh1IzMAlxANqG6/HjDMgBJu42Q5pDQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XjpJWT54;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.0
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010000.outbound.protection.outlook.com [40.93.198.0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793830557;
+	b=xwWlIspv3xg28KEkNAj6w+pFxnNWniRyy2a3Z1Aj7jMFpNvzxeELY4Qm9EGNNrp/tpM7
+	 5HY6/fhI7MFWLwa45u05/Q17+ezaOFaJERYk5pV6oEjHLnzE8DUm3lRfZ1C+V3BYHZnBt
+	 8XPGkvMX7uOu6uSEXZ6Rh1fL6CQ+xsp6uP/HDs9PJ7akqWh+n7g0D2TZ7jZwf8VSiXvyx
+	 MnLD2IJzHXGR6eVzrDemwzjmkWG80vBIUjHqVcdk30s1fKCf/7fk9csxQfjZ3DGXiTf89
+	 xbnKNK9auhibagb8iqjStww58aBmcxX+CVoOj/vji9u9QwcNQXnzTo/BqmDwF+1//oQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830557;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=e9Al2DEvIWLb6MWcheqyXmrjikqbykjExztYBLPRPTY=;
+	b=XuZNIZ66BkrNj6SXS8FxT/8AXHvVk8whwtx3kbBWzbaLtn8G6AEE7x98MRREQzzmlogA
+	 5BBTyFwOeWJqAvBLCQET4uBPs3RSxXlgFgk+PHJdvG8MJOiDPa8jPSBI3fH8HiQ8t8Nq1
+	 Fe1jeLKt7SR7Lcq7m6wc/vVlseey07bAs6atMV1M1JA6TAsw/Ty9J3V5aOjeqkros2M7h
+	 pvqHDpEezMpzVmntFWfupdD6MK0ZfN9uNPyahSDKoMJjGs66JugQ0pvP0/Ci9+xfRKnAx
+	 gOgtHwtceYESGeYJ5GLykGWLu2c+hoZG0XnakHZwgzgleUkiSonEaitOFydxmtuXG+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LPrGVcha;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED443606AB22
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:15:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED443606AB22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46561606AB06
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46561606AB06
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XjpJWT54
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bu+3lHCO5lSMF5emjZOOCGbP2cDOKTsyxb5bAcCsppzshFq9neGTXSoaRqnoy8odOhhzAQf2okZpNtCexEMrICpmh3zFkO5KWrFQVr1eErvfONSxz+1q+emQ0Rb2CQIAM5YkVJG/wcbE9XMObO5ophddIYaCJwQb6mby1WoRZjGiN78WDMyueRNvD9namZsG1/TcRUBRTm2VDgZdQTcm59SxSeZwhLce+QOW3xm+fJF5gFk0zWTidsXJ0eUIADpHA//q0460N0KhPjdON3MDMRT7SLBOmnzbP3yt0uII5Qe0pLGhhxp96o+qcf0pIzUg2OLMv09xjCl+tQ517mqRXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XtuEnitAViyPZZvLuUFsPd+dGyroG/JRi4ghERTiCAY=;
- b=EgTVp42UhDRnIfLhlHcoXZKt2DVdJrmNWyD/BKS57GtNrEnrZPfouslb2JeHI/WejcgeF69mLChXAbHXr/pOWU1kRo5XRe5HJKy1CRmieLIgbtigqLUVDzndfpGG2yr59rmPURqiGHeblW0iH5wBh6p9ScAqsefTqugf39dqfxGxlrbbiHREBNDULKzr11VETJ8g1rehmFEWq3YNZCGsGAndJGQ4dzisvw+TGtELgks7C5KEpIBgNkdTIQR5yaw8kMnm4XmJb85piok8nF+L9ZI3D3Ctt2Eh3i8/4y/JK/hBsCI+cZOx3XNOv78sYSoQgtK8Pz/14ml2CzHwVXa6xQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XtuEnitAViyPZZvLuUFsPd+dGyroG/JRi4ghERTiCAY=;
- b=XjpJWT54Lamp3UX9WOpSk1sURCbLfj05R3WVrC4hhf+CiKDuKFnYTNrZxawkG8Ceu6jJuOU2OclCjdSSGXX9qMs8rSwyybwLK+Z5XF8/TzfT9U2iIwJQRzfjVUIHoNoFt+wF6DbyPkTnzW6Y2wSZRnwzsD7LhtPCaPz+MGcVlPk=
-Received: from CH2PR11CA0010.namprd11.prod.outlook.com (2603:10b6:610:54::20)
- by IA1PR12MB9523.namprd12.prod.outlook.com (2603:10b6:208:595::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 22:15:56 +0000
-Received: from CH2PEPF00000140.namprd02.prod.outlook.com
- (2603:10b6:610:54:cafe::6f) by CH2PR11CA0010.outlook.office365.com
- (2603:10b6:610:54::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
- Nov 2026 22:15:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:15:56 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
- 2026 16:15:52 -0600
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 4 Nov 2026 16:15:51 -0600
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH V1 4/4] accel/amdxdna: Add AIE4 CERT firmware version query
-Date: Wed, 4 Nov 2026 14:15:40 -0800
-Message-ID: <20261104221540.631182-5-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104221540.631182-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20261104221540.631182-1-yidong.zhang@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LPrGVcha
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e954d87b48so16515475ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:15:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793830557; x=1794435357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e9Al2DEvIWLb6MWcheqyXmrjikqbykjExztYBLPRPTY=;
+        b=LPrGVchao38f/SC+Kx9VugPICoxtMEPaCao5/c92/o1Bs8B/BIu+4gtCfeX3e3gyLd
+         Z3o4jqUFbAXFK8HujH66pWdUMmxYxgsf9SPw7Jt8ZoxqoUcCbMikYmtlnXQpBH+3J1m2
+         3aENwqZ/9DjS/k2WO1q8pfqKv39uVLlxNH0jxS28STi/1Xd21DJKH3xPRWKsLl3E6Bz3
+         GtlxX9Y0PJST+9xpuRkwGl6OBrdTOUBsKEn2pwrUsAWWb7PRRY5zxpE7upKmJ7i63xxH
+         gmqBGFhGgh7SC4GyfSoyTO5KEs+GXPKuJ9gsaTciS/Ww6PWriMd+2GzOaeuqEf0qbLG0
+         tGnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793830557; x=1794435357;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e9Al2DEvIWLb6MWcheqyXmrjikqbykjExztYBLPRPTY=;
+        b=majF0wnwxXlSL2gBu9Pw8n50Ey7Bd1Ubv94iTt0o3YYut9le2mbFRWa9pqy0drrV+e
+         ajzjxqrgSYvgZdZRNvtLHAe3bsD3BI2vyCad1eYyQAY0mMS42P+Je9vpWSUt1Rusrnxh
+         x3O/pqL5MqPQoJrQQ7Ai91xKXgh6pnjfgNhUeENiZJsyM5EVy2VdpW7xbk841S/BKGLG
+         k3Pf7QVVBzBTQ9X02vgZSE+EzAVP4RczK2di7K3WiKLDecFdXP/hjYvKceYt7KCMIgo2
+         u0QSNLepmQepaizCbu2BnyOWesAE/IF4L5XvEv5iQ6G27A7WTgLKZkM9AEYS0B5hzQZi
+         cKNg==
+X-Forwarded-Encrypted: i=1; AKwUvBz0W9p9qXEQUQZseThD/Y727rL85kHL0+cK6GuJqcMLGMzKrjUzsuf+RPqyyLqwEPWDmmR8dqT2suqV32Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Z1iGMYpzv1ZmXVplMIlKTO9uWnRTpCo8acF7H/lFr4J3knLEf
+	GqOGt2ALXQ4tNxtv0LOaXTTyUD/SVGLT/TSjZ3Xbbif81YY9EbqJ/G3FvjYacejOCoFaQTYeRti
+	ocPHE5Q==
+X-Received: from plbmc12.prod.google.com ([2002:a17:903:2b0c:b0:2ea:7f9c:2ce])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e84c:b0:2e9:4008:6fda
+ with SMTP id d9443c01a7336-2eb364b5c4bmr178143285ad.28.1793830556445; Wed, 04
+ Nov 2026 14:15:56 -0800 (PST)
+Date: Wed, 4 Nov 2026 14:15:55 -0800
+In-Reply-To: <CAO9r8zOa315UTmR4fbGzyHMtKDfUjW=6ehTrdA9js+JOAb3d7w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,70 +79,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|IA1PR12MB9523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82ec213e-12a0-4dfe-5bef-08df3ac132bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|6133799003|10067099003|22082099003|18002099003|4143699003|11063799006|261026140227099003|261028144727099003|261026121527099003|261102123227099003|261009223027099003|56012099006|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	kvPCDsuqPF960tkfdzBxddAfZ+lkE7u21f7iiu6h6UBNmy7L91qhdz2CAvZmKCd3kn2kZa8Mvhwc2K+WEk1Gwg0AVSFjzPa0l1mODxa3k6A3dhoK/jcWQn5r4MJT2ECxoYdWmke8Gn/LvroZLp1HeyI9Xo607D+E1ULHFbuJ3FMzSYRBYd4WbaNp+PmeFsskDvbKshtq7PpXXt+mUtMx/X+gv5fsFovx+K3o5NwT/RozHlBCXSTJVGGXqK3Yke1q+bhTttgiQVWSPuoSssrk2Y0MspvJR9d2EBA4dGBlze61vuZ4nRJwhYYVyrP8hlBvEKDQJUYkDDFp3FPwz6o1B+KfgzidCzqERrJNQUjC/UUZCH48AagWKBTTDlvc5Zhw10MajtplcjRbAoQ3UYnrXz5UXeGBgsUA12fnCf5micLDgQLzOUbqG1B8hb3bseheGmSOfJfwgPL8IsRKwylWQ6e6yTXDk08JaNlJaiZLHQkUT5DQxI5slDf9asQTMwntp3DM9z3azI+E8i4hslcELbZ+flAlBZ6pn8DMIqJrmz8Z6M3QQRXMEmIlv/+I1kQJiOFPVvlEj1V1g4TjHQhu0g7ZGBVtO1NBh96HtbfMZsjOVNJVzNYB8vxyIZKTCKbnEj4DXmRKalKW3vOq6bJa+6L4F6lueZ0CZid2dfivmyLotP59cDK11bJaWMoA9O/JJ2MOdqH4Me567rYvXPPqLg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(261009223027099003)(56012099006)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vKMNvc0iBqDKfvB8hkM+0QNDbWY0qKFRe4Qs/M39eFRduPz6cvSTgYZs9lOSqhmYiYrDEeL7w8oDo+sFQ6FE/tsvUm5HHJ8cwesPc+Nc2o30HEXMOuHQPc9rt0IteEP1ARMwwlde4aT5hAwLRZEqoo0KAJ+y1hyN/H1HRKvesoKz4M9w+LAp1xCj6e9YGSlOOiR6N2kv8AE1pzzhgKzRvD+QBKn+Celrd4tDiKWJD29IoJZi+xdEbmjjaeKl8LqgwAPrugVUDhZpTcj0lkBN41wPanI2ewsbGQgp9UqZN0eibAANPcO0nHV+C7jfvPx5H3aApqhMAMS3TKgnGs2Tk2jW+M7wwcwOd4Y2RmbVSTa3RE80th09zEyDPGeCLeLc0DebAbNk6EdgeLxFEONEA7PCOC/Uj3CAXDeUi1NiKUsXW0URa3+DUC+p9cgJ2r/a
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:15:56.3558
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82ec213e-12a0-4dfe-5bef-08df3ac132bb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000140.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9523
+Mime-Version: 1.0
+References: <20261012233638.2546339-1-yosry@kernel.org> <CALMp9eSuH1xe7PQ_WtE9DjqWjnKanFD_AFiiR9rEYkSV+sj45w@mail.gmail.com>
+ <CAO9r8zOa315UTmR4fbGzyHMtKDfUjW=6ehTrdA9js+JOAb3d7w@mail.gmail.com>
+Message-ID: <auuum7Dq0w-swARW@google.com>
+Subject: Re: [PATCH v3 00/27] KVM: nSVM: Optimize nSVM TLB flushes
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable the CERT firmware version query ioctl on AIE4.
+On Wed, Oct 14, 2026, Yosry Ahmed wrote:
+> On Wed, Oct 14, 2026 at 6:23=E2=80=AFAM Jim Mattson <jmattson@google.com>=
+ wrote:
+> >
+> > On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+> > >
+> > > This series optimizes TLB flushes for nested SVM by using and maintai=
+ning
+> > > a separate ASID for L2 for each vCPU (similar to VMX's handling of VP=
+IDs),
+> > > rather than sharing the same ASID and flushing everything on every ne=
+sted
+> > > transition.
+> > >
+> > > The series also drops the dynamic ASID allocation scheme and uses a
+> > > static ASID per vCPU (or two if using nested), bringing it closer to =
+how
+> > > VMX handles VPIDs. Modern CPUs (Rome, Milan, Genoa, Turin) advertise =
+32K
+> > > ASIDs, so there is no need for dynamic allocation.
+> >
+> > I'm not convinced that this is the right direction. It's almost always
+> > better to do things locally when possible. Why not keep the per-CPU
+> > generational allocation, but allocate two ASIDs per vCPU=E2=80=94one fo=
+r each
+> > VMCB?
+>=20
+> This is what a much older version of this series did:
+> https://lore.kernel.org/lkml/20250205182402.2147495-1-yosry.ahmed@linux.d=
+ev/
+>=20
+> Then we moved on to per-VM fixed ASIDs to align with SEV, but the
+> tracking of "which vCPU used this ASID last" was annoying, so we
+> settled on per-vCPU fixed ASIDs, similar to VPIDs, with the caveat of
+> not being able to disable ASID (Hence the fallback ASID thing).
+>=20
+> Other than alignment, dynamic allocation of ASIDs means that we need
+> to handle the possibility of ASID reuse, which imo introduces more
+> complexity than the fallback ASID logic, patch 10 lists three very
+> recent fixups that we need to handle corner cases with dynamic ASID
+> allocations:
+> https://lore.kernel.org/kvm/20261012233638.2546339-11-yosry@kernel.org/
+>=20
+> There is a 4th one that was sent after patch 10.
+>=20
+> Also, the dynamic ASID allocations give the VMs more noisy neighbor
+> power, I think the ASID is reallocated on INIT, so a VM can trigger
+> running out of ASIDs on a pCPU and flushing the ASIDs of all other
+> VMs. Yes, we can handle this in INIT, but the problem is completely
+> side-stepped by using static ASIDs.
+>=20
+> > This would eliminate the need for a fallback ASID and remove any
+> > possible concerns about contention for a global bitmap.
+>=20
+> The fallback ASID logic is annoying, yes, but it's only in a few
+> places. I don't think there's a risk of real contention in most
+> practical use cases, we can run 32k vCPUs per pCPU before we run into
+> issues. I think we will hit other scalability limits before the
+> fallback ASID becomes a problem.
+>=20
+> > Moreover, it would be much simpler to implement.
+>=20
+> The delta is smaller and simpler, yes. But I think the static ASIDs
+> code ends up being simpler to reason about.
 
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
----
- drivers/accel/amdxdna/aie4_pci.c | 3 +++
- include/uapi/drm/amdxdna_accel.h | 1 +
- 2 files changed, 4 insertions(+)
++1.  The per-pCPU tracking might require less code, but OMG is it hard to r=
+eason
+about.  I also hate having completely different schemes for VMX vs. SVM, it=
+ makes
+it extra difficult to reason about TLB stuff when looking at KVM x86 as a w=
+hole.
 
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 101f0f27b466..5b1d61dd0d8a 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -835,6 +835,9 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
- 		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
- 		break;
-+	case DRM_AMDXDNA_QUERY_CERT_FIRMWARE_VERSION:
-+		ret = amdxdna_get_firmware_version(client, args, &ndev->cert_version);
-+		break;
- 	case DRM_AMDXDNA_GET_POWER_MODE:
- 		ret = aie4_get_power_mode(client, args);
- 		break;
-diff --git a/include/uapi/drm/amdxdna_accel.h b/include/uapi/drm/amdxdna_accel.h
-index 0e41c45ba720..6369d82e5067 100644
---- a/include/uapi/drm/amdxdna_accel.h
-+++ b/include/uapi/drm/amdxdna_accel.h
-@@ -525,6 +525,7 @@ enum amdxdna_drm_get_param {
- 	DRM_AMDXDNA_GET_FORCE_PREEMPT_STATE,
- 	DRM_AMDXDNA_QUERY_RESOURCE_INFO,
- 	DRM_AMDXDNA_GET_FRAME_BOUNDARY_PREEMPT_STATE,
-+	DRM_AMDXDNA_QUERY_CERT_FIRMWARE_VERSION = 14,
- };
- 
- /**
--- 
-2.34.1
+The other big argument for per-vCPU ASIDs is that it will allow us to elide=
+ TLB
+flushes on task migration[*], which might not be a major performance win fo=
+r bare
+metal, but it can be a significant win when running nested.
 
+https://lore.kernel.org/all/aHWjPSIdp5B-2UBl@google.com
