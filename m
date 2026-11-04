@@ -1,49 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759626;
-	b=YjdZEnyhH2RAaRYG3fPSnyuSqXjVJ/SJ33r67YadaBXRkAhsRj0YeqNDq8ta4uIagSgV
-	 pbcD6iptxMz3UlwdC8+gY3WPhFoYHyYEVS3qNb07szJW48nIi6lpT7G0RxZzM83uutZra
-	 wtyGggg4EFVgv30ahV/tGbtG2KK7veSlO4OfkHg5mD1an76yWpA7aFnq4nehTaLOTnHLu
-	 LQWuVS2c/+uiXKgDCZnW4sIVLIPEdndXHjItO+plWPzLKNP4VenHd24LryMmesX7kJTWF
-	 eNC8BxjGLI66OcQ/4mG4EbjCrL6aE1JDpIBPWI4LthujDZez0ljPf+bwkEB8Pw+iUaQ==
+	t=1793759704;
+	b=0NHA/6xozdNQ0cicL94bf78rwBvp3fzR3n0Ctwer8t4+bicU6yWtehfhZbV931wkmYyh
+	 RCd6bNEHpA4DJ6CGfMBlNomrVCdxcXEv0CX8/yfZMlc+vcfMJoNzDkfjDnqLS7D7ONTp9
+	 fgzldeNj+cnBox2rXe2eXIpcsFr7Y7Mu1cHCuH1eXM9VbHWqHurFkmN7viHyAijoDQCXf
+	 TGTqL2596EGZz2qGXB04ErMk6L7k/OVkqo+IbSrSuEzz4rhsCuedNjj6DGVJgMwEBK5q5
+	 PNlPlR7BHdNVkIAFUPtWCZHJ41BhBTrJ0UEFnlv9jnh36cGLLMmYb4qW7dHp9T+Hdkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759626;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=C93F15dXYgg+A5lW50QDJhX5ONKlj8WJyTaRPVwgx90=;
-	b=wdcODQ4FFn0WkjSA7XgxYyM5LkwPY3Xp9nl80pH3YkhZlK7kTinA+lzaEScN7fwDMcZ2
-	 RY18meKZYTPQJi3SN4W+UTI3j+5XO8+gjstA0rYGajKSEpVfyXFriTfzGeyaSKs0gYC0O
-	 2NvU5LBersk/FWwxfSmaR1xWWPQ91Gd2INXkz3gtCeilNhY8SlJ22hqlVp5RBrlF6CteD
-	 xCRijJz96XlPnqo+YJYWTk3cpKbhmO+Yo7inTOoXIDwWaXpRCpu2wphjUFLAE/jJjtEWD
-	 YOnbTPqLuv/BpXqoPXFiN9EuXnBu0zUzzHxd9gihkqz3tKiwSfbIXMhxGxC6OnlKueA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759704;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=ZpM2gRFCcHI3bei5VEKrgg4awIGy/+ZVNWzYY+kxMro=;
+	b=rikgKRJv2BQSQTsFx/Fyz0/wDzPGkbX5O47v0s8frX1XfUtXsV1PMllipgdxV6je1pD0
+	 84BQEqoCyEe5ABmua7qOqS/kUVR6M4vTX6clBKSW1mdWaD0LG7CpkVN33qTfBL/POFXg9
+	 fTLmeiZuSudkleG+hW7+aFvZcV1P9CPLFKjX6Ds36BIwXSQgomqonR9XVzZ9lG0tohjQj
+	 AvgAKi4szSDbRS9ED5uisIEH3yFnzDJ6ISpwVVCULtfhzlZaswUNU/kkCzUTXDu2LaAyR
+	 XL+lE1C8gvbrIfLhYBYG5axnjt/LtxttMNByliYy5pyRFfs0iWX+lfXz8ZL4fuNYuig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N2p90eA+;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xk2RSuZD;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E53606A326;
-	Wed,  4 Nov 2026 02:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74E53606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0CA606A326;
+	Wed,  4 Nov 2026 02:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0CA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N2p90eA+
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5367d0737;
-	Wed, 4 Nov 2026 10:33:36 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: drxd: Fix potential firmware copy leak on release
-Date: Wed,  4 Nov 2026 10:33:35 +0800
-Message-ID: <20261104-db9e3c75b3-media-drxd-1@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xk2RSuZD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=ZpM2gRFCcHI3bei5VEKrgg4awIGy/+ZVNWzYY+kxMro=; b=xk2RSuZDD1bsSm2PYNKuhnOj7w
+	+xZ0o/4Sa6q8Zj3gpiPvAvllwEcheUISSlCRbBkL+p9eJEXG8KRTikVB/X8a8HnWQso1dlz2vdTT9
+	ORYi2uPx/5e9qz0CLpGwUqjL0BCb5ydG3y4Hozd57IVoUf3TIHew0rrhG6h3JkmJAguY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOQpu-00EDna-3g; Wed, 04 Nov 2026 03:34:50 +0100
+Date: Wed, 4 Nov 2026 03:34:50 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Qingfang Deng <dqfext@gmail.com>,
+	SkyLake Huang <SkyLake.Huang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Joris Vaisvila <joey@tinyisr.com>,
+	Ahmed Naseef <naseefkm@gmail.com>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v4 3/6] net: phy: mediatek: generalize cal_cycle
+ function for GE SoC
+Message-ID: <d2c421e2-9e16-4f26-84be-06e5fc2c719d@lunn.ch>
+References: <20261103221439.30502-1-ansuelsmth@gmail.com>
+ <20261103221439.30502-4-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +75,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1a4679c0c03a1kunmf01a1af116369e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHx8eVhoaHU8YT04fTBhMH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE
-	1DVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=N2p90eA+8M2KPkafsbZLGJCqN9e7xuCvep7SzcO41KLlxG+NgGELv7CndUw+zB4oMsktEXoRRlbn3AVdLOWLfQ7zVxxvXXrUwe1XrR050yIhV9e6qe6v93qEK0AEjjZnJZZ0A6pD60qYdMJEp5uEEJvY0xjz+5gDOh66CXSyzHs=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=C93F15dXYgg+A5lW50QDJhX5ONKlj8WJyTaRPVwgx90=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103221439.30502-4-ansuelsmth@gmail.com>
 
-load_firmware() copies the firmware into a separately allocated
-buffer. drxd_release() only frees the frontend state, losing the
-pointer to this copy. Free the microcode before freeing the state.
+On Tue, Nov 03, 2026 at 11:14:34PM +0100, Christian Marangi wrote:
+> In preparation for support of special Software Calibration for Airoha PHY,
+> it's needed to generalize the cal_cycle function as Airoha needs only
+> part of its logic (the wait logic) to complete a calibration cycle.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-This issue was found by our static analysis tool under development.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Fixes: 8f19f27e3e0e ("[media] drxd: move firmware to binary blob")
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
-Build-tested the changed object with x86_64 GCC W=1, using defconfig
-with the driver dependencies enabled. No hardware/kernel runtime test or full linked-kernel
-build.
-OpenAI Codex assisted with source review, patch implementation and
-commit-message drafting. The submitter has reviewed the changes.
-
- drivers/media/dvb-frontends/drxd_hard.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/dvb-frontends/drxd_hard.c b/drivers/media/dvb-frontends/drxd_hard.c
-index 4d673a108f61..a9e3e43c5b43 100644
---- a/drivers/media/dvb-frontends/drxd_hard.c
-+++ b/drivers/media/dvb-frontends/drxd_hard.c
-@@ -2870,6 +2870,7 @@ static void drxd_release(struct dvb_frontend *fe)
- {
- 	struct drxd_state *state = fe->demodulator_priv;
- 
-+	kfree(state->microcode);
- 	kfree(state);
- }
- 
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+    Andrew
