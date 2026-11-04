@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.68
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793829271;
-	b=v98R6V9iLDhtBi1+1LJrihDmVvz4kBlPz5wzZc0c1cakSpwj94ilEDBBpLuuRXoN1vPe
-	 5X6R3sysWG7zOeUTAK4del1DaN9AMjWcykrz6J/aQ4m5xRxX1HYxpDhM9isooFgpMbwrE
-	 xFkJvRKJttliX82+w4/1HlErFKwQn3zabSHANubeyIlszNwj0FUR/2rpb0VlyhLh3Z00v
-	 KP70taYbka5AemXFPtT9/NYmC8G/UFWVcU2ChVx+3PG/oE9cA9SsuPb4xyAJm2aSZ4l4Z
-	 OgU1S+YfqoVHOBfTalKvQ371Uw9TkdNvyk4bse8kocpIXvdkzyyKpFxDf4onp/C6NMQ==
+	t=1793829292;
+	b=3f5fxWBacNV3+4Ddq8fBMzcrebo/l0qUuLQFsxYGgHzDV14iUTSDQ6Sh9UFofOzzgq83
+	 STwrNm53UlfQ32YSjfIhJfWKtNl2ZCw8mjmrnYevVuNWfiWjjeQDGoaw0dfPx08cHTAmH
+	 1ounhXrPtZvBltB1iJBW7H9alahk6DBrKyA8SY7jTSSW8i/WJ57230jw+UrVZn84KJZjf
+	 9mVPRFgBBQP5/nLvOUSJFGIj+LzUiKdnGZtVGFnPo32lwO9eMFEVNHcwQd9mfFcuUI7XR
+	 tQd9p89m8+Z5kloVLi2Q+Bd1HhdbBShaSY1SG0HKeo04zPljfP8a9rVwD+R8zcMcJFQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829271;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HdEmkRtqhrHqr/h8390gKYHp61DBlZJjPh2g+WT5sLY=;
-	b=1GGuqZFQ82nZOknnkoEfqyl+WOFCxdLAhyPMy7Z/qkNrO7CKYLTxuEb6/oQN1nUqtLgY
-	 n4+dN28ck826KSSkhRLHHcExhACddPxT58Br25wyuOYNxeSZ291erEYGzZGKDInfisHUa
-	 7i18Vxvs1mFknPadmXxQQy7ofnAsH2fevgWBaYqlBJNrG0irsyLOuCSciEdqL5TVA+mxj
-	 0c3x0OrWHlLd9XgS029noZKdheYebKL9HFQ3UxkUfh3W70fHkV/vA3vLhPt3L7WljRtFa
-	 fLlbNeavG8niVnigxxUj1r9ZJK2ppC92dQtSyDnwZL2Zp/WWeDzW7bPEWCivY3uEJPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829292;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OHGf7IqENvPrkEk4YZi66AyMV7TjBRvkcJFbNB8NSic=;
+	b=In1jGT1UMjC/vSiNkmhQRlsFtseeFNjxp3azxnUaeJx+HQaofjQYuKqncwDX9lqEcGhE
+	 4wEn3eM0QEVN5c5FB3BTKfoONNvBH9SeEKakjyEepk7/ybeXIyLeolpL6/7Yrd2ttKW4I
+	 KoPW+/ehdUCoXRe+gktYAPqfz8pfKeJ1jCZz6HTJ5st1xKSCPkUyOKNSP3uoQ2RT2c/b5
+	 Bqf3Ja5UHB9IDDzkgVDb7Gx/zRoDdZ87DYqs2N6l8os+5iKy8T3l4NYUrGDXsbL5aS/Lh
+	 x/BsDbqKbbBsgG9UeVPqjYX4HNNpi4JnsXD33fu8R1bZ2IWX8Rp8VCe/wLPNydsGy8g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XD9+WKap;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=IPeNFHaU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.68
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010068.outbound.protection.outlook.com [52.101.84.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E396070AA1
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22E396070AA1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0514A607353F;
+	Wed,  4 Nov 2026 21:54:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0514A607353F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XD9+WKap
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c40e30c26a4so12670666b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:54:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793829269; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ebP/IsOcQFkO1A1BxBC9buYm7ixKR+BcwWhv8ITlx6YqNBtjR9R2ElH2RVo/ROnqZ8
-         as3+psU5H3dWT5BBveW2KICfckSsQyvr+iyvyw/swCuKBbkKMWMvSHtuHNBStiNosxI4
-         mPRHi0A/YTyMwx/8C3iR07h2dtfDC8v8vtS6Ttn3W4d4AiESo6xt+zqHesLOLYTYrvQL
-         EBRWBt+vY3CEETwDddvzCc2aKKINys5d/ZtuVz+z2n7/p2JqREp+7YhKVbw0OLxiIIUD
-         ECt7rEZ61yMUxrNwNzB9/NpUHeWclywk9FggFGF0v5FblBG5dDgAZVnVs1xWpii9Culr
-         E5xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HdEmkRtqhrHqr/h8390gKYHp61DBlZJjPh2g+WT5sLY=;
-        fh=TiKYeBgoSEA+w0+nA8VcRyN8gBfZR12udVUy9ZRA/RU=;
-        b=K7qRDS+6AX30cfuDSBjtbmGPoDA/A+KYVRCkmatyH7WaCQH7YtAKHqnzKl9F5/DL7R
-         g/WzFiLTqQTdaiPGYQUiatjd9ojRAvDdpN2cK0BkJzS7Pgx6iMv63QH1l/Xr56v+a3mP
-         uYtHLYiEUlaz4IiZwliffDM+iiQCbC9Q6Y3BGrFZIfwcoBS5gsHxUsT299fqGl65r1XI
-         +O9/aSk9XzYA1jdoKd2MonNykHzDFkclaWQhF1fNvNM2Xf8Wz/YbYGq0VvoXbDn0jx7v
-         q117KafEpn8rSqfBBy/DrcwvTO76y8+ObRMLotivn78hSb2TiyIjWcRx/q4hl4BRbcca
-         oDLw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793829269; x=1794434069; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HdEmkRtqhrHqr/h8390gKYHp61DBlZJjPh2g+WT5sLY=;
-        b=XD9+WKapf71YPUc4xSEtJErlSBsU3gon9Ptl1VqUROsoTbu6y8Q2xhKoL8q4kuBAD6
-         d37J/ZrBJDD/FulOg79mYGG7K0j5sIdD/dPFbmkKzUjnQ0pj9/AAP/KMecFclt96VtYs
-         15oD2aONPjDvUfnGtMiMq2IiQwVmUQ9uhiXsCK/DeWLUdZbuRy06qKnaNJB5ONh3jaU/
-         /p1T2j4379sZ7Nmh2LT7Ua5u5SHaRdH0fyzNnDE7Xi1ldZmSxXEJu541KzJshXDq+vN3
-         DDZWnrRszLtunqKCjDFQu7N7leyXg/N5/s+eTzw8NtdzXhUYKoIa1y+h6AkleZw55HlX
-         Pv5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793829269; x=1794434069;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HdEmkRtqhrHqr/h8390gKYHp61DBlZJjPh2g+WT5sLY=;
-        b=a/vDy8lGV1G5OHw3rHJHHZha4MhNWMZUp/2t6m58pZOT1YfDainBAmfgTcKtEeIJOT
-         Y8RmWfS6CujXL6BYspP6rDUXqrk8yn3/UFXYTt19lja8zGbTozrPs94GkGeE2EojkIid
-         NkYpiCdKGe5ZsuRJEzMYMIzCFIUhX9qsmRibfrBF93mkIBGRY6Oyv+k3ajYj3ea0nwEb
-         ezrMkcQsdVE9odYFwMt+WJ6EQV2ti0CGtpvbRLxtILwfQAVpeCsjBnD36bW2AhbXaJaF
-         7Rh6hcDO+eU00W3C5oVg7V/THCSYqB5PZTRpq3vRCI180jhEJMkU1inv3/Z8je7S/+p6
-         HUVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwZxmD2KH5vJwUYCjUCRYt27ia2jw1UsGa25qwf6fFVZ2YA+0CIZY/MdiL4RAIZ6z5TlnHnmX6DnDyGLAE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AqOqMNQrWmM7cFW6Bm3eF/gLZkfm9eN3nT8M+86VuG63biRjl
-	dgc6d2ZIeLKoqgd+MZvkI3w2hGQe3dVFdmqNreUOt9kSRcEN93nF7UirdyZxtLLhmmErjnAEAYe
-	Wb3tYu0HnkXQ7ZVfEvMUyqfW9vlqAc60=
-X-Gm-Gg: AYBFou3qu487B2bhF1L9rLcTuVU0ZczGcPISm96pwRTefUX7ab2d5PCJX8sXWDxXykF
-	r94SwHwMy4TawMJGU6NbTqPjDDEgy3A5d/np2WQsKsfz41dKI6OcuZcRCwhBvy86YO/9M726yBv
-	atomhCKcacZ2Bf876kuK4bXlfWSx/Ps2I7Klacnxwyt+ucNRUL+LPHquWrO1DsDpw9nyYkvex9Z
-	LBDnyTqQ3tQO7+KGhRlpdvF3XtzdNRk1QmWpTG26J741KrV/EEqDn/sEWDfb6ltO9evaXQUaAqZ
-	RNB1kmT5GMBqhF4a9ftMDrO8ckIpqzOF5ZaizAULn4UxB4kRQqsVir+AU8HvnAnQnim262HnpVt
-	ChHGPcHeF/YAN0SFSPCtzJzgPytsOIjI35JA8V+wklCNRHStHzPRmu/FDat73QNN+SY3yZTjJpD
-	SCs0+AujdpNyynY6WVmaVY8Xc=
-X-Received: by 2002:a17:907:d649:b0:c36:777f:824c with SMTP id
- a640c23a62f3a-c4d20152725mr68425566b.4.1793829269124; Wed, 04 Nov 2026
- 13:54:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=IPeNFHaU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zW4CaZUMZLy9kyvGr4ji2uEIwHKJUSDmC9Dakkk3Gsn+v2lgn5L2rCYxeyGjQa8is7c+NRYdxwuDMHhvECCr7NvLBkXOFT5XSA2c4X0d5GnKlu1G/RVlp3VdY2AYJJTPHKdcK8Y8vad9PRaOsvuzYkGbvU4byulF0y4KvEgU/+zBK7jd59TDPLL9+wTev7KfIR/87w+sbGeQy2VgaFhPTxlfmvEpC1XhYt/XVybIxvjNlw2IHpw1Wsg8QjOJkrvnBFufeGunZ3eocHCmH0YVNUEM7o0ewt51UNd7KHAumxyhj0Nqkj3FPU1BYSPf6qZMPLbz5GsiMl+HWyuTE312Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OHGf7IqENvPrkEk4YZi66AyMV7TjBRvkcJFbNB8NSic=;
+ b=dPkVVHIies/+YYDxNkWa2CgF2I0dTx+vCHTH8F0ddS1CSSPE463s1OfN6Qt65oCnOjCYEbGMWWlXzPM96QRETGQQYcVvbj31dtq6xyDRXeeb9prUlmq2Je1OxllMkbieaIuNWhXTExLIAC4Q1ZVDhfnjmWnU73Imf+/wbFm/s37/V0LVZGaELXmVOeT5zltKBxlFXK7QeK6cGq8aCtbQ0hXZlIsu19nEFkmvYrcYDclQ9Z9MEdAOh/hcM4Hy05W0Xhd1zxpPPtY27vLc9MCiAITK3VRcn57BgSkXfAZ4F6tQlkRXOoYvmPZF8PHSeEAMvtSqty7OLKurUUp6gek5hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OHGf7IqENvPrkEk4YZi66AyMV7TjBRvkcJFbNB8NSic=;
+ b=IPeNFHaUMLPeoYX3PXV3xTQbs6IBpGf1ZaBeUrTxBmRzKJ4y6nVanEOSIJHDSZdy4xumPVsqMvUGJMXT5U+I+Fn/pmmSkChv8/DKne8ojSGsF78S7Pwopim+7DvXz629ZMLb/RaqRXWy+vXNSwUqu2EIGatepq2J0zVCInZAVL7SZs6uNFj0kkGqPUxVZprUjgcbjq8EXbs+wiRelBwCU2GoSCKvseeKVwMtLT7Hb2a7cXqz9Trb8dwp2oKBcswlWXk+zVtNJslCDARgY6/8evCsd0NWKJifmJOQyrpuc1VetOnapr95dE7Dt0cAN6V85vqIr3Kx2Oq0XoqZajyJ8w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MRWPR04MB12045.eurprd04.prod.outlook.com (2603:10a6:501:94::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 21:54:49 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 21:54:48 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	Petko Manolov <petko.manolov@konsulko.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com
+Subject: Re: [PATCH v4 0/2] arm: dts: nxp: imx: add Draeger M48 CPU board
+Date: Wed,  4 Nov 2026 16:54:41 -0500
+Message-ID: <179382927262.3881641.8024842964445968880.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022140244.3476844-1-petko.manolov@konsulko.com>
+References: <20261022140244.3476844-1-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7PR02CA0008.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::27) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,217 +107,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-5-63362e9290a3@gmail.com>
-In-Reply-To: <20261104-alpha-profileme-v6-5-63362e9290a3@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 4 Nov 2026 22:54:15 +0100
-X-Gm-Features: AclHuK8czF3vrbOSg0UUMnEzeHK7PETQNCiHD3zwCys0pWFAup8U0S_Vzp2Fbbk
-Message-ID: <CA+=Fv5QO-jD+K00xUSv3yYS+yeAzOCAkiUpD-5aP9+vuEkg4nw@mail.gmail.com>
-Subject: Re: [PATCH v6 05/13] alpha/perf: ignore overflow interrupts the
- counter does not account for
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MRWPR04MB12045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78297aa8-3653-4bbb-69ec-08df3abe3f2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|19092799006|261009223027099003|56012099006|11063799006|261022075727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	xAjPpQFQEsCCbhuvR7CI6/XzM7yj3lAkYmLWYh8LxVyco9semnI93cxhLD/iUZmZPc3x3vzpmNpa4xz2mHj+KWxESQU5SrkVFY9h8Y3LWAh+Krn5epEhxmtxRzVrGr9Xm0aCMjFNXZ1IPdda2IoivEUGYJIvK583GYUKoawkUZ3G+QIiNRY/yyEpHk+jnE799beC15DNu6Vlw4Uc0qUTay8BknH+birTn0Q8Yx36nt0U21E7UU2qAx04qXi+YOClzJHm4hEMsRxQBZ1lRScEsCrXx35K5d5xwy/Q4b8RRZ858FsJ4xssP33Q70/XNjR6AYIe/j2fwU0tOX8NXGS3GoH/KCmB2+mg4wRevIFF+k/dLc8gL0Aqq5R6/1joj7hjD9Cgi10ZHFfpVDESc0VMQPkpmRGzsiQDgNln3hYsU8pO6LNFqM+Sa0rIsnOaAJVBBDbwMt24J+3gTtclYUvKbWJtv6tckrPWvhCjHN9cvWIUN/d3huo7i3IV3Zyxc3i+urDLF5OOL+mwu/WgbvEubX1PqqjrswGNTFy4Yxl+4ISJiGUwmlbO+Udh/gw7Xey4CfXN/mvjq3wXs8jILvS8Pz+Zvl0gu7kaceHkwzezsg0DrATdjQq0LwQfiW8iREsIEz53oxgy4jORIUNK5dvyd5dhJiy8d4BFWSjL2eBGFrI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(19092799006)(261009223027099003)(56012099006)(11063799006)(261022075727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZjlFTXlzRTU3eDdMSE94SFF3aGZKR2t6SkNlMUtXWWJmZEJianlQaTV4aVJ3?=
+ =?utf-8?B?ZnFMU21BRDRPanNXOE1IaXhNa0U2a2UrMk9YaGlqQWw4MjVId25JUFk0aTlz?=
+ =?utf-8?B?MWR4K2w3ZHJuUUV5UjB3TUF2MDhxM2RTREIxVGVkdVVkUTNqNWJWTFp3MmJj?=
+ =?utf-8?B?ODJPNXlrUm43cnlPeEdZT1pKUFNOMWdzYXQ4ckNNYWpueEQxRm1GVmNwZ3FG?=
+ =?utf-8?B?NEMwNmlLYmJteWs0bnRYVHFQczBMN2x1NEtTTHZFeTdKa1BGeFBhbW5wb1BN?=
+ =?utf-8?B?U2lKZDBPanY5eHVXNDQ4a2RBcWtoM0xtZ20vdHpRZW5pZUZHQ3EyQ2tOeUZT?=
+ =?utf-8?B?R3hib0s3SUYyQ1h0R0NPVmRqUEkxVm1mY3hMUGRhUjNBdmtGVTkzTFNnbHp6?=
+ =?utf-8?B?TUszQnVwdHlHV1lWa0N1TEhBSzZmZHBCRnkwOU1kWXRnQkc4aWFMNVNkN2lN?=
+ =?utf-8?B?TE5MMjU3OExGNStlbXh1WWl2RFlkbk05WUR6c1QyZ29pcmxWTTUwUHk0OGdn?=
+ =?utf-8?B?b0M0eGVMcStVZFQ2bjlHMmZ2elRHdDJiT0NoY25YS2hvTUJTL1orWmZ2ZE91?=
+ =?utf-8?B?cTNRMEM2N3VUbHdUUE1XeHBjODZYNXZVNDZxY1hkS3d4L0JIOXhucExvUzFr?=
+ =?utf-8?B?cnpuUmwzSWtLYlNSRWZ3Tk1mVlpNemdPOWNSa1BxanFQSGVDVVplSG15QzY2?=
+ =?utf-8?B?Ni9hNTZ5anFFUnZvYmR5c3hja2dqaVFuamk4M3JiRWZYRXhmaWxlOHh5ZHRr?=
+ =?utf-8?B?Z0dkL3lKTzRJSiszV3E5VEV0ZGtkd1p0cmU1OWltOVRRNHArTS9UU2dNbnhn?=
+ =?utf-8?B?WTNzcjBVZU1vVi9jNDM5cyttZVZrRDJPM04xZXd4NVRtWjhmR2NlQVJJclo3?=
+ =?utf-8?B?K3VuL0ttS2JnUFFGRXNhUkt1QVkxQThhNmRzMkllNENTSkhOMERhMElVczJ2?=
+ =?utf-8?B?Y3F6cU8yakNzdGFBbEFxVFN5cm1kZjV4Ym44dEhkTm9DcGphTFo0THR3aStR?=
+ =?utf-8?B?STl2VThRZ0ZhMm9WN1ZadktCcGdqU0VrbFMxRUFJNkVCc3MzKzg0eVJvZ3hW?=
+ =?utf-8?B?UklKN3FtOVIzMlZsbzVSTTdXTFZhOW9ncnR6RlhQMXM2RDB3eGpib1gzMFlY?=
+ =?utf-8?B?emZtRjJGd1JBd0xLekthSzduYjFpekxoOEZnL1BWaG9HSDhLbXJUd0s1TUNM?=
+ =?utf-8?B?UFdaZU1Qb01FZDZyQzRNUDBGcjE1V2QrTThiSjNuUVhWanVWbk0xd3QrNkVI?=
+ =?utf-8?B?Wlg1UHFUVUE3N0R1YUdYc0pQZFd1K09RQlE1SEpSTmF6S1RHUTlISitjeHcv?=
+ =?utf-8?B?aXhLUFNGOEt5QS9vaG0ydWZvN1lqTXVuNUpVeWdLNlNTMXRJYUprdXBOeXkx?=
+ =?utf-8?B?RWNqeFFreXNjV3RQNGJxdHUvV3FBSVlzUU10UzFmbkNnZ09HTzBBdjdLc21D?=
+ =?utf-8?B?VnI5aFVUN2hTSVdxR05rRDh5UnNtalZLQU03TU9kTmtxbDVLR0F1VnU0OXVP?=
+ =?utf-8?B?WmMzdjJZWHV5QWl2SDRlYzMvT1N0OVVvNnk3c3JlWEp4NTJGWEN0dXN0eGhR?=
+ =?utf-8?B?bFpFVTFrbkxQZHU5Z3lzWUhFSTBFODZoZzQxUU9KWnN2clJoWFpPOU42Tkkz?=
+ =?utf-8?B?eUZCejlLTDNVMTVtTjdaRjFxeGJKZGw3S1N0c2VERXBGM01Ham1EY0RqcjJj?=
+ =?utf-8?B?WEN2WXVHYmwyWDFOcUtoeWJyRjFSc29xTHpXYzNhT0o4dHkwd0FmZjZ0UllP?=
+ =?utf-8?B?QzhKbEcxWURXcnhmWWZLdDJmWWJHN2oxRHBYVzVnNlNpWGJaMUZ4SWs1OThs?=
+ =?utf-8?B?UERkcjY5V2FWajlyb0NuNlhwNnBNZS9XSFRXUTZzaTVKcENTVk0zbDBZNSt2?=
+ =?utf-8?B?U2p0Z0N1UnEwUE5EMlpaZmxLVjMrYTB0RGNFd0VNYmJwV3QyNXVVNEZaZFkv?=
+ =?utf-8?B?VjFiNFJFVUdFeG5aVml4dTQzb2xheExCVnRSczFGZ1hDaUMyeTN5cWpIVGNp?=
+ =?utf-8?B?V2U4N2RwZ252T3g5WHBId3ZsaHdvek14STFZdjJ4ZmQza2FDY1AwWWFMWFRN?=
+ =?utf-8?B?Ymc4T3FxcGY2V1ZZSllIN0ZJSEh0WXFhdnhMNThlWHR5K1JpNzEvK0pSZU1B?=
+ =?utf-8?B?TlR6N1JlRHB3RjJjVDZrZ0lMS0tveW1yTTJXWHR3VHVHenlscTdIckZjakRM?=
+ =?utf-8?B?bWRUejg1U3Q4eitLWEJ2ek5XTi9OekhtdEwrT3M5eExLclBHbjdBaHEwWENN?=
+ =?utf-8?B?VER5bHY0Tk42U3UzbThBRklrVGxVeTBKOU1oZmNFWGJ1b0dvREZoYkY3dkxt?=
+ =?utf-8?B?d2gydzFEMG9tWHhFeURmWnJCQjVMKzB2RTFNeXJCTXFZNzdIT0JLa0o5cmJx?=
+ =?utf-8?Q?p5xq6EccjrcRpXUcGIG47MDDMccACv1X6sX+X?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78297aa8-3653-4bbb-69ec-08df3abe3f2b
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 21:54:48.8794
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cpjiRY7UXlMNFQIjO9dr/UhvwufksWRFW9h4FQWkYTyCwG+P/G/i1DZysTUDw+Hl/lgWRajQGxfYinEd/KEaAr3kzAiR1ocMSR8pd+xp7drhCxDCFbBAnWuiQtcPNR0y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12045
 
-Hi Matt,
+From: Frank Li <Frank.Li@nxp.com>
 
-On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> The interrupt handler adds a full counter period to the count of the
-> event on the counter that interrupted, which goes wrong in two cases.
->
-> Rewriting a counter does not cancel its pending interrupt: wrperfmon has
-> no way to, and PALcode clears the request only when delivering it. An
-> interrupt pending when an event is reloaded, or when perf moves another
-> event onto the counter, is then taken as an overflow of a counter that
-> has not overflowed. It adds a bogus period to the count and can emit a
-> false sample.
->
-> And alpha_perf_event_update() already adds the period when a read finds
-> that the counter overflowed before its interrupt was taken. The
-> interrupt then adds it again.
->
-> An overflow leaves the counter just past zero, below the value it was
-> written with, while a counter that has not overflowed is at or above it.
-> Ignore an interrupt for a counter in the latter state, unless a read
-> has already counted the overflow, in which case add nothing. For this to
-> hold, write the counters at most half their range below overflow, as
-> armpmu_event_set_period() does. Counting events then take an interrupt
-> every 2^19 events rather than every 2^20.
->
-> Fixes: 979f867191f8 ("alpha: implement HW performance events on the EV67 =
-and later CPUs")
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/kernel/perf_event.c | 59 ++++++++++++++++++++++++++++++++++++=
-+-----
->  1 file changed, 52 insertions(+), 7 deletions(-)
->
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index ecec78c355cd..dd7fc4ac1396 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -30,6 +30,9 @@
->  #define MAX_HWEVENTS 3
->  #define PMC_NO_INDEX -1
->
-> +/* hw_perf_event.flags */
-> +#define ALPHA_PERF_FLAG_WRAPPED                0x1
-> +
->  /* For tracking PMCs and the hw events they monitor on each CPU. */
->  struct cpu_hw_events {
->         int                     enabled;
-> @@ -315,10 +318,16 @@ static int alpha_perf_event_set_period(struct perf_=
-event *event,
->         if (unlikely(left < alpha_pmu->pmc_left[idx]))
->                 left =3D alpha_pmu->pmc_left[idx];
->
-> -       if (left > (long)alpha_pmu->pmc_max_period[idx])
-> -               left =3D alpha_pmu->pmc_max_period[idx];
-> +       /*
-> +        * Start at most half the counter's range below overflow, so that=
- the
-> +        * value an overflow leaves, just past zero, is always below the =
-value
-> +        * written. See alpha_perf_event_ovf().
-> +        */
-> +       if (left > (long)(alpha_pmu->pmc_max_period[idx] >> 1))
-> +               left =3D alpha_pmu->pmc_max_period[idx] >> 1;
->
->         local64_set(&hwc->prev_count, (unsigned long)(-left));
-> +       hwc->flags &=3D ~ALPHA_PERF_FLAG_WRAPPED;
->
->         alpha_write_pmc(idx, (unsigned long)(-left));
->
-> @@ -338,9 +347,9 @@ static int alpha_perf_event_set_period(struct perf_ev=
-ent *event,
->   * zero.  The value passed via ovf by the interrupt handler corrects for
->   * overflow.
->   *
-> - * This can be racey on rare occasions -- a call to this routine can occ=
-ur
-> - * with an overflowed counter just before the PMI service routine is cal=
-led.
-> - * The check for delta negative hopefully always rectifies this situatio=
-n.
-> + * A call to this routine can occur with an overflowed counter just befo=
-re
-> + * the PMI service routine is called. A negative delta detects this, as =
-the
-> + * counter is always written at most half its range below overflow.
->   */
->  static unsigned long alpha_perf_event_update(struct perf_event *event,
->                                         struct hw_perf_event *hwc, int id=
-x, long ovf)
-> @@ -359,10 +368,12 @@ static unsigned long alpha_perf_event_update(struct=
- perf_event *event,
->         delta =3D (new_raw_count - (prev_raw_count & alpha_pmu->pmc_count=
-_mask[idx])) + ovf;
->
->         /* It is possible on very rare occasions that the PMC has overflo=
-wed
-> -        * but the interrupt is yet to come.  Detect and fix this situati=
-on.
-> +        * but the interrupt is yet to come.  Detect and fix this situati=
-on,
-> +        * and tell the interrupt not to count the overflow again.
->          */
->         if (unlikely(delta < 0)) {
->                 delta +=3D alpha_pmu->pmc_max_period[idx] + 1;
-> +               hwc->flags |=3D ALPHA_PERF_FLAG_WRAPPED;
->         }
->
->         local64_add(delta, &event->count);
-> @@ -835,6 +846,32 @@ void perf_event_print_debug(void)
->  }
->
->
-> +/*
-> + * Return the overflow that an interrupt from counter idx adds to the co=
-unt,
-> + * or -1 if the counter has not overflowed since it was written.
-> + *
-> + * Rewriting a counter does not cancel its pending interrupt: wrperfmon =
-has
-> + * no way to, and PALcode clears the request only when delivering it. So=
- an
-> + * interrupt can arrive after the counter was reloaded or given to anoth=
-er
-> + * event. The counter is then at or above the value written, whereas an
-> + * overflow leaves it just past zero, below that value.
-> + */
-> +static long alpha_perf_event_ovf(struct hw_perf_event *hwc, int idx)
-> +{
-> +       unsigned long prev;
-> +
-> +       /* alpha_perf_event_update() has already counted this overflow. *=
-/
-> +       if (hwc->flags & ALPHA_PERF_FLAG_WRAPPED)
-> +               return 0;
-> +
-> +       prev =3D local64_read(&hwc->prev_count) & alpha_pmu->pmc_count_ma=
-sk[idx];
-> +       if (alpha_read_pmc(idx) >=3D prev)
-> +               return -1;
-> +
-> +       return alpha_pmu->pmc_max_period[idx] + 1;
-> +}
-> +
-> +
->  /*
->   * Performance Monitoring Interrupt Service Routine called when a PMC
->   * overflows.  The PMC that overflowed is passed in la_ptr.
-> @@ -847,6 +884,7 @@ static void alpha_perf_event_irq_handler(unsigned lon=
-g la_ptr,
->         struct perf_event *event;
->         struct hw_perf_event *hwc;
->         int idx, j;
-> +       long ovf;
->
->         __this_cpu_inc(irq_pmi_count);
->         cpuc =3D this_cpu_ptr(&cpu_hw_events);
-> @@ -891,7 +929,14 @@ static void alpha_perf_event_irq_handler(unsigned lo=
-ng la_ptr,
->         }
->
->         hwc =3D &event->hw;
-> -       alpha_perf_event_update(event, hwc, idx, alpha_pmu->pmc_max_perio=
-d[idx]+1);
-> +       ovf =3D alpha_perf_event_ovf(hwc, idx);
-> +       if (ovf < 0) {
-> +               /* The interrupt was pending when the counter was written=
-. */
-> +               wrperfmon(PERFMON_CMD_ENABLE, cpuc->idx_mask);
-> +               return;
-> +       }
-> +
-> +       alpha_perf_event_update(event, hwc, idx, ovf);
->         perf_sample_data_init(&data, 0, hwc->last_period);
->
->         if (alpha_perf_event_set_period(event, hwc, idx))
->
-> --
-> 2.55.0
->
 
-The wrapped flag addresses my concern about a read accounting for an
-overflow before its PMI arrives. I checked that sequence and the
-stale-PMI-after-reload case with simulated counter values.
+On Thu, 22 Oct 2026 17:02:41 +0300, Petko Manolov wrote:
+> Adds the device trees for “Dräger M48 on NXP i.MX6 (Q|DL) and Intel/Altera
+> SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+> same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+> independently off qspi flash.
+> 
+> This is the imx6 devicetree part.  There are two bindings as well as device
+> trees, since M48 is using two parts: imx6q and imx6dl.
+> 
+> [...]
 
-On my ES40, repeated reads while multiplexing Aggregate and ProfileMe
-events passed on all three CPUs. I didn't instrument the stale PMI
-itself on hardware.
+Applied, thanks!
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+[1/2] dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+      commit: 2d55436d91d2ef118ec989d225797bd48f07b919
+[2/2] arm: dts: nxp: imx: Add devicetree files for M48
+      commit: ce0d969c74ab6cb10f7cc1f8473beb0a400c79fe
+
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
