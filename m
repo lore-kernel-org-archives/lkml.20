@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753412;
-	b=epmwg3uwFmtExrYTvXYnTmZq4IfAQcOHk/sBJCHhQckf8byfJQ7FdW1LTa17Z5CBVkTw
-	 2kDJHfRUNBt8a2/5YBdvPXiaizyVEsue+f8U9+REGNGnKguptCebe7/LJLzplfsCaJaVt
-	 Zyvm0BLhWDR/tQDbnzxOWM0+wu9MCGy1yoDZEOKwEifx0YUXmwFWGoS6T91o3fRvqBHgQ
-	 J5VfFroMhWVP93cN8Z+d1yQO2G/FYuPOmB5ynveY00tWa0AfQ3U5WH2fM7rjIrxHSS5j8
-	 kJPf3yWESC8jgnCwanhAYEhgaEQhMCBxV/BmZXqWtyCaHT/pVuZU3r/UO5H7wYsjThg==
+	t=1793753433;
+	b=lo1TvcIQ04ajyKmOiJrJUk6HV7XLYMn9Rm8TqG0uoDyxUx776EXAcIDOcv0vkVKG4yoa
+	 r0Wq/O4b1cf9e4M93r2lqeKNlZp6RqScnJe9lIIagOgsGvsJipQ56Fjb+p0M8kHX1XP93
+	 Xu0Uw6tQvr8T/Z5ctPsUGzwixfvu5FcNn1eu1gI2wtEwM9CO8iO+x0BhretMEZMWk9c2t
+	 F7czMxPyPa1KNpnudRWcWq74xez3bg/jRVY8+QKUz7FjWQ2PbgL+Jr9wyhDBEgD+6VSAr
+	 NV9EIR7QctcvKDU50FuM5nWhXI1iSX8M+U91vG2cqaRtNbUzkwfsyu3WK/Qb/Ljlj7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753412;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=r4tz8o1TlU/xEK9b3YrVdww6EoQHDhX4m9dHm6jXFbo=;
-	b=iw35MjzC41BJD+gzjs0Ah1qiv+0CwnK7wpBK7x/DmUDXdym6d/CPvvHHkpFQ5CJ0QB0N
-	 pCPl7YFSNZwuo09MrPcC6QhZRHbIr1SS4mauvt6zw1gvsUXL92XcFNhmZuxWHRv4TelSU
-	 PwfpNNidVNpcZISC8TdUJjjO+c9C5HWn/BOGFwbUxW9RDyUBOBHkDevvXKW3C0rkrCHN4
-	 XTeXQX94C7Bga1Vjnvhd7UlS7CAMGMuf1gjExsIpkSSBMV9vD8FcCA9WZogJ9lYF7xbHW
-	 kU4sE40r+1KBI7Av2HAnJ46lx63v03wrW4BLdAbcJEKMGUXyGP6Sz3aXjjEiiUygaXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753433;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=umzTAMpmM2XXT0BjWwg/HN9i4Q16VzBGEqlJacN1TW0=;
+	b=5k/p1l4udvddonwZzKx+zqD+M1LnPAP/h4Gg3kZ8mMdHM+hGnmMSlAI7qGZeUYpeIMbe
+	 MCqlsZ0Z3ptEauUjE/EcPvHlzZ6dkh0h0awhfRM0cYfQvUbri6dQGzda9/XlaaPoZ3EyY
+	 Q4rcXjHaxbjLJ2+iFByyxHixxqTYYQCxlgZdvdip9qRIAi8X1dDYlSC6G7OngXDV3YxYw
+	 5KeOQFCpJERQMHAEAPCMVq0Xd1W31uQi4ija1AQCu6bVZ83XJG6uyZBpPBC4hRkxkxhgI
+	 O//hnyE4nhKiFijA8oyR2KWAGhXs8HRuGE+Z4xxsLd0wKbUIPt8PBH7MXjieZUlaokA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgjauMfp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VC2exd99;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D80606A328;
-	Wed,  4 Nov 2026 00:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ADE606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39ADE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgjauMfp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497DD1F000C1;
-	Wed,  4 Nov 2026 00:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793753411;
-	bh=r4tz8o1TlU/xEK9b3YrVdww6EoQHDhX4m9dHm6jXFbo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lgjauMfpATlRYmKhs4FmHnDBN0KSd+dh2o3ETfHqUJdO8IF3M+SD0slSjLSLE/QN6
-	 69VkAzxiYiglCGNY7hm/L12SCSLgEL5r1L2nJjnsV8M7lbUbj2gbZYjSCQUwjGRvsO
-	 4bd7B6qoteHXhv0UjIB1s+Gx3lhAjYhwRmHuCgf9+oRYYakIQ2hERSW2yEyCDxlJwf
-	 WOr1L6npqqapLtx3KFYvU/hoNU0Z2DUqzKbhAzmwFZaKvhEaySLgGe6Dp1UsM5QEeT
-	 76ZAdcls4Dl5PIQyu8SyyivkTi0RFH2VPUllbEAOJ4n2Daq61k5Is72d+zH6AOguWZ
-	 nHXLKGxyy/v1A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401B6391B0BA;
-	Wed,  4 Nov 2026 00:50:11 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VC2exd99
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so15555ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 16:50:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793753431; x=1794358231; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=umzTAMpmM2XXT0BjWwg/HN9i4Q16VzBGEqlJacN1TW0=;
+        b=VC2exd99VsrvRMmqoBrO2vSZ26xsG/UB3gvQjMBAAh/eIz9DNxFzehOSmUck+5b5y0
+         OKFlj4se0No5/ClRl5Ohk5lpxiONvjudA9VVOdqfMa2gRlT38fVi2x1wdxCU3i5wzAly
+         pmnGLjRNophq7OiHQ0XsZ/sCK1kv9rvJBYDL7LpgGtbPiZyPzfE5sG4jSQ1s0EUTbfrj
+         zZN1qx/1FTipjxbzMrt/MX6l+J+uPCPy5bGJWPe0piNKGsqp1l0wN6rN7QVxOey0xfTE
+         zj1QbhPkkGbEZLWSw+OnJ2lrhe2heRwLX6KZVJ2i9nH1i8hJjPitw8aLoSqDlc2lA3iv
+         DSpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793753431; x=1794358231;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=umzTAMpmM2XXT0BjWwg/HN9i4Q16VzBGEqlJacN1TW0=;
+        b=PCzGSpC6cz2gEO0lC5yHZjBVxnac58MfGoiYyb5Gb8k/Lxxw7hHlCNCrP+U1nMSUjV
+         Hofh2pZGCyqv/9ejC9y2wZU6Q5tYBYWNUV3MjeTgDC3yvIkdwebc4wL44DxL8E+/UwfA
+         4et+f7MksAQ2uJIymutSsiBjolxRo+5FeYtWmFzitrKAqWkuAlT/0tfk9XOgS+Pm6T9W
+         cb/GJ1E1WAoocu6zsyC8yJ67CgxAQi3U8puTYkzvWnCAFPF5V+EJ9yDvJxTxYBRGB0vs
+         ek/nWTVtm6x8iFuyv2xIctbgpzeldtCOiLcJ3b2knhfMWfQKM4p3wWrJfXVOL+FGscOx
+         cn6w==
+X-Forwarded-Encrypted: i=1; AKwUvBwiRAKd4LmZR2uuUAeMG10vnyhQHfbcIPRqo9ftnFFsdlhl4bCXpUQ+7vAE3JGCYko3U8lCVX0N0SEbqao=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Had7Bqz6AV/nRKBZtb0HbjE3UO3I9AHKd/QwqCbhcRVTvF2iT
+	O0arf7e7XUos0lB8QgoxdrWz1vkfHdO0ts5GLJivOaAbUcishGrQAUJ1ZTHb3b+suw==
+X-Gm-Gg: AYBFou3250EmM4wXNI8MzvIA2MzZbJp2GJfaMUqCL4u8Uon3oLcgASmZN+8DGJEgzIt
+	UEi7XXUZPn9cKVSGYaqTaXUbM1OCN+yy2thGUUCrhe3m5IbS+ZT51lsRFfZEuyaW0FMPvRMbzt3
+	xPzAlJwi01syePOPc2/ADBODmWoEln/4yFlds/MUwH02FcM0Vqc7KIL5ELUXppbkAwVNoe+BcDF
+	p9Xf/0r15jGRcEnS1z77myVriAMA6GZ80DcHciblJxkUSn+kw1kUGnOP919/ebJZjGJmuqrbIe5
+	nTb8s5e8dJurGlXgr9Kyn4ulOcxUxcom6tCs9ahf9wQ9rUvilzW4MlsaMi0zeu4s1k3d1sEFZne
+	7noTpys2P1BxxrEVuEfUwUPmJWHQzkf4yYenAk3voTqcTuR36rURT1kHPdmUnP2pTJ4QRb2SnC2
+	1F3QYrwvcjOCDIhQjvONEHt2Mp12h5ZI4vCwSIewAEIidMy1gt1TCckm89mW3cHdu0l5d5+YKg9
+	mZrsRMZOrsalrQZ1rPVE52qrIq6VyzCF+SBJhHhYTsLqeaGtJsiAaK1s9EnHei4/I6CGeI8VzG+
+	p9P76YE/423ptWZUdi6WmEeZZPFrZLZrXxlOHuPiqw3mGbLrZuTwONga1ljKGQewDvF1CGmbA2Q
+	B
+X-Received: by 2002:a17:903:4b0e:b0:2df:42af:2f9f with SMTP id d9443c01a7336-2ed08e69329mr1597975ad.1.1793753430917;
+        Tue, 03 Nov 2026 16:50:30 -0800 (PST)
+Received: from google.com (210.109.125.34.bc.googleusercontent.com. [34.125.109.210])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9b0ec5sm6480537a91.16.2026.11.03.16.50.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 16:50:29 -0800 (PST)
+Date: Wed, 4 Nov 2026 00:50:24 +0000
+From: Sami Tolvanen <samitolvanen@google.com>
+To: Chris Wiseman <chriswiseman@google.com>
+Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>, dm-devel@lists.linux.dev,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Eric Biggers <ebiggers@kernel.org>, Christoph Hellwig <hch@lst.de>,
+	LongPing Wei <weilongping@oppo.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dm-verity: use bdev_rw_virt() in verity_recheck()
+Message-ID: <20261104005024.GA1247794@google.com>
+References: <18e49db5e159b72d.3137322e32332e3235332e313736.1d9cee.0000sendgmr@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +100,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next] selftests/bpf: Account for zero extensions in
- patch
- list expectations
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179375341006.1981749.15460307595847324640.git-patchwork-notify@kernel.org>
-Date: Wed, 04 Nov 2026 00:50:10 +0000
-References: <20261103215309.19950-1-dennylin0707@gmail.com>
-In-Reply-To: <20261103215309.19950-1-dennylin0707@gmail.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: ast@kernel.org, bpf@vger.kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, ihor.solodrai@linux.dev,
- iii@linux.ibm.com, bjorn@kernel.org, pulehui@huawei.com,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <18e49db5e159b72d.3137322e32332e3235332e313736.1d9cee.0000sendgmr@google.com>
 
-Hello:
+Hi Chris,
 
-This patch was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
-
-On Tue,  3 Nov 2026 21:53:09 +0000 you wrote:
-> patch_list_insert_in_front() checks the translated instructions around
-> the call of an inlined bpf_loop() and its callback. On s390, the verifier
-> adds zero extensions after the two 32-bit register writes in the loop.
-> The call is therefore at instruction 25 rather than 23, and the later
-> instructions checked by the test are also shifted by two. The test
-> fails despite the call and jump offsets being correct.
+On Tue, Nov 03, 2026 at 06:50:28PM +0000, Chris Wiseman wrote:
+> verity_ctr() creates a dedicated dm_io_client (v->io) for every
+> dm-verity target, but its only caller is verity_recheck(), which reads
+> a single data block into a page from v->recheck_pool after a hash
+> mismatch.  Because dm_io_client_create() preallocates a mempool of 16
+> bios and 16 biovec-max (4 KiB) vectors per target, each dm-verity
+> target permanently pins ~70 KiB of unreclaimable slab that a single-page
+> read never uses (~2.4 MiB across 35 targets on Android, or ~4.1 MiB
+> across 59 targets).
 > 
-> [...]
+> Replace dm_io() in verity_recheck() with bdev_rw_virt() and remove
+> v->io.  bdev_rw_virt() puts the bio and single bio_vec on the stack and
+> waits for completion, while keeping v->recheck_pool per-target.
+> 
+> Fixes: 9177f3c0dea6 ("dm-verity: recheck the hash after a failure")
+> Link: https://lore.kernel.org/dm-devel/20250423115013.4004577-1-weilongping@oppo.com/
+> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+> ---
+> TEST (ARM64 QEMU, 59 dm-verity targets, sha256, 4K blocks, mem_profiling=1):
+> 
+> /proc/allocinfo growth from 0 to 35 targets (bytes):
+>                                      BASE     PATCHED       DELTA
+>   bio.c:biovec_init_pool        4,587,520   2,293,760  -2,293,760
+>   bio.c:bioset_init             1,196,160   1,052,800    -143,360
+>   dm-io.c:dm_io_client_create     107,520      53,760     -53,760
+>   mempool.c:mempool_init_node      36,680      23,240     -13,440
+>   Total (35 targets)            5,927,880   3,423,560  -2,504,320 (-71,552 B/target)
+> 
+> Unreclaimable slab saved by target count:
+>    8 targets:   572,416 B (  559 KiB)
+>   15 targets: 1,073,280 B (1,048 KiB)
+>   35 targets: 2,504,320 B (2,446 KiB)  [SUnreclaim: BASE +8,436 kB vs PATCHED +5,960 kB]
+>   59 targets: 4,221,568 B (4,123 KiB)
+> 
+>  drivers/md/dm-verity-target.c | 24 +++---------------------
+>  drivers/md/dm-verity.h        |  2 --
+>  2 files changed, 3 insertions(+), 23 deletions(-)
 
-Here is the summary with links:
-  - [bpf-next] selftests/bpf: Account for zero extensions in patch list expectations
-    https://git.kernel.org/bpf/bpf-next/c/8fb43ffc3327
+Looks like a nice improvement!
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
 
-
+Sami
