@@ -1,129 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824204;
-	b=nKbFJosFItIOxKS1Kjv2VcU7IlW3G3/kmB4D8y76M/5HLHBCUO83MAmEpG9tmL7fqEbc
-	 fxGLpUXbDtyIJ2MJgu9PZ+lZKUHGXzKyuTvfrr6Cz/A725WOwmSTmGdHFaTNCEJft/zRL
-	 0Tej3Qs8SwSn+HZBTbLCL1xYhoRvqShwYMrX7Dvhu+HW9tGgNX3vWhHdAOB7K0EXcujVi
-	 zmQV8vJpbi8vW+qp/VEIxmKUlKtJtSqEzEfONL/dgeyajqdkyVAwRyxaLTQgrbvNsRSFC
-	 d2Fd/zzkqSM6gZDHr9UhOqUNi+z2CdRRNjModJ01prEi8IDbPqTMlBjd/DLrL0B38/w==
+	t=1793824216;
+	b=QGBdOrO4G1Wgu4rOXkfZAvodfD1b1IgWxpEo/EBwv4g4vFqGQQeVr84n8FwAAW6ztgh/
+	 lIv2ZjDZukZlKMQLCtE00lzL7P1yTc23WfD87SObBtwQVAiv+8MVfk26JfVLmIE042huQ
+	 XRVaZi8xLVNE4hB6/n6xg7KgAjANfYS4/xMNUjrXYXi5EVjvq4v8Z8NAJ5t4xr2OPxITk
+	 PWOj/Ffw0eW303ljM1v3Bbull98+p4SiLhVk1wo/SrT5pHgST6df6NThpdtMxDaBx1Pbk
+	 Z7Taw1lcY6GHe/6cvIXBaM8LsESmENIs/omFYpXTukSrAewYWIMfIJ+GqC99CmwLSRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824204;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Eecn0Ygaf7mft5z9aYz9Ro3xQK3/iLvYEIUNIgo48NA=;
-	b=BFrucB80/IRC799zMYZ5VnkycmqAnjqCHXUpdfsFTW110BoTV0lQDVdwLk3PyyA6xALt
-	 iIAgL6ZJu/Njl78V8/XatX0z0qVsNl2U3KXN+dTrptW+owS6cpr/dRkDTrhhffp5S2k0X
-	 3V3EeGmJf5TuhmvZJW7m+QGRMLPUpvoBBoHpuXrggxX3Y8OBQaHRQuOJxBwR1lVJJTEwY
-	 5IyNaa+doo1rtmOHD/A+IbannhOTaLgjPkxo7ed9KwW1ZBzwgQKJKKKm6mEkRWKu1LdV4
-	 WH8SdfrfGW5Je+BuK6B4mC7/fPb5ga5w5qn8PJ59IDdWH1yT+9M9+nm72tYWAs2OzgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824216;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MUqmEjQiDyXh4Fy1G1n8A/EyQ/xm3gIfckBPjkYh8nI=;
+	b=BR1bKhMBYZRSt5DUhmRigWM+urnlXZLLCA8vrxdQY6O1wpomORuohEyd6fUy5sXv1C38
+	 elF1uTTisMhDoExKmfycpbxIalz2uQM8Oi7joZ5ZLLvI1Z6THro9kyA0cD6I2lW+xBkFA
+	 Q+LugBWhgraocwEJOpIQMqrAd0l7eY6cTsDNYEhKNb3IyZvrgGUAL11wPhaiZkMEWt2nI
+	 Ug1WZgEyOgRtPInbdLlqkW5Zr1GCgmC+FU3pQg8E0j0EemHBhsfizz4kCTqDsCDgxcCm+
+	 I6qOevm4nJotY+WiddRMyB9+QQPMJPNQTWX3wT3mQzsAEkbOnNGXeNknpMh/c0Lbr6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ervWPU05;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pm1x6lUH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62483606A85B;
-	Wed,  4 Nov 2026 20:30:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62483606A85B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4C4606A858
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ervWPU05
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793824204; x=1825360204;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=h9DF1vrSe2ymxSVWOc4qaehYKUBrcFML5wxNEDR44VM=;
-  b=ervWPU054MxM3yD7NhPWqzKv2KHLA1wIuk4zpWzWXYUKEbbIzygd/UYe
-   iY+Mer79NV7PEcw8u86DwK79JroTgXOMuJa2mt468Umda/r1cZ2p3Jmdw
-   9hxal88IPd0UFKyE9GZKVlSxq+9bfAM3QMbv1VdJxB/BxV569I+YPD5kb
-   UjqSts3mV9XvgqMX/tjuOzvY496br1GHApZOdYNBsAT+vmk11QsIp6KRj
-   KLQTEOuttfWgoziMrKP1hRCZT8UUm9Hm/osC0Fy6tIKaHyEBy3Avfzb0o
-   +1jr+3gfLJ2pB3EcZW+A5F97q4l/JYPQMyIjPzqJ43FBwulbV/quyegt6
-   g==;
-X-CSE-ConnectionGUID: pEu2zE5RTBSgUgsFbdSrmA==
-X-CSE-MsgGUID: MdG0BsAoR9GYaL3kmgGE+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2602484"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2602484"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:30:02 -0800
-X-CSE-ConnectionGUID: 4s+PIBaTRcCfJB/9Fu/CBQ==
-X-CSE-MsgGUID: W8xphM45RZOPK4ny68SHrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6825384"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:29:49 -0800
-Date: Wed, 4 Nov 2026 22:29:46 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>,
-	Yenchia Chen <yenchia.chen@mediatek.com>,
-	Zhiyong Tao <zhiyong.tao@mediatek.com>,
-	Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>,
-	Kendall Willis <k-willis@ti.com>,
-	Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>,
-	Robin Gong <yibin.gong@nxp.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	Zhaoyang Yu <2426767509@qq.com>,
-	"Nikola Z. Ivanov" <zlatistiv@gmail.com>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
-	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	vkoul@kernel.org
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-Message-ID: <auuVum_cd7MgGDUq@ashevche-desk.local>
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
- <a2d5ea00-bfa1-4883-923d-0a6a7eaa556d@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pm1x6lUH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDBA1F00A02
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 20:30:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793824215;
+	bh=MUqmEjQiDyXh4Fy1G1n8A/EyQ/xm3gIfckBPjkYh8nI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Pm1x6lUHePQLpQa12onR5NIh/2+wiooaqTTt9oK77hAQOqbhN2YkQbC1Z4Vpi6ihA
+	 BFQBmbXlx2u28Vvi+04sXCIkvOOtlu55jw4GfxjHH7bPGnZdR3p6sio2PPhwVX63KB
+	 e/y7IsICJdnHRXYHUuMqG1n2OBfT1pFB7b2VYYkyX1NPNi9A7/x6PVij5Q3Ung04HW
+	 A3Vf5TEWxMpXhzWuuen4/fnnBXpNQ/jk/IV9NUG9/S/UGGtBPm39fflpuJ1iiMxtB2
+	 9vIQ3bPbSNtc0aQQoqzT7GJmcBhOQTzoeTe7clz1mNvwrl7EX/gb9924C1Y3h8aVyu
+	 d1Fo7s7KakEDA==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5ba328513b9so951329e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 12:30:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxtksgyCtROn8AW7v/WpLe3ueSGH2xHSBUka/JWIY+sWwKdTswCBKkbDX6YXr/kgy6gdvXW5nrTiNZPvTo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pZU30TJVmlR02B2gxFNavs+CbUJ7C963zJKXWZ+YRG1E9On64
+	cpMijL0VG7tTauOaOm6cr5yjjTGkPD+N3wvZCpSfjwMlZERDw4gqhwJPfjk1ivvKrXvpvLaa8jm
+	3HMyGF/drQydPTG31XZDUa/4Wejh19wo=
+X-Received: by 2002:a05:6512:3a89:b0:5bf:a036:3e4b with SMTP id
+ 2adb3069b0e04-5bfd954b85emr5964083e87.7.1793824213504; Wed, 04 Nov 2026
+ 12:30:13 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,63 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a2d5ea00-bfa1-4883-923d-0a6a7eaa556d@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261030-ghes-hwerr-sev-v1-1-145ceb996c77@debian.org> <9a375554-57ee-4cf4-8d84-60511c96d8ea@linux.alibaba.com>
+In-Reply-To: <9a375554-57ee-4cf4-8d84-60511c96d8ea@linux.alibaba.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 4 Nov 2026 21:30:00 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0iXwVS8r67NV3KjcZtpHONYTQCF79TnXsNL-N4uiaaGGA@mail.gmail.com>
+X-Gm-Features: AclHuK-7kjHHiBpwTEf80kUIfdqsskeRw3vF-XeO5xJVCOs50HtHMmyFSu4uzU4
+Message-ID: <CAJZ5v0iXwVS8r67NV3KjcZtpHONYTQCF79TnXsNL-N4uiaaGGA@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: APEI: GHES: Fix severity check in ghes_log_hwerr()
+To: Shuai Xue <xueshuai@linux.alibaba.com>, Breno Leitao <leitao@debian.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 06:41:08PM +0100, Krzysztof Kozlowski wrote:
-> On 02/11/2026 18:54, Frank.Li@oss.nxp.com wrote:
-> > 
-> > Replace open-coded assignments to callback and callback_param fields
-> > of struct dma_async_tx_descriptor with calls to the
-> > dmaengine_desc_set_callback() helper across serial drivers.
-> > 
-> > No functional change intended. Prepare to make struct
-> > dma_async_tx_descriptor private to the DMA engine.
+On Wed, Nov 4, 2026 at 2:16=E2=80=AFAM Shuai Xue <xueshuai@linux.alibaba.co=
+m> wrote:
+>
+>
+>
+> On 10/30/26 8:18 PM, Breno Leitao wrote:
+> > ghes_log_hwerr() is meant to count recoverable GHES errors in
+> > hwerror_data[], but it skips them and counts informational records
+> > instead. As a result, recoverable CPU, memory, CXL and vendor-specific
+> > errors reported through GHES never show up in a vmcore.
+> >
+> > ghes_do_proc() passes ghes_log_hwerr() the record severity after
+> > ghes_severity() has converted it to a GHES_SEV_* value.
+> > ghes_log_hwerr() compares it against CPER_SEV_RECOVERABLE, which is 0
+> > in the CPER enum and matches GHES_SEV_NO, so only informational records
+> > pass and GHES_SEV_RECOVERABLE ones return early.
+> >
+> > Compare against GHES_SEV_RECOVERABLE instead.
+> >
+> > Recoverable PCIe errors that ghes_handle_aer() hands to AER are also
+> > counted by pci_dev_aer_stats_incr(), so with the check fixed they are
+> > counted twice under HWERR_RECOV_PCI. That is not addressed here.
+> >
+> > Fixes: 3fa805c37dd4 ("vmcoreinfo: track and log recoverable hardware er=
+rors")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Breno Leitao <leitao@debian.org>
+> > ---
+> >   drivers/acpi/apei/ghes.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+> > index 663dc2e601cf72..5d888c82efeaa3 100644
+> > --- a/drivers/acpi/apei/ghes.c
+> > +++ b/drivers/acpi/apei/ghes.c
+> > @@ -899,7 +899,7 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_kfifo_get, "CXL");
+> >
+> >   static void ghes_log_hwerr(int sev, guid_t *sec_type)
+> >   {
+> > -     if (sev !=3D CPER_SEV_RECOVERABLE)
+> > +     if (sev !=3D GHES_SEV_RECOVERABLE)
+> >               return;
+> >
+> >       if (guid_equal(sec_type, &CPER_SEC_PROC_ARM) ||
+> >
+> > ---
+> > base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+> > base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-nex=
+t.git master
+> > change-id: 20261030-ghes-hwerr-sev-e440624108b6
+> >
+> > Best regards,
+> > --
+> > Breno Leitao <leitao@debian.org>
+>
+>
+> LGTM.
+>
+> Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
-...
-
-> I did not look at this code at all...
-> 
-> > index 640f85e2d636b..3f82a83998e1c 100644
-> > --- a/drivers/tty/serial/samsung_tty.c
-> > +++ b/drivers/tty/serial/samsung_tty.c
-> > @@ -447,8 +447,7 @@ static int s3c24xx_serial_start_tx_dma(struct s3c24xx_uart_port *ourport,
-> >  		return -EIO;
-> >  	}
-> >  
-> > -	dma->tx_desc->callback = s3c24xx_serial_tx_dma_complete;
-> > -	dma->tx_desc->callback_param = ourport;
-> > +	dmaengine_desc_set_callback(dma->tx_desc, s3c24xx_serial_tx_dma_complete, NULL, ourport);
-> >  	dma->tx_bytes_requested = dma->tx_size;
-> >  
-> >  	ourport->tx_in_progress = S3C24XX_TX_DMA;
-> > @@ -642,8 +641,7 @@ static void s3c64xx_start_rx_dma(struct s3c24xx_uart_port *ourport)
-> >  		return;
-> >  	}
-> >  
-> > -	dma->rx_desc->callback = s3c24xx_serial_rx_dma_complete;
-> > -	dma->rx_desc->callback_param = ourport;
-> > +	dmaengine_desc_set_callback(dma->rx_desc, s3c24xx_serial_rx_dma_complete, NULL, ourport);
-> >  	dma->rx_bytes_requested = dma->rx_size;
-
-> ... but apparently reviewing only a few lines out of 400 is still reviewing:
-> 
-> https://lore.kernel.org/all/9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org/
-> 
-> Therefore:
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-That's why I have added a trail to it to show what exactly I has reviewed,
-this is a common practice, no?
-
-Does this ring a bell 34d1e754155b ("dt-bindings: iio: drop unneeded quotes")?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Applied as 7.4-rc material, thanks!
