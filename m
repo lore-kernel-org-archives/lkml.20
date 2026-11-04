@@ -1,100 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812944;
-	b=bq345lsPwE7G5RNbl5mHN/hluBvZ1vdQzZ2xskQgjDNQrPa3Xu8ixG7LxNnRRIyMwI7B
-	 5siWj+k8ftar2F+VR6nTJkf3rPRZM+0CjbFmJEsMZZSM3cqmK/8izV9SvqTz12qglJn0j
-	 luJD+ekwGumP+MiT9NabxPA9apxPYgrt5FhFXKRUmkbhuogq9kjQU/XscuMmiVniN7noT
-	 Jm/IwqRn44cOva/cngKpug8n432X7EQav5jQ9l81Yg+McyH75uVSaIz2C9Ws2/f0UA+Y5
-	 Ia6KSv+ZgLSIHaVHUHPPa5QcRqJG5SuvDDhefGcjWnNXal1LFsX4wczIqP+u9suD8Aw==
+	t=1793813016;
+	b=34bWYWHXyJLIkZrLQ7+o2dWeNf1XjwZMV0F/XgZ2fNDgryfvCksiIDktlewJsYOPJnpK
+	 Q3aSNYr6Z1q+Sbv3TuaExL2hRbX7iJ2WUS3EqAcNkvPysCUDVNX5X82fB98yu9EkbFMv7
+	 dv0bzIl7J4U+A21wzZcnoStse26iVgDyM+O7X5ZvyV1nmhukxmLx9cG31u8q3rPdtV96E
+	 bRGV0lYCquCyRJg2WcTFW9nqqlyK6eGYHFA175RkBJ65Qq9vadp2Npm5XOefjdL1g5diE
+	 v6dPSz1siAJuvQtiM4WhWIZjWJb/sFuVvDIZRN6lK7M+5eSI7jf/M6EC00SWoTlufIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812944;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=trCudkRlowf15KXENTfDgxDj2b+EYhikc7lQRV8B0y8=;
-	b=28y6opuW96V8RdveHrvZdZBWGfTFF8v9Wj9qYMtyVP008w52Wxg4yc0oZHErrlcQx0H2
-	 IoPoA+putkTTRyTA1n1Cc34teLa9rG2LjGM52nEYQex8FZt2cSMlqA4t5CPQaAFZndCLU
-	 cYN2eRPibjf3DJgFk/aQ6UpglO+7/MHkH7OnJ3USOJ1JXqNirJ9rznim+zZH+gh1wUUa3
-	 /6QOP/hFW232JPUjOxYH0zTI4yyhQDT5LwsVr3MErRfZQ1owpj8e81V0F3y+mSn3jXfAw
-	 Jjxa3RFGwddUgAOsOn0JnSiVk4Mlmfuu+Jk14sAQb762DcvZc8WE6Fpr6WUKZoOhk5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813016;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Jf+fsnmGIryZf3OQ6Nnm/qTexCHP5OkJmTCMajaRAPc=;
+	b=DL+M5KhddnDTjNR8U08D9ifFaRSAZXpyHVIlaLTjGxAw+qAJM3ngOmtpuvNJW/tgDlR+
+	 MnkXY8mX4w+I2x+7DrSPW9r0uiXHNIP8s4lLcZLuMefW41J6uz4pqJudSZctVZlC0/SYd
+	 cr+vvFUVjXAFmefwEUNVpHzpjK4R+n/038vhvL7CNI4jxAl6PdQUj787S5uaWa9NcVZDH
+	 VxBDqiIjM4LlLkZuYMmYswA3S2o5K9Uo1WmlTKmnrBXwaBHfBplXeM7Q/M23lTnTCXPnF
+	 RmyIXsXPxt8X0LdakKnW5L0CGbZyJ5WYFm0Z+VOaZX7EtxBmkag+JQusnZtE2EFOheA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=PC6+0cdo;
-	arc=none smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ApjvTxv+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41723606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:22:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41723606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A580A606A326;
+	Wed,  4 Nov 2026 17:23:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=PC6+0cdo
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5364648ae07so8592451cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 09:22:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793812943; x=1794417743; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=trCudkRlowf15KXENTfDgxDj2b+EYhikc7lQRV8B0y8=;
-        b=PC6+0cdomG5vROb/kLHJXErM98cBbYg2LDk3QMVqs3tgW+MeYmcAt8D8Lw80tojkt/
-         1OXfgL7nlz8UbSznmRrrZCoXiUBswTXbHzZic8VJi5U4V3RBSCsL7vubZNlaxEI2u3D3
-         2SbqarhrEhewIDDsNBmEXANEakDeX+DziPUOIuF3Ilwg2ZuDU4IEkXpdCAW9S6N6Nvkr
-         Z2hKAy9HzQ0GRHj3ilAQ726MEqZ1+23842XHDu8ChfFw3rtImkuZZoFJkolBWw/D5Sjz
-         GZYbhJRfYLuvm/HXLEdM9ZzrKoU3Mj96r3cDMTmZUbPsCimWJQFl+LdmtZH4OC25LSgG
-         pbUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793812943; x=1794417743;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=trCudkRlowf15KXENTfDgxDj2b+EYhikc7lQRV8B0y8=;
-        b=jDhz/4E3STFyQpir6ehOqDYy7A3fxB3g38kBEtPRpL614rM5Yh73BgpRG2lN1Ah8Cy
-         OKhCRwJAWZYcWq7CL3RLsRDKFAa+RtJx+3YCsNqhTCFjFTtJwwddywLP9SRIKj08KZzC
-         o3iS+rGVOXIsMEF0dAjxqUjJYSPFg2OsjgGV4yseBCgvA1eyvtO027KwJ721PKD1Teg+
-         U8S1GaBmGsF4LLMRfQAr1AtZVdQcKtJmxyBYW19V+Ii5QKaFrWAwly2ZVGK8wRIuVwH2
-         bg2wbU9IfI/JfBX0igGMwjO1PdVvVluxDv7kxum5MDYpoLeHpnUTRjuc31AYr5GS4GSr
-         97+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxOz5He52706nkszMJ+ci67k/Ge0uDUlPxf42aiSVcRdoMGulWTopCFgRCoC2U6q5f3Y//8E781G716Iiw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83zpy4h2RMu++0iPmMJlv1e7t5viKdG4TrtUMSyEMmyUpY8who
-	Q85uwOgJ/sWQbdqTKfoBw87hS73DxJhRY4KsUqf9msREZVCi3XlTOIM32WFDvjtXdcwIlcCZ7sJ
-	CV/nkylW2og==
-X-Gm-Gg: AYBFou0QS5uT4RM2tXQmfBSIt0YMyULlgOTjq7+e18VlbDmsc8FghMbMW2XZpmW1uLD
-	4tIYZwsQO1Y0neVMdm0n3PRYcF0INv2p9jU6kl18c69u06jNqT8+gJw1OwZIQkn3NHQxLP0g97S
-	03oeky72otW6HXY9p4Bq/pHxUyHt0yPZMxYkwO2uO/ktYIYP/V3W4fxu+YIquAk4bkThYi/urh0
-	CfME0+WZ1L1pWcCoU05ivYSqXeSIrdCXHYNugfcZSsp5wSN7Fbd355ykO/LYCvLhgVdwR+pnQem
-	ktnwX6OSMvRFtvt6TYGZsApFXJMcSuAsGH0PZtAjzJpyjsgdeRvSQwyNP4XhHorqW/P1vsoU6vB
-	YO/MExrg90y5jKW+swL0EhqnNseGOS5OG9LJtvh60IzwPVZsRVQrC14ug49vnfCdKzQogVW05l2
-	DXfwXG9z62wqJl6Q0QDq5099/+MUh7OI5tODz1gy0iZNYHqtUGywfCSKafiaNg8yI8k8424WI0P
-	Zlj2Swbe/JWk1KRUAt5IPCW1d0NWI2JmJGXybLaOnuQW2DaF6mY0C8J24bwXDCKAwTpwUUg3y8Z
-	B8+iDty1tEoi6TtEpykKTs/TfQ4Aql3ycF6K4LqrZ7v0Zw==
-X-Received: by 2002:a05:622a:480b:b0:536:7dd:16b3 with SMTP id d75a77b69052e-542b86e118fmr251024031cf.75.1793812942892;
-        Wed, 04 Nov 2026 09:22:22 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.240])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b100af507sm29121651cf.6.2026.11.04.09.22.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 09:22:22 -0800 (PST)
-Date: Wed, 04 Nov 2026 17:22:21 +0000
-Message-ID: <b9d94891c6bbb0a18176424eadf6ff88.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- Christoph Hellwig <hch@infradead.org>, Chris Mason <mason@kernel.org>,
- Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- Chengguang Xu <charliecgxu@tencent.com>
-Subject: Re: [PATCH v2 00/10] ovl: only sync what was written through the
- overlay
-In-Reply-To: <CAOQ4uxhWy2aQV6g7VJcV+NDLPTSoGyR4Rag8uvAwN=LWnApaJA@mail.gmail.com>
-References: <20261029-b4-ovl-containerized-sync-v2-0-4e9f08e4a052@toxicpanda.com>
- <CAOQ4uxhWy2aQV6g7VJcV+NDLPTSoGyR4Rag8uvAwN=LWnApaJA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ApjvTxv+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C761F000C1;
+	Wed,  4 Nov 2026 17:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793813015;
+	bh=Jf+fsnmGIryZf3OQ6Nnm/qTexCHP5OkJmTCMajaRAPc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ApjvTxv+ADLbOjqM3lRPCeOqwPSRSuzNxz+D5QFXxKZEpVzQ/EFeKhrIDwv8VEdM8
+	 i9RvCnt/KyKcFM8ISXIjcUxUxOfvAJL5tJLn8T3QSTU3A1m6zCq8HrIiugsso4IK8x
+	 SBGDr1kxsyYCidMpPztvPalv93jum4bx40RUEvbeoD3Tj4FPlBsNeZmz/YZBU+Y7wv
+	 QHNVgyMX2F+C/k+J4JEQyhmDcIwhurdn+mLvbljUR4WuBLEp8JvXhxiuoBk8utBvkD
+	 6gFRFRk2JACDzEb6seZjcCs81SF8R3xvTCzbx3drnNuheB2smeO32cq+evv3RiXX42
+	 MATu3FSRICB/w==
+Date: Wed, 4 Nov 2026 17:23:24 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Zi Yan <ziy@nvidia.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm: split out memory-failure declarations from internal.h
+Message-ID: <autp6fWoGnnsPkbL@gremlin>
+References: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,43 +69,236 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
 
-On Mon, Nov 2, 2026 at 11:14 AM Amir Goldstein <amir73il@gmail.com> wrote:
-> I think this is over engineering.
+On Wed, Nov 04, 2026 at 08:45:34AM -0800, Breno Leitao wrote:
+> mm/internal.h carries the memory failure declarations, but only seven
+> of the 81 .c files that include it use them.
 >
-> What is our goal here?
+> Move memory failure declarations to a new mm/memory-failure.h and
+> include that from those seven files that need them.
 >
-> Make overlayfs behave better for the (many) containers use case.
+> Move the block as is, including take_page_off_buddy(),
+> put_page_back_buddy() and page_mapped_in_vma(): they live in
+> page_alloc.c and page_vma_mapped.c, but are built only for
+> CONFIG_MEMORY_FAILURE and called only from memory-failure.c.
 >
-> Who in their right mind uses a host filesystem which is not one of the
-> big three?
+> Keep the declarations private to mm/.
+>
+> No functional change.
+>
+> Suggested-by: Mike Rapoport <rppt@kernel.org>
+> Link: https://lore.kernel.org/all/aumt-4kfGGtoXuh-@kernel.org/
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-I mean I'm good to say if you use something other than the big three
-you're on your own. I built it out this way because I assumed my
-attitude of "I only care about 3 file systems" wasn't acceptable, I'm so
-happy to find I was wrong.
+Thanks, nice to break this up a bit!
 
-> Please consider the attached patch.
+LGTM so:
 
-I put it at the front of the series and dropped the fake inodes and the
-hooks in the ovl_do_*() helpers.  It's 8 patches now, yours and v2's 1-6
-and 10, and we only track dirty inodes with fsync=relaxed.  I'll send
-that as v3 once my tests finish.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-> The heuristics do not always get it right, for example, ext4 without
-> journal does
-> support RENAME_WHITEOUT, but it not safe for fsync=relaxed mode, but
-> this is an imaginary scenario that nobody uses and there is config/module/mount
-> options to force the legacy fsync=on mode in that case.
+> ---
+>  MAINTAINERS          |  1 +
+>  mm/hwpoison-inject.c |  1 +
+>  mm/internal.h        | 29 -----------------------------
+>  mm/ksm.c             |  1 +
+>  mm/memory-failure.c  |  1 +
+>  mm/memory-failure.h  | 36 ++++++++++++++++++++++++++++++++++++
+>  mm/memory_hotplug.c  |  1 +
+>  mm/page_alloc.c      |  1 +
+>  mm/page_vma_mapped.c |  1 +
+>  mm/vmscan.c          |  1 +
+>  10 files changed, 44 insertions(+), 29 deletions(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 27d5b599558ae7..cc973903fda09d 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -12441,6 +12441,7 @@ F:	include/linux/memory-failure.h
+>  F:	include/trace/events/memory-failure.h
+>  F:	mm/hwpoison-inject.c
+>  F:	mm/memory-failure.c
+> +F:	mm/memory-failure.h
+>  F:	tools/testing/selftests/mm/memory-failure.c
+>
+>  HYCON HY46XX TOUCHSCREEN SUPPORT
+> diff --git a/mm/hwpoison-inject.c b/mm/hwpoison-inject.c
+> index a11222572f9789..07032ec63080e8 100644
+> --- a/mm/hwpoison-inject.c
+> +++ b/mm/hwpoison-inject.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/page-flags.h>
+>  #include <linux/memcontrol.h>
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>
+>  static u32 hwpoison_filter_enable;
+>  static u32 hwpoison_filter_dev_major = ~0U;
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 3e15dcdd8af768..b9278329f9a239 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1196,35 +1196,6 @@ static inline bool node_reclaim_enabled(void)
+>  	return node_reclaim_mode & (RECLAIM_ZONE|RECLAIM_WRITE|RECLAIM_UNMAP);
+>  }
+>
+> -/*
+> - * mm/memory-failure.c
+> - */
+> -#ifdef CONFIG_MEMORY_FAILURE
+> -int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill);
+> -void shake_folio(struct folio *folio);
+> -typedef int hwpoison_filter_func_t(struct page *p);
+> -void hwpoison_filter_register(hwpoison_filter_func_t *filter);
+> -void hwpoison_filter_unregister(void);
+> -
+> -#define MAGIC_HWPOISON	0x48575053U	/* HWPS */
+> -void SetPageHWPoisonTakenOff(struct page *page);
+> -void ClearPageHWPoisonTakenOff(struct page *page);
+> -bool take_page_off_buddy(struct page *page);
+> -bool put_page_back_buddy(struct page *page);
+> -struct task_struct *task_early_kill(struct task_struct *tsk, int force_early);
+> -void add_to_kill_ksm(struct task_struct *tsk, const struct page *p,
+> -		     struct vm_area_struct *vma, struct list_head *to_kill,
+> -		     unsigned long ksm_addr);
+> -unsigned long page_mapped_in_vma(const struct page *page,
+> -		struct vm_area_struct *vma);
+> -
+> -#else
+> -static inline int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill)
+> -{
+> -	return -EBUSY;
+> -}
+> -#endif
+> -
+>  extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
+>          unsigned long, unsigned long,
+>          unsigned long, unsigned long);
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index d24b129932bf79..623a2cdb392428 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -44,6 +44,7 @@
+>
+>  #include <asm/tlbflush.h>
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>  #include "mm_slot.h"
+>
+>  #define CREATE_TRACE_POINTS
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index b215312f261b83..78f0a13349cb3e 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -68,6 +68,7 @@
+>  #include "swap.h"
+>  #include "page_alloc.h"
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>
+>  static int sysctl_memory_failure_early_kill __read_mostly;
+>
+> diff --git a/mm/memory-failure.h b/mm/memory-failure.h
+> new file mode 100644
+> index 00000000000000..153aea6c610c03
+> --- /dev/null
+> +++ b/mm/memory-failure.h
+> @@ -0,0 +1,36 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * mm/ internal memory failure declarations
+> + */
+> +#ifndef __MM_MEMORY_FAILURE_H
+> +#define __MM_MEMORY_FAILURE_H
+> +
+> +#include <linux/mm.h>
+> +
+> +#ifdef CONFIG_MEMORY_FAILURE
+> +int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill);
+> +void shake_folio(struct folio *folio);
+> +typedef int hwpoison_filter_func_t(struct page *p);
+> +void hwpoison_filter_register(hwpoison_filter_func_t *filter);
+> +void hwpoison_filter_unregister(void);
+> +
+> +#define MAGIC_HWPOISON	0x48575053U	/* HWPS */
+> +void SetPageHWPoisonTakenOff(struct page *page);
+> +void ClearPageHWPoisonTakenOff(struct page *page);
+> +bool take_page_off_buddy(struct page *page);
+> +bool put_page_back_buddy(struct page *page);
+> +struct task_struct *task_early_kill(struct task_struct *tsk, int force_early);
+> +void add_to_kill_ksm(struct task_struct *tsk, const struct page *p,
+> +		     struct vm_area_struct *vma, struct list_head *to_kill,
+> +		     unsigned long ksm_addr);
+> +unsigned long page_mapped_in_vma(const struct page *page,
+> +		struct vm_area_struct *vma);
+> +
+> +#else
+> +static inline int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill)
+> +{
+> +	return -EBUSY;
+> +}
+> +#endif
+> +
+> +#endif /* __MM_MEMORY_FAILURE_H */
+> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+> index 41fcdc04e54042..b0971404f0ac0a 100644
+> --- a/mm/memory_hotplug.c
+> +++ b/mm/memory_hotplug.c
+> @@ -40,6 +40,7 @@
+>  #include <asm/tlbflush.h>
+>
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>  #include "mm_init.h"
+>  #include "page_alloc.h"
+>  #include "shuffle.h"
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index abebfb1f202e9b..b6d9f2c9cdef53 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -57,6 +57,7 @@
+>  #include <linux/pgalloc_tag.h>
+>  #include <asm/div64.h>
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>  #include "mm_init.h"
+>  #include "page_alloc.h"
+>  #include "shuffle.h"
+> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> index e6b6170c2f4f72..d45d52436f99a0 100644
+> --- a/mm/page_vma_mapped.c
+> +++ b/mm/page_vma_mapped.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/leafops.h>
+>
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>
+>  static inline bool not_found(struct page_vma_mapped_walk *pvmw)
+>  {
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 50c352e9ffefc4..3db2db65319c00 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -67,6 +67,7 @@
+>  #include <linux/sched/sysctl.h>
+>
+>  #include "internal.h"
+> +#include "memory-failure.h"
+>  #include "page_alloc.h"
+>  #include "swap.h"
+>
+>
+> ---
+> base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> change-id: 20261104-memory-failure-split-4c7abedbe0dc
+>
+> Best regards,
+> --
+> Breno Leitao <leitao@debian.org>
+>
 
-This one actually works, as long as we keep doing the last step of
-sync_filesystem() as well.  Without a journal ext4 puts all of its
-metadata straight into the buffers of the block device, and
-->write_inode() does nothing.  So ->sync_fs() isn't enough, but
-->sync_fs() + sync_blockdev() is, which is what the last patch does.  I
-ran my crash tests on it, whiteouts, index entries and the work
-directory all make it to disk.  I added "and write its block device" to
-your sentence in overlayfs.rst. Thanks,
-
-Josef
+--
+Cheers, Lorenzo
