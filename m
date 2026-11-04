@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793806611;
-	b=HJs2eEuJha98m0QabwdceFl0R4TpNWaRSkIRZLc2Wb3scQykx2Sr2wvstZow8eirxLx1
-	 ZisRZFRB03nbKZXcFnn9MVfa4MUvN11YLGtqoSAwOdQTQZRQV7CLF1dYlowwlwxXXLHbJ
-	 M/97C/5jvHt4SbmaxAQF5lyTN6vSfqw4KVKmzmLFbncPHIGy2tATClx/FipTdeqoSe0qq
-	 IAgxERsSNiBBHzcU3gggOC9DNBeEQqHVDeIupRiLPa2/ANdcB8pBAVYG18+wsQGXsnBg/
-	 mUSqv+P/OA5fu7VJzTOAYq7gUxh4sOfhZnZzxMa7QPUART3bwxncJChU2TqM2PJ1NdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806611;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/80aGJ82gVECqlmDwN+VdInnRDZREun7wkOwr++IDM4=;
-	b=HtVywuWAqVHgW5XEhHcPEvfxCEt8NUsf6a5V22I6ooCBE7uBw+pWdpyi+X5Qb49Afk30
-	 aTUCO+quTZRo0Bq6hrl6EyflBvo3rtIz8LnODwdaMlIAX9t/JlSA3wPrkRxPTHmA3+G5R
-	 z/cekAXrOSp9MHEOSq1xKxQ3n24L4mAC0ZT4wrs7XY5qJeCqheyaTqViG+QXsXRQkEtCj
-	 2IZvQhH1lCx0riGixeVd3c+7uhgvG7y40KOicJhvR1Lex8wUt1cB3w97wuO3SHiPsT/3z
-	 rPdCggsC8X9GsfcmwHCNsvHVRUaW5FIF8Hl6ji0VzIjpa70tCwMiUCAL1bRghsV0lLg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bur9vrPV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A70C606A31B;
-	Wed,  4 Nov 2026 15:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bur9vrPV
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793806611;
-	b=RG1DuCanGA9UZzrePpRO1olSQAfB0GzKMLfjhadCbdQKEGVMZvpqJoGWmEY5IHK7L4ca
-	 F3LkcV7VbS9CM+03XH9iqzcBBieaiF45fBOwW5nsgUOefmT+HsnunPKEuUZFEoGUvHdAX
-	 5PnCiHm4OwjUYmRclHrvxuDpuRBWpsmhxqkbhGZiM1cPVZNAjC5gxbg9yjusr8Zr4CZRm
-	 1nuTTOE/3Pm1S2dt/PlG9g+z+YIPJ/au9O6CppjZFvscl9H/CJoi0ss7dgIMzUruCaMh1
-	 jdmfOEszy48Kf1YiBS+RgsVhobpi4+RKHYEi3ybrIl+lH2z5ylt9JF8TsrjcT8fPd8w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793806611;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/80aGJ82gVECqlmDwN+VdInnRDZREun7wkOwr++IDM4=;
-	b=rao2mjmVc9pHnjEGtbHy0ThoygYpXdAIVrI2lM5Ss+IyCuvY9+tzQ5LMwpGtwKuFicbS
-	 HxixQT5ybR7zQidVxPAqmn2HwTwk9SPXw3kkKFIAOLem543ZnN4AFbWw83svhIuncpp1n
-	 hbeZluGddbfOqJA8Q5w9lPV/yquMe0JMUNgDBjpDd5rtNrZ5DJG1CCTOo4XFHWZg59Bs7
-	 1yRg23XnaqbGnj1BhncOQw3MolzjsxkrBu2xXr5F0TWgtGX3CfS0ob4wQhLzFCzINELv/
-	 QY1DTkqeF1G+TdVt+C9U6MdSbZtlAd/u63HHaOsLjcBTK1j32iZ6zCREeBOgK6BL8vw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793806624;
+	b=x8B0H4pdUaNe3L3kcseqkzP7ckDMWz5hMiG8NOf/QLFyV0WQNSMVtqnP3SpL4oVDOA5i
+	 Uc9r5rLR4BXEA5vnVbGtlGiR/Iiik6QXhPZd7pWaffzk8Th3A2oxFA+avwzCnU+uZgcOr
+	 YzOerAP/g6tE4yVpDAS29OMXWVCqOx+1/3XzlcHZpopsucDHrqT7DNR9VEIwagY3fcX0m
+	 8FsNPM5n39tcXvqsSeIOvkXB3DMut5DLxaUUHe1t68w6B8uuQAqrz1CBJCXFr7MnSPRmT
+	 RxKvfwbQUIMG+0aYUK9LZBMU+R1+ISxplFc+4IIClG7qTpLcyp07+gSCLUnhbcjIUBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806624;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=XfsPgdvy8kSHCEVv9LMQ1SA8n9GsOVE86sCMtGk1lGA=;
+	b=Zc8UjjNohL7Juoe2gcp1BnbQRBfROzXIw0t9ajWOWfjxdalArh28vdN8rieyWm6nhpkF
+	 0y/G2Uu0YOuKupe6fQbgTu+jKCOtSLvyAH3pdNS/cVaTTQT+mZlTUg7CGdog5ogMXdo0c
+	 4uvVWj/6PEr10bPeVqkmjj8m0Kz8IaRy6YhifztF6YFDHkc2HkuSWfUVtNIvSgwUlqUVG
+	 2GkreQQBctvcblD1LOXytRb2u5HrKutKs47ept9TYRbQrom4JDHGBRX1akHEVqCniGvCW
+	 b/0xMOAdT1KK+8lLQ+5L4YnnsHZriZdKReofSdO4ydaJJJ16p+JxNN6OVqay/AyfgpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ODMh4QEV;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ABCBC1F000C1;
-	Wed,  4 Nov 2026 15:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793806611;
-	bh=/80aGJ82gVECqlmDwN+VdInnRDZREun7wkOwr++IDM4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Bur9vrPVFZ1XO0155NQWTfJ41aK/uHBFCEqQ6JlyobhIP731WzpZOa68RP0h1Ezyk
-	 rq4gDWzE2M5xM/G6rNK1kiRafV+kfPu5RDzFTBev8Oqrhb/UBlIPWp9zF7BzlOVofI
-	 SP3Tz074/Ff92VxmY3Z8anlLcw2UiA9MWJPrNGB5dhq2rRsIh2s9F2ClVsdbXXpiG7
-	 hGbBeFWMRnBiVLM8b1nED1tQB5o1VQlb+6EDRdC+O43Jv0dyqXYxBdg2339pyt5O6R
-	 /z+e6dIhSvuII/F0EOALKQeTzGL1m5dgjAqnOg/u/C6cwukbFS9m8xiMTmSCPbB1uN
-	 n216DmVRUIR0Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0A31046E89;
-	Wed,  4 Nov 2026 15:36:50 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 09:36:50 -0600
-Subject: [PATCH ath-next] wifi: ath10k: don't warn about a pdev param the
- firmware lacks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CC4606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:37:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43CC4606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ODMh4QEV
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so8374785e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:37:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793806623; x=1794411423; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XfsPgdvy8kSHCEVv9LMQ1SA8n9GsOVE86sCMtGk1lGA=;
+        b=ODMh4QEVtjhQfHvQfvgU78XZh1lK8KDqQZxBrc6FJOIRl12hF3pU9PSWPflHPw+6o9
+         LickVM5OEI2lUkTXIfVNuSdkrmkdhFZyGtWoKqiWRcXGuXACmgD0uXCmP751QDgFn5RI
+         Q0kYi+M+CmiL3xVMm5rHhdLDWdbk8f5uGxZqRiU+4RambiAqmXs//hIGpSI71UCkQ+mc
+         lGG2ZlMXOsbfPMxxX3sP+GV61lW7fBuY3N+7JArIMkYpkleYX54pjzf+52DMnInvHDd5
+         meCIuledeAX3cxAjAUOw/wyv3FPbdfs7LtPEIPpJD71I3XL4BzT2+UNFqYkcYMCwMhNc
+         hSnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793806623; x=1794411423;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XfsPgdvy8kSHCEVv9LMQ1SA8n9GsOVE86sCMtGk1lGA=;
+        b=I1HpUD3r4hHEBDk6/5MXiWkHolNO+3vOacsrfQJ9wEET/10mE6N+wdgs/kyPkNBiU5
+         gMI0X//duxdDUtT/uAbOQDdbnQhnRljK0+KLN37Zf53/jcAyaqLQ8f5KtI2RU4sJwoZF
+         Z3+ogGzABlzHuB6YXIesTq9OOVDswKXykyVfKyslqlt+jHUfiL84f8PsocQjWB3RMqnI
+         Umc/aijzgmvPrv1IqCCzTTy3RBhJrCOyDo4IdcHzHSxUu0RkLi90JQhLWOrONy8i+U4z
+         9ZhmUsl/J/dzAPeya951jOHAcXsyhQYf2ZA5e3rLjgw1BuK5nx6hId2vk209ltJsN9ZY
+         w7Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwmjP8xI2DU58h03qDMIpHN9ODJJeTvMA6paaEl2X9zaPvBLUPnczOaWPbNAEBuBkzRuGbkdgj8jktbrEw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CP6CgGDZKnAxrkRpub2EiDzt2Tj9SrVl2YEhK1WewJjnhjRhn
+	iiu/Oc8X2m5Q9CxS6Ge0/cVpATYZnq74J+Qf2d0qa9XH0fdKCfTw8nSkNlm+FQ4ECwA=
+X-Gm-Gg: AYBFou23BqyAuDRfAq1dtM2gBZBVnw455VfR3ZIaInZnIsefHw4OxwT3GGv8FeGXknS
+	JlucB8HVOYkqxvdxvrbFdWJTAu6szfdew6QUZzKM8FMGzb9jKr0CyuxFfe5fckJv5ezlfzGodXT
+	usAjajUcF1yLABvBnITB3EQFA0cyATAzAGyVpK2HQp2iAXi2nmjjg6xIEmB+5sFg8Es4MXpGV/u
+	alUvi/t65XymDvra0C6gnklh+js+FEkWh1IS4Rb8SbKOsEQ36mjKRGvZ9PP+5O8bQxZyTOSBrAB
+	h/Urc4aqfVDFJIQjviUu2XjcQQi0UW1tJiiKuj9FhJXkyXzTJEk8tjOw/xdwpii7/rCm5EquF1W
+	+EDc4f431Wb5CxkFjemOvsUO3rEgY1kcxMtaxN2Su19WWPoBgEnAMmijvvhudfFUFJiJ8WaR2Ar
+	HxrC42hdn2Pnv42DTY0SNQyxf/Rbdaetj8Kks9SDVr55UFVxaLCK/b6CjWr5Wg2vHoOCcQ5On/a
+	9LEihhjV+aN8VXV/Bo+FBGQfq6EvOpC9GFCiTTyHBiXarAXdqLEdRCdeObcDpssMkmA9Ke5aT9S
+	oW8IHhKKmC2j/02s9QBOzJl3eS7OrTnR
+X-Received: by 2002:a05:600c:3554:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4ac14ec66d9mr391692595e9.2.1793806622707;
+        Wed, 04 Nov 2026 07:37:02 -0800 (PST)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43d4c9d4csm82566395e9.12.2026.11.04.07.37.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 07:37:02 -0800 (PST)
+From: James Clark <james.clark@linaro.org>
+Date: Wed, 04 Nov 2026 15:36:38 +0000
+Subject: [PATCH v2 7/9] coresight: Fix resource leaks on
+ coresight_build_path() errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,106 +93,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-b4-ath10k-unsupported-pdev-param-v1-1-b3973cef8a72@gmail.com>
-X-B4-Tracking: v=1; b=H4sIABFR62oC/yWNWwrCMBQFt1Lutxdy2yDoVsSPpDm1UUxDHqVQu
- nejfg6HM7NTRvLIdO12Slh99ktoIKeOxtmEB9i7xtSr/iyiNFvNpsyiXlxDrjEuqcBxdFg5mmT
- erI3YCwZYmUBNExMmv/0SN2pXDtgK3f9LrvaJsXwLdBwf/fZNAY4AAAA=
-X-Change-ID: 20261104-b4-ath10k-unsupported-pdev-param-4a1b9e3eb1fe
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793806609; l=3220;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=FSA292u5sCTcbszeVed2MuneSQSw8t2SoCteAKWPoU8=;
- b=EBX0Q4NJ1xPErZiJJT39EEgLp79tCgdRVMqeWXrewECTgvMS4XI2mTCB3cMf+g6u3Kji10nhZ
- oYl0MGyNh20DLNAa9lOPEe5XSuU04DL9z5gt7mA4/hJT7E4zzZGjrDv
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-james-cs-sashiko-easy-fixes-1-v2-7-410c03941267@linaro.org>
+References: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
+In-Reply-To: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+If allocating the path node fails in _coresight_build_path(), the
+references taken by coresight_grab_device() just before are leaked.
+Drop them before returning.
 
-On firmware other than WMI-TLV, every start of the radio logs
+Also, when _coresight_build_path() fails, nodes for devices further
+along the path may have already been added and grabbed, but
+coresight_build_path() only frees the path itself. Use
+coresight_release_path_locked() to drop and free any nodes too.
 
-  ath10k_pci 0000:01:00.0: pdev param 0 not supported by firmware
-
-and every association of a station interface logs it again, followed by
-
-  ath10k_pci 0000:01:00.0: failed to enable peer stats info: -95
-
-ath10k_start() sets idle_ps_config and ath10k_bss_assoc() sets
-peer_stats_info_enable; only the WMI-TLV pdev param map has them, the
-others hold WMI_PDEV_PARAM_UNSUPPORTED, and the set returns -EOPNOTSUPP
-after the warning. ath10k_start() already takes -EOPNOTSUPP as no
-error, so the warning tells nothing.
-
-Report an unsupported pdev param at debug level, as an unsupported
-vdev param already is, and let ath10k_bss_assoc() take -EOPNOTSUPP as
-no error too. A caller that needs the param still warns with the
-error.
-
-Seen with QCA9882 radios on 10.1 firmware used as scanning and test
-stations: 204 "pdev param 0" and 62 "peer stats info" warnings in ten
-hours on one access point.
-
-Tested-on: QCA988X hw2.0 PCI 10.1-ct-8x-__fW-023-23ea9f8e
-Tested-on: IPQ4019 hw1.0 AHB 10.4b-ct-4019-fW-14-fcb240f0
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
+Fixes: b3e94405941e ("coresight: associating path with session rather than tracer")
+Fixes: 32b0707a4182 ("coresight: Add try_get_module() in coresight_grab_device()")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-fe264804-52b6-4b0d-a43e-184e228df19b
+Signed-off-by: James Clark <james.clark@linaro.org>
 ---
-Tested with ath10k-ct's copy of these two functions, which carries the
-same lines (OpenWrt's default ath10k driver for these chips), on a
-QCA9882 scan radio and the IPQ4019 radios of an Arista W-118: before,
-each firmware start and each station association logged the warnings;
-with the change, none in two firmware starts of each radio and an
-association of the QCA9882 as a station. This patch itself is
-compile-tested on ath-next (wmi.o, mac.o, W=1).
----
- drivers/net/wireless/ath/ath10k/mac.c | 2 +-
- drivers/net/wireless/ath/ath10k/wmi.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/hwtracing/coresight/coresight-core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
-index 8e604697d6c20..20b91e8abb5be 100644
---- a/drivers/net/wireless/ath/ath10k/mac.c
-+++ b/drivers/net/wireless/ath/ath10k/mac.c
-@@ -3158,7 +3158,7 @@ static void ath10k_bss_assoc(struct ieee80211_hw *hw,
+diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+index c05d657cde73..bcfeb1c97127 100644
+--- a/drivers/hwtracing/coresight/coresight-core.c
++++ b/drivers/hwtracing/coresight/coresight-core.c
+@@ -1033,8 +1033,10 @@ static int _coresight_build_path(struct coresight_device *csdev,
+ 		return ret;
  
- 	ret = ath10k_wmi_pdev_set_param(ar,
- 					ar->wmi.pdev_param->peer_stats_info_enable, 1);
--	if (ret)
-+	if (ret && ret != -EOPNOTSUPP)
- 		ath10k_warn(ar, "failed to enable peer stats info: %d\n", ret);
+ 	node = kzalloc_obj(struct coresight_node);
+-	if (!node)
++	if (!node) {
++		coresight_drop_device(csdev);
+ 		return -ENOMEM;
++	}
  
- 	ret = ath10k_wmi_vdev_up(ar, arvif->vdev_id, arvif->aid, arvif->bssid);
-diff --git a/drivers/net/wireless/ath/ath10k/wmi.c b/drivers/net/wireless/ath/ath10k/wmi.c
-index e57588c19c800..a2efd2188d111 100644
---- a/drivers/net/wireless/ath/ath10k/wmi.c
-+++ b/drivers/net/wireless/ath/ath10k/wmi.c
-@@ -6544,8 +6544,8 @@ ath10k_wmi_op_gen_pdev_set_param(struct ath10k *ar, u32 id, u32 value)
- 	struct sk_buff *skb;
+ 	node->csdev = csdev;
+ 	list_add(&node->link, &path->path_list);
+@@ -1061,7 +1063,7 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
  
- 	if (id == WMI_PDEV_PARAM_UNSUPPORTED) {
--		ath10k_warn(ar, "pdev param %d not supported by firmware\n",
--			    id);
-+		ath10k_dbg(ar, ATH10K_DBG_WMI,
-+			   "pdev param %d not supported by firmware\n", id);
- 		return ERR_PTR(-EOPNOTSUPP);
+ 	rc = _coresight_build_path(source, source, sink, path);
+ 	if (rc) {
+-		kfree(path);
++		coresight_release_path_locked(path);
+ 		return ERR_PTR(rc);
  	}
  
 
----
-base-commit: a3ddbb45768717b5c9f923489387cf55c838d1ad
-change-id: 20261104-b4-ath10k-unsupported-pdev-param-4a1b9e3eb1fe
-
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
-
+-- 
+2.43.0
 
