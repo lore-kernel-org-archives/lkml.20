@@ -1,68 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=199.67.87.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793816502;
-	b=QnwQezsv/omss0lj8LM81qRI7waVwYAEU5zPCEj13NOwvN5tSSvkviBPq4Y+dV6kMRXo
-	 qo9JoqjPud8oiPobHrKh1mMk5MXEbKLBxXItM/OCTrnlY5/sts84rm0NV3LqA+Aqo4C/K
-	 C0Dk+CNA933IP5tgUf4TInbiC+xLlobO/QE8z5Q2LrZqHFLGqMno5RjYASJm1TS7TVayy
-	 4GwUt+zmq6IWZCkosFCWLbtQ2pp9ekCfLK528ZBqE7aRBM4p9gKF/Kbv4wx1F+fpy6MkK
-	 KUPuU4YpYJl/MBQfaPw//gds/P+rZ1aA5cJkwhVzD4sdA0aibh0U5V7U7ir0z0zpLVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816502;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-ZohoMailClient;
-	bh=u2s9WdNLrHGY48DAX6a2FVuI8rhMLrzkalNfdtncyi0=;
-	b=eAakC8SLdUux47BYLCNGMgl9olrgU1L6kYU+abclz+ejYrZfO/Xl5hJ9z8bq/wsNkR56
-	 DWzc1ssrwP16O+3hnrPwvfMyRdYloiBluxbuLerxcxRogVgYPZi0zDoqsamVc+xMj6Wgk
-	 Kbxu3cYeIiukETPPLNUyeQMxJtbgQma0KZqqzrK+LSR9SjFeiHGm62JqEg+j/ti3eAoCW
-	 E3eTIRvER2uU1osMZFoFRGcgQJkRPgnYGvn8Z4cAx28rLB2/gePxr3FkOM6w4MgMFVK7J
-	 LgX0wFBwGYerfRlbc3U1rH+dLdw1MdQ5uO4np/S2kVSzXqNp2dHgRwDmoLhf7UI1gSw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=chasehil.tz;
-	spf=pass smtp.mailfrom=chasehil.tz;
-	dkim=pass header.d=chasehil.tz header.i=@chasehil.tz header.a=rsa-sha256 header.s=zmail header.b=h99wbuKW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=199.67.87.7
-Received: from sender-op-o7.zohocloud.ca (sender-op-o7.zohocloud.ca [199.67.87.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793816508;
+	b=BC4qZXaF1Ae1OdG2caRrELVrt094kyw0gwzKNMzlepYpqNbZmIz3AUOo0SpO8g2L56EK
+	 WXovU+J+9vt1fA5B1TkcndPYnFGkXBqDrH+6wuWY4BlUsQBe2KGTsTmpFro70jWAHPT9R
+	 pdXOdmuCULsqwplJx13r5U6vTXJ8ZL4g3sKGeVJ+Mg6w0cTf9o2RXC7jgkHKr5RxJDmN4
+	 XIyoxADXVrBMYE8PfUYTNLbR3ny7tmKlHgP0Ex5IAux/fwRYDb0WXsUTxXuFe6GQDKxI+
+	 Yet1FvCFUHmIy1eHJRf8iN3zaIgbGbAxA0mJushKwJWtRfzkDssg9TrM8jFhCJ0iJRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816508;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=stOXZBmrncauGpvrA6nVjxn6Aw9LpSoLoCXa4t8uTaw=;
+	b=ph89O3UH/1W1KqcjcKDU4gR08Er4xBHPIK09DTE2OqvKwkcvqAGQdeGkvuBBK+P5YG79
+	 dz63EKVZjNPZfrwlYy1iQ0l3lDaRc+kwb6yBBvZBbKH0cjT0/HfwEPHKWh8fj5ql6OVoC
+	 rFJVPLdQGrNQTega2xO6A6m9uCqdwWzEu7Z3Q12Zn845wYycHJBycMYzBAXwtaOhJQ9Xk
+	 WtqN5weF9z5BwgnEaQE34sUXQtHch8dfgVM1atsMAfR/0OrYmBqGoNkUhlv73eOfPwAD0
+	 41HsfVmTkOOet+1c0teOlQOiA15z4eizOUprsTtlLkVT/tgbM5aEbOqeGlCGXXiaTlw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KwPMNH/Y";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC61606D837;
-	Wed,  4 Nov 2026 18:21:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEC61606D837
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chasehil.tz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chasehil.tz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D24606B3ED;
+	Wed,  4 Nov 2026 18:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chasehil.tz header.i=@chasehil.tz header.a=rsa-sha256 header.s=zmail header.b=h99wbuKW
-ARC-Seal: i=1; a=rsa-sha256; t=1793816464; cv=none; 
-	d=zohomailcloud.ca; s=zohoarc; 
-	b=QbFKNmdn8bUhioMjn6OK65PM/Z4DiUfBEbr9zHsGUcBeStb3zyPs907jPoCUWi30dwpaQHx7SI8ONtkObv5+2+0tz6Kxm8v/3Aolh9bIg6JY8IrGiYSY8nPGYJw5n/BZQJw5q9V/avHNrzSmqt9ynPxXvcnJHQeRUDdXSmPKmdc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomailcloud.ca; s=zohoarc; 
-	t=1793816464; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=u2s9WdNLrHGY48DAX6a2FVuI8rhMLrzkalNfdtncyi0=; 
-	b=HfBuwLD2g2sf6ASpxJexeDoWuEueMDyx8uEOjeifPcGYwwxzeVWiKWsEcyE6JDbp8mPGvq/vhkNU/6yyAKJIyG0He+46yXDXmeDLM4SGhuIijK0xY/wAZ+ESDSoJPVlGQ9dSjRoL2ZKoeeoCls1irtB+/r7FZ3VuKU8qDAeK4gc=
-ARC-Authentication-Results: i=1; mx.zohomailcloud.ca;
-	dkim=pass  header.i=chasehil.tz;
-	spf=pass  smtp.mailfrom=me@chasehil.tz;
-	dmarc=pass header.from=<me@chasehil.tz>
-DKIM-Signature: a=rsa-sha256; b=h99wbuKWGgIqPTmSDvjy18WZl85812z0aRVztLCHVmFDosJgjN4n11OTRqSxY4IIdySYkpvZqqxqkXK0TnTv9nP0jxU0uK/pbsE0tVSg6fnOuwsPgGQjgtrvXiznbG6/K95SUruvKdZaIm91g7rdzDJOzlEiUnMdWGLDm8mpplg=; c=relaxed/relaxed; s=zmail; d=chasehil.tz; v=1; bh=u2s9WdNLrHGY48DAX6a2FVuI8rhMLrzkalNfdtncyi0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohocloud.ca with SMTPS id 1793816462556489.1415147616399;
-	Wed, 4 Nov 2026 13:21:02 -0500 (EST)
-From: Chase Hiltz <me@chasehil.tz>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	weiwan@google.com,
-	linux-kernel@vger.kernel.org,
-	Chase Hiltz <me@chasehil.tz>
-Subject: [PATCH net] ipv4: route: don't blackhole in-use routes when retiring fnhe routes
-Date: Wed,  4 Nov 2026 14:20:58 -0400
-Message-ID: <20261104182058.2673882-1-me@chasehil.tz>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwPMNH/Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 814731F0093A;
+	Wed,  4 Nov 2026 18:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793816507;
+	bh=stOXZBmrncauGpvrA6nVjxn6Aw9LpSoLoCXa4t8uTaw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=KwPMNH/YCbX6dlaHaTW7ZOsOjwgWIEroBxCuqTN2qNqqHj59JFgn2gVwUii7MCLGE
+	 RtBiudIE436NT0pzrKGAo2KrB6HWXPAWRxQK3g116H3Z+mYD7xS+ZaUldg/kE4t6vc
+	 1cD2XtdLad9pyZV98SsUxHnkereruq4rKAOE140c1vmIDxIm6ZjhD9pHsmXNoT98gU
+	 MTWz10djK1EoSQI/lIadKCrgpouTWnGF7Lf9336MzzSwWjpeL0q1r/eZux+ev2POVd
+	 US4C+B93U4BDNf/EY3uiJ9eT2scI1ld+QibfqabVDAuqlYHG0AR9DlR/ZamnBg0zrO
+	 2M/vgNBCUtLAw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 04 Nov 2026 18:20:26 +0000
+Subject: [PATCH v5 08/11] objtool: size the instruction hash to the text
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,122 +52,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-build-speedup-v5-8-0f6018be8dae@kernel.org>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+In-Reply-To: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: ljs@kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5716; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=FNv/4y6VniJMaG9FbFGVBtm/1IeGhKvCkr2rNpDvLk8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJel+fysaqEHs++HMrIsW9VAANzj8pJIQGNZ+c2T0yYH
+ fHA88e+jlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExkvg0jw8rvW59tdkuPXzZv
+ Ae+jcLl2E6uSBC53roo0CaOrupOv7Gf4w38286j2XDWP/4d7coRTE2PXLQ3su1fb5skVwLuumte
+ LFQA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-When a route cached in a nexthop exception (fnhe) is replaced or
-flushed, rt_bind_exception() and fnhe_flush_routes() call
-dst_dev_put() on it. That sets dst->dev to blackhole_netdev and
-dst->input/output to dst_discard*(), but other CPUs can still be
-using the route, e.g. as a noref dst taken from the fnhe under RCU.
-Packets that reach dst_input() or dst_output() after that are dropped.
+The instruction hash is a fixed 2^20 buckets, which for an x86-64
+allmodconfig vmlinux.o of ~16 million instructions leaves find_insn()
+walking chains of four or more entries.
 
-If dst_dev_put() runs after a forwarded packet has entered ip_output(),
-ip_skb_dst_mtu() in __ip_finish_output() can return the MTU of
-blackhole_netdev (68), and ip_fragment() can then drop a DF packet and
-send ICMP_FRAG_NEEDED with mtu 68 to its source.
+Size it by the amount of text to be decoded instead, at one bucket per
+OFFSET_STRIDE window, as sec_offset_hash() keys on those and anything
+finer would sit empty.
 
-This was hit on a 6.12 router that sent ICMP_FRAG_NEEDED with mtu 68
-for packets it forwarded. A kprobe on __icmp_send() showed that the
-skb's dst had dev == blackhole_netdev and still had the PMTU from its
-fnhe.
+This gives 2^20 buckets (8 MiB) for a defconfig vmlinux.o and 2^22 (32 MiB)
+for allmodconfig, so it is not an egregious use of memory.
 
-Commit 5018c59607a5 ("ipv4: fix race condition between route lookup and
-invalidation") fixed the same race in rt_cache_route() by putting the
-old route on the uncached list instead of calling dst_dev_put(). Do the
-same for routes retired from an fnhe. rt_flush_dev() still moves them
-to blackhole_netdev when their device is unregistered.
+The output of objtool before and after this change was confirmed to be
+byte-for-byte identical for x86_64 defconfig and allmodconfig.
 
-fnhe routes are also retired on fnhe expiry (ip_del_fnhe()) and
-eviction (fnhe_remove_oldest()). Those paths don't bump rt_genid, so
-without the obsolete marking ipv4_dst_check() could still accept the
-route. Keep marking retired routes DST_OBSOLETE_DEAD, as dst_dev_put()
-did, so that users that cached them, such as sockets, look up again.
+On a 128-thread machine, objtool on the gcc allmodconfig vmlinux.o goes
+from 9.0s to 6.8s. A defconfig vmlinux.o already had 2^20 buckets and is
+unchanged.
 
-Tested on v7.4-rc1 with network namespaces: a router forwards IPv4 TCP
-(iperf3 -P 8) over an ip6tnl device whose PMTU update creates an fnhe
-for the destination, while a loop adds and deletes an IPv4 route. The
-sender drops incoming ICMP_FRAG_NEEDED, so it keeps setting DF.
+objtool on vmlinux.o is on the serial tail of every build that links
+vmlinux, no-op builds are unchanged.
 
-Over 60s without this patch, the sender received 505,291
-ICMP_FRAG_NEEDED with mtu 68, and the router dropped 67,024 packets in
-dst_discard_out() and 599 in dst_discard(). With this patch there were
-none. Neither kernel sent any without the route churn, or without an
-fnhe (ip6tnl with encaplimit none).
+Whole build, 128-thread Threadripper 9980X, best of N runs:
 
-When the sender accepted the ICMPs, its route to the destination ended
-up with "mtu lock 552" without this patch. With it, the route had no
-PMTU.
+                                         before   after     delta
+                                         -------------------------------
+  x86 allmodconfig, touch mm/vma.c, gcc    28.0s    25.7s     -2.4s (-8%)
+  x86 allmodconfig, touch mm/vma.c, clang  26.2s    24.1s     -2.0s (-8%)
 
-Deleting the tunnel, its underlay or the peer netns under the same load
-(12 runs) completed without unregister hangs or warnings, with and
-without this patch.
-
-The same tests on a kernel with PROVE_LOCKING, KASAN, DEBUG_LIST,
-DEBUG_ATOMIC_SLEEP and the netdev/netns refcount trackers produced no
-reports. Lockdep recorded the new fnhe_lock -> uncached list lock
-dependency, and in a separate 20s run 109,305 routes were retired
-from an fnhe through the new path.
-
-Fixes: 95c47f9cf5e0 ("ipv4: call dst_dev_put() properly")
-Signed-off-by: Chase Hiltz <me@chasehil.tz>
-Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- net/ipv4/route.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ tools/objtool/check.c                   | 58 +++++++++++++++++++++++++++++++--
+ tools/objtool/include/objtool/objtool.h |  3 +-
+ tools/objtool/objtool.c                 |  1 -
+ 3 files changed, 58 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 3a90c8d..cd69242 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -573,6 +573,17 @@ static void ip_rt_build_flow_key(struct flowi4 *fl4, const struct sock *sk,
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 931c5c412f15..97250aa36100 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -38,12 +38,22 @@ struct disas_context *objtool_disas_ctx;
  
- static DEFINE_SPINLOCK(fnhe_lock);
+ size_t sym_name_max_len;
  
-+/* Other CPUs may still be using @rt, so don't dst_dev_put() it.
-+ * rt_flush_dev() handles it if its device is unregistered.
-+ * Marking it dead makes ipv4_dst_check() fail for users that cached it.
-+ */
-+static void fnhe_retire_route(struct rtable *rt)
++static struct hlist_head *insn_hash_head(struct objtool_file *file,
++					 struct section *sec, unsigned long offset)
 +{
-+	WRITE_ONCE(rt->dst.obsolete, DST_OBSOLETE_DEAD);
-+	rt_add_uncached_list(rt);
-+	dst_release(&rt->dst);
++	/* Determine instruction hash based on section index and offset. */
++	const u32 sec_hash = sec_offset_hash(sec, offset);
++	const u32 hash = hash_min(sec_hash, file->insn_hash_bits);
++
++	return &file->insn_hash[hash];
 +}
 +
- static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
+ struct instruction *find_insn(struct objtool_file *file,
+ 			      struct section *sec, unsigned long offset)
  {
- 	struct rtable *rt;
-@@ -580,14 +591,12 @@ static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
- 	rt = rcu_dereference(fnhe->fnhe_rth_input);
- 	if (rt) {
- 		RCU_INIT_POINTER(fnhe->fnhe_rth_input, NULL);
--		dst_dev_put(&rt->dst);
--		dst_release(&rt->dst);
-+		fnhe_retire_route(rt);
- 	}
- 	rt = rcu_dereference(fnhe->fnhe_rth_output);
- 	if (rt) {
- 		RCU_INIT_POINTER(fnhe->fnhe_rth_output, NULL);
--		dst_dev_put(&rt->dst);
--		dst_release(&rt->dst);
-+		fnhe_retire_route(rt);
- 	}
- }
+ 	struct instruction *insn;
  
-@@ -1505,10 +1514,8 @@ static bool rt_bind_exception(struct rtable *rt, struct fib_nh_exception *fnhe,
- 		if (do_cache) {
- 			dst_hold(&rt->dst);
- 			rcu_assign_pointer(*porig, rt);
--			if (orig) {
--				dst_dev_put(&orig->dst);
--				dst_release(&orig->dst);
--			}
-+			if (orig)
-+				fnhe_retire_route(orig);
- 			ret = true;
+-	hash_for_each_possible(file->insn_hash, insn, hash, sec_offset_hash(sec, offset)) {
++	hlist_for_each_entry(insn, insn_hash_head(file, sec, offset), hash) {
+ 		if (insn->sec == sec && insn->offset == offset)
+ 			return insn;
+ 	}
+@@ -404,6 +414,44 @@ static void *cfi_hash_alloc(unsigned long size)
+ static unsigned long nr_insns;
+ static unsigned long nr_insns_visited;
+ 
++/*
++ * sec_offset_hash() keys on OFFSET_STRIDE windows, so the instructions of a
++ * window share a chain and buckets beyond one per window would sit empty.
++ */
++#define INSN_HASH_BYTES_PER_BUCKET	OFFSET_STRIDE
++#define INSN_HASH_MIN_BITS		10
++
++static unsigned long total_text_size(struct objtool_file *file)
++{
++	unsigned long size = 0;
++	struct section *sec;
++
++	for_each_sec(file->elf, sec)
++		if (is_text_sec(sec))
++			size += sec_size(sec);
++
++	return size;
++}
++
++static int alloc_insn_hash(struct objtool_file *file, unsigned long text_size)
++{
++	const unsigned long nr_buckets = text_size / INSN_HASH_BYTES_PER_BUCKET;
++	const int bits = ilog2(nr_buckets);
++
++	file->insn_hash_bits = max(INSN_HASH_MIN_BITS, bits);
++	file->insn_hash = calloc(1UL << file->insn_hash_bits,
++				 sizeof(*file->insn_hash));
++	if (!file->insn_hash) {
++		ERROR_GLIBC("calloc");
++		return -1;
++	}
++
++	if (opts.stats)
++		printf("insn_hash_bits: %d\n", file->insn_hash_bits);
++
++	return 0;
++}
++
+ /*
+  * Call the arch-specific instruction decoder for all the instructions and add
+  * them to the global instruction list.
+@@ -415,6 +463,9 @@ static int decode_instructions(struct objtool_file *file)
+ 	unsigned long offset;
+ 	struct instruction *insn;
+ 
++	if (alloc_insn_hash(file, total_text_size(file)))
++		return -1;
++
+ 	for_each_sec(file->elf, sec) {
+ 		struct instruction *insns = NULL;
+ 		u8 prev_len = 0;
+@@ -475,7 +526,7 @@ static int decode_instructions(struct objtool_file *file)
+ 			if (insn->type == INSN_BUG)
+ 				insn->dead_end = true;
+ 
+-			hash_add(file->insn_hash, &insn->hash, sec_offset_hash(sec, insn->offset));
++			hlist_add_head(&insn->hash, insn_hash_head(file, sec, insn->offset));
+ 			nr_insns++;
  		}
  
+@@ -4803,6 +4854,9 @@ void free_insns(struct objtool_file *file)
+ 
+ 	for (chunk = chunks; chunk; chunk = chunk->next)
+ 		free(chunk->addr);
++
++	free(file->insn_hash);
++	file->insn_hash = NULL;
+ }
+ 
+ const char *objtool_disas_insn(struct instruction *insn)
+diff --git a/tools/objtool/include/objtool/objtool.h b/tools/objtool/include/objtool/objtool.h
+index 6dc12a59ad00..79fe82b7397e 100644
+--- a/tools/objtool/include/objtool/objtool.h
++++ b/tools/objtool/include/objtool/objtool.h
+@@ -21,7 +21,8 @@ struct pv_state {
+ 
+ struct objtool_file {
+ 	struct elf *elf;
+-	DECLARE_HASHTABLE(insn_hash, 20);
++	struct hlist_head *insn_hash;
++	int insn_hash_bits;
+ 	struct list_head retpoline_call_list;
+ 	struct list_head return_thunk_list;
+ 	struct list_head static_call_list;
+diff --git a/tools/objtool/objtool.c b/tools/objtool/objtool.c
+index a4e139dee7e9..71e048f8582a 100644
+--- a/tools/objtool/objtool.c
++++ b/tools/objtool/objtool.c
+@@ -29,7 +29,6 @@ struct objtool_file *objtool_open_read(const char *filename)
+ 	if (!file.elf)
+ 		return NULL;
+ 
+-	hash_init(file.insn_hash);
+ 	INIT_LIST_HEAD(&file.retpoline_call_list);
+ 	INIT_LIST_HEAD(&file.return_thunk_list);
+ 	INIT_LIST_HEAD(&file.static_call_list);
+
 -- 
 2.56.0
 
