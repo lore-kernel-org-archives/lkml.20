@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758873;
-	b=IFL6VTzn5li0yWXwJJXoRVLcanOi/KggdqdfbrYnSsVzu+nZiW7lpNf4OhZKe+J6bpjK
-	 UpFuV2BKqKoCKaewvnZNcLSRv6jnHp03e4/pWMQ4lhzy2HUGKlWZd8KndCCdKjdRr99MV
-	 JuaatDHhscaeX6tnbwKSvprPUdmpSDzOb9NCCM/n0qYeVeoRs2SlgnBS9bW6FD/GnZzX0
-	 paaM3sLQzTljszF2hnDT/UyY8S0/S/Z9rSjarBQkVwQp2Wa+FVwGmfVOe2bO7d6nBPUJY
-	 6A66Ro/9I8fr0bmOrR50CYntUsHy3/Lm4WC9W22Zxt0t80RCUf7QJ+LzeaDLbnRPBaA==
+	t=1793758905;
+	b=1gNB4b5jhoONKQQxqgGgRv9NdjfhF//rR1A/93mr+oxM83Gj1NgrQEnJvmqOrlHxg2X2
+	 tILxeifuYRdorDdDEAicp3uNyonrPmfcgghh01IqwZ1ASAKpFrH6hFZI6sfvFpWQFLxQw
+	 qQIFEw3oJ/FTflGXcyhWop/53hyiF6kULcjmGEoTluHDWdWlC2zPSTCvROuLFRu7RHDOx
+	 nkpjn1bZRnu6bmT/MWJWnd6LwGhVkaB7NSpNB0HODfSzON9qbw4aFz7uPlbdPrGAVXM+v
+	 fAnplNfJL/xJsq3Ha+TmId7MO1OGtZqUnMnEssjXLq3TMw+CXN4wV60zTU85RflwzJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758873;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zZTUjENcLwaNaxc7QvvATziTGbi5drNO90koPPjECGM=;
-	b=OSOyq79y/9TUoIE/r8QpJTv8v/rPk8qpAjFmDQ3BdyaaoyoQiniDoTM1E4uoQQcAS+6U
-	 es2ZEi8k7I1HlglPFcouQKKWwVFuAf1oMvZYYDb/pTcn3SublBk7RyFiOC5dGVJrNV8/w
-	 Wct7dAbqlHWztByEh0aoMUPdCGeyFSKGH3hUW1FQ/Y4/2fIhW7dmNbmnhmLxTUV5V8t9T
-	 vE0iruAtio9qIo4pGzI7DQLQdZPQ0bonSSA/xuq1LPHIPDouikCajybVRJsQA2kY6ReAW
-	 BCWSJKA8cGJVEcS6LYCttOxf1cxc9Ma5KVXnMO8z1NL/qCD5+r1EGfZgqUZy4qYg/NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758905;
+	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:User-Agent:
+	 X-Original-From:X-Lms-Return-Path:Cc:Date:Mime-Version:To:From:
+	 References:Content-Type:Content-Transfer-Encoding:In-Reply-To;
+	bh=No6e7FX1QyMHXiq5uSkrdQU3PoMJKwFtYVvKfbAY2G0=;
+	b=PM0OVJUK6c3O+7NkzC0crBkrftKYxY8uboPNIunq6YhlvXkdFMlEYMNfCcqpF9WVtDWb
+	 MctMuj4GBjU6slGu7ecRcvVpIrCXjfBxRvTHtB3l/k+tYeS5K8SfyG4HIOEDcU9QsD1hD
+	 SsLbWs3Oj5UUnOeg1EXVTMxx3GFE+hhKvKBW47QcJ2FSDXPspP2vDCRt0MQmSl4zJU2hG
+	 Kem/sDIbCQMOMNb17poR0iw65QjOwo/UDbq2qEUKnhuCR7alUsGLYCKJBUhEjR6feaNLC
+	 SCHLomYakezWkHwjQj30BVqLhTxqYd1LS6+mzIdKlxqteuTPgFqU5OsichMe9juP12w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJEZanc6;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AfRgpS1b;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279F9606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:21:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 279F9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CC1606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 02:21:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67CC1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJEZanc6
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b244fb7fffso370029c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 18:21:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793758872; x=1794363672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zZTUjENcLwaNaxc7QvvATziTGbi5drNO90koPPjECGM=;
-        b=DJEZanc6zshUJbakA4ha6enlqCMX2HUKDZDDkOzb7dNOQo4du6cgyboLh3+DMEQiYH
-         Tt9z25oCaBB1vTfcVHxeopv/W5MMVwzY58sMZRl3rYBNFe1wucQSBWsPxzAIX6IBC+w7
-         FbwyiekbZUxayUaKyPPlXDEK2XecjysJhxzu3k/6S2KZD13RcSFSwE50qnQf9WMLVbaS
-         0UXW7MVxlOUPy9uNY0q15iwYYY+13tMoFFLAay9dl/r7S/DPBM+FFsbm3cpSAzsUMlSH
-         4zFcpYXLQqsK/DfbmDgGEUATDj4iZGNe5qlVYvoAJzS3EQ7B5YdA4FZrPg5yHKjkS+kI
-         VVdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793758872; x=1794363672;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zZTUjENcLwaNaxc7QvvATziTGbi5drNO90koPPjECGM=;
-        b=gltAWg8FIr1PzDC2P6AzTdp8iSD04jq5uY91WaywZtOGI0D2qHMU6tMvNvOQCLfLeo
-         YJWq+NBJLx7abwyG7J+d/1wR1UP+P4j9bt7stFAsXpxlC4Q9M+wAygkK1ElxoY4NhOie
-         2lHsZiMqym5d7d9flOPsOtJ7M8nJsPizRhpsn+wIFWTtQvTkXWI6aa2wE6WRCeepjGXk
-         gN+NftCmmP99Wmilr2dSZX9mvdeCyOYyevEu2vIdQGJSp1sjbBX9qnaHfRLuvGVIfqXF
-         45p0TOxZTo87X8J9VxLTYKHc84vOGE1q8cNxQhhA+yUKpwI1aLRII6ryxACbIAiGv550
-         9PkA==
-X-Forwarded-Encrypted: i=1; AKwUvBylAN9og4J7ZG5jefth/oZSJzB9nyOb1qiYxSfMKalwhuIVVlyCWY/Qpl6gxd9Sr/MMGfgC72jIe+71xi8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9M99t4eDBH3q6urSz1um0tOtLOBoln5l7TuGQdRH/GeSkFpSgB
-	R5M74n9nmewss3XlL5hYjF34BY4VhP0rr8u4msEpoDF+3pHkfBsyLrUt
-X-Gm-Gg: AYBFou2qp+NTNepPCNAZT5bomZ8V81IVOS+2gXBTLjlsQ2PWNz9f3d/U6LA7OplE05Z
-	5A//RlBCaQe9QJK3BUY4Km7S2qhpms+ZkbY48GtPyDg/c1nN36h+/8nxn4NlNYR5zYxVDc7eINM
-	95stwENiTINUGek4s7jUAI5G187km9tZaQkknBuwBRB+qtNhffhoFeuezEYtQxNeSrA1R/aTtYh
-	Ok1afuOp1yfSf9AJ5PyCbcyYmkZOodCrJeviGx/Zz5XxqXgPWdO290ntQCn4CFzBeWHtAjLxXp4
-	iNw2y0hH5mUmqhXnheonJRx8AfjcMKFJFT84hauspvbdYayRpr6qJ2CW+4v5soCQ7ZlSBv1x2Cl
-	p6wtNAFh707dBfFV3d8FIexG5RZMoV2DJOaonboaRQwYK7vjSE2kKZkpo8RqdNgIc0c7cTN9mgU
-	euPcXUTrXyraXQgW4x7KTpI6HQWQwfngFcFT1/+mW2j4VgZNrY5fts1ujkcromQzPxtMoVBeiiG
-	grM1nZojWagTCY5Jx68S/3Z/iwNFKKHsWjoNuoQb77X2QFkt7FyTcJonaWM7wLVI5V+Qp+Q4KAl
-	11bHVnOwh7UznWTBcoVWKmU1DMsT1UUht4pPU1x6shBlx8wwRtpxezckCxdPcwC78Q==
-X-Received: by 2002:a05:701b:4509:20b0:1a3:9936:d11e with SMTP id a92af1059eb24-1ac5e6007a2mr21183680c88.41.1793758872002;
-        Tue, 03 Nov 2026 18:21:12 -0800 (PST)
-Received: from localhost.localdomain ([61.255.248.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm2723575eec.4.2026.11.03.18.21.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 18:21:11 -0800 (PST)
-From: Song jeonghak <thdwjdgkr123@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mahmut Emin Kurhan <guvenlik@noroxi.com>,
-	Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	Edward Adam Davis <eadavis@qq.com>,
-	Markus Elfring <Markus.Elfring@web.de>,
-	syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] hfsplus: free failed b-tree nodes in hfs_bnode_put()
-Date: Wed,  4 Nov 2026 11:18:42 +0900
-Message-ID: <20261104021842.18650-1-thdwjdgkr123@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c05f958a83de97e38c2e54bb67ba3478ffd471e1.camel@dubeyko.com>
-References: <c05f958a83de97e38c2e54bb67ba3478ffd471e1.camel@dubeyko.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AfRgpS1b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793758899; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=No6e7FX1QyMHXiq5uSkrdQU3PoMJKwFtYVvKfbAY2G0=;
+ b=AfRgpS1bnIQW2x4jiAUjh8Zh2/fcYgU7xYeZpJKEwAQSOPhObCagEaIT4YK9SQ7NOmGOAJ
+ 88h2qDnnpwBcM4dltjgF/C0HZC3JPB3hfK+XKETsl6hakGuqJWHOF4kR94b1GIkwamrZOX
+ fzgONbX9d/lCYkU49iwMh/e2jx/R91Auboh+Lb1arCz8d5vXLHGG7ecob0lkaFHAM9lRI+
+ 0Y8NwZnuo6o1Y68VxJ8WrG28nA32Lcz+h7syyi3z60dOp/i3n3denoYIW3UQpWLT1lKnLO
+ +971rSQK608SCrI4HaI9k6ui6e0b1TSlSlGfwFzdI67DdsU8ayt/JRRqbZdJGA==
+Subject: Re: [PATCH] arm64: mm: validate /dev/mem mmap ranges without overflow
+Message-Id: <3d26a89a-7fa2-4daa-a919-82708410d104@bytedance.com>
+User-Agent: Mozilla Thunderbird
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26aea96b1+d22491+vger.kernel.org+zhaogongyi@bytedance.com>
+Cc: "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Wed, 4 Nov 2026 10:21:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,38 +59,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+To: "Catalin Marinas" <catalin.marinas@arm.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+References: <20261101171030.87343-1-zhaogongyi@bytedance.com> <aun4-MXVMZNrmvGr@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <aun4-MXVMZNrmvGr@arm.com>
 
-Hi Slava,
+Hi Catalin,
 
-> I've accepted this patchset [1] recently with some modifications on my
-> side. I assume that it has fixed the issue already. Am I wrong?
+On 11/3/26 11:08 PM, Catalin Marinas wrote:
+> 
+> Can we write this as:
+> 
+> int valid_mmap_phys_addr_range(unsigned long pfn, size_t size)
+> {
+>          phys_addr_t limit = PHYS_MASK + 1;
+> 
+>          return size <= limit && pfn <= (limit - size) >> PAGE_SHIFT;
+> }
+> 
+> It would resemble the generic __access_ok() better where we need to
+> check for similar overflow. I find it easier to read.
+> 
+> (happy to make the change when applying)
+> 
 
-You are right, it fixes the issue. I missed that patchset: it was not
-sent to syzbot, so it is not listed on the syzbot page, and that was
-where I looked for earlier fixes. Sorry for the noise.
+Thanks, your version is clearer. Please feel free to make the change 
+when applying.
 
-To be sure, I applied ed8b389cf5e1 ("hfsplus: fix B-tree node leak on
-hfs_btree_open() error path") from your for-next branch on top of
-next-20261023 and ran the syzbot C reproducer in QEMU (x86_64, kmemleak):
-
-  next-20261023:               leak reported in 1 of 1 runs
-  next-20261023 + ed8b389cf5e1: no leak in 3 of 3 runs, two of which
-                               ran with slub_debug=FZPU
-
-Please drop my patch.
-
-That commit has no Reported-by or Closes tag, so syzbot will keep this
-report open. If you can still amend it, could you add these?
-
-  Reported-by: syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
-  Closes: https://syzkaller.appspot.com/bug?extid=98547b0428b6a6a3467c
-
-Otherwise I can send a "#syz fix:" command once the commit is in
-linux-next.
-
-Tested-by: Song jeonghak <thdwjdgkr123@gmail.com>
-
-Regards,
-Song jeonghak
+Thanks,
+Gongyi
