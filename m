@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793772898;
-	b=TjdpQp2t60uu36tW+s9rciczI6pBy2sL0fvHWMX/d1XXa/OLMkAVqlhNVL+ZVOfn8DRx
-	 MuJpZCtiMn4qxEt6KyVeM4zdMGbgv4kzhzR412B956EElTwr7pRaNoBJz9PiduzacuHOt
-	 Y08MPl1O61Xo/Eu71rHBj/EP4On/yo9iKBRT4Etttn+sAOhmOZfjFxYqh1eA6WEQ50oa8
-	 Rw1Wls/vXyD6jVGwayu2VajcgNq2fweKmE0ejs1dxCJpb6ywp6Li0qCxNqzHi4NtpaT9u
-	 WQN2LghO3jpclBxTpWCYDYqwtYd8n46MzYQ3xENJi+AbFHJMxHv/hzX4pihPsXIP5TA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772898;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
-	b=RhCSpUv/P0q4euxJNoane+aRPKBrqXSY2AU/NeN7yFRebZKG7Vfh1rQR3SCmzvDHWu2n
-	 NaZWSb3cT1MMVxCOROwXxtw3hgAryTUUW6Y52bRWiqm0gSDHsxeFkdPhBRkyl0wvGbHUj
-	 xqY6LNe81uSk9u6wrF/sCWN2/BgJklsp0QDtt2JwMU4Bu6lIfU6KVG9WuYzvrqe0a2dVS
-	 K380vhwOrUAFSkeH+pCq9I0zOdCMGVX2fsoawP1EbDLU5rSQ0WYsM3Bbbot/OesgOz/11
-	 35oCTeHd6Wryb2qf/YC5g+H/yQ9JjJkp+C/xtTKUYm8EekU3inO1kk49wpUhWF0EnMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O5V9G3Z8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2620B606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2620B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793772878;
+	b=YL8/z3+3GSbSJAfavbYAz0cf5D+2o9PZj2f6UPaKRDXabNKcT2r1CC8E/JSdj0L+8Ll1
+	 sHO9fkA/tQaWzBeoaOtTFOjMdhWwQX+vo2xT+sRrCDhHB1NUhGrTYVOzx0InHECmk3tRi
+	 ccDhgeCGhpC6MYShtYI5rnJN75UeKaXhgh5vhJr4KKYfsRSntSK4NL+RXdPYoCSEGeTHO
+	 vth6XPsMzFRwkeCeoIKd3ArinhbCENhoLLjHse0pSwBvVmo41L47JIRwF6kRSWzELbAWH
+	 hpiLBdadeIpLYb1QWAEtBE9P3G0uWaXaUHefvJReZXmYnt95CUdb5QJ93Bh4bhlD7dw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772878;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CvfPGziobIrEteIOatX8FyBV7rtb7GgNQIea2gIpbyE=;
+	b=Du4bCuHkODjJwY8LRqDFh1k4ULj6z3zAqx/ETeCxYdfmdLegVe6SLA4UioRdnVI80198
+	 zwpEgXn4OypAiC4xcehtr/Y1cHCGmmVrgVxC7ld1HorncFvlTeDzZ3Cq9SdE3wsrdSJ0j
+	 1RF8W27TcWUUpyzPqQRnC8c1JnbjEukqJC0WeVfwjwl28uV3P9YPR6pn5NkXWC6rKL/rF
+	 2Vhys6qHeej5f+fX7VftiQ3Pc477kvsenGyQ956E2O9shHV+TcuD8+XJSlRBdqoMml8Q0
+	 onNDf1xjQbZ7BV3LQNPH415s0yJ2lp0lxRFoTIgZfFAX/epBNJFnpdq+SzQuj+vDpqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=pzgmwfbB;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B7A2606A326;
+	Wed,  4 Nov 2026 06:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B7A2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O5V9G3Z8
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b3dd83e779so472726a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:14:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793772896; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jPKlVxP5pZEiMxoUDbSjkYoYfFCZNZ7R4EWrsy0t46F8IBHFvqs5dTSql5EM/bDvSw
-         5sw3CnXMLbCpeMxcF31o7jYP6Hq/qAQk6R0hRzpKTtPkReM+zYb9fDpJJjtP7kpKYT7d
-         Iqimts6lW504TVoxrSrPrm9tYL8X8n8dffZaqYsCg5yNRQCa3Xw+X2hD+TMrilS+s98u
-         Rjd0vceph8XZne24uuLFUkFe/Kmx+BMG7XlE7LDEtRnIF3pMu7d9LiFUgAYpaf/lUkAa
-         hoPRaMDwljtXf5XvP01AH9+1apWwb8CTSkfBRGLSLPAkbzhXmL4tmcbpI+xbLopVK2GZ
-         UFzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
-        fh=wNGR3JUExCFHeovK7O11lxu8zdH7g8khUHglkNf+Qog=;
-        b=KMN7fOVAYyvYBXCZUSfV7lwBHPgWtrDPb39b8S9pMhsgGRCBYdrttdNPHpUNdkzdA5
-         WWCtmvr+DdSEGZJkfhFjAUkRVojgTguV2rj2wxuIHqCHxK/TYEmmwSEKM00me4IyMlSn
-         ez0vIcNPSbAhvz3vnMuhjybcaTSErbM6BQo7Jy4BOgPwERjMsrNioIYWBsDy7DjF1oOr
-         NAciqSkU58+VnXHPf8WrZcvZHxXO6EyfJzrUwB/5imaeYU9CAitBvxnurFqtnYVFW9IM
-         j49y6nxj0CroMrrA5trNLd1//5Ri8CMWg1LPjmx5bla/OWRu0rlhLxountOaYPy35OeF
-         /odQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=pzgmwfbB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793772896; x=1794377696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
-        b=O5V9G3Z8P+hZrzxtaR5wh4mx+r3d7HqKen9KoLNKmpLsaYappQ57NB4dhMhe6Ji3cI
-         mIG+5HfgJUMiw6hEH2jVPyvkiNYrc5FXkpUwjhPMg6jebi+EtQ4H6Jugu8o8YEwdrdJG
-         ucMo3Wcz6H4X8enRqO/M4/Kut/f3wYaN5LHuUrp5Nd7tW+NRi1MqSyyEJ08kMHTjQGuo
-         bFBU9vLvynCZcj3SR9x/RpKBWoCQFbNG/vOAL2zOkLgAi/kPFp0hP7CmbbjwDImdS8ev
-         NnGVAlXrcW43CXsvh4qt2PbIchrMG4Lq7qbxt45I57m6OCLg6wKMplwJSsXhdem5pUPA
-         6U/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793772896; x=1794377696;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WXtfI0CtVUis1DTLl6ZkWUkR91YI6KmmXqM/+fvN/qM=;
-        b=mxMmXkOARXBEYKO6LMJz6k5pn5UEPfK5ioc1Ag84swMjx8kVczdK+DCYy+58UxCkAB
-         mQnOC7EEKK4ehPGC0Gu3u364UxbWnr1m2LhueMP7YVAxepJYJCw6GAyOSZplU9rYCQVy
-         Dr3CbZt6kdq2v/hTlSQq/FinQyh9uM/d2xAgyB3q/qDgPAs/TeT+ojq14U5Ol569qBdb
-         02imHCmulKKEhmtOihFLQ4NhiqubOmmHVCVZpkh+0tU3LW520H0PuoE8MyD0LvxBEGW+
-         PCRBEqrgzuyL2XV+fjBHSGxgnB6OrwdQfq7K8JHAJ4uVpMhKOMCNh6Lkd8RqC837jMg1
-         ifaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBt7zmgS9VXHKQjun1chm4xRuM7Rg5YK2vM23Dz7KcjjUBCed9TKVsy5uzPiqmGExsbr7sGcROx0wSD6w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mI+DaL59jKjMgXmBZpfrbdX4oekpxuwB125I7sHVa7SaiaVYc
-	3BVxdTSJAs3QGrmhH2D1KwwwcKTZuLIJFkLb8nBpdBmY5Xp57CpSW187JaK5VJTe5QxPoR+ORhn
-	Ob+eG3HOK5pMKTuUpg5HJFodN19ueqVfQJw==
-X-Gm-Gg: AYBFou1LET0fhuXCWTZPaBReeTnt7pKPXl9VEbiASakQawudGBf5ylHlpatAxNO2wn6
-	zMgVLJxxCAi1f9XpyQmCNnwOcvvODC6HjPTIN6aLC2RELXsZRMTbrZ8EtFGOVZI/4S65dmOpkL1
-	h0QWDXUlk2aJd5mmUXlQ2k0rQ2i1DP72w0wvd8ZD60y0RsemBIaL9ohTmEYLG/UjPgVOFENnQ2P
-	3bRIhdAl3NYfawzgIZYqA+eSCTwzl3AgX8jtn8dQ71EV/15aEirlttjtUQlH8j35hmcO1XiKDGA
-	11tB0HzwXylfZimAFtIvMYMklewGep7Kp5D24QRJZyacx0uMCW02MesQU/r6X4MbMuWPIfPNxdJ
-	KD/m/P+UZjFUr/axKgfeERrNtRAKytwrHuv3iAqrqXT16uEArAkm9NWzN9D5aBZX/yT3bREsZI4
-	tOAJxD9yfdoMVROdYEtHgJuv5Ow4tKxpp97qgeA7BgV++lc2HZRlEKftbRhzODWt+iqIf7g6kTX
-	U2jMM0pSfa5x4eroEZXuyToZwGOQa/tObHIpweBprVjIXP3yQ==
-X-Received: by 2002:a05:6402:378c:b0:6b5:4cde:9115 with SMTP id
- 4fb4d7f45d1cf-6b54cde93f1mr2124654a12.14.1793772896441; Tue, 03 Nov 2026
- 22:14:56 -0800 (PST)
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=pzgmwfbBkhN8kkiIQ31P4oJtjcaXPTVCQGoK7E5QgQMNbCDdemW/0QNd5uyezKyBxX1Ztq55FaoYf
+	 Dn9YKGgffjVcPB96gb70iuEVmhBxpRguXS9uNpOG4lBjrrhxANBRd4/ijA1ROcL5EKwKNeQy+QaLSB
+	 tSzVKA6Pg1fCrkqA=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aeacd47e2b-661a6;
+	Wed, 04 Nov 2026 14:14:32 +0800 (CST)
+X-RM-TRANSID:2ee36aeacd47e2b-661a6
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aeacd47cf2-161b3;
+	Wed, 04 Nov 2026 14:14:32 +0800 (CST)
+X-RM-TRANSID:2ee56aeacd47cf2-161b3
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	yana06070@163.com
+Subject: [PATCH net-next v2] ipv4/ipv6: preserve multicast filters after a failed source leave
+Date: Wed,  4 Nov 2026 14:14:19 +0800
+Message-ID: <20261104061419.87989-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,79 +74,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103215557.183459-1-rosenp@gmail.com> <a5f044a803a64a1eb68815f075bda2ee@realtek.com>
- <CAKxU2N9OpxoKF6M5rJpNOJ1HWXx8oJ3wXHpfyGGVgQpZaMi+uA@mail.gmail.com> <55e67132a79243cc9e214f9de7788132@realtek.com>
-In-Reply-To: <55e67132a79243cc9e214f9de7788132@realtek.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 3 Nov 2026 22:14:45 -0800
-X-Gm-Features: AclHuK-R8dd2PGCMhHI3LZJWK6ZO8cOlM0h83Q1-A6jK8aBloOQEDV_UIvp2u9g
-Message-ID: <CAKxU2N_JCRjWXkD8SNGf-LJGOHfCsAMM1JU+AoTD6cfZZYJ03g@mail.gmail.com>
-Subject: Re: [PATCH rtw-next v2] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 3, 2026 at 9:21=E2=80=AFPM Ping-Ke Shih <pkshih@realtek.com> wr=
-ote:
->
-> Rosen Penev <rosenp@gmail.com> wrote:
-> > On Tue, Nov 3, 2026 at 4:47=E2=80=AFPM Ping-Ke Shih <pkshih@realtek.com=
-> wrote:
-> > >
-> > > Rosen Penev <rosenp@gmail.com> wrote:
-> > > > When the WiFi device has no ACPI companion, or the firmware does no=
-t
-> > > > implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() ca=
-lls
-> > > > acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
-> > > >
-> > > >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe860780=
-3aa7 rev:0 func:10 (0x1001)
-> > > >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe860780=
-3aa7 rev:0 func:6 (0x1001)
-> > > >
-> > > > Here the handle is NULL, and acpi_evaluate_object() returns
-> > > > AE_BAD_PARAMETER. All callers already treat failure as "no policy
-> > > > provided by the platform", so this is only noise.
-> > > >
-> > > > Bail out early when there is no ACPI handle, as acpi_check_dsm() wo=
-uld
-> > > > otherwise hit the same warning while querying function 0. Then use
-> > > > acpi_check_dsm() so that functions the firmware does not advertise =
-fail
-> > > > quietly at debug level, as rtw89_acpi_evaluate_method() already doe=
-s.
-> > >
-> > > Adding this check is fine to me. But my question in v1 is that
-> > > acpi_check_dsm() checks func 0 to determine if BIT(func) is existing.
-> > > Is it possible func 0 not existing, but BIT(func) existing?
-> > Shouldn't happen, but who knows.
->
-> I don't mind taking this patch, but this is the only one point I don't kn=
-ow.
->
-> > I can drop the acpi_check_dsm() part.
->
-> If you drop the part, what will this patch do? almost nothing.
-The !handle check is the big one that silences it.
->
-> >
-> > 7bf2dfccc2dd70821104d15cbab7b6fca21872be
-> >
-> > is effectively the same as this.
->
-> Since rtw89_acpi_evaluate_dsm() is called at probe stage, I don't mind
-> acpi_check_dsm() being called on every call.
->
-> >
-> > Note that this specific card was taken out of a laptop and placed in a
-> > desktop, hence the warning.
->
-> So, the warnings really bother you?
-Yeah why not.
->
->
->
+After joining a group with IP_ADD_MEMBERSHIP or IPV6_JOIN_GROUP,
+MCAST_LEAVE_SOURCE_GROUP for an unjoined source returns EADDRNOTAVAIL
+but switches the socket's filter mode, so the existing membership stops
+receiving. Leaving and rejoining the group restores reception.
+IP_DROP_SOURCE_MEMBERSHIP has the same problem.
+
+ip_mc_source() and ip6_mc_source() allow an empty-filter mode switch before
+checking whether a source list exists for deletion. The failed request
+changes EXCLUDE {} to INCLUDE {}, so the socket no longer accepts packets
+from any source.
+
+Check for a missing source list before changing the filter mode. Preserve
+EADDRNOTAVAIL for the rejected deletion and keep mode switches for valid
+source additions.
+
+Found while reviewing the error paths of ip_mc_source() and
+ip6_mc_source().
+The reproducer uses socket calls without kernel changes or fault injection.
+
+Tested with a UDP socket reproducer under UML using the IPv4 generic and
+legacy APIs and the IPv6 generic API. All three paths lose reception
+before this change and keep receiving with the fix. Source joins and
+leaves, block/unblock, last-source leave, and ordinary leave/rejoin also
+pass.
+
+W=1 x86_64 builds with derived allmodconfig and allyesconfig configurations
+also pass, with no changes to the warning sets.
+
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+
+Changes in v2:
+- Target net-next and drop the Fixes and stable tags, as requested by
+  Ido Schimmel.
+- No code changes.
+
+v1: https://lore.kernel.org/netdev/20261030063603.697510-1-yanxia@cmss.chinamobile.com/
+
+Validation was performed for v1 on net fcc00b15cb21a6de76826e5012b2c758505f5e65.
+The two modified files are identical at the net-next base commit.
+For the x86_64 builds, the derived configurations disable WERROR and
+KASAN; the derived allyesconfig also disables KUNIT_ALL_TESTS. The complete
+before/after warning sets are identical for each configuration.
+
+ net/ipv4/igmp.c  | 7 ++++---
+ net/ipv6/mcast.c | 7 ++++---
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
+index 144fca1..9c38045 100644
+--- a/net/ipv4/igmp.c
++++ b/net/ipv4/igmp.c
+@@ -2520,6 +2520,10 @@ int ip_mc_source(int add, int omode, struct sock *sk, struct
+ 		err = -EINVAL;
+ 		goto done;
+ 	}
++	psl = rtnl_dereference(pmc->sflist);
++	if (!add && !psl)
++		goto done;	/* err = -EADDRNOTAVAIL */
++
+ 	/* if a source filter was set, must be the same mode as before */
+ 	if (pmc->sflist) {
+ 		if (pmc->sfmode != omode) {
+@@ -2534,10 +2538,7 @@ int ip_mc_source(int add, int omode, struct sock *sk, struct
+ 		pmc->sfmode = omode;
+ 	}
+ 
+-	psl = rtnl_dereference(pmc->sflist);
+ 	if (!add) {
+-		if (!psl)
+-			goto done;	/* err = -EADDRNOTAVAIL */
+ 		rv = !0;
+ 		for (i = 0; i < psl->sl_count; i++) {
+ 			rv = memcmp(&psl->sl_addr[i], &mreqs->imr_sourceaddr,
+diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
+index ecef55f..2ade335 100644
+--- a/net/ipv6/mcast.c
++++ b/net/ipv6/mcast.c
+@@ -395,6 +395,10 @@ int ip6_mc_source(int add, int omode, struct sock *sk,
+ 		err = -EINVAL;
+ 		goto done;
+ 	}
++	psl = sock_dereference(pmc->sflist, sk);
++	if (!add && !psl)
++		goto done;	/* err = -EADDRNOTAVAIL */
++
+ 	/* if a source filter was set, must be the same mode as before */
+ 	if (rcu_access_pointer(pmc->sflist)) {
+ 		if (pmc->sfmode != omode) {
+@@ -408,10 +412,7 @@ int ip6_mc_source(int add, int omode, struct sock *sk,
+ 		pmc->sfmode = omode;
+ 	}
+ 
+-	psl = sock_dereference(pmc->sflist, sk);
+ 	if (!add) {
+-		if (!psl)
+-			goto done;	/* err = -EADDRNOTAVAIL */
+ 		for (i = 0; i < psl->sl_count; i++) {
+ 			if (ipv6_addr_equal(&psl->sl_addr[i], source))
+ 				break;
+
+base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+-- 
+2.39.0.windows.2
+
+
+
