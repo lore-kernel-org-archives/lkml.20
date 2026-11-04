@@ -1,46 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799595;
-	b=r1cyn2ribp6XaMsAevj43TMdArr9JXadETLOvgN4fAWQCUXmiHcLQ8K7d0QYF9VjPmOv
-	 BkAz7yOz5L6+NBB6x6Ak8XLiRaE+OkiHlrGhYZe9SC7Vee92KGjFPK6KCjhWrsNkd7c8W
-	 2DzYZv08Pbya0eOIDGLMFtaS46etUVFEHaP9aTuKIXvDwDBJtK91EpukAOdEnlgoNKC+U
-	 olOAr9OgIa81P5ZO2fhWguih9jlf5KIAwET5Hgz/bU1dCjfCIYq2RQ422XNvdIdXjXk4K
-	 /VosU0um0g3cySEhnBftoO3K6EYyvIhx9XgGDNTssj10AJiLu6gkdC8mFT3kyKwDmDw==
+	t=1793799649;
+	b=oXRQnOt4gDTruGoURX5p8lMJ3zy/3m0Jf53okgv2+Sici37cJghwUdpHd6ABIwbcD3DA
+	 EequzyH3vs8KvfgoSVb5cdvM99DJMm4L7nuwzBZ2EzmHDfUJJhQ6FkvpOKo9vjF8XCZBK
+	 InHm9sdsurw6RSpa2IpXG4rRTscQgeoO4eJ4ElNeIz3XXHFoSq9eFqQuNE1r/HoGrspzg
+	 7ynPuwrPRHUXOuRZMOUJQHhl1GzP9gVukTQbEaIt/WKl9X3v2V0SSXDJtlHrLoVhXZCbK
+	 oakNqm2SGdF+QFMdbAdXULXpJJrZyJFTeh5jzzJ83sGU+kX26kfpZ8X0TgAugVFX0SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799595;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy:DKIM-Signature;
-	bh=IkhbWLUwIsHVA5qbkZd1FvDfizz0mbHSzrjJWS7856E=;
-	b=FREhNVXUtPJOP//C0St3ho0AbfSBWlnzDnraZyfKVSXiB4dgkSnnpOfPtGqgcqHfQCsn
-	 iZBzMXQmPd7QQ55hjjaJ/xLJxev496sgro54LSBvppLzH9GTTvX4GBIgztZsqNWKOnYji
-	 keF1qR5yi/tafAXXDKgCpuvRuQ6UXVl+7FhAYdg3zBiJsnRnhfopOmp6e5gaYdiqQjwhP
-	 sw5k2ZTmWKNEn638xjcJzfcxK1vF4TKdlGKNV1d6pk1b31uroB9gOwR6oOgPbgm3V5y9Z
-	 ZwP+olpqvoxHfMXRL3I/kqlqM2/xmgFUhyuLC2EkhPOFUgyApGlxUIKhsyzhfHt7sIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799649;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EZAUQMhN3rMe7FCapRNk/7rrtwkPUHUoi09OPENdnHg=;
+	b=GUbx+u8yytqEt4RRy392qsQ7Spuh2+oYqX10qNWcUm6KL2Kbj0rnR5A/8UPCiKNCpBGl
+	 EX/uHP6a4SeZN97EQiP4N7a1IXkfC9lykN+V8huLIryo616QxnKONFxF0AuZNQhy78Z3U
+	 ttXyZoGsiQpk4P/Ei8GM3On+edkLZhVRVaY61BOlTaJ5yAvrRiXailahfF2re83+YyEYw
+	 REiYW0SBa0OW1Ct7fhXeMsvRTPMxYPdBTJIwlZAU5W5Fo2CtSzX0WYt3bCR217qjtGTll
+	 SOXlElSkW9CbhFs34j3jZZOKQ6rWlDSDvN9y7zu0X56+gQfx2OLFPow3tqIDG5Mpcug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=DEGrKpZp;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 71EA7606A336
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:39:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71EA7606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIrbZaDl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66F7606A31B;
+	Wed,  4 Nov 2026 13:40:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=DEGrKpZp
-X-MD-Sfrom: zhangyili01@baidu.com
-X-MD-SrcIP: 172.31.51.15
-From: Yili Zhang <zhangyili01@baidu.com>
-To: <muchun.song@linux.dev>, <osalvador@suse.de>, <akpm@linux-foundation.org>
-CC: <david@kernel.org>, <kas@kernel.org>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, <rppt@kernel.org>, Yili Zhang
-	<zhangyili01@baidu.com>
-Subject: [PATCH] mm/hugetlb: do not invoke the OOM killer when optimizing vmemmap
-Date: Wed, 4 Nov 2026 21:39:38 +0800
-Message-ID: <20261104133938.50974-1-zhangyili01@baidu.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIrbZaDl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263761F000C1;
+	Wed,  4 Nov 2026 13:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793799648;
+	bh=EZAUQMhN3rMe7FCapRNk/7rrtwkPUHUoi09OPENdnHg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mIrbZaDlsoXr337Dd1aQvpZtyvWkUbui9aNsdGO39rnOez9/LC9vHEkL6oLEMmOjM
+	 5ZS/EHVquAEEDjPxCrKhN3kshP7TS3JrO7w5Z0n0AQEv2MP6imfd5lntHJRp9EEZzU
+	 AO1b/xidJ4xZJiAUB8EK5i2yqdQFoIbjV2rlSzG1AWl8xYdHcII+CrKkb2amyd2Tgn
+	 siqgy24+C2iDDSdGuvES7WbPh2sAvX4J3wa6ToVDiYzL70KuyKjQ1uvZiShbArseLU
+	 OZvXeGJ81KpgtvCcDjm84M+yrDFCeHPphdgMb/Wl3mb7UkVZo1aN5xTbwtXqV3KT5q
+	 Uk3jtazUmpszg==
+Date: Wed, 4 Nov 2026 15:40:42 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH v10 00/13] PCI: liveupdate: PCI core support for Live
+ Update
+Message-ID: <aus12iOdLyiIiywZ@kernel.org>
+References: <20261013162529.1928093-1-dmatlack@google.com>
+ <179373348545.623992.16522569527665218421.b4-ty@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,115 +60,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc12.internal.baidu.com (172.31.51.12) To
- BJKJY-Exc19.internal.baidu.com (172.31.51.15)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793799589;
-	bh=IkhbWLUwIsHVA5qbkZd1FvDfizz0mbHSzrjJWS7856E=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=DEGrKpZpvg+dC+n6PNW5iuA3y2vQTBc2UI/ca3IWigfKjgN6kEOaypSOh2vAfkb95
-	 IlKnFbauvomSKB3e7iSq9xTg/En2KSi/Hw4tJYkCxmcoc+O4ndhpj6io8dT/aav2eK
-	 9hxuMMAdLvbrj25g6/8uwEV59uIM5a8XujpN3Vjg1MFYeuR8jN5TK36EJ7g3vx7VRx
-	 tzPsI2urySU2AKgzVhQh60nXCWdft7M89zQb+LmYmOqAoqT+g04iUkm8KmlfWB+eq0
-	 QB4v5ziuWaFR9JBf4b8kh550dto7exx3qUiVc8GYMy/TuaMh1visMBS0ayeoGTlEMz
-	 TOXb1ff+Je2DA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179373348545.623992.16522569527665218421.b4-ty@b4>
 
-Boot-time hugepage allocation is designed to drain all free memory and
-let the vmemmap optimization reclaim vmemmap pages, so that more
-hugepages can be allocated afterwards:
-hugetlb_pages_alloc_boot_node() flushes the folios accumulated so far
-once si_mem_available() drops to zero, and hugetlb_pages_alloc_boot()
-keeps retrying as long as progress is being made.  The allocation is
-parallelized with padata and runs on many threads at once.
-
-The page that will back the new head struct page of a folio being
-optimized is allocated with a bare GFP_KERNEL mask in
-__hugetlb_vmemmap_optimize_folio():
-
-	vmemmap_head = alloc_pages_node(nid, GFP_KERNEL, 0);
-
-Once the workers have consumed all free memory, this allocation enters
-the OOM path.  During boot-time allocation, at the do_one_initcall()
-stage, there are no user processes yet, so out_of_memory() finds
-nothing to kill and panics:
-
-  Out of memory and no killable processes...
-  Kernel panic - not syncing: System is deadlocked on memory
-  CPU: 74 UID: 0 PID: 1 Comm: swapper/0
-  Call Trace:
-    vpanic+0x32f/0x360
-    panic+0x57/0x60
-    out_of_memory+0x581/0x590
-    __alloc_pages_slowpath.constprop.115+0x97d/0xed0
-    __alloc_frozen_pages_noprof+0x303/0x330
-    __alloc_pages_noprof+0xa/0x20
-    __hugetlb_vmemmap_optimize_folio+0xa3/0x210
-    __hugetlb_vmemmap_optimize_folios+0x190/0x230
-    prep_and_add_allocated_folios+0x16/0x90
-    hugetlb_pages_alloc_boot_node+0x152/0x180
-    padata_mt_helper+0x5b/0xb0
-    padata_do_multithreaded+0x294/0x3a0
-    hugetlb_hstate_alloc_pages+0x2e1/0x3b0
-    hugetlb_init+0x3b5/0x640
-    do_one_initcall+0x49/0x200
-
-Optimizing the vmemmap is best-effort by design: on allocation failure,
-__hugetlb_vmemmap_optimize_folios() frees the vmemmap pages reclaimed
-from the folios it has processed so far and retries once, and folios
-that still cannot be optimized are put into the pool unoptimized by
-prep_and_add_allocated_folios().  The worst outcome of a failure is a
-higher vmemmap overhead and, as a consequence, fewer hugepages being
-allocated (along with a warning) - waking up the OOM killer is never
-the right thing to do here.  Note that the same code also runs for
-runtime hugepage allocations, where an OOM invocation may kill an
-unrelated process instead of failing the optimization gracefully.
-
-The head page is a vmemmap page, and every other vmemmap page
-allocation involved is prepared to fail gracefully:
-vmemmap_alloc_block() - which vmemmap_shared_tail_page() also uses
-to allocate the shared tail vmemmap pages - uses
-GFP_KERNEL|__GFP_RETRY_MAYFAIL|__GFP_NOWARN, and
-alloc_vmemmap_page_list() uses GFP_KERNEL|__GFP_RETRY_MAYFAIL.
-
-Align it with the other vmemmap page allocations by using the same mask
-that vmemmap_alloc_block() uses for vmemmap pages, so that a failure
-returns -ENOMEM to the caller instead of going through the OOM path.
-
-This was observed on a 384-CPU machine with ~1.5TiB of RAM booting
-with a hugepages= reservation close to the total memory size and
-CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=y, where the boot
-panicked intermittently, depending on how the parallel allocation
-workers interleaved.
-
-Fixes: c0b495b91a47b ("mm/hugetlb: refactor code around vmemmap_walk")
-Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
----
- mm/hugetlb_vmemmap.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 0057fa2a16a8..3a759b930ed9 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -499,6 +499,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
- {
- 	unsigned long vmemmap_start, vmemmap_end;
- 	struct page *vmemmap_head, *vmemmap_tail;
-+	gfp_t gfp_mask = GFP_KERNEL | __GFP_NOWARN | __GFP_RETRY_MAYFAIL;
- 	int nid, ret = 0;
+On Tue, Nov 03, 2026 at 02:21:10PM -0500, Pasha Tatashin wrote:
+> On Tue, 13 Oct 2026 16:25:16 +0000, David Matlack wrote:
+> > This series can be found on GitHub:
+> > 
+> >   https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v10
+> > 
+> > This series introduces support in the PCI core for Live Update, enabling
+> > drivers to preserve PCI devices across a kexec-based kernel update
+> > without interrupting the device. This functionality is critical for
+> > minimizing downtime in environments where PCI devices (e.g., those
+> > assigned to VMs via VFIO) must continue operating or maintain state
+> > across a host kernel upgrade.
+> > 
+> > [...]
+> 
+> Applied, thanks!
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git/log/?h=lu-pci-preservation
  
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio), folio);
-@@ -525,7 +526,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
- 	 */
- 	folio_set_hugetlb_vmemmap_optimized(folio);
+And luckily we have a few weeks chase Bjorn and Alex for Acks ;-)
  
--	vmemmap_head = alloc_pages_node(nid, GFP_KERNEL, 0);
-+	vmemmap_head = alloc_pages_node(nid, gfp_mask, 0);
- 	if (!vmemmap_head) {
- 		ret = -ENOMEM;
- 		goto out;
+> Best regards,
+> -- 
+> Pasha
+> 
+
 -- 
-2.27.0
-
+Sincerely yours,
+Mike.
