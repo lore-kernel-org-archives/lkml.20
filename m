@@ -1,75 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756104;
-	b=oo6CVOzRhu2ZLQyZn/ZWijc0VDqIwpKYRjKyKmvrYtvkLO+qpTI57jS3TawWcWbVHCIH
-	 dgbFRPM2yTeCPR84wUXyAxVpxRHGYEjgTVJPrbunI40/48FAPKsdaK+jnwN502icQQmL6
-	 qXCS1lFIzwC09C70HijGUL1c7SsXV11Uj4jvHpVid3EeTs0CErSiw7QzBuRQFtEqzTek2
-	 S+Rbrnr2vHrzsgM1WYDlYOXAa1FOtg/taSytuSb4lnZmjcGi8TbFsQi3HylA0BiaRDcfG
-	 NTi0udLtK3Q5ZS+N6Gyj+a2YyYskLLKNiTorN6ap5ero107lAZx9cWDPA6rselYzWQw==
+	t=1793756109;
+	b=5jXLd8293mv47LgWSP+XCi7d/ey7GqXLLwK5vA8WdxEZdgwbTHmMGHo0zV5pe05W43FE
+	 T8ZoqA0K37av/rBlDeMTGxqC0m1FSC2tIpL32WJ9ZC+nvK1HUaO4UQToZyJix1fnFtumA
+	 eHwSWSFaopnyyQmuJ1dOb7wYooarZDenDwBcWkk7GqVTMWPrcuX/GFtniyEIy3YAywG3q
+	 o6vVG+ez0h3+ZJDkKFiOGe+dNidV1hanv1xAMRW9jsTBA9w1SWc/DDh4YHCHb6eDbPOGP
+	 qcUHd9g3T2NANffDj+Timn3N/U+5xmhJx+jZcxdbnKnW/1qbFt1qfIjrzZnwxBUd4CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756104;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding;
-	bh=Eg/S+vREecV5RoaeGFwVZ2OmjaALE5RxcdFFaRC7bKM=;
-	b=HXkSd0a6sxVQpt2uo7g/1Ob/6dwIV2kd9vHUfKY4kX0VGfW9a0FU+NuOmZPCEpFwS2nn
-	 xxUkgyM8loBL3m4tvRpqChNYXWySPvUdc1KekXxTQ03s5HPZ/7lxWi6khZxmV6aOOOCJE
-	 ktaiIPcWd4M59VWc8VxgVMeZukjTrpaZbSH4ennOeqknpMgW7SXmxCIhBlobqsdPOvRZ1
-	 GLB1ChloGVkIWCh5Biz2bHOowmji5znu/kog7x5o5rVgQx7djd6J4ero5MhQenr2+XeB+
-	 JilkFa+7wjEWK1KegsVChGSFvIXCH8vnuBpnPkBJzKVzPVtkVXM8ku+FTLnotV098XA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756109;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=;
+	b=ipS8MLTgTTNcTn/JpWZNFMAYjtGLMWUC7gWviKgwLg5a3eR7ttT4Qhi26bofnvMMR9j+
+	 eQ+ONzlpP9pyTGxIJXyq0Zgmv8F8wUqmGWm0u6iwJj+i4z+yAt9jAQK6QB22sgQuRyEp2
+	 vEhllUfPHFPpF/EGElExxfM5UhZLD7upHIXljYwegS+pWMP/0wVDQisNd20F/0dfZ88O9
+	 4EUjN6seWHLZ5tNQ8mTTAAswZuVkM7MHUBqCGd2z1qKScsJ3GQrwxyBBY41FdIP/LTDhQ
+	 8y8ZDows853bbFvXEvwzt2tuMaAFHATMl6+5aHvi8nqAxEwPwh8o675HhUwXVuvL9EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUuna0c+;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=themaw.net;
+	spf=pass smtp.mailfrom=themaw.net;
+	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm2 header.b="pTf3P/b0";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=2gJWjarR;
+	arc=none smtp.remote-ip=202.12.124.145
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB86606A326;
-	Wed,  4 Nov 2026 01:35:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AB86606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C941F606A331
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:35:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C941F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUuna0c+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793756103; x=1825292103;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=tVSMDNJleH2QUM1diHCRuVVlKfeFaZ7YlVwLQnoBD9M=;
-  b=iUuna0c+TqNMFdNM62cOhmb/6aZRSqfZk5Kp5imYz9L19iHv++iFJ64K
-   lXBc6ZaY3tih2prY+ycieIldhNSvUHhyobvoaQwQ5V2QVaW4jl1pTMqJL
-   G2aaREjzUCFbCoKuHNZWiqM3bsmWbGeM9F4gwXoHX0r/yVCy0nemoki1x
-   jusmeXq7aDv1ZmOHpQXtygKMDiQ/4XLYXBMQFEXd5A0YeLsIgpm2MSmp8
-   vxiT3MYhcF03qCHYkLnbEuWuJMM917KQmTGJvWi1EcouIzZdclXfNJqpJ
-   Bz8EAGbcFc6oFC3e9gZNIuOR1NQ22D6Uf4PE0UuKd8CUD5AR26SuQd+G2
-   w==;
-X-CSE-ConnectionGUID: nFFE7Gt0Q/ewbTukBs1h0Q==
-X-CSE-MsgGUID: U+bEc/5SSSyd+RcLh0RLxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2401028"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2401028"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:35:02 -0800
-X-CSE-ConnectionGUID: 9dlUZcGxQO2Nq7Ibx/dttA==
-X-CSE-MsgGUID: dkvvnlCXRjSUGfPquWZwfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="8446661"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:35:00 -0800
-Date: Wed, 4 Nov 2026 09:34:57 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: JonasZhou-oc <jonaszhou-oc@zhaoxin.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [linus:master] [jbd2]  b5501f970d:
- fxmark.ssd_ext4_dbench_client_32_directio.works/sec 5.7% improvement
-Message-ID: <202611040245.a26ace73-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm2 header.b=pTf3P/b0;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=2gJWjarR
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id 54C071D001C6
+	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:35:08 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Tue, 03 Nov 2026 20:35:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793756105;
+	 x=1793842505; bh=nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=; b=
+	pTf3P/b0NVeUia3wP4piQmr+iXUMn5apqHAoRi5qdpHeGXoAuWaiYn7/Gtm55OjL
+	KKMyTSVA/IDMH7fuXspg84fZVCevce32KQh20ZQY7uDPPBVGE7PtqBNp6jPT4CQ/
+	ZhT1MbixOOJQSEYFp3sv0kdcq8tIpc/xm3QwFy/Pbix76hVv+XrlCy4kzBPlVDeZ
+	VUCPglmyUXP3NhHZL2rnFYfBWriit+r7uKHIa0sYbD0CdrXomeDBCu7z3B+LVp4n
+	FKiHOh7966GeV2bK3KEFMPzGET7WhlwSXNv8VFYTzCjrdv4YkAqzMaOs88Zr8uCh
+	QqORpgQZzV2M+q515r1a1Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793756105; x=
+	1793842505; bh=nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=; b=2
+	gJWjarRGHJlRgxMFKcfin7DfF+EJoIRFnG4Qt3WtEkqBPGxsQLr446yzS6nYGjjP
+	ChnhleRifJbhwhCRbKWp//wWh/cADyzjkHhHV05jshyhmC9Zl29pDnBROSnw3ue7
+	lspGwsipjdx2cQ2ZRro3WB+ZhZb04i/Vzf7o0gzjBqlgPGtnFXv1m9sexah0GnxR
+	psAUbbXbXuOkFYB9UCaJMDh04rubD3o202nYpdOLgzxuTf2OCDbDtB2ly11e9X8C
+	iv+1eckMHAkffmU8lR2cmf4JJ882Pz9fGeMCjvp97zE3Y4Cqji2QqWD/JrLLgrIF
+	OaWyxAxWFNoMt8GI+4Dog==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793756105; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:dAd8YpgskMgLK0A5T7nqWjjPaAnSKSlclh4DWBYxDk3faC9
+	JXru3vX7Vzi06Dp2X219y39eTrYoThrlYmNenZgR/B7Ha9Eu0gSLzW9S/wgO/pkU
+	GhZXGSEXeRUuNOzyDi/h9zAu7vwwMbTqDZa7GeiCX8AO7YAzWFrW7wAZuXpkORkN
+	GcqQQZWpvb0qp5pLLTnu3bm9i+irVFA+Vx9yGTqI0gNtGiYCegmHfR0Be/cuT31s
+	zi4ehH0GJPSJqCOdD9+aWrOBz/ynNTwk0ctrUIYzuXqFOUabnsTXPxAEgf9Bjgus
+	MKEK6ciiBI1DspbdJE+FFbAYSt0sbYb7FidcUQg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:JZSYRBJ4XfKKK2c2F966LsA3L7y0qeazKA9dPaqM5cM=:nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=;
+X-ME-Sender: <xms:yIvqak8aW8vPP1wYuTZ66-FXE9JchOqUoOVVSM7tlJZ7mdGpH_TJeA>
+    <xme:yIvqajqLJEcFCWNrUyX1bDL7F5xyR17ghCWEvdnIgaHcjM9XdivA3OfavbyD8VgS4
+    liFw17oQwZ1opRAwYIIkkxl0rNIzqAarNIf1w9ov_Q-o9Hoxw>
+X-ME-Received: <xmr:yIvqavG1DHcwBbAdaiwmEThm9aL97Wp6aB6SWZEsAOSj50H8iQR6FluRryywLJL5kEfkPNEApMBaq-O6446Z7zyqDvVFxmEteWqTE5dzu5bq8KjDLo0BpMqHPQ>
+X-ME-Proxy-Cause: dmFkZTF+04G1PZLn5pVjkUdTZfXjvyvZ6+U8BNsX6Uz8TcRc7Dni9tGiF8trMZFnpdP36Y
+    WHAL+f0oLMU/tIJzmPRU9AUycwgLXwKMpwM7jFAgggPAZBT7SEinY49CDSHBLUZ0duPrOG
+    60Hk2CxBQTEF+b0uas6CmNxLaF48T9Cxtd/9VessSqrDrlRugMRTU/njgW67f7ND2p8MqW
+    Y09NMG7WMw4H7Y7p2mmxSdp63XKWcwPK3ck3UWp5AtX4jqct0L7pzOwPioj1oIlihAD5La
+    KoEOFT8xunxLYwDO6gFh7KnaKyay3ISiJl7StpuFQnbKzeT/4G4nyRUAtSrsRJYR1MGLTA
+    +rE6/UCqkXrEj7q8MXO4i/llTiKfX6vggR3eEuXWNwmtNHSJwIYkf9YScRro0S5cdaeSQ0
+    bhIV6u+hjNbe1NXBJZW3XsdgEgerqBBB+vGM5nrWDQd895tmhXzgVKVhsyLbrU7WBqF869
+    SUuKaGeXkpVuh2JTVKgapzKlNAOyeXhT18ChFXraqrpsVje9DaWMGs7qG/+FCRMvxFzNiw
+    5zABJu8ivCSKjcYzjYLzhgicApQpftUvcizSU7TCplIlaRJ+GQUlJkR9y8cIsaNV/IpHmu
+    20S9LU4MNblqdmiYRMA9KfjqlE5IyOOQbG8Bw+K4F20VV2CcQ+czVzf6bTTg
+X-ME-Proxy: <xmx:yIvqark1wviiPfMu8HYNEWnOToeqrhsKrOXTFBE99yWAUi3eRgCiQQ>
+    <xmx:yIvqaj8K4HXatZ_JQ0Tckbw1w6GV4_ToSJ8zZPEbihmhQDZn8GJ4ng>
+    <xmx:yIvqaknOfgp_nNrncPU6STsGJR_9-dHlKgaR71KrKP3nGpbNFrVfSQ>
+    <xmx:yIvqapmz6xFiMTnO8t9nGJXF-bbdQGteWI51Dd5So6kaCp-56EJ68w>
+    <xmx:yYvqahZMBV8w9xZ8JtI64350QsWdvRuMHUA1Tghdr8XHsDRzO5N_Li-L>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Nov 2026 20:34:58 -0500 (EST)
+Message-ID: <6ca657f75453ddf7ccf3acd608cb1794f2c937d4.camel@themaw.net>
+Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
+ stores
+From: Ian Kent <raven@themaw.net>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>
+Cc: Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Danilo Krummrich	 <dakr@kernel.org>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner	 <brauner@kernel.org>, Jan
+ Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>,  Peter Zijlstra
+ <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
+ Axboe <axboe@kernel.dk>, 	driver-core@lists.linux.dev,
+ autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
+Date: Wed, 04 Nov 2026 09:34:55 +0800
+In-Reply-To: <5f659257d9842544d6830f9041e5ede63416d214.camel@themaw.net>
+References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
+				 <cover.1792577179.git.krystianmkaniewski@gmail.com>
+			 <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
+		 <4f56c93a9fc5fee152364974773df0a319c84af9.camel@themaw.net>
+	 <5f659257d9842544d6830f9041e5ede63416d214.camel@themaw.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,69 +141,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
+On Tue, 2026-10-27 at 08:46 +0800, Ian Kent wrote:
+> On Tue, 2026-10-27 at 07:11 +0800, Ian Kent wrote:
+> > On Tue, 2026-10-27 at 06:07 +0800, Ian Kent wrote:
+> > > On Wed, 2026-10-21 at 14:51 +0200, Krystian Kaniewski wrote:
+> > > > syzbot reports a lockdep cycle &pipe->mutex --> &of->mutex -->
+> > > > &sbi->pipe_mutex. splice holds a pipe mutex while it calls the
+> > > > write
+> > > > or
+> > > > read handler of a kernfs file, kernfs takes of->mutex there,
+> > > > and
+> > > > a
+> > > > write
+> > > > to /sys/power/resume looks up a path that can make autofs write
+> > > > a
+> > > > request
+> > > > into its daemon pipe and wait for the daemon.
+> > > >=20
+> > > > Patch 1 stops holding of->mutex around the ->store() callback
+> > > > of
+> > > > regular
+> > > > sysfs attributes, which do not get the open file and already
+> > > > run
+> > > > concurrently for separate opens.
+> > > >=20
+> > > > Patch 2 handles the case that patch 1 leaves. A store called
+> > > > from
+> > > > splice
+> > > > still runs with the pipe locked. autofs no longer sends or
+> > > > waits
+> > > > for
+> > > > a
+> > > > request in that context and returns -EAGAIN instead. A new
+> > > > mount
+> > > > is
+> > > > refused before it is marked pending, so no other lookup sends
+> > > > the
+> > > > request
+> > > > in its place. This also removes a deadlock in which the spliced
+> > > > pipe
+> > > > is
+> > > > the autofs daemon pipe itself.
+> > > >=20
+> > > > Patch 2 changes behavior for one narrow case. A lookup from a
+> > > > splice
+> > > > callback that needs an automount fails with -EAGAIN instead of
+> > > > waiting.
+> > > >=20
+> > > > The series was tested in QEMU with lockdep using the original C
+> > > > and
+> > > > syz
+> > > > reproducers and focused splice and autofs cases. The target
+> > > > reports
+> > > > were
+> > > > not reproduced with the series applied, and the paired
+> > > > functional
+> > > > cases
+> > > > matched the unpatched baseline.
+> > > I can't seem to find a reproducer that reproduces the bug or
+> > > maybe
+> > > I don't know what to expect from running the syzbot reproducer I
+> > > did locate.
+> >=20
+> > I think I have found the appropriate reproducer, certainly looks
+> > like it.
+> >=20
+> > Commit 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev
+> > in resume_store") looks like it's been around for a while so I
+> > assume the reproducer should work on 7.2.12?
+> >=20
+> > What should I expect, a hang, it doesn't.
+> >=20
+> > Also it looks to me like the reproducer is trying exploit an
+> > invalid request similar to what I described earlier but I can't
+> > test to see if my simple autofs resolution fixes it if I don't
+> > know what to expect from the reproducer.
+>=20
+> Further investigation shows that the reproducer is initiating path
+> walks within the autofs mount it has mounted which is valid in the
+> sense the autofs file system will attempt to send a request over
+> it's pipe. These are not seen as invalid so I can't prevent them
+> in the way I thought I might be able to.
+>=20
+> I can't confirm there is a deadlock, how do I do this?
+>=20
+> A little more validation and I'll be in a position to review and
+> probably ack the autofs changes.
 
+Sorry for taking so long getting back but I'm struggling with a
+few time critical tasks (including this one).
 
-Hello,
+I haven't looked as far as I wanted to yet but I have looked at
+the autofs patch again mainly because it occurred to me that the
+EAGAIN return might be a bit of a problem.
 
-kernel test robot noticed a 5.7% improvement of fxmark.ssd_ext4_dbench_client_32_directio.works/sec on:
+The expiration of automounts has always handled EAGAIN returns
+even though that handling has changed over the years. So this
+amounts to little more than deferring an expire which is fine.
 
+But mount requests have never handled EAGAIN and I'm pretty
+sure this return will result in an unexpected mount fail being
+returned to the requester in user space. OTOH this deadlock
+case should not occur very often and neither should the case
+where an automount has expired (so the mount has gone away and
+hence a path walk initiated) but the automount daemon has not
+yet finalised the expire by notifying the kernel.
 
-commit: b5501f970dbc039df1f7c720b7a481b62de125cd ("jbd2: avoid false sharing with j_state_lock") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+Also I still think the scenario where this occurs is something
+that will not happen in normal use and would most likely only
+only occur for nefarious purposes. For these reasons it's a
+little bit of an open question whether the autofs changes are OK.
 
-testcase: fxmark
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 64 threads 2 sockets Intel(R) Xeon(R) Gold 6346 CPU @ 3.10GHz (Ice Lake) with 256G memory
-parameters:
+Updating user space is of course possible but significantly
+difficult due to the number of distributions that would/may
+need to update the daemon.
 
-	nr_threads: 2c
-	disk: 1SSD
-	media: ssd
-	test: dbench_client
-	fstype: ext4
-	directio: directio
-	cpufreq_governor: performance
+Another option is to handle these EAGAIN returns for NFY_MOUNT
+requests in the autofs fs itself by re-queuing the mount
+request. In fact I already had a patch series to do something
+very similar to handle stale request entries after a "kill -9"
+followed immediately by an autofs startup. Sadly I got side
+tracked by overthinking what was happening and reworked the
+patch series considerably and had not tested it at all. I'm
+pretty sure that a recent contributed autofs patch will fix
+what lead me to this diversion and it will take a while to
+recover the original series (or re-write it).
 
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261104/202611040245.a26ace73-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/directio/disk/fstype/kconfig/media/nr_threads/rootfs/tbox_group/test/testcase:
-  gcc-14/performance/directio/1SSD/ext4/x86_64-rhel-9.4/ssd/2c/debian-13-x86_64-20250902.cgz/lkp-icl-2sp8/dbench_client/fxmark
-
-commit: 
-  4a87cfb9b4 ("ext4: convert group-count barrier protocol to acquire/release")
-  b5501f970d ("jbd2: avoid false sharing with j_state_lock")
-
-4a87cfb9b45ae07c b5501f970dbc039df1f7c720b7a
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-    176.50            +7.0%     188.87        fxmark.ssd_ext4_dbench_client_32_directio.iowait_sec
-      2.70           +13.7%       3.06 ± 18%  fxmark.ssd_ext4_dbench_client_32_directio.softirq_sec
-    128.43            +6.9%     137.23 ±  2%  fxmark.ssd_ext4_dbench_client_32_directio.user_sec
-     11759            +5.7%      12432        fxmark.ssd_ext4_dbench_client_32_directio.works/sec
-  2.98e+08            +5.8%  3.153e+08        fxmark.time.file_system_outputs
-    108.65            +7.4%     116.70        fxmark.time.user_time
-   6468008            +5.2%    6803995        fxmark.time.voluntary_context_switches
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Ian
+>=20
+> Ian
+> >=20
+> > Ian
+> > >=20
+> > > Can anyone help please.
+> > >=20
+> > > Ian
+> > > >=20
+> > > > Krystian Kaniewski (2):
+> > > > =C2=A0 kernfs: do not hold of->mutex across sysfs ->store()
+> > > > =C2=A0 autofs: do not wait for the daemon while splice holds a pipe
+> > > >=20
+> > > > =C2=A0fs/autofs/expire.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++++
+> > > > =C2=A0fs/autofs/root.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 28 +++=
+++++++++++++++++++--
+> > > > =C2=A0fs/kernfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 52 +++=
+++++++++++++++++++++++++-------
+> > > > --
+> > > > --
+> > > > --
+> > > > --
+> > > > =C2=A0fs/splice.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 | 13 ++++++++++-
+> > > > =C2=A0fs/sysfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1=
+8 ++++++++++++++-
+> > > > =C2=A0include/linux/kernfs.h | 11 +++++++++
+> > > > =C2=A0include/linux/sched.h=C2=A0 |=C2=A0 2 ++
+> > > > =C2=A0kernel/fork.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 1 +
+> > > > =C2=A08 files changed, 109 insertions(+), 22 deletions(-)
+> > > >=20
+> > > >=20
+> > > > base-commit: 93f51579e7df248780214094418f205253383cc5
