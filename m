@@ -1,104 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778668;
-	b=VIAD0Cxuf3pA+zH0VUHU0Xs9C5LRgwXS3GpZyaBuoSXSTJlTwZwRl0gvn7GQzhJAHJCi
-	 QDRLujBPTquIRnJCmv5S9S8VkSOzNXoJ9u6aTXNGsEgIEE8yqzhR5uSciG9EAoiOV50a5
-	 DV1KrP9ndWmuau7lin/963nk/J1VZkPQEWH5vtZZ0PiKAFlC4pvroPWHwMKvERsthJztK
-	 77Twd2fp5iheu/Ma3rbblFcsAfPXth9+zCq+wT/jHnfDfwppkSm58jv8OT3zbRv+14/g8
-	 8t8Wam4EaKrTpCesveOCdSJ1F6Pi25vwPBNABU/2DJU5AWPAZYyOpAR+SceGIRU2dKw==
+	t=1793778663;
+	b=Wjsmad+R6gaOR+vbSAN6TAZsM9YBflbj/Ow6fJHKYdn5u4qXK+Iyhz+DI1Bz/P30gRLf
+	 DY5AjYEfi1xk4vgCp5g7R/E9WXW3nxT7aina3s50P7oI12V/yvv0VThg6TsI+ntotDpSj
+	 1lwxc00xIws9TdqioxImF7ch7uMHXXTfHuZ1FlPB9h5MQRnSNf2pFxV1MJ+NLLB7pQfxz
+	 9rShetV19d8Fbc48pfqhg9qIn7YUUrwCFx+fmGkn+nr7Te9ORAWuVjnvmzWwdPq1F3gDz
+	 LMCUZoe2lyBD9wfO32iTMC9xuNyvQhx3FaSY/Z73F9xWU0NxXZ5QqJDDrVLlDrnj/qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778668;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=+yif7O5YY/m9GKJ68FZTSi2nNVGcJFnRiA7uZiA3GN4=;
-	b=lifzfTAXt4x+SJlS0DPY6JgzaR00xZYK1JLNgA4oQ0NQZMu299qR2dunrd2UYNJEiUV/
-	 oKvMM0CE9l3jw1LES9dErrYzePqgDcS4cwAGngqvPoyrrW12SOAaSNRVpKSyyAIJdobjj
-	 COTdQx/0omuFTDiQKTqwM9ge9K24lMBGvRFhp+UdW3/SqcqzRX6NI8ITd7WctnyqYi590
-	 Jw3c/S1NCuVrldkWbHtYZGo2IdCiHI75GxSlQTk98qVH66R5H2EBAXcOymNnYrgeH8Dwq
-	 +tTDFHreEvISM38HLc4GyeisqjI2k5MkGK9H5o5haOg0JbP8wJcd3P9M8+u1f8LU66A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778663;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=ZnBMVlBZ9FA7vi+t9qEZyDr9qGdnO7eBQQiCUp2N+qs=;
+	b=XLsyl+uYO9bV60Q03hvrWh8Su6/EGe8321gs5J/Dfe5mWx8Y3sZMJ35NToCs7Fk9T/CT
+	 Z4iuzd7N5oho8/a4Ov4wQMqtdjpklC+yNKQT2TQ1VIQJH5KagLnUwgkyxv4ig5jzjFe+d
+	 8W4rb6nv4QNJ6Hjjyy3DR+UK7NmxgHprA6n6mNgyZGaAnc2mn8F5KOD1DiqveNs9CQuyu
+	 hvGleLCgBAX8Eq+OI3Z4FOFRWd+VM3+EqyGXqV97YHBGFWLOregL7aPa8Ol9pS5ru4Qzb
+	 GSlWp1sJ1b40ju26uFJ3IiuxylqrY9SL7WePGICWUiW/W3ggm2D7bCp59zvFHh7L9Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="f8O2/PZj";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HxhrYFLj;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="f8O2/PZj";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HxhrYFLj;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfh2EDLR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF42F606A337
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 07:51:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF42F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A344606A32E;
+	Wed,  4 Nov 2026 07:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f8O2/PZj;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HxhrYFLj;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f8O2/PZj;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HxhrYFLj
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F33671F7BA;
-	Wed,  4 Nov 2026 07:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793778666; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+yif7O5YY/m9GKJ68FZTSi2nNVGcJFnRiA7uZiA3GN4=;
-	b=f8O2/PZjPnLDjawnjI48LiJhxcIkZL0jNU+akd5GdNsu+WGFvioVugjLVrVoHIuCIzyHo6
-	m5iQAetT0rTd7ft72JsFQv/IPtnTKueN97RbZ8NzDD196dtwnll0qwokw4DOj/hn7UcmUV
-	gOnamleAJbEzUTK7cQD7TcdbX0ofnaw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793778666;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+yif7O5YY/m9GKJ68FZTSi2nNVGcJFnRiA7uZiA3GN4=;
-	b=HxhrYFLjTaFnjsjmSrsnR1AUJTVkukbYKlEnrIVAkj51fHnv+N0M3OWebVX5Rg5hoLicRe
-	H7vzjnlUkdSh0/BQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="f8O2/PZj";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=HxhrYFLj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793778666; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+yif7O5YY/m9GKJ68FZTSi2nNVGcJFnRiA7uZiA3GN4=;
-	b=f8O2/PZjPnLDjawnjI48LiJhxcIkZL0jNU+akd5GdNsu+WGFvioVugjLVrVoHIuCIzyHo6
-	m5iQAetT0rTd7ft72JsFQv/IPtnTKueN97RbZ8NzDD196dtwnll0qwokw4DOj/hn7UcmUV
-	gOnamleAJbEzUTK7cQD7TcdbX0ofnaw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793778666;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+yif7O5YY/m9GKJ68FZTSi2nNVGcJFnRiA7uZiA3GN4=;
-	b=HxhrYFLjTaFnjsjmSrsnR1AUJTVkukbYKlEnrIVAkj51fHnv+N0M3OWebVX5Rg5hoLicRe
-	H7vzjnlUkdSh0/BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8008A134A5;
-	Wed,  4 Nov 2026 07:51:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id W64/Dunj6moxUQAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 04 Nov 2026 07:51:05 +0000
-Message-ID: <371f34b6-0142-4aa6-a422-89d935523b5c@suse.de>
-Date: Wed, 4 Nov 2026 08:51:04 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfh2EDLR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE751F000C1;
+	Wed,  4 Nov 2026 07:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793778663;
+	bh=ZnBMVlBZ9FA7vi+t9qEZyDr9qGdnO7eBQQiCUp2N+qs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=lfh2EDLRAKl6CugKHqK4Nev4O1PxVPLC9pM581Xp9avVw13KEnVY7BFw8YQm/qKxD
+	 zazub/AMBbFr6vMDGXMsZY3e4qhNFpeelWjx7SZOK3AP28Mt0RAeqyEkJuo3ipidQp
+	 Oz/Yyvq13oCgiU3vmAbSlQfkRFAIz1/Xu+ortNqfrTdd9N4oeUnTipUkUPl4qN0k/t
+	 NHAMK+AI29+U27RtoJy06mr1eStKrrfeiQj4LQSw9TeNHKEKCR8MTQUyCDGDy2Lfxt
+	 zbNxg5aagJwgaQh1gtGZ2SbdPR0BKsyyAhVCyeulo6MFnHxvLYxL9DhQLEUWDJo4Ww
+	 09Bngcb+Ddo9Q==
+From: Leon Romanovsky <leon@kernel.org>
+To: Mustafa Ismail <mustafa.ismail@intel.com>, 
+ Shiraz Saleem <shiraz.saleem@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ David Hu <dhu@x6u.co>
+Cc: Jacob Moroni <jmoroni@google.com>, intel-wired-lan@lists.osuosl.org, 
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Hu <xuehaohu@google.com>
+In-Reply-To: <20261030181512.2056056-1-dhu@x6u.co>
+References: <20261030181512.2056056-1-dhu@x6u.co>
+Subject: Re: [PATCH rdma-next v4 0/6] RDMA/irdma: Add support for ioctl
+Message-Id: <179377866057.1745081.14077156608414561671.b4-ty@kernel.org>
+Date: Wed, 04 Nov 2026 02:51:00 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,151 +61,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] dm zoned: back off when reclaim cannot make
- progress
-To: Kyrylo Biryuk <illofspeed@gmail.com>, dm-devel@lists.linux.dev
-Cc: mpatocka@redhat.com, snitzer@kernel.org, agk@redhat.com,
- bmarzins@redhat.com, dlemoal@kernel.org, hare@kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103220438.510609-1-illofspeed@gmail.com>
- <20261103220438.510609-2-illofspeed@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261103220438.510609-2-illofspeed@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: F33671F7BA
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com,lists.linux.dev];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.50
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On 11/3/26 11:04 PM, Kyrylo Biryuk wrote:
-> When a reclaim pass cannot make progress, dmz_reclaim_work() still ends
-> with dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
-> keeps returning true, the work is queued again with no delay and the
-> worker spins on the same failing pass. This patch handles two such
-> cases:
-> 
->    - dmz_do_reclaim() fails with -ENOSPC because no free zone is
->      available to copy the data into, for example on a target without
->      cache zones that has no free sequential zone left. The next patch
->      also makes this the expected result when an idle target with cache
->      zones has random zones but no free sequential zone.
->    - dmz_do_reclaim() finds no zone it can lock for reclaim and returns
->      -EBUSY. Since commit 90a9b8693f1b ("dm zoned: reclaim random zones
->      when idle"), dmz_should_reclaim() returns true on an idle target
->      whenever the total number of random (and cache) zones is non-zero,
->      whether or not any of them holds data. Each pass then also runs
->      dmz_check_dev(), which checks every device for media events (a TEST
->      UNIT READY on SCSI disks).
-> 
-> The -EBUSY loop lasts as long as the target stays idle; it ends when a
-> pass finishes while the target is busy and has enough free zones. On
-> three 27 TB host-managed SATA drives used as md RAID5 members (7.2.10
-> with the module built out of tree, all random zones free, target idle
-> for 300 seconds, kprobes attached, two other drives on the controller
-> being zero-filled), each member's SCSI device counted about 108,000
-> requests per second with the stock module and the system used about
-> 915 s of CPU time, against about 46 s with this series. libata completes
-> TEST UNIT READY in software, so these counters do not measure commands
-> sent to the drives; the cost is CPU time.
-> 
-> When a pass fails with -ENOSPC or -EBUSY, retrying at once is unlikely
-> to make progress: re-arm the idle poll instead, so that reclaim is
-> retried after DMZ_IDLE_PERIOD unless a zone allocation or a "reclaim"
-> message queues it earlier. On a busy target, zone allocations can
-> restart reclaim immediately when free space is low enough to require
-> reclaim. Re-arming also keeps the poll running after a complete idle
-> drain. The poll can still stop after a pass that ends while reclaim is
-> not needed; that is unchanged.
-> 
-> Skip the device check for these two results: they normally mean that
-> there is no zone to copy into or no zone to reclaim, not that a device
-> failed, and the I/O paths check the devices themselves. Use
-> queue_delayed_work() so that work an allocation has already queued is
-> not postponed.
-> 
-> A pass that fails with an I/O error, for example on an unreadable block
-> of a device that stays online, is still retried at once while the
-> target is idle; this patch does not change that.
-> 
-> Tested on 7.4-rc1 with this patch and the next one, on three emulated
-> host-managed drives (scsi_debug, 1 GiB, 32 MiB zones) each under
-> dm-zoned as md RAID5 members, all random zones free and the target idle
-> for 300 seconds. With the stock module each member's SCSI device counted
-> about 70.2 million requests and the reclaim workers used 726 s of CPU.
-> With this series: 75 requests per member, 30 passes per worker (one per
-> DMZ_IDLE_PERIOD) and 0.08 s of CPU. Data written during the tests read
-> back with matching checksums, and no kernel warnings were logged.
-> 
-> Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
-> Fixes: 90a9b8693f1b ("dm zoned: reclaim random zones when idle")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
-> ---
->   drivers/md/dm-zoned-reclaim.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-> index c041413c729..077a8a50197 100644
-> --- a/drivers/md/dm-zoned-reclaim.c
-> +++ b/drivers/md/dm-zoned-reclaim.c
-> @@ -537,6 +537,16 @@ static void dmz_reclaim_work(struct work_struct *work)
->   		dmz_nr_rnd_zones(zmd, zrc->dev_idx));
->   
->   	ret = dmz_do_reclaim(zrc);
-> +	if (ret == -ENOSPC || ret == -EBUSY) {
-> +		/*
-> +		 * No zone to copy into (-ENOSPC) or no zone to reclaim
-> +		 * (-EBUSY): retrying at once cannot make progress and would
-> +		 * spin. Poll again after the idle period instead, without
-> +		 * postponing work that an allocation has already queued.
-> +		 */
-> +		queue_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-> +		return;
-> +	}
->   	if (ret && ret != -EINTR) {
->   		if (!dmz_check_dev(zmd))
->   			return;
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+On Fri, 30 Oct 2026 18:15:06 +0000, David Hu wrote:
+> From: David Hu <xuehaohu@google.com>
+> 
+> Hello,
+> 
+> This patch series introduces support for uverbs ioctl queue creation
+> (QP, CQ, and SRQ) in the irdma driver. This series makes progress towards
+> modernizing irdma. This enables 1-step queue creation from pinned UMEMs
+> and shared dma-buf heaps (system_cc_shared), providing RDMA support for
+> Confidential Computing (CoCo) guest environments where memory encryption
+> otherwise prevents standard host-VA-based queues from operating.
+> 
+> [...]
 
-Cheers,
+Applied, thanks!
 
-Hannes
+[1/6] RDMA/irdma: Plumb uverbs_attr_bundle for QP, SRQ
+      https://git.kernel.org/rdma/rdma/c/18dde0629b58a9
+[2/6] RDMA/irdma: Register irdma UVERBS ioctl namespace
+      https://git.kernel.org/rdma/rdma/c/7a69fd61897e60
+[3/6] RDMA/irdma: Support UMEM attribute for QP creation
+      https://git.kernel.org/rdma/rdma/c/3f68d3e1326882
+[4/6] RDMA/irdma: Split CQ setup to umode and kmode
+      https://git.kernel.org/rdma/rdma/c/d1d5209ec8d49e
+[5/6] RDMA/irdma: Support UMEM attribute for CQ creation
+      https://git.kernel.org/rdma/rdma/c/b6da1bd879f1e7
+[6/6] RDMA/irdma: Support UMEM attribute for SRQ creation
+      https://git.kernel.org/rdma/rdma/c/45ac42ec8a486a
+
+Best regards,
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Leon Romanovsky <leon@kernel.org>
+
