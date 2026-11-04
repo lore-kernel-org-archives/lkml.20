@@ -1,73 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818355;
-	b=KIQSdW2GpKXCMxqPx1PXoZ26nHHpB2T51ShV5Z3dbz3rW+SysvhP4TJ+ZqfspvF54zlz
-	 cECj7EH6CiU/8gGkPeg+gDJCRqmVpI1HGTIos9IOdyoyuDHTjJ3B9vs4/6/OBoIYhb1ku
-	 5u9mHoExaY2K1CnoeC2NNALPXTRyUzzrGpxXTdbTPtafiQrBfR2x3mV3/yZ3tMET9d26Q
-	 zC4U3dQyL5IYAPHCb0nlMO2mwd+dqYVZkQuJ1/GhoWdFSrFgCM5G+VfchrhYEh/94IxUu
-	 Qg1uYSoxT1KtqSKrrs8Kb+JrtcvvG9iwz3rBbWRAGjnhDbH7mC/+d9bBVr+F3pz3/jw==
+	t=1793818404;
+	b=UVeDxFqu63TzLLO1By9lFbRJ7SyHd89pDKL/zpD5VTLj2M9ReX2Y91Dn2I+0vYjTgMBk
+	 3F2APIY+silr8XGevc8lAnTlPuBM+CdT3MMbv/nvbiJ8vEC3mmQSdtcvBalk5wvOse+1t
+	 E3S2rcShGQviKJG3N/ZPkADV0IS1nr+ipSXXNMbDem58Ts5m/98stofrPt/38wTRazwuH
+	 AajLenHv821AiRggMLKQsDfB6oLdutDuZyYtKvP21wlz6FSh00pLIv3k6GW/FHgHXtTrk
+	 CfaW6GsAAqrjX4eAJXD38Z2ypuycpqwcRukOc5pmnYvQjKzQBhQN+NgRTAIy20YKmyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818355;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4zBJElmewVqQvxer0r7NFF4wXHeb1cAhIrId66oRiqI=;
-	b=WearPFIDqnNuF0CtAZQhjPsIM1tf3ZbLFFW4LDik/2J+gO3xRqY4lfL7fcBlM1J5C9bE
-	 Wcci8UQlgkJgl/tGfjyOyi8cbK8gNzM80Ox9qhgYk0uyC8MVScJod0+nyOoelcroxgy3b
-	 GSQI3EWQN9UHAJTBKzHinPajj5Nl/5Fyppsr5+4EQOTUqzCUtfUhqe/CvG7milNM8LpEU
-	 +n9VVqqp3sNP4/6gos8rxhhgdSNrDFF6GegFaDVAdrrAnUgP+CiFIMohL3aOqDrXKTb8s
-	 nh/UpjIbU/3z6GPmOl9SWuJrcPMGAQBd98TMChno1kYPwtqb5ctEQSnPIBczp662uZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818404;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=kll/G1zD/C2JyZu7pxNelwTrLUBWbNvvxhXCfrLDdII=;
+	b=DcVbQQwFFQyfHpphCRb5kWOOJDJtA1ZTe8G5csjuB1lLBgO/70PhHmsgGrpWB3nz76Cw
+	 HXFPRss/sejsL356RsbVuA8U46MULSeDV+S9Gfau0FzOFuWjJ5f49VZFEq+JvKVqw6f52
+	 FxINpstaBlCy/TUenrWs3NOtmY58xaIK72ikc0u9o1S3HDoi9EBppJ8Y+1UMWyYRjbdo4
+	 eyaAg4VGhceR+ux3ImIwQ61kmSCxjOtERoRcX7YUPgTE73ZZHBIX1ldxBWVv/uawB0Tl0
+	 ohBwVBPYlU97Fe60KRjgD/qXRLvbaw1I+sndDaQAT/ox28vIeZ35CSl6D6d27bW1HGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfWPZzXM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tv+VOjuX;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35919606A32C;
-	Wed,  4 Nov 2026 18:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7749A606D835;
+	Wed,  4 Nov 2026 18:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7749A606D835
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfWPZzXM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A54E1F000C1;
-	Wed,  4 Nov 2026 18:52:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793818354;
-	bh=4zBJElmewVqQvxer0r7NFF4wXHeb1cAhIrId66oRiqI=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=jfWPZzXMYPWmUQmoX5fKi8CD5Zt6a5iMFLZl3CPrcvu3LPWfX+XB09ABlY5meibUG
-	 vnZ4JE2x60l/kaWoV9JxmJoFEMsoEy1BtimeHUXXWnDuLyXKhyTTyz2C/2QjDHgc9f
-	 i3C2eut5K0aBQJI0pM9/awDQ4l9CqboW5NGuEIEwG1BndHe4vlkRR7JfCIpi/1Rq0S
-	 uCSTPm8wEydfGc0E4t1b7CdP5VD84IOtSzmct6Zceh5F9RTzEnmga+zStlD2S3sDu+
-	 1iTpS/5xf5omijP9sn8RROBVIeugCx956GQgtW+LGUmciF/WaJeV2gNpZBcsx1bitl
-	 MH7qPEEckI6JQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 89EC9F40068;
-	Wed,  4 Nov 2026 13:52:33 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 04 Nov 2026 13:52:33 -0500
-X-ME-Sender: <xms:8X7ramMZtHGJ3A3lf5yc5WubAR37S401ccOs6C6dKZQquORJ03BMyQ>
-    <xme:8X7ravyUUFWXQCRGf6y4UZ7QmIF8aNFyDBoilQAqHS0MaSfGWRVTLGTNV1oOp4zh3
-    yUcIv0HSXncXqpbM_45Gka3RcptO5m6SNie8JekGTLCP6X2-fpAkKPH>
-X-ME-Proxy-Cause: dmFkZTGXN/Mt/6+UKYWeIUhVeRjK8N1s9Xsqjx+ISwdggEXtg39O6sodkPEtjFnM2V5axO
-    iM8JADVFiYM8EnDIBG1H2GuyVD7vZdG+CuHNQCWH9R05F/i/IPtxhgIKKfJOQy+81jO35Q
-    fnzywM4X7aJ0i0QmGS4FJO0/7JLnr/cwihqwO3KOUSWacNTfog8FN9R0bukZ1yhxCWsPe0
-    KaWBjErV+4pMHyfAmQN55zoQu08ElWvLKODfKciFEyPkmDFcKQQeUa9HSG24X/HviKqQ7N
-    64bqweaK7FPm03fSZ0ZXBQIqqYVLkz5oSXDgFqv6Z8FiIDO/Pt98rvj77DXumuf8djqJI7
-    WIEW0Yc76oy9JsaE90iWUukudmppmVdXoFs2GdNLE4C8wvhujntqIvi+iWbR2evIpkH2Q1
-    B/1QqhnfpK8UgGHlyP6P/2+WcRNATaZogzxW0Us0eutiB4mxj7zJ44qpgmopED85Km5Hm4
-    SrKyYXFNeg0ssF3YimQy7iNur3V8w/iSUy8knpuv9dF6fikRnlKZDd2OOFh28AJkDG7BtE
-    6MjVO+Abb9GuCM0NtIOMp1fu+mthBq2a0/y4nn60e6sajqF8ggP2CAe+K69HUXkquSB257
-    M7zT+2VKCfhwTBPGhTHMGWKMxgEOAOiMwPZe9ulv4fxX6e28wgLUWFBkLoEw
-X-ME-Proxy: <xmx:8X7raluAejDJL5VN8yCyZmkKrs4hdLGAMIYFcmSfo6mchVIhOvUcLQ>
-    <xmx:8X7raqdmFtIjvOJL5Be87mZTEA8jYpyWqGK-74UC-DY0RuzLLreRFQ>
-    <xmx:8X7raq8Pe4r-aW9zIdU8fzfJ_dnv0P9OYsQlbElEhbcS5XltGHKUuw>
-    <xmx:8X7ratTHhPASOWdOnC7O_SjoaAvl9ZNyRsEJrxLNqiPshl64h1jqzg>
-    <xmx:8X7rajpin0o3EXvq32GNu0mwBDcv4VSIC2h3lT5UVmqJlfgid5oNiCFI>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 6239B78273B; Wed,  4 Nov 2026 13:52:33 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tv+VOjuX
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B7F164E41403;
+	Wed,  4 Nov 2026 18:53:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6714A60770;
+	Wed,  4 Nov 2026 18:53:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C414410329205;
+	Wed,  4 Nov 2026 19:53:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793818395; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=kll/G1zD/C2JyZu7pxNelwTrLUBWbNvvxhXCfrLDdII=;
+	b=Tv+VOjuXj3AH4ln4E3aXj4PZMQKql3KWSZmz2mqRiK+jgYCiAKLyFxJvFwNFzOT2mtfa/p
+	/bx6al1jJJa+bZV3C/HjKYVwdSHnNj8K+VmDEMZY3OlMMIZEFHnds8sgV9MHo+HHCYtDbn
+	x70RoP2HsMme65Nfa8ffeM8rDHEGo3j2+2HSbRpN6yCyuTlkgd0HG3FUPB2K32I/sVrj1A
+	QtaakxhrG4MI4ibpZz6wPkLdC3Y5lwyrVFf/Ha/JM1zFsyvQeTFeUDZjjKHvUFr+l7oMnW
+	YRz4CV1SlYuEY/gOOB+7jtEAUBx2umSS15PswdMcUJmkil+id0WtdNn/3JwwbA==
+Date: Wed, 4 Nov 2026 19:53:08 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Mark Brown <broonie@kernel.org>, Andy Gross <andy.gross@linaro.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2] memory: atmel-ebi: Disable SMC clock on probe failure
+Message-ID: <20261104185308b845fb6d@mail.local>
+References: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,74 +78,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Av7Xq62OMXVV
-Date: Wed, 04 Nov 2026 13:52:13 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: sariorkunemin@gmail.com, "Jeff Layton" <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <d2539122-2d86-4306-af54-43598f4aded7@app.fastmail.com>
-In-Reply-To: <20261104-nfsd-cross-mnt-v1-2-5ec5fca0a553@gmail.com>
-References: <20261104-nfsd-cross-mnt-v1-0-5ec5fca0a553@gmail.com>
- <20261104-nfsd-cross-mnt-v1-2-5ec5fca0a553@gmail.com>
-Subject: Re: [PATCH 2/2] nfsd: check access to the export being entered when crossing
- mounts
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
+On 01/11/2026 20:07:34+0100, Krzysztof Kozlowski wrote:
+> Unprepare and drop the SMC clock reference, if probe fails to avoid
+> resource leakage e.g. during probe deferral.
+> 
+> There is no remove() callback, presumably on purpose so only error paths
+> are handled.
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
+> Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+> Closes: https://lore.kernel.org/all/20260917101623.2146392-1-vulab@iscas.ac.cn/
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-8e236c81-01b2-4274-a213-11c3f31acfc2
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> I independently developed the patch and then checked the queue with
+> pending work of iscas. That one has issues and other complains from me,
+> so only credits for the report.
+> 
+> Changes in v2:
+> 1. Handle of_platform_populate() error.
+> ---
+>  drivers/memory/atmel-ebi.c | 27 ++++++++++++++++++++-------
+>  1 file changed, 20 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+> index 1e8e8aba2542..7dc2f7add1b1 100644
+> --- a/drivers/memory/atmel-ebi.c
+> +++ b/drivers/memory/atmel-ebi.c
+> @@ -562,7 +562,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  	}
+>  	ret = clk_prepare_enable(ebi->smc.clk);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_clk;
+>  
 
-On Wed, Nov 4, 2026, at 6:56 AM, orkunsari via B4 Relay wrote:
-> From: orkunsari <sariorkunemin@gmail.com>
->
-> Commit f0d6ad5a2f67 ("nfsd: move check_nfsd_access() call into
-> nfsd_cross_mnt()") moved the check_nfsd_access() calls from
-> nfsd_lookup() and the NFSv4 READDIR encoder into nfsd_cross_mnt().  The
-> moved call checks @exp, the export being left, which the caller has
-> already verified, rather than @exp2, the export being entered.  The
-> sec= and xprtsec= settings of a crossmnt/nohide child export are
-> therefore no longer applied when LOOKUP or READDIR returns its root
-> filehandle and attributes.  Later operations on that filehandle are
-> still checked by fh_verify().
->
-> The same commit also removed the check that nfsd_lookup() applied after
-> a ".." lookup steps up into a parent export via nfsd_lookup_parent().
->
-> Simply checking @exp2 instead is not enough: nfsd_lookup_dentry() also
-> serves SECINFO, which must not fail with NFS4ERR_WRONGSEC (RFC 8881,
-> section 2.6.3.1.1.5) and did not check the target export before.
->
-> Split the crossing into __nfsd_cross_mnt(), which checks @exp2 before
-> switching to it only when asked to.  nfsd_cross_mnt() keeps checking,
-> for READDIR and the CREATE paths, while nfsd_lookup_dentry() does not.
-> nfsd_lookup() checks the resulting export whenever it differs from the
-> directory's, which covers both mount crossings and "..", as it did
-> before.
->
-> This was found by AI-assisted code review (Claude Code).  The fix has
-> been build-tested with W=1 only; no reproducer was run.
->
-> Fixes: f0d6ad5a2f67 ("nfsd: move check_nfsd_access() call into 
-> nfsd_cross_mnt()")
-> Signed-off-by: orkunsari <sariorkunemin@gmail.com>
+Couldn't we simply devm_clk_get_enabled() ?
 
-This issue is very likely addressed by patches I posted earlier this
-week in response to a similar vulnerability report.
-
-  - "NFSD: Check the entered export on a mount crossing" checks the
-    entered export inside nfsd_cross_mnt and in nfsd_lookup_parent,
-    which covers the ".." case that 2/2 also raises.
-  - "NFSD: Let SECINFO query an export that excludes the request's
-    flavor" handles the SECINFO concern the patch solves with its
-    __nfsd_cross_mnt split.
-  - Two follow-ups (secure-port policy, applying the entered export's
-    credentials after LOOKUP and RESTOREFH) rework the same region
-    further.
-
-Let's set 2/2 aside for now, because the series I posted seems more
-thorough.
-
+>  	/*
+>  	 * The sama5d3 does not provide an EBICSA register and thus does need
+> @@ -572,14 +572,16 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  		ebi->regmap =
+>  			syscon_regmap_lookup_by_phandle(np,
+>  							ebi->caps->regmap_name);
+> -		if (IS_ERR(ebi->regmap))
+> -			return PTR_ERR(ebi->regmap);
+> +		if (IS_ERR(ebi->regmap)) {
+> +			ret = PTR_ERR(ebi->regmap);
+> +			goto err_disable_clk;
+> +		}
+>  	}
+>  
+>  	ret = of_property_read_u32(np, "#address-cells", &val);
+>  	if (ret) {
+>  		dev_err(dev, "missing #address-cells property\n");
+> -		return ret;
+> +		goto err_disable_clk;
+>  	}
+>  
+>  	reg_cells = val;
+> @@ -587,7 +589,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  	ret = of_property_read_u32(np, "#size-cells", &val);
+>  	if (ret) {
+>  		dev_err(dev, "missing #address-cells property\n");
+> -		return ret;
+> +		goto err_disable_clk;
+>  	}
+>  
+>  	reg_cells += val;
+> @@ -603,11 +605,22 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  
+>  			ret = atmel_ebi_dev_disable(ebi, child);
+>  			if (ret)
+> -				return ret;
+> +				goto err_disable_clk;
+>  		}
+>  	}
+>  
+> -	return of_platform_populate(np, NULL, NULL, dev);
+> +	ret = of_platform_populate(np, NULL, NULL, dev);
+> +	if (ret)
+> +		goto err_disable_clk;
+> +
+> +	return 0;
+> +
+> +err_disable_clk:
+> +	clk_disable_unprepare(ebi->smc.clk);
+> +err_put_clk:
+> +	clk_put(ebi->smc.clk);
+> +
+> +	return ret;
+>  }
+>  
+>  static __maybe_unused int atmel_ebi_resume(struct device *dev)
+> -- 
+> 2.53.0
+> 
 
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
