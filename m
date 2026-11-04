@@ -1,69 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793790625;
-	b=kkdD1XiqZgKzDGsxE7O3NOpPsckNfQXGRI8N5C/rQcUGezyTmgZlqZdGEKr/tzzJ2M+j
-	 21d04cBx5w3TFYboUkI1H2eZDdryhhbWKm+szUPu6MFMv6YloTqJDl6D+vNiNUQ4lalKy
-	 5bb418w9YBJTCZB1IfJc3wbOtQ3NtCjAiAoIPgFU+0gWJQ/E4MJsQljDA8qaj/O4w5/z0
-	 Ibwfemsh9eVGCXUD/AvZaXDKySO8mlw81Qd/RYU5J+OmiM8vddXvNpHESq7vpy5xCw1Zu
-	 EvX+FkRY+a6KSb3s7tCPtoVJjSi9zc/TInNapcGHA2JUi0T9c26xlqv/Ob8bPSY05bw==
+	b=BlU3MHdcODEnFRBDu8CsdSuqshIgRvUuR1NqM2F+uCqhZ2AzCWc3fLesHSHE8hWyjSc6
+	 LYhxr7dq67WsENY2chKAoKWSJzy1lg+cTMTP4tiI+p7FRbIjGxN5O28PWgkD4zQkxC4rZ
+	 7kiQxWBE2yiHdfaotJrkbeN6jmskllb9FkXoLqVKjv/dlE1WZ8CvNacDQynf5tNN7erCC
+	 4yTEyiVPztuY8C9QjfA5p+2wDhs2K6RFHuCl20eNSylYtBaniqzA6V06cjrEj8h3AP6Kv
+	 skO038veMRT2/HQnt3hQAU/XFJ3pN+cFhPGc5KWAbvmjsDFImrUXInBAR4WiXaEVNaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793790625;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
-	 X-Scanned-By;
-	bh=BIN2xmkcrM6GUForywfj0SmUMjhlUpfCv56D4umJYig=;
-	b=Wdcy3IITfS1LxlINz3XHL/FvODVLNnW4Nj8UDSeZcGUqMYwIADGA28kl2oNYOFf5Koqn
-	 rgGZGZjnBHSbIpuPlbu7qyzqye7SQ++zxqDgqc6hpQRn3XFHgqOifdt3X0q+d4PGi7zBu
-	 PAxy+D56Q80XLSxv6vf0f8iM0a9YE/gkyDycU6D9DWlGs+Z3dTOIeupXDRxUsmeItA/s3
-	 2iXQSgjYitPfgXBA4MTn55QFecD2guDk/GsUJTiXWAuxueHxRJ8YR0YUqC2ELRy/HQo6P
-	 dir7MCVwQaKJ7yCRuULaZIdaBlAGRODheVp6uVvuiau+U3js80wJ6xLYsDGbxgyvQ9Q==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=RWmAnQFAwcDgMD4QSAxSQ6IEhxz4PTQr1GmoYyDd32k=;
+	b=crUwf5H0Lww4Da4GEdxjtTOrU0wvLBpg2CoW/nnaqtzWxzwIn2O0gNMRa2MBf6GTaX32
+	 ENgNPhRIm0Yj0scX3XhP/AyPrJHC/+Uoc0gjGLEaei12kTyODI5WwjMZ8BFRnHNSXR9WG
+	 Y7N1SDTlU+TUjUUbpCLb6SP5ofl29bdIIwsr5o2eFkNBjaXu5M2SK2DK0j/RJlZzlxyBS
+	 I++SPQGpmO52dZxrMYN46QVj029Vb4ODj9HA0U568CeoQOX4JCD7M575BSjnWv5EHuNf0
+	 mKzpnVcMjWYNJDH7rgbSfENJG3U7/50u/37SpYc7jENS3mOmB13T1c+Uogj9tuj3qHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=beVS072w;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DvYyLQ0K;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C595606D81F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C595606D81F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A26D606A328;
+	Wed,  4 Nov 2026 11:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A26D606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=beVS072w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793790624;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BIN2xmkcrM6GUForywfj0SmUMjhlUpfCv56D4umJYig=;
-	b=beVS072wP0S03xs2UWbxf98er+p8Q8enNoA0upba0lJuNe3hqkuEW+PcuSvemlIFzbVLkc
-	duP1SiNCDkbJ/z3X87mQrbAroPQc5E4wvdZl3GWlEDFMkzeUPLY3yzT1L158WvCibhd9z/
-	KAwmZXzxfz569als+3qB/mFT6zcpudA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-360-9S7ZHpiTMa6gjO6GBpoBsA-1; Wed,
- 04 Nov 2026 06:10:19 -0500
-X-MC-Unique: 9S7ZHpiTMa6gjO6GBpoBsA-1
-X-Mimecast-MFC-AGG-ID: 9S7ZHpiTMa6gjO6GBpoBsA_1793790615
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4DB79195605E;
-	Wed,  4 Nov 2026 11:10:15 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1A7851956041;
-	Wed,  4 Nov 2026 11:10:07 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 04 Nov 2026 12:09:15 +0100
-Subject: [PATCH v4 6/8] selinux: Restrict cross-cgroup dma-buf charging
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DvYyLQ0K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793790624; x=1825326624;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=A5BGL88tXyzuSsMiqipz8eLRoqaEGjr0doKL7tQxGe8=;
+  b=DvYyLQ0KlW9DQqN0hPZgsXlu/2et0SeVZPRFCWaczIGbfQs/XYN5UZhj
+   +fJ9Qo4n/MKAY9/MvEivjBjpCXldGK6OvmEgZOZ8hltA2k0puuvzARbGp
+   aNls1fmXg2SqBh1diJwG5ekM3k4kdtIX6bFnwu+pIpV0jjdjeedmawfmX
+   KJbmbAxrHJq7qCofHUl0O3++B7rVDQOUKCmAZ8yuo5Mz4MIms6vlw5waO
+   IAg/MCfDFKn/6M7BBJF2wxa4qu61//19OCshmX/o9YKWJ/0hAoEwIzJwC
+   gmIYBUMCAYwC+bmuwlyskaCdjBytp5S+RffAbbHWM8XyYaEyvadMiJLjM
+   g==;
+X-CSE-ConnectionGUID: o3G/6nmUS/mAk+wz/wl/qA==
+X-CSE-MsgGUID: /nrYIljqQiWwReUlUtRyLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2438350"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2438350"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:10:24 -0800
+X-CSE-ConnectionGUID: qzWTsHXnTLCDUbjXtBGBZg==
+X-CSE-MsgGUID: weYVXld8R4mBJhSyxXSIDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6794066"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:10:21 -0800
+Date: Wed, 4 Nov 2026 13:10:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Johan Hovold <johan@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] serial: core: Don't clobber the baud rate on
+ hangup via B0
+Message-ID: <ausSmrErzTXfKNGU@ashevche-desk.local>
+References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk>
+ <alpine.DEB.2.21.2611032050590.15685@angie.orcam.me.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,105 +88,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-v2_20230123_tjmercier_google_com-v4-6-1819a017000b@redhat.com>
-References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
-In-Reply-To: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793790554; l=2546;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=Q4MDTyTx8BDPwFzxJa2XHViMR1+R79st6XMgJZaOlIY=;
- b=REHM6F3Ku6uuvIdOxBXhrumnTAmUHEsxlCmUVbJB/ZvhOPELqWlxs0TEKjvh1a2rXfDxv9T1v
- E2O5apaN0Z8CytDrQW6kkXw69Ocb+i48IvcsvH64xCPhTw9c4BZmhSg
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2611032050590.15685@angie.orcam.me.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The security_dma_buf_charge_task() hook allows security modules
-to control which processes may charge dma-buf allocations
-to another process's cgroup via the charge_fd field of
-DMA_HEAP_IOCTL_ALLOC. Without a policy implementation, the
-hook is a no-op and the restriction is not enforced.
+On Tue, Nov 03, 2026 at 10:07:58PM +0000, Maciej W. Rozycki wrote:
+> Requesting hangup via the B0 baud rate has this nasty side effect of 
+> clobbering the previously set rate for the port unless it happens to be 
+> 9600bps or the port minimum rate if higher.  Consequently if there's a 
+> consumer still active at the other end, then it receives corrupt data 
+> from any other producers outputting messages to the port, such as 
+> init(8) or the kernel console.
+> 
+> There doesn't appear to be any particular reason for this clobbering 
+> other than that we have been doing it since 2.1.131, so take a saner 
+> approach and keep track of the most recently set baud rate and then use 
+> it whenever hangup has been requested.
+> 
+> There is one issue however with serial8250_console_restore(), possibly 
+> called from the NMI context on some platforms, in which case there is a 
+> concurrency issue owing to `port->mutex' not being held by the function.  
+> Consequently `port->hup_speed' could be written midway through an update 
+> being made by a termios call, causing the value saved to clobber the 
+> baud rate programmed into hardware with a later B0 rate selection.
+> 
+> Handle it by renaming uart_get_baud_rate() to uart_get_baud_rate_save() 
+> and giving the function an extra `save' parameter to control whether or 
+> not to have the baud rate saved in `port->hup_speed' that is returned by 
+> the function.  Then use that parameter to suppress saving when called by 
+> serial8250_console_restore(), observing that the call is only ever made 
+> to restore the baud rate most recently set.  Any concurrent interrupted 
+> termios call, once it has been passed control again, will then program 
+> hardware consistently with the value it may have written already or will 
+> otherwise write to `port->hup_speed'.
+> 
+> In the unlikely case `port->hup_speed' is zero where the B0 rate has 
+> been requested as the first one since the system boot for a non-console 
+> device, resort to the current default of max(min, 9600).
 
-On SELinux-managed systems any domain with access to a
-dma-heap device node can therefore exhaust another cgroup's
-memory budget without restriction.
+All lines above (except the last ones in the paragraphs) have a single trailing
+white space. Usually checkpatch warns at this.
 
-Implement selinux_dma_buf_charge_task() using avc_has_perm() with
-a new dma_buf object class and a charge_task permission. Policy
-authors can then grant cross-cgroup charging selectively,
-for example:
+>  /**
+> - * uart_get_baud_rate - return baud rate for a particular port
+> + * uart_get_baud_rate_save - return baud rate for a particular port
 
-  allow allocator_app_t client_app_t:dma_buf charge_task;
+Now it also saves it, so
 
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- security/selinux/hooks.c            | 7 +++++++
- security/selinux/include/classmap.h | 1 +
- 2 files changed, 8 insertions(+)
+ * uart_get_baud_rate_save - return and save baud rate for a particular port
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 30776b0107f2..8f39d91eabc9 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -2204,6 +2204,12 @@ static int selinux_capable(const struct cred *cred, struct user_namespace *ns,
- 	return cred_has_capability(cred, cap, opts, ns == &init_user_ns);
- }
- 
-+static int selinux_dma_buf_charge_task(const struct cred *from, const struct cred *to)
-+{
-+	return avc_has_perm(cred_sid(from), cred_sid(to),
-+			    SECCLASS_DMA_BUF, DMA_BUF__CHARGE_TASK, NULL);
-+}
-+
- static int selinux_quotactl(int cmds, int type, int id, const struct super_block *sb)
- {
- 	const struct cred *cred = current_cred();
-@@ -7674,6 +7680,7 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(capget, selinux_capget),
- 	LSM_HOOK_INIT(capset, selinux_capset),
- 	LSM_HOOK_INIT(capable, selinux_capable),
-+	LSM_HOOK_INIT(dma_buf_charge_task, selinux_dma_buf_charge_task),
- 	LSM_HOOK_INIT(quotactl, selinux_quotactl),
- 	LSM_HOOK_INIT(quota_on, selinux_quota_on),
- 	LSM_HOOK_INIT(syslog, selinux_syslog),
-diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-index 90cb61b16425..b4ebedc6e424 100644
---- a/security/selinux/include/classmap.h
-+++ b/security/selinux/include/classmap.h
-@@ -181,6 +181,7 @@ const struct security_class_mapping secclass_map[] = {
- 	{ "user_namespace", { "create", NULL } },
- 	{ "memfd_file",
- 	  { COMMON_FILE_PERMS, "execute_no_trans", "entrypoint", NULL } },
-+	{ "dma_buf", { "charge_task", NULL } },
- 	/* last one */ { NULL, {} }
- };
- 
+>   * @port: uart_port structure describing the port in question.
+>   * @termios: desired termios settings
+>   * @old: old termios (or %NULL)
+>   * @min: minimum acceptable baud rate
+>   * @max: maximum acceptable baud rate
+> + * @save: whether to save the baud rate chosen
+>   *
+>   * Decode the termios structure into a numeric baud rate, taking account of the
+> - * magic 38400 baud rate (with spd_* flags), and mapping the %B0 rate to 9600
+> + * magic 38400 baud rate (with spd_* flags), and mapping the %B0 rate to the
+> + * previously saved rate provided by @port, or if this is unset, then 9600
+>   * baud or min argument, whichever is greater.
+>   *
+>   * If the new baud rate is invalid, try the @old termios setting. If it's still
+>   * invalid, clip to the nearest chip supported rate.
+>   *
+>   * The @termios structure is updated to reflect the baud rate we're actually
+> - * going to be using. Don't do this for the case where B0 is requested ("hang
+> - * up").
+> + * going to be using, except where %B0 is requested ("hang up"). Likewise the
+> + * @port structure, except where @save is %false.
+>   *
+>   * Locking: caller dependent
+>   */
+
+...
+
+>  		if (baud == 0)
+> -			baud = max(min, 9600);
+> +			baud = (port->hup_speed ?
+> +				port->hup_speed : max(min, 9600));
+
+Outer parentheses are redundant. Also use Elvis.
+
+			baud = port->hup_speed ?: max(min, 9600);
 
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
