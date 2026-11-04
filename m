@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787388;
-	b=a9AICkkBmq/OUhp7nxiX/Q1mtV/NLm6rND2oCrLy0D8sxQ5RIi7edJ3dE/n4p0ssbXVn
-	 ZsHaUfM2UHC2v5IVD6OWu25XYMu7sH0rsgqt73Sx9vlHhvbVy+Df5v3ZpvR/xs848x35X
-	 xC782o44lzM7Shn6a/j87XAHxPO63JuL4fN6KPAW+bIa7osK2f9koBKAc5sV35JZSZ1Fl
-	 2ZEiF3RuFUdV6Kjxv0tfJ3++hUu4CHGUSX7m8FMtHZdQNwF1F1dJ3aYMdbfSdgC3BYgxZ
-	 fubYzg8yqZ4dEHXp49JzfS0VrKdiTwuaSaC2+i/WYuB3t0MoWGk9+H4vaXogGhZxYlQ==
+	t=1793787405;
+	b=wGTkPg+4ve1FwxSQrlIL23vK77MGcCr8KQpK4Zo4tk3EPcMXt2xn8cpxkUAkfXtxO0N7
+	 BKnt1mD1y8WxdbhY9IQq5zihkQWF6rVM2QvrsrYcvSTpH/sPSSLwFXhhcuRKm2IUpqc6D
+	 IjYuNLbNqJm1GmGO9gEXFFK3nx2qzNMxWq1r/1KOm5L/yfRCytV6s34iEeXsCJF7sEBjJ
+	 CLN3AJaLhRgKlMMFbL4djIUQrMe35NtH/Qb04r6gDilcckwkA2eotpVbtrCfp3/bDnx3Z
+	 2Jim69+u2wOnuXYkQN5vrbBXxM85Uhfm0CqYPaWJzx9Ofr2s1nhsK1DFm84Xg/dSzpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787388;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=a0MrLLzClOoKowkmFBv+8NUjLdhsm8HzUFCMBywp0oA=;
-	b=tfCB1Fwlj2WZa9d6Rp/lCzlYgOGbGCMW7R2z+268UuJhEL8OgNOviKDDUkca1KH0NTYI
-	 7SAeZE/kGnDE7YpGrD0A8S4NdxW1WjBrMHDL2jt0Jp6LERPzFY3OR3ZsXB3EAV5QHUjjR
-	 q97/cHxy8nymsJyiGZCckyy2NxXWfiEIwpcR+KPmhg6QdGLo5J4JMl3voHKEWATSpRjmd
-	 qke4xaOUxISit5isdXFp4bWBGltT6vVfypmKMad0rYorUyyawJoi5BpsJAY1u8K0pab+Z
-	 KEU6oGHO2Nya/bfBxoRGMCw1PHOx2pLQV4mvVIATdclAK5s6UJBONpLs7dHv/w+nfIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787405;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=hGoF+Ux3/C2DVxPoGimJzT2bsRivtHVvoj8jLzbT9PE=;
+	b=X/Q3QfjYyGp62a4JBVdOxY7DkzX+d8LcrxHcMCddidDZtC1tufZPMRa5YcZbv7xHgN0I
+	 PjlKNpWh9+oqfHi62oGuplkYsD+CU50x/7v5GAsfbX0RR9u6AGOS+xIMbTGTURMbk4XA7
+	 Pqo/+mAobiihvrSIUeJQE7lIMrGHILnQAHdcnOT2w9cQw8Hvp+TmPrXGQq7V/2P3asmC3
+	 2kdW1f0R2E5mQ9u+tERy+ItvRJImdcJYHfteW0qtRWUxYsFHpPXBgaV7XZ+A494jUUbTC
+	 cYSuiZYYT1SSEiVMG48LJUrikxaxY1ICwqnLr1r9oOd0yUcP+SvFWZCFtWDtq8aocUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2T3cugC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=g+E50zIf;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36618606A31B;
-	Wed,  4 Nov 2026 10:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B45606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 10:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B45606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2T3cugC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D424D1F000C1;
-	Wed,  4 Nov 2026 10:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793787387;
-	bh=a0MrLLzClOoKowkmFBv+8NUjLdhsm8HzUFCMBywp0oA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b2T3cugCiBzxVY7kwb4HDdXHNyBglbJhBTSLB40DxmLKxX0jqsgMXaR2sbAkh7x3K
-	 i0KpiYYIkhElBP7Qa1zV5g+MtbExSyrKPOF4KupWwjPeqgS1kcbwkntSOEmytQc1ks
-	 t7HhQf6ybJJVeh9m4kr3nNDFxHwj4JxdM/fB7ocns20AZHFXX7mWDXxj+hNDnX7Ykf
-	 vAwZV+0FDhA0Au3vuklL77RByHJQehhan/CGKagapX04nmkJf5SiERFD7NaEseZ/0c
-	 T3pLxLb6OOUsBUnbMHwGzizZ3EtMB0jdXs4c2eyRhvIfWCWRPvxIqtNMx0a7KX/qCc
-	 0b58DXrKHXl/g==
-Date: Wed, 4 Nov 2026 11:16:24 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 01/10] dt-bindings: display: renesas,rzg2l-du: Add
- support for RZ/G3E SoC
-Message-ID: <20261104-inventive-mantis-of-wholeness-ec5af2@quoll>
-References: <cover.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
- <0b55aa2974382cf6f3a278f4c5f64f0af403bb95.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=g+E50zIf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=hGoF+Ux3/C2DVxPoGimJzT2bsRivtHVvoj8jLzbT9PE=; b=g+E50zIfhYHSxqKnfX7DkcQzlX
+	cEto4q6vRSnDqE7UsTJBYOCSE4IGm7pYvK1w3Oh//NGAbdEsWVShoQlwkXeczeTwJ+FHOmmd/4iF9
+	WpgVsoKeh/pgyX9e2XWsNThyMaX/m6mt97NxivncogOAig4W8fp1rGBDGAu4GaOjlDBpdsFLMq1WN
+	BLBP2MPgocj7g8uCHxPd9eXkhtIRqfcuIfbSze/ncsp0jT866953UAjdD0yviaOYyDjLiliO7phYg
+	97poZRA2DpS5RD9sfFz6D9LsetmTfSt4UnS6nZTIm5D8Jwj2sgUwGDvh9QeyII0AzULZyKIiD01p1
+	gLLJH2Ww==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ Igor Paunovic <royalnet026@gmail.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Guangshuo Li <lgs201920130244@gmail.com>, Jiaxing Hu <gahing@gahingwoo.com>,
+ Igor Paunovic <royalnet026@gmail.com>
+Subject:
+ Re: [PATCH v2 1/2] accel/rocket: release the shared device's devres on
+ teardown
+Date: Wed, 04 Nov 2026 11:16:37 +0100
+Message-ID: <1888503.5KxKD5qtyk@diego>
+In-Reply-To: <20260731064933.12548-2-royalnet026@gmail.com>
+References:
+ <20260731064933.12548-1-royalnet026@gmail.com>
+ <20260731064933.12548-2-royalnet026@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,24 +67,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <0b55aa2974382cf6f3a278f4c5f64f0af403bb95.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Oct 23, 2026 at 06:47:34PM +0200, Tommaso Merciai wrote:
-> The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
-> Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
-> Processor (VSPD), and Display Unit (DU).
-> 
->  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
-> 
-> Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
-> 
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Am Freitag, 31. Juli 2026, 08:49:32 Mitteleurop=C3=A4ische Normalzeit schri=
+eb Igor Paunovic:
+> rocket_device_init() attaches its allocations to the shared "rknn"
+> platform device via devres: devm_drm_dev_alloc(), devm_kcalloc() for
+> the cores array and devm_mutex_init(). That device is registered at
+> module init, never binds to a driver, and is only unregistered at
+> module exit - so its devres list is not released for as long as the
+> module is loaded.
+>=20
+> rocket_device_fini() only calls drm_dev_unregister(): it does not run
+> the drm_dev_put() devres action or free any of the other entries.
+> Every fini/re-init cycle therefore leaks the previous rocket_device
+> (with its embedded drm_device and all drmm state, including the accel
+> minor number), the cores array and the mutex devres node. The cycle is
+> easy to trigger: unbind the last bound core and bind one again, or
+> fail the first core's probe (-EPROBE_DEFER retries included).
+>=20
+> Observable symptom, RK3588 (Orange Pi 5 Plus): each unbind/rebind
+> cycle of all three cores moves the accel node forward -
+> /dev/accel/accel0 comes back as accel1, then accel2 - because every
+> leaked drm_device keeps its minor pinned.
+>=20
+> Wrap the initialization in a devres group and release exactly that
+> group wherever the device is torn down: on the rocket_device_init()
+> error path, when the first core's rocket_core_init() fails, and when
+> the last core is removed. Each fini now frees what the matching init
+> allocated, and the accel minor is reusable again.
+>=20
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+not to self: patch 2 became part of the dvfs series
+this one (patch1) still seems relevant
 
-Best regards,
-Krzysztof
 
