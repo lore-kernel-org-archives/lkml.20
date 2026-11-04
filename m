@@ -1,64 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783217;
-	b=fhb01zI/pkmMw2Hc49Ldu/oE7PdW76IUAgY6IHvPiEvS2xI23MKu2Zxp6b4xI/F+bUZa
-	 1qpWqHZ8/PCTFbVg6Gjzm9EBHPxA8zlB1q9KYJ/+vQJiR05gCi7aiejz6DoKgaJ/5Vcom
-	 +LE2aZy1uqhH6FgAfUimUF1A9GobUvgF4T3JOBYRsTq+w/e6B8Dk758jwAmDGL4GgkQ1T
-	 06GaVHilERXLVk/XJX/bb6kx6UV7h2Hra+BxWLJUmU/FqX7rZ7AJzDA9xB+a5uAAHHfwQ
-	 gRnbfA71wh6iK2KN3kbCeRl1cdFp/BAus6CbpzVbDu+npKh37F1Suo2ewrxbN2rIpDQ==
+	t=1793783227;
+	b=U9hbJwWTcqSbWgKsqhrDo17pIFGKr4ZkWIYr2Oa/U7PDdhjngIS3wiXKmF5SLIL2yb/b
+	 1Bk/+XjC45GJvwzpC/020KO06wVIHjrPcUriG9qfschXjh8MOy8EOveSvsjg8v+lcHjQ8
+	 Z/fR6hv/qgo960gAtM5J1bSsyAgU9Tyc7j72OFbpZUem28MpDxnR5QoV6/78mUMYON5Kx
+	 DYqKinFwFjsz8EqUTn1a9KMaE8qJOnYVG0AQXvLpKbPAHGppJ4uD1igNbc2AVfpnqD/BU
+	 hW0obM7v8fXrzawA0SKFFF6DJQ1ZPZ8EvRt+B9A+dLJynuAetZ+i8Vg6AVPeXl3ypuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783217;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=alSw+YCq5jBCd26VFvMWxYM2tXvWXkq7k6eTa+3KF/s=;
-	b=IdOvkNf5LrWknnQzHSDSA6MSdRnHx+uyWC3pnH19k7pbHNt78WBAHCzaQpCTUiEHRdtj
-	 p43wXD69cSqJVg94NwOqzyLYirTfKFin74iaNPl5y9AEw9tEFrKOIXcTINorofUkOC0lT
-	 WrcPmyozdolx5unhnfOuoEN+lfPwkCDX9SInYv156S485XxKiS9U8nTs4wFR9bU7uVVW4
-	 69bdwkE+BpDwfwaA+0vSAvfHY5aRQWLrdYsmMAJcbiT0G+9JOzvq8TbE5zqxGVRgxdCI2
-	 wZzVwn5zIkUKL/gyAfq02tq+8qOMo4Yt0Kp9mg5fSO2fXukCDRy9sZXSxD0ZzIDQ59A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783227;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=eCc2qBqKGvgJdQ0+SWeePZRdJVP3CAaWU6edxwz4TQY=;
+	b=QUHw9ID8/MoEGHHUprwv3Kaujif43N1WcY0yrVCCtLFK+i0W/DRBlWMnwNksBRLFAp68
+	 xajTCV88qB8JlokI2zNxaAFLnVb82qFtsK280cTN9wfSR/K1stiehPBfB5gxjra8obu1P
+	 V+S/M3O4hQzg0xtq/JCxJQC06zLDiJ8+bwQHVSv42V11Dz1ScBEir8JDtaNa0tXa6Dg9N
+	 m6F8t0xcjmlT50AaOWZcvNSEZI2n6spqJGk9YGqteljMVKplMJ2StKfXGEXoKxy+ORoMJ
+	 d5RqLlyeXXxlrbsBLm0slIr/ip8aljiDGQYBNJonCyB3SDs3twwgJJeP+PJJ2KUOkTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VofD3o9I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SuNjJN99;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680FB606A31B;
-	Wed,  4 Nov 2026 09:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DF2606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:07:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VofD3o9I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071981F000C1;
-	Wed,  4 Nov 2026 09:06:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SuNjJN99
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B451F00A02
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:07:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783217;
-	bh=alSw+YCq5jBCd26VFvMWxYM2tXvWXkq7k6eTa+3KF/s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VofD3o9IOxjAjvhafodNQh4sENhL2O4abQJwPECc9+bQQ4M8oLZ1lwjI8WrbfQBIq
-	 huv3D0JavosznmX6RYN6Zv5chtXFDdxeJndgOaw8YXnl52TsJJ/VvTY2w5faCPy6SL
-	 /Tkfnm2kMP/URFG289kgqkTbtk0BEh7mD7ZMH6dNd+wRBFQe27FFYX4Y+WoWIIcuOT
-	 W1yTwnwAEiBDnWauLkBaAsXoFy3/nxnT8B1Gcn6nLzBMw3z3Mw950tUp1QHwQ6Ary3
-	 aLIQ+ik+jIZs0gnTKyjHhecMSKsfOaX9tcEDiWUy8h63BYrDOJMFl9A6N3jHCuGv8u
-	 3VyJOGslMFEOw==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xOWxK-000000074uN-0rWu;
-	Wed, 04 Nov 2026 10:06:54 +0100
-Date: Wed, 4 Nov 2026 10:06:54 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] driver core: platform: fix sw node use-after-free on
- device release
-Message-ID: <aur1rt91oE5Kcrvc@hovoldconsulting.com>
-References: <20261102111420.1330760-1-johan@kernel.org>
- <aunx2B_OgODKZdVw@hovoldconsulting.com>
+	s=k20260515; t=1793783226;
+	bh=eCc2qBqKGvgJdQ0+SWeePZRdJVP3CAaWU6edxwz4TQY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SuNjJN99NRA0UbhPNfw9qTqWb5QjOBDWr9heKrtV/dPkbwyIFeZbvRA6m9a0HSo+U
+	 Y9gCVSNhZReI8fj2xXtorBkVP/um+Eb4q79dyqA6rRFrwSC6V+r8Cc2t1fxFslW1Id
+	 1YBQGC8Csnta+6O5+kBVhrG5jBRaF5O9UX9z/L4YmPJ0gT71GZvKhgPton4Uw5HhbL
+	 yHiyYwfSsYn/hYhHmsgj7ccxT0A1JVlxg13252CpY+708jwSXmxlHuiV/1rj9TXJ6o
+	 rghwNCBz99yKGQTaYh3IPebk3HW3NWUx/UCNva5j8z6JQh3AX7HaUbIuf0kMrPJc49
+	 2FdXqXra8Z9mQ==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4ceaee6770so64653766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:07:06 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBysCb+j//bWMzjnG0eTLUX+UXg5Z+MkrynaS4+WrVjUT3Pg2Mve9QO6Bq/tQJxAHPFK1Y3kUuNcL87ZN0s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++diTHdvL03BZ2kBYOv6u8a6uayVEdNfvMJGv3xWDuRFiylpfG
+	yMG5ZoqgBD3JWESyHv5P2c9ZOPBVmXi91hZ9LVJqeg8iNlGFXihEqe5Gi+brkTVpMPJJ43oJl7L
+	mnEc3OLE2oGVsL4ln73llqr3MnMJ3KaY=
+X-Received: by 2002:a17:907:3d93:b0:c3f:c878:7c1d with SMTP id
+ a640c23a62f3a-c4ca7a19decmr1442941066b.9.1793783225125; Wed, 04 Nov 2026
+ 01:07:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,27 +59,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aunx2B_OgODKZdVw@hovoldconsulting.com>
+References: <20261031052857.1542936-1-liubaolin12138@163.com> <20261031052857.1542936-5-liubaolin12138@163.com>
+In-Reply-To: <20261031052857.1542936-5-liubaolin12138@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 4 Nov 2026 18:06:52 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-ec8ve6HD5eBJik-LF4PUhZjV7y0c52E2xpALLFA=j2A@mail.gmail.com>
+X-Gm-Features: AclHuK9hyX810Y3t8eLuM2Emnv78qo6s39NjYa7uDhd4dU4G_YiYuHSvlEDQHvg
+Message-ID: <CAKYAXd-ec8ve6HD5eBJik-LF4PUhZjV7y0c52E2xpALLFA=j2A@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] ntfs: write unlinked file attributes before
+ dropping their cache
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 03:38:16PM +0100, Johan Hovold wrote:
-> On Mon, Nov 02, 2026 at 12:14:18PM +0100, Johan Hovold wrote:
-> > Sashiko noted a new use-after-free issue when freeing platform device
-> > which has a software node as its primary fw node.
-> > 
-> > Turns out that can cause trouble also when drivers or subsystems remove
-> > software nodes themselves.
-> 
-> Hmm. The subtleties of the software node implementation got the better
-> of both the LLM and its operator it seems.
-> 
-> Clearing the secondary node when the device has only a software node
-> does indeed clear the fwnode pointer so there was never any UAF here.
+> @@ -4052,6 +4052,14 @@ s64 ntfs_inode_attr_pwrite(struct inode *vi, s64 pos, s64 count, u8 *buf, bool s
+>
+>         WARN_ON(!NInoAttr(ni));
+>
+> +       /*
+> +        * Attribute inodes of an unlinked file have no links either and are
+> +        * evicted at the final iput(). Do not leave their data in dirty pages
+> +        * that eviction would discard while the base file is still open.
+> +        */
+> +       if (!VFS_I(base_ni)->i_nlink && !ntfs_inode_is_named_stream(ni))
+> +               sync = true;
+This misses data dirtied by ntfs_attr_make_non_resident(). For
+example, with 1 KiB MFT records, create an O_TMPFILE, nearly fill
+its MFT record with a resident EA, then write 4 KiB to the file.
+Growing $DATA can force ntfs_resident_attr_resize() to convert
+SECURITY_DESCRIPTOR to nonresident form to make room. the conversion
+only dirties the folio. With patch 5, the subsequent
+iput(tvi) can evict the zero-link attribute inode and discard the SD
+contents before writeback. If the file is later linked with linkat(),
+it can retain invalid SD data after close. Please also ensure that the
+converted data is written back before dropping the last
+attribute-inode reference.
 
-Except when the software node is indeed primary... Then the UAF issue is
-real.
-
-I'll send a v2.
-
-Johan
+Thanks!
