@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818144;
-	b=cLnxOPK3cZ3QMuyCdRikdi8RWdqBXDetO7NE1qDvaIVOiKotxH6+zZqp93t3okbq6XJA
-	 5qw8u2qPMLnkWANPzvisfEg4C7ATtziBO7/B4OBbddhaLofCLH7GpDRK7aufgjAIzLS53
-	 AcunwfpK9OVRFWRG1TJQ3ITMs1AcxDQO2JSc6F99wQRRq8WhW0iCGHQlU9TGGCCU0p6gS
-	 URlecGxs0KNzPDAN5KaTZ8p0Gi82BvCB9NPv84oJiQscsVXqoEooxtnuj28I2JMkKZS/9
-	 wiDvPUitRkn4ekO/gMB97ZtVMkwS2cUUuxLgP46Yf7Sx0J7d5Kqk1kZLV/8qqWr52CA==
+	t=1793818156;
+	b=hISvp1jr6ZJK7OiSu/vFT0Rn/r3heFiL5uxiqYKzijjUUsQ5Ag7asR+CKqfWiBhOcaTv
+	 LrsaaKncA8U2WYo3MbEMbJ+P6B1nxhUx0lDmFlDOzgMkynSKRg1Jwb7aVkITnwD4CwD2F
+	 rMgFTWFbZgUUiw1vgRMNYGk2DK+uDy1uWD1u3FiOu6r2OTiiwEuOtAn20vj9vCuX5E2MO
+	 fnNEhBPsr8oe08pJRtf7L/WJa7i37NUhowzW1ROzClNzX++zi2CKcBOVIgJVBK9LTiTTQ
+	 I2FVBgXUtXE8q2sLvcRDMMY0rGR5tn9N3YpFlJa1e/1mybVjBnTuRweAV6c7y6z5YmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818144;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jxDJfQuqQySbeyhsMbdeZNmsBQGEc57n+fRANcEbFqc=;
-	b=y0b7x9J14X+0xPgCgDxsYCwkKr1SEdcnSpn0yh5s0plOeZK11L9jmCmdYMKVksgMMxeA
-	 6d2IuuXp8UUlRINZyoeALyM0y+bQvHjGbY3LF3T3F51k/PRyQDKRFldjPvpuFLPHMSx4A
-	 SA3USYVzdxMhuQd2lk9Sn+KXFx8ti08ZS+dSZJyn2rsy53Wj47o4CaQsErjV458qEkRKL
-	 aMg/CpIbKOrzd11/j8JqurIEz+cUpFxhbnf6fM0L5Yzd1HIamapBo3Wj18PCJCyKRKUd8
-	 N7XG1/PKYRAdLrJyrBshwPdvt85YPKJrskx1axFzPBnZkZxmCHW3HUU+5EkNO4uX7hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818156;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=t/6UJdmTXHa5CFtPmZ35mg3YaxIUiqdjrGgBWpPFHWo=;
+	b=GkmiSS8lUFeFEt4maIzk/nBm4jFuwOUX7BdcKcWXLrAke4FsL+SKp1rW86XahNhGDa/L
+	 Ny7VsAfSrS1NOq6YPPHO6bvBeTN4YicaPmn/Uwxw6Qf8lFi6r1j4zO+CcUaaDq8lKhY9v
+	 GHc3ZLZLrrP00SzpBIMeBOvdWorA3sV8VWjsGxdz9t6/tf3LhcIcJkNkgwfa9+faQ1Y7E
+	 Pdaufx0nIDxJc9MEWtYYKOeN4nQBXzlJsbAWmRcZ7FUHko8zHbxVH9Wf0YOOylTKdE++9
+	 uomFeOj2Fx5rRHnav5oCiteUXJorqNV9PSzroiZhj5UNhxHGPjGmk8HawzJU7WrJd5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YLKlqYBe;
-	arc=none smtp.remote-ip=95.215.58.136
-Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mrr0ksDP;
+	arc=none smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EF4606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10EF4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1B7606D81D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA1B7606D81D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YLKlqYBe
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HhYkGcuQrbLxya5Xd6Xhc7SivvwextAyDRpHv8somGw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793818141; v=1; x=1794422941;
- b=YLKlqYBel6PfpITm5cSBNxwyzxER01KRFjFuL39PTtTfCRD8ERoCSUuIA2qh1JOiIjcemOF2
- 2SNQZTDqfVz9rCXAbKZxe3v4yAKVMcPHqCRU5lfHLg16MC9BO3dl+/Lj8OELsntWy14hFkfO//Y
- csAC25jQRzYgZ428pEbwI4js=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ca283ee4143799e8;
-	Wed, 04 Nov 2026 18:49:00 +0000
-X-Mizu-Trace-ID: ca283ee4143799e8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5c29414f-69ec-4e43-ace6-4a335c04fbf3@linux.dev>
-Date: Wed, 4 Nov 2026 10:48:58 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mrr0ksDP
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b31261e8a9so7727967b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 10:49:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818155; x=1794422955; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t/6UJdmTXHa5CFtPmZ35mg3YaxIUiqdjrGgBWpPFHWo=;
+        b=Mrr0ksDP79GRmhE+NSytNllRHQddie1qCX/qCdauyOszsQxpNAfOe6hSgYPqC8pSP5
+         6kaKBVyy2TOg+H3WfbgO8zR+akkuuKJfvfv+akCm2I3jwzhKAUzeRCQve9BLNwKI1Afk
+         A5WPcpysj84im93WrlXI7HKTfU/n67a0U2o7tAX1RpPTB9sPFozFw9q+bVwcqpqD4Lsn
+         AydXeqyM/csh+L8kppKKqP+cYZqmo3bGjvUOyQqrpvt+kft//t0HPeQXNf+54Qx/qcZv
+         sAWEpXld29UhikCKwfJ1fZytDZNotnVlB9RJ0AQpkU8tZFHbr+0pmUbjGtog3400E5n8
+         Vr7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818155; x=1794422955;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t/6UJdmTXHa5CFtPmZ35mg3YaxIUiqdjrGgBWpPFHWo=;
+        b=uqDiV8UFT72KzUbIKgiBtQmnIsJz8Y9YAXKQ+reUxZ4NEtKZViN8Asmhr7wz6wNj17
+         n56mmK+rApJiHHWxwtgblYSfqzbkkctB6nAL4SogcmkCRcDCwTucHKLrK1HHU4KCfO1+
+         kQedjgyxZVDWZw+dCc8+hylor0EbUikhiA3rgrz+Bbta/rtJ25MvT2pPiL0JgL/iJo8G
+         FLvUm28PHVsTlIlFTWIJv3peHw5rpB7RPqhL93NJhqXlnbDERylSY4jYTfmP4tKqIeVB
+         zQmZE5g1dI2vjTnUv0OaLLn5EYco8uB17xJgqHIrcNPg5o3zM4uqCkZpek+Nox5tB+pU
+         8kEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxLtIffRl88Hp8RJnbsfrATB4PfE+3//nJUeAF2Zx8vGUshQfpeu8M3+cdg5WFp0NnfroNwZlQPc3Lk5qs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LfRJ1AXAVN1U2lFnsHr+7JYAV7xjv6dsgFQNaGEIb5UITnB8A
+	wTSWTXbzeWEqB7/5UcTQgSugXjFhFKGrQhbdMqjndp93NftlOztyd+XclbmkGg==
+X-Gm-Gg: AYBFou3+K8PJbKuuZvzrnPSVj1uS0dsevuFUWP4saA+GbPmr7wiH3X3sYKN5fCDyiG/
+	NGi8lbb3BVOYipAr8HhuC5s6qW8ka3zSYfdLRRfbks3O3XorGg4Z1EPlStUTweB84saT/hUEDuX
+	Nyr0RhhFhQU9EfGtKhWzyTXINwDW9yBhcdyZi/C9SWnFOiz9v6ZHVKDglY99K/KXt0Oqd+LLVKv
+	FvpGIKEUdf3cjYh3Q5zJSSZl3v3IUWfKBrpKDvce6zTH6B3/5Kr2zdP1qfQ5Ndry0OdY4i7fRhE
+	zWw33e/ofku32egbk3lDisZW3zZt0ke3j++AsEEcTmb6e18IQDL/lerNv1BXK+P7oWJK6ER9nud
+	wYxFRYwFhcXrAFJTGHUl8P7SrGIymrkppg9glbRwpmlZ9H3CgP6RYB0wQCv5lmxS7qg8L6P+GT3
+	bBrK4K6T054aXbDq6vsrxdWYNwwCHPCnjW3JJGpH4QToG/AlzelVQca2pvE2tqb4ncyX0vLy50S
+	R+Q7S/cvQvhxHDeVEEOuZ68pPgAdk6MlNpQ6R4Bve7fAF4wsTVqhaEsz1KNAppcdc9sAG6ltl7d
+	E0gdzQ9IpTADDbYNxyVOL53EDdmGXx/v3FMpefrVWiiz0OZYF29c+FMcab6KCMS/MKhSdWVcLbc
+	BrqQROCB64Q==
+X-Received: by 2002:a05:690c:e010:20b0:8b3:2352:cc8e with SMTP id 00721157ae682-8b32352d394mr7107647b3.59.1793818154602;
+        Wed, 04 Nov 2026 10:49:14 -0800 (PST)
+Received: from localhost ([2600:1702:7a90:6f9f:66f3:d5d6:2d12:d460])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3097117b3sm24456457b3.1.2026.11.04.10.49.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:49:13 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Date: Wed, 04 Nov 2026 13:49:09 -0500
+Subject: [PATCH v6 02/13] alpha/perf: add sysfs format and event attributes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,164 +93,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: sdhci-pci-gli: GL9767: Wait for UHS-II PHY before
- LPM
-To: =?UTF-8?B?QmVuQ2h1YW5nW+iOiuaZuumHj10=?=
- <Ben.Chuang@genesyslogic.com.tw>, Adrian Hunter <adrian.hunter@intel.com>,
- Ulf Hansson <ulfh@kernel.org>
-Cc: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Victor Shih <victor.shih@genesyslogic.com.tw>,
- Lucas Lai <lucas.lai@genesyslogic.com.tw>
-References: <20261021233313.247155-1-matthew.schwartz@linux.dev>
- <TYZPR01MB426090F9895F8599611EF80BD76D2@TYZPR01MB4260.apcprd01.prod.exchangelabs.com>
-Content-Language: en-US
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-In-Reply-To: <TYZPR01MB426090F9895F8599611EF80BD76D2@TYZPR01MB4260.apcprd01.prod.exchangelabs.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-alpha-profileme-v6-2-63362e9290a3@gmail.com>
+References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
+In-Reply-To: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2352; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=nsB8jInGhmdIwF4AteMUmNQCWwgxX1qv6DhmPNtskC4=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJe16n8cxBhnnZH3cbnpkZGiP+Or88KnnhuOcsZkuPV1
+ NFoM4mh4yMLgxgXw0wxRZa49Yoss9p2LPU5Lf0LZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
+ BDJ0jOIhcnoMGpnFxaWpRbppBUUOefkliSWZ+XnFevkFqXkF6QV6aZlpJRkZ+UXFqUAj9PJSS0x
+ dHd2MDA1MLB0tzJwsHE1NnJ2dDJ3cHB2dXZ2MLM1NDJwtHU1cLc0ZuDgFYK65asHI8Jnh9uUtKZ
+ t2zNgbqVChL6fm0//z7DLO1zfuBDwKXXur8izD/wSrg+5cQRfmF7S0Vua2H3P8cobvawHzMcG3d
+ QvL/vvEsQIA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-On 10/30/26 3:53 AM, BenChuang[莊智量] wrote:
-> 
-> 
->> -----Original Message-----
->> From: Matthew Schwartz <matthew.schwartz@linux.dev>
->> Sent: Thursday, October 22, 2026 7:33 AM
->> To: Adrian Hunter <adrian.hunter@intel.com>; Ulf Hansson <ulfh@kernel.org>
->> Cc: linux-mmc@vger.kernel.org; linux-kernel@vger.kernel.org; Victor Shih <victor.shih@genesyslogic.com.tw>; Lucas Lai
->> <lucas.lai@genesyslogic.com.tw>; BenChuang[莊智量] <Ben.Chuang@genesyslogic.com.tw>; Matthew Schwartz
->> <matthew.schwartz@linux.dev>
->> Subject: [PATCH] mmc: sdhci-pci-gli: GL9767: Wait for UHS-II PHY before LPM
->>
->> sdhci_gl9767_set_clock() re-enables low power negotiation right after
->> releasing the UHS-II PHY reset. If the bus then goes idle before the
->> PHY has settled, every SDHCI MMIO read returns all-ones for about 250
->> us. sdhci_uhs2_interface_detect() takes that as IF_DETECT and LANE_SYNC
->> set, so a UHS-I only microSD card is treated as UHS-II. The attach then
->> either fails with "SDHCI_UHS2_CAPS_PTR(65535) is wrong" or, if the
->> registers come back before the CAPS_PTR read, runs DEVICE_INIT 30 times
->> with a 10 second timeout each and delays card detection by 5 minutes.
->>
->> Config register 0x8CC reads 0x2000 from clock enable until about 250-300
->> us after the PHY reset release and 0x1000 otherwise. Poll its bit 13
->> before re-enabling low power negotiation. The register meaning is
->> inferred from that behaviour, and with the wait in place 12 of 12
->> UHS-II probes of a UHS-I card correctly found no UHS-II interface.
->>
->> Fixes: 27dd3b82557a ("mmc: sdhci-pci-gli: enable UHS-II mode for GL9767")
->> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-> 
-> Hi Matthew,
-> 
-> Thanks for the patch.
-> 
-> I checked the GL9767 register definition. Register 0x8CC is the UHS-II
-> Status Register, and bit 13 is documented as
-> UHS2_WAKEUP_ACTIVATE.
-> 
-> I was able to reproduce the "SDHCI_UHS2_CAPS_PTR(65535) is wrong" issue
-> on my GL9767 test system, and I can no longer reproduce it with this
-> patch applied.
+The Alpha PMU registers with no attribute groups, so the perf tool has no
+way to learn the raw config layout, and the PMU's own events can only be
+named as raw hex numbers.
 
-Thanks for looking up the definition and for testing.
+Describe the event field in format/event and export aliases for the four
+EV67 event types. mbox-replay has no generic hardware event, and can now
+be named as cpu/mbox-replay/.
 
-> 
-> Tested-by: Ben Chuang <ben.chuang@genesyslogic.com.tw>
-> 
->> ---
->>  drivers/mmc/host/sdhci-pci-gli.c | 29 ++++++++++++++++++++++++++++-
->>  1 file changed, 28 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
->> index b55618566d651..bd383918d27c7 100644
->> --- a/drivers/mmc/host/sdhci-pci-gli.c
->> +++ b/drivers/mmc/host/sdhci-pci-gli.c
->> @@ -205,6 +205,9 @@
->>  #define   PCIE_GLI_9767_COMBO_MUX_CTL_RST_EN           BIT(6)
->>  #define   PCIE_GLI_9767_COMBO_MUX_CTL_WAIT_PERST_EN    BIT(10)
->>
->> +#define PCIE_GLI_9767_PHY_STS                        0x8CC
->> +#define   PCIE_GLI_9767_PHY_STS_UHS2_BUSY      BIT(13)
-> 
-> maybe PCIE_GLI_9767_UHS2_STS and PCIE_GLI_9767_UHS2_STS_WAKEUP_ACTIVATE
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ arch/alpha/kernel/perf_event.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-Sounds good, will do in v2.
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index 2d9383425357..70840c05d39b 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -212,6 +212,44 @@ static int ev67_raw_event_valid(u64 config)
+ };
+ 
+ 
++PMU_FORMAT_ATTR(event, "config:0-7");
++
++static struct attribute *ev67_format_attrs[] = {
++	&format_attr_event.attr,
++	NULL,
++};
++
++static const struct attribute_group ev67_format_group = {
++	.name = "format",
++	.attrs = ev67_format_attrs,
++};
++
++/* Values must match enum ev67_pmc_event_type. */
++PMU_EVENT_ATTR_STRING(cycles, ev67_event_cycles, "event=0x01");
++PMU_EVENT_ATTR_STRING(instructions, ev67_event_instructions, "event=0x02");
++PMU_EVENT_ATTR_STRING(bcache-misses, ev67_event_bcache_misses, "event=0x03");
++PMU_EVENT_ATTR_STRING(mbox-replay, ev67_event_mbox_replay, "event=0x04");
++
++static struct attribute *ev67_event_attrs[] = {
++	&ev67_event_cycles.attr.attr,
++	&ev67_event_instructions.attr.attr,
++	&ev67_event_bcache_misses.attr.attr,
++	&ev67_event_mbox_replay.attr.attr,
++	NULL,
++};
++
++static const struct attribute_group ev67_events_group = {
++	.name = "events",
++	.attrs = ev67_event_attrs,
++};
++
++static const struct attribute_group *ev67_attr_groups[] = {
++	&ev67_format_group,
++	&ev67_events_group,
++	NULL,
++};
++
++
+ static const struct alpha_pmu_t ev67_pmu = {
+ 	.event_map = ev67_perfmon_event_map,
+ 	.max_events = ARRAY_SIZE(ev67_perfmon_event_map),
+@@ -761,6 +799,7 @@ static struct pmu pmu = {
+ 	.start		= alpha_pmu_start,
+ 	.stop		= alpha_pmu_stop,
+ 	.read		= alpha_pmu_read,
++	.attr_groups	= ev67_attr_groups,
+ 	.capabilities	= PERF_PMU_CAP_NO_EXCLUDE,
+ };
+ 
 
-> 
->> +
->>  #define PCIE_GLI_9767_PWR_MACRO_CTL                                  0x8D0
->>  #define   PCIE_GLI_9767_PWR_MACRO_CTL_LOW_VOLTAGE                      GENMASK(3, 0)
->>  #define   PCIE_GLI_9767_PWR_MACRO_CTL_LD0_LOW_OUTPUT_VOLTAGE           GENMASK(15, 12)
->> @@ -1190,6 +1193,27 @@ static void gl9767_set_low_power_negotiation(struct pci_dev *pdev, bool enable)
->>       gl9767_vhs_read(pdev);
->>  }
->>
->> +static u32 gl9767_read_phy_sts(struct pci_dev *pdev)
->> +{
->> +     u32 value;
->> +
->> +     pci_read_config_dword(pdev, PCIE_GLI_9767_PHY_STS, &value);
->> +
->> +     return value;
->> +}
->> +
->> +static void sdhci_gl9767_uhs2_wait_phy_ready(struct sdhci_host *host)
->> +{
->> +     struct sdhci_pci_slot *slot = sdhci_priv(host);
->> +     struct pci_dev *pdev = slot->chip->pdev;
->> +     u32 value;
->> +
->> +     if (read_poll_timeout_atomic(gl9767_read_phy_sts, value,
->> +                                  !(value & PCIE_GLI_9767_PHY_STS_UHS2_BUSY),
->> +                                  10, 10000, false, pdev))
->> +             pr_warn("%s: UHS-II PHY not ready after reset.\n", mmc_hostname(host->mmc));
->> +}
->> +
-> 
-> One thing I was curious about.
-> 
-> The commit message mentions an observed settling time of approximately
-> 250-300 us, while the polling loop allows up to 10 ms before reporting
-> a timeout.
-> 
-> I assume the timeout is intentionally conservative, but I was wondering
-> whether there was any particular reason for choosing 10 ms.
-
-No particular reason beyond headroom. I only had the measured 250-300 us
-to go on, so I picked a ceiling well above that which is only reached if
-the bit never clears. If the GL9767 spec gives a maximum wakeup time,
-I'm happy to use that instead.
-
-> 
-> Best regards,
-> Ben Chuang
-> 
->>  static void sdhci_gl9767_uhs2_phy_reset(struct sdhci_host *host, bool assert)
->>  {
->>       struct sdhci_pci_slot *slot = sdhci_priv(host);
->> @@ -1276,9 +1300,12 @@ static void sdhci_gl9767_set_clock(struct sdhci_host *host, unsigned int clock)
->>
->>       sdhci_enable_clk(host, clk);
->>
->> -     if (mmc_card_uhs2(host->mmc))
->> +     if (mmc_card_uhs2(host->mmc)) {
->>               /* De-assert reset */
->>               sdhci_gl9767_uhs2_phy_reset(host, false);
->> +             /* Low power negotiation before the PHY settles makes MMIO read all-ones */
->> +             sdhci_gl9767_uhs2_wait_phy_ready(host);
->> +     }
->>
->>       gl9767_set_low_power_negotiation(pdev, true);
->>  }
->> --
->> 2.56.0
-> 
-> ________________________________
-> 
-> Genesys Logic Email Confidentiality Notice:
-> This mail and any attachments may contain information that is confidential, proprietary, privileged or otherwise protected by law. The mail is intended solely for the named addressee (or a person responsible for delivering it to the addressee). If you are not the intended recipient of this mail, you are not authorized to read, print, copy or disseminate this mail.
-> 
-> If you have received this email in error, please notify us immediately by reply email and immediately delete this message and any attachments from your system. Please be noted that any unauthorized use, dissemination, distribution or copying of this email is strictly prohibited.
-> ________________________________
+-- 
+2.55.0
 
