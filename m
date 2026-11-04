@@ -1,70 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780671;
-	b=SW6o9dRSHNbGLzyFz1Dc3RQmPuWdNQAow/BbowyCqB86E2uLLtSIs8F5sjkrXhqxWOWv
-	 G3z1GmtDwzlArZM/x31DUs1IHIsb34V+yXBTiwI2nHEP7AuJxxffEFRIJlFqHLMNNaXDn
-	 iKiU/GhZrzvrdlv5r3XJsTd+6NOf8xbeGzFXcIIrKgDv+PMgxTFgRomEq1bRnnTfU6F4Y
-	 X5JNHcjEnoi72rV+QKEmH3UhWJRzI1Fo23HQkV5LVUuMTKZ3VlJWRgj22aW+vRJ+6O98Z
-	 YFkTmy/Ip5ZkFgL2XEPEIpYlabdCvm3HrCoRrZXq2UcOLRI7jwLi2sbZMBYY2Io4Dig==
+	t=1793780673;
+	b=bdETT/FBIWh+B+nvTdrVV1CpE7Bp1cxRZNl/uMtrR6s9q5Y4qbq8M3frcpsCmGZdGrLh
+	 ro34Ae8atidAFawMznAqagiRxj8jOYUG/hNoTA/96+JTvKTPBddHDZh2gxbsPsH5zVQye
+	 8hDRmkzZMkrdqcodBBzJgJ4I/fY2LcWSZz76igIaDvuPxd4uh5magcOrP9MEa345TWkQr
+	 7+RcZyhWJiGcw6cch4F2+yAq/WPM6oUbmBeuZDuDlaOeJbXrUFC6pyI37rpo6s0VZ7jb5
+	 GMvip3snWuDxuDXfSmBjGpIydpVsEelLJbdd5pMTwiK9FZiL5XLF3nQWXYn3bRU8LUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780671;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=HcwQGTJkmHdpPn9o96l0Zi+mfegkg4uqSWeDmDiJTuM=;
-	b=zmERuVbeEUQrXM7qNzUOdV8tcq7bhEUSVQiCJyG1JFBCnOb9g2IRIRo/R8jksz2Kii4T
-	 BJMkz6Ia8/0ppXWHhqq511EHX9qB6RzgVd4JdmYNao7jQoWGTB2m7qbQAzSRqlYXS/xMQ
-	 EIprdmU7qfMBw4L1LhjSxc0IG5/qP7v20dEx2SDKe78wFQvSwrZZx/psbUouSE6xz8XbI
-	 qhtAjucyI7b3i2wp/05+EhKu/OMDDg5+D50h4eEvl47Rsfl6HVcqv8d8AuUdwEZdWGB6h
-	 86ojXfYxq1k7YPuejVOLW4eYq26VdP34duuZQlazRu8t6XncPt80sOjz2DmwZoTyzMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780673;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8vB0PZ5tIyrqi06oZoeDXV7eNQMFi8LujXvMSkvp01c=;
+	b=mV5r20WIoFNohV88ktUPN3DXGM5kbKfmwatydPQurkdgmC00ew8ddJY+rHsr6cIPGlLO
+	 NkYO6yGs7tgfgirSf3OX6SckTNadX1Ql+2lWR3CW50bNSMpCi73hZ1S4saolRf5N4TbWP
+	 Wl+6qZ0NBVRv2rKg8f8A2D+CsTAhKHlYRxxe0fTwZld+0HU+UeVJ802sXZYihu+8bzJS0
+	 X44/lvrOJ+e8C3EXOfogf/uRRu1j0dfuTBZ2FYctESM3iJ4QN1/LvuC6WkL+3cqXcJhBy
+	 kyJyUqymDsyUQgMfUBpqFxooUp05ZNhi/XPDVUP5FYMxQFdfOpJL19ZIWZ9zi/CRJtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=To4grt43;
-	arc=none smtp.remote-ip=54.204.34.129
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pbpa+2DK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30573606A31B;
-	Wed,  4 Nov 2026 08:24:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30573606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0689606A329;
+	Wed,  4 Nov 2026 08:24:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=To4grt43
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1793780584;
-	bh=HcwQGTJkmHdpPn9o96l0Zi+mfegkg4uqSWeDmDiJTuM=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=To4grt43kQUAiMlrHL5F9Oakv6MaQHJ3oBgb1qqxU3d9e+TILnx2o+AmArXLE/XaA
-	 aH88MFjm69p0woBLRToOkWuJ1F/hxQId0vhzunn6a+Sr2CejzwStwW8nQqEHObJ7PF
-	 VPjfnTEuEYHwuMTqKt/6bdgW8FhgRr/F5asbIseo=
-X-QQ-mid: esmtpgz16t1793780566t338792c9
-X-QQ-Originating-IP: wMpve81B9v3xTZE/AIUMdVdmdLXd4jC7JlwMhT+Fsl8=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 04 Nov 2026 16:22:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4249673309043299330
-EX-QQ-RecipientCnt: 10
-From: raoxu <raoxu@uniontech.com>
-To: perex@perex.cz
-Cc: tiwai@suse.com,
-	luiz.von.dentz@intel.com,
-	brgl@kernel.org,
-	pengpeng@iscas.ac.cn,
-	pmenzel@molgen.mpg.de,
-	u.kleine-koenig@baylibre.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com
-Subject: [PATCH] ALSA: intel8x0: keep AC97 PCM descriptors for ICH4 capture
-Date: Wed,  4 Nov 2026 16:22:42 +0800
-Message-ID: <856CCC6453C59FC5+20261104082242.3987826-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pbpa+2DK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19731F000C1;
+	Wed,  4 Nov 2026 08:24:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793780672;
+	bh=8vB0PZ5tIyrqi06oZoeDXV7eNQMFi8LujXvMSkvp01c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Pbpa+2DKJN9odUECxDlScQFXnrbOaBJIUKagi5ayjjpBq7bdmLKwTUIFufIIgI58l
+	 E4E60RP2PCeSibLp0AdQPzrCknnVqvSpYVsQpYM8AaLo87XQOwzONw6VEwCLsfh6f2
+	 Z8udQgVY8UNXJP1fM+jMudkWSlV/KBuK8Y5B8cblI8tLY1zPRpzhqY4U9byO7fQEgA
+	 cbw6GBPcP04JZ+dir+J7rjPWhGLON/Ui7BjbO0ft8rhMgr3eCnBKqyHS9bgdT7RaVM
+	 atFwwAsTQX5icoEp5HHhyE8I9HDvlyfIaI/LrV+/HH8jbDvF9YNe1trEvfctBbtrI5
+	 NmZlXaS8L23fQ==
+Message-ID: <9b99c531-1977-4bc1-8105-bd9c3e129951@kernel.org>
+Date: Wed, 4 Nov 2026 09:24:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,60 +51,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NKtNg66QPLmaEZibMQs3Af1AxjBMUqpxFkRTRAPz5ZPVYIG/5+XCcdpy
-	+Qa1htgrNniKS1aQ3DLJEmjodxHZRJp9l5fT3sxR9Vzhs6mIYHcVee0iIhr5jQAySxdHMn4
-	8s/8dxDbjseRECpp1cmn5C52B51unEcKIHag6Tnqjh/bXaw7wcmvjc7LLYiZM7H+kJbCxEo
-	XDaCt4f9SG0yTzYgbglcCG2soEpGxftYh7KH94X2P1hENqN1xoRNO04D/+suonTQxfHQxfz
-	T0MW12D1SRxriJZSudUt498DCpcnGJedrBzmay1GkIhYWOtdvC8dn7X8Fn00GdMAytmNifr
-	oFF7J1DC+ZH7PSBqARQP+RvWITlF87GXBqUCTqkXusOB1bwO4+TMMVAKVrBndLo3OrYHjjm
-	ntdVLTlY8uZXqugtknRAvnNsoJ6Z9a8Ae1wrdufKLfI77peQU4ZreM5laHfSRKeFzYm1nx0
-	y8ttMPFbajCKxhGT3pHJBWoBoIGPuNbYcFxJXOoCjhK3RsBjelAd5xeZA1ZQEwFjcg71nBN
-	1Gh0eUTN0OOOpKtSz6WX3BrvX/eDRn0YIGmGc38nrmdEQCO+/ZEA59rGU5JKvXFSeP0lUvw
-	kpCyDct2CiHdOHXNfK3AWhrInwGOnRZivtUntK3dHnIYi8pjTK/DzThcEpWxSQvbrItom9J
-	yj9gR2NZMErPhVXtbX597gUZNrKA4Jc/gZpwijecgPX5LInNManDZF5uNxXSKqjBVqv+3uJ
-	OsriG/RThSB3wnputDaKZKzFs0SoGb664AmH/MZcY55Eezx5RS9EiKlE9231Pnai2bOsDiR
-	D1YKzohQla+27cGKFmWPVO4JOAPXAW+c0WDK3c4dGJK9I61l8h5NlUMBaz7O6YG6CRMhnbI
-	0PhQcchTmj036iLlFOlnXXTmGzm1ZTKstGFlNLYMF386vFlcpNTZMjvaWn2ZVfHGnVLG1pX
-	jtKWfbMJWczbAyhNhVUmR3MvgA3otfVkWVy/j4Y8tzM3HGrzTMqJoq+4ScUp0p7kIVsjLpO
-	IuwMWFQC9YVVQvbkpUSUz1GVBcJPEZetbbi+js1groEj0dzn3hv9K+rRd1R2z8ZrzCS3F3f
-	sjiIGB8PIub
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v3 00/17] riscv: add initial Zhihe A210 support using
+ SCMI clocks and resets
+To: Han Gao <gaohan@iscas.ac.cn>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Anup Patel
+ <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
+ linux-serial@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xu Rao <raoxu@uniontech.com>
+On 02/11/2026 20:45, Han Gao wrote:
+> This adds initial support for the Zhihe A210 SoC and the Melon Pi V1
+> and V2 boards.
+> 
+> The A210 has four C908V and four C920V2 cores, plus an E902 management
+> core. The E902 firmware handles clocks, resets, power, the PMIC and
+> CPU DVFS, so Linux uses SCMI for clocks and resets. The only new SCMI
+> piece is the mailbox to the E902. [2] explains why I picked SCMI over
+> RPMI.
+> 
+Considering how vulab@iscas.ac.cn is ignoring reviews/comments and spams
+with a lot of unthreaded emails, completely disregarding any tries of
+contact over last 1.5 months, shall we ignore all contributions from
+@iscas.ac.cn?
 
-When S/PDIF uses the AC-link, spdif_idx is negative and the AC97
-PCM assignment drops its last descriptor.  On ICH4 this leaves five
-entries, but PCM2IN and MIC2 still use entries four and five.
-Opening MIC2 then reads beyond the allocated descriptor array.
+Maybe this will be the only way to actually be heard?
 
-Keep all six descriptors on ICH4 so the capture stream indices stay
-valid.  The S/PDIF descriptor occupies its fixed position but does
-not create a separate hardware PCM when S/PDIF uses the AC-link.
-Other controller types retain their existing descriptor counts.
-
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- sound/pci/intel8x0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
-index 339024182a26..75db97501c72 100644
---- a/sound/pci/intel8x0.c
-+++ b/sound/pci/intel8x0.c
-@@ -2291,7 +2291,8 @@ static int snd_intel8x0_mixer(struct intel8x0 *chip, int ac97_clock,
- 	i = ARRAY_SIZE(ac97_pcm_defs);
- 	if (chip->device_type != DEVICE_INTEL_ICH4)
- 		i -= 2;		/* do not allocate PCM2IN and MIC2 */
--	if (chip->spdif_idx < 0)
-+	/* ICH4 PCM2IN and MIC2 still need entries 4 and 5. */
-+	if (chip->spdif_idx < 0 && chip->device_type != DEVICE_INTEL_ICH4)
- 		i--;		/* do not allocate S/PDIF */
- 	err = snd_ac97_pcm_assign(pbus, i, ac97_pcm_defs);
- 	if (err < 0)
---
-2.50.1
-
+Best regards,
+Krzysztof
