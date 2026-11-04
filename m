@@ -1,61 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804617;
-	b=u92y/fewH6ibGMKghUwa0B1eMub8b7jIhHL8iQv52UPDOUBIVb/QCLVS1X+a8gdPXr/K
-	 keGoRtosXfGcir3XT4RRi2lonqVm+lVOXtSfmymXNBdFN5pS1gGgb2xiF0fBi3NaKF7LX
-	 TrFuI3nMlrfghRNgwCN7tdic+FeWaATL5AKkmKXH/5mUeFBDFdr5jLC+kfKe6st7wNi7N
-	 ThtWg6jczeJFxuhmdv/5crvQjcrgBTc+srxXmrRkRtIEbm+PdbrnZ5UxTSZpyH8iFMy9D
-	 ghkyEdtkyqqxR3c+stEETBQll3Rv0tHLV4HYtHj9uv11lMm0E/H/2qF/BS6qKeOiXiQ==
+	t=1793804680;
+	b=NotqJVwpwuc5maW0LyyN5dGnrN8V/09zTiu3s1kxwJRPq9NMGdxqgsIlzsmeWSra7M70
+	 JCRc7UXdiD0xj5ECHEk7sGxvlbGJ2iguHNyPvXxPduLAGO1Cawdry+32f1zrao2FEIkMR
+	 2UGayWnBbuw+LyrWdheVUPnezGI8IVWOyq68Uq4bZlDsQV+nbdCD0vAQqUrc9kbF9zEBv
+	 mTBNyCvFk/N7FJ6fkyB840ncv/D8O/Q8Sk6COpLpVdVQLrtEZeZ14KkdE2xe99BP/1mYf
+	 xYwjVtYVBvUQ90B9iuPGeG6JmUeuXukk7e3o4WSasfTSLx2Ip8ZYiU5/k8DURIcRTHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804617;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4LBH7p1faAYyFFRDwMoTw2KoR4cWsorn4nLhR9MEoBM=;
-	b=KRphI5mcTmVVZY9BIDV1x8DvyGFulsrhryj9ywKFyipXrZemBy1OR86QhTRBwsUwQCFo
-	 hw4d3+Uz+i/NrPNpZnScgwWDRZ8twUDHCljYnCLP5GnotMA8WWbOKiJn0hr0emqqviixA
-	 ImTzS0PDh/2bILZkhimvcNpKHv8CnPSKijZHqCo2uKD9UxAuBifN4SRIsZmkE6he0zVnz
-	 5uuGWxj7y1J8OX/l9zRY/e7gunA9MG0+ok9ctYfzKZxL2XZi7KSEJhYQb/KLQLH2taQSb
-	 7KesMpdrmh515wDtfDaPs4c+IdxSNdYvaN+Y49bGHBi7b36IIaT5qrfwjlKQ3fxfS3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804680;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/kXFui2Y6M4wWVfeKvuvI3OBKJ8D0ABBqlzGf+qKuD4=;
+	b=FTvEcgmB2/L29jQTPq4ooMwyyUTid8D27CvJYxDN9fUFulVuRNRGKRB1eTPaSeTWlhaw
+	 omoTF33agl+gIsy2igIBo8teeXgrJvFxA7ULk2OTHApX4GiAkr6LUcEeljW4Wk2QxnVXQ
+	 3uxvLLR0ppWUJ6aDsWQGMzNk7BHaxNhIrWAnWUla0u+5pJweabyuuopPF6ce/xJzBHh3m
+	 E+5z2WYCHRXz+GEy7y8A1gkhTNSqgyuWMxEX69v8S9SvplMePkCDt173UVvB5oz51ivKy
+	 8Du7ZxPAjpu/BMJHFEYAtbwJ+HxBpQL+koAk/pWBgCrUgO+eYePjr4cyj6Uk3e0bV0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Iu8U/Cv5";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Bbfx10kC;
+	arc=none smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A204606D80B;
-	Wed,  4 Nov 2026 15:03:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8231E606A33E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8231E606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iu8U/Cv5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FABB1F00A1B;
-	Wed,  4 Nov 2026 15:03:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804617;
-	bh=4LBH7p1faAYyFFRDwMoTw2KoR4cWsorn4nLhR9MEoBM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iu8U/Cv50u9AC5+N0R1roXnywwj6dD379LFel/kc+QiNuwcxdO0z17L8jTHYODdHx
-	 ph1XjQo6YIhWd7aZT9DUzYfHPYjlE366vvWMo97I152RaSDp29wZG4Ra0HkynUZkAt
-	 WRKM1vmr8EnWcHfGwijEH/5f05vxVc/+XfaK4wlnfoTKA96k0MOGPG8ZMhswn+d95Q
-	 IxFJN7cyKxT8bnqic1JWJDgeye8geRekjmuyW86HBsDkhZjY5/1Sa1dD94PB8+i8G5
-	 znF1kKa4+Y014+2vqL3ljczmj6hvurTDLxJsKEYqpvtlfcKkEYOqCjWczd9ZFzKHiE
-	 epIBxmzdHRepA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kees Cook <kees@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hazem Mohamed Abuelfotoh <abuehaze@amazon.com>
-Subject: Re: [PATCH 6.18] Revert "net: Convert proto_ops bind() callbacks to use sockaddr_unsized"
-Date: Wed,  4 Nov 2026 10:03:18 -0500
-Message-ID: <2026-11-04-1-daily-reply-0009-re-revert-sockaddr-unsized@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103174541.85310-1-abuehaze@amazon.com>
-References: <20261103174541.85310-1-abuehaze@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Bbfx10kC
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9440304604aso72309685a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:04:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793804678; x=1794409478; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/kXFui2Y6M4wWVfeKvuvI3OBKJ8D0ABBqlzGf+qKuD4=;
+        b=Bbfx10kCLfB9Uhm6lrt1rASCnob60LxOUXr08+90qVn/ASfAZ7xASqarH1RPSS/b1s
+         /zS4ijokVuFqt0K80Dw0r+/+KRN66qPWpcC97F7iSBe8FKkJ3TrwTnx95Tn1IqIO3CIx
+         giaWBGS0ELPf2iT48QTnJRKhsKsNy7Epp4hs3ZDwjOjckm0vf5qJw+5WvPruFn8JNCSs
+         QnHB+/7zhmCxv/cXfZR44mYrmYAEdrc8SzIM/JyuokKOmkLZEQZuUHqCMsiWa2m0x8/d
+         Vd8gSS7Jum+OqYaPUK2Ba3sxi3zybKpj3aCPRG7j0Yp2pixsIWcHM6UgJ4Lcmp07ZHIW
+         EXCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793804678; x=1794409478;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/kXFui2Y6M4wWVfeKvuvI3OBKJ8D0ABBqlzGf+qKuD4=;
+        b=Aq3lFFQv+3X2b0+YF8raX5t1TwCcEYRquwUNFxQoa1v8rO+5qZee9OIgvgTRgivhlq
+         ehmh/C25Ua/ABq5eb/qVU4W4nCGoqi5sbEfvAeDnBCcrJbURelhZs56P4+1D8/rN/yWk
+         X94uF+PnKc/7dbWG6bUHgnpkw2ddn9NwsWYOGyqIaevLBebH4HqLDwxqRV/dLpuCRYNJ
+         n6Y88DEpuUDiImd0F24rPlmY2UwfplY8LQrZ2P8UYsIYTe7t2VdWQhd7n3Qay0yz7sLb
+         lXlDqr8LoY6ZgKNaJcJSR4J3Jbu8z4gE2U8lVZSNnLg90JknZwmIAvSMwfMymPex3Z1s
+         Nolw==
+X-Forwarded-Encrypted: i=1; AKwUvByv3Tbd1+VtFjQpTBAiv3u/+OZTBG/wyUO/gX1A1H+b6ZeVxRS7s71wBeeACsRPlRrEHvcSFHE+ayuUFnE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z834SLgeYe3G2c+VmK7CbenYky/xaYeosHPjC1FmRxjaDyJVEGF
+	coeEsA1Po6oYAu9ddgXBLjv2JyV5f5jTz4uBrlg8MCa4jvDFuqpWsyi4jTiFtXBW5rY=
+X-Gm-Gg: AYBFou11zKHIn6X4CufWTELryGFrxPBGd/DcqInxYtzPau47WEHXe20ilU67D5QVIK1
+	dMNRIrGrdgEODJ7A35k+1WR490T0a49rD1HjrkGrw8JtCIWAeFxZ8BlpIyR8L52ZViYPuh6xxPo
+	xNKgjA70atSYtCrSL19/zNKoDpEcKXU/F6vkZZR4LRgv7/hk6NdND+NIMMlvWv6iBCDm01KRZsk
+	ur3/trz1pYdAgEs9WFSu1pq4UJdxlOSBhaFJtfLycOx2fT+cLsI98/KpWLJNWnWIaDxBDlfgZHm
+	iQ2LS5LNrSYPakMmD/IZTNctY3w48x4CjqCyNZWpHXSQNUw02T3qyJp0P1ah9c0lbt0KvOkgC/a
+	gCJNz6+jYB9S7EY28WGxLZWhPIExjLf93GIF7+A+rolS2wJPNN2M0ZQSUvd19hq9sUIiMtBjIMX
+	/t4hh3ErRQW2w84s+3cKbb+qgFPylOsNJv7ahq9hBrW/d+B9nUoPfX0OzFVhPG+LJ7E3SYZ9VaY
+	GtFejMyiRimvYLve6WonSeRrR/EjSB1AVgCvLHPvMTNVR/r7CaN1VroQQQK7BqamVtV3KfaLHng
+	rk4AnAMebVaf7A4LN//4Xq7+pK2cpkl4A8VNgTu040zQV5bcfk+wRZACo4AbjQicl75wL9VNW4g
+	jJXJEhLZ0cQ==
+X-Received: by 2002:a05:620a:6486:b0:93e:c12d:4ecc with SMTP id af79cd13be357-944134066famr2851022685a.44.1793804678031;
+        Wed, 04 Nov 2026 07:04:38 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d47e72fbsm219471885a.18.2026.11.04.07.04.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 07:04:36 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xOcXT-0000000GNdO-1REH;
+	Wed, 04 Nov 2026 11:04:35 -0400
+Date: Wed, 4 Nov 2026 11:04:35 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Doug Ledford <doug.ledford@hpe.com>, Jakub Kicinski <kuba@kernel.org>,
+	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	Sandeep Bhoot <sandeep.bhoot@hpe.com>,
+	Iraimani P <iraimani.pavadai@hpe.com>,
+	Mamila Santosh <santosh-kumar.mamila@hpe.com>,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
+ Slingshot NIC drivers
+Message-ID: <20261104150435.GQ3889730@ziepe.ca>
+References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
+ <20261030151121.1f232b50@kernel.org>
+ <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
+ <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
+ <2f831f13-58ff-40ca-a76f-3aca647012b6@lunn.ch>
+ <b260f39e-2ac0-4899-90d9-3e9dbadfacc4@hpe.com>
+ <e9937650-1354-4d66-95fa-3492e3821823@lunn.ch>
+ <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
+ <52b6596b-385e-4ed2-a6c8-d0774b4be127@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,14 +124,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <52b6596b-385e-4ed2-a6c8-d0774b4be127@lunn.ch>
 
-On 2026-11-03, Hazem Mohamed Abuelfotoh <abuehaze@amazon.com> wrote:
-> Revert commit 946dc5835c8fbe5eb5ceb13f5717778911ff4586 which is commit
-> 0e50474fa514822e9d990874e554bf8043a201d7 upstream.
+On Wed, Nov 04, 2026 at 03:48:58PM +0100, Andrew Lunn wrote:
 
-Queued for 6.18, thanks.
+> A bit of an aside. Do you have the complete history of the driver?
+> What did the first 10 patches do? When bringing up new hardware, you
+> start small and get a little piece working. 
 
--- 
-Thanks,
-Sasha
+If you are implementing a driver from a datasheet, sure.
+
+However a device like this was almost certainly co-designed in a chip
+simulator along side the HW and by the time the HW was done they had a
+mostly complete driver ready to go. The actual baked chip probably
+never ran a driver like you are imagining.
+
+> I'm assuming you did something similar, small bits of code you could
+> somehow test. Those small bits of code, step by step development, are
+> generally easy to review.
+
+When you are co-designing with a chip simulator things work
+differently, you'd focus on the more risky parts of the IP and do
+partial driver flows and so on to vet things out. Lots of carefully
+orchestrated shortcuts. Then you take that and assemble a complete
+driver to run more complete sim passes. As this progresses the HW is
+changing underneath and the SW is following along.
+
+So it is completely understandable they ended up with a completed
+driver at the end of the process rather than a bunch of logical small
+steps.
+
+> Generally, none. We just want a plain, boring netdev, which looks the
+> same as every other plain boring netdev in the kernel. OS 101, the OS
+> is there to abstract over the hardware so all hardware looks the same.
+
+Yeah, this is a reasonable place to start. I also discourage any uAPI
+introduction into any new drivers. Start with the basics then we can
+talk about why it needs new uAPI point by point.
+
+Jason
