@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793825661;
-	b=c/3uY+uO3G/2Wk1EMFrWn8Y4p95YxL8ivIH7Qx19ITDAX7vUw7lFuL66tUh5abYJ0Ifu
-	 rCauDA/KGZX0Oe7WZYMeAWyCIJ6QUSDVqQ4YdpqWkO8WfTmgwTinIVGDqOA30TcU6/4xl
-	 cPyqTWfQ2Xvu5oBmB23M0ZarxChvLU2xe0rNBF6fI+FkI20ORS1/JXRvSW2nUOIvPRYHU
-	 1EpiJCC/pzlnmQPYa5cbYGnGJkA7xgBwdo58+J+cK0x+P14IT7KMWxZjmkN8QwzSUM857
-	 FTmMSvukhDTrrLbEwBSlP0Cdcm1bgsEs9oOH6QeSXzHmhWBBTmHOgYefVAC5ZkmlqZw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825661;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=iOVUseieApjWrzCrboKoocCHGakfwGX2M8rvWeiy7MA=;
-	b=W6duO0IjKQ2J1v+5/YOjpqcScGAjS2dhxpGw6vRpSBeMk288G+GisjJdQJYs5M7ia+el
-	 A5dXH19C8JOmrwZGDHxaZLmfdBsX0ifG3asmwfMtTGhnbtpar5Edy+Gkg9l+f2lk6HTPy
-	 LU1WXNCp+GsHmxi5/uOUoMMTWjeCi8WoaL3H6MbPg1tlSzywSW3eqBBiMblg1Nqbtd71m
-	 VMzT3nXxCA3auZocPF0+t7jScA2n3hHhkYdPYbCdCyFe9A2AFbEbitCJds+LBuMwGpyqg
-	 6Ixgr9Cf3mTh9VxPJdW7SbvU/R4oxE24Ze8C1qi/wjrUq3k4Ks+xSub6JWWVAvj92wA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifCghUSj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793825692;
+	b=n/CazxrvjknG07sVcAXvNqySa69Vy0RFuQmw/19SfZz7Ant7QzRBBFuKmfeW5UDbiDqy
+	 eIVQEAKkGRCRDIdUCoFpufB9ObuJX0kvlO3ANejuBOZMr84SVO3jNFx+6LE7O3y5iuA7c
+	 Bt0NWMlkPl7BcoyMT3f0jGavYdFCfOlxNXdnDrGE1YIEPpUCwkq74+Pdvmd0B42B4OwWA
+	 Qnvgt8LUwj9X+c/7x+aMuJ6DoNg0uzqKCIFdVlCcNa0Z0GPu7dTN2HfITnZFOLMa3VZZ7
+	 WSeSlWDHmH2GH9VklStuLw7Dz0Xgdkwbz/BieD65np9PPmpedAr/4TYNHgr7GxVFvxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825692;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ba9/h+V5Meq1wkITvXegwitThM7yj544wxqsQCz0yS4=;
+	b=rawiaege3TrvKjonky7c5jHP7W4IpLEZ3/2hCqyx70LxPKW42ExmqPU1+jv1ql5BZHnI
+	 uxrPAxetNXqsONgjg/SVGzC9ERkoGP2Ud6tCFAjXDg3RzbRlggISUQoAKysnQbgUXX8H6
+	 sxuujT2yjb7bQ7Jlcw3hJjjP68qYb59OpRJRQOWlki9dzkRfdxoeJa8pJIMj+2kSiucvr
+	 9R+YOqi33bQJ6vaIx8ABg7bYXMI4ouurh0JbZtDh9LYu3cm6G69O+u3CIWtNJWcKXsFx7
+	 w5mO3UTiFU+dok/mETAztubInn0/yPMvwdmW0VCPhTW2O99N+bj3L2PN0dep+nq7Jkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BrWWwPZ/";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B805E606C91E;
-	Wed,  4 Nov 2026 20:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8532A6078151;
+	Wed,  4 Nov 2026 20:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifCghUSj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793825660;
-	b=Dq7Zm4Gl1Lv0AtCtHWr49HBosw/tIDgovYxegqkczhBatd9ldhSZL6tjrcRMU76xZLtD
-	 g0CMi8viFa/0mo1hLTPvcd2Z+kFn2DZkNt/9/21QTk519DwWUgkxXSWQWcf+j7wGGSahP
-	 od4r2Qzqz7+Yx9YglVjZ2TWGL5rj5nEacGQGk7YHzqlXP8e1OgGQzzoDb58TvTs9BLmIy
-	 qeEhByd8M8+JCCV+Yx2K9xs9Xo6fef8qGqtx33RDvKBzBhtuIFstwL8iaAKoxripGEFRD
-	 yXy9FrX+wyc2LnL+AHa37Sn8xtHS5ShJyFKTrKwhK3yKrVOMNMEdRfucf2KZJkvy/Pg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793825660;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=iOVUseieApjWrzCrboKoocCHGakfwGX2M8rvWeiy7MA=;
-	b=1u9VRiweUJ05C6bxpNXi+PP1EkHgLaX5WYQmhKu6VIrMjmK/c1aC1rBC8lQ7Ul/1Mu5u
-	 dG+7eCOnCBpCaDWSADeTb1dbvYmSWacRMW1JVSNy0nk3uXgijsPmSPVgHHb6rr/MlP6hE
-	 cVXQWoE6TUxsDZ1tK8IXXMH/+ChyCiP32KFD+za2asNppPzknIwKiRcsGzBLoUG+BUqoi
-	 yNHtSyRSmqKCCnsOXOeB6qZXTUC4xWdhiZH2P+hsO3ZEzK8ZwRhrnnN7vaEbnVhyzmtAn
-	 64OWvpEt9uLdWiWUa+1+lK20cLglEQSsMWbPmRAXDp3pyHMO4Jnu0YbPQ4QALg+EbtA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 12C531F000C1;
-	Wed,  4 Nov 2026 20:54:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrWWwPZ/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7C31F00919;
+	Wed,  4 Nov 2026 20:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793825660;
-	bh=iOVUseieApjWrzCrboKoocCHGakfwGX2M8rvWeiy7MA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ifCghUSjl8NEmOjmTgDMSrdwKtnn8H8F8RmPHXjGW2pqvXxtAfkmyTjdue/Y0lToe
-	 tzmNobpnw8cClwmRwAmYPiNWeRzstMtjDYC+u/Jlmhc65tEI4Pl6t20HQAmZZj882n
-	 H1y7ozVwwd5xGWqGZq4/y1BZfNV5ViwnRUUNv461136hqaNIg0IuM7AnWVAoF0y4G6
-	 E9pBh4csZ5Sp6uaeXr6v4SbAX3WtygTUxaESWNZNDQFaunQVSVdX2FjBC8T2K92BtP
-	 V1FbbBWPABxuCqOfKYSYKh3uWPqtfY9Qm+6XGcoJETnmw2S+qVMPkHMEj+A9oOQf+p
-	 w+kGxfJ+1JjAw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 933B746F91;
-	Wed,  4 Nov 2026 20:54:19 +0000 (UTC)
-From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Subject: [PATCH 0/4] media: qcom: camss: Add SM8150 CAMSS support
-Date: Wed, 04 Nov 2026 20:54:13 +0000
-Message-Id: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+	s=k20260515; t=1793825692;
+	bh=ba9/h+V5Meq1wkITvXegwitThM7yj544wxqsQCz0yS4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BrWWwPZ/la4ATP/U6VCWAA+Ay8vb+pI4aLCctpwOU/zMy/bMxt4GrxmKhgwcE7/dU
+	 Uea3jr/2i8A3ju8bcfHOXCp1/A72Ws+XAWHa0s9dIr2ZTZt2s0tB1ripQME8KJXQVq
+	 KEE1tDTSfVC0rQqdL4IK91N9fPKySk7xqyQL/Gn3k4eJ7vivBtoHm8btEDnXbvgbHU
+	 fXfEEyFvP8Keq55p5ZmbehR01qbmtNlCSyD5ogtsHtBfJQY/fLUgUcpQz2kIjoOZWx
+	 ByHXmrQatZSTZy8ucOmP6/8NcPPNRCzRR5bczsJdx7MF++zmRPw221m4foOL4zp2P3
+	 tKLFs2+Yng76w==
+Date: Wed, 4 Nov 2026 12:54:50 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: Alireza Haghdoost <haghdoost@uber.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/5] perf symbols: Fix broken ELF_C_READ_MMAP fallback
+ guard
+Message-ID: <auubmvsLenOI2EcV@google.com>
+References: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
+ <20261028-perf-symbol-memory-send-v6-1-7e90415f0101@uber.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,85 +66,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1g0ko9biVYqLcSZtU9DKREUQ7
- +60Xb7F/zuYJBWDttghyaqmnzGDLwWElx+fghqzwZG7MlOFNty4JlwbrDAFxuAHM4xljLWQ89w
- Q5HZK8tDt9713f9vSvyXM3xkcxwmv/OsFeQAAAA==
-X-Change-ID: 20261104-sm8150-v7-4-rc1-camss-d3dd5e02a170
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793825658; l=2290;
- i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=bJxtsjksUcew3dIajCnIU49v3+BQncSzOwMOOQD7r6w=;
- b=SgDTwnhYyXggy1HL7cOwz4fxlklYg7ox8/GGjIxu5jbBHcZDrX9RPShC6Lbil/kmIZUUnkSMY
- VaF+u7PMgBkAILsAVU4nDKZB6IvgcEDb4V9dDnd62Ag7VzwApzJbsSU
-X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
- pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
-X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
- auth_id=1402
-X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
-Reply-To: mail@andrewgigena.dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028-perf-symbol-memory-send-v6-1-7e90415f0101@uber.com>
 
-This series adds SoC-level CAMSS support for the Qualcomm SM8150
-(Snapdragon 855), based on v7.4-rc1.
+On Wed, Oct 28, 2026 at 04:42:32PM -0700, Alireza Haghdoost wrote:
+> Commit 22dd1ac91a77 ("tools: Remove feature-libelf-mmap feature
+> detection") replaced perf's compile-time feature test with an #ifdef on
+> ELF_C_READ_MMAP. ELF_C_READ_MMAP is an Elf_Cmd enumerator rather than a
+> preprocessor macro, so the condition is always false and perf silently
+> uses ELF_C_READ.
+> 
+> Perf already requires a sufficiently recent elfutils version that
+> provides ELF_C_READ_MMAP. Use the enumerator directly instead of
+> restoring a feature probe or retaining an unreachable fallback.
+> 
+> Fixes: 22dd1ac91a77 ("tools: Remove feature-libelf-mmap feature detection")
+> Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
+> Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> Reviewed-by: Ian Rogers <irogers@google.com>
 
-SM8150 contains four CSIPHY, four CSID (two full and two lite), two
-VFE and two VFE-Lite instances. The blocks are close to the existing
-SDM845/SM8250/SC8280XP implementations, so the driver change only adds
-platform data and hooks the SoC into the existing Gen2 CSIPHY, Gen2
-CSID and VFE 17x code paths. No new register programming sequences are
-introduced.
+Applied to perf-tools-next, thanks!
 
-The series documents the SM8150 CCI compatible, which the CCI nodes use
-with qcom,msm8996-cci as the fallback. The patches are ordered bindings
-first, then driver data, then the DT description. The series is
-intentionally SoC-level only: it does not add a board DTS, camera
-sensor drivers, or board-specific camera wiring.
-
-Testing: with a local Pixel 4 (google-flame) board port and
-out-of-tree IMX363, IMX481 and IMX520 sensor drivers, the rear wide
-(IMX363) and rear tele (IMX481) cameras stream, and the front (IMX520)
-path has produced frames. The board port itself is not part of this
-series.
-
-checkpatch reports no errors. The only warning is the new-binding
-"MAINTAINERS needs updating" prompt, which is a false positive because
-the existing CAMSS entry already covers qcom,*camss* bindings.
-
-Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
----
-Andrew Gigena (4):
-      dt-bindings: i2c: qcom-cci: Document SM8150 compatible
-      dt-bindings: media: qcom,sm8150-camss: Add SM8150 CAMSS
-      media: qcom: camss: Add support for SM8150
-      arm64: dts: qcom: sm8150: Add CAMSS and CCI nodes
-
- .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   1 +
- .../bindings/media/qcom,sm8150-camss.yaml          | 477 +++++++++++++++++++++
- arch/arm64/boot/dts/qcom/sm8150.dtsi               | 350 +++++++++++++++
- .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
- drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
- drivers/media/platform/qcom/camss/camss.c          | 262 +++++++++++
- drivers/media/platform/qcom/camss/camss.h          |   1 +
- 7 files changed, 1095 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261104-sm8150-v7-4-rc1-camss-d3dd5e02a170
-
-Best regards,
---  
-Andrew Gigena <mail@andrewgigena.dev>
-
+Best regards
+Namhyung
 
