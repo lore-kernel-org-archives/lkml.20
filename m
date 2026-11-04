@@ -1,82 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829938;
-	b=cptlZK7DDsdGYpWG73bh3rdXyYvCkWUfVzbLm9bSj8iDuHuZvgYxUlDKnJYp7hL4p8HI
-	 jTDhnfUpEkMItzvuC43805bSypaNNORmn82PmHPrXgE5p3kH4eeycY/Cv/K4/A3DT8BVT
-	 dfWnAcZjeVr709ETx/0D2HFxrdLykSDAj3jat8TfC44UBGEsoS1lD2UG3K0AjF0OmXN/h
-	 4yrVaIEsIvrZNEUvPE3DWDFruqhBr1hctcKhE79GncFQkOxs8gGOWXs5jbHO4oawRUE4D
-	 u8IfYkMjUrNrn28NaoGe5H2a21M9+1PGcLZR5yVEj8OYa1FldTrOrQ/81TRItbiCjJg==
+	t=1793830005;
+	b=JsK7p11qeMFXry3y4ZEZiH+uTcDf8ZjGKN4fDnviLORab5tusTGhQUQ7JWi+5rS5OLrx
+	 jNDm5bYb3LMMYi4B4qt1T8CXsMVV7M7zML6cxbvpKHqewMcgQUjT3BfBNsq0B+OLFv8tO
+	 zNHrGlvuS58FbuVixqOSlPtVykMUtmxvjr8AggWJFftJvC2m+ktC0zXcugy6E046vcmDU
+	 PjP/kXYIRZjdq46ZZz016uMocR6aTUgf1Z0yRnWipfBG4j7lSbPY02WrRcCH+2en/Kp4d
+	 jeNZ1+h9aWHgyPwo8Zar662WbHkQo1NqcVSJJmQ53sf6nkDW85d2sNoQEGvZTSxdXXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829938;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=2H7Qz1hbUFxeTortjCVtaN2LpttMmibW+PPG+dhuH5g=;
-	b=KgNsuEoaTqf1sTkWoBeKo4hOWiYc2oy16Y4KntHHbiQVQ43gXb9sIiqCzPE7sJqrv6rL
-	 6vLYjIjUiSZYu76VCX04CkxfIp9aFyZOGfd5ZTeMTMIa+tWY7snwnFpSrj8gz4nUsOBH1
-	 kMORzM5tc+SppAZamjtt3Esq2b22y4UWLBZ+kM76G4b8pMjqnvayrfb6qARRCviSpiDqa
-	 PbBNpIfYDfIoJkIMIZbyIkj9Y7ZsRgml6echpBGjZflxgvmDmwQ8vAuLT+PZvqP1+8Sb1
-	 01XLnp1K8zc2IvtTVjcpBI3p1Gwnn47yqLcwmUvoIsSfYbSuykrVW58FkdaD40XAb2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830005;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=APyAEXSG9B0KEvsmlIgqb108CR+kX9ZzkkBiV+80GpM=;
+	b=nU939fKwPBUOIOZx6uBI7s5o26mSZobKYgzV2wN/W5bR9dnI2zl4PDRXssGvekmUO8Jq
+	 gOzbeaQXOKsFYbboy/JarB3ll6JmlZm/ojv4Nd0/Spn3TYaMUi1QWFj/hBpziZ5H4yOAY
+	 BVLns30a4U+w+rJL3EEC7fngI8AUIY8QqYMOHxgzurhkVwQg063zUSrfxH4BeztyF0umA
+	 lhiMfROw4nEBWKvkPDYeYdEsPmRDB9ZY/mxyGQ75A00cpYxSskN/ejG9Hix3S8Vu3uC9h
+	 mRXFpBbt311pBG0bbYpSTHsiEdrCX4qcShemzAoPAD+fTW/qSVZQ3nBcWIToEoDV5IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UzwEqeT0;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nE1J3IvH;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394B1606C92D;
-	Wed,  4 Nov 2026 22:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 394B1606C92D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1210606CA38
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:06:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1210606CA38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UzwEqeT0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793829938; x=1825365938;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DkmTEcT4ie/Jd5AT/Y+y6b4Ri8lpkG0TIqlwf/w7344=;
-  b=UzwEqeT0Sxp7I+gR0qmVguMSG1THeRkEZ3EnHVeWuSi2zcGSiEhv7Kmd
-   S75hgSyr6xTcQoUxILGcTcnPiJn7I8pDhmbgunJDxLK/rNhcgJ0z1fFiM
-   nE5u1blEdfqb06/OZ8FtSic2oCa9Gil4CNso8PwsSwBrXxDeJy3r0AX/U
-   pRggWJuaWVtryCck4i2p9moDcKqAkkrWQVOSNaMb37FwgZeTQzUu5Vkim
-   rz+nHFAaiHtk6R7QMJ7Xj5DS4Gk4SrHrlR11ABBoWHQuiWKOw0nbgHHW8
-   ybKZrI97yELDxdT5Sf8L2J++yQsVNWm9GVRVXmiYOf/KmOZq2LjgkuFeP
-   g==;
-X-CSE-ConnectionGUID: lV7TYPTOQLSHGmz5zzPG6g==
-X-CSE-MsgGUID: DHgcniwzT7uKhE4hMfNViQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2597114"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2597114"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 14:05:37 -0800
-X-CSE-ConnectionGUID: 0S13eHReSO+WCgdjIul1NA==
-X-CSE-MsgGUID: qraWBz+nRgu3V+Dmku3KKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7145512"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 14:05:34 -0800
-Date: Thu, 5 Nov 2026 00:05:32 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] gpiolib: avoid krealloc() in gpiod_get_array()
-Message-ID: <auusLNvkCmHs1buP@ashevche-desk.local>
-References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
- <20261103-b4-gpiolib-free-v2-6-ea46767c9cf8@gmail.com>
- <ausjJSZkaGKNfykE@ashevche-desk.local>
- <4e7b28ae9ad5de3708c549d62a4bae68@gmail.com>
- <auumQhqJwIl4XZDM@ashevche-desk.local>
- <73caedd26b375ae7671d24bcee115f05@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nE1J3IvH
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so7872475e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:06:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793830003; x=1794434803; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=APyAEXSG9B0KEvsmlIgqb108CR+kX9ZzkkBiV+80GpM=;
+        b=nE1J3IvHMoQNzkY6NWqRvTSMsazSaZ3o2FOqE6Vkft2ehjTHn8aLnOYg8vT1EO270t
+         eN2FAdZlBp8+YwE8ukzqk0r9FrwOxyhmziNfpWj2ioOMKExpHNcgFJE5otJ9L0caAtyh
+         yau15/gp49jgw9swqjV53ow9czN9NUQdqeNf3T27Xa35gyFtoWXqTSc7pSL6GR08oAkM
+         b2DGAmy7a6UHSRwQp8Ohc3POW7QyBy4QRZZG0yMg1lf6J+mPIwmySw/yfAkqbiw4sbce
+         xBEOCYYleBJo/LjnRGx2+5aVtfNFXjhIGVB9Xv354q4SsV8Pa4rFQcR5uwVdllR7FUZH
+         auUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793830003; x=1794434803;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=APyAEXSG9B0KEvsmlIgqb108CR+kX9ZzkkBiV+80GpM=;
+        b=g5zoR3ACJuZTjfS1sbifGhI5+I+O0H1BBDyCqztZgfIVLSHvxXzCRnegxoOi6DKm8x
+         wUQemCDEUfsdA9Uhu8IuMjB1CW6iDcMNbQ//obuLSs7lgYqkAAsBgoBwIwMStRuGrPfb
+         T/Dve09mD/Mx+EoC8eX4978h/YRbQl/gWZIVGlT0u1DNxU8K7/KNoUj/pauF+qWrqUvj
+         L3Ey3i9skdEJGlFtmpym+72ulYEY7olz//tQT2ZcKl/U0167obFq8MNkYUUcOCY3AuMj
+         FvoFnsQtdjklJKmugJCLsAQmXxdDnFYcAa528P5D6cVXPl60EL2SfpnBUxP15Z+slSfq
+         /4HQ==
+X-Forwarded-Encrypted: i=1; AKwUvByUuZqPn5jCQ+Ru6hCDoOjPbb21EjiESjKYgwq3fDlk/bXc59Xk4N10WRA8pdwBGx0D79BBqo5uSwo0Cn0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l50elBKgr7F9XRGnA9iB4Sk7T6GPtOHnPcPemj79UI/I828xC
+	qyXBM4GTEky6UNTtSG3b0fcDK3bEZXAxhXN+ZdMRavmFJAtsxtfsVS5y
+X-Gm-Gg: AYBFou3+ZBp6hGoYA+fXjFyoIzvNSe5xRAIkO/qcrgAiW8OA5SChsGANGvzSsaCugqO
+	OEzyEHnf8QKGVEY2FMZ2kOf7UPxeQ1jcW1deDpLf0DLvUCZbVQqCFrdOQRrQit6K9MqnY13nvm2
+	L3TbbemCObIhkUO1XNQfWu/p/vU8u3SrDCBaaQ/Gnx015TBbPxaeB09SCHrWvBk/gSwl4hGggOy
+	1M8xo72tr/oizSVtNrri+v3yvdaitHfQXJOljMK8SpCL+9n+bzqVmTpJHbs4HrNqjnPL45z9ljk
+	PG6mn7iqUsgBgHy5su+iBdxFioIX/xfOyM7dOrkxchjcg5VripzV07lpTvL+F4T4DfsNnl04Hfv
+	ckBBjs3dMVsXcseOcuo6spCyuG7fZXriPx49qFLyeHnXYlxtxuAClPS4QB5yvaUZ1fWNS1i2zDT
+	WmWBgudSs+mM2g7tTlygJXoP9c3mZb1EqTq6Yn31bc6RoKGQPEo0b9mJmSd+uIPjfLI2OiuR6C2
+	Ch0JtlvQqFD4DT21gX88gLywkpgbENW8g7vWtZQsKhcVehyFTdzwqygJaA6UuftoNzy9aU/PADj
+	7N8BFQV4uCRT6Pj8Nrnn
+X-Received: by 2002:a05:600c:470a:b0:4a1:7e77:c382 with SMTP id 5b1f17b1804b1-4ac16acfe61mr380977515e9.5.1793830002799;
+        Wed, 04 Nov 2026 14:06:42 -0800 (PST)
+Received: from fedora ([2.35.201.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56fca22f4sm24879935e9.13.2026.11.04.14.06.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 14:06:41 -0800 (PST)
+From: Francesco Nigro <nigro.fra@gmail.com>
+To: Mike Galbraith <efault@gmx.de>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Huang Rui <ray.huang@amd.com>,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [REPORT] sched: ITMT + DELAY_DEQUEUE: woken task waits ~1 ms behind another task on the preferred CPU while allowed CPUs are idle
+Date: Wed,  4 Nov 2026 23:06:22 +0100
+Message-ID: <20261104220622.3542344-1-nigro.fra@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <32db09358aecb92c55c8c1295fa71b6a73306999.camel@gmx.de>
+References: <20261103154603.1893325-1-nigro.fra@gmail.com> <25edb6cd36cb77b82b40826b97232438f1443516.camel@gmx.de> <20261103233352.2282883-1-nigro.fra@gmail.com> <32db09358aecb92c55c8c1295fa71b6a73306999.camel@gmx.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,49 +105,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <73caedd26b375ae7671d24bcee115f05@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 01:51:52PM -0800, Dmitry Torokhov wrote:
-> On Wed, Nov 04, 2026 at 11:40:18PM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 04, 2026 at 10:14:49AM -0800, Dmitry Torokhov wrote:
-> > > On Wed, Nov 04, 2026 at 02:20:53PM +0200, Andy Shevchenko wrote:
-> > > > On Tue, Nov 03, 2026 at 07:40:34PM -0800, Dmitry Torokhov wrote:
+On Wed, 2026-11-04 at 04:13 +0100, Mike Galbraith wrote:
+> In your specific case, dunno.  In general, absolutely.
 
-...
+I checked with boost on too, on the same box and kernel. I ran
+asym_min and tbench on CPUs 4-7, without SMT siblings, with clocks
+pinned and boost off, and with boost on and the full frequency
+range, DELAY_DEQUEUE on.
 
-> > > > > +	bitmap_set(array_info->get_mask, 0, count);
-> > > > > +	bitmap_set(array_info->set_mask, 0, count);
-> > > >
-> > > > You don't need these, as memory is nullified.
-> > > > Also note that we have bitmap_clear() IIRC.
-> > > 
-> > > bitmap_set() sets bits 0 .. count - 1 to 1, not 0. Both get_mask and
-> > > set_mask start with all count bits set (assuming all pins in the array
-> > > are eligible for the fast path), and then gpio_descs_check_fastpath()
-> > > clears individual bits for pins that do not qualify.
-> >
-> > Ah, indeed, but we still have bitmap_fill().
-> 
-> bitmap_fill(dst, count) fills whole unsigned long words with 0xff
-> without masking the tail bits in the last word. Here get_mask and
-> set_mask are sized to max(gdev->ngpio, count) bits and passed to
-> gpio_chip_get_multiple() and gpiochip_set_multiple(), which iterate up
-> to gc->ngpio bits.
-> 
-> When count < gdev->ngpio, bitmap_fill(mask, count) would leave bits
-> count .. round_up(count, BITS_PER_LONG) - 1 set to 1, causing
-> get_multiple/set_multiple to touch unrelated pins on the chip and access
-> value_bitmap beyond count bits. So we really need bitmap_set(..., 0,
-> count) here to set only the first count bits.
+With boost on, 0.82-1.09 % of asym_min wakeups per run waited at
+least 0.5 ms with ITMT on, and none with ITMT off.
 
-I see the point, thanks for elaboration.
+tbench throughput was the same with ITMT on or off in every setting
+(within 1 %), and so was the busy CPUs' clock (within 0.2 %).
+According to these new runs, with boost on ITMT gives no throughput
+advantage and still causes the long stalls.
 
--- 
-With Best Regards,
-Andy Shevchenko
+As a side note, I agree about DELAY_DEQUEUE: disabling it reduced
+tbench throughput at full load, with ITMT on or off.
 
+Scripts and raw output:
+https://github.com/franz1981/itmt-delay-dequeue-repro/tree/1400f15
 
+Tool use as in the report.
+
+Thanks,
+Franz
