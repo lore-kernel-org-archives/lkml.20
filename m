@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776825;
-	b=X5E9XLZyHOYRFT5i6JiFbX5UND9i5DZrN4cedSCw49h0BzZqms/ZEysyMzRTaIvrYkgh
-	 +J7YwaMqaaI5ABPiYvMaI9b5V6H/1e4RITSB4OYAvckwLDjZpFZN2rHY44zC4dFFF+d2/
-	 ErKVBdPGh/tTUFUJi0Ds0jHOZkUycl8ruJXvp5pzxee/w7GVCbyyhKYkzj/ZxPdMq6HVa
-	 bT9W1YOEOHQhB5mfpvobeeYS4sn7gnDFM0NIQdQ41bfbf3rpMqbqoYiFNklPdeuqKoIJa
-	 U7EJKi0qSz0aKtaVnD/0EjEhvEla7ZS1nrKdwHjnuHUb1NQHyMZ3eIHxIkU3PWHLcdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776825;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=fuuQ1qYN3qm3M/bA+/sXyGSe3bL9LUEYjIg2hSq6M9A=;
-	b=vo07NlR1xGBF3E0o2PRE77Hsp0N//BoRLbRhooHYZfUXSly7B5MVuUgaUVsDOh8aX8Y8
-	 Xzqgv5gYm+4EHTE0J/3CkQvW0U73NmW2byeZQK4z3b33OXc+KmkuC57lZMU+Ea++tYIjZ
-	 dlUVczcvwPgszbQKRac9rwbjlt3PVcDAJFKvqKkZMU/kqE9OJif3uU/PtUsLrGQ+QcBRb
-	 vaN9G0TsVWqRUaMqiKVicKOnt+A/X2+XuTVHznVCmW4WVx9aUkAvz2JNszS0xDaSzdzFt
-	 WiDiCmUU2ofXdwi8baSKUaz4SPH04LJbMiQ9ZIKNxJPzS+2f/N1O0m3RRUD3fPDveSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=sQJcK+6i;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793776869;
+	b=bECo73jckutGF+EWgLSxu+vNBJMGOsjWgoRvO2UYIwdLJAgTYDq4a1zFXrmozJXvk9Hq
+	 RRF9sDVbjo3S04S+7PvAGO16XJbQUnqeasM3E+LA4RGFOtkhMhfxcLURB2MnuzQnHgQH5
+	 /KmzJdrLUEYxpKr9k61mVCr9HwUHG5w8MlfrzM6IOJ7Y1gKNRSSNnMFY8+L59hLj1bsso
+	 4PQYQZPPVq5yJOyfrJ72Y2Bt8UfgyZEfrNju0yNcSuS7MHNVlVt90f/W60KbPYx0MTRE1
+	 R6bvSKCrRCw8m7k71I8qc+sEQkTCsNRMgUhuSPAmCwFQnYBHnm/aL1FQdvf4gEaYg0w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776869;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0koFSESUFWnAbyCgQDc/6P2aygsX1jk+kyP8HlGSb3k=;
+	b=lHXmQZoaUKY88gj4dFi4KwIv6FODXGXaYew4XNp46Mu14Xa2Ru5cOhpwrtVDGAK6bu2/
+	 dIHFN9j8G0xXaV0RP5jZ/jakU8g7gHIaBGharsNl+zlZyJclPQQeiXh1PZnq6Wlvfmda0
+	 bNg38quAKv9KGbfhAY7Suhr3HHdU2yszuGpVBz3+P8kwKWjkKS8hX/Fp5ntWYKN18K0sB
+	 slP4WRt/xTWQqfN3qLs11TldwOYkAGHK8iOzWyRlRc55A5QTCBARxXA5ZOvYMPRUeuyGI
+	 MqYU8R+LDrhO1LBVcSJ3ugrZMdPNrvEJjgpE2rjZRsKx36WB5peLUYQ/+rR1q8OBH9g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFV8OnZd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF22606A33B;
+	Wed,  4 Nov 2026 07:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFV8OnZd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793776869;
+	b=xQ2IoqS9Bg/7LLXZMGWpFtC/R5//IVtFKOOzQxyKZ0eFL8IJWm5VC0mHqhcvRM8thKaw
+	 971iVeBOvyLr4nxpaG6E/VrLRaTDiyvZE1Vdmg5mSr/t3pr5JIsLsAlsw8qDZ4PiaUri8
+	 57LKcwgx1o4opHUzxQn40nqxVvLEIMMkWTzaChpReDqnwlfYvAD0BVsa6yFE2BU0a1oLG
+	 OGluEpyUFbcJ0SsgYe3reWGx3f1JJuc8Pzsv+31OzCSFIOqCQGtWYoNDM3qqtxf7fEMZj
+	 0IBMok+/BEPDzwPA2r9FX867SkAFY0m7CBg48hp0dRzNpzMpNofM5Gd9oecLPkNjf5g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793776869;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0koFSESUFWnAbyCgQDc/6P2aygsX1jk+kyP8HlGSb3k=;
+	b=JG4Klpiu79oW1u96tzb/E0eN6Uul2t2Wm9NqwCKlyKL9CQDplRT1dWif4Et7+qqjN8IR
+	 T7wnasAo9NuKrzQMOixyI5q+OQ4QzhnYqjoW+0BsfLy1EKnZ39Hx6WO1BchSU/+wDKvwA
+	 DIc7HsWMlHSi4FlFCY1FOhwlxs6cGBmZFGGnQVQQjh3sasx5+tPda5J1D7kZI+EnYDRs4
+	 bqabm+Og2aqYO2GULE84bthOF2u8BQnBs7c/ui/kfu+WrV2rX0euTQZ3RQhD04kC6xvqQ
+	 K763CxWxlTEwUzX+uigM8sTBUXrbcHUvsDBlRYAb/Gjd9xi7tWHIpUgvsehmnE+XqLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CEA606D815;
-	Wed,  4 Nov 2026 07:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93CEA606D815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=sQJcK+6i
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net B091B4091C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1793776818; bh=fuuQ1qYN3qm3M/bA+/sXyGSe3bL9LUEYjIg2hSq6M9A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=sQJcK+6iOfE2CczgpByQzFM/DwUFlS3m7p7bAl0MHDEU/C/x1vzM0KvdmpzF+cxsi
-	 lnVoM4BHFjsZ9+8wJjaNMamdMyKfhkoUJCCTGnS28484jqfTZsBzzqJt2dC3z+xkNG
-	 D1DyQJZaCtj6nNoqYYGuxqHxm+pnevggfu7ROqsjUINl+QtB8UFfUSp/KT+YSMn44g
-	 FrOIODy0Lr6Tjajz+GshW8suT5wRYYWRYdPARjKam2ozPJrhBp+muRpBbduUaA5jEU
-	 eMu+YpuiJdG5QV3Wfv5AD/BY1OcJa+dVbOioZ30pqAmqjidauVLyD4tVG03a0Zwf/8
-	 aXgFVEvMxB/sQ==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id B091B4091C;
-	Wed,  4 Nov 2026 07:20:17 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Weijie Yuan <kernel@wyuan.org>, Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Weijie Yuan <wy@wyuan.org>, Alex Shi <alexs@kernel.org>, Yanteng Si
- <si.yanteng@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: How to attempt to gradually eliminate the compilation output?
-In-Reply-To: <aurU4uKyIUBl9-CJ@wyuan.org>
-References: <aurU4uKyIUBl9-CJ@wyuan.org>
-Date: Wed, 04 Nov 2026 00:20:14 -0700
-Message-ID: <87y0b99i6p.fsf@trenco.lwn.net>
+	by smtp.kernel.org (Postfix) with ESMTPS id 270561F000C1;
+	Wed,  4 Nov 2026 07:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793776869;
+	bh=0koFSESUFWnAbyCgQDc/6P2aygsX1jk+kyP8HlGSb3k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LFV8OnZds4e/DrT1EzxQUxd/FSVITVrFaqK2z6PP2DTo/ul8zd+rfsYA/ls57MTVU
+	 CtTWwWRzmWgDsqRlgC2iWfG8032aK1bN5R21fxh16btC/uL0M8mQkRW4+bF4gjFbMn
+	 9xo13cGP3HI5xWcJy+UoZoRMeOYWSMnAqPE79tkxjHCNuGaOOtBZL/LXRnNoruYRhw
+	 P2t5SZpNVkcbqJs2F5nE5Q6AxCm8RJ3eoBeMlMh9RbM71X5bS9EUcgJeHNslNfT0RI
+	 tdPnnJXUT1tzjKpYDcndGK29hn2YlwI6WZ4nllnvdOXmCkbL6KgPKgA2qaSipyfJwh
+	 ZBdGL/L+dGuOA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A404B46CF5;
+	Wed,  4 Nov 2026 07:21:06 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Wed, 04 Nov 2026 02:20:58 -0500
+Subject: [PATCH 1/4] dt-bindings: clock: Add Siflower SF19A2890 clock
+ manager
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,27 +83,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-sf19a2890-sysm-v1-1-a4fac07df823@telaak.dev>
+References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
+In-Reply-To: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+ linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776865; l=3448;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=UOCQCNAQ/b0HDJGf7xgsq9U+ntDdWggj7SVJU/wSbdg=;
+ b=a4M53z8NCt5Fp3VmSoBvIu32pNpnavi3PoxnbOiGH6esw56KeHSPxuOLFGLq9VGYAArtk2Mdd
+ 48BkaYnbXN6BHsAPUOIvV0hxRF75avMLJem9JDycYO2e34tewEumuej
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-Weijie Yuan <kernel@wyuan.org> writes:
+From: Joseph Telaak <joseph@telaak.dev>
 
-> Recently I've sent several patches to fix warnings.  But since I am not
-> familiar with the actual codes of theirs, I'm not confident enough to
-> touch some parts, but only the most obvious ones.
->
-> Since this is a goal that Jon has spent years for, I'm wondering if it's
-> possible to periodically send out some email notifications, which will
-> use the file paths from the compiled output to find the recipients and
-> kindly ask them to to deal with these annoying outputs? Perhaps we could
-> use a script to do this.?
+The clock manager of the Siflower SF19A2890 holds the SoC's PLLs and
+the muxes and dividers that derive the bus, CPU and peripheral clocks
+from them. The peripherals' own gates and resets are in separate
+blocks.
 
-I think that nagging others to fix warnings is not going to make anybody
-happy.  The best we can do in that regard is to try to prevent the
-addition of new ones.  Beyond that, it is far better to send a patch
-than a request for somebody else to make one.  If nothing else, an
-incorrect patch is usually the best way to get somebody else to create a
-correct one :)
+The header is Chuanhong Guo's, from his SF19A2890 branch, without the
+count at its end.
 
-Thanks,
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ .../bindings/clock/siflower,sf19a2890-clk.yaml     | 57 ++++++++++++++++++++++
+ include/dt-bindings/clock/siflower,sf19a2890-clk.h | 27 ++++++++++
+ 2 files changed, 84 insertions(+)
 
-jon
+diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+new file mode 100644
+index 000000000..9b72f14c2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-clk.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Siflower SF19A2890 clock manager
++
++maintainers:
++  - Joseph Telaak <joseph@telaak.dev>
++
++description: |
++  The clock manager of the Siflower SF19A2890 holds the SoC's three PLLs
++  (CPU, DDR and common) and the clock muxes with dividers that derive the
++  bus, CPU and peripheral clocks from them. The peripherals' own clock
++  gates and resets are in separate peripheral clock and reset managers.
++
++  The clocks are defined in include/dt-bindings/clock/siflower,sf19a2890-clk.h.
++
++properties:
++  compatible:
++    const: siflower,sf19a2890-clk
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: 12 MHz oscillator
++      - description: 40 MHz oscillator
++
++  clock-names:
++    items:
++      - const: osc12m
++      - const: osc40m
++
++  "#clock-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - "#clock-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    clock-controller@19e01000 {
++        compatible = "siflower,sf19a2890-clk";
++        reg = <0x19e01000 0x800>;
++        clocks = <&osc12m>, <&osc40m>;
++        clock-names = "osc12m", "osc40m";
++        #clock-cells = <1>;
++    };
+diff --git a/include/dt-bindings/clock/siflower,sf19a2890-clk.h b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+new file mode 100644
+index 000000000..74b9d67ea
+--- /dev/null
++++ b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
++#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
++#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
++
++#define CLK_PLL_CPU		0
++#define CLK_PLL_DDR		1
++#define CLK_PLL_CMN		2
++#define CLK_MUXDIV_BUS1		3
++#define CLK_MUXDIV_BUS2		4
++#define CLK_MUXDIV_BUS3		5
++#define CLK_MUXDIV_CPU		6
++#define CLK_MUXDIV_PBUS		7
++#define CLK_MUXDIV_MEM_PHY	8
++#define CLK_MUXDIV_UART		9
++#define CLK_MUXDIV_ETH_REF	10
++#define CLK_MUXDIV_ETH_BYP_REF	11
++#define CLK_MUXDIV_ETH_TSU	12
++#define CLK_MUXDIV_GMAC_BYP_REF	13
++#define CLK_MUXDIV_M6250_0	14
++#define CLK_MUXDIV_M6250_1	15
++#define CLK_MUXDIV_WLAN24_PLF	16
++#define CLK_MUXDIV_WLAN5_PLF	17
++#define CLK_MUXDIV_USBPHY_REF	18
++#define CLK_MUXDIV_TCLK		19
++#define CLK_MUXDIV_NPU_PE_CLK	20
++
++#endif /* __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H */
+
+-- 
+Git-155)
+
+
