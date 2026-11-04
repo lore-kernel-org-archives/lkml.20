@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806476;
-	b=jT44VePEzUohoyzHXF+ikWuOmLwtm8wrhgfkJbHJ3g40ZWbPhlwyrruP+ELjz+JsE30n
-	 eAsa4sBTmhR1upoqCfjfCWTBFr+twsjkHVJLErxu2kt/r+4Gj1G4DQ39w+Pk3H4b8aggx
-	 eKa3lEClkNkZAHwWit703A1NfygNcvhYvwQUMwLbNsfUW2QVcOnszNWCTEh/ywygKwf3m
-	 CfamvHvoeEDZCqOiISMqKPHPcSEq4T1ERviM7cLE02o9A0tNzZzfUD3klmIB2tVNpAPdd
-	 j4R0cQVmStV1fUrT2sYiJYoQM246ZQI6NItVdvxGArf6Rkfbfz15KNAX1RHqR94+OXA==
+	t=1793806518;
+	b=xnVnSMD0eIN+t4d1x4gF10vBxqhlDPnGLlShToMdpMXD1NUIm4zmZ6aMVXMEPTnym6Hu
+	 e9MmBojL+qIBtqSi3Y/krbiI5Sp34p/OMJnRPIXuno94ygdSQezSHA+a66phoKvaNa4D0
+	 c9MOu+kYEyx0sVpmabT7XHhSIXP9IRwBmA7xvkPSoVJX12UR15K6bkQUq/XAQ4+2Hi6CA
+	 yxWv6nGAYeCFWTt+veIKmoLocUNWNtbzU+okCPZdZK17GsIbAV7SbK/RVPupjOCSAL/mV
+	 WR6RzPMv263CCONmdZYroiehGXmlIyinMzLyhU1ZxNtOQBJ7LkpDIVa0Nue+d7wrsjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806476;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Content-Transfer-Encoding:
-	 From:Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:
-	 To:X-Mailer;
-	bh=s/1HC7HLgdcjFFQ/QDDoo7NoiUF0jCrqwATSiKldbZI=;
-	b=sksCPjpBgFVQeno87HvWeWMRMit9hkA9C92Cq2ojSLyuJJIOijQIKWEc75QVx2Q6JwDn
-	 yriyNEzrK3zo5nMzNvkuQPh7z77KNNvuaWm9aQO7mYMaw/q1IVZJo+6Q0Gz8AGUjj4y0h
-	 3yB0b99xVzl66ne1WJ8w2KhuTEfkpJrPKAWzMIQRK4AmdQHrz9IQPfLakYkruL63ZVtZY
-	 ZNjKVkt0BdU5eOu+XjqmrzihVZnQbmUEq7bjot+aJpnOjVr42x88OFyKUKagothTcJB+3
-	 GB4zzbr66MsIb5t3cGwfZp0Uotrs9hsMiuxRPhqtBU09H8MzaKqR+Iy+kkhXyDMU+YA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806518;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qP1iq0olN33Pbj7s1LpnKxEDc19GAI3fREIGaO3xv2I=;
+	b=M8QIU5hX/tm9PjS6nRBnhpnlbHqfYbD4szF1eSRmSYP9dopkbrP54cPtxmTfGl8/pefQ
+	 aNDe9XRzO7wLKxoC1EAV/nCFnn91lp6Co7BIoqhYIIPbxW2wdXQFcpZ2m1r6SAOsDiK2m
+	 PSRaqtXAm3dZEr2dkjL0xCBteXPeExt+6mLHRM/RwoHQ6u4+2lI8urM3vkD/8A9gmKmLj
+	 4IlJMo47qK/TZK9eNMZmejKUwHwAEIkJLWpGfXUqIQ3YIqzwigDw3oVikMnB1V9E66P8I
+	 jp6NuCE2i6ejxwyPb50boZGAMfegfjD7uChSQ9MdpLG/kBlvo2sdRzOBl9eFMJIDw7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FjNcOokx;
-	arc=none smtp.remote-ip=91.218.175.40
-Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVUnZZF2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1305606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:34:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1305606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B3E606A31B;
+	Wed,  4 Nov 2026 15:35:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FjNcOokx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Qs5GGmuuHSWXZnhWmFdpplNiNpolTejJoLIyv+Fwxp0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793806472; v=1; x=1794411272;
- b=FjNcOokxF3sgw++Ejcm0aS3LGH6TjUzz3M8fJB4OYfZBRycOlnquC2JKluUTNa5mXQ4s3U/U
- nuLGRvv8niMx1RqjmBgU9XeKFeGx/1rrwBjb7z1ZuhvGyVfQ/jdrNo4OtIDQrxGikKQa1qwKVoi
- HoPI0VcqPpsi6VWxAO0Jj3ac=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 17b85c0625fddc68;
-	Wed, 04 Nov 2026 15:34:32 +0000
-X-Mizu-Trace-ID: 17b85c0625fddc68
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Aditya Garg <aditya.garg@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVUnZZF2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86331F00919;
+	Wed,  4 Nov 2026 15:35:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793806517;
+	bh=qP1iq0olN33Pbj7s1LpnKxEDc19GAI3fREIGaO3xv2I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dVUnZZF2JbbWHkh7TlBjyQ+8ZqlC0Kbnm95XH1obnujxhf98eX7KvMnOQMGreH9qn
+	 bYG0x3iMgD5BXGdksHjkl3dvtZ36XlxCMqVl0pQWAK0foVkfzjK03N4TSpPSH/sZRY
+	 Y2IRcQOAyWBrY2Lw8Z0n8TxpHgTKrUEF3ZSSY78nszazsxWCX3upfrgGE3Z5fuSzH8
+	 1sDRmbxV12YJa3bE94Ckwh6lK8P5UkC9Z1tPgyufH30swBcuFnOw79xxxtcCauARhV
+	 xZ+MxXxCJWOdWf6scPuXKnMsgJwA/BkxPQ/odsXjiA3DUsgv/DTE+IiC4jyNidJaLK
+	 J1H+oE37KddgQ==
+Message-ID: <6441429b-eff2-485b-acf3-26c3034910ae@kernel.org>
+Date: Wed, 4 Nov 2026 16:35:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,102 +50,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH 2/4] Bluetooth: btbcm: clear vendor bits in LE advertising report types
-Date: Wed, 4 Nov 2026 21:04:16 +0530
-Message-Id: <F6EC6963-A4F5-4109-BD87-E4FE0A80C6C8@linux.dev>
-References: <CABBYNZLMVso40XpULwTwBwAE4tpXndSJMKhmoVLrmgm+unBNCA@mail.gmail.com>
-Cc: Andre Eikmeyer <dev@deq.rocks>, marcel@holtmann.org,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- sven@kernel.org, j@jannau.net, neal@gompa.dev, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 66ton99@gmail.com,
- josemiguelo.ochoa@gmail.com, Yossef Osman <Yossef.Osman@proton.me>
-In-Reply-To: <CABBYNZLMVso40XpULwTwBwAE4tpXndSJMKhmoVLrmgm+unBNCA@mail.gmail.com>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-X-Mailer: iPad Mail (24B119)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
+ memcg_alloc_abort_single()
+Content-Language: en-US
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Harry Yoo <harry@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ kernel-team@meta.com, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
+ <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
+ <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com> <auo5G__ac1qA9JRs@thinkstation>
+ <DMLVUTB5J1RJ.2QKOUW6UB04ZM@gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <DMLVUTB5J1RJ.2QKOUW6UB04ZM@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11/3/26 22:11, Alexei Starovoitov wrote:
+> On Tue, Nov 03, 2026 at 12:21 PM Harry Yoo <harry@kernel.org> wrote:
+>> While this is technically true, this relies too much on the current
+>> implementation details and makes the code hard to follow.
+> 
+> Fair enough. I don't insist.
+> 
+>> Patch 2 is an independent bugfix as-is already. We should really stop
+>> open-coding slab_free_hook(). That ended up missing init_on_free handing.
+> 
+> Right. No objection to patch 2.
+> With patches 2 and 3 the !allow_spin side of memcg_alloc_abort_single()
+> is an open coded kfree_nolock():
+> 
+>   kfree_nolock()                    memcg_alloc_abort_single(!allow_spin)
+>   --------------------------------  -------------------------------------
+>   memcg_slab_free_hook()            -
+>   alloc_tagging_slab_free_hook()    alloc_tagging_slab_free_hook()
+>   slab_free_hook(!allow_spin)       slab_free_hook(!allow_spin)
+>   free_to_pcs()                     -
+>   defer_free()                      defer_free()
+> 
+> I don't insist on kfree_nolock() there,
+> but can we try free_to_pcs() before defer_free() ?
+> Like:
+> 
+> 	if (likely(allow_spin))
+> 		__slab_free(s, slab, object, object, 1, _RET_IP_);
+> 	else if (!can_free_to_pcs(slab) || !free_to_pcs(s, object, false))
+> 		defer_free(s, object);
 
-> On 4 Nov 2026, at 8:55=E2=80=AFPM, Luiz Augusto von Dentz <luiz.dentz@gmai=
-l.com> wrote:
->=20
-> =EF=BB=BFHi Andre,
->=20
->> On Wed, Nov 4, 2026 at 10:16=E2=80=AFAM Andre Eikmeyer <dev@deq.rocks> wr=
-ote:
->>=20
->> The BCM4364B0 of the MacBookPro15,1 (UART) and the BCM4377 of the
->> MacBookAir9,1 (PCIe) set bits 4, 5 and 7 of the event type in LE
->> Advertising Report events. btmon on the 15,1 shows types 0x10, 0x13,
->> 0x14, 0x20, 0x23, 0x24, 0x93 and 0xa0 next to plain 0x00, 0x03 and 0x04,
->> the same advertiser shows up as 0x13, 0x23 and 0x03. The kernel log of
->> the 9,1 lists 0x10 to 0x24 and 0x80, 0x83, 0x90, 0x93, 0xa0, 0xa3.
->> process_adv_report() drops every type above 0x04 with "Unknown
->> advertising packet type", so most advertisements never reach the host.
->> An AirDrop sender was reported as 0x23, 0x23 and 0x13 and only the
->> fourth report, 0x03, reached BlueZ 32 s after the first one.
->>=20
->> Add btbcm_fixup_le_adv_report(), which clears the bits above the type,
->> and call it from hci_bcm on Apple machines and from hci_bcm4377 before
->> the event goes to the core.
->>=20
->> Suggested-by: Jose Miguel Ochoa <josemiguelo.ochoa@gmail.com>
->> Tested-by: Yossef Osman <Yossef.Osman@proton.me>
->> Tested-by: Aditya Garg <aditya.garg@linux.dev>
->> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
->> ---
->> drivers/bluetooth/btbcm.c       | 30 ++++++++++++++++++++++++++++++
->> drivers/bluetooth/btbcm.h       |  5 +++++
->> drivers/bluetooth/hci_bcm.c     |  5 +++++
->> drivers/bluetooth/hci_bcm4377.c |  1 +
->> 4 files changed, 41 insertions(+)
->>=20
->> diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
->> index 0facfe62333..527a5c75fd6 100644
->> --- a/drivers/bluetooth/btbcm.c
->> +++ b/drivers/bluetooth/btbcm.c
->> @@ -282,6 +282,36 @@ void btbcm_set_acl_priority_on_connect(struct hci_de=
-v *hdev, struct sk_buff *skb
->> }
->> EXPORT_SYMBOL_GPL(btbcm_set_acl_priority_on_connect);
->>=20
->> +/* The BCM4364 and BCM4377 of the T2 Macs set bits above the event type o=
-f LE
->> + * Advertising Reports, 0x13 and 0x23 for ADV_NONCONN_IND for example. T=
-he
->> + * core drops reports of unknown types, so clear them.
->> + */
->> +void btbcm_fixup_le_adv_report(struct sk_buff *skb)
->> +{
->> +       struct hci_event_hdr *hdr =3D (void *)skb->data;
->> +       struct hci_ev_le_advertising_info *info;
->> +       u8 *p, *end;
->> +       u8 num;
->> +
->> +       if (hci_skb_pkt_type(skb) !=3D HCI_EVENT_PKT ||
->> +           skb->len < HCI_EVENT_HDR_SIZE + 2 || hdr->evt !=3D HCI_EV_LE_=
-META)
->> +               return;
->> +
->> +       p =3D skb->data + HCI_EVENT_HDR_SIZE;
->> +       if (p[0] !=3D HCI_EV_LE_ADVERTISING_REPORT)
->> +               return;
->> +
->> +       num =3D p[1];
->> +       p +=3D 2;
->> +       end =3D skb->data + skb->len;
->> +       while (num-- && p + sizeof(*info) + 1 <=3D end) {
->> +               info =3D (void *)p;
->> +               info->type &=3D 0x0f;
->> +               p +=3D sizeof(*info) + info->length + 1;
->> +       }
->> +}
->> +EXPORT_SYMBOL_GPL(btbcm_fixup_le_adv_report);
->=20
-> I don't think I agree with this being cleaner then doing at
-> hci_event.though; not only is it more code but it also walks the
-> packet which is inefficient and may have security implications as
-> well.
-
-The hci_event patch makes it apply for all Broadcom chips. The author who se=
-nt that patch themselves use a T2 Mac. I doubt all Broadcom chips need this b=
-ecause there have been no bug reports from normal PCs.=
+Why not try free_to_pcs with allow_spin as well then, and improve
+memcg_alloc_abort_single() for both contexts?
