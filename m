@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757267;
-	b=bFxlXXLJS80QcxKsCVxTlMYrFbClkBckB4eLkOUeLygzyMFS9k93tGzTrUTGC3yBjkOu
-	 BAFssw8UmzFyyahQSEmitFMSCCGTMkX3gcBpRUuXOq4fYxCBP4snUkm+zL6wXyt3k+xXp
-	 U8K4JyxzFwH13n8UbZBndTyi68SZbzx5Ait5cTiZZ8rkZn8KqOII2rymWqxO+RfnwithM
-	 kWa85mHFBVS4SbLwDuYxoHC7lntD+uEEbZTiCNyjt8D8DVdlZSD2KQA8ShS61DknCXf3P
-	 XYAiFP/FBaQCnTizNzTpSbpcHWAdnKASyMSYqrj9aKCo1UhbtfUQYVoED4fkVkns5WA==
+	t=1793757268;
+	b=Xc9um7Z3ZcZVFGKYi5Hx61+CkkNMaHXMjNeWCuBkTHEwGKsKP+1Ljg8/880Xu5ZMSOSO
+	 4hIC+4++iUHqWmp2Neha9SbXeqYHh4EQXkYz7zDDUpCaT8Zd9WvFrnrWrQIBO2Sc++v+N
+	 eHUgHn87gFLocNW1xu/kwXbmTpszXyME1W2b2BN9/QgMwTMzM/ayxT9p12AzvhXxPykgQ
+	 MbguI0td7V6LMwor+C3MtQwX7cBcVTFCsEsHvL2AdAHXOPEkwoyCFi/AFUyhOcC7+4AVD
+	 CmdBsC4J+Fo1aiBoMnlZlhI2qZJzpijvedW3akpaIRRWWUc/eQVyOU+bHO/Yq5fQ2Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757268;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Virus-Version;
-	bh=oR+Bkg8GJxAW2CVAmjRHYxlRtmLJ1D5BjCzlD2s/Akw=;
-	b=F4f/kitT/mKrTKUdqJ0f8RXMYXKCDLUa/2PXWOe6At4ZiaJutDKk8Omcknqy5Lv81Lbz
-	 0hXOkgwEkcUm5P5Ssmz9pZMtVTBrHOB7ZYSboCJz6xNSW1Lzsx4BGgMmBOsGQKPs4uvGR
-	 6701Uo/wDrqDmBa8Rth1fhWbXYl0C44P+qQcJ6eWhsbowxolIIuUi8fRX8oR4ATt6OclH
-	 k9npv+hf50s6ud+LQGPCaqMaH2SBAl5guEZuxTResU7ke6eEIYTBSlCYdnzcQpa9dPheS
-	 ghm3tyREa96BtD4lTv3CLA5sacisCKteXczHCTS4XnRt/owvjtIpKFrqtvrUoeBy/3g==
+	bh=GxkdG/Dl3xWarXPL1wkKFiT3BqGEfgSBRQnLy3BPbNo=;
+	b=Zi9c3A/UdYw+Y6h70tOPH7k48NIyTrl9iBF7XAO6zIv78mHgwrQLFwFR9xQqVXHIfBWu
+	 qZVX0gH5JG+55sHG1v7388XY23Foj2E9eYy/xF6DtRJXumtQ6O8VO1Xuz5JG8I1cLfu/V
+	 0rg190gT4OKVgNxVmq42Urgje4E8WUNZH4LfBWQjE+Fu65DiVvXLhM9umJPuwPsrZPuD4
+	 3yU6TurvztDa7q5+y28tWldbZTUxsV1PYdaNaO2mYvp+dgNomGQIRLrErgmi2E2Njiy0L
+	 rHIkHWas9EeDOT5rvDvhLI3kokmODn6zV+zoOlvPA7a6vo1DnQpkDK6DOTq48jnF6Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=meta.com;
 	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JLHhJh1k;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=apj00lgk;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E08606A332;
-	Wed,  4 Nov 2026 01:54:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E08606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B47D606A33A;
+	Wed,  4 Nov 2026 01:54:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B47D606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=JLHhJh1k
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40STr43727576;
-	Tue, 3 Nov 2026 17:54:04 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=apj00lgk
+Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40T5RK2662374;
+	Tue, 3 Nov 2026 17:54:09 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=oR+Bkg8GJxAW2CVAmjRHYxlRtmLJ1D5BjCzlD
-	2s/Akw=; b=JLHhJh1korhfc+kAoLkD7tpKzO4/g+QQyNVLTcABw4JPEEVnjq/m4
-	UsTM8qbhUpYDxKxKlKIu5jBLRYPTe9zFHU6q1Lw13Bb6ocfLDunRtV3/XakHtP+n
-	NLV7vCXO+sFBDAoi40vIvtRE3FoJ/9Qn7H3dqTPBqo/9CeQl7384n0OIv0cwKzvp
-	QATjyUsU92FMi7NjnFRkjyMTPALoc8C5cAZFnPYpPw/a2FFdOVM7lESlhhQF+egn
-	3Xi1ml3LBnSymUxCw8Oj3KX36J9qd+VJrqQRpinv2nty5Y/BkRj+FLtVHzDGaPrP
-	th3zov8siEpFkvQV54v0KcEG424pLlzAA==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hqbb1qbu4-4
+	pps82601-s2048-2026-q3; bh=GxkdG/Dl3xWarXPL1wkKFiT3BqGEfgSBRQnLy
+	3BPbNo=; b=apj00lgk1l4t497TVZOOiAUGyhFhVebkivUEUtTnPLEN+csm0pqZI
+	w4HFKbRFXZtGowSz6BrvwjVMQOiRE3AXxyLpsWeNjZeCI1vyxPuUiO9PYTM5MDoh
+	b4lFPvDJDkkxQM9vdEG6SDmGV80hx1bk+tkXy1a8/3NJV9Z1TD5lJXnJPBi1L9Zi
+	/c0curquiGV9d3/YCP5eP5+defLXXrEtQN6PYttkLSAhMuw4JiGVJRhqPzVisRKm
+	U40/SYrKxwVnTMT7t2ySCRTqqeo5/EeIIZyr6YLJcKyD9zlJvAtUOeWqNT0Kwyqk
+	DtLzeh/PZg6yzwGjmHs0BULYiy9r+8Lbg==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hqmyv2s9m-2
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 03 Nov 2026 17:54:04 -0800 (PST)
-Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
- (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
+	Tue, 03 Nov 2026 17:54:08 -0800 (PST)
+Received: from localhost (2620:10d:c0a8:fe::f072) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Wed, 4 Nov
- 2026 01:54:03 +0000
+ 2026 01:54:07 +0000
 From: Bobby Eshleman <bobbyeshleman@meta.com>
-Date: Tue, 3 Nov 2026 17:53:18 -0800
-Subject: [PATCH net-next v5 3/7] vsock: pass the netns to
- ->has_remote_cid()
+Date: Tue, 3 Nov 2026 17:53:22 -0800
+Subject: [PATCH net-next v5 7/7] selftests/vsock: test the netns assign
+ privilege checks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,7 +72,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261103-vsock-guest-ns-v5-3-48179b9b66b8@meta.com>
+Message-ID: <20261103-vsock-guest-ns-v5-7-48179b9b66b8@meta.com>
 References: <20261103-vsock-guest-ns-v5-0-48179b9b66b8@meta.com>
 In-Reply-To: <20261103-vsock-guest-ns-v5-0-48179b9b66b8@meta.com>
 To: Stefano Garzarella <sgarzare@redhat.com>,
@@ -105,108 +105,154 @@ CC: <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
         Bobby Eshleman
 	<bobbyeshleman@meta.com>
 X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: Me3SgFmUXnB2ZtChJutEyFXdcG4XU-ey
-X-Authority-Analysis: v=2.4 cv=LsIHWXdc c=1 sm=1 tr=0 ts=6aea903c cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+X-Proofpoint-ORIG-GUID: g_Khp4yoyHnOrq95vI6ikEayXZLLDvJQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfX5R9ymhi7InlR
+ ml/giaOY81l93eAOvw64w4pY6LP9dof/3fyefeRlby3QAEMgXaoPh7H5ZEMCPHNfff6HZXRisyv
+ LuSzgpMYrQSb4nnTB50NgNRdPKBAHbY=
+X-Authority-Analysis: v=2.4 cv=VcFir1p9 c=1 sm=1 tr=0 ts=6aea9040 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22 a=20KFwNOVAAAA:8
- a=VabnemYjAAAA:8 a=XJcQsa36eN5O9Fc7FbYA:9 a=QEXdDO2ut3YA:10
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfXx+zuCa20p+Po
- /fWnkqje2odZn539UhAfWdoHvrt3EjTT2/AL2u0vUR1IY2G3rQFUxSxnZsDVwNR0CFf0LYrjq35
- cVLh+CrhJMmESahPRnfBwdyaeJ+4q1yQU8z/2TatEdHIfUVFWQeX8235TCNZe8G32W3XK+t7ZHc
- pdOzICV6XE22iHhrAch0C4W24gz9g4eaq1NMIiyS7RJA1qfapEN89dTN/rS0QtPUaKFowYMRJ9N
- /O9swn4ggQK+VHTaNbaye8Ip3JxNLrAoX28vhvH3WVuFCwiemcs+vffRVk8x3N4nP8x1c/U9X1Y
- Sfsz36YHLss9ukGryES1hKFsan3meLBhFo2mGB1h9orRUxt4kzCjWeKiaF0H7ozrDY86BU69LkP
- W1nnlhGDAjnveWb6eBG+D25UwKK9y4el3bHG3qSjOR+nsdv2TIWQR7lo10PbkAtgXZmCcyvVWIr
- B4501mf8abfr5BbTeeQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfX66HY/FS/arBk
- /otKztARnWDnBYLZ/ZD+KmUZ6S+/SBfupujqkf+oR3bp0zsYM2w9TnjfP5mu4egsItK8evp4oMf
- Ra+KqFA/xERvwBYT/H1tbVZYoxCzoNY=
-X-Proofpoint-ORIG-GUID: Me3SgFmUXnB2ZtChJutEyFXdcG4XU-ey
+ a=7x6HtfJdh03M6CCDgxCd:22 a=kkcUborcUVj0H7zxAXTl:22 a=VabnemYjAAAA:8
+ a=ehl-fRECcIfF51WkWLIA:9 a=QEXdDO2ut3YA:10 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: g_Khp4yoyHnOrq95vI6ikEayXZLLDvJQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAwNyBTYWx0ZWRfX7PsGX/WNNqKd
+ q/JdnZ01mBQsB0xmeajxB12TeiCis8LTnuKeTTgD5aP+wkS7O+kA8+VFbratg1tb30Iv/QOvfUn
+ 9ZcHJfRKd0x29Wl9jibZJgmp1ljZX4rIYffiwWWhtaIbgOR3FU2HuXrzYrT/phoi7JMvnthRwAH
+ y1J7AYj2+M96VRC7hA4z192k3sMAmxWOh8YUn/90rjZbjg7HSMkmSGiVvBG02uLfGpDe63slrj6
+ 6tMri1ppmgSxTyOKeQiiuynUnpf6gOBsG3tuiMXNFSaXmFB4uix3K2k5DE02VjtSNH8x5t6DpM1
+ An2lRBFIKGB1D62kQ1Qi/zwPgl4DehWN6gua1m6c9Kr+kXZXkkEYWjeJQXyYq/3OfqGPoLbe446
+ oCohXE9WwAw60mXJRkJWXpP6VGyDYRWJPEtsbgHeZ9j6KFEVnAR7Cz9/l3zCCtWRHE0qar0jW3j
+ ZYruxuhhXG//bidKefA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
 
-The transports only use the socket to find its network namespace. Pass
-the namespace instead, so that a later patch can ask whether a CID is
-taken in a namespace without necessarily having a socket on hand. This
-will help with avoiding CID collisions when devices move between
-namespaces.
+VSOCK_CMD_DEV_NETNS_SET refuses callers without CAP_NET_ADMIN in the
+init user namespace.
 
-No functional change.
+Add two tests: one confirms that CAP_NET_ADMIN is required even by a
+privileged user and the other confirms that CAP_NET_ADMIN in an
+unprivileged user ns alone is insufficient.
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+CONFIG_USER_NS is needed to test the CAP_NET_ADMIN + unprivileged user
+ns case.
+
 Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
 ---
- drivers/vhost/vsock.c            | 4 +---
- include/net/af_vsock.h           | 2 +-
- net/vmw_vsock/af_vsock.c         | 6 ++++--
- net/vmw_vsock/virtio_transport.c | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+Changes in v4:
+- Require EPERM in the privilege tests, cli.py does print the errno, and
+  probe unshare -Urn so a setup failure skips (Sashiko)
 
-diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-index abed1fbcf66c..01f8930ca51f 100644
---- a/drivers/vhost/vsock.c
-+++ b/drivers/vhost/vsock.c
-@@ -91,10 +91,8 @@ static struct vhost_vsock *vhost_vsock_get(u32 guest_cid, struct net *net)
- 	return NULL;
+Changes in v3:
+- Require setpriv only for the ns_guest_ tests, not the whole script
+
+Changes in v2:
+- Assert only that the command fails, not EPERM: ynl's cli.py does not
+  report the errno (Sashiko)
+- Use ynl cli.py for the assign
+---
+ tools/testing/selftests/vsock/config    |  1 +
+ tools/testing/selftests/vsock/vmtest.sh | 50 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 50 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/vsock/config b/tools/testing/selftests/vsock/config
+index 5f0a4f17dfc9..4b31085558fa 100644
+--- a/tools/testing/selftests/vsock/config
++++ b/tools/testing/selftests/vsock/config
+@@ -109,3 +109,4 @@ CONFIG_FS_DAX=y
+ CONFIG_MEMORY_HOTPLUG=y
+ CONFIG_MEMORY_HOTREMOVE=y
+ CONFIG_ZONE_DEVICE=y
++CONFIG_USER_NS=y
+diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
+index f8aee1336a09..5bd90a0c2380 100755
+--- a/tools/testing/selftests/vsock/vmtest.sh
++++ b/tools/testing/selftests/vsock/vmtest.sh
+@@ -93,6 +93,8 @@ readonly TEST_NAMES=(
+ 	ns_guest_assign_g2h_netns_host_connect_ok
+ 	ns_guest_assign_g2h_netns_pins_ns_ok
+ 	ns_guest_assign_g2h_netns_old_conn_send_fails
++	ns_guest_assign_g2h_netns_no_cap_net_admin_fails
++	ns_guest_assign_g2h_netns_unpriv_user_ns_fails
+ )
+ readonly TEST_DESCS=(
+ 	# vm_server_host_client
+@@ -187,6 +189,12 @@ readonly TEST_DESCS=(
+ 
+ 	# ns_guest_assign_g2h_netns_old_conn_send_fails
+ 	"Check connections made before the assign stop sending once they lose the device."
++
++	# ns_guest_assign_g2h_netns_no_cap_net_admin_fails
++	"Check assigning the guest's vsock device to a namespace needs CAP_NET_ADMIN."
++
++	# ns_guest_assign_g2h_netns_unpriv_user_ns_fails
++	"Check an unprivileged user cannot claim the guest's vsock device via a user ns."
+ )
+ 
+ readonly USE_SHARED_VM=(
+@@ -199,6 +207,8 @@ readonly USE_SHARED_VM=(
+ 	ns_guest_assign_g2h_netns_host_connect_ok
+ 	ns_guest_assign_g2h_netns_pins_ns_ok
+ 	ns_guest_assign_g2h_netns_old_conn_send_fails
++	ns_guest_assign_g2h_netns_no_cap_net_admin_fails
++	ns_guest_assign_g2h_netns_unpriv_user_ns_fails
+ )
+ readonly NS_MODES=("local" "global")
+ 
+@@ -368,7 +378,7 @@ check_ns_guest_deps() {
+ 		return 0
+ 	fi
+ 
+-	for dep in unshare python3; do
++	for dep in unshare setpriv python3; do
+ 		if [[ ! -x $(command -v "${dep}") ]]; then
+ 			log_host "no ${dep} for test ${tname}"
+ 			return 1
+@@ -1909,6 +1919,44 @@ test_ns_guest_assign_g2h_netns_pins_ns_ok() {
+ 	return "${KSFT_PASS}"
  }
  
--static bool vhost_transport_has_remote_cid(struct vsock_sock *vsk, u32 cid)
-+static bool vhost_transport_has_remote_cid(struct net *net, u32 cid)
- {
--	struct sock *sk = sk_vsock(vsk);
--	struct net *net = sock_net(sk);
- 	bool found;
++check_assign_g2h_eperm() {
++	local wrapper=$1
++	local out
++
++	if out=$(vm_ssh "init_ns" -- "${wrapper}" python3 /root/ynl/cli.py \
++		--no-schema --spec /root/ynl/vsock.yaml \
++		--do dev-netns-set 2>&1); then
++		log_host "assign unexpectedly succeeded under '${wrapper}'"
++		return "${KSFT_FAIL}"
++	fi
++
++	if [[ "${out}" != *"Operation not permitted"* ]]; then
++		log_host "no EPERM under '${wrapper}': [${out}]"
++		return "${KSFT_FAIL}"
++	fi
++
++	return "${KSFT_PASS}"
++}
++
++test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails() {
++	check_assign_g2h_eperm "unshare -n setpriv --bounding-set=-net_admin"
++}
++
++test_ns_guest_assign_g2h_netns_unpriv_user_ns_fails() {
++	local unpriv_uid=65534
++	local unpriv
++
++	unpriv="setpriv --reuid=${unpriv_uid} --regid=${unpriv_uid}"
++	unpriv="${unpriv} --clear-groups"
++
++	if ! vm_ssh "init_ns" -- "${unpriv} unshare -Urn true"; then
++		log_host "unprivileged user namespaces unavailable, skipping"
++		return "${KSFT_SKIP}"
++	fi
++
++	check_assign_g2h_eperm "${unpriv} unshare -Urn"
++}
++
+ shared_vm_test() {
+ 	local tname
  
- 	rcu_read_lock();
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index 370fcd3ddabc..1c38a27fadf2 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -183,7 +183,7 @@ struct vsock_transport {
- 	 * CIDs via the hypervisor (i.e. supports the fallback overlay). VMCI
- 	 * does not implement this as it only serves CIDs 0 and 2.
- 	 */
--	bool (*has_remote_cid)(struct vsock_sock *vsk, u32 remote_cid);
-+	bool (*has_remote_cid)(struct net *net, u32 remote_cid);
- 
- 	/* Read a single skb */
- 	int (*read_skb)(struct vsock_sock *, skb_read_actor_t);
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index aa4732c3599f..c9b28e34b1b3 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -633,11 +633,13 @@ int vsock_assign_transport(struct vsock_sock *vsk, struct vsock_sock *psk)
- 			new_transport = transport_g2h;
- 		else if (transport_h2g &&
- 			 (!transport_h2g->has_remote_cid ||
--			  transport_h2g->has_remote_cid(vsk, remote_cid)))
-+			  transport_h2g->has_remote_cid(sock_net(sk),
-+							remote_cid)))
- 			new_transport = transport_h2g;
- 		else if (sock_net(sk)->vsock.g2h_fallback &&
- 			 transport_g2h && transport_g2h->has_remote_cid &&
--			 transport_g2h->has_remote_cid(vsk, remote_cid)) {
-+			 transport_g2h->has_remote_cid(sock_net(sk),
-+						       remote_cid)) {
- 			vsk->remote_addr.svm_flags |= VMADDR_FLAG_TO_HOST;
- 			new_transport = transport_g2h;
- 		} else {
-diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-index 4f9aa9c4c3aa..eced6929405d 100644
---- a/net/vmw_vsock/virtio_transport.c
-+++ b/net/vmw_vsock/virtio_transport.c
-@@ -548,7 +548,7 @@ bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
- static bool virtio_transport_seqpacket_allow(struct vsock_sock *vsk,
- 					     u32 remote_cid);
- 
--static bool virtio_transport_has_remote_cid(struct vsock_sock *vsk, u32 cid)
-+static bool virtio_transport_has_remote_cid(struct net *net, u32 cid)
- {
- 	/* The CID could be implemented by the host. Always assume it is. */
- 	return true;
 
 -- 
 2.53.0-Meta
