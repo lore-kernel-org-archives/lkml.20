@@ -1,97 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783084;
-	b=CUiBc4H0OPnDRMVm3G4GtsBzVsT0XImC4VVFyL8EuRVEGdeVjNXuA9BhJfpsQwhUdBqK
-	 /Pt5s02amZ05pbYzpj9fJvZZ7yNGOVbPy0q84895cCR/mfMKbAHGOj/84n75Q7Q+BRubc
-	 RDjUzFXtOdPyIBmNoKnHyLA8ELdXuy4XyjrXlnNgog6shhAKJAhm19nWLPyVrExxfhJ38
-	 08mUwQtaF3EY0hSZZcvYGXQj3/rNddVmncH1NrgTBufJoYYcjUfMiqCz3z/H6uPR4WLj/
-	 W9AM+9AqAhq8BHvy3xNahGWwDKFZFTp5/dg0/rmQARj80Kn/k3sFPSa58rumZEgU6uQ==
+	t=1793783086;
+	b=T6+bdBsqsbziO2SWc6ki0ogy2RrVgfcYfFa3oq5C3C8y9FwoHgbtqTsI/DUXddB3fFgY
+	 NDsFyOGa4k7muhwkHdaIxidZ0i3ZPccTtqW6ucVUz3nOI4TNmU4N1WzrJbofWnrsu3Lzu
+	 gmeEljRA97K6kVVt8DFHc2rZI4/E6mtPcFkL3kjVkVH2iQV5CFjqv+fNFS69kWiABE227
+	 ZEEmeVry1JDRjhRLwMc8E0n+gu5lQ7coWFo5sFHvbq4OqUShy5Xtc35MAgE32/il+Xrs5
+	 lxb1iIfcBWUnFpkwNhVodqWp9ULt73HdgNg7BWyxGKJ2EG10ySpZL5eYHG3oLVlK4cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783084;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=abCJPnZRJTccf2CBVLemfheLgJNapsyRZa2z8kbgwdM=;
-	b=YuregrIT5rn76vy/J3A31728x8XMXlBY6oSBOC7OJC/lkYCg3s4ED2SjEheE9c5MVQdQ
-	 1WRRa3u2hjOXbiXSlyl966e8lY/GN2yFiMnGec77ZSYzxcw9Pp3MrpfuBosmpx+CMBVku
-	 06gQpnqXjb7m2eeFnFHfrCn20XXh3nYENACjRWemHVISGVctJGSOMcCcUwKJL5RH/MNX8
-	 OrXgM14tytvft4dfJ+hkcScAIqhtlhLBi6WoMXc4t8a5O+9Cp07FocFSmAxu12vIQJkJ5
-	 c+J56FX0v5xo8O9E4DVR1CgSnlsJZbzweJAplsFWTZ6+DHMNYNDQW1iWCwsIig8D26w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783086;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=tcFCvk5dy/5nZvQXEyJVg4b960/R9SgdjtGuBESCiW4=;
+	b=c27ANWOeqvfcrDf1q1uQ85ViJfinIEuEP+fNRYlck2hxyNsUYkNHXKzduL/FodkTTpBF
+	 0MCxAlpR3PW2TcqO1Qsn2j1b0zpFooH6Tl6vcKq9toaleR5HTH2rs4JY4Bqn3ESLNGrQX
+	 ai1ybJYeT14jevCxXmaGik3SZ6aflVjKx7M88kxh1x30h9V+z8PuJgLVGKAAZ1x1HotwP
+	 mLpL1iY5ifvCb/01cQtHHQoU5iH9WW3aCDEZfJ7Dl3QEGGlwDo09+erok2cXUqEUTlWht
+	 O007ljC1r2LLrnVEggsiYFpWMNYEcMSpOfWBVNIdF2G5tjIA/5xAIWPYQLh779jyQbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gs79E6th;
-	arc=none smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A34606A33F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A34606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gs79E6th
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-677af43eed4so439139d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:04:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793783083; x=1794387883; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=abCJPnZRJTccf2CBVLemfheLgJNapsyRZa2z8kbgwdM=;
-        b=gs79E6thA3kgM6oDsprNfbjRxjwDOdimV5m5dxpy6nnkoyTnCaxm36bTVL4jKtu7QG
-         8U/a3mbtqM9vauAo6IBgnl2s1UtA/flpMpKlV8xNTBvMCmI45PGN/q9RTQgpd4qtNOUn
-         b+4Lck/6cMDEE1dmQq3TkbXCoJQakUKtUiL71KNUsbz3/XMlSejTPBih4EZPquQR9dpP
-         plj8nJ5zBbmSugfbxbPpVLW+JLImaH6B6QK0hUYoU0heGJAiU7A8lLjvvZUGJG68UhDN
-         y2eLtL96yRqWgdt/WbIh+VFLSoU9/wSy8wvWg5N1nkpmseOEyS4E3qyQiNsjqC1GDbcN
-         j4yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793783083; x=1794387883;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=abCJPnZRJTccf2CBVLemfheLgJNapsyRZa2z8kbgwdM=;
-        b=NpRp4husiTC18ausz6zLBUPU/fJYihTgHHWpULOrjVqNdKwTFFHzvhS1NIxTDd3red
-         hhjcQbETTMsGjKm95LcYVepkKor8J9BKGbBVfUtjEc0JZKFQexn+aAx9voz9xuJvHnep
-         XF2ORrLlD/AFdvHKAZrPPX2T9nx4rbIewNoZhmpUzDJh1ORByYiq0Q384B8vzGnLYBJD
-         Ho0ALQO76yloZu4oy6PEyLRGUSUJRebE04CfGGWic0VEXsQFIuVqUURqWpVgb12xaLYG
-         u8U4FzJS9o/p+YPnuonw+LKejVZgDPeeozsLTtSYxjHzhQNUTzOY30ibxOqinPzEtlUy
-         4b1g==
-X-Gm-Message-State: APuU4Z8UHxOHNLFB4934sqkT+BvANAA9osrsd7ZXkYMI8uj0cPlfTwrj
-	PhhiKjWblLKaZXMjT/DNGBEdyI1hIgXlH0jb1wn8wzHd53n50I46eEj/LX6P5oav
-X-Gm-Gg: AYBFou0w9JdmyI8/hOd6rZETrbX08lo0JaOuckUlg7qGwvLP8vxeiXXjY/4GGAeukLm
-	w4/erQd+HQWhjS1lJ3HH2i/3xnkqoIamnIpp5+03nh6hUYnYEHMFy4r1x5Ze4lqyxxt8KrBD3tc
-	dvDYAxqAE+ZaD/7xQug5HXVp2E6UqqkWySPVcVYp5kfLgv5iffy4gP8i7AqTxF97PdNjUKXw+98
-	MYr9j7SCv9c0S1fTPrUN4Pqnn7CLjPaco0h9U9lfT7wsrEm2VWZ9IzOcpEWXM5T20ofrLGB8EUF
-	ZE0a8jFbgRz3+Ndf7Gw+6+HpXqR6kU4Qu+db5ujEEL/2yMBwrBElAwW7VHp6IDnfccdvofgQPwZ
-	KXIHhrCCY45qPFzinyDsRoCzdUeGYDqjdoRS9uulpnrfx1yo1AO09oh4SOZDUx/Pe3NofmHHLiS
-	kFjIAk45uqtlCWvfVbnjeQV24Z/1nZ9BL4oL6CTCYW6u+9Y6D6JdwIhuJUPJE9t44Sj/hx8gaMB
-	9sFrmvWuMe8kkMMnc35gw/8DcXwNcx6XvmycW+mWyjFtRttKhc+kqa8ZME1BqO04y7itjxZKKi9
-	VcCCWK7P4qttGHeRupVTho2EkcxDI/fWGnhBF5E5wCzRRETkdtCe9OcOz4H1mnkKykxZ1vul3Q9
-	2LFIiwcS9DbkzUTrxtyjR61c=
-X-Received: by 2002:a05:690e:bc9:b0:675:a278:10a4 with SMTP id 956f58d0204a3-67ba5071189mr12464797d50.103.1793783083257;
-        Wed, 04 Nov 2026 01:04:43 -0800 (PST)
-Received: from RDEALENC-L01.ad.analog.com (158.95.44.31.netskope-rdns.com. [158.95.44.31])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bbb4f7sm14402517b3.41.2026.11.04.01.04.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:04:42 -0800 (PST)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Wed, 4 Nov 2026 06:04:38 -0300
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v5 2/7] lib: kstrtox: round to nearest, ties to even in
- kstrto[u]dec64()
-Message-ID: <7qc3geup2edufde3wbx5wsyhjz6tcnekoa4c4alxudqb7buvmf@lijbrfhachls>
-References: <20261102-e-notation-v5-0-d399e544a982@analog.com>
- <20261102-e-notation-v5-2-d399e544a982@analog.com>
- <auof_hMbsbFq3MYj@ashevche-desk.local>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB312606A32E;
+	Wed,  4 Nov 2026 09:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB312606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id E2B4E68BEB; Wed,  4 Nov 2026 10:04:40 +0100 (CET)
+Date: Wed, 4 Nov 2026 10:04:40 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, David Howells <dhowells@redhat.com>,
+	Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, Sagi Grimberg <sagi@grimberg.me>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"open list:NVM EXPRESS DRIVER" <linux-nvme@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [RFC PATCH v2 02/11] nvme-keyring: Add a missing key_put()
+ call to nvme_tls_key_lookup()
+Message-ID: <20261104090440.GA30968@lst.de>
+References: <20261103030226.2685251-1-jarkko@kernel.org> <20261103030226.2685251-3-jarkko@kernel.org> <20261103053303.GA1382@lst.de> <aunTlxXbRJ6ZP63h@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,49 +62,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auof_hMbsbFq3MYj@ashevche-desk.local>
+In-Reply-To: <aunTlxXbRJ6ZP63h@kernel.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 03/11/26 19:55, Andy Shevchenko wrote:
-> On Mon, Nov 02, 2026 at 07:41:00AM -0300, Rodrigo Alencar via B4 Relay wrote:
+On Tue, Nov 03, 2026 at 02:29:11PM +0200, Jarkko Sakkinen wrote:
+> And essentially what I would want is key_type_dead not to exist.
 > 
-> > kstrtoudec64() and kstrtodec64() drop the digits beyond the requested
-> > scale, which truncates the result toward zero. The error is up to one
-> > unit in the last place and is always in the same direction.
-> > 
-> > This is easy to hit with values produced by userspace floating point
-> > formatting. Printing 0.3 with "%.17g" gives "0.29999999999999999",
-> > which is parsed as 299999 with a scale of 6 instead of 300000. With E
-> > notation a negative exponent can also drop integer digits, so "19e-1"
-> > with a scale of 0 gives 1 instead of 2.
+> This version is based on module pinning, and  thus not having that
+> key_put() would keep key type module alive in that case. However, it
+> turned out this approach will not fly as AF_RXRPC and DNS resolver will
+> hit the wall given e.g., the remote pinnings.
 > 
-> To avoid unneeded brain work it would be nice to add an example for negative
-> input, like -19e-01. And I hope (and it seems the case) we have test cases
-> for that.
+> The approach I'm going for next is to have a type registry instead,
+> which is independent of the module system (to put story really short).
+> I think I'm doing this with right process as this really needs a few
+> trials in order to find patterns that stick.
 
-We do have the tests:
+So what's the plan here.  Should we merge this standalone as a fix,
+or are you trying to get an entire series in?
 
-	/* E notation: negative exponent rounds integer digits */
-	{"-27e-4",		3,	-3LL},
-	{"-125e-1",		0,	-12LL},
-	{"-135e-1",		0,	-14LL},
-
-> 
-> > Round the result to nearest instead, with ties to even. This is the
-> > IEEE 754 default rounding mode, as used by strtod() and printf(), and it
-> > does not bias results in either direction. The first discarded digit is
-> > known from where parsing stopped, so no extra pass over the string is
-> > needed: the remaining digits are only checked when the first discarded
-> > digit is a 5. Since round-half-even is symmetric, kstrtodec64() keeps
-> > rounding the magnitude and negates it.
-> > 
-> > Inputs that fit within the scale are parsed exactly as before. An input
-> > that rounds up past the type limit, such as "18446744073.7095516155"
-> > with a scale of 9, now returns -ERANGE.
-> > 
-> > Update the existing truncation test cases and add cases for ties and
-> > for rounding at the type limits.
-
--- 
-Kind regards,
-
-Rodrigo Alencar
+If it's useful as a standalone fix, please resend it standalone.
