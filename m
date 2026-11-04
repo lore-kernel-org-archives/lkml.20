@@ -1,137 +1,193 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756109;
-	b=5jXLd8293mv47LgWSP+XCi7d/ey7GqXLLwK5vA8WdxEZdgwbTHmMGHo0zV5pe05W43FE
-	 T8ZoqA0K37av/rBlDeMTGxqC0m1FSC2tIpL32WJ9ZC+nvK1HUaO4UQToZyJix1fnFtumA
-	 eHwSWSFaopnyyQmuJ1dOb7wYooarZDenDwBcWkk7GqVTMWPrcuX/GFtniyEIy3YAywG3q
-	 o6vVG+ez0h3+ZJDkKFiOGe+dNidV1hanv1xAMRW9jsTBA9w1SWc/DDh4YHCHb6eDbPOGP
-	 qcUHd9g3T2NANffDj+Timn3N/U+5xmhJx+jZcxdbnKnW/1qbFt1qfIjrzZnwxBUd4CQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756109;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=;
-	b=ipS8MLTgTTNcTn/JpWZNFMAYjtGLMWUC7gWviKgwLg5a3eR7ttT4Qhi26bofnvMMR9j+
-	 eQ+ONzlpP9pyTGxIJXyq0Zgmv8F8wUqmGWm0u6iwJj+i4z+yAt9jAQK6QB22sgQuRyEp2
-	 vEhllUfPHFPpF/EGElExxfM5UhZLD7upHIXljYwegS+pWMP/0wVDQisNd20F/0dfZ88O9
-	 4EUjN6seWHLZ5tNQ8mTTAAswZuVkM7MHUBqCGd2z1qKScsJ3GQrwxyBBY41FdIP/LTDhQ
-	 8y8ZDows853bbFvXEvwzt2tuMaAFHATMl6+5aHvi8nqAxEwPwh8o675HhUwXVuvL9EA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=themaw.net;
-	spf=pass smtp.mailfrom=themaw.net;
-	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm2 header.b="pTf3P/b0";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=2gJWjarR;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793756134;
+	b=IrJ16yPVPVhzwuG86dMZPHpZ2tlPHN51cRuqjEa4jHh577ylHjRf1MM4hy7TxTZKuDSJ
+	 SCuqZJTCfIcnZVmFlACrG69GXumHzxzBDIw2CbzVP1hs2SRBl9rCde9qr+BPR1PKYytrZ
+	 J1hA1E5yMZLuDGf/oTe61XCwEZKLcDAgyxHffJ9sSaTdfTUz98UY3094FUYj04K4X6LtK
+	 AScJTbdOSeFfbBKjdixImoplRvYGzY6SfGqEiwuhqaeb2kce3gudQEMnNfqtdRMmbxApG
+	 X7jqUCnZjh5s/EWQkxU6w+piGGj8Rvcqz1JIWkG6N0nvcCbjQqj8CQVVbi8SNeKl5XQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756134;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:Subject:Thread-Topic:Thread-Index:
+	 Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=yyJLp4eKpWYLd/pKK0UkuFflWBwgT/HzXEXGnucQWNI=;
+	b=TYMcIMM0IVrmJeC229uLMRnZsiIl5FmL15mzZqZ+DHKQ0EElfUjmbb/QpaB7qM4A8Jt6
+	 4bQmT4SeNzRghdmT+AcqlofCPq8fIpSi4iUbk+3w/gk1QSvNPO3RvRHBdvXulXVyWgEx5
+	 bUYCecw/Z3hsEILqAZQK+HWWIbr+VJHjAwC51DbmFk1ukbbIUbDm71vVkX50GbGxyLX+z
+	 HA4R0KiF6LtjiBgyK78a6J1caMfC/F0CvkuSVWP7sfx/Il18QUBzVjTegbZhRnDiEpDkD
+	 BnKv4sbJZ5/S4QSH2BUjZ2MSIO8A5G3WO8VJt1+xLbUh1oia+eEFMimgoSH9BWZnUmQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GqX+aBaG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C941F606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:35:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C941F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56F3606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C56F3606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm2 header.b=pTf3P/b0;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=2gJWjarR
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.stl.internal (Postfix) with ESMTP id 54C071D001C6
-	for <linux-kernel@vger.kernel.org>; Tue,  3 Nov 2026 20:35:08 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Tue, 03 Nov 2026 20:35:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793756105;
-	 x=1793842505; bh=nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=; b=
-	pTf3P/b0NVeUia3wP4piQmr+iXUMn5apqHAoRi5qdpHeGXoAuWaiYn7/Gtm55OjL
-	KKMyTSVA/IDMH7fuXspg84fZVCevce32KQh20ZQY7uDPPBVGE7PtqBNp6jPT4CQ/
-	ZhT1MbixOOJQSEYFp3sv0kdcq8tIpc/xm3QwFy/Pbix76hVv+XrlCy4kzBPlVDeZ
-	VUCPglmyUXP3NhHZL2rnFYfBWriit+r7uKHIa0sYbD0CdrXomeDBCu7z3B+LVp4n
-	FKiHOh7966GeV2bK3KEFMPzGET7WhlwSXNv8VFYTzCjrdv4YkAqzMaOs88Zr8uCh
-	QqORpgQZzV2M+q515r1a1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793756105; x=
-	1793842505; bh=nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=; b=2
-	gJWjarRGHJlRgxMFKcfin7DfF+EJoIRFnG4Qt3WtEkqBPGxsQLr446yzS6nYGjjP
-	ChnhleRifJbhwhCRbKWp//wWh/cADyzjkHhHV05jshyhmC9Zl29pDnBROSnw3ue7
-	lspGwsipjdx2cQ2ZRro3WB+ZhZb04i/Vzf7o0gzjBqlgPGtnFXv1m9sexah0GnxR
-	psAUbbXbXuOkFYB9UCaJMDh04rubD3o202nYpdOLgzxuTf2OCDbDtB2ly11e9X8C
-	iv+1eckMHAkffmU8lR2cmf4JJ882Pz9fGeMCjvp97zE3Y4Cqji2QqWD/JrLLgrIF
-	OaWyxAxWFNoMt8GI+4Dog==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793756105; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:dAd8YpgskMgLK0A5T7nqWjjPaAnSKSlclh4DWBYxDk3faC9
-	JXru3vX7Vzi06Dp2X219y39eTrYoThrlYmNenZgR/B7Ha9Eu0gSLzW9S/wgO/pkU
-	GhZXGSEXeRUuNOzyDi/h9zAu7vwwMbTqDZa7GeiCX8AO7YAzWFrW7wAZuXpkORkN
-	GcqQQZWpvb0qp5pLLTnu3bm9i+irVFA+Vx9yGTqI0gNtGiYCegmHfR0Be/cuT31s
-	zi4ehH0GJPSJqCOdD9+aWrOBz/ynNTwk0ctrUIYzuXqFOUabnsTXPxAEgf9Bjgus
-	MKEK6ciiBI1DspbdJE+FFbAYSt0sbYb7FidcUQg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:JZSYRBJ4XfKKK2c2F966LsA3L7y0qeazKA9dPaqM5cM=:nrCeA0Hqd3kzPVtOoYwsmHRxx4PIWhKMqYln/tuojws=;
-X-ME-Sender: <xms:yIvqak8aW8vPP1wYuTZ66-FXE9JchOqUoOVVSM7tlJZ7mdGpH_TJeA>
-    <xme:yIvqajqLJEcFCWNrUyX1bDL7F5xyR17ghCWEvdnIgaHcjM9XdivA3OfavbyD8VgS4
-    liFw17oQwZ1opRAwYIIkkxl0rNIzqAarNIf1w9ov_Q-o9Hoxw>
-X-ME-Received: <xmr:yIvqavG1DHcwBbAdaiwmEThm9aL97Wp6aB6SWZEsAOSj50H8iQR6FluRryywLJL5kEfkPNEApMBaq-O6446Z7zyqDvVFxmEteWqTE5dzu5bq8KjDLo0BpMqHPQ>
-X-ME-Proxy-Cause: dmFkZTF+04G1PZLn5pVjkUdTZfXjvyvZ6+U8BNsX6Uz8TcRc7Dni9tGiF8trMZFnpdP36Y
-    WHAL+f0oLMU/tIJzmPRU9AUycwgLXwKMpwM7jFAgggPAZBT7SEinY49CDSHBLUZ0duPrOG
-    60Hk2CxBQTEF+b0uas6CmNxLaF48T9Cxtd/9VessSqrDrlRugMRTU/njgW67f7ND2p8MqW
-    Y09NMG7WMw4H7Y7p2mmxSdp63XKWcwPK3ck3UWp5AtX4jqct0L7pzOwPioj1oIlihAD5La
-    KoEOFT8xunxLYwDO6gFh7KnaKyay3ISiJl7StpuFQnbKzeT/4G4nyRUAtSrsRJYR1MGLTA
-    +rE6/UCqkXrEj7q8MXO4i/llTiKfX6vggR3eEuXWNwmtNHSJwIYkf9YScRro0S5cdaeSQ0
-    bhIV6u+hjNbe1NXBJZW3XsdgEgerqBBB+vGM5nrWDQd895tmhXzgVKVhsyLbrU7WBqF869
-    SUuKaGeXkpVuh2JTVKgapzKlNAOyeXhT18ChFXraqrpsVje9DaWMGs7qG/+FCRMvxFzNiw
-    5zABJu8ivCSKjcYzjYLzhgicApQpftUvcizSU7TCplIlaRJ+GQUlJkR9y8cIsaNV/IpHmu
-    20S9LU4MNblqdmiYRMA9KfjqlE5IyOOQbG8Bw+K4F20VV2CcQ+czVzf6bTTg
-X-ME-Proxy: <xmx:yIvqark1wviiPfMu8HYNEWnOToeqrhsKrOXTFBE99yWAUi3eRgCiQQ>
-    <xmx:yIvqaj8K4HXatZ_JQ0Tckbw1w6GV4_ToSJ8zZPEbihmhQDZn8GJ4ng>
-    <xmx:yIvqaknOfgp_nNrncPU6STsGJR_9-dHlKgaR71KrKP3nGpbNFrVfSQ>
-    <xmx:yIvqapmz6xFiMTnO8t9nGJXF-bbdQGteWI51Dd5So6kaCp-56EJ68w>
-    <xmx:yYvqahZMBV8w9xZ8JtI64350QsWdvRuMHUA1Tghdr8XHsDRzO5N_Li-L>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 20:34:58 -0500 (EST)
-Message-ID: <6ca657f75453ddf7ccf3acd608cb1794f2c937d4.camel@themaw.net>
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
- stores
-From: Ian Kent <raven@themaw.net>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Greg Kroah-Hartman
-	 <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich	 <dakr@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner	 <brauner@kernel.org>, Jan
- Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>,  Peter Zijlstra
- <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
- Axboe <axboe@kernel.dk>, 	driver-core@lists.linux.dev,
- autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Date: Wed, 04 Nov 2026 09:34:55 +0800
-In-Reply-To: <5f659257d9842544d6830f9041e5ede63416d214.camel@themaw.net>
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
-				 <cover.1792577179.git.krystianmkaniewski@gmail.com>
-			 <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
-		 <4f56c93a9fc5fee152364974773df0a319c84af9.camel@themaw.net>
-	 <5f659257d9842544d6830f9041e5ede63416d214.camel@themaw.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GqX+aBaG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793756131; x=1825292131;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=yyJLp4eKpWYLd/pKK0UkuFflWBwgT/HzXEXGnucQWNI=;
+  b=GqX+aBaGN4e1DWwABSxE62R+o/1v7rb21Wdr+ySGk92wDOve7nqIoy3c
+   DAkTzXFbZC4Tr+MCwj0Sz7AXRY/mjuxljcH1+WGC31AYQdHYANbu8nACv
+   lK1oibhCpg9p7ihg1c/KV5VE7c80NGsCRhoxLBcuUroTz+ml5TKayjfge
+   JWPYS80e9dOku0IUEBNZHYrisRHJvY+Nm+y1pQJuAVkR5ZVObfTn5Masu
+   86ZEbO0AqQnflHn43tReGgczOApMaLq0IMlaS3nRs3tKxSoEFcmcQ2q0M
+   SjB8RISC4hYPUf57QECUByEonCX6KIp8vU4wOPxa+6g+0RiFMzMj3X0Bh
+   Q==;
+X-CSE-ConnectionGUID: a7XxSccbQBmh/q4rT0z/EQ==
+X-CSE-MsgGUID: 75iLrujtROOmDTd5pYxHmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2517836"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2517836"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:35:31 -0800
+X-CSE-ConnectionGUID: Q81Yz7kbT9OpLztne4A9WQ==
+X-CSE-MsgGUID: Gmn25r1RRXOJ5XQMNy48EQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6911760"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 17:35:31 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 17:35:30 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Tue, 3 Nov 2026 17:35:30 -0800
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.66) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 17:35:30 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KxpIztOiMPLIm0tWkSe77DbOLNvy8WFrH9JsWUIK4APRwwIh5O20kkthU6siOKQnaoZVGJg7pa1F+Fi3H3VEw39JZfanASdNqjCTMylINPHooMDOkopr5wecnZbQynilyTrrmtLFNfo+1v3g8NQxgua7ObPUA4AoBiCuvYqJKwV2XzcS0eYrmOnokB91Zydkp8dL5vmbfas4txwEZuUZYxFaPI51s0pso41Barj0x50Ovz0wC93RRlVfWGiiuakjKEWN0OE8VE9oRrNLb7t31hH0JO1Fo0Oh/US0d3tGSkbu3n9+l+QRwPCldV1PcDf+fFRyC5xzC88dOIGK8d1P/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yyJLp4eKpWYLd/pKK0UkuFflWBwgT/HzXEXGnucQWNI=;
+ b=zDMmXADWO3QVqdi8UA8vkm1Bd/pL20Lhbx42xl6BcuNcOKMWxaKMT15+3tTMDqBAaY3HwUtkyqvXlCOObth8tNEMK1OcLRzrUMmWGapwij9KA1m4QH/x/vrOhOnpP4ChNfRc3JtyDILc/vYo7wDxTHG602H9u/fJEbs7tURybmWfUSf+vje0vtixRNxWNhQ32KHpdANzwO6rvvBvG7aBq2sotzeqbIVuDTgB8LjhVNiI5MLseajxx8n85bfbm21s5r5yXCPilJcjIhwo67TYu1cnuXWrX96f7M2B4X5fR37ZFBFpQ7ujg2yZrDqrxTT2DS75klgCE+dIVosTBOQUHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS0PR11MB8134.namprd11.prod.outlook.com (2603:10b6:8:15a::9) by
+ PH7PR11MB6907.namprd11.prod.outlook.com (2603:10b6:510:203::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 01:35:27 +0000
+Received: from DS0PR11MB8134.namprd11.prod.outlook.com
+ ([fe80::d95d:cb19:df8f:1610]) by DS0PR11MB8134.namprd11.prod.outlook.com
+ ([fe80::d95d:cb19:df8f:1610%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 01:35:26 +0000
+From: "Chang, Junxiao" <junxiao.chang@intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>, "jani.nikula@linux.intel.com"
+	<jani.nikula@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+	"Brost, Matthew" <matthew.brost@intel.com>,
+	"thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+	"airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+	"bigeasy@linutronix.de" <bigeasy@linutronix.de>, "clrkwllms@kernel.org"
+	<clrkwllms@kernel.org>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>
+Subject: RE: [PATCH 1/2] drm/xe/display: Skip initial plane allocation from
+ stolen memory on RT
+Thread-Topic: [PATCH 1/2] drm/xe/display: Skip initial plane allocation from
+ stolen memory on RT
+Thread-Index: AQHda0Q7lDfsqfAqaUi6ti4zRu9aNLccKkKAgAD3WpA=
+Date: Wed, 4 Nov 2026 01:35:26 +0000
+Message-ID: <DS0PR11MB81344F9A6B315D482BE659CEEC682@DS0PR11MB8134.namprd11.prod.outlook.com>
+References: <20261104032732.30681-1-junxiao.chang@intel.com>
+ <20261104032732.30681-2-junxiao.chang@intel.com>
+ <65fae402-e053-4a4f-ba55-6b5b51690eba@lankhorst.se>
+In-Reply-To: <65fae402-e053-4a4f-ba55-6b5b51690eba@lankhorst.se>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR11MB8134:EE_|PH7PR11MB6907:EE_
+x-ms-office365-filtering-correlation-id: 294e1d5e-f570-4004-dc9b-08df3a13e716
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|22082099003|18002099003|261102123227099003|56012099006|10067099003|921020|261021121427099003|261022075727099003|4143699003|11063799006|38070700021|261026121527099003;
+x-microsoft-antispam-message-info: RFY0+26eDhJiGjGjZTv9FAgvC4YbuIU5Y30f5o8MWygfZdR25WlpH8vIgC4J+Y+VD76tpUziM9/DHFp/V2842RDK5jifZqoAREqhPZNzHqRiogNRei2OAwBRqLnLqfwwNFS9QV/eDmJPXhrjaQ+jKOROXRkiCaBaUBDj9WlJgvXhwGld01h0WQKLEyf6FZQD+dC7m+4fq4g77TJBDXOTeqz3WVyHZ+JAa7krS/Io0Tu7CKWK5XlNdyPwOLc2jyI1l57ImkKqz9ndnaENacDnb0aj5TrqVMufhLbKaErvNcUdS8HN2Q/aRHQe/5eSnveI7R/IvBaEiILVfoQJQIbc5QWgzPBd+F/HGLQQD9PdtEYDX4bQ18eErxoTX3bdAKM+KDrojomS3YNyIbmEm69eSLOHEg3ev0sp/CxvNwyUVTzBxXHDK321dByOHS+y22skwQwO/AAr7ojUcFl6WUKdbqH3I3+JJynuZiGmhKTF6QS9TFcCa5KNzOSBhpu2O0KCey7TyLY3ELqjFBHP2tB4cGnwEi6kWyZJJoBCxudFupOXhR+8BNgZwK/VEtyAi3usp3AblDD0GYV9pduDsH0aDyA5rN8mSmxO/fF6X8d1RPXDnHVyaUoat7uw+nk1diS8GdCsvfdGRx/bePMNUx+BUsGa0pzcX3tH/3dqWdbBZNKpHOvvkmcJL9xaKQLD8V4H
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8134.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(261102123227099003)(56012099006)(10067099003)(921020)(261021121427099003)(261022075727099003)(4143699003)(11063799006)(38070700021)(261026121527099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MnpUNmRGaU8yaUlUSGV3YjMxaFNERlRVM2RZNWxtSmJ1VGhDNHcwcW9iT0p3?=
+ =?utf-8?B?YXJ0cVRidThPVDhLYmE1WmlzSUxsa2hieGRKZFNlVFo2cFlnWHB0c0hrMjdE?=
+ =?utf-8?B?MVFZdm9YU3VOQTlVVlJ1ZHlNSUV3eURUYzBGbzNWeW1OT2h4RXhGN3ZybjFu?=
+ =?utf-8?B?clB3QzNQc210djNKak9XT2RrOWd1UDE4S3VxNDU1QVhwZGZNa2RrMEdFaGVE?=
+ =?utf-8?B?dE9PZkt1OVJhMmlocmd2WUtVVG13RkhUN3l1RDgvUkNPTGFHTlpaL1FWWWt5?=
+ =?utf-8?B?cFk5UkxtcW5uWG12Y3JUSklFUXExNThpUHdpa1BPa25nOW5EQnBPWHJYc0F0?=
+ =?utf-8?B?bFR5cnRNVTRuSVdpQlEvZXJ2MGFZUnN3SUlQb25qZTZOTHlaYXV6UnRVMVRP?=
+ =?utf-8?B?a3VCT3JES0Q4clg2NU9FSHNpbUpYRXpjbWxmdWV1ZmFVLzU0Qk5SNHNydHZa?=
+ =?utf-8?B?WTVDQ2ZwSVdiWE40L0RuZ1IxQ0x3b1hXUm5CRUxPeU92bFVvYWxXNUVPeWpn?=
+ =?utf-8?B?bzhMWG5nV2ZUK2tIL0YrUWhKVHRDQTRaMFlUR0xvc3gzUTM5bkpWeUh0WEZl?=
+ =?utf-8?B?QTl1N3pXbVZuYkRZVGsycURGQUgvV3Nnb3R1S2h5Sjk4WEgrZUZQdm02cVN1?=
+ =?utf-8?B?NHFOMjNLQnBlRVdydmdKQkthYnJSVjhqQmpUWnlESTkxdEFmdmdqK29GWWk3?=
+ =?utf-8?B?d25aL0RoN3hMWTlFVmhSdDM4RitwWThidjhKbmdUamN5bjNGNy9kYzFnekJh?=
+ =?utf-8?B?UWNFalk1c3ZJR0dkTTMzRzQ3V205N0lvS0ZxK1NCdXpJdkkzL0dDUUh6TWxY?=
+ =?utf-8?B?aXBzWjlna2hKNGpCaGE0NTBSekVpdWpuTXhKclVoSFlUUDFCdjhZc2E2MjZO?=
+ =?utf-8?B?MEJ4N2FSN1pxcGM1YTFCMkw1dmFyQTFPTVo3QjlHNjVLSXBGRklnY2ZHUTJu?=
+ =?utf-8?B?SDBWaGtUSDZxZmpaYUxZcnhQTEJ4M0RQU1NzdnhlS0ZJZnhHWitzUFRVTG9n?=
+ =?utf-8?B?NXRFUmRyNldRdWYvVW1MZFpIY3duQk1UR3VzUjI4NEZoeGxabHpOQkRQcWJj?=
+ =?utf-8?B?cGxrT0VsSSt2NnNvK1lVc0NTdkM1dE5RNUFPcjRNSFU2VWhwaUxQcnJYeE1t?=
+ =?utf-8?B?VFk2M0loc1FsK2pMV3lDajFzSlNCREZqUHRNSTZzMXlIWjFNQ1Y4SGMwWVFC?=
+ =?utf-8?B?Y2Q3RUJtOFhUY09JaEF3b3h2RzN2dUdHSVI4ZzRuN3FJMzZIL0lSTkc0MFBP?=
+ =?utf-8?B?MWpNSnJhdThNa1gxNExmbXhOTkdMZ05yT0JlKzh4Q1NhN0VwY1k4cS94UkpT?=
+ =?utf-8?B?UHA0QTN4a2k2OGJDR09iWS9qbXhkK21mQ1dpRk9BYjYvR2JuWHpvdTFIQmlJ?=
+ =?utf-8?B?RGI5d0FnZEEycXdFcEFyWTh4VDgyMytOT1FkWmtuMWNURFcwYnhuRjlwQlcw?=
+ =?utf-8?B?eUw1ZVVPZHExTVhZMHdJRDRsRnNTMEplZlUyTmJ2UTgyUi8rRytJY3RYZ0hE?=
+ =?utf-8?B?QllMWmNxZ0xGbkVpNDUxSVVHZzBnZWdISjB2TytRNWhYYTNsMFEyS0dSTXJi?=
+ =?utf-8?B?QmF3dkVrZTN2djFyM3V5a2QwMzUvWmdCZTQwVzRzbEVLaUR4eWxKbit6WlY0?=
+ =?utf-8?B?UmFERHlLUE81VWU2RXM0ZFBicGhNay9GdzRTUVNIQ09aUGpyYi9rakJNUmNJ?=
+ =?utf-8?B?TnlDWVpUTXYrZ1VQYkRVUWZxYmx5ek0zQW55aTIxelVRcGJHNEZuSUFQZHdy?=
+ =?utf-8?B?TUloc0FZWWRKMzBqSUJQK1FFV0xiN21oQnhBQUxPRDcwUi91WW96YVZDK0Vt?=
+ =?utf-8?B?UVJKUmtFWEZsbjNYTndBNnFQS05Ha2JVSHhERU9rekwwckx6ZjdBVUYvYlMz?=
+ =?utf-8?B?eW1VRTBhRTEwUzdxeEpoY0tlTzFlYXJOWHVKV0Zzd0EyZXRsNTlZcUV2WGJ1?=
+ =?utf-8?B?ZXU3dlFYR1dqdm9OcnJTT1FEaGVWdjUvRisvTUhFdHo5eXRjWFRXcnBEUEkv?=
+ =?utf-8?B?S0x3WHhEbkxZZjBYM3FFdUtwR0pRcW85NCtvS0pZSGxoMGF5Mnlabmg4M25p?=
+ =?utf-8?B?Z1NrUTM0UWRhNXRZbFBPUGMyQXYzV1NTSFVJZWI2Smx0VktWYzVyWitWckVJ?=
+ =?utf-8?B?eWdBZURaQ25YRzI2S3NsZ2IwYzQwaEZFOEo1dWpNdVNBTDhmSHFrQ1h1Nk8v?=
+ =?utf-8?B?bU5yTmluN214R1k4ZFI2cndJR2FxK2phN0JjNHJmTGJ6S0dQUGJhSTE4T3Bk?=
+ =?utf-8?B?czhNVC9vdVNyU29HL1FDUUdVVWo4dllKTGlsYWt2UEdQY1pIREJIaUlOYTR0?=
+ =?utf-8?B?aTdBdTBuYzk0RTlRanIwVnpodndBTTdHR1psdE1vaGp6dFpHdHgyZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,165 +197,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: FsWlRkavgmkEQxitNCrTcXhsxtBC31+pOJypiLOQyQGOX2GmIIMD6lE54ivQrTZML0OSkWokUwIPpQlZUvnpW2L1Utxd7t5rJcSkEWWggVTNlw1X7nkoN/G5EvIxLcoH/AWR9E9gQg5qdgeegVj9ss5Ux9QqrEOSU2l94oXNGGDGJ0+0i9KWKwOLvJiPqLlskWtNctXRUtH6JuRA1QXExZV/w3PT2k/5yiiTVtzhfI7NlfuTtAkOvQKGJUIbS/RsjTBszThajgFOB+yQptKTiI66KlXGPAQI6iXxiGZc/09vtd5eSuzbhia2zMYnMoH8+mt6H+fdkE8qf/SKqrAuPw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8134.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 294e1d5e-f570-4004-dc9b-08df3a13e716
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 01:35:26.5544
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Iaiy8RunopXEzlXozs9dsd5t5zH61PuqOSAsq4aC3mIvSCNooyUVGhESKoNP6t5SGt0MkRRZ1Mrl89CAvxDNEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6907
+X-OriginatorOrg: intel.com
 
-On Tue, 2026-10-27 at 08:46 +0800, Ian Kent wrote:
-> On Tue, 2026-10-27 at 07:11 +0800, Ian Kent wrote:
-> > On Tue, 2026-10-27 at 06:07 +0800, Ian Kent wrote:
-> > > On Wed, 2026-10-21 at 14:51 +0200, Krystian Kaniewski wrote:
-> > > > syzbot reports a lockdep cycle &pipe->mutex --> &of->mutex -->
-> > > > &sbi->pipe_mutex. splice holds a pipe mutex while it calls the
-> > > > write
-> > > > or
-> > > > read handler of a kernfs file, kernfs takes of->mutex there,
-> > > > and
-> > > > a
-> > > > write
-> > > > to /sys/power/resume looks up a path that can make autofs write
-> > > > a
-> > > > request
-> > > > into its daemon pipe and wait for the daemon.
-> > > >=20
-> > > > Patch 1 stops holding of->mutex around the ->store() callback
-> > > > of
-> > > > regular
-> > > > sysfs attributes, which do not get the open file and already
-> > > > run
-> > > > concurrently for separate opens.
-> > > >=20
-> > > > Patch 2 handles the case that patch 1 leaves. A store called
-> > > > from
-> > > > splice
-> > > > still runs with the pipe locked. autofs no longer sends or
-> > > > waits
-> > > > for
-> > > > a
-> > > > request in that context and returns -EAGAIN instead. A new
-> > > > mount
-> > > > is
-> > > > refused before it is marked pending, so no other lookup sends
-> > > > the
-> > > > request
-> > > > in its place. This also removes a deadlock in which the spliced
-> > > > pipe
-> > > > is
-> > > > the autofs daemon pipe itself.
-> > > >=20
-> > > > Patch 2 changes behavior for one narrow case. A lookup from a
-> > > > splice
-> > > > callback that needs an automount fails with -EAGAIN instead of
-> > > > waiting.
-> > > >=20
-> > > > The series was tested in QEMU with lockdep using the original C
-> > > > and
-> > > > syz
-> > > > reproducers and focused splice and autofs cases. The target
-> > > > reports
-> > > > were
-> > > > not reproduced with the series applied, and the paired
-> > > > functional
-> > > > cases
-> > > > matched the unpatched baseline.
-> > > I can't seem to find a reproducer that reproduces the bug or
-> > > maybe
-> > > I don't know what to expect from running the syzbot reproducer I
-> > > did locate.
-> >=20
-> > I think I have found the appropriate reproducer, certainly looks
-> > like it.
-> >=20
-> > Commit 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev
-> > in resume_store") looks like it's been around for a while so I
-> > assume the reproducer should work on 7.2.12?
-> >=20
-> > What should I expect, a hang, it doesn't.
-> >=20
-> > Also it looks to me like the reproducer is trying exploit an
-> > invalid request similar to what I described earlier but I can't
-> > test to see if my simple autofs resolution fixes it if I don't
-> > know what to expect from the reproducer.
->=20
-> Further investigation shows that the reproducer is initiating path
-> walks within the autofs mount it has mounted which is valid in the
-> sense the autofs file system will attempt to send a request over
-> it's pipe. These are not seen as invalid so I can't prevent them
-> in the way I thought I might be able to.
->=20
-> I can't confirm there is a deadlock, how do I do this?
->=20
-> A little more validation and I'll be in a position to review and
-> probably ack the autofs changes.
-
-Sorry for taking so long getting back but I'm struggling with a
-few time critical tasks (including this one).
-
-I haven't looked as far as I wanted to yet but I have looked at
-the autofs patch again mainly because it occurred to me that the
-EAGAIN return might be a bit of a problem.
-
-The expiration of automounts has always handled EAGAIN returns
-even though that handling has changed over the years. So this
-amounts to little more than deferring an expire which is fine.
-
-But mount requests have never handled EAGAIN and I'm pretty
-sure this return will result in an unexpected mount fail being
-returned to the requester in user space. OTOH this deadlock
-case should not occur very often and neither should the case
-where an automount has expired (so the mount has gone away and
-hence a path walk initiated) but the automount daemon has not
-yet finalised the expire by notifying the kernel.
-
-Also I still think the scenario where this occurs is something
-that will not happen in normal use and would most likely only
-only occur for nefarious purposes. For these reasons it's a
-little bit of an open question whether the autofs changes are OK.
-
-Updating user space is of course possible but significantly
-difficult due to the number of distributions that would/may
-need to update the daemon.
-
-Another option is to handle these EAGAIN returns for NFY_MOUNT
-requests in the autofs fs itself by re-queuing the mount
-request. In fact I already had a patch series to do something
-very similar to handle stale request entries after a "kill -9"
-followed immediately by an autofs startup. Sadly I got side
-tracked by overthinking what was happening and reworked the
-patch series considerably and had not tested it at all. I'm
-pretty sure that a recent contributed autofs patch will fix
-what lead me to this diversion and it will take a while to
-recover the original series (or re-write it).
-
-Ian
->=20
-> Ian
-> >=20
-> > Ian
-> > >=20
-> > > Can anyone help please.
-> > >=20
-> > > Ian
-> > > >=20
-> > > > Krystian Kaniewski (2):
-> > > > =C2=A0 kernfs: do not hold of->mutex across sysfs ->store()
-> > > > =C2=A0 autofs: do not wait for the daemon while splice holds a pipe
-> > > >=20
-> > > > =C2=A0fs/autofs/expire.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++++
-> > > > =C2=A0fs/autofs/root.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 28 +++=
-++++++++++++++++++--
-> > > > =C2=A0fs/kernfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 52 +++=
-++++++++++++++++++++++++-------
-> > > > --
-> > > > --
-> > > > --
-> > > > --
-> > > > =C2=A0fs/splice.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 13 ++++++++++-
-> > > > =C2=A0fs/sysfs/file.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1=
-8 ++++++++++++++-
-> > > > =C2=A0include/linux/kernfs.h | 11 +++++++++
-> > > > =C2=A0include/linux/sched.h=C2=A0 |=C2=A0 2 ++
-> > > > =C2=A0kernel/fork.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 1 +
-> > > > =C2=A08 files changed, 109 insertions(+), 22 deletions(-)
-> > > >=20
-> > > >=20
-> > > > base-commit: 93f51579e7df248780214094418f205253383cc5
+PkZyb206IE1hYXJ0ZW4gTGFua2hvcnN0IDxkZXZAbGFua2hvcnN0LnNlPg0KPg0KPkhleSwNCj4N
+Cj5JcyBhIHNpbmdsZSBwZXJmb3JtYW5jZSBoaXQgZHVyaW5nIGJvb3QgYWxsb3dlZD8NCj5JZiBz
+bywgdGhpcyBpcyBhIGJldHRlciBzb2x1dGlvbiwgYXMgaXQgaGVscHMgb24gIVBSRUVNUFRfUlQg
+YXMgd2VsbDoNCj4NCj5odHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvc2VyaWVzLzE3
+MDc1OS8NCj4NCj5UaGUgZmlyc3QgcGF0Y2ggaW4gdGhhdCBzZXJpZXMgaXMgYSBiZXR0ZXIgc29s
+dXRpb24gdGhhbiB1bmNvbmRpdGlvbmFsbHkgZGlzYWJsaW5nDQo+c3RvbGVuIG1lbW9yeSwgYXMg
+SSBmcm9tIHdoYXQgSSB1bmRlcnN0YW5kIHRoZSBwcm9ibGVtIG9ubHkgZXhpc3RzIHdoZW4gbWVk
+aWENCj5ndCBpcyBlbmFibGVkLg0KPg0KPklmIG5vdCwgd2Ugc2hvdWxkIHByb2JhYmx5IHVuY29u
+ZGl0aW9uYWxseSBkaXNhYmxlIHN0b2xlbiBmcmFtZWJ1ZmZlciBhbGwgdGhlIHRpbWUuDQo+DQo+
+QnV0IHdpdGggdGhlIHNlcmllcywgd2UgcHJlc2VydmUgdGhlIGluaXRpYWwgZnJhbWVidWZmZXIg
+Y29udGVudHMgYW5kIGVuc3VyZSBhDQo+c21vb3RoIGhhbmRvdmVyLCBldmVuIHdpdGhvdXQgc3Rv
+bGVuLg0KDQoNClRoYW5rcyBmb3IgdGhlIHJldmlldy4NCg0KWW91ciBzb2x1dGlvbiBtYWtlcyBz
+ZW5zZSB0byBtZS4gSXQgYWRkcmVzc2VzIHRoZSBpc3N1ZSB3aXRob3V0IGRpc2FibGluZyBzdG9s
+ZW4gbWVtb3J5IGdsb2JhbGx5IGFuZCBwcm92aWRlcyBiZW5lZml0cyBiZXlvbmQgUFJFRU1QVF9S
+VCBhcyB3ZWxsLiBJJ2xsIGhvbGQgb2ZmIG9uIGZ1cnRoZXIgY2hhbmdlcyBmb3Igbm93IGFuZCBm
+b2xsb3cgdXAgb25jZSB0aGlzIHNlcmllcyBoYXMgYmVlbiBtZXJnZWQuDQoNCj4NCj5UaGUgd2Fy
+bmluZyBpbiAyLzIgaXMgcHJvYmFibHkgZmluZS4NCj4NCj5LaW5kIHJlZ2FyZHMsDQo+fk1hYXJ0
+ZW4gTGFua2hvcnN0DQo+DQo=
