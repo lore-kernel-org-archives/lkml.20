@@ -1,48 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793758388;
-	b=WolNJjpBcUrI0yourpum0qFFcqF0FPApkGIQsk3htlZ1OrB2wBFF7biI49UtIkEK+1MH
-	 tTg6irt/dS7PtPnrD/JNzX4R1HY+agY1S1HsKWOn19ifSK9gBIQtYVV/xi5BDhL2cJHk0
-	 F/SciKAm7Ndx6Nj33Y3vaEc40zhbqXTBr1ddOoFFznNoX4vB/cjCLgrHazFhUoFJ5kPkf
-	 T5rzN0bLz78TmCQkYCA85y6IugEs/o4AUPYsDmXS9OnYHM3CNqAO8UYbL1d7yX0E90Slq
-	 6650K8YSG/YHXzl4+/MXRFc9iPEI7WC0uttP7H7g8uUFVaJFQZfK0yXEu8UBrafPGpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793758388;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=7udu1ytKGKK0p5KHbtLgE14Fb4wSySMnCYPqFkPlqeI=;
-	b=rKY/cKQNR8/XQuMwyL4cibaef/J0EbZtd0RqEZu/aLpfJa1AkhV01wSkfbeX61hhoX+I
-	 majwWIGZUaJhN+bCeTVh0zRjRRr3NDGbjjvzKD2QGWB6I2z8Uv37tCFA8bY9mB222vE8v
-	 3LxeyWg79cks/fWzd0r8Rz/BuTLwf/o7GkzXP4jd6ZTfWG2z9nsPinHIHhm+siiWeLSzx
-	 hHSS/6ykmDY/fHHA3apCjFNKZqYa7glTEu1ClPc4kufbYMiZWFLBZtXJjOgS5rkF1gKB/
-	 TySsF3oMOJ+FqnGMN8VpEPhYBFkUc9UpuBsAPk4UG1Ajslo1nBHAh7G1XaqqTqnbSlw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F318D606A326;
-	Wed,  4 Nov 2026 02:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F318D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 8936F92009E; Wed,  4 Nov 2026 03:13:04 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 8344E92009C;
-	Wed,  4 Nov 2026 02:13:04 +0000 (GMT)
-Date: Wed, 4 Nov 2026 02:13:04 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Florian Fainelli <f.fainelli@gmail.com>
-cc: linux-kernel@vger.kernel.org, 
-    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-    "open list:REAL TIME CLOCK (RTC) SUBSYSTEM" <linux-rtc@vger.kernel.org>
-Subject: Re: [PATCH RFC] rtc: m41t80: Support SMBus adapters without I2C
- block transfers
-In-Reply-To: <20261103225027.1248035-1-f.fainelli@gmail.com>
-Message-ID: <alpine.DEB.2.21.2611040202550.15685@angie.orcam.me.uk>
-References: <20261103225027.1248035-1-f.fainelli@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793758451;
+	b=B+1rLcGkpz6DQExmWNXpPoitnEqg7W6nJXMz7jDK2ygYuIZw5NlYvhwxn+fWRM+wSLcd
+	 cpB64FzXSy4OXCpkwyLXwy1gPc2C4oQweoUR2QcprYe2m7G858zguxBK9De7xb4pCw7Y7
+	 pE/ivRTHqM5L/w3A3ISV3I2BEpd9+P8heb/ZgblGpk4CON3yGB3FumzyreDwRPsVug8ni
+	 6BdOGdV80RLBzOOzdrDIqXpWWFPSVe7ONu6uO4w926k4G9wdeSf9oC4WMg7yI/5KYG4e7
+	 zwFFcC3GOH5bAylKCcU8TSrnLy0QBBOdYTwMSwCIiTp62fdcEQT5ZDpM9X+REZSLg7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758451;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QuWnynJaFtZ4mUeHAMb8ZXbGT8gjmXFWO9hN7OPXEGM=;
+	b=yZyjoWcT7pJyBiuH5yCif9le81zRq521juUE6DbDZPoYyvyu5XlgXFItc407K+rBzQHe
+	 RjaaPKTWIvGdzPT5KZFh9NB9vzpKgyJu7uuvL1eMObT2g1JTZrKuuENSlJ5/aqI9S6y/a
+	 cJaCMEe+zKc9OADRQrbc9LrcjyM9ksCDheNH5VeqLEDZFN8WqO154jXAWkvBlp8HVp3eI
+	 6gyEF6RW9VBVgG5dnbjS+F8dUFImWfoxrPpJt5eCMVni0Ksv3F0ncKE9K6yBTCBkSNfHV
+	 GlbgkuOS/S/736YNEP9pFiCeozj5RRHdLKgV4dMZq5VvAAIsMnPaeZGnfPKUyBovFrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9VAbBQK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CB9606A329;
+	Wed,  4 Nov 2026 02:14:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9VAbBQK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793758450;
+	b=aFNKdRUX2+JWSIZgrvzWn/cw2aFplahu5cvVHPy6UCoJuHwEV5vGZiJy7x5quLo494WP
+	 6LHHL2eytQ9MAWOFQY9XnadkaBuZj9TFkb6WCr9Hyc/xrc9XHL+ub1+HBRZ/8x7TKkFyI
+	 HzrGn+2kwRLwalswlgliirIfsFpxwEs6Zz8wHfaNyCD/t+XOkhuuS86obWAL/FQdwqjtG
+	 G8Z8OCWwmm1t+pdh44IOqSlvWp7zJNaflWCmbggjjliYSkWEjY+o2cWu0gduIzaDCKjhA
+	 lCa8p75QmRZ77yCmBm6foE98KmWnMLXp2rZUOsvRT8TfsNnnwZIMx0zrJHLrGy9uNgA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793758450;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QuWnynJaFtZ4mUeHAMb8ZXbGT8gjmXFWO9hN7OPXEGM=;
+	b=YP3cQskzF694e/w5lVmfMMdnim+0c2o9GQ+G8JCXm4FazUhSnzDtnRAs5ICHCzmgG2cc
+	 NX7wnuj763UkSre32zlH60Mmi9ntr9X7VlIA9Z+Vki+VNiZd8mlURMHMhiNWXKaQa7qqx
+	 oehGKraWcbFgL5cvsSqzVgacTqUSZnrxRHYIzQrIaKgWLdp0e9+ykWBhQMpi98XGIeOcC
+	 /WjnP64Qr1EJeme8QGbWJnh50zNKqF8/BmL0W5xyytmBIP3iZg3Ay8wPQh2VG1/GpWgxV
+	 wQSafkV/3RS7MBXaM5WB9wNhou1se+PPo9FwjTJlcpFcISfM1HUoBBAxetfaxjIQagw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4D07D1F00919;
+	Wed,  4 Nov 2026 02:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793758450;
+	bh=QuWnynJaFtZ4mUeHAMb8ZXbGT8gjmXFWO9hN7OPXEGM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Z9VAbBQKfPvU6iJQrlyB6F6w5GXNLz0eGsV78q2Avwaa8u/lWLDGL7eTGuKDPhp2K
+	 0OldadH4+sT874n2OP0UOLIxjQGh4PXAw3gW0p6w5MmPfEopZ0doDaq26xrxxNOHU+
+	 zWwY2YBeM5lNvQwrsgBnWNHr/Dg/edD75x8bJF6x46DALoud6P54iKAE8klgCAHzd1
+	 9fjv3u6y/NfoEvEDwGYodFlu7Em8urPS5LwBhiW2vD6WCB5UtIX2uKJwkz+KM5YbWj
+	 H/H/USBhktkaFMxjXnXJ5vh7ZxzT6LhrFu0zqP+CbFh3fFWFGWwQINTzxnU/S42fk+
+	 ffxGO2IfzeQ1w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A02FF46BB9;
+	Wed,  4 Nov 2026 02:14:09 +0000 (UTC)
+From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Date: Wed, 04 Nov 2026 10:13:53 +0800
+Subject: [PATCH v2] clk: meson: Fix PLL enable timing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,31 +82,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-fix_enable_timing-v2-1-05cdaf34fcdb@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAOCU6moC/22NQQqDMBBFryKzbkqSioaueo8iEuMkDmgiiYQW8
+ e5Nhe7KrN7n/zc7JIyECe7VDhEzJQq+gLxUYCbtHTIaC4PkshFctszSq0evhxn7jRbyjqlaDla
+ reiwHZbdGLKXT+ewKT5S2EN/niyy+6c+m/tiyYIK13PKGo7lZqR96mYMjczVhge44jg9Nqm6Dt
+ AAAAA==
+X-Change-ID: 20261027-fix_enable_timing-842bfa84d4d4
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Dmitry Rokosov <ddrokosov@sberdevices.ru>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793758448; l=2881;
+ i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
+ bh=xxrXTMztdBF0a6VBQPK0bEnfAifBskZXSA2NITGHqh4=;
+ b=3C/aE4+3IjlZRhPCE2+cmWyBrKfwj3h7F6xGKTAv7WFzD7Xvq/R7XnrXwbaqnesEhZ/KTy9XC
+ HvDa3fB608+Bphq7/Q9ei3vd0wOxU7GPwFeplrgBqV81rLq7WR33XbQ
+X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
+ pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
+X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
+ auth_id=735
+X-Original-From: Jian Hu <jian.hu@amlogic.com>
+Reply-To: jian.hu@amlogic.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, 3 Nov 2026, Florian Fainelli wrote:
+From: Jian Hu <jian.hu@amlogic.com>
 
-> Maciej W. Rozycki proposed SMBus-only support for this RTC family in
-> 2008. The same SiByte limitation was discussed again in 2018, including
-> register latching, seconds rechecks and a possible regmap conversion.
-> This change revisits that approach using the current I2C helpers.
+The hardware requires a 50us delay after setting the PLL enable
+bit to allow the PLL power-up sequence to complete.
 
- Thank you for following up on this.  I've always meant to get back to 
-this stuff sometime, but given so many other outstanding matters to deal 
-with I am really glad to get a helpful hand.
+Without this delay, GP0 and HIFI PLLs on Amlogic T7, SM1 and C3
+may fail to lock under stress testing.
 
- Later I'll have a deeper look at and do some further verification of your 
-proposal, however meanwhile here are corresponding lore.kernel.org links 
-for the messages referred:
+Add a 50us delay after enabling the PLL and another 50us delay
+after deasserting the PLL reset.
 
-> Link: https://lkml.rescloud.iu.edu/hypermail/linux/kernel/0805.1/1778.html
+Testing on GXL shows that the PLL works correctly without the
+additional delay and continues to lock successfully after the
+50us delay is added.
 
-Link: https://lore.kernel.org/r/Pine.LNX.4.55.0805130254420.535@cliff.in.clinika.pl/
+On A1, remove the redundant 10us delay before enabling the
+self-adaption current module, as the new PLL enable delay already
+covers this timing requirement.
 
-> Link: https://lkml.rescloud.iu.edu/1811.1/07408.html
+Fixes: b6ec400aa153 ("clk: meson: introduce new pll power-on sequence for A1 SoC family")
+Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
+Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+---
+For example, enabling the GP0 PLL at 1512MHz may lose lock and
+result in an output I/O error:
 
-Link: https://lore.kernel.org/r/alpine.LFD.2.21.1811141234140.21654@eddie.linux-mips.org/
+echo 1512000000 > /sys/kernel/debug/clk/gp0_pll/clk_rate
+echo 1 > /sys/kernel/debug/clk/gp0_pll/clk_prepare_enable
+sh: write error: I/O error
 
--- which I believe are preferable, since under our supervision.
+Tested on: T7, C3, S4, AXG, GXL, SM1 and A1.
+---
+Changes in v2:
+- Combine Chuan's patch to this patch.
+- Update the Fixes tag.
+- Move test details below the commit message.
+- Link to Chuan's patch: https://lore.kernel.org/all/20251031-optimize_pll_driver-v3-2-92f3b2f36a83@amlogic.com
+- Link to v1: https://lore.kernel.org/r/20261028-fix_enable_timing-v1-1-70f060ec3f2a@amlogic.com
+---
+ drivers/clk/meson/clk-pll.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-  Maciej
+diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
+index 1ea6579a760f..477eb9958a8d 100644
+--- a/drivers/clk/meson/clk-pll.c
++++ b/drivers/clk/meson/clk-pll.c
+@@ -369,20 +369,25 @@ static int meson_clk_pll_enable(struct clk_hw *hw)
+ 	/* Enable the pll */
+ 	meson_parm_write(clk->map, &pll->en, 1);
+ 
++	/* Wait for the PLL power-up sequence to complete */
++	udelay(50);
++
+ 	/* Take the pll out reset */
+-	if (MESON_PARM_APPLICABLE(&pll->rst))
++	if (MESON_PARM_APPLICABLE(&pll->rst)) {
+ 		meson_parm_write(clk->map, &pll->rst, 0);
++		/* Wait for the PLL loop to stabilize */
++		udelay(50);
++	}
+ 
+ 	/*
+ 	 * Compared with the previous SoCs, self-adaption current module
+ 	 * is newly added for A1, keep the new power-on sequence to enable the
+ 	 * PLL. The sequence is:
+-	 * 1. enable the pll, delay for 10us
++	 * 1. enable the pll, delay for 50us
+ 	 * 2. enable the pll self-adaption current module, delay for 40us
+ 	 * 3. enable the lock detect module
+ 	 */
+ 	if (MESON_PARM_APPLICABLE(&pll->current_en)) {
+-		udelay(10);
+ 		meson_parm_write(clk->map, &pll->current_en, 1);
+ 		udelay(40);
+ 	}
+
+---
+base-commit: 363f97a1ce635b86be7fd263d56a040fbd87bdbb
+change-id: 20261027-fix_enable_timing-842bfa84d4d4
+
+Best regards,
+-- 
+Jian Hu <jian.hu@amlogic.com>
+
+
