@@ -1,53 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834781;
-	b=hx+y28icqW/zUzLzoIdcb7MEs7uTXXWLbWmt8ePJxy+HmlROGnxNBOJCEIgEVDwSQWUX
-	 PdH2L+kc5tlUiHnJPl4WSrftLs9g8rDeM1ORYsx08FNd5FXi1ZiygdmdZTURgENEqid4H
-	 TEHYSb3/wGgS0E5Y93T0bgMwSuJg9DfVY86LUw7piKZUoZurBDsr+NR1lFLyBRa6sOB0l
-	 mGKfAuf21E+Fsn5LO3Zh+CX3Z7xZdlktQicTwXIQ6NAqP82LeGwJiNpDa65e4N39neUXu
-	 wK+/FbbJsh0sh1YtOh5vevtU8e+yEfosLxbdJIoJcqgVTNXpNQCSTaKtADKzVp7pGtQ==
+	t=1793835033;
+	b=ya8mOU3epJee+6k5ZeOAhKeQ6Oi4+vN7MWGz07Ga481ZljvsQEQ/Dni/PcOqz36WTX6h
+	 3KGGLdtxj1ghbpu6C7bY7P4/8gcuOff0FEC+0L+Q19eaoywvqJRn2EixlzyKgZ8Ye8wdN
+	 vLnXEBcAzTVqKASh8DTFk1YMt9OJ2c6Cjr+kgiZ4Evvc+mSXg0+iCpe9CjRLdpaH6VJWS
+	 xgM/L5ZSuhQ7DnfSYjkcro9EBSA1UDA420GafCTgPs6Xf139ocb8UZ47g1ZqiUEY9STtz
+	 64E9Pg/LOBSAoUSbkAtK0E41R8jrKqVUrEoXQ2v9yIy+GNWGC+a8kd8iO7zrbeOS3Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834781;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XTWf5qeKJyBoSVDGQva5y/SaBd2kBtkdfUXr+C5Izps=;
-	b=YSe+xtHhjPohiodPGOojdciB8wYlO9DH3EGsMadWNWzq4Rlym2cfaQASLlE/fQsaaSUa
-	 Sc13Yp1sQDjMrcOwe0HqlrHJs7HwFuoybZ3p1uUjLyeP4QXX/Ma7gbfOfoNPf8rgbxeHK
-	 NO2dJcfjmD2i/08VG/lWi9W00vMflhKpyu7naXgy8uW+JwMZXTgKPuLzR39pg1BbkCt3Q
-	 F6yilq3ikX8Gr+0BSVjjxbfTMAfqvcQRhMz1wu2kSceaBmD3IwsxRHMyGSDzHkfbr1KAJ
-	 gxtK78ubagOR/fGPahBBanNw1E79Lhvjia+tv2LpdtUjSp2Pvmpuh6rXTWr/9UT064g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835033;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RXyZYe/CTboqHUSipMlaWiZYB5WKA52593Qh8Q69WAI=;
+	b=wNHgHs+f5MG0lwAmQeENzXb6vqzNCyklvz9GKx2V9s9vjEcRkuxs7t7/mvtIspbEceSa
+	 8oU4x2/RzVrdu6bTuAa7vx76soS+EY327uV0OLQZjLLZmuqk10VBnQGmbu2iXLEZgMiku
+	 yz+sneDDx9OM2SwJKe8t8v6dAysRKhSCbIP9x6G5lSzKuhQAw19gYkbOFNEkoxBDzcrjx
+	 lMMsPvDUrG2PB55SKK05ATjx96hHWJ2GERl/GPfFOYpPqzNSpLje8ytpWl/1dwrbigzdq
+	 2yI9ChlWngNbRVOda5qjqM/0lbZf/29I+K8/TKkZ2WIgzGU8vvMDXB1ZtgDTX54KSpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Napz4QcB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HS8B4pqa;
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AB6606A328;
-	Wed,  4 Nov 2026 23:26:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE63606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:30:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFE63606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Napz4QcB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459841F000C1;
-	Wed,  4 Nov 2026 23:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793834780;
-	bh=XTWf5qeKJyBoSVDGQva5y/SaBd2kBtkdfUXr+C5Izps=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Napz4QcByPDy7IDJixXooqlpML9kGdOd6aEwKZ+yicj81EIwcKAAKOHfT1wxZn85l
-	 9gDNpC4AYBtqMRFekWhCGQCCfg0ZCU9v3KDU9BNd/tLCTdB3O2jql/rxEk2M2/1TXn
-	 Q0p/nP9YZCKLatto9JxDwzJA3ArenH7yaoatyvejiiL99bX9iHp5Y7xRaZXgJOAVQU
-	 FMjJ+cEX6Sju1mCpQmjDhWH+0MuCK4tsxnq+6UuRtjB1rniWL+avgnKvGZN3RxL/rb
-	 /Tg/j47Qbh6UHnO4+j6/lKtaI3sVDIWDfRBVtvJQ4XN7NrOsRlDthJ/Exyo1Mmz7Tr
-	 9709alscnrHmw==
-Date: Wed, 4 Nov 2026 16:26:16 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Hamdy Abou El Anein <info@daylightlinux.ch>
-Cc: nsc@kernel.org, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, hamdy.aea@protonmail.com
-Subject: Re: [PATCH v3] scripts: check-function-names: propagate nm failures
-Message-ID: <20261104232616.GB3581619@ax162>
-References: <20261104120357.7007-1-info@daylightlinux.ch>
- <20261104120733.7633-1-info@daylightlinux.ch>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HS8B4pqa
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b32bbd39d5so1324467b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:30:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793835032; x=1794439832; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RXyZYe/CTboqHUSipMlaWiZYB5WKA52593Qh8Q69WAI=;
+        b=HS8B4pqa554AlFeqlrC0uUxfD8ae0uZvprOtQ67IKBjZlbVK3Z1QJu7VdesAVcphgD
+         bk1EEW8kl5HWaJTYKdqN1eXPhdct59jvUlPNjPiWl7vf92mAxxmmUMwaHNO9MSJ0bAwc
+         2aZN0qVlxhVqtcuvS/Ri4N0riJqR+P0fuNM8JY34SrL8DHZ/dgdo/TzQPnEYge6Ff3ow
+         YrHQ7l1rCsZQsUs8/lZm5ToZcM1MP0CQwqqEtT4Nj7dRd4D8ue2vp8x+CK7OYmJCEqz8
+         ruW+egnRjjpHNfnlb5m/nOy11289jLPdEqlOMFyjgC9YfKUwgFaVKPTidFh6hOAaZhwi
+         gEug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793835032; x=1794439832;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RXyZYe/CTboqHUSipMlaWiZYB5WKA52593Qh8Q69WAI=;
+        b=pQSlPL8IRGE8loqgLf54g71ivFETnefoyTdOp6Au9vaqGkt5JVoaTStjVj210DDF+5
+         L9zrFJA/SDLTjJOw3s4Ry5aek+AgiDKVWFTGwIepK85K/zZJSC0yiwM7ddYRTIHRvzwX
+         UaLvbaEIWR9H9MSTh7Eanfwqfp9XpOuMjKMx9MgcUzE10Y/wl6Cl1OJZrbTI9T8XJ0zz
+         zJfPHXaUembNcLrgZRKVtRLDuAD9X5gHc6ZBGO5pSzhzlZA8UdQiZkTdpjX7w9Z++5ue
+         q/WQe3D6ZSjOc3iydWlwzfBOFKxNwa7z+TigduaQu6GzpR9TZlj5tqClCxRX16IfpTRV
+         F5Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzPOwcRfesvCi203C3OIvFkStA5SM9EbTA9dRu3oT20rSDZAQy0+8VWJayDdLl3o/IhOslLsOyfpaiK6Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Sjwp9O70OWtxQsoLfaaGLMVvPE+XN5xGLNZuAZ4AQ/nMuZbbQ
+	A3jUKp6UNGAPr61z0dhG+NYcqaGp/aCdHrvFy05/CBwp6I4n14qtN1bb
+X-Gm-Gg: AYBFou3K/fRVf0rVMqiPmY/bKoDGb6NoWKp9A+xewQ6sTFEAl+MRMYFTVSLMdINV9Bf
+	B4IWPzEKiRiVxG8dQ8TYvNkdGkABgtQVloiyYWMi6l8MDByhkpHDCJlPX7K3QGZmOWFxuEHIr0T
+	rSmpePaVnnBSvloBrfYgpWIXxYNJlk/0a1yyxOHTX/yBDEPFFIu2bigys8RrdvXTBh8+IoTw8z1
+	CIhf1ZrLRjjrGPMZnatkecics1EeTplVVU2hsD8kpq8k9mhabRZ3aHcTQOZlEeOFSzu518T2lPg
+	XBzWYKFDPRuSCUja+clyM76tLr6wHhxXxvxA+QLRR62UcSNWo4byaHSrCo5wUsElCCafWe78tX2
+	6Q+qF4J51lmi4xCIhob1UswRDXGz6dmk6QkdY9rf2I5PpKHCmSGmdZdMl5b0ytd5tCtZUUnzjFi
+	re2mRXmWafIVxROrrNFufj64L0ceJEittQZnOANcggDHaL5XJiDUofDoaZ5kbbY3LZrQCHKe8eT
+	utSdvfmmAqq2dNVl3xY6Uzf1BIYhAcX/2JIA2Wcl9/ghj7fq+RFF44HsBvzr01bf8upYPr/yNtz
+	lmn5aiNK9sEiwmtR+kaZe4VE+MM9AhMvXVkM7uyCm312s4rt6UlRVeLFKNhI50bkIwVNRBEhmhi
+	YSI21Lg==
+X-Received: by 2002:a05:690c:82:b0:8b0:eb6d:d887 with SMTP id 00721157ae682-8b2b678e12bmr130360207b3.56.1793835031679;
+        Wed, 04 Nov 2026 15:30:31 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:50::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3098c313esm29215227b3.15.2026.11.04.15.30.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:30:31 -0800 (PST)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Michal Hocko <mhocko@kernel.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Harry Yoo <harry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v8 1/7] mm/memcontrol: flatten try_charge_memcg control flow
+Date: Wed,  4 Nov 2026 15:30:22 -0800
+Message-ID: <20261104233029.3282438-2-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
+References: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,85 +119,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104120733.7633-1-info@daylightlinux.ch>
+Content-Transfer-Encoding: 8bit
 
-Hi Hamdy,
+Refactor try_charge_memcg by flattening the nested memsw/memory
+page_counter operations to separate the logic between the two.
 
-On Wed, Nov 04, 2026 at 01:07:33PM +0100, Hamdy Abou El Anein wrote:
-> From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
-> 
-> The symbol-name check pipes nm through awk and grep. If nm cannot read
-> an object file, its failure status is lost and the script reports
-> success without checking any symbols.
+When page_counter_try_charge is made stock-aware, this flattening makes
+the control flow easier to follow since each page counter now has its
+own success/failure paths.
 
-If nm fails because vmlinux.o is malformed, surely that means that $(LD)
-is going to choke on it too? This feels like unnecessary complication
-and hardening for little gain. Were you able to reproduce a situation
-where $(NM) failed but the rest of the build succeeded?
+No functional changes intended.
 
-> Keep nm output streaming while carrying its exit status through the
-> filter. This avoids buffering the full vmlinux.o symbol table in a
-> shell variable during the serial kernel link, as the v2 did.
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+---
+ mm/memcontrol.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-Just a work of advice for the future, avoid mentioning revisions within
-the commit message, they won't make sense once the patch is applied.
-Place differential notes below the '---' after your signoff and make
-sure the commit message makes sense on its own.
-
-> Tested with a malformed object (failure), a valid object (success), an
-> object defining startup (failure), and a synthetic large nm stream
-> (success).
-> 
-> AI assistance: ChatGPT/Codex identified the issue and prepared the
-> change, commit message and executable regression tests.
-> 
-> Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
-> ---
->  scripts/check-function-names.sh | 25 ++++++++++++++++++++++---
->  1 file changed, 22 insertions(+), 3 deletions(-)
-> 
-> diff --git a/scripts/check-function-names.sh b/scripts/check-function-names.sh
-> index 94883e690627..b25e630cc594 100755
-> --- a/scripts/check-function-names.sh
-> +++ b/scripts/check-function-names.sh
-> @@ -13,9 +13,28 @@ if [ ! -f "$objfile" ]; then
->  	exit 1
->  fi
->  
-> -bad_symbols=$(${NM:-nm} -p "$objfile" | awk '$2 ~ /^[TtWw]$/ {print $3}' |
-> -	      grep -E '^(startup|exit|split|unlikely|hot|unknown)(\.|$)')
-> -
-> +# Keep nm output streaming while preserving its exit status.
-> +bad_symbols=$(
-> +	{
-> +		${NM:-nm} -p "$objfile"
-> +		nm_status=$?
-> +		printf '\n#nm_status %s\n' "$nm_status"
-> +	} |
-> +	awk '
-> +		$1 == "#nm_status" {
-> +			if ($2 != 0)
-> +				nm_failed = 1
-> +			next
-> +		}
-> +		$2 ~ /^[TtWw]$/ && $3 ~ /^(startup|exit|split|unlikely|hot|unknown)(\.|$)/ {
-> +			print $3
-> +		}
-> +		END {
-> +			if (nm_failed)
-> +				exit 1
-> +		}
-> +	'
-> +) || exit 1
->  if [ -n "$bad_symbols" ]; then
->  	echo "$bad_symbols" | while read -r sym; do
->  		echo "$objfile: error: $sym() function name creates ambiguity with -ffunction-sections" >&2
-> -- 
-> 2.56.0
-> 
-
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index ffbcea28a608c..66f38efb800ab 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2811,18 +2811,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 		batch = nr_pages;
+ 
+ 	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
+-	if (!do_memsw_account() ||
+-	    page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+-		if (page_counter_try_charge(&memcg->memory, batch, &counter))
+-			goto done_restock;
+-		if (do_memsw_account())
+-			page_counter_uncharge(&memcg->memsw, batch);
+-		mem_over_limit = mem_cgroup_from_counter(counter, memory);
+-	} else {
++	if (do_memsw_account() &&
++	    !page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+ 		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
+ 		reclaim_options &= ~MEMCG_RECLAIM_MAY_SWAP;
++		goto reclaim;
+ 	}
+ 
++	if (page_counter_try_charge(&memcg->memory, batch, &counter))
++		goto done_restock;
++
++	if (do_memsw_account())
++		page_counter_uncharge(&memcg->memsw, batch);
++	mem_over_limit = mem_cgroup_from_counter(counter, memory);
++
++reclaim:
+ 	if (batch > nr_pages) {
+ 		batch = nr_pages;
+ 		goto retry;
 -- 
-Cheers,
-Nathan
+2.53.0-Meta
+
