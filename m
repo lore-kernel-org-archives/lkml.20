@@ -1,60 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811558;
-	b=YHyhFIpOCrAGq7dI1mhTvIEbGzlo47My/o8yhf5c9sfMvds62vJKKDsxKAuJkUIRiaJd
-	 5mFoEdRuIXZYb2QKtoDVxXt4TxqZcI4v+SumXTcCP8bM87n8Baowk1MQOKl5VyeSkqjfU
-	 JYwnHVV0ef45dCxnJmbq6Jz+sELYvtTNxR5pc/zIlo4WonD+w+we14vomhyBKwuw1o3mi
-	 oqhOLGUaTr5CvAR1DAaVaVmxdm42ZfrYcEBv+XKid5ByJx0SjhGcJde9cV0lxU/irt8QD
-	 g8g1xBH2vdZzL5mJ4JgR/FULXpqQMhFO6TiSR4Yoi9pcjHhwFmgkxaVsP1HgXNE7sRg==
+	t=1793811561;
+	b=0B343SSlUPkQxrl0P9AodarlQTXXIRvJRTwnvSCv9sTfV8X3cYCV16hEMZHplWwC8qQU
+	 qjdRg6Fmk0MFV+INInEcgsQLjBV/H59kKf2h295Q1FDbhgVPkFfLPSXa8NtYjtgD0kELS
+	 6Dr5zVPSZL6NNv0mwSh1jzvopWtb3ft2RnxPvdQnqp2y60L+f9jhneyZpW/oL7RtQnFyf
+	 UUHDoGPsmrOdQqtS1sHe6mwIx1jm1ap7Iu3iwXBM1p8vzrPsYAN5OTE0VXEWYstEXc0Fb
+	 cX5Tej99ullfHpglH1a+P1qlitTpWcC/ZDX4eDvtcmkFPJ0PYEDQq55uNclgXqAZ6qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811558;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=UvNnba0EFtPx2Ttq4iUvrOuj/mWd3NJj3S/pP9tLcH4=;
-	b=CpSr8lAya0lawH9VLIZlJEccnsxfBP2EKgTucYbE5t8zWTJASfiI0YxLrdQiFPAYNaFV
-	 wFF/gKJzBaUqSLDkOsRQE0EoOTagIqn99lfj5f6GQ5EbCGk8E79/x0KsE4i7fXW6r1SEh
-	 2bDo+sHI9d5mBMtDmG/fZIuHEX+isLcTRmJ4L0uqA0z4gTbdTOVinpOK3aBuKqrLmaWD+
-	 Y0HsoT3YsXuq9n9vOy1fkD+8WO0zam16VS2jfwRekoJHjXpyl0mXxiNxFGAsEy54rrhGN
-	 Fuy7955evxqYPbgXzo0s7Nmhf3pT32HzMbGkCyf9x8iuOstnmoemCp7BXNYjAFKmfOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ccVf83RTacEiSDDfp2h5xNH+o9FDf22bxraZEScVifs=;
+	b=ItEaUIJkyC8pAPA/ZAsYpVvXp1ELHq/hUPIJm1NqgDnhU6voEnvDOFdI3/KWf/u4GqiA
+	 ymueHKrU141JP+tw11dTQbhkmq96VcBK6zeW1v77JpxvaPsAFcaS+bBgXRyxD61XmyrcN
+	 1ZaizX9dL14shljlHn41CFca9sperSH4/OzyRpSecGPxENVAR+UrA9HhGRJf/eX0FdEB6
+	 8T9k17SDCC6hq+xC2Xwes1jxmNXBWyD9UCwTuZvzafHq6/EbexHmFldlKZaqAAHGybblq
+	 s1h7ySnNXU3Pxr8UdxpLQxv0rJOry2LaFH+eQYtmOC7NO+lFZxZeprpBWp8mHf6SEdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwY1dU+q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srwPcV0C;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE73606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A960606D83F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A960606D83F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwY1dU+q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87EF1F00919;
-	Wed,  4 Nov 2026 16:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793811558;
-	bh=UvNnba0EFtPx2Ttq4iUvrOuj/mWd3NJj3S/pP9tLcH4=;
-	h=From:To:Cc:Subject:Date;
-	b=gwY1dU+qAqq5USLQTWEwbIJPYNEIltc4K8e7ccLLeB56qwfVFpA8C9z4TDRsX6mpv
-	 harkVkIRnR5EwVQzUSd3+sUO+o95GcDlN5yk3FFn8ngnlrR1N/46OhVWGnVRbYJ+Mx
-	 2jwjXbdtB1Gdt//kkHsUoLHDCFs7hO4tmPcmGij1XJYTf8q1sOg8KE4GRbbH36V6pl
-	 ipF3/zhN62XKfmQFXMrHH0KxjnKJNe/L+BsrL0X96XxWCKbQFAK5f5Sk9wl3TWMueh
-	 EZwoN7Li8wIpoermYTwArOnLKsRFIFLsuP7PWVKzVxhbU1+5kzKfEhaQ2lvAbCNUoN
-	 Elw1amSzfPWDQ==
-From: Thorsten Blum <blum@kernel.org>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/sysdev/tsi108: Remove redundant 0x prefix in tsi108_setup_pci()
-Date: Wed,  4 Nov 2026 17:58:55 +0100
-Message-ID: <20261104165857.174285-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srwPcV0C
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so1750782eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:59:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793811560; x=1794416360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ccVf83RTacEiSDDfp2h5xNH+o9FDf22bxraZEScVifs=;
+        b=srwPcV0CMrFf09RumsTb6kBXvwJSmyv7F6Ok6cQb4RLoNTiP6mDJJ41AONoG3IBegg
+         379AGoSfjaRazt2ZxU+Y67WdxSbYjW8t6oX0gLgWERE6FMNjvMjXxcOd6Ktdnc/OnQhg
+         7CkFVW/HO4lzzZI6IXqVLY7dzdszcT4WWgR0uw+rX31a1/YYlmIrQ8cwUbAIuGACbM6w
+         vKAA4UG+0TPX7jAJmab/BP2MApuRxmhM4c5Sb5Z5knQDN6HhMTR9IWNkB1xVYiZxbAIe
+         H2FBfin851fcltS4cy0iogqxcy8G6CzVVIxlrmHwDWg2Y/Rj6tiru7Gg2HoezRX+hjYr
+         SwRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793811560; x=1794416360;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ccVf83RTacEiSDDfp2h5xNH+o9FDf22bxraZEScVifs=;
+        b=2Gn+w4z+Otsb9oKb68EIQmSQ0d+jN+xu/oL/5Lg2BhRugeeMfDOZSJr5Xh1Vpu+AVH
+         cM5VEeUnJ5prMP/DTNUv9xQBmrbj74QHsA7payoV43YnGddFGLozsHe2hcJMqOGJKT5i
+         FvrV652u9KP14yo/9gn+IiSIXDRVaDpCjRviZmVW7NrEpXFUdlbP3gW89ljlH5kIAYaN
+         J6fhB060TsvraXo3flzMoKCkiCnXUj3M8w5QVpewPYRSnKzKMEQMH2DRK0xAOH2EIPq7
+         6gBvjyCMb8uYH8+LMBWz0NBGX8OEa+8jTg2qLVrj5DK1vIbgh2IxFbHjP6XC9Wcz6fM+
+         j4hA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoTfvJ0Uz6HIlpsdK9A6OeBlJU/X9Pq/KG8LKB6H3msWY+4PXzfyhDMiqcFaV2IC30V1QCPCwVmQO1vtE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9a+xuuwsSPXfliqjXUvsfsN8xlkboRLBhnFSrwZlwXKoM0f2le
+	rN15jpCNxUTTM6zcxRvnnBonKwBBLYDRk2kNj33d28XCRQimA/h1f4CD
+X-Gm-Gg: AYBFou35TjSRUVMHomQEzinx0eVzIII6Tv7AQYo/4C3BYzwbqktFn02C9iX/NQngEwb
+	/F6l0lXWJk1tztQspiE6l7CvpUK5SrX/4ZYjTgH6cUhBpVecIVH5nlskEui6d1EqEEvK+T/Ck2k
+	hPUB9RLKZ58LtbbKnkYYmc+02vQ4G6uQszYFDdDw8baQnEMXEtasUvchi3tWLvcESRy1LGag4T8
+	Mm3AXfhfHTIjoXKHDnG3XhRK1MFBretrQdncJMEd+JoPgK516l97ycB383Sg5NIT008graWD25R
+	TCVHUzxDBcjBev3YuAUfDsSMc+uES8o3ktcytoZeHO0VzN/Jq+EBefLQq76GbHwj0qEbyWEpxS6
+	v64Ou+yq8uX+QqCncMnKmCqGOK1HHWJU8oezsDqLbjuMsnogHrM7ra92sLwVkEfRbmoQphXN5us
+	ng/t5kR5aD8jSIYMdLYcQzeJRsM4MHxKuiciVE/Fb2I/6Pil4cWaLLcBGloJaiOPe+RKSN+LyPj
+	1vt1aaijoPAd5KIutn+3/Rd+u+1xh1VU0pT1Du09ZzouSleCKEFN+MEinnuJkOv7Rbx5Y8niccp
+	iJkFIgmBnT1f9IF7+c8fhT2Ck0i8M/uiZuGuJKI=
+X-Received: by 2002:a05:7301:640b:b0:33c:16f1:2e11 with SMTP id 5a478bee46e88-36a42363ef8mr22540460eec.7.1793811559006;
+        Wed, 04 Nov 2026 08:59:19 -0800 (PST)
+Received: from kernel.. ([216.195.201.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d46fcsm9019567eec.13.2026.11.04.08.59.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 08:59:18 -0800 (PST)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	boqun@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 26/28] hazptrtorture: Add torture_type=none clean skip for rcuscale coexistence
+Date: Thu,  5 Nov 2026 00:54:44 +0800
+Message-ID: <20261104165504.2430480-27-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104165504.2430480-1-kunwu.chan@gmail.com>
+References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,29 +127,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=956; i=blum@kernel.org; h=from:subject; bh=sIdgCzeQJuWgAZs8h8jZbRe5apSi7L4o6ofhxV6hh+I=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmvU4IubnslPW2KYtSBXWcTn2w642/Antp1x+rzpjcF7 fW1zJqBHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRh+oM/4uynnUbrww67bTB pefIpQ/Gy7Z+2NvY/yiP5+asdPtAPQuG/yFzAydY75v+uiVec46/qE/8lbU1kncuCK36r+cUub7 ZmwkA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-The %pa format specifier already includes the 0x prefix. Remove the
-redundant prefix to avoid printing 0x0x.
+When both HAZPTR_TORTURE_TEST and RCU_SCALE_TEST are built into
+the same kernel, hazptrtorture calls torture_init_begin() first
+and rcuscale fails with -EBUSY.  torture_type=none makes
+hazptrtorture return early without registering, allowing the
+rcuscale hazptr scale type to run in the same boot.
 
-Fixes: 55d8bd02cc1b ("powerpc/sysdev/tsi108: fix resource printk format warnings")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- arch/powerpc/sysdev/tsi108_pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../selftests/rcutorture/configs/rcuscale/HAZPTR    | 13 +++++++++++++
+ .../rcutorture/configs/rcuscale/HAZPTR.boot         |  1 +
+ 2 files changed, 14 insertions(+)
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
 
-diff --git a/arch/powerpc/sysdev/tsi108_pci.c b/arch/powerpc/sysdev/tsi108_pci.c
-index 07d0f6a83879..dcc5e3e85dbd 100644
---- a/arch/powerpc/sysdev/tsi108_pci.c
-+++ b/arch/powerpc/sysdev/tsi108_pci.c
-@@ -217,7 +217,7 @@ int __init tsi108_setup_pci(struct device_node *dev, u32 cfg_phys, int primary)
- 
- 	(hose)->ops = &tsi108_direct_pci_ops;
- 
--	pr_info("Found tsi108 PCI host bridge at 0x%pa. Firmware bus number: %d->%d\n",
-+	pr_info("Found tsi108 PCI host bridge at %pa. Firmware bus number: %d->%d\n",
- 		&rsrc.start, hose->first_busno, hose->last_busno);
- 
- 	/* Interpret the "ranges" property */
+diff --git a/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
+new file mode 100644
+index 000000000000..c5e9cf0184ae
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
+@@ -0,0 +1,13 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=128
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_HOTPLUG_CPU=y
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_TORTURE_TEST=y
++CONFIG_HAZPTR_DEBUG=y
++CONFIG_HAZPTR_STALL_DETECTOR=y
++CONFIG_HAZPTR_STALL_TIMEOUT=1000
++CONFIG_HAZPTR_DRAIN_ASSIST=y
++CONFIG_RCU_SCALE_TEST=y
+diff --git a/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
+new file mode 100644
+index 000000000000..e9cca4cf453b
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
+@@ -0,0 +1 @@
++hazptrtorture.torture_type=none
+-- 
+2.43.0
+
