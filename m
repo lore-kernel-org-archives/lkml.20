@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826737;
-	b=FA/kZLgojzE/YRPavbYmSSwgbzxzuSzT8wN2FsHK6i2PiYy/kRRVn8T5VYuys/TwuP5U
-	 Ub2cCD5GYeprK7HZuexR/2z6gvs8R0dWJ+4O5OYzpwsBci8DT8+iAf5eUzL+RlVOrxbfn
-	 D9hOEXKuduBXTjaz0sVxQbsdo13Ks8hM/pujDJN95Sd8hIZyYgNBsARMadeahs2n5xv3l
-	 mc8N3vp8JOggN5jy5Ac3Y/j8XCIdrykd8QkGFBxQ5TiCHLh23+tAFcQEun+WHwSg7Guh9
-	 SLAGUZowUvrOu41fL7wXt4f5KfEO/cn43wxzKxxvX6odSscnlZHPCpUxd670aiX9W6A==
+	t=1793826736;
+	b=xqYp2A77gHTyUZzKgvIyJNMb6hQKIEGXl9EXSZ6bsWIaoJcOxDgn9U3YP+b7qXGaoINl
+	 dkqfr+vV/eTdMkueo/6d/Ll4MIJP10LX0z+g+cEjYq6HwM8aljHhwQ8ummXgjdSJLKFAC
+	 MLQiRgCdM4enV8bL4IF3s23rYXAiwlkoJPA5670m++J2cbs75gi5BkBmCtC99kMyOPDdH
+	 ymSX/V+ZRmQDjIPf6N6U3Vwm8rh853DJZZEIL4MwiGuDzeJgV5eo1/M8J4+D3tS5FiS+j
+	 YSfYbjzWTggNFxRYjeX6RnuyH0XiDGaVgHVS1D7620LCh6LreDLjJ0ROLsn0L437uFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826737;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826736;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cZ7lYq7wRrxOXUBcfl4DYmRYTDgxPqm00WwFdPSFGO4=;
-	b=hATOjJEOUJqmqBq67qixHW5EEp2f7XWJxwsUTXljVpnZeUip7N4M4+etBJEgv7tPHJNB
-	 b/kbApIEol/DZMS/LM0Gjt3zZtA/ALDTkTWYXvkGqInnRWrC4Q80qLMM7k9eTrC0oYA7O
-	 D+CQI4ob8Rj86JvsZmMvVV+2oXFdSARcYcPKebGX/DrzmxFVA2YJ5hYGghkXQD0LDTXTA
-	 0yAejhJ6+tMgcg3s8T+G+V8Ht2XwNbALx/RMs2Ep0Q2vmqwUdZX0Oove2ScJ9T1E9cDiR
-	 FPCmBEe9dhcIOdcIElIfVbsuRdYogKeu8q32IXtXeWZmTIGy3BtJSYfI9zaMZfiJY0Q==
+	bh=OpTdcf808StUyODW+2gsKmPcAeI29oZdFAWuai+TIrU=;
+	b=q76NWDPKg8qSEaZOzDBWDf7kQuLRcrZKbhHEb46zhyQj/KJLXzpgzBURcWjbnDGcoVhW
+	 O/kG0zEcvukSnIE8ZIaNl7OM9DuLctsWArBxkZXgugCNjfA8OSWDdAt0eIiQF+eTeSAhI
+	 gwUspMZRJK/T4ZbOOVHY1Hn1359HIpNSeMWuyIypqdYz3V0WijRYHfiualyDrx667auzl
+	 1HfNvwflpkkAKsE8WulWvXPZ4TcMKdoXYjPiaLFL/+KSWkScTM2KOO+qAHQ0PRhJ+grT9
+	 LlaSh61DJFJY0kFSFD2N5yPcyGKEiB4baoax/RFXyVtCG6F3lpgI2ungkxVtpxc4HtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=RKDPCfQV;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=hswg82AD;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DCC60820AB;
-	Wed,  4 Nov 2026 21:12:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74DCC60820AB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DB8608176D;
+	Wed,  4 Nov 2026 21:12:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24DB8608176D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=RKDPCfQV
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=hswg82AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793826734;
-	bh=cZ7lYq7wRrxOXUBcfl4DYmRYTDgxPqm00WwFdPSFGO4=;
+	s=smtpout1; t=1793826733;
+	bh=OpTdcf808StUyODW+2gsKmPcAeI29oZdFAWuai+TIrU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RKDPCfQVs+j0J8+7XBlpmaj2iiIerP4MeXSj1M5QV3CBHmkMCCQeNF+3F6J5t2Y+e
-	 ed+jLeX+Z5QfL2EPQZJyavVZt/046UHxK2Ge4myfNnYhXvEZ4naD1mzwJlYOBiy5VQ
-	 YYnYEmzXP5DG61BfriYarAT/xGA4atUIA7fD0RFbZ/vj+XYtW+qb1jN2USNauQZQAG
-	 0aZEGqbAzAhRq8Uay9e1gTlQbWNKLIeRGj6LiL+vCPs94tqAxDd2da4pWk8Df1YoYw
-	 p6gt3YYXbKuWnuOITck3TL2tYZ9UO5z+/BerGyPOG7BkWbgMqnHHNSbILpkClbGeFY
-	 66bn5CeAVTyEw==
+	b=hswg82ADIK+XUrZSwqVYhR7aXfCo6Z1YhT7vNKa3+vHuE2JFEnRBKXg0bu/vS07dc
+	 lhh9mQJZz7jRgzxzqIcgWSuDefK2B0UekXcG4vhrrOkw9J67KMXGgAcLsqlz7ynXMx
+	 d5lwa6KNMI/WMQQ8kZyr52bVZsk/6aIq8M33NIRSn6QyfP+SBckYIFKT37NRDtMlNK
+	 w5XzxDmpACMatNGSOZI0zjnbYUpURtIlzGrpjgeiVvFWvEbmqPb1yq6bNnRbqyx32R
+	 olF2yiuQZh+QQtOUmB38wwZzhXaq3aQ2GPRnQz2zbNQDkJ4fA4ef4KohovkJIQbin8
+	 fbWRGZPJxg9Yw==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jKdRy4QHwzLXc;
-	Wed, 04 Nov 2026 16:12:14 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jKdRx5hbfzLXW;
+	Wed, 04 Nov 2026 16:12:13 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Juri Lelli <juri.lelli@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev
-Subject: [PATCH v2 13/21] sched/deadline: Rebuild the root domains' accounting without cpusets too
-Date: Wed,  4 Nov 2026 16:11:59 -0500
-Message-Id: <20261104211207.1392343-14-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v2 08/21] selftests/sched: Add a test of SCHED_DEADLINE policy round trips
+Date: Wed,  4 Nov 2026 16:11:54 -0500
+Message-Id: <20261104211207.1392343-9-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
 References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
@@ -89,202 +89,392 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A change of the root domains, which CPU hotplug and suspend and resume
-make, clears their deadline bandwidth accounting and fills it back: the
-servers of each CPU, and the bandwidth of the deadline tasks of each
-cpuset. The walk that puts the tasks back lives in the cpuset code,
-dl_rebuild_rd_accounting(), and is a stub without CONFIG_CPUSETS: such
-a kernel loses the bandwidth of every deadline task at the first
-hotplug, total_bw of the new root domain holding its servers alone.
+Add deadline_switch_test, with a case for the fix two patches back and
+one for commit 41a7968022ca ("sched/deadline: Fix total_bw leak when
+switching away from SCHED_DEADLINE while !queued"):
 
-The tasks are never told. Each still takes its bandwidth out of
-total_bw once it leaves SCHED_DEADLINE, or dies: it underflows, and
-admission afterwards refuses every deadline task of the root domain.
+ - throttled_round_trip: a task with a runtime of 10ms per 2s period
+   spins, so that each replenishment throttles it again at once. Right
+   after a throttle it is switched to SCHED_OTHER, and back 200us after
+   its deadline: past its replenishment timer, and before its 0-lag
+   time, which the overrun scaled by 200 puts later. It must run again
+   within a period and a half. Three attempts;
+ - asleep_round_trip: a task of 9ms every 10ms, running 0.2ms and
+   sleeping 50ms, is switched to SCHED_OTHER and back while it sleeps
+   past its 0-lag time, enough times that a leak of its bandwidth at
+   each round trip fills the root domain: sched_setattr() then fails
+   with EBUSY. Skipped without admission control (sched_rt_runtime_us
+   at -1). A kernel that leaks is left without SCHED_DEADLINE bandwidth
+   until a reboot, so this case runs last.
 
-Walk the tasks instead of the cpusets, which is all there is without
-them, and keep one declaration beside dl_clear_root_domains() for both.
+In 8 VMs of 8 vCPUs each, v7.3 fails both cases, and v7.4-rc1 with the
+four deadline fixes of sched/urgent fails the first; with the two
+previous patches as well both pass; every time.
 
-In 8-CPU VMs built without CONFIG_CPUSETS, the hotplug_sleepers case of
-the selftest added later in this series admits 9 tasks of 10ms every
-100ms before taking a CPU offline and back, and 0 after, on v7.4-rc1 as
-with the patches before this one; hotplug_departed and
-hotplug_server_refused fail after it, and two more hotplug cases skip
-for want of room. The five pass with this change, in 4 VMs, with no
-warning.
-
-Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- include/linux/cpuset.h         |  5 ----
- include/linux/sched/deadline.h | 16 ++++++++++++
- kernel/sched/deadline.c        | 48 ++++++++++++++++++++++++++++++++++
- kernel/sched/syscalls.c        | 13 ++++++---
- 4 files changed, 74 insertions(+), 8 deletions(-)
+ tools/testing/selftests/sched/.gitignore      |   1 +
+ tools/testing/selftests/sched/Makefile        |   1 +
+ .../selftests/sched/deadline_switch_test.c    | 332 ++++++++++++++++++
+ 3 files changed, 334 insertions(+)
+ create mode 100644 tools/testing/selftests/sched/deadline_switch_test.c
 
-diff --git a/include/linux/cpuset.h b/include/linux/cpuset.h
-index 914983387e95..608c3c5a9535 100644
---- a/include/linux/cpuset.h
-+++ b/include/linux/cpuset.h
-@@ -129,7 +129,6 @@ static inline int cpuset_do_page_mem_spread(void)
+diff --git a/tools/testing/selftests/sched/.gitignore b/tools/testing/selftests/sched/.gitignore
+index 6996d4654d92..d97f40c21ab5 100644
+--- a/tools/testing/selftests/sched/.gitignore
++++ b/tools/testing/selftests/sched/.gitignore
+@@ -1 +1,2 @@
+ cs_prctl_test
++deadline_switch_test
+diff --git a/tools/testing/selftests/sched/Makefile b/tools/testing/selftests/sched/Makefile
+index 099ee9213557..ae9421eabf15 100644
+--- a/tools/testing/selftests/sched/Makefile
++++ b/tools/testing/selftests/sched/Makefile
+@@ -10,5 +10,6 @@ LDLIBS += -lpthread
  
- extern bool current_cpuset_is_being_rebound(void);
+ TEST_GEN_FILES := cs_prctl_test
+ TEST_PROGS := cs_prctl_test
++TEST_GEN_PROGS := deadline_switch_test
  
--extern void dl_rebuild_rd_accounting(void);
- extern void rebuild_sched_domains(void);
- 
- extern void cpuset_print_current_mems_allowed(void);
-@@ -273,10 +272,6 @@ static inline bool current_cpuset_is_being_rebound(void)
- 	return false;
- }
- 
--static inline void dl_rebuild_rd_accounting(void)
--{
--}
--
- static inline void rebuild_sched_domains(void)
- {
- 	guard(cpus_read_lock)();
-diff --git a/include/linux/sched/deadline.h b/include/linux/sched/deadline.h
-index bdf39ac1d43d..d69c461a3eda 100644
---- a/include/linux/sched/deadline.h
-+++ b/include/linux/sched/deadline.h
-@@ -33,6 +33,22 @@ struct root_domain;
- extern void dl_add_task_root_domain(struct task_struct *p);
- extern void dl_clear_root_domain(struct root_domain *rd);
- extern void dl_clear_root_domains(void);
-+extern void dl_rebuild_rd_accounting(void);
+ include ../lib.mk
+diff --git a/tools/testing/selftests/sched/deadline_switch_test.c b/tools/testing/selftests/sched/deadline_switch_test.c
+new file mode 100644
+index 000000000000..81125d81b618
+--- /dev/null
++++ b/tools/testing/selftests/sched/deadline_switch_test.c
+@@ -0,0 +1,332 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * The lock that keeps a rebuild of the root domains' accounting from running
-+ * against an admission of bandwidth: cpuset_mutex where cpusets are built in,
-+ * since every rebuild comes from there, and a lock of the deadline class's own
-+ * where they are not.
++ * A SCHED_DEADLINE task switched to SCHED_OTHER and back:
++ *
++ *  - throttled: switched out after its runtime ran out, and back after
++ *    its deadline but before its 0-lag time, it must run again, the
++ *    replenishment it missed while out of SCHED_DEADLINE or not;
++ *  - asleep past its 0-lag time: its bandwidth must leave the root domain
++ *    when it leaves SCHED_DEADLINE, or the switch back adds it again and
++ *    sched_setattr() soon refuses SCHED_DEADLINE with EBUSY.
++ *
++ * On a kernel that leaks, the second case leaves the root domain without
++ * bandwidth for new SCHED_DEADLINE tasks until a reboot.
 + */
-+#ifdef CONFIG_CPUSETS
-+static inline void dl_accounting_lock(void) { }
-+static inline void dl_accounting_unlock(void) { }
-+static inline void lockdep_assert_dl_accounting_held(void) { }
-+#else
-+extern void dl_accounting_lock(void);
-+extern void dl_accounting_unlock(void);
-+extern void lockdep_assert_dl_accounting_held(void);
++#define _GNU_SOURCE
++#include <errno.h>
++#include <sched.h>
++#include <signal.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/mman.h>
++#include <sys/syscall.h>
++#include <sys/sysinfo.h>
++#include <sys/wait.h>
++#include <time.h>
++#include <unistd.h>
++
++#include "../kselftest.h"
++
++#ifndef SCHED_DEADLINE
++#define SCHED_DEADLINE	6
 +#endif
- /*
-  * Return whether moving DL task @p to @new_mask requires moving DL
-  * bandwidth accounting between root domains. This helper is specific to
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index cbcc00ea46d3..85df2b0044be 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3685,6 +3685,53 @@ void dl_clear_root_domain(struct root_domain *rd)
- 		dl_server_add_bw(rd, i);
- }
- 
-+#ifndef CONFIG_CPUSETS
-+/*
-+ * Where cpusets are built in, cpuset_mutex keeps an admission of bandwidth
-+ * from running against a rebuild of the accounting, and
-+ * __sched_setscheduler() takes it for every change of or into
-+ * SCHED_DEADLINE. Where they are not, cpuset_lock() is a stub and this
-+ * takes its place.
-+ */
-+static DEFINE_MUTEX(dl_accounting_mutex);
 +
-+void dl_accounting_lock(void)
++#define NSEC_PER_USEC	1000ULL
++#define NSEC_PER_MSEC	1000000ULL
++#define NSEC_PER_SEC	1000000000ULL
++
++struct dl_attr {
++	uint32_t size;
++	uint32_t sched_policy;
++	uint64_t sched_flags;
++	int32_t sched_nice;
++	uint32_t sched_priority;
++	uint64_t sched_runtime;
++	uint64_t sched_deadline;
++	uint64_t sched_period;
++};
++
++/* Written by the child, read by the parent. */
++struct shared {
++	uint64_t stamp;		/* last time the child ran */
++	uint64_t run_start;	/* when it last resumed after a gap */
++	uint64_t runs;		/* resumptions after a gap */
++	uint64_t sleeps;	/* sleeps begun */
++};
++
++static uint64_t now_ns(void)
 +{
-+	mutex_lock(&dl_accounting_mutex);
++	struct timespec ts;
++
++	clock_gettime(CLOCK_MONOTONIC, &ts);
++	return ts.tv_sec * NSEC_PER_SEC + ts.tv_nsec;
 +}
 +
-+void dl_accounting_unlock(void)
++static void sleep_ns(uint64_t ns)
 +{
-+	mutex_unlock(&dl_accounting_mutex);
++	struct timespec ts = { .tv_sec = ns / NSEC_PER_SEC, .tv_nsec = ns % NSEC_PER_SEC };
++
++	while (nanosleep(&ts, &ts) && errno == EINTR)
++		;
 +}
 +
-+void lockdep_assert_dl_accounting_held(void)
++static void sleep_until(uint64_t t)
 +{
-+	lockdep_assert_held(&dl_accounting_mutex);
++	struct timespec ts = { .tv_sec = t / NSEC_PER_SEC, .tv_nsec = t % NSEC_PER_SEC };
++
++	while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL) == EINTR)
++		;
 +}
 +
-+/*
-+ * Rebuild the root domains' accounting, where no cpuset holds the
-+ * deadline tasks of each: they are found by walking them all, which
-+ * dl_rebuild_rd_accounting() of the cpusets does per cpuset instead.
-+ */
-+void dl_rebuild_rd_accounting(void)
++static int set_deadline(pid_t pid, uint64_t runtime, uint64_t period)
 +{
-+	struct task_struct *g, *p;
++	struct dl_attr attr = {
++		.size = sizeof(attr),
++		.sched_policy = SCHED_DEADLINE,
++		.sched_runtime = runtime,
++		.sched_deadline = period,
++		.sched_period = period,
++	};
 +
-+	lockdep_assert_cpus_held();
-+	lockdep_assert_held(&sched_domains_mutex);
-+
-+	guard(mutex)(&dl_accounting_mutex);
-+	dl_clear_root_domains();
-+
-+	read_lock(&tasklist_lock);
-+	for_each_process_thread(g, p)
-+		dl_add_task_root_domain(p);
-+	read_unlock(&tasklist_lock);
++	return syscall(__NR_sched_setattr, pid, &attr, 0) ? -errno : 0;
 +}
-+#endif /* !CONFIG_CPUSETS */
 +
- /*
-  * Clear every root domain ahead of a rebuild of their accounting, which
-  * dl_add_task_root_domain() then fills with the deadline tasks of the
-@@ -4112,6 +4159,7 @@ int sched_dl_overflow(struct task_struct *p, int policy,
- 	 */
- 	if (!err && dl_policy(policy) && !task_has_dl_policy(p)) {
- 		lockdep_assert_cpuset_lock_held();
-+		lockdep_assert_dl_accounting_held();
- 		if (p->dl.dl_departed_cpu >= 0)
- 			dl_task_release_bw(p, -1);
- 		p->dl.dl_bw_gen = dl_bw_gen;
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 8eddb9d47d8e..b1fc4fadd689 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -559,6 +559,7 @@ int __sched_setscheduler(struct task_struct *p,
- 	if (dl_policy(policy) || dl_policy(p->policy)) {
- 		cpuset_locked = true;
- 		cpuset_lock();
-+		dl_accounting_lock();
- 	}
- 
- 	/*
-@@ -650,8 +651,10 @@ int __sched_setscheduler(struct task_struct *p,
- 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
- 		policy = oldpolicy = -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
-+			dl_accounting_unlock();
- 			cpuset_unlock();
-+		}
- 		goto recheck;
- 	}
- 
-@@ -740,8 +743,10 @@ int __sched_setscheduler(struct task_struct *p,
- 	task_rq_unlock(rq, p, &rf);
- 
- 	if (pi) {
--		if (cpuset_locked)
-+		if (cpuset_locked) {
-+			dl_accounting_unlock();
- 			cpuset_unlock();
-+		}
- 		rt_mutex_adjust_pi(p);
- 	}
- 
-@@ -753,8 +758,10 @@ int __sched_setscheduler(struct task_struct *p,
- 
- unlock:
- 	task_rq_unlock(rq, p, &rf);
--	if (cpuset_locked)
-+	if (cpuset_locked) {
-+		dl_accounting_unlock();
- 		cpuset_unlock();
++static int set_other(pid_t pid)
++{
++	struct sched_param sp = { .sched_priority = 0 };
++
++	return sched_setscheduler(pid, SCHED_OTHER, &sp) ? -errno : 0;
++}
++
++static struct shared *sh;
++
++static void reap(pid_t pid)
++{
++	int status;
++
++	if (pid <= 0)
++		return;
++	if (kill(pid, SIGKILL) && errno != ESRCH)
++		ksft_print_msg("kill %d: %s\n", pid, strerror(errno));
++	/* A task lost in SCHED_DEADLINE runs again, and dies, once out of it. */
++	set_other(pid);			/* gone already: nothing to switch */
++	while (waitpid(pid, &status, 0) != pid) {
++		if (errno == EINTR)
++			continue;
++		ksft_print_msg("waitpid %d: %s\n", pid, strerror(errno));
++		break;
 +	}
- 	return retval;
- }
- 
++}
++
++/* The child died before the case was done: @status says whether it skips. */
++static int gone(int status)
++{
++	if (WIFEXITED(status) && WEXITSTATUS(status) == KSFT_SKIP) {
++		ksft_print_msg("SCHED_DEADLINE refused\n");
++		return KSFT_SKIP;
++	}
++	if (WIFSIGNALED(status))
++		ksft_print_msg("the task died of signal %d\n", WTERMSIG(status));
++	else
++		ksft_print_msg("the task exited with %d\n", WEXITSTATUS(status));
++	return KSFT_FAIL;
++}
++
++/* Spins: runs out of its runtime at once, and is throttled. */
++static void spinner(void)
++{
++	uint64_t last = now_ns();
++
++	for (;;) {
++		uint64_t t = now_ns();
++
++		if (t - last > 2 * NSEC_PER_MSEC) {
++			__atomic_store_n(&sh->run_start, t, __ATOMIC_RELAXED);
++			__atomic_fetch_add(&sh->runs, 1, __ATOMIC_RELEASE);
++		}
++		__atomic_store_n(&sh->stamp, t, __ATOMIC_RELEASE);
++		last = t;
++	}
++}
++
++#define LOST_RUNTIME	(10 * NSEC_PER_MSEC)
++#define LOST_PERIOD	(2 * NSEC_PER_SEC)
++#define LOST_MARGIN	(200 * NSEC_PER_USEC)
++
++/*
++ * The window between the deadline and the 0-lag time is the overrun
++ * scaled by period/runtime: 200 here, so that an overrun of 2us leaves
++ * 400us. A runtime longer than a tick keeps an overrun caught at the tick
++ * from carrying past the next replenishment, which comes a period after
++ * the last. The switch back comes LOST_MARGIN after the deadline, once
++ * the replenishment timer has fired on a task out of SCHED_DEADLINE.
++ */
++static int test_throttled_round_trip(void)
++{
++	int attempt, ret = KSFT_PASS, err;
++	pid_t pid;
++
++	memset(sh, 0, sizeof(*sh));
++	pid = fork();
++	if (pid < 0) {
++		ksft_print_msg("fork: %s\n", strerror(errno));
++		return KSFT_FAIL;
++	}
++	if (!pid) {
++		if (set_deadline(0, LOST_RUNTIME, LOST_PERIOD))
++			_exit(KSFT_SKIP);
++		spinner();
++	}
++	for (attempt = 0; attempt < 3 && ret == KSFT_PASS; attempt++) {
++		uint64_t runs, r, s, t;
++
++		/* A resumption at a replenishment, D, then its throttle. */
++		runs = __atomic_load_n(&sh->runs, __ATOMIC_ACQUIRE);
++		t = now_ns();
++		while (__atomic_load_n(&sh->runs, __ATOMIC_ACQUIRE) == runs) {
++			if (now_ns() - t > 3 * LOST_PERIOD) {
++				int status;
++
++				if (waitpid(pid, &status, WNOHANG) == pid)
++					return gone(status);
++				ksft_print_msg("the task did not resume within 3 periods\n");
++				reap(pid);
++				return KSFT_FAIL;
++			}
++			sleep_ns(NSEC_PER_MSEC);
++		}
++		r = __atomic_load_n(&sh->run_start, __ATOMIC_RELAXED);
++		do {
++			s = __atomic_load_n(&sh->stamp, __ATOMIC_ACQUIRE);
++			sleep_ns(2 * NSEC_PER_MSEC);
++		} while (__atomic_load_n(&sh->stamp, __ATOMIC_ACQUIRE) != s);
++		/* Throttled until D + period: out, and back after that. */
++		err = set_other(pid);
++		if (!err) {
++			sleep_until(r + LOST_PERIOD + LOST_MARGIN);
++			err = set_deadline(pid, LOST_RUNTIME, LOST_PERIOD);
++		}
++		if (err) {
++			ksft_print_msg("policy switch: %s\n", strerror(-err));
++			ret = KSFT_FAIL;
++			break;
++		}
++		sleep_ns(10 * NSEC_PER_MSEC);
++		s = __atomic_load_n(&sh->stamp, __ATOMIC_ACQUIRE);
++		t = now_ns();
++		while (__atomic_load_n(&sh->stamp, __ATOMIC_ACQUIRE) == s &&
++		       now_ns() - t < LOST_PERIOD + LOST_PERIOD / 2)
++			sleep_ns(NSEC_PER_MSEC);
++		if (__atomic_load_n(&sh->stamp, __ATOMIC_ACQUIRE) == s) {
++			ksft_print_msg("throttled, switched out and back: never ran again\n");
++			ret = KSFT_FAIL;
++		}
++	}
++	reap(pid);
++	return ret;
++}
++
++#define LEAK_RUNTIME	(9 * NSEC_PER_MSEC)
++#define LEAK_PERIOD	(10 * NSEC_PER_MSEC)
++
++/* Runs 0.2ms, sleeps 50ms. */
++static void sleeper(void)
++{
++	for (;;) {
++		uint64_t end = now_ns() + 200 * NSEC_PER_USEC;
++
++		while (now_ns() < end)
++			;
++		__atomic_fetch_add(&sh->sleeps, 1, __ATOMIC_RELEASE);
++		sleep_ns(50 * NSEC_PER_MSEC);
++	}
++}
++
++/*
++ * 90% of a CPU per round trip: a leak fills the root domain within about
++ * as many round trips as it has CPUs.
++ */
++static int test_asleep_round_trip(void)
++{
++	int i, trips = get_nprocs() * 10 / 9 + 3, ret = KSFT_PASS, err;
++	pid_t pid;
++	FILE *f;
++
++	f = fopen("/proc/sys/kernel/sched_rt_runtime_us", "r");
++	if (f) {
++		long rt = 0;
++
++		if (fscanf(f, "%ld", &rt) == 1 && rt < 0) {
++			fclose(f);
++			ksft_print_msg("no admission control: a leak cannot be seen\n");
++			return KSFT_SKIP;
++		}
++		fclose(f);
++	}
++	memset(sh, 0, sizeof(*sh));
++	pid = fork();
++	if (pid < 0) {
++		ksft_print_msg("fork: %s\n", strerror(errno));
++		return KSFT_FAIL;
++	}
++	if (!pid) {
++		if (set_deadline(0, LEAK_RUNTIME, LEAK_PERIOD))
++			_exit(KSFT_SKIP);
++		sleeper();
++	}
++	for (i = 0; i < trips; i++) {
++		uint64_t sleeps = __atomic_load_n(&sh->sleeps, __ATOMIC_ACQUIRE);
++		uint64_t t = now_ns();
++
++		while (__atomic_load_n(&sh->sleeps, __ATOMIC_ACQUIRE) == sleeps) {
++			if (now_ns() - t > NSEC_PER_SEC) {
++				int status;
++
++				if (waitpid(pid, &status, WNOHANG) == pid)
++					return gone(status);
++				ksft_print_msg("the task did not run within 1s\n");
++				reap(pid);
++				return KSFT_FAIL;
++			}
++			sleep_ns(NSEC_PER_MSEC);
++		}
++		/* Asleep, well past its 0-lag time. */
++		sleep_ns(5 * NSEC_PER_MSEC);
++		err = set_other(pid);
++		if (!err)
++			err = set_deadline(pid, LEAK_RUNTIME, LEAK_PERIOD);
++		if (err) {
++			ksft_print_msg("switch back refused after %d of %d round trips: %s\n",
++				       i, trips, strerror(-err));
++			ret = KSFT_FAIL;
++			break;
++		}
++	}
++	reap(pid);
++	return ret;
++}
++
++static void report(const char *name, int ret)
++{
++	if (ret == KSFT_PASS)
++		ksft_test_result_pass("%s\n", name);
++	else if (ret == KSFT_SKIP)
++		ksft_test_result_skip("%s\n", name);
++	else
++		ksft_test_result_fail("%s\n", name);
++}
++
++int main(void)
++{
++	sh = mmap(NULL, sizeof(*sh), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
++	if (sh == MAP_FAILED)
++		ksft_exit_fail_msg("mmap: %s\n", strerror(errno));
++	ksft_print_header();
++	ksft_set_plan(2);
++	/* The first one first: the second fills the root domain where it leaks. */
++	report("throttled_round_trip", test_throttled_round_trip());
++	report("asleep_round_trip", test_asleep_round_trip());
++	ksft_finished();
++}
 -- 
 2.47.3
 
