@@ -1,111 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814488;
-	b=c7cHNwmaXjlJlojtvVBXY5mMWCLkrpSKIrZDhcat1tbrKgLV1wKqZFPLwUzfLvyGFZwY
-	 QDhJsMVJzaTPBog8qOBsEE4hnQRfaV3n16Fb8QCfQlZ7+nFty1oLYYDMe50TX9UYBRKQT
-	 ibNwIC26XrSO/LORMWfo+dpd7mwA/tySO/ExO3o+JUPuxpqpk9MjDMH95iwqA/HhrJtSZ
-	 dyqxbwn8HqBVP3UHeEH+fmL7HuHB4I2mhUyfiIoFMyJbSkZsQSSkT7ErzLLh5OjWC1Fa0
-	 NWO08OxIyj1ebrGMwY8+w8Ma/V1OYp7Lg/NDbua87J/Hp0gVWO6LyvjeJ43NPYoTyjA==
+	t=1793814505;
+	b=zoES8Ue1ZKL8K+vh+l8OqJpPRmlUKSLFMIdH/nGvednxpwrI4hm5toxSYXYaVt+kYsbV
+	 FKJXVSrO4TqLgi4sDkulpXg+/FO5wDAEejX5pCKgN/LJvOmWc45LN6WVuxQ6zklFalxrL
+	 0yyBDhDyp0tow7UgVnBkCJNaCC/9W2fbJ81xos+Iis6vlDvl77xlJwnMz4sCxOY903NGc
+	 g6HVV2+V81OjoKSCDlA2cbZ7PdPtnTFK6j8G2aTxeQtfRdffT08wgeOioj2NvTKRLt5On
+	 Ja+SilqPYzbLtGVwFbV7jNPfLR9bh2e7bPpVDspTvB6vDdDLBtq27jYAPDbkSg0vzxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814488;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=+QMuJvtMuQ+CXnn6xLeWoxU7H9VJY0mzKEyTXi76/+M=;
-	b=s4jk7OESovVO/5e90NI+zzQ3NqhtLIhsJqzRszvhHQPbcm5d8E0lUQVDnnufzwPAiDIS
-	 avkwQNq8hqjcBDiJG4stPXxwZGOmWH1QcdTNmXiQhhu33RbxRBGm/57XhfyHfN6B7HrFp
-	 CYaeJ+JCTdLVPcG5SZiDR98P0USRPXROykZ01q2j6x8cVyhc7S9V79UBv6n/vJfBDboej
-	 fafTvUWDa66Nf+759eIa1TsJ3DL6hELgXxSZyVHDAW61/pijfzkqRu7dzvndeFizTUl94
-	 fUx70AD2SO82tVa1yXVo1WfqETo8dqqinqJOZldkNAlP++V892YVxt9pU9zlqyy/X5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814505;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=kk4wiL5SliP/Vyu3xQ313k+8HyFDPUBhSH/Hd019iao=;
+	b=pOUU0S2ZZhEKnVTLUIMiKECKhMO4CD6gR0/N5b406+QjUXIXWbOe/R7MYo3QsTrwaef7
+	 6M8pYLcS3WJ2yxKjaRAAsjOVgl6KIh6B+7BbYxbXinQ6hBwJxlEVGnB30MmBPdQ7zPPBv
+	 OWVSwJ0kLT9mQfmJKeANY8mmONBYzU+eiFNnp7fXobNW9L1xBqcGqX10y7wXzVBWPZu5p
+	 yg0lIKBGHzhDqjgqjtL0C+UJkNpc2mXV3rv+NVQ9WRAe2AEkvZ1KUtL6xDyUy2pZbUcVR
+	 OGNl61L6Rz+i36d6weCMOiy821ZHqrI1nvBM477etBuYfuVyKTDw+ULhQ2+Wo1Lpmkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DVG35mDd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE995606A31B;
-	Wed,  4 Nov 2026 17:48:07 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HAx+Cohv;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BDA92606D816
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 17:48:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA92606D816
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DVG35mDd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9FB1F00919;
-	Wed,  4 Nov 2026 17:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814487;
-	bh=+QMuJvtMuQ+CXnn6xLeWoxU7H9VJY0mzKEyTXi76/+M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DVG35mDdrJ+w70lYp9CqgpxTuoGTpj4temyLsY3vuBl9elVVBnmHrviotaVGY/ppP
-	 UdOgypZXpDWtJ7enRd3iIIX4vWx3xyqPaHPzOZWq/P4JUJrwgIpI4MwtSTSz/6po8R
-	 Yvz02Y/vDREj2xNfVXWxFSvrw7Bvuiwjqz0knxKP5rsjzaWDW5qaKyJ9F3yEnh+EWh
-	 A3TtW5nyoi8NpYae3YAaKFmJ3QPX5Rij2cVvQ/1JMiWehFHBZSo4em6YfVuXhfiqDi
-	 JqHLo3hhdvujnwykhoFrIyHzHBnGpPwJgUwVLui5mJv4lfTVDRPXKF7pOVu2XHYste
-	 DuNdex110TFZw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 13/51] sched/psi: don't drop the last byte of a trigger write
-Date: Wed,  4 Nov 2026 18:46:59 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-13-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HAx+Cohv
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 186EE1BB2;
+	Wed,  4 Nov 2026 09:48:21 -0800 (PST)
+Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D586C3F673;
+	Wed,  4 Nov 2026 09:48:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793814504; bh=tOhPiHRXnPNTsYhv9r+JKx25HW1yCfJsmlAkFpXs/Z4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=HAx+CohvVB5xvosrrOgpAoaFO3yhZIfak0ljQOWbcfhqqODDJpCGbWIT8FBkeM78t
+	 /xoxFjSoZGji5N8bTNp8GwK+CyzpyH83OYm3h/ENfHFRh5+enuBnM6XcNvcGaBAq5E
+	 9ZuPOUfe/CjIcsftFnNFnIIhAq8w5QO0Pn9lqdfw=
+From: Sascha Bischoff <sascha.bischoff@arm.com>
+Date: Wed, 04 Nov 2026 17:47:56 +0000
+Subject: [PATCH v2 02/10] irqchip/gic-v5: Only set IRS DPS when 1ofN
+ routing is supported
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,47 +56,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1310; i=brauner@kernel.org; h=from:subject:message-id; bh=/5ST8groFWC3ZYrB9+5K2L5OtN8hrslkTr6MpvXzbng=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zjv/59LFdb+4Nqzr+cU3P2cS7+L2yauySvlfWb8/9 eufsCjT0o5SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJmJkw/FM9sG/u0ochUvwi r25NnfqcY/Wv3m+1Rk6yc5TfvmHn3j+V4X8gx3Wx2Wp7OP7b/lW+zLTMQ+Qde1X2zk2aTqESmTX LCxkA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-host_gicv5_fixes-v2-2-e47ad20ea3c8@arm.com>
+References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+In-Reply-To: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+To: Marc Zyngier <maz@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Timothy Hayes <timothy.hayes@arm.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sascha Bischoff <sascha.bischoff@arm.com>
+X-Mailer: b4 0.15.2
 
-psi_write() copies at most 32 bytes of the write into its buffer and
-terminates the buffer by overwriting its last byte. For a write shorter
-than 32 bytes that is the last byte the writer sent. A trigger written
-without a trailing newline loses its last digit then, "some 150000
-1000000" turns into "some 150000 100000", and a shorter one like
-"some 150 10000" fails with -EINVAL because the window doesn't fit
-anymore. Only writes that end in a newline parse as intended.
+IRS_PE_CR0.DPS is RES0 when the IRS does not support 1ofN routing.
+Read the capability from IRS_IDR0 and skip programming DPS on systems
+without support for 1ofN routing, rather than blindly writing it.
 
-Copy at most 31 bytes and terminate behind them.
-
-Fixes: 0e94682b73bf ("psi: introduce psi monitor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 5cb1b6dab2def ("irqchip/gic-v5: Add GICv5 IRS/SPI support")
+Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 ---
- kernel/sched/psi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-gic-v5-irs.c   | 14 +++++++++-----
+ include/linux/irqchip/arm-gic-v5.h |  1 +
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-index 7c5381423334..8b59635e95d4 100644
---- a/kernel/sched/psi.c
-+++ b/kernel/sched/psi.c
-@@ -1566,11 +1566,11 @@ static ssize_t psi_write(struct file *file, const char __user *user_buf,
- 	if (!nbytes)
- 		return -EINVAL;
+diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
+index 9d60f474aa4f6..4edf787f3f97f 100644
+--- a/drivers/irqchip/irq-gic-v5-irs.c
++++ b/drivers/irqchip/irq-gic-v5-irs.c
+@@ -541,12 +541,15 @@ int gicv5_irs_register_cpu(int cpuid)
+ 		return -ENXIO;
+ 	}
  
--	buf_size = min(nbytes, sizeof(buf));
-+	buf_size = min(nbytes, sizeof(buf) - 1);
- 	if (copy_from_user(buf, user_buf, buf_size))
- 		return -EFAULT;
+-	cr0 = FIELD_PREP(GICV5_IRS_PE_CR0_DPS, 0x1);
+-	irs_writel_relaxed(irs_data, cr0, GICV5_IRS_PE_CR0);
++	/* IRS_PE_CR0.DPS is RES0 when 1ofN routing is unsupported. */
++	if (gicv5_global_data.one_of_n) {
++		cr0 = FIELD_PREP(GICV5_IRS_PE_CR0_DPS, 0x1);
++		irs_writel_relaxed(irs_data, cr0, GICV5_IRS_PE_CR0);
  
--	buf[buf_size - 1] = '\0';
-+	buf[buf_size] = '\0';
+-	ret = gicv5_irs_wait_for_pe_cr0(irs_data);
+-	if (ret)
+-		return ret;
++		ret = gicv5_irs_wait_for_pe_cr0(irs_data);
++		if (ret)
++			return ret;
++	}
  
- 	seq = file->private_data;
+ 	pr_debug("CPU %d enabled PE IAFFID 0x%x\n", cpuid, iaffid);
  
+@@ -725,6 +728,7 @@ static int __init gicv5_irs_init(struct gicv5_irs_chip_data *irs_data)
+ 	if (list_empty(&irs_nodes)) {
+ 		idr = irs_readl_relaxed(irs_data, GICV5_IRS_IDR0);
+ 		gicv5_global_data.virt_capable = !!FIELD_GET(GICV5_IRS_IDR0_VIRT, idr);
++		gicv5_global_data.one_of_n = !!FIELD_GET(GICV5_IRS_IDR0_ONE_N, idr);
+ 
+ 		idr = irs_readl_relaxed(irs_data, GICV5_IRS_IDR1);
+ 		irs_setup_pri_bits(idr);
+diff --git a/include/linux/irqchip/arm-gic-v5.h b/include/linux/irqchip/arm-gic-v5.h
+index 299e75bc95255..34e22e7d4a4c7 100644
+--- a/include/linux/irqchip/arm-gic-v5.h
++++ b/include/linux/irqchip/arm-gic-v5.h
+@@ -532,6 +532,7 @@ struct gicv5_chip_data {
+ 	u8			cpuif_id_bits;
+ 	u8			irs_pri_bits;
+ 	bool			virt_capable;
++	bool			one_of_n;
+ 	struct {
+ 		__le64 *l1ist_addr;
+ 		u32 l2_size;
 
 -- 
-2.53.0
+2.34.1
 
