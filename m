@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829604;
-	b=xn/euoWozd7CLOi6FK2pLYJWEysD8OtIjohr+mkOqKmF8TQQYgqwia5zvQBVb573U+1E
-	 gNFCk4V7hlmjvd5Xm8c6aicsLIJLeb3FA6ZbxfnPDKbc10H81i/gY0ugR7zkiRxzDRovv
-	 IqA1YRzb1Yyu7TWIa30ubTqOsIfxObm0bFcsiQzCjBdwbZ/sW6vidKXeEmwNbV3Y8iJDd
-	 QrxbGUGxnHJUSoq2nIm+YKd+xrUfNOzwCWVGwuUV6InmrMpwxIr9ni4lX4Vwvh++5tNxd
-	 TiDhlzMS6VliddvsQaO5OPq5tv1pLBOKgJRFUtVyCLTknUE/WHJMukZhU+Dsr5i8Q0w==
+	t=1793829608;
+	b=0Ev8kPI3GndNiNpiAk2SS014RUTHxnzSIshn0/zY8Dzb5dtademe/0MqGnV8AH+ZgXgn
+	 /OaUXB56lVlTU04WQSe9No72TMnexDJ/jBzFSNWqy+j6dOsRHDViZxKP29/OAUNGY6lFq
+	 +02kD+x/0OXhNG/Px6rhGh08k9YpM9t/HOmjCiUY6FWI9ILxQvd5V17GUpYGJ3pBgWlXC
+	 r0yr6HQHqimcyNkUcMsR9uV8rQg1LJzxKwEbT3cQmyrY9tajmJg+qFZJvvj7rpHQFE0n7
+	 vzRgvA/bUuSKY0siVkZei/jeHHEEjxhR6scud3N26wuquI0e3Hi495W6O1T2FHis4GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829604;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829608;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=J9/dIP50LfxLxmgwX1/nD7PItF1c308mZZXr4RjSQ0A=;
-	b=1c236T4CkTXg4hif2dkEfPBxx3+UpEFMoXfaJ8h0HtgxcmLgVw447kQHc02H+ZyfSCNL
-	 bytpIYZlLYUUuFJTFj94cKa9eSElSG3CsXv4tpIHeIONf3fGPdZdGlp/Pw+XQhZh8tqIw
-	 gMk7VzhX7iPNDTU5GnLw2OxUJBhN5AQCKymPB4Dpc6eI8RsSSHXDxY9BTz5KwaOYLOkW1
-	 iDCzFVVgvQtzFgQPuROigYnK3wQBJci1ou2N2F0QBZYVBgl8BIffB66FMyc7Qa3GJlsoh
-	 XECLEnjf4GhiyGStjmEaE3rQBRKignU2hmeCG45dv8Gmm6VUeCdgre+R8rf5BoO6AeQ==
+	bh=HRAnyt134SHIgNN1UWRJhhprtsqiZv4ePN3n1Nko6jI=;
+	b=j3PPx+a4z5KUy4DCB7o4V5Yq50/5lSlKyT4I1YxUrb7K6gSCl9j8cmw0ak++Ku9nH6nb
+	 ePISjiyBkhgKoGJhtbVykjCzsqg6+toGQBY//Gx0Le3FZECJSvFBby3m+r7T4g5+NNij/
+	 3DMhiDzrGf478iVvf4A7kwowrcjTUvjL5/HWJwGl8XPijXc9MSHK3tyDXeCuYbpinUOC4
+	 wauXvpdekOZx4cfPS2mD18eQulKyPga+ll56JeDzSpnCKAQd10EQfCM0XXfOC4ejmKdTL
+	 QOooJORYYNPqG0wx0SBlyNQAJ4uwKtV+fvnJg4Qc/eO6gEED8F0CUy6wY0rbxRK0iOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h7EyQPdT;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VMVAvhSm;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E86E6075DC1
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E86E6075DC1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2847C60877FB
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2847C60877FB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h7EyQPdT
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso27046a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:00:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VMVAvhSm
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ed1f1a7695so2811515ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:00:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793829604; x=1794434404; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793829607; x=1794434407; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J9/dIP50LfxLxmgwX1/nD7PItF1c308mZZXr4RjSQ0A=;
-        b=h7EyQPdTHGRBJC/MZIucnXYjrS5YFVIC7dor9ijgRMhgf936Ljo9gz031Dh2uTgv6k
-         FRJzPt3+Wyd1OWzZdPrJ7gKvn/9/wBw+eg+luyPMOOJ4Bp2tJrx9gLz8sZP8W4oiMQiX
-         fn09CTk0v1qxnG6lfDytttE61Wozden10+JzwbLjieHhViKp6mBC45io6YfpWBqMhv9l
-         3fXUi5e8H2Z0dC0lP3nSCt90mKFuwACDesE4vJX/cqjZWKEEKukjch/tdO96IlZPpXfl
-         nUdQiqpZ/ueC1WrtYUOBp5gzS1+AfQnxr/7jlBG/+DWjGaWGj/S8Mt37JIZuGP9xxoE4
-         tr4A==
+        bh=HRAnyt134SHIgNN1UWRJhhprtsqiZv4ePN3n1Nko6jI=;
+        b=VMVAvhSmuoSNgg2N+X2SNsiVMqgp/vsB3tiywuyaV608ObFEYF/Sl5TxNCD0HbHC89
+         ABVWL69R5CVrrkU6IwCp/zTN0qjnpiH8lCc+NZM2UdF/+MIy1qYJ1Lk704pFRTJqaHvD
+         mRLUt4eGWRW+HKXmRcyEoB1P7n4b3IxGiXGBZxZ180lMD3TP2zVwL0WY1TSKJfPO3jnc
+         cTLtfcGbsIUSQw2o6Ojpoahph8FKbPewFF3W9dSS23dBA06MOlVpnAOS3O5fAIiQVk9x
+         8KMHFG169oTTYsas7RkNl2lJHH8LOKtaHiilHaL8l7gpvXF6IQw2RxQHbbeQrElvR9n5
+         6Biw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793829604; x=1794434404;
+        d=1e100.net; s=20260707; t=1793829607; x=1794434407;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J9/dIP50LfxLxmgwX1/nD7PItF1c308mZZXr4RjSQ0A=;
-        b=ZydZoYImORxJmFQhCGnN4GRRUWvLPzYGrMt87r1SV+SxKyJcuGfdwRnRozi/4gPNBw
-         L52y9ILE6w9LVJ6j/M6rjPzuWDWIBQLVSSlD4DyT7G09U6qfAyQs7OrxbHCZ6zUi2Pyi
-         WIl4U5a9XqgdvsbFQ+5q+olwmTVaeBoVgnZZU5EuJuvu6Yj+dUIp46BrmpmGBtpqpAlU
-         G8gR7pkd7naYq+8hQNyLgy+xUIeiGCgNOJrCfaZzurKpagpnT13s3DMkDs2+YntekaOl
-         Ukm4S5q4Wr8EtXD7EaxHoR6VmFC1NBJWvRknAzv6ErscAQb08i7wKbbK1oRJxGJMl8si
-         ifvA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6jzTvkY/z0XwUuoSLdV7Ucs6+c4WoNrs7doHybJL2FTsiu+N1h52C2ZcB7U7DXZNhqQQobcgTXuKYMuk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l5hd+aPLdqVLW+hKbsDbO323jePhXWxBjHUiAdpuua9WbMOo+
-	NfpCW4cMW2nmtZ333wp9+uyaDDIt/lXLai3fL+x6Ksc2rH+Qcke4rM26
-X-Gm-Gg: AYBFou0xVZQjqNeMhHqBdbGtOItNBDJhE0+F5wumfitvgRnOKGZYX+rj/Hg/Wk+qk0W
-	nGF8lBSniilUWxt/YkJ7ptxtIc4hMgISeTmcK/TI29+Mjo1tpl3Jolrh44aID2TDHao2cI1JDIy
-	nOqyRKj9Hdr+hsxELJeaD2OzhunOa6Z4GFQRjcLGNK3hIJF6gY2/vAhwpzw1CLQwD4WbJPcAT08
-	K8q1ogKPj75Duo8Mr9ttq/jIcU0OJ7POpemybVzHEhYL8sZdsLTnAeAVHrAZGT/aWcGC0dT+MIk
-	VrRxZSs/o5WaVIBG0WnkIQOkINe7J/s/u+YJv+WFRJK35gvK9x8AFHrDPGajGDCvzbDyFmAhoeE
-	dzJRGxyT9V+pnTAEOPB2JHxD9uNx0/jvaPYeKTBvTkxiI0r7DF4hD8iKsVPxK1d46wy3XKrtazs
-	hFV3/UiuO+25puXL8lNzB6V+z1qPoBB0JeFHhOlpY/TCudG/OYVmP7QCClqwdmoA+HWsumjDrB/
-	08Kdh7lno4SQEucD/t7dpdhcwbicRQtylrclfwMTQ2UInsRQrRpaH2k5LD6cNPB7m/u/ibBWJyI
-	dqJOwAslRmoxWyQ4gaaddEdYtpqhLZ40EPZej6k8TpDdtqBy8uV4ggYRuHIVwLBdRAcr36f0Um3
-	Sc0eqdmcFps/Ne4yBdv6f/yOZ1wDDNGVxHOfuE9XJJj9BECUDlZ/K+VMoaPZSxxndVvM1AwX2fj
-	Tt0EaRTMGDO8Gt7FBa04Iz/+A=
-X-Received: by 2002:a17:90b:3fcc:b0:3ad:6090:a17f with SMTP id 98e67ed59e1d1-3b0afdce8aamr519591a91.10.1793829603412;
-        Wed, 04 Nov 2026 14:00:03 -0800 (PST)
+        bh=HRAnyt134SHIgNN1UWRJhhprtsqiZv4ePN3n1Nko6jI=;
+        b=qwh2AgDOKPlWMrv2vByCqPaxkqyjh42bQe07ibi3na5KThgbRo8f2kIAQy2fvvwv5F
+         3Y8Qrnzak3BMXsgaXEeO1XVSYCvmo5QU9Bpj3vPWu+ODkopv7zZ99HAm6NWpomI60lBj
+         qmQUfDnOzgkieJ7YlikfUSlWB2RsRdDyAyxI8CD+pBcYZ1/O4kM+97ZbzJ9YEo+Tw1tj
+         I9jV3Ze8+8f6sj9NRNiZtneqQzYs+2FKNx2WHviJTYPCiRSw4yMjR9zzqichGV9CJV5W
+         wcSvmQhk3HdKQ2rSMrix774U+18fDL8ODUfPMsZJ54LGxg2w/CP3YjUEKt/nulHWewHC
+         IIpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFzyzkM0T3btV4et3FzhROerlVzPVaTzvp2e9tcVA6WJkbhHbrhfW4I27bRuBz1JGjJtNHqQ2kNAAXw3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+l+1MzzaxbZW39nqmjn2m+BOu4XM2AsaaeSG1yBKrLGBljlGmo
+	dAbLihDzAVqy9/uebspZLH3hDl4qoOxgXtTUM6EvuS0k8EU9AR74iv3bADJuuw==
+X-Gm-Gg: AYBFou15kBL9MaMtoUotP0SSmklYfq1RvDRZpMQPQ+2WRXWy45khN45rvZ7gYhEAleS
+	9TfMvJLozXY04jkK0A0CrYxw7T4yD1B6vhnMWqsXeFUM9WDQeXR/MY87B57m/x3lQe8sYuxVoSC
+	XgCJbC963xAmpJI2r84zQIWHoS/tQvCp72yJ9VMbDqe2iHKMjggdhMJs2ydUQ4nn0FMuc55xi49
+	GdQSKbw9p0GNXWSAIwXDWu0ocAb++BnagYzRUX4dDLnVPay2RFlR15wo5C+8Q/KEtvwTdOkyk7T
+	SP+jHIfeGa35dwJfcww6myZPT9NacEIud577V3x2nbk9OTaoi+jEUMgsFe+Q+KDkQszDssQITu4
+	qsit+vZM4aemIm5dN/rGRXVNrUE+pP0HR2DLiibwXPAfPmZ4lmRNFFrKyqQYwhUaBlTm5uUPMlu
+	62ke9FjPyJByxfJTkwpFwk+dGRFqmEbCrT3R/Vrge9xPdH+M03keyS788FqxyEh1bme/PKozr2u
+	u0ZwwMNFVG5oBvF7H3ROBHAB0INe892Q7WF20oWzaoefTc7W5Fn15vuILNEuFUHjQz9i3BEK7GW
+	8ZQmovLaxCiQlSMHdM4SL8rG5VvWUyvLN+LJieiBUrjqfd2RE3bl9Ra3eDlZhb1MU4Ok8zlOFXF
+	rGAI2HjJTaYjQGOHZp2DSTR1Ct93BU88XHBunSkGEncLl3RrB0iPS6vz9ywbXlyzHUWK7KEvbfJ
+	Nj5A==
+X-Received: by 2002:a17:903:3c6b:b0:2e9:7dda:7194 with SMTP id d9443c01a7336-2eb3642fea1mr148462125ad.11.1793829607379;
+        Wed, 04 Nov 2026 14:00:07 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08fe1e4dsm11237865ad.21.2026.11.04.14.00.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08fe1e4dsm11237865ad.21.2026.11.04.14.00.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 14:00:02 -0800 (PST)
+        Wed, 04 Nov 2026 14:00:06 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: linux-gpio@vger.kernel.org
 Cc: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 1/5] gpio: ppc44x: drop redundant label and parent assignments
-Date: Wed,  4 Nov 2026 13:59:55 -0800
-Message-ID: <20261104215959.24035-2-rosenp@gmail.com>
+Subject: [PATCH 3/5] gpio: ppc44x: fold __ppc44x_gpio_set() into ppc44x_gpio_dir_out()
+Date: Wed,  4 Nov 2026 13:59:57 -0800
+Message-ID: <20261104215959.24035-4-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104215959.24035-1-rosenp@gmail.com>
 References: <20261104215959.24035-1-rosenp@gmail.com>
@@ -102,27 +102,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gpio_generic_chip_init() already sets gc->parent to the device and
-gc->label to dev_name() of it. Drop the duplicate assignments from
-probe.
+__ppc44x_gpio_set() has a single caller, and it looks up the driver
+data that the caller already has. Open-code it in the direction_output
+callback, with a comment explaining why gpio_generic_chip_set() can't
+be used there: the generic setter takes the chip lock, which is already
+held at that point.
+
+While at it, drop the pr_debug(); gpiolib's tracepoints already report
+direction and value changes.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpio/gpio-ppc44x.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpio/gpio-ppc44x.c | 28 ++++++++++------------------
+ 1 file changed, 10 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpio/gpio-ppc44x.c b/drivers/gpio/gpio-ppc44x.c
-index 189667e0e1ba..01dd5e7cc311 100644
+index b3cbc832cf24..20b3e9ce48e8 100644
 --- a/drivers/gpio/gpio-ppc44x.c
 +++ b/drivers/gpio/gpio-ppc44x.c
-@@ -178,8 +178,6 @@ static int ppc44x_gpio_probe(struct platform_device *ofdev)
- 		return ret;
+@@ -85,20 +85,6 @@ static void ppc44x_gpio_select_gpio(struct ppc44x_gpio __iomem *regs,
+  * There are a maximum of 32 gpios in each gpio controller.
+  */
  
- 	gc = &chip->chip.gc;
--	gc->label = dev_name(dev);
--	gc->parent = dev;
- 	gc->direction_input = ppc44x_gpio_dir_in;
- 	gc->direction_output = ppc44x_gpio_dir_out;
+-static inline void
+-__ppc44x_gpio_set(struct gpio_chip *gc, unsigned int gpio, int val)
+-{
+-	struct ppc44x_gpio_chip *chip = gpiochip_get_data(gc);
+-	struct gpio_generic_chip *gen_gc = &chip->chip;
+-
+-	if (val)
+-		gen_gc->sdata |= GPIO_MASK(gpio);
+-	else
+-		gen_gc->sdata &= ~GPIO_MASK(gpio);
+-
+-	gpio_generic_write_reg(gen_gc, gen_gc->reg_set, gen_gc->sdata);
+-}
+-
+ static int ppc44x_gpio_dir_in(struct gpio_chip *gc, unsigned int gpio)
+ {
+ 	struct ppc44x_gpio_chip *chip = gpiochip_get_data(gc);
+@@ -128,8 +114,16 @@ ppc44x_gpio_dir_out(struct gpio_chip *gc, unsigned int gpio, int val)
+ 
+ 	guard(gpio_generic_lock_irqsave)(gen_gc);
+ 
+-	/* First set initial value */
+-	__ppc44x_gpio_set(gc, gpio, val);
++	/*
++	 * First set the initial value. This can't use gpio_generic_chip_set()
++	 * as the generic setter takes the chip lock, which is already held.
++	 */
++	if (val)
++		gen_gc->sdata |= GPIO_MASK(gpio);
++	else
++		gen_gc->sdata &= ~GPIO_MASK(gpio);
++
++	gpio_generic_write_reg(gen_gc, gen_gc->reg_set, gen_gc->sdata);
+ 
+ 	/* Disable open-drain function */
+ 	ppc44x_clrbits32(&regs->odr, GPIO_MASK(gpio));
+@@ -140,8 +134,6 @@ ppc44x_gpio_dir_out(struct gpio_chip *gc, unsigned int gpio, int val)
+ 
+ 	ppc44x_gpio_select_gpio(regs, gpio);
+ 
+-	pr_debug("%s: gpio: %d val: %d\n", __func__, gpio, val);
+-
+ 	return 0;
+ }
  
 -- 
 2.56.0
