@@ -1,69 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757070;
-	b=GY+uvquPFUxbuK1xSR2/iQHFrxtTTxeZhBnMhbjPa1kmOLRdq3pOEOvTwb8yplQm5AAy
-	 H0toDrZ1LGQJ6Sbn8dFA2c58naOFzch4GVac1eW+og2uQ+QzYGA10PePHuyVgozmXL+4z
-	 UoIobe3nyAuXIwEKjF4GBR2qCbBDkfccdJF0vm21rxySNr5XdD/Xm2dx8dxtB8MuYxEb7
-	 omRE6oMSDdPFL7E6Ra6kf0w0WNXfwYqs7h1xbiSH0vLCjvWZ4qlNcPIMjaUzYqcjTPI0f
-	 PeN2Ves3dWnHnMwOIzj1hFoHZGiisCzCb9pnjEsF9G5KTIUxP231ES5lNCDSVUrdPlQ==
+	t=1793757160;
+	b=z4SVqqSquR+eEm1iHPxsH8ofFEOFVBSgB1c1kzfhPUapJRUYl3dWYer2EYzlqrJDJYCx
+	 LbQoVwB6iM4J9FOdbEqI1H0asIJ76q8VCRIlHKa2cWoNggTUlWZ7IaqEc/FAt2zoHOqh9
+	 sqrR67Gx1PtOsJ9qeebH7frKpouKMvQMWf+tX1cCGBPhinHGFIbijYFkvE8UwTdr1LG0W
+	 Yiw2r7przNBjTWsWFkICh6hzICdtoQ+BG2xmBRSP5+LTcnWpAirHx076luAcH6m3atJbG
+	 LgciW+wkPgx1hWiGGMCazMhfE+Aku7Vua9S8E8TQXujjMXrYuZmzsozieQVbhHamsaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757070;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LFq08CsAFVhSn1eWQAB3dasJVn0D2xjTVXuGTr24SJY=;
-	b=CrKujtkKsbO+gGB6NTD3GQan1NbHoP/6YZME1ewOmiHwVUg7XWed4xoQ9bMgudtYmvMH
-	 ENsYdq9swHYpUp1oBouHQXFbPKSiBAYUSvG40CL+LITeHvVpITesBoU8aQQaH68Rlr9x1
-	 3CSkWX0HCUUD1e94cCgCbJfKxRx6BbAVzY7MiSB8GTptjVknxRNLY2/1wOZ0EagSxNamU
-	 Jrc6dsLZ6w9YDnK44RAhXeJ8grZHXZDzoURFMvV9/pk5ehIYFWtPON9bny65fopubnMV4
-	 j1FKSOOAEVAh7tXdHVnC6v1V1nn/s71WqN0JnRRx/INUCzFRPHI7NIB0A/N3f2B4Pfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757160;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=CHvv0Ghh9PRrTAtIAXczD8TlBySiVNCv/5eTBqpNKPQ=;
+	b=X5OblVrZfktnCwkXw4j9ADxbi+EDtnzP1P2qK4SqAiK5wePAlyTrEktudd2n+YBWbz2g
+	 DijxFONmwe6EWr3hAgyuuYYX08r1IJGAN6clyHeunFm5giDvfFaBdtOeTB+3PqQy2NT9G
+	 X8qDUjPFiGtBtKqpyToB+XOYE9oipdlVpDmQP4mFLRnEoRO1xbOPRuhmnNdxSlTfpeBML
+	 KS0Tnjz5M+hjgJyKq8GUIAYipiDB6GNDlh+eJ2t4rt1jq/eFxCnspBKDHC5r/aFMiG+68
+	 y26fsj0n1nAZRbhvEBzVUHFwVeX6+tD9vEXbmkGLdLpCDi2rYdxin6qi4Z9IyODKe0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C1A606A31B;
-	Wed,  4 Nov 2026 01:51:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C1A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 309188d4d7f211f19a56ed5b684f684d-20261104
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:5a3d2273-7069-40cf-aed0-21ea1ad4d9bd,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:f4c7383558f645e3733a1ecab93ba228,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 309188d4d7f211f19a56ed5b684f684d-20261104
-X-User: weilixiang@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <weilixiang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 488411259; Wed, 04 Nov 2026 09:51:02 +0800
-From: Wei Lixiang <weilixiang@kylinos.cn>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: amd: yc: drop duplicated DMI quirk entries
-Date: Wed,  4 Nov 2026 09:50:58 +0800
-Message-Id: <20261104015058.6-1-weilixiang@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=ZE4rUETF;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 9D727606A31B;
+	Wed,  4 Nov 2026 01:52:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D727606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=ZE4rUETF
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Nikola Z .
+ Ivanov" <zlatistiv@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Hangbin Liu <hangbin.liu@linux.dev>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH v2] team: fix promisc/allmulti leak in team_port_add error path
+Date: Wed, 4 Nov 2026 09:52:17 +0800
+Message-ID: <20261104015217.2222-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,61 +52,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc8.internal.baidu.com (172.31.50.52) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1793757148;
+	bh=CHvv0Ghh9PRrTAtIAXczD8TlBySiVNCv/5eTBqpNKPQ=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=ZE4rUETFbIf/H/J2O/TDLhj0ByTjgRnjkE9IRsTz9/OzKb38YJI18ZApeLLrmbjO0
+	 1uob5z7vOI49N+dUyQhnNPYTuNSwnvAHKfOY7F/WJd7DB+sXhDUUisbJ5VHvU5myO6
+	 XA4iFLkvK/hN2xXBuMt+aIVBb18SAZGN4V5ntCAxyAZKCGl+aQ4i4mRKRS+7yfWFod
+	 RruiZJjPSYuLO7Vxnjq7ytoBGSXGsKDlFzB1fkiWCeFzKPardgPeT5Av6WdM9q0AuS
+	 313Nkgd+QZsl+yCSk4VF++N+B8XRO9RSqfFF67Pj6bJwQQXU53TLPwaCtAI6uzLgwt
+	 J2ZEcvlhy0kng==
 
-Two entries of yc_acp_quirk_table[] are present twice, so the second
-copy of each can never match: dmi_first_match() returns the first hit
-and the rest of the table is only walked when that lookup fails.
+From: Li RongQing <lirongqing@baidu.com>
 
-The LENOVO/21D0 entry was added twice in October 2022, once for the
-ThinkBook 14/16 Gen 4+ ARA (a450b5c87392) and again ten days later for
-the ThinkBook 14+ 2022 (a75481fa00cc).
+team_port_add() increments the port's promiscuity and allmulti
+counts before calling team_dev_type_check_change(). If the latter
+fails, the error path does not undo these increments, leaving the
+port in promiscuous and allmulti mode even though it was not
+successfully added to the team.
 
-The ASUSTeK/BM1403CDA entry was added for the ExpertBook BM1403CDA
-(f200b2f9a810) and then duplicated when that fix was merged into the
-development branch by commit 5a306bef5988 ("ASoC: Merge up fixes"),
-which kept both copies while resolving the conflict.
+Undo the promiscuity increment under err_set_slave_allmulti and the
+allmulti increment under err_set_dev_type, so each error label only
+reverts what was successfully applied, matching the cleanup performed
+by team_port_del().
 
-Removing the redundant copies keeps the table easy to audit when new
-quirks are added; the set of matched machines is unchanged.
+With the promiscuity rollback now living under err_set_slave_allmulti,
+the inline dev_set_promiscuity(port_dev, -1) in the dev_set_allmulti()
+failure branch becomes redundant: that branch already jumps to
+err_set_slave_allmulti, which undoes the promiscuity increment. Drop
+the inline call to avoid doing it twice.
 
-Signed-off-by: Wei Lixiang <weilixiang@kylinos.cn>
+Found by source code audit.
+
+Fixes: 0ae9cfc454ea ("team: Move team device type change at the end of team_port_add")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 14 --------------
- 1 file changed, 14 deletions(-)
+Diff with v1:
+1. Remove the dev_set_promiscuity(port_dev, -1); in if (dev->flags & IFF_ALLMULTI) and move it under here.
+2. change Fixes tag
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index ae26524453e8..034957508e51 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -87,13 +87,6 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "21D0"),
- 		}
- 	},
--	{
--		.driver_data = &acp6x_card,
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "21D0"),
+ drivers/net/team/team_core.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
+index 957cc78..cfb833c 100644
+--- a/drivers/net/team/team_core.c
++++ b/drivers/net/team/team_core.c
+@@ -1365,11 +1365,8 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
+ 	/* set allmulti level to new slave */
+ 	if (dev->flags & IFF_ALLMULTI) {
+ 		err = dev_set_allmulti(port_dev, 1);
+-		if (err) {
+-			if (dev->flags & IFF_PROMISC)
+-				dev_set_promiscuity(port_dev, -1);
++		if (err)
+ 			goto err_set_slave_allmulti;
 -		}
--	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
-@@ -878,13 +871,6 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "BM1403CDA"),
- 		}
- 	},
--	{
--		.driver_data = &acp6x_card,
--		.matches = {
--			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_MATCH(DMI_BOARD_NAME, "BM1403CDA"),
--		}
--	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+ 	}
+ 
+ 	err = team_dev_type_check_change(dev, port_dev);
+@@ -1397,7 +1394,11 @@ static int team_port_add(struct team *team, struct net_device *port_dev,
+ 	return 0;
+ 
+ err_set_dev_type:
++	if (dev->flags & IFF_ALLMULTI)
++		dev_set_allmulti(port_dev, -1);
+ err_set_slave_allmulti:
++	if (dev->flags & IFF_PROMISC)
++		dev_set_promiscuity(port_dev, -1);
+ err_set_slave_promisc:
+ 	__team_option_inst_del_port(team, port);
+ 
 -- 
-2.25.1
+2.9.4
 
