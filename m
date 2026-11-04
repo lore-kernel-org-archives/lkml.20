@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.12
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.9
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793832195;
-	b=qV14IirvamDvAvNe6sH2g2wvyYv8IYjy4pmXFkI37Gn755DTmQd4hHgz+H0Ip+jizuK2
-	 wzrqfSGEjLK0mrwMuguuEjYq/QOUcxHncvSM4p4F2zRWxF/giOW+lvZTPR5z98I/PPPS0
-	 ocwlsmFqHXrnOgOYFNzmu9mfDflA3NIIPcA2yAO1PWM9mScJYJyAl0mI+XsNUUemaGw3x
-	 k2S3dyRRWGuGzcBnA+bbTrJgiWNm8xD2lzMYN0bvzNzItmFKtbxY5pMnW7kv2dwsDDwZv
-	 N81bgZGmpaFmOIYgLZldFxLj8T7X3PNLO2lgkOYcEaxGJe2hIsQ+YJzXO3NUm8K5QDw==
+	t=1793832199;
+	b=UFLwYBuHb+4Df3wWbU/zdE1M8WObJJ12MD2KVbzsynilPB+V3ONwY9pRkuKukSe/nb0L
+	 FVpFUucRN2xFcZFO7cMLmAk2jTo5flLVEh4fkVZ70kfmT63XESZCrOnQ+Ylwn2oTUNqPl
+	 P7Zh/AK/Pd7ZGXsecHM/Wx7Gp2Byez4E7IS4saHxUZrop0H+Tfg/QW1EpWK3qQggsGIo5
+	 krtF7Zy1QCvRiP0/TO8wCEDRV/iKAvqxDnITrIyTTHnheFznxFCTf3dZkNUAldQIUN0V4
+	 sbQC+t3oiBo24w874Y9aLyrTs9QTlrbdxL+HRzVUuRbsTmDW8a4LLU9/RHYcm+ZL35Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832199;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
@@ -26,83 +26,83 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jphZs+PgWEjkGrkMJwxvxoxHtLPPImvS7uY5Bp5w4t0=;
-	b=qy9h79RIUAHCu/2aroacpkwhutBGyqu8oj7xqNSAhPh8kSquJ2iah89EuO4JMSu9t3Rl
-	 m/M5Oe9Fx+DEdmqmOcIDa7ySqqzU8MidnaTDnUebkPWIf4cGuRrWloyBq+A4KQ2KE9aUr
-	 sFHa9CxYbynC1uU7RgTS+hYnRal57B2F3oV20MgIiw97RYQrH+ZqvqjcAYR3KWYWKop4t
-	 +WR1ymMan9MFXwlk6kg1k4KZoFCg84meZajsvlQKRwAVQjlra4MWy6HCh7aJl8xmvfas7
-	 mLMT+KJndx22E2wvEMIqgfBCFijUSlMLwxokP775V60t0BeM7LrVqDhqHIIF7/hRREA==
+	bh=be3ZWgsqt2XqMdil9kq6i7ZLZcMhpW2rtJtU9IAy0dY=;
+	b=YXE2VZHl0eUvVePWrDjCeKx2mkQpJL75X1D2I299+isn3dIfg0AXL38AhTzJzQoNIxu/
+	 An8hxhN9M2QKYHpiyaQUgKzJUvVOHIozkI8PXhdwp5s9+QCIkQoBMyJy4awH+uLhPxxCh
+	 EdD8lrxqcLrXssmlspaWsiDZy/cgV07/njzjQscrgEuVAO+AUIpAkWK290QVU6/RvIo+k
+	 5udq7mkK+ugNCDM2mdVnz9/5ePglWrgwOInaN5rVxBe4aCaBmUPDZ70BERcdg+e34d7vF
+	 F4NnPNKmbLHPvglexfh7NE1OqB1q2ceBrQOcfUQwOf6f2sGijmUhFuMACdykbpfVV/A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=AHpg7tvm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.12
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012012.outbound.protection.outlook.com [52.101.53.12])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mUMsFGzp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.9
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013009.outbound.protection.outlook.com [40.93.196.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B02606A32C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:43:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B02606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEAB606A32F
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AEAB606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=AHpg7tvm
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mUMsFGzp
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H8dQ5iv1Z2RKa5mqiQfcYkrDhzqHHHKw4XM0IbN2EbMegVdzsgX5UzeAjGG2zaxDzlTwxphQAXXneEM6YSjYbvIlxPWjZupPwp63jPxLAd8x5IL3jRr44AoAwM+akoB8lEDu1mCPT30LAn5t6oFiQ1OCNdNU0LH8PXZK9sdbxOnfUobjxT+UgZ2S77kIdnsucy1MGzPGqK2CBEOZGXlsgVrYY955r3kOAtUZUaQzi5lVuP5IUzLv93fCjtwHnrgQgh36FavLsYCuHCE/VhDa+23P0zXe2OnLxbRHy2zK7gH1pUjy1x6Jlff9mEoNikJfGPPUCa/EfQAYhem0h5rG7A==
+ b=MGnZLq3z+iB8LkUeIMlT1+HdQwN/x3eMCwgyqZ6mdDJH2zVYBibmgjGQ/kJSffCVQsqSkCI4Jv9yK26hPdaUHXjzFB+aKzylPwJ83V36vvRRVGN8WYQ9zez5pgoa1o/pXBge4xykOxpCbmRdC0Zvip97FzQYL9FCdyhTOwKCILDxQIFw27U2PJ7fpWnlulMV2dubwmCjfWqUbG2PA7k3qwQbpBa2vsacGxml4lpT8Iss0/yT2iAQXdUWOXcFrfMryYIdyB3GcoI9QknCch0JrUNgP7Fsu4P1d7+HEvj0bNdVwhuo9u+SRC6XVembmm69RxYJ8xQktWQxyKobZyc+5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jphZs+PgWEjkGrkMJwxvxoxHtLPPImvS7uY5Bp5w4t0=;
- b=T3iHWJJGeFQmN/D3fPhjL3nzZn9UEI+Ac5mhDpfqisqe8cQSc6GwjFGwlM+ixAyIzCn20k5pD6NNUa8niQvVzXkpdlxfrpoGyqo8aKpqAnGTm0Y5nBVPc6FEmscBtHf7WDE3XFnSCF7LzjEdXsEx4RRGfHoCoBP+V18cdL+evlLWF3qXMooj0Kw6pSf8BE//M5qY8AUHSGQrFRthwRq9AsXY77JcSjEvVAfXNEdIgM7Rn/v9uymLifNkBFEe6B9f5YotjaEr9zDHyWzBwRo0XnqBMxOHTBmw11fGIX+xEBUS3Jgt262BS4bOsR4osZvVcfKaRiF3T8DlAJU9pT1V6w==
+ bh=be3ZWgsqt2XqMdil9kq6i7ZLZcMhpW2rtJtU9IAy0dY=;
+ b=UrLUeurzsPbzI58HILkVqJYb0leJioA4Uc4IgIJfd2ynlWv2F8gA1YAd7lb1fjMMZoV6A9QCpeESOYgJQ2IH1f+o6hmQtBQZM2yvB6rWGsSCpnCoSuV1Ad+7vhdheLYlawrmU8ElQdk47pkIQ+Hgdco4isdlhSzCaQ0K4+lQN1e9NfeX/pvrjgaZBJ6LGsqC3DpHGiNwISHcYE3ExTKqf2UyT+49HGAkzBuwrFpAUpdDTtsj/G1gLZzztHiDmDfItQxOKsL1s8TVP1GyohyUeqimGI1rRgZgoJT4Y9rUD5tnqb+LCqDK1iBgkDK+R5HUk2sgBMZWTBH0neLdB9f05A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jphZs+PgWEjkGrkMJwxvxoxHtLPPImvS7uY5Bp5w4t0=;
- b=AHpg7tvmGYVmg7epnWBiI0UNFYhpH3wJQMAq2TbRa+/tRt+otA2MfXhryj3b0sacCAPu6JOVvemC8orRjrX5AWbeW87XmHmitpApVHfF5PEBiJHDEs0e9a3DMcTtHkM3Ii9P3wrZDo6O9TAO4PLWSWOCzRvfaajuK8bGQVm2Ulo=
-Received: from BN9PR03CA0556.namprd03.prod.outlook.com (2603:10b6:408:138::21)
- by IA1PR12MB7663.namprd12.prod.outlook.com (2603:10b6:208:424::18) with
+ bh=be3ZWgsqt2XqMdil9kq6i7ZLZcMhpW2rtJtU9IAy0dY=;
+ b=mUMsFGzpy1a/2a186+1fTRQ/K3Z+m1hngAeQZchLEeQ5dfqLy7xV2wJK1OvFze+F1focSAGoigwmM35Zso7Rp/pKV2Yy8ZUXH02a+USlNpdYIK2/e7cNdSwPRqLPG0yGuQpRwggVZ72cGRt4swLB2xqLYFYtmp1JDnNHkuNU9qg=
+Received: from BY3PR05CA0039.namprd05.prod.outlook.com (2603:10b6:a03:39b::14)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 22:43:10 +0000
-Received: from LV8PEPF00000067.namprd03.prod.outlook.com
- (2603:10b6:408:138:cafe::a0) by BN9PR03CA0556.outlook.office365.com
- (2603:10b6:408:138::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 4
- Nov 2026 22:43:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 22:43:12 +0000
+Received: from SJ1PEPF00002324.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::7a) by BY3PR05CA0039.outlook.office365.com
+ (2603:10b6:a03:39b::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
+ Nov 2026 22:43:12 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- LV8PEPF00000067.mail.protection.outlook.com (10.167.248.39) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002324.mail.protection.outlook.com (10.167.242.87) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:43:10 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 22:43:11 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
- 2026 16:43:09 -0600
+ 2026 16:43:10 -0600
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
- 2026 16:43:09 -0600
+ 2026 16:43:10 -0600
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 4 Nov 2026 16:43:08 -0600
+ Transport; Wed, 4 Nov 2026 16:43:09 -0600
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
 	<mario.limonciello@amd.com>
-Subject: [PATCH RESEND V1 1/4] accel/amdxdna: Add NPU10 and NPU11 devices
-Date: Wed, 4 Nov 2026 14:42:59 -0800
-Message-ID: <20261104224302.643329-2-yidong.zhang@amd.com>
+Subject: [PATCH RESEND V1 2/4] accel/amdxdna: Bump driver version to 1.0
+Date: Wed, 4 Nov 2026 14:43:00 -0800
+Message-ID: <20261104224302.643329-3-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261104224302.643329-1-yidong.zhang@amd.com>
 References: <20261104224302.643329-1-yidong.zhang@amd.com>
@@ -119,177 +119,56 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000067:EE_|IA1PR12MB7663:EE_
-X-MS-Office365-Filtering-Correlation-Id: 391b435b-97de-47a0-0db3-08df3ac50090
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002324:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f0a7841-e8e2-4418-5508-08df3ac501a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|18002099003|22082099003|56012099006|261026140227099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026121527099003|11063799006|10067099003|261028144727099003|261102123227099003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|261022105027099003|261021121427099003|11063799006|261009223027099003|261102123227099003|261028144727099003|261026140227099003|261021123027099003|261022075727099003|56012099006|261026121527099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	NGIJHn0uPGQrLUOkNAn92FpbqxabaOoyhyx0BI0NYAmyU9WisD8YKva368VxHZ9Y44fmy07595CefdaBalfI4d4/eaT66c8buM32Ek/+RR6P0GqLHTmhXsNMsWe+73pQbOg1PHPnRybToEF9gpOlN9W5nHOqOVgeNNIChcgN2+tSv+12+6UJyY1qwx7adC/dTnA+j+0wdwqOIX6ou9Cu61danpq9nPEVejV4PfYJwdcC13LhFhgzbtnfc74ji3RQV/80F9R7WdKJu5ihvTPH2Te/MC3htJ/Win/zl1PR/qz19tlSgA9C/UFbZvh5PLG5oPg6lzOeLtRUspNSvreMyiuh/fYB2SNo6GV/OTDQZc3lpMbO2hQDL6DliE9BRxoHBftolPxiFS7lixzrQDeMxgjDVW37m04W7q4SsH0emkEW4lR5A19cnueIhaz7UZhQBy9jSTMubj5O2BqMrq7Y82DRv/GhPPkuQlSqEsnHFkgzJYhM99nf+4KA+GNdLO7ntTSc7K1dsmelp57xPqL5ifht8AhGGKTVsFdEH31OLfFEwb3uIbfSFYsY+NEaPy5fyM95G9p7531fov+7qL9E1MuFJ3RcpvvKW0VdvrSZojFkfGHE1TjKzs0Hidiya773gavvp5is6NSb2Qps0aG78rEIXNrG/fKxfMiGzCkFGEX8VV/CjrSgEgFBDvw8+lwiIb7x3SfnvIsxuebsbSuPAg==
+	nwD+ADpFnQvpyQWvN6SSYbADgnT1am5GRtQx1n73yX0NhMswSN9IC0SVWQdp7ByBNxHKSDmifA2tZgz7/AvRhEGOps+CD3D7rIlvnWEC09A2lWXKfk8DehM19BJg7r/lbp540O17QjBKPp8uNyjo05BPiuuF/ntOq2CLAFvNZaVG7IZshyEQPQ8JhMC/1lpxAy+sPBAozQWnrBvPbeyxyBir6AlPa0G6x9naaQv2xw2r0VKsbgcciRwIdv82oiY+uS3d/Gc4yo4ZLVMC+6R+zq3NT13TBPhKVTi7kUNvJsQTJclbz8filY0lkHX65ucvnjdr+1bihA8EGyDl9CuUs7ho1keWQxviZOIEtGE4cM9/8/nsbnRHbbzCuM7aaGUZUAFt1zQKznh4yvHTTViTflD6KY5FDXFF9rXT2HdmmKBbUT/2HP8ieMTiunqW7jMunqoZuJDZodSHvGNCdOUekKNRWSR4CnR1OTrR+lbUxgwU8+GKbGkgvPo4adXBR7jf5+3I5keoaltmx94JOlQdDqbcZV4WGx3uOpHooVLD7Mwaw8WmyNLY2OdS4gdjDx9xJXmSDBuXp23jiL0SlHyORhX5/CsNg9fSCK3YIa18gIQYyEiybVm0/oFeAlgOiCYSBZx5Yeb/p++3fJMIXUumwlzGi3PO/UF7DImr4rmdjUfYoCfydjhODt/qEElTFf5FccJXNPF+F5ck1i7605awdg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(18002099003)(22082099003)(56012099006)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026121527099003)(11063799006)(10067099003)(261028144727099003)(261102123227099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(261022105027099003)(261021121427099003)(11063799006)(261009223027099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021123027099003)(261022075727099003)(56012099006)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	3I9IiImEzW1aEEfQizWHxSj4wm4aAle3ccEf4GgXoQUzteSUqFa1MV7XC1/XTHCsStMdY5PK2bOLNNaHQ0BuivB9B7YqhspqTax44USVWRBSVZ1xCkdoMVyHnnaibmZ3/5lxkfqeJenjnF8IyYVIqA892c6loDNZgPU6+KUGeHxLRdvbow3d3sUNyUU83Od0pokt2bRxdTgIpJBBSomPpPaQiV3PslbTNsNKVaV3pbZdKOgSRT2UqtGe18fian/1K36o9dTCw6u5Rma7wocg71GgivR5k40U12hN/oKYGMpK+84Nwc/KGFkVa96R5sbH8Tr55GpEMAHsNwzs5wMt8Mv1MLXKTWsIMETVvBziH67asVC5fzu5vs0uz++DI3fVny5TkBeWn+vlwi3OvY3bTpgZ7nqUIAxX6RaM2VsQPnWrBsSdesS2NMn3YDqWYQWb
+	FUElwiFXqTSGMyvJ9EkJ1JxqNhnwFt1Kv4g1AqUf4XSpkbV8JO73ISgqDh2FTC45VivQuNPbSVOCTf6GBxtQdRfjAES+BFKwwQykcmLkpPiX1XW3awZiDJfFp1IdLFowARQT7+hLK2tHB2PVqsg0tx5q+bc8CCQpleoB9s3Cm+FWLntoBBf+mcixur7HB/zTakhdpbFtNrfxR8eplVlnClA+HcpridNx7k4Z/LKJ3d9BqN7YGowfTkL+lyNyZ7au8ISVtT9R5M/a7ud9NCGnrw3LTcZb8Vxj8lJ8/g4I5inlayaKlmvUdY9OgRN6Q0l5AGNaragV26rHVcZngZ3ComT398Fi12FaRKDfwJMtT9DgKBPspQB4dysXDUw6P5Xq0V+TcfLeqHUhcPr7D36/d0EjyNQQAGOfGp/8vTiwnDixnAA5L6wFkqp3zbP67wgv
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:43:10.1850
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:43:11.9523
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 391b435b-97de-47a0-0db3-08df3ac50090
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f0a7841-e8e2-4418-5508-08df3ac501a2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF00000067.namprd03.prod.outlook.com
+	SJ1PEPF00002324.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7663
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 
-NPU3 revisions 0x14 and 0x15 are NPU10 and NPU11. Add their classic,
-PF and VF devices with their firmware files and report each by its own
-name. They otherwise use the NPU3 settings.
+The driver supports AIE4 devices for the official release. Bump the
+driver version to 1.0.
 
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- drivers/accel/amdxdna/amdxdna_pci_drv.c | 14 +++++
- drivers/accel/amdxdna/amdxdna_pci_drv.h |  6 ++
- drivers/accel/amdxdna/npu3_regs.c       | 78 +++++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index f233eb70a295..685fe1a7dd56 100644
+index 685fe1a7dd56..0dc156a1c0c0 100644
 --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
 +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
- MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_14/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_14/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_14/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_14/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_15/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f1_15/cert.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_15/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_15/cert.sbin");
+@@ -58,9 +58,10 @@ MODULE_FIRMWARE("amdnpu/17f2_15/cert.sbin");
+  * 0.8: Support BO usage query
+  * 0.9: Add new device type AMDXDNA_DEV_TYPE_PF
+  * 0.10: Support AIE4 UMQ
++ * 1.0: Official release with AIE4 device support
+  */
+-#define AMDXDNA_DRIVER_MAJOR		0
+-#define AMDXDNA_DRIVER_MINOR		10
++#define AMDXDNA_DRIVER_MAJOR		1
++#define AMDXDNA_DRIVER_MINOR		0
  
  /*
-  * 0.0: Initial version
-@@ -81,6 +89,12 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
- 	{ 0x17f1, 0x13, &dev_npu3_classic_info },
- 	{ 0x17f2, 0x13, &dev_npu3_pf_info },
- 	{ 0x17f3, 0x13, &dev_npu3_vf_info },
-+	{ 0x17f1, 0x14, &dev_npu10_classic_info },
-+	{ 0x17f2, 0x14, &dev_npu10_pf_info },
-+	{ 0x17f3, 0x14, &dev_npu10_vf_info },
-+	{ 0x17f1, 0x15, &dev_npu11_classic_info },
-+	{ 0x17f2, 0x15, &dev_npu11_pf_info },
-+	{ 0x17f3, 0x15, &dev_npu11_vf_info },
- 	{0}
- };
- 
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-index 27593190dcf6..5ca32c5b1de0 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-@@ -187,6 +187,12 @@ extern const struct amdxdna_dev_info dev_npu1_info;
- extern const struct amdxdna_dev_info dev_npu3_classic_info;
- extern const struct amdxdna_dev_info dev_npu3_pf_info;
- extern const struct amdxdna_dev_info dev_npu3_vf_info;
-+extern const struct amdxdna_dev_info dev_npu10_classic_info;
-+extern const struct amdxdna_dev_info dev_npu10_pf_info;
-+extern const struct amdxdna_dev_info dev_npu10_vf_info;
-+extern const struct amdxdna_dev_info dev_npu11_classic_info;
-+extern const struct amdxdna_dev_info dev_npu11_pf_info;
-+extern const struct amdxdna_dev_info dev_npu11_vf_info;
- extern const struct amdxdna_dev_info dev_npu4_info;
- extern const struct amdxdna_dev_info dev_npu5_info;
- extern const struct amdxdna_dev_info dev_npu6_info;
-diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-index cff99ddd3a55..4d38aeaea6d0 100644
---- a/drivers/accel/amdxdna/npu3_regs.c
-+++ b/drivers/accel/amdxdna/npu3_regs.c
-@@ -197,3 +197,81 @@ const struct amdxdna_dev_info dev_npu3_classic_info = {
- 	.cert_feature_tbl	= npu3_cert_feature_table,
- 	.ops			= &aie4_classic_ops,
- };
-+
-+const struct amdxdna_dev_info dev_npu10_pf_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.psp_bar		= NPU3_PSP_BAR_INDEX,
-+	.smu_bar		= NPU3_SMU_BAR_INDEX,
-+	.default_vbnv		= "RyzenAI-npu10-pf",
-+	.device_type		= AMDXDNA_DEV_TYPE_PF,
-+	.dev_priv		= &npu3_dev_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_pf_ops,
-+};
-+
-+const struct amdxdna_dev_info dev_npu10_vf_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.doorbell_bar		= NPU3_DOORBELL_BAR,
-+	.default_vbnv		= "RyzenAI-npu10-vf",
-+	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
-+	.dev_priv		= &npu3_dev_vf_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_vf_ops,
-+};
-+
-+const struct amdxdna_dev_info dev_npu10_classic_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.psp_bar		= NPU3_PSP_BAR_INDEX,
-+	.smu_bar		= NPU3_SMU_BAR_INDEX,
-+	.doorbell_bar		= NPU3_DOORBELL_BAR,
-+	.default_vbnv		= "RyzenAI-npu10",
-+	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
-+	.dev_priv		= &npu3_dev_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_classic_ops,
-+};
-+
-+const struct amdxdna_dev_info dev_npu11_pf_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.psp_bar		= NPU3_PSP_BAR_INDEX,
-+	.smu_bar		= NPU3_SMU_BAR_INDEX,
-+	.default_vbnv		= "RyzenAI-npu11-pf",
-+	.device_type		= AMDXDNA_DEV_TYPE_PF,
-+	.dev_priv		= &npu3_dev_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_pf_ops,
-+};
-+
-+const struct amdxdna_dev_info dev_npu11_vf_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.doorbell_bar		= NPU3_DOORBELL_BAR,
-+	.default_vbnv		= "RyzenAI-npu11-vf",
-+	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
-+	.dev_priv		= &npu3_dev_vf_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_vf_ops,
-+};
-+
-+const struct amdxdna_dev_info dev_npu11_classic_info = {
-+	.mbox_bar		= NPU3_MBOX_BAR,
-+	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-+	.psp_bar		= NPU3_PSP_BAR_INDEX,
-+	.smu_bar		= NPU3_SMU_BAR_INDEX,
-+	.doorbell_bar		= NPU3_DOORBELL_BAR,
-+	.default_vbnv		= "RyzenAI-npu11",
-+	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
-+	.dev_priv		= &npu3_dev_priv,
-+	.fw_feature_tbl		= npu3_fw_feature_table,
-+	.cert_feature_tbl	= npu3_cert_feature_table,
-+	.ops			= &aie4_classic_ops,
-+};
+  * Bind the driver base on (vendor_id, device_id) pair and later use the
 -- 
 2.34.1
 
