@@ -1,107 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793792450;
-	b=hj8qidjYUn8G6LMq7HyrG+uIDu1XE+kFC3aTEpsxdcqBALwHRxoIvY6wWTR49dALHIIF
-	 lXSaYpyVhX6oTnfuRSAQu1/zTG6NByaTjFSo+j2WmVbIWMcmzjzyt1ooXZROvP4SaoB6B
-	 /A4TzZgiUA0mHlWGtsRYEMKeC5LMKDdCfOWuXQiPjzA2NOTnjvhRcPmaVyNTSRqiDZf6N
-	 ir/ALJfJhW9tr1ST7jpYNRA7KmeZBYSsey2kVM3ptgZ4zOSvpk4VGPYj8A0T/BtwZxpIK
-	 9R0zBVDP1Gs3PxQiOVgxyZMs7MCXeg+MYil7LhmSF8Kj9POkmbNdEHhOLJ045gpxFXQ==
+	t=1793792449;
+	b=sVHotJO7VHNz+u1JLTs9fbteGDtdEnuGQhZYRvD85NPHc7NEkhqasbSPCU33pwg/EhIo
+	 +A8R9VTTUw+o2k17uBGA8VckdXbgAV+1rMe8bJLawdVhKsVdXHMHV6qcJegFsQ0zNqVGB
+	 xmLtTvOnL3a6sVXINjtnEk6wl48jOFFfzbB2NoCZtfkFLbZlORVqFTpTz6awv8mt4ZfEX
+	 9gbIqk+24s6Ilu4FqG/tlAr3vkMjiHXKLCviqnKkdIHz5CW6xrgLgc+7KWvJ/c2GUj3w6
+	 2R/h+YrSEraNlWrb4265JoFUKBw66evi+nHVB5LuOKrOa20DfgYSI3z0BUvyKDqZekQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ZsCmj2Bd0zCOX9XIs7fgWNRdvJoAisSGzCFmbSIRZkQ=;
-	b=XaFL/fPdy/5lums3i361e5ZDOwd25uxbEGBGAr109pP38DD+3Cx3raBHNa9dmM+goeCn
-	 C9gz0L+M1/GXtK3VaWAXdeg6Kmp1hU2ZO3f7N/l/9jMGqi1i2i71LJDNhvwSZvx9NVJcG
-	 gEkMDcv1cQ6r7Gyddy+2aycPXpqa/aFzHzuiuxP1ywRaMsK7WdVkoa9qQWDJEFqc08uQ+
-	 QcDh1cOZiaGIVcI0OPjAQmhEQ2MwfTAPuN/jX2gNOX6pWwiJPxj7P+LALCwH3ZkGHWhEw
-	 PqwZhj+ggwrZAHzhF7dbn9sYMA/fWoK6IwquerXi3ekPnMB7BXMJ7abM2e/+Wyrf0tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792449;
+	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc;
+	bh=b8gdt5Gsl7of0UCwZA1LRvMWZqGY7tF4209QTmH/GcI=;
+	b=zxCKbQZg1RdY0I5NktZhYTQIzTzKyjIakxeWCiZAebilL9QMX8XUT0XZ8BkePu/TBjIf
+	 9ln9e76tlkTIdkZT+TeK5Z3gNh/Wrz7CreyeWugFlWXujMIKVJHgqEnroTnynj8jxSQgK
+	 ShpHn1K/rl4F1DF35g2xwJj2/vdmMaD8JpqdMBbqWvsYSqOLjgrgcev4vyNGvDQl3jbCZ
+	 20iUQ5K23D0jmxK20Us90J9sklGN+ELHWGWd9MZdQpqeHCLKLGuC6Am7WxTkl27/7uVeg
+	 F8aCSf9C+EzeC3o+vIy2IhxV0IDUzEuwg4wFEIUbqoIMCOyuHNxAeD5k/BNMZm6ISbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hBwm9xd+;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=cyberchaos.dev;
+	spf=pass smtp.mailfrom=cyberchaos.dev;
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=oCERtlr5;
+	arc=none smtp.remote-ip=195.39.247.168
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33622606D81D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33622606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4590F606D811;
+	Wed,  4 Nov 2026 11:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4590F606D811
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hBwm9xd+
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso316889f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:40:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793792448; x=1794397248; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZsCmj2Bd0zCOX9XIs7fgWNRdvJoAisSGzCFmbSIRZkQ=;
-        b=hBwm9xd+NzrXQ15nvYc7IXZyKTbKyi+gZB+RBYF7H4NhnJiOL7kOYbTV5GizeYbRBN
-         TGaK7jYFhDREKzFjICLIdgsNrugXo+AoBC7ERADoEhuiFlXRUaMxH1M+cxqgZNmiKIvx
-         jK4515YqOMdwfhKjMIySFjnkcteq9y0ZLL/RpuZ/UtxQdmp81oSM3sdSvrq2QolInnEJ
-         sBCuu4intpYACXDvlA0okHE/AVfzLJb/JDfcDEpEjJIAvaBz3pU1iwVa2Eh5W8L6MhNK
-         O0+5R5r140YrTo7yRdgmrRLKfgyspIGnSXHHlWuwy+ATSKnS8rKrExTnpk9TSep2b2Ah
-         u8kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793792448; x=1794397248;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZsCmj2Bd0zCOX9XIs7fgWNRdvJoAisSGzCFmbSIRZkQ=;
-        b=Ft18PD01+DT3xjvv3rbhYXT/0WWjrBMdGbiwIBuHBVjOKfUHZrGLVleOgUpPaS5H7a
-         5FhBDRAyfK/Z1Pg4Gmw94W9bpT+BfvEegOJfdGr3kupvc59V+eodJaHKJK4u9U7WQaOD
-         xf+GYM6HVSOpBpn5WKcrsTS1CYHS3TGI2Ow8LEWbjv9MZ+SeKp3PY0Y8WpN4fJI0YcWN
-         q3Fap/PaGsWyzpoXZOH8lgECJipHIS291PA1NGTXwcD/1INz6liuzEpak2KGDtK6TLXS
-         XU5oiPqEloTJs0Q6Snini8jmzoGw/zLGhi+AgkLq9kfspdzK0HD3VX/W7Kv9HApYxiOy
-         2q8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxZUKtB7Jl+yn4muRld/PiBt2iwue1i+Vs1HfpnnmM5/hYFlxHpRnl5KXsqCWHwK4khzmzccziQlOwlyis=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Tz41NMypa2WTGrnzRbh1ejt+CE+oG0pVB49NdZ3Rl+gPLwSEG
-	OJKrfJqg1PPGe5y5ZwGoxf3grZUcIBvmfCX2mIJggxxS3BITl9Lnkn9X
-X-Gm-Gg: AYBFou1XzH5wqtZI/514mlqZKln7SAO6VtRef5Po6++EX/eY7+KTLMt8+D8H+Ss+N83
-	JiyYTIcJrOQaCVQnZd54A6pxjSTiCkuIXq1prbr69JFGiHOl868w5hCP4ldt9wpJNiQDDpYAkCQ
-	6DVxsBkuR7/6RNsVXfVUB2hhbKZ6r9UHL/AxM6UBzrBLlA8MvX71TuIXwYGBPDvG9hLpFNjwrBm
-	J0nnc8oOweBaHcZmwIhDUjHWuJYvfOx/RWQcME8vrZyzzKUCrRyp/SVWhjKUY8cml6Hx5b5OBs0
-	6loUZVid/U3Cp4S2hp1bufoT+a22W3EtvtJ+P/OrS/61aBSRlctnoeoi4/tJxJ4rJOkgqjhooax
-	GS3Ay/6Qgnj98qBbLVk4VVmOxzB+KGZvDT/BPzQQN8gx/k68hy8cdmhXLgraHms9N9LEnPSdsfS
-	2V+ZVS1ZI2sEpLtvYnvDJ6LBl8gS50vHoBG81we75Z9wJDJqXBVdIiU/yUHvnuQbOBtUBf0kDGF
-	9mxs8TE4H50XecRdIoTx2b8PaYDVOan9RobHKNOa4OoKYl24zpP7RPptn5KTHGODgvOt3/tHNV+
-	VdU=
-X-Received: by 2002:a05:6000:248a:b0:490:411a:1eed with SMTP id ffacd0b85a97d-490411a20c3mr2322400f8f.39.1793792448263;
-        Wed, 04 Nov 2026 03:40:48 -0800 (PST)
-Received: from krava ([2a02:8308:a00c:e200::25dc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1f100sm3457605f8f.46.2026.11.04.03.40.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:40:47 -0800 (PST)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Wed, 4 Nov 2026 12:40:45 +0100
-To: Alexis =?iso-8859-1?Q?Lothor=E9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
-Cc: ebpf@linuxfoundation.org,
-	Bastien Curutchet <bastien.curutchet@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH bpf-next v2] selftests/bpf: port test_ftrace.sh to
- test_progs
-Message-ID: <ausZvdHfmevg3mMZ@krava>
-References: <20261104-ftrace_in_test_progs-v2-1-45363230d228@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=oCERtlr5
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1793792441;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b8gdt5Gsl7of0UCwZA1LRvMWZqGY7tF4209QTmH/GcI=;
+	b=oCERtlr5rn8ngX0o9/IKhBD/Jw7b3jjwg1rmVSJ4QVDmkg7lj+zyv62AhgGsw0OQzhx+3y
+	CykiD1aHGSyrAQou3Nw/TbbxBFIfi9y+gIeidxEnRzUWi5q5v08DYKvtAhM7IYX4cDT+FZ
+	gBIiy/tLWikwG522MzWTdtNUHfqhMgE=
+Date: Wed, 04 Nov 2026 12:40:31 +0100
+Subject: [PATCH v2 3/3] arm64: dts: apple: t600x: Add PCIe pwren gpios
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,153 +55,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261104-ftrace_in_test_progs-v2-1-45363230d228@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-apple-pcie-pwren-v2-3-216a4066965f@cyberchaos.dev>
+References: <20261104-apple-pcie-pwren-v2-0-216a4066965f@cyberchaos.dev>
+In-Reply-To: <20261104-apple-pcie-pwren-v2-0-216a4066965f@cyberchaos.dev>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
 
-On Wed, Nov 04, 2026 at 10:59:33AM +0100, Alexis Lothoré (eBPF Foundation) wrote:
-> Commit ff205766dbbe ("ftrace: Fix function_graph tracer interaction with
-> BPF trampoline") made sure that trampolines generated for tracing
-> programs did not collide with the function graph when we are returning
-> from the hooked function. The series bringing this commit also came with
-> a new test ensuring that the kernel does not crash when executing BPF
-> programs handled by trampolines while the function graph trace is
-> enabled, but this test is a standalone shell script, hence not executed
-> in CI.
-> 
-> Convert the script to the test_progs runner so it can be executed
-> automatically by the CI infrastructure. There are two main options to
-> port this test:
->   - just enable ftrace during some existing trampoline-related tests
->     (eg: fentry/fexit tests)
->   - create a dedicated, minimal test with function graph
-> 
-> The new test adopts the latter approach, with a smaller scope to keep
-> execution time reasonable, while reusing an existing
-> fentry/fexit/fmod_ret test. Despite the few asserts in the new test, the
-> actual goal is to make sure that the kernel does not crash because of
-> some incorrect stack frame skipping when both the function graph and
-> tracing programs are running.
-> 
-> ftrace is configured through a dedicated ftrace instance which is
-> dropped at the end of the test.
-> 
-> With the new test integrated into test_progs, drop test_ftrace.sh.
-> 
-> Signed-off-by: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
-> ---
-> Hello,
-> this is v2 of a small series aiming to port the test_ftrace.sh script
-> (testing that trampolines and function graph behave correctly when both
-> are enabled) into the test_progs framework. The test is heavily
-> simplified following Alexei's review and suggestions.
-> ---
-> Changes in v2:
-> - use a ftrace instance rather than global ftrace
-> - drop fgraph filters
-> - drop custom ftrace helpers in favor of direct manipulation in test
-> - drop custom bpf prog, reuse test_modify_return directly
-> - move test in existing test file (modify_return.c)
-> - make the test parallel (drop serial_)
-> - Link to v1: https://patch.msgid.link/20261030-ftrace_in_test_progs-v1-0-aa50c5dd1ccc@bootlin.com
+For the MacBook Pro and Mac Studio devices using the M1 Pro/Max/Ultra
+SoCs, add the appropriate fixed regulators for enabling the peripherals
+connected to the PCIe ports (WiFi, SD card reader and USB xHCI), which
+are controlled by GPIOs connected to the SMC.
+Set the regulators as the power-supply of the respective PCIe port, so
+that the endpoints are powered on before probing the ports.
 
-lgtm, it might be worth to add something like this also for
-tracing-multi (maybe also kprobe-multi) and run some tests
-with function or function_graph enabled
+Add the 'pciclass,0604' compatible string to the PCIe bridge nodes in
+the SoC to allow the pci-pwrctrl-generic driver to bind to them.
 
-Reviewed-by: Jiri Olsa <jolsa@kernel.org>
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+ arch/arm64/boot/dts/apple/t600x-die0.dtsi      |  4 ++++
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 16 +++++++++++++++
+ arch/arm64/boot/dts/apple/t600x-j375.dtsi      | 27 ++++++++++++++++++++++++++
+ 3 files changed, 47 insertions(+)
 
-jirka
+diff --git a/arch/arm64/boot/dts/apple/t600x-die0.dtsi b/arch/arm64/boot/dts/apple/t600x-die0.dtsi
+index 122a566e75d1..635635c4bfbd 100644
+--- a/arch/arm64/boot/dts/apple/t600x-die0.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-die0.dtsi
+@@ -460,6 +460,7 @@ pcie0: pcie@590000000 {
+ 		pinctrl-names = "default";
+ 
+ 		port00: pci@0,0 {
++			compatible = "pciclass,0604";
+ 			device_type = "pci";
+ 			reg = <0x0 0x0 0x0 0x0 0x0>;
+ 			reset-gpios = <&pinctrl_ap 4 GPIO_ACTIVE_LOW>;
+@@ -479,6 +480,7 @@ port00: pci@0,0 {
+ 		};
+ 
+ 		port01: pci@1,0 {
++			compatible = "pciclass,0604";
+ 			device_type = "pci";
+ 			reg = <0x800 0x0 0x0 0x0 0x0>;
+ 			reset-gpios = <&pinctrl_ap 5 GPIO_ACTIVE_LOW>;
+@@ -498,6 +500,7 @@ port01: pci@1,0 {
+ 		};
+ 
+ 		port02: pci@2,0 {
++			compatible = "pciclass,0604";
+ 			device_type = "pci";
+ 			reg = <0x1000 0x0 0x0 0x0 0x0>;
+ 			reset-gpios = <&pinctrl_ap 6 GPIO_ACTIVE_LOW>;
+@@ -518,6 +521,7 @@ port02: pci@2,0 {
+ 		};
+ 
+ 		port03: pci@3,0 {
++			compatible = "pciclass,0604";
+ 			device_type = "pci";
+ 			reg = <0x1800 0x0 0x0 0x0 0x0>;
+ 			reset-gpios = <&pinctrl_ap 7 GPIO_ACTIVE_LOW>;
+diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+index caded1636f3d..4f9dccf839ad 100644
+--- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+@@ -55,6 +55,20 @@ led-0 {
+ 			default-state = "keep";
+ 		};
+ 	};
++
++	vreg_pcie0_port0: regulator-pcie0-port0 {
++		compatible = "regulator-fixed";
++		regulator-name = "pwren-pcie0-port0";
++		gpio = <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	vreg_pcie0_port1: regulator-pcie0-port1 {
++		compatible = "regulator-fixed";
++		regulator-name = "pwren-pcie0-port1";
++		gpio = <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
+ };
+ 
+ &serial0 {
+@@ -176,6 +190,7 @@ &nco_clkref {
+ /* PCIe devices */
+ &port00 {
+ 	/* WLAN */
++	power-supply = <&vreg_pcie0_port0>;
+ 	bus-range = <1 1>;
+ 	wifi0: wifi@0,0 {
+ 		compatible = "pci14e4,4433";
+@@ -195,6 +210,7 @@ bluetooth0: bluetooth@0,1 {
+ 
+ &port01 {
+ 	/* SD card reader */
++	power-supply = <&vreg_pcie0_port1>;
+ 	bus-range = <2 2>;
+ 	sdhci0: mmc@0,0 {
+ 		compatible = "pci17a0,9755";
+diff --git a/arch/arm64/boot/dts/apple/t600x-j375.dtsi b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+index 8a1494949e4c..412b2fe109be 100644
+--- a/arch/arm64/boot/dts/apple/t600x-j375.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+@@ -42,6 +42,30 @@ memory@10000000000 {
+ 		device_type = "memory";
+ 		reg = <0x100 0 0x2 0>; /* To be filled by loader */
+ 	};
++
++	/* WLAN/BT */
++	vreg_pcie0_port0: regulator-pcie0-port0 {
++		compatible = "regulator-fixed";
++		regulator-name = "pwren-pcie0-port0";
++		gpio = <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	/* SD card reader */
++	vreg_pcie0_port1: regulator-pcie0-port1 {
++		compatible = "regulator-fixed";
++		regulator-name = "pwren-pcie0-port1";
++		gpio = <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	/* USB xHCI */
++	vreg_pcie0_port3: regulator-pcie0-port3 {
++		compatible = "regulator-fixed";
++		regulator-name = "pwren-pcie0-port3";
++		gpio = <&smc_gpio 20 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
+ };
+ 
+ &serial0 {
+@@ -356,6 +380,7 @@ &nco_clkref {
+ /* PCIe devices */
+ &port00 {
+ 	/* WLAN */
++	power-supply = <&vreg_pcie0_port0>;
+ 	bus-range = <1 1>;
+ 	wifi0: wifi@0,0 {
+ 		compatible = "pci14e4,4433";
+@@ -375,6 +400,7 @@ bluetooth0: bluetooth@0,1 {
+ 
+ &port01 {
+ 	/* SD card reader */
++	power-supply = <&vreg_pcie0_port1>;
+ 	bus-range = <2 2>;
+ 	sdhci0: mmc@0,0 {
+ 		compatible = "pci17a0,9755";
+@@ -397,6 +423,7 @@ ethernet0: ethernet@0,0 {
+ 
+ &port03 {
+ 	/* USB xHCI */
++	power-supply = <&vreg_pcie0_port3>;
+ 	bus-range = <4 4>;
+ 	status = "okay";
+ };
 
-SNIP
+-- 
+2.56.0
 
-> +void test_modify_return_graph(void)
-> +{
-> +	char instance[MAX_INSTANCE_PATH_LEN];
-> +	char *ftrace_dir;
-> +	int ret;
-> +
-> +	ftrace_dir = access(TRACE_FTRACE_DEFAULT, F_OK) ? TRACEFS_IN_DEBUGFS :
-> +							  TRACEFS_DEFAULT;
-> +
-> +	ret = snprintf(instance, MAX_INSTANCE_PATH_LEN,
-> +		       "%s/instances/bpf-XXXXXX", ftrace_dir);
-> +	if (ret < 0)
-> +		return;
-> +
-> +	if (!ASSERT_OK_PTR(mkdtemp(instance), "mkdtemp"))
-> +		return;
-> +
-> +	SYS(out, "echo 'bpf_modify_return_test*' > %s/set_ftrace_filter",
-> +	    instance);
-
-nit, no need for new line
-
-> +	SYS(out, "echo function_graph > %s/current_tracer", instance);
-> +
-> +	test_modify_return();
-> +
-> +	SYS(out, "grep -q bpf_modify_return_test2 %s/trace", instance);
-> +out:
-> +	ASSERT_OK(rmdir(instance), "rmdir");
-> +}
-> diff --git a/tools/testing/selftests/bpf/test_ftrace.sh b/tools/testing/selftests/bpf/test_ftrace.sh
-> deleted file mode 100755
-> index f5109eb0e951..000000000000
-> --- a/tools/testing/selftests/bpf/test_ftrace.sh
-> +++ /dev/null
-> @@ -1,44 +0,0 @@
-> -#!/bin/bash
-> -
-> -if [[ -e /sys/kernel/tracing/trace ]]; then
-> -    TR=/sys/kernel/tracing/
-> -else
-> -    TR=/sys/kernel/debug/tracing/
-> -fi
-> -
-> -clear_trace() { # reset trace output
-> -    echo > $TR/trace
-> -}
-> -
-> -disable_tracing() { # stop trace recording
-> -    echo 0 > $TR/tracing_on
-> -}
-> -
-> -enable_tracing() { # start trace recording
-> -    echo 1 > $TR/tracing_on
-> -}
-> -
-> -reset_tracer() { # reset the current tracer
-> -    echo nop > $TR/current_tracer
-> -}
-> -
-> -disable_tracing
-> -clear_trace
-> -
-> -echo "" > $TR/set_ftrace_filter
-> -echo '*printk* *console* *wake* *serial* *lock*' > $TR/set_ftrace_notrace
-> -
-> -echo "bpf_prog_test*" > $TR/set_graph_function
-> -echo "" > $TR/set_graph_notrace
-> -
-> -echo function_graph > $TR/current_tracer
-> -
-> -enable_tracing
-> -./test_progs -t fentry
-> -./test_progs -t fexit
-> -disable_tracing
-> -clear_trace
-> -
-> -reset_tracer
-> -
-> -exit 0
-> 
-> ---
-> base-commit: b0e67f50519538b1b4c6364edc7811f482703f75
-> change-id: 20261027-ftrace_in_test_progs-d5f70a2330ac
-> 
-> Best regards,
-> --  
-> Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
-> 
