@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806518;
-	b=xnVnSMD0eIN+t4d1x4gF10vBxqhlDPnGLlShToMdpMXD1NUIm4zmZ6aMVXMEPTnym6Hu
-	 e9MmBojL+qIBtqSi3Y/krbiI5Sp34p/OMJnRPIXuno94ygdSQezSHA+a66phoKvaNa4D0
-	 c9MOu+kYEyx0sVpmabT7XHhSIXP9IRwBmA7xvkPSoVJX12UR15K6bkQUq/XAQ4+2Hi6CA
-	 yxWv6nGAYeCFWTt+veIKmoLocUNWNtbzU+okCPZdZK17GsIbAV7SbK/RVPupjOCSAL/mV
-	 WR6RzPMv263CCONmdZYroiehGXmlIyinMzLyhU1ZxNtOQBJ7LkpDIVa0Nue+d7wrsjg==
+	t=1793806618;
+	b=dC7LIS7NZY/rvZ73lYY4ujN5ib8BbiPczpcwRq9zIJx3eJkm05J2GmK/DtnW4hLyor+s
+	 0XLbRbUVDs8/ULXnN5Pkqg2JPOIIHUDUzMhmsZ+f9iTPc3xgv6s7cG3vZgZsjd9Wkld7W
+	 6qs6WrF5xzkw1Tx/kJvcgX/w3xVJkh1SSYOR+DIWc8+5l5UfMZmIuA5nInTB6kaGRTG7p
+	 jw2i8UugzJMe3O8pkuGqta0lF1/RUCtQGP8bAnE04mkT4IV96Cu4sBvRLDYXsZCbt/UWc
+	 tag9kDFcJjs08PPaocKiJLABjra80IIhh6Bm889onvwtl4zOQlMPpdkWSc/4ph2sn6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806518;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qP1iq0olN33Pbj7s1LpnKxEDc19GAI3fREIGaO3xv2I=;
-	b=M8QIU5hX/tm9PjS6nRBnhpnlbHqfYbD4szF1eSRmSYP9dopkbrP54cPtxmTfGl8/pefQ
-	 aNDe9XRzO7wLKxoC1EAV/nCFnn91lp6Co7BIoqhYIIPbxW2wdXQFcpZ2m1r6SAOsDiK2m
-	 PSRaqtXAm3dZEr2dkjL0xCBteXPeExt+6mLHRM/RwoHQ6u4+2lI8urM3vkD/8A9gmKmLj
-	 4IlJMo47qK/TZK9eNMZmejKUwHwAEIkJLWpGfXUqIQ3YIqzwigDw3oVikMnB1V9E66P8I
-	 jp6NuCE2i6ejxwyPb50boZGAMfegfjD7uChSQ9MdpLG/kBlvo2sdRzOBl9eFMJIDw7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806618;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=kiG3OFFZO2sk4pIuDgRSDTGCM5T88WnpOks4GGWq8jg=;
+	b=z+XEcJF25ll1A0wdDSt/UicyeTZC8df4tepHtr44sbCL430BW0UbCIzMkRdVA5N8aFVO
+	 XtqNqqDCX3rze49jhZ6G7g76GMt7rHCa5RXFwPESdtgrpYxq1isPQzWWtotz4Ht9UXvSr
+	 Yv+/gbShzxu99iOwz5CWggC14x4TuqlswJbWpc+7k4vw4AHuKd10lAiZYLOqzjXeTPRRK
+	 t59q3+9Fh8YJqZqUtjD7En9KUJvg5MMMNRy7hC25UKoShzkO56Uu7x3M7CZoDLSzVX8IH
+	 cRoNCFFMEa9Y9kyxykil/C81n9KrZ41nb1DHgus0CwfpuEMLpyOEfKV+XGogTbKHrJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVUnZZF2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xD7kp5H9;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B3E606A31B;
-	Wed,  4 Nov 2026 15:35:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8577606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8577606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVUnZZF2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86331F00919;
-	Wed,  4 Nov 2026 15:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793806517;
-	bh=qP1iq0olN33Pbj7s1LpnKxEDc19GAI3fREIGaO3xv2I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dVUnZZF2JbbWHkh7TlBjyQ+8ZqlC0Kbnm95XH1obnujxhf98eX7KvMnOQMGreH9qn
-	 bYG0x3iMgD5BXGdksHjkl3dvtZ36XlxCMqVl0pQWAK0foVkfzjK03N4TSpPSH/sZRY
-	 Y2IRcQOAyWBrY2Lw8Z0n8TxpHgTKrUEF3ZSSY78nszazsxWCX3upfrgGE3Z5fuSzH8
-	 1sDRmbxV12YJa3bE94Ckwh6lK8P5UkC9Z1tPgyufH30swBcuFnOw79xxxtcCauARhV
-	 xZ+MxXxCJWOdWf6scPuXKnMsgJwA/BkxPQ/odsXjiA3DUsgv/DTE+IiC4jyNidJaLK
-	 J1H+oE37KddgQ==
-Message-ID: <6441429b-eff2-485b-acf3-26c3034910ae@kernel.org>
-Date: Wed, 4 Nov 2026 16:35:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xD7kp5H9
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so7655995e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:36:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793806616; x=1794411416; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kiG3OFFZO2sk4pIuDgRSDTGCM5T88WnpOks4GGWq8jg=;
+        b=xD7kp5H94zNUN3VZh11xnvdp5BBh/fpXwTRQYmfoDQvKxhZ1l0nJM9aS1o/nYUuR+f
+         uMOKRC9a+X7zSmBrhcPqong7L59DZkd1YKSINnHm0M/RRgUKqxl2lLmCgoPJR9i5JSli
+         ZVNHAZic+KHyzRpl3SOHkc8O6PuCqhRB/Bm8NXo+XgJEQcu8h/NaJ91wyuBBcfBUQpXz
+         zt6/kQT0BUx+xeRg1FfVu3XSFItTDVQHA/J/gKSHlJco9iwl6SRL9y+dgDtLZOfM1V8H
+         5VI4upET3l6mqqsv4XeHxEWnzbfxIQ+WgQevxDr4c7ZVEAH5H/Fr0TWco9u4Fo6Y5toy
+         pEbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793806616; x=1794411416;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kiG3OFFZO2sk4pIuDgRSDTGCM5T88WnpOks4GGWq8jg=;
+        b=u1zb2QZ6Snf2PJvGQsjqrSfioPteR5tqJ9dg/D1WAPI4196S8JTiAanGaFIivu3fLT
+         b0jZbPCrpkOUYJ5NHTeku3xHp+b0n1mNrTFfjl9aZiYB09VqUuTKYoYZ9jyqUOXxb6qq
+         pCcO4EkfS8k9uVsHuEg5E+M3vQ3v12fal3k2fVWGJTCrGEzybNnpJpvBkUYprwAvhEP3
+         mTQDlTQ1V3fz0t16mun/35rMFdNjUBNsR145NAWFMW6uhD61VslXYV+kr52nnar+4RnM
+         F3NPvCRZdHOs4WsyTLdH8W1DTESB4mYeu+2gTsmtd3bAgfPU+YNaFUNWkxzslVGfZMOy
+         TwaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynFjif1ssLHMp1e4XTIoV0ahh/6MAmu+SCxsgeb5fcWJJ50WOCciovQ9Eqvy027vbRGchhGo+plLb45eM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kXHke8nvVPkBqHIjzQ0yvL+ARoO4pwHcXir1pwi/I/ufQsHoF
+	juksUzCV01KoYm8zmMDlkZLGQZ/dv6qDXB3TKLZyUPh9AvVjOW5wpQ/lHDyslxULajA=
+X-Gm-Gg: AYBFou0Xvg9O1QUrJHXtjfL6E+2LiqdDcDW2rjbPldyuODCsszKer6KTY24qRAzQBSo
+	8Ut9rFdbihq6TaDmKWg+18K2pwTuSBytR6CdZLxi5lAS1LdUbVs9MWu7on8BZeKFKShpEYzSAVZ
+	AhkMGMjFeVlEs1v0TjwVd/VzSrqxG8yzUifDQ4rh6AiIwVx1hMenNS3pnGMKM4XTfcKSMA29iBc
+	UTSiDIRQ1/x3dwOTu7r5U9qaDTRE3o1RzYZUiYoZcezu7bN0j7+gEWbIR4Sxs423mz7FDWsok92
+	HOYS+qW4qL51OCRndmaMpSl4HBiygF+Lpu5dwlMxpuEeC29VhsVsPFlpBDcbG2hZwwPD7z0vEv7
+	7sTyR+uUYHR0Pc05kdN8ZR2tbvs8hjB/nktrAJp9AW4e0aGES7z0ILK4xIC4tK8idNB2papmfN+
+	GUmET958yOuPRGs73PDcBETvK4sBhOHM7GQmzrzDOgxnpOc8kiZkOF/cQBnVJeNPIvsBdPZxt1N
+	/BcV7cDl/1RuI6z6aINW9PBUslbCnbxf1SSoCObGIWH4LUcIIDHGHyudYALzyAppKmXDXljUZ7r
+	McRxiJAyxsG7HAkbwmaQdTWdsoa9iYc6
+X-Received: by 2002:a05:600c:a45:b0:4a1:da58:1ee with SMTP id 5b1f17b1804b1-4ac1932b43amr387140215e9.31.1793806616374;
+        Wed, 04 Nov 2026 07:36:56 -0800 (PST)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43d4c9d4csm82566395e9.12.2026.11.04.07.36.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 07:36:55 -0800 (PST)
+From: James Clark <james.clark@linaro.org>
+Subject: [PATCH v2 0/9] coresight: Fix assorted bugs reported by Sashiko
+Date: Wed, 04 Nov 2026 15:36:31 +0000
+Message-Id: <20261104-james-cs-sashiko-easy-fixes-1-v2-0-410c03941267@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,100 +91,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-next-fixes v2 4/5] mm/slab: fix a deadlock in
- memcg_alloc_abort_single()
-Content-Language: en-US
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Harry Yoo <harry@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- kernel-team@meta.com, cgroups@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
- <20261103-kmalloc-nolock-fixes-v2-4-19167cfe4779@kernel.org>
- <DMLSN9VHK0P3.2A97046A4YXGY@gmail.com> <auo5G__ac1qA9JRs@thinkstation>
- <DMLVUTB5J1RJ.2QKOUW6UB04ZM@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <DMLVUTB5J1RJ.2QKOUW6UB04ZM@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP9Q62oC/42OQQ6CMBBFr0K6dkxbmwquuIdhUcoIg0pNB4mEc
+ HcLXsDl+/Pz/iyCMRKyuGSLiDgRUxgS6EMmfOeGFoGaxEJLbZXUZ+jdExk8Azvu6B4AHc9wo09
+ KFdhCN7mUyrq8EMnxirifkuJa/ZjfdY9+3KRboyMeQ5z3Bya19f7dmhRIaGpz8sba3BpTPmhwM
+ RxDbEW1rusXPSBqkN0AAAA=
+X-Change-ID: 20261027-james-cs-sashiko-easy-fixes-1-692d80016a89
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 
-On 11/3/26 22:11, Alexei Starovoitov wrote:
-> On Tue, Nov 03, 2026 at 12:21 PM Harry Yoo <harry@kernel.org> wrote:
->> While this is technically true, this relies too much on the current
->> implementation details and makes the code hard to follow.
-> 
-> Fair enough. I don't insist.
-> 
->> Patch 2 is an independent bugfix as-is already. We should really stop
->> open-coding slab_free_hook(). That ended up missing init_on_free handing.
-> 
-> Right. No objection to patch 2.
-> With patches 2 and 3 the !allow_spin side of memcg_alloc_abort_single()
-> is an open coded kfree_nolock():
-> 
->   kfree_nolock()                    memcg_alloc_abort_single(!allow_spin)
->   --------------------------------  -------------------------------------
->   memcg_slab_free_hook()            -
->   alloc_tagging_slab_free_hook()    alloc_tagging_slab_free_hook()
->   slab_free_hook(!allow_spin)       slab_free_hook(!allow_spin)
->   free_to_pcs()                     -
->   defer_free()                      defer_free()
-> 
-> I don't insist on kfree_nolock() there,
-> but can we try free_to_pcs() before defer_free() ?
-> Like:
-> 
-> 	if (likely(allow_spin))
-> 		__slab_free(s, slab, object, object, 1, _RET_IP_);
-> 	else if (!can_free_to_pcs(slab) || !free_to_pcs(s, object, false))
-> 		defer_free(s, object);
+Small fixes for bugs in the CoreSight drivers that were found by
+Sashiko. Mostly reference and resource leaks on error paths, plus a
+deadlock, a missing lock, and a sysfs store that should return -EBUSY
+while a sysfs session is enabled.
 
-Why not try free_to_pcs with allow_spin as well then, and improve
-memcg_alloc_abort_single() for both contexts?
+Assisted by Claude Opus 5.5 and Sashiko
+
+Signed-off-by: James Clark <james.clark@linaro.org>
+---
+Changes in v2:
+- Cherry pick "coresight: etm-perf: Serialize AUX topology access"
+  into this set so that it now has no dependencies.
+- Drop "coresight: cpu-debug: Fix PM usage counter leak in
+  debug_enable_func()" which is fixed more generally by
+  https://lore.kernel.org/linux-arm-kernel/20260911-b4-coresight-runtime-pm-failures-v1-1-acdf49756e11@qti.qualcomm.com/#r
+
+- Link to v1: https://patch.msgid.link/20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org
+
+---
+James Clark (9):
+      coresight: etm-perf: Serialize AUX topology access
+      coresight: etm4x: Remove perf symlink if config registration fails
+      coresight: etm4x: Fix truncation of nr_ext_inp
+      coresight: etm-perf: Fix sink device reference leak in etm_setup_aux()
+      coresight: syscfg: Take csdev lock when removing owned features
+      coresight: syscfg: Fix deadlock in cscfg_create_device() error path
+      coresight: Fix resource leaks on coresight_build_path() errors
+      coresight: etm3x: Don't ignore etm_parse_event_config() errors
+      coresight: etm3x: Prohibit modifying seq_curr_state while session is enabled
+
+ drivers/hwtracing/coresight/coresight-core.c       | 26 +++++++++++++++++-----
+ drivers/hwtracing/coresight/coresight-etm-perf.c   | 15 +++++++++----
+ drivers/hwtracing/coresight/coresight-etm3x-core.c |  6 ++++-
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c    |  5 +++++
+ drivers/hwtracing/coresight/coresight-etm4x-core.c |  1 +
+ drivers/hwtracing/coresight/coresight-etm4x.h      |  2 +-
+ drivers/hwtracing/coresight/coresight-priv.h       |  1 +
+ drivers/hwtracing/coresight/coresight-syscfg.c     |  8 ++++++-
+ drivers/hwtracing/coresight/coresight-sysfs.c      |  4 ++--
+ 9 files changed, 53 insertions(+), 15 deletions(-)
+---
+base-commit: 343cfcbb3ecfdb80aa576a428cfa3b65ad783842
+change-id: 20261027-james-cs-sashiko-easy-fixes-1-692d80016a89
+
+Best regards,
+--  
+James Clark <james.clark@linaro.org>
+
