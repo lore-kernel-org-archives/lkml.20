@@ -1,49 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809134;
-	b=KZg/SbVT/3iA7nEGOwb2zSSkU3rt2N4LpDcBNHBrhEDFOj9eF48uxsR6vP2m7cR7eIQq
-	 hwAIeDixl2SOEgn+MFWj9D+SRPiGe7Buwi3oQfXhj3QW6FuClruFKhoLz+yseyacOTmvP
-	 PIQbtftSz8G0J6nw4y38H4vf1YawHbqcLBgrvQDfz69mupbIPkZMhaveA0TfNMCNLl4NP
-	 rtB5EHsN5Peg4grX32hape6ScIlBti2LGuM+tRPBJGxDuB8LOFrhPw3F4Ji3z0Z2Zwpi1
-	 3jpnXCNHc8U3+xnwhnuesB6p6DuOm8kJgsxz1YGtlK5gUNpkfwx/E9P4AfElXwoiJBw==
+	t=1793809111;
+	b=natXsPef57/2Dj5+V1xXYizPOpaucDrRoZDQXwSou4VzKvqDmMJKnRDJT0Wouad0Nb94
+	 JxPyU6Oq4P9IuYTETEa0DKN0yuLOguyNem5o217iL/pQbigyJZDjfqhIrwo+ZA5x8cB1q
+	 pkLcHoNNBibADmFDz1Y1k/UVOsz07SfqTfD8o/tEyBz29xdhS2skw8WVGGHqzkw4yR0b2
+	 /RAMyQdzdOzoxYskO1dGq+xek9+k+wTv2nW82hrjTUZmfLKVzXjVo2kuTFQewH0Y5zCi9
+	 IfrT8MCEhz0DAyjYJLL2dyAFyh935Zx+TXoQ8Ug0DYzNJrvo9hDjo1unaH895z+2rBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809134;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:References:Content-Language:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=4qUirECz8shFD7RJri2RxiVA2hcfdx0BjV5jSEZwKdM=;
-	b=nJuF1S760A71VvIAoYpdjZ3+h3DiV+7SREW5SfbNj/lbseaiObpIdmaxm6nXc5FtwGei
-	 las0gsYPhT1qwwc1PJPHxexgqvyeiGeyLvgS9hShUPoEbMtjCi1CJ7mLNN4BshHLFN6zF
-	 pFZooL3O9nOy2MB0nHc2ZJrSoPcEWFCIgVb02TxVsz2Wsxy420+j5y5gTfqY24602/ZP7
-	 ZSZ86JU1zeC7fg4EZIM+Pr+PZ1+w1OJ3nWuKy9ennik1uMQ20M+dKn6ntc5RbJBdq0pUn
-	 CYoXO99u1encDZRjsdFD8bnHKKbtxlMRgyiJ4u+IteCvbjjR9qBK77CJWLQUu+HNK/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809111;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=RMe8aHaw0FTFxQYLN2j4STX0i2Z9ay78NOti+/xTdIo=;
+	b=DusGusi+XCVCHX+lbOCLNlwR3WQB+YX0QAz4DKCl+/DHFqTphUUklqP7AISVp2/Z0wnB
+	 A5/n4DaKBqyEOVsKjEOGDzkxXaR4HYCvtsJOgknVkwkPyVAH4MDZL6f3AqLS1P2IzmUzk
+	 kGorRj73qx3GCfbsD5IhnYdYyRV7kqB8j8U7Bfk1D7p95+vDtnO5cyB+Fp8AjT9jFCuWG
+	 IuE3iJN7Uks7JxinaaNEktlgrJNBP+1e+cAS3CXL7KszIpbwjUqREa9XKgLIAEMvT9Bhq
+	 RmNHWnwuwOtNb55wiu0h9KtpxjWp6UMfpVNdMvc8nwZ/atMrEMM6Tpk9xOe+C6m81Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="KUTD/tJZ";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C1A56082BFE;
-	Wed,  4 Nov 2026 16:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C1A56082BFE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZL3q4+u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163E160A5BC9;
+	Wed,  4 Nov 2026 16:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KUTD/tJZ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82ADA1BB2;
-	Wed,  4 Nov 2026 08:18:49 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 957FE3F632;
-	Wed,  4 Nov 2026 08:18:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793809132; bh=V/rv5URru9iBNFldX3RW8Gi8p2B95s2zdnUeqy1hQXY=;
-	h=Date:Subject:From:To:References:In-Reply-To:From;
-	b=KUTD/tJZMYqqBVmXTpqhnfKJedO87qHbBshIti7oPGPlqDeyGjxRspg/Il9ufeu7G
-	 yuGYwvHkTKYhzYO1vvs+zQWZQUGOANW3kT4I5CM0UnyCUlEE+202VJQQ7aLRxoeKkZ
-	 UIDveGVMdFjghiLV5aNHeUlTGKyO1zF7chzdpFXM=
-Message-ID: <11fa8a4e-432a-4612-b834-a04cf9d32d49@arm.com>
-Date: Wed, 4 Nov 2026 16:18:49 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZL3q4+u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACF781F00A16;
+	Wed,  4 Nov 2026 16:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809110;
+	bh=RMe8aHaw0FTFxQYLN2j4STX0i2Z9ay78NOti+/xTdIo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XZL3q4+ulBRueBqGYR8Pg6fxeRopoQ7VIzjwUGjS9dH/X1LwtxO+3TRQbBl/e2alo
+	 7E1etCbEAv0csczXaxMDFiqX6tN+m/gp7r2rlPn+GEwWiD3QW/X5SjtHiT2P8gZatM
+	 FWrRZkOn0Ux+Pkr1gg0xqW4+xSH+vohhoM5SDQLq5epR3Gu7FCEYkTnCdMpiPFyl10
+	 9CxzH+S8cKIxGLPb3Sv6z249cHPfEWlHqF3rX8WOPCT0VBvnuAdHBkAGUOum+UE8dW
+	 WgBR1FmL+sohvyx+DcpmhXIMwCxk+lOmjusTw8gIITwqRZWAS8lW2JqF6ptnLs2yqD
+	 fTJwg/RwoP4jQ==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v8 10/15] PCI/TSM: Add vIOMMU-bound device contexts
+Date: Wed,  4 Nov 2026 21:46:27 +0530
+Message-ID: <20261104161632.3547423-11-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,190 +86,547 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/resctrl: Disallow monitor group rename when the RMID
- changes
-From: Ben Horgan <ben.horgan@arm.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
- reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, jic23@kernel.org, tan.shaopeng@jp.fujitsu.com,
- gshan@redhat.com, zengheng4@huawei.com, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261104101913.586595-1-ruanjinjie@huawei.com>
- <88c180d8-156d-400d-8537-5fd79b7ad10b@arm.com>
-Content-Language: en-US
-In-Reply-To: <88c180d8-156d-400d-8537-5fd79b7ad10b@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jinjie,
+An IOMMUFD vDEVICE represents a physical device within a virtual IOMMU
+(vIOMMU) for a guest. It must use the same TEE Security Manager as its
+vIOMMU. Pinning the vIOMMU backend keeps its tsm_dev registered, but
+does not preserve the connection between the physical function 0 (PF0)
+PCI device and that TSM.
 
-On 04/11/2026 14:36, Ben Horgan wrote:
-> Hi Jinjie,
-> 
-> On 04/11/2026 10:19, Jinjie Ruan wrote:
->> From: Peter Newman <peternewman@google.com>
->>
->> Renaming a monitor group to move it below a different control group
->> changes the CLOSID of its tasks. Where the RMID only has meaning
->> together with the CLOSID, the RMID index changes as well: on arm64 MPAM
->> the RMID is a PMG that extends the PARTID, so the group's counters
->> belong to the old PARTID and cannot follow the move. The monitor data
->> would be reset and would then report the new PARTID's traffic.
->>
->> Check that the RMID index is unchanged before moving the group and
->> reject the rename with -EOPNOTSUPP otherwise. Only MPAM systems are
->> affected; architectures where the RMID is independent of the CLOSID,
->> such as x86, keep the same index and still allow the move. Document
->> the restriction in resctrl.rst.
->>
->> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
->> Suggested-by: Ben Horgan <ben.horgan@arm.com>
-> 
-> Perhaps stretching the meaning of a 'Suggested-by' tag as I only suggested the repost of Peter's patch.
-> 
-> It is probably worth pointing out that the moving of monitor groups is existingly broken other than
-> just the resetting of mbm_total_bytes counters and so the current behaviour isn't something that an
-> existing user could be relying on. As you already point out in [1]
-> 
-> [1] https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
-> 
-> Thanks,
-> 
-> Ben
-> 
->> Signed-off-by: Peter Newman <peternewman@google.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> Cc: <stable@vger.kernel.org> # 7.1.x
->> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
->> ---
->>  Documentation/filesystems/resctrl.rst |  7 ++++---
->>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
->>  2 files changed, 17 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
->> index b52795e03303..5f21ab20030a 100644
->> --- a/Documentation/filesystems/resctrl.rst
->> +++ b/Documentation/filesystems/resctrl.rst
->> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
->>  Moving MON group directories to a new parent CTRL_MON group is supported
->>  for the purpose of changing the resource allocations of a MON group
->>  without impacting its monitoring data or assigned tasks. This operation
->> -is not allowed for MON groups which monitor CPUs. No other move
->> -operation is currently allowed other than simply renaming a CTRL_MON or
->> -MON group.
->> +is not allowed for MON groups which monitor CPUs, and fails with
->> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID, such as
->> +arm64 MPAM. 
+Add a per-vDEVICE PCI TSM context. Verify that the PCI device and the
+vIOMMU use the same tsm_dev, and account active contexts on PF0. Reject
+disconnect with -EBUSY until all dependent vDEVICEs release their
+contexts.
 
-In MPAMv2 there are likely to be systems where RMID doesn't depend on CLOSID and so best not to rely
-on MPAM vs not for this distinction.
+With vDEVICE binding handled by the backend, PCI/TSM no longer has
+generic bind state to report. Remove the legacy bind and unbind
+interface. The sysfs "bound" attribute reported the state maintained by
+that interface. Remove the attribute and its ABI documentation as well.
 
-No other move operation is currently allowed other than
->> +simply renaming a CTRL_MON or MON group.
->>  
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ Documentation/ABI/testing/sysfs-bus-pci |  15 +-
+ drivers/pci/tsm/core.c                  | 230 ++++++++++--------------
+ include/linux/pci-tsm.h                 |  71 +++++---
+ 3 files changed, 135 insertions(+), 181 deletions(-)
 
-It was previously discussed about having a file that reports whether or not RMIDs have a fixed
-CLOSID and whether or not there should be a separate file to report whether MON group moving is
-allowed or not [1]. Do you think a info/moveable_mon_group file or such like would be useful?
-
-I have the below patch that adds a new file for the RMID scoping but we should coordinate so we
-don't end up with multiple changes to the same part of the documentation. Your MPAM patch [2] is
-also related here as that that corrects 'num_rmids'.
-
-[1] https://lore.kernel.org/linux-arm-kernel/d1110701-a2d5-4cc1-84de-4ed53ef02368@arm.com/
-[2] https://lore.kernel.org/linux-arm-kernel/20261104101622.563280-1-ruanjinjie@huawei.com/
-
-Thanks,
-
-Ben
-
-fs/resctrl: Add file info/mon_id_includes_control_id
-
-    The maximum number of CTRL_MON + MON groups that can be created is visible to
-    the user as the minimum of the values read from info/L3_MON/num_rmids and
-    info/PERF_PKG_MON/num_rmids. Similarly, the maximum number of CTRL_MON groups is
-    the minimum of the values in info/<resource>/num_closids.
-
-    However, the number of MON that can be created as children of a given CTRL_MON
-    group is not directly knowable by the user. On x86 systems, there is no separate
-    limit and so in the extreme there can be a single CTRL_MON groups and num_rmids
-    - 1 MON groups. On MPAM systems however, the number of MON groups per CTRL_MON
-    groups is limited by the number of PMG bits and is equal
-    to (num_rmids/num_closids) - 1.
-
-    So, that the user can easily calculate the maximum number of monitoring groups
-    per control add a new read only file, info/mon_id_includes_control_id.  If this
-    new file reads 1, the maximum number of MON groups under a CTRL_MON group
-    is (num_rmids/num_closids) - 1 and if it reads 0 the maximum is num_rmids -
-    1. On a monitor only platform it will read 0 allowing the file to be easily
-    interpreted when there are no num_closids files.
-
-    Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-    ---
-
-    The num_rmids in MPAM monitor only platforms is currently wrong as it takes into
-    account PARTIDs that aren't usable.
-
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index b52795e03303..ca586b4e502f 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -510,8 +510,16 @@ with the following files:
- "mon_features":
-                Lists the telemetry monitoring events that are enabled on this system.
-
--The upper bound for how many "CTRL_MON" + "MON" can be created
--is the smaller of the L3_MON and PERF_PKG_MON "num_rmids" values.
-+The upper bound for how many "CTRL_MON" + "MON" groups can be created is the
-+smaller of the L3_MON and PERF_PKG_MON "num_rmids" values.  The
-+"mon_id_includes_control_id" file in the top level of the "info" directory helps
-+determine how many "MON" groups can be created in any given "mon_groups"
-+directory. If it reads 1, then the maximum number of "MON" groups that can be
-+created in a "mon_groups" directory is equal to the amount created if the
-+maximum number of "CTRL_MON" groups are created and "MON" groups evenly
-+distributed between them. If it reads 0, then the number of "MON" groups than
-+can be created is only limited by the global restriction on the number of
-+"CTRL_MON" + "MON" groups.
-
- Finally, in the top level of the "info" directory there is a file
- named "last_cmd_status". This is reset with every "command" issued
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 57ab090072c2..90712a1337d0 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1200,6 +1200,17 @@ static int rdt_num_rmids_show(struct kernfs_open_file *of,
-        return 0;
+diff --git a/Documentation/ABI/testing/sysfs-bus-pci b/Documentation/ABI/testing/sysfs-bus-pci
+index be9126e56894..ab9083f3b0d3 100644
+--- a/Documentation/ABI/testing/sysfs-bus-pci
++++ b/Documentation/ABI/testing/sysfs-bus-pci
+@@ -660,6 +660,7 @@ Contact:	linux-coco@lists.linux.dev
+ Description:
+ 		(WO) Write the name of the TSM device that was specified
+ 		to 'connect' to teardown the connection.
++		The write fails with EBUSY if the TSM is in use.
+ 
+ What:		/sys/bus/pci/devices/.../tsm/dsm
+ Contact:	linux-coco@lists.linux.dev
+@@ -677,20 +678,6 @@ Description:	(RO) Return PCI device name of this device's DSM (Device
+ 		PCIe switch port. This is a "link" TSM attribute, see
+ 		Documentation/ABI/testing/sysfs-class-tsm.
+ 
+-What:		/sys/bus/pci/devices/.../tsm/bound
+-Contact:	linux-coco@lists.linux.dev
+-Description:	(RO) Return the device name of the TSM when the device is in a
+-		TDISP (TEE Device Interface Security Protocol) operational state
+-		(LOCKED, RUN, or ERROR, not UNLOCKED). Bound devices consume
+-		platform TSM resources and depend on the device's configuration
+-		(e.g. BME (Bus Master Enable) and MSE (Memory Space Enable)
+-		among other settings) to remain stable for the duration of the
+-		bound state. This attribute is only visible for devices that
+-		support TDISP operation, and it is only populated after
+-		successful connect and TSM bind. The TSM bind operation is
+-		initiated by VFIO/IOMMUFD. This is a "link" TSM attribute, see
+-		Documentation/ABI/testing/sysfs-class-tsm.
+-
+ What:		/sys/bus/pci/devices/.../authenticated
+ Contact:	linux-pci@vger.kernel.org
+ Description:
+diff --git a/drivers/pci/tsm/core.c b/drivers/pci/tsm/core.c
+index 24d4dd4f1b96..96ba5a8be8af 100644
+--- a/drivers/pci/tsm/core.c
++++ b/drivers/pci/tsm/core.c
+@@ -12,6 +12,7 @@
+ #include <linux/pci.h>
+ #include <linux/pci-doe.h>
+ #include <linux/pci-tsm.h>
++#include <linux/slab.h>
+ #include <linux/sysfs.h>
+ #include <linux/tsm.h>
+ #include <linux/xarray.h>
+@@ -292,96 +293,94 @@ static int remove_fn(struct pci_dev *pdev, void *data)
+ 	return 0;
  }
-
-+static int rdt_mon_id_includes_control_id_show(struct kernfs_open_file *of,
-+                                              struct seq_file *seq, void *v)
+ 
+-/*
+- * Note, this helper only returns an error code and takes an argument for
+- * compatibility with the pci_walk_bus() callback prototype. pci_tsm_unbind()
+- * always succeeds.
+- */
+-static int __pci_tsm_unbind(struct pci_dev *pdev, void *data)
++bool pci_tsm_is_configured(struct pci_dev *pdev)
+ {
+-	struct pci_tdi *tdi;
+-	struct pci_tsm_pf0 *tsm_pf0;
+-
+-	lockdep_assert_held(&pci_tsm_rwsem);
+-
+-	if (!pdev->tsm)
+-		return 0;
+-
+-	tsm_pf0 = to_pci_tsm_pf0(pdev->tsm);
+-	guard(mutex)(&tsm_pf0->lock);
+-
+-	tdi = pdev->tsm->tdi;
+-	if (!tdi)
+-		return 0;
+-
+-	to_pci_tsm_ops(pdev->tsm)->unbind(tdi);
+-	pdev->tsm->tdi = NULL;
++	guard(rwsem_read)(&pci_tsm_rwsem);
+ 
+-	return 0;
++	return !!pdev->tsm;
+ }
++EXPORT_SYMBOL_GPL(pci_tsm_is_configured);
+ 
+-void pci_tsm_unbind(struct pci_dev *pdev)
+-{
+-	guard(rwsem_read)(&pci_tsm_rwsem);
+-	__pci_tsm_unbind(pdev, NULL);
+-}
+-EXPORT_SYMBOL_GPL(pci_tsm_unbind);
++struct pci_tsm_context {
++	struct pci_tsm_pf0 *pf0;
++	struct pci_dev *pdev;
++	struct pci_dev *dsm_dev;
++};
+ 
+-/**
+- * pci_tsm_bind() - Bind @pdev as a TDI for @kvm
+- * @pdev: PCI device function to bind
+- * @kvm: Private memory attach context
+- * @tdi_id: Identifier (virtual BDF) for the TDI as referenced by the TSM and DSM
+- *
+- * Returns 0 on success, or a negative error code on failure.
+- *
+- * Context: Caller is responsible for constraining the bind lifetime to the
+- * registered state of the device. For example, pci_tsm_bind() /
+- * pci_tsm_unbind() limited to the VFIO driver bound state of the device.
+- */
+-int pci_tsm_bind(struct pci_dev *pdev, struct kvm *kvm, u32 tdi_id)
++struct pci_tsm_context *pci_tsm_context_get(struct pci_dev *pdev,
++					    struct tsm_dev *viommu_tsm_dev)
+ {
+-	struct pci_tsm_pf0 *tsm_pf0;
+-	struct pci_tdi *tdi;
+-
+-	if (!kvm)
+-		return -EINVAL;
++	struct pci_tsm_context *context;
++	struct pci_tsm_pf0 *pf0;
+ 
+ 	guard(rwsem_read)(&pci_tsm_rwsem);
++	if (!pdev->tsm || !is_link_tsm(pdev->tsm->tsm_dev))
++		return ERR_PTR(-EOPNOTSUPP);
++	/*
++	 * The vdevice can use a different PCI function from VIOMMU_ALLOC. The
++	 * module pin keeps the vIOMMU's TSM registered, but does not freeze this
++	 * function's link. Match its current TSM before pinning the link below.
++	 */
++	if (pdev->tsm->tsm_dev != viommu_tsm_dev)
++		return ERR_PTR(-EXDEV);
+ 
+-	if (!pdev->tsm)
+-		return -EINVAL;
++	pf0 = to_pci_tsm_pf0(pdev->tsm);
++	if (!pf0)
++		return ERR_PTR(-ENXIO);
+ 
+-	if (!is_link_tsm(pdev->tsm->tsm_dev))
+-		return -ENXIO;
++	context = kzalloc_obj(*context);
++	if (!context)
++		return ERR_PTR(-ENOMEM);
+ 
+-	tsm_pf0 = to_pci_tsm_pf0(pdev->tsm);
+-	guard(mutex)(&tsm_pf0->lock);
++	guard(mutex)(&pf0->lock);
++	pf0->context_users++;
++	context->pf0 = pf0;
++	context->pdev = pci_dev_get(pdev);
++	context->dsm_dev = pci_dev_get(pf0->base_tsm.pdev);
++	return context;
++}
++EXPORT_SYMBOL_GPL(pci_tsm_context_get);
+ 
+-	/* Resolve races to bind a TDI */
+-	if (pdev->tsm->tdi) {
+-		if (pdev->tsm->tdi->kvm != kvm)
+-			return -EBUSY;
+-		return 0;
+-	}
++void pci_tsm_context_put(struct pci_tsm_context *context)
 +{
-+       bool dependent = IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) &&
-+                        resctrl_arch_alloc_capable();
++	struct pci_tsm_pf0 *pf0 = context->pf0;
+ 
+-	tdi = to_pci_tsm_ops(pdev->tsm)->bind(pdev, kvm, tdi_id);
+-	if (IS_ERR(tdi))
+-		return PTR_ERR(tdi);
++	down_read(&pci_tsm_rwsem);
++	mutex_lock(&pf0->lock);
++	if (!WARN_ON(!pf0->context_users))
++		pf0->context_users--;
++	mutex_unlock(&pf0->lock);
++	up_read(&pci_tsm_rwsem);
+ 
+-	pdev->tsm->tdi = tdi;
++	pci_dev_put(context->pdev);
++	pci_dev_put(context->dsm_dev);
++	kfree(context);
++}
++EXPORT_SYMBOL_GPL(pci_tsm_context_put);
+ 
+-	return 0;
++struct pci_tsm_pf0 *pci_tsm_context_pf0(struct pci_tsm_context *context)
++{
++	return context->pf0;
+ }
+-EXPORT_SYMBOL_GPL(pci_tsm_bind);
++EXPORT_SYMBOL_GPL(pci_tsm_context_pf0);
+ 
+-static void pci_tsm_unbind_all(struct pci_dev *pdev)
++struct pci_dev *pci_tsm_context_dsm_dev(struct pci_tsm_context *context)
+ {
+-	pci_tsm_walk_fns_reverse(pdev, __pci_tsm_unbind, NULL);
+-	__pci_tsm_unbind(pdev, NULL);
++	return context->dsm_dev;
++}
++EXPORT_SYMBOL_GPL(pci_tsm_context_dsm_dev);
 +
-+       seq_printf(seq, "%u\n", dependent);
++bool pci_tsm_context_match_device(struct pci_tsm_context *context,
++				  struct pci_dev *pdev)
++{
++	guard(rwsem_read)(&pci_tsm_rwsem);
 +
-+       return 0;
++	return pdev->tsm && is_link_tsm(pdev->tsm->tsm_dev) &&
++	       to_pci_tsm_pf0(pdev->tsm) == context->pf0;
+ }
++EXPORT_SYMBOL_GPL(pci_tsm_context_match_device);
+ 
+-static void __pci_tsm_disconnect(struct pci_dev *pdev)
++static int __pci_tsm_disconnect(struct pci_dev *pdev)
+ {
+ 	struct pci_tsm_pf0 *tsm_pf0 = to_pci_tsm_pf0(pdev->tsm);
+ 	const struct pci_tsm_ops *ops = to_pci_tsm_ops(pdev->tsm);
+@@ -389,21 +388,29 @@ static void __pci_tsm_disconnect(struct pci_dev *pdev)
+ 	/* disconnect() mutually exclusive with subfunction pci_tsm_init() */
+ 	lockdep_assert_held_write(&pci_tsm_rwsem);
+ 
+-	pci_tsm_unbind_all(pdev);
+-
+ 	/*
+-	 * disconnect() is uninterruptible as it may be called for device
+-	 * teardown
++	 * A vdevice holds a context for its lifetime. Refuse to tear down the
++	 * link until userspace destroys all dependent vdevices.
++	 *
++	 * disconnect() is uninterruptible as it may also be called for device
++	 * teardown.
+ 	 */
+ 	guard(mutex)(&tsm_pf0->lock);
++	if (tsm_pf0->context_users)
++		return -EBUSY;
+ 	pci_tsm_walk_fns_reverse(pdev, remove_fn, NULL);
+ 	ops->disconnect(pdev);
++	return 0;
+ }
+ 
+-static void pci_tsm_disconnect(struct pci_dev *pdev)
++static int pci_tsm_disconnect(struct pci_dev *pdev)
+ {
+-	__pci_tsm_disconnect(pdev);
++	int ret = __pci_tsm_disconnect(pdev);
++
++	if (ret)
++		return ret;
+ 	tsm_remove(pdev->tsm);
++	return 0;
+ }
+ 
+ static ssize_t disconnect_store(struct device *dev,
+@@ -425,38 +432,13 @@ static ssize_t disconnect_store(struct device *dev,
+ 	if (!sysfs_streq(buf, dev_name(&tsm_dev->dev)))
+ 		return -EINVAL;
+ 
+-	pci_tsm_disconnect(pdev);
++	rc = pci_tsm_disconnect(pdev);
++	if (rc)
++		return rc;
+ 	return len;
+ }
+ static DEVICE_ATTR_WO(disconnect);
+ 
+-static ssize_t bound_show(struct device *dev,
+-			  struct device_attribute *attr, char *buf)
+-{
+-	struct pci_dev *pdev = to_pci_dev(dev);
+-	struct pci_tsm_pf0 *tsm_pf0;
+-	struct pci_tsm *tsm;
+-	int rc;
+-
+-	ACQUIRE(rwsem_read_intr, lock)(&pci_tsm_rwsem);
+-	if ((rc = ACQUIRE_ERR(rwsem_read_intr, &lock)))
+-		return rc;
+-
+-	tsm = pdev->tsm;
+-	if (!tsm)
+-		return sysfs_emit(buf, "\n");
+-	tsm_pf0 = to_pci_tsm_pf0(tsm);
+-
+-	ACQUIRE(mutex_intr, ops_lock)(&tsm_pf0->lock);
+-	if ((rc = ACQUIRE_ERR(mutex_intr, &ops_lock)))
+-		return rc;
+-
+-	if (!tsm->tdi)
+-		return sysfs_emit(buf, "\n");
+-	return sysfs_emit(buf, "%s\n", dev_name(&tsm->tsm_dev->dev));
+-}
+-static DEVICE_ATTR_RO(bound);
+-
+ static ssize_t dsm_show(struct device *dev, struct device_attribute *attr,
+ 			char *buf)
+ {
+@@ -511,13 +493,6 @@ static umode_t pci_tsm_attr_visible(struct kobject *kobj,
+ 	if (pci_tsm_link_group_visible(kobj)) {
+ 		struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
+ 
+-		if (attr == &dev_attr_bound.attr) {
+-			if (is_pci_tsm_pf0(pdev) && has_tee(pdev))
+-				return attr->mode;
+-			if (pdev->tsm && has_tee(pdev->tsm->dsm_dev))
+-				return attr->mode;
+-		}
+-
+ 		if (attr == &dev_attr_dsm.attr) {
+ 			if (is_pci_tsm_pf0(pdev))
+ 				return attr->mode;
+@@ -544,7 +519,6 @@ DEFINE_SYSFS_GROUP_VISIBLE(pci_tsm);
+ static struct attribute *pci_tsm_attrs[] = {
+ 	&dev_attr_connect.attr,
+ 	&dev_attr_disconnect.attr,
+-	&dev_attr_bound.attr,
+ 	&dev_attr_dsm.attr,
+ 	NULL
+ };
+@@ -634,22 +608,6 @@ static struct pci_dev *find_dsm_dev(struct pci_dev *pdev)
+ 	return NULL;
+ }
+ 
+-/**
+- * pci_tsm_tdi_constructor() - base 'struct pci_tdi' initialization for link TSMs
+- * @pdev: PCI device function representing the TDI
+- * @tdi: context to initialize
+- * @kvm: Private memory attach context
+- * @tdi_id: Identifier (virtual BDF) for the TDI as referenced by the TSM and DSM
+- */
+-void pci_tsm_tdi_constructor(struct pci_dev *pdev, struct pci_tdi *tdi,
+-			     struct kvm *kvm, u32 tdi_id)
+-{
+-	tdi->pdev = pdev;
+-	tdi->kvm = kvm;
+-	tdi->tdi_id = tdi_id;
+-}
+-EXPORT_SYMBOL_GPL(pci_tsm_tdi_constructor);
+-
+ /**
+  * pci_tsm_link_constructor() - base 'struct pci_tsm' initialization for link TSMs
+  * @pdev: The PCI device
+@@ -729,12 +687,6 @@ int pci_tsm_register(struct tsm_dev *tsm_dev)
+ 	return 0;
+ }
+ 
+-static void pci_tsm_fn_exit(struct pci_dev *pdev)
+-{
+-	__pci_tsm_unbind(pdev, NULL);
+-	tsm_remove(pdev->tsm);
+-}
+-
+ /**
+  * __pci_tsm_destroy() - destroy the TSM context for @pdev
+  * @pdev: device to cleanup
+@@ -768,10 +720,12 @@ static void __pci_tsm_destroy(struct pci_dev *pdev, struct tsm_dev *tsm_dev)
+ 	else if (tsm_dev != tsm->tsm_dev)
+ 		return;
+ 
+-	if (is_link_tsm(tsm_dev) && is_pci_tsm_pf0(pdev))
+-		pci_tsm_disconnect(pdev);
+-	else
+-		pci_tsm_fn_exit(pdev);
++	if (is_link_tsm(tsm_dev) && is_pci_tsm_pf0(pdev)) {
++		if (pci_tsm_disconnect(pdev))
++			pci_warn(pdev, "TSM connection is still in use\n");
++	} else {
++		tsm_remove(pdev->tsm);
++	}
+ }
+ 
+ void pci_tsm_destroy(struct pci_dev *pdev)
+diff --git a/include/linux/pci-tsm.h b/include/linux/pci-tsm.h
+index 6fe3d0ea875f..eaf0199d01f7 100644
+--- a/include/linux/pci-tsm.h
++++ b/include/linux/pci-tsm.h
+@@ -5,8 +5,8 @@
+ #include <linux/pci.h>
+ 
+ struct pci_tsm;
++struct pci_tsm_context;
+ struct tsm_dev;
+-struct kvm;
+ 
+ /*
+  * struct pci_tsm_ops - manage confidential links and security state
+@@ -30,16 +30,12 @@ struct pci_tsm_ops {
+ 	 * @connect: establish / validate a secure connection (e.g. IDE)
+ 	 *	     with the device
+ 	 * @disconnect: teardown the secure link
+-	 * @bind: bind a TDI in preparation for it to be accepted by a TVM
+-	 * @unbind: remove a TDI from secure operation with a TVM
+ 	 *
+ 	 * Context: @probe, @remove, @connect, and @disconnect run under
+ 	 * pci_tsm_rwsem held for write to sync with TSM unregistration and
+ 	 * mutual exclusion of @connect and @disconnect. @connect and
+ 	 * @disconnect additionally run under the DSM lock (struct
+ 	 * pci_tsm_pf0::lock) as well as @probe and @remove of the subfunctions.
+-	 * @bind and @unbind run under pci_tsm_rwsem held for read
+-	 * and the DSM lock.
+ 	 */
+ 	struct_group_tagged(pci_tsm_link_ops, link_ops,
+ 		struct pci_tsm *(*probe)(struct tsm_dev *tsm_dev,
+@@ -47,9 +43,6 @@ struct pci_tsm_ops {
+ 		void (*remove)(struct pci_tsm *tsm);
+ 		int (*connect)(struct pci_dev *pdev);
+ 		void (*disconnect)(struct pci_dev *pdev);
+-		struct pci_tdi *(*bind)(struct pci_dev *pdev,
+-					struct kvm *kvm, u32 tdi_id);
+-		void (*unbind)(struct pci_tdi *tdi);
+ 	);
+ 
+ 	/*
+@@ -69,25 +62,12 @@ struct pci_tsm_ops {
+ 	);
+ };
+ 
+-/**
+- * struct pci_tdi - Core TEE I/O Device Interface (TDI) context
+- * @pdev: host side representation of guest-side TDI
+- * @kvm: TEE VM context of bound TDI
+- * @tdi_id: Identifier (virtual BDF) for the TDI as referenced by the TSM and DSM
+- */
+-struct pci_tdi {
+-	struct pci_dev *pdev;
+-	struct kvm *kvm;
+-	u32 tdi_id;
+-};
+-
+ /**
+  * struct pci_tsm - Core TSM context for a given PCIe endpoint
+  * @pdev: Back ref to device function, distinguishes type of pci_tsm context
+  * @dsm_dev: PCI Device Security Manager for link operations on @pdev
+  * @tsm_dev: PCI TEE Security Manager device for Link Confidentiality or Device
+  *	     Function Security operations
+- * @tdi: TDI context established by the @bind link operation
+  *
+  * This structure is wrapped by low level TSM driver data and returned by
+  * probe()/lock(), it is freed by the corresponding remove()/unlock().
+@@ -103,18 +83,20 @@ struct pci_tsm {
+ 	struct pci_dev *pdev;
+ 	struct pci_dev *dsm_dev;
+ 	struct tsm_dev *tsm_dev;
+-	struct pci_tdi *tdi;
+ };
+ 
+ /**
+  * struct pci_tsm_pf0 - Physical Function 0 TDISP link context
+  * @base_tsm: generic core "tsm" context
+  * @lock: mutual exclustion for pci_tsm_ops invocation
++ * @context_users: live per-function contexts on this PF0; a nonzero count
++ *	blocks link disconnect
+  * @doe_mb: PCIe Data Object Exchange mailbox
+  */
+ struct pci_tsm_pf0 {
+ 	struct pci_tsm base_tsm;
+ 	struct mutex lock;
++	unsigned int context_users;
+ 	struct pci_doe_mb *doe_mb;
+ };
+ 
+@@ -161,10 +143,14 @@ int pci_tsm_pf0_constructor(struct pci_dev *pdev, struct pci_tsm_pf0 *tsm,
+ void pci_tsm_pf0_destructor(struct pci_tsm_pf0 *tsm);
+ int pci_tsm_doe_transfer(struct pci_dev *pdev, u8 type, const void *req,
+ 			 size_t req_sz, void *resp, size_t resp_sz);
+-int pci_tsm_bind(struct pci_dev *pdev, struct kvm *kvm, u32 tdi_id);
+-void pci_tsm_unbind(struct pci_dev *pdev);
+-void pci_tsm_tdi_constructor(struct pci_dev *pdev, struct pci_tdi *tdi,
+-			     struct kvm *kvm, u32 tdi_id);
++bool pci_tsm_is_configured(struct pci_dev *pdev);
++struct pci_tsm_context *pci_tsm_context_get(struct pci_dev *pdev,
++					    struct tsm_dev *viommu_tsm_dev);
++void pci_tsm_context_put(struct pci_tsm_context *context);
++struct pci_tsm_pf0 *pci_tsm_context_pf0(struct pci_tsm_context *context);
++struct pci_dev *pci_tsm_context_dsm_dev(struct pci_tsm_context *context);
++bool pci_tsm_context_match_device(struct pci_tsm_context *context,
++				  struct pci_dev *pdev);
+ #else
+ static inline int pci_tsm_register(struct tsm_dev *tsm_dev)
+ {
+@@ -173,12 +159,39 @@ static inline int pci_tsm_register(struct tsm_dev *tsm_dev)
+ static inline void pci_tsm_unregister(struct tsm_dev *tsm_dev)
+ {
+ }
+-static inline int pci_tsm_bind(struct pci_dev *pdev, struct kvm *kvm, u64 tdi_id)
++
++static inline bool pci_tsm_is_configured(struct pci_dev *pdev)
+ {
+-	return -ENXIO;
++	return false;
+ }
+-static inline void pci_tsm_unbind(struct pci_dev *pdev)
++
++static inline struct pci_tsm_context *
++pci_tsm_context_get(struct pci_dev *pdev, struct tsm_dev *viommu_tsm_dev)
++{
++	return ERR_PTR(-EOPNOTSUPP);
 +}
 +
- static int rdt_mon_features_show(struct kernfs_open_file *of,
-                                 struct seq_file *seq, void *v)
++static inline void pci_tsm_context_put(struct pci_tsm_context *context)
++{
++}
++
++static inline struct pci_tsm_pf0 *
++pci_tsm_context_pf0(struct pci_tsm_context *context)
++{
++	return NULL;
++}
++
++static inline struct pci_dev *
++pci_tsm_context_dsm_dev(struct pci_tsm_context *context)
++{
++	return NULL;
++}
++
++static inline bool
++pci_tsm_context_match_device(struct pci_tsm_context *context,
++			     struct pci_dev *pdev)
  {
-@@ -2009,6 +2020,13 @@ static struct rftype res_common_files[] = {
-                .seq_show       = rdt_num_rmids_show,
-                .fflags         = RFTYPE_MON_INFO,
-        },
-+       {
-+               .name           = "mon_id_includes_control_id",
-+               .mode           = 0444,
-+               .kf_ops         = &rdtgroup_kf_single_ops,
-+               .seq_show       = rdt_mon_id_includes_control_id_show,
-+               .fflags         = RFTYPE_TOP_INFO,
-+       },
-        {
-                .name           = "cbm_mask",
-                .mode           = 0444,
-
++	return false;
+ }
+ #endif
+ #endif /*__PCI_TSM_H */
+-- 
+2.43.0
 
