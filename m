@@ -1,55 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763631;
-	b=DiGbk19DrsulFgJKTRYDQWmxWHTwx3/tIEDDBWopoguSCZW6ZQtW2agYOpUbaG4F5rN+
-	 W6w56sOweIWGxZscFsfV39JKR6AhdbqaQH7cD7ToGzkykOBc68WJn7ILh7nzC+utJKiS/
-	 pZTkh5YwI45S7WaFoliCyPE3nuduLtCXO1m5lx1STPGMxCQVNTbUDT2rnvYEezGFCFlyB
-	 /PWUSr+S+0AfAxd3KNpuOLZfQ8fMRk4912HkJltSkCxPN2Zr26mxatwEC4TrH3vWOn+YQ
-	 fZd/fc2XM4zVLSi13cHPrWU2BcL/wZedRhw0l7x0+b1cdLNwddd0gADksJPCZbIRiTw==
+	t=1793763649;
+	b=dGLvhgneEsN3J6+4ZhJ/kf1qzhwegrkZiPkAOZ9ParhZH7W0ktajXyihnLxLEusHL8BZ
+	 g07JHoH5tKe9dNqbNI6UdcBQlkEr8CbknmqT7xen6x+zCzEJkuRbZ4nUbkNZD/2Nx8CGt
+	 bpIMK8mfWF0VGoN43J7VRgjK9s/iw4+YdyA2gEMTJYvKUUbYRMQhitsIn5gKV18rfyFRd
+	 /YG4n3HERbDoZNUOclt8pysUzrIAgYZBVrfnDx7F55antbq1z7qHkoBzHYtQgcZbBIe+f
+	 5SxSMZpp4YgrIBx/ppsoyP08zdmhXpSTr5/plc9XwgNCcbxpdpW6uJlKKF8+wxBDjUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763631;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+tZw0K5+jfSV2aRm7WOFqugUNHNTb6GHxCzlpfjuQew=;
-	b=CE4mGvYPNflM+c/zAo0EOIjWo3UlVA+QQMYvBiL25LJ6xaiSwWF4vQUI1oiPJP8HJgVp
-	 2iQoKZck4qV43Qs4MH77LZvTo/VbVjSW9B+8AWVTSyeEfjZ226FrQO+qnyoFtuLf4CgH5
-	 fw8PV5EKh4fA0VSGnnFicj0+Ma/Xof7CuEhx6GFTrzdKjaeDdxhWxeEPW6U33d07TMy70
-	 HyGBOSzpkx1NDJMMGGilgTS1tEVmjp0wJAv8Foy/5GA3x0Qlebv88vofl97FYox2aBn1R
-	 UOukqUr87VYZZiJ1Lsjv8nJArZCMwYGSCJXMvfgqOAw2I5lFWQxJyEVoRaxmYCIumPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763649;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=tiQ6Fa/Vn2QTQoifHh6BKk70IvD8frJIBqHoc+DS4Nw=;
+	b=FFcS0EBIi7F2WMpkgPyXgMxjVZhCgoMju6L9tIDTOjggDLzUWUMAMfA8NXU0u4SXTAsm
+	 Zqr2D6nAxttjSrubqYuPDlqIuEJkPjNMUdst3RDyYVAP4HlFgzp9oETbIo3KjzAcvnL8g
+	 LBjIjAeGayZNcQENnRE4QNkaTKYivhgRGTFwbvjZ8Gm8EaQIiRAvgTnEkHSNgotnZqhtJ
+	 GJTnsR8T2mt4lmyLTEclgJeQYKAcLxryCQcpknNlE/JmH9ODQJa2A5VLphlUSdneSwPd7
+	 SW8IOwB9UPpFdGh6G8o2F/jz74w+1k6nHOwMpq3OFHAC1gVIwpP4nsUXDeVNgeRcpBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MogoHxc1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iavYT29u;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE52606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F0E606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:40:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F0E606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MogoHxc1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C61D1F00A21
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:40:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793763630;
-	bh=+tZw0K5+jfSV2aRm7WOFqugUNHNTb6GHxCzlpfjuQew=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MogoHxc1lDU2P1JZYWhARSR1ywNNKCZ8EfaS02CKoiTvz5PrWZR2PF50pgo5KbwYr
-	 4DB+o0PIXodT0XRysk7/W/FJ3GssiEo3GZe/I8DRjr5VScVGmrzSYpXy8wb3EZAQRn
-	 N9yFj/iSV7VxQu8MJctXaBVZLxgx3IDugiJDaiDqBGYTHmatKwSKUdZxPPde6mlugc
-	 5lkROUH1J+Dg/qvVOJRx3E5QjYc5tYut+NwMQvAuR0nOAnB5/8lPtBKHQR5G28Cs75
-	 A+bAtJCW7H/5vy0OicCC+tBWWZYzBvNK0tLnn0XSqgIqRHFfx7drVEGhKsKVgF7Ml/
-	 Np3l598dUmasw==
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f20b304c0so29537785a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:40:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwKS0C3zzhqZHHDLa8+W+rPoaAweP7sv5t1tNBqXTC126V+1NuDV+Xm/tQGiKBirXPmZFVmX2AGnPE1PEk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bJXEBp1sHxabkQGV/Fje1yciPF/fbPa7/y1tyAxqgB0nnAqdI
-	xDi+niBW2DFI/nhJ+zEIFWp9VFXfatEyOY0E0YsQZXCYlVeGrEdxOKp6OslKC31ZZO9YaMaFOoS
-	ZAYaSGPffHiE6YIl5G+0eDiAx+1vgmy4=
-X-Received: by 2002:a05:620a:1a07:b0:93e:c12c:9dd3 with SMTP id
- af79cd13be357-94421796eafmr2530707085a.83.1793763629745; Tue, 03 Nov 2026
- 19:40:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iavYT29u
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2761c69fbso768147c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:40:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793763648; x=1794368448; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tiQ6Fa/Vn2QTQoifHh6BKk70IvD8frJIBqHoc+DS4Nw=;
+        b=iavYT29uzsoPP0/Qa5Ukk8Xty01Iq4dM0YF4RbSc+L62N2M1s6wNoX0sqcmxQBpqw9
+         8oFssKM5EuQq3CEg44XDpGxsneR9GGNf/aCVuMmGU64w1sfzqZieVr2SKBXiGoNnmGJZ
+         mkwvsnutxRN5cWNYxGwRJrQR6zjT4jY6TyB9FiT5L8UNm7WxJgCuvBI+IhIBeo+xUg+4
+         DaizG9PwskK6E432BjctkjNdubblcBjypkjIEV6TCUjhmrD0cWSpzNzFHCOFilBhfUJW
+         +eY1Xl3Ebs2S0fBytxJd1b6u4K+lJ13+RNrlEyoL4F1SfL2knfKjTJW9zoITfF66gegn
+         W7zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793763648; x=1794368448;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tiQ6Fa/Vn2QTQoifHh6BKk70IvD8frJIBqHoc+DS4Nw=;
+        b=tUkuA+TtUJgIvxX6qXLL8BhbEApkbITa2clsUdsRgp7l+My3MvDo8wJMjIYGnC+aup
+         OE0Wxq3lR0wgjubHQ9Rcx9/WdzfPrn47rj0UaK8PJ0W9ugU3Za4ReNUWq/5nFEuHgE84
+         I9eM9x5TJtQX9T3z/ERYF8DsCa733YTClJEcMjXFaDQ2ZF5RMg2iYuMfkxYYajsCnUMr
+         bcKYDHb3Wu9eOHbj0Kw71NSLk7v3e9Tu1ggn+1V2t6BPyj8OL7Hd9HYR8/Zrns0Ihf/i
+         Cw86kNstxhT6+HP2DvaFLynolx/yjWZdSefd2pEcCuZefr7l05tc/PbFPkLFOgWmy15H
+         pg+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxTVzcW3xB6DaWqOAA5OdDgtq4KAaj7eVoYAyC7PxvaoYiZ7+MFZH47VMDakpr9dwKv3N1//sTgVKcUW9I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vC1bsDSjqUw9m5XGHxrp4ngVJl9jjsIUXDhgBoPa/tLR5iuYi
+	R1dcv19jqpbbayAf4K6/iHFujh5T7K0ncjvw+VBH85hqUIOh1INli6Ob
+X-Gm-Gg: AYBFou2KOLky4tTiTbqfaV9PgSi/u9tLqhZznY1w3OJIrDJrppvLlb+DQ3eRAA2ir8Q
+	SPIqXd/rFkiKKB3owBqaY2Kv1o8AFq4Sv6xupWTCGzOaQN7DAOFsyY/qZb/7vXtESg+UjRR+6Fa
+	Ffc8FlZVWzDx5T6tmmeqA/X4mO4N62dYMGW4TL6Po4OYiX9dmgPJxivKP8V/VgmWvxKaTPFk47Q
+	lt//3+uipqCB7tYu0PcP5m5iJt/Pea10euyv6kHjODS1cIzDJoZcyxriyWLOoKQiIDA4gcuTnrE
+	3hUfSjtQY2ecpkE0LW37OyZDmlCF06JYP3EhbZZCMr4kzLgIIqdyu1OvgxqeQJ3ASpePACojcvE
+	QUB12qlSauPPaOAVbdBIb4qhBgsR7+Iemds/tz4L9qyCFfJUAd5Vv8D6Evxe9h07Ur3YSPlE+nL
+	mu7DNZ1em6ha+qiFf+S/Xfpkxbo11umZnZRZhZzyqyq6NVxPx3Qz31A1iwkA3fryjgLdasXODPh
+	oXTGIKb0JK9fYrFg/AAvdupsgWVuvVWQAFeF7P4tUKV15z4YVmYi+jvTmDipt3mVit7xgP/bbXC
+	+xnbJd6hH3rwlZv4xHjZhVV/UTLRCDe0Eja4rMOFuATRszDBi1eDTEbOcNLlehuQtbD1dPde+Ew
+	8hcbEqX4jll1PEU+V
+X-Received: by 2002:a05:7022:ea51:b0:144:c112:5f24 with SMTP id a92af1059eb24-1ac5b028d82mr22099032c88.25.1793763647565;
+        Tue, 03 Nov 2026 19:40:47 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3784f78sm3528508eec.2.2026.11.03.19.40.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:40:46 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Tue, 03 Nov 2026 19:40:30 -0800
+Subject: [PATCH v2 2/7] gpiolib: fix fast-path cancellation in
+ gpiod_get_array()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,95 +93,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103113711.1832834-1-max.kellermann@ionos.com> <20261103113711.1832834-4-max.kellermann@ionos.com>
-In-Reply-To: <20261103113711.1832834-4-max.kellermann@ionos.com>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 4 Nov 2026 11:40:16 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y+LX-CSnDJ59VT2nc-i=rB=4iMuBQYawMCktk-_SPykg@mail.gmail.com>
-X-Gm-Features: AclHuK_7q4sg1JpsDk1OEkyOWm8WF60WPZ6zY6tzDeYRFIK1cRTEyQLp5iaugqM
-Message-ID: <CAGsJ_4y+LX-CSnDJ59VT2nc-i=rB=4iMuBQYawMCktk-_SPykg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] mm/mglru: cache the last memcg node, make tail
- insertion constant time
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-b4-gpiolib-free-v2-2-ea46767c9cf8@gmail.com>
+References: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
+In-Reply-To: <20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>, 
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev-e56a4
 
-On Tue, Nov 3, 2026 at 7:37=E2=80=AFPM Max Kellermann <max.kellermann@ionos=
-.com> wrote:
->
-> Rotating or onlining a memcg currently uses hlist_nulls_add_tail_rcu()
-> which walks the destination bin to find its tail while holding
-> `memcg_lru.lock` with interrupts disabled.  With thousands of cgroups,
-> this takes a long time and causes severe lock contention.
+In gpiod_get_array(), when a pin on the same chip is not in hardware
+order and the preceding pins form a contiguous block, the fast path is
+cancelled by setting array_info to NULL. However, descs->info was
+already populated with the array_info pointer during the first
+iteration, leaving descs->info pointing to the aborted array_info.
+Consequently, subsequent array operations still use the fast path with
+remaining bits set in the masks and wrong hardware pin numbers.
 
-This is the main cause of the soft lockups and RCU stalls,
-right? If so, we may want to add a Fixes tag.
+Clear descs->info alongside array_info when cancelling the fast path so
+callers do not erroneously use the aborted array_info.
 
-The fix itself may not be directly applicable to stable
-kernels, but based on the logic of this patch, we should
-be able to work out a backport, right?
+Fixes: c4c958aa64f3 ("gpiolib: Fix array members of same chip processed separately")
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/gpio/gpiolib.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Another option is to leave the cleanups in patches 1 and 2
-out for now, and make patch 3 self-contained as the first
-patch in your series, if that makes backporting easier.
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index f33033dd9473..9a850f5c1917 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -5307,6 +5307,7 @@ struct gpio_descs *__must_check gpiod_get_array(struct device *dev,
+ 			 * hardware number is different from its array index.
+ 			 */
+ 			if (bitmap_full(array_info->get_mask, i)) {
++				descs->info = NULL;
+ 				array_info = NULL;
+ 			} else {
+ 				__clear_bit(i, array_info->get_mask);
 
-You can then move the cleanups from patches 1 and 2 to
-follow the new patch 1.
+-- 
+2.56.0.385.gac671c819a-goog
 
->
-> Cache a pointer to each bin's last node, making tail insertion O(1).
-> This requires remembering the bin number (but the new struct field
-> occupies a hole, so it does not grow).
->
-> In a micro benchmark that creates 1500 cgroups and repeatedly writes
-> `1024M swappiness=3D0` to `memory.reclaim` in 8 threads, the request
-> rate increases by a factor of 9.5 and the average duration of each
-> write request is reduced by 89%.
->
-> All writes return EAGAIN in both runs; the benchmark measures the cost
-> of reclaim attempts that cannot meet their requested target, not
-> reclaimed throughput.
-
-I'd appreciate it if you could also mention Ridong's earlier
-work in the changelog:
-
-https://lore.kernel.org/all/20251119083722.1365680-1-chenridong@huaweicloud=
-.com/
-
->
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
-[...]
-> @@ -4561,21 +4561,37 @@ static void lru_gen_add_memcg(struct lru_gen_memc=
-g *memcg_lru,
->                               int gen, int bin, bool at_head)
->  {
->         struct hlist_nulls_head *head =3D &memcg_lru->fifo[gen][bin];
-> +       struct hlist_nulls_node *last =3D memcg_lru->tail[gen][bin];
->
->         lockdep_assert_held(&memcg_lru->lock);
->
-> -       if (at_head)
-> +       lrugen->bin =3D bin;
-> +
-> +       if (at_head || !last)
->                 hlist_nulls_add_head_rcu(&lrugen->list, head);
-
-Do we still need at_head now that MEMCG_LRU_OLD has been removed?
-
->         else
-> -               hlist_nulls_add_tail_rcu(&lrugen->list, head);
-> +               hlist_nulls_add_behind_rcu(&lrugen->list, last);
-> +
-> +       if (!at_head || !last)
-> +               memcg_lru->tail[gen][bin] =3D &lrugen->list;
->  }
-
-Best,
-Barry
