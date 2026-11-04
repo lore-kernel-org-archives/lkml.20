@@ -1,109 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813235;
-	b=VT+CHFjcvPEAgNJ6+VqvZusDNtCjBnBGgwpv4f0cJK+pdQN3vof5C7ILJ9reT9wAiQwU
-	 +vO1gnWTBrg3VD5nlPisj15euTKml7sU997i0ReM6UB5HTUA83QaVC02/1xcrLCOwUHDq
-	 RJPC0bS70e1YyHRhKj0ZPeVbmbFlJB3r/fAqO3HeEObW69Y4S/y4uk8xXlgXbVpLwjamN
-	 6RXntyvIwEwdtfdQd72Wu3LmS83BnUpfIJKse+sYCl+a3J+TpZl3jY4O/358SPSuXrj/F
-	 xi+umOGvddyKs17GSj9y8dPToeuEW6MjTUhfgUxGhuDlGxXRIJoM09nkvWS/EoPKQEA==
+	t=1793813281;
+	b=ODqOQjPoC/zWF19i9RDNirXMaFDe1EY02Pbm0Qjj8dNsY8ccu63dVRoL8fRvnNCNBobN
+	 YXogTedwjN3po93nPD+gmWHEslmCTmBfdbFMttv4y+BNG/kjfHRuK5yF6/hLPEVJDvHwG
+	 5LOFJai1QcXaPOqt9HzwIrFv+nUXZf7MUCrKf1py0Blw3U/dyrXsUphP0BwjrZsnmax3T
+	 s8wDSnhgxleBv69t2u1VnZbUfPfxcZoYNMwyBSVLO9HakMPoE/bo2cZimlFh19Fev3yB0
+	 3Ke1jTgPZfugDouubCfgs5i7YGXkdbzFNYUYFGyEWikdacY8Q53lS/C+Zl0hdAaVfZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813235;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=lAdqJZq7DckAfewXRPAVCUONZuQAofOCOPOWHFZTOPQ=;
-	b=fIb3GrfxEMAb3J/TzQgMWEuqnTwJve6bWH10eKuv5MqyXyYRZQr76yC+ok+64mA1ndL0
-	 l3WZzVQYkB6SAS2NIhuuEQ8eH0mfseAieh3DkOHgxfUTSL4b5PVCsljQ8fk5pmILOz7su
-	 JJ8GyKRk8pgO6+W9ZcnFp6m7/lNOozjAJW/hkNfREyU4TmBmTSJkvhvUD+Ei/tJZgLGj6
-	 XOQQEcnhQLa5JCF1y1RcxAv/S10jf5lw/10/4hNdp75bC39qL4LI1Ba+3hrP+gkLZQRbJ
-	 VancSZ4eBI2GoUNnoNMTyiNUwh+Oaxh3yTPHwJxMFBqh0c2OImeH2+TGCiHrg1qgfMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813281;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=l/mNIUYbMxLCGw0NLoaMA4f3zkyRJADVSFkdtq4toFM=;
+	b=rUCePuE0UiS/d07nAbXAC2M8Xqn37X1d1XoOeIK39afWc75G0wBdZ6j55GYwfMsX6wa/
+	 nOCsZPxc8BGBKpEkvbBShm6a2e7c46EaX0QcgHTK7za0JAKH66++XtF8IBSO0qxFawB4D
+	 5Zc0ZTlJfNBakD5ij9XJ4Xa1RMFDMXjVydEsJNXlqleZAXdMexdo4GOjHRX2dbm3Wbffr
+	 ne5xpbN8OvStem0x8mDaM3XZe6xtYQlPR3ku2TG4IxYtowX4JTx+p81yU5ifHFR0LOHf6
+	 EBK9b1fhL7cCjXid5WJl4LCsvWLJ7zuq5CCpmSHN88GYR4zIE334J4t7PcsFo3aWMUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QnqKLYh2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkqsVoPl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07F6606A31B;
-	Wed,  4 Nov 2026 17:27:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EA8606A31B;
+	Wed,  4 Nov 2026 17:28:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QnqKLYh2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F031F00A02;
-	Wed,  4 Nov 2026 17:26:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkqsVoPl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A521F000C1;
+	Wed,  4 Nov 2026 17:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793813234;
-	bh=lAdqJZq7DckAfewXRPAVCUONZuQAofOCOPOWHFZTOPQ=;
-	h=From:To:Cc:Subject:Date;
-	b=QnqKLYh2fAMD+U5HTXeOnACd1cOBaWr2au0sexyO6Tega8pNFvJ3KwBqyWlewJUso
-	 MIi2fzXRHEQROZC9gLvS1bZZ/9/KcmfDhERzkLaXXdIl+Qf8wPegziV2OdOn/5z79r
-	 3iTqL/OK9DAdbhv97um4MytPwotOejrYkLFgVhoshHzNg842ittp+lNu4zRCpPsoG2
-	 KqhP8Ng8p49cNRXsXj5NGkMfzBM+kKXiniguFgYtTFtMwPvnenK73TWNMd887NGQbI
-	 1pG3OChIWDhqEolCKBiLCVppfrBMevoWgaGWalA6fc1c1Jt43H5RxZZPnk2L1SezgW
-	 Bq+TYnLLsbzyA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org
-Subject: [PATCH v2 0/7] proc: move procfs to what kernfs does
-Date: Wed,  4 Nov 2026 18:26:54 +0100
-Message-ID: <20261104-trompete-gejagt-raddampfer-9fb5640a6102@brauner>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1793813280;
+	bh=l/mNIUYbMxLCGw0NLoaMA4f3zkyRJADVSFkdtq4toFM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LkqsVoPlMxnL8hn5zvggg6Mk5g6BwJ3Yt83USTc/eHUB9qseTp86cnNuAormA9cIA
+	 GXPp0lI/PgoNLT/nN5QL7Pv9RsKf/estDLFbDCpOMawQ8gaL3Ft580F5yejIrzOo7P
+	 SIPiLSFSqdfhyg7upul+KIwH2t0K0EIBBhv+t1G//73EioWqslBR14ukkjlsHruOIm
+	 n3fnEGZZ5tEigyUflMnKa617NRYomjanPVWDmiJ23OQHfhZohjiynMee+IuwZnXEca
+	 1bNASyC2jRHnlc6OLAIoywhCH4Txi/AupoYn2hDywxkjNkonXjXYJ4qw1faKAwMZsF
+	 zslmXuwVosIMg==
+Message-ID: <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+Date: Wed, 4 Nov 2026 18:27:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,141 +51,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6699; i=brauner@kernel.org; h=from:subject:message-id; bh=vwrWu4QhJtoloSbOepgjr6FTno3vPTd4Ym/VDTikOkw=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrofyGH5UuGlf8QM041zGftlZmtyqi7/2jv5suCKX cadvXNTOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACaSkMjI8PXT/ahLzms2tG95 p/y6Wd4h+MQHNf/VL1dGn7i1utyl/SQjw+WcTXp/Xn+/v4hxooZnZYRWmPKsDU2ur9N2RKRMsj5 7gh0A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
+ Ryan Wanner <ryan.wanner@microchip.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
+ <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+ Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Laxman Dewangan
+ <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "moderated list:ARM/Microchip (AT91) SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+ "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+ "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
+ <linux-renesas-soc@vger.kernel.org>,
+ "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Thierry Reding <treding@nvidia.com>
+References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+ <autj6pr_bPaul3w0@ashevche-desk.local>
+ <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+ <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+ <autqC143h7Qf1R9H@ashevche-desk.local>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <autqC143h7Qf1R9H@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This series aims to get rid of copying to and from userspace while pinning
-procfs entries allowing userspace to delay removal as long as it wants.
+On 04/11/2026 18:23, Andy Shevchenko wrote:
+> On Wed, Nov 04, 2026 at 06:08:39PM +0100, Krzysztof Kozlowski wrote:
+>> On 04/11/2026 18:02, Krzysztof Kozlowski wrote:
+>>> On 04/11/2026 17:57, Andy Shevchenko wrote:
+>>>> On Wed, Nov 04, 2026 at 10:22:45AM -0500, Frank.Li@oss.nxp.com wrote:
+>>>>>
+>>>>> Replace open-coded assignments to callback and callback_param fields
+>>>>> of struct dma_async_tx_descriptor with calls to the
+>>>>> dmaengine_desc_set_callback() helper across SPI bus drivers.
+>>>>>
+>>>>> No functional change intended. Prepare make to struct
+>>>>> dma_async_tx_descriptor private to the DMA engine.
+>>>>
+>>>> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # dw, pxa2xx, topcliff-pch
+>>>>
+>>>> (Note, you forgot to add the list of the drivers to the Rb trailers of other reviewers)
+>>>
+>>> These should be acks. RB creates false impression entire commit was
+>>> reviewed. Our docs also clearly state entire commit:
+>>>
+>>> "Reviewed-by:, instead, indicates that the patch has been reviewed and
+>>> found acceptable according to the Reviewer's Statemen"
+>>>
+>>> (not patch or part of patch)
+>>>
+>>> "By offering my Reviewed-by: tag, I state that
+>>> I have carried out a technical review of this patch to
+>>> "
+>>>
+>>> (not patch or part of patch)
+>>>
+>>> When you accept only part of this code, you basically Ack. I really
+>>> dislike these half-done reviews, which later appear in logs and tell you
+>>> nothing. You could have clear security bug here, but 10 review tags. How
+>>> useful tags...
+>>
+>> And let me even bring a better example. Imagine a patch, doing massive
+>> refactoring of core SPI stuff, 1000 lines of code, complex locking and
+>> also simultaneously updates drivers to new API changed in this core.
+>>
+>> Reviewing that 1000 lines of code in core SPI with complex locking takes
+>> someone 30 minutes. He gives Rb tag, gets credit.
+>>
+>> Now you come, look at SINGLE line in a driver and give Rb tag. For 10
+>> seconds job of looking at one changed call in one driver.
+>>
+>> You just Acked, you did not review "the patch" (quoting submitting patches).
+> 
+> Your example is doubtful because the patch is combined from independent pieces.
+> The Rb fits very well the listed drivers. The problem is that some of the
+> people combine changes into a bundle (and not proper per-driver series).
+> 
 
-In essence, it aligns procfs with what kernfs is already doing. That
-gets rid of a big attack surface and a whole bug class in one go. The
-bounce buffer will come with some costs but luckily some codepaths (like
-readdir) have been so criminally slow and buggy that massaging them ends
-up speeding things up or at least leaving them on par with mainline even
-with a bounce buffer in the mix.
+The example is actually real. There are many patches changing some core
+subsystem API stuff + many drivers, and they are done correct as one patch.
 
-There was a hackish and very narrow AI solution to a small part of this
-bug class which was sent off-list. In essence, it used a second
-buffering mechanism on top of seqfiles which was really nasty. It also
-didn't address any of the non-seqfile users.
+Looking at two lines out of 50, 100 or 1000 (here is 740!!!) is not
+reviewing "this patch". Is acking it.
 
-If we want to get rid of the this whole bug class we need a bigger
-hammer. That means reworking how procfs handles data. So I tried to work
-through all of that. The series is now in a decent shape (I'm not saying
-"glorious" as there's so so many warts. If they were ironed out it could
-be a lot nicer but that's for another day.).
+All of the Rbs here are half baked, meaning they did not review "this
+patch" (quoting submitting patches document).
 
-I understand it's big but I think it is nicer to be able to look at the
-end result since we have some transitory states that are gone at the end
-of the series.
+But sure, if we want to play such numbers game, I will be sending
+reviews for single lines.
 
-I have polished this a bit more and have sorted out a few more bugs and
-tried to clean up some codepaths given the current constraints. Again, I
-think we could go a lot further there if we wanted to but I think that
-blows this out of proportion and at some point it becomes difficult to
-grasp the scope.
-
-So, remove_proc_entry() waits until every call into the procfs entry has
-returned. Most of those calls copy to or from userspace with the entry
-pinned.
-
-A reader or writer can induce a page fault in that copy take as long as
-it wants. For example, with userfaultfd or by punching holes into a
-memfd over and over. Plus, the callers of remove_proc_entry() like to
-hold locks while they wait. For example, addrconf holds RTNL when it
-removes /proc/net/dev_snmp6/<dev> and xt_hashlimit holds a mutex that
-all network namespaces share.
-
-So every network device with IPv6 gets a /proc/net/dev_snmp6/<dev> that
-everyone can read, and addrconf_ifdown() removes it with RTNL held. So
-any local user can keep RTNL for as long as their read stays stalled.
-Until then no device can be registered, removed or renamed and no
-network namespace can be created or torn down.
-
-If the caller lacks privileges for userfaultfd a FUSE mount in a user
-namespace whose daemon never answers is enough to stall the copy.
-Killing the reader ends it, but until then whoever removes the file sits
-in D state.
-
-xt_hashlimit removes the proc file of a table with hashlimit_mutex
-held. Every rule insert in every network namespace takes that mutex and
-so does network namespace cleanup. cleanup_net() runs on a single
-workqueue with pernet_ops_rwsem held, so a stalled reader also stops
-every later network namespace teardown and every module load that
-registers pernet operations. xt_recent does the same with recent_mutex.
-
-And of course, it's not specific to networking. remove_proc_entry(),
-proc_remove() and remove_proc_subtree() have over 200 callers and plenty
-of them hold locks. For example, a stalled reader of
-/proc/fs/ext4/<dev>/options holds up the unmount of that filesystem with
-s_umount held, and every sync(2) with it. The same goes for PCI
-hot-removal, for freeing IRQ descriptors, which CPU bring-up waits on,
-and for unplugging a USB sound card.
-
-And btw, syzbot has hit removal under locks before (cf. [1]), and the
-xt_recent deadlock fixed in (1) below is another one.
-
-Stalling the kernel in a copy to or from userspace is a well-known
-exploitation primitive. It's why unprivileged userfaultfd can't do it
-by default anymore since v5.11 (d0d4730ac2e4), and FUSE has been used
-the same way.
-
-This series touches just about every ->proc_read(), ->proc_write() and
-->proc_ioctl() in the tree, so I've split it up into seven series. They
-go out as replies to this mail:
-
-Part 1/7: proc: fix a few old bugs in /proc handlers (51 patches)
-
-    Bugs in the handlers and in procfs itself that are a lot older than
-    the conversion and that reviewing it turned up. Most of them are for
-    stable. They come first so they can go there on their own and the
-    conversion doesn't have to bother with that crap.
-
-Part 2/7: proc: let procfs own the data path (23 patches)
-
-    The procfs side. procfs owns the seq_file of an entry, copies in
-    writes, copies out reads and copies ioctl arguments in and out, and
-    only calls into an entry with it pinned. The open files procfs has
-    to know and the wait queue a pollable entry is polled on live in an
-    open node that only those entries get, the entry is pinned around
-    the vm_operations of its mappings, and lockdep checks the pin.
-    proc_create_seq() and friends and the plain seq_file users are
-    switched over here too.
-
-Part 3/7: proc: convert the arch and platform entries (23 patches)
-Part 4/7: proc: convert the driver entries (26 patches)
-Part 5/7: proc: convert the fs, kernel and mm entries (30 patches)
-Part 6/7: proc: convert the net entries and the kfifo samples (13 patches)
-
-Part 7/7: proc: drop the __user methods (6 patches)
-
-    Drops the old methods. kcore, kmsg and the kpage files, which are
-    never removed and keep reading straight into userspace, get
-    file_operations of their own, so nothing in struct proc_ops takes a
-    __user pointer anymore, and the new methods get the names kernfs
-    uses, ->proc_read(), ->proc_write() and ->proc_ioctl(). The last
-    patch takes the poll_table away from ->proc_poll(). This needs all
-    four conversion series.
-
-Parts 1 and 2 are the base. Parts 3 to 6 go on top of part 2 in any
-order and don't depend on each other. Part 7 needs all four.
-
-The series should all indicate cleanly what dependencies they have so b4
-should be able to pull it for review.
-
-With all of it on a KASAN and lockdep kernel the removal selftests of
-every part pass, the proc, pktgen and allocinfo selftests behave like
-without it and the bugs from (1) that reproduce in a VM are gone. Every
-patch builds on its own on x86_64 and i386, and with W=1 on the
-architectures it touches.
-
-[1]: https://lore.kernel.org/r/000000000000f24f4705b6988f3e@google.com
-[2]: https://lore.kernel.org/r/20231109212251.213873-7-johannes@sipsolutions.net
-
----
-Link to v1: https://patch.msgid.link/20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner
-
--- 
-Christian Brauner <brauner@kernel.org>
+Best regards,
+Krzysztof
