@@ -1,64 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.79.152.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793792714;
-	b=iYQS1RHYq6tE5ECu7MhfOaRTl23jYMUu5bd/UaJJVdFKecfUZL1hzTTG8rdocqSDzuQn
-	 VA6XLWLYRnuDWspdJJSpke5zz1ZgMotO4PGkwiBMRIka522tAAoSR4EIZYp7eGx62MoOT
-	 gk7XoAlpF6bI/F/NxyPz1f3iL70w8fa9ktJ1OUwc/NAf4GBSt+VxAon9se7zFb5KBvoCu
-	 VETVPBtt6HJ1NAH/elMedrlRTcFGMU4Ee/w/GPhF+DqdBcp607EfEF6xIYAsG3y7ypxGZ
-	 GswAup/Cb6sBUCyntYPrOM5wTL3ql58fASPYlUYi5brugfdDS51UbqS8XdBOlNmDtwg==
+	t=1793792742;
+	b=4os9TDH+5/8cUZUPh3wlAkUTPWTNmIqJcxMzl491Sj8puYEFP0T+68uCs9TTZ8TKrmyt
+	 /Bv34AXW4wXtju5rHWskQiWzjlBeyBzzQne4t1FSVZjyLAcQZhgCEX6lwiaAKMXVJejmK
+	 L3C4j0Y5DyvyA3Zybm/TGAtxk8cm+2sbgq1zpjdAgO6VzHP8ei5MIFtdWFCz5mbNKEuHR
+	 ln0oPL7E7R6SjH7nFv6SzwbHgxwMdFQ4kWGfAlE0fnp53Xstb95v15hpvbKnEOAPEIXJQ
+	 62oOg6uSxdHx+tlDIlW4wwszGBZqKXirB3gD4cmZQgxPO/CP/1qDLBF44TTzL5h1CSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792714;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CRM114-Version:
-	 X-CRM114-CacheID:X-CRM114-Status:X-CRM114-Notice;
-	bh=QLyO54zaOTxAKKhIPvxsoMq4fEquUUXaIdWfMQwsWvU=;
-	b=pRvjtW1egJK98TFywLn+tMwE5ucqD8uYOFb+/0v91JQNMEMMANgR1NxW8dFdIaTRD0Lk
-	 bIOm9PhQJXJN4GDMG9hc/zWnwBxEkQlgxnRGqjp436A2x547UodeAQr0Y/taYZ8m0ENtW
-	 ynfbBbrJO/Ho/OAlLUu0FrXSCxZl5dNP/WNbyL9vOgr06rXSIV7nOoOZK1F8Zek9aJQLh
-	 Jjzs3DwWsGxDim8MATGRJqOR1rR8ZXJmWU83kZwYpYxOqPn6NwgK7rKCBj7VRBikQ1Zor
-	 DG9afzzRk6tnYl+GuvRzdlLd241XPIIxPauOAtNjzc3X8AXHusYiO7X/9wprRTv7mAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792742;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PycSAvgSc9xONqJbh7SrA9DU1TbX+LtklIzj5asGTnI=;
+	b=wgDzUawz79Rsd+XLQXVsy40EdZZvl/S/i5V2EGfZzEVfc0oijNiEcuVxTW7JnvfOi9s0
+	 YQ99dk5Dqd6mhHZaW5ZT5hr9/T1W9sTb9nMhH7QB3c1Tv/hSuTKSOc3KkakLSTV3zK8pw
+	 vhikuc7hU+F+EKFXx8p9XBar0hlev+tDTWjGmSdQJ5Gx+HfkQtkWgHO5GV9mUSdXmqf29
+	 r9WqQYgC5Q9NcLiDnhRI8r72ZxNo6jPWBr/3ICDhrpGI+EKG1O/jFQg5OHxU4CGuiryA+
+	 Jh2fi2qN5XQiZpzI6vtAk+9XuQrUOhcpewJwHNwMYpoW8xDXWaOt8DVOUCbXVMqhSdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mleia.com;
-	spf=none smtp.mailfrom=mleia.com;
-	dkim=pass header.d=mleia.com header.i=@mleia.com header.a=rsa-sha256 header.s=mail header.b=IbTbANt4;
-	dkim=pass header.d=mleia.com header.i=@mleia.com header.a=rsa-sha256 header.s=mail header.b=IbTbANt4;
-	arc=none smtp.remote-ip=178.79.152.223
-Received: from mail.mleia.com (mleia.com [178.79.152.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tBpCPDuY;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299CA606A333;
-	Wed,  4 Nov 2026 11:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 299CA606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mleia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD31C606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 11:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD31C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mleia.com header.i=@mleia.com header.a=rsa-sha256 header.s=mail header.b=IbTbANt4;
-	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.a=rsa-sha256 header.s=mail header.b=IbTbANt4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
-	t=1793792706; bh=ebwSH394zYPUGs4q/CaA+jIBZjAqW6ZboyOen2iOpmM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IbTbANt4V6mlhK1BXX5P+KA5FMS/4s9QpWEhFm3QbYFxDyV4eikpkxD2ht/VwYC+V
-	 txGjhk0AN0fQLNMCy7tz+jAO0NLJvZIDEZU206DyTwVbG2P6rzZjXhVE1aBmNw/Kbh
-	 7JDCWnUdfh5gbRQ9aXiqFs8OHx5Mr9OkHDKjdtFUYC/z0rZAnrNBFkvOFt9xkmp/vc
-	 kCGIhxJ+aVj/+S/kRtE8BVF4eBSGP5QXQwJW+WDjTX6E6f1gnez9EiSTlQDM78Nnh8
-	 cEWqc3GhUO9xvg2yLm2jj9hDYFfWA8eZOI0rBa+pohDffaPLWl9tFat1CFYQVNLEIx
-	 ygw2LwV0pp30Q==
-Received: from mail.mleia.com (localhost [127.0.0.1])
-	by mail.mleia.com (Postfix) with ESMTP id BA62E40A6E6;
-	Wed,  4 Nov 2026 11:45:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
-	t=1793792706; bh=ebwSH394zYPUGs4q/CaA+jIBZjAqW6ZboyOen2iOpmM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IbTbANt4V6mlhK1BXX5P+KA5FMS/4s9QpWEhFm3QbYFxDyV4eikpkxD2ht/VwYC+V
-	 txGjhk0AN0fQLNMCy7tz+jAO0NLJvZIDEZU206DyTwVbG2P6rzZjXhVE1aBmNw/Kbh
-	 7JDCWnUdfh5gbRQ9aXiqFs8OHx5Mr9OkHDKjdtFUYC/z0rZAnrNBFkvOFt9xkmp/vc
-	 kCGIhxJ+aVj/+S/kRtE8BVF4eBSGP5QXQwJW+WDjTX6E6f1gnez9EiSTlQDM78Nnh8
-	 cEWqc3GhUO9xvg2yLm2jj9hDYFfWA8eZOI0rBa+pohDffaPLWl9tFat1CFYQVNLEIx
-	 ygw2LwV0pp30Q==
-Message-ID: <5334e00c-67b6-4fbc-9090-17ff1c9d7494@mleia.com>
-Date: Wed, 4 Nov 2026 13:45:00 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tBpCPDuY
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36caa19b0ffso390157eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 03:45:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793792741; x=1794397541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PycSAvgSc9xONqJbh7SrA9DU1TbX+LtklIzj5asGTnI=;
+        b=tBpCPDuYI/hM4RRuv/X9ivjp8uwRT0bT1oHFC+ZhGKs/BVl+YqfWsv/kGE4+2ifIVK
+         URPFAItPo0HPtC0jkatlNWamLzuDPrhdoq+Ient9NJI/oN1a9q+Htup90DzK7h6LLTNu
+         /0fScZyZnGv1BXIWpbgyEyLjbwJMPdSpYf88Ryn550n+TOOhZjLjiFy9lAd7ZstHDT3z
+         ckVpYYLM0iwMsh6VCLsUGP2sW6VtLt46PAixIR5zVP8pWGAdP/dmQ5/UTtiSk+FSMsFT
+         LJOBjBl0SDy2AUzvAPl9N3eT+lFN172sgoZ3V/EEFh1we/OFrXiKi3Mn2SxINm1j/itC
+         LNZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793792741; x=1794397541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PycSAvgSc9xONqJbh7SrA9DU1TbX+LtklIzj5asGTnI=;
+        b=KPWNM5iDmLsPKXTgsNVpTQiG8cRv4NMcAw4qd/HFmn+NPTdKrXaNB9LzwyCKrxegXU
+         /b7irIsewwGOIoG0JALWWpBPwEfYRMdmCcoWyrkydPZAO+h7wDC0Hd8n0mCCdjZMujQR
+         zomoHjdgt0dQcusB7EK43rwV/onuZSUqvloHNdddZRyJBsIK9v9Uzdoj2gHVuCKy+2MT
+         aPsc5ZiaY5OEyokLnIeWhw2bsH6kr6HBW2lFJNIoWp1+3+wR4nCfn4xn4vpOEC7Hq2LF
+         NQzB9+Oh0kSlzXoT/Sely/98x65u7rjPQSW0iYl56GgdUBYnZH4TsNjZdh96buTydX3K
+         45XA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+bDYJYG4CpA2es30G66Tq4zd6nB8RzK/D8SxahapE6M6EYcwLIqfyVFhCz5EUgwmS+wT6BAhYaYyS/B4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+83hf19qi5b4n6E7y7RDapkuGP7ROPWzrouFgnlUFsBPq/WTQ
+	kO7HOZxMAwqUQ2VknqzXXLGPYBaX/FuJG8hzaFBUVM1840p0d5MReIXu
+X-Gm-Gg: AYBFou2JLTtUaCb8lfDWdgzVfSn4wSamkervaHsehq7Gy3ZRwed2+hoGxbWyl6zVghu
+	fq1J2gDuODA8HRxHYOaL6QTwTI0nIIJa8XkIO4aBOgDV/4c7SDgr0wCoBE26QW3Wu0IF8NKWg7w
+	oCo3t4/s0QWfmNfN+58L+Oa+n8t2vbypPReC8ljuN4hPXbMbZ0vIKjU9zBL5ehEIV6f0/kL3OSV
+	18KnXWe2IqHj1+v3bVUz8AUn5VVxFN4qHEiX+p/ddtNovBv/Fy1L/nIO556WBhbmGJwEk+MezP0
+	c8FwQ3hMcJyW8oms44fuIMITe95JWLPzk1UQEPi6xGU+FjwMFk00CmtsCVbOsDL6i9NUGSsRPuA
+	98KlUrmOw17GrHJQKreKYpnDE4N+5uehuGEUtzuh+LJJ05vaqndedma9H8e3he0+JYtzjAKRLj5
+	3q31RwwDC/OZe6oOUKW5na0DCB4dADMjd9F0Na70RwRM9pQiLr4hwpVu3D9iibmc7mjBhb/8Xv1
+	nEOnNPliknU/RQf0ZvcB9d2a58A+89gzvyB2QQmAKGgXLuS/jjbvHn2kc3K1c9sTPZdGFz1dN+z
+	YB4hHgZRNBiEigJzJEw7X2/y+7+nDZfIaiu0U/XIAdDyxcs6d6ycwVnWZnJFh6QZmVDmk0u/iiG
+	XMuRwVDfLLddy0DrY+6fzmd8UKe4txSOmQpbWIXxaptWU3WqAxnev8hF9LvI=
+X-Received: by 2002:a05:7022:1706:b0:1ac:7044:2bad with SMTP id a92af1059eb24-1ac70442d69mr20667069c88.36.1793792740829;
+        Wed, 04 Nov 2026 03:45:40 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2c2f7sm7467199c88.9.2026.11.04.03.45.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 03:45:40 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: me@bobcopeland.com
+Cc: linux-karma-devel@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] omfs: reject unsupported nonzero size changes
+Date: Wed,  4 Nov 2026 11:45:30 +0000
+Message-ID: <20261104114530.30536-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,53 +98,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: Convert to subsys_platform_driver()
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Andi Shyti <andi.shyti@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Frank Li
- <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Vignesh R <vigneshr@ti.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Linus Walleij <linusw@kernel.org>
-Cc: linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261104113316.1634141-1-peng.fan@oss.nxp.com>
-From: Vladimir Zapolskiy <vz@mleia.com>
-In-Reply-To: <20261104113316.1634141-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
-X-CRM114-CacheID: sfid-20261104_114506_797044_64DF58E1 
-X-CRM114-Status: UNSURE (   5.92  )
-X-CRM114-Notice: Please train this message. 
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 13:33, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Replace the open-coded subsys_initcall()/module_exit() platform driver
-> registration with subsys_platform_driver().
-> 
-> No functional change.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+omfs_shrink_inode() only implements truncation to zero and returns -EIO
+for a nonzero i_size. However, omfs_setattr() updates i_size and the page
+cache before calling omfs_truncate(), which discards that error.
 
-Reviewed-by: Vladimir Zapolskiy <vz@mleia.com> # I2C PNX
+As a result, ftruncate() on an empty file to 16384 bytes succeeds, but
+reading the extended file fails with EIO. Shrinking to a nonzero size
+also leaves the old extents in place, so a later extension can expose
+data that should have been discarded.
+
+Reject size changes with a nonzero target before changing i_size or the
+page cache. Keep truncation to zero and requests that leave the size
+unchanged working.
+
+Fixes: 8f09e98768c1 ("omfs: add file routines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/omfs/file.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/omfs/file.c b/fs/omfs/file.c
+index 79a413f1dc0..a4bf45d73bc 100644
+--- a/fs/omfs/file.c
++++ b/fs/omfs/file.c
+@@ -353,6 +353,9 @@ static int omfs_setattr(const struct mnt_idmap *idmap,
+ 		error = inode_newsize_ok(inode, attr->ia_size);
+ 		if (error)
+ 			return error;
++		/* Only truncation to zero is implemented. */
++		if (attr->ia_size)
++			return -EOPNOTSUPP;
+ 		truncate_setsize(inode, attr->ia_size);
+ 		omfs_truncate(inode);
+ 	}
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+-- 
+2.50.1 (Apple Git-155)
+
