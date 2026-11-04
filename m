@@ -1,79 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793760627;
-	b=gQSpBRsPVvFtBlePgz60+mLPtB4H6g4dCNP7Y7/PSCfiFRB3/RF2YcT/sm3bkoBiZEZb
-	 aSDiVyBKoEUUEX0obuwH7z2NhmJHPyJZq10vz5+GGiFUeQTUoB8y2eKUbgl3UKa0P64bP
-	 dJjd5ySDjKF5R+NyAzKQnHO28lELPtC2SwH0cAR8Kw33keLyUSszdyk+y3YP/AppGkXo2
-	 g15PLGExxJvFFbrnAoT8ptLiPR7i6XJBZ5Pz7KVWnznUtkvt7Wtjkj+DRsrCDNLNaR5Ew
-	 jeTUA863Q1TBavvyeIzVjis0jnM95IAptTKkUTQ+w5G2eZNvcYsaoB7IsUsCzDVjbHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760627;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P/cDcjmxvefg9lVJDpiswKAjWLw4LPw8r68X3hqHrHE=;
-	b=Me+RJhaEX6sTZiGdXCHbFwIvds7pLaXMeBYN8MGPlLo0SblpSWsX0zCPXGDmoWSBDRUo
-	 qvnv8QQJLUV8G1yQdXW1ICmM4fefHoJLoNMDCVHbmxmmTjeXAXc5r6bQfP9emOrogAf5I
-	 X0gwz04t5SLlYIxFCDrvfvhqsyuByqTX8cg4JalWWaoWj7wrltqrNxg1DHaZ1kEGGo/i0
-	 63x6PEJoaaDA40um1eg5CPyUKhxzG3ZR/1bBmEYRo5Sfr2qt6duDk5Rt02gq0mbLddfYm
-	 8miKfaCnWcZQMC84Aj+JM2bLcPfI5LGpIAOxi+BB7Ccj8Ywxol/AQhaZUhipZ1HBIhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTkkXgYr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D067B6083613;
-	Wed,  4 Nov 2026 02:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTkkXgYr
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793760611;
-	b=Wp4YGaivZV3YQxGM/mEESRMtEql6eZKFbshkowiNVPUrxBGO4tGqpDuijHVCasgCqMBN
-	 IPkUaeApQRhsqaJwUMu/xpzW4DHofCWL31yRKbbVs7jdiN43qV/yV8VvNNlKSqV/9Jtsk
-	 ixjIS0UcvZzSllgFLlxR6FWq24prRffS9HMz5BEqY2xF26yrhtwEUX24MPOPjqkVPtmKT
-	 fSFLsH5tXiL1fZNItTh5ZOPABBXezy1vkxrs8cn/YgVpvxgCRQCaXxXDMz2wKBONRKJEh
-	 rd6Uh06eNDcwusDljbxE1P9xX4zGny4fxJwSJEGvBrDC74QHSTS8i6FXzudQss9Uh4g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793760611;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P/cDcjmxvefg9lVJDpiswKAjWLw4LPw8r68X3hqHrHE=;
-	b=CwYWBOW6W1Zn73AbudhCShmwvHLedlB2SGtASHNSgnP+9lfRykPopKxxkeihypUeqHOJ
-	 hG4PbsI5OwpDTTsfN0IVJaa38a+i7m5/x3rBzG8wd0OyV29TCgzGCmTgux+GRwHZJLVRC
-	 xZEWqkVWL3BqgMZL3KUOBBJaN1vpAWOmzacyS9bZg2UcBiSQmNMzYKHtk4Pe9p8eHiRiD
-	 Q5JS5RAU+U7qbYYz4SSDA3Y7I+fgCKQXyd/wXIpLkPaQ4iEhSMjHP3McR64cCpiBVAr8j
-	 IWk/EDSN2uBjoVhouwkoJwGDS/J74aC3sZ9FXYjze2BwSF7NLH7v37iOzowj/dDekLQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.193
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793760674;
+	b=YiSDqbhXXrk4md+M3uKriDdIjMKfUjseKot5afEWiyc5WzEF/aTBZsOpUQnBnHnh4osO
+	 fvXsOxKW8hv5poQmYekzSZoVsviJdbXire9282DDxe/8tbkzqmfvdXgWPJ+Fm7E5x2fK8
+	 wagbiDt5r869COTVMzWdyi7ct7JxO7cvxZuZ+3WYCkkKtO9DNsPjjY6MuBtoLbJciDUPx
+	 nuNSPsaSX428miNvJd75j9RBT1CvqD0vOZLNczJsD6vEOX2OXFhJHqBhaA2p6utiWpkFp
+	 dEaM5SGr2+7BYl55UKxnBRvEwcutEfy7XLPyfOSgaCowpjOmL0IFPz6xlQNdbAndMag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760674;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=q50d8JHdaoZMbTSSdjGj/Pn0U75uKBCw6AWt3ChA6wo=;
+	b=pnhOfhXSG4NfYqRFITUXbz5Brl/XudiDY8+Lbr85Pd18R70DiQsDLTDsRiiWiGVy+CoU
+	 rL+sNyNM/0j4fkefzNspXUgAq0+BDWtzuGhAydaBd1DM7OuLHhJMM86FHdE8polYUjFmg
+	 RMHYxXqNgqOf7LtGhtM2tUHReSwD/UxbEthET321KA3hQfxYH0GdxwP+S99kmuOpPBa4Y
+	 9b7JOGRh4RyMxPfVgO7epKR4rGIi5NzrI3OrbfvDGDgVGmoWK0Bbk785su9RAtTXIqK/f
+	 7DgrVJGfI1L5CBTY2dEa+kcfNFgqgQwnMkMXU6Xaf9YA+yMJm9NCkcS4JEhkvdMs2Hg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=EhnrUkoc;
+	arc=none smtp.remote-ip=115.124.28.193
+Received: from out28-193.mail.aliyun.com (out28-193.mail.aliyun.com [115.124.28.193])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8AEF51F00A02;
-	Wed,  4 Nov 2026 02:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793760611;
-	bh=P/cDcjmxvefg9lVJDpiswKAjWLw4LPw8r68X3hqHrHE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NTkkXgYrwMB6+La/LgvCvu5FpHgy0ZY7GXU49K1xbxYfNSAH+t2GwNW6fLiyrHzSB
-	 3Pp//+5cLRZFv0iRCb6npddLPMdCz2u7jun2TvNhbLPyrRgqxmaNRb5KEcvLELsNDt
-	 UzEoJ44eukv4FIPuXoToGFZQC5w3qshPfd4641CbLgbcv2Fsy9v23fdbw+UdTIz5ao
-	 rIoATZln+pW4jBjXXbVJkVzArLwJSV10sqmasQDgOPbwaZokKVVOiYBO85Voxg20gd
-	 WGtuQec7ZFkYtjfIwZiUKllPYIDOed8GLLW3Jt7coO9DQhnvEcjzmkLNxFAxzo0VIs
-	 HncmFb3OFW3MQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C648446C1F;
-	Wed,  4 Nov 2026 02:50:02 +0000 (UTC)
-From: Nathan Lynch via B4 Relay <devnull+nathan.lynch.amd.com@kernel.org>
-Date: Tue, 03 Nov 2026 20:49:52 -0600
-Subject: [PATCH v4 11/25] dmaengine: sdxi: Start functions on probe, stop
- on remove
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B437E606A33B;
+	Wed,  4 Nov 2026 02:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B437E606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=EhnrUkoc
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793760662; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=q50d8JHdaoZMbTSSdjGj/Pn0U75uKBCw6AWt3ChA6wo=;
+	b=EhnrUkocElF0l3XK8Crlh5SDaMzqzr6tbPFI70m5OFpc8hP6lg2+J1nwwrubHFHWShv47onOvcHtt9WxPYLy6c5/sWb6Cc96rXKYxc1rk+ThmEM5kS3/ODRDI/Ro/tdxS2RCFfD830kRsRVBpMd+d04tVntDglG5MtuOG7/IMcw=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00337272-2.50226e-05-0.996602;FP=18048006756795196664|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jwK3XKI_1793760660;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jwK3XKI_1793760660 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 10:51:01 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	khtsai@google.com,
+	fangxy@xiaopeng.com,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dbrownell@users.sourceforge.net,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH v2 1/2] lib/net_utils: allow mac_pton() to take a custom delimiter
+Date: Wed,  4 Nov 2026 10:50:57 +0800
+Message-ID: <20261104025058.2650911-2-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261104025058.2650911-1-liuc63@xiaopeng.com>
+References: <20261104025058.2650911-1-liuc63@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,153 +73,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-sdxi-base-v4-11-3668ccc7aab8@amd.com>
-References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
-In-Reply-To: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
- David Rientjes <rientjes@google.com>, John.Kariuki@amd.com, 
- Jonathan Cameron <jic23@kernel.org>, Kinsey Ho <kinseyho@google.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- PradeepVineshReddy.Kodamati@amd.com, Shivank Garg <shivankg@amd.com>, 
- Stephen Bates <Stephen.Bates@amd.com>, Tycho Andersen <tycho@kernel.org>, 
- Wei Huang <wei.huang2@amd.com>, Wei Xu <weixugc@google.com>, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, Nathan Lynch <nathan.lynch@amd.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793760600; l=3595;
- i=nathan.lynch@amd.com; s=20260722; h=from:subject:message-id;
- bh=KVXTfwQ5rgpAGS9SA9c+aurw0U8b5Pi6OYeDsytTWPE=;
- b=BJTRtTVI9p4VUklov/z71fajVlT+9uRwOW1/6H+rSoTGe/LasdfKFlwSyRTspvediHY219ZDF
- t4i2k5jHceiBUtzWmb7zl/fZRhQz7INyZmDuzK+kPM1xh7Nw8aZDSPZ
-X-Developer-Key: i=nathan.lynch@amd.com; a=ed25519;
- pk=pO5+BCw/TENGLvwX5NYZOZmZihcxjkxeFSMuk47erps=
-X-Endpoint-Received: by B4 Relay for nathan.lynch@amd.com/20260722 with
- auth_id=891
-X-Original-From: Nathan Lynch <nathan.lynch@amd.com>
-Reply-To: nathan.lynch@amd.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Nathan Lynch <nathan.lynch@amd.com>
+mac_pton() hardcodes ':' as the only accepted separator, which pushes
+callers that need a different notation to open-code their own parser.
 
-Activate the function after administrative context setup, polling for
-GSV_ACTIVE or GSV_ERROR with a one-second timeout. Stop the function during
-PCI removal.
+Split the body out into parse_mac_pton() taking the set of accepted
+delimiters as a string, and turn mac_pton() into a static inline wrapper
+passing ":" so that every existing caller keeps its current behaviour.
+The strnlen() guard still runs before any delimiter is inspected, so
+strchr() is never handed a NUL character.
 
-Co-developed-by: Wei Huang <wei.huang2@amd.com>
-Signed-off-by: Wei Huang <wei.huang2@amd.com>
-Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
+No functional change intended.
+
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- drivers/dma/sdxi/device.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++-
- drivers/dma/sdxi/pci.c    |  1 +
- drivers/dma/sdxi/sdxi.h   |  1 +
- 3 files changed, 54 insertions(+), 1 deletion(-)
+v2: new patch, split out of the u_ether fix at Andy's suggestion.
+Link: https://lore.kernel.org/all/20261023110113.2969708-1-liuc63@xiaopeng.com/
 
-diff --git a/drivers/dma/sdxi/device.c b/drivers/dma/sdxi/device.c
-index f9787d7190d4..d5a5b8d43391 100644
---- a/drivers/dma/sdxi/device.c
-+++ b/drivers/dma/sdxi/device.c
-@@ -212,6 +212,36 @@ static int sdxi_dev_stop(struct sdxi_dev *sdxi)
- 	return sdxi->bus_ops->reset ? sdxi->bus_ops->reset(sdxi) : -EIO;
- }
+ include/linux/hex.h |  7 ++++++-
+ lib/net_utils.c     | 17 ++++++++++++++---
+ 2 files changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/hex.h b/include/linux/hex.h
+index 2618382e5b0c..408825478cda 100644
+--- a/include/linux/hex.h
++++ b/include/linux/hex.h
+@@ -30,6 +30,11 @@ extern int hex_to_bin(unsigned char ch);
+ extern int __must_check hex2bin(u8 *dst, const char *src, size_t count);
+ extern char *bin2hex(char *dst, const void *src, size_t count);
  
-+/*
-+ * Activate a stopped function. GSRV_ACTIVE takes it through the
-+ * transient GSV_INIT state to GSV_ACTIVE or GSV_ERROR. See SDXI 1.0
-+ * 4.1.8.9.
+-bool mac_pton(const char *s, u8 *mac);
++bool parse_mac_pton(const char *s, u8 *mac, const char *delim);
++
++static inline bool mac_pton(const char *s, u8 *mac)
++{
++	return parse_mac_pton(s, mac, ":");
++}
+ 
+ #endif
+diff --git a/lib/net_utils.c b/lib/net_utils.c
+index 215cda672fee..011857cc978b 100644
+--- a/lib/net_utils.c
++++ b/lib/net_utils.c
+@@ -5,7 +5,18 @@
+ #include <linux/export.h>
+ #include <linux/hex.h>
+ 
+-bool mac_pton(const char *s, u8 *mac)
++/**
++ * parse_mac_pton - convert a MAC address string using a custom delimiter
++ * @s: string to be parsed
++ * @mac: buffer to store the result, left untouched if @s is malformed
++ * @delim: characters accepted as a separator between the byte pairs
++ *
++ * @s must be MAC_ADDR_STR_LEN characters long and use a character from
++ * @delim at every separator position, e.g. "aa.bb:cc.dd:ee.ff" with ".:".
++ *
++ * Return: true on success, false if @s is malformed.
 + */
-+static int sdxi_dev_start(struct sdxi_dev *sdxi)
-+{
-+	const unsigned long settled = BIT(SDXI_GSV_ACTIVE) | BIT(SDXI_GSV_ERROR);
-+	enum sdxi_fn_gsv gsv = sdxi_dev_gsv(sdxi);
-+
-+	if (gsv != SDXI_GSV_STOP) {
-+		dev_err(sdxi->dev,
-+			"start: MMIO_STS0.fn_gsv = %#x (%s) on entry\n",
-+			gsv, gsv_str(gsv));
-+		return -EBUSY;
-+	}
-+
-+	sdxi_write_fn_gsr(sdxi, SDXI_GSRV_ACTIVE);
-+
-+	if (sdxi_dev_gsv_poll(sdxi, gsv, BIT(gsv) & settled) ||
-+	    gsv != SDXI_GSV_ACTIVE) {
-+		dev_err(sdxi->dev,
-+			"start: MMIO_STS0.fn_gsv = %#x (%s) after activate\n",
-+			gsv, gsv_str(gsv));
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
- /* Stop the function and discard inherited MMIO configuration. */
- static int sdxi_fn_prepare(struct sdxi_dev *sdxi)
++bool parse_mac_pton(const char *s, u8 *mac, const char *delim)
  {
-@@ -361,7 +391,20 @@ static int sdxi_fn_activate(struct sdxi_dev *sdxi)
- 	if (err)
- 		return err;
+ 	int i;
  
--	return 0;
-+	/*
-+	 * SDXI 1.0 4.1.8.9: Set MMIO_CTL0.fn_gsr to GSRV_ACTIVE and
-+	 * wait for MMIO_STS0.fn_gsv to reach GSV_ACTIVE or GSV_ERROR.
-+	 *
-+	 * We haven't queued any descriptors to the admin context at
-+	 * this point, so the admin context jump start (SDXI 1.0
-+	 * 4.1.8.10.b) is accomplished later when other
-+	 * code starts client contexts.
-+	 */
-+	err = sdxi_dev_start(sdxi);
-+	if (err)
-+		sdxi_dev_stop(sdxi);
-+
-+	return err;
+@@ -16,7 +27,7 @@ bool mac_pton(const char *s, u8 *mac)
+ 	for (i = 0; i < ETH_ALEN; i++) {
+ 		if (!isxdigit(s[i * 3]) || !isxdigit(s[i * 3 + 1]))
+ 			return false;
+-		if (i != ETH_ALEN - 1 && s[i * 3 + 2] != ':')
++		if (i != ETH_ALEN - 1 && !strchr(delim, s[i * 3 + 2]))
+ 			return false;
+ 	}
+ 	for (i = 0; i < ETH_ALEN; i++) {
+@@ -24,4 +35,4 @@ bool mac_pton(const char *s, u8 *mac)
+ 	}
+ 	return true;
  }
- 
- static int sdxi_device_init(struct sdxi_dev *sdxi)
-@@ -407,6 +450,14 @@ int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops)
- }
- EXPORT_SYMBOL_NS_GPL(sdxi_register, "SDXI");
- 
-+void sdxi_unregister(struct device *dev)
-+{
-+	struct sdxi_dev *sdxi = dev_get_drvdata(dev);
-+
-+	sdxi_dev_stop(sdxi);
-+}
-+EXPORT_SYMBOL_NS_GPL(sdxi_unregister, "SDXI");
-+
- MODULE_AUTHOR("Wei Huang");
- MODULE_AUTHOR("Nathan Lynch");
- MODULE_DESCRIPTION("SDXI core");
-diff --git a/drivers/dma/sdxi/pci.c b/drivers/dma/sdxi/pci.c
-index 6a293db69199..d196ab5cf6f1 100644
---- a/drivers/dma/sdxi/pci.c
-+++ b/drivers/dma/sdxi/pci.c
-@@ -99,6 +99,7 @@ static int sdxi_pci_probe(struct pci_dev *pdev,
- 
- static void sdxi_pci_remove(struct pci_dev *pdev)
- {
-+	sdxi_unregister(&pdev->dev);
- 	pci_disable_sriov(pdev);
- }
- 
-diff --git a/drivers/dma/sdxi/sdxi.h b/drivers/dma/sdxi/sdxi.h
-index 525473029987..631a605ea62f 100644
---- a/drivers/dma/sdxi/sdxi.h
-+++ b/drivers/dma/sdxi/sdxi.h
-@@ -68,6 +68,7 @@ struct sdxi_dev {
- };
- 
- int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops);
-+void sdxi_unregister(struct device *dev);
- 
- static inline u64 sdxi_read64(const struct sdxi_dev *sdxi, enum sdxi_reg reg)
- {
-
+-EXPORT_SYMBOL(mac_pton);
++EXPORT_SYMBOL(parse_mac_pton);
 -- 
-2.56.0
-
+2.50.1
 
