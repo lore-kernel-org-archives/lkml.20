@@ -1,75 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793774653;
-	b=WBN15moNpcKTXbPooa2oPmz2UXBL4d8zHAMHv5rbnZqPrP81VFNnjrxbILdo8zf0A0Ba
-	 m4x2TIKPpB4WcOV3r+oiS6hlCmrNSAgTUOkJbjEBhWFqdEhtlfNRfjXSnUAe3v97Aa1cN
-	 /Apl3Y5IK/XQ/f+amU1cOuCrZtvdevxOp9RFa1G7cneDudnHneAqE7lY7tLST7Kmr8en1
-	 Q0djoiFawbYYIDFWT2a8TYGchOnxSigt3pSFmq2Pp4U7s+Ad4qHRZOr1ekxW+ym4H3+E3
-	 uFQHZ9Cy+2rDUzso1K4V6B/kA/ZLM5KlNVL9G/BYRwA2prtnicq6ffJpbZ6w11P6odw==
+	t=1793774755;
+	b=eggpW9DHzp9wI6wOHHVl74roKw8yevdq8I8knKfaKbKgaq749d8r/oRhW5LqdJ4+qDyQ
+	 t4Zk4DJ4jkO07Dqmlk9Qr5jMfq5R5zfmHOWbLQI50JYUnVuIHlpyQGejo1c9pwjLN/PwI
+	 GkTl/F3vj8TSy9zAWQO4xBz5ovsd0lQFwb9Lesd+D1abO6HzB4RwwGOFEaaiGNzTD3ZW0
+	 R+go7v4hvtZjT/H7sZOOC/fBaS/PGbilzwXcNbgAiiyU0ixK08lQs0ICslDbov22IgvT2
+	 X+bUmPZRjKcICvAvv/0py0OEtax8qD7/r/ShCsVXYSXucUnzdeZyTvOH68z/AtpplVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793774653;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=5FrnZXhgWerXcG8ymggsVZPGtznnjgT06atJ+YKwCsw=;
-	b=hAy+Iicy5kFy8DPxpKqn8mo3ws/yblMOhyUOdyYISPD7TwR5xh8ztmj5whH0R8dqKIf3
-	 swC+y6livrquA0wU2nYEat2IGZWF/HFWG9JxN7ODodwRlzKUfqiC1pidVMXAPBsPb8urp
-	 /HM/KRtzDTJbNYr+K2SHL5/THt0JoETm9OgFcoEJq8BxNVGd+kG2VVvYJbPFMa5pwsILu
-	 avN55q8U08dbA989mtkKgplsIfxK3FN4jOLwLZh//aaJLvsgQFhcc8nYmR7V5xXw10nRD
-	 E1UfJgpzIee9lOoXwVTAK4CqF+gSQgkPAWvgtf2pF9hyDX6tuyHJHoZ/bwP9VTlyn+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793774755;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
+	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=clIQptAzz0QSjPQqw4pdzoEdWRP3GM/T5ORBpQ5q5qQ=;
+	b=cIucgn/rOdxX4gUwlWZ5NsK1dTrrohkd29OSnbuf4NmqDgxLCKajwWv9d+Zy2dxKP6TS
+	 UMp/Q4GBwEmh0LSyIOgXPFYKO1n7s+e/D/kesqaMGcmCnIQHKPk8md07UB9bFWyGUUrP7
+	 lwn1sn4Twj8yOeVHPY/ZmtamqzjcQ7CLyISVTOMfIVatmZVYwQe8uKZrwQoC3EuctmCKl
+	 wno4rCyiF1vQp23u/y7+9FlWdFHJu+scxfzl8d1Bq+MvlQnQPztjyW8l4AKXPOgl8Qb04
+	 3HidtZTJxVTt6nJpj+qqz6INs7tdK8XhUY2yfObaUEWWJtva6svmLMQYEbSiciqYsqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=XG6G26+s;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dmarc=none header.from=sanechips.com.cn;
+	spf=pass smtp.mailfrom=sanechips.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721A6606A31B;
-	Wed,  4 Nov 2026 06:44:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 721A6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=XG6G26+s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793774643;
-	bh=5FrnZXhgWerXcG8ymggsVZPGtznnjgT06atJ+YKwCsw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XG6G26+s/bdq0EvP4046nZzifwVf8qL5acbkt2Nu7LMV1FHbmsRc2S6uCJx5Jll3V
-	 eHy1N/xOS0SQT3B2Ix/p5Qe81kVZEkm/JoZD/LyiKNj81oh8C+P+EboW68cWki//63
-	 dUQH+O7MwiuWdTiA/BqhnSKLNK6T+u9tQkD2S27/qQXrAVTBYRncWJEwS81JnH6xSq
-	 qkRDgWRwW7vDHwCJQqPOPVbODQlWH7TzVOCtI3fhMlgWhx7MvwD8VBgfMi6Q3jF0Ss
-	 NJ6ZTjdSzo6qh6Vxsv7e8oMcPo9eBvmu0DqjqMw86y8hYwcr0KeCyedkSk/dWIXXY8
-	 DcJDCqieDCg0Q==
-Received: from [192.168.14.220] (unknown [144.6.157.237])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id AD6156469B;
-	Wed,  4 Nov 2026 14:44:01 +0800 (AWST)
-Message-ID: <e89969f13177f2e7b3105851d0cf42eaf11bd98e.camel@codeconstruct.com.au>
-Subject: Re: [PATCH net-next v2] mctp i2c: add sysfs control for mux child
- netdevs
-From: Matt Johnston <matt@codeconstruct.com.au>
-To: Kenny Hsieh <kenny_hsieh@jabil.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
- "jk@codeconstruct.com.au"	 <jk@codeconstruct.com.au>,
- "andi.shyti@kernel.org" <andi.shyti@kernel.org>,  "peda@lysator.liu.se"	
- <peda@lysator.liu.se>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, 
- "davem@davemloft.net"	 <davem@davemloft.net>, "edumazet@kernel.org"
- <edumazet@kernel.org>,  "kuba@kernel.org"	 <kuba@kernel.org>,
- "pabeni@redhat.com" <pabeni@redhat.com>,  "linux-i2c@vger.kernel.org"	
- <linux-i2c@vger.kernel.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>
-Date: Wed, 04 Nov 2026 14:44:01 +0800
-In-Reply-To: <DM8PR02MB80878075D2520A9CAD7DF0928E692@DM8PR02MB8087.namprd02.prod.outlook.com>
-References: <20261015081341.1262695-1-kenny_hsieh@jabil.com>
-		 <179239912623.3135.11352652156626817288@kernel.org>
-		 <DM8PR02MB808768B7D02FF12777B7777E8E602@DM8PR02MB8087.namprd02.prod.outlook.com>
-	 <7486b1fc4dbcca755dd2f6b6de54d17919af873a.camel@codeconstruct.com.au>
-	 <DM8PR02MB80878075D2520A9CAD7DF0928E692@DM8PR02MB8087.namprd02.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7837D606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:45:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7837D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sanechips.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sanechips.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jKGDJ0s8Cz8Xrrf;
+	Wed, 04 Nov 2026 14:45:52 +0800 (CST)
+Received: from szxlzmapp04.zte.com.cn ([10.5.231.166])
+	by mse-fl2.zte.com.cn with SMTP id 6A46jiZE066518;
+	Wed, 4 Nov 2026 14:45:44 +0800 (+08)
+	(envelope-from gong.shuai@sanechips.com.cn)
+Received: from ubuntu-35-gs (unknown [10.230.214.35])
+	by smtp (Zmail) with SMTP;
+	Wed, 4 Nov 2026 14:45:46 +0800
+X-Zmail-TransId: 3e816aead493029-bd580
+X-Zmail-LocalSMTP: 1
+X-Zmail-RealSender: gong.shuai@sanechips.com.cn
+From: Gong Shuai <gong.shuai@sanechips.com.cn>
+To: fangyu.yu@linux.alibaba.com
+Cc: ajones@ventanamicro.com, alex@ghiti.fr, andrew.jones@linux.dev,
+        anup@brainfault.org, aou@eecs.berkeley.edu, atish.patra@linux.dev,
+        baolu.lu@linux.intel.com, gong.shuai@sanechips.com.cn,
+        guoren@kernel.org, iommu@lists.linux.dev, jgg@nvidia.com, jgg@ziepe.ca,
+        joerg.roedel@amd.com, joro@8bytes.org, jroedel@suse.de,
+        kevin.tian@intel.com, kvm-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+        palmer@dabbelt.com, pjw@kernel.org, robin.murphy@arm.com,
+        skhawaja@google.com, tanchi25@mails.ucas.ac.cn, tjeznach@rivosinc.com,
+        tomasz.jeznach@linux.dev, vasant.hegde@amd.com, will@kernel.org,
+        zong.li@sifive.com
+Subject: Re: [PATCH v7 06/10] RISC-V: KVM: Enable KVM_VFIO interfaces on RISC-V arch
+Date: Wed,  4 Nov 2026 14:45:40 +0800
+Message-ID: <20261104064540.115560-1-gong.shuai@sanechips.com.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103120236.53474-7-fangyu.yu@linux.alibaba.com>
+References: <20261103120236.53474-7-fangyu.yu@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,53 +77,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
+Content-Transfer-Encoding: 8bit
+X-MAIL:mse-fl2.zte.com.cn 6A46jiZE066518
+X-TLS: YES
+X-ENVELOPE-SENDER: gong.shuai@sanechips.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 04 Nov 2026 14:45:52 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEAD4A0.000/4jKGDJ0s8Cz8Xrrf
 
-Hi Kenny,
+Hi Fangyu,
 
-On Tue, 2026-11-03 at 14:47 +0000, Kenny Hsieh wrote:
-> Hi Matt,
->=20
-> On Mon, 2026-11-02 at 17:04 +0800, Matt Johnston wrote:
-> > An alternative could be to create sysfs attributes under the mctp-i2c d=
-evice
-> > instance itself (the i2c slave).
-> >=20
-> > Mux buses could have mctp-i2c netdevs instantiated with
-> >=20
-> > echo "i2c-6" > /sys/bus/i2c/devices/2-1060/add_mctp_controller
-> >=20
-> > (where i2c-6 is a child mux bus of i2c-2, and i2c-2 0x60 is a mctp-i2c =
-i2c
-> > device).
-> >=20
-> > "echo i2c-6 > .../2-1060/remove_mctp_controller" would remove the mctp-=
-i2c
-> > netdev.
-> > Setting a root node as an mctp controller would involve writing its own=
- name
-> > to the attribute file.
-> >=20
-> > How does that look to you?
->=20
-> I like that a lot better. Since the attributes live on the mctp-i2c
-> device, they can just go in dev_groups and the driver core creates and
-> removes them for us. So I can drop the per-adapter tracking list, and
-> the remove ordering and probe walk races Sashiko found go away with it.
->=20
-> Let me know if you'd rather have any of these differently:
->=20
->   - adding a bus that already has a netdev, or removing one that
->     doesn't, just returns success
+> From: Tomasz Jeznach <tjeznach@rivosinc.com>
+> 
+> Enable KVM/VFIO support on RISC-V architecture.
+> 
+> Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+> Signed-off-by: Andrew Jones <ajones@ventanamicro.com>
+> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> ---
+>  arch/riscv/kvm/Kconfig | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/riscv/kvm/Kconfig b/arch/riscv/kvm/Kconfig
+> index f7e4d0f9b156..13552cfc2cd3 100644
+> --- a/arch/riscv/kvm/Kconfig
+> +++ b/arch/riscv/kvm/Kconfig
+> @@ -28,8 +28,10 @@ config KVM
+>  	select KVM_GENERIC_HARDWARE_ENABLING
+>  	select KVM_GENERIC_PRE_FAULT_MEMORY
+>  	select VIRT_XFER_TO_GUEST_WORK
+> +	select KVM_VFIO
+>  	select SCHED_INFO
+>  	select GUEST_PERF_EVENTS if PERF_EVENTS
+> +	select SRCU
 
-Would it be better to return EEXIST (add) or ENODEV (remove) for those case=
-s?
-That could catch mistakes. Usually there'd be a single userspace program
-managing it, so it doesn't need to be idempotent?
+This option is now meaningless, please remove it.
+See:
+https://lore.kernel.org/linux-riscv/20230105003813.1770367-5-paulmck@kernel.org/
 
->   - a bus that isn't in this controller's mux tree gets -EINVAL
->   - a bus name that doesn't exist, e.g. i2c-9999, gets -ENODEV
+Thanks,
+Shuai
 
-Those look good.
+>  	help
+>  	  Support hosting virtualized guest machines.
+>  
+> -- 
+> 2.50.1
 
-Cheers,
-Matt
