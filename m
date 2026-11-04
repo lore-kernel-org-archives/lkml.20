@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804808;
-	b=pjeFBV3ECM9EmPAE8kCsumYhgZlD/l+00MF2OoBDDta9QU9NJZ6K7Z56IYpb1ShMFpYD
-	 ZNls9Abj3etQ/36K0puh4A8jhhLiEugwrqqHssRyB2qWX7Z5j8jXezaySs7l5VOBNL8pv
-	 BCWkFx4ACGBWRqnrI9bYfGysntP7nIYmF5PZ5BuhX1fc/vlS8boU6DCjOSOC9Zj90OLZ0
-	 VhKwLDqhLh8bhpE1o7M1Kpm2FiJQmT/Ee0eHVMS2pmBzhp23abXMqETbJ8L7kGKDU/ilX
-	 34uUvsFTMiNULOjeLpgcdXo+aRMwyklwSlu4SLlRz8Y25Mcf6490wfYBaZTtrrywKCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=srOy3C5I/IQfUjrUYw7AbLY9/VnfU44F/qy2laTqkjs=;
-	b=rlYPGc+AuBcYk3UkIvk08U6SRcFu9ID2rS/ghzVzvEHTlc5EXivZ54XiEdm/o97rpuB4
-	 FrvrPeTvGXgGiA35yoxiEEptgzmMrffIjcaqVCipfSjqPvQzY2RPzzuAkIUZ74MT3fCC7
-	 h+vQ5LmP6NUrXT779N2bOPWxNVShwmBDGJwkdLSfsC7t49HoRWA0qrPvI/0BN0zxFM7mt
-	 w3KhG43sy1vj0pc8L/9RKuyfeoxMwcaFfDhPqF5OnWh64gLf9I+bGa39AMP84j5hDHYNl
-	 /tgaEuZyeemU58CsSDGajPEuBYmp3XbLRa/i6nCHt+K6+bWpukD3kHzy9XCcGDlp8Dw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zpACuByE;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793804825;
+	b=fqEPhe2vVxMk9uQgInmORX0ZQANuVp4QheJqsbjMMCeksOwKt5eJG+KVWPGgGHqLsHJ+
+	 Z6nHQNIBGIhlIDI5aLecScz/G4h1+zK12L2teh3P4MQZV6GOC6I0YWQFqzXtOXAOF82f+
+	 IVRF+zq+/V9X/SviWEXd+RSkyM81YayoT2jpx4JFKEXugiyDHF2YHLaRvrT2ibvArjuyy
+	 KssMVP0HheeKXL20mjKkWSDsBbjiggnkylOdxGSu8brQSxYtbTQwCClU8HU0F07CMUTbX
+	 bLqaDX5EZbkt8ZTsdGAn1ShLqKWiw3bezCgn9HgL0hAeK02QDA+yd0/8om9SZe2uaSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804825;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Zoho-Virus-Status:
+	 X-Zoho-AV-Stamp;
+	bh=cZy7ePD4DdIPwF2XQcC5BRW8F/nz7rDC1xt3Cq9n+9w=;
+	b=yW08G9cSzvrRcGrvlURvDPl5op0HCceOsSr35RbtJ00GRHQHRhNRHmxA2UJUv8h/gCx5
+	 vboVS5Dy2BuX/KJUr4gNcqD1tDM1xo12bdoqkuZcst7tidtMdjm4+CiOi+sGH8fw34Ujd
+	 GN1AsfRmpKSP6UHODUloyRXJgUoFd9BQ4VuQCAfYXL5sT1huI5OsLeMuIzGo0e8SiGy/m
+	 RWyF4ZQCB+oXWcJ+6M05w3jij00uZ2p5OBs28nzLtZW7bV5Beqv3fjwIdXkNena3iJgnH
+	 sB7dGPta/XFe7khatUzQx0z+3hFGreXmJbtMdycGNiX6EYuUTtxsg9rNFUgNAhCfoJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=be+fQcd4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E101606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:06:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E101606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DC5606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:07:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0DC5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zpACuByE
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a1947498bso1873744eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:06:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793804807; x=1794409607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=srOy3C5I/IQfUjrUYw7AbLY9/VnfU44F/qy2laTqkjs=;
-        b=zpACuByEVWZgahr8jT6vYmCeyPR5imdu1MqxulE34X8zgdNbvokzHktvw7gUrSBW+h
-         7M1B2y9e5dwRWi5AO0c5rzNp+DrgaRkg4QilRvxwZLw4EOUgaNRG+sXR8hiCSuAi7EnN
-         CSk+YnDEXlrhJpYzYBrRSdUmdoXKYyLvWwTjtwRs4ds0LagNhV+zgqzZYqAfRmz/8NL/
-         U6sX8fpza3UlT1iaLR8lQ8puCQIFR8Z+KMo59+6scmvKSoOWLM9k2ZFem9leF8O30T7u
-         BGOOF/nCuFQwNIO4Qy1rgcXNXx2G9vsWByUpEUE5LO2avRnwC3r2Hb3GQOzD4tsCRp6E
-         /zGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793804807; x=1794409607;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=srOy3C5I/IQfUjrUYw7AbLY9/VnfU44F/qy2laTqkjs=;
-        b=p2MJoWYFE+Uugyy0MsB6LvkVU7/YUpISxUJTanoPh6xDG1V5jesw0QhqBLS3uD4026
-         RBbYt2hhhpDBFT574WLyqE9R3lMU/qg42Tft/hQtDl9S9cR9ark014IlBfdPTXMrHafI
-         UAA8yHX89vP1R8R5NbTt5lluSvTacscdc+YfbdsoAGuBa39YCJBLlnQCBRHCPDkHhKuL
-         yASTfsTNn5QzGq3Zih8Nv1C7/sqTeFMX22y5TcdX7KSGc7ahf4Z11c1VpxtqJvMlaGU3
-         2RxdxylJVumnTqJXoQkDLodh0iGs5bbwILwIYHi2uRsLkUwr9aHMJiNPAuurntRw73aN
-         CrPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYeMQFG4jisXeZwysr3QaQ/Z4YYs3idgmUkHOIw77HIBDGpXggt98BSHrtTNmB6ptEj16NflOo6Pb9gEM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pguReAPAo3us5nabRLLV9NFv/0saS2I1wzxyLjXj3N3yVr/kR
-	UUSDumFGLORikjBRqfamYDx9XhYM2tBxPc3maV7I4eXQQtrScsHZYPVzBAt/6KmU
-X-Gm-Gg: AYBFou1KfJXZ4dCT+SUPoWSez3CBzsCEmdZJbjBDoTF9Wx/aA8ZyiSl0bpL9l6p16Ev
-	pY+673mhRt5ycddyDCI0zmoCIgEXSQIX+M3frccQNQm03KpqFe5DZufpVpeCDZm00nWOFircJAJ
-	QhcxEYN/KqjXFEEsa3Fb9LA+k8pcPdp1Uvvw1uKQjG9QdFjLmOU2eJlwRBEOFEBcZD8lJc2fdu3
-	7N0IxpVf/wDaMPK739zlesE8JD2QryyzJmQ0Uvh7KOxnGN97LW0hCeyV3N5JuJhHljRX/pHpF0R
-	BXPwY8huRW13qlR6BacsIlovwgXs6+S7daIbkNLH7nm6mEh36c4ZlGosV8F6qygdeo1rCyABl4y
-	QJsfeKqPP89iIoLBo+B2rsGVOqf4vAohC9viI+5bUAWfwlV1VwKkNN+eL/a2w+UgD2Z26s3WOLw
-	dvHyDS9Y/soWDNoKdk9Pzw3UtMyAndIa4S+lUsv1f5QYZ/HNJAp5AzlNE2am6eGGf107URwuK4W
-	QZet+FIK7FkSUzAZyX7LiH2FgQtYIXbznPmy6Pc34Jiht/zgztoLYXEdRu2FBnec9t5MsbFAeST
-	YL1OYV6W5WH5U/KyGwr6gjrwLr6P3cXnJNaeUl7V/bHKg0xhXM0pj8ZAqZgHvrNa6sacthJIlNy
-	KF0jNhdMDRG73oR3mVHcQHFLS9hbL
-X-Received: by 2002:a05:7301:4203:b0:36a:50f4:ed0d with SMTP id 5a478bee46e88-36a50f4ef92mr20087021eec.25.1793804807290;
-        Wed, 04 Nov 2026 07:06:47 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36db94376b1sm527287eec.10.2026.11.04.07.06.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 07:06:46 -0800 (PST)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH 2/2] drm/amdgpu: use str_enable_disable() in amdgpu_ualink_set_irq_state()
-Date: Wed,  4 Nov 2026 20:36:23 +0530
-Message-ID: <20261104150632.33843-2-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20261104150632.33843-1-sinha.aryan03@gmail.com>
-References: <20261104150632.33843-1-sinha.aryan03@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=be+fQcd4
+ARC-Seal: i=1; a=rsa-sha256; t=1793804806; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aHAffin/VSM27M+4w9q3BpBRFmAOUuAMVmRLossHQca+AUClmUciZfehrdir37pV1hQzoNndBo7cTce8VwSEg5VIcTiWqZMSSATkh/cGp5pn9dFYKgexu3qmBdfvg+P25JVmVzh8bJaGvgPg+Bn16djZctib+9Hvn/hsyrVoCms=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793804806; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=cZy7ePD4DdIPwF2XQcC5BRW8F/nz7rDC1xt3Cq9n+9w=; 
+	b=M/o9fDNHf0yopV2myiFwCCyArHsq9UJb9SJWxaMmZiOI8orEAMDVwE5VydoIpu27eoqHAuN2wLkNZ0lqprilwdwd2q5BOPhcMrT5rxUbHXlwmQkTsOLZqGT37N8v9MQ24CoBDrQ0SHEVDOaLmETZF8qw7mG6mJr9UuAPScCO7FA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=be+fQcd4lBtrr9la4iC3bK4lg/e68/h0/90+TEs3gLArJLab8XqvH9vAlqmiS9fNnt+YtmPCyCsYYHmHTVY7Jj+wLaJmO0mMMcNB7FCUjPOI6XIVfkOwvYAFSU//qsyG1PUFD/P6bdAK5r/a7r+DqLCg0kCBOS1bUMt/c3C0Ex0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=cZy7ePD4DdIPwF2XQcC5BRW8F/nz7rDC1xt3Cq9n+9w=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793804804616951.6136448367613;
+	Wed, 4 Nov 2026 07:06:44 -0800 (PST)
+Date: Wed, 4 Nov 2026 15:06:40 +0000
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: =?utf-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+	Steven Price <steven.price@arm.com>, Rob Herring <robh@kernel.org>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: Unprepare clocks on system suspend
+Message-ID: <autHpRZK-06X0Uu5@sobremesa>
+References: <20261003194820.840641-1-michal@nozomi.space>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,37 +66,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003194820.840641-1-michal@nozomi.space>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.791.62
 
-Replace the open coded ternary with the helper from the string_choices.h.
-Same output.
+Hi Michał,
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 03.10.2026 21:48, Michał Kopeć wrote:
+> With GPU_PM_CLK_DIS, system suspend only disables the GPU clocks, which
+> leaves them prepared. Some providers power a clock down only in
+> unprepare: MediaTek PLLs are switched off in mtk_pll_unprepare(). On
+> MT8188 this keeps MFGPLL running through suspend, and TF-A refuses the
+> 26 MHz-off state because of it:
+> 
+>   suspend: bus26m total blocked = 0x40040000
+> 
+> The SoC then only reaches a shallower sleep state, never signals sleep
+> to the EC, and the EC reports a sleep hang and wakes the system.
+> 
+> Use clk_disable_unprepare() on suspend and clk_prepare_enable() on
+> resume. Both run in process context, so preparing is allowed.
+> 
+> Fixes: 56e76c017918 ("drm/panfrost: Implement ability to turn on/off GPU clocks in suspend")
+> Signed-off-by: Michał Kopeć <michal@nozomi.space>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> index 485349faf2511..3f1a8109a79a4 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -507,12 +507,12 @@ static int panfrost_device_resume(struct device *dev)
+>  	}
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+> -		ret = clk_enable(pfdev->clock);
+> +		ret = clk_prepare_enable(pfdev->clock);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index f875209e5..a307d165a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -34,6 +34,7 @@
- #include <linux/math.h>
- #include <linux/sysfs.h>
- #include <linux/string.h>
-+#include <linux/string_choices.h>
- 
- static void deactivate_accelerator(struct amdgpu_device *adev);
- static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
-@@ -6558,7 +6559,7 @@ static int amdgpu_ualink_set_irq_state(struct amdgpu_device *adev,
- 	 * interrupt driver.
- 	 */
- 	dev_dbg(adev->dev, "ualink interrupt %s\n",
--		state == AMDGPU_IRQ_STATE_ENABLE ? "enable" : "disable");
-+		str_enable_disable(state == AMDGPU_IRQ_STATE_ENABLE));
- 	return 0;
- }
- 
--- 
-2.46.0
+My understanding of the clock API is that clk_{prepare|unprepare} are often most costly than
+disabling/enabling clocks, so forcing an 'unprepare' at system suspension time for SoCs that
+don't have this requirement sounds wasteful. I would say for SoCs where this is a necessity,
+add a new feature to 'enum panfrost_gpu_pm' like GPU_PM_CLK_UNP and OR it into its relevant
+struct panfrost_compatible. Then, do clk_{prepare|unprepare} in SYSTEM_SLEEP_PM_OPS only
+when the feature is set, leaving clk_{enable|disable} as is.
 
+On top of that, would you mind rebasing this onto the latest drm-misc-next? There's been quite
+a few panfrost changes wrt to RPM and clock management, so the patch no longer applies.
+
+Cheers,
+Adrian
+
+>  		if (ret)
+>  			goto err_clk;
+>  
+>  		if (pfdev->bus_clock) {
+> -			ret = clk_enable(pfdev->bus_clock);
+> +			ret = clk_prepare_enable(pfdev->bus_clock);
+>  			if (ret)
+>  				goto err_bus_clk;
+>  		}
+> @@ -526,10 +526,10 @@ static int panfrost_device_resume(struct device *dev)
+>  
+>  err_resume:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
+> -		clk_disable(pfdev->bus_clock);
+> +		clk_disable_unprepare(pfdev->bus_clock);
+>  err_bus_clk:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+> -		clk_disable(pfdev->clock);
+> +		clk_disable_unprepare(pfdev->clock);
+>  err_clk:
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
+>  		dev_pm_opp_set_opp(dev, NULL);
+> @@ -545,11 +545,15 @@ static int panfrost_device_suspend(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	/*
+> +	 * Unprepare as well: some clock providers, e.g. MediaTek PLLs, only
+> +	 * power down in unprepare, and a running GPU PLL blocks system sleep.
+> +	 */
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+>  		if (pfdev->bus_clock)
+> -			clk_disable(pfdev->bus_clock);
+> +			clk_disable_unprepare(pfdev->bus_clock);
+>  
+> -		clk_disable(pfdev->clock);
+> +		clk_disable_unprepare(pfdev->clock);
+>  	}
+>  
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
+> 
+> base-commit: 70456f05d4b6396b22048c4b8cd3cb98ecf9f9e3
+> -- 
+> 2.55.0
