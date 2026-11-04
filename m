@@ -1,70 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793854;
-	b=Jiky/3ar6mgw/6eFzGGJpOVsSMSnEBjwmm6CZPKNW9BCvExiUof2ttfkBU55jcaDaoUB
-	 xXO2VYAwZCxrcfjg3i59JSDRv63hhygtdJrBoZFmpAAv2BSSp/caSESmAo7pfyBzsv2A/
-	 vSlTQxje3boq6D4wwIHakYsnYI2sQr8oWL8mSoZR4KqzDMILT3dbEx5dIXkpnpuKqDK+c
-	 xDUUFQSDdT7YVpWE+/TFpmdAnJWiXU88LtoIrlNYe/I76X9D/5n1MjDuMiXZgTh+lzuWc
-	 bYqXy+9m6p+7uPpy19Da9I1tiios5FRVx6SqYT+uLB1vaNoGNKZsS7NXMl6cDs61gEw==
+	t=1793793867;
+	b=M5QEYxyqkm9+zzx0bBVWnQRx5n5X9PY57jghmZDCyR4RxDcCgthBVQcUqMX375fOogEl
+	 a3nFD1B8EraLOZsqAXUxUyfxKcn0yXIN/v/R6HNEpVTx3uJ7HNOjqKxH3PCdQ5D+Hu2tp
+	 pJv9twLB72HivGB+AS82KSC/hYdrqMeG1YSfits+Uhou97mT2HsBk8U3jfFt/gJlNdF+C
+	 TA8syf61jScwdaQbMy+dsq0S8JmSCZdqYKfRxfmTY1T54G7HLRFRTYAQjgEcUnm0dAcRJ
+	 jGep65MqKRPNnIf0DKWKXrz9Mqc1AutmJYvy/lAk78Dp5hsR6GZEQb8FZ0sPV7md11Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793854;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=677oYktkfZNgmcjc+8sUJ4wlu2SRiEBON5qQ96zG5xM=;
-	b=1c4aewuaR5Mv8al2SIa6YhXsAQGARh/Yq3UNbmZaKM/NLcX7BGcU87O6qYZJHrbTAqS2
-	 LjrCUP7lWfvLDiHiQKq9RacsASjoS2u9n1/C+jfBiYIuudCH+hGnquhEwWBDlWuhUZq8k
-	 N/uRmvRMlZLFzLwJiD/977YYeTTJZTb5nc9GRAo+misv6blUllXhwjpP+xGdDTTtK+E+m
-	 dfSotp3aFLLX+g3mM73Qj7vgn1Kd8oRxbZ9vdhYjq4hs0vKVl9aWpY5r+wotmBrMpCage
-	 e6NVnkQekpUJZnbCuzruK+XjTaa/dgvTbwF1uiPFjRApBVvdk/hrHZaCNdnMFBV/4AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793867;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=9yFi/GX6XbGdgj7giI9u2oIGi5Y7HHdeGnRwPsAUHHs=;
+	b=yvD8y1inIkFPzt+oaluPn2KMnWQLrNl6/TNPCi17F8o42hV+/kqrk8g8ZvMwRyBLWNQb
+	 M0RnQj9+ffBlwD+uJ3X/j2Onv48ZFrQg2C+bSuAkzjT4ga3OoHbcBsRb9MImTaflLf/qN
+	 MI4/3aCIM8brHBgbUgBL8tY0i05Os+NYOO5SD7TPWszN++avus5g9eqftGZ5qkQ8/XZHx
+	 IXMVb0jZdNC7XzfQ8k0jnuerK4GEm5UTzV1+VfYDS6QENiCYUX//juttZLkVB9HHaz5xn
+	 tu9JgwsqQh3JPO0GHbXYvRlvDE/6CZ9FrEZS94HKPpMcFQQ1GOkVD0q4O1ydA9CLfrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rendec.net;
-	spf=pass smtp.mailfrom=rendec.net;
-	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=EnCWrJEu;
-	arc=none smtp.remote-ip=80.86.107.70
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JaKjSX6X;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6333606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:04:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6333606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5EF606A332;
+	Wed,  4 Nov 2026 12:04:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B5EF606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=EnCWrJEu
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id C60CFD3370;
-	Wed,  4 Nov 2026 14:04:10 +0200 (EET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro C60CFD3370
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1793793851;
-	bh=677oYktkfZNgmcjc+8sUJ4wlu2SRiEBON5qQ96zG5xM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=EnCWrJEuV7yY2RKH3qNTtrR9scnXQii8x3o+DtZDmejZ6O2GeJAGgGt3KtoHS/eAb
-	 ZRyt1bvBjc1uvWj2C7XODlo9xz5y8ygI8mum106/3PaySTmo65t/mqD2QHu8Z03ygU
-	 +BB00X608rUn4q/+JOWOoFpl7bjPSEMJ3B821ZdtLoAQCdrtjjNTk9Yr7pNoR7FW/Y
-	 wGVHbGfZdSt4buvzU1IgkqOaQANl26d2vqJFRuaYW/pOut2ecsgr66Z7upyzXU+/I3
-	 uhGttXmmSli9d1JI2yvarFSAubm9oPayvqIWQrW+IFhs1NcyR6r0bwc9vRCubza0t8
-	 qzOHDTLcaUMJw==
-Message-ID: <d73d1e9a851e3adf270924c3b18db0f85defdbdf.camel@rendec.net>
-Subject: Re: [PATCH 4/4] irqchip/alpine-msi: Add debug logging for MSI
- allocation
-From: Radu Rendec <radu@rendec.net>
-To: "Farber, Eliav" <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
-  Antoine Tenart <atenart@kernel.org>
-Cc: "linux-arm-kernel@lists.infradead.org"
-	 <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>
-Date: Wed, 04 Nov 2026 07:04:09 -0500
-In-Reply-To: <BY3PR18MB47221A1FD4F6674E206DDEF1C6632@BY3PR18MB4722.namprd18.prod.outlook.com>
-References: <20260923083703.38974-1-farbere@amazon.com>
-		 <20260923083703.38974-5-farbere@amazon.com>
-	 <d413238a3c5533572013d1fb27142345aabdd101.camel@rendec.net>
-	 <BY3PR18MB47221A1FD4F6674E206DDEF1C6632@BY3PR18MB4722.namprd18.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JaKjSX6X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793793867; x=1825329867;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ODBzuH6RtEnF965vDKPdCAhbR7l9hy9L+HJc3UQCPr0=;
+  b=JaKjSX6Xttd612h6p6t7IJ27T1rfMKntrJ6+51vkZ7MKL6OEVR0gQoPY
+   rbNS3PQMAiPvPzWlzqTVw9/nX+pVKjlmplaNVIqThyE4on3Qs2zYlEu82
+   A62EjNvJ7d/VxCJNeslrKtuWeqB/dHi5G9ZFS736SM0m2BOyA9jyQdZZv
+   YFYCMPLbP7fGV8UYkqJcwr2q76HZI3MEcgkR0SPgU22QWm+JYU/y1Ex5x
+   tEJA0ZEf+3M/RhEk6XcqWuteOcRvVn+4SA7MwJkr247HgQYcFajPdlMS9
+   qEUjp+jyjqiBjnwtrFoCQMUmtQgdAYepSbaNJslDUVQoteiYgfRRMAQ0M
+   Q==;
+X-CSE-ConnectionGUID: 6WwDbO0HR3+bvxonlGto6Q==
+X-CSE-MsgGUID: n1yu0FDXTT2Iwb/k3YW89A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2562537"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2562537"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:04:26 -0800
+X-CSE-ConnectionGUID: e5RXcvV8RR2NRUD8xQaZDw==
+X-CSE-MsgGUID: aHPluvORSJu7gIQFVL1ESA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7250227"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 04:04:24 -0800
+Date: Wed, 4 Nov 2026 14:04:21 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Mark Brown <broonie@kernel.org>, Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] spi: Convert to subsys_platform_driver()
+Message-ID: <ausfRVIeQxghbMGE@ashevche-desk.local>
+References: <20261104113405.1634275-1-peng.fan@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,43 +80,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104113405.1634275-1-peng.fan@oss.nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, 2026-10-24 at 19:33 +0000, Farber, Eliav wrote:
-> On Sat, 2026-10-24 at 14:47 -0400, Radu Rendec wrote:
-> > On Wed, 2026-09-23 at 08:37 +0000, Eliav Farber wrote:
-> > > Add log messages to help follow the driver flow when debugging: an
-> > > info message on successful initialisation, and debug messages on the
-> > > MSI interrupt allocation and free paths.
->=20
-> [...]
->=20
-> > > +=C2=A0=C2=A0=C2=A0 pr_info("initialized successfully, spi %d to %d\n=
-",
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p=
-riv->spi_first, priv->spi_first + priv->num_spis - 1);
-> > > +
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 retain_and_null_ptr(priv);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 retain_and_null_ptr(msi_map);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 return 0;
-> >=20
-> > Not that this matters in reality (because all these numbers are "small"=
-)
-> > but for the sake of correctness: all the variables you added messages
-> > for are unsigned, so you should use %u on them.
->=20
-> Thanks for the review. Fixed in v2: all the new messages use %u.
+On Wed, Nov 04, 2026 at 07:34:05PM +0800, Peng Fan (OSS) wrote:
 
-You're welcome. Thanks for fixing it and sorry for the late reply!
+> Replace the open-coded subsys_initcall()/module_exit() platform driver
+> registration with subsys_platform_driver().
+> 
+> The pxa2xx platform driver is renamed from "driver" to
+> "pxa2xx_spi_driver" because subsys_platform_driver() generates
+> "<name>_init", which would otherwise conflict with the core
+> driver_init() declaration.
+> 
+> No functional change.
 
-> > Since you're cleaning up this driver, you may want to look at the other
-> > prints. For example, the existing pr_debug() in alpine_msix_init() has
-> > the same problem.
->=20
-> Fixed in a separate patch in v2, which also corrects the wording of that
-> message. The other prints in the driver are pr_err() calls without any
-> arguments, so nothing else needed changing.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com> # pxa2xx
 
-Sounds good, thanks!
+-- 
+With Best Regards,
+Andy Shevchenko
 
---=20
-Radu
+
