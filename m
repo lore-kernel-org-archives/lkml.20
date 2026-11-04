@@ -1,120 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819924;
-	b=ToBendHe6zZSzrLEb1faP62VnwA9gOS2yELuSSe1T/APfP1Q6FfaZdkejBa7fTtUyTLT
-	 uCutwkuoIY0ZpNa7ri2ZxFZcywGcJU5aVndDvloF0QUqYxwwl5Fr4P2WD4I9GfoTUwD0o
-	 qlJbb0jFgVbS2RhQSOvqhVMFF8I6QKt3GamGxhrhS+Bga6Pi6LQDMbO77x2l3IHpfydMS
-	 +r1IwVOJ0kEGt4AnWV9jFFrTjVTJGnyA+DgMG0loZNAxp3ZU4mK/7QjKohbx411ZWpOb+
-	 8a+hzY3M7SKjdHGhLX6Eirs8S+X64yIzPz407hdMeXsiZNTqPF55Fqktv25bzeC7eLw==
+	t=1793819921;
+	b=EnjVKtLWOooXJmbxBv0s2vLAKYCpEvrfhPbFnTuC7rpWLKU1PzlusnbzKv72tJOp9liH
+	 18BpSPHfxew85uCf+zAfOvM4eu5W3RMGIpmUSTS307s7TnO+hlMoOtXeH61IhSDo3RmHy
+	 DvqoxIf2PFv90yHCOWuwG8X494LwExTHz9pCKcuJxjRl9TUm1qI210aAWTYY9PD84jod7
+	 E0jK0aDECXs7t+vUGfgPuS4gJs14l17nrWQtUUXpt9vja6ktXzTaCspSH3yP11/6ci62C
+	 dRGzOQtJ/0rY4Q0EPZWlOKu5mEABA1WMWZQd955x8VDNxGNAd6eJqzO9wcLQ+tcUhEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819924;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JxfhIPeIxkFAdErKoQ6yrSuREA1j/dL5rTygCr1xWj8=;
-	b=nuaPnarO/NvpH47/lnwSHRWIh1vWSSEGoEs80sIBZReV6B4SFhr3ub4FArqTeyZZAlpp
-	 87xXgYiwVtfIhpu5OuK8pvt/dvyuBynGPlN6G0CAOfn2xGNM4NumwIk+8KandLt+W1yeA
-	 MRNWIScqU7hfVt89kZsqOK5PfryshWZZSwnQsuoxyhnxrUDm2aAJB3+MpVhjoYUJtSxpr
-	 NyjHvs+dc/0NESSyydW98nAYC/EQtQW5tYpc0V18NYLAQZBGIl3eCU1OoWkrIWQ38Px7L
-	 B8EOl+NpkB3y8Q4h90jt2tYrkVoUscN8GWpP/uyOepfGyY5PVmP0Am41GvwwyOyU0sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819921;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=Di83VHF6QbwHOpQhBimI2/C2To6SvYozNijzJKB62VA=;
+	b=kC6yXIFEtvDcI6VfX8ZZfvGLIeazKZo7qmVQTZlAc/S6ulR0fXLV0xhrMdrLh93s6Z/1
+	 Bz1iaWk3Y4eAPOB4NlP+V5/wvwk7W5mAtOz2ImCzwlCBQYwaRtUSNt5Vld6W1sC8tCZ5T
+	 P6qFdc865Gpsg3DFoqYGjRec5+TuyKpYT9NgCjXPwgwfV1sO6K1egx5tAJ4xP5C+CkkCB
+	 aCmtAr0hzyun7QquCXULrFn/Ms5w9dTN8bo9pULmA+Q76GBSA6OJnWBCL+aGOCtLeZmXM
+	 i/YsTOvCGxhQy+B+u+K3Uc6z7JrWnmNuCODFHoKmdR3DlsKwlgD/lQ9r77vqhSGS8KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bur.io;
-	spf=pass smtp.mailfrom=bur.io;
-	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=WI0CQ4Sq;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=nMOZ9alc;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIdLOXp6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72466082BDE
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:18:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72466082BDE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390CD606B2D9;
+	Wed,  4 Nov 2026 19:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=WI0CQ4Sq;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=nMOZ9alc
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id EE12B1D00134
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:18:42 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 14:18:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793819921; x=1793906321; bh=JxfhIPeIxk
-	FAdErKoQ6yrSuREA1j/dL5rTygCr1xWj8=; b=WI0CQ4Sq7MEAF8ttKIivcXxdhH
-	8ziGaIM4TGsOJ7vUIA8v83YsQkPIPRZk/4EhtC7CnUjsSKIiGXa6JgmLnNULxOWw
-	WxtmNZdodJtPAUVddoDTOf8LGdfwE6872pYgDH8YlwDlKCG8ThqU0OU/PH+QL0TX
-	a5I57zgsSO9YJjLJKiCzdXCM1R1jyLrx0/uNWpNaxeoz9a+tsv4hqpeZ5iqKAxAq
-	HwJPOjvGxkElyhFQXW+caDrhRUD3zzcS2yOAJ0ZQ/1/lD9+0EbFmUN78Ki+nxcqQ
-	y0IFYCVzNS8JPB7RNMxuEt5v5n7PB3/9etp68Npi/CnPP6C31betueTU3dMg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793819921; x=1793906321; bh=JxfhIPeIxkFAdErKoQ6yrSuREA1j/dL5rTy
-	gCr1xWj8=; b=nMOZ9alc9DM9NvHnGx8vLdb+MWdOpbhc03Vd5YSDXqOjsh8yRKV
-	UiXfQ7gCGj0TtFPvc1nwvG1oA3WK91ecO/WK0Ff00hejZA4ZEqG8nwfITa9/IsPs
-	fAr8cKYImOmr/2dsEx1RHz5UC8leAm6KnO7bWvg6SwZILVtCvmNmkE+jBmTkkfFs
-	bF4kx/S9085nh6HWAdOECOryQudxVNzI8jlmIcvlCOrv0L7ozKZkqAt/LWPnUmfJ
-	oLs5sPkaMZXO8HHBggpL1HSXomEeEytQ4Q3aC4DEynY4dGfAQLqiFs0D8qOIlLcS
-	71jsgv13M8UwxYCHwyHD3RrakiOXmSr9RUA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=bur.io a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793819921; d=bur.io;
-	mf=PGJvcmlzQGJ1ci5pbz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Zzeo9D+CinuOy3gbpqazdE0TUY53RgC0nY0gh6MEdJN5+HV
-	ZUGFCJ5yCrNXVUXNwV/ZXtt4aUGoy7vcWfjujk785/ITyQS0lq+dEQhA+U1mS1f9
-	Y57u4CkjgeWsXsCluri9xl7fXRJyFRLSMkJsjeWN84dbb3bSj1kHzqf77qGO+3It
-	lF7rhylbrD0LzQWyHUTeo3VbaFdG1Y9EU96WwtPoGR4eLPLxniz0ZJn6uK8e5yM7
-	c67+Sd1EpGbewH52Ei+OeK4Wug8LMTe1lqKuUGnDACRB0fi7xDDL66ea9ALXKgLU
-	fjgORTWpZx4lXjUmD/NSGVwmxjYcJPQv0FNI6pA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:vmR69CKoQvJ4bZoQC2FHgm6lcS1lA/fTwjtOmspRMeA=:ROuSBoRkH+KGDcPKIGGhvwJkrol1DQhhQ/RIzlUcuZk=;
-X-ME-Sender: <xms:EYXrau6exnkFenBHAWTNHPd1xy5OgV6f1nRE4ZWcgEKG0MmvSOymtQ>
-    <xme:EYXrah6drKguWU2fYEimDh6wbZVnHGZSFaodVd0mP9rDSgNIgyVs0QpCTn6zmIFxU
-    QOBVzgZ4fgBrL9EwqCAqbgvUMzcDbyhG5R-OxyKmzisLea99vr-THU>
-X-ME-Received: <xmr:EYXrakFojupWDdGWQp0ftKYh-B5KwJxQ5xtyYHdnAGE3tIBJBzkhuYq_>
-X-ME-Proxy-Cause: dmFkZTEJ9AEUj3zvDx+Ww7+k50LadtebgOG0HFBgjaCqCpB/SFTcQixmu2fpsdzet5RKBT
-    sgYv+db4SD+TcoYBWWR0KkA5gYBJMFZK1+BBdnkgyelnEnp7ptpxfEWgDNlPu1nifBRRn4
-    aHiTovqx8QbP9En4hRl4vnOMcXjBEmu+mdLIoIoUZ7rtbg9fnXtRF3vtt+/3t1pSKSf21+
-    vZfR37SAZ9DFHcXs1rLNTbcH5Z7k1WUZSSVkaNdsLx9aUEKx7wa9gDC17iIhEctFQl6OuT
-    3IEWleOgnwDBdmrBw8CB0h8Q4jAjCImlOPtsdF3Qt3vVIYeiO4YLBMFyZw/WmWGJeQvpIG
-    nfaq19XnA4U9LwUY0ivBTye0cZJ5Zslk+CGk6GEvXn8aw9ij16VRWxBOy+jZ8WXWqP3Hfp
-    VGSuLShurX4moAWwvGcDJoWkU1yhSavAGzpfaXmXDO2h8ycM8ryQnfkkwJFihV8tN4P9d7
-    /2AKaVFrPmWxCvyZC8o21wVaCG6KGv7Y7TocKIv2Ne31Oc2QTaKSVAUSxqvThltNR3r/PE
-    nx+URxL22jwzJ1/JQRIPYQgdyce+NZdhtxtr/78fSr0uZhoPBZ3Sq0fA6ixpc47YRcJGbI
-    kwj0e756NJSVQUJWzVt0eeVFX47YFxcLBNZ1wrVYaf3Pjv0KTUPKt2sv4q+w
-X-ME-Proxy: <xmx:EYXrapXH8CrGJuD9g3Z081lofSDKXYV_EFMvwC2LP7anZqaNol4XhA>
-    <xmx:EYXragUp9FHf5lYov1AEELO0NYe-84DxWbmBWbdpUOeHqiefqjpZwQ>
-    <xmx:EYXranLVH5vgQIi_YVqCqF7MGzCmxFiC-K--_ETyH4AYNTrCdvblcA>
-    <xmx:EYXraoAiiM6PF2jSEU4N0cgrP5o9r4Tszm0fCmsTJRZbb50DNL83fQ>
-    <xmx:EYXrap3nvKtEXl4OItYoUvDt7YcaZSkxT7Q9_Djt_Pe-4y6Gx9PvRpWF>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 14:18:41 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:18:59 -0800
-From: Boris Burkov <boris@bur.io>
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
-	mason@kernel.org, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] btrfs-progs: tune: do not remove owner refs from
- tree blocks
-Message-ID: <20261104191859.GB3301639@zen.localdomain>
-References: <20261104102323.4090290-1-smish149@asu.edu>
- <20261104102323.4090290-6-smish149@asu.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIdLOXp6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEFA51F00A16;
+	Wed,  4 Nov 2026 19:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793819921;
+	bh=Di83VHF6QbwHOpQhBimI2/C2To6SvYozNijzJKB62VA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JIdLOXp6sxEmZBJpMlxDZmERDwf9C8sLM/z2dbJBoBY9UBXkGBGAj7Yxhgr3YbwIo
+	 WLzNZhjCHsHdhaQxnTFFO0VEGKxMv1vINJffnyQzpOIw9IevG2oqGRabpoxY4U5ohN
+	 dsW1/Ep2BQuneanTV1J2VPfld0/EzmI9Txpbh/m9xuzYl3I8AGELsVFoKVbyxoHr4k
+	 3c7remBwAQpRVBw2eStXkccOoVSUONc3WQN6TCMP9ZphCN52UWu0ZYRKWjmfYAQkhn
+	 K0VZsnobCWkJjfjb7T3ZWzf5xxANP/HeKYAhnhy6yvKDBY5FqItsSBFDLO5ybI5gH0
+	 NwA1fy8O+LCSQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 10/51] zorro: size the proc files like what they serve
+Date: Wed,  4 Nov 2026 20:18:26 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-10-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,68 +114,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104102323.4090290-6-smish149@asu.edu>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=796; i=brauner@kernel.org; h=from:subject:message-id; bh=l/jVDuzMOjj8ie0SJoZ9zbu/qnGtbORxwaULd7yJNic=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bryu4qPpOT1kc4isZaDhv1/bXwk9vbD2UmCm1l1v/ 29zJLs2dpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEyk6jwjw6sm06P+wcoHVfTf +okVXHjMEBzWYri1p826+M+MhiW+0owMC9vz1pp/V1r0kenzR652vZM5y5jOqWdbe18R57A5vkq ZEwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:23:23AM -0700, Siddharth Mishra wrote:
-> [BUG]
-> On a filesystem without skinny-metadata, "btrfstune --remove-simple-quota"
-> can corrupt the extent items of tree blocks:
-> 
->   before:
-> 	item 31 key (30756864 EXTENT_ITEM 4096) itemoff 2363 itemsize 51
-> 		refs 1 gen 6 flags TREE_BLOCK
-> 		tree block key (940 INODE_ITEM 0) level 0
-> 		(176 0x5) tree block backref root FS_TREE
->   after:
-> 	item 31 key (30756864 EXTENT_ITEM 4096) itemoff 2372 itemsize 42
-> 		refs 1 gen 6 flags TREE_BLOCK
-> 		tree block key (0 UNKNOWN.0 1456) level 0
-> 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 
-> and "btrfs check" then reports "backpointer mismatch" for each of them.
-> 
-> [CAUSE]
-> remove_owner_refs() takes the first inline ref right after the
-> btrfs_extent_item of every EXTENT_ITEM. For a tree block without
-> skinny-metadata that is the btrfs_tree_block_info. If the lowest byte of
-> its first key objectid is BTRFS_EXTENT_OWNER_REF_KEY (172, here inode
-> 940 = 0x3ac), the tree block info is taken as an owner ref and 9 bytes of
-> it are removed.
-> 
-> The check for an extent item without inline refs is also off by one: it
-> reads the type byte when ptr == item_end.
-> 
-> [FIX]
-> Owner refs are only added to data extents, so skip extent items with the
-> TREE_BLOCK flag, and skip the item when ptr >= item_end.
-> 
-Reviewed-by: Boris Burkov <boris@bur.io>
-> Fixes: 2336a7b921ff ("btrfs-progs: btrfstune: add ability to remove squotas")
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-> ---
->  tune/quota.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tune/quota.c b/tune/quota.c
-> index a5f7fb40..187ba4f6 100644
-> --- a/tune/quota.c
-> +++ b/tune/quota.c
-> @@ -132,10 +132,12 @@ search_slot:
->  		if (found_key.type != BTRFS_EXTENT_ITEM_KEY)
->  			goto next;
->  		ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
-> +		if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
-> +			goto next;
->  		ptr = (unsigned long)(ei + 1);
->  		item_end = (unsigned long)ei + btrfs_item_size(leaf, slot);
->  		/* No inline extent references; accessing type is invalid. */
-> -		if (ptr > item_end)
-> +		if (ptr >= item_end)
->  			goto next;
->  		iref = (struct btrfs_extent_inline_ref *)ptr;
->  		type = btrfs_extent_inline_ref_type(leaf, iref);
-> -- 
-> 2.54.0
-> 
+The files under /proc/bus/zorro hand out a struct ConfigDev and seek
+within that, but their size says sizeof(struct zorro_dev). Say
+sizeof(struct ConfigDev).
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/zorro/proc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/zorro/proc.c b/drivers/zorro/proc.c
+index f916bf60b312..4c6f8f1c4d71 100644
+--- a/drivers/zorro/proc.c
++++ b/drivers/zorro/proc.c
+@@ -108,7 +108,7 @@ static int __init zorro_proc_attach_device(unsigned int slot)
+ 				 &zorro_autocon[slot]);
+ 	if (!entry)
+ 		return -ENOMEM;
+-	proc_set_size(entry, sizeof(struct zorro_dev));
++	proc_set_size(entry, sizeof(struct ConfigDev));
+ 	return 0;
+ }
+ 
+
+-- 
+2.53.0
+
