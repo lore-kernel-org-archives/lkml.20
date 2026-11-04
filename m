@@ -1,88 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784166;
-	b=MwcPFdP/atZ4AjTil7wmH1+s+fqXRqgnOdJZ57NyzFx3Bk+ZFL2wUqIzN5WdV/gz5qmH
-	 X5xMOcmkEwQB+iWjTirAOqAHA+6RTZnUxtujRd7IeH5D9zUhXDcg8F445Xjdjv+QDjN0e
-	 LLCrWjY2xy2ESxZ8zbCgCU9ty9S5F6XZJAHGl6T0bo6LWICzZXrwDz4oLgCDiH8mZkO1C
-	 SNMM6lTxQQjg2Ptq74PDf1Oswjekzn0azRny+YGUpzndNZr5uiG2z69zGfXNBSd8GFa5N
-	 D4S1tGXGr+4cAo1xIF0EswAivEfJTh97KWc0EWW59SstRMtW3pxHBhINj9+zXO7W3iQ==
+	t=1793784177;
+	b=wH4x6vsQq8QgGS4sLxfde1PF7rI+j757Aea1noZpsSXifZrSeyK0OEUMNg6fAu1J2E4D
+	 3jH3SR+nysJfErMgKtophqPmGhstD2b8XcR8NYvHXpv//2RXr3JRUjfOmrK7RUKiGzewt
+	 JOruGMepk+12X/S5LTqRJFwTYJWK/i4b9DgK17CsTR++bHMYFoVQnMeR9yL6YQrLxj6om
+	 p+dEYx0nzWiKo8kLRAA2z8gKieZ/f/YvepyvJcLNCLAuoAKjg/cv5tziVUNLK8g5112IY
+	 aKwDNdV0gpBwaVvbcE/bLcYXNl3vYhpUu6z2qZ8h6QjpqQw94Xe9X15OV5SNJDS0zNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784166;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784177;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BDX9/YwW4F/DFICBRzzjsXdCNJ9F1302zx4p3uYHie4=;
-	b=sXY/oycCx55Ekc9VAtxvRmYIq8f5fOEQcIMnaujqXMTqpjo952foS8qDhLPxdljXn7a5
-	 ylOZ79bFXdWiQGfzdQlr24mPgih6jK9KfhKEII+BDNuyOlRa6GWL5+xbCoJNuK+g8Exkm
-	 aQGDqb6MLIBLCwZprmcr0xreCMZiikw9UpTqlrSoxzVkc6XiqemfTEHIlCz7PAptvtvBB
-	 PW4RSSRQFhA8cY+mwIGzb0th3KffBZoGg8d6zBrzpw1CfEyveG7FEqNzk6yMxTN0dBdio
-	 bdEXBvNe8NN39DXDFpVjwoqwAqA6x9wKBUeOn4KceRPBLLtC/aNpkJntCHulouEZl+w==
+	bh=XyxQL7N3jJ1+AgX+vuqyEXAXQ6bEZTTPu9AIW39S+SA=;
+	b=h0p52qBkvIRtOsnLbYSzWsH1RUm2AWO/9Xjpbk9cRHK5qMdlXjaywCErQf3qILd+YN05
+	 TpfSF2wd7RpsMbXZUrSZcqC6K7YP0tsoDfizHj5J/gUWwIE/7s5QGnBxP3nNJnCir71MJ
+	 as22a4PWZRvAZMFQrI966g8HWGP8YJP5pkoIYV9jE0ZSf6HrXbe/JHaALnqjAT5M7N8/A
+	 ppJMERgL0vH/Gph4MlU7HHIdpEbc9MBZ4OIWCtXu75KeRahWee6qkoEn1/XHVB+DYyfun
+	 WIIP9kSqDpLyBOrbOeiQccsaRx1VD55xI+dkr7Ab+uky2Xxe/lRroWdHAWW8fhUZRxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=yKx9xA1A;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7800B606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:22:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7800B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=paNFTQjM;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 732FA606A31B;
+	Wed,  4 Nov 2026 09:22:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732FA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=yKx9xA1A
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso2683045e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:22:45 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=paNFTQjM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793784164; x=1794388964; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BDX9/YwW4F/DFICBRzzjsXdCNJ9F1302zx4p3uYHie4=;
-        b=yKx9xA1A/OJJaG2Ga9Za6SnP0CEKqQ79l1zbcyS8UTJQX9WklzQ3Z7tBx5iDKFH9uC
-         lsXNvmFvIEVsjp01VDegpZeZYD75JLDpgU323XY91t/o72zACl9ft/FIdR/uwkABI5r3
-         nK0CLEiKcC1IQ7Gz148yucTtnP16VcbA0PDBb+7O5tAjlGIgWLUaaInuSqEbIGM/ieJo
-         3mlW3RpgacoW/U0qkfdg9gSNlhFWBtjBDtal9wLvth0SBU1E3lmCs47xkZO7QLU7TMDX
-         NHyiMxuljCYrlXA3gRvu5n2c9+H0H/Pq/y58x7M4pfd/ZFasXAPeTlOxU/JuPXrXg2zN
-         5BVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784164; x=1794388964;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BDX9/YwW4F/DFICBRzzjsXdCNJ9F1302zx4p3uYHie4=;
-        b=pdrvFdJWcHdixb/0YLoY/sUHBWTVw4bt49UsAH7zOJQXF8xYh0FnPAu4PW+dyw2cO5
-         m78dLAIKFMe1m51nf2ccCURyJVXAWk54oRhbUdiykcDxwsS0L1l1vlrzPPsBlGe7BMKT
-         jxrMorhegMbBWn6xiTZQkKMzv72kGlI1G1Gt456/KA76ydM/pMnLIrkaGRQJ86Y1VK9a
-         8bt6hOyy8PcjGeVf7zb53pLhIVth+0mdmkUk7r+PsbYbenViqf1DYK7vzw6PXgu67uzW
-         Spq0YPrmWFJBiV1B9ITQ0pIpBqSgoeXCdCd2zcO6Ve7g46U6syww4JLH2zO30Laj0YPb
-         3+3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzqqeTfm+dsET48SrfLkSb10GFLJLM7g3ocrWHwJNf7YiKOMaUgQ+fF6VnJRX6vgYIlPEWtgLUrDOML4p8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Gp4MfRT1g4IuvoDF+dYcxjvNSmvPivtoLPX6kuvHGoDWLPjpX
-	LfdGA/G/G/YCJwpcmOZEwl5PC/Vm4s+OczuMnZChRcOXauaNjhRcxoqT178kjkwhgBw=
-X-Gm-Gg: AYBFou2pTuyn3wqTUYIP5KmAbPh6sesgRVa1830jXvR87/Wcw4KT3b3T2MIiPShU9g0
-	+s0jsTLy7BJWgyZqMTlNwZn8P1qR2agmLwePgNUwhd2cJOZVlsFjt505R5vbTWIHPGuBBm4rCRn
-	tNSt1G/gmR+8vu3VhZ7PAKxJk3y2OC4nJ+CH7cd59xiAzczlzVNfu0+vSlanI4D9p8ACErr22ee
-	ZOa0IPS7jIyqLdFfCGSov0+FRWGjFhA5gKyItwjZrnlTtkili5yQC1Ruv5sAgAheE9ZjJuZ7lOo
-	j4PI3FwKhB2ic4OmWeNhgfUoheW3SdNl33Kgiga1oyTu3fnh5A7Ax5+In8OTpEvSHZel2uKg3PD
-	I+9s1A/meCa3tl7177JG2EB2vvlAWJFiwvuD1hFaWz3+HQRI8VhQJdgYPbmX0uM4nZR3JmGwzCI
-	nMRJvD4BE5mDtICIsgbPoKEqMShRvihvorlWKAIaodlwX0vUMY0v5LBA+oKudGxp4xRy5zGcWn9
-	yG83qh9ZoAJ/2WoXndPDVmbDsYOq3Qhd3h9DB3r8OhHwh+xpFIa1XUAEwiDUYuwBupdid8ALiRF
-	iojcBISuS/k0dpN3SvvUAJaGJfM/MHEZA7dkKNYiwx54XBlAYe2GCQ==
-X-Received: by 2002:a05:600c:3547:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4ac182dbb5emr339576395e9.33.1793784163886;
-        Wed, 04 Nov 2026 01:22:43 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab00ff3dsm230175975e9.14.2026.11.04.01.22.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 01:22:43 -0800 (PST)
-Message-ID: <0f57d95c-fb84-4e70-8c86-e5314c0ca8f2@linaro.org>
-Date: Wed, 4 Nov 2026 09:22:42 +0000
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=paNFTQjM8M3uck52rWaW+viXtG/Lh6l03F2y4sXG99km1CIN10GXx1rARn58l/w4AW4Psv3vqMOzx
+	 1+h2o2iSZMQp3M6e98z7fMoVZdboHNxHV3mYDQ2q1IhltMefhnxFY6An27bTYvN0deXb8jDoexcC3n
+	 4v1k9Dyn1eEUu4U0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16aeaf96e3b3-7848b;
+	Wed, 04 Nov 2026 17:22:54 +0800 (CST)
+X-RM-TRANSID:2ee16aeaf96e3b3-7848b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6aeaf96b915-c8a78;
+	Wed, 04 Nov 2026 17:22:54 +0800 (CST)
+X-RM-TRANSID:2eea6aeaf96b915-c8a78
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com
+Subject: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
+Date: Wed,  4 Nov 2026 17:22:40 +0800
+Message-ID: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,52 +80,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf hist: Fix branch_info index for sample weight
-To: Gu Bin <gubin@cmss.chinamobile.com>
-Cc: peterz@infradead.org, mingo@redhat.com, namhyung@kernel.org,
- mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- irogers@google.com, adrian.hunter@intel.com,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>
-References: <20261104090229.1870-1-gubin@cmss.chinamobile.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261104090229.1870-1-gubin@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+A connected IPv6 UDP or ping socket can reuse a route selected for the
+socket mark when an SO_MARK control message supplies a different mark. A
+packet can then bypass a prohibit rule for its per-message mark instead
+of failing with EACCES.
+
+ip6_sk_dst_lookup_flow() consults the socket dst cache even when
+connected is false. That argument only controls whether a new route is
+cached. The cache check does not compare the mark used for the lookup.
+
+Record whether SO_MARK was supplied by the control messages, including
+an explicit zero. For UDP and ping sends with that flag, call
+ip6_dst_lookup_flow() directly. Keep the cache handling for sends
+without SO_MARK unchanged.
+
+The concurrent SO_MARK case was identified in the review of v1.
+
+The issue was reproduced on UML with connected sockets and mark-based
+routing. A separate test kernel paused the sender after it acquired a
+cached dst reference; another thread then changed the socket mark to the
+per-message mark. The old code still sent the packet. The fix bypasses
+that cache path and returns EACCES. The 50 UDP/ping route checks and all
+54 cmsg_so_mark.sh cases pass with the fix.
+
+Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+v2:
+  - Replace the current sk_mark comparison with a flag recording whether
+    SO_MARK was supplied, and bypass the cache for those UDP/ping sends.
+  - Add connected-socket regression coverage in patch 2.
+
+v1: https://lore.kernel.org/netdev/20261030141435.779302-1-yanxia@cmss.chinamobile.com/T/
+Review: https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
+
+Tested on net cb284914e749388eef402938bdb3115fe1f6d337 with GCC 12.3.1:
+  - UML normal: baseline 41/50, v1 and v2 50/50; the same extended
+    cmsg_so_mark.sh has 2/54 failures on baseline and passes on v1/v2.
+  - Test-only pause: baseline/v1 retain the old cached dst and send after
+    the socket mark changes; v2 skips the cache helper and gets EACCES.
+  - x86_64 W=1: full vmlinux, bzImage and modules builds pass on baseline
+    and v2 using configs derived from allmodconfig and allyesconfig.
+    WERROR, KASAN and KCSAN are disabled; KUNIT_ALL_TESTS is also disabled
+    for allyesconfig. The unmodified configs fail on the same existing
+    GCC 12.3.1 Werror diagnostics on both sides. Derived-build diagnostics
+    are identical on both sides, including their occurrence counts.
 
 
-On 04/11/2026 09:02, Gu Bin wrote:
-> iter_add_next_branch_entry() is called once per branch and uses &bi[i]
-> for the hist entry, but reads the weight from bi->flags.cycles (i.e.
-> bi[0]) for every branch, so every entry is weighted with the first
-> branch's cycle count. This is incorrect when the branch stack contains
-> more than one entry with different cycle counts, as the weight of each
-> hist entry fails to reflect the cycles of its own branch.
-> 
-> Use bi[i].flags.cycles, as the surrounding code already does.
-> 
-> Fixes: 0e332f033a82 ("perf tools: Add support for cycles, weight branch_info field")
-> Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
-> ---
->   tools/perf/util/hist.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/util/hist.c b/tools/perf/util/hist.c
-> index e75a4fcce975..364754e9d12a 100644
-> --- a/tools/perf/util/hist.c
-> +++ b/tools/perf/util/hist.c
-> @@ -1055,7 +1055,7 @@ iter_add_next_branch_entry(struct hist_entry_iter *iter, struct addr_location *a
->   	 * and not events sampled. Thus we use a pseudo period of 1.
->   	 */
->   	sample->period = 1;
-> -	sample->weight = bi->flags.cycles ? bi->flags.cycles : 1;
-> +	sample->weight = bi[i].flags.cycles ? bi[i].flags.cycles : 1;
->   
->   	he = hists__add_entry(hists, al, iter->parent, &bi[i], NULL, NULL,
->   			      sample, true);
+ include/net/ipv6.h  | 1 +
+ net/ipv6/datagram.c | 2 ++
+ net/ipv6/ping.c     | 5 ++++-
+ net/ipv6/udp.c      | 5 ++++-
+ 4 files changed, 11 insertions(+), 2 deletions(-)
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -353,6 +353,7 @@
+ 	__s16 tclass;
+ 	__u16 gso_size;
+ 	__s8  dontfrag;
++	bool mark_set;
+ 	struct ipv6_txoptions *opt;
+ };
+ 
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -819,6 +819,8 @@
+ 			err = __sock_cmsg_send(sk, cmsg, &ipc6->sockc);
+ 			if (err)
+ 				return err;
++			if (cmsg->cmsg_type == SO_MARK)
++				ipc6->mark_set = true;
+ 			continue;
+ 		}
+ 
+diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
+--- a/net/ipv6/udp.c
++++ b/net/ipv6/udp.c
+@@ -1693,7 +1693,10 @@
+ 
+ 	fl6->flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6->flowlabel);
+ 
+-	dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
++	if (ipc6.mark_set)
++		dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
++	else
++		dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
+ 	if (IS_ERR(dst)) {
+ 		err = PTR_ERR(dst);
+ 		dst = NULL;
+diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
+--- a/net/ipv6/ping.c
++++ b/net/ipv6/ping.c
+@@ -148,7 +148,10 @@
+ 
+ 	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
+ 
+-	dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
++	if (ipc6.mark_set)
++		dst = ip6_dst_lookup_flow(sock_net(sk), sk, &fl6, daddr);
++	else
++		dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
+ 	if (IS_ERR(dst))
+ 		return PTR_ERR(dst);
+ 	rt = dst_rt6_info(dst);
+
 
