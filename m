@@ -1,52 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793815847;
-	b=3o3LKdW2rnVXSfMfu7Z8mqOxT5jMD0Khq25iRHTiW5QlTcr+Z91H5VN2vEyxhEzPubVh
-	 slQyHtOuBvhwU3wUnkuuhp2zqCRv9VTjxTUxgx45lVrR3UY98lNJoOlnoR8gw5nIS7CDc
-	 YM+tJGuDvScj4Kkd2SnK3/SVn4DK0u2xbHyxenw8snfvnxuDXCdNwH3QgiEXTZxFVdyze
-	 zRbmcIbFKMCG1J0zETp2qCMzRr73DVAHWElhEgYR9NHMp5vlj9O70dfuM/RiAZSkwNCfz
-	 xZUSiywyjMdIGQw6iP6Ky4u89hnTNltIKXcFwBNoIu0r+rEOSzSpT/4hAKmb1euJrww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815847;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:MIME-Version:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Message-ID:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9WkmYf7R4SGzBZAROx5aLx/oJoqChBMmnepUumVTYnk=;
-	b=tt6UmVqBQzBbhLLWPwiKJVGk7djgJoC/vEO+na2xp8leyeubOtyxNXUREDLlFaj4mE5u
-	 tworzj36XuQuh7Hl3b+l4L/MSL42sGBv7zHMM3g8tak0edsik17JioTnCgZ6EnSf4BPyl
-	 WhlTyGNS6cFXSIXT9G4blVG7cV7bbcM4ofqMB9EOqv4DfkDF/0eTUKNjUIRf7LmYmDfFi
-	 TE7qVgjvuUqARHmT8gi4opUYmYX27YqiGtrYl5o4+2i6KHCh0fwFIs4HW4Eli/MePJyp4
-	 mCoh/HGvpr/WSGpIU0FDloAqUwZLaoDOAksf76icPpmBfTOK/0/DFIHfW6f7qZL0dXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.net;
-	spf=pass smtp.mailfrom=posteo.net;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793815970;
+	b=bNS4jOBQtMAP4OOXo+RwfmMHiBh59pj9ASEGCplykC7SakOKCDgusPX3XzN313fQ5z8+
+	 MsCR+Rl3ojZ9Brn0xdmnZKFydhBooFw10KJ27m88TMG+ByGWNXc+lZKL151xRHruCd1KQ
+	 qlsI/2Dp0SFnpGkBmBmVqaShkB+FtbSBKcL5Fzxa9U3D4nki0ZkyvX7IUTYSsB5buOasD
+	 aaj4WTOb2m1CotN/biAvjZM4feJ1CNYQ9e5G0+OotwtGzzL2oIrm0ABwwvI52ZdHb9FHa
+	 ZP0C/teym882JmU7xDDz1NtYQA3FuCQRIX2tR9AQKcycTSPKZQCRHDCxlM7snQEE56A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815970;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ZCwhWkJ1DvxwlcSfpyhjJUjU5+kwI4ebFCbFWetN3A4=;
+	b=UY7kbPeTA4Y3dlIKNnYw+j5a9JmueUdv3IDL+bZn1Pk6IMQtKIE/1eDlvl3bnPA/iR+w
+	 eIOlfx/TUkvk9nPAROihzEfp1V6cDBhiZGtC09TErM0wQa6k/KaYoPB8Qi/0O02gMZiAz
+	 iW+SEeUx3wauMZS6OxaJu5Yukrtr95GLJS2uMr5QdT0/d/2g24EE8ugIKyfsFg/I+mn15
+	 EoAF9dJSbML4az6KyL3nTgwg4RLwHiOR00pMj3uuMJ09PiVCk3qc5ddV7/MZ1bx1vuy5N
+	 XemKRuIDwK0cb/A+OlPaG34MF3Qz7jIpPPrz7WqAKbThp6CGBcnkADxfXx8hIrPh/uw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QdjxA5M0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.58
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C63606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34C63606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 8BB7224010C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:10:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793815838;
-	bh=9WkmYf7R4SGzBZAROx5aLx/oJoqChBMmnepUumVTYnk=;
-	h=MIME-Version:Date:From:To:Cc:Subject:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:From;
-	b=OF6qrx+wODiEsY1kg24OzHlmcY2J44GmixT/URw+Uy5VIKGWpJNE4lPIzbf2cFLm/
-	 Z+1wptDWDG9bE6XRM249mIGrFXML9cOMdFAAx0AXXY3XxqgOP1RIdYu+Bc5tlrkLA+
-	 cRcIOgaXaKt6PIet5xGHw6S85D+Krwh7O8KvduIrzB6LTDDrt2XtN/QuAul5MHtMNy
-	 aJKd/8671w5XeTM4zQ2/wbHVuivELjBqUK3IrFHClTuHTPGiN9sicwsomGJsD3tJz3
-	 CwVYHTFXWzPaQ8KTarQkS8fEPViApMpgRdRNyCpZsGqJthE9UZzGc5oANGK5WpeHGb
-	 au9fPBHkeuUMA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKYQN2xfgz9rxN;
-	Wed,  4 Nov 2026 19:10:36 +0100 (CET)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0954606A336;
+	Wed,  4 Nov 2026 18:12:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0954606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QdjxA5M0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=euTErrL8NHOFG/bqsiNq8TwvJ8D0KD4773rnHGVx+7lY9kFrd5vukhAuzOLiG2JLHWUNob383TipCFxZGYBToaxuNCibqAfEg+qNvsHvK4VClAr8r4KRdby93+tOi2IA2bkzw5mCxFMimTH0LH8Qw6J6JRWCZICbQiSmgKukTW8LRoEOaWUWIqqm7/80kf6ygLfKvuuSsexGAkn4AzwUnLMBQuz37W0XFfsKM9Fd6FwcW3fkBp2iu3L5Y5+qQR3L5SqyJHBS1vbnf3l2TOrU24PenYT8oW6zr3jo2oar9W271ianpJZ/ChnYjmZwIjIKN4pVFbA0biMANDPPXNZ5dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZCwhWkJ1DvxwlcSfpyhjJUjU5+kwI4ebFCbFWetN3A4=;
+ b=imH7JkZeVzegpavZMFqzfn29YR8UPIz1drl27DUCBDvmzZHy18NltW6zStBRTUiC+dAwIiR7vGy+6cwyZ544BOAQHbPzajd1/pZHyY3PHJS7atJEMPKCjAfywDNCFwrNTKKqAc8xGspSfKktv90tuablp3/AwDMv8ExtfMUBvV9L6va0j+62lMQnGYI9lqZW8VmZXg7EHLGcOt8VvNfkfEPrYi7C4TbT1Oiv/FXCyvLxRWRPirrYnAIdbKxQyHD2zIrjfZIc/EiJmvoYoH5Byipi1x9N9J+4AHe5qgJOMvrdGDsBJ9BsnMblSdRPG/WXr+MefK2KE+QSjIlh0kFYWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZCwhWkJ1DvxwlcSfpyhjJUjU5+kwI4ebFCbFWetN3A4=;
+ b=QdjxA5M0hDYA+Jwswo0WHMToW1rx4I16a5LwyZDpHMqkfxKfFSyc0MT5pE7qZuX1Ppz7oxycm3stMMqr0Z2UZTl4Nfj/85Lpxg20NSLp36bM+6qzloEn1Z+Q0nae+GuJGi1yKmPxi7qpyTfEHgmPrsLjTystA5i1U5xJ9xmQZq0=
+Received: from DS1P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::10) by
+ SA1PR12MB999110.namprd12.prod.outlook.com (2603:10b6:806:4a1::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 18:12:45 +0000
+Received: from DS8PEPF000000E1.namprd05.prod.outlook.com
+ (2603:10b6:8:455:cafe::9a) by DS1P220CA0008.outlook.office365.com
+ (2603:10b6:8:455::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 18:12:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS8PEPF000000E1.mail.protection.outlook.com (10.167.23.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 18:12:45 +0000
+Received: from [192.168.86.113] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 12:12:44 -0600
+Message-ID: <d7290320-2135-4afc-9699-4de002d03025@amd.com>
+Date: Wed, 4 Nov 2026 12:12:43 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,80 +99,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 04 Nov 2026 18:10:37 +0000
-From: mateusz.nowicki@posteo.net
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-watchdog@vger.kernel.org, Julius Werner <jwerner@chromium.org>, Evan
- Benn <evanbenn@chromium.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Antonio Borneo <antonio.borneo@foss.st.com>,
- Marek Vasut <marex@nabladev.com>, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/3] watchdog: =?UTF-8?Q?arm=5Fsmc=5Fwdt=3A=20allo?=
- =?UTF-8?Q?w=20a=20list=20of=20SMC=20function=20ids?=
-In-Reply-To: <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
-References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
- <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
-Message-ID: <37f9e5e73070972f224583bc1581e400@posteo.net>
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: Add CXL reviewer Ben Cheatham
+To: Dave Jiang <dave.jiang@intel.com>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+	<vishal.l.verma@intel.com>
+References: <20261104175003.297974-1-dave.jiang@intel.com>
+Content-Language: en-US
+From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
+In-Reply-To: <20261104175003.297974-1-dave.jiang@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS8PEPF000000E1:EE_|SA1PR12MB999110:EE_
+X-MS-Office365-Filtering-Correlation-Id: c33512c4-af49-46db-0aab-08df3a9f39b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	+xTalhk3VR5nTD3Mm6YP8YIMqUyJ2PkXKdNepQIGcX5+6m2VT/BGUC0rOn9aIwgQtDJAz1I9R3YXphAoMHdhQsm6N3QxAtkTHRSTJMhHA9tYka6j8qRYLuDMOP6K8pnzGaxJ45b1OhQH1K2XHSR30Ah9+XM7VLvNelnwDzrKySl0kqu4zkqfWXD5a5usXMgFZET5G9V/1laBSN2MvSXzzGZDb4vGOS5PPoR+UlTBgQ9kI6ipjHhBAucsagni/T8iondfp/jJ//8S2g7UK314BrItJ32j1rIq9ihU5OZtTnZe+YKjZ+3wuMhZa/ZArMAqSagQUMit62aJ9iwk7w57Y5GCH5yCOAAFOatKayMYwbzGPiDUekqGP/wzYmcej9EjHYUUUtXjCii1DoxnpkqkG+3t+oyJifjy7YHXiWvOs0KC3rJseZ3Vw3XnyK8mZDleY0Hg+aaRMKbsXhcKR/ePAZCXvLeo5lyISObiaa2OAzoZhzUCcHxxaOmRNZ8VsmdpWkJOAEXYXzu/Q1qrroTWBJx8gN3j7ME6NljDbkFOZrIN2R4i3PL5xZ52GbkUy942c9qXa+Xdt0yZritkp0E7WGJT93aPrBmVJIEmh6pO6r9KYWDCqMFlWB1hPH889Z9FxrdtEjC/HPVqPo5TyGQu6lY0NfFMRQPzaWseKGiS5VAOWgx0vfnk9wnTAlKReXHt
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SpDc4F0DuQoQOmTIrxa66gYaV+/WVp/OA3AtBVqQvrmFX65ADEI1WMZdxBuY9O7g+Uh3A6QPSmtV3YwOimR0fMZwMAVpVyH29FunRFmgAHeYy/0LNb2pxqhVPrHu0VHyGydbzAd5fjfOKarwS6U/gPJXx9cmKyeEE0oy7ICnE361wX7JXb7UMIY+22tazI55+inSCXLwnc16MubUPR4j4mQNurp7cxKuj1Jl1vppNIOWxDXPq5/Tv9PBuN81uK0FysLzi7LKbdJ+GgxYOpGADhrmI0Db/ZZ1i12tVOKVgV3FAtjNYE3FQGjwq1GMbJV1/n54ucpPqjt4moCh35O027SOM2Vf4ukqWaoi8H2Kz1N9Lu1c+0GcF1besZf8d+7Y06umQy6SIkQ3ZhrMhKQrTCANZ18DzGj99++j6QqfPIvjpXcISWELdfv6KFplZd0L
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 18:12:45.1160
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c33512c4-af49-46db-0aab-08df3a9f39b0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS8PEPF000000E1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999110
 
-On 11/4/26 Guenter Roeck wrote:
-> On 11/4/26 08:16, Mateusz Nowicki wrote:
->> My earlier patch, commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id
->> of the SMC watchdog on stm32mp2"), switched the dtsi to 0xbc000000. 
->> That
->> made the watchdog work with current OP-TEE, but it broke boards that 
->> run
->> the older firmware. So today 6.18.y uses one id and 7.4 the other. 
->> When
->> the kernel and the firmware disagree, nobody pets the watchdog that 
->> the
->> bootloader started, and the board resets after 32 seconds. Marek hit
->> this even with a recovery kernel, which is about the worst place for 
->> it.
->> 
+On 11/4/2026 11:50 AM, Dave Jiang wrote:
+> Adding Ben as a reviewer for the CXL subsystem.
 > 
-> So the DT on the board is updated to use the new ID but the firmware 
-> itself
-> isn't ? That seems a bit odd; I would have assumed that the DT on a 
-> board
-> is kept in sync with its firmware. Is that not the case here ?
+> Cc: Davidlohr Bueso <dave@stgolabs.net>
+> Cc: Jonathan Cameron <jic23@kernel.org>
+> Cc: Alison Schofield <alison.schofield@intel.com>
+> Cc: Vishal Verma <vishal.l.verma@intel.com>
+> Cc: Ben Cheatham <benjamin.cheatham@amd.com>
+> Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+> ---
 
-Not necessarily. On these boards the DTB is built from the kernel tree
-and installed with the kernel, U-Boot just loads it from the boot
-partition. TF-A and OP-TEE sit in the FIP and are updated separately, so
-updating the kernel alone changes the ID. That's how Marek got hit: he
-updated OP-TEE, but his recovery kernel still had the old DTB.
+Acked-by: Ben Cheatham <benjamin.cheatham@amd.com>
 
->> The idea from that thread: let arm,smc-id be a list. The driver tries
->> the ids one by one and keeps the first one the firmware accepts. Older
->> kernels only read the first cell, so they behave exactly as they do
->> now. For stm32mp2 the list is <0xbc000000 0xb200005a>. Calling an id
->> that belongs to some other firmware service would be bad, so the
->> binding says the list may only hold ids known to be this watchdog.
->> 
-> 
-> Would it possibly make sense to check keep a list of known IDs in the
-> driver ? It already checks 0x82003D06, so it might as well check a 
-> sequence.
+Thanks Dave!
 
-Fine with me, and it avoids the binding issue. I'd just rather not try
-the ST IDs on every platform, so how about making the list per
-compatible:
-
-   compatible = "st,stm32mp25-smc-wdt", "arm,smc-wdt";
-
-with { 0xbc000000, 0xb200005a } as match data for it. arm,smc-id stays a
-single u32 and, if present, is tried first. Older kernels just match
-"arm,smc-wdt" and behave as today.
-
-If that works for you and the DT folks, I'll send v2.
-
-Thanks,
-Mateusz
-
+- Ben
