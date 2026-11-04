@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793815540;
-	b=ymG6B5huhROjydIbfhAAcTWVFxQEuuVi2WWiZCJD+Q1O8PJdILuF7DVHf6WAykJ5vUQm
-	 /IMLaXNyaGBQFUo+4SqmZ4nclIcCXsFLVZMomJGKNMvNmJTBZpiMut68QSGz3uYXD/lac
-	 Zoh32LstNxYiShTSSuO0GZnqRAx8e4DStnOgcRWt28RzNP2syTjqmrRTTHB9/12dGI0Gi
-	 NRvH07yn2thZYIA27mz4x4t8itv6MlBv7ATddNWcntuAvNDS7RPk+B5nE9yOxrBZVWy33
-	 5UtWBAAh/+LB4h6QMX/ExQuwmUbalNowlenETJZjTcZFvcaiQg3Yns/xFNavg9xJRbw==
+	t=1793815579;
+	b=YIn6GXn+25F4uGKEl9QNVOn+FPKJrqwzf3g9yj9xC+tU6+vKGKLf0B/xw3P0O37DlXAx
+	 5VKnOKLU2jFV/CdHtAhxaswdGVoaxWtH8aW4FXHh3mTKP+mGspC1YHvlgAceEdRkrpLuO
+	 pgMzD+Yh7NsYGJ4ynYnJAa/8SXoiK1/w8Aku9+i4hZYokZCx06hoEkG/C4hOrEnjdfZ9e
+	 FJzzePUxi/QpZaQ8aJzKBO1Z/CiBvEPYXglm+YHMoD3pNd+6xFmlbgTqaL6yROiyyf0fj
+	 Wty838JPLQ5sb73PJqWYMqV6RUC50tXGkPuPO/kjOe9zz5swQJ3u9cJwkhVnv/5J7Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815540;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8t2Xff/1DSUKaDzEnQpPidhAwqFbrWLlVj0t+jNDN2Q=;
-	b=RW84ewFewr836JWlNEx2TuCrhT/0zL0PYplMFRuWRnB7BC7wYPRZrVLvZFA80DfsEJEU
-	 mKoI9kzYeZasd/C/m7hQE4YZ1gI3oiViwhIP0rVLWwz0BaEFibmcL+Q6rj+S/ld+//PT+
-	 8iVn71ssNVbHm9qY3dGPlstizg162FC/rRqCC5z4BtEZ7nG0n2dsism8r7qVe1SIj0Ueu
-	 e29hpYyDc0ctRZ2u9NrQbVSdjWHsGggWIDFappGMdx7qu+nzruBYHOZnQENLeUG1LzyPc
-	 ESJNdO/ilNDcx8OnPda7yEb7xSlfsZTIqU+Uv4KgG9fqoLhaXWm3vW8InUKJNe67qSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815579;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BKcs+4/yEuxVnS2VouqR2WzhlLvVEKGo4vjTDXvNfG0=;
+	b=1vstN06z/PRaCKPDkTmmyeiJDRdYtduKLZkoiCnarFS/z5hHi00ac2rCh+dt8R4dqHM/
+	 qQ+yWXVIgICAmKS59hmnl6kMCH+8dPevdF/+N6cQrBj1NhaQkwhreyZsmzYN0Qn2zdb3R
+	 hppT/8GBDEsMdVXSU/h/uscBME83XdK5D3F/NkneHrOU7kYohfQhcCluHIARE/LATFOSI
+	 2A21nBOS9J4mn7Zg2bH3qK+goTpFi4+BWdFgvZQUfFDlcJJOdjsnbqVeI6Zd+VE3nO6Dz
+	 i5rg2jSCiuluZvjYcROPbbrBizAqGDZJ6v3fID9Z7wmLnd0bk/HlVC8wTC+zz6kNOSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nGaW00kZ;
-	arc=none smtp.remote-ip=95.215.58.252
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRjh1EW7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A964606A328
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 18:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A964606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189A2606A328;
+	Wed,  4 Nov 2026 18:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nGaW00kZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=APEjYZTpAPwsLJnzLt2e35nbL7x74iTU9z6VBsbq6/4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793815537; v=1; x=1794420337;
- b=nGaW00kZ1kYe0iUwf1lyS2kx6eH+kH2DTylQy9zXAjKjIvKqZ3WUS6SVRm+WxIw5vd7N8CcV
- nDzxC3mHGakCh/xPgduGr/mbSPCDT6hdDzRpi12SUMgnAEKX6ClnUjJ4LJu19YbAOSnC9ZZjPLn
- 8z6WPn0XNaKs0WF7ieOAPqnQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6cce56c66b11413f;
-	Wed, 04 Nov 2026 18:05:36 +0000
-X-Mizu-Trace-ID: 6cce56c66b11413f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <327c462a-3360-45fa-8398-4c23c1f2bd84@linux.dev>
-Date: Wed, 4 Nov 2026 10:05:27 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRjh1EW7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599191F000C1;
+	Wed,  4 Nov 2026 18:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793815578;
+	bh=BKcs+4/yEuxVnS2VouqR2WzhlLvVEKGo4vjTDXvNfG0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TRjh1EW7SELcNJfvo8muQIl89zA8WNp5y+E/1UNt7WjdfWpTr2l0YsLmXukzDVdcb
+	 MtN2Cul5ftUHPOTHRrWXZz15d4519+/JX99BQ9EFBwDMa6Z/p/gA/7JD6TVOjZ/vBi
+	 OB2BFXWBdTOLqM3i58cTC7RkkGMn7JN3bmprsMKqcRE4sWc3gaCR5ux18JUu+f9BiO
+	 BCPYty2It/rmH4QXelFrEbogHGZF8Vt5TPltvlSpfWz7CqHpOWk6+r1T5T2x9a+Mth
+	 pJ5gQEHLZXIi9vb1beXsTVGfz4uej5iLeuj8/pO+5HwMB3yX/Yju+Mj/kKNoIeWGj2
+	 9/KBA+HcaF4xA==
+Date: Wed, 4 Nov 2026 18:06:12 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Alexandru Elisei <alexandru.elisei@arm.com>, pbonzini@redhat.com, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, maz@kernel.org, oupton@kernel.org, 
+	suzuki.poulose@arm.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	david@kernel.org, mark.rutland@arm.com, ackerleytng@google.com
+Subject: Re: [PATCH v2] KVM: Ignore MMU notifiers for guest_memfd-only
+ memslots
+Message-ID: <autwsR83Ii-tRrqF@gremlin>
+References: <20260714160411.302386-1-alexandru.elisei@arm.com>
+ <amPCdAswlk24Xilf@google.com>
+ <anxAGkdyPYXBlS00@raptor>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +61,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Fix the x86 defconfig build with GCC 17
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "Xin Li (Intel)" <xin@zytor.com>,
- Brian Gerst <brgerst@gmail.com>, Nikolay Borisov <nik.borisov@suse.com>,
- linux-kernel@vger.kernel.org, Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Robin Murphy
- <robin.murphy@arm.com>, iommu@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, llvm@lists.linux.dev,
- Jakub Jelinek <jakub@redhat.com>
-References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
- <20261104162747.GAautdA2q2lw2gsth2@fat_crate.local>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261104162747.GAautdA2q2lw2gsth2@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anxAGkdyPYXBlS00@raptor>
 
-+CC Jakub
+[updated David's email address to @kernel.org]
 
-On 11/4/26 8:27 AM, Borislav Petkov wrote:
-> On Wed, Nov 04, 2026 at 08:07:17AM -0800, Vineet Gupta wrote:
->> Fix build warnings and failures (CONFIG_WERROR=y) with a GCC 17 build.
->> GCC 17 adds -Wconstant-logical-operand which is strict about operands
->> of && or || that fold to a constant other than 0 or 1.
-> Just from looking at it, my initial reaction would be to disable that option.
->
-> Because, frankly, I don't see the point.
+On Wed, Aug 12, 2026 at 10:42:50AM +0100, Alexandru Elisei wrote:
+[ ... ]
+> On Fri, Jul 24, 2026 at 12:52:20PM -0700, Sean Christopherson wrote:
+> > It'll probably take me a few weeks to circle back to this, as I finally crawled
+> > out from underneath a pile of urgent and am just now getting back into review
+> > mode, but this is fairly high on my todo list, so with luck we might still squeeze
+> > this into 7.3.
 
-Here's my 2 cents:
+Hey Sean,
 
-I wondered if this brings any codegen improvements, since we are telling 
-the compiler that something is 0 or 1 vs. some other range before. And 
-it doesn't, because of the way it is used. So focusing on just 1/4.
+I wondered whether you'd had a chance to look at this?
 
-- Constant bit: __builtin_constant_p(bit) && MASK_BIT_SET(bit) folds at 
-compile time to the same truth value, with or without the !! bool 
-conversion.
-- Variable bit: __builtin_constant_p(bit) is 0, so && short-circuits and 
-the mask is never evaluated.
+After discussing this with Marc and Alex it is clear that this is really a
+blocker for Alex's SPE series, as we need a sensible means of ensuring
+that stage-2 mappings stay in place.
 
-Basically, the masked value never reaches generated code, so compiler 
-gets nothing new to work with.
+So ideally would prefer to get something like this in in the next cycle,
+if you don't have any objections to it? :)
 
-So I did some digging, and turns out that it can be helpful to catch 
-bugs in the source code itself. In fact GCC implemented the toggle at 
-all, when Jakub spotted an issue with a typo: (data->flags && 
-ff_genericize) vs. (data->flags & ff_genericize).
+If it'd be easier, I think a smaller version of the same patch would also
+give us what we need? I.e. your snippet from June with the page ageing part
+dropped, as below.
 
-In kernel, the predicate like *_BIT_SET() not returning a bool is not 
-clean IMO and it used to return 0/1 before anyway so its not like we are 
-going out of the way here.
+Thanks!
 
-I'm mildly in the favor of keeping the warning, but ultimately your 
-call, I can respin with it disabled.
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e7fc94e2910a..a6f37bdb0902 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -264,6 +264,7 @@ union kvm_mmu_notifier_arg {
+ enum kvm_gfn_range_filter {
+ 	KVM_FILTER_SHARED		= BIT(0),
+ 	KVM_FILTER_PRIVATE		= BIT(1),
++	KVM_FILTER_USERSPACE_MAPPINGS	= BIT(2),
+ };
 
-Thx,
--Vineet
+ struct kvm_gfn_range {
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..6fc3b443c305 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -616,8 +616,13 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
+ 			/*
+ 			 * HVA-based notifications aren't relevant to private
+ 			 * mappings as they don't have a userspace mapping.
++			 *
++			 * Memslots where guest_memfd is the only memory
++			 * provider can also safely ignore changes to the
++			 * userspace mapping.
+ 			 */
+-			gfn_range.attr_filter = KVM_FILTER_SHARED;
++			gfn_range.attr_filter = KVM_FILTER_SHARED |
++						KVM_FILTER_USERSPACE_MAPPINGS;
+
+ 			/*
+ 			 * {gfn(page) | page intersects with [hva_start, hva_end)} =
+@@ -724,6 +729,17 @@ void kvm_mmu_invalidate_range_add(struct kvm *kvm, gfn_t start, gfn_t end)
+ bool kvm_mmu_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+ {
+ 	kvm_mmu_invalidate_range_add(kvm, range->start, range->end);
++
++	/*
++	 * When reacting to changes in userspace mappings, don't unmap memslots
++	 * that are guest_memfd-only, in which case KVM's MMU mappings are
++	 * pulled directly from guest_memfd, i.e. don't depend on the userspace
++	 * mappings.
++	 */
++	if (range->attr_filter & KVM_FILTER_USERSPACE_MAPPINGS &&
++	    kvm_memslot_is_gmem_only(range->slot))
++		return false;
++
+ 	return kvm_unmap_gfn_range(kvm, range);
+ }
+
+--
+Cheers, Lorenzo
