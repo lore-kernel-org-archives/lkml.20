@@ -1,101 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784997;
-	b=VgSsQ/MmStIi+gEKS1mIcQiFbeiRpVkCozDXd+2rI8sA8xInCop06rgVzR9w6Wf7tAQJ
-	 h2iEAbvIGT9QfZRjSEzvnQUGyP3SIWsnJjqhnipGj+SwGV82k5PySSST6XJYQAitl+Wpj
-	 vGBLancum3shdTCLjbhOG6GI2Vo4TebyxqgtZXbcT/Re4de4B3OtM2/Zp2IGX96IdSuiy
-	 JGwVcn56SFoWHYW/nw0auvxn4YU7vU95l3/QXr0u8CogkzEFhUuyoiy/z7aCiNiQSvqam
-	 fuHsO/dvd1x9x6SNKAvWOqIjef9BZI9TjG70JUUR1tXt9K4BP31eLz9Qxu9k7UfRFlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784997;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793785034;
+	b=cvGHRL8NNIJAzDp0wRZS67NGWh761GTPV1ElhFyLW8U/+/Qbzh8cnFSGIZuNZQfm1D1P
+	 fmC69jrxcdlF8P9mnl9YvYC6cjmxAOb95zPZZwbX2CRjm8I8hn7nfRzytL6gmuy4ldTum
+	 bKgAgUzt4PWloIqrqYl+a2840+G9f9cC8ENXpGe+OCEt18AS4cr/IPDYo9kteSNiGhpV+
+	 qR2CRIT7nVU5gpL3qnSNFpyZ+4lDsCatvVPD3+EGafHgrsaOGzyni+90g+B5aItUatV/g
+	 58c5zREzxl79UiO4i/9oNbI40yA4KMAwte8NpUmpjcSwbCdWcOXW894qgoAxBDElxKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785034;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=JsLxVuR1g1JSvibC9g9YzUf7PO6/MZgJEB3OXBOD4y4=;
-	b=JFhCqahkdWrLIXphhYyviOCY+uBlXOTGFbtswZcrS+zeLytvyrDHgAjcR8r7CoLwAz72
-	 3e20GTrSS8QxYlcxlmRJNhpALcHdJu2Np5hHttZqnv8R768Be8bHZN16Z1eWWvMXtfGh2
-	 5Z+0EQlZ00NSSTjvi8HF7+PaO2PDYeFR138rO9R0Z5R5eJ7L+eAV1XnLCLvBdrNjTY8gY
-	 HiXbRZUCQL9Ecm9HC+6qbdxYhneXGOFZkiwOJXeMUY3Ge8VjMTJfKxX7kHNW3YB3zvmSv
-	 NwRtWNgpcH07XL341aVEWf6S/f0Lv1zLEx6s9B+HCfPBpf/8XT3G1vFY9GuS8BUID4g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stuoRtoR;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=bVnR6268e6MGHFilapvpTtFzYLf3LYIaxg9LYvJQ5c4=;
+	b=uxQr39KAtWG6WkcfytLhdvCQUG9DPZeHQAk/oYvMVCXAqhh0eqX+DXwTkA8b3vg0fBb/
+	 lqi8gp+xLiJ6JqAPLqlBR5nuE3RKWn/mLyoXJocxTpCRBmtSlxHx3+ypHSVEQB+gPdEX2
+	 WhRMV10G5r0MhFo9ns6PPIBX/9Be5WQ6/H7jmNnfUQvv1hPsn4RRHU/0prS6Bf4frzXGt
+	 4QCIgOdNZ7rTlmnnbXD5VBQuLrcfcepuXkFx8pQBTyDcBZzZkSvR7nwaRYcTP7nlvBTwg
+	 P0vY3JuDCC5b/19tp7gbfDIzwZIzRaiSjS00/xCv2jlRjEg+pvDInDjbwfeky8bQg4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AId2sprP;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cyOhVXJ3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C81606A334
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:36:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31C81606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09162606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 09:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09162606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stuoRtoR
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso198386a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:36:37 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AId2sprP;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cyOhVXJ3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793785032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bVnR6268e6MGHFilapvpTtFzYLf3LYIaxg9LYvJQ5c4=;
+	b=AId2sprPmbEnDtak3d+GVx9lxoUmsp9z55GEZKwlJGTOdxm1KJWeoo7zQnJRtBFB6MrpfA
+	LKh0cU62wC3opu5WvYuElKOHfmuywO2zg8x8usvNLp23j3f7Rrd/aEFimczpGDs9kNIo3W
+	T+Zj2MR+7Die9eRgTyURUlEQEgLS9vI=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-484-9Pf9waDuM_SN7RB3_y9L-A-1; Wed, 04 Nov 2026 04:37:11 -0500
+X-MC-Unique: 9Pf9waDuM_SN7RB3_y9L-A-1
+X-Mimecast-MFC-AGG-ID: 9Pf9waDuM_SN7RB3_y9L-A_1793785031
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8ab43f7f5faso8459267b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 01:37:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793785031; cv=none;
+        d=google.com; s=arc-20260327;
+        b=re5ZtnOqfXbLZ38dbpYLEEqhvgBlbET9yre0U+nCn5SdKCG4ZbBrZRddIPw9mfWFIv
+         04LZgfsGI5ONLPOio3i1VdVrxwS3R/YjVTKRHuNqsVq5YM8Y4j1i12RLsKHlCIyUczss
+         aJBJVfgwmq6Q/+XZIZ6mX3Jq4t90+Jz8gHEyTSQLyYIQOzVTVP2196Pv2QBBo3c70f/E
+         xxNU5+fca40hKbBRw3+FCEPhaBLPvHrs2xUVPdomVmVILVev9TbmsXEwmxAw76C4UtwS
+         S/PVRvmXQeTFHc/b0tDPXRuOLLkAxrWKPpyb86eJixALbW1a9hgA0GOIRbJdYtuHz/jd
+         Zk7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bVnR6268e6MGHFilapvpTtFzYLf3LYIaxg9LYvJQ5c4=;
+        fh=H7fl/zudMT0gLlvLCN3vvVtCEpzLIrGcSKh2g0D5smg=;
+        b=QoT9IlgxtEaw4fh/7er3rJBjLKQXr+mcrCmyUZlw4LClc3UZ6KT3854ogYPyuGy3+G
+         E0G0TMINTJAbNqQieIxP32oWCD868uv0tuVOp8RY/XaOTiotneH3fBCux8rsSHsLIYEI
+         MmsZ5D2dKLWHDX0cLMhTV5FwDOJgfNueS7ae1JBtRrchnwRMc0nQMU35Xi/It/5DEdYq
+         /TsCg+dO0SHBaONsbs4rqXCxTa/lC20paLa+Xhd/63cZOL2t5ZgNdBDhQtTPwW/XTU5k
+         DpLqo7zAQGeAC9TXegT3utgk2E+rxlnD+VZ8eBpGPyVG2ecRJahp3OjbypgV7pDMn9Cl
+         kbwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793784996; x=1794389796; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JsLxVuR1g1JSvibC9g9YzUf7PO6/MZgJEB3OXBOD4y4=;
-        b=stuoRtoRidGUEY/NHOH/VkhsNHY7nu3HMo3pbT7UcNI9Ohmpgu9UEEOR5dYfwWVoIK
-         asJQn+ju/y/hp6GKiUnWsd4jDFlyNfyJJ1xhQrXMEkut1r+G0VUJjCdKHQrXBQVdUQTm
-         RCGuOjVlPXySS3wYhL/aIud3d6oOivlTqYlQ20AgFej+g4nfpOilVKbCNk10LdCeb268
-         hp4AZ2QhkH2UAlddVkjD2T+bHQcFASyZkIHqvfRLEqgurtzx/o8GYhmfEA3DCcDPxzxS
-         /cjPToH18Y3bg5j0QILen2C3d8KRDl9Y2nkRRwKcDKrN+LrBd4W3h6fIHa1Qj1bdeF03
-         MyDA==
+        d=redhat.com; s=google; t=1793785031; x=1794389831; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bVnR6268e6MGHFilapvpTtFzYLf3LYIaxg9LYvJQ5c4=;
+        b=cyOhVXJ3ohss1kg6XytK3waJGb1SHRyF/sYVfdOF2CuLDcoVYXHU7N95w1NO2zhgGb
+         qCiyMQ7b9hpat8tj2G5MooJIux52y5ktpA//tAHCx4t0IiZSa/vNL3KLu67EjdgzHlyc
+         jWR0GgUzJbSpMa3MmNReB4qOqdZRusO2ftM0192w2bIPnYiHUv1XgFdeEyRGGAqIQbSy
+         X5HckDKHJwVJv3hDpemhcJE9yAky523zsKomx1muyLCdsDbE13SMWyQDqLoYgyGhWcem
+         yYpa5csR9HASk4RvpnATp08N9XRtIfc6+snpwu69dpdOVO79KMXbDDXe0vWheYqp5Zxp
+         MiPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784996; x=1794389796;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JsLxVuR1g1JSvibC9g9YzUf7PO6/MZgJEB3OXBOD4y4=;
-        b=H5NNVNmIQ+5d7G6Dfdq5jZiS1oAOx1A4qi59Qe2scr3HI1EM5lPDAYqRodYpMtnShd
-         IoU82qnsAaU4GRPFxPeCJmhCkSbtapO15+QFBB2RdR8C30oKNBJ7RlPvlFRuHfj8JMs3
-         tZPRruiV6tFcJLPWvQ0PHxP0ABkKjorvExLJe7htOFa3yhK8Q/5oTX8AIAZCmogaWfFY
-         uJOUCnvUHeJp7dIzk9zHQbIo/5z746WE6QmYPja0ejHqbdVRbOmJLqL1xG47Jm5UvKxD
-         +5N5j64fMdgrkXwHhTNiE0YMhGWdNxFVpsovkVKcelenateJchc4ia5brUeXsOED7ysU
-         LyIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwIHxKxezHKUVVD/LzND7q+LweaGaM/ruW25qi8RLrZqJDQ0v6LKGlqhX9CDZZBawtkp9OfFbozI/MPVi8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jlTvmBO8ikpHGJxH56mx0HsgJ0DcyCPiNpbJVvaRIGeMC3RS+
-	ukGr7mZux6DchFOiq4tzxhK3gyRwIyUaTRz+KJcXZVYwa48rViKtTiT2
-X-Gm-Gg: AYBFou2l620oEMa53aa/rqxrQ56DYBGjNvEA6qg6FuS+vZLXJr4+ozXuBIgzzae2PoH
-	aqC5RA6XVYOcDKx7PumEG0dmh2v4J35b8cVriZ+gy7EMwhIwz/XL763c58RWkUT0sJm+8f5sfqB
-	yyumW5HDMy7sC3G1RHOILiKbzlRAJp9UxMCo3MT/ZnDxvK/kUyUSfNsck1wz22MR+aaPwDjQtp5
-	PYlUPGk/LV5wevqJdjHFK07tVTr2+OmBs0g61VfMIf6t3i4L4e76aJy849YeVfbS7Zlta16+Tko
-	73jfNQRtv3MnkaAJnyedCRK3gG1NDQuVEuPku3k8vaQ9bRfqQ9on+gWwU4RnRALzrKJsxSNvIu0
-	9OCLoVAyfDPAfIwYKQsyXGRlgtrW3FqDsk9GKOqVxgIoxWqbGJKm11h7UMEHvTlCwJxFHHqeapi
-	2uHymXem9CfPrR4OhBQws6+N0SpvoHeeeD05s+1/R6QMONwrKsAkA2WJhzp7UkMqDKewrFoNRVe
-	s9gHvoQyD/+F81l66tnXgVLgW4jl2KZtjPUeEt6zh4ogo6tZ+k1e4htlvHlKjvivd7fEUqrEaLs
-	Qaih5eazDtUHA4l7p3PSkPmQfOsLCpdLuuqXnVcFI7DIMubnPx71UGpw4LKf4bTwzi07Pk21OA=
-	=
-X-Received: by 2002:a17:90b:4f8a:b0:3a4:ca46:840f with SMTP id 98e67ed59e1d1-3ae896f8655mr12708132a91.8.1793784996534;
-        Wed, 04 Nov 2026 01:36:36 -0800 (PST)
-Received: from umang-Inspiron-3501 ([2401:4900:1c60:e7b2:951d:848a:7f25:3900])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7e087csm8569454a91.4.2026.11.04.01.36.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:36:36 -0800 (PST)
-From: Umang Pokhriyal <umangpokhriyall@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Umang Pokhriyal <umangpokhriyall@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] userfaultfd: validate the whole range before changing write protection
-Date: Wed,  4 Nov 2026 15:04:57 +0530
-Message-ID: <20261104093457.152245-1-umangpokhriyall@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793785031; x=1794389831;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bVnR6268e6MGHFilapvpTtFzYLf3LYIaxg9LYvJQ5c4=;
+        b=0E6hPLPJzkWgtlg9Ywp2viWH4jkk5UlSQcuVfNzLvFTwk6Y5nzghqoZuaaPIMImxiy
+         4Nt9Jpv04YTA+L/+J/UGrZ+eaQuN5w/0y0xBdufwWTpd1N8WV1Id632AEKt+qYD8LHIE
+         gdW+qHHxT4Qn8ujkfyL0eUT9i3uZGvu9XzxFMKNocp6pfg6odchE1GmAXoV/qjdvRsJL
+         tO4NlTOVZx4XmI61Y9x4l1eAW0XeVO2JSdOU5uqf7nbHaFBcTF2zRlCWaCvKwawyXAjj
+         HAZ3lP4oVudCqWnnDXnYIRhG+GI78wlhvTL0fuPEygBaMtvIfM2nbPDqKW0Qooq8sm/1
+         5EdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJCkqwnU6Jojh9Y/cH7+XWfKaX+Q6HQKMR05HczEy+fOED6bhsl46H0av0w0cOqCa2PhjmthzZ+eGTSFo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rY13a3DMf2PlzJ3+zRCCQUXx5Ncmh6SqpaXqc/9QBq6mSxPlY
+	c0zqd2G3TeQbrsMxC7JFAF5WovJqAHgD5t7wdAJzELTDSb1FQsgfhuWbHek86/3tPQwAcPg2LAG
+	/9LprEzThM5+trprtCAC3f7VkJBrD2jGGzWm3AgkyM0NMLRAH6oVd31OdLKQuPQaYjjThzaI+gz
+	+oCZjUiOwZzkckGJlkUb5kjY76uFMFkaNJjrGvbZey
+X-Gm-Gg: AYBFou3iXcO1sLKggU+Z54TkrpxnHu+rTfEsRgBmBi6AZ8S0DhwOecEc5xSgFayH7Nh
+	/svxQvoHcfZbk3GmFlbkbEeDFwZQXAwqPxqInYduZewd3BglASKBAcLHwn0kfeEcu87IaOu4jyY
+	rWSZpnnG3bfyMRClurJdMKKFBa6DJBKXU5uS9CN/KN7wBohAzef2SM6+4ZbHB94/qIXdAWLfSfE
+	EKXWLU2DZEBO7qIKmrMeP4XiVsFZ+peCMlWXqDdF51JTCG0jFnp7lfoGSE=
+X-Received: by 2002:a05:690c:a4cf:10b0:8ab:44a4:6362 with SMTP id 00721157ae682-8b2b65b28edmr73174997b3.4.1793785030950;
+        Wed, 04 Nov 2026 01:37:10 -0800 (PST)
+X-Received: by 2002:a05:690c:a4cf:10b0:8ab:44a4:6362 with SMTP id
+ 00721157ae682-8b2b65b28edmr73174927b3.4.1793785030369; Wed, 04 Nov 2026
+ 01:37:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,75 +125,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104081903.1834-1-gubin@cmss.chinamobile.com>
+In-Reply-To: <20261104081903.1834-1-gubin@cmss.chinamobile.com>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Wed, 4 Nov 2026 10:36:33 +0100
+X-Gm-Features: AclHuK-c5sjTOvcK9KP6Rr8oWkxc5XccSDR94cElnJTWRBuorU92CHBGWIUNiE8
+Message-ID: <CAJaqyWfQDD8OmK=-myHYp0fZuSAQDfwn_KyqUomp7jP1MOaD5w@mail.gmail.com>
+Subject: Re: [PATCH] tools/virtio/virtio-trace: fix swapped read/write label
+ in path error
+To: Gu Bin <gubin@cmss.chinamobile.com>
+Cc: mst@redhat.com, jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mwriteprotect_range() checks each VMA as it walks the range.  When a later
-VMA is not registered for write protection, or is a hugetlb VMA the range
-is not aligned to, the call fails after the earlier VMAs were already
-changed.  When unprotecting, userfaultfd_writeprotect() then skips
-wake_userfault(), so threads blocked on those pages are not woken although
-the pages are writable again.
+On Wed, Nov 4, 2026 at 9:22=E2=80=AFAM Gu Bin <gubin@cmss.chinamobile.com> =
+wrote:
+>
+> make_path() builds the path whose direction is given by
+> this_is_write_path, but the pr_err() labels it with the opposite
+> direction: "read" when building the write path and "write" when
+> building the read path, pointing the user at the wrong side when
+> path generation fails. This is a cosmetic fix: only the error
+> message text is wrong, the path construction logic is unaffected.
+>
+> Swap the literals so the message matches the attempted path.
+>
+> Fixes: 108fc82596e3 ("tools: Add guest trace agent as a user tool")
 
-An unprivileged process can trigger this with a range that spans an
-unregistered VMA.  It hasn't been seen in practice; it was found while
-reviewing the userfaultfd range ioctls with an LLM.
+Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
 
-Validate the whole range first, as mrwprotect_range() already does.
+Thanks!
 
-Fixes: a1b92a3f1498 ("mm/userfaultfd: support WP on multiple VMAs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
----
-v2:
-- drop the redundant error assignments in the validation loop (Mike)
-- drop the selftest (Mike)
-
-v1: https://lore.kernel.org/all/20261102103621.156928-1-umangpokhriyall@gmail.com/
-
- mm/userfaultfd.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
-
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 87da92526..1b7320d0a 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -1105,21 +1105,26 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- 	if (atomic_read(&ctx->mmap_changing))
- 		goto out_unlock;
- 
-+	/*
-+	 * Validate every spanned VMA before changing any of them, so an
-+	 * invalid range is rejected without changing part of it.
-+	 */
- 	err = -ENOENT;
- 	for_each_vma_range(vmi, dst_vma, end) {
--
--		if (!userfaultfd_wp(dst_vma)) {
--			err = -ENOENT;
--			break;
--		}
-+		if (!userfaultfd_wp(dst_vma))
-+			goto out_unlock;
- 
- 		if (vma_is_hugetlb(dst_vma)) {
--			err = -EINVAL;
- 			page_mask = vma_kernel_pagesize(dst_vma) - 1;
--			if ((start & page_mask) || (len & page_mask))
--				break;
-+			if ((start & page_mask) || (len & page_mask)) {
-+				err = -EINVAL;
-+				goto out_unlock;
-+			}
- 		}
-+	}
- 
-+	vma_iter_set(&vmi, start);
-+	for_each_vma_range(vmi, dst_vma, end) {
- 		_start = max(dst_vma->vm_start, start);
- 		_end = min(dst_vma->vm_end, end);
- 
-
-base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
--- 
-2.53.0
+> Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
+> ---
+>  tools/virtio/virtio-trace/trace-agent.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/virtio/virtio-trace/trace-agent.c b/tools/virtio/virti=
+o-trace/trace-agent.c
+> index 7e2d9bbf0b84..555521fc8bfd 100644
+> --- a/tools/virtio/virtio-trace/trace-agent.c
+> +++ b/tools/virtio/virtio-trace/trace-agent.c
+> @@ -130,7 +130,7 @@ static const char *make_path(int cpu_num, bool this_i=
+s_write_path)
+>
+>         if (ret <=3D 0) {
+>                 pr_err("Failed to generate %s path(CPU#%d):%d\n",
+> -                       this_is_write_path ? "read" : "write", cpu_num, r=
+et);
+> +                       this_is_write_path ? "write" : "read", cpu_num, r=
+et);
+>                 goto error;
+>         }
+>
+> --
+> 2.55.0.windows.3
+>
+>
+>
 
