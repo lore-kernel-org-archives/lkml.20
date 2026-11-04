@@ -1,112 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800664;
-	b=ZleA5RuS2adOYMHAJFqCBw5VyvTA/IoWroR8kElbrFsjsPrxErs4qN7LMic5+cPn4yIK
-	 mBaLl/8LTek8CQryE14Xk2qc1wBk21H4ZtWyFl539ME692ow9Y5Wxg6BhIhJDIRxp1Ck6
-	 mO9AVbx570Xlt3lJh/OvYKwYrWTxWErzlIEKtO+Vbh0clvdytKBcYXYfUvT4JlL28EsAZ
-	 MU7HWdY8pWdu33Brx87AA/TCkjAPN7S5oskIBjziW2ox6Yd3x5INRnS05Vngk5ATMH7tP
-	 Sqa1XBZKcCQjiVDGCdB4d/gTtb5wFSHM1YXGqWH0GwN5xAGikJEe+8+FFlVy5LmWPVg==
+	t=1793800663;
+	b=hrSdifNWIBb7MKFaaBBt3/A+C8yGKpmRwueC53TwcHng0MUa0b6teRAh9No9mHHmU03k
+	 f/meaS3vgLvuJcTZOS2HhhEJvzbjKI97n0c2RGgRgVbgS0Ls+Vi8QL2rpF67KrGBxmAc9
+	 r9pxC2FdVKUri5/2iA81XmuIyGAcY6mukKhxYuuqYM0LCqk8w3+xFs8Z/Jk5MAluF9P8w
+	 ne/YCWk8XVUFbgtSMCnagxIZV1kRuKUZu98RiinuS3ABPgQcMkXzP1LyurBbgriMbkycG
+	 mHTuuqKIjpk+I4NYJSS0H25bVjtoIT1uBLOLsyXaF9FbgYHCbZ+ykO1uadn/2p+j4lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800664;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=;
-	b=2xpO8v1EcMGmEqJQtKJD4Pu1QW03nP5f7e0wGL8nSWYyBuPG1A5z6/0g0/ZZADh0PgN9
-	 qNjNXdqauPczM2BqDJcFaCEeaMH9phaFjbizCcI7bvU1uA0NAp+WC5jVL/VDDBOOOPjCy
-	 LR27sHtbcg/5/z8QOK4RsNcFcaurIB3ntJFZOTHXxjI5U8DIiMbOhLFjd3fxqHsBp7i2L
-	 xthErrvGJrdiaWzuTJn8qSDOwFrcRA6xr/FmtoPV/QhThlsPobB781Gtx25hbAfLhXfFh
-	 tGedFAQsDdsojgZavaVhog3v7MOXTxbL+XDzom72UhZfe5H/t6XQiFmFijrpuQ0A0Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800663;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pVJOBVyN1nzMfTuUPIh7fW3RqgQ16G6DdcppUpEF4GU=;
+	b=e7Dallz301bV+jbMbyBYq+QXMrU26ykuiObUww5MhBilep/9RmRhk3YB9u2PdIVouaBs
+	 LAYc4WU4SqsTIp4zYjoXxQZ68Gsym5cKd/Z3zs7J/1S6qqjPrtYymSxXY0HHY+5UWqSOr
+	 J1xdvGfyXtKJ6Pb7MymaTcYe9nwNZEhTV2EyqPaw+7+PJ7DbAsrpWX6SPJO2YFhFVgaql
+	 RCFPoKdtmGgm9NG5IYOKzji5j1xx7oQvdfAIaTTkwHfvLSQRBtJXZ/uqT3zHco8WHdh1F
+	 eaDBiZq05wgOypqjkSYh4d4AnpVeWIQcr1kWishbysS8f2Q6Dy2x2r7xEWzqaAQW7Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqgyJjOI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iKmhtW9w;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=L8v52Uvw;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CPDrHitx;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C85606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:57:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1C85606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3A6606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3A6606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqgyJjOI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iKmhtW9w
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BaBmn2728930
-	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 13:57:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=; b=OqgyJjOIOi6iq+fd
-	6/3OBwbnpSFHEDMFcK7Im0ACldgSNml8YIy0PJwjZAU1hj2G5fzGu+hHMp8056s7
-	Olncqm0L78ev3PsNmS0/XHdwu61jdjOZEfqcqK4/0x6Y+D/hvNGkv30UNI/jO5y4
-	8A7QyyMBeSaMmEs2VHEnZQo1rRVCZ6ZepqX8m9SCIEmSfeDBz9UA1ipEZo1x3dG9
-	UHkaeWa7OpfFDAWhjEFmCsDrvthSADRAjhDR66qfTf5bH9LgzFQ+qZMryQEH7oPj
-	yAH3gkR4bN1RZKuYPffLbDXg9h5kHvAIGCJd8fmRPWy7yukYEcps+E33R/cXv87T
-	65Zlew==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqpuvbnm9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:57:43 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3425098ae4bso2665587eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:57:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793800663; x=1794405463; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=;
-        b=iKmhtW9wZmHN45O287/KnhiDYIBjv8PNNqn6CK7AKAkJkNN+ycBQZzKEfjz1UC3Vqb
-         /2P4ovSauS6AfbvyuwFtEoMhZG25InJ9gQVqe+eZTgO6xlbMmt+YpnbSi6Dc9HjdEBoJ
-         OMGrZhP//IJZgbNVsMkfSV4TpZro1rwwF8YflXeeVD2hv5sbWX9NtaQdTlpFNmzkQ9Wv
-         VfAsFO2ldbULk7fOJujKPCbwMnhra+YuKLUYHOQlOy8k/bQmX3Eg41UYaztGA28SwVRL
-         T/F7OC+0WH5jQxVd1JJ06BmQ/mN4wtb5EXQndPtQf4a1X9luGr9SRDhY/qaWEopHQoKS
-         HUoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793800663; x=1794405463;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Eo4Ci/+bsVZNIxUk+iOREP8Nc4wf2GCzgefx03HrhMQ=;
-        b=SFDX9OgWX3QBHn9ZVITB0y6IaoKWJH14OAwGbHKUr6Wkh++uyJJprnak9ELsYTsn2x
-         WNzYUeF2IqtPu3RhKXEG4orK4nlVnd9W6LPhP4Jn4fy5E2+JQcP5NkQsXOl5BFIilr4R
-         iCwluuRn+zbG3DFmB0XEPgbzpmobyvq1+go7ige3Cyz5YRGsnvRMV/E1zV8/IA3HB+1e
-         mRocG8qTyhCl0Esct+MOZGTAK3DZLJLBKZ5C4B7jdBlJoRJGh5iy8IYgQsgFKfyF0xjg
-         Z3a5KK7IEElPbBSxaEKWS4FI7BT89/a5WJH2rxn0jXEzhvbPAkwcOb0u/GECeqKtoI/F
-         Os8A==
-X-Forwarded-Encrypted: i=1; AKwUvBzDUg8qa3xQB8fwCUrvf0dAWsFcK7up3tQZ0Pfn/2rH5y8zMKgq88an3oe5DFrZlmQ+heDEMulSfL6qT1U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/H1D/qiqqLp+DdjzrywoRc5A1BswBsvfx2NzSeDR1SKCxoNGCM
-	/lJSv/3+RQilxoCWZ7NyZkdsQLtqytUwoxpVrYls3lSY/x7WJhTIGgV2529XfSmVgURbPkO5RQO
-	J0jXM13RkiD+MvSfQwGxkUfCWHKEo+dc0SE9gV3RizcJ38HNNykbqiQ6i7fNurwJmzks=
-X-Gm-Gg: AYBFou2rONpOeDbgxlNH7zokGtrmxK4aprVY1qm3eDSMIPv7FyzE6cWXeurFr3koOCd
-	4bOh4L9JPDVmvXx4WeSAJ3FQmilgRVg8IJe0ZK7VGe27Coefu6GMwjOVMDWo6/De33F66q0ThyB
-	qmwRJcaE22li3lntZSC2ft33i1gA1CEEjeYRP1Vc+0laHfUkdNyE1xpneJMytYKeBXWf7L4IYmc
-	bcXMoArmjcCNLmgKXAzDOo3CB5sCGT0ot4yq25K6Pih3SvOQl7+MfTlTFRStbfWihQjqPyIJW1f
-	vNxpSeUHDROIWbJBJ+pzQ6I1feahyE5Uv9waciZPheExyLeh3c6gObfVUcplXnuxsFxE76wE+Cp
-	kr/7kl1TGafaXtQWrSy1aSbchy6cubP+wJ+IsAar9xzFkKrs9jV0kTwkBcaqVehTFuuPqD9HepU
-	vZDWfh1BDzd7BxDSEII3KTGHXIobxvXgneRVOeMbE=
-X-Received: by 2002:a05:7022:eb50:10b0:183:942e:8493 with SMTP id a92af1059eb24-1ac5a67f97bmr24419802c88.11.1793800662363;
-        Wed, 04 Nov 2026 05:57:42 -0800 (PST)
-X-Received: by 2002:a05:7022:eb50:10b0:183:942e:8493 with SMTP id a92af1059eb24-1ac5a67f97bmr24419767c88.11.1793800661636;
-        Wed, 04 Nov 2026 05:57:41 -0800 (PST)
-Received: from [192.168.1.2] ([122.177.242.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm7874697c88.3.2026.11.04.05.57.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 05:57:41 -0800 (PST)
-Message-ID: <59c79112-0079-42b0-b6c2-d311f20e0dd2@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 19:27:32 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=L8v52Uvw;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CPDrHitx
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 33B651D001BC
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:57:41 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 08:57:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793800659; x=1793887059; bh=pVJOBVyN1n
+	zMfTuUPIh7fW3RqgQ16G6DdcppUpEF4GU=; b=L8v52UvwfBya0U4L/hLgefxFc7
+	Bv8MakOfitQ5VKMAmJmqSjMUIK/ehSQPKG54ESvduD6M3Ro58MtTtGpWdhd69Hf7
+	Z4wkLvn67NtAs9F0QXngJ2XviqwTkrAyA7HiFTSAxkK2DwRKdMfXSEZ+3A5OykX1
+	OvGYm0mdGdBTTDuSiyy5/LLxK8Uti/7JmeXjRGL7c4R1De59/5YwGuAOQtUtWhas
+	FLSXUBptQhSOiSc7Im9LFep0RU+n9ZQCE2MRpBm6C4CdLBH8zVj1uudUOvDwfMBK
+	mhq5nAx/Qhj+7P/+nUponiKGNSGH/Mg2ywdetSfE9wLJXjLn46xFVuoE6HNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793800659; x=1793887059; bh=pVJOBVyN1nzMfTuUPIh7fW3RqgQ16G6Ddcp
+	pUpEF4GU=; b=CPDrHitxADwvO8yWW3vzVrOmW1fi2Bp+EuU1N+HtqRpP+bYKaLH
+	aPBeq5gVL1PmlTWVaSuQVRItQEWLRrE/Td1v1q6eeZp147O+nkeufy1n8vRacJZQ
+	0CFG8BuYae34rP9Pi7lTHXxOtYKNbxjtW3B5sMMkcDj5w2NPUNDNRyggfdWAeh7l
+	0fO1xxCtPDHSey8A1ThRQ01YshRqDXzb3fhLF6Fk4SnDRTHNAXnoodQRn7YCPO0B
+	VxoxyiB17DjlKWdb/DqnWWW5CEjoT74KBui1YcbPoxb1qlA6a54ztOqgYAWJsEnT
+	CBdy9fMHMFSJu7hHQV8BIGnd3+ysQMKN1lw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793800659; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:TmLu01ScZSd11TjPd0UMO12ukiviRHgRl6cVYDaXjTh+3Nm
+	KAi/nWoCQAzBwJm0JfpHFE+UwpY/yu24ZtLoY9d25E+Jb0ogNKDOiLF1a+8viM31
+	BdDPat6Tt03gAqDwIntIgoEdJRUl1q3bTC0Ez6kgcqRvujPHnm42jyq+dMO3oa2l
+	T4kxCtAAh2UDZGWdm+kfZFZvRQWssiOFz5Lj3JJnNaF9HXO/sFaJGmvtl2wKS25A
+	deBzgGMxksOJam7aVFzaUHZlMQCyUzAomxTebvZBCeP/4FvPAaU5Jv0/M8N3XUle
+	gaYrNbqsxWScvx8tKlsU9+eqx1sBfXCfBpdxOcw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:jPnpz73r644i69BpyGpJ/GO8EOArrqrQTkhe87e5rqI=:6kPGA2OlUJ8QUP3bEVFSNVVOtzJuPCY7C4eDgjt8I/c=;
+X-ME-Sender: <xms:0jnraoQKc69w0bBkbaDZAZXQy77UiGgal1Hys0L1KV3M1kaBprRkBg>
+    <xme:0jnrahvRYoIc4ZY0-qBR70nO3Mp3aw8E9LuIjazDftJ7WC6Jg2aHVgAW2fiQ4_oIw
+    kb1W2qchjWmVc1wqdphFKbUCCbunXUWR62sy9CD86tF5Q_v-n7b7tA>
+X-ME-Received: <xmr:0jnrar_mtj3ZVlod5OfpqmlJAXfbqMYajmWUz7RCqpPKl6tNX_V1IOcWZ0tQugs7ym8i-H0y4Phe2XW-PMZZoUtt3yLZpD2_CTw>
+X-ME-Proxy-Cause: dmFkZTGYtjO4aH3k0GUhdhJVTPB3qrFzLiZiQHBavFm+qyc9b84XpgIocNt/s38ItmHaIr
+    GqsNRDwGCxT4YTMIQAv3zoBMKnpEkkA3i9WF8BKjANdRSzQG2hLv6Qs0JKtqeST+dlHHoa
+    ZrlG4qvomHojGb1bGfnU29JjdtpxzB9pJe2Fl2GBE7Wi7PzHoc5LWD5DSwHdZgpqiEIJZc
+    rbIQdYUzQdGGNiNEkbYVpihK1fBPf0A8WVGC+KER9Z2HArOBZwTme9TRosGFXRFCxpTja3
+    vXXb7QZTur9sE9cZ4huijN00ssbgQl7goKyer4AQoZ2zDW33Wl5kzOp3a8mxS1ZcjWWfm9
+    E7LX2YpTzHT3OFHTlME9YY2glNrptRVob6Pu9V5AwBfK1topzIsXaxidsPrUQdsiM4tqQ7
+    uIEuYM1ShQnakTVDG5dDI+lyDYdSCUblGWXMob0jdvgJtLuQweETZJ+rsnnLYN+Gd2xdSh
+    UKsdzePyEZq6grXnu4/EwvwFnXYm64z/wjDBKLic3aQOYOmAH9gtgzcNUugn9kMqur40iL
+    5aqUD12SMZEMhHH7Dlf/zclahrym08AaH45TqSTIxZ8JOC+tNpG3T+lMSeY5cMYhnPD1s/
+    OVU2JzgT/mimJnLUttb+CRQjKifCRcAAApRIg1Pe1VKANjA3kmBrCidUsq/Q
+X-ME-Proxy: <xmx:0jnraiay6RaDTQxCqFLyom7wDk8RDOE_jpvl-QjLyyedgKlG4ENJUA>
+    <xmx:0jnravqwVvOQSJoDEX3w0Sa6M0sj0LwlLFI0YlW5fFEMQe4ch8vBpg>
+    <xmx:0jnraiaSig5DrfOdPAr8SjPMI-8RGKx-e3s04kGc_wEOZMZyMSCWdA>
+    <xmx:0jnraq599amL-u632kWRc5g0dB3OPfBCJNBnHuWkVTHlGN_adVjR8A>
+    <xmx:0znraulP8X6b39yKmxcLijcbDquwDw9kAFYxNkDY3Q-rRigcgHA24NTE>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 08:57:38 -0500 (EST)
+Date: Wed, 4 Nov 2026 14:57:37 +0100
+From: Janne Grunau <j@jannau.net>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: apple: t600x: Add PCIe pwren gpios
+Message-ID: <20261104135737.GB756133@robin.jannau.net>
+References: <20261104-apple-pcie-pwren-v2-0-216a4066965f@cyberchaos.dev>
+ <20261104-apple-pcie-pwren-v2-3-216a4066965f@cyberchaos.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,123 +131,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/1] usb: dwc3: qcom: Keep wakeup option default off
-To: Peter Chen <peter.chen@oss.qualcomm.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Johan Hovold <johan@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
-        Prashanth K <prashanth.k@oss.qualcomm.com>,
-        Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261103061401.2942139-1-peter.chen@oss.qualcomm.com>
- <20261103061401.2942139-2-peter.chen@oss.qualcomm.com>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20261103061401.2942139-2-peter.chen@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=O6SsLx9W c=1 sm=1 tr=0 ts=6aeb39d7 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=4cW2FY/XLap1olThQF9nEw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=X1iYf39TFmsXOEfCDxQA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: HN0t_Ve_DYrbZa4ztC40c8kdMx7PCB_2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX7TjZ3n99d4rv
- /htiodvDUMXNC4rLhs6zcf8FX6QLHuCSjggHS4GIPat2/gO9iD9Flj/2I61Mmjl5AJAYiE4pIHW
- pNvcond3ucnnU7OLYnA0Ykdtl9OUido=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NSBTYWx0ZWRfX0GsOxFxzVL/P
- KXYx+ULW47QEnnjLF4NC2DFt5uWoO3Pxetd9sivjp7fyeCfsRSSGYaPU53ro7x7VKUu1kkMCEJB
- z/p503jPaMV+RZFfDmxqjVGkAb95b7mtI+eIeoB5yJ5/7VRwnF7lvXldyUjZ8DgkLbrfKCifSG5
- XDeU2I5zrAGY8dIJiLHs+WCdg1aVBeAuo17xDrjF0wG5lSA7wQu4Uu8FT8snt4KxZ5htKFfdW2w
- FnEB2GtRAxojrWIxDw28WGB7dJwuWA3E6WOoaWmgJrnL47XbwgAfIKtgZykKsPFihaV3eyyIYpg
- JpQBL052CL0CqWkrLzTcelPHl7z4SiPqmXARlIBG1rS8meCS0y8P9I8iGJ1q+q+OsGosELIY9dG
- RcTBDI4wbdJ49Lg95cmK1yPb9xyhmGH46xwzdq8fRtPXfAQsFMmH8YfUkvifphH+ZOd0Y8UhVDO
- k+X94bPzxdmF/gH+pdw==
-X-Proofpoint-GUID: HN0t_Ve_DYrbZa4ztC40c8kdMx7PCB_2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040055
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104-apple-pcie-pwren-v2-3-216a4066965f@cyberchaos.dev>
 
-
-
-On 11/3/2026 11:44 AM, Peter Chen wrote:
-> The "wakeup-source" property, as described in
-> Documentation/devicetree/bindings/power/wakeup-source.txt, only says
-> that a device is capable of waking up the system. Whether wakeup is
-> actually enabled is a policy decision, and drivers use
-> device_may_wakeup() to decide whether to arm the hardware wakeup logic.
+On Wed, Nov 04, 2026 at 12:40:31PM +0100, Yureka Lilian wrote:
+> For the MacBook Pro and Mac Studio devices using the M1 Pro/Max/Ultra
+> SoCs, add the appropriate fixed regulators for enabling the peripherals
+> connected to the PCIe ports (WiFi, SD card reader and USB xHCI), which
+> are controlled by GPIOs connected to the SMC.
+> Set the regulators as the power-supply of the respective PCIe port, so
+> that the endpoints are powered on before probing the ports.
 > 
-> Currently dwc3-qcom calls device_init_wakeup(dev, true) when the
-> property is present, so USB wakeup is enabled by default and users who
-> do not want USB activity (e.g. connect/disconnect) to wake up the system
-> may have to disable it through power/wakeup, otherwise, unexpected wakeup
-> may happen.
+> Add the 'pciclass,0604' compatible string to the PCIe bridge nodes in
+> the SoC to allow the pci-pwrctrl-generic driver to bind to them.
 > 
-> Having wakeup enabled by default also costs power. In host mode,
-> when device_may_wakeup() is true, system suspend keeps the controller
-> and PHYs powered (dwc3_core_exit() is skipped and the genpd is not
-> powered off) so that the wakeup interrupts can fire, even on systems
-> where USB is never used as a wakeup source and could be fully powered
-> off.
-> 
-> For USB controllers, keep the wakeup option default off and only mark
-> the device as wakeup capable, so that the user decides which USB port
-> is used as a system wakeup source. Users who need it can enable it with:
-> 
->    echo enabled > /sys/devices/.../<dwc3 device>/power/wakeup
-> 
-> While at it, drop the local wakeup_source variable and use
-> device_property_read_bool() like the other property reads in probe.
-> 
-
-++cros-qcom-dts-watchers since this is used in chromium userspace and 
-modifications might be needed there as well.
-
-Regards,
-Krishna,
-
-> Signed-off-by: Peter Chen <peter.chen@oss.qualcomm.com>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 > ---
->   drivers/usb/dwc3/dwc3-qcom.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
+>  arch/arm64/boot/dts/apple/t600x-die0.dtsi      |  4 ++++
+>  arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 16 +++++++++++++++
+>  arch/arm64/boot/dts/apple/t600x-j375.dtsi      | 27 ++++++++++++++++++++++++++
+>  3 files changed, 47 insertions(+)
 > 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index 8116dc94c181..1451b5eaccce 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -653,7 +653,6 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
->   	struct resource		*r;
->   	int			ret;
->   	bool			ignore_pipe_clk;
-> -	bool			wakeup_source;
->   
->   	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
->   	if (!qcom)
-> @@ -757,8 +756,8 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
->   	if (ret)
->   		goto remove_core;
->   
-> -	wakeup_source = of_property_read_bool(dev->of_node, "wakeup-source");
-> -	device_init_wakeup(&pdev->dev, wakeup_source);
-> +	if (device_property_read_bool(dev, "wakeup-source"))
-> +		device_set_wakeup_capable(dev, true);
->   
->   	qcom->is_suspended = false;
->   
+> diff --git a/arch/arm64/boot/dts/apple/t600x-die0.dtsi b/arch/arm64/boot/dts/apple/t600x-die0.dtsi
+> index 122a566e75d1..635635c4bfbd 100644
+> --- a/arch/arm64/boot/dts/apple/t600x-die0.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t600x-die0.dtsi
+> @@ -460,6 +460,7 @@ pcie0: pcie@590000000 {
+>  		pinctrl-names = "default";
+>  
+>  		port00: pci@0,0 {
+> +			compatible = "pciclass,0604";
+>  			device_type = "pci";
 
+`dt-check-style --mode strict` wants "device_type" before "compatible"
+
+> diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+> index caded1636f3d..4f9dccf839ad 100644
+> --- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+> @@ -55,6 +55,20 @@ led-0 {
+>  			default-state = "keep";
+>  		};
+>  	};
+> +
+> +	vreg_pcie0_port0: regulator-pcie0-port0 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "pwren-pcie0-port0";
+> +		gpio = <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	vreg_pcie0_port1: regulator-pcie0-port1 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "pwren-pcie0-port1";
+> +		gpio = <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
+
+Please do the t602x changes in the same commit. This file is included by
+t602x-j414-j416.dtsi and the M2 Pro/Max devices use different gpio pins.
+If they aren't overriden in the same commit this will toggled a random
+GPIO pin on M2 Pro/Max Macbook Pros.
+
+> diff --git a/arch/arm64/boot/dts/apple/t600x-j375.dtsi b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+> index 8a1494949e4c..412b2fe109be 100644
+> --- a/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+> @@ -42,6 +42,30 @@ memory@10000000000 {
+>  		device_type = "memory";
+>  		reg = <0x100 0 0x2 0>; /* To be filled by loader */
+>  	};
+> +
+> +	/* WLAN/BT */
+> +	vreg_pcie0_port0: regulator-pcie0-port0 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "pwren-pcie0-port0";
+> +		gpio = <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	/* SD card reader */
+
+this is included indirectly on t6020-j474.dts which doesn't have a card
+reader.
+
+> +	vreg_pcie0_port1: regulator-pcie0-port1 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "pwren-pcie0-port1";
+> +		gpio = <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
+
+Same comment about the GPIO pins as for the Macbook Pros.
+
+I'm not sure if the cross-SoC generation device .dtsi files were a good
+idea even though the devices are very similar. I probably wouldn't
+repeat that but I don't think it's worth to untangle at this point.
+
+Janne
