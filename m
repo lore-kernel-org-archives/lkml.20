@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832269;
-	b=ztstOPMgJ1ozBOg230DrZVL8YzZGQUj2Rx/5Ig43hss1bwEfNQo0VVU1XO+iu0+wlxQv
-	 lx4PRUkg6CNYbPt2p2oQ18SPJBkrwE4qJ76PXcYVvsbeU5IH45DYJ2OAxDarkeF6gHuVT
-	 DWjNMdDGgfNZfUPq7z3MBnOS0rlVAyUv6HdANZu2YeiGoukjSnY35EhA4ARl4G7j1UhST
-	 XEm3y88ZSHVqIap5b1svcHSSOON1KbVdgjfx+Mwri5J9dK0h5csSCedQvCzIUWPryT0Rk
-	 57DdnHM6/WKO0pD37IBl2qbVw+Inu3lQUABqgJE5FObW0Lud/MF4MyaEXxmWHKA65Tw==
+	t=1793832277;
+	b=d8s2FyMwRDTKhViFGXtcyLgh4QQGKjVjMAE5fl6MUIUKq1Ja2C1NKs1pKm3dSrpHKiUe
+	 c3hUKNSZ+7EMgMm3SDo4qOMUa7+Y299AkUs/1QIZGL4Y+aMkDzHjVe0AfnVx0qmyn26Ey
+	 ssAXXuvW7ebWm2UaDGOMvKzgVcuunAhM74uW4MgbT49tNwZoqbWsoauxzneSl0P1ZgQ6J
+	 V3SOEta0fpsTEmLtmjv8hq109VdyjqhqqBWspBYfHiw4TeuSmDCDd0EzRe0eI1P7dR8Lf
+	 HyY8tUsTb1g0Uo3J62IM3V7uY5plw94w09Ia3lukl04PxIUdhOBbpCcNiOCDQ3YjU5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832269;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Q8QJSTYLWOmcirwSrHJZlqljESPHG1DSVnqXXWP28rw=;
-	b=WxwXTG65tplr5GDT+l0B+529KLpiOUAMplRV44aNmGWIT0ptQZJ2v5ajhO0VofOS92pl
-	 MiQgtBIwTDrG5W9bvLUQS2h+rGjW+BMgeAUjRqyK++Ac85BUIDzraj4DHeFjuP31yYO75
-	 bXtEyIx6H39CCfRNZxSgkG/DY351cHVUIg7EvosMdFVyXVNfFB7tEkw2Ic1CH1JsVv/9I
-	 1h81Q76G4C0Qzu8naFIoFGSd1u4Z8Yq4ZnQXoLVZc+9o5EAFWy9h3L5qqNMLxNweRomVu
-	 ztrjfFst36UjSk9msfzekwEYV5XXz984Hd8ARtrnqNXJH6KXjKLLzaKg8bmDmM/e68w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832277;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=OfxaueTyc8XbQISpMtsIlMHRs6clavLyxX39MYG47W4=;
+	b=0cF64ibDAEhPxqFi6dFgrpMKkcb418MavfyVGBcCo3ajIvPMdROxCA0upFzRPgYC1jRz
+	 ShokXB4h4yhwxc2Yq85Za71ATW8SX776EP1QXo5STBYh8MY6vaus+IQTIu3gp0ycF8boh
+	 SJ2t1cGwg7FEVvyVmVQCMAQFDwhaYHo0wQRKZMH2d99rlMNBlCl+an/ueHAOe9FlZ7OrN
+	 0RSlQfOamckVwOM/GslnLxQGBO0ZfCmRcTOKz381ju45OA6ZYbmsyRIvMd6RT1I9vm5Fd
+	 dZYLtEUnC63tCgf7ExKmPN0IbMyYZPG9Wdjn0zcbmOkF8hco6+epOb5eRm43XR256wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgR2MXI0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=GFmcmu9h;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D83606A31B;
-	Wed,  4 Nov 2026 22:44:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECD6606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ECD6606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgR2MXI0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19E11F000C1;
-	Wed,  4 Nov 2026 22:44:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793832269;
-	bh=Q8QJSTYLWOmcirwSrHJZlqljESPHG1DSVnqXXWP28rw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SgR2MXI0Ux0iW6D5ZOIN+Nzk4OX/tfUY3z4dtXQAiuPTa25DRhCNnTE+GggtI/Nv0
-	 Gn1Okq0FaTeMkGyqSGu8T8+++4g2+h+6ZFrBJo02o04sE3ubcnQL7rmew0o0PFpmkw
-	 XCI71UWV6a9KzTOu4G/u+y8V3eK2W67j/p1F5LdsSs26zD0guFtIIpjdX+NNB3t4sD
-	 LlrOrfDX1DBuwmsAF/gW/boirf9OrTb15Ev08kcL+SqD9GSaBDXhTM7D0PfBIUhZH1
-	 3+gXzg45MTSmPvTDKpsGrwEg+Rp6pzDYGtMiUgQTrmSF02afvCGt7j0Irg5vey9TID
-	 3TRE1wWwG8oHg==
-Message-ID: <sashiko-outbox-198243@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/21] sched/deadline: Keep departing bandwidth
- across a root domain rebuild
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104211207.1392343-10-mathieu.desnoyers@efficios.com>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-10-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 22:44:28 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=GFmcmu9h
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4f540ebso645963f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:44:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793832274; x=1794437074; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OfxaueTyc8XbQISpMtsIlMHRs6clavLyxX39MYG47W4=;
+        b=GFmcmu9hLbT7gL7Z0iSuvfx4/E6mlopRAZlbgNKa0yii9goBfsKgPBukEIE+tIItrQ
+         4j52+KBXv5zQS3mN4LNkgbyzpUlbywZdKyvhXhPeTbyG1/haq++/bdaV2M/JQS2gx/Zx
+         ixW3HJSUEaZ9c67TLhIrVm34ofUY6UYebVkxYy/3P0JaQ9QADTINPpMMMX3Lfx9JG/Kx
+         T1xSSE0Fa1xlR5pRVVCBWwoJDM7HQ00f36mFlOw5bvq7eD9TLhNCRoWoioqiewUvibDl
+         x3CH0tXoBEFYoNYiJLBsWPG42h5iV4pzTg8bRWzArVSsygd5wUBKWEAxPujUAh8FBguC
+         JbYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793832274; x=1794437074;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OfxaueTyc8XbQISpMtsIlMHRs6clavLyxX39MYG47W4=;
+        b=V7edGP8Di5YRzxuWXIHn0w1arI+qhCtjFufgLmzDOHntdZMpeOV5f/kbWtO7Cjhvyg
+         wBvlz+8Ucz6sVmFG8DPQGdgl2AZ8dUxVt4C2pRy3g0wT4qF0F5rHu8W3X7eftvI1LntA
+         KNni6sTrx5rMrM+z5IugUKQ1Q5pvC9iE7SFsFLD47ZLHkxJVHTdNYtmNyHlq5rh1OKyF
+         cki8WXcQcAVr+9Q3EoUjeXNFOh8+QHZDH+fi+r1easU6QeHxGYtoJ/MSweq2vHDlnn0v
+         54Q2XJXmlI/cLmoSIar5in1cm9HFDgwTPECm+FzwcIPuU76gdHLCZRxlKhlEghWt3uT0
+         bhgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQouL8bUgM4CJmRPL1Bpn/D9P69wPEqhEEHt13EmgQydhqkVGno2JaEFQ1cIISE5B3Biey314EtPYrGA0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/1RzrBNtFGQejmU3/W6JeZkplG+b7Fb8t//abCA5u9Wm9t2N+e
+	g0+Q8q8p9KtPwCFBSLGF5Ud/mk7uBLiDVCa7kO2UaZHN3STLxJJlBEqYJVO88aEO4OE=
+X-Gm-Gg: AYBFou28kI+Rw5bI+o9X+qdxH9m7cpLvvrg80DttUeJ1IDLQoH7eV5L2YDh6H0m6/tu
+	aBWDJtB0xTN5B1XwHyK04QrFR0kiwOqtLQlCQT+/2OPNv9Q2HnRt4UI1PnX80KIvWSWInLKykyC
+	0cVH4a0t/B+bnTJpvG5XXn2eO6sZ1uAUjm7RfeQ5InBiW++ursnNeOyqzR9N/8eeioozUHR+zCV
+	rCbOPh4UW6rYH15Pr7KS5XhA0WR6rEWFLiWHj6YW52/rr0t+CkIj42HrcXt3mejZlr0G+QM9qhQ
+	icmQawzlDWPEuJfHFp6cES9fWJbYw9AoeAuGBny7crB6pbSXi7BMByjG2/Hnj5+fKEfYPjjBHGB
+	ygTyYzppDle9/AFcuUUu9f//+T2IIyMdjrn9gWZctW0yD72uOlDFAg6E8R39nJDfcR1CWgVgjke
+	0FaGO+JBPiQizbhHIy6aBYD8so54MgcBqlpme+DtEYv+XtqfD31Iw4g1dZLnfoRacHF4O2fpWK2
+	0VGmG7ub3J4iTBbtADvym1225Yx8RISQfgNR8M39qFIlGwIMzYKc3FIKYOM3J3FfruMoG+ausCo
+	DxfGTDQ5dMex/VfjbpDPNMnawR2MROcczRQ+Djfosul23bSUwXFl73Y11P53UH0=
+X-Received: by 2002:a05:6000:24c4:b0:48d:f9dd:e3de with SMTP id ffacd0b85a97d-48e6e511219mr38508954f8f.45.1793832274218;
+        Wed, 04 Nov 2026 14:44:34 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.163.117])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed551dbasm6028154f8f.37.2026.11.04.14.44.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 14:44:33 -0800 (PST)
+Message-ID: <427eb0e0-5e10-4f24-8686-4d06c26cdd13@linaro.org>
+Date: Wed, 4 Nov 2026 22:44:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,197 +89,532 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] sched/deadline: departing bandwidth accounting corrupted in switch=
-ed_to_dl() on PI boost
---
-
-commit 1e8adcf8ed2712137f083c0716509491291e2298
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-
-sched/deadline: Keep departing bandwidth across a root domain rebuild
-
-This commit tracks tasks that leave SCHED_DEADLINE or exit before their
-0-lag time on dl_departed_list along with the CPU of their root domain and a
-rebuild generation counter. This preserves their departing bandwidth across
-dl_rebuild_rd_accounting() and ensures inactive_task_timer() removes the
-bandwidth from the original root domain even if the task migrates.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 624cabdec9652..2729c108b24bc 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-
-[ ... ]
-
-> @@ -3485,12 +3575,33 @@ void dl_add_task_root_domain(struct task_struct *=
-p)
->  	dl_get_task_effective_cpus(p, msk);
->  	cpu =3D cpumask_first_and(cpu_active_mask, msk);
->  	BUG_ON(cpu >=3D nr_cpu_ids);
+On 04/11/2026 20:54, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
+> 
+> Document the Qualcomm SM8150 Camera Subsystem. The IP integrates four
+> CSIPHY, four CSID (two full and two lite), two VFE and two VFE-Lite
+> instances, with 42 clocks, 12 interrupts, eight IOMMU streams, four
+> interconnect paths and three power domains.
+> 
+> SM8150 has a different register layout, clock tree and power domain
+> topology from SM8250, so describe it in a dedicated schema instead of
+> using qcom,sm8250-camss as a fallback.
+> 
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+>   .../bindings/media/qcom,sm8150-camss.yaml          | 477 +++++++++++++++++++++
+>   1 file changed, 477 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> new file mode 100644
+> index 000000000000..a65067352b58
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> @@ -0,0 +1,477 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	raw_spin_lock(&dl_departed_lock);
-> +	/*
-> +	 * Counted already by this rebuild: put back by
-> +	 * dl_clear_root_domains() as a departed task, which priority
-> +	 * inheritance boosted into the class since, or its bandwidth
-> +	 * gone since (dl_task_release_bw()), as that of one that died
-> +	 * after the walk found it. One that died since with its 0-lag
-> +	 * time ahead goes back to the root domain of the CPU recorded
-> +	 * (dl_task_depart()), if active.
-> +	 */
-> +	if (p->dl.dl_bw_gen =3D=3D dl_bw_gen)
-> +		goto unlock;
-> +	if (p->dl.dl_departed_cpu >=3D 0) {
-> +		cpu =3D p->dl.dl_departed_cpu;
-> +		if (!cpu_active(cpu))
-> +			goto unlock;
-> +	}
->  	rq =3D cpu_rq(cpu);
->  	dl_b =3D &rq->rd->dl_bw;
-> =20
->  	raw_spin_lock(&dl_b->lock);
->  	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
->  	raw_spin_unlock(&dl_b->lock);
-> +	p->dl.dl_bw_gen =3D dl_bw_gen;
-> +unlock:
-> +	raw_spin_unlock(&dl_departed_lock);
->  	raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
->  }
+> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Andrew Gigena <mail@andrewgigena.dev>
+> +
+> +description: |
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8150-camss
+> +
+> +  clocks:
+> +    minItems: 42
+> +    maxItems: 42
+> +
+> +  clock-names:
+> +    items:
+> +      - const: camnoc_axi
+> +      - const: camnoc_axi_src
+> +      - const: cpas_ahb
+> +      - const: cphy_rx_src
+> +      - const: csiphy0
+> +      - const: csiphy0_timer
+> +      - const: csiphy0_timer_src
+> +      - const: csiphy1
+> +      - const: csiphy1_timer
+> +      - const: csiphy1_timer_src
+> +      - const: csiphy2
+> +      - const: csiphy2_timer
+> +      - const: csiphy2_timer_src
+> +      - const: csiphy3
+> +      - const: csiphy3_timer
+> +      - const: csiphy3_timer_src
+> +      - const: vfe0_axi
+> +      - const: vfe0
+> +      - const: vfe0_src
+> +      - const: vfe0_cphy_rx
+> +      - const: vfe0_csid
+> +      - const: vfe0_csid_src
+> +      - const: vfe1_axi
+> +      - const: vfe1
+> +      - const: vfe1_src
+> +      - const: vfe1_cphy_rx
+> +      - const: vfe1_csid
+> +      - const: vfe1_csid_src
+> +      - const: vfe_lite0
+> +      - const: vfe_lite0_src
+> +      - const: vfe_lite0_cphy_rx
+> +      - const: vfe_lite0_csid
+> +      - const: vfe_lite0_csid_src
+> +      - const: vfe_lite1
+> +      - const: vfe_lite1_src
+> +      - const: vfe_lite1_cphy_rx
+> +      - const: vfe_lite1_csid
+> +      - const: vfe_lite1_csid_src
+> +      - const: slow_ahb_src
+> +      - const: gcc_ahb
+> +      - const: gcc_axi_hf
+> +      - const: gcc_axi_sf
+> +
+> +  interrupts:
+> +    minItems: 12
+> +    maxItems: 12
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: csiphy0
+> +      - const: csiphy1
+> +      - const: csiphy2
+> +      - const: csiphy3
+> +      - const: vfe0
+> +      - const: csid0
+> +      - const: vfe1
+> +      - const: csid1
+> +      - const: vfe_lite0
+> +      - const: csid_lite0
+> +      - const: vfe_lite1
+> +      - const: csid_lite1
+> +
+> +  iommus:
+> +    maxItems: 8
+> +
+> +  interconnects:
+> +    maxItems: 4
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: cam_ahb
+> +      - const: cam_hf_0_mnoc
+> +      - const: cam_hf_1_mnoc
+> +      - const: cam_sf_0_mnoc
+> +
+> +  power-domains:
+> +    items:
+> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: ife0
+> +      - const: ife1
+> +      - const: top
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    description:
+> +      CSI input ports.
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY0.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - clock-lanes
+> +              - data-lanes
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY1.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - clock-lanes
+> +              - data-lanes
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY2.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - clock-lanes
+> +              - data-lanes
+> +
+> +      port@3:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY3.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - clock-lanes
+> +              - data-lanes
+> +
+> +  reg:
+> +    minItems: 12
+> +    maxItems: 12
+> +
+> +  reg-names:
+> +    items:
+> +      - const: csiphy0
+> +      - const: csiphy1
+> +      - const: csiphy2
+> +      - const: csiphy3
+> +      - const: vfe0
+> +      - const: csid0
+> +      - const: vfe1
+> +      - const: csid1
+> +      - const: vfe_lite0
+> +      - const: csid_lite0
+> +      - const: vfe_lite1
+> +      - const: csid_lite1
+> +
+> +  vdda-phy-supply:
+> +    description:
+> +      Phandle to a regulator supply to PHY core block.
+> +
+> +  vdda-pll-supply:
+> +    description:
+> +      Phandle to 1.8V regulator supply to PHY refclk pll block.
+> +
+> +required:
+> +  - clock-names
+> +  - clocks
+> +  - compatible
+> +  - interconnects
+> +  - interconnect-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - iommus
+> +  - power-domains
+> +  - power-domain-names
+> +  - reg
+> +  - reg-names
+> +  - vdda-phy-supply
+> +  - vdda-pll-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sm8150.h>
+> +    #include <dt-bindings/clock/qcom,sm8150-camcc.h>
+> +    #include <dt-bindings/interconnect/qcom,sm8150.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        camss: camss@ac65000 {
+> +            compatible = "qcom,sm8150-camss";
+> +
+> +            reg = <0 0xac65000 0 0x1000>,
+> +              <0 0xac66000 0 0x1000>,
+> +              <0 0xac67000 0 0x1000>,
+> +              <0 0xac68000 0 0x1000>,
+> +              <0 0xacaf000 0 0x4000>,
+> +              <0 0xacb3000 0 0x1000>,
+> +              <0 0xacb6000 0 0x4000>,
+> +              <0 0xacba000 0 0x1000>,
+> +              <0 0xacc4000 0 0x4000>,
+> +              <0 0xacc8000 0 0x1000>,
+> +              <0 0xaccb000 0 0x4000>,
+> +              <0 0xaccf000 0 0x1000>;
+> +
+> +            reg-names = "csiphy0",
+> +              "csiphy1",
+> +              "csiphy2",
+> +              "csiphy3",
+> +              "vfe0",
+> +              "csid0",
+> +              "vfe1",
+> +              "csid1",
+> +              "vfe_lite0",
+> +              "csid_lite0",
+> +              "vfe_lite1",
+> +              "csid_lite1";
+> +
+> +            interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>,
+> +              <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>;
+> +
+> +            interrupt-names = "csiphy0",
+> +              "csiphy1",
+> +              "csiphy2",
+> +              "csiphy3",
+> +              "vfe0",
+> +              "csid0",
+> +              "vfe1",
+> +              "csid1",
+> +              "vfe_lite0",
+> +              "csid_lite0",
+> +              "vfe_lite1",
+> +              "csid_lite1";
+> +
+> +            power-domains = <&camcc IFE_0_GDSC>,
+> +              <&camcc IFE_1_GDSC>,
+> +              <&camcc TITAN_TOP_GDSC>;
+> +
+> +            power-domain-names = "ife0",
+> +              "ife1",
+> +              "top";
+> +
+> +            clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+> +              <&camcc CAM_CC_CAMNOC_AXI_CLK_SRC>,
+> +              <&camcc CAM_CC_CPAS_AHB_CLK>,
+> +              <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
+> +              <&camcc CAM_CC_CSIPHY0_CLK>,
+> +              <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +              <&camcc CAM_CC_CSI0PHYTIMER_CLK_SRC>,
+> +              <&camcc CAM_CC_CSIPHY1_CLK>,
+> +              <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
+> +              <&camcc CAM_CC_CSI1PHYTIMER_CLK_SRC>,
+> +              <&camcc CAM_CC_CSIPHY2_CLK>,
+> +              <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
+> +              <&camcc CAM_CC_CSI2PHYTIMER_CLK_SRC>,
+> +              <&camcc CAM_CC_CSIPHY3_CLK>,
+> +              <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
+> +              <&camcc CAM_CC_CSI3PHYTIMER_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_0_AXI_CLK>,
+> +              <&camcc CAM_CC_IFE_0_CLK>,
+> +              <&camcc CAM_CC_IFE_0_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_0_CPHY_RX_CLK>,
+> +              <&camcc CAM_CC_IFE_0_CSID_CLK>,
+> +              <&camcc CAM_CC_IFE_0_CSID_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_1_AXI_CLK>,
+> +              <&camcc CAM_CC_IFE_1_CLK>,
+> +              <&camcc CAM_CC_IFE_1_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_1_CPHY_RX_CLK>,
+> +              <&camcc CAM_CC_IFE_1_CSID_CLK>,
+> +              <&camcc CAM_CC_IFE_1_CSID_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_LITE_0_CLK>,
+> +              <&camcc CAM_CC_IFE_LITE_0_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_LITE_0_CPHY_RX_CLK>,
+> +              <&camcc CAM_CC_IFE_LITE_0_CSID_CLK>,
+> +              <&camcc CAM_CC_IFE_LITE_0_CSID_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_LITE_1_CLK>,
+> +              <&camcc CAM_CC_IFE_LITE_1_CLK_SRC>,
+> +              <&camcc CAM_CC_IFE_LITE_1_CPHY_RX_CLK>,
+> +              <&camcc CAM_CC_IFE_LITE_1_CSID_CLK>,
+> +              <&camcc CAM_CC_IFE_LITE_1_CSID_CLK_SRC>,
+> +              <&camcc CAM_CC_SLOW_AHB_CLK_SRC>,
+> +              <&gcc GCC_CAMERA_AHB_CLK>,
+> +              <&gcc GCC_CAMERA_HF_AXI_CLK>,
+> +              <&gcc GCC_CAMERA_SF_AXI_CLK>;
+> +
+> +            clock-names = "camnoc_axi",
+> +              "camnoc_axi_src",
+> +              "cpas_ahb",
+> +              "cphy_rx_src",
+> +              "csiphy0",
+> +              "csiphy0_timer",
+> +              "csiphy0_timer_src",
+> +              "csiphy1",
+> +              "csiphy1_timer",
+> +              "csiphy1_timer_src",
+> +              "csiphy2",
+> +              "csiphy2_timer",
+> +              "csiphy2_timer_src",
+> +              "csiphy3",
+> +              "csiphy3_timer",
+> +              "csiphy3_timer_src",
+> +              "vfe0_axi",
+> +              "vfe0",
+> +              "vfe0_src",
+> +              "vfe0_cphy_rx",
+> +              "vfe0_csid",
+> +              "vfe0_csid_src",
+> +              "vfe1_axi",
+> +              "vfe1",
+> +              "vfe1_src",
+> +              "vfe1_cphy_rx",
+> +              "vfe1_csid",
+> +              "vfe1_csid_src",
+> +              "vfe_lite0",
+> +              "vfe_lite0_src",
+> +              "vfe_lite0_cphy_rx",
+> +              "vfe_lite0_csid",
+> +              "vfe_lite0_csid_src",
+> +              "vfe_lite1",
+> +              "vfe_lite1_src",
+> +              "vfe_lite1_cphy_rx",
+> +              "vfe_lite1_csid",
+> +              "vfe_lite1_csid_src",
+> +              "slow_ahb_src",
+> +              "gcc_ahb",
+> +              "gcc_axi_hf",
+> +              "gcc_axi_sf";
 
-[ ... ]
+42 is ofc a sacred number so its a pity BUT you almost certainly don't 
+need the _src clocks here.
 
-> @@ -3584,7 +3731,7 @@ static void switched_from_dl(struct rq *rq, struct =
-task_struct *p)
->  			 * or sub_rq_bw (below) will complain.
->  			 *
->  			 * inactive_task_timer() will find !dl_task(p) and
-> -			 * release total_bw via __dl_sub().
-> +			 * release total_bw (dl_task_release_bw()).
->  			 */
->  			sub_running_bw(&p->dl, &rq->dl);
->  		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
-> @@ -3600,12 +3747,7 @@ static void switched_from_dl(struct rq *rq, struct=
- task_struct *p)
->  			 * nor for a special one: neither has bandwidth in
->  			 * total_bw.
->  			 */
-> -			unsigned int cpu =3D dl_task_root_domain_cpu(p);
-> -			struct dl_bw *dl_b =3D &cpu_rq(cpu)->rd->dl_bw;
-> -
-> -			raw_spin_lock(&dl_b->lock);
-> -			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
-> -			raw_spin_unlock(&dl_b->lock);
-> +			dl_task_release_bw(p, dl_task_root_domain_cpu(p));
->  			released =3D true;
->  		}
->  		sub_rq_bw(&p->dl, &rq->dl);
+> +
+> +            iommus = <&apps_smmu 0x840 0x620>,
+> +              <&apps_smmu 0x860 0x620>,
+> +              <&apps_smmu 0xA40 0x620>,
+> +              <&apps_smmu 0xA60 0x620>,
+> +              <&apps_smmu 0xC40 0x620>,
+> +              <&apps_smmu 0xC60 0x620>,
+> +              <&apps_smmu 0xE40 0x620>,
+> +              <&apps_smmu 0xE60 0x620>;
+> +
+> +            interconnects = <&gem_noc MASTER_AMPSS_M0 0 &config_noc SLAVE_CAMERA_CFG 0>,
+> +                <&mmss_noc MASTER_CAMNOC_HF0 0 &mc_virt SLAVE_EBI_CH0 0>,
+> +                <&mmss_noc MASTER_CAMNOC_HF1 0 &mc_virt SLAVE_EBI_CH0 0>,
+> +                <&mmss_noc MASTER_CAMNOC_SF 0 &mc_virt SLAVE_EBI_CH0 0>;
+> +
+> +            interconnect-names = "cam_ahb",
+> +              "cam_hf_0_mnoc",
+> +              "cam_hf_1_mnoc",
+> +              "cam_sf_0_mnoc";
+> +
+> +            vdda-phy-supply = <&vreg_l5a_0p88>;
+> +            vdda-pll-supply = <&vreg_l3c_1p2>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    #address-cells = <1>;
+> +                    #size-cells = <0>;
+> +
+> +                    csiphy_ep0: endpoint@0 {
+> +                        reg = <0>;
+> +                        clock-lanes = <7>;
+> +                        data-lanes = <0 1 2 3>;
+> +                        remote-endpoint = <&sensor_ep>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> 
 
-[ ... ]
-
-> @@ -3657,6 +3809,16 @@ static void switched_from_dl(struct rq *rq, struct=
- task_struct *p)
->  static void switched_to_dl(struct rq *rq, struct task_struct *p)
->  {
->  	cancel_inactive_timer(&p->dl);
-> +	/*
-> +	 * Boosted back into the class before its 0-lag time (a policy change
-> +	 * released that bandwidth in sched_dl_overflow()): the inactive
-> +	 * timer will not remove it, but its leaving the class again. That
-> +	 * forgets the CPU recorded: moved to another root domain meanwhile,
-> +	 * the task then removes the bandwidth from that one, as it did
-> +	 * before departures were recorded.
-> +	 */
-> +	if (p->dl.dl_departed_cpu >=3D 0)
-> +		dl_task_undepart(p);
-
-[ ... ]
-
-> @@ -3924,6 +4078,19 @@ int sched_dl_overflow(struct task_struct *p, int p=
-olicy,
->  	}
->  	raw_spin_unlock(&dl_b->lock);
-> =20
-> +	/*
-> +	 * Back before its 0-lag time, the task still has the bandwidth it
-> +	 * left with, which the new one replaces: removed from the root
-> +	 * domain that keeps it (dl_task_release_bw()). A rebuild cannot
-> +	 * run meanwhile: the caller holds cpuset_mutex.
-> +	 */
-> +	if (!err && dl_policy(policy) && !task_has_dl_policy(p)) {
-> +		lockdep_assert_cpuset_lock_held();
-> +		if (p->dl.dl_departed_cpu >=3D 0)
-> +			dl_task_release_bw(p, -1);
-> +		p->dl.dl_bw_gen =3D dl_bw_gen;
-> +	}
-
-[Severity: High]
-As reported by Sashiko on v1 [1], can priority-inheritance boosting of a
-departed task before its 0-lag time corrupt root-domain total_bw accounting?
-
-When a SCHED_DEADLINE task p switches to a non-deadline policy such as
-SCHED_OTHER before its 0-lag time, switched_from_dl() arms inactive_timer,
-clears p->dl.dl_non_contending, keeps p->dl.dl_runtime and p->dl.dl_bw, and
-calls dl_task_depart() to record the CPU of its original root domain (RD_A)
-and link p onto dl_departed_list. If p holds an rt_mutex and is boosted into
-dl_sched_class via rt_mutex_setprio() before its 0-lag time,
-switched_to_dl() calls cancel_inactive_timer(&p->dl) and
-dl_task_undepart(p), unlinking p from dl_departed_list and resetting
-p->dl.dl_departed_cpu to -1 in this commit.
-
-In this commit, resetting p->dl.dl_departed_cpu to -1 causes
-sched_dl_overflow() to skip dl_task_release_bw() if p is setscheduled back
-to SCHED_DEADLINE while boosted, leaking the old p->dl.dl_bw in RD_A, and
-causes switched_from_dl() on deboost after a migration to RD_B to subtract
-p->dl.dl_bw from RD_B instead of RD_A.
-
-Later commits in the series ("sched/deadline: Record the root domain holding
-a task's bandwidth" and "sched/deadline: Count the bandwidth a boosted task
-is given") replace dl_departed_cpu with dl_bw_cpu (preserving dl_bw_cpu
-across dl_task_undepart()) and update rq->dl.this_bw in __setparam_dl().
-However, even with those later commits applied, don't the following three
-scenarios still corrupt bandwidth accounting when a departed task is
-PI-boosted before its 0-lag time?
-
-1. If p migrates to another cpuset partition / root domain (RD_B) while in
-SCHED_OTHER (!dl_task(p)), cpuset_can_attach() does not reserve or move
-p->dl.dl_bw into RD_B, so p->dl.dl_bw remains in RD_A. If p is then
-PI-boosted in RD_B, switched_to_dl() calls dl_task_undepart(p) and unlinks
-p->dl.dl_departed_node from dl_departed_list. If dl_rebuild_rd_accounting()
-runs while p is PI-boosted, dl_clear_root_domains() does not see p on
-dl_departed_list, and dl_add_task_root_domain(p) sees that p is not on
-dl_departed_list (list_empty(&p->dl.dl_departed_node), or
-p->dl.dl_departed_cpu < 0 here). Doesn't dl_add_task_root_domain(p) then
-ignore the recorded CPU in RD_A and add p->dl.dl_bw to RD_B (via
-dl_get_task_effective_cpus()), dropping p's departing bandwidth from RD_A
-before its 0-lag time and charging RD_B without admission control?
-
-2. Because rt_mutex_setprio() only holds p->pi_lock and rq->__lock (not
-cpuset_mutex or dl_accounting_mutex), can a PI deboost race with a
-concurrent dl_rebuild_rd_accounting()? If p is PI-boosted when
-dl_clear_root_domains() runs, p is not on dl_departed_list, so
-dl_clear_root_domains() clears the root domains without restoring
-p->dl.dl_bw. If rt_mutex_setprio() then deboosts p before
-dl_add_task_root_domain(p) inspects it, switched_from_dl() re-adds p to
-dl_departed_list after dl_clear_root_domains() has already finished, and
-dl_add_task_root_domain(p) sees !dl_task(p) and returns early, dropping p's
-departing bandwidth before its 0-lag time.
-
-3. If p is sleeping (!task_on_rq_queued(p)) after leaving SCHED_DEADLINE
-with inactive_timer armed (so p->dl.dl_non_contending is 0), and a
-SCHED_DEADLINE waiter blocks on an rt_mutex held by p, switched_to_dl()
-cancels inactive_timer and calls dl_task_undepart(p). If that waiter times
-out or is interrupted while p is still sleeping, rt_mutex_setprio() deboosts
-p and calls switched_from_dl(). Since !task_on_rq_queued(p),
-p->dl.dl_non_contending =3D=3D 0, and p->dl.dl_runtime > 0, doesn't
-switched_from_dl() enter the else-if branch and call dl_task_release_bw()
-immediately, releasing p->dl.dl_bw before p's 0-lag time has elapsed?
-
-[1] https://lore.kernel.org/r/9a2c58b84302e5ed3765f773eca3c71c7d5ea7bb.1793=
-804635.git.mathieu.desnoyers@efficios.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
-343-1-mathieu.desnoyers@efficios.com?part=3D9
