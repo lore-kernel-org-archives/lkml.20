@@ -1,89 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805320;
-	b=hvOWdy93x7ZfimdaYVNROfEu0yMHU86DkUvlBhOFfZI5yoBTYMoAkkVDWoIHBGjcRqFC
-	 qi4AM2Nc9eE4i88lMCh258ft7iAdatBT6DpF+R9T4kasIzxnh99ejkQRyt+i+T2/dklLc
-	 2BF0o80ncgF47ulqVVNKZEuANjH7OnGGRpwOVNq7m7ZmbfH7TOJjXkEXqMuuudlw37EIw
-	 d40JCF7wsiqBew+mL0+K07Oh8fVBm+Tlukzcx3vpdniL5MvZQ2y/ZGJm1tA1XxfIF5lKk
-	 e1l32TVMUlQKLOcj8bLXN5NjaPvOTNBUUqweUnNltt27DsfJ7J52twIBUS0JxWyas6g==
+	t=1793805359;
+	b=AzkEilYoxUsTgQenS54rhm10uk/OOZtApb+4NoNY0pw9zqUpj4/QLofDcBFTFA/KJABz
+	 iWB/bU0alWE+GYcuIRUYXmS4D14YG+hHYE4bI8aNi51SRlkxHYn6seQGRK0qV2YXUeKFW
+	 t3VE/xAPLTY2TEWWKGN7Qp7nkzJQ04ljDqHMODSoHC5vJwLoCuX9XjyQNXNJCK8gyXERH
+	 x3TNtXyBmJ3QVMIboyd4H+c5Iyp/bsFrbPBSkBJP+ZVy5cchc4gSAG+LMzT3XK+6KeSbY
+	 ybrkTfVEhi6MBQKomZ5Kw+WpACB65havVbeYX9eTzGcHj/zQMpyWkmhsNh7VnPfrM4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805320;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=GpnNU5B9NJK77jC6aRes+NautYKxyKYAGU+8JJGRzB8=;
-	b=Hc1otda65tpvZwpfQVwTUiT1gYBwr7GRU54I0iyBJiQFE3gbyXM0UuRoW56/jg3fuzc9
-	 G3KKmKG2DJU9hYW3W+/jj8B3OjmPz8eOntz1Y1pRvqI5MfOTC1vpPy96NfmtRcS9ZKYNO
-	 L784B+J76LrNH71HPmUPPnrGbbofzSBGnco78oKzqQm1gH7pZP9/t+w5ft3SCDS2WOtFm
-	 dy/lc3nt1qPkulAgE94+3fVJ9LdhA0OfbgGihyinxJPC2cz7yrGVJ3lEgoH+zBB4Z1PAc
-	 xRjaYjH4g4RTQ1EZeKQE84jOqeONqH/wocQIHwBRhEvDoqd1mmqjjltDbf9htUEPaDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805359;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=KsyYfy8mRvC6Ia8wqa8pYvudHgL76D/OhZQDvChBBpA=;
+	b=Yp9tz9asz9HXAWJyGap92Fk1Wzu2tOQsQHY0gXl8VFUuTTrnj+Ey1tPc7f8tifZzDdSY
+	 jnHd7srrZsHTOAlGJYnxHSgZilBnfSnxJ+jcG/fU6AnYftyQ4GihJUrd9zW2UISkQO6ZD
+	 /NwrCKTxNi24hJS6DBmcjKIhy8SufLS3+YcxUsLorcds15ZxrcakwiC7BPiBzdJYEgsyt
+	 PsciHrGOPrHqOkTdduL4J80JmtRos20I+L3sr0eRS0lY+MEY4GEhROUzocb6EGRME16il
+	 V1Q99gq5Ot4WwsJmL9QwkoSHKQFcGm4T9bhu4indo7k+q2D8UYay4YLmZOrdUGXAiKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M6LY+J7M;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OAdL1m1e;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kfq8ha61;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2C0606D810
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C2C0606D810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B319B606D802
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:15:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B319B606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M6LY+J7M
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so8551615e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:15:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OAdL1m1e;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kfq8ha61
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4EI1fS3079442
+	for <linux-kernel@vger.kernel.org>; Wed, 4 Nov 2026 15:15:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=KsyYfy8mRvC6Ia8wqa8pYvudHgL76D/OhZQ
+	DvChBBpA=; b=OAdL1m1e7tCooj9OIt+x9AEFxJzyrptrgoZgFN2MQGDvmN0DNrl
+	9Bj4CL+atIm7xLHPuZ6tQwxUp56OjIvQxkZtAWx0cPwU5glV8sRsUmozsumaBaDE
+	elAXR64+cPpSfaJYwl07gBBW/YDEv918Kofmh6vmuySFHZUI/aT3ad/MEb3y/R/P
+	XmAILFQUDLDXy4MhepYRJ69aCu6cMNKRlg3Q1Nmio+WQHeT8LMdx/YFu6ExqbtCN
+	53Rdy7er9VllNRakLdlrmNHfMu2oK5iRXHNMksBpQneqg9MTAZolSxfzSvpqElo0
+	h9AMmVEsoEumxZ3s01LiOmDVuMHCSOkkEfA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bng6xq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:15:57 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7cc10da5ad4so247069137.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:15:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793805318; x=1794410118; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GpnNU5B9NJK77jC6aRes+NautYKxyKYAGU+8JJGRzB8=;
-        b=M6LY+J7Maap5Xkn35WhtQ4qpZIjdiLwIhtpYcaP9gnj984fV0oknNqjEMp2OegYMFI
-         aumcBMEIAt32eGfRe7wcGT6ACO/pz2N4VVwXNjjMbo/9g2J6K1XnKxM5cRImahGq06HQ
-         tJ4MoUZG1R3aDKsLG7SxTca8A9vCquS8imLq/JEqJpJkM/4D0HFralwa8VyQypN4ygY0
-         IRoe8JhKpodd9P6m76lJhYL59HHtAblnYAjAr28Q62qBncgmr7ViCJYBt/bePYtM9hjr
-         UFMduYQXZEweWE7+NhoNJFhYMYTKm/Y7uq0GdGsHlB6hIR38Re0OSMu7KSxgh+c2zvMS
-         /Jfg==
+        d=oss.qualcomm.com; s=google; t=1793805357; x=1794410157; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KsyYfy8mRvC6Ia8wqa8pYvudHgL76D/OhZQDvChBBpA=;
+        b=kfq8ha61gHAX7duIP113CuxamEm8AMZVPDeSfwjcQmC1DYIrBBQr1I5FfS4Nwo4+fO
+         AcGYF+uhtyeaUbbWL/ZkGWARffVs1bC/ZCRaO69GK2vEnSrpKWPG4dZVpnMYBjLW+VFs
+         c/htu2wn1Af1IJGsQMq12OjbK+0PscbCwCb6luE0Aaf3KBn1Zm+muBnWEm+bwWYd3zwP
+         tVK30bNhJieAw8DjJhc2T745cXzDFTiyBLPJXx9kWOfrZeJgqq1FHfn0C/sPYfvOQBIV
+         VbN72GQunqVxuLNHneRek4gVQinH3HLt1yJoCvheanXtZc+hhcxTebshZXgjPn6VnSEQ
+         nF0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793805318; x=1794410118;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GpnNU5B9NJK77jC6aRes+NautYKxyKYAGU+8JJGRzB8=;
-        b=WGyvb4zl+hnfiTmP9vag863VKRQ3EidDlFMeSJQgDTILEFTps6/pg8OOgx1ReMT/NB
-         b5eucrD0YmDvYPTjD+bE9aJNrj9yFallVqE95EpEaW9KBTSOKEhTo6m8qr59DFQZz/1s
-         Wa4HmV+bGxNI9M/dh5G4IfM7SqjXiy5Wen0qBFfaXKv9G1gYo47hk5zcMcn7SMy7YX3D
-         eeyTiJhtnNOLfGhax1TX4jb3LZjn2Qf+tpGexPLYsxlPpEV8CShlwxqIjt0nU4Kpj76K
-         aJ2rhMeSlqyc//EqESjqFSC4aiDJoI+NM/i6Vndax1/EOHVQ2N8e+eiiuEap/MbTX/By
-         XTvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxUyPyI0YDcPQJw4sQ81gl5vMG3/P/mVK7mxcEZUjxpc1mxvVRq5dv5GillekEkKnHO+jrZjGOF/5DKKSU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z988i5VXlpfbz02f9qSZFFcL5QId2Gv0RhN2DxGfFZP/M3uau+p
-	PWDQuiEYm/koO8zB/wZC3pCU3h3E0VoOUrsbsMrc88jKJRjBYZNc9TEcLd6UAw==
-X-Gm-Gg: AYBFou3Upph24bY2HhjWXnyXH3Zrp04Zb9DfeDITHjz33DYh71Hqo9SN4wIOQO+06Bs
-	sDbEBjMYisjeHLZmVVJGqqqOv+Ldr97Afdjo0k0Shpm9GTxSNle+lHmXW0HgeppsH8zJhpjfw3z
-	Hwyd6VDLONMQL4ECLVH/FSbimrYp8ktT4JVmA2iQEqX2/xvURSWcSyqW2V9A/Q4Ljgaw0Cs2XKh
-	ANqYwlgUJYKYOaflXGY1YbyLcgnJlYTO6kkAtdel4TP8Cm6Q0gYQ0sNw7k1OqWe6vlzamg/c2nJ
-	VZMNKllvzQb42rAB7+5s886qHZ/T/UIkrqlmLFoqMKVDvzcA3kzKyz7OGKwj7DDuBZl/Y6JvZcH
-	u7sKt6EkKSVbj9nYBZZdiMQYPVPrHDFayCXAoQ01yfagu17wCtuEQrDKk6Gs33Qo7F4EvaIcDF2
-	hxAwUwfAlU52cCHu24b6/HoT1/SZB5qmC5wjHnlVGtG1VmaGEJWXicjJaEVvXw4E7c6vfW4ojLS
-	4AyD4+kgJEoOdCsXPEdq+awPP4TF1+8I9cCwHcucb4DVH+E2+ZQEIBQIZ2FTe/N78P/K3+tkEI+
-	Au3qx7Ob+vDT5DTrU00nukmvSMKOYEDDveKQSA19d3bkk8cctbFeza9BAaDuolAL4A==
-X-Received: by 2002:a05:600c:4e11:b0:4a0:eae0:769a with SMTP id 5b1f17b1804b1-4ac185bc7d0mr364163455e9.28.1793805318506;
-        Wed, 04 Nov 2026 07:15:18 -0800 (PST)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:f5b6:cc80:9262:e168])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fee968763sm4435197f8f.56.2026.11.04.07.15.17
+        d=1e100.net; s=20260707; t=1793805357; x=1794410157;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KsyYfy8mRvC6Ia8wqa8pYvudHgL76D/OhZQDvChBBpA=;
+        b=wdcQ/BafeIXm1EhC2rO8hizG69o8Lefrq/dUrqfZdwxOZeK2iKJn25IxEz2G8N1s5/
+         7isXG406ln8x0i5C9Q3FjSbMRKoSZQsi/upvoi20cXCUDL7NCnDz4NUk0FmxeWmiS609
+         zCgpkbliLDxNXaIYMvKIE2sb5bxh4ERL1H/M1l7iZzVgfeMxmOSnsnDONjhDSyYfD75G
+         mJF5gU3NdwHOYETR7917Q3NgREGG1dW4DD+Q93bPd+sEs6yJn5osga+TiikRB0TFjlbR
+         VJYYEieWPCSjkPnFoe34kB6gjKP7WhzTlTBcyFscoPu3TLW9oMP5TAed25mIQp7OfmP3
+         ptuA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1W1Wvzu/Ie8hx3INlU47EZx0v6YjsTJiISegLMLKysMdIDybU2xzIPL0Xr5o537clkmEWjQ0pfOBtWt0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HYiGIUX0EKnpg3YT9AHG9AtWtjWdlCBakABYcTngKXksP+JEF
+	LifivRttOqzOMXeVdr6Sd6nOZFs0QvCstQh7CBgK796fWULeuSHI1v+zRC85ywUvM0Bbxdz2dja
+	9GIvH1ImCqsCm+DAweBF7Six5H7BbLBivrEQXZFGMsUVnzjOm5R7hmRJiRD2FMsuHwH6OhULspz
+	E=
+X-Gm-Gg: AYBFou3ET9xJNGw7woVIOPjwbb64gUa48CfTdJOXE3ipwag1kWY9bopsDu6993GweXj
+	X8q1T0oK8aXeoDd+sdlu2M4z5TUOYq9Sr66wh/qFwVd8npVQbvev4hOGr1qOXHHCUxt4T95fY4v
+	abAaHogKNECENH9byM0gdVBNDsvNnPJdWEFhmH7Y4XdZvkUT5l4Le0ObnI+Mt3IvdJMrXDcF17V
+	NgCsY3VJxgrux7/eZboODPsAZKGCF585Ytd/9uJ+DJVh2XV3EsLLd+pbjtMdRg1VZEh15hU/ueO
+	2wLuOotYAcql2yuOOQjeZm8pB08Q0tA7Zk8wEGm9ovnesandLvbbKobflWiCbbV00WWc30sk/Na
+	9VvUjzV11hkh76zHb5je+S+6VqG7w9X0wxOmi4n1SiACYzKHjWvWTYSwnavRAFg==
+X-Received: by 2002:a05:6102:6449:b0:7cb:bc5e:7dad with SMTP id ada2fe7eead31-7d072baa450mr5990199137.10.1793805356669;
+        Wed, 04 Nov 2026 07:15:56 -0800 (PST)
+X-Received: by 2002:a05:6102:6449:b0:7cb:bc5e:7dad with SMTP id ada2fe7eead31-7d072baa450mr5990167137.10.1793805356115;
+        Wed, 04 Nov 2026 07:15:56 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa481a45sm134321875e9.7.2026.11.04.07.15.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:15:18 -0800 (PST)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Wed, 04 Nov 2026 15:15:13 +0000
-Subject: [PATCH v8 4/4] arm64: dts: renesas: r9a08g046l48-smarc: Enable
- USB2.0 support
+        Wed, 04 Nov 2026 07:15:55 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Haotian Zhang <vulab@iscas.ac.cn>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: [PATCH] soc: qcom: cmd-db: Fix probe race with possible ERR_PTR dereference
+Date: Wed,  4 Nov 2026 16:15:51 +0100
+Message-ID: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,136 +120,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-usb_rzg3l-v8-4-ab109c4bd108@bp.renesas.com>
-References: <20261104-usb_rzg3l-v8-0-ab109c4bd108@bp.renesas.com>
-In-Reply-To: <20261104-usb_rzg3l-v8-0-ab109c4bd108@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793805313; l=2436;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=YojL+tlinE7FIZ2yeWFo6aqIrFv+jHkcwPWa0n5GxOM=;
- b=qvqZR72nd3jkfSRiegsp8j/z9jBmkwHWkyrsvNPMZD0V96dBR0A57iLA022H7Js+e5d7JveyS
- 2lHoXLZDrTvB/6Bl/eYIAv6+X21qKBK0x7WHXSi52+0tIh5OSjDppeJ
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2576; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=MQcMMyIyhWEipHgYUA1kmj8xFsF8tkr+QmI4/dQ61uY=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq60wmqGr0SYcw4CYMyCDyvzNLSYOvICMFjA769
+ ULwEeTog2+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCautMJgAKCRDBN2bmhouD
+ 16yXEACN0xBTQvk/FRE3tbvCH0kH/685JGYvunRPpT2wvdtFYO5XSeN+Xs4Tl5HrK2PMxablDto
+ Vij0+JWKhHHFj5dd9NGKsv0QiGKicflwC1LCvZhIMfxp90vNSGzk3osxhgiEQH9kKVfDPDO19pU
+ 5c+wILTIwz74I9Kx7NLginJl+YouQDyox+V63KpWodhh1dTZGjdHKjVfeEZouMj2uG5e2lYUlzT
+ luBZcOt7Id4567asZwXC2LXBQoinUAV9lfTKst0Cgmi8dSPhmw2NBL2nPS3YQmpkPoDwpaLP+6B
+ UwGjfT3vC5Yp1uL63Kz4IprIDKScp2MHEHYkSSrh1Mbn7HF0/sXnvH45IW/dnoNBSbDR5DEmlXf
+ 3KDlwduhrxGuEt1iIQPF5fYMGjEeVUGxQKoptGYb9+WGUQ925xWsW7SRHsMz6xBz0HuQobadecO
+ MRsSHLathQ9vk2LWTpVQzFTeqPPlQ1GiMydMXhS1kTPpBwR8N5z/Ya/+EyGznDjDwzSbf0aC9Bm
+ rXYV8dwKHg0yYrkGQTICpeNMkFRwTXSx5xg39my6su4m5F7jbrEiH1HBQnn3NptHEiWsMrBEvw/
+ VDRzjRMO/6FIXmiKZxeOI6oYCENM4zmwuzJgJ+ZRpLCE4Yx4hm9moabH1U0GLcp4RyzJufwPzZ+ MNrsnO87DQPDHtw==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MCBTYWx0ZWRfX5Cq+v7W37Pzl
+ cghiQbYumSY2GjIAF3Ql2rFREw7R4tbR2xqFZiTBVx2HTsUGvNaRyTQ6v/d121xt5Q+30od/xbo
+ 9QjMe90ai1Fdo1nx4CTvAH/YMD0N34xRjA6IKuVk1g7H20844mn3ksfx5xFyn/zauY69QHweiN5
+ 9rQiHsHOxyTVNJKkPYROxRv2BIK4J5e/bpHMxq5mMtfh5UJpP05jggZOeqIY7u7UXMH9KZxAPPF
+ OA3uywxNKyANa2AkTbKBTRdMGHM36tCmiK+tl+ZZsnCDu99KJXSkwsmX58RwhEpXnbViHBdzm01
+ tQ5AI+Ko472zCGtCi8zx3lPDlAzmqkmaaUa3swoTDsD4etxceDqzkMiMCKV++C3913TnhBoQQQC
+ LQnIkHl72Wv6VenNNLQlXs49wK7RZ+xPfhTTnv/QKXMByO2+MX7Dwq+L7D35c5/cHmcdduqs8qA
+ VYC04ApTt8fuFcXJeig==
+X-Authority-Analysis: v=2.4 cv=KLLPn1Fo c=1 sm=1 tr=0 ts=6aeb4c2d cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=0UCu7NDXrwntZz1bfdkA:9
+ a=gYDTvv6II1OnSo0itH1n:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: uawr5sj_Y2WtWfmWvjW2qj4nowpFTh50
+X-Proofpoint-GUID: uawr5sj_Y2WtWfmWvjW2qj4nowpFTh50
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MCBTYWx0ZWRfXxZedhPU48ggT
+ XYlysrjIuU9Cq9HaeMZ+PfhaMGX1G8jWFXVDN8DB7lzuigTvqNAW6dO0NzDHhuH3PGwSsv+fAnk
+ /iiLLA+e8ebcbGKtxFN01rRjwZBpQEU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 phishscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040060
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+cmd_db_dev_probe() stores the result of devm_memremap() directly in the
+global "cmd_db_header" variable and only afterwards validates it, which
+opens a very short window where a concurrent thread could access and
+dereference stored ERR_PTR.
 
-Enable USB2.0 Host/Function on the RZ/G3L SMARC EVK board.
+Theoretical (not reproduced) race condition could look like:
 
-Drop the explicit "disabled" overrides for the OHCI, EHCI and HSUSB
-nodes, as they are disabled by default in the SoC DTSI. Enable the USB
-PHY controller and both USB2 PHYs, with VBUS supplies, and add the USB0
-pin control (OVRCUR/VBUSEN). Port 1 has no OTG pins.
+  CPU 0                               CPU 1
+  -----                               -----
+  cmd_db_dev_probe()
+    cmd_db_header = devm_memremap();
+    // holds ERR_PTR
+                                      cmd_db_ready()
+                                        if (cmd_db_header == NULL)
+                                          // false, proceeds
+                                        cmd_db_magic_matches(cmd_db_header);
+                                          // oops on ERR_PTR
+    if (IS_ERR(cmd_db_header))
+      cmd_db_header = NULL;
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-1e6d9e1c-b97d-447c-9cbc-d874a0609918
+Fixes: 0da7824734d8 ("soc: qcom: cmd-db: Use devm_memremap() to fix memory leak in cmd_db_dev_probe")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-v7->v8:
- * Updated commit header.
- * Dropped redundant nodes from board dts as it is defined in common
-   board dtsi
- * Dropped usb1_pins.
-v6->v7:
- * Moved the patch.
- * dr_mode changed to 'host' as function is not enabled yet.
-v5->v6:
- * No change.
-v4->v5:
- * No change.
-v3->v4:
- * No change.
-v2->v3:
- * No change.
-v1->v2:
- * Updated commit description.
----
- arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 42 +++++++++++-----------
- 1 file changed, 22 insertions(+), 20 deletions(-)
+ drivers/soc/qcom/cmd-db.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 68d7b579e352..9ffaead2c6be 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -71,18 +71,6 @@ codec_dai: codec {
- #endif
- };
+diff --git a/drivers/soc/qcom/cmd-db.c b/drivers/soc/qcom/cmd-db.c
+index 3f1eee784387..5d303ca0dbd0 100644
+--- a/drivers/soc/qcom/cmd-db.c
++++ b/drivers/soc/qcom/cmd-db.c
+@@ -340,8 +340,8 @@ static const struct file_operations cmd_db_debugfs_ops = {
  
--&ehci0 {
--	status = "disabled";
--};
--
--&ehci1 {
--	status = "disabled";
--};
--
--&hsusb0 {
--	status = "disabled";
--};
--
- &i2c2 {
- 	pinctrl-0 = <&i2c2_pins>;
- 	pinctrl-names = "default";
-@@ -134,19 +122,15 @@ &keys {
- #endif
- };
+ static int cmd_db_dev_probe(struct platform_device *pdev)
+ {
++	struct cmd_db_header *header;
+ 	struct reserved_mem *rmem;
+-	int ret = 0;
  
--&ohci0 {
--	status = "disabled";
--};
--
--&ohci1 {
--	status = "disabled";
--};
--
- &pcie {
- 	pinctrl-0 = <&pcie_pins>;
- 	pinctrl-names = "default";
- };
+ 	rmem = of_reserved_mem_lookup(pdev->dev.of_node);
+ 	if (!rmem) {
+@@ -349,19 +349,17 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 	}
  
-+&phyrst {
-+	status = "okay";
-+};
-+
- &pinctrl {
- 	audio_clk_pins: audio-clock {
- 		pinmux = <RZG3L_PORT_PINMUX(H, 4, 6)>, /* AUDIO_CLK_B */
-@@ -217,6 +201,11 @@ ssi0_pins: ssi0 {
- 			 <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
- 			 <RZG3L_PORT_PINMUX(H, 3, 9)>; /* SSIF0_TXD */
- 	};
-+
-+	usb0_pins: usb0 {
-+		pinmux = <RZG3L_PORT_PINMUX(3, 0, 12)>, /* USB20_OVRCUR */
-+			 <RZG3L_PORT_PINMUX(3, 1, 12)>; /* USB20_VBUSEN */
-+	};
- };
+-	cmd_db_header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
+-	if (IS_ERR(cmd_db_header)) {
+-		ret = PTR_ERR(cmd_db_header);
+-		cmd_db_header = NULL;
+-		return ret;
+-	}
++	header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
++	if (IS_ERR(header))
++		return PTR_ERR(header);
  
- #if SW_SER0_PMOD
-@@ -277,3 +266,16 @@ &ssi0 {
- 	status = "okay";
- };
- #endif
+-	if (!cmd_db_magic_matches(cmd_db_header)) {
++	if (!cmd_db_magic_matches(header)) {
+ 		dev_err(&pdev->dev, "Invalid Command DB Magic\n");
+-		cmd_db_header = NULL;
+ 		return -EINVAL;
+ 	}
+ 
++	cmd_db_header = header;
 +
-+&usb2_phy0 {
-+	pinctrl-0 = <&usb0_pins>;
-+	pinctrl-names = "default";
-+	vbus-supply = <&usb0_vbus_otg>;
-+	status = "okay";
-+};
-+
-+&usb2_phy1 {
-+	vbus-supply = <&usb1_vbus_otg>;
-+	renesas,no-otg-pins;
-+	status = "okay";
-+};
-
+ 	debugfs_create_file("cmd-db", 0400, NULL, NULL, &cmd_db_debugfs_ops);
+ 
+ 	device_set_pm_not_required(&pdev->dev);
 -- 
-2.43.0
+2.53.0
 
