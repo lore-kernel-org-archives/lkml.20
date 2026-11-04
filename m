@@ -1,47 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797158;
-	b=1DSwlqHErX+3G1znMMBnACAFH8a8Hi6/ADMwAF1Rc5RwMhZvnlvgdZRMVNEIkuOYabC8
-	 eRKF3BQE8bYKfgK4e4Eh9y1/vP122OlSwfNMrx0p55ZJ5pNsdtmz8sOuisbGEDaAhJp2L
-	 lqcSdiI7ZRK6Z7nB+9VgFZgRpZ8Q7arj0KIpZd9ZxXRNskzidsny6xf8hmhNvWbgYB0Et
-	 Ju+s0cvAVzbJu+R5W7h3XHKRy1lYIU4gx/DDoDTtnXKhqfdTRfFSnZaCgnwxdPbXteHnw
-	 c+YV3wOz7klAihKT0FWXoapu9sYAfcYLUdMOM/OVbtcI4RSik7BIT6IaR2MIKJJTSLw==
+	t=1793797162;
+	b=JHqNvOBrk2kQFKN9nTIRxX/Mf2+yk6KZhhvr9lUSOTB+nP622G3fCWrvNCNqxAzjZoxm
+	 /2pxrLArYpfv0LlEsdGFeeybdInXNfRtuU6vdzCxRqva68OJKXdoI1NCZVFZXVLwarmCO
+	 l6qDP0Fnz3jwAZmgsZ+rukyPm8dXMOokZgejWHmO3SZJCOcSahcWrsjf2rKmsFeH8NwFN
+	 6eyyl6Up1md5QyZG5iWdDSZsSX14tLpAv/EC21RzAZN7mOgvS7TKNPpjN7Rsmx83nTZ9L
+	 Nun7lAuRQvByfgwEujfE1XMowtef4aMYTFMVY+tprHrJfEdFsV3wgqMdsSY90ISJU8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797158;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797162;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=A1dik0vFN+ctGNsNwcPOeeTtQ2imRoKPcBHvRrajBpI=;
-	b=JKafgzgS8rBasRGiUzqQzvPFRTfvnhi6iRq5zcB8ZbIzqiW7+My5RpHkJ8NALJytzyIF
-	 NZesfpsf/rkMoHZHl+aLQFegT66sxjqLuY91RIP0dkojU9NrnNRCl2sgoN430VHPE8Zip
-	 6hZ1ygQ1yi0GAUhXkcn0Qf3bdwqYG0pLeA5ht1UsTr9kL8oOpkZT64+BRihGspm6rLavl
-	 gOlFO8+06KLAAEp1nCSoNqmd/E/3pFtcicl9LTANH39S1tltYals1jdRbnYOXQd3q58Zs
-	 elINSW+ZrrO1EXDMJzc3KmAFwWYY88qiBdGJup46gmX1kx0LGCh62eeNutfXqFKJ8Lg==
+	bh=nd7kADZgodTb54n9b+XTnvtmzKhovXgowvZQIlEeTH8=;
+	b=yT3OWWntxvzrALg88LYOwqa1tft2q2IF3dsN3WMB8SYj2IC5xxEoWC99RrmPaQNXrc+s
+	 SGWEtez4xSWYSPEA7D3QaM2OuPWjeLSNPdLZdo/ZiUEyQyup6EA+eR25hqP7Fpehb2VjK
+	 oPXQUMvrbHzuYj/2IxojTsybIG7oe9TMRbdR/rfkoCE3kFml1UjUWZ0nX9vY9qWpXtVb8
+	 aKgSo1SXqJNkI42xkUlWnPg/1b3/XafzKFc3btk1RSBw0Od3dSWUUhzx29ttkBN3eh+l1
+	 ai8k+jf+G5kCS3kvLXf2kDF/+noK4ClvYBeuOv6KTHolnYNxtv3qIVdrlmk9LtXL3qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NBJSllBh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45872606A33F
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:59:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933011F00A15;
-	Wed,  4 Nov 2026 12:59:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793797157;
-	bh=A1dik0vFN+ctGNsNwcPOeeTtQ2imRoKPcBHvRrajBpI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E20A606A326;
+	Wed,  4 Nov 2026 12:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NBJSllBh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2241F00A16;
+	Wed,  4 Nov 2026 12:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793797161;
+	bh=nd7kADZgodTb54n9b+XTnvtmzKhovXgowvZQIlEeTH8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O9XIJu4aTX1cMv+5DaTDbBPKnHfjgzfrYYfn4K6UwMWL9Oc+hG+CeoFGvqnxOQMhH
-	 ipWQNSh9gHepV8+Z5FsL6dNxCko1uNJLM9bzkY5KUQah+gqIDFicEO2PECPmAs4Lvw
-	 +o0X8Ta3E0qkVlHIN3LwRHPQVpGjllkH2ewIbX04=
-Date: Wed, 4 Nov 2026 13:59:16 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ian Abbott <abbotti@mev.co.uk>
-Cc: linux-kernel@vger.kernel.org,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] comedi: comedi_bond: Fix leak of opened device references
-Message-ID: <2026110414-conjuror-squid-2777@gregkh>
-References: <20261103173610.89687-1-abbotti@mev.co.uk>
+	b=NBJSllBhnDR7WWrkv1y3e/hqRoezfi09pMp/ctyZ+RQuqk9zw3FWeikYEC7sIKRPj
+	 f793oKbAwOKKWDSyqPGZOguSsOSv0cOl0pjSjo9UKdKk55KCxA1GSSUy7QPY3NIlH9
+	 oDu9ivav0GEygSI3fuDJDSR4CxNCHNzUm0JfPo5zBtl8hluw+lfQ4+p+g+fQ5TLIcp
+	 V3+UeEkhelygerKDmAGbAVKVqRC8bDRqmm/7tHoKAgDwK3kEziWur2yhn9joRrbRIQ
+	 dfNwO5LCohVnXyj97RbOchle+B2aBsuRwW9G5YL3vieNci2eOWNrknePE46WfII2hI
+	 LWJeZikhx+fLA==
+Date: Wed, 4 Nov 2026 12:59:13 +0000
+From: Will Deacon <will@kernel.org>
+To: Yabin Cui <yabinc@google.com>
+Cc: Dev Jain <dev.jain@arm.com>, Leo Yan <leo.yan@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Tamas Petz <tamas.petz@arm.com>,
+	Tamas Zsoldos <tamas.zsoldos@arm.com>,
+	Michiel van Tol <michiel.vantol@arm.com>,
+	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Revert "perf/aux: Allocate non-contiguous AUX pages by
+ default"
+Message-ID: <aussIYUR1BGfUzqn@willie-the-truck>
+References: <20261025-perf_revert_prefer_large_alloc-v1-1-5fb431bbd624@arm.com>
+ <57c34e26-3048-474d-8e74-f65799e32ff4@arm.com>
+ <CALJ9ZPNWcDtajO+Luhxe1K3af64mPRFQSjvfvNornyFFkam-+g@mail.gmail.com>
+ <CALJ9ZPO9XxF-kz5K67Jg8RtpiEmK7XFU3e+xDak6LyV_We7yBQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,29 +81,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103173610.89687-1-abbotti@mev.co.uk>
+In-Reply-To: <CALJ9ZPO9XxF-kz5K67Jg8RtpiEmK7XFU3e+xDak6LyV_We7yBQ@mail.gmail.com>
 
-On Tue, Nov 03, 2026 at 05:36:10PM +0000, Ian Abbott wrote:
-> bonding_attach() calls do_dev_config() to open other comedi devices
-> specified by the user and tries to make use of them as part of the
-> 'bonding' device.  If it successfully opens the other device but cannot
-> use it (either because it does not any subdevices of a type the
-> 'bonding' device can use, or because of some error that occurs while
-> dealing with its subdevices) then it is left in the open state and the
-> fact that it is open does not get recorded by the 'bonding' device, so
-> the reference to the opened device gets lost.  Fix it by closing the
-> opened device if it could not be bound to the 'bonding' device.
+On Tue, Nov 03, 2026 at 12:46:24PM -0800, Yabin Cui wrote:
+> On Sun, Oct 25, 2026 at 04:24:06PM +0000, Leo Yan wrote:
+> > The original commit claimed that contiguous AUX pages unnecessarily
+> > exacerbate fragmentation for SPE, TRBE and ETR. This is not generally
+> > valid: larger allocations can keep pages with the same lifetime together,
+> > while order-0 allocations can scatter them across large blocks and prevent
+> > free pages from coalescing [1]. The follow-up discussion [2] has not
+> > established how forcing order-0 allocations addresses the reported problem.
+> ...
+> > Restore the previous policy of trying higher-order allocations first.
+> > The allocator already uses __GFP_NORETRY and falls back to smaller
+> > orders, including order 0, when larger allocations fail.
 > 
-> To match previous behavior, if the opened device is unsuitable then
-> ignore it (after closing it).  The opened devices recorded by the
-> 'bonding' device will eventually get closed by bonding_detach() even if
-> bonding_attach() returns an error.
+> Sorry for the late reply, and sorry that the commit message in
+> 18049c8cff9c ("perf/aux: Allocate non-contiguous AUX pages by default")
+> was imprecise about "exacerbating memory fragmentation". You and Dev are
+> right that grouping same-lifetime pages into higher-order allocations
+> does not itself worsen fragmentation, and the TLB reduction numbers for
+> TRBE and SPE with large vmap() mappings make total sense given TRBE's
+> tiny TLB.
 > 
-> Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
-> Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+> However, a straight revert will reintroduce a severe production issue we
+> hit on Android devices, so I'd like to share what actually happened and
+> suggest a way to get large mappings for SPE/TRBE without bringing back
+> the regression.
 
-This is a known bot.  I'll be glad to take this patch if you redo it
-from you and that you take the authorship.  As-is, I can't take it from
-this fake "author", sorry.
+[...]
 
-greg k-h
+Thanks, Yabin. This just hardens my stance [1] that the allocation decision
+should be driven by userspace and not second-guessed by the kernel. So the
+revert is _not_ the right approach, in my view.
+
+Will
+
+[1] https://lore.kernel.org/all/ar4Iuanz_vA4twGP@willie-the-truck/
