@@ -1,55 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797793;
-	b=EMjvHJNvjxsadsHjmV86vrFZOaXFiU/H89X8MeJkke9NGP592EEV+mpu3/Hm0mF5z0Wt
-	 ZMZKEsWBGD9yNbzLCD9lnJDW43zpkB+/dzJNtQZSt7i4YYknnbYfDMcrERWa+C97C5Okf
-	 YqVG+zt1hOBKyMJeZ9lPa7ULRjxhJObzztDLo5QaSVdSPCFKVYC/ylPJo/1VG7z6Wxk6u
-	 9l3UvIYb3k22IKwDczwSY/ADQeGxA2qDhFA/niQpAA+MY4GVd5/gXFbpYt8/gXgftkU3I
-	 UiPzsFzxjlNO3qhQ/bcJtoB3ooyp5fbVZOwK/VNT7mFC57+KZ3pva2uMKSVnec6Gshg==
+	t=1793797795;
+	b=an+tZXO0kcKg8qjzLoEEZCi7DjF+CAGGP3X8WIsliFhSbHCEx+zKL58LSUNVADjJtDPB
+	 6jHishZPwiS1/AWvzM7YHhi260JjdTEOHMm/xZICChlOnoX550Cpv6z1aFkFfT9pPcqZt
+	 zCW50pvWsO6VZHcW1LCW2Z+S8C2Kxzf5yl6Ivj5Wf5VX9PcG72Ls+gtL0bwl0m6DIv6+r
+	 Uly1YxrdX4hMvfaKlc7f3n/sXHWacLvoCFnpeo2thk4pPqmRgJ1Bj4CM3Kgcw87IrkdOC
+	 MyVgQYXpcMouOP4L9+hch/ZEVrK4hyeO7WPT5lBATUyFK/s67O1xbD/9jIhOuMOX8Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797793;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xwyyLP9uPhqquv/1QCNLs+JtuCDwjysCkbHKh7eBSSM=;
-	b=XBoOOqDZICTlkPEom4aYEoKNm7LfYCbvCswU/ktzeXAeRot9YnxIE9vQNIKa/k6xEC7+
-	 pmEOrIIMbErcOSog35BvCwGdc+4W5t+/hgXn3MpE4o6sxdPL7Lb4IB7ltX66eRWkHS4Ij
-	 xmTAvKrXN8xCkFm2veyGxqumr/NhDThKJm+dZRC1dm6rLbwQjH1i1vc53d44dZ2mwyHg3
-	 0IbcCf2CCsRDzH3kJ55iPGLcDBeWJrWk4RHrN0uIfYRTs/LloYy99y4+GV4qS8sZ29c0Q
-	 sN60wJwierJglBLAxY6ehP2RSOsHVGjpwvI0sudLF/N/IEFfAGkidbYoO0L7khH8Nng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797795;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eoW8AaaH7SuVML2GGh9qhcZQMupR/EpkYhtYLlwVTrQ=;
+	b=gu+rMMwjlkMAzKBjFHk5W9qfMA8cj8C5V6X2JcRN3eW287Ih1cxKru0cf/Vuy7wt0XmD
+	 qkcC3BFOsynluEdUtzjZXsj53sRTJmsv7rNDkhvr2BSCEPLCao4/SDrlPX4baZ+6eYYSz
+	 /kD+PzwLVGwntqwkiT9Wy8QVeug7JLYB0i8EOKaYkmFHilQV/WCb7gEZ0NaCRkxO/xD1e
+	 E9A8dGhr4oV515J21z+3l/Pdu3wXlkh1E4EasntCrd9Au4AT146NCyiquPnPLOlE3cC86
+	 cjyhQdmCrqQEQ7VZoCQt9c1NEni0fx/Ew0RjnYwi/T2J89hVr7YpREWIy2tkJQXcCIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHyDjjDi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WGk0gsBy;
+	arc=none smtp.remote-ip=91.218.175.184
+Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726BB606A330
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CF9606A33E
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:09:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4CF9606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHyDjjDi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E451F00A18
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797793;
-	bh=xwyyLP9uPhqquv/1QCNLs+JtuCDwjysCkbHKh7eBSSM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PHyDjjDi9zwDhdWdu/GH76iLs0Y1SrbvSiJ5STD2qoT+AofMfCf83eTxF3lAro1Xx
-	 dH4914C0OzzfXQ2FTsN9iWIAkY5vPdyaf9jHM+58QMyeMGjDTuuGyk6lPrBPlzwf6H
-	 pjYM3X00xYCeHSowPr6jgB0x/ZnCkBCUqPmOr0n0UZysjG6FL80A9qAvHs53n6JqZ4
-	 kGDWaWRbsQKTr21MNvKMxaYLUVxtSfcDY4tncGb+A48ZaBDARo5VmrnQg/dBt1qeaJ
-	 j5cl7IiMA/ID61mg1/WGtacMPXaPLCRqhaY6IZqRgGGkITFVbodbdlbL7TPro+/r45
-	 0KOKCyJlnMMPQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso551981e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:09:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxp0QOnHsjo/kOtw1wK7f52OvhD0pMu3dXsUUDdP6YRULiu6Z8Ugs1zsIHvuhMOaNY4M44k9itzj6dM2ds=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97ZoxvRTDzF1Ip0npvsalMJ0tNa+BMjzNpupwqt+/HHknLiByl
-	vaIRzSI90cVLvRaCyWoxVO8uCBpFF8ciuzyxMenqnV1Ygl0MRGE2tULMYLSq0uAI5MpUnBcnxEL
-	Vh7A79FstWOZuVGqH43aYIaZU8jeayLo=
-X-Received: by 2002:a05:6512:2398:b0:5bf:ddef:7852 with SMTP id
- 2adb3069b0e04-5bfddef9a55mr5642927e87.17.1793797791886; Wed, 04 Nov 2026
- 05:09:51 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WGk0gsBy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=k6t2SMCBubq6DQa12rUHkyNAtuRpSIKZLV979qtmD3g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793797793; v=1; x=1794402593;
+ b=WGk0gsByCVg8HIOfmHpmV4/1nUJkMzwp78iGwmVfBesyI2X3Ci7UdmKkEwrWqk/KeVYj9lym
+ aUkmcRHixGfk0iAebVLey/a7ZgAOHACN5JJGMohAwvAxNUS2EF75gFEX5EqXWI7Dw9Ndk3sJSxk
+ RH54oIIdO4EgfdhIRlFDVpC8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b3114da408d4d2bc;
+	Wed, 04 Nov 2026 13:09:52 +0000
+X-Mizu-Trace-ID: b3114da408d4d2bc
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Dave Chinner <david@fromorbit.com>
+Cc: David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v7 6/7] mm/mglru: add lruvec_gen_size() helper
+Date: Wed,  4 Nov 2026 21:08:16 +0800
+Message-Id: <20261104130817.849089-7-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261104130817.849089-1-ridong.chen@linux.dev>
+References: <20261104130817.849089-1-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,31 +90,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021190212.2237804-1-dmitry.torokhov@gmail.com> <20261021190212.2237804-4-dmitry.torokhov@gmail.com>
-In-Reply-To: <20261021190212.2237804-4-dmitry.torokhov@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 14:09:38 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkRzTuh8pj5bHt6p9hQm3eoQ_fsV4zNNDoF6p12yO4Otw@mail.gmail.com>
-X-Gm-Features: AclHuK_rs_aoVemsqZvmGaFtptlvPXeCNaMoSwjDWt11FcgwN-9NGfoyeGoPKLo
-Message-ID: <CAD++jLkRzTuh8pj5bHt6p9hQm3eoQ_fsV4zNNDoF6p12yO4Otw@mail.gmail.com>
-Subject: Re: [PATCH 4/5] gpiolib: use __free(gpiod_put_array) in gpiod_get_array()
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 9:02=E2=80=AFPM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
+From: Ridong Chen <chenridong@xiaomi.com>
 
-> Switch to using __free(gpiod_put_array) scope-based cleanup facility
-> in gpiod_get_array(), simplifying error unwinding and eliminating manual
-> gpiod_put_array() calls.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+The number of pages of a given type in a generation is computed by
+summing lrugen->nr_pages[gen][type][] over all zones and clamping each
+per-zone counter to >= 0, since the counters are updated locklessly and
+can transiently go negative. This loop is open-coded in
+lruvec_evictable_size() and in the debugfs lru_gen output.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Add lruvec_gen_size() to compute it from a seq, and convert both users.
+Put it in mm/vmscan.h so that the vmscan tracepoints, which include that
+header, can use it as well.
+An upcoming tracepoint and the MGLRU swappiness rework will also use it.
 
-Yours,
-Linus Walleij
+No functional change.
+
+Suggested-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ mm/vmscan.c | 18 ++++++------------
+ mm/vmscan.h | 16 ++++++++++++++++
+ 2 files changed, 22 insertions(+), 12 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 379ac3b148e1..d05050ac49df 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4194,18 +4194,15 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
+ 
+ static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
+ {
+-	int gen, type, zone;
++	int type;
+ 	unsigned long seq, total = 0;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	DEFINE_MAX_SEQ(lruvec);
+ 	DEFINE_MIN_SEQ(lruvec);
+ 
+ 	for_each_evictable_type(type, swappiness) {
+-		for (seq = min_seq[type]; seq <= max_seq; seq++) {
+-			gen = lru_gen_from_seq(seq);
+-			for (zone = 0; zone < MAX_NR_ZONES; zone++)
+-				total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
+-		}
++		for (seq = min_seq[type]; seq <= max_seq; seq++)
++			total += lruvec_gen_size(lrugen, type, seq);
+ 	}
+ 
+ 	return total;
+@@ -5687,20 +5684,17 @@ static int lru_gen_seq_show(struct seq_file *m, void *v)
+ 		seq = 0;
+ 
+ 	for (; seq <= max_seq; seq++) {
+-		int type, zone;
++		int type;
+ 		int gen = lru_gen_from_seq(seq);
+ 		unsigned long birth = READ_ONCE(lruvec->lrugen.timestamps[gen]);
+ 
+ 		seq_printf(m, " %10lu %10u", seq, jiffies_to_msecs(jiffies - birth));
+ 
+ 		for (type = 0; type < ANON_AND_FILE; type++) {
+-			unsigned long size = 0;
+ 			char mark = full && seq < min_seq[type] ? 'x' : ' ';
+ 
+-			for (zone = 0; zone < MAX_NR_ZONES; zone++)
+-				size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
+-
+-			seq_printf(m, " %10lu%c", size, mark);
++			seq_printf(m, " %10lu%c",
++				   lruvec_gen_size(lrugen, type, seq), mark);
+ 		}
+ 
+ 		seq_putc(m, '\n');
+diff --git a/mm/vmscan.h b/mm/vmscan.h
+index adb22e80d760..c6b583fc7493 100644
+--- a/mm/vmscan.h
++++ b/mm/vmscan.h
+@@ -3,6 +3,7 @@
+ #define _MM_VMSCAN_H
+ 
+ #include <linux/gfp_types.h>
++#include <linux/mm_inline.h>
+ #include <linux/nodemask.h>
+ #include <linux/swap.h>
+ #include <linux/types.h>
+@@ -115,4 +116,19 @@ struct scan_control {
+ 	struct reclaim_state reclaim_state;
+ };
+ 
++#ifdef CONFIG_LRU_GEN
++/* The number of pages of @type in the generation @seq, summed over all zones */
++static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
++					    int type, unsigned long seq)
++{
++	int gen = lru_gen_from_seq(seq);
++	unsigned long size = 0;
++
++	for (int zone = 0; zone < MAX_NR_ZONES; zone++)
++		size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
++
++	return size;
++}
++#endif /* CONFIG_LRU_GEN */
++
+ #endif /* _MM_VMSCAN_H */
+-- 
+2.34.1
+
