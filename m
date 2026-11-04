@@ -1,93 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793771625;
-	b=rELT+u63v9Hz53S3s0knUrYo7/TWlNKzO/0f5IAsMqqUu5nydjJqGCkUVfCuIf0bLlVO
-	 T+2tGXQ29Jq4g0C49fLKdz5WhNOmapt3DjjSUDe4cXgNbzJwTXobmQQwU0Rz9H4CebuxL
-	 aTaq7/ldwMlXSlzTueEW4+Tuyn5AcL4736i9r243DMlmysMUdOYSsrrJDlqzH1xvSJMu/
-	 5VPCWwxaEul/w8E7e+aZalXpaS547kR5cOzD0FcVhrQvRjaTEiSCZF775PLQpGSNeF0Wp
-	 ZuT6x9bPp8zJP9attM882NTNVKWA8t14mX0BlMZX8SA3AYXHjwMUpldKf5/XaxzjQ5g==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793771683;
+	b=kPW3Be97OVFXkOALhC1SaQylor/+iQ64PSGfVGHas9anWooGiZ0j2KVjRDw4CLoWZ8wN
+	 w58aoDnADc74/Tlb1pJbdoGauzpsK5OHypo+pPOs4M8p2yxkkz/t0NrSgGoKb83XG5Aon
+	 lZe6Jbha4YREoPY2cY3/jMY40ec1AYB9TLpkmhbywqneNU8MBR5+Xtx9IJWrgMTxWaFrx
+	 smZZkRy2L7L278UTQHR+dKjYiJ0gR45aNP+ewAF7hUdbrqAnpyXKKCW4v/Uipiqoe4gu1
+	 O5YMqgzXWBY6oAep3LP6UXSk8Vi8674bkNeyXuZ0q9EXy60ndtEgOnnh7Opwmi51BXg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793771625;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BgMbRmHvl2/P80S1zJh93L7i95YaYJcGvwaHIQoOCyo=;
-	b=mcf+vTbe9b+R6kNXHX7hhUBi02AOZFEJvm9bPZQK4rymbC4lxgYj/XrSyo1/Pgx/3zBp
-	 PTaS7F7pFu2R4H9nf71l95YwOGb1pvWuwameIoAxY/AezusaNsnVMuZGYR4crvu1r5mT7
-	 xux2gMqKi/2HTL+ntvzzkNH8lUd9YUus6w3R3y/iNMAMpP59u5AmNVRGWmebhOxEzirWA
-	 BwsY4QPTDgOh/KCyo1I4EOMnGbjITPymAs7MCWUjHo8aLTO7uhfJ2wwUth8C6zldNvZtZ
-	 aUEN0KT7wts32/TZ+GWW76vgSWcH4BAvJJVxhvKveQVRnbc06gKVhoSerQ7X0YaLEeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793771683;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=l6QTWAiT2pnjRja/ALYbiKuIFt7Nll81q03ZWRJukTo=;
+	b=QcUaziRq4zmWUBUFyae845JAlG0wiFAF/I71gK3XekxdtXyBR9CHZhPz+Vumy7IUKxpy
+	 83lkpXjFV9fJ5JiziLxceQQ0q7wF3CTZB5Zi+UPANq7h0fZpecUmGB+Ifr9SlkyQKuwxh
+	 lFOdSi4CkCzQ/809WTyYSSKTypPiMFlLzaqJ1as7o7a1eAjLyQrxEGTvV7wjsqw3HibW7
+	 3Yyv6UrK+6Pl2qcVhKSwYFWuLybuZKzxrHb7jF8nGKs6LjOgCTg68bCvQtutnaG+I11u5
+	 I0jOSdPgZi67w8mxSnTC62tb5Tbaiff3HtQnPiRhpYDunXkcoIgzISsMaJgTkuhUG1w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LZJJmZXz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.56
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010056.outbound.protection.outlook.com [40.93.198.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oODXvuwQ;
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99910606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 05:53:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99910606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BD9606A31B;
+	Wed,  4 Nov 2026 05:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LZJJmZXz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fFra5ECAYsGtOK50eTQIwcjNa/R0Zwetwl+H+wtQaqyEL3TcHp7FDcDxkKeijyReSlO3NXagENKnTA9HAro6dp6XPTwZ/NrNzOGWwJfrvGtnylpQqtpxDSVEPcY+Pt8VpMX/1fSJGNB5k5Tp3hAqDL9qNohlUahctpYDyQ2K77kYzZMM4cHY8a/FCJnf2FjlSIyoT++kS86s4qvgA1Mm8CfTkF6l3CJEbZ8YdjinvsWMm4IFK0IR7FBbdjVFUJV1uon7RYh2H8Jyo7lgj6TY1ZpACMZgoFvYGaBvqrjlBwBwy66TLSRBVRj60Ln8jkz9F0db5SjcrMJx5VDxPAnLYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BgMbRmHvl2/P80S1zJh93L7i95YaYJcGvwaHIQoOCyo=;
- b=mFRblCC0+dT2jyZg438r7wIpmWMFp8nYenJ8KQwKw3TFsY815BHRXsPXTZ6EdOg9P5sTbDaE/iwZE1QVq/GqOIBB+NU7ahOq/SJ7DNjnsLj7fPT8E0wpaOqizBszclSOUllSk4w7Khu9hNiTQ60uTkXwOriCaLHkenYgwZkwTxTUzaHYqLj9FrlFqoLcZjNBtYH8mDR6yzxgceFF+bFMT2Y5a6AoGz0aIcdUgkOnnmnuxB0ZAx2kZVUyI6T0oZ5O/UF5TrvwVmNEUO/BZV2c8MsgfzNEoTsMK9hxtyT91o6OmFJXzn4GYrw1GlCZhm/Hz3AciLoOEGiyy/S+VAlNZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BgMbRmHvl2/P80S1zJh93L7i95YaYJcGvwaHIQoOCyo=;
- b=LZJJmZXz5rpAtDSYypZgcz8jq8bGIoYUEhUAcZzxXeWUvMHU21TIHdMLMih4CxX2WAFhNLgXliAIJGvI0D3H8RPjsw2LP3m5AiDf4aQ/wsBPYGPlQcprv+szv4GTN3+AfBZ7BMlt6m4rZ4gjgfBwpiaCNnhcUpEsVyy/yGoHp+0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0SPRMB0124.namprd12.prod.outlook.com (2603:10b6:8:1fa::20) by
- CY5PR12MB6226.namprd12.prod.outlook.com (2603:10b6:930:22::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.12; Wed, 4 Nov 2026 05:53:41 +0000
-Received: from DS0SPRMB0124.namprd12.prod.outlook.com
- ([fe80::24e7:97e0:923e:68d6]) by DS0SPRMB0124.namprd12.prod.outlook.com
- ([fe80::24e7:97e0:923e:68d6%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 05:53:40 +0000
-Message-ID: <15903ed0-d3bd-4cf9-a051-ec663411ae38@amd.com>
-Date: Wed, 4 Nov 2026 11:23:33 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mailbox: zynqmp-ipi: Fix CPU hotplug state cleanup
-To: Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- jassisinghbrar@gmail.com, michal.simek@amd.com, tanmay.shah@amd.com,
- saeed.nowshadi@amd.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, ssengar@linux.microsoft.com,
- tgopinath@linux.microsoft.com, srivatsa@csail.mit.edu
-References: <20261103062051.676519-1-ptsm@linux.microsoft.com>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <20261103062051.676519-1-ptsm@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0025.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:26f::7) To DS0SPRMB0124.namprd12.prod.outlook.com
- (2603:10b6:8:1fa::20)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oODXvuwQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793771681;
+	b=wPCgumpn0G5a+Pma8pYUHdPtGBCkuKVe8XuxVMo/0J3GdR/YKK3rmkyolfxAjc5L5zrR
+	 StZLNkrg8zhzkstD+nwpMm0TjjemjSF4S0NQ4g2jH/DKpGz+HQIZVDxW7S+NW7yQ0dh68
+	 1BGi9D5kINqyBkWtoOSlRBzvjsL5IXYJ4Yx3KV0ZokaicZ5ju7hR7Nitock1ieFhril1+
+	 k2FvjS3QWLZbgBvaXe5NjRs/qfcOYqkpzsZO30kOs+TUPM5ZVyDDJRbwUXmhYUx1gbaMw
+	 YFmqGiSxmz+3hZ7EvQ2zbJwmLNDnmlrCz5vZhI5e66orNRHkacxyfcSeopf2BeKcr7g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793771681;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=l6QTWAiT2pnjRja/ALYbiKuIFt7Nll81q03ZWRJukTo=;
+	b=lgQyO0BV7yZb612/NPJ8FKJeOBW65eyseFUK7ODe3pe7Jcp76YVZnGN+kYWnWea+2hNn
+	 KdUjQLtoZjDcXewBi50S4FQ0w48TyYjbnsHv3Ym1oZ3IAXek+GnBJS+tTq8vM/Z6y0qnF
+	 MvBDMp2PI3j3hUWX5DEJMkBC6kUONdiVjON/HKkTuwqzF5gOHdoA95AOWsrNc1MzA6NR+
+	 Wiiz0kpRzmCLwBc/zErbvpya82S04ezXrsLyZeGajVz7okZUhYL+GYMKtWghHYSFUi1gD
+	 GHx5P1toR5u5TQ0VlZd9bIz0BxlaInh6oqQC0V4v2qMlfRz7ebU+144TynkiVuwOIpQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 314551F000C1;
+	Wed,  4 Nov 2026 05:54:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793771681;
+	bh=l6QTWAiT2pnjRja/ALYbiKuIFt7Nll81q03ZWRJukTo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=oODXvuwQ2dcUNulurxLj5q3EWvbva2U4hPPiYuHRVOnkA3UBC8o+MbJ2gQVAXI9DZ
+	 AqWbn9ZSXqnO5B/zYZes9LNsGq37KR/lWK3YOHqjphOAG+Ui+ho9WseeR+uyzxzs8O
+	 lfo9r/vkf9QZPHKTLu34nYyMZj7Jv2kWEZ+hTsmSOpxfMeooNqxHzA/ylmJNhSZEYq
+	 lH3x0OLPd5RM582nTQMbruoA/xjwIBVxD4XHEOBHc0duukhT+YQTjHVw3h7b5FQyHt
+	 osRqjg5Y/6kHopCmBgz6a8NdDy27Yz8X86c/bN0WMQBss0i0hpp7SibsBF8QZKKjeb
+	 nG53P9UfvSNAA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B1C5E46C9F;
+	Wed,  4 Nov 2026 05:54:40 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Subject: [PATCH RFC 0/3] alarmtimer: Choose the wakeup RTC per sleep state
+ from the device tree
+Date: Wed, 04 Nov 2026 05:54:36 +0000
+Message-Id: <20261104-b4-alarmtimer-rtc-priority-v1-0-e996681b8086@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,153 +84,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0SPRMB0124:EE_|CY5PR12MB6226:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1907e46d-49e0-4e5f-b5fe-08df3a37fa3a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|921020|56012099006|11063799006|261102123227099003|261009223027099003|261026121527099003|261028144727099003|261022075727099003|261021123027099003|261022105027099003|261021135927099003|261021121427099003|261026140227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	vKrZe5wBqyBy9qtqDXhuINdeMFf+DKQn3aLx03/FimirNxroGZvln7Fdb/ssmRrks8+CCiN48+wuEykrO4Ltu3F7z0+mKdK1lAa91ylKpWoLnKgarcuadjHpzN9mDjDa5E5xLG9zjxJDyaELW2hgSPP4Rl5AqHereAomV77TryhJ5Ejx2y156j6oiQ0rsIiYJcsZRj3a+BlZAsHxKv7YrjQm0nlL5BmDmBqtj8ysgJJqfBsmVTSJh87WnT9UEXIVetHGh6o2Sq3o0X20f9d3M2yIOTu7OyNPv8h9T3VSWFKjnQ/uhPdet7TkoQXkgKRerZMj/XU0pKwUOvsJw34EzR6eA5CEM43u11Lb8HvfA4FMrB3ar9Z1+n4Na2WP+/6QxNYDScqpaScMlIFeQ53H5JuhE43ZsNBSAPEBRvy1ZYB3Zdu8o482uHq6Xl1USSNywBbY2Hn+SMbL0b/684y2oBNLKm4YOKTfBOuHIrFvrP0Ll1exNNC3cyffjPHcTGJjM0yJO1xjCQ+AfnDvmAaaIX50iUG1f5huZYHwCOD8D2mXAHizPB7yh872LRwwhHbkI6t50oCcDD7M0fSMc870CnCrJtLK1O0NFHhrSZ4enT1nEyGFmBiYNgGTdisi+NqxKQYakN2lXXxGzzUGgb3Bv6bGmHf33glsMUsECQEoh5s3UdT7JKAGb03WO5Va3sYbrObkbuF2Ig08CcQJgJwR5A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0SPRMB0124.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(261102123227099003)(261009223027099003)(261026121527099003)(261028144727099003)(261022075727099003)(261021123027099003)(261022105027099003)(261021135927099003)(261021121427099003)(261026140227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K3NwUzN4dmV1OUVNekYxSVJkKzJsZHI5R0gxbHAybTBuZHQ0ek1EY2pwMlFN?=
- =?utf-8?B?NVYyM0h5NVJqZkdyLzg1VXV2My81MzNxOUI0WXEvSXpYaTQycnovWWE5MFAz?=
- =?utf-8?B?WG1nZjc0RUgwa21Pc1dhcy9yUFpvT3V5NnZKU3BpaVFneEk2Wm9wdnBlZnRw?=
- =?utf-8?B?VUJHMk5wOEhYN3JtYTdBRmViSVNMS0hKK2lqQ21rRVR1YVNVOW5IU2hYWjVB?=
- =?utf-8?B?OE54Q1hGRnFyZlIwVHVIK1lraSs5ZG5PaFRSUytVSDNldkRaK0R1YklqSFlH?=
- =?utf-8?B?M0hIcHc5eWFOcmFSOFBMR1pIQUxnTGdXdWhZNE1CNkZhMlRmVVNNY0Y5blc1?=
- =?utf-8?B?ZS9heW9POWN3Tkl1WWh0b0hyaCttQ1NnWjZrdkFuSk5LNWZubEJlWVJ2aHFh?=
- =?utf-8?B?ekxURkRydEpaUE1aa3BGbUVxMGdiUk5VQWlTL1dxRU14T1phR3JYS0cwdFov?=
- =?utf-8?B?d1hjZm9DNjZCZlJFb1RlVVY3c28zRHFOUC9ldGxHeWhhbEI4Y3RvdUJEcEtI?=
- =?utf-8?B?N2FHSVY1OVJUWHRQK01CQTZSV1Z2dlZXQlhSdVRxc2VuTkh1UGhyL3RxTHF1?=
- =?utf-8?B?NGtKeG1IWHcrRlFmaW9HNEp3bHlJQlhsUlA1V1I1Q3VOSTNMa2g2T1lJdk9t?=
- =?utf-8?B?WnRzZ0JuNUNSQm45RlNqTjJmWGZ2Sy8xbFhNWTdBVFBnQUFWclVtOGJhK2pB?=
- =?utf-8?B?N3RSSWlSbnhGNFpMK0xKeEdnN2tsMXBSMVlYOENLNkxPQ3dvSWxQNkY2NDZC?=
- =?utf-8?B?NnF2OGNLM2RBempFbEZNclB4NElrYnowREJrYWhyN0g1eVBNeW56YlhPRHRW?=
- =?utf-8?B?RFcyZFFuTGY3QUZkcGZFai9FK1VwSndkUDRlQWJXKzBqTDExTy9OYkdyVTdF?=
- =?utf-8?B?ZjVjR3VqKytyU3pod21CQ0RlWGg0a1lUYzhrU2JscE1tc0pFb1Q4NXhyQjVF?=
- =?utf-8?B?YWhIKzNzSEd2YjNMVitodmlVSVpLY0JmTVdma0VlaVY4eXB5VGY5ZW5ZZ0Ew?=
- =?utf-8?B?R3U1bjV6RFNnYS9KcEYwcExvd280RmczUllTN0ZoM0ZJaGRpTDlkNmo1emlW?=
- =?utf-8?B?eCtwMW9kUzRUTWVMYXh1WUI1SFNVemIvelY1UXJSblJJcDl5eFVzNmRVWnJD?=
- =?utf-8?B?RGd5b1liSmpzMVprZjRzczRrOEFaaEhaN1E1S1NIOWlMMEFWMDhtTUs1ZWFh?=
- =?utf-8?B?SkIrVXVERFpTZW5JSTdLckdYK2I0cUw3ZnloV25zZFVqOXVvTDR0cTlxMXdp?=
- =?utf-8?B?aHRpVVdwK1VYR0ZJc0lJV2NJd1hveXViZTljRjRKR01rQm9SZkYxVjdYcVB6?=
- =?utf-8?B?Y3lBNXl5UHBaN29RMWtTK0tSYXZqaVh3OUk4K2FGS0prS0xmYmRqSDZXSmI5?=
- =?utf-8?B?NGJ0d2lWbDBsdmsveUNOQlNzZEdmRkFGRE1jTmhuSTJSYkpFM0RQdkt2OENN?=
- =?utf-8?B?Tzl0MTByZTY1S1NZUXVwTjRxMWdJa3huc29UbU5PcVZrR2piQ00wMWljSVdy?=
- =?utf-8?B?Y3lmeVpNYTU5eHFGUGJrckNmem5Lb1lNdDdSNGhUUFRhWlZWRHRkSXdheFc1?=
- =?utf-8?B?b1Z4UDlDOXBJK1hFRk04UmI0VE0vUHRpd0dENHdhSGU4cEdMeUtXOVRDVFhH?=
- =?utf-8?B?YkFOVWdxNWZMU2Jpeng0R3hhVUpGanhwUGRUZ2tVOCs5c2dFZEFPanEzQWNv?=
- =?utf-8?B?aEFidk1UN1RmUUlBaUhzS1NHMnhUTTROY2c3UjJvNEdNRTJLVXllYzJYMzBs?=
- =?utf-8?B?cnJ0NW5BRGhiNVIvVURtZkpia0pPL2RWRUhqVHQycjFSWUhnR2ZYc2taS1hU?=
- =?utf-8?B?YzhBSzd3ZTJGREMrbDd2aUhZc0NsWVIwOHQyR0ZlaVc5S2dPOE9YNEJldTBn?=
- =?utf-8?B?UU03WUFGTXRUbXRtUW01NlVaU3c2MUxUd1BZKzRWeUw5RzlFSklydnM1TjNh?=
- =?utf-8?B?cmlzdUpkK0Nwajc2WERWWFhkMmJOekNXZUlKTjYvdGVqU2hIVVlmVktZK0E5?=
- =?utf-8?B?M1V6YStMNlBnMzdKTWNyS3pHRGREcTFCejRSRnp0ZTNmR2cxNVZRL2QwcFhT?=
- =?utf-8?B?anQ2dVRPVTQrRFRRN25xaDR2Qi9qREt6azd5SkM1YkppaHEraHRsaWRBN0U4?=
- =?utf-8?B?L29wWU5hZmF2aTRNeDF1ZDB6OExZS0NPLzEyRHJ1U1RaRTN2bzFsQlF5Mjcy?=
- =?utf-8?B?Rjk5NFJXZEFmUXhpQVN0OGFGQ0RVMkFlKzI2UkNRczRURm51aWhKc1lCaGFC?=
- =?utf-8?B?TnJ4L2YxZXV4emJLemQvZGFhQXpFQnRKais2KzhYaVhuK3FuZGpEa0Q0dUJG?=
- =?utf-8?Q?XdlmA6XJ875pDMt4x+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1907e46d-49e0-4e5f-b5fe-08df3a37fa3a
-X-MS-Exchange-CrossTenant-AuthSource: DS0SPRMB0124.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 05:53:40.7348
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NA/KDy7GaHyyskE827NhClqOGDrkawSo7MQmwU9h76ERfVzDhn8cm3pl1Kbg8qs9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6226
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ3I6moC/x3MSwrCQAwA0KuUrA00cWyxW6EHcCsuxmnaBvojM
+ 4hSencHl2/zdohiKhGaYgeTt0Zdlww6FRBGvwyC2mUDl1wRlQ5fDv3kbU46i6GlgJvpapq+yMI
+ XOpPnK9WQg82k188/f8C9vcHzOH4P0Y9gcQAAAA==
+To: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4284; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=0IYwb1SInrt3b80xHHEOcsUK/4uBWyP8cJUA4xS+Tyw=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFmvTswTXs/q8/O4/BzBn62T5ojfu5TIqLR8j/mNjgvVB
+ 3iaZ5Sxd5SyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJ5FoxMlzdxL/urq5/yVIF
+ OQEZ9kwdBc9Ufb4Tx/9Y+k/JunPsTSQjQ5tPQuWGiZ7ze80Tuu7nVl/167vQfeIwa0bkj0A3ZeF
+ wVgA=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-On 11/3/2026 11:50 AM, Prasanna Kumar T S M wrote:
-> On driver removal, the CPUHP_AP_ONLINE_DYN CPU hotplug state is removed
-> instead of the its actual state. This can leave the mailbox driver
-> callbacks dangling. Use the actual CPU hotplug state during driver
-> removal.
-> 
-> Hotplug registration failures are also ignored, allowing probe to
-> succeed without the callbacks needed to enable interrupts on CPUs
-> brought online later.
-> 
-> Fixes: 6ffb1635341be ("mailbox: zynqmp: handle SGI for shared IPI")
+alarmtimer binds to the first registered RTC that has an alarm and a
+wakeup-capable parent and programs it on every suspend. On ODROID-HC4
+that RTC is amlogic,meson-vrtc: a register the SoC firmware reads when
+the application processors suspend. It wakes the board from deep sleep
+only, and only when the firmware handles the alarm; it raises no
+interrupt in Linux, so it never wakes the board from s2idle. The board's
+pcf8563, whose interrupt line goes to a GPIO, registers later and is
+never used.
 
-Nit - only first 12 characters of the SHA-1 ID are sufficient.
+Which RTC wakes the system depends on the sleep state and on the board's
+firmware, so the series lets the board device tree say it per RTC:
 
-Also describe the failure signature and how the error is reproduced.
+- linux,wakeup-states: the sleep states an alarm of this RTC wakes the
+  system from ("s2idle", "shallow", "deep" as in /sys/power/mem_sleep,
+  plus "hibernate" and "off"), or "none".
+- linux,alarmtimer-priority: a weight to pick among several RTCs that
+  wake the system from the same state.
 
+alarmtimer keeps each RTC that has an alarm and a wakeup-capable parent,
+unless an RTC registered before it, with at least the same priority,
+already wakes from every state it lists; each kept RTC gets its own
+"alarmtimer" platform device under the RTC. alarmtimer_suspend() picks,
+by pm_suspend_target_state, the RTC with the highest priority among
+those listing that state, the first registered among equals, and
+programs the alarm from that RTC's platform device only. The driver core
+suspends a device before its ancestors (dpm_suspend() takes
+dpm_prepared_list from the tail, in reverse registration order), so the
+chosen RTC and its parent, which drives the hardware, are still awake
+when the alarm is programmed.
+Without the properties only the first RTC gets a platform device and
+alarmtimer programs it on every suspend.
 
-> Signed-off-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-> ---
->   drivers/mailbox/zynqmp-ipi-mailbox.c | 14 +++++++++++---
->   1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/mailbox/zynqmp-ipi-mailbox.c b/drivers/mailbox/zynqmp-ipi-mailbox.c
-> index 42d2583e44ca..b0643ee75db0 100644
-> --- a/drivers/mailbox/zynqmp-ipi-mailbox.c
-> +++ b/drivers/mailbox/zynqmp-ipi-mailbox.c
-> @@ -136,6 +136,7 @@ struct zynqmp_ipi_pdata {
->   	unsigned int method;
->   	u32 local_id;
->   	int virq_sgi;
-> +	enum cpuhp_state hp_state;
+An RTC without linux,wakeup-states is taken to wake the system from
+every state, so that adding the property to one RTC, e.g. from an
+overlay, does not change how the others are used; a priority on the new
+one settles which wins.
 
-Warning: drivers/mailbox/zynqmp-ipi-mailbox.c:141 struct member 
-'hp_state' not described in 'zynqmp_ipi_pdata'
+Hibernation wakeups (.freeze/.poweroff callbacks) are not part of this
+series.
 
->   	int num_mboxes;
->   	struct zynqmp_ipi_mbox ipi_mboxes[] __counted_by(num_mboxes);
->   };
-> @@ -863,15 +864,22 @@ static int xlnx_mbox_init_sgi(struct platform_device *pdev,
->   	irq_set_status_flags(pdata->virq_sgi, IRQ_PER_CPU);
->   
->   	/* Setup function for the CPU hot-plug cases */
-> -	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "mailbox/sgi:starting",
-> -			  xlnx_mbox_cpuhp_start, xlnx_mbox_cpuhp_down);
-> +	pdata->hp_state = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-> +			  "mailbox/sgi:starting", xlnx_mbox_cpuhp_start,
+Patch 3 sets linux,wakeup-states on ODROID-HC4: "s2idle" for the
+pcf8563 and "deep" for meson-vrtc, so that alarmtimer programs the
+pcf8563 for s2idle and meson-vrtc for deep sleep. The patch applies to
+the current tree, but the s2idle wakeup also needs the pcf8563
+interrupt (GPIOX_5), which a patch under review adds [1].
 
-what is :starting here ?
+Tested on ODROID-HC4 with v7.3.1, [1] and a BL301 that handles the vrtc
+alarm, waking by a CLOCK_BOOTTIME_ALARM timer, once per state: s2idle
+woke on the pcf8563 interrupt, deep sleep on meson-vrtc with the pcf8563
+alarm left unset. Without the series the alarm went to meson-vrtc and
+the board did not wake from s2idle.
 
+Questions:
 
-> +			  xlnx_mbox_cpuhp_down);
-> +	if (pdata->hp_state < 0) {
-> +		irq_clear_status_flags(pdata->virq_sgi, IRQ_PER_CPU);
-> +		free_percpu_irq(pdata->virq_sgi, &per_cpu_pdata);
-> +		irq_dispose_mapping(pdata->virq_sgi);
-> +		return pdata->hp_state;
+- Are "linux,wakeup-states" and "linux,alarmtimer-priority" acceptable
+  names, or should they be generic (no linux, prefix), given that the
+  states describe the hardware and the firmware rather than Linux?
+- Is the device tree the right place for a capability that depends on
+  the firmware the board runs? On HC4, meson-vrtc wakes from deep sleep
+  only with a BL301 that handles its alarm.
 
-  1. The new error path double-frees and then hits BUG().
-Please reconfirm.
+The alarm limit of meson-vrtc also depends on the firmware, and the
+kernel cannot learn it. Some API is needed to pass this information to
+the kernel.
 
-zynqmp_ipi_probe() sets pdata->irq_type before calling 
-xlnx_mbox_init_sgi(), and its only error label runs
-   zynqmp_ipi_free_mboxes() → xlnx_mbox_cleanup_sgi() whenever irq_type 
-== IPI_IRQ_TYPE_SGI. So the new unwind runs, then the caller's unwind 
-repeats
-   irq_clear_status_flags(), free_percpu_irq() and 
-irq_dispose_mapping(). Before any of that, cleanup calls 
-cpuhp_remove_state(pdata->hp_state) with the negative errno still in the 
-field, and _cpuhp_remove_state_cpuslocked() opens with 
-BUG_ON(cpuhp_cb_check(state)), which rejects anything <= CPUHP_OFFLINE. 
-A failed hotplug registration now panics instead of failing probe.
+[1] https://lore.kernel.org/r/20261020-hc4-rtc-alarm-irq-v1-1-b2b8c68d54f5@iav.lv
 
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Igor Velkov (3):
+      dt-bindings: rtc: Add linux,wakeup-states and linux,alarmtimer-priority
+      alarmtimer: Choose the wakeup RTC by sleep state and priority
+      arm64: dts: amlogic: meson-sm1-odroid-hc4: Describe which RTC wakes the board
 
-> +	}
->   
->   	return ret;
->   }
->   
->   static void xlnx_mbox_cleanup_sgi(struct zynqmp_ipi_pdata *pdata)
->   {
-> -	cpuhp_remove_state(CPUHP_AP_ONLINE_DYN);
-> +	cpuhp_remove_state(pdata->hp_state);
->   
->   	on_each_cpu(xlnx_disable_percpu_irq, NULL, 1);
->   
+ .../bindings/rtc/amlogic,meson-vrtc.yaml           |   3 +
+ .../devicetree/bindings/rtc/nxp,pcf8563.yaml       |   3 +
+ Documentation/devicetree/bindings/rtc/rtc.yaml     |  29 ++++
+ .../boot/dts/amlogic/meson-sm1-odroid-hc4.dts      |   5 +
+ kernel/time/alarmtimer.c                           | 157 ++++++++++++++++++---
+ 5 files changed, 180 insertions(+), 17 deletions(-)
+---
+base-commit: 348f54c435bf3177baa78201952810b255d44b30
+change-id: 20261104-b4-alarmtimer-rtc-priority-2e25131a2917
+
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
+
 
