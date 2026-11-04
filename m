@@ -1,89 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810855;
-	b=4GofoiCb0TQPKXORci9Jl2sN9ZppyHmfMd8b2FFCWd2FEs0MYXrCAku/z4qN6BdtNrTD
-	 dVAWxZs08MH20uIQ2kr9Ua6UunlBNXHexK1NZ5Q3FSjapr3p7gvMJxeL/5ytw13hBLLIz
-	 SWiAWH/DkAl2LXMP/HFqfV5YosMxH5zwuBdkzIcBR25SMMD7Lph3BhAPylmtuMBnoeWEZ
-	 uOqIK9jQeZJUI/QmT77ut4naSOxWUbAgDyl8Z7NRqo0Uy7sc67vGykiHOkvuO0RyT3EEg
-	 QklJviiSsL6yL8jUvtg75yJ6jrQvuzq3Y1m+YkqzJ8LdBpUE6JlB/7el+7fmcSMA75A==
+	t=1793810847;
+	b=eVZ5/K5Dx5azRCrcwsMCcMvKdm4OHW6pPJZtnW9ItADmvgmo2UErxXp9TBrgtPzweap9
+	 XhVn88qU05sn85jRgnuV9D/Uk5itrfZFIvgBhus6ZtnHo3Oo5797Y0IxMCyROoyoKDB/Q
+	 Z9AEnXy9/hwSi6hhMFpDJMVsp2MO2+bwjC61pGr6Rimmnfk5YLK1CC850LAhY56eNFcFK
+	 mKWpp+tvDFKeJh43jtIiFyogDWo1a6RjV/6PDOK1koiwTBgQckmAlmvwdetJyrccpWsAR
+	 K4dFWIx9IOMUoeEPAvqzI4PEUoZDl9HHs1ty6LUIr+i6iZMluknONtF/6w3LsmSBUbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8vSo5PyKnquWojnlUKNTbITLgcvow3SdQj1P0U2fTNA=;
-	b=WYCcG3oSSb+sQjFGS9aaHhzEB8Er1VFV6epjtttEI/SBi9OsHZ5QVJCZLdxz/vks1c3a
-	 cUmG7zIH1ZmSo5VQRRrjriDCS9sHEBmc0M5iO+9r3OLLiMLsOcnaRUCmUw7DZ3OqpIJ1S
-	 msCiyfAK07jlXMQAgEw/bLtvwya7wfU0yj+V7sV4b3Y2tCYbrkPOIaNt76YL9SSXdik52
-	 iuaAPUHMV/TGMmhozlrJAKXu3SQjYd7F3QO4pSt+ltMGX9CTFfzS0/wj8q7O9+5Rygr7J
-	 nPR02u9/WqJ8z75UzygZgd99NkzAnmIr4FF+58YGXxvX86flIB3043qiD5SUNTVohOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810847;
+	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+Mmd9iz+6l+RtzunqHn07DyKAk1sZGUOJe891sWi+Nc=;
+	b=qcmKmSTLOtGX79MWfGo6sfwT0tq9KBJQyPkd1Fh/MbdTueLM6BzqJA9YHR19YQoWpLRV
+	 K0sV6jlsDjjqGaoXd7y6VJxGlVsoSZw+KukfvgVFcjlr4foWoq3oBYd5c+iAfAULpmD/l
+	 cxifiInjvgFc5KCC13fkHr02FzaEjhjO+AlP1xLD3Wm1FQPOB1QGtkO+rZxyp0fCIO9at
+	 ML0LVcoDT9bCLRc/5RU9fMX+6bUbEnzFMB0ACJUPWMaHRy+RlTWxrpUVaf/ZFTthQ+R4n
+	 rGC0F2eQ5MADK3FbDM6XKRMBk9/USCkX/A6v6si+3eIwfAJSZlU/nyWTnjaud7OMegw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="jJUdT/Bm";
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=deq.rocks;
+	spf=none smtp.mailfrom=deq.rocks;
+	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=uCkjDFcp;
+	arc=none smtp.remote-ip=91.216.248.212
+Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de [91.216.248.212])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865B0606A33A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 16:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 865B0606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FBA606A32E;
+	Wed,  4 Nov 2026 16:47:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6FBA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jJUdT/Bm
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15ea896ddc8so1598764c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 08:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793810855; x=1794415655; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8vSo5PyKnquWojnlUKNTbITLgcvow3SdQj1P0U2fTNA=;
-        b=jJUdT/Bm5BSfggP/3oMzI7shF08QAY1a7CC1Y/0EE0NWAzgoC0hvdiGxFJFZDoaMpd
-         WfKBaXOd/bllAL/Qo3P1GuN25EXCu11jNFNhwzMQtGVhfr2ukq1k9Ak8rsUe06FEdJPu
-         Yd/5JTSJF0Es3UPj06F9a4a6FJHEMAw8S4bUb0E+M4nHv9TI61jpgfOoPs6dXeQgNRvX
-         WF1F9RxGR8Wh6j0ASkmYPu140n16p3s7qlIVgF7Jb/CPxeO6oE0Wwm2dIodAbpO23nQT
-         jkrexWypvudowL1U5BI6d252hDYryR1qHXUtBWbe7oLyu9Y5OpqVevFXBDFIKSGkO2cH
-         GE6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810855; x=1794415655;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8vSo5PyKnquWojnlUKNTbITLgcvow3SdQj1P0U2fTNA=;
-        b=CLFFjzqzgy/QFBZUZFSl51ncq95NwqzPUmBd0ZafmzhTaieyxFQEeOCC307z22dMoQ
-         Dx6Yx63L+0muKwjvazyTGLorY0tEgow1Q13k3Bu2W4jBUofbbNUdXQKPjjYC+rehJY9z
-         nIU6BkeUDy85ed7KTWgIMpmCX2TQVSrgKkPCv+6nJMWinHKVVIMQwBvHm9Ar8Juj8URg
-         UC0T/KXGx1i2bKz2jUkWCxruoaDDivZSnHHEmj2phxlOgcf3ELh44WjMR4SXw1Fy5kYJ
-         xNq3MrUcjn8nWhKAMhl3u7FULgnjZfnUiyRb105sWbuoqRpxBcOfG7GqlPWj0Qsw+5zM
-         BoTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzz5IX9RAbZofvL8+M99fXY5ocwzLBGkwsdvfC1di7SnW51cS5hqsT8KcGvd02x8go3/yxTOAdQ6AVn1Tc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ytooAHrCO9QgjpGS+nBcxHcYp+/atfJLRC/Nxq5MBIOcOhXS6
-	C4JBcpd11wVPFzCuut+/sbUJyzK6KO/eLLGP4qWc9dsSALub3gRI4OVT
-X-Gm-Gg: AYBFou3uN20SXPlLuboMGjIRQrOWh7HleMGQ8CeIfMWXxZ33l4Wcd8B8eEIeNKtRD3G
-	FInRAmoo/33wWhV/OAWV4TqQMSk1LZP5MpnfySEZsfHTdo93R8YJu/Ss/3dKTzXp1oiY7hVJtgB
-	MAYZ54fqpevHcIlgaG+IMIA+ePpz+wtJVLUaH9nt6IadjGZYu1dfy0R9paL3AZXVy5bJaBDisSu
-	8iCKebQ9Qo2d4KMQeHTnQuHTQGFRri97hA1j10MB/9TXbyQqDStvd6NiY3X0GodWBeYgOnaOLTb
-	UG6MpBcI65hyQohvjS4VWxeE4k+rJljaZs5e/53v1Iw8ggcHPCVIGVs59PjansX6l2PJzW//tMJ
-	wI/q9dA0w19IC8XmWQB3jpE4+KKKkTWxXZzM9jvVPmVfV8b9qo+iovAZsFCrG9bNmqB0KWt0s7G
-	AeHObcTB35hbWhAcTcvRke/1Wf0zAceVJnxauzYmLHHCOtPyBFVWV6h107YB09quz7In0+kRUl2
-	pgOFxzFe9dODRGJvukqdEJc8MOYg4MlSn90HWadLJWxOaPrLQRBY/CSq00nW03aVsXqT7ODDDQV
-	LlTynoLH3lAtsvu0DNF31TNuQoR2w+lL9cJXZoADNckQv5KK7yJhKSODEZbZS5qkvmv+VJfeNEr
-	+5DU1Acs=
-X-Received: by 2002:a05:701b:4513:10b0:1b2:490b:6fdd with SMTP id a92af1059eb24-1b2490b7174mr2802961c88.24.1793810854626;
-        Wed, 04 Nov 2026 08:47:34 -0800 (PST)
-Received: from Sobhana.localdomain ([157.51.207.207])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c57430sm10839666c88.18.2026.11.04.08.47.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:47:34 -0800 (PST)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-Date: Wed, 04 Nov 2026 16:46:37 +0000
-Subject: [PATCH v13 5/8] thermal/qcom/lmh: Add support for Qualcomm SM7250
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=uCkjDFcp
+Date: Wed, 4 Nov 2026 17:47:20 +0100
+X-Lima-ML-UUID: 1fb7ae95-0ae2-4b9e-9cfd-6a995782d75f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+	s=securedbylima-20251205; t=1793810843;
+	bh=+Mmd9iz+6l+RtzunqHn07DyKAk1sZGUOJe891sWi+Nc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=uCkjDFcpV18IotsW2/mO8QwbUqz2kruKoz/mzn/mqm97aaG+9qIqQQTJxN136PzNd
+	 1yLb/GTpobe0/76DBqk9c81b54TwUdcjye6wpIC1xwGCI/PdFT+W8fI91tr51/YV2Q
+	 PDFyzzOvVF1PwGBr8m0eK8n9X3XuRxtIX6T1/ayXRqZ0ZFNIUCw3hh9sumtnWCeC9w
+	 TmGfmORbv2YghVWGV8jV2SQ4FMN3DDwFIslRU2jhBYYkVLKi0KUEuqqkfg55xVjUcl
+	 T/MQzMKJPsPBMDNbM2oFTn0QfyBYfjRAxOdj0IzHaPxbRU/wVWoMBbcaKllNCyqKwk
+	 iXxxy/T5aREFQ==
+From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: marcel@holtmann.org, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sven@kernel.org, j@jannau.net,
+ neal@gompa.dev, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 66ton99@gmail.com,
+ josemiguelo.ochoa@gmail.com, aditya.garg@linux.dev, Yossef Osman
+ <Yossef.Osman@proton.me>
+Subject: Re: [PATCH 2/4] Bluetooth: btbcm: clear vendor bits in LE
+ advertising report types
+Message-ID: <20261104174720.254b7e00@kait2en-mbp15-1>
+In-Reply-To: <CABBYNZLwMW68WYBVp=-R=4Mji+-Q5AEtrcu5F_7rRYju8d-XNA@mail.gmail.com>
+References: <20261104151601.70493-1-dev@deq.rocks>
+	<20261104151601.70493-3-dev@deq.rocks>
+	<CABBYNZLMVso40XpULwTwBwAE4tpXndSJMKhmoVLrmgm+unBNCA@mail.gmail.com>
+	<20261104164647.5e9351cb@kait2en-mbp15-1>
+	<CABBYNZLwMW68WYBVp=-R=4Mji+-Q5AEtrcu5F_7rRYju8d-XNA@mail.gmail.com>
+Organization: KaiT2en
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,86 +73,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-master-v13-5-355b65c6f764@gmail.com>
-References: <20261104-master-v13-0-355b65c6f764@gmail.com>
-In-Reply-To: <20261104-master-v13-0-355b65c6f764@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, Amit Kucheria <amitk@kernel.org>, 
- Thara Gopinath <thara.gopinath@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Sreeshankar K <sreeshankar0910@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793810796; l=1940;
- i=sreeshankar0910@gmail.com; s=20261029; h=from:subject:message-id;
- bh=CFhfNpAR/hsUoYP+FpbYSd22wi56uWW4Vnq2ksqBL70=;
- b=AHV5arLvLuQqAMLn4qDczJBTrUzBqyZHmum7vYKn9NSDkm/FNjxIHZSp/eoAIkIM4IVrypzxN
- KTUVsrytn6yAlacDB88TgXiRGdRNT7Cl5IXO6NA6AoS0kuPs8fkybxB
-X-Developer-Key: i=sreeshankar0910@gmail.com; a=ed25519;
- pk=CGSHduvtn2hwLCNRXRc9s/fh6X8PH/zNdp08zC8hOuQ=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Qualcomm SM7250 features an asymmetric 6+2 core topology where the
-Silver cluster consists of CPU 0 to CPU 5 and the Gold/Prime cluster
-starts at logical CPU 6.
+On Wed, 4 Nov 2026 11:29:11 -0500
+Luiz Augusto von Dentz <luiz.dentz@gmail.com> wrote:
 
-Add the SoC match data defining the CPU-to-node mapping (CPU 0 to
-LMH_CLUSTER0_NODE_ID, and CPU 6 to LMH_CLUSTER1_NODE_ID), and register
-the "qcom,sm7250-lmh" compatible string so both LMh cluster instances
-can probe and register their respective DCVSh interrupt domains.
+> Yes that would work. That said, I don't think it is worth adding a
+> quirk for this. Masking the reserved bits shouldn't cause any side
+> effects afaik, well except if those bits are later adopted by
+> Bluetooth SIG. Then these controllers would become
+> non-compliant=E2=80=94though they already are, as the bits are reserved a=
+nd
+> not in use. In that case we would probably require a quirk to avoid a
+> conflict. So, is that what you are trying to fix?
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
----
- drivers/thermal/qcom/lmh.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/thermal/qcom/lmh.c b/drivers/thermal/qcom/lmh.c
-index ef49ed1c6..ad6d34b8e 100644
---- a/drivers/thermal/qcom/lmh.c
-+++ b/drivers/thermal/qcom/lmh.c
-@@ -110,12 +110,22 @@ static const struct qcom_lmh_node_map sdm845_lmh_map[] = {
- 	{ .cpu_id = 4, .node_id = LMH_CLUSTER1_NODE_ID },
- };
- 
-+static const struct qcom_lmh_node_map sm7250_lmh_map[] = {
-+	{ .cpu_id = 0, .node_id = LMH_CLUSTER0_NODE_ID },
-+	{ .cpu_id = 6, .node_id = LMH_CLUSTER1_NODE_ID },
-+};
-+
- static const struct qcom_lmh_soc_data sdm845_lmh_data = {
- 	.map = sdm845_lmh_map,
- 	.num_nodes = ARRAY_SIZE(sdm845_lmh_map),
- 	.flags = LMH_ENABLE_ALGOS,
- };
- 
-+static const struct qcom_lmh_soc_data sm7250_lmh_data = {
-+	.map = sm7250_lmh_map,
-+	.num_nodes = ARRAY_SIZE(sm7250_lmh_map),
-+};
-+
- static const struct qcom_lmh_soc_data sm8150_lmh_data = {
- 	.map = sdm845_lmh_map,
- 	.num_nodes = ARRAY_SIZE(sdm845_lmh_map),
-@@ -124,6 +134,7 @@ static const struct qcom_lmh_soc_data sm8150_lmh_data = {
- static const struct of_device_id lmh_table[] = {
- 	{ .compatible = "qcom,sc8180x-lmh", .data = &sm8150_lmh_data },
- 	{ .compatible = "qcom,sdm845-lmh", .data = &sdm845_lmh_data },
-+	{ .compatible = "qcom,sm7250-lmh",  .data = &sm7250_lmh_data },
- 	{ .compatible = "qcom,sm8150-lmh",  .data = &sm8150_lmh_data },
- 	{}
- };
-
--- 
-2.43.0
-
+No, nothing concrete beyond the scope, and I agree it is harmless as
+long as the bits stay reserved. We only put it in the drivers because
+our downstream ships driver modules through DKMS and not bluetooth.ko,
+which let many users test it quickly. Let's keep 88397423671f as it
+is then. I'll drop patch 2 and 3 and send a v2 with patch 1 and 4.
