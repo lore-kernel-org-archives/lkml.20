@@ -1,84 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824975;
-	b=mZy5R8kviNLOanSKZNkAz0J3WBOgrCGDdpnOWdKCd8ljQ4HM1q4cmSOlPne7Ze8RyFui
-	 Pc0bVsHPbnRAIa6yPz0t1SierblWtovUJW5ZLsr8PDQBDJ9dSJLxpxtrka8v/CS6WAywM
-	 sri9GmSQIbBPMUhuInTzXrJzW/Cr5l1CtMm/epJX2aeed7U24a5WEDGDidlVWs75xUdFP
-	 uK+DKoPLtbqUxIz2kav5BfNgB6PShFBhM1t0tXCWGN/y4xwdZi8y3J/ii97LIl3gGtVoh
-	 ZY+0zxkWknPOdTlWtCrTx9f5cPaEjie3vKtY7g6ZXyUIgyqeccOAfgXqi06cH+jGm7g==
+	t=1793825055;
+	b=MiRaPYnFD1qlxCX0QcrthIkQlhg5NYe8GAmji4Pt8g2/hwhugrjDC1dHxnCvdBF6KVNx
+	 H60pLkAFagnwLiLEp2kAuKv7IV/t6nNDJqbFHNC/vSf907plQme3vNDmbTb/KczKnrt7h
+	 KwhnQwJ99fvg+lDEvcmvZ9OCHdkuNmETCZVCPt9cF5xaCplJxnBIvJCyrfWMYmF3QS6nC
+	 nmj3pfor4IcL8MxhoHUy20MYtPJgfgW3aum6s4yjNvxlxLF7uSMHvlmbXEaq0WqXThMJ3
+	 tTT0RAiPMRF1hsANzPE/B9lbtFAZTYn0Zt67twctghDoRqi4PO+S0UwFODVlGrL4+bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824975;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=H00NPaBD9E2HwhcPqCvzRgftOVaLCyMep1/8Y4uz7Cc=;
-	b=E2Onq5P7Ll/DTxj4iEPOBG3iLsiNfHOB2NLPOhLnHPVz9vQMH1Y7IRrYz9Ht0OCIH8wv
-	 oth/gpAe4dB1O82+9Tetia9IZEC64t0LxkV2lQZGoADM8Qg4+TF0RYzqMZyeXXfDNtjKR
-	 4XL1eRkaFewu1x3YEuU49DW+NskCKoVPuJ01v4Pd/Xs5+c0mcNT5VN7sislgjzA0meHeD
-	 4wHjVDswONiX/F5BFYrPYJ3NwUXdPzXANuR1nA/FQrxJCvcM2e6IrqYk3ymn5CncZwGLY
-	 tGaYtG7+EA3PEiyQgnLo0hgrs5tBy9cA28ZTQaSjoQ5JfKKBAWR5c6rFwvyMfEMjEEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825055;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=tf2l3yXkE0t8Xin8N46UyRzO27EoLv897wb9giIedgs=;
+	b=5LjlCGcUExlqhESqZqKue+xQUmAcittQD03JRsVUny8K77iHd/Mpht24zVx8GAdOLEYl
+	 GcjDnhrYBTdCQKLabRwSZDrHMtx5rVnx8N6ouK6TpvTrDkEd/8d7Ii2BxFlM+tCQdd3ez
+	 4eoYmdQ6E+g2yVS+Q+5Zm/jtb3+k0KVxvMW3RbcueZ9bx/X4Cj4vIgCyC0mb20kEJLHyl
+	 LF6lKj27wOpsr3ND+kcW5kJG+lfmKnaEHH8HCKlqouEflJPoWUY65k8V7Ezu+r+xQZjKz
+	 Fu95o7QGwY5rJ7BjWGa0tt4njcOG0i/L5d+IeNfCC56SLPrKMRK1s1IIvugLHVqWofg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="gRxr81L/";
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/nBWSHZ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C51B606C44F;
-	Wed,  4 Nov 2026 20:42:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C51B606C44F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7DF606A87B;
+	Wed,  4 Nov 2026 20:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gRxr81L/
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKcp231Rpz8vBv;
-	Wed, 04 Nov 2026 21:42:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793824970;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H00NPaBD9E2HwhcPqCvzRgftOVaLCyMep1/8Y4uz7Cc=;
-	b=gRxr81L/7W1OMpmMQi8zxrHdkEkGVCX61P3Ffp57435m2H44samRlLlkAGhrfFfDSnFEpO
-	dL9lF7mqeyKO/ieEaGzH6Skz9NSX4RYKO2E0ggDPLqm2YZ+scJffSucG/U3ghzv6qQXFdd
-	83PmddmnFZkVXhvTvIMIGvtkuxjGSmjBg8ekTZ12crTJjMUUU8ndBSstsvLipA+JUjetac
-	X0ADAgLZPXUz8P16hO4vtYMRGmMXl5OC3qjtAKmMb7XtCtKDdU110j3mOod2Gz5hXBXYjx
-	Ng4hjeiZxchaD1ofnVeD9571xMOX0XCOmI5+1PcA4ISc8IG2O47yez4c8iLGWw==
-From: Maurice Hieronymus <mhi@mailbox.org>
-To: Lucas Costa <2000.costalucas@gmail.com>
-Cc: Maurice Hieronymus <mhi@mailbox.org>,
-	dakr@kernel.org,
-	ojeda@kernel.org,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	lyude@redhat.com,
-	linux-pci@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] samples: rust: add QEMU EDU sample driver
-Date: Wed,  4 Nov 2026 21:42:38 +0100
-Message-ID: <20261104204242.267185-1-mhi@mailbox.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261030181540.102665-1-2000.costalucas@gmail.com>
-References: <20261030181540.102665-1-2000.costalucas@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/nBWSHZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925A51F000C1;
+	Wed,  4 Nov 2026 20:44:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793825055;
+	bh=tf2l3yXkE0t8Xin8N46UyRzO27EoLv897wb9giIedgs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m/nBWSHZ1Ava1b+ZNwOQl0RnwijsopBvm8DRCbBb9rSVZKhbk4hc5Id7icuXCLqS3
+	 HczZB0azBitCJpi/oxCYt69/Ur2cRjZwovaywvPBJfpqHSY9d6gocWZvOj4JxWD45/
+	 FgoSby3hbSQN2L5oMi2PoNEcJztoejKEQAJiIvCDxyS2LaJB9hbcDiNMrN5zd15d0V
+	 AGUXpRj5csE6aw2w0BDFfyPHlyN3GR8QMNo+mqD8pgN+IdhzkBitiv04F5xLC740ir
+	 NpOnFINhPYZf5R4JcJQAinVw18vg9hXl0XH+zQw24pYCtQqU9OJKT49DeB1iwDnXgm
+	 rtmXPOi4mbTgw==
+Date: Wed, 4 Nov 2026 17:44:12 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: dima@arista.com
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Dmitry Safonov <0x7f454c46@gmail.com>
+Subject: Re: [PATCH] perf build: Override OUTPUT when building internal
+ libraries
+Message-ID: <auuZHBawk2--flHW@phoenix2>
+References: <20261103-perf-output-v1-1-df33a0368cf2@arista.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,22 +66,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: d0b702635722600cfdf
-X-MBO-RS-META: snz8b99mbkbxckeqh4mkxj3pwpmwuyq1
+In-Reply-To: <20261103-perf-output-v1-1-df33a0368cf2@arista.com>
 
-Hi Lucas,
+On Tue, Nov 03, 2026 at 04:55:21PM +0000, Dmitry Safonov via B4 Relay wrote:
+> From: Dmitry Safonov <dima@arista.com>
+> 
+> After commit 1572ba36fbca ("perf tests: Improvements to build-test
+> performance"), building perf with OUTPUT on the command line fails:
+>   make -C tools/perf OUTPUT=/tmp/linux/bld/perf/ ARCH=x86_64 LC_ALL=C CC=gcc HOSTCC=gcc LD=ld
 
-On Fri, Oct 30, 2026 at 03:15:39PM -0300, Lucas Costa wrote:
-> Add a Rust PCI driver sample for QEMU's educational ("edu") device.
+That '/bld/' is not reflected in the next line, copy'n'paste mistake?
 
-FYI, I have a series adding an EDU sample driver under review since June,
-currently at v3:
+>   ...
+>   make[3]: *** No rule to make target '/tmp/linux/perf/libsubcmd/libsubcmd.a'.  Stop.
 
-https://lore.kernel.org/r/20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org
+⬢ [acme@toolbx perf-tools]$ mkdir -p /tmp/linux/perf
+⬢ [acme@toolbx perf-tools]$ make -C tools/perf OUTPUT=/tmp/linux/perf/ ARCH=x86_64 LC_ALL=C CC=gcc HOSTCC=gcc LD=ld
+make: Entering directory '/home/acme/git/perf-tools/tools/perf'
+  BUILD:   Doing 'make -j32' parallel build
+  <SNIP>
+    TEST    /tmp/linux/perf/tests/shell/base_probe/test_line_semantics.sh.shellcheck_log
+  GEN     /tmp/linux/perf/arch/arm64/include/generated/asm/sysreg-defs.h
+make[3]: *** No rule to make target '/tmp/linux/perf/libsubcmd/libsubcmd.a'.  Stop.
+make[2]: *** [Makefile.perf:827: /tmp/linux/perf/libsubcmd/libsubcmd.a] Error 2
+make[2]: *** Waiting for unfinished jobs....
+  MKDIR   /tmp/linux/perf/tests/shell/lib/
+  TEST    /tmp/linux/perf/tests/shell/lib/perf_metric_validation.py.mypy_log
+  TEST    /tmp/linux/perf/tests/shell/lib/perf_json_output_lint.py.mypy_log
+  PERF_VERSION = 7.4.rc1.g45e09a6dbb2d
+make[3]: *** No rule to make target '/tmp/linux/perf/libsymbol/libsymbol.a'.  Stop.
+make[3]: *** No rule to make target '/tmp/linux/perf/libperf/libperf.a'.  Stop.
 
-It also covers some of the infrastructure you add here (Completion
-helpers, PCI vendor ID handling). v4 is in preparation.
+Minor stuff, I'll fix it up and apply to perf-tools to send for 7.4-rc1,
 
 Thanks,
-Maurice
+
+- Arnaldo
+
+> MAKEFLAGS propagates the command-line OUTPUT assignment to recursive makes.
+> The library builds pass their output directories through $O, but the assignment
+> to $OUTPUT in tools/scripts/Makefile.include cannot replace a command-line
+> argument. This affects libapi, libperf, libsubcmd and libsymbol.
+> 
+> With "unexport MAKEFLAGS" returned and added $(info) debug in libsubcmd
+> Makefile produces:
+>   OUTPUT = /tmp/linux/perf/libsubcmd/
+> Without it, on current master it prints:
+>   OUTPUT = /tmp/linux/perf/
+> 
+> Pass OUTPUT explicitly to each library build, including the trailing slash
+> required when constructing file names. This follows the existing libbpf
+> build rule and preserves MAKEFLAGS and jobserver propagation.
+> 
+> Fixes: 1572ba36fbca ("perf tests: Improvements to build-test performance")
+> Signed-off-by: Dmitry Safonov <dima@arista.com>
+> ---
+>  tools/perf/Makefile.perf | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+> index b74b534e1153..4cc5bb3011da 100644
+> --- a/tools/perf/Makefile.perf
+> +++ b/tools/perf/Makefile.perf
+> @@ -798,7 +798,7 @@ $(patsubst perf-%,%.o,$(PROGRAMS)): $(wildcard */*.h)
+>  
+>  $(LIBAPI): FORCE | $(LIBAPI_OUTPUT)
+>  	$(Q)$(MAKE) -C $(LIBAPI_DIR) O=$(LIBAPI_OUTPUT) \
+> -		DESTDIR=$(LIBAPI_DESTDIR) prefix= subdir= \
+> +		OUTPUT=$(LIBAPI_OUTPUT)/ DESTDIR=$(LIBAPI_DESTDIR) prefix= subdir= \
+>  		$@ install_headers
+>  
+>  $(LIBAPI)-clean:
+> @@ -816,7 +816,7 @@ $(LIBBPF)-clean:
+>  
+>  $(LIBPERF): FORCE | $(LIBPERF_OUTPUT)
+>  	$(Q)$(MAKE) -C $(LIBPERF_DIR) O=$(LIBPERF_OUTPUT) \
+> -		DESTDIR=$(LIBPERF_DESTDIR) prefix= subdir= \
+> +		OUTPUT=$(LIBPERF_OUTPUT)/ DESTDIR=$(LIBPERF_DESTDIR) prefix= subdir= \
+>  		$@ install_headers
+>  
+>  $(LIBPERF)-clean:
+> @@ -825,7 +825,7 @@ $(LIBPERF)-clean:
+>  
+>  $(LIBSUBCMD): FORCE | $(LIBSUBCMD_OUTPUT)
+>  	$(Q)$(MAKE) -C $(LIBSUBCMD_DIR) O=$(LIBSUBCMD_OUTPUT) \
+> -		DESTDIR=$(LIBSUBCMD_DESTDIR) prefix= subdir= \
+> +		OUTPUT=$(LIBSUBCMD_OUTPUT)/ DESTDIR=$(LIBSUBCMD_DESTDIR) prefix= subdir= \
+>  		$@ install_headers
+>  
+>  $(LIBSUBCMD)-clean:
+> @@ -834,7 +834,7 @@ $(LIBSUBCMD)-clean:
+>  
+>  $(LIBSYMBOL): FORCE | $(LIBSYMBOL_OUTPUT)
+>  	$(Q)$(MAKE) -C $(LIBSYMBOL_DIR) O=$(LIBSYMBOL_OUTPUT) \
+> -		DESTDIR=$(LIBSYMBOL_DESTDIR) prefix= subdir= \
+> +		OUTPUT=$(LIBSYMBOL_OUTPUT)/ DESTDIR=$(LIBSYMBOL_DESTDIR) prefix= subdir= \
+>  		$@ install_headers
+>  
+>  $(LIBSYMBOL)-clean:
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261103-perf-output-58d6965d2726
+> 
+> Best regards,
+> --  
+> Dmitry Safonov <dima@arista.com>
+> 
