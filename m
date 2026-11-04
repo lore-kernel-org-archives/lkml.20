@@ -1,129 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793807642;
-	b=ZIvIqHtOCTXNV0BgP3hCaSEtbDPabEHS5ryuYWee1bwOPS7LgG17O3fZ+hNfwdap7Zws
-	 CGwFEOd9H+THJFP48jnUbj0ORv0e2tpEHb1Og0gFxB3yqjZY3I/Cu6Gh5onWd2mife3mD
-	 N5IIT0J4NTNU+jWqaEFNUboPM/+FvUMMcjsXkrbwFhbXl49PCqHmiJz/rxoIfRCFu8ecH
-	 YYEyL4WgeH+bDf+WMoubyXx/m+2qdpD4NWf8xReDFKZJhuk5Rv+jNl58kQ20lQMUUZHGy
-	 wYw5uNfP9yjclGTE+2CMgsb+kYzaPkbHcSGu8XDcTg5l6dbHDdM2iOhEGeGOQyhjUgw==
+	t=1793807676;
+	b=tumGWBjNBEFomT0A/IwVPquTUlB4fJFJRPiFznl7KRKP2pSg6MMMB/D0O693nXqItcwu
+	 r/9mF2ophdtx+/1BPtNrXw4PYZb0EgwKMP814UQvFFv3L3KumrM2wqrP9yRAY7u31xK1k
+	 l1u+HSmPxafHO4dMafOfOiRyKpsTre8I4TkThB1+8zV8emP1pBY2zQ7jagy9mH6VaAOJm
+	 g/GIpA1tQ9B7UJuRgWg0ZuSfBBm28KbNN30U1KvaFStAlVBnfvanOpsQfSE6JMHRSi99W
+	 6o/R+qTirABxezHGQPxM+5KoaE6Ba9ailY79KMVTxb8x+FHWk1RbOUs8ssiS0Mr3thw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807642;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=r6DQFXeHjqW+2tsb+xhYIZQOOEeLrYslZi5hX5XnJp8=;
-	b=GPXBZnIlFgSRKUtJ0RxbJv/UfxCbUiWaKFwr+K56SpAZylPYZmVwguPPYCDKe/sKYB0x
-	 0+s5CsNcPT+XmGpbNz5vXcfK3HjfcooRgstJfFgI5EyNkEi2OLN2KPiPnUfbccC3tFQ+V
-	 AWYs9m2ELz+nv3ivqAyvluu5gZgKI+2YTR4CD6c2zeqh6uTb9MqnxebDxCSnb+cuipRir
-	 BCWJaL1gphHwzZ0tPBf3n80jEqM+JnSblpnXfp7hXUyU1lsqXqv6k3RfrBfepUOG86NTf
-	 EpK7B+6ngL5Hu5K1HawmqvdAHr/vIEqsBkI7fZAGfClMiu8C6EySfj+63lSTJDHmdow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807676;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cx92qKyEpq2897WTtMf3H81T6MoxWunfdKstttFLagg=;
+	b=QbYOdMPbH/ezM3KOFXtXTU144Y+usKcbJX6Q4eX7XLu04/QA8Jx3fmgGd8Oj3ehMYBcI
+	 OcJf2gRMP2Ewnz9OnIdsmll2DlK1byfj9pOqQqgjE1AxQRRPNU6D8nH3SUh17bkNVmBiP
+	 ebqQY2xiv27t66GslUGZAu+1agcmFrv40GkJ2sQHhotj4aTjIBOcVrfsvY2m3nL2WihVI
+	 YwuancAn3sV7nQ9m26qXp528+mhb6nc5hj2CrRMv3lN0xavwhoSgTjhAtwfanj2hwiI89
+	 P/86K24sGA8wng7fzfh3efm4BAbUeSQ6Cgefy7JSTAcaZOxFi+CRg23NdD9F6HMpnmA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Y7NhNDrl;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ZAA7ryym;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=USdVtnHL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E73606A326;
-	Wed,  4 Nov 2026 15:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82E73606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB628606A326
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB628606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Y7NhNDrl;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ZAA7ryym
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6A4FhKln133697;
-	Wed, 4 Nov 2026 09:53:25 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=r6DQFXeHjqW+2tsb+xhYIZQOOEeLrYslZi5hX5XnJ
-	p8=; b=Y7NhNDrleEDtTxqhs+aYm//RuyCsaGPU35AZjzHViHaJxjaph5/Lqwpfy
-	VC0cqWOrH2uXlfZiD+IrlnqJju3B/NFu3k1dYZAv/fx2wAh4ZprntaQ9oUgmTZW5
-	UsqrNIYth+qahQ9In3P53FhDxXHf53gzuTuyDbObnT4YkWkk+LTlrgQbBmOcrO5K
-	xQJawWMplJsLvJUzfuUTvNkz+4zetkuTtxzN6DSszawdeexnkVRnkilchL5OXVsR
-	KtTX5FroqJo2MXxVghJj15P5aOP0faZMf31twOr8LTKsEDsVb0FSOwIZdJ7Z/OSb
-	cHNe2Ie/D8yV6ub6sk7bxoCsfuPsg==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010055.outbound.protection.outlook.com [52.101.56.55])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hr252a0pt-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 09:53:24 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V7tsSEZARcf/mj4nqygoBpU7B1i/6lAtDfVdXkxJWL2lsim80WnD1b4AZpPscgwyUTtsLKsunZ+x8i58dcC2zsBDlkkesuHNNQq1zpGGLOxQt41ytmvx9+VKy23y0K0rw4mNgWFL56xh795WiWiKjTVN2LIq2gEarDivZQjS43Axo+OKR+KehaR0muq5t9mkdn72Ok8yQ5d0TRbtVnHfaqWSbmavRv1wD6oGz7JFEWuoL0O48+U9BNiSGe1GN+2MwWhBYlx9CUTKrRinvA5WndgDcLS4cCHnB9PHmAKzgeSr6MLK8FOoP91F4/CDAQHiilSgggi09CriltjTCupk+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r6DQFXeHjqW+2tsb+xhYIZQOOEeLrYslZi5hX5XnJp8=;
- b=mUN6zCsRWkRREY59cQVC3W/CqSJ++q2f4sMFZYQb0uFYt8CujFmwI+ILx0s1NdaQFr6/Tm1yMm8muqJOizwcftXyX6OY2rdFNJSDBEWmASxTuPI4H0hO4tk1rVfukIIUHHN4I6D55FQeghNWkNZjHZOoaGVOtqZeaF7f26ahBm7JN+FiiUILyBks7Z6nnCQ8uxXO92ssjD1XB2GwY2mB2iIroR102yhvJ0R6QDW0hsiil/nmy4ZPptnLZrorwdd/62VnLp0OM87HZkquKzKdUim90AFEyetf7p4jOfln/+ipzyYCqwOVTcRS/8SNo1xdzh6OQoCT2dWA5UOAC8pvrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=USdVtnHL
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36d6765756fso625567eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:54:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793807675; cv=none;
+        d=google.com; s=arc-20260327;
+        b=riXzkH/eYKntg1WYFqL5WucA2wg3AffFgYgvaS2lT9INvCRxdLzYN7CRbM78DDsSCv
+         O5/N/KaGzwJrjoxKGTHPvWURLADwN3YraEZzX5OHTD9OmJdpjiMmvqP7SNvZdBb9hCwz
+         0SuatiPzfS7dAvXnXjXDks9/Xaw4h0AA7c3fvPh1nmISvGbQi4Gh6pYhJ33tJVKe+h2f
+         pxBe1zNyWh58O2WHjdhlVafkDg9GO8OVSAkxrmJ3KUjnLs5psdFQ+s/xUjEDMoVc0Yq/
+         5xssol9g1F3k/m/Va/d89q5EBruGISIe6Vv/RfUufkx/MeuNIUw8fq3Wck1jjjYuf00a
+         zHJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cx92qKyEpq2897WTtMf3H81T6MoxWunfdKstttFLagg=;
+        fh=Y0207PJEBYR1iSQXUePbvWCTKOOOjKW4qNtrmYI1gAo=;
+        b=lN7HOKIxJ3GxWZN505tuqdm9x2IRl3Dwq5ogCBSBCCcr+zB9pQLl0O0Ped7/8B2b0F
+         Pp4Gk/HW8/8+fPks9AWiLt3hYjul21XzX9wslX2BrVwJlLcWChHN4PakmbZWCJFV/nuh
+         KQIAeOoGRQJilPGgFrmLr/Xc6z3DBXT4zLzg8oXFzuJ++Gll5gh9rbJw98QDA/t3lHXx
+         k3cXUHkv1gM7+jdSPTw6EcKnEiITp+6skyvMHKmm8pifLaZfLELNHXxA8jC3ZJEHDtqa
+         30fovO92RtNja13gV+mlR9+ygN4IfonwzbZJU50sVZMxek58ftVTjXW3sS7F34tkU1AJ
+         HfXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r6DQFXeHjqW+2tsb+xhYIZQOOEeLrYslZi5hX5XnJp8=;
- b=ZAA7ryymeUWMFp1h6mwKqQPunBZR+v90oNN1yXNU2C8sTnLMMRLk3cXRVtWa9oS6UyCVXtOVr4l/Sp+fKKGnd1Ntu0NCJKogHr7IVwn5xES90XiSX8XhUKJJPVWbv1p5ttQPIda8looI6H1EdoTa7VwM0v/kfE0IzggVKgmJBS4=
-Received: from BN9PR03CA0532.namprd03.prod.outlook.com (2603:10b6:408:131::27)
- by BL3PR10MB6092.namprd10.prod.outlook.com (2603:10b6:208:3b8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 15:53:22 +0000
-Received: from BL6PEPF00022571.namprd02.prod.outlook.com
- (2603:10b6:408:131:cafe::15) by BN9PR03CA0532.outlook.office365.com
- (2603:10b6:408:131::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 15:53:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BL6PEPF00022571.mail.protection.outlook.com (10.167.249.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 15:53:22 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
- 2026 09:53:10 -0600
-Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
- 2026 09:53:10 -0600
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
- (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 4 Nov 2026 09:53:10 -0600
-Received: from [128.247.81.105] (hpz2.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6A4FrA9e2446630;
-	Wed, 4 Nov 2026 09:53:10 -0600
-Message-ID: <bbe7c601-88df-4162-83bc-047b810430a9@ti.com>
-Date: Wed, 4 Nov 2026 09:53:10 -0600
+        d=gmail.com; s=20260707; t=1793807675; x=1794412475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cx92qKyEpq2897WTtMf3H81T6MoxWunfdKstttFLagg=;
+        b=USdVtnHLVmkBYxIrE8NpjKJyz95ScF+tc+ms8CbYIkNx4gFyK+RCpWfNwi7GXS7edW
+         0Zy7WO7Eva4S/WXchVf48n60c60CbPyX9mrcp8h0nvvrAi8e0e4U9EgRTkTSAgjUnL+9
+         vUApgFpOBvTFJcstMkHwy2nDsTqDNsZA/xjI7tRq1mVGreL3ehalgf3t4XHIhn3ggWnq
+         bmkKaSuR0zqznEzFr2+8gsbtyKis/Ztm1QkMcXX0va08n6CM4m2j28MTNRZeN8dg2wcI
+         mBl5BxPgwRZDh7p9FlzwlExOenruZQ8wCC810OwoztPi9KiPhBJB8y8ggjCDvKXXfgps
+         AKiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793807675; x=1794412475;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cx92qKyEpq2897WTtMf3H81T6MoxWunfdKstttFLagg=;
+        b=LT7rJjSI4PbT7OyVKWS65W1l0Zrge2uYCW7yeralH5awmYbYMg8OZYHRoxqB1WKzrP
+         PB08G2O9DUwjV8qfNZagjoQFIVc+WcGaSazg9h3ZlWUnI/Lb/mSctZGFGD1VMq1kiwoF
+         qV6/DZmlMoae6Tfo19eb+Lsup2dHc3eAv959ZGzF0kSTZ5SFjeD86Wz3ODaxbfpUo+w1
+         wf+6ePTsOa/rIuTSrJ+eb37uLWxwPe5N3YLMDi8Q3a58XiFfIehSbSLTOoZ+zngjlsu9
+         3O25cioM65QPDoOqR07+gCmEdNITANQbp8IuKt0pgphcVYts5Raer2Ryzp9yGrs3PZOT
+         QevQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcKl3YandM8ekjlsF9A9mPhYzXT8LBhJlj7ZYrNIoD5sg0sEsxCnzllaFTWj2LcM8GqFdIX+5riMkHd9I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HPWHHusaJvU9HNaGF1LksXEp85gD9rgoUd2BJ2lO0G7k97i8U
+	1hw8HLEYOtg1b+Z4TEpijGITDP/0dbZVuQ/qSfrk0hZiaXh3/+e1UqhpUQWEHPuKQak1E5ohh1v
+	/v14TIndSzfr31UwJntnVWHNccbY7Bag=
+X-Gm-Gg: AYBFou1WOTo3IrUIZrowkeZVBdxtYv23bL1gQM30qs0Q9PqIV2Olhgcgx6VNuhgEspp
+	caC3qL6/Kk8MvtfAL8+yk8f0bbcgk2MeURQJtGe4NgRbe0ZnuraiHLQUI6+LAgI9WRMj4WwhFfk
+	sEQ/1JEA70J5gvIDKxoeuHPSCZKdHpM80CJEQ41/cLHt3xO3Np5yMtE3XYlrPFWmsl7sCQfPZP3
+	Mmp84J30oVfayZMluNZ91HtCI4AChfAGlnSkWyWy2OSHH7BiM6oYWxdN74vpEODfT8TbrQ3t7UV
+	D5+UZaYcrEIBJXlLeENLR/zaChaZPkuVRnXRD4ghqeQFePNwHsynMmzLKgilhZhX7BoKdZ9klo9
+	4QmH0goAKulRDBUymj4NOH5Yn8eqEvc+TUfmd0jOqZj1B9UDJ+Um5HYJiFoLFB2fCxAGikRGfyO
+	6KfH0qNAuV
+X-Received: by 2002:a05:693c:20d3:10b0:369:fa21:ba0b with SMTP id
+ 5a478bee46e88-36a42451227mr25116892eec.33.1793807674600; Wed, 04 Nov 2026
+ 07:54:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,166 +105,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bus: ti-sysc: Don't reserve the system timers on AM33xx
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>,
-        Aaro Koskinen
-	<aaro.koskinen@iki.fi>,
-        Andreas Kemnade <andreas@kemnade.info>,
-        Kevin Hilman
-	<khilman@baylibre.com>,
-        Roger Quadros <rogerq@kernel.org>, Tony Lindgren
-	<tony@atomide.com>,
-        Alexander Stein <alexander.stein@ew.tq-group.com>,
-        Matthias Schiffer <matthias.schiffer@tq-group.com>
-CC: <linux-omap@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Julien Panis
-	<jpanis@baylibre.com>,
-        "Francis, Sebin" <sebin.francis@ti.com>, <stable@vger.kernel.org>
-References: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
-Content-Language: en-US
-From: Judith Mendez <jm@ti.com>
-In-Reply-To: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022571:EE_|BL3PR10MB6092:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5b135ab-9d3d-41f0-40a7-08df3a8bc162
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|1800799024|23010399003|6133799003|10067099003|22082099003|18002099003|261022105027099003|56012099006|261021121427099003|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261009223027099003|260925022911599003|261022075727099003|260925021911599003|260925021311599003;
-X-Microsoft-Antispam-Message-Info:
-	kMADOsmJuZBp/3mdQJUkUAa0vnqlle3vt8e1FCSfaFjnroQslnU9jhlA6cYic/oEMSGaakOVxH1A0NWRAvjDma4/rqei5QT4Tb0bY+EzHuEadvYet+K+hyIprpqgayNl31DgeIjGs6TfOcRlgRrLL4ZPQya2s2mgsBVCkKwlwect3HoRQuqrxPAahqDiu8jpmH9Uzvxlug8YF+JOCsgnmF71Oqpj9kiiNcR3ib8Xlvd+cy14BLp6DqMMSf74Da5Avzaz2XezaE8nU86AvGrvwN+bGTPZSAv9IxV4ql5TA2kVGwd6PNfJ5Jnr8lNwWghPxDdrIXk7jtO42g1P1FoJk0ti2iq4/gf+aqYBTFuKJNjD9++GB5F+TAetr0KAqni/yUpwWS1T1CzhuExTMxfoXA6lyQG18BeyZfVxsIa0VB07jKhVCF7B6gQmfou8Tqhaf+Aeduhj/Ql3cDUGIg95gTKzrkg6115QWnDKlucGY5FhneIf3KDhFl6UEJf60pqG8ECiLL1O5r07EYN9T8ARnZJHNftGIYiTt5V2cMk4DHSXQ+KoCuErbVbDFa/kJVPBrl2oBN15Q4hGdKQ4bCNCmzmHYi4sacizDf55CFFjvUtJa1ZpSXU3W7q6sNiww30Ynrx8zskiq+h++lOl4yWTepVIdq0FI3N6Pk32hayZK/RUjATjEmYk4vSynHF6xOPqMba+8pxEojHrheAAZBmS6g==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(1800799024)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(261022105027099003)(56012099006)(261021121427099003)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261009223027099003)(260925022911599003)(261022075727099003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	syrKNkQvAftt9NNIkp9GL011COcPmk3L7n6aujsjPuyY3kI0QppV2gyJJZBk0ETSb6G+x2w+QrkUAKUgkUvMd84gdHaec2cLgBN/qkWB+JT+6Tmw8SbQarcMGSPp8c4nW7IkuRE9cnRjvfRFn6AlVwHZHd/hMyM/269CRfK2dze0KmqIOxx2lhrb7HEblQ7VnNjTG2zph3RFcGzf/FxJmQq2OIHbHDxh+3KzeAFZZkUKE82cZseynYhnk+Sln8TN2rHL7MbPZ7nlxS4M0nbz9RZhHMo3BjcIJ81VdtNuGZRJR4lDwcHp0CD+yLRYU9Q0bnmYCHj8QAosrWURfodQF5W2ljg9R7bdloYRzPV2KcgZmeMklw0nMmvSRiI9bU0SY4ZdBMTiQK7/b4rTOq0v9MF2cqwtjtfA2LZrKuVMQmlX88EQG6oqFAc8ZpFVLc6x
-X-Exchange-RoutingPolicyChecked:
-	h9Wd+xZYiTVpfcYvroBZL52l9aWmBNiR11WQvXOBcsIMPtVRv6HY1rdnow2GvI88Q9o7QzVchjanmvh7lkqIlYTt73lG7sPS2KLxVf0PMo/yNm7odOcli0Bqt6Qwp5xVwAcex4T77L4pjxvm/0ml8WDink8CQzSDs5P5w2M3XJn3y5P/OoN7RSHHxL2GO8698KJ4uHYG34VLemILSe6zTfaM+8OhqZAy9VBrkt60cEWPgaJY8oODqNp9dJh8E2iIFgwfbBbWe1KcRHu8DeffQPD17uHAd9iAkQF0Ti4OiTkXsH+xl2zJ31t7VswGyQRKOfrDObZRkP5O4POuvQrbIQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:53:22.8559
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5b135ab-9d3d-41f0-40a7-08df3a8bc162
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022571.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR10MB6092
-X-Authority-Analysis: v=2.4 cv=DMsacCNb c=1 sm=1 tr=0 ts=6aeb54f4 cx=c_pps
- a=Ess5LnjAiV6zB+80YbJDlg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8
- a=IpJZQVW2AAAA:8 a=sozttTNsAAAA:8 a=OljndnyuHCFsZmmXbKsA:9 a=QEXdDO2ut3YA:10
- a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-GUID: zSz6VfjKcOU4O2C5p_zkeWqprQcj73aL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MyBTYWx0ZWRfXzBQ0BVHcr3M4
- WMiltMSDY57t5Niaa6beSME/t/XQcane+Y0RVXJqzLtqN2GAXJ8/TOt7QPYP+nHt+jHAJ4hWyOd
- 6dKXXGxNQU+oH3aqinenZF06dD5OZooR0bC8/395FiSdc8VlNUeohy04hH3dZW3jKiXTUwfB/+J
- BZUP3W/tu2iSTZiTaq5D8Jm67mGcip1BvtNDhagFYl+olCt9huYPi3aNSvjcjywVRFtwF6MrmW0
- ZBpPfJPEQPz+2k/GFP3DcMWmrSejwBlF2S3MgOBziHfvWw7JBjD4bidl4V74mfCbD2mBbfEOt65
- OThQ1Dfm6v01W0RL8taKsg9+4hApCJBazWoHo07XXoZvyyfg/jGpctN3H/1PGfA9WnIBDyHcxIp
- A3AHFz1BsfSHOniSkc8RlG6/0pf9v0RstIFYIDywS6/mhNl12Bz1mbn9g5r5bg0MJM7847m7SOg
- GbPmQOf607zyIuYEzZw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MyBTYWx0ZWRfX4PZ5ef1Imr6+
- 6jG/bAGub0Ot2hJIXNsW/iZjwzQQnVjd0t1jckuQxVBFy+N8DkLh3dVosNH2BDEaNHlwS5OMttN
- 2ogSp1m5MQh7ZZMNfrmyMAfIDdm5zag=
-X-Proofpoint-ORIG-GUID: zSz6VfjKcOU4O2C5p_zkeWqprQcj73aL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- phishscore=0 clxscore=1011 malwarescore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040063
+References: <20261104044313.2099309-1-husong@kylinos.cn>
+In-Reply-To: <20261104044313.2099309-1-husong@kylinos.cn>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Wed, 4 Nov 2026 10:54:22 -0500
+X-Gm-Features: AclHuK_e8FSFcrk3wkKeDxPbipTjNjHbgM_b9VTLRhZtBrOSof821inm6Zn9PkE
+Message-ID: <CAN+CAwNJP+CP2kRsgcYKA=3cgy-o9k5PoUnR9vUy4suJu+4ciA@mail.gmail.com>
+Subject: Re: [PATCH] mm/migrate: don't move memcg NR_FILE_PAGES for swapcache
+To: Song Hu <husong@kylinos.cn>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	matthew.brost@intel.com, byungchul@sk.com, gourry@gourry.net, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, willy@infradead.org, 
+	shivankg@amd.com, ridong.chen@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Markus
+On Tue, Nov 3, 2026 at 11:43=E2=80=AFPM Song Hu <husong@kylinos.cn> wrote:
+>
+> NR_FILE_PAGES lives on both the node and the memcg plane for page
+> cache folios: filemap_add_folio() and filemap_unaccount_folio() charge
+> it to the folio's node and memcg, while __swap_cache_add_folio() and
+> __swap_cache_del_folio() maintain the node plane of NR_FILE_PAGES and
+> the memcg plane of NR_SWAPCACHE.  A folio in the swap cache therefore
+> carries no per-memcg NR_FILE_PAGES count: shmem folios drop their
+> memcg file accounting when swapped out, and anon folios never had any.
+>
+> The cross-zone arm of __folio_migrate_mapping() moves NR_FILE_PAGES on
+> both planes unconditionally.  For swapcache folios the memcg plane is
+> empty, so migrating one misaccounts it: the destination accrues
+> nr_pages that were never accounted there while the source counter
+> underflows.  The wrong counts persist until the memcg is destroyed,
+> but the aggregate in memory.stat stays correct, so the drift is easy
+> to miss.  NUMA balancing, migratepages, compaction and memory hotplug
+> can all migrate such folios.
 
-On 11/3/26 7:24 AM, Markus Schneider-Pargmann (TI) wrote:
-> Commit
->      3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-> introduced handling of am33 SoC timers that are already active as
-> reserved. During probe this means the clocks are enabled and a reference
-> is kept.
-> 
-> On AM33xx deep sleep is entered by the PM coprocessor which
-> requires the PER power domain to be idle. The system timer driver
-> disables the clock during suspend but the additional reference held by
-> ti-sysc leads to the PER power domain not being idle:
-> 
->      pm33xx pm33xx: PM: Could not transition all powerdomains to target state
-> 
-> The reserved status is only needed where the
-> gpt12 system timer must be kept from idling, see commit
->      3ff340e24c9d ("bus: ti-sysc: Fix gpt12 system timer issue with reserved status")
-> 
-> The timer configuration in the devicetree is the same on all SoCs, so
-> there is no reason to reserve the timers on AM33xx.
-> 
-> Return -ENODEV for the system timers on all other SoCs. Like -EBUSY it
-> stops the probe but the driver core doesn't report it as failure.
-> 
-> Fixes: 3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Hi Song, thanks for the patch!
 
-Thanks for the patch, tested on various AM3* boards.
+I think this description was a little bit hard to read @_@ so the core
+problem is that swapcache folios are accounted differently in per-node
+and per-memcg, right? And that swapcache is not accounted towards
+memcg's NR_FILE_PAGES, so we need to split up the mod_lruvec_state
+into the node and memcg accounting separately. This makes sense to me.
 
-Tested-by: Judith Mendez <jm@ti.com>
+> Reproducer, on a 2-node QEMU guest with cgroup v2:
+>
+>   1. create a cgroup with memory.max =3D 50M and swap enabled;
+>   2. memset 128M of anonymous memory in it, so reclaim swaps most of
+>      it out;
+>   3. fork to raise the swap entry refcount, then fault the memory
+>      back in, so the resident folios are swapcache ones;
+>   4. migrate_pages(pid, node0 -> node1).
+>
+> "file" row of memory.numa_stat (bytes) after step 4:
+>
+>                     without this patch      with this patch
+>                       N0          N1          N0          N1
+>                      0 (*)  51691520         0           0
+>
+>   (*) the source counter has gone negative; negative values read as 0.
 
+Thanks for adding the reproducer. This helps a lot for reviewing!
+
+> Keep moving the node plane via mod_node_page_state() and skip only
+> the empty memcg plane, mirroring the swapcache exclusion the NR_SHMEM
+> handling in the same block already applies.  It accompanies
+
+So you note here that the block already has a kind of swapcache
+exclusion. To me I think the code block we are working with here is a
+little bit complicated with all the cases we have to look into (and
+three separate folio_test_swapcache() calls...). At a future time I
+think we should explicitly lay out all the cases (swapcache /
+non-swapcache shmem / normal file) to make it a bit easier to follow
+where everything gets accounted for.
+
+I say this because it took me a second to realize that the #ifdef
+CONFIG_SWAP should only apply to the NR_SWAPCACHE modification and not
+other swapcache conditionals since it protects the enum and nothing
+else.
+
+Anyways, none of that should block this clearly user-visible bug.
+Thanks! I hope you have a great day,
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+> commit 4eef27af2932 ("mm/migrate: move NR_FILE_THPS on cross-node migrati=
+on")
+> and commit c5eef2e03618 ("mm/migrate: move NR_KERNEL_FILE_PAGES on cross-=
+node migration").
+>
+> Fixes: 0d1c20722ab3 ("mm: memcontrol: switch to native NR_FILE_PAGES and =
+NR_SHMEM counters")
+> Signed-off-by: Song Hu <husong@kylinos.cn>
 > ---
->   drivers/bus/ti-sysc.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
-> index e118b900c9ac..922a90d4c5a3 100644
-> --- a/drivers/bus/ti-sysc.c
-> +++ b/drivers/bus/ti-sysc.c
-> @@ -48,7 +48,6 @@ enum sysc_soc {
->   	SOC_UNKNOWN,
->   	SOC_2420,
->   	SOC_2430,
-> -	SOC_AM33,
->   	SOC_3430,
->   	SOC_AM35,
->   	SOC_3630,
-> @@ -2917,7 +2916,6 @@ static void ti_sysc_idle(struct work_struct *work)
->   static const struct soc_device_attribute sysc_soc_match[] = {
->   	SOC_FLAG("OMAP242*", SOC_2420),
->   	SOC_FLAG("OMAP243*", SOC_2430),
-> -	SOC_FLAG("AM33*", SOC_AM33),
->   	SOC_FLAG("AM35*", SOC_AM35),
->   	SOC_FLAG("OMAP3[45]*", SOC_3430),
->   	SOC_FLAG("OMAP3[67]*", SOC_3630),
-> @@ -3124,13 +3122,12 @@ static int sysc_check_active_timer(struct sysc *ddata)
->   	 * A to B4 at some point.
->   	 */
->   	switch (sysc_soc->soc) {
-> -	case SOC_AM33:
->   	case SOC_3430:
->   	case SOC_AM35:
->   		error = -ENXIO;
->   		break;
->   	default:
-> -		error = -EBUSY;
-> +		error = -ENODEV;
->   	}
->   
->   	if ((ddata->cfg.quirks & SYSC_QUIRK_NO_RESET_ON_INIT) &&
-> 
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
-> 
-> Best regards,
+>  mm/migrate.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 28a8d7734735..bc60f6587d1b 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -690,8 +690,20 @@ static int __folio_migrate_mapping(struct address_sp=
+ace *mapping,
+>                 old_lruvec =3D mem_cgroup_lruvec(memcg, oldzone->zone_pgd=
+at);
+>                 new_lruvec =3D mem_cgroup_lruvec(memcg, newzone->zone_pgd=
+at);
+>
+> -               mod_lruvec_state(old_lruvec, NR_FILE_PAGES, -nr);
+> -               mod_lruvec_state(new_lruvec, NR_FILE_PAGES, nr);
+> +               /*
+> +                * Swapcache folios carry NR_FILE_PAGES on the node plane
+> +                * only (their memcg footprint is NR_SWAPCACHE, see
+> +                * swap_state.c), so move only the node plane for them.
+> +                */
+> +               if (folio_test_swapcache(folio)) {
+> +                       mod_node_page_state(oldzone->zone_pgdat, NR_FILE_=
+PAGES,
+> +                                           -nr);
+> +                       mod_node_page_state(newzone->zone_pgdat, NR_FILE_=
+PAGES,
+> +                                           nr);
+> +               } else {
+> +                       mod_lruvec_state(old_lruvec, NR_FILE_PAGES, -nr);
+> +                       mod_lruvec_state(new_lruvec, NR_FILE_PAGES, nr);
+> +               }
+>                 if (folio_test_swapbacked(folio) && !folio_test_swapcache=
+(folio)) {
+>                         mod_lruvec_state(old_lruvec, NR_SHMEM, -nr);
+>                         mod_lruvec_state(new_lruvec, NR_SHMEM, nr);
 > --
-> Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-> 
-
+> 2.53.0
+>
