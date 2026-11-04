@@ -1,55 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799537;
-	b=vRf1M/1LR/GublKjaiuNE28Qw/c90R3bxuEaXHRyO412NHXAZdQR0bar/f/YPgPu0nKf
-	 tGT08IJ+ms1b74d7AOYCgusJ5/0mynNlSTWGy6x36OJqeHdpd+TfT8TPO/p2lP9HrYQ9s
-	 IwC+IdYUTSCqRBXsNENd0YdBKsIbN0wDc/WyyJTv45u4MZ9pMv22uJm+Pq0lIXnqzmLNs
-	 5z+QOyQ8SqHmuk0XIBotVw2wLhe4sb+ujiSnU9WUAI5jy3/u+RQAlQB+RaB+r3jQzUJ0w
-	 mh3MEvA29envbRIBD3FqY9e+kBBGpwcdt4P+69XngR7SaqEJf5n8HU2NCjxkad0H5+w==
+	t=1793799582;
+	b=FuzI32BfyQikJfAt++suDp0cm5ZZHZkOaGytYhjGZeYdLwVqyiRqLrLXOH7GozN52OV/
+	 oH/oHaqLLIlANvH0uyotNtAf06p/diFcvgZKvWGdILNAo9fg/5vtI98VProfGaqEbV3PK
+	 fG0aY3RVVbj1nXc7GRX1MmtkbRCrJ3I2+Ht+dAq11z0IxsZ8XGSHZPHWiTvihlQnLV6ps
+	 V5wKlmeImYkGo/JYliVxP9lLRg0KpYZhFx9ik5K6+KO5m2A1fNZ/QeYke7/dAEdqMMBI5
+	 owiM+H3MzLHZSLP+mEiIA3WUbmD30d/u+jL8nj4FCYxmb9NeZIpYXU4wTIjYuuDsPug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799537;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vZywcU4Tpyl7Imqa/19fq644l3VIzOmHxylUZc8gS5I=;
-	b=S4p4Dpq5dCfqiesKEGCbJaK4kdkK2Kuv043wcTwOoa8D2Vbs5EfMEQ0tSTAZl50q72ov
-	 P+Lq2zIFYpEL45aMam+v494R7jcau9EJ3ecfu3Ii5MA2sg6vgqwRmaJ0lh36M7jrP3ZV7
-	 oyEn5/t4F6pp19vy7gLuy/OJBuC+bQ0yod+dzGUzqr6pYh/D6U/K7y52a51COHaIc8gWh
-	 k841aiAiYIAx61OouBr8gJ6Er0nsLP3rrg+gNIg3iikhV3jP5UjI/dJz8+WdOcNcnAm+0
-	 /rXCDRL9UP2pVljFPEWD61g6Ievfr+RPyOuXEl9LXhH5eFZvYAArjbbKiduv777bWeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799582;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=Lu6oIX/8hhhXX+/jHh7o/Ii7L+nOb7laO+bG3Z0feVk=;
+	b=kCxduYXkenrvXd77iyLwEDUDmJiQhXau88692MEW/NwodaEEbvttydbWVfVFhQqdv3Yv
+	 B7FLHzyeJLY4zsAQot+1G9tHb5zvk+RsmhpEce0cUZu7TeJmaQE4Emu+HC3B4kDyVj2Tv
+	 AncLkw6GVH+9njRmxeXtJJKiRl5jodhEbJ3vBUhIiDerduU1+Nv7WovrqkUEIv4cAbmqf
+	 2o6lsPkZvL0VobmYcqYTDJ3IBJZDIo3bGJHwIlKWL1DVY/mKDLJHBTGz7WmhYteQHR6HE
+	 kBerRi6ptSHO97DQDcsSgO+8wsBcYvUuLFw/vY50bW791nTkj6WYiEv/Y3aZLEBbAcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dSDLIn9Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=hAgqiMcv;
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163C8606A329
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:38:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96D2606A32C
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A96D2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dSDLIn9Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEE751F00A22
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793799536;
-	bh=vZywcU4Tpyl7Imqa/19fq644l3VIzOmHxylUZc8gS5I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dSDLIn9ZQZ9r/Ses78hycRTDZjPy44GtLGx0BLvIIIihhZ2v3cSg4ajqnbxJ2XMns
-	 m725cFVSdYbSo0Ze/Juyhar/+eliRZLAVJIeAenD0eB3D5LJhbC99N47HVyaarlYlJ
-	 VNSZklNuu7e43QS8YFctJcLMPBeA+UDGEjWW8c2eRxuWgLeoVH84FRMfEwq0oY+Pqd
-	 wSTlITpTnueDpg98YnCWwNNGzHir8f1dccdsSkV1J7lAwiuITgFSizLF+xW98g43e1
-	 POYpFpZHSFoWEP8fxQQMApxCmEDLLVH600aEEVl5cGtMiLiO//tBRgL+BvpK3nKSmK
-	 ez7/JSnv2Tgtg==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso573887e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:38:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwMRHHD0H0+vtR8np3WvPwjHH0dfelZwlkgTDyTtpPDnn8OrlrYtpSKwTFH5O9RR+jfXFKRlu/Gl9i6zaU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YG+XgcQdBa6UVjk6PuWxatUpJxBzkjSZ0R55tUHt+MzSmOJOn
-	4bu/a4c/ItNGte77P59jDoJQ/0s99O+0bYXh1Oa/L2ybjIt+AueH+g0FSRFHJlnTR70iQ6Po2eU
-	9BxeTbpuuw6/zLDMmvju4mHGAkWbi5MM=
-X-Received: by 2002:a05:6512:131e:b0:5bf:cabe:23b6 with SMTP id
- 2adb3069b0e04-5bfd9569866mr5529745e87.33.1793799535620; Wed, 04 Nov 2026
- 05:38:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=hAgqiMcv
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-536c8f958d7so5180111cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:39:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793799580; x=1794404380; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lu6oIX/8hhhXX+/jHh7o/Ii7L+nOb7laO+bG3Z0feVk=;
+        b=hAgqiMcvcgTcz4QsX/ocvnzE+L+vb6JzBNaAFdDRoTBEf6uV+GvEXHJecqV7UtjlmB
+         nMWep7UVAvhkBNXjf276o9VmYAotsWv/aE1y0QQ1rrr73UwPRCD2ZrQwOgKG3QBEVtRC
+         WhR7o5wCiT1vj+NJW1Yk8ib+H3MGGL/Xkm2Xp2TlvMg7aQImIh4ciWiB0oq0ZB795JjA
+         WUErsYEtbSIyL0sgofwmOFjD13SLPCnFnWlnZvM6tvoVTERuMrSJ1iBSZAbFcOBWC9V7
+         JyzIz2moZI3RSsPMvsyXDPSOjJa9Z2f6YRKVSd20Ef2IFzjniiFxIj23G798/vUFQUk9
+         3xXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793799580; x=1794404380;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Lu6oIX/8hhhXX+/jHh7o/Ii7L+nOb7laO+bG3Z0feVk=;
+        b=KPYEgNJGGQW9WMjwcmWmK4HGbJYu1BRcNdeDrg59LDqh5RdjmG9nm3wgw2liSGf/oL
+         Mssq6BV4gmC5KmspzINSsLuD+gIjwaREIMid6ORQyMeX55LNwk9UToJoKlamppum8wgj
+         LPfuIrSHutDJJxhRtRfODfK7F7eCG7RlbG2BRdhcIAj57GEmENUC/2BQrhn/Oika1+NR
+         BzlgBfwmROV46Q9HZYafWbprmWLzHGl3EYtionAUWYGxMQMYcPAQpEkUiwNqDgMKf52m
+         OI8YBNTNjO430O5Yp3sYlYW7c6Nd3mfRv72CV+AGgwA0ci4qW4bPcqdjrKe3HSI7F//m
+         66Zw==
+X-Forwarded-Encrypted: i=1; AKwUvByMZkCibrb1OwecTmnQIYxiqZEVPVb0jxfxIZWSELBm3JQk8CHJhoYi2A2+prHwEVQSSrQBc10QssHUSSw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LqaN43QNGMBmUZVDO87s/gde6cAkExuvZCelUhERv8jzG77rw
+	a/uIbWbpkq2qJkD4DfFV2LyPCt2qOsmUj6Hzg7OFizh4hMbDHVjgvtWJ03hIAH7bkpw=
+X-Gm-Gg: AYBFou3TbVHrzrRV9CYc/59dzz1KB0HSu8fmtzv0qrt8no2sw0YURznxYZgBiPd6LGb
+	ro95aoVTf7XF6BCLPjOM6WA3qqKNlMwpU720YXvJK/B0XGxqtEtLRd8prK6qIap9TwUIv5vIpuB
+	e8WQIfeJVgHpYWPbTlM+BoYHKnqswfEjrcE5zbmxvw7ONPL8hymvuu8d6mFHiax7glRuPSptiUl
+	MEAvJDlT26yy7OEhXBlagCoOtEcnBxPbJuvM/HJQZ06ApIndcpjKkqkQiqli5IItA3GaZ4RqjNk
+	cidU1c0dPO3a1IsXKdunxoglDPvG9wo8vtRwaNus0ep1Xl8HM6yh67AuApIhhf7kK3jQTdo5rV/
+	Wb6fOdu+8M19TYg5ATCPdchM+qct6yOmXZb0HfQFxcEaxD8mqG71FHdBcv1/ZUYiD6Uj+jDB5Rc
+	/Jyq/8lFyyk8AqWACxYxcwE0dggnushjjAsU4dxAUyxpvjck0t/oYk03wLu8jl2CcRhO/VsMILc
+	6RL84sRcP7KfA5xzfsmd6Jk+jevYwGwXTDkqP+kRUzEHvGeMcaREQHgyzIJ7MTzIFiq4iCrHT5z
+	bARc99tRn63QkT/PQ3ygzzKjFgYI7J7Fqsg8WD5JFLI1g/D9wYnNoXnzLIkeiB7AzHQULQkfeLx
+	O5j2Cib4f5Q==
+X-Received: by 2002:a05:622a:a12:b0:535:10be:7d46 with SMTP id d75a77b69052e-542b687da57mr269211251cf.29.1793799580284;
+        Wed, 04 Nov 2026 05:39:40 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b1086db63sm24026871cf.11.2026.11.04.05.39.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 05:39:39 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xObDG-0000000GBDX-3ZyX;
+	Wed, 04 Nov 2026 09:39:38 -0400
+Date: Wed, 4 Nov 2026 09:39:38 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Doug Ledford <doug.ledford@hpe.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	Sandeep Bhoot <sandeep.bhoot@hpe.com>,
+	Iraimani P <iraimani.pavadai@hpe.com>,
+	Mamila Santosh <santosh-kumar.mamila@hpe.com>,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
+ Slingshot NIC drivers
+Message-ID: <20261104133938.GP3889730@ziepe.ca>
+References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
+ <20261030151121.1f232b50@kernel.org>
+ <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
+ <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
+ <2f831f13-58ff-40ca-a76f-3aca647012b6@lunn.ch>
+ <b260f39e-2ac0-4899-90d9-3e9dbadfacc4@hpe.com>
+ <e9937650-1354-4d66-95fa-3492e3821823@lunn.ch>
+ <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,44 +124,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930101805.1770358-1-ruanjinjie@huawei.com> <88c40977-28f1-4f01-aa5c-6dedac822d21@huawei.com>
-In-Reply-To: <88c40977-28f1-4f01-aa5c-6dedac822d21@huawei.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 14:38:42 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnX2ptZnOHWvU6QR+4VKeM+kPfjShkB0DQZpr3hnG0DOQ@mail.gmail.com>
-X-Gm-Features: AclHuK9kvG8D0e3y0XT-oNPCO0nKfvGSwXLhxydNpJZTD7bCAeF6aTcpo_tZU_k
-Message-ID: <CAD++jLnX2ptZnOHWvU6QR+4VKeM+kPfjShkB0DQZpr3hnG0DOQ@mail.gmail.com>
-Subject: Re: [PATCH v20 00/15] arm64: entry: Convert to Generic Entry
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	oleg@redhat.com, shuah@kernel.org, kees@kernel.org, luto@amacapital.net, 
-	wad@chromium.org, peterz@infradead.org, ada.coupriediaz@arm.com, 
-	kevin.brodsky@arm.com, yeoreum.yun@arm.com, james.morse@arm.com, 
-	thuth@redhat.com, tglx@kernel.org, vladimir.murzin@arm.com, 
-	broonie@kernel.org, ryan.roberts@arm.com, liqiang01@kylinos.cn, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3418b0f9-d053-4be1-81a0-fc938fc5a7ac@hpe.com>
 
-On Mon, Oct 26, 2026 at 9:52=E2=80=AFAM Jinjie Ruan <ruanjinjie@huawei.com>=
- wrote:
+On Tue, Nov 03, 2026 at 08:21:05PM -0800, Doug Ledford wrote:
+> Top-posting an executive summary: HPE's ask is whether we should submit
+> this driver through the netdev community or the rdma community. HPE
+> prefers netdev, with RDMA as an aux driver, but needs the maintainers’
+> call. A minimal Ethernet driver is about 48k lines plus 36k lines of
+> mostly machine-generated headers (details below).
 
-> Hi Mark and all,
->
-> Ping.
->
-> Are there any further review comments or new suggestions for changes?
-> I=E2=80=99m happy to address anything that comes up.
+It depends on a simple question: can you create a functional ultra
+ethernet device without a netdev and without an IP or routing table?
+Like IB?
 
-You're pinging in the middle of the merge window, people are busy!
+If yes then maybe you could do RDMA first.
 
-Now that v7.4-rc1 is out, rebase on v7.4-rc1 and resend please.
+If no, then you must get a netdev first.
 
-Sorry that this requires constant rebasing and resending, generic
-entry is so intrusive that we need to take baby steps... maybe we
-can merge some of the patches and not yet all? I.e. a trickle-in
-method?
-
-Yours,
-Linus Walleij
+Jason
