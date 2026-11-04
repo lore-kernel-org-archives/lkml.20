@@ -1,69 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793751350;
-	b=azwcvpeGcO2fkcpawaRDCH+s7iggkVvnHej1P5Y+fAUJhH5NG020kWH/r1W3oIGIu/rv
-	 RerGtavf7M9Hl99W4Q9xz8OGJW4OOsKDCg/zcyUAyLnGzXDY5UvRJMZ+HaGDuEe86TQyK
-	 f3xbrhB9SUVnC5msuvpX3zp2tGEQuCewEpf4oeZopxF5TzZZGzIQpxWCl+nQpPg1yIzve
-	 uyEND9CWiPzkU+1khULRHXAnvM/trK6gh0VaJOQlyCuD6hFBh8Nej8QpU4ntVKjl72al6
-	 StD00dlmk9j1itsSktlGYbd3rImZmtucEF3ZiVWrsuec9TYQdSp61qXLjWf4qyMEctQ==
+	t=1793751346;
+	b=rRtOzgH+eUbJ0rT1ScBPtPnETxvPJodcY6rwWOWK5Hes/qCZhlyADDtqx3DqSB5CJwWN
+	 HHJCkQFHRyMNMgsz4nZ5tzVXXaX8Rs9sOOHuOKS7+Vh0bijxYLVWDrDfgnj1QjWxNcaqG
+	 4z3hUJ2pMTTjQIc7Cuv+Kf04HgIujnbAnx5uoprCVUgrQvIFKHE8n2dJ1qN+Zoe3HhVec
+	 +g0LaLpmd9lvL+iiAWTl6CR8zhXvo4qEby+9fAmYqvbdIXmEpjQv6r+7hW0xT4XczBJz4
+	 4ASBHpVh4Lj8zMGS59d+pVkfWM4Cizh44sDs/khckMFqrnFQ6KXmeogk7X/hzcl3yqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793751350;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793751346;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=yupwsl26WPKHnfflgYt0LlJCyAjS9VDdHq3ty55cWYA=;
-	b=KhmZvTuK6nB/fg/ueRWAY1gaN62EFOuSNplhP3dJbesrVVGM8Z9zDncgjdbMgp12judB
-	 CeyXvKzREacPDHmBpOQ1EBZQoxI2Jw7Ev1yDaK/pni2Qb30bA3HFfayM6wG4QMFuwsgNx
-	 QutyPRkg+Fyoc3+eCggl9UWGzDHwuk2iWWlWto8Vc+QB3hsFv1+Lv3ov5Fu7GZKt/YkAy
-	 ElLDoaqcZAMHmPa3XZqOATb6eC6PCEbZ32Pqz1dAWJOQfGaSRrSlXkKD933cD5KC/owj+
-	 Sf/+a/ER742mkpbrKxhXAro5nZVyskbaooEPI2HmiJIfNNQF5SKCL+cuQqKV9G6iQYw==
+	bh=CZWeSPV6TtzxOobdW0CwXkqthFJr36xZqBQBmvhNYSU=;
+	b=WJ8ztsjf8T9JN0iizCQCmvA6bXcZDpiXxGajKlMcNtcXoV7O7eqfinPpFxud3MAMmDWC
+	 a5DMncgFC3xzcEyxfAU8g42RGCPk5ugFc+b9XWs9cAFdDa1VfpBE0tEZjwxv/2UNVTyED
+	 ssZxjEKK1rYV5dGTllTBPRphdXkNhcYKMbkEPP0W/JbVXgqWugLidOieidAmzFd+bsKhB
+	 ni0x59AH/Z+pY+WvyNwlWUQtIotY7sbSi3sddAN4v55Vn1jnRK/r+foLOt0wzY5qto7Pd
+	 0jPR3N0DeOovV7vWqXglTIpcXPzIYqlxbJtt7hDpGqFSpi48SKHvWq0s6XnCh7TwhGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqto7lxb;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Oilm58;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DEF606A32D
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 00:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76DEF606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A717606A31B;
+	Wed,  4 Nov 2026 00:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqto7lxb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793751350; x=1825287350;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=yupwsl26WPKHnfflgYt0LlJCyAjS9VDdHq3ty55cWYA=;
-  b=kqto7lxbScHcxPnTjFXLIZYYCwHltuuvW6IddeLTumNBE2cpd8iYyJak
-   es3ohhTr4lJS4/pp9Jx7nLK0VHxGiKtMr+feg5IIS51sslQ8JnHEMd/as
-   CVoMPxN7znFHRKnHBnwvwTd03u1MpV1FFaDfimk1Zz3Hg3w8/KIOruJLk
-   0anywBfGn6DShez6vHH0bs9ovQ7pynm6mO9YPOJ1Vg0rn0xaklyVkVTL1
-   xqB0luWcRE9otOxCzs/NjvRCYF2WOUjHP/auBp3IjcJbVTT7A3LJ9SMhE
-   m492adW9q5PquCQvomLLGs4u0Le+2C5lZXhJtucFim46HYwLNGc542fpl
-   Q==;
-X-CSE-ConnectionGUID: 5QZjKaofTCS3QXRB/bZGwA==
-X-CSE-MsgGUID: l9LG/hf4RDymbIMLyrcJFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2512049"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2512049"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 16:15:49 -0800
-X-CSE-ConnectionGUID: SvpQpvFJQNS4i6TP5pDSJw==
-X-CSE-MsgGUID: ehxL3feYS5iu9ptiVVWgCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6418120"
-Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.226]) ([10.125.109.226])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 16:15:48 -0800
-Message-ID: <ee9d317a-9829-47c1-81c7-1145304ea484@intel.com>
-Date: Tue, 3 Nov 2026 16:15:44 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Oilm58
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9737E1F000C1;
+	Wed,  4 Nov 2026 00:15:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793751345;
+	bh=CZWeSPV6TtzxOobdW0CwXkqthFJr36xZqBQBmvhNYSU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=C5Oilm58tJ4i2tpoH+UgNhBtKWWSlCAavrHl8VVN70b8kwHm5TOHbVaV3SZ0Eihi+
+	 HEnjbtGD4UhGZ1ibF1MonizVzkOPiCzSwsNkC6NwgPMB1sBkqCCrH+oDL+43nEZvmG
+	 y1jHz2sbWqWqgAVC6PI0v+di9Yf42VDlhE701l+cZzyX4TtgXSar/OuPuH84Hq49i7
+	 D+gok3AcGSPkBkT/ck5hij9rMVunPCfP7zF7l8Qaal7fmAPG0cWgOn7zmVXFERwYXt
+	 aLUqVghAz8T4DyQWoaPk64g6Q6GONiTMJXPAJEd4knPFE9bTFm5ibbAENVHueIhqr0
+	 j1H8FkWM8G47w==
+Date: Wed, 4 Nov 2026 00:15:35 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, Olivier Moysan
+ <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <ukleinek@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH v3 07/10] iio: frequency: ad9910: support drctl control
+Message-ID: <20261104001535.46a1995b@jic23-hlaptop>
+In-Reply-To: <20261103-ad9910-backend-support-v3-7-0e9224ddf7b7@analog.com>
+References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
+	<20261103-ad9910-backend-support-v3-7-0e9224ddf7b7@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,88 +69,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 0/5] mm/vmscan: adaptive multi-threaded kswapd for
- NUMA-aware reclaim
-To: "Ababneh, Ehab" <ehab.ababneh@intel.com>, Barry Song <baohua@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>
-Cc: "ziy@nvidia.com" <ziy@nvidia.com>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "buddy.lumpkin@oracle.com" <buddy.lumpkin@oracle.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "kasong@tencent.com" <kasong@tencent.com>,
- "qi.zheng@linux.dev" <qi.zheng@linux.dev>,
- "axelrasmussen@google.com" <axelrasmussen@google.com>,
- "yuanchu@google.com" <yuanchu@google.com>,
- "weixugc@google.com" <weixugc@google.com>,
- "david@kernel.org" <david@kernel.org>, "ljs@kernel.org" <ljs@kernel.org>,
- "liam@infradead.org" <liam@infradead.org>,
- "vbabka@kernel.org" <vbabka@kernel.org>, "rppt@kernel.org"
- <rppt@kernel.org>, "surenb@google.com" <surenb@google.com>,
- "mhocko@suse.com" <mhocko@suse.com>,
- "jackmanb@google.com" <jackmanb@google.com>,
- "baoquan.he@linux.dev" <baoquan.he@linux.dev>,
- "baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>
-References: <SJ1PR11MB6105E073723CFEEE8C8EDBF48C832@SJ1PR11MB6105.namprd11.prod.outlook.com>
- <cover.1791577417.git.ehab.ababneh@intel.com>
- <CAGsJ_4wmSL7i4EPLWLKhDD6J=1TywBi5EYYDxp=SvOuXdmLGjg@mail.gmail.com>
- <SJ1PR11MB6105E839E55E9B0BDE183E9D8C9D2@SJ1PR11MB6105.namprd11.prod.outlook.com>
- <SJ1PR11MB6105A05870574FF39B449CE28C692@SJ1PR11MB6105.namprd11.prod.outlook.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <SJ1PR11MB6105A05870574FF39B449CE28C692@SJ1PR11MB6105.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 11/3/26 15:41, Ababneh, Ehab wrote:
-> I would appreciate your thoughts on how we might achieve a similar
-> performance improvement without increasing the number of kswapd
-> threads.
+On Tue, 03 Nov 2026 11:53:03 -0300
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-It also just plain doesn't seem like folks are very interested in
-optimizations in this area at the moment. Feedback that's basically, "go
-optimize something else" would also be very welcome.
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> The DRCTL pin controls the slope direction of the AD9910 digital ramp
+> generator (DRG). When dwell is enabled at a ramp limit, the DRG holds
+> that limit until the next DRCTL transition, so the sweep pattern is
+> defined by the waveform applied to that pin, which can be generated by
+> a PWM.
+> 
+> Get the optional "drctl" PWM and expose the integration_time attribute
+> in the DRG ramp up and ramp down channels, which sets the time interval
+> assigned to each ramp direction while the sweep parameter is accumulating.
+> 
+> The DRCTL waveform is described with the PWM waveform API, using the duty
+> offset when DRCTL needs to start low. The PWM is disabled when the
+> resulting period is zero. The waveform is rounded by the PWM provider
+> before being applied, so that integration_time reports the intervals
+> achieved by it. Writing to integration_time fails with -EOPNOTSUPP when
+> no DRCTL PWM is available. As the waveform API has no stubs, the driver
+> now depends on PWM.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+The passing comment reflects discussion on v2.  Still seems worth
+tidying up to me!  Maybe as a follow up though.
+
+Jonathan
+
+
+>  static void ad9910_hw_powerdown_action(void *data)
+>  {
+>  	struct ad9910_state *st = data;
+> @@ -2249,6 +2365,26 @@ static int ad9910_probe(struct spi_device *spi)
+>  
+>  	fsleep(AD9910_WAKEUP_DELAY_us);
+>  
+> +	/*
+> +	 * DRCTL is the only PWM used, so it is looked up by index. A named
+> +	 * lookup would fail with -EINVAL when pwm-names is absent, preventing
+> +	 * the optional handling below.
+> +	 */
+> +	st->drctl_pwm = devm_pwm_get(dev, NULL);
+
+Maybe not something for this series, but it might be nice to have
+a devm_pwm_get_optional() to avoid having to track specific error
+values. Probably return NULL for nothing specified,
+similar to your wrapper code here. 
+
+
+> +	if (IS_ERR(st->drctl_pwm)) {
+> +		ret = PTR_ERR(st->drctl_pwm);
+> +		if (ret != -ENOENT && ret != -ENODEV)
+> +			return dev_err_probe(dev, PTR_ERR(st->drctl_pwm),
+> +					     "failed to get drctl pwm\n");
+> +		st->drctl_pwm = NULL;
+> +	} else {
+> +		ret = devm_add_action_or_reset(dev, ad9910_drctl_disable_action,
+> +					       st->drctl_pwm);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to add drctl disable action\n");
+> +	}
+> +
+>  	ret = ad9910_parse_fw(st);
+>  	if (ret)
+>  		return ret;
+> 
+
