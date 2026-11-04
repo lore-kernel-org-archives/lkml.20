@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.193
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835363;
-	b=sa1eP7wrGIxfkr6SbLPA4vyhV/3mJTQpB5f4+YiM7HjOF/GZCnHQ3vN/sgAlrdvGymYV
-	 MvKOTsANW6svpyuK0KZfPd4l6PZmmNVD1sAwAcS7Nd58dBQjAIzf2ehYadtSBxiI31YKW
-	 c8OFg8laMSWry8kV0v4xkbwsE3CsG67/lYD7bOQH+D4ASYrhb6T1uKQGXblWZ/T85T768
-	 puMW5fz1v4w/lBM/Ov5e5bopqwdqBD1dVrz8CTsktX9MHUB7rMwII5bZeNaKQEc2gEh4p
-	 /fdqWi1DTI4av4pNL89GyhTBku/UvbLuQIak2B+6YNL+BQqStjn6XBwhofm/WR+bSPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835363;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793835525;
+	b=UpNzQVI0OgEgihQDAZJfBk3jyHDKW3kFwZe04N+KJX/spMBD3Y9B0SAOliLd9Bybf0KL
+	 EsC6eB2USeSngsUyecMy7FxQoFB/DGcsDGDF+vi4nmE/W6Ww1PB2zo5V3eZ7CkWu6+eR/
+	 oVlmI6Rel1V+0U/KuSYxHQhyBuYz0Cn23w6XxuJqMFecTSTfw/9ZGZE8Fl8URI2W8XAFh
+	 enFDxfOZj4m1ySKU1O6UIrl44nHU7Odj/1XriX6TK2RoVhlutWIN/RGuGgu13wbp6gfiH
+	 tbkwzY0jfhZ9Zwankjv1IEXPFn0NBYftz7hsfvjlDUYVMXyM3WKPcBHFqbCYbzcEikw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835525;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dmn1Q3/145xsrJD3bHMxFjskCeqjVe350pnKBSHlWz0=;
-	b=pE/of1u9t4BDox7gQhbCYvERpnN+JlgjDqWvLE9NaaFVVA/4G2W9nCfEqTzsPFb/aqfA
-	 Ny8UVK/+Z8i6UgoGUuXlP0Imn5ioF7ESiQvEYxAQFxpni/uXe+DdeCE+FmrFi29TUqfrh
-	 tBS4L+CbSo7Xa1+oGT4JsOSr1tNMvVaQHJFzzpNXvdia7HrrbVZvMFOE6RbqHS8nHjhm+
-	 m8wjwyAJW5SuN0Izbi2d51GjK7+Zz8bdpKYOX1uwtcMSIJwJYUvpMA1CLdL/X0Qwozp6Z
-	 YNdwmt+KOuc99ryK3pR4/XAh6dAJadUa/iDuHn0iJIUeXX9KF7+7lf1LBku+LyXUVEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SJMJgTdc;
-	arc=none smtp.remote-ip=74.125.230.193
-Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VoCFEISjEe+3bsOKsg9RxmedHt8FzEUYGSYFsiV26+U=;
+	b=Wbqf2EthlT8oli34YeGXZRIqhEvon8jFXFHUJ2JMC4E7zG0BtdFlaly3w8cTrSguQS2F
+	 okIvCq54NWBsvMFZguIaKWpUjyWS9Zcnru4vxPVDx9vChfg+ZqrmdT1B1wfaj6Ba+OZa/
+	 WR2Efom/IHjOqRiGoB+IGhYtFZMs62PbRqnWjr5FegudB4UzkASUEFIcFl4nMUkHr9hDf
+	 vbNdwj0Em3VpXorippGgantLs/u5MiQ9iedkvTs3LeVUVW6WwWzoy2USn7kNsHD6JdZhG
+	 LwIZ40FyBSfAC9a2nUunmx8EcldzAsUhnY9tidPq55ZVUcY++D/KJ8Rorn8Gwa1GTXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zw+iQKvo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8455C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8455C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFEF606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:38:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DFEF606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SJMJgTdc
-Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-5332a0f6dbbso8351581cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:35:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zw+iQKvo
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d21051042so52009066b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:38:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793835523; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qH1Bh4AFP7WTj9QtlArrPgZWlYT+RUXqVL0DYF8yLyAtpG6aJwC9IXGZpryMEQXFTb
+         lU0iqvz3M2SCpo9R0n7vJMeSFKMp4XLW7up0AsmBH/BNqrr3SNDexAAQCCkPZu9VgGPe
+         ROnBdtX81Aq0AsiuU3yy3nuHW/Bw8kYB6k61GyiJJce+dxaawi2nFqwgIqIjHYZv9wNa
+         RA2m2EVM1Zr5MXsL+qCvJ7loECcr/vgc85MZwWduwYx+LB3FpJuvBnU9vDyYR4hgJxPj
+         ph4alpDfdLlxn3wajWUMjZDone8ppW5+ahy35KkyTekS579n6BB0OkTrhe9wvoh4U9jR
+         m+4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VoCFEISjEe+3bsOKsg9RxmedHt8FzEUYGSYFsiV26+U=;
+        fh=Z7zGTQITyIhxjjFLFENcmHRQPsh6pelJW5CfAN+uZ4U=;
+        b=A1+nDhZ1gvjSVvK0JMvhzV7wD2DMCOVwvhZ3w7l7QDSMPY+H0Boc/L4ZHY8x+rjgT5
+         Z/tjLhthUmTom/NMMpZAMePuQ87VOC8D3O23kYqLwNBvScatM/Pb7cme+7/4Nll6WD8Y
+         /ktbP/QBBSWoWHM+vussYLXf3HU+XRvEf2Buiv/POgH37y6Zvw09Wgr04E9hLPywBkCj
+         sJ2padQ70mBc8r3YZ3SrWKm9o13/B1rbHGdz0gjtJ3ilU9f0cjxW8fmX6OG7M/6UwXWH
+         DmFYOg5iivxWIvo0ULLtzOKdJ1/7rcP0ARgWhdeZ1StMugdwwq+XpzeqpFI6tmw6sDBR
+         rQbg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793835356; x=1794440156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dmn1Q3/145xsrJD3bHMxFjskCeqjVe350pnKBSHlWz0=;
-        b=SJMJgTdcGBlQsf4zsbrbO1j5AkB7ELH4/WVaj4Sdyja5e8Qsu41MqKvyxQgJjRsmvv
-         WB2WEmuLJYf6rFz6iWK8B8a0Qq8ltXqfC3dLLnzSb/Vr1kzCqcVcDQZ3cIfBHOZ+5v5F
-         BLE6BusncD13AnA+suHKkbOfoVPCAwy7EG8dZrxWIbo07psQ3pnSg+ksINDz1A9UUWrH
-         6Dd8sem9Gf8LjO7S5z/9LOgyh3nnxfHBf53t/4egxxRnpdKvyogEIV7ou2TArLsJ0HCF
-         m+eLHxQj4QlJJHgWrpJlhhc2fC9xqCmbyf3EoxeRtwyCaKY2DnrxE2PcuGUmjyMKs6Rf
-         jPYA==
+        d=google.com; s=20260707; t=1793835523; x=1794440323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VoCFEISjEe+3bsOKsg9RxmedHt8FzEUYGSYFsiV26+U=;
+        b=Zw+iQKvo8Yf8fVczV1PDLI8KZfnE5zD0Cy6JTEk5mrT+ANTk+Lt+hMyZL8ZK+hzaa6
+         bdqHCgHYrXD2YptQvLE7Xs4RdcioPm+8dTdjWrF0y1UvAcJHzjXYrzW35/rratZF8luu
+         LR1Wfc1ZIZ6BPQyvDsP6kpM+hMcU+zgNW0NkUJ0rGRFONICywRUEtCAH52e9elPlgdZT
+         dVEwy6CbhLCuH50RF2GvrCmQURfOLeWwNap7324DsLlv5ejmp38bYmN6gR3tU2IwBECa
+         UbE20ltlRCZZhsZNjTY9YwNlfgCgHQwcVRFqXrQ2vprEK/KNndD8xQlhHD4A7AcNrgF1
+         lkUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793835356; x=1794440156;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dmn1Q3/145xsrJD3bHMxFjskCeqjVe350pnKBSHlWz0=;
-        b=DQH7CktwcrI1Ih8tUSagfD4ktqDVcdXvc58/mIBetoN4xwvK3E2dyNc/9YTveIxFtW
-         ertblsxP7yoUtXxwzKJLudpEpDrlKCDgQpVtseRmeTqUPIxDWEWCMhqowtZQUspZfPXC
-         TcZT/DjGf1/Q+/8SV/xzXjDH8mxilB+gUmylE5y7IgJMq+ooQDm2lhFJfGS09Nzdl8q7
-         aHiGABPiwxXSlpYoOCsrOUrU3UIUaOjZefyEReJIpOyKQAMR/49LrIb4bcvx3Pm1o5RD
-         NxvaxbNGKTZZZRK+AlWYKEmqDmBdhjsEZ81XTQeee5djOSVAhyPDuZVtCt0fWFcdUH+A
-         m49w==
-X-Forwarded-Encrypted: i=1; AKwUvBy4gdm/T6v74hA5bteCLAdHNJmyEA0qtugUbgOa+KL1QFN8bouK/YWJK1rWqQMhd21ubliKstvgJxH8VDg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96a5eSAhq+Zsnp4DVhYnwNwsmoDJpd3JfXgQN6XgrwOCfXZ3Uh
-	AesH6hLbVhO1qtI8HCH4JmL/zgzLOVRtGKgPsC8YX9/PoQ7AWj7ewsjJ
-X-Gm-Gg: AYBFou2zLkXg5AH2A/Et+4wKyV33a5mSYe/Kka7XAvz/yvQikHKRZdpeVrYf4KaTl75
-	ONqnCgXLDYjZnhMH/9GXUg4BuvBLXaIgzWWsJEJeXtu82/zEqxaORbwFjMlXWK72vGSlJmFDVig
-	4P9WPIDQ6DFzU/srtjFfFTv1HTLdpxKYwilIqJ5QzOzQ5t0vsBbt8rX0CeRHj68zbPnAbUP1CHR
-	cgZbJm87gFxm4c7WjQtYLQmskQNHb+iLjZoQwmw877Sl/rQpVs04cXhLO50h1cyPeiB12PnLiRf
-	AhUQ2kuYGZpVsGuE0i1XCKZwxu6231UXz5y6NhBN4VeaePCaIJe3XBuhA41Cq8UNK+D14zBzow/
-	bJXo9skIkXvuoM45jjvXBTl5v6Qy1cI8J52cKPmkHTQR4RZ6S2FV+OQsXyxoyq9tQDgk4mgentp
-	wNJ7OqRwKlWYJp0FVokemXdQjOlT+ogUx8E1TX1WqjY2zhmNReAaBVfH9fw4at12OPooRUK/9mL
-	lnV7gWuXOUSV9G2F13joEBaJPvwFblPiupwitxNRPgoLFegiD24RB3ykvzfrJvhnqIA0ZEHOdTh
-	fBfj+ZLokcs9qzUAKpOFlUAezQ1jokX5Yw==
-X-Received: by 2002:a05:622a:1aa9:b0:536:766f:271d with SMTP id d75a77b69052e-542b781f632mr306774901cf.51.1793835356393;
-        Wed, 04 Nov 2026 15:35:56 -0800 (PST)
-Received: from [10.0.0.48] ([71.69.222.122])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10a63462sm36858141cf.15.2026.11.04.15.35.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 15:35:56 -0800 (PST)
-Message-ID: <2a1728c5-2856-41bb-9ffd-c80df4ffda6e@gmail.com>
-Date: Wed, 4 Nov 2026 18:35:54 -0500
+        d=1e100.net; s=20260707; t=1793835523; x=1794440323;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VoCFEISjEe+3bsOKsg9RxmedHt8FzEUYGSYFsiV26+U=;
+        b=oV+y74SjuIGCHriFgO7+nRDquNTC31+cMAzfYmbN19SVCtFzLnDe5ZrPPQj+m1JIxS
+         QEOyX09p40uiTlGEPcMHyiTKfSQcMzYQTmzvsWzWNguTxLpFR1+AAHhtvk3qtytTXKw/
+         zaZHBwCDVMZsz46hR3Uya+U4Kzb3mgvj97W6wTBf5uH8tU8rapkXvihOfntAJ1CGIYdY
+         j/CNjcsXQtsM/3o9SLdxccU6A/j+Rdu/Dkfa6NleKDg8Jsp823eMTdlOmBqo+yVHJ9wd
+         NKzJ7LphGhlM/hUTnEA3a1DVwxXsu/uEpLqfFUjR0isBkP5FRJ0Ndr58TNEoVd8IE3W4
+         iQnw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9ykehgDZIWkju+zs5dq4fuo7LosXltnNlvnA11Xe7LpkDhR3mGcj/pViOO18/P1O/1beGp6bHY2DPadk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7CDJ3TLxGW8ClSIldI8v7Xc8mGDvReSiAg/8DxxUMQ2SWItjD
+	Lsg5D/ZBv/sYFFbLNw7q8GKTWpJsGlaGpTHpTeJIGvpsaHbLZ21h22NhVzBuIqyyuCTyHPYsNMB
+	7M4oV5ukGkQyEUG7gQMytMerO1bbPaQZ5j15y/eVF
+X-Gm-Gg: AYBFou2M1jI3lpX9rwRO59NVrgj1s7BddchRWrOs6k8djoztVz4BhjBCZi30Q0e9zXj
+	2J0y/rK5D+/YsgtelAxXxlBzQLCcVv108gWG2kkndq5USMQSYHMyvtEJLJJKozSy0fMRtjoyQYV
+	zh3M7Nk7hWqtlj2XWx/BiFAPmYXTQfJ3zLB2kvGqPFzLMnV6E8DTFABmKpyCmQtB+juPOk2pnOg
+	LEGVd9sZ4fFBBgd7lkhV4+pqZN+4Nvx3YQyNBi7xhVfYm6Oz9lN6g+4MOl1hu7DWvB1jV8F0gT7
+	eUHu4aDBkAeKkBVc5pezTc5NC88VcEJminzZImEzsSdu26RsYBDcWklP+ELuUtDtUP2XuQcd9o2
+	9fwZCrdN/RYY75luqE+94L103OE266xLQd4fY6A==
+X-Received: by 2002:a17:907:9615:b0:c2e:893:7010 with SMTP id
+ a640c23a62f3a-c4ca7ab1105mr1606291066b.37.1793835523294; Wed, 04 Nov 2026
+ 15:38:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,68 +104,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 5/6] tls: send a KeyUpdate at the record limit
- and on request
-To: sashiko-reviews@lists.linux.dev
-Cc: John Fastabend <john.fastabend@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>,
- kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org,
- Alistair Francis <alistair.francis@wdc.com>
-References: <20261103-keyupdate-rfc-v5-0-de1ab90a88d5@gmail.com>
- <20261103-keyupdate-rfc-v5-5-de1ab90a88d5@gmail.com>
- <sashiko-outbox-198141@kernel.org>
-Content-Language: en-US
-From: Martin Belanger <martin.nvme.dev@gmail.com>
-In-Reply-To: <sashiko-outbox-198141@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261103010216.3447716-1-dmatlack@google.com> <20261103010216.3447716-9-dmatlack@google.com>
+ <2vxza4nok0ji.fsf@kernel.org>
+In-Reply-To: <2vxza4nok0ji.fsf@kernel.org>
+From: David Matlack <dmatlack@google.com>
+Date: Wed, 4 Nov 2026 15:38:16 -0800
+X-Gm-Features: AclHuK8g0SSTWzLAJK32VMTa5tPkJ4SYKSZ2JyPLhAu2cuQYk5IO7KP3qYgSUkY
+Message-ID: <CALzav=cjq0FjSRe_KHns4sGpHtspVy-5DBdo6Kzg1TdQa1z9FQ@mail.gmail.com>
+Subject: Re: [PATCH v3 08/10] mm/shmem_luo: Allow preserving tmpfs files that
+ are still linked
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, Alexander Graf <graf@amazon.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Christian Brauner <brauner@kernel.org>, David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, 
+	Jonathan Corbet <corbet@lwn.net>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 4, 2026 at 8:46=E2=80=AFAM Pratyush Yadav <pratyush@kernel.org>=
+ wrote:
+> I usually spawn a subagent with clean context and a high level descriptio=
+n
+> of the goal to review the changes and changelogs, to clean up these
+> things, and then of course review everything manually.
 
-
-On 11/4/26 16:43, sashiko-bot@kernel.org wrote:
- > > +   ret = tls_encrypt_async_wait(ctx);
- > > +   if (!ret)
- > > +           ret = tls_keyupdate_rekey(sk, 1);
- >
- > [Severity: Medium]
- > As reported by Sashiko on v4 [1], can tls_tx_key_update() ignore fatal
- > transmission errors and rotate the TX key anyway when 
-tls_tx_records() fails
- > with -EPIPE or -ECONNRESET?
-
-Yes, but this is not specific to KeyUpdate. After shutdown(SHUT_WR),
-send() on a kTLS socket with no KeyUpdate also returns the full
-length. I tested this with TLS 1.3 AES-GCM. As I read the code, the
-KeyUpdate record then stays queued and TCP does not send it, so the
-peer never sees a record with the next key.
-
-This corrects my note in the v2 changes, "The next call reports the
-error". In the same test, the next send() also returned success.
-
- > [Severity: High]
- > As reported by Sashiko on v4 [2], how is the KeyUpdate state in struct
- > tls_context synchronized when sk_stream_wait_memory() drops lock_sock(sk)
- > during a send or TLS_TX_KEY_UPDATE?
-
-No change, for the reasons in the v4 changes. I checked these points
-by reading the code.
-
-Points 1 and 2 need a TLS_TX or TLS_RX setsockopt() during a blocked
-sendmsg(), which is an application error.
-
-Point 3: tx_key_update_reply stays set after the update_requested
-KeyUpdate, so the reply still goes out before the next Application
-Data record.
-
-Point 4: a record that was already being written can go out before
-the reply. RFC 9846 section 4.7.3 allows this for records in flight.
-
-Martin
+This is a very good suggestion. I'll do this for all my patches in the
+future. Thanks!
