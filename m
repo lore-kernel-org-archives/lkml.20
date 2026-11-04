@@ -1,102 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793828604;
-	b=N30TZmRfZSN06l7Mv75byn27kA/yRGSD+OJJXUKknwghug7kkUo9R/2Zs5l0Qy2TC7ne
-	 YiukOHHvRO+JYFtTo/BSPyBhP2Ex/Ir4j5et++J2HFWy7UwB4MxPNNkmXQgtHFgPvCYet
-	 C2pInPVi/UhaSmyBfl7a6SNC8s6tomYKUNFUeQOKwpEsM/qhNrLAqTv9Jjov0eosp/iqn
-	 8O8SKOVD+6IAlMl9NObWXmhC1/PwhjQfmfXDoaV4dlLnTbfTjwhhhdRwy2FtlQo5rz/X+
-	 PIkIUaG1kpgzFCCCfiDgnrR4QDVEzwdgPsncskUf00neVzdHqNwU2cBgQUuDN15b3wA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793828604;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
-	b=Y60YrOM77+nrsnrpkx7CpBwtzChugHSHyHjI1yNXGiMqDoL9Ay0tgHGq2HVVFpLykdoP
-	 o7u8Kf8boPkm+4vI3IA8zVgq8b1CQP9lib3aJ76tSkkKY+WWIHU5czXbBXYOKttDAaRJz
-	 o8XYBlFSyzI6uZv7AsqQYBepmBcc1ulGHaDRjncaCUN1l5e7ZjkPYfuDuqMTlyxH/xubS
-	 EdbUkD2kusE/QoSGomygH4MggHZX0TPgYfkwbxaiYu7ZRPZpXTMV/965/bvco3xlfPz5K
-	 QMg8U7UmtiVwokttlvyykZuSlg+9fVLre4l1/cL9nAiW73cn9eUpszp9cyFqHu+Q46Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0yRGyra;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793828674;
+	b=xKDZLXtjbWU6m4a5AW3LR4bw04+ZhvT4ExfiFGdSRRkqdZ0kExuNV7JN38wU44GPqXv3
+	 PFhR00ZZN8g6TVFRSjNBzbGTKBlpmi8+UUVZC+AQ6ftGipPtmRNMU2VKKB8bY4SZjCQu5
+	 UcbCt8D+biAKoNwFS3FiiYx73hjbICwcwsER3Kr9tHjyXlugoqfJwcIynHATPfCPIwQHW
+	 pw2zO1odAcEFn33u23uDDKZZf1gbgc+CBm3Tk6j0hO69yo7qjBbgRLXjbyloqT8H++dmL
+	 Af9O8e4ozHiZYMsJEp2r4PCRV1tOFEfVr8rj7h3vbCQNWRBIaeas6rurgpGIKus5AAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828674;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PY2sdrCi0+0sX7qsNuAbBBVp/LVsxKLCDHHWfHblhQA=;
+	b=43Pr8jR+blwAOuVX0WTSDTafCXAq/ZVwknUKFH4CmIHIy6JMZ7Uz9PAeKfb+GzT8SmOW
+	 s5miVqDTByrUeNXtI9oEmeI5VVdOjfsI48dhFJYgfd+fd/ggGvDZhEluw1jLLXOcGAGM2
+	 VJ0AiH6Bem95HmSExZSSl9e0YA1ymQS3bM5HZUTrKBkeyAXqv7btiTTM0xsz//kD/4uem
+	 09A4nO9PqN/XwV2qXlSaV1Va77KbKMCBkOYvK/KC4sSuS02TJyA0XDYsSvdn6LuEd/zeF
+	 ugA9tCv3BYT0BJ87iSlIjCUB/bsMzv8SbHKmT9XWD/4UK/vE7q4Pfp1bU9jBk1GQnTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNm36Zy8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED251606A331
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED251606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1A3606A339
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0yRGyra
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35159e0092aso123973eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:43:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793828603; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DHJJvAoYHkxIOe7jeLfdL4CUMOyjrfqYKNq6cJVjMrwq62C8YoTQdOvpseRXuR28hB
-         jY0yBJw8F1mODVt7iNsYYSp9EwR3fva9/Ml88dF2gh/QNolOAI0cbVvVUV5ZlbXKzjTk
-         0GMZRX3ehK1iWof9fIywXERn8zps8FvKL1TkYn3ueh2S/Z8O5MeStYm7S3wvBCCuSrgY
-         TktxaZgJluHoAfrJ/NjRaVbJQXVk9qeKUT2txwZ14nbvSiRrwPOTou+J67HKXEz2x1Hz
-         M7B6Rmew8Pn7aI0DoiRHb/wfK47lk1VdLEFwLYsB2G90b5wDM5FQuvy4XFu3IaylwVSt
-         70cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
-        fh=WAAuvfogrL6RzsQZonFwraene9j2bcfKUq1TPyCe0f8=;
-        b=jEClMuC0jdLvRAzGCxYke/+QqdvSdQAST3NBPsNdGiCaKJhBlsNzEC6iksKOa+6v3Z
-         xR76nW/XUxV/O4XtLnlig2rkJLNK1uQfFjG1vWo2798OmVw7+HKlDxO0teUa1FyvoQSN
-         uk2uKuKvOGr2IHS9hEy7VtBGAd5in36+zom90sYR9is+luwZySL3OcXsJLtkTGi5B56P
-         ZDRkAd9jdOdMf2Mme0B1GK6GrT0gieUDMZXXHVEccpk4I+4eHRhZrGAqkWuR7DGH7Ow3
-         kCSOeR9/H4BVLqLXLxyaHr+nBaYfgR6lBDXV7aXKTKDQ4t5oxujbM79zhfDvLsbU5sPS
-         R5Ew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793828603; x=1794433403; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
-        b=Z0yRGyraJdHMewKMERkG+T9GXIPcGtvAqcvq0dB9CrMEHZDroZ5FSPpKqkSyicI0W4
-         GANDTe+2Sb/NospGxzA07Xzbimt72zo4eyQpQhX6cHkMTBxgBRfckYT94/HIS+vuH28N
-         OECJvHZhEH6RFIfSkltsAQIYGO4toD8KiTGR+bgFnhRhiRbae1QGmPV2pcW8wN3ObD6R
-         8cu5SPEDsLKoWRAMatcxCW/QwcUJHf/ckyE/uwK5mQX2V01JZiHcjjYTbGWuwtlzTZ5c
-         IANGLxowxJTqqqJJvczHc90vHKU+UjS4wsuItyU4B/OXY77S6XC4w5OY/yXtzBkvtWCt
-         kvHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793828603; x=1794433403;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ljl4conW2qXat+Nx28zDcnSORLisKvQT4GcICaTQzR4=;
-        b=yVVKbMG0fFiYgAvLRo98JHJh6heryK/K6P9bKB77U8eyX6nl3Fq8c98M0bO2uFnXR9
-         hXxiBVfpb+aHMG/GJTcqbwnD+Et9ckbggCtC7bu1udQsk1Sted+AjjAVxkcxaMRkR7Ck
-         98MrJ/pVwGLZjV9rUlwpb8d0i6oBGi5iNyRbrFO5FRIuk5dmmJCsfCJMW5Joujz1f/2M
-         ZbOx47ULnu6hXgbyv8+UbX976IPwBvx6mr5VoPfB1AHsGduKy6bPKC6Jf9D790Iu/ffQ
-         iQnVbIr2vp4S7FIoNuM3T8Tq9CddE/bIUZdiyS7RuMpEZkmB3EbofRg3TJ6TVuBWa+nI
-         FH5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzGSnmyO+iBukKadPvtg84zfB2dCZ07pLYydRkZiQSnjXsA3JOCw0bAxGOCzz2n9aDskfIleJ78MuqLfZ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tEeZRLikUYHoG/8I+hB2Dgs46v7shWwTtmUn1d3zGIHw9Qi1p
-	r1/QCPl6xFf0MQ7pbDIm+j2P62xJ2U8NX8C42IoYCseDZ9YFtBZKIRXPxJpdGVuLF8csGwLN0WK
-	rYvUfLrCm9UnOxvk37DPhV/DI25dmEAg=
-X-Gm-Gg: AYBFou1YNCkFwrDRpMguZCuqbnCOQyJc6PDH6877YQ0oXQiqFF/Xt4xhAilLHq24L1M
-	tSatTRKo3h1qpsrhlAzpVCA0oWTVWeHHyWELaa7V53duXHeAR82QDPFyFRAopPfFaqqAVyn/jRD
-	XL4ADm9cB/6d3H4qsOUEaRw3PwadmpKsPauGtnr7Kof81yOrNFl9uiOQW55FlPU6fr5ugB3uH00
-	1NRuqap5JoULD/ke+ZegjMSvT759W0fVi1RqebVb1At4IGvSrhRz/+FLowlIFrG/lTBdJ+TNuLO
-	R6HY18KNRSTQMTgylUZ/tOClA//NFNqbxmzOkBL34qT2lu1K7rZeQ43d3E5DxFo5iiUYvdYG+Xz
-	WmBj8gSyyIxDGr4qOfmi/Rfndh6LMIsoZsDYVz8vi6waHCGEYAsXqzDPvJ4lX4hTmdhkjsnMVt4
-	uMbQIODc1GhypEtGPkpfT3gB21ryVwj9w0jvJAl9+x3VwF2nIdDmqSe5ZeOz9po43m8vvlXz8z0
-	l1345BaIAmDHX1uc/nZ9LPIa0PKpHz2+msyS6uuZGn4ftUI9jO7htGgPQ==
-X-Received: by 2002:a05:7300:ae18:b0:36a:13fd:b5c with SMTP id
- 5a478bee46e88-36a4235ceddmr35158095eec.2.1793828602922; Wed, 04 Nov 2026
- 13:43:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNm36Zy8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761E61F00A16;
+	Wed,  4 Nov 2026 21:44:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793828674;
+	bh=PY2sdrCi0+0sX7qsNuAbBBVp/LVsxKLCDHHWfHblhQA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fNm36Zy877ytogwQ88aKuSZ/ktzojEay7m3d7wRK6ckNpPG3E00aRuHhrsFvflqKN
+	 cJ5mkxQCwrTMOH4Gfx5FAYNOzM9XYVQO1tKlrBF+dKA7qSOyltU8FGHOkJu85VnIXh
+	 BeUdBLNb7s1+8/sE+Oi004RzbK8adr0yBEZ7lLw8PUz5rbfs52JI2E4nZsAZD3QWl1
+	 uv8UR3KYrlT6AOY4ia9LG7oxzyH8zXFYWunQVrn+K6yJVAPE01Hrkkcf40HDEVIetb
+	 VAu1XRKa4bz9Rbiw14sZkiWD8cbmHvrC37yDmcJTGET4I6/acfTJ/3rps4tCOLEyKx
+	 ofisDSJUx1BZg==
+Date: Wed, 4 Nov 2026 21:44:28 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
+	torvalds@linux-foundation.org, olof@lixom.net,
+	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
+	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] riscv: build kernel atomics from LR/SC when Zaamo
+ is disabled
+Message-ID: <20261104-headlamp-improve-21863d9ca13e@spud>
+References: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
+ <20261101-lrsc-only-v4-1-4e1d010463b3@mobileye.com>
+ <20261103-distance-audio-9b6aac0b1b4b@spud>
+ <28a25fef-2a53-4d4f-b43e-6e8740c08e1e@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,37 +69,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ed89f1ce-cdca-d6f6-3e1-f0fa34eac4d@namei.org> <4ea0f231-eec4-4f41-bd2c-e5484c0535de@paulmck-laptop>
- <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
-In-Reply-To: <b765a5d3-9844-fed8-4277-2a998980b33f@namei.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 4 Nov 2026 22:43:09 +0100
-X-Gm-Features: AclHuK8gOlHOslpVAosDZWNzH-O8Uhmybac6kwLa9O77gIDa-8MbeUZmJg2EQs0
-Message-ID: <CANiq72kCLu8EUSitn0Z_Q=ff+gDcmw3o=aaMCLYSm-ze8Y2zvQ@mail.gmail.com>
-Subject: Re: Kernel formal methods mailing list?
-To: James Morris <jmorris@namei.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Christian Brauner <brauner@kernel.org>, 
-	Julia Lawall <julia.lawall@inria.fr>, Greg KH <greg@kroah.com>, gmonaco@redhat.com, 
-	ojeda@kernel.org, aliceryhl@google.com, gary@garyguo.net, 
-	namcao@linutronix.de, sashal@kernel.org, 
-	natalie.klaus@runtimeverification.com, willy@infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>, tytso@mit.edu, 
-	keisuke.nishimura@inria.fr, jean-pierre.lozi@inria.fr, ejratl@gmail.com, 
-	corinn_tiffany@alumni.brown.edu, kate.stewart@att.net
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fpKJwq6g+nGE1k16"
+Content-Disposition: inline
+In-Reply-To: <28a25fef-2a53-4d4f-b43e-6e8740c08e1e@mobileye.com>
+
+--fpKJwq6g+nGE1k16
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 4, 2026 at 9:56=E2=80=AFPM James Morris <jmorris@namei.org> wro=
-te:
->
-> That's a possibility. Would the mm folk there would want to keep it domai=
-n-focused?
+On Wed, Nov 04, 2026 at 01:41:44PM +0200, Vladimir Kondratiev wrote:
+> On 11/3/26 23:09, Conor Dooley wrote:
+> >> +config TOOLCHAIN_HAS_ZALRSC
+> >> +	bool
+> >> +	default y
+> >> +	depends on !64BIT || $(cc-option,-mabi=3Dlp64 -march=3Drv64im_zalrsc)
+> >> +	depends on !32BIT || $(cc-option,-mabi=3Dilp32 -march=3Drv32im_zalrs=
+c)
+> >> +
+> >> +config RISCV_ISA_ZAAMO
+> >> +	bool "Zaamo extension support for AMO atomics" if NONPORTABLE && TOO=
+LCHAIN_HAS_ZALRSC
+> >=20
+> > Probably this option should be called something like
+> > TOOLCHAIN_HAS_ZALRSC_ZAAMO if you're going to use it like this, because
+> > it is confusing why ZALRSC gates a ZAAMO option.
+> >=20
+> > I'm curious actually, does every toolchain provide zalrsc and zaamo as a
+> > pair, or should you check for both here? I'd be surprised if there was a
+> > toolchain with one but not the other but worth checking to avoid some
+> > bizarre toolchain bug..
+>=20
+> Agree, will be in next version.
+>=20
+> > Ah, right. But that kinda goes against how NONPORTABLE is meant to work
+> > since the default cannot run on all platforms? At that point, just get
+> > rid of NONPORTABLE?
+>=20
+> Agree, dropping NONPORTABLE
+>=20
+> > | My logic when adding it:
+> > | There are 2 sets of extensions related defines: one is Kconfig ones,
+> > | CONFIG_RISCV_ISA_<ext>; and another one found in the
+> > | arch/riscv/include/asm/hwcap.h, RISCV_ISA_EXT_<ext>
+> > |=20
+> > | In the hwcap.h, there's already
+> > |=20
+> > | #define RISCV_ISA_EXT_ZAAMO		97
+> > | #define RISCV_ISA_EXT_ZALRSC		98
+> > |=20
+> > | added by commit 35173b666a16 (riscv: add parsing for Zaamo and Zalrsc
+> > | extensions, 2024-06-19)
+> > |=20
+> > | These 2 sets are logically coupled, and used in the BPF JUT code like
+> > |=20
+> > | #define rv_ext_enabled(ext) \
+> > | 	(IS_ENABLED(CONFIG_RISCV_ISA_##ext) &&
+> > | riscv_has_extension_likely(RISCV_ISA_EXT_##ext))
+> > |=20
+> > | So I thought if RISCV_ISA_EXT_ZALRSC exists although it is mandatory,
+> > | CONFIG_RISCV_ISA_ZALRSC counterpart should exist for the same reason.
+> > |=20
+> > | Do you suggest this is different case and it is worth to remove
+> > | CONFIG_RISCV_ISA_ZALRSC anyway?
+> >=20
+> > If this is the justification for it, then you need to provide this
+> > justification in your commit message - but if zalrsc is always enabled
+> > then there's no need for any code like that in the bpf jit in the first
+> > place, once more making this dead code that should be deleted?
+>=20
+> Adding justification. Also, it is possible to have zaamo+zacas and not
+> support zalrsc; in this case CONFIG_RISCV_ISA_ZALRSC will be "n"; adding
+> clause explaining this theoretical option.
 
-I think linux-formal would be clearer, even if LKMM uses formal methods.
+Key word, theoretical. We do not support zaamo + zacas only systems.
+Please do not add "code" that a) has no actual user and b) would only be
+useful if we supported something that we do not support.
 
-Especially if one subscribes to both and uses filters/tagging in their
-email client and/or wants to pay more attention to one more than the
-other.
+Thanks,
+Conor.
 
-Cheers,
-Miguel
+>=20
+> >> +# Zaamo is off only when the compiler accepts _zalrsc in -march.
+> >=20
+> > I think the comment here is not quite right, it should be "can only be
+> > off", no?
+>=20
+> Sure, fixed
+>=20
+> >> +ifneq ($(CONFIG_RISCV_ISA_A),y)
+> >> +riscv-march-$(CONFIG_RISCV_ISA_ZAAMO) :=3D $(riscv-march-y)_zaamo
+> >=20
+> > Isn't this dead code? The logic for RISCV_ISA_A is:
+> > config RISCV_ISA_A
+> > 	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
+> > but ZALRSC is always set, so RISCV_ISA_A is equivalent to
+> > RISCV_ISA_ZAAMO so there can't be a case where RISCV_ISA_A is not set
+> > but RISCV_ISA_ZAAMO is?
+> >=20
+> >> +riscv-march-$(CONFIG_RISCV_ISA_ZALRSC) :=3D $(riscv-march-y)_zalrsc
+> >=20
+> > And here, this is effectively just riscv-march-y, since if you get as
+> > far as here, it must be true.
+>=20
+> See above, in theory one can have zaamo+zacas but not zalrsc
+> > | > ...why are we making this a compiletime decision in the first place?
+> > | > Why can't this be an alternative, starting with the zalrsc stuff and
+> > | > moving to the better implementation if available?
+> > |=20
+> > | I started with alternatives approach, see
+> > | Suspicious Link - Removed
+> > | Then I converted it to the static compile-time decision following inp=
+ut
+> > | from Gary Guo that I think is valid, here:
+> > | Suspicious Link - Removed
+> >=20
+> >=20
+> > Okay, that logic from Gary does make some sense. I'll accept that
+> > argument, but again this needs to be communicated in the commit message.
+>=20
+> Done
+>=20
+> > | There's BPF JIT that emits AMO instructions, patch for this is not re=
+ady
+> > | yet. These AMO instructions will be emulated and work correctly but v=
+ery
+> > | slowly.
+> >=20
+> > I think that needs to be part of this series. You're far too focused on
+> > your individual platform where the instructions work, rather than the
+> > holistic solution of lowering our minimum requirements so that platforms
+> > that do not have any AMO support work. The only way that it'd make sense
+> > to move forward with this without the bpf jit patch is if you disabled
+> > bpf entirely when RISCV_ISA_ZAAMO is disabled.
+>=20
+> Added patch for BPF JIT.
+>=20
+> Also, added is patch for kprobes/uprobes, to reject probes inside lr/sc
+> sequence. This is needed anyway, having lr/sc blocks for any atomics
+> only increase chances but we do have lr/sc blocks in code anyway and
+> need to protect it.
+>=20
+> >=20
+> >> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
+> >=20
+> > Something else to note is that we do not use this pattern anywhere else
+> > in arch code as far as I know? We always use the RISC_ISA_WHATEVER
+> > config option to gate conditional stuff. Since RISCV_ISA_A is equivalent
+> > to RISCV_ISA_ZAAMO (unless I am mistaken there somehow) this just colla=
+pses
+> > to a single check?
+>=20
+> Agree, replacing with #ifdef CONFIG_RISCV_ISA_ZAAMO>> +#else
+> >> +#error "Need AMO or LR/SC atomics"
+> >=20
+> > And this error is actually unreachable?
+> >=20
+> > (and so on in every other place that this pattern is repeated)
+>=20
+> Agree, removed
+> Thanks, Vladimir
+
+--fpKJwq6g+nGE1k16
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauunPAAKCRB4tDGHoIJi
+0rZRAP0SIBd4mnf7eT0t0SQJrop+mJT+JpuiCueBxbZ6t3a76QEA4s32hCwCVa6F
+I+9s9JyOz9O+zn7y5U2kFfES3EWRbAE=
+=GDnv
+-----END PGP SIGNATURE-----
+
+--fpKJwq6g+nGE1k16--
