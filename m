@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813362;
-	b=ARvalLpiHhd5ouymkZhLwX+d71FjiTfMSHLaSoWsePg2t1hoKfrAC/AGYzXGTox2bun/
-	 L2ttARs30gg2R3kY9B9OGzR9UnsuWBQ5LQgZFFoyMDFe3tVNOkREn3ce4hFtBkf7DhM1j
-	 S/mDQfXazHqC7yJMOx90XO/OXk9ACgPR9Likq6pWe8qJz6VGW96yJzeOEkZEhp7YB5R6O
-	 HP/iWbmtr9MBecgCkuflBAq79plhRZcW+KjknBgtTVkIf1O1LcFk5WEg3W1HEm/zVZfOC
-	 DBaduXISY29aJthu9GVJYovnQ2xPPU1gvHUW49YvpL31r/GBhuNSFxYqdsV40dk+4KA==
+	t=1793813335;
+	b=vl7bKepQqGm55qmU42ObrW6jf1Nxk4t6lvnpC319HhlxYV7yyGT8aQiG23ULaj26Of3P
+	 L4t6Jz5xm30/2N/e8eE5v4vKf1RUQBj6y6hFElyiw0uck9mnj5l9qfsbcqo5U7Ng70Ep3
+	 6RjUdk3FkN1vi3MsT6qNsSZ3t9WuGo37jKQ2JhJ/0bwLoEQQ0tnDQdWq8YN8T1jDn2xMg
+	 bi9cZPYsJ5vEjj6aL+TUDLwpqX0XJ7P/aIzHZvlXUJGkHFpf9pOjKYP1Qchc9h9av359e
+	 nMiQtl0JyzWmbqIJxRk7CtDqbKCSfw4TtrK9Z6nAMTG+uHzzq3haD1EQkmfOErQAU7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813362;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=gFEJqRgH61IzklfvA3n605Eh40ve416hHe8RcUF6mxQ=;
-	b=bjBOqnGwmacGbRD2Rj9ADJlSKjA3QVngp0nIF5iZU0bhDiiH726a88yMXyh3937Plmxi
-	 dffOtRZPm0Qzpw8/jv+tTlsZCDjUwTU836ewG6lZiwRgM+wm4LMgvunMKxwkrVRDEPDtJ
-	 CCyk7olLgul+wEKgVxtDENUJhgSOXdX/EEIPZ0pHg7Hr/33FQ4OK8d2zwaLfUQoG23s0G
-	 RqFezDgE2Kpvml3B2nPZ65cpTXc4W/TTXSwruTigSblTpEqhOlFdNxJ7zxOnaBZavOhb6
-	 pq0Owe8WU0X/qlWUuFPT2tZ2EBBook30LmCcb6tRDWIDpHoKg1qY5jSBiHMua8r6bVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813335;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Em8mdDwLTSxa5ZBRNu+oIoQ2F8Zgf6ZNSHVwHsLTxqQ=;
+	b=0X/mMMk5yctkhCRkU8PDEzFBBwSw55+RPs4qJvc8QXjZHXQloje7KknPi/jVOf2Dd42Z
+	 ySm/BTcdzY0+sEUwEo29n3mSFUAEXBMzPhqsbgZhQjO5OnW1qPzckrpbTZ1QxiwTtKlLk
+	 uag+QOza43kmvKThrHt2zIkrxmC9RPGfaAAsYf6+76vNFcZnKxVYxJ26JLqC6X918TnRy
+	 uU2wQ5w6159JFhWA5cfAXmLkovUt5l8BXJb3PvswduT6NSsLKq8S6hjxm2QB7ljVtfb9x
+	 V//5+6vCl7ImGElkgMPfEo5Lm17WvpRK77rSydz6v8tBz3u1fZGYOO2kW4EpZEqISpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DvTeETXw;
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WlF7tGad;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E8F6083629;
-	Wed,  4 Nov 2026 17:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E8F6083629
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3187606D81B;
+	Wed,  4 Nov 2026 17:28:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=DvTeETXw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793813362; x=1825349362;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=gFEJqRgH61IzklfvA3n605Eh40ve416hHe8RcUF6mxQ=;
-  b=DvTeETXwqIsqHuJichv6o6UFSLbkQqkvW0PqDJbtHtq7VjGTFSBj4xu8
-   +8luNC7RuUjLGy8zsJacZL+CsBGbsiS4xaDUR1FAItCUuIfQldUnIvSE/
-   IwBjJVZGU40IJu433xz2lyhHhc5kSnfxl5JdNsy+/Vzj5Go0+aoywy/J9
-   Z6erxydIzzvhCf8JDAhZL6SLWbKsCYZYPEuT+W4xlF2z4JHO8TII8BxDP
-   MadcwpIS6tPqxaHeYrsvgKr2xFVQ9F+VODjeyAvBiu/iMitlGuT7Z65C7
-   ncUP2dd0YFEY+B0IZvF78KbQ+WXo3Uj2KrXvWJ2reewTjSHj3oc/W0twT
-   Q==;
-X-CSE-ConnectionGUID: CUqxpeSkSBCTTU11AbvPSQ==
-X-CSE-MsgGUID: KeNNsBn9QgKFHR6iA1dSzA==
-X-IronPort-AV: E=Sophos;i="6.27,195,1787011200"; 
-   d="scan'208";a="33106334"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:29:19 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:14926]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.149:2525] with esmtp (Farcaster)
- id d71e35ff-853a-41e5-9909-cd966cd05095; Wed, 4 Nov 2026 17:29:19 +0000 (UTC)
-X-Farcaster-Flow-ID: d71e35ff-853a-41e5-9909-cd966cd05095
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 4 Nov 2026 17:29:19 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 4 Nov 2026
- 17:29:17 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Rodolfo Giometti
-	<giometti@enneenne.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Takashi Sakamoto
-	<o-takashi@sakamocchi.jp>, Eliav Farber <farbere@amazon.com>,
-	<devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v7 0/4] pps-gpio: restore pin mux on unbind and shutdown
-Date: Wed, 4 Nov 2026 17:29:08 +0000
-Message-ID: <20261104172912.26456-1-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WlF7tGad
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F761F00919;
+	Wed,  4 Nov 2026 17:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793813333;
+	bh=Em8mdDwLTSxa5ZBRNu+oIoQ2F8Zgf6ZNSHVwHsLTxqQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WlF7tGadWEgcoZaI1uK4E88iTTgepprrifasds75i7VthYlwDtZlbOT38njQBleEb
+	 UPbfRvu/3NbdJdmajozNFYEjQ7CLKo3CQ2J3GJ8KprOwgxaPeKR/tPjmsa1SVubVZc
+	 1en2pZ6ZJTtEVyIRxb8Akk8hz+i5vksUw5t9jkHwoekjj/VsrPO/9oQMYE5lUZ/Gmm
+	 GUjsDpi349fDqaFLbiGR7qDbPwtf9QbhpGmf9fVBlF6p4pM0JpJvP1ofrRorpGAY+w
+	 2xFkMHZ1ZzA18zc8/hnvV/Wnix3shLePBWHi7TeHk0dW6WQ7yqtTL3j1rmlfaIJEkz
+	 qVzdX/epmct3g==
+From: Christian Brauner <brauner@kernel.org>
+Date: Wed, 04 Nov 2026 18:27:18 +0100
+Subject: [PATCH v2 01/51] alloc_tag: don't remove /proc/allocinfo under the
+ codetag module lock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,155 +53,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-work-procfs-bugfixes-v2-1-bbf7d5546809@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3465; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=C5Mw1tWGzCvAVdyOdBCkcSqd8MeBZuRbzsUttoDJMVc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zvplOalNaKKt8vuu2b8lsnQOcTE/KzbYPv1ll+Xp5
+ mmPQhjTO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACaSn8/wm81Zr+lISs2Ek/OM
+ L7KdEcq5v/O1XVLdtyWXdiY8F0/he8vwV96O52JXaCnv3ctHP3V8+3Zga6R61CzWK7HM88uSHpZ
+ tYwQA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Andrew,
+codetag_alloc_module_section() takes the codetag type's mod_lock for
+writing and calls reserve_module_tags() with it held. When that can't
+reserve the tags, because the section's alignment doesn't fit, because
+there are too many tags for the page flag bits or because the memory
+for them can't be allocated, it shuts memory allocation profiling down
+and removes /proc/allocinfo, still with mod_lock held.
 
-v6 [1] was acked by Rodolfo Giometti on all four patches and reviewed by
-Bartosz Golaszewski, Rob Herring and Linus Walleij, and Rodolfo asked for
-it to go through your tree, as LinuxPPS has no tree of its own [2].
+remove_proc_entry() waits until every reader of the entry has let go of
+it, and a reader of /proc/allocinfo takes mod_lock for reading in
+allocinfo_start() while it holds the entry. So a module load that hits
+one of those paths while /proc/allocinfo is being read waits for the
+reader and the reader waits for the module load, for good.
 
-I am bumping it as a standalone thread because I mistakenly posted each
-new version in reply to the previous one, so v6 may have gone under the
-radar. v7 is v6 rebased onto v7.4-rc1 with the tags collected; the code
-is unchanged, and the only other change is one paragraph in the commit
-message of patch 4 (see "Changes in v7" below).
+Let a work item remove the entry in that case. The profiling is shut
+down right away like before, the file just goes a moment later.
 
-[1] https://lore.kernel.org/all/20260923182243.41060-1-farbere@amazon.com/
-[2] https://lore.kernel.org/all/4a62a294-ae53-455b-bc00-d16088684682@enneenne.com/
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ mm/alloc_tag.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-Some boards route the PPS input GPIO through a pin controller and mux the
-pins to a different function when the pps-gpio driver is not active.
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index 82e2c3448dcf..7d7ad6704953 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -15,6 +15,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/string_choices.h>
+ #include <linux/vmalloc.h>
++#include <linux/workqueue.h>
+ #include <linux/kmemleak.h>
+ #include <uapi/linux/alloc_tag.h>
+ 
+@@ -604,6 +605,26 @@ static void shutdown_mem_profiling(bool remove_file)
+ 	mem_profiling_support = false;
+ }
+ 
++static void remove_allocinfo_file(struct work_struct *work)
++{
++	remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
++}
++static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
++
++/*
++ * A module's tags are reserved with the codetag module lock held for
++ * writing, and a reader of /proc/allocinfo takes that lock with the entry
++ * pinned. Removing the entry there would wait for that reader for good, so
++ * let a work item do it.
++ */
++static void shutdown_mem_profiling_async(void)
++{
++	if (!mem_profiling_support)
++		return;
++	shutdown_mem_profiling(false);
++	schedule_work(&remove_allocinfo_work);
++}
++
+ void __init alloc_tag_sec_init(void)
+ {
+ 	struct alloc_tag *last_codetag;
+@@ -855,7 +876,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 		align = 1;
+ 
+ 	if (!ensure_alignment(align, &prepend)) {
+-		shutdown_mem_profiling(true);
++		shutdown_mem_profiling_async();
+ 		pr_err("%s: alignment %lu is incompatible with allocation tag indexing. Memory allocation profiling is disabled!\n",
+ 			mod->name, align);
+ 		return ERR_PTR(-EINVAL);
+@@ -905,14 +926,14 @@ unlock:
+ 
+ 		module_tags.size = offset + size;
+ 		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
+-			shutdown_mem_profiling(true);
++			shutdown_mem_profiling_async();
+ 			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+ 				mod->name, NR_UNUSED_PAGEFLAG_BITS);
+ 		}
+ 
+ 		grow_res = vm_module_tags_populate();
+ 		if (grow_res) {
+-			shutdown_mem_profiling(true);
++			shutdown_mem_profiling_async();
+ 			pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
+ 			       mod->name);
+ 			return ERR_PTR(grow_res);
 
-The driver core already selects the "default" pinctrl state before probe,
-so the pins can be muxed for GPIO/PPS use while the driver is bound without
-any driver change. Nothing, however, hands the pins back when the driver
-is unbound or the system is shut down (for example before kexec), leaving
-them stuck in the GPIO mux for the next kernel.
-
-This series lets pps-gpio select an optional "inactive" pinctrl state in
-remove() and shutdown(), so a board can describe the alternate mux there
-and have it restored. The state is looked up and selected by the driver
-itself (devm_pinctrl_get() + pinctrl_lookup_state() + pinctrl_select_
-state()), so its meaning is unambiguous and it does not depend on
-CONFIG_PM. It is a no-op for boards that do not describe an "inactive"
-state.
-
-Patch 1 is a small preparatory fix to propagate the gpiod_to_irq() and
-request_threaded_irq() error codes (rather than a hardcoded -EINVAL) on
-the probe error paths that patch 4 then converts to gotos. Patch 2 is a
-small preparatory fix restoring the echo-GPIO guard in remove() that a
-later cleanup dropped, since patch 4 mirrors remove()'s teardown in the
-new shutdown() and would otherwise carry the same latent issue. Patch 3
-documents the optional "default"/"inactive" pinctrl-names in the binding;
-patch 4 implements the driver side.
-
-Tested on an Amazon AL11 K2V6 JRD10 board: binding/unbinding each pps-gpio
-device toggles the corresponding pin-mux register between the GPIO
-function and the alternate ec_ptp_trigger_in function as expected, and
-re-binding restores the GPIO function via the core-applied "default"
-state. Reading the mux register with the device left unbound confirms the
-"inactive" mux persists. Also tested with a pps-gpio node that describes
-no pinctrl at all, where probe, remove and shutdown behave as before.
-
-For the probe-failure path (see below), a forced-defer test confirmed that
-a probe failing after pps_gpio_get_pins() releases the pins to "inactive",
-the core re-applies "default" before the next attempt, and the mux settles
-back at "default" once probe finally succeeds, with no spurious PPS event
-or warning across the cycles.
-
-Changes in v7:
-- Post as a standalone thread instead of in reply to previous version.
-- Rebase onto v7.4-rc1 (applies cleanly; no code change)
-- Patch 4: commit message only, note that shutdown() also runs on boards
-  with no "inactive" state, where the IRQ/echo teardown is harmless but
-  not needed (Rodolfo Giometti). No code change, so the tags are kept
-- Collect tags: Rodolfo Giometti's Acked-by on all four patches; Bartosz
-  Golaszewski's Reviewed-by on patches 1-2; Rob Herring's Reviewed-by on
-  patch 3; Linus Walleij's Reviewed-by on patch 4
-
-Changes in v6:
-- Patch 4: fold the pps_register_source() failure path into the same
-  dev_err_probe() + goto err_release_pins style as the other two paths
-  sharing that label, with a commit-message note that it is a logging
-  change, not a fix (Rodolfo Giometti)
-- Patch 3: unchanged. Rob Herring confirmed the two-entry
-  ["default", "inactive"] items list is fine as-is; the "sleep" state
-  discussed on the list is not something this binding needs
-- No other functional changes
-
-Changes in v5:
-- Patch 1: use dev_err_probe() on both error paths instead of a bare
-  dev_err() + return, so the propagated -EPROBE_DEFER is logged at debug
-  level rather than spamming the console and the code is emitted
-  symbolically. Drop Bartosz's Reviewed-by as the patch changed
-  materially (Rodolfo Giometti)
-- New patch 2: restore the data->echo_pin guard around the echo-timer
-  teardown in remove(), dropped by commit fde046a8c490. timer_delete_sync()
-  on a never-initialised timer trips debug_assert_init() under
-  CONFIG_DEBUG_OBJECTS_TIMERS. Split out so patch 4's new shutdown() does
-  not reintroduce it (Rodolfo Giometti)
-- Patch 4: resolve the v4 probe-failure open question by taking option "A
-  + keep the NULL guard": look the pinctrl states up first in probe(),
-  before pps_gpio_setup(), and route the setup() failure through
-  err_release_pins too, so every path the driver can act on restores
-  "inactive". Guard the echo-timer teardown in the new shutdown() with
-  data->echo_pin, matching remove() (Rodolfo Giometti)
-
-Changes in v4:
-- Patch 1: add Fixes: 161520451dfa and Bartosz Golaszewski's Reviewed-by.
-  The hardcoded -EINVAL predates 4461d65176b4, so the tag points at the
-  original driver rather than the descriptor conversion
-- Patch (binding): rework per Rob Herring - drop the prose, use an ordered
-  "items" list ("default" then "inactive") with minItems: 1, fixing the
-  "['default', 'inactive'] is too long" dt_binding_check error
-
-Changes in v3 (addressing Sashiko's and Rodolfo Giometti's review):
-- New preparatory patch to propagate the gpiod_to_irq() and
-  request_threaded_irq() error codes instead of overwriting them with
-  -EINVAL
-- Do not constrain pinctrl-names to a fixed ["default", "inactive"] tuple
-- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl described" rather
-  than a probe failure; keep propagating everything else incl.
-  -EPROBE_DEFER
-- Restore the "inactive" mux on probe failure via a new err_release_pins
-  label
-- Warn if applying the "inactive" state fails rather than ignoring the
-  pinctrl_select_state() return
-
-Changes in v2 (all addressing Rodolfo Giometti's review):
-- Rename the released state from "idle" to "inactive" ("idle" is the
-  runtime-PM state in pinctrl-state.h)
-- Look the state up in the driver instead of pinctrl_pm_select_idle_state(),
-  removing the CONFIG_PM dependency
-- Fix shutdown(): tear down (free_irq/timer) before the mux change,
-  matching remove()
-- Require a "default" state whenever "inactive" is present and reject the
-  mismatch
-
-Link: https://lore.kernel.org/all/20260916134744.46354-1-farbere@amazon.com/ [v1]
-Link: https://lore.kernel.org/all/20260916182641.9768-1-farbere@amazon.com/ [v2]
-Link: https://lore.kernel.org/all/20260917075611.47881-1-farbere@amazon.com/ [v3]
-Link: https://lore.kernel.org/all/20260919171157.5502-1-farbere@amazon.com/ [v4]
-Link: https://lore.kernel.org/all/20260922103051.5257-1-farbere@amazon.com/ [v5]
-Link: https://lore.kernel.org/all/20260923182243.41060-1-farbere@amazon.com/ [v6]
-
-Eliav Farber (4):
-  pps: clients: gpio: propagate probe error codes
-  pps: clients: gpio: only tear down the echo timer when it exists
-  dt-bindings: pps: pps-gpio: document optional pinctrl states
-  pps: clients: gpio: release pins to an inactive state on remove and
-    shutdown
-
- .../devicetree/bindings/pps/pps-gpio.yaml     |  14 +-
- drivers/pps/clients/pps-gpio.c                | 127 ++++++++++++++++--
- 2 files changed, 129 insertions(+), 12 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.47.3
+2.53.0
 
