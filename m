@@ -1,110 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826991;
-	b=0OhJjc19R6XQtpF1bQDT9pio57aMv62pIEiAhyY9cyK/JiGFh5U+YqM29rx4ByITuv5W
-	 estlU/vdgP2e6OIL3Kz1zs94t6KbwmhE0KCjEeudPrmuCYfljHZq13RpPUsMt3Z8uceko
-	 j+IEEHUjyV6PXtclGTfgj+F1DsTsa7O2YklquO6o0J9k2Mc4H1VEdrx/HIlQwdcjEQ9d2
-	 qZTyKucs352zSoZGpd7Oy8z+Yy0wUmVjMN6gMcqGt29+TmK30hqf5AjEVZUsxXzACojw6
-	 jFqLehVjk+rILlzNXJN/Mnh0mlbANzfGW3b2q7pw9nEgWAYi6ukDAXfAkxcKTPGQq1g==
+	t=1793827027;
+	b=jz6+KtLtOzb8GTxpk4CWDKZSZNY9DkmUzNs9+Z5vBXftb6wYFlkwEsnoTFz2AwNyF3D/
+	 Wq5VR2n2EJSRkJzy2iALJ/gkynR6kMu4jTaFRVDXU7zO/q5KdgjvaOyqKWr1GuoHoMlVP
+	 cgl1OMb3q8qimMzkkbjve4oTEv1s3Rb9S0D32XZQOtZv40SoboJcyJJm23fJw3oWnNyVs
+	 AHV0S1h37VNpnD3zEEd8KM6zNPJLlEDayi4cdjeVJEDUVQ/KarbkuePzVf6hshlEmZLQ5
+	 H1+yCoeYDP2g8VVzGXkg7vhjQ1GYpeOhBqhXwjdS6Yc8WtgALrkHOXxQoeilft+dv3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826991;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=Z1ZOJsRk1XloR8+X/iuIjf2Funsf7/y+/bk4jcaChHA=;
-	b=OU6ruxm5hp+WYfoKo4utNTwfOUpRgFoeQGzCc+viknZLx89TGU9C7lW07RZA79U0oY2D
-	 8TaaKeItRg/1W7L+Bgp/7fw2mE62hqcd8Qg0vepdn/92u1z+VDNv8GESvUVgBewoaCQ97
-	 X6p6PDx96xH7Mka6C30Zvw4i4cYtX/x5Ka348TqXdqW6x8XHMDMCN60JfCxkYncUQOdoW
-	 UMX+BZ/rIk78Zjfl+Q9asCxBLPUag0wyHGWEw+yHxKmQB8ZcW1WGkML4/cTRIEcoedkgS
-	 y3cIGHIz5HU5kxGTzYElMT+Nh1c3yFD034kXdAaVqGbpvf3L23s/IcRTTk6npzXP3Ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827027;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=h9Gv115N0bDoQvMBYyTS/wpgW4qJjq8VbxC+yRP4KyM=;
+	b=pDwS3MBFt9C9xl0UqipS0GFGWL06TT/VyilU1h3ewxMeh7HAZ/1hqRGuu6b+DWwGDguO
+	 +dt1ZrGq5a1OdXU7g+2pA933U7byWi452uwQvQLu8ST2G6RKJVzpM6qFWMMcFNottll7k
+	 WECmQL/penaGNGUunNXdx8vjd4BNlyhoZc8/tS4YRokCyw8FC10kjh5zIFMIFhAxB0FpQ
+	 VAG3u36HvcY9qXrWl4GVckWDVIhr+ctQdQ5YLZQvkKYtWePD+1bwBHpuoxH7T+OVeNYzV
+	 yVrBBcOddaQk+jr/RYxES4o0vjTHH7Gz5disa5gb9Nq3qJT97SubqLpZjQZZ4hWbO+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5RO5Q8k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFD2PUd6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC1D6070AB2;
-	Wed,  4 Nov 2026 21:16:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87796086E79
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:17:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5RO5Q8k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C8C1F00A17;
-	Wed,  4 Nov 2026 21:16:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFD2PUd6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9F81F000C1;
+	Wed,  4 Nov 2026 21:17:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793826991;
-	bh=Z1ZOJsRk1XloR8+X/iuIjf2Funsf7/y+/bk4jcaChHA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M5RO5Q8kBtwDno+ViL1y5BXewnnzbSUiD0Ia6wQ1ZDr5urhi8E89jYOlntRIgMa6v
-	 r9RG9WmdIkXzJfLAx6IEAN4oxhymXK8NsuNUBDZD3nMRrupGitCaAlM5t0w1l3kDgL
-	 mARlOJCbNgn+LG3omXIPOAWaGFV2e55MLLVLTjfJkon0ltiDwAfT1Rt1ryiES87BRl
-	 cEGRifGzsCYmn1JslL4AfUjzCoN8zMhn9yu3J19mR1xJZ8GjCByKe2bS2hgjUJtRn4
-	 /Ud57A9OrseLYf/NwNssA42XtxJOU93lZkF6vGX3KXvmVx1xxIECpGp59Xx8FusjIn
-	 0mcxJDl2Ikwlw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH RESEND v2 4/6] proc: drop ->proc_read() and ->proc_read_iter()
-Date: Wed,  4 Nov 2026 22:16:16 +0100
-Message-ID: <20261104-work-procfs-cleanup-v2-4-1e6687e226b1@kernel.org>
-In-Reply-To: <20261104-work-procfs-cleanup-v2-0-1e6687e226b1@kernel.org>
-References: <20261104-work-procfs-cleanup-v2-0-1e6687e226b1@kernel.org>
+	s=k20260515; t=1793827026;
+	bh=h9Gv115N0bDoQvMBYyTS/wpgW4qJjq8VbxC+yRP4KyM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GFD2PUd6BTj5fmrmmSI+cZ4E9GEI3LlMEpflSkZvI2Iy/HKEsVlDagxEPEYiOX1eu
+	 6ElyyncQ0rrwyIBIkPp/XWwhgdzsXBn+/b90KV+TEsMkmwI+miczIyx0CMAnIRszrV
+	 705QVia+UUi4xkPdegCLDBIKBVSAkfwNHY73/TtBbhHvZQKJ0cvxQ1vTe8DfdvO/5V
+	 CbsXTMlP+I9ChkLIInzYDZH6Vkf3DmHKKpxT8mJTXjBn6MGg5ViExoHIydhw/tlacZ
+	 fpw3hq5lGgYMN1XG4QVJV5Y00ZJDWpXQXrOvu4alhhntZgUzcaCrgL3afy4QpZXkhi
+	 VA8UKKlx7LIIg==
+Message-ID: <963b9722-ca48-49f9-ac04-857d3d1526a2@kernel.org>
+Date: Wed, 4 Nov 2026 22:17:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,230 +51,354 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7998; i=brauner@kernel.org; h=from:subject:message-id; bh=abGcIl8EeF+AIW6UdJlLnKo66cLyls2IFZNMcomaikg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9XpBYNFfA2KRJOfDTZK74ZD22FKmLHxed5Kk6wORr/ ZpL4dihjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIvYMTIcWimfoSnAVe9ge+Os 4tXw7JYtfefvJm1XPtb7fo/MxUtiDP9MH79h+uV3N1BJ9vml5a5/Vp2Wkxe2lT1h7Fs82/qXzEd WAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm, vmscan: make kswapd unreserve highatomic pageblocks
+Content-Language: en-US
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, JP Kobryn
+ <jp.kobryn@linux.dev>, Frank van der Linden <fvdl@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261104-kswapd-highatomic-unreserve-v1-1-38be5106adf5@kernel.org>
+ <auuPhqCcgZBt_lUR@quatroqueijos.cascardo.eti.br>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <auuPhqCcgZBt_lUR@quatroqueijos.cascardo.eti.br>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Nothing implements them anymore. Every entry that can be removed fills
-procfs' buffer through ->proc_read_buf() or is a seq_file entry, and
-the permanent ones that still read straight into userspace have
-file_operations of their own now.
+On 11/4/26 21:03, Thadeu Lima de Souza Cascardo wrote:
+> On Wed, Nov 04, 2026 at 07:38:44PM +0100, Vlastimil Babka (SUSE) wrote:
+>> A customer has reported excessive reclaim activity despite memory above
+>> high watermarks. Analyzing support data (including sar log) revealed the
+>> following scenario:
+>> 
+>> - the system has almost all memory reserved as 1G hugepages for kvm
+>>   guests, and operates normally
+>> - due to a spike of memory pressure from userspace, highatomic
+>>   reservations occur (probably due to e.g. concurrent network receive
+>>   activity)
+> 
+> I think you might mean 6a204d4b14c9 ("mm/page_alloc: only set
+> ALLOC_HIGHATOMIC for __GPF_HIGH allocations") as one of the fixes you
+> mention below.
 
-With them go the flag, the registration checks that kept them apart
-from ->proc_read_buf() and the seq_file entries, proc_reg_read(), and
-two of the three sets of file_operations for regular files:
-proc_reg_llseek() and proc_reg_read_iter() hand a seq_file entry to
-seq_lseek() and seq_read_iter() themselves now, like
-kernfs_fop_read_iter() does, so one set serves every entry that has
-proc_ops. That set has ->splice_read(), so a splice() from an entry
-that can't be read at all, a write-only one, fails with -EIO now
-instead of -EINVAL.
+Indeed.
 
-Nothing in struct proc_ops takes a __user pointer anymore.
+> In that case, GFP_NOWAIT (which is typical for network activity, AFAIR)
+> would be one candidate that would produce such reservations. But I agree
+> that if any other real highatomic allocation burst would happen, it might
+> produce such reservations.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/generic.c       | 14 ++++------
- fs/proc/inode.c         | 69 +++++--------------------------------------------
- fs/proc/internal.h      |  5 ----
- include/linux/proc_fs.h |  4 +--
- 4 files changed, 12 insertions(+), 80 deletions(-)
+Ack.
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 4e0142fec582..2515df3a0110 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -454,8 +454,7 @@ static int pde_set_flags(struct proc_dir_entry *pde)
- 	}
- 	if (pde_is_seq_file(pde)) {
- 		/* procfs reads and seeks through the seq_file itself */
--		if (WARN_ON_ONCE(proc_ops->proc_read || proc_ops->proc_read_iter ||
--				 proc_ops->proc_lseek))
-+		if (WARN_ON_ONCE(proc_ops->proc_lseek))
- 			return -EINVAL;
- 		/* and frees it, see pde_seq_release() */
- 		if (WARN_ON_ONCE(proc_ops->proc_release == seq_release ||
-@@ -463,11 +462,8 @@ static int pde_set_flags(struct proc_dir_entry *pde)
- 				 proc_ops->proc_release == single_release))
- 			return -EINVAL;
- 		pde->flags |= PROC_ENTRY_proc_lseek;
--	} else {
--		if (proc_ops->proc_read_iter)
--			pde->flags |= PROC_ENTRY_proc_read_iter;
--		if (proc_ops->proc_lseek)
--			pde->flags |= PROC_ENTRY_proc_lseek;
-+	} else if (proc_ops->proc_lseek) {
-+		pde->flags |= PROC_ENTRY_proc_lseek;
- 	}
- 	if (proc_ops->proc_poll)
- 		pde->flags |= PROC_ENTRY_proc_poll;
-@@ -482,8 +478,8 @@ static int pde_set_flags(struct proc_dir_entry *pde)
- 			pde->flags |= PROC_ENTRY_SHORT_WRITES;
- 	}
- 	if (proc_ops->proc_read_buf) {
--		if (WARN_ON_ONCE(pde_is_seq_file(pde) || proc_ops->proc_read ||
--				 proc_ops->proc_read_iter))
-+		/* procfs reads through the seq_file itself */
-+		if (WARN_ON_ONCE(pde_is_seq_file(pde)))
- 			return -EINVAL;
- 		pde->flags |= PROC_ENTRY_proc_read_buf;
- 		pde->read_size = proc_ops->proc_read_size ?: PAGE_SIZE;
-diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-index 49ae30b6e515..9719c1b89de3 100644
---- a/fs/proc/inode.c
-+++ b/fs/proc/inode.c
-@@ -413,6 +413,9 @@ static loff_t proc_reg_llseek(struct file *file, loff_t offset, int whence)
- 	struct proc_dir_entry *pde = PDE(file_inode(file));
- 	loff_t rv;
- 
-+	/* procfs seeks through the seq_file itself, see pde_seq_start() */
-+	if (pde_is_seq_file(pde))
-+		return seq_lseek(file, offset, whence);
- 	if (!pde_pin(pde))
- 		return -EINVAL;
- 	rv = pde->proc_ops->proc_lseek(file, offset, whence);
-@@ -477,37 +480,15 @@ static ssize_t pde_read_buf(struct proc_dir_entry *pde, struct kiocb *iocb,
- static ssize_t proc_reg_read_iter(struct kiocb *iocb, struct iov_iter *iter)
- {
- 	struct proc_dir_entry *pde = PDE(file_inode(iocb->ki_filp));
--	ssize_t ret;
- 
-+	/* procfs reads through the seq_file itself, see pde_seq_start() */
-+	if (pde_is_seq_file(pde))
-+		return seq_read_iter(iocb, iter);
- 	if (pde_has_proc_read_buf(pde))
- 		return pde_read_buf(pde, iocb, iter);
--	if (!pde_pin(pde))
--		return -EIO;
--	ret = pde->proc_ops->proc_read_iter(iocb, iter);
--	pde_unpin(pde);
--	return ret;
--}
--
--static ssize_t pde_read(struct proc_dir_entry *pde, struct file *file, char __user *buf, size_t count, loff_t *ppos)
--{
--	const auto read = pde->proc_ops->proc_read;
--	if (read)
--		return read(file, buf, count, ppos);
- 	return -EIO;
- }
- 
--static ssize_t proc_reg_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
--{
--	struct proc_dir_entry *pde = PDE(file_inode(file));
--	ssize_t rv;
--
--	if (!pde_pin(pde))
--		return -EIO;
--	rv = pde_read(pde, file, buf, count, ppos);
--	pde_unpin(pde);
--	return rv;
--}
--
- /*
-  * procfs copies in what is written before it pins the entry. A writer that
-  * faults on its buffer then doesn't hold up remove_proc_entry().
-@@ -923,41 +904,7 @@ static int proc_reg_release(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--/* For seq_file entries, see pde_seq_ops. */
--static const struct file_operations proc_seq_file_ops = {
--	.llseek		= seq_lseek,
--	.read_iter	= seq_read_iter,
--	.splice_read	= copy_splice_read,
--	.write		= proc_reg_write,
--	.poll		= proc_reg_poll,
--	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
--	.compat_ioctl	= proc_reg_compat_ioctl,
--	.mmap		= proc_reg_mmap,
--	.get_unmapped_area = proc_reg_get_unmapped_area,
--#ifndef CONFIG_MMU
--	.mmap_capabilities = proc_reg_mmap_capabilities,
--#endif
--	.open		= proc_reg_open,
--	.release	= proc_reg_release,
--};
--
- static const struct file_operations proc_reg_file_ops = {
--	.llseek		= proc_reg_llseek,
--	.read		= proc_reg_read,
--	.write		= proc_reg_write,
--	.poll		= proc_reg_poll,
--	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
--	.compat_ioctl	= proc_reg_compat_ioctl,
--	.mmap		= proc_reg_mmap,
--	.get_unmapped_area = proc_reg_get_unmapped_area,
--#ifndef CONFIG_MMU
--	.mmap_capabilities = proc_reg_mmap_capabilities,
--#endif
--	.open		= proc_reg_open,
--	.release	= proc_reg_release,
--};
--
--static const struct file_operations proc_iter_file_ops = {
- 	.llseek		= proc_reg_llseek,
- 	.read_iter	= proc_reg_read_iter,
- 	.write		= proc_reg_write,
-@@ -1026,10 +973,6 @@ struct inode *proc_get_inode(struct super_block *sb, struct proc_dir_entry *de)
- 		inode->i_op = de->proc_iops;
- 		if (pde_has_proc_fops(de))
- 			inode->i_fop = de->proc_fops;
--		else if (pde_is_seq_file(de))
--			inode->i_fop = &proc_seq_file_ops;
--		else if (pde_has_proc_read_iter(de) || pde_has_proc_read_buf(de))
--			inode->i_fop = &proc_iter_file_ops;
- 		else
- 			inode->i_fop = &proc_reg_file_ops;
- 	} else if (S_ISDIR(inode->i_mode)) {
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index 84c5c13651aa..0a22237e6778 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -103,11 +103,6 @@ static inline bool pde_has_proc_fops(const struct proc_dir_entry *pde)
- 	return pde->flags & PROC_ENTRY_proc_fops;
- }
- 
--static inline bool pde_has_proc_read_iter(const struct proc_dir_entry *pde)
--{
--	return pde->flags & PROC_ENTRY_proc_read_iter;
--}
--
- static inline bool pde_has_proc_lseek(const struct proc_dir_entry *pde)
- {
- 	return pde->flags & PROC_ENTRY_proc_lseek;
-diff --git a/include/linux/proc_fs.h b/include/linux/proc_fs.h
-index 05e0d6e4f918..9c09766b8f72 100644
---- a/include/linux/proc_fs.h
-+++ b/include/linux/proc_fs.h
-@@ -17,6 +17,7 @@ struct seq_operations;
- enum {
- 	/*
- 	 * All /proc entries using this ->proc_ops instance are never removed.
-+	 * procfs calls into them without pinning them.
- 	 *
- 	 * If in doubt, ignore this flag.
- 	 */
-@@ -26,7 +27,6 @@ enum {
- 	PROC_ENTRY_PERMANENT		= 1U << 0,
- #endif
- 
--	PROC_ENTRY_proc_read_iter	= 1U << 1,
- 	PROC_ENTRY_proc_fops		= 1U << 2,
- 	PROC_ENTRY_proc_lseek		= 1U << 3,
- 	PROC_ENTRY_proc_seq_ops		= 1U << 4,
-@@ -76,8 +76,6 @@ struct proc_ioctl_arg {
- struct proc_ops {
- 	unsigned int proc_flags;
- 	int	(*proc_open)(struct inode *, struct file *);
--	ssize_t	(*proc_read)(struct file *, char __user *, size_t, loff_t *);
--	ssize_t (*proc_read_iter)(struct kiocb *, struct iov_iter *);
- 	/*
- 	 * mandatory unless nonseekable_open() or equivalent is used, procfs
- 	 * seeks seq_file entries itself
+>> - on one of the 8 NUMA nodes, this creates a situation where free pages
+>>   are above high watermark, but when __zone_watermark_unusable_free()
+>>   considers highatomic pageblocks, the result appears to be below the
+>>   low watermark
+>> - pgdat_balanced() is false, kswapd hopelessly keeps trying to balance,
+>>   spending cpu time and disrupting the system. It has nothing to reclaim
+>>   because the node is filled with hugetlbfs hugepages.
+>> - since the overal memory pressure is under control again and there are
+>>   no allocations restricted to the affected node, they are satisfied
+>>   from other nodes without going through direct reclaim
+>> - since direct reclaim is the only code that calls
+>>   unreserve_highatomic_pageblock(), this never happens and nothing fixes
+>>   the situation
+>> 
+> 
+> I am trying to understand what is going on here: so allocations on that
+> node are only !__GFP_DIRECT_RECLAIM? That would explain the highatomic
+> reservations in the presence of the bug just mentioned.
 
--- 
-2.53.0
+They are probably __GFP_DIRECT_RECLAIM, but if they only origin on a cpu
+local to the affected node but can fallback to any other (which is the usual
+case) and zone_reclaim_mode is disabled (by default it is), they will just
+succeed on another node and not attempt the direct reclaim.
+
+>> Note this was observed on a 6.4-based kernel and there have been recent
+>> fixes upstream limiting the highatomic reservation side, but I don't
+>> think they can prevent the same happening in mainline, only perhaps
+>> lower the chances. Nothing seems to prevent the issue completely.
+>> 
+>> For example, while we limit the amount of highatomic pageblocks to 1% of
+>> the zone, this calculation does not subtract the amount of hugepages or
+>> otherwise permanent allocations, so the highatomic pageblocks can end up
+>> taking much higher share of actually reclaimable memory.
+>> 
+>> The most targeted fix thus appears to be to allow kswapd perform the
+>> highatomic pageblock unreserve to match direct reclaim. It's also
+>> somewhat similar in principle to how kswapd reduces watermark boosting.
+>> 
+>> Hook this highatomic unreserve to the moment we are increasing kswapd
+>> reclaim priority, as that is when kswapd is struggling to make progress
+>> and it should roughly match the case of direct reclaim failure.
+>> 
+> 
+> I tried considering a different approach, making the allocation do the
+> unreserve in the absence of __GFP_DIRECT_RECLAIM, but I don't see why not
+> let kswapd do it.
+> 
+> Regards.
+> Cascardo.
+> 
+>> The only caveat is that direct reclaim knows which migratetype it wants
+>> to allocate and thus changes the highatomic pageblock to. Kswapd doesn't
+>> track that, so use MIGRATE_UNMOVABLE. Highatomic allocations usually are
+>> not movable, and this will avoid creating nominally movable pageblocks
+>> polluted with unmovable pages, so it should be the least problematic
+>> default.
+>> 
+>> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+>> ---
+>> We interrupt the regular stream of AI fixes by something a bit
+>> different. RFC to get agreement on the approach. Haven't tried
+>> reproducing the issue in mainline, but it seems quite clear to me from
+>> the data I've seen.
+>> ---
+>>  mm/page_alloc.c | 126 +++++++++++++++++++++++++++++---------------------------
+>>  mm/page_alloc.h |   3 ++
+>>  mm/vmscan.c     |  16 ++++++-
+>>  3 files changed, 83 insertions(+), 62 deletions(-)
+>> 
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index a8cac5e01066..785a13570788 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -3476,6 +3476,68 @@ static void reserve_highatomic_pageblock(struct page *page, int order,
+>>  	}
+>>  }
+>>  
+>> +bool unreserve_highatomic_pageblock_zone(struct zone *zone, int migratetype,
+>> +					 bool force)
+>> +{
+>> +	/*
+>> +	 * Preserve at least one pageblock unless memory pressure
+>> +	 * is really high.
+>> +	 */
+>> +	if (!force && zone->nr_reserved_highatomic <= pageblock_nr_pages)
+>> +		return false;
+>> +
+>> +	guard(spinlock_irqsave)(&zone->lock);
+>> +	for (int order = 0; order < NR_PAGE_ORDERS; order++) {
+>> +		struct free_area *area = &(zone->free_area[order]);
+>> +		unsigned long size;
+>> +		struct page *page;
+>> +		int ret;
+>> +
+>> +		page = get_page_from_free_area(area, MIGRATE_HIGHATOMIC);
+>> +		if (!page)
+>> +			continue;
+>> +
+>> +		size = max(pageblock_nr_pages, 1UL << order);
+>> +		/*
+>> +		 * It should never happen but changes to locking could
+>> +		 * inadvertently allow a per-cpu drain to add pages to
+>> +		 * MIGRATE_HIGHATOMIC while unreserving so be safe and watch for
+>> +		 * underflows.
+>> +		 */
+>> +		if (WARN_ON_ONCE(size > zone->nr_reserved_highatomic))
+>> +			size = zone->nr_reserved_highatomic;
+>> +		zone->nr_reserved_highatomic -= size;
+>> +
+>> +		/*
+>> +		 * Convert to migratetype and avoid the normal pageblock
+>> +		 * stealing heuristics. Minimally, the caller is doing the work
+>> +		 * and needs the pages. More importantly, if the block was
+>> +		 * always converted to MIGRATE_UNMOVABLE or another type then
+>> +		 * the number of pageblocks that cannot be completely freed may
+>> +		 * increase.
+>> +		 */
+>> +		if (order < pageblock_order)
+>> +			ret = move_freepages_block(zone, page,
+>> +					MIGRATE_HIGHATOMIC, migratetype);
+>> +		else {
+>> +			move_to_free_list(page, zone, order,
+>> +					  MIGRATE_HIGHATOMIC,
+>> +					  migratetype);
+>> +			change_pageblock_range(page, order, migratetype);
+>> +			ret = 1;
+>> +		}
+>> +		/*
+>> +		 * Reserving the block(s) already succeeded,
+>> +		 * so this should not fail on zone boundaries.
+>> +		 */
+>> +		WARN_ON_ONCE(ret == -1);
+>> +		if (ret > 0)
+>> +			return true;
+>> +	}
+>> +
+>> +	return false;
+>> +}
+>> +
+>>  /*
+>>   * Used when an allocation is about to fail under memory pressure. This
+>>   * potentially hurts the reliability of high-order allocations when under
+>> @@ -3491,70 +3553,12 @@ static bool unreserve_highatomic_pageblock(const struct alloc_context *ac,
+>>  	struct zonelist *zonelist = ac->zonelist;
+>>  	struct zoneref *z;
+>>  	struct zone *zone;
+>> -	struct page *page;
+>> -	int order;
+>> -	int ret;
+>>  
+>>  	for_each_zone_zonelist_nodemask(zone, z, zonelist, ac->highest_zoneidx,
+>>  								ac->nodemask) {
+>> -		/*
+>> -		 * Preserve at least one pageblock unless memory pressure
+>> -		 * is really high.
+>> -		 */
+>> -		if (!force && zone->nr_reserved_highatomic <=
+>> -					pageblock_nr_pages)
+>> -			continue;
+>> -
+>> -		guard(spinlock_irqsave)(&zone->lock);
+>> -		for (order = 0; order < NR_PAGE_ORDERS; order++) {
+>> -			struct free_area *area = &(zone->free_area[order]);
+>> -			unsigned long size;
+>> -
+>> -			page = get_page_from_free_area(area, MIGRATE_HIGHATOMIC);
+>> -			if (!page)
+>> -				continue;
+>> -
+>> -			size = max(pageblock_nr_pages, 1UL << order);
+>> -			/*
+>> -			 * It should never happen but changes to
+>> -			 * locking could inadvertently allow a per-cpu
+>> -			 * drain to add pages to MIGRATE_HIGHATOMIC
+>> -			 * while unreserving so be safe and watch for
+>> -			 * underflows.
+>> -			 */
+>> -			if (WARN_ON_ONCE(size > zone->nr_reserved_highatomic))
+>> -				size = zone->nr_reserved_highatomic;
+>> -			zone->nr_reserved_highatomic -= size;
+>> -
+>> -			/*
+>> -			 * Convert to ac->migratetype and avoid the normal
+>> -			 * pageblock stealing heuristics. Minimally, the caller
+>> -			 * is doing the work and needs the pages. More
+>> -			 * importantly, if the block was always converted to
+>> -			 * MIGRATE_UNMOVABLE or another type then the number
+>> -			 * of pageblocks that cannot be completely freed
+>> -			 * may increase.
+>> -			 */
+>> -			if (order < pageblock_order)
+>> -				ret = move_freepages_block(zone, page,
+>> -							   MIGRATE_HIGHATOMIC,
+>> -							   ac->migratetype);
+>> -			else {
+>> -				move_to_free_list(page, zone, order,
+>> -						  MIGRATE_HIGHATOMIC,
+>> -						  ac->migratetype);
+>> -				change_pageblock_range(page, order,
+>> -						       ac->migratetype);
+>> -				ret = 1;
+>> -			}
+>> -			/*
+>> -			 * Reserving the block(s) already succeeded,
+>> -			 * so this should not fail on zone boundaries.
+>> -			 */
+>> -			WARN_ON_ONCE(ret == -1);
+>> -			if (ret > 0)
+>> -				return ret;
+>> -		}
+>> +		if (unreserve_highatomic_pageblock_zone(zone,
+>> +							ac->migratetype, force))
+>> +			return true;
+>>  	}
+>>  
+>>  	return false;
+>> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+>> index e238ee91ed24..9fba6480b18d 100644
+>> --- a/mm/page_alloc.h
+>> +++ b/mm/page_alloc.h
+>> @@ -282,6 +282,9 @@ static inline bool free_area_empty(struct free_area *area, int migratetype)
+>>  	return list_empty(&area->free_list[migratetype]);
+>>  }
+>>  
+>> +bool unreserve_highatomic_pageblock_zone(struct zone *zone, int migratetype,
+>> +					 bool force);
+>> +
+>>  /* Convert GFP flags to their corresponding migrate type */
+>>  #define GFP_MOVABLE_MASK (__GFP_RECLAIMABLE|__GFP_MOVABLE)
+>>  #define GFP_MOVABLE_SHIFT 3
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 9959ca158ce8..91c622068d99 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -7460,8 +7460,22 @@ static int balance_pgdat(pg_data_t *pgdat, int order, int highest_zoneidx)
+>>  		if (nr_boost_reclaim && !nr_reclaimed)
+>>  			break;
+>>  
+>> -		if (raise_priority || !nr_reclaimed)
+>> +		if (raise_priority || !nr_reclaimed) {
+>> +			/*
+>> +			 * Similarly to when direct reclaim is retrying, try to
+>> +			 * unreserve highatomic pageblocks on the node. Convert
+>> +			 * them to movable ones as kswapd doesn't have a target
+>> +			 * migratetype, and passing unmovable should lead to
+>> +			 * least permanent fragmentation.
+>> +			 */
+>> +			for (int i = 0; i <= highest_zoneidx; i++) {
+>> +				struct zone *zone = pgdat->node_zones + i;
+>> +
+>> +				unreserve_highatomic_pageblock_zone(zone,
+>> +						MIGRATE_UNMOVABLE, false);
+>> +			}
+>>  			sc.priority--;
+>> +		}
+>>  	} while (sc.priority >= 1);
+>>  
+>>  	/*
+>> 
+>> ---
+>> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+>> change-id: 20261030-kswapd-highatomic-unreserve-7e6629ec65d0
+>> 
 
