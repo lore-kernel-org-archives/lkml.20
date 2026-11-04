@@ -1,57 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821890;
-	b=UixCXPfD3a8MzPNgHmWKH8w1fEjyLnT7BDY6pQxFizMvlOo5uzzIwniMQ2YM42rd3ZI1
-	 YNKoYkm/je/W8ZrpvexOSZf+8QRs7HX90AiPvBG77QXlXPuqfJAosfr2kbHKYX2qkOHzu
-	 EiLVGzuWtrU14UHDOSb4MN03A1u2kRSgUcBUizQnQfFSm81uPqaztfl72PmyHdTY3DG0l
-	 PP0LwjGHiOI4JM8ggF4ZCXRMX0DmjEGBndNMVNPUyv9WLSOGjWDOsAU0WyDItt5ISC/8h
-	 Rywyf/XiAjEUV2VZZVYjqTdXbqbzdAHdx2gU34MoTiYY8/dhd0zJqHGraCN8M+AjELQ==
+	t=1793821881;
+	b=e3cKa77ZjtUPHX4HLGp3OoWnUnt/VMA2IehUWAskJ7xYSef3tU1VogQ9kZX7Qg45peq0
+	 nN9GPM/l/NkUknsWG1a0pdkoSIdf/iB3P6grM6mnqzayr6c1GS8+MMArHbcK49hV2cTKs
+	 XxROlWy2koBm1Z5n7vgvdR4SCk/Wll9zK6aV0L9eLrOC8HXk59QfAKpNba8laXEifMwsA
+	 GAdYNiPhzEAjtIU9FB0W5ojPi/SvRf/r8EusZ6oI1kdy13xWAS1UQR3GTGqo6hb2NMmZi
+	 ruRaLFWbP60F1BKe4DFITUXj1r0KwBF6gdZcmdNx/1mu8J+4VzNuhgHc1LRJ7njZnsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821890;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IxJxKooA4bVxA5wejStOMx/9yIbFrchATEfWkVqBn/o=;
-	b=JZHcS6Wu1oz8fj3xfnkhOG2j6GzkxT4Mh8uNMQA29nC0c0G3fUyWKQ34BaWqBmxMvhfE
-	 QCAXZzQdGVMJ1e2P4GFVwD4t4cX3bysp2saW7P7Q9NVCPFl2+w+JSURoRdJWUIfR/aDT0
-	 +49x05QKbak39xrpq1VYNCBAfG3OrRdZvTCTL7gaG2BPlfTp0FU8Uzk9iN7atREdO1a/d
-	 4MARd0kmpIm30nz7qv/ocmxMr6gmCnvBxmD6v68Qn/RgAJYHM+Ukx91UYTVQmqwnw1vGe
-	 Qz52LCp+n96+CSs8uHUxw9ud919gIaNPIn8F7W/MVxT26vm4rOPTfgFXS62iggvN4ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821881;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=LP8R0bNSKS2QH/Zql1k1p4KE760gSx77oAIYdTk5FHQ=;
+	b=O8ojp4G3ZTqQtCnQ9vqxf1BpdjMlCA/CUxVHfNufrej4eulCXTH6FUoWlg7dNnbSN5K7
+	 OYVNlkLzmFqm07jPjzc+faGUqAQvzU6B36Ls3N9O2ldFxo6TqNQr8h3n2YFJEzjD4ntTa
+	 eCsW3dUcCWzILMZtbaoayovXmIweOcck+eJ+nh2p8TqwPj+9mUhprm4gEL7iH203JrsHl
+	 S2B6vc3PEVIT0WIxEZCLOSL1t7xbJwR+71Eqzn8pX+lKadi85c7dBcYv80t1RshBmYcCx
+	 XBQV6H87G5/zAUO72n5XaGuDI8JiX95nvNlTl722tv1SnJeO6eH3VE+vUiMj230Qlkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqZRpGOh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RsXLh3XH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B730606BA01;
-	Wed,  4 Nov 2026 19:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86D3606AC3D;
+	Wed,  4 Nov 2026 19:51:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqZRpGOh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785F91F00919;
-	Wed,  4 Nov 2026 19:51:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RsXLh3XH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6873B1F000C1;
+	Wed,  4 Nov 2026 19:51:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793821890;
-	bh=IxJxKooA4bVxA5wejStOMx/9yIbFrchATEfWkVqBn/o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iqZRpGOhGtUs1PfmlyQP7y/lEokp4FAva4HbJMTTyYoOynnqg1n+IPWs/gTfvoYPu
-	 6C7Jh2CGKstiFuxPtRwU7xc2tPT1Y77q44CaiTo3wzeTNc0Ds6TT0Bc7yzNzq5Qoci
-	 XXl8H+h/jN3otpgbP57kV8m0MWIAg4vOIYQNBBAo1cTpgiYpAgqKdvXT/iv7REKQXf
-	 tr4Dp4w275xo/lZ+kYwZsZx+aFW7uh0oroETGxi2nh5n+obHY2bt81LgLV3Tjy7ioj
-	 OhxYCvnGf2psWNlLgR4056h0ce/kt+47KVErf3+wTjtozfGszV9UXROo9tgTqSsyFg
-	 qkF29iNh0lQ4w==
-Date: Wed, 4 Nov 2026 11:51:27 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Baokun Li <libaokun@linux.alibaba.com>
-Cc: linux-fscrypt@vger.kernel.org, jaegeuk@kernel.org, tytso@mit.edu,
-	linux-ext4@vger.kernel.org, adilger.kernel@dilger.ca, jack@suse.cz,
-	yi.zhang@huawei.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] fscrypt: Cap data units at the page size
-Message-ID: <20261104195127.GA1971@quark>
-References: <20261103153132.4154855-1-libaokun@linux.alibaba.com>
- <20261103153132.4154855-2-libaokun@linux.alibaba.com>
- <20261103224006.GC2281@quark>
- <922240f9-8233-4466-a787-2f7ddba7c490@linux.alibaba.com>
+	s=k20260515; t=1793821880;
+	bh=LP8R0bNSKS2QH/Zql1k1p4KE760gSx77oAIYdTk5FHQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RsXLh3XHwh9i9KYLzGYCXUR/3jz6hvJBiKTUXoJMpIyHBIQckhaIML2AcsaatHJA1
+	 0eBgijXzBWphawzWAAAliBSKwy94Zq0H8fcdbx7zd77a8zoJ0Ue7FRHLvIZ7LfaCRL
+	 NWsF0xR2vHzqH47EGJ+b1zhQAPz56CBGLrP9V51eK/aUOfQX+ePGLsZp0VZGcq3umB
+	 NDozx0Pud3lqomDaEsA6NBp0dWh/oMo1BEzvyC9LXCvrcoisYiWT1saIA5w7Ryz3SA
+	 YyQib6eqTR5sEMMLmZee9CeR7k9yWAYrkLQ/ZLwHgmz6BrgXZZ6ltNiDOnrSr0ulvD
+	 XM4slagBXfM8w==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH RESEND v2 06/30] nfsd: let procfs own the seq_file of /proc/fs/nfs/exports
+Date: Wed,  4 Nov 2026 20:51:06 +0100
+Message-ID: <20261104-work-procfs-fs-v2-6-319e0f9a8aae@kernel.org>
+In-Reply-To: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,47 +114,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <922240f9-8233-4466-a787-2f7ddba7c490@linux.alibaba.com>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1388; i=brauner@kernel.org; h=from:subject:message-id; bh=zWLMsIr05BMF/tXliLgjdHfvlEWh2osbn3SGLQ8SJYE=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97jGs4JaPtH3mH5ykZTabedr3t9eLXxuUWtVOVPA6f zVLaV15RykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwEQOxTEy7LkV8VeozHTu0b5W PgXDRpfpiWc3tHXbzdur9fTJDgPvGob/HiLTPjd/X3HGOa2I9VGcSnVnmAirzPkpT6wvTMpmfzi TEwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 10:31:46AM +0800, Baokun Li wrote:
-> What I had in mind before was to keep the default as min(bs, PS) and
-> allow DU > PS only when explicitly specified, which seemed to give
-> better compatibility.  Cross-machine or cross-page-size cases seem
-> uncommon, and existing machines have probably already avoided them by
-> specifying a 4K or smaller DU.
-> 
-> Keeping the existing default semantics and returning an error in the
-> LBS case for the user to specify seems feasible.  But then
-> test_dummy_encryption and the xfstests cases that use the default would
-> need to specify the DU explicitly, otherwise the LBS + encrypt test
-> coverage would drop a lot.  That is, in the kernel or the tests we
-> always have to set a default DU size.
-> 
-> If you confirm that we should take the route where LBS requires an
-> explicit data unit size and the default is rejected, I can adapt the
-> kernel and xfstests in v2.  Or should we go back to the more compatible
-> DU > page size approach?
+Declare the seq_operations and let procfs open and free the seq_file.
+->proc_open() and ->proc_release() only set up ->private and take and
+drop the reference to the network namespace now. Reading the file then
+no longer holds up its removal.
 
-It will indeed be annoying to have to explicitly specify the data unit
-size, but I don't see a better solution for now, given the complexity of
-supporting data unit sizes larger than the page size.  I think making
-the on-disk format needing PAGE_SIZE to interpret is a no-go.
+Acked-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/nfsd/nfsctl.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-I suppose that in theory, how FS_IOC_SET_ENCRYPTION_POLICY handles
-log2_data_unit_size=0 could be changed: it could start actually writing
-log2_data_unit_size=12 to disk (rather than writing 0 which means the
-filesystem block size).  I think that can still lead to problems,
-though.  For one FS_IOC_GET_ENCRYPTION_POLICY would return something
-different from what was set.
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index f8ce3c0fb077..5b2782f9dbbd 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1407,16 +1407,23 @@ MODULE_ALIAS_FS("nfsd");
+ 
+ #ifdef CONFIG_PROC_FS
+ 
++/* procfs opens the seq_file */
+ static int exports_proc_open(struct inode *inode, struct file *file)
+ {
+-	return exports_net_open(current->nsproxy->net_ns, file);
++	exports_net_init(current->nsproxy->net_ns, file->private_data);
++	return 0;
++}
++
++static int exports_proc_release(struct inode *inode, struct file *file)
++{
++	exports_net_put(file->private_data);
++	return 0;
+ }
+ 
+ static const struct proc_ops exports_proc_ops = {
++	.proc_seq_ops	= &nfs_exports_op,
+ 	.proc_open	= exports_proc_open,
+-	.proc_read	= seq_read,
+-	.proc_lseek	= seq_lseek,
+-	.proc_release	= exports_release,
++	.proc_release	= exports_proc_release,
+ };
+ 
+ static int create_proc_exports_entry(void)
 
-Regarding xfstests, take a look at how common/verity adds $FSV_BLOCKSIZE
-to all 'fsverity enable' commands by default, to select some Merkle tree
-block size that the filesystem supports.  Something similar could be
-done with fscrypt.  Yes, this won't work with v1 encryption policies,
-but v1 policies are obsolete.  Most of the xfstests that use v1 policies
-should just be updated to use v2 instead.  The btrfs folks were working
-on that earlier, since they're not planning to support v1 at all.
+-- 
+2.53.0
 
-- Eric
