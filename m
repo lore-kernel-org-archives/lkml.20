@@ -1,55 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797751;
-	b=2Gi99NnR0s1juEW0tylhqLNelCs0pAb/QTX2yZpAbXt2riUFnIftr8WpUQfmMVc0PIeb
-	 fO6T+83IZpSYhzzaMhAVrWurUzhzO8HwWdo8t+0dZ4KDhOy51EBfzS6qrLV/Pf6ydeDPM
-	 1M6eyVeos0ssoYclcwDsW6Zz+JjlYIPI5wUC94TRn3ltIwT9qty2JpWF31GKDHNy6c3gU
-	 yrgLsTVI5bSh5YMDB5UuUqzIYGHLqu56W6fSHsHqsRur1p7J8P3P8PJy7vZ+0ZjwLR0uR
-	 xAUCQZ5jd7SssYPtdegBtdxgy6wRjKSqlz3Q63HCNCpUBnXuAj5SBAfHhOXPXo6IvQw==
+	t=1793797748;
+	b=C9gDtoqIi5TGqSPFDnaW/elJ5KrlccCqtlrvlqHyXKDebBPHNQUndu9Y6K4GSKXy3lhD
+	 FI/rXx9n0DPCcDlQfUSktNnwGCz8oF6e53i0AaKy9raz65MD1NTRIEqX9H0k+5eUCDeCg
+	 28lYK5nNIw4B5iH0/UVTv20kuq0o5vMq73BI67xL+rxaokx40VZ9Jpasp1A/VW+vQUgVc
+	 F1jcdaP7YHvWJGp8wQExW7H7jtyO3i/Qo2Eg5CYgoW6pU7ER82JnRlvn8ubDk8mDo7Yx+
+	 x1COWGA083n8zUF616eE8qATbRIR8pyNm2hp+QRjxTzZRvdMdXrtR9Pbng4EDagZm8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797751;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KjlAVVcWVXveHyufxrdkFc2AO6BhIKGaynfiRZ/UGJQ=;
-	b=KMKEkEkYdToZ8bKMBM8h9OpfPENTTRdUQiel1A3PAFT6vx2WLdh0VOUG9/c/rsqmqJO2
-	 5qgp0OPuhV3m5H166mN1mJcPpjS9Qvb7yomPXkM16ayFz+3ndAYZ9Jad9SgPrH/1gehFr
-	 wRtMUoYkav6SMOiPTrGeLRpVG+EYqQU7fZBTcnZCBm7uIkqHhW0U9D7kdAPF81imPu6EQ
-	 XqRXTUd2RnIxVmrHWkXCRBAJAyjf18dvrTHiNhW3cJKqNv7KainshKZLoqqxQhRc3ft2q
-	 g6stQ4g7mqFD8zfWeMWZn9gLRw/JrAlQW/M9r29qVDEqenctEhLX3wQyY6PtgbLagWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797748;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mMj9DsaokfZtgsqnV6TFbPevB3nCiHX8pv9BJn7VaUQ=;
+	b=EaqDXwO7JQbtTYgQZW5gf7+iT38T4ZGbuMmAnUierw5llf3RKO87x7fhCkOY+RRvajF+
+	 jhJKvXWATu51wSANo/DfuWRlWp3A8dtseH7+rrrBp0IIQqqC66fZTw+FFPDTRiuOfv84+
+	 ssfet4X/oJbjOQDuVB3vFpV7qYA+RxHL+JRibvSjSBhePDBagFqFhuqjCyhznFqfNHRrT
+	 7JjqYI/g8tmxUUjbKrUAatr0PTzu9KxjpUZbxGujtJD982qk7rXzhN/7taFnZyk+/IKfM
+	 ONbhtPTppBqQNQAkl+f3UY0k4jOr+PNIN6mS89gfCryC/GVvT+ZiCmMvU0WSlALyffA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMk+zH8X;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qI+ArD6G;
+	arc=none smtp.remote-ip=91.218.175.144
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E96606A332
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:09:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FA7606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FA7606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMk+zH8X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0D21F00A02
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 13:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797750;
-	bh=KjlAVVcWVXveHyufxrdkFc2AO6BhIKGaynfiRZ/UGJQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bMk+zH8X9lrTe9Lk0kkJCalLnjYXgFO4txPw2WRe8b4MimifYg/3zHorYP8wNhI1c
-	 rhpo/OAjEWgZF5REJUWQd3S109MCNDHXZQoVMGYefr8Oj4Dn8xExYwxj0gcThQQ7t8
-	 E5zSj0E6nCvjU0de7VQ+bvPP4446iL0+6Tkh+75ehsG12EAWVfy2b+63xC32o9dpI/
-	 uSIL0ZIqjrq695z1NMHgpkATE/QhI9su0Y/eEBqu0p4w7GKPlr9tjRFyCN5UPWuZ/0
-	 ti9JvCF5hhdQN4NdW/7CAnJpjW1RE+iCDuVbO+uxRrHxBEBHMqdaXGgg5oNcGRsz8C
-	 jBAcd4zHRDnGg==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be42ae8eadso446886e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 05:09:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx77m9YSeau79O990eDUWWEp7mueB+AIDMwsrKVbCf+r+btEvEgW0Gnubbqej7mI1Wo5vzGhWAk9TKmq/Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oMk+Hbmj8k+ZKQiJXpxJ9Q4iu3GqQjL+bVmUTcntz4cXjPy2E
-	h8Ng7eYcsNYhyanRCl3rkmLbx4jnh0EzHzlwnigB3lgOGNYyPzMBbR2oTWc021dMVZb+Nfwc9k1
-	5XNUK8Hf2maJe8NGF6OEaoFeEJrohVjQ=
-X-Received: by 2002:a05:6512:3c8d:b0:5b6:4b2:15e7 with SMTP id
- 2adb3069b0e04-5bfd9569c3bmr5219158e87.31.1793797749625; Wed, 04 Nov 2026
- 05:09:09 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qI+ArD6G
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3mp35FVnC01ZETH9MQAgpB4MjCtcUcbT1L9D0SvFH00=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793797745; v=1; x=1794402545;
+ b=qI+ArD6GB3vrgT+gZub3OCA5td7KP2iUh8p2fDpW6hXaaLiTOJNrI74PCTJjG/vCFtEIx5iI
+ HsRySXzw+cexcTIOVPOKK+XAHT5DM2fRyIGYO3+QgSLxr0i3B0EUAFuBOaVim/2rrRt5R2YqFk+
+ jVmgcvdKaBqrrTxqzIxW5VKc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2c69226caf1c61eb;
+	Wed, 04 Nov 2026 13:09:05 +0000
+X-Mizu-Trace-ID: 2c69226caf1c61eb
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Dave Chinner <david@fromorbit.com>
+Cc: David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v7 2/7] mm/vmscan: move vmscan tracepoints to a local header
+Date: Wed,  4 Nov 2026 21:08:12 +0800
+Message-Id: <20261104130817.849089-3-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261104130817.849089-1-ridong.chen@linux.dev>
+References: <20261104130817.849089-1-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,34 +90,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021190212.2237804-1-dmitry.torokhov@gmail.com> <20261021190212.2237804-3-dmitry.torokhov@gmail.com>
-In-Reply-To: <20261021190212.2237804-3-dmitry.torokhov@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 14:08:57 +0100
-X-Gmail-Original-Message-ID: <CAD++jLk3E7YdcQQM5zFudnDxE+V2kVdKEwsn2YFYU-r2d7YKdg@mail.gmail.com>
-X-Gm-Features: AclHuK-1q51saYU825F_YbdzVVQM0ey8zXoq5p643pVHMAlCnbWlwh_WWTlFa5w
-Message-ID: <CAD++jLk3E7YdcQQM5zFudnDxE+V2kVdKEwsn2YFYU-r2d7YKdg@mail.gmail.com>
-Subject: Re: [PATCH 3/5] gpiolib: add support for scope-based management of
- GPIO descriptors
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 9:02=E2=80=AFPM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
+From: Ridong Chen <chenridong@xiaomi.com>
 
-> Add DEFINE_FREE() definitions for gpiod_put and gpiod_put_array to
-> allow using __free(gpiod_put) and __free(gpiod_put_array) for automatic,
-> scope-based cleanup of individual GPIO descriptors and descriptor
-> arrays. Place these definitions after the CONFIG_GPIOLIB check so that
-> they are available regardless of whether CONFIG_GPIOLIB is enabled.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Move include/trace/events/vmscan.h to mm/trace_vmscan.h so that the
+tracepoints can be extended to reference vmscan-internal structures such
+as struct scan_control, which is not visible outside mm/.  This mirrors
+what several other subsystems already do with their trace headers (e.g.
+fs/fuse/fuse_trace.h, fs/gfs2/trace_gfs2.h, fs/lockd/trace.h).  As they
+do, set TRACE_INCLUDE_PATH to "." and add mm/ to the include path of
+vmscan.o, the only user that defines CREATE_TRACE_POINTS.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+No functional change.
 
-Yours,
-Linus Walleij
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ MAINTAINERS                                        | 3 ++-
+ mm/Makefile                                        | 1 +
+ mm/shrinker.c                                      | 2 +-
+ include/trace/events/vmscan.h => mm/trace_vmscan.h | 4 ++++
+ mm/vmscan.c                                        | 2 +-
+ 5 files changed, 9 insertions(+), 3 deletions(-)
+ rename include/trace/events/vmscan.h => mm/trace_vmscan.h (99%)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d63d8b215277..828e81ea671b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17641,6 +17641,7 @@ F:	Documentation/admin-guide/mm/multigen_lru.rst
+ F:	Documentation/mm/multigen_lru.rst
+ F:	include/linux/mm_inline.h
+ F:	include/linux/mmzone.h
++F:	mm/trace_vmscan.h
+ F:	mm/vmscan.c
+ F:	mm/workingset.c
+ 
+@@ -17804,7 +17805,7 @@ R:	Shakeel Butt <shakeel.butt@linux.dev>
+ R:	Lorenzo Stoakes <ljs@kernel.org>
+ L:	linux-mm@kvack.org
+ S:	Maintained
+-F:	include/trace/events/vmscan.h
++F:	mm/trace_vmscan.h
+ F:	mm/vmscan.c
+ F:	mm/workingset.c
+ 
+diff --git a/mm/Makefile b/mm/Makefile
+index 2a3ec53d62ee..277b97f7f8d7 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -32,6 +32,7 @@ KCOV_INSTRUMENT_vmstat.o := n
+ KCOV_INSTRUMENT_failslab.o := n
+ 
+ CFLAGS_init-mm.o += -Wno-override-init
++CFLAGS_vmscan.o += -I$(src)
+ 
+ mmu-y			:= nommu.o
+ mmu-$(CONFIG_MMU)	:= highmem.o memory.o mincore.o \
+diff --git a/mm/shrinker.c b/mm/shrinker.c
+index 4fb424e721bc..4fbdade6d2f6 100644
+--- a/mm/shrinker.c
++++ b/mm/shrinker.c
+@@ -3,7 +3,7 @@
+ #include <linux/rwsem.h>
+ #include <linux/shrinker.h>
+ #include <linux/rculist.h>
+-#include <trace/events/vmscan.h>
++#include "trace_vmscan.h"
+ 
+ #include "internal.h"
+ 
+diff --git a/include/trace/events/vmscan.h b/mm/trace_vmscan.h
+similarity index 99%
+rename from include/trace/events/vmscan.h
+rename to mm/trace_vmscan.h
+index 8a872990b4be..ad90f0e9bf2e 100644
+--- a/include/trace/events/vmscan.h
++++ b/mm/trace_vmscan.h
+@@ -648,4 +648,8 @@ TRACE_EVENT(mm_vmscan_kswapd_clear_hopeless,
+ #endif /* _TRACE_VMSCAN_H */
+ 
+ /* This part must be outside protection */
++#undef TRACE_INCLUDE_FILE
++#undef TRACE_INCLUDE_PATH
++#define TRACE_INCLUDE_PATH .
++#define TRACE_INCLUDE_FILE trace_vmscan
+ #include <trace/define_trace.h>
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 7db6be53f3a9..35d4e912660f 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -71,7 +71,7 @@
+ #include "swap.h"
+ 
+ #define CREATE_TRACE_POINTS
+-#include <trace/events/vmscan.h>
++#include "trace_vmscan.h"
+ 
+ struct scan_control {
+ 	/* How many pages shrink_list() should reclaim */
+-- 
+2.34.1
+
