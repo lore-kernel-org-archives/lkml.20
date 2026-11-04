@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781513;
-	b=bROgGtgDZE5l9sptGSSVsAGw8gSHi+UpBzufSfJxpyt5e0wKpJjM4b0tj6PQdIcCcaVC
-	 aXvhukJR74Ic0ranQwqQxCUlG2gVLXQIwNwfdIqt7Z0Zwv+YC/xLEU1HpF6verSk1qnl3
-	 3mfDgMy0po5w2qCh3b4qpBUFRVu3yT2wBYS41ZO9YzliKiQfL/UWq5mhf2lNpLLT9vZ3p
-	 lKsB7PGrEuKTfIOpJZgFUTKfaIK1HUCPWDH+d06omwvB024VByae5F+5lOlFxiC5wSgo1
-	 jk/qPqU9RQ5MM6mpFJr4txi+RnYdUQcoSshKC/oQ86mpxAWCtvI7NhwIn4hYGfaGZVA==
+	t=1793781532;
+	b=Lor+Oqa+4rz72BjKzOwGGqYgSDB8xiUbXW4sUxQkC8yXUyp/hdvT3X+lFe8ARznM1sXU
+	 AGBYvdD2O/huLkR4xfbucnw0gp1ItJQn04mCSmyYcCfqdIx8zhkFjCMkhVXx+EqPVqaM9
+	 kLWDIFhDrx08/OAUDqULhQS9X0gRF0MOZlHww2GCxrSboSMbYmKDa6Ldh0Kzc6VgRHUG/
+	 dvWL6a+jJBwgyyRjHXls6wIxUi3NMcC60HqYGnEs31GEOHJAYLsse4Ua/dyiauH3QcW2l
+	 XT0yx3Y+e0zT412U9RiOh9pP1mqXXLhqkGz2lj4FX+1y1717IlD6qAZTA8BjDZ0tLWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781513;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=q22aHIIUbJVPLfqhclV4r9PQqlG7bSyft34WDd0FFLA=;
-	b=QsQZtK4G7EMFSzlFllDZHIHj0MCAbGFwbGU548Mi+wsbgx8shjcuKRyRJmhf6t9s/CKt
-	 C6eOeJ4zcFoDiP98Dqy1BCBZyF72AcZssmkvG/llte49p7S3BlSSjsva3ig7TxSgkKdsA
-	 Z2ygYpM4SfXqrapMpjVl70zrn5NHAyieFDhTDLc9507mNcRT8/ueIzqEZKhB/Mn+pH8Me
-	 w30JF0rB148NRb0DqzeiACcq6bCMWSUCisj5HgjAVR06zh9E+DQPLjWcl356rDLlMdRQk
-	 M8k85rhCKPZOaDXDteTIGJYuHd8/Kew+daKH/c7oAfRfB0l6eHMM7Ndl9VFqm+KO/LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781532;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hIMNjHCJ6Epw1gnJ/YZMFqPfCBtYoZg9ZwDQR4d4GN8=;
+	b=bw7XyCOdA2o/XlPkE1fjZglJdYAjQaZhTx0f61oYEF2jrMhYyQljNZhm3r7POfCg0P8U
+	 G1K5ePV8VFZZab22TSajbZ1GsMopD+FEysET7HXaEvEDLb+XZkQ8BHeZco/3DGKp2N5hh
+	 XApsf3+IkgSBIsSf0lN6pGWsVPJowAqrEsJj8LpMt+KYehChq96FXiR161+DgO0ZqbC+1
+	 I300kCAq8x2FEmmgG6K78sNdIDxSkf+37KpSbVCmGowGgHU5Sq1s1vSs40WoNJbqlOfgv
+	 OHbPuW3ioUS6gxwaHrSHTZHQPDk4toTbgM8y1ytPJZKaevGN/huhawcAk4GcgBkzn+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+Iwv0f1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711B0606A31B;
-	Wed,  4 Nov 2026 08:38:33 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="BkpBOH/I";
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4798606A336
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:38:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4798606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+Iwv0f1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52201F000C1;
-	Wed,  4 Nov 2026 08:38:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793781512;
-	bh=q22aHIIUbJVPLfqhclV4r9PQqlG7bSyft34WDd0FFLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V+Iwv0f1902KtZ6agV1pPHZ47f4xCxgMvDc/G0u4V3Ekt6WyR0be8FNoIXB7f/nnw
-	 ycr3UTbJVqid1VhekrboxHhdFIL6JpKaMGRFMRM3Y9dcqH1bzpuB2gDkFU22E5vJAD
-	 WJyxQtVd56wGyg+44CefZfbDQ0NxZQyrcAgf0tKqonllUCvNTOMkSDWr3G3KwbLQOb
-	 3w9cX2kHAP5hViO86HsDUYv5J1vkWxNzRU3Ir5wkimBYPr8DBOX8u+NMD6sLr8UZ+h
-	 pr09xc//7Pucl5bCiL5tl06JbiK4jc7gtou9rsE5N5jxm2yoOlCQGSAl1wnvTU3dQ2
-	 +eEsnSs6MBH1A==
-Date: Wed, 4 Nov 2026 09:38:29 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
-	Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Pedro Sousa <pedrom.sousa@synopsys.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Can Guo <quic_cang@quicinc.com>, Asutosh Das <quic_asutoshd@quicinc.com>, imx@lists.linux.dev, 
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com, eballetb@redhat.com, 
-	echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v10 08/11] dt-bindings: ufs: Add NXP S32N79 UFS host
- controller
-Message-ID: <20261104-holistic-loon-of-agreement-db7b8f@quoll>
-References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
- <20261103133215.1385823-9-larisa.grigore@oss.nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BkpBOH/I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=BkpBOH/IdPZIkd5X0z9cWfhuRhKZRcC6Zeg2i0N38zmzunPUkj4ggK1zZYiE6mXUTXDRQlO327Tn4
+	 SLKx3EZBePV2lIZtdmv8699lsCe7B3w5KzjkuqOPvoe6tH9lQM7iOw/TmmJgEi0E/OOoGVG0p2ivgj
+	 ++K/uLvZTyICymwE=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aeaef18c01-67f92;
+	Wed, 04 Nov 2026 16:38:49 +0800 (CST)
+X-RM-TRANSID:2ee36aeaef18c01-67f92
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHB-W5100256 (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36aeaef174bd-175ce;
+	Wed, 04 Nov 2026 16:38:49 +0800 (CST)
+X-RM-TRANSID:2ee36aeaef174bd-175ce
+From: xujiahao <xujiahao@cmss.chinamobile.com>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	xujiahao <xujiahao@cmss.chinamobile.com>,
+	syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
+Subject: [PATCH] firmware_loader: don't WARN when usermodehelper is disabled
+Date: Wed,  4 Nov 2026 16:38:47 +0800
+Message-ID: <20261104083847.517-1-xujiahao@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,42 +73,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103133215.1385823-9-larisa.grigore@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 02:32:12PM +0100, Larisa Grigore wrote:
-> Document the UFS host controller on the NXP S32N79 SoC.
-> 
-> The S32N79 M-PHY has two data lanes per direction and the driver programs
-> both of them, so restrict lanes-per-direction to 2.
-> 
-> The UFS core manages only the clocks added by the platform glue. Since
-> freq-table-hz is deprecated, the binding requires operating-points-v2 and
-> clock-names. As S32N79 does not scale the UFS clock, the OPP table contains
-> a single 0 Hz entry, which keeps the provider-configured rate while
-> allowing the clock to be enabled and gated.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+fw_load_from_user_helper() warns when usermodehelper_read_trylock()
+fails.  That call fails with -EAGAIN only when usermodehelper_disabled
+is UMH_DISABLED, which is set by usermodehelper_disable() during system
+shutdown: kernel_restart_prepare() and kernel_shutdown_prepare() both
+call it right before device_shutdown().
 
-No lore links in the changelog and b4 diff:
+A firmware request that races with system shutdown is an expected
+error, not a kernel bug.  The FW_OPT_NOWAIT branch a few lines above
+handles the very same condition by returning -EBUSY without warning,
+and the failure is already reported through dev_err(), so the WARN adds
+nothing but an unusable stack trace.
 
-b4 diff '20261103133215.1385823-1-larisa.grigore@oss.nxp.com'
-Looking up 20261103133215.1385823-1-larisa.grigore@oss.nxp.com
-Checking for older revisions
-Grabbing search results from lore.kernel.org
+Drop the WARN_ON() and keep returning the error.
+
+Reported-by: syzbot+8f06445357a052a92657@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8f06445357a052a92657
+Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
 ---
-Analyzing 91 messages in the thread
-Could not find lower series to compare against.
+ drivers/base/firmware_loader/fallback.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Is NXP going to switch to b4 or not? How many times this can be raised?
+diff --git a/drivers/base/firmware_loader/fallback.c b/drivers/base/firmware_loader/fallback.c
+index 00d6b6e..9bdcf9a 100644
+--- a/drivers/base/firmware_loader/fallback.c
++++ b/drivers/base/firmware_loader/fallback.c
+@@ -155,7 +155,7 @@ static int fw_load_from_user_helper(struct firmware *firmware,
+ 		}
+ 	} else {
+ 		ret = usermodehelper_read_trylock();
+-		if (WARN_ON(ret)) {
++		if (ret) {
+ 			dev_err(device, "firmware: %s will not be loaded\n",
+ 				name);
+ 			return ret;
+-- 
+2.43.0
 
-Sure, you do not have to switch, but then why is `b4 diff` not working
-on your patchset?
 
-Dropping from DT patchwork.
-
-Best regards,
-Krzysztof
 
