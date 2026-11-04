@@ -1,114 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835038;
-	b=Cj7dviPax26rZeHmZWbXObrti0a8oeTp0HEMDcitQLnqzA3s5Q5m/FCXcFPjQ12R+Iog
-	 xd4gFUBCV840BL4kyW7d2Tng4zF6/H74vW/DcvZu7QTTeyLT+eVRvzIEUmH5mMYdAsfjk
-	 0x4YtZhcSvyoqsSlGSqOchzEoGQSc+fYI/JZXGWsN/M7Od8yFgAImS+LU+0aDyImvNKRz
-	 TwI6ll9YczNKSxwyDCEjyzfZojFjAh6AldtS+XkOLdlEfHl47jXZ8UXO6XhgXy7exUwc4
-	 5iUpiTq5jruLB1GyUfZVT4TOIr9pGv9P5MWOhUbokKffTnJDIXQvjfmZ7yw/ZxjpEBA==
+	t=1793835103;
+	b=1rI1cBR4XXir7/N3iXisqYNzhw6ZvRcm8NN3lG2QAG2WLePCyd1parziR8BM2YSOCxyr
+	 1l/aMWe1TyQzYMsM+/BOnCOe4QO0iOpjR1ypRrUT3LDwZD15Jz5HQ8wZaSvFi1vX+2pJE
+	 pKvpB+W4ai6YH34+9G/wm+uGP/bd9qBT3UNgf3l2XnxhthUkBxMYWTpIK9tzSaAbjFYt3
+	 ul9ydpT8FnLjOAIfL3A+F84rqHfqNvMrHICbaWgkHyZNZywoX/eo/Le5J2nfFDFdhKZC3
+	 U/zRnuh03CYlE3MAsuUZDlB6COc2l2DKRVd4+MSN5zEWic7jqtG7qHJ4Z8hgPQWSMDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835038;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mPJvB8G7lWjKk0VYdV3KVWsRis1hROxsCznjRxccNKc=;
-	b=HKo4XwJlru8y1+vZO+tTebwBgOB5XJmMqyujxGP9QqMWbTxIL+DKiyd72Mp0rDsFIMCL
-	 HmQ44R6MMisq+iwfDqEe0lpxNrxxLcLMjuwF2xB5AdqbhcGXRaA4Mo/Y7KqJl362YbcpF
-	 M3JYGPZ7/MpFgbsLVQXxtlFl4s8jCyqyMlUGWDoILX2ZLkxcDROtjqHpNUi0gdXF8l9x6
-	 cdT4LTN7esa3k6YcAAZnofXBibrsc3NDCWlx2twpTXADKTJhCXWcAVYqf7hRWBRk1UQUp
-	 NRZ0a8fsjb4K5KQyXrEyeomIsvfOTwxtt0PjiAAH0POPMJmr5eK0oBBAHQO6u09I6XQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835103;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7Dj0Khh1eXzE1heKHSPxHmwPdgiFpustvZu53qRPwBA=;
+	b=QuYZhZxSMu5yx+X9UwbzLCAZljceWrSIFgmC48pDeDAjHhWtWu0h5XuBHX/yHP/kcX/U
+	 OAW54E45uWBRH4XmIEDEPEfgV0+a5y6z5URPdwhOW9eGw123BYV7HlbUvtNNXOzpmGUUl
+	 2wFDaexmrONC0HKAeqtrBNkqgKeixVM8E8aeba/zfNx9yG2J55gRN/rhHFITY0uRZN+ye
+	 HkwdMfrhxxrtnsMbnX4N3tdDqk81MVTyQeHdgZCgZJHmYign8S/5tvwzdICSUHRKy3MU5
+	 UciF+ngVaidNASE2vJNLwKojtu4tkU04sj0mPOXNdvvXVhJ1HrDLdf+2w+i+TVxlyIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QrFWfzYF;
-	arc=none smtp.remote-ip=74.125.224.49
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpsAau5b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A38606D836
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:30:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A38606D836
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3722B606A326;
+	Wed,  4 Nov 2026 23:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QrFWfzYF
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-67bfdab8f20so528897d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 15:30:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793835037; x=1794439837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mPJvB8G7lWjKk0VYdV3KVWsRis1hROxsCznjRxccNKc=;
-        b=QrFWfzYFER0teIN2AsoeAhxO0fy43+7xIelyfOahCcyFenNIBUcNjYWJUPAavXZ+zI
-         GjsOOINybWFFUxR4cVI8snGJBbvgJoBatqJCitNtcQjr1EMx7Tgy4kpXEFfUo6sFuKDV
-         Lc3JO+0iso/iSCohKzPl032eB2Hi27iyCwQclsL/O/1hGXNI0OZl++nV5hAQdvm/el0f
-         oToBMzKniVcAKWwF0hUOqeNtgFM7+M4yhMINrAAxoGwfG9oHSIS/F2mutvLIf+qvR+3D
-         IGgxzy3hAijaZbIWGsZlHLdCSUrzMCZlheouQszCgXkwjLbhMU+nAPh6PGZMCL3e4EJf
-         UABQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793835037; x=1794439837;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mPJvB8G7lWjKk0VYdV3KVWsRis1hROxsCznjRxccNKc=;
-        b=oNtS6PKIhOFx6tOfU76fnlIZ8G18jiKv0/QwS1afUqIU/M9i+/w1XK6gZ9Off60Lmt
-         hgYPWsBfUdJ7Si1RK4743ylnEK9qYppyFSq7ukMTWCurpj3WG5e7vu8oaT9iXLirKJ2j
-         fd5a8iIXF8t2SquMFoXPS+SUioc1ZEzruiV+i2H5oZN6IgfJsxZyhQzFD1XBn78qGvBs
-         6LcuSP8TrL32nzfWLnebf92jKSSNyTBngIKCrAvGquH4lvzJDFgAQ1ASKnXGwxSmT8xc
-         O9xvM82ykOb857o/ANLag9zyknmGUoSvCdsnZgM8gq7SHPrdCA7HqB71i/daK4dt5/Hj
-         MfQQ==
-X-Forwarded-Encrypted: i=1; AKwUvByl7+9fpnJ4TVoVRwrkCZSLbAVyoF7dl8EbSAu2Q5tZM/nQJiJ1gpaj4Muk1NF93An8m6/eEwK4CJHEke4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ETPLWiSlTdHyF4yjxZWtJEDI/MOqImvQ6iu/D9PWmMO8gJkqB
-	0H2nDqiBEe0fVZroPAo1/Vupf9ORMdXVwAHFEb3cmjEkqJlbIrBF1NWs
-X-Gm-Gg: AYBFou1wUQN3IQanJ/tD8QCKCSF5MIHvZ3qFDmUpCAzf6E9okaGjZhB3eNnjs7kADQi
-	nrhb7211JC0dMGJNhylEsjZGJdLrBWjwXxtlDuHsQBW2815Cvsk1GsP9mer9tPlhiWCh7l1noJH
-	6waOm5Kh1HeOmhh0FndIx5NUSyx0u1wu671Gn/4/YR/4PbZfCgMCuqqJFA1Vd6UKM99w2CYtCUR
-	oD+wCqFbIjaKgpLRrQ9XrEsgd3pJ/pMyRkLrJIuWQlxeXun4OGCsQBjcrQXy1FJD+de2X8gi5Y8
-	CEJdSomfsugGwl8uY9bWqK2zsHcOe/nsiNEARbyq6bggof17t/BEJKdV/6iXOcOJ6VUnT5vI0xs
-	rMJOAluvGCSNjic9kQpY/JzFOSCV9tPqsOgOiRc1vI0h+SEs757R01VkQ1GQm1bFIsWXRCbuRxl
-	AmXQgn+zcXg5P5XtNX3/c3zptpcl5RTbX4dbYqWn6rapX3JNGF32BReFk0sRA/njhgpuhBmhQFz
-	/AVywa+7U4xlY+55UlhVEHVEpAR9WthTKDmJBfNvr34QAwlopfEIw7D8nJIGajRAkSjb6AU3xFE
-	1rOnWeHem3zQPsr+cAoFGddLs6k3livRXDVmhNDs3UvJScAGEfFc8wUcUW97
-X-Received: by 2002:a05:690e:11c4:b0:679:b192:5eae with SMTP id 956f58d0204a3-67ba4eea232mr9937426d50.24.1793835036509;
-        Wed, 04 Nov 2026 15:30:36 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:43::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee2449b5sm2380498d50.12.2026.11.04.15.30.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 15:30:36 -0800 (PST)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Michal Hocko <mhocko@kernel.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Harry Yoo <harry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Maxime Ripard <mripard@kernel.org>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v8 5/7] mm/memcontrol: move memory stock to page counters
-Date: Wed,  4 Nov 2026 15:30:26 -0800
-Message-ID: <20261104233029.3282438-6-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
-References: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpsAau5b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B09F1F000C1;
+	Wed,  4 Nov 2026 23:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793835102;
+	bh=7Dj0Khh1eXzE1heKHSPxHmwPdgiFpustvZu53qRPwBA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XpsAau5b1Td/g6NY/qgvYXJDUOEzL0AXOZCvUK6KmqSFYzmZrueGzGbYI78NwmP+8
+	 Z38btwteZq50/xHHRp8E4wbUYOt9MVghCzcHb37cgZYZsTwzkBE8nNWFsoKxrOoXrl
+	 0o0YYEPLSd7dqdo9rRCu6axWcQpo3euZAgQALg+gxilNWIQf0NTkA1yXnfimMuKqXI
+	 drVDDmUY/i/CVrLFdoM1HpMYYhSQVJCTH8FhNrUST61RWBBL9DVtw5/3U/d90XDxgZ
+	 D0g13HCicVQqOnojT64keL00osW+LnJStZ9ATztabn1hXco2JDCFz+e0kq001iWwDV
+	 vgkg3CiHdyKWg==
+Message-ID: <sashiko-outbox-198299@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 15/21] sched/deadline: Record the root domain holding
+ a task's bandwidth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104211207.1392343-16-mathieu.desnoyers@efficios.com>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-16-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 23:31:42 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,566 +60,286 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Transition memcg to use the page_counter_stock for the memory
-page_counter instead of relying on a memcg-wide stock.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] sched/deadline: broken rd rebuild for PI-boosted departed tasks
+- [Medium] sched/deadline: stale task_cpu() root domain on sleeping moved t=
+asks
+- [Low] sched/deadline: stale comments in switched_to_dl() and dl_bw_cpu he=
+lpers
+--
 
-One aspect that remains non-transparent to memcg is the uncharge path.
-This is intentional, as the caller is responsible for managing the
-batching. Cacheable releases refill the stock, while already-batched
-frees (i.e. uncharge_gather), rollbacks, and accounting transfers
-uncharge the hierarchy directly. The refill helper itself already falls
-back to a raw uncharge when the stock cannot accept the pages anyways.
+commit 90cd336704a1119534fc7c444edd810ae1302642
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Because the memory and memsw counters no longer share one stock, their
-raw values can temporarily diverge, and the raw memory counter can
-exceed the raw memsw counter. Preserve the legacy user-visible
-memory <= memory+swap relationship by reporting the smaller of the two
-raw values for memory.usage_in_bytes.
+sched/deadline: Record the root domain holding a task's bandwidth
 
-We accept this fuzziness over breaking the invariant, as usage_in_bytes
-has always been a fuzzy value due to stock charges being included.
-Moreover, the raw counters are upper bounds on charged memory, so the
-reported value stays within that fuzz.
+This commit replaces dl_departed_cpu and cpumask-based root domain lookups
+with a recorded dl_bw_cpu in struct sched_dl_entity so that deadline
+bandwidth is released or moved from the same root domain where it was
+accounted.
 
-One final nuance is that with divergent charges now, it is possible for
-memory to fail first even when memory and memsw have equal limits.
-When this happens, make sure reclaim doesn't swap, as if memsw failed.
-Factor out this logic into memcg_charge_reclaim_options() for clarity.
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 85df2b0044bed..1dbde0fd199b4 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -252,15 +252,14 @@ static unsigned int dl_bw_gen;
+>   * @p leaves SCHED_DEADLINE, or dies, its bandwidth kept for now in the =
+root
+>   * domain of @cpu. Under its rq lock.
+>   */
+> -static void dl_task_depart(struct task_struct *p, int cpu)
+> +static void dl_task_depart(struct task_struct *p)
+>  {
+>  	struct sched_dl_entity *dl_se =3D &p->dl;
+> =20
+>  	lockdep_assert_irqs_disabled();
+> -	if (dl_se->dl_departed_cpu >=3D 0)
+> -		return;
+>  	guard(raw_spinlock)(&dl_departed_lock);
+> -	dl_se->dl_departed_cpu =3D cpu;
+> +	if (!list_empty(&dl_se->dl_departed_node) || dl_se->dl_bw_cpu < 0)
+> +		return;
+>  	list_add(&dl_se->dl_departed_node, &dl_departed_list);
+>  }
+> =20
+> @@ -273,9 +272,10 @@ static void dl_task_undepart(struct task_struct *p)
+>  	struct sched_dl_entity *dl_se =3D &p->dl;
+> =20
+>  	lockdep_assert_irqs_disabled();
+> +	if (list_empty(&dl_se->dl_departed_node))
+> +		return;
+>  	guard(raw_spinlock)(&dl_departed_lock);
+> -	dl_se->dl_departed_cpu =3D -1;
+> -	list_del(&dl_se->dl_departed_node);
+> +	list_del_init(&dl_se->dl_departed_node);
+>  }
+> =20
+>  /*
+> @@ -284,24 +284,25 @@ static void dl_task_undepart(struct task_struct *p)
+>   * when a rebuild of the accounting has dropped it; and no rebuild runni=
+ng
+>   * counts it again. Under @p's rq lock.
+>   */
+> -static void dl_task_release_bw(struct task_struct *p, int cpu)
+> +static void dl_task_release_bw(struct task_struct *p)
 
-With this transition, remove all memcg code that is no longer used.
-After all of this, there should be no functional change for cgroup v2
-users, and the cgroup-v1 equal-limit no-swap behavior is preserved. All
-v2 behaviors from memcg are preserved, just moved from memcg to
-page_counter code, so that future work can introduce additional
-page_counters without removing the fast path.
-Explicitly, the preserved behaviors are:
- - 7-slot stock
- - drain policy works locally and remotely through the memcg_wq
- - check whether a stock requires flushing before taking action
- - exact charging for non-spinning callers
- - report hierarchy growth for memory.high overage accounting
+[ ... ]
 
-As of this patch, this leaves memsw un-stocked and always taking the
-slow path (raw hierarchy charge). The next patch will make memsw
-stocked, which will close the fast path gap for legacy cgroup users.
+> @@ -3475,11 +3488,14 @@ static void task_woken_dl(struct rq *rq, struct t=
+ask_struct *p)
+>   */
+>  static unsigned int dl_task_root_domain_cpu(struct task_struct *p)
+>  {
+> -	unsigned int cpu;
+> +	int cpu =3D p->dl.dl_bw_cpu;
+> =20
+> -	cpu =3D cpumask_first_and(&p->cpus_mask, cpu_active_mask);
+> -	if (cpu >=3D nr_cpu_ids)
+> -		cpu =3D task_cpu(p);
+> +	/*
+> +	 * No bandwidth of @p's counted anywhere: nothing to take back or to
+> +	 * move, and the CPU it is on answers for its root domain.
+> +	 */
+> +	if (cpu < 0)
+> +		return task_cpu(p);
+>  	return cpu;
+>  }
 
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
----
- mm/memcontrol-v1.c |  14 +-
- mm/memcontrol.c    | 322 ++++++++++-----------------------------------
- 2 files changed, 84 insertions(+), 252 deletions(-)
+[ ... ]
 
-diff --git a/mm/memcontrol-v1.c b/mm/memcontrol-v1.c
-index a146e54c6f9f7..2f29315b69fc3 100644
---- a/mm/memcontrol-v1.c
-+++ b/mm/memcontrol-v1.c
-@@ -122,10 +122,18 @@ static unsigned long mem_cgroup_usage(struct mem_cgroup *memcg, bool swap)
- 		if (swap)
- 			val += total_swap_pages - get_nr_swap_pages();
- 	} else {
--		if (!swap)
--			val = page_counter_read(&memcg->memory);
--		else
-+		if (!swap) {
-+			/*
-+			 * Both counters remain upper bounds on charged memory,
-+			 * but cached charges can make their raw values drift.
-+			 * Use the smaller value to preserve the user-visible
-+			 * memory <= memsw invariant.
-+			 */
-+			val = min(page_counter_read(&memcg->memory),
-+				  page_counter_read(&memcg->memsw));
-+		} else {
- 			val = page_counter_read(&memcg->memsw);
-+		}
- 	}
- 	return val;
- }
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 75b915febb06b..d03d64969548d 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2050,33 +2050,11 @@ void mem_cgroup_print_oom_group(struct mem_cgroup *memcg)
- 	pr_cont(" are going to be killed due to memory.oom.group set\n");
- }
- 
--/*
-- * The value of NR_MEMCG_STOCK is selected to keep the cached memcgs and their
-- * nr_pages in a single cacheline. This may change in future.
-- */
--#define NR_MEMCG_STOCK 7
--
--/*
-- * Watermarks for a charge stock slot, in the spirit of pcp->high and
-- * pcp->batch: MEMCG_STOCK_HIGH is the high watermark at which a slot is
-- * trimmed, and it is trimmed down to MEMCG_STOCK_LOW rather than emptied.
-- */
--#define MEMCG_STOCK_LOW		(MEMCG_CHARGE_BATCH / 2)
--#define MEMCG_STOCK_HIGH	(MEMCG_CHARGE_BATCH)
--
- #define FLUSHING_CACHED_CHARGE	0
--struct memcg_stock_pcp {
--	local_trylock_t lock;
--	uint8_t nr_pages[NR_MEMCG_STOCK];
--	struct mem_cgroup *cached[NR_MEMCG_STOCK];
--
--	struct work_struct work;
--	unsigned long flags;
--	uint8_t drain_idx;
--};
- 
--static DEFINE_PER_CPU_ALIGNED(struct memcg_stock_pcp, memcg_stock) = {
-+static DEFINE_PER_CPU_ALIGNED(struct page_counter_stock_pcp, memory_stock) = {
- 	.lock = INIT_LOCAL_TRYLOCK(lock),
-+	.base = &memory_stock,
- };
- 
- /*
-@@ -2126,54 +2104,6 @@ static void drain_obj_stock(struct obj_stock_pcp *stock);
- static bool obj_stock_flush_required(struct obj_stock_pcp *stock,
- 				     struct mem_cgroup *root_memcg);
- 
--/**
-- * consume_stock: Try to consume stocked charge on this cpu.
-- * @memcg: memcg to consume from.
-- * @nr_pages: how many pages to charge.
-- *
-- * Consume the cached charge if enough nr_pages are present otherwise return
-- * failure. Also return failure for charge request larger than
-- * MEMCG_CHARGE_BATCH or if the local lock is already taken.
-- *
-- * returns true if successful, false otherwise.
-- */
--static bool consume_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
--{
--	struct memcg_stock_pcp *stock;
--	uint8_t stock_pages;
--	bool ret = false;
--	int i;
--
--	if (unlikely(nr_pages > MEMCG_CHARGE_BATCH ||
--		     !local_trylock(&memcg_stock.lock)))
--		return ret;
--
--	stock = this_cpu_ptr(&memcg_stock);
--
--	for (i = 0; i < NR_MEMCG_STOCK; ++i) {
--		if (memcg != stock->cached[i])
--			continue;
--
--		stock_pages = stock->nr_pages[i];
--		if (unlikely(stock_pages < nr_pages))
--			break;
--
--		stock_pages -= nr_pages;
--		WRITE_ONCE(stock->nr_pages[i], stock_pages);
--		if (unlikely(!stock_pages)) {
--			WRITE_ONCE(stock->cached[i], NULL);
--			css_put(&memcg->css);
--		}
--
--		ret = true;
--		break;
--	}
--
--	local_unlock(&memcg_stock.lock);
--
--	return ret;
--}
--
- static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages)
- {
- 	page_counter_uncharge(&memcg->memory, nr_pages);
-@@ -2181,49 +2111,22 @@ static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages)
- 		page_counter_uncharge(&memcg->memsw, nr_pages);
- }
- 
--/*
-- * Returns stocks cached in percpu and reset cached information.
-- */
--static void drain_stock(struct memcg_stock_pcp *stock, int i)
--{
--	struct mem_cgroup *old = stock->cached[i];
--	uint8_t stock_pages;
--
--	if (!old)
--		return;
--
--	stock_pages = stock->nr_pages[i];
--	if (stock_pages) {
--		memcg_uncharge(old, stock_pages);
--		WRITE_ONCE(stock->nr_pages[i], 0);
--	}
--
--	WRITE_ONCE(stock->cached[i], NULL);
--	css_put(&old->css);
--}
--
--static void drain_stock_fully(struct memcg_stock_pcp *stock)
--{
--	int i;
--
--	for (i = 0; i < NR_MEMCG_STOCK; ++i)
--		drain_stock(stock, i);
--}
--
--static void drain_local_memcg_stock(struct work_struct *dummy)
-+static void drain_local_stock(struct work_struct *work)
- {
--	struct memcg_stock_pcp *stock;
-+	struct page_counter_stock_pcp *pcp_stock;
-+	struct page_counter_stock_pcp __percpu *stock;
- 
- 	if (WARN_ONCE(!in_task(), "drain in non-task context"))
- 		return;
- 
--	local_lock(&memcg_stock.lock);
-+	stock = container_of(work, struct page_counter_stock_pcp, work)->base;
-+	local_lock(&stock->lock);
- 
--	stock = this_cpu_ptr(&memcg_stock);
--	drain_stock_fully(stock);
--	clear_bit(FLUSHING_CACHED_CHARGE, &stock->flags);
-+	pcp_stock = this_cpu_ptr(stock);
-+	page_counter_drain_stock_fully(pcp_stock);
-+	clear_bit(FLUSHING_CACHED_CHARGE, &pcp_stock->flags);
- 
--	local_unlock(&memcg_stock.lock);
-+	local_unlock(&stock->lock);
- }
- 
- static void drain_local_obj_stock(struct work_struct *dummy)
-@@ -2242,109 +2145,6 @@ static void drain_local_obj_stock(struct work_struct *dummy)
- 	local_unlock(&obj_stock.lock);
- }
- 
--static void refill_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
--{
--	struct memcg_stock_pcp *stock;
--	struct mem_cgroup *cached;
--	unsigned int stock_pages;
--	int empty_slot = -1;
--	int i;
--
--	/*
--	 * nr_pages[] is a uint8_t and a slot's count is capped at
--	 * MEMCG_STOCK_HIGH. Raising MEMCG_CHARGE_BATCH beyond 127 would need
--	 * more careful handling of nr_pages[] in struct memcg_stock_pcp.
--	 */
--	BUILD_BUG_ON(MEMCG_CHARGE_BATCH > S8_MAX);
--	BUILD_BUG_ON(MEMCG_STOCK_HIGH > U8_MAX);
--
--	VM_WARN_ON_ONCE(mem_cgroup_is_root(memcg));
--
--	if (unlikely(nr_pages > MEMCG_CHARGE_BATCH ||
--		     !local_trylock(&memcg_stock.lock))) {
--		/*
--		 * In case of larger than batch refill or unlikely failure to
--		 * lock the percpu memcg_stock.lock, uncharge memcg directly.
--		 */
--		memcg_uncharge(memcg, nr_pages);
--		return;
--	}
--
--	stock = this_cpu_ptr(&memcg_stock);
--	for (i = 0; i < NR_MEMCG_STOCK; ++i) {
--		cached = stock->cached[i];
--		if (!cached && empty_slot == -1)
--			empty_slot = i;
--
--		if (memcg != cached)
--			continue;
--
--		stock_pages = stock->nr_pages[i] + nr_pages;
--		if (unlikely(stock_pages > MEMCG_STOCK_HIGH)) {
--			WRITE_ONCE(stock->nr_pages[i], MEMCG_STOCK_LOW);
--			stock_pages -= MEMCG_STOCK_LOW;
--		} else {
--			WRITE_ONCE(stock->nr_pages[i], stock_pages);
--			stock_pages = 0;
--		}
--
--		local_unlock(&memcg_stock.lock);
--
--		if (unlikely(stock_pages))
--			memcg_uncharge(memcg, stock_pages);
--		return;
--	}
--
--	cached = NULL;
--	stock_pages = 0;
--
--	i = empty_slot;
--	if (i == -1) {
--		i = stock->drain_idx++;
--		if (stock->drain_idx == NR_MEMCG_STOCK)
--			stock->drain_idx = 0;
--
--		cached = stock->cached[i];
--		stock_pages = stock->nr_pages[i];
--	}
--
--	css_get(&memcg->css);
--	WRITE_ONCE(stock->cached[i], memcg);
--	WRITE_ONCE(stock->nr_pages[i], nr_pages);
--
--	local_unlock(&memcg_stock.lock);
--
--	if (unlikely(cached)) {
--		if (stock_pages)
--			memcg_uncharge(cached, stock_pages);
--
--		css_put(&cached->css);
--	}
--}
--
--static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
--				  struct mem_cgroup *root_memcg)
--{
--	struct mem_cgroup *memcg;
--	bool flush = false;
--	int i;
--
--	rcu_read_lock();
--	for (i = 0; i < NR_MEMCG_STOCK; ++i) {
--		memcg = READ_ONCE(stock->cached[i]);
--		if (!memcg)
--			continue;
--
--		if (READ_ONCE(stock->nr_pages[i]) &&
--		    mem_cgroup_is_descendant(memcg, root_memcg)) {
--			flush = true;
--			break;
--		}
--	}
--	rcu_read_unlock();
--	return flush;
--}
--
- static bool schedule_drain_work(int cpu, struct work_struct *work)
- {
- 	/*
-@@ -2376,23 +2176,25 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 	 * Notify other cpus that system-wide "drain" is running
- 	 * We do not care about races with the cpu hotplug because cpu down
- 	 * as well as workers from this path always operate on the local
--	 * per-cpu data. CPU up doesn't touch memcg_stock at all.
-+	 * per-cpu data. CPU up doesn't touch the stocks at all.
- 	 */
- 	migrate_disable();
- 	curcpu = smp_processor_id();
- 	for_each_online_cpu(cpu) {
--		struct memcg_stock_pcp *memcg_st = &per_cpu(memcg_stock, cpu);
-+		struct page_counter_stock_pcp *memory_st =
-+			per_cpu_ptr(&memory_stock, cpu);
- 		struct obj_stock_pcp *obj_st = &per_cpu(obj_stock, cpu);
- 
--		if (!test_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags) &&
--		    is_memcg_drain_needed(memcg_st, root_memcg) &&
-+		if (!test_bit(FLUSHING_CACHED_CHARGE, &memory_st->flags) &&
-+		    page_counter_stock_flush_required(memory_st,
-+						      &root_memcg->css) &&
- 		    !test_and_set_bit(FLUSHING_CACHED_CHARGE,
--				      &memcg_st->flags)) {
-+				      &memory_st->flags)) {
- 			if (cpu == curcpu)
--				drain_local_memcg_stock(&memcg_st->work);
--			else if (!schedule_drain_work(cpu, &memcg_st->work))
-+				drain_local_stock(&memory_st->work);
-+			else if (!schedule_drain_work(cpu, &memory_st->work))
- 				clear_bit(FLUSHING_CACHED_CHARGE,
--					  &memcg_st->flags);
-+					  &memory_st->flags);
- 		}
- 
- 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
-@@ -2412,12 +2214,13 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 
- static int memcg_hotplug_cpu_dead(unsigned int cpu)
- {
--	struct memcg_stock_pcp *memcg_st = &per_cpu(memcg_stock, cpu);
-+	struct page_counter_stock_pcp *memory_st =
-+		per_cpu_ptr(&memory_stock, cpu);
- 	struct obj_stock_pcp *obj_st = &per_cpu(obj_stock, cpu);
- 
- 	/* no need for the local lock */
- 	drain_obj_stock(obj_st);
--	drain_stock_fully(memcg_st);
-+	page_counter_drain_stock_fully(memory_st);
- 
- 	/*
- 	 * A drain work queued before the CPU went away is executed by an
-@@ -2425,7 +2228,7 @@ static int memcg_hotplug_cpu_dead(unsigned int cpu)
- 	 * clear the flags here to make these stocks drainable again once
- 	 * the CPU comes back online.
- 	 */
--	clear_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags);
-+	clear_bit(FLUSHING_CACHED_CHARGE, &memory_st->flags);
- 	clear_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags);
- 
- 	return 0;
-@@ -2771,13 +2574,33 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
- 		__mem_cgroup_handle_over_high(gfp_mask);
- }
- 
-+static unsigned int memcg_charge_reclaim_options(struct mem_cgroup *memcg,
-+						 struct page_counter *counter)
-+{
-+	if (!do_memsw_account())
-+		return MEMCG_RECLAIM_MAY_SWAP;
-+
-+	if (counter == &memcg->memsw)
-+		return 0;
-+
-+	/*
-+	 * With separate stocks, raw memory can exceed raw memsw, so memory can
-+	 * fail first even when equal limits leave no room for swap. Don't swap
-+	 * in that case, as if memsw had failed.
-+	 */
-+	if (READ_ONCE(memcg->memory.max) >= READ_ONCE(memcg->memsw.max))
-+		return 0;
-+
-+	return MEMCG_RECLAIM_MAY_SWAP;
-+}
-+
- static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 			    unsigned int nr_pages)
- {
--	unsigned int batch = max(MEMCG_CHARGE_BATCH, nr_pages);
- 	int nr_retries = MAX_RECLAIM_RETRIES;
- 	struct mem_cgroup *mem_over_limit;
- 	struct page_counter *counter;
-+	unsigned long nr_charged;
- 	unsigned long nr_reclaimed;
- 	bool passed_oom = false;
- 	unsigned int reclaim_options;
-@@ -2785,37 +2608,31 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	bool raised_max_event = false;
- 	unsigned long pflags;
- 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
-+	/* Charges from reclaim or non-spinning contexts don't batch. */
-+	bool may_batch = allow_spinning && !(current->flags & PF_MEMALLOC);
- 	int ret = 0;
- 
- retry:
--	if (consume_stock(memcg, nr_pages))
--		return ret;
--
--	/* Charges from reclaim or non-spinning contexts don't batch. */
--	if (!allow_spinning || (current->flags & PF_MEMALLOC))
--		batch = nr_pages;
--
--	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
- 	if (do_memsw_account() &&
--	    !page_counter_try_charge(&memcg->memsw, batch, &counter, false,
-+	    !page_counter_try_charge(&memcg->memsw, nr_pages, &counter, false,
- 				     NULL)) {
- 		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
--		reclaim_options &= ~MEMCG_RECLAIM_MAY_SWAP;
- 		goto reclaim;
- 	}
- 
--	if (page_counter_try_charge(&memcg->memory, batch, &counter, false, NULL))
--		goto done_restock;
-+	if (page_counter_try_charge(&memcg->memory, nr_pages, &counter,
-+				    may_batch, &nr_charged))
-+		goto check_high;
- 
- 	if (do_memsw_account())
--		page_counter_uncharge(&memcg->memsw, batch);
-+		page_counter_uncharge(&memcg->memsw, nr_pages);
- 	mem_over_limit = mem_cgroup_from_counter(counter, memory);
- 
- reclaim:
--	if (batch > nr_pages) {
--		batch = nr_pages;
--		goto retry;
--	}
-+	reclaim_options = memcg_charge_reclaim_options(mem_over_limit, counter);
-+
-+	/* Do not retry speculative batch charges after the first miss. */
-+	may_batch = false;
- 
- 	/*
- 	 * Reclaim may need memory to free memory. Let it go over the
-@@ -2926,9 +2743,9 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 
- 	return ret;
- 
--done_restock:
--	if (batch > nr_pages)
--		refill_stock(memcg, batch - nr_pages);
-+check_high:
-+	if (!nr_charged)
-+		return ret;
- 
- 	/*
- 	 * Skip memory.high for charges from reclaim, so the high_work
-@@ -2937,7 +2754,7 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	if (unlikely(current->flags & PF_MEMALLOC))
- 		return ret;
- 
--	memcg_enforce_high(memcg, batch, gfp_mask);
-+	memcg_enforce_high(memcg, nr_charged, gfp_mask);
- 	return ret;
- }
- 
-@@ -3226,8 +3043,11 @@ static void obj_cgroup_uncharge_pages(struct obj_cgroup *objcg,
- 
- 	account_kmem_nmi_safe(memcg, -nr_pages);
- 	memcg1_account_kmem(memcg, -nr_pages);
--	if (!mem_cgroup_is_root(memcg))
--		refill_stock(memcg, nr_pages);
-+	if (!mem_cgroup_is_root(memcg)) {
-+		page_counter_refill_stock(&memcg->memory, nr_pages);
-+		if (do_memsw_account())
-+			page_counter_uncharge(&memcg->memsw, nr_pages);
-+	}
- 
- 	css_put(&memcg->css);
- }
-@@ -4374,6 +4194,8 @@ mem_cgroup_css_alloc(struct cgroup_subsys_state *parent_css)
- 	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
- 	if (parent) {
- 		page_counter_init(&memcg->memory, &parent->memory, memcg_on_dfl);
-+		memcg->memory.stock = &memory_stock;
-+		memcg->memory.stock_css = &memcg->css;
- 		page_counter_init(&memcg->swap, &parent->swap, false);
- #ifdef CONFIG_MEMCG_V1
- 		WRITE_ONCE(memcg->swappiness, mem_cgroup_swappiness(parent));
-@@ -5839,7 +5661,7 @@ void mem_cgroup_sk_uncharge(const struct sock *sk, unsigned int nr_pages)
- 
- 	mod_memcg_state(memcg, MEMCG_SOCK, -nr_pages);
- 
--	refill_stock(memcg, nr_pages);
-+	page_counter_refill_stock(&memcg->memory, nr_pages);
- }
- 
- void mem_cgroup_flush_workqueue(void)
-@@ -5987,6 +5809,8 @@ int __init mem_cgroup_init(void)
- 	 * exceed S32_MAX / PAGE_SIZE.
- 	 */
- 	BUILD_BUG_ON(MEMCG_CHARGE_BATCH > S32_MAX / PAGE_SIZE);
-+	/* Batched page-counter charges feed memcg's memory.high accounting. */
-+	BUILD_BUG_ON(MEMCG_CHARGE_BATCH != PAGE_COUNTER_STOCK_BATCH);
- 
- 	memcg_struct_check();
- 
-@@ -5997,8 +5821,8 @@ int __init mem_cgroup_init(void)
- 	WARN_ON(!memcg_wq);
- 
- 	for_each_possible_cpu(cpu) {
--		INIT_WORK(&per_cpu_ptr(&memcg_stock, cpu)->work,
--			  drain_local_memcg_stock);
-+		INIT_WORK(&per_cpu_ptr(&memory_stock, cpu)->work,
-+			  drain_local_stock);
- 		INIT_WORK(&per_cpu_ptr(&obj_stock, cpu)->work,
- 			  drain_local_obj_stock);
- 	}
--- 
-2.53.0-Meta
+> @@ -3614,10 +3643,12 @@ void dl_add_task_root_domain(struct task_struct *=
+p)
+>  	 */
+>  	if (p->dl.dl_bw_gen =3D=3D dl_bw_gen)
+>  		goto unlock;
+> -	if (p->dl.dl_departed_cpu >=3D 0) {
+> -		cpu =3D p->dl.dl_departed_cpu;
+> -		if (!cpu_active(cpu))
+> +	if (!list_empty(&p->dl.dl_departed_node)) {
+> +		int recorded =3D p->dl.dl_bw_cpu;
+> +
+> +		if (recorded < 0 || !cpu_active(recorded))
+>  			goto unlock;
+> +		cpu =3D recorded;
+>  	}
+>  	rq =3D cpu_rq(cpu);
+>  	dl_b =3D &rq->rd->dl_bw;
+> @@ -3625,6 +3656,7 @@ void dl_add_task_root_domain(struct task_struct *p)
+>  	raw_spin_lock(&dl_b->lock);
+>  	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
+>  	raw_spin_unlock(&dl_b->lock);
+> +	p->dl.dl_bw_cpu =3D cpu;
+>  	p->dl.dl_bw_gen =3D dl_bw_gen;
+>  unlock:
+>  	raw_spin_unlock(&dl_departed_lock);
 
+[Severity: High]
+Can root domain bandwidth accounting be corrupted during a rebuild when a
+departed task is boosted into dl_sched_class via priority inheritance before
+its 0-lag time expires?
+
+When a SCHED_DEADLINE task leaves the deadline policy before its 0-lag time,
+switched_from_dl() arms inactive_timer and calls dl_task_depart(p) to link
+p->dl.dl_departed_node onto dl_departed_list with p->dl.dl_bw_cpu recording
+its root domain CPU. If p is then PI-boosted via rt_mutex_setprio() ->
+switched_to_dl(), dl_task_undepart(p) unlinks p->dl.dl_departed_node while
+preserving p->dl.dl_bw_cpu.
+
+If dl_rebuild_rd_accounting() runs while p is PI-boosted,
+dl_add_task_root_domain(p) sees list_empty(&p->dl.dl_departed_node) =3D=3D =
+true:
+
+1. If p was moved to another cpuset partition while in SCHED_NORMAL (where =
+no
+deadline admission check ran because !dl_task(p)), dl_add_task_root_domain(=
+p)
+ignores p->dl.dl_bw_cpu, adds p->dl.dl_bw to the new cpuset's root domain v=
+ia
+dl_get_task_effective_cpus(p), and overwrites p->dl.dl_bw_cpu with cpu. Or,
+if an earlier rebuild had already dropped p's departing bandwidth, this path
+resurrects p->dl.dl_bw into p's effective cpuset.
+
+2. Because rt_mutex_setprio() only holds p->pi_lock and rq->__lock (not
+cpuset_mutex or dl_accounting_mutex), p can be PI-boosted when
+dl_clear_root_domains() runs (so it is not on dl_departed_list and is not
+restored there) and then deboost via rt_mutex_setprio() -> switched_from_dl=
+()
+before the task walk reaches p. switched_from_dl() puts p back onto
+dl_departed_list after dl_clear_root_domains() has already finished, and
+dl_add_task_root_domain(p) skips p because !dl_task(p) is now true, dropping
+p's active 0-lag bandwidth completely.
+
+3. For a regular non-deadline task with p->dl.dl_bw =3D=3D 0 that is PI-boo=
+sted
+during a rebuild, dl_add_task_root_domain(p) unconditionally sets
+p->dl.dl_bw_cpu =3D cpu, leaving a non-negative dl_bw_cpu on a task with ze=
+ro
+bandwidth after it deboosts.
+
+Should a departed task stay on dl_departed_list across PI boost/deboost unt=
+il
+its bandwidth is actually released, and should dl_add_task_root_domain(p) s=
+kip
+tasks with p->dl.dl_bw =3D=3D 0?
+
+[ ... ]
+
+> @@ -3890,8 +3922,7 @@ static void switched_to_dl(struct rq *rq, struct ta=
+sk_struct *p)
+>  	 * the task then removes the bandwidth from that one, as it did
+>  	 * before departures were recorded.
+>  	 */
+> -	if (p->dl.dl_departed_cpu >=3D 0)
+> -		dl_task_undepart(p);
+> +	dl_task_undepart(p);
+
+[Severity: Low]
+This isn't a bug, but several comments in kernel/sched/deadline.c were not
+updated to match the new dl_bw_cpu behavior:
+
+1. In switched_to_dl(), the comment right above dl_task_undepart(p) still s=
+ays:
+
+	 * Boosted back into the class before its 0-lag time (a policy change
+	 * released that bandwidth in sched_dl_overflow()): the inactive
+	 * timer will not remove it, but its leaving the class again. That
+	 * forgets the CPU recorded: moved to another root domain meanwhile,
+	 * the task then removes the bandwidth from that one, as it did
+	 * before departures were recorded.
+
+However, dl_task_undepart(p) now preserves p->dl.dl_bw_cpu instead of
+forgetting it.
+
+2. Above dl_task_root_domain_cpu(), the function comment still states that =
+it
+uses p's current cpus_mask to find the root domain and falls back when
+cpus_mask has no active CPU:
+
+ * Find the root domain where a DL task's bandwidth is currently
+ * accounted. For a sleeping task that was moved between cpusets
+ * without running, task_rq(p)->rd may be stale. Use the task's
+ * current cpus_mask (not yet updated to the new mask) to find the
+ * actual root domain. Use cpus_mask rather than cpus_ptr, which
+ * may be temporarily narrowed by migrate_disable().
+
+whereas dl_task_root_domain_cpu() now reads p->dl.dl_bw_cpu directly.
+
+3. Above dl_task_depart() and dl_task_release_bw(), the comments still refer
+to the @cpu parameter and departed-CPU fallback that were removed from both
+functions.
+
+Could these comments be updated to reflect the new dl_bw_cpu logic?
+
+[ ... ]
+
+> @@ -4115,6 +4147,19 @@ int sched_dl_overflow(struct task_struct *p, int p=
+olicy,
+>  	if (new_bw =3D=3D p->dl.dl_bw && task_has_dl_policy(p))
+>  		return 0;
+> =20
+> +	/*
+> +	 * The bandwidth of a task of the class is counted in the root
+> +	 * domain that took it, which the CPU the task is on does not tell:
+> +	 * moved asleep, it has not run there yet. Change it where it is
+> +	 * counted; a rebuild that dropped it, and a task that enters the
+> +	 * class, have the root domain of that CPU take the new one. The
+> +	 * caller holds cpuset_mutex, so no rebuild runs meanwhile.
+> +	 */
+> +	counted =3D task_has_dl_policy(p) && p->dl.dl_bw_cpu >=3D 0 &&
+> +		  p->dl.dl_bw_gen =3D=3D dl_bw_gen;
+> +	cpu =3D counted ? p->dl.dl_bw_cpu : task_cpu(p);
+> +	dl_b =3D dl_bw_of(cpu);
+
+[Severity: Medium]
+Does updating a task's deadline parameters while it is asleep after moving =
+to
+a new cpuset partition still use the stale task_cpu(p) root domain in
+__sched_setscheduler() and sched_dl_overflow()?
+
+When a task sleeping on a CPU in partition A is moved to a disjoint cpuset
+partition B via cpuset_attach_task() -> set_cpus_allowed_ptr(),
+affine_move_task() does not migrate the sleeping task's runqueue, so
+task_cpu(p) remains in partition A while p->cpus_ptr and p->cpus_mask are
+updated to partition B (and for a SCHED_DEADLINE task, set_cpus_allowed_dl()
+updates p->dl.dl_bw_cpu to partition B).
+
+If __sched_setscheduler() is then called on the still-sleeping task:
+
+1. In kernel/sched/syscalls.c:__sched_setscheduler(), when
+dl_bandwidth_enabled() is true, the affinity check before sched_dl_overflow=
+()
+still inspects rq->rd->span from task_rq(p) (partition A):
+
+		if (dl_bandwidth_enabled() && dl_policy(policy) &&
+				!(attr->sched_flags & SCHED_FLAG_SUGOV)) {
+			cpumask_t *span =3D rq->rd->span;
+
+			if (!cpumask_subset(span, p->cpus_ptr) ||
+			    rq->rd->dl_bw.bw =3D=3D 0) {
+				retval =3D -EPERM;
+				goto unlock;
+			}
+		}
+
+Because partition A's span is disjoint from p->cpus_ptr (partition B),
+!cpumask_subset(span, p->cpus_ptr) triggers and __sched_setscheduler() fails
+with -EPERM before reaching sched_dl_overflow().
+
+2. In sched_dl_overflow(), when counted is false (for example, when a sleep=
+ing
+non-deadline task moved to partition B is switched to SCHED_DEADLINE while
+still asleep, or when a prior rebuild dropped the task's bandwidth),
+cpu =3D counted ? p->dl.dl_bw_cpu : task_cpu(p) falls back to task_cpu(p) in
+partition A, crediting the bandwidth to partition A's root domain even thou=
+gh
+inc_dl_tasks_cs(p) and the task's wakeup place it in partition B.
+
+Should __sched_setscheduler() and the uncounted path in sched_dl_overflow()
+resolve the destination root domain from the task's effective cpuset or
+allowed mask rather than task_cpu(p)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
+343-1-mathieu.desnoyers@efficios.com?part=3D15
