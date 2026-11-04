@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801845;
-	b=gyOQOAYWrrLrZcVrCQQTy5Flit1yN9BdQEyTDxjG4VAeG3RfGyIQgyWCGoLG4eazHwr9
-	 A/CPrc9UwLjRbcbjlIIuVacEwRuKy5kEFvmZTV/b82sf/FpKqZ4zmx/HUyPNoYCUQzxr8
-	 2LIC98myyKVC393bHVaWz9CwRIVi3pX+z0rjxfeb0b+ambBBGxfevRk62p6b/6fj6WVpG
-	 OC6z8UwquoqGPHUIAuYUrphSRXOfrsWu9mFFbEfwsh5DZJDbuURxYn8VFqNu9m0esnjmj
-	 8RZbCI+i7+IRJ1vwj6jmN/X5vd3gt8IVyvcL8UmtVZtaNLDKPj7EDyN/IfDLE3DjKNQ==
+	t=1793801841;
+	b=HaBXzVnjca+pvgdrjCfNNkEeRrJqiuerSh61BRYyXXLcQMKgu9KbuPJDO5zJMGGWMEZx
+	 dc48qTF8Qgy2iAWwzz/t7pgX6OU/V9cEuKHiRmIIeulYgMuRcMqbQzXT10sRdeCKZtjSe
+	 vZzhgVrv1eah1PVjCy1gYwJcfUkIcz8DPTzigMBNxIW+O52Mvop8aWcqSRqRGrOBewCwc
+	 nApDkKnm6dnoyENrYePLfMeqvJogFEP4saGWbXsFy/2NsTafmySInZVhpugAH5B0Ejiu7
+	 MdGTYd6w+FuYIpYdSJU1b2/gDVvSAoazTJkQWaplS3YmuHjeBuRY9JsvW3BOb3Os2EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801841;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/1tmgFLs2mOTEF6LyGRSrCTHs/qRgpRA68AhdZIT8WU=;
-	b=JUMzA2KN81Q9vFLy0GelMkHUAghFchj5OQyCxjDHm03c9nbUL5+P+OsbC54gSrI8xP7s
-	 56kT4eAUzY+LkoDRnxz8vrW0SjeeFg1X802SVzqQn8YiFNJA46NeNZ9m/Dk/HDIh6jynn
-	 mTZQy8bzqkpmkYH6hJGX61g/IgOf7ERCan7EE5YrPXbiHoLTpXDU600OSEr95PcQlasKj
-	 PmnpdeaVOUjhQDKOrwFgP5AWBWnHlq2gtqwKmN9r7Tijgsyl+tb4B64bkDwazG1EegMnr
-	 wcmOveDcOasJQ/iQ8sDKBqNfdmc6tHpVDMLp0qxQ47RgGdCuwK6ObDmxxaHV7Dm8OEA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pKzlEM7eLpAeI+xeRCLoKvbM3rxDxUKIyYaryyr6NqM=;
+	b=Bj1p5boqargV9vA3y/n5JmdaH6aQRc/HaA6ee64S/jHV+G52W/Bz/XdNQfvqsYFrC36Y
+	 v7lCAIoi7w9emYapElAjx6AeTTGqZb8KOkvZ15ttp0W8T31Yv1MoLtWs7F8GS/ZT5Jb7w
+	 WYwGi04xzbashveB/+Tb/gJaAhEy044301TXc0mZkgtRpTgNT4KUErbdUsjl1S5BJ1EWd
+	 94ISjO/AzNISiY70LRKAgTOxj4Q0qdnBN2SC0FUOXfpQct40aRDMoY/DbvfoJW0HSbEhX
+	 Fbrv8kABDnYAfyL5pxZjogwln9T1pIAeTEegZghYGwR/bl9tNfKFnpVk9+SCGGXmTQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WufsrrZ3;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b8Zh1YAi;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48825606D81A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:17:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48825606D81A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E608606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:17:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E608606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WufsrrZ3
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c169ae1cb26so284122766b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:17:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b8Zh1YAi
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40f29667e6so118774966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 06:17:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793801843; x=1794406643; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/1tmgFLs2mOTEF6LyGRSrCTHs/qRgpRA68AhdZIT8WU=;
-        b=WufsrrZ3rUFUDVPDMc0LK6DiRG4ohlfNeNF+cEzv9iVpip/WRkiSQQ8TqCW0nIjQu+
-         NliDntRZe6n75u95WSaDgjn1xeruEwFxSFOjSHs27ajdCJedeC5sgYanTYn3OrFnapxc
-         meF3sd8cqSSSAXBlz6f0jlIaIFbMWFxmkUIW6sCqy6+21VBgqVfHYrfKJz4U8vYgNNVL
-         bZswGlEuMwJVacPlQOq7810zaBSPrkPAz+MYFEqcUYFEXJMBkObkXBZYkHRy/htJtuAe
-         BCok71GIBtdJ0TMTZ4GJcel1/WpYNkGD4sV3ZBaP0HTMO24DbU+Au0sI7B5zo5PUXfQd
-         7WYQ==
+        d=gmail.com; s=20260707; t=1793801839; x=1794406639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pKzlEM7eLpAeI+xeRCLoKvbM3rxDxUKIyYaryyr6NqM=;
+        b=b8Zh1YAifXedzqflRyMS/kHfSanHWuE6dFDkuFqlC8dSa0Ny+Qhp79AT4daFd3iRja
+         jGiVFF9bLEtBetMU2iJGIR3QlOrE7FdNHkXKfTdr7elyVG1QJnTEf/dGjLCKc+ckZTnD
+         nALFIROWpDnAeQeJaNT/rd/FekK7XLsiG/Ii95lXXQ5nPGYz80SGjtfQU0DxjD/pe8hw
+         E+WqoZThpYcjl9xXNYq9cbE2b+fJ43F5UMp1hooUQslYOB+KbPHzTVjnTnEPLX4u5h7n
+         xT9rLyLpalZNZ7ut7nYMrEeSSEhhZ+aY0MryOIBrO4K8mNuxNT0BUaNgAs+8tZnrj2l1
+         QtWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801843; x=1794406643;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/1tmgFLs2mOTEF6LyGRSrCTHs/qRgpRA68AhdZIT8WU=;
-        b=gAW1t4L3m9wBQ4ekDft+hZUYsmpCn4ydFP0YUGu1hSJjN4IYyDjL4bAXV3Dn7eIjMC
-         wQfJGl0o2k80Vd6N2dYO1T7NEwf+MmYOLnU2TP0+D4UG/LWzdk/sbjhb+2kfQYcxvO4O
-         0l9Ko75XVagfdlEn+evMVy+ayL3D/XFKTU/061IoWo6RVDwikEymZ8f1AjN8CqeylalK
-         0MyUh4LNqaRgICUCwCL+80XqIIQ5rjYg4iZx/cX/Is8GPqHpwVoKbC8LuG250+ZD7bCY
-         lFFVQ6S6RYvFVzM+1I8DU9V8vsSDOyR06R9CzflUvRVZG4nOcJnfFq/wkhFeyRUz0qcb
-         5pkg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2l1w8Qm/jXx0F4HFXKp5BwqAS9wmJu6D0L4I4KFTvN/YhV1QKiPbXzFaeDIYzFQCy0egDPAdosChbdBY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8syG8Zz3IPmZn8VKW3CZbTxZM7b7xs/qFCw16H2wVuAd/SqcNR
-	maqwGxMg95wWx664XddasRGiOX3TfnUhoTkGfXH8Lwf01pUcGhhhXoJc
-X-Gm-Gg: AYBFou1ngFOypKBTkqEiM7HAxUnIYqGweAoemMgmfxdsQxE3ZQMvxJqRPdXpkyFyqMk
-	MjVDYKcaRH7bAp/YcWSmmJ8ERYpEpoRZz3wrq1MKw5mPltP+jbBrapEpnDa+UsrEi0mJ58a7Xdn
-	ovDNA7n1C6W1E3JvlLPYOe2ZGeQ6mA1fl4cI8MlEP461VmizKzQv4H2e9HEJiqqnLMnYISuQvUq
-	hLnkqsGZog0M+GSzyCAw5LhpTEOUmkCaSAktTidEdKMm4b7VYygiqGYNA2CEG3crIXncSOT6yrc
-	GTVXAHnxYSTQ6TVjcMIjtXvb64/uz+FA0zI9KWhedABctgpUXQh2dRAoXCV2g2dfRcDIlYzSral
-	xuuTXiqL96Xfc0Eiy4InrI0KZSWcrJ+o0Z21BXrOvjmBSgQFAtTQU1Qdui6fKBpFrvhXMpNkrAc
-	asoJagZk5IwvEK43HdwqeuMipLybl0Ve1V0oY53WtgjL9beZik2dvByfXVkOXGyW3FrdaX8+5CP
-	9io/ePzkE4M1En5F5HVtp+rlzCL+sOiczKevRa49utn/Rg5gVdxh+lzroLnqMhpFgS6mEkk7Wc7
-	woV9YRWWx7MrH4wGBmyOnFrdG8LHXS6g5C+HCrH8bwyWJwLL3Ut6X2O/mPzCy1JZEVqp9D0P8M9
-	WcT4aNPmfTMZ3brHYvIP2Ul/5QgY37wpFZPcZUwHHH3otOOSCCyzASj7mKEDouZXLnpXiovZoaw
-	Z8nVm4wcUruTiiZZAaK05XNiM3nwlQevYIQ8GDYimtjm9XlLMvoC6eXtiCSxzIoxuDPnK73cFVY
-	Q==
-X-Received: by 2002:a17:907:96a9:b0:c42:bc58:f21 with SMTP id a640c23a62f3a-c4ca7aa0488mr1372491366b.15.1793801842262;
-        Wed, 04 Nov 2026 06:17:22 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793801839; x=1794406639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pKzlEM7eLpAeI+xeRCLoKvbM3rxDxUKIyYaryyr6NqM=;
+        b=FUSDzDJIFOzYn37tu0FN9+VGhwCDR9kyb6Iefw9TJtaNLoVvBtDUFTVFh+IsOyKxZg
+         3z6w4R+LauyT2n7gwCUgmOKcqMzP7UzQJGuDcprlx9FVHp9GVvn+T76ujG1P3xil6Vde
+         5m0pM9vAjf4UKsBJC6W1nvQ5PyIu0qE66QttP7sekvWHwC1o6qfkO/UcI7g3iaTH4zdD
+         8sANHavNKEr5UanTFS5VosVzTyi0WOVJdjs2Gle+TeB8RhWOCbomHXyqJql2tjrC37gu
+         h2eAi5kBhHFoCR+4lfRCnyG0LfCC+o0LqCrU7I1ZP4wDHj0I9XVCIJU9KImDE7U+7jbG
+         w21g==
+X-Forwarded-Encrypted: i=1; AKwUvBzZZ1dvunVHMs9YGxS+kbleEuyupYi6KHkU2P6Sg6QmnmIPdF7yfm75u3UVHw7UpvAUvbDRwC8syifEdi0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Jc5ofWl79NC2Oe64eyVDud9jW2fIXUAOFRFruJlDCYT00cCdT
+	g8U0YQJvS0CD+OIDrEV31RU6R5gSiIS/3Al+HH1vtq6W55xrialemE88fSFog0RYqFeDEMrd
+X-Gm-Gg: AYBFou0iL2aJFO7yMC/JUJQ1J6eKQSFfqAVV5VA4mTJMnhfaIkoI/pDwv2ya955V1Kx
+	jPrDBQwosIE5i+xd9BqE8VhzDjOC5FdsLt+FPJi8h/je5+Yx9JAiSGgnAOTK5K3n+w9OrgTW64u
+	DiC9r8dju2VVyJEB/FX2PZZzhMvAeOqxoYTT/knuprHkIbglezmT6e8rJtM5DkDpOUOaAPjOvbM
+	G31PT0T0KZLwOR/A0jN+zGlzDuHfjh6ftq07rpk6sYz1lC/DNjM1pmiV2fzr7aQP3kUdyTAGk2A
+	W1pqUEt7PxA6COjORqZDIm8MD66R8hdd8i/m+owxxU0KtdQbc+nAK2iV8PbaYUthW3blp+iT79c
+	6MLrDGodDi2fCMxioE9KDK6cS7Ey7sF7KeGb48d+aOdNqKjgqxgWUTaV5hfk7cnQodsN93Jt4ZE
+	iu/Gt0gHUBP83RQ3qNnugjrMISvSOwqd+920a1+hCLiGshYOJ+rm366qULDchNmCxXYhIvPVTdO
+	o4R6Jxt+ziFw74DYKyxZZ0tThiy99qMNco1CSlMeHJfT3KyVAEmj0CFNsy8t7M1FO92vMNOWj4I
+	XIQ1/zf+S/KXa5KLBkUJFscXjNeylIyItLJGhbfSUt70aKGypIfxW6DW+/OFTt4CaQMJrxnCb4G
+	YUBaZjyp4wzCyy8DXMNlRBQumcExDWPnJh8AXGU62s/U/ICMKWdQqvDT1ZSos01QmMRHuhx3aBN
+	K8/FN+7VS3TyIkBVvq68eAqAWU3Q6Uit1/Q//haH7Akbl32xKMgwGGJnW8xDNSEO93mLQr0tnWe
+	NXMHmVwzRjRGJ7NhIWW4v0=
+X-Received: by 2002:a17:907:6ea4:b0:c3e:d2c7:c530 with SMTP id a640c23a62f3a-c4ca7a072d1mr1375241766b.12.1793801839040;
+        Wed, 04 Nov 2026 06:17:19 -0800 (PST)
 Received: from Ubuntu.tail0f733b.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e43e2eesm77311566b.31.2026.11.04.06.17.21
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e43e2eesm77311566b.31.2026.11.04.06.17.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:17:21 -0800 (PST)
+        Wed, 04 Nov 2026 06:17:18 -0800 (PST)
 From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
 	Jamal Hadi Salim <jhs@mojatatu.com>,
@@ -93,14 +92,11 @@ Cc: Simon Horman <horms@kernel.org>,
 	Vladimir Oltean <vladimir.oltean@nxp.com>,
 	Vedang Patel <vedang.patel@intel.com>,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+e044a9b6370ed8ca9737@syzkaller.appspotmail.com
-Subject: [PATCH net v3 3/3] net/sched: taprio: do not replay missed entries in advance_sched()
-Date: Wed,  4 Nov 2026 15:17:13 +0100
-Message-ID: <20261104141713.355958-4-krystianmkaniewski@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 0/3] net/sched: taprio: fix RCU stall from replayed schedule entries
+Date: Wed,  4 Nov 2026 15:17:10 +0100
+Message-ID: <20261104141713.355958-1-krystianmkaniewski@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104141713.355958-1-krystianmkaniewski@gmail.com>
-References: <20261104141713.355958-1-krystianmkaniewski@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,262 +108,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-advance_sched() advances the software schedule by one entry per hrtimer
-expiry and rearms the timer at the nominal end of that entry, without
-reading the clock. When that time has already passed, the hrtimer core
-runs the callback again inside the same interrupt, once for every missed
-entry.
+syzbot reported an RCU stall with a software taprio schedule made of a
+single 127 ns entry. When advance_sched() falls behind, it replays every
+missed entry inside the timer interrupt and the backlog only grows.
+Patch 3 makes it continue from the entry in progress instead.
 
-syzbot hits this with a single 127 ns entry on a veth device.
-fill_sched_entry() only rejects intervals below the transmission time of
-a minimum sized frame, which is 48 ns at the 10 Gb/s reported by veth,
-so 127 ns is accepted. One expiry takes longer than 127 ns, so the
-backlog grows instead of shrinking, the CPU stays in the timer interrupt
-and RCU reports a stall. Lateness from a forward step of CLOCK_REALTIME
-or CLOCK_TAI, from resume with CLOCK_BOOTTIME, or from a long time with
-interrupts disabled leads to the same replay with any interval.
+Patch 2 fixes a pre-existing wrap of the cycle-time-extension sum in the
+software and txtime-assist paths. Patch 3 relies on it. Patch 1 prevents
+a saturated extension from handing over to an admin schedule whose
+software timestamps cannot be represented.
 
-Record when the schedule starts and the period after which it repeats,
-which is the cycle time, or the sum of the intervals when the entries
-end before the cycle does. Whenever the entry that advance_sched() is
-about to start has already ended, find the entry in progress from these
-two values and continue from there. This selects the entry and the end
-time that the replay would have reached, so a schedule that keeps up
-with its timer behaves as before. The same check covers the first entry
-after taprio_change() resets the current entry of a running schedule,
-and the first entry of an admin schedule that takes over late.
+AI coding assistants helped with analysis, patch drafting and review.
+The submitter reviewed the complete series and is responsible for it.
 
-advance_sched() now evaluates should_change_schedules() once on the
-caught up end time instead of once per missed entry. This relies on
-should_change_schedules() saturating the cycle_time_extension sum, which
-makes the test monotonic in end_time. One check after catching up is
-therefore equivalent to the repeated checks.
-
-This bounds the work done per expiry. It does not limit how often the
-timer fires. Unless the clock is stepped backward between the hrtimer
-core reading it and the callback reading it, the timer is rearmed after
-the current time and the CPU leaves the timer interrupt between
-expiries. On the high-resolution hard interrupt path, a schedule whose
-intervals are shorter than one expiry is then held back by the hang
-detection in hrtimer_interrupt().
-
-Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
-Reported-by: syzbot+e044a9b6370ed8ca9737@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e044a9b6370ed8ca9737
-Acked-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
----
 v3:
- - move cycle-time-extension overflow handling to patch 2 (Vinicius)
- - return the cycle end from taprio_entry_at() and update
+ - patch 2: split the cycle-time-extension overflow handling from patch 3
+   as suggested by Vinicius, and use the same saturating helper in
+   get_interval_end_time()
+ - patch 3: return the cycle end from taprio_entry_at() and update
    cycle_end_time in advance_sched() (Vinicius)
- - add Acked-by from Vinicius
- - drop the obsolete Assisted-by trailers
- - rebase onto current net/main
-v2: https://lore.kernel.org/all/20261009123309.284193-3-krystianmkaniewski@gmail.com/
- - taprio_entry_at(): do not use the list iterator after the loop.
-   Return the entry through a separate pointer that is set inside the
-   loop, and say in the comment why it is always set (Jakub)
- - wrap the lines longer than 80 columns, with a local variable for the
-   number of elapsed periods in taprio_entry_at()
-v1: https://lore.kernel.org/all/20261006113335.241564-3-krystianmkaniewski@gmail.com/
+ - patch 1: reword the range-check comment to describe only software
+   timer timestamps (Vinicius)
+ - all patches: add Acked-by from Vinicius, drop the obsolete
+   Assisted-by trailers, and rebase onto current net/main
+v2: https://lore.kernel.org/all/20261009123309.284193-1-krystianmkaniewski@gmail.com/
+v1: https://lore.kernel.org/all/20261006113335.241564-1-krystianmkaniewski@gmail.com/
 
- net/sched/sch_taprio.c | 127 ++++++++++++++++++++++++++++++++++-------
- 1 file changed, 106 insertions(+), 21 deletions(-)
+Krystian Kaniewski (3):
+  net/sched: taprio: reject software schedules that overflow their
+    timestamps
+  net/sched: taprio: prevent cycle time extension overflow
+  net/sched: taprio: do not replay missed entries in advance_sched()
 
-diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index e4c937cf74c10f..5a1dca9d5e9dec 100644
---- a/net/sched/sch_taprio.c
-+++ b/net/sched/sch_taprio.c
-@@ -90,6 +90,13 @@ struct sched_gate_list {
- 	s64 cycle_time;
- 	s64 cycle_time_extension;
- 	s64 base_time;
-+	/* The software schedule starts at start_time and repeats every period,
-+	 * which is the cycle time, or the sum of the intervals when the
-+	 * entries end before the cycle does, because advance_sched() then
-+	 * starts the list again right after the last entry.
-+	 */
-+	ktime_t start_time;
-+	s64 period;
- };
- 
- struct taprio_sched {
-@@ -942,16 +949,61 @@ static bool should_change_schedules(const struct sched_gate_list *admin,
- 	return false;
- }
- 
-+/* Return the entry of @sched which is in progress at @now, the one that
-+ * advance_sched() reaches by moving one entry per expiry from the start of
-+ * the schedule. Set @start and @end to the times at which it started and
-+ * ends, and @cycle_end to the end of the cycle which contains it.
-+ */
-+static struct sched_entry *
-+taprio_entry_at(const struct sched_gate_list *sched, ktime_t now,
-+		ktime_t *start, ktime_t *end, ktime_t *cycle_end)
-+{
-+	struct sched_entry *entry, *found = NULL;
-+	ktime_t cycle_start = sched->start_time;
-+	s64 offset, entry_end = 0, elapsed = 0;
-+
-+	if (ktime_after(now, cycle_start)) {
-+		s64 periods = div64_s64(ktime_sub(now, cycle_start),
-+					sched->period);
-+
-+		cycle_start = ktime_add_ns(cycle_start,
-+					   periods * sched->period);
-+	}
-+	offset = ktime_sub(now, cycle_start);
-+
-+	/* The offset is less than one period, so an entry which ends after
-+	 * @now is found at the latest at the entry which reaches the end of
-+	 * the cycle, or at the last entry. A schedule has at least one entry,
-+	 * so the loop always sets found.
-+	 */
-+	list_for_each_entry(entry, &sched->entries, list) {
-+		entry_end = min_t(s64, elapsed + entry->interval,
-+				  sched->cycle_time);
-+		if (offset < entry_end ||
-+		    list_is_last(&entry->list, &sched->entries)) {
-+			found = entry;
-+			break;
-+		}
-+		elapsed = entry_end;
-+	}
-+
-+	*start = ktime_add_ns(cycle_start, elapsed);
-+	*end = ktime_add_ns(cycle_start, entry_end);
-+	*cycle_end = ktime_add_ns(cycle_start, sched->cycle_time);
-+
-+	return found;
-+}
-+
- static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- {
- 	struct taprio_sched *q = container_of(timer, struct taprio_sched,
- 					      advance_timer);
- 	struct net_device *dev = qdisc_dev(q->root);
-+	ktime_t cycle_end, end_time, start, now;
- 	struct sched_gate_list *oper, *admin;
- 	int num_tc = netdev_get_num_tc(dev);
- 	struct sched_entry *entry, *next;
- 	struct Qdisc *sch = q->root;
--	ktime_t end_time;
- 	int tc;
- 
- 	spin_lock(&q->current_entry_lock);
-@@ -965,6 +1017,15 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 	if (!oper)
- 		switch_schedules(q, &admin, &oper);
- 
-+	/* The entry selected below can be over already, after a clock step,
-+	 * a long time with interrupts disabled, or because the intervals are
-+	 * shorter than one expiry takes. Moving on by one entry and arming the
-+	 * timer in the past would run this function again for every missed
-+	 * entry without leaving the timer interrupt. Take the entry which is in
-+	 * progress now instead, so that the timer is always armed after now.
-+	 */
-+	now = taprio_get_time(q);
-+
- 	/* This can happen in two cases: 1. this is the very first run
- 	 * of this function (i.e. we weren't running any schedule
- 	 * previously); 2. The previous schedule just ended. The first
-@@ -975,27 +1036,31 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 		next = list_first_entry(&oper->entries, struct sched_entry,
- 					list);
- 		end_time = next->end_time;
--		goto first_run;
--	}
--
--	if (should_restart_cycle(oper, entry)) {
--		next = list_first_entry(&oper->entries, struct sched_entry,
--					list);
--		oper->cycle_end_time = ktime_add_ns(oper->cycle_end_time,
--						    oper->cycle_time);
-+		if (likely(ktime_after(end_time, now)))
-+			goto first_run;
-+		/* Also after taprio_change() while the schedule runs */
-+		next = taprio_entry_at(oper, now, &start, &end_time,
-+				       &cycle_end);
-+		oper->cycle_end_time = cycle_end;
- 	} else {
--		next = list_next_entry(entry, list);
--	}
--
--	end_time = ktime_add_ns(entry->end_time, next->interval);
--	end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-+		if (should_restart_cycle(oper, entry)) {
-+			next = list_first_entry(&oper->entries,
-+						struct sched_entry, list);
-+			oper->cycle_end_time =
-+				ktime_add_ns(oper->cycle_end_time,
-+					     oper->cycle_time);
-+		} else {
-+			next = list_next_entry(entry, list);
-+		}
- 
--	for (tc = 0; tc < num_tc; tc++) {
--		if (next->gate_duration[tc] == oper->cycle_time)
--			next->gate_close_time[tc] = KTIME_MAX;
--		else
--			next->gate_close_time[tc] = ktime_add_ns(entry->end_time,
--								 next->gate_duration[tc]);
-+		start = entry->end_time;
-+		end_time = ktime_add_ns(start, next->interval);
-+		end_time = min_t(ktime_t, end_time, oper->cycle_end_time);
-+		if (unlikely(!ktime_after(end_time, now))) {
-+			next = taprio_entry_at(oper, now, &start, &end_time,
-+					       &cycle_end);
-+			oper->cycle_end_time = cycle_end;
-+		}
- 	}
- 
- 	if (should_change_schedules(admin, oper, end_time)) {
-@@ -1005,8 +1070,22 @@ static enum hrtimer_restart advance_sched(struct hrtimer *timer)
- 		 */
- 		next = list_first_entry(&oper->entries, struct sched_entry, list);
- 		end_time = next->end_time;
-+		if (likely(ktime_after(end_time, now)))
-+			goto set_budgets;
-+		next = taprio_entry_at(oper, now, &start, &end_time,
-+				       &cycle_end);
-+		oper->cycle_end_time = cycle_end;
-+	}
-+
-+	for (tc = 0; tc < num_tc; tc++) {
-+		if (next->gate_duration[tc] == oper->cycle_time)
-+			next->gate_close_time[tc] = KTIME_MAX;
-+		else
-+			next->gate_close_time[tc] =
-+				ktime_add_ns(start, next->gate_duration[tc]);
- 	}
- 
-+set_budgets:
- 	next->end_time = end_time;
- 	taprio_set_budgets(q, oper, next);
- 
-@@ -1319,7 +1398,8 @@ static void setup_first_end_time(struct taprio_sched *q,
- {
- 	struct net_device *dev = qdisc_dev(q->root);
- 	int num_tc = netdev_get_num_tc(dev);
--	struct sched_entry *first;
-+	struct sched_entry *first, *entry;
-+	s64 intervals = 0;
- 	ktime_t cycle;
- 	int tc;
- 
-@@ -1331,6 +1411,11 @@ static void setup_first_end_time(struct taprio_sched *q,
- 	/* FIXME: find a better place to do this */
- 	sched->cycle_end_time = ktime_add_ns(base, cycle);
- 
-+	list_for_each_entry(entry, &sched->entries, list)
-+		intervals += entry->interval;
-+	sched->start_time = base;
-+	sched->period = min_t(s64, intervals, cycle);
-+
- 	first->end_time = ktime_add_ns(base, first->interval);
- 	taprio_set_budgets(q, sched, first);
- 
+ net/sched/sch_taprio.c | 191 ++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 168 insertions(+), 23 deletions(-)
+
+
+base-commit: 241dec6f9ab74d8c3ef246764f3611666b96b9e1
 -- 
 2.53.0
 
