@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818793;
-	b=MfZLEnjsw4EQAdUY7ZymHOifyYx377jGTpJsB6XLfYihdxxGMxiwdAkgJjgRmw9JpPMy
-	 Vcpj1yDE1vnyoot6UbYzfoUNS04p7QzM9y+z2KyZZeYSQQPL4Ndj3EFVIAg5PsSqUCy7L
-	 ZVShSNKhqIwe9evo6hhdlwASS455z4+U6wD+1aJxScgnYBcQ9y2uhrN+T+k8AAS4DpWD+
-	 wY5fD+WN8TWJqcr7j6nVYa97iekK4RBCer/Q/y4LQAeBQ9GFAIGCQC/17Gyqe1AUdXy0j
-	 DsdtP6l94G24N+FEYo0+JNlM6UtuOkMMBpLoAG2qaadESAgpuMtVAkKqXg7SCpAiJMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818793;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793818846;
+	b=hICGVi7gGpNMBgnCiutQj4jixcjQ4NhOJ1CNqD4jRwDayi7GBWkXBFzXVGJRDqmr8ffl
+	 cZVnKmp5IikNwx4Z0jM/6CzVXdmnpWVOI66arex/MvqS2VxTb1UhBvgF9lHFL/ktErHcX
+	 tFME6l7wv/iXgIFvf+1MdJZGSgm8JtLLTMLPrB1PnjR/JigcuCPhSXesAnWaaLadD8oIS
+	 6kXWuPcQLjpaCrOcFHM4uKSZGNqK199lQBpDi6OcLpQ5ZTNOUCypQ9U2Ec4sY+m3zMjiJ
+	 NtO3D7Z+35ciTism5P8kd6myF4r/tVreP6U0+86bUJXbJSPe9/Sq2VrnhhTtKAsC2hw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818846;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=U5YU4saxnJTeNwoe6kvpcWy7vnNuqiTY5SpblJDoGjM=;
-	b=YiJXG5NezjiLQL4mroeDk/HCT3OucjxgwHW2W4ti9pv8LWrJlQu5K/NeNE6KED34DqVe
-	 7vg9TJnxmoXveNpNA5bzHtpCG9wtyjlpC6U89OhK8Tj/+0R4pCW/Hy2BOAcTZ+RAD0J6k
-	 XhJURougEuGe6XjRFa6awYz16WCU0uP4QmEc04ZxvZfBoehqCjlwbkyAsp34WuunSye7a
-	 JA9pLx/7AvTonv93MpDSoaOQmoo3HBzk+JxykPmIlp9f8hC2H8GhqddEeHVgPIBBktB7V
-	 JAjqqUO7Pm07TZF57HSi4uZTn9IL8UNZRlL5ILBTULcATxWnkucZ6gg4T9HBEIaMGjg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lZtxG2b/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=;
+	b=lH1T5Y6KtXq+iHWuEEr35UNorv/PGOaUjPVS4s7SB42Jrx6f1nYTP9yQo75Gsx5ZTbOl
+	 5HlanMQ58y4jN+4DtUnNnsmIOl8pvlBqFLC8vrwZMy9ezAeVYyd7+wLO7d39gXCC0Z9Dy
+	 la2JJnT4Yusl9PJUNwm14wuOL7lYSs4VjaT8MAX9Rt3u+wZgJWb4oaqediuRdOX3aVUwL
+	 08T5R92z0JOEc1T4Kua3nQHsgjabppHNx8CHj0V028ZhgutAnWX904IybtQ2pTw+hIhWT
+	 maGhEtpj8Y66OfDVObRrrE3nY4wS9H5bnCvroD/Akcg2TleCwz6JLRsWOnFp3Pj94OA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDE8606A31B;
-	Wed,  4 Nov 2026 18:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18B7606A32E;
+	Wed,  4 Nov 2026 19:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B18B7606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lZtxG2b/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5BB11F000C1;
-	Wed,  4 Nov 2026 18:59:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793818792;
-	bh=U5YU4saxnJTeNwoe6kvpcWy7vnNuqiTY5SpblJDoGjM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lZtxG2b/cSDkF9V30h0rcrAe5BIggwcCMhjdRsohDuPTf5xQpsrWNVb7gBU0Q35fs
-	 YRk2gWxMWvdFOyeKxNzZ9g4iaI+Gic5Fxvb+GBngUf4x2L654czCbnbA2gFBwDLmVa
-	 WcLmhfB9UI1SHIKoUuRnWrZR8ACaKLhXAI2+i9gr8ctj0EKG4aGL9l44yugbfEckbS
-	 QQpdXKiPyMrRkIQLDip3EQyXT7AXcbzkEL9T69ouTSSwyuYQF64MBNbQXST6KUrv8E
-	 9KCetbeybQPoPFXHllEpL8BEaC/oDUIpkJKBTFE2LJ2rDbQ/YB3QFEXsJpSt4X6caH
-	 xYHQskebWUf7Q==
-Message-ID: <c4eb1d41-8b61-4aca-abad-22cb61a4415e@kernel.org>
-Date: Wed, 4 Nov 2026 19:59:45 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv
+ARC-Seal: i=1; a=rsa-sha256; t=1793818793; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J5Nk2Imxaf8oS1qWOaYZ/5p36mXDAYuXtOJxtp/dopGz+YZql+vQvYrpX8mB7IauHA4Xk8YQi1qu+PaPR6mB24yVfAOhT6/bxucXIyTgAr5kbwboEEEoK0r/KXXOvBMiOSZV7ITsCmtFClDMxvvdkx5UHygUVxFFFyU3jHRL1IQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793818793; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; 
+	b=IIHGp0XFAy4EBAI1xAOPiJGJtjBnAKa1DW4/mE+dskb/wg6rrm+SQ1O2NbrAIvdInYgZaN69e6gP4ugz8c37N7g/budnSoj0+vfCaDRddEsiHdsgyTHEUdlWXBny9WMxT0bGPo7exVlXSK9F2A5uzCRCit861dBAtMweU4FMdr4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+	dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=dOrhpNMv1PBqHvf04rmXTIspsXaESd9P7WOVtnMpEGyERmcXNvYese409KE9Zwza09rugcliorGeDQvjrr3MppjkVnftXWuVC1JjjPXfqzc8ZfT1DRcgWJ3GieaTP0rd+PN8zqGyAj7OxYG6dJ7ZZp98FLi16P60Y7MDl9lIIto=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179381879157175.33447173328659;
+	Wed, 4 Nov 2026 10:59:51 -0800 (PST)
+Message-ID: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+Date: Wed, 4 Nov 2026 19:59:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,117 +59,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] memory: atmel-ebi: Disable SMC clock on probe failure
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Srinivas Kandagatla <srini@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Boris Brezillon <bbrezillon@kernel.org>, Mark Brown <broonie@kernel.org>,
- Andy Gross <andy.gross@linaro.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- stable@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20261104185308b845fb6d@mail.local>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261104185308b845fb6d@mail.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Content-Language: en-US, de-DE, en-GB
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 04/11/2026 19:53, Alexandre Belloni wrote:
-> Hi,
-> 
-> On 01/11/2026 20:07:34+0100, Krzysztof Kozlowski wrote:
->> Unprepare and drop the SMC clock reference, if probe fails to avoid
->> resource leakage e.g. during probe deferral.
->>
->> There is no remove() callback, presumably on purpose so only error paths
->> are handled.
->>
->> Cc: <stable@vger.kernel.org>
->> Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
->> Reported-by: Wentao Liang <vulab@iscas.ac.cn>
->> Closes: https://lore.kernel.org/all/20260917101623.2146392-1-vulab@iscas.ac.cn/
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://sashiko.dev/#/bug/linux-8e236c81-01b2-4274-a213-11c3f31acfc2
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>
->> ---
->>
->> I independently developed the patch and then checked the queue with
->> pending work of iscas. That one has issues and other complains from me,
->> so only credits for the report.
->>
->> Changes in v2:
->> 1. Handle of_platform_populate() error.
->> ---
->>  drivers/memory/atmel-ebi.c | 27 ++++++++++++++++++++-------
->>  1 file changed, 20 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
->> index 1e8e8aba2542..7dc2f7add1b1 100644
->> --- a/drivers/memory/atmel-ebi.c
->> +++ b/drivers/memory/atmel-ebi.c
->> @@ -562,7 +562,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
->>  	}
->>  	ret = clk_prepare_enable(ebi->smc.clk);
->>  	if (ret)
->> -		return ret;
->> +		goto err_put_clk;
->>  
-> 
-> Couldn't we simply devm_clk_get_enabled() ?
-It is not this device's clock. Is there devm_clk_get_enabled() variant
-which takes from other node?
+Nice, very happy to see the series!
+
+On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> The comment describing the QC10C buffer layout calls it a compressed
+> P010. It is not:
+
+If I'm not mistaken the display engine / the DRM side (including Mesa) 
+describes it as P010+QCOM_COMPRESSED as well, and so does my pending 
+Gstreamer MR [1] . So if we can't pretend that QC10C == 
+P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that 
+up everywhere etc. OTOH if we want to keep the DRM side as is, then the 
+comment should reflect that, IMO.
 
 Best regards,
-Krzysztof
+
+Robert
+
+1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
+
+> P010 stores each sample in 16 bits, QC10C packs three
+> 10-bit samples in each 32-bit word, which is what the stride computed
+> below (width * 4 / 3) assumes. Name the format correctly.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+> index eb8de60c1177..ec2bf2a2d953 100644
+> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
+>   
+>   /*
+>    * QC10C:
+> - * UBWC-compressed format for P010.
+> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
+>    * Contains 4 planes in the following order -
+>    * (A) Y_Meta_Plane
+>    * (B) Y_UBWC_Plane
+>
