@@ -1,77 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.190
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775282;
-	b=Bo07LXNStAZihyzh83jrLzXuzopvGpX8+nBeaP19hog1vtspWebRE32NT4yBR382Wbra
-	 2BBrsoS533X3dKaycfc4yyzznhEtcWDeajpvSMC8wqCvqK/v7ns7jNQ2QxpH+K0kn0oHc
-	 WUXJY2y107puEOT3jrlaF2cDAMhX3CXAEQPY3bV1xkX4EPR2Vq/FSRXTMbdSnGTEZQSjC
-	 ZX4foyaVwMyZkUzjU2sI4VUDBzgGOBYIL+H/D8BRP5FHPc4mIYiuoi7f+F+0ny0iT9TQp
-	 pWOfA+a7dmVxhf7btbNZjHibWKNK2/iAC18iipKy7EYYygaw3kdkPeBXqSIYuZbQ1hg==
+	t=1793775345;
+	b=4bhAXEMiV1nolfF7kNKI2w8cDZTLtTCu2V/oGpbnlSkejrQ5QLR4v1IGjrijxvGcvqdD
+	 iDH9Cvr/+x4i8pNA9dz5s9uzEKBc9jvUIk8cPv19ZgoBdoGp9Py0ZXVy8IkMtPwrXOY9U
+	 f6rE2BlAEo6rTaTxj5w5USkiv7u2JKJHN0eiew6rN97GCXJDujWzZ5DGLsC1D5WA+aFug
+	 bC7mkM2dWSIuT4e5WbUujpaJcRRr7rhME86PSeMl40uPhkuYCyrStLIQYOSwvF5dcFKRE
+	 9AldFL0rn+Hmwq41jwMZByUIFVINH4bos9H/HGm9KvXLlpCpGo/7D67gCPEUgAdazcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775282;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=+P0zeX8oTeoH6WHkTWY2OUf3Qv9TFcNKYEead3ADe84=;
-	b=dST+HEGaMhp147+D3qPC0W5yj0nCH25NU6GxaCOjC7sStI7wdDkHnE8xTOKN5i9f1cMG
-	 34H0LMnqy+0FM+QhXFjHrRPM6yHww042T/Mewcr9U7yRqmCczjXOrehFMJCFBJSgLHY7E
-	 wu2boTBmNUZcLr3bC0wezq1mFZwO3jEBjehGaaypM2L3mGnx1d5iJ5KaKGqNr8eQDYJI/
-	 XZkkuhUhohtvFIVIIpA0X/2s+Atkz6waYXguHyrNceO8TMdSroVSaLam+BAsizbJlUIJ5
-	 2HsZXPPeaAiJmZEzbYFm7NjuKmb4J1Po6vUmyHq2FtvxMoF6cf0ROElDhmnmYJwW01A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775345;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=3LHrHKnVlKPTmz+tK/rlTG3Ul+MFMIEMsJZjre2ndI4=;
+	b=vA2Rl99JyS8UmrM1ELB2lgNSr2pJ05TnOvoF3A1ldbh//5hSiZtAEfsJ2ac4dhkzcHDS
+	 Wph61SxQC4IJ9C3UJEZ5ZkaF28JCpQyPnmTix1shfpHq3PqYkGJnYXwZqMDKT3lSHZT9g
+	 cbPcQ49ozqC5VxYPfZeixr1vVcpX253Wnkt4jgPyXguz9tIg7BiFJESY5TjDom4Dt8jr3
+	 ubXjIj/+dRFpvzGXChI2H1dxeTYZQsuzyRtLGVwPLyoPNFJLm4XFO3vTDo+/9yxJ15TXf
+	 Jk9ikTyFPh761KeJWiHkYk9Q23Qqs8Afqaz3w+uFn+joMJeMs3V+ma3OZKBo+3wW5xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XNeH2AVO;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhDzF2tx;
+	arc=none smtp.remote-ip=91.218.175.190
+Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4B1606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D4B1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D9D606A31B
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07D9D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XNeH2AVO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793775281; x=1825311281;
-  h=date:from:to:cc:subject:message-id;
-  bh=FreZeJsfbC7Y5ksILiVMdtnTBv7RUmkuvrYo2WtuT6I=;
-  b=XNeH2AVOZ+7PBwXAXt1QZzYuagZ9KgPSb/WkXxKgtVWhdJ+fan0Kqmf4
-   VKWtI+hS5INP78rz0YWcv8tj2JNNpBnHAB3KcDemZOs8U7fD8Ghblw0WV
-   sFqq2rXect4fNkKFPpY4kmJoF4/GNZJzLSqJfCG3PB0HrWnDo2RixMwiz
-   OR/4meY7/DntbWZz3eJ3kX1GQVog5k2fh3Y5GvmIjntIY++kERAWJVc1J
-   1muwAXckHqflmg5ow7dVe8SYO0nF8NRHGB6vuB2ciVtaUXqkq+uvYev1s
-   jXvLMbELjSXgn2sU0PvxTpCCbdnlGOxz+Wvp/mRM7gV5kpRtdjPx0ZbwE
-   g==;
-X-CSE-ConnectionGUID: ML/f5Jy8TMSnN6IWvkznbA==
-X-CSE-MsgGUID: CnAJFdPFRa69nDuJ0AXO7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2421221"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2421221"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 22:54:41 -0800
-X-CSE-ConnectionGUID: 1Aq44VtbQ+m9hhyy8ZIqVA==
-X-CSE-MsgGUID: QxeA4nVvQbSsjwIspJEjvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6774341"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 03 Nov 2026 22:54:38 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOUtI-00000000jtB-1IHa;
-	Wed, 04 Nov 2026 06:54:36 +0000
-Date: Wed, 04 Nov 2026 14:54:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-Subject: sound/soc/intel/common/soc-acpi-intel-sdca-quirks.c:32:
- undefined reference to `sdca_device_quirk_match'
-Message-ID: <202611041412.3SElN2PG-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhDzF2tx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CIBZ6swiNtC8Tf94i/4oegXgVh55H6AYv54uJEyrGDw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793775343; v=1; x=1794380143;
+ b=VhDzF2txmtaDN87fTQ3DgA/GYwVVb9/JkN2zy6qxnNSFw/+i904MfEkliJ4p97N4liQihbFo
+ Q4Vxc0eGPYL/zvzTqDgnCprz6Gc6cLf0X/tYQfNDS34Wdcb6+gr05CyYVQRXyB1o2LBUZ463jLX
+ tu/vrgMsBqoWPcB1MCgaU8d0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 355c044cea9cc491;
+	Wed, 04 Nov 2026 06:55:42 +0000
+X-Mizu-Trace-ID: 355c044cea9cc491
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,63 +57,140 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v3 00/12] mm: Decouple folio-based vmemmap optimization
+ from HugeTLB
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261103224659.2865b9ff27d09994949edd78@linux-foundation.org>
+Date: Wed, 4 Nov 2026 14:55:14 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Mike Rapoport <rppt@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <77ECD6F3-6A6B-4743-B47E-7C97335FAA79@linux.dev>
+References: <20261104023510.260766-1-songmuchun@bytedance.com>
+ <20261103224659.2865b9ff27d09994949edd78@linux-foundation.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-commit: 677507a5303a6716d9e0bbf3a8ba8c0f27391ab2 ASoC: SDCA: allow building without ACPI
-date:   5 weeks ago
-config: arm-randconfig-1003-20261104 (https://download.01.org/0day-ci/archive/20261104/202611041412.3SElN2PG-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261104/202611041412.3SElN2PG-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 677507a5303a ("ASoC: SDCA: allow building without ACPI")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611041412.3SElN2PG-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arm-linux-gnueabi-ld: sound/soc/intel/common/soc-acpi-intel-sdca-quirks.o: in function `snd_soc_acpi_intel_sdca_is_device_rt712_vb':
->> sound/soc/intel/common/soc-acpi-intel-sdca-quirks.c:32: undefined reference to `sdca_device_quirk_match'
 
 
-vim +32 sound/soc/intel/common/soc-acpi-intel-sdca-quirks.c
+> On Nov 4, 2026, at 14:46, Andrew Morton <akpm@linux-foundation.org> =
+wrote:
+>=20
+> On Wed,  4 Nov 2026 10:34:58 +0800 Muchun Song =
+<songmuchun@bytedance.com> wrote:
+>=20
+>> Hi,
+>>=20
+>> Section-based vmemmap optimization is implemented in =
+sparse-vmemmap.c,
+>> while folio-based optimization currently lives in hugetlb_vmemmap.c.
+>> The latter is tightly coupled to HugeTLB-specific state even though =
+the
+>> underlying page-table remapping operates on one folio at a time.
+>>=20
+>> To make these interfaces easier to maintain, the folio-based =
+remapping
+>> mechanics first need a boundary that is independent of =
+HugeTLB-specific
+>> state and raw address ranges. This will allow the mechanics to be =
+moved
+>> into a common vmemmap optimization layer alongside the section-based
+>> interface.
+>>=20
+>> This series establishes that boundary through three folio-oriented
+>> operations, each with a distinct role:
+>>=20
+>>  - vmemmap_optimize_folio() optimizes the vmemmap backing of a folio;
+>>  - vmemmap_restore_folio() restores the vmemmap backing of a folio; =
+and
+>>  - vmemmap_pteify_folio() converts the vmemmap backing of a folio to
+>>    PTE mappings.
+>>=20
+>> Together, these operations encapsulate the address-range calculation =
+and
+>> remapping mechanics for a folio. HugeTLB wrappers retain policy =
+decisions
+>> such as eligibility, optimized state, batching and TLB flush =
+handling.
+>>=20
+>> Patches 1-8 generalize the underlying vmemmap remapping =
+infrastructure by
+>> removing HugeTLB-specific assumptions and simplifying remap control =
+and
+>> resource handling. Patches 9-12 then establish folio-oriented =
+operations
+>> for optimization, restoration and PTE conversion.
+>>=20
+>> The implementation remains in hugetlb_vmemmap.c for now. A follow-up =
+can
+>> move the folio-based operations into the common vmemmap optimization =
+layer
+>> once the interface boundary is in place.
+>>=20
+>=20
+> Thanks.  I fed this into my evolving LLM-controlled testing setup and =
+it
+> said
+>=20
+> : I tested all twelve patches together in an x86-64 Debian VM under
+> : QEMU/KVM, with 4 KiB base pages and KASAN enabled.
+> :
+> : I grew the pool by 64 two-MiB huge pages and drained it again. With
+> : vmemmap optimization enabled, the kernel released 448 vmemmap pages
+> : on growth and restored all 448 on shrink, in each of three cycles.
+> : With optimization disabled, the vmemmap count stayed constant. I =
+also
+> : faulted in a single surplus huge page. It released seven vmemmap =
+pages
+> : and restored all seven when I unmapped it.
+> :
+> : I tested both boot-reserved and runtime-allocated 1 GiB huge pages.
+> : For the runtime case, I grew the pool from zero to one, drained it,
+> : and allocated again. I mapped the page and wrote and verified a byte
+> : in every 4 KiB base page. After unmapping it, I demoted it to 512
+> : two-MiB huge pages and drained the resulting pool.
+> :
+> : All twelve programs in the HugeTLB selftest group passed, including
+> : the cgroup reservation, fault-charge and reparenting tests. Both
+> : soft-offline cases passed, as did all twelve poisoned-page read test
+> : cases. I saw no HugeTLB warnings or KASAN reports.
+> :
+> : On a diagnostic build, I failed the head-page allocation and, in a
+> : separate run, interrupted optimization after three PTEs had changed.
+> : The trace showed rollback restoring the two tail entries to distinct
+> : backing pages. The folio remained usable in both runs. I also failed
+> : restoration after three of seven replacement pages had been =
+allocated.
+> : All three were freed, the retry succeeded, and the metadata count
+> : returned to its starting value.
+> :
+> : I configured QEMU with two virtual NUMA nodes, each with two vCPUs
+> : and 4 GiB of RAM. On each node, I forced the batched pre-split to
+> : fail. The trace showed the remap splitting the same PMD and =
+completing
+> : a range flush before replacing its first PTE. Folios on each node
+> : shared a tail backing page distinct from the other node's. I drained
+> : each node's pool in turn and verified data in a live folio on the =
+other.
+> :
+> : Finally, on the kernel without diagnostic hooks, I grew and drained
+> : both pools during active page-cache reclaim. Over 40 cycles all 640
+> : folios optimized and restored, and the OOM-kill count stayed flat.
 
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  14  
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  15  /*
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  16   * Pretend machine quirk. The argument type is not the traditional
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  17   * 'struct snd_soc_acpi_mach' pointer but instead the sdw_intel_ctx
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  18   * which contains the peripheral information required for the
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  19   * SoundWire/SDCA filter on the SMART_MIC setup and interface
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  20   * revision. When the return value is false, the entry in the
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  21   * 'snd_soc_acpi_mach' table needs to be skipped.
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  22   */
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  23  bool snd_soc_acpi_intel_sdca_is_device_rt712_vb(void *arg)
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  24  {
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  25  	struct sdw_intel_ctx *ctx = arg;
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  26  	int i;
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  27  
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  28  	if (!ctx)
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  29  		return false;
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  30  
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  31  	for (i = 0; i < ctx->peripherals->num_peripherals; i++) {
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16 @32  		if (sdca_device_quirk_match(ctx->peripherals->array[i],
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  33  					    SDCA_QUIRKS_RT712_VB))
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  34  			return true;
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  35  	}
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  36  
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  37  	return false;
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  38  }
-cdd30ebb1b9f36 Peter Zijlstra       2024-12-02  39  EXPORT_SYMBOL_NS(snd_soc_acpi_intel_sdca_is_device_rt712_vb, "SND_SOC_ACPI_INTEL_SDCA_QUIRKS");
-5703ab86ff7bf0 Pierre-Louis Bossart 2024-10-16  40  
+Really a thorough set of tests.
 
-:::::: The code at line 32 was first introduced by commit
-:::::: 5703ab86ff7bf079aa1ddf7a65b9727d0249383a ASoC: Intel: soc-acpi: add is_device_rt712_vb() helper
+> :
+> : Tested-by: Andrew Morton <akpm@linux-foundation.org>
 
-:::::: TO: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-:::::: CC: Mark Brown <broonie@kernel.org>
+Thanks for testing.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Muchun
+
