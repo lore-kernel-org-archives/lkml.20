@@ -1,62 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825055;
-	b=MiRaPYnFD1qlxCX0QcrthIkQlhg5NYe8GAmji4Pt8g2/hwhugrjDC1dHxnCvdBF6KVNx
-	 H60pLkAFagnwLiLEp2kAuKv7IV/t6nNDJqbFHNC/vSf907plQme3vNDmbTb/KczKnrt7h
-	 KwhnQwJ99fvg+lDEvcmvZ9OCHdkuNmETCZVCPt9cF5xaCplJxnBIvJCyrfWMYmF3QS6nC
-	 nmj3pfor4IcL8MxhoHUy20MYtPJgfgW3aum6s4yjNvxlxLF7uSMHvlmbXEaq0WqXThMJ3
-	 tTT0RAiPMRF1hsANzPE/B9lbtFAZTYn0Zt67twctghDoRqi4PO+S0UwFODVlGrL4+bw==
+	t=1793825069;
+	b=scpSYFXW/e3u7V/pNu/MrLtL040fUtgPJpkVuQdes6aJM7qc2z+fKp0A9RURXNVKTyCp
+	 maMXfwJd3v7sPWnWiJedMoa7z/XCXwLrLutbyThZpqiAdUhXJHhh+hk+tQRze4YC/qJ4f
+	 Ttco910N9P6thpDcYNYEPo0+R9HgBbwlJfzLI/d0dXYUpSSXHz47hpZmDUFmGerceZ+x2
+	 qT/AHSH2WWuNB5f1fX+ov2yVI3X+LIaBTDSrr/PFqfbKqb5n8FjMCCUbq3V0rlPkK+qGm
+	 IodLBNRRLA8llMNq1JVWNE8A9Ir+6ScWEE+fUjS3nfsgF2Vbg84eroWDZPNRQRS25rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=tf2l3yXkE0t8Xin8N46UyRzO27EoLv897wb9giIedgs=;
-	b=5LjlCGcUExlqhESqZqKue+xQUmAcittQD03JRsVUny8K77iHd/Mpht24zVx8GAdOLEYl
-	 GcjDnhrYBTdCQKLabRwSZDrHMtx5rVnx8N6ouK6TpvTrDkEd/8d7Ii2BxFlM+tCQdd3ez
-	 4eoYmdQ6E+g2yVS+Q+5Zm/jtb3+k0KVxvMW3RbcueZ9bx/X4Cj4vIgCyC0mb20kEJLHyl
-	 LF6lKj27wOpsr3ND+kcW5kJG+lfmKnaEHH8HCKlqouEflJPoWUY65k8V7Ezu+r+xQZjKz
-	 Fu95o7QGwY5rJ7BjWGa0tt4njcOG0i/L5d+IeNfCC56SLPrKMRK1s1IIvugLHVqWofg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825069;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Fu3Aq2hefSzjwRV+KYEz/CG5s0UvrmJ9SoczCNw172g=;
+	b=jUMwUB2pGNRGBvlmSSZ2sej7IWE45CheTjA22oYEvpZWTmaZjV04W+Egw3ahyQl/TKIu
+	 wqkF4B6tJOghhyfmZ8Sqp7oGQSNTlLnxIDaYGdg1cw9iUx/SOjCaZn+FFYKRl+QZIeRxD
+	 mrwnsl7Mpb4u6JPujvmOJKI1RobZknERfG0xu7vvRcGLhjwxIqZhoEBGNTQ7rrti1f74s
+	 xhWOD4xQZ7Y5lPGyefUjk8gf7i91pfJpvpWinSWL9jn+8KGMLGVRpdrYI3rUQGCzxVJCU
+	 NPw8gppHp9vsMgJjzhMk63jTm6u/dz7Oq1+rP4eZXZqihzloi1UDCqff6crJS3aa+3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/nBWSHZ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NRcZ9DVE;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7DF606A87B;
-	Wed,  4 Nov 2026 20:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FB606C474;
+	Wed,  4 Nov 2026 20:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 871FB606C474
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/nBWSHZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925A51F000C1;
-	Wed,  4 Nov 2026 20:44:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793825055;
-	bh=tf2l3yXkE0t8Xin8N46UyRzO27EoLv897wb9giIedgs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m/nBWSHZ1Ava1b+ZNwOQl0RnwijsopBvm8DRCbBb9rSVZKhbk4hc5Id7icuXCLqS3
-	 HczZB0azBitCJpi/oxCYt69/Ur2cRjZwovaywvPBJfpqHSY9d6gocWZvOj4JxWD45/
-	 FgoSby3hbSQN2L5oMi2PoNEcJztoejKEQAJiIvCDxyS2LaJB9hbcDiNMrN5zd15d0V
-	 AGUXpRj5csE6aw2w0BDFfyPHlyN3GR8QMNo+mqD8pgN+IdhzkBitiv04F5xLC740ir
-	 NpOnFINhPYZf5R4JcJQAinVw18vg9hXl0XH+zQw24pYCtQqU9OJKT49DeB1iwDnXgm
-	 rtmXPOi4mbTgw==
-Date: Wed, 4 Nov 2026 17:44:12 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: dima@arista.com
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Dmitry Safonov <0x7f454c46@gmail.com>
-Subject: Re: [PATCH] perf build: Override OUTPUT when building internal
- libraries
-Message-ID: <auuZHBawk2--flHW@phoenix2>
-References: <20261103-perf-output-v1-1-df33a0368cf2@arista.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NRcZ9DVE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793825069; x=1825361069;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5sRT5I+m6KfQYFE3k27dO5MxaZynzJhyPdFPDxcOiE4=;
+  b=NRcZ9DVEyB+z8PNUWWN1k1TwNJsHkHLB0RkIhXNi8OPPaumAbXwdBusb
+   XJ0tRswIwk/HAI3U08NCdw8gSsd3fdHfsZGvIoakFFNjw3AMbhwBsxdvZ
+   MF+IFI3N8G6s1cU9TZ6nu2D7Quh3Bd9w77S64rw1QFG76PE3tzcAH+cza
+   JCV/7ImeaR645m5dp2GIWnI4RcctcQ0zYSIyQaI33Sl40LNLVHUHPcJ9D
+   cTDOV5DlxtAWFgmxbMxz9PHoa3W0Xhp07+B1RPDbNL/WVi6i07ag3i3h7
+   qw4i8gPp7H9DXoutExRukI4yyUua1UoY5hgyDVfZhouA34dOrNySljHLr
+   A==;
+X-CSE-ConnectionGUID: cgj6GuddQxikonAe3XzAzw==
+X-CSE-MsgGUID: QaA/9LqTSF+vPlF64EPJbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2635160"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2635160"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:44:28 -0800
+X-CSE-ConnectionGUID: EZ1+q8OlT/uYk59yq1HNAg==
+X-CSE-MsgGUID: icBbDpEQTOuZLO4D8LrQjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7215296"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 12:44:16 -0800
+Date: Wed, 4 Nov 2026 22:44:13 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	CL Wang <cl634@andestech.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
+	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+Message-ID: <auuZHTvr5UI9Q9Q4@ashevche-desk.local>
+References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+ <b656861c-a087-4087-952e-91fd15fadd52@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,113 +131,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103-perf-output-v1-1-df33a0368cf2@arista.com>
+In-Reply-To: <b656861c-a087-4087-952e-91fd15fadd52@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 03, 2026 at 04:55:21PM +0000, Dmitry Safonov via B4 Relay wrote:
-> From: Dmitry Safonov <dima@arista.com>
-> 
-> After commit 1572ba36fbca ("perf tests: Improvements to build-test
-> performance"), building perf with OUTPUT on the command line fails:
->   make -C tools/perf OUTPUT=/tmp/linux/bld/perf/ ARCH=x86_64 LC_ALL=C CC=gcc HOSTCC=gcc LD=ld
+On Wed, Nov 04, 2026 at 06:25:32PM +0100, Krzysztof Kozlowski wrote:
+> On 04/11/2026 16:22, Frank.Li@oss.nxp.com wrote:
 
-That '/bld/' is not reflected in the next line, copy'n'paste mistake?
+...
 
->   ...
->   make[3]: *** No rule to make target '/tmp/linux/perf/libsubcmd/libsubcmd.a'.  Stop.
+> > diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
+> > index 762a3fb0fca81..de205e04a8600 100644
+> > --- a/drivers/spi/atmel-quadspi.c
+> > +++ b/drivers/spi/atmel-quadspi.c
+> > @@ -790,8 +790,7 @@ static int atmel_qspi_dma_xfer(struct atmel_qspi *aq, struct dma_chan *chan,
+> >  	}
+> >  
+> >  	reinit_completion(&aq->dma_completion);
+> > -	tx->callback = atmel_qspi_dma_callback;
+> > -	tx->callback_param = aq;
+> > +	dmaengine_desc_set_callback(tx, atmel_qspi_dma_callback, NULL, aq);
+> 
+> Andy,
+> These three lines look correct.
+> 
+> LGTM:
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-⬢ [acme@toolbx perf-tools]$ mkdir -p /tmp/linux/perf
-⬢ [acme@toolbx perf-tools]$ make -C tools/perf OUTPUT=/tmp/linux/perf/ ARCH=x86_64 LC_ALL=C CC=gcc HOSTCC=gcc LD=ld
-make: Entering directory '/home/acme/git/perf-tools/tools/perf'
-  BUILD:   Doing 'make -j32' parallel build
-  <SNIP>
-    TEST    /tmp/linux/perf/tests/shell/base_probe/test_line_semantics.sh.shellcheck_log
-  GEN     /tmp/linux/perf/arch/arm64/include/generated/asm/sysreg-defs.h
-make[3]: *** No rule to make target '/tmp/linux/perf/libsubcmd/libsubcmd.a'.  Stop.
-make[2]: *** [Makefile.perf:827: /tmp/linux/perf/libsubcmd/libsubcmd.a] Error 2
-make[2]: *** Waiting for unfinished jobs....
-  MKDIR   /tmp/linux/perf/tests/shell/lib/
-  TEST    /tmp/linux/perf/tests/shell/lib/perf_metric_validation.py.mypy_log
-  TEST    /tmp/linux/perf/tests/shell/lib/perf_json_output_lint.py.mypy_log
-  PERF_VERSION = 7.4.rc1.g45e09a6dbb2d
-make[3]: *** No rule to make target '/tmp/linux/perf/libsymbol/libsymbol.a'.  Stop.
-make[3]: *** No rule to make target '/tmp/linux/perf/libperf/libperf.a'.  Stop.
+As
 
-Minor stuff, I'll fix it up and apply to perf-tools to send for 7.4-rc1,
+  Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org> # atmel-quadspi
 
-Thanks,
+Note, it's in your power to ask the author to split out what you maintain
+to a separate change. So, it's your choice what to do, Ack the full patch,
+give a partial Rb, ask for a split, ignore reviewing (often means silent
+agreement when maintainer just applies that kind of a patch)
 
-- Arnaldo
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> MAKEFLAGS propagates the command-line OUTPUT assignment to recursive makes.
-> The library builds pass their output directories through $O, but the assignment
-> to $OUTPUT in tools/scripts/Makefile.include cannot replace a command-line
-> argument. This affects libapi, libperf, libsubcmd and libsymbol.
-> 
-> With "unexport MAKEFLAGS" returned and added $(info) debug in libsubcmd
-> Makefile produces:
->   OUTPUT = /tmp/linux/perf/libsubcmd/
-> Without it, on current master it prints:
->   OUTPUT = /tmp/linux/perf/
-> 
-> Pass OUTPUT explicitly to each library build, including the trailing slash
-> required when constructing file names. This follows the existing libbpf
-> build rule and preserves MAKEFLAGS and jobserver propagation.
-> 
-> Fixes: 1572ba36fbca ("perf tests: Improvements to build-test performance")
-> Signed-off-by: Dmitry Safonov <dima@arista.com>
-> ---
->  tools/perf/Makefile.perf | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-> index b74b534e1153..4cc5bb3011da 100644
-> --- a/tools/perf/Makefile.perf
-> +++ b/tools/perf/Makefile.perf
-> @@ -798,7 +798,7 @@ $(patsubst perf-%,%.o,$(PROGRAMS)): $(wildcard */*.h)
->  
->  $(LIBAPI): FORCE | $(LIBAPI_OUTPUT)
->  	$(Q)$(MAKE) -C $(LIBAPI_DIR) O=$(LIBAPI_OUTPUT) \
-> -		DESTDIR=$(LIBAPI_DESTDIR) prefix= subdir= \
-> +		OUTPUT=$(LIBAPI_OUTPUT)/ DESTDIR=$(LIBAPI_DESTDIR) prefix= subdir= \
->  		$@ install_headers
->  
->  $(LIBAPI)-clean:
-> @@ -816,7 +816,7 @@ $(LIBBPF)-clean:
->  
->  $(LIBPERF): FORCE | $(LIBPERF_OUTPUT)
->  	$(Q)$(MAKE) -C $(LIBPERF_DIR) O=$(LIBPERF_OUTPUT) \
-> -		DESTDIR=$(LIBPERF_DESTDIR) prefix= subdir= \
-> +		OUTPUT=$(LIBPERF_OUTPUT)/ DESTDIR=$(LIBPERF_DESTDIR) prefix= subdir= \
->  		$@ install_headers
->  
->  $(LIBPERF)-clean:
-> @@ -825,7 +825,7 @@ $(LIBPERF)-clean:
->  
->  $(LIBSUBCMD): FORCE | $(LIBSUBCMD_OUTPUT)
->  	$(Q)$(MAKE) -C $(LIBSUBCMD_DIR) O=$(LIBSUBCMD_OUTPUT) \
-> -		DESTDIR=$(LIBSUBCMD_DESTDIR) prefix= subdir= \
-> +		OUTPUT=$(LIBSUBCMD_OUTPUT)/ DESTDIR=$(LIBSUBCMD_DESTDIR) prefix= subdir= \
->  		$@ install_headers
->  
->  $(LIBSUBCMD)-clean:
-> @@ -834,7 +834,7 @@ $(LIBSUBCMD)-clean:
->  
->  $(LIBSYMBOL): FORCE | $(LIBSYMBOL_OUTPUT)
->  	$(Q)$(MAKE) -C $(LIBSYMBOL_DIR) O=$(LIBSYMBOL_OUTPUT) \
-> -		DESTDIR=$(LIBSYMBOL_DESTDIR) prefix= subdir= \
-> +		OUTPUT=$(LIBSYMBOL_OUTPUT)/ DESTDIR=$(LIBSYMBOL_DESTDIR) prefix= subdir= \
->  		$@ install_headers
->  
->  $(LIBSYMBOL)-clean:
-> 
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261103-perf-output-58d6965d2726
-> 
-> Best regards,
-> --  
-> Dmitry Safonov <dima@arista.com>
-> 
+
