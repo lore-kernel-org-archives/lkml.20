@@ -1,75 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806053;
-	b=UG+cdSJ4uHqlwInyhvaT7+eeP5KJBA3h/hDfCpc3pZYkw8e7IxlgoiT8mcJwiuZZlj65
-	 T+2oIbKlhAqdviTVDuCw51ShU9NJvW+O/avJ9gMORIQhZwaTVLh5m7ZFbxKHLGj/6Xd6e
-	 UhW8W9uWDLrJoJ2QGGBclX6YKbJqDHgPDPV9witmy5zzNOn6jm3amR1z8SI/6yQHdYW1H
-	 mB6rLKfZ4cdoZ88o+bXE7XwmSJ8akBQSODRNefgQ7VDJrYqtoggSawttZxO+aNZmNVY5x
-	 WEUGnPaIPCzUYd/RwOxuxhwXIuFnYf2nZeeFZcu0vnNR0TI33YgsyXA6hKwZC/Q1fww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806053;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793806208;
+	b=eGaPPBUgRWGgdjG1Kf2/qcRn9RKRyJ2B5OZRdz+1G0V4iLYSKMOZ83kVcGkelva9zUvu
+	 76N2gGhgAwdaelWV0RuUBzcaIMUS6E1qa/mIVay3sxQratzXEbwIkoN+0Sqpw0Ej8gNPO
+	 cWTyHo7PpLhcxg40btk+lzdELW+eHLqyW3kz+IHLk2NHz3knItVtjibN+fH6fX+e7kT5K
+	 ai/RWHBaZwTwO+cMt0yzNX6p9paLNtFCr0nJNTQ5nwi5Kuk1k8+MQ1CSBkC4Sg63ctGnW
+	 N4oPmdsJ0qNKOi4RdJjijOLrtW1ro48aaM7AK+1EHpiPAUysQy2eDzw5Zw+JCrAg3pQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806208;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=CIpKMto3juCBWIXYogyz/kuSz8z9yPBH98tdVVEJ+Nw=;
-	b=kICSevfg9ZTg+H5tHp+FPt4RikDgaebg/xyNj0j+zWGt3YI7PaiOZIOIwvt3iogKm7kI
-	 EewtgPGyS+rJMFputcCga2ZKII3Q4dQ0Xlz14LpiEgIF7Ci6Hx7g+GmNMzDjTThji/ya2
-	 BsLUFliC8khsON+Vc0LNXpX//9hGXiLpMg2I2kcBwRTnrAKRRmXvR4JdxqH4HIUg+bwPX
-	 Gzm0vIU9N+30ssWuNoyPtKkCq0aapyunXTJRVuutZYUe7+h2fYvNTS8tKgIdUDLCQHBSN
-	 4qTTBPi3qJNaTyL/kXZlzRdwB1gTTEY5MSeUYsUQ2TiF3AOS50so3KRT16GtlJoJ/0A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MFBdRm77;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=XuOzy7DSGMVrwWDh7V3xhScck9rJv3ZkjmRrzI8ggv0=;
+	b=CLF6SdEsRG7SqrHnr0e17ugF+ny6qO8DXx7f90tRaoy0iI/boYzHFSNusbBjSoDFmNQj
+	 +kZWNqs80RV6ewykz89NoZXWxeKhNzPO8u4M5WozvXhH3NUALK3sVLxbM7QDgpAfGGgms
+	 Rd9u1z+dCFgaqbt826yW6W+RMi3Eu+z4E1A/v7J31qIkD2LM517fZ2agOUxtTW47AiYR9
+	 8VkIegSSTWUTHJWGvpYcoaeo6620pXqHtg6sTkDD+UiU/Yom6oGaobbr7WqvP/bNgjK9B
+	 910L07J2V9se5rvZvozy3dhNOdSUxgizqLbz9HsJRJ1zgxiS52gIG4oNAAg7ANVvp4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=B4NHfTIu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC9E606EEA8
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:27:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DC9E606EEA8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C114606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 15:30:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C114606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MFBdRm77
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1534095eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:27:33 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=B4NHfTIu
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e987a2ba0cso4796765ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 07:30:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793806207; cv=none;
+        d=google.com; s=arc-20260327;
+        b=epDxUNBLu9dwh4ak66SC1P9zgff7J+YZ2X6EgJYCwiM9RGBDG9c+V3g/7Qkhxaku9A
+         lA4l/N6elGZlVIq++zVeLbRiKqmu3bWl2/2OoDC734flXTNJAorsN38MtQurz2Cdes0i
+         HHBuAu+42qUJrB+dlFiOV83S9sy2wopDABycchpLick2/LY4FiFsm+FowdQe2szcWfjj
+         IMQ9TP0fV61MQQTMmEPzT52zu1fw2ZnTACIrYizR+HbhLAU4gdPCC0Wl0BK/iMK8nyOF
+         xOmPsMsC0nG2WfLZ8su9qA8NTJzDCehzWkxQxzXij1kC2b0vY8UhrrNShyvX5VjYznAw
+         TvgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XuOzy7DSGMVrwWDh7V3xhScck9rJv3ZkjmRrzI8ggv0=;
+        fh=5dbJPTZ428p1LOVRAcVvMmI3Zqbm+ih/JAyWp0BkxEE=;
+        b=rCkWy7Dd/mP/I9+X6uclaEtRzPkMFKBzz3bVXitNFLs5ng0IsfDzxskxeOje7dQD+k
+         BTBrAWux071H60gQ3haQ1k71Bk9GnJB3DMb4Ula2uAxQAl4Wcddm89Ng1rx1DBSnFQJA
+         vrW/G5J7VfTxlFnq+XaCXhGmiHGR884css3V9TYI74KeOgk7bf5Bw5lqJSpkjELAw5k5
+         7cJkz98pLgTm69MSBg4zQ6VPnkHNFzpCm8uQyTWA9CXDrAamiRC6T0eapYzWNhN0al4C
+         GHEwmFLpsMgGLPGIYzN2LTFgftGGR8kY70tEzUfP9gMyPHgamgUqnJE/hI1aciUGlINR
+         Y8Xw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793806052; x=1794410852; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1793806207; x=1794411007; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CIpKMto3juCBWIXYogyz/kuSz8z9yPBH98tdVVEJ+Nw=;
-        b=MFBdRm775Bi/ScTBqKRjBFWEA38yummgF+uxuNplvXnR/Z/ROf/AZuYA8YYRD20k1G
-         4UM8BRc/wz72wN+85SIT2IctTPz3G38oamu7Ehxcn8wrdEPLPySIhAiJ2oyao0G6swEE
-         yN/C/RofNftzIOCT3Zhl8qnJzmSmlLJNmyZC666rhikojqduFqSnX18DeIRud8JqZsgC
-         6dQrN/fE5Bj2Z+851Up59So8ptymuu7b4yslRyY7KP/nLKRH0R7TQ4E0kZvOP6rOOX9W
-         ozWZW77+XTmkzoVCX/JV+4gS6hkXmV49ruhL+g579TFnbhoCp0289ucaou6wWBPk2gCr
-         hrJw==
+        bh=XuOzy7DSGMVrwWDh7V3xhScck9rJv3ZkjmRrzI8ggv0=;
+        b=B4NHfTIu7W5Ik7sQdP4RN5hm0J86+FR85I04AzBg7ypd2fJn9pxo/7ZX93dGZsY9kl
+         Rp3qinlS41/vaPrpdVn+ECCfZv8Gek+jndUktyAnem1TxUETpQpUkPg9xgD0lJHCLy53
+         5tUQne+vcfegt7vRg915Sm7j7KAIkmt+IZb+I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793806052; x=1794410852;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CIpKMto3juCBWIXYogyz/kuSz8z9yPBH98tdVVEJ+Nw=;
-        b=gdxZhshY16djYYdcllThTZsyfFowa9w5V30CMZeihXoCMa7AysmPgEF3Nfzs8f4YV3
-         lAHSrdVcfqse88qf3zbd/SWeFmmFhjMmoO2ckpWanlm8b5GOtQumKr/gJ5qSnKaHh6i1
-         rhNRqig2F9kxvuIOJfSqxhedAps5x/gUKT7OA+ECRdZEwTIZAmLX3eZy0A4OHIkMMyhX
-         m7kK5+35PXYb5/Ou9TmZksagqUQoD1Dp16s85mIexb2sUd23W8g/p9Tb/ZXVC6oNt7L3
-         DumPwlOo8yLGKJvyPU0FtI8mTa1kukywXqK9ZrAN+essFdl3uV0fpw0UxtVqy7vVcwNj
-         icig==
-X-Forwarded-Encrypted: i=1; AKwUvByCRMdQlQcjLVbxzWtt7TSRQX8iUhIVhvbGmpMrSPiXMy6Kgu+THgd2Ecna+SoCRE1mWvmj7I4CJIcwy/8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9rE7RQyU1SzXebiHRgT+vlvl9xlBS2p13fbuZjvFHxgJHuLNg
-	8zxSY5jZpHXzr6592CRcSHMUYzwW7LkHw0+or3LGAuAc/WhXcVbFuAbpptkvvnBx5gWPRJnSAdx
-	LATeWVGakioM+t19L8oAAhQ==
-X-Received: from dyjm35.prod.google.com ([2002:a05:7300:16a3:b0:358:f250:485f])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:88d2:20b0:36a:6d52:e16c with SMTP id 5a478bee46e88-36a6d52e261mr13279550eec.12.1793806051988;
- Wed, 04 Nov 2026 07:27:31 -0800 (PST)
-Date: Wed,  4 Nov 2026 23:27:30 +0800
-In-Reply-To: <auo6bvjDtwAMKOid@google.com>
+        d=1e100.net; s=20260707; t=1793806207; x=1794411007;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XuOzy7DSGMVrwWDh7V3xhScck9rJv3ZkjmRrzI8ggv0=;
+        b=mafX8++BOKDEzRCk6f8iTyZSTkbroxA9Mc31AqFLCd//N9e65EnUaJoEzJ1rCrVIFw
+         cKlWPRLb0TMUXuViUL/aotGQAYCwPME56vRh/O/BrglhZyuTcNhjjN9y0H36lV2lVGLV
+         QFnv/EfVqXDwAdXtY0qMRgF3KsxjnoZzBVlwxd/FkiumkBia/+T9x3XkpMcfrFgfOs9c
+         0XuK4R/mzv4ekrMBwj8zl5QldWXCHgPdUzxd6KcAXtx+ttAgJHurdQPt7FoPzEUyW0mj
+         dJ+vSBAtFEAfjhn6tKFOthndMjpqgReq5urp3ni5EWxwVRw521E1LPm+ddpLYHBR/DBo
+         gBAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzwld6xUJfVaBlyy1g2vbGau2pqoyouDbx8XYlWDQSyyAsVodn7p4d4HfiYN6KQUYCb32UAy5b7ptOxG/o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+B7nar1QsB4Kdr99QsiTPFoy7wzLCEbbIhS9+H77/y1Hfte18U
+	Xyvf+z/aARpuDUaK1SfmnMZoBE7pCGBdAYTpZ9rf9/9FvqflyDD4u/8RaGu3iJW4md2UqAxtIgI
+	oQeOIBDvLsfh7wVXn+ylvkbCw27INA3AEOzoIjQ7q
+X-Gm-Gg: AYBFou3tY7YT2GY9ByV3ZLtl9QToQXdkrLoaEvZKTfSYn4+RXHNjQ1g7fH8I+FFK9fH
+	MGjITuOjYoK7xMgeN98+GN28qdthGGKGA0DEVzAivWNX0Uu2g3M81F9S3JPV1UWCAeI0T7jcELb
+	ebzvq39wGblVnb6O7Ao5dRAvLTQA8WB9dV2HDYqSzfxAUEZeMiHwBSSm5dmKHnoeVcgEjtWmCxC
+	ShfGIOlN9HEe8lXPvls+eQtdrSQz2kUNtE2b3g6aLDcmwB8l4oweDkU1Z82e8fNeMech8585+zg
+	/8rIxdtNGa2p0Jm7HPyyf4h1aVY2LQ9ANlDx74tzJjZawOtMmgeyAZynlImY9/OX5pygcxBAnW+
+	IGO4VVcTe2r8I2VSgj1+VWXaIzEN0prCVUKsLJ0uCjHMeBpNJLnEjrWnNbfIAamnUGJNQda79Js
+	8hs91jypndHcTbotMf
+X-Received: by 2002:a17:903:38cf:b0:2ed:1c15:ffc0 with SMTP id
+ d9443c01a7336-2ed1c160464mr6880415ad.30.1793806206581; Wed, 04 Nov 2026
+ 07:30:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,39 +100,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029040005.2100005-1-stanleyjhu@google.com> <auo6bvjDtwAMKOid@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261104152730.3102376-1-stanleyjhu@google.com>
-Subject: Re: [PATCH] PM: runtime: Update runtime_pm.rst for non-fatal resume errors
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Mark Brown <broonie@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
-	Jens Axboe <axboe@kernel.dk>, Bart Van Assche <bvanassche@acm.org>, linux-pm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>
+MIME-Version: 1.0
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-3-dianders@chromium.org> <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
+ <aufr7SA1BO7zDQws@gractus.seuss>
+In-Reply-To: <aufr7SA1BO7zDQws@gractus.seuss>
+From: Simon Glass <sjg@chromium.org>
+Date: Wed, 4 Nov 2026 08:29:51 -0700
+X-Gm-Features: AclHuK-zfu9STJuyYWXUh5dKQ38KfyI8wl9OSEqKb4q455Uo0fKzhQBe9ijm_bI
+Message-ID: <CAFLszTgpzC_z21mBpOGwFvEvy0LLxCJmUTFnst5g+1pM7BpEjw@mail.gmail.com>
+Subject: Re: [PATCH v2 02/10] pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: dianders@chromium.org, Devicetree-compiler@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Devicetree@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Peter Griffin <peter.griffin@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 11:47:58AM -0800, Brian Norris wrote:
-> Those need a close eye, as the code involved is a bit subtle. I tried to
-> review, but I'm not really an expert in those subsystems. (I'm also not
-> quite sure the second one was 100% a regression, vs further exposing an
-> existing underlying problem.)
+Hi David,
 
-Agreed on the UFS clock-gating hold release. Keeping the hold until
-resume succeeds was cleaner regardless of retry behavior. That fix has
-been applied to 7.4/scsi-fixes. I have also sent v2 of the block-layer
-q->pm_only fix.
-
-> I think it would be better to flip the comparison to the other
-> direction, and deemphasize power.runtime_error. For example:
+On Sun, 1 Nov 2026 at 18:49, David Gibson <david@gibson.dropbear.id.au> wrote:
 >
->   "Unlike with the suspend callback, failures in the resume callback are
->   never considered fatal, [...]"
+> On Fri, Oct 30, 2026 at 07:50:17AM -0500, Simon Glass wrote:
+> > Hi Doug,
+> >
+> > On 2026-10-28T21:46:49, Douglas Anderson <dianders@chromium.org> wrote:
+> > > pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
+> > >
+> > > Add Pythonic iterator helpers on `FdtRo` to simplify walking nodes,
+> > > properties, and memory reservation entries without manual offset loops
+> > > or `-FDT_ERR_NOTFOUND` sentinel handling:
+> > >
+> > > - `subnodes(nodeoffset)`: yields the offset of each direct child subnode
+> > >   of `nodeoffset`.
+> > > - `properties(nodeoffset)`: yields a `Property` object for each property
+> > >   of `nodeoffset`.
+> > > - `get_mem_rsv_list()`: returns a list of `(address, size)` tuples for
+> > >   all entries in the memory reservation block.
+> > >
+> > > Assisted-by: Gemini:gemini-pro-prerelease
+> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > >
+> > >  pylibfdt/libfdt.i       | 45 +++++++++++++++++++++++++++++++++++++++++++++
+> > >  tests/pylibfdt_tests.py | 18 ++++++++++++++++++
+> > >  2 files changed, 63 insertions(+)
+> >
+> > > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+> > > @@ -201,6 +201,23 @@ class FdtRo(object):
+> > > +        soff = self.first_subnode(nodeoffset, quiet=QUIET_NOTFOUND)
+> > > +        while soff >= 0:
+> > > +            yield soff
+> > > +            soff = self.next_subnode(soff, quiet=QUIET_NOTFOUND)
+> >
+> > Since Fdt inherits this generator, a caller can easily write 'for off
+> > in fdt.subnodes(0): fdt.del_node(off)' and get garbage, because the
+> > offsets move under it.
+>
+> Right.  I noticed that, but merged anyway, since you can basically do
+> the same thing with the existing interfaces.  By abstracting it
+> further, this interface does arguably make the problem worse.  This is
+> kind of a perennial problem with the Python bindings.  The libfdt
+> interface is shaped by what is and isn't possible with the flattened
+> format - the reason we insistently name "offsets" everywhere, rather
+> than just "nodes" or "properties" is an attempt to inculcate the right
+> mental model.  By abstracting things more, the Python bindings make it
+> easier to miss that.
 
-I have sent v2 using that comparison, without mentioning -EBUSY,
--EAGAIN, or power.runtime_error, and added Fixes for commit
-aedc51762a0d covering the ->runtime_idle() paragraph.
+Yes that makes sense, and noted.
+
+>
+> [Aside: one of the many projects I'll probably never find time for is
+>  to write a Rust-native libfdt, where the ownership model could be
+>  harnessed to enforce many of the required invariants]
+
+Yes we talked about that briefly last year I think. I haven't
+seriously looked at it though, apart from some experiments with
+ownership of an offset. I have dug into Rust quite a bit but I'm sure
+there are other people who would do a better job of this.
+
+>
+> > Since David has applied this, please can you
+> > send a follow-up noting in the docstring (here and in properties())
+> > that the tree must not be modified while iterating, as with
+> > fdt_for_each_subnode() in C?
+>
+> Right, adding a comment is probably a good idea.
+>
+> > > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+> > > @@ -243,6 +243,22 @@ class PyLibfdtBasicTests(unittest.TestCase):
+> > > +        leaf = self.fdt.path_offset('/subnode@1/ss1')
+> > > +        self.assertEqual(list(self.fdt.subnodes(leaf)), [])
+> >
+> > The docstrings say both iterators raise FdtException for a bad offset,
+> > but nothing tests that. A test that list(self.fdt.subnodes(-1)) and
+> > list(self.fdt.properties(-1)) raise, perhaps alongside
+> > testFirstNextSubnodeOffsetExceptions, would be good, perhaps in the
+> > same follow-up. Since these are generators, the exception only appears
+> > on the first next(), not when the method is called.
+> >
+> > Reviewed-by: Simon Glass <sjg@chromium.org>
+> >
+
+Regards,
+Simon
