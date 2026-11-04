@@ -1,49 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803326;
-	b=ErP0x+1z1uKNirj+4xW0lDGK6h/JSxTr66S4LFRBMHzzyF7D7Rjfsy0bR6VmMmrysDG+
-	 fzvyQukWUZ/IDDx/tvobL03Sg0ZD4O5AAWN95sTJ0dVqTdr8I+aEoynyVSqni6JrXmgUX
-	 5uU9U8/C4q5BMR824xSJqFfyzLXQ8/nNSscr+DKOXF5mM4olJCLtumol5IzGupdOoaEdu
-	 HBPXzu6vROHDeQOFT2cpr3m+4QFAzA4o1C6x0Rqm6oF6zRxRblivH2KIGSGCBIXDJY7Vq
-	 S2w5KPdxf5uXOPIkYDjLwQZD+gzQ1g2fMVsTlje1BviaFz9gkHt+yn60Rjb2f/29odw==
+	t=1793803335;
+	b=X8SWm00hj7go3FrRP05ESTMWa2XC7AaalInQlrJo/PeaND5yEI/b60/7Q6qHoUm6IjSg
+	 2ngiE1G5KekZTeardj6QjEmugtTf5OMTt4o7hR6NBIdDyAaC5BEJYw/7RQwslnEfeIdA3
+	 0kd8Uhp32sp6LaXKLm89hvvZbkSLM6VBDPTFRmpV/1NczJokToi16yLMNKSLh7sxOn8hw
+	 aZlWEwh/biOnl0BLgScEj6ezFX+o8icqmEZUJh+lI/E5TM3HLUoip5kfHbNTRKZ2HvfI8
+	 1QcEvrRQc1uBAWR50k0wCJuLVqj3ptYKER9+ZHPYfxwuDYjWpX1Vod47eTQ4a6SFtPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803326;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=yEXOiGhgbR5kbYCDmjXy0GbChNz5nYoCzDv/8cG/g+Y=;
-	b=SVzgyNHoa005arGi9X1JZrh5aFxqwi+nCBm/i68DIKMkHuzNQXzn2ct9/zq/FT1S9B2e
-	 KyTJ22mjRHpUzswZCFN586Kl/NGFM/G2UCKcDDDKLz2b2/znXwlM/EAK3lk9cTxR49I/w
-	 GgWBOM9pQU9zrkVoArdQdlncX4Ok1KVdz8SENeIaaC0YFJVVyISsgXDFp3HJeIKyTT0vE
-	 Bqf6dydlTxQ0KOqme2MTOIh0GYPuIJ0r+KDwrI0LV/QDydCZFzwCMfrzQSKmr3iMuHxfn
-	 rnXlNL4cfB8ogiAq8oajL1vGBwI1f5eLv/EjyiWG1uW5FUv+jMk6A0ZInygHj2VXD1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803335;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=Fl1gbLhBQfxuB0Za0lmrQManNOX8Zck/p2HtBIvRL8s=;
+	b=ZlUhPsTcSOWbqh56rcikHhar/IRy6D4v2RiOlCzvxQZgK7TXBp+Do+YICXFGz/fgPnka
+	 Rw7N8a3NmruW3jxyP9W4YoD28LRSHa6esxasMjYsXPjKhJQJpcjTBQf9++YBxuQu9U58e
+	 S5rt6mBY6aIj/7UEQ+0DimAMgg4/Gu7+Zr3PUtWtQ+2RSWkvOuw98IziS8P2jb1K1C4oz
+	 Sq7hEYWOzco3x84BkDwUlsyQoaaomfDzZOjflcS0v4qga3HCsEyoVJLI6SBaqrlpOHH5K
+	 RdPQ7NMguUWV4W3tdJI+o9/F4DyraSVNrBsj/MTKNtVHl2Uhsru9532kVKNtXsbsQOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 528C3606A336;
-	Wed,  4 Nov 2026 14:42:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528C3606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=3OXSg5DX;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8sSG0Qq2;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9713606A328
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 14:42:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9713606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F5F31476;
-	Wed,  4 Nov 2026 06:42:01 -0800 (PST)
-Received: from [10.57.65.23] (unknown [10.57.65.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DF6933F673;
-	Wed,  4 Nov 2026 06:42:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793803324; bh=OQ+6GXsnzNtECacWk2BjiQr1Za6EzTRmQxCpvw/0bo8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=luId+KEomiCYTx0zsDXfLF0NiGSbVJSZAawz5X649BNQCNK5aIrov6r7jQPa5f5G1
-	 /y7/Z1tTcJswVlprth41Zn/4fMIj1S2AkxetBjIo4WJhSSAHooaIdF0oJpfr07XKSr
-	 mYYkWIizutTHBEivTMuSApJZfPh5pMdZsop7CXg0=
-Message-ID: <80b69632-dbe1-405b-910a-c17a943d8fc2@arm.com>
-Date: Wed, 4 Nov 2026 14:41:59 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=3OXSg5DX;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8sSG0Qq2
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793803326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fl1gbLhBQfxuB0Za0lmrQManNOX8Zck/p2HtBIvRL8s=;
+	b=3OXSg5DXF+Q8bYnZn4ubic7S382+ZMoVMVKjLabNvLANRBMaClCf76C85U7esjEf5noumQ
+	NHzkVwiKxfd87KwNQYeMnrJ8QAG56nQivOJ+Brv/GugNaQ4RI9kPzPhuFUHIkqRK546KbD
+	GKXA+iYcnFRHaIxPFJZJ8sMF/t1MMYXn4vD6IdWbqM5xF8vxqIvlyWm3IcUMfMubppDUid
+	b7S8OrAcRL2Ee7ZBEL9JJITQqv//8uoSp4Q25phkyMe0NMOd4d3JZGGQOTssx0ZQyegt6f
+	rNpkpTk010jAX9wVIH3wdjffkmztTI2Ebp+yDGOGe+ZLnCjki9vvfTEUxRQImA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793803326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fl1gbLhBQfxuB0Za0lmrQManNOX8Zck/p2HtBIvRL8s=;
+	b=8sSG0Qq2MI4SgahfhyqkbYBy9/x20pnevwNV+nKRQ8DinEJYgdSsYlGGkHPriFvP+l9Qmo
+	ByUPZnKBCtVW/IBQ==
+To: Breno Leitao <leitao@debian.org>
+Cc: Marco Elver <elver@google.com>, Petr Mladek <pmladek@suse.com>, Peter
+ Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Will
+ Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long
+ <longman@redhat.com>, Dmitry Vyukov <dvyukov@google.com>,
+ linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ kernel-team@meta.com
+Subject: Re: [PATCH v2] kcsan: Don't enter an nbcon emergency section for
+ verbose reports
+In-Reply-To: <autB8IxyWgtaH_oE@gmail.com>
+References: <20261104-kcsan-irqtrace-emergency-v2-1-ceafc0098a25@debian.org>
+ <87v76cahn2.fsf@jogness.linutronix.de> <autB8IxyWgtaH_oE@gmail.com>
+Date: Wed, 04 Nov 2026 15:48:06 +0106
+Message-ID: <871p90psjl.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,183 +77,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [BUMP] [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-Hi All,
+On 2026-11-04, Breno Leitao <leitao@debian.org> wrote:
+>> Wouldn't the below diff be the proper fix?
+>> 
+>> John
+>> 
+>> diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+>> index c3dc84a7cef26..71f1b4b8f06d5 100644
+>> --- a/kernel/locking/lockdep.c
+>> +++ b/kernel/locking/lockdep.c
+>> @@ -4245,8 +4245,6 @@ void print_irqtrace_events(struct task_struct *curr)
+>>  {
+>>  	const struct irqtrace_events *trace = &curr->irqtrace;
+>>  
+>> -	nbcon_cpu_emergency_enter();
+>> -
+>>  	printk("irq event stamp: %u\n", trace->irq_events);
+>>  	printk("hardirqs last  enabled at (%u): [<%px>] %pS\n",
+>>  		trace->hardirq_enable_event, (void *)trace->hardirq_enable_ip,
+>> @@ -4260,8 +4258,6 @@ void print_irqtrace_events(struct task_struct *curr)
+>>  	printk("softirqs last disabled at (%u): [<%px>] %pS\n",
+>>  		trace->softirq_disable_event, (void *)trace->softirq_disable_ip,
+>>  		(void *)trace->softirq_disable_ip);
+>> -
+>> -	nbcon_cpu_emergency_exit();
+>>  }
+>>  
+>>  static int HARDIRQ_verbose(struct lock_class *class)
+>> @@ -5797,8 +5793,11 @@ static noinstr void check_flags(unsigned long flags)
+>>  	}
+>>  #endif
+>>  
+>> -	if (!debug_locks)
+>> +	if (!debug_locks) {
+>> +		nbcon_cpu_emergency_enter();
+>>  		print_irqtrace_events(current);
+>> +		nbcon_cpu_emergency_exit();
+>> +	}
+>>  
+>>  	instrumentation_end();
+>>  #endif
+>
+> Yes, but it was unclear to me what were the invocations of
+> print_irqtrace_events() that needed the emergency turned on.
+>
+> how did you decided that only check_flags() needed it?
 
-Just a polite bump; now that -rc1 is out, if anyone can spare any time to cast
-an eye and offer opinions, I'd be grateful. At this point, I'm most interested
-in feedback on the arm64 integration aspect; If you see blockers I'd like to
-discuss early.
+The emergency enter/exit's are intended for lockdep splats. AFAICT
+check_flags() was the only call to print_irqtrace_events() that was not
+already in emergency state for lockdep splats.
 
-Thanks,
-Ryan
+KCSAN is not the only non-lockdep caller of print_irqtrace_events(). So
+my suggested fix applies to the other non-lockdep users as well. Commit
+59cd94ef8009 ("lockdep: Mark emergency sections in lockdep splats") was
+only intended for lockdep splats.
 
-
-On 15/10/2026 15:25, Ryan Roberts wrote:
-> Hi All,
-> 
-> This is v2 of an RFC to introduce a driver for the Arm Core Local Accelerator
-> (CLA), a CPU-local interface for programming attached accelerators. While the
-> interface is agnostic to the accelerator type, the initial (and currently only)
-> target is a compute engine.
-> 
-> The RFC aims to engage the community and get feedback on some key aspects. This
-> will help plan our approach for eventual upstreaming. Based on feedback from
-> Will and Marc in RFCv1, the driver now supports both bare metal and virtualized
-> environments. I also have commitments to publish the CLA spec, a supporting FVP
-> and a representaive user space, all to support upstreaming the driver, as per
-> Will's feedback.
-> 
-> For now you can find documentation included with patch 1, which describes the HW
-> and driver design. Note that the CLA is not part of the Arm Architecture.
-> 
-> Patch 1 documents the hardware and driver design, and adds a driver skeleton.
-> Patches 2-5 initialize and probe the device. Patches 6-9 add context management
-> for switching the device between different users. Patches 10-12 add some (small)
-> changes to KVM and VFIO, which then enables patches 13-15 to expose the HW for
-> device assignment into a VM.
-> 
-> Aspects I'm seeking feedback for:
-> 
-> * The general structure of the driver: The current shape addresses the
->   performance requirements we have for the use cases, and is therefore our
->   preferred approach. But there are some unusual aspects due to the HW design.
-> 
-> * Driver interaction with architectural support: I've opted to treat the CLA as
->   a device rather than a CPU extension, so it's implemented as a (mostly)
->   self-contained driver. It has some unavoidable coupling to the arch code since
->   it needs to share page tables and ASIDs/VMIDs. All arm64 arch interaction is
->   contained in cla-mtc.c.
-> 
-> * The location of the driver: although most accelerators will likely be compute
->   ones, CLA is a generic MMIO interface that could handle any kind of
->   accelerator. It's currently implemented as a misc driver. accel is another
->   potential option, but given the current SVA approach, we would not use any of
->   the services (memory-management or otherwise) that accel provides.
-> 
-> * Virtualization support: since the HW uses the CPU's MMU, we introduced a new
->   VFIO_CPU_MMU group type, and added the kvm_arch_[get|put]_guest_mmu() API to
->   KVM/arm64 so that the CLA can share the stage2 pgtables and VMID. The CPU
->   pinning problem remains unsolved; the vCPU must be pinned to the pCPU that
->   owns the CLA in order to access it. If the pCPU goes offline or the vCPU is
->   otherwise unpinned, it would look to the guest like the HW is faulty. This
->   issue is therefore contained to the guest. I've additionally improved the
->   robustness of the core driver to deal with this eventuality gracefully.
-> 
-> I consider the core driver to be well tested and robust. The virtualization
-> portion is prototype and has known issues that would be addressed assuming the
-> approach gets positive feedback.
-> 
-> Changes since RFCv1 [1]
-> =======================
-> 
->  - Added KVM guest support through VFIO mdev, including exclusive domain
->    assignment, stage-2 memory translation and VMID pinning
->  - Changed the userspace ABI to expose one `/dev/cla/<class-id>` device per
->    accelerator class; `ARM_CLA_PARAM_DEV_ACCELS` now reports only accelerators
->    belonging to the opened class (per Arnd)
->  - Removed `ARM_CLA_UABI_VERSION` and the `ARM_CLA_PARAM_UABI_VERSION` query
->    (per Arnd)
->  - Various driver bug fixes and robustness improvements
-> 
-> 
-> Source, along with some tests, is available at [2]. Patches based on v7.3-rc5.
-> 
-> [1] https://lore.kernel.org/all/20260717104759.123203-1-ryan.roberts@arm.com/
-> [2] https://gitlab.arm.com/linux-arm/linux-rr/-/tree/features/cla-driver-v2-rfc-tests
-> 
-> Thanks,
-> Ryan
-> 
-> 
-> Jean-Philippe Brucker (10):
->   misc/arm-cla: Add driver skeleton and documentation
->   misc/arm-cla: Add launch operation helpers
->   misc/arm-cla: Probe firmware-described devices
->   misc/arm-cla: Initialize devices on CPU bringup
->   misc/arm-cla: Accelerator context save and restore
->   KVM: arm64: Export stage-2 MMU config
->   vfio: Support VFIO devices that access the CPU MMU
->   misc/arm-cla: Add stage-2 MTC and VM context switch
->   misc/arm-cla: Support exclusive context assignment
->   misc/arm-cla: Add vfio-mdev user interface
-> 
-> Ryan Roberts (4):
->   dt-bindings: misc: Add Arm Core Local Accelerator
->   misc/arm-cla: Set up memory translation context
->   misc/arm-cla: Manage domain contexts
->   misc/arm-cla: Add userspace interface
-> 
-> Shameer Kolothum (1):
->   KVM: arm64: Introduce support to pin VMIDs
-> 
->  .../devicetree/bindings/misc/arm,cla.yaml     |  77 +++
->  Documentation/misc-devices/arm-cla.rst        | 217 +++++++
->  Documentation/misc-devices/index.rst          |   1 +
->  MAINTAINERS                                   |   9 +
->  arch/arm64/include/asm/kvm_host.h             |  14 +
->  arch/arm64/include/asm/kvm_mmu.h              |   1 +
->  arch/arm64/kvm/mmu.c                          | 102 ++++
->  arch/arm64/kvm/sys_regs.c                     |  14 +-
->  arch/arm64/kvm/vmid.c                         |  77 ++-
->  drivers/misc/Kconfig                          |   1 +
->  drivers/misc/Makefile                         |   1 +
->  drivers/misc/arm-cla/Kconfig                  |  26 +
->  drivers/misc/arm-cla/Makefile                 |  15 +
->  drivers/misc/arm-cla/arm-cla-regs.h           | 192 ++++++
->  drivers/misc/arm-cla/arm-cla.h                | 393 ++++++++++++
->  drivers/misc/arm-cla/cla-ctx.c                | 229 +++++++
->  drivers/misc/arm-cla/cla-init.c               | 562 ++++++++++++++++++
->  drivers/misc/arm-cla/cla-mdev.c               | 469 +++++++++++++++
->  drivers/misc/arm-cla/cla-mtc.c                | 335 +++++++++++
->  drivers/misc/arm-cla/cla-ops.c                | 417 +++++++++++++
->  drivers/misc/arm-cla/cla-regs.c               | 370 ++++++++++++
->  drivers/misc/arm-cla/cla-sched.c              | 474 +++++++++++++++
->  drivers/misc/arm-cla/cla-topology.c           | 202 +++++++
->  drivers/misc/arm-cla/cla-user.c               | 541 +++++++++++++++++
->  drivers/vfio/group.c                          |  37 +-
->  drivers/vfio/vfio.h                           |   5 +
->  drivers/vfio/vfio_main.c                      |  16 +-
->  include/linux/vfio.h                          |   1 +
->  include/uapi/linux/arm-cla.h                  | 198 ++++++
->  29 files changed, 4969 insertions(+), 27 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/misc/arm,cla.yaml
->  create mode 100644 Documentation/misc-devices/arm-cla.rst
->  create mode 100644 drivers/misc/arm-cla/Kconfig
->  create mode 100644 drivers/misc/arm-cla/Makefile
->  create mode 100644 drivers/misc/arm-cla/arm-cla-regs.h
->  create mode 100644 drivers/misc/arm-cla/arm-cla.h
->  create mode 100644 drivers/misc/arm-cla/cla-ctx.c
->  create mode 100644 drivers/misc/arm-cla/cla-init.c
->  create mode 100644 drivers/misc/arm-cla/cla-mdev.c
->  create mode 100644 drivers/misc/arm-cla/cla-mtc.c
->  create mode 100644 drivers/misc/arm-cla/cla-ops.c
->  create mode 100644 drivers/misc/arm-cla/cla-regs.c
->  create mode 100644 drivers/misc/arm-cla/cla-sched.c
->  create mode 100644 drivers/misc/arm-cla/cla-topology.c
->  create mode 100644 drivers/misc/arm-cla/cla-user.c
->  create mode 100644 include/uapi/linux/arm-cla.h
-> 
-> --
-> 2.43.0
-> 
-
+John
