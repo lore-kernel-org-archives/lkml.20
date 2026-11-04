@@ -1,102 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=176.98.248.254
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793698;
-	b=OKOs2TRM6UHcBBOeQQQs4a7fNTEn42k75Q3MzjviihK4ij4bN4Qki6OKMdMkd8snUyBR
-	 NN1TFoLt1FxvEu2wgSxAo7hulunwwqnlad3lbRIaOWtfE6icqCIWaZj2K5aVpDqntnHeg
-	 S9WPPhoOQIcP/WKpRzPb1cUFZQuLpjFhGXH8mioUdnyQL6qZzb919jQNpIZi4I48LH+C/
-	 gvMs0/Q1D53ZMlRJw7R39MOY+zQdaK9hGOEsIlbrGmqwrTUzuB+nyYrLZ+YPDmLvzvmVq
-	 7Zy07ijrgnEs8G+c5/IdqejtR3rILzEO8K6g14kJh2umfcsewNofrJYiSwbj0pFVa/Q==
+	t=1793793707;
+	b=JwkVmdylnltBomOG8aLU719w7IHv+mohWeUT7edBg22uEc3jlTDcDSbqs05xgdveiXEE
+	 f7CbSWpmNV6p3f00bPG9hnqCzR4NJQDkPbiEJzTrsmDjh6IbXE7WH/JC/96fqH4AJskZx
+	 i4YF+uFvUE/stp1UpXtP/en5KG3deEWWN2yUPTaN2R5FGn5+2ri3iC5RIn9hsTSsfEEum
+	 5lCobalwCoSYUcpihlJG94o5MEYPZsSCYUhXAFJ6ETu01YcDXoFSCTgFic527X08YCoav
+	 3k0Oo1VUHRL4jq3gm4KMR845iRuQejavBbGpDToh7lX+V3xbbP/4Yccy8dNVtmpO2Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793698;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=c6Q3xJJH5SJiVioyuWGDRhiHpOPbXK922KYJTEbUcSI=;
-	b=4TvVi/Vn1DRNz+nUtOyy4zbFvZLnj3i/IhF0P69lqByhN+rKCojhXfh1i/KEZ925ReRn
-	 C8s9egyXd+KWaWyyj5UGwxQv7GqFYeDpBcgkG/dEoZ8p1+uODD9F5X6B+lpVIw1Aobx2P
-	 OR4t8wO1GEzmr7CJ7esb3r3BQbuhVDryahliEIPV0Yja1Nllfss+AtQQk6x4NIDBFmY3q
-	 3dSw84ock9PxcGowYsgddNW0/PGmnYgl5bLhkX41Hpwgmc7eyU28uIi9VaGuzRcmAL9Ld
-	 VUrgmACAGmwCccvc6lsSpb3ZtV+IikUp5VBw/6ny7CzSfVcG7lxSMORKNcpBo8/1hJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793707;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YY3r/TXTbSQv2f/8wCPyyqFfjDJfFUaHECdMjCQ3O58=;
+	b=zKvENKv2iQM3isB89mwtfT40nbSVx4cUIUstqjHw1rbBiCRDw1NBM+ZZORUX3AObNozW
+	 itU+4C1+7xe9kA979nfcfmgQMdIxqw+FlPzssXAoFSrgbwrt49F8NrwMwxm6Dsee4wvgW
+	 NedJ1di4l/lZjboD8rkXQ0DBOCG60IbgGHCdiOBOExfLn6g/0ilDwDv1wtJCF0dMAxF/k
+	 0WMC/ap4M64BYbinDt35+j2Ni16A2u+51BYOheR6OaJXZZu7ufbdnetaE0+6ME+hZdkeJ
+	 HVtgYcq27aOLHMGvsIZ2xEhkAe2e26v8cX09SUwrh37PkkLzdviapRK7x+5epnx2ZQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LgsakOl5;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2618F606A33E
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 12:01:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2618F606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LgsakOl5
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4326803b54so24963466b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 04:01:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793793696; x=1794398496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c6Q3xJJH5SJiVioyuWGDRhiHpOPbXK922KYJTEbUcSI=;
-        b=LgsakOl56Zrxx2pzmOn/BovgzvRHGM/xH1iS9saI2poegNqCdsoaunrFyYOMzrmei6
-         7fn9nBs2LGWjfzJX7xFY118KAfYqukNMuLyVbG6PeeI3O0HrcDMxccep0+0VfEF1aCOM
-         z9t/ZvvoRpVzJrlt2ALTtk20K6+1gb8FZEsJPgcX4fVZusNTx/vpcOp75g5Hrbiy82TL
-         1aSWfRuoEq+KUWvNu30MQPYzTLODqaVB3AfbEKBbtbUkMZpxa7+2zWrFsXH5EH6cgAXa
-         +DJ9cmYLN15jOxwhGGRFZe3P8ya0TABvUpdbz8aZwmkmggj3vVjRQN9dTzXugA5oh3zO
-         9xLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793793696; x=1794398496;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c6Q3xJJH5SJiVioyuWGDRhiHpOPbXK922KYJTEbUcSI=;
-        b=rGQYzEigfkpr/xAz+7tAvbiZWp/3x47CZispYbl8nDfr5UDARYNxAzqvSCuNuaSCJ5
-         bFAcbNe2M3/3GBqB9i4GYcfmlcNxonaX9pMVgJ5bPA+axzzB/2kzb3sfcPq4COqyi4I6
-         sDnmWnotKwaqbyjbkXBPRYtZrUddEUlp5Pn/m2fESmAqtgdECCHmoGzQjf0PGrvgkI/6
-         rbAkrx4qdzRwXhUO0dvm1MSk76yh+l2wRQNuam3JZ7hQ7D3EDCWA2T8OYxuIsaYSWXBN
-         +GJa5wW71DjG73SD8zns8RSdFxe48lUNQ8LYm9WVZ2h+VWaQ1+hfBkgi24KvwpPmxFEc
-         CcsQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCMRE++8FcoTRM/cEFN6n7GHlE0/DJbDTFiA9qFAiumqSwy2pxY8XlxLLNvSUBFXfPyHY/QFx0LhtXMoE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pZfmqOnGIZuBbJaueiYSpgZyrzES8lHdjBb4PlB03cS+lJgRC
-	+6XFGNMBrVhfVICkzuQW5iOSlOYvI7bq2Gegiw/qjZBr8HTXeWDxVrsi
-X-Gm-Gg: AYBFou00+7VY+gl7nDTUXYl9CjyX69AjW4c1a9sjt4HxTDAhVlfJmDVt9rqlUAiEjNI
-	6s+4rzyjep7G2uAFjf3m1fsc3dA1PJLrnbCs81jEtCHQlJvd3CT3oxGj0n9Y0No/VDzkE8mdM/G
-	oDz34+t/05qCmJQYcIT+qquCz9SIKp/RSH/F512W3bSle+f5fxdEYkAzaS3moxxmhODDzkmROxm
-	STXb+q6inhsfZoUIB8sJkMhJW2UgdBidTuapp7yw4tZqB8iDD9nnMkX/QfIRWcHcOncVghw0zJB
-	nBjhEXy+pyw4CSVlTLEk6lWhqdfdGdcx8ncAwlaPpqyf3rDD11Bk/kh9H89TyHzZiTlnbtUqoBI
-	JX7mKsqd9MgVZ8we12fdTCG2FmCeBuW+3OcJKJKjMv+aYK7NFiNyufqbQSrGxDubzETjvsM1LAa
-	Y0Qc7FD0yupxhy00Ctukw7Q1YUbWNJ3imZd9tSKt126yl3DMOs+Fo2WLn2qxwGuzilHDUlc6HGR
-	tGC2Y6G+PV30emgDc8UXROd0L3RvYpQXsZBmYU8dr5T5Gq2FLFKyyhPOYvJiOsCm4Dh3Etoowxk
-	PJxTcC6lgoCstZ4j5cgIfIuczfsgPyoiyRF9Wynb6IASFwxZnE1iPS9rXYpHRdO4/d/3O1GHikT
-	iHEJkLUjcbZtK6WxriJ6H+czjNoADjkqLMg==
-X-Received: by 2002:a17:907:980c:b0:c49:903e:1e19 with SMTP id a640c23a62f3a-c4ca7a82557mr1350207466b.26.1793793696132;
-        Wed, 04 Nov 2026 04:01:36 -0800 (PST)
-Received: from CCM-PC (83-233-221-133.cust.bredband2.com. [83.233.221.133])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e424f94sm60940966b.24.2026.11.04.04.01.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:01:35 -0800 (PST)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
+	dmarc=fail header.from=podgorny.cz;
+	spf=fail smtp.mailfrom=podgorny.cz;
+	arc=none smtp.remote-ip=176.98.248.254
+Received: from ruprt.localdomain (unknown [176.98.248.254])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 751A6606A326;
+	Wed,  4 Nov 2026 12:01:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 751A6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=podgorny.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=podgorny.cz
+Received: by ruprt.localdomain (Postfix, from userid 1000)
+	id 362DF186A9A4; Wed, 04 Nov 2026 13:01:38 +0100 (CET)
+From: Radek Podgorny <radek@podgorny.cz>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ziyang Huang <hzyitc@outlook.com>,
-	Stanislaw Pal <kuncy7@gmail.com>
-Subject: [PATCH net-next v8 0/2] net: dsa: qca8k: preserve port state across MTU changes
-Date: Wed,  4 Nov 2026 13:01:27 +0100
-Message-ID: <20261104120130.48455-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	Radek Podgorny <radek@podgorny.cz>
+Subject: [PATCH v2] Bluetooth: find an RPA peer's connection parameters by its identity
+Date: Wed,  4 Nov 2026 13:01:38 +0100
+Message-ID: <20261104120138.1165715-1-radek@podgorny.cz>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,74 +50,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The qca8k MTU callback pauses the CPU MACs on ports 0 and 6, writes
-MAX_FRAME_SIZE and then enables both MACs unconditionally. That can undo
-a phylink link-down decision, and phylink callbacks, which run without
-RTNL, can enable a MAC during the update. Patch 2 saves and restores the
-port state under a new lock that all PORT_STATUS writers take.
+A bonded peer's connection parameters are stored under its identity
+address, but hci_conn_params_lookup() matches only the exact address it
+is given, so a caller holding the peer's RPA misses the entry.
 
-Sashiko's review of v7 [1] showed that readers that do not take that
-lock, such as the PCS poll, can still corrupt the saved state: the qca8k
-regmap is created with disable_locking, so concurrent accesses share
-regmap's work_buf. Patch 1, from Stanislaw Pal, lets regmap take its own
-lock. Stanislaw posted it to net [2] and offered that I carry it here
-[3].
+hci_le_create_conn_sync() is such a caller: hci_connect_le() puts the
+peer's cached RPA in conn->dst, and __hci_conn_add() no longer converts
+it back when the controller cannot translate an identity address. The
+connection is then created with the controller-wide defaults in hdev
+instead of the peer's interval, latency and supervision timeout.
 
-As Andrew asked [4], the series targets net-next: the problem was found
-by review and has not been seen in production. Both patches keep their
-Fixes tags.
+Resolve the RPA in hci_conn_params_lookup() when the exact match fails,
+so every caller finds the same entry whichever of the peer's addresses
+it holds. The exact match is tried first, so an entry stored under an
+RPA is still found as before.
 
-LLM coding assistants helped write both patches. Stanislaw, checkpatch
-on net-next reports the Assisted-by trailer as non-standard, so I
-dropped it from patch 1 and mention the assistance here instead; nothing
-else in your patch changed.
+hci_conn_params_add() and hci_conn_params_del() look up through the
+same function, so given a resolvable RPA they now act on the peer's
+identity entry instead of creating or missing a separate one.
 
-Testing: the affected arm64 objects build with W=1, with CONFIG_PM_SLEEP
-enabled and disabled. A local KUnit test on UML, not part of this
-series, runs the driver's regmap config, register, PCS and phylink
-callbacks, MTU and suspend code against the real regmap core, with a
-register-file MDIO bus. It forces the work_buf value interleaving from
-[1] on that bus. It also covers both CPU MACs running, port 6 down or
-disabled, failed pause and restore writes, the second CPU callback after
-a commit, retries and a newer link-down decision. All cases pass, and
-PROVE_LOCKING reports nothing on the exercised paths. Without patch 1,
-the two interleaving cases fail: MAX_FRAME_SIZE is written with the port
-0 MAC enabled, and a PCS poll of port 6 reports port 0's link. Not
-tested on hardware or over the Ethernet management path.
+Fixes: 4914c4998961 ("Bluetooth: put the peer's on-air address on air when we cannot resolve")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Radek Podgorny <radek@podgorny.cz>
+---
+Changes in v2:
+- Resolve the RPA inside hci_conn_params_lookup() rather than at the
+  hci_le_create_conn_sync() call site, as Luiz suggested, so no other
+  caller can miss the entry
+- Exact match still first, so entries stored under an RPA are unchanged.
+  I weighed inlining this as one pass matching either address, but that
+  lets list order rather than exactness decide between an RPA entry and
+  an identity entry, and resolves the IRK on every RPA lookup; a small
+  helper scanned twice seemed cleaner
+- Rebased on bluetooth-next
+- Link to v1: https://patch.msgid.link/20261101-for-upstream-le-conn-params-rpa-v1-1-988629a09bc9@podgorny.cz
 
-Changes in v8:
-- Target net-next [4].
-- Add patch 1 from Stanislaw [2], which v7 was missing [1].
-- Rebase on net-next. qca8k_port_set_status() needed manual resolution
-  against regmap_assign_bits(); the MTU and PORT_STATUS code is the same
-  as v7.
-- Say in patch 2's commit message how the problem was found [5].
-- Drop the Assisted-by trailers from both patches and describe the LLM
-  assistance in this letter instead.
+Tested on the author's van (BCM4345C0 against a bonded peer that
+rotates RPAs): with v2 the peer's stored connection parameters are used
+again. bluetooth-next itself was only build-tested.
 
-v7: https://lore.kernel.org/netdev/20261022155837.760-1-yongzhao.derek@gmail.com/
-v6: https://lore.kernel.org/netdev/20261019173716.198475-1-yongzhao.derek@gmail.com/
-v5: https://lore.kernel.org/netdev/20261015104550.43169-1-yongzhao.derek@gmail.com/
+Per Documentation/process/generated-content.rst: the patch and this
+message were done with the Claude coding assistant (model as in the
+Assisted-by trailer). The prompts asked it to fix the lookup miss named
+in the on-air address review and, for v2, to move the fix into
+hci_conn_params_lookup() per review. The author directed the work,
+reviewed the result and tested it on the van.
+---
+ net/bluetooth/hci_core.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-[1] https://lore.kernel.org/netdev/179303171241.3134.15019965307136674652@kernel.org/
-[2] https://lore.kernel.org/netdev/20261022192933.384898-2-kuncy7@gmail.com/
-[3] https://lore.kernel.org/netdev/20261028145622.195730-1-kuncy7@gmail.com/
-[4] https://lore.kernel.org/netdev/47e9713f-815e-4caf-8928-a7ec12d0087b@lunn.ch/
-[5] https://lore.kernel.org/netdev/179268501671.3290.6623232109527554630@kernel.org/
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index bfc5bdebc71a2..2dc12c01c4dc1 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -2285,9 +2285,8 @@ int hci_bdaddr_list_del_with_irk(struct list_head *list, bdaddr_t *bdaddr,
+ 	return 0;
+ }
+ 
+-/* This function requires the caller holds hdev->lock */
+-struct hci_conn_params *hci_conn_params_lookup(struct hci_dev *hdev,
+-					       bdaddr_t *addr, u8 addr_type)
++static struct hci_conn_params *conn_params_find(struct hci_dev *hdev,
++						bdaddr_t *addr, u8 addr_type)
+ {
+ 	struct hci_conn_params *params;
+ 
+@@ -2301,6 +2300,27 @@ struct hci_conn_params *hci_conn_params_lookup(struct hci_dev *hdev,
+ 	return NULL;
+ }
+ 
++/* This function requires the caller holds hdev->lock */
++struct hci_conn_params *hci_conn_params_lookup(struct hci_dev *hdev,
++					       bdaddr_t *addr, u8 addr_type)
++{
++	struct hci_conn_params *params;
++	struct smp_irk *irk;
++
++	params = conn_params_find(hdev, addr, addr_type);
++	if (params)
++		return params;
++
++	/* A bonded peer's parameters are stored under its identity address,
++	 * so an RPA that resolves to it finds the same entry.
++	 */
++	irk = hci_get_irk(hdev, addr, addr_type);
++	if (!irk)
++		return NULL;
++
++	return conn_params_find(hdev, &irk->bdaddr, irk->addr_type);
++}
++
+ /* This function requires the caller holds hdev->lock or rcu_read_lock */
+ struct hci_conn_params *hci_pend_le_action_lookup(struct list_head *list,
+ 						  bdaddr_t *addr, u8 addr_type)
 
-Stanislaw Pal (1):
-  net: dsa: qca8k: let regmap serialize register access
-
-Yongzhao Chen (1):
-  net: dsa: qca8k: preserve port state across MTU changes
-
- drivers/net/dsa/qca/qca8k-8xxx.c   |  34 ++++++-
- drivers/net/dsa/qca/qca8k-common.c | 149 +++++++++++++++++++++++++----
- drivers/net/dsa/qca/qca8k.h        |  15 +++
- 3 files changed, 175 insertions(+), 23 deletions(-)
-
-
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+base-commit: 3f425f95ba3923d605f6a8b382e8fcdc59d479db
 -- 
-2.43.0
+2.56.0
 
