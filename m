@@ -1,65 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832089;
-	b=I8YBq2Bg0WmC9Qj320HuugrMhgB0ZIdgR3F1+EtWUH8hnwvbasp7CnHWzBAFd9LnPaDg
-	 CRyZuMVkImkNk4ojAieEpNw1b4uIH9QqJCKpzvwPSDkp+h0mHRv9sr6A5xwm60NX40wg2
-	 rgsE3c6RKAOiORzQrtRcyeLwYfLUlgQk90yRJ4xBICxyIbQwwS6N0mwEA6ec5n911Y37r
-	 lR+y4Qmh9b6kwzKC8SlfiIUZVDRydy9QwoOYDDCeDrtLAGLlAAl7QaTqATXG2YYuCfbRU
-	 uqsT/CzBJ5CFoh1UXHmCy9wtfyLga5WaAwEzQtkxGd0fREHuPb9Vma0L3De1DLRQ/mw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832089;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=7qZpWURka/+lx/7Wneimm/Vla9SjK0znRO6n7QU8y1A=;
-	b=t+WkLgI7T+d8fa766M51lTa+wsSfB/5kkGwvyEXWKBqMvBncJ5BQE8UO93uz65REO67K
-	 WtODRy5/PtAGAeaemQDvrHSyZ9k3zwrGGFJ+DYzYrIcmGRtNgT94uYRNxRxu0sh3OCr4g
-	 3Z3sra3LtloPBUhzeqpobDLqgNYfXt1RriJEfEIWMYocxhCZQ8pxRQhjHQs4vqJW5xVAy
-	 sCv360W8Dd43bchWpHfWxl/S6fL5uOIXgo/7uFsl6E5OuKcdyWS47PJ5uNQ4BHf3e9ZCi
-	 xznvziVrGV2CRBj5BOpDkdUPqbF9aysF7BdKsTv2TEv9fcogkbFwHYqR6vo2mY6pEBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rOqIZS4t;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793832123;
+	b=GjxUoLlsnFPgDu4y/cWZc4p99OFqxuqGMoMeupQw92n/cFYuGBQw0diQydIS6K1REgkr
+	 DJEjpnqGAZittjGKQDi5Z1zznaFbeiioweQzPO4RI0jWzoDhmTlRpQZSxMugo6W6mMR69
+	 WJss/mg1Ojq0N3YwDwzJzNaW44BDxpgUmC3XjLTlaztcs4omS51a2SmqmaPwdZz2W8kpo
+	 pGhukaik4c45aJXLVbmEdn9pjAqr+LBn7khkYu6EhVomI53YuPq2wb9RHygP8MdpBlvP7
+	 b7AM8KiM0nvQ243ZxiNXYwZr8mJ4n8eeSaORe1nlLbjSs+9U6ro2Blv0mPueOXZSLTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832123;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:X-Mailer:In-Reply-To:References:MIME-Version:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=WErvo2GLUvNSKhdIQULmZWHJk9AdernDD4tBPDZdzN0=;
+	b=YlobV3NfesZCTwuMKilVx0SQLsqp2xOUercYQAi2e+mod4nhXE4IqsCguI0j6rKKuAP5
+	 Ttp7qfkIbyslrp9KRPJP4/M48ldd1X4Oa6GMD/mbPPD0KQj9XVbYfoGphG/WyHbgrkvVq
+	 L2+wocMlh15y/088T5Sps8k/6Dn6ySpb5hpBpk6p/xo2CXijk8e9zsuTARER8Gxot8Kly
+	 i+PO8eUGzgfgW8QIbq89mjiNM/KUdPOy/QrnZ0djJeBYAi34gjCT4ueWIgQ4oaQWE7Ors
+	 /XQ6HC6fcMdjbDf8IJoLRdYj48my6HYxkh16T+kCqsNgjfY22Qocd3JA5KfzSBsrlsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6L7IR3F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BC3606A31B;
-	Wed,  4 Nov 2026 22:41:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BC3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD342606A329
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 22:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD342606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rOqIZS4t
-Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 230F84DC;
-	Wed,  4 Nov 2026 23:39:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793831948;
-	bh=l0IK2/uBObwwwOOvN1QlNu1hSSuVNS6zujcv8abfYJo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rOqIZS4txSf/h63rLdjLG/LuplpnE5uhWks5TqjbN9vprraQnjmaG7bwLJOSj6eVs
-	 xdQedBICWzlFs5wmS9BlFTY2y1xhNvfZD9feZDjar4rNO3wxLvKGrYpj8WHeczlukE
-	 wQF8GmsShvC++n4FfU78qc7YewZteuLFStwrNR1o=
-Date: Thu, 5 Nov 2026 00:41:25 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Chad Aldreda <ca@modelmiser.com>
-Cc: linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	driver-core@lists.linux.dev, linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Nick Faro <yux50000@hotmail.com>
-Subject: Re: [RFC PATCH 0/4] devres: warn about managed memory still held by
- open files at unbind
-Message-ID: <20261104224125.GB3976471@killaraus.ideasonboard.com>
-References: <20261104215546.3990950-1-ca@modelmiser.com>
- <20261104220749.GA3976471@killaraus.ideasonboard.com>
- <20261104223146.4012287-1-ca@modelmiser.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6L7IR3F
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4f488ba6e90so487590b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 14:42:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793832122; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BzM2YXBfMCCVoGN3dxm2fENAfJzLsBcmmLVhscyTK1jmzJ8AZg57fmUSX39wsKE8jj
+         40xCtdlUIPK+zz7tznUKV15vco0k4uWpp8RML+Do1YIDKYXoH/CNiXQJX7DqV014RRvn
+         XayEaMXPY0OTJSL6g++HG02iL2FIbmiFfQc59Mp5qqf3hm1xgdu518YGh3p7qEHygmsg
+         +u7QLbo5TcoKUtWp/34jUBZEkThfd8Gi5LyET8icTjA6N9iP6OT3NZUL3EYdRclqY2Rm
+         9wHHwrjH6YBg71fcDMu+pUoSRzHy2QrOVRLZS94FONUO2ANJ9U6KPIA9KEprYYkI7V7s
+         dmpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=WErvo2GLUvNSKhdIQULmZWHJk9AdernDD4tBPDZdzN0=;
+        fh=tDbrRtSP4ph0G6Chd4IlIM5tCGkpEDJpsv2xzdIYn/A=;
+        b=qiNnYjlAHGq2jJ19HUlbJJVAADkTLaLYppiruvW5ikFmRkQCBQgXTlEkchkix2jYRR
+         EWgUUoyhxXqvf3GXWIEJi1ijUDFZwxXpdW8rEDX8Au7H6PgcEJeHZGeR0v58n/eP38j8
+         peGJNS6Qvp2iPa15SZJNH/dXYxCt5Uythlltqr6NOiwcnZwtnJSmtL9qLOM05qzMxahL
+         RO9StE0BwsZzUcw2ErGrv4xRvAzpWuaPJtE8R+LBgjv76YSapZpLGMKpy/t52RSE5e+9
+         43xdc3ngnCa4qMQZS4piLgoZm6/f65zQFsc3lLfeM0Av4MF5mrskwD+I1CFuEbJEJ85M
+         YtZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793832122; x=1794436922; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WErvo2GLUvNSKhdIQULmZWHJk9AdernDD4tBPDZdzN0=;
+        b=q6L7IR3FtwIQ0LkPfu40pZoBfPvKqcXL94JSwnjEeU1VRPv45r41nGikNoRjoE6Lz8
+         77lQlxZW89Vo7SeWgBTaBEMaMOpRPEIATBduFwLR5eivyQhkLKMb7ebKSylU/zcxAMAn
+         QdEQ1u6CmPjFSsiYNaj4KC5t6jTNNT41P6amusS7ikGkxTAkfqgufR9YwGD5n/NsdoS2
+         aNTAeeAbvMxzklhxrj9gajGaAY5XC7gbB7a1tPPoXeL9/8A1O9dsLuQHtiIWbSES0Nec
+         3mRKNkaJOnRlXQZjcd5BviFWfwnRY3UO1KxvuyTl+O5RHhZndfBroxLdbHo7DdVYrqpC
+         C+2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793832122; x=1794436922;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WErvo2GLUvNSKhdIQULmZWHJk9AdernDD4tBPDZdzN0=;
+        b=LDfRTCtAk7bWixnv3rzp4+u8CTlaB0ShQPkTbNPSTYj3y97JRT/9+ZRg0680n90c6b
+         edC/QiEcnIOpljFRYCFbKD04ozxdipJb9nU03pg2b6kYllRrnYyfuEGA2Rz8sDIUDMWn
+         qWnzYoLy/gy3x0ccZ4WGn4PnJJte24nyDMycpNjclbDFgmN4xDEqZGuE/Dpohp8y6jku
+         CrjRKNDJfKfpPuzLaVg8zZL0MG+WtH+FJ3fYj9OL2GGUfdZSOUvwR0OyXQxGI190wq+Z
+         VegY8Xpz/lis19ZGR9KqBqOWYoK3mIHdaazHiRixzVaauPN1ajBRb7QgP0PeGowp4eBR
+         vC4w==
+X-Forwarded-Encrypted: i=1; AKwUvByOZc5S+4S+iou1Q3C1cEcPyPlOSprcrD1xIDfJ8WkSbBocjsb1Kg+1B1V2V9EFReiXNgYLdqV1tDmg4Xs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ps2MZ/EmOTYZnN24XKgwti13WgjNa537a4OCNTf8Tb5RiHc/M
+	0a3OqCgBTjvU+hFfDHcWVHcqrL0gb5w8EX582+LZVatFtpBir9uoJxcUHFfbmhiVCF0B4LISskm
+	D6Zmv53mhN1urYuZP+mx82wJWADVJXsA=
+X-Gm-Gg: AYBFou0qSczN4w+wKgx42+8Sn2LAlC788zpb9Snvj8lWhK7+sd5ZdSUDDBFbSu2aHAz
+	ohHsHS38QVPAgTOhJjImwzdhPurPUR03RWvJbYVGxOU65Jmi2eh5xsxr52e25wMLwHyPKuYiPQA
+	BL1Y3nDs4yFOnC7QkCZSeUUwvi8quD+qyNX2dKkEyXUAHAaL+levMGe8SjNSlJwQ61Xn9ZvywCu
+	mkDKAamGWFdu6mdxjnB25Z2sBWvIFNXgHEs3iXLB5NxUIIc3XaPqJVkJVr/ReYuvq1IvH+qT8zD
+	sfE8x/4b2iIwADUF6nMgPwWyPs0xqcfJMSE/fffyxfMRq6OFHEE/wOWGA8s+uHDUxFmc5Cf/zCx
+	WR7mQClwk24esNVYCSciLpdYp5jqu7DwRiAwooemUwvcRNwxI2gfcR2AM+8Xox1YVcmGVrDw=
+X-Received: by 2002:a05:6808:11c7:b0:539:dfe8:9960 with SMTP id
+ 5614622812f47-5640de0f2bamr12348302b6e.56.1793832121760; Wed, 04 Nov 2026
+ 14:42:01 -0800 (PST)
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 4 Nov 2026 14:42:00 -0800
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 4 Nov 2026 14:42:00 -0800
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <CADZg-m04iG5kCZ5-yh=Vz_ysYjVDGSYn3je4_-8AzWWfiC-bXQ@mail.gmail.com>
+References: <CADZg-m04iG5kCZ5-yh=Vz_ysYjVDGSYn3je4_-8AzWWfiC-bXQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,43 +111,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104223146.4012287-1-ca@modelmiser.com>
+Date: Wed, 4 Nov 2026 14:42:00 -0800
+X-Gm-Features: AclHuK8VXrXubivnKeWdOi0BsvXqCf5pOWGutxidKBItsHpI5FtVw2Y7RLuRbVQ
+Message-ID: <CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
+Subject: [PATCH v2] ring-buffer: Skip time delta validation for the counter clock
+To: rostedt@goodmis.org, mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 04, 2026 at 10:31:51PM +0000, Chad Aldreda wrote:
-> > Are you really expecting anyone to read all that ?
-> 
-> Fair enough. The short version:
+The counter trace clock increments on every read. Time delta validation
+assumes that the clock values read while reserving and checking an event
+can be reconciled with the deltas stored in the page. With the counter
+clock, this assumption can fail for an intact ring buffer and report a
+spurious TIME DOES NOT MATCH warning.
 
-I think you forgot about the second part of my reply.
+Skip time delta validation while the buffer uses trace_clock_counter().
+Clock selection already resets the buffer, so events recorded under a
+previous clock are not retained for this check. Recording and reading
+counter-clock events are unchanged.
 
-> A struct cdev, miscdevice or video_device embedded in devm_kzalloc()'d
-> driver state outlives the unbind through any open file, and the next
-> operation on that file, usually close(), is a use-after-free. It keeps
-> getting fixed one driver at a time (44f3468a0aef, 7d6358ab0286), and
-> cx231xx in 7.4-rc1 still has the shape.
-> 
-> CONFIG_DEBUG_DEVRES_REFS, off by default: in device_unbind_cleanup(),
-> before devres_release_all(), walk every task's fd table once and WARN
-> when a file's private_data, i_private or i_cdev, or an object a
-> subsystem names (patch 3: V4L2's video_device), points into an
-> allocation about to be freed. A debugfs file still live during the walk
-> is judged after release, since drivers often remove those through a
-> devres action. Cost: one walk per unbind or failed probe.
-> 
-> Patch 4 is a test driver: unbind with its nodes open gives two WARNs,
-> and KASAN then reports the use-after-frees on close. vivid, as a
-> control, is silent.
-> 
-> The open problem (question 5 in the cover): the walk holds a reference
-> on each file it inspects, so a racing close can leave it the last
-> holder. It runs on a kthread so that release goes to delayed_fput
-> rather than task work queued behind the unbind, but the delayed-fput
-> worker is serialized, so a release there that needs a lock unbind
-> holds stalls the ones behind it.
+Link: https://lists.openwall.net/linux-kernel/2026/09/20/1283
+Reported-by: syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=eb74dca0d1eb3ec227a7
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+---
+Changes in v2:
+- Resend as plain text after the previous mail client reformatted the diff.
 
--- 
-Regards,
+ kernel/trace/ring_buffer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Laurent Pinchart
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1fd28a7..c860d5b 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -4747,6 +4747,10 @@ static void check_buffer(struct
+ring_buffer_per_cpu *cpu_buffer,
+ 	bool full = false;
+ 	int ret;
+
++	/* The counter clock advances on every read, invalidating this check. */
++	if (cpu_buffer->buffer->clock == trace_clock_counter)
++		return;
++
+ 	dpage = info->tail_page->page;
+
+ 	if (tail == CHECK_FULL_PAGE) {
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
