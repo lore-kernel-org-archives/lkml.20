@@ -1,75 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763527;
-	b=m1Q38s4/e81VU/hbs3Q23b5aIwHKYKwfo3E65LuBBMz4t+3OqnRC2SUlXMCCru8bmUdT
-	 lBTGXtRH+Vd+ygDYAV/yEoiynEkC8VoY84i4jlAjWxJY05WXbFXYbMo6diFvhLbC8hoGX
-	 +P+EcXQHmk4IwvN9vCLXD2pCUFsLxVbR2WqEwwEWW0/SpE6UxOpfpEiGz1RfU1cXaUGZF
-	 nM6ldS/CZLAqGqr29NH1mJhbktA3GLscaYyZMD3LeU9bQXADP1yMw6pg6jZd3XiA7VTxp
-	 OnqCLTnG3eqc5BBDDN6j4iDltd8aYGmlK8P3icWnGtKT8tJF7ubEgTSAtCnej1mN1+w==
+	t=1793763535;
+	b=1TqU4NdUziDTVTaL8nGYe3b2iodvXKqTAzHGgEbKHRGq7gsTvvb+QNrZY1sh3dETNugC
+	 wSzRNxnFCoQr1XoiHSq4dSiBFd3sfysUiV9zGs5XaqxenfKE3fri4K+disOTKi6Qy3CBa
+	 3uu4fLA2kyv78GycdvTzqqNQmHhRDyVLl+0ucq5fU0YsYgnZR2hWdcQfAsp78XMgMEWpj
+	 RpIowIpeKKiFgwy6aP02KSpR4oIwsrOhk7iCQl2k03EUw3s3GluBgpS80Y/MFUYzFxfgW
+	 3MfHF6p5VmvqNk3vemhW8B5wHoccQZojDAowLoEOh1Wh7HDFzHoOdCgk83OhEL7o5xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763527;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=Ld/0/oO5/dcyaFSZVTGSJT7CZ63LB3da6H6DL8O7euU=;
-	b=OBFC9QzUr3vPvc/s1nnTja6neK7SEVWw1njr3b3iOTlCsBfUjcM/ECMZjhDZmwS1WRFB
-	 jVXNmLdXLOTnIMW2UWey4gbnbIHHUptE74VdicJqJxGu+VfxjjCxG50HWxRvh/2gYBWLT
-	 D29VLBamDNtUutyA32gDQpL3KX+csKZL0/Hazufs4rC/oDRTWJEU4rRcN6uqZIkAZDBNf
-	 amDbjSZbs1Aa4XuY1R5Y/s6ZXD6+/r6Bxx8S2HExlVPj5LxkSknCDWRvNNaC7KXpQb21U
-	 hJBhNOlKzibFbpzXtTsEq7QTYl8/vhYrAQxVLL5PSvWJFWlmJqkxDv+0TNcZSQhZ/Yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=rvyyEItMjhpjcCiR5G2iyawMRAc8IGNvunoyBM1eU1k=;
+	b=nep7k72tx6c3Fx0BA0X8gPjGUgy+EW/tTQ4pibqNueQ7BIPD258fLHWT7XTODbdDo50V
+	 9NlH/X/LI5r+3c1sVLTYxB1ZcpMGSJyEhJ38lxvJa51p6P0BYukWDTc9OzwATz5bOEW24
+	 lK9YBYTztIys7y5ZzdxRvWfemN3tDkh/PN8qUWaC3jQgP3ltJk5ycNvy4x/9Uy2fqMLQz
+	 AIsQ/F4f1qQJvLtl4zbt26QTB7kmWH9xlCm4js9BmlcDYfxQVIpV/PmLRQu6opdrcuAqX
+	 Jjy5oR5uNX501fiXB6MJHF+fuj7QKYb0OegFQSaDQTBMnaRddcE3UMbRR4bRVcDNLlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="zDdQR/oN";
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMnGGHbZ;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906A1606A31B;
-	Wed,  4 Nov 2026 03:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 906A1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2298C606A32D
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 03:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2298C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=zDdQR/oN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793763521; bh=Ld/0/oO5/dcyaFSZVTGSJT7CZ63LB3da6H6DL8O7euU=;
-	h=From:To:Cc:Subject:Date;
-	b=zDdQR/oNBiRYRgam32mzLNqqNN4+LyxgpmKjjPXIe4k3zEfsTk/C753e4auFhzHqr
-	 nbUY+j8lDMX1OijRnOpRtKgGlRYpKnf1w0DOP2n+HNmyrk8W0sPFq84UZh8zkt64Hg
-	 OrvnOOMivjsYs/bZvmeqfH++n0Haquz931e//tCA=
-Received: from [172.18.4.77] ([61.136.26.103])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 9A7B4E35; Wed, 04 Nov 2026 11:38:39 +0800
-X-QQ-mid: xmsmtpt1793763519t1zc3rdps
-Message-ID: <tencent_2BA96BDF7A23284E7DA60251823E63515808@qq.com>
-X-QQ-XMAILINFO: NC4p7XQIBeahv0YBCtuDRj6dEHyIkojQmXqyn3geZQd7rrVELvo9W8+QfzBLrC
-	 GT768jPzDl87QVpd6GDWHvQjsP7nAOVg6eoY9NF641Cegs3UdZQs76sHoURyANmbJQR9Iii1xGcZ
-	 MgpkQ7lTjS+w7mWPj+pDdfbrje4omrS52DW4OQbG0/SDzZqZ9ArzCVLR+VGBdiu8UDpM7U17NsYM
-	 SIH9DmFdHhXpIAa34N1Awmw1FIU8lnqTmtekD656XFubiBZQneaB8Yyo07Pch+Cb8pomyRjyunpV
-	 nKLjuBN56jfkzKKQjSK732mJFXBjO+kfQDMkiiOX744w1o6zwL+szLKoysMXG3x5n2pIfMjXG0wG
-	 HW+ZAaM9M2cCu7CxG3XbAuNOqABh5O7CbYT4nLosxE5JCuYxEp5YalZwUBl8Hng0/pEc2ZlR9T9R
-	 8V9dLOykJZTzp2obc3cL2arm52Sa2BzN257x5zHPmOgCMp4+SuEeaS+Myfb7CBPFQMmCgeKvpyio
-	 4/G0jPoYTn7Eu2V2A/aRsW5SVnMlsnwOq963I7Gguxy3RW3pyNlEC7C0LT7/f7G/SNeTMo7QKcJi
-	 XtgTAB7IyZe6fHfK8jPI6JN5fitmP0qBUMLIPr5l9W6pEwK6zm741vuAb/z67/4KMwoPKCcNcHpE
-	 xghdkH4nNT10UjIsNI3SXcSpoHWvYvgvQQXQMt8hseupJJnZmHerup6Ly/NZB3qG/V3nvg3tEQ+o
-	 VEtHYS+DozrjwJUa9uCNjqWX8WNM26+aJx8/EPwBmDpIYoc/biRFfEBss64uxgHkP89EXU7gAe07
-	 YbcU9GHb3b5dzyVZqvL5ZXFEgTN0wrGUeIzS/IpPd84JGYUE0PEn49TG1hZyhqUNrLwxZjwZOmRN
-	 K/xNR4UznH/s+jF8j9KTdZ40sKi9IjuTY7Mk/O0yjlHY+UsrnGlLxdqQTvJK6YbqyN+3W4yBs8Pt
-	 lEvu64x2WHNe+Cib+jx/Jbqsx2yYnYVLYOrWJMWwnFXStZudhzb8sCp6XttJZ7IvKPhTtgVJv6FR
-	 tOIXrmYUdr456Re5u0phNa3dZXw91VfvEqyzzeFvRJ11xigPX4HrkLyZGCbaPo4hQNXLH6xZwPPL
-	 qivLhO
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: ntfs3: unvalidated c_unit in sparse/compressed attribute header
- triggers UBSAN shift-out-of-bounds in attr_set_size_ex()
-X-OQ-MSGID: <c18-ntfs3-cunit-shift-20261103@qq.com>
-Date: Tue, 03 Nov 2026 18:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMnGGHbZ
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36c9a93a1abso167071eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 19:38:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793763534; x=1794368334; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rvyyEItMjhpjcCiR5G2iyawMRAc8IGNvunoyBM1eU1k=;
+        b=IMnGGHbZfzS4ZMXl77G8FzBSzJN04aU4eLBtXEhq2+SM14tDfaYWKhh4FUKDjtRN1m
+         8pUDfwsP/9AEG+JbxPf7bWMErkI8kLMWHa6yJqshjWAjwwoOkWajG5XMDxrXrs1xbF3r
+         dgcH9WRjJ+Ls85cyHl8GjtuQw+we8F0IOvFL67s/MVpuRJ5Tq7QwYJ6GWKzGTYYBrnh2
+         QpL+mk1HCYGFhnhPXf3sPUWhs/FbqLyVStAk4oGTEyfH2DMGI7KrFY4BHXscStSUB5P5
+         2sFhgObS9Qru4z9ZkapYnlJo1FaEmHXb36SAUivo6oEGOWOrIB/vE0HVinok4jg5WfXW
+         62vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793763534; x=1794368334;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rvyyEItMjhpjcCiR5G2iyawMRAc8IGNvunoyBM1eU1k=;
+        b=I7Q9iYHvv7b6cLTg8qyO97adtIkBa7KbVqpyW8hcUrb/jnh7cQixazvMZ4f/bccpuD
+         ikS6SLJv2l12I4knqUqafBe9zbXjAl/tiRjQtw6dZ3yWxC7hnDCUylzyBMTKqt81soRI
+         38d8T3oxj9lOfsHT+YvOiqUm7sEbfA5zd1vsPt9ZGvzjnJIbAVHaExRbZ+9ZQ+/6pgw6
+         kBqJB+IPZZ+KPdBvxVx+mpGOkHoKgQyb2sM3mU/OAXIUOVQvRmK2JfciQazHkffHK8MB
+         SItuqRdBp9Rg9IwtpTpF0KE83W1K3lZO2XKyrnujwmrEb1QFKa+/3kVC4Aozt1VCwX9u
+         UKAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybOloSvwRHpJQ3haiwiOhFu8NMql1rMuzDS1KbtS5Qx+3ey5LK/53nn5dA8ZMGRDgBhIuqlYUq6GOPCY8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kmuLKMpq0QWvC0HmJYF11HMSGdrFTh02VZ6RMOogC0K+izcn9
+	G0FnGKKD2H2+apn4EwxIqUmi10NhNxVYjKGfjfbLUTjBwbjhFVallyvO
+X-Gm-Gg: AYBFou2oC0VxcsvUpuWhNvnx7+ELr4vOVMhp1AvMbLqldIs+oRdOqCdpE3wXXh8WEIX
+	9W3N9g5/loK9VxOaRZ/ZYVTuBfFgC+puJEyA7AJFNNEo2rb/s38sov1kWDcMkur4B1EKrLzmDKK
+	lLZUH/iNBD6BfVLMttz2fCfPrhkSZBLanjPRw8guvIBxA6cIFWCgnemT9ewoyJdDA43Ge5q02yR
+	ZH1KMH037FD6jlt87dU/BqQ2F2Uunq8Zb5PvXpt5jdiU82ePZFdiefVPCiT11CCeuYxmrAQiF2D
+	HI/EhF+3q0r9YknJcG46BE9hVq5mP2LYL0h03cPSOz3BcwBVUMosWmqKgMoSnqJvUYjPBkrJn7X
+	Eszc9DDgStxoR7f/dKIOStyuCO97QGY8ZXxw7bDBfSOmmljiUkO4yC+fyC/rSo+NTJIH9d6oZjG
+	+BIMx/EsCFFgmpHTHAZ6nuLh5qniO5oBxyd2TDOHgwRkV3oMGawyctCvRzSJz2AHWqB/3eHwppB
+	tgkZhV6ODEnqt0HEece3fyDEEkn6DoKEfxDIoOnNqKh4+VWNJW0LTQAojvk/Q6z+Z+WwCaE4FUl
+	xryKWuidC80PXw4hG8GDmZAxzcG0FPTwmYos9bRxtcL2zRk/pbSW/uwdGAWu6KLs7Zq/
+X-Received: by 2002:a05:7300:f80e:b0:36c:98e5:a6c1 with SMTP id 5a478bee46e88-36c98e5ad0dmr4158661eec.19.1793763534132;
+        Tue, 03 Nov 2026 19:38:54 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3981ff0sm3310812eec.24.2026.11.03.19.38.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:38:53 -0800 (PST)
+Date: Tue, 03 Nov 2026 19:38:52 -0800
+Message-ID: <8063a24bb9f75bb9096c947d8ffa7123@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] Input: joydev - avoid signed overflow in the broken-axis correction
+In-Reply-To: <20261103085514.431010-1-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-2-zhugl3@xiaopeng.com> <20261103085514.431010-1-zhugl3@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,95 +100,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Hi,
+Hi Guanglei,
 
-Truncating a file whose non-resident attribute carries the sparse or
-compressed flag ends in a UBSAN shift-out-of-bounds. The shift amount
-is the raw on-disk c_unit byte, which is never bounds-checked on the
-ext attribute path.
+On Tue, Nov 03, 2026 at 04:55:14PM +0800, Guanglei Zhu wrote:
+> The JS_CORR_BROKEN correction multiplies two user-controlled 32-bit
+> values before shifting and clamping the result:
+...
+> -	case JS_CORR_BROKEN:
+> -		value = value > corr->coef[0] ? (value < corr->coef[1] ? 0 :
+> -			((corr->coef[3] * (value - corr->coef[1])) >> 14)) :
+> -			((corr->coef[2] * (value - corr->coef[0])) >> 14);
+> +	case JS_CORR_BROKEN: {
+> +		s64 tmp = value > corr->coef[0] ?
+> +			(value < corr->coef[1] ? 0 :
+> +			 (s64)corr->coef[3] * ((s64)value - corr->coef[1])) :
+> +			(s64)corr->coef[2] * ((s64)value - corr->coef[0]);
+> +
+> +		value = clamp_t(s64, tmp >> 14, -32767, 32767);
+>  		break;
+> +	}
 
-  UBSAN: shift-out-of-bounds in fs/ntfs3/attrib.c:485:9
-  shift exponent 32 is too large for 32-bit type 'unsigned int'
-  Call Trace:
-   __ubsan_handle_shift_out_of_bounds
-   attr_set_size_ex.cold+0x152/0x1bf [ntfs3]
-   ntfs_set_size+0x202/0x360 [ntfs3]
-   ntfs_setattr+0x363/0x6d0 [ntfs3]
+Assigning to value and breaking out of the switch causes value to be
+clamped a second time at the end of joydev_correct(). Also, pre-converting
+value to s64 and replacing the nested ternary with if/else statements
+avoids all the explicit (s64) casts and returns 0 immediately when the
+input is in the deadzone:
 
-## The gap
+static int joydev_correct(int value, struct js_corr *corr)
+{
+	s64 v64;
 
-mi_enum_attr() (fs/ntfs3/record.c) validates each attribute it walks.
-For a plain non-resident attribute it rejects any nonzero c_unit:
+	switch (corr->type) {
+	case JS_CORR_NONE:
+		return clamp(value, -32767, 32767);
 
-  } else {
-          if (attr->nres.c_unit)
-                  goto out;
-          ...
-  }
+	case JS_CORR_BROKEN:
+		v64 = value;
+		if (value < corr->coef[0])
+			v64 = (v64 - corr->coef[0]) * corr->coef[2];
+		else if (value > corr->coef[0] && value > corr->coef[1])
+			v64 = (v64 - corr->coef[1]) * corr->coef[3];
+		else
+			return 0;
 
-but the ext branch - first segment of an attribute with
-ATTR_FLAG_SPARSED or ATTR_FLAG_COMPRESSED set - checks asize,
-total_size alignment and total_size <= alloc_size only. c_unit is
-accepted unbounded, and it is a raw u8 at attribute offset 0x22.
+		return clamp_val(v64 >> 14, -32767, 32767);
 
-The first consumer is attr_set_size_ex() (fs/ntfs3/attrib.c:501):
+	default:
+		return 0;
+	}
+}
 
-  align = sbi->cluster_size;
-  if (is_ext) {
-          align <<= attr_b->nres.c_unit;
-          ...
-  }
+Also, please note that the kernel builds with -fno-strict-overflow, so
+signed overflow is defined as two's-complement wraparound rather than
+compiler undefined behavior, and please drop Fixes and Cc: stable as
+this only affects synthetic coefficients passed via JSIOCSCORR.
 
-and there are four more shift sites using the same field
-(attrib.c:1168, 1732, 2089, 2401).
+Thanks.
 
-The kernel itself only ever writes 0 or NTFS_LZNT_CUNIT (4) into
-c_unit (fs/ntfs3/frecord.c), so anything above 4 is a state the
-filesystem never produces legitimately.
-
-## Observed
-
-The reported exponent tracks the on-disk byte exactly - one run per
-forged value, each deterministic:
-
-  c_unit = 32  ->  "shift exponent 32"
-  c_unit = 64  ->  "shift exponent 64"
-  c_unit = 255 ->  "shift exponent 255"
-
-Trigger is open + ftruncate after mount; no privileges needed.
-
-## Notes on reproduction
-
-Two details make this awkward to reach by blind mutation and worth
-spelling out:
-
-- MFT records are covered by the update sequence array. Any field
-  edit has to undo the USA fixup first and recompute it afterwards,
-  or the record is rejected as corrupt.
-- Converting the attribute to ext form makes total_size land at
-  offset 0x40, where the runlist used to be. The attribute has to
-  grow from 0x48 to 0x50, the runlist moves to 0x48, ATTR_END is
-  re-appended and used is updated.
-
-The reproducer (image builder with USA handling, ready-made image,
-crash logs for all three c_unit values) is available on request.
-
-## Suggested fix
-
-Symmetric with the plain-attribute branch in mi_enum_attr():
-
-  if (!attr->nres.svcn && is_attr_ext(attr)) {
-          ...
-          if (tot_size > alloc_size)
-                  goto out;
-  +       if (attr->nres.c_unit > NTFS_LZNT_CUNIT)
-  +               goto out;
-  } else {
-
-Tested on 7.3.0 (ntfs3 as a module), deterministic; the ext branch
-and the unbounded shift are unchanged in current mainline.
-
-Thanks,
-Guikun Yang
-
+-- 
+Dmitry
