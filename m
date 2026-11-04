@@ -1,49 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788762;
-	b=ONxIeaD9YQtt57Udah2cQ0vMnl64dp1ujEZjxUgcnnpMFgJcIClDPOZxkPGWVXoKJT0F
-	 2UAiZcFmVqwHcu3kZx8qvoFt0FhU29yo9TasVTUI/ZsiRy3KcP+iRQRx/byKL3HHqoTrS
-	 odQqHCsokHDqgxkB6w7U1Z24V5thuU2+gSL+QGjU6LNHysUyGbwk2Y7GWQRPzK5uJ5dLY
-	 T49SBkvSwTmjKXo4+B9zZLH0rlr6PV2GurpMTXuu1Hg/Tn6xiFVBbnnx458djq/FjUR78
-	 nnHupTKizWj7A87uDgvaaI8WnXdosPgr5CH4VVPO+9R/zvVuUNEs6UxDM7coZ6nGfgA==
+	t=1793788807;
+	b=coUUapRHzv20T74oIoqy9DKvE469hmzZfFpAVoHNLaQNEOjZZvRlZBGH1PLkRKrkIzMJ
+	 hINF2OAITTkkx5IkhLQQGwBi237tlCZAjYt84owS1ERTmM9a4IDEl48cHsTlnrOsHGg2o
+	 I5VBm7prdLG8hdUyOGcPmVjUqSmyDN7B6UmT4Krwi3+ZL91APgsTxwctykgfnyiwlc6kV
+	 spsQmAWEif4eUI2SVQKSRS67mT5IbMJG3mPG152/ryAKQvZFU2kpvytUtd13LotNCIh9l
+	 b4jOxD2A5DEuEJ2IM2XxsFzKx1fnyJz9EQgtJJ0M1s7rBsgcaks9ntZb8JqGG6Ngm8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788762;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=nssP4eGI3zXDuFonBDPkQJxTRjYQwrWbLZScwkFMK9E=;
-	b=Uq+x4VL8wVVapKZ/atghB3Dre9sby0nNEq5Thf9opMitxSIVSYRqPBiwsU1Cn6uSpcFl
-	 GRIoleWLcy4tJJMQgdafBe7gGxrnoOZlmTZ+lp2wme+qhKyXFnEPhfvj6s6mZBgNOLuED
-	 81WgFNTENasfXmAs1dEtSMkL90RwU3SQRVQeidR0xEMY8vjn49UscS28u/nhwQeEMDSc4
-	 qBlWbMYIkHbnyDrg/eO2Njcd5npmUF7a1mW3uO0VISp6qSwh5ynm4b8UTAR4zM4KNN5D6
-	 Dlh6dngj5EHd5DtCmyWGewDVevSN0X+y/53I7ZVKIamFndBBByIauDkPRqDZlcvNh4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788807;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=9nviUxxklDz1e7RQotS+S5xXIzfCLzTAm+63a1Agefo=;
+	b=FB7jHdd0WU5ouCQ+qQwfQVYws967oGB+uHfrA7KmDNkQLT6xyrX6XHmegpkiUsj9cQDf
+	 kxEs7i2TBj3TsKT4K0tvVqySmm6pq19SYfFYTiEwGJIA4Uu5O1yiN6OilcxyUEFSenqYs
+	 7Y+7TxyUdV/MnybohmqOoxVpuXLvLdmiHG2tozisB/EfxrVMLTetL5uvewbwYra2TkmF/
+	 Am10oaBR2NAa7NdgzFFXkHgBZ0odSkMKMIe0e9zy0RRhQp/GZGKuIU5YRr3hLNkGQMrLl
+	 hxhvtcrz84Btowxu+Tm7a7Z0N3/bs4P4G+s1YTq3MV2G2ojVgKxyWeaMQf+G/Bcby2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eDsuvw7f;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D7A606A326;
-	Wed,  4 Nov 2026 10:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D7A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A68F606A31B;
+	Wed,  4 Nov 2026 10:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A68F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eDsuvw7f
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 272AB1650;
-	Wed,  4 Nov 2026 02:39:17 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AE4E3F628;
-	Wed,  4 Nov 2026 02:39:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793788760; bh=uv4Nu83ZWi1bXtWcHnSpsPJ7BG6d6N7mX+McDBYbtuY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eDsuvw7fRB91gXRC27O09DhHBx6xx9ag5Cesox1gcq2YZ8yZGORGZhEXCRlb3OFoZ
-	 KitHx/tyq6HfjbQo7e/ec30gUCsMaQyAysA2e+QxXv2XSRh9Vp6SgUEQspDGAzk4lq
-	 ZH24ZRdFSyXCgXan1tWqS7NumGlOoCyoWJYBzQhk=
-Message-ID: <415f6a96-9ac2-4256-a9b9-e976bd0e73a8@arm.com>
-Date: Wed, 4 Nov 2026 10:39:15 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793788807; x=1825324807;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gS4Z3hxrWiNXk0PZbDdWd9RFAdHS8/Nmmvft9Q2f1Dg=;
+  b=A4GS76s4sQTRmC8reuCQpfR+h5NxcBgdDdlBGugjr4nHs/Hi2jIiwyMg
+   BrDI6Ta2xdtZRrjXNlFcCqJVn684CbwIa3ermOgVwPefAibPDCOjM/+gc
+   DJX1s9qKyEHQNsQ7jpgeMDEUgi2mhTQKcVHUJkGcnQgc1jsNIUA0/myiJ
+   8+q2q6jhJLkB5RkF29IZtCZ8Gnoqjobmf+1h8MKyHzA7XaFfKNULLL5/Z
+   ZRrn663t1gwQFSla9CN2o4kBkjV3IhwWTokY+GNkPJESyqkkIPU4il0E+
+   nAO9e9UAI97xFlee4SBGm7xDHHOLed4E80g8exMPNVLnakKbtCt0CsNRp
+   Q==;
+X-CSE-ConnectionGUID: i8WdGjGyScWElFU0bjM3DQ==
+X-CSE-MsgGUID: vgAsVhr/QmyBAmhNdRZeoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2436340"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2436340"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:06 -0800
+X-CSE-ConnectionGUID: xHuM0kqnRyy5PTiMdZKYlw==
+X-CSE-MsgGUID: IJOAm2dLQRCs+ce9hVyt8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7007981"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:03 -0800
+Date: Wed, 4 Nov 2026 12:40:01 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v7 05/12] serial: 8250_dw: derive RX trigger thresholds
+ from the FIFO depth
+Message-ID: <ausLge5yYc2W00zi@ashevche-desk.local>
+References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
+ <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,94 +87,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/11] KVM: arm64: CCA: Check for RMI support at KVM init
-To: Kohei Enju <enju.kohei@fujitsu.com>, Steven Price <steven.price@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-4-steven.price@arm.com>
- <ausEnXB1TE_moI0E@FCCLS0092175.localdomain>
- <ausIgejq7Io9VjZL@FCCLS0092175.localdomain>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <ausIgejq7Io9VjZL@FCCLS0092175.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Kohei
+On Tue, Nov 03, 2026 at 02:39:58PM -0700, James Hilliard wrote:
+> DW_apb_uart uses receive thresholds of one byte, one quarter full,
+> one half full and two bytes below full. The generic 16550A table describes
+> these encodings only for a 16-byte FIFO. For example, the half-full setting
+> on a 64-byte DW FIFO is reported as eight bytes instead of 32, and a sysfs
+> request for 32 bytes selects the 62-byte encoding.
+> 
+> Build a per-port threshold table from the discovered FIFO depth in dwlib
+> and install receive-trigger callbacks for CPR-described FIFOs, including
+> LPSS ports. Keep the setup helper available to integrations which obtain
+> the depth without probing the optional DW registers. Validate that each
+> threshold is positive and representable before constructing the table.
+> 
+> Serialize FCR updates with termios and the port lock, acquire a runtime PM
+> reference before accessing the device, and propagate resume errors without
+> changing the shadow or hardware. Update only the trigger field so changing
+> the threshold preserves the FIFO contents.
+> 
+> The FCR mapping is documented in the DW_apb_uart databook, section 6,
+> FIFO Control Register. The existing default FCR encoding is unchanged.
 
-On 04/11/2026 10:27, Kohei Enju wrote:
-> On 11/04 19:23, Kohei Enju wrote:
->> Hi Steven,
->>
->> On 11/02 14:12, Steven Price wrote:
->>> Check if the RMI support is sufficient for using in KVM. Specifically, we
->>> will only support creating realm VMs when KVM is set to 'rmm' mode.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> ---
->>>   arch/arm64/kvm/Kconfig | 1 +
->>>   arch/arm64/kvm/rmi.c   | 4 +++-
->>>   2 files changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
->>> index cecea0820e52..d067063a3686 100644
->>> --- a/arch/arm64/kvm/Kconfig
->>> +++ b/arch/arm64/kvm/Kconfig
->>> @@ -34,6 +34,7 @@ menuconfig KVM
->>>   	select GUEST_PERF_EVENTS if PERF_EVENTS
->>>   	select KVM_GUEST_MEMFD
->>>   	select KVM_GENERIC_PRE_FAULT_MEMORY
->>> +	select ARM_RMM_RMI
->>>   	help
->>>   	  Support hosting virtualized guest machines.
->>>   
->>> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
->>> index 5ecc8b349869..9d118768550d 100644
->>> --- a/arch/arm64/kvm/rmi.c
->>> +++ b/arch/arm64/kvm/rmi.c
->>> @@ -3,6 +3,7 @@
->>>    * Copyright (C) 2023-2026 ARM Ltd.
->>>    */
->>>   
->>> +#include <linux/arm-rmi-cmds.h>
->>>   #include <linux/kvm_host.h>
->>>   
->>>   #include <asm/virt.h>
->>> @@ -12,7 +13,8 @@ void kvm_init_rmi(void)
->>>   	if (kvm_get_mode() != KVM_MODE_RMM)
->>>   		return;
->>>   
->>> -	/* TODO: Check if the RMI is available */
->>> +	if (!is_rmi_available())
->>> +		return;
->>
->>  From an admin/operator's perspective, kvm_rmi_is_available would
->> silently remain FALSE in either of the following cases:
->> - kvm-arm.mode=rmm is set, but RMI is not available for some reason.
+...
 
-We could add a kvm_info() message for this.
+>  static int dw8250_setup(struct uart_port *p)
+>  {
+> -	dw8250_setup_port(p);
+> +	int ret;
+> +
+> +	ret = dw8250_setup_port(p);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return dw8250_setup_dma(p);
+>  }
 
->> - RMI is available, but the admin forgot to set kvm-arm.mode=rmm.
+Split out a change that moves from void to int for _setup_port() and do it
+before the patch that creates _setup_dma(), so it will be less churn overall.
 
-But not this one. We are additionally planning to move the RMM
-activation to gate on kvm-arm.mode=rmm. I will send out a patch
-soon.
+...
 
-Cheers
-Suzuki
+> struct dw8250_port_data {
+
+>  	/* Hardware configuration */
+>  	u32			cpr_value;
+>  	u8			dlf_size;
+> +	u16			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+
+Put it first after the above comment. Check with `pahole` before and after
+results.
+
+>  	/* RS485 variables */
+>  	bool			hw_rs485_support;
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
