@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826554;
-	b=Yrj8tbKfsVOVnmAw5AGhxc7UdfDH7NaMFgUn1L/VnJMC0ulLl5Te2QyuxlROswNSXrIh
-	 akbETAT/HppiYIH6huFniJiAoPAx+WBNLMt+bMWPv8ImL9tEhLpMr0fegraYXNSYl6DzW
-	 iDWo0oFf3uLzAPwu57AutU00wraG4U3X/dBjrlzmM1u0CFlROeAL15/toJJ69olNO9G40
-	 2GIdLUK6V8VE2WpUaScncTUuB4oAUVsmipbC2ak3ayUjodLzqFlCgRS+if7mNQSzD8OnS
-	 BBNaUjCjVPr+twceUQyV1e03g/gkm8d+aYQEIQxk0lFWvyt/HKkkM2KBNbt59Wl/7hQ==
+	t=1793826559;
+	b=h6GSh9QQbQmhuhIjB7L+xjTLso7YSzHK770AAz6nuZvEomUvLvhj7C6rdPBrYF3pdLY1
+	 2jOHwMX/PJ4BjWQQArovNHy4LCK20KMtn0Ix9b7J1KxVnwpwBmFmnW7/OjvjKjNT+07ap
+	 t5HXIFOIYOGQk2I7Na454fxhBrR+5Seco5VXFAZfk8xuHB2B3Zb4Y8MDHmlpmtJ0BJsRN
+	 1LZCgc5TrcEb5lFZQ85IOIY2ayD9qHmU7A0jCr46Kgzn1q3YMAJpWNTtpdVjpUQXcGckV
+	 IHvjMml2dI5zwsMhWd3+9VZZKAWEwuKUOgYeuib24cvcO9fty0ykb0PevEx+p36IasA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826554;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826559;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=FwmAXxaBahAboQnBQiZSfiZqfzogCrFIH3WtsyVwi2s=;
-	b=LOS5HTGvAcTJByph7s9un1lIcvSIhhT0QoPKl0C29Iy06+X3acqujSmSC4jitgCTCseS
-	 uSNuKOsU/nzVf6I8GVu7EnwNtgTylmdslFc5JtRPPWdSwBVkRuIB5agyxAcSFGgUA4bTO
-	 zBw5ZX7bbGgQ7l2JsdrpkPGsxy21PFn9M+xXk+kSu+CtXskn59kShbxbiAtvW05zzG1sV
-	 vzagvh4PO4d6VwHnbdsXnoOoKuBjR7tY5c+kDUCnAotnoG0200KKUycXtDT5rQq5bw00e
-	 J+7v4TEpVd+eoRCe5rBahsPbqXsWlthXomjfukV8WKMWajlqIRTIV+GOTq+TuDW6JzQ==
+	bh=zyZpk01DLf2QnC58+UQV1wk4CBVcfTT8UP8IdGyE7ZY=;
+	b=H/8yc5KGqoQ3kUi42rQ8baxgA4lGueDeg3NPTFA4Nq5Op9GU7VjSItFj0bpxbmChHJ85
+	 hZnrsFRbME0047SwgtPZbOxdDvaTezeHAz3u7ptqnoba+pUQ6spGBk5T4FsFAk3E4DuQP
+	 uRd0gBGybzWjd8OOsPKdXG/v+FebpcBKzCcUkKUCBHv5iKSbpQuHX3eYAEAFwOIbGfuNg
+	 OJjMmzeoR6sAHlehhxFjzuBS8R4YoZhLHrsT72qAr+sfsMMf8MMHgEN6f373xwm++6LfM
+	 yYelFPy3VSnu2lwE0G6jh0YsKJjPxSrVHXJSPmf2sIR5Q//Z0km3xPhsJwl5Hluf62A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iCHWRBMc;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xmPUDHJn;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021C760A4FA1
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 021C760A4FA1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEC560A67A5
+	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 21:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EEC560A67A5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iCHWRBMc
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so8875985e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xmPUDHJn
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e00eee27dso656097f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 13:09:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793826552; x=1794431352; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793826558; x=1794431358; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FwmAXxaBahAboQnBQiZSfiZqfzogCrFIH3WtsyVwi2s=;
-        b=iCHWRBMcQht93C+GJcUpbzIdEGz3IzwCqHXybDR+OVilK/BGP9+75mqet1wyp3kCqt
-         C5sIzGZHzcoU4T/IuUdrz10/fQZ0CnX8rgDUDzUJa2nIZ8zzF/nl/eHo0htYoSi124Dc
-         kSq6HBFe/Yd7iWW33Y3pgpBkI5e1Su5FsvGTMW5qYW9T85FGp7rnphbcJuqPJlBDF7CE
-         FPy9N0YBSlAtVkda6gvjtVcCvM9mqZxur2aHKktmr3ephDmqD5qfYx9Gm0nnZaATzONt
-         iBqFDQtqt8l2+HmGpwukEwSX4rHC0/Crls1Kq4Na3wp21xt+iUDkE87ohl5NbqDkCBC2
-         DrQw==
+        bh=zyZpk01DLf2QnC58+UQV1wk4CBVcfTT8UP8IdGyE7ZY=;
+        b=xmPUDHJnkAI2JpFOCpLn7lbCItH22ZZ1DeIqLMRulnAOuDv4bnFCWi0nCkut1kpz+t
+         Q8lcYX71cv2THd452ojIMF7hyqTlxoPhhF9UsnBQU00ZiqVsW+uItNBQ99Up6NWjzMZY
+         rbV4d2NaZWDCEHJumFJXbbSYP6GfzQFxMoTnl+SIv68thPTInzWVLzig8X386MGJpTNU
+         pwhdPqBI3zD1ewhdNW2j/QRKMi3dAp35SYkNwBNazXqK8tAXtYmnh0kiSSo4NwBFI4vd
+         kMnk7V+k2B9lqBiChIwp9pW4JxMG2G1jf2J3g8S+n+NOzVxoS00Mhc04WDeXnFXki7v3
+         F4Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793826552; x=1794431352;
+        d=1e100.net; s=20260707; t=1793826558; x=1794431358;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FwmAXxaBahAboQnBQiZSfiZqfzogCrFIH3WtsyVwi2s=;
-        b=tASjQ6+SdRLymN1Q05fvYWPNfe3o94ywAlqTTIhCQjzkLurYfYW0hzIiJKbXNMc2Xs
-         uSImSn1ecxYklrU2/GWdnjCNymkrDVi53MdB7CFRq9XurtdAvl17Cd3Yit+Ypmn84+Yu
-         sMsiMbHqOQhe0x39qhH+/KtpPDACaTkG9Z2kZOwLU4/BfX7EPR3WLjzviWyQd6M75WcQ
-         0Rsu1QS0KQE281BNvmg6tu8Ab3xuEcqjjNWd6eW8EYFEqmJGAKWopmrrL9990amq/THP
-         oXYYyLf5fA9tbQvDoZXeDtCDjJjPXVz4TTvNRih4jvhXZCnqkKuE3hxNycJmcw0ABq4U
-         2vTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgsSWE6FIwPN5/15ISO8hJgG1FEQlTfWp3cDJ7aGjhO8KCJ7rh445yZ9T0NRquyRPYDBNL7Erk1tpPX1I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+uTtiHMZcrYwMQM9ugfwVYdneR/ATTfHpoguXTYgbZkAE+flCa
-	4oqDnvdzsRaSyPkxHAcRUsrIKd8du/n3UsQN1TORlcaUIAKFIndCsls0
-X-Gm-Gg: AYBFou2ScKYeIR3dDzjYoFNMNhUZtsXJEi+XnHSU/yoJguX+MNQ5ACV8Y1Lpm/qfV2b
-	2jfP/jnX+ko2jSlROYcB+sidPrTZi1rd9jtjf6YycGrVGI9GDtIB0wa3URyUwVqenq7BdgzEmEA
-	qYsgKd1zgcW559da2cY7FLW8DvfFRKIrHTo16E708xduIWTNtRI+GKNhqGZ4soyG1jQONeO1cb+
-	fwiAnjPJ2a9dvzZdpAGnS47oG4B/B2NCW0bcIthmL0Ail1746gSqBS/8mmti/Noh0ouJ06FsGvY
-	/48LEO8jQeTmLH8D0Tq6a4AaH1F9UVExoXmo6gLgFaiebQ856I6e90Bkq17AGAzHooEFHewttJ7
-	zRTvf6RmJlwd2uVYcQARZNHLYSqnCCPvxzUDFf/KvkfuiMNYobnBo2Qx8yx0u5JzFbu3PJfObOK
-	z4Fs9ZIaehf3FzShwWY5waQghzHQgjoJ8Fj7WWQr1/Y1WhjLdgoSv/6YWN5q9Ago1Il8Qcqdgie
-	9knSTnGGJNA/3dDUqMhyW0w60Xguetr5IYZaNGqTmUy3phIzf330kVm4dpvpXJN6u1VsdrOMzag
-	aiNBDnOREMR9GB2cFL4DSmptrhW3M8lwkm4vp8WIspF2x5UZbTVDjg==
-X-Received: by 2002:a05:600c:5249:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4ac1228b5bfmr387058325e9.0.1793826552398;
-        Wed, 04 Nov 2026 13:09:12 -0800 (PST)
+        bh=zyZpk01DLf2QnC58+UQV1wk4CBVcfTT8UP8IdGyE7ZY=;
+        b=T3F2hlQFDFTKbnIVGorN6AJgnETUauo509f3MqMpnWkqqScd9vcPlzygrU46QC6vz1
+         ytBRUUUKw/OxBOwpGY3z68mRmqc0yfoJepJkMAowrhWgZWZGYuVu8I9PVbP3ME2XEHQI
+         dhyJ8cSAQEu5QuUybuCoNkHvqC/CJTHDeA4a/F5B7xLcLSoU4PWqgXIDwNUEcVSQjdgS
+         pWSuGV441nIsKmuguw2JT3zJ3tq6FCliqqmi3EDejKrlNYPu8QFlbQvVp6rRy309z3PC
+         J2MC+9RJYS5YPQM8nZKPTNKiVwAThqjEiD/1Lw4Fgjn+wNd1aCTveM1s36nm1dzen1M0
+         BTmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVUbjzib7tizIn9uXtLgIMFVjRLfO0rBBJFWPdcej06EHL/VztvMqJ1xJvXmuCgPEKNRQk6Xxmf087o0g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kLs2UgexMgxr99tmWGTlAS6GHH7fgGUSz/lsHTYCICPg4uTnA
+	PnarNrx3ftX/wpuaL0P9U54SX1l0bPLhCzsBPQhseLpr4q05mNU+PQJ3qE7QLTSo
+X-Gm-Gg: AYBFou2eqT+BhQp20h2NTRHmbYT1amUdO4jhDoycb/VHizURyt1HPCVQ212YOE1+Q1Y
+	01+/chnQOYVFYR5l/eng66cxRaPgkMYqYof2eP/XrGlUxYa7EVEqfV92kpRZVtA0zgL47J5r1W0
+	iP8lkLo0A5c6q4mvm42Mowvrcym5eJ4Zk48UB7xoemYF/2jjhlUIpx2Kk52RDurQ03g6EFz69hc
+	Yxknb7M0HQMgdpJ6fTvKeXwqutqtB/isB90ygCG1oKH8gUqAK+PrDi8qjTuzzsI7V6w7H2Bm4ne
+	wRZhM+AYmhRvqki3ZbgtcTsRjIE7tE3P7/Cni7sHC3F+GkDUGzjIvPw8Vrn06VpqmR3typy0JMy
+	rL8CDZeulp5FB4EOUdi0nZ0nTTUi+w3RXFEE2tcG31HfiH4ha0wroP8DgR5e4vpbIiIHc0n6OJr
+	9/BNwx/A9oV2n/9NIMtaueoftOk0C97ciFoWRY0tenO62IM0sE7uSOA2Np4TJf3ZsGhJifumMky
+	IFgoB6kVdMN9S6+jm3dbuXyusR4aoyfcrfQ23F6+i77rahlr0r4pqBbI/XA8U8Sm/q/fKUng9t2
+	MX59Oe6roIVVY9k6buzlzvhmGLxvKJXMThshGR5xIM0ErGqrLsZql6I=
+X-Received: by 2002:a05:6000:420d:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-490a4817c00mr3361546f8f.29.1793826557552;
+        Wed, 04 Nov 2026 13:09:17 -0800 (PST)
 Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56fca2a4fsm12960655e9.15.2026.11.04.13.09.12
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm6643541f8f.45.2026.11.04.13.09.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:09:12 -0800 (PST)
+        Wed, 04 Nov 2026 13:09:17 -0800 (PST)
 From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Wed, 04 Nov 2026 22:08:57 +0100
-Subject: [PATCH v2 11/27] selftests/landlock: Assert helper results that
- are used afterwards
+Date: Wed, 04 Nov 2026 22:09:00 +0100
+Subject: [PATCH v2 14/27] selftests/landlock: Make audit_message large
+ enough for any exe filter
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-selftests-refactor-v2-11-c52f23f7ce33@gmail.com>
+Message-Id: <20261104-selftests-refactor-v2-14-c52f23f7ce33@gmail.com>
 References: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
 In-Reply-To: <20261104-selftests-refactor-v2-0-c52f23f7ce33@gmail.com>
 To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
@@ -105,78 +105,51 @@ Cc: linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
  =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
 X-Mailer: b4 0.15.2
 
-Some helpers check a result with EXPECT_*() and then use it:
-cap_get_proc() in _init_caps() and _change_cap(), and
-landlock_create_ruleset() in drop_access_rights(), create_domain() and
-create_fs_domain().  On failure they pass NULL or -1 to the next calls,
-which then fail with misleading messages.
+audit_filter_exe() copies the filtered executable path after the
+audit_rule_data header in struct audit_message.  The message buffer was
+sized as PATH_MAX + 200 bytes with received records in mind, but
+struct audit_rule_data alone takes 1040 bytes.  That leaves only 3256
+bytes for the path, while the kernel accepts up to PATH_MAX bytes, so a
+long path overflows the message.
 
-Use ASSERT_*() for these checks, as create_scoped_domain() already does.
+Size the buffer for an audit_rule_data followed by a PATH_MAX string.
+This only makes the buffer larger, so received records still fit.
+
+Also check that the request fits in the message and return -E2BIG
+otherwise, in case exe_len does not match the filter's buffer.
 
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- tools/testing/selftests/landlock/common.h                    | 6 +++---
- tools/testing/selftests/landlock/ptrace_test.c               | 2 +-
- tools/testing/selftests/landlock/scoped_abstract_unix_test.c | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ tools/testing/selftests/landlock/audit.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/landlock/common.h b/tools/testing/selftests/landlock/common.h
-index 6c2aa913ff11..a662a68bee7b 100644
---- a/tools/testing/selftests/landlock/common.h
-+++ b/tools/testing/selftests/landlock/common.h
-@@ -55,7 +55,7 @@ static void _init_caps(struct __test_metadata *const _metadata, bool drop_all)
- 		EXPECT_EQ(0, cap_set_secbits(noroot));
+diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
+index 1e533b4e26db..173dcd1088db 100644
+--- a/tools/testing/selftests/landlock/audit.h
++++ b/tools/testing/selftests/landlock/audit.h
+@@ -41,7 +41,11 @@ struct audit_message {
+ 		struct audit_features features;
+ 		struct audit_rule_data rule;
+ 		struct nlmsgerr err;
+-		char data[PATH_MAX + 200];
++		/*
++		 * Large enough for an audit_rule_data followed by a PATH_MAX
++		 * string (see audit_filter_exe()), and for received records.
++		 */
++		char data[sizeof(struct audit_rule_data) + PATH_MAX];
+ 	};
+ };
  
- 	cap_p = cap_get_proc();
--	EXPECT_NE(NULL, cap_p);
-+	ASSERT_NE(NULL, cap_p);
- 	EXPECT_NE(-1, cap_clear(cap_p));
- 	if (!drop_all) {
- 		EXPECT_NE(-1, cap_set_flag(cap_p, CAP_PERMITTED,
-@@ -91,7 +91,7 @@ static void _change_cap(struct __test_metadata *const _metadata,
- 	cap_t cap_p;
+@@ -171,6 +175,9 @@ static int audit_filter_exe(const int audit_fd,
+ 	if (filter->record_type != AUDIT_EXE)
+ 		return -EINVAL;
  
- 	cap_p = cap_get_proc();
--	EXPECT_NE(NULL, cap_p);
-+	ASSERT_NE(NULL, cap_p);
- 	EXPECT_NE(-1, cap_set_flag(cap_p, flag, 1, &cap, value));
- 	EXPECT_NE(-1, cap_set_proc(cap_p))
- 	{
-@@ -227,7 +227,7 @@ drop_access_rights(struct __test_metadata *const _metadata,
- 
- 	ruleset_fd =
- 		landlock_create_ruleset(ruleset_attr, sizeof(*ruleset_attr), 0);
--	EXPECT_LE(0, ruleset_fd)
-+	ASSERT_LE(0, ruleset_fd)
- 	{
- 		TH_LOG("Failed to create a ruleset: %s", strerror(errno));
- 	}
-diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
-index 10371c1830ad..b951889cd6ca 100644
---- a/tools/testing/selftests/landlock/ptrace_test.c
-+++ b/tools/testing/selftests/landlock/ptrace_test.c
-@@ -37,7 +37,7 @@ static void create_domain(struct __test_metadata *const _metadata)
- 
- 	ruleset_fd =
- 		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
--	EXPECT_LE(0, ruleset_fd)
-+	ASSERT_LE(0, ruleset_fd)
- 	{
- 		TH_LOG("Failed to create a ruleset: %s", strerror(errno));
- 	}
-diff --git a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-index 5e8224623780..55a1599819c8 100644
---- a/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-+++ b/tools/testing/selftests/landlock/scoped_abstract_unix_test.c
-@@ -40,7 +40,7 @@ static void create_fs_domain(struct __test_metadata *const _metadata)
- 
- 	ruleset_fd =
- 		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
--	EXPECT_LE(0, ruleset_fd)
-+	ASSERT_LE(0, ruleset_fd)
- 	{
- 		TH_LOG("Failed to create a ruleset: %s", strerror(errno));
- 	}
++	if (msg.header.nlmsg_len > sizeof(msg))
++		return -E2BIG;
++
+ 	memcpy(msg.rule.buf, filter->exe, filter->exe_len);
+ 	return audit_request(audit_fd, &msg, NULL);
+ }
 
 -- 
 2.56.0
