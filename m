@@ -1,55 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820546;
-	b=lwZF7lI8J8uDvXRpzRFMNu1BXNArlAp9Wz3jV0pbzUH8Soho7GnvLphzD/oGEy8vW8hA
-	 1h8SIHpMDddQUnPJtvo0SkEIwuYlUCIFxUMeJB/6QryEfvChnWbaF8O04wEhBpAetwaQG
-	 ymvmorujMpoGKI4gn63mU6E5EuiEpUflwOcTJXOF32QFlbcwCUMMWHtW+sa0cHZWePKc6
-	 FCthiELvWzU/To5yq39FUovOnAIkywjACpONp5Fldva8k1PxY0WA2IVA5Nh48QrnWM/N/
-	 rUqneNzGVRKMAOZclAq7YP+MkZ2pgJlLzq12+Ekh80FQINZhXve7P+rpFjASWauYGTw==
+	t=1793820244;
+	b=I0jKhwbAVyn45WwwJgqfm3DWnMdJ7h/3H66f4wmvDbMScT6XurKHZ1+Kr2Lp1Ly63/K2
+	 lStrUEICc3b8EgnNkIbQFJz4Kxryh3IRbOdYdkMNiaxU17eqEtSwJLhspQHwRglpCXdoW
+	 5d5dVhRk0x4Bbl96FJuIJaLAHgP/I97uN5dxptXOpp+4ISljgVzthiqx2+MjmAItfAPPW
+	 Qnx/8awcRRfJ5962DB7j6aiY8koDi+Y5FK3siOC+73/oAmGYU0sydT8WPncKuWmu04BT+
+	 +irnmN59emF182or8bNEchT6tfMdriHAzE0c2n69stNiYA8im5S3XFo9uGHNk8LyfXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820546;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=NAVxLkX0a4bcfcFu61ZbxpmUsM8xwJUDmfjt4hb3NOg=;
-	b=p8wreGp0EHw7gMjnNYKnOgjefffh4+BKSCsG5V7xNyinE6VtuzgHPqmTe5SakkgA2XVN
-	 w5qntkAjh8spneivdK0DlVpBd60pb41XX4OiQA99kS8W840uRvoGDfn9U9zIt++B10TSB
-	 RDcET8RORCiYWsWU3ZpNi5W5arlR2Kwb6dmjZFpHzHLNgxUrniRVtXnchZPnTH/VcnnpM
-	 qZPe2mkW/OJKZ6EmI3wZ6mWpg7LwJyy0/K1FVavS81YSz8nSqB0p+j211ZgsVkXoX7kFY
-	 NGeBD9z+QXhyqDMKtR7u7Tx72I0tc0tcP9BWgvsYWQuKBKmB9KRmPFpOvuMEKr5csrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820244;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=H7K5JcYwiEwa4eeL0B3OVYVYuE4eo7ZLheZ5n77rVhE=;
+	b=EbtRDJD5wwlxKuCirkt+grrwBMfXIbuGf4MGREB4HaRdrJzpRS4i3Y6YiFPNgjiT/hR0
+	 sLslma2gLZ4Fz9wJxmZEI2urxHHBdlulLd3/NXt/TsP+sUTKkXFHHcZBM616qdvQSyL3M
+	 yo8wQDuioGvWpXb2bmth57hSaBC/VxYZXW5KS3SswWlAcAV52V7fL5iD06aKUylXszL4d
+	 P0x9s28EnpnXg5FiKg6pxBdbInJKfGs0th3pxCTnu4ajgOLInVFiDrhVZFzoZrjW5ltOa
+	 7BaPa0zHtpue/hz26xf+BCzvrPSlNeJi2lDWTFBypo23QxjJBcAvrHb5nIVrCh50Apw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJiu9wFw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJLqHHf5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABE4606B38C
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:29:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BE0606E808;
+	Wed,  4 Nov 2026 19:24:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJiu9wFw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12131F00A1A
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 19:29:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJLqHHf5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1CE1F00919;
+	Wed,  4 Nov 2026 19:23:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820545;
-	bh=NAVxLkX0a4bcfcFu61ZbxpmUsM8xwJUDmfjt4hb3NOg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dJiu9wFwHFqFy+VrcxAIDOcppy/ms4oszeBIbS2w3ARDb7FKT88vZf687qS61jvW1
-	 BirjTGYhMqCTNqxZ1AzXYMfKSPYCK92z7hqo2JDaftN+flR/+sNotW959s+I6vNjpK
-	 D37uxQLv7i0ve1Q5WNtWP7Vq5C8hXrEi9ySEACfeSZb7fzmpatEBt9ahiTIeorI/m7
-	 XXSsb/kQOzBuCrYbLeO1qj54OXKaXjroyqag0ip77rXQ9yaCNZ4gQI7FSr1DR3xG25
-	 7M3oVGJGzoipKEUEbwAiDh6xKzXVPlnDzRxOdPvvD4oyrV7u8Ntcz10BYTXey26h/X
-	 6X3WWSkmNnIHw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1125454e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 11:29:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzzV7Jswd+8QSoJchMT8loX6OgukfaCU97Qzp3KdL9hVZNRTpnqPvAM6umGKB6YX+t8TvLonRxQKn9vn9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XDImaJWMAM1Ay9j2cdNGzbk6U+d2xExA4n2WeNTwS79C48h52
-	oLrQNR+SProMY9qHuqqGXTaZOzRnhE86Ed/11GySqn5sMPfCukCM5zM5Syefc5d6ZADoZudFfBP
-	JF+/MRQOQaHmmh5JKU0O0W6UmRBo42I0=
-X-Received: by 2002:a05:6512:124a:b0:5bf:d60c:9f98 with SMTP id
- 2adb3069b0e04-5bfd9583912mr6468724e87.59.1793820544193; Wed, 04 Nov 2026
- 11:29:04 -0800 (PST)
+	s=k20260515; t=1793820243;
+	bh=H7K5JcYwiEwa4eeL0B3OVYVYuE4eo7ZLheZ5n77rVhE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bJLqHHf5qQ9r5k8j4lX0RizveOJ91Nhl7TYYnWVh4aogp5c4fTsQ8eax4sbt0OBxb
+	 3LGXXxrD9ytPYwt1XoRKnERbxW2Tn+UK8zRCJKkRYsyQfi/PuWkuv31fYn9LUwZYjP
+	 x1XP6KYsCrbos3zXmmN9K9ptP4sseCE+7dzR7OIE9G1wPs89kTqRfIMujdLyvnG/41
+	 wd0+mMF+XHreqHHSN22Y76usuZZQiXKs5/dT12lrJaMLmtKCOmIwzbp6lxJW0ddkkF
+	 tRH0k19+WCWkxOhMnoRLDydxLurlCjL+xTlICjmEBzFnzWlSjW6fSbK8/zIHPo72+P
+	 4oFpVAHjceUQQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 32/51] proc: resume readdir after the last name it returned
+Date: Wed,  4 Nov 2026 20:23:49 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-32-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,74 +115,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029034507.2721580-1-sashal@kernel.org> <20261029034507.2721580-2-sashal@kernel.org>
-In-Reply-To: <20261029034507.2721580-2-sashal@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 20:28:50 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hGA=sF2duyU3ijoc4Tx7KCjuJuaOz8Bhrx-qSSm85AEQ@mail.gmail.com>
-X-Gm-Features: AclHuK9iYrb5IlkXSdvE-hDJTa3sByHcfkzVSmMUA4_p8089h-1HcV4DodjfzXk
-Message-ID: <CAJZ5v0hGA=sF2duyU3ijoc4Tx7KCjuJuaOz8Bhrx-qSSm85AEQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ACPI: scan: Print the offline failure message in acpi_bus_offline()
-To: Sasha Levin <sashal@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+cea7285bc17b76ffe39f@syzkaller.appspotmail.com, 
-	syzbot+a265816368571f78ab88@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7297; i=brauner@kernel.org; h=from:subject:message-id; bh=ZNOmyzOFl2t4htw30uUhDwZ021Jq9cqPFYbiLU1C/ng=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bvw8+c29B390vF6dzdjab31XjS+zOW6D/PbUDb2Sk i6yQqw2HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNJ8mdk2B3EIP33wna7rsrz 6TXqjfUtfy9d/9TA4Ln55+Ly5KB4T4a/kt9jDDrU5dJMlBQe2Rw/ObH6fKvKZfvDy3SzZ+dwPDj DBAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 4:45=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> When a physical node of an ACPI device being hot-removed cannot be
-> offlined, acpi_bus_offline() passes the physical device back to
-> acpi_scan_try_to_offline() through ret_p and the latter prints
-> "Offline failed." for it after the namespace walk.  By then
-> physical_node_lock is not held anymore, so the device may have been
-> unbound from its ACPI companion and freed in the meantime.
->
-> Print the message in acpi_bus_offline() when device_offline() fails in
-> the second pass, while physical_node_lock keeps the device bound to its
-> ACPI companion and so the reference taken by acpi_bind_one() is still
-> held.  acpi_scan_try_to_offline() only needs to know that something
-> could not be offlined, so pass the ACPI device back through ret_p
-> instead, like in the "Offline disabled." case.
->
-> Fixes: 303bfdb1a14d ("ACPI / scan: Add second pass of companion offlining=
- to hot-remove code")
-> Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/acpi/scan.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> index 0b17a7e519569..07d32f118631e 100644
-> --- a/drivers/acpi/scan.c
-> +++ b/drivers/acpi/scan.c
-> @@ -165,8 +165,9 @@ static acpi_status acpi_bus_offline(acpi_handle handl=
-e, u32 lvl, void *data,
->                 if (ret >=3D 0) {
->                         pn->put_online =3D !ret;
->                 } else {
-> -                       *ret_p =3D pn->dev;
-> +                       *ret_p =3D &device->dev;
->                         if (second_pass) {
-> +                               dev_warn(pn->dev, "Offline failed.\n");
->                                 status =3D AE_ERROR;
->                                 break;
->                         }
-> @@ -235,7 +236,6 @@ static int acpi_scan_try_to_offline(struct acpi_devic=
-e *device)
->                                          (void **)&errdev);
->
->                 if (errdev) {
-> -                       dev_warn(errdev, "Offline failed.\n");
->                         acpi_bus_online(handle, 0, NULL, NULL);
->                         acpi_walk_namespace(ACPI_TYPE_ANY, handle,
->                                             ACPI_UINT32_MAX, acpi_bus_onl=
-ine,
-> --
+proc_readdir_de() counts the entries of a directory and resumes a
+listing at the number getdents64() stopped at. The entries are sorted
+by name, so one that is added or removed in between shifts everything
+behind it by one. Listing /proc/net/dev_snmp6 with a buffer that holds
+".", ".." and "lo" and adding a device whose name sorts before "lo"
+makes the next call return "lo" a second time. Removing one that sorted
+before the position makes the next call skip an entry instead.
 
-Applied along with the [2/2] as 7.4-rc material, thanks!
+Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()") an
+entry that is removed while it is being emitted also ends the listing
+right there. pde_subdir_next() finds nothing after an erased entry, so
+proc_readdir_de() reports the end of the directory and the next call
+resumes by number, skipping another entry. For /proc itself
+proc_root_readdir() takes that as the end of the static entries and
+moves on to the pids, so the rest of the static entries is missing.
+And if the position is behind the last entry when a call starts
+proc_readdir_de() returns 0, so /proc then lists no pids at all.
+
+So remember the name of the last entry a call emitted in the file and
+resume at the first entry after it, like kernfs resumes after the node
+it stopped at. An entry that was removed while it was emitted is
+continued after by its name as well. If the position was moved by a
+seek in between the listing counts from the start like before.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/proc/generic.c  | 89 ++++++++++++++++++++++++++++++++++++++++++++++--------
+ fs/proc/internal.h |  1 +
+ fs/proc/proc_net.c |  1 +
+ fs/proc/root.c     |  1 +
+ 4 files changed, 80 insertions(+), 12 deletions(-)
+
+diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+index 9e59796349e1..588999058e66 100644
+--- a/fs/proc/generic.c
++++ b/fs/proc/generic.c
+@@ -87,6 +87,28 @@ static struct proc_dir_entry *pde_subdir_find(struct proc_dir_entry *dir,
+ 	return NULL;
+ }
+ 
++/* The first entry of @dir that sorts after @name. */
++static struct proc_dir_entry *pde_subdir_after(struct proc_dir_entry *dir,
++					       const char *name,
++					       unsigned int len)
++{
++	struct rb_node *node = dir->subdir.rb_node, *after = NULL;
++
++	while (node) {
++		struct proc_dir_entry *de = rb_entry(node,
++						     struct proc_dir_entry,
++						     subdir_node);
++
++		if (proc_match(name, de, len) < 0) {
++			after = node;
++			node = node->rb_left;
++		} else {
++			node = node->rb_right;
++		}
++	}
++	return rb_entry_safe(after, struct proc_dir_entry, subdir_node);
++}
++
+ static bool pde_subdir_insert(struct proc_dir_entry *dir,
+ 			      struct proc_dir_entry *de)
+ {
+@@ -278,6 +300,40 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
+ 	return proc_lookup_de(dir, dentry, PDE(dir));
+ }
+ 
++/*
++ * Where the next readdir resumes. The entries are counted, so one that is
++ * added or removed in front of the position would shift what the next call
++ * returns. The name of the last entry emitted doesn't move.
++ */
++struct proc_dir_cursor {
++	loff_t pos;			/* the position behind the entry */
++	unsigned int len;
++	char name[NAME_MAX + 1];
++};
++
++/* If this can't remember the entry the next call counts from the start. */
++static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry *de,
++				loff_t pos)
++{
++	struct proc_dir_cursor *cursor = file->private_data;
++
++	if (!cursor) {
++		cursor = kmalloc(sizeof(*cursor), GFP_KERNEL);
++		if (!cursor)
++			return;
++		file->private_data = cursor;
++	}
++	cursor->pos = pos;
++	cursor->len = de->namelen;
++	memcpy(cursor->name, de->name, de->namelen);
++}
++
++int proc_dir_release(struct inode *inode, struct file *file)
++{
++	kfree(file->private_data);
++	return 0;
++}
++
+ /*
+  * This returns non-zero if at EOF, so that the /proc
+  * root directory can use this and check if it should
+@@ -290,23 +346,26 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
+ int proc_readdir_de(struct file *file, struct dir_context *ctx,
+ 		    struct proc_dir_entry *de)
+ {
++	struct proc_dir_cursor *cursor = file->private_data;
++	struct proc_dir_entry *dir = de;
+ 	int i;
+ 
+ 	if (!dir_emit_dots(file, ctx))
+ 		return 0;
+ 
+-	i = ctx->pos - 2;
+ 	read_lock(&proc_subdir_lock);
+-	de = pde_subdir_first(de);
+-	for (;;) {
+-		if (!de) {
+-			read_unlock(&proc_subdir_lock);
+-			return 0;
+-		}
+-		if (!i)
+-			break;
+-		de = pde_subdir_next(de);
+-		i--;
++	if (cursor && cursor->pos == ctx->pos) {
++		/* Resume after the last entry emitted, wherever it is now. */
++		de = pde_subdir_after(dir, cursor->name, cursor->len);
++	} else {
++		/* Moved by a seek, count from the start like always. */
++		de = pde_subdir_first(dir);
++		for (i = ctx->pos - 2; de && i; i--)
++			de = pde_subdir_next(de);
++	}
++	if (!de) {
++		read_unlock(&proc_subdir_lock);
++		return 1;
+ 	}
+ 
+ 	do {
+@@ -319,8 +378,13 @@ int proc_readdir_de(struct file *file, struct dir_context *ctx,
+ 			return 0;
+ 		}
+ 		ctx->pos++;
++		proc_dir_cursor_set(file, de, ctx->pos);
+ 		read_lock(&proc_subdir_lock);
+-		next = pde_subdir_next(de);
++		/* Removed in the meantime, go on after its name. */
++		if (RB_EMPTY_NODE(&de->subdir_node))
++			next = pde_subdir_after(dir, de->name, de->namelen);
++		else
++			next = pde_subdir_next(de);
+ 		pde_put(de);
+ 		de = next;
+ 	} while (de);
+@@ -348,6 +412,7 @@ static const struct file_operations proc_dir_operations = {
+ 	.llseek			= generic_file_llseek,
+ 	.read			= generic_read_dir,
+ 	.iterate_shared		= proc_readdir,
++	.release		= proc_dir_release,
+ };
+ 
+ static int proc_net_d_revalidate(struct inode *dir, const struct qstr *name,
+diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+index df873df9afc5..04f7ce2b24ed 100644
+--- a/fs/proc/internal.h
++++ b/fs/proc/internal.h
+@@ -287,6 +287,7 @@ extern struct dentry *proc_lookup(struct inode *, struct dentry *, unsigned int)
+ struct dentry *proc_lookup_de(struct inode *, struct dentry *, struct proc_dir_entry *);
+ extern int proc_readdir(struct file *, struct dir_context *);
+ int proc_readdir_de(struct file *, struct dir_context *, struct proc_dir_entry *);
++int proc_dir_release(struct inode *, struct file *);
+ 
+ static inline void pde_get(struct proc_dir_entry *pde)
+ {
+diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
+index b1f5eafb069a..dbcf87a257e1 100644
+--- a/fs/proc/proc_net.c
++++ b/fs/proc/proc_net.c
+@@ -351,6 +351,7 @@ const struct file_operations proc_net_operations = {
+ 	.llseek		= generic_file_llseek,
+ 	.read		= generic_read_dir,
+ 	.iterate_shared	= proc_tgid_net_readdir,
++	.release	= proc_dir_release,
+ };
+ 
+ static __net_init int proc_net_ns_init(struct net *net)
+diff --git a/fs/proc/root.c b/fs/proc/root.c
+index 7fbbe92bf73a..dfee1caa26f7 100644
+--- a/fs/proc/root.c
++++ b/fs/proc/root.c
+@@ -441,6 +441,7 @@ static const struct file_operations proc_root_operations = {
+ 	.read		 = generic_read_dir,
+ 	.iterate_shared	 = proc_root_readdir,
+ 	.llseek		= generic_file_llseek,
++	.release	= proc_dir_release,
+ };
+ 
+ /*
+
+-- 
+2.53.0
+
