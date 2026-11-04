@@ -1,62 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.62
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821611;
-	b=iMc4+xcABcpD/9o5F+gQ2SVbk2plJ8K6fU2lgLMT20JP3fVw8J1roE3fT+XqZkqTW/1k
-	 AnpAHTshD1pCTSJSZyA64/KS7HvEHo04IinDK636oFACb+A6oNve3i8x+IPgWyeUkbyqJ
-	 89dFvp2DHPorHWIsT6wmUTtuQXVWJ3+fUa4N//5no3F5+HJZ9F2aIt/XS7+XW693Jc5oX
-	 ovvL//8mAP9B/tK9XUH6deiDy1GY20yEtYd19M3FjckAGFGg9EmpkY+F20zghlzZVE0xh
-	 YLXZyUqdV4Tn2HuaaYt0WvOahWDMBnzHeJJQcOLjAcdPG7712kGiIGlzoH755+3xH+Q==
+	t=1793821643;
+	b=Wt7rQ+i01XquR0COuyD15lhYykOFsSHcHjA9K49m73Ll5rec4nOcz5hxWvPIwcsS1e3A
+	 +i+OMefiy1Q//GA6qeYb9VaChZMDxIAQ09vIsZ6vSKJ5WpREzW911EYfwgaqBK99/UQhZ
+	 6g9AjbxYqdRfSSNpDDXsY9gglJIM1a91l7AbVaRnYOLghvWnQILsNqXNY25gW/vLUvZCY
+	 fw7exDMEJJMRmzfb1ch5xiy4F3su5CHD2mPSvy1zNOY6MQDQ8pLpfbis6LM217k4l2xhr
+	 YO8cSHY0HRmzCKNC9KbNZzpAEPkZ3aKNRVm8eAqj9887KuSlg/FlZAtopkwXCaqFahg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821611;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=5mMtQ1ykVc8hLzz2/8sqp19SKRaqnGNJ8R6YMinTtwg=;
-	b=bptOKJ6Blq7Qh7g8bvb6IxVkdTnxDkZnEtXP7jHw27obKl3KBA4wP4dRKrh+/qWwX/wn
-	 gKVbZAdeRbNIgapxrye7hLAKBh5wBC6gpUCMQJx7tCYlD4KLm+0TPCmPkfoU2/z2Z3t8K
-	 /YjRWZQYe2aJdL5spp+L/6OGupcOejmWpVFK8fTXM5yZKcaTvMXRvGAq0xKKIXFTKRBTE
-	 ZdWJLVArgGtASTqa8vDYQ3Xc+sOBYPNQF/qE5YOfeQuchD9YQfIF5gVwKTkvzGpzRWWR+
-	 C/k57oLLC9+znFHzAlYU3eTkiz/PJgGFxI8faF6RhuAZs3r8vqj4yA/OPBH8qwjAPxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821643;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=pUc3XnniVQ5ZOuyDhOysKqrOAZk7AW9/FnAFYC6PjCY=;
+	b=pmjVPs8sSVQRG2TFBsyHHyQEALKk6d8UAW8tZs8DfEezlfMF/dgvG8lw4AVOidfcpiMB
+	 72vZ6ttnxSEPftpz/GwByp/h/9HworZEzdxrwOrXXMlt9TdolACb2l/WrvLoB/0OlWWdM
+	 7EfGDOv5khYATvhotil7JwdVz6Po+jZce9LurrsMjL1wjrdJwculvIEm1ElQeiZpDCwi3
+	 yaDOWFrkegP3+BsywplTUg6/VrzSSlp1wf28YDK1qTkTEN71VnuwrfxR14oeRSdxuElsn
+	 oN/QO/GxLfZAbwnQeOUkWHmU6jleN8bP89hX+Y4S7HTdTvhw4NhuCk+ucTKrYRdTSxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=NRxKGG1F;
-	arc=none smtp.remote-ip=195.10.208.62
-Received: from mout-b-202.mailbox.org (mout-b-202.mailbox.org [195.10.208.62])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRau239w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE940608C9B3;
-	Wed,  4 Nov 2026 19:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE940608C9B3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CECF6074FA2;
+	Wed,  4 Nov 2026 19:47:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=NRxKGG1F
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-202.mailbox.org (Postfix) with ESMTPS id 4jKbY920ZgzKnmR;
-	Wed, 04 Nov 2026 20:46:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1793821597;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5mMtQ1ykVc8hLzz2/8sqp19SKRaqnGNJ8R6YMinTtwg=;
-	b=NRxKGG1FlFJU0JKddYKfBWf+IlBopX9xQGcJjScOYCfQEpRyxTfXYn/MHAsXMhnx3avkGl
-	4Et5+naPtOW1dMERriWlbEQnNo0DzRvZRvwc5H8BNMQqU8OewOILlNzTU4z/6jppef2oEe
-	rGb10Y6/ZHa1iL98uNrNXyNLtkmalVPK2eqiBmNTtpQdegCuW/TnYufkHCs9JOBYIaR25X
-	Max+TSm2/XFkMp2bk7TS2EU617Jy/dVb6sjLPL53TQSDfo+LbshEGMUU6ogGo9RLnJqwpk
-	R6SrNqUGQ0srGOS9UK6J4R4Kyf1ZYpZMMWzyQyPgMX3Zg7SmtdFwYCwwPKAtKQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
-Message-ID: <f4bdb8b8-45d6-477d-bd7f-4ca4bbafef7c@mandelbit.com>
-Date: Wed, 4 Nov 2026 20:46:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRau239w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6491F000C1;
+	Wed,  4 Nov 2026 19:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793821643;
+	bh=pUc3XnniVQ5ZOuyDhOysKqrOAZk7AW9/FnAFYC6PjCY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MRau239woFQtdlJcfyIuzdt/Mz7tXpQLHgX2J3HFCxtIoQ7p0t8aEvclvbqPlKOGa
+	 EedaHfHccZGMzhB5vcIwAhuyyQDAPau+H/YAUhBdRbtxFhlJqgcxmK2czVG9y5wP7T
+	 vy2fA02WDdK3VJ+RlZqpZVnSB9uMz9+ib+VE15vj7NVBBxUCWLKrh6ChnabmilIhZU
+	 3Y5JjgpF66wHdUqRob6tq7eO9hwAVhqpVsM3MxH/8UpRQy6y5G6Z47XYSlSWJ2d5uP
+	 6lZJVoMkctk/0jcZI5OX7z1nQPxzj8u8pGN0oIBxSIKKB6fvv2I5CNKbtMZ1A+Sjdx
+	 r3Q7BlsL714Bw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Subject: [PATCH RESEND v2 20/26] tty: sysrq: let procfs copy in writes to /proc/sysrq-trigger
+Date: Wed,  4 Nov 2026 20:47:08 +0100
+Message-ID: <20261104-work-procfs-drivers-v2-20-245e54e87116@kernel.org>
+In-Reply-To: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
+References: <20261104-work-procfs-drivers-v2-0-245e54e87116@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,75 +115,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net/mlx5e: Prefetch packets of upcoming CQEs in
- the linear MPWQE path
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
- dtatulea@nvidia.com, cratiu@nvidia.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, netdev@vger.kernel.org, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, linux-rdma@vger.kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103235823.536706-1-antonio@openvpn.net>
- <DMM0ADCEGAAB.2RFNF1ZI5TGWK@gmail.com>
-Content-Language: en-US
-From: Antonio Quartulli <antonio@mandelbit.com>
-Organization: Mandelbit SRL
-In-Reply-To: <DMM0ADCEGAAB.2RFNF1ZI5TGWK@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 4jKbY920ZgzKnmR
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1564; i=brauner@kernel.org; h=from:subject:message-id; bh=xA04tAm65fsCtMg0xl0tBqqUoHOUL5b4F/HBKwEi4qU=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS97up5wHzVwMj/4s+/qsc0lZwe6RUvWPryURRj4B+1W WLHtl+Y3FHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRvW8Z/srfZV/202bOs6pv bO3FhjJLqzofzqvaU2easvxKpvXzafoMf3jnJ8cnHTZnrf/9WuLLwePxp5qz7/ZoyYesNj+yaqb 8JzYA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-Hi Alexei,
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and handle the keys from that copy. Writes larger
+than PAGE_SIZE - 1 bytes fail with -EINVAL now. They used to trigger the
+first key, or all of them in bulk mode. procfs allocates the copy, which
+is as small as the write, opening the file allocated as much already.
 
-thank you very much for the review!!
+Reviewed-by: Jiri Slaby <jirislaby@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/tty/sysrq.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-On 04/11/2026 01:39, Alexei Starovoitov wrote:
-> can we prefetch 4 strides ahead without the CQE, like gve_rx() ?
-
-Yep! I measured your version against this patch on the same system (one
-RX queue, MTU 1500, mean of 3 runs, gain over stock):
-
-                                    v1      yours    yours + shinfo
-   UDP 512B flood, packets/s       +39%      +35%      +36%
-   TCP, 1 stream                    +7%       +5%       +8%
-   TCP in an ovpn UDP tunnel       +36%       +4%      +34%
-   XDP_DROP reading the packet,
-     NAPI CPU cycles/packet        -38%      -45%      -32%
-   XDP_TX, cycles/packet           -35%      -30%      -33%
-
-
-It matches my v1, except where every packet becomes its own skb, like the
-records of a VPN tunnel (ovpn from a development tree here).
-In that case I got only +4% instead of +36%.
-Dropping only the skb_shared_info prefetch from v1 gives +5% there, so
-that line is the one that matters.
-
-Its position depends on the packet length, which needs the CQE, but in
-bulk flows the next packets have the length of the current one. So v2
-will be your patch plus a prefetchw of the skb_shared_info line computed
-with the current packet's length: +34% for the tunnel, the rest
-unchanged, no CQE peek and no state bit, and it also covers CQE
-compression, where v1 did nothing: with it on, UDP floods gain 26%,
-TCP 6% (-46% cycles/packet) and the tunnel 32%.
-
-> Pls add XDP_DROP and XDP_TX numbers.
-
-In the table above. XDP_DROP without touching the packet doesn't change
-with any of them. With the prefetch the XDP rates hit the limit of the
-sender (12-16 Mpps) before the NAPI CPU saturates, so I quote cycles per
-packet there.
-
-I'll send v2 with your Suggested-by soonish.
-
-
-Thanks!
+diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
+index f4571d05b496..99363e1b59ed 100644
+--- a/drivers/tty/sysrq.c
++++ b/drivers/tty/sysrq.c
+@@ -1200,17 +1200,14 @@ EXPORT_SYMBOL(unregister_sysrq_key);
+  * However, if the first character is an underscore,
+  * all characters are processed.
+  */
+-static ssize_t write_sysrq_trigger(struct file *file, const char __user *buf,
++static ssize_t write_sysrq_trigger(struct file *file, char *buf,
+ 				   size_t count, loff_t *ppos)
+ {
+ 	bool bulk = false;
+ 	size_t i;
+ 
+ 	for (i = 0; i < count; i++) {
+-		char c;
+-
+-		if (get_user(c, buf + i))
+-			return -EFAULT;
++		char c = buf[i];
+ 
+ 		if (c == '_')
+ 			bulk = true;
+@@ -1225,7 +1222,7 @@ static ssize_t write_sysrq_trigger(struct file *file, const char __user *buf,
+ }
+ 
+ static const struct proc_ops sysrq_trigger_proc_ops = {
+-	.proc_write	= write_sysrq_trigger,
++	.proc_write_buf	= write_sysrq_trigger,
+ 	.proc_lseek	= noop_llseek,
+ };
+ 
 
 -- 
-Antonio Quartulli
-
-CEO and Co-Founder
-Mandelbit Srl
-https://www.mandelbit.com
+2.53.0
 
