@@ -1,106 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773324;
-	b=w/RjapbN7obvGlxAxffwhOtxvMZ0kagG27BKowG2KpQrDmjF93WnWbVZ2zeRWKWIUOsd
-	 ZiAaAlg3j81EHEnhiX02Q43IV8a/tg0TMVQSiXGjzyWKCx1jghF93RkRKUM3oD50t2JHy
-	 KAreHacNdirL77S70zXnX9z0Bw3W9AD5s0yvxfB11DdjzYJPPK8LTQ4hqI2gSiKiW5+a3
-	 ZdORDS/cNOnpocPR/vmQJKp9tKOH7qANzL/17c7i7KO5F/IPeFkaSdOEZnUNSZtUv5MpE
-	 AnWqPo7ZElLpCDODOmS3eXJh3Sn7gYE8MhAW9PUauvvxRFrm3YH47lqJvwQMTHMJaqA==
+	t=1793773336;
+	b=gGQ01rS95oCA2YLQExhCpVqp/nFfESmHOTyVHtlBL+IVrBhpHtjD7N4h91zkzLKjrOxT
+	 w3f0FMS5shH2KXbVGHbZ49VDL+diDUux4OxTtioo3V++qrBfcGAN+RHGfnnatIKsml1gk
+	 3qjMR0TplMSUO6Fmojp4WcEt2nIj6+x2fXeoBz7ibtmvMDxSu6WehTDOEPoFkd0oaqOW4
+	 LMf/I8egFzUFe3xZ/piNAo5dgsWhht7nXRK4ZO2qKHk+TFK0CV0w3Qy5S3rf+bkKNDa3j
+	 z7EXLVrNVzzPwxnd8jFEUfAUWeEu2eMYH8I+N6Ju1eEPIctrw5/ll5/8J2KSQv6WfRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773324;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=AqcQe7O5wAeagY/E7/oDRIMbBP90oX0eJ6ciW8cwB1M=;
-	b=spPvpkn77bEa+yDlBh5YXR0+NXAFmNe53Rw71hiwjd0gzLpNagMJLqqD/IOhbEJYl5oG
-	 zOya21IhNttzgB9H6PrP4+PiuNeUKNEu6ZOz8iH24cRPlByqBiSPhZ/XfEbWVcGI872yJ
-	 PXJqWHK8JUFx+tYZwEGEdZQ3tC1FnG8qYmQtP1kKwN/FdmwxBXFsK2DK19MNofrqm0gP/
-	 ptFEX9csT8N4a1G+wuxSkL4+LVINn+xf1PSiK6eq1EpchQo7qrqkH1LTfkzmsUmbxW7hc
-	 HcAon/kvJO3UG1sYG69knIdwcg34oVRl864fnVyyd2LlG54VP33qcvo4n2rYf9dnomg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773336;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=3e7+Hhln6FlsUG4lOrO8gQQ4QR4kAprqaH3c6bbIIdo=;
+	b=w3FIk8pVW7KSh5tSAevQP4+OQujrIOl/kbSW7GsIU5Kp9Oowwy+oQZY0r1Aw5ynyzRgz
+	 uv0vqnvd9SenWwGCyYqRJDExFvSRw7oo+a/h01l6gO3UGa4zJjQSR3SKq2YEZKJ9jiSi2
+	 ScZQZOcRRUI1aq4CAMxhl/VRzpkfhu64fu2klaBIHYytqoblWXlLZ4p7bWeh0agjQ5Yci
+	 WbbEVEIZbPcrcSaS4f+dXM6N/IKNo21zAS1YXHgNMxtQcsbq3k8j0cUOQJLXgQPOmIAMT
+	 xbEx++fnbH/vCWpB35iPT8c1QIFP4wtnPlT67GvrDWLWZLaUGu/Yfb7t8/p0IZCDW+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=l+fhr4Di;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="ToyicpK/";
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CAD606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 06:22:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9CAD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2195606A32F;
+	Wed,  4 Nov 2026 06:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2195606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=l+fhr4Di
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-353804b591eso633282eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 03 Nov 2026 22:22:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793773323; x=1794378123; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AqcQe7O5wAeagY/E7/oDRIMbBP90oX0eJ6ciW8cwB1M=;
-        b=l+fhr4DiGZDbmsbfHLl3m+wgauKtSWLKqV98f5SAW9wGnlDpA696MhJJNK6jVrGMxv
-         HlGN9KAghZRQFwzkCd/sE09qxydIdJ5aVE/4M3r3I6Q2WtsvDgKLnsS35PPdj+WU0mJr
-         /oEKimB8lihZnytn/TScXu1mnHXUX72pRuGJs/ldnN/GkB8hWMzlpjhyI13h/+eh+f9x
-         1deNaLhHBmbFVB1IuVF0RQVCcXVzOc29nn5xQnGC/FCPZ6NRWoGeRBWeWxedByzBxao8
-         VmKsfpdQbUnMeeZ56CEQ1QfAVcp41CABRLFe3Q1h2vcX/72iFXk6vPnLmJaOgBxAQOzq
-         niyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793773323; x=1794378123;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AqcQe7O5wAeagY/E7/oDRIMbBP90oX0eJ6ciW8cwB1M=;
-        b=vI1v85pbszySqqACpVwis+fDDNxc53XY98vnbBjWHV8PsGoX8ZOtnyU36Ae+M76IQU
-         Bly3GG6wqxoEwdegkwF5ZziYfpMvFvcFygsH0TXNoIkOVEPqzoYoyhI695j7z9aHwNQQ
-         RykaO5f9Nesc+wcjAMwCqeplWomnOMPCbp41BuiDUjnHnJyKKrge6vJfdd6iYbHIGRb4
-         GZIyQpirI2sd7ZZCcY8QhXbCb2XEo7L/09iYAciJIjKB8/cnNVE87CNNyIXG0mWMEdjx
-         SZOdl4imOpCRRtAHg1IbArOkFyAXi6n28iNJwWUVmt7f6ZVD+hrNAck3nXZUomaIIUSF
-         bDVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6GOOM8Eh9akJ5YSKWmhjra/wcWj2PW+zMBwkht+lxXImhDJ0s5RqHoJuDd8TpnC9whbkBlLBlOc0PkuA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95WxrBvjxZuWvC2QzN0j1kbPIYoukBzVWdBL9/Q/ct82p5mtdX
-	UtQGuW9V8LDQCrjrqZFlA7d527jxWLoKqSPu/LqGsfZ1zz5EIDN+ba0+sf+wha9oqiU=
-X-Gm-Gg: AYBFou0uLiNFCEIs+rZpOm/6HGI/KqjvKK3qIcpQ0HBLrTxcczsuZz5ePQhQuPXubqt
-	mAUGYCZFoJiwpeb2nG9enzaLeycFgvRVIyAZ6WKf0c9YpKDYN8GWli0ahNYyRIaM6xboTf/LZRS
-	lxpnhrZDhwPG/AAacjLRJnW95Vxc0e/AJEwUVHF19ZCPn+77EG4HntVd2VaJcgEQp0Qhf8PJt+f
-	6E4UKQD3llBqBQp4ptNfvJE1rB56LpzbsDyHHDFYoqO50p/oI5ikNlbRCo8arLaSr+YRmFk9tvu
-	TOvnH+b1U5UmjoPZUbI7KgL1cFftYKHI9c49VcxBP788+B3G/k2lP9l+OFREMI8P8y8w8OsS13i
-	QuzR9IoRiRMQrvv4/Op8bOSF46OL4unXKTZZViKymQKjS9WD5IEcLQkZdi34WF+kK1HzCnWg1Zh
-	L0me4HnzBns+wxAYROJI3lC1EngUgNDkCL+lBzmxBB8vq1+HjfO5CptKHNFBSi/dYkz4vUigduG
-	eWXrviy5/zIjEANlM8KQxhrCoz2abR5TPMszrumTEnkU6LFIkYEdnwaSk4Am+wlk+pO3cxm1V8V
-	lcAN+PVdADZeW+LY27zPAhz5dBEl1yYHfalmGfltkcZ3pn+o649ALODBqx0=
-X-Received: by 2002:a05:7300:ce97:b0:35d:8c3a:38a8 with SMTP id 5a478bee46e88-36a42437327mr20872358eec.39.1793773322655;
-        Tue, 03 Nov 2026 22:22:02 -0800 (PST)
-Received: from gourry-fedora-PF4VCD3F ([61.251.99.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3785430sm6173162eec.3.2026.11.03.22.21.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 22:22:02 -0800 (PST)
-Date: Wed, 4 Nov 2026 01:21:43 -0500
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: Bharata B Rao <bharata@amd.com>, akpm@linux-foundation.org,
-	bsegall@google.com, david@kernel.org, dietmar.eggemann@arm.com,
-	joshua.hahnjy@gmail.com, juri.lelli@redhat.com,
-	kprateek.nayak@amd.com, ljs@kernel.org, mgorman@suse.de,
-	mingo@redhat.com, peterz@infradead.org, rostedt@goodmis.org,
-	vincent.guittot@linaro.org, vschneid@redhat.com, ziy@nvidia.com,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion
- bypass configurable
-Message-ID: <aurO98PC4TTweJs0@gourry-fedora-PF4VCD3F>
-References: <20261028041253.74839-1-lizhe.67@bytedance.com>
- <20261028041253.74839-2-lizhe.67@bytedance.com>
- <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
- <010b2b6c-8f1b-4c3b-913f-cc2e8b957759@bytedance.com>
- <a6bcd771-fcf7-4fe4-8c21-5e65bd579de7@amd.com>
- <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com>
- <c9cf96bf-f3b1-47da-b22a-9600b5fb01be@amd.com>
- <3318a7f7-4dec-431b-9284-ec7c2807151c@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ToyicpK/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793773321;
+	bh=3e7+Hhln6FlsUG4lOrO8gQQ4QR4kAprqaH3c6bbIIdo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To;
+	b=ToyicpK/guk3tEy+bJgHjdB1GDC+doZ5C2iq99BFjXO5uJEeHAW2/ta+w1BslHPoZ
+	 VZfvmm++b73fWFH4ioiyO3UXAPsyeBV/yZic8ut7Ts9IW2DuJtkUjFLSBoGdnuS/Fz
+	 6DRREo414zlZBcE3ulMBtZHGgLyyPTfhS38HKdIg=
+X-QQ-mid: esmtpsz21t1793773319t077b6b8f
+X-QQ-Originating-IP: UbTdAw6IsnjA8fB7/tidvUEPpAu5a2tQesr5FK86Hv0=
+Received: from = ( [183.48.245.66])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 04 Nov 2026 14:21:56 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14544746940952886182
+EX-QQ-RecipientCnt: 15
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Subject: [PATCH 0/2] spacemit: k3: Add support for BS01DCMA board
+Date: Wed, 04 Nov 2026 06:21:49 +0000
+Message-Id: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,18 +64,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3318a7f7-4dec-431b-9284-ec7c2807151c@bytedance.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrA0kMaTgVcSFjqMdxSgZW4Tg3
+ Rvr8i3+TyAUmQTqIkGkLwtvIcOUBeC7CxMpHrLBauuN0U4tlepFmwHXTjn/Gsl6dN4i5GKPNPL
+ 5vzXtY/n0M+FxL+C6fiSwbdZvAAAA
+X-Change-ID: 20261104-k3-bs01dcma-467fe26c462c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=806;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=R+ytypgJjwtCuLK4OPXu2LlirewZmyB9gvazMxLCYrk=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFmvzrNc+tZwb/O74n81zy1OOT6ZuJuZvTQm/5W2/hTu5
+ 2vmxu207ihlYRDjYpAVU2TpfsCzrcAnyrZAoNAXZg4rE8gQBi5OAZjIvfMM/7SmPJh1736hT+7/
+ C+HprtZF8ayPY56kOeQv2/37IK9U5W5GhluJc5bq6EzRPbTMRuZ3yNJve02Ng9QtHV85dRSHTO9
+ dzgUA
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MJT0PMbMWKKuZadX2u+a0L711uPldo/vXDPKBORV8flcI4Iq8JTaU0DU
+	3cTGlM7ybIsHTKyWItyhkDnmTMAjO3z+SLFod/CR7W0fQyAB4Zk+xDFetgY0H20+mKOQUdp
+	vI3HdXPIQWc7fXGsEzIrl/VY/3unvJ2LJ32qmtisEgevJGvqH9IxnATgJY86gpxO31fobZw
+	9MasDzSUWOHjqGWZ3XMnlIMhzLywtP/Czj+/kjBO+GL2Z5xvSGaLp4LnfB7FiwQS5c1XaLo
+	o4MLWqJg8mDA8ODvxyykHdpJxWzGRbz5d/GT4nlsslyPvmeKEmh0eykQIj+an03YrbSppq/
+	OeX4IP3+SX9w+AyDKWILuvf497uYDBVB8qWBKePlFNzykeWERTYwZaUDC3fw3oOth1AyVvA
+	qkVk0NNeNMxuwldeCfsw9ykZFruFkzLJxu2mkjHrVspjUSWyqCIGAhgkWQZXLZmAxlQcIXg
+	i8mm4U2B8SIH4PlYFesSygAnuNXhZphF71SZRpwSyWQBwFWXf3jADWFkIOVazLKpYcKAsBy
+	NNOWEefqhkgk/GQd3Oo1pZ5SXp05dhIy1yUf6itLJ2lq0bTUx5w5u7DfpzOVCWb1LQ0Kpc4
+	JPTP371ZQeiU3hzlE6/P2+KCCNkovpm0TCb+CwwMUkKBflKJZulyyoXXolWrLHDvR+M8plh
+	yo8P1Kg6u9ZPAFafK18M1q3geBRJS8j2nIrw3lzJu9pDJvuaFOvjc6vGtwreOV6/+se/oTT
+	eYwclpL9oSu9S3RNRixBp5lbJKCAn/LJZF9iVC1j4QpCk2sGxFVXdkrML8fVdcZ04EZpIGb
+	8lj9MxjvFTg0uXjt7O7MA7HklVXn5OXxT4fovX/g8G9Wv9IsOtYUjNkz5soxEb3onEpMbzT
+	CEv5J1CMPEHrlHv0U4pjsteSXsvz8cSW2tuxVpmb7oaK83i5OBcR3HdN9lhUKjyHzXWyxkd
+	vWgCJjKRsxceqxbta/xD56c4tJq2AclVXbmkTLsxtYYSR/kcY8m9sfnPaocQ90faQ+VUi9K
+	1ZfEYtN9xltO+saQ4rV2cEJrcb91VjnyKRqesELt+XiQ6Zeq35WiQWlxd0aVRnsZkt2HiMN
+	WJ1EOLztiSl
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, Nov 02, 2026 at 10:56:27AM +0800, Li Zhe wrote:
-> On 10/30/26 11:44 AM, Bharata B Rao wrote:
-> Thanks, Bharata.
-> 
-> I would appreciate further maintainer feedback on whether this series
-> looks acceptable.
->
+This patch series adds initial support for the SpacemiT K3 BS01DCMA
+board, which is equipped with a K3 SoC, 16 GiB of LPDDR5 memory, a P1
+PMIC, an EEPROM and QSPI NOR flash.
 
-I will give it some additional time when I get back to normal next week.
+Enable support for the serial console, EEPROM, PMIC and QSPI NOR flash.
 
-~Gregory
+---
+Troy Mitchell (2):
+      dt-bindings: riscv: spacemit: Add K3 BS01DCMA
+      riscv: dts: spacemit: Add K3 BS01DCMA support
+
+ .../devicetree/bindings/riscv/spacemit.yaml        |   1 +
+ arch/riscv/boot/dts/spacemit/Makefile              |   1 +
+ arch/riscv/boot/dts/spacemit/k3-bs01dcma.dts       | 266 +++++++++++++++++++++
+ 3 files changed, 268 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-k3-bs01dcma-467fe26c462c
+
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.spacemit.com>
+
