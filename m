@@ -1,51 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793757580;
-	b=A3+rFWIiurMR12qYbz79MjSrWTrI/Jz7ug/aBY93SBvXtWeFtMS1OPe+4C+AXGV0JgT6
-	 W3KwJ2QYQlbk81foge7oK2L5PuBQmwC8Cw3m8cHZtGVDOCR0L6X7PUcIOBsCTIujHsad2
-	 37YbsfAecxJQJVLCzQ5pO49tnhgvLjHYb3w4x+macFRi9cyWEgVZA8/voTNLKbYqZwLBH
-	 xum1qeqk92MXqgNFTgCq2+xMf8QRTcCRY4IHucQDqZ0vxoZAFWofhT/a8AcKIXpbFRkmA
-	 d4EnAr1blG9QIOuRxYNmnVuNpJniScrz4ivcI0NGYeLtcwkUNrLC0r1mhzQsY5CMIZQ==
+	t=1793757592;
+	b=XqC9IjxFVP4k/hrPe2F1Xlud2uq5xFh/GU2IaJ0RBFsBg+mZA4ZrkDX8PsdHSuY0lflC
+	 ybQo6W+5H32sNEkfF7EMXPxgjuikJcOxhwJ9rtVZr8rkc8dnloWHnmCtGAO3os34xfXGy
+	 Df7oYeUyIx2KYSW0me+5ALChBzJNmOwj/uAwj+szSWxfO1xc8lR84Ajprxi+MSiDJmqUc
+	 dEcV0Xi1hR8IAnmi3+WCWzPei0s/4HB2TWt/CaUWyhH9PJvbO5c0ej+6P9hIW7rW3SG1R
+	 U8ZdPz8RfvuQ1l11kWmBZTl0vQueV+Gj68gddGa2USreBWTvvQJzngZvzJuJkTdr6jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793757580;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Type:Date:
-	 Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=6g32PsKdkRLeTZ4LSwatErJCU5OnLPMMaSmgKWyS70g=;
-	b=lyieRTuKersNMjkdlRbR/Ru2Tb2RAfkW5ug8DZsGlqD4XawOk/3vbCH9rhDly9BeoNi7
-	 aLAKbAEm0FHG6uxP7Kn+PEri7ZnRTtpwzb3kIkZvoKVBV+im69gDGJjiEBe0dYMwqSiI4
-	 Q/uaBngmCNR3l9EJo3nVyG1cKlMYH27CnKNL89Ya2pgUOIMMCpnIkyMnMYcox6cZQhT77
-	 Gs79T+3sbiGc7WNgowylJwVEbHZdkbrbmkllEO9+VvdevHAbCeK8ViQs27e/bRpcdYNJj
-	 n21aFBpjEKJrRkKpgxDgD8y12ROQunbSSwdNCUrINXxSG3JtCR1uUKcFLJsPeIjYR1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757592;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iZ8ZEB69e99iUpBIdOKFs2774n2XFkLw9sMemZG3Lbg=;
+	b=Po1oO8kG+wJszA0IGWbQpTY5djMRzaSUQZ+Ifjt7NQfUNhlRVusfw/A22m+wb9zlNqJx
+	 B5CVKsqB80PBo7eGbTrUZHaliaPSHFK6SyjRyHqXSFxZFl809CY2G33vZJg06QDVx7c8i
+	 h34Anpg0Vg+yiXVVeHJGlNmjFCWY9DipIo1ZSlTiurVWbmh6EYBo6Hb8a/2zIlS6INXR4
+	 0sKapgXtN80UEJ65lsN8ODAz7iyNJRsIK4rS7UXJwZEA5y4le3mertcLJSsrD9dnNyHOt
+	 3+8kanJsGhVLfMMfR76KdR6Y4G1akIB1dA3sgShAu0QptFnOJ5MxnRUvjci2pebefsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eHQXCE85;
-	arc=none smtp.remote-ip=95.215.58.159
-Received: from mta1.migadu.com (out-159.mta1.migadu.com [95.215.58.159])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ng90dtXe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E669D606A326
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 01:59:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E669D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB21606A328;
+	Wed,  4 Nov 2026 01:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eHQXCE85
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6g32PsKdkRLeTZ4LSwatErJCU5OnLPMMaSmgKWyS70g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793757577; v=1; x=1794362377;
- b=eHQXCE855kzvIRygBhdTbO+x9l36+JyQ3R/nHG22HfWrsPpACwN8L/84LNaDu7Ik87f02kmo
- myQvcEcJRhmLqsrbXGzM0/EEHnmzl1aeriOite4IdkA78HhbBjbWuyPab1f8P1aMA2C7C8bgUdi
- C5RMzWkRfaBf08da/45Cc+eE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id b85e7a3be548a814;
-	Wed, 04 Nov 2026 01:59:37 +0000
-X-Mizu-Trace-ID: b85e7a3be548a814
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ng90dtXe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DEFF1F000C1;
+	Wed,  4 Nov 2026 01:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793757591;
+	bh=iZ8ZEB69e99iUpBIdOKFs2774n2XFkLw9sMemZG3Lbg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ng90dtXe6KTTpr5tRJMbsm4OVkaofi1qRqc+dGBnkPqN+PuXwkAnyJvklipaAtfle
+	 /IyGfXuuWqPYsJ3BHezY7dKmnRFt+iCohk0i43A1D4kYnb0YaNhkF8IUO+Lw5cMdfu
+	 uu/flybnsU8ldB5HewcxeViR8qPJ9DB4eIXQjO6jNqi6aFRHjOE5CUPlHzTGzxOiKY
+	 NKvrSA2fg9nA12/stnlLKF8TPs0tUkcti+VzwVRgOiFT8wJjV2UJ7vRsPiIWUA6ven
+	 NLfYIJVU2Z1uB3oFVTzL/+Zfkk69U496e0u3hbHnR+hE8bSyJds1yA4iK1u1pP/XEZ
+	 Df539qlOBs5sg==
+Date: Wed, 4 Nov 2026 01:59:45 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com
+Subject: Re: [PATCH v3 1/2] iio: gyro: mpu3050: Split data ready trigger
+ enable/disable into helpers
+Message-ID: <20261104015945.77c936c5@jic23-hlaptop>
+In-Reply-To: <20261103092002.1332-2-laixiangwu@cmss.chinamobile.com>
+References: <20261103092002.1332-1-laixiangwu@cmss.chinamobile.com>
+	<20261103092002.1332-2-laixiangwu@cmss.chinamobile.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,73 +60,265 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 04 Nov 2026 09:59:30 +0800
-Message-Id: <DMM1ZNXOFC8Q.HXUWNWMD6LKE@linux.dev>
-Cc: "Thomas Gleixner" <tglx@kernel.org>, "Radu Rendec" <radu@rendec.net>,
- "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams"
- <clrkwllms@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>,
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>, "Anup Patel"
- <apatel@ventanamicro.com>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <linux-rt-devel@lists.linux.dev>
-Subject: Re: [PATCH] irqchip/riscv-imsic: Synchronize remote state with IRQ
- work
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: "Anup Patel" <anup@brainfault.org>, "Troy Mitchell"
- <troy.mitchell@linux.dev>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261103-imsic-remote-sync-irqwork-v1-1-8b5c951fc62a@linux.dev>
- <CAAhSdy26R41W6OsTpEjMCf6iQXrtn4WrzziuGg+S9pHOHtM--A@mail.gmail.com>
-In-Reply-To: <CAAhSdy26R41W6OsTpEjMCf6iQXrtn4WrzziuGg+S9pHOHtM--A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
---56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Tue,  3 Nov 2026 17:20:01 +0800
+Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
 
-On Tue Nov 3, 2026 at 11:52 PM +08, Anup Patel wrote:
-> On Tue, Nov 3, 2026 at 1:34=E2=80=AFPM Troy Mitchell <troy.mitchell@linux=
-.dev> wrote:
->>
->> Remote IMSIC state updates are deferred to a timer on the target CPU.
->> If that CPU has stopped its local clockevent and is waiting for a
->> broadcast interrupt, enabling the broadcast IRQ can depend on delivery
->> of that same interrupt. This can stall timer delivery when the broadcast
->> IRQ is unmasked or moved to another CPU, including during CPU hotplug.
->>
->> Queue hard IRQ work to synchronize remote state independently of timer
->> delivery. Keep synchronous updates on the local CPU and the timer retry
->> for an unfinished vector move. Hard IRQ work also avoids depending on a
->> schedulable worker when PREEMPT_RT is enabled.
->
-> Using timer retry for local CPU and IRQ work queue for remote CPUs looks
-> strange. Why not use IRQ work queue even for local CPU ??
-On the local CPU the sync runs synchronously, so there is nothing to
-queue. The timer only retries an unfinished move, and by then the new
-vector is already enabled, so it cannot stall on the broadcast IRQ.
-Requeueing IRQ work from its own handler would just keep self-IPIing
-until the old CPU catches up.
+> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> 
+> mpu3050_drdy_trigger_set_state() implements both the enable and the
+> disable path of the data ready trigger in the two legs of a large
+> if/else statement.
+> 
+> Split the two legs out into separate mpu3050_drdy_trigger_enable()
+> and mpu3050_drdy_trigger_disable() helpers and reduce
+> mpu3050_drdy_trigger_set_state() to dispatching to the appropriate
+> one. This is a pure code move with no functional change, done to make
+> the error handling of the enable path easier to read.
+> 
+> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
 
-I'll add more comments and modify the commit body.
-
---=20
-Troy Mitchell
+Hi. You have definitely picked some ugly code to work on!
 
 
---56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> ---
+> 
+> Changes in v3:
+> - none; reposted in a new top-level thread.
+> 
+> Link: https://lore.kernel.org/r/20261101092327.197-2-laixiangwu@cmss.chinamobile.com
+>  drivers/iio/gyro/mpu3050-core.c | 173 ++++++++++++++++++--------------
+>  1 file changed, 99 insertions(+), 74 deletions(-)
+> 
+> diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+> index 07c0f9011..d966911ab 100644
+> --- a/drivers/iio/gyro/mpu3050-core.c
+> +++ b/drivers/iio/gyro/mpu3050-core.c
+> @@ -946,103 +946,128 @@ static irqreturn_t mpu3050_irq_thread(int irq, void *p)
+>  }
+>  
+>  /**
+> - * mpu3050_drdy_trigger_set_state() - set data ready interrupt state
+> - * @trig: trigger instance
+> - * @enable: true if trigger should be enabled, false to disable
+> + * mpu3050_drdy_trigger_enable() - enable the data ready trigger
+> + * @mpu3050: device to configure
+> + *
+> + * Power up the device, enable the FIFO and configure the data ready
+> + * interrupt.
+>   */
+> -static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+> -					  bool enable)
+> +static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
+>  {
+> -	struct iio_dev *indio_dev = iio_trigger_get_drvdata(trig);
+> -	struct mpu3050 *mpu3050 = iio_priv(indio_dev);
+>  	unsigned int val;
+>  	int ret;
+>  
+> -	/* Disabling trigger: disable interrupt and return */
+> -	if (!enable) {
+> -		/* Disable all interrupts */
+> -		ret = regmap_write(mpu3050->map,
+> -				   MPU3050_INT_CFG,
+> -				   0);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error disabling IRQ\n");
+> +	pm_runtime_get_sync(mpu3050->dev);
+> +	mpu3050->hw_irq_trigger = true;
+>  
+> -		/* Clear IRQ flag */
+> -		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error clearing IRQ status\n");
+> +	/* Disable all things in the FIFO */
+> +	ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+> +	if (ret)
+> +		return ret;
+>  
+> -		/* Disable all things in the FIFO and reset it */
+> -		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error disabling FIFO\n");
+> +	/* Reset and enable the FIFO */
+> +	ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+> +			      MPU3050_USR_CTRL_FIFO_EN |
+> +			      MPU3050_USR_CTRL_FIFO_RST);
+> +	if (ret)
+> +		return ret;
+>  
+> -		ret = regmap_write(mpu3050->map, MPU3050_USR_CTRL,
+> -				   MPU3050_USR_CTRL_FIFO_RST);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error resetting FIFO\n");
+> +	mpu3050->pending_fifo_footer = false;
+>  
+> -		pm_runtime_put_autosuspend(mpu3050->dev);
+> -		mpu3050->hw_irq_trigger = false;
+> +	/* Turn on the FIFO for temp+X+Y+Z */
+> +	ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN,
+> +			   MPU3050_FIFO_EN_TEMP_OUT |
+> +			   MPU3050_FIFO_EN_GYRO_XOUT |
+> +			   MPU3050_FIFO_EN_GYRO_YOUT |
+> +			   MPU3050_FIFO_EN_GYRO_ZOUT |
+> +			   MPU3050_FIFO_EN_FOOTER);
+> +	if (ret)
+> +		return ret;
+>  
+> -		return 0;
+> -	} else {
+> -		/* Else we're enabling the trigger from this point */
+> -		pm_runtime_get_sync(mpu3050->dev);
+> -		mpu3050->hw_irq_trigger = true;
+> +	/* Configure the sample engine */
+> +	ret = mpu3050_start_sampling(mpu3050);
+> +	if (ret)
+> +		return ret;
+>  
+> -		/* Disable all things in the FIFO */
+> -		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+> -		if (ret)
+> -			return ret;
+> +	/* Clear IRQ flag */
+> +	ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> +	if (ret)
+> +		dev_err(mpu3050->dev, "error clearing IRQ status\n");
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauqRgiEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC/RwQEAqJNvz80iRJkb
-Z8Yz+vUyyAzhmceho0CtFhLRHQoE9vYBAOdmpp4WhNu9TMxAAt7VNSpFhr/ABrrn
-evvi3vN5+msG
-=Sb+D
------END PGP SIGNATURE-----
+The original code indeed didn't do anything beyond printing this
+error but to me that seems random and inconsistent.  So should
+probably be tidied up as part of this series. 
 
---56d7954e1823c29e3c2394602d9e592c14ea976c474f7a6637894a247bbc--
+>  
+> -		/* Reset and enable the FIFO */
+> -		ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+> -				      MPU3050_USR_CTRL_FIFO_EN |
+> -				      MPU3050_USR_CTRL_FIFO_RST);
+> -		if (ret)
+> -			return ret;
+> +	/* Give us interrupts whenever there is new data ready */
+> +	val = MPU3050_INT_RAW_RDY_EN;
+>  
+> -		mpu3050->pending_fifo_footer = false;
+> +	if (mpu3050->irq_actl)
+> +		val |= MPU3050_INT_ACTL;
+> +	if (mpu3050->irq_latch)
+> +		val |= MPU3050_INT_LATCH_EN;
+> +	if (mpu3050->irq_opendrain)
+> +		val |= MPU3050_INT_OPEN;
+>  
+> -		/* Turn on the FIFO for temp+X+Y+Z */
+> -		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN,
+> -				   MPU3050_FIFO_EN_TEMP_OUT |
+> -				   MPU3050_FIFO_EN_GYRO_XOUT |
+> -				   MPU3050_FIFO_EN_GYRO_YOUT |
+> -				   MPU3050_FIFO_EN_GYRO_ZOUT |
+> -				   MPU3050_FIFO_EN_FOOTER);
+> -		if (ret)
+> -			return ret;
+> +	ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+> +	if (ret)
+> +		return ret;
+>  
+> -		/* Configure the sample engine */
+> -		ret = mpu3050_start_sampling(mpu3050);
+> -		if (ret)
+> -			return ret;
+> +	return 0;
+> +}
+>  
+> -		/* Clear IRQ flag */
+> -		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error clearing IRQ status\n");
+> +/**
+> + * mpu3050_drdy_trigger_disable() - disable the data ready trigger
+> + * @mpu3050: device to configure
+> + *
+> + * Disable the data ready interrupt, flush the FIFO and drop the
+> + * runtime PM reference taken in mpu3050_drdy_trigger_enable().
+> + */
+> +static int mpu3050_drdy_trigger_disable(struct mpu3050 *mpu3050)
+> +{
+> +	unsigned int val;
+> +	int ret;
+>  
+> -		/* Give us interrupts whenever there is new data ready */
+> -		val = MPU3050_INT_RAW_RDY_EN;
+> +	/* Disable all interrupts */
+> +	ret = regmap_write(mpu3050->map,
+> +			   MPU3050_INT_CFG,
+> +			   0);
+> +	if (ret)
+> +		dev_err(mpu3050->dev, "error disabling IRQ\n");
+>  
+> -		if (mpu3050->irq_actl)
+> -			val |= MPU3050_INT_ACTL;
+> -		if (mpu3050->irq_latch)
+> -			val |= MPU3050_INT_LATCH_EN;
+> -		if (mpu3050->irq_opendrain)
+> -			val |= MPU3050_INT_OPEN;
+> +	/* Clear IRQ flag */
+> +	ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> +	if (ret)
+> +		dev_err(mpu3050->dev, "error clearing IRQ status\n");
+>  
+> -		ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+> -		if (ret)
+> -			return ret;
+> -	}
+> +	/* Disable all things in the FIFO and reset it */
+> +	ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+> +	if (ret)
+> +		dev_err(mpu3050->dev, "error disabling FIFO\n");
+> +
+> +	ret = regmap_write(mpu3050->map, MPU3050_USR_CTRL,
+> +			   MPU3050_USR_CTRL_FIFO_RST);
+> +	if (ret)
+> +		dev_err(mpu3050->dev, "error resetting FIFO\n");
+Obviously fine in this patch as it's a direct refactor, but
+shouldn't a failure to disable the trigger result in an error return?
+
+might be later in the series.
+Now the error return doesn't propogate far in the iio core.
+That's intentional because cleaning up this sort of failure
+to disable is hard and rarely useful.  I'd still expect the
+driver to not be making that decision however.
+
+I guess maybe it's not worth the effort to fix this.
+
+
+> +
+> +	pm_runtime_put_autosuspend(mpu3050->dev);
+> +	mpu3050->hw_irq_trigger = false;
+>  
+>  	return 0;
+>  }
+>  
+> +/**
+> + * mpu3050_drdy_trigger_set_state() - set data ready interrupt state
+> + * @trig: trigger instance
+> + * @enable: true if trigger should be enabled, false to disable
+> + */
+> +static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+> +					  bool enable)
+> +{
+> +	struct iio_dev *indio_dev = iio_trigger_get_drvdata(trig);
+> +	struct mpu3050 *mpu3050 = iio_priv(indio_dev);
+> +
+> +	if (enable)
+> +		return mpu3050_drdy_trigger_enable(mpu3050);
+> +
+Personally I'd use an else to give a visual clue that this is
+an either / or situation.
+
+> +	return mpu3050_drdy_trigger_disable(mpu3050);
+> +}
+> +
+>  static const struct iio_trigger_ops mpu3050_trigger_ops = {
+>  	.set_trigger_state = mpu3050_drdy_trigger_set_state,
+>  };
+
