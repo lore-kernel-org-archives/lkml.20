@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779654;
-	b=C4m3GeZjRHdVs0OYI7Gv6tpcg+2bog45vGEy0egvbtecEPdGb5xGBsoGE0B9U/sPItzy
-	 mToUSurmNx3kP4e6Jp3nCqDLlks2mYn5A9fuzrE85h3e2yE4b/E0ow3BnOyh77dn4Wtm9
-	 xBvF1t0T3vfyAak6in8i/uAxzWCd+CA8Otu+q+hHOH0qoQoAJwsDJdaW8DdNcgT1OmKm1
-	 jfJv6DNDu5jggjZM3flWiM29kWT+va7Vobtbm8LIKRbvPYjg85bBnzLoHatxWVuPGLdAA
-	 cfc+TNHMMJAVXTxxWqLEVXzTWRvGn5Zeo8kRJv6mndUIRRvsjFPBuu8eYykocOyM+5A==
+	t=1793779662;
+	b=2AXHTvhJQcq3yztj0l5+Cmv9LrhEL1uTjRmI4hc7nfRxBP8v4KAxMp/R3DyZyT1gFHUF
+	 KQNBtqdfPSFDwXIEQIqlhST0T3Wtpo4vnUXKB5eEurUfPyfYJ1sZ3hg9GFbqxAdYHTegH
+	 pyeiFy0XOfVu18SrQWAG3cERcyVugRt2wmraReg6LcjdAA6xwh3zZ/Quh/84mDqLTrcFK
+	 eDD72VX72AgIWpsijh5MOa/OB+Bx77ck+pgqWsytGEnEv+i1zABcYcacbeJJ92vacKDSp
+	 qq2j1LJi6A34tYuAlce4kUpXKRM2OPJhQ1EEAuHWgljBanne8YDTzWDGPRqnCTdWICA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779654;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1wbEg7RVw0sJcgK6jo+VuHuQigKauy2ObmwYyN2iIwY=;
-	b=ns4SFTnQhGCbFNvdFgejfVl4A7LS/WrGlZ3bWGlVpHOw/cl5nze607TK2BCL41dSz/bq
-	 lap++tpSRH7oRVEJvnmmyVyZYgQxjxNy7eAL0c9fiKAKpF3tRuIuFy6b4leI7N2LEVPGC
-	 6gsXe1s5XEN80X1WAcUM/8ILIj4CpQ3WHLPkKNDQh07h98rNqgZOax3NxBzawvDNIV6pZ
-	 6TBMKaG6gDSYmpqdSI6EYcEDpMAohSPI7IuDFWU3/ERw4DZLxcT5X2900Vrl1u51qBA/1
-	 8H6pXhyb9dABI4aM+JI3PPkeyTU5sVJGNyFbQATJk9csCwM7MVKA+W5FDOJkXS5rCYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779662;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=mH56HqaEwD+XdDX+wKUFDeUx3ALtmiaCbYyEE6bI0yM=;
+	b=EVbVpPEn8WZ3gfpzICURIA3pUa1QiFEp7Xp4RY0lljEAUyvOj9TmOA4UsKg2MoNSSPvD
+	 PT7m7JnCzjvWyVQGKvfEogk8wdsOD5PwvWHgrGx+8ntc4R0Y+cSFnpjrOOIX12a884ask
+	 B1S9ek9KdS4f5sFZh2mRGgRA14HRKbjVROKVm6qZFmTEUY+f3BM7U0RQemIetuDpv+5MT
+	 Ki9opLCOYV8jUsTzyXMY3nnrsr7qcKIyhrIFAIKZKAP3tByLblRYFiB/xYKEFMVZYY0fg
+	 1tNw4BxbDlVgIlNxPEkYsMkWmjh7wCk0qj/pAk+fe+NMtt7zNaOQ0y1V+ooGFVNnQ4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KMnS60ME;
-	arc=none smtp.remote-ip=91.218.175.110
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26055606A31B
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 08:07:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26055606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KMnS60ME
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6Wfoa4J0AxWSbhy/+SsM9gBeiOJtqslLCJgg5kOlOSg=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793779652; v=1; x=1794384452;
- b=KMnS60MEqfOkGV4P9k+fvGDemgfC87OFeWgVyZ/bS1FRaRvfngRJ44sdQi/U+VglGiIcZ8HM
- nIc9ZtgM4OorNTcNDGf1RJByLG5HvXRlhxjKvXvooLJdYS+dw43DUal8k13RASDSWKjc6Thk1yo
- b6xEE6+qNoSSVFolE9YSBl/98xfGnggGWvVKVP23W9cWC/WuRuADPcsodEa2wMJ6GZmxvI9Odrr
- bkbdgJllyTQFZf+fQvHfJdnk7xRualHn3CcgnTurokwM4qIDELCaK36xH/x1ys1S6qGytwMy/3Q
- 9sTAucR71k+1FgevYJiYjkIubo9HbPyTTLAJCfshPxNTg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ec92a9e29fcfd0d0;
-	Wed, 04 Nov 2026 08:07:31 +0000
-X-Mizu-Trace-ID: ec92a9e29fcfd0d0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4953dc2f-d998-43fe-b02f-597d5d7b23b4@packett.cool>
-Date: Wed, 4 Nov 2026 05:07:22 -0300
+	dmarc=none header.from=phytium.com.cn;
+	spf=pass smtp.mailfrom=phytium.com.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B795F606A330;
+	Wed,  4 Nov 2026 08:07:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B795F606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
+Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
+	by hzbj-icmmx-7 (Coremail) with UTF8SMTP id AQAAfwCXn6e55+pq981pBQ--.3092S2;
+	Wed, 04 Nov 2026 16:07:21 +0800 (CST)
+Received: from WIN-B62RPRBL2BM.localdomain (unknown [218.76.62.144])
+	by mail (Coremail) with SMTP id AQAAf8DwBXS15+pqWnz1AA--.23333S3;
+	Wed, 04 Nov 2026 16:07:17 +0800 (CST)
+From: Zhu Ling <zhuling2709@phytium.com.cn>
+To: ulfh@kernel.org
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	fengjun@phytium.com.cn,
+	wangyinfeng@phytium.com.cn,
+	Zhu Ling <zhuling2709@phytium.com.cn>
+Subject: [PATCH] mmc: block: Mark the end of a truncated scatterlist
+Date: Wed,  4 Nov 2026 16:07:05 +0800
+Message-ID: <20261104080705.103689-1-zhuling2709@phytium.com.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,40 +53,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] remoteproc: qcom: pas: Add SC8180X SLPI compatible
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-remoteproc@vger.kernel.org
-References: <20261104080200.135431-1-val@packett.cool>
- <20261104080200.135431-2-val@packett.cool>
- <1f57f491-56a5-42ad-91c0-9c55e1c6ef4b@oss.qualcomm.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <1f57f491-56a5-42ad-91c0-9c55e1c6ef4b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAf8DwBXS15+pqWnz1AA--.23333S3
+X-CM-SenderInfo: x2kxzxlqjsliuz6sx5pwlxzhxfrphubq/1tbiAQAEAWrjns4DngAFsF
+Authentication-Results: hzbj-icmmx-7; spf=neutral smtp.mail=zhuling270
+	9@phytium.com.cn;
+X-Coremail-Antispam: 1Uk129KBjvJXoW7AFWrGw45tr1DGr1UuFy7GFg_yoW8Cr1fpF
+	WrK34jvF4DKF1xZa48AF4UWFWjka4fWFWUGryFg3s5Zrs8KFy2v3yvya4YqFyj9rs7WFsa
+	vrsIg3yrCFyDZFJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
+	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
+	UUUUU
 
+mmc_blk_data_prep() maps the remaining block request before trimming the
+scatterlist to the size of the current transfer, for example during
+single-block error recovery.
 
-On 11/4/26 5:03 AM, Konrad Dybcio wrote:
-> On 11/4/26 9:01 AM, Val Packett wrote:
->> The SLPI on the SC8180X is identical to the one on SM8150, reuse the
->> same data SM8150 (and SDM845) uses.
-> fallback to 8150?
+When the transfer needs fewer SG entries, the trimming updates sg_len and
+the length of the final retained entry but leaves SG_END on the original
+last entry. A host calling sg_last(data->sg, data->sg_len) on this list
+will hit its end-marker assertion.
 
-The current binding for all the remoteprocs (which already mentions 
-slpi) doesn't use a fallback..
+This assertion was reported during read recovery with a Phytium host
+driver in a vendor Linux 6.6 kernel. The same trimming logic is present in
+mainline.
 
-(in sm8150-pas.yaml only qcs615 uses the fallback right now)
+Mark the final retained entry as the end of the scatterlist. Subsequent
+blk_rq_map_sg() calls can still extend the list: blk_next_sg() clears
+premature end markers before advancing to the next entry.
 
-Between editing the bindings and adding the compatible to the driver, I 
-chose the option that was consistent with how the others are done..
+Fixes: 6a79e391df29 ("mmc_block: ensure all sectors that do not have errors are read")
+Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
+---
+1. I could not find an MMC-specific statement explicitly permitting an
+   unterminated SG prefix. Feedback from MMC maintainers on this
+   interpretation would be appreciated.
 
+2. bcm2835_prepare_dma() checks sg_is_last() before dma_map_sg().
+   No failure has been reproduced with that driver.
 
-~val
+3. A userspace metadata reproducer triggers the sg_last() assertion with
+   the original trimming loop. With this change, 120 flat-SG cases and
+   36 chained-SG cases pass, including truncation boundaries and rebuilding
+   a longer list.
+
+ drivers/mmc/core/block.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/mmc/core/block.c b/drivers/mmc/core/block.c
+--- a/drivers/mmc/core/block.c
++++ b/drivers/mmc/core/block.c
+@@ -1506,6 +1506,7 @@
+ 			data_size -= sg->length;
+ 			if (data_size <= 0) {
+ 				sg->length += data_size;
++				sg_mark_end(sg);
+ 				i++;
+ 				break;
+ 			}
 
